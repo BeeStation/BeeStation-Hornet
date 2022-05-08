@@ -80,7 +80,8 @@
 				inline_assets_str += "Byond.loadCss('[url]', true);\n"
 			else if(copytext(name, -3) == ".js")
 				inline_assets_str += "Byond.loadJs('[url]', true);\n"
-		asset.send(client)
+		if(!asset.send(client))
+			return
 	if(length(inline_assets_str))
 		inline_assets_str = "<script>\n" + inline_assets_str + "</script>\n"
 	html = replacetextEx(html, "<!-- tgui:assets -->\n", inline_assets_str)
@@ -88,10 +89,11 @@
 	html = replacetextEx(html, "<!-- tgui:html -->\n", inline_html)
 	// Open the window
 	client << browse(html, "window=[id];[options]")
-	// Instruct the client to signal UI when the window is closed.
-	winset(client, id, "on-close=\"uiclose [id]\"")
 	// Detect whether the control is a browser
 	is_browser = winexists(client, id) == "BROWSER"
+	// Instruct the client to signal UI when the window is closed.
+	if(!is_browser)
+		winset(client, id, "on-close=\"uiclose [id]\"")
 
 /**
  * public
@@ -248,10 +250,12 @@
 		return
 	sent_assets |= list(asset)
 	. = asset.send(client)
+	if(!.)
+		return
 	if(istype(asset, /datum/asset/spritesheet))
 		var/datum/asset/spritesheet/spritesheet = asset
 		send_message("asset/stylesheet", spritesheet.css_filename())
-	send_message("asset/mappings", asset.get_url_mappings())
+	send_raw_message(asset.get_serialized_url_mappings())
 
 /**
  * private
@@ -314,3 +318,6 @@
 			// Resend the assets
 			for(var/asset in sent_assets)
 				send_asset(asset)
+
+/datum/tgui_window/vv_edit_var(var_name, var_value)
+	return var_name != NAMEOF(src, id) && ..()

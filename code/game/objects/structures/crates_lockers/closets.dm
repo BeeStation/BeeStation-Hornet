@@ -59,7 +59,7 @@
 
 /obj/structure/closet/update_icon()
 	if(istype(src, /obj/structure/closet/supplypod))
-		return . = ..()
+		return ..()
 	cut_overlays()
 	if(!opened)
 		layer = OBJ_LAYER
@@ -137,10 +137,10 @@
 		if(HAS_TRAIT(L, TRAIT_SKITTISH))
 			. += "<span class='notice'>Ctrl-Shift-click [src] to jump inside.</span>"
 
-/obj/structure/closet/CanPass(atom/movable/mover, turf/target)
+/obj/structure/closet/CanAllowThrough(atom/movable/mover, turf/target)
+	. = ..()
 	if(wall_mounted)
 		return TRUE
-	return !density
 
 /obj/structure/closet/proc/can_open(mob/living/user)
 	if(welded || locked)
@@ -203,7 +203,9 @@
 		return FALSE
 
 /obj/structure/closet/proc/insertion_allowed(atom/movable/AM)
-	if(ismob(AM))
+	if(iseffect(AM))
+		return FALSE
+	else if(ismob(AM))
 		if(!isliving(AM)) //let's not put ghosts or camera mobs inside closets...
 			return FALSE
 		var/mob/living/L = AM
@@ -416,9 +418,9 @@
 // Objects that try to exit a locker by stepping were doing so successfully,
 // and due to an oversight in turf/Enter() were going through walls.  That
 // should be independently resolved, but this is also an interesting twist.
-/obj/structure/closet/Exit(atom/movable/AM)
+/obj/structure/closet/Exit(atom/movable/leaving, direction)
 	open()
-	if(AM.loc == src)
+	if(leaving.loc == src)
 		return 0
 	return 1
 

@@ -9,6 +9,9 @@
 #define TEXT_EAST			"[EAST]"
 #define TEXT_WEST			"[WEST]"
 
+//  The highest number of "for()" loop iterations before infinite loop detection triggers
+// +1 for "while()" loops, for some reason
+#define INFINITE_LOOP_DETECTION_THRESHOLD 1048574
 
 //Human Overlays Indexes/////////
 #define MUTATIONS_LAYER			29		//! mutations. Tk headglows, cold resistance glow, etc
@@ -37,8 +40,8 @@
 #define LEGCUFF_LAYER			6
 #define HANDS_LAYER				5
 #define BODY_FRONT_LAYER		4
-#define SMELL_LAYER				3
-#define HALO_LAYER				2		//! blood cult ascended halo, because there's currently no better solution for adding/removing
+#define HALO_LAYER				3		//! blood cult ascended halo, because there's currently no better solution for adding/removing
+#define TYPING_LAYER			2
 #define FIRE_LAYER				1		//! If you're on fire
 #define TOTAL_LAYERS			29		//! KEEP THIS UP-TO-DATE OR SHIT WILL BREAK ;_;
 
@@ -137,6 +140,7 @@ GLOBAL_LIST_EMPTY(bloody_footprints_cache)
 
 //suit sensors: sensor_mode defines
 
+#define SENSOR_NOT_SET -1
 #define SENSOR_OFF 0
 #define SENSOR_LIVING 1
 #define SENSOR_VITALS 2
@@ -174,6 +178,9 @@ GLOBAL_LIST_EMPTY(bloody_footprints_cache)
 
 //Gets the turf this atom inhabits
 #define get_turf(A) (get_step(A, 0))
+
+//Same as above except gets the area instead
+#define get_area(A) (isarea(A) ? A : get_step(A, 0)?.loc)
 
 //Ghost orbit types:
 #define GHOST_ORBIT_CIRCLE		"circle"
@@ -369,14 +376,6 @@ GLOBAL_LIST_INIT(pda_styles, sortList(list(MONO, VT, ORBITRON, SHARE)))
 #define STACK_CHECK_CARDINALS "cardinals" //! checks if there is an object of the result type in any of the cardinal directions
 #define STACK_CHECK_ADJACENT "adjacent" //! checks if there is an object of the result type within one tile
 
-//text files
-#define BRAIN_DAMAGE_FILE "traumas.json"
-#define ION_FILE "ion_laws.json"
-#define PIRATE_NAMES_FILE "pirates.json"
-#define REDPILL_FILE "redpill.json"
-#define WANTED_FILE "wanted_message.json"
-
-
 //Fullscreen overlay resolution in tiles.
 #define FULLSCREEN_OVERLAY_RESOLUTION_X 15
 #define FULLSCREEN_OVERLAY_RESOLUTION_Y 15
@@ -413,9 +412,6 @@ GLOBAL_LIST_INIT(pda_styles, sortList(list(MONO, VT, ORBITRON, SHARE)))
 
 // Used by PDA and cartridge code to reduce repetitiveness of spritesheets
 #define PDAIMG(what) {"<span class="pda16x16 [#what]"></span>"}
-
-/// Prepares a text to be used for maptext. Use this so it doesn't look hideous.
-#define MAPTEXT(text) {"<span class='maptext'>[##text]</span>"}
 
 //Filters
 #define AMBIENT_OCCLUSION filter(type="drop_shadow", x=0, y=-2, size=4, color="#04080FAA")

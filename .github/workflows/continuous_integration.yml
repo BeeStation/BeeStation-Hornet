@@ -4,55 +4,67 @@ on:
   workflow_dispatch:
   push:
     paths-ignore:
-    - 'html/changelogs/**'
-    - 'html/changelog.html'
+      - "html/changelogs/**"
+      - "html/changelog.html"
     branches:
-    - master
+      - master
   pull_request:
     branches:
-    - master
-    
+      - master
+
 jobs:
   run_linters:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: Python setup
+        uses: actions/setup-python@v1
+        with:
+          python-version: "3.9"
       - name: Setup cache
+        id: cache-spacemandmm
         uses: actions/cache@v2
         with:
-          path: $HOME/SpacemanDMM
-          key: ${{ runner.os }}-spacemandmm
+          path: ~/dreamchecker
+          key: ${{ runner.os }}-spacemandmm-cache-${{ hashFiles('dependencies.sh') }}
+      - name: Install SpacemanDMM
+        if: steps.cache-spacemandmm.outputs.cache-hit != 'true'
+        run: bash tools/ci/install_spaceman_dmm.sh dreamchecker
       - name: Install Tools
         run: |
-          pip3 install setuptools
-          bash tools/ci/install_build_tools.sh
-          bash tools/ci/install_spaceman_dmm.sh dreamchecker
-          pip3 install -r tools/mapmerge2/requirements.txt
+          pip install setuptools
+          bash tools/ci/install_node.sh
+          bash tools/ci/install_auxmos.sh
+          pip install -r tools/requirements.txt
       - name: Run Linters
         run: |
           bash tools/ci/check_filedirs.sh beestation.dme
           bash tools/ci/check_changelogs.sh
           find . -name "*.php" -print0 | xargs -0 -n1 php -l
-          find . -name "*.json" -not -path "*/node_modules/*" -print0 | xargs -0 python3 ./tools/json_verifier.py
-          bash tools/ci/build_tgui.sh
+          find . -name "*.json" -not -path "*/node_modules/*" -print0 | xargs -0 python ./tools/json_verifier.py
           bash tools/ci/check_grep.sh
-          python3 tools/mapmerge2/dmi.py --test
+          tools/build/build --ci lint tgui-test
+          tools/bootstrap/python -m dmi.test
+          tools/bootstrap/python -m mapmerge2.dmm_test
           ~/dreamchecker
   compile_all_maps:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - name: Setup cache
+        id: cache-byond
         uses: actions/cache@v2
         with:
-          path: $HOME/BYOND
-          key: ${{ runner.os }}-byond
+          path: ~/BYOND
+          key: ${{ runner.os }}-byond-cache-${{ hashFiles('Dockerfile') }}
+      - name: Install BYOND
+        if: steps.cache-byond.outputs.cache-hit != 'true'
+        run: bash tools/ci/install_byond.sh
       - name: Compile All Maps
         run: |
-          bash tools/ci/install_byond.sh
           source $HOME/BYOND/byond/bin/byondsetup
           python3 tools/ci/template_dm_generator.py
-          bash tools/ci/dm.sh -DCIBUILDING -DCITESTING -DALL_MAPS beestation.dme
+          tools/build/build --ci dm -DCIBUILDING -DCITESTING -DALL_MAPS
   run_all_tests:
     runs-on: ubuntu-latest
     services:
@@ -66,10 +78,14 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Setup cache
+        id: cache-byond
         uses: actions/cache@v2
         with:
-          path: $HOME/BYOND
-          key: ${{ runner.os }}-byond
+          path: ~/BYOND
+          key: ${{ runner.os }}-byond-cache-${{ hashFiles('Dockerfile') }}
+      - name: Install BYOND
+        if: steps.cache-byond.outputs.cache-hit != 'true'
+        run: bash tools/ci/install_byond.sh
       - name: Setup database
         run: |
           sudo systemctl start mysql
@@ -81,11 +97,13 @@ jobs:
           sudo apt update || true
           sudo apt install libssl1.1:i386
           bash tools/ci/install_rust_g.sh
+      - name: Install auxmos
+        run: |
+          bash tools/ci/install_auxmos.sh
       - name: Compile and run tests
         run: |
-          bash tools/ci/install_byond.sh
           source $HOME/BYOND/byond/bin/byondsetup
-          bash tools/ci/dm.sh -DCIBUILDING beestation.dme
+          tools/build/build --ci build -DCIBUILDING
           bash tools/ci/run_server.sh
   test_windows:
     runs-on: windows-latest
@@ -93,3 +111,5 @@ jobs:
       - uses: actions/checkout@v2
       - name: Compile
         run: pwsh tools/ci/build.ps1
+        env:
+          DM_EXE: "C:\\byond\\bin\\dm.exe"

@@ -18,7 +18,7 @@
 	var/obj/item/noz
 	var/volume = 500
 
-/obj/item/watertank/Initialize()
+/obj/item/watertank/Initialize(mapload)
 	. = ..()
 	create_reagents(volume, OPENCONTAINER)
 	noz = make_noz()
@@ -119,7 +119,7 @@
 
 	var/obj/item/watertank/tank
 
-/obj/item/reagent_containers/spray/mister/Initialize()
+/obj/item/reagent_containers/spray/mister/Initialize(mapload)
 	. = ..()
 	tank = loc
 	if(!istype(tank))
@@ -149,7 +149,7 @@
 	item_state = "waterbackpackjani"
 	custom_price = 100
 
-/obj/item/watertank/janitor/Initialize()
+/obj/item/watertank/janitor/Initialize(mapload)
 	. = ..()
 	reagents.add_reagent(/datum/reagent/space_cleaner, 500)
 
@@ -185,7 +185,7 @@
 	volume = 200
 	slowdown = 0
 
-/obj/item/watertank/atmos/Initialize()
+/obj/item/watertank/atmos/Initialize(mapload)
 	. = ..()
 	reagents.add_reagent(/datum/reagent/water, 200)
 
@@ -218,9 +218,9 @@
 	var/obj/item/watertank/tank
 	var/nozzle_mode = 0
 	var/metal_synthesis_cooldown = 0
-	var/resin_cooldown = 0
+	COOLDOWN_DECLARE(resin_cooldown)
 
-/obj/item/extinguisher/mini/nozzle/Initialize()
+/obj/item/extinguisher/mini/nozzle/Initialize(mapload)
 	. = ..()
 	tank = loc
 	if (!istype(tank))
@@ -269,22 +269,20 @@
 		if(R.total_volume < 100)
 			to_chat(user, "<span class='warning'>You need at least 100 units of water to use the resin launcher!</span>")
 			return
-		if(resin_cooldown)
+		if(!COOLDOWN_FINISHED(src, resin_cooldown))
 			to_chat(user, "<span class='warning'>Resin launcher is still recharging...</span>")
 			return
-		resin_cooldown = TRUE
+		COOLDOWN_START(src, resin_cooldown, 10 SECONDS)
 		R.remove_any(100)
-		var/obj/effect/resin_container/A = new (get_turf(src))
+		var/obj/effect/resin_container/resin = new (get_turf(src))
 		log_game("[key_name(user)] used Resin Launcher at [AREACOORD(user)].")
 		playsound(src,'sound/items/syringeproj.ogg',40,1)
-		for(var/a=0, a<5, a++)
-			step_towards(A, target)
-			sleep(2)
-		A.Smoke()
-		spawn(100)
-			if(src)
-				resin_cooldown = FALSE
+		var/delay = 2
+		var/datum/move_loop/loop = SSmove_manager.move_towards(resin, target, delay, timeout = delay * 5, priority = MOVEMENT_ABOVE_SPACE_PRIORITY)
+		RegisterSignal(loop, COMSIG_MOVELOOP_POSTPROCESS, .proc/resin_stop_check)
+		RegisterSignal(loop, COMSIG_PARENT_QDELETING, .proc/resin_landed)
 		return
+
 	if(nozzle_mode == RESIN_FOAM)
 		if(!Adj|| !isturf(target))
 			return
@@ -296,11 +294,27 @@
 			var/obj/effect/particle_effect/foam/metal/resin/F = new (get_turf(target))
 			F.amount = 0
 			metal_synthesis_cooldown++
-			spawn(100)
-				metal_synthesis_cooldown--
+			addtimer(CALLBACK(src, .proc/reduce_metal_synth_cooldown), 10 SECONDS)
 		else
 			to_chat(user, "<span class='warning'>Resin foam mix is still being synthesized...</span>")
 			return
+
+/obj/item/extinguisher/mini/nozzle/proc/resin_stop_check(datum/move_loop/source, succeeded)
+	SIGNAL_HANDLER
+	if(succeeded)
+		return
+	resin_landed(source)
+	qdel(source)
+
+/obj/item/extinguisher/mini/nozzle/proc/resin_landed(datum/move_loop/source)
+	SIGNAL_HANDLER
+	if(!istype(source.moving, /obj/effect/resin_container) || QDELETED(source.moving))
+		return
+	var/obj/effect/resin_container/resin = source.moving
+	resin.Smoke()
+
+/obj/item/extinguisher/mini/nozzle/proc/reduce_metal_synth_cooldown()
+	metal_synthesis_cooldown--
 
 /obj/effect/resin_container
 	name = "resin container"
@@ -316,6 +330,9 @@
 	S.amount = 4
 	playsound(src,'sound/effects/bamf.ogg',100,1)
 	qdel(src)
+
+/obj/effect/resin_container/newtonian_move(direction, instant = FALSE) // Please don't spacedrift thanks
+	return TRUE
 
 #undef EXTINGUISHER
 #undef RESIN_LAUNCHER
@@ -337,7 +354,8 @@
 	var/on = FALSE
 	volume = 300
 	var/usage_ratio = 5 //5 unit added per 1 removed
-	var/injection_amount = 1
+	/// How much to inject per second
+	var/injection_amount = 0.5
 	amount_per_transfer_from_this = 5
 	reagent_flags = OPENCONTAINER
 	spillable = FALSE
@@ -365,7 +383,7 @@
 		turn_on()
 
 //Todo : cache these.
-/obj/item/reagent_containers/chemtank/worn_overlays(var/isinhands = FALSE) //apply chemcolor and level
+/obj/item/reagent_containers/chemtank/worn_overlays(mutable_appearance/standing, isinhands = FALSE) //apply chemcolor and level
 	. = list()
 	//inhands + reagent_filling
 	if(!isinhands && reagents.total_volume)
@@ -395,7 +413,7 @@
 	if(ismob(loc))
 		to_chat(loc, "<span class='notice'>[src] turns off.</span>")
 
-/obj/item/reagent_containers/chemtank/process()
+/obj/item/reagent_containers/chemtank/process(delta_time)
 	if(!ishuman(loc))
 		turn_off()
 		return
@@ -407,7 +425,7 @@
 		turn_off()
 		return
 
-	var/used_amount = injection_amount/usage_ratio
+	var/used_amount = (injection_amount * delta_time) /usage_ratio
 	reagents.reaction(user, INJECT,injection_amount,0)
 	reagents.trans_to(user,used_amount,multiplier=usage_ratio)
 	update_icon()
@@ -417,13 +435,13 @@
 /obj/item/watertank/op
 	name = "backpack water tank"
 	desc = "A New Russian backpack spray for systematic cleansing of carbon lifeforms."
-	icon_state = "waterbackop"
-	item_state = "waterbackop"
+	icon_state = "waterbackpackop"
+	item_state = "waterbackpackop"
 	w_class = WEIGHT_CLASS_NORMAL
 	volume = 2000
 	slowdown = 0
 
-/obj/item/watertank/op/Initialize()
+/obj/item/watertank/op/Initialize(mapload)
 	. = ..()
 	reagents.add_reagent(/datum/reagent/toxin/mutagen,350)
 	reagents.add_reagent(/datum/reagent/napalm,125)

@@ -38,3 +38,6 @@
 			//Update the cog counts
 			for(var/obj/item/clockwork/clockwork_slab/S in GLOB.clockwork_slabs)
 				S.update_integration_cogs()
+			if(GLOB.clockcult_eminence)
+				var/mob/living/simple_animal/eminence/eminence = GLOB.clockcult_eminence
+				eminence.cog_change()

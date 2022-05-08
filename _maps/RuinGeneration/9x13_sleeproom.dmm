@@ -1,0 +1,281 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"b" = (
+/obj/structure/closet/secure_closet/personal,
+/turf/open/floor/carpet/blue,
+/area/ruin/unpowered)
+"d" = (
+/obj/structure/closet/secure_closet/personal,
+/turf/open/floor/carpet/orange,
+/area/ruin/unpowered)
+"e" = (
+/obj/effect/abstract/open_area_marker,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"f" = (
+/obj/structure/table,
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/open/floor/carpet/orange,
+/area/ruin/unpowered)
+"h" = (
+/obj/structure/bed,
+/obj/item/bedsheet/dorms,
+/turf/open/floor/carpet/blue,
+/area/ruin/unpowered)
+"j" = (
+/turf/open/floor/carpet/orange,
+/area/ruin/unpowered)
+"l" = (
+/obj/structure/bed,
+/obj/item/bedsheet/dorms,
+/turf/open/floor/carpet/cyan,
+/area/ruin/unpowered)
+"m" = (
+/obj/structure/bed,
+/obj/item/bedsheet/dorms,
+/turf/open/floor/carpet/orange,
+/area/ruin/unpowered)
+"n" = (
+/obj/structure/table,
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/open/floor/carpet/purple,
+/area/ruin/unpowered)
+"p" = (
+/obj/structure/table,
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/open/floor/carpet/blue,
+/area/ruin/unpowered)
+"s" = (
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"u" = (
+/obj/structure/chair/stool{
+	pixel_y = 8
+	},
+/turf/open/floor/carpet/orange,
+/area/ruin/unpowered)
+"v" = (
+/obj/machinery/door/airlock{
+	id_tag = "Dorm4";
+	name = "Dorm 4"
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"w" = (
+/obj/machinery/door/airlock{
+	id_tag = "Dorm1";
+	name = "Dorm 1"
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"z" = (
+/obj/machinery/door/airlock{
+	id_tag = "Dorm3";
+	name = "Dorm 3"
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"A" = (
+/obj/structure/table,
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/open/floor/carpet/cyan,
+/area/ruin/unpowered)
+"B" = (
+/obj/structure/closet/secure_closet/personal,
+/turf/open/floor/carpet/purple,
+/area/ruin/unpowered)
+"D" = (
+/obj/structure/bed,
+/obj/item/bedsheet/dorms,
+/turf/open/floor/carpet/purple,
+/area/ruin/unpowered)
+"E" = (
+/obj/structure/chair/stool{
+	pixel_y = 8
+	},
+/turf/open/floor/carpet/purple,
+/area/ruin/unpowered)
+"I" = (
+/turf/open/floor/carpet/blue,
+/area/ruin/unpowered)
+"L" = (
+/turf/open/floor/carpet/cyan,
+/area/ruin/unpowered)
+"O" = (
+/obj/structure/chair/stool{
+	pixel_y = 8
+	},
+/turf/open/floor/carpet/blue,
+/area/ruin/unpowered)
+"P" = (
+/obj/machinery/door/airlock{
+	id_tag = "Dorm2";
+	name = "Dorm 2"
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"Q" = (
+/turf/closed/wall,
+/area/ruin/unpowered)
+"R" = (
+/obj/structure/closet/secure_closet/personal,
+/turf/open/floor/carpet/cyan,
+/area/ruin/unpowered)
+"U" = (
+/turf/open/floor/carpet/purple,
+/area/ruin/unpowered)
+"V" = (
+/obj/structure/chair/stool{
+	pixel_y = 8
+	},
+/turf/open/floor/carpet/cyan,
+/area/ruin/unpowered)
+"Y" = (
+/obj/effect/abstract/open_area_marker{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+
+(1,1,1) = {"
+Q
+Q
+Q
+Q
+Q
+Q
+Q
+Q
+Q
+Q
+Q
+Q
+Q
+"}
+(2,1,1) = {"
+Q
+A
+V
+Q
+f
+u
+Q
+n
+E
+Q
+p
+O
+Q
+"}
+(3,1,1) = {"
+Q
+R
+L
+Q
+d
+j
+Q
+B
+U
+Q
+b
+I
+Q
+"}
+(4,1,1) = {"
+Q
+l
+L
+Q
+m
+j
+Q
+D
+U
+Q
+h
+I
+Q
+"}
+(5,1,1) = {"
+Q
+Q
+v
+Q
+Q
+z
+Q
+Q
+P
+Q
+Q
+w
+Q
+"}
+(6,1,1) = {"
+s
+s
+s
+s
+s
+s
+s
+s
+s
+s
+s
+s
+s
+"}
+(7,1,1) = {"
+Y
+s
+s
+s
+s
+s
+s
+s
+s
+s
+s
+s
+e
+"}
+(8,1,1) = {"
+s
+s
+s
+s
+s
+s
+s
+s
+s
+s
+s
+s
+s
+"}
+(9,1,1) = {"
+Q
+Q
+Q
+Q
+Q
+Q
+Q
+Q
+Q
+Q
+Q
+Q
+Q
+"}

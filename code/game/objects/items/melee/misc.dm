@@ -38,8 +38,6 @@
 	lefthand_file = 'icons/mob/inhands/antag/changeling_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/antag/changeling_righthand.dmi'
 	w_class = WEIGHT_CLASS_HUGE
-	block_upgrade_walk = 1
-	block_level = 1
 	block_flags = BLOCKING_ACTIVE | BLOCKING_NASTY
 	force = 20
 	throwforce = 10
@@ -47,7 +45,7 @@
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "tore", "ripped", "diced", "cut")
 	sharpness = IS_SHARP
 
-/obj/item/melee/synthetic_arm_blade/Initialize()
+/obj/item/melee/synthetic_arm_blade/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/butchering, 60, 80) //very imprecise
 
@@ -74,7 +72,7 @@
 	materials = list(/datum/material/iron = 1000)
 
 
-/obj/item/melee/sabre/Initialize()
+/obj/item/melee/sabre/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/butchering, 30, 95, 5) //fast and effective, but as a sword, it might damage the results.
 
@@ -165,7 +163,6 @@
 	item_state = "classic_baton"
 	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
-	block_upgrade_walk = 1
 	slot_flags = ITEM_SLOT_BELT
 	force = 12 //9 hit crit
 	w_class = WEIGHT_CLASS_NORMAL
@@ -316,7 +313,7 @@
 			if(!iscarbon(user))
 				target.LAssailant = null
 			else
-				target.LAssailant = user
+				target.LAssailant = WEAKREF(user)
 			cooldown_check = world.time + cooldown
 		else
 			var/wait_desc = get_wait_description()
@@ -555,7 +552,7 @@
 				to_chat(user, wait_desc)
 
 /obj/item/melee/classic_baton/contractor_baton/pickup(mob/user)
-	. = ..()
+	..()
 	if(!owner_data)
 		var/datum/antagonist/traitor/traitor_data = user.mind.has_antag_datum(/datum/antagonist/traitor)
 		if(traitor_data)
@@ -587,7 +584,7 @@
 	owner.visible_message("<span class='danger'>[hitby] evaporates in midair!</span>")
 	return TRUE
 
-/obj/item/melee/supermatter_sword/Initialize()
+/obj/item/melee/supermatter_sword/Initialize(mapload)
 	. = ..()
 	shard = new /obj/machinery/power/supermatter_crystal(src)
 	qdel(shard.countdown)
@@ -677,7 +674,7 @@
 	lefthand_file = 'icons/mob/inhands/weapons/melee_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/melee_righthand.dmi'
 	slot_flags = ITEM_SLOT_BELT
-	force = 0.001
+	force = 0.001 //"Some attack noises shit"
 	reach = 3
 	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb = list("flogged", "whipped", "lashed", "disciplined")
@@ -685,47 +682,43 @@
 
 /obj/item/melee/curator_whip/attack(mob/living/target, mob/living/user)
 	. = ..()
-	var/mob/living/carbon/human/H = target
-	var/mob/living/carbon/human/U = user
-	if(ishuman(target))
-		if((user.zone_selected == BODY_ZONE_CHEST) || (user.zone_selected == BODY_ZONE_HEAD) || (user.zone_selected == BODY_ZONE_PRECISE_GROIN))
-			if(H.getarmor(type = "melee") < 16)
-				H.emote("scream")
-				H.visible_message("<span class='danger'>[U] whips [H]!</span>", "<span class='userdanger'>[U] whips you! It stings!</span>")
-		if((user.zone_selected == BODY_ZONE_R_LEG) || (user.zone_selected == BODY_ZONE_L_LEG))
-			var/dist = get_dist(H, U)
-			if(dist < 2)
-				to_chat(user, "<span class='warning'>[H] is too close to trip with the whip!</span>")
-				return
-			else
-				target.Knockdown(30)
-				log_combat(user, target, "tripped", src)
-				H.visible_message("<span class='danger'>[U] trips [H]!</span>", "<span class='userdanger'>[U] whips your legs out from under you!</span>")
-			return
-		if(user.zone_selected == BODY_ZONE_L_ARM)
-			var/obj/item/I = H.get_held_items_for_side("left")
-			if(I)
-				if(H.dropItemToGround(I))
-					H.visible_message("<span class='danger'>[I] is yanked off [H]'s hand by [src]!</span>","<span class='userdanger'>[U] grabs [I] with [src]!</span>")
-					if(!user.get_inactive_held_item())
-						U.throw_mode_on()
-						U.swap_hand()
-						I.throw_at(user, 10, 2)
-						to_chat(user, "<span class='notice'>You pull [I] towards yourself.</span>")
+	if(!ishuman(target))
+		return
+
+	switch(user.zone_selected)
+		if(BODY_ZONE_L_ARM)
+			whip_disarm(user, target, "left")
+		if(BODY_ZONE_R_ARM)
+			whip_disarm(user, target, "right")
+		if(BODY_ZONE_R_LEG, BODY_ZONE_L_LEG)
+			whip_trip(user, target)
+		else
+			whip_lash(user, target)
+
+/obj/item/melee/curator_whip/proc/whip_disarm(mob/living/carbon/user, mob/living/target, side)
+	var/obj/item/I = target.get_held_items_for_side(side)
+	if(I)
+		if(target.dropItemToGround(I))
+			target.visible_message("<span class='danger'>[I] is yanked out of [target]'s hands by [src]!</span>","<span class='userdanger'>[user] grabs [I] out of your hands with [src]!</span>")
+			to_chat(user, "<span class='notice'>You yank [I] towards yourself.</span>")
 			log_combat(user, target, "disarmed", src)
-			H.visible_message("<span class='danger'>[U] disarms [H]!</span>", "<span class='userdanger'>[U] disarmed you!</span>")
-		if(user.zone_selected == BODY_ZONE_R_ARM)
-			var/obj/item/I = H.get_held_items_for_side("right")
-			if(I)
-				if(H.dropItemToGround(I))
-					H.visible_message("<span class='danger'>[I] is yanked off [H]'s hand by [src]!</span>","<span class='userdanger'>[U] grabs [I] with [src]!</span>")
-					to_chat(user, "<span class='notice'>You pull [I] towards yourself.</span>")
-					if(!user.get_inactive_held_item())
-						U.throw_mode_on()
-						U.swap_hand()
-						I.throw_at(user, 10, 2)
-			log_combat(user, target, "disarmed", src)
-			H.visible_message("<span class='danger'>[user] disarms [H]!</span>", "<span class='userdanger'>[U] disarmed you!</span>")
+			if(!user.get_inactive_held_item())
+				user.throw_mode_on()
+				user.swap_hand()
+				I.throw_at(user, 10, 2)
+
+/obj/item/melee/curator_whip/proc/whip_trip(mob/living/user, mob/living/target) //this is bad and ugly but not as bad and ugly as the original code
+	if(get_dist(user, target) < 2)
+		to_chat(user, "<span class='warning'>[target] is too close to trip with the whip!</span>")
+		return
+	target.Knockdown(3 SECONDS)
+	log_combat(user, target, "tripped", src)
+	target.visible_message("<span class='danger'>[user] knocks [target] off [target.p_their()] feet!</span>", "<span class='userdanger'>[user] yanks your legs out from under you!</span>")
+
+/obj/item/melee/curator_whip/proc/whip_lash(mob/living/user, mob/living/target)
+	if(target.getarmor(type = "melee") < 16)
+		target.emote("scream")
+		target.visible_message("<span class='danger'>[user] whips [target]!</span>", "<span class='userdanger'>[user] whips you! It stings!</span>")
 
 /obj/item/melee/roastingstick
 	name = "advanced roasting stick"
@@ -736,17 +729,16 @@
 	w_class = WEIGHT_CLASS_SMALL
 	item_flags = NONE
 	force = 0
-	block_upgrade_walk = 1
 	attack_verb = list("hit", "poked")
 	var/obj/item/reagent_containers/food/snacks/sausage/held_sausage
 	var/static/list/ovens
 	var/on = FALSE
 	var/datum/beam/beam
 
-/obj/item/melee/roastingstick/Initialize()
+/obj/item/melee/roastingstick/Initialize(mapload)
 	. = ..()
-	if (!ovens)
-		ovens = typecacheof(list(/obj/singularity, /obj/machinery/power/supermatter_crystal, /obj/structure/bonfire))
+	if(!ovens)
+		ovens = typecacheof(list(/obj/anomaly, /obj/machinery/power/supermatter_crystal, /obj/structure/bonfire))
 
 /obj/item/melee/roastingstick/attack_self(mob/user)
 	on = !on
@@ -809,13 +801,13 @@
 
 /obj/item/melee/roastingstick/afterattack(atom/target, mob/user, proximity)
 	. = ..()
-	if (!on)
+	if(!on)
 		return
-	if (is_type_in_typecache(target, ovens))
-		if (held_sausage && held_sausage.roasted)
+	if(is_type_in_typecache(target, ovens))
+		if(held_sausage && held_sausage.roasted)
 			to_chat("Your [held_sausage] has already been cooked.")
 			return
-		if (istype(target, /obj/singularity) && get_dist(user, target) < 10)
+		if(istype(target, /obj/anomaly) && get_dist(user, target) < 10)
 			to_chat(user, "You send [held_sausage] towards [target].")
 			playsound(src, 'sound/items/rped.ogg', 50, 1)
 			beam = user.Beam(target,icon_state="rped_upgrade",time=100)
@@ -849,7 +841,6 @@
 	slot_flags = ITEM_SLOT_BELT
 	force = 0
 	throwforce = 0
-	block_upgrade_walk = 1
 	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb = list("repelled")
 	var/cooldown = 0

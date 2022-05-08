@@ -2,10 +2,16 @@
 	projectile_type = /obj/item/projectile/beam/laser
 	select_name = "kill"
 
+/obj/item/ammo_casing/energy/laser/gatlinggun
+	e_cost = 1
+
 /obj/item/ammo_casing/energy/lasergun
 	projectile_type = /obj/item/projectile/beam/laser
 	e_cost = 71
 	select_name = "kill"
+
+/obj/item/ammo_casing/energy/lasergun/captain
+	e_cost = 100 // Older technology is less efficient
 
 /obj/item/ammo_casing/energy/lasergun/old
 	projectile_type = /obj/item/projectile/beam/laser

@@ -14,6 +14,15 @@ SUBSYSTEM_DEF(atoms)
 
 	var/list/BadInitializeCalls = list()
 
+	///initAtom() adds the atom its creating to this list iff InitializeAtoms() has been given a list to populate as an argument
+	var/list/created_atoms
+
+	#ifdef PROFILE_MAPLOAD_INIT_ATOM
+	var/list/mapload_init_times = list()
+	#endif
+
+	initialized = INITIALIZATION_INSSATOMS
+
 /datum/controller/subsystem/atoms/Initialize(timeofday)
 	GLOB.fire_overlay.appearance_flags = RESET_COLOR
 	setupGenetics() //to set the mutations' sequence
@@ -21,11 +30,22 @@ SUBSYSTEM_DEF(atoms)
 	InitializeAtoms()
 	return ..()
 
-/datum/controller/subsystem/atoms/proc/InitializeAtoms(list/atoms)
+#ifdef PROFILE_MAPLOAD_INIT_ATOM
+#define PROFILE_INIT_ATOM_BEGIN(...) var/__profile_stat_time = TICK_USAGE
+#define PROFILE_INIT_ATOM_END(atom) mapload_init_times[##atom.type] += TICK_USAGE_TO_MS(__profile_stat_time)
+#else
+#define PROFILE_INIT_ATOM_BEGIN(...)
+#define PROFILE_INIT_ATOM_END(...)
+#endif
+
+/datum/controller/subsystem/atoms/proc/InitializeAtoms(list/atoms, list/atoms_to_return = null)
 	if(initialized == INITIALIZATION_INSSATOMS)
 		return
 
 	initialized = INITIALIZATION_INNEW_MAPLOAD
+
+	if (atoms_to_return)
+		LAZYINITLIST(created_atoms)
 
 	var/count
 	var/list/mapload_arg = list(TRUE)
@@ -34,13 +54,17 @@ SUBSYSTEM_DEF(atoms)
 		for(var/I in atoms)
 			var/atom/A = I
 			if(!(A.flags_1 & INITIALIZED_1))
-				InitAtom(I, mapload_arg)
 				CHECK_TICK
+				PROFILE_INIT_ATOM_BEGIN()
+				InitAtom(A, TRUE, mapload_arg)
+				PROFILE_INIT_ATOM_END(A)
 	else
 		count = 0
 		for(var/atom/A in world)
 			if(!(A.flags_1 & INITIALIZED_1))
-				InitAtom(A, mapload_arg)
+				PROFILE_INIT_ATOM_BEGIN()
+				InitAtom(A, FALSE, mapload_arg)
+				PROFILE_INIT_ATOM_END(A)
 				++count
 				CHECK_TICK
 
@@ -52,11 +76,23 @@ SUBSYSTEM_DEF(atoms)
 	if(late_loaders.len)
 		for(var/I in late_loaders)
 			var/atom/A = I
+			//I hate that we need this
+			if(QDELETED(A))
+				continue
 			A.LateInitialize()
 		testing("Late initialized [late_loaders.len] atoms")
 		late_loaders.Cut()
 
-/datum/controller/subsystem/atoms/proc/InitAtom(atom/A, list/arguments)
+	if (created_atoms)
+		atoms_to_return += created_atoms
+		created_atoms = null
+
+	#ifdef PROFILE_MAPLOAD_INIT_ATOM
+	rustg_file_write(json_encode(mapload_init_times), "[GLOB.log_directory]/init_times.json")
+	#endif
+
+/// Init this specific atom
+/datum/controller/subsystem/atoms/proc/InitAtom(atom/A, from_template = FALSE, list/arguments)
 	var/the_type = A.type
 	if(QDELING(A))
 		BadInitializeCalls[the_type] |= BAD_INIT_QDEL_BEFORE
@@ -81,6 +117,9 @@ SUBSYSTEM_DEF(atoms)
 			if(INITIALIZE_HINT_QDEL)
 				qdel(A)
 				qdeleted = TRUE
+			if(INITIALIZE_HINT_QDEL_FORCE)
+				qdel(A, force = TRUE)
+				qdeleted = TRUE
 			else
 				BadInitializeCalls[the_type] |= BAD_INIT_NO_HINT
 
@@ -90,6 +129,8 @@ SUBSYSTEM_DEF(atoms)
 		BadInitializeCalls[the_type] |= BAD_INIT_DIDNT_INIT
 	else
 		SEND_SIGNAL(A,COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZE)
+		if(created_atoms && from_template && ispath(the_type, /atom/movable))//we only want to populate the list with movables
+			created_atoms += A.GetAllContents()
 
 	return qdeleted || QDELING(A)
 
@@ -108,14 +149,13 @@ SUBSYSTEM_DEF(atoms)
 	BadInitializeCalls = SSatoms.BadInitializeCalls
 
 /datum/controller/subsystem/atoms/proc/setupGenetics()
-	var/list/mutations = subtypesof(/datum/mutation/human)
+	var/list/mutations = subtypesof(/datum/mutation)
 	shuffle_inplace(mutations)
-	for(var/A in subtypesof(/datum/generecipe))
-		var/datum/generecipe/GR = A
+	for(var/datum/generecipe/GR as() in subtypesof(/datum/generecipe))
 		GLOB.mutation_recipes[initial(GR.required)] = initial(GR.result)
-	for(var/i in 1 to LAZYLEN(mutations))
+	for(var/i in 1 to length(mutations))
 		var/path = mutations[i] //byond gets pissy when we do it in one line
-		var/datum/mutation/human/B = new path ()
+		var/datum/mutation/B = new path ()
 		B.alias = "Mutation [i]"
 		GLOB.all_mutations[B.type] = B
 		GLOB.full_sequences[B.type] = generate_gene_sequence(B.blocks)
@@ -136,7 +176,7 @@ SUBSYSTEM_DEF(atoms)
 		. += "Path : [path] \n"
 		var/fails = BadInitializeCalls[path]
 		if(fails & BAD_INIT_DIDNT_INIT)
-			. += "- Didn't call atom/Initialize()\n"
+			. += "- Didn't call atom/Initialize(mapload)\n"
 		if(fails & BAD_INIT_NO_HINT)
 			. += "- Didn't return an Initialize hint\n"
 		if(fails & BAD_INIT_QDEL_BEFORE)
@@ -148,8 +188,3 @@ SUBSYSTEM_DEF(atoms)
 	var/initlog = InitLog()
 	if(initlog)
 		rustg_file_append(initlog, "[GLOB.log_directory]/initialize.log")
-
-#undef BAD_INIT_QDEL_BEFORE
-#undef BAD_INIT_DIDNT_INIT
-#undef BAD_INIT_SLEPT
-#undef BAD_INIT_NO_HINT

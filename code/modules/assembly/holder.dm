@@ -14,11 +14,21 @@
 	var/obj/item/assembly/a_left = null
 	var/obj/item/assembly/a_right = null
 
+/obj/item/assembly_holder/Initialize(mapload)
+	. = ..()
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = .proc/on_entered,
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
+/obj/item/assembly_holder/proc/on_entered(datum/source, atom/movable/AM)
+	SIGNAL_HANDLER
+	return
+
 /obj/item/assembly_holder/ComponentInitialize()
 	. = ..()
-	AddComponent(
-		/datum/component/simple_rotation,
-		ROTATION_ALTCLICK | ROTATION_CLOCKWISE | ROTATION_COUNTERCLOCKWISE | ROTATION_FLIP | ROTATION_VERBS)
+	var/static/rotation_flags = ROTATION_ALTCLICK | ROTATION_CLOCKWISE | ROTATION_COUNTERCLOCKWISE | ROTATION_FLIP | ROTATION_VERBS
+	AddComponent(/datum/component/simple_rotation, rotation_flags)
 
 /obj/item/assembly_holder/IsAssemblyHolder()
 	return TRUE
@@ -44,6 +54,7 @@
 	else
 		a_right = A
 	A.holder_movement()
+	A.on_attach()
 
 /obj/item/assembly_holder/update_icon()
 	cut_overlays()
@@ -67,12 +78,6 @@
 	if(master)
 		master.update_icon()
 
-/obj/item/assembly_holder/Crossed(atom/movable/AM as mob|obj)
-	if(a_left)
-		a_left.Crossed(AM)
-	if(a_right)
-		a_right.Crossed(AM)
-
 /obj/item/assembly_holder/on_found(mob/finder)
 	if(a_left)
 		a_left.on_found(finder)
@@ -87,11 +92,11 @@
 		a_right.holder_movement()
 
 /obj/item/assembly_holder/dropped(mob/user)
-	. = ..()
+	..()
 	if(a_left)
-		a_left.dropped()
+		a_left.dropped(user)
 	if(a_right)
-		a_right.dropped()
+		a_right.dropped(user)
 
 /obj/item/assembly_holder/attack_hand()//Perhapse this should be a holder_pickup proc instead, can add if needbe I guess
 	. = ..()
@@ -116,7 +121,7 @@
 	return TRUE
 
 /obj/item/assembly_holder/attack_self(mob/user)
-	src.add_fingerprint(user)
+	add_fingerprint(user)
 	if(!a_left || !a_right)
 		to_chat(user, "<span class='danger'>Assembly part missing!</span>")
 		return

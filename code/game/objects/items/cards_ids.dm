@@ -36,7 +36,7 @@
 	righthand_file = 'icons/mob/inhands/equipment/idcards_righthand.dmi'
 	var/detail_color = COLOR_ASSEMBLY_ORANGE
 
-/obj/item/card/data/Initialize()
+/obj/item/card/data/Initialize(mapload)
 	.=..()
 	update_icon()
 
@@ -108,6 +108,7 @@
 	desc = "A card used to provide ID and determine access across the station."
 	icon_state = "id"
 	item_state = "card-id"
+	worn_icon_state = "card-id"
 	lefthand_file = 'icons/mob/inhands/equipment/idcards_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/idcards_righthand.dmi'
 	slot_flags = ITEM_SLOT_ID
@@ -142,7 +143,7 @@
 	. = ..()
 	if(.)
 		switch(var_name)
-			if("assignment","registered_name")
+			if(NAMEOF(src, assignment),NAMEOF(src, registered_name))
 				update_label()
 
 /obj/item/card/id/attackby(obj/item/W, mob/user, params)
@@ -333,6 +334,22 @@ update_label("John Doe", "Clowny")
 	lefthand_file = 'icons/mob/inhands/equipment/idcards_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/idcards_righthand.dmi'
 
+/obj/item/card/id/silver/spacepol
+	name = "space police access card"
+	access = list(ACCESS_HUNTERS)
+
+/obj/item/card/id/silver/spacepol/bounty
+	name = "bounty hunter access card"
+	access = list(ACCESS_HUNTERS)
+
+/obj/item/card/id/space_russian
+	name = "space russian card"
+	access = list(ACCESS_HUNTERS)
+
+/obj/item/card/id/pirate
+	name = "pirate ship card"
+	access = list(ACCESS_PIRATES)
+
 /obj/item/card/id/syndicate
 	name = "agent card"
 	access = list(ACCESS_MAINT_TUNNELS, ACCESS_SYNDICATE)
@@ -368,7 +385,7 @@ update_label("John Doe", "Clowny")
 		"ratvar",
 	)
 
-/obj/item/card/id/syndicate/Initialize()
+/obj/item/card/id/syndicate/Initialize(mapload)
 	. = ..()
 	var/datum/action/item_action/chameleon/change/chameleon_action = new(src)
 	chameleon_action.chameleon_type = /obj/item/card/id
@@ -466,6 +483,19 @@ update_label("John Doe", "Clowny")
 	assignment = "Syndicate Officer"
 	access = list(ACCESS_SYNDICATE)
 
+/obj/item/card/id/syndicate/debug
+	name = "\improper Debug ID"
+	desc = "A shimmering ID card with the ability to open anything."
+	icon_state = "centcom"
+	registered_name = "Central Command"
+	assignment = "Admiral"
+	anyone = TRUE
+
+/obj/item/card/id/syndicate/debug/Initialize(mapload)
+	access = get_every_access()
+	registered_account = SSeconomy.get_dep_account(ACCOUNT_CAR)
+	. = ..()
+
 /obj/item/card/id/captains_spare
 	name = "captain's spare ID"
 	desc = "The spare ID of the High Lord himself."
@@ -476,7 +506,7 @@ update_label("John Doe", "Clowny")
 	registered_name = "Captain"
 	assignment = "Captain"
 
-/obj/item/card/id/captains_spare/Initialize()
+/obj/item/card/id/captains_spare/Initialize(mapload)
 	var/datum/job/captain/J = new/datum/job/captain
 	access = J.get_access()
 	. = ..()
@@ -488,7 +518,7 @@ update_label("John Doe", "Clowny")
 	registered_name = "Central Command"
 	assignment = "General"
 
-/obj/item/card/id/centcom/Initialize()
+/obj/item/card/id/centcom/Initialize(mapload)
 	access = get_all_centcom_access()
 	. = ..()
 
@@ -499,7 +529,7 @@ update_label("John Doe", "Clowny")
 	registered_name = "Emergency Response Team Commander"
 	assignment = "Emergency Response Team Commander"
 
-/obj/item/card/id/ert/Initialize()
+/obj/item/card/id/ert/Initialize(mapload)
 	access = get_all_accesses()+get_ert_access("commander")-ACCESS_CHANGE_IDS
 	. = ..()
 
@@ -508,7 +538,7 @@ update_label("John Doe", "Clowny")
 	assignment = "Security Response Officer"
 	icon_state = "ert"
 
-/obj/item/card/id/ert/Security/Initialize()
+/obj/item/card/id/ert/Security/Initialize(mapload)
 	access = get_all_accesses()+get_ert_access("sec")-ACCESS_CHANGE_IDS
 	. = ..()
 
@@ -517,7 +547,7 @@ update_label("John Doe", "Clowny")
 	assignment = "Engineer Response Officer"
 	icon_state = "ert"
 
-/obj/item/card/id/ert/Engineer/Initialize()
+/obj/item/card/id/ert/Engineer/Initialize(mapload)
 	access = get_all_accesses()+get_ert_access("eng")-ACCESS_CHANGE_IDS
 	. = ..()
 
@@ -526,7 +556,7 @@ update_label("John Doe", "Clowny")
 	assignment = "Medical Response Officer"
 	icon_state = "ert"
 
-/obj/item/card/id/ert/Medical/Initialize()
+/obj/item/card/id/ert/Medical/Initialize(mapload)
 	access = get_all_accesses()+get_ert_access("med")-ACCESS_CHANGE_IDS
 	. = ..()
 
@@ -535,7 +565,7 @@ update_label("John Doe", "Clowny")
 	assignment = "Religious Response Officer"
 	icon_state = "ert"
 
-/obj/item/card/id/ert/chaplain/Initialize()
+/obj/item/card/id/ert/chaplain/Initialize(mapload)
 	access = get_all_accesses()+get_ert_access("sec")-ACCESS_CHANGE_IDS
 	. = ..()
 
@@ -544,7 +574,16 @@ update_label("John Doe", "Clowny")
 	assignment = "Janitorial Response Officer"
 	icon_state = "ert"
 
-/obj/item/card/id/ert/Janitor/Initialize()
+/obj/item/card/id/ert/Janitor/Initialize(mapload)
+	access = get_all_accesses()
+	. = ..()
+
+/obj/item/card/id/ert/kudzu
+	registered_name = "Weed Whacker"
+	assignment = "Weed Whacker"
+	icon_state = "ert"
+
+/obj/item/card/id/ert/kudzu/Initialize(mapload)
 	access = get_all_accesses()
 	. = ..()
 
@@ -643,13 +682,14 @@ update_label("John Doe", "Clowny")
 ///Department Budget Cards///
 
 /obj/item/card/id/departmental_budget
-	name = "departmental card (FUCK)"
+	name = "departmental card (budget)"
 	desc = "Provides access to the departmental budget."
 	icon_state = "budget"
 	var/department_ID = ACCOUNT_CIV
 	var/department_name = ACCOUNT_CIV_NAME
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 
-/obj/item/card/id/departmental_budget/Initialize()
+/obj/item/card/id/departmental_budget/Initialize(mapload)
 	. = ..()
 	var/datum/bank_account/B = SSeconomy.get_dep_account(department_ID)
 	if(B)
@@ -701,6 +741,12 @@ update_label("John Doe", "Clowny")
 
 ///Job Specific ID Cards///
 
+/obj/item/card/id/job/captain
+	icon_state = "captain"
+
+/obj/item/card/id/job/hop
+	icon_state = "hop"
+
 /obj/item/card/id/job/ce
 	icon_state = "ce"
 
@@ -716,11 +762,29 @@ update_label("John Doe", "Clowny")
 /obj/item/card/id/job/med
 	icon_state = "med"
 
+/obj/item/card/id/job/paramed
+	icon_state = "paramed"
+
+/obj/item/card/id/job/viro
+	icon_state = "viro"
+
+/obj/item/card/id/job/chemist
+	icon_state = "chemist"
+
+/obj/item/card/id/job/gene
+	icon_state = "gene"
+
 /obj/item/card/id/job/hos
 	icon_state = "hos"
 
 /obj/item/card/id/job/sec
 	icon_state = "sec"
+
+/obj/item/card/id/job/brigphys
+	icon_state = "brigphys"
+
+/obj/item/card/id/job/deputy
+	icon_state = "deputy"
 
 /obj/item/card/id/job/detective
 	icon_state = "detective"
@@ -731,6 +795,9 @@ update_label("John Doe", "Clowny")
 /obj/item/card/id/job/rd
 	icon_state = "rd"
 
+/obj/item/card/id/job/roboticist
+	icon_state = "roboticist"
+
 /obj/item/card/id/job/sci
 	icon_state = "sci"
 
@@ -740,11 +807,17 @@ update_label("John Doe", "Clowny")
 /obj/item/card/id/job/chap
 	icon_state = "chap"
 
+/obj/item/card/id/job/janitor
+	icon_state = "janitor"
+
 /obj/item/card/id/job/qm
 	icon_state = "qm"
 
 /obj/item/card/id/job/miner
 	icon_state = "miner"
+
+/obj/item/card/id/job/exploration
+	icon_state = "exploration"
 
 /obj/item/card/id/job/cargo
 	icon_state = "cargo"
@@ -757,3 +830,26 @@ update_label("John Doe", "Clowny")
 
 /obj/item/card/id/job/lawyer
 	icon_state = "lawyer"
+
+/obj/item/card/id/pass
+	name = "promotion pass"
+	desc = "A card that, when swiped on your ID card, will grant you all the access. Should not substitute your actual ID card."
+	icon_state = "data_1"
+	registered_name = "Unregistered ID"
+	assignment = "Access Pass"
+
+/obj/item/card/id/pass/afterattack(atom/target, mob/user, proximity)
+	. = ..()
+	if (!proximity)
+		return .
+	var/obj/item/card/id/idcard = target
+	if(istype(idcard))
+		for(var/give_access in access)
+			idcard.access |= give_access
+		if(assignment!=initial(assignment))
+			idcard.assignment = assignment
+		if(name!=initial(name))
+			idcard.name = name
+		to_chat(user, "You upgrade your [idcard] with the [name].")
+		log_id("[key_name(user)] added access to '[idcard]' using [src] at [AREACOORD(user)].")
+		qdel(src)

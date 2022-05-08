@@ -1,39 +1,51 @@
 /mob/living/carbon/human/gib_animation()
+	if(!dna)
+		new /obj/effect/temp_visual/gib_animation(loc, "gibbed-h")
+		return
 	switch(dna.species.species_gibs)
-		if("human")
+		if(GIB_TYPE_HUMAN)
 			new /obj/effect/temp_visual/gib_animation(loc, "gibbed-h")
-		if("robotic")
+		if(GIB_TYPE_ROBOTIC)
 			new /obj/effect/temp_visual/gib_animation(loc, "gibbed-r")
 
 /mob/living/carbon/human/dust_animation()
+	if(!dna)
+		new /obj/effect/temp_visual/dust_animation(loc, "dust-h")
+		return
 	switch(dna.species.species_gibs)
-		if("human")
+		if(GIB_TYPE_HUMAN)
 			new /obj/effect/temp_visual/dust_animation(loc, "dust-h")
-		if("robotic")
+		if(GIB_TYPE_ROBOTIC)
 			new /obj/effect/temp_visual/dust_animation(loc, "dust-r")
 
 /mob/living/carbon/human/spawn_gibs(with_bodyparts)
+	if(!dna)
+		new /obj/effect/gibspawner/human(get_turf(src), src, get_static_viruses())
+		return
 	if(with_bodyparts)
 		switch(dna.species.species_gibs)
-			if("human")
+			if(GIB_TYPE_HUMAN)
 				new /obj/effect/gibspawner/human(get_turf(src), src, get_static_viruses())
-			if("robotic")
+			if(GIB_TYPE_ROBOTIC)
 				new /obj/effect/gibspawner/robot(get_turf(src))
 	else
 		switch(dna.species.species_gibs)
-			if("human")
+			if(GIB_TYPE_HUMAN)
 				new /obj/effect/gibspawner/human(get_turf(src), src, get_static_viruses())
-			if("robotic")
+			if(GIB_TYPE_ROBOTIC)
 				new /obj/effect/gibspawner/robot(get_turf(src))
 
 /mob/living/carbon/human/spawn_dust(just_ash = FALSE)
+	if(!dna)
+		new /obj/effect/decal/remains/human(loc)
+		return
 	if(just_ash)
 		new /obj/effect/decal/cleanable/ash(loc)
 	else
 		switch(dna.species.species_gibs)
-			if("human")
+			if(GIB_TYPE_HUMAN)
 				new /obj/effect/decal/remains/human(loc)
-			if("robotic")
+			if(GIB_TYPE_ROBOTIC)
 				new /obj/effect/decal/remains/robot(loc)
 
 /mob/living/carbon/human/death(gibbed)
@@ -67,6 +79,18 @@
 	if(is_hivehost(src))
 		var/datum/antagonist/hivemind/hive = mind.has_antag_datum(/datum/antagonist/hivemind)
 		hive.destroy_hive()
+	if(HAS_TRAIT(src, TRAIT_DROPS_ITEMS_ON_DEATH)) //if you want to add anything else, do it before this if statement
+		var/list/turfs_to_throw = view(2, src)
+		for(var/obj/item/I in contents)
+			dropItemToGround(I, TRUE)
+			if(QDELING(I))
+				continue //skip it
+			I.throw_at(pick(turfs_to_throw), 3, 1, spin = FALSE)
+			I.pixel_x = rand(-10, 10)
+			I.pixel_y = rand(-10, 10)
+		//Death
+		dust(TRUE)
+		return
 
 /mob/living/carbon/human/proc/makeSkeleton()
 	ADD_TRAIT(src, TRAIT_DISFIGURED, TRAIT_GENERIC)

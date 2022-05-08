@@ -9,7 +9,6 @@ export const AtmosControlConsole = (props, context) => {
   const sensors = data.sensors || [];
   return (
     <Window
-      resizable
       width={400}
       height={925}>
       <Window.Content scrollable>
@@ -64,7 +63,7 @@ export const AtmosControlConsole = (props, context) => {
                   unit="L/s"
                   width="63px"
                   minValue={0}
-                  maxValue={200}
+                  maxValue={data.maxInputRate}
                   // This takes an exceptionally long time to update
                   // due to being an async signal
                   suppressFlicker={2000}
@@ -85,7 +84,7 @@ export const AtmosControlConsole = (props, context) => {
                   unit="kPa"
                   width="75px"
                   minValue={0}
-                  maxValue={4500}
+                  maxValue={data.maxOutputPressure}
                   step={10}
                   // This takes an exceptionally long time to update
                   // due to being an async signal

@@ -15,7 +15,7 @@
 	var/region_access = 1 //See access.dm
 	var/list/access_list
 
-/obj/item/door_remote/Initialize()
+/obj/item/door_remote/Initialize(mapload)
 	. = ..()
 	access_list = get_region_accesses(region_access)
 	AddComponent(/datum/component/ntnet_interface)
@@ -28,7 +28,7 @@
 			mode = WAND_EMERGENCY
 		if(WAND_EMERGENCY)
 			mode = WAND_OPEN
-	to_chat(user, "Now in mode: [mode].")
+	balloon_alert(user, "Mode set to [mode]")
 
 // Airlock remote works by sending NTNet packets to whatever it's pointed at.
 /obj/item/door_remote/afterattack(atom/A, mob/user)

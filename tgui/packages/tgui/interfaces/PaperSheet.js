@@ -10,7 +10,7 @@ import { classes } from 'common/react';
 import { vecScale, vecSubtract } from 'common/vector';
 import DOMPurify from 'dompurify';
 import { Component } from 'inferno';
-import marked from 'marked';
+import { marked } from 'marked';
 import { useBackend } from '../backend';
 import { Box, Flex, Tabs, TextArea, Table } from '../components';
 import { Window } from '../layouts';
@@ -829,8 +829,7 @@ export const PaperSheet = (props, context) => {
     <Window
       theme="paper"
       width={400}
-      height={500}
-      resizable>
+      height={500}>
       <Window.Content>
         <Box
           fillPositionedParent

@@ -29,13 +29,14 @@
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	deathmessage = "collapses into a pile of bones!"
-	del_on_death = 1
+	del_on_death = TRUE
 	loot = list(/obj/effect/decal/remains/human)
 
 	do_footstep = TRUE
 	hardattacks = TRUE
 
 	mobchatspan = "assistant"
+	discovery_points = 2000
 
 /mob/living/simple_animal/hostile/skeleton/eskimo
 	name = "undead eskimo"
@@ -50,7 +51,7 @@
 	melee_damage = 20
 	deathmessage = "collapses into a pile of bones, its gear falling to the floor!"
 	loot = list(/obj/effect/decal/remains/human,
-				/obj/item/twohanded/spear,
+				/obj/item/spear,
 				/obj/item/clothing/shoes/winterboots,
 				/obj/item/clothing/suit/hooded/wintercoat)
 
@@ -115,6 +116,6 @@
 	environment_smash = ENVIRONMENT_SMASH_WALLS
 	loot = list(/obj/effect/decal/remains/plasma, /obj/item/pickaxe/drill/jackhammer)
 
-/mob/living/simple_animal/hostile/skeleton/plasmaminer/Initialize()
+/mob/living/simple_animal/hostile/skeleton/plasmaminer/Initialize(mapload)
 	. = ..()
 	set_light(2)

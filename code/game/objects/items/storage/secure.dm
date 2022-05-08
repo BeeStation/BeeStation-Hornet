@@ -120,10 +120,10 @@
 /obj/item/storage/secure/briefcase
 	name = "secure briefcase"
 	icon = 'icons/obj/storage.dmi'
-	icon_state = "secure"
+	icon_state = "sec-case"
 	item_state = "sec-case"
-	lefthand_file = 'icons/mob/inhands/equipment/briefcase_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/equipment/briefcase_righthand.dmi'
+	lefthand_file = 'icons/mob/inhands/equipment/case_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/equipment/case_righthand.dmi'
 	desc = "A large briefcase with a digital locking system."
 	force = 8
 	hitsound = "swing_hit"
@@ -131,7 +131,6 @@
 	throw_range = 4
 	w_class = WEIGHT_CLASS_BULKY
 	attack_verb = list("bashed", "battered", "bludgeoned", "thrashed", "whacked")
-	block_upgrade_walk = 1
 
 /obj/item/storage/secure/briefcase/PopulateContents()
 	new /obj/item/paper(src)
@@ -167,6 +166,7 @@
 	icon_sparking = "safespark"
 	desc = "Excellent for securing things away from grubby hands."
 	force = 8
+	layer = ABOVE_WINDOW_LAYER
 	w_class = WEIGHT_CLASS_GIGANTIC
 	anchored = TRUE
 	density = FALSE
@@ -209,7 +209,7 @@ There appears to be a small amount of surface corrosion. It doesn't look like it
 	max_integrity = 300
 	color = "#ffdd33"
 
-/obj/item/storage/secure/safe/caps_spare/Initialize()
+/obj/item/storage/secure/safe/caps_spare/Initialize(mapload)
 	. = ..()
 	l_code = SSjob.spare_id_safe_code
 	l_set = TRUE

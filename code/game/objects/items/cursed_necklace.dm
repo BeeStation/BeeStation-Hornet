@@ -17,14 +17,14 @@
     if(slot == ITEM_SLOT_NECK && linked_ckey && user.ckey != linked_ckey)
         if(user.ckey && user.ckey == linked_ckey)
             hostage_ckey = user.ckey
-            user.ghostize(0)
+            user.ghostize(FALSE,SENTIENCE_ERASE)
         user.ckey = linked_ckey
         current_body = user
 
 /obj/item/clothing/neck/necklace/dope/cursed/dropped(mob/user)
-    . = ..()
+    ..()
     if(hostage_ckey)
         if(user.ckey)
-            user.ghostize(0)
+            user.ghostize(FALSE,SENTIENCE_ERASE)
         user.ckey = hostage_ckey
         current_body = null

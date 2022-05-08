@@ -6,7 +6,7 @@ Fever
 	No change to hidden.
 	Increases resistance.
 	Increases stage speed.
-	Little transmittable.
+	Little transmission.
 	Low level.
 
 Bonus
@@ -21,31 +21,35 @@ Bonus
 	stealth = -1
 	resistance = 3
 	stage_speed = 3
-	transmittable = 2
+	transmission = 2
 	level = 2
 	severity = 0
 	base_message_chance = 20
 	symptom_delay_min = 10
 	symptom_delay_max = 30
+	bodies = list("Fever")
+	suffixes = list(" Fever")
 	var/unsafe = FALSE //over the heat threshold
 	threshold_desc = "<b>Resistance 5:</b> Increases fever intensity, fever can overheat and harm the host.<br>\
 					  <b>Resistance 10:</b> Further increases fever intensity."
 
 /datum/symptom/fever/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.properties["resistance"] >= 5)
+	if(A.resistance >= 5)
 		severity += 1
-	if(A.properties["resistance"] >= 10)
-		severity += 1
+		prefixes = list("Desert")
+		if(A.resistance >= 10)
+			severity += 1
+			prefixes = list("Volcanic")
 
 /datum/symptom/fever/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.properties["resistance"] >= 5) //dangerous fever
+	if(A.resistance >= 5) //dangerous fever
 		power = 1.5
 		unsafe = TRUE
-	if(A.properties["resistance"] >= 10)
-		power = 2.5
+		if(A.resistance >= 10)
+			power = 2.5
 
 /datum/symptom/fever/Activate(datum/disease/advance/A)
 	if(!..())

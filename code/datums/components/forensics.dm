@@ -50,6 +50,8 @@
 	return TRUE
 
 /datum/component/forensics/proc/clean_act(datum/source, strength)
+	SIGNAL_HANDLER
+
 	if(strength >= CLEAN_STRENGTH_FINGERPRINTS)
 		wipe_fingerprints()
 	if(strength >= CLEAN_STRENGTH_BLOOD)
@@ -181,4 +183,4 @@
 		return
 	if(isitem(parent))
 		var/obj/item/I = parent
-		I.AddElement(/datum/element/decal/blood, initial(I.icon) || I.icon, initial(I.icon_state) || I.icon_state)
+		I.AddElement(/datum/element/decal/blood)

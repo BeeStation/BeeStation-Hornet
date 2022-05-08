@@ -43,6 +43,9 @@
 	else if(x<0)
 		.+=360
 
+//Better performant than an artisanal proc and more reliable than Turn(). From TGMC.
+#define REVERSE_DIR(dir) ( ((dir & 85) << 1) | ((dir & 170) >> 1) )
+
 //Returns location. Returns null if no location was found.
 /proc/get_teleport_loc(turf/location,mob/target,distance = 1, density = FALSE, closed = FALSE, errorx = 0, errory = 0, eoffsetx = 0, eoffsety = 0)
 /*
@@ -177,18 +180,6 @@ Turf and target are separate in case you want to teleport some distance from a t
 			line+=locate(px,py,M.z)
 	return line
 
-/// Returns whether or not a player is a guest using their ckey as an input
-/proc/IsGuestKey(key)
-	if (findtext(key, "Guest-", 1, 7) != 1) //was findtextEx
-		return FALSE
-
-	var/i, ch, len = length(key)
-
-	for (i = 7, i <= len, ++i) //we know the first 6 chars are Guest-
-		ch = text2ascii(key, i)
-		if (ch < 48 || ch > 57) //0-9
-			return FALSE
-	return TRUE
 
 //// Generalised helper proc for letting mobs rename themselves. Used to be clname() and ainame()
 /mob/proc/apply_pref_name(role, client/C)
@@ -240,28 +231,27 @@ Turf and target are separate in case you want to teleport some distance from a t
 /// Returns a list of unslaved cyborgs
 /proc/active_free_borgs()
 	. = list()
-	for(var/mob/living/silicon/robot/R in GLOB.alive_mob_list)
-		if(R.connected_ai || R.shell)
+	for(var/mob/living/silicon/robot/borg in GLOB.silicon_mobs)
+		if(borg.connected_ai || borg.shell)
 			continue
-		if(R.stat == DEAD)
+		if(borg.stat == DEAD)
 			continue
-		if(R.emagged || R.scrambledcodes)
+		if(borg.emagged || borg.scrambledcodes)
 			continue
-		. += R
+		. += borg
 
 /// Returns a list of AI's
-/proc/active_ais(check_mind=0)
+/proc/active_ais(check_mind=FALSE)
 	. = list()
-	for(var/mob/living/silicon/ai/A in GLOB.alive_mob_list)
-		if(A.stat == DEAD)
+	for(var/mob/living/silicon/ai/ai as anything in GLOB.ai_list)
+		if(ai.stat == DEAD)
 			continue
-		if(A.control_disabled)
+		if(ai.control_disabled)
 			continue
 		if(check_mind)
-			if(!A.mind)
+			if(!ai.mind)
 				continue
-		. += A
-	return .
+		. += ai
 
 /// Find an active ai with the least borgs. VERBOSE PROCNAME HUH!
 /proc/select_active_ai_with_fewest_borgs()
@@ -387,12 +377,23 @@ Turf and target are separate in case you want to teleport some distance from a t
 //For example, using this on a disk, which is in a bag, on a mob, will return the mob because it's on the turf.
 //Optional arg 'type' to stop once it reaches a specific type instead of a turf.
 /proc/get_atom_on_turf(atom/movable/M, stop_type)
-	var/atom/loc = M
-	while(loc && loc.loc && !isturf(loc.loc))
-		loc = loc.loc
-		if(stop_type && istype(loc, stop_type))
+	var/atom/turf_to_check = M
+	while(turf_to_check?.loc && !isturf(turf_to_check.loc))
+		turf_to_check = turf_to_check.loc
+		if(stop_type && istype(turf_to_check, stop_type))
 			break
-	return loc
+	return turf_to_check
+
+//Returns a list of all locations (except the area) the movable is within.
+/proc/get_nested_locs(atom/movable/AM, include_turf = FALSE)
+	. = list()
+	var/atom/location = AM.loc
+	var/turf/turf = get_turf(AM)
+	while(location && location != turf)
+		. += location
+		location = location.loc
+	if(location && include_turf) //At this point, only the turf is left, provided it exists.
+		. += location
 
 /// Returns the turf located at the map edge in the specified direction relative to A. Used for mass driver
 /proc/get_edge_target_turf(atom/A, direction)
@@ -441,7 +442,7 @@ Turf and target are separate in case you want to teleport some distance from a t
 	return locate(x,y,A.z)
 
 /// Gets all contents of contents and returns them all in a list.
-/atom/proc/GetAllContents(var/T)
+/atom/proc/GetAllContents(var/T, ignore_flag_1)
 	var/list/processing_list = list(src)
 	var/list/assembled = list()
 	if(T)
@@ -457,7 +458,8 @@ Turf and target are separate in case you want to teleport some distance from a t
 		while(processing_list.len)
 			var/atom/A = processing_list[1]
 			processing_list.Cut(1, 2)
-			processing_list += A.contents
+			if(!(A.flags_1 & ignore_flag_1))
+				processing_list += A.contents
 			assembled += A
 	return assembled
 
@@ -582,7 +584,7 @@ Takes: Area type as text string or as typepath OR an instance of the area.
 
 Returns: A list of all areas of that type in the world.
 */
-/proc/get_areas(areatype, subtypes=TRUE)
+/proc/get_areas(areatype, target_z = 0, subtypes=TRUE)
 	if(istext(areatype))
 		areatype = text2path(areatype)
 	else if(isarea(areatype))
@@ -593,16 +595,15 @@ Returns: A list of all areas of that type in the world.
 
 	var/list/areas = list()
 	if(subtypes)
-		var/list/cache = typecacheof(areatype)
-		for(var/V in GLOB.sortedAreas)
-			var/area/A = V
-			if(cache[A.type])
-				areas += V
+		for(var/area/A as() in GLOB.sortedAreas)
+			if(istype(A, areatype))
+				if(target_z == 0 || A.z == target_z)
+					areas += A
 	else
-		for(var/V in GLOB.sortedAreas)
-			var/area/A = V
+		for(var/area/A as() in GLOB.sortedAreas)
 			if(A.type == areatype)
-				areas += V
+				if(target_z == 0 || A.z == target_z)
+					areas += A
 	return areas
 
 /**
@@ -621,17 +622,14 @@ Returns: A list of all turfs in areas of that type of that type in the world.
 
 	var/list/turfs = list()
 	if(subtypes)
-		var/list/cache = typecacheof(areatype)
-		for(var/V in GLOB.sortedAreas)
-			var/area/A = V
-			if(!cache[A.type])
+		for(var/area/A as() in GLOB.sortedAreas)
+			if(!istype(A, areatype))
 				continue
 			for(var/turf/T in A)
 				if(target_z == 0 || target_z == T.z)
 					turfs += T
 	else
-		for(var/V in GLOB.sortedAreas)
-			var/area/A = V
+		for(var/area/A as() in GLOB.sortedAreas)
 			if(A.type != areatype)
 				continue
 			for(var/turf/T in A)
@@ -748,22 +746,6 @@ of course mathematically this is just adding `world.icon_size` on again
 			return loc
 		loc = loc.loc
 	return null
-
-
-//For objects that should embed, but make no sense being is_sharp or is_pointed() e.g: rods
-GLOBAL_LIST_INIT(can_embed_types, typecacheof(list(
-	/obj/item/stack/rods,
-	/obj/item/pipe)))
-
-/proc/can_embed(obj/item/W)
-	if(W.is_sharp())
-		return 1
-	if(is_pointed(W))
-		return 1
-
-	if(is_type_in_typecache(W, GLOB.can_embed_types))
-		return 1
-
 
 /*
 Checks if that loc and dir has an item on the wall
@@ -1121,26 +1103,31 @@ eg2: `center_image(I, 96,96)`
 /proc/get_random_station_turf()
 	return safepick(get_area_turfs(pick(GLOB.the_station_areas)))
 
-/proc/get_safe_random_station_turf()
-	for (var/i in 1 to 5)
-		var/list/L = get_area_turfs(pick(GLOB.the_station_areas))
-		var/turf/target
-		while (L.len && !target)
-			var/I = rand(1, L.len)
-			var/turf/T = L[I]
-			if(!T.density)
-				var/clear = TRUE
-				for(var/obj/O in T)
-					if(O.density)
-						clear = FALSE
-						break
-				if(clear)
-					target = T
-			if (!target)
-				L.Cut(I,I+1)
-		if (target)
-			return target
-
+///Returns a random turf or turf list on the station, excludes dense turfs (like walls) and areas with valid_territory set to FALSE
+/proc/get_safe_random_station_turfs(list/areas_to_pick_from = GLOB.the_station_areas, amount = 1)
+	var/list/picked_turfs = list()
+	var/list/turf_list = list()
+	for(var/area/A as() in areas_to_pick_from)
+		turf_list += get_area_turfs(A)
+	while(turf_list.len && length(picked_turfs) < amount)
+		var/I = rand(1, length(turf_list))
+		var/turf/checked_turf = turf_list[I]
+		var/area/turf_area = get_area(checked_turf)
+		if(!checked_turf.density && (turf_area.area_flags & VALID_TERRITORY) && !isgroundlessturf(checked_turf))
+			var/clear = TRUE
+			for(var/obj/checked_object in checked_turf)
+				if(checked_object.density)
+					clear = FALSE
+					break
+			if(clear)
+				picked_turfs |= checked_turf
+			turf_list.Cut(I,I+1)
+		CHECK_TICK
+	if(!picked_turfs.len)
+		return null
+	if(amount == 1)
+		return picked_turfs[1]
+	return picked_turfs
 
 /proc/get_closest_atom(type, list, source)
 	var/closest_atom
@@ -1295,7 +1282,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	move_resist = INFINITY
 	var/ready_to_die = FALSE
 
-/mob/dview/Initialize() //Properly prevents this mob from gaining huds or joining any global lists
+/mob/dview/Initialize(mapload) //Properly prevents this mob from gaining huds or joining any global lists
 	return INITIALIZE_HINT_NORMAL
 
 /mob/dview/Destroy(force = FALSE)
@@ -1373,11 +1360,11 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	var/user_loc = user.loc
 
 	var/drifting = FALSE
-	if(!user.Process_Spacemove(0) && user.inertia_dir)
+	if(SSmove_manager.processing_on(user, SSspacedrift))
 		drifting = TRUE
 
 	var/target_drifting = FALSE
-	if(!target.Process_Spacemove(0) && target.inertia_dir)
+	if(SSmove_manager.processing_on(user, SSspacedrift))
 		target_drifting = TRUE
 
 	var/target_loc = target.loc
@@ -1392,11 +1379,11 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 		if(uninterruptible)
 			continue
 
-		if(drifting && !user.inertia_dir)
+		if(drifting && SSmove_manager.processing_on(user, SSspacedrift))
 			drifting = FALSE
 			user_loc = user.loc
 
-		if(target_drifting && !target.inertia_dir)
+		if(target_drifting && SSmove_manager.processing_on(user, SSspacedrift))
 			target_drifting = FALSE
 			target_loc = target.loc
 
@@ -1588,6 +1575,8 @@ config_setting should be one of the following:
 
 /proc/CallAsync(datum/source, proctype, list/arguments)
 	set waitfor = FALSE
+	if(IsAdminAdvancedProcCall())
+		return
 	return call(source, proctype)(arglist(arguments))
 
 #define TURF_FROM_COORDS_LIST(List) (locate(List[1], List[2], List[3]))
@@ -1605,46 +1594,3 @@ config_setting should be one of the following:
 		if(-INFINITY to 0, 11 to INFINITY)
 			CRASH("Can't turn invalid directions!")
 	return turn(input_dir, 180)
-
-/**
- * Sends a topic call to crosscomms servers.
- *
- * Params:
- * sender - Name of the IC entity sending the message
- * msg - Message text to send
- * type - What handler the recieving server should use
- * insecure - Send the messages to insecure servers
-*/
-/proc/comms_send(sender, msg, type, insecure = FALSE)
-	var/list/message = list()
-	message["message_sender"] = sender
-	message["message"] = msg
-	message["source"] = "([CONFIG_GET(string/cross_comms_name)])"
-	message += type
-
-	var/comms_key = CONFIG_GET(string/comms_key)
-	if(comms_key)
-		message["key"] = comms_key
-		var/list/servers = CONFIG_GET(keyed_list/cross_server)
-		for(var/I in servers)
-			world.Export("[servers[I]]?[list2params(message)]")
-
-	comms_key = CONFIG_GET(string/comms_key_insecure)
-	if(comms_key && insecure)
-		message["key"] = comms_key
-		var/list/servers = CONFIG_GET(keyed_list/insecure_cross_server)
-		for(var/I in servers)
-			world.Export("[servers[I]]?[list2params(message)]")
-
-/proc/drop_shadow_filter(x, y, size, offset, color)
-	. = list("type" = "drop_shadow")
-	if(!isnull(x))
-		.["x"] = x
-	if(!isnull(y))
-		.["y"] = y
-	if(!isnull(size))
-		.["size"] = size
-	if(!isnull(offset))
-		.["offset"] = offset
-	if(!isnull(color))
-		.["color"] = color

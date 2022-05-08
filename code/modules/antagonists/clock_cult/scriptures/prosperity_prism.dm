@@ -28,7 +28,7 @@
 	var/toggled_on = TRUE
 	var/datum/reagents/holder
 
-/obj/structure/destructible/clockwork/gear_base/prosperityprism/Initialize()
+/obj/structure/destructible/clockwork/gear_base/prosperityprism/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSobj, src)
 	holder = new /datum/reagents(1000)
@@ -53,7 +53,7 @@
 	else if(depowered || !powered)
 		icon_state += "_inactive"
 
-/obj/structure/destructible/clockwork/gear_base/prosperityprism/process()
+/obj/structure/destructible/clockwork/gear_base/prosperityprism/process(delta_time)
 	if(!anchored)
 		toggled_on = FALSE
 		update_icon_state()
@@ -72,15 +72,15 @@
 		if(!L.toxloss && !L.staminaloss && !L.bruteloss && !L.fireloss)
 			continue
 		if(use_power(2))
-			L.adjustToxLoss(-10)
-			L.adjustStaminaLoss(-10)
-			L.adjustBruteLoss(-2)
-			L.adjustFireLoss(-2)
+			L.adjustToxLoss(-50*delta_time, FALSE, TRUE)
+			L.adjustStaminaLoss(-50*delta_time)
+			L.adjustBruteLoss(-10*delta_time)
+			L.adjustFireLoss(-10*delta_time)
 			new /obj/effect/temp_visual/heal(get_turf(L), "#45dd8a")
 			for(var/datum/reagent/R in L.reagents.reagent_list)
 				if(istype(R, /datum/reagent/toxin))
-					L.reagents.remove_reagent(R.type, 10)
-					holder.add_reagent(R.type, 10)
+					L.reagents.remove_reagent(R.type, 50*delta_time)
+					holder.add_reagent(R.type, 50*delta_time)
 
 /obj/structure/destructible/clockwork/gear_base/prosperityprism/attack_hand(mob/user)
 	if(is_servant_of_ratvar(user))

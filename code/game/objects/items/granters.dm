@@ -159,7 +159,7 @@
 
 /obj/item/book/granter/spell/fireball/recoil(mob/user)
 	..()
-	explosion(user.loc, 1, 0, 2, 3, FALSE, FALSE, 2)
+	explosion(user.loc, 1, 0, 2, 3, FALSE, FALSE, 2, magic = TRUE)
 	qdel(src)
 
 /obj/item/book/granter/spell/sacredflame
@@ -188,11 +188,11 @@
 			user.set_nutrition(0)
 
 /obj/item/book/granter/spell/blind
-	spell = /obj/effect/proc_holder/spell/pointed/trigger/blind
+	spell = /obj/effect/proc_holder/spell/targeted/blind
 	spellname = "blind"
 	icon_state ="bookblind"
 	desc = "This book looks blurry, no matter how you look at it."
-	remarks = list("Well I can't learn anything if I can't read the damn thing!", "Why would you use a dark font on a dark background...", "Ah, I can't see an Oh, I'm fine...", "I can't see my hand...!", "I'm manually blinking, damn you book...", "I can't read this page, but somehow I feel like I learned something from it...", "Hey, who turned off the lights?")
+	remarks = list("Well I can't learn anything if I can't read the damn thing!", "Why would you use a dark font on a dark background...", "Ah, I can't see an- Oh, I'm fine...", "I can't see my hand...!", "I'm manually blinking, damn you book...", "I can't read this page, but somehow I feel like I learned something from it...", "Hey, who turned off the lights?")
 
 /obj/item/book/granter/spell/blind/recoil(mob/user)
 	..()
@@ -244,7 +244,7 @@
 	..()
 	to_chat(user,"<span class='warning'>You suddenly feel very solid!</span>")
 	user.Stun(40, ignore_canstun = TRUE)
-	user.petrify(30)
+	user.petrify(60)
 
 /obj/item/book/granter/spell/knock
 	spell = /obj/effect/proc_holder/spell/aoe_turf/knock
@@ -286,7 +286,7 @@
 /obj/item/book/granter/spell/charge/recoil(mob/user)
 	..()
 	to_chat(user,"<span class='warning'>[src] suddenly feels very warm!</span>")
-	empulse(src, 1, 1)
+	empulse(src, 1, 1, magic=TRUE)
 
 /obj/item/book/granter/spell/summonitem
 	spell = /obj/effect/proc_holder/spell/targeted/summonitem
@@ -303,7 +303,7 @@
 /obj/item/book/granter/spell/random
 	icon_state = "random_book"
 
-/obj/item/book/granter/spell/random/Initialize()
+/obj/item/book/granter/spell/random/Initialize(mapload)
 	. = ..()
 	var/static/banned_spells = list(/obj/item/book/granter/spell/mimery_blockade, /obj/item/book/granter/spell/mimery_guns)
 	var/real_type = pick(subtypesof(/obj/item/book/granter/spell) - banned_spells)

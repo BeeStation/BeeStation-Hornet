@@ -15,12 +15,19 @@ BONUS
 */
 /datum/symptom/viraladaptation
 	name = "Viral self-adaptation"
-	desc = "The virus mimics the function of normal body cells, becoming harder to spot and to eradicate, but reducing its speed."
+	desc = "The virus mimics the function of normal body cells, becoming harder to spot and to eradicate, but reducing its speed. This symptom discourages disease mutation"
 	stealth = 3
 	resistance = 5
 	stage_speed = -3
-	transmittable = 0
-	level = 3
+	transmission = 0
+	level = 4
+	prefixes = list("Chronic ")
+
+/datum/symptom/viraladaptation/OnAdd(datum/disease/advance/A)
+	A.mutability -= 0.5
+
+/datum/symptom/viraladaptation/OnRemove(datum/disease/advance/A)
+	A.mutability += 0.5
 
 /*
 //////////////////////////////////////
@@ -40,12 +47,19 @@ BONUS
 /datum/symptom/viralevolution
 	name = "Viral evolutionary acceleration"
 	desc = "The virus quickly adapts to spread as fast as possible both outside and inside a host. \
-	This, however, makes the virus easier to spot, and less able to fight off a cure."
+	This, however, makes the virus easier to spot, and less able to fight off a cure. This symptom encourages disease mutation"
 	stealth = -2
 	resistance = -3
 	stage_speed = 5
-	transmittable = 3
-	level = 3
+	transmission = 3
+	level = 4
+	prefixes = list("Unstable ")
+
+/datum/symptom/viralevolution/OnAdd(datum/disease/advance/A)
+	A.mutability += 2
+
+/datum/symptom/viralevolution/OnRemove(datum/disease/advance/A)
+	A.mutability -= 1
 
 /*
 //////////////////////////////////////
@@ -65,22 +79,23 @@ Bonus
 //////////////////////////////////////
 */
 
-/datum/symptom/viralreverse		
+/datum/symptom/viralreverse
 
 	name = "Viral aggressive metabolism"
 	desc = "The virus sacrifices its long term survivability to nearly instantly fully spread inside a host. \
 	The virus will start at the last stage, but will eventually decay and die off by itself."
 	stealth = 1
-	resistance = -4
+	resistance = 1
 	stage_speed = 3
-	transmittable = -3
-	level = 3
+	transmission = -4
+	level = 4
 	symptom_delay_min = 1
 	symptom_delay_max = 1
+	prefixes = list("Spontaneous ")
 	var/time_to_cure
 	threshold_desc = "<b>Resistance/Stage Speed:</b> Highest between these determines the amount of time before self-curing.<br>\
-					  <b>Stealth 4</b> Doubles the time before the virus self-cures"	
-	
+					  <b>Stealth 4</b> Doubles the time before the virus self-cures"
+
 
 /datum/symptom/viralreverse/Activate(datum/disease/advance/A)
 	if(!..())
@@ -95,12 +110,12 @@ Bonus
 	A.stage -= 1
 	if(A.stage < 2)
 		to_chat(M, "<span class='notice'>You suddenly feel healthy.</span>")
-		A.cure()
+		A.cure(FALSE) //Doesn't Add Resistance. Virology can now make potions for stuff, be it healing the senses or making people explode
 
 /datum/symptom/viralreverse/Start(datum/disease/advance/A)
 	if(!..())
 		return
 	A.stage = 5
-	if(A.properties["stealth"] >= 4) //more time before it's cured
+	if(A.stealth >= 4) //more time before it's cured
 		power = 2
-	time_to_cure = max(A.properties["resistance"], A.properties["stage_rate"]) * 10 * power
+	time_to_cure = max(A.resistance, A.stage_rate) * 10 * power

@@ -262,7 +262,6 @@
 
 	return O.equip(src, visualsOnly)
 
-
 //delete all equipment without dropping anything
 /mob/living/carbon/human/proc/delete_equipment()
 	for(var/slot in get_all_slots())//order matters, dependant slots go first

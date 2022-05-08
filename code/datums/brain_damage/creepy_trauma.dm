@@ -25,6 +25,7 @@
 			lose_text = ""
 			qdel(src)
 			return
+	RegisterSignal(obsession.mind, COMSIG_MIND_CRYOED, .proc/on_obsession_cryoed)
 	gain_text = "<span class='warning'>You hear a sickening, raspy voice in your head. It wants one small task of you...</span>"
 	owner.mind.add_antag_datum(/datum/antagonist/obsessed)
 	antagonist = owner.mind.has_antag_datum(/datum/antagonist/obsessed)
@@ -64,6 +65,9 @@
 
 /datum/brain_trauma/special/obsessed/on_lose()
 	..()
+
+	UnregisterSignal(obsession.mind, COMSIG_MIND_CRYOED)
+	antagonist?.trauma = null
 	owner.mind.remove_antag_datum(/datum/antagonist/obsessed)
 
 /datum/brain_trauma/special/obsessed/handle_speech(datum/source, list/speech_args)
@@ -77,6 +81,23 @@
 	if(hugged == obsession)
 		obsession_hug_count++
 
+/datum/brain_trauma/special/obsessed/proc/on_obsession_cryoed()
+	SIGNAL_HANDLER
+
+	UnregisterSignal(obsession.mind, COMSIG_MIND_CRYOED)
+	var/message = "You get the feeling [obsession] is no longer within reach."
+	obsession = find_obsession()
+	if(!obsession)//we didn't find one
+		lose_text = "<span class='warning'>[message] The voices in your head fall silent.</span>"
+		qdel(src)
+		return
+	RegisterSignal(obsession.mind, COMSIG_MIND_CRYOED, .proc/on_obsession_cryoed)
+	to_chat(owner, "<span class='warning'>[message] The voices have a new task for you...</span>")
+	antagonist.objectives = list()
+	antagonist.forge_objectives(obsession.mind)
+	to_chat(owner, "<B>You don't know their connection, but The Voices compel you to stalk [obsession], forcing them into a state of constant paranoia.</B>")
+	owner.mind.announce_objectives()
+
 /datum/brain_trauma/special/obsessed/proc/social_interaction()
 	var/fail = FALSE //whether you can finish a sentence while doing it
 	owner.stuttering = max(3, owner.stuttering)
@@ -87,7 +108,7 @@
 			owner.vomit()
 			fail = TRUE
 		if(2)
-			owner.emote("cough")
+			INVOKE_ASYNC(owner, /mob.proc/emote, "cough")
 			owner.dizziness += 10
 			fail = TRUE
 		if(3)

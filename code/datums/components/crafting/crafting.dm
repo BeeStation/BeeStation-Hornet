@@ -189,6 +189,20 @@
 		return ", missing tool."
 	return ", missing component."
 
+/datum/component/personal_crafting/proc/construct_item_ui(mob/user, datum/crafting_recipe/TR)
+	var/atom/movable/result = construct_item(user, TR)
+	if(!istext(result)) //We made an item and didn't get a fail message
+		if(ismob(user) && isitem(result)) //In case the user is actually possessing a non mob like a machine
+			user.put_in_hands(result)
+		else
+			result.forceMove(user.drop_location())
+		to_chat(user, "<span class='notice'>[TR.name] constructed.</span>")
+	else
+		to_chat(user, "<span class='warning'>Construction failed[result]</span>")
+	busy = FALSE
+	SStgui.update_uis(src)
+
+
 /*Del reqs works like this:
 
 	Loop over reqs var of the recipe
@@ -312,8 +326,10 @@
 		qdel(DL)
 
 /datum/component/personal_crafting/proc/component_ui_interact(atom/movable/screen/craft/image, location, control, params, user)
+	SIGNAL_HANDLER
+
 	if(user == parent)
-		ui_interact(user)
+		INVOKE_ASYNC(src, .proc/ui_interact, user)
 
 /datum/component/personal_crafting/ui_state(mob/user)
 	return GLOB.not_incapacitated_turf_state
@@ -387,20 +403,15 @@
 		return
 	switch(action)
 		if("make")
+			if(busy) // Prevent potentially crafting multiple things at once
+				return
 			var/mob/user = usr
 			var/datum/crafting_recipe/TR = locate(params["recipe"]) in GLOB.crafting_recipes
+			if(!TR)
+				return
 			busy = TRUE
-			ui_interact(user)
-			var/atom/movable/result = construct_item(user, TR)
-			if(!istext(result)) //We made an item and didn't get a fail message
-				if(ismob(user) && isitem(result)) //In case the user is actually possessing a non mob like a machine
-					user.put_in_hands(result)
-				else
-					result.forceMove(user.drop_location())
-				to_chat(user, "<span class='notice'>[TR.name] constructed.</span>")
-			else
-				to_chat(user, "<span class='warning'>Construction failed[result]</span>")
-			busy = FALSE
+			. = TRUE
+			INVOKE_ASYNC(src, .proc/construct_item_ui, user, TR)
 		if("toggle_recipes")
 			display_craftable_only = !display_craftable_only
 			. = TRUE

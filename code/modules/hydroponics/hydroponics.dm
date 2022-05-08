@@ -101,18 +101,18 @@
 	else
 		return ..()
 
-/obj/machinery/hydroponics/process()
+/obj/machinery/hydroponics/process(delta_time)
 	var/needs_update = 0 // Checks if the icon needs updating so we don't redraw empty trays every time
 
 	if(myseed && (myseed.loc != src))
 		myseed.forceMove(src)
 
 	if(self_sustaining)
-		adjustNutri(1)
-		adjustWater(rand(3,5))
-		adjustWeeds(-2)
-		adjustPests(-2)
-		adjustToxic(-2)
+		adjustNutri(0.5 * delta_time)
+		adjustWater(rand(1,2) * delta_time * 0.5)
+		adjustWeeds(-1 * delta_time)
+		adjustPests(-1 * delta_time)
+		adjustToxic(-1 * delta_time)
 
 	if(world.time > (lastcycle + cycledelay))
 		lastcycle = world.time
@@ -286,7 +286,7 @@
 			set_light(G.glow_range(myseed), G.glow_power(myseed), G.glow_color)
 		else
 			set_light(0)
-
+	update_name()
 	return
 
 /obj/machinery/hydroponics/proc/update_icon_hoses()
@@ -389,7 +389,6 @@
 	pestlevel = 0 // Reset
 	update_icon()
 	visible_message("<span class='warning'>The [oldPlantName] is overtaken by some [myseed.plantname]!</span>")
-	update_name()
 
 
 /obj/machinery/hydroponics/proc/mutate(lifemut = 2, endmut = 5, productmut = 1, yieldmut = 2, potmut = 25, wrmut = 2, wcmut = 5, traitmut = 0) // Mutates the current seed
@@ -421,10 +420,8 @@
 	harvest = 0
 	weedlevel = 0 // Reset
 
-	sleep(5) // Wait a while
-	update_icon()
-	visible_message("<span class='warning'>[oldPlantName] suddenly mutates into [myseed.plantname]!</span>")
-	update_name()
+	var/message = "<span class='warning'>[oldPlantName] suddenly mutates into [myseed.plantname]!</span>"
+	addtimer(CALLBACK(src, .proc/after_mutation, message), 0.5 SECONDS)
 
 
 /obj/machinery/hydroponics/proc/mutateweed() // If the weeds gets the mutagent instead. Mind you, this pretty much destroys the old plant
@@ -442,13 +439,16 @@
 		harvest = 0
 		weedlevel = 0 // Reset
 
-		sleep(5) // Wait a while
-		update_icon()
-		visible_message("<span class='warning'>The mutated weeds in [src] spawn some [myseed.plantname]!</span>")
-		update_name()
+		var/message = "<span class='warning'>The mutated weeds in [src] spawn some [myseed.plantname]!</span>"
+		addtimer(CALLBACK(src, .proc/after_mutation, message), 0.5 SECONDS)
 	else
 		to_chat(usr, "<span class='warning'>The few weeds in [src] seem to react, but only for a moment...</span>")
 
+
+//Called after plant mutation, update the appearance of the tray content and send a visible_message()
+/obj/machinery/hydroponics/proc/after_mutation(message)
+	update_icon()
+	visible_message(message)
 
 /obj/machinery/hydroponics/proc/plantdies() // OH NOES!!!!! I put this all in one function to make things easier
 	plant_health = 0
@@ -595,7 +595,7 @@
 		adjustHealth(round(S.get_reagent_amount(/datum/reagent/consumable/sodawater) * 0.1))
 		adjustNutri(round(S.get_reagent_amount(/datum/reagent/consumable/sodawater) * 0.1))
 
-	// Man, you guys are retards
+	// Man, you guys are stupid
 	if(S.has_reagent(/datum/reagent/toxin/acid, 1))
 		adjustHealth(-round(S.get_reagent_amount(/datum/reagent/toxin/acid) * 1))
 		adjustToxic(round(S.get_reagent_amount(/datum/reagent/toxin/acid) * 1.5))
@@ -785,7 +785,6 @@
 			to_chat(user, "<span class='notice'>You plant [O].</span>")
 			dead = 0
 			myseed = O
-			update_name()
 			age = 1
 			lastproduce = 1
 			plant_health = myseed.endurance
@@ -853,7 +852,6 @@
 					harvest = FALSE //To make sure they can't just put in another seed and insta-harvest it
 				qdel(myseed)
 				myseed = null
-				update_name()
 			weedlevel = 0 //Has a side effect of cleaning up those nasty weeds
 			update_icon()
 
@@ -878,7 +876,7 @@
 	if(issilicon(user)) //How does AI know what plant is?
 		return
 	harvest_plant(user)
-		
+
 /obj/machinery/hydroponics/proc/harvest_plant(mob/user)
 	if(harvest)
 		return myseed.harvest(user)
@@ -888,7 +886,6 @@
 		to_chat(user, "<span class='notice'>You remove the dead plant from [src].</span>")
 		qdel(myseed)
 		myseed = null
-		update_name()
 		update_icon()
 	else
 		if(user)
@@ -906,7 +903,6 @@
 	if(!myseed.get_gene(/datum/plant_gene/trait/repeated_harvest))
 		qdel(myseed)
 		myseed = null
-		update_name()
 		dead = 0
 		age = 0
 		lastproduce = 0
@@ -947,6 +943,8 @@
 	update_icon()
 
 /obj/machinery/hydroponics/proc/update_name()
+	if(renamedByPlayer)
+		return
 	if(myseed)
 		name = "[initial(name)] ([myseed.plantname])"
 	else

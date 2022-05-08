@@ -10,7 +10,7 @@
 
 /obj/item/pda/clown/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/slippery, 7SECONDS, NO_SLIP_WHEN_WALKING, CALLBACK(src, .proc/AfterSlip), 5SECONDS)
+	AddComponent(/datum/component/slippery, 7 SECONDS, NO_SLIP_WHEN_WALKING, CALLBACK(src, .proc/AfterSlip), 5 SECONDS)
 
 /obj/item/pda/clown/proc/AfterSlip(mob/living/carbon/human/M)
 	if (istype(M) && (M.real_name != owner))
@@ -18,6 +18,7 @@
 		var/obj/item/cartridge/virus/clown/cart = cartridge
 		if(istype(cart) && cart.charges < 5)
 			cart.charges++
+			playsound(src,'sound/machines/ping.ogg', 30, TRUE)
 
 //Mime PDA sends "silent" messages.
 /obj/item/pda/mime
@@ -44,7 +45,6 @@
 /obj/item/pda/ai
 	icon = null
 	ttone = "data"
-	fon = FALSE
 	detonatable = FALSE
 
 /obj/item/pda/ai/attack_self(mob/user)
@@ -152,6 +152,10 @@
 /obj/item/pda/shaftminer
 	name = "shaft miner PDA"
 	icon_state = "pda-miner"
+
+/obj/item/pda/exploration
+	name = "exploration PDA"
+	icon_state = "pda-exploration"
 
 /obj/item/pda/syndicate
 	default_cartridge = /obj/item/cartridge/virus/syndicate

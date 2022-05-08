@@ -80,7 +80,7 @@
 /area/reebe/city_of_cogs)
 "v" = (
 /obj/structure/table/brass,
-/obj/item/drone_shell/cogscarab,
+/obj/effect/mob_spawn/drone/cogscarab,
 /turf/open/floor/clockwork/reebe,
 /area/reebe/city_of_cogs)
 "w" = (

@@ -21,25 +21,24 @@ GLOBAL_LIST_INIT(meteorsC, list(/obj/effect/meteor/dust)) //for space dust event
 //Meteor spawning global procs
 ///////////////////////////////
 
-/proc/spawn_meteors(number = 10, list/meteortypes)
+/proc/spawn_meteors(number = 10, list/meteortypes, z = 0)
 	for(var/i = 0; i < number; i++)
-		spawn_meteor(meteortypes)
+		spawn_meteor(meteortypes, z)
 
-/proc/spawn_meteor(list/meteortypes)
+/proc/spawn_meteor(list/meteortypes, z = 0)
 	var/turf/pickedstart
 	var/turf/pickedgoal
 	var/max_i = 10//number of tries to spawn meteor.
 	while(!isspaceturf(pickedstart))
 		var/startSide = pick(GLOB.cardinals)
-		var/startZ = pick(SSmapping.levels_by_trait(ZTRAIT_STATION))
+		var/startZ = (z || pick(SSmapping.levels_by_trait(ZTRAIT_STATION)))
 		pickedstart = spaceDebrisStartLoc(startSide, startZ)
 		pickedgoal = spaceDebrisFinishLoc(startSide, startZ)
 		max_i--
 		if(max_i<=0)
 			return
 	var/Me = pickweight(meteortypes)
-	var/obj/effect/meteor/M = new Me(pickedstart, pickedgoal)
-	M.dest = pickedgoal
+	new Me(pickedstart, pickedgoal)
 
 /proc/spaceDebrisStartLoc(startSide, Z)
 	var/starty
@@ -77,6 +76,45 @@ GLOBAL_LIST_INIT(meteorsC, list(/obj/effect/meteor/dust)) //for space dust event
 			endx = world.maxx-(TRANSITIONEDGE+1)
 	. = locate(endx, endy, Z)
 
+//These two procs give space debris start and end turfs with a higher chance of hitting the center of the station
+/proc/aimbotDebrisStartLoc(startSide, Z)
+	var/starty
+	var/startx
+	var/generator/G = generator("num", TRANSITIONEDGE + 1, world.maxx - (TRANSITIONEDGE + 1), "NORMAL_RAND")
+	switch(startSide)
+		if(NORTH)
+			starty = world.maxy-(TRANSITIONEDGE+1)
+			startx = G.Rand()
+		if(EAST)
+			starty = G.Rand()
+			startx = world.maxx-(TRANSITIONEDGE+1)
+		if(SOUTH)
+			starty = (TRANSITIONEDGE+1)
+			startx = G.Rand()
+		if(WEST)
+			starty = G.Rand()
+			startx = (TRANSITIONEDGE+1)
+	. = locate(startx, starty, Z)
+
+/proc/aimbotDebrisFinishLoc(startSide, Z)
+	var/endy
+	var/endx
+	var/generator/G = generator("num", TRANSITIONEDGE + 1, world.maxx - (TRANSITIONEDGE + 1), NORMAL_RAND)
+	switch(startSide)
+		if(NORTH)
+			endy = (TRANSITIONEDGE+1)
+			endx = G.Rand()
+		if(EAST)
+			endy = G.Rand()
+			endx = (TRANSITIONEDGE+1)
+		if(SOUTH)
+			endy = world.maxy-(TRANSITIONEDGE+1)
+			endx = G.Rand()
+		if(WEST)
+			endy = G.Rand()
+			endx = world.maxx-(TRANSITIONEDGE+1)
+	. = locate(endx, endy, Z)
+
 ///////////////////////
 //The meteor effect
 //////////////////////
@@ -90,38 +128,18 @@ GLOBAL_LIST_INIT(meteorsC, list(/obj/effect/meteor/dust)) //for space dust event
 	anchored = TRUE
 	var/hits = 4
 	var/hitpwr = 2 //Level of ex_act to be called on hit.
-	var/dest
 	pass_flags = PASSTABLE
 	var/heavy = 0
 	var/meteorsound = 'sound/effects/meteorimpact.ogg'
 	var/z_original
 	var/threat = 0 // used for determining which meteors are most interesting
-	var/lifetime = DEFAULT_METEOR_LIFETIME
-	var/timerid = null
 	var/list/meteordrop = list(/obj/item/stack/ore/iron)
 	var/dropamt = 2
+	///The thing we're moving towards, usually a turf
+	var/atom/dest
+	///Lifetime in seconds
+	var/lifetime = DEFAULT_METEOR_LIFETIME
 
-/obj/effect/meteor/Move()
-	if(z != z_original || loc == dest)
-		qdel(src)
-		return FALSE
-
-	. = ..() //process movement...
-
-	if(.)//.. if did move, ram the turf we get in
-		var/turf/T = get_turf(loc)
-		ram_turf(T)
-
-		if(prob(10) && !isspaceturf(T))//randomly takes a 'hit' from ramming
-			get_hit()
-
-/obj/effect/meteor/Destroy()
-	if (timerid)
-		deltimer(timerid)
-	GLOB.meteor_list -= src
-	SSaugury.unregister_doom(src)
-	walk(src,0) //this cancels the walk_towards() proc
-	. = ..()
 
 /obj/effect/meteor/Initialize(mapload, target)
 	. = ..()
@@ -129,8 +147,34 @@ GLOBAL_LIST_INIT(meteorsC, list(/obj/effect/meteor/dust)) //for space dust event
 	GLOB.meteor_list += src
 	SSaugury.register_doom(src, threat)
 	SpinAnimation()
-	timerid = QDEL_IN(src, lifetime)
 	chase_target(target)
+
+/obj/effect/meteor/Destroy()
+	GLOB.meteor_list -= src
+	SSaugury.unregister_doom(src)
+	if(istype(loc, /obj/effect/falling_meteor))
+		var/obj/effect/falling_meteor/holder = loc
+		holder.contained_meteor = null
+		if(!QDELETED(holder))
+			qdel(holder)
+	. = ..()
+/obj/effect/meteor/Moved(atom/OldLoc, Dir, Forced = FALSE)
+	. = ..()
+	if(QDELETED(src))
+		return
+	if(OldLoc != loc)//If did move, ram the turf we get in
+		var/turf/T = get_turf(loc)
+		ram_turf(T)
+
+		if(prob(10) && !isspaceturf(T))//randomly takes a 'hit' from ramming
+			get_hit()
+
+	if(z != z_original || loc == get_turf(dest))
+		qdel(src)
+		return
+
+/obj/effect/meteor/Process_Spacemove()
+	return TRUE //Keeps us from drifting for no reason
 
 /obj/effect/meteor/Bump(atom/A)
 	if(A)
@@ -138,27 +182,34 @@ GLOBAL_LIST_INIT(meteorsC, list(/obj/effect/meteor/dust)) //for space dust event
 		playsound(src.loc, meteorsound, 40, 1)
 		get_hit()
 
+/obj/effect/meteor/proc/chase_target(atom/chasing, delay, home)
+	if(!isatom(chasing))
+		return
+	var/datum/move_loop/new_loop = SSmove_manager.move_towards(src, chasing, delay, home, lifetime)
+	if(!new_loop)
+		return
+
+	RegisterSignal(new_loop, COMSIG_PARENT_QDELETING, .proc/handle_stopping)
+
+///Deals with what happens when we stop moving, IE we die
+/obj/effect/meteor/proc/handle_stopping()
+	SIGNAL_HANDLER
+	if(!QDELETED(src))
+		qdel(src)
+
 /obj/effect/meteor/proc/ram_turf(turf/T)
-	//first bust whatever is in the turf
-	for(var/thing in T)
-		if(thing == src)
-			continue
-		if(isliving(thing))
-			var/mob/living/living_thing = thing
-			living_thing.visible_message("<span class='warning'>[src] slams into [living_thing].</span>", "<span class='userdanger'>[src] slams into you!.</span>")
-		switch(hitpwr)
-			if(EXPLODE_DEVASTATE)
-				SSexplosions.high_mov_atom += thing
-			if(EXPLODE_HEAVY)
-				SSexplosions.med_mov_atom += thing
-			if(EXPLODE_LIGHT)
-				SSexplosions.low_mov_atom += thing
+	//first yell at mobs about them dying horribly
+	for(var/mob/living/living_thing in T)
+		living_thing.visible_message("<span class='warning'>[src] slams into [living_thing].</span>", "<span class='userdanger'>[src] slams into you!.</span>")
 
-	//then, ram the turf if it still exists
-	if(T)
-		T.ex_act(hitpwr)
-
-
+	//then, ram the turf
+	switch(hitpwr)
+		if(EXPLODE_DEVASTATE)
+			SSexplosions.highturf += T
+		if(EXPLODE_HEAVY)
+			SSexplosions.medturf += T
+		if(EXPLODE_LIGHT)
+			SSexplosions.lowturf += T
 
 //process getting 'hit' by colliding with a dense object
 //or randomly when ramming turfs
@@ -175,7 +226,7 @@ GLOBAL_LIST_INIT(meteorsC, list(/obj/effect/meteor/dust)) //for space dust event
 /obj/effect/meteor/examine(mob/user)
 	. = ..()
 	if(!(flags_1 & ADMIN_SPAWNED_1) && isliving(user))
-		SSmedals.UnlockMedal(MEDAL_METEOR, user.client)
+		user.client.give_award(/datum/award/achievement/misc/meteor_examine, user)
 
 /obj/effect/meteor/attackby(obj/item/I, mob/user, params)
 	if(I.tool_behaviour == TOOL_MINING)
@@ -189,11 +240,6 @@ GLOBAL_LIST_INIT(meteorsC, list(/obj/effect/meteor/dust)) //for space dust event
 		var/thing_to_spawn = pick(meteordrop)
 		new thing_to_spawn(get_turf(src))
 
-/obj/effect/meteor/proc/chase_target(atom/chasing, delay = 1)
-	set waitfor = FALSE
-	if(chasing)
-		walk_towards(src, chasing, delay)
-
 /obj/effect/meteor/proc/meteor_effect()
 	if(heavy)
 		var/sound/meteor_sound = sound(meteorsound)
@@ -203,7 +249,7 @@ GLOBAL_LIST_INIT(meteorsC, list(/obj/effect/meteor/dust)) //for space dust event
 			if((M.orbiting) && (SSaugury.watchers[M]))
 				continue
 			var/turf/T = get_turf(M)
-			if(!T || T.z != src.z)
+			if(!T || T.get_virtual_z_level() != src.get_virtual_z_level())
 				continue
 			var/dist = get_dist(M.loc, src.loc)
 			shake_camera(M, dist > 20 ? 2 : 4, dist > 20 ? 1 : 3)
@@ -288,7 +334,7 @@ GLOBAL_LIST_INIT(meteorsC, list(/obj/effect/meteor/dust)) //for space dust event
 	var/meteorgibs = /obj/effect/gibspawner/generic
 	threat = 2
 
-/obj/effect/meteor/meaty/Initialize()
+/obj/effect/meteor/meaty/Initialize(mapload)
 	for(var/path in meteordrop)
 		if(path == /obj/item/reagent_containers/food/snacks/meat/slab/human/mutant)
 			meteordrop -= path
@@ -319,7 +365,7 @@ GLOBAL_LIST_INIT(meteorsC, list(/obj/effect/meteor/dust)) //for space dust event
 	meteordrop = list(/obj/item/reagent_containers/food/snacks/meat/slab/xeno, /obj/item/organ/tongue/alien)
 	meteorgibs = /obj/effect/gibspawner/xeno
 
-/obj/effect/meteor/meaty/xeno/Initialize()
+/obj/effect/meteor/meaty/xeno/Initialize(mapload)
 	meteordrop += subtypesof(/obj/item/organ/alien)
 	return ..()
 
@@ -370,8 +416,73 @@ GLOBAL_LIST_INIT(meteorsSPOOKY, list(/obj/effect/meteor/pumpkin))
 	meteordrop = list(/obj/item/clothing/head/hardhat/pumpkinhead, /obj/item/reagent_containers/food/snacks/grown/pumpkin)
 	threat = 100
 
-/obj/effect/meteor/pumpkin/Initialize()
+/obj/effect/meteor/pumpkin/Initialize(mapload)
 	. = ..()
 	meteorsound = pick('sound/hallucinations/im_here1.ogg','sound/hallucinations/im_here2.ogg')
 //////////////////////////
 #undef DEFAULT_METEOR_LIFETIME
+
+//////////////////////////
+// Falling meteors
+/////////////////////////
+
+/obj/effect/falling_meteor
+	name = "falling meteor"
+	desc = "..."
+	alpha = 0
+	var/obj/effect/meteor/contained_meteor
+	var/obj/effect/meteor_shadow/shadow
+	var/falltime = 2 SECONDS
+	var/prefalltime = 8 SECONDS
+	layer = METEOR_LAYER
+
+/obj/effect/falling_meteor/Initialize(mapload, loc, meteor_type)
+	. = ..()
+	if(!meteor_type)
+		meteor_type = /obj/effect/meteor/big
+	contained_meteor = new meteor_type(src)
+	name = contained_meteor.name
+	desc = contained_meteor.desc
+	icon = contained_meteor.icon
+	icon_state = contained_meteor.icon_state
+	var/matrix/M = new()
+	M.Scale(3, 3)
+	M.Translate(-1.5 * world.icon_size, -1.5 * world.icon_size)
+	M.Translate(0, world.icon_size * 7)
+	transform = M
+	INVOKE_ASYNC(src, .proc/fall_animation)
+
+/obj/effect/falling_meteor/Destroy(force)
+	if(contained_meteor)
+		QDEL_NULL(contained_meteor)
+	QDEL_NULL(shadow)
+	. = ..()
+
+/obj/effect/falling_meteor/proc/fall_animation()
+	//Create a dummy effect
+	shadow = new(get_turf(src))
+	shadow.icon = icon
+	shadow.icon_state = icon_state
+	animate(shadow, time = (prefalltime + falltime), transform = matrix(), alpha = 255)
+	sleep(prefalltime)
+	animate(src, 5, alpha = 255)
+	animate(src, falltime, transform = matrix(), flags = ANIMATION_PARALLEL)
+	sleep(falltime)
+	contained_meteor.forceMove(loc)
+	contained_meteor.make_debris()
+	contained_meteor.meteor_effect()
+	qdel(src)
+
+/obj/effect/meteor_shadow
+	name = "shadow"
+	desc = "What the hell? Is something falling out the sky???"
+	alpha = 0
+	layer = METEOR_SHADOW_LAYER
+
+/obj/effect/meteor_shadow/Initialize(mapload)
+	. = ..()
+	color = list(0, 0, 0, 0, 0, 0, 0, 0, 0)
+	var/matrix/M = matrix()
+	M.Scale(3, 3)
+	M.Translate(-1.5 * world.icon_size, -1.5 * world.icon_size)
+	transform = M

@@ -16,7 +16,7 @@
 		return
 	var/dist = get_dist(user.loc,target.loc)
 	var/dir = get_dir(user.loc,target.loc)
-	if(user.z != target.z)
+	if(user.get_virtual_z_level() != target.get_virtual_z_level())
 		to_chat(user,"<span class='warning'>[target.real_name] is on another plane of existance!</span>")
 	else
 		switch(dist)
@@ -29,6 +29,17 @@
 
 	if(target.stat == DEAD)
 		to_chat(user,"<span class='warning'>[target.real_name] is dead. Bring them to a transmutation rune!</span>")
+
+/obj/item/living_heart/proc/set_target(datum/mind/new_target)
+	if(target?.mind)
+		UnregisterSignal(target.mind, COMSIG_MIND_CRYOED)
+	target = new_target?.current
+	if(target?.mind)
+		RegisterSignal(target.mind, COMSIG_MIND_CRYOED, .proc/on_target_cryo)
+
+/obj/item/living_heart/proc/on_target_cryo()
+	SIGNAL_HANDLER
+	set_target(null)
 
 /datum/action/innate/heretic_shatter
 	name = "Shattering Offer"
@@ -54,7 +65,7 @@
 
 /datum/action/innate/heretic_shatter/Activate()
 	var/turf/safe_turf = find_safe_turf(zlevels = sword.z, extended_safety_checks = TRUE)
-	do_teleport(holder,safe_turf,forceMove = TRUE)
+	do_teleport(holder,safe_turf,channel = TELEPORT_CHANNEL_MAGIC)
 	to_chat(holder,"<span class='warning'>You feel a gust of energy flow through your body... the Rusted Hills heard your call...</span>")
 	qdel(sword)
 
@@ -78,7 +89,7 @@
 	attack_verb = list("attacks", "slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "rends")
 	var/datum/action/innate/heretic_shatter/linked_action
 
-/obj/item/melee/sickly_blade/Initialize()
+/obj/item/melee/sickly_blade/Initialize(mapload)
 	. = ..()
 	linked_action = new(src)
 
@@ -91,11 +102,11 @@
 	return ..()
 
 /obj/item/melee/sickly_blade/pickup(mob/user)
-	. = ..()
+	..()
 	linked_action.Grant(user, src)
 
 /obj/item/melee/sickly_blade/dropped(mob/user, silent)
-	. = ..()
+	..()
 	linked_action.Remove(user, src)
 
 /obj/item/melee/sickly_blade/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
@@ -145,7 +156,7 @@
 		user.update_sight()
 
 /obj/item/clothing/neck/eldritch_amulet/dropped(mob/user)
-	. = ..()
+	..()
 	REMOVE_TRAIT(user, trait, CLOTHING_TRAIT)
 	user.update_sight()
 
@@ -153,6 +164,22 @@
 	name = "Piercing Eldritch Medallion"
 	desc = "A strange medallion. Peering through the crystalline surface, the light refracts into new and terrifying spectrums of color. You see yourself, reflected off cascading mirrors, warped into impossible shapes."
 	trait = TRAIT_XRAY_VISION
+
+/obj/item/clothing/neck/eldritch_amulet/guise
+	name = "guise of Istasha"
+	desc = "An odd amulet formed out of multiple floating parts, strung togethere by forces from another world."
+	icon_state = "eye_medalion"
+
+/obj/item/clothing/neck/eldritch_amulet/guise/equipped(mob/user, slot)
+	. = ..()
+	if(slot == ITEM_SLOT_NECK)
+		user.AddElement(/datum/element/digital_camo)
+	else
+		user.RemoveElement(/datum/element/digital_camo)
+
+/obj/item/clothing/neck/eldritch_amulet/guise/dropped(mob/user)
+	. = ..()
+	user.RemoveElement(/datum/element/digital_camo)
 
 /obj/item/clothing/head/hooded/cult_hoodie/eldritch
 	name = "ominous hood"
@@ -203,10 +230,10 @@
 		ADD_TRAIT(src, TRAIT_NODROP, CLOTHING_TRAIT)
 
 /obj/item/clothing/mask/void_mask/dropped(mob/M)
+	..()
 	local_user = null
 	STOP_PROCESSING(SSobj,src)
 	REMOVE_TRAIT(src, TRAIT_NODROP, CLOTHING_TRAIT)
-	return ..()
 
 /obj/item/clothing/mask/void_mask/process()
 	if(!local_user)
@@ -248,7 +275,7 @@
 		ADD_TRAIT(user, TRAIT_WARDED, CLOTHING_TRAIT)
 
 /obj/item/clothing/neck/crucifix/dropped(mob/user)
-	. = ..()
+	..()
 	REMOVE_TRAIT(user, TRAIT_WARDED, CLOTHING_TRAIT)
 
 /obj/item/clothing/neck/crucifix/rosary

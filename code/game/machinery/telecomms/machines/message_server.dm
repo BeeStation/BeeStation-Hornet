@@ -17,7 +17,7 @@
 	armor = list("melee" = 25, "bullet" = 10, "laser" = 10, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 70, "stamina" = 0)
 	var/obj/item/stored
 
-/obj/machinery/blackbox_recorder/Initialize()
+/obj/machinery/blackbox_recorder/Initialize(mapload)
 	. = ..()
 	stored = new /obj/item/blackbox(src)
 
@@ -158,7 +158,7 @@
 	source = init_source
 	data = init_data
 	var/turf/T = get_turf(source)
-	levels = list(T.z)
+	levels = list(T.get_virtual_z_level())
 	if(!("reject" in data))
 		data["reject"] = TRUE
 

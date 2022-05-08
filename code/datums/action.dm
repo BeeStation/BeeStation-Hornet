@@ -38,8 +38,7 @@
 	if(owner)
 		Remove(owner)
 	target = null
-	qdel(button)
-	button = null
+	QDEL_NULL(button)
 	return ..()
 
 /datum/action/proc/Grant(mob/M)
@@ -49,6 +48,7 @@
 				return
 			Remove(owner)
 		owner = M
+		RegisterSignal(owner, COMSIG_PARENT_QDELETING, .proc/owner_deleted)
 
 		//button id generation
 		var/counter = 0
@@ -77,13 +77,20 @@
 	else
 		Remove(owner)
 
+/datum/action/proc/owner_deleted(datum/source)
+	SIGNAL_HANDLER
+
+	Remove(owner)
+
 /datum/action/proc/Remove(mob/M)
 	if(M)
 		if(M.client)
 			M.client.screen -= button
 		M.actions -= src
 		M.update_action_buttons()
-	owner = null
+	if(owner)
+		UnregisterSignal(owner, COMSIG_PARENT_QDELETING)
+		owner = null
 	button.moved = FALSE //so the button appears in its normal position when given to another owner.
 	button.locked = FALSE
 	button.id = null
@@ -117,29 +124,29 @@
 	return TRUE
 
 /datum/action/proc/UpdateButtonIcon(status_only = FALSE, force = FALSE)
-	if(button)
-		if(!status_only)
-			button.name = name
-			button.desc = desc
-			if(owner?.hud_used && background_icon_state == ACTION_BUTTON_DEFAULT_BACKGROUND)
-				var/list/settings = owner.hud_used.get_action_buttons_icons()
-				if(button.icon != settings["bg_icon"])
-					button.icon = settings["bg_icon"]
-				if(button.icon_state != settings["bg_state"])
-					button.icon_state = settings["bg_state"]
-			else
-				if(button.icon != button_icon)
-					button.icon = button_icon
-				if(button.icon_state != background_icon_state)
-					button.icon_state = background_icon_state
+	if(!button)
+		return FALSE
 
-			ApplyIcon(button, force)
-
-		if(!IsAvailable())
-			button.color = has_cooldown_timer ? rgb(219, 219, 219, 255) : transparent_when_unavailable ? rgb(128,0,0,128) : rgb(128,0,0)
+	if(!status_only)
+		button.name = name
+		button.desc = desc
+		if(owner?.hud_used && background_icon_state == ACTION_BUTTON_DEFAULT_BACKGROUND)
+			var/list/settings = owner.hud_used.get_action_buttons_icons()
+			if(button.icon != settings["bg_icon"])
+				button.icon = settings["bg_icon"]
+			if(button.icon_state != settings["bg_state"])
+				button.icon_state = settings["bg_state"]
 		else
-			button.color = rgb(255,255,255,255)
-			return 1
+			if(button.icon != button_icon)
+				button.icon = button_icon
+			if(button.icon_state != background_icon_state)
+				button.icon_state = background_icon_state
+		ApplyIcon(button, force)
+	if(!IsAvailable())
+		button.color = has_cooldown_timer ? rgb(219, 219, 219, 255) : transparent_when_unavailable ? rgb(128,0,0,128) : rgb(128,0,0)
+	else
+		button.color = rgb(255,255,255,255)
+		return TRUE
 
 /datum/action/proc/ApplyIcon(atom/movable/screen/movable/action_button/current_button, force = FALSE)
 	if(icon_icon && button_icon_state && ((current_button.button_icon_state != button_icon_state) || force))
@@ -163,17 +170,17 @@
 
 /datum/action/item_action/Destroy()
 	var/obj/item/I = target
-	I.actions -= src
+	I?.actions -= src
 	UNSETEMPTY(I.actions)
 	return ..()
 
 /datum/action/item_action/Trigger()
 	if(!..())
-		return 0
+		return FALSE
 	if(target)
 		var/obj/item/I = target
 		I.ui_action_click(owner, src)
-	return 1
+	return TRUE
 
 /datum/action/item_action/ApplyIcon(atom/movable/screen/movable/action_button/current_button, force)
 	if(button_icon && button_icon_state)
@@ -303,16 +310,6 @@
 			button_icon_state = "vortex_ff_on"
 			name = "Toggle Friendly Fire \[ON\]"
 	..()
-
-/datum/action/item_action/synthswitch
-	name = "Change Synthesizer Instrument"
-	desc = "Change the type of instrument your synthesizer is playing as."
-
-/datum/action/item_action/synthswitch/Trigger()
-	if(istype(target, /obj/item/instrument/piano_synth))
-		var/obj/item/instrument/piano_synth/synth = target
-		return synth.selectInstrument()
-	return ..()
 
 /datum/action/item_action/vortex_recall
 	name = "Vortex Recall"
@@ -467,6 +464,10 @@
 		return
 	return ..()
 
+/datum/action/item_action/activate_remote_view
+	name = "Activate Remote View"
+	desc = "Activates the Remote View of your spy sunglasses."
+
 /datum/action/item_action/organ_action
 	check_flags = AB_CHECK_CONSCIOUS
 
@@ -569,7 +570,7 @@
 
 /datum/action/spell_action/Destroy()
 	var/obj/effect/proc_holder/S = target
-	S.action = null
+	S?.action = null
 	return ..()
 
 /datum/action/spell_action/Trigger()
@@ -746,7 +747,7 @@
 	small_icon_state = "dwarf_legion"
 
 /datum/action/small_sprite/megafauna/spacedragon
-	small_icon = 'icons/mob/animal.dmi'
+	small_icon = 'icons/mob/carp.dmi'
 	small_icon_state = "carp"
 
 /datum/action/small_sprite/Trigger()

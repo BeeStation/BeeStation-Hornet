@@ -14,9 +14,9 @@
 		return
 
 	if(ismob(A))
-		ai_actual_track(A)
-	else
-		A.move_camera_by_click()
+		ai_start_tracking(A)
+	else if(!ismachinery(A))	//Getting the camera moved just because you double click on something to interact with it is annoying as hell
+		eyeobj.move_camera_by_click(A)
 
 /mob/living/silicon/ai/ClickOn(var/atom/A, params)
 	if(world.time <= next_click)
@@ -51,7 +51,7 @@
 		log_admin(message)
 		if(REALTIMEOFDAY >= chnotify + 9000)
 			chnotify = REALTIMEOFDAY
-			send2irc_adminless_only("NOCHEAT", message)
+			send2tgs_adminless_only("NOCHEAT", message)
 		return
 
 	var/list/modifiers = params2list(params)
@@ -122,26 +122,32 @@
 /* Questions: Instead of an Emag check on every function, can we not add to airlocks onclick if emag return? */
 
 /* Atom Procs */
-/atom/proc/AICtrlClick()
+/atom/proc/AICtrlClick(mob/living/silicon/ai/user)
 	return
 /atom/proc/AIAltClick(mob/living/silicon/ai/user)
 	AltClick(user)
 	return
-/atom/proc/AIShiftClick()
+/atom/proc/AIShiftClick(mob/living/silicon/ai/user)
 	return
-/atom/proc/AICtrlShiftClick()
+/atom/proc/AICtrlShiftClick(mob/living/silicon/ai/user)
 	return
 
 /* Airlocks */
-/obj/machinery/door/airlock/AICtrlClick() // Bolts doors
+/obj/machinery/door/airlock/AICtrlClick(mob/living/silicon/ai/user) // Bolts doors
 	if(obj_flags & EMAGGED)
+		return
+
+	if(!allowed(user))
 		return
 
 	toggle_bolt(usr)
 	add_hiddenprint(usr)
 
-/obj/machinery/door/airlock/AIAltClick() // Eletrifies doors.
+/obj/machinery/door/airlock/AIAltClick(mob/living/silicon/ai/user) // Eletrifies doors.
 	if(obj_flags & EMAGGED)
+		return
+
+	if(!allowed(user))
 		return
 
 	if(!secondsElectrified)
@@ -149,40 +155,60 @@
 	else
 		shock_restore(usr)
 
-/obj/machinery/door/airlock/AIShiftClick()  // Opens and closes doors!
+/obj/machinery/door/airlock/AIShiftClick(mob/living/silicon/ai/user)  // Opens and closes doors!
 	if(obj_flags & EMAGGED)
+		return
+
+	if(!allowed(user))
 		return
 
 	user_toggle_open(usr)
 	add_hiddenprint(usr)
 
-/obj/machinery/door/airlock/AICtrlShiftClick()  // Sets/Unsets Emergency Access Override
+/obj/machinery/door/airlock/AICtrlShiftClick(mob/living/silicon/ai/user)  // Sets/Unsets Emergency Access Override
 	if(obj_flags & EMAGGED)
+		return
+
+	if(!allowed(user))
 		return
 
 	toggle_emergency(usr)
 	add_hiddenprint(usr)
 
 /* APC */
-/obj/machinery/power/apc/AICtrlClick() // turns off/on APCs.
+/obj/machinery/power/apc/AICtrlClick(mob/living/silicon/ai/user) // turns off/on APCs.
+	if(!allowed(user))
+		return
 	if(can_use(usr, 1))
 		toggle_breaker(usr)
 
 /* AI Turrets */
-/obj/machinery/turretid/AIAltClick() //toggles lethal on turrets
+/obj/machinery/turretid/AIAltClick(mob/living/silicon/ai/user) //toggles lethal on turrets
+	if(!allowed(user))
+		return
 	if(ailock)
 		return
 	toggle_lethal(usr)
 
-/obj/machinery/turretid/AICtrlClick() //turns off/on Turrets
+/obj/machinery/turretid/AICtrlClick(mob/living/silicon/ai/user) //turns off/on Turrets
+	if(!allowed(user))
+		return
 	if(ailock)
 		return
 	toggle_on(usr)
 
 /* Holopads */
 /obj/machinery/holopad/AIAltClick(mob/living/silicon/ai/user)
+	if(!allowed(user))
+		return
 	hangup_all_calls()
 	add_hiddenprint(usr)
+
+/* Atmos machines */
+/obj/machinery/atmospherics/components/AICtrlClick(mob/living/silicon/ai/user)
+	if(!allowed(user))
+		return
+	CtrlClick(user)
 
 //
 // Override TurfAdjacent for AltClicking

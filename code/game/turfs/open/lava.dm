@@ -36,23 +36,24 @@
 /turf/open/lava/airless
 	initial_gas_mix = AIRLESS_ATMOS
 
-/turf/open/lava/Entered(atom/movable/AM)
-	if(burn_stuff(AM))
+/turf/open/lava/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	. = ..()
+	if(burn_stuff(arrived))
 		START_PROCESSING(SSobj, src)
 
-/turf/open/lava/Exited(atom/movable/Obj, atom/newloc)
+/turf/open/lava/Exited(atom/movable/gone, direction)
 	. = ..()
-	if(isliving(Obj))
-		var/mob/living/L = Obj
-		if(!islava(newloc) && !L.on_fire)
+	if(isliving(gone))
+		var/mob/living/L = gone
+		if(!islava(get_step(src, direction)) && !L.on_fire)
 			L.update_fire()
 
 /turf/open/lava/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 	if(burn_stuff(AM))
 		START_PROCESSING(SSobj, src)
 
-/turf/open/lava/process()
-	if(!burn_stuff())
+/turf/open/lava/process(delta_time)
+	if(!burn_stuff(null, delta_time))
 		STOP_PROCESSING(SSobj, src)
 
 /turf/open/lava/rcd_vals(mob/user, obj/item/construction/rcd/the_rcd)
@@ -67,6 +68,9 @@
 			to_chat(user, "<span class='notice'>You build a floor.</span>")
 			PlaceOnTop(/turf/open/floor/plating, flags = CHANGETURF_INHERIT_AIR)
 			return TRUE
+	return FALSE
+
+/turf/open/lava/rust_heretic_act()
 	return FALSE
 
 /turf/open/lava/singularity_act()
@@ -99,7 +103,7 @@
 	return LAZYLEN(found_safeties)
 
 
-/turf/open/lava/proc/burn_stuff(AM)
+/turf/open/lava/proc/burn_stuff(AM, delta_time = 1)
 	. = 0
 
 	if(is_safe())
@@ -122,7 +126,7 @@
 				O.resistance_flags &= ~FIRE_PROOF
 			if(O.armor.fire > 50) //obj with 100% fire armor still get slowly burned away.
 				O.armor = O.armor.setRating(fire = 50)
-			O.fire_act(10000, 1000)
+			O.fire_act(10000, 1000 * delta_time)
 			if(istype(O, /obj/structure/closet))
 				var/obj/structure/closet/C = O
 				for(var/I in C.contents)
@@ -157,10 +161,9 @@
 
 			if("lava" in L.weather_immunities)
 				continue
-
-			L.adjustFireLoss(20)
+			L.adjustFireLoss(20 * delta_time)
 			if(L) //mobs turning into object corpses could get deleted here.
-				L.adjust_fire_stacks(20)
+				L.adjust_fire_stacks(20 * delta_time)
 				L.IgniteMob()
 
 /turf/open/lava/smooth

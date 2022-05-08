@@ -40,7 +40,7 @@
 	spawn_mecha_type = null
 	search_objects = 2
 
-/mob/living/simple_animal/hostile/syndicate/mecha_pilot/no_mech/Initialize()
+/mob/living/simple_animal/hostile/syndicate/mecha_pilot/no_mech/Initialize(mapload)
 	. = ..()
 	wanted_objects = typecacheof(/obj/mecha/combat, TRUE)
 
@@ -60,7 +60,7 @@
 	faction = list("nanotrasen")
 
 
-/mob/living/simple_animal/hostile/syndicate/mecha_pilot/Initialize()
+/mob/living/simple_animal/hostile/syndicate/mecha_pilot/Initialize(mapload)
 	. = ..()
 	if(spawn_mecha_type)
 		var/obj/mecha/M = new spawn_mecha_type (get_turf(src))
@@ -71,9 +71,9 @@
 /mob/living/simple_animal/hostile/syndicate/mecha_pilot/proc/enter_mecha(obj/mecha/M)
 	if(!M)
 		return 0
-	target = null //Target was our mecha, so null it out
+	LoseTarget() //Target was our mecha, so null it out
 	M.aimob_enter_mech(src)
-	targets_from = M
+	targets_from = WEAKREF(M)
 	allow_movement_on_non_turfs = TRUE //duh
 	var/do_ranged = 0
 	for(var/equip in mecha.equipment)
@@ -99,21 +99,21 @@
 
 	mecha.aimob_exit_mech(src)
 	allow_movement_on_non_turfs = FALSE
-	targets_from = src
+	targets_from = null
 
 	//Find a new mecha
 	wanted_objects = typecacheof(/obj/mecha/combat, TRUE)
 	var/search_aggressiveness = 2
 	for(var/obj/mecha/combat/C in view(vision_range,src))
 		if(is_valid_mecha(C))
-			target = C
+			GiveTarget(C)
 			search_aggressiveness = 3 //We can see a mech? RUN FOR IT, IGNORE MOBS!
 			break
 	search_objects = search_aggressiveness
 	ranged = 0
 	minimum_distance = 1
 
-	walk(M,0)//end any lingering movement loops, to prevent the haunted mecha bug
+	SSmove_manager.stop_looping(src)//end any lingering movement loops, to prevent the haunted mecha bug
 
 //Checks if a mecha is valid for theft
 /mob/living/simple_animal/hostile/syndicate/mecha_pilot/proc/is_valid_mecha(obj/mecha/M)
@@ -192,7 +192,7 @@
 				return
 			else
 				if(!CanAttack(M))
-					target = null
+					LoseTarget()
 					return
 
 		return target.attack_animal(src)
@@ -203,7 +203,7 @@
 		if(!mecha)
 			for(var/obj/mecha/combat/C in view(vision_range, src))
 				if(is_valid_mecha(C))
-					target = C //Let's nab it!
+					GiveTarget(C) //Let's nab it!
 					minimum_distance = 1
 					ranged = 0
 					break
@@ -241,8 +241,7 @@
 						addtimer(CALLBACK(mecha.overload_action, /datum/action/innate/mecha/mech_defense_mode.proc/Activate, FALSE), 100) //10 seconds of speeeeed, then toggle off
 
 					retreat_distance = 50
-					spawn(100)
-						retreat_distance = 0
+					addtimer(VARSET_CALLBACK(src, retreat_distance, 0), 100)
 
 
 
@@ -290,6 +289,6 @@
 
 /mob/living/simple_animal/hostile/syndicate/mecha_pilot/Goto(target, delay, minimum_distance)
 	if(mecha)
-		walk_to(mecha, target, minimum_distance, mecha.step_in)
+		SSmove_manager.move_to(mecha, target, minimum_distance, mecha.step_in)
 	else
 		..()

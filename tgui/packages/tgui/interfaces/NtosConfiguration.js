@@ -1,4 +1,3 @@
-import { Fragment } from 'inferno';
 import { useBackend } from '../backend';
 import { Box, Button, LabeledList, ProgressBar, Section } from '../components';
 import { NtosWindow } from '../layouts';
@@ -16,7 +15,7 @@ export const NtosConfiguration = (props, context) => {
   } = data;
 
   return (
-    <NtosWindow resizable>
+    <NtosWindow>
       <NtosWindow.Content scrollable>
         <Section
           title="Power Supply"
@@ -64,7 +63,7 @@ export const NtosConfiguration = (props, context) => {
               title={component.name}
               level={2}
               buttons={(
-                <Fragment>
+                <>
                   {!component.critical && (
                     <Button.Checkbox
                       content="Enabled"
@@ -81,7 +80,7 @@ export const NtosConfiguration = (props, context) => {
                     mr={1}>
                     Power Usage: {component.powerusage}W
                   </Box>
-                </Fragment>
+                </>
               )}>
               {component.desc}
             </Section>

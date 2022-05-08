@@ -21,7 +21,7 @@
 	var/message_cooldown
 	var/breakout_time = 600
 
-/obj/machinery/implantchair/Initialize()
+/obj/machinery/implantchair/Initialize(mapload)
 	. = ..()
 	open_machine()
 	update_icon()
@@ -36,7 +36,7 @@
 	if(!ui)
 		ui = new(user, src, "implantchair")
 		ui.open()
-
+		ui.set_autoupdate(TRUE)
 
 /obj/machinery/implantchair/ui_data()
 	var/list/data = list()

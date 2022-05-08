@@ -14,7 +14,7 @@
 	var/glove_type = /obj/item/clothing/gloves/color/latex
 	var/total_gloves = 50
 
-/obj/item/glove_box/Initialize()
+/obj/item/glove_box/Initialize(mapload)
 	. = ..()
 	interaction_flags_item &= ~INTERACT_ITEM_ATTACK_HAND_PICKUP
 	update_icon()

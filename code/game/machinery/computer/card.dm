@@ -58,7 +58,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	if(scan || modify)
 		. += "<span class='notice'>Alt-click to eject the ID card.</span>"
 
-/obj/machinery/computer/card/Initialize()
+/obj/machinery/computer/card/Initialize(mapload)
 	. = ..()
 	change_position_cooldown = CONFIG_GET(number/id_console_jobslot_delay)
 	for(var/G in typesof(/datum/job/gimmick))
@@ -307,6 +307,21 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		var/list/alljobs = list("Unassigned")
 		alljobs += (istype(src, /obj/machinery/computer/card/centcom)? get_all_centcom_jobs() : get_all_jobs()) + "Custom"
 		for(var/job in alljobs)
+			if(job == "Assistant")
+				jobs_all += "<br/>* Service: "
+			if(job == "Quartermaster")
+				jobs_all += "<br/>* Cargo: "
+			if(job == "Chief Engineer")
+				jobs_all += "<br/>* Engineering: "
+			if(job == "Research Director")
+				jobs_all += "<br/>* R&D: "
+			if(job == "Chief Medical Officer")
+				jobs_all += "<br/>* Medical: "
+			if(job == "Head of Security")
+				jobs_all += "<br/>* Security: "
+			if(job == "Custom")
+				jobs_all += "<br/>"
+			// these will make some separation for the department.
 			jobs_all += "<a href='?src=[REF(src)];choice=assign;assign_target=[job]'>[replacetext(job, " ", "&nbsp")]</a> " //make sure there isn't a line break in the middle of a job
 
 
@@ -748,7 +763,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	icon_screen = "idminor"
 	circuit = /obj/item/circuitboard/computer/card/minor
 
-/obj/machinery/computer/card/minor/Initialize()
+/obj/machinery/computer/card/minor/Initialize(mapload)
 	. = ..()
 	var/obj/item/circuitboard/computer/card/minor/typed_circuit = circuit
 	if(target_dept)

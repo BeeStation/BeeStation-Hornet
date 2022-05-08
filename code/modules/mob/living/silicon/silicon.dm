@@ -11,11 +11,10 @@
 	weather_immunities = list("ash")
 	possible_a_intents = list(INTENT_HELP, INTENT_HARM)
 	mob_biotypes = list(MOB_ROBOTIC)
-	flags_1 = PREVENT_CONTENTS_EXPLOSION_1 | HEAR_1
+	flags_1 = PREVENT_CONTENTS_EXPLOSION_1
 	rad_flags = RAD_PROTECT_CONTENTS | RAD_NO_CONTAMINATE
 	deathsound = 'sound/voice/borg_deathsound.ogg'
 	speech_span = SPAN_ROBOT
-
 	var/datum/ai_laws/laws = null//Now... THEY ALL CAN ALL HAVE LAWS
 	var/last_lawchange_announce = 0
 	var/list/alarms_to_show = list()
@@ -48,9 +47,13 @@
 	var/interaction_range = 7			//wireless control range
 	var/obj/item/pda/aiPDA
 
+	//The internal ID card inside the AI.
+	var/list/default_access_list = list()
+	var/obj/item/card/id/internal_id_card
+
 	mobchatspan = "centcom"
 
-/mob/living/silicon/Initialize()
+/mob/living/silicon/Initialize(mapload)
 	. = ..()
 	GLOB.silicon_mobs += src
 	faction += "silicon"
@@ -58,6 +61,14 @@
 		diag_hud.add_to_hud(src)
 	diag_hud_set_status()
 	diag_hud_set_health()
+	create_access_card(default_access_list)
+	default_access_list = null
+
+/mob/living/silicon/proc/create_access_card(list/access_list)
+	if(!internal_id_card)
+		internal_id_card = new()
+		internal_id_card.name = "[src] internal access"
+	internal_id_card.access |= access_list
 
 /mob/living/silicon/med_hud_set_health()
 	return //we use a different hud
@@ -69,6 +80,7 @@
 	radio = null
 	aicamera = null
 	QDEL_NULL(builtInCamera)
+	QDEL_NULL(internal_id_card)
 	GLOB.silicon_mobs -= src
 	return ..()
 
@@ -76,6 +88,9 @@
 	return
 
 /mob/living/silicon/proc/cancelAlarm()
+	return
+
+/mob/living/silicon/proc/freeCamera()
 	return
 
 /mob/living/silicon/proc/triggerAlarm()
@@ -91,68 +106,68 @@
 		alarm_types_clear[type] += 1
 
 	if(!in_cooldown)
-		spawn(3 * 10) // 3 seconds
+		addtimer(CALLBACK(src, .proc/handle_alarms), 30) //3 second cooldown
 
-			if(alarms_to_show.len < 5)
-				for(var/msg in alarms_to_show)
-					to_chat(src, msg)
-			else if(alarms_to_show.len)
+/mob/living/silicon/proc/handle_alarms()
+	if(alarms_to_show.len < 5)
+		for(var/msg in alarms_to_show)
+			to_chat(src, msg)
+	else if(alarms_to_show.len)
 
-				var/msg = "--- "
+		var/msg = "--- "
 
-				if(alarm_types_show["Burglar"])
-					msg += "BURGLAR: [alarm_types_show["Burglar"]] alarms detected. - "
+		if(alarm_types_show["Burglar"])
+			msg += "BURGLAR: [alarm_types_show["Burglar"]] alarms detected. - "
 
-				if(alarm_types_show["Motion"])
-					msg += "MOTION: [alarm_types_show["Motion"]] alarms detected. - "
+		if(alarm_types_show["Motion"])
+			msg += "MOTION: [alarm_types_show["Motion"]] alarms detected. - "
 
-				if(alarm_types_show["Fire"])
-					msg += "FIRE: [alarm_types_show["Fire"]] alarms detected. - "
+		if(alarm_types_show["Fire"])
+			msg += "FIRE: [alarm_types_show["Fire"]] alarms detected. - "
 
-				if(alarm_types_show["Atmosphere"])
-					msg += "ATMOSPHERE: [alarm_types_show["Atmosphere"]] alarms detected. - "
+		if(alarm_types_show["Atmosphere"])
+			msg += "ATMOSPHERE: [alarm_types_show["Atmosphere"]] alarms detected. - "
 
-				if(alarm_types_show["Power"])
-					msg += "POWER: [alarm_types_show["Power"]] alarms detected. - "
+		if(alarm_types_show["Power"])
+			msg += "POWER: [alarm_types_show["Power"]] alarms detected. - "
 
-				if(alarm_types_show["Camera"])
-					msg += "CAMERA: [alarm_types_show["Camera"]] alarms detected. - "
+		if(alarm_types_show["Camera"])
+			msg += "CAMERA: [alarm_types_show["Camera"]] alarms detected. - "
 
-				msg += "<A href=?src=[REF(src)];showalerts=1'>\[Show Alerts\]</a>"
-				to_chat(src, msg)
+		msg += "<A href=?src=[REF(src)];showalerts=1'>\[Show Alerts\]</a>"
+		to_chat(src, msg)
 
-			if(alarms_to_clear.len < 3)
-				for(var/msg in alarms_to_clear)
-					to_chat(src, msg)
+	if(alarms_to_clear.len < 3)
+		for(var/msg in alarms_to_clear)
+			to_chat(src, msg)
 
-			else if(alarms_to_clear.len)
-				var/msg = "--- "
+	else if(alarms_to_clear.len)
+		var/msg = "--- "
 
-				if(alarm_types_clear["Motion"])
-					msg += "MOTION: [alarm_types_clear["Motion"]] alarms cleared. - "
+		if(alarm_types_clear["Motion"])
+			msg += "MOTION: [alarm_types_clear["Motion"]] alarms cleared. - "
 
-				if(alarm_types_clear["Fire"])
-					msg += "FIRE: [alarm_types_clear["Fire"]] alarms cleared. - "
+		if(alarm_types_clear["Fire"])
+			msg += "FIRE: [alarm_types_clear["Fire"]] alarms cleared. - "
 
-				if(alarm_types_clear["Atmosphere"])
-					msg += "ATMOSPHERE: [alarm_types_clear["Atmosphere"]] alarms cleared. - "
+		if(alarm_types_clear["Atmosphere"])
+			msg += "ATMOSPHERE: [alarm_types_clear["Atmosphere"]] alarms cleared. - "
 
-				if(alarm_types_clear["Power"])
-					msg += "POWER: [alarm_types_clear["Power"]] alarms cleared. - "
+		if(alarm_types_clear["Power"])
+			msg += "POWER: [alarm_types_clear["Power"]] alarms cleared. - "
 
-				if(alarm_types_show["Camera"])
-					msg += "CAMERA: [alarm_types_clear["Camera"]] alarms cleared. - "
+		if(alarm_types_show["Camera"])
+			msg += "CAMERA: [alarm_types_clear["Camera"]] alarms cleared. - "
 
-				msg += "<A href=?src=[REF(src)];showalerts=1'>\[Show Alerts\]</a>"
-				to_chat(src, msg)
+		msg += "<A href=?src=[REF(src)];showalerts=1'>\[Show Alerts\]</a>"
+		to_chat(src, msg)
 
-
-			alarms_to_show = list()
-			alarms_to_clear = list()
-			for(var/key in alarm_types_show)
-				alarm_types_show[key] = 0
-			for(var/key in alarm_types_clear)
-				alarm_types_clear[key] = 0
+	alarms_to_show = list()
+	alarms_to_clear = list()
+	for(var/key in alarm_types_show)
+		alarm_types_show[key] = 0
+	for(var/key in alarm_types_clear)
+		alarm_types_clear[key] = 0
 
 /mob/living/silicon/can_inject(mob/user, error_msg)
 	if(error_msg)

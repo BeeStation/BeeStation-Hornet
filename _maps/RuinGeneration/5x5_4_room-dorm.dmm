@@ -1,0 +1,80 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/closed/wall,
+/area/ruin/unpowered)
+"b" = (
+/obj/structure/bed,
+/obj/item/bedsheet/random,
+/turf/open/floor/wood,
+/area/ruin/unpowered)
+"l" = (
+/obj/structure/dresser,
+/turf/open/floor/wood,
+/area/ruin/unpowered)
+"p" = (
+/obj/structure/bed,
+/obj/item/bedsheet/random,
+/obj/item/toy/plush/carpplushie,
+/turf/open/floor/wood,
+/area/ruin/unpowered)
+"B" = (
+/obj/item/chair/wood,
+/turf/open/floor/wood,
+/area/ruin/unpowered)
+"H" = (
+/obj/item/toy/plush/lizardplushie,
+/turf/open/floor/wood,
+/area/ruin/unpowered)
+"J" = (
+/obj/effect/abstract/doorway_marker{
+	dir = 4
+	},
+/turf/open/floor/wood,
+/area/ruin/unpowered)
+"U" = (
+/turf/open/floor/wood,
+/area/ruin/unpowered)
+"W" = (
+/obj/structure/sign/poster/official/no_erp{
+	pixel_y = 32
+	},
+/obj/structure/table_frame/wood,
+/obj/item/stack/sheet/mineral/wood,
+/turf/open/floor/wood,
+/area/ruin/unpowered)
+
+(1,1,1) = {"
+a
+a
+a
+a
+a
+"}
+(2,1,1) = {"
+a
+l
+B
+l
+a
+"}
+(3,1,1) = {"
+a
+W
+U
+H
+a
+"}
+(4,1,1) = {"
+a
+p
+U
+b
+a
+"}
+(5,1,1) = {"
+a
+a
+J
+a
+a
+"}

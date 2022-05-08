@@ -343,7 +343,7 @@ SUBSYSTEM_DEF(vote)
 			submit_vote(round(text2num(params["index"])))
 	return TRUE
 
-/datum/controller/subsystem/vote/ui_close(mob/user)
+/datum/controller/subsystem/vote/ui_close(mob/user, datum/tgui/tgui)
 	voting -= user.client?.ckey
 
 /datum/action/vote

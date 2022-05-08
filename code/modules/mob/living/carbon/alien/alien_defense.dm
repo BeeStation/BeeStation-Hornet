@@ -1,4 +1,3 @@
-
 /mob/living/carbon/alien/get_eye_protection()
 	return ..() + 2 //potential cyber implants + natural eye protection
 
@@ -21,6 +20,8 @@ In all, this is a lot like the monkey code. /N
 	switch(M.a_intent)
 
 		if ("help")
+			if(M == src && check_self_for_injuries())
+				return
 			set_resting(FALSE)
 			AdjustStun(-60)
 			AdjustKnockdown(-60)
@@ -60,6 +61,9 @@ In all, this is a lot like the monkey code. /N
 		if("grab")
 			grabbedby(M)
 		if ("harm")
+			if(HAS_TRAIT(M, TRAIT_PACIFISM))
+				to_chat(M, "<span class='notice'>You don't want to hurt [src]!</span>")
+				return 0
 			M.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
 			return 1
 		if("disarm")

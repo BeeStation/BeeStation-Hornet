@@ -22,12 +22,14 @@ Bonus
 	stealth = 1
 	resistance = -1
 	stage_speed = -3
-	transmittable = 0
-	level = 4
+	transmission = 0
+	level = 3
 	severity = 2
 	base_message_chance = 25
 	symptom_delay_min = 10
 	symptom_delay_max = 30
+	prefixes = list("Dizzy ")
+	bodies = list("Ditz")
 	var/brain_damage = FALSE
 	threshold_desc = "<b>Resistance 6:</b> Causes brain damage over time.<br>\
 					  <b>Transmission 6:</b> Increases confusion duration.<br>\
@@ -35,17 +37,17 @@ Bonus
 
 /datum/symptom/confusion/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.properties["resistance"] >= 6)
+	if(A.resistance >= 6)
 		severity += 1
 
 /datum/symptom/confusion/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.properties["resistance"] >= 6)
+	if(A.resistance >= 6)
 		brain_damage = TRUE
-	if(A.properties["transmittable"] >= 6)
+	if(A.transmission >= 6)
 		power = 1.5
-	if(A.properties["stealth"] >= 4)
+	if(A.stealth >= 4)
 		suppress_warning = TRUE
 
 /datum/symptom/confusion/Activate(datum/disease/advance/A)

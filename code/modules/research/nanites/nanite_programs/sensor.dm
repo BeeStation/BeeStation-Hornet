@@ -250,6 +250,8 @@
 	UnregisterSignal(host_mob, COMSIG_MOVABLE_HEAR, .proc/on_hear)
 
 /datum/nanite_program/sensor/voice/proc/on_hear(datum/source, list/hearing_args)
+	SIGNAL_HANDLER
+
 	var/datum/nanite_extra_setting/sentence = extra_settings[NES_SENTENCE]
 	var/datum/nanite_extra_setting/inclusive = extra_settings[NES_INCLUSIVE_MODE]
 	if(!sentence.get_value())
@@ -265,19 +267,18 @@
 	name = "Species Sensor"
 	desc = "When triggered, the nanites scan the host to determine their species and output a signal depending on the conditions set in the settings."
 	can_trigger = TRUE
+	can_rule = TRUE
 	trigger_cost = 0
 	trigger_cooldown = 5
 
-	var/list/static/allowed_species = list(
-    	"Human" = /datum/species/human,
-    	"Lizard" = /datum/species/lizard,
-		"Moth" = /datum/species/moth,
-		"Ethereal" = /datum/species/ethereal,
-		"Pod" = /datum/species/pod,
-		"Fly" = /datum/species/fly,
-		"Felinid" = /datum/species/human/felinid,
-		"Jelly" = /datum/species/jelly
-	)
+	var/list/static/allowed_species = list()
+
+/datum/nanite_program/sensor/species/New()
+    if(!length(allowed_species))
+        for(var/id in GLOB.roundstart_races)
+            allowed_species[id] = GLOB.species_list[id]
+    . = ..()
+
 
 /datum/nanite_program/sensor/species/register_extra_settings()
 	. = ..()
@@ -285,7 +286,7 @@
 	for(var/name in allowed_species)
 		species_types += name
 	species_types += "Other"
-	extra_settings[NES_RACE] = new /datum/nanite_extra_setting/type("Human", species_types)
+	extra_settings[NES_RACE] = new /datum/nanite_extra_setting/type("human", species_types)
 	extra_settings[NES_MODE] = new /datum/nanite_extra_setting/boolean(TRUE, "Is", "Is Not")
 
 /datum/nanite_program/sensor/species/on_trigger(comm_message)
@@ -294,13 +295,19 @@
 	var/species_match = FALSE
 
 	if(species)
-		if(is_species(host_mob, species))
+		if(species == /datum/species/human)
+			if(ishumanbasic(host_mob) && !is_species(host_mob, /datum/species/human/felinid))
+				species_match = TRUE
+		else if(is_species(host_mob, species))
 			species_match = TRUE
 	else	//this is the check for the "Other" option
 		species_match = TRUE
 		for(var/name in allowed_species)
 			var/species_other = allowed_species[name]
-			if(is_species(host_mob, species_other))
+			if (species_other == /datum/species/human)
+				if(ishumanbasic(host_mob) && !is_species(host_mob, /datum/species/human/felinid))
+					species_match = FALSE
+			else if(is_species(host_mob, species_other))
 				species_match = FALSE
 				break
 
@@ -311,3 +318,13 @@
 	else
 		if(!species_match)
 			send_code()
+
+/datum/nanite_program/sensor/species/make_rule(datum/nanite_program/target)
+	var/datum/nanite_rule/species/rule = new(target)
+	var/datum/nanite_extra_setting/species_name = extra_settings[NES_RACE]
+	var/datum/nanite_extra_setting/mode = extra_settings[NES_MODE]
+	var/datum/nanite_extra_setting/species_type = allowed_species[species_name.get_value()]
+	rule.species_rule = species_type
+	rule.mode_rule = mode.get_value()
+	rule.species_name_rule = species_name.get_value()
+	return rule

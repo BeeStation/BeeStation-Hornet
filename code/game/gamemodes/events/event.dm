@@ -20,7 +20,7 @@
 
 /datum/game_mode/event/send_intercept(report = 0)
 	if(intercept_message)
-		priority_announce(intercept_message, "Security Report", 'sound/ai/commandreport.ogg')
+		priority_announce(intercept_message, "Security Report", SSstation.announcer.get_rand_report_sound())
 
 /datum/game_mode/event/generate_station_goals()
 	return

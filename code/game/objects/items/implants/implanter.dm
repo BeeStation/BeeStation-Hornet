@@ -26,7 +26,8 @@
 		return
 	if(user && imp)
 		if(M != user)
-			M.visible_message("<span class='warning'>[user] is attempting to implant [M].</span>")
+			M.visible_message("<span class='warning'>[user] is attempting to implant [M].</span>", \
+				"<span class='userdanger'>[user] is trying to implant you with [src]!</span>")
 
 		var/turf/T = get_turf(M)
 		if(T && (M == user || do_mob(user, M, 50)))
@@ -60,6 +61,6 @@
 
 /obj/item/implanter/Initialize(mapload)
 	. = ..()
-	if(imp_type)
+	if(!imp && imp_type)
 		imp = new imp_type(src)
 	update_icon()

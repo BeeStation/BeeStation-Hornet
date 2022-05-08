@@ -20,12 +20,13 @@ BONUS
 	stealth = 0
 	resistance = 3
 	stage_speed = 2
-	transmittable = 2
-	level = 4
+	transmission = 2
+	level = 5
 	severity = 0
 	base_message_chance = 50
 	symptom_delay_min = 45
 	symptom_delay_max = 90
+	bodies = list("Bald", "Scalp")
 
 /datum/symptom/shedding/Activate(datum/disease/advance/A)
 	if(!..())

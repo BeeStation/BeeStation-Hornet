@@ -19,7 +19,7 @@ Here is an example of the new formatting for anyone who wants to add more food i
 	name = "Xenoburger"													//Name that displays in the UI.
 	desc = "Smells caustic. Tastes like heresy."						//Duh
 	icon_state = "xburger"												//Refers to an icon in food.dmi
-/obj/item/reagent_containers/food/snacks/xenoburger/Initialize()		//Don't mess with this. | nO I WILL MESS WITH THIS
+/obj/item/reagent_containers/food/snacks/xenoburger/Initialize(mapload)		//Don't mess with this. | nO I WILL MESS WITH THIS
 	. = ..()														//Same here.
 	reagents.add_reagent(/datum/reagent/xenomicrobes, 10)						//This is what is in the food item. you may copy/paste
 	reagents.add_reagent(/datum/reagent/consumable/nutriment, 2)							//this line of code for all the contents.
@@ -312,6 +312,14 @@ All foods are distributed among various categories. Use common sense.
 	qdel(src)
 
 	return result
+
+/obj/item/reagent_containers/food/snacks/burn()
+	if(prob(25))
+		microwave_act()
+	else
+		var/turf/T = get_turf(src)
+		new /obj/item/reagent_containers/food/snacks/badrecipe(T)
+		qdel(src)
 
 /obj/item/reagent_containers/food/snacks/Destroy()
 	if(contents)

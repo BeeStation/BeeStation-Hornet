@@ -5,6 +5,7 @@
 	icon_state = "chronogun"
 	item_state = "chronogun"
 	w_class = WEIGHT_CLASS_NORMAL
+	requires_wielding = FALSE
 
 	var/mob/living/current_target
 	var/last_check = 0
@@ -16,7 +17,7 @@
 
 	weapon_weight = WEAPON_MEDIUM
 
-/obj/item/gun/medbeam/Initialize()
+/obj/item/gun/medbeam/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSobj, src)
 
@@ -116,7 +117,7 @@
 		new /obj/effect/temp_visual/heal(get_turf(target), "#80F5FF")
 	target.adjustBruteLoss(-4)
 	target.adjustFireLoss(-4)
-	target.adjustToxLoss(-1)
+	target.adjustToxLoss(-1, FALSE, TRUE)
 	target.adjustOxyLoss(-1)
 	return
 
@@ -130,6 +131,6 @@
 /obj/item/gun/medbeam/mech
 	mounted = 1
 
-/obj/item/gun/medbeam/mech/Initialize()
+/obj/item/gun/medbeam/mech/Initialize(mapload)
 	. = ..()
 	STOP_PROCESSING(SSobj, src) //Mech mediguns do not process until installed, and are controlled by the holder obj

@@ -24,14 +24,14 @@ GLOBAL_LIST_INIT(rod_recipes, list ( \
 	merge_type = /obj/item/stack/rods
 	attack_verb = list("hit", "bludgeoned", "whacked")
 	hitsound = 'sound/weapons/grenadelaunch.ogg'
+	embedding = list()
 	novariants = TRUE
-	block_upgrade_walk = 1
 
 /obj/item/stack/rods/suicide_act(mob/living/carbon/user)
 	user.visible_message("<span class='suicide'>[user] begins to stuff \the [src] down [user.p_their()] throat! It looks like [user.p_theyre()] trying to commit suicide!</span>")//it looks like theyre ur mum
 	return BRUTELOSS
 
-/obj/item/stack/rods/Initialize(mapload, new_amount, merge = TRUE)
+/obj/item/stack/rods/Initialize(mapload, new_amount, merge = TRUE, mob/user = null)
 	. = ..()
 
 	recipes = GLOB.rod_recipes

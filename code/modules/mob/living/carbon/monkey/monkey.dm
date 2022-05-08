@@ -13,10 +13,24 @@
 	type_of_meat = /obj/item/reagent_containers/food/snacks/meat/slab/monkey
 	gib_type = /obj/effect/decal/cleanable/blood/gibs
 	unique_name = TRUE
+	blocks_emissive = EMISSIVE_BLOCK_UNIQUE
 	bodyparts = list(/obj/item/bodypart/chest/monkey, /obj/item/bodypart/head/monkey, /obj/item/bodypart/l_arm/monkey,
 					 /obj/item/bodypart/r_arm/monkey, /obj/item/bodypart/r_leg/monkey, /obj/item/bodypart/l_leg/monkey)
 	hud_type = /datum/hud/monkey
 	mobchatspan = "monkeyhive"
+	ai_controller = /datum/ai_controller/monkey
+	faction = list("neutral", "monkey")
+
+GLOBAL_LIST_INIT(strippable_monkey_items, create_strippable_list(list(
+	/datum/strippable_item/hand/left,
+	/datum/strippable_item/hand/right,
+	/datum/strippable_item/mob_item_slot/handcuffs,
+	/datum/strippable_item/mob_item_slot/legcuffs,
+	/datum/strippable_item/mob_item_slot/head,
+	/datum/strippable_item/mob_item_slot/back,
+	/datum/strippable_item/mob_item_slot/mask,
+	/datum/strippable_item/mob_item_slot/neck
+)))
 
 /mob/living/carbon/monkey/Initialize(mapload, cubespawned=FALSE, mob/spawner)
 	add_verb(/mob/living/proc/mob_sleep)
@@ -42,6 +56,7 @@
 
 	create_dna()
 	dna.initialize_dna(random_blood_type())
+	AddElement(/datum/element/strippable, GLOB.strippable_monkey_items)
 
 /mob/living/carbon/monkey/Destroy()
 	SSmobs.cubemonkeys -= src
@@ -79,17 +94,8 @@
 			slow += (health_deficiency / 25)
 	add_movespeed_modifier(MOVESPEED_ID_MONKEY_HEALTH_SPEEDMOD, TRUE, 100, override = TRUE, multiplicative_slowdown = slow)
 
-/mob/living/carbon/monkey/adjust_bodytemperature(amount)
-	. = ..()
-	var/slow = 0
-	if (bodytemperature < 283.222)
-		slow += ((283.222 - bodytemperature) / 10) * 1.75
-	add_movespeed_modifier(MOVESPEED_ID_MONKEY_TEMPERATURE_SPEEDMOD, TRUE, 100, override = TRUE, multiplicative_slowdown = slow)
-
 /mob/living/carbon/monkey/get_stat_tab_status()
 	var/list/tab_data = ..()
-	tab_data["Intent"] = GENERATE_STAT_TEXT("[a_intent]")
-	tab_data["Move Mode"] = GENERATE_STAT_TEXT("[m_intent]")
 	if(client && mind)
 		var/datum/antagonist/changeling/changeling = mind.has_antag_datum(/datum/antagonist/changeling)
 		if(changeling)
@@ -147,7 +153,7 @@
 			threatcount += 4 //trigger look_for_perp() since they're nonhuman and very likely hostile
 
 	//mindshield implants imply trustworthyness
-	if(HAS_TRAIT(src, TRAIT_MINDSHIELD))
+	if(has_mindshield_hud_icon())
 		threatcount -= 1
 
 	return threatcount
@@ -170,9 +176,9 @@
 	return TRUE
 
 /mob/living/carbon/monkey/angry
-	aggressive = TRUE
+	ai_controller = /datum/ai_controller/monkey/angry
 
-/mob/living/carbon/monkey/angry/Initialize()
+/mob/living/carbon/monkey/angry/Initialize(mapload)
 	. = ..()
 	if(prob(10))
 		var/obj/item/clothing/head/helmet/justice/escape/helmet = new(src)
@@ -181,7 +187,7 @@
 
 
 //Special monkeycube subtype to track the number of them and prevent spam
-/mob/living/carbon/monkey/cube/Initialize()
+/mob/living/carbon/monkey/cube/Initialize(mapload)
 	. = ..()
 	GLOB.total_cube_monkeys++
 
@@ -203,14 +209,50 @@
 	icon_state = null
 	butcher_results = list(/obj/effect/spawner/lootdrop/teratoma/minor = 5, /obj/effect/spawner/lootdrop/teratoma/major = 1)
 	type_of_meat = /obj/effect/spawner/lootdrop/teratoma/minor
-	aggressive = TRUE
 	bodyparts = list(/obj/item/bodypart/chest/monkey/teratoma, /obj/item/bodypart/head/monkey/teratoma, /obj/item/bodypart/l_arm/monkey/teratoma,
 					 /obj/item/bodypart/r_arm/monkey/teratoma, /obj/item/bodypart/r_leg/monkey/teratoma, /obj/item/bodypart/l_leg/monkey/teratoma)
+	ai_controller = null
 
-/mob/living/carbon/monkey/tumor/Initialize()
+/datum/dna/tumor
+	species = new /datum/species/teratoma
+
+/datum/species/teratoma
+	name = "Teratoma"
+	id = "teratoma"
+	say_mod = "mumbles"
+	species_traits = list(NOTRANSSTING, NO_DNA_COPY, EYECOLOR, HAIR, FACEHAIR, LIPS)
+	inherent_traits = list(TRAIT_NOHUNGER, TRAIT_RADIMMUNE, TRAIT_BADDNA, TRAIT_NOGUNS, TRAIT_NONECRODISEASE)	//Made of mutated cells
+	default_features = list("mcolor" = "FFF", "wings" = "None")
+	use_skintones = FALSE
+	skinned_type = /obj/item/stack/sheet/animalhide/monkey
+	liked_food = JUNKFOOD | FRIED | GROSS | RAW
+	changesource_flags = MIRROR_BADMIN
+	mutant_brain = /obj/item/organ/brain/tumor
+
+	species_chest = /obj/item/bodypart/chest/monkey/teratoma
+	species_head = /obj/item/bodypart/head/monkey/teratoma
+	species_l_arm = /obj/item/bodypart/l_arm/monkey/teratoma
+	species_r_arm = /obj/item/bodypart/r_arm/monkey/teratoma
+	species_l_leg = /obj/item/bodypart/l_leg/monkey/teratoma
+	species_r_leg = /obj/item/bodypart/r_leg/monkey/teratoma
+
+/obj/item/organ/brain/tumor
+	name = "teratoma brain"
+
+/obj/item/organ/brain/tumor/Remove(mob/living/carbon/C, special, no_id_transfer)
 	. = ..()
-	for(var/datum/mutation/M in dna.mutations)
-		if(istype(M,/datum/mutation/human/race))
-			var/datum/mutation/human/race/R = M
-			R.mutadone_proof = TRUE
-	dna.species.species_traits += NOTRANSSTING
+	//Removing it deletes it
+	if(!QDELETED(src))
+		qdel(src)
+
+/mob/living/carbon/monkey/tumor/handle_mutations_and_radiation()
+	return
+
+/mob/living/carbon/monkey/tumor/has_dna()
+	return FALSE
+
+/mob/living/carbon/monkey/tumor/create_dna()
+	dna = new /datum/dna/tumor(src)
+	//Give us the juicy mutant organs
+	dna.species.on_species_gain(src, null, FALSE)
+	dna.species.regenerate_organs(src, replace_current = TRUE)

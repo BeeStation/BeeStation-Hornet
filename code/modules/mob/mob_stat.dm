@@ -33,6 +33,10 @@
 			client.stat_update_mode = STAT_MEDIUM_UPDATE
 			requires_holder = TRUE
 			tab_data = GLOB.ahelp_tickets.stat_entry()				//  ~ 0 CPU Time [1 CALL]
+		if("Interviews")
+			client.stat_update_mode = STAT_MEDIUM_UPDATE
+			requires_holder = TRUE
+			tab_data = GLOB.interviews.stat_entry()
 		// ===== SDQL2 =====
 		if("SDQL2")
 			client.stat_update_mode = STAT_MEDIUM_UPDATE
@@ -76,8 +80,7 @@
 						overrides += I.loc
 				tab_data[REF(listed_turf)] = list(
 					text="[listed_turf.name]",
-					icon=SSstat.get_flat_icon(client, listed_turf),
-					type=STAT_ATOM,
+					type=STAT_ATOM
 				)
 				var/sanity = MAX_ICONS_PER_TILE
 				for(var/atom/A in listed_turf)
@@ -92,21 +95,10 @@
 					sanity --
 					tab_data[REF(A)] = list(
 						text="[A.name]",
-						icon=SSstat.get_flat_icon(client, A),
-						type=STAT_ATOM,
+						type=STAT_ATOM
 					)
 					if(sanity < 0)
 						break
-			var/list/all_verbs = get_all_verbs()								// ~0.252 CPU Time [14000 CALLS]
-			if(selected_tab in all_verbs)
-				client.stat_update_mode = STAT_SLOW_UPDATE
-				for(var/verb in all_verbs[selected_tab])
-					var/procpath/V = verb
-					tab_data["[V.name]"] = list(
-						action = "verb",
-						params = list("verb" = V.name),
-						type=STAT_VERB,
-					)
 			if(mind)
 				tab_data += get_spell_stat_data(mind.spell_list, selected_tab)
 			tab_data += get_spell_stat_data(mob_spell_list, selected_tab)
@@ -117,7 +109,16 @@
 	return tab_data
 
 /mob/proc/get_all_verbs()
-	var/list/all_verbs = deepCopyList(sorted_verbs)
+	var/list/all_verbs = new
+
+	if(!client)
+		return all_verbs
+
+	if(client.interviewee)
+		return list("Interview" = list(/mob/dead/new_player/proc/open_interview))
+
+	if(sorted_verbs)
+		all_verbs = deepCopyList(sorted_verbs)
 	//An annoying thing to mention:
 	// list A [A: ["b", "c"]] +  (list B) [A: ["c", "d"]] will only have A from list B
 	for(var/i in client.sorted_verbs)
@@ -126,6 +127,7 @@
 		else
 			var/list/verbs_to_copy = client.sorted_verbs[i]
 			all_verbs[i] = verbs_to_copy.Copy()
+	//TODO: Call tgui_panel/add_verbs on pickup and remove on drop.
 	for(var/atom/A as() in contents)
 		//As an optimisation we will make it so all verbs on objects will go into the object tab.
 		//If you don't want this to happen change this.
@@ -145,10 +147,23 @@
 		tab_data["Next Map"] = GENERATE_STAT_TEXT(cached.map_name)
 	tab_data["Round ID"] = GENERATE_STAT_TEXT("[GLOB.round_id ? GLOB.round_id : "Null"]")
 	tab_data["Server Time"] = GENERATE_STAT_TEXT(time2text(world.timeofday,"YYYY-MM-DD hh:mm:ss"))
-	tab_data["Round Time"] = GENERATE_STAT_TEXT(worldtime2text())
 	tab_data["Station Time"] = GENERATE_STAT_TEXT(station_time_timestamp())
+	tab_data["divider_1"] = GENERATE_STAT_BLANK
+
 	tab_data["Time Dilation"] = GENERATE_STAT_TEXT("[round(SStime_track.time_dilation_current,1)]% AVG:([round(SStime_track.time_dilation_avg_fast,1)]%, [round(SStime_track.time_dilation_avg,1)]%, [round(SStime_track.time_dilation_avg_slow,1)]%)")
-	tab_data["Players Connected"] = GENERATE_STAT_TEXT("[GLOB.clients.len]")
+	if (SSticker.round_start_time)
+		tab_data["Internal Round Timer"] = GENERATE_STAT_TEXT(time2text(world.time - SSticker.round_start_time, "hh:mm:ss", 0))
+		tab_data["Actual Round Timer"] = GENERATE_STAT_TEXT(time2text(world.timeofday - SSticker.round_start_timeofday, "hh:mm:ss", 0))
+	else
+		tab_data["Lobby Timer"] = GENERATE_STAT_TEXT(worldtime2text())
+	tab_data["divider_2"] = GENERATE_STAT_BLANK
+
+	if(!SSticker.HasRoundStarted())
+		tab_data["Players Ready/Connected"] = GENERATE_STAT_TEXT("[SSticker.totalPlayersReady]/[GLOB.clients.len]")
+	else
+		tab_data["Players Playing/Connected"] = GENERATE_STAT_TEXT("[get_active_player_count()]/[GLOB.clients.len]")
+	tab_data["divider_3"] = GENERATE_STAT_DIVIDER
+
 	if(SSshuttle.emergency)
 		var/ETA = SSshuttle.emergency.getModeStr()
 		if(ETA)
@@ -160,6 +175,7 @@
 	var/turf/T = get_turf(client.eye)
 	tab_data["Location"] = GENERATE_STAT_TEXT("[COORD(T)]")
 	tab_data["CPU"] = GENERATE_STAT_TEXT("[world.cpu]")
+	tab_data["Tick Usage"] = GENERATE_STAT_TEXT("[TICK_USAGE] / [Master.current_ticklimit]")
 	tab_data["Instances"] = GENERATE_STAT_TEXT("[num2text(world.contents.len, 10)]")
 	tab_data["World Time"] = GENERATE_STAT_TEXT("[world.time]")
 	tab_data += GLOB.stat_entry()
@@ -174,7 +190,7 @@
 	else
 		tab_data["Failsafe Controller"] = GENERATE_STAT_TEXT("ERROR")
 	if(Master)
-		tab_data["divider_2"] = list(type=STAT_DIVIDER)
+		tab_data["divider_2"] = GENERATE_STAT_DIVIDER
 		for(var/datum/controller/subsystem/SS in Master.subsystems)
 			tab_data += SS.stat_entry()
 	tab_data += GLOB.cameranet.stat_entry()
@@ -210,8 +226,13 @@
 	if(client.holder)
 		tabs |= "MC"
 		tabs |= "Tickets"
+		if(CONFIG_GET(flag/panic_bunker_interview))
+			tabs |= "Interviews"
 		if(length(GLOB.sdql2_queries))
 			tabs |= "SDQL2"
+	else if(client.interviewee)
+		tabs |= "Interview"
+
 	var/list/additional_tabs = list()
 	//Performance increase from only adding keys is better than adding values too.
 	for(var/i in get_all_verbs())
@@ -232,6 +253,12 @@
 	switch(button_pressed)
 		if("browsetickets")
 			GLOB.ahelp_tickets.BrowseTickets(src)
+		if("browseinterviews")
+			GLOB.interviews.BrowseInterviews(src)
+		if("open_interview")
+			var/datum/interview/I = GLOB.interviews.interview_by_id(text2num(params["id"]))
+			if (I && client.holder)
+				I.ui_interact(src)
 		if("open_ticket")
 			var/ticket_id = text2num(params["id"])
 			var/datum/admin_help/AH = GLOB.ahelp_tickets.TicketByID(ticket_id)
@@ -251,6 +278,14 @@
 				actor.ShiftClickOn(atom_actual)
 			else
 				actor.ClickOn(atom_actual)
+		if("atomDrop")
+			var/atomRef1 = params["ref"]
+			var/atomRef2 = params["ref_other"]
+			var/atom/atom_actual1 = locate(atomRef1)
+			var/atom/atom_actual2 = locate(atomRef2)
+			if(!atom_actual1 || !atom_actual2)
+				return
+			client.MouseDrop(atom_actual2, atom_actual1)
 		if("statClickDebug")
 			var/targetRef = params["targetRef"]
 			var/class = params["class"]
@@ -290,6 +325,9 @@
 						to_chat(src, "<span class='warning'>Your issue has already been resolved!</span>")
 				else
 					to_chat(src, "<span class='warning'>You are sending messages too fast!</span>")
+		if("start_br")
+			if(client.holder && check_rights(R_FUN))
+				client.battle_royale()
 
 /*
  * Sets the current stat tab selected.

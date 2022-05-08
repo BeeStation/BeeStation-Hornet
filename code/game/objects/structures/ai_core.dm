@@ -12,7 +12,7 @@
 	var/obj/item/mmi/brain
 	var/can_deconstruct = TRUE
 
-/obj/structure/AIcore/Initialize()
+/obj/structure/AIcore/Initialize(mapload)
 	. = ..()
 	laws = new
 	laws.set_laws_config()
@@ -62,7 +62,7 @@
 		return FALSE
 	var/turf/T = get_turf(src)
 	var/area/A = get_area(src)
-	if(!A.blob_allowed)
+	if(!(A.area_flags & BLOBS_ALLOWED))
 		return FALSE
 	if(!A.power_equip)
 		return FALSE
@@ -79,7 +79,7 @@
 		return
 	return ..()
 
-/obj/structure/AIcore/latejoin_inactive/Initialize()
+/obj/structure/AIcore/latejoin_inactive/Initialize(mapload)
 	. = ..()
 	GLOB.latejoin_ai_cores += src
 
@@ -301,7 +301,7 @@
 	anchored = TRUE
 	state = AI_READY_CORE
 
-/obj/structure/AIcore/deactivated/Initialize()
+/obj/structure/AIcore/deactivated/Initialize(mapload)
 	. = ..()
 	circuit = new(src)
 

@@ -28,7 +28,7 @@
 	var/dirs = 0
 
 
-/obj/machinery/am_shielding/Initialize()
+/obj/machinery/am_shielding/Initialize(mapload)
 	. = ..()
 	addtimer(CALLBACK(src, .proc/controllerscan), 10)
 
@@ -79,8 +79,9 @@
 	return ..()
 
 
-/obj/machinery/am_shielding/CanPass(atom/movable/mover, turf/target)
-	return 0
+/obj/machinery/am_shielding/CanAllowThrough(atom/movable/mover, turf/target)
+	. = ..()
+	return FALSE
 
 
 /obj/machinery/am_shielding/process()

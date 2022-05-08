@@ -10,6 +10,7 @@
 	selection_color = "#dddddd"
 	chat_color = "#8AB48C"
 
+
 	outfit = /datum/outfit/job/chaplain
 
 	access = list(ACCESS_MORGUE, ACCESS_CHAPEL_OFFICE, ACCESS_CREMATORIUM, ACCESS_THEATRE)
@@ -18,7 +19,12 @@
 	paycheck_department = ACCOUNT_CIV
 
 	display_order = JOB_DISPLAY_ORDER_CHAPLAIN
+	departments = DEPARTMENT_SERVICE
+	rpg_title = "Paladin"
 
+	species_outfits = list(
+		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/chaplain
+	)
 
 /datum/job/chaplain/after_spawn(mob/living/H, mob/M)
 	. = ..()
@@ -33,9 +39,6 @@
 		B.item_state = GLOB.bible_item_state
 		to_chat(H, "There is already an established religion onboard the station. You are an acolyte of [GLOB.deity]. Defer to the Chaplain.")
 		H.equip_to_slot_or_del(B, ITEM_SLOT_BACKPACK)
-		var/nrt = GLOB.holy_weapon_type || /obj/item/nullrod
-		var/obj/item/nullrod/N = new nrt(H)
-		H.put_in_hands(N)
 		GLOB.religious_sect?.on_conversion(H)
 		return
 	H.mind?.holy_role = HOLY_ROLE_HIGHPRIEST
@@ -64,8 +67,6 @@
 			B.name = "The Necronomicon"
 		if("hinduism")
 			B.name = "The Vedas"
-		if("homosexuality")
-			B.name = pick("Guys Gone Wild","Coming Out of The Closet")
 		if("imperium")
 			B.name = "Uplifting Primer"
 		if("islam")
@@ -74,9 +75,6 @@
 			B.name = "The Torah"
 		if("lampism")
 			B.name = "Fluorescent Incandescence"
-		if("lol", "wtf", "gay", "penis", "ass", "poo", "badmin", "shitmin", "deadmin", "cock", "cocks", "meme", "memes")
-			B.name = pick("Woodys Got Wood: The Aftermath", "War of the Cocks", "Sweet Bro and Hella Jef: Expanded Edition","F.A.T.A.L. Rulebook")
-			H.adjustOrganLoss(ORGAN_SLOT_BRAIN, 100) // starts off retarded as fuck
 		if("monkeyism","apism","gorillism","primatism")
 			B.name = pick("Going Bananas", "Bananas Out For Harambe")
 		if("mormonism")
@@ -121,6 +119,10 @@
 	belt = /obj/item/pda/chaplain
 	ears = /obj/item/radio/headset/headset_srv
 	uniform = /obj/item/clothing/under/rank/civilian/chaplain
-	backpack_contents = list(/obj/item/camera/spooky = 1)
+	backpack_contents = list(
+		/obj/item/nullrod = 1,
+		/obj/item/choice_beacon/holy = 1,
+		/obj/item/camera/spooky = 1
+	)
 	backpack = /obj/item/storage/backpack/cultpack
 	satchel = /obj/item/storage/backpack/cultpack

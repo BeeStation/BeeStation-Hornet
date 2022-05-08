@@ -135,13 +135,13 @@
 	. = 1
 	if(!bodyzone_hit || bodyzone_hit == BODY_ZONE_HEAD)
 		if(wear_mask)
-			if(!(wear_mask.resistance_flags & UNACIDABLE))
+			if(!(wear_mask.resistance_flags & (UNACIDABLE | INDESTRUCTIBLE)))
 				wear_mask.acid_act(acidpwr, acid_volume)
 			else
 				to_chat(src, "<span class='warning'>Your mask protects you from the acid.</span>")
 			return
 		if(head)
-			if(!(head.resistance_flags & UNACIDABLE))
+			if(!(head.resistance_flags & (UNACIDABLE | INDESTRUCTIBLE)))
 				head.acid_act(acidpwr, acid_volume)
 			else
 				to_chat(src, "<span class='warning'>Your hat protects you from the acid.</span>")
@@ -176,8 +176,7 @@
 	//attempt to dismember bodyparts
 	if(severity <= 2)
 		var/max_limb_loss = round(4/severity) //so you don't lose four limbs at severity 3.
-		for(var/X in bodyparts)
-			var/obj/item/bodypart/BP = X
+		for(var/obj/item/bodypart/BP as() in bodyparts)
 			if(prob(50/severity) && BP.body_zone != BODY_ZONE_CHEST)
 				BP.brute_dam = BP.max_damage
 				BP.dismember()

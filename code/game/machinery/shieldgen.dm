@@ -11,7 +11,7 @@
 	max_integrity = 200 //The shield can only take so much beating (prevents perma-prisons)
 	CanAtmosPass = ATMOS_PASS_DENSITY
 
-/obj/structure/emergency_shield/Initialize()
+/obj/structure/emergency_shield/Initialize(mapload)
 	. = ..()
 	setDir(pick(GLOB.cardinals))
 	air_update_turf(1)
@@ -107,9 +107,9 @@
 	update_icon()
 	QDEL_LIST(deployed_shields)
 
-/obj/machinery/shieldgen/process()
+/obj/machinery/shieldgen/process(delta_time)
 	if((stat & BROKEN) && active)
-		if(deployed_shields.len && prob(5))
+		if(deployed_shields.len && DT_PROB(2.5, delta_time))
 			qdel(pick(deployed_shields))
 
 
@@ -232,6 +232,10 @@
 	var/shield_range = 8
 	var/obj/structure/cable/attached // the attached cable
 
+/obj/machinery/shieldwallgen/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_ATOM_SINGULARITY_TRY_MOVE, .proc/block_singularity_if_active)
+
 /obj/machinery/shieldwallgen/xenobiologyaccess		//use in xenobiology containment
 	name = "xenobiology shield wall generator"
 	desc = "A shield generator meant for use in xenobiology."
@@ -337,6 +341,11 @@
 		if(F && (F.gen_primary == src || F.gen_secondary == src)) //it's ours, kill it.
 			qdel(F)
 
+/obj/machinery/shieldwallgen/proc/block_singularity_if_active()
+	SIGNAL_HANDLER
+	if(active)
+		return SINGULARITY_TRY_MOVE_BLOCK
+
 /obj/machinery/shieldwallgen/can_be_unfasten_wrench(mob/user, silent)
 	if(active)
 		if(!silent)
@@ -421,6 +430,7 @@
 	for(var/mob/living/L in get_turf(src))
 		visible_message("<span class='danger'>\The [src] is suddenly occupying the same space as \the [L]!</span>")
 		L.gib()
+	RegisterSignal(src, COMSIG_ATOM_SINGULARITY_TRY_MOVE, .proc/block_singularity)
 
 /obj/machinery/shieldwall/Destroy()
 	gen_primary = null
@@ -454,11 +464,14 @@
 		if(gen_secondary) //using power may cause us to be destroyed
 			gen_secondary.use_stored_power(drain_amount*0.5)
 
-/obj/machinery/shieldwall/CanPass(atom/movable/mover, turf/target)
+/obj/machinery/shieldwall/proc/block_singularity()
+	SIGNAL_HANDLER
+	return SINGULARITY_TRY_MOVE_BLOCK
+
+/obj/machinery/shieldwall/CanAllowThrough(atom/movable/mover, turf/target)
+	. = ..()
 	if(istype(mover) && (mover.pass_flags & PASSGLASS))
 		return prob(20)
 	else
 		if(istype(mover, /obj/item/projectile))
 			return prob(10)
-		else
-			return !density

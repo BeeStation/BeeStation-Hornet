@@ -25,7 +25,7 @@
 	id="pushbroom"
 	build_type = AUTOLATHE | PROTOLATHE
 	materials = list(/datum/material/iron = 2000)
-	build_path = /obj/item/twohanded/pushbroom
+	build_path = /obj/item/pushbroom
 	category = list("initial","Tools","Tool Designs")
 	departmental_flags = DEPARTMENTAL_FLAG_SERVICE
 
@@ -567,12 +567,12 @@
 	build_path = /obj/item/ammo_casing/shotgun/rubbershot
 	category = list("initial", "Security")
 
-/datum/design/c38
-	name = "Speed Loader (.38)"
-	id = "c38"
+/datum/design/c38b
+	name = "Speed Loader (.38 Rubber)"
+	id = "c38b"
 	build_type = AUTOLATHE
-	materials = list(/datum/material/iron = 20000)
-	build_path = /obj/item/ammo_box/c38
+	materials = list(/datum/material/iron = 16000)
+	build_path = /obj/item/ammo_box/c38/match/bouncy
 	category = list("initial", "Security")
 
 /datum/design/recorder
@@ -850,6 +850,14 @@
 	build_path = /obj/item/ammo_box/c9mm
 	category = list("hacked", "Security")
 
+/datum/design/c38
+	name = "Speed Loader (.38)"
+	id = "c38"
+	build_type = AUTOLATHE
+	materials = list(/datum/material/iron = 20000)
+	build_path = /obj/item/ammo_box/c38
+	category = list("hacked", "Security")
+
 /datum/design/cleaver
 	name = "Butcher's Cleaver"
 	id = "cleaver"
@@ -1039,3 +1047,19 @@
 	build_path = /obj/item/stack/ducts
 	category = list("initial", "Construction")
 	maxstack = 50
+
+/datum/design/airlock_painter/decal
+	name = "Decal Painter"
+	id = "decal_painter"
+	build_type = AUTOLATHE | PROTOLATHE
+	materials = list(/datum/material/iron = 50, /datum/material/glass = 50)
+	build_path = /obj/item/airlock_painter/decal
+	category = list("initial","Tools","Tool Designs")
+
+/datum/design/cautionsign
+	name = "Wet Floor Sign"
+	id = "wetfloorsign"
+	build_type = AUTOLATHE
+	materials = list(/datum/material/iron = 50)
+	build_path = /obj/item/clothing/suit/caution
+	category = list("initial","Misc")

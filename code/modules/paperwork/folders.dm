@@ -13,7 +13,7 @@
 	user.visible_message("<span class='suicide'>[user] begins filing an imaginary death warrant! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	return OXYLOSS
 
-/obj/item/folder/Initialize()
+/obj/item/folder/Initialize(mapload)
 	update_icon()
 	. = ..()
 
@@ -26,7 +26,7 @@
 
 /obj/item/folder/examine()
 	. = ..()
-	if(contents)
+	if(length(contents))
 		. += "<span class='notice'>Alt-click to remove [contents[1]].</span>"
 
 /obj/item/folder/proc/rename(mob/user)
@@ -48,10 +48,11 @@
 		user.put_in_hands(I)
 		to_chat(user, "<span class='notice'>You remove [I] from [src].</span>")
 		update_icon()
+		ui_update()
 
 /obj/item/folder/AltClick(mob/user)
 	..()
-	if(contents)
+	if(length(contents))
 		remove_item(contents[1], user)
 
 /obj/item/folder/update_overlays()
@@ -68,13 +69,10 @@
 			return
 		to_chat(user, "<span class='notice'>You put [W] into [src].</span>")
 		update_icon()
+		ui_update()
 	else if(istype(W, /obj/item/pen))
 		rename(user)
-
-/obj/item/folder/attack_self(mob/user)
-	add_fingerprint(usr)
-	ui_interact(user)
-	return
+		ui_update()
 
 /obj/item/folder/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)

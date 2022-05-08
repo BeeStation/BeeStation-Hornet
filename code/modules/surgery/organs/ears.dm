@@ -80,6 +80,8 @@
 	var/obj/item/organ/ears/ears = getorgan(/obj/item/organ/ears)
 	if(ears)
 		ears.adjustEarDamage(ddmg, ddeaf)
+		if(ears.deaf)
+			SEND_SOUND(src, sound(null))
 
 /mob/proc/minimumDeafTicks()
 
@@ -150,10 +152,11 @@
 			owner.Jitter(30)
 			owner.Dizzy(30)
 			owner.Knockdown(200)
-			deaf = 30
-			to_chat(owner, "<span class='warning'>Your robotic ears are ringing, uselessly.</span>")
+			to_chat(owner, "<span class='warning'>Alert: Audio sensors malfunctioning</span>")
+			owner.apply_status_effect(STATUS_EFFECT_IPC_EMP)
 		if(2)
 			owner.Jitter(15)
 			owner.Dizzy(15)
 			owner.Knockdown(100)
-			to_chat(owner, "<span class='warning'>Your robotic ears buzz.</span>") 
+			to_chat(owner, "<span class='warning'>Alert: Audio sensors malfunctioning</span>")
+			owner.apply_status_effect(STATUS_EFFECT_IPC_EMP)

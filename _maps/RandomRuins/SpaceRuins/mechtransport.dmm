@@ -35,7 +35,7 @@
 /turf/open/floor/mineral/titanium/blue,
 /area/ruin/space/has_grav/powered/mechtransport)
 "j" = (
-/obj/machinery/computer/shuttle{
+/obj/machinery/computer/shuttle_flight{
 	dir = 8
 	},
 /turf/open/floor/mineral/titanium/blue,
@@ -147,7 +147,7 @@
 /turf/open/floor/mineral/titanium/blue,
 /area/ruin/space/has_grav/powered/mechtransport)
 "K" = (
-/obj/effect/decal/cleanable/robot_debris/gib,
+/obj/effect/decal/cleanable/robot_debris,
 /turf/open/floor/plating/airless,
 /area/ruin/space/has_grav/powered/mechtransport)
 "L" = (

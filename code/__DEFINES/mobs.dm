@@ -57,8 +57,14 @@
 #define ORGAN_ORGANIC   1
 #define ORGAN_ROBOTIC   2
 
-#define BODYPART_ORGANIC   1
-#define BODYPART_ROBOTIC   2
+
+//Bodytype defines for how things can be worn.
+#define BODYTYPE_ORGANIC		(1<<0)
+#define BODYTYPE_ROBOTIC		(1<<1)
+#define BODYTYPE_HUMANOID		(1<<2) //Everything that isnt Grod
+#define BODYTYPE_BOXHEAD		(1<<3) //TV Head
+#define BODYTYPE_DIGITIGRADE	(1<<4) //Cancer
+#define NUMBER_OF_BODYTYPES	5 //KEEP THIS UPDATED OR SHIT WILL BREAK
 
 #define BODYPART_NOT_DISABLED 0
 #define BODYPART_DISABLED_DAMAGE 1
@@ -72,6 +78,51 @@
 #define ALIEN_BODYPART "alien"
 #define LARVA_BODYPART "larva"
 #define DEVIL_BODYPART "devil"
+
+//Bodypart change blocking flags
+#define BP_BLOCK_CHANGE_SPECIES	(1<<0)
+
+//Species gib types
+#define GIB_TYPE_HUMAN "human"
+#define GIB_TYPE_ROBOTIC "robotic"
+
+//Species ID defines
+#define SPECIES_HUMAN			"human"
+#define SPECIES_IPC 			"ipc"
+#define SPECIES_ETHEREAL 		"ethereal"
+#define SPECIES_PLASMAMAN 		"plasmaman"
+#define SPECIES_APID 			"apid"
+#define SPECIES_MOTH			"moth"
+#define SPECIES_LIZARD			"lizard"
+ #define SPECIES_ASHWALKER		"ashlizard"
+#define SPECIES_FELINID			"felinid"
+#define SPECIES_OOZELING		"oozeling"
+#define SPECIES_FLY 			"fly"
+#define SPECIES_MONKEY			"monkey"
+#define SPECIES_JELLYPERSON		"jelly"
+ #define SPECIES_SLIMEPERSON	"slime"
+ #define SPECIES_LUMINESCENT	"lum"
+ #define SPECIES_STARGAZER		"stargazer"
+#define SPECIES_ABDUCTOR		"abductor"
+#define SPECIES_SHADOWPERSON	"shadow"
+
+//Species bitflags, used for species_restricted. If this somehow ever gets above 23 Bee has larger problems.
+#define FLAG_HUMAN			(1<<0)
+#define FLAG_IPC			(1<<1)
+#define FLAG_ETHEREAL		(1<<2)
+#define FLAG_PLASMAMAN		(1<<3)
+#define	FLAG_APID			(1<<4)
+#define FLAG_MOTH			(1<<5)
+#define FLAG_LIZARD			(1<<6)
+#define FLAG_FELINID		(1<<7)
+#define FLAG_OOZELING		(1<<8)
+#define FLAG_FLY			(1<<9)
+#define FLAG_DEBUG_SPECIES	(1<<10)
+#define FLAG_MONKEY (1<<11)
+
+#define DIGITIGRADE_NEVER 0
+#define DIGITIGRADE_OPTIONAL 1
+#define DIGITIGRADE_FORCED 2
 
 //Reagent Metabolization flags, defines the type of reagents that affect this mob
 #define PROCESS_ORGANIC 1		//Only processes reagents with "ORGANIC" or "ORGANIC | SYNTHETIC"
@@ -170,12 +221,6 @@
 #define SANITY_CRAZY 25
 #define SANITY_INSANE 0
 
-//Hygiene levels for humans
-#define HYGIENE_LEVEL_CLEAN 250
-#define HYGIENE_LEVEL_NORMAL 200
-#define HYGIENE_LEVEL_DIRTY 75
-#define HYGIENE_LEVEL_DISGUSTING 0
-
 //Nutrition levels for humans
 #define NUTRITION_LEVEL_FAT 600
 #define NUTRITION_LEVEL_FULL 550
@@ -196,12 +241,8 @@
 //Used as an upper limit for species that continuously gain nutriment
 #define NUTRITION_LEVEL_ALMOST_FULL 535
 
-//Charge levels for Ethereals
-#define ETHEREAL_CHARGE_NONE 0
-#define ETHEREAL_CHARGE_LOWPOWER 20
-#define ETHEREAL_CHARGE_NORMAL 50
-#define ETHEREAL_CHARGE_ALMOSTFULL 75
-#define ETHEREAL_CHARGE_FULL 100
+//Base nutrition value used for newly initialized slimes
+#define SLIME_DEFAULT_NUTRITION 700
 
 //Slime evolution threshold. Controls how fast slimes can split/grow
 #define SLIME_EVOLUTION_THRESHOLD 10
@@ -312,6 +353,8 @@
 #define OFFSET_BACK "back"
 #define OFFSET_SUIT "suit"
 #define OFFSET_NECK "neck"
+#define OFFSET_LEFT_HAND "l_hand"
+#define OFFSET_RIGHT_HAND "r_hand"
 
 //MINOR TWEAKS/MISC
 #define AGE_MIN				18	//! youngest a character can be
@@ -319,12 +362,10 @@
 #define WIZARD_AGE_MIN		30	//! youngest a wizard can be
 #define APPRENTICE_AGE_MIN	29	//! youngest an apprentice can be
 #define SHOES_SLOWDOWN		0	//! How much shoes slow you down by default. Negative values speed you up
-#define POCKET_STRIP_DELAY			40	//! time taken (in deciseconds) to search somebody's pockets
+#define POCKET_STRIP_DELAY	(4 SECONDS)	//! time taken to search somebody's pockets
 #define DOOR_CRUSH_DAMAGE	15	//! the amount of damage that airlocks deal when they crush you
 
 #define	HUNGER_FACTOR		0.1	//! factor at which mob nutrition decreases
-#define	ETHEREAL_CHARGE_FACTOR	0.1 //! factor at which ethereal's charge decreases
-#define	HYGIENE_FACTOR  0.1	//! factor at which mob hygiene decreases
 #define	REAGENTS_METABOLISM 0.4	//! How many units of reagent are consumed per tick, by default.
 #define REAGENTS_EFFECT_MULTIPLIER (REAGENTS_METABOLISM / 0.4)	//! By defining the effect multiplier this way, it'll exactly adjust all effects according to how they originally were with the 0.4 metabolism
 
@@ -368,5 +409,29 @@
 #define WABBAJACK     (1<<6)
 
 #define SLEEP_CHECK_DEATH(X) sleep(X); if(QDELETED(src) || stat == DEAD) return;
+#define INTERACTING_WITH(X, Y) (Y in X.do_afters)
 
 #define SILENCE_RANGED_MESSAGE (1<<0)
+
+// Mob Playability Set By Admin Or Ghosting
+#define SENTIENCE_SKIP 0
+#define SENTIENCE_RETAIN 1	//a player ghosting out of the mob will make the mob playable for others, if it was already playable
+#define SENTIENCE_FORCE 2		//the mob will be made playable by force when a player is forcefully ejected from a mob (by admin, for example)
+#define SENTIENCE_ERASE 3
+
+//Flavor Text When Entering A Playable Mob
+#define FLAVOR_TEXT_EVIL "evil"	//mob antag
+#define FLAVOR_TEXT_GOOD "good"	//ie do not cause evil
+#define FLAVOR_TEXT_NONE "none"
+#define FLAVOR_TEXT_GOAL_ANTAG "blob"	//is antag, but should work towards its goals
+
+//Saves a proc call, life is suffering. If who has no targets_from var, we assume it's just who
+#define GET_TARGETS_FROM(who) (who.targets_from ? who.get_targets_from() : who)
+
+///Define for spawning megafauna instead of a mob for cave gen
+#define SPAWN_MEGAFAUNA "bluh bluh huge boss"
+
+//Body sizes
+#define BODY_SIZE_NORMAL 1
+#define BODY_SIZE_SHORT 0.93
+#define BODY_SIZE_TALL 1.03

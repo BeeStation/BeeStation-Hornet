@@ -5,25 +5,6 @@
 "ab" = (
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/abandoned)
-"ac" = (
-/obj/machinery/door/airlock/titanium{
-	name = "mech bay external airlock"
-	},
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/docking_port/mobile{
-	dheight = 0;
-	dir = 2;
-	dwidth = 8;
-	height = 16;
-	id = "whiteship";
-	launch_status = 0;
-	name = "NT Recovery White-Ship";
-	port_direction = 8;
-	preferred_direction = 1;
-	width = 16
-	},
-/turf/open/floor/plating,
-/area/shuttle/abandoned)
 "ad" = (
 /obj/structure/shuttle/engine/propulsion{
 	dir = 1
@@ -148,8 +129,8 @@
 	},
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/closet/crate{
-	opened = 1;
-	name = "spare equipment crate"
+	name = "spare equipment crate";
+	opened = 1
 	},
 /turf/open/floor/mineral/titanium/yellow,
 /area/shuttle/abandoned)
@@ -168,8 +149,8 @@
 	dir = 1
 	},
 /obj/structure/closet/crate{
-	opened = 1;
-	name = "spare equipment crate"
+	name = "spare equipment crate";
+	opened = 1
 	},
 /obj/item/pickaxe,
 /obj/item/pickaxe,
@@ -205,8 +186,8 @@
 	dir = 1
 	},
 /obj/structure/closet/crate{
-	opened = 1;
-	name = "spare equipment crate"
+	name = "spare equipment crate";
+	opened = 1
 	},
 /obj/item/storage/bag/ore,
 /obj/item/pickaxe,
@@ -284,8 +265,8 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/closet/crate{
-	opened = 1;
-	name = "spare equipment crate"
+	name = "spare equipment crate";
+	opened = 1
 	},
 /obj/machinery/light,
 /turf/open/floor/mineral/titanium/yellow,
@@ -397,7 +378,7 @@
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/abandoned)
 "ba" = (
-/obj/machinery/computer/shuttle/white_ship{
+/obj/machinery/computer/shuttle_flight/white_ship{
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt/dust,
@@ -411,6 +392,26 @@
 	},
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/mineral/titanium/blue,
+/area/shuttle/abandoned)
+"bV" = (
+/obj/machinery/door/airlock/titanium{
+	name = "mech bay external airlock"
+	},
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/docking_port/mobile{
+	dheight = 0;
+	dir = 2;
+	dwidth = 8;
+	dynamic_id = 1;
+	height = 16;
+	id = "whiteship";
+	launch_status = 0;
+	name = "NT Recovery White-Ship";
+	port_direction = 8;
+	preferred_direction = 1;
+	width = 16
+	},
+/turf/open/floor/plating,
 /area/shuttle/abandoned)
 
 (1,1,1) = {"
@@ -522,7 +523,7 @@ aZ
 ar
 "}
 (7,1,1) = {"
-ac
+bV
 ah
 am
 am

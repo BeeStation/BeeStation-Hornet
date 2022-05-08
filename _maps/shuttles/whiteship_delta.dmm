@@ -14,25 +14,6 @@
 "ac" = (
 /turf/closed/wall/mineral/titanium/nodiagonal,
 /area/shuttle/abandoned/crew)
-"ad" = (
-/obj/machinery/door/airlock/external,
-/obj/effect/mapping_helpers/airlock/cyclelink_helper,
-/obj/docking_port/mobile{
-	callTime = 250;
-	dheight = 0;
-	dir = 2;
-	dwidth = 11;
-	height = 17;
-	id = "whiteship";
-	launch_status = 0;
-	movement_force = list("KNOCKDOWN" = 0, "THROW" = 0);
-	name = "NT Frigate";
-	port_direction = 8;
-	preferred_direction = 4;
-	width = 27
-	},
-/turf/open/floor/plating,
-/area/shuttle/abandoned/crew)
 "ae" = (
 /turf/closed/wall/mineral/titanium/nodiagonal,
 /area/shuttle/abandoned/bar)
@@ -183,7 +164,7 @@
 /obj/machinery/power/apc{
 	dir = 8;
 	name = "Frigate Bar APC";
-	pixel_x = -25;
+	pixel_x = -24;
 	req_access = null
 	},
 /obj/structure/spider/stickyweb,
@@ -478,7 +459,7 @@
 /obj/machinery/power/apc{
 	dir = 1;
 	name = "Frigate Crew Quarters APC";
-	pixel_y = 23;
+	pixel_y = 24;
 	req_access = null
 	},
 /obj/effect/turf_decal/tile/neutral{
@@ -1222,7 +1203,7 @@
 /obj/machinery/power/apc{
 	dir = 8;
 	name = "Frigate Bridge APC";
-	pixel_x = -25;
+	pixel_x = -24;
 	req_access = null
 	},
 /obj/effect/turf_decal/tile/blue{
@@ -1267,7 +1248,7 @@
 /turf/open/floor/plasteel/dark,
 /area/shuttle/abandoned/bridge)
 "ch" = (
-/obj/machinery/computer/shuttle/white_ship{
+/obj/machinery/computer/shuttle_flight/white_ship{
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt/dust,
@@ -1378,22 +1359,6 @@
 /obj/effect/decal/cleanable/blood/old,
 /obj/structure/spider/stickyweb,
 /obj/effect/turf_decal/tile/blue,
-/turf/open/floor/plasteel/dark,
-/area/shuttle/abandoned/bridge)
-"cp" = (
-/obj/machinery/computer/camera_advanced/shuttle_docker/whiteship{
-	dir = 8;
-	x_offset = -2;
-	y_offset = -8
-	},
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
 /turf/open/floor/plasteel/dark,
 /area/shuttle/abandoned/bridge)
 "cq" = (
@@ -2261,7 +2226,7 @@
 /obj/machinery/power/apc{
 	dir = 8;
 	name = "Frigate Cargo APC";
-	pixel_x = -25;
+	pixel_x = -24;
 	req_access = null
 	},
 /obj/structure/cable/yellow,
@@ -2520,6 +2485,41 @@
 "vm" = (
 /turf/closed/wall/mineral/titanium/nodiagonal,
 /area/shuttle/abandoned/medbay)
+"wF" = (
+/obj/machinery/door/airlock/external,
+/obj/effect/mapping_helpers/airlock/cyclelink_helper,
+/obj/docking_port/mobile{
+	callTime = 250;
+	dheight = 0;
+	dir = 2;
+	dwidth = 11;
+	dynamic_id = 1;
+	height = 17;
+	id = "whiteship";
+	launch_status = 0;
+	movement_force = list("KNOCKDOWN" = 0, "THROW" = 0);
+	name = "NT Frigate";
+	port_direction = 8;
+	preferred_direction = 4;
+	width = 27
+	},
+/turf/open/floor/plating,
+/area/shuttle/abandoned/crew)
+"BP" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/blue,
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/obj/structure/frame/computer{
+	anchored = 1;
+	dir = 8
+	},
+/turf/open/floor/plasteel/dark,
+/area/shuttle/abandoned/bridge)
 "DZ" = (
 /obj/effect/turf_decal/delivery/white,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -2696,7 +2696,7 @@ bB
 bT
 bZ
 ch
-cp
+BP
 bT
 bB
 vm
@@ -2820,7 +2820,7 @@ dS
 vm
 "}
 (16,1,1) = {"
-ad
+wF
 ao
 aG
 aY

@@ -133,7 +133,7 @@
 			close_animation()
 			sleep(CLOSE_DURATION + 2)
 			if(open_status == STATION_TUBE_CLOSED && pod && pod.loc == loc)
-				pod.follow_tube()
+				pod.follow_tube(src)
 			pod_moving = 0
 			return 1
 	return 0
@@ -153,9 +153,7 @@
 		pod_moving = 0
 		if(!QDELETED(pod))
 			var/datum/gas_mixture/floor_mixture = loc.return_air()
-			floor_mixture.archive()
-			pod.air_contents.archive()
-			pod.air_contents.share(floor_mixture, 1) //mix the pod's gas mixture with the tile it's on
+			equalize_all_gases_in_list(list(pod.air_contents,floor_mixture))
 			air_update_turf()
 
 /obj/structure/transit_tube/station/init_tube_dirs()

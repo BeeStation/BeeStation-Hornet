@@ -9,7 +9,7 @@
 	volume = 30
 	fill_icon_thresholds = list(0, 10, 30, 50, 70)
 
-/obj/item/reagent_containers/glass/bottle/Initialize()
+/obj/item/reagent_containers/glass/bottle/Initialize(mapload)
 	. = ..()
 	if(!icon_state)
 		icon_state = "bottle"
@@ -19,6 +19,21 @@
 	name = "epinephrine bottle"
 	desc = "A small bottle. Contains epinephrine - used to stabilize patients."
 	list_reagents = list(/datum/reagent/medicine/epinephrine = 30)
+
+/obj/item/reagent_containers/glass/bottle/tricordrazine
+	name = "tricordrazine bottle"
+	desc = "A small bottle of tricordrazine. Used to aid in patient recovery."
+	list_reagents = list(/datum/reagent/medicine/tricordrazine = 30)
+
+/obj/item/reagent_containers/glass/bottle/spaceacillin
+	name = "spaceacillin bottle"
+	desc = "A small bottle of spaceacillin. Used to cure some diseases."
+	list_reagents = list(/datum/reagent/medicine/spaceacillin = 30)
+
+/obj/item/reagent_containers/glass/bottle/antitoxin
+	name = "antitoxin bottle"
+	desc = "A small bottle of anti-toxin. Used to treat toxin damage."
+	list_reagents = list(/datum/reagent/medicine/antitoxin = 30)
 
 /obj/item/reagent_containers/glass/bottle/toxin
 	name = "toxin bottle"
@@ -79,7 +94,7 @@
 
 /obj/item/reagent_containers/glass/bottle/cryostylane
 	name = "cryostylane bottle"
-	desc = "A small bottle of cryostylane. It feels cold to the touch"
+	desc = "A small bottle of cryostylane. It feels cold to the touch."
 	list_reagents = list(/datum/reagent/cryostylane = 30)
 
 /obj/item/reagent_containers/glass/bottle/ammonia
@@ -125,7 +140,7 @@
 	icon = 'icons/obj/chemical.dmi'
 	var/extra_reagent = null
 
-/obj/item/reagent_containers/glass/bottle/traitor/Initialize()
+/obj/item/reagent_containers/glass/bottle/traitor/Initialize(mapload)
 	. = ..()
 	extra_reagent = pick(/datum/reagent/toxin/polonium, /datum/reagent/toxin/histamine, /datum/reagent/toxin/formaldehyde, /datum/reagent/toxin/venom, /datum/reagent/toxin/fentanyl, /datum/reagent/toxin/cyanide)
 	reagents.add_reagent(extra_reagent, 3)
@@ -201,9 +216,8 @@
 	list_reagents = list(/datum/reagent/medicine/potass_iodide = 30)
 
 /obj/item/reagent_containers/glass/bottle/salglu_solution
-	name = "saline-glucose solution bottle"
-	desc = "A small bottle of saline-glucose solution."
-	icon_state = "bottle1"
+	name = "saline-glucose bottle"
+	desc = "A small bottle of saline-glucose solution. Useful for patients lacking in blood volume."
 	list_reagents = list(/datum/reagent/medicine/salglu_solution = 30)
 
 /obj/item/reagent_containers/glass/bottle/atropine
@@ -301,7 +315,7 @@
 
 /obj/item/reagent_containers/glass/bottle/felinid
 	name = "Nano-Feline Assimilative Toxoplasmosis culture bottle"
-	desc = "A small bottle. Contains a sample of nano-feline toxoplasma in synthblood medium"
+	desc = "A small bottle. Contains a sample of nano-feline toxoplasma in synthblood medium."
 	spawned_disease = /datum/disease/transformation/felinid/contagious
 
 //Oldstation.dmm chemical storage bottles

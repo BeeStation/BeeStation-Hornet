@@ -120,7 +120,7 @@
 		"mods" = message_mods
 	)
 	var/turf/T = get_turf(source)
-	levels = list(T.z)
+	levels = list(T.get_virtual_z_level())
 
 /datum/signal/subspace/vocal/copy()
 	var/datum/signal/subspace/vocal/copy = new(source, frequency, virt, language)
@@ -153,7 +153,7 @@
 			// Syndicate radios can hear all well-known radio channels
 			if (num2text(frequency) in GLOB.reverseradiochannels)
 				for(var/obj/item/radio/R in GLOB.all_radios["[FREQ_SYNDICATE]"])
-					if(R.can_receive(FREQ_SYNDICATE, list(R.z)))
+					if(R.can_receive(FREQ_SYNDICATE, list(R.get_virtual_z_level())))
 						radios |= R
 
 		if (TRANSMISSION_RADIO)
@@ -186,8 +186,15 @@
 	var/spans = data["spans"]
 	var/list/message_mods = data["mods"]
 	var/rendered = virt.compose_message(virt, language, message, frequency, spans)
+	var/list/show_overhead_message_to = list()
 	for(var/atom/movable/hearer in receive)
+		if(ismob(hearer))
+			var/mob/M = hearer
+			if(M.should_show_chat_message(virt, language, FALSE, is_heard = TRUE))
+				show_overhead_message_to += M
 		hearer.Hear(rendered, virt, language, message, frequency, spans, message_mods)
+	if(length(show_overhead_message_to))
+		create_chat_message(virt, language, show_overhead_message_to, message, spans, message_mods)
 
 	// This following recording is intended for research and feedback in the use of department radio channels
 	if(length(receive))

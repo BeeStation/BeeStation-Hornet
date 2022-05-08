@@ -4,6 +4,7 @@
 	max_integrity = 300
 	interaction_flags_atom = INTERACT_ATOM_ATTACK_HAND | INTERACT_ATOM_UI_INTERACT
 	layer = BELOW_OBJ_LAYER
+	pass_flags_self = PASSSTRUCTURE
 
 	var/climb_time = 20
 	var/climb_stun = 20
@@ -11,7 +12,10 @@
 	var/mob/living/structureclimber
 	var/broken = 0 //similar to machinery's stat BROKEN
 
-/obj/structure/Initialize()
+	flags_ricochet = RICOCHET_HARD
+	ricochet_chance_mod = 0.5
+
+/obj/structure/Initialize(mapload)
 	if (!armor)
 		armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50, "stamina" = 0)
 	. = ..()
@@ -66,7 +70,7 @@
 		density = TRUE
 
 /obj/structure/proc/climb_structure(mob/living/user)
-	src.add_fingerprint(user)
+	add_fingerprint(user)
 	user.visible_message("<span class='warning'>[user] starts climbing onto [src].</span>", \
 								"<span class='notice'>You start climbing onto [src]...</span>")
 	var/adjusted_climb_time = climb_time

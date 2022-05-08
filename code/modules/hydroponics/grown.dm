@@ -21,6 +21,8 @@
 	var/wine_flavor //If NULL, this is automatically set to the fruit's flavor. Determines the flavor of the wine if distill_reagent is NULL.
 	var/wine_power = 10 //Determines the boozepwr of the wine if distill_reagent is NULL.
 
+	var/discovery_points = 0 //Amount of discovery points given for scanning
+
 /obj/item/reagent_containers/food/snacks/grown/Initialize(mapload, obj/item/seeds/new_seed)
 	. = ..()
 	if(!tastes)
@@ -45,6 +47,9 @@
 		seed.prepare_result(src)
 		transform *= TRANSFORM_USING_VARIABLE(seed.potency, 100) + 0.5 //Makes the resulting produce's sprite larger or smaller based on potency!
 		add_juice()
+	
+	if(discovery_points)
+		AddComponent(/datum/component/discoverable, discovery_points)
 
 
 
@@ -117,15 +122,11 @@
 	if(seed)
 		for(var/datum/plant_gene/trait/trait in seed.genes)
 			trait.on_squash(src, target)
-	if(!seed.get_gene(/datum/plant_gene/trait/noreact))
-		reagents.reaction(T)
-		for(var/A in T)
-			reagents.reaction(A)
-		qdel(src)
-	if(seed.get_gene(/datum/plant_gene/trait/noreact))
-		visible_message("<span class='warning'>[src] crumples, and bubbles ominously as its contents mix.</span>")
-		addtimer(CALLBACK(src, .proc/squashreact), 20)
-		
+	reagents.reaction(T)
+	for(var/A in T)
+		reagents.reaction(A)
+	qdel(src)
+
 /obj/item/reagent_containers/food/snacks/grown/proc/squashreact()
 	for(var/datum/plant_gene/trait/trait in seed.genes)
 		trait.on_squashreact(src)
@@ -180,6 +181,7 @@
 	var/obj/item/T
 	if(trash)
 		T = generate_trash()
+		T.remove_item_from_storage(get_turf(T))
 		qdel(src)
-		user.putItemFromInventoryInHandIfPossible(T, user.active_hand_index, TRUE)
+		user.put_in_hands(T, FALSE)
 		to_chat(user, "<span class='notice'>You open [src]\'s shell, revealing \a [T].</span>")

@@ -10,10 +10,13 @@
 	supervisors = "your laws"
 	req_admin_notify = TRUE
 	minimal_player_age = 30
-	exp_requirements = 240
+	exp_requirements = 600
 	exp_type = EXP_TYPE_CREW
 	exp_type_department = EXP_TYPE_SILICON
 	display_order = JOB_DISPLAY_ORDER_AI
+	departments = DEPARTMENT_SILICON
+	random_spawns_possible = FALSE
+	allow_bureaucratic_error = FALSE
 	var/do_special_check = TRUE
 
 /datum/job/ai/equip(mob/living/carbon/human/H, visualsOnly, announce, latejoin, datum/outfit/outfit_override, client/preference_source = null)

@@ -11,6 +11,7 @@ GLOBAL_LIST_EMPTY(asset_datums)
 
 /datum/asset
 	var/_abstract = /datum/asset
+	var/cached_url_mappings
 
 /datum/asset/New()
 	GLOB.asset_datums[type] = src
@@ -19,11 +20,21 @@ GLOBAL_LIST_EMPTY(asset_datums)
 /datum/asset/proc/get_url_mappings()
 	return list()
 
+/// Returns a cached tgui message of URL mappings
+/datum/asset/proc/get_serialized_url_mappings()
+	if (isnull(cached_url_mappings))
+		cached_url_mappings = TGUI_CREATE_MESSAGE("asset/mappings", get_url_mappings())
+
+	return cached_url_mappings
+
 /datum/asset/proc/register()
 	return
 
 /datum/asset/proc/send(client)
-	return
+	SHOULD_CALL_PARENT(TRUE)
+	if(!client)
+		return FALSE
+	return TRUE
 
 
 /// If you don't need anything complicated.
@@ -52,7 +63,10 @@ GLOBAL_LIST_EMPTY(asset_datums)
 		assets[asset_name] = ACI
 
 /datum/asset/simple/send(client)
-	. = SSassets.transport.send_assets(client, assets)
+	if(!..())
+		return FALSE
+	SSassets.transport.send_assets(client, assets)
+	return TRUE
 
 /datum/asset/simple/get_url_mappings()
 	. = list()
@@ -70,6 +84,8 @@ GLOBAL_LIST_EMPTY(asset_datums)
 		get_asset_datum(type)
 
 /datum/asset/group/send(client/C)
+	if(!..())
+		return FALSE
 	for(var/type in children)
 		var/datum/asset/A = get_asset_datum(type)
 		. = A.send(C) || .
@@ -110,12 +126,15 @@ GLOBAL_LIST_EMPTY(asset_datums)
 	fdel(fname)
 
 /datum/asset/spritesheet/send(client/C)
+	if(!..())
+		return FALSE
 	if (!name)
-		return
+		return FALSE
 	var/all = list("spritesheet_[name].css")
 	for(var/size_id in sizes)
 		all += "[name]_[size_id].png"
-	. = SSassets.transport.send_assets(C, all)
+	SSassets.transport.send_assets(C, all)
+	return TRUE
 
 /datum/asset/spritesheet/get_url_mappings()
 	if (!name)
@@ -217,6 +236,13 @@ GLOBAL_LIST_EMPTY(asset_datums)
 	var/size_id = sprite[SPR_SIZE]
 	return {"[name][size_id] [sprite_name]"}
 
+/datum/asset/spritesheet/proc/icon_size_id(sprite_name)
+	var/sprite = sprites[sprite_name]
+	if (!sprite)
+		return null
+	var/size_id = sprite[SPR_SIZE]
+	return "[name][size_id]"
+
 #undef SPR_SIZE
 #undef SPR_IDX
 #undef SPRSZ_COUNT
@@ -252,7 +278,7 @@ GLOBAL_LIST_EMPTY(asset_datums)
 				continue
 			asset = fcopy_rsc(asset) //dedupe
 			var/prefix2 = (directions.len > 1) ? "[dir2text(direction)]." : ""
-			var/asset_name = sanitize_filename("[prefix].[prefix2][icon_state_name].png")
+			var/asset_name = SANITIZE_FILENAME("[prefix].[prefix2][icon_state_name].png")
 			if (generic_icon_names)
 				asset_name = "[generate_asset_name(asset)].png"
 

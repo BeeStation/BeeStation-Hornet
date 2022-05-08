@@ -44,6 +44,7 @@
 	species = "holymelon"
 	plantname = "Holy Melon Vines"
 	product = /obj/item/reagent_containers/food/snacks/grown/holymelon
+	genes = list(/datum/plant_gene/trait/glow/yellow)
 	mutatelist = list()
 	reagents_add = list(/datum/reagent/water/holywater = 0.2, /datum/reagent/consumable/nutriment/vitamin = 0.04, /datum/reagent/consumable/nutriment = 0.1)
 	rarity = 20
@@ -57,8 +58,9 @@
 	dried_type = null
 	wine_power = 70 //Water to wine, baby.
 	wine_flavor = "divinity"
+	discovery_points = 300
 
-/obj/item/reagent_containers/food/snacks/grown/holymelon/Initialize()
+/obj/item/reagent_containers/food/snacks/grown/holymelon/Initialize(mapload)
 	. = ..()
 	var/uses = 1
 	if(seed)

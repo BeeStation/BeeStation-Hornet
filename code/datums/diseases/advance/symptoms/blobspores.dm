@@ -4,9 +4,11 @@
 	stealth = 1
 	resistance = 6
 	stage_speed = -2
-	transmittable = 1
+	transmission = 1
 	level = 9
 	severity = 3
+	prefixes = list("Xeno", "Sporing ")
+	bodies = list("Blob")
 	var/ready_to_pop
 	var/factory_blob
 	var/strong_blob
@@ -17,19 +19,19 @@
 
 /datum/symptom/blobspores/severityset(datum/disease/advance/A)
 	. = ..()
-	if(A.properties["resistance"] >= 14)
+	if(A.resistance >= 14)
 		severity += 1
 
 
 /datum/symptom/blobspores/Start(datum/disease/advance/A)
 	if(!..())
 		return
-	if(A.properties["resistance"] >= 11)
+	if(A.resistance >= 11)
 		factory_blob = TRUE
-	if(A.properties["resistance"] >= 8)
+	if(A.resistance >= 8)
 		strong_blob = TRUE
-	if(A.properties["resistance"] >= 14)
-		node_blob = TRUE
+		if(A.resistance >= 14)
+			node_blob = TRUE
 
 /datum/symptom/blobspores/Activate(datum/disease/advance/A)
 	if(!..())
@@ -55,8 +57,10 @@
 			ready_to_pop = TRUE
 			if(prob(5))
 				M.visible_message("<span class='warning'>[M] coughs blood!</span>")
-				new /obj/effect/decal/cleanable/blood/(M.loc)
-				M.adjustBruteLoss(3)
+				M.add_splatter_floor(M.loc)
+				if(iscarbon(M))
+					var/mob/living/carbon/C = M
+					C.bleed(rand(1, 10))
 
 
 /datum/symptom/blobspores/OnDeath(datum/disease/advance/A)
@@ -83,7 +87,7 @@
 			for(var/datum/disease/D in B.disease)//don't let them farm diseases with this and monkeys
 				B.disease -= D
 			B.disease += A//instead, they contain the disease that was in this
-		if(prob(A.properties["resistance"]))
+		if(prob(A.resistance))
 			var/atom/blobbernaut = new /mob/living/simple_animal/hostile/blob/blobbernaut/(M.loc)
 			blobbernaut.add_atom_colour(pick(BLOB_STRAIN_COLOR_LIST), FIXED_COLOUR_PRIORITY)
 		var/atom/blob_tile = new pick_blob(M.loc)

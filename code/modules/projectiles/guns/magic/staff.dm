@@ -7,7 +7,6 @@
 	fire_rate = 1.5
 	block_power = 20 //staffs can block shit if you're walking
 	block_upgrade_walk = 1
-	block_level = 1
 
 /obj/item/gun/magic/staff/change
 	name = "staff of change"
@@ -93,7 +92,7 @@
 	sharpness = IS_SHARP
 	max_charges = 4
 
-/obj/item/gun/magic/staff/spellblade/Initialize()
+/obj/item/gun/magic/staff/spellblade/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/butchering, 15, 125, 0, hitsound)
 

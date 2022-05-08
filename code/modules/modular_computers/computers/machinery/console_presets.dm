@@ -5,7 +5,7 @@
 	var/_has_battery = FALSE
 	var/_has_ai = FALSE
 
-/obj/machinery/modular_computer/console/preset/Initialize()
+/obj/machinery/modular_computer/console/preset/Initialize(mapload)
 	. = ..()
 	if(!cpu)
 		return
@@ -24,8 +24,6 @@
 // Override in child types to install preset-specific programs.
 /obj/machinery/modular_computer/console/preset/proc/install_programs()
 	return
-
-
 
 // ===== ENGINEERING CONSOLE =====
 /obj/machinery/modular_computer/console/preset/engineering
@@ -75,3 +73,14 @@
 /obj/machinery/modular_computer/console/preset/civilian/install_programs()
 	var/obj/item/computer_hardware/hard_drive/hard_drive = cpu.all_components[MC_HDD]
 	hard_drive.store_file(new/datum/computer_file/program/chatclient())
+
+// curator
+/obj/machinery/modular_computer/console/preset/curator
+	console_department = "Civilian"
+	name = "curator console"
+	desc = "A stationary computer. This one comes preloaded with art programs."
+	_has_printer = TRUE
+
+/obj/machinery/modular_computer/console/preset/curator/install_programs()
+	var/obj/item/computer_hardware/hard_drive/hard_drive = cpu.all_components[MC_HDD]
+	hard_drive.store_file(new/datum/computer_file/program/portrait_printer())

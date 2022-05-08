@@ -10,14 +10,17 @@
 #define UNIQUE_RENAME			(1<<6)  //! can you customize the description/name of the thing?
 #define USES_TGUI				(1<<7)  //! put on things that use tgui on ui_interact instead of custom/old UI.
 #define FROZEN					(1<<8)
-#define BLOCK_Z_FALL			(1<<9)  // Should this object block z falling?
+#define BLOCK_Z_OUT_DOWN		(1<<9)  // Should this object block z falling from loc?
+#define BLOCK_Z_OUT_UP			(1<<10) // Should this object block z uprise from loc?
+#define BLOCK_Z_IN_DOWN			(1<<11) // Should this object block z falling from above?
+#define BLOCK_Z_IN_UP			(1<<12) // Should this object block z uprise from below?
 
 // If you add new ones, be sure to add them to /obj/Initialize as well for complete mapping support
 
 // Flags for the item_flags var on /obj/item
 
 #define BEING_REMOVED			(1<<0)
-#define IN_INVENTORY			(1<<1)  //! is this item equipped into an inventory slot or hand of a mob? used for tooltips
+#define PICKED_UP				(1<<1)  //! Has this item been picked up by a mob and on their person? Handles pickup() behaviour, tooltips and outlining. Does not include backpack contents, that is covered by IN_STORAGE>
 #define FORCE_STRING_OVERRIDE	(1<<2)  //! used for tooltips
 #define NEEDS_PERMIT			(1<<3)  //! Used by security bots to determine if this item is safe for public use.
 #define SLOWS_WHILE_IN_HAND		(1<<4)
@@ -27,6 +30,7 @@
 #define ABSTRACT				(1<<9) 	//! for all things that are technically items but used for various different stuff
 #define IMMUTABLE_SLOW			(1<<10) //! When players should not be able to change the slowdown of the item (Speed potions, etc)
 #define IN_STORAGE				(1<<11) //! is this item in the storage item, such as backpack? used for tooltips
+#define ILLEGAL					(1<<12)	//! this item unlocks illegal tech
 
 // Flags for the clothing_flags var on /obj/item/clothing
 
@@ -38,11 +42,11 @@
 #define THICKMATERIAL			(1<<5)	//! prevents syringes, parapens and hypos if the external suit or helmet (if targeting head) has this flag. Example: space suits, biosuit, bombsuits, thick suits that cover your body.
 #define VOICEBOX_TOGGLABLE      (1<<6)  //! The voicebox in this clothing can be toggled.
 #define VOICEBOX_DISABLED       (1<<7)  //! The voicebox is currently turned off.
-#define SHOWEROKAY				(1<<8)	//! prevents you from being stupid if you shower in them
 #define SNUG_FIT                (1<<9)  //! prevents hat throwing from knocking this hat off
 #define EFFECT_HAT              (1<<10) //! For hats with an effect that shouldn't get knocked off ie finfoil
-#define SCAN_REAGENTS           (1<<11) // Allows helmets and glasses to scan reagents.
+#define SCAN_REAGENTS           (1<<11) //! Allows helmets and glasses to scan reagents.
 #define MASKEXTENDRANGE			(1<<12) //! For masks, allows you to breathe from internals on adjecent tiles
+#define NOTCONSUMABLE			(1<<13) //! Moths cannot eat clothing with that flag
 
 /// Flags for the organ_flags var on /obj/item/organ
 

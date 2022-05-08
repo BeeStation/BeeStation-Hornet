@@ -26,7 +26,6 @@
 	cartridge_wording = "shell"
 	tac_reloads = FALSE
 	fire_rate = 1 //reee
-	block_upgrade_walk = 1
 	recoil = 1
 	pb_knockback = 2
 
@@ -80,7 +79,15 @@
 	desc = "A compact version of the semi automatic combat shotgun. For close encounters."
 	icon_state = "cshotgunc"
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/com/compact
+	weapon_weight = WEAPON_MEDIUM
 	w_class = WEIGHT_CLASS_BULKY
+
+/obj/item/gun/ballistic/shotgun/automatic/combat/compact/shoot_live_shot(mob/living/user, pointblank, atom/pbtarget, message)
+	if(!is_wielded)
+		recoil = 6
+	else
+		recoil = initial(recoil)
+	. = ..()
 
 // Breaching Shotgun //
 
@@ -107,7 +114,7 @@
 	. = ..()
 	. += "<span class='notice'>Alt-click to pump it.</span>"
 
-/obj/item/gun/ballistic/shotgun/automatic/dual_tube/Initialize()
+/obj/item/gun/ballistic/shotgun/automatic/dual_tube/Initialize(mapload)
 	. = ..()
 	if (!alternate_magazine)
 		alternate_magazine = new mag_type(src)
@@ -148,6 +155,7 @@
 	burst_size = 1
 	fire_delay = 0
 	pin = /obj/item/firing_pin/implant/pindicate
+	spread_unwielded = 15
 	actions_types = list()
 	mag_display = TRUE
 	empty_indicator = TRUE
@@ -160,6 +168,7 @@
 	automatic = 1
 	recoil = 0
 	bolt_type = BOLT_TYPE_STANDARD	//Not using a pump
+	full_auto = TRUE
 
 /obj/item/gun/ballistic/shotgun/bulldog/unrestricted
 	pin = /obj/item/firing_pin
@@ -273,7 +282,7 @@
 	var/obj/item/gun/magic/hook/bounty/hook
 	var/toggled = FALSE
 
-/obj/item/gun/ballistic/shotgun/doublebarrel/hook/Initialize()
+/obj/item/gun/ballistic/shotgun/doublebarrel/hook/Initialize(mapload)
 	. = ..()
 	hook = new /obj/item/gun/magic/hook/bounty(src)
 

@@ -52,6 +52,7 @@
 
 /obj/item/modular_computer/ui_data(mob/user)
 	var/list/data = get_header_data()
+	data["device_theme"] = device_theme
 	data["programs"] = list()
 	var/obj/item/computer_hardware/hard_drive/hard_drive = all_components[MC_HDD]
 	for(var/datum/computer_file/program/P in hard_drive.stored_files)
@@ -104,6 +105,7 @@
 
 			P.kill_program(forced = TRUE)
 			to_chat(user, "<span class='notice'>Program [P.filename].[P.filetype] with PID [rand(100,999)] has been killed.</span>")
+			return TRUE
 
 		if("PC_runprogram")
 			var/prog = params["name"]
@@ -141,7 +143,7 @@
 			if(P.run_program(user))
 				active_program = P
 				update_icon()
-			return 1
+			return TRUE
 
 		if("PC_toggle_light")
 			light_on = !light_on

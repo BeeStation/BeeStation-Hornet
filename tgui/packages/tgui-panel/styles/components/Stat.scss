@@ -1,5 +1,6 @@
 
 @use 'sass:color';
+@use 'sass:math';
 @use '~tgui/styles/base.scss';
 @use '~tgui/styles/colors.scss';
 @use '~tgui/styles/functions.scss';
@@ -8,13 +9,13 @@ $background-color: base.$color-bg-section !default;
 $border-color: color.scale(colors.fg(colors.$primary), $lightness: 75%) !default;
 
 .StatBorder {
-  border-left: (1em / 6) solid $border-color;
+  border-left: math.div(1em, 6) solid $border-color;
   padding-left: 10px;
   padding-bottom: 6px;
 }
 
 .StatBorder_observer {
-  border-left: (1em / 6) solid #b866ff;
+  border-left: math.div(1em, 6) solid #b866ff;
   padding-left: 10px;
   padding-top: 4px;
   padding-bottom: 6px;
@@ -24,7 +25,7 @@ $border-color: color.scale(colors.fg(colors.$primary), $lightness: 75%) !default
 }
 
 .StatBorder_antagonist {
-  border-left: (1em / 6) solid #dd3535;
+  border-left: math.div(1em, 6) solid #dd3535;
   padding-left: 10px;
   padding-top: 4px;
   padding-bottom: 6px;
@@ -34,13 +35,23 @@ $border-color: color.scale(colors.fg(colors.$primary), $lightness: 75%) !default
 }
 
 .StatBorder_infomation {
-  border-left: (1em / 6) solid #e6a648;
+  border-left: math.div(1em, 6) solid #e6a648;
   padding-left: 10px;
   padding-top: 4px;
   padding-bottom: 6px;
   background-image: linear-gradient(to right,
     rgba(#e6a648, 0.08) 0%,
     rgba(#e6a648, 0) 40%);
+}
+
+.StatBorder_br {
+  border-left: math.div(1em, 6) solid #2ace53;
+  padding-left: 10px;
+  padding-top: 4px;
+  padding-bottom: 6px;
+  background-image: linear-gradient(to right,
+    rgba(#2ace53, 0.08) 0%,
+    rgba(#2ace53, 0) 40%);
 }
 
 .StatBackground {
@@ -53,5 +64,5 @@ $border-color: color.scale(colors.fg(colors.$primary), $lightness: 75%) !default
 }
 
 .StatTabBackground {
-  border-bottom: (1em / 6) solid #666666;
+  border-bottom: math.div(1em, 6) solid #666666;
 }

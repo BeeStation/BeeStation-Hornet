@@ -153,7 +153,7 @@
 
 /datum/spellbook_entry/blind
 	name = "Blind"
-	spell_type = /obj/effect/proc_holder/spell/pointed/trigger/blind
+	spell_type = /obj/effect/proc_holder/spell/targeted/blind
 	cost = 1
 
 /datum/spellbook_entry/mindswap
@@ -265,6 +265,10 @@
 	category = "Defensive"
 	cost = 1
 
+/datum/spellbook_entry/bees
+	name = "Lesser Summon Bees"
+	spell_type = /obj/effect/proc_holder/spell/aoe_turf/conjure/creature/bee
+	category = "Defensive"
 
 /datum/spellbook_entry/item
 	name = "Buy Item"
@@ -409,12 +413,12 @@
 /datum/spellbook_entry/item/mjolnir
 	name = "Mjolnir"
 	desc = "A mighty hammer on loan from Thor, God of Thunder. It crackles with barely contained power."
-	item_path = /obj/item/twohanded/mjollnir
+	item_path = /obj/item/mjollnir
 
 /datum/spellbook_entry/item/singularity_hammer
 	name = "Singularity Hammer"
 	desc = "A hammer that creates an intensely powerful field of gravity where it strikes, pulling everything nearby to the point of impact."
-	item_path = /obj/item/twohanded/singularityhammer
+	item_path = /obj/item/singularityhammer
 
 /datum/spellbook_entry/item/battlemage
 	name = "Battlemage Armour"
@@ -438,7 +442,7 @@
 	cost = 1
 
 /// How much threat we need to let these rituals happen on dynamic
-#define MINIMUM_THREAT_FOR_RITUALS 100
+#define MINIMUM_THREAT_FOR_RITUALS 85
 
 /datum/spellbook_entry/summon
 	name = "Summon Stuff"
@@ -585,7 +589,7 @@
 	else
 		. += "It appears to have no author."
 
-/obj/item/spellbook/Initialize()
+/obj/item/spellbook/Initialize(mapload)
 	. = ..()
 	prepare_spells()
 
@@ -738,6 +742,7 @@
 					if(E.limit)
 						E.limit--
 					uses -= E.cost
+					log_game("[initial(E.name)] purchased by [H.ckey]/[H.name] the [H.job] for [E.cost] SP, [uses] SP remaining.")
 		else if(href_list["refund"])
 			E = entries[text2num(href_list["refund"])]
 			if(E?.refundable)

@@ -25,13 +25,13 @@
 	var/obj/item/bombcore/miniature/pizza/bomb
 	var/bomb_active = FALSE // If the bomb is counting down.
 	var/bomb_defused = TRUE // If the bomb is inert.
-	var/bomb_timer = 1 // How long before blowing the bomb.
-	/// Min bomb timer allowed
+	var/bomb_timer = 1 // How long before blowing the bomb, in seconds.
+	/// Min bomb timer allowed in seconds
 	var/bomb_timer_min = 1
-	/// Max bomb timer allower
-	var/bomb_timer_max = 10
+	/// Max bomb timer allower in seconds
+	var/bomb_timer_max = 20
 
-/obj/item/pizzabox/Initialize()
+/obj/item/pizzabox/Initialize(mapload)
 	. = ..()
 	update_icon()
 
@@ -88,7 +88,7 @@
 			tag_overlay.pixel_y = boxes.len * 3
 			add_overlay(tag_overlay)
 
-/obj/item/pizzabox/worn_overlays(isinhands, icon_file)
+/obj/item/pizzabox/worn_overlays(mutable_appearance/standing, isinhands, icon_file)
 	. = list()
 	var/current_offset = 2
 	if(isinhands)
@@ -105,6 +105,7 @@
 	if(open && !bomb_defused)
 		audible_message("<span class='warning'>[icon2html(src, hearers(src))] *beep*</span>")
 		bomb_active = TRUE
+		wires.ui_update()
 		START_PROCESSING(SSobj, src)
 	update_icon()
 
@@ -131,10 +132,11 @@
 				if (isnull(bomb_timer))
 					return
 
-				bomb_timer = clamp(CEILING(bomb_timer / 2, 1), bomb_timer_min, bomb_timer_max)
+				bomb_timer = clamp(CEILING(bomb_timer, 1), bomb_timer_min, bomb_timer_max)
 				bomb_defused = FALSE
+				wires.ui_update()
 
-				log_bomber(user, "has trapped a", src, "with [bomb] set to [bomb_timer * 2] seconds")
+				log_bomber(user, "has trapped a", src, "with [bomb] set to [bomb_timer] seconds")
 				bomb.adminlog = "The [bomb.name] in [src.name] that [key_name(user)] activated has detonated!"
 
 				to_chat(user, "<span class='warning'>You trap [src] with [bomb].</span>")
@@ -213,10 +215,10 @@
 		to_chat(user, "<span class='warning'>That's not a pizza!</span>")
 	..()
 
-/obj/item/pizzabox/process()
+/obj/item/pizzabox/process(delta_time)
 	if(bomb_active && !bomb_defused && (bomb_timer > 0))
-		playsound(loc, 'sound/items/timer.ogg', 50, 0)
-		bomb_timer--
+		playsound(loc, 'sound/items/timer.ogg', 50, FALSE)
+		bomb_timer -= delta_time
 	if(bomb_active && !bomb_defused && (bomb_timer <= 0))
 		if(bomb in src)
 			bomb.detonate()
@@ -226,6 +228,7 @@
 		if(bomb_defused && (bomb in src))
 			bomb.defuse()
 			bomb_active = FALSE
+			wires.ui_update()
 			unprocess()
 	return
 
@@ -263,14 +266,14 @@
 	wires = null
 	update_icon()
 
-/obj/item/pizzabox/bomb/Initialize()
+/obj/item/pizzabox/bomb/Initialize(mapload)
 	. = ..()
 	var/randompizza = pick(subtypesof(/obj/item/reagent_containers/food/snacks/pizza))
 	pizza = new randompizza(src)
 	bomb = new(src)
 	wires = new /datum/wires/explosive/pizza(src)
 
-/obj/item/pizzabox/margherita/Initialize()
+/obj/item/pizzabox/margherita/Initialize(mapload)
 	. = ..()
 	AddPizza()
 	boxtag = "Margherita Deluxe"
@@ -281,22 +284,22 @@
 /obj/item/pizzabox/margherita/robo/AddPizza()
 	pizza = new /obj/item/reagent_containers/food/snacks/pizza/margherita/robo(src)
 
-/obj/item/pizzabox/vegetable/Initialize()
+/obj/item/pizzabox/vegetable/Initialize(mapload)
 	. = ..()
 	pizza = new /obj/item/reagent_containers/food/snacks/pizza/vegetable(src)
 	boxtag = "Gourmet Vegatable"
 
-/obj/item/pizzabox/mushroom/Initialize()
+/obj/item/pizzabox/mushroom/Initialize(mapload)
 	. = ..()
 	pizza = new /obj/item/reagent_containers/food/snacks/pizza/mushroom(src)
 	boxtag = "Mushroom Special"
 
-/obj/item/pizzabox/meat/Initialize()
+/obj/item/pizzabox/meat/Initialize(mapload)
 	. = ..()
 	pizza = new /obj/item/reagent_containers/food/snacks/pizza/meat(src)
 	boxtag = "Meatlover's Supreme"
 
-/obj/item/pizzabox/pineapple/Initialize()
+/obj/item/pizzabox/pineapple/Initialize(mapload)
 	. = ..()
 	pizza = new /obj/item/reagent_containers/food/snacks/pizza/pineapple(src)
 	boxtag = "Honolulu Chew"
@@ -316,7 +319,7 @@
 		/obj/item/reagent_containers/food/snacks/pizza/dank = 0.1) //pizzas here are weighted by chance to be someone's favorite
 	var/static/list/pizza_preferences
 
-/obj/item/pizzabox/infinite/Initialize()
+/obj/item/pizzabox/infinite/Initialize(mapload)
 	. = ..()
 	if(!pizza_preferences)
 		pizza_preferences = list()

@@ -2,13 +2,13 @@
 	name = "Wishgranter Avatar"
 	show_in_antagpanel = FALSE
 	show_name_in_check_antagonists = TRUE
-	can_hijack = HIJACK_HIJACKER
+	can_elimination_hijack = ELIMINATION_ENABLED
 
 /datum/antagonist/wishgranter/proc/forge_objectives()
-	var/datum/objective/hijack/hijack = new
-	hijack.owner = owner
-	objectives += hijack
-	log_objective(owner, hijack.explanation_text)
+	var/datum/objective/elimination/highlander/elimination_objective = new
+	elimination_objective.owner = owner
+	objectives += elimination_objective
+	log_objective(owner, elimination_objective.explanation_text)
 
 /datum/antagonist/wishgranter/on_gain()
 	owner.special_role = "Avatar of the Wish Granter"
@@ -23,10 +23,10 @@
 		"Your inhibitions are swept away, the bonds of loyalty broken, you are free to murder as you please!")
 
 /datum/antagonist/wishgranter/proc/give_powers()
-	var/mob/living/carbon/human/H = owner.current
-	if(!istype(H))
+	var/mob/living/carbon/C = owner.current
+	if(!C.has_dna())
 		return
-	H.dna.add_mutation(HULK)
-	H.dna.add_mutation(XRAY)
-	H.dna.add_mutation(SPACEMUT)
-	H.dna.add_mutation(TK)
+	C.dna.add_mutation(HULK)
+	C.dna.add_mutation(XRAY)
+	C.dna.add_mutation(SPACEMUT)
+	C.dna.add_mutation(TK)

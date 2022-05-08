@@ -13,7 +13,7 @@
 
 	var/icon_regular_floor = "floor" //used to remember what icon the tile should have by default
 	var/icon_plating = "plating"
-	thermal_conductivity = 0.040
+	thermal_conductivity = 0.04
 	heat_capacity = 10000
 	intact = 1
 	var/broken = 0
@@ -49,7 +49,7 @@
 					"oldburning","light-on-r","light-on-y","light-on-g","light-on-b", "wood", "carpetsymbol", "carpetstar",
 					"carpetcorner", "carpetside", "carpet", "ironsand1", "ironsand2", "ironsand3", "ironsand4", "ironsand5",
 					"ironsand6", "ironsand7", "ironsand8", "ironsand9", "ironsand10", "ironsand11",
-					"ironsand12", "ironsand13", "ironsand14", "ironsand15")
+					"ironsand12", "ironsand13", "ironsand14", "ironsand15","bamboo","bamboosymbol","bamboostar")
 	if(broken || burnt || (icon_state in icons_to_ignore_at_floor_init)) //so damaged/burned tiles or plating icons aren't saved as the default
 		icon_regular_floor = "floor"
 	else
@@ -62,7 +62,7 @@
 /turf/open/floor/Destroy()
 	if(is_station_level(z))
 		GLOB.station_turfs -= src
-	..()
+	return ..()
 
 /turf/open/floor/ex_act(severity, target)
 	var/shielded = is_shielded()

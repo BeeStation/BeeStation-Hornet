@@ -26,6 +26,11 @@
 		qdel(src)
 
 /datum/status_effect/freon/proc/owner_resist()
+	SIGNAL_HANDLER
+
+	INVOKE_ASYNC(src, .proc/do_resist)
+
+/datum/status_effect/freon/proc/do_resist()
 	to_chat(owner, "You start breaking out of the ice cube!")
 	if(do_mob(owner, owner, 40))
 		if(!QDELETED(src))

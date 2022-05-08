@@ -20,15 +20,15 @@
 			spells += S
 			S.charge_counter = 0
 			S.start_recharge()
-			H.mind.AddSpell(S)
+			H.mind?.AddSpell(S)
 
 /obj/item/clothing/shoes/clown_shoes/taeclowndo/dropped(mob/user)
-	. = ..()
+	..()
 	if(!ishuman(user))
 		return
 	var/mob/living/carbon/human/H = user
 	if(H.get_item_by_slot(ITEM_SLOT_FEET) == src)
 		for(var/spell in spells)
 			var/obj/effect/proc_holder/spell/S = spell
-			H.mind.spell_list.Remove(S)
+			H.mind?.spell_list.Remove(S)
 			qdel(S)

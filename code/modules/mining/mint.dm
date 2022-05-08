@@ -7,6 +7,7 @@
 	icon_state = "coinpress0"
 	density = TRUE
 	input_dir = EAST
+	needs_item_input = TRUE
 
 
 	var/obj/item/storage/bag/money/bag_to_use
@@ -15,7 +16,7 @@
 	var/chosen = /datum/material/iron //which material will be used to make coins
 
 
-/obj/machinery/mineral/mint/Initialize()
+/obj/machinery/mineral/mint/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/material_container, list(
 		/datum/material/iron,
@@ -31,16 +32,21 @@
 	chosen = getmaterialref(chosen)
 
 
-/obj/machinery/mineral/mint/process()
-	var/turf/T = get_step(src, input_dir)
+/obj/machinery/mineral/mint/pickup_item(datum/source, atom/movable/target, atom/oldLoc)
+	if(QDELETED(target))
+		return
+	if(!istype(target, /obj/item/stack))
+		return
+
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
+	var/obj/item/stack/S = target
 
-	for(var/obj/item/stack/O in T)
-		var/inserted = materials.insert_item(O)
-		if(inserted)
-			qdel(O)
+	if(materials.insert_item(S))
+		qdel(S)
 
+/obj/machinery/mineral/mint/process()
 	if(processing)
+		var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 		var/datum/material/M = chosen
 
 		if(!M)
@@ -68,6 +74,7 @@
 				if(!found_new)
 					processing = FALSE
 	else
+		end_processing()
 		icon_state = "coinpress0"
 
 
@@ -79,6 +86,7 @@
 	if(!ui)
 		ui = new(user, src, "Mint")
 		ui.open()
+		ui.set_autoupdate(TRUE) // Coins pressed (could be refactored to ui_update), material amounts
 
 /obj/machinery/mineral/mint/ui_data()
 	var/list/data = list()
@@ -114,13 +122,18 @@
 			if (!processing)
 				produced_coins = 0
 			processing = TRUE
+			begin_processing()
+			. = TRUE
 		if ("stoppress")
 			processing = FALSE
+			end_processing()
+			. = TRUE
 		if ("changematerial")
 			var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 			for(var/datum/material/mat in materials.materials)
 				if (params["material_name"] == mat.name)
 					chosen = mat
+					. = TRUE
 
 /obj/machinery/mineral/mint/proc/create_coins()
 	var/turf/T = get_step(src,output_dir)

@@ -34,10 +34,10 @@
 		"SPACE"
     ],
     "ionkeyword": [
-        "VALID",
-		"GAMER",
+        "SYNDICATE",
+		"ASSISTANT",
 		"SHITSEC",
-		"ANTAG",
+		"CHANGELING",
 		"SHUTTLE",
 		"CATGIRL",
 		"MALF",
@@ -122,7 +122,7 @@
 		"IRON",
 		"SALINE-GLUCOSE",
 		"NUTRIMENT",
-		"TRICORDRIZINE"
+		"TRICORDRAZINE"
 	],
 	"ionabstract": [
         "HUMANITY",
@@ -946,7 +946,6 @@
         "SKELETONS",
         "CAPITALISTS",
         "SINGULARITIES",
-        "ANGRY BLACK MEN",
         "GODS",
         "THIEVES",
         "ASSHOLES",

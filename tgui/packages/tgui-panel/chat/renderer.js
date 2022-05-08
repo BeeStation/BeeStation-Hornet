@@ -86,6 +86,7 @@ const formatHighContrast = inputHtml => {
     "scientist",
     "securityofficer",
     "shaftminer",
+    "explorationcrew",
     "stationengineer",
     "virologist",
     "warden",
@@ -104,7 +105,6 @@ const formatHighContrast = inputHtml => {
     "gimmick",
     "barber",
     "stagemagician",
-    "debtor",
     "psychiatrist",
     "vip",
   ];

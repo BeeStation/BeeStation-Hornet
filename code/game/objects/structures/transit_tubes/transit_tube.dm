@@ -7,19 +7,15 @@
 	density = TRUE
 	layer = LOW_ITEM_LAYER
 	anchored = TRUE
-	climbable = 1
+	climbable = TRUE
+	pass_flags_self = PASSGLASS
 	var/tube_construction = /obj/structure/c_transit_tube
 	var/list/tube_dirs //list of directions this tube section can connect to.
 	var/exit_delay = 1
 	var/enter_delay = 0
 
-/obj/structure/transit_tube/CanPass(atom/movable/mover, turf/target)
-	if(istype(mover) && (mover.pass_flags & PASSGLASS))
-		return 1
-	return !density
-
-/obj/structure/transit_tube/New(loc, newdirection)
-	..(loc)
+/obj/structure/transit_tube/Initialize(mapload, newdirection)
+	. = ..()
 	if(newdirection)
 		setDir(newdirection)
 	init_tube_dirs()

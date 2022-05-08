@@ -11,7 +11,7 @@
 	var/datum/dna/original_dna = null
 	var/transformed = 0
 	desc = "This disease transplants the genetic code of the initial vector into new hosts."
-	severity = DISEASE_SEVERITY_MEDIUM
+	danger = DISEASE_MEDIUM
 
 
 /datum/disease/dnaspread/stage_act()
@@ -30,7 +30,7 @@
 		return
 
 	switch(stage)
-		if(2 || 3) //Pretend to be a cold and give time to spread.
+		if(2, 3) //Pretend to be a cold and give time to spread.
 			if(prob(8))
 				affected_mob.emote("sneeze")
 			if(prob(8))

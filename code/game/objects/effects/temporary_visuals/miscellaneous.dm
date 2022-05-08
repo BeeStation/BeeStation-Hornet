@@ -534,7 +534,7 @@
 /obj/effect/temp_visual/steam_release
 	name = "all the steam"
 
-/obj/effect/temp_visual/steam_release/Initialize()
+/obj/effect/temp_visual/steam_release/Initialize(mapload)
 	..()
 	for(var/V in GLOB.cardinals)
 		var/turf/T = get_step(src, V)
@@ -544,17 +544,6 @@
 /obj/effect/temp_visual/parry
 	icon_state = "shield-flash"
 	duration = 5
-
-/obj/effect/temp_visual/dir_setting/space_wind
-	icon = 'icons/effects/atmospherics.dmi'
-	icon_state = "space_wind"
-	layer = FLY_LAYER
-	duration = 20
-	mouse_opacity = 0
-
-/obj/effect/temp_visual/dir_setting/space_wind/Initialize(mapload, set_dir, set_alpha = 255)
-	. = ..()
-	alpha = set_alpha
 
 /obj/effect/temp_visual/vent_wind
 	icon = 'icons/effects/atmospherics.dmi'

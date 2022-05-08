@@ -41,8 +41,7 @@
 // pipe is deleted
 // ensure if holder is present, it is expelled
 /obj/structure/disposalpipe/Destroy()
-	var/obj/structure/disposalholder/H = locate() in src
-	if(H)
+	for(var/obj/structure/disposalholder/H in src)
 		H.active = FALSE
 		expel(H, get_turf(src), 0)
 	return ..()
@@ -62,17 +61,15 @@
 	var/turf/T = H.nextloc()
 	var/obj/structure/disposalpipe/P = H.findpipe(T)
 
-	if(P)
-		// find other holder in next loc, if inactive merge it with current
-		var/obj/structure/disposalholder/H2 = locate() in P
-		if(H2 && !H2.active)
-			H.merge(H2)
+	if(!P) // if there wasn't a pipe, then they'll be expelled.
+		return
+	// find other holder in next loc, if inactive merge it with current
+	var/obj/structure/disposalholder/H2 = locate() in P
+	if(H2 && !H2.active)
+		H.merge(H2)
 
-		H.forceMove(P)
-		return P
-	else			// if wasn't a pipe, then they're now in our turf
-		H.forceMove(get_turf(src))
-		return null
+	H.forceMove(P)
+	return P
 
 // update the icon_state to reflect hidden status
 /obj/structure/disposalpipe/proc/update()
@@ -87,15 +84,17 @@
 // expel the held objects into a turf
 // called when there is a break in the pipe
 /obj/structure/disposalpipe/proc/expel(obj/structure/disposalholder/H, turf/T, direction)
+	if(!T)
+		T = get_turf(src)
 	var/turf/target
 	var/eject_range = 5
 	var/turf/open/floor/floorturf
 
-	if(isfloorturf(T)) //intact floor, pop the tile
+	if(isfloorturf(T) && T.intact) //intact floor, pop the tile
 		floorturf = T
 		if(floorturf.floor_tile)
 			new floorturf.floor_tile(T)
-		floorturf.make_plating()
+		floorturf.make_plating(TRUE)
 
 	if(direction)		// direction is specified
 		if(isspaceturf(T)) // if ended in space, then range is unlimited
@@ -109,20 +108,14 @@
 		target = get_offset_target_turf(T, rand(5)-rand(5), rand(5)-rand(5))
 
 	playsound(src, 'sound/machines/hiss.ogg', 50, 0, 0)
-	for(var/A in H)
-		var/atom/movable/AM = A
-		AM.forceMove(get_turf(src))
-		AM.pipe_eject(direction)
-		if(target)
-			AM.throw_at(target, eject_range, 1)
+	pipe_eject(H, direction, TRUE, target, eject_range)
 	H.vent_gas(T)
 	qdel(H)
 
 
 // pipe affected by explosion
 /obj/structure/disposalpipe/contents_explosion(severity, target)
-	var/obj/structure/disposalholder/H = locate() in src
-	if(H)
+	for(var/obj/structure/disposalholder/H in src)
 		H.contents_explosion(severity, target)
 
 
@@ -232,7 +225,7 @@
 		pipe_type = PIPE_TYPE_NODE\
 	)
 
-/obj/structure/disposalpipe/trunk/Initialize()
+/obj/structure/disposalpipe/trunk/Initialize(mapload)
 	. = ..()
 	getlinked()
 

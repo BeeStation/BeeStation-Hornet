@@ -20,9 +20,13 @@
 	var/can_attach_mob = FALSE
 	var/full_damage_on_mobs = FALSE
 
-/obj/item/grenade/plastic/Initialize()
+/obj/item/grenade/plastic/Initialize(mapload)
 	. = ..()
 	plastic_overlay = mutable_appearance(icon, "[item_state]2", HIGH_OBJ_LAYER)
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = .proc/on_entered,
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 
 /obj/item/grenade/plastic/ComponentInitialize()
 	. = ..()
@@ -55,18 +59,23 @@
 		return
 	..()
 
-/obj/item/grenade/plastic/prime()
+/obj/item/grenade/plastic/prime(mob/living/lanced_by)
+	. = ..()
+	if(!.)
+		return
 	var/turf/location
+	var/density_check = FALSE
 	if(target)
 		if(!QDELETED(target))
 			location = get_turf(target)
+			density_check = target.density //since turfs getting exploded makes this a bit fucky wucky we need to assert whether we should go directional before that part
 			target.cut_overlay(plastic_overlay, TRUE)
 			if(!ismob(target) || full_damage_on_mobs)
 				target.ex_act(EXPLODE_HEAVY, target)
 	else
 		location = get_turf(src)
 	if(location)
-		if(directional && target && target.density)
+		if(directional && target && density_check)
 			var/turf/T = get_step(location, aim_dir)
 			explosion(get_step(T, aim_dir), boom_sizes[1], boom_sizes[2], boom_sizes[3])
 		else
@@ -80,9 +89,11 @@
 /obj/item/grenade/plastic/receive_signal()
 	prime()
 
-/obj/item/grenade/plastic/Crossed(atom/movable/AM)
+/obj/item/grenade/plastic/proc/on_entered(datum/source, atom/movable/AM)
+	SIGNAL_HANDLER
+
 	if(nadeassembly)
-		nadeassembly.Crossed(AM)
+		nadeassembly.on_entered(source, AM)
 
 /obj/item/grenade/plastic/on_found(mob/finder)
 	if(nadeassembly)
@@ -124,7 +135,11 @@
 			var/obj/item/I = AM
 			I.throw_speed = max(1, (I.throw_speed - 3))
 			I.throw_range = max(1, (I.throw_range - 3))
-			I.embedding = I.embedding.setRating(embed_chance = 0)
+			if(I.embedding)
+				I.embedding["embed_chance"] = 0
+				I.updateEmbedding()
+		else if(istype(AM, /mob/living))
+			plastic_overlay.layer = FLOAT_LAYER
 
 		target.add_overlay(plastic_overlay, TRUE)
 		if(!nadeassembly)
@@ -175,7 +190,7 @@
 	var/open_panel = 0
 	can_attach_mob = TRUE
 
-/obj/item/grenade/plastic/c4/Initialize()
+/obj/item/grenade/plastic/c4/Initialize(mapload)
 	. = ..()
 	wires = new /datum/wires/explosive/c4(src)
 
@@ -204,9 +219,15 @@
 	else
 		return ..()
 
-/obj/item/grenade/plastic/c4/prime()
+/obj/item/grenade/plastic/c4/prime(mob/living/lanced_by)
 	if(QDELETED(src))
-		return
+		return FALSE
+	if(dud_flags)
+		active = FALSE
+		update_icon()
+		return FALSE
+
+	. = ..()
 	var/turf/location
 	if(target)
 		if(!QDELETED(target))

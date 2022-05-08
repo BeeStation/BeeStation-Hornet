@@ -16,10 +16,23 @@
 	var/obj/machinery/field/generator/FG1 = null
 	var/obj/machinery/field/generator/FG2 = null
 
+/obj/machinery/field/containment/Initialize(mapload)
+	. = ..()
+	air_update_turf(TRUE, TRUE)
+	RegisterSignal(src, COMSIG_ATOM_SINGULARITY_TRY_MOVE, .proc/block_singularity)
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = .proc/on_entered,
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
 /obj/machinery/field/containment/Destroy()
-	FG1.fields -= src
-	FG2.fields -= src
+	FG1?.fields -= src
+	FG2?.fields -= src
 	return ..()
+
+/obj/machinery/field/containment/proc/block_singularity()
+	SIGNAL_HANDLER
+	return SINGULARITY_TRY_MOVE_BLOCK
 
 //ATTACK HAND IGNORING PARENT RETURN VALUE
 /obj/machinery/field/containment/attack_hand(mob/user)
@@ -57,12 +70,16 @@
 	else
 		..()
 
-/obj/machinery/field/containment/Crossed(mob/mover)
-	if(isliving(mover))
-		shock(mover)
+/obj/machinery/field/containment/proc/on_entered(datum/source, atom/movable/AM)
+	SIGNAL_HANDLER
 
-	if(ismachinery(mover) || isstructure(mover) || ismecha(mover))
-		bump_field(mover)
+	if(isliving(AM))
+		var/mob/living/living_moving_through_field = AM
+		if(!living_moving_through_field.incorporeal_move)
+			shock(AM)
+
+	if(ismachinery(AM) || isstructure(AM) || ismecha(AM))
+		bump_field(AM)
 
 /obj/machinery/field/containment/proc/set_master(master1,master2)
 	if(!master1 || !master2)
@@ -98,11 +115,10 @@
 		bump_field(mover)
 		return
 
-
-/obj/machinery/field/CanPass(atom/movable/mover, turf/target)
+/obj/machinery/field/CanAllowThrough(atom/movable/mover, turf/target)
+	. = ..()
 	if(hasShocked || isliving(mover) || ismachinery(mover) || isstructure(mover) || ismecha(mover))
 		return FALSE
-	return ..()
 
 /obj/machinery/field/proc/shock(mob/living/user)
 	var/shock_damage = min(rand(30,40),rand(30,40))

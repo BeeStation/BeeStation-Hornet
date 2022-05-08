@@ -155,7 +155,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "D" = (
-/obj/structure/chair/sofa/right{
+/obj/structure/chair/sofa/left{
 	dir = 1
 	},
 /turf/open/floor/carpet/red,
@@ -204,7 +204,7 @@
 /turf/open/floor/plasteel/cafeteria,
 /area/template_noop)
 "N" = (
-/obj/item/twohanded/required/kirbyplants/random,
+/obj/item/kirbyplants/random,
 /turf/open/floor/wood,
 /area/template_noop)
 "O" = (
@@ -216,7 +216,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "Q" = (
-/obj/structure/chair/sofa/left{
+/obj/structure/chair/sofa/right{
 	dir = 1
 	},
 /turf/open/floor/carpet/red,

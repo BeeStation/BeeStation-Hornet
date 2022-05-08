@@ -14,7 +14,7 @@
 	var/authenticated = 0
 	var/auth_id = "\[NULL\]"
 
-/obj/machinery/computer/apc_control/Initialize()
+/obj/machinery/computer/apc_control/Initialize(mapload)
 	. = ..()
 	result_filters = list("Name" = null, "Charge Above" = null, "Charge Below" = null, "Responsive" = null)
 
@@ -38,7 +38,7 @@
 	..(user)
 
 /obj/machinery/computer/apc_control/proc/check_apc(obj/machinery/power/apc/APC)
-	return APC.z == z && !APC.malfhack && !APC.aidisabled && !(APC.obj_flags & EMAGGED) && !APC.stat && !istype(APC.area, /area/ai_monitored) && !APC.area.outdoors
+	return APC.get_virtual_z_level() == get_virtual_z_level() && !APC.malfhack && !APC.aidisabled && !(APC.obj_flags & EMAGGED) && !APC.stat && !istype(APC.area, /area/ai_monitored) && !APC.area.outdoors
 
 /obj/machinery/computer/apc_control/ui_interact(mob/living/user)
 	. = ..()

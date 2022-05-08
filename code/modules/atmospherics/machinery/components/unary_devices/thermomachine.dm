@@ -28,7 +28,7 @@
 	var/base_heating = 140
 	var/base_cooling = 170
 
-/obj/machinery/atmospherics/components/unary/thermomachine/Initialize()
+/obj/machinery/atmospherics/components/unary/thermomachine/Initialize(mapload)
 	. = ..()
 	initialize_directions = dir
 	RefreshParts()
@@ -102,11 +102,10 @@
 	if(cooling)
 		target_temperature = min_temperature
 		investigate_log("was set to [target_temperature] K by [key_name(user)]", INVESTIGATE_ATMOS)
-		to_chat(user, "<span class='notice'>You minimize the target temperature on [src] to [target_temperature] K.</span>")
 	else
 		target_temperature = max_temperature
 		investigate_log("was set to [target_temperature] K by [key_name(user)]", INVESTIGATE_ATMOS)
-		to_chat(user, "<span class='notice'>You maximize the target temperature on [src] to [target_temperature] K.</span>")
+	balloon_alert(user, "Set to [target_temperature] K")
 
 /obj/machinery/atmospherics/components/unary/thermomachine/process_atmos()
 	..()
@@ -178,6 +177,7 @@
 	if(!ui)
 		ui = new(user, src, "ThermoMachine")
 		ui.open()
+		ui.set_autoupdate(TRUE) // Air temperature and pressure
 
 /obj/machinery/atmospherics/components/unary/thermomachine/ui_data(mob/user)
 	var/list/data = list()
@@ -225,8 +225,8 @@
 			if(.)
 				target_temperature = clamp(target, min_temperature, max_temperature)
 				investigate_log("was set to [target_temperature] K by [key_name(usr)]", INVESTIGATE_ATMOS)
-
-	update_icon()
+	if(.)
+		update_icon()
 
 /obj/machinery/atmospherics/components/unary/thermomachine/CtrlClick(mob/living/user)
 	if(!can_interact(user))
@@ -245,7 +245,7 @@
 	on = TRUE
 	icon_state = "freezer_1"
 
-/obj/machinery/atmospherics/components/unary/thermomachine/freezer/on/Initialize()
+/obj/machinery/atmospherics/components/unary/thermomachine/freezer/on/Initialize(mapload)
 	. = ..()
 	if(target_temperature == initial(target_temperature))
 		target_temperature = min_temperature
@@ -253,9 +253,9 @@
 /obj/machinery/atmospherics/components/unary/thermomachine/freezer/on/coldroom
 	name = "cold room freezer"
 
-/obj/machinery/atmospherics/components/unary/thermomachine/freezer/on/coldroom/Initialize()
+/obj/machinery/atmospherics/components/unary/thermomachine/freezer/on/coldroom/Initialize(mapload)
 	. = ..()
-	target_temperature = T0C-20 //Cold enough to prevent Miasma
+	target_temperature = T0C-20
 
 /obj/machinery/atmospherics/components/unary/thermomachine/heater
 	icon_state = "heater"

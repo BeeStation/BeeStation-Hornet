@@ -12,14 +12,15 @@
 	var/checks_antimagic = TRUE
 	var/max_charges = 6
 	var/charges = 0
-	var/recharge_rate = 4
-	var/charge_tick = 0
+	var/recharge_rate = 8
+	var/charge_timer = 0
 	var/can_charge = TRUE
 	var/ammo_type
 	var/no_den_usage
 	clumsy_check = 0
 	trigger_guard = TRIGGER_GUARD_ALLOW_ALL // Has no trigger at all, uses magic instead
 	pin = /obj/item/firing_pin/magic
+	requires_wielding = FALSE	//Magic has no recoil, just hold with 1 hand
 
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi' //not really a gun and some toys use these inhands
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
@@ -51,10 +52,11 @@
 		charges--//... drain a charge
 		recharge_newshot()
 
-/obj/item/gun/magic/Initialize()
+/obj/item/gun/magic/Initialize(mapload)
 	. = ..()
 	charges = max_charges
-	chambered = new ammo_type(src)
+	if(ammo_type)
+		chambered = new ammo_type(src)
 	if(can_charge)
 		START_PROCESSING(SSobj, src)
 
@@ -64,12 +66,14 @@
 		STOP_PROCESSING(SSobj, src)
 	return ..()
 
-
-/obj/item/gun/magic/process()
-	charge_tick++
-	if(charge_tick < recharge_rate || charges >= max_charges)
+/obj/item/gun/magic/process(delta_time)
+	if (charges >= max_charges)
+		charge_timer = 0
+		return
+	charge_timer += delta_time
+	if(charge_timer < recharge_rate)
 		return 0
-	charge_tick = 0
+	charge_timer = 0
 	charges++
 	if(charges == 1)
 		recharge_newshot()
@@ -89,5 +93,5 @@
 /obj/item/gun/magic/vv_edit_var(var_name, var_value)
 	. = ..()
 	switch (var_name)
-		if ("charges")
+		if(NAMEOF(src, charges))
 			recharge_newshot()

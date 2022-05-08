@@ -258,7 +258,7 @@
 	..()
 
 	if (L.client)
-		SSmedals.UnlockMedal(MEDAL_APPLY_REAGENT_SOYMILK,L.client)
+		L.client.give_award(/datum/award/achievement/misc/soy, L)
 
 
 /datum/reagent/consumable/soymilk/on_mob_life(mob/living/carbon/M)
@@ -421,7 +421,7 @@
 
 /datum/reagent/consumable/nuka_cola/on_mob_metabolize(mob/living/L)
 	..()
-	L.add_movespeed_modifier(type, update=TRUE, priority=100, multiplicative_slowdown=-0.75, blacklisted_movetypes=(FLYING|FLOATING))
+	L.add_movespeed_modifier(type, update=TRUE, priority=100, multiplicative_slowdown=-0.50, blacklisted_movetypes=(FLYING|FLOATING))
 
 /datum/reagent/consumable/nuka_cola/on_mob_end_metabolize(mob/living/L)
 	L.remove_movespeed_modifier(type)
@@ -430,10 +430,11 @@
 /datum/reagent/consumable/nuka_cola/on_mob_life(mob/living/carbon/M)
 	M.Jitter(20)
 	M.set_drugginess(30)
-	M.dizziness +=1.5
+	M.dizziness += 1.5
 	M.drowsyness = 0
 	M.AdjustSleeping(-40, FALSE)
 	M.adjust_bodytemperature(-5 * TEMPERATURE_DAMAGE_COEFFICIENT, BODYTEMP_NORMAL)
+	M.radiation += 4
 	..()
 	. = 1
 
@@ -487,7 +488,7 @@
 	taste_description = "cherry soda" // FALSE ADVERTISING
 	glass_icon_state = "dr_gibb_glass"
 	glass_name = "glass of Dr. Gibb"
-	glass_desc = "Dr. Gibb. Not as dangerous as the glass_name might imply."
+	glass_desc = "Dr. Gibb. Not as dangerous as the name might imply."
 
 /datum/reagent/consumable/dr_gibb/on_mob_life(mob/living/carbon/M)
 	M.drowsyness = max(0,M.drowsyness-6)
@@ -763,7 +764,7 @@
 /datum/reagent/consumable/triple_citrus
 	name = "Triple Citrus"
 	description = "A solution."
-	color = "#C8A5DC"
+	color = "#EEFF00"
 	quality = DRINK_NICE
 	taste_description = "extreme bitterness"
 	glass_icon_state = "triplecitrus" //needs own sprite mine are trash
@@ -824,6 +825,14 @@
 	taste_description = "peaches"
 	glass_name = "glass of peach juice"
 
+/datum/reagent/consumable/pineapplejuice
+	name = "Pineapple Juice"
+	description = "Tart, tropical, and hotly debated."
+	color = "#F7D435"
+	taste_description = "pineapple"
+	glass_name = "glass of pineapple juice"
+	glass_desc = "Tart, tropical, and hotly debated."
+
 /datum/reagent/consumable/cream_soda
 	name = "Cream Soda"
 	description = "A classic space-American vanilla flavored soft drink."
@@ -876,3 +885,17 @@
 	glass_icon_state = "glass_yellow"
 	glass_name = "glass of bungo juice"
 	glass_desc = "Exotic! You feel like you are on vacation already."
+
+/datum/reagent/consumable/beefbroth
+	name = "Beef Broth"
+	color = "#100800" // rgb: 16, 8, 0 , just like cola
+	taste_description = "Pure Beef Essence"
+	glass_icon_state  = "glass_brown"
+	glass_name = "glass of Space Cola?"
+	glass_desc = "A glass of what appears to be refreshing Space Cola."
+
+/datum/reagent/consumable/beefbroth/on_mob_metabolize(mob/living/M)
+	to_chat(M, "<span class='warning'>That drink was way too beefy! You feel sick.</span>")
+	M.adjust_disgust(30)
+	SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "quality_drink", /datum/mood_event/quality_bad)
+	. = ..()

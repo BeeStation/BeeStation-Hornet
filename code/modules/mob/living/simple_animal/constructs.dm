@@ -41,9 +41,11 @@
 	var/can_repair_constructs = FALSE
 	var/can_repair_self = FALSE
 	var/runetype
+	var/datum/action/innate/cult/create_rune/our_rune
 	var/holy = FALSE
 	chat_color = "#FF6262"
 	mobchatspan = "cultmobsay"
+	discovery_points = 1000
 
 /mob/living/simple_animal/hostile/construct/get_num_legs()
 	return 0
@@ -51,7 +53,7 @@
 /mob/living/simple_animal/hostile/construct/get_num_arms()
 	return 0
 
-/mob/living/simple_animal/hostile/construct/Initialize()
+/mob/living/simple_animal/hostile/construct/Initialize(mapload)
 	. = ..()
 	update_health_hud()
 	var/spellnum = 1
@@ -66,11 +68,15 @@
 		S.action.button.moved = "6:[pos],4:-2"
 		spellnum++
 	if(runetype)
-		var/datum/action/innate/cult/create_rune/CR = new runetype(src)
-		CR.Grant(src)
+		our_rune = new runetype(src)
+		our_rune.Grant(src)
 		var/pos = 2+spellnum*31
-		CR.button.screen_loc = "6:[pos],4:-2"
-		CR.button.moved = "6:[pos],4:-2"
+		our_rune.button.screen_loc = "6:[pos],4:-2"
+		our_rune.button.moved = "6:[pos],4:-2"
+
+/mob/living/simple_animal/hostile/construct/Destroy()
+	QDEL_NULL(our_rune)
+	return ..()
 
 /mob/living/simple_animal/hostile/construct/Login()
 	..()
@@ -131,8 +137,8 @@
 	icon_living = "behemoth"
 	maxHealth = 150
 	health = 150
-	response_harm = "harmlessly punches"
-	harm_intent_damage = 0
+	response_harm = "punches"
+
 	obj_damage = 90
 	melee_damage = 25
 	attacktext = "smashes their armored gauntlet into"
@@ -140,6 +146,7 @@
 	environment_smash = ENVIRONMENT_SMASH_WALLS
 	attack_sound = 'sound/weapons/punch3.ogg'
 	status_flags = 0
+	move_resist = MOVE_FORCE_STRONG
 	mob_size = MOB_SIZE_LARGE
 	force_threshold = 10
 	construct_spells = list(/obj/effect/proc_holder/spell/targeted/forcewall/cult,
@@ -395,7 +402,7 @@
 		return FALSE
 	. = ..()
 
-/mob/living/simple_animal/hostile/construct/harvester/Initialize()
+/mob/living/simple_animal/hostile/construct/harvester/Initialize(mapload)
 	. = ..()
 	var/datum/action/innate/seek_prey/seek = new()
 	seek.Grant(src)
@@ -448,15 +455,11 @@
 	background_icon_state = "bg_demon"
 	buttontooltipstyle = "cult"
 	button_icon_state = "cult_mark"
-	var/mob/living/simple_animal/hostile/construct/harvester/the_construct
-
-/datum/action/innate/seek_prey/Grant(var/mob/living/C)
-	the_construct = C
-	..()
 
 /datum/action/innate/seek_prey/Activate()
 	if(GLOB.cult_narsie == null)
 		return
+	var/mob/living/simple_animal/hostile/construct/harvester/the_construct = owner
 	if(the_construct.seeking)
 		desc = "None can hide from Nar'Sie, activate to track a survivor attempting to flee the red harvest!"
 		button_icon_state = "cult_mark"

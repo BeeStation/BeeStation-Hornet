@@ -9,7 +9,6 @@
 	flags_1 = CONDUCT_1
 	force = 3
 	throwforce = 10
-	block_upgrade_walk = 1
 	var/acti_sound = 'sound/items/welderactivate.ogg'
 	var/deac_sound = 'sound/items/welderdeactivate.ogg'
 	throw_speed = 1
@@ -17,6 +16,8 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	materials = list(/datum/material/iron=500)
 	resistance_flags = FIRE_PROOF
+	light_system = MOVABLE_LIGHT
+	light_on = FALSE
 	var/status = FALSE
 	var/lit = FALSE	//on or off
 	light_color = LIGHT_COLOR_FIRE
@@ -164,16 +165,15 @@
 	to_chat(user, "<span class='notice'>You [lit ? "extinguish" : "ignite"] [src]!</span>")
 	lit = !lit
 	if(lit)
-		set_light(1)
 		playsound(loc, acti_sound, 50, TRUE)
 		START_PROCESSING(SSobj, src)
 		if(!warned_admins)
 			message_admins("[ADMIN_LOOKUPFLW(user)] has lit a flamethrower.")
 			warned_admins = TRUE
 	else
-		set_light(0)
 		playsound(loc, deac_sound, 50, TRUE)
 		STOP_PROCESSING(SSobj,src)
+	set_light_on(lit)
 	update_icon()
 
 /obj/item/flamethrower/CheckParts(list/parts_list)
@@ -213,12 +213,11 @@
 	//TODO: DEFERRED Consider checking to make sure tank pressure is high enough before doing this...
 	//Transfer 5% of current tank air contents to turf
 	var/datum/gas_mixture/air_transfer = ptank.air_contents.remove_ratio(release_amount)
-	air_transfer.set_moles(/datum/gas/plasma, air_transfer.get_moles(/datum/gas/plasma) * 5)
+	air_transfer.set_moles(GAS_PLASMA, air_transfer.get_moles(GAS_PLASMA) * 5)
 	target.assume_air(air_transfer)
 	//Burn it based on transfered gas
 	target.hotspot_expose((ptank.air_contents.return_temperature()*2) + 380,500)
 	//location.hotspot_expose(1000,500,1)
-	SSair.add_to_active(target, 0)
 
 
 /obj/item/flamethrower/Initialize(mapload)

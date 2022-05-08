@@ -4,6 +4,7 @@
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "doorctrl"
 	var/skin = "doorctrl"
+	layer = ABOVE_WINDOW_LAYER
 	power_channel = AREA_USAGE_ENVIRON
 	var/obj/item/assembly/device
 	var/obj/item/electronics/airlock/board
@@ -111,6 +112,12 @@
 	playsound(src, "sparks", 100, 1)
 	obj_flags |= EMAGGED
 
+/obj/machinery/button/eminence_act(mob/living/simple_animal/eminence/eminence)
+	. = ..()
+	to_chat(usr, "<span class='brass'>You begin manipulating [src]!</span>")
+	if(do_after(eminence, 20, target=get_turf(eminence)))
+		attack_hand(eminence)
+
 /obj/machinery/button/attack_ai(mob/user)
 	if(!panel_open)
 		return attack_hand(user)
@@ -131,6 +138,7 @@
 	if(!initialized_button)
 		setup_device()
 	add_fingerprint(user)
+	play_click_sound("button")
 	if(panel_open)
 		if(device || board)
 			if(device)
@@ -158,7 +166,7 @@
 	if(device && device.next_activate > world.time)
 		return
 
-	if(!allowed(user))
+	if(!allowed(user) && !istype(user, /mob/living/simple_animal/eminence))
 		to_chat(user, "<span class='danger'>Access Denied.</span>")
 		flick("[skin]-denied", src)
 		return
@@ -272,7 +280,6 @@
 	icon_state = "launcher"
 	skin = "launcher"
 	device_type = /obj/item/assembly/control/crematorium
-	req_access = list()
 	id = 1
 
 /obj/machinery/button/crematorium/indestructible

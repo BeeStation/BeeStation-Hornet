@@ -58,11 +58,11 @@
 	name = "Projectile"
 	desc = "This spell summons projectiles which try to hit the targets."
 
-	
+
 
 	var/proj_type =  /obj/item/projectile/magic/spell //IMPORTANT use only subtypes of this
-	
-	
+
+
 	var/update_projectile = FALSE //So you want to admin abuse magic bullets ? This is for you
 	//Below only apply if update_projectile is true
 	var/proj_icon = 'icons/obj/projectiles.dmi'
@@ -83,15 +83,15 @@
 	var/check_holy = FALSE
 
 /obj/effect/proc_holder/spell/targeted/projectile/proc/fire_projectile(atom/target, mob/user)
-	var/obj/item/projectile/magic/spell/projectile = new proj_type()
-	
+	var/obj/item/projectile/magic/spell/projectile = new proj_type(null, spell_level)
+
 	if(update_projectile)
 		//Generally these should already be set on the projectile, this is mostly here for varedited spells.
 		projectile.icon = proj_icon
 		projectile.icon_state = proj_icon_state
 		projectile.name = proj_name
 		if(proj_insubstantial)
-			projectile.movement_type |= UNSTOPPABLE
+			projectile.movement_type |= PHASING
 		if(proj_homing)
 			projectile.homing = TRUE
 			projectile.homing_turn_speed = 360 //Perfect tracking

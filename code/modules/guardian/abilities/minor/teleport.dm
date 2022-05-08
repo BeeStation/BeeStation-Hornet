@@ -41,7 +41,7 @@
 		return
 
 	var/turf/T = get_turf(A)
-	if(G.beacon.z != T.z)
+	if(G.beacon.get_virtual_z_level() != T.get_virtual_z_level())
 		to_chat(G, "<span class='danger'><B>The beacon is too far away to warp to!</span></B>")
 		return
 	remove_ranged_ability()
@@ -93,8 +93,10 @@
 	anchored = TRUE
 	layer = ABOVE_OPEN_TURF_LAYER
 
-/obj/structure/receiving_pad/New(loc, mob/living/simple_animal/hostile/guardian/G)
+/obj/structure/receiving_pad/Initialize(mapload, mob/living/simple_animal/hostile/guardian/G)
 	. = ..()
+	if(!istype(G))
+		return INITIALIZE_HINT_QDEL
 	add_atom_colour(G.guardiancolor, FIXED_COLOUR_PRIORITY)
 
 /obj/structure/receiving_pad/proc/disappear()

@@ -164,6 +164,10 @@
 			))
 
 		for (var/datum/syndicate_contract/contract in traitor_data.contractor_hub.assigned_contracts)
+			if(!contract.contract)
+				stack_trace("Syndiate contract with null contract objective found in [traitor_data.owner]'s contractor hub!")
+				contract.status = CONTRACT_STATUS_ABORTED
+				continue
 			data["contracts"] += list(list(
 				"target" = contract.contract.target,
 				"target_rank" = contract.target_rank,
@@ -186,7 +190,7 @@
 					dropoff_turf = content
 					break
 
-			if(curr.z == dropoff_turf.z) //Direction calculations for same z-level only
+			if(curr.get_virtual_z_level() == dropoff_turf.get_virtual_z_level()) //Direction calculations for same z-level only
 				direction = uppertext(dir2text(get_dir(curr, dropoff_turf))) //Direction text (East, etc). Not as precise, but still helpful.
 				if(get_area(user) == traitor_data.contractor_hub.current_contract.contract.dropoff)
 					direction = "LOCATION CONFIRMED"

@@ -16,7 +16,7 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	flags_1 = NODECONSTRUCT_1
 
-/obj/machinery/telecomms/allinone/Initialize()
+/obj/machinery/telecomms/allinone/Initialize(mapload)
 	. = ..()
 	if (intercept)
 		freq_listening = list(FREQ_SYNDICATE)
@@ -26,7 +26,7 @@
 		return
 	if(!on || !is_freq_listening(signal))  // has to be on to receive messages
 		return
-	if (!intercept && !(z in signal.levels) && !(0 in signal.levels))  // has to be syndicate or on the right level
+	if (!intercept && !(get_virtual_z_level() in signal.levels) && !(0 in signal.levels))  // has to be syndicate or on the right level
 		return
 
 	// Decompress the signal and mark it done
@@ -42,3 +42,10 @@
 /obj/machinery/telecomms/allinone/attackby(obj/item/P, mob/user, params)
 	if(P.tool_behaviour == TOOL_MULTITOOL)
 		return attack_hand(user)
+
+/obj/machinery/telecomms/allinone/exploration
+	name = "exploration mainframe"
+	use_power = IDLE_POWER_USE
+	idle_power_usage = 50
+	freq_listening = list(FREQ_EXPLORATION)
+	autolinkers = list("exp_relay")

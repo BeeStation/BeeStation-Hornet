@@ -85,12 +85,12 @@
 
 /datum/objective/saveshuttle/check_completion()
 	if(SSshuttle.emergency.mode != SHUTTLE_ENDGAME)
-		return FALSE
+		return ..()
 	var/count = 0
 	for(var/mob/living/carbon/human/person in get_living_crew())
 		if(get_area(person) in SSshuttle.emergency.shuttle_areas)
 			count ++
-	return count >= target_amount
+	return (count >= target_amount) || ..()
 
 /datum/objective/saveshuttle/update_explanation_text()
 	. = ..()
@@ -122,10 +122,10 @@
 
 /datum/objective/protect_sm/update_explanation_text()
 	var/obj/machinery/power/supermatter_crystal/S = target_sm.resolve()
-	explanation_text = "Ensure the Supermatter crystal in [get_area(S).name] remains stable and has above [target_integrity]% integrity at the end of the shift."
+	explanation_text = "Ensure the Supermatter crystal in [get_area(S)] remains stable and has above [target_integrity]% integrity at the end of the shift."
 
 /datum/objective/protect_sm/check_completion()
 	var/obj/machinery/power/supermatter_crystal/S = target_sm.resolve()
 	if(!S)
-		return FALSE
-	return S.get_integrity() > target_amount
+		return ..()
+	return (S.get_integrity() > target_amount) || ..()

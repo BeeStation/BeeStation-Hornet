@@ -9,7 +9,7 @@
 	obj_flags = UNIQUE_RENAME
 	var/gpstag
 
-/obj/item/gps/Initialize()
+/obj/item/gps/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/gps/item, gpstag)
 
@@ -26,12 +26,16 @@
 	gpstag = "MINE0"
 	desc = "A positioning system helpful for rescuing trapped or injured miners, keeping one on you at all times while mining might just save your life."
 
+/obj/item/gps/mining/exploration
+	gpstag = "EXP0"
+	desc = "A positioning system used for long-ranged tracking of important beacons."
+
 /obj/item/gps/cyborg
 	icon_state = "gps-b"
 	gpstag = "BORG0"
 	desc = "A mining cyborg internal positioning system. Used as a recovery beacon for damaged cyborg assets, or a collaboration tool for mining teams."
 
-/obj/item/gps/cyborg/Initialize()
+/obj/item/gps/cyborg/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, CYBORG_ITEM_TRAIT)
 
@@ -48,7 +52,7 @@
 		for marking the area around the transition edges."
 	var/list/turf/tagged
 
-/obj/item/gps/visible_debug/Initialize()
+/obj/item/gps/visible_debug/Initialize(mapload)
 	. = ..()
 	tagged = list()
 	START_PROCESSING(SSfastprocess, src)
@@ -59,7 +63,7 @@
 		// I assume it's faster to color,tag and OR the turf in, rather
 		// then checking if its there
 		T.color = RANDOM_COLOUR
-		T.maptext = MAPTEXT("[T.x],[T.y],[T.z]")
+		T.maptext = MAPTEXT("[T.x],[T.y],[T.get_virtual_z_level()]")
 		tagged |= T
 
 /obj/item/gps/visible_debug/proc/clear()

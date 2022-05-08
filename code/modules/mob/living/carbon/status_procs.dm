@@ -15,17 +15,20 @@
 		to_chat(src, "<span class='notice'>You're too exhausted to keep going.</span>")
 	stam_regen_start_time = world.time + STAMINA_CRIT_TIME
 	stam_paralyzed = TRUE
-
+	update_mobility()
+	
 /mob/living/carbon/adjust_drugginess(amount)
 	druggy = max(druggy+amount, 0)
 	if(druggy)
 		overlay_fullscreen("high", /atom/movable/screen/fullscreen/high)
 		throw_alert("high", /atom/movable/screen/alert/high)
 		SEND_SIGNAL(src, COMSIG_ADD_MOOD_EVENT, "high", /datum/mood_event/high)
+		sound_environment_override = SOUND_ENVIRONMENT_DRUGGED
 	else
 		clear_fullscreen("high")
 		clear_alert("high")
 		SEND_SIGNAL(src, COMSIG_CLEAR_MOOD_EVENT, "high")
+		sound_environment_override = SOUND_ENVIRONMENT_NONE
 
 /mob/living/carbon/set_drugginess(amount)
 	druggy = max(amount, 0)
@@ -78,4 +81,3 @@
 	var/obj/item/organ/brain/B = getorganslot(ORGAN_SLOT_BRAIN)
 	if(B)
 		. = B.cure_all_traumas(resilience)
-

@@ -25,8 +25,8 @@
 	add_blood_DNA(list("Non-human DNA" = random_blood_type())) // Needs to happen before ..()
 	. = ..()
 	icon_state = "[icon_state]-old" //change from the normal blood icon selected from random_icon_states in the parent's Initialize to the old dried up blood.
-	if(prob(40))
-		var/datum/disease/advance/R = new /datum/disease/advance/random(rand(1, 4), rand(4, 9))
+	if(prob(75))
+		var/datum/disease/advance/R = new /datum/disease/advance/random(rand(1, 4), rand(7, 9), 4)
 		disease += R
 
 /obj/effect/decal/cleanable/blood/old/extrapolator_act(mob/user, var/obj/item/extrapolator/E, scan = TRUE)
@@ -65,12 +65,16 @@
 	layer = LOW_OBJ_LAYER
 	random_icon_states = list("gib1", "gib2", "gib3", "gib4", "gib5", "gib6")
 	mergeable_decal = FALSE
+	turf_loc_check = FALSE
 
 	var/already_rotting = FALSE
+		///Information about the diseases our streaking spawns
+	var/list/streak_diseases
 
 /obj/effect/decal/cleanable/blood/gibs/Initialize(mapload, list/datum/disease/diseases)
 	. = ..()
 	reagents.add_reagent(/datum/reagent/liquidgibs, 5)
+	RegisterSignal(src, COMSIG_MOVABLE_PIPE_EJECTING, .proc/on_pipe_eject)
 	if(already_rotting)
 		start_rotting(rename=FALSE)
 	else
@@ -80,27 +84,50 @@
 	if(rename)
 		name = "rotting [initial(name)]"
 		desc += " They smell terrible."
-	AddComponent(/datum/component/rot/gibs)
+
+/obj/effect/decal/cleanable/blood/gibs/replace_decal(obj/effect/decal/cleanable/C)
+	return FALSE //Never fail to place us
 
 /obj/effect/decal/cleanable/blood/gibs/ex_act(severity, target)
 	return
 
-/obj/effect/decal/cleanable/blood/gibs/Crossed(mob/living/L)
-	if(istype(L) && has_gravity(loc))
-		playsound(loc, 'sound/effects/gib_step.ogg', HAS_TRAIT(L, TRAIT_LIGHT_STEP) ? 20 : 50, 1)
+/obj/effect/decal/cleanable/blood/gibs/on_entered(datum/source, atom/movable/L)
+	if(isliving(L) && has_gravity(loc))
+		playsound(loc, 'sound/effects/gib_step.ogg', HAS_TRAIT(L, TRAIT_LIGHT_STEP) ? 20 : 50, TRUE)
 	. = ..()
 
-/obj/effect/decal/cleanable/blood/gibs/proc/streak(list/directions)
-	set waitfor = FALSE
-	var/list/diseases = list()
-	SEND_SIGNAL(src, COMSIG_GIBS_STREAK, directions, diseases)
+/obj/effect/decal/cleanable/blood/gibs/proc/on_pipe_eject(atom/source, direction)
+	SIGNAL_HANDLER
+
+	var/list/dirs
+	if(direction)
+		dirs = list(direction, turn(direction, -45), turn(direction, 45))
+	else
+		dirs = GLOB.alldirs.Copy()
+
+	streak(dirs)
+
+/obj/effect/decal/cleanable/blood/gibs/proc/streak(list/directions, mapload = FALSE)
+	SEND_SIGNAL(src, COMSIG_GIBS_STREAK, directions, streak_diseases)
 	var/direction = pick(directions)
-	for(var/i in 0 to pick(0, 200; 1, 150; 2, 50))
-		sleep(2)
-		if(i > 0)
-			new /obj/effect/decal/cleanable/blood/splatter(loc, diseases)
-		if(!step_to(src, get_step(src, direction), 0))
-			break
+	streak_diseases = list()
+	var/delay = 2
+	var/range = pick(0, 200; 1, 150; 2, 50; 3, 17; 50) //the 3% chance of 50 steps is intentional and played for laughs.
+	if(!step_to(src, get_step(src, direction), 0))
+		return
+	if(mapload)
+		for (var/i = 1, i < range, i++)
+			new /obj/effect/decal/cleanable/blood/splatter(loc, streak_diseases)
+			if (!step_to(src, get_step(src, direction), 0))
+				break
+		return
+
+	var/datum/move_loop/loop = SSmove_manager.move_to(src, get_step(src, direction), delay = delay, timeout = range * delay, priority = MOVEMENT_ABOVE_SPACE_PRIORITY)
+	RegisterSignal(loop, COMSIG_MOVELOOP_POSTPROCESS, .proc/spread_movement_effects)
+
+/obj/effect/decal/cleanable/blood/gibs/proc/spread_movement_effects(datum/move_loop/has_target/source)
+	SIGNAL_HANDLER
+	new /obj/effect/decal/cleanable/blood/splatter(loc, streak_diseases)
 
 /obj/effect/decal/cleanable/blood/gibs/up
 	icon_state = "gibup1"
@@ -138,8 +165,8 @@
 	setDir(pick(1,2,4,8))
 	icon_state += "-old"
 	add_blood_DNA(list("Non-human DNA" = random_blood_type()))
-	if(prob(50))
-		var/datum/disease/advance/R = new /datum/disease/advance/random(rand(1, 6), rand(5, 9))
+	if(prob(80))
+		var/datum/disease/advance/R = new /datum/disease/advance/random(rand(3, 6), rand(8, 9), 4)
 		disease += R
 
 /obj/effect/decal/cleanable/blood/gibs/old/extrapolator_act(mob/user, var/obj/item/extrapolator/E, scan = TRUE)
@@ -176,8 +203,8 @@
 	var/exited_dirs = 0
 	var/list/shoe_types = list()
 
-/obj/effect/decal/cleanable/blood/footprints/Crossed(atom/movable/O)
-	..()
+/obj/effect/decal/cleanable/blood/footprints/on_entered(datum/source, atom/movable/O)
+	. = ..()
 	if(ishuman(O))
 		var/mob/living/carbon/human/H = O
 		var/obj/item/clothing/shoes/S = H.shoes
@@ -188,8 +215,8 @@
 				entered_dirs |= H.dir
 				update_icon()
 
-/obj/effect/decal/cleanable/blood/footprints/Uncrossed(atom/movable/O)
-	..()
+/obj/effect/decal/cleanable/blood/footprints/on_uncrossed(datum/source, atom/movable/O)
+	. = ..()
 	if(ishuman(O))
 		var/mob/living/carbon/human/H = O
 		var/obj/item/clothing/shoes/S = H.shoes

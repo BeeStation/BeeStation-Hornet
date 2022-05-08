@@ -28,13 +28,13 @@
 /obj/item/laser_pointer/purple
 	pointer_icon_state = "purple_laser"
 
-/obj/item/laser_pointer/Initialize()
+/obj/item/laser_pointer/Initialize(mapload)
 	. = ..()
 	diode = new(src)
 	if(!pointer_icon_state)
 		pointer_icon_state = pick("red_laser","green_laser","blue_laser","purple_laser")
 
-/obj/item/laser_pointer/upgraded/Initialize()
+/obj/item/laser_pointer/upgraded/Initialize(mapload)
 	. = ..()
 	diode = new /obj/item/stock_parts/micro_laser/ultra
 
@@ -80,9 +80,9 @@
 	if(HAS_TRAIT(user, TRAIT_NOGUNS))
 		to_chat(user, "<span class='warning'>Your fingers can't press the button!</span>")
 		return
-	if(ishuman(user))
-		var/mob/living/carbon/human/H = user
-		if(H.dna.check_mutation(HULK))
+	if(user.has_dna())
+		var/mob/living/carbon/C = user
+		if(C.dna.check_mutation(HULK))
 			to_chat(user, "<span class='warning'>Your fingers can't press the button!</span>")
 			return
 
@@ -161,7 +161,7 @@
 				C.set_resting(TRUE, FALSE)
 			else
 				C.visible_message("<span class='notice'>[C] looks uninterested in your games.</span>","<span class='warning'>You spot [user] shining [src] at you. How insulting!</span>")
-		
+
 	//laser pointer image
 	icon_state = "pointer_[pointer_icon_state]"
 	var/image/I = image('icons/obj/projectiles.dmi',targloc,pointer_icon_state,10)
@@ -192,8 +192,11 @@
 	flick_overlay_view(I, targloc, 10)
 	icon_state = "pointer"
 
-/obj/item/laser_pointer/process()
-	if(prob(20 - recharge_locked*5))
+/obj/item/laser_pointer/process(delta_time)
+	if(!diode)
+		recharging = FALSE
+		return PROCESS_KILL
+	if(DT_PROB(10 + diode.rating*10 - recharge_locked*1, delta_time)) //t1 is 20, 2 40
 		energy += 1
 		if(energy >= max_energy)
 			energy = max_energy

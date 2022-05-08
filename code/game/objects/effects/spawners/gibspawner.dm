@@ -19,7 +19,7 @@
 		stack_trace("Gib list dir length mismatch!")
 		return
 
-	var/obj/effect/decal/cleanable/blood/gibs/gib = null
+	var/obj/effect/decal/cleanable/blood/gib = null
 
 	if(sound_to_play && isnum_safe(sound_vol))
 		playsound(src, sound_to_play, sound_vol, TRUE)
@@ -52,7 +52,15 @@
 				var/list/directions = gibdirections[i]
 				if(isturf(loc))
 					if(directions.len)
-						gib.streak(directions)
+						if(istype(gib, /obj/effect/decal/cleanable/blood/gibs))
+							var/obj/effect/decal/cleanable/blood/gibs/G = gib
+							G.streak(directions, mapload)
+						else if(istype(gib, /obj/effect/decal/cleanable/xenoblood/xgibs))
+							var/obj/effect/decal/cleanable/xenoblood/xgibs/G = gib
+							G.streak(directions, mapload)
+						else if(istype(gib, /obj/effect/decal/cleanable/robot_debris))
+							var/obj/effect/decal/cleanable/robot_debris/G = gib
+							G.streak(directions, mapload)
 
 	return INITIALIZE_HINT_QDEL
 
@@ -62,10 +70,13 @@
 	gibamounts = list(2, 2, 1)
 	sound_vol = 40
 
-/obj/effect/gibspawner/generic/Initialize()
+/obj/effect/gibspawner/generic/Initialize(mapload)
 	if(!gibdirections.len)
 		gibdirections = list(list(WEST, NORTHWEST, SOUTHWEST, NORTH),list(EAST, NORTHEAST, SOUTHEAST, SOUTH), list())
 	return ..()
+
+/obj/effect/gibspawner/generic/bloodtomato
+	gibtypes = list(/obj/effect/decal/cleanable/blood/splatter, /obj/effect/decal/cleanable/blood/drip, /obj/effect/decal/cleanable/blood/gibs)
 
 /obj/effect/gibspawner/generic/animal
 	gib_mob_type = /mob/living/simple_animal/pet
@@ -78,7 +89,7 @@
 	gib_mob_type = /mob/living/carbon/human
 	sound_vol = 50
 
-/obj/effect/gibspawner/human/Initialize()
+/obj/effect/gibspawner/human/Initialize(mapload)
 	if(!gibdirections.len)
 		gibdirections = list(list(NORTH, NORTHEAST, NORTHWEST),list(SOUTH, SOUTHEAST, SOUTHWEST),list(WEST, NORTHWEST, SOUTHWEST),list(EAST, NORTHEAST, SOUTHEAST), GLOB.alldirs, GLOB.alldirs, list())
 	return ..()
@@ -88,7 +99,7 @@
 	gibtypes = list(/obj/effect/decal/cleanable/blood/gibs, /obj/effect/decal/cleanable/blood/gibs/core, /obj/effect/decal/cleanable/blood/gibs, /obj/effect/decal/cleanable/blood/gibs/core, /obj/effect/decal/cleanable/blood/gibs, /obj/effect/decal/cleanable/blood/gibs/torso)
 	gibamounts = list(1, 1, 1, 1, 1, 1)
 
-/obj/effect/gibspawner/human/bodypartless/Initialize()
+/obj/effect/gibspawner/human/bodypartless/Initialize(mapload)
 	if(!gibdirections.len)
 		gibdirections = list(list(NORTH, NORTHEAST, NORTHWEST),list(SOUTH, SOUTHEAST, SOUTHWEST),list(WEST, NORTHWEST, SOUTHWEST),list(EAST, NORTHEAST, SOUTHEAST), GLOB.alldirs, list())
 	return ..()
@@ -100,7 +111,7 @@
 	gibamounts = list(1, 1, 1, 1, 1, 1, 1)
 	gib_mob_type = /mob/living/carbon/alien
 
-/obj/effect/gibspawner/xeno/Initialize()
+/obj/effect/gibspawner/xeno/Initialize(mapload)
 	if(!gibdirections.len)
 		gibdirections = list(list(NORTH, NORTHEAST, NORTHWEST),list(SOUTH, SOUTHEAST, SOUTHWEST),list(WEST, NORTHWEST, SOUTHWEST),list(EAST, NORTHEAST, SOUTHEAST), GLOB.alldirs, GLOB.alldirs, list())
 	return ..()
@@ -111,7 +122,7 @@
 	gibamounts = list(1, 1, 1, 1, 1, 1)
 
 
-/obj/effect/gibspawner/xeno/bodypartless/Initialize()
+/obj/effect/gibspawner/xeno/bodypartless/Initialize(mapload)
 	if(!gibdirections.len)
 		gibdirections = list(list(NORTH, NORTHEAST, NORTHWEST),list(SOUTH, SOUTHEAST, SOUTHWEST),list(WEST, NORTHWEST, SOUTHWEST),list(EAST, NORTHEAST, SOUTHEAST), GLOB.alldirs, list())
 	return ..()
@@ -123,7 +134,7 @@
 	gibamounts = list(1, 1, 1, 1)
 	gib_mob_type = /mob/living/carbon/alien/larva
 
-/obj/effect/gibspawner/larva/Initialize()
+/obj/effect/gibspawner/larva/Initialize(mapload)
 	if(!gibdirections.len)
 		gibdirections = list(list(NORTH, NORTHEAST, NORTHWEST),list(SOUTH, SOUTHEAST, SOUTHWEST), list(), GLOB.alldirs)
 	return ..()
@@ -132,7 +143,7 @@
 	gibtypes = list(/obj/effect/decal/cleanable/xenoblood/xgibs/larva, /obj/effect/decal/cleanable/xenoblood/xgibs/larva, /obj/effect/decal/cleanable/xenoblood/xgibs/larva)
 	gibamounts = list(1, 1, 1)
 
-/obj/effect/gibspawner/larva/bodypartless/Initialize()
+/obj/effect/gibspawner/larva/bodypartless/Initialize(mapload)
 	if(!gibdirections.len)
 		gibdirections = list(list(NORTH, NORTHEAST, NORTHWEST),list(SOUTH, SOUTHEAST, SOUTHWEST), list())
 	return ..()
@@ -145,7 +156,7 @@
 	gibamounts = list(1, 1, 1, 1, 1, 1)
 	gib_mob_type = /mob/living/silicon
 
-/obj/effect/gibspawner/robot/Initialize()
+/obj/effect/gibspawner/robot/Initialize(mapload)
 	if(!gibdirections.len)
 		gibdirections = list(list(NORTH, NORTHEAST, NORTHWEST),list(SOUTH, SOUTHEAST, SOUTHWEST),list(WEST, NORTHWEST, SOUTHWEST),list(EAST, NORTHEAST, SOUTHEAST), GLOB.alldirs, GLOB.alldirs)
 	gibamounts[6] = pick(0, 1, 2)

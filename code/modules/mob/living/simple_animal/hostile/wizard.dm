@@ -25,7 +25,7 @@
 
 	retreat_distance = 3 //out of fireball range
 	minimum_distance = 3
-	del_on_death = 1
+	del_on_death = TRUE
 	loot = list(/obj/effect/mob_spawn/human/corpse/wizard,
 				/obj/item/staff)
 
@@ -36,8 +36,9 @@
 	var/next_cast = 0
 
 	do_footstep = TRUE
+	discovery_points = 3000
 
-/mob/living/simple_animal/hostile/wizard/Initialize()
+/mob/living/simple_animal/hostile/wizard/Initialize(mapload)
 	. = ..()
 	fireball = new /obj/effect/proc_holder/spell/aimed/fireball
 	fireball.clothes_req = 0

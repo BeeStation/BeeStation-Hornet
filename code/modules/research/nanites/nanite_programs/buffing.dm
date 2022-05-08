@@ -22,7 +22,7 @@
 	name = "Adrenaline Burst"
 	desc = "The nanites cause a burst of adrenaline when triggered, allowing the user to push their body past its normal limits."
 	can_trigger = TRUE
-	trigger_cost = 25
+	trigger_cost = 20
 	trigger_cooldown = 1200
 	rogue_types = list(/datum/nanite_program/toxic, /datum/nanite_program/nerve_decay)
 
@@ -32,7 +32,6 @@
 	host_mob.adjustStaminaLoss(-75)
 	host_mob.set_resting(FALSE)
 	host_mob.update_mobility()
-	host_mob.reagents.add_reagent(/datum/reagent/medicine/amphetamine, 3)
 
 /datum/nanite_program/hardening
 	name = "Dermal Hardening"
@@ -46,15 +45,15 @@
 	. = ..()
 	if(ishuman(host_mob))
 		var/mob/living/carbon/human/H = host_mob
-		H.physiology.armor.melee += 50
-		H.physiology.armor.bullet += 35
+		H.physiology.armor.melee += 30
+		H.physiology.armor.bullet += 30
 
 /datum/nanite_program/hardening/disable_passive_effect()
 	. = ..()
 	if(ishuman(host_mob))
 		var/mob/living/carbon/human/H = host_mob
-		H.physiology.armor.melee -= 50
-		H.physiology.armor.bullet -= 35
+		H.physiology.armor.melee -= 30
+		H.physiology.armor.bullet -= 30
 
 /datum/nanite_program/refractive
 	name = "Dermal Refractive Surface"
@@ -66,15 +65,15 @@
 	. = ..()
 	if(ishuman(host_mob))
 		var/mob/living/carbon/human/H = host_mob
-		H.physiology.armor.laser += 50
-		H.physiology.armor.energy += 35
+		H.physiology.armor.laser += 30
+		H.physiology.armor.energy += 30
 
 /datum/nanite_program/refractive/disable_passive_effect()
 	. = ..()
 	if(ishuman(host_mob))
 		var/mob/living/carbon/human/H = host_mob
-		H.physiology.armor.laser -= 50
-		H.physiology.armor.energy -= 35
+		H.physiology.armor.laser -= 30
+		H.physiology.armor.energy -= 30
 
 /datum/nanite_program/coagulating
 	name = "Rapid Coagulation"
@@ -125,3 +124,16 @@
 	. = ..()
 	REMOVE_TRAIT(host_mob, TRAIT_MINDSHIELD, "nanites")
 	host_mob.sec_hud_set_implants()
+
+/datum/nanite_program/haste
+	name = "Amphetamine Injection"
+	desc = "The nanites synthesize amphetamine when triggered, which temporarily increases the host's running speed."
+	can_trigger = TRUE
+	trigger_cost = 10
+	trigger_cooldown = 1200
+	rogue_types = list(/datum/nanite_program/toxic, /datum/nanite_program/nerve_decay)
+
+/datum/nanite_program/haste/on_trigger()
+	to_chat(host_mob, "<span class='notice'>Your body feels lighter and your legs feel relaxed!</span>")
+	host_mob.set_resting(FALSE)
+	host_mob.reagents.add_reagent(/datum/reagent/medicine/amphetamine, 3)

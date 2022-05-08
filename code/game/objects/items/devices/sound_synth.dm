@@ -34,7 +34,7 @@
     "Bwoink" = "selected_sound=sound/effects/adminhelp.ogg&shiftpitch=1&volume=50",
     "Double Beep" = "selected_sound=sound/machines/twobeep.ogg&shiftpitch=1&volume=50",
     "Flush" = "selected_sound=sound/machines/disposalflush.ogg&shiftpitch=1&volume=40",
-    "Kawaii" = "selected_sound=sound/AI/animes.ogg&shiftpitch=0&volume=60",
+    "Kawaii" = "selected_sound=sound/ai/default/animes.ogg&shiftpitch=0&volume=60",
     "Startup" = "selected_sound=sound/mecha/nominal.ogg&shiftpitch=0&volume=50",
     "Welding Noises" = "selected_sound=sound/items/welder.ogg&shiftpitch=1&volume=55",
     "Short Slide Whistle" = "selected_sound=sound/effects/slide_whistle_short.ogg&shiftpitch=1&volume=50",

@@ -1,4 +1,27 @@
-interface ByondType {
+/**
+ * @file
+ * @copyright 2021 Aleksej Komarov
+ * @license MIT
+ */
+
+// Webpack asset modules.
+// Should match extensions used in webpack config.
+declare module '*.png' {
+  const content: string;
+  export default content;
+}
+
+declare module '*.jpg' {
+  const content: string;
+  export default content;
+}
+
+declare module '*.svg' {
+  const content: string;
+  export default content;
+}
+
+type ByondType = {
   /**
    * True if javascript is running in BYOND.
    */
@@ -112,6 +135,21 @@ interface ByondType {
    * Loads a script into the document.
    */
   loadJs(url: string): void;
-}
+};
 
-declare const Byond: ByondType;
+/**
+ * Object that provides access to Byond Skin API and is available in
+ * any tgui application.
+ */
+const Byond: ByondType;
+
+interface Window {
+  /**
+   * ID of the Byond window this script is running on.
+   * Should be used as a parameter to winget/winset.
+   */
+  __windowId__: string;
+  __updateQueue__: unknown[];
+  update: (msg: unknown) => unknown;
+  Byond: ByondType;
+}

@@ -25,15 +25,16 @@
 	hitsound = "swing_hit"
 	armour_penetration = 50
 	var/active = 0
+	var/saber_color
 
-/obj/item/holo/esword/green/Initialize()
+/obj/item/holo/esword/green/Initialize(mapload)
 	. = ..()
-	item_color = "green"
+	saber_color = "green"
 
 
-/obj/item/holo/esword/red/Initialize()
+/obj/item/holo/esword/red/Initialize(mapload)
 	. = ..()
-	item_color = "red"
+	saber_color = "red"
 
 /obj/item/holo/esword/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(active)
@@ -43,15 +44,15 @@
 /obj/item/holo/esword/attack(target as mob, mob/user as mob)
 	..()
 
-/obj/item/holo/esword/Initialize()
+/obj/item/holo/esword/Initialize(mapload)
 	. = ..()
-	item_color = pick("red","blue","green","purple")
+	saber_color = pick("red","blue","green","purple")
 
 /obj/item/holo/esword/attack_self(mob/living/user as mob)
 	active = !active
 	if (active)
 		force = 30
-		icon_state = "sword[item_color]"
+		icon_state = "sword[saber_color]"
 		w_class = WEIGHT_CLASS_BULKY
 		hitsound = 'sound/weapons/blade1.ogg'
 		playsound(user, 'sound/weapons/saberon.ogg', 20, 1)
@@ -227,3 +228,20 @@
 /obj/item/paper/fluff/holodeck/disclaimer
 	name = "Holodeck Disclaimer"
 	info = "Bruises sustained in the holodeck can be healed simply by sleeping."
+
+/obj/vehicle/ridden/scooter/skateboard/pro/holodeck
+	name = "holographic skateboard"
+	desc = "A holographic copy of the EightO brand professional skateboard."
+	instability = 6
+
+/obj/vehicle/ridden/scooter/skateboard/pro/holodeck/screwdriver_act(mob/living/user, obj/item/I)
+	return FALSE
+
+/obj/vehicle/ridden/scooter/skateboard/pro/holodeck/pick_up_board() //picking up normal skateboards spawned in the holodeck gets rid of the holo flag, now you cant pick them up.
+	return
+
+/obj/vehicle/ridden/scooter/skateboard/pro/holodeck/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/stack/rods))
+		return
+	else
+		return ..()

@@ -87,7 +87,7 @@
 
 /// Converts an angle to a cardinal ss13 direction bitmask
 /proc/angle2dir_cardinal(angle)
-	switch(round(angle, 0.1))
+	switch(SIMPLIFY_DEGREES(round(angle, 0.1)))
 		if(315.5 to 360, 0 to 45.5)
 			return NORTH
 		if(45.6 to 135.5)
@@ -168,6 +168,8 @@
 		. += "[seperator]AUTOLOGIN"
 	if(rights & R_DBRANKS)
 		. += "[seperator]DBRANKS"
+	if(rights & R_SUPPRESS)
+		. += "[seperator]SUPPRESS"
 	if(!.)
 		. = "NONE"
 	return .
@@ -511,9 +513,9 @@ Takes a string and a datum. The string is well, obviously the string being check
 		switch(child)
 			if(/datum)
 				return null
-			if(/obj || /mob)
+			if(/obj, /mob)
 				return /atom/movable
-			if(/area || /turf)
+			if(/area, /turf)
 				return /atom
 			else
 				return /datum

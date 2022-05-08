@@ -15,7 +15,7 @@
 	var/beacon_cooldown = 0
 	var/toggle = FALSE
 
-/mob/living/simple_animal/hostile/guardian/healer/Initialize()
+/mob/living/simple_animal/hostile/guardian/healer/Initialize(mapload)
 	. = ..()
 	var/datum/atom_hud/medsensor = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
 	medsensor.add_hud_to(src)
@@ -32,7 +32,7 @@
 		C.adjustBruteLoss(-5)
 		C.adjustFireLoss(-5)
 		C.adjustOxyLoss(-5)
-		C.adjustToxLoss(-5)
+		C.adjustToxLoss(-5, FALSE, FALSE)
 		var/obj/effect/temp_visual/heal/H = new /obj/effect/temp_visual/heal(get_turf(C))
 		if(guardiancolor)
 			H.color = guardiancolor
@@ -120,7 +120,7 @@
 		return
 
 	var/turf/T = get_turf(A)
-	if(beacon.z != T.z)
+	if(beacon.get_virtual_z_level() != T.get_virtual_z_level())
 		to_chat(src, "<span class='danger'><B>The beacon is too far away to warp to!</span></B>")
 		return
 

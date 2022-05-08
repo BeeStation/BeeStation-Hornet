@@ -15,10 +15,16 @@
 	var/action_background_icon_state = "bg_spell"
 	var/base_action = /datum/action/spell_action
 
-/obj/effect/proc_holder/Initialize()
+/obj/effect/proc_holder/Initialize(mapload)
 	. = ..()
 	if(has_action)
 		action = new base_action(src)
+
+/obj/effect/proc_holder/Destroy()
+	if(!QDELETED(action))
+		qdel(action)
+	action = null
+	return ..()
 
 /obj/effect/proc_holder/proc/on_gain(mob/living/user)
 	return
@@ -35,8 +41,7 @@
 GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for the badmin verb for now
 
 /obj/effect/proc_holder/Destroy()
-	if (action)
-		qdel(action)
+	QDEL_NULL(action)
 	if(ranged_ability_user)
 		remove_ranged_ability()
 	return ..()
@@ -103,8 +108,8 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 
 	var/charge_type = "recharge" //can be recharge or charges, see charge_max and charge_counter descriptions; can also be based on the holder's vars now, use "holder_var" for that
 
-	var/charge_max = 100 //recharge time in deciseconds if charge_type = "recharge" or starting charges if charge_type = "charges"
-	var/charge_counter = 0 //can only cast spells if it equals recharge, ++ each decisecond if charge_type = "recharge" or -- each cast if charge_type = "charges"
+	var/charge_max = 10 SECONDS //recharge time in deciseconds if charge_type = "recharge" or starting charges if charge_type = "charges"
+	var/charge_counter = 0 //can only cast spells if it equals recharge, ++ each deciseconds if charge_type = "recharge" or -- each cast if charge_type = "charges"
 	var/still_recharging_msg = "<span class='notice'>The spell is still recharging.</span>"
 	var/recharging = TRUE
 
@@ -147,6 +152,14 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 	var/smoke_amt = 0 //cropped at 10
 
 	var/centcom_cancast = TRUE //Whether or not the spell should be allowed on z2
+
+
+	/// Typecache of clothing needed to cast the spell. Used in actual checks. Override in Initialize if your spell requires different clothing.
+	/// !!Shared between instances, make a copy to modify.
+	var/list/casting_clothes
+
+	/// Base typecache of clothing needed to cast spells. Do not modify, make a separate static var in subtypes if necessary.
+	var/static/list/casting_clothes_base
 
 	action_icon = 'icons/mob/actions/actions_spells.dmi'
 	action_icon_state = "spell_default"
@@ -199,13 +212,6 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 		if((invocation_type == "whisper" || invocation_type == "shout") && !H.can_speak_vocal())
 			to_chat(user, "<span class='notice'>You can't get the words out!</span>")
 			return FALSE
-
-		var/list/casting_clothes = typecacheof(list(/obj/item/clothing/suit/wizrobe,
-		/obj/item/clothing/suit/space/hardsuit/wizard,
-		/obj/item/clothing/head/wizard,
-		/obj/item/clothing/head/helmet/space/hardsuit/wizard,
-		/obj/item/clothing/suit/space/hardsuit/shielded/wizard,
-		/obj/item/clothing/head/helmet/space/hardsuit/shielded/wizard))
 
 		if(clothes_req) //clothes check
 			if(!is_type_in_typecache(H.wear_suit, casting_clothes))
@@ -274,8 +280,18 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 /obj/effect/proc_holder/spell/proc/playMagSound()
 	playsound(get_turf(usr), sound,50,1)
 
-/obj/effect/proc_holder/spell/Initialize()
+/obj/effect/proc_holder/spell/Initialize(mapload)
 	. = ..()
+
+	if(!casting_clothes_base)
+		casting_clothes_base = typecacheof(list(/obj/item/clothing/suit/wizrobe,
+			/obj/item/clothing/suit/space/hardsuit/wizard,
+			/obj/item/clothing/head/wizard,
+			/obj/item/clothing/head/helmet/space/hardsuit/wizard,
+			/obj/item/clothing/suit/space/hardsuit/shielded/wizard,
+			/obj/item/clothing/head/helmet/space/hardsuit/shielded/wizard))
+
+	casting_clothes = casting_clothes_base
 
 	still_recharging_msg = "<span class='notice'>[name] is still recharging.</span>"
 	charge_counter = charge_max
@@ -300,9 +316,9 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 	recharging = TRUE
 	begin_timer_animation()
 
-/obj/effect/proc_holder/spell/process()
+/obj/effect/proc_holder/spell/process(delta_time)
 	if(recharging && charge_type == "recharge" && (charge_counter < charge_max))
-		charge_counter += 2	//processes 5 times per second instead of 10.
+		charge_counter += delta_time * 10
 		update_timer_animation()
 		if(charge_counter >= charge_max)
 			end_timer_animation()

@@ -78,7 +78,7 @@
 	desc = "Take on the shape a lesser ash drake."
 	invocation = "RAAAAAAAAWR!"
 	convert_damage = FALSE
-	
+
 
 	shapeshift_type = /mob/living/simple_animal/hostile/megafauna/dragon/lesser
 
@@ -128,8 +128,9 @@
 	if(A == stored && !restoring)
 		restore()
 
-/obj/shapeshift_holder/Exited(atom/movable/AM)
-	if(AM == stored && !restoring)
+/obj/shapeshift_holder/Exited(atom/movable/gone, direction)
+	. = ..()
+	if(stored == gone && !restoring)
 		restore()
 
 /obj/shapeshift_holder/proc/casterDeath()

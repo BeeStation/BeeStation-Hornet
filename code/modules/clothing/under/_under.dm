@@ -14,11 +14,9 @@
 	var/alt_covers_chest = FALSE // for adjusted/rolled-down jumpsuits, FALSE = exposes chest and arms, TRUE = exposes arms only
 	var/obj/item/clothing/accessory/attached_accessory
 	var/mutable_appearance/accessory_overlay
-	var/mutantrace_variation = NO_MUTANTRACE_VARIATION //Are there special sprites for specific situations? Don't use this unless you need to.
 	var/freshly_laundered = FALSE
-	var/dodgy_colours = FALSE
 
-/obj/item/clothing/under/worn_overlays(isinhands = FALSE)
+/obj/item/clothing/under/worn_overlays(mutable_appearance/standing, isinhands = FALSE)
 	. = list()
 	if(!isinhands)
 		if(damaged_clothes)
@@ -33,6 +31,7 @@
 		var/obj/item/stack/cable_coil/C = I
 		C.use(1)
 		has_sensor = HAS_SENSORS
+		update_sensors(NO_SENSORS)
 		to_chat(user,"<span class='notice'>You repair the suit sensors on [src] with [C].</span>")
 		return 1
 	if(!attach_accessory(I, user))
@@ -45,20 +44,30 @@
 		M.update_inv_w_uniform()
 	if(has_sensor > NO_SENSORS)
 		has_sensor = BROKEN_SENSORS
+		update_sensors(NO_SENSORS)
 
-/obj/item/clothing/under/Initialize()
+/obj/item/clothing/under/Initialize(mapload)
 	. = ..()
+	var/new_sensor_mode = sensor_mode
+	sensor_mode = SENSOR_NOT_SET
 	if(random_sensor)
 		//make the sensor mode favor higher levels, except coords.
-		sensor_mode = pick(SENSOR_OFF, SENSOR_LIVING, SENSOR_LIVING, SENSOR_VITALS, SENSOR_VITALS, SENSOR_VITALS, SENSOR_COORDS, SENSOR_COORDS)
+		new_sensor_mode = pick(SENSOR_OFF, SENSOR_LIVING, SENSOR_LIVING, SENSOR_VITALS, SENSOR_VITALS, SENSOR_VITALS, SENSOR_COORDS, SENSOR_COORDS)
+	update_sensors(new_sensor_mode)
+
+/obj/item/clothing/under/Destroy()
+	. = ..()
+	if(ishuman(loc))
+		update_sensors(SENSOR_OFF)
 
 /obj/item/clothing/under/emp_act()
 	. = ..()
 	if(has_sensor > NO_SENSORS)
-		sensor_mode = pick(SENSOR_OFF, SENSOR_OFF, SENSOR_OFF, SENSOR_LIVING, SENSOR_LIVING, SENSOR_VITALS, SENSOR_VITALS, SENSOR_COORDS)
+		var/new_sensor_mode = pick(SENSOR_OFF, SENSOR_OFF, SENSOR_OFF, SENSOR_LIVING, SENSOR_LIVING, SENSOR_VITALS, SENSOR_VITALS, SENSOR_COORDS)
 		if(ismob(loc))
 			var/mob/M = loc
 			to_chat(M,"<span class='warning'>The sensors on the [src] change rapidly!</span>")
+		update_sensors(new_sensor_mode)
 
 /obj/item/clothing/under/equipped(mob/user, slot)
 	..()
@@ -68,11 +77,15 @@
 		if(!alt_covers_chest)
 			body_parts_covered |= CHEST
 
-	if(mutantrace_variation && ishuman(user))
+	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
-		if(DIGITIGRADE in H.dna.species.species_traits)
-			adjusted = DIGITIGRADE_STYLE
 		H.update_inv_w_uniform()
+	if(slot == ITEM_SLOT_ICLOTHING)
+		update_sensors(sensor_mode, TRUE)
+	else
+		REMOVE_TRAIT(user, TRAIT_SUIT_SENSORS, TRACKED_SENSORS_TRAIT)
+		if(!HAS_TRAIT(user, TRAIT_SUIT_SENSORS) && !HAS_TRAIT(user, TRAIT_NANITE_SENSORS))
+			GLOB.suit_sensors_list -= user
 
 	if(slot == ITEM_SLOT_ICLOTHING && freshly_laundered)
 		freshly_laundered = FALSE
@@ -85,14 +98,16 @@
 			H.update_inv_wear_suit()
 
 /obj/item/clothing/under/dropped(mob/user)
+	..()
 	if(attached_accessory)
 		attached_accessory.on_uniform_dropped(src, user)
 		if(ishuman(user))
 			var/mob/living/carbon/human/H = user
 			if(attached_accessory.above_suit)
 				H.update_inv_wear_suit()
-
-	..()
+	REMOVE_TRAIT(user, TRAIT_SUIT_SENSORS, TRACKED_SENSORS_TRAIT)
+	if(!HAS_TRAIT(user, TRAIT_SUIT_SENSORS) && !HAS_TRAIT(user, TRAIT_NANITE_SENSORS))
+		GLOB.suit_sensors_list -= user
 
 /obj/item/clothing/under/proc/attach_accessory(obj/item/I, mob/user, notifyAttach = 1)
 	. = FALSE
@@ -114,9 +129,7 @@
 			if(user && notifyAttach)
 				to_chat(user, "<span class='notice'>You attach [I] to [src].</span>")
 
-			var/accessory_color = attached_accessory.item_color
-			if(!accessory_color)
-				accessory_color = attached_accessory.icon_state
+			var/accessory_color = attached_accessory.icon_state
 			accessory_overlay = mutable_appearance('icons/mob/accessories.dmi', "[accessory_color]")
 			accessory_overlay.alpha = attached_accessory.alpha
 			accessory_overlay.color = attached_accessory.color
@@ -147,18 +160,35 @@
 			H.update_inv_w_uniform()
 			H.update_inv_wear_suit()
 
+//Adds or removes mob from suit sensor global list
+/obj/item/clothing/under/proc/update_sensors(new_mode, forced = FALSE)
+	var/old_mode = sensor_mode
+	sensor_mode = new_mode
+	if(!forced && (old_mode == new_mode || (old_mode != SENSOR_OFF && new_mode != SENSOR_OFF)))
+		return
+	if(!ishuman(loc) || istype(loc, /mob/living/carbon/human/dummy))
+		return
+
+	if(sensor_mode > SENSOR_OFF)
+		if(HAS_TRAIT(loc, TRAIT_SUIT_SENSORS))
+			return
+		ADD_TRAIT(loc, TRAIT_SUIT_SENSORS, TRACKED_SENSORS_TRAIT)
+		if(!HAS_TRAIT(loc, TRAIT_NANITE_SENSORS))
+			GLOB.suit_sensors_list += loc
+	else
+		if(!HAS_TRAIT(loc, TRAIT_SUIT_SENSORS))
+			return
+		REMOVE_TRAIT(loc, TRAIT_SUIT_SENSORS, TRACKED_SENSORS_TRAIT)
+		if(!HAS_TRAIT(loc, TRAIT_NANITE_SENSORS))
+			GLOB.suit_sensors_list -= loc
+
 
 /obj/item/clothing/under/examine(mob/user)
 	. = ..()
-	if(dodgy_colours)
-		. += "The colours are a bit dodgy."
 	if(freshly_laundered)
 		. += "It looks fresh and clean."
 	if(can_adjust)
-		if(adjusted == ALT_STYLE)
-			. += "Alt-click on [src] to wear it normally."
-		else
-			. += "Alt-click on [src] to wear it casually."
+		. += "Alt-click on [src] to wear it [adjusted == ALT_STYLE ? "normally" : "casually"]."
 	if (has_sensor == BROKEN_SENSORS)
 		. += "Its sensors appear to be shorted out."
 	else if(has_sensor > NO_SENSORS)
@@ -173,3 +203,6 @@
 				. += "Its vital tracker and tracking beacon appear to be enabled."
 	if(attached_accessory)
 		. += "\A [attached_accessory] is attached to it."
+
+/obj/item/clothing/under/rank
+	dying_key = DYE_REGISTRY_UNDER

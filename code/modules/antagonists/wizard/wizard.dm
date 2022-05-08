@@ -4,6 +4,7 @@
 	antagpanel_category = "Wizard"
 	job_rank = ROLE_WIZARD
 	antag_moodlet = /datum/mood_event/focused
+	hijack_speed = 0.5
 	var/strip = TRUE //strip before equipping
 	var/allow_rename = TRUE
 	var/hud_version = "wizard"
@@ -11,7 +12,6 @@
 	var/move_to_lair = TRUE
 	var/outfit_type = /datum/outfit/wizard
 	var/wiz_age = WIZARD_AGE_MIN /* Wizards by nature cannot be too young. */
-	can_hijack = HIJACK_HIJACKER
 	show_to_ghosts = TRUE
 
 /datum/antagonist/wizard/on_gain()
@@ -228,7 +228,7 @@
 /datum/antagonist/wizard/apprentice/create_objectives()
 	var/datum/objective/protect/new_objective = new /datum/objective/protect
 	new_objective.owner = owner
-	new_objective.target = master
+	new_objective.set_target(master)
 	new_objective.explanation_text = "Protect [master.current.real_name], the wizard."
 	objectives += new_objective
 	log_objective(owner, new_objective.explanation_text)
