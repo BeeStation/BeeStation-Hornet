@@ -1,0 +1,7 @@
+author: PestoVerde322
+delete-after: true
+changes:
+  - rscadd: Added a random medkit for Battle royale and Hope reasons.
+  - rscadd: Added a doctor's bag as a dedicated alternative item for the medical aid
+      kit in the future.
+  - imageadd: Brand new sprites for all the medkits and their In-hand icons.
