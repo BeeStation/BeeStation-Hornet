@@ -302,10 +302,10 @@
 
 //First Random kit
 /obj/item/storage/firstaid/random
-	name = "mistery medical kit"
+	name = "mystery medical kit"
 	desc = "Are you feeling lucky today?"
-	icon_state = "firstaid-mistery"
-	item_state = "firstaid-mistery"
+	icon_state = "firstaid-mystery"
+	item_state = "firstaid-mystery"
 
 /obj/item/storage/firstaid/random/ComponentInitialize()
 	. = ..()
