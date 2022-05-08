@@ -147,6 +147,7 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 
 	//Display stats
 	data["display_stats"] = list(
+		"Shield Integrity" = "[shuttle_data.shield_health]",
 		"Shuttle Mass" = "[shuttle_data.mass] Tons",
 		"Engine Force" = "[shuttle_data.thrust] kN",
 		"Supercruise Acceleration" = "[shuttle_data.get_thrust_force()] bknt^-2",

@@ -7,6 +7,9 @@
 	random_docking = TRUE
 	render_mode = RENDER_MODE_PLANET
 	priority = 90
+	signal_range = 10000
+	//If you manage to go fast enough, you can crash
+	min_collision_velocity = 100
 
 /datum/orbital_object/z_linked/lavaland/New()
 	. = ..()

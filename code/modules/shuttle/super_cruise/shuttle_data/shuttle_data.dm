@@ -1,8 +1,12 @@
 /datum/shuttle_data
 	/// Port ID of the shuttle
 	var/port_id
+	/// List of attached shield generators
+	var/list/obj/machinery/power/shuttle_shield_generator/registered_shield_generators = list()
 	/// List of engine heaters
 	var/list/obj/machinery/shuttle/engine/registered_engines = list()
+	/// Stored shield power
+	var/shield_health = 0
 	/// Calculate fuel consumption rate
 	var/fuel_consumption
 	/// The thrust of the shuttle
@@ -11,8 +15,8 @@
 	/// The mass of the shuttle
 	/// Updated when the shuttle size is changed
 	var/mass
-	/// Detection radius
-	var/detection_range
+	/// Detection radius (Debug)
+	var/detection_range = 1000
 	/// Interidction range
 	var/interdiction_range
 
@@ -38,9 +42,36 @@
 // Shield Damage
 //====================
 
+/// Registers a shield generator
+/datum/shuttle_data/proc/register_shield_generator(obj/machinery/power/shuttle_shield_generator/shield_generator)
+	shield_health += shield_generator.shield_health
+	registered_shield_generators += shield_generator
+	RegisterSignal(shield_generator, COMSIG_PARENT_QDELETING, .proc/on_shield_qdel)
+	RegisterSignal(shield_generator, COMSIG_SHUTTLE_SHIELD_HEALTH_CHANGE, .proc/shield_health_change)
+
+/// Called when a shield generator is deleted
+/datum/shuttle_data/proc/on_shield_qdel(obj/machinery/power/shuttle_shield_generator/shield_generator, force)
+	registered_shield_generators -= shield_generator
+	UnregisterSignal(shield_generator, COMSIG_PARENT_QDELETING)
+	UnregisterSignal(shield_generator, COMSIG_SHUTTLE_SHIELD_HEALTH_CHANGE)
+
+/// Deal damage to the shields
 /datum/shuttle_data/proc/deal_damage(damage_amount)
+	//Deal damage to the shields
+	var/damage_left = damage_amount
+	for(var/obj/machinery/power/shuttle_shield_generator/generator as() in registered_shield_generators)
+		var/dealt_damage = min(damage_left, generator.shield_health)
+		damage_left -= dealt_damage
+		generator.give_shield(-dealt_damage)
+		if(!damage_left)
+			return
 
 /datum/shuttle_data/proc/is_protected()
+	return shield_health
+
+/datum/shuttle_data/proc/shield_health_change(datum/source, old_health, new_health)
+	var/delta_health = new_health - old_health
+	shield_health += delta_health
 
 //====================
 // Fuel Consumption / Flight Processing
@@ -90,9 +121,9 @@
 /// Called when a thruster is deleted
 /datum/shuttle_data/proc/on_thruster_qdel(obj/machinery/shuttle/engine/source, force)
 	if(source.thruster_active)
-		registered_engines -= source
+		fuel_consumption -= source.fuel_use
 		thrust -= source.thrust
-	fuel_consumption -= source.fuel_use
+	registered_engines -= source
 	UnregisterSignal(source, COMSIG_PARENT_QDELETING)
 	UnregisterSignal(source, COMSIG_SHUTTLE_ENGINE_STATUS_CHANGE)
 

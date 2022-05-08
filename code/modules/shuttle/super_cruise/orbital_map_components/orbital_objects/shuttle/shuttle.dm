@@ -13,6 +13,10 @@
 	var/angle = 0
 	//Valid docking locations
 	var/list/valid_docks = list()
+
+	//Crashing
+	var/is_crashing = FALSE
+
 	//Docking
 	var/docking_frozen = FALSE
 	var/datum/orbital_object/z_linked/can_dock_with
@@ -48,6 +52,9 @@
 	if(shuttle_data)
 		UnregisterSignal(shuttle_data, COMSIG_PARENT_QDELETING)
 	. = ..()
+
+/datum/orbital_object/shuttle/is_distress()
+	return SSorbits.assoc_distress_beacons["[port?.virtual_z]"]
 
 /datum/orbital_object/shuttle/stealth
 	stealth = TRUE
@@ -123,11 +130,13 @@
 /datum/orbital_object/shuttle/proc/strand_shuttle()
 	PRIVATE_PROC(TRUE)
 	SEND_SIGNAL(src, COMSIG_ORBITAL_BODY_MESSAGE, "Shuttle can no longer sustain supercruise flight mode, please check your engines for correct setup and fuel reserves.")
+	var/explosive_landing = FALSE
 	if(!docking_target)
 		//Dock with the current location
 		if(can_dock_with)
 			commence_docking(can_dock_with, TRUE)
-			message_admins("Shuttle [shuttle_port_id] is dropping to a random location at [can_dock_with.name] due to running out of fuel/incorrect engine configuration.")
+			message_admins("Shuttle [shuttle_port_id] is dropping to a random location at [can_dock_with.name] due to running out of fuel/incorrect engine configuration. (EXPLOSION INCOMMING!!)")
+			explosive_landing = TRUE
 		//Create a new orbital waypoint to drop at
 		else
 			var/datum/orbital_object/z_linked/beacon/ruin/stranded_shuttle/shuttle_location = new(new /datum/orbital_vector(position.x, position.y))
@@ -135,7 +144,7 @@
 			commence_docking(shuttle_location, TRUE)
 	//No more custom docking
 	docking_frozen = TRUE
-	if(!random_drop(docking_target.linked_z_level[1].z_value))
+	if(!random_drop(docking_target.linked_z_level[1].z_value, explosive_landing))
 		SEND_SIGNAL(src, COMSIG_ORBITAL_BODY_MESSAGE,
 			"Shuttle failed to dock at a random location.")
 		message_admins("Shuttle [shuttle_port_id] failed to drop at a random location as a result of running out of fuel/incorrect engine configuration.")

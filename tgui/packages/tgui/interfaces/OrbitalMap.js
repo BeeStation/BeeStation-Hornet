@@ -388,6 +388,7 @@ export const OrbitalMapDisplay = (props, context) => {
     validDockingPorts = [],
     isDocking = false,
     interdiction_range = 150,
+    detection_range = 0,
     shuttleTargetX = 0,
     shuttleTargetY = 0,
     update_index = 0,
@@ -481,6 +482,7 @@ export const OrbitalMapDisplay = (props, context) => {
             lockedZoomScale={lockedZoomScale}
             map_objects={map_objects}
             interdiction_range={interdiction_range}
+            detection_range={detection_range}
             shuttleTargetX={shuttleTargetX}
             shuttleTargetY={shuttleTargetY}
             dragStartEvent={e => control.handleDragStart(e)}

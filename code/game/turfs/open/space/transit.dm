@@ -68,7 +68,7 @@
 						new /datum/orbital_vector(shuttleObj.position.x, shuttleObj.position.y)
 					)
 					z_linked.name = "Stranded [AM]"
-					z_linked.assign_z_level()
+					z_linked.assign_z_level(FALSE)
 					if(length(z_linked.linked_z_level))
 						_z = z_linked.linked_z_level[1].z_value
 	if(_z == 2)

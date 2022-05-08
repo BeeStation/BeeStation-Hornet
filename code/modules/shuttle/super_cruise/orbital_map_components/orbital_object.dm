@@ -29,6 +29,8 @@
 	var/ignore_gravity = FALSE
 	//Priority in the sorted list
 	var/priority = 0
+	//Are we emitting a detectable signal
+	var/signal_range = 0
 
 	//Delta time updates
 	//Ship translations are smooth so must use a delta time
@@ -92,6 +94,9 @@
 			orbitting_bodies.target_orbital_body = null
 		orbitting_bodies.Cut()
 	. = ..()
+
+/datum/orbital_object/proc/is_distress()
+	return FALSE
 
 /datum/orbital_object/proc/explode()
 	return

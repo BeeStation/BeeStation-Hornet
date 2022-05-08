@@ -7,6 +7,7 @@
 	collision_type = COLLISION_HAZARD
 	collision_flags = COLLISION_SHUTTLES
 	render_mode = RENDER_MODE_HAZARD
+	signal_range = 25000
 	var/damage_per_second = 2
 
 /datum/orbital_object/hazard/New(datum/orbital_vector/position, datum/orbital_vector/velocity, orbital_map_index)

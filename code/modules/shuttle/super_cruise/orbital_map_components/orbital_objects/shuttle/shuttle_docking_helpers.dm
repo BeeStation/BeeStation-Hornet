@@ -86,9 +86,9 @@
 ///Parameters:
 /// - docking: The orbital object that we are docking with
 /// - forced: If set to true, then we will be forced to dock with the location (otherwise, we may just indicate that we can dock, but not actually dock)
-/datum/orbital_object/shuttle/proc/commence_docking(datum/orbital_object/z_linked/docking, forced = FALSE)
+/datum/orbital_object/shuttle/proc/commence_docking(datum/orbital_object/z_linked/docking, forced = FALSE, quick_generation = FALSE)
 	//Check for valid docks on z-level
-	if(!docking.forced_docking && !forced)
+	if((!docking.forced_docking || collision_ignored) && !forced)
 		can_dock_with = docking
 		return
 	//Begin docking.
@@ -97,13 +97,13 @@
 	var/datum/orbital_object/z_linked/beacon/ruin/ruin_obj = docking_target
 	if(istype(ruin_obj))
 		if(!ruin_obj.linked_z_level)
-			ruin_obj.assign_z_level()
+			ruin_obj.assign_z_level(quick_generation)
 
 ///Public
 ///Randomly drop at a specified z-level
 ///Parameters:
 /// - target_z: The numerical z-value of the level that should be dropped into.
-/datum/orbital_object/shuttle/proc/random_drop(target_z)
+/datum/orbital_object/shuttle/proc/random_drop(target_z, crashing = FALSE)
 	//Get shuttle dock
 	var/obj/docking_port/mobile/shuttle_dock = SSshuttle.getShuttle(shuttle_port_id)
 	if(!shuttle_dock)
@@ -156,7 +156,7 @@
 				shuttle_dock.setTimer(INFINITY)
 				SEND_SIGNAL(src, COMSIG_ORBITAL_BODY_MESSAGE,
 					"Waiting for hyperspace lane...")
-				begin_dethrottle(target_z)
+				begin_dethrottle(target_z, crashing)
 				return TRUE
 			if(1)
 				SEND_SIGNAL(src, COMSIG_ORBITAL_BODY_MESSAGE,
@@ -169,7 +169,9 @@
 		"Critical Error: Failed to dock at a random location.")
 	CRASH("Failed to dock at a random location.")
 
-/datum/orbital_object/shuttle/proc/begin_dethrottle(target_z)
+/datum/orbital_object/shuttle/proc/begin_dethrottle(target_z, crashing = FALSE)
+	//Determine if we are crashing or not
+	is_crashing = crashing
 	var/datum/space_level/space_level = SSmapping.get_level(target_z)
 	timer_id = addtimer(CALLBACK(src, .proc/unfreeze_shuttle), 3 MINUTES, TIMER_STOPPABLE)
 	RegisterSignal(space_level, COMSIG_SPACE_LEVEL_GENERATED, .proc/unfreeze_shuttle)
@@ -198,4 +200,5 @@
 		deltimer(timer_id)
 		timer_id = null
 	shuttle_dock.setTimer(20)
+	shuttle_dock.crash_landing = is_crashing
 	qdel(src)

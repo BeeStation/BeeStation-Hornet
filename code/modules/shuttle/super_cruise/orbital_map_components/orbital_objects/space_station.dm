@@ -1,12 +1,13 @@
 /datum/orbital_object/z_linked/station
 	name = "Space Station 13"
 	mass = 0
-	radius = 30
+	radius = 60
 	priority = 50
 	//The station maintains its orbit around lavaland by adjustment thrusters.
 	maintain_orbit = TRUE
 	//Sure, why not?
 	can_dock_anywhere = TRUE
+	signal_range = 4000
 
 /datum/orbital_object/z_linked/station/New()
 	. = ..()

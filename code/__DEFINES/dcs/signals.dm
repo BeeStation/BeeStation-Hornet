@@ -619,3 +619,5 @@
 // Shuttle Machinery Signals
 /// Called when a shuttle engine updates its status: (is_active)
 #define COMSIG_SHUTTLE_ENGINE_STATUS_CHANGE "shuttle_engine_status"
+/// Called when a shield generator changes its health amount: (old_amount, new_amount)
+#define COMSIG_SHUTTLE_SHIELD_HEALTH_CHANGE "shuttle_shield_health_change"

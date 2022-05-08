@@ -52,6 +52,9 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 	//Value: The shuttle data
 	VAR_PRIVATE/list/assoc_shuttle_data = list()
 
+	//List of distress beacons by Z-Level
+	var/list/assoc_distress_beacons = list()
+
 	//Ruin level count
 	var/ruin_levels = 0
 
@@ -149,20 +152,28 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 			tgui.send_update()
 
 /datum/controller/subsystem/processing/orbits/proc/process_hazards()
-	var/hazard_removal_chance = length(active_hazards) * 0.1
-	var/hazard_spawn_chance = 0.4 / (length(active_hazards) + 1)
+	var/hazard_removal_chance = length(active_hazards) * 0.2
+	var/hazard_spawn_chance = 2 / (length(active_hazards) + 1)
 	if(length(active_hazards) && prob(hazard_removal_chance))
 		var/picked = pick(active_hazards)
 		qdel(picked)
 	if(prob(hazard_spawn_chance))
-		var/datum/orbital_object/created = new /datum/orbital_object/hazard/ion_storm()
-		var/datum/orbital_map/main = orbital_maps[PRIMARY_ORBITAL_MAP]
-		var/hazard_distance = rand(2000, 7000)
-		var/maximum_radius = hazard_distance / 3
-		created.radius = maximum_radius
-		created.set_orbitting_around_body(main.center, hazard_distance, TRUE)
-		created.velocity.x = 0
-		created.velocity.y = 0
+		create_hazard()
+
+/datum/controller/subsystem/processing/orbits/proc/create_hazard()
+	var/selected_type = pickweight(list(
+		/datum/orbital_object/hazard/ion_storm = 3,
+		/datum/orbital_object/hazard/gravity_storm = 3,
+		/datum/orbital_object/hazard/vortex = 1
+	))
+	var/datum/orbital_object/created = new selected_type()
+	var/datum/orbital_map/main = orbital_maps[PRIMARY_ORBITAL_MAP]
+	var/hazard_distance = rand(2000, 7000)
+	var/maximum_radius = hazard_distance / 3
+	created.radius = maximum_radius
+	created.set_orbitting_around_body(main.center, hazard_distance, TRUE)
+	created.velocity.x = 0
+	created.velocity.y = 0
 
 /mob/dead/observer/verb/open_orbit_ui()
 	set name = "View Orbits"
@@ -229,6 +240,12 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 	var/data = list()
 	data["update_index"] = SSorbits.times_fired
 	data["map_objects"] = list()
+	//Locate shuttle data if we have one
+	var/datum/shuttle_data/shuttle_data
+	if(istype(attached_orbital_object, /datum/orbital_object/shuttle))
+		var/datum/orbital_object/shuttle/shuttle = attached_orbital_object
+		shuttle_data = shuttle.shuttle_data
+		data["detection_range"] = shuttle_data?.detection_range
 	//Fetch the active single instances
 	//Get the objects
 	for(var/datum/orbital_object/object as() in showing_map.get_all_bodies())
@@ -240,6 +257,19 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 				continue
 		else if(!see_stealthed && object.stealth)
 			continue
+		//Check visibility
+		var/distress = object.is_distress()
+		if(attached_orbital_object && !distress)
+			var/max_vis_distance = max(shuttle_data?.detection_range, object.signal_range)
+			//Quick Distance Check
+			if(attached_orbital_object.position.x > object.position.x + max_vis_distance\
+				|| attached_orbital_object.position.x < object.position.x - max_vis_distance\
+				|| attached_orbital_object.position.y > object.position.y + max_vis_distance\
+				|| attached_orbital_object.position.y < object.position.y - max_vis_distance)
+				continue
+			//Refined Distance Check
+			if(attached_orbital_object.position.DistanceTo(object.position) > max_vis_distance)
+				continue
 		//Transmit map data about non single-instanced objects.
 		data["map_objects"] += list(list(
 			"id" = object.unique_id,
@@ -251,6 +281,7 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 			"radius" = object.radius,
 			"render_mode" = object.render_mode,
 			"priority" = object.priority,
+			"distress" = distress
 		))
 	return data
 
