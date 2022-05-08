@@ -59,3 +59,9 @@
 	desc = "Popped collar, ancient science fair medal from middle school.. worn out buttons that barely keep the coat closed? Oh yeah, its plasma research time. Has a legacy purple U stripe along the back."
 	icon_state = "labcoat_rd"
 	item_state = "labcoat_tox"
+
+/obj/item/clothing/suit/toggle/labcoat/coat/medical
+	name = "medical coat"
+	desc = "A suit that protects against minor chemical spills."
+	icon_state = "medical_coat"
+	item_state = "labcoat"

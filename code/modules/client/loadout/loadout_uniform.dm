@@ -362,3 +362,8 @@
 	display_name = "security jumpsuit, Nanotrasen mall cop uniform"
 	path = /obj/item/clothing/under/rank/security/officer/mallcop
 	cost = 7500
+
+/datum/gear/uniform/orderly_uniform
+	display_name = "orderly uniform"
+	path = /obj/item/clothing/under/misc/orderly_uniform
+	cost = -10

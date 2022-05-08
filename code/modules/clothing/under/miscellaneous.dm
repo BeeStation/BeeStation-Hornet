@@ -1,3 +1,9 @@
+/obj/item/clothing/under/misc/orderly_uniform
+	name = "orderly uniform"
+	icon_state = "orderly_uniform"
+	item_state = "w_suit"
+	can_adjust = FALSE
+
 /obj/item/clothing/under/misc/pj
 	name = "\improper PJs"
 	desc = "A comfy set of sleepwear, for taking naps or being lazy instead of working."
