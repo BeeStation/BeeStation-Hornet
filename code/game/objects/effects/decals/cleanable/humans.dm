@@ -44,7 +44,7 @@
 
 /obj/effect/decal/cleanable/blood/splatter/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/slippery, 40, (NO_SLIP_WHEN_WALKING))
+	AddComponent(/datum/component/slippery, 20, (NO_SLIP_WHEN_WALKING))
 
 /obj/effect/decal/cleanable/blood/tracks
 	icon_state = "tracks"
@@ -77,7 +77,7 @@
 
 /obj/effect/decal/cleanable/blood/gibs/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/slippery, 40, (NO_SLIP_WHEN_WALKING))
+	AddComponent(/datum/component/slippery, 20, (NO_SLIP_WHEN_WALKING))
 
 /obj/effect/decal/cleanable/blood/gibs/Initialize(mapload, list/datum/disease/diseases)
 	. = ..()
@@ -213,7 +213,7 @@
 
 /obj/effect/decal/cleanable/blood/footprints/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/slippery, 40, (NO_SLIP_WHEN_WALKING))
+	AddComponent(/datum/component/slippery, 10, (NO_SLIP_WHEN_WALKING))
 
 /obj/effect/decal/cleanable/blood/footprints/on_entered(datum/source, atom/movable/O)
 	. = ..()

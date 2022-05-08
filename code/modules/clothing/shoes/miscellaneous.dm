@@ -172,12 +172,14 @@
 	strip_delay = 20
 	equip_delay_other = 40
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/shoes
+	clothing_flags = NOSLIP
 
 /obj/item/clothing/shoes/workboots/mining
 	name = "mining boots"
-	desc = "Steel-toed mining boots for mining in hazardous environments. Very good at keeping toes uncrushed."
+	desc = "Steel-toed mining boots for mining in hazardous environments. Very good at keeping toes uncrushed and preventing slipping on blood."
 	icon_state = "explorer"
 	resistance_flags = FIRE_PROOF
+	
 
 /obj/item/clothing/shoes/cult
 	name = "\improper Nar'Sien invoker boots"
