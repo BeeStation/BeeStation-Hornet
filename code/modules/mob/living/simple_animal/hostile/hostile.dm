@@ -313,11 +313,6 @@
 	return 0
 
 /mob/living/simple_animal/hostile/proc/Goto(target, delay, minimum_distance)
-	var/datum/move_loop/has_target/dist_bound/move_to/movement_loop = move_packet?.existing_loops[SSmovement]
-
-	if(movement_loop && movement_loop.target == target && movement_loop.delay == delay && movement_loop.distance == minimum_distance) //this might be a bit much honestly but condsidering how much stuff calls this proc there could be a case where we really just have like a single argument different
-		return //lets not try to make a new moveloop every single time this proc gets called okay?
-
 	if(target == src.target)
 		approaching_target = TRUE
 	else
