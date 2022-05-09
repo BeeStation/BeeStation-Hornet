@@ -712,7 +712,7 @@
 "bw" = (
 /obj/machinery/status_display/evac,
 /turf/closed/wall/r_wall,
-/area/engine/supermatter)
+/area/engine/engine_core)
 "bx" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -722,7 +722,7 @@
 	name = "Radiation Chamber Shutters"
 	},
 /turf/open/floor/plating,
-/area/engine/supermatter)
+/area/engine/engine_core)
 "by" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -746,7 +746,7 @@
 	name = "Gas to Chamber"
 	},
 /turf/open/floor/engine,
-/area/engine/supermatter)
+/area/engine/engine_core)
 "bC" = (
 /obj/structure/cable/white,
 /turf/open/floor/plating,
@@ -767,13 +767,13 @@
 /area/engine/engineering)
 "bF" = (
 /turf/closed/wall/r_wall,
-/area/engine/supermatter)
+/area/engine/engine_core)
 "bG" = (
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
 /turf/open/floor/engine,
-/area/engine/supermatter)
+/area/engine/engine_core)
 "bH" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -799,7 +799,7 @@
 	dir = 6
 	},
 /turf/closed/wall/r_wall,
-/area/engine/supermatter)
+/area/engine/engine_core)
 "bL" = (
 /obj/machinery/atmospherics/pipe/manifold/general/visible{
 	dir = 1
@@ -808,7 +808,7 @@
 /obj/structure/cable,
 /obj/structure/window/plasma/reinforced,
 /turf/open/floor/engine,
-/area/engine/supermatter)
+/area/engine/engine_core)
 "bM" = (
 /obj/machinery/atmospherics/pipe/simple/general/visible{
 	dir = 10
@@ -817,7 +817,7 @@
 /obj/structure/cable,
 /obj/structure/window/plasma/reinforced,
 /turf/open/floor/engine,
-/area/engine/supermatter)
+/area/engine/engine_core)
 "bN" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
 /obj/structure/reflector/double/anchored{
@@ -845,7 +845,7 @@
 	dir = 4
 	},
 /turf/closed/wall/r_wall,
-/area/engine/supermatter)
+/area/engine/engine_core)
 "bQ" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -869,17 +869,17 @@
 	},
 /obj/machinery/meter,
 /turf/closed/wall/r_wall,
-/area/engine/supermatter)
+/area/engine/engine_core)
 "bS" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 1
 	},
 /turf/open/floor/engine,
-/area/engine/supermatter)
+/area/engine/engine_core)
 "bT" = (
 /obj/structure/sign/warning/fire,
 /turf/closed/wall/r_wall,
-/area/engine/supermatter)
+/area/engine/engine_core)
 "bU" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
@@ -927,7 +927,7 @@
 "bZ" = (
 /obj/effect/spawner/structure/window/plasma/reinforced,
 /turf/open/floor/plating,
-/area/engine/supermatter)
+/area/engine/engine_core)
 "ca" = (
 /obj/machinery/door/airlock/engineering/glass/critical{
 	heat_proof = 1;
@@ -944,10 +944,10 @@
 	dir = 4
 	},
 /turf/open/floor/engine,
-/area/engine/supermatter)
+/area/engine/engine_core)
 "cb" = (
 /turf/open/floor/engine,
-/area/engine/supermatter)
+/area/engine/engine_core)
 "cc" = (
 /obj/machinery/door/airlock/engineering/glass/critical{
 	heat_proof = 1;
@@ -964,11 +964,11 @@
 	dir = 4
 	},
 /turf/open/floor/engine,
-/area/engine/supermatter)
+/area/engine/engine_core)
 "cd" = (
 /obj/machinery/power/supermatter_crystal/engine,
 /turf/open/floor/engine,
-/area/engine/supermatter)
+/area/engine/engine_core)
 "ce" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
 /obj/structure/cable/white{
@@ -1009,35 +1009,35 @@
 	dir = 8
 	},
 /turf/open/floor/engine,
-/area/engine/supermatter)
+/area/engine/engine_core)
 "cj" = (
 /obj/machinery/atmospherics/pipe/simple/green/visible{
 	dir = 4
 	},
 /turf/closed/wall/r_wall,
-/area/engine/supermatter)
+/area/engine/engine_core)
 "ck" = (
 /obj/machinery/atmospherics/components/binary/pump{
 	dir = 8;
 	name = "Gas to Filter"
 	},
 /turf/open/floor/engine,
-/area/engine/supermatter)
+/area/engine/engine_core)
 "cl" = (
 /obj/machinery/atmospherics/pipe/simple/general/visible{
 	dir = 10
 	},
 /obj/machinery/meter,
 /turf/closed/wall/r_wall,
-/area/engine/supermatter)
+/area/engine/engine_core)
 "cm" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on,
 /turf/open/floor/engine,
-/area/engine/supermatter)
+/area/engine/engine_core)
 "cn" = (
 /obj/structure/sign/warning/electricshock,
 /turf/closed/wall/r_wall,
-/area/engine/supermatter)
+/area/engine/engine_core)
 "co" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
@@ -1089,7 +1089,7 @@
 	dir = 5
 	},
 /turf/closed/wall/r_wall,
-/area/engine/supermatter)
+/area/engine/engine_core)
 "cv" = (
 /obj/machinery/atmospherics/pipe/manifold/general/visible,
 /obj/machinery/power/rad_collector/anchored,
@@ -1100,7 +1100,7 @@
 	dir = 1
 	},
 /turf/open/floor/engine,
-/area/engine/supermatter)
+/area/engine/engine_core)
 "cw" = (
 /obj/machinery/atmospherics/pipe/simple/general/visible{
 	dir = 9
@@ -1113,7 +1113,7 @@
 	dir = 1
 	},
 /turf/open/floor/engine,
-/area/engine/supermatter)
+/area/engine/engine_core)
 "cx" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/visible,
 /turf/open/floor/engine,
@@ -1154,7 +1154,7 @@
 	icon_state = "1-2"
 	},
 /turf/open/floor/engine,
-/area/engine/supermatter)
+/area/engine/engine_core)
 "cC" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -1194,7 +1194,7 @@
 	name = "Radiation Chamber Shutters"
 	},
 /turf/open/floor/plating,
-/area/engine/supermatter)
+/area/engine/engine_core)
 "cH" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8

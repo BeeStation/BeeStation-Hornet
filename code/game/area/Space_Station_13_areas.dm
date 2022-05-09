@@ -621,6 +621,9 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	lighting_colour_bulb = "#ffebc1"
 	sound_environment = SOUND_AREA_WOODFLOOR
 
+/area/crew_quarters/bar/bar_spawn_area
+	name = "Bar Spawn Area"
+	icon_state = "bar_spawn"
 
 /area/crew_quarters/bar/lounge
 	name = "Bar lounge"
@@ -757,19 +760,24 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	sound_environment = SOUND_AREA_LARGE_ENCLOSED
 	network = list("ss13", "engine")
 
+/area/engine/engine_spawn_area //Randome Engine Spawn Area
+	name = "Engine Spawn Area"
+	icon_state = "engine_spawn"
+	network = list("ss13", "engine")
+
 /area/engine/engine_room //donut station specific
 	name = "Engine Room"
-	icon_state = "engine_sm"
+	icon_state = "engine_room"
 	network = list("ss13", "engine")
 
 /area/engine/engine_room/external
-	name = "Supermatter External Access"
+	name = "Engine External Access"
 	icon_state = "engine_foyer"
 	network = list("ss13", "engine")
 
-/area/engine/supermatter
-	name = "Supermatter Engine"
-	icon_state = "engine_sm_room"
+/area/engine/engine_core
+	name = "Engine Core"
+	icon_state = "engine_core"
 	area_flags = BLOBS_ALLOWED | UNIQUE_AREA
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
 	network = list("ss13", "engine")
