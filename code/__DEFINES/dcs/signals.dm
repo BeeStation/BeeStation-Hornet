@@ -74,6 +74,8 @@
 #define COMSIG_ATOM_FIRE_ACT "atom_fire_act"					//! from base of atom/fire_act(): (exposed_temperature, exposed_volume)
 #define COMSIG_ATOM_BULLET_ACT "atom_bullet_act"				//! from base of atom/bullet_act(): (/obj/item/projectile, def_zone)
 #define COMSIG_ATOM_BLOB_ACT "atom_blob_act"					//! from base of atom/blob_act(): (/obj/structure/blob)
+/// if returned, forces nothing to happen when the atom is attacked by a blob
+	#define COMPONENT_CANCEL_BLOB_ACT (1<<0)
 #define COMSIG_ATOM_ACID_ACT "atom_acid_act"					//! from base of atom/acid_act(): (acidpwr, acid_volume)
 #define COMSIG_ATOM_EMAG_ACT "atom_emag_act"					//! from base of atom/emag_act(): ()
 #define COMSIG_ATOM_RAD_ACT "atom_rad_act"						//! from base of atom/rad_act(intensity)
@@ -83,7 +85,7 @@
 #define COMSIG_ATOM_RCD_ACT "atom_rcd_act"						//! from base of atom/rcd_act(): (/mob, /obj/item/construction/rcd, passed_mode)
 #define COMSIG_ATOM_TELEPORT_ACT "atom_teleport_act"			//! from base of atom/teleport_act(): ()
 #define COMSIG_ATOM_EXTRAPOLATOR_ACT "atom_extrapolator_act"	//! from base of atom/Exited(): (mob/user, var/obj/item/extrapolator/E, scan = TRUE)
-#define COMSIG_ATOM_SING_PULL "atom_sing_pull"					//! from base of atom/singularity_pull(): (S, current_size)
+#define COMSIG_ATOM_SING_PULL "atom_sing_pull"					//!from base of atom/singularity_pull(): (/datum/component/singularity, current_size)
 #define COMSIG_ATOM_BSA_BEAM "atom_bsa_beam_pass"				//from obj/machinery/bsa/full/proc/fire(): ()
 	#define COMSIG_ATOM_BLOCKS_BSA_BEAM 1
 #define COMSIG_ATOM_SET_LIGHT "atom_set_light"					//! from base of atom/set_light(): (l_range, l_power, l_color)
@@ -176,7 +178,17 @@
 	#define HEARING_SPANS 6
 	#define HEARING_MESSAGE_MODE 7 */
 #define COMSIG_MOVABLE_DISPOSING "movable_disposing"			//! called when the movable is added to a disposal holder object for disposal movement: (obj/structure/disposalholder/holder, obj/machinery/disposal/source)
+// called when movable is expelled from a disposal pipe, bin or outlet on obj/pipe_eject: (direction)
+#define COMSIG_MOVABLE_PIPE_EJECTING "movable_pipe_ejecting"
 
+///from base of atom/movable/newtonian_move(): (inertia_direction)
+#define COMSIG_MOVABLE_NEWTONIAN_MOVE "movable_newtonian_move"
+	#define COMPONENT_MOVABLE_NEWTONIAN_BLOCK (1<<0)
+
+///from base of atom/experience_pressure_difference(): (pressure_difference, direction, pressure_resistance_prob_delta)
+#define COMSIG_ATOM_PRE_PRESSURE_PUSH "atom_pre_pressure_push"
+	///prevents pressure movement
+	#define COMSIG_ATOM_BLOCKS_PRESSURE (1<<0)
 // /mob signals
 #define COMSIG_MOB_LOGIN "mob_login"
 #define COMSIG_MOB_LOGOUT "mob_logout"							///from base of /mob/Logout(): ()
@@ -184,6 +196,14 @@
 #define COMSIG_MOB_STATCHANGE "mob_statchange"					//from base of mob/set_stat(): (new_stat)
 #define COMSIG_MOB_CLICKON "mob_clickon"						//! from base of mob/clickon(): (atom/A, params)
 	#define COMSIG_MOB_CANCEL_CLICKON 1
+/// From base of /client/Move()
+#define COMSIG_MOB_CLIENT_PRE_MOVE "mob_client_pre_move"
+	/// Should always match COMPONENT_MOVABLE_BLOCK_PRE_MOVE as these are interchangeable and used to block movement.
+	#define COMSIG_MOB_CLIENT_BLOCK_PRE_MOVE COMPONENT_MOVABLE_BLOCK_PRE_MOVE
+	/// From base of /client/Move()
+
+	/// Should we stop the current living movement attempt
+	#define COMSIG_MOB_CLIENT_BLOCK_PRE_LIVING_MOVE COMPONENT_MOVABLE_BLOCK_PRE_MOVE
 #define COMSIG_MOB_ALLOWED "mob_allowed"						//! from base of obj/allowed(mob/M): (/obj) returns bool, if TRUE the mob has id access to the obj
 #define COMSIG_MOB_RECEIVE_MAGIC "mob_receive_magic"			//! from base of mob/anti_magic_check(): (mob/user, magic, holy, major, self, protection_sources)
 	#define COMPONENT_BLOCK_MAGIC 1
@@ -219,7 +239,8 @@
 #define COMSIG_MOB_DEADSAY "mob_deadsay" // from /mob/say_dead(): (mob/speaker, message)
 	#define MOB_DEADSAY_SIGNAL_INTERCEPT 1
 #define COMSIG_MOB_POINTED "mob_pointed" //from base of /mob/verb/pointed: (atom/A)
-
+	/// From base of /client/Move()
+#define COMSIG_MOB_CLIENT_PRE_LIVING_MOVE "mob_client_pre_living_move"
 ///from base of /obj/item/mmi/set_brainmob(): (mob/living/brain/new_brainmob)
 #define COMSIG_MMI_SET_BRAINMOB "mmi_set_brainmob"
 
@@ -235,6 +256,11 @@
 #define COMSIG_MOB_CLIENT_LOGIN "comsig_mob_client_login"
 #define COMSIG_LIVING_TRY_SYRINGE "living_try_syringe"			///From post-can inject check of syringe after attack (mob/user)
 #define COMSIG_LIVING_START_PULL "living_start_pull"			///called on /living when someone starts pulling (atom/movable/pulled, state, force)
+/// from /datum/component/singularity/proc/can_move(), as well as /obj/anomaly/energy_ball/proc/can_move()
+/// if a callback returns `SINGULARITY_TRY_MOVE_BLOCK`, then the singularity will not move to that turf
+#define COMSIG_ATOM_SINGULARITY_TRY_MOVE "atom_singularity_try_move"
+	/// When returned from `COMSIG_ATOM_SINGULARITY_TRY_MOVE`, the singularity will move to that turf
+	#define SINGULARITY_TRY_MOVE_BLOCK (1 << 0)
 #define COMSIG_LIVING_CAN_TRACK "mob_can_track"					///from base of /mob/living/can_track()
 	#define COMPONENT_CANT_TRACK 1
 
@@ -550,3 +576,14 @@
 
 #define COMSIG_GREYSCALE_CONFIG_REFRESHED "greyscale_config_refreshed"
 
+///from [/datum/move_loop/start_loop] ():
+#define COMSIG_MOVELOOP_START "moveloop_start"
+///from [/datum/move_loop/stop_loop] ():
+#define COMSIG_MOVELOOP_STOP "moveloop_stop"
+///from [/datum/move_loop/process] ():
+#define COMSIG_MOVELOOP_PREPROCESS_CHECK "moveloop_preprocess_check"
+	#define MOVELOOP_SKIP_STEP (1<<0)
+///from [/datum/move_loop/process] (succeeded, visual_delay):
+#define COMSIG_MOVELOOP_POSTPROCESS "moveloop_postprocess"
+//from [/datum/move_loop/has_target/jps/recalculate_path] ():
+#define COMSIG_MOVELOOP_JPS_REPATH "moveloop_jps_repath"

@@ -20,10 +20,9 @@
 	var/verb_sing = "sings"
 	var/verb_yell = "yells"
 	var/speech_span
-	var/inertia_dir = 0
-	var/atom/inertia_last_loc
-	var/inertia_moving = 0
-	var/inertia_next_move = 0
+	///Are we moving with inertia? Mostly used as an optimization
+	var/inertia_moving = FALSE
+	///Delay in deciseconds between inertia based movement
 	var/inertia_move_delay = 5
 	/// Things we can pass through while moving. If any of this matches the thing we're trying to pass's [pass_flags_self], then we can pass through.
 	var/pass_flags = NONE
@@ -31,6 +30,8 @@
 	var/generic_canpass = TRUE
 	var/moving_diagonally = 0 //0: not doing a diagonal move. 1 and 2: doing the first/second step of the diagonal move
 	var/atom/movable/moving_from_pull		//attempt to resume grab after moving instead of before.
+	///Holds information about any movement loops currently running/waiting to run on the movable. Lazy, will be null if nothing's going on
+	var/datum/movement_packet/move_packet
 	var/list/client_mobs_in_contents // This contains all the client mobs within this container
 	var/list/acted_explosions	//for explosion dodging
 	glide_size = 8
@@ -115,7 +116,7 @@
 	return !(movement_type & FLYING) && has_gravity(src) && !throwing
 
 /atom/movable/proc/onZImpact(turf/T, levels)
-	var/atom/highest = T
+	var/atom/highest = null
 	for(var/i in T.contents)
 		var/atom/A = i
 		if(!A.density)
@@ -124,7 +125,8 @@
 			if(A.layer > highest.layer)
 				highest = A
 	INVOKE_ASYNC(src, .proc/SpinAnimation, 5, 2)
-	throw_impact(highest)
+	if(highest)
+		throw_impact(highest)
 	return TRUE
 
 //For physical constraints to travelling up/down.
@@ -374,7 +376,8 @@
 	var/atom/oldloc = loc
 
 	if(loc != newloc)
-		if (!(direct & (direct - 1))) //Cardinal move
+		var/flat_direct = direct & ~(UP|DOWN)
+		if (!(flat_direct & (flat_direct - 1))) //Cardinal move
 			. = ..()
 		else //Diagonal move, split it into cardinal moves
 			moving_diagonally = FIRST_DIAG_STEP
@@ -425,7 +428,6 @@
 				if(!.)
 					setDir(first_step_dir)
 				else if (!inertia_moving)
-					inertia_next_move = world.time + inertia_move_delay
 					newtonian_move(direct)
 			moving_diagonally = 0
 			return
@@ -455,7 +457,6 @@
 /atom/movable/proc/Moved(atom/OldLoc, Dir, Forced = FALSE)
 	SHOULD_CALL_PARENT(TRUE)
 	if (!inertia_moving)
-		inertia_next_move = world.time + inertia_move_delay
 		newtonian_move(Dir)
 	if (length(client_mobs_in_contents))
 		update_parallax_contents()
@@ -495,6 +496,11 @@
 	if(orbiting)
 		orbiting.end_orbit(src)
 		orbiting = null
+
+	if(move_packet)
+		if(!QDELETED(move_packet))
+			qdel(move_packet)
+		move_packet = null
 
 	LAZYCLEARLIST(important_recursive_contents)
 
@@ -648,17 +654,13 @@
 	return 0
 
 
-/atom/movable/proc/newtonian_move(direction) //Only moves the object if it's under no gravity
-	if(!loc || Process_Spacemove(0))
-		inertia_dir = 0
-		return 0
-
-	inertia_dir = direction
-	if(!direction)
-		return 1
-	inertia_last_loc = loc
-	SSspacedrift.processing[src] = src
-	return 1
+/atom/movable/proc/newtonian_move(direction, instant = FALSE) // Accepts the direction to move, and if the push should be instant
+	if(!loc || Process_Spacemove(0) || !direction)
+		return FALSE
+	if(SEND_SIGNAL(src, COMSIG_MOVABLE_NEWTONIAN_MOVE, direction) & COMPONENT_MOVABLE_NEWTONIAN_BLOCK)
+		return TRUE
+	AddComponent(/datum/component/drift, direction, instant)
+	return TRUE
 
 /atom/movable/proc/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	set waitfor = 0
@@ -766,12 +768,10 @@
 	for(var/m in buckled_mobs)
 		var/mob/living/buckled_mob = m
 		if(!buckled_mob.Move(newloc, direct))
-			forceMove(buckled_mob.loc)
+			doMove(buckled_mob.loc) //forceMove breaks buckles on stairs, use doMove
 			last_move = buckled_mob.last_move
-			inertia_dir = last_move
-			buckled_mob.inertia_dir = last_move
-			return 0
-	return 1
+			return FALSE
+	return TRUE
 
 /atom/movable/proc/force_pushed(atom/movable/pusher, force = MOVE_FORCE_DEFAULT, direction)
 	return FALSE
