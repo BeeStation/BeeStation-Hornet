@@ -235,7 +235,7 @@
 			mute_string = "everything"
 			feedback_string = "Everything"
 		else
-			CRASH("mute_type in cmd_admin_mute was null somehow.")
+			CRASH("mute_type in cmd_admin_mute was invalid: [mute_type]")
 
 	var/client/C
 	if(istype(whom, /client))
