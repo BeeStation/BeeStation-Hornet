@@ -43,6 +43,7 @@
 	return TRUE
 
 /datum/move_loop/proc/compare_vars(datum/move_loop/loop_type, priority, flags, extra_info, delay = 1, timeout = INFINITY) //exists so we can check if this exact moveloop datum already exists (in terms of vars) and so we can stop it from needlessly create a new one to overwrite
+	SHOULD_CALL_PARENT(TRUE)
 	if(loop_type == type && priority == src.priority && flags == src.flags && delay == src.delay && timeout == lifetime)
 		return TRUE
 	else
@@ -140,8 +141,7 @@
 	direction = dir
 
 /datum/move_loop/move/compare_vars(datum/move_loop/loop_type, priority, flags, extra_info, delay, timeout, dir)
-	. = ..()
-	if(!.)
+	if(!..())
 		return
 
 	if(direction == dir)
@@ -225,8 +225,7 @@
 		RegisterSignal(target, COMSIG_PARENT_QDELETING, .proc/handle_no_target) //Don't do this for turfs, because we don't care
 
 /datum/move_loop/has_target/compare_vars(datum/move_loop/loop_type, priority, flags, extra_info, delay, timeout, atom/chasing)
-	. = ..()
-	if(!.)
+	if(!..())
 		return
 
 	if(chasing == target)
@@ -361,8 +360,7 @@
 		RegisterSignal(id, COMSIG_PARENT_QDELETING, .proc/handle_no_id) //I prefer erroring to harddels. If this breaks anything consider making id info into a datum or something
 
 /datum/move_loop/has_target/jps/compare_vars(datum/move_loop/loop_type, priority, flags, extra_info, delay, timeout, atom/chasing, repath_delay, max_path_length, minimum_distance, obj/item/card/id/id, simulated_only, turf/avoid, skip_first)
-	. = ..()
-	if(!.)
+	if(!..())
 		return
 
 	if(repath_delay == src.repath_delay && max_path_length == src.max_path_length && minimum_distance == src.minimum_distance && id == src.id && simulated_only == src.simulated_only && avoid == src.avoid)
@@ -542,8 +540,7 @@
 	distance = dist
 
 /datum/move_loop/has_target/dist_bound/compare_vars(datum/move_loop/loop_type, priority, flags, extra_info, delay, timeout, atom/chasing, dist = 0)
-	. = ..()
-	if(!.)
+	if(!..())
 		return
 
 	if(distance == dist)
@@ -704,8 +701,7 @@
 	return ..()
 
 /datum/move_loop/has_target/move_towards/compare_vars(datum/move_loop/loop_type, priority, flags, extra_info, delay, timeout, atom/chasing, home = FALSE)
-	. = ..()
-	if(!.)
+	if(!..())
 		return
 
 	if(home == src.home)
@@ -854,8 +850,7 @@
 	potential_directions = directions
 
 /datum/move_loop/move_rand/compare_vars(datum/move_loop/loop_type, priority, flags, extra_info, delay, timeout, list/directions)
-	. = ..()
-	if(!.)
+	if(!..())
 		return
 
 	if(potential_directions == directions) //i guess this could be usefull if actually it really has yet to move
