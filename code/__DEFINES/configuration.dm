@@ -20,6 +20,9 @@
 /// Folder directory for config
 #define CONFIG_DIRECTORY "config"
 
+/// Force the config directory to be something other than "config"
+#define OVERRIDE_CONFIG_DIRECTORY_PARAMETER "config-directory"
+
 /// File defines, most of them are loaded from STRING_DIRECTORY
 #define DSAY_NICKNAME_FILE "admin_nicknames.json"	//loaded from CONFIG_DIRECTORY
 #define PHOBIA_FILE "phobia.json"

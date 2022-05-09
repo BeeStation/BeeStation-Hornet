@@ -132,6 +132,6 @@
 	animate(get_filter("gravity"), y = 0, time = 10)
 
 /mob/living/proc/handle_high_gravity(gravity)
-	if(gravity >= GRAVITY_DAMAGE_TRESHOLD) //Aka gravity values of 3 or more
-		var/grav_stregth = gravity - GRAVITY_DAMAGE_TRESHOLD
+	if(gravity >= GRAVITY_DAMAGE_THRESHOLD) //Aka gravity values of 3 or more
+		var/grav_stregth = gravity - GRAVITY_DAMAGE_THRESHOLD
 		adjustBruteLoss(min(grav_stregth,3))

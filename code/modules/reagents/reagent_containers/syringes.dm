@@ -1,3 +1,6 @@
+#define SYRINGE_DRAW 0
+#define SYRINGE_INJECT 1
+
 /obj/item/reagent_containers/syringe
 	name = "syringe"
 	desc = "A syringe that can hold up to 15 units."
@@ -365,3 +368,6 @@
 	name = "spider extract syringe"
 	desc = "Contains crikey juice - makes any gold core create the most deadly companions in the world."
 	list_reagents = list(/datum/reagent/spider_extract = 1)
+
+#undef SYRINGE_DRAW
+#undef SYRINGE_INJECT

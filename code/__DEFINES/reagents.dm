@@ -35,3 +35,11 @@
 //used by chem masters and pill presses
 #define PILL_STYLE_COUNT 22 //Update this if you add more pill icons or you die
 #define RANDOM_PILL_STYLE 22 //Dont change this one though
+
+//chem grenades defines
+/// Grenade is empty
+#define GRENADE_EMPTY 1
+/// Grenade has a activation trigger
+#define GRENADE_WIRED 2
+/// Grenade is ready to be finished
+#define GRENADE_READY 3

@@ -180,6 +180,12 @@
 	var/exited_dirs = 0
 	var/list/shoe_types = list()
 
+//Cache of bloody footprint images
+//Key:
+//"entered-[blood_state]-[dir_of_image]"
+//or: "exited-[blood_state]-[dir_of_image]"
+GLOBAL_LIST_EMPTY(bloody_footprints_cache)
+
 /obj/effect/decal/cleanable/blood/footprints/on_entered(datum/source, atom/movable/O)
 	. = ..()
 	if(ishuman(O))
