@@ -1,6 +1,0 @@
-author: Rukofamicom
-delete-after: true
-changes:
-  - balance: Yellow slime cores are now cells that recharge over time instead of being
-      effectively infinite.
-  - balance: EMPs now halt regeneration for 30 seconds on slime cores.
