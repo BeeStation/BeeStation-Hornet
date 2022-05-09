@@ -65,3 +65,38 @@
 	desc = "A suit that protects against minor chemical spills."
 	icon_state = "medical_coat"
 	item_state = "labcoat"
+
+/obj/item/clothing/suit/toggle/labcoat/flannel_red
+	name = "flannel shirt"
+	desc = "A flannel shirt, for all your space hipster needs."
+	icon_state = "flannel_red"
+/obj/item/clothing/suit/toggle/labcoat/wflight
+	name = "tgfl flight jacket"
+	desc = "A Terragov Foreign Legion pilot's jacket. This is the more common, less durable variety, which typically finds itself percolating amongst all ranks of the TGFL."
+	icon_state = "wflight"
+
+//I'm naming the following jackets with different names, since i'd like them to be available to the whole staff
+/obj/item/clothing/suit/toggle/labcoat/supply_dep_jacket
+	name = "brown Nanotrasen jacket"
+	desc = "A cozy colored jacket."
+	icon_state = "supply_dep_jacket"
+/obj/item/clothing/suit/toggle/labcoat/engi_dep_jacket
+	name = "yellow Nanotrasen jacket"
+	desc = "A cozy colored jacket."
+	icon_state = "engi_dep_jacket"
+/obj/item/clothing/suit/toggle/labcoat/med_dep_jacket
+	name = "light blue Nanotrasen jacket"
+	desc = "A cozy colored jacket."
+	icon_state = "med_dep_jacket"
+/obj/item/clothing/suit/toggle/labcoat/sci_dep_jacket
+	name = "purple Nanotrasen jacket"
+	desc = "A cozy colored jacket."
+	icon_state = "sci_dep_jacket"
+/obj/item/clothing/suit/toggle/labcoat/sec_dep_jacket
+	name = "blue Nanotrasen jacket"
+	desc = "A cozy colored jacket."
+	icon_state = "sec_dep_jacket"
+/obj/item/clothing/suit/toggle/labcoat/serv_dep_jacket
+	name = "green Nanotrasen jacket"
+	desc = "A cozy colored jacket."
+	icon_state = "serv_dep_jacket"

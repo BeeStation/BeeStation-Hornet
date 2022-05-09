@@ -1,8 +1,30 @@
+//AURORA
 /obj/item/clothing/under/misc/orderly_uniform
 	name = "orderly uniform"
+	desc = "It's very... orderly."
 	icon_state = "orderly_uniform"
-	item_state = "w_suit"
+	item_state = "orderly_uniform"
 	can_adjust = FALSE
+/obj/item/clothing/under/misc/lawyer_red2
+	name = "sensible suit"
+	desc = "It's very... sensible."
+	icon_state = "lawyer_red2"
+	item_state = "lawyer_red2"
+	can_adjust = FALSE
+/obj/item/clothing/under/misc/nt_skirtsuit
+	name = "nanotrasen skirtsuit"
+	desc = "A black coat with an NT blue kerchief accompanied by a swept skirt with a tasteful blue stripe. Works for every occasion."
+	icon_state = "nt_skirtsuit"
+	item_state = "nt_skirtsuit"
+	can_adjust = FALSE
+/obj/item/clothing/under/misc/hos_formal_male
+	name = "red formal coat"
+	des = "Red formal-wear, for special occasions."
+	icon_state = "hos_formal_male"
+	item_state = "hos_formal_male"
+	can_adjust = FALSE
+
+//MISC
 
 /obj/item/clothing/under/misc/pj
 	name = "\improper PJs"

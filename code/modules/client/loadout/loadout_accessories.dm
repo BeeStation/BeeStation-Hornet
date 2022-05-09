@@ -184,3 +184,57 @@
 	display_name = "black bishop's cloak"
 	path = /obj/item/clothing/neck/cloak/chap/bishop/black
 	allowed_roles = list("Chaplain")
+
+//AURORA
+/datum/gear/accessory/gloves/cobalt_armchains
+	display_name = "cobalt armchains"
+	path = /obj/item/clothing/gloves/cobalt_armchains
+	cost = 5000
+/datum/gear/accessory/gloves/emerald_armchains
+	display_name = "emerald armchains"
+	path = /obj/item/clothing/gloves/emerald_armchains
+	cost = 5000
+/datum/gear/accessory/gloves/ruby_armchains
+	display_name = "ruby armchains"
+	path = /obj/item/clothing/gloves/ruby_armchains
+	cost = 5000
+/datum/gear/accessory/gloves/cobalt_bracers
+	display_name = "cobalt bracers"
+	path = /obj/item/clothing/gloves/cobalt_bracers
+	cost = 3000
+/datum/gear/accessory/gloves/emerald_bracers
+	display_name = "emerald bracers"
+	path = /obj/item/clothing/gloves/emerald_bracers
+	cost = 3000
+/datum/gear/accessory/gloves/ruby_bracers
+	display_name = "ruby bracers"
+	path = /obj/item/clothing/gloves/ruby_bracers
+	cost = 3000
+/datum/gear/accessory/gloves/beaded
+	display_name = "beaded bracelet"
+	path = /obj/item/clothing/gloves/beaded
+	cost = 800
+/datum/gear/accessory/gloves/bracelet
+	display_name = "bracelet"
+	path = /obj/item/clothing/gloves/bracelet
+	cost = 800
+/datum/gear/accessory/gloves/watch
+	display_name = "watch"
+	path = /obj/item/clothing/gloves/watch
+	cost = 500
+/datum/gear/accessory/gloves/watch_silver
+	display_name = "silver watch"
+	path = /obj/item/clothing/gloves/watch_silver
+	cost = 1000
+/datum/gear/accessory/gloves/watch_gold
+	display_name = "gold watch"
+	path = /obj/item/clothing/gloves/watch_gold
+	cost = 2500
+/datum/gear/accessory/gloves/ear_stud
+	display_name = "stud earrings"
+	path = /obj/item/clothing/gloves/ear_stud
+	cost = 1000
+/datum/gear/accessory/gloves/ear_dangle
+	display_name = "dangle earrings"
+	path = /obj/item/clothing/gloves/ear_dangle
+	cost = 1000

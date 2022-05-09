@@ -24,6 +24,11 @@
 	path = /obj/item/clothing/suit/toggle/labcoat/emt
 	allowed_roles = list("Medical Doctor", "Chief Medical Officer", "Chemist", "Geneticist")
 
+/datum/gear/suit/coat_medical
+	display_name = "blue medical coat"
+	path = /obj/item/clothing/suit/toggle/labcoat/coat/medical
+	allowed_roles = list("Medical Doctor", "Chief Medical Officer", "Chemist", "Geneticist")
+	cost = 5000
 //WINTER COATS
 /datum/gear/suit/wintercoat
 	subtype_path = /datum/gear/suit/wintercoat
@@ -194,3 +199,36 @@
 	display_name = "black bishop's robes"
 	path = /obj/item/clothing/suit/chaplainsuit/bishoprobe/black
 	allowed_roles = list("Chaplain")
+
+/datum/gear/suit/flannel_red
+	display_name = "flannel shirt"
+	path = /obj/item/clothing/suit/toggle/labcoat/flannel_red
+	cost = 800
+/datum/gear/suit/wflight
+	display_name = "tgfl flight jacket"
+	path = /obj/item/clothing/suit/toggle/labcoat/wflight
+	cost = 800
+/datum/gear/suit/supply_dep_jacket
+	display_name = "brown Nanotrasen jacket"
+	path = /obj/item/clothing/suit/toggle/labcoat/supply_dep_jacket
+	cost = 800
+/datum/gear/suit/engi_dep_jacket
+	display_name = "yellow Nanotrasen jacket"
+	path = /obj/item/clothing/suit/toggle/labcoat/engi_dep_jacket
+	cost = 800
+/datum/gear/suit/med_dep_jacket
+	display_name = "light blue Nanotrasen jacket"
+	path = /obj/item/clothing/suit/toggle/labcoat/med_dep_jacket
+	cost = 800
+/datum/gear/suit/sci_dep_jacket
+	display_name = "purple Nanotrasen jacket"
+	path = /obj/item/clothing/suit/toggle/labcoat/sci_dep_jacket
+	cost = 800
+/datum/gear/suit/sec_dep_jacket
+	display_name = "blue Nanotrasen jacket"
+	path = /obj/item/clothing/suit/toggle/labcoat/sec_dep_jacket
+	cost = 800
+/datum/gear/suit/serv_dep_jacket
+	display_name = "green Nanotrasen jacket"
+	path = /obj/item/clothing/suit/toggle/labcoat/serv_dep_jacket
+	cost = 800
