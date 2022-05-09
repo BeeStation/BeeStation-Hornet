@@ -3,13 +3,13 @@
 /obj/structure/table/glass,
 /obj/machinery/chem_dispenser/drinks/beer,
 /turf/open/floor/plasteel/white,
-/area/crew_quarters/bar)
+/area/template_noop)
 "bW" = (
 /obj/structure/chair/office/light,
 /obj/effect/landmark/start/assistant,
 /obj/effect/turf_decal/trimline/darkblue/filled/warning,
 /turf/open/floor/plasteel/white,
-/area/crew_quarters/bar)
+/area/template_noop)
 "dT" = (
 /obj/structure/table/glass,
 /obj/item/reagent_containers/food/condiment/saltshaker,
@@ -20,14 +20,14 @@
 	dir = 8
 	},
 /turf/open/floor/plasteel/white,
-/area/crew_quarters/bar)
+/area/template_noop)
 "ez" = (
 /obj/structure/table/glass,
 /obj/item/clothing/mask/surgical{
 	pixel_y = 4
 	},
 /turf/open/floor/plasteel/white,
-/area/crew_quarters/bar)
+/area/template_noop)
 "iW" = (
 /obj/effect/turf_decal/trimline/darkblue/line{
 	dir = 6
@@ -36,10 +36,10 @@
 	dir = 1
 	},
 /turf/open/floor/plasteel/white,
-/area/crew_quarters/bar)
+/area/template_noop)
 "jO" = (
 /turf/closed/wall,
-/area/crew_quarters/bar)
+/area/template_noop)
 "jY" = (
 /obj/structure/table/glass,
 /obj/item/kitchen/fork,
@@ -54,7 +54,7 @@
 	pixel_y = -22
 	},
 /turf/open/floor/plasteel/white,
-/area/crew_quarters/bar)
+/area/template_noop)
 "kp" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer1,
 /obj/effect/turf_decal/trimline/darkblue/line,
@@ -62,17 +62,17 @@
 	dir = 1
 	},
 /turf/open/floor/plasteel/white,
-/area/crew_quarters/bar)
+/area/template_noop)
 "lj" = (
 /obj/machinery/smartfridge/drinks{
 	icon_state = "boozeomat"
 	},
 /turf/closed/wall,
-/area/crew_quarters/bar)
+/area/template_noop)
 "lJ" = (
 /obj/effect/turf_decal/tile/darkblue/tile_marquee,
 /turf/open/floor/plasteel/white,
-/area/crew_quarters/bar)
+/area/template_noop)
 "mn" = (
 /obj/structure/table/glass,
 /obj/item/storage/backpack/duffelbag/med/surgery,
@@ -85,7 +85,7 @@
 	pixel_y = 12
 	},
 /turf/open/floor/plasteel/white,
-/area/crew_quarters/bar)
+/area/template_noop)
 "nT" = (
 /obj/effect/turf_decal/trimline/darkblue/line{
 	dir = 1
@@ -96,7 +96,7 @@
 	dir = 8
 	},
 /turf/open/floor/plasteel/white,
-/area/crew_quarters/bar)
+/area/template_noop)
 "oK" = (
 /obj/structure/table/optable,
 /obj/structure/sign/barsign{
@@ -105,22 +105,22 @@
 	},
 /obj/item/book/manual/wiki/barman_recipes,
 /turf/open/floor/plasteel/white,
-/area/crew_quarters/bar)
+/area/template_noop)
 "oZ" = (
 /obj/machinery/computer/operating,
 /turf/open/floor/plasteel/white,
-/area/crew_quarters/bar)
+/area/template_noop)
 "pd" = (
 /obj/effect/landmark/start/bartender,
 /obj/effect/turf_decal/trimline/darkblue/filled/warning,
 /obj/effect/turf_decal/trimline/darkblue/line,
 /turf/open/floor/plasteel/white,
-/area/crew_quarters/bar)
+/area/template_noop)
 "qf" = (
 /obj/effect/turf_decal/tile/darkblue/tile_marquee,
 /obj/effect/landmark/event_spawn,
 /turf/open/floor/plasteel/white,
-/area/crew_quarters/bar)
+/area/template_noop)
 "sO" = (
 /obj/effect/turf_decal/trimline/darkblue/line{
 	dir = 10
@@ -129,7 +129,7 @@
 	dir = 4
 	},
 /turf/open/floor/plasteel/white,
-/area/crew_quarters/bar)
+/area/template_noop)
 "th" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -141,13 +141,13 @@
 	dir = 4
 	},
 /turf/open/floor/plasteel/white,
-/area/crew_quarters/bar)
+/area/template_noop)
 "tr" = (
 /obj/structure/window/reinforced/spawner,
 /obj/structure/window/reinforced/spawner/east,
 /obj/machinery/vending/boozeomat,
 /turf/open/floor/plasteel/white,
-/area/crew_quarters/bar)
+/area/template_noop)
 "ts" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3,
 /obj/effect/turf_decal/trimline/darkblue/line,
@@ -156,27 +156,27 @@
 	},
 /obj/effect/landmark/event_spawn,
 /turf/open/floor/plasteel/white,
-/area/crew_quarters/bar)
+/area/template_noop)
 "tN" = (
 /obj/structure/disposalpipe/segment{
 	dir = 5
 	},
 /turf/open/floor/plasteel/white,
-/area/crew_quarters/bar)
+/area/template_noop)
 "uA" = (
 /obj/effect/turf_decal/trimline/darkblue/line{
 	dir = 1
 	},
 /obj/effect/turf_decal/trimline/darkblue/line,
 /turf/open/floor/plasteel/white,
-/area/crew_quarters/bar)
+/area/template_noop)
 "uH" = (
 /obj/structure/table/glass,
 /obj/item/clothing/mask/surgical{
 	pixel_x = -1
 	},
 /turf/open/floor/plasteel/white,
-/area/crew_quarters/bar)
+/area/template_noop)
 "vk" = (
 /obj/structure/sink/kitchen{
 	dir = 8;
@@ -193,7 +193,7 @@
 	dir = 1
 	},
 /turf/open/floor/plasteel/white,
-/area/crew_quarters/bar)
+/area/template_noop)
 "wa" = (
 /mob/living/carbon/monkey/punpun,
 /obj/machinery/light{
@@ -204,7 +204,7 @@
 	pixel_x = 32
 	},
 /turf/open/floor/plasteel/white,
-/area/crew_quarters/bar)
+/area/template_noop)
 "wR" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -222,7 +222,7 @@
 	dir = 8
 	},
 /turf/open/floor/plasteel/white,
-/area/crew_quarters/bar)
+/area/template_noop)
 "xa" = (
 /obj/structure/disposalpipe/trunk{
 	dir = 8
@@ -233,7 +233,7 @@
 	},
 /obj/effect/turf_decal/box/red,
 /turf/open/floor/plasteel/white,
-/area/crew_quarters/bar)
+/area/template_noop)
 "xG" = (
 /obj/machinery/firealarm{
 	dir = 4;
@@ -246,11 +246,11 @@
 /obj/effect/landmark/start/bartender,
 /obj/effect/turf_decal/tile/darkblue/tile_marquee,
 /turf/open/floor/plasteel/white,
-/area/crew_quarters/bar)
+/area/template_noop)
 "xT" = (
 /obj/structure/table/glass,
 /turf/open/floor/plasteel/white,
-/area/crew_quarters/bar)
+/area/template_noop)
 "zV" = (
 /obj/structure/window/reinforced/spawner/west,
 /obj/structure/table/glass,
@@ -270,7 +270,7 @@
 	pixel_y = -1
 	},
 /turf/open/floor/plasteel/white,
-/area/crew_quarters/bar)
+/area/template_noop)
 "Ax" = (
 /obj/machinery/door/airlock{
 	name = "Bar Storage";
@@ -283,7 +283,7 @@
 	},
 /obj/machinery/door/firedoor,
 /turf/open/floor/wood,
-/area/crew_quarters/bar)
+/area/template_noop)
 "AU" = (
 /obj/machinery/light{
 	dir = 8
@@ -292,7 +292,7 @@
 /obj/structure/bed/roller,
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel/white,
-/area/crew_quarters/bar)
+/area/template_noop)
 "Cw" = (
 /obj/structure/table/glass,
 /obj/structure/table/glass,
@@ -302,7 +302,7 @@
 	pixel_y = 12
 	},
 /turf/open/floor/plasteel/white,
-/area/crew_quarters/bar)
+/area/template_noop)
 "CK" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -315,12 +315,12 @@
 	},
 /obj/machinery/dna_scannernew,
 /turf/open/floor/plasteel/white,
-/area/crew_quarters/bar)
+/area/template_noop)
 "CY" = (
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/medical,
 /turf/open/floor/plasteel/white,
-/area/crew_quarters/bar)
+/area/template_noop)
 "Dp" = (
 /obj/structure/chair/office/light{
 	dir = 1
@@ -332,28 +332,28 @@
 	dir = 1
 	},
 /turf/open/floor/plasteel/white,
-/area/crew_quarters/bar)
+/area/template_noop)
 "DK" = (
 /obj/structure/chair/office/light,
 /obj/effect/turf_decal/trimline/darkblue/filled/warning,
 /turf/open/floor/plasteel/white,
-/area/crew_quarters/bar)
+/area/template_noop)
 "DY" = (
 /obj/effect/turf_decal/trimline/darkblue/filled/warning,
 /obj/effect/turf_decal/trimline/darkblue/line,
 /turf/open/floor/plasteel/white,
-/area/crew_quarters/bar)
+/area/template_noop)
 "Hs" = (
 /obj/effect/turf_decal/trimline/darkblue/filled/warning,
 /turf/open/floor/plasteel/white,
-/area/crew_quarters/bar)
+/area/template_noop)
 "HJ" = (
 /obj/effect/turf_decal/trimline/darkblue/line,
 /obj/effect/turf_decal/trimline/darkblue/line{
 	dir = 1
 	},
 /turf/open/floor/plasteel/white,
-/area/crew_quarters/bar)
+/area/template_noop)
 "HO" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -366,7 +366,7 @@
 	req_access_txt = "25"
 	},
 /turf/open/floor/white,
-/area/crew_quarters/bar)
+/area/template_noop)
 "HT" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -384,7 +384,7 @@
 	dir = 4
 	},
 /turf/open/floor/plasteel/white,
-/area/crew_quarters/bar)
+/area/template_noop)
 "Ir" = (
 /obj/effect/turf_decal/trimline/darkblue/line{
 	dir = 1
@@ -395,7 +395,7 @@
 	},
 /obj/effect/turf_decal/trimline/darkblue/corner,
 /turf/open/floor/plasteel/white,
-/area/crew_quarters/bar)
+/area/template_noop)
 "Jp" = (
 /obj/structure/window/reinforced/spawner/west,
 /obj/structure/table/glass,
@@ -407,7 +407,7 @@
 	},
 /obj/structure/window/reinforced/spawner,
 /turf/open/floor/plasteel/white,
-/area/crew_quarters/bar)
+/area/template_noop)
 "JP" = (
 /obj/machinery/door/window/westright{
 	req_access_txt = "25"
@@ -426,7 +426,7 @@
 	pixel_x = 9
 	},
 /turf/open/floor/plasteel/white,
-/area/crew_quarters/bar)
+/area/template_noop)
 "Kj" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -437,7 +437,7 @@
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3,
 /obj/machinery/computer/cloning,
 /turf/open/floor/plasteel/white,
-/area/crew_quarters/bar)
+/area/template_noop)
 "Ly" = (
 /obj/structure/table/glass,
 /obj/item/toy/figure/md{
@@ -446,7 +446,7 @@
 	toysay = "I NEEEEEEEEEEEEEEEEED A MEDIC BAG"
 	},
 /turf/open/floor/plasteel/white,
-/area/crew_quarters/bar)
+/area/template_noop)
 "Nh" = (
 /obj/effect/turf_decal/trimline/darkblue/line,
 /obj/effect/turf_decal/trimline/darkblue/corner{
@@ -456,7 +456,7 @@
 	dir = 1
 	},
 /turf/open/floor/plasteel/white,
-/area/crew_quarters/bar)
+/area/template_noop)
 "Pq" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -470,24 +470,24 @@
 	dir = 4
 	},
 /turf/open/floor/plasteel/white,
-/area/crew_quarters/bar)
+/area/template_noop)
 "PW" = (
 /obj/structure/sign/departments/medbay/alt,
 /turf/closed/wall,
-/area/crew_quarters/bar)
+/area/template_noop)
 "Qy" = (
 /obj/effect/turf_decal/trimline/darkblue/filled/warning,
 /obj/effect/turf_decal/trimline/darkblue/line,
 /obj/effect/turf_decal/trimline/darkblue/line,
 /turf/open/floor/plasteel/white,
-/area/crew_quarters/bar)
+/area/template_noop)
 "TV" = (
 /obj/structure/table/glass,
 /obj/structure/displaycase/forsale/kitchen{
 	pixel_y = 9
 	},
 /turf/open/floor/plasteel/white,
-/area/crew_quarters/bar)
+/area/template_noop)
 "Vc" = (
 /obj/structure/table/glass,
 /obj/machinery/chem_dispenser/drinks,
@@ -495,7 +495,7 @@
 	dir = 4
 	},
 /turf/open/floor/plasteel/white,
-/area/crew_quarters/bar)
+/area/template_noop)
 "VQ" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -507,7 +507,7 @@
 /obj/structure/showcase/machinery/cloning_pod,
 /obj/effect/turf_decal/bot_white,
 /turf/open/floor/plasteel/white,
-/area/crew_quarters/bar)
+/area/template_noop)
 "Yo" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -521,7 +521,7 @@
 	},
 /obj/machinery/door/airlock/medical,
 /turf/open/floor/plasteel/white,
-/area/crew_quarters/bar)
+/area/template_noop)
 
 (1,1,1) = {"
 jO

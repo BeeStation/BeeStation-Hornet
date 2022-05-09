@@ -786,11 +786,11 @@
 "bF" = (
 /obj/structure/sign/warning/radiation,
 /turf/closed/wall/r_wall,
-/area/engine/engine_core)
+/area/engine/supermatter)
 "bG" = (
 /obj/machinery/atmospherics/pipe/simple/green/visible,
 /turf/closed/wall/r_wall,
-/area/engine/engine_core)
+/area/engine/supermatter)
 "bH" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/airlock/engineering/glass/critical{
@@ -800,14 +800,14 @@
 	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /turf/open/floor/engine,
-/area/engine/engine_core)
+/area/engine/supermatter)
 "bI" = (
 /obj/machinery/atmospherics/pipe/simple/cyan/visible,
 /turf/closed/wall/r_wall,
-/area/engine/engine_core)
+/area/engine/supermatter)
 "bJ" = (
 /turf/closed/wall/r_wall,
-/area/engine/engine_core)
+/area/engine/supermatter)
 "bK" = (
 /obj/machinery/atmospherics/components/binary/pump{
 	dir = 1;
@@ -938,23 +938,23 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/engine,
-/area/engine/engine_core)
+/area/engine/supermatter)
 "bZ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/engine,
-/area/engine/engine_core)
+/area/engine/supermatter)
 "ca" = (
 /obj/machinery/atmospherics/components/binary/pump{
 	name = "Gas to Chamber"
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/engine,
-/area/engine/engine_core)
+/area/engine/supermatter)
 "cb" = (
 /obj/structure/sign/warning/fire,
 /turf/closed/wall/r_wall,
-/area/engine/engine_core)
+/area/engine/supermatter)
 "cc" = (
 /obj/machinery/atmospherics/components/unary/portables_connector/visible{
 	dir = 1
@@ -1064,20 +1064,20 @@
 "co" = (
 /obj/machinery/status_display/ai,
 /turf/closed/wall/r_wall,
-/area/engine/engine_core)
+/area/engine/supermatter)
 "cp" = (
 /obj/machinery/atmospherics/pipe/simple/general/visible{
 	dir = 6
 	},
 /turf/closed/wall/r_wall,
-/area/engine/engine_core)
+/area/engine/supermatter)
 "cq" = (
 /obj/machinery/meter,
 /obj/machinery/atmospherics/pipe/simple/general/visible{
 	dir = 9
 	},
 /turf/closed/wall/r_wall,
-/area/engine/engine_core)
+/area/engine/supermatter)
 "cr" = (
 /obj/machinery/door/airlock/engineering/glass/critical{
 	heat_proof = 1;
@@ -1088,24 +1088,24 @@
 	dir = 1
 	},
 /turf/open/floor/engine,
-/area/engine/engine_core)
+/area/engine/supermatter)
 "cs" = (
 /obj/machinery/meter,
 /obj/machinery/atmospherics/pipe/simple/general/visible{
 	dir = 5
 	},
 /turf/closed/wall/r_wall,
-/area/engine/engine_core)
+/area/engine/supermatter)
 "ct" = (
 /obj/machinery/atmospherics/pipe/simple/general/visible{
 	dir = 10
 	},
 /turf/closed/wall/r_wall,
-/area/engine/engine_core)
+/area/engine/supermatter)
 "cu" = (
 /obj/machinery/status_display/evac,
 /turf/closed/wall/r_wall,
-/area/engine/engine_core)
+/area/engine/supermatter)
 "cv" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -1222,7 +1222,7 @@
 	icon_state = "4-8"
 	},
 /turf/open/floor/plating,
-/area/engine/engine_core)
+/area/engine/supermatter)
 "cI" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -1231,7 +1231,7 @@
 	dir = 6
 	},
 /turf/open/floor/engine,
-/area/engine/engine_core)
+/area/engine/supermatter)
 "cJ" = (
 /obj/machinery/atmospherics/pipe/manifold/general/visible{
 	dir = 8
@@ -1244,22 +1244,22 @@
 	dir = 4
 	},
 /turf/open/floor/engine,
-/area/engine/engine_core)
+/area/engine/supermatter)
 "cK" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on{
 	dir = 8
 	},
 /turf/open/floor/engine,
-/area/engine/engine_core)
+/area/engine/supermatter)
 "cL" = (
 /turf/open/floor/engine,
-/area/engine/engine_core)
+/area/engine/supermatter)
 "cM" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on{
 	dir = 4
 	},
 /turf/open/floor/engine,
-/area/engine/engine_core)
+/area/engine/supermatter)
 "cN" = (
 /obj/machinery/atmospherics/pipe/manifold/general/visible{
 	dir = 4
@@ -1272,13 +1272,13 @@
 	dir = 8
 	},
 /turf/open/floor/engine,
-/area/engine/engine_core)
+/area/engine/supermatter)
 "cO" = (
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
 /turf/open/floor/engine,
-/area/engine/engine_core)
+/area/engine/supermatter)
 "cP" = (
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "engsm";
@@ -1292,7 +1292,7 @@
 	icon_state = "4-8"
 	},
 /turf/open/floor/plating,
-/area/engine/engine_core)
+/area/engine/supermatter)
 "cQ" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -1418,11 +1418,11 @@
 	},
 /obj/item/tank/internals/plasma,
 /turf/open/floor/plating,
-/area/engine/engine_core)
+/area/engine/supermatter)
 "dd" = (
 /obj/machinery/power/supermatter_crystal/engine,
 /turf/open/floor/engine,
-/area/engine/engine_core)
+/area/engine/supermatter)
 "de" = (
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "engsm";
@@ -1437,7 +1437,7 @@
 	icon_state = "4-8"
 	},
 /turf/open/floor/plating,
-/area/engine/engine_core)
+/area/engine/supermatter)
 "df" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -1507,7 +1507,7 @@
 	icon_state = "4-8"
 	},
 /turf/open/floor/plating,
-/area/engine/engine_core)
+/area/engine/supermatter)
 "dn" = (
 /obj/machinery/atmospherics/pipe/simple/general/visible{
 	dir = 5
@@ -1520,7 +1520,7 @@
 	dir = 4
 	},
 /turf/open/floor/engine,
-/area/engine/engine_core)
+/area/engine/supermatter)
 "do" = (
 /obj/machinery/atmospherics/pipe/simple/general/visible{
 	dir = 9
@@ -1533,7 +1533,7 @@
 	dir = 8
 	},
 /turf/open/floor/engine,
-/area/engine/engine_core)
+/area/engine/supermatter)
 "dp" = (
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "engsm";
@@ -1546,7 +1546,7 @@
 	icon_state = "4-8"
 	},
 /turf/open/floor/plating,
-/area/engine/engine_core)
+/area/engine/supermatter)
 "dq" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -1624,11 +1624,11 @@
 "dy" = (
 /obj/structure/sign/warning/electricshock,
 /turf/closed/wall/r_wall,
-/area/engine/engine_core)
+/area/engine/supermatter)
 "dz" = (
 /obj/effect/spawner/structure/window/plasma/reinforced,
 /turf/open/floor/plating,
-/area/engine/engine_core)
+/area/engine/supermatter)
 "dA" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
