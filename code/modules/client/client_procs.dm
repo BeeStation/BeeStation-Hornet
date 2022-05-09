@@ -141,41 +141,30 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 /*
  * Call back proc that should be checked in all paths where a client can send messages
  *
- * Handles checking for duplicate messages and people sending messages too fast
+ * Handles checking for people sending messages too fast.
  *
- * The first checks are if you're sending too fast, this is defined as sending
- * SPAM_TRIGGER_AUTOMUTE messages in
- * 5 seconds, this will start supressing your messages,
- * if you send 2* that limit, you also get muted
+ * This is defined as sending SPAM_TRIGGER_AUTOMUTE (10) messages within 5 seconds of eachother, which gets you auto-muted.
  *
- * The second checks for the same duplicate message too many times and mutes
- * you for it
+ * You will be warned if you send SPAM_TRIGGER_WARNING(5) messages withing 5 seconds of eachother to hopefully prevent false positives.
+ *
  */
 /client/proc/handle_spam_prevention(message, mute_type)
 	if(!(CONFIG_GET(flag/automute_on)))
 		return FALSE
 
 	if(COOLDOWN_FINISHED(src, total_count_reset))
-		same_message_count = 0
-		COOLDOWN_START(src, total_count_reset, 5 SECONDS)
-		return FALSE
+		total_message_count = 0 //reset the count if it's been more than 5 seconds since the last message.
 
+	total_message_count++
 	COOLDOWN_START(src, total_count_reset, 5 SECONDS)
 
-	if(last_message == message)
-		same_message_count++
-	else
-		last_message = message
-		same_message_count = 0
-		return FALSE
-
-	if(same_message_count >= SPAM_TRIGGER_AUTOMUTE)
-		to_chat(src, "<span class='userdanger'>You have exceeded the spam filter limit for identical messages. An auto-mute was applied.</span>")
+	if(total_message_count >= SPAM_TRIGGER_AUTOMUTE)
+		to_chat(src, "<span class='userdanger'>You have exceeded the spam filter limit for too many messages. An auto-mute was applied. Make an adminhelp ticket if you think this was in error.</span>")
 		cmd_admin_mute(src, mute_type, TRUE)
 		return TRUE
 
-	if(same_message_count >= SPAM_TRIGGER_WARNING)
-		to_chat(src, "<span class='userdanger'>You are nearing the spam filter limit for identical messages.</span>")
+	if(total_message_count >= SPAM_TRIGGER_WARNING)
+		to_chat(src, "<span class='userdanger'>You are nearing the spam filter limit for too many messages in a short period. Slow down.</span>")
 		return FALSE
 
 //This stops files larger than UPLOAD_LIMIT being sent from client to server via input(), client.Import() etc.

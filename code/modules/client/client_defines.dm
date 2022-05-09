@@ -19,8 +19,8 @@
 	var/ban_cache = null
 	/// Contains the last message sent by this client - used to protect against copy-paste spamming.
 	var/last_message	= ""
-	/// Contains a number of how many times a message identical to last_message was sent.
-	var/same_message_count = 0
+	/// How many messages sent in the last 10 seconds
+	var/total_message_count = 0
 	/// Next tick to reset the total message counter
 	COOLDOWN_DECLARE(total_count_reset)
 	var/externalreplyamount = 0
