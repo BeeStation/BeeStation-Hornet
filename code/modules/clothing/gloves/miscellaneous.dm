@@ -15,7 +15,7 @@
 	worn_icon_state = "emerald_armchains"
 	transfer_prints = TRUE
 	undyeable = TRUE
-/obj/item/clothing/gloves/ruby armchains
+/obj/item/clothing/gloves/ruby_armchains
 	name = "ruby armchains"
 	desc = "A set of luxurious chains intended to be wrapped around long, lanky arms. They don't seem particularly comfortable. They're encrusted with ruby-red gems, and made of <b>REAL</b> faux gold."
 	icon_state = "ruby_armchains"

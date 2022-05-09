@@ -19,7 +19,7 @@
 	can_adjust = FALSE
 /obj/item/clothing/under/misc/hos_formal_male
 	name = "red formal coat"
-	des = "Red formal-wear, for special occasions."
+	desc = "Red formal-wear, for special occasions."
 	icon_state = "hos_formal_male"
 	item_state = "hos_formal_male"
 	can_adjust = FALSE

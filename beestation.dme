@@ -1875,6 +1875,8 @@
 #include "code\modules\client\loadout\loadout_ooc.dm"
 #include "code\modules\client\loadout\loadout_suit.dm"
 #include "code\modules\client\loadout\loadout_uniform.dm"
+#include "code\modules\client\loadout\loadout_handwear.dm"
+#include "code\modules\client\loadout\loadout_face.dm"
 #include "code\modules\client\verbs\etips.dm"
 #include "code\modules\client\verbs\input_box.dm"
 #include "code\modules\client\verbs\looc.dm"
