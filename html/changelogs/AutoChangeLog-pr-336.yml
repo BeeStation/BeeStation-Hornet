@@ -1,0 +1,7 @@
+author: DoctorSquishy
+delete-after: true
+changes:
+  - bugfix: Fixes building on-top of invisible airless tiles in random engines areas,
+      airless-tiles act weird
+  - imageadd: Added new area icons for random engines and bars
+  - refactor: Refactored and generalized names for SM Room to Engine Core
