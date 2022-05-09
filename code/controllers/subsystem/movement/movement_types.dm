@@ -11,7 +11,7 @@
 	var/datum/extra_info
 	///The thing we're moving about
 	var/atom/movable/moving
-	///Defines how different move loops override each other. Lower numbers beat higher numbers
+	///Defines how different move loops override each other. Higher numbers beat lower numbers
 	var/priority = MOVEMENT_DEFAULT_PRIORITY
 	///Bitfield of different things that affect how a loop operates
 	var/flags
