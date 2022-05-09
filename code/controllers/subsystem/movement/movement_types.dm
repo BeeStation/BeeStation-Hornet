@@ -47,6 +47,7 @@
 		return TRUE
 	else
 		return FALSE
+
 /datum/move_loop/proc/start_loop()
 	SHOULD_CALL_PARENT(TRUE)
 	SEND_SIGNAL(src, COMSIG_MOVELOOP_START)
