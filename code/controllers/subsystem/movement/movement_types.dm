@@ -147,6 +147,7 @@
 		return TRUE
 	else
 		return FALSE
+
 /datum/move_loop/move/move()
 	var/atom/old_loc = moving.loc
 	moving.Move(get_step(moving, direction), direction)
