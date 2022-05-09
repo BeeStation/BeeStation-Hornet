@@ -77,7 +77,7 @@ SUBSYSTEM_DEF(move_manager)
 /datum/movement_packet/proc/add_loop(datum/controller/subsystem/movement/subsystem, datum/move_loop/loop_type, priority, flags, datum/extra_info)
 	var/datum/move_loop/existing_loop = existing_loops[subsystem]
 
-	if(existing_loop && existing_loop.compare_vars(arglist(args.Copy(2))))
+	if(existing_loop?.compare_vars(arglist(args.Copy(2))))
 		return //it already exists stop trying to make the same moveloop
 
 	if(existing_loop && existing_loop.priority > priority)
