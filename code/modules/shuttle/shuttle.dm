@@ -384,6 +384,9 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 		for(var/turf/T in shuttleArea.contents)
 			. += 1
 
+/obj/docking_port/newtonian_move(direction, instant = FALSE) // Please don't spacedrift thanks
+	return TRUE
+
 /obj/docking_port/mobile/Initialize(mapload)
 	. = ..()
 
