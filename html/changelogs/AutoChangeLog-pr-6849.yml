@@ -1,5 +1,0 @@
-author: PestoVerde322
-delete-after: true
-changes:
-  - balance: Fireball no longer has a 3 tile wide hitbox (courtesy of GoblinBackwards
-      over in /tg/).
