@@ -24,6 +24,12 @@
 	catch(var/exception/e)
 		message_admins("Space ruin failed to generate!")
 		stack_trace("Space ruin failed to generate! [e] on [e.file]:[e.line]")
+		//MonkeStation Edit: Adds a backup objective generation method.
+		if(linked_objective)
+			var/turf/backup_objective_spawn = locate(rand(center_x),rand(center_y), center_z)
+			linked_objective.generate_objective_stuff(backup_objective_spawn)
+			message_admins("Created backup objective successfully.")
+		//MonkeStation Edit End
 	space_level.generating = FALSE
 
 /proc/_generate_space_ruin(center_x, center_y, center_z, border_x, border_y, datum/orbital_objective/linked_objective, forced_decoration, datum/ruin_event/ruin_event)
