@@ -226,7 +226,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_MEDIBOTCOMINGTHROUGH "medbot" //Is a medbot healing you
 #define TRAIT_PASSTABLE			"passtable"
 #define TRAIT_ONEWAYROAD	"one-way road"
-#define TRAIT_APPRAISAL			"appraisal"
 #define TRAIT_NOBLOCK			"noblock"
 #define TRAIT_NANITECOMPATIBLE	"nanitecompatible"
 #define TRAIT_WARDED       		"curse_immune"
