@@ -565,6 +565,16 @@
 	user.dust(just_ash = FALSE, drop_items = TRUE)
 	return MANUAL_SUICIDE
 
+/obj/item/toy/plush/moth/random
+	name = "\improper Random Mothplush"
+	icon_state = "moffplush_random"
+	desc = "An undefined mothperson plushy. It's a debuggable bug!"
+
+/obj/item/toy/plush/moth/random/Initialize()
+	var moff_type = pick(subtypesof(/obj/item/toy/plush/moth) - /obj/item/toy/plush/moth/random/)
+	new moff_type(loc)
+	return INITIALIZE_HINT_QDEL
+
 /obj/item/toy/plush/moth/monarch
 	name = "monarch moth plushie"
 	desc = "An adorable mothperson plushy. It's an important bug!"
@@ -639,6 +649,11 @@
 	name = "clockwork moth plushie"
 	desc = "An adorable mothperson plushy. It's a precise bug!"
 	icon_state = "moffplush_clockwork"
+
+/obj/item/toy/plush/moth/rainbow
+	name = "rainbow moth plushie"
+	desc = "An adorable mothperson plushy. It's a colorfull bug!"
+	icon_state = "moffplush_random"
 
 /obj/item/toy/plush/crossed
 	name = "ghost plushie"
