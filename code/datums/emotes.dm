@@ -12,6 +12,7 @@
 	var/message_AI = "" //Message displayed if the user is an AI
 	var/message_monkey = "" //Message displayed if the user is a monkey
 	var/message_ipc = "" // Message to display if the user is an IPC
+	var/message_insect = "" //Message to display if the user is a moth, apid or flyperson
 	var/message_simple = "" //Message to display if the user is a simple_animal
 	var/message_param = "" //Message to display if a param was given
 	var/emote_type = EMOTE_VISIBLE //Whether the emote is visible or audible
@@ -111,6 +112,8 @@
 		. = message_monkey
 	else if(isipc(user) && message_ipc)
 		. = message_ipc
+	else if((ismoth(user) || isapid(user) || isflyperson(user)) && message_insect)
+		. = message_insect
 	else if(isanimal(user) && message_simple)
 		. = message_simple
 
