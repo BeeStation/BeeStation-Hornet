@@ -46,8 +46,6 @@
 	SHOULD_CALL_PARENT(TRUE)
 	if(loop_type == type && priority == src.priority && flags == src.flags && delay == src.delay && timeout == lifetime)
 		return TRUE
-	else
-		return FALSE
 
 /datum/move_loop/proc/start_loop()
 	SHOULD_CALL_PARENT(TRUE)
