@@ -10,15 +10,22 @@
 	max_integrity = 200
 	integrity_failure = 25
 	var/obj/item/showpiece = null
-	var/obj/item/showpiece_type = null //This allows for showpieces that can only hold items if they're the same istype as this.
+	///This allows for showpieces that can only hold items if they're the same istype as this.
+	var/obj/item/showpiece_type = null 
 	var/alert = TRUE
 	var/open = FALSE
 	var/openable = TRUE
+	///Is the case made of glass? Should it sound like that when it is being whacked?
 	var/shatter = TRUE
-	var/custom_glass_overlay = FALSE ///If we have a custom glass overlay to use.
+	///If the case should be completely locked out at green alert, for cases containing equipment intended to be accessed only by antagonists or after threat level is raised
+	var/security_level_locked = SEC_LEVEL_GREEN 
+	///If we have a custom glass overlay to use.
+	var/custom_glass_overlay = FALSE 
 	var/obj/item/electronics/airlock/electronics
-	var/start_showpiece_type = null //add type for items on display
-	var/list/start_showpieces = list() //Takes sublists in the form of list("type" = /obj/item/bikehorn, "trophy_message" = "henk")
+	///add type for items on display
+	var/start_showpiece_type = null 
+	///Takes sublists in the form of list("type" = /obj/item/bikehorn, "trophy_message" = "henk")
+	var/list/start_showpieces = list() 
 	var/trophy_message = ""
 	var/glass_fix = TRUE
 
@@ -124,11 +131,14 @@
 
 /obj/structure/displaycase/attackby(obj/item/W, mob/user, params)
 	if(W.GetID() && !broken && openable)
-		if(allowed(user))
-			to_chat(user,  "<span class='notice'>You [open ? "close":"open"] [src].</span>")
+		if(open)	//You do not require access to close a case, only to open it. 
+			to_chat(user,  "<span class='notice'>You close [src].</span>")
 			toggle_lock(user)
-		else
+		else if(security_level_locked > GLOB.security_level || !allowed(user))
 			to_chat(user,  "<span class='alert'>Access denied.</span>")
+		else
+			to_chat(user,  "<span class='notice'>You open [src].</span>")
+			toggle_lock(user)
 	else if(W.tool_behaviour == TOOL_WELDER && user.a_intent == INTENT_HELP && !broken)
 		if(obj_integrity < max_integrity)
 			if(!W.tool_start_check(user, amount=5))
@@ -269,10 +279,16 @@
 
 //The captains display case requiring specops ID access is intentional.
 //The lab cage and captains display case do not spawn with electronics, which is why req_access is needed.
-/obj/structure/displaycase/captain
+/obj/structure/displaycase/lavaland
 	alert = TRUE
 	start_showpiece_type = /obj/item/gun/energy/laser/captain
 	req_access = list(ACCESS_CENT_SPECOPS)
+
+/obj/structure/displaycase/captain
+	alert = TRUE
+	start_showpiece_type = /obj/item/gun/energy/laser/captain
+	req_access = list(ACCESS_CAPTAIN)
+	security_level_locked = SEC_LEVEL_BLUE  // Cap's case is locked even to him unless the station is facing a threat
 
 /obj/structure/displaycase/labcage
 	name = "lab cage"
