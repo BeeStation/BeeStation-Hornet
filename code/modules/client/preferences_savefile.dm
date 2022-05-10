@@ -217,7 +217,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	READ_FILE(S["key_bindings"], key_bindings)
 
 	READ_FILE(S["purchased_gear"], purchased_gear)
-
+	READ_FILE(S["equipped_gear"], equipped_gear)
 
 	//try to fix any outdated data if necessary
 	if(needs_update >= 0)
@@ -318,7 +318,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	WRITE_FILE(S["pda_color"], pda_color)
 	WRITE_FILE(S["show_credits"], show_credits)
 	WRITE_FILE(S["purchased_gear"], purchased_gear)
-
+	WRITE_FILE(S["equipped_gear"], equipped_gear)
 
 	if (!key_bindings)
 		key_bindings = deepCopyList(GLOB.keybinding_list_by_key)
@@ -420,7 +420,6 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	//Quirks
 	READ_FILE(S["all_quirks"], all_quirks)
 
-	READ_FILE(S["equipped_gear"], equipped_gear)
 	//try to fix any outdated data if necessary
 	if(needs_update >= 0)
 		update_character(needs_update, S)		//needs_update == savefile_version if we need an update (positive integer)
@@ -575,8 +574,6 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 
 	//Quirks
 	WRITE_FILE(S["all_quirks"]			, all_quirks)
-
-	WRITE_FILE(S["equipped_gear"], equipped_gear)
 
 	return TRUE
 
