@@ -37,7 +37,7 @@
 	user.regenerate_organs()
 
 /datum/action/changeling/fakedeath/proc/ready_to_regenerate(mob/user)
-	if(user?.mind && ishuman(usr))
+	if(user?.mind && ishuman(user.mind.current))
 		var/datum/antagonist/changeling/C = user.mind.has_antag_datum(/datum/antagonist/changeling)
 		if(C?.purchasedpowers)
 			to_chat(user, "<span class='notice'>We are ready to revive.</span>")
