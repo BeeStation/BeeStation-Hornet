@@ -1,0 +1,10 @@
+author: nednaZ
+delete-after: true
+changes:
+  - balance: Reduces the time spent in the contractor timeshare from 4 minutes to
+      2 minutes.
+  - balance: Reduces the amount of dizziness the contractor victim gets from 85 to
+      30.
+  - balance: Reduces the amount of confusion the contractor victim gets from 50 to
+      20.
+  - rscadd: Contractor victims now get an abductee objective
