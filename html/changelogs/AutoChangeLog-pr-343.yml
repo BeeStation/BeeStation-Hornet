@@ -1,5 +1,0 @@
-author: DoctorSquishy
-delete-after: true
-changes:
-  - bugfix: There is now a hallway around the turrets at the AI sat that leads to
-      the  tcomms

@@ -1,6 +1,0 @@
-author: dwasint
-delete-after: true
-changes:
-  - rscadd: resealing option for drinks
-  - rscadd: shaken option for drinks
-  - rscadd: opening to other drinks aside from soda
