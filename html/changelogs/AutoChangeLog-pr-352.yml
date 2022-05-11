@@ -1,5 +1,0 @@
-author: Merlin1230
-delete-after: true
-changes:
-  - tweak: Hotkey mode is now on by default! You will have to go into settings and
-      set it to be on if you have an existing save, however.
