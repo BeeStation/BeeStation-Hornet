@@ -173,6 +173,7 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/centerstation)
 	use_power = NO_POWER_USE
 	var/obj/machinery/gateway/centerstation/stationgate = null
 	can_link = TRUE
+	active = TRUE
 
 /obj/machinery/gateway/centeraway/mining
 	use_power = IDLE_POWER_USE
