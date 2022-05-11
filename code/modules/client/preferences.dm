@@ -29,7 +29,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	var/outline_enabled = TRUE
 	var/outline_color = COLOR_BLUE_GRAY
 	var/buttons_locked = FALSE
-	var/hotkeys = FALSE
+	var/hotkeys = TRUE //MONKESTATION CHANGE: makes hotkey mode on by default
 
 	///Runechat preference. If true, certain messages will be displayed on the map, not ust on the chat area. Boolean.
 	var/chat_on_map = TRUE
@@ -611,7 +611,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			dat += "<b>See Balloon alerts: </b> <a href='?_src_=prefs;preference=see_balloon_alerts;task=input'>[see_balloon_alerts]</a>"
 			dat += "<br>"
 			dat += "<b>Action Buttons:</b> <a href='?_src_=prefs;preference=action_buttons'>[(buttons_locked) ? "Locked In Place" : "Unlocked"]</a><br>"
-			dat += "<b>Hotkey Mode:</b> <a href='?_src_=prefs;preference=hotkeys'>[(hotkeys) ? "Hotkeys" : "Default"]</a><br>"
+			dat += "<b>Hotkey Mode:</b> <a href='?_src_=prefs;preference=hotkeys'>[(hotkeys) ? "Hotkeys" : "No Hotkeys"]</a><br>" //MONKESTATION CHANGE: makes hotkey mode on by default
 			dat += "<br>"
 			dat += "<b>PDA Color:</b> <span style='border:1px solid #161616; background-color: [pda_color];'>&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=pda_color;task=input'>Change</a><BR>"
 			dat += "<b>PDA Style:</b> <a href='?_src_=prefs;task=input;preference=pda_style'>[pda_style]</a><br>"
