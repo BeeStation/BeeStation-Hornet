@@ -115,7 +115,7 @@ GLOBAL_LIST_EMPTY(telecomms_list)
 					T.links |= src
 
 
-/obj/machinery/telecomms/update_icon()
+/obj/machinery/telecomms/update_appearance()
 	if(on)
 		if(panel_open)
 			icon_state = "[initial(icon_state)]_o"
@@ -147,7 +147,7 @@ GLOBAL_LIST_EMPTY(telecomms_list)
 	update_power()
 
 	// Update the icon
-	update_icon()
+	update_appearance()
 
 	if(traffic > 0)
 		traffic -= netspeed * delta_time

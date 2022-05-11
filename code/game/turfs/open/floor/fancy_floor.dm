@@ -104,7 +104,7 @@
 
 /turf/open/floor/grass/Initialize(mapload)
 	. = ..()
-	update_icon()
+	update_appearance()
 
 /turf/open/floor/grass/attackby(obj/item/C, mob/user, params)
 	if((C.tool_behaviour == TOOL_SHOVEL) && params)
@@ -260,9 +260,9 @@
 
 /turf/open/floor/carpet/Initialize(mapload)
 	. = ..()
-	update_icon()
+	update_appearance()
 
-/turf/open/floor/carpet/update_icon()
+/turf/open/floor/carpet/update_appearance()
 	if(!..())
 		return 0
 	if(!broken && !burnt)
@@ -343,11 +343,11 @@
 
 /turf/open/floor/carpet/break_tile()
 	broken = TRUE
-	update_icon()
+	update_appearance()
 
 /turf/open/floor/carpet/burn_tile()
 	burnt = TRUE
-	update_icon()
+	update_appearance()
 
 /turf/open/floor/carpet/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
 	return FALSE

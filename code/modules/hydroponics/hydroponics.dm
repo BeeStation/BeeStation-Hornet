@@ -235,7 +235,7 @@
 				weedinvasion() // Weed invasion into empty tray
 			needs_update = 1
 		if (needs_update)
-			update_icon()
+			update_appearance()
 
 		if(myseed && prob(5 * (11-myseed.production)))
 			for(var/g in myseed.genes)
@@ -263,7 +263,7 @@
 		return
 	return
 
-/obj/machinery/hydroponics/update_icon()
+/obj/machinery/hydroponics/update_appearance()
 	//Refreshes the icon and sets the luminosity
 	cut_overlays()
 
@@ -387,7 +387,7 @@
 	harvest = 0
 	weedlevel = 0 // Reset
 	pestlevel = 0 // Reset
-	update_icon()
+	update_appearance()
 	visible_message("<span class='warning'>The [oldPlantName] is overtaken by some [myseed.plantname]!</span>")
 	update_name()
 
@@ -448,7 +448,7 @@
 
 //Called after plant mutation, update the appearance of the tray content and send a visible_message()
 /obj/machinery/hydroponics/proc/after_mutation(message)
-	update_icon()
+	update_appearance()
 	update_name()
 	visible_message(message)
 
@@ -458,7 +458,7 @@
 	pestlevel = 0 // Pests die
 	lastproduce = 0
 	if(!dead)
-		update_icon()
+		update_appearance()
 		dead = 1
 
 
@@ -773,9 +773,9 @@
 
 			S.clear_reagents()
 			qdel(S)
-			H.update_icon()
+			H.update_appearance()
 		if(reagent_source) // If the source wasn't composted and destroyed
-			reagent_source.update_icon()
+			reagent_source.update_appearance()
 		return 1
 
 	else if(istype(O, /obj/item/seeds) && !istype(O, /obj/item/seeds/sample))
@@ -792,7 +792,7 @@
 			lastproduce = 1
 			plant_health = myseed.endurance
 			lastcycle = world.time
-			update_icon()
+			update_appearance()
 		else
 			to_chat(user, "<span class='warning'>[src] already has seeds in it!</span>")
 
@@ -816,7 +816,7 @@
 		if(weedlevel > 0)
 			user.visible_message("[user] uproots the weeds.", "<span class='notice'>You remove the weeds from [src].</span>")
 			weedlevel = 0
-			update_icon()
+			update_appearance()
 		else
 			to_chat(user, "<span class='warning'>This plot is completely devoid of weeds! It doesn't need uprooting.</span>")
 
@@ -837,7 +837,7 @@
 		user.visible_message("<span class='notice'>[user] [using_irrigation ? "" : "dis"]connects [src]'s irrigation hoses.</span>", \
 		"<span class='notice'>You [using_irrigation ? "" : "dis"]connect [src]'s irrigation hoses.</span>")
 		for(var/obj/machinery/hydroponics/h in range(1,src))
-			h.update_icon()
+			h.update_appearance()
 
 	else if(istype(O, /obj/item/shovel/spade))
 		if(!myseed && !weedlevel)
@@ -857,7 +857,7 @@
 				myseed = null
 				update_name()
 			weedlevel = 0 //Has a side effect of cleaning up those nasty weeds
-			update_icon()
+			update_appearance()
 
 	else
 		return ..()
@@ -891,7 +891,7 @@
 		qdel(myseed)
 		myseed = null
 		update_name()
-		update_icon()
+		update_appearance()
 	else
 		if(user)
 			examine(user)
@@ -912,7 +912,7 @@
 		dead = 0
 		age = 0
 		lastproduce = 0
-	update_icon()
+	update_appearance()
 
 /// Tray Setters - The following procs adjust the tray or plants variables, and make sure that the stat doesn't go out of bounds.///
 /obj/machinery/hydroponics/proc/adjustNutri(adjustamt)
@@ -946,7 +946,7 @@
 /obj/machinery/hydroponics/proc/become_self_sufficient() // Ambrosia Gaia effect
 	visible_message("<span class='boldnotice'>[src] begins to glow with a beautiful light!</span>")
 	self_sustaining = TRUE
-	update_icon()
+	update_appearance()
 
 /obj/machinery/hydroponics/proc/update_name()
 	if(myseed)

@@ -93,7 +93,7 @@
 
 /obj/machinery/shieldgen/proc/shields_up()
 	active = TRUE
-	update_icon()
+	update_appearance()
 	move_resist = INFINITY
 
 	for(var/turf/open/space/target_tile in RANGE_TURFS(shield_range, src))
@@ -104,7 +104,7 @@
 /obj/machinery/shieldgen/proc/shields_down()
 	active = FALSE
 	move_resist = initial(move_resist)
-	update_icon()
+	update_appearance()
 	QDEL_LIST(deployed_shields)
 
 /obj/machinery/shieldgen/process(delta_time)
@@ -164,7 +164,7 @@
 			obj_integrity = max_integrity
 			stat &= ~BROKEN
 			to_chat(user, "<span class='notice'>You repair \the [src].</span>")
-			update_icon()
+			update_appearance()
 
 	else if(W.tool_behaviour == TOOL_WRENCH)
 		if(locked)
@@ -203,7 +203,7 @@
 	playsound(src, "sparks", 100, 1)
 	to_chat(user, "<span class='warning'>You short out the access controller.</span>")
 
-/obj/machinery/shieldgen/update_icon()
+/obj/machinery/shieldgen/update_appearance()
 	if(active)
 		icon_state = (stat & BROKEN) ? "shieldonbr":"shieldon"
 	else

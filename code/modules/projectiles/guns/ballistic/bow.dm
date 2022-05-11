@@ -25,7 +25,7 @@
 /obj/item/gun/ballistic/bow/process_chamber()
 	chambered = null
 	magazine.get_round(0)
-	update_icon()
+	update_appearance()
 
 /obj/item/gun/ballistic/bow/attack_self(mob/living/user)
 	if (chambered)
@@ -39,14 +39,14 @@
 			to_chat(user, "<span class='notice'>You draw back the bowstring.</span>")
 			playsound(src, 'sound/weapons/bowdraw.ogg', 75, 0) //gets way too high pitched if the freq varies
 			chamber_round()
-	update_icon()
+	update_appearance()
 
 /obj/item/gun/ballistic/bow/attackby(obj/item/I, mob/user, params)
 	if (magazine.attackby(I, user, params, 1))
 		to_chat(user, "<span class='notice'>You notch the arrow.</span>")
-		update_icon()
+		update_appearance()
 
-/obj/item/gun/ballistic/bow/update_icon()
+/obj/item/gun/ballistic/bow/update_appearance()
 	icon_state = "[initial(icon_state)]_[get_ammo() ? (chambered ? "firing" : "loaded") : "unloaded"]"
 
 /obj/item/gun/ballistic/bow/can_shoot()

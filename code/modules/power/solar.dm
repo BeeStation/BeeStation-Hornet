@@ -56,7 +56,7 @@
 	if(S.glass_type == /obj/item/stack/sheet/rglass) //if the panel is in reinforced glass
 		max_integrity *= 2 								 //this need to be placed here, because panels already on the map don't have an assembly linked to
 		obj_integrity = max_integrity
-	update_icon()
+	update_appearance()
 
 /obj/machinery/power/solar/crowbar_act(mob/user, obj/item/I)
 	playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
@@ -98,7 +98,7 @@
 	qdel(src)
 
 
-/obj/machinery/power/solar/update_icon()
+/obj/machinery/power/solar/update_appearance()
 	..()
 	cut_overlays()
 	if(stat & BROKEN)
@@ -329,7 +329,7 @@
 	set_panels(currentdir)
 	updateDialog()
 
-/obj/machinery/power/solar_control/update_icon()
+/obj/machinery/power/solar_control/update_appearance()
 	cut_overlays()
 	SSvis_overlays.remove_vis_overlay(src, managed_vis_overlays)
 	if(stat & NOPOWER)
@@ -479,9 +479,9 @@
 	for(var/obj/machinery/power/solar/S in connected_panels)
 		S.adir = currentdir //instantly rotates the panel
 		S.occlusion()//and
-		S.update_icon() //update it
+		S.update_appearance() //update it
 
-	update_icon()
+	update_appearance()
 
 
 

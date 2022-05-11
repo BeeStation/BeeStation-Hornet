@@ -73,7 +73,7 @@
 	if(insertable)
 		J.put_in_cart(src, user)
 		J.mybag=src
-		J.update_icon()
+		J.update_appearance()
 	else
 		to_chat(user, "<span class='warning'>You are unable to fit your [name] into the [J.name].</span>")
 		return
@@ -351,7 +351,7 @@
 	if(ishuman(M) || ismonkey(M))
 		if(prob(10))
 			M.Paralyze(40)
-	update_icon()
+	update_appearance()
 
 /obj/item/storage/bag/tray/update_overlays()
 	. = ..()
@@ -363,11 +363,11 @@
 
 /obj/item/storage/bag/tray/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	. = ..()
-	update_icon()
+	update_appearance()
 
 /obj/item/storage/bag/tray/Exited(atom/movable/gone, direction)
 	. = ..()
-	update_icon()
+	update_appearance()
 
 /*
  *	Chemistry bag

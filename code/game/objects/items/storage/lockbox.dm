@@ -32,14 +32,14 @@
 				icon_state = "[base_icon_state]+l"
 				item_state = "[base_icon_state]+l"
 				to_chat(user, "<span class='danger'>You lock the [src.name]!</span>")
-				update_icon()
+				update_appearance()
 				SEND_SIGNAL(src, COMSIG_TRY_STORAGE_HIDE_ALL)
 				return
 			else
 				icon_state = "[base_icon_state]"
 				item_state = "[base_icon_state]"
 				to_chat(user, "<span class='danger'>You unlock the [src.name]!</span>")
-				update_icon()
+				update_appearance()
 				return
 		else
 			to_chat(user, "<span class='danger'>Access Denied.</span>")
@@ -63,12 +63,12 @@
 /obj/item/storage/lockbox/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	. = ..()
 	open = TRUE
-	update_icon()
+	update_appearance()
 
 /obj/item/storage/lockbox/Exited(atom/movable/gone, direction)
 	. = ..()
 	open = TRUE
-	update_icon()
+	update_appearance()
 
 /obj/item/storage/lockbox/loyalty
 	name = "lockbox of mindshield implants"
@@ -105,7 +105,7 @@
 	if(user.canUseTopic(src, BE_CLOSE))
 		if(!SEND_SIGNAL(src, COMSIG_IS_STORAGE_LOCKED))
 			open = (open ? FALSE : TRUE)
-			update_icon()
+			update_appearance()
 
 /obj/item/storage/lockbox/medal/PopulateContents()
 	new /obj/item/clothing/accessory/medal/gold/captain(src)
@@ -118,7 +118,7 @@
 	for(var/i in 1 to 3)
 		new /obj/item/clothing/accessory/medal/conduct(src)
 
-/obj/item/storage/lockbox/medal/update_icon()
+/obj/item/storage/lockbox/medal/update_appearance()
 	var/locked = SEND_SIGNAL(src, COMSIG_IS_STORAGE_LOCKED)
 	if(locked)
 		icon_state = "[base_icon_state]+l"

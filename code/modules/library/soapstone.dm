@@ -148,9 +148,9 @@
 	creator_key = user.ckey
 	realdate = world.realtime
 	map = SSmapping.config.map_name
-	update_icon()
+	update_appearance()
 
-/obj/structure/chisel_message/update_icon()
+/obj/structure/chisel_message/update_appearance()
 	..()
 	var/hash = rustg_hash_string(RUSTG_HASH_MD5, hidden_message)
 	var/newcolor = copytext_char(hash, 1, 7)
@@ -191,7 +191,7 @@
 	var/turf/newloc = locate(x, y, z)
 	if(isturf(newloc))
 		forceMove(newloc)
-	update_icon()
+	update_appearance()
 
 /obj/structure/chisel_message/examine(mob/user)
 	. = ..()

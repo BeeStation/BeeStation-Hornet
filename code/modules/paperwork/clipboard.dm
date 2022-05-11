@@ -28,7 +28,7 @@
 	return BRUTELOSS//the clipboard's clip is very strong. industrial duty. can kill a man easily.
 
 /obj/item/clipboard/Initialize(mapload)
-	update_icon()
+	update_appearance()
 	. = ..()
 
 /obj/item/clipboard/Destroy()
@@ -58,21 +58,21 @@
 			toppaper_ref = WEAKREF(newtop)
 		else
 			toppaper_ref = null
-	update_icon()
+	update_appearance()
 
 /obj/item/clipboard/proc/remove_pen(mob/user)
 	pen.forceMove(user.loc)
 	user.put_in_hands(pen)
 	to_chat(user, "<span class='notice'>You remove [pen] from [src].</span>")
 	pen = null
-	update_icon()
+	update_appearance()
 
 /obj/item/clipboard/AltClick(mob/user)
 	..()
 	if(pen)
 		remove_pen(user)
 
-/obj/item/clipboard/update_icon()
+/obj/item/clipboard/update_appearance()
 	cut_overlays()
 	var/list/dat = list()
 	var/obj/item/paper/toppaper = toppaper_ref?.resolve()
@@ -100,7 +100,7 @@
 		to_chat(usr, "<span class='notice'>You slot [weapon] into [src].</span>")
 	else if(toppaper)
 		toppaper.attackby(user.get_active_held_item(), user)
-	update_icon()
+	update_appearance()
 
 /obj/item/clipboard/attack_self(mob/user)
 	ui_interact(user)
@@ -156,7 +156,7 @@
 			var/obj/item/paper/paper = locate(params["ref"]) in src
 			if(istype(paper))
 				paper.ui_interact(usr)
-				update_icon()
+				update_appearance()
 				. = TRUE
 		// Move paper to the top
 		if("move_top_paper")
@@ -164,12 +164,12 @@
 			if(istype(paper))
 				toppaper_ref = WEAKREF(paper)
 				to_chat(usr, "<span class='notice'>You move [paper] to the top.</span>")
-				update_icon()
+				update_appearance()
 				. = TRUE
 		// Rename the paper (it's a verb)
 		if("rename_paper")
 			var/obj/item/paper/paper = locate(params["ref"]) in src
 			if(istype(paper))
 				paper.rename()
-				update_icon()
+				update_appearance()
 				. = TRUE

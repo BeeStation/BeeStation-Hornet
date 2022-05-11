@@ -99,7 +99,7 @@
 
 	pull_icon = new /atom/movable/screen/pull()
 	pull_icon.icon = ui_style
-	pull_icon.update_icon()
+	pull_icon.update_appearance()
 	pull_icon.screen_loc = ui_above_movement
 	pull_icon.hud = src
 	static_inventory += pull_icon
@@ -115,7 +115,7 @@
 
 	zone_select = new /atom/movable/screen/zone_sel()
 	zone_select.icon = ui_style
-	zone_select.update_icon()
+	zone_select.update_appearance()
 	zone_select.hud = src
 	static_inventory += zone_select
 
@@ -131,7 +131,7 @@
 		if(inv.slot_id)
 			inv.hud = src
 			inv_slots[TOBITSHIFT(inv.slot_id) + 1] = inv
-			inv.update_icon()
+			inv.update_appearance()
 
 /datum/hud/monkey/persistent_inventory_update()
 	if(!mymob)

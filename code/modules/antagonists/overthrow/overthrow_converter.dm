@@ -45,11 +45,11 @@
 		if(convert(M,user))
 			M.visible_message("[user] has implanted [M].", "<span class='notice'>[user] implants you.</span>")
 			uses--
-			update_icon()
+			update_appearance()
 		else
 			to_chat(user, "<span class='warning'>[user] fails to implant [M].</span>")
 
-/obj/item/overthrow_converter/update_icon()
+/obj/item/overthrow_converter/update_appearance()
 	if(uses)
 		icon_state = "implanter1"
 	else

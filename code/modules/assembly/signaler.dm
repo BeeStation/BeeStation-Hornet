@@ -57,9 +57,9 @@
 	signal()
 	return TRUE
 
-/obj/item/assembly/signaler/update_icon()
+/obj/item/assembly/signaler/update_appearance()
 	if(holder)
-		holder.update_icon()
+		holder.update_appearance()
 	return
 
 /obj/item/assembly/signaler/ui_status(mob/user)
@@ -110,7 +110,7 @@
 			. = TRUE
 
 	if(.)
-		update_icon()
+		update_appearance()
 
 /obj/item/assembly/signaler/attackby(obj/item/W, mob/user, params)
 	if(issignaler(W))

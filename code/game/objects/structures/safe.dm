@@ -73,7 +73,7 @@ FLOOR SAFES
 		num = 0
 	return num
 
-/obj/structure/safe/update_icon()
+/obj/structure/safe/update_appearance()
 	if(open)
 		icon_state = "[initial(icon_state)]-open"
 	else
@@ -107,7 +107,7 @@ FLOOR SAFES
 		if(check_unlocked())
 			to_chat(user, "<span class='notice'>You [open ? "close" : "open"] [src].</span>")
 			open = !open
-			update_icon()
+			update_appearance()
 			updateUsrDialog()
 			return
 		else

@@ -69,7 +69,7 @@
 			A.reagents.trans_to(src, 10, transfered_by = user)
 			to_chat(user, "<span class='notice'>You fill the balloon with the contents of [A].</span>")
 			desc = "A translucent balloon with some form of liquid sloshing around in it."
-			update_icon()
+			update_appearance()
 
 /obj/item/toy/balloon/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/reagent_containers/glass))
@@ -82,7 +82,7 @@
 				desc = "A translucent balloon with some form of liquid sloshing around in it."
 				to_chat(user, "<span class='notice'>You fill the balloon with the contents of [I].</span>")
 				I.reagents.trans_to(src, 10, transfered_by = user)
-				update_icon()
+				update_appearance()
 	else if(I.is_sharp())
 		balloon_burst()
 	else
@@ -194,7 +194,7 @@
 			to_chat(user, text("<span class='notice'>You reload [] cap\s.</span>", 7 - src.bullets))
 			A.amount_left -= 7 - src.bullets
 			src.bullets = 7
-		A.update_icon()
+		A.update_appearance()
 		return 1
 	else
 		return ..()
@@ -742,7 +742,7 @@
 	cards.Cut(1,2) //Removes the top card from the list
 	user.put_in_hands(H)
 	user.visible_message("<span class='notice'>[user] draws a card from the deck.</span>", "<span class='notice'>You draw a card from the deck.</span>")
-	update_icon()
+	update_appearance()
 
 /obj/item/toy/cards/deck/update_icon_state()
 	if(LAZYLEN(cards) > original_size/2)
@@ -773,7 +773,7 @@
 			qdel(SC)
 		else
 			to_chat(user, "<span class='warning'>You can't mix cards from other decks!</span>")
-		update_icon()
+		update_appearance()
 	else if(istype(I, /obj/item/toy/cards/cardhand))
 		var/obj/item/toy/cards/cardhand/CH = I
 		if(CH.parentdeck == src)
@@ -785,7 +785,7 @@
 			qdel(CH)
 		else
 			to_chat(user, "<span class='warning'>You can't mix cards from other decks!</span>")
-		update_icon()
+		update_appearance()
 	else
 		return ..()
 
@@ -1457,9 +1457,9 @@
 
 /obj/item/toy/eldrich_book/attack_self(mob/user)
 	open = !open
-	update_icon()
+	update_appearance()
 
-/obj/item/toy/eldrich_book/update_icon()
+/obj/item/toy/eldrich_book/update_appearance()
 	icon_state = open ? "book_open" : "book"
 
 /*
@@ -1490,7 +1490,7 @@
 	name = "dealer module"
 	desc = "A module for handling, fabricating cards and tricking suckers into gambling awaya their money. Ctrl Click to fabricate a new set of cards."
 
-/obj/item/toy/cards/deck/cyborg/update_icon()
+/obj/item/toy/cards/deck/cyborg/update_appearance()
 	icon_state = "deck_[deckstyle]_full"
 
 /obj/item/toy/cards/deck/cyborg/CtrlClick(mob/user)
@@ -1514,7 +1514,7 @@
 			qdel(SC)
 		else
 			to_chat(user, "<span class='warning'>You can't mix cards from other decks!</span>")
-		update_icon()
+		update_appearance()
 	else if (istype(A, /obj/item/toy/cards/cardhand))
 		var/obj/item/toy/cards/cardhand/CH = A
 		if(CH.parentdeck == src)
@@ -1523,7 +1523,7 @@
 			qdel(CH)
 		else
 			to_chat(user, "<span class='warning'>You can't mix cards from other decks!</span>")
-		update_icon()
+		update_appearance()
 
 	var/choice = null
 	if(!LAZYLEN(cards))

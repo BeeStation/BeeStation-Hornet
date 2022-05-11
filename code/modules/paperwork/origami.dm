@@ -22,7 +22,7 @@
 		newPaper.forceMove(src)
 	else
 		internalPaper = new(src)
-	update_icon()
+	update_appearance()
 
 /obj/item/origami/handle_atom_del(atom/A)
 	if(A == internalPaper)
@@ -42,7 +42,7 @@
 	QDEL_NULL(internalPaper)
 	return ..()
 
-/obj/item/origami/update_icon()
+/obj/item/origami/update_appearance()
 	cut_overlays()
 	var/list/stamped = internalPaper.stamped
 	if(stamped)
@@ -65,7 +65,7 @@
 
 	else if(istype(P, /obj/item/stamp)) 	//we don't randomize stamps on origami
 		internalPaper.attackby(P, user) //spoofed attack to update internal paper.
-		update_icon()
+		update_appearance()
 
 	else if(P.is_hot())
 		if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(10))

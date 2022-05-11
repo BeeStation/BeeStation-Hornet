@@ -97,7 +97,7 @@
 	ui_update()
 	return !cleared
 
-/obj/machinery/computer/station_alert/update_icon()
+/obj/machinery/computer/station_alert/update_appearance()
 	..()
 	if(stat & (NOPOWER|BROKEN))
 		return

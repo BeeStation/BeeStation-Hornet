@@ -13,9 +13,9 @@
 	. = ..()
 	attached_mask = new /obj/item/clothing/mask/breath/machine(src)
 	attached_mask.machine_attached = src
-	update_icon()
+	update_appearance()
 
-/obj/machinery/anesthetic_machine/update_icon()
+/obj/machinery/anesthetic_machine/update_appearance()
 	cut_overlays()
 	if(mask_out)
 		add_overlay("mask_off")
@@ -37,7 +37,7 @@
 		I.forceMove(src) // Put new tank in, set it as attached tank
 		visible_message("<span class='warning'>[user] inserts [I] into [src].</span>")
 		attached_tank = I
-		update_icon()
+		update_appearance()
 		return
 	. = ..()
 
@@ -47,7 +47,7 @@
 		attached_tank.forceMove(loc)
 		to_chat(user, "<span class='notice'>You remove the [attached_tank].</span>")
 		attached_tank = null
-		update_icon()
+		update_appearance()
 		if(mask_out)
 			retract_mask()
 
@@ -60,7 +60,7 @@
 		else
 			attached_mask.forceMove(src)
 		mask_out = FALSE
-		update_icon()
+		update_appearance()
 		return TRUE
 	return FALSE
 
@@ -82,7 +82,7 @@
 				mask_out = TRUE
 				START_PROCESSING(SSmachines, src)
 				target.update_internals_hud_icon(1)
-				update_icon()
+				update_appearance()
 		else
 			to_chat(usr, "<span class='warning'>[mask_out ? "The machine is already in use!" : "The machine has no attached tank!"]</span>")
 

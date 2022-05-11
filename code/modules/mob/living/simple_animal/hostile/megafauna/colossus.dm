@@ -282,7 +282,7 @@ GLOBAL_DATUM(blackbox, /obj/machinery/smartfridge/black_box)
 	var/list/stored_items = list()
 	var/list/blacklist = list()
 
-/obj/machinery/smartfridge/black_box/update_icon()
+/obj/machinery/smartfridge/black_box/update_appearance()
 	return
 
 /obj/machinery/smartfridge/black_box/accept_check(obj/item/O)

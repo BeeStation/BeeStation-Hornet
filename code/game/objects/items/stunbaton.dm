@@ -33,7 +33,7 @@
 			log_mapping("[src] at [AREACOORD(src)] had an invalid preload_cell_type: [preload_cell_type].")
 		else
 			cell = new preload_cell_type(src)
-	update_icon()
+	update_appearance()
 
 
 /obj/item/melee/baton/Destroy()
@@ -45,7 +45,7 @@
 	if(A == cell)
 		cell = null
 		turned_on = FALSE
-		update_icon()
+		update_appearance()
 	return ..()
 
 
@@ -66,7 +66,7 @@
 		if(turned_on && cell.charge < hitcost)
 			//we're below minimum, turn off
 			turned_on = FALSE
-			update_icon()
+			update_appearance()
 			playsound(src, "sparks", 75, TRUE, -1)
 
 
@@ -99,16 +99,16 @@
 				return
 			cell = W
 			balloon_alert(user, "Cell installed")
-			update_icon()
+			update_appearance()
 
 	else if(W.tool_behaviour == TOOL_SCREWDRIVER)
 		if(cell)
-			cell.update_icon()
+			cell.update_appearance()
 			cell.forceMove(get_turf(src))
 			cell = null
 			balloon_alert(user, "Cell removed")
 			turned_on = FALSE
-			update_icon()
+			update_appearance()
 	else
 		return ..()
 
@@ -123,7 +123,7 @@
 			balloon_alert(user, "No power source")
 		else
 			balloon_alert(user, "Out of charge")
-	update_icon()
+	update_appearance()
 	add_fingerprint(user)
 
 /obj/item/melee/baton/attack(mob/M, mob/living/carbon/human/user)

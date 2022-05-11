@@ -10,7 +10,7 @@
 	var/list/ammo_type = list(/obj/item/ammo_casing/energy)
 	var/select = 1 //The state of the select fire switch. Determines from the ammo_type list what kind of shot is fired next.
 	var/can_charge = TRUE //Can it be charged in a recharger?
-	var/automatic_charge_overlays = TRUE	//Do we handle overlays with base update_icon()?
+	var/automatic_charge_overlays = TRUE	//Do we handle overlays with base update_appearance()?
 	var/charge_sections = 4
 	ammo_x_offset = 2
 	var/shaded_charge = FALSE //if this gun uses a stateful charge bar for more detail
@@ -27,7 +27,7 @@
 		cell.use(round(cell.charge / severity))
 		chambered = null //we empty the chamber
 		recharge_newshot() //and try to charge a new shot
-		update_icon()
+		update_appearance()
 
 /obj/item/gun/energy/get_cell()
 	return cell
@@ -44,7 +44,7 @@
 	recharge_newshot(TRUE)
 	if(selfcharge)
 		START_PROCESSING(SSobj, src)
-	update_icon()
+	update_appearance()
 
 /obj/item/gun/energy/proc/update_ammo_types()
 	var/obj/item/ammo_casing/energy/shot
@@ -77,12 +77,12 @@
 		cell.give(100)
 		if(!chambered) //if empty chamber we try to charge a new shot
 			recharge_newshot(TRUE)
-		update_icon()
+		update_appearance()
 
 /obj/item/gun/energy/attack_self(mob/living/user as mob)
 	if(ammo_type.len > 1)
 		select_fire(user)
-		update_icon()
+		update_appearance()
 
 /obj/item/gun/energy/can_shoot()
 	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
@@ -181,7 +181,7 @@
 			playsound(loc, fire_sound, 50, 1, -1)
 			var/obj/item/ammo_casing/energy/shot = ammo_type[select]
 			cell.use(shot.e_cost)
-			update_icon()
+			update_appearance()
 			return(FIRELOSS)
 		else
 			user.visible_message("<span class='suicide'>[user] panics and starts choking to death!</span>")

@@ -181,7 +181,7 @@
 	uses_left = uses
 	time_left = use_time
 	invoking_slab.charge_overlay = slab_overlay
-	invoking_slab.update_icon()
+	invoking_slab.update_appearance()
 	invoking_slab.active_scripture = src
 	PH.add_ranged_ability(invoker, "<span class='brass'>You prepare [name]. <b>Click on a target to use.</b></span>")
 	count_down()
@@ -217,7 +217,7 @@
 	qdel(progress)
 	PH.remove_ranged_ability()
 	invoking_slab.charge_overlay = null
-	invoking_slab.update_icon()
+	invoking_slab.update_appearance()
 	invoking_slab.active_scripture = null
 	end_invoke()
 

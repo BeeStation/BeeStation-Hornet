@@ -31,7 +31,7 @@
 /obj/machinery/sleeper/Initialize(mapload)
 	. = ..()
 	occupant_typecache = GLOB.typecache_living
-	update_icon()
+	update_appearance()
 	reset_chem_buttons()
 
 /obj/machinery/sleeper/RefreshParts()
@@ -50,7 +50,7 @@
 	reset_chem_buttons()
 	ui_update()
 
-/obj/machinery/sleeper/update_icon()
+/obj/machinery/sleeper/update_appearance()
 	if(state_open)
 		icon_state = "[initial(icon_state)]-open"
 	else

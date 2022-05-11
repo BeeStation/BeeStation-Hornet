@@ -932,6 +932,6 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	AddComponent(/datum/component/butchering, 20, 105)
 	AddComponent(/datum/component/two_handed, force_multiplier=2, block_power_wielded=40, icon_wielded="hfrequency1")
 
-/obj/item/vibro_weapon/update_icon()
+/obj/item/vibro_weapon/update_appearance()
 	icon_state = "hfrequency0"
 	..()

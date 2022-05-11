@@ -14,7 +14,7 @@
 	var/force_replace_ai_name = FALSE
 	var/overrides_aicore_laws = FALSE // Whether the laws on the MMI, if any, override possible pre-existing laws loaded on the AI core.
 
-/obj/item/mmi/update_icon()
+/obj/item/mmi/update_appearance()
 	if(!brain)
 		icon_state = "mmi_off"
 		return
@@ -76,7 +76,7 @@
 		brain.organ_flags |= ORGAN_FROZEN
 
 		name = "[initial(name)]: [brainmob.real_name]"
-		update_icon()
+		update_appearance()
 
 		SSblackbox.record_feedback("amount", "mmis_filled", 1)
 
@@ -93,7 +93,7 @@
 	else
 		log_attack("[key_name(user)] ejected \the [brainmob] from \the [src] at [AREACOORD(src)].")
 		eject_brain(user)
-		update_icon()
+		update_appearance()
 		name = initial(name)
 		to_chat(user, "<span class='notice'>You unlock and upend [src], spilling the brain onto the floor.</span>")
 
@@ -138,7 +138,7 @@
 	brain.organ_flags |= ORGAN_FROZEN
 
 	name = "[initial(name)]: [brainmob.real_name]"
-	update_icon()
+	update_appearance()
 	return
 
 /obj/item/mmi/proc/replacement_ai_name()

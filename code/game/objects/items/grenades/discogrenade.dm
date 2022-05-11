@@ -61,7 +61,7 @@
 /obj/item/grenade/discogrenade/subgrenade/prime(mob/living/lanced_by)
 	if(dud_flags)
 		active = FALSE
-		update_icon()
+		update_appearance()
 		return FALSE
 	update_mob()
 	var/current_turf = get_turf(src)
@@ -87,7 +87,7 @@
 	lightcolor = random_color()
 	set_light(range, power, lightcolor)
 	add_atom_colour("#[lightcolor]", FIXED_COLOUR_PRIORITY)
-	update_icon()
+	update_appearance()
 	timerID = addtimer(CALLBACK(src, .proc/randomiseLightColor), 2, TIMER_STOPPABLE)
 
 /obj/item/grenade/discogrenade/subgrenade/proc/forcedance(turf/T , mob/living/carbon/human/M)

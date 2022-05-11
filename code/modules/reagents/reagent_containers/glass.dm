@@ -122,7 +122,7 @@
 
 /obj/item/reagent_containers/glass/beaker/Initialize(mapload)
 	. = ..()
-	update_icon()
+	update_appearance()
 
 /obj/item/reagent_containers/glass/beaker/get_part_rating()
 	return reagents.maximum_volume
@@ -151,7 +151,7 @@
 	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = list(5,10,15,20,25,30,60,120)
 
-/obj/item/reagent_containers/glass/beaker/plastic/update_icon()
+/obj/item/reagent_containers/glass/beaker/plastic/update_appearance()
 	icon_state = "beakerlarge" // hack to lets us reuse the large beaker reagent fill states
 	..()
 	icon_state = "beakerwhite"
@@ -336,7 +336,7 @@
 		spillable = FALSE
 		add_overlay(cap_overlay, TRUE)
 		to_chat(user, "<span class='notice'>You put the cap on [src].</span>")
-	update_icon()
+	update_appearance()
 
 /obj/item/reagent_containers/glass/waterbottle/is_refillable()
 	if(cap_on)

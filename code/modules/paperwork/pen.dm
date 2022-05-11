@@ -225,9 +225,9 @@
 	updateEmbedding()
 	var/datum/component/butchering/butchering = src.GetComponent(/datum/component/butchering)
 	butchering.butchering_enabled = on
-	update_icon()
+	update_appearance()
 
-/obj/item/pen/edagger/update_icon()
+/obj/item/pen/edagger/update_appearance()
 	if(on)
 		icon_state = "edagger"
 		item_state = "edagger"

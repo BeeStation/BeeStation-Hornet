@@ -9,7 +9,7 @@
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart
 	max_ammo = 20
 
-/obj/item/ammo_box/magazine/toy/smg/update_icon()
+/obj/item/ammo_box/magazine/toy/smg/update_appearance()
 	..()
 	if(ammo_count())
 		icon_state = "smg9mm-42"
@@ -35,7 +35,7 @@
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart
 	max_ammo = 20
 
-/obj/item/ammo_box/magazine/toy/smgm45/update_icon()
+/obj/item/ammo_box/magazine/toy/smgm45/update_appearance()
 	..()
 	icon_state = "c20r45-[round(ammo_count(),2)]"
 
@@ -50,7 +50,7 @@
 	ammo_type = /obj/item/ammo_casing/caseless/foam_dart
 	max_ammo = 50
 
-/obj/item/ammo_box/magazine/toy/m762/update_icon()
+/obj/item/ammo_box/magazine/toy/m762/update_appearance()
 	..()
 	icon_state = "a762-[round(ammo_count(),10)]"
 

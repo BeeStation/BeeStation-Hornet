@@ -41,7 +41,7 @@
 	if(in_range(user, src) || isobserver(user))
 		. += "<span class='notice'>The status display reads: This unit can hold a maximum of <b>[max_n_of_items]</b> items.</span>"
 
-/obj/machinery/smartfridge/update_icon()
+/obj/machinery/smartfridge/update_appearance()
 	if(!stat)
 		if (visible_contents)
 			switch(contents.len)
@@ -92,7 +92,7 @@
 			load(O)
 			user.visible_message("[user] has added \the [O] to \the [src].", "<span class='notice'>You add \the [O] to \the [src].</span>")
 			if (visible_contents)
-				update_icon()
+				update_appearance()
 			return TRUE
 
 		if(istype(O, /obj/item/storage/bag))
@@ -115,7 +115,7 @@
 				if(O.contents.len > 0)
 					to_chat(user, "<span class='warning'>Some items are refused.</span>")
 				if (visible_contents)
-					update_icon()
+					update_appearance()
 				return TRUE
 			else
 				to_chat(user, "<span class='warning'>There is nothing in [O] to put in [src]!</span>")
@@ -133,7 +133,7 @@
 					O.icon_state = "evidenceobj"
 					O.desc = "A container for holding body parts."
 					if(visible_contents)
-						update_icon()
+						update_appearance()
 					return TRUE
 				else
 					to_chat(user, "<span class='warning'>[src] does not accept [I]!</span>")
@@ -156,7 +156,7 @@
 			if(contents.len < max_n_of_items && accept_check(O))
 				load(O)
 				if (visible_contents)
-					update_icon()
+					update_appearance()
 				return TRUE
 	return ..()
 
@@ -255,7 +255,7 @@
 					if(desired <= 0)
 						break
 			if (visible_contents && .)
-				update_icon()
+				update_appearance()
 
 
 // ----------------------------
@@ -298,7 +298,7 @@
 /obj/machinery/smartfridge/drying_rack/ui_act(action, params)
 	. = ..()
 	if(.)
-		update_icon() // This is to handle a case where the last item is taken out manually instead of through drying pop-out
+		update_appearance() // This is to handle a case where the last item is taken out manually instead of through drying pop-out
 		return
 	switch(action)
 		if("Dry")
@@ -318,9 +318,9 @@
 
 /obj/machinery/smartfridge/drying_rack/load() //For updating the filled overlay
 	..()
-	update_icon()
+	update_appearance()
 
-/obj/machinery/smartfridge/drying_rack/update_icon()
+/obj/machinery/smartfridge/drying_rack/update_appearance()
 	..()
 	cut_overlays()
 	if(drying)
@@ -333,7 +333,7 @@
 	if(drying)
 		if(rack_dry())//no need to update unless something got dried
 			SStgui.update_uis(src)
-			update_icon()
+			update_appearance()
 
 /obj/machinery/smartfridge/drying_rack/accept_check(obj/item/O)
 	if(istype(O, /obj/item/reagent_containers/food/snacks/))
@@ -349,7 +349,7 @@
 		drying = FALSE
 	else
 		drying = TRUE
-	update_icon()
+	update_appearance()
 
 /obj/machinery/smartfridge/drying_rack/proc/rack_dry()
 	for(var/obj/item/reagent_containers/food/snacks/S in src)

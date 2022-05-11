@@ -55,7 +55,7 @@ They *could* go in their appropriate files, but this is supposed to be modular
 			playsound(loc, "sparks", 50, 1)
 			obj_flags |= EMAGGED
 			locked = FALSE
-			update_icon()
+			update_appearance()
 
 
 
@@ -112,7 +112,7 @@ They *could* go in their appropriate files, but this is supposed to be modular
 				S.cell.give(charge)
 			charge = 0
 			corrupt()
-			update_icon()
+			update_appearance()
 
 /obj/machinery/proc/AI_notify_hack()
 	var/turf/location = get_turf(src)

@@ -28,7 +28,7 @@
 	AddComponent(/datum/component/butchering, 100, 80, 0 , hitsound) //axes are not known for being precision butchering tools
 	AddComponent(/datum/component/two_handed, force_unwielded=5, force_wielded=24, block_power_wielded=25, icon_wielded="[icon_prefix]1")
 
-/obj/item/fireaxe/update_icon()
+/obj/item/fireaxe/update_appearance()
 	icon_state = "[icon_prefix]0"
 	..()
 

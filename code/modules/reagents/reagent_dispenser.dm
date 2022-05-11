@@ -104,7 +104,7 @@
 			reagents.trans_to(W, W.max_fuel, transfered_by = user)
 			user.visible_message("<span class='notice'>[user] refills [user.p_their()] [W.name].</span>", "<span class='notice'>You refill [W].</span>")
 			playsound(src, 'sound/effects/refill.ogg', 50, 1)
-			W.update_icon()
+			W.update_appearance()
 		else
 			user.visible_message("<span class='warning'>[user] catastrophically fails at refilling [user.p_their()] [I.name]!</span>", "<span class='userdanger'>That was stupid of you.</span>")
 			log_bomber(user, "detonated a", src, "via welding tool")

@@ -219,7 +219,7 @@
 		return //do not update_icon
 
 	broadcast_status()
-	update_icon()
+	update_appearance()
 	return
 
 /obj/machinery/atmospherics/components/unary/vent_scrubber/power_change()
@@ -237,7 +237,7 @@
 		else
 			user.visible_message("[user] unwelds the scrubber.", "You unweld the scrubber.", "You hear welding.")
 			welded = FALSE
-		update_icon()
+		update_appearance()
 		pipe_vision_img = image(src, loc, layer = ABOVE_HUD_LAYER, dir = dir)
 		pipe_vision_img.plane = ABOVE_HUD_PLANE
 	return TRUE
@@ -261,7 +261,7 @@
 		return
 	user.visible_message("<span class='warning'>[user] furiously claws at [src]!</span>", "<span class='notice'>You manage to clear away the stuff blocking the scrubber.</span>", "<span class='warning'>You hear loud scraping noises.</span>")
 	welded = FALSE
-	update_icon()
+	update_appearance()
 	pipe_vision_img = image(src, loc, layer = ABOVE_HUD_LAYER, dir = dir)
 	pipe_vision_img.plane = ABOVE_HUD_PLANE
 	playsound(loc, 'sound/weapons/bladeslice.ogg', 100, 1)

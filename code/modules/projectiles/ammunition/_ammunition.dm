@@ -33,7 +33,7 @@
 	pixel_x = rand(-10, 10)
 	pixel_y = rand(-10, 10)
 	setDir(pick(GLOB.alldirs))
-	update_icon()
+	update_appearance()
 
 /obj/item/ammo_casing/Destroy()
 	var/turf/T = get_turf(src)
@@ -42,7 +42,7 @@
 	QDEL_NULL(BB)
 	return ..()
 
-/obj/item/ammo_casing/update_icon()
+/obj/item/ammo_casing/update_appearance()
 	..()
 	icon_state = "[initial(icon_state)][BB ? "-live" : ""]"
 	desc = "[initial(desc)][BB ? "" : " This one is spent."]"
@@ -66,7 +66,7 @@
 				else
 					continue
 			if (boolets > 0)
-				box.update_icon()
+				box.update_appearance()
 				to_chat(user, "<span class='notice'>You collect [boolets] shell\s. [box] now contains [box.stored_ammo.len] shell\s.</span>")
 			else
 				to_chat(user, "<span class='warning'>You fail to collect anything!</span>")
@@ -79,7 +79,7 @@
 	. = ..()
 
 /obj/item/ammo_casing/proc/bounce_away(still_warm = FALSE, bounce_delay = 3)
-	update_icon()
+	update_appearance()
 	SpinAnimation(10, 1)
 	var/turf/T = get_turf(src)
 	if(still_warm && T && T.bullet_sizzle)

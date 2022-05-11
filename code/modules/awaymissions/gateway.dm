@@ -16,7 +16,7 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/centerstation)
 
 /obj/machinery/gateway/Initialize(mapload)
 	randomspawns = GLOB.awaydestinations
-	update_icon()
+	update_appearance()
 	if(!istype(src, /obj/machinery/gateway/centerstation) && !istype(src, /obj/machinery/gateway/centeraway))
 		switch(dir)
 			if(SOUTH,SOUTHEAST,SOUTHWEST)
@@ -26,9 +26,9 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/centerstation)
 /obj/machinery/gateway/proc/toggleoff()
 	for(var/obj/machinery/gateway/G in linked)
 		G.active = 0
-		G.update_icon()
+		G.update_appearance()
 	active = 0
-	update_icon()
+	update_appearance()
 
 /obj/machinery/gateway/proc/detect()
 	if(!can_link)
@@ -53,7 +53,7 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/centerstation)
 		ready = TRUE
 	return ready
 
-/obj/machinery/gateway/update_icon()
+/obj/machinery/gateway/update_appearance()
 	if(active)
 		icon_state = "on"
 		return
@@ -80,7 +80,7 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/centerstation)
 	. = ..()
 	if(!GLOB.the_gateway)
 		GLOB.the_gateway = src
-	update_icon()
+	update_appearance()
 	wait = world.time + CONFIG_GET(number/gateway_delay)	//+ thirty minutes default
 	awaygate = locate(/obj/machinery/gateway/centeraway)
 
@@ -100,7 +100,7 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/centerstation)
 	var/obj/machinery/gateway/centeraway/awaygate = null
 	can_link = TRUE
 
-/obj/machinery/gateway/centerstation/update_icon()
+/obj/machinery/gateway/centerstation/update_appearance()
 	if(active)
 		icon_state = "oncenter"
 		return
@@ -129,9 +129,9 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/centerstation)
 
 	for(var/obj/machinery/gateway/G in linked)
 		G.active = 1
-		G.update_icon()
+		G.update_appearance()
 	active = 1
-	update_icon()
+	update_appearance()
 
 //okay, here's the good teleporting stuff
 /obj/machinery/gateway/centerstation/Bumped(atom/movable/AM)
@@ -179,11 +179,11 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/centerstation)
 
 /obj/machinery/gateway/centeraway/Initialize(mapload)
 	. = ..()
-	update_icon()
+	update_appearance()
 	stationgate = locate(/obj/machinery/gateway/centerstation)
 
 
-/obj/machinery/gateway/centeraway/update_icon()
+/obj/machinery/gateway/centeraway/update_appearance()
 	if(active)
 		icon_state = "oncenter"
 		return
@@ -198,9 +198,9 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/centerstation)
 
 	for(var/obj/machinery/gateway/G in linked)
 		G.active = 1
-		G.update_icon()
+		G.update_appearance()
 	active = 1
-	update_icon()
+	update_appearance()
 
 /obj/machinery/gateway/centeraway/proc/check_exile_implant(mob/living/L)
 	for(var/obj/item/implant/exile/E in L.implants)//Checking that there is an exile implant

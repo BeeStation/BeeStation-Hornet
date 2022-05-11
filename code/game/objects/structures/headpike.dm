@@ -20,7 +20,7 @@
 	victim = locate(/obj/item/bodypart/head) in parts_list
 	name = "[victim.name] on a spear"
 	..()
-	update_icon()
+	update_appearance()
 
 /obj/structure/headpike/glass/CheckParts(list/parts_list)
 	spear = locate(/obj/item/spear) in parts_list
@@ -38,7 +38,7 @@
 	. = ..()
 	pixel_x = rand(-8, 8)
 
-/obj/structure/headpike/update_icon()
+/obj/structure/headpike/update_appearance()
 	..()
 	var/obj/item/bodypart/head/H = locate() in contents
 	var/mutable_appearance/MA = new()

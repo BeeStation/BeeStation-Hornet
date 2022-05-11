@@ -24,7 +24,7 @@
 /obj/item/clothing/glasses/meson/engine/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSobj, src)
-	update_icon()
+	update_appearance()
 
 /obj/item/clothing/glasses/meson/engine/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -50,7 +50,7 @@
 		if(H.glasses == src)
 			H.update_sight()
 
-	update_icon()
+	update_appearance()
 	for(var/X in actions)
 		var/datum/action/A = X
 		A.UpdateButtonIcon()
@@ -115,7 +115,7 @@
 				pic = new('icons/turf/overlays.dmi', place, "redOverlay", AREA_LAYER)
 			flick_overlay(pic, list(user.client), 8)
 
-/obj/item/clothing/glasses/meson/engine/update_icon()
+/obj/item/clothing/glasses/meson/engine/update_appearance()
 	icon_state = "trayson-[mode]"
 	update_mob()
 

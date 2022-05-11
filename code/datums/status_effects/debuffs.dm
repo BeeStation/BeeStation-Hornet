@@ -789,13 +789,13 @@
 /datum/status_effect/eldritch/on_apply()
 	if(owner.mob_size >= MOB_SIZE_HUMAN)
 		owner.add_overlay(marked_underlay)
-		owner.update_icon()
+		owner.update_appearance()
 		return TRUE
 	return FALSE
 
 /datum/status_effect/eldritch/on_remove()
 	owner.cut_overlay(marked_underlay)
-	owner.update_icon()
+	owner.update_appearance()
 	return ..()
 
 /datum/status_effect/eldritch/Destroy()

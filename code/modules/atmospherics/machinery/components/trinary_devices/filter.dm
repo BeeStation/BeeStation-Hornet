@@ -20,7 +20,7 @@
 /obj/machinery/atmospherics/components/trinary/filter/CtrlClick(mob/user)
 	if(can_interact(user))
 		on = !on
-		update_icon()
+		update_appearance()
 		ui_update()
 	return ..()
 
@@ -28,7 +28,7 @@
 	if(can_interact(user))
 		transfer_rate = MAX_TRANSFER_RATE
 		balloon_alert(user, "Set to [transfer_rate] L/s")
-		update_icon()
+		update_appearance()
 		ui_update()
 	return
 
@@ -42,7 +42,7 @@
 	SSradio.remove_object(src,frequency)
 	return ..()
 
-/obj/machinery/atmospherics/components/trinary/filter/update_icon()
+/obj/machinery/atmospherics/components/trinary/filter/update_appearance()
 	cut_overlays()
 	for(var/direction in GLOB.cardinals)
 		if(!(direction & initialize_directions))
@@ -156,7 +156,7 @@
 			investigate_log("was set to filter [filter_name] by [key_name(usr)]", INVESTIGATE_ATMOS)
 			. = TRUE
 	if(.)
-		update_icon()
+		update_appearance()
 
 /obj/machinery/atmospherics/components/trinary/filter/can_unwrench(mob/user)
 	. = ..()

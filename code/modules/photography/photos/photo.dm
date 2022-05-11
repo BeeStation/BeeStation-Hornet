@@ -21,7 +21,7 @@
 	if(!istype(P))
 		return
 	picture = P
-	update_icon()
+	update_appearance()
 	if(P.caption)
 		scribble = P.caption
 	if(setname && P.picture_name)
@@ -32,7 +32,7 @@
 	if(setdesc && P.picture_desc)
 		desc = P.picture_desc
 
-/obj/item/photo/update_icon()
+/obj/item/photo/update_appearance()
 	if(!istype(picture) || !picture.picture_image)
 		return
 	var/icon/I = picture.get_small_icon(initial(icon_state))

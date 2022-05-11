@@ -23,9 +23,9 @@
 	. = ..()
 	if(A == beaker)
 		beaker = null
-		update_icon()
+		update_appearance()
 
-/obj/machinery/chem_heater/update_icon()
+/obj/machinery/chem_heater/update_appearance()
 	if(beaker)
 		icon_state = "mixer1b"
 	else
@@ -48,7 +48,7 @@
 	else
 		beaker = null
 		on = FALSE
-	update_icon()
+	update_appearance()
 	return TRUE
 
 /obj/machinery/chem_heater/RefreshParts()
@@ -86,7 +86,7 @@
 		replace_beaker(user, B)
 		to_chat(user, "<span class='notice'>You add [B] to [src].</span>")
 		ui_update()
-		update_icon()
+		update_appearance()
 		return
 	return ..()
 

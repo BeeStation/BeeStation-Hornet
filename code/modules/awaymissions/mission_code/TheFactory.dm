@@ -814,7 +814,7 @@
 		to_chat(user, "<span class='notice'>You rack the [bolt_wording] of \the [src].</span>")
 	process_chamber(!chambered, FALSE)
 	playsound(src, rack_sound, rack_sound_volume, rack_sound_vary)
-	update_icon()
+	update_appearance()
 	if(user.get_inactive_held_item() && prob(50) && chambered)
 		user.visible_message("<span class='rose'>With a single move of [user.p_their()] arm, [user] flips \the [src] and loads the chamber with a shell.</span>")
 

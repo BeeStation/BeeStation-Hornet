@@ -48,14 +48,14 @@
 		assemblyattacher = user.ckey
 		to_chat(user, "<span class='notice'>You add [A] to the [name].</span>")
 		playsound(src, 'sound/weapons/tap.ogg', 20, 1)
-		update_icon()
+		update_appearance()
 		return
 	if(nadeassembly && I.tool_behaviour == TOOL_WIRECUTTER)
 		I.play_tool_sound(src, 20)
 		nadeassembly.forceMove(get_turf(src))
 		nadeassembly.master = null
 		nadeassembly = null
-		update_icon()
+		update_appearance()
 		return
 	..()
 
@@ -173,7 +173,7 @@
 	user.gib(1, 1)
 	qdel(src)
 
-/obj/item/grenade/plastic/update_icon()
+/obj/item/grenade/plastic/update_appearance()
 	if(nadeassembly)
 		icon_state = "[item_state]1"
 	else
@@ -224,7 +224,7 @@
 		return FALSE
 	if(dud_flags)
 		active = FALSE
-		update_icon()
+		update_appearance()
 		return FALSE
 
 	. = ..()

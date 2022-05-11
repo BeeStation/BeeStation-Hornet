@@ -1,6 +1,6 @@
 /*
 
-	Contents: 
+	Contents:
 
 		Hard hat
 		Orange hard hat
@@ -44,9 +44,9 @@
 		turn_on(user)
 	else
 		turn_off(user)
-	update_icon()
+	update_appearance()
 
-/obj/item/clothing/head/hardhat/update_icon()
+/obj/item/clothing/head/hardhat/update_appearance()
 	icon_state = "hardhat[on]_[hat_type]"
 	item_state = "hardhat[on]_[hat_type]"
 
@@ -133,7 +133,7 @@
 
 /obj/item/clothing/head/hardhat/weldhat/Initialize(mapload)
 	. = ..()
-	update_icon()
+	update_appearance()
 
 /obj/item/clothing/head/hardhat/weldhat/AltClick(mob/user)
 	if(user.canUseTopic(src, BE_CLOSE))
@@ -142,7 +142,7 @@
 /obj/item/clothing/head/hardhat/weldhat/proc/toggle_welding_screen(mob/living/user)
 	if(weldingvisortoggle(user))
 		playsound(src, 'sound/mecha/mechmove03.ogg', 50, 1) //Visors don't just come from nothing
-	update_icon()
+	update_appearance()
 
 /obj/item/clothing/head/hardhat/weldhat/worn_overlays(mutable_appearance/standing, isinhands)
 	. = ..()
@@ -151,7 +151,7 @@
 		if(!up)
 			. += mutable_appearance('icons/mob/clothing/head.dmi', "weldvisor")
 
-/obj/item/clothing/head/hardhat/weldhat/update_icon()
+/obj/item/clothing/head/hardhat/weldhat/update_appearance()
 	cut_overlays()
 	if(!up)
 		add_overlay("weldvisor")

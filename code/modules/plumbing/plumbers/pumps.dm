@@ -42,7 +42,7 @@
 	. = ..()
 	if(. == SUCCESSFUL_UNFASTEN)
 		geyser = null
-		update_icon()
+		update_appearance()
 		powered = FALSE
 		geyserless = FALSE //we switched state, so lets just set this back aswell
 
@@ -62,12 +62,12 @@
 	if(avail(active_power_usage))
 		if(!powered) //we werent powered before this tick so update our sprite
 			powered = TRUE
-			update_icon()
+			update_appearance()
 		add_load(active_power_usage)
 		pump(delta_time)
 	else if(powered) //we were powered, but now we arent
 		powered = FALSE
-		update_icon()
+		update_appearance()
 
 ///pump up that sweet geyser nectar
 /obj/machinery/power/liquid_pump/proc/pump(delta_time)
@@ -75,7 +75,7 @@
 		return
 	geyser.reagents.trans_to(src, pump_power * delta_time)
 
-/obj/machinery/power/liquid_pump/update_icon()
+/obj/machinery/power/liquid_pump/update_appearance()
 	if(powered)
 		icon_state = initial(icon_state) + "-on"
 	else if(panel_open)

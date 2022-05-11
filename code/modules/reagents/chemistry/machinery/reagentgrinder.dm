@@ -37,7 +37,7 @@
 	. = ..()
 	holdingitems = list()
 	QDEL_NULL(beaker)
-	update_icon()
+	update_appearance()
 
 /obj/machinery/reagentgrinder/Destroy()
 	if(beaker)
@@ -90,7 +90,7 @@
 	. = ..()
 	if(A == beaker)
 		beaker = null
-		update_icon()
+		update_appearance()
 	if(holdingitems[A])
 		holdingitems -= A
 
@@ -100,7 +100,7 @@
 		AM.forceMove(drop_location())
 	holdingitems = list()
 
-/obj/machinery/reagentgrinder/update_icon()
+/obj/machinery/reagentgrinder/update_appearance()
 	if(beaker)
 		icon_state = "juicer1"
 	else
@@ -115,7 +115,7 @@
 		beaker = new_beaker
 	else
 		beaker = null
-	update_icon()
+	update_appearance()
 	return TRUE
 
 /obj/machinery/reagentgrinder/attackby(obj/item/I, mob/user, params)
@@ -139,7 +139,7 @@
 			return
 		replace_beaker(user, B)
 		to_chat(user, "<span class='notice'>You add [B] to [src].</span>")
-		update_icon()
+		update_appearance()
 		return TRUE //no afterattack
 
 	if(holdingitems.len >= limit)

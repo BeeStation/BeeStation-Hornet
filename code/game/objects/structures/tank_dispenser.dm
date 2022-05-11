@@ -23,9 +23,9 @@
 		new /obj/item/tank/internals/oxygen(src)
 	for(var/i in 1 to plasmatanks)
 		new /obj/item/tank/internals/plasma(src)
-	update_icon()
+	update_appearance()
 
-/obj/structure/tank_dispenser/update_icon()
+/obj/structure/tank_dispenser/update_appearance()
 	cut_overlays()
 	switch(oxygentanks)
 		if(1 to 3)
@@ -69,7 +69,7 @@
 			oxygentanks--
 		return
 	to_chat(user, "<span class='notice'>You put [I] in [src].</span>")
-	update_icon()
+	update_appearance()
 	ui_update()
 
 
@@ -106,7 +106,7 @@
 				oxygentanks--
 			. = TRUE
 	ui_update()
-	update_icon()
+	update_appearance()
 
 
 /obj/structure/tank_dispenser/deconstruct(disassembled = TRUE)

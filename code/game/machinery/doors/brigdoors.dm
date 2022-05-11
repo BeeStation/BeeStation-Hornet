@@ -67,7 +67,7 @@
 
 	if(!length(doors) && !length(flashers) && length(closets))
 		obj_break()
-	update_icon()
+	update_appearance()
 
 
 //Main door timer loop, if it's timing and time is >0 reduce time by 1.
@@ -80,7 +80,7 @@
 	if(timing)
 		if(REALTIMEOFDAY - activation_time >= timer_duration)
 			timer_end() // open doors, reset timer, clear status screen
-		update_icon()
+		update_appearance()
 
 // open/closedoor checks if door_timer has power, if so it checks if the
 // linked door is open/closed (by density) then opens it/closes it.
@@ -110,7 +110,7 @@
 		if(closet.opened && !closet.close())
 			continue
 		closet.locked = TRUE
-		closet.update_icon()
+		closet.update_appearance()
 	return 1
 
 
@@ -126,7 +126,7 @@
 	timing = FALSE
 	activation_time = null
 	set_timer(0)
-	update_icon()
+	update_appearance()
 	ui_update()
 
 	for(var/datum/weakref/door_ref as anything in doors)
@@ -148,7 +148,7 @@
 		if(closet.opened)
 			continue
 		closet.locked = FALSE
-		closet.update_icon()
+		closet.update_appearance()
 
 	return 1
 
@@ -182,7 +182,7 @@
 // if NOPOWER, display blank
 // if BROKEN, display blue screen of death icon AI uses
 // if timing=true, run update display function
-/obj/machinery/door_timer/update_icon()
+/obj/machinery/door_timer/update_appearance()
 	if(stat & (NOPOWER))
 		icon_state = "frame"
 		return

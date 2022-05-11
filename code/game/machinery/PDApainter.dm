@@ -90,7 +90,7 @@
 		)
 	to_chat(user, "<span class='warning'>You short out the design locking circuitry, allowing contraband and special designs.</span>")
 	obj_flags |= EMAGGED
-/obj/machinery/pdapainter/update_icon()
+/obj/machinery/pdapainter/update_appearance()
 	cut_overlays()
 
 	if(stat & BROKEN)
@@ -151,10 +151,10 @@
 /obj/machinery/pdapainter/handle_atom_del(atom/A)
 	if(A == storedpda)
 		storedpda = null
-		update_icon()
+		update_appearance()
 	if(A == storedid)
 		storedid = null
-		update_icon()
+		update_appearance()
 
 /obj/machinery/pdapainter/attackby(obj/item/O, mob/user, params)
 	if(default_unfasten_wrench(user, O))
@@ -169,7 +169,7 @@
 			return
 		storedpda = O
 		O.add_fingerprint(user)
-		update_icon()
+		update_appearance()
 
 	else if(istype(O, /obj/item/card/id))
 		if(storedid)
@@ -179,7 +179,7 @@
 			return
 		storedid = O
 		O.add_fingerprint(user)
-		update_icon()
+		update_appearance()
 
 	else if(O.tool_behaviour == TOOL_WELDER && user.a_intent != INTENT_HARM)
 		if(stat & BROKEN)
@@ -194,7 +194,7 @@
 				to_chat(user, "<span class='notice'>You repair [src].</span>")
 				stat &= ~BROKEN
 				obj_integrity = max_integrity
-				update_icon()
+				update_appearance()
 		else
 			to_chat(user, "<span class='notice'>[src] does not need repairs.</span>")
 	else
@@ -247,7 +247,7 @@
 	if(storedpda)
 		storedpda.forceMove(drop_location())
 		storedpda = null
-		update_icon()
+		update_appearance()
 	else
 		to_chat(usr, "<span class='notice'>[src] is empty.</span>")
 
@@ -255,4 +255,4 @@
 	if(storedid)
 		storedid.loc = get_turf(src.loc)
 		storedid = null
-		update_icon()
+		update_appearance()

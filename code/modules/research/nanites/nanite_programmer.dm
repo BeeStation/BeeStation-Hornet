@@ -16,7 +16,7 @@
 
 /obj/machinery/nanite_programmer/attackby(obj/item/I, mob/user)
 	if(default_deconstruction_screwdriver(user, icon_state, icon_state, I))
-		update_icon()
+		update_appearance()
 		return
 	if(default_deconstruction_crowbar(I))
 		return

@@ -176,7 +176,7 @@
 		return //do not update_icon
 	spawn(2)
 		broadcast_status()
-	update_icon()
+	update_appearance()
 
 /obj/machinery/atmospherics/components/binary/dp_vent_pump/welder_act(mob/living/user, obj/item/I)
 	if(!I.tool_start_check(user, amount=0))
@@ -189,7 +189,7 @@
 		else
 			user.visible_message("[user] unwelded the dual-port vent.", "<span class='notice'>You unweld the dual-port vent.</span>", "<span class='italics'>You hear welding.</span>")
 			welded = FALSE
-		update_icon()
+		update_appearance()
 		pipe_vision_img = image(src, loc, layer = ABOVE_HUD_LAYER, dir = dir)
 		pipe_vision_img.plane = ABOVE_HUD_PLANE
 	return TRUE
@@ -207,7 +207,7 @@
 		return
 	user.visible_message("<span class='warning'>[user] furiously claws at [src]!</span>", "<span class='notice'>You manage to clear away the stuff blocking the dual-port vent.</span>", "<span class='warning'>You hear loud scraping noises.</span>")
 	welded = FALSE
-	update_icon()
+	update_appearance()
 	pipe_vision_img = image(src, loc, layer = ABOVE_HUD_LAYER, dir = dir)
 	pipe_vision_img.plane = ABOVE_HUD_PLANE
 	playsound(loc, 'sound/weapons/bladeslice.ogg', 100, 1)

@@ -24,7 +24,7 @@
 /obj/machinery/implantchair/Initialize(mapload)
 	. = ..()
 	open_machine()
-	update_icon()
+	update_appearance()
 
 
 
@@ -85,7 +85,7 @@
 			addtimer(CALLBACK(src,"set_ready"),injection_cooldown)
 	else
 		playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 25, 1)
-	update_icon()
+	update_appearance()
 
 /obj/machinery/implantchair/proc/implant_action(mob/living/M)
 	var/obj/item/I = new implant_type
@@ -122,7 +122,7 @@
 
 /obj/machinery/implantchair/proc/set_ready()
 	ready = TRUE
-	update_icon()
+	update_appearance()
 
 /obj/machinery/implantchair/container_resist(mob/living/user)
 	user.changeNext_move(CLICK_CD_BREAKOUT)

@@ -20,7 +20,7 @@
 	. = ..()
 	AddComponent(/datum/component/two_handed, force_unwielded=7, force_wielded=15, block_power_wielded=25, icon_wielded="pitchfork1")
 
-/obj/item/pitchfork/update_icon()
+/obj/item/pitchfork/update_appearance()
 	icon_state = "pitchfork0"
 	..()
 

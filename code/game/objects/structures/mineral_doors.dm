@@ -92,7 +92,7 @@
 	density = FALSE
 	door_opened = TRUE
 	air_update_turf(1)
-	update_icon()
+	update_appearance()
 	isSwitchingStates = FALSE
 
 	if(close_delay != -1)
@@ -112,10 +112,10 @@
 	set_opacity(TRUE)
 	door_opened = FALSE
 	air_update_turf(1)
-	update_icon()
+	update_appearance()
 	isSwitchingStates = FALSE
 
-/obj/structure/mineral_door/update_icon()
+/obj/structure/mineral_door/update_appearance()
 	icon_state = "[initial(icon_state)][door_opened ? "open":""]"
 
 /obj/structure/mineral_door/attackby(obj/item/I, mob/user)

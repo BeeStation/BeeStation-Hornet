@@ -164,9 +164,9 @@
 		if(!silent)
 			to_chat(owner, "<span class='notice'>You turn your thrusters set off.</span>")
 		on = FALSE
-	update_icon()
+	update_appearance()
 
-/obj/item/organ/cyberimp/chest/thrusters/update_icon()
+/obj/item/organ/cyberimp/chest/thrusters/update_appearance()
 	if(on)
 		icon_state = "imp_jetpack-on"
 	else

@@ -117,7 +117,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	name ||= random_unique_name(gender)//To prevent nameless ghosts
 	real_name = name
 
-	update_icon()
+	update_appearance()
 
 	if(!T)
 		var/list/turfs = get_area_turfs(/area/shuttle/arrival)
@@ -782,7 +782,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		facial_hair_style = client.prefs.facial_hair_style
 		facial_hair_color = brighten_color(client.prefs.facial_hair_color)
 
-	update_icon()
+	update_appearance()
 
 /mob/dead/observer/canUseTopic(atom/movable/M, be_close=FALSE, no_dextery=FALSE, no_tk=FALSE)
 	return IsAdminGhost(usr)

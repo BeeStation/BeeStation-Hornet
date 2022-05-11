@@ -22,7 +22,7 @@
 /obj/machinery/atmospherics/components/trinary/mixer/CtrlClick(mob/user)
 	if(can_interact(user))
 		on = !on
-		update_icon()
+		update_appearance()
 		ui_update()
 	return ..()
 
@@ -30,11 +30,11 @@
 	if(can_interact(user))
 		target_pressure = MAX_OUTPUT_PRESSURE
 		balloon_alert(user, "Set to [target_pressure] kPa")
-		update_icon()
+		update_appearance()
 		ui_update()
 	return
 
-/obj/machinery/atmospherics/components/trinary/mixer/update_icon()
+/obj/machinery/atmospherics/components/trinary/mixer/update_appearance()
 	cut_overlays()
 	for(var/direction in GLOB.cardinals)
 		if(!(direction & initialize_directions))
@@ -175,7 +175,7 @@
 			investigate_log("was set to [node2_concentration] % on node 2 by [key_name(usr)]", INVESTIGATE_ATMOS)
 			. = TRUE
 	if(.)
-		update_icon()
+		update_appearance()
 
 /obj/machinery/atmospherics/components/trinary/mixer/proc/adjust_node1_value(newValue)
 	node1_concentration = newValue / 100

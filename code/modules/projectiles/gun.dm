@@ -133,7 +133,7 @@
 		pin = null
 	if(A == chambered)
 		chambered = null
-		update_icon()
+		update_appearance()
 	if(A == bayonet)
 		clear_bayonet()
 	if(A == gun_light)
@@ -330,7 +330,7 @@
 		firing_burst = FALSE
 		return FALSE
 	process_chamber()
-	update_icon()
+	update_appearance()
 	return TRUE
 
 /obj/item/gun/proc/process_fire(atom/target, mob/living/user, message = TRUE, params = null, zone_override = "", bonus_spread = 0)
@@ -377,7 +377,7 @@
 			shoot_with_empty_chamber(user)
 			return
 		process_chamber()
-		update_icon()
+		update_appearance()
 		semicd = TRUE
 		addtimer(CALLBACK(src, .proc/reset_semicd), fire_delay)
 
@@ -386,7 +386,7 @@
 	SSblackbox.record_feedback("tally", "gun_fired", 1, type)
 	return TRUE
 
-/obj/item/gun/update_icon()
+/obj/item/gun/update_appearance()
 	..()
 
 
@@ -579,7 +579,7 @@
 	update_gunlight()
 
 /obj/item/gun/proc/update_gunlight()
-	update_icon()
+	update_appearance()
 	for(var/X in actions)
 		var/datum/action/A = X
 		A.UpdateButtonIcon()

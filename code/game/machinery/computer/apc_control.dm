@@ -27,7 +27,7 @@
 				playsound(active_apc, 'sound/machines/boltsdown.ogg', 25, 0)
 				playsound(active_apc, 'sound/machines/terminal_alert.ogg', 50, 0)
 			active_apc.locked = TRUE
-			active_apc.update_icon()
+			active_apc.update_appearance()
 			active_apc.remote_control = null
 			active_apc = null
 
@@ -118,7 +118,7 @@
 			playsound(active_apc, 'sound/machines/boltsdown.ogg', 25, 0)
 			playsound(active_apc, 'sound/machines/terminal_alert.ogg', 50, 0)
 			active_apc.locked = TRUE
-			active_apc.update_icon()
+			active_apc.update_appearance()
 			active_apc.remote_control = null
 			active_apc = null
 		to_chat(usr, "<span class='robot notice'>[icon2html(src, usr)] Connected to APC in [get_area_name(APC.area, TRUE)]. Interface request sent.</span>")
@@ -133,7 +133,7 @@
 			playsound(APC, 'sound/machines/boltsup.ogg', 25, 0)
 			playsound(APC, 'sound/machines/terminal_alert.ogg', 50, 0)
 		APC.locked = FALSE
-		APC.update_icon()
+		APC.update_appearance()
 		active_apc = APC
 	if(href_list["name_filter"])
 		playsound(src, 'sound/machines/terminal_prompt.ogg', 50, 0)

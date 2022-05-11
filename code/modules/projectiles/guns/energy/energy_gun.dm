@@ -29,7 +29,7 @@
 	set_gun_light(new /obj/item/flashlight/seclite(src))
 	return ..()
 
-/obj/item/gun/energy/e_gun/mini/update_icon()
+/obj/item/gun/energy/e_gun/mini/update_appearance()
 	..()
 	if(gun_light?.on)
 		add_overlay("mini-light")
@@ -124,7 +124,7 @@
 
 /obj/item/gun/energy/e_gun/nuclear/shoot_live_shot(mob/living/user, pointblank = 0, atom/pbtarget = null, message = 1)
 	failcheck()
-	update_icon()
+	update_appearance()
 	..()
 
 /obj/item/gun/energy/e_gun/nuclear/proc/failcheck()
@@ -147,7 +147,7 @@
 		return
 	fail_chance = min(fail_chance + round(15/severity), 100)
 
-/obj/item/gun/energy/e_gun/nuclear/update_icon()
+/obj/item/gun/energy/e_gun/nuclear/update_appearance()
 	..()
 	if(reactor_overloaded)
 		add_overlay("[icon_state]_fail_3")

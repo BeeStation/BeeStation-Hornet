@@ -170,7 +170,7 @@
 		for(var/obj/machinery/atmospherics/components/unary/U in T)
 			if(!isnull(U.welded) && !U.welded) //must be an unwelded vent pump or vent scrubber.
 				U.welded = TRUE
-				U.update_icon()
+				U.update_appearance()
 				U.visible_message("<span class='danger'>[U] was frozen shut!</span>")
 	for(var/mob/living/L in T)
 		L.ExtinguishMob()

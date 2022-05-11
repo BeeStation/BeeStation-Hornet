@@ -44,7 +44,7 @@
 	..()
 	if(A == beaker)
 		beaker = null
-		update_icon()
+		update_appearance()
 		ui_update()
 
 /obj/machinery/biogenerator/RefreshParts()
@@ -66,9 +66,9 @@
 		. += "<span class='notice'>The status display reads: Productivity at <b>[productivity*100]%</b>.<br>Matter consumption reduced by <b>[(efficiency*25)-25]</b>%.<br>Machine can hold up to <b>[max_items]</b> pieces of produce.</span>"
 
 /obj/machinery/biogenerator/on_reagent_change(changetype)			//When the reagents change, change the icon as well.
-	update_icon()
+	update_appearance()
 
-/obj/machinery/biogenerator/update_icon()
+/obj/machinery/biogenerator/update_appearance()
 	if(panel_open)
 		icon_state = "biogen-empty-o"
 	else if(!src.beaker)
@@ -93,7 +93,7 @@
 			B.forceMove(drop_location())
 			beaker = null
 			ui_update()
-		update_icon()
+		update_appearance()
 		return
 
 	if(default_deconstruction_crowbar(O))
@@ -109,7 +109,7 @@
 					return
 				beaker = O
 				to_chat(user, "<span class='notice'>You add the container to the machine.</span>")
-				update_icon()
+				update_appearance()
 				ui_update()
 		else
 			to_chat(user, "<span class='warning'>Close the maintenance panel first.</span>")
@@ -196,13 +196,13 @@
 	if(S)
 		processing = TRUE
 		ui_update()
-		update_icon()
+		update_appearance()
 		playsound(loc, 'sound/machines/blender.ogg', 50, TRUE)
 		use_power(S * 30)
 		sleep(S + 15 / productivity)
 		processing = FALSE
 		ui_update()
-		update_icon()
+		update_appearance()
 
 /obj/machinery/biogenerator/proc/check_cost(list/materials, multiplier = 1, remove_points = TRUE)
 	if(materials.len != 1 || materials[1] != getmaterialref(/datum/material/biomass))
@@ -213,7 +213,7 @@
 		if(remove_points)
 			points -= materials[getmaterialref(/datum/material/biomass)]*multiplier/efficiency
 			ui_update()
-		update_icon()
+		update_appearance()
 		return TRUE
 
 /obj/machinery/biogenerator/proc/check_container_volume(list/reagents, multiplier = 1)
@@ -254,14 +254,14 @@
 				beaker.reagents.add_reagent(R, D.make_reagents[R])
 			. = 1
 			--i
-	update_icon()
+	update_appearance()
 	return .
 
 /obj/machinery/biogenerator/proc/detach()
 	if(beaker)
 		beaker.forceMove(drop_location())
 		beaker = null
-		update_icon()
+		update_appearance()
 	ui_update()
 
 /obj/machinery/biogenerator/ui_status(mob/user)

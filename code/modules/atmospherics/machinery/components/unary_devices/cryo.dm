@@ -55,7 +55,7 @@
 	var/oldoccupant = occupant
 	. = ..() // Parent proc takes care of removing occupant if necessary
 	if (AM == oldoccupant)
-		update_icon()
+		update_appearance()
 
 /obj/machinery/atmospherics/components/unary/cryo_cell/on_construction()
 	..(dir, dir)
@@ -103,7 +103,7 @@
 		beaker.forceMove(drop_location())
 		beaker = null
 
-/obj/machinery/atmospherics/components/unary/cryo_cell/update_icon()
+/obj/machinery/atmospherics/components/unary/cryo_cell/update_appearance()
 
 	cut_overlays()
 
@@ -179,19 +179,19 @@
 
 	if(!is_operational())
 		on = FALSE
-		update_icon()
+		update_appearance()
 		return
 
 	if(!occupant)//Won't operate unless there's an occupant.
 		on = FALSE
-		update_icon()
+		update_appearance()
 		var/msg = "Aborting. No occupant detected."
 		radio.talk_into(src, msg, radio_channel)
 		return
 
 	if(!beaker?.reagents?.reagent_list.len) //No beaker or beaker without reagents with stop the machine from running.
 		on = FALSE
-		update_icon()
+		update_appearance()
 		var/msg = "Aborting. No beaker or chemicals installed."
 		radio.talk_into(src, msg, radio_channel)
 		return
@@ -206,7 +206,7 @@
 
 	if(mob_occupant.health >= mob_occupant.getMaxHealth()) // Don't bother with fully healed people.
 		on = FALSE
-		update_icon()
+		update_appearance()
 		playsound(src, 'sound/machines/cryo_warning.ogg', volume) // Bug the doctors.
 		var/msg = "Patient fully restored."
 		if(autoeject) // Eject if configured.
@@ -237,7 +237,7 @@
 
 	if(!nodes[1] || !airs[1] || air1.get_moles(GAS_O2) < 5) // Turn off if the machine won't work due to not having enough moles to operate.
 		on = FALSE
-		update_icon()
+		update_appearance()
 		var/msg = "Aborting. Not enough gas present to operate."
 		radio.talk_into(src, msg, radio_channel)
 		return
@@ -339,7 +339,7 @@
 		|| default_change_direction_wrench(user, I) \
 		|| default_pry_open(I) \
 		|| default_deconstruction_crowbar(I))
-		update_icon()
+		update_appearance()
 		return
 	else if(I.tool_behaviour == TOOL_SCREWDRIVER)
 		to_chat(user, "<span class='notice'>You can't access the maintenance panel while the pod is " \
@@ -417,7 +417,7 @@
 				on = FALSE
 			else if(!state_open)
 				on = TRUE
-			update_icon()
+			update_appearance()
 			. = TRUE
 		if("door")
 			if(state_open)
@@ -439,7 +439,7 @@
 /obj/machinery/atmospherics/components/unary/cryo_cell/CtrlClick(mob/user)
 	if(user.can_interact_with(src) && !state_open && occupant != user)
 		on = !on
-		update_icon()
+		update_appearance()
 	return ..()
 
 /obj/machinery/atmospherics/components/unary/cryo_cell/AltClick(mob/user)

@@ -24,7 +24,7 @@
 
 /obj/item/storage/belt/Initialize(mapload)
 	. = ..()
-	update_icon()
+	update_appearance()
 
 /obj/item/storage/belt/utility
 	name = "toolbelt" //Carn: utility belt is nicer, but it bamboozles the text parsing.
@@ -279,7 +279,7 @@
 	new /obj/item/grenade/flashbang(src)
 	new /obj/item/assembly/flash/handheld(src)
 	new /obj/item/melee/baton/loaded(src)
-	update_icon()
+	update_appearance()
 
 /obj/item/storage/belt/security/deputy
 	name = "deputy security belt"
@@ -290,7 +290,7 @@
 	new /obj/item/restraints/handcuffs/cable(src)
 	new /obj/item/reagent_containers/spray/pepper(src)
 	new /obj/item/flashlight/seclite(src)
-	update_icon()
+	update_appearance()
 
 /obj/item/storage/belt/security/webbing
 	name = "security webbing"
@@ -786,7 +786,7 @@
 		var/obj/item/I = contents[1]
 		user.visible_message("[user] takes [I] out of [src].", "<span class='notice'>You take [I] out of [src].</span>")
 		user.put_in_hands(I)
-		update_icon()
+		update_appearance()
 	else
 		to_chat(user, "[src] is empty.")
 
@@ -801,7 +801,7 @@
 
 /obj/item/storage/belt/sabre/PopulateContents()
 	new /obj/item/melee/sabre(src)
-	update_icon()
+	update_appearance()
 
 /obj/item/storage/belt/sabre/mime
 	name = "Baguette"
@@ -813,7 +813,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = ITEM_SLOT_BACK|ITEM_SLOT_BELT
 
-/obj/item/storage/belt/sabre/mime/update_icon()
+/obj/item/storage/belt/sabre/mime/update_appearance()
 	icon_state = "baguette"
 	item_state = "baguette"
 
@@ -829,4 +829,4 @@
 
 /obj/item/storage/belt/sabre/mime/PopulateContents()
 	new /obj/item/melee/sabre/mime(src)
-	update_icon()
+	update_appearance()

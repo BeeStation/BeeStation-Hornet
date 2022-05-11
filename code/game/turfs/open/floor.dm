@@ -111,7 +111,7 @@
 /turf/open/floor/blob_act(obj/structure/blob/B)
 	return
 
-/turf/open/floor/update_icon()
+/turf/open/floor/update_appearance()
 	. = ..()
 	update_visuals()
 
@@ -155,7 +155,7 @@
 	var/turf/open/floor/W = ..()
 	W.icon_regular_floor = old_icon
 	W.setDir(old_dir)
-	W.update_icon()
+	W.update_appearance()
 	return W
 
 /turf/open/floor/attackby(obj/item/C, mob/user, params)
@@ -280,7 +280,7 @@
 			if(A.electronics.unres_sides)
 				A.unres_sides = A.electronics.unres_sides
 			A.autoclose = TRUE
-			A.update_icon()
+			A.update_appearance()
 			return TRUE
 		if(RCD_DECONSTRUCT)
 			if(ScrapeAway(flags = CHANGETURF_INHERIT_AIR) == src)

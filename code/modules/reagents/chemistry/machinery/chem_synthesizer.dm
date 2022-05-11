@@ -69,7 +69,7 @@
 				amount = input
 				. = TRUE
 	if(.)
-		update_icon()
+		update_appearance()
 
 /obj/machinery/chem_dispenser/chem_synthesizer/Destroy()
 	if(beaker)

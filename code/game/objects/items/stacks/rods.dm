@@ -35,7 +35,7 @@ GLOBAL_LIST_INIT(rod_recipes, list ( \
 	. = ..()
 
 	recipes = GLOB.rod_recipes
-	update_icon()
+	update_appearance()
 
 /obj/item/stack/rods/update_icon_state()
 	var/amount = get_amount()

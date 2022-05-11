@@ -19,7 +19,7 @@
 	RegisterSignal(target, COMSIG_PARENT_EXAMINE, .proc/handle_examine)
 	RegisterSignal(target, list(COMSIG_ATOM_TOOL_ACT(TOOL_WELDER), COMSIG_ATOM_TOOL_ACT(TOOL_RUSTSCRAPER)), .proc/secondary_tool_act)
 	// Unfortunately registering with parent sometimes doesn't cause an overlay update
-	target.update_icon()
+	target.update_appearance()
 
 /datum/element/rust/Detach(atom/source)
 	. = ..()
@@ -27,7 +27,7 @@
 	UnregisterSignal(source, COMSIG_PARENT_EXAMINE)
 	UnregisterSignal(source, list(COMSIG_ATOM_TOOL_ACT(TOOL_WELDER), COMSIG_ATOM_TOOL_ACT(TOOL_RUSTSCRAPER)))
 	REMOVE_TRAIT(source, TRAIT_RUSTY, src)
-	source.update_icon()
+	source.update_appearance()
 
 /datum/element/rust/proc/handle_examine(datum/source, mob/user, list/examine_text)
 	SIGNAL_HANDLER

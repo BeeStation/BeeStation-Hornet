@@ -156,7 +156,7 @@
 				playsound(src, work_sound, 50, 1)
 			mode = DRONE_PRODUCTION
 			timer = world.time + production_time
-			update_icon()
+			update_appearance()
 
 		if(DRONE_PRODUCTION)
 			materials.use_materials(using_materials)
@@ -173,7 +173,7 @@
 
 			mode = DRONE_RECHARGING
 			timer = world.time + cooldownTime
-			update_icon()
+			update_appearance()
 
 		if(DRONE_RECHARGING)
 			if(recharge_sound)
@@ -182,7 +182,7 @@
 				visible_message("<span class='notice'>[src] [recharge_message]</span>")
 
 			mode = DRONE_READY
-			update_icon()
+			update_appearance()
 
 /obj/machinery/droneDispenser/proc/count_shells()
 	. = 0
@@ -190,7 +190,7 @@
 		if(istype(a, dispense_type))
 			.++
 
-/obj/machinery/droneDispenser/update_icon()
+/obj/machinery/droneDispenser/update_appearance()
 	if(stat & (BROKEN|NOPOWER))
 		icon_state = icon_off
 	else if(mode == DRONE_RECHARGING)
@@ -228,7 +228,7 @@
 
 		stat &= ~BROKEN
 		obj_integrity = max_integrity
-		update_icon()
+		update_appearance()
 	else
 		return ..()
 

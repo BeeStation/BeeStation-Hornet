@@ -101,9 +101,9 @@
 	pixel_x = rand(-9, 9)
 	return INITIALIZE_HINT_LATELOAD
 
-// Everyone forgets to call update_icon() after changing the info
+// Everyone forgets to call update_appearance() after changing the info
 /obj/item/paper/LateInitialize()
-	update_icon()
+	update_appearance()
 
 /obj/item/paper/update_icon_state()
 	if(info && show_written_words)
@@ -357,7 +357,7 @@
 				to_chat(ui.user, "You have added to your paper masterpiece!");
 			info = in_paper
 			update_static_data(usr,ui)
-			update_icon()
+			update_appearance()
 
 /obj/item/paper/ui_host(mob/user)
 	if(istype(loc, /obj/structure/noticeboard))

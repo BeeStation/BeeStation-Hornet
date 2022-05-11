@@ -46,7 +46,7 @@
 /obj/effect/proc_holder/spell/pointed/proc/on_deactivation(mob/user)
 	return
 
-/obj/effect/proc_holder/spell/pointed/update_icon()
+/obj/effect/proc_holder/spell/pointed/update_appearance()
 	if(!action)
 		return
 	action.button_icon_state = "[base_icon_state][active]"

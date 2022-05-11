@@ -30,9 +30,9 @@ GLOBAL_LIST_EMPTY(announcement_systems)
 	. = ..()
 	GLOB.announcement_systems += src
 	radio = new /obj/item/radio/headset/silicon/ai(src)
-	update_icon()
+	update_appearance()
 
-/obj/machinery/announcement_system/update_icon()
+/obj/machinery/announcement_system/update_appearance()
 	if(is_operational())
 		icon_state = (panel_open ? "AAS_On_Open" : "AAS_On")
 	else
@@ -59,13 +59,13 @@ GLOBAL_LIST_EMPTY(announcement_systems)
 		P.play_tool_sound(src)
 		panel_open = !panel_open
 		to_chat(user, "<span class='notice'>You [panel_open ? "open" : "close"] the maintenance hatch of [src].</span>")
-		update_icon()
+		update_appearance()
 	else if(default_deconstruction_crowbar(P))
 		return
 	else if(P.tool_behaviour == TOOL_MULTITOOL && panel_open && (stat & BROKEN))
 		to_chat(user, "<span class='notice'>You reset [src]'s firmware.</span>")
 		stat &= ~BROKEN
-		update_icon()
+		update_appearance()
 	else
 		return ..()
 
@@ -147,11 +147,11 @@ GLOBAL_LIST_EMPTY(announcement_systems)
 				. = TRUE
 		if("NewheadToggle")
 			newheadToggle = !newheadToggle
-			update_icon()
+			update_appearance()
 			. = TRUE
 		if("ArrivalToggle")
 			arrivalToggle = !arrivalToggle
-			update_icon()
+			update_appearance()
 			. = TRUE
 
 /obj/machinery/announcement_system/attack_robot(mob/living/silicon/user)

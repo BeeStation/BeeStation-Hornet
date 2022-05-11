@@ -371,7 +371,7 @@
 	max = 40
 	prefix = "darkened"
 
-/obj/item/sharpener/cult/update_icon()
+/obj/item/sharpener/cult/update_appearance()
 	icon_state = "cult_sharpener[used ? "_used" : ""]"
 
 /obj/item/clothing/suit/hooded/cultrobes/cult_shield
@@ -660,7 +660,7 @@
 	AddComponent(/datum/component/butchering, 100, 90)
 	AddComponent(/datum/component/two_handed, force_unwielded=17, force_wielded=24, icon_wielded="bloodspear1")
 
-/obj/item/cult_spear/update_icon()
+/obj/item/cult_spear/update_appearance()
 	icon_state = "bloodspear0"
 	..()
 

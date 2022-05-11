@@ -90,7 +90,7 @@
 	if(mapload && is_station_level(z) && prob(3) && !start_active)
 		toggle_cam()
 	else //this is handled by toggle_camera, so no need to update it twice.
-		update_icon()
+		update_appearance()
 
 /obj/machinery/camera/Destroy()
 	if(can_use())
@@ -139,14 +139,14 @@
 		return
 	if(!(. & EMP_PROTECT_SELF))
 		if(prob(150/severity))
-			update_icon()
+			update_appearance()
 			var/list/previous_network = network
 			network = list()
 			GLOB.cameranet.removeCamera(src)
 			stat |= EMPED
 			set_light(0)
 			emped = emped+1  //Increase the number of consecutive EMP's
-			update_icon()
+			update_appearance()
 			var/thisemp = emped //Take note of which EMP this proc is for
 			spawn(900)
 				if(loc) //qdel limbo
@@ -154,7 +154,7 @@
 					if(emped == thisemp) //Only fix it if the camera hasn't been EMP'd again
 						network = previous_network
 						stat &= ~EMPED
-						update_icon()
+						update_appearance()
 						if(can_use())
 							GLOB.cameranet.addCamera(src)
 						emped = 0 //Resets the consecutive EMP count
@@ -192,7 +192,7 @@
 	panel_open = !panel_open
 	to_chat(user, "<span class='notice'>You screw the camera's panel [panel_open ? "open" : "closed"].</span>")
 	I.play_tool_sound(src)
-	update_icon()
+	update_appearance()
 	return TRUE
 
 /obj/machinery/camera/wirecutter_act(mob/living/user, obj/item/I)
@@ -347,7 +347,7 @@
 			new /obj/item/stack/cable_coil(loc, 2)
 	qdel(src)
 
-/obj/machinery/camera/update_icon() //TO-DO: Make panel open states, xray camera, and indicator lights overlays instead.
+/obj/machinery/camera/update_appearance() //TO-DO: Make panel open states, xray camera, and indicator lights overlays instead.
 	var/xray_module
 	if(isXRay(TRUE))
 		xray_module = "xray"
@@ -386,7 +386,7 @@
 			visible_message("<span class='danger'>\The [src] [change_msg]!</span>")
 
 		playsound(src, 'sound/items/wirecutter.ogg', 100, TRUE)
-	update_icon() //update Initialize() if you remove this.
+	update_appearance() //update Initialize() if you remove this.
 
 	// now disconnect anyone using the camera
 	//Apparently, this will disconnect anyone even if the camera was re-activated.

@@ -237,7 +237,7 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 	else
 		..()
 
-/obj/machinery/vending/update_icon()
+/obj/machinery/vending/update_appearance()
 	if(stat & BROKEN)
 		icon_state = "[initial(icon_state)]-broken"
 	else

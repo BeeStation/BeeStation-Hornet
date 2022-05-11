@@ -130,7 +130,7 @@
 	on = TRUE
 	update_mobility()
 	set_light_on(on)
-	update_icon()
+	update_appearance()
 	diag_hud_set_botstat()
 	return TRUE
 
@@ -139,7 +139,7 @@
 	update_mobility()
 	set_light_on(on)
 	bot_reset() //Resets an AI's call, should it exist.
-	update_icon()
+	update_appearance()
 
 /mob/living/simple_animal/bot/Initialize(mapload)
 	. = ..()
@@ -397,7 +397,7 @@
 	if(istype(dropped_item, /obj/item/stock_parts/cell))
 		var/obj/item/stock_parts/cell/dropped_cell = dropped_item
 		dropped_cell.charge = 0
-		dropped_cell.update_icon()
+		dropped_cell.update_appearance()
 
 	else if(istype(dropped_item, /obj/item/storage))
 		var/obj/item/storage/S = dropped_item
@@ -406,7 +406,7 @@
 	else if(istype(dropped_item, /obj/item/gun/energy))
 		var/obj/item/gun/energy/dropped_gun = dropped_item
 		dropped_gun.cell.charge = 0
-		dropped_gun.update_icon()
+		dropped_gun.update_appearance()
 
 //Generalized behavior code, override where needed!
 
@@ -990,7 +990,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 
 /mob/living/simple_animal/bot/revive(full_heal = 0, admin_revive = 0)
 	if(..())
-		update_icon()
+		update_appearance()
 		. = 1
 
 /mob/living/simple_animal/bot/ghost()

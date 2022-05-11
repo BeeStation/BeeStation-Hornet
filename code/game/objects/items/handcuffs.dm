@@ -223,7 +223,7 @@
 
 /obj/item/restraints/legcuffs/beartrap/Initialize(mapload)
 	. = ..()
-	update_icon()
+	update_appearance()
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = .proc/spring_trap,
 	)
@@ -241,12 +241,12 @@
 	..()
 	if(ishuman(user) && !user.stat && !user.restrained())
 		armed = !armed
-		update_icon()
+		update_appearance()
 		to_chat(user, "<span class='notice'>[src] is now [armed ? "armed" : "disarmed"]</span>")
 
 /obj/item/restraints/legcuffs/beartrap/proc/close_trap()
 	armed = FALSE
-	update_icon()
+	update_appearance()
 	playsound(src, 'sound/effects/snap.ogg', 50, TRUE)
 
 /obj/item/restraints/legcuffs/beartrap/proc/spring_trap(datum/source, AM as mob|obj)

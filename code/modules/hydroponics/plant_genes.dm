@@ -280,8 +280,8 @@
 				C.charge = newcharge
 				if(isobj(C.loc))
 					var/obj/O = C.loc
-					O.update_icon() //update power meters and such
-				C.update_icon()
+					O.update_appearance() //update power meters and such
+				C.update_appearance()
 				batteries_recharged = 1
 		if(batteries_recharged)
 			to_chat(target, "<span class='notice'>Your batteries are recharged!</span>")
@@ -513,7 +513,7 @@
 			HY.harvest = 0
 			HY.weedlevel = 0 // Reset
 			HY.pestlevel = 0 // Reset
-			HY.update_icon()
+			HY.update_appearance()
 			HY.visible_message("<span class='warning'>The [H.myseed.plantname] spreads!</span>")
 
 /datum/plant_gene/trait/plant_type // Parent type

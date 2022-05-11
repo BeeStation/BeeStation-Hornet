@@ -167,14 +167,14 @@
 			to_chat(user, "<span class='notice'>You draw back the bowstring.</span>")
 			playsound(src, 'sound/weapons/bowdraw.ogg', 75, 0) //gets way too high pitched if the freq varies
 			chamber_round()
-	update_icon()
+	update_appearance()
 
 /obj/item/gun/ballistic/bow/clockwork/proc/recharge_bolt()
 	if(magazine.get_round(TRUE))
 		return
 	var/obj/item/ammo_casing/caseless/arrow/clockbolt/CB = new
 	magazine.give_round(CB)
-	update_icon()
+	update_appearance()
 
 /obj/item/gun/ballistic/bow/clockbolt/attackby(obj/item/I, mob/user, params)
 	return

@@ -152,7 +152,7 @@
 	return
 
 
-/obj/machinery/power/am_control_unit/update_icon()
+/obj/machinery/power/am_control_unit/update_appearance()
 	if(active)
 		icon_state = "control_on"
 	else icon_state = "control"
@@ -248,7 +248,7 @@
 	else
 		use_power = !powerfail
 		visible_message("The [src.name] shuts down.")
-	update_icon()
+	update_appearance()
 	return
 
 
@@ -265,7 +265,7 @@
 		linked_shielding = list()
 	else
 		for(var/obj/machinery/am_shielding/AMS in linked_shielding)
-			AMS.update_icon()
+			AMS.update_appearance()
 	addtimer(CALLBACK(src, .proc/reset_shield_icon_delay), 20)
 
 /obj/machinery/power/am_control_unit/proc/reset_shield_icon_delay()
@@ -343,7 +343,7 @@
 			fueljar.forceMove(drop_location())
 			fueljar = null
 			//fueljar.control_unit = null currently it does not care where it is
-			//update_icon() when we have the icon for it
+			//update_appearance() when we have the icon for it
 
 	if(href_list["strengthup"])
 		fuel_injection++

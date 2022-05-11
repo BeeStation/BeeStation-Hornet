@@ -38,7 +38,7 @@
 
 /obj/item/card/data/Initialize(mapload)
 	.=..()
-	update_icon()
+	update_appearance()
 
 /obj/item/card/data/update_overlays()
 	. = ..()

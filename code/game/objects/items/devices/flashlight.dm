@@ -456,13 +456,13 @@
 	if(fuel <= 0)
 		turn_off()
 		STOP_PROCESSING(SSobj, src)
-		update_icon()
+		update_appearance()
 
 /obj/item/flashlight/glowstick/proc/turn_off()
 	on = FALSE
-	update_icon()
+	update_appearance()
 
-/obj/item/flashlight/glowstick/update_icon()
+/obj/item/flashlight/glowstick/update_appearance()
 	item_state = "glowstick"
 	cut_overlays()
 	if(fuel <= 0)

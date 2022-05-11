@@ -87,7 +87,7 @@
 	if(cell)
 		user.visible_message("[user] removes [cell] from [src]!","<span class='notice'>You remove [cell].</span>")
 		user.put_in_hands(cell)
-		cell.update_icon()
+		cell.update_appearance()
 		cell = null
 		add_fingerprint(user)
 
@@ -405,7 +405,7 @@
 	else
 		use_power = IDLE_POWER_USE
 		set_light(0)
-	update_icon()
+	update_appearance()
 
 	active_power_usage = (brightness * 7.2)
 	if(on != on_gs)

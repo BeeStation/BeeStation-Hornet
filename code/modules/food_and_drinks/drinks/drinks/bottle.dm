@@ -497,7 +497,7 @@
 	icon_state = "glassbottle"
 	fill_icon_thresholds = list(0, 10, 20, 30, 40, 50, 60, 70, 80, 90)
 
-/obj/item/reagent_containers/food/drinks/bottle/blank/update_icon()
+/obj/item/reagent_containers/food/drinks/bottle/blank/update_appearance()
 	..()
 	add_overlay("[initial(icon_state)]shine")
 

@@ -108,10 +108,10 @@
 				reagent_id = new_reagent
 				. = TRUE
 	if(.)
-		update_icon()
+		update_appearance()
 		reagents.clear_reagents()
 
-/obj/machinery/plumbing/synthesizer/update_icon()
+/obj/machinery/plumbing/synthesizer/update_appearance()
 	if(!r_overlay)
 		r_overlay = image(icon, "[icon_state]_overlay")
 	else

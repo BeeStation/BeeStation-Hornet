@@ -139,7 +139,7 @@
 		if(open)
 			turn_off()
 		else
-			update_icon() //this is also handled by turn_off(), so no need to call this twice.
+			update_appearance() //this is also handled by turn_off(), so no need to call this twice.
 	else if(istype(I, /obj/item/stock_parts/cell) && open)
 		if(cell)
 			to_chat(user, "<span class='warning'>[src] already has a power cell!</span>")
@@ -466,7 +466,7 @@
 
 	load = AM
 	mode = BOT_IDLE
-	update_icon()
+	update_appearance()
 
 /mob/living/simple_animal/bot/mulebot/proc/load_mob(mob/living/M)
 	can_buckle = TRUE
@@ -487,7 +487,7 @@
 	if(QDELETED(load))
 		if(load) //if our thing was qdel'd, there's likely a leftover reference. just clear it and remove the overlay. we'll let the bot keep moving around to prevent it abruptly stopping somewhere.
 			load = null
-			update_icon()
+			update_appearance()
 		return
 
 	mode = BOT_IDLE
@@ -506,7 +506,7 @@
 	if(dirn) //move the thing to the delivery point.
 		cached_load.Move(get_step(loc,dirn), dirn)
 
-	update_icon()
+	update_appearance()
 
 
 /mob/living/simple_animal/bot/mulebot/call_bot()
@@ -779,7 +779,7 @@
 	new /obj/item/stack/cable_coil/cut(Tsec)
 	if(cell)
 		cell.forceMove(Tsec)
-		cell.update_icon()
+		cell.update_appearance()
 		cell = null
 
 	do_sparks(3, TRUE, src)

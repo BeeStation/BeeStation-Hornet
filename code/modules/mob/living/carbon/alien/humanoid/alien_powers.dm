@@ -193,7 +193,7 @@ Doesn't work on other aliens/AI.*/
 		message = "<span class='notice'>You prepare your neurotoxin gland. <B>Left-click to fire at a target!</B></span>"
 		add_ranged_ability(user, message, TRUE)
 
-/obj/effect/proc_holder/alien/neurotoxin/update_icon()
+/obj/effect/proc_holder/alien/neurotoxin/update_appearance()
 	action.button_icon_state = "alien_neurotoxin_[active]"
 	action.UpdateButtonIcon()
 

@@ -230,7 +230,7 @@
 /obj/item/grenade/chem_grenade/large/prime(mob/living/lanced_by)
 	if(stage != GRENADE_READY || dud_flags)
 		active = FALSE
-		update_icon()
+		update_appearance()
 		return
 
 	for(var/obj/item/slime_extract/S in beakers)
@@ -301,7 +301,7 @@
 /obj/item/grenade/chem_grenade/adv_release/prime(mob/living/lanced_by)
 	if(stage != GRENADE_READY || dud_flags)
 		active = FALSE
-		update_icon()
+		update_appearance()
 		return
 
 	var/total_volume = 0

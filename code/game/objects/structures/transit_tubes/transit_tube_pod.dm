@@ -20,7 +20,7 @@
 	empty_pod()
 	return ..()
 
-/obj/structure/transit_tube_pod/update_icon()
+/obj/structure/transit_tube_pod/update_appearance()
 	if(contents.len)
 		icon_state = "pod_occupied"
 	else
@@ -88,7 +88,7 @@
 		location = get_turf(src)
 	for(var/atom/movable/M in contents)
 		M.forceMove(location)
-	update_icon()
+	update_appearance()
 
 /obj/structure/transit_tube_pod/Process_Spacemove()
 	if(moving) //No drifting while moving in the tubes
@@ -190,7 +190,7 @@
 					if(direction == turn(station.boarding_dir,180))
 						if(station.open_status == STATION_TUBE_OPEN)
 							mob.forceMove(loc)
-							update_icon()
+							update_appearance()
 						else
 							station.open_animation()
 

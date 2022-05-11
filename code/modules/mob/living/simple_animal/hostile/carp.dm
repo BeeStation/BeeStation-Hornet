@@ -91,7 +91,7 @@
 	. = ..()
 	if(.)
 		update_greyscale()
-		update_icon()
+		update_appearance()
 
 /mob/living/simple_animal/hostile/carp/holocarp
 	icon_state = "holocarp"
@@ -181,7 +181,7 @@
 		potential_disky.forceMove(src)
 		disky = potential_disky
 		to_chat(src, "<span class='nicegreen'>YES!! You manage to pick up [disky]. (Click anywhere to place it back down.)</span>")
-		update_icon()
+		update_appearance()
 		if(!disky.fake)
 			client.give_award(/datum/award/achievement/misc/cayenne_disk, src)
 		return
@@ -190,7 +190,7 @@
 			to_chat(src, "<span class='notice'>You place [disky] on [target]</span>")
 			disky.forceMove(target)
 			disky = null
-			update_icon()
+			update_appearance()
 		else
 			disky.melee_attack_chain(src, target)
 		return
@@ -204,7 +204,7 @@
 	. = ..()
 	if(AM == disky)
 		disky = null
-		update_icon()
+		update_appearance()
 
 /mob/living/simple_animal/hostile/carp/cayenne/update_overlays()
 	. = ..()

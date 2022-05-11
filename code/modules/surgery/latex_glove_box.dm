@@ -17,7 +17,7 @@
 /obj/item/glove_box/Initialize(mapload)
 	. = ..()
 	interaction_flags_item &= ~INTERACT_ITEM_ATTACK_HAND_PICKUP
-	update_icon()
+	update_appearance()
 
 /obj/item/glove_box/MouseDrop(atom/over_object)
 	. = ..()
@@ -52,7 +52,7 @@
 		to_chat(user, "<span class='notice'>You take [G] out of \the [src].</span>")
 	else
 		to_chat(user, "<span class='warning'>[src] is empty!</span>")
-	update_icon()
+	update_appearance()
 	add_fingerprint(user)
 	return ..()
 
@@ -63,7 +63,7 @@
 	else
 		. += "It is empty."
 
-/obj/item/glove_box/update_icon()
+/obj/item/glove_box/update_appearance()
 	cut_overlays()
 	if(total_gloves > 1)
 		add_overlay("glove_in")

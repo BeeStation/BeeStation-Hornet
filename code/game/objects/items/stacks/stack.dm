@@ -49,7 +49,7 @@
 				if(QDELETED(src))
 					return
 	update_weight()
-	update_icon()
+	update_appearance()
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = .proc/on_entered,
 	)
@@ -309,7 +309,7 @@
 	amount -= used
 	if(check)
 		zero_amount()
-	update_icon()
+	update_appearance()
 	ui_update()
 	update_weight()
 	return TRUE
@@ -342,7 +342,7 @@
 	else
 		src.amount += amount
 		check_max_amount()
-	update_icon()
+	update_appearance()
 	update_weight()
 	ui_update()
 

@@ -53,7 +53,7 @@ The console is located at computer/gulag_teleporter.dm
 
 /obj/machinery/gulag_teleporter/attackby(obj/item/I, mob/user)
 	if(!occupant && default_deconstruction_screwdriver(user, "[icon_state]", "[icon_state]",I))
-		update_icon()
+		update_appearance()
 		return
 
 	if(default_deconstruction_crowbar(I))
@@ -64,7 +64,7 @@ The console is located at computer/gulag_teleporter.dm
 
 	return ..()
 
-/obj/machinery/gulag_teleporter/update_icon()
+/obj/machinery/gulag_teleporter/update_appearance()
 	icon_state = initial(icon_state) + (state_open ? "_open" : "")
 	//no power or maintenance
 	if(stat & (NOPOWER|BROKEN))

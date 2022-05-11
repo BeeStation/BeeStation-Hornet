@@ -116,7 +116,7 @@
 		door = "[base]_door"
 	else
 		door = FALSE
-	update_icon()
+	update_appearance()
 
 /obj/structure/closet/supplypod/proc/SetReverseIcon()
 	fin_mask = "bottomfin"
@@ -124,7 +124,7 @@
 		icon_state = GLOB.podstyles[style][POD_BASE] + "_reverse"
 	pixel_x = initial(pixel_x)
 	transform = matrix()
-	update_icon()
+	update_appearance()
 
 /obj/structure/closet/supplypod/proc/backToNonReverseIcon()
 	fin_mask = initial(fin_mask)
@@ -132,7 +132,7 @@
 		icon_state = GLOB.podstyles[style][POD_BASE]
 	pixel_x = initial(pixel_x)
 	transform = matrix()
-	update_icon()
+	update_appearance()
 
 /obj/structure/closet/supplypod/update_overlays()
 	. = ..()
@@ -415,17 +415,17 @@
 /obj/structure/closet/supplypod/setOpened() //Proc exists here, as well as in any atom that can assume the role of a "holder" of a supplypod. Check the open_pod() proc for more details
 	opened = TRUE
 	density = FALSE
-	update_icon()
+	update_appearance()
 
 /obj/structure/closet/supplypod/extractionpod/setOpened()
 	opened = TRUE
 	density = TRUE
-	update_icon()
+	update_appearance()
 
 /obj/structure/closet/supplypod/setClosed() //Ditto
 	opened = FALSE
 	density = TRUE
-	update_icon()
+	update_appearance()
 
 /obj/structure/closet/supplypod/proc/tryMakeRubble(turf/T) //Ditto
 	if (rubble_type == RUBBLE_NONE)
@@ -438,7 +438,7 @@
 		return
 	rubble = new /obj/effect/supplypod_rubble(T)
 	rubble.setStyle(rubble_type, src)
-	update_icon()
+	update_appearance()
 
 /obj/structure/closet/supplypod/Moved()
 	deleteRubble()
@@ -447,7 +447,7 @@
 /obj/structure/closet/supplypod/proc/deleteRubble()
 	rubble?.fadeAway()
 	rubble = null
-	update_icon()
+	update_appearance()
 
 /obj/structure/closet/supplypod/proc/addGlow()
 	if (GLOB.podstyles[style][POD_SHAPE] != POD_SHAPE_NORML)
@@ -604,7 +604,7 @@
 
 /obj/effect/pod_landingzone/proc/beginLaunch(effectCircle) //Begin the animation for the pod falling. The effectCircle param determines whether the pod gets to come in from any descent angle
 	pod.addGlow()
-	pod.update_icon()
+	pod.update_appearance()
 	if (pod.style != STYLE_INVISIBLE)
 		pod.add_filter("motionblur",1,list("type"="motion_blur", "x"=0, "y"=3))
 	pod.forceMove(drop_location())

@@ -803,7 +803,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 
 	for(var/obj/machinery/portable_atmospherics/canister/can in view())
 		can.valve_open = FALSE
-		can.update_icon()
+		can.update_appearance()
 
 /client/proc/delete_book()
 	set category = "Admin"
@@ -815,7 +815,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 	var/bookid = input(usr, "What Book ID would you like to remove:", "Literally Fahrenheit 451") as null|num
 	if(!bookid)
 		return
-	
+
 	var/datum/DBQuery/query_library_print = SSdbcore.NewQuery(
 		"SELECT * FROM [format_table_name("library")] WHERE id=:id AND isnull(deleted)",
 		list("id" = bookid)

@@ -32,7 +32,7 @@
 	caliber = ".45"
 	max_ammo = 8
 
-/obj/item/ammo_box/magazine/m45/update_icon()
+/obj/item/ammo_box/magazine/m45/update_appearance()
 	..()
 	if (ammo_count() >= 8)
 		icon_state = "45-8"
@@ -46,7 +46,7 @@
 	caliber = "9mm"
 	max_ammo = 15
 
-/obj/item/ammo_box/magazine/pistolm9mm/update_icon()
+/obj/item/ammo_box/magazine/pistolm9mm/update_appearance()
 	..()
 	icon_state = "9x19p-[ammo_count() ? "8" : "0"]"
 

@@ -342,12 +342,12 @@
 
 //This proc is used to update the icons of nearby windows.
 /obj/structure/window/proc/update_nearby_icons()
-	update_icon()
+	update_appearance()
 	if(smooth)
 		queue_smooth_neighbors(src)
 
 //merges adjacent full-tile windows into one
-/obj/structure/window/update_icon()
+/obj/structure/window/update_appearance()
 	if(!QDELETED(src))
 		if(!fulltile)
 			return
@@ -640,7 +640,7 @@
 
 /obj/structure/window/paperframe/Initialize(mapload)
 	. = ..()
-	update_icon()
+	update_appearance()
 
 /obj/structure/window/paperframe/examine(mob/user)
 	. = ..()
@@ -666,9 +666,9 @@
 		playsound(src, hitsound, 50, 1)
 		if(!QDELETED(src))
 			user.visible_message("<span class='danger'>[user] tears a hole in [src].</span>")
-			update_icon()
+			update_appearance()
 
-/obj/structure/window/paperframe/update_icon()
+/obj/structure/window/paperframe/update_appearance()
 	if(obj_integrity < max_integrity)
 		cut_overlay(paper)
 		add_overlay(torn)
@@ -693,10 +693,10 @@
 			qdel(W)
 			user.visible_message("[user] patches some of the holes in \the [src].")
 			if(obj_integrity == max_integrity)
-				update_icon()
+				update_appearance()
 			return
 	..()
-	update_icon()
+	update_appearance()
 
 /obj/structure/window/bronze
 	name = "brass window"

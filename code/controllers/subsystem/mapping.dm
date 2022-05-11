@@ -159,7 +159,7 @@ SUBSYSTEM_DEF(mapping)
 			nuke_threats -= d
 
 	for(var/turf/open/floor/circuit/C as() in nuke_tiles)
-		C.update_icon()
+		C.update_appearance()
 
 /datum/controller/subsystem/mapping/Recover()
 	flags |= SS_NO_INIT

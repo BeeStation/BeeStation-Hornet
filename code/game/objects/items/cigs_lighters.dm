@@ -51,7 +51,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 		desc = "A [initial(name)]. This one is lit."
 		attack_verb = list("burnt","singed")
 		START_PROCESSING(SSobj, src)
-		update_icon()
+		update_appearance()
 
 /obj/item/match/proc/matchburnout()
 	if(lit)
@@ -573,7 +573,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	. = ..()
 	if(!overlay_state)
 		overlay_state = pick(overlay_list)
-	update_icon()
+	update_appearance()
 
 /obj/item/lighter/cyborg_unequip(mob/user)
 	if(!lit)
@@ -619,7 +619,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 		attack_verb = null //human_defense.dm takes care of it
 		STOP_PROCESSING(SSobj, src)
 	set_light_on(lit)
-	update_icon()
+	update_appearance()
 
 /obj/item/lighter/extinguish()
 	set_lit(FALSE)
@@ -722,9 +722,9 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	. = ..()
 	if(!lighter_color)
 		lighter_color = pick(color_list)
-	update_icon()
+	update_appearance()
 
-/obj/item/lighter/greyscale/update_icon()
+/obj/item/lighter/greyscale/update_appearance()
 	cut_overlays()
 	var/mutable_appearance/lighter_overlay = mutable_appearance(icon,"lighter_overlay_[overlay_state][lit ? "-on" : ""]")
 	icon_state = "[initial(icon_state)][lit ? "-on" : ""]"

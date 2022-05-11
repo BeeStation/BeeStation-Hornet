@@ -173,7 +173,7 @@
 		if(DUEL_SETTING_C)
 			setting = DUEL_SETTING_A
 	to_chat(user,"<span class='notice'>You switch [src] setting to [setting] mode.")
-	update_icon()
+	update_appearance()
 
 /obj/item/gun/energy/dueling/update_icon(force_update)
 	. = ..()
@@ -230,7 +230,7 @@
 	duration = 30
 	var/setting
 
-/obj/effect/temp_visual/dueling_chaff/update_icon()
+/obj/effect/temp_visual/dueling_chaff/update_appearance()
 	. = ..()
 	switch(setting)
 		if(DUEL_SETTING_A)
@@ -251,13 +251,13 @@
 	. = ..()
 	var/obj/item/projectile/energy/duel/D = BB
 	D.setting = setting
-	D.update_icon()
+	D.update_appearance()
 
 /obj/item/ammo_casing/energy/duel/fire_casing(atom/target, mob/living/user, params, distro, quiet, zone_override, spread, spread_multiplier = 1, atom/fired_from)
 	. = ..()
 	var/obj/effect/temp_visual/dueling_chaff/C = new(get_turf(user))
 	C.setting = setting
-	C.update_icon()
+	C.update_appearance()
 
 //Projectile
 
@@ -268,7 +268,7 @@
 	homing = TRUE
 	var/setting
 
-/obj/item/projectile/energy/duel/update_icon()
+/obj/item/projectile/energy/duel/update_appearance()
 	. = ..()
 	switch(setting)
 		if(DUEL_SETTING_A)

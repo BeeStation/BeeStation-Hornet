@@ -114,7 +114,7 @@
 			<li>Theoretical Outer Radius: [record.theory_radius["outer_radius"]]</li>
 			<li>Theoretical Shockwave Radius: [record.theory_radius["shockwave_radius"]]</li></ul>"}
 
-		update_icon()
+		update_appearance()
 
 /obj/machinery/doppler_array/attackby(obj/item/I, mob/user, params)
 	if(I.tool_behaviour == TOOL_WRENCH)
@@ -190,7 +190,7 @@
 		return FALSE
 	return ..()
 
-/obj/machinery/doppler_array/update_icon()
+/obj/machinery/doppler_array/update_appearance()
 	if(stat & BROKEN)
 		icon_state = "[initial(icon_state)]-broken"
 	else if(powered())

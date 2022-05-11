@@ -404,7 +404,7 @@
 				return
 
 			connected_scanner.locked = !connected_scanner.locked
-			connected_scanner.update_icon()
+			connected_scanner.update_appearance()
 			return
 
 		// Scramble scanner occupant's DNA

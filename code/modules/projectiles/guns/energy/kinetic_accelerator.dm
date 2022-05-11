@@ -107,7 +107,7 @@
 /obj/item/gun/energy/kinetic_accelerator/proc/empty()
 	if(cell)
 		cell.use(cell.charge)
-	update_icon()
+	update_appearance()
 
 /obj/item/gun/energy/kinetic_accelerator/proc/attempt_reload(recharge_time)
 	if(!cell)
@@ -140,10 +140,10 @@
 		playsound(src.loc, 'sound/weapons/kenetic_reload.ogg', 60, 1)
 	else
 		to_chat(loc, "<span class='warning'>[src] silently charges up.</span>")
-	update_icon()
+	update_appearance()
 	overheat = FALSE
 
-/obj/item/gun/energy/kinetic_accelerator/update_icon()
+/obj/item/gun/energy/kinetic_accelerator/update_appearance()
 	..()
 	if(!can_shoot())
 		add_overlay("[icon_state]_empty")

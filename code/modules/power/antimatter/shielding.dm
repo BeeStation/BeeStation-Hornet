@@ -108,7 +108,7 @@
 		check_stability()
 
 
-/obj/machinery/am_shielding/update_icon()
+/obj/machinery/am_shielding/update_appearance()
 	dirs = 0
 	coredirs = 0
 	cut_overlays()

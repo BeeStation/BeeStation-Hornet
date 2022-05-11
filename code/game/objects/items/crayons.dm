@@ -156,7 +156,7 @@
 		if(has_cap)
 			is_capped = !is_capped
 			to_chat(user, "<span class='notice'>The cap on [src] is now [is_capped ? "on" : "off"].</span>")
-			update_icon()
+			update_appearance()
 			ui_update()
 
 /obj/item/toy/crayon/proc/staticDrawables()
@@ -253,7 +253,7 @@
 			drawtype = "a"
 
 	if(.)
-		update_icon()
+		update_appearance()
 
 /obj/item/toy/crayon/proc/crayon_text_strip(text)
 	var/static/regex/crayon_r = new /regex(@"[^\w!?,.=%#&+\/\-]")
@@ -530,7 +530,7 @@
 	new /obj/item/toy/crayon/blue(src)
 	new /obj/item/toy/crayon/purple(src)
 	new /obj/item/toy/crayon/black(src)
-	update_icon()
+	update_appearance()
 
 /obj/item/storage/crayons/update_overlays()
 	. = ..()
@@ -610,7 +610,7 @@
 			playsound(src, 'sound/effects/spray.ogg', 5, TRUE, 5)
 		if(can_change_colour)
 			paint_color = "#C0C0C0"
-		update_icon()
+		update_appearance()
 		if(actually_paints)
 			H.lip_style = "spray_face"
 			H.lip_color = paint_color
@@ -629,7 +629,7 @@
 		paint_color = pick("#DA0000","#FF9300","#FFF200","#A8E61D","#00B7EF",
 		"#DA00FF")
 	refill()
-	update_icon()
+	update_appearance()
 
 
 /obj/item/toy/crayon/spraycan/examine(mob/user)
@@ -885,7 +885,7 @@
 	if(G)
 		gang = G
 		paint_color = G.color
-		update_icon()
+		update_appearance()
 
 /obj/item/toy/crayon/spraycan/gang/examine(mob/user)
 	. = ..()

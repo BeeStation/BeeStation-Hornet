@@ -27,14 +27,14 @@
 
 /turf/open/floor/circuit/Initialize(mapload)
 	SSmapping.nuke_tiles += src
-	update_icon()
+	update_appearance()
 	. = ..()
 
 /turf/open/floor/circuit/Destroy()
 	SSmapping.nuke_tiles -= src
 	return ..()
 
-/turf/open/floor/circuit/update_icon()
+/turf/open/floor/circuit/update_appearance()
 	if(on)
 		if(LAZYLEN(SSmapping.nuke_threats))
 			icon_state = "rcircuitanim"

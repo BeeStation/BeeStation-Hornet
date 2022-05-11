@@ -41,9 +41,9 @@
 	. = ..()
 	possible_states = typelist("possible_states", possible_states)
 
-	update_icon()
+	update_appearance()
 
-/obj/item/reagent_containers/food/condiment/update_icon()
+/obj/item/reagent_containers/food/condiment/update_appearance()
 	cut_overlays()
 
 	if(reagents.reagent_list.len > 0 && possible_states.len)
@@ -127,7 +127,7 @@
 		to_chat(user, "<span class='notice'>You transfer [trans] units of the condiment to [target].</span>")
 
 /obj/item/reagent_containers/food/condiment/on_reagent_change(changetype)
-	update_icon()
+	update_appearance()
 
 /obj/item/reagent_containers/food/condiment/enzyme
 	name = "universal enzyme"
@@ -252,7 +252,7 @@
 		/datum/reagent/consumable/bbqsauce = list("condi_bbq", "BBQ sauce", "Hand wipes not included."),
 		)
 
-/obj/item/reagent_containers/food/condiment/pack/update_icon()
+/obj/item/reagent_containers/food/condiment/pack/update_appearance()
 	return
 
 /obj/item/reagent_containers/food/condiment/pack/attack(mob/M, mob/user, def_zone) //Can't feed these to people directly.

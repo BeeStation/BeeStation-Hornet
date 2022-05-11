@@ -34,7 +34,7 @@
 	QDEL_NULL(countdown)
 	. = ..()
 
-/obj/machinery/transformer/update_icon()
+/obj/machinery/transformer/update_appearance()
 	..()
 	if(stat & (BROKEN|NOPOWER) || cooldown == 1)
 		icon_state = "separator-AO0"
@@ -66,7 +66,7 @@
 /obj/machinery/transformer/process()
 	if(cooldown && (cooldown_timer <= world.time))
 		cooldown = FALSE
-		update_icon()
+		update_appearance()
 
 /obj/machinery/transformer/proc/do_transform(mob/living/carbon/human/H)
 	if(stat & (BROKEN|NOPOWER))
@@ -81,7 +81,7 @@
 	// Activate the cooldown
 	cooldown = 1
 	cooldown_timer = world.time + cooldown_duration
-	update_icon()
+	update_appearance()
 
 	playsound(src.loc, 'sound/items/welder.ogg', 50, 1)
 	H.emote("scream") // It is painful

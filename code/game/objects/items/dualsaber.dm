@@ -86,7 +86,7 @@
 	STOP_PROCESSING(SSobj, src)
 	set_light_on(FALSE)
 
-/obj/item/dualsaber/update_icon()
+/obj/item/dualsaber/update_appearance()
 	icon_state = "dualsaber0"
 	SEND_SIGNAL(src, COMSIG_COMPONENT_CLEAN_ACT, CLEAN_STRENGTH_BLOOD)
 	..()
@@ -196,7 +196,7 @@
 			to_chat(user, "<span class='warning'>2XRNBW_ENGAGE</span>")
 			saber_color = "rainbow"
 			AddComponent(/datum/component/two_handed, icon_wielded="dualsaber[saber_color]1")
-			update_icon()
+			update_appearance()
 		else
 			to_chat(user, "<span class='warning'>It's starting to look like a triple rainbow - no, nevermind.</span>")
 	else

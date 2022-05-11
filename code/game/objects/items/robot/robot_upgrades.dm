@@ -373,7 +373,7 @@
 	else
 		to_chat(cyborg, "<span class='notice'>You deactivate the self-repair module.</span>")
 		STOP_PROCESSING(SSobj, src)
-	update_icon()
+	update_appearance()
 
 /obj/item/borg/upgrade/selfrepair/update_icon_state()
 	if(cyborg)
@@ -384,7 +384,7 @@
 /obj/item/borg/upgrade/selfrepair/proc/deactivate_sr()
 	STOP_PROCESSING(SSobj, src)
 	on = FALSE
-	update_icon()
+	update_appearance()
 
 /obj/item/borg/upgrade/selfrepair/process()
 	if(world.time < next_repair)

@@ -44,7 +44,7 @@
 	GLOB.nuke_list += src
 	core = new /obj/item/nuke_core(src)
 	STOP_PROCESSING(SSobj, core)
-	update_icon()
+	update_appearance()
 	GLOB.poi_list |= src
 	previous_level = get_security_level()
 
@@ -117,7 +117,7 @@
 				if(I.use_tool(src, user, 60, volume=100))
 					deconstruction_state = NUKESTATE_UNSCREWED
 					to_chat(user, "<span class='notice'>You remove the screws from [src]'s front panel.</span>")
-					update_icon()
+					update_appearance()
 				return
 
 		if(NUKESTATE_PANEL_REMOVED)
@@ -128,7 +128,7 @@
 				if(I.use_tool(src, user, 80, volume=100, amount=1))
 					to_chat(user, "<span class='notice'>You cut [src]'s inner plate.</span>")
 					deconstruction_state = NUKESTATE_WELDED
-					update_icon()
+					update_appearance()
 				return
 		if(NUKESTATE_CORE_EXPOSED)
 			if(istype(I, /obj/item/nuke_core_container))
@@ -138,7 +138,7 @@
 					if(core_box.load(core, user))
 						to_chat(user, "<span class='notice'>You load the plutonium core into [core_box].</span>")
 						deconstruction_state = NUKESTATE_CORE_REMOVED
-						update_icon()
+						update_appearance()
 						core = null
 					else
 						to_chat(user, "<span class='warning'>You fail to load the plutonium core into [core_box]. [core_box] has already been used!</span>")
@@ -152,7 +152,7 @@
 					to_chat(user, "<span class='notice'>You repair [src]'s inner metal plate. The radiation is contained.</span>")
 					deconstruction_state = NUKESTATE_PANEL_REMOVED
 					STOP_PROCESSING(SSobj, core)
-					update_icon()
+					update_appearance()
 				return
 	. = ..()
 
@@ -164,14 +164,14 @@
 			if(tool.use_tool(src, user, 30, volume=100))
 				to_chat(user, "<span class='notice'>You remove [src]'s front panel.</span>")
 				deconstruction_state = NUKESTATE_PANEL_REMOVED
-				update_icon()
+				update_appearance()
 			return TRUE
 		if(NUKESTATE_WELDED)
 			to_chat(user, "<span class='notice'>You start prying off [src]'s inner plate...</span>")
 			if(tool.use_tool(src, user, 30, volume=100))
 				to_chat(user, "<span class='notice'>You pry off [src]'s inner plate. You can see the core's green glow!</span>")
 				deconstruction_state = NUKESTATE_CORE_EXPOSED
-				update_icon()
+				update_appearance()
 				START_PROCESSING(SSobj, core)
 			return TRUE
 
@@ -195,7 +195,7 @@
 	else
 		return NUKE_OFF_UNLOCKED
 
-/obj/machinery/nuclearbomb/update_icon()
+/obj/machinery/nuclearbomb/update_appearance()
 	if(deconstruction_state == NUKESTATE_INTACT)
 		switch(get_nuke_state())
 			if(NUKE_OFF_LOCKED, NUKE_OFF_UNLOCKED)
@@ -436,7 +436,7 @@
 		timing = FALSE
 		detonation_timer = null
 		countdown.stop()
-	update_icon()
+	update_appearance()
 
 /obj/machinery/nuclearbomb/proc/set_active()
 	if(safety)
@@ -464,7 +464,7 @@
 			S.alert = FALSE
 		countdown.stop()
 	COOLDOWN_START(src, arm_cooldown, ARM_ACTION_COOLDOWN)
-	update_icon()
+	update_appearance()
 
 /obj/machinery/nuclearbomb/proc/get_time_left()
 	if(timing)
@@ -491,7 +491,7 @@
 	exploding = TRUE
 	yes_code = FALSE
 	safety = TRUE
-	update_icon()
+	update_appearance()
 	if(proper_bomb)
 		sound_to_playing_players('sound/machines/alarm.ogg')
 	if(SSticker?.mode)
@@ -590,7 +590,7 @@
 		S.switch_mode_to(initial(S.mode))
 		S.alert = FALSE
 	countdown.stop()
-	update_icon()
+	update_appearance()
 	update_ui_mode()
 	ui_update()
 

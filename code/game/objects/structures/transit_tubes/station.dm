@@ -37,7 +37,7 @@
 		for(var/obj/structure/transit_tube_pod/pod in loc)
 			if(!pod.moving)
 				AM.forceMove(pod)
-				pod.update_icon()
+				pod.update_appearance()
 				return
 
 

@@ -40,9 +40,9 @@
 /obj/item/modular_computer/processor/relay_qdel()
 	qdel(machinery_computer)
 
-/obj/item/modular_computer/processor/update_icon()
+/obj/item/modular_computer/processor/update_appearance()
 	if(machinery_computer)
-		return machinery_computer.update_icon()
+		return machinery_computer.update_appearance()
 
 // This thing is not meant to be used on it's own, get topic data from our machinery owner.
 //obj/item/modular_computer/processor/canUseTopic(atom/movable/M, be_close=FALSE, no_dextery=FALSE, no_tk=FALSE)
@@ -55,7 +55,7 @@
 	if(!machinery_computer)
 		return
 	..()
-	machinery_computer.update_icon()
+	machinery_computer.update_appearance()
 	return
 
 /obj/item/modular_computer/processor/add_computer_verbs(path)

@@ -16,7 +16,7 @@
 
 /obj/machinery/recharge_station/Initialize(mapload)
 	. = ..()
-	update_icon()
+	update_appearance()
 
 /obj/machinery/recharge_station/RefreshParts()
 	recharge_speed = 0
@@ -87,7 +87,7 @@
 		use_power = ACTIVE_POWER_USE //It always tries to charge, even if it can't.
 		add_fingerprint(occupant)
 
-/obj/machinery/recharge_station/update_icon()
+/obj/machinery/recharge_station/update_appearance()
 	if(is_operational())
 		if(state_open)
 			icon_state = "borgcharger0"

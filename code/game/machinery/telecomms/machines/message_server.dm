@@ -27,7 +27,7 @@
 		user.put_in_hands(stored)
 		stored = null
 		to_chat(user, "<span class='notice'>You remove the blackbox from [src]. The tapes stop spinning.</span>")
-		update_icon()
+		update_appearance()
 	else
 		to_chat(user, "<span class='warning'>It seems that the blackbox is missing...</span>")
 
@@ -41,7 +41,7 @@
 		"<span class='notice'>You press the device into [src], and it clicks into place. The tapes begin spinning again.</span>")
 		playsound(src, 'sound/machines/click.ogg', 50, TRUE)
 		stored = I
-		update_icon()
+		update_appearance()
 
 /obj/machinery/blackbox_recorder/Destroy()
 	if(stored)
@@ -141,7 +141,7 @@
 	if(!relay_information(signal, /obj/machinery/telecomms/hub))
 		relay_information(signal, /obj/machinery/telecomms/broadcaster)
 
-/obj/machinery/telecomms/message_server/update_icon()
+/obj/machinery/telecomms/message_server/update_appearance()
 	..()
 	cut_overlays()
 	if(calibrating)

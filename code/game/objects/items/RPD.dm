@@ -456,7 +456,7 @@ GLOBAL_LIST_INIT(fluid_duct_recipes, list(
 					activate()
 
 					C.add_fingerprint(usr)
-					C.update_icon()
+					C.update_appearance()
 					if(mode&WRENCH_MODE)
 						C.wrench_act(user, src)
 					return

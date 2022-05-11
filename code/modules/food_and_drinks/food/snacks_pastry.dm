@@ -736,9 +736,9 @@
 
 /obj/item/reagent_containers/food/snacks/pancakes/Initialize(mapload)
 	. = ..()
-	update_icon()
+	update_appearance()
 
-/obj/item/reagent_containers/food/snacks/pancakes/update_icon()
+/obj/item/reagent_containers/food/snacks/pancakes/update_appearance()
 	if(contents.len)
 		name = "stack of pancakes"
 	else
@@ -802,14 +802,14 @@
 	pancake.pixel_x = rand(-1,1)
 	pancake.pixel_y = 3 * contents.len - 1
 	add_overlay(pancake)
-	update_icon()
+	update_appearance()
 
 /obj/item/reagent_containers/food/snacks/pancakes/attack(mob/M, mob/user, def_zone, stacked = TRUE)
 	if(user.a_intent == INTENT_HARM || !contents.len || !stacked)
 		return ..()
 	var/obj/item/O = contents[contents.len]
 	. = O.attack(M, user, def_zone, FALSE)
-	update_icon()
+	update_appearance()
 
 /obj/item/reagent_containers/food/snacks/ravtart
 	name = "Rav'tart"

@@ -62,7 +62,7 @@
 		tot_rating += SP.rating
 	heat_gen = initial(src.heat_gen) / max(1, tot_rating)
 
-/obj/machinery/rnd/server/update_icon()
+/obj/machinery/rnd/server/update_appearance()
 	if (panel_open)
 		icon_state = "RD-server-on_t"
 		return
@@ -135,7 +135,7 @@
 	else
 		working = TRUE
 
-	update_icon()
+	update_appearance()
 
 /obj/machinery/rnd/server/emp_act()
 	. = ..()

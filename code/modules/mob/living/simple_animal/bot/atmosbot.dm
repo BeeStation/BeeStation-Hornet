@@ -76,17 +76,17 @@
 
 /mob/living/simple_animal/bot/atmosbot/turn_on()
 	. = ..()
-	update_icon()
+	update_appearance()
 
 /mob/living/simple_animal/bot/atmosbot/turn_off()
 	. = ..()
-	update_icon()
+	update_appearance()
 
 /mob/living/simple_animal/bot/atmosbot/bot_reset()
 	. = ..()
 	target = null
 	ignore_list = list()
-	update_icon()
+	update_appearance()
 
 /mob/living/simple_animal/bot/atmosbot/set_custom_texts()
 	text_hack = "You corrupt [name]'s safety protocols."
@@ -133,7 +133,7 @@
 					if(prob(20))
 						target = get_vent_turf()
 						action = ATMOSBOT_VENT_AIR
-	update_icon()
+	update_appearance()
 
 	if(!target)
 		if(auto_patrol)
@@ -323,9 +323,9 @@
 		ideal_temperature = new_temp
 
 	update_controls()
-	update_icon()
+	update_appearance()
 
-/mob/living/simple_animal/bot/atmosbot/update_icon()
+/mob/living/simple_animal/bot/atmosbot/update_appearance()
 	if(action == ATMOSBOT_VENT_AIR && emagged == 2)
 		icon_state = "atmosbot[on][on?"_5":""]"
 		return

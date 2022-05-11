@@ -134,7 +134,7 @@
 /obj/item/organ/heart/nightmare/Stop()
 	return 0
 
-/obj/item/organ/heart/nightmare/update_icon()
+/obj/item/organ/heart/nightmare/update_appearance()
 	return //always beating visually
 
 /obj/item/organ/heart/nightmare/on_death()
@@ -218,7 +218,7 @@
 	set_light_on(FALSE)
 	light_power = 0
 	shorted = TRUE
-	update_icon()
+	update_appearance()
 	visible_message("<span class='danger'>The light in [src] shorts out!</span>")
 
 /obj/item/lighteater_act(obj/item/light_eater/light_eater)

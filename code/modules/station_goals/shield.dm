@@ -126,9 +126,9 @@
 		end_processing()
 		animate(src, pixel_y = 0, time = 10)
 		anchored = FALSE
-	update_icon()
+	update_appearance()
 
-/obj/machinery/satellite/update_icon()
+/obj/machinery/satellite/update_appearance()
 	icon_state = active ? "sat_active" : "sat_inactive"
 
 /obj/machinery/satellite/multitool_act(mob/living/user, obj/item/I)

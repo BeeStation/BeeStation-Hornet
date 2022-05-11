@@ -86,7 +86,7 @@ GLOBAL_VAR(medibot_unique_id_gen)
 	declare_crit = 0
 	heal_amount = 5
 
-/mob/living/simple_animal/bot/medbot/update_icon()
+/mob/living/simple_animal/bot/medbot/update_appearance()
 	cut_overlays()
 	if(skin)
 		add_overlay("medskin_[skin]")
@@ -111,7 +111,7 @@ GLOBAL_VAR(medibot_unique_id_gen)
 	prev_access = access_card.access
 	qdel(J)
 	skin = new_skin
-	update_icon()
+	update_appearance()
 	linked_techweb = SSresearch.science_tech
 	if(!GLOB.medibot_unique_id_gen)
 		GLOB.medibot_unique_id_gen = 0
@@ -120,7 +120,7 @@ GLOBAL_VAR(medibot_unique_id_gen)
 
 /mob/living/simple_animal/bot/medbot/update_mobility()
 	. = ..()
-	update_icon()
+	update_appearance()
 
 /mob/living/simple_animal/bot/medbot/bot_reset()
 	..()
@@ -129,14 +129,14 @@ GLOBAL_VAR(medibot_unique_id_gen)
 	oldloc = null
 	last_found = world.time
 	declare_cooldown = 0
-	update_icon()
+	update_appearance()
 
 /mob/living/simple_animal/bot/medbot/proc/soft_reset() //Allows the medibot to still actively perform its medical duties without being completely halted as a hard reset does.
 	path = list()
 	set_patient(null)
 	mode = BOT_IDLE
 	last_found = world.time
-	update_icon()
+	update_appearance()
 
 /mob/living/simple_animal/bot/medbot/set_custom_texts()
 
@@ -192,7 +192,7 @@ GLOBAL_VAR(medibot_unique_id_gen)
 	else if(href_list["stationary"])
 		stationary_mode = !stationary_mode
 		path = list()
-		update_icon()
+		update_appearance()
 
 	else if(href_list["hptech"])
 		var/oldheal_amount = heal_amount
@@ -358,7 +358,7 @@ GLOBAL_VAR(medibot_unique_id_gen)
 	if(patient && (get_dist(src,patient) <= 1)) //Patient is next to us, begin treatment!
 		if(mode != BOT_HEALING)
 			mode = BOT_HEALING
-			update_icon()
+			update_appearance()
 			frustration = 0
 			medicate_patient(patient)
 		return
@@ -451,7 +451,7 @@ GLOBAL_VAR(medibot_unique_id_gen)
 	if(C.getToxLoss() >= heal_threshold)
 		return TRUE
 
-/mob/living/simple_animal/bot/medbot/attack_hand(mob/living/carbon/human/H)	
+/mob/living/simple_animal/bot/medbot/attack_hand(mob/living/carbon/human/H)
 	if(H.a_intent == INTENT_DISARM && !tipped)
 		H.visible_message("<span class='danger'>[H] begins tipping over [src].</span>", "<span class='warning'>You begin tipping over [src]...</span>")
 
@@ -477,9 +477,9 @@ GLOBAL_VAR(medibot_unique_id_gen)
 		var/mob/living/carbon/C = A
 		set_patient(C)
 		mode = BOT_HEALING
-		update_icon()
+		update_appearance()
 		medicate_patient(C)
-		update_icon()
+		update_appearance()
 	else
 		..()
 
@@ -559,7 +559,7 @@ GLOBAL_VAR(medibot_unique_id_gen)
 			else
 				tending = FALSE
 
-			update_icon()
+			update_appearance()
 			if(!tending)
 				visible_message("[src] places its tools back into itself.")
 				soft_reset()

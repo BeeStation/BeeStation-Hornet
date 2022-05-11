@@ -55,7 +55,7 @@
 	if(!recharging_mech)
 		recharging_mech = locate(/obj/mecha) in recharging_turf
 		if(recharging_mech)
-			recharge_console.update_icon()
+			recharge_console.update_appearance()
 			recharge_console.ui_update()
 	if(recharging_mech && recharging_mech.cell)
 		if(recharging_mech.cell.charge < recharging_mech.cell.maxcharge)
@@ -63,10 +63,10 @@
 			recharging_mech.give_power(delta)
 			use_power(delta*150)
 		else
-			recharge_console.update_icon()
+			recharge_console.update_appearance()
 		if(recharging_mech.loc != recharging_turf)
 			recharging_mech = null
-			recharge_console.update_icon()
+			recharge_console.update_appearance()
 			recharge_console.ui_update()
 
 
@@ -116,7 +116,7 @@
 		if("reconnect")
 			reconnect()
 			. = TRUE
-			update_icon()
+			update_appearance()
 
 /obj/machinery/computer/mech_bay_power_console/ui_data(mob/user)
 	var/list/data = list()

@@ -15,7 +15,7 @@
 	var/has_variants = TRUE
 	var/finish_color = null
 
-/obj/item/modular_computer/tablet/update_icon()
+/obj/item/modular_computer/tablet/update_appearance()
 	..()
 	if (has_variants)
 		if(!finish_color)

@@ -43,9 +43,9 @@ GLOBAL_LIST_EMPTY(bodycontainers) //Let them act as spawnpoints for revenants an
 
 /obj/structure/bodycontainer/on_log(login)
 	..()
-	update_icon()
+	update_appearance()
 
-/obj/structure/bodycontainer/update_icon()
+/obj/structure/bodycontainer/update_appearance()
 	return
 
 /obj/structure/bodycontainer/relaymove(mob/user)
@@ -131,7 +131,7 @@ GLOBAL_LIST_EMPTY(bodycontainers) //Let them act as spawnpoints for revenants an
 		connected.setDir(dir)
 	for(var/atom/movable/AM in src)
 		AM.forceMove(T)
-	update_icon()
+	update_appearance()
 
 /obj/structure/bodycontainer/proc/close()
 	playsound(src, 'sound/effects/roll.ogg', 5, 1)
@@ -142,7 +142,7 @@ GLOBAL_LIST_EMPTY(bodycontainers) //Let them act as spawnpoints for revenants an
 				continue
 			AM.forceMove(src)
 	recursive_organ_check(src)
-	update_icon()
+	update_appearance()
 
 /obj/structure/bodycontainer/get_remote_view_fullscreens(mob/user)
 	if(user.stat == DEAD || !(user.sight & (SEEOBJS|SEEMOBS)))
@@ -174,7 +174,7 @@ GLOBAL_LIST_EMPTY(bodycontainers) //Let them act as spawnpoints for revenants an
 	beeper = !beeper
 	to_chat(user, "<span class='notice'>You turn the speaker function [beeper ? "on" : "off"].</span>")
 
-/obj/structure/bodycontainer/morgue/update_icon()
+/obj/structure/bodycontainer/morgue/update_appearance()
 	if (!connected || connected.loc != src) // Open or tray is gone.
 		icon_state = "morgue0"
 	else
@@ -230,7 +230,7 @@ GLOBAL_LIST_EMPTY(crematoriums)
 	connected = new /obj/structure/tray/c_tray(src)
 	connected.connected = src
 
-/obj/structure/bodycontainer/crematorium/update_icon()
+/obj/structure/bodycontainer/crematorium/update_appearance()
 	if(!connected || connected.loc != src)
 		icon_state = "crema0"
 	else
@@ -259,7 +259,7 @@ GLOBAL_LIST_EMPTY(crematoriums)
 		audible_message("<span class='italics'>You hear a roar as the crematorium activates.</span>")
 
 		locked = TRUE
-		update_icon()
+		update_appearance()
 
 		for(var/obj/O in conts)
 			if(O.resistance_flags & INDESTRUCTIBLE)
@@ -292,7 +292,7 @@ GLOBAL_LIST_EMPTY(crematoriums)
 
 		if(!QDELETED(src))
 			locked = FALSE
-			update_icon()
+			update_appearance()
 			playsound(src.loc, 'sound/machines/ding.ogg', 50, 1) //you horrible people
 
 /obj/structure/bodycontainer/crematorium/creamatorium
@@ -327,7 +327,7 @@ GLOBAL_LIST_EMPTY(crematoriums)
 /obj/structure/tray/Destroy()
 	if(connected)
 		connected.connected = null
-		connected.update_icon()
+		connected.update_appearance()
 		connected = null
 	return ..()
 

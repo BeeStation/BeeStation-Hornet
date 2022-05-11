@@ -56,7 +56,7 @@
 			min_wrate = 0
 	ui_update()
 
-/obj/machinery/plantgenes/update_icon()
+/obj/machinery/plantgenes/update_appearance()
 	..()
 	cut_overlays()
 	if((stat & (BROKEN|NOPOWER)))
@@ -70,7 +70,7 @@
 
 /obj/machinery/plantgenes/attackby(obj/item/I, mob/user, params)
 	if(default_deconstruction_screwdriver(user, "dnamod", "dnamod", I))
-		update_icon()
+		update_appearance()
 		return
 	if(default_deconstruction_crowbar(I))
 		return
@@ -358,7 +358,7 @@
 
 	if(.)
 		update_genes()
-		update_icon()
+		update_appearance()
 
 /obj/machinery/plantgenes/proc/insert_seed(obj/item/seeds/S)
 	if(!istype(S) || seed)
@@ -366,7 +366,7 @@
 	S.forceMove(src)
 	seed = S
 	update_genes()
-	update_icon()
+	update_appearance()
 	ui_update()
 
 /obj/machinery/plantgenes/proc/eject_disk()

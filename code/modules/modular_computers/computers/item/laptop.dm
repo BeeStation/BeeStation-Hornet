@@ -32,7 +32,7 @@
 	if(start_open && !screen_on)
 		toggle_open()
 
-/obj/item/modular_computer/laptop/update_icon()
+/obj/item/modular_computer/laptop/update_appearance()
 	if(screen_on)
 		..()
 	else
@@ -100,7 +100,7 @@
 		w_class = w_class_open
 
 	screen_on = !screen_on
-	update_icon()
+	update_appearance()
 
 
 

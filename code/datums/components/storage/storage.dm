@@ -686,10 +686,10 @@
 		else if(I && I.w_class >= 3) //Otherwise they can only see large or normal items from a distance...
 			viewing.show_message("<span class='notice'>[M] puts [I] [insert_preposition]to [parent].</span>", MSG_VISUAL)
 
-/datum/component/storage/proc/update_icon()
+/datum/component/storage/proc/update_appearance()
 	if(isobj(parent))
 		var/obj/O = parent
-		O.update_icon()
+		O.update_appearance()
 
 /datum/component/storage/proc/signal_insertion_attempt(datum/source, obj/item/I, mob/M, silent = FALSE, force = FALSE)
 	SIGNAL_HANDLER

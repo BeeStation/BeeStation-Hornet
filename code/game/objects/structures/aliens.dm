@@ -221,7 +221,7 @@
 
 /obj/structure/alien/egg/Initialize(mapload)
 	. = ..()
-	update_icon()
+	update_appearance()
 	if(status == GROWING || status == GROWN)
 		child = new(src)
 	if(status == GROWING)
@@ -230,7 +230,7 @@
 	if(status == BURST)
 		obj_integrity = integrity_failure
 
-/obj/structure/alien/egg/update_icon()
+/obj/structure/alien/egg/update_appearance()
 	..()
 	switch(status)
 		if(GROWING)
@@ -274,7 +274,7 @@
 
 /obj/structure/alien/egg/proc/Grow()
 	status = GROWN
-	update_icon()
+	update_appearance()
 	proximity_monitor.SetRange(1)
 
 //drops and kills the hugger if any is remaining
@@ -282,13 +282,13 @@
 	if(status == GROWN || status == GROWING)
 		proximity_monitor.SetRange(0)
 		status = BURSTING
-		update_icon()
+		update_appearance()
 		flick("egg_opening", src)
 		addtimer(CALLBACK(src, .proc/finish_bursting, kill), 15)
 
 /obj/structure/alien/egg/proc/finish_bursting(kill = TRUE)
 	status = BURST
-	update_icon()
+	update_appearance()
 	if(child)
 		child.forceMove(get_turf(src))
 		// TECHNICALLY you could put non-facehuggers in the child var

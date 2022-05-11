@@ -29,7 +29,7 @@
 
 	return ..()
 
-/obj/structure/closet/crate/critter/update_icon()
+/obj/structure/closet/crate/critter/update_appearance()
 	. = ..()
 
 /obj/structure/closet/crate/critter/animate_door(var/closing = FALSE)
@@ -56,7 +56,7 @@
 /obj/structure/closet/crate/critter/end_door_animation()
 	is_animating_door = FALSE
 	vis_contents -= door_obj
-	update_icon()
+	update_appearance()
 	COMPILE_OVERLAYS(src)
 
 /obj/structure/closet/crate/critter/get_door_transform(crateanim_1, crateanim_2)

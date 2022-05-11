@@ -35,7 +35,7 @@
 		var/datum/component/simple_rotation/rotcomp = GetComponent(/datum/component/simple_rotation)
 		rotcomp.BaseRot(null,ROTATION_FLIP)
 
-	update_icon()
+	update_appearance()
 
 /obj/structure/disposalconstruct/Move()
 	var/old_dir = dir
@@ -43,7 +43,7 @@
 	setDir(old_dir) //pipes changing direction when moved is just annoying and buggy
 
 // update iconstate and dpdir due to dir and type
-/obj/structure/disposalconstruct/update_icon()
+/obj/structure/disposalconstruct/update_appearance()
 	icon_state = initial(pipe_type.icon_state)
 	if(is_pipe())
 		icon_state = "con[icon_state]"
@@ -66,7 +66,7 @@
 // change visibility status and force update of icon
 /obj/structure/disposalconstruct/hide(var/intact)
 	invisibility = (intact && level==1) ? INVISIBILITY_MAXIMUM: 0	// hide if floor is intact
-	update_icon()
+	update_appearance()
 
 /obj/structure/disposalconstruct/proc/get_disposal_dir()
 	if(!is_pipe())
@@ -101,7 +101,7 @@
 			if(dir in GLOB.diagonals)	// Fix RPD-induced diagonal turning
 				setDir(turn(dir, 45))
 			pipe_type = initial(temp.flip_type)
-	update_icon()
+	update_appearance()
 
 /obj/structure/disposalconstruct/proc/can_be_rotated(mob/user,rotation_type)
 	if(anchored)
@@ -154,7 +154,7 @@
 		density = initial(pipe_type.density)
 		to_chat(user, "<span class='notice'>You attach the [pipename] to the underfloor.</span>")
 	I.play_tool_sound(src, 100)
-	update_icon()
+	update_appearance()
 	return TRUE
 
 /obj/structure/disposalconstruct/welder_act(mob/living/user, obj/item/I)

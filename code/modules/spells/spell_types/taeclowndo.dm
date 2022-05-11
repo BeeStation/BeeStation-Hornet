@@ -43,7 +43,7 @@
 	. = ..()
 	new /obj/item/grown/bananapeel(target)
 
-/obj/effect/proc_holder/spell/aimed/banana_peel/update_icon()
+/obj/effect/proc_holder/spell/aimed/banana_peel/update_appearance()
 	if(!action)
 		return
 	if(active)

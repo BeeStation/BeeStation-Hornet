@@ -45,11 +45,11 @@
 
 /obj/mecha/working/ripley/go_out()
 	..()
-	update_icon()
+	update_appearance()
 
 /obj/mecha/working/ripley/moved_inside(mob/living/carbon/human/H)
 	..()
-	update_icon()
+	update_appearance()
 
 /obj/mecha/working/ripley/check_for_internal_damage(list/possible_int_damage,ignore_threshold=null)
 	if (!enclosed)

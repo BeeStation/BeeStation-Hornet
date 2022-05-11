@@ -25,7 +25,7 @@
 /obj/item/folder/documents/Initialize(mapload)
 	. = ..()
 	new /obj/item/documents/nanotrasen(src)
-	update_icon()
+	update_appearance()
 
 /obj/item/folder/syndicate
 	icon_state = "folder_syndie"
@@ -39,7 +39,7 @@
 /obj/item/folder/syndicate/red/Initialize(mapload)
 	. = ..()
 	new /obj/item/documents/syndicate/red(src)
-	update_icon()
+	update_appearance()
 
 /obj/item/folder/syndicate/blue
 	icon_state = "folder_sblue"
@@ -47,9 +47,9 @@
 /obj/item/folder/syndicate/blue/Initialize(mapload)
 	. = ..()
 	new /obj/item/documents/syndicate/blue(src)
-	update_icon()
+	update_appearance()
 
 /obj/item/folder/syndicate/mining/Initialize(mapload)
 	. = ..()
 	new /obj/item/documents/syndicate/mining(src)
-	update_icon()
+	update_appearance()

@@ -22,7 +22,7 @@
 	sleep(10)
 	return (BRUTELOSS)
 
-/obj/item/origami/paperplane/update_icon()
+/obj/item/origami/paperplane/update_appearance()
 	cut_overlays()
 	var/list/stamped = internalPaper.stamped
 	if(stamped)
@@ -46,7 +46,7 @@
 
 	else if(istype(P, /obj/item/stamp)) 	//we don't randomize stamps on a paperplane
 		internalPaper.attackby(P, user) //spoofed attack to update internal paper.
-		update_icon()
+		update_appearance()
 		add_fingerprint(user)
 		return
 

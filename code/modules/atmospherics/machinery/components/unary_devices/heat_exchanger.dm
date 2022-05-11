@@ -23,7 +23,7 @@
 	piping_layer = 3
 	icon_state = "he_map-3"
 
-/obj/machinery/atmospherics/components/unary/heat_exchanger/update_icon()
+/obj/machinery/atmospherics/components/unary/heat_exchanger/update_appearance()
 	if(nodes[1])
 		icon_state = "he1"
 		var/obj/machinery/atmospherics/node = nodes[1]

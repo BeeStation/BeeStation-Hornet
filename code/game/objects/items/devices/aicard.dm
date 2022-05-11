@@ -37,9 +37,9 @@
 		target.transfer_ai(AI_TRANS_TO_CARD, user, null, src)
 		if(AI)
 			log_combat(user, AI, "carded", src)
-	update_icon() //Whatever happened, update the card's state (icon, name) to match.
+	update_appearance() //Whatever happened, update the card's state (icon, name) to match.
 
-/obj/item/aicard/update_icon()
+/obj/item/aicard/update_appearance()
 	cut_overlays()
 	if(AI)
 		name = "[initial(name)] - [AI.name]"
@@ -104,4 +104,4 @@
 			AI.radio_enabled = !AI.radio_enabled
 			to_chat(AI, "Your Subspace Transceiver has been [AI.radio_enabled ? "enabled" : "disabled"]!")
 			. = TRUE
-	update_icon()
+	update_appearance()

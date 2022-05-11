@@ -30,7 +30,7 @@
 /obj/machinery/atmospherics/components/unary/outlet_injector/CtrlClick(mob/user)
 	if(can_interact(user))
 		on = !on
-		update_icon()
+		update_appearance()
 		ui_update()
 	return ..()
 
@@ -38,7 +38,7 @@
 	if(can_interact(user))
 		volume_rate = MAX_TRANSFER_RATE
 		balloon_alert(user, "Set to [volume_rate] L/s")
-		update_icon()
+		update_appearance()
 		ui_update()
 	return
 
@@ -138,7 +138,7 @@
 	addtimer(CALLBACK(src, .proc/broadcast_status), 2)
 
 	if(!("status" in signal.data)) //do not update_icon
-		update_icon()
+		update_appearance()
 		ui_update()
 
 
@@ -180,7 +180,7 @@
 				volume_rate = clamp(rate, 0, MAX_TRANSFER_RATE)
 				investigate_log("was set to [volume_rate] L/s by [key_name(usr)]", INVESTIGATE_ATMOS)
 	if(.)
-		update_icon()
+		update_appearance()
 		broadcast_status()
 
 /obj/machinery/atmospherics/components/unary/outlet_injector/can_unwrench(mob/user)

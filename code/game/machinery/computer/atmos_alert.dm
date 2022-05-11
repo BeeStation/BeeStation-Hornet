@@ -58,7 +58,7 @@
 				minor_alarms -= zone
 				. = TRUE
 	if(.)
-		update_icon()
+		update_appearance()
 
 /obj/machinery/computer/atmos_alert/proc/set_frequency(new_frequency)
 	SSradio.remove_object(src, receive_frequency)
@@ -81,11 +81,11 @@
 		priority_alarms += zone
 	else if (severity == "minor")
 		minor_alarms += zone
-	update_icon()
+	update_appearance()
 	ui_update()
 	return
 
-/obj/machinery/computer/atmos_alert/update_icon()
+/obj/machinery/computer/atmos_alert/update_appearance()
 	..()
 	if(stat & (NOPOWER|BROKEN))
 		return

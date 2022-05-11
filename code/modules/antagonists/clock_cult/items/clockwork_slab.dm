@@ -76,7 +76,7 @@ GLOBAL_LIST_INIT(clockwork_slabs, list())
 		script.Grant(user)
 	user.update_action_buttons()
 
-/obj/item/clockwork/clockwork_slab/update_icon()
+/obj/item/clockwork/clockwork_slab/update_appearance()
 	. = ..()
 	cut_overlays()
 	if(charge_overlay)

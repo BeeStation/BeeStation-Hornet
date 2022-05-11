@@ -75,7 +75,7 @@ All the important duct code:
 		for(var/atom/movable/AM in get_step(src, D))
 			if(connect_network(AM, D))
 				add_connects(D)
-	update_icon()
+	update_appearance()
 
 ///see if whatever we found can be connected to
 /obj/machinery/duct/proc/connect_network(atom/movable/AM, direction, ignore_color)
@@ -102,7 +102,7 @@ All the important duct code:
 		add_neighbour(D, direction)
 
 		D.add_connects(opposite_dir)
-		D.update_icon()
+		D.update_appearance()
 		return TRUE //tell the current pipe to also update it's sprite
 	if(!(D in neighbours)) //we cool
 		if((duct_color != D.duct_color) && !(ignore_colors || D.ignore_colors))
@@ -152,7 +152,7 @@ All the important duct code:
 		duct.remove_duct(src)
 	lose_neighbours()
 	reset_connects(0)
-	update_icon()
+	update_appearance()
 	if(ispath(drop_on_wrench))
 		new drop_on_wrench(drop_location())
 		drop_on_wrench = null
@@ -190,7 +190,7 @@ All the important duct code:
 	connects = 0
 	for(var/A in neighbours)
 		connects |= neighbours[A]
-	update_icon()
+	update_appearance()
 
 ///create a new duct datum
 /obj/machinery/duct/proc/create_duct()
@@ -235,7 +235,7 @@ All the important duct code:
 					adjacents += D
 	return adjacents
 
-/obj/machinery/duct/update_icon() //setting connects isn't a parameter because sometimes we make more than one change, overwrite it completely or just add it to the bitfield
+/obj/machinery/duct/update_appearance() //setting connects isn't a parameter because sometimes we make more than one change, overwrite it completely or just add it to the bitfield
 	var/temp_icon = initial(icon_state)
 	for(var/D in GLOB.cardinals)
 		if(D & connects)
@@ -324,7 +324,7 @@ All the important duct code:
 	add_connects(direction) //the connect of the other duct is handled in connect_network, but do this here for the parent duct because it's not necessary in normal cases
 	add_neighbour(D, direction)
 	connect_network(D, direction, TRUE)
-	update_icon()
+	update_appearance()
 ///has a total of 5 layers and doesnt give a shit about color. its also dumb so doesnt autoconnect.
 /obj/machinery/duct/multilayered
 	name = "duct layer-manifold"
@@ -349,7 +349,7 @@ All the important duct code:
 	. = ..()
 	update_connects()
 
-/obj/machinery/duct/multilayered/update_icon()
+/obj/machinery/duct/multilayered/update_appearance()
 	return
 
 /obj/machinery/duct/multilayered/wrench_act(mob/living/user, obj/item/I)

@@ -221,7 +221,7 @@
 		name = "shortcircuited [initial(name)]"
 	else
 		name = initial(name)
-	update_icon()
+	update_appearance()
 
 /obj/item/lightreplacer/proc/CanUse(mob/living/user)
 	src.add_fingerprint(user)
@@ -251,7 +251,7 @@
 /obj/item/lightreplacer/proc/janicart_insert(mob/user, obj/structure/janitorialcart/J)
 	J.put_in_cart(src, user)
 	J.myreplacer = src
-	J.update_icon()
+	J.update_appearance()
 
 /obj/item/lightreplacer/cyborg/janicart_insert(mob/user, obj/structure/janitorialcart/J)
 	return

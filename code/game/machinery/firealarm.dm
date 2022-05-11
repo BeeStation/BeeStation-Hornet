@@ -61,7 +61,7 @@
 		panel_open = TRUE
 		pixel_x = (dir & 3)? 0 : (dir == 4 ? -24 : 24)
 		pixel_y = (dir & 3)? (dir ==1 ? -24 : 24) : 0
-	update_icon()
+	update_appearance()
 	myarea = get_area(src)
 	LAZYADD(myarea.firealarms, src)
 
@@ -70,7 +70,7 @@
 	LAZYREMOVE(myarea.firealarms, src)
 	return ..()
 
-/obj/machinery/firealarm/update_icon()
+/obj/machinery/firealarm/update_appearance()
 	cut_overlays()
 	SSvis_overlays.remove_vis_overlay(src, managed_vis_overlays)
 
@@ -127,7 +127,7 @@
 	if(obj_flags & EMAGGED)
 		return
 	obj_flags |= EMAGGED
-	update_icon()
+	update_appearance()
 	user?.visible_message("<span class='warning'>Sparks fly out of [src]!</span>",
 							"<span class='notice'>You emag [src], disabling its thermal sensors.</span>")
 	playsound(src, "sparks", 50, 1)
@@ -184,7 +184,7 @@
 		W.play_tool_sound(src)
 		panel_open = !panel_open
 		to_chat(user, "<span class='notice'>The wires have been [panel_open ? "exposed" : "unexposed"].</span>")
-		update_icon()
+		update_appearance()
 		return
 
 	if(panel_open)
@@ -217,7 +217,7 @@
 					W.play_tool_sound(src)
 					new /obj/item/stack/cable_coil(user.loc, 5)
 					to_chat(user, "<span class='notice'>You cut the wires from \the [src].</span>")
-					update_icon()
+					update_appearance()
 					return
 
 				else if(W.force) //hit and turn it on
@@ -236,7 +236,7 @@
 						coil.use(5)
 						buildstage = 2
 						to_chat(user, "<span class='notice'>You wire \the [src].</span>")
-						update_icon()
+						update_appearance()
 					return
 
 				else if(W.tool_behaviour == TOOL_CROWBAR)
@@ -251,14 +251,14 @@
 								to_chat(user, "<span class='notice'>You pry out the circuit.</span>")
 								new /obj/item/electronics/firealarm(user.loc)
 							buildstage = 0
-							update_icon()
+							update_appearance()
 					return
 			if(0)
 				if(istype(W, /obj/item/electronics/firealarm))
 					to_chat(user, "<span class='notice'>You insert the circuit.</span>")
 					qdel(W)
 					buildstage = 1
-					update_icon()
+					update_appearance()
 					return
 
 				else if(istype(W, /obj/item/electroadaptive_pseudocircuit))
@@ -268,7 +268,7 @@
 					user.visible_message("<span class='notice'>[user] fabricates a circuit and places it into [src].</span>", \
 					"<span class='notice'>You adapt a fire alarm circuit and slot it into the assembly.</span>")
 					buildstage = 1
-					update_icon()
+					update_appearance()
 					return
 
 				else if(W.tool_behaviour == TOOL_WRENCH)
@@ -293,7 +293,7 @@
 			user.visible_message("<span class='notice'>[user] fabricates a circuit and places it into [src].</span>", \
 			"<span class='notice'>You adapt a fire alarm circuit and slot it into the assembly.</span>")
 			buildstage = 1
-			update_icon()
+			update_appearance()
 			return TRUE
 	return FALSE
 

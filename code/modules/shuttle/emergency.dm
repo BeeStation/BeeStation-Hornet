@@ -614,7 +614,7 @@
 	density = FALSE
 	clockwork = TRUE //it'd look weird
 
-/obj/machinery/computer/shuttle_flight/pod/update_icon()
+/obj/machinery/computer/shuttle_flight/pod/update_appearance()
 	return
 
 /obj/machinery/computer/shuttle_flight/pod/emag_act(mob/user)

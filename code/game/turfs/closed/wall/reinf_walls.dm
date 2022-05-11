@@ -60,7 +60,7 @@
 			if(W.tool_behaviour == TOOL_WIRECUTTER)
 				W.play_tool_sound(src, 100)
 				d_state = SUPPORT_LINES
-				update_icon()
+				update_appearance()
 				balloon_alert(user, "Outer grille cut")
 				return TRUE
 
@@ -71,14 +71,14 @@
 					if(!istype(src, /turf/closed/wall/r_wall) || d_state != SUPPORT_LINES)
 						return TRUE
 					d_state = COVER
-					update_icon()
+					update_appearance()
 					balloon_alert(user, "Support lines unsecured")
 				return TRUE
 
 			else if(W.tool_behaviour == TOOL_WIRECUTTER)
 				W.play_tool_sound(src, 100)
 				d_state = INTACT
-				update_icon()
+				update_appearance()
 				balloon_alert(user, "Outer grille repaired")
 				return TRUE
 
@@ -91,7 +91,7 @@
 					if(!istype(src, /turf/closed/wall/r_wall) || d_state != COVER)
 						return TRUE
 					d_state = CUT_COVER
-					update_icon()
+					update_appearance()
 					balloon_alert(user, "Metal cover removed")
 				return TRUE
 
@@ -101,7 +101,7 @@
 					if(!istype(src, /turf/closed/wall/r_wall) || d_state != COVER)
 						return TRUE
 					d_state = SUPPORT_LINES
-					update_icon()
+					update_appearance()
 					balloon_alert(user, "Support lines have been secured")
 				return TRUE
 
@@ -112,7 +112,7 @@
 					if(!istype(src, /turf/closed/wall/r_wall) || d_state != CUT_COVER)
 						return TRUE
 					d_state = ANCHOR_BOLTS
-					update_icon()
+					update_appearance()
 					balloon_alert(user, "Cover pried off")
 				return TRUE
 
@@ -124,7 +124,7 @@
 					if(!istype(src, /turf/closed/wall/r_wall) || d_state != CUT_COVER)
 						return TRUE
 					d_state = COVER
-					update_icon()
+					update_appearance()
 					balloon_alert(user, "Metal cover welded to the frame")
 				return TRUE
 
@@ -135,7 +135,7 @@
 					if(!istype(src, /turf/closed/wall/r_wall) || d_state != ANCHOR_BOLTS)
 						return TRUE
 					d_state = SUPPORT_RODS
-					update_icon()
+					update_appearance()
 					balloon_alert(user, "Bolts removed")
 				return TRUE
 
@@ -145,7 +145,7 @@
 					if(!istype(src, /turf/closed/wall/r_wall) || d_state != ANCHOR_BOLTS)
 						return TRUE
 					d_state = CUT_COVER
-					update_icon()
+					update_appearance()
 					balloon_alert(user, "The metal cover pried back into place")
 				return TRUE
 
@@ -158,7 +158,7 @@
 					if(!istype(src, /turf/closed/wall/r_wall) || d_state != SUPPORT_RODS)
 						return TRUE
 					d_state = SHEATH
-					update_icon()
+					update_appearance()
 					balloon_alert(user, "Support rods sliced through")
 				return TRUE
 
@@ -169,7 +169,7 @@
 					if(!istype(src, /turf/closed/wall/r_wall) || d_state != SUPPORT_RODS)
 						return TRUE
 					d_state = ANCHOR_BOLTS
-					update_icon()
+					update_appearance()
 					balloon_alert(user, "Bolts tightened")
 				return TRUE
 
@@ -191,12 +191,12 @@
 					if(!istype(src, /turf/closed/wall/r_wall) || d_state != SHEATH)
 						return TRUE
 					d_state = SUPPORT_RODS
-					update_icon()
+					update_appearance()
 					balloon_alert(user, "Support rods welded back together")
 				return TRUE
 	return FALSE
 
-/turf/closed/wall/r_wall/update_icon()
+/turf/closed/wall/r_wall/update_appearance()
 	. = ..()
 	if(d_state != INTACT)
 		smooth = SMOOTH_FALSE

@@ -175,7 +175,7 @@
 	icon = 'icons/obj/lavaland/survival_pod.dmi'
 	icon_state = "sleeper"
 
-/obj/machinery/sleeper/survival_pod/update_icon()
+/obj/machinery/sleeper/survival_pod/update_appearance()
 	if(state_open)
 		cut_overlays()
 	else
@@ -191,7 +191,7 @@
 /obj/machinery/stasis/survival_pod/play_power_sound()
 	return
 
-/obj/machinery/stasis/survival_pod/update_icon()
+/obj/machinery/stasis/survival_pod/update_appearance()
 	return
 
 //NanoMed
@@ -246,7 +246,7 @@
 	flags_1 = NODECONSTRUCT_1
 	var/empty = FALSE
 
-/obj/machinery/smartfridge/survival_pod/update_icon()
+/obj/machinery/smartfridge/survival_pod/update_appearance()
 	return
 
 /obj/machinery/smartfridge/survival_pod/Initialize(mapload)

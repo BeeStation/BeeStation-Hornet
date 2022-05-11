@@ -25,7 +25,7 @@
 	if(isturf(target))
 		RegisterSignal(target,COMSIG_TURF_AFTER_SHUTTLE_MOVE,.proc/shuttlemove_react, TRUE)
 	if(target.flags_1 & INITIALIZED_1)
-		target.update_icon() //could use some queuing here now maybe.
+		target.update_appearance() //could use some queuing here now maybe.
 	else
 		RegisterSignal(target,COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZE,.proc/late_update_icon, TRUE)
 	if(isitem(target))
@@ -48,7 +48,7 @@
 
 /datum/element/decal/Detach(atom/source)
 	UnregisterSignal(source, list(COMSIG_ATOM_DIR_CHANGE, COMSIG_COMPONENT_CLEAN_ACT, COMSIG_PARENT_EXAMINE, COMSIG_ATOM_UPDATE_OVERLAYS,COMSIG_TURF_AFTER_SHUTTLE_MOVE))
-	source.update_icon()
+	source.update_appearance()
 	if(isitem(source))
 		INVOKE_ASYNC(source, /obj/item/.proc/update_slot_icon)
 	return ..()
@@ -56,7 +56,7 @@
 /datum/element/decal/proc/late_update_icon(atom/source)
 	SIGNAL_HANDLER
 	if(source && istype(source))
-		source.update_icon()
+		source.update_appearance()
 		UnregisterSignal(source,COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZE)
 
 

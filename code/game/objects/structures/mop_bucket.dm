@@ -19,12 +19,12 @@
 			reagents.trans_to(I, 5, transfered_by = user)
 			to_chat(user, "<span class='notice'>You wet [I] in [src].</span>")
 			playsound(loc, 'sound/effects/slosh.ogg', 25, 1)
-			update_icon()
+			update_appearance()
 	else
 		. = ..()
-		update_icon()
+		update_appearance()
 
-/obj/structure/mopbucket/update_icon()
+/obj/structure/mopbucket/update_appearance()
 	cut_overlays()
 	if(reagents.total_volume > 0)
 		add_overlay("mopbucket_water")

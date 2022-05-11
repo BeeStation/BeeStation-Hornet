@@ -120,11 +120,11 @@
 			if(can_be_node(target, i))
 				nodes[i] = target
 				break
-	update_icon()
+	update_appearance()
 
 /obj/machinery/atmospherics/proc/setPipingLayer(new_layer)
 	piping_layer = (pipe_flags & PIPING_DEFAULT_LAYER_ONLY) ? PIPING_LAYER_DEFAULT : new_layer
-	update_icon()
+	update_appearance()
 
 /obj/machinery/atmospherics/proc/can_be_node(obj/machinery/atmospherics/target, iteration)
 	return connection_check(target, piping_layer)
@@ -175,7 +175,7 @@
 		P.destroy_network()
 	if(nodes.len >= nodes.Find(reference)) // for some reason things can still be acted on even though they've been deleted this is a really fucky way of detecting that
 		nodes[nodes.Find(reference)] = null
-		update_icon()
+		update_appearance()
 
 /obj/machinery/atmospherics/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/pipe)) //lets you autodrop

@@ -47,15 +47,15 @@
 /obj/machinery/power/port_gen/proc/TogglePower()
 	if(active)
 		active = FALSE
-		update_icon()
+		update_appearance()
 		soundloop.stop()
 	else if(HasFuel())
 		active = TRUE
 		START_PROCESSING(SSmachines, src)
-		update_icon()
+		update_appearance()
 		soundloop.start()
 
-/obj/machinery/power/port_gen/update_icon()
+/obj/machinery/power/port_gen/update_appearance()
 	icon_state = "[base_icon]_[active]"
 
 /obj/machinery/power/port_gen/process()

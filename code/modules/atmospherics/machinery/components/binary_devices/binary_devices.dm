@@ -14,7 +14,7 @@
 			initialize_directions = EAST|WEST
 
 /obj/machinery/atmospherics/components/binary/hide(intact)
-	update_icon()
+	update_appearance()
 	..()
 
 /obj/machinery/atmospherics/components/binary/getNodeConnects()

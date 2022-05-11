@@ -641,7 +641,7 @@
 	desc = "A flask with an almost-holy aura emitting from it. The label on the bottle says: 'erqo'hyy tvi'rf lbh jv'atf'."
 	list_reagents = list(/datum/reagent/flightpotion = 5)
 
-/obj/item/reagent_containers/glass/bottle/potion/update_icon()
+/obj/item/reagent_containers/glass/bottle/potion/update_appearance()
 	if(reagents.total_volume)
 		icon_state = "potionflask"
 	else
@@ -1227,7 +1227,7 @@
 		chaser_speed = max(chaser_speed + health_percent, 0.5) //one tenth of a second faster for each missing 10% of health
 		blast_range -= round(health_percent * 10) //one additional range for each missing 10% of health
 
-/obj/item/hierophant_club/update_icon()
+/obj/item/hierophant_club/update_appearance()
 	icon_state = "hierophant_club[timer <= world.time ? "_ready":""][(beacon && !QDELETED(beacon)) ? "":"_beacon"]"
 	item_state = icon_state
 	if(ismob(loc))
@@ -1236,9 +1236,9 @@
 		M.update_inv_back()
 
 /obj/item/hierophant_club/proc/prepare_icon_update()
-	update_icon()
+	update_appearance()
 	sleep(timer - world.time)
-	update_icon()
+	update_appearance()
 
 /obj/item/hierophant_club/ui_action_click(mob/user, action)
 	if(istype(action, /datum/action/item_action/toggle_unfriendly_fire)) //toggle friendly fire...

@@ -819,7 +819,7 @@
 	occupant = AI
 	silicon_pilot = TRUE
 	icon_state = initial(icon_state)
-	update_icon()
+	update_appearance()
 	playsound(src, 'sound/machines/windowdoor.ogg', 50, 1)
 	if(!internal_damage)
 		SEND_SOUND(occupant, sound('sound/mecha/nominal.ogg',volume=50))
@@ -1011,7 +1011,7 @@
 	brainmob.update_mobility()
 	brainmob.update_mouse_pointer()
 	icon_state = initial(icon_state)
-	update_icon()
+	update_appearance()
 	setDir(dir_in)
 	log_message("[mmi_as_oc] moved in as pilot.", LOG_MECHA)
 	if(!internal_damage)
@@ -1095,7 +1095,7 @@
 				L.forceMove(mmi)
 				L.reset_perspective()
 			mmi.mecha = null
-			mmi.update_icon()
+			mmi.update_appearance()
 			L.mobility_flags = NONE
 		icon_state = initial(icon_state)+"-open"
 		setDir(dir_in)

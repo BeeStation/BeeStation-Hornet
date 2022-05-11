@@ -22,7 +22,7 @@
 
 /obj/structure/door_assembly/Initialize(mapload)
 	. = ..()
-	update_icon()
+	update_appearance()
 	update_name()
 
 /obj/structure/door_assembly/examine(mob/user)
@@ -277,14 +277,14 @@
 					door.name = base_name
 				door.previous_airlock = previous_assembly
 				electronics.forceMove(door)
-				door.update_icon()
+				door.update_appearance()
 				qdel(src)
 	else
 		return ..()
 	update_name()
-	update_icon()
+	update_appearance()
 
-/obj/structure/door_assembly/update_icon()
+/obj/structure/door_assembly/update_appearance()
 	cut_overlays()
 	if(!glass)
 		add_overlay(get_airlock_overlay("fill_construction", icon))
@@ -315,7 +315,7 @@
 	if(electronics)
 		target.electronics = source.electronics
 		source.electronics.forceMove(target)
-	target.update_icon()
+	target.update_appearance()
 	target.update_name()
 	qdel(source)
 

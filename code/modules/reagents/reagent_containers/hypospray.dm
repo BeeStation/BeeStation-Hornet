@@ -91,7 +91,7 @@
 	possible_transfer_amounts = list(5,10,15,30,50)
 	list_reagents = list(/datum/reagent/medicine/adminordrazine/quantum_heal = 80, /datum/reagent/medicine/synaptizine = 20)
 
-/obj/item/reagent_containers/hypospray/combat/nanites/update_icon()
+/obj/item/reagent_containers/hypospray/combat/nanites/update_appearance()
 	if(reagents.total_volume > 0)
 		icon_state = initial(icon_state)
 	else
@@ -134,13 +134,13 @@
 	if(.)
 		reagents.maximum_volume = 0 //Makes them useless afterwards
 		reagents.flags = NONE
-		update_icon()
+		update_appearance()
 
 /obj/item/reagent_containers/hypospray/medipen/attack_self(mob/user)
 	if(user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
 		inject(user, user)
 
-/obj/item/reagent_containers/hypospray/medipen/update_icon()
+/obj/item/reagent_containers/hypospray/medipen/update_appearance()
 	if(reagents.total_volume > 0)
 		icon_state = initial(icon_state)
 	else
@@ -207,7 +207,7 @@
 	amount_per_transfer_from_this = 30
 	list_reagents = list(/datum/reagent/medicine/atropine = 10, /datum/reagent/medicine/epinephrine = 10, /datum/reagent/medicine/salbutamol = 20, /datum/reagent/medicine/spaceacillin = 20)
 
-/obj/item/reagent_containers/hypospray/medipen/tuberculosiscure/update_icon()
+/obj/item/reagent_containers/hypospray/medipen/tuberculosiscure/update_appearance()
 	if(reagents.total_volume > 30)
 		icon_state = initial(icon_state)
 	else if (reagents.total_volume > 0)

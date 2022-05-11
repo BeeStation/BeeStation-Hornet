@@ -134,7 +134,7 @@
 	reagents.expose_temperature(exposed_temperature)
 
 /obj/item/reagent_containers/on_reagent_change(changetype)
-	update_icon()
+	update_appearance()
 
 /obj/item/reagent_containers/update_icon(dont_fill=FALSE)
 	if(!fill_icon_thresholds || dont_fill)

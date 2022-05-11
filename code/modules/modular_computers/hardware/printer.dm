@@ -38,7 +38,7 @@
 		P.info = text_to_print
 	if(paper_title)
 		P.name = paper_title
-	P.update_icon()
+	P.update_appearance()
 	stored_paper--
 
 	return TRUE

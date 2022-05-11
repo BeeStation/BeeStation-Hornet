@@ -136,7 +136,7 @@
 		if(D & (demand_connects | supply_connects))
 			for(var/obj/machinery/duct/duct in get_step(parent, D))
 				duct.remove_connects(turn(D, 180))
-				duct.update_icon()
+				duct.update_appearance()
 
 ///settle wherever we are, and start behaving like a piece of plumbing
 /datum/component/plumbing/proc/enable()

@@ -21,7 +21,7 @@
 		user.changeNext_move(CLICK_CD_RANGE)
 	if(exists)
 		user.newtonian_move(get_dir(target, user))
-	update_icon()
+	update_appearance()
 	return TRUE
 
 /obj/item/ammo_casing/proc/ready_proj(atom/target, mob/living/user, quiet, zone_override = "", atom/fired_from)

@@ -20,7 +20,7 @@
 /obj/machinery/species_converter/Initialize(mapload)
 	. = ..()
 	soundloop = new(list(src),  FALSE)
-	update_icon()
+	update_appearance()
 
 /obj/machinery/species_converter/Destroy()
 	QDEL_NULL(soundloop)
@@ -38,7 +38,7 @@
 	if(occupant)
 		to_chat(occupant, "<span class='notice'>You enter [src]</span>")
 		addtimer(CALLBACK(src, .proc/begin_conversion), 20, TIMER_OVERRIDE|TIMER_UNIQUE)
-		update_icon()
+		update_appearance()
 
 /obj/machinery/species_converter/open_machine(mob/user)
 	playsound(src, 'sound/machines/click.ogg', 50)
@@ -113,7 +113,7 @@
 		if(!is_species(C, desired_race))
 			processing = TRUE
 			soundloop.start()
-			update_icon()
+			update_appearance()
 			set_light(2, 1, "#ff0000")
 		else
 			say("Occupant is already the desired race.")

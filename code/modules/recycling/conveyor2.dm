@@ -109,7 +109,7 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 		movedir = backwards
 	update()
 
-/obj/machinery/conveyor/update_icon()
+/obj/machinery/conveyor/update_appearance()
 	if(stat & BROKEN)
 		icon_state = "conveyor-broken"
 	else
@@ -250,7 +250,7 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 	. = ..()
 	if (newid)
 		id = newid
-	update_icon()
+	update_appearance()
 	LAZYADD(GLOB.conveyors_by_id[id], src)
 
 /obj/machinery/conveyor_switch/Destroy()
@@ -268,7 +268,7 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 
 // update the icon depending on the position
 
-/obj/machinery/conveyor_switch/update_icon()
+/obj/machinery/conveyor_switch/update_appearance()
 	if(position<0)
 		if(invert_icon)
 			icon_state = "switch-fwd"
@@ -287,7 +287,7 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 	for(var/obj/machinery/conveyor/C in GLOB.conveyors_by_id[id])
 		C.operating = position
 		C.update_move_direction()
-		C.update_icon()
+		C.update_appearance()
 		if(C.operating)
 			C.begin_processing()
 		else
@@ -299,7 +299,7 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 	for(var/obj/machinery/conveyor_switch/S in GLOB.conveyors_by_id[id])
 		S.invert_icon = invert_icon
 		S.position = position
-		S.update_icon()
+		S.update_appearance()
 		CHECK_TICK
 
 /// Updates the switch's `position` and `last_pos` variable. Useful so that the switch can properly cycle between the forwards, backwards and neutral positions.
@@ -322,7 +322,7 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 /obj/machinery/conveyor_switch/interact(mob/user)
 	add_fingerprint(user)
 	update_position()
-	update_icon()
+	update_appearance()
 	update_linked_conveyors()
 	update_linked_switches()
 

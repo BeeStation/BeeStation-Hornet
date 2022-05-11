@@ -217,7 +217,7 @@
 			INVOKE_ASYNC(src, .proc/horrifyingsound)
 			mess = TRUE
 			icon_state = "pod_g"
-			update_icon()
+			update_appearance()
 			return ERROR_SOUL_DAMNED
 		if(clonemind.no_cloning_at_all) // nope.
 			return ERROR_UNCLONABLE

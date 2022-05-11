@@ -478,7 +478,7 @@
 		delay -= 11
 		icon_state = "rcd_end_reverse"
 	else
-		update_icon()
+		update_appearance()
 
 /obj/effect/constructing_effect/update_icon_state()
 	icon_state = "rcd"

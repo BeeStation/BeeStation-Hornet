@@ -363,7 +363,7 @@
 	action_icon_state = "wrap_0"
 	action_background_icon_state = "bg_alien"
 
-/obj/effect/proc_holder/wrap/update_icon()
+/obj/effect/proc_holder/wrap/update_appearance()
 	action.button_icon_state = "wrap_[active]"
 	action.UpdateButtonIcon()
 

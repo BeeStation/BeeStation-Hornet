@@ -16,7 +16,7 @@
 	throw_range = 7
 	var/charges_left = 10
 
-/obj/item/flashbulb/update_icon()
+/obj/item/flashbulb/update_appearance()
 	if(charges_left <= 0)
 		icon_state = "flashbulbburnt"
 	else
@@ -138,7 +138,7 @@
 		attached_overlays += flashing_overlay
 		addtimer(CALLBACK(src, /atom/.proc/update_icon), 5)
 	if(holder)
-		holder.update_icon()
+		holder.update_appearance()
 
 /obj/item/assembly/flash/attackby(obj/item/W, mob/user, params)
 	. = ..()
@@ -151,7 +151,7 @@
 	user.transferItemToLoc(newflash, src)
 	bulb = newflash
 	burnt_out = !bulb.check_working()
-	update_icon()
+	update_appearance()
 
 /obj/item/assembly/flash/proc/clown_check(mob/living/carbon/human/user)
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
@@ -163,7 +163,7 @@
 	bulb.charges_left = 0
 	if(!burnt_out)
 		burnt_out = TRUE
-		update_icon()
+		update_appearance()
 	if(ismob(loc))
 		var/mob/M = loc
 		M.visible_message("<span class='danger'>[src] burns out!</span>","<span class='userdanger'>[src] burns out!</span>")
@@ -180,10 +180,10 @@
 		return FALSE
 	bulb.forceMove(drop_location())
 	user.put_in_hands(bulb)
-	bulb.update_icon()
+	bulb.update_appearance()
 	bulb = null
 	to_chat(user, "<span class='notice'>You remove the bulb from \the [src].</span>")
-	update_icon()
+	update_appearance()
 	return TRUE
 
 //BYPASS CHECKS ALSO PREVENTS BURNOUT!

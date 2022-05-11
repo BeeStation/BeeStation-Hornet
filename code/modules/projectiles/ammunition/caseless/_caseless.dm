@@ -11,6 +11,6 @@
 	else
 		return FALSE
 
-/obj/item/ammo_casing/caseless/update_icon()
+/obj/item/ammo_casing/caseless/update_appearance()
 	..()
 	icon_state = "[initial(icon_state)]"

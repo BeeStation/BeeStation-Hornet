@@ -48,12 +48,12 @@
 			parent_turret.setAnchored(TRUE)
 			to_chat(user, "<span class='notice'>You secure the exterior bolts on the turret.</span>")
 			parent_turret.invisibility = 0
-			parent_turret.update_icon()
+			parent_turret.update_appearance()
 		else
 			parent_turret.setAnchored(FALSE)
 			to_chat(user, "<span class='notice'>You unsecure the exterior bolts on the turret.</span>")
 			parent_turret.invisibility = INVISIBILITY_MAXIMUM
-			parent_turret.update_icon()
+			parent_turret.update_appearance()
 			qdel(src)
 
 	else if(I.GetID())

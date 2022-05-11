@@ -22,9 +22,9 @@
 	if(!name)
 		name = "light switch ([area.name])"
 
-	update_icon()
+	update_appearance()
 
-/obj/machinery/light_switch/update_icon()
+/obj/machinery/light_switch/update_appearance()
 	if(stat & NOPOWER)
 		icon_state = "light-p"
 	else
@@ -41,10 +41,10 @@
 	. = ..()
 
 	area.lightswitch = !area.lightswitch
-	area.update_icon()
+	area.update_appearance()
 
 	for(var/obj/machinery/light_switch/L in area)
-		L.update_icon()
+		L.update_appearance()
 
 	area.power_change()
 

@@ -46,7 +46,7 @@
 	if(mapload && !opened)		// if closed, any item at the crate's loc is put in the contents
 		addtimer(CALLBACK(src, .proc/take_contents), 0)
 	. = ..()
-	update_icon()
+	update_appearance()
 	PopulateContents()
 
 //USE THIS TO FILL IT, NOT INITIALIZE OR NEW
@@ -57,7 +57,7 @@
 	dump_contents()
 	return ..()
 
-/obj/structure/closet/update_icon()
+/obj/structure/closet/update_appearance()
 	if(istype(src, /obj/structure/closet/supplypod))
 		return ..()
 	cut_overlays()
@@ -112,7 +112,7 @@
 /obj/structure/closet/proc/end_door_animation()
 	is_animating_door = FALSE
 	vis_contents -= door_obj
-	update_icon()
+	update_appearance()
 	COMPILE_OVERLAYS(src)
 
 /obj/structure/closet/proc/get_door_transform(angle)
@@ -190,7 +190,7 @@
 	climb_time *= 0.5 //it's faster to climb onto an open thing
 	dump_contents()
 	animate_door(FALSE)
-	update_icon()
+	update_appearance()
 	return 1
 
 /obj/structure/closet/proc/insert(atom/movable/AM)
@@ -245,7 +245,7 @@
 	opened = FALSE
 	density = TRUE
 	animate_door(TRUE)
-	update_icon()
+	update_appearance()
 	return TRUE
 
 /obj/structure/closet/proc/toggle(mob/living/user)
@@ -308,7 +308,7 @@
 			user.visible_message("<span class='notice'>[user] [welded ? "welds shut" : "unwelded"] \the [src].</span>",
 							"<span class='notice'>You [welded ? "weld" : "unwelded"] \the [src] with \the [W].</span>",
 							"<span class='italics'>You hear welding.</span>")
-			update_icon()
+			update_appearance()
 	else if(W.tool_behaviour == TOOL_WRENCH && anchorable)
 		if(isinspace() && !anchored)
 			return
@@ -483,7 +483,7 @@
 			locked = !locked
 			user.visible_message("<span class='notice'>[user] [locked ? null : "un"]locks [src].</span>",
 							"<span class='notice'>You [locked ? null : "un"]lock [src].</span>")
-			update_icon()
+			update_appearance()
 		else if(!silent)
 			to_chat(user, "<span class='notice'>Access Denied.</span>")
 	else if(secure && broken)
@@ -497,7 +497,7 @@
 		playsound(src, "sparks", 50, 1)
 		broken = TRUE
 		locked = FALSE
-		update_icon()
+		update_appearance()
 
 /obj/structure/closet/get_remote_view_fullscreens(mob/user)
 	if(user.stat == DEAD || !(user.sight & (SEEOBJS|SEEMOBS)))
@@ -513,7 +513,7 @@
 	if(secure && !broken && !(. & EMP_PROTECT_SELF))
 		if(prob(50 / severity))
 			locked = !locked
-			update_icon()
+			update_appearance()
 		if(prob(20 / severity) && !opened)
 			if(!locked)
 				open()

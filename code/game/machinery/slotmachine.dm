@@ -65,7 +65,7 @@
 
 	money += round(delta_time / 2) //SPESSH MAJICKS
 
-/obj/machinery/computer/slot_machine/update_icon()
+/obj/machinery/computer/slot_machine/update_appearance()
 	if(stat & NOPOWER)
 		icon_state = "slots0"
 
@@ -205,7 +205,7 @@
 	working = 1
 
 	toggle_reel_spin(1)
-	update_icon()
+	update_appearance()
 	updateDialog()
 
 	spawn(0)
@@ -218,7 +218,7 @@
 		toggle_reel_spin(0, REEL_DEACTIVATE_DELAY)
 		working = 0
 		give_prizes(the_name, user)
-		update_icon()
+		update_appearance()
 		updateDialog()
 
 /obj/machinery/computer/slot_machine/proc/can_spin(mob/user)

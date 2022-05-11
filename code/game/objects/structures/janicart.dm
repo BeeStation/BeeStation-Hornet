@@ -67,7 +67,7 @@
 		if(!myspray)
 			put_in_cart(I, user)
 			myspray=I
-			update_icon()
+			update_appearance()
 		else
 			to_chat(user, fail_msg)
 	else if(istype(I, /obj/item/lightreplacer))
@@ -80,7 +80,7 @@
 		if(signs < max_signs)
 			put_in_cart(I, user)
 			signs++
-			update_icon()
+			update_appearance()
 		else
 			to_chat(user, "<span class='warning'>[src] can't hold any more signs!</span>")
 	else if(mybag)
@@ -159,11 +159,11 @@
 				WARNING("Signs ([signs]) didn't match contents")
 				signs = 0
 
-	update_icon()
+	update_appearance()
 	updateUsrDialog()
 
 
-/obj/structure/janitorialcart/update_icon()
+/obj/structure/janitorialcart/update_appearance()
 	cut_overlays()
 	if(mybag)
 		add_overlay("cart_garbage")

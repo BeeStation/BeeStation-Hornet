@@ -59,14 +59,14 @@
 	. = ..()
 	if (!spawnwithmagazine)
 		bolt_locked = TRUE
-		update_icon()
+		update_appearance()
 		return
 	if (!magazine)
 		magazine = new mag_type(src)
 	chamber_round()
-	update_icon()
+	update_appearance()
 
-/obj/item/gun/ballistic/update_icon()
+/obj/item/gun/ballistic/update_appearance()
 	if (QDELETED(src))
 		return
 	..()
@@ -150,7 +150,7 @@
 		playsound(src, lock_back_sound, lock_back_sound_volume, lock_back_sound_vary)
 	else
 		playsound(src, rack_sound, rack_sound_volume, rack_sound_vary)
-	update_icon()
+	update_appearance()
 
 /obj/item/gun/ballistic/proc/drop_bolt(mob/user = null)
 	playsound(src, bolt_drop_sound, bolt_drop_sound_volume, FALSE)
@@ -158,7 +158,7 @@
 		to_chat(user, "<span class='notice'>You drop the [bolt_wording] of \the [src].</span>")
 	chamber_round()
 	bolt_locked = FALSE
-	update_icon()
+	update_appearance()
 
 /obj/item/gun/ballistic/proc/insert_magazine(mob/user, obj/item/ammo_box/magazine/AM, display_message = TRUE)
 	if(!istype(AM, mag_type))
@@ -171,7 +171,7 @@
 		playsound(src, load_empty_sound, load_sound_volume, load_sound_vary)
 		if (bolt_type == BOLT_TYPE_OPEN && !bolt_locked)
 			chamber_round(TRUE)
-		update_icon()
+		update_appearance()
 		return TRUE
 	else
 		to_chat(user, "<span class='warning'>You cannot seem to get \the [src] out of your hands!</span>")
@@ -195,10 +195,10 @@
 	else
 		magazine = null
 	user.put_in_hands(old_mag)
-	old_mag.update_icon()
+	old_mag.update_appearance()
 	if (display_message)
 		to_chat(user, "<span class='notice'>You pull the [magazine_wording] out of \the [src].</span>")
-	update_icon()
+	update_appearance()
 
 /obj/item/gun/ballistic/can_shoot()
 	return chambered
@@ -228,8 +228,8 @@
 				playsound(src, load_sound, load_sound_volume, load_sound_vary)
 				if (chambered == null && bolt_type == BOLT_TYPE_NO_BOLT)
 					chamber_round()
-				A.update_icon()
-				update_icon()
+				A.update_appearance()
+				update_appearance()
 			return
 	if(istype(A, /obj/item/suppressor))
 		var/obj/item/suppressor/S = A
@@ -257,7 +257,7 @@
 	// this proc assumes that the suppressor is already inside src
 	suppressed = S
 	w_class += S.w_class //so pistols do not fit in pockets when suppressed
-	update_icon()
+	update_appearance()
 
 /obj/item/gun/ballistic/AltClick(mob/user)
 	if (unique_reskin && !current_skin && user.canUseTopic(src, BE_CLOSE, NO_DEXTERY))
@@ -272,7 +272,7 @@
 			user.put_in_hands(suppressed)
 			w_class -= S.w_class
 			suppressed = null
-			update_icon()
+			update_appearance()
 			return
 
 /obj/item/gun/ballistic/proc/prefire_empty_checks()
@@ -280,7 +280,7 @@
 		if (bolt_type == BOLT_TYPE_OPEN && !bolt_locked)
 			bolt_locked = TRUE
 			playsound(src, bolt_drop_sound, bolt_drop_sound_volume)
-			update_icon()
+			update_appearance()
 
 
 /obj/item/gun/ballistic/proc/postfire_empty_checks()
@@ -288,10 +288,10 @@
 		if (!alarmed && empty_alarm)
 			playsound(src, empty_alarm_sound, empty_alarm_volume, empty_alarm_vary)
 			alarmed = TRUE
-			update_icon()
+			update_appearance()
 		if (bolt_type == BOLT_TYPE_LOCKING)
 			bolt_locked = TRUE
-			update_icon()
+			update_appearance()
 
 /obj/item/gun/ballistic/afterattack()
 	prefire_empty_checks()
@@ -320,7 +320,7 @@
 		if (num_unloaded)
 			to_chat(user, "<span class='notice'>You unload [num_unloaded] [cartridge_wording]\s from [src].</span>")
 			playsound(user, eject_sound, eject_sound_volume, eject_sound_vary)
-			update_icon()
+			update_appearance()
 		else
 			to_chat(user, "<span class='warning'>[src] is empty!</span>")
 		return
@@ -416,7 +416,7 @@
 		recoil = SAWN_OFF_RECOIL
 		sawn_off = TRUE
 		spread_multiplier = 1.6
-		update_icon()
+		update_appearance()
 		return TRUE
 
 // Sawing guns related proc

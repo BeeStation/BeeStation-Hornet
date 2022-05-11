@@ -63,7 +63,7 @@
 
 /obj/machinery/shower/interact(mob/M)
 	on = !on
-	update_icon()
+	update_appearance()
 	handle_mist()
 	add_fingerprint(M)
 	if(on)
@@ -99,7 +99,7 @@
 	return TRUE
 
 
-/obj/machinery/shower/update_icon()
+/obj/machinery/shower/update_appearance()
 	cut_overlays()
 
 	if(on)

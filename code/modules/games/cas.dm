@@ -77,7 +77,7 @@
 	src.cards -= choice
 	user.put_in_hands(H)
 	user.visible_message("[user] draws a card from the deck.", "<span class='notice'>You draw a card from the deck.</span>")
-	update_icon()
+	update_appearance()
 
 /obj/item/toy/cards/deck/cas/attackby(obj/item/I, mob/living/user, params)
 	if(istype(I, /obj/item/toy/cards/singlecard/cas))
@@ -92,9 +92,9 @@
 		cards += RC
 		user.visible_message("[user] adds a card to the bottom of the deck.","<span class='notice'>You add the card to the bottom of the deck.</span>")
 		qdel(SC)
-	update_icon()
+	update_appearance()
 
-/obj/item/toy/cards/deck/cas/update_icon()
+/obj/item/toy/cards/deck/cas/update_appearance()
 	if(cards.len < 26)
 		icon_state = "deck_[deckstyle]_low"
 
@@ -128,14 +128,14 @@
 	else if(flipped)
 		name = buffertext
 	flipped = !flipped
-	update_icon()
+	update_appearance()
 
 /obj/item/toy/cards/singlecard/cas/AltClick(mob/living/user)
 	if(!ishuman(user) || !user.canUseTopic(src, BE_CLOSE))
 		return
 	Flip()
 
-/obj/item/toy/cards/singlecard/cas/update_icon()
+/obj/item/toy/cards/singlecard/cas/update_appearance()
 	if(flipped)
 		icon_state = "[card_face]_flipped"
 	else

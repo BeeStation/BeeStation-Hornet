@@ -78,7 +78,7 @@
 			return
 	return ..()
 
-/obj/machinery/jukebox/update_icon()
+/obj/machinery/jukebox/update_appearance()
 	if(active)
 		icon_state = "[initial(icon_state)]-active"
 	else
@@ -172,7 +172,7 @@
 
 /obj/machinery/jukebox/proc/activate_music()
 	active = TRUE
-	update_icon()
+	update_appearance()
 	START_PROCESSING(SSmachines, src)
 	stop = world.time + selection.song_length
 	ui_update()
@@ -480,7 +480,7 @@
 		active = FALSE
 		dance_over()
 		playsound(src,'sound/machines/terminal_off.ogg',50,1)
-		update_icon()
+		update_appearance()
 		stop = world.time + 100
 		ui_update()
 		return PROCESS_KILL

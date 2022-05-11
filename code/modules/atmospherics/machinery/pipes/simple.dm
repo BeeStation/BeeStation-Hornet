@@ -32,7 +32,7 @@
 		if(EAST, WEST)
 			initialize_directions = EAST|WEST
 
-/obj/machinery/atmospherics/pipe/simple/update_icon()
+/obj/machinery/atmospherics/pipe/simple/update_appearance()
 	icon_state = "pipe[nodes[1] ? "1" : "0"][nodes[2] ? "1" : "0"]-[piping_layer]"
 	update_layer()
 	update_alpha()

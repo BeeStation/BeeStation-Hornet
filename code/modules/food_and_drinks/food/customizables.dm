@@ -314,9 +314,9 @@
 
 /obj/item/reagent_containers/glass/bowl/on_reagent_change(changetype)
 	..()
-	update_icon()
+	update_appearance()
 
-/obj/item/reagent_containers/glass/bowl/update_icon()
+/obj/item/reagent_containers/glass/bowl/update_appearance()
 	cut_overlays()
 	if(reagents?.total_volume)
 		var/mutable_appearance/filling = mutable_appearance('icons/obj/food/soupsalad.dmi', "fullbowl")

@@ -65,7 +65,7 @@
 /obj/item/grenade/clusterbuster/segment/prime(mob/living/lanced_by)
 	if(dud_flags)
 		active = FALSE
-		update_icon()
+		update_appearance()
 		return FALSE
 	new payload_spawner(drop_location(), payload, rand(min_spawned,max_spawned))
 	playsound(src, prime_sound, 75, TRUE, -3)

@@ -174,7 +174,7 @@
 	timing = !timing
 	if(timing)
 		valve_timer = world.time + (timer_set * 10)
-	update_icon()
+	update_appearance()
 
 /obj/machinery/portable_atmospherics/canister/proto
 	name = "prototype canister"
@@ -213,7 +213,7 @@
 		air_contents.copy_from(existing_mixture)
 	else
 		create_gas()
-	update_icon()
+	update_appearance()
 
 
 /obj/machinery/portable_atmospherics/canister/proc/create_gas()
@@ -229,7 +229,7 @@
 	air_contents.set_moles(GAS_O2, (O2STANDARD * maximum_pressure * filled) * air_contents.return_volume() / (R_IDEAL_GAS_EQUATION * air_contents.return_temperature()))
 	air_contents.set_moles(GAS_N2, (N2STANDARD * maximum_pressure * filled) * air_contents.return_volume() / (R_IDEAL_GAS_EQUATION * air_contents.return_temperature()))
 
-/obj/machinery/portable_atmospherics/canister/update_icon()
+/obj/machinery/portable_atmospherics/canister/update_appearance()
 	. = ..()
 	update_overlays()
 
@@ -305,7 +305,7 @@
 	obj_break()
 	density = FALSE
 	playsound(src.loc, 'sound/effects/spray.ogg', 10, 1, -3)
-	update_icon()
+	update_appearance()
 	investigate_log("was destroyed.", INVESTIGATE_ATMOS)
 
 	if(holding)
@@ -320,7 +320,7 @@
 		return
 	if(close_valve)
 		valve_open = FALSE
-		update_icon()
+		update_appearance()
 		investigate_log("Valve was <b>closed</b> by [key_name(user)].", INVESTIGATE_ATMOS)
 	else if(valve_open && holding)
 		investigate_log("[key_name(user)] started a transfer into [holding].", INVESTIGATE_ATMOS)
@@ -340,7 +340,7 @@
 
 		if(air_contents.release_gas_to(target_air, release_pressure) && !holding)
 			air_update_turf()
-	update_icon()
+	update_appearance()
 
 /obj/machinery/portable_atmospherics/canister/ui_status(mob/user)
 	. = ..()
@@ -490,4 +490,4 @@
 				replace_tank(usr, FALSE)
 				. = TRUE
 	if(.)
-		update_icon()
+		update_appearance()

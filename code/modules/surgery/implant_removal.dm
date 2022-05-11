@@ -40,7 +40,7 @@
 		if(case && !case.imp)
 			case.imp = I
 			I.forceMove(case)
-			case.update_icon()
+			case.update_appearance()
 			display_results(user, target, "<span class='notice'>You place [I] into [case].</span>",
 				"[user] places [I] into [case]!",
 				"[user] places it into [case]!")

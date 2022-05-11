@@ -23,21 +23,21 @@
 
 		if("unlock")
 			locked = FALSE
-			update_icon()
+			update_appearance()
 
 		if("lock")
 			locked = TRUE
-			update_icon()
+			update_appearance()
 
 		if("secure_open")
 			locked = FALSE
-			update_icon()
+			update_appearance()
 
 			sleep(2)
 			open(1)
 
 			locked = TRUE
-			update_icon()
+			update_appearance()
 
 		if("secure_close")
 			locked = FALSE
@@ -45,7 +45,7 @@
 
 			locked = TRUE
 			sleep(2)
-			update_icon()
+			update_appearance()
 
 	send_status()
 
@@ -113,7 +113,7 @@
 	id_tag = INCINERATOR_SYNDICATELAVA_AIRLOCK_SENSOR
 	master_tag = INCINERATOR_SYNDICATELAVA_AIRLOCK_CONTROLLER
 
-/obj/machinery/airlock_sensor/update_icon()
+/obj/machinery/airlock_sensor/update_appearance()
 	if(on)
 		if(alert)
 			icon_state = "airlock_sensor_alert"
@@ -140,7 +140,7 @@
 		var/pressure = round(air_sample.return_pressure(),0.1)
 		if((pressure < ONE_ATMOSPHERE*0.8) != alert)
 			alert = !alert
-			update_icon()
+			update_appearance()
 
 		var/datum/signal/signal = new(list(
 			"tag" = id_tag,

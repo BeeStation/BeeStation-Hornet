@@ -54,13 +54,13 @@
 		var/mob/living/carbon/human/H = loc
 		if(H.wear_id == src)
 			H.sec_hud_set_ID()
-	update_icon()
+	update_appearance()
 
 /obj/item/storage/wallet/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	. = ..()
 	refreshID()
 
-/obj/item/storage/wallet/update_icon()
+/obj/item/storage/wallet/update_appearance()
 	var/new_state = "wallet"
 	if(front_id)
 		if("wallet_[front_id.icon_state]" in icon_states(src.icon)) //fixes the bug that would make your wallet disappear with the new ids
@@ -84,4 +84,4 @@
 
 /obj/item/storage/wallet/random/PopulateContents()
 	new /obj/item/holochip(src, rand(5,30))
-	update_icon()
+	update_appearance()

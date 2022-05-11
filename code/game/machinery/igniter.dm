@@ -35,7 +35,7 @@
 
 	use_power(50)
 	on = !( on )
-	update_icon()
+	update_appearance()
 
 /obj/machinery/igniter/process()	//ugh why is this even in process()?
 	if (src.on && !(stat & NOPOWER) )
@@ -58,7 +58,7 @@
 
 	return ..()
 
-/obj/machinery/igniter/update_icon()
+/obj/machinery/igniter/update_appearance()
 	if(stat & NOPOWER)
 		icon_state = "igniter0"
 	else
@@ -92,7 +92,7 @@
 	QDEL_NULL(spark_system)
 	return ..()
 
-/obj/machinery/sparker/update_icon()
+/obj/machinery/sparker/update_appearance()
 	if(disable)
 		icon_state = "[initial(icon_state)]-d"
 	else if(powered())
@@ -108,7 +108,7 @@
 			user.visible_message("[user] has disabled \the [src]!", "<span class='notice'>You disable the connection to \the [src].</span>")
 		if (!src.disable)
 			user.visible_message("[user] has reconnected \the [src]!", "<span class='notice'>You fix the connection to \the [src].</span>")
-		update_icon()
+		update_appearance()
 	else
 		return ..()
 

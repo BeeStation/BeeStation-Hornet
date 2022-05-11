@@ -28,7 +28,7 @@
 	AddComponent(/datum/component/jousting)
 	AddComponent(/datum/component/two_handed, force_unwielded=10, force_wielded=18, block_power_wielded=25, icon_wielded="[icon_prefix]1")
 
-/obj/item/spear/update_icon()
+/obj/item/spear/update_appearance()
 	icon_state = "[icon_prefix]0"
 	..()
 
@@ -43,7 +43,7 @@
 			throwforce = 21
 			icon_prefix = "spearplasma"
 			AddComponent(/datum/component/two_handed, force_unwielded=11, force_wielded=19, icon_wielded="[icon_prefix]1")
-		update_icon()
+		update_appearance()
 		parts_list -= tip
 		qdel(tip)
 	var/obj/item/grenade/G = locate() in parts_list
@@ -81,7 +81,7 @@
 	G.forceMove(src)
 	explosive = G
 	desc = "A makeshift spear with [G] attached to it"
-	update_icon()
+	update_appearance()
 
 /obj/item/spear/explosive/CheckParts(list/parts_list)
 	var/obj/item/grenade/G = locate() in parts_list

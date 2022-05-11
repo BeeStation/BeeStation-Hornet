@@ -43,7 +43,7 @@ field_generator power level display
 	var/list/obj/machinery/field/generator/connected_gens
 	var/clean_up = 0
 
-/obj/machinery/field/generator/update_icon()
+/obj/machinery/field/generator/update_appearance()
 	cut_overlays()
 	if(warming_up)
 		add_overlay("+a[warming_up]")
@@ -177,7 +177,7 @@ field_generator power level display
 	var/new_level = round(6 * power / field_generator_max_power)
 	if(new_level != power_level)
 		power_level = new_level
-		update_icon()
+		update_appearance()
 
 /obj/machinery/field/generator/proc/turn_off()
 	active = FG_OFFLINE
@@ -186,7 +186,7 @@ field_generator power level display
 		while (warming_up>0 && !active)
 			sleep(50)
 			warming_up--
-			update_icon()
+			update_appearance()
 
 /obj/machinery/field/generator/proc/turn_on()
 	active = FG_CHARGING
@@ -194,7 +194,7 @@ field_generator power level display
 		while (warming_up<3 && active)
 			sleep(50)
 			warming_up++
-			update_icon()
+			update_appearance()
 			if(warming_up >= 3)
 				start_fields()
 
@@ -307,7 +307,7 @@ field_generator power level display
 
 	connected_gens |= G
 	G.connected_gens |= src
-	update_icon()
+	update_appearance()
 
 
 /obj/machinery/field/generator/proc/cleanup()
@@ -322,7 +322,7 @@ field_generator power level display
 			FG.cleanup()
 		connected_gens -= FG
 	clean_up = 0
-	update_icon()
+	update_appearance()
 
 	//This is here to help fight the "hurr durr, release singulo cos nobody will notice before the
 	//singulo eats the evidence". It's not fool-proof but better than nothing.

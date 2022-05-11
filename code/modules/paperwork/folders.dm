@@ -14,7 +14,7 @@
 	return OXYLOSS
 
 /obj/item/folder/Initialize(mapload)
-	update_icon()
+	update_appearance()
 	. = ..()
 
 /obj/item/folder/Destroy()
@@ -47,7 +47,7 @@
 		I.forceMove(user.loc)
 		user.put_in_hands(I)
 		to_chat(user, "<span class='notice'>You remove [I] from [src].</span>")
-		update_icon()
+		update_appearance()
 		ui_update()
 
 /obj/item/folder/AltClick(mob/user)
@@ -68,7 +68,7 @@
 		if(!user.transferItemToLoc(W, src))
 			return
 		to_chat(user, "<span class='notice'>You put [W] into [src].</span>")
-		update_icon()
+		update_appearance()
 		ui_update()
 	else if(istype(W, /obj/item/pen))
 		rename(user)

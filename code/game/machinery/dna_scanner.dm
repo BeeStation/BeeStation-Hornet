@@ -39,7 +39,7 @@
 		if(scan_level >= 3)
 			. += "<span class='notice'>Scanner has been upgraded to support autoprocessing.</span>"
 
-/obj/machinery/dna_scannernew/update_icon()
+/obj/machinery/dna_scannernew/update_appearance()
 	cut_overlays()
 
 	if((stat & MAINT) || panel_open)
@@ -122,7 +122,7 @@
 /obj/machinery/dna_scannernew/attackby(obj/item/I, mob/user, params)
 
 	if(default_deconstruction_screwdriver(user, icon_state, icon_state, I))//sent icon_state is irrelevant...
-		update_icon()//..since we're updating the icon here, since the scanner can be unpowered when opened/closed
+		update_appearance()//..since we're updating the icon here, since the scanner can be unpowered when opened/closed
 		return
 
 	if(default_pry_open(I))
@@ -183,4 +183,4 @@
 			ignore_id = FALSE
 		if(WIRE_BOLTS)
 			locked = FALSE
-			update_icon()
+			update_appearance()

@@ -51,7 +51,7 @@
 			var/obj/structure/particle_accelerator/part = CP
 			part.strength = null
 			part.powered = FALSE
-			part.update_icon()
+			part.update_appearance()
 		connected_parts.Cut()
 		ui_update()
 		return
@@ -61,7 +61,7 @@
 		connected_parts.Cut()
 		ui_update()
 
-/obj/machinery/particle_accelerator/control_box/update_icon()
+/obj/machinery/particle_accelerator/control_box/update_appearance()
 	if(active)
 		icon_state = "control_boxp1"
 	else
@@ -83,7 +83,7 @@
 	for(var/CP in connected_parts)
 		var/obj/structure/particle_accelerator/part = CP
 		part.strength = strength
-		part.update_icon()
+		part.update_appearance()
 
 /obj/machinery/particle_accelerator/control_box/proc/add_strength(s)
 	if(assembled && (strength < strength_upper_limit))
@@ -115,7 +115,7 @@
 		if(connected_parts.len < 6)
 			investigate_log("lost a connected part; It <font color='red'>powered down</font>.", INVESTIGATE_ENGINES)
 			toggle_power()
-			update_icon()
+			update_appearance()
 			return
 		//emit some particles
 		for(var/obj/structure/particle_accelerator/particle_emitter/PE in connected_parts)
@@ -180,14 +180,14 @@
 			var/obj/structure/particle_accelerator/part = CP
 			part.strength = strength
 			part.powered = TRUE
-			part.update_icon()
+			part.update_appearance()
 	else
 		use_power = IDLE_POWER_USE
 		for(var/CP in connected_parts)
 			var/obj/structure/particle_accelerator/part = CP
 			part.strength = null
 			part.powered = FALSE
-			part.update_icon()
+			part.update_appearance()
 	return TRUE
 
 /obj/machinery/particle_accelerator/control_box/examine(mob/user)
@@ -249,7 +249,7 @@
 	if(did_something)
 		user.changeNext_move(CLICK_CD_MELEE)
 		update_state()
-		update_icon()
+		update_appearance()
 		return
 
 	..()
@@ -319,7 +319,7 @@
 			. = TRUE
 
 	if(.)
-		update_icon()
+		update_appearance()
 
 #undef PA_CONSTRUCTION_UNSECURED
 #undef PA_CONSTRUCTION_UNWIRED

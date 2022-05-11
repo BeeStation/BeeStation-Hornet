@@ -6,7 +6,7 @@
 	caliber = "shotgun"
 	max_ammo = 8
 
-/obj/item/ammo_box/magazine/m12g/update_icon()
+/obj/item/ammo_box/magazine/m12g/update_appearance()
 	..()
 	icon_state = "[initial(icon_state)]-[CEILING(ammo_count(FALSE)/8, 1)*8]"
 

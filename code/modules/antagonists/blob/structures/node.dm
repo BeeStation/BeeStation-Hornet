@@ -17,7 +17,7 @@
 /obj/structure/blob/node/scannerreport()
 	return "Gradually expands and sustains nearby blob spores and blobbernauts."
 
-/obj/structure/blob/node/update_icon()
+/obj/structure/blob/node/update_appearance()
 	cut_overlays()
 	color = null
 	var/mutable_appearance/blob_overlay = mutable_appearance('icons/mob/blob.dmi', "blob")

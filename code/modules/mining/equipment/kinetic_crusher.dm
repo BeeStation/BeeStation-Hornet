@@ -96,7 +96,7 @@
 		playsound(user, 'sound/weapons/plasma_cutter.ogg', 100, 1)
 		D.fire()
 		charged = FALSE
-		update_icon()
+		update_appearance()
 		addtimer(CALLBACK(src, .proc/Recharge), charge_time)
 		return
 	if(proximity_flag && isliving(target))
@@ -130,15 +130,15 @@
 /obj/item/kinetic_crusher/proc/Recharge()
 	if(!charged)
 		charged = TRUE
-		update_icon()
+		update_appearance()
 		playsound(src.loc, 'sound/weapons/kenetic_reload.ogg', 60, 1)
 
 /obj/item/kinetic_crusher/ui_action_click(mob/user, actiontype)
 	set_light_on(!light_on)
 	playsound(user, 'sound/weapons/empty.ogg', 100, TRUE)
-	update_icon()
+	update_appearance()
 
-/obj/item/kinetic_crusher/update_icon()
+/obj/item/kinetic_crusher/update_appearance()
 	..()
 	var/wielded = ISWIELDED(src)
 	cut_overlays()

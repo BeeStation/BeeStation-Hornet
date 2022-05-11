@@ -20,7 +20,7 @@
 
 /obj/machinery/computer/pandemic/Initialize(mapload)
 	. = ..()
-	update_icon()
+	update_appearance()
 
 /obj/machinery/computer/pandemic/Destroy()
 	QDEL_NULL(beaker)
@@ -44,7 +44,7 @@
 /obj/machinery/computer/pandemic/handle_atom_del(atom/A)
 	if(A == beaker)
 		beaker = null
-		update_icon()
+		update_appearance()
 	return ..()
 
 /obj/machinery/computer/pandemic/proc/get_by_index(thing, index)
@@ -128,11 +128,11 @@
 
 /obj/machinery/computer/pandemic/proc/reset_replicator_cooldown()
 	wait = FALSE
-	update_icon()
+	update_appearance()
 	SStgui.update_uis(src)
 	playsound(src, 'sound/machines/ping.ogg', 30, TRUE)
 
-/obj/machinery/computer/pandemic/update_icon()
+/obj/machinery/computer/pandemic/update_appearance()
 	if(stat & BROKEN)
 		icon_state = (beaker ? "mixer1_b" : "mixer0_b")
 		return
@@ -147,7 +147,7 @@
 	if(beaker)
 		beaker.forceMove(drop_location())
 		beaker = null
-		update_icon()
+		update_appearance()
 		ui_update()
 
 
@@ -224,7 +224,7 @@
 			B.desc = "A small bottle. Contains [A.agent] culture in synthblood medium."
 			B.reagents.add_reagent(/datum/reagent/blood, 20, data)
 			wait = TRUE
-			update_icon()
+			update_appearance()
 			var/turf/source_turf = get_turf(src)
 			log_virus("A culture bottle was printed for the virus [A.admin_details()] at [loc_name(source_turf)] by [key_name(usr)]")
 			addtimer(CALLBACK(src, .proc/reset_replicator_cooldown), 50)
@@ -238,7 +238,7 @@
 			B.name = "[D.name] vaccine bottle"
 			B.reagents.add_reagent(/datum/reagent/vaccine, 15, list(id))
 			wait = TRUE
-			update_icon()
+			update_appearance()
 			addtimer(CALLBACK(src, .proc/reset_replicator_cooldown), 200)
 			. = TRUE
 
@@ -256,7 +256,7 @@
 
 		beaker = I
 		to_chat(user, "<span class='notice'>You insert [I] into [src].</span>")
-		update_icon()
+		update_appearance()
 		ui_update()
 	else
 		return ..()

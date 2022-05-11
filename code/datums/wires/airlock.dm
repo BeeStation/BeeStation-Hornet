@@ -57,13 +57,13 @@
 			else
 				if(A.hasPower())
 					A.unbolt()
-			A.update_icon()
+			A.update_appearance()
 		if(WIRE_IDSCAN) // Pulse to disable emergency access and flash red lights.
 			if(A.hasPower() && A.density)
 				A.do_animate("deny")
 				if(A.emergency)
 					A.emergency = FALSE
-					A.update_icon()
+					A.update_appearance()
 		if(WIRE_AI) // Pulse to disable WIRE_AI control for 10 ticks (follows same rules as cutting).
 			if(A.aiControlDisabled == 0)
 				A.aiControlDisabled = 1
@@ -81,7 +81,7 @@
 			A.normalspeed = !A.normalspeed
 		if(WIRE_LIGHT)
 			A.lights = !A.lights
-			A.update_icon()
+			A.update_appearance()
 	ui_update()
 	A.ui_update()
 
@@ -139,7 +139,7 @@
 				A.close()
 		if(WIRE_LIGHT) // Cut to disable lights, mend to re-enable.
 			A.lights = mend
-			A.update_icon()
+			A.update_appearance()
 		if(WIRE_ZAP1, WIRE_ZAP2) // Ouch.
 			if(isliving(usr))
 				A.shock(usr, 50)

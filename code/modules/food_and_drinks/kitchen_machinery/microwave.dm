@@ -88,7 +88,7 @@
 		"<span class='notice'>- Capacity: <b>[max_n_of_items]</b> items.<span>\n"+\
 		"<span class='notice'>- Cook time reduced by <b>[(efficiency - 1) * 25]%</b>.</span>"
 
-/obj/machinery/microwave/update_icon()
+/obj/machinery/microwave/update_appearance()
 	if(broken)
 		icon_state = "mwb"
 	else if(dirty_anim_playing)
@@ -110,7 +110,7 @@
 
 	if(dirty < 100)
 		if(default_deconstruction_screwdriver(user, icon_state, icon_state, O) || default_unfasten_wrench(user, O))
-			update_icon()
+			update_appearance()
 			return
 
 	if(panel_open && is_wire_tool(O))
@@ -128,7 +128,7 @@
 			if(O.use_tool(src, user, 20))
 				user.visible_message("[user] fixes \the [src].", "<span class='notice'>You fix \the [src].</span>")
 				broken = 0
-				update_icon()
+				update_appearance()
 				return FALSE //to use some fuel
 		else
 			to_chat(user, "<span class='warning'>It's broken!</span>")
@@ -142,7 +142,7 @@
 			playsound(loc, 'sound/effects/spray3.ogg', 50, 1, -6)
 			user.visible_message("[user] has cleaned \the [src].", "<span class='notice'>You clean \the [src].</span>")
 			dirty = 0
-			update_icon()
+			update_appearance()
 		else
 			to_chat(user, "<span class='warning'>You need more space cleaner!</span>")
 		return TRUE
@@ -156,7 +156,7 @@
 		if(do_after(user, cleanspeed, target = src))
 			user.visible_message("[user] has cleaned \the [src].", "<span class='notice'>You clean \the [src].</span>")
 			dirty = 0
-			update_icon()
+			update_appearance()
 		return TRUE
 
 	if(dirty == 100) // The microwave is all dirty so can't be used!
@@ -262,7 +262,7 @@
 
 	set_light(1.5)
 	soundloop.start()
-	update_icon()
+	update_appearance()
 
 /obj/machinery/microwave/proc/spark()
 	visible_message("<span class='warning'>Sparks fly around [src]!</span>")
@@ -286,7 +286,7 @@
 	wzhzhzh()
 	playsound(src.loc, 'sound/effects/splat.ogg', 50, 1)
 	dirty_anim_playing = TRUE
-	update_icon()
+	update_appearance()
 	loop(MICROWAVE_MUCK, 4)
 
 /obj/machinery/microwave/proc/loop(type, time, wait = max(12 - 2 * efficiency, 2)) // standard wait is 10
@@ -353,7 +353,7 @@
 /obj/machinery/microwave/proc/after_finish_loop()
 	set_light(0)
 	soundloop.stop()
-	update_icon()
+	update_appearance()
 
 #undef MICROWAVE_NORMAL
 #undef MICROWAVE_MUCK

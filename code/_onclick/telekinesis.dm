@@ -90,7 +90,7 @@
 
 /obj/item/tk_grab/process()
 	if(check_if_focusable(focus)) //if somebody grabs your thing, no waiting for them to put it down and hitting them again.
-		update_icon()
+		update_appearance()
 
 /obj/item/tk_grab/dropped(mob/user)
 	..()
@@ -118,7 +118,7 @@
 		qdel(src)
 		return
 	focus.attack_self_tk(user)
-	update_icon()
+	update_appearance()
 
 /obj/item/tk_grab/afterattack(atom/target, mob/living/carbon/user, proximity, params)//TODO: go over this
 	. = ..()
@@ -133,7 +133,7 @@
 
 	if(target == focus)
 		target.attack_self_tk(user)
-		update_icon()
+		update_appearance()
 		return
 
 	if(focus.buckled_mobs)
@@ -155,7 +155,7 @@
 		apply_focus_overlay()
 		focus.throw_at(target, 10, 1,user)
 	user.changeNext_move(CLICK_CD_MELEE)
-	update_icon()
+	update_appearance()
 
 /proc/tkMaxRangeCheck(mob/user, atom/target)
 	var/d = get_dist(user, target)
@@ -171,7 +171,7 @@
 	if(!check_if_focusable(target))
 		return
 	focus = target
-	update_icon()
+	update_appearance()
 	apply_focus_overlay()
 	return TRUE
 
@@ -189,7 +189,7 @@
 		return
 	new /obj/effect/temp_visual/telekinesis(get_turf(focus))
 
-/obj/item/tk_grab/update_icon()
+/obj/item/tk_grab/update_appearance()
 	cut_overlays()
 	if(focus)
 		var/old_layer = focus.layer

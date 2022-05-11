@@ -288,7 +288,7 @@ effective or pretty fucking useless.
 		GLOB.active_jammers |= src
 	else
 		GLOB.active_jammers -= src
-	update_icon()
+	update_appearance()
 
 /atom/proc/is_jammed()
 	var/turf/position = get_turf(src)

@@ -121,7 +121,7 @@
 /obj/item/grenade/proc/prime(mob/living/lanced_by)
 	if (dud_flags)
 		active = FALSE
-		update_icon()
+		update_appearance()
 		return FALSE
 
 	dud_flags |= GRENADE_USED // Don't detonate if we have already detonated.

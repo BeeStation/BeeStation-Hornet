@@ -79,7 +79,7 @@
 		recharge_newshot()
 	return 1
 
-/obj/item/gun/magic/update_icon()
+/obj/item/gun/magic/update_appearance()
 	return
 
 /obj/item/gun/magic/shoot_with_empty_chamber(mob/living/user as mob|obj)

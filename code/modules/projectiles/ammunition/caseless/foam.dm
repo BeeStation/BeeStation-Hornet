@@ -9,7 +9,7 @@
 	harmful = FALSE
 	var/modified = FALSE
 
-/obj/item/ammo_casing/caseless/foam_dart/update_icon()
+/obj/item/ammo_casing/caseless/foam_dart/update_appearance()
 	..()
 	if (modified)
 		icon_state = "foamdart_empty"
@@ -30,7 +30,7 @@
 		FD.modified = TRUE
 		FD.damage_type = BRUTE
 		to_chat(user, "<span class='notice'>You pop the safety cap off [src].</span>")
-		update_icon()
+		update_appearance()
 	else if (istype(A, /obj/item/pen))
 		if(modified)
 			if(!FD.pen)

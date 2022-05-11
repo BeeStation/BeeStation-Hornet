@@ -45,7 +45,7 @@
 	name = "supermatter gas sensor"
 	id_tag = ATMOS_GAS_MONITOR_SENSOR_SM
 
-/obj/machinery/air_sensor/update_icon()
+/obj/machinery/air_sensor/update_appearance()
 	icon_state = "gsensor[on]"
 
 /obj/machinery/air_sensor/process_atmos()

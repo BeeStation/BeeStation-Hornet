@@ -31,13 +31,13 @@
 /obj/machinery/space_heater/Initialize(mapload)
 	. = ..()
 	cell = new(src)
-	update_icon()
+	update_appearance()
 
 /obj/machinery/space_heater/on_construction()
 	qdel(cell)
 	cell = null
 	panel_open = TRUE
-	update_icon()
+	update_appearance()
 	return ..()
 
 /obj/machinery/space_heater/on_deconstruction()
@@ -56,7 +56,7 @@
 	if(in_range(user, src) || isobserver(user))
 		. += "<span class='notice'>The status display reads: Temperature range at <b>[settableTemperatureRange]°C</b>.<br>Heating power at <b>[heatingPower*0.001]kJ</b>.<br>Power consumption at <b>[(efficiency*-0.0025)+150]%</b>.</span>" //100%, 75%, 50%, 25%
 
-/obj/machinery/space_heater/update_icon()
+/obj/machinery/space_heater/update_appearance()
 	if(on)
 		icon_state = "sheater-[mode]"
 	else
@@ -77,7 +77,7 @@
 		if(!istype(L))
 			if(mode != HEATER_MODE_STANDBY)
 				mode = HEATER_MODE_STANDBY
-				update_icon()
+				update_appearance()
 			return
 
 		var/datum/gas_mixture/env = L.return_air()
@@ -90,7 +90,7 @@
 
 		if(mode != newMode)
 			mode = newMode
-			update_icon()
+			update_appearance()
 
 		if(mode == HEATER_MODE_STANDBY)
 			return
@@ -111,7 +111,7 @@
 		cell.use(requiredPower / efficiency)
 	else
 		on = FALSE
-		update_icon()
+		update_appearance()
 		return PROCESS_KILL
 
 /obj/machinery/space_heater/RefreshParts()
@@ -160,7 +160,7 @@
 	else if(I.tool_behaviour == TOOL_SCREWDRIVER)
 		panel_open = !panel_open
 		user.visible_message("<span class='notice'>\The [user] [panel_open ? "opens" : "closes"] the hatch on \the [src].</span>", "<span class='notice'>You [panel_open ? "open" : "close"] the hatch on \the [src].</span>")
-		update_icon()
+		update_appearance()
 	else if(default_deconstruction_crowbar(I))
 		return
 	else
@@ -210,7 +210,7 @@
 			on = !on
 			mode = HEATER_MODE_STANDBY
 			usr.visible_message("<span class='notice'>[usr] switches [on ? "on" : "off"] \the [src].</span>", "<span class='notice'>You switch [on ? "on" : "off"] \the [src].</span>")
-			update_icon()
+			update_appearance()
 			if (on)
 				SSair.atmos_air_machinery += src
 			. = TRUE

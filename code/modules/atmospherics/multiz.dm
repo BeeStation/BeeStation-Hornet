@@ -11,7 +11,7 @@
 /obj/machinery/atmospherics/pipe/simple/multiz/layer3
 	piping_layer = 3
 
-/obj/machinery/atmospherics/pipe/simple/multiz/update_icon()
+/obj/machinery/atmospherics/pipe/simple/multiz/update_appearance()
 	. = ..()
 	cut_overlays() //This adds the overlay showing it's a multiz pipe. This should go above turfs and such
 	var/image/multiz_overlay_node = new(src) //If we have a firing state, light em up!

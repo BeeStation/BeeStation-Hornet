@@ -38,7 +38,7 @@
 	pin = null
 	ammo_x_offset = 1
 
-/obj/item/gun/energy/decloner/update_icon()
+/obj/item/gun/energy/decloner/update_appearance()
 	..()
 	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
 	if(!QDELETED(cell) && (cell.charge > shot.e_cost))
@@ -221,7 +221,7 @@
 		. = ..(amount=1)
 
 
-/obj/item/gun/energy/plasmacutter/update_icon()
+/obj/item/gun/energy/plasmacutter/update_appearance()
 	return
 
 /obj/item/gun/energy/plasmacutter/adv
@@ -250,7 +250,7 @@
 	var/obj/effect/portal/p_orange
 	var/atmos_link = FALSE
 
-/obj/item/gun/energy/wormhole_projector/update_icon()
+/obj/item/gun/energy/wormhole_projector/update_appearance()
 	icon_state = "[initial(icon_state)][select]"
 	item_state = icon_state
 
@@ -322,7 +322,7 @@
 	fire_rate = 6
 	requires_wielding = FALSE
 
-/obj/item/gun/energy/printer/update_icon()
+/obj/item/gun/energy/printer/update_appearance()
 	return
 
 /obj/item/gun/energy/printer/emp_act()

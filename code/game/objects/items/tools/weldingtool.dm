@@ -45,7 +45,7 @@
 	. = ..()
 	create_reagents(max_fuel)
 	reagents.add_reagent(/datum/reagent/fuel, max_fuel)
-	update_icon()
+	update_appearance()
 
 /obj/item/weldingtool/ComponentInitialize()
 	. = ..()
@@ -73,7 +73,7 @@
 		if(0)
 			force = 3
 			damtype = "brute"
-			update_icon()
+			update_appearance()
 			if(!can_off_process)
 				STOP_PROCESSING(SSobj, src)
 			return
@@ -84,7 +84,7 @@
 			burned_fuel_for += delta_time
 			if(burned_fuel_for >= WELDER_FUEL_BURN_INTERVAL)
 				use(1)
-			update_icon()
+			update_appearance()
 
 	//This is to start fires. process() is only called if the welder is on.
 	open_flame()
@@ -102,7 +102,7 @@
 		flamethrower_rods(I, user)
 	else
 		. = ..()
-	update_icon()
+	update_appearance()
 
 /obj/item/weldingtool/proc/explode()
 	var/turf/T = get_turf(loc)
@@ -135,7 +135,7 @@
 	if(!status && O.is_refillable())
 		reagents.trans_to(O, reagents.total_volume, transfered_by = user)
 		balloon_alert(user, "Fuel tank emptied")
-		update_icon()
+		update_appearance()
 	if(isOn())
 		use(1)
 		var/turf/location = get_turf(user)
@@ -156,7 +156,7 @@
 		explode()
 	switched_on(user)
 
-	update_icon()
+	update_appearance()
 
 
 // Returns the amount of fuel in the welder
@@ -194,7 +194,7 @@
 	if(get_fuel() <= 0 && welding)
 		set_light_on(FALSE)
 		switched_on(user)
-		update_icon()
+		update_appearance()
 		return 0
 	return 1
 
@@ -211,7 +211,7 @@
 			force = 15
 			damtype = "fire"
 			hitsound = 'sound/items/welder.ogg'
-			update_icon()
+			update_appearance()
 			START_PROCESSING(SSobj, src)
 		else
 			balloon_alert(user, "No fuel")
@@ -228,7 +228,7 @@
 	force = 3
 	damtype = "brute"
 	hitsound = "swing_hit"
-	update_icon()
+	update_appearance()
 
 
 /obj/item/weldingtool/examine(mob/user)

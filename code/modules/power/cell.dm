@@ -33,7 +33,7 @@
 	charge = maxcharge
 	if(ratingdesc)
 		desc += " This one has a rating of [DisplayEnergy(maxcharge)], and you should not swallow it."
-	update_icon()
+	update_appearance()
 
 /obj/item/stock_parts/cell/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -54,7 +54,7 @@
 	else
 		return PROCESS_KILL
 
-/obj/item/stock_parts/cell/update_icon()
+/obj/item/stock_parts/cell/update_appearance()
 	cut_overlays()
 	if(grown_battery)
 		add_overlay(image('icons/obj/power.dmi',"grown_wires"))
@@ -214,7 +214,7 @@
 /obj/item/stock_parts/cell/crap/empty/Initialize(mapload)
 	. = ..()
 	charge = 0
-	update_icon()
+	update_appearance()
 
 /obj/item/stock_parts/cell/upgraded
 	name = "upgraded power cell"
@@ -236,7 +236,7 @@
 /obj/item/stock_parts/cell/secborg/empty/Initialize(mapload)
 	. = ..()
 	charge = 0
-	update_icon()
+	update_appearance()
 
 /obj/item/stock_parts/cell/pulse //200 pulse shots
 	name = "pulse rifle power cell"
@@ -268,7 +268,7 @@
 /obj/item/stock_parts/cell/high/empty/Initialize(mapload)
 	. = ..()
 	charge = 0
-	update_icon()
+	update_appearance()
 
 /obj/item/stock_parts/cell/super
 	name = "super-capacity power cell"
@@ -280,7 +280,7 @@
 /obj/item/stock_parts/cell/super/empty/Initialize(mapload)
 	. = ..()
 	charge = 0
-	update_icon()
+	update_appearance()
 
 /obj/item/stock_parts/cell/hyper
 	name = "hyper-capacity power cell"
@@ -292,7 +292,7 @@
 /obj/item/stock_parts/cell/hyper/empty/Initialize(mapload)
 	. = ..()
 	charge = 0
-	update_icon()
+	update_appearance()
 
 /obj/item/stock_parts/cell/bluespace
 	name = "bluespace power cell"
@@ -305,7 +305,7 @@
 /obj/item/stock_parts/cell/bluespace/empty/Initialize(mapload)
 	. = ..()
 	charge = 0
-	update_icon()
+	update_appearance()
 
 /obj/item/stock_parts/cell/infinite
 	name = "infinite-capacity power cell!"
@@ -326,7 +326,7 @@
 	maxcharge = 50000
 	ratingdesc = FALSE
 
-/obj/item/stock_parts/cell/infinite/abductor/update_icon()
+/obj/item/stock_parts/cell/infinite/abductor/update_appearance()
 	return
 
 
@@ -358,7 +358,7 @@
 /obj/item/stock_parts/cell/emproof/empty/Initialize(mapload)
 	. = ..()
 	charge = 0
-	update_icon()
+	update_appearance()
 
 /obj/item/stock_parts/cell/emproof/empty/ComponentInitialize()
 	. = ..()

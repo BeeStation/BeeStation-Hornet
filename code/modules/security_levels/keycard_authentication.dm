@@ -127,7 +127,7 @@ GLOBAL_VAR_INIT(emergency_access, FALSE)
 	for(var/area/maintenance/M as() in get_areas(/area/maintenance, SSmapping.levels_by_trait(ZTRAIT_STATION)[1]))
 		for(var/obj/machinery/door/airlock/A in M)
 			A.emergency = TRUE
-			A.update_icon()
+			A.update_appearance()
 			A.wires.ui_update()
 	minor_announce("Access restrictions on maintenance and external airlocks have been lifted.", "Attention! Station-wide emergency declared!",1)
 	GLOB.emergency_access = TRUE
@@ -137,7 +137,7 @@ GLOBAL_VAR_INIT(emergency_access, FALSE)
 	for(var/area/maintenance/M as() in get_areas(/area/maintenance, SSmapping.levels_by_trait(ZTRAIT_STATION)[1]))
 		for(var/obj/machinery/door/airlock/A in M)
 			A.emergency = FALSE
-			A.update_icon()
+			A.update_appearance()
 			A.wires.ui_update()
 	minor_announce("Access restrictions in maintenance areas have been restored.", "Attention! Station-wide emergency rescinded:")
 	GLOB.emergency_access = FALSE

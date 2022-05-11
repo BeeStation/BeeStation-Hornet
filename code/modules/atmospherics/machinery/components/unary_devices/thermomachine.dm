@@ -32,7 +32,7 @@
 	. = ..()
 	initialize_directions = dir
 	RefreshParts()
-	update_icon()
+	update_appearance()
 
 /obj/machinery/atmospherics/components/unary/thermomachine/proc/swap_function()
 	cooling = !cooling
@@ -46,7 +46,7 @@
 		icon_state_open = "heater-o"
 	target_temperature = T20C
 	RefreshParts()
-	update_icon()
+	update_appearance()
 
 /obj/machinery/atmospherics/components/unary/thermomachine/on_construction()
 	var/obj/item/circuitboard/machine/thermomachine/board = circuit
@@ -72,7 +72,7 @@
 			calculated_laser_rating += laser.rating
 		max_temperature = T20C + (base_heating * calculated_laser_rating) //573.15K with T1 stock parts
 
-/obj/machinery/atmospherics/components/unary/thermomachine/update_icon()
+/obj/machinery/atmospherics/components/unary/thermomachine/update_appearance()
 	cut_overlays()
 
 	if(panel_open)
@@ -222,13 +222,13 @@
 				target_temperature = clamp(target, min_temperature, max_temperature)
 				investigate_log("was set to [target_temperature] K by [key_name(usr)]", INVESTIGATE_ATMOS)
 	if(.)
-		update_icon()
+		update_appearance()
 
 /obj/machinery/atmospherics/components/unary/thermomachine/CtrlClick(mob/living/user)
 	if(!can_interact(user))
 		return
 	on = !on
-	update_icon()
+	update_appearance()
 
 /obj/machinery/atmospherics/components/unary/thermomachine/freezer
 	icon_state = "freezer"

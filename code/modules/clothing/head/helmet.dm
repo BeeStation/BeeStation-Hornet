@@ -46,7 +46,7 @@
 /obj/item/clothing/head/helmet/handle_atom_del(atom/A)
 	if(A == attached_light)
 		set_attached_light(null)
-		update_icon()
+		update_appearance()
 		QDEL_NULL(alight)
 		qdel(A)
 	return ..()
@@ -80,10 +80,10 @@
 				return
 			if(!user.transferItemToLoc(S, src))
 				return
-			
+
 			to_chat(user, "<span class='notice'>You click [S] into place on [src].</span>")
 			set_attached_light(S)
-			update_icon()
+			update_appearance()
 			alight = new(src)
 			if(loc == user)
 				alight.Grant(user)
@@ -102,7 +102,7 @@
 
 		var/obj/item/flashlight/removed_light = set_attached_light(null)
 		removed_light.update_brightness(user)
-		update_icon()
+		update_appearance()
 		user.update_inv_head()
 		QDEL_NULL(alight)
 		return TRUE
@@ -116,7 +116,7 @@
 	to_chat(user, "<span class='notice'>You toggle the helmet light [attached_light.on ? "on":"off"].</span>")
 
 	playsound(user, 'sound/weapons/empty.ogg', 100, TRUE)
-	update_icon()
+	update_appearance()
 
 
 ///Called when attached_light value changes.
@@ -192,7 +192,7 @@
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	visor_flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 
-/obj/item/clothing/head/helmet/riot/update_icon()
+/obj/item/clothing/head/helmet/riot/update_appearance()
 	icon_state = "[initial(icon_state)][up ? "up" : ""]"
 	return ..(FALSE)
 
@@ -209,7 +209,7 @@
 	flags_1 ^= visor_flags
 	flags_inv ^= visor_flags_inv
 	flags_cover ^= visor_flags_cover
-	update_icon()
+	update_appearance()
 	to_chat(user, "<span class='notice'>[up ? alt_toggle_message : toggle_message] \the [src].</span>")
 
 	user.update_inv_head()
@@ -239,7 +239,7 @@
 	///Is the helmet on?
 	var/on = FALSE
 
-/obj/item/clothing/head/helmet/justice/update_icon()
+/obj/item/clothing/head/helmet/justice/update_appearance()
 	icon_state = "[initial(icon_state)][on ? "on" : ""]"
 
 	return ..(FALSE)
@@ -249,7 +249,7 @@
 
 /obj/item/clothing/head/helmet/justice/attack_self(mob/user)
 	on = !on
-	update_icon()
+	update_appearance()
 	if(on)
 		START_PROCESSING(SSobj, src)
 	else

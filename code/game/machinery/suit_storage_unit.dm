@@ -153,13 +153,13 @@
 		mask = new mask_type(src)
 	if(storage_type)
 		storage = new storage_type(src)
-	update_icon()
+	update_appearance()
 
 /obj/machinery/suit_storage_unit/Destroy()
 	dump_contents()
 	return ..()
 
-/obj/machinery/suit_storage_unit/update_icon()
+/obj/machinery/suit_storage_unit/update_appearance()
 	cut_overlays()
 
 	if(uv)
@@ -188,7 +188,7 @@
 	if(!is_operational() && state_open)
 		open_machine()
 		dump_contents()
-	update_icon()
+	update_appearance()
 
 /obj/machinery/suit_storage_unit/proc/dump_contents()
 	dropContents()
@@ -263,7 +263,7 @@
 		uv_cycles--
 		uv = TRUE
 		locked = TRUE
-		update_icon()
+		update_appearance()
 		if(occupant)
 			if(uv_super || (obj_flags & EMAGGED))
 				mob_occupant.adjustFireLoss(rand(20, 36))
@@ -407,7 +407,7 @@
 			storage = I
 
 		visible_message("<span class='notice'>[user] inserts [I] into [src]</span>", "<span class='notice'>You load [I] into [src].</span>")
-		update_icon()
+		update_appearance()
 		ui_update()
 		return
 
@@ -523,4 +523,4 @@
 			. = TRUE
 
 	if(.)
-		update_icon()
+		update_appearance()

@@ -47,7 +47,7 @@
 			if(!locatedcrate.opened) //otherwise, if the located crate is closed, allow entering
 				return TRUE
 
-/obj/structure/closet/crate/update_icon()
+/obj/structure/closet/crate/update_appearance()
 	cut_overlays()
 	if(!opened)
 		layer = OBJ_LAYER
@@ -91,7 +91,7 @@
 /obj/structure/closet/crate/end_door_animation()
 	is_animating_door = FALSE
 	vis_contents -= door_obj
-	update_icon()
+	update_appearance()
 	COMPILE_OVERLAYS(src)
 
 /obj/structure/closet/crate/get_door_transform(crateanim_1, crateanim_2)
@@ -127,7 +127,7 @@
 		playsound(src, 'sound/items/poster_ripped.ogg', 75, 1)
 		manifest.forceMove(get_turf(src))
 		manifest = null
-		update_icon()
+		update_appearance()
 
 /obj/structure/closet/crate/proc/tear_manifest(mob/user)
 	to_chat(user, "<span class='notice'>You tear the manifest off of [src].</span>")
@@ -137,7 +137,7 @@
 	if(ishuman(user))
 		user.put_in_hands(manifest)
 	manifest = null
-	update_icon()
+	update_appearance()
 
 /obj/structure/closet/crate/coffin
 	name = "coffin"

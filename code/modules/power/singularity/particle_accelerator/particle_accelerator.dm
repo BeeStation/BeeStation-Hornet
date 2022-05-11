@@ -107,7 +107,7 @@
 	if(did_something)
 		user.changeNext_move(CLICK_CD_MELEE)
 		update_state()
-		update_icon()
+		update_appearance()
 		return
 
 	return ..()
@@ -125,7 +125,7 @@
 		investigate_log("was moved whilst active; it <font color='red'>powered down</font>.", INVESTIGATE_ENGINES)
 
 
-/obj/structure/particle_accelerator/update_icon()
+/obj/structure/particle_accelerator/update_appearance()
 	switch(construction_state)
 		if(PA_CONSTRUCTION_UNSECURED,PA_CONSTRUCTION_UNWIRED)
 			icon_state="[reference]"

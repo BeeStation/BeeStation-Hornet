@@ -18,7 +18,7 @@
 	throw_range = 7
 
 	var/is_position_sensitive = FALSE	//set to true if the device has different icons for each position.
-										//This will prevent things such as visible lasers from facing the incorrect direction when transformed by assembly_holder's update_icon()
+										//This will prevent things such as visible lasers from facing the incorrect direction when transformed by assembly_holder's update_appearance()
 	var/secured = TRUE
 	var/securable = TRUE				//False for assemblies that are always unsecured
 	var/list/attached_overlays = null
@@ -96,7 +96,7 @@
 
 /obj/item/assembly/proc/toggle_secure()
 	secured = securable && !secured
-	update_icon()
+	update_appearance()
 	return secured
 
 

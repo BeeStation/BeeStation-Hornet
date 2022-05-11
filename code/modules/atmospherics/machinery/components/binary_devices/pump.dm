@@ -33,7 +33,7 @@
 /obj/machinery/atmospherics/components/binary/pump/CtrlClick(mob/user)
 	if(can_interact(user))
 		on = !on
-		update_icon()
+		update_appearance()
 		ui_update()
 	return ..()
 
@@ -41,7 +41,7 @@
 	if(can_interact(user))
 		target_pressure = MAX_OUTPUT_PRESSURE
 		balloon_alert(user, "Set to [target_pressure] kPa")
-		update_icon()
+		update_appearance()
 		ui_update()
 	return
 
@@ -130,7 +130,7 @@
 				target_pressure = clamp(pressure, 0, MAX_OUTPUT_PRESSURE)
 				investigate_log("was set to [target_pressure] kPa by [key_name(usr)]", INVESTIGATE_ATMOS)
 	if(.)
-		update_icon()
+		update_appearance()
 
 /obj/machinery/atmospherics/components/binary/pump/atmosinit()
 	..()
@@ -160,7 +160,7 @@
 		return
 
 	broadcast_status()
-	update_icon()
+	update_appearance()
 	ui_update()
 
 /obj/machinery/atmospherics/components/binary/pump/can_unwrench(mob/user)

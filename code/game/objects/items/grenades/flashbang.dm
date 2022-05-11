@@ -78,7 +78,7 @@
 /obj/item/grenade/stingbang/prime(mob/living/lanced_by)
 	if(dud_flags)
 		active = FALSE
-		update_icon()
+		update_appearance()
 		return FALSE
 	if(iscarbon(loc))
 		var/mob/living/carbon/C = loc

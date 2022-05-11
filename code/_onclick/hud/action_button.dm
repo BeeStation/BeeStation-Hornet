@@ -120,7 +120,7 @@
 		name = "Show Buttons"
 	else
 		name = "Hide Buttons"
-	update_icon()
+	update_appearance()
 	usr.update_action_buttons()
 
 /atom/movable/screen/movable/action_button/hide_toggle/AltClick(mob/user)
@@ -141,9 +141,9 @@
 	hide_icon = settings["toggle_icon"]
 	hide_state = settings["toggle_hide"]
 	show_state = settings["toggle_show"]
-	update_icon()
+	update_appearance()
 
-/atom/movable/screen/movable/action_button/hide_toggle/update_icon()
+/atom/movable/screen/movable/action_button/hide_toggle/update_appearance()
 	cut_overlays()
 	add_overlay(mutable_appearance(hide_icon, hidden ? show_state : hide_state))
 

@@ -189,7 +189,7 @@
 	var/static/mutable_appearance/blocked_overlay = mutable_appearance('icons/mob/screen_gen.dmi', "blocked")
 	var/held_index = 0
 
-/atom/movable/screen/inventory/hand/update_icon()
+/atom/movable/screen/inventory/hand/update_appearance()
 	. = ..()
 
 	if(!handcuff_overlay)
@@ -563,11 +563,11 @@
 
 	if(choice != selecting)
 		selecting = choice
-		update_icon()
+		update_appearance()
 
 	return TRUE
 
-/atom/movable/screen/zone_sel/update_icon()
+/atom/movable/screen/zone_sel/update_appearance()
 	. = ..()
 	cut_overlay(selecting_appearance)
 	selecting_appearance = mutable_appearance('icons/mob/screen_gen.dmi', "[selecting]")
@@ -577,7 +577,7 @@
 /atom/movable/screen/zone_sel/alien
 	icon = 'icons/mob/screen_alien.dmi'
 
-/atom/movable/screen/zone_sel/alien/update_icon()
+/atom/movable/screen/zone_sel/alien/update_appearance()
 	. = ..()
 	cut_overlay(selecting_appearance)
 	selecting_appearance = mutable_appearance('icons/mob/screen_alien.dmi', "[selecting]")

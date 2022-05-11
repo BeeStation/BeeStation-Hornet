@@ -84,14 +84,14 @@ GLOBAL_LIST_EMPTY(turbolifts)
 		return
 	locked = TRUE
 	wires.ui_update()
-	update_icon()
+	update_appearance()
 
 /obj/machinery/door/airlock/turbolift/unbolt()
 	if(!locked)
 		return
 	locked = FALSE
 	wires.ui_update()
-	update_icon()
+	update_appearance()
 
 /obj/machinery/door/airlock/turbolift/Initialize(mapload)
 	. = ..()
@@ -113,7 +113,7 @@ GLOBAL_LIST_EMPTY(turbolifts)
 		if("closing")
 			flick("closing", src)
 
-/obj/machinery/door/airlock/turbolift/update_icon()
+/obj/machinery/door/airlock/turbolift/update_appearance()
 	cut_overlays()
 	if(density)
 		if(locked)

@@ -77,7 +77,7 @@
 							c.info += copied
 							c.info += "</font>"
 							c.name = copy.name
-							c.update_icon()
+							c.update_appearance()
 							c.stamps = copy.stamps
 							if(copy.stamped)
 								c.stamped = copy.stamped.Copy()

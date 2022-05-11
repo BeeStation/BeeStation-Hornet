@@ -4,7 +4,7 @@
 	icon = 'icons/obj/machines/nuke.dmi'
 	icon_state = "bananiumbomb_base"
 
-/obj/machinery/nuclearbomb/syndicate/bananium/update_icon()
+/obj/machinery/nuclearbomb/syndicate/bananium/update_appearance()
 	if(deconstruction_state == NUKESTATE_INTACT)
 		switch(get_nuke_state())
 			if(NUKE_OFF_LOCKED, NUKE_OFF_UNLOCKED)

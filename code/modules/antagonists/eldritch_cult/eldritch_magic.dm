@@ -556,7 +556,7 @@
 	pixel_y = rand(-6,6)
 	pixel_x = rand(-6,6)
 	icon_state = "small_rune_[rand(12)]"
-	update_icon()
+	update_appearance()
 
 /obj/effect/proc_holder/spell/pointed/manse_link
 	name = "Mansus Link"

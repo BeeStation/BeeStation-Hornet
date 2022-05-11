@@ -18,7 +18,7 @@
 	find_circs()
 	connect_to_network()
 	SSair.atmos_machinery += src
-	update_icon()
+	update_appearance()
 	component_parts = list(new /obj/item/circuitboard/machine/generator)
 
 /obj/machinery/power/generator/ComponentInitialize()
@@ -30,7 +30,7 @@
 	SSair.atmos_machinery -= src
 	return ..()
 
-/obj/machinery/power/generator/update_icon()
+/obj/machinery/power/generator/update_appearance()
 
 	if(stat & (NOPOWER|BROKEN))
 		cut_overlays()
@@ -86,12 +86,12 @@
 			var/datum/gas_mixture/cold_circ_air1 = cold_circ.airs[1]
 			cold_circ_air1.merge(cold_air)
 
-		update_icon()
+		update_appearance()
 
 	var/circ = "[cold_circ && cold_circ.last_pressure_delta > 0 ? "1" : "0"][hot_circ && hot_circ.last_pressure_delta > 0 ? "1" : "0"]"
 	if(circ != lastcirc)
 		lastcirc = circ
-		update_icon()
+		update_appearance()
 
 	src.updateDialog()
 

@@ -44,7 +44,7 @@
 			message_admins("[ADMIN_LOOKUPFLW(user)] has added two tanks to \the [src] at [ADMIN_VERBOSEJMP(src)]!")
 
 
-		update_icon()
+		update_appearance()
 //TODO: Have this take an assemblyholder
 	else if(isassembly(item))
 		var/obj/item/assembly/A = item
@@ -60,7 +60,7 @@
 		to_chat(user, "<span class='notice'>You attach the [item] to the valve controls and secure it.</span>")
 		A.on_attach()
 		A.holder = src
-		A.toggle_secure()	//this calls update_icon(), which calls update_icon() on the holder (i.e. the bomb).
+		A.toggle_secure()	//this calls update_appearance(), which calls update_appearance() on the holder (i.e. the bomb).
 		log_bomber(user, "attached a [item.name] to a ttv -", src, null, FALSE)
 		attacher = user
 	return
@@ -113,20 +113,20 @@
 		valve_open = FALSE
 		tank_one.forceMove(drop_location())
 		tank_one = null
-		update_icon()
+		update_appearance()
 	else if(tank_two && href_list["tanktwo"])
 		split_gases()
 		valve_open = FALSE
 		tank_two.forceMove(drop_location())
 		tank_two = null
-		update_icon()
+		update_appearance()
 	else if(href_list["open"])
 		toggle_valve()
 	else if(attached_device)
 		if(href_list["rem_device"])
 			attached_device.on_detach()
 			attached_device = null
-			update_icon()
+			update_appearance()
 		if(href_list["device"])
 			attached_device.ui_interact(usr)
 
@@ -142,7 +142,7 @@
 /obj/item/transfer_valve/proc/toggle_off()
 	toggle = TRUE
 
-/obj/item/transfer_valve/update_icon()
+/obj/item/transfer_valve/update_appearance()
 	cut_overlays()
 
 	if(!tank_one && !tank_two && !attached_device)
@@ -230,7 +230,7 @@
 	else if(valve_open && tank_one && tank_two)
 		split_gases()
 		valve_open = FALSE
-		update_icon()
+		update_appearance()
 
 // this doesn't do anything but the timer etc. expects it to be here
 // eventually maybe have it update icon to show state (timer, prox etc.) like old bombs
@@ -288,4 +288,4 @@
 				. = TRUE
 
 	ui_update()
-	update_icon()
+	update_appearance()

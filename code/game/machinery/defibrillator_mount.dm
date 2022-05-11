@@ -19,7 +19,7 @@
 /obj/machinery/defibrillator_mount/loaded/Initialize(mapload) //loaded subtype for mapping use
 	. = ..()
 	defib = new/obj/item/defibrillator/loaded(src)
-	update_icon()
+	update_appearance()
 
 /obj/machinery/defibrillator_mount/Destroy()
 	if(defib)
@@ -40,9 +40,9 @@
 	if(defib?.cell && defib.cell.charge < defib.cell.maxcharge && is_operational())
 		use_power(200)
 		defib.cell.give(180) //90% efficiency, a bit worse than the cell charger's 100%
-		update_icon()
+		update_appearance()
 
-/obj/machinery/defibrillator_mount/update_icon()
+/obj/machinery/defibrillator_mount/update_appearance()
 	cut_overlays()
 	if(defib)
 		add_overlay("defib")
@@ -81,7 +81,7 @@
 		playsound(src, 'sound/machines/click.ogg', 50, TRUE)
 		defib = I
 		begin_processing()
-		update_icon()
+		update_appearance()
 		return
 	else if(defib && I == defib.paddles)
 		defib.paddles.snap_back()
@@ -94,7 +94,7 @@
 				return
 			clamps_locked = !clamps_locked
 			to_chat(user, "<span class='notice'>Clamps [clamps_locked ? "" : "dis"]engaged.</span>")
-			update_icon()
+			update_appearance()
 		else
 			to_chat(user, "<span class='warning'>Insufficient access.</span>")
 		return
@@ -116,7 +116,7 @@
 	"<span class='notice'>You override the locking clamps on [src]!</span>")
 	playsound(src, 'sound/machines/locktoggle.ogg', 50, TRUE)
 	clamps_locked = FALSE
-	update_icon()
+	update_appearance()
 	return TRUE
 
 /obj/machinery/defibrillator_mount/AltClick(mob/living/carbon/user)
@@ -137,7 +137,7 @@
 	// Make sure processing ends before the defib is nulled
 	end_processing()
 	defib = null
-	update_icon()
+	update_appearance()
 
 //wallframe, for attaching the mounts easily
 /obj/item/wallframe/defib_mount

@@ -24,7 +24,7 @@
 		var/atom/new_item = new typepath(src)
 		items_list += WEAKREF(new_item)
 
-	update_icon()
+	update_appearance()
 	SetSlotFromZone()
 
 /obj/item/organ/cyberimp/arm/Destroy()
@@ -47,7 +47,7 @@
 		else
 			CRASH("Invalid zone for [type]")
 
-/obj/item/organ/cyberimp/arm/update_icon()
+/obj/item/organ/cyberimp/arm/update_appearance()
 	if(zone == BODY_ZONE_R_ARM)
 		transform = null
 	else // Mirroring the icon
@@ -68,7 +68,7 @@
 		zone = BODY_ZONE_R_ARM
 	SetSlotFromZone()
 	to_chat(user, "<span class='notice'>You modify [src] to be installed on the [zone == BODY_ZONE_R_ARM ? "right" : "left"] arm.</span>")
-	update_icon()
+	update_appearance()
 
 /obj/item/organ/cyberimp/arm/Insert(mob/living/carbon/M, special = FALSE, drop_if_replaced = TRUE)
 	. = ..()

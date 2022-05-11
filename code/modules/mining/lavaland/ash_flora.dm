@@ -312,7 +312,7 @@
 	icon = 'icons/obj/lavaland/ash_flora.dmi'
 	icon_state = "mushroom_bowl"
 
-/obj/item/reagent_containers/glass/bowl/mushroom_bowl/update_icon()
+/obj/item/reagent_containers/glass/bowl/mushroom_bowl/update_appearance()
 	cut_overlays()
 	if(reagents?.total_volume)
 		var/mutable_appearance/filling = mutable_appearance('icons/obj/lavaland/ash_flora.dmi', "fullbowl")

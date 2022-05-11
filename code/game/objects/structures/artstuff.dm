@@ -120,7 +120,7 @@
 			var/y = text2num(params["y"])
 			grid[x][y] = color
 			used = TRUE
-			update_icon()
+			update_appearance()
 			. = TRUE
 		if("finalize")
 			. = TRUE
@@ -158,7 +158,7 @@
 		CRASH("Error generating painting png : [result]")
 	generated_icon = new(png_filename)
 	icon_generated = TRUE
-	update_icon()
+	update_appearance()
 
 /obj/item/canvas/proc/get_data_string()
 	var/list/data = list()
@@ -308,7 +308,7 @@
 /obj/structure/sign/painting/proc/update_painting_stuff()
 	name = current_canvas ? "painting - [current_canvas.painting_name]" : initial(name)
 	desc = current_canvas ? desc_with_canvas : initial(desc)
-	update_icon()
+	update_appearance()
 	update_icon_state()
 	update_overlays()
 

@@ -6,7 +6,7 @@
 	caliber = "10mm"
 	max_ammo = 10
 
-/obj/item/ammo_box/magazine/m10mm/rifle/update_icon()
+/obj/item/ammo_box/magazine/m10mm/rifle/update_appearance()
 	..()
 	if(ammo_count())
 		icon_state = "75-8"

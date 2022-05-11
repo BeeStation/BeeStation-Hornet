@@ -1,4 +1,4 @@
-//update_icon() may change the onmob icons
+//update_appearance() may change the onmob icons
 //Very good name, I know
 
 /datum/element/update_icon_updates_onmob/Attach(datum/target)

@@ -336,7 +336,7 @@
 	visor_flags_inv = HIDEMASK|HIDEEYES|HIDEFACE|HIDEFACIALHAIR|HIDEEARS
 	visor_flags = STOPSPRESSUREDAMAGE
 
-/obj/item/clothing/head/helmet/space/hardsuit/syndi/update_icon()
+/obj/item/clothing/head/helmet/space/hardsuit/syndi/update_appearance()
 	icon_state = "hardsuit[on]-[hardsuit_type]"
 
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/Initialize(mapload)
@@ -381,7 +381,7 @@
 	else
 		to_chat(user, "<span class='notice'>You switch your hardsuit to combat mode and can now run at full speed.</span>")
 		activate_combat_mode()
-	update_icon()
+	update_appearance()
 	playsound(src.loc, 'sound/mecha/mechmove03.ogg', 50, 1)
 	toggle_hardsuit_mode(user)
 	user.update_inv_head()
@@ -395,7 +395,7 @@
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/proc/toggle_hardsuit_mode(mob/user) //Helmet Toggles Suit Mode
 	if(linkedsuit)
 		linkedsuit.icon_state = "hardsuit[on]-[hardsuit_type]"
-		linkedsuit.update_icon()
+		linkedsuit.update_appearance()
 		if(on)
 			linkedsuit.activate_space_mode()
 		else
@@ -475,13 +475,13 @@
 	if(!syndieHelmet)
 		return
 	syndieHelmet.activate_combat_mode()
-	syndieHelmet.update_icon()
+	syndieHelmet.update_appearance()
 	for(var/X in syndieHelmet.actions)
 		var/datum/action/A = X
 		A.UpdateButtonIcon()
 	//Update the icon_state first
 	icon_state = "hardsuit[syndieHelmet.on]-[syndieHelmet.hardsuit_type]"
-	update_icon()
+	update_appearance()
 	//Actually apply the non-combat mode to suit and update the suit overlay
 	activate_combat_mode()
 

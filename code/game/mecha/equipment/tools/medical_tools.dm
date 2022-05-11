@@ -342,12 +342,12 @@
 				else if(mechsyringe.loc == trg)
 					mechsyringe.icon_state = initial(mechsyringe.icon_state)
 					mechsyringe.icon = initial(mechsyringe.icon)
-					mechsyringe.update_icon()
+					mechsyringe.update_appearance()
 					break
 			else
 				mechsyringe.icon_state = initial(mechsyringe.icon_state)
 				mechsyringe.icon = initial(mechsyringe.icon)
-				mechsyringe.update_icon()
+				mechsyringe.update_appearance()
 				break
 			sleep(1)
 	return 1

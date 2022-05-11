@@ -408,7 +408,7 @@
 		for(var/atom/movable/AM in contents)
 			AM.forceMove(C)
 		C.welded = TRUE
-		C.update_icon()
+		C.update_appearance()
 	created = TRUE
 	return ..()
 
@@ -433,7 +433,7 @@
 	if(welded)
 		addtimer(CALLBACK(src, .proc/bust_open), 5 MINUTES)
 		icon_state = magic_icon
-		update_icon()
+		update_appearance()
 	else
 		addtimer(CALLBACK(src, .proc/decay), 15 SECONDS)
 
@@ -455,7 +455,7 @@
 
 /obj/structure/closet/decay/proc/unmagify()
 	icon_state = weakened_icon
-	update_icon()
+	update_appearance()
 	addtimer(CALLBACK(src, .proc/decay), 15 SECONDS)
 
 /obj/item/projectile/magic/flying
@@ -551,7 +551,7 @@
 		for(var/obj/effect/proc_holder/spell/spell in L.mind.spell_list)
 			spell.charge_counter = spell.charge_max
 			spell.recharging = FALSE
-			spell.update_icon()
+			spell.update_appearance()
 
 /obj/item/projectile/magic/wipe
 	name = "bolt of possession"

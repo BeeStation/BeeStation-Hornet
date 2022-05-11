@@ -96,10 +96,10 @@
 		to_chat(user, "<span class='notice'>Your helmet's torch can't pass through your welding visor!</span>")
 		helmet_on = FALSE
 	playsound(src, 'sound/mecha/mechmove03.ogg', 50, 1) //Visors don't just come from nothing
-	update_icon()
+	update_appearance()
 	update_button_icons(user)
 
-/obj/item/clothing/head/helmet/space/plasmaman/update_icon()
+/obj/item/clothing/head/helmet/space/plasmaman/update_appearance()
 	update_overlays()
 	if(ishuman(loc))
 		var/mob/living/carbon/human/H = loc
@@ -117,7 +117,7 @@
 				smile = TRUE
 				smile_color = CR.paint_color
 				to_chat(user, "You draw a smiley on the helmet visor.")
-				update_icon()
+				update_appearance()
 				update_button_icons(user)
 		return
 	if(istype(item, /obj/item/clothing/head) && !istype(item, /obj/item/clothing/head/helmet/space/plasmaman)) // i know someone is gonna do it after i thought about it
@@ -127,14 +127,14 @@
 			return
 		attached_hat = hat
 		hat.forceMove(src)
-		update_icon()
+		update_appearance()
 		update_button_icons(user)
 		add_verb(/obj/item/clothing/head/helmet/space/plasmaman/verb/unattach_hat)
 
 /obj/item/clothing/head/helmet/space/plasmaman/proc/update_button_icons(mob/user)
 	if(!user)
 		return
-	
+
 	//The icon's may look differently due to overlays being applied asynchronously
 	for(var/X in actions)
 		var/datum/action/A=X
@@ -161,7 +161,7 @@
 
 	usr.put_in_hands(attached_hat)
 	attached_hat = null
-	update_icon()
+	update_appearance()
 	remove_verb(/obj/item/clothing/head/helmet/space/plasmaman/verb/unattach_hat)
 
 /obj/item/clothing/head/helmet/space/plasmaman/ComponentInitialize()
@@ -175,7 +175,7 @@
 	if(smile)
 		smile = FALSE
 		cut_overlays()
-		update_icon()
+		update_appearance()
 
 /obj/item/clothing/head/helmet/space/plasmaman/attack_self(mob/user)
 	helmet_on = !helmet_on
@@ -190,10 +190,10 @@
 	else
 		set_light_on(FALSE)
 
-	update_icon()
+	update_appearance()
 	user.update_inv_head() //So the mob overlay updates
 	update_button_icons(user)
-	
+
 /obj/item/clothing/head/helmet/space/plasmaman/update_overlays()
 	cut_overlays()
 
@@ -201,7 +201,7 @@
 		add_overlay(mutable_appearance('icons/obj/clothing/hats.dmi', visor_state + "_weld"))
 	else if(helmet_on)
 		add_overlay(mutable_appearance('icons/obj/clothing/hats.dmi', visor_state + "_light"))
-	
+
 	return ..()
 
 /obj/item/clothing/head/helmet/space/plasmaman/security
@@ -296,7 +296,7 @@
 	var/obj/item/clothing/head/hat = new /obj/item/clothing/head/that
 	attached_hat = hat
 	hat.forceMove(src)
-	update_icon()
+	update_appearance()
 	add_verb(/obj/item/clothing/head/helmet/space/plasmaman/verb/unattach_hat)
 
 /obj/item/clothing/head/helmet/space/plasmaman/gold
@@ -596,7 +596,7 @@
 	var/obj/item/clothing/head/hat = new /obj/item/clothing/head/that
 	attached_hat = hat
 	hat.forceMove(src)
-	update_icon()
+	update_appearance()
 	add_verb(/obj/item/clothing/head/helmet/space/plasmaman/verb/unattach_hat)
 
 // The Protective helmet variants
@@ -766,5 +766,5 @@
 	var/obj/item/clothing/head/hat = new /obj/item/clothing/head/that
 	attached_hat = hat
 	hat.forceMove(src)
-	update_icon()
+	update_appearance()
 	add_verb(/obj/item/clothing/head/helmet/space/plasmaman/verb/unattach_hat)

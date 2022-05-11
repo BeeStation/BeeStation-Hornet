@@ -37,17 +37,17 @@
 	if(stat & NOPOWER || !enabled || !reagents.total_volume || reagents.chem_temp == target_temperature)
 		if(acclimate_state != NEUTRAL)
 			acclimate_state = NEUTRAL
-			update_icon()
+			update_appearance()
 		if(!reagents.total_volume)
 			emptying = FALSE
 		return
 
 	if(reagents.chem_temp < target_temperature && acclimate_state != HEATING) //note that we check if the temperature is the same at the start
 		acclimate_state = HEATING
-		update_icon()
+		update_appearance()
 	else if(reagents.chem_temp > target_temperature && acclimate_state != COOLING)
 		acclimate_state = COOLING
-		update_icon()
+		update_appearance()
 	if(!emptying)
 		if(reagents.chem_temp >= target_temperature && target_temperature + allowed_temperature_difference >= reagents.chem_temp) //cooling here
 			emptying = TRUE
@@ -57,7 +57,7 @@
 	reagents.adjust_thermal_energy((target_temperature - reagents.chem_temp) * heater_coefficient * delta_time * SPECIFIC_HEAT_DEFAULT * reagents.total_volume) //keep constant with chem heater
 	reagents.handle_reactions()
 
-/obj/machinery/plumbing/acclimator/update_icon()
+/obj/machinery/plumbing/acclimator/update_appearance()
 	icon_state = initial(icon_state)
 	switch(acclimate_state)
 		if(COOLING)

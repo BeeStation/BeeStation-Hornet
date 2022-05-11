@@ -102,7 +102,7 @@ By design, d1 is the smallest direction and d2 is the highest
 	cable_color = param_color || cable_color || pick(cable_colors)
 	if(cable_colors[cable_color])
 		cable_color = cable_colors[cable_color]
-	update_icon()
+	update_appearance()
 
 /obj/structure/cable/Destroy()					// called when a cable is deleted
 	if(powernet)
@@ -127,9 +127,9 @@ By design, d1 is the smallest direction and d2 is the highest
 
 	if(level == 1 && isturf(loc))
 		invisibility = i ? INVISIBILITY_MAXIMUM : 0
-	update_icon()
+	update_appearance()
 
-/obj/structure/cable/update_icon()
+/obj/structure/cable/update_appearance()
 	icon_state = "[d1]-[d2]"
 	color = null
 	add_atom_colour(cable_color, FIXED_COLOUR_PRIORITY)
@@ -506,7 +506,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 /obj/item/stack/cable_coil/cyborg/attack_self(mob/user)
 	var/picked = input(user,"Pick a cable color.","Cable Color") in list("red","yellow","green","blue","pink","orange","cyan","white")
 	cable_color = picked
-	update_icon()
+	update_appearance()
 
 /obj/item/stack/cable_coil/suicide_act(mob/user)
 	if(locate(/obj/structure/chair/stool) in get_turf(user))
@@ -525,7 +525,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 
 	pixel_x = rand(-2,2)
 	pixel_y = rand(-2,2)
-	update_icon()
+	update_appearance()
 	recipes = GLOB.cable_coil_recipes
 
 ///////////////////////////////////
@@ -551,7 +551,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 		return ..()
 
 
-/obj/item/stack/cable_coil/update_icon()
+/obj/item/stack/cable_coil/update_appearance()
 	icon_state = "[initial(item_state)][amount < 3 ? amount : ""]"
 	name = "cable [amount < 3 ? "piece" : "coil"]"
 	color = null
@@ -564,7 +564,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 	var/obj/item/stack/cable_coil/new_cable = ..()
 	if(istype(new_cable))
 		new_cable.cable_color = cable_color
-		new_cable.update_icon()
+		new_cable.update_appearance()
 
 //add cables to the stack
 /obj/item/stack/cable_coil/proc/give(extra)
@@ -572,7 +572,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 		amount = max_amount
 	else
 		amount += extra
-	update_icon()
+	update_appearance()
 
 
 
@@ -621,7 +621,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 	C.d1 = 0 //it's a O-X node cable
 	C.d2 = dirn
 	C.add_fingerprint(user)
-	C.update_icon()
+	C.update_appearance()
 
 	//create a new powernet with the cable, if needed it will be merged later
 	var/datum/powernet/PN = new()
@@ -693,7 +693,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 			NC.d1 = 0
 			NC.d2 = fdirn
 			NC.add_fingerprint(user)
-			NC.update_icon()
+			NC.update_appearance()
 
 			//create a new powernet with the cable, if needed it will be merged later
 			var/datum/powernet/newPN = new()
@@ -735,13 +735,13 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 				return
 
 
-		C.update_icon()
+		C.update_appearance()
 
 		C.d1 = nd1
 		C.d2 = nd2
 
 		C.add_fingerprint(user)
-		C.update_icon()
+		C.update_appearance()
 
 
 		C.mergeConnectedNetworks(C.d1) //merge the powernets...
@@ -817,7 +817,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 		amount = rand(1,2)
 	pixel_x = rand(-2,2)
 	pixel_y = rand(-2,2)
-	update_icon()
+	update_appearance()
 
 /obj/item/stack/cable_coil/cut/red
 	cable_color = "red"

@@ -691,7 +691,7 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
  <br>
 "}
 
-/obj/item/paper/guides/antag/guardian/update_icon()
+/obj/item/paper/guides/antag/guardian/update_appearance()
 	return
 
 /obj/item/paper/guides/antag/guardian/wizard

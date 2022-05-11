@@ -37,7 +37,7 @@
 					else
 						M.visible_message("[user] has implanted [M].", "<span class='notice'>[user] implants you.</span>")
 					imp = null
-					update_icon()
+					update_appearance()
 				else
 					to_chat(user, "<span class='warning'>[src] fails to implant [M].</span>")
 
@@ -62,4 +62,4 @@
 	. = ..()
 	if(!imp && imp_type)
 		imp = new imp_type(src)
-	update_icon()
+	update_appearance()

@@ -273,7 +273,7 @@
 	broken_overlay_emissive = TRUE
 	light_power = 0
 
-/obj/machinery/computer/security/telescreen/update_icon()
+/obj/machinery/computer/security/telescreen/update_appearance()
 	icon_state = initial(icon_state)
 	if(stat & BROKEN)
 		icon_state += "b"

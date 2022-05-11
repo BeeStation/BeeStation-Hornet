@@ -72,10 +72,10 @@
 // hide the object if turf is intact
 /obj/machinery/navbeacon/hide(intact)
 	invisibility = intact ? INVISIBILITY_MAXIMUM : 0
-	update_icon()
+	update_appearance()
 
 // update the icon_state
-/obj/machinery/navbeacon/update_icon()
+/obj/machinery/navbeacon/update_appearance()
 	var/state="navbeacon[open]"
 
 	if(invisibility)
@@ -94,7 +94,7 @@
 
 		user.visible_message("[user] [open ? "opens" : "closes"] the beacon's cover.", "<span class='notice'>You [open ? "open" : "close"] the beacon's cover.</span>")
 
-		update_icon()
+		update_appearance()
 
 	else if (istype(I, /obj/item/card/id)||istype(I, /obj/item/pda))
 		if(open)

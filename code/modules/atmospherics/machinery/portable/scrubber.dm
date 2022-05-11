@@ -18,7 +18,7 @@
 	air_update_turf()
 	return ..()
 
-/obj/machinery/portable_atmospherics/scrubber/update_icon()
+/obj/machinery/portable_atmospherics/scrubber/update_appearance()
 	icon_state = "pscrubber:[on]"
 
 	cut_overlays()
@@ -53,7 +53,7 @@
 	if(is_operational())
 		if(prob(50 / severity))
 			on = !on
-		update_icon()
+		update_appearance()
 
 
 /obj/machinery/portable_atmospherics/scrubber/ui_state(mob/user)
@@ -91,7 +91,7 @@
 		if(close_valve)
 			if(on)
 				on = FALSE
-				update_icon()
+				update_appearance()
 		else if(on && holding)
 			investigate_log("[key_name(user)] started a transfer into [holding].", INVESTIGATE_ATMOS)
 
@@ -110,7 +110,7 @@
 			scrubbing ^= params["val"]
 			. = TRUE
 	if(.)
-		update_icon()
+		update_appearance()
 
 /obj/machinery/portable_atmospherics/scrubber/huge
 	name = "huge air scrubber"
@@ -128,13 +128,13 @@
 /obj/machinery/portable_atmospherics/scrubber/huge/movable
 	movable = TRUE
 
-/obj/machinery/portable_atmospherics/scrubber/huge/update_icon()
+/obj/machinery/portable_atmospherics/scrubber/huge/update_appearance()
 	icon_state = "scrubber:[on]"
 
 /obj/machinery/portable_atmospherics/scrubber/huge/process_atmos()
 	if((!anchored && !movable) || !is_operational())
 		on = FALSE
-		update_icon()
+		update_appearance()
 	use_power = on ? ACTIVE_POWER_USE : IDLE_POWER_USE
 	if(!on)
 		return

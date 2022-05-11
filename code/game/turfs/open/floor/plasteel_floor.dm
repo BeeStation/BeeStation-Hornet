@@ -14,7 +14,7 @@
 	var/atom/changed_turf = ChangeTurf(/turf/open/floor/plating)
 	changed_turf.AddElement(/datum/element/rust)
 
-/turf/open/floor/plasteel/update_icon()
+/turf/open/floor/plasteel/update_appearance()
 	if(!..())
 		return 0
 	if(!broken && !burnt)

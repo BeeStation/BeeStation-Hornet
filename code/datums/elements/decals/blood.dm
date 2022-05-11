@@ -2,7 +2,7 @@
 
 /**
   * If you are annoyed by lack of blood decal visuals?
-  * Then here's a TODO for you: rework the entire update_icon() family to make COMSIG_ATOM_UPDATE_OVERLAYS and update_overlays() work!
+  * Then here's a TODO for you: rework the entire update_appearance() family to make COMSIG_ATOM_UPDATE_OVERLAYS and update_overlays() work!
   * Until the rework, blood decal visuals might not work on some items... (but the name change will work, though)
   */
 

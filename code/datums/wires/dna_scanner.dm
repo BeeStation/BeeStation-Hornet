@@ -29,7 +29,7 @@
 			addtimer(CALLBACK(S, /obj/machinery/dna_scannernew.proc/reset, wire), 1200)
 		if(WIRE_BOLTS)
 			S.locked = !S.locked
-			S.update_icon()
+			S.update_appearance()
 		if(WIRE_LIMIT)
 			if(iscarbon(user))
 				S.irradiate(user)
@@ -58,7 +58,7 @@
 				S.open_machine()
 				if(!is_cut(WIRE_BOLTS))
 					S.locked = TRUE
-					S.update_icon()
+					S.update_appearance()
 		if(WIRE_ZAP1, WIRE_ZAP2)
 			if(isliving(usr))
 				S.shock(usr, 90)

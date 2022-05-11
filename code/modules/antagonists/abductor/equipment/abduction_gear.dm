@@ -416,7 +416,7 @@
 <br>
 Congratulations! You are now trained for invasive xenobiology research!"}
 
-/obj/item/paper/guides/antag/abductor/update_icon()
+/obj/item/paper/guides/antag/abductor/update_appearance()
 	return
 
 /obj/item/paper/guides/antag/abductor/AltClick()
@@ -453,9 +453,9 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 			txt = "probing"
 
 	to_chat(usr, "<span class='notice'>You switch the baton to [txt] mode.</span>")
-	update_icon()
+	update_appearance()
 
-/obj/item/abductor/baton/update_icon()
+/obj/item/abductor/baton/update_appearance()
 	switch(mode)
 		if(BATON_STUN)
 			icon_state = "wonderprodStun"

@@ -100,7 +100,7 @@ There are several things that need to be remembered:
 
 	if(client && hud_used)
 		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_ICLOTHING) + 1]
-		inv.update_icon()
+		inv.update_appearance()
 
 	if(istype(w_uniform, /obj/item/clothing/under))
 		var/obj/item/clothing/under/U = w_uniform
@@ -134,7 +134,7 @@ There are several things that need to be remembered:
 			//	icon_file = 'icons/mob/species/misc/digitigrade.dmi'
 			uniform_overlay = U.build_worn_icon(default_layer = UNIFORM_LAYER, default_icon_file = icon_file, isinhands = FALSE, override_state = target_overlay)
 
-			
+
 
 		if(OFFSET_UNIFORM in dna.species.offset_features)
 			uniform_overlay.pixel_x += dna.species.offset_features[OFFSET_UNIFORM][1]
@@ -150,7 +150,7 @@ There are several things that need to be remembered:
 
 	if(client && hud_used)
 		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_ID) + 1]
-		inv.update_icon()
+		inv.update_appearance()
 
 	var/mutable_appearance/id_overlay = overlays_standing[ID_LAYER]
 
@@ -179,7 +179,7 @@ There are several things that need to be remembered:
 
 	if(client && hud_used && hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_GLOVES) + 1])
 		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_GLOVES) + 1]
-		inv.update_icon()
+		inv.update_appearance()
 
 	if(!gloves && bloody_hands)
 		var/mutable_appearance/bloody_overlay = mutable_appearance('icons/effects/blood.dmi', "bloodyhands", -GLOVES_LAYER)
@@ -220,7 +220,7 @@ There are several things that need to be remembered:
 
 	if(client && hud_used)
 		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_EYES) + 1]
-		inv.update_icon()
+		inv.update_appearance()
 	if(glasses)
 		glasses.screen_loc = ui_glasses		//...draw the item in the inventory screen
 	if(istype(glasses, /obj/item/clothing/glasses))
@@ -253,7 +253,7 @@ There are several things that need to be remembered:
 
 	if(client && hud_used)
 		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_EARS) + 1]
-		inv.update_icon()
+		inv.update_appearance()
 
 	if(ears)
 		var/icon_file = 'icons/mob/ears.dmi'
@@ -280,7 +280,7 @@ There are several things that need to be remembered:
 
 	if(client && hud_used)
 		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_NECK) + 1]
-		inv.update_icon()
+		inv.update_appearance()
 
 	if(wear_neck)
 		wear_neck.screen_loc = ui_neck
@@ -310,7 +310,7 @@ There are several things that need to be remembered:
 
 	if(client && hud_used)
 		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_FEET) + 1]
-		inv.update_icon()
+		inv.update_appearance()
 
 	if(shoes)
 		var/icon_file = 'icons/mob/clothing/feet.dmi'
@@ -343,7 +343,7 @@ There are several things that need to be remembered:
 
 	if(client && hud_used)
 		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_SUITSTORE) + 1]
-		inv.update_icon()
+		inv.update_appearance()
 
 	if(s_store)
 		s_store.screen_loc = ui_sstore1
@@ -370,7 +370,7 @@ There are several things that need to be remembered:
 
 	if(client && hud_used && hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_HEAD) + 1])
 		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_HEAD) + 1]
-		inv.update_icon()
+		inv.update_appearance()
 
 	update_mutant_bodyparts()
 	if(head)
@@ -395,7 +395,7 @@ There are several things that need to be remembered:
 
 	if(client && hud_used)
 		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_BELT) + 1]
-		inv.update_icon()
+		inv.update_appearance()
 
 	if(belt)
 		var/icon_file = 'icons/mob/clothing/belt.dmi'
@@ -424,7 +424,7 @@ There are several things that need to be remembered:
 
 	if(client && hud_used)
 		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_OCLOTHING) + 1]
-		inv.update_icon()
+		inv.update_appearance()
 
 	if(istype(wear_suit, /obj/item/clothing/suit))
 		var/icon_file = 'icons/mob/clothing/suit.dmi'
@@ -459,10 +459,10 @@ There are several things that need to be remembered:
 		var/atom/movable/screen/inventory/inv
 
 		inv = hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_LPOCKET) + 1]
-		inv.update_icon()
+		inv.update_appearance()
 
 		inv = hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_RPOCKET) + 1]
-		inv.update_icon()
+		inv.update_appearance()
 
 		if(l_store)
 			l_store.screen_loc = ui_storage1
@@ -485,7 +485,7 @@ There are several things that need to be remembered:
 
 	if(client && hud_used)
 		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_MASK) + 1]
-		inv.update_icon()
+		inv.update_appearance()
 
 	if(wear_mask)
 		update_hud_wear_mask(wear_mask)
@@ -511,7 +511,7 @@ There are several things that need to be remembered:
 
 	if(client && hud_used && hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_BACK) + 1])
 		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_BACK) + 1]
-		inv.update_icon()
+		inv.update_appearance()
 
 	if(back)
 		update_hud_back(back)

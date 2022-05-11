@@ -23,7 +23,7 @@
 	AddComponent(/datum/component/material_container, list(/datum/material/iron, /datum/material/glass, /datum/material/copper, /datum/material/silver, /datum/material/plasma, /datum/material/gold, /datum/material/diamond, /datum/material/plastic, /datum/material/uranium, /datum/material/bananium, /datum/material/titanium, /datum/material/bluespace), INFINITY, FALSE, null, null, null, TRUE)
 	AddComponent(/datum/component/butchering, 1, amount_produced,amount_produced/5)
 	. = ..()
-	update_icon()
+	update_appearance()
 	req_one_access = get_all_accesses() + get_all_centcom_access()
 
 /obj/machinery/recycler/RefreshParts()
@@ -68,11 +68,11 @@
 	obj_flags |= EMAGGED
 	if(safety_mode)
 		safety_mode = FALSE
-		update_icon()
+		update_appearance()
 	playsound(src, "sparks", 75, 1, -1)
 	to_chat(user, "<span class='notice'>You use the cryptographic sequencer on [src].</span>")
 
-/obj/machinery/recycler/update_icon()
+/obj/machinery/recycler/update_appearance()
 	..()
 	var/is_powered = !(stat & (BROKEN|NOPOWER))
 	if(safety_mode)
@@ -151,14 +151,14 @@
 /obj/machinery/recycler/proc/emergency_stop(mob/living/L)
 	playsound(src, 'sound/machines/buzz-sigh.ogg', 50, 0)
 	safety_mode = TRUE
-	update_icon()
+	update_appearance()
 	L.forceMove(loc)
 	addtimer(CALLBACK(src, .proc/reboot), SAFETY_COOLDOWN)
 
 /obj/machinery/recycler/proc/reboot()
 	playsound(src, 'sound/machines/ping.ogg', 50, 0)
 	safety_mode = FALSE
-	update_icon()
+	update_appearance()
 
 /obj/machinery/recycler/proc/crush_living(mob/living/L)
 
@@ -176,7 +176,7 @@
 
 	if(!blood && !issilicon(L))
 		blood = TRUE
-		update_icon()
+		update_appearance()
 
 	// Remove and recycle the equipped items
 	if(eat_victim_items)

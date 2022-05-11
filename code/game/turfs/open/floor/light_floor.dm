@@ -19,14 +19,14 @@
 
 /turf/open/floor/light/Initialize(mapload)
 	. = ..()
-	update_icon()
+	update_appearance()
 
 /turf/open/floor/light/break_tile()
 	..()
 	light_range = 0
 	update_light()
 
-/turf/open/floor/light/update_icon()
+/turf/open/floor/light/update_appearance()
 	..()
 	if(on)
 		switch(state)
@@ -66,7 +66,7 @@
 		currentcolor++
 	if(currentcolor > coloredlights.len)
 		on = FALSE
-	update_icon()
+	update_appearance()
 
 /turf/open/floor/light/attack_ai(mob/user)
 	return attack_hand(user)
@@ -78,7 +78,7 @@
 		if(state && user.temporarilyRemoveItemFromInventory(C))
 			qdel(C)
 			state = 0 //fixing it by bashing it with a light bulb, fun eh?
-			update_icon()
+			update_appearance()
 			to_chat(user, "<span class='notice'>You replace the light bulb.</span>")
 		else
 			to_chat(user, "<span class='notice'>The light bulb seems fine, no need to replace it.</span>")

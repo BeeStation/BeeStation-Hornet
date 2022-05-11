@@ -17,7 +17,7 @@
 	name = "box magazine (Incendiary 7.12x82mm)"
 	ammo_type = /obj/item/ammo_casing/mm712x82/incen
 
-/obj/item/ammo_box/magazine/mm712x82/update_icon()
+/obj/item/ammo_box/magazine/mm712x82/update_appearance()
 	..()
 	icon_state = "a762-[round(ammo_count(),10)]"
 

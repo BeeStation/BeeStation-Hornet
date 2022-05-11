@@ -36,7 +36,7 @@
 	if(!start_empty)
 		for(var/i = 1, i <= max_ammo, i++)
 			stored_ammo += new ammo_type(src)
-	update_icon()
+	update_appearance()
 
 /obj/item/ammo_box/proc/get_round(keep = FALSE)
 	if (!stored_ammo.len)
@@ -96,8 +96,8 @@
 		if(!silent)
 			to_chat(user, "<span class='notice'>You load [num_loaded] shell\s into \the [src]!</span>")
 			playsound(src, 'sound/weapons/bulletinsert.ogg', 60, TRUE)
-		A.update_icon()
-		update_icon()
+		A.update_appearance()
+		update_appearance()
 	return num_loaded
 
 /obj/item/ammo_box/attack_self(mob/user)
@@ -108,9 +108,9 @@
 			A.bounce_away(FALSE, NONE)
 		playsound(src, 'sound/weapons/bulletinsert.ogg', 60, TRUE)
 		to_chat(user, "<span class='notice'>You remove a round from [src]!</span>")
-		update_icon()
+		update_appearance()
 
-/obj/item/ammo_box/update_icon()
+/obj/item/ammo_box/update_appearance()
 	var/shells_left = stored_ammo.len
 	switch(multiple_sprites)
 		if(1)
@@ -145,4 +145,4 @@
 
 /obj/item/ammo_box/magazine/handle_atom_del(atom/A)
 	stored_ammo -= A
-	update_icon()
+	update_appearance()

@@ -78,7 +78,7 @@ GLOBAL_LIST_EMPTY(decomission_bombs)
 		timing = FALSE
 		detonation_timer = null
 		countdown?.stop()
-		update_icon()
+		update_appearance()
 		return
 	. = ..()
 
@@ -93,7 +93,7 @@ GLOBAL_LIST_EMPTY(decomission_bombs)
 		timing = FALSE
 		detonation_timer = null
 		countdown.stop()
-	update_icon()
+	update_appearance()
 
 /obj/machinery/nuclearbomb/decomission/set_active()
 	if(safety)
@@ -109,14 +109,14 @@ GLOBAL_LIST_EMPTY(decomission_bombs)
 	else
 		detonation_timer = null
 		countdown.stop()
-	update_icon()
+	update_appearance()
 
 /obj/machinery/nuclearbomb/decomission/explode()
 	if(z != target_z)
 		timing = FALSE
 		detonation_timer = null
 		countdown?.stop()
-		update_icon()
+		update_appearance()
 		return
 	. = ..()
 

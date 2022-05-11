@@ -387,15 +387,15 @@ Auto Patrol[]"},
 	if(!lasercolor)
 		var/obj/item/gun/energy/disabler/G = new (Tsec)
 		G.cell.charge = 0
-		G.update_icon()
+		G.update_appearance()
 	else if(lasercolor == "b")
 		var/obj/item/gun/energy/laser/bluetag/G = new (Tsec)
 		G.cell.charge = 0
-		G.update_icon()
+		G.update_appearance()
 	else if(lasercolor == "r")
 		var/obj/item/gun/energy/laser/redtag/G = new (Tsec)
 		G.cell.charge = 0
-		G.update_icon()
+		G.update_appearance()
 
 	if(prob(50))
 		new /obj/item/bodypart/l_leg/robot(Tsec)

@@ -120,7 +120,7 @@
 		if(!user.transferItemToLoc(W, src))
 			return
 		loaded_tank = W
-		update_icon()
+		update_appearance()
 	else if(W.GetID())
 		if(allowed(user))
 			if(active)
@@ -213,14 +213,14 @@
 	if(active)
 		toggle_power()
 	else
-		update_icon()
+		update_appearance()
 
 /obj/machinery/power/rad_collector/rad_act(pulse_strength)
 	. = ..()
 	if(loaded_tank && active && pulse_strength > RAD_COLLECTOR_EFFICIENCY)
 		stored_energy += (pulse_strength-RAD_COLLECTOR_EFFICIENCY)*RAD_COLLECTOR_COEFFICIENT
 
-/obj/machinery/power/rad_collector/update_icon()
+/obj/machinery/power/rad_collector/update_appearance()
 	cut_overlays()
 	if(loaded_tank)
 		add_overlay("ptank")
@@ -238,7 +238,7 @@
 	else
 		icon_state = "ca"
 		flick("ca_deactive", src)
-	update_icon()
+	update_appearance()
 	return
 
 #undef RAD_COLLECTOR_EFFICIENCY

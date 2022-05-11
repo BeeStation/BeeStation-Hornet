@@ -143,7 +143,7 @@
 /turf/closed/wall/clockwork/mech_melee_attack(obj/mecha/M)
 	return
 
-/turf/closed/wall/clockwork/update_icon()
+/turf/closed/wall/clockwork/update_appearance()
 	. = ..()
 	if(d_state == INTACT)
 		realappearence.icon_state = "clockwork_wall"
@@ -154,7 +154,7 @@
 		realappearence.icon_state = "clockwork_wall-[d_state]"
 		smooth = SMOOTH_FALSE
 		clear_smooth_overlays()
-	realappearence.update_icon()
+	realappearence.update_appearance()
 	return
 
 //=================================================

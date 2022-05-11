@@ -125,6 +125,6 @@
 		playsound(src, 'sound/items/pshoom.ogg', 50, TRUE)
 		playsound(bin, 'sound/items/pshoom.ogg', 50, TRUE)
 		Beam(bin, icon_state = "rped_upgrade", time = 5)
-		bin.update_icon()
+		bin.update_appearance()
 		flick("synthesizer_beam", src)
 	time_since_dishes = world.time + 600

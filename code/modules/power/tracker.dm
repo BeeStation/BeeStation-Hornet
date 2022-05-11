@@ -47,7 +47,7 @@
 		S.tracker = 1
 		S.anchored = TRUE
 	S.forceMove(src)
-	update_icon()
+	update_appearance()
 
 //updates the tracker icon and the facing angle for the control computer
 /obj/machinery/power/tracker/proc/set_angle(angle)

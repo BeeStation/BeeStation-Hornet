@@ -37,7 +37,7 @@
 	busy = status
 	busy_message = message
 	busy_icon_state = working_icon
-	update_icon()
+	update_appearance()
 
 /obj/machinery/nanite_chamber/proc/set_safety(threshold)
 	if(!occupant)
@@ -103,7 +103,7 @@
 		return
 	SEND_SIGNAL(occupant, COMSIG_NANITE_DELETE)
 
-/obj/machinery/nanite_chamber/update_icon()
+/obj/machinery/nanite_chamber/update_appearance()
 	cut_overlays()
 
 	if((stat & MAINT) || panel_open)
@@ -187,7 +187,7 @@
 
 /obj/machinery/nanite_chamber/attackby(obj/item/I, mob/user, params)
 	if(!occupant && default_deconstruction_screwdriver(user, icon_state, icon_state, I))//sent icon_state is irrelevant...
-		update_icon()//..since we're updating the icon here, since the scanner can be unpowered when opened/closed
+		update_appearance()//..since we're updating the icon here, since the scanner can be unpowered when opened/closed
 		return
 
 	if(default_pry_open(I))

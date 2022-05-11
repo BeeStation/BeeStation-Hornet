@@ -138,7 +138,7 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		return
 
 	busy = TRUE
-	update_icon()
+	update_appearance()
 	addtimer(CALLBACK(src, .proc/wash_cycle), 200)
 
 	START_PROCESSING(SSfastprocess, src)
@@ -165,7 +165,7 @@ GLOBAL_LIST_INIT(dye_registry, list(
 
 	if(!busy)
 		bloody_mess = FALSE
-		update_icon()
+		update_appearance()
 
 /obj/machinery/washing_machine/proc/wash_cycle()
 	for(var/X in contents)
@@ -177,7 +177,7 @@ GLOBAL_LIST_INIT(dye_registry, list(
 	if(color_source)
 		qdel(color_source)
 		color_source = null
-	update_icon()
+	update_appearance()
 
 /obj/item/proc/dye_item(dye_color, dye_key_override)
 	var/dye_key_selector = dye_key_override ? dye_key_override : dying_key
@@ -268,7 +268,7 @@ GLOBAL_LIST_INIT(dye_registry, list(
 
 
 
-/obj/machinery/washing_machine/update_icon()
+/obj/machinery/washing_machine/update_appearance()
 	cut_overlays()
 	if(busy)
 		icon_state = "wm_running_[bloody_mess]"
@@ -285,7 +285,7 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		return
 
 	if(default_deconstruction_screwdriver(user, null, null, W))
-		update_icon()
+		update_appearance()
 		return
 
 	else if(user.a_intent != INTENT_HARM)
@@ -308,7 +308,7 @@ GLOBAL_LIST_INIT(dye_registry, list(
 
 		if(W.dye_color)
 			color_source = W
-		update_icon()
+		update_appearance()
 
 	else
 		return ..()
@@ -328,14 +328,14 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		if(state_open)
 			if(istype(L, /mob/living/simple_animal/pet))
 				L.forceMove(src)
-				update_icon()
+				update_appearance()
 		return
 
 	if(!state_open)
 		open_machine()
 	else
 		state_open = FALSE //close the door
-		update_icon()
+		update_appearance()
 
 /obj/machinery/washing_machine/deconstruct(disassembled = TRUE)
 	if (!(flags_1 & NODECONSTRUCT_1))

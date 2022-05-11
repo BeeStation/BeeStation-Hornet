@@ -19,7 +19,7 @@
 		if(do_after(user, 50, target=A))
 			to_chat(user, "<span class='brass'>You cut open \the [A] with \the [src].</span>")
 			A.panel_open = TRUE
-			A.update_icon()
+			A.update_appearance()
 			return
 		return
 	//Insert the cog
@@ -28,7 +28,7 @@
 		A.integration_cog = src
 		forceMove(A)
 		A.panel_open = FALSE
-		A.update_icon()
+		A.update_appearance()
 		to_chat(user, "<span class='notice'>You insert \the [src] into \the [A].</span>")
 		playsound(get_turf(user), 'sound/machines/clockcult/integration_cog_install.ogg', 20)
 		if(!A.clock_cog_rewarded)

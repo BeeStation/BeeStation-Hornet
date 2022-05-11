@@ -478,7 +478,7 @@
 	materials.use_materials(materials_used)
 	if(is_stack)
 		var/obj/item/stack/N = new being_built.build_path(A, multiplier)
-		N.update_icon()
+		N.update_appearance()
 	else
 		for(var/i=1, i<=multiplier, i++)
 			var/obj/item/new_item = new being_built.build_path(A)

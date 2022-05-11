@@ -183,7 +183,7 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 	return INITIALIZE_HINT_LATELOAD //Gotta populate the cryopod computer GLOB first
 
 /obj/machinery/cryopod/LateInitialize()
-	update_icon()
+	update_appearance()
 	find_control_computer()
 
 // This is not a good situation

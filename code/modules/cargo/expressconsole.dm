@@ -204,7 +204,7 @@
 						COOLDOWN_START(src, order_cooldown, ORDER_COOLDOWN)
 						D.adjust_money(-SO.pack.get_cost())
 						. = TRUE
-						update_icon()
+						update_appearance()
 			else
 				if(SO.pack.get_cost() * (0.72*MAX_EMAG_ROCKETS) <= points_to_check) // bulk discount :^)
 					landingzone = GLOB.areas_by_type[pick(GLOB.the_station_areas)]  //override default landing zone
@@ -223,5 +223,5 @@
 							new /obj/effect/pod_landingzone(LZ, podType, SO)
 							COOLDOWN_START(src, order_cooldown, ORDER_COOLDOWN/2)
 							. = TRUE
-							update_icon()
+							update_appearance()
 							CHECK_TICK

@@ -188,13 +188,13 @@
 	if(W.use_tool(src, user, 40, volume=50))
 		welded = !welded
 		to_chat(user, "<span class='danger'>[user] [welded?"welds":"unwelds"] [src].</span>", "<span class='notice'>You [welded ? "weld" : "unweld"] [src].</span>")
-		update_icon()
+		update_appearance()
 
 
 /obj/machinery/door/firedoor/try_to_crowbar(obj/item/I, mob/user)
 	if(welded || operating)
 		return
-	
+
 	if(density)
 		if(!(stat & NOPOWER))
 			LAZYADD(access_log, "MOTOR_ERR:|MOTOR CONTROLLER REPORTED BACKDRIVE|T_OFFSET:[DisplayTimeText(world.time - SSticker.round_start_time)]")
@@ -226,7 +226,7 @@
 /obj/machinery/door/firedoor/allowed(mob/M)
 	if(check_safety(M))//Passing the mob here is cargo cult programming, I can't see what wants it.
 		return TRUE
-	update_icon()
+	update_appearance()
 	return ..()
 
 
@@ -257,7 +257,7 @@
 		if("closing")
 			flick("door_closing", src)
 
-/obj/machinery/door/firedoor/update_icon()
+/obj/machinery/door/firedoor/update_appearance()
 	cut_overlays()
 	if(density)
 		icon_state = "door_closed"
@@ -297,7 +297,7 @@
 	if(process_ticker < 5*delta_time)
 		return
 	process_ticker = 0
-	update_icon()
+	update_appearance()
 
 /obj/machinery/door/firedoor/proc/whack_a_mole(reconsider_immediately = FALSE)
 	set waitfor = 0
@@ -363,7 +363,7 @@
 		else
 			F.constructionStep = CONSTRUCTION_WIRES_EXPOSED
 			F.obj_integrity = F.max_integrity * 0.5
-		F.update_icon()
+		F.update_appearance()
 	qdel(src)
 
 
@@ -530,7 +530,7 @@
 		if(CONSTRUCTION_NOCIRCUIT)
 			. += "<span class='notice'>There are no <i>firelock electronics</i> in the frame. The frame could be <b>cut</b> apart.</span>"
 
-/obj/structure/firelock_frame/update_icon()
+/obj/structure/firelock_frame/update_appearance()
 	..()
 	icon_state = "frame[constructionStep]"
 
@@ -549,7 +549,7 @@
 				user.visible_message("<span class='notice'>[user] pries out a metal plate from [src], exposing the wires.</span>", \
 									 "<span class='notice'>You remove the cover plate from [src], exposing the wires.</span>")
 				constructionStep = CONSTRUCTION_WIRES_EXPOSED
-				update_icon()
+				update_appearance()
 				return
 			if(C.tool_behaviour == TOOL_WRENCH)
 				var/obj/machinery/door/firedoor/A = locate(/obj/machinery/door/firedoor) in get_turf(src)
@@ -569,7 +569,7 @@
 				playsound(get_turf(src), 'sound/items/deconstruct.ogg', 50, 1)
 				var/obj/machinery/door/firedoor/F = new firelock_type(get_turf(src))
 				F.dir = src.dir
-				F.update_icon()
+				F.update_appearance()
 				qdel(src)
 				return
 			if(istype(C, /obj/item/stack/sheet/plasteel))
@@ -607,7 +607,7 @@
 									 "<span class='notice'>You remove the wiring from [src], exposing the circuit board.</span>")
 				new/obj/item/stack/cable_coil(get_turf(src), 5)
 				constructionStep = CONSTRUCTION_GUTTED
-				update_icon()
+				update_appearance()
 				return
 			if(C.tool_behaviour == TOOL_CROWBAR)
 				C.play_tool_sound(src)
@@ -621,7 +621,7 @@
 				user.visible_message("<span class='notice'>[user] pries the metal plate into [src].</span>", \
 									 "<span class='notice'>You pry [src]'s cover plate into place, hiding the wires.</span>")
 				constructionStep = CONSTRUCTION_PANEL_OPEN
-				update_icon()
+				update_appearance()
 				return
 		if(CONSTRUCTION_GUTTED)
 			if(C.tool_behaviour == TOOL_CROWBAR)
@@ -635,7 +635,7 @@
 									 "<span class='notice'>You remove the circuit board from [src].</span>")
 				new /obj/item/electronics/firelock(drop_location())
 				constructionStep = CONSTRUCTION_NOCIRCUIT
-				update_icon()
+				update_appearance()
 				return
 			if(istype(C, /obj/item/stack/cable_coil))
 				var/obj/item/stack/cable_coil/B = C
@@ -653,7 +653,7 @@
 					playsound(get_turf(src), 'sound/items/deconstruct.ogg', 50, 1)
 					B.use(5)
 					constructionStep = CONSTRUCTION_WIRES_EXPOSED
-					update_icon()
+					update_appearance()
 				return
 		if(CONSTRUCTION_NOCIRCUIT)
 			if(C.tool_behaviour == TOOL_WELDER)
@@ -695,7 +695,7 @@
 									 "<span class='notice'>You insert and secure [C].</span>")
 				playsound(get_turf(src), 'sound/items/deconstruct.ogg', 50, 1)
 				constructionStep = CONSTRUCTION_GUTTED
-				update_icon()
+				update_appearance()
 				return
 			if(istype(C, /obj/item/electroadaptive_pseudocircuit))
 				var/obj/item/electroadaptive_pseudocircuit/P = C
@@ -704,7 +704,7 @@
 				user.visible_message("<span class='notice'>[user] fabricates a circuit and places it into [src].</span>", \
 				"<span class='notice'>You adapt a firelock circuit and slot it into the assembly.</span>")
 				constructionStep = CONSTRUCTION_GUTTED
-				update_icon()
+				update_appearance()
 				return
 	return ..()
 
@@ -721,7 +721,7 @@
 			user.visible_message("<span class='notice'>[user] fabricates a circuit and places it into [src].</span>", \
 			"<span class='notice'>You adapt a firelock circuit and slot it into the assembly.</span>")
 			constructionStep = CONSTRUCTION_GUTTED
-			update_icon()
+			update_appearance()
 			return TRUE
 		if(RCD_DECONSTRUCT)
 			to_chat(user, "<span class='notice'>You deconstruct [src].</span>")
@@ -751,7 +751,7 @@
 		return FALSE
 	return TRUE
 
-/obj/structure/firelock_frame/border/update_icon()
+/obj/structure/firelock_frame/border/update_appearance()
 	return
 
 /obj/structure/firelock_frame/window
@@ -760,7 +760,7 @@
 	icon_state = "door_frame"
 	firelock_type = /obj/machinery/door/firedoor/window
 
-/obj/structure/firelock_frame/window/update_icon()
+/obj/structure/firelock_frame/window/update_appearance()
 	return
 
 #undef CONSTRUCTION_COMPLETE

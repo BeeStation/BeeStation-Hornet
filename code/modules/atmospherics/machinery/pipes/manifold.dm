@@ -22,7 +22,7 @@
 
 	var/mutable_appearance/center
 
-/* We use New() instead of Initialize() because these values are used in update_icon()
+/* We use New() instead of Initialize() because these values are used in update_appearance()
  * in the mapping subsystem init before Initialize() is called in the atoms subsystem init.
  * This is true for the other manifolds (the 4 ways and the heat exchanges) too.
  */
@@ -35,7 +35,7 @@
 	initialize_directions = NORTH|SOUTH|EAST|WEST
 	initialize_directions &= ~dir
 
-/obj/machinery/atmospherics/pipe/manifold/update_icon()
+/obj/machinery/atmospherics/pipe/manifold/update_appearance()
 	cut_overlays()
 	if(!center)
 		center = mutable_appearance(icon, "manifold_center")

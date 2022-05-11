@@ -14,7 +14,7 @@
 /obj/structure/toilet/Initialize(mapload)
 	. = ..()
 	open = round(rand(0, 1))
-	update_icon()
+	update_appearance()
 
 
 /obj/structure/toilet/attack_hand(mob/living/user)
@@ -67,10 +67,10 @@
 			w_items -= I.w_class
 	else
 		open = !open
-		update_icon()
+		update_appearance()
 
 
-/obj/structure/toilet/update_icon()
+/obj/structure/toilet/update_appearance()
 	icon_state = "toilet[open][cistern]"
 
 
@@ -81,7 +81,7 @@
 		if(I.use_tool(src, user, 30))
 			user.visible_message("[user] [cistern ? "replaces the lid on the cistern" : "lifts the lid off the cistern"]!", "<span class='notice'>You [cistern ? "replace the lid on the cistern" : "lift the lid off the cistern"]!</span>", "<span class='italics'>You hear grinding porcelain.</span>")
 			cistern = !cistern
-			update_icon()
+			update_appearance()
 
 	else if(cistern)
 		if(user.a_intent != INTENT_HARM)
@@ -403,9 +403,9 @@
 
 /obj/structure/curtain/proc/toggle()
 	open = !open
-	update_icon()
+	update_appearance()
 
-/obj/structure/curtain/update_icon()
+/obj/structure/curtain/update_appearance()
 	if(!open)
 		icon_state = "[icon_type]-closed"
 		layer = WALL_OBJ_LAYER

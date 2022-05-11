@@ -45,18 +45,18 @@
 
 /obj/item/storage/fancy/attack_self(mob/user)
 	fancy_open = !fancy_open
-	update_icon()
+	update_appearance()
 	. = ..()
 
 /obj/item/storage/fancy/Exited(atom/movable/gone, direction)
 	. = ..()
 	fancy_open = TRUE
-	update_icon()
+	update_appearance()
 
 /obj/item/storage/fancy/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	. = ..()
 	fancy_open = TRUE
-	update_icon()
+	update_appearance()
 
 /*
  * Donut Box
@@ -280,7 +280,7 @@
 	STR.max_items = 10
 	STR.can_hold = typecacheof(list(/obj/item/rollingpaper))
 
-/obj/item/storage/fancy/rollingpapers/update_icon()
+/obj/item/storage/fancy/rollingpapers/update_appearance()
 	cut_overlays()
 	if(!contents.len)
 		add_overlay("[icon_state]_empty")
@@ -304,7 +304,7 @@
 	STR.max_items = 5
 	STR.can_hold = typecacheof(list(/obj/item/clothing/mask/cigarette/cigar))
 
-/obj/item/storage/fancy/cigarettes/cigars/update_icon()
+/obj/item/storage/fancy/cigarettes/cigars/update_appearance()
 	cut_overlays()
 	if(fancy_open)
 		icon_state = "[initial(icon_state)]_open"

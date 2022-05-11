@@ -46,7 +46,7 @@
 	P.info = "<center><font size='6'><B>Scanner Report</B></font></center><HR><BR>"
 	P.info += jointext(log, "<BR>")
 	P.info += "<HR><B>Notes:</B><BR>"
-	P.update_icon()
+	P.update_appearance()
 
 	if(ismob(loc))
 		var/mob/M = loc
@@ -99,7 +99,7 @@
 
 			var/obj/effect/targeteffect = A
 			if (targeteffect && istype(targeteffect) && targeteffect.forensic_protected)
-				fingerprints = list()				
+				fingerprints = list()
 				for(var/i in 1 to 2)
 					LAZYADD(fingerprints,pick("#$^@&#*$H3LP&$(@US^$&#^@#","&$(T@&#C@ME5@##$^@&","^@(#&$ET@US&FR^E#^$&#","#$^@&M*N$US^$(@&#^$&#^@#","&$(@&#^$&#^@##$^@&","^@R(#E$(D@(R&$U&#M^&#","$TH@Y#*$KN@W(@&#^$&#^@#","#$M^DN*S$^@(#&$(@&#^$&#^@##","#","#$^@&#*$^@(#&$(@","#","#$^@&#&#^@","#","@(#&$(@&#^$&#^@"))
 				blood = list("#$^@&LO0K&#@#" = "&$(@AW@Y#$^&")

@@ -33,7 +33,7 @@
 		game_active = FALSE
 		program_icon_state = "arcade_off"
 		if(istype(computer))
-			computer.update_icon()
+			computer.update_appearance()
 		ticket_count += 1
 		sleep(10)
 	else if(player_hp <= 0 || player_mp <= 0)
@@ -42,7 +42,7 @@
 		game_active = FALSE
 		program_icon_state = "arcade_off"
 		if(istype(computer))
-			computer.update_icon()
+			computer.update_appearance()
 		sleep(10)
 
 /datum/computer_file/program/arcade/proc/enemy_check(mob/user)
@@ -145,4 +145,4 @@
 			boss_id = rand(1,6)
 			pause_state = FALSE
 			if(istype(computer))
-				computer.update_icon()
+				computer.update_appearance()

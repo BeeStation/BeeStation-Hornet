@@ -5,7 +5,7 @@
 	caliber = "4.6x30mm"
 	max_ammo = 20
 
-/obj/item/ammo_box/magazine/wt550m9/update_icon()
+/obj/item/ammo_box/magazine/wt550m9/update_appearance()
 	..()
 	icon_state = "46x30mmt-[round(ammo_count(),4)]"
 
@@ -14,7 +14,7 @@
 	icon_state = "46x30mmtA-20"
 	ammo_type = /obj/item/ammo_casing/c46x30mm/ap
 
-/obj/item/ammo_box/magazine/wt550m9/wtap/update_icon()
+/obj/item/ammo_box/magazine/wt550m9/wtap/update_appearance()
 	..()
 	icon_state = "46x30mmtA-[round(ammo_count(),4)]"
 
@@ -23,7 +23,7 @@
 	icon_state = "46x30mmtI-20"
 	ammo_type = /obj/item/ammo_casing/c46x30mm/inc
 
-/obj/item/ammo_box/magazine/wt550m9/wtic/update_icon()
+/obj/item/ammo_box/magazine/wt550m9/wtic/update_appearance()
 	..()
 	icon_state = "46x30mmtI-[round(ammo_count(),4)]"
 
@@ -39,7 +39,7 @@
 	caliber = "9mm"
 	max_ammo = 32
 
-/obj/item/ammo_box/magazine/uzim9mm/update_icon()
+/obj/item/ammo_box/magazine/uzim9mm/update_appearance()
 	..()
 	icon_state = "uzi9mm-[round(ammo_count(),4)]"
 
@@ -50,7 +50,7 @@
 	caliber = "9mm"
 	max_ammo = 21
 
-/obj/item/ammo_box/magazine/smgm9mm/update_icon()
+/obj/item/ammo_box/magazine/smgm9mm/update_appearance()
 	..()
 	icon_state = "smg9mm-[ammo_count() ? "42" : "0"]"
 
@@ -69,7 +69,7 @@
 	caliber = ".45"
 	max_ammo = 24
 
-/obj/item/ammo_box/magazine/smgm45/update_icon()
+/obj/item/ammo_box/magazine/smgm45/update_appearance()
 	..()
 	icon_state = "c20r45-[round(ammo_count(),2)]"
 

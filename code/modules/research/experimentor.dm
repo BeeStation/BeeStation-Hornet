@@ -507,10 +507,10 @@
 	addtimer(CALLBACK(src, .proc/reset_exp), resetTime)
 
 /obj/machinery/rnd/experimentor/proc/reset_exp()
-	update_icon()
+	update_appearance()
 	recentlyExperimented = FALSE
 
-/obj/machinery/rnd/experimentor/update_icon()
+/obj/machinery/rnd/experimentor/update_appearance()
 	icon_state = "h_lathe"
 
 /obj/machinery/rnd/experimentor/proc/warn_admins(user, ReactionName)

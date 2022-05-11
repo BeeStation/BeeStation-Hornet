@@ -235,9 +235,9 @@
 
 /obj/item/clothing/head/wig/Initialize(mapload)
 	. = ..()
-	update_icon()
+	update_appearance()
 
-/obj/item/clothing/head/wig/update_icon()
+/obj/item/clothing/head/wig/update_appearance()
 	cut_overlays()
 	var/datum/sprite_accessory/S = GLOB.hair_styles_list[hair_style]
 	if(!S)
@@ -268,7 +268,7 @@
 		user.visible_message("<span class='notice'>[user] changes \the [src]'s hairstyle to [new_style].</span>", "<span class='notice'>You change \the [src]'s hairstyle to [new_style].</span>")
 	if(adjustablecolor)
 		hair_color = input(usr,"","Choose Color",hair_color) as color|null
-	update_icon()
+	update_appearance()
 
 /obj/item/clothing/head/wig/random/Initialize(mapload)
 	. = ..()
@@ -290,7 +290,7 @@
 /obj/item/clothing/head/wig/natural/equipped(mob/living/carbon/human/user, slot)
 	if(ishuman(user) && slot == ITEM_SLOT_HEAD)
 		color = "#[user.hair_color]"
-		update_icon()
+		update_appearance()
 		user.update_inv_head()
 
 /obj/item/clothing/head/bronze

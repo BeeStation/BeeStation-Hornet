@@ -44,7 +44,7 @@
 											"<span class='userdanger'>[user] tries to squirt something into your eyes, but fails!</span>")
 
 					to_chat(user, "<span class='notice'>You transfer [trans] unit\s of the solution.</span>")
-					update_icon()
+					update_appearance()
 					return
 			else if(isalien(target)) //hiss-hiss has no eyes!
 				to_chat(target, "<span class='danger'>[target] does not seem to have any eyes!</span>")
@@ -64,7 +64,7 @@
 
 		trans = src.reagents.trans_to(target, amount_per_transfer_from_this, transfered_by = user)
 		to_chat(user, "<span class='notice'>You transfer [trans] unit\s of the solution.</span>")
-		update_icon()
+		update_appearance()
 
 	else
 
@@ -80,9 +80,9 @@
 
 		to_chat(user, "<span class='notice'>You fill [src] with [trans] unit\s of the solution.</span>")
 
-		update_icon()
+		update_appearance()
 
-/obj/item/reagent_containers/dropper/update_icon()
+/obj/item/reagent_containers/dropper/update_appearance()
 	cut_overlays()
 	if(reagents.total_volume)
 		var/mutable_appearance/filling = mutable_appearance('icons/obj/reagentfillings.dmi', "dropper")
