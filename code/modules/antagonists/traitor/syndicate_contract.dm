@@ -159,38 +159,43 @@
 
 // They're off to holding - handle the return timer and give some text about what's going on.
 /datum/syndicate_contract/proc/handleVictimExperience(var/mob/living/M)
-	// Ship 'em back - dead or alive, 4 minutes wait.
+	// Ship 'em back - dead or alive, 2 minute wait.
 	// Even if they weren't the target, we're still treating them the same.
-	addtimer(CALLBACK(src, .proc/returnVictim, M), (60 * 10) * 4)
+	addtimer(CALLBACK(src, .proc/returnVictim, M), 2 MINUTES) //MonkeStation Edit: Faster return
 
 	if (M.stat != DEAD)
-		// Heal them up - gets them out of crit/soft crit. If omnizine is removed in the future, this needs to be replaced with a
-		// method of healing them, consequence free, to a reasonable amount of health.
-		M.reagents.add_reagent(/datum/reagent/medicine/omnizine, 20)
+		// Heal them up - gets them out of crit/soft crit.
+		M.reagents.add_reagent(/datum/reagent/medicine/omnizine, 20) 		//Heal All
+		//MonkeStation Edit: Better Healing
+		M.reagents.add_reagent(/datum/reagent/medicine/tricordrazine, 20) 	//Heal All
+		M.reagents.add_reagent(/datum/reagent/medicine/salbutamol, 20) 		//Heal Oxy
+		M.reagents.add_reagent(/datum/reagent/iron, 20) 					//Heal Blood Loss
 
 		M.flash_act()
-		M.confused += 10
+		M.confused += 5
 		M.blur_eyes(5)
 		to_chat(M, "<span class='warning'>You feel strange...</span>")
-		sleep(60)
+		sleep(6 SECONDS)
 		to_chat(M, "<span class='warning'>That pod did something to you...</span>")
-		M.Dizzy(35)
-		sleep(65)
+		M.Dizzy(10)
+		sleep(6.5 SECONDS)
 		to_chat(M, "<span class='warning'>Your head pounds... It feels like it's going to burst out your skull!</span>")
 		M.flash_act()
-		M.confused += 20
+		M.confused += 5
 		M.blur_eyes(3)
-		sleep(30)
+		sleep(3 SECONDS)
 		to_chat(M, "<span class='warning'>Your head pounds...</span>")
-		sleep(100)
+		sleep(10 SECONDS)
 		M.flash_act()
-		M.Unconscious(200)
+		M.Unconscious(10 SECONDS)
 		to_chat(M, "<span class='reallybig hypnophrase'>A million voices echo in your head... <i>\"Your mind held many valuable secrets - \
-					we thank you for providing them. Your value is expended, and you will be ransomed back to your station. We always get paid, \
+					the Elders thank you for providing them. Your value is expended, and you will be ransomed back to your station, mostly intact. We always get paid, \
 					so it's only a matter of time before we ship you back...\"</i></span>")
 		M.blur_eyes(10)
-		M.Dizzy(15)
-		M.confused += 20
+		M.Dizzy(10)
+		M.confused += 5
+		if(ishuman(M) && M.mind != null && M.ckey != null)
+			M.mind.add_antag_datum(/datum/antagonist/abductee) //Monkestation Edit
 
 // We're returning the victim
 /datum/syndicate_contract/proc/returnVictim(var/mob/living/M)
@@ -228,8 +233,8 @@
 
 		M.flash_act()
 		M.blur_eyes(30)
-		M.Dizzy(35)
-		M.confused += 20
+		M.Dizzy(10)
+		M.confused += 10
 
 		new /obj/effect/pod_landingzone(possible_drop_loc[pod_rand_loc], return_pod)
 	else

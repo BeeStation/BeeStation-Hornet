@@ -10,7 +10,7 @@
 	explanation_text = "Steal all"
 
 /datum/objective/abductee/steal/New()
-	var/target = pick(list("pets","lights","monkeys","fruits","shoes","bars of soap", "weapons", "computers", "organs"))
+	var/target = pick(list("pets","lights","monkeys","fruits","shoes","bars of soap", "weapons", "computers", "organs", "tiles", "chemicals", "[pick(get_all_jobs())]s"))
 	explanation_text+=" [target]."
 
 /datum/objective/abductee/paint
@@ -43,7 +43,11 @@
 		explanation_text += " someone."
 
 /datum/objective/abductee/calling/New()
-	var/mob/dead/D = pick(GLOB.dead_mob_list)
+	var/mob/dead/D
+	if(prob(50))
+		D = pick(GLOB.player_list)
+	else
+		D = pick(GLOB.dead_mob_list)
 	if(D)
 		explanation_text = "You know that [D] has perished. Hold a seance to call [D.p_them()] from the spirit realm."
 
