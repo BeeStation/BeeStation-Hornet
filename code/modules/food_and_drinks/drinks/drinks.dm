@@ -8,13 +8,21 @@
 	icon_state = null
 	lefthand_file = 'icons/mob/inhands/misc/food_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/food_righthand.dmi'
-	reagent_flags = OPENCONTAINER
+	reagent_flags = NONE //MONKESTATION EDIT
 	var/gulp_size = 5 //This is now officially broken ... need to think of a nice way to fix it.
-	possible_transfer_amounts = list(5,10,15,20,25,30,50)
+	possible_transfer_amounts = list()
 	volume = 50
 	resistance_flags = NONE
 	var/isGlass = TRUE //Whether the 'bottle' is made of glass or not so that milk cartons dont shatter when someone gets hit by it
 	var/beingChugged = FALSE //We don't want people downing 100u super fast with drinking glasses
+	//MONKESTATION EDITS START
+	var/times_shaken = 0
+	var/can_shake = TRUE
+	var/can_burst = FALSE
+	var/canopened = FALSE
+	var/isShakeable = TRUE
+	var/burst_chance = 0
+	spillable = FALSE
 
 /obj/item/reagent_containers/food/drinks/on_reagent_change(changetype)
 	. = ..()
@@ -95,7 +103,7 @@
 
 	else if(target.is_drainable()) //A dispenser. Transfer FROM it TO us.
 		if (!is_refillable())
-			to_chat(user, "<span class='warning'>[src]'s tab isn't open!</span>")
+			to_chat(user, "<span class='warning'>[src] isn't open!</span>") //MONKESTATION EDIT
 			return
 
 		if(!target.reagents.total_volume)
@@ -119,7 +127,13 @@
 /obj/item/reagent_containers/food/drinks/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	. = ..()
 	if(!.) //if the bottle wasn't caught
-		smash(hit_atom, throwingdatum?.thrower, TRUE)
+		if(isGlass)
+			smash(hit_atom, throwingdatum?.thrower, TRUE)
+		else
+			if(times_shaken < 5)
+				times_shaken++
+			else
+				handle_bursting()
 
 /obj/item/reagent_containers/food/drinks/proc/smash(atom/target, mob/thrower, ranged = FALSE)
 	if(!isGlass)
@@ -461,8 +475,8 @@
 	name = "soda can"
 	lefthand_file = 'icons/mob/inhands/misc/food_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/food_righthand.dmi'
-	reagent_flags = NONE
-	spillable = FALSE
+	//reagent_flags = NONE MONKESTATION EDIT
+	//spillable = FALSE MONKESTAION EDIT
 	isGlass = FALSE
 	custom_price = 10
 
@@ -471,7 +485,7 @@
 		H.visible_message("<span class='warning'>[H] is trying to take a big sip from [src]... The can is empty!</span>")
 		return SHAME
 	if(!is_drainable())
-		open_soda()
+		open_drink() //Monkestation edit
 		sleep(10)
 	H.visible_message("<span class='suicide'>[H] takes a big sip from [src]! It looks like [H.p_theyre()] trying to commit suicide!</span>")
 	playsound(H,'sound/items/drink.ogg', 80, 1)
@@ -506,6 +520,7 @@
 		qdel(src)
 		return
 
+/* MONKESTATION EDIT
 /obj/item/reagent_containers/food/drinks/soda_cans/proc/open_soda(mob/user)
 	to_chat(user, "You pull back the tab of \the [src] with a satisfying pop.") //Ahhhhhhhh
 	ENABLE_BITFIELD(reagents.flags, OPENCONTAINER)
@@ -516,6 +531,7 @@
 	if(!is_drainable())
 		open_soda(user)
 	return ..()
+*/
 
 /obj/item/reagent_containers/food/drinks/soda_cans/cola
 	name = "Space Cola"

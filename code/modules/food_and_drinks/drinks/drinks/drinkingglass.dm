@@ -11,6 +11,8 @@
 	max_integrity = 20
 	spillable = TRUE
 	resistance_flags = ACID_PROOF
+	reagent_flags = OPENCONTAINER //MONKESTATION ADDITION
+	isShakeable = FALSE //MONKESTATION ADDITION
 	obj_flags = UNIQUE_RENAME
 	drop_sound = 'sound/items/handling/drinkglass_drop.ogg'
 	pickup_sound =  'sound/items/handling/drinkglass_pickup.ogg'
