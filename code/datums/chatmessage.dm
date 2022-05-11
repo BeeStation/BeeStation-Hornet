@@ -572,6 +572,16 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 	var/duration = BALLOON_TEXT_TOTAL_LIFETIME(duration_mult)
 	fadertimer = addtimer(CALLBACK(src, .proc/end_of_life), duration, TIMER_STOPPABLE|TIMER_DELETE_ME, SSrunechat)
 
+/datum/chatmessage/proc/approx_str_width(var/string, var/font_size = DEFAULT_FONT_SIZE)
+	var/value = 0
+	var/font_multiplier = font_size / DEFAULT_FONT_SIZE
+	for(var/i in 1 to length(string))
+		var/size = SSrunechat.letters[string[i]]
+		if(!size)
+			size = SSrunechat.letters[MAX_CHAR_WIDTH]
+		value += size * font_multiplier
+	return value
+
 #undef BALLOON_TEXT_CHAR_LIFETIME_INCREASE_MIN
 #undef BALLOON_TEXT_CHAR_LIFETIME_INCREASE_MULT
 #undef CHAT_MESSAGE_SPAWN_TIME

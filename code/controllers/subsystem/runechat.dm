@@ -84,7 +84,8 @@ TIMER_SUBSYSTEM_DEF(runechat)
 		"w" = null,
 		"x" = null,
 		"y" = null,
-		"z" = null
+		"z" = null,
+		MAX_CHAR_WIDTH = 0
 	)
 
 /datum/controller/subsystem/timer/runechat/PreInit()
@@ -107,3 +108,5 @@ TIMER_SUBSYSTEM_DEF(runechat)
 		if(letters[key] || key == " ")
 			continue
 		letters[key] = WXH_TO_WIDTH(C.MeasureText(MAPTEXT(key)))
+		if(letters[key] > letters[MAX_CHAR_WIDTH])
+			letters[MAX_CHAR_WIDTH] = letters[key]
