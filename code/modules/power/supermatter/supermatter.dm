@@ -175,6 +175,9 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	///Timer id for the disengage_field proc timer
 	var/disengage_field_timer = null
 
+	///Can the crystal trigger the station wide anomaly spawn?
+	var/anomaly_event = TRUE
+
 /obj/machinery/power/supermatter_crystal/Initialize(mapload)
 	. = ..()
 	uid = gl_uid++
@@ -315,10 +318,14 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	else
 		investigate_log("has exploded.", INVESTIGATE_ENGINES)
 		explosion(get_turf(T), explosion_power * max(gasmix_power_ratio, 0.205) * 0.5 , explosion_power * max(gasmix_power_ratio, 0.205) + 2, explosion_power * max(gasmix_power_ratio, 0.205) + 4 , explosion_power * max(gasmix_power_ratio, 0.205) + 6, 1, 1)
+		var/is_tesla = FALSE
 		if(power > POWER_PENALTY_THRESHOLD)
 			investigate_log("has spawned additional energy balls.", INVESTIGATE_ENGINES)
 			new /obj/anomaly/energy_ball(T, power)
+			is_tesla = TRUE
 		qdel(src)
+		if(!is_tesla && is_station_level(loc.z) && is_main_engine && anomaly_event)
+			new /datum/supermatter_delamination(power = src.power)
 
 //this is here to eat arguments
 /obj/machinery/power/supermatter_crystal/proc/call_explode()
@@ -779,6 +786,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	explosion_power = 12
 	layer = ABOVE_MOB_LAYER
 	moveable = TRUE
+	anomaly_event = FALSE
 
 /obj/machinery/power/supermatter_crystal/shard/engine
 	name = "anchored supermatter shard"
@@ -821,17 +829,17 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 			step_towards(P,center)
 			step_towards(P,center)
 
-/obj/machinery/power/supermatter_crystal/proc/supermatter_anomaly_gen(turf/anomalycenter, type = FLUX_ANOMALY, anomalyrange = 5)
+/proc/supermatter_anomaly_gen(turf/anomalycenter, type = FLUX_ANOMALY, anomalyrange = 5, has_changed_lifespan = TRUE)
 	var/turf/L = pick(RANGE_TURFS(anomalyrange, anomalycenter) - anomalycenter)
 	if(L)
 		switch(type)
 			if(FLUX_ANOMALY)
-				var/obj/effect/anomaly/flux/A = new(L, 300)
-				A.explosive = FALSE
+				var/obj/effect/anomaly/flux/A = new(L, has_changed_lifespan ? 300 : null)
+				A.explosive = !has_changed_lifespan
 			if(GRAVITATIONAL_ANOMALY)
-				new /obj/effect/anomaly/grav(L, 250)
+				new /obj/effect/anomaly/grav(L, has_changed_lifespan ? 250 : null)
 			if(PYRO_ANOMALY)
-				new /obj/effect/anomaly/pyro(L, 200)
+				new /obj/effect/anomaly/pyro(L, has_changed_lifespan ? 200 : null)
 
 /obj/machinery/power/supermatter_crystal/proc/supermatter_zap(atom/zapstart, range = 3, power)
 	. = zapstart.dir
