@@ -483,6 +483,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	var/tetsuo = FALSE
 	var/bruteheal = FALSE
 	var/sizemult = 1
+	var/max_organ_vomit
 	var/datum/mind/ownermind
 	threshold_desc = "<b>Stage Speed 6:</b> The disease heals brute damage at a fast rate, but causes expulsion of benign tumors.<br>\
 					<b>Stage Speed 12:</b> The disease heals brute damage incredibly fast, but deteriorates cell health and causes tumors to become more advanced. The disease will also regenerate lost limbs and cause organ mutation."
@@ -508,6 +509,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 		sizemult = CLAMP((0.5 + A.stage_rate / 10), 1.1, 2.5)
 		M.resize = sizemult
 		M.update_transform()
+	max_organ_vomit = A.resistance / 2 //Maximum number of organs vomited out is equal to half your disease resistance stat.
 
 /datum/symptom/growth/Activate(datum/disease/advance/A)
 	if(!..())
@@ -520,7 +522,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 				M.Immobilize(5)
 				M.add_splatter_floor()
 				playsound(get_turf(M), 'sound/effects/splat.ogg', 50, 1)
-				if(prob(60) && M.mind && ishuman(M))
+				if(prob(60) && M.mind && ishuman(M) && max_organ_vomit > 0)
 					if(tetsuo && prob(15))
 						if(A.affected_mob.job == "Clown")
 							new /obj/effect/spawner/lootdrop/teratoma/major/clown(M.loc)
@@ -528,11 +530,13 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 							new /obj/effect/decal/cleanable/robot_debris(M.loc)
 							new /obj/effect/spawner/lootdrop/teratoma/robot(M.loc)
 					new /obj/effect/spawner/lootdrop/teratoma/minor(M.loc)
+					max_organ_vomit--
 				if(tetsuo)
 					var/list/missing = M.get_missing_limbs()
-					if(prob(35))
+					if(prob(35) && max_organ_vomit > 0)
 						new /obj/effect/decal/cleanable/blood/gibs(M.loc) //yes. this is very messy. very, very messy.
 						new /obj/effect/spawner/lootdrop/teratoma/major(M.loc)
+						max_organ_vomit--
 					if(missing.len) //we regrow one missing limb
 						for(var/Z in missing) //uses the same text and sound a ling's regen does. This can false-flag the host as a changeling.
 							if(M.regenerate_limb(Z, TRUE))
