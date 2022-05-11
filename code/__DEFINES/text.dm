@@ -9,3 +9,5 @@
 #define CENTER(text) {"<center>[##text]</center>"}
 
 #define SANITIZE_FILENAME(text) (GLOB.filename_forbidden_chars.Replace(text, ""))
+
+#define MAX_CHAR_WIDTH "max_width"
