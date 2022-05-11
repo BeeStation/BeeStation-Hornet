@@ -196,7 +196,7 @@ const Uploads = (props, context) => {
       return (
         <Flex key={upload.ref}>
           <Section
-            title={upload.name}>
+            title={upload.name[0].toUpperCase() + upload.name.substring(1)}>
             <LabeledList>
               <LabeledList.Item label="Location">
                 {upload.area}
