@@ -88,7 +88,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 
 	var/gasefficency = 0.15
 
-	var/base_icon_state = "darkmatter"
+	base_icon_state = "darkmatter"
 
 	var/final_countdown = FALSE
 

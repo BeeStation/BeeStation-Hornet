@@ -305,7 +305,7 @@
 
 	var/mob/listeningTo
 
-	var/base_icon_state = "defibpaddles"
+	base_icon_state = "defibpaddles"
 
 /obj/item/shockpaddles/ComponentInitialize()
 	. = ..()
