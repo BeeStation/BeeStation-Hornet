@@ -184,7 +184,7 @@ Difficulty: Medium
 		to_chat(user, "<span class='warning'>The staff is still recharging!</span>")
 		return
 
-	if(user.z != ZTRAIT_MINING)
+	if(user.z != 5)
 		to_chat(user, "<span class='warning'>The staff's power is too dim to function this far from the necropolis")
 		return
 	var/area/user_area = get_area(user)

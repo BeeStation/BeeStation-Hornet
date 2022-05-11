@@ -981,7 +981,7 @@
 
 /obj/item/lava_staff/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
-	if(user.z != ZTRAIT_MINING)
+	if(user.z != 5)
 		to_chat(user, "<span class='warning'>The staff's power is too dim to function this far from the necropolis")
 		return
 	if(timer > world.time)
