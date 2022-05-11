@@ -964,7 +964,7 @@
 	icon = 'icons/obj/guns/magic.dmi'
 	slot_flags = ITEM_SLOT_BACK
 	w_class = WEIGHT_CLASS_BULKY
-	force = 25
+	force = 15
 	damtype = BURN
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	hitsound = 'sound/weapons/sear.ogg'
@@ -981,7 +981,7 @@
 
 /obj/item/lava_staff/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
-	if(user.z != 5)
+	if(user.z != ZTRAIT_MINING)
 		to_chat(user, "<span class='warning'>The staff's power is too dim to function this far from the necropolis")
 		return
 	if(timer > world.time)

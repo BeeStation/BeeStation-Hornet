@@ -172,7 +172,7 @@ Difficulty: Medium
 	icon = 'icons/obj/guns/magic.dmi'
 	slot_flags = ITEM_SLOT_BACK
 	w_class = WEIGHT_CLASS_BULKY
-	force = 25
+	force = 15
 	damtype = BURN
 	hitsound = 'sound/weapons/sear.ogg'
 	var/storm_type = /datum/weather/ash_storm
@@ -184,7 +184,7 @@ Difficulty: Medium
 		to_chat(user, "<span class='warning'>The staff is still recharging!</span>")
 		return
 
-	if(user.z != 5)
+	if(user.z != ZTRAIT_MINING)
 		to_chat(user, "<span class='warning'>The staff's power is too dim to function this far from the necropolis")
 		return
 	var/area/user_area = get_area(user)
