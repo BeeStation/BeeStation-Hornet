@@ -138,42 +138,40 @@
 	var/list/cached_results = air.reaction_results
 	cached_results["fire"] = 0
 	var/turf/open/location = isturf(holder) ? holder : null
-	var/burned_fuel = 0
-	var/initial_trit = air.get_moles(GAS_TRITIUM)// Yogs
-	if(air.get_moles(GAS_O2) < initial_trit || MINIMUM_TRIT_OXYBURN_ENERGY > (temperature * old_heat_capacity))// Yogs -- Maybe a tiny performance boost? I'unno
-		burned_fuel = air.get_moles(GAS_O2)/TRITIUM_BURN_OXY_FACTOR
-		if(burned_fuel > initial_trit) burned_fuel = initial_trit //Yogs -- prevents negative moles of Tritium
-		air.adjust_moles(GAS_TRITIUM, -burned_fuel)
+	var/burned_fuel
+	var/initial_tritium = air.get_moles(GAS_TRITIUM)
+	var/initial_oxygen = air.get_moles(GAS_O2)
+
+	if(initial_oxygen < initial_tritium || MINIMUM_TRIT_OXYBURN_ENERGY > (temperature * old_heat_capacity))
+		burned_fuel = min(initial_tritium,initial_oxygen/TRITIUM_BURN_OXY_FACTOR)
 	else
-		burned_fuel = initial_trit // Yogs -- Conservation of Mass fix
-		air.set_moles(GAS_TRITIUM, air.get_moles(GAS_TRITIUM) * (1 - 1/TRITIUM_BURN_TRIT_FACTOR)) // Yogs -- Maybe a tiny performance boost? I'unno
-		air.adjust_moles(GAS_O2, -air.get_moles(GAS_TRITIUM))
-		energy_released += (FIRE_HYDROGEN_ENERGY_RELEASED * burned_fuel * (TRITIUM_BURN_TRIT_FACTOR - 1)) // Yogs -- Fixes low-energy tritium fires
+		burned_fuel = min(initial_tritium/TRITIUM_BURN_TRIT_FACTOR,initial_oxygen)
 
 	if(burned_fuel)
-		energy_released += (FIRE_HYDROGEN_ENERGY_RELEASED * burned_fuel)
+		air.adjust_moles(GAS_O2, -burned_fuel)
+		air.adjust_moles(GAS_TRITIUM, -burned_fuel)
+		air.adjust_moles(GAS_H2O, burned_fuel)
+
+		energy_released = FIRE_HYDROGEN_ENERGY_RELEASED * burned_fuel
 		if(location && prob(10) && burned_fuel > TRITIUM_MINIMUM_RADIATION_ENERGY) //woah there let's not crash the server
 			radiation_pulse(location, energy_released/TRITIUM_BURN_RADIOACTIVITY_FACTOR)
 
-		//oxygen+more-or-less hydrogen=H2O
-		air.adjust_moles(GAS_H2O, burned_fuel )// Yogs -- Conservation of Mass
-
 		cached_results["fire"] += burned_fuel
 
-	if(energy_released > 0)
-		var/new_heat_capacity = air.heat_capacity()
-		if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
-			air.set_temperature((temperature*old_heat_capacity + energy_released)/new_heat_capacity)
+		if(energy_released > 0)
+			var/new_heat_capacity = air.heat_capacity()
+			if(new_heat_capacity > MINIMUM_HEAT_CAPACITY)
+				air.set_temperature((temperature*old_heat_capacity + energy_released)/new_heat_capacity)
 
-	//let the floor know a fire is happening
-	if(istype(location))
-		temperature = air.return_temperature()
-		if(temperature > FIRE_MINIMUM_TEMPERATURE_TO_EXIST)
-			location.hotspot_expose(temperature, CELL_VOLUME)
-			for(var/I in location)
-				var/atom/movable/item = I
-				item.temperature_expose(air, temperature, CELL_VOLUME)
-			location.temperature_expose(air, temperature, CELL_VOLUME)
+		//let the floor know a fire is happening
+		if(istype(location))
+			temperature = air.return_temperature()
+			if(temperature > FIRE_MINIMUM_TEMPERATURE_TO_EXIST)
+				location.hotspot_expose(temperature, CELL_VOLUME)
+				for(var/I in location)
+					var/atom/movable/item = I
+					item.temperature_expose(air, temperature, CELL_VOLUME)
+				location.temperature_expose(air, temperature, CELL_VOLUME)
 
 	return cached_results["fire"] ? REACTING : NO_REACTION
 
