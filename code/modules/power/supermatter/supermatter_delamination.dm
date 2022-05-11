@@ -18,7 +18,7 @@
 	var/currently_spawning_anomalies = round(anomalies_to_spawn * 0.5, 1)
 	anomalies_to_spawn -= currently_spawning_anomalies
 	for(var/i in 1 to currently_spawning_anomalies)
-		var/anomaly_to_spawn = pick_weight(anomaly_types)
+		var/anomaly_to_spawn = pickweight(anomaly_types)
 		var/anomaly_location = pick_n_take(anomaly_places)
 		supermatter_anomaly_gen(anomaly_location, anomaly_to_spawn, has_changed_lifespan = FALSE)
 
@@ -31,7 +31,7 @@
 
 	var/current_spawn = rand(5 SECONDS, 10 SECONDS)
 	for(var/i in 1 to anomalies_to_spawn)
-		var/anomaly_to_spawn = pick_weight(anomaly_types)
+		var/anomaly_to_spawn = pickweight(anomaly_types)
 		var/anomaly_location = pick_n_take(anomaly_places)
 		var/next_spawn = rand(5 SECONDS, 10 SECONDS)
 		var/extended_spawn = 0
