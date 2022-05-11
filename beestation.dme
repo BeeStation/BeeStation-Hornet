@@ -3582,6 +3582,8 @@
 #include "monkestation\code\datums\traits\neutral.dm"
 #include "monkestation\code\game\area\Space_Station_13_areas.dm"
 #include "monkestation\code\game\machinery\doors\airlock_types.dm"
+#include "monkestation\code\game\mecha\makeshift\lockermech.dm"
+#include "monkestation\code\game\mecha\makeshift\makeshift_tools.dm"
 #include "monkestation\code\game\objects\effects\landmarks.dm"
 #include "monkestation\code\game\objects\effects\misc.dm"
 #include "monkestation\code\game\objects\effects\decals\turfdecal.dm"
