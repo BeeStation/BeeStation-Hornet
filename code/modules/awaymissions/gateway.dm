@@ -188,8 +188,8 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/centerstation)
 
 /obj/machinery/gateway/centeraway/Initialize(mapload)
 	. = ..()
-	toggleon()
 	stationgate = locate(/obj/machinery/gateway/centerstation)
+	toggleon()
 
 /obj/machinery/gateway/centeraway/update_icon()
 	if(active)
