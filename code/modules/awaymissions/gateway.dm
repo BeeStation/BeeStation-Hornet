@@ -173,7 +173,6 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/centerstation)
 	use_power = NO_POWER_USE
 	var/obj/machinery/gateway/centerstation/stationgate = null
 	can_link = TRUE
-	active = TRUE
 
 /obj/machinery/gateway/centeraway/mining
 	use_power = IDLE_POWER_USE
@@ -189,7 +188,7 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/centerstation)
 
 /obj/machinery/gateway/centeraway/Initialize(mapload)
 	. = ..()
-	update_icon()
+	toggleon()
 	stationgate = locate(/obj/machinery/gateway/centerstation)
 
 /obj/machinery/gateway/centeraway/update_icon()
@@ -201,7 +200,7 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/centerstation)
 /obj/machinery/gateway/centeraway/toggleon(mob/user)
 	if(!detect())
 		return
-	if(!stationgate)
+	if(!stationgate && user)
 		to_chat(user, "<span class='notice'>Error: No destination found.</span>")
 		return
 
