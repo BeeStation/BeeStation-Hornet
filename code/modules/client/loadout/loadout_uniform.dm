@@ -383,7 +383,7 @@
 
 /datum/gear/uniform/rainbow
 	display_name = "rainbow jumpsuit"
-	path = /obj/item/clothing/under/color/jumpsuit/rainbow
+	path = /obj/item/clothing/under/color/rainbow
 	cost = 1250
 
 /datum/gear/uniform/rainbow_skirt
