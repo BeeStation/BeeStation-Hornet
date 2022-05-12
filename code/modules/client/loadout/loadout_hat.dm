@@ -3,30 +3,12 @@
 	slot = ITEM_SLOT_HEAD
 	sort_category = "Headwear"
 	species_blacklist = list("plasmaman") //Their helmet takes up the head slot
-	cost = 2000
-
-//HARDHATS
-
-/datum/gear/hat/hhat_yellow
-	display_name = "hardhat, yellow"
-	path = /obj/item/clothing/head/hardhat
-	allowed_roles = list("Chief Engineer", "Station Engineer", "Atmospheric Technician")
-	cost = 2500
-
-/datum/gear/hat/hhat_orange
-	display_name = "hardhat, orange"
-	path = /obj/item/clothing/head/hardhat/orange
-	allowed_roles = list("Chief Engineer", "Station Engineer", "Atmospheric Technician")
-	cost = 2500
-
-/datum/gear/hat/hhat_blue
-	display_name = "hardhat, blue"
-	path = /obj/item/clothing/head/hardhat/dblue
-	allowed_roles = list("Chief Engineer", "Station Engineer", "Atmospheric Technician")
-	cost = 2500
+	cost = FREE_GEAR
 
 //CIVILIAN HATS & MISC
-
+/datum/gear/hat/wig
+	display_name = "wig"
+	path = /obj/item/clothing/head/wig
 /datum/gear/hat/that
 	display_name = "tophat"
 	path = /obj/item/clothing/head/that
@@ -63,7 +45,7 @@
 
 /datum/gear/hat/soft
 	subtype_path = /datum/gear/hat/soft
-	cost = 1500
+	cost = FREE_GEAR
 
 /datum/gear/hat/soft/red
 	display_name = "cap, red"
@@ -102,7 +84,6 @@
 /datum/gear/hat/beanie
 	display_name = "beanie, white"
 	path = /obj/item/clothing/head/beanie
-	cost = 1500
 
 /datum/gear/hat/beanie/black
 	display_name = "beanie, black"
@@ -155,13 +136,9 @@
 /datum/gear/hat/beanie/waldo
 	display_name = "beanie, red striped with bobble"
 	path = /obj/item/clothing/head/beanie/waldo
-	cost = 7500
-
 /datum/gear/hat/beanie/rasta
 	display_name = "beanie, rastafarian stripes"
 	path = /obj/item/clothing/head/beanie/rasta
-	cost = 7500
-
 //MEME HATS
 
 /datum/gear/hat/speedwagon
@@ -197,9 +174,9 @@
 
 //MISC
 /datum/gear/hat/franks_hat
+	display_name = "Frank's hat"
 	path = /obj/item/clothing/head/franks_hat
-	cost = 25000
-
+	cost = 2500
 //CHAPLAIN HATS
 
 /datum/gear/hat/blackbishop
@@ -207,3 +184,18 @@
 	path = /obj/item/clothing/head/bishopmitre/black
 	cost = 5000
 	allowed_roles = list("Chaplain")
+//HARDHATS
+
+/datum/gear/hat/hhat_yellow
+	display_name = "hardhat, yellow"
+	path = /obj/item/clothing/head/hardhat
+	allowed_roles = list("Chief Engineer", "Station Engineer", "Atmospheric Technician")
+/datum/gear/hat/hhat_orange
+	display_name = "hardhat, orange"
+	path = /obj/item/clothing/head/hardhat/orange
+	allowed_roles = list("Chief Engineer", "Station Engineer", "Atmospheric Technician")
+
+/datum/gear/hat/hhat_blue
+	display_name = "hardhat, blue"
+	path = /obj/item/clothing/head/hardhat/dblue
+	allowed_roles = list("Chief Engineer", "Station Engineer", "Atmospheric Technician")

@@ -4,11 +4,7 @@
 	subtype_path = /datum/gear/accessory
 	slot = ITEM_SLOT_NECK
 	sort_category = "Accessories"
-
-/datum/gear/accessory/scarf
-	subtype_path = /datum/gear/accessory/scarf
-	cost = 1000
-
+	cost = FREE_GEAR
 /datum/gear/accessory/scarf/red
 	display_name = "scarf, red"
 	path = /obj/item/clothing/neck/scarf/red
@@ -24,38 +20,31 @@
 /datum/gear/accessory/scarf/zebra
 	display_name = "scarf, zebra"
 	path = /obj/item/clothing/neck/scarf/zebra
-	cost = 1200
 
 /datum/gear/accessory/scarf/stripedred
 	display_name = "scarf, striped red"
 	path = /obj/item/clothing/neck/stripedredscarf
-	cost = 1200
 
 /datum/gear/accessory/scarf/stripedblue
 	display_name = "scarf, striped blue"
 	path = /obj/item/clothing/neck/stripedbluescarf
-	cost = 1200
 
 //armbands
 /datum/gear/accessory/armband_red
 	display_name = "armband, red"
 	path = /obj/item/clothing/accessory/armband
-	cost = 1000
 
 /datum/gear/accessory/armband_blu
 	display_name = "armband, blue"
 	path = /obj/item/clothing/accessory/armband/blue
-	cost = 1000
 
 /datum/gear/accessory/armband_grn
 	display_name = "armband, green"
 	path = /obj/item/clothing/accessory/armband/green
-	cost = 1000
 
 //ties
 /datum/gear/accessory/tie
 	subtype_path = /datum/gear/accessory/tie
-	cost = 1500
 
 /datum/gear/accessory/tie/blue
 	display_name = "tie, blue"
@@ -75,31 +64,21 @@
 
 //necklaces and shiz
 
-/datum/gear/accessory/petcollar
-	display_name = "pet collar"
-	path = /obj/item/clothing/neck/petcollar
-	cost = 20000
 
 /datum/gear/accessory/necklace
 	display_name = "dope necklace"
 	path = /obj/item/clothing/neck/necklace/dope
-	cost = 25000
-
-/datum/gear/accessory/oldnecklace
-	display_name = "necklace, gold"
-	path = /obj/item/clothing/neck/necklace/dope
-	cost = 25000
 
 /datum/gear/accessory/headphones
 	display_name = "headphones"
 	path = /obj/item/clothing/ears/headphones
-	cost = 2000
+	cost = FREE_GEAR
 
 //LIPSTICK
 
 /datum/gear/accessory/cosmetics
 	subtype_path = /datum/gear/accessory/cosmetics
-	cost = 1200
+	cost = FREE_GEAR
 
 /datum/gear/accessory/cosmetics/lipstick
 	display_name = "lipstick, red"
@@ -120,8 +99,6 @@
 /datum/gear/accessory/cosmetics/lipstick/random
 	display_name = "lipstick, random color"
 	path = /obj/item/lipstick/random
-	cost = 1400
-
 //Cloaks
 
 /datum/gear/accessory/cloak
@@ -132,3 +109,12 @@
 	display_name = "black bishop's cloak"
 	path = /obj/item/clothing/neck/cloak/chap/bishop/black
 	allowed_roles = list("Chaplain")
+/datum/gear/accessory/petcollar
+	display_name = "pet collar"
+	path = /obj/item/clothing/neck/petcollar
+	cost = 20000
+
+/datum/gear/accessory/oldnecklace
+	display_name = "necklace, gold"
+	path = /obj/item/clothing/neck/necklace/dope
+	cost = 25000

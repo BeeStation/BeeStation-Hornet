@@ -2,42 +2,17 @@
 	subtype_path = /datum/gear/suit
 	slot = ITEM_SLOT_OCLOTHING
 	sort_category = "External Wear"
-	cost = 2500
+	cost = FREE_GEAR
 
-//ALT ARMOR, MEDICAL VESTS, + LABCOATS
-
-/datum/gear/suit/labcoat
-	subtype_path = /datum/gear/suit/labcoat
-
-/datum/gear/suit/labcoat/brig_doc_hazard
-	display_name = "brig physician's hazard vest"
-	path = /obj/item/clothing/suit/hazardvest/brig_phys
-	allowed_roles = list("Brig Physician")
-
-/datum/gear/suit/labcoat/brig_doc
-	display_name = "brig physician's labcoat"
-	path = /obj/item/clothing/suit/toggle/labcoat/brig_phys
-	allowed_roles = list("Brig Physician")
-
-/datum/gear/suit/labcoat/emt
-	display_name = "EMT labcoat"
-	path = /obj/item/clothing/suit/toggle/labcoat/emt
-	allowed_roles = list("Medical Doctor", "Chief Medical Officer", "Chemist", "Geneticist")
-
-/datum/gear/suit/coat_medical
-	display_name = "blue medical coat"
-	path = /obj/item/clothing/suit/toggle/labcoat/coat/medical
-	allowed_roles = list("Medical Doctor", "Chief Medical Officer", "Chemist", "Geneticist")
-	cost = 5000
 //WINTER COATS
 /datum/gear/suit/wintercoat
 	subtype_path = /datum/gear/suit/wintercoat
-	cost = 5000
+	cost = FREE_GEAR
 
 /datum/gear/suit/wintercoat/grey
 	display_name = "winter coat"
 	path = /obj/item/clothing/suit/hooded/wintercoat
-	cost = 2500
+	cost = FREE_GEAR
 
 /datum/gear/suit/wintercoat/captain
 	display_name = "captain's winter coat"
@@ -88,7 +63,7 @@
 
 /datum/gear/suit/jacket
 	subtype_path = /datum/gear/suit/jacket
-	cost = 2500
+	cost = FREE_GEAR
 
 /datum/gear/suit/jacket/bomber
 	display_name = "bomber jacket"
@@ -117,7 +92,7 @@
 /datum/gear/suit/jacket/leather/overcoat
 	display_name = "leather overcoat"
 	path = /obj/item/clothing/suit/jacket/leather/overcoat
-	cost = 5000
+	cost = FREE_GEAR
 
 /datum/gear/suit/jacket/miljacket
 	display_name = "military jacket"
@@ -134,19 +109,19 @@
 /datum/gear/suit/jacket/letterman_nanotrasen
 	display_name = "letterman jacket, Nanotrasen blue"
 	path = /obj/item/clothing/suit/jacket/letterman_nanotrasen
-	cost = 5000
+	cost = FREE_GEAR
 
 /datum/gear/suit/jacket/letterman_syndie
 	display_name = "letterman jacket, Syndicate red"
 	path = /obj/item/clothing/suit/jacket/letterman_syndie
-	cost = 8000
+	cost = FREE_GEAR
 
 /datum/gear/suit/jacket/joker
 	display_name = "comedian's coat"
 	path = /obj/item/clothing/suit/joker
 	description = "You get what you deserve."
 	allowed_roles = list("Clown")
-	cost = 8000
+	cost = FREE_GEAR
 
 /datum/gear/suit/jacket/lawyer
 	display_name = "blue suit jacket"
@@ -167,7 +142,7 @@
 
 /datum/gear/suit/poncho
 	subtype_path = /datum/gear/suit/poncho
-	cost = 2000
+	cost = FREE_GEAR
 
 /datum/gear/suit/poncho/classic
 	display_name = "poncho, classic"
@@ -185,12 +160,12 @@
 /datum/gear/suit/striped_sweater
 	display_name = "striped sweater"
 	path = /obj/item/clothing/suit/striped_sweater
-	cost = 12500
+	cost = FREE_GEAR
 
 /datum/gear/suit/gothcoat
 	display_name = "goth coat"
 	path = /obj/item/clothing/suit/gothcoat
-	cost = 12500
+	cost = FREE_GEAR
 
 /datum/gear/suit/pirate/captain
 	display_name = "pirate captain suit"
@@ -200,8 +175,32 @@
 /datum/gear/suit/pirate
 	display_name = "pirate suit"
 	path = /obj/item/clothing/suit/pirate
-	cost = 12500
+	cost = FREE_GEAR
+//ALT ARMOR, MEDICAL VESTS, + LABCOATS
 
+/datum/gear/suit/labcoat
+	subtype_path = /datum/gear/suit/labcoat
+
+/datum/gear/suit/labcoat/brig_doc_hazard
+	display_name = "brig physician's hazard vest"
+	path = /obj/item/clothing/suit/hazardvest/brig_phys
+	allowed_roles = list("Brig Physician")
+
+/datum/gear/suit/labcoat/brig_doc
+	display_name = "brig physician's labcoat"
+	path = /obj/item/clothing/suit/toggle/labcoat/brig_phys
+	allowed_roles = list("Brig Physician")
+
+/datum/gear/suit/labcoat/emt
+	display_name = "EMT labcoat"
+	path = /obj/item/clothing/suit/toggle/labcoat/emt
+	allowed_roles = list("Medical Doctor", "Chief Medical Officer", "Chemist", "Geneticist")
+
+/datum/gear/suit/coat_medical
+	display_name = "blue medical coat"
+	path = /obj/item/clothing/suit/toggle/labcoat/coat/medical
+	allowed_roles = list("Medical Doctor", "Chief Medical Officer", "Chemist", "Geneticist")
+	cost = 5000
 //ROBES
 /datum/gear/suit/robe
 	subtype_path = /datum/gear/suit/robe
@@ -215,32 +214,24 @@
 /datum/gear/suit/flannel_red
 	display_name = "flannel shirt"
 	path = /obj/item/clothing/suit/toggle/labcoat/flannel_red
-	cost = 800
 /datum/gear/suit/wflight
 	display_name = "tgfl flight jacket"
 	path = /obj/item/clothing/suit/toggle/labcoat/wflight
-	cost = 800
 /datum/gear/suit/supply_dep_jacket
 	display_name = "brown Nanotrasen jacket"
 	path = /obj/item/clothing/suit/toggle/labcoat/supply_dep_jacket
-	cost = 800
 /datum/gear/suit/engi_dep_jacket
 	display_name = "yellow Nanotrasen jacket"
 	path = /obj/item/clothing/suit/toggle/labcoat/engi_dep_jacket
-	cost = 800
 /datum/gear/suit/med_dep_jacket
 	display_name = "light blue Nanotrasen jacket"
 	path = /obj/item/clothing/suit/toggle/labcoat/med_dep_jacket
-	cost = 800
 /datum/gear/suit/sci_dep_jacket
 	display_name = "purple Nanotrasen jacket"
 	path = /obj/item/clothing/suit/toggle/labcoat/sci_dep_jacket
-	cost = 800
 /datum/gear/suit/sec_dep_jacket
 	display_name = "blue Nanotrasen jacket"
 	path = /obj/item/clothing/suit/toggle/labcoat/sec_dep_jacket
-	cost = 800
 /datum/gear/suit/serv_dep_jacket
 	display_name = "green Nanotrasen jacket"
 	path = /obj/item/clothing/suit/toggle/labcoat/serv_dep_jacket
-	cost = 800

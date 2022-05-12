@@ -4,7 +4,7 @@
 	slot = ITEM_SLOT_ICLOTHING
 	sort_category = "Uniforms and Casual Dress"
 	species_blacklist = list("plasmaman") //Envirosuit moment
-	cost = 1000
+	cost = FREE_GEAR
 
 //STANDARD UNIFORM COLORS
 
@@ -129,11 +129,6 @@
 	path = /obj/item/clothing/under/pants/camo
 
 //SKIRTS
-
-/datum/gear/uniform/skirt
-	subtype_path = /datum/gear/uniform/skirt
-	cost = 2500
-
 /datum/gear/uniform/skirt/blue
 	display_name = "skirt, blue"
 	path = /obj/item/clothing/under/dress/skirt/blue
@@ -166,7 +161,7 @@
 
 /datum/gear/uniform/suit
 	subtype_path = /datum/gear/uniform/suit
-	cost = 2500
+	cost = FREE_GEAR
 
 /datum/gear/uniform/suit/suit_jacket
 	subtype_path = /datum/gear/uniform/suit/suit_jacket
@@ -227,18 +222,7 @@
 
 /datum/gear/uniform/misc
 	subtype_path = /datum/gear/uniform/misc
-	cost = 5000
-
-/datum/gear/uniform/misc/jabroni
-	display_name = "jabroni leathers"
-	path = /obj/item/clothing/under/costume/jabroni
-	cost = 20000
-
-/datum/gear/uniform/misc/geisha
-	display_name = "geisha suit"
-	path = /obj/item/clothing/under/costume/geisha
-	cost = 20000
-
+	cost = FREE_GEAR
 /datum/gear/uniform/misc/soviet
 	display_name = "soviet uniform"
 	path = /obj/item/clothing/under/costume/soviet
@@ -253,17 +237,64 @@
 /datum/gear/uniform/misc/striped
 	display_name = "striped dress"
 	path = /obj/item/clothing/under/dress/striped
+/datum/gear/uniform/orderly_uniform
+	display_name = "orderly uniform"
+	path = /obj/item/clothing/under/misc/orderly_uniform
+	cost = FREE_GEAR
 
-/datum/gear/uniform/misc/swagoutfit
-	display_name = "swag outfit"
-	path = /obj/item/clothing/under/costume/swagoutfit
-	cost = 69000
+/datum/gear/uniform/nt_skirtsuit
+	display_name = "nanotrasen skirtsuit"
+	path = /obj/item/clothing/under/misc/nt_skirtsuit
+	cost = FREE_GEAR
+
+/datum/gear/uniform/hos_formal_male
+	display_name = "red formal coat"
+	path = /obj/item/clothing/under/misc/hos_formal_male
+	cost = FREE_GEAR
+
+/datum/gear/uniform/rainbow
+	display_name = "rainbow jumpsuit"
+	path = /obj/item/clothing/under/color/rainbow
+	cost = FREE_GEAR
+
+/datum/gear/uniform/rainbow_skirt
+	display_name = "rainbow jumpskirt"
+	path = /obj/item/clothing/under/color/jumpskirt/rainbow
+	cost = FREE_GEAR
+/datum/gear/uniform/black_really_skirt
+	display_name = "executive suitskirt"
+	path = /obj/item/clothing/under/suit/black_really/skirt
+	cost = FREE_GEAR
+/datum/gear/uniform/black_really
+	display_name = "executive suit"
+	path = /obj/item/clothing/under/suit/black_really
+	cost = FREE_GEAR
+/datum/gear/uniform/black/skirt
+	display_name = "black suitskirt"
+	path = /obj/item/clothing/under/suit/black/skirt
+	cost = FREE_GEAR
+/datum/gear/uniform/burgundy_suit
+	display_name = "burgundy suit"
+	path = /obj/item/clothing/under/suit/burgundy
+	cost = FREE_GEAR
+/datum/gear/uniform/checkered
+	display_name = "checkered suit"
+	path = /obj/item/clothing/under/suit/checkered
+	cost = FREE_GEAR
+/datum/gear/uniform/black/navy
+	display_name = "navy suit"
+	path = /obj/item/clothing/under/suit/navy
+	cost = FREE_GEAR
+/datum/gear/uniform/black/skirt
+	display_name = "black suitskirt"
+	path = /obj/item/clothing/under/suit/black/skirt
+	cost = FREE_GEAR
 
 //RANK SUBTYPE
 
 /datum/gear/uniform/rank
 	subtype_path = /datum/gear/uniform/rank
-	cost = 2500
+	cost = FREE_GEAR
 
 //ASSISTANTS FORMALS
 
@@ -359,62 +390,24 @@
 /datum/gear/uniform/rank/security/blueshift
 	display_name = "security jumpsuit, blue shirt and tie"
 	path = /obj/item/clothing/under/rank/security/officer/blueshirt
-	cost = 7500
+	cost = FREE_GEAR
 
 /datum/gear/uniform/rank/security/blart
 	display_name = "security jumpsuit, Nanotrasen mall cop uniform"
 	path = /obj/item/clothing/under/rank/security/officer/mallcop
-	cost = 7500
+	cost = FREE_GEAR
 
-/datum/gear/uniform/orderly_uniform
-	display_name = "orderly uniform"
-	path = /obj/item/clothing/under/misc/orderly_uniform
-	cost = 10000
+/datum/gear/uniform/misc/jabroni
+	display_name = "jabroni leathers"
+	path = /obj/item/clothing/under/costume/jabroni
+	cost = 20000
 
-/datum/gear/uniform/nt_skirtsuit
-	display_name = "nanotrasen skirtsuit"
-	path = /obj/item/clothing/under/misc/nt_skirtsuit
-	cost = 1250
+/datum/gear/uniform/misc/geisha
+	display_name = "geisha suit"
+	path = /obj/item/clothing/under/costume/geisha
+	cost = 20000
 
-/datum/gear/uniform/hos_formal_male
-	display_name = "red formal coat"
-	path = /obj/item/clothing/under/misc/hos_formal_male
-	cost = 1250
-
-/datum/gear/uniform/rainbow
-	display_name = "rainbow jumpsuit"
-	path = /obj/item/clothing/under/color/rainbow
-	cost = 1250
-
-/datum/gear/uniform/rainbow_skirt
-	display_name = "rainbow jumpskirt"
-	path = /obj/item/clothing/under/color/jumpskirt/rainbow
-	cost = 1250
-/datum/gear/uniform/black_really_skirt
-	display_name = "executive suitskirt"
-	path = /obj/item/clothing/under/suit/black_really/skirt
-	cost = 1250
-/datum/gear/uniform/black_really
-	display_name = "executive suit"
-	path = /obj/item/clothing/under/suit/black_really
-	cost = 1250
-/datum/gear/uniform/black/skirt
-	display_name = "black suitskirt"
-	path = /obj/item/clothing/under/suit/black/skirt
-	cost = 1250
-/datum/gear/uniform/burgundy_suit
-	display_name = "burgundy suit"
-	path = /obj/item/clothing/under/suit/burgundy
-	cost = 1250
-/datum/gear/uniform/checkered
-	display_name = "checkered suit"
-	path = /obj/item/clothing/under/suit/checkered
-	cost = 1250
-/datum/gear/uniform/black/navy
-	display_name = "navy suit"
-	path = /obj/item/clothing/under/suit/navy
-	cost = 1250
-/datum/gear/uniform/black/skirt
-	display_name = "black suitskirt"
-	path = /obj/item/clothing/under/suit/black/skirt
-	cost = 1250
+/datum/gear/uniform/misc/swagoutfit
+	display_name = "swag outfit"
+	path = /obj/item/clothing/under/costume/swagoutfit
+	cost = 69000

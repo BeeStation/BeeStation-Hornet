@@ -2,24 +2,28 @@
 	subtype_path = /datum/gear/face
 	slot = ITEM_SLOT_MASK
 	sort_category = "Face"
+	cost = FREE_GEAR
+/datum/gear/face/mask/ear_stud
+	display_name = "stud earrings"
+	path = /obj/item/clothing/mask/earring/stud
+/datum/gear/face/mask/ear_dangle
+	display_name = "dangle earrings"
+	path = /obj/item/clothing/mask/earring/dangle
 
 //GLASSES
 /datum/gear/face/eyepatch
 	display_name = "eyepatch"
 	slot = ITEM_SLOT_EYES
 	path = /obj/item/clothing/glasses/eyepatch
-	cost = 100
 
 /datum/gear/face/monocle
 	display_name = "monocle"
 	slot = ITEM_SLOT_EYES
 	path = /obj/item/clothing/glasses/monocle
-	cost = 200
 /datum/gear/face/glasses
 	display_name = "prescription glasses"
 	slot = ITEM_SLOT_EYES
 	path = /obj/item/clothing/glasses/regular
-	cost = 100
 /datum/gear/face/glasses/jamjar
 	display_name = "jam jar glasses"
 	path = /obj/item/clothing/glasses/regular/jamjar
@@ -51,12 +55,3 @@
 /datum/gear/face/glasses/red
 	display_name = "red glasses"
 	path = /obj/item/clothing/glasses/red
-
-/datum/gear/Handwear/mask/ear_stud
-	display_name = "stud earrings"
-	path = /obj/item/clothing/mask/earring/stud
-	cost = 100
-/datum/gear/Handwear/mask/ear_dangle
-	display_name = "dangle earrings"
-	path = /obj/item/clothing/mask/earring/dangle
-	cost = 100

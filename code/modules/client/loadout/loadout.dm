@@ -30,9 +30,6 @@ GLOBAL_LIST_EMPTY(gear_datums)
 		if(use_id in used_ids)
 			WARNING("Loadout - ID Already Exists: [G], with ID:[use_id], Conflicts with: [used_ids[use_id]]")
 			continue
-		if(!initial(G.cost))
-			WARNING("Loadout - Missing cost: [G]")
-			continue
 		if(!initial(G.path) && use_category != "OOC") //OOC category does not contain actual items
 			WARNING("Loadout - Missing path definition: [G]")
 			continue
