@@ -208,10 +208,9 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 
 /obj/machinery/power/supermatter_crystal/examine(mob/user)
 	. = ..()
-	if (istype(user, /mob/living/carbon))
-		var/mob/living/carbon/C = user
-		if (!istype(C.glasses, /obj/item/clothing/glasses/meson) && (get_dist(user, src) < HALLUCINATION_RANGE(power)))
-			. += "<span class='danger'>You get headaches just from looking at it.</span>"
+	var/immune = HAS_TRAIT(user, TRAIT_SUPERMATTER_MADNESS_IMMUNE) || HAS_TRAIT(user.mind, TRAIT_SUPERMATTER_MADNESS_IMMUNE)
+	if (!isliving(user) && !immune && (get_dist(user, src) < HALLUCINATION_RANGE(power)))
+		. += "<span class='danger'>You get headaches just from looking at it.</span>"
 
 #define CRITICAL_TEMPERATURE 10000
 
@@ -450,7 +449,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 			air_update_turf()
 
 	for(var/mob/living/carbon/human/l in viewers(HALLUCINATION_RANGE(power), src)) // If they can see it without mesons on.  Bad on them.
-		if(!istype(l.glasses, /obj/item/clothing/glasses/meson))
+		if(!(HAS_TRAIT(l.mind, TRAIT_SUPERMATTER_SOOTHER) || HAS_TRAIT(l.mind, TRAIT_SUPERMATTER_MADNESS_IMMUNE)))
 			var/D = sqrt(1 / max(1, get_dist(l, src)))
 			l.hallucination += power * config_hallucination_power * D
 			l.hallucination = CLAMP(0, 200, l.hallucination)

@@ -235,6 +235,16 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_NAIVE				"naive" //All dead people will appear as sleeping.
 #define TRAIT_DROPS_ITEMS_ON_DEATH "drops_items_on_death" //used for battle royale
 
+// You can stare into the abyss, but it does not stare back.
+// You're immune to the hallucination effect of the supermatter, either
+// through force of will, or equipment.
+#define TRAIT_SUPERMATTER_MADNESS_IMMUNE "supermatter_madness_immune"
+
+// You can stare into the abyss, and it turns pink.
+// Being close enough to the supermatter makes it heal at higher temperatures
+// and emit less heat. A trait applied to a mind.
+#define TRAIT_SUPERMATTER_SOOTHER "supermatter_soother"
+
 //non-mob traits
 #define TRAIT_PARALYSIS			"paralysis" //Used for limb-based paralysis, where replacing the limb will fix it
 
