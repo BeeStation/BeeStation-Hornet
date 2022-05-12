@@ -693,7 +693,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 		return
 
 	var/dirn = get_dir(C, user)
-	if(T.allow_z_travel)
+	if(T.allow_z_travel && T.below() && !locate(/obj/structure/lattice/catwalk, T))
 		dirn = DOWN
 	if(forceddir)
 		dirn = forceddir
