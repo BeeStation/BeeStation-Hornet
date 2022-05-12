@@ -92,7 +92,7 @@
 		ignorecap = TRUE)
 
 /datum/supermatter_delamination/proc/setup_anomalies()
-	anomalies_to_spawn = max(round(0.01 * supermatter_power, 1) + rand(-2, 2), 1)
+	anomalies_to_spawn = max(round(0.005 * supermatter_power, 1) + rand(-2, 5), 1)
 	spawn_anomalies()
 
 /datum/supermatter_delamination/proc/spawn_anomalies()
