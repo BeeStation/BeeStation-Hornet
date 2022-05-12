@@ -57149,8 +57149,8 @@
 /turf/open/floor/plasteel,
 /area/science/explab)
 "cmT" = (
-/obj/machinery/computer/rdconsole/experiment,
 /obj/effect/turf_decal/stripes/line,
+/obj/machinery/computer/xenoartifact_console,
 /turf/open/floor/plasteel,
 /area/science/explab)
 "cmU" = (
@@ -81935,6 +81935,12 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
+"rfx" = (
+/obj/machinery/computer/rdconsole/experiment{
+	dir = 4
+	},
+/turf/open/floor/engine,
+/area/science/explab)
 "rhR" = (
 /obj/structure/sign/departments/minsky/engineering/atmospherics{
 	pixel_y = -32
@@ -82855,6 +82861,11 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel,
 /area/hallway/secondary/command)
+"uVf" = (
+/obj/machinery/xenoartifact_inbox,
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/engine,
+/area/science/explab)
 "vag" = (
 /obj/structure/chair,
 /obj/effect/turf_decal/tile/blue{
@@ -118665,7 +118676,7 @@ buy
 cgq
 chy
 ciU
-chx
+uVf
 clU
 cmT
 con
@@ -119178,7 +119189,7 @@ bST
 buy
 cgq
 chA
-chx
+rfx
 cks
 cgq
 cmV
