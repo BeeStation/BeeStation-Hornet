@@ -16,4 +16,4 @@
 
 #define XENOA_DP 120 //Discovery point reward
 
-#define XENOA_MAX_VENDORS 8
+#define XENOA_MAX_VENDORS 8 //Max vendors / buyers in each catergory

@@ -72,7 +72,8 @@
 	update_icon()
 
 /obj/item/xenoartifact_labeler/proc/get_trait_list_desc(list/traits, trait_type)//Get a list of all the specified trait types names, actually
-	for(var/t in typesof(trait_type))
+	trait_type = typesof(trait_type)
+	for(var/t in trait_type)
 		var/datum/xenoartifact_trait/X = t
 		if(initial(X.desc) && !(initial(X.desc) in traits) && !(initial(X.label_name)))
 			traits += initial(X.desc)

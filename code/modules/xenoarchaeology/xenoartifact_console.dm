@@ -21,8 +21,8 @@
 	icon_keyboard = "rd_key"
 	circuit = /obj/item/circuitboard/computer/xenoartifact_console
 	
-	var/list/sellers[XENOA_MAX_VENDORS] //These lengths need to be set to define an upper limit of sellers and buyers. Generally easier. 
-	var/list/buyers[XENOA_MAX_VENDORS]
+	var/list/sellers = list() //These lengths need to be set to define an upper limit of sellers and buyers. Generally easier. 
+	var/list/buyers = list()
 	var/list/tab_index = list("Listings", "Export", "Linking") //All tabs
 	var/current_tab = "Listings"
 	var/current_tab_info = "Here you can find listings for various research samples, usually fresh from the field. These samples aren't distrubuted by the Nanotrasen affiliated cargo system, so instead listing data is sourced from stray bluespace-threads."
@@ -37,14 +37,13 @@
 	linked_techweb = SSresearch.science_tech
 	budget = SSeconomy.get_dep_account(ACCOUNT_SCI)
 	sync_devices()
-	var/datum/xenoartifact_seller/S
-	var/datum/xenoartifact_seller/buyer/B
-	for(var/I in 1 to 8)
-		sellers[I] = new /datum/xenoartifact_seller
-		S = sellers[I]
+	for(var/I in 1 to XENOA_MAX_VENDORS) //Add initial buyers and sellers
+		var/datum/xenoartifact_seller/S = new
+		sellers += S
 		S.generate()
-		buyers[I] = new /datum/xenoartifact_seller/buyer
-		B = buyers[I]
+
+		var/datum/xenoartifact_seller/buyer/B = new
+		buyers += B
 		B.generate()
 
 /obj/machinery/computer/xenoartifact_console/ui_interact(mob/user, datum/tgui/ui)
@@ -55,10 +54,9 @@
 
 /obj/machinery/computer/xenoartifact_console/ui_data(mob/user)
 	var/list/data = list()
-	if(budget)
-		data["points"] = budget.account_balance
+	data["points"] = budget ? budget.account_balance : 0
 	data["seller"] = list()
-	for(var/datum/xenoartifact_seller/S as() in sellers)
+	for(var/datum/xenoartifact_seller/S as() in sellers) //Pass seller data
 		data["seller"] += list(list(
 			"name" = S.name,
 			"dialogue" = S.dialogue,
@@ -66,7 +64,7 @@
 			"id" = S.unique_id,
 		))
 	data["buyer"] = list()
-	for(var/datum/xenoartifact_seller/buyer/B as() in buyers)
+	for(var/datum/xenoartifact_seller/buyer/B as() in buyers) //Buyer data
 		data["buyer"] += list(list(
 			"name" = B.name,
 			"dialogue" = B.dialogue,
@@ -92,7 +90,7 @@
 		sell()
 		return
 
-	for(var/t in tab_index)
+	for(var/t in tab_index) //Handle swapping tabs.
 		if(action == "set_tab_[t]")
 			if(current_tab != t)
 				current_tab = t
@@ -108,7 +106,7 @@
 				current_tab_info = ""
 			return
 
-	for(var/datum/xenoartifact_seller/S as() in sellers)
+	for(var/datum/xenoartifact_seller/S as() in sellers) //Handle buying artifacts.
 		if(action == "purchase_[S.unique_id]")
 			if(!linked_inbox)
 				say("Error. No linked hardware.")
@@ -139,6 +137,8 @@
 					addtimer(CALLBACK(src, .proc/generate_new_buyer), (rand(1,5)*60) SECONDS)
 					selling_item = I
 					break
+			if(selling_item)
+				break
 		var/final_price
 		var/info
 		if(selling_item)
@@ -160,17 +160,17 @@
 			say(info)
 
 
-/obj/machinery/computer/xenoartifact_console/proc/generate_new_seller()
+/obj/machinery/computer/xenoartifact_console/proc/generate_new_seller() //Called after a short period
 	var/datum/xenoartifact_seller/S = new
 	S.generate()
 	sellers += S
-	ui_interact("XenoartifactConsole")
+	ui_interact(ui = "XenoartifactConsole")
 
 /obj/machinery/computer/xenoartifact_console/proc/generate_new_buyer()
 	var/datum/xenoartifact_seller/buyer/B = new
 	B.generate()
 	buyers += B
-	ui_interact("XenoartifactConsole")
+	ui_interact(ui = "XenoartifactConsole")
 	addtimer(CALLBACK(src, .proc/qdel, B), (rand(1,5)*60) SECONDS)
 
 /obj/machinery/computer/xenoartifact_console/proc/sync_devices()
@@ -187,7 +187,7 @@
 			return
 	say("Unable to find linkable hadrware.")
 
-/obj/machinery/computer/xenoartifact_console/proc/on_inbox_del()
+/obj/machinery/computer/xenoartifact_console/proc/on_inbox_del() //Hard del measures
 	SIGNAL_HANDLER
 	UnregisterSignal(linked_inbox, COMSIG_PARENT_QDELETING)
 	linked_inbox = null
@@ -217,7 +217,7 @@
 	var/name
 	var/price
 	var/dialogue
-	var/unique_id //I don't know what this is used for anymore, I think it has something to do with removing sellers.
+	var/unique_id //Unique ID occsionally used to address sellers
 	var/difficulty //Xenoartifact shit, not exactly difficulty
 
 /datum/xenoartifact_seller/proc/generate()
@@ -234,13 +234,13 @@
 		if(701 to 800)
 			difficulty = BANANIUM
 	price = price * rand(1.0, 1.5) //Measure of error for no particular reason
-	unique_id = "[rand(1,100)][rand(1,100)][rand(1,100)]:[world.time]" //I feel like Ive missed an easier way to do this
+	unique_id = "[rand(1,100)][rand(1,100)][rand(1,100)]:[world.time]"
 	addtimer(CALLBACK(src, .proc/change_item), (rand(1,3)*60) SECONDS)
 
 /datum/xenoartifact_seller/proc/change_item()
 	generate()
 
-/datum/xenoartifact_seller/buyer 
+/datum/xenoartifact_seller/buyer //Buyer off shoot, for player-selling 
 	var/obj/buying
 
 /datum/xenoartifact_seller/buyer/generate()

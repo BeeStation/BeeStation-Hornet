@@ -358,8 +358,7 @@
 	qdel(radio_connection)
 	qdel(traits)
 	qdel(touch_desc)
-	for(var/atom/movable/C in contents)
-		var/atom/movable/AM = C
+	for(var/atom/movable/AM in contents)
 		AM.forceMove(get_turf(loc))
 	..()
 
@@ -372,9 +371,12 @@
 	difficulty = material
 	..()
 
-/datum/component/xenoartifact_pricing ///Temporary pricing component for temporary shipping solution
-	var/modifier = 0.70 ///Buying and selling related
-	var/price ///default price gets generated if it isn't set by console. This only happens if the artifact spawns outside of that process
+///Temporary pricing component for temporary shipping solution
+/datum/component/xenoartifact_pricing
+	///Buying and selling related
+	var/modifier = 0.70 
+	///default price gets generated if it isn't set by console. This only happens if the artifact spawns outside of that process
+	var/price 
 
 /obj/item/xenoartifact/objective/Initialize(mapload, difficulty)
 	. = ..()
