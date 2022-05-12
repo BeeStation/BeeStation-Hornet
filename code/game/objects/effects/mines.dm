@@ -136,7 +136,7 @@
 	triggered = 1	//ensures multiple explosions aren't queued if/while the mine is delayed
 	if(dramatic_sound && victim)
 		playsound(loc, dramatic_sound, 100, 1)
-		victim.Paralyze(30) //"Trip" the mine if you will. 
+		victim.Paralyze(30, TRUE, TRUE) //"Trip" the mine if you will. Ignores stun immunity. 
 		sleep(10)
 	visible_message("<span class='danger'>[victim] sets off [icon2html(src, viewers(src))] [src]!</span>")
 	var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
