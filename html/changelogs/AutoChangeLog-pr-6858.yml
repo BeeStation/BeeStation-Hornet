@@ -1,0 +1,4 @@
+author: covertcorvid
+delete-after: true
+changes:
+  - bugfix: Fixes doing wiring in space
