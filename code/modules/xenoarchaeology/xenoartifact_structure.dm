@@ -257,7 +257,9 @@
 	qdel(radio_connection)
 	qdel(traits)
 	qdel(touch_desc)
-	for(var/atom/movable/C in contents)
-		var/atom/movable/AM = C
-		AM.forceMove(get_turf(loc))
+	for(var/atom/movable/AM in contents)
+		if(istype(AM, /obj/item/xenoartifact_label)) //Delete stickers
+			qdel(AM)
+		else
+			AM.forceMove(get_turf(loc))
 	..()

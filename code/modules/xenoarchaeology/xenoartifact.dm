@@ -359,7 +359,10 @@
 	qdel(traits)
 	qdel(touch_desc)
 	for(var/atom/movable/AM in contents)
-		AM.forceMove(get_turf(loc))
+		if(istype(AM, /obj/item/xenoartifact_label)) //Delete stickers
+			qdel(AM)
+		else
+			AM.forceMove(get_turf(loc))
 	..()
 
 /obj/item/xenoartifact/maint //Semi-toddler-safe version, for maint loot table.
