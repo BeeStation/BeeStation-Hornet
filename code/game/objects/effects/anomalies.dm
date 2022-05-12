@@ -153,11 +153,11 @@
 	density = TRUE
 	var/canshock = 0
 	var/shockdamage = 20
-	var/explosive = TRUE
+	var/explosive = FLUX_EXPLOSIVE
 
-/obj/effect/anomaly/flux/Initialize(mapload, new_lifespan, drops_core = TRUE, _explosive = TRUE)
+/obj/effect/anomaly/flux/Initialize(mapload, new_lifespan, drops_core = TRUE, explosive = FLUX_EXPLOSIVE)
 	. = ..()
-	explosive = _explosive
+	src.explosive = explosive
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = .proc/on_entered,
 	)
@@ -196,12 +196,13 @@
 		"<span class='italics'>You hear a heavy electrical crack.</span>")
 
 /obj/effect/anomaly/flux/detonate()
-	if(explosive)
-		explosion(src, 1, 4, 16, 18) //Low devastation, but hits a lot of stuff.
-		log_game("A flux anomaly has detonated at [loc].")
-		message_admins("A flux anomaly has detonated at [ADMIN_VERBOSEJMP(loc)].")
-	else
-		new /obj/effect/particle_effect/sparks(loc)
+	switch(explosive)
+		if(FLUX_EXPLOSIVE)
+			explosion(src, devastation_range = 1, heavy_impact_range = 4, light_impact_range = 16, flash_range = 18) //Low devastation, but hits a lot of stuff.
+		if(FLUX_LOW_EXPLOSIVE)
+			explosion(src, heavy_impact_range = 1, light_impact_range = 4, flash_range = 6)
+		if(FLUX_NO_EXPLOSION)
+			new /obj/effect/particle_effect/sparks(loc)
 
 
 /////////////////////

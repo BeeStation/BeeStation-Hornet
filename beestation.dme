@@ -144,6 +144,7 @@
 #include "code\__DEFINES\dcs\flags.dm"
 #include "code\__DEFINES\dcs\helpers.dm"
 #include "code\__DEFINES\dcs\signals.dm"
+#include "code\__DEFINES\research\anomalies.dm"
 #include "code\__HELPERS\_extools_api.dm"
 #include "code\__HELPERS\_lists.dm"
 #include "code\__HELPERS\_logging.dm"
