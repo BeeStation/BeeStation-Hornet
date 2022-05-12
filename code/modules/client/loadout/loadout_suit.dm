@@ -93,6 +93,18 @@
 /datum/gear/suit/jacket/bomber
 	display_name = "bomber jacket"
 	path = /obj/item/clothing/suit/jacket
+/datum/gear/suit/jacket/leather
+	display_name = "leather jacket"
+	path = /obj/item/clothing/suit/jacket/leather
+/datum/gear/suit/jacket/puffer/vest
+	display_name = "puffer vest"
+	path = /obj/item/clothing/suit/jacket/puffer/vest
+/datum/gear/suit/jacket/militaryjacket
+	display_name = "military jacket"
+	path = /obj/item/clothing/suit/jacket/miljacket
+/datum/gear/suit/jacket/puffer
+	display_name = "puffer jacket"
+	path = /obj/item/clothing/suit/jacket/puffer
 
 /datum/gear/suit/jacket/softshell
 	display_name = "softshell jacket"

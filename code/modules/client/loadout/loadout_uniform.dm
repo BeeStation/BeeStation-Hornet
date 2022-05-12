@@ -250,6 +250,9 @@
 /datum/gear/uniform/misc/sailor
 	display_name = "sailor outfit"
 	path = /obj/item/clothing/under/costume/sailor
+/datum/gear/uniform/misc/striped
+	display_name = "striped dress"
+	path = /obj/item/clothing/under/dress/striped
 
 /datum/gear/uniform/misc/swagoutfit
 	display_name = "swag outfit"
@@ -376,4 +379,42 @@
 /datum/gear/uniform/hos_formal_male
 	display_name = "red formal coat"
 	path = /obj/item/clothing/under/misc/hos_formal_male
+	cost = 1250
+
+/datum/gear/uniform/rainbow
+	display_name = "rainbow jumpsuit"
+	path = /obj/item/clothing/under/color/jumpsuit/rainbow
+	cost = 1250
+
+/datum/gear/uniform/rainbow_skirt
+	display_name = "rainbow jumpskirt"
+	path = /obj/item/clothing/under/color/jumpskirt/rainbow
+	cost = 1250
+/datum/gear/uniform/black_really_skirt
+	display_name = "executive suitskirt"
+	path = /obj/item/clothing/under/suit/black_really/skirt
+	cost = 1250
+/datum/gear/uniform/black_really
+	display_name = "executive suit"
+	path = /obj/item/clothing/under/suit/black_really
+	cost = 1250
+/datum/gear/uniform/black/skirt
+	display_name = "black suitskirt"
+	path = /obj/item/clothing/under/suit/black/skirt
+	cost = 1250
+/datum/gear/uniform/burgundy_suit
+	display_name = "burgundy suit"
+	path = /obj/item/clothing/under/suit/burgundy
+	cost = 1250
+/datum/gear/uniform/checkered
+	display_name = "checkered suit"
+	path = /obj/item/clothing/under/suit/checkered
+	cost = 1250
+/datum/gear/uniform/black/navy
+	display_name = "navy suit"
+	path = /obj/item/clothing/under/suit/navy
+	cost = 1250
+/datum/gear/uniform/black/skirt
+	display_name = "black suitskirt"
+	path = /obj/item/clothing/under/suit/black/skirt
 	cost = 1250
