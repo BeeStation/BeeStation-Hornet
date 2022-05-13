@@ -185,7 +185,7 @@
 	return TRUE
 
 /obj/item/gun/proc/shoot_with_empty_chamber(mob/living/user as mob|obj)
-	balloon_alert(user, "Gun clicks")
+	balloon_alert(user, "[src] clicks.")
 	playsound(src, dry_fire_sound, 30, TRUE)
 
 
@@ -259,7 +259,7 @@
 				return
 
 	if(weapon_weight == WEAPON_HEAVY && !is_wielded)
-		balloon_alert(user, "You need both hands free to fire")
+		balloon_alert(user, "You need both hands free to fire [src]!")
 		return
 
 	//DUAL (or more!) WIELDING
@@ -292,7 +292,7 @@
 			pin.auth_fail(user)
 			return FALSE
 	else
-		balloon_alert(user, "No firing pin installed")
+		balloon_alert(user, "[src] doesn't seem to have a firing pin installed..")
 	return FALSE
 
 /obj/item/gun/proc/recharge_newshot()
@@ -440,7 +440,7 @@
 		if(!gun_light)
 			if(!user.transferItemToLoc(I, src))
 				return
-			balloon_alert(user, "[S] attached")
+			balloon_alert(user, "You attach [S] to [src].")
 			set_gun_light(S)
 			update_gunlight()
 			alight = new(src)
@@ -452,7 +452,7 @@
 			return ..()
 		if(!user.transferItemToLoc(I, src))
 			return
-		balloon_alert(user, "[K] attached to [src]")
+		balloon_alert(user, "You attach [K] to [src].")
 		bayonet = K
 		var/state = "bayonet"							//Generic state.
 		if(bayonet.icon_state in icon_states('icons/obj/guns/bayonets.dmi'))		//Snowflake state?
@@ -533,7 +533,7 @@
 /obj/item/gun/proc/remove_gun_attachment(mob/living/user, obj/item/tool_item, obj/item/item_to_remove, removal_verb)
 	if(tool_item)
 		tool_item.play_tool_sound(src)
-	balloon_alert(user, "[item_to_remove] removed")
+	balloon_alert(user, "You remove [item_to_remove] from [src].")
 	item_to_remove.forceMove(drop_location())
 
 	if(Adjacent(user) && !issilicon(user))
@@ -594,7 +594,7 @@
 	var/mob/living/carbon/human/user = usr
 	gun_light.on = !gun_light.on
 	gun_light.update_brightness()
-	balloon_alert(user, "Flashlight [gun_light.on ? "on":"off"]")
+	balloon_alert(user, "You turn the flashlight [gun_light.on ? "on" : "off"].")
 
 	playsound(user, 'sound/weapons/empty.ogg', 100, TRUE)
 	update_gunlight()
