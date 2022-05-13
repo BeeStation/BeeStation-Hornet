@@ -1515,12 +1515,6 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 					for(var/obj/O in target_shove_turf)
 						if(O.flags_1 & ON_BORDER_1 && O.dir == turn(shove_dir, 180) && O.density)
 							break
-			/*if((!target_table && !target_collateral_human && !target_disposal_bin && !target_pool) || directional_blocked)
-				target.Knockdown(SHOVE_KNOCKDOWN_SOLID)
-				target.drop_all_held_items()
-				user.visible_message("<span class='danger'>[user.name] shoves [target.name], knocking [target.p_them()] down!</span>",
-					"<span class='danger'>You shove [target.name], knocking [target.p_them()] down!</span>", null, COMBAT_MESSAGE_RANGE)
-				log_combat(user, target, "shoved", "knocking them down")*/
 			if(target_table)
 				target.Knockdown(SHOVE_KNOCKDOWN_TABLE)
 				target.drop_all_held_items()
