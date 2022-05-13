@@ -147,6 +147,7 @@ GLOBAL_LIST_INIT(clockwork_slabs, list())
 	data["vitality"] = GLOB.clockcult_vitality
 	data["power"] = GLOB.clockcult_power
 	data["scriptures"] = list()
+	var/power_multiplier = calculate_clockwork_cost_multiplier()
 	//2 scriptures accessable at the same time will cause issues
 	for(var/scripture_name in GLOB.clockcult_all_scriptures)
 		var/datum/clockcult/scripture/scripture = GLOB.clockcult_all_scriptures[scripture_name]
@@ -155,7 +156,7 @@ GLOBAL_LIST_INIT(clockwork_slabs, list())
 			"desc" = scripture.desc,
 			"type" = scripture.category,
 			"tip" = scripture.tip,
-			"cost" = scripture.power_cost,
+			"cost" = round(scripture.power_cost * power_multiplier),
 			"purchased" = (scripture.type in purchased_scriptures),
 			"cog_cost" = scripture.cogs_required
 		)
@@ -176,8 +177,9 @@ GLOBAL_LIST_INIT(clockwork_slabs, list())
 				if(invoking_scripture)
 					to_chat(M, "<span class='brass'>You fail to invoke [name].</span>")
 					return FALSE
-				if(S.power_cost > GLOB.clockcult_power)
-					to_chat(M, "<span class='neovgre'>You need [S.power_cost]W to invoke [S.name].</span>")
+				var/power_multiplier = calculate_clockwork_cost_multiplier()
+				if(S.power_cost * power_multiplier > GLOB.clockcult_power)
+					to_chat(M, "<span class='neovgre'>You need [round(S.power_cost * power_multiplier)]W to invoke [S.name].</span>")
 					return FALSE
 				if(S.vitality_cost > GLOB.clockcult_vitality)
 					to_chat(M, "<span class='neovgre'>You need [S.vitality_cost] vitality to invoke [S.name].</span>")

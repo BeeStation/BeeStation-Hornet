@@ -28,7 +28,8 @@
 	to_chat(owner.current, "<span class='brass'>Use Rat'varian observation consoles to monitor the crew and warp to the station.</span>")
 	to_chat(owner.current, "<span class='brass'>Use your Clockwork Slab to summon integration cogs to unlock more scriptures and siphon power.</span>")
 	to_chat(owner.current, "<span class='brass'>Unlock Kindle to stun targets, Hateful Manacles to restrain them and use a sigil of submission to convert them!</span>")
-	to_chat(owner.current, "<span class='brass'>When you are ready, gather 6 cultists around the Ark and activate it to summon Rat'var, but be prepared to fight for your life.</span>")
+	to_chat(owner.current, "<span class='brass'>The Celestial Gateway will automatically activate after some time and will open faster with every conversion.</span>")
+	to_chat(owner.current, "<span class='brass'>Prevent unnecessary damage, the Gateway is fed by the station's powergrid and the minds of the living. The Gateway will be weakend with every death and strengthened with every mindshielded brain.</span>")
 	owner.current.client?.tgui_panel?.give_antagonist_popup("Servant of Rat'Var",
 		"Use your clockwork slab to unlock and invoke scriptures.\n\
 		Hijack APCs by placing an integration cog into them.\n\
@@ -45,7 +46,6 @@
 			GLOB.human_servants_of_ratvar |= owner
 		else if(iscyborg(owner.current))
 			GLOB.cyborg_servants_of_ratvar |= owner
-	check_ark_status()
 	owner.announce_objectives()
 
 /datum/antagonist/servant_of_ratvar/on_removal()

@@ -30,8 +30,9 @@
 		to_chat(user, "<span class='brass'>You fail to invoke [name].</span>")
 		return FALSE
 	var/datum/clockcult/scripture/new_scripture = new scripture_datum
-	if(new_scripture.power_cost > GLOB.clockcult_power)
-		to_chat(user, "<span class='neovgre'>You need [new_scripture.power_cost]W to invoke [new_scripture.name].</span>")
+	var/power_multiplier = calculate_clockwork_cost_multiplier()
+	if(new_scripture.power_cost * power_multiplier > GLOB.clockcult_power)
+		to_chat(user, "<span class='neovgre'>You need [round(new_scripture.power_cost * power_multiplier)]W to invoke [new_scripture.name].</span>")
 		qdel(new_scripture)
 		return FALSE
 	//Create a new scripture temporarilly to process, when it's done it will be qdeleted.

@@ -62,10 +62,11 @@
 			to_chat(user, "<span class='nzcrentr'>You fail to repair the damage of \the [C]...</span>")
 
 /obj/item/clockwork/replica_fabricator/proc/fabricate_sheets(turf/target, mob/user)
-	var/sheets = FLOOR(CLAMP(GLOB.clockcult_power / BRASS_POWER_COST, 0, 50), 1)
+	var/cost_multiplier = calculate_clockwork_cost_multiplier()
+	var/sheets = FLOOR(CLAMP(GLOB.clockcult_power / (BRASS_POWER_COST * cost_multiplier), 0, 50), 1)
 	if(sheets == 0)
 		return
-	GLOB.clockcult_power -= sheets * BRASS_POWER_COST
+	GLOB.clockcult_power -= sheets * BRASS_POWER_COST * cost_multiplier
 	new /obj/item/stack/tile/brass(target, sheets)
 	playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
 	to_chat(user, "<span class='brass'>You fabricate [sheets] brass.</span>")
