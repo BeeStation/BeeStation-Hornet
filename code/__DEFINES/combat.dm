@@ -114,11 +114,9 @@
 #define SHOVE_KNOCKDOWN_TABLE 30
 #define SHOVE_KNOCKDOWN_COLLATERAL 10
 #define SHOVE_CHAIN_PARALYZE 40
-//Shove slowdown
+//timer for losing grip on held item
 #define SHOVE_GRIPFAILING_LENGTH 50
-//Shove disarming item list
-GLOBAL_LIST_INIT(shove_disarming_types, typecacheof(list(
-	/obj/item/gun)))
+
 
 
 // Combat object defines
