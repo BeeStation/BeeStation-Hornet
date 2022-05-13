@@ -92,7 +92,7 @@
 		a_right.holder_movement()
 
 /obj/item/assembly_holder/dropped(mob/user)
-	. = ..()
+	..()
 	if(a_left)
 		a_left.dropped(user)
 	if(a_right)
@@ -121,7 +121,7 @@
 	return TRUE
 
 /obj/item/assembly_holder/attack_self(mob/user)
-	src.add_fingerprint(user)
+	add_fingerprint(user)
 	if(!a_left || !a_right)
 		to_chat(user, "<span class='danger'>Assembly part missing!</span>")
 		return

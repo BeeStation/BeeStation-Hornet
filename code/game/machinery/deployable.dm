@@ -73,7 +73,9 @@
 			to_chat(user, "<span class='notice'>You start adding [I] to [src]...</span>")
 			if(do_after(user, 50, target=src))
 				W.use(5)
-				new /turf/closed/wall/mineral/wood/nonmetal(get_turf(src))
+				var/turf/T = get_turf(src)
+				T.PlaceOnTop(/turf/closed/wall/mineral/wood/nonmetal)
+				transfer_fingerprints_to(T)
 				qdel(src)
 				return
 	return ..()
@@ -166,6 +168,8 @@
 
 /obj/item/grenade/barrier/prime(mob/living/lanced_by)
 	. = ..()
+	if(!.)
+		return
 	new /obj/structure/barricade/security(get_turf(src.loc))
 	switch(mode)
 		if(VERTICAL)

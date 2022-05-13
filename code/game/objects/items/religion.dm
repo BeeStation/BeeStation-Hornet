@@ -389,3 +389,9 @@
 	force = 15
 	block_power = 30
 	armour_penetration = 5
+
+/obj/item/katana/weak/curator
+	desc = "An ancient Katana. Forged by... Well, it doesn't really say, but surely it's authentic! And sharp to boot!"
+	force = 15
+	block_power = 5
+

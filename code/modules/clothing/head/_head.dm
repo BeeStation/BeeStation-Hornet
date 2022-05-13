@@ -5,9 +5,9 @@
 	item_state = "that"
 	body_parts_covered = HEAD
 	slot_flags = ITEM_SLOT_HEAD
-	var/blockTracking = 0 //For AI tracking
-	var/can_toggle = null
 	dynamic_hair_suffix = "+generic"
+	///Is the person wearing this trackable by the AI?
+	var/blockTracking = FALSE
 
 /obj/item/clothing/head/Initialize(mapload)
 	. = ..()
@@ -27,7 +27,7 @@
 	if(clothing_flags & EFFECT_HAT)
 		return
 	///if the hat happens to be capable of holding contents and has something in it. mostly to prevent super cheesy stuff like stuffing a mini-bomb in a hat and throwing it
-	if(LAZYLEN(contents))
+	if(length(contents))
 		return
 	if(iscarbon(hit_atom))
 		var/mob/living/carbon/H = hit_atom

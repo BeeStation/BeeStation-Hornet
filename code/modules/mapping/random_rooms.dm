@@ -1305,7 +1305,7 @@
 	template_width = 10
 	weight = 2
 
-/datum/map_template/random_room/sk_rdm153 //its a hobo den featuring Peter the pet frog. Includes a debtor spawn
+/datum/map_template/random_room/sk_rdm153 //its a hobo den featuring Peter the pet frog.
 	name = "peters room"
 	room_id = "sk_rdm153_hobowithpeter"
 	mappath = "_maps/RandomRooms/10x5/sk_rdm153_hobowithpeter.dmm"

@@ -1,4 +1,4 @@
-/datum/mutation/human/antenna
+/datum/mutation/antenna
 	name = "Antenna"
 	desc = "The affected person sprouts an antenna. This is known to allow them to access common radio channels passively."
 	quality = POSITIVE
@@ -18,24 +18,24 @@
 	..()
 	radio.name = "internal antenna"
 
-/datum/mutation/human/antenna/on_acquiring(mob/living/carbon/human/owner)
+/datum/mutation/antenna/on_acquiring(mob/living/carbon/owner)
 	if(..())
 		return
 	var/obj/item/implant/radio/antenna/linked_radio = new(owner)
 	linked_radio.implant(owner, null, TRUE, TRUE)
 	radio_weakref = WEAKREF(linked_radio)
 
-/datum/mutation/human/antenna/on_losing(mob/living/carbon/human/owner)
+/datum/mutation/antenna/on_losing(mob/living/carbon/owner)
 	if(..())
 		return
 	var/obj/item/implant/radio/antenna/linked_radio = radio_weakref.resolve()
 	if(linked_radio)
 		QDEL_NULL(linked_radio)
 
-/datum/mutation/human/antenna/New(class_ = MUT_OTHER, timer, datum/mutation/human/copymut)
+/datum/mutation/antenna/New(class_ = MUT_OTHER, timer, datum/mutation/copymut)
 	..()
 	if(!(type in visual_indicators))
 		visual_indicators[type] = list(mutable_appearance('icons/effects/genetics.dmi', "antenna", -FRONT_MUTATIONS_LAYER+1))//-MUTATIONS_LAYER+1
 
-/datum/mutation/human/antenna/get_visual_indicator()
+/datum/mutation/antenna/get_visual_indicator()
 	return visual_indicators[type][1]

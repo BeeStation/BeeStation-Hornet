@@ -59,6 +59,8 @@
 			to_chat(user, "<span class='notice'>You detach \the [battery] from \the [src].</span>")
 		else
 			battery.forceMove(drop_location())
+
+		battery = null
 		return TRUE
 
 /obj/item/stock_parts/cell/computer

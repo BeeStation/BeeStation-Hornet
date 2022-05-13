@@ -1,0 +1,10 @@
+Get everyone to hate %DEPARTMENT, through misdirection, slander, and sabotage.
+Incite a strike in %DEPARTMENT.
+Impede the work of those at %DEPARTMENT while keeping those working in it alive.
+Keep power & cameras cut in %DEPARTMENT.
+Disguise yourself as a member of %DEPARTMENT and sabotage them from within.
+Vandalize %DEPARTMENT as much as possible.
+Destroy %DEPARTMENT utterly and entirely. Deaths within the department are of no concern, but limit the destruction to %DEPARTMENT.
+Steal equipment critical for %DEPARTMENT to function.
+Attempt to kidnap a member of %DEPARTMENT to take with you alive on an escape pod or a shuttle, for questioning at Syndicate HQ.
+Hack all doors in %DEPARTMENT to be shocked, bolted, or inaccessible by the AI.

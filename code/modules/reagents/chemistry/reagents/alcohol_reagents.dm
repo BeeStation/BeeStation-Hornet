@@ -46,6 +46,8 @@ All effects don't start immediately, but rather get worse over time; the rate is
 			else
 				booze_power *= 2
 		C.drunkenness = max((C.drunkenness + (sqrt(volume) * booze_power * ALCOHOL_RATE)), 0) //Volume, power, and server alcohol rate effect how quickly one gets drunk
+		if(C.drunkenness >= 250)
+			C.client?.give_award(/datum/award/achievement/misc/drunk, C)
 		var/obj/item/organ/liver/L = C.getorganslot(ORGAN_SLOT_LIVER)
 		if (istype(L))
 			L.applyOrganDamage(((max(sqrt(volume) * (boozepwr ** ALCOHOL_EXPONENT) * L.alcohol_tolerance, 0))/150))
@@ -696,10 +698,10 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	var/dorf_mode
 
 /datum/reagent/consumable/ethanol/manly_dorf/on_mob_metabolize(mob/living/M)
-	if(ishuman(M))
-		var/mob/living/carbon/human/H = M
-		if(H.dna.check_mutation(DWARFISM) || HAS_TRAIT(H, TRAIT_ALCOHOL_TOLERANCE))
-			to_chat(H, "<span class='notice'>Now THAT is MANLY!</span>")
+	if(iscarbon(M))
+		var/mob/living/carbon/C = M
+		if(HAS_TRAIT(C, TRAIT_ALCOHOL_TOLERANCE) || (C.has_dna() && C.dna.check_mutation(DWARFISM)))
+			to_chat(C, "<span class='notice'>Now THAT is MANLY!</span>")
 			boozepwr = 5 //We've had worse in the mines
 			dorf_mode = TRUE
 
@@ -2344,9 +2346,9 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	desc = "You can feel heat rising from your stomach"
 	range = 20
 	charge_max = 300
-	projectile_type = /obj/item/projectile/magic/aoe/fireball/firebreath/weak
+	projectile_type = /obj/item/projectile/magic/fireball/firebreath/weak
 
-/obj/item/projectile/magic/aoe/fireball/firebreath/weak
+/obj/item/projectile/magic/fireball/firebreath/weak
 	exp_fire = 1
 
 /datum/reagent/consumable/ethanol/beesknees

@@ -92,7 +92,7 @@
 										 "<span class='danger'>You direct [src] to [M]'s eyes.</span>")
 					if(M.stat == DEAD || (HAS_TRAIT(M, TRAIT_BLIND)) || !M.flash_act(visual = 1)) //mob is dead or fully blind
 						to_chat(user, "<span class='warning'>[M]'s pupils don't react to the light!</span>")
-					else if(M.dna && M.dna.check_mutation(XRAY))	//mob has X-ray vision
+					else if(M.has_dna() && M.dna.check_mutation(XRAY))	//mob has X-ray vision
 						to_chat(user, "<span class='danger'>[M]'s pupils give an eerie glow!</span>")
 					else //they're okay!
 						to_chat(user, "<span class='notice'>[M]'s pupils narrow.</span>")
@@ -480,7 +480,7 @@
 		cut_overlays()
 
 /obj/item/flashlight/glowstick/pickup(mob/user)
-	. = ..()
+	..()
 	if(burn_pickup && on)
 		burn_pickup = FALSE
 		START_PROCESSING(SSobj, src)

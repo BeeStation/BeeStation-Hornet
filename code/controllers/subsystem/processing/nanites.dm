@@ -4,7 +4,6 @@ PROCESSING_SUBSYSTEM_DEF(nanites)
 	wait = 1 SECONDS
 
 	var/list/datum/nanite_cloud_backup/cloud_backups = list()
-	var/list/mob/living/nanite_monitored_mobs = list()
 	var/list/datum/nanite_program/relay/nanite_relays = list()
 	var/neural_network_count = 0
 

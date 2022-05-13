@@ -91,15 +91,15 @@
 	if(istype(W, /obj/item/stock_parts/cell))
 		var/obj/item/stock_parts/cell/C = W
 		if(cell)
-			balloon_alert(user, "[src] already has a cell")
+			balloon_alert(user, "[src] already has a cell.")
 		else
 			if(C.maxcharge < hitcost)
-				balloon_alert(user, "[src] requires a higher capacity cell")
+				balloon_alert(user, "[src] requires a higher capacity power cell.")
 				return
 			if(!user.transferItemToLoc(W, src))
 				return
 			cell = W
-			balloon_alert(user, "Cell installed")
+			balloon_alert(user, "You insert the power cell.")
 			update_icon()
 
 	else if(W.tool_behaviour == TOOL_SCREWDRIVER)
@@ -107,7 +107,7 @@
 			cell.update_icon()
 			cell.forceMove(get_turf(src))
 			cell = null
-			balloon_alert(user, "Cell removed")
+			balloon_alert(user, "You remove the power cell.")
 			turned_on = FALSE
 			update_icon()
 	else
@@ -121,11 +121,9 @@
 	else
 		turned_on = FALSE
 		if(!cell)
-			balloon_alert(user, "No power source")
+			balloon_alert(user, "It has no power source!")
 		else if(obj_flags & OBJ_EMPED)
-			balloon_alert(user, "Not responding")
-		else
-			balloon_alert(user, "Out of charge")
+			balloon_alert(user, "It's not responding!")
 	update_icon()
 	add_fingerprint(user)
 

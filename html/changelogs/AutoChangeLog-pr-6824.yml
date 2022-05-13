@@ -1,0 +1,5 @@
+author: ivanmixo
+delete-after: true
+changes:
+  - tweak: bubble alerts stay on screen longer
+  - spellcheck: fixed punctuation and grammar in bubble alerts

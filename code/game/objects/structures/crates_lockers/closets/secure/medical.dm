@@ -18,7 +18,8 @@
 		/obj/item/storage/box/rxglasses = 1,
 		/obj/item/stack/ducts/fifty = 4,
 		/obj/item/construction/plumbing = 2,
-		/obj/item/plunger = 2)
+		/obj/item/plunger = 2,
+		/obj/item/rcd_ammo = 4)
 	generate_items_inside(items_inside,src)
 
 /obj/structure/closet/secure_closet/medical2
@@ -107,6 +108,7 @@
 	new /obj/item/reagent_containers/food/drinks/bottle/synthflesh(src)
 	new /obj/item/card/id/departmental_budget/med(src)
 	new /obj/item/extrapolator(src)
+	new /obj/item/storage/lockbox/medal/med(src)
 
 /obj/structure/closet/secure_closet/animal
 	name = "animal control"
@@ -138,6 +140,8 @@
 	new /obj/item/construction/plumbing(src)
 	new	/obj/item/plunger(src)
 	new	/obj/item/plunger(src)
+	new /obj/item/rcd_ammo(src)
+	new /obj/item/rcd_ammo(src)
 
 /obj/structure/closet/secure_closet/chemical/heisenberg //contains one of each beaker, syringe etc.
 	name = "advanced chemical closet"

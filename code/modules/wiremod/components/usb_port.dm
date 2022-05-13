@@ -93,15 +93,15 @@
 	var/atom/atom_parent = parent
 
 	if (!isnull(attached_circuit))
-		atom_parent.balloon_alert(user, "usb already connected")
+		atom_parent.balloon_alert(user, "There is a USB already connected.")
 		return COMSIG_CANCEL_USB_CABLE_ATTACK
 
 	if (isnull(connecting_cable.attached_circuit))
-		connecting_cable.balloon_alert(user, "connect to a shell first")
+		connecting_cable.balloon_alert(user, "Connect to a shell first!")
 		return COMSIG_CANCEL_USB_CABLE_ATTACK
 
 	if (!IN_GIVEN_RANGE(connecting_cable.attached_circuit, parent, USB_CABLE_MAX_RANGE))
-		connecting_cable.balloon_alert(user, "too far away")
+		connecting_cable.balloon_alert(user, "You are too far away.")
 		return COMSIG_CANCEL_USB_CABLE_ATTACK
 
 	usb_cable_ref = WEAKREF(connecting_cable)

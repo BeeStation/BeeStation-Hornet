@@ -1,7 +1,7 @@
 /obj/item/dnainjector
 	name = "\improper DNA injector"
-	desc = "This injects the person with DNA."
-	icon = 'icons/obj/items_and_weapons.dmi'
+	desc = "A cheap single use autoinjector that injects the user with DNA."
+	icon = 'icons/obj/syringe.dmi'
 	icon_state = "dnainjector"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
@@ -46,17 +46,15 @@
 		return TRUE
 	return FALSE
 
-/obj/item/dnainjector/attack(mob/target, mob/user)
+/obj/item/dnainjector/attack(mob/living/target, mob/living/user)
 	if(!user.IsAdvancedToolUser())
 		to_chat(user, "<span class='warning'>You don't have the dexterity to do this!</span>")
 		return
 	if(used)
 		to_chat(user, "<span class='warning'>This injector is used up!</span>")
 		return
-	if(ishuman(target))
-		var/mob/living/carbon/human/humantarget = target
-		if (!humantarget.can_inject(user, 1))
-			return
+	if(!target.can_inject(user, TRUE))
+		return
 	log_combat(user, target, "attempted to inject", src)
 
 	if(target != user)
@@ -77,7 +75,7 @@
 
 	used = TRUE
 	icon_state = "dnainjector0"
-	desc += " This one is used up."
+	desc += " This one is spent, you better recycle it!"
 
 
 /obj/item/dnainjector/antihulk
@@ -442,6 +440,38 @@
 	name = "\improper DNA injector (Anti-Antiglowy)"
 	remove_mutations = list(ANTIGLOWY)
 
+/obj/item/dnainjector/strongwings
+	name = "\improper DNA injector (Strong Wings)"
+	add_mutations = list(STRONGWINGS)
+
+/obj/item/dnainjector/antistrongwings
+	name = "\improper DNA injector (Anti-Strong Wings)"
+	remove_mutations = list(STRONGWINGS)
+
+/obj/item/dnainjector/catclaws
+	name = "\improper DNA injector (Cat Claws)"
+	add_mutations = list(CATCLAWS)
+
+/obj/item/dnainjector/anticatclaws
+	name = "\improper DNA injector (Anti-Cat Claws)"
+	remove_mutations = list(CATCLAWS)
+
+/obj/item/dnainjector/overload
+	name = "\improper DNA injector (Overload)"
+	add_mutations = list(OVERLOAD)
+
+/obj/item/dnainjector/antioverload
+	name = "\improper DNA injector (Anti-Overload)"
+	remove_mutations = list(OVERLOAD)
+
+/obj/item/dnainjector/acidooze
+	name = "\improper DNA injector (Acid Ooze)"
+	add_mutations = list(ACIDOOZE)
+
+/obj/item/dnainjector/antiacidooze
+	name = "\improper DNA injector (Pepto-Bismol)"
+	remove_mutations = list(ACIDOOZE)
+
 /obj/item/dnainjector/timed
 	var/duration = 600
 
@@ -516,8 +546,8 @@
 		M.radiation += rand(20/(damage_coeff  ** 2),50/(damage_coeff  ** 2))
 		var/log_msg = "[key_name(user)] injected [key_name(M)] with the [name]"
 		for(var/mutation in add_mutations)
-			var/datum/mutation/human/HM = mutation
-			if(istype(HM, /datum/mutation/human))
+			var/datum/mutation/HM = mutation
+			if(istype(HM, /datum/mutation))
 				mutation = HM.type
 			if(!M.dna.activate_mutation(HM))
 				if(!doitanyway)

@@ -68,7 +68,7 @@
 					/obj/item/key,
 					/obj/item/clothing/suit/jacket/leather/overcoat,
 					/obj/item/clothing/gloves/color/black,
-					/obj/item/clothing/head/soft,
+					/obj/item/clothing/head/soft/cargo,
 					/obj/item/clothing/mask/bandana/skull)//so you can properly #cargoniabikergang
 	crate_name = "Biker Kit"
 	crate_type = /obj/structure/closet/crate/large
@@ -2033,11 +2033,10 @@
 /datum/supply_pack/service/randomized/donkpockets
 	name = "Donk Pocket Variety Crate"
 	desc = "Featuring a line up of Donk Co.'s most popular pastry!"
-	cost = 2000
+	cost = 1500
 	contains = list(/obj/item/storage/box/donkpockets/donkpocketspicy,
 	/obj/item/storage/box/donkpockets/donkpocketteriyaki,
 	/obj/item/storage/box/donkpockets/donkpocketpizza,
-	/obj/item/storage/box/donkpockets/donkpocketgondola,
 	/obj/item/storage/box/donkpockets/donkpocketberry,
 	/obj/item/storage/box/donkpockets/donkpockethonk)
 	crate_name = "donk pocket crate"
@@ -2782,6 +2781,22 @@
 	)
 	crate_type = /obj/structure/closet/crate/wooden
 
+
+/datum/supply_pack/costumes_toys/randomised/plush
+	name = "Plushie Crate"
+	desc = "A crate filled with 5 plushies!"
+	cost = 1500
+	num_contained = 5
+	contains = list()
+	crate_type = /obj/structure/closet/crate/wooden
+	crate_name = "plushie crate"
+
+/datum/supply_pack/costumes_toys/randomised/plush/fill(obj/structure/closet/crate/C)
+	var/plush
+	for(var/i in 1 to num_contained)
+		plush = pick(subtypesof(/obj/item/toy/plush))
+		new plush(C)
+
 //////////////////////////////////////////////////////////////////////////////
 ///////////////////////// Wardrobe Resupplies ////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
@@ -2918,6 +2933,12 @@
 	contains = list(/obj/vehicle/ridden/bicycle)
 	crate_name = "Bicycle Crate"
 	crate_type = /obj/structure/closet/crate/large
+
+/datum/supply_pack/misc/bicycle/generate(atom/A, datum/bank_account/paying_account)
+	. = ..()
+	for(var/client/C as() in GLOB.clients)
+		if(C?.mob.mind.assigned_role == "Quartermaster" || C?.mob.mind.assigned_role == "Cargo Technician")
+			C?.give_award(/datum/award/achievement/misc/bike, C?.mob)
 
 /datum/supply_pack/misc/bigband
 	name = "Big Band Instrument Collection"

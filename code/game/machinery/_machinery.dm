@@ -128,6 +128,10 @@ Class Procs:
 	var/market_verb = "Customer"
 	var/payment_department = ACCOUNT_ENG
 
+	var/clickvol = 40	// sound volume played on succesful click
+	var/next_clicksound = 0	// value to compare with world.time for whether to play clicksound according to CLICKSOUND_INTERVAL
+	var/clicksound	// sound played on succesful interface use by a carbon lifeform
+
 	// For storing and overriding ui id and dimensions
 	var/tgui_id // ID of TGUI interface
 	var/ui_style // ID of custom TGUI style (optional)
@@ -283,8 +287,8 @@ Class Procs:
 			return FALSE
 
 		if(!Adjacent(user)) // Next make sure we are next to the machine unless we have telekinesis
-			var/mob/living/carbon/H = L
-			if(!(istype(H) && H.has_dna() && H.dna.check_mutation(TK)))
+			var/mob/living/carbon/C = L
+			if(!(istype(C) && C.has_dna() && C.dna.check_mutation(TK)))
 				return FALSE
 
 		if(L.incapacitated()) // Finally make sure we aren't incapacitated
@@ -335,6 +339,8 @@ Class Procs:
 
 /obj/machinery/ui_act(action, params)
 	add_fingerprint(usr)
+	if(isliving(usr) && in_range(src, usr))
+		play_click_sound()
 	return ..()
 
 /obj/machinery/Topic(href, href_list)
@@ -590,6 +596,11 @@ Class Procs:
 	. = . % 9
 	AM.pixel_x = -8 + ((.%3)*8)
 	AM.pixel_y = -8 + (round( . / 3)*8)
+
+/obj/machinery/proc/play_click_sound(var/custom_clicksound)
+	if((custom_clicksound ||= clicksound) && world.time > next_clicksound)
+		next_clicksound = world.time + CLICKSOUND_INTERVAL
+		playsound(src, custom_clicksound, clickvol)
 
 /obj/machinery/rust_heretic_act()
 	take_damage(500, BRUTE, "melee", 1)

@@ -667,11 +667,11 @@
 	to_chat(new_owner, "<span class='boldwarning'>My body can't handle the mutations! I need to get my mutations removed fast!</span>")
 
 /datum/status_effect/dna_melt/on_remove()
-	if(!ishuman(owner))
+	if(!owner.has_dna())
 		owner.gib() //fuck you in particular
 		return
-	var/mob/living/carbon/human/H = owner
-	H.something_horrible(kill_either_way)
+	var/mob/living/carbon/C = owner
+	C.something_horrible(kill_either_way)
 
 /atom/movable/screen/alert/status_effect/dna_melt
 	name = "Genetic Breakdown"

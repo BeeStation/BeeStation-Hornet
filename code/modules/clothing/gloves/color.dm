@@ -18,7 +18,7 @@
 		SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "sec_black_gloves", /datum/mood_event/sec_black_gloves)
 
 /obj/item/clothing/gloves/color/black/dropped(mob/user)
-	. = ..()
+	..()
 	if(user.mind?.assigned_role in GLOB.security_positions)
 		SEND_SIGNAL(user, COMSIG_CLEAR_MOOD_EVENT, "sec_black_gloves")
 
@@ -31,7 +31,7 @@
 			SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "sec_insulated_gloves", /datum/mood_event/sec_insulated_gloves)
 
 /obj/item/clothing/gloves/color/yellow/dropped(mob/user)
-	. = ..()
+	..()
 	if(user.mind?.assigned_role == "Assistant")
 		SEND_SIGNAL(user, COMSIG_CLEAR_MOOD_EVENT, "assistant_insulated_gloves")
 	if(user.mind?.assigned_role in GLOB.security_positions)
@@ -52,17 +52,6 @@
 /obj/item/clothing/gloves/color/fyellow/Initialize(mapload)
 	. = ..()
 	siemens_coefficient = pick(0,0.5,0.5,0.5,0.5,0.75,1.5)
-
-/obj/item/clothing/gloves/color/fyellow/examine(mob/user)
-	. = ..()
-	var/protectionpercentage = ((1 - siemens_coefficient) * 100)
-	if(HAS_TRAIT(user, TRAIT_APPRAISAL))
-		if(siemens_coefficient <= 0)
-			. += "[src] will fully protect from electric shocks."
-		if(siemens_coefficient > 1)
-			. += "[src] will only make shocks worse."
-		else
-			. += "[src] will provide [protectionpercentage] percent protection from electric shocks."
 
 /obj/item/clothing/gloves/color/fyellow/old
 	desc = "Old and worn out insulated gloves, hopefully they still work."

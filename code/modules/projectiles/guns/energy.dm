@@ -3,23 +3,32 @@
 	name = "energy gun"
 	desc = "A basic energy-based gun."
 	icon = 'icons/obj/guns/energy.dmi'
-
-	var/obj/item/stock_parts/cell/cell //What type of power cell this uses
+	///What type of power cell this uses
+	var/obj/item/stock_parts/cell/cell 
 	var/cell_type = /obj/item/stock_parts/cell
+	/// how much charge the cell will have, if we want the gun to have some abnormal charge level without making a new battery.
+	var/gun_charge
 	var/modifystate = 0
 	var/list/ammo_type = list(/obj/item/ammo_casing/energy)
-	var/select = 1 //The state of the select fire switch. Determines from the ammo_type list what kind of shot is fired next.
-	var/can_charge = TRUE //Can it be charged in a recharger?
-	var/automatic_charge_overlays = TRUE	//Do we handle overlays with base update_icon()?
+	///The state of the select fire switch. Determines from the ammo_type list what kind of shot is fired next.
+	var/select = 1 
+	///Can it be charged in a recharger?
+	var/can_charge = TRUE 
+	///Do we handle overlays with base update_icon()?
+	var/automatic_charge_overlays = TRUE	
 	var/charge_sections = 4
 	ammo_x_offset = 2
-	var/shaded_charge = FALSE //if this gun uses a stateful charge bar for more detail
-	var/old_ratio = 0 // stores the gun's previous ammo "ratio" to see if it needs an updated icon
+	///if this gun uses a stateful charge bar for more detail
+	var/shaded_charge = FALSE 
+	/// stores the gun's previous ammo "ratio" to see if it needs an updated icon
+	var/old_ratio = 0 
 	var/selfcharge = 0
 	var/charge_timer = 0
 	var/charge_delay = 8
-	var/use_cyborg_cell = FALSE //whether the gun's cell drains the cyborg user's cell to recharge
-	var/dead_cell = FALSE //set to true so the gun is given an empty cell
+	///whether the gun's cell drains the cyborg user's cell to recharge
+	var/use_cyborg_cell = FALSE 
+	///set to true so the gun is given an empty cell
+	var/dead_cell = FALSE 
 
 /obj/item/gun/energy/emp_act(severity)
 	. = ..()
@@ -43,6 +52,9 @@
 	. = ..()
 	if(cell_type)
 		cell = new cell_type(src)
+		if(gun_charge) //But we only use this if it is defined instead of overwriting every cell to 1000 by default like a dumbass
+			cell.maxcharge = gun_charge
+			cell.charge = gun_charge
 	else
 		cell = new(src)
 	if(dead_cell)	//this makes much more sense.
@@ -140,7 +152,7 @@
 	fire_sound = shot.fire_sound
 	fire_delay = shot.delay
 	if (shot.select_name)
-		balloon_alert(user, "Set to [shot.select_name]")
+		balloon_alert(user, "You set [src]'s mode to [shot.select_name].")
 	chambered = null
 	recharge_newshot(TRUE)
 	update_icon(TRUE)
