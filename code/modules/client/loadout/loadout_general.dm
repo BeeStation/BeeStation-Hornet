@@ -3,7 +3,7 @@
 /datum/gear/misc
 	subtype_path = /datum/gear/misc
 	sort_category = "General"
-	cost = FREE_GEAR
+	cost = 0
 /datum/gear/misc/d20
 	display_name = "d20"
 	path = /obj/item/dice/d20
