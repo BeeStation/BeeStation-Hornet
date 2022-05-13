@@ -1173,7 +1173,8 @@
 
 /obj/item/toy/cog/examine(mob/user)
 	. = ..()
-	. += "<span class='warning'>It's clearly a fake, how could anybody fall for this!</span>"
+	if(is_servant_of_ratvar(user))
+		. += "<span class='warning'>It's clearly a fake, how could anybody fall for this!</span>"
 
 /*
  * Replica fabricator
@@ -1189,7 +1190,8 @@
 
 /obj/item/toy/replica_fabricator/examine(mob/user)
 	. = ..()
-	. += "<span class='warning'>It's clearly a fake, how could anybody fall for this!</span>"
+	if(is_servant_of_ratvar(user))
+		. += "<span class='warning'>It's clearly a fake, how could anybody fall for this!</span>"
 
 /*
  * Xenomorph action figure
