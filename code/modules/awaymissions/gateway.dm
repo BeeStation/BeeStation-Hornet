@@ -228,7 +228,7 @@ GLOBAL_DATUM(the_gateway, /obj/machinery/gateway/centerstation)
 		say("Destination Gateway is not active")
 		return
 	if(isliving(AM))
-		if(check_exile_implant(AM) || is_species(AM, /datum/species/lizard/ashwalker) || ismegafauna(AM))
+		if(check_exile_implant(AM) || is_species(AM, /datum/species/lizard/ashwalker) || ismegafauna(AM) || iselite(AM))
 			say("Rejecting [AM]: Unauthorized lifeform detected.")
 			return
 	else
