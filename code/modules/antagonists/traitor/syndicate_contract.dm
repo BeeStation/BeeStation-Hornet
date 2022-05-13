@@ -166,8 +166,11 @@
 	if (M.stat != DEAD)
 		// Heal them up - gets them out of crit/soft crit. If omnizine is removed in the future, this needs to be replaced with a
 		// method of healing them, consequence free, to a reasonable amount of health.
-		M.reagents.add_reagent(/datum/reagent/medicine/omnizine, 20)
-
+		//if the species is oozeling change the reagent to regen_ooze since omnizine deals toxin damage to them
+		if(is_species(M, /datum/species/oozeling))
+			M.reagents.add_reagent(/datum/reagent/medicine/regen_ooze, 20)
+		else
+			M.reagents.add_reagent(/datum/reagent/medicine/omnizine, 20)
 		M.flash_act()
 		M.confused += 10
 		M.blur_eyes(5)
