@@ -1546,13 +1546,6 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 				return
 		user.visible_message("<span class='danger'>[user.name] shoves [target.name]!</span>",
 			"<span class='danger'>You shove [target.name]!</span>", null, COMBAT_MESSAGE_RANGE)
-		var/target_held_item = target.get_active_held_item()
-		if(target_held_item)
-			if(prob(16)) //Trying to disarm should be a last ditch effort in a no-win situation, not a guaranteed outcome.
-				target.dropItemToGround(target_held_item)
-				target.visible_message("<span class='danger'>[target.name] fumbles their grip and drops \the [target_held_item]!!</span>",
-										"<span class='danger'>You lose your grip and drop \the [target_held_item]!!</span>", null, COMBAT_MESSAGE_RANGE)
-				log_combat(user, target, "shoved, causing them to drop [target_held_item]")
 			else
 				log_combat(user, target, "shoved")
 
