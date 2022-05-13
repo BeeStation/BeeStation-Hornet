@@ -1,0 +1,4 @@
+author: Archemagus
+delete-after: true
+changes:
+  - bugfix: Cyrillic in radio prefixes
