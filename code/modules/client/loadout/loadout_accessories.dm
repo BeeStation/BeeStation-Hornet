@@ -1,4 +1,3 @@
-1283
 // DO NOT CHANGE DISPLAY NAME
 
 /datum/gear/accessory
