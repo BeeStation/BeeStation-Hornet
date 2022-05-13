@@ -1547,32 +1547,14 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		user.visible_message("<span class='danger'>[user.name] shoves [target.name]!</span>",
 			"<span class='danger'>You shove [target.name]!</span>", null, COMBAT_MESSAGE_RANGE)
 		var/target_held_item = target.get_active_held_item()
-		var/knocked_item = FALSE
-		if(!is_type_in_typecache(target_held_item, GLOB.shove_disarming_types))
-			target_held_item = null
 		if(target_held_item)
-			switch(target.faltering_grip)
-				if(0 to 1)
-					target.faltering_grip++
-					addtimer(CALLBACK(target, /mob/living/carbon/human/proc/clear_shove), SHOVE_GRIPFAILING_LENGTH)
-					target.visible_message("<span class='danger'>[target.name]'s grip on \the [target_held_item] loosens!</span>",
-										"<span class='danger'>Your grip on \the [target_held_item] loosens!</span>", null, COMBAT_MESSAGE_RANGE)
-				if(2)
-					target.faltering_grip = 0
-					target.dropItemToGround(target_held_item)
-					knocked_item = TRUE
-					target.visible_message("<span class='danger'>[target.name] drops \the [target_held_item]!!</span>",
-											"<span class='danger'>You drop \the [target_held_item]!!</span>", null, COMBAT_MESSAGE_RANGE)
-					var/append_message = ""
-					if(target_held_item)
-						if(knocked_item)
-							append_message = "causing them to drop [target_held_item]"
-						else
-							append_message = "loosening their grip on [target_held_item]"
-					log_combat(user, target, "shoved [append_message]")
-				else //failsafe in case an unintended value is somehow achieved. 
-					target.faltering_grip = 0
-					message_admins("human variable faltering_strength has achieved an unintended value. Please report this to a coder with as much surrounding information as possible.")
+			if(prob(20)) //Trying to disarm should be a last ditch effort in a no-win situation, not a guaranteed outcome.
+				target.dropItemToGround(target_held_item)
+				target.visible_message("<span class='danger'>[target.name] fumbles their grip and drops \the [target_held_item]!!</span>",
+										"<span class='danger'>You lose your grip and drop \the [target_held_item]!!</span>", null, COMBAT_MESSAGE_RANGE)
+				log_combat(user, target, "shoved, causing them to drop [target_held_item]")
+			else
+				log_combat(user, target, "shoved")
 
 /datum/species/proc/spec_hitby(atom/movable/AM, mob/living/carbon/human/H)
 	return

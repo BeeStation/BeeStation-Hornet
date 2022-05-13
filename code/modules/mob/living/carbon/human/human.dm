@@ -1037,15 +1037,6 @@
 			if(C.blocks_shove_knockdown)
 				return TRUE
 	return FALSE
-
-/mob/living/carbon/human/proc/clear_shove()
-	switch(faltering_grip)
-		if(1 to 2)
-			faltering_grip--
-			return
-		if(3 to INFINITY) //failsafe since the value should be immediately reset to 0 upon reaching 3, and can never go below 0. 
-			message_admins("human variable faltering_strength has achieved an unintended value. Please report this to a coder with as much surrounding information as possible.")
-			faltering_grip = 0
 			
 /mob/living/carbon/human/updatehealth()
 	. = ..()
