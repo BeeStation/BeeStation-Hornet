@@ -1545,7 +1545,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 				log_combat(user, target, "shoved", "into [target_pool] (swimming pool)")
 				return
 			else
-			user.visible_message("<span class='danger'>[user.name] shoves [target.name]!</span>",
+				user.visible_message("<span class='danger'>[user.name] shoves [target.name]!</span>",
 			"<span class='danger'>You shove [target.name]!</span>", null, COMBAT_MESSAGE_RANGE)
 			
 				log_combat(user, target, "shoved")
