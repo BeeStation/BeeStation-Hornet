@@ -44,7 +44,7 @@
 	if(J) // Fix for runtime caused by invalid job being passed
 		if(J.cooks>0)//Cooks
 			suit = /obj/item/clothing/suit/apron/chef
-			head = /obj/item/clothing/head/soft/mime
+			head = /obj/item/clothing/head/soft
 		if(!visualsOnly)
 			J.cooks++
 

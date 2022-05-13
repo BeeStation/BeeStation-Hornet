@@ -190,13 +190,13 @@
 	metabolization_rate = 0.75 * REAGENTS_METABOLISM
 
 /datum/reagent/drug/methamphetamine/on_mob_metabolize(mob/living/L)
-	ADD_TRAIT(L, TRAIT_NOBLOCK, type)
 	..()
-	if (L.client)
+	if(L.client)
 		L.client.give_award(/datum/award/achievement/misc/meth, L)
 
-	L.add_movespeed_modifier(type, update=TRUE, priority=100, multiplicative_slowdown=-1.25, blacklisted_movetypes=(FLYING|FLOATING))
+	L.add_movespeed_modifier(type, update=TRUE, priority=100, multiplicative_slowdown=-0.75, blacklisted_movetypes=(FLYING|FLOATING))
 	ADD_TRAIT(L, TRAIT_SLEEPIMMUNE, type)
+	ADD_TRAIT(L, TRAIT_NOBLOCK, type)
 
 /datum/reagent/drug/methamphetamine/on_mob_end_metabolize(mob/living/L)
 	REMOVE_TRAIT(L, TRAIT_NOBLOCK, type)
@@ -510,11 +510,11 @@
 	..()
 
 /datum/reagent/drug/ketamine/overdose_process(mob/living/M)
-	//Dissociative anesthetics? Overdosing? Time to dissociate hard.
 	var/obj/item/organ/brain/B = M.getorgan(/obj/item/organ/brain)
-	if(B.can_gain_trauma(/datum/brain_trauma/severe/split_personality, 5))
-		B.brain_gain_trauma(/datum/brain_trauma/severe/split_personality, 5)
-		. = 1
+	var/gained_trauma = FALSE
+	if(!gained_trauma)
+		B.gain_trauma_type(BRAIN_TRAUMA_SEVERE, TRAUMA_RESILIENCE_SURGERY)
+		gained_trauma = TRUE
 	M.hallucination += 10
 	//Uh Oh Someone is tired
 	if(prob(40))
