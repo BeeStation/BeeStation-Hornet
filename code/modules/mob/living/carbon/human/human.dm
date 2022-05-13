@@ -424,7 +424,7 @@
 			return TRUE
 		var/obj/item/clothing/head/CH = head
 		if(CH.clothing_flags & THICKMATERIAL)
-			balloon_alert(user, "There is no exposed flesh on [p_their()] head")
+			balloon_alert(user, "There is no exposed flesh on [p_their()] head.")
 			return FALSE
 		return TRUE
 	if(!wear_suit || !isclothing(wear_suit))
@@ -434,19 +434,19 @@
 		switch(target_zone)
 			if(BODY_ZONE_CHEST)
 				if(CS.body_parts_covered & CHEST)
-					balloon_alert(user, "There is no exposed flesh on this chest")
+					balloon_alert(user, "There is no exposed flesh on [p_their()] chest.")
 					return FALSE
 			if(BODY_ZONE_PRECISE_GROIN)
 				if(CS.body_parts_covered & GROIN)
-					balloon_alert(user, "There is no exposed flesh on this groin")
+					balloon_alert(user, "There is no exposed flesh on [p_their()] groin.")
 					return FALSE
 			if(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)
 				if(CS.body_parts_covered & ARMS)
-					balloon_alert(user, "There is no exposed flesh on these arms")
+					balloon_alert(user, "There is no exposed flesh on [p_their()] arms.")
 					return FALSE
 			if(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
 				if(CS.body_parts_covered & LEGS)
-					balloon_alert(user, "There is no exposed flesh on these legs")
+					balloon_alert(user, "There is no exposed flesh on [p_their()] legs.")
 					return FALSE
 	return TRUE
 

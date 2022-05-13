@@ -47,20 +47,20 @@
 			return
 		if(!O.anchored)
 			if(cargo_holder.cargo.len < cargo_holder.cargo_capacity)
-				chassis.visible_message("[chassis] lifts [target] and starts to load it into cargo compartment.")
+				chassis.visible_message("[chassis] lifts [target] and starts to load it into it's cargo compartment.")
 				O.anchored = TRUE
 				if(do_after_cooldown(target))
 					cargo_holder.cargo += O
 					O.forceMove(chassis)
 					O.anchored = FALSE
-					balloon_alert(chassis.occupant, "[target] loaded")
+					balloon_alert(chassis.occupant, "[target] has been loaded.")
 					log_message("Loaded [O]. Cargo compartment capacity: [cargo_holder.cargo_capacity - cargo_holder.cargo.len]", LOG_MECHA)
 				else
 					O.anchored = initial(O.anchored)
 			else
-				balloon_alert(chassis.occupant, "Not enough room in cargo compartment")
+				balloon_alert(chassis.occupant, "Not enough room in cargo compartment.")
 		else
-			balloon_alert(chassis.occupant, "[target] is firmly secured")
+			balloon_alert(chassis.occupant, "[target] is firmly secured!")
 
 	else if(isliving(target))
 		var/mob/living/M = target
@@ -107,20 +107,20 @@
 		var/obj/O = target
 		if(!O.anchored)
 			if(cargo_holder.cargo.len < cargo_holder.cargo_capacity)
-				chassis.visible_message("[chassis] lifts [target] and starts to load it into cargo compartment.")
+				chassis.visible_message("[chassis] lifts [target] and starts to load it into it's cargo compartment.")
 				O.anchored = TRUE
 				if(do_after_cooldown(target))
 					cargo_holder.cargo += O
 					O.forceMove(chassis)
 					O.anchored = FALSE
-					balloon_alert(chassis.occupant, "[target] loaded")
+					balloon_alert(chassis.occupant, "[target] has been loaded.")
 					log_message("Loaded [O]. Cargo compartment capacity: [cargo_holder.cargo_capacity - cargo_holder.cargo.len]", LOG_MECHA)
 				else
 					O.anchored = initial(O.anchored)
 			else
-				balloon_alert(chassis.occupant, "Not enough room in cargo compartment")
+				balloon_alert(chassis.occupant, "Not enough room in cargo compartment.")
 		else
-			balloon_alert(chassis.occupant, "[target] is firmly secured")
+			balloon_alert(chassis.occupant, "[target] is firmly secured!")
 
 	else if(isliving(target))
 		var/mob/living/M = target

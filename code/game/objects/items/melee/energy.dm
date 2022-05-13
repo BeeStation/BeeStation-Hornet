@@ -146,7 +146,7 @@
 		var/obj/item/stock_parts/cell/C = R.cell
 		if(active && !(C.use(hitcost)))
 			attack_self(R)
-			balloon_alert(R, "Out of charge")
+			balloon_alert(R, "Your [name] is out of charge.")
 			return
 		return ..()
 

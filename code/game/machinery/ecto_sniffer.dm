@@ -44,7 +44,7 @@
 	. = ..()
 	add_fingerprint(user)
 	on = !on
-	balloon_alert(user, "sniffer turned [on ? "on" : "off"]")
+	balloon_alert(user, "You turn the sniffer [on ? "on" : "off"].")
 	//update_appearance() - not working until update_appearance is ported
 	update_icon()
 
