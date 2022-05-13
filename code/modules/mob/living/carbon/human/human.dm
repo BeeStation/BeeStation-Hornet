@@ -4,6 +4,7 @@
 	icon = 'icons/mob/human.dmi'
 	icon_state = ""
 	appearance_flags = KEEP_TOGETHER|TILE_BOUND|PIXEL_SCALE
+	var/faltering_grip = 0
 
 /mob/living/carbon/human/Initialize(mapload)
 	add_verb(/mob/living/proc/mob_sleep)
@@ -1037,12 +1038,15 @@
 				return TRUE
 	return FALSE
 
-/mob/living/carbon/human/proc/clear_shove_slowdown()
-	remove_movespeed_modifier(MOVESPEED_ID_SHOVE)
-	var/active_item = get_active_held_item()
-	if(is_type_in_typecache(active_item, GLOB.shove_disarming_types))
-		visible_message("<span class='warning'>[src.name] regains their grip on \the [active_item]!</span>", "<span class='warning'>You regain your grip on \the [active_item].</span>", null, COMBAT_MESSAGE_RANGE)
-
+/mob/living/carbon/human/proc/clear_shove()
+	switch(faltering_grip)
+		if(1 to 2)
+			faltering_grip--
+			return
+		if(3 to INFINITY) //failsafe since the value should be immediately reset to 0 upon reaching 3, and can never go below 0. 
+			message_admins("human variable faltering_strength has achieved an unintended value. Please report this to a coder with as much surrounding information as possible.")
+			faltering_grip = 0
+			
 /mob/living/carbon/human/updatehealth()
 	. = ..()
 	dna?.species.spec_updatehealth(src)
