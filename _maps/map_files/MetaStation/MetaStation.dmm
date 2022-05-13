@@ -55075,13 +55075,9 @@
 /turf/open/floor/engine,
 /area/science/explab)
 "chy" = (
-/obj/machinery/xenoartifact_inbox,
-/obj/effect/turf_decal/delivery,
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/item/xenoartifact,
-/obj/effect/landmark/xeno_spawn,
 /turf/open/floor/engine,
 /area/science/explab)
 "chz" = (
@@ -55700,16 +55696,6 @@
 	dir = 4
 	},
 /area/science/research)
-"ciS" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/structure/chair/office/light{
-	dir = 1
-	},
-/obj/effect/landmark/start/scientist,
-/turf/open/floor/plasteel,
-/area/science/explab)
 "ciT" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -55722,7 +55708,9 @@
 	name = "Pugley IV";
 	real_name = "Pugley IV"
 	},
-/obj/item/beacon,
+/obj/machinery/xenoartifact_inbox,
+/obj/effect/turf_decal/delivery,
+/obj/item/xenoartifact,
 /turf/open/floor/engine,
 /area/science/explab)
 "ciX" = (
@@ -57144,9 +57132,6 @@
 	dir = 8;
 	pixel_x = 24
 	},
-/obj/structure/table/reinforced,
-/obj/item/clothing/neck/stethoscope,
-/obj/item/storage/firstaid/regular,
 /turf/open/floor/plasteel/white,
 /area/science/explab)
 "cmX" = (
@@ -57790,10 +57775,6 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/structure/table/reinforced,
-/obj/item/paper_bin,
-/obj/item/pen,
-/obj/item/folder/red,
 /turf/open/floor/plasteel/white,
 /area/science/explab)
 "cot" = (
@@ -58331,6 +58312,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
+/obj/effect/landmark/start/scientist,
 /turf/open/floor/plasteel/white,
 /area/science/explab)
 "cpB" = (
@@ -59025,6 +59007,7 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 1
 	},
+/obj/effect/landmark/xeno_spawn,
 /turf/open/floor/plasteel/white,
 /area/science/explab)
 "cqV" = (
@@ -59437,30 +59420,38 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/structure/closet/bombcloset,
+/obj/structure/table/reinforced,
+/obj/item/xenoartifact_labeler,
+/obj/item/xenoartifact_labeler{
+	pixel_x = -5;
+	pixel_y = 7
+	},
+/obj/item/clothing/glasses/science,
+/obj/item/clothing/glasses/science{
+	pixel_y = 9
+	},
 /turf/open/floor/plasteel,
 /area/science/explab)
 "crV" = (
-/obj/structure/closet/radiation,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
 /obj/machinery/light,
+/obj/machinery/computer/xenoartifact_console{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/science/explab)
 "crW" = (
-/obj/structure/closet/l3closet/scientist{
-	pixel_x = -2
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
+/obj/structure/table/reinforced,
+/obj/item/storage/firstaid/regular,
+/obj/item/clothing/neck/stethoscope,
 /turf/open/floor/plasteel,
 /area/science/explab)
 "crX" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
 /obj/machinery/vending/wardrobe/science_wardrobe,
 /turf/open/floor/plasteel,
 /area/science/explab)
@@ -78646,7 +78637,6 @@
 /obj/item/radio/intercom{
 	pixel_y = 21
 	},
-/obj/effect/landmark/start/scientist,
 /turf/open/floor/engine,
 /area/science/explab)
 "fdr" = (
@@ -82065,10 +82055,6 @@
 /obj/effect/landmark/start/assistant,
 /turf/open/floor/plasteel/freezer,
 /area/crew_quarters/toilet/restrooms)
-"rIO" = (
-/obj/structure/bed/dogbed,
-/turf/open/floor/carpet/purple,
-/area/science/explab)
 "rIW" = (
 /obj/structure/table,
 /obj/machinery/recharger,
@@ -82809,10 +82795,10 @@
 /turf/open/floor/plasteel,
 /area/engine/storage_shared)
 "uEL" = (
-/obj/machinery/computer/xenoartifact_console,
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
+/obj/structure/closet/radiation,
 /turf/open/floor/plasteel,
 /area/science/explab)
 "uEU" = (
@@ -83572,17 +83558,8 @@
 /turf/open/floor/plasteel,
 /area/crew_quarters/fitness/recreation)
 "xrc" = (
-/obj/structure/table/reinforced,
 /obj/effect/turf_decal/stripes/line,
-/obj/item/clothing/glasses/science,
-/obj/item/clothing/glasses/science{
-	pixel_y = 9
-	},
-/obj/item/xenoartifact_labeler,
-/obj/item/xenoartifact_labeler{
-	pixel_x = -9;
-	pixel_y = 11
-	},
+/obj/structure/closet/bombcloset,
 /turf/open/floor/plasteel,
 /area/science/explab)
 "xse" = (
@@ -83753,6 +83730,11 @@
 	},
 /turf/open/floor/plasteel,
 /area/science/mixing)
+"xGG" = (
+/obj/effect/landmark/start/scientist,
+/obj/structure/chair/office/light,
+/turf/open/floor/plasteel/white,
+/area/science/explab)
 "xHp" = (
 /obj/machinery/advanced_airlock_controller{
 	dir = 1;
@@ -117977,7 +117959,7 @@ bST
 dDr
 cgq
 xrc
-rIO
+cqV
 cqV
 xeu
 cmQ
@@ -118234,7 +118216,7 @@ bST
 buy
 cgq
 uEL
-ciS
+cmS
 cmS
 clS
 cqV
@@ -119011,7 +118993,7 @@ gDW
 cmU
 coo
 sqb
-cqV
+xGG
 crV
 dwL
 vKB

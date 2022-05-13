@@ -174,7 +174,7 @@
 	addtimer(CALLBACK(src, .proc/qdel, B), (rand(1,5)*60) SECONDS)
 
 /obj/machinery/computer/xenoartifact_console/proc/sync_devices()
-	for(var/obj/machinery/xenoartifact_inbox/I in oview(3,src))
+	for(var/obj/machinery/xenoartifact_inbox/I in oview(9,src))
 		if(I.linked_console || I.panel_open)
 			return
 		if(!(linked_inbox))
