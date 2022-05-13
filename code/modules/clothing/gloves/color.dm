@@ -66,6 +66,7 @@
 	name = "fingerless insulated gloves"
 	icon_state = "yellowcut"
 	item_state = "ygloves"
+	worn_icon_state = "yellowcut"
 	transfer_prints = TRUE
 
 /obj/item/clothing/gloves/cut/heirloom
@@ -232,3 +233,5 @@
 	name = "maid arm covers"
 	desc = "Cylindrical looking tubes that go over your arm, weird."
 	icon_state = "maid_arms"
+	item_state = "maid_arms"
+	worn_icon_state = "maid_arms"
