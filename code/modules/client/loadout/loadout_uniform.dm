@@ -4,7 +4,7 @@
 	slot = ITEM_SLOT_ICLOTHING
 	sort_category = "Uniforms and Casual Dress"
 	species_blacklist = list("plasmaman") //Envirosuit moment
-	cost = FREE_GEAR
+	cost = 0
 
 //STANDARD UNIFORM COLORS
 
@@ -161,7 +161,7 @@
 
 /datum/gear/uniform/suit
 	subtype_path = /datum/gear/uniform/suit
-	cost = FREE_GEAR
+	cost = 0
 
 /datum/gear/uniform/suit/suit_jacket
 	subtype_path = /datum/gear/uniform/suit/suit_jacket
@@ -222,7 +222,7 @@
 
 /datum/gear/uniform/misc
 	subtype_path = /datum/gear/uniform/misc
-	cost = FREE_GEAR
+	cost = 0
 /datum/gear/uniform/misc/soviet
 	display_name = "soviet uniform"
 	path = /obj/item/clothing/under/costume/soviet
@@ -240,61 +240,61 @@
 /datum/gear/uniform/orderly_uniform
 	display_name = "orderly uniform"
 	path = /obj/item/clothing/under/misc/orderly_uniform
-	cost = FREE_GEAR
+	cost = 0
 
 /datum/gear/uniform/nt_skirtsuit
 	display_name = "nanotrasen skirtsuit"
 	path = /obj/item/clothing/under/misc/nt_skirtsuit
-	cost = FREE_GEAR
+	cost = 0
 
 /datum/gear/uniform/hos_formal_male
 	display_name = "red formal coat"
 	path = /obj/item/clothing/under/misc/hos_formal_male
-	cost = FREE_GEAR
+	cost = 0
 
 /datum/gear/uniform/rainbow
 	display_name = "rainbow jumpsuit"
 	path = /obj/item/clothing/under/color/rainbow
-	cost = FREE_GEAR
+	cost = 0
 
 /datum/gear/uniform/rainbow_skirt
 	display_name = "rainbow jumpskirt"
 	path = /obj/item/clothing/under/color/jumpskirt/rainbow
-	cost = FREE_GEAR
+	cost = 0
 /datum/gear/uniform/black_really_skirt
 	display_name = "executive suitskirt"
 	path = /obj/item/clothing/under/suit/black_really/skirt
-	cost = FREE_GEAR
+	cost = 0
 /datum/gear/uniform/black_really
 	display_name = "executive suit"
 	path = /obj/item/clothing/under/suit/black_really
-	cost = FREE_GEAR
+	cost = 0
 /datum/gear/uniform/black/skirt
 	display_name = "black suitskirt"
 	path = /obj/item/clothing/under/suit/black/skirt
-	cost = FREE_GEAR
+	cost = 0
 /datum/gear/uniform/burgundy_suit
 	display_name = "burgundy suit"
 	path = /obj/item/clothing/under/suit/burgundy
-	cost = FREE_GEAR
+	cost = 0
 /datum/gear/uniform/checkered
 	display_name = "checkered suit"
 	path = /obj/item/clothing/under/suit/checkered
-	cost = FREE_GEAR
+	cost = 0
 /datum/gear/uniform/black/navy
 	display_name = "navy suit"
 	path = /obj/item/clothing/under/suit/navy
-	cost = FREE_GEAR
+	cost = 0
 /datum/gear/uniform/black/skirt
 	display_name = "black suitskirt"
 	path = /obj/item/clothing/under/suit/black/skirt
-	cost = FREE_GEAR
+	cost = 0
 
 //RANK SUBTYPE
 
 /datum/gear/uniform/rank
 	subtype_path = /datum/gear/uniform/rank
-	cost = FREE_GEAR
+	cost = 0
 
 //ASSISTANTS FORMALS
 
@@ -390,12 +390,12 @@
 /datum/gear/uniform/rank/security/blueshift
 	display_name = "security jumpsuit, blue shirt and tie"
 	path = /obj/item/clothing/under/rank/security/officer/blueshirt
-	cost = FREE_GEAR
+	cost = 0
 
 /datum/gear/uniform/rank/security/blart
 	display_name = "security jumpsuit, Nanotrasen mall cop uniform"
 	path = /obj/item/clothing/under/rank/security/officer/mallcop
-	cost = FREE_GEAR
+	cost = 0
 
 /datum/gear/uniform/misc/jabroni
 	display_name = "jabroni leathers"
