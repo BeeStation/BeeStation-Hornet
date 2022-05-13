@@ -72,6 +72,12 @@ GLOBAL_VAR(clockcult_eminence)
 	main_cult.setup_objectives()
 	//Create team
 	for(var/datum/mind/servant_mind in selected_servants)
+		//Somehow the mind has no mob, ignore them so it doesn't break everything
+		if(!(servant_mind?.current))
+			continue
+		//Somehow all spawns where used, reuse old spawns
+		if(!length(spawns))
+			spawns = GLOB.servant_spawns.Copy()
 		servant_mind.current.forceMove(pick_n_take(spawns))
 		servant_mind.current.set_species(/datum/species/human)
 		var/datum/antagonist/servant_of_ratvar/S = add_servant_of_ratvar(servant_mind.current, team=main_cult)

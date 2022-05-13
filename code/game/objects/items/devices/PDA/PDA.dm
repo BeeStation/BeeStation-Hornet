@@ -917,14 +917,14 @@ GLOBAL_LIST_EMPTY(PDAs)
 	var/obj/item/cartridge/virus/installed_cartridge = cartridge
 
 	if(installed_cartridge.charges <=0)
-		balloon_alert(user, "Out of charges")
+		balloon_alert(user, "The PDA beeps: 'Out of charge. Please insert a new cartridge.'")
 		return ..()
 
 	if(target.GetComponent(/datum/component/sound_player))
-		balloon_alert(user, "This is already hacked")
+		balloon_alert(user, "The PDA beeps: 'Virus already present on client, aborting.'")
 		return
 
-	balloon_alert(user, "Virus uploaded")
+	balloon_alert(user, "You upload the virus.")
 	var/list/sig_list = list()
 	if(istype(target, /obj/machinery/door/airlock))
 		sig_list += list(COMSIG_AIRLOCK_OPEN, COMSIG_AIRLOCK_CLOSE)

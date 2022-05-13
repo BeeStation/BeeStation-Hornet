@@ -35,7 +35,7 @@
 
 	. = ..()
 
-	if(!iscarbon(host_mob))
+	if(!ishuman(host_mob))
 		return
 
 	ADD_TRAIT(host_mob, TRAIT_NANITE_SENSORS, TRACKED_SENSORS_TRAIT)
@@ -47,7 +47,7 @@
 
 	. = ..()
 
-	if(!iscarbon(host_mob))
+	if(!ishuman(host_mob))
 		return
 
 	REMOVE_TRAIT(host_mob, TRAIT_NANITE_SENSORS, TRACKED_SENSORS_TRAIT)
