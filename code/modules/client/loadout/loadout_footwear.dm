@@ -2,7 +2,7 @@
 	subtype_path = /datum/gear/footwear
 	slot = ITEM_SLOT_FEET
 	sort_category = "Footwear"
-	cost = FREE_GEAR
+	cost = 0
 
 //fancy shoes and stuff
 
@@ -23,7 +23,7 @@
 
 /datum/gear/footwear/color
 	subtype_path = /datum/gear/footwear/color
-	cost = FREE_GEAR
+	cost = 0
 
 /datum/gear/footwear/color/black
 	display_name = "black shoes"
