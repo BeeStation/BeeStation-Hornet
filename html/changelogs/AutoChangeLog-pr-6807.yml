@@ -1,0 +1,4 @@
+author: Ivniinvi
+delete-after: true
+changes:
+  - tweak: Players are now limited to one positronic brain per round.
