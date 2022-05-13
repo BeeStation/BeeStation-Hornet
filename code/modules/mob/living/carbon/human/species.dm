@@ -1484,7 +1484,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		var/obj/structure/table/target_table
 		var/obj/machinery/disposal/bin/target_disposal_bin
 		var/turf/open/indestructible/sound/pool/target_pool	//This list is getting pretty long, but its better than calling shove_act or something on every atom
-		var/shove_blocked = FALSE //Used to check if a shove is blocked so that if it is knockdown logic can be applied
+		var/shove_blocked = FALSE //Used to check if a shove is blocked by a solid object which will prevent movement from occurring
 
 		//Thank you based whoneedsspace
 		target_collateral_human = locate(/mob/living/carbon) in target_shove_turf.contents
@@ -1522,54 +1522,57 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 					"<span class='danger'>You shove [target.name] onto \the [target_table]!</span>", null, COMBAT_MESSAGE_RANGE)
 				target.throw_at(target_table, 1, 1, null, FALSE) //1 speed throws with no spin are basically just forcemoves with a hard collision check
 				log_combat(user, target, "shoved", "onto [target_table] (table)")
+				return
 			else if(target_collateral_human)
 				target.Knockdown(SHOVE_KNOCKDOWN_HUMAN)
 				target_collateral_human.Knockdown(SHOVE_KNOCKDOWN_COLLATERAL)
 				user.visible_message("<span class='danger'>[user.name] shoves [target.name] into [target_collateral_human.name]!</span>",
 					"<span class='danger'>You shove [target.name] into [target_collateral_human.name]!</span>", null, COMBAT_MESSAGE_RANGE)
 				log_combat(user, target, "shoved", "into [target_collateral_human.name]")
+				return
 			else if(target_disposal_bin)
 				target.Knockdown(SHOVE_KNOCKDOWN_TABLE)
 				target.forceMove(target_disposal_bin)
 				user.visible_message("<span class='danger'>[user.name] shoves [target.name] into \the [target_disposal_bin]!</span>",
 					"<span class='danger'>You shove [target.name] into \the [target_disposal_bin]!</span>", null, COMBAT_MESSAGE_RANGE)
 				log_combat(user, target, "shoved", "into [target_disposal_bin] (disposal bin)")
+				return
 			else if(target_pool)
 				target.Knockdown(SHOVE_KNOCKDOWN_TABLE)
 				target.forceMove(target_pool)
 				user.visible_message("<span class='danger'>[user.name] shoves [target.name] into \the [target_pool]!</span>",
 					"<span class='danger'>You shove [target.name] into \the [target_pool]!</span>", null, COMBAT_MESSAGE_RANGE)
 				log_combat(user, target, "shoved", "into [target_pool] (swimming pool)")
-		else
-			user.visible_message("<span class='danger'>[user.name] shoves [target.name]!</span>",
-				"<span class='danger'>You shove [target.name]!</span>", null, COMBAT_MESSAGE_RANGE)
-			var/target_held_item = target.get_active_held_item()
-			var/knocked_item = FALSE
-			if(!is_type_in_typecache(target_held_item, GLOB.shove_disarming_types))
-				target_held_item = null
-			if(target_held_item)
-				switch(target.faltering_grip)
-					if(0 to 1)
-						target.faltering_grip++
-						addtimer(CALLBACK(target, /mob/living/carbon/human/proc/clear_shove), SHOVE_GRIPFAILING_LENGTH)
-						target.visible_message("<span class='danger'>[target.name]'s grip on \the [target_held_item] loosens!</span>",
-											"<span class='danger'>Your grip on \the [target_held_item] loosens!</span>", null, COMBAT_MESSAGE_RANGE)
-					if(2)
-						target.faltering_grip = 0
-						target.dropItemToGround(target_held_item)
-						knocked_item = TRUE
-						target.visible_message("<span class='danger'>[target.name] drops \the [target_held_item]!!</span>",
-												"<span class='danger'>You drop \the [target_held_item]!!</span>", null, COMBAT_MESSAGE_RANGE)
-						var/append_message = ""
-						if(target_held_item)
-							if(knocked_item)
-								append_message = "causing them to drop [target_held_item]"
-							else
-								append_message = "loosening their grip on [target_held_item]"
-						log_combat(user, target, "shoved [append_message]")
-					else //failsafe in case an unintended value is somehow achieved. 
-						target.faltering_grip = 0
-						message_admins("human variable faltering_strength has achieved an unintended value. Please report this to a coder with as much surrounding information as possible.")
+				return
+		user.visible_message("<span class='danger'>[user.name] shoves [target.name]!</span>",
+			"<span class='danger'>You shove [target.name]!</span>", null, COMBAT_MESSAGE_RANGE)
+		var/target_held_item = target.get_active_held_item()
+		var/knocked_item = FALSE
+		if(!is_type_in_typecache(target_held_item, GLOB.shove_disarming_types))
+			target_held_item = null
+		if(target_held_item)
+			switch(target.faltering_grip)
+				if(0 to 1)
+					target.faltering_grip++
+					addtimer(CALLBACK(target, /mob/living/carbon/human/proc/clear_shove), SHOVE_GRIPFAILING_LENGTH)
+					target.visible_message("<span class='danger'>[target.name]'s grip on \the [target_held_item] loosens!</span>",
+										"<span class='danger'>Your grip on \the [target_held_item] loosens!</span>", null, COMBAT_MESSAGE_RANGE)
+				if(2)
+					target.faltering_grip = 0
+					target.dropItemToGround(target_held_item)
+					knocked_item = TRUE
+					target.visible_message("<span class='danger'>[target.name] drops \the [target_held_item]!!</span>",
+											"<span class='danger'>You drop \the [target_held_item]!!</span>", null, COMBAT_MESSAGE_RANGE)
+					var/append_message = ""
+					if(target_held_item)
+						if(knocked_item)
+							append_message = "causing them to drop [target_held_item]"
+						else
+							append_message = "loosening their grip on [target_held_item]"
+					log_combat(user, target, "shoved [append_message]")
+				else //failsafe in case an unintended value is somehow achieved. 
+					target.faltering_grip = 0
+					message_admins("human variable faltering_strength has achieved an unintended value. Please report this to a coder with as much surrounding information as possible.")
 
 /datum/species/proc/spec_hitby(atom/movable/AM, mob/living/carbon/human/H)
 	return
