@@ -1,0 +1,4 @@
+author: MNarath1
+delete-after: true
+changes:
+  - config: Changes default editor settings for dmi files to the new dmi editor extension
