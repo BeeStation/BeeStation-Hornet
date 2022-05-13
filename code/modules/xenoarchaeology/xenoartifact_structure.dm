@@ -143,8 +143,6 @@
 	for(var/atom/M in true_target) //Cull
 		if(get_dist(get_turf(src), get_turf(M)) > max_range)   
 			true_target -= M
-	if(true_target.len < 1) //Don't bother if there aren't any targets
-		return
 
 	charge+=charge_mod
 	if(COOLDOWN_FINISHED(src, xenoa_cooldown))//Execution of traits here
