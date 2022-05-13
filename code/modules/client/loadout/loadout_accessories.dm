@@ -1,10 +1,11 @@
+1283
 // DO NOT CHANGE DISPLAY NAME
 
 /datum/gear/accessory
 	subtype_path = /datum/gear/accessory
 	slot = ITEM_SLOT_NECK
 	sort_category = "Accessories"
-	cost = FREE_GEAR
+	cost = 0
 /datum/gear/accessory/scarf/red
 	display_name = "scarf, red"
 	path = /obj/item/clothing/neck/scarf/red
@@ -72,13 +73,13 @@
 /datum/gear/accessory/headphones
 	display_name = "headphones"
 	path = /obj/item/clothing/ears/headphones
-	cost = FREE_GEAR
+	cost = 0
 
 //LIPSTICK
 
 /datum/gear/accessory/cosmetics
 	subtype_path = /datum/gear/accessory/cosmetics
-	cost = FREE_GEAR
+	cost = 0
 
 /datum/gear/accessory/cosmetics/lipstick
 	display_name = "lipstick, red"
@@ -118,3 +119,4 @@
 	display_name = "necklace, gold"
 	path = /obj/item/clothing/neck/necklace/dope
 	cost = 25000
+
