@@ -1544,9 +1544,10 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 					"<span class='danger'>You shove [target.name] into \the [target_pool]!</span>", null, COMBAT_MESSAGE_RANGE)
 				log_combat(user, target, "shoved", "into [target_pool] (swimming pool)")
 				return
-		user.visible_message("<span class='danger'>[user.name] shoves [target.name]!</span>",
-			"<span class='danger'>You shove [target.name]!</span>", null, COMBAT_MESSAGE_RANGE)
 			else
+			user.visible_message("<span class='danger'>[user.name] shoves [target.name]!</span>",
+			"<span class='danger'>You shove [target.name]!</span>", null, COMBAT_MESSAGE_RANGE)
+			
 				log_combat(user, target, "shoved")
 
 /datum/species/proc/spec_hitby(atom/movable/AM, mob/living/carbon/human/H)
