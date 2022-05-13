@@ -199,6 +199,8 @@
 	teleport_restriction = TELEPORT_ALLOW_CLOCKWORK
 	area_flags = VALID_TERRITORY | UNIQUE_AREA | HIDDEN_AREA
 	ambience_index = AMBIENCE_REEBE
+	lighting_overlay_opacity = 160
+	lighting_overlay_colour = "#f1ebce"
 
 /area/reebe/city_of_cogs
 	name = "Reebe - City of Cogs"

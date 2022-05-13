@@ -1,6 +1,9 @@
 GLOBAL_VAR_INIT(clockwork_cached_cost_multiplier, 1)
 
 /proc/calculate_clockwork_cost_multiplier()
+	if(GLOB.gateway_opening)
+		GLOB.clockwork_cached_cost_multiplier = 1
+		return 1
 	var/baseline_power = GLOB.joined_player_list.len
 	var/power = 0
 	for(var/mob/living/carbon/human/player in GLOB.mob_living_list)
