@@ -187,12 +187,12 @@ Class Procs:
 
 /obj/machinery/emp_act(severity)
 	. = ..()
-	if(use_power && !stat && !(. & EMP_PROTECT_SELF) && prob(100 / severity))
+	if(use_power && !stat && !(. & EMP_PROTECT_SELF))
 		use_power(7500/severity)
 		//Set the machine to be EMPed
 		stat |= EMPED
 		//Reset EMP state in 120/60 seconds
-		addtimer(CALLBACK(src, .proc/emp_reset), emp_disable_time / severity)
+		addtimer(CALLBACK(src, .proc/emp_reset), (emp_disable_time / severity) + rand(-10, 10))
 		//Update power
 		power_change()
 		new /obj/effect/temp_visual/emp(loc)
