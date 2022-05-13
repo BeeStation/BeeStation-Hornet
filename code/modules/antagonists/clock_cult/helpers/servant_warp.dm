@@ -17,3 +17,8 @@
 		do_teleport(P, target_location, channel = TELEPORT_CHANNEL_FREE, no_effects = TRUE, teleport_mode = TELEPORT_MODE_CLOCKWORK)
 		P.Paralyze(30)
 		to_chat(P, "<span class='warning'>You feel sick and confused...</span>")
+	//Clear the slab's abilities
+	//Check hands for slab
+	for(var/obj/item/clockwork/clockwork_slab/slab in servant.contents)
+		if(slab.active_scripture)
+			slab.active_scripture.end_invokation()
