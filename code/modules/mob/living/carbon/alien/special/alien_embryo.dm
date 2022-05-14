@@ -5,6 +5,7 @@
 	icon = 'icons/mob/alien.dmi'
 	icon_state = "larva0_dead"
 	var/stage = 0
+	var/next_stage_time = 0
 	var/bursting = FALSE
 
 /obj/item/organ/body_egg/alien_embryo/on_find(mob/living/finder)
@@ -50,24 +51,33 @@
 			to_chat(owner, "<span class='danger'>You feel something tearing its way out of your stomach.</span>")
 			owner.adjustToxLoss(10)
 
+/obj/item/organ/body_egg/alien_embryo/on_death()
+	. = ..()
+	if(!owner && next_stage_time) // No growing outside the body
+		next_stage_time = 0
+
 /obj/item/organ/body_egg/alien_embryo/egg_process()
 	var/mob/living/L = owner
 	if(L.IsInStasis())
 		return
-	if(stage < 5 && prob(3))
+	if(!next_stage_time)
+		next_stage_time = world.time + 1 MINUTES
+		return
+	if(next_stage_time <= world.time)
+		next_stage_time = world.time + rand(1 MINUTES, 1.5 MINUTES) // Somewhere from 4-7 minutes to fully grow
 		stage++
 		INVOKE_ASYNC(src, .proc/RefreshInfectionImage)
 
 	if(stage == 5 && prob(50))
 		for(var/datum/surgery/S in owner.surgeries)
 			if(S.location == BODY_ZONE_CHEST && istype(S.get_surgery_step(), /datum/surgery_step/manipulate_organs))
-				AttemptGrow(0)
+				AttemptGrow(FALSE)
 				return
 		AttemptGrow()
 
 
 
-/obj/item/organ/body_egg/alien_embryo/proc/AttemptGrow(gib_on_success=TRUE)
+/obj/item/organ/body_egg/alien_embryo/proc/AttemptGrow(kill_on_success = TRUE)
 	if(!owner || bursting)
 		return
 
@@ -106,13 +116,17 @@
 		new_xeno.notransform = 0
 		new_xeno.invisibility = 0
 
-	if(gib_on_success)
+	var/mob/living/carbon/host = owner
+	if(kill_on_success)
 		new_xeno.visible_message("<span class='danger'>[new_xeno] bursts out of [owner] in a shower of gore!</span>", "<span class='userdanger'>You exit [owner], your previous host.</span>", "<span class='italics'>You hear organic matter ripping and tearing!</span>")
-		owner.gib(TRUE)
+		var/obj/item/bodypart/BP = owner.get_bodypart(BODY_ZONE_CHEST)
+		if(BP)
+			BP.receive_damage(brute = 200) // Kill them dead
+			BP.dismember()
 	else
 		new_xeno.visible_message("<span class='danger'>[new_xeno] wriggles out of [owner]!</span>", "<span class='userdanger'>You exit [owner], your previous host.</span>")
 		owner.adjustBruteLoss(40)
-		owner.cut_overlay(overlay)
+	host.cut_overlay(overlay)
 	qdel(src)
 
 
