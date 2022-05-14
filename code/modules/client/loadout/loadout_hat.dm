@@ -3,7 +3,7 @@
 	slot = ITEM_SLOT_HEAD
 	sort_category = "Headwear"
 	species_blacklist = list("plasmaman") //Their helmet takes up the head slot
-	cost = 0
+	cost = 100
 
 //CIVILIAN HATS & MISC
 /datum/gear/hat/wig
@@ -45,7 +45,7 @@
 
 /datum/gear/hat/soft
 	subtype_path = /datum/gear/hat/soft
-	cost = 0
+	cost = 75
 
 /datum/gear/hat/soft/red
 	display_name = "cap, red"
@@ -176,7 +176,7 @@
 /datum/gear/hat/franks_hat
 	display_name = "Frank's hat"
 	path = /obj/item/clothing/head/franks_hat
-	cost = 2500
+	cost = 1000
 //CHAPLAIN HATS
 
 /datum/gear/hat/blackbishop
