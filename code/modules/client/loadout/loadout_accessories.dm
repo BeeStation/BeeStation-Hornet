@@ -4,7 +4,7 @@
 	subtype_path = /datum/gear/accessory
 	slot = ITEM_SLOT_NECK
 	sort_category = "Accessories"
-	cost = 0
+	cost = 100
 /datum/gear/accessory/scarf/red
 	display_name = "scarf, red"
 	path = /obj/item/clothing/neck/scarf/red
@@ -72,13 +72,13 @@
 /datum/gear/accessory/headphones
 	display_name = "headphones"
 	path = /obj/item/clothing/ears/headphones
-	cost = 0
+	cost = 100
 
 //LIPSTICK
 
 /datum/gear/accessory/cosmetics
 	subtype_path = /datum/gear/accessory/cosmetics
-	cost = 0
+	cost = 50
 
 /datum/gear/accessory/cosmetics/lipstick
 	display_name = "lipstick, red"
