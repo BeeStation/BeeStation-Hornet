@@ -2,7 +2,7 @@
 	subtype_path = /datum/gear/handwear
 	slot = ITEM_SLOT_HANDS
 	sort_category = "Handwear"
-	cost = 0
+	cost = 75
 /datum/gear/handwear/gloves/beaded
 	display_name = "beaded bracelet"
 	path = /obj/item/clothing/gloves/beaded
