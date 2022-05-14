@@ -21386,7 +21386,7 @@
 	icon_state = "2-4"
 	},
 /obj/effect/turf_decal/stripes/line,
-/obj/machinery/computer/rdconsole/experiment,
+/obj/machinery/computer/xenoartifact_console,
 /turf/open/floor/plasteel/dark,
 /area/science/explab)
 "eYw" = (
@@ -29864,10 +29864,8 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/structure/chair/office/light{
-	dir = 1
-	},
 /obj/effect/turf_decal/stripes/line,
+/obj/machinery/computer/rdconsole/experiment,
 /turf/open/floor/plasteel/dark,
 /area/science/explab)
 "gQO" = (
@@ -29945,6 +29943,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
+/obj/item/folder/red,
 /turf/open/floor/plasteel/dark,
 /area/science/explab)
 "gRK" = (
@@ -39924,6 +39923,10 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 6
 	},
+/obj/structure/chair/office/light{
+	dir = 1
+	},
+/obj/effect/landmark/start/scientist,
 /turf/open/floor/plasteel/white,
 /area/science/explab)
 "jqb" = (
@@ -42518,6 +42521,7 @@
 	dir = 8
 	},
 /obj/item/hand_labeler,
+/obj/item/book/manual/wiki/experimentor,
 /turf/open/floor/plasteel/dark,
 /area/science/explab)
 "jUY" = (
@@ -45149,7 +45153,6 @@
 /area/hallway/secondary/exit)
 "kzI" = (
 /obj/effect/landmark/event_spawn,
-/obj/effect/landmark/start/scientist,
 /obj/machinery/airalarm/directional/south,
 /turf/open/floor/plasteel/white,
 /area/science/explab)
@@ -45670,11 +45673,12 @@
 /area/maintenance/starboard/secondary)
 "kGk" = (
 /obj/structure/table/reinforced,
-/obj/item/nanite_remote,
-/obj/item/nanite_scanner,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
+/obj/item/assembly/signaler,
+/obj/item/assembly/igniter,
+/obj/item/stock_parts/cell/high,
 /turf/open/floor/plasteel/dark,
 /area/science/explab)
 "kGr" = (
@@ -53998,14 +54002,15 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
-/obj/item/paper_bin{
-	pixel_x = -1;
-	pixel_y = 2
+/obj/item/xenoartifact_labeler,
+/obj/item/xenoartifact_labeler{
+	pixel_x = -6;
+	pixel_y = 7
 	},
-/obj/item/pen{
-	pixel_x = 1;
-	pixel_y = 1
+/obj/item/clothing/glasses/science{
+	pixel_y = 9
 	},
+/obj/item/clothing/glasses/science,
 /turf/open/floor/plasteel/dark,
 /area/science/explab)
 "mGB" = (
@@ -63387,6 +63392,10 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/medical/virology)
+"oWf" = (
+/obj/machinery/xenoartifact_inbox,
+/turf/open/floor/engine,
+/area/science/explab)
 "oWg" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
@@ -75399,13 +75408,15 @@
 /area/medical/morgue)
 "rMS" = (
 /obj/structure/table/reinforced,
-/obj/item/book/manual/wiki/experimentor,
 /obj/machinery/requests_console{
 	pixel_x = -32
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
+/obj/item/multitool,
+/obj/item/analyzer,
+/obj/item/geiger_counter,
 /turf/open/floor/plasteel/dark,
 /area/science/explab)
 "rNl" = (
@@ -82157,6 +82168,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
+/obj/item/nanite_scanner,
 /turf/open/floor/plasteel/dark,
 /area/science/nanite)
 "tvR" = (
@@ -102415,10 +102427,11 @@
 /area/maintenance/department/science)
 "ykz" = (
 /obj/structure/table/reinforced,
-/obj/item/folder/red,
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
+/obj/item/storage/firstaid/regular,
+/obj/item/clothing/neck/stethoscope,
 /turf/open/floor/plasteel/dark,
 /area/science/explab)
 "ykA" = (
@@ -130952,7 +130965,7 @@ hrQ
 axQ
 bBA
 nfo
-jkR
+obC
 ylL
 jkR
 nfo
@@ -131210,7 +131223,7 @@ axQ
 bBA
 nfo
 jkR
-jkR
+oWf
 jkR
 hca
 gQG
@@ -131467,7 +131480,7 @@ axQ
 bBA
 jeH
 jkR
-prQ
+tXj
 jkR
 hca
 eYq
@@ -131724,7 +131737,7 @@ oKv
 nSD
 nfo
 jkR
-tXj
+prQ
 jkR
 nfo
 mGx
@@ -131981,7 +131994,7 @@ oKv
 nSD
 nfo
 vxd
-obC
+jkR
 jkR
 goE
 fxs

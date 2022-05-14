@@ -29973,29 +29973,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/science/misc_lab)
-"bOw" = (
-/obj/structure/table,
-/obj/item/storage/box/beakers{
-	pixel_x = 2;
-	pixel_y = 2
-	},
-/obj/item/grenade/chem_grenade,
-/obj/item/grenade/chem_grenade,
-/obj/machinery/requests_console{
-	department = "Science";
-	departmentType = 2;
-	name = "Science Requests Console";
-	pixel_y = 30;
-	receive_ore_updates = 1
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
-/area/science/misc_lab)
 "bOx" = (
 /obj/machinery/holopad,
 /turf/open/floor/plasteel/white,
@@ -30299,14 +30276,6 @@
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
 "bPs" = (
-/obj/structure/table,
-/obj/item/folder/white,
-/obj/item/folder/white,
-/obj/item/pen,
-/obj/item/taperecorder,
-/obj/item/paper_bin{
-	pixel_y = 6
-	},
 /obj/machinery/power/apc/auto_name/east{
 	pixel_x = 24
 	},
@@ -30314,6 +30283,9 @@
 	icon_state = "0-8"
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/computer/xenoartifact_console{
+	dir = 8
+	},
 /turf/open/floor/plasteel,
 /area/science/misc_lab)
 "bPu" = (
@@ -32650,14 +32622,24 @@
 /turf/open/floor/engine,
 /area/science/xenobiology)
 "bXh" = (
-/obj/structure/filingcabinet/chestdrawer,
-/obj/effect/decal/cleanable/dirt,
+/obj/structure/table,
+/obj/item/storage/box/beakers{
+	pixel_x = 2;
+	pixel_y = 2
+	},
+/obj/item/grenade/chem_grenade,
+/obj/item/grenade/chem_grenade,
+/obj/machinery/requests_console{
+	department = "Science";
+	departmentType = 2;
+	name = "Science Requests Console";
+	pixel_y = 30;
+	receive_ore_updates = 1
+	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 6
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 6
-	},
+/obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel,
 /area/science/misc_lab)
 "bXk" = (
@@ -33782,6 +33764,10 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 4
 	},
+/obj/structure/rack,
+/obj/item/multitool,
+/obj/item/analyzer,
+/obj/item/geiger_counter,
 /turf/open/floor/plasteel,
 /area/science/misc_lab)
 "cbc" = (
@@ -52130,6 +52116,12 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
+"njz" = (
+/obj/effect/turf_decal/delivery,
+/obj/machinery/xenoartifact_inbox,
+/obj/effect/landmark/xeno_spawn,
+/turf/open/floor/engine,
+/area/science/misc_lab)
 "njR" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
@@ -52951,6 +52943,16 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
 	dir = 8
+	},
+/obj/structure/rack,
+/obj/item/assembly/igniter,
+/obj/item/stock_parts/cell/high{
+	charge = 100;
+	maxcharge = 15000
+	},
+/obj/item/assembly/signaler{
+	pixel_x = -8;
+	pixel_y = 5
 	},
 /turf/open/floor/plasteel,
 /area/science/misc_lab)
@@ -54285,8 +54287,6 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 4
 	},
-/obj/effect/landmark/xeno_spawn,
-/obj/effect/landmark/blobstart,
 /turf/open/floor/engine,
 /area/science/misc_lab)
 "pUr" = (
@@ -55291,6 +55291,9 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 8
 	},
+/obj/structure/rack,
+/obj/item/clothing/neck/stethoscope,
+/obj/item/storage/firstaid/regular,
 /turf/open/floor/plasteel,
 /area/science/misc_lab)
 "qZB" = (
@@ -57062,6 +57065,23 @@
 	},
 /turf/open/floor/circuit,
 /area/ai_monitored/turret_protected/ai_upload)
+"twu" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 8
+	},
+/obj/structure/table,
+/obj/item/paper_bin{
+	pixel_y = 6
+	},
+/obj/item/taperecorder,
+/obj/item/folder/white,
+/obj/item/folder/white,
+/obj/item/pen,
+/turf/open/floor/plasteel,
+/area/science/misc_lab)
 "tyh" = (
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 8
@@ -57992,6 +58012,11 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/chemistry)
+"uJM" = (
+/obj/machinery/rnd/experimentor,
+/obj/effect/landmark/blobstart,
+/turf/open/floor/engine,
+/area/science/misc_lab)
 "uJZ" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 6
@@ -59069,14 +59094,12 @@
 /turf/open/floor/plasteel/white,
 /area/science/mixing)
 "vPQ" = (
-/obj/item/beacon,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 9
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 5
 	},
-/obj/machinery/rnd/experimentor,
 /turf/open/floor/engine,
 /area/science/misc_lab)
 "vQH" = (
@@ -59928,6 +59951,10 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/aft)
+"wMu" = (
+/obj/item/beacon,
+/turf/open/floor/engine,
+/area/science/misc_lab)
 "wOv" = (
 /obj/structure/chair/office{
 	dir = 4
@@ -108600,7 +108627,7 @@ mCs
 nWM
 bXr
 bEC
-bOw
+mjb
 caZ
 qYS
 pWN
@@ -108857,7 +108884,7 @@ mCs
 bSh
 vDl
 bEC
-mjb
+twu
 caZ
 pWN
 bZZ
@@ -110401,9 +110428,9 @@ wfU
 bQZ
 tbd
 bQZ
-bTl
+njz
 pUl
-bTl
+uJM
 bTl
 bQZ
 cNW
@@ -110917,7 +110944,7 @@ oHU
 bZc
 bTl
 kLM
-bTl
+wMu
 bTl
 bQZ
 cOe
