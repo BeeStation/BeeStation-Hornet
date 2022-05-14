@@ -1,0 +1,4 @@
+author: Salex08
+delete-after: true
+changes:
+  - bugfix: heals contracted mobs more properly
