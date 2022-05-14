@@ -2,7 +2,8 @@
 	subtype_path = /datum/gear/face
 	slot = ITEM_SLOT_MASK
 	sort_category = "Face"
-	cost = 0
+	cost = 75
+
 /datum/gear/face/mask/ear_stud
 	display_name = "stud earrings"
 	path = /obj/item/clothing/mask/earring/stud
