@@ -244,6 +244,3 @@
 		reactivearmor_cooldown = world.time + reactivearmor_cooldown_duration
 		return TRUE
 	return FALSE
-
-/obj/item/clothing/suit/armor/reactive/table/emp_act()
-	return
