@@ -1,5 +1,0 @@
-author: DoctorSquishy
-delete-after: true
-changes:
-  - config: Removes the default editor setting for dmi files so the new dmi editor
-      extension can be used
