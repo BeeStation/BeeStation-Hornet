@@ -8,6 +8,8 @@
 	var/label_desc //Something briefly explaining it in IG terms or a pun.
 	var/list/blacklist_traits //Other traits the original trait wont work with. Referenced when generating traits.
 
+//Activator signal shenanignas 
+
 /datum/xenoartifact_trait/activator
 	var/charge //How much an activator trait can output on a standard, modified by the artifacts charge_req and circumstances.
 	var/list/signals //which signals proc
@@ -33,7 +35,7 @@
 				RegisterSignal(xenoa, XENOA_INTERACT, .proc/translate_attackby)
 			if(XENOA_SIGNAL)
 				RegisterSignal(xenoa, XENOA_SIGNAL, .proc/translate_attackby)
-	RegisterSignal(xenoa, XENOA_DEFAULT_SIGNAL, .proc/calculate_charge)
+	RegisterSignal(xenoa, XENOA_DEFAULT_SIGNAL, .proc/calculate_charge) //Signal sent by handles
 
 /datum/xenoartifact_trait/activator/on_del(obj/item/xenoartifact/X)
 	. = ..()
@@ -54,40 +56,38 @@
 /datum/xenoartifact_trait/activator/proc/translate_afterattack(atom/target, mob/user, params)
 	SEND_SIGNAL(xenoa, XENOA_DEFAULT_SIGNAL, xenoa, target, user)//And this
 
+//End activator
+
 /datum/xenoartifact_trait/minor //Leave these here, for the future.
 
 /datum/xenoartifact_trait/major
 
 /datum/xenoartifact_trait/malfunction
 
-/datum/xenoartifact_trait/proc/activate(obj/item/xenoartifact/X, atom/target, atom/user)
+/datum/xenoartifact_trait/proc/activate(obj/item/xenoartifact/X, atom/target, atom/user) //Typical behaviour
 	return
 
-/datum/xenoartifact_trait/proc/on_item(obj/item/xenoartifact/X, atom/user, atom/item)
+/datum/xenoartifact_trait/proc/on_item(obj/item/xenoartifact/X, atom/user, atom/item) //Item hint responses
 	return FALSE
 
 /datum/xenoartifact_trait/proc/on_init(obj/item/xenoartifact/X)
 	return
 
-/datum/xenoartifact_trait/proc/on_touch(obj/item/xenoartifact/X, atom/user)
+/datum/xenoartifact_trait/proc/on_touch(obj/item/xenoartifact/X, atom/user) //Touch hint
 	return FALSE
 
-/datum/xenoartifact_trait/proc/on_del(obj/item/xenoartifact/X)	
+/datum/xenoartifact_trait/proc/on_del(obj/item/xenoartifact/X)	//Hard del addressal
 	return
 
-//Used under certain circumstances
-
-/datum/xenoartifact_trait/special/objective
-	//Used for exploration missions
-	blacklist_traits = (/datum/xenoartifact_trait/minor/dense)
-
-/datum/xenoartifact_trait/special/objective/on_init(obj/item/xenoartifact/X)
+/datum/xenoartifact_trait/special/objective/on_init(obj/item/xenoartifact/X) //Exploration mission GPS trait
 	. = ..()
+	if(X.get_trait(/datum/xenoartifact_trait/minor/dense) && istype(X, /obj/item/xenoartifact))
+		return
 	X.AddComponent(/datum/component/gps, "[scramble_message_replace_chars("#########", 100)]", TRUE)
 
 //Activation traits - only used to generate charge
 
-/datum/xenoartifact_trait/activator/impact //Not specifically 'impact'. pretty much any tactile interaction.
+/datum/xenoartifact_trait/activator/impact
 	desc = "Sturdy"
 	label_desc = "Sturdy: The material is sturdy, striking it against the clown's skull seems to cause a unique reaction."
 	charge = 25
@@ -112,7 +112,7 @@
 	. = ..()
 	X.max_range += 1
 
-/datum/xenoartifact_trait/activator/burn/calculate_charge(datum/source, obj/item/thing, mob/user, atom/target, params)
+/datum/xenoartifact_trait/activator/burn/calculate_charge(datum/source, obj/item/thing, mob/user, atom/target, params) //xenoa item handles this, see process proc there
 	var/obj/item/xenoartifact/X = source
 	if(X.process_type != IS_LIT && thing.ignition_effect(X, user)) //Generally artifact should handle cooldown schmuck. Please don't do this.
 		X.visible_message("<span class='danger'>The [X.name] sparks on.</span>")
@@ -122,7 +122,7 @@
 		X.process_type = IS_LIT
 		START_PROCESSING(SSobj, X)
 
-/datum/xenoartifact_trait/activator/clock
+/datum/xenoartifact_trait/activator/clock //xenoa item handles this, see process proc there
 	label_name = "Tuned"
 	label_desc = "Tuned: The material produces a resonance pattern similar to quartz, causing it to produce a reaction every so often."
 	charge = 25
@@ -184,7 +184,7 @@
 		return TRUE
 
 /datum/xenoartifact_trait/activator/batteryneed/calculate_charge(datum/source, obj/item/thing, mob/user, atom/target, params)
-	var/obj/item/xenoartifact/X = source//Generally artifact should handle cooldown schmuck. Please don't do this.
+	var/obj/item/xenoartifact/X = source
 	if(!istype(thing, /obj/item/stock_parts/cell))
 		return
 	var/obj/item/stock_parts/cell/C = thing
@@ -193,7 +193,7 @@
 
 //Minor traits - Some of these can be good but, don't forget to just have a bunch of lame ones too
 
-/datum/xenoartifact_trait/minor/looped //Increases charge towards 100
+/datum/xenoartifact_trait/minor/looped
 	desc = "Looped"
 	label_desc = "Looped: The Artifact feeds into itself and amplifies its own charge."
 
@@ -204,13 +204,13 @@
 	..()
 
 /datum/xenoartifact_trait/minor/looped/activate(obj/item/xenoartifact/X)
-	X.charge = ((100-X.charge)*0.2)+X.charge
+	X.charge = ((100-X.charge)*0.2)+X.charge //This should generally cut off around 100
 	..()
 
-/datum/xenoartifact_trait/minor/capacitive //Assures charge is saved until activated instead of being lost on failed attempts
+/datum/xenoartifact_trait/minor/capacitive
 	desc = "Capacitive"
 	label_desc = "Capacitive: The Artifact's structure allows it to hold extra charges."
-	var/charges
+	var/charges //Extra uses, not total
 	var/saved_cooldown //This may be considered messy but it's a more practical approach that avoids making an edgecase
 
 /datum/xenoartifact_trait/minor/capacitive/on_init(obj/item/xenoartifact/X)
@@ -226,7 +226,7 @@
 		saved_cooldown = X.cooldown //Avoid doing this on init beacause malfunctions can change it in the future
 	if(charges)
 		charges -= 1
-		X.cooldown = -1000 SECONDS
+		X.cooldown = -1000 SECONDS //This is better than making a unique interaction in xenoartifact.dm
 		return
 	charges = pick(0, 1, 2)
 	X.cooldown = saved_cooldown
@@ -238,7 +238,7 @@
 		return TRUE
 	..()
 
-/datum/xenoartifact_trait/minor/dense //Makes the artifact unable to be picked up. Associated with better charge modifers.
+/datum/xenoartifact_trait/minor/dense //Swaps to structure version
 	desc = "Dense"
 	label_desc = "Dense: The Artifact is dense and cannot be easily lifted but, the design has a slightly higher reaction rate."
 	blacklist_traits = list(/datum/xenoartifact_trait/minor/wearable, /datum/xenoartifact_trait/minor/sharp, /datum/xenoartifact_trait/minor/light, /datum/xenoartifact_trait/minor/heavy)
@@ -274,8 +274,7 @@
 	label_desc = "Roadiactive: The Artifact Emmits harmful particles when a reaction takes place."
 
 /datum/xenoartifact_trait/minor/radioactive/on_init(obj/item/xenoartifact/X)
-	if(X) //Sometimes can cause a runtime, concerning dense
-		X.AddComponent(/datum/component/radioactive, 25) //I don't know what a good number for this is
+	X.AddComponent(/datum/component/radioactive, 25)
 
 /datum/xenoartifact_trait/minor/radioactive/on_item(obj/item/xenoartifact/X, atom/user, atom/item)
 	if(istype(item, /obj/item/geiger_counter))
@@ -288,8 +287,7 @@
 	return TRUE
 
 /datum/xenoartifact_trait/minor/radioactive/activate(obj/item/xenoartifact/X)
-	if(X)
-		X.AddComponent(/datum/component/radioactive, 80)
+	X.AddComponent(/datum/component/radioactive, 80)
 	..()
 
 /datum/xenoartifact_trait/minor/cooler //Faster cooldowns
@@ -605,12 +603,15 @@
 /datum/xenoartifact_trait/major/corginator //All of this is stolen from corgium. 
 	desc = "Fuzzy" //Weirdchamp
 	label_desc = "Fuzzy: The shape is hard to discern under all the hair sprouting out from the surface. You swear you've heard it bark before."
+	var/mob/living/victim
 
 /datum/xenoartifact_trait/major/corginator/activate(obj/item/xenoartifact/X, mob/living/target)
 	X.say(pick("Woof!", "Bark!", "Yap!"))
 	if(istype(target, /mob/living) && !(istype(target, /mob/living/simple_animal/pet/dog/corgi)))
-		var/mob/living/simple_animal/pet/dog/corgi/new_corgi = transform(X, target)
-		addtimer(CALLBACK(src, .proc/transform_back, X, target, new_corgi), (X.charge*0.6) SECONDS)
+		victim = target
+		RegisterSignal(victim, COMSIG_PARENT_QDELETING, .proc/avoid_del) //Handle QDEL
+		var/mob/living/simple_animal/pet/dog/corgi/new_corgi = transform(X, victim)
+		addtimer(CALLBACK(src, .proc/transform_back, X, victim, new_corgi), (X.charge*0.6) SECONDS)
 		X.cooldownmod = (X.charge*0.6) SECONDS
 	..()
 
@@ -631,8 +632,10 @@
 	return new_corgi
 
 /datum/xenoartifact_trait/major/corginator/proc/transform_back(obj/item/xenoartifact/X, mob/living/target, mob/living/simple_animal/pet/dog/corgi/new_corgi)
+	if(!victim)
+		return
 	REMOVE_TRAIT(target, TRAIT_NOBREATH, CORGIUM_TRAIT)
-	if(QDELETED(new_corgi))
+	if(QDELETED(new_corgi)) //This should handle hard dels, another measure was made above anyway
 		if(!QDELETED(target))
 			qdel(target)
 		return
@@ -649,7 +652,16 @@
 	new_corgi.inventory_back?.forceMove(T)
 	new_corgi.inventory_head = null
 	new_corgi.inventory_back = null
+	victim = null
 	qdel(new_corgi)
+
+/datum/xenoartifact_trait/major/corginator/on_del(obj/item/xenoartifact/X)
+	. = ..()
+	if(victim)
+		transform_back(victim)
+
+/datum/xenoartifact_trait/major/corginator/proc/avoid_del()
+	victim = null
 
 /datum/xenoartifact_trait/major/mirrored //Swaps the last to target's minds
 	desc = "Mirrored"
@@ -694,6 +706,7 @@
 /datum/xenoartifact_trait/major/invisible //One step closer to the one ring
 	label_name = "Transparent"
 	label_desc = "Transparent: The shape of the Artifact is difficult to percieve. You feel the need to call it, precious..."
+	var/mob/living/victim
 
 /datum/xenoartifact_trait/major/invisible/on_item(obj/item/xenoartifact/X, atom/user, atom/item)
 	. = ..()
@@ -705,8 +718,12 @@
 		return TRUE
 
 /datum/xenoartifact_trait/major/invisible/activate(obj/item/xenoartifact/X, mob/living/target)
-	hide(target)
-	addtimer(CALLBACK(src, .proc/reveal, target), ((X.charge*0.3) SECONDS))
+	if(!isliving(target))
+		return
+	victim = target
+	RegisterSignal(victim, COMSIG_PARENT_QDELETING, .proc/avoid_del)
+	hide(victim)
+	addtimer(CALLBACK(src, .proc/reveal, victim), ((X.charge*0.3) SECONDS))
 	X.cooldownmod = ((X.charge*0.3)+1) SECONDS
 	..()
 
@@ -714,7 +731,17 @@
 	animate(target, , alpha = 0, time = 5)
 
 /datum/xenoartifact_trait/major/invisible/proc/reveal(mob/living/target)
-	animate(target, , alpha = 255, time = 10)
+	if(victim)
+		animate(target, , alpha = 255, time = 10)
+		victim = null
+
+/datum/xenoartifact_trait/major/invisible/on_del(obj/item/xenoartifact/X)
+	. = ..()
+	if(victim)
+		reveal(victim)
+
+/datum/xenoartifact_trait/major/invisible/proc/avoid_del()
+	victim = null
 
 /datum/xenoartifact_trait/major/teleporting
 	desc = "Displaced"
