@@ -1,0 +1,7 @@
+author: Rukofamicom
+delete-after: true
+changes:
+  - balance: Heirloom toolboxes are now rusted shut and may no longer be used as extra
+      storage space.
+  - bugfix: Fixed fingerless insulated gloves equipment sprite, they are now appropriately
+      yellow instead of white.
