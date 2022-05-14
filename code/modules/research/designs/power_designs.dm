@@ -68,17 +68,17 @@
 	departmental_flags = DEPARTMENTAL_FLAG_SERVICE | DEPARTMENTAL_FLAG_ENGINEERING
 
 /datum/design/inducer
-	name = "NT-100 Inducer"
+	name = "Heavy-Duty Inducer"
 	desc = "Inducers can wirelessly induce electric charge in an object, allowing you to recharge power cells without having to remove them. This heavy-duty model is more potent."
 	id = "inducer"
 	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 6000, /datum/material/glass = 2000, /datum/material/copper = 200)
-	build_path = /obj/item/inducer/
+	build_path = /obj/item/inducer/eng
 	category = list("Power Designs")
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING
 
 /datum/design/inducer/sci
-	name = "NT-50 Inducer"
+	name = "Inducer"
 	desc = "Inducers can wirelessly induce electric charge in an object, allowing you to recharge power cells without having to remove them. This civilian model is less potent."
 	id = "inducersci"
 	build_type = PROTOLATHE

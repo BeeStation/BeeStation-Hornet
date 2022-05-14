@@ -901,7 +901,7 @@
 	name = "NT-100 Heavy-Duty Inducers Crate"
 	desc = "No rechargers? No problem, with the NT-100 EPI, you can recharge any standard cell-based equipment anytime, anywhere, twice faster than consumer alternatives! Contains two Engineering inducers."
 	cost = 2000
-	contains = list(/obj/item/inducer {cell_type = /obj/item/stock_parts/cell/inducer_supply; opened = 0}, /obj/item/inducer {cell_type = /obj/item/stock_parts/cell/inducer_supply; opened = 0}) //FALSE doesn't work in modified type paths apparently.
+	contains = list(/obj/item/inducer {cell_type = /obj/item/stock_parts/cell/high; opened = 0}, /obj/item/inducer {cell_type = /obj/item/stock_parts/cell/inducer_supply; opened = 0}) //FALSE doesn't work in modified type paths apparently.
 	crate_name = "inducer crate"
 	crate_type = /obj/structure/closet/crate/engineering/electrical
 
