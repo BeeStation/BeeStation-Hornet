@@ -4,7 +4,6 @@
 	// 1spooky
 	name = "\improper High-Functioning Zombie"
 	id = "zombie"
-	say_mod = "moans"
 	sexes = 0
 	meat = /obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/zombie
 	species_traits = list(NOBLOOD,NOZOMBIE,NOTRANSSTING)

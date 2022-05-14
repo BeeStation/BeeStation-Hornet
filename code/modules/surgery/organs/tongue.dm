@@ -6,7 +6,7 @@
 	slot = ORGAN_SLOT_TONGUE
 	attack_verb = list("licked", "slobbered", "slapped", "frenched", "tongued")
 	var/list/languages_possible
-	var/say_mod = null
+	var/say_mod = "says"
 	var/taste_sensitivity = 15 // lower is more sensitive.
 	var/modifies_speech = FALSE
 	var/static/list/languages_possible_base = typecacheof(list(
@@ -35,18 +35,15 @@
 
 /obj/item/organ/tongue/proc/handle_speech(datum/source, list/speech_args)
 	SIGNAL_HANDLER
+
 /obj/item/organ/tongue/Insert(mob/living/carbon/M, special = 0)
 	..()
-	if(say_mod && M.dna && M.dna.species)
-		M.dna.species.say_mod = say_mod
-	if (modifies_speech)
+	if(modifies_speech)
 		RegisterSignal(M, COMSIG_MOB_SAY, .proc/handle_speech)
 	M.UnregisterSignal(M, COMSIG_MOB_SAY)
 
 /obj/item/organ/tongue/Remove(mob/living/carbon/M, special = 0)
 	..()
-	if(say_mod && M.dna && M.dna.species)
-		M.dna.species.say_mod = initial(M.dna.species.say_mod)
 	UnregisterSignal(M, COMSIG_MOB_SAY, .proc/handle_speech)
 	M.RegisterSignal(M, COMSIG_MOB_SAY, /mob/living/carbon/.proc/handle_tongueless_speech)
 
@@ -208,7 +205,7 @@
 	phomeme_type = pick(phomeme_types)
 
 /obj/item/organ/tongue/bone/handle_speech(datum/source, list/speech_args)
-	if (chattering)
+	if(chattering)
 		chatter(speech_args[SPEECH_MESSAGE], phomeme_type, source)
 	switch(phomeme_type)
 		if("sans")
@@ -245,8 +242,9 @@
 	speech_args[SPEECH_SPANS] |= SPAN_ROBOT
 
 /obj/item/organ/tongue/snail
-	name = "snailtongue"
+	name = "snail tongue"
 	modifies_speech = TRUE
+	say_mod = "slurs"
 
 /obj/item/organ/tongue/snail/handle_speech(datum/source, list/speech_args)
 	var/new_message
@@ -269,3 +267,50 @@
 /obj/item/organ/tongue/ethereal/Initialize(mapload)
 	. = ..()
 	languages_possible = languages_possible_base += typecacheof(/datum/language/voltaic)
+
+/obj/item/organ/tongue/golem
+	name = "mineral tongue"
+	desc = "A strange tongue made out of some kind of mineral. It's smooth, but flexible."
+	say_mod = "rumbles"
+	taste_sensitivity = 101 //They don't eat.
+	icon_state = "adamantine_cords"
+
+/obj/item/organ/tongue/golem/Initialize(mapload)
+	. = ..()
+	languages_possible = languages_possible_base += typecacheof(/datum/language/terrum)
+
+/obj/item/organ/tongue/golem/bananium
+	name = "bananium tongue"
+	desc = "It's a tongue made out of pure bananium."
+	say_mod = "honks"
+
+/obj/item/organ/tongue/golem/clockwork
+	name = "clockwork tongue"
+	desc = "It's a tongue made out of many tiny cogs. You can hear a very subtle clicking noise emanating from it."
+	say_mod = "clicks"
+
+/obj/item/organ/tongue/cat
+	name = "cat tongue"
+	desc = "A rough tongue, full of small, boney spines all over it's surface."
+	say_mod = "meows"
+
+/obj/item/organ/tongue/slime
+	name = "slimey tongue"
+	desc = "It's a piece of slime, shaped like a tongue."
+	say_mod = "blorbles"
+
+/obj/item/organ/tongue/slime/Initialize(mapload)
+	. = ..()
+	languages_possible = languages_possible_base += typecacheof(/datum/language/slime)
+
+/obj/item/organ/tongue/moth
+	name = "mothic tongue"
+	desc = "It's long and noodly."
+	say_mod = "flutters"
+	icon_state = "tonguemoth"
+
+/obj/item/organ/tongue/teratoma
+	name = "malformed tongue"
+	desc = "It's a tongue that looks off... Must be from a creature that shouldn't exist."
+	say_mod = "mumbles"
+	icon_state = "tonguefly"
