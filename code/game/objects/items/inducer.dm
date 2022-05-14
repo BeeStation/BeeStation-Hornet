@@ -1,5 +1,5 @@
 /obj/item/inducer
-	name = "inducer"
+	name = "heavy-duty inducer"
 	desc = "A tool for inductively charging internal power cells."
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "inducer-engi"
@@ -171,6 +171,7 @@
 			add_overlay("inducer-bat")
 
 /obj/item/inducer/sci
+	name = "inducer"
 	icon_state = "inducer-sci"
 	item_state = "inducer-sci"
 	desc = "A tool for inductively charging internal power cells. This one has a science color scheme, and is less potent than its engineering counterpart."

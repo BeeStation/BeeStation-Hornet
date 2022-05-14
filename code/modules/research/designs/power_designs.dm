@@ -68,14 +68,24 @@
 	departmental_flags = DEPARTMENTAL_FLAG_SERVICE | DEPARTMENTAL_FLAG_ENGINEERING
 
 /datum/design/inducer
-	name = "Inducer"
-	desc = "The NT-75 Electromagnetic Power Inducer can wirelessly induce electric charge in an object, allowing you to recharge power cells without having to remove them."
+	name = "NT-100 Inducer"
+	desc = "Inducers can wirelessly induce electric charge in an object, allowing you to recharge power cells without having to remove them. This heavy-duty model is more potent."
 	id = "inducer"
+	build_type = PROTOLATHE
+	materials = list(/datum/material/iron = 6000, /datum/material/glass = 2000, /datum/material/copper = 200)
+	build_path = /obj/item/inducer/
+	category = list("Power Designs")
+	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING
+
+/datum/design/inducer/sci
+	name = "NT-50 Inducer"
+	desc = "Inducers can wirelessly induce electric charge in an object, allowing you to recharge power cells without having to remove them. This civilian model is less potent."
+	id = "inducersci"
 	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 3000, /datum/material/glass = 1000, /datum/material/copper = 100)
 	build_path = /obj/item/inducer/sci
 	category = list("Power Designs")
-	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
 
 /datum/design/board/pacman
 	name = "Machine Design (PACMAN-type Generator Board)"
