@@ -195,6 +195,8 @@
 /obj/machinery/computer/xenoartifact_console/Destroy()
 	. = ..()
 	on_inbox_del()
+	qdel(sellers)
+	qdel(buyers)
 
 /obj/machinery/xenoartifact_inbox
 	name = "bluespace straythread pad" //Science words
