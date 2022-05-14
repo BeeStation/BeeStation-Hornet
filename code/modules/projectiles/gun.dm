@@ -216,6 +216,9 @@
 	. = ..()
 	if(!(. & EMP_PROTECT_CONTENTS))
 		for(var/obj/O in contents)
+			//Ignore cells, as we handle them ourselves.
+			if(istype(O, /obj/item/stock_parts/cell))
+				continue
 			O.emp_act(severity)
 
 /obj/item/gun/afterattack(atom/target, mob/living/user, flag, params, aimed)
