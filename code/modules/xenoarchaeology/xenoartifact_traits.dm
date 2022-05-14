@@ -366,6 +366,7 @@
 
 /datum/xenoartifact_trait/minor/delicate/on_init(obj/item/xenoartifact/X)
 	X.max_integrity = pick(200, 300, 500, 800, 1000)
+	X.obj_integrity = X.max_integrity
 	X.alpha = X.alpha * 0.55
 	..()
 
