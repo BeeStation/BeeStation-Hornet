@@ -650,6 +650,11 @@
 	desc = "An adorable mothperson plushy. It's a precise bug!"
 	icon_state = "moffplush_clockwork"
 
+/obj/item/toy/plush/moth/moonfly
+	name = "moonfly moth plushie"
+	desc = "An adorable mothperson plushy. It's a nightly bug!"
+	icon_state = "moffplush_moonfly"
+
 /obj/item/toy/plush/moth/error
 	name = "error moth plushie"
 	desc = "An adorable mothperson plushy. It's a debuggable bug!"
