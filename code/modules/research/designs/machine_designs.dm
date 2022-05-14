@@ -618,6 +618,7 @@
 	build_path = /obj/item/circuitboard/machine/mass_driver
 	category = list ("Misc. Machinery")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SERVICE
+	
 
 /datum/design/board/ore_silo
 	name = "Machine Design (Ore Silo)"
@@ -657,4 +658,20 @@
 	id = "component_printer"
 	build_path = /obj/item/circuitboard/machine/component_printer
 	category = list("Misc. Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
+
+/datum/design/board/xeno_listing_console
+	name = "Computer Design (Research and Development Listing Console)"
+	desc = "The circuit board for a research listing console."
+	id = "xenoa_list_console"
+	build_path = /obj/item/circuitboard/computer/xenoartifact_console
+	category = list ("Research Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
+
+/datum/design/board/xenia_listing_inbox
+	name = "Machine Design (Bluespace Straythread Pad)"
+	desc = "The circuit board for a bluespace straythread pad."
+	id = "xenoa_list_pad"
+	build_path = /obj/item/circuitboard/machine/xenoartifact_inbox
+	category = list ("Research Machinery")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
