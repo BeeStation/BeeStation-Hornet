@@ -714,7 +714,7 @@
 	dir = 9
 	},
 /obj/structure/cable/yellow{
-	icon_state = "0-8"
+	icon_state = "32-8"
 	},
 /turf/open/floor/plasteel,
 /area/maintenance/department/security)
@@ -1255,8 +1255,8 @@
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/turret_protected/ai_upload)
 "gh" = (
-/obj/structure/cable{
-	icon_state = "0-4"
+/obj/structure/cable/yellow{
+	icon_state = "32-4"
 	},
 /turf/open/floor/plasteel/grimy,
 /area/tcommsat/computer)
@@ -4258,7 +4258,9 @@
 /area/maintenance/upper/starboard/central)
 "ve" = (
 /obj/structure/cable/yellow,
-/obj/structure/cable/yellow,
+/obj/structure/cable/yellow{
+	icon_state = "32-1"
+	},
 /turf/open/floor/plasteel,
 /area/maintenance/upper/starboard/aft)
 "vg" = (
@@ -4799,7 +4801,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/cable/yellow{
-	icon_state = "0-2"
+	icon_state = "32-2"
 	},
 /turf/open/floor/plasteel,
 /area/maintenance/upper/port/central)
@@ -6247,7 +6249,7 @@
 /area/bridge/meeting_room/council)
 "Ik" = (
 /obj/structure/cable/yellow{
-	icon_state = "0-4"
+	icon_state = "32-4"
 	},
 /turf/open/floor/plasteel,
 /area/maintenance/department/medical)
@@ -9180,7 +9182,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/cable/yellow{
-	icon_state = "0-2"
+	icon_state = "32-2"
 	},
 /turf/open/floor/plasteel,
 /area/maintenance/department/engine)

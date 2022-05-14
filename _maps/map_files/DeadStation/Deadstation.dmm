@@ -4270,7 +4270,7 @@
 /turf/open/floor/plasteel/dark,
 /area/security/warden)
 "egS" = (
-/obj/machinery/atmospherics/pipe/simple/multiz/layer4,
+/obj/machinery/atmospherics/pipe/multiz/layer4,
 /turf/open/floor/plating,
 /area/maintenance/port/central)
 "eha" = (
@@ -5924,7 +5924,6 @@
 	dir = 1
 	},
 /obj/structure/cable,
-/obj/machinery/power/deck_relay,
 /turf/open/floor/plasteel/dark/corner{
 	dir = 4
 	},
@@ -7075,7 +7074,7 @@
 /turf/open/floor/plasteel/dark,
 /area/security/nuke_storage)
 "hbY" = (
-/obj/machinery/atmospherics/pipe/simple/multiz/layer4,
+/obj/machinery/atmospherics/pipe/multiz/layer4,
 /turf/open/floor/plasteel/dark,
 /area/security/nuke_storage)
 "het" = (
@@ -7512,7 +7511,6 @@
 /area/security/prison)
 "hwN" = (
 /obj/structure/cable/yellow,
-/obj/machinery/power/deck_relay,
 /obj/structure/disposalpipe/segment{
 	dir = 6
 	},
@@ -8531,9 +8529,8 @@
 /area/security/prison)
 "iyj" = (
 /obj/structure/cable/yellow{
-	icon_state = "0-4"
+	icon_state = "16-4"
 	},
-/obj/machinery/power/deck_relay,
 /turf/open/floor/plasteel,
 /area/maintenance/department/medical)
 "iyL" = (
@@ -9837,7 +9834,7 @@
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
 "kbC" = (
-/obj/machinery/atmospherics/pipe/simple/multiz/layer4,
+/obj/machinery/atmospherics/pipe/multiz/layer4,
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
 "kcq" = (
@@ -10694,7 +10691,6 @@
 "lcD" = (
 /obj/structure/cable/yellow,
 /obj/machinery/door/firedoor,
-/obj/machinery/power/deck_relay,
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
 "ldK" = (
@@ -13477,9 +13473,8 @@
 	icon_state = "1-2"
 	},
 /obj/structure/cable/yellow{
-	icon_state = "0-2"
+	icon_state = "16-2"
 	},
-/obj/machinery/power/deck_relay,
 /turf/open/floor/plasteel,
 /area/maintenance/port/central)
 "nLf" = (
@@ -15295,7 +15290,7 @@
 /area/solar/port/aft)
 "pAV" = (
 /obj/machinery/newscaster/directional/west,
-/obj/machinery/atmospherics/pipe/simple/multiz/layer2,
+/obj/machinery/atmospherics/pipe/multiz/layer2,
 /turf/open/floor/plasteel/dark,
 /area/security/nuke_storage)
 "pBf" = (
@@ -17269,7 +17264,7 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/fore)
 "rpp" = (
-/obj/machinery/atmospherics/pipe/simple/multiz/layer2,
+/obj/machinery/atmospherics/pipe/multiz/layer2,
 /turf/open/floor/plating,
 /area/maintenance/port/central)
 "rpE" = (
@@ -18311,9 +18306,8 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/machinery/power/deck_relay,
 /obj/structure/cable/yellow{
-	icon_state = "0-2"
+	icon_state = "16-2"
 	},
 /turf/open/floor/plasteel,
 /area/maintenance/port/fore)
@@ -19130,7 +19124,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
-/obj/machinery/power/deck_relay,
 /obj/machinery/requests_console{
 	announcementConsole = 1;
 	department = "Teleporter";
@@ -22075,7 +22068,7 @@
 /turf/open/floor/plasteel,
 /area/security/brig)
 "wul" = (
-/obj/machinery/atmospherics/pipe/simple/multiz/layer2,
+/obj/machinery/atmospherics/pipe/multiz/layer2,
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
 "wuw" = (
@@ -22772,14 +22765,14 @@
 /turf/open/floor/plasteel,
 /area/science/research)
 "xfu" = (
-/obj/machinery/atmospherics/pipe/simple/multiz/layer2,
-/obj/machinery/atmospherics/pipe/simple/multiz/layer4,
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},
+/obj/machinery/atmospherics/pipe/multiz/layer2,
+/obj/machinery/atmospherics/pipe/multiz/layer4,
 /turf/open/floor/plating,
 /area/maintenance/department/medical)
 "xgP" = (
@@ -22993,9 +22986,8 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 9
 	},
-/obj/machinery/power/deck_relay,
 /obj/structure/cable/yellow{
-	icon_state = "0-8"
+	icon_state = "16-8"
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/nuke_storage)
