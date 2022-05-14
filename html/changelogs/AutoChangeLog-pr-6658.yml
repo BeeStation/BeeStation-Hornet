@@ -1,5 +1,0 @@
-author: ivanmixo
-delete-after: true
-changes:
-  - rscadd: added a bunch of new tongues
-  - tweak: moved saymods off species datums and onto tongues
