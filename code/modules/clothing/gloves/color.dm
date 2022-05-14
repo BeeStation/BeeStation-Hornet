@@ -66,7 +66,7 @@
 	name = "fingerless insulated gloves"
 	icon_state = "yellowcut"
 	item_state = "ygloves"
-	worn_icon_state = "yellowcut"
+	worn_icon_state = "ygloves"
 	transfer_prints = TRUE
 
 /obj/item/clothing/gloves/cut/heirloom
