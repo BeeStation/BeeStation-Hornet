@@ -4,7 +4,7 @@
 	slot = ITEM_SLOT_ICLOTHING
 	sort_category = "Uniforms and Casual Dress"
 	species_blacklist = list("plasmaman") //Envirosuit moment
-	cost = 0
+	cost = 50
 
 //STANDARD UNIFORM COLORS
 
@@ -240,61 +240,61 @@
 /datum/gear/uniform/orderly_uniform
 	display_name = "orderly uniform"
 	path = /obj/item/clothing/under/misc/orderly_uniform
-	cost = 0
+	cost = 75
 
 /datum/gear/uniform/nt_skirtsuit
 	display_name = "nanotrasen skirtsuit"
 	path = /obj/item/clothing/under/misc/nt_skirtsuit
-	cost = 0
+	cost = 75
 
 /datum/gear/uniform/hos_formal_male
 	display_name = "red formal coat"
 	path = /obj/item/clothing/under/misc/hos_formal_male
-	cost = 0
+	cost = 75
 
 /datum/gear/uniform/rainbow
 	display_name = "rainbow jumpsuit"
 	path = /obj/item/clothing/under/color/rainbow
-	cost = 0
+	cost = 75
 
 /datum/gear/uniform/rainbow_skirt
 	display_name = "rainbow jumpskirt"
 	path = /obj/item/clothing/under/color/jumpskirt/rainbow
-	cost = 0
+	cost = 75
 /datum/gear/uniform/black_really_skirt
 	display_name = "executive suitskirt"
 	path = /obj/item/clothing/under/suit/black_really/skirt
-	cost = 0
+	cost = 75
 /datum/gear/uniform/black_really
 	display_name = "executive suit"
 	path = /obj/item/clothing/under/suit/black_really
-	cost = 0
+	cost = 75
 /datum/gear/uniform/black/skirt
 	display_name = "black suitskirt"
 	path = /obj/item/clothing/under/suit/black/skirt
-	cost = 0
+	cost = 75
 /datum/gear/uniform/burgundy_suit
 	display_name = "burgundy suit"
 	path = /obj/item/clothing/under/suit/burgundy
-	cost = 0
+	cost = 75
 /datum/gear/uniform/checkered
 	display_name = "checkered suit"
 	path = /obj/item/clothing/under/suit/checkered
-	cost = 0
+	cost = 75
 /datum/gear/uniform/black/navy
 	display_name = "navy suit"
 	path = /obj/item/clothing/under/suit/navy
-	cost = 0
+	cost = 75
 /datum/gear/uniform/black/skirt
 	display_name = "black suitskirt"
 	path = /obj/item/clothing/under/suit/black/skirt
-	cost = 0
+	cost = 75
 
 //RANK SUBTYPE
 
 /datum/gear/uniform/rank
 	subtype_path = /datum/gear/uniform/rank
-	cost = 0
+	cost = 150
 
 //ASSISTANTS FORMALS
 
@@ -390,12 +390,12 @@
 /datum/gear/uniform/rank/security/blueshift
 	display_name = "security jumpsuit, blue shirt and tie"
 	path = /obj/item/clothing/under/rank/security/officer/blueshirt
-	cost = 0
+	cost = 75
 
 /datum/gear/uniform/rank/security/blart
 	display_name = "security jumpsuit, Nanotrasen mall cop uniform"
 	path = /obj/item/clothing/under/rank/security/officer/mallcop
-	cost = 0
+	cost = 75
 
 /datum/gear/uniform/misc/jabroni
 	display_name = "jabroni leathers"
