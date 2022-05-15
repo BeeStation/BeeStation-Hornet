@@ -171,7 +171,7 @@
 	B.generate()
 	buyers += B
 	ui_update()
-	addtimer(CALLBACK(src, .proc/qdel, B), (rand(1,5)*60) SECONDS)
+	addtimer(CALLBACK(GLOBAL_PROC, .proc/qdel, B), (rand(1,5)*60) SECONDS)
 
 /obj/machinery/computer/xenoartifact_console/proc/sync_devices()
 	for(var/obj/machinery/xenoartifact_inbox/I in oview(9,src))
