@@ -133,7 +133,7 @@
 		if(smartmine && target.has_mindshield_hud_icon())
 			return
 		else if(dramatic_sound)
-			triggered = 1
+			triggered = TRUE
 			playsound(loc, dramatic_sound, 100, 1)
 			target.Paralyze(30, TRUE, TRUE) //"Trip" the mine if you will. Ignores stun immunity.
 			addtimer(CALLBACK(src, .proc/triggermine, target), 10)
