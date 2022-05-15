@@ -5,7 +5,7 @@
 	icon = 'icons/mob/alien.dmi'
 	icon_state = "larva0_dead"
 	var/stage = 0
-	var/next_stage_time = 0
+	COOLDOWN_DECLARE(next_stage_time)
 	var/bursting = FALSE
 
 /obj/item/organ/body_egg/alien_embryo/on_find(mob/living/finder)
@@ -54,17 +54,17 @@
 /obj/item/organ/body_egg/alien_embryo/on_death()
 	. = ..()
 	if(!owner && next_stage_time) // No growing outside the body
-		next_stage_time = 0
+		COOLDOWN_RESET(src, next_stage_time)
 
 /obj/item/organ/body_egg/alien_embryo/egg_process()
 	var/mob/living/L = owner
 	if(L.IsInStasis())
 		return
 	if(!next_stage_time)
-		next_stage_time = world.time + 1 MINUTES
+		COOLDOWN_START(src, next_stage_time, 1 MINUTES)
 		return
-	if(next_stage_time <= world.time && stage < 5)
-		next_stage_time = world.time + rand(1 MINUTES, 1.5 MINUTES) // Somewhere from 5-7 minutes to fully grow
+	if(COOLDOWN_FINISHED(src, next_stage_time) && stage < 5)
+		COOLDOWN_START(src, next_stage_time, rand(1 MINUTES, 1.5 MINUTES)) // Somewhere from 5-7 minutes to fully grow
 		stage++
 		INVOKE_ASYNC(src, .proc/RefreshInfectionImage)
 
