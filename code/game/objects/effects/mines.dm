@@ -125,7 +125,7 @@
 	if(ismob(AM))
 		checksmartmine(AM)
 	else
-		triggered = 1	//ensures multiple explosions aren't queued if/while the mine is delayed
+		triggered = TRUE	//ensures multiple explosions aren't queued if/while the mine is delayed
 		INVOKE_ASYNC(src, .proc/triggermine, AM)
 
 /obj/effect/mine/proc/checksmartmine(mob/living/target)
