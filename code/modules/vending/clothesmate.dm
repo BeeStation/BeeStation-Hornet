@@ -113,7 +113,9 @@
 		              /obj/item/clothing/suit/jacket/letterman_syndie = 1,
 		              /obj/item/clothing/under/costume/jabroni = 1,
 		              /obj/item/clothing/suit/vapeshirt = 1,
-		              /obj/item/clothing/under/costume/geisha = 1)
+		              /obj/item/clothing/under/costume/geisha = 1,
+		          	  /obj/item/clothing/under/dress/skirt/cardigan = 1,
+		          	  /obj/item/clothing/under/dress/skirt/silk = 1)
 	premium = list(/obj/item/clothing/under/suit/checkered = 1,
 		           /obj/item/clothing/head/mailman = 1,
 		           /obj/item/clothing/under/misc/mailman = 1,
@@ -121,9 +123,7 @@
 		           /obj/item/clothing/suit/jacket/leather/overcoat = 1,
 		           /obj/item/clothing/under/pants/mustangjeans = 1,
 		           /obj/item/clothing/neck/necklace/dope = 3,
-		           /obj/item/clothing/suit/jacket/letterman_nanotrasen = 1,
-		            /obj/item/clothing/under/dress/skirt/cardigan = 1,
-		            /obj/item/clothing/under/dress/skirt/silk = 1)
+		           /obj/item/clothing/suit/jacket/letterman_nanotrasen = 1)
 	refill_canister = /obj/item/vending_refill/clothing
 	default_price = 40
 	extra_price = 60
