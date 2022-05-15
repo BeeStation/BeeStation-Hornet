@@ -1,5 +1,0 @@
-author: Patternseeker
-delete-after: true
-changes:
-  - bugfix: Fixed plasmaglass shard spears being invisible on right hand and in back
-      slot.
