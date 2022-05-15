@@ -64,7 +64,7 @@
 		next_stage_time = world.time + 1 MINUTES
 		return
 	if(next_stage_time <= world.time)
-		next_stage_time = world.time + rand(1 MINUTES, 1.5 MINUTES) // Somewhere from 4-7 minutes to fully grow
+		next_stage_time = world.time + rand(1 MINUTES, 1.5 MINUTES) // Somewhere from 5-7 minutes to fully grow
 		stage++
 		INVOKE_ASYNC(src, .proc/RefreshInfectionImage)
 
@@ -123,6 +123,8 @@
 		if(BP)
 			BP.receive_damage(brute = 200) // Kill them dead
 			BP.dismember()
+		else
+			owner.apply_damage(200)
 	else
 		new_xeno.visible_message("<span class='danger'>[new_xeno] wriggles out of [owner]!</span>", "<span class='userdanger'>You exit [owner], your previous host.</span>")
 		owner.adjustBruteLoss(40)
