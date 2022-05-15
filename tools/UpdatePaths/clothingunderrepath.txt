@@ -30,6 +30,8 @@
 /obj/item/clothing/under/skirt/blue : /obj/item/clothing/under/dress/skirt/blue
 /obj/item/clothing/under/skirt/red : /obj/item/clothing/under/dress/skirt/red
 /obj/item/clothing/under/skirt/purple : /obj/item/clothing/under/dress/skirt/purple
+/obj/item/clothing/under/skirt/cardigan : /obj/item/clothing/under/dress/skirt/cardigan
+/obj/item/clothing/under/skirt/silk : /obj/item/clothing/under/dress/skirt/silk
 /obj/item/clothing/under/sundress : /obj/item/clothing/under/dress/sundress
 /obj/item/clothing/under/blacktango : /obj/item/clothing/under/dress/blacktango
 /obj/item/clothing/under/stripeddress : /obj/item/clothing/under/dress/striped

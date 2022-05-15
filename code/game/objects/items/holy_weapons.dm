@@ -229,6 +229,12 @@
 	desc = "I mean, you don't /have/ to seek bling water. I just think you should."
 	icon_state = "chaplain_hood_leader"
 
+/obj/item/clothing/under/rank/civilian/vamphunter_under
+	name = "vampire hunter suit"
+	desc = "A sister's robe custom tailored to be easier to move around. Has a scent of curry to it."
+	icon_state = "vamphunter"
+	item_state = "vamphunter"
+	can_adjust = FALSE
 
 // CHAPLAIN NULLROD AND CUSTOM WEAPONS //
 

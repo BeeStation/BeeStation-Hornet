@@ -61,6 +61,20 @@
 	item_state = "p_suit"
 	custom_price = 25
 
+/obj/item/clothing/under/dress/skirt/cardigan
+	name = "white cardigan"
+	desc = "A flexible, snow-white cardigan with a purple skirt."
+	icon_state = "cardigan"
+	item_state = "cardigan"
+	custom_price = 25
+
+/obj/item/clothing/under/dress/skirt/silk
+	name = "silk skirt"
+	desc = "A white blouse and red skirt combo made out of top-quality textile. Fit for a high-class lady."
+	icon_state = "silkskirt"
+	item_state = "silkskirt"
+	custom_price = 1500
+
 /obj/item/clothing/under/dress/skirt/plaid
 	name = "red plaid skirt"
 	desc = "A preppy red skirt with a white blouse."
