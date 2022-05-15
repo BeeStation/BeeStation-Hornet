@@ -1,0 +1,4 @@
+author: d0sboots
+delete-after: true
+changes:
+  - rscdel: Removed dead drop_item code
