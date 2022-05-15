@@ -111,14 +111,11 @@
 
 /datum/xenoartifact_trait/activator/burn/calculate_charge(datum/source, obj/item/thing, mob/user, atom/target, params) //xenoa item handles this, see process proc there
 	var/obj/item/xenoartifact/X = source
-	X.say("Test : Burn : Pre")
 	if(X.process_type != IS_LIT && thing.ignition_effect(X, user)) //Generally artifact should handle cooldown schmuck. Please don't do this.
-		X.say("Test : calculate charge")
 		X.visible_message("<span class='danger'>The [X.name] sparks on.</span>")
-		if(do_after(X, 5))
-			X.say("Start Processing")
-			X.process_type = IS_LIT
-			START_PROCESSING(SSobj, X)
+		X.process_type = IS_LIT
+		sleep(5) //Give them a chance to escape
+		START_PROCESSING(SSobj, X)
 
 /datum/xenoartifact_trait/activator/clock //xenoa item handles this, see process proc there
 	label_name = "Tuned"
