@@ -63,7 +63,7 @@
 	if(!next_stage_time)
 		next_stage_time = world.time + 1 MINUTES
 		return
-	if(next_stage_time <= world.time)
+	if(next_stage_time <= world.time && stage < 5)
 		next_stage_time = world.time + rand(1 MINUTES, 1.5 MINUTES) // Somewhere from 5-7 minutes to fully grow
 		stage++
 		INVOKE_ASYNC(src, .proc/RefreshInfectionImage)
