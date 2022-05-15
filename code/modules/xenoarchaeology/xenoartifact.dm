@@ -137,7 +137,10 @@
 
 /obj/item/xenoartifact/attack_hand(mob/user) //tweedle dum, density feature
 	if(get_trait(/datum/xenoartifact_trait/minor/dense))
-		SEND_SIGNAL(src, XENOA_INTERACT, null, user, user) //Calling the regular attack_hand signal causes feature issues, like picking up the artifact.
+		if(user.a_intent != INTENT_GRAB)
+			SEND_SIGNAL(src, XENOA_INTERACT, null, user, user) //Calling the regular attack_hand signal causes feature issues, like picking up the artifact.
+		else
+			touch_desc?.on_touch(src, user)
 		return FALSE
 	..()
 
