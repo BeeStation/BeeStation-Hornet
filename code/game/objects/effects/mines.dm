@@ -118,26 +118,32 @@
 	to_chat(victim, "<span class='danger'>*click*</span>")
 
 /obj/effect/mine/proc/on_entered(datum/source, atom/movable/AM)
-	if(!isturf(loc) || AM.throwing || (AM.movement_type & (FLYING | FLOATING)) || !AM.has_gravity())
+	SIGNAL_HANDLER
+
+	if(!isturf(loc) || AM.throwing || (AM.movement_type & (FLYING | FLOATING)) || !AM.has_gravity() || triggered)
 		return
 	if(ismob(AM))
 		checksmartmine(AM)
 	else
+		triggered = 1	//ensures multiple explosions aren't queued if/while the mine is delayed
 		INVOKE_ASYNC(src, .proc/triggermine, AM)
 
 /obj/effect/mine/proc/checksmartmine(mob/living/target)
 	if(target)
-		if(!target.has_mindshield_hud_icon())
+		if(smartmine && target.has_mindshield_hud_icon())
+			return
+		else if(dramatic_sound)
+			triggered = 1
+			playsound(loc, dramatic_sound, 100, 1)
+			target.Paralyze(30, TRUE, TRUE) //"Trip" the mine if you will. Ignores stun immunity.
+			addtimer(CALLBACK(src, .proc/triggermine, target), 10)
+			return
+		else
+			triggered = 1
 			triggermine(target)
+					
 
 /obj/effect/mine/proc/triggermine(mob/living/victim)
-	if(triggered)
-		return
-	triggered = 1	//ensures multiple explosions aren't queued if/while the mine is delayed
-	if(dramatic_sound && victim)
-		playsound(loc, dramatic_sound, 100, 1)
-		victim.Paralyze(30, TRUE, TRUE) //"Trip" the mine if you will. Ignores stun immunity. 
-		sleep(10)
 	visible_message("<span class='danger'>[victim] sets off [icon2html(src, viewers(src))] [src]!</span>")
 	var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 	s.set_up(3, 1, src)
