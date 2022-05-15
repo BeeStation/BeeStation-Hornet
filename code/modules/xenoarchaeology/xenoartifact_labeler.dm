@@ -151,13 +151,13 @@
 	if(istype(target, /mob/living))
 		to_chat(target, "<span class='warning'>[user] attempts to stick a [src] to you!</span>")
 		to_chat(user, "<span class='warning'>You attempt to stick a [src] on [target]!</span>")
-		if(do_after(user, 30, target))
+		if(do_after(user, 30, target = target))
 			if(!user.temporarilyRemoveItemFromInventory(src))
 				return
 		add_sticker(target)
 		addtimer(CALLBACK(src, .proc/remove_sticker, target), 15 SECONDS)
 		return TRUE
-	else if(istype(target, /obj/item/xenoartifact)||istype(target, /obj/structure/xenoartifact))
+	else if(istype(target, /obj/item/xenoartifact))
 		var/obj/item/xenoartifact/X = target
 		calculate_modifier(X)
 		add_sticker(X)

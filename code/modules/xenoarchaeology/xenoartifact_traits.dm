@@ -81,8 +81,6 @@
 
 /datum/xenoartifact_trait/special/objective/on_init(obj/item/xenoartifact/X) //Exploration mission GPS trait
 	. = ..()
-	if(X.get_trait(/datum/xenoartifact_trait/minor/dense) && istype(X, /obj/item/xenoartifact))
-		return
 	X.AddComponent(/datum/component/gps, "[scramble_message_replace_chars("#########", 100)]", TRUE)
 
 //Activation traits - only used to generate charge
@@ -105,22 +103,22 @@
 	desc = "Flammable"
 	label_desc = "Flammable: The material is flamable, and seems to react when ignited."
 	charge = 25
-	blacklist_traits = list(/datum/xenoartifact_trait/minor/dense)
 	signals = list(COMSIG_PARENT_ATTACKBY)
 
 /datum/xenoartifact_trait/activator/burn/on_init(obj/item/xenoartifact/X)
 	. = ..()
-	X.max_range += 1
+	X.max_range += 2
 
 /datum/xenoartifact_trait/activator/burn/calculate_charge(datum/source, obj/item/thing, mob/user, atom/target, params) //xenoa item handles this, see process proc there
 	var/obj/item/xenoartifact/X = source
+	X.say("Test : Burn : Pre")
 	if(X.process_type != IS_LIT && thing.ignition_effect(X, user)) //Generally artifact should handle cooldown schmuck. Please don't do this.
+		X.say("Test : calculate charge")
 		X.visible_message("<span class='danger'>The [X.name] sparks on.</span>")
-		if(isliving(X.loc))
-			to_chat(user, "<span class='danger'>The [X.name] sparks on.</span>")
-		sleep(2 SECONDS)
-		X.process_type = IS_LIT
-		START_PROCESSING(SSobj, X)
+		if(do_after(X, 5))
+			X.say("Start Processing")
+			X.process_type = IS_LIT
+			START_PROCESSING(SSobj, X)
 
 /datum/xenoartifact_trait/activator/clock //xenoa item handles this, see process proc there
 	label_name = "Tuned"
@@ -164,8 +162,6 @@
 	..()
 
 /datum/xenoartifact_trait/activator/signal/calculate_charge(datum/source, obj/item/thing, mob/user, atom/target, params)
-	if(!istype(source, /obj/item/xenoartifact))
-		return
 	var/obj/item/xenoartifact/X = source
 	X.default_activate(charge, user, target)
 
@@ -238,13 +234,14 @@
 		return TRUE
 	..()
 
-/datum/xenoartifact_trait/minor/dense //Swaps to structure version
+/datum/xenoartifact_trait/minor/dense //Rather large, quite gigantic, particularly big
 	desc = "Dense"
 	label_desc = "Dense: The Artifact is dense and cannot be easily lifted but, the design has a slightly higher reaction rate."
 	blacklist_traits = list(/datum/xenoartifact_trait/minor/wearable, /datum/xenoartifact_trait/minor/sharp, /datum/xenoartifact_trait/minor/light, /datum/xenoartifact_trait/minor/heavy)
 
 /datum/xenoartifact_trait/minor/dense/on_init(obj/item/xenoartifact/X)
-	new /obj/structure/xenoartifact(get_turf(X), X)
+	X.density = TRUE
+	X.interaction_flags_atom = INTERACT_ATOM_ATTACK_HAND
 	..()
 
 /datum/xenoartifact_trait/minor/sharp
@@ -257,8 +254,6 @@
 	return TRUE
 
 /datum/xenoartifact_trait/minor/sharp/on_init(obj/item/xenoartifact/X)
-	if(istype(X, /obj/structure/xenoartifact))
-		return
 	X.sharpness = IS_SHARP_ACCURATE
 	X.force = X.charge_req*0.15
 	X.throwforce = 10
@@ -299,7 +294,7 @@
 	return TRUE
 
 /datum/xenoartifact_trait/minor/cooler/on_init(obj/item/xenoartifact/X)
-	X.cooldown = 4 SECONDS //Might revisit the value.
+	X?.cooldown = 4 SECONDS //Might revisit the value.
 	..()
 
 /datum/xenoartifact_trait/minor/cooler/activate(obj/item/xenoartifact/X)
@@ -315,8 +310,6 @@
 	return TRUE
 
 /datum/xenoartifact_trait/minor/sentient/on_init(obj/item/xenoartifact/X)
-	if(X.get_trait(/datum/xenoartifact_trait/minor/dense) && !istype(X, /obj/structure/xenoartifact)) //Stop multiple sentience
-		return
 	addtimer(CALLBACK(src, .proc/get_canidate, X), 5 SECONDS)
 	..()
 
@@ -413,8 +406,6 @@
 
 /datum/xenoartifact_trait/minor/wearable/on_init(obj/item/xenoartifact/X)
 	. = ..()
-	if(istype(X, /obj/structure/xenoartifact))
-		return
 	X.slot_flags = ITEM_SLOT_GLOVES
 	
 /datum/xenoartifact_trait/minor/wearable/activate(obj/item/xenoartifact/X, atom/user)
@@ -428,8 +419,6 @@
 
 /datum/xenoartifact_trait/minor/blocking/on_init(obj/item/xenoartifact/X)
 	. = ..()
-	if(istype(X, /obj/structure/xenoartifact))
-		return
 	X.block_level = pick(1, 2, 3, 4)
 	X.block_upgrade_walk = 1
 	X.block_power = 25 * pick(0.8, 1, 1.3, 1.5)

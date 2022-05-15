@@ -130,6 +130,17 @@
 		generate_icon(icon, "IBTM[icon_slots[2]]")
 		generate_icon(icon, "IBTML[icon_slots[2]]", material)
 
+/obj/item/xenoartifact/CanAllowThrough(atom/movable/mover, turf/target) //tweedle dee, density feature
+	. = ..()
+	if(get_trait(/datum/xenoartifact_trait/minor/dense))
+		return FALSE
+
+/obj/item/xenoartifact/attack_hand(mob/user) //tweedle dum, density feature
+	if(get_trait(/datum/xenoartifact_trait/minor/dense))
+		SEND_SIGNAL(src, XENOA_INTERACT, null, user, user) //Calling the regular attack_hand signal causes feature issues, like picking up the artifact.
+		return FALSE
+	..()
+
 /obj/item/xenoartifact/examine(mob/living/carbon/user)
 	. = ..()
 	if(isobserver(user))
@@ -343,7 +354,7 @@
 			true_target = list(get_proximity(min(max_range, 5)))
 			default_activate(25, null, null)
 			if(prob(13) && COOLDOWN_FINISHED(src, xenoa_cooldown))
-				process_type=null
+				process_type = null
 				return PROCESS_KILL
 		else    
 			return PROCESS_KILL

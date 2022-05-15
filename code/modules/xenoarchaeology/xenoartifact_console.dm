@@ -142,7 +142,7 @@
 		var/final_price
 		var/info
 		if(selling_item)
-			if(istype(selling_item, /obj/item/xenoartifact) || istype(selling_item, /obj/structure/xenoartifact))
+			if(istype(selling_item, /obj/item/xenoartifact))
 				var/datum/component/xenoartifact_pricing/X = selling_item.GetComponent(/datum/component/xenoartifact_pricing)
 				if(X)
 					final_price = max(X.modifier*X.price, 1)
@@ -247,10 +247,8 @@
 
 /datum/xenoartifact_seller/buyer/generate()
 	name = pick(XENO_SELLER_NAMES)
-	buying = pick(/obj/item/xenoartifact, /obj/structure/xenoartifact)
+	buying = pick(/obj/item/xenoartifact)
 	if(buying == /obj/item/xenoartifact) //Don't bother trying to use istype here
 		dialogue = "[name] is requesting: artifact::item-class"
-	else if(buying == /obj/structure/xenoartifact)
-		dialogue = "[name] is requesting: artifact::structure-class"
 	unique_id = "[rand(1,100)][rand(1,100)][rand(1,100)]:[world.time]"
 	addtimer(CALLBACK(src, .proc/change_item), (rand(1,3)*60) SECONDS)
