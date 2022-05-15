@@ -178,11 +178,10 @@
 
 /datum/xenoartifact_trait/activator/batteryneed/calculate_charge(datum/source, obj/item/thing, mob/user, atom/target, params)
 	var/obj/item/xenoartifact/X = source
-	if(!istype(thing, /obj/item/stock_parts/cell))
-		return
-	var/obj/item/stock_parts/cell/C = thing
-	if(X.default_activate(charge, user, user))
-		C.charge -= X.charge_req*10
+	if(istype(thing, /obj/item/stock_parts/cell))
+		var/obj/item/stock_parts/cell/C = thing
+		if(X.default_activate(charge, user, user))
+			C.charge -= X.charge_req*10
 
 //Minor traits - Some of these can be good but, don't forget to just have a bunch of lame ones too
 
@@ -482,13 +481,12 @@
 	..()
 
 /datum/xenoartifact_trait/major/capture/activate(obj/item/xenoartifact/X, atom/target)
-	if(!ismovable(target))
-		return
-	var/atom/movable/AM = target
-	AM.forceMove(X)
-	AM.anchored = TRUE
-	addtimer(CALLBACK(src, .proc/release, X, AM), X.charge*0.3 SECONDS)
-	X.cooldownmod = X.charge*0.5 SECONDS
+	if(ismovable(target))
+		var/atom/movable/AM = target
+		AM.forceMove(X)
+		AM.anchored = TRUE
+		addtimer(CALLBACK(src, .proc/release, X, AM), X.charge*0.3 SECONDS)
+		X.cooldownmod = X.charge*0.5 SECONDS
 	..()
 
 /datum/xenoartifact_trait/major/capture/proc/release(obj/item/xenoartifact/X, var/atom/movable/AM) //Empty contents
@@ -545,24 +543,22 @@
 	label_desc = "Barreled: The shape resembles the barrel of a gun. It's possible that it might dispense candy."
 
 /datum/xenoartifact_trait/major/laser/activate(obj/item/xenoartifact/X, atom/target, mob/living/user)
-	if(!isliving(target))
-		return
-	if(get_dist(target, user) <= 1)
-		var/mob/living/victim = target
-		victim.adjust_fire_stacks(1)
-		victim.IgniteMob()
-		return
-	var/obj/item/projectile/A
-	switch(X.charge)
-		if(0 to 24)
-			A = new /obj/item/projectile/beam/disabler
-		if(25 to 79)
-			A = new /obj/item/projectile/beam/laser
-		if(80 to 200)
-			A = new /obj/item/ammo_casing/energy/laser/heavy
-	A.preparePixelProjectile(get_turf(target), X)
-	A.fire()
-	..()
+	if(isliving(target))
+		if(get_dist(target, user) <= 1)
+			var/mob/living/victim = target
+			victim.adjust_fire_stacks(1)
+			victim.IgniteMob()
+			return
+		var/obj/item/projectile/A
+		switch(X.charge)
+			if(0 to 24)
+				A = new /obj/item/projectile/beam/disabler
+			if(25 to 79)
+				A = new /obj/item/projectile/beam/laser
+			if(80 to 200)
+				A = new /obj/item/ammo_casing/energy/laser/heavy
+		A.preparePixelProjectile(get_turf(target), X)
+		A.fire()
 
 /datum/xenoartifact_trait/major/bomb
 	label_name = "Bomb"
@@ -619,28 +615,27 @@
 	return new_corgi
 
 /datum/xenoartifact_trait/major/corginator/proc/transform_back(obj/item/xenoartifact/X, mob/living/target, mob/living/simple_animal/pet/dog/corgi/new_corgi)
-	if(!victim)
-		return
-	REMOVE_TRAIT(target, TRAIT_NOBREATH, CORGIUM_TRAIT)
-	if(QDELETED(new_corgi)) //This should handle hard dels, another measure was made above anyway
-		if(!QDELETED(target))
-			qdel(target)
-		return
-	target.key = new_corgi.key
-	if(new_corgi.health <= 0) //Needed, corgi health is offset from human.
-		target.health = -1
-	target.adjustBruteLoss(new_corgi.getBruteLoss()*10)
-	target.adjustFireLoss(new_corgi.getFireLoss()*10)
-	target.forceMove(get_turf(new_corgi))
-	var/turf/T = get_turf(new_corgi)
-	if (new_corgi.inventory_head)
-		if(!target.equip_to_slot_if_possible(new_corgi.inventory_head, ITEM_SLOT_HEAD,disable_warning = TRUE, bypass_equip_delay_self=TRUE))
-			new_corgi.inventory_head.forceMove(T)
-	new_corgi.inventory_back?.forceMove(T)
-	new_corgi.inventory_head = null
-	new_corgi.inventory_back = null
-	victim = null
-	qdel(new_corgi)
+	if(victim)
+		REMOVE_TRAIT(target, TRAIT_NOBREATH, CORGIUM_TRAIT)
+		if(QDELETED(new_corgi)) //This should handle hard dels, another measure was made above anyway
+			if(!QDELETED(target))
+				qdel(target)
+			return
+		target.key = new_corgi.key
+		if(new_corgi.health <= 0) //Needed, corgi health is offset from human.
+			target.health = -1
+		target.adjustBruteLoss(new_corgi.getBruteLoss()*10)
+		target.adjustFireLoss(new_corgi.getFireLoss()*10)
+		target.forceMove(get_turf(new_corgi))
+		var/turf/T = get_turf(new_corgi)
+		if (new_corgi.inventory_head)
+			if(!target.equip_to_slot_if_possible(new_corgi.inventory_head, ITEM_SLOT_HEAD,disable_warning = TRUE, bypass_equip_delay_self=TRUE))
+				new_corgi.inventory_head.forceMove(T)
+		new_corgi.inventory_back?.forceMove(T)
+		new_corgi.inventory_head = null
+		new_corgi.inventory_back = null
+		victim = null
+		qdel(new_corgi)
 
 /datum/xenoartifact_trait/major/corginator/on_del(obj/item/xenoartifact/X)
 	. = ..()
@@ -699,19 +694,17 @@
 	. = ..()
 	if(istype(item, /obj/item/laser_pointer))
 		var/obj/item/laser_pointer/L = item
-		if(!L.energy)
-			return
-		to_chat(user, "<span class='info'>The [item.name]'s light passes through the structure.</span>")
-		return TRUE
+		if(L.energy)
+			to_chat(user, "<span class='info'>The [item.name]'s light passes through the structure.</span>")
+			return TRUE
 
 /datum/xenoartifact_trait/major/invisible/activate(obj/item/xenoartifact/X, mob/living/target)
-	if(!isliving(target))
-		return
-	victim = target
-	RegisterSignal(victim, COMSIG_PARENT_QDELETING, .proc/avoid_del)
-	hide(victim)
-	addtimer(CALLBACK(src, .proc/reveal, victim), ((X.charge*0.3) SECONDS))
-	X.cooldownmod = ((X.charge*0.3)+1) SECONDS
+	if(isliving(target))
+		victim = target
+		RegisterSignal(victim, COMSIG_PARENT_QDELETING, .proc/avoid_del)
+		hide(victim)
+		addtimer(CALLBACK(src, .proc/reveal, victim), ((X.charge*0.3) SECONDS))
+		X.cooldownmod = ((X.charge*0.3)+1) SECONDS
 	..()
 
 /datum/xenoartifact_trait/major/invisible/proc/hide(mob/living/target)
@@ -883,12 +876,11 @@
 
 /datum/xenoartifact_trait/major/chem/activate(obj/item/xenoartifact/X, atom/target)
 	. = ..()
-	if(!iscarbon(target))
-		return
-	var/mob/living/carbon/M = target
-	if(!M.can_inject())
-		var/datum/reagents/R = target.reagents
-		R.add_reagent(formula, amount)
+	if(iscarbon(target))
+		var/mob/living/carbon/M = target
+		if(!M.can_inject())
+			var/datum/reagents/R = target.reagents
+			R.add_reagent(formula, amount)
 
 /datum/xenoartifact_trait/major/push
 	label_name = "Push"
@@ -938,11 +930,10 @@
 	label_desc = "Parallel Bearspace Retrieval: A strange malfunction causes the Artifact to open a gateway to deep bearspace."
 
 /datum/xenoartifact_trait/malfunction/bear/activate(obj/item/xenoartifact/X)
-	if(!prob(33))
-		return
-	var/mob/living/simple_animal/hostile/bear/new_bear
-	new_bear = new(get_turf(X.loc))
-	new_bear.name = pick("Freddy", "Bearington", "Smokey", "Beorn", "Pooh", "Paddington", "Winnie", "Baloo", "Rupert", "Yogi", "Fozzie", "Boo") //Why not?
+	if(prob(33))
+		var/mob/living/simple_animal/hostile/bear/new_bear
+		new_bear = new(get_turf(X.loc))
+		new_bear.name = pick("Freddy", "Bearington", "Smokey", "Beorn", "Pooh", "Paddington", "Winnie", "Baloo", "Rupert", "Yogi", "Fozzie", "Boo") //Why not?
 	..()
 
 /datum/xenoartifact_trait/malfunction/badtarget
@@ -960,9 +951,10 @@
 
 /datum/xenoartifact_trait/malfunction/strip/activate(obj/item/xenoartifact/X, atom/target)
 	. = ..()
-	var/mob/living/carbon/victim = target
-	for(var/obj/item/I in victim.contents)
-		victim.dropItemToGround(I)
+	if(isliving(target))
+		var/mob/living/carbon/victim = target
+		for(var/obj/item/I in victim.contents)
+			victim.dropItemToGround(I)
 
 /datum/xenoartifact_trait/malfunction/limbdenier
 	label_name = "O.E.E"
@@ -977,7 +969,6 @@
 			if(BP.body_part != HEAD && BP.body_part != CHEST)
 				if(BP.dismemberable)
 					parts += BP
-		if(!parts.len)
-			return
-		var/obj/item/bodypart/BP = pick(parts)
-		BP.dismember()
+		if(parts.len)
+			var/obj/item/bodypart/BP = pick(parts)
+			BP.dismember()

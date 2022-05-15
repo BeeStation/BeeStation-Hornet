@@ -57,19 +57,21 @@
 	data["points"] = budget ? budget.account_balance : 0
 	data["seller"] = list()
 	for(var/datum/xenoartifact_seller/S as() in sellers) //Pass seller data
-		data["seller"] += list(list(
-			"name" = S.name,
-			"dialogue" = S.dialogue,
-			"price" = S.price,
-			"id" = S.unique_id,
+		if(S)
+			data["seller"] += list(list(
+				"name" = S.name,
+				"dialogue" = S.dialogue,
+				"price" = S.price,
+				"id" = S.unique_id,
 		))
 	data["buyer"] = list()
 	for(var/datum/xenoartifact_seller/buyer/B as() in buyers) //Buyer data
-		data["buyer"] += list(list(
-			"name" = B.name,
-			"dialogue" = B.dialogue,
-			"price" = B.price,
-			"id" = B.unique_id,
+		if(B)
+			data["buyer"] += list(list(
+				"name" = B.name,
+				"dialogue" = B.dialogue,
+				"price" = B.price,
+				"id" = B.unique_id,
 		))
 	data["tab_index"] = tab_index
 	data["current_tab"] = current_tab
