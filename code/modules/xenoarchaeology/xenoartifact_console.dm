@@ -164,13 +164,13 @@
 	var/datum/xenoartifact_seller/S = new
 	S.generate()
 	sellers += S
-	ui_interact(ui = "XenoartifactConsole")
+	ui_update()
 
 /obj/machinery/computer/xenoartifact_console/proc/generate_new_buyer()
 	var/datum/xenoartifact_seller/buyer/B = new
 	B.generate()
 	buyers += B
-	ui_interact(ui = "XenoartifactConsole")
+	ui_update()
 	addtimer(CALLBACK(src, .proc/qdel, B), (rand(1,5)*60) SECONDS)
 
 /obj/machinery/computer/xenoartifact_console/proc/sync_devices()
