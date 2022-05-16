@@ -218,7 +218,8 @@
 	malf is an option to nab a malfunction trait on init. See URANIUM types.
 */
 /obj/item/xenoartifact/proc/generate_traits(var/list/blacklist_traits, malf = FALSE)
-	var/datum/xenoartifact_trait/new_trait
+	var/datum/xenoartifact_trait/new_trait //Selection
+	var/datum/xenoartifact_trait/holder //holder for blacklisting solution
 	
 	var/list/activators = subtypesof(/datum/xenoartifact_trait/activator)
 	activators -= blacklist_traits
@@ -226,8 +227,11 @@
 		log_game("An almost impossible event has occured. [src] has failed to generate any traits!")
 		return
 	new_trait = pick(activators)
-	blacklist_traits += list(new_trait, initial(new_trait.blacklist_traits))
+	blacklist_traits += new_trait //Add chosen trait to blacklist
 	traits += new new_trait
+	holder = new new_trait //Add traits blacklist to our blacklist
+	blacklist_traits += holder.blacklist_traits
+	qdel(holder) //Discard trait and prep for next
 	special_desc = initial(new_trait.desc) ? "[special_desc] [initial(new_trait.desc)]" : special_desc
 
 	var/minor_desc
@@ -238,8 +242,11 @@
 			log_game("An almost impossible event has occured. [src] has failed to generate any traits!")
 			return
 		new_trait = pick(minors)
-		blacklist_traits += list(new_trait, initial(new_trait.blacklist_traits))
+		blacklist_traits += new_trait
 		traits += new new_trait
+		holder = new new_trait
+		blacklist_traits += holder.blacklist_traits
+		qdel(holder)
 		if(!minor_desc && initial(new_trait.desc))
 			minor_desc = initial(new_trait.desc)
 		if(!touch_desc) //This is weird but doing it other ways causes issues regarding early exit.
@@ -257,8 +264,11 @@
 		log_game("An almost impossible event has occured. [src] has failed to generate any traits!")
 		return
 	new_trait = pick(majors)
-	blacklist_traits += list(new_trait, initial(new_trait.blacklist_traits))
+	blacklist_traits += new_trait
 	traits += new new_trait
+	holder = new new_trait
+	blacklist_traits += holder.blacklist_traits
+	qdel(holder)
 	special_desc = initial(new_trait.desc) ? "[special_desc] The shape is [initial(new_trait.desc)]." : special_desc
 
 	charge_req = rand(1, 10) * 10
@@ -271,8 +281,10 @@
 		log_game("An almost impossible event has occured. [src] has failed to generate any traits!")
 		return
 	new_trait = pick(malfs)
-	blacklist_traits += list(new_trait, initial(new_trait.blacklist_traits))
+	blacklist_traits += new_trait
 	traits += new new_trait
+	holder = new new_trait
+	qdel(holder)
 	
 /obj/item/xenoartifact/proc/get_proximity(range) //Gets a singular bam beano
 	for(var/mob/living/M in oview(range, get_turf(src)))

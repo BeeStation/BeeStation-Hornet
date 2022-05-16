@@ -6,7 +6,7 @@
 	var/desc //Acts as a descriptor for when examining. Also used for naming stuff in the labeler. Keep these short.
 	var/label_name //Used when labeler needs a name and trait is too sneaky to have a descriptor when examining.
 	var/label_desc //Something briefly explaining it in IG terms or a pun.
-	var/list/blacklist_traits //Other traits the original trait wont work with. Referenced when generating traits.
+	var/list/blacklist_traits = list() //Other traits the original trait wont work with. Referenced when generating traits.
 
 //Activator signal shenanignas 
 
@@ -233,7 +233,7 @@
 /datum/xenoartifact_trait/minor/dense //Rather large, quite gigantic, particularly big
 	desc = "Dense"
 	label_desc = "Dense: The Artifact is dense and cannot be easily lifted but, the design has a slightly higher reaction rate."
-	blacklist_traits = list(/datum/xenoartifact_trait/minor/wearable, /datum/xenoartifact_trait/minor/sharp, /datum/xenoartifact_trait/minor/light, /datum/xenoartifact_trait/minor/heavy)
+	blacklist_traits = list(/datum/xenoartifact_trait/minor/wearable, /datum/xenoartifact_trait/minor/sharp, /datum/xenoartifact_trait/minor/light, /datum/xenoartifact_trait/minor/heavy, /datum/xenoartifact_trait/minor/blocking)
 
 /datum/xenoartifact_trait/minor/dense/on_init(obj/item/xenoartifact/X)
 	X.density = TRUE
