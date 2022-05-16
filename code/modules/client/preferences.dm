@@ -730,7 +730,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					dat += "<center>"
 					var/name
 					var/unspaced_slots = 0
-					for(var/i=1, i<=max_save_slots, i++)
+					for(var/i in 1 to max_save_slots)
 						unspaced_slots++
 						if(unspaced_slots > 4)
 							dat += "<br>"
