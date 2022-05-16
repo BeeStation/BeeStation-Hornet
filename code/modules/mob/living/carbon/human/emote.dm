@@ -150,7 +150,7 @@
 			return TRUE
 		if(H.dna.features["moth_wings"] != "None")
 			var/obj/item/organ/wings/wings = H.getorganslot(ORGAN_SLOT_WINGS)
-			if(H.getorgan(/obj/item/organ/wings))
+			if(istype(wings))
 				if(wings.flight_level >= WINGS_FLYING)
 					return TRUE
 
