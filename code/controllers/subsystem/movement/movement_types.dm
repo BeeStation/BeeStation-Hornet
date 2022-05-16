@@ -823,11 +823,8 @@
 	potential_directions = directions
 
 /datum/move_loop/move_rand/compare_loops(datum/move_loop/loop_type, priority, flags, extra_info, delay, timeout, list/directions)
-	if(..())
-		var/list/temp_dir = directions
-		temp_dir |= potential_directions
-		if(length(directions) == length(temp_dir)) //i guess this could be usefull if actually it really has yet to move
-			return TRUE
+	if(..() && (length(potential_directions | directions) == length(directions))) //i guess this could be usefull if actually it really has yet to move
+		return TRUE
 
 /datum/move_loop/move_rand/move()
 	var/list/potential_dirs = potential_directions.Copy()
