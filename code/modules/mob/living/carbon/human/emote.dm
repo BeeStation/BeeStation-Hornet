@@ -158,7 +158,7 @@
 	if(!dna || !dna.species)
 		return FALSE
 	var/obj/item/organ/wings/wings = getorganslot(ORGAN_SLOT_WINGS)
-	if(getorgan(/obj/item/organ/wings))
+	if(istype(wings))
 		if(wings.toggleopen(src))
 			return TRUE
 	return FALSE
