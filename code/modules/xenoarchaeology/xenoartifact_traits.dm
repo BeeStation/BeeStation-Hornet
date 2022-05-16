@@ -937,12 +937,13 @@
 	..()
 
 /datum/xenoartifact_trait/malfunction/badtarget
-	label_name = "Maltargetting"
-	label_desc = "Maltargetting: A strange malfunction that causes the Artifact to always target the original user."
+	label_name = "Maltargeting"
+	label_desc = "Maltargeting: A strange malfunction that causes the Artifact to always target the original user."
 
 /datum/xenoartifact_trait/malfunction/badtarget/activate(obj/item/xenoartifact/X, atom/target, atom/user)
 	var/mob/living/M = user
-	X.true_target = list(M)
+	if(M)
+		X.true_target = list(M)
 	..()
 
 /datum/xenoartifact_trait/malfunction/strip
