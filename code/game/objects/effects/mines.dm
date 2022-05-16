@@ -96,6 +96,8 @@
 	var/smartmine = 0
 	var/disarm_time = 200
 	var/disarm_product = /obj/item/deployablemine // ie what drops when the mine is disarmed
+	///if this has a value, the explosion of the mine will be delayed slightly for dramatic effect while the sound plays
+	var/dramatic_sound
 
 /obj/effect/mine/Initialize(mapload)
 	. = ..()
@@ -118,26 +120,34 @@
 /obj/effect/mine/proc/on_entered(datum/source, atom/movable/AM)
 	SIGNAL_HANDLER
 
-	if(!isturf(loc) || AM.throwing || (AM.movement_type & (FLYING | FLOATING)) || !AM.has_gravity())
+	if(!isturf(loc) || AM.throwing || (AM.movement_type & (FLYING | FLOATING)) || !AM.has_gravity() || triggered)
 		return
 	if(ismob(AM))
 		checksmartmine(AM)
 	else
+		triggered = TRUE	//ensures multiple explosions aren't queued if/while the mine is delayed
 		INVOKE_ASYNC(src, .proc/triggermine, AM)
 
 /obj/effect/mine/proc/checksmartmine(mob/living/target)
 	if(target)
-		if(!target.has_mindshield_hud_icon())
+		if(smartmine && target.has_mindshield_hud_icon())
+			return
+		else if(dramatic_sound)
+			triggered = TRUE
+			playsound(loc, dramatic_sound, 100, 1)
+			target.Paralyze(30, TRUE, TRUE) //"Trip" the mine if you will. Ignores stun immunity.
+			addtimer(CALLBACK(src, .proc/triggermine, target), 10)
+			return
+		else
+			triggered = 1
 			triggermine(target)
+					
 
-/obj/effect/mine/proc/triggermine(mob/victim)
-	if(triggered)
-		return
+/obj/effect/mine/proc/triggermine(mob/living/victim)
 	visible_message("<span class='danger'>[victim] sets off [icon2html(src, viewers(src))] [src]!</span>")
 	var/datum/effect_system/spark_spread/s = new /datum/effect_system/spark_spread
 	s.set_up(3, 1, src)
 	s.start()
-	triggered = 1
 	mineEffect(victim)
 	SEND_SIGNAL(src, COMSIG_MINE_TRIGGERED, victim)
 	qdel(src)
@@ -159,7 +169,7 @@
 	desc = "Rubber ducky you're so fine, you make bathtime lots of fuuun. Rubber ducky I'm awfully fooooond of yooooouuuu~"
 	icon = 'icons/obj/watercloset.dmi'
 	icon_state = "rubberducky"
-	var/sound = 'sound/items/bikehorn.ogg'
+	dramatic_sound = 'sound/items/bikehorn.ogg'
 	range_heavy = 2
 	range_light = 3
 	range_flash = 4
@@ -174,10 +184,6 @@
 	disarm_product = /obj/item/deployablemine/traitor/bigboom
 
 /obj/effect/mine/explosive/mineEffect(mob/victim)
-	explosion(loc, range_devastation, range_heavy, range_light, range_flash)
-
-/obj/effect/mine/explosive/traitor/mineEffect(mob/victim)
-	playsound(loc, sound, 100, 1)
 	explosion(loc, range_devastation, range_heavy, range_light, range_flash)
 
 /obj/effect/mine/stun
