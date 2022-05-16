@@ -1,9 +1,0 @@
-author: Rukofamicom
-delete-after: true
-changes:
-  - tweak: The exploding rubber ducky now has a dramatic delay before exploding so
-      the victim can truly appreciate the humor of their situation. This delay does
-      not allow the victim any opportunity to move away from the explosion.
-  - bugfix: Mines now have to be smartmines to use smartmine logic. Explosive ducks
-      (and other mines) are now 100% more dangerous for security personnel who were
-      previously immune to funny.
