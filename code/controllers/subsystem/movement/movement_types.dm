@@ -823,7 +823,7 @@
 	potential_directions = directions
 
 /datum/move_loop/move_rand/compare_loops(datum/move_loop/loop_type, priority, flags, extra_info, delay, timeout, list/directions)
-	if(..() && (length(potential_directions | directions) == length(directions))) //i guess this could be usefull if actually it really has yet to move
+	if(..() && (length(potential_directions | directions) == length(potential_directions))) //i guess this could be usefull if actually it really has yet to move
 		return TRUE
 
 /datum/move_loop/move_rand/move()
