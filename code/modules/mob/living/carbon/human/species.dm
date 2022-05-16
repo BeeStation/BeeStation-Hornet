@@ -1505,11 +1505,9 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 					target.visible_message("<span class='danger'>[user.name] kicks \the [target_held_item] out of [target]'s hand!</span>",
 									"<span class='danger'>[user.name] kicks \the [target_held_item] out of your hand!</span>", null, COMBAT_MESSAGE_RANGE)
 					log_combat(user, target, "disarms [target_held_item]")
-					return
 				else
 					target.visible_message("<span class='danger'>[user.name] attempts to kick \the [target_held_item] away, but [target] maintains their grip!</span>",
 									"<span class='danger'>[user.name] fails to kick \the [target_held_item] out of your hand!</span>", null, COMBAT_MESSAGE_RANGE)
-					return
 		if(shove_blocked && !target.is_shove_knockdown_blocked() && !target.buckled)
 			var/directional_blocked = FALSE
 			if(shove_dir in GLOB.cardinals) //Directional checks to make sure that we're not shoving through a windoor or something like that
