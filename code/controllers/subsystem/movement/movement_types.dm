@@ -41,8 +41,8 @@
 	src.delay = max(delay, world.tick_lag) //Please...
 	src.lifetime = timeout
 	return TRUE
-
-/datum/move_loop/proc/compare_loops(datum/move_loop/loop_type, priority, flags, extra_info, delay = 1, timeout = INFINITY) //exists so we can check if this exact moveloop datum already exists (in terms of vars) and so we can stop it from needlessly create a new one to overwrite
+///proc that exists so we can check if this exact moveloop datum already exists (in terms of vars) and so we can stop it from needlessly create a new one to overwrite the old one
+/datum/move_loop/proc/compare_loops(datum/move_loop/loop_type, priority, flags, extra_info, delay = 1, timeout = INFINITY)
 	SHOULD_CALL_PARENT(TRUE)
 	if(loop_type == type && priority == src.priority && flags == src.flags && delay == src.delay && timeout == lifetime)
 		return TRUE
@@ -823,8 +823,11 @@
 	potential_directions = directions
 
 /datum/move_loop/move_rand/compare_loops(datum/move_loop/loop_type, priority, flags, extra_info, delay, timeout, list/directions)
-	if(..() && potential_directions == directions) //i guess this could be usefull if actually it really has yet to move
-		return TRUE
+	if(..())
+		var/list/temp_dir = directions
+		temp_dir |= potential_directions
+		if(length(directions) == length(temp_dir)) //i guess this could be usefull if actually it really has yet to move
+			return TRUE
 
 /datum/move_loop/move_rand/move()
 	var/list/potential_dirs = potential_directions.Copy()
