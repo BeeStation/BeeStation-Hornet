@@ -49,6 +49,7 @@
 //Actual combat defines
 
 //click cooldowns, in tenths of a second, used for various combat actions
+#define CLICK_CD_DISARM 16 // Disarm actions have a longer cooldown before the next action can be taken
 #define CLICK_CD_MELEE 8
 #define CLICK_CD_RANGE 4
 #define CLICK_CD_RAPID 2
