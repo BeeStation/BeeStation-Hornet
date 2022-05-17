@@ -217,7 +217,7 @@
 	var/family_name = names[names.len]
 
 	heirloom.AddComponent(/datum/component/heirloom, quirk_holder.mind, family_name)
-	if(istype(heirloom, /obj/item/reagent_containers/glass/chem_heirloom))
+	if(istype(heirloom, /obj/item/reagent_containers/glass/chem_heirloom)) //Edge case for chem_heirloom. Solution to component not being present on init.
 		var/obj/item/reagent_containers/glass/chem_heirloom/H = heirloom
 		H.update_name()
 
