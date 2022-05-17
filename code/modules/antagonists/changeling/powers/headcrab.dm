@@ -48,7 +48,6 @@
 	// Headcrab transformation is *very* unique; origin mob death happens *before* resulting mob's creation. Action removal should happen beforehand.
 	for(var/datum/action/cp in user.actions)
 		cp.Remove(user)
-	user.gib()
 	. = TRUE
 	var/mob/living/simple_animal/hostile/headcrab/crab = new(T)
 	for(var/obj/item/organ/I in organs)
@@ -57,4 +56,5 @@
 	if(crab.origin)
 		crab.origin.active = 1
 		crab.origin.transfer_to(crab)
+		user.gib()
 		to_chat(crab, "<span class='warning'>You burst out of the remains of your former body in a shower of gore!</span>")
