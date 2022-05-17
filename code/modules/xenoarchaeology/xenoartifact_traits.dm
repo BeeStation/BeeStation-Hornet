@@ -80,7 +80,6 @@
 	return
 
 /datum/xenoartifact_trait/special/objective/on_init(obj/item/xenoartifact/X) //Exploration mission GPS trait
-	. = ..()
 	X.AddComponent(/datum/component/gps, "[scramble_message_replace_chars("#########", 100)]", TRUE)
 
 //Activation traits - only used to generate charge
@@ -90,9 +89,6 @@
 	label_desc = "Sturdy: The material is sturdy, striking it against the clown's skull seems to cause a unique reaction."
 	charge = 25
 	signals = list(COMSIG_PARENT_ATTACKBY, COMSIG_MOVABLE_IMPACT, XENOA_INTERACT, COMSIG_ITEM_AFTERATTACK)
-
-/datum/xenoartifact_trait/activator/impact/on_init(obj/item/xenoartifact/X)
-	. = ..()
 
 /datum/xenoartifact_trait/activator/impact/calculate_charge(datum/source, obj/item/thing, mob/user, atom/target)
 	var/obj/item/xenoartifact/X = source
@@ -106,7 +102,7 @@
 	signals = list(COMSIG_PARENT_ATTACKBY)
 
 /datum/xenoartifact_trait/activator/burn/on_init(obj/item/xenoartifact/X)
-	. = ..()
+	..()
 	X.max_range += 2
 
 /datum/xenoartifact_trait/activator/burn/calculate_charge(datum/source, obj/item/thing, mob/user, atom/target, params) //xenoa item handles this, see process proc there
@@ -116,6 +112,7 @@
 		X.process_type = IS_LIT
 		sleep(5) //Give them a chance to escape
 		START_PROCESSING(SSobj, X)
+		log_game("[user]:[user?.ckey] lit [X] at [world.time] using [thing]. [X] located at [X.x] [X.y] [X.z].")
 
 /datum/xenoartifact_trait/activator/clock //xenoa item handles this, see process proc there
 	label_name = "Tuned"
@@ -125,7 +122,7 @@
 	signals = list(COMSIG_PARENT_ATTACKBY, COMSIG_MOVABLE_IMPACT, XENOA_INTERACT, COMSIG_ITEM_AFTERATTACK)
 
 /datum/xenoartifact_trait/activator/clock/on_init(obj/item/xenoartifact/X)
-	. = ..()
+	..()
 	X.max_range += 1
 
 /datum/xenoartifact_trait/activator/clock/on_item(obj/item/xenoartifact/X, atom/user, atom/item) 
@@ -138,6 +135,7 @@
 	var/obj/item/xenoartifact/X = source
 	X.process_type = IS_TICK
 	START_PROCESSING(SSobj, X)
+	//log_game("[user]:[user?.ckey] set clock on [X] at [world.time] using [thing]. [X] located at [X.x] [X.y] [X.z].")
 
 /datum/xenoartifact_trait/activator/signal
 	label_name = "Signal"
@@ -146,7 +144,7 @@
 	signals = list(XENOA_SIGNAL)
 
 /datum/xenoartifact_trait/activator/signal/on_init(obj/item/xenoartifact/X)
-	. = ..()
+	..()
 	X.code = rand(1, 100)
 	X.frequency = FREQ_SIGNALER
 	X.set_frequency(X.frequency)
@@ -161,6 +159,7 @@
 /datum/xenoartifact_trait/activator/signal/calculate_charge(datum/source, obj/item/thing, mob/user, atom/target, params)
 	var/obj/item/xenoartifact/X = source
 	X.default_activate(charge, user, target)
+	log_game("[user]:[user?.ckey] signalled [X] at [world.time]. [X] located at [X.x] [X.y] [X.z].")
 
 /datum/xenoartifact_trait/activator/batteryneed
 	desc = "Charged"
@@ -168,13 +167,11 @@
 	charge = 25
 	signals = list(COMSIG_PARENT_ATTACKBY)
 
-/datum/xenoartifact_trait/activator/batteryneed/on_init(obj/item/xenoartifact/X)
-	. = ..()
-
 /datum/xenoartifact_trait/activator/batteryneed/on_item(obj/item/xenoartifact/X, atom/user, atom/item)
 	if(istype(item, /obj/item/multitool))
 		to_chat(user, "<span class='info'>The [item.name] displays a draw of [X.charge_req].</span>")
 		return TRUE
+	..()
 
 /datum/xenoartifact_trait/activator/batteryneed/calculate_charge(datum/source, obj/item/thing, mob/user, atom/target, params)
 	var/obj/item/xenoartifact/X = source
@@ -197,7 +194,6 @@
 
 /datum/xenoartifact_trait/minor/looped/activate(obj/item/xenoartifact/X)
 	X.charge = ((100-X.charge)*0.2)+X.charge //This should generally cut off around 100
-	..()
 
 /datum/xenoartifact_trait/minor/capacitive
 	desc = "Capacitive"
@@ -206,7 +202,6 @@
 	var/saved_cooldown //This may be considered messy but it's a more practical approach that avoids making an edgecase
 
 /datum/xenoartifact_trait/minor/capacitive/on_init(obj/item/xenoartifact/X)
-	. = ..()
 	charges = pick(0, 1, 2) //Extra charges, not total
 
 /datum/xenoartifact_trait/minor/capacitive/on_touch(obj/item/xenoartifact/X, mob/user)
@@ -238,7 +233,6 @@
 /datum/xenoartifact_trait/minor/dense/on_init(obj/item/xenoartifact/X)
 	X.density = TRUE
 	X.interaction_flags_atom = INTERACT_ATOM_ATTACK_HAND
-	..()
 
 /datum/xenoartifact_trait/minor/sharp
 	desc = "Sharp"
@@ -258,7 +252,6 @@
 	X.armour_penetration = 5
 	X.throw_speed = 3
 	X.throw_range = 6
-	..()
 
 /datum/xenoartifact_trait/minor/radioactive
 	label_name = "Roadiactive"
@@ -279,7 +272,6 @@
 
 /datum/xenoartifact_trait/minor/radioactive/activate(obj/item/xenoartifact/X)
 	X.AddComponent(/datum/component/radioactive, 80)
-	..()
 
 /datum/xenoartifact_trait/minor/cooler //Faster cooldowns
 	desc = "Frosted"
@@ -291,7 +283,6 @@
 
 /datum/xenoartifact_trait/minor/cooler/on_init(obj/item/xenoartifact/X)
 	X?.cooldown = 4 SECONDS //Might revisit the value.
-	..()
 
 /datum/xenoartifact_trait/minor/cooler/activate(obj/item/xenoartifact/X)
 	X.charge -= 10
@@ -307,7 +298,6 @@
 
 /datum/xenoartifact_trait/minor/sentient/on_init(obj/item/xenoartifact/X)
 	addtimer(CALLBACK(src, .proc/get_canidate, X), 5 SECONDS)
-	..()
 
 /datum/xenoartifact_trait/minor/sentient/proc/get_canidate(obj/item/xenoartifact/X)
 	var/list/mob/dead/observer/candidates = pollGhostCandidates("Do you want to play as the maleviolent force inside the [X.name]?", ROLE_SENTIENCE, null, FALSE, 5 SECONDS, POLL_IGNORE_SENTIENCE_POTION)
@@ -315,6 +305,7 @@
 		var/mob/dead/observer/C = pick(candidates)
 		man = new /mob/living/simple_animal(get_turf(X))
 		man.key = C.key
+		log_game("[man]:[man.ckey] took control of the sentient [X]. [X] located at [X.x] [X.y] [X.z]")
 		ADD_TRAIT(man, TRAIT_NOBREATH, TRAIT_MUTE)
 		man.forceMove(X)
 		man.anchored = TRUE
@@ -346,7 +337,6 @@
 			charge_max = xeno.cooldown+xeno.cooldownmod
 
 /datum/xenoartifact_trait/minor/sentient/on_del(obj/item/xenoartifact/X)
-	. = ..()
 	qdel(man) //Kill the inner person
 
 /datum/xenoartifact_trait/minor/delicate //Limited uses.
@@ -357,7 +347,6 @@
 	X.max_integrity = pick(200, 300, 500, 800, 1000)
 	X.obj_integrity = X.max_integrity
 	X.alpha = X.alpha * 0.55
-	..()
 
 /datum/xenoartifact_trait/minor/delicate/activate(obj/item/xenoartifact/X, atom/user)
 	if(X.obj_integrity)
@@ -366,7 +355,6 @@
 		X.visible_message("<span class='danger'>The [X.name] shatters!</span>")
 		to_chat(user, "<span class='danger'>The [X.name] shatters!</span>")
 		qdel(X)
-	..()
 
 /datum/xenoartifact_trait/minor/aura
 	desc = "Expansive"
@@ -375,7 +363,6 @@
 
 /datum/xenoartifact_trait/minor/aura/on_init(obj/item/xenoartifact/X)
 	X.max_range += 2
-	..()
 
 /datum/xenoartifact_trait/minor/aura/activate(obj/item/xenoartifact/X)
 	X.true_target = list()
@@ -384,7 +371,6 @@
 	for(var/obj/M in oview(clamp(X.max_range, 3, 5), get_turf(X.loc))) //Look for items
 		if(!(M.anchored))
 			X.true_target += M
-	..()
 
 /datum/xenoartifact_trait/minor/long //Essentially makes the artifact a ranged wand. Makes barreled useful, let's you shoot shit.
 	desc = "Scoped"
@@ -393,7 +379,6 @@
 
 /datum/xenoartifact_trait/minor/long/on_init(obj/item/xenoartifact/X)
 	X.max_range += 18
-	..()
 
 /datum/xenoartifact_trait/minor/wearable
 	desc = "Shaped"
@@ -401,11 +386,9 @@
 	blacklist_traits = list(/datum/xenoartifact_trait/minor/dense)
 
 /datum/xenoartifact_trait/minor/wearable/on_init(obj/item/xenoartifact/X)
-	. = ..()
 	X.slot_flags = ITEM_SLOT_GLOVES
 	
 /datum/xenoartifact_trait/minor/wearable/activate(obj/item/xenoartifact/X, atom/user)
-	. = ..()
 	X.true_target += list(user)
 
 /datum/xenoartifact_trait/minor/blocking
@@ -414,7 +397,6 @@
 	blacklist_traits = list(/datum/xenoartifact_trait/minor/dense)
 
 /datum/xenoartifact_trait/minor/blocking/on_init(obj/item/xenoartifact/X)
-	. = ..()
 	X.block_level = pick(1, 2, 3, 4)
 	X.block_upgrade_walk = 1
 	X.block_power = 25 * pick(0.8, 1, 1.3, 1.5)
@@ -425,7 +407,6 @@
 	blacklist_traits = list(/datum/xenoartifact_trait/minor/dense, /datum/xenoartifact_trait/minor/heavy)
 
 /datum/xenoartifact_trait/minor/light/on_init(obj/item/xenoartifact/X)
-	. = ..()
 	X.throw_range = 8
 
 /datum/xenoartifact_trait/minor/heavy
@@ -434,7 +415,6 @@
 	blacklist_traits = list(/datum/xenoartifact_trait/minor/dense, /datum/xenoartifact_trait/minor/light)
 
 /datum/xenoartifact_trait/minor/heavy/on_init(obj/item/xenoartifact/X)
-	. = ..()
 	X.throw_range = 1
 
 /datum/xenoartifact_trait/minor/signalsend
@@ -448,15 +428,14 @@
 	..()
 
 /datum/xenoartifact_trait/minor/signalsend/on_init(obj/item/xenoartifact/X)
-	. = ..()
 	X.code = rand(1, 100)
 	X.frequency = FREQ_SIGNALER
 	X.set_frequency(X.frequency)
 
 /datum/xenoartifact_trait/minor/signalsend/activate(obj/item/xenoartifact/X)
-	. = ..()
 	var/datum/signal/signal = new(list("code" = X.code))
 	X.send_signal(signal)
+	log_game("[X] sent signal code [X.code] on frequency [X.frequency] at [world.time]. [X] located at [X.x] [X.y] [X.z]")
 	
 //Major traits - The artifact's main gimmick, how it interacts with the world
 
@@ -468,7 +447,6 @@
 	X.say("DEBUG::XENOARTIFACT::SING")
 	X.say(X.charge)
 	X.say(target)
-	..()
 
 /datum/xenoartifact_trait/major/capture
 	desc = "Hollow"
@@ -478,7 +456,6 @@
 /datum/xenoartifact_trait/major/capture/on_init(obj/item/xenoartifact/X)
 	if(prob(0.01)) 
 		fren = TRUE
-	..()
 
 /datum/xenoartifact_trait/major/capture/activate(obj/item/xenoartifact/X, atom/target)
 	if(ismovable(target))
@@ -487,7 +464,6 @@
 		AM.anchored = TRUE
 		addtimer(CALLBACK(src, .proc/release, X, AM), X.charge*0.3 SECONDS)
 		X.cooldownmod = X.charge*0.5 SECONDS
-	..()
 
 /datum/xenoartifact_trait/major/capture/proc/release(obj/item/xenoartifact/X, var/atom/movable/AM) //Empty contents
 	var/turf/T = get_turf(X.loc)
@@ -495,6 +471,7 @@
 	AM.forceMove(T)
 	if(fren)
 		new /mob/living/simple_animal/hostile/russian(T)
+		log_game("[X] spawned (/mob/living/simple_animal/hostile/russian) at [world.time]. [X] located at [X.x] [X.y] [X.z]")
 		fren = FALSE
 
 /datum/xenoartifact_trait/major/shock
@@ -502,7 +479,6 @@
 	label_desc = "Conductive: The shape resembles two lighting forks. Subtle arcs seem to leaps across them."
 
 /datum/xenoartifact_trait/major/shock/on_init(obj/item/xenoartifact/X)
-	. = ..()
 	X.icon_slots[1] = "901"
 
 /datum/xenoartifact_trait/major/shock/on_touch(obj/item/xenoartifact/X, mob/user)
@@ -520,7 +496,6 @@
 		var/mob/living/carbon/victim = target
 		victim.electrocute_act(damage, X, 1, 1)
 	X.cooldownmod = (X.charge*0.1) SECONDS
-	..()
 
 /datum/xenoartifact_trait/major/timestop
 	desc = "Melted"
@@ -536,7 +511,6 @@
 		T = get_turf(target.loc)     
 	new /obj/effect/timestop(T, 2, (X.charge*0.1) SECONDS)
 	X.cooldownmod = (X.charge*0.1) SECONDS
-	..()
 
 /datum/xenoartifact_trait/major/laser
 	desc = "Barreled"
@@ -575,9 +549,9 @@
 	X.visible_message("<span class='danger'>The [X.name] begins to tick loudly...</span>")
 	to_chat(user,"<span class='danger'>The [X.name] begins to tick loudly...</span>")
 	addtimer(CALLBACK(src, .proc/explode, X), (10-(X.charge*0.06)) SECONDS)
+	log_game("[X] primed an explosion at [world.time]. [X] will detonate in [(10-(X.charge*0.06))] seconds. [X] located at [X.x] [X.y] [X.z]")
 	X.cooldownmod = (10-(X.charge*0.06)) SECONDS
 	preserved_charge = X.charge
-	..()
 
 /datum/xenoartifact_trait/major/bomb/proc/explode(obj/item/xenoartifact/X)
 	explosion(X.loc,1*(preserved_charge*0.1),1.5*(preserved_charge*0.1),2*(preserved_charge*0.1))
@@ -596,7 +570,6 @@
 		var/mob/living/simple_animal/pet/dog/corgi/new_corgi = transform(X, victim)
 		addtimer(CALLBACK(src, .proc/transform_back, X, victim, new_corgi), (X.charge*0.6) SECONDS)
 		X.cooldownmod = (X.charge*0.6) SECONDS
-	..()
 
 /datum/xenoartifact_trait/major/corginator/proc/transform(obj/item/xenoartifact/X, mob/living/target)
 	var/mob/living/simple_animal/pet/dog/corgi/new_corgi
@@ -638,7 +611,6 @@
 		qdel(new_corgi)
 
 /datum/xenoartifact_trait/major/corginator/on_del(obj/item/xenoartifact/X)
-	. = ..()
 	if(victim)
 		transform_back(victim)
 
@@ -672,10 +644,10 @@
 	var/obj/effect/proc_holder/spell/targeted/mind_transfer/M = new
 	M.range = X.max_range
 	M.cast(list(victim), caster, TRUE)
+	log_game("[X] swapped the identities of [victim] & [caster] at [world.time]. [X] located at [X.x] [X.y] [X.z]")
 	victim = null
 	caster = null
 	qdel(M)
-	..()
 
 /datum/xenoartifact_trait/major/emp
 	label_name = "EMP"
@@ -683,7 +655,6 @@
 
 /datum/xenoartifact_trait/major/emp/activate(obj/item/xenoartifact/X)
 	empulse(get_turf(X.loc), X.charge*0.03, X.charge*0.07, 1) //THis might be too big
-	..()
 
 /datum/xenoartifact_trait/major/invisible //One step closer to the one ring
 	label_name = "Transparent"
@@ -691,12 +662,12 @@
 	var/mob/living/victim
 
 /datum/xenoartifact_trait/major/invisible/on_item(obj/item/xenoartifact/X, atom/user, atom/item)
-	. = ..()
 	if(istype(item, /obj/item/laser_pointer))
 		var/obj/item/laser_pointer/L = item
 		if(L.energy)
 			to_chat(user, "<span class='info'>The [item.name]'s light passes through the structure.</span>")
 			return TRUE
+	..()
 
 /datum/xenoartifact_trait/major/invisible/activate(obj/item/xenoartifact/X, mob/living/target)
 	if(isliving(target))
@@ -705,7 +676,6 @@
 		hide(victim)
 		addtimer(CALLBACK(src, .proc/reveal, victim), ((X.charge*0.3) SECONDS))
 		X.cooldownmod = ((X.charge*0.3)+1) SECONDS
-	..()
 
 /datum/xenoartifact_trait/major/invisible/proc/hide(mob/living/target)
 	animate(target, , alpha = 0, time = 5)
@@ -716,7 +686,6 @@
 		victim = null
 
 /datum/xenoartifact_trait/major/invisible/on_del(obj/item/xenoartifact/X)
-	. = ..()
 	if(victim)
 		reveal(victim)
 
@@ -729,7 +698,6 @@
 	var/direction
 
 /datum/xenoartifact_trait/major/teleporting/on_init(obj/item/xenoartifact/X)
-	. = ..()
 	direction = pick(NORTH, SOUTH, WEST, EAST)
 	if(prob(0.1))
 		X.icon_state = "IB902"
@@ -740,7 +708,6 @@
 		X.icon_slots[4] = ""
 
 /datum/xenoartifact_trait/major/teleporting/activate(obj/item/xenoartifact/X, atom/target, atom/user)
-	. = ..()
 	if(istype(target, /atom/movable))
 		var/atom/movable/victim = target
 		if(!victim.anchored)
@@ -751,7 +718,6 @@
 	label_desc = "Limped: Seperate limbs sprout from the Artifact. The shape resembles your favourite fantasy monster."
 
 /datum/xenoartifact_trait/major/handmore/activate(obj/item/xenoartifact/X, atom/target, atom/user)
-	. = ..()
 	if(istype(target, /mob/living))
 		var/mob/living/victim = target
 		if(victim.held_items.len < 4)
@@ -768,7 +734,6 @@
 	var/light_mod
 
 /datum/xenoartifact_trait/major/lamp/on_init(obj/item/xenoartifact/X)
-	. = ..()
 	X.light_system = MOVABLE_LIGHT
 	X.light_color = pick(LIGHT_COLOR_FIRE, LIGHT_COLOR_BLUE, LIGHT_COLOR_GREEN, LIGHT_COLOR_RED, LIGHT_COLOR_ORANGE, LIGHT_COLOR_PINK, LIGHT_COLOR_WHITE)
 	if(prob(0.1))
@@ -780,13 +745,14 @@
 		X.icon_slots[4] = ""
 
 /datum/xenoartifact_trait/major/lamp/activate(obj/item/xenoartifact/X, atom/target, atom/user)
-	. = ..()
 	X.AddComponent(/datum/component/overlay_lighting, 1.4+(X.charge*0.5), max(X.charge*0.05, 0.1), X.light_color)
 	addtimer(CALLBACK(src, .proc/unlight, X), (X.charge*0.6) SECONDS)
 	X.cooldownmod = (X.charge*0.6) SECONDS
 
 /datum/xenoartifact_trait/major/lamp/proc/unlight(var/obj/item/xenoartifact/X)
-	qdel(X.GetComponent(/datum/component/overlay_lighting))
+	var/datum/component/overlay_lighting/L = X.GetComponent(/datum/component/overlay_lighting)
+	if(L)
+		qdel(L)
 
 /datum/xenoartifact_trait/major/lamp/dark
 	label_name = "Shade"
@@ -808,8 +774,10 @@
 		addtimer(CALLBACK(src, .proc/unlight, X), (X.charge*0.6) SECONDS)
 		X.cooldownmod = (X.charge*0.6) SECONDS
 		
-/datum/xenoartifact_trait/major/lamp/unlight(var/obj/item/xenoartifact/X)
-	qdel(X.GetComponent(/datum/component/overlay_lighting/dupable))
+/datum/xenoartifact_trait/major/lamp/dark/unlight(var/obj/item/xenoartifact/X)
+	var/datum/component/overlay_lighting/dupable/L = X.GetComponent(/datum/component/overlay_lighting/dupable)
+	if(L)
+		qdel(L)
 
 /datum/component/overlay_lighting/dupable
 	dupe_mode = COMPONENT_DUPE_ALLOWED
@@ -820,11 +788,9 @@
 	var/size
 
 /datum/xenoartifact_trait/major/forcefield/on_init(obj/item/xenoartifact/X)
-	. = ..()
 	size = pick(1, 3, 5)
 
 /datum/xenoartifact_trait/major/forcefield/activate(obj/item/xenoartifact/X)
-	. = ..()
 	if(size >= 1)
 		new /obj/effect/forcefield/xenoartifact_type(get_turf(X.loc), (X.charge*0.3) SECONDS)
 	if(size >= 3)
@@ -845,11 +811,9 @@
 	var/healing_type
 
 /datum/xenoartifact_trait/major/heal/on_init(obj/item/xenoartifact/X)
-	. = ..()
 	healing_type = pick(1, 2, 3, 4)
 
 /datum/xenoartifact_trait/major/heal/activate(obj/item/xenoartifact/X, atom/target)
-	. = ..()
 	playsound(get_turf(target), 'sound/magic/staff_healing.ogg', 15, TRUE)
 	if(istype(target, /mob/living))
 		var/mob/living/victim = target
@@ -870,17 +834,16 @@
 	var/amount
 
 /datum/xenoartifact_trait/major/chem/on_init(obj/item/xenoartifact/X)
-	. = ..()
 	amount = pick(5, 9, 10, 15)
 	formula = get_random_reagent_id()
 
 /datum/xenoartifact_trait/major/chem/activate(obj/item/xenoartifact/X, atom/target)
-	. = ..()
 	if(iscarbon(target))
 		var/mob/living/carbon/M = target
 		if(!M.can_inject())
 			var/datum/reagents/R = target.reagents
 			R.add_reagent(formula, amount)
+			log_game("[X] injected [target] with [amount]u of [formula] at [world.time]. [X] located at [X.x] [X.y] [X.z]")
 
 /datum/xenoartifact_trait/major/push
 	label_name = "Push"
@@ -897,7 +860,6 @@
 	label_desc = "Pull: The Artifact pushes anything not bolted down. The shape doesn't suggest this."
 
 /datum/xenoartifact_trait/major/pull/on_init(obj/item/xenoartifact/X)
-	. = ..()
 	X.max_range += 1
 
 /datum/xenoartifact_trait/major/pull/activate(obj/item/xenoartifact/X, atom/target)
@@ -912,7 +874,6 @@
 	var/sound
 
 /datum/xenoartifact_trait/major/horn/on_init(obj/item/xenoartifact/X)
-	. = ..()
 	sound = pick(list('sound/effects/adminhelp.ogg', 'sound/effects/applause.ogg', 'sound/effects/bubbles.ogg', 
 					'sound/effects/empulse.ogg', 'sound/effects/explosion1.ogg', 'sound/effects/explosion_distant.ogg',
 					'sound/effects/laughtrack.ogg', 'sound/effects/magic.ogg', 'sound/effects/meteorimpact.ogg',
@@ -920,7 +881,6 @@
 					'sound/weapons/blade1.ogg'))
 
 /datum/xenoartifact_trait/major/horn/activate(obj/item/xenoartifact/X, atom/target, atom/user)
-	. = ..()
 	playsound(get_turf(target), sound, 18, TRUE)
 
 //Malfunctions
@@ -934,7 +894,7 @@
 		var/mob/living/simple_animal/hostile/bear/new_bear
 		new_bear = new(get_turf(X.loc))
 		new_bear.name = pick("Freddy", "Bearington", "Smokey", "Beorn", "Pooh", "Paddington", "Winnie", "Baloo", "Rupert", "Yogi", "Fozzie", "Boo") //Why not?
-	..()
+		log_game("[X] spawned a (/mob/living/simple_animal/hostile/bear) at [world.time]. [X] located at [X.x] [X.y] [X.z]")
 
 /datum/xenoartifact_trait/malfunction/badtarget
 	label_name = "Maltargeting"
@@ -944,14 +904,12 @@
 	var/mob/living/M = user
 	if(M)
 		X.true_target = list(M)
-	..()
 
 /datum/xenoartifact_trait/malfunction/strip
 	label_name = "B.A.D"
 	label_desc = "Bluespace Axis Desync: A strange malfunction inside the Artifact causes it to shift the target's realspace position with its bluespace mass in an offset manner. This results in the target dropping all they're wearing. This is probably the plot to a very educational movie."
 
 /datum/xenoartifact_trait/malfunction/strip/activate(obj/item/xenoartifact/X, atom/target)
-	. = ..()
 	if(isliving(target))
 		var/mob/living/carbon/victim = target
 		for(var/obj/item/I in victim.contents)
@@ -962,7 +920,6 @@
 	label_desc = "Organic Extrusion Exclusion: A strange malfunction that causes the Artifact to sever any extruding organic matter on a given user."
 
 /datum/xenoartifact_trait/malfunction/limbdenier/activate(obj/item/xenoartifact/X, atom/target, atom/user) //Borrowed from self_amputation
-	. = ..()
 	var/list/parts = list()
 	if(istype(target, /mob/living/carbon))
 		var/mob/living/carbon/victim = target

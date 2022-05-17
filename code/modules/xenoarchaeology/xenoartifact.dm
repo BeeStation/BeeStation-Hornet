@@ -36,7 +36,7 @@
 	var/malfunction_chance //Everytime the artifact is used this increases. When this is successfully proc'd the artifact gains a malfunction and this is lowered. 
 	var/malfunction_mod = 1 //How much the chance can change in a sinlge itteration
 
-	var/logging = TRUE //Can be toggled by admins if it's disruptive
+	var/logging = TRUE //Can be toggled by admins if it's disruptive to logs
 
 /obj/item/xenoartifact/ComponentInitialize()
 	. = ..()
@@ -70,8 +70,8 @@
 							/datum/xenoartifact_trait/major/corginator,/datum/xenoartifact_trait/activator/clock,
 							/datum/xenoartifact_trait/major/invisible,/datum/xenoartifact_trait/major/handmore,
 							/datum/xenoartifact_trait/major/lamp, /datum/xenoartifact_trait/major/forcefield,
-							/datum/xenoartifact_trait/activator/signal,/datum/xenoartifact_trait/major/heal,
-							/datum/xenoartifact_trait/activator/signal, /datum/xenoartifact_trait/activator/batteryneed))
+							/datum/xenoartifact_trait/activator/signal,/datum/xenoartifact_trait/major/heal, 
+							/datum/xenoartifact_trait/activator/batteryneed))
 			if(!xenop.price)
 				xenop.price = pick(200, 300, 500)
 			malfunction_mod = 2
@@ -197,12 +197,14 @@
 		for(var/datum/xenoartifact_trait/t as() in traits)//Minor traits aren't apart of the target loop
 			if(!istype(t, /datum/xenoartifact_trait/major))
 				t.activate(src, user, user)
+				if(logging)
+					log_game("[src] activated [istype(t, /datum/xenoartifact_trait/malfunction) ? "malfunction" : "minor"] trait [t] at [world.time]. Located at [x] [y] [z]")
 		charge = (charge+charge_req)/1.9 //Not quite an average. Generally produces slightly higher results.     
 		for(var/atom/M in true_target)
 			create_beam(M)
 			for(var/datum/xenoartifact_trait/major/t as() in traits) //Major
 				if(logging)
-					log_game("[src] activated trait [t]. Located at [x] [y] [z]")
+					log_game("[src] activated major trait [t] at [world.time]. Located at [x] [y] [z]")
 				t.activate(src, M, user)
 			if(!(get_trait(/datum/xenoartifact_trait/minor/aura))) //Quick fix for bug that selects multiple targets for noraisin
 				break
@@ -286,7 +288,7 @@
 	holder = new new_trait
 	qdel(holder)
 	
-/obj/item/xenoartifact/proc/get_proximity(range) //Gets a singular bam beano
+/obj/item/xenoartifact/proc/get_proximity(range) //Gets a singular entity, there's a specific traits that handles multiple.
 	for(var/mob/living/M in oview(range, get_turf(src)))
 		. = process_target(M)
 	if(isliving(loc) && !.)
