@@ -1,8 +1,0 @@
-author: PestoVerde322
-delete-after: true
-changes:
-  - rscadd: Some plushes are now obtainable via the arcade machine and golden rune,
-      previously missing from the list.
-  - imageadd: Redone some in-hand icons for the plushes facing south, now they're
-      in front of the hand.
-  - imageadd: added plenty of new moth based plushes to have, collect them all!
