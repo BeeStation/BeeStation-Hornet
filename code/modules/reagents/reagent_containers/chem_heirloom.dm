@@ -11,6 +11,7 @@
 	item_state = "hard_locked_closed"
 	fill_icon_thresholds = list(0, 10, 25, 50, 75, 80, 90)
 	var/locked = TRUE
+	var/datum/reagent/rand_cont //Reagent of choice
 	var/datum/callback/roundend_callback
 
 /obj/item/reagent_containers/glass/chem_heirloom/Initialize(mapload, vol)
@@ -20,11 +21,10 @@
 	SSticker.OnRoundend(roundend_callback)
 
 /obj/item/reagent_containers/glass/chem_heirloom/proc/update_name() //This has to be done after init, since the heirloom component is added after.
-	var/datum/reagent/R = get_unrestricted_random_reagent_id()
-	name ="[name] [initial(R.name)]"
-	reagents.add_reagent(R, volume)
+	rand_cont = get_unrestricted_random_reagent_id()
+	name ="[name] [initial(rand_cont.name)]"
 	var/datum/component/heirloom/H = GetComponent(/datum/component/heirloom)
-	desc = H ? "[ishuman(H.owner) ? "The [H.family_name]" : "[H.owner.name]'s"] family's long-cherished wish is to open this bottle and get its chemical outside. Can you make that wish come true?" : "[desc] [initial(R.name)]."
+	desc = H ? "[ishuman(H.owner) ? "The [H.family_name]" : "[H.owner.name]'s"] family's long-cherished wish is to open this bottle and get its chemical outside. Can you make that wish come true?" : "[desc] [initial(rand_cont.name)]."
 
 
 /obj/item/reagent_containers/glass/chem_heirloom/afterattack(obj/target, mob/user, proximity)
@@ -34,13 +34,14 @@
 
 /obj/item/reagent_containers/glass/chem_heirloom/attackby(obj/item/I, mob/user, params)
 	if(!locked)
-		return
-	..()
+		..()
+	return
 
 /obj/item/reagent_containers/glass/chem_heirloom/proc/unlock()
 	if(isliving(loc))
 		var/mob/living/M = loc
 		to_chat(M, "<span class='notice'>The [src] unlocks!</span>")
+	reagents.add_reagent(rand_cont, volume) //Add reagents
 	item_state = "hard_locked_open"
 	icon_state = "hard_locked_open"
 	locked = FALSE
