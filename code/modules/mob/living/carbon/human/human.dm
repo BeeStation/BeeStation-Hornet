@@ -998,7 +998,7 @@
 	var/datum/component/riding/human/riding_datum = LoadComponent(/datum/component/riding/human)
 	if(target_hands_needed)
 		riding_datum.ride_check_rider_restrained = TRUE
-	if(buckled_mobs && ((target in buckled_mobs) || (buckled_mobs.len >= max_buckled_mobs)) || buckled)
+	if(buckled_mobs && ((target in buckled_mobs) || (buckled_mobs.len >= max_buckled_mobs)) || (buckled && !force))
 		return
 	var/equipped_hands_self
 	var/equipped_hands_target
