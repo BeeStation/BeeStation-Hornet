@@ -313,12 +313,12 @@ SUBSYSTEM_DEF(persistence)
 		pending_art_metacoin[key] += amount
 
 /datum/controller/subsystem/persistence/CanProcCall(procname) //dirty thieving admins
-	if(procname = "add_art_payout")
+	if(procname == "add_art_payout")
 		return FALSE
 	. = ..()
 
 /datum/controller/subsystem/persistence/vv_get_var(var_name)
-	if(var_name = "pending_art_metacoin")
+	if(var_name == "pending_art_metacoin")
 		return FALSE
 	. = ..()
 
