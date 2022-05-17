@@ -898,10 +898,10 @@
 	charge = 5000
 
 /datum/supply_pack/engineering/inducers
-	name = "NT-75 Electromagnetic Power Inducers Crate"
-	desc = "No rechargers? No problem, with the NT-75 EPI, you can recharge any standard cell-based equipment anytime, anywhere. Contains two Inducers."
-	cost = 1500
-	contains = list(/obj/item/inducer/sci {cell_type = /obj/item/stock_parts/cell/inducer_supply; opened = 0}, /obj/item/inducer/sci {cell_type = /obj/item/stock_parts/cell/inducer_supply; opened = 0}) //FALSE doesn't work in modified type paths apparently.
+	name = "NT-100 Heavy-Duty Inducers Crate"
+	desc = "No rechargers? No problem, with the NT-100 EPI, you can recharge any standard cell-based equipment anytime, anywhere, twice faster than consumer alternatives! Contains two Engineering inducers."
+	cost = 2000
+	contains = list(/obj/item/inducer {cell_type = /obj/item/stock_parts/cell/high; opened = 0}, /obj/item/inducer {cell_type = /obj/item/stock_parts/cell/inducer_supply; opened = 0}) //FALSE doesn't work in modified type paths apparently.
 	crate_name = "inducer crate"
 	crate_type = /obj/structure/closet/crate/engineering/electrical
 
@@ -1737,6 +1737,13 @@
 					/obj/item/stock_parts/manipulator)
 	crate_name = "recharging station crate"
 	crate_type = /obj/structure/closet/crate/secure/science
+
+/datum/supply_pack/science/inducers
+	name = "NT-50 Inducers Crate"
+	desc = "No rechargers? No problem, with the NT-50 EPI, you can recharge any standard cell-based equipment anytime, anywhere! Contains two Science inducers."
+	cost = 1000
+	contains = list(/obj/item/inducer/sci {cell_type = /obj/item/stock_parts/cell/inducer_supply; opened = 0}, /obj/item/inducer/sci {cell_type = /obj/item/stock_parts/cell/inducer_supply; opened = 0}) //FALSE doesn't work in modified type paths apparently.
+	crate_name = "inducer crate"
 
 /datum/supply_pack/science/rped
 	name = "RPED crate"
