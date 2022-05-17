@@ -24,7 +24,7 @@
 	name ="[name] [initial(R.name)]"
 	reagents.add_reagent(R, volume)
 	var/datum/component/heirloom/H = GetComponent(/datum/component/heirloom)
-	desc = H ? "The [ishuman(H.owner) ? H.family_name : H.owner.name] family's long-cherished wish is to open this bottle and get its chemical outside. Can you make that wish come true?" : "[desc] [initial(R.name)]."
+	desc = H ? "[ishuman(H.owner) ? "The [H.family_name]" : "[H.owner.name]'s"] family's long-cherished wish is to open this bottle and get its chemical outside. Can you make that wish come true?" : "[desc] [initial(R.name)]."
 
 
 /obj/item/reagent_containers/glass/chem_heirloom/afterattack(obj/target, mob/user, proximity)
@@ -34,8 +34,8 @@
 
 /obj/item/reagent_containers/glass/chem_heirloom/attackby(obj/item/I, mob/user, params)
 	if(!locked)
-		..()
-	return
+		return
+	..()
 
 /obj/item/reagent_containers/glass/chem_heirloom/proc/unlock()
 	if(isliving(loc))
