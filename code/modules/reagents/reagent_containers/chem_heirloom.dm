@@ -40,6 +40,7 @@
 		var/mob/living/M = loc
 		to_chat(M, "<span class='notice'>The [src] unlocks!</span>")
 	item_state = "hard_locked_open"
+	icon_state = "hard_locked_open"
 	locked = FALSE
 	spillable = TRUE
 	reagent_flags = OPENCONTAINER
