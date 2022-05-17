@@ -70,7 +70,7 @@
 	reactivearmor_cooldown_duration = 100
 
 /obj/item/clothing/suit/armor/reactive/teleport/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	if(!active)
+	if(!active || (isprojectile(hitby) && hitby.type == /obj/item/projectile/bullet/c38/mime && hitby.damage == 0)) //fingerguns aren't real unless you're a mime. 
 		return 0
 	if(prob(hit_reaction_chance))
 		var/mob/living/carbon/human/H = owner
@@ -106,7 +106,7 @@
 	desc = "An experimental suit of armor with a reactive sensor array rigged to a flame emitter. For the stylish pyromaniac."
 
 /obj/item/clothing/suit/armor/reactive/fire/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	if(!active)
+	if(!active || (isprojectile(hitby) && hitby.type == /obj/item/projectile/bullet/c38/mime && hitby.damage == 0)) //fingerguns aren't real unless you're a mime. 
 		return 0
 	if(prob(hit_reaction_chance))
 		if(world.time < reactivearmor_cooldown)
@@ -129,7 +129,7 @@
 	desc = "An experimental suit of armor that renders the wearer invisible on detection of imminent harm, and creates a decoy that runs away from the owner. You can't fight what you can't see."
 
 /obj/item/clothing/suit/armor/reactive/stealth/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	if(!active)
+	if(!active || (isprojectile(hitby) && hitby.type == /obj/item/projectile/bullet/c38/mime && hitby.damage == 0)) //fingerguns aren't real unless you're a mime. 
 		return FALSE
 	if(prob(hit_reaction_chance))
 		if(world.time < reactivearmor_cooldown)
@@ -188,7 +188,7 @@
 	var/repulse_force = MOVE_FORCE_EXTREMELY_STRONG
 
 /obj/item/clothing/suit/armor/reactive/repulse/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	if(!active)
+	if(!active || (isprojectile(hitby) && hitby.type == /obj/item/projectile/bullet/c38/mime && hitby.damage == 0)) //fingerguns aren't real unless you're a mime. 
 		return 0
 	if(prob(hit_reaction_chance))
 		if(world.time < reactivearmor_cooldown)
@@ -214,7 +214,7 @@
 	var/tele_range = 10
 
 /obj/item/clothing/suit/armor/reactive/table/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	if(!active)
+	if(!active || (isprojectile(hitby) && hitby.type == /obj/item/projectile/bullet/c38/mime && hitby.damage == 0)) //fingerguns aren't real unless you're a mime. 
 		return FALSE
 	if(prob(hit_reaction_chance))
 		var/mob/living/carbon/human/H = owner
