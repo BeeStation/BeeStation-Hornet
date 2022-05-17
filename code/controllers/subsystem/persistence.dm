@@ -312,6 +312,16 @@ SUBSYSTEM_DEF(persistence)
 	else
 		pending_art_metacoin[key] += amount
 
+/datum/controller/subsystem/persistence/CanProcCall(procname) //dirty thieving admins
+	if(procname = "add_art_payout")
+		return FALSE
+	. = ..()
+
+/datum/controller/subsystem/persistence/vv_get_var(var_name)
+	if(var_name = "pending_art_metacoin")
+		return FALSE
+	. = ..()
+
 /datum/controller/subsystem/persistence/proc/process_art_payouts()
 	for(var/client/C in GLOB.clients)
 		if(pending_art_metacoin[C.ckey])
