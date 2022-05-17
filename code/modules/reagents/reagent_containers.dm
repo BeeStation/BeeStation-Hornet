@@ -42,7 +42,7 @@
 					amount_per_transfer_from_this = possible_transfer_amounts[i+1]
 				else
 					amount_per_transfer_from_this = possible_transfer_amounts[1]
-				balloon_alert(user, "Transferring [amount_per_transfer_from_this]u")
+				balloon_alert(user, "Transferring [amount_per_transfer_from_this]u.")
 				return
 
 /obj/item/reagent_containers/attack(mob/M, mob/user, def_zone)
@@ -58,15 +58,15 @@
 		covered = "headgear"
 	else if(C.is_mouth_covered(mask_only = 1))
 		covered = "mask"
-	if(covered && user.a_intent != INTENT_HARM)
+	if(covered)
 		var/who = (isnull(user) || eater == user) ? "your" : "[eater.p_their()]"
-		balloon_alert(user, "Remove [who] [covered] first")
+		balloon_alert(user, "Remove [who] [covered] first!")
 		return FALSE
 	if(!eater.has_mouth())
 		if(eater == user)
-			balloon_alert(eater, "You have no mouth")
+			balloon_alert(eater, "You have no mouth!")
 		else
-			balloon_alert(user, "[eater] has no mouth")
+			balloon_alert(user, "[eater] has no mouth!")
 		return FALSE
 	return TRUE
 

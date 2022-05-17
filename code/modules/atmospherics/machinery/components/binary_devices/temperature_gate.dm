@@ -1,5 +1,5 @@
 /obj/machinery/atmospherics/components/binary/temperature_gate
-	icon_state = "tgate_map-2"
+	icon_state = "tgate_map-3"
 	name = "temperature gate"
 	desc = "An activable gate that compares the input temperature with the interface set temperature to check if the gas can flow from the input side to the output side or not."
 
@@ -29,7 +29,7 @@
 /obj/machinery/atmospherics/components/binary/temperature_gate/AltClick(mob/user)
 	if(can_interact(user))
 		target_temperature = max_temperature
-		balloon_alert(user, "Set to [target_temperature] K")
+		balloon_alert(user, "You set the target temperature to [target_temperature] K.")
 		investigate_log("was set to [target_temperature] K by [key_name(user)]", INVESTIGATE_ATMOS)
 		update_icon()
 	return ..()
@@ -120,10 +120,10 @@
 
 /obj/machinery/atmospherics/components/binary/temperature_gate/multitool_act(mob/living/user, obj/item/multitool/I)
 	. = ..()
-	if (istype(I))
+	if(istype(I))
 		inverted = !inverted
 		if(inverted)
-			balloon_alert(user, "Sensors set to release when the temperature is above")
+			balloon_alert(user, "You set the sensors to release when the temperature is above the target value.")
 		else
-			balloon_alert(user, "Sensors set to default")
+			balloon_alert(user, "You set the sensors to release when the temperature is below the target value.")
 	return TRUE

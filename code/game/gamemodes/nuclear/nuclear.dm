@@ -31,7 +31,7 @@
 	var/n_agents = min(round(num_players() / 10), antag_candidates.len, agents_possible)
 	if(n_agents >= required_enemies)
 		for(var/i = 0, i < n_agents, ++i)
-			var/datum/mind/new_op = pick_n_take(antag_candidates)
+			var/datum/mind/new_op = antag_pick(antag_candidates, ROLE_OPERATIVE)
 			pre_nukeops += new_op
 			new_op.assigned_role = "Nuclear Operative"
 			new_op.special_role = "Nuclear Operative"
@@ -150,6 +150,7 @@
 	R.freqlock = TRUE
 	if(command_radio)
 		R.command = TRUE
+		R.use_command = TRUE
 
 	if(ispath(uplink_type, /obj/item/uplink/nuclear) || tc) // /obj/item/uplink/nuclear understands 0 tc
 		var/obj/item/U = new uplink_type(H, H.key, tc)
