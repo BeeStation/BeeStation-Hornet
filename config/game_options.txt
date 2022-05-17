@@ -408,8 +408,8 @@ DEFAULT_LAWS 2
 RANDOM_LAWS asimov
 RANDOM_LAWS asimovpp
 RANDOM_LAWS crewsimov
-RANDOM_LAWS corporate
-RANDOM_LAWS maintain
+#RANDOM_LAWS corporate
+#RANDOM_LAWS maintain
 
 ## Quirky laws. Shouldn't cause too much harm
 #RANDOM_LAWS hippocratic
