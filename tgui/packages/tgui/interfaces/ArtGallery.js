@@ -71,6 +71,9 @@ export const ArtGallery = (props, context) => {
                     {tab2list[listIndex]["title"]}
                   </Stack.Item>
                   <Stack.Item className="Section__titleText">
+                    {"Artist: " + tab2list[listIndex]["ckey"]}
+                  </Stack.Item>
+                  <Stack.Item className="Section__titleText">
                     {"Owner: " + tab2list[listIndex]["owner"]}
                   </Stack.Item>
                   <Stack.Item className="Section__titleText">
