@@ -12,18 +12,20 @@
 	fill_icon_thresholds = list(0, 10, 25, 50, 75, 80, 90)
 	var/locked = TRUE
 	var/datum/callback/roundend_callback
-	
+
 /obj/item/reagent_containers/glass/chem_heirloom/Initialize(mapload, vol)
 	..()
 	update_icon()
+	roundend_callback = CALLBACK(src, .proc/unlock)
+	SSticker.OnRoundend(roundend_callback)
+
+/obj/item/reagent_containers/glass/chem_heirloom/proc/update_name() //This has to be done after init, since the heirloom component is added after.
 	var/datum/reagent/R = get_unrestricted_random_reagent_id()
 	name ="[name] [initial(R.name)]"
 	reagents.add_reagent(R, volume)
 	var/datum/component/heirloom/H = GetComponent(/datum/component/heirloom)
-	desc = H ? "The [H.family_name] family's long-cherished wish is to open this bottle and get its chemical outside. Can you make that wish come true?" : "[desc] [initial(R.name)]."
+	desc = H ? "The [ishuman(H.owner) ? H.family_name : H.owner.name] family's long-cherished wish is to open this bottle and get its chemical outside. Can you make that wish come true?" : "[desc] [initial(R.name)]."
 
-	roundend_callback = CALLBACK(src, .proc/unlock)
-	SSticker.OnRoundend(roundend_callback)
 
 /obj/item/reagent_containers/glass/chem_heirloom/afterattack(obj/target, mob/user, proximity)
 	if(!locked)

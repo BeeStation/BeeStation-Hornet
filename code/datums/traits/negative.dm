@@ -217,6 +217,9 @@
 	var/family_name = names[names.len]
 
 	heirloom.AddComponent(/datum/component/heirloom, quirk_holder.mind, family_name)
+	if(istype(heirloom, /obj/item/reagent_containers/glass/chem_heirloom))
+		var/obj/item/reagent_containers/glass/chem_heirloom/H = heirloom
+		H.update_name()
 
 /datum/quirk/family_heirloom/on_process()
 	if(heirloom in quirk_holder.GetAllContents())
