@@ -299,7 +299,7 @@ SUBSYSTEM_DEF(persistence)
 	if(fexists(json_file))
 		pending_art_metacoin = json_decode(file2text(json_file))
 
-	if(paintings["library"][1] && !paintings["library"][1]["price"]) //this should only ever happen once - adding owner and price values to legacy paintings
+	if(paintings && paintings["library"] && paintings["library"][1] && !paintings["library"][1]["price"]) //this should only ever happen once - adding owner and price values to legacy paintings
 		message_admins("Legacy paintings detected, adding owner and price values")
 		log_game("Legacy paintings detected, adding owner and price values")
 		for(var/entry in paintings["library"])
