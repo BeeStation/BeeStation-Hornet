@@ -8,6 +8,7 @@
 /obj/machinery/telecomms
 	var/temp = "" // output message
 	var/tempfreq = FREQ_COMMON
+	emp_disable_time = 5 MINUTES
 
 /obj/machinery/telecomms/attackby(obj/item/P, mob/user, params)
 

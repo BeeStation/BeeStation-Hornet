@@ -27,7 +27,7 @@
 /obj/machinery/atmospherics/components/trinary/filter/AltClick(mob/user)
 	if(can_interact(user))
 		transfer_rate = MAX_TRANSFER_RATE
-		balloon_alert(user, "Set to [transfer_rate] L/s")
+		balloon_alert(user, "You set the transfer rate to [transfer_rate] L/s.")
 		update_icon()
 		ui_update()
 	return
