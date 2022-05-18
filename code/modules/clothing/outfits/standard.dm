@@ -17,7 +17,8 @@
 		/obj/item/melee/transforming/energy/axe=1,\
 		/obj/item/storage/part_replacer/bluespace/tier4=1,\
 		/obj/item/debug/human_spawner=1,\
-		/obj/item/debug/omnitool=1
+		/obj/item/debug/omnitool=1,\
+		/obj/item/xenoartifact_labeler/debug=1
 		)
 
 /datum/outfit/space

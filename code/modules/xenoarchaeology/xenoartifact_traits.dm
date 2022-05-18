@@ -560,15 +560,19 @@
 /datum/xenoartifact_trait/major/corginator //All of this is stolen from corgium. 
 	desc = "Fuzzy" //Weirdchamp
 	label_desc = "Fuzzy: The shape is hard to discern under all the hair sprouting out from the surface. You swear you've heard it bark before."
-	var/mob/living/victim
+	var/list/victims = list() //List of all affected targets, used for early qdel
+	var/obj/item/xenoartifact/xenoa //Used for early qdel
+
+/datum/xenoartifact_trait/major/corginator/on_init(obj/item/xenoartifact/X)
+	. = ..()
+	xenoa = X
 
 /datum/xenoartifact_trait/major/corginator/activate(obj/item/xenoartifact/X, mob/living/target)
 	X.say(pick("Woof!", "Bark!", "Yap!"))
 	if(istype(target, /mob/living) && !(istype(target, /mob/living/simple_animal/pet/dog/corgi)))
-		victim = target
-		RegisterSignal(victim, COMSIG_PARENT_QDELETING, .proc/avoid_del) //Handle QDEL
-		var/mob/living/simple_animal/pet/dog/corgi/new_corgi = transform(X, victim)
-		addtimer(CALLBACK(src, .proc/transform_back, X, victim, new_corgi), (X.charge*0.6) SECONDS)
+		var/mob/living/simple_animal/pet/dog/corgi/new_corgi = transform(X, target)
+		addtimer(CALLBACK(src, .proc/transform_back, X, target, new_corgi), (X.charge*0.6) SECONDS)
+		victims += list(target, new_corgi)
 		X.cooldownmod = (X.charge*0.6) SECONDS
 
 /datum/xenoartifact_trait/major/corginator/proc/transform(obj/item/xenoartifact/X, mob/living/target)
@@ -588,14 +592,14 @@
 	return new_corgi
 
 /datum/xenoartifact_trait/major/corginator/proc/transform_back(obj/item/xenoartifact/X, mob/living/target, mob/living/simple_animal/pet/dog/corgi/new_corgi)
-	if(victim)
+	if(target)
 		REMOVE_TRAIT(target, TRAIT_NOBREATH, CORGIUM_TRAIT)
-		if(QDELETED(new_corgi)) //This should handle hard dels, another measure was made above anyway
+		if(QDELETED(new_corgi))
 			if(!QDELETED(target))
 				qdel(target)
 			return
 		target.key = new_corgi.key
-		if(new_corgi.health <= 0) //Needed, corgi health is offset from human.
+		if(new_corgi.health <= 0) //Corgi health is offset from human, dead corgis count as alive humans otherwise.
 			target.health = -1
 		target.adjustBruteLoss(new_corgi.getBruteLoss()*10)
 		target.adjustFireLoss(new_corgi.getFireLoss()*10)
@@ -607,15 +611,17 @@
 		new_corgi.inventory_back?.forceMove(T)
 		new_corgi.inventory_head = null
 		new_corgi.inventory_back = null
-		victim = null
 		qdel(new_corgi)
 
-/datum/xenoartifact_trait/major/corginator/on_del(obj/item/xenoartifact/X)
-	if(victim)
-		transform_back(victim)
-
-/datum/xenoartifact_trait/major/corginator/proc/avoid_del()
-	victim = null
+/datum/xenoartifact_trait/major/corginator/on_del() //Transform goobers back if artifact is deleted.
+	var/mob/living/H
+	var/mob/living/simple_animal/pet/dog/corgi/C
+	for(var/M in 1 to victims.len-1)
+		H = victims[M]
+		C = victims[M+1]
+		xenoa.say("[H] [C]")
+		if(!istype(H, /mob/living/simple_animal/pet/dog/corgi))
+			transform_back(xenoa, H, C)
 
 /datum/xenoartifact_trait/major/mirrored //Swaps the last to target's minds
 	desc = "Mirrored"
@@ -659,7 +665,7 @@
 /datum/xenoartifact_trait/major/invisible //One step closer to the one ring
 	label_name = "Transparent"
 	label_desc = "Transparent: The shape of the Artifact is difficult to percieve. You feel the need to call it, precious..."
-	var/mob/living/victim
+	var/list/victims = list()
 
 /datum/xenoartifact_trait/major/invisible/on_item(obj/item/xenoartifact/X, atom/user, atom/item)
 	if(istype(item, /obj/item/laser_pointer))
@@ -671,26 +677,22 @@
 
 /datum/xenoartifact_trait/major/invisible/activate(obj/item/xenoartifact/X, mob/living/target)
 	if(isliving(target))
-		victim = target
-		RegisterSignal(victim, COMSIG_PARENT_QDELETING, .proc/avoid_del)
-		hide(victim)
-		addtimer(CALLBACK(src, .proc/reveal, victim), ((X.charge*0.3) SECONDS))
+		victims += target
+		hide(target)
+		addtimer(CALLBACK(src, .proc/reveal, target), ((X.charge*0.3) SECONDS))
 		X.cooldownmod = ((X.charge*0.3)+1) SECONDS
 
 /datum/xenoartifact_trait/major/invisible/proc/hide(mob/living/target)
 	animate(target, , alpha = 0, time = 5)
 
 /datum/xenoartifact_trait/major/invisible/proc/reveal(mob/living/target)
-	if(victim)
+	if(target)
 		animate(target, , alpha = 255, time = 10)
-		victim = null
+		target = null
 
-/datum/xenoartifact_trait/major/invisible/on_del(obj/item/xenoartifact/X)
-	if(victim)
-		reveal(victim)
-
-/datum/xenoartifact_trait/major/invisible/proc/avoid_del()
-	victim = null
+/datum/xenoartifact_trait/major/invisible/on_del()
+	for(var/mob/living/M in victims)
+		reveal(M)
 
 /datum/xenoartifact_trait/major/teleporting
 	desc = "Displaced"

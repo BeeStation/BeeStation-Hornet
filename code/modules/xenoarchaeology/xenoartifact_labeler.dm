@@ -154,6 +154,8 @@
 		if(do_after(user, 30, target = target))
 			if(!user.temporarilyRemoveItemFromInventory(src))
 				return
+		else
+			return
 		add_sticker(target)
 		addtimer(CALLBACK(src, .proc/remove_sticker, target), 15 SECONDS)
 		return TRUE
