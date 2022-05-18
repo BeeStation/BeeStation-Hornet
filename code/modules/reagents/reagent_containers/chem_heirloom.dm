@@ -35,6 +35,8 @@
 	return
 
 /obj/item/reagent_containers/glass/chem_heirloom/proc/unlock()
+	if(!locked) //A little bird said this would be an issue if goober-min tried to call this twice.
+		return
 	if(isliving(loc))
 		var/mob/living/M = loc
 		to_chat(M, "<span class='notice'>The [src] unlocks!</span>")
