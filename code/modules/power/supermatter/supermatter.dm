@@ -208,7 +208,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 
 /obj/machinery/power/supermatter_crystal/examine(mob/user)
 	. = ..()
-	var/immune = HAS_TRAIT(user, TRAIT_SUPERMATTER_MADNESS_IMMUNE) || HAS_TRAIT(user.mind, TRAIT_SUPERMATTER_MADNESS_IMMUNE)
+	var/immune = HAS_TRAIT(user, TRAIT_MADNESS_IMMUNE) || HAS_TRAIT(user.mind, TRAIT_MADNESS_IMMUNE)
 	if (!isliving(user) && !immune && (get_dist(user, src) < HALLUCINATION_RANGE(power)))
 		. += "<span class='danger'>You get headaches just from looking at it.</span>"
 
@@ -449,7 +449,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 			air_update_turf()
 
 	for(var/mob/living/carbon/human/l in viewers(HALLUCINATION_RANGE(power), src)) // If they can see it without mesons on.  Bad on them.
-		if(!(HAS_TRAIT(l.mind, TRAIT_SUPERMATTER_SOOTHER) || HAS_TRAIT(l.mind, TRAIT_SUPERMATTER_MADNESS_IMMUNE)))
+		if(!(HAS_TRAIT(l.mind, TRAIT_SUPERMATTER_SOOTHER) || HAS_TRAIT(l.mind, TRAIT_MADNESS_IMMUNE)))
 			var/D = sqrt(1 / max(1, get_dist(l, src)))
 			l.hallucination += power * config_hallucination_power * D
 			l.hallucination = CLAMP(0, 200, l.hallucination)
@@ -481,6 +481,8 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 			supermatter_pull(src, power/750)
 		if(prob(5))
 			supermatter_anomaly_gen(src, ANOMALY_FLUX, rand(5, 10))
+		if(prob(5))
+			supermatter_anomaly_gen(src, ANOMALY_HALLUCINATION, rand(5, 10))
 		if(power > SEVERE_POWER_PENALTY_THRESHOLD && prob(5) || prob(1))
 			supermatter_anomaly_gen(src, ANOMALY_GRAVITATIONAL, rand(5, 10))
 		if(power > SEVERE_POWER_PENALTY_THRESHOLD && prob(2) || prob(0.3) && power > POWER_PENALTY_THRESHOLD)
@@ -808,10 +810,12 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 
 	switch(type)
 		if(ANOMALY_FLUX)
-			var/explosive = has_weak_lifespan ? FLUX_NO_EXPLOSION : FLUX_LOW_EXPLOSIVE
+			var/explosive = has_weak_lifespan ? ANOMALY_FLUX_NO_EXPLOSION : ANOMALY_FLUX_LOW_EXPLOSIVE
 			new /obj/effect/anomaly/flux(local_turf, has_weak_lifespan ? rand(250, 300) : null, TRUE, explosive)
 		if(ANOMALY_GRAVITATIONAL)
 			new /obj/effect/anomaly/grav(local_turf, has_weak_lifespan ? rand(200, 300) : null)
+		if(ANOMALY_HALLUCINATION)
+			new /obj/effect/anomaly/hallucinating(local_turf, has_weak_lifespan ? rand(150, 250) : null)
 		if(ANOMALY_PYRO)
 			new /obj/effect/anomaly/pyro(local_turf, has_weak_lifespan ? rand(150, 250) : null)
 		if(ANOMALY_VORTEX)

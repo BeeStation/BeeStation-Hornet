@@ -10,7 +10,8 @@
 	var/static/list/anomaly_armour_types = list(
 		/obj/effect/anomaly/grav	                = /obj/item/clothing/suit/armor/reactive/repulse,
 		/obj/effect/anomaly/flux 	           		= /obj/item/clothing/suit/armor/reactive/tesla,
-		/obj/effect/anomaly/bluespace 	            = /obj/item/clothing/suit/armor/reactive/teleport
+		/obj/effect/anomaly/bluespace 	            = /obj/item/clothing/suit/armor/reactive/teleport,
+		/obj/effect/anomaly/hallucination			= /obj/item/clothing/suit/armor/reactive/hallucinating
 		)
 
 	if(istype(weapon, /obj/item/assembly/signaler/anomaly))
@@ -373,3 +374,42 @@
 
 /obj/item/clothing/suit/armor/reactive/table/emp_activation(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
 	return reactive_activation(owner, hitby, attack_text, damage, attack_type) // Same effect
+
+//Hallucinating
+
+/obj/item/clothing/suit/armor/reactive/hallucination
+	name = "reactive hallucinating armor"
+	desc = "An experimental suit of armor with sensitive detectors hooked up to the mind of the wearer, sending mind pulses that causes hallucinations around you."
+	cooldown_message = "<span class='warning'>The connection is currently out of sync... Recalibrating.</span>"
+	emp_message = "<span class='warning'>You feel the backsurge of a mind pulse.</span>"
+	var/range = 3
+
+/obj/item/clothing/suit/armor/reactive/hallucinating/dropped(mob/user)
+	..()
+	if(istype(user))
+		REMOVE_TRAIT(user, TRAIT_MADNESS_IMMUNE, "reactive_hallucinating_armor")
+
+/obj/item/clothing/suit/armor/reactive/hallucinating/equipped(mob/user, slot)
+	..()
+	if(slot_flags & slot) //Was equipped to a valid slot for this item?
+		ADD_TRAIT(user, TRAIT_MADNESS_IMMUNE, "reactive_hallucinating_armor")
+
+/obj/item/clothing/suit/armor/reactive/hallucinating/cooldown_activation(mob/living/carbon/human/owner)
+	var/datum/effect_system/spark_spread/sparks = new /datum/effect_system/spark_spread
+	sparks.set_up(1, 1, src)
+	sparks.start()
+	..()
+
+/obj/item/clothing/suit/armor/reactive/hallucinating/reactive_activation(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+	owner.visible_message(span_danger("[src] blocks [attack_text], sending out mental pulses!"))
+	var/turf/location = get_turf(owner)
+	if(is_type(location))
+		hallucination_pulse(location, range, strength = 25)
+	return TRUE
+
+/obj/item/clothing/suit/armor/reactive/hallucinating/emp_activation(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+	owner.visible_message(span_danger("[src] blocks [attack_text], but pulls a massive charge of mental energy into [owner] from the surrounding environment!"))
+	owner.hallucination += 25
+	owner.hallucination = clamp(owner.hallucination, 0, 150)
+	reactivearmor_cooldown = world.time + reactivearmor_cooldown_duration
+	return TRUE
