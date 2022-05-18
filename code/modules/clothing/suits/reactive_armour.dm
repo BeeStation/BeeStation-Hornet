@@ -5,7 +5,7 @@
 	icon = 'icons/obj/clothing/suits.dmi'
 	w_class = WEIGHT_CLASS_BULKY
 
-/obj/item/reactive_armour_shell/attackby(obj/item/I, mob/user, params)
+/obj/item/reactive_armour_shell/attackby(obj/item/weapon, mob/user, params)
 	..()
 	var/static/list/anomaly_armour_types = list(
 		/obj/effect/anomaly/grav	                = /obj/item/clothing/suit/armor/reactive/repulse,
@@ -13,20 +13,27 @@
 		/obj/effect/anomaly/bluespace 	            = /obj/item/clothing/suit/armor/reactive/teleport
 		)
 
-	if(istype(I, /obj/item/assembly/signaler/anomaly))
-		var/obj/item/assembly/signaler/anomaly/A = I
-		var/armour_path = anomaly_armour_types[A.anomaly_type]
+	if(istype(weapon, /obj/item/assembly/signaler/anomaly))
+		var/obj/item/assembly/signaler/anomaly/anomaly = weapon
+		var/armour_path = anomaly_armour_types[anomaly.anomaly_type]
 		if(!armour_path)
 			armour_path = /obj/item/clothing/suit/armor/reactive/stealth //Lets not cheat the player if an anomaly type doesnt have its own armour coded
-		to_chat(user, "You insert [A] into the chest plate, and the armour gently hums to life.")
+		to_chat(user, "You insert [anomaly] into the chest plate, and the armour gently hums to life.")
 		new armour_path(get_turf(src))
 		qdel(src)
-		qdel(A)
+		qdel(anomaly)
 
 //Reactive armor
 /obj/item/clothing/suit/armor/reactive
 	name = "reactive armor"
 	desc = "Doesn't seem to do much for some reason."
+	icon_state = "reactiveoff"
+	item_state = "reactiveoff"
+	blood_overlay_type = "armor"
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 100, "stamina" = 0)
+	actions_types = list(/datum/action/item_action/toggle)
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+	hit_reaction_chance = 50
 	///Whether the armor will try to react to hits (is it on)
 	var/active = 0
 	///This will be true for 30 seconds after an EMP, it makes the reaction effect dangerous to the user.
@@ -39,13 +46,6 @@
 	var/reactivearmor_cooldown_duration = 0
 	///The cooldown itself of the reactive armor for when it can activate again.
 	var/reactivearmor_cooldown = 0
-	icon_state = "reactiveoff"
-	item_state = "reactiveoff"
-	blood_overlay_type = "armor"
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 100, "stamina" = 0)
-	actions_types = list(/datum/action/item_action/toggle)
-	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
-	hit_reaction_chance = 50
 	pocket_storage_component_path = FALSE
 
 /obj/item/clothing/suit/armor/reactive/attack_self(mob/user)
