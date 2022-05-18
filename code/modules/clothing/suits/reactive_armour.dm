@@ -61,6 +61,15 @@
 	item_state = "reactiveoff"
 	reactivearmor_cooldown = world.time + 200
 
+///checks whether the armor should react to being hit. 
+/obj/item/clothing/suit/armor/reactive/check_response()
+	if(!active)
+		return FALSE
+	if(isprojectile(hitby))
+		var/obj/item/projectile/P = hitby
+		if(P.martial_arts_no_deflect)
+		return FALSE
+
 //When the wearer gets hit, this armor will teleport the user a short distance away (to safety or to more danger, no one knows. That's the fun of it!)
 /obj/item/clothing/suit/armor/reactive/teleport
 	name = "reactive teleport armor"
@@ -70,12 +79,8 @@
 	reactivearmor_cooldown_duration = 100
 
 /obj/item/clothing/suit/armor/reactive/teleport/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	if(!active)
+	if(!check_response())
 		return FALSE
-	if(isprojectile(hitby))
-		var/obj/item/projectile/P = hitby
-		if(P.martial_arts_no_deflect)
-			return FALSE
 	if(prob(hit_reaction_chance))
 		var/mob/living/carbon/human/H = owner
 		if(world.time < reactivearmor_cooldown)
@@ -110,12 +115,8 @@
 	desc = "An experimental suit of armor with a reactive sensor array rigged to a flame emitter. For the stylish pyromaniac."
 
 /obj/item/clothing/suit/armor/reactive/fire/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	if(!active)
+	if(!check_response())
 		return FALSE
-	if(isprojectile(hitby))
-		var/obj/item/projectile/P = hitby
-		if(P.martial_arts_no_deflect)
-			return FALSE
 	if(prob(hit_reaction_chance))
 		if(world.time < reactivearmor_cooldown)
 			owner.visible_message("<span class='danger'>The reactive incendiary armor on [owner] activates, but fails to send out flames as it is still recharging its flame jets!</span>")
@@ -137,12 +138,8 @@
 	desc = "An experimental suit of armor that renders the wearer invisible on detection of imminent harm, and creates a decoy that runs away from the owner. You can't fight what you can't see."
 
 /obj/item/clothing/suit/armor/reactive/stealth/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	if(!active)
+	if(!check_response())
 		return FALSE
-	if(isprojectile(hitby))
-		var/obj/item/projectile/P = hitby
-		if(P.martial_arts_no_deflect)
-			return FALSE
 	if(prob(hit_reaction_chance))
 		if(world.time < reactivearmor_cooldown)
 			owner.visible_message("<span class='danger'>The reactive stealth system on [owner] activates, but is still recharging its holographic emitters!</span>")
@@ -178,12 +175,8 @@
 		user.flags_1 |= TESLA_IGNORE_1
 
 /obj/item/clothing/suit/armor/reactive/tesla/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	if(!active)
+	if(!check_response())
 		return FALSE
-	if(isprojectile(hitby))
-		var/obj/item/projectile/P = hitby
-		if(P.martial_arts_no_deflect)
-			return FALSE
 	if(prob(hit_reaction_chance))
 		if(world.time < reactivearmor_cooldown)
 			var/datum/effect_system/spark_spread/sparks = new /datum/effect_system/spark_spread
@@ -204,12 +197,8 @@
 	var/repulse_force = MOVE_FORCE_EXTREMELY_STRONG
 
 /obj/item/clothing/suit/armor/reactive/repulse/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	if(!active)
+	if(!check_response())
 		return FALSE
-	if(isprojectile(hitby))
-		var/obj/item/projectile/P = hitby
-		if(P.martial_arts_no_deflect)
-			return FALSE
 	if(prob(hit_reaction_chance))
 		if(world.time < reactivearmor_cooldown)
 			owner.visible_message("<span class='danger'>The repulse generator is still recharging!</span>")
@@ -234,12 +223,8 @@
 	var/tele_range = 10
 
 /obj/item/clothing/suit/armor/reactive/table/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	if(!active)
+	if(!check_response())
 		return FALSE
-	if(isprojectile(hitby))
-		var/obj/item/projectile/P = hitby
-		if(P.martial_arts_no_deflect)
-			return FALSE
 	if(prob(hit_reaction_chance))
 		var/mob/living/carbon/human/H = owner
 		if(world.time < reactivearmor_cooldown)
