@@ -161,6 +161,11 @@
 		return TRUE
 	else if(istype(target, /obj/item/xenoartifact))
 		var/obj/item/xenoartifact/X = target
+		if(locate(/obj/item/xenoartifact_label) in X)
+			if(set_name) //You can update the now, that's cool
+				X.name = name
+			to_chat(user, "<span class='notice'>There's no space left to attach another sticker!</span>")
+			return
 		calculate_modifier(X)
 		add_sticker(X)
 		if(set_name)
@@ -183,6 +188,7 @@
 	var/datum/component/xenoartifact_pricing/xenop = X.GetComponent(/datum/component/xenoartifact_pricing)
 	if(!xenop)
 		return
+	xenop.modifier = initial(xenop.modifier)
 	for(var/t in trait_list)
 		trait = new t
 		if(X.get_trait(trait))

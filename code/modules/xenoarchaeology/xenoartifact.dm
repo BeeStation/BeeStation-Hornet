@@ -8,7 +8,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	light_color = LIGHT_COLOR_FIRE
 	desc = "A strange alien artifact. What could it possibly do?"
-	throw_range = 4
+	throw_range = 3
 	
 	var/charge = 0 //How much input the artifact is getting from activator traits
 	var/charge_req //This isn't a requirement anymore. This just affects how effective the charge is
@@ -403,7 +403,7 @@
 ///Temporary pricing component for temporary shipping solution
 /datum/component/xenoartifact_pricing
 	///Buying and selling related
-	var/modifier = 0.70 
+	var/modifier = 0.65 
 	///default price gets generated if it isn't set by console. This only happens if the artifact spawns outside of that process
 	var/price 
 

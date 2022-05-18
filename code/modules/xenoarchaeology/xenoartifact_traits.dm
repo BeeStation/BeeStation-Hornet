@@ -366,9 +366,9 @@
 
 /datum/xenoartifact_trait/minor/aura/activate(obj/item/xenoartifact/X)
 	X.true_target = list()
-	for(var/mob/living/M in oview(clamp(X.max_range, 3, 5), get_turf(X.loc))) //Look for mobs
+	for(var/mob/living/M in oview(min(X.max_range, 5), get_turf(X.loc))) //Look for mobs
 		X.true_target += M
-	for(var/obj/M in oview(clamp(X.max_range, 3, 5), get_turf(X.loc))) //Look for items
+	for(var/obj/M in oview(min(X.max_range, 5), get_turf(X.loc))) //Look for items
 		if(!(M.anchored))
 			X.true_target += M
 
