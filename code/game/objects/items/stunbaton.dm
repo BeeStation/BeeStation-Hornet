@@ -11,6 +11,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb = list("enforced the law upon")
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 50, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 80, "stamina" = 0)
+	disarm_chance_modifier = -20
 
 	var/stunforce = 75
 	var/turned_on = FALSE
@@ -224,6 +225,7 @@
 	hitcost = 2000
 	throw_hit_chance = 10
 	slot_flags = ITEM_SLOT_BACK
+	disarm_chance_modifier = 15
 	var/obj/item/assembly/igniter/sparkler = 0
 
 /obj/item/melee/baton/cattleprod/Initialize(mapload)

@@ -1496,14 +1496,6 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 				target_disposal_bin = locate(/obj/machinery/disposal/bin) in target_shove_turf.contents
 				target_pool = istype(target_shove_turf, /turf/open/indestructible/sound/pool) ? target_shove_turf : null
 				shove_blocked = TRUE
-
-		if(target.IsKnockdown() && !target.IsParalyzed())
-			target.Paralyze(SHOVE_CHAIN_PARALYZE)
-			target.visible_message("<span class='danger'>[user.name] kicks [target.name] onto [target.p_their()] side!</span>",
-				"<span class='danger'>[user.name] kicks you onto your side!</span>", null, COMBAT_MESSAGE_RANGE)
-			addtimer(CALLBACK(target, /mob/living/proc/SetKnockdown, 0), SHOVE_CHAIN_PARALYZE)
-			log_combat(user, target, "kicks", "onto their side (paralyzing)")
-
 		if(shove_blocked && !target.is_shove_knockdown_blocked() && !target.buckled)
 			var/directional_blocked = FALSE
 			if(shove_dir in GLOB.cardinals) //Directional checks to make sure that we're not shoving through a windoor or something like that
@@ -1517,15 +1509,34 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 						if(O.flags_1 & ON_BORDER_1 && O.dir == turn(shove_dir, 180) && O.density)
 							directional_blocked = TRUE
 							break
-			if((!target_table && !target_collateral_human && !target_disposal_bin && !target_pool) || directional_blocked)
+			//Chance based disarm code
+			var/obj/item/target_held_item = target.get_active_held_item()
+			if(target_held_item)
+				var/disarm_chance = SHOVE_BASE_DISARM_CHANCE
+				//Disarm chance increased by target wounds but lowered by your own
+				disarm_chance += ((target.maxHealth - target.health) / target.maxHealth * 100) - (user.maxHealth - user.health) / user.maxHealth * 100
+				//Almost identical to wound calculation
+				disarm_chance += target.staminaloss - user.staminaloss
+				//Some items are harder to disarm than other
+				disarm_chance += target_held_item.disarm_chance_modifier
+				//Easier to disarm person on the ground
+				if(target.IsKnockdown())
+					disarm_chance += 25
+				//Harder if you are the one the ground unless you are both on the ground. Currently unused as its impossible to shove while knocked-down
+				if(user.IsKnockdown() && !target.IsKnockdown())
+					disarm_chance -= 25
+				if(prob(disarm_chance))
+					target.dropItemToGround(target_held_item)
+			if(target.staminaloss < SHOVE_MAX_STAMINA_DAMAGE)
+				target.adjustStaminaLoss(SHOVE_STAMINA_DAMAGE)
+			//-----------------------------------------------------
+			if((!target_table && !target_collateral_human && !target_disposal_bin && !target_pool && !target.IsKnockdown()) || directional_blocked)
 				target.Knockdown(SHOVE_KNOCKDOWN_SOLID)
-				target.drop_all_held_items()
 				user.visible_message("<span class='danger'>[user.name] shoves [target.name], knocking [target.p_them()] down!</span>",
 					"<span class='danger'>You shove [target.name], knocking [target.p_them()] down!</span>", null, COMBAT_MESSAGE_RANGE)
 				log_combat(user, target, "shoved", "knocking them down")
 			else if(target_table)
 				target.Knockdown(SHOVE_KNOCKDOWN_TABLE)
-				target.drop_all_held_items()
 				user.visible_message("<span class='danger'>[user.name] shoves [target.name] onto \the [target_table]!</span>",
 					"<span class='danger'>You shove [target.name] onto \the [target_table]!</span>", null, COMBAT_MESSAGE_RANGE)
 				target.throw_at(target_table, 1, 1, null, FALSE) //1 speed throws with no spin are basically just forcemoves with a hard collision check
@@ -1551,7 +1562,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		else
 			user.visible_message("<span class='danger'>[user.name] shoves [target.name]!</span>",
 				"<span class='danger'>You shove [target.name]!</span>", null, COMBAT_MESSAGE_RANGE)
-			/*var/target_held_item = target.get_active_held_item()
+			/*
 			var/knocked_item = FALSE
 			if(!is_type_in_typecache(target_held_item, GLOB.shove_disarming_types))
 				target_held_item = null

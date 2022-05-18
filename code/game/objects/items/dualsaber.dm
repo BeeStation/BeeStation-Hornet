@@ -34,6 +34,7 @@
 	var/twohand_force = 34
 	var/hacked = FALSE
 	var/list/possible_colors = list("red", "blue", "green", "purple")
+	disarm_chance_modifier = -40
 
 /obj/item/dualsaber/Initialize(mapload)
 	if(LAZYLEN(possible_colors))

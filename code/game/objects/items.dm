@@ -208,6 +208,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	/// A reagent list containing the reagents this item produces when JUICED in a grinder!
 	var/list/juice_results
 
+	///Disarm chance modifier in percent. Negative values make item harder to disarm and positive easier
+	var/disarm_chance_modifier = 0
 
 /obj/item/Initialize(mapload)
 

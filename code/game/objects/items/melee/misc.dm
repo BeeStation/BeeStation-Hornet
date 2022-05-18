@@ -24,6 +24,7 @@
 	attack_verb = list("flogged", "whipped", "lashed", "disciplined")
 	hitsound = 'sound/weapons/chainhit.ogg'
 	materials = list(/datum/material/iron = 1000)
+	disarm_chance_modifier = -50 //Meme weapon, hard to disarm for graytiders
 
 /obj/item/melee/chainofcommand/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is strangling [user.p_them()]self with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
@@ -70,7 +71,7 @@
 	attack_verb = list("slashed", "cut")
 	hitsound = 'sound/weapons/rapierhit.ogg'
 	materials = list(/datum/material/iron = 1000)
-
+	disarm_chance_modifier = -15
 
 /obj/item/melee/sabre/Initialize(mapload)
 	. = ..()
@@ -144,6 +145,7 @@
 	righthand_file = null
 	block_power = 60
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 100)
+	disarm_chance_modifier = -25
 
 /obj/item/melee/sabre/mime/on_exit_storage(datum/component/storage/concrete/R)
 	var/obj/item/storage/belt/sabre/mime/M = R.real_location()
@@ -325,6 +327,7 @@
 	force = 12
 	cooldown = 10
 	stamina_damage = 20
+	disarm_chance_modifier = -10
 
 //Telescopic Baton
 /obj/item/melee/classic_baton/police/telescopic
@@ -348,6 +351,7 @@
 	force_on = 0
 	force_off = 0
 	weight_class_on = WEIGHT_CLASS_BULKY
+	disarm_chance_modifier = -10
 
 /obj/item/melee/classic_baton/telescopic/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(on)
@@ -427,6 +431,8 @@
 	force_on = 10
 	force_off = 5
 	weight_class_on = WEIGHT_CLASS_NORMAL
+
+	disarm_chance_modifier = -25
 
 	var/datum/antagonist/traitor/owner_data = null
 

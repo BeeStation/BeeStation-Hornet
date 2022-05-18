@@ -82,6 +82,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	max_integrity = 200
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 50, "stamina" = 0)
 	resistance_flags = FIRE_PROOF
+	disarm_chance_modifier = -40
 
 /obj/item/claymore/Initialize(mapload)
 	. = ..()
@@ -258,6 +259,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	max_integrity = 200
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 50, "stamina" = 0)
 	resistance_flags = FIRE_PROOF
+	disarm_chance_modifier = -40
 
 /obj/item/katana/cursed
 	slot_flags = null
@@ -367,6 +369,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	hitsound = 'sound/weapons/genhit.ogg'
 	attack_verb = list("stubbed", "poked")
 	resistance_flags = FIRE_PROOF
+	disarm_chance_modifier = -10
 	var/extended = 0
 	var/extended_force = 20
 	var/extended_throwforce = 23
@@ -405,6 +408,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	extended_force = 12
 	extended_throwforce = 15
 	extended_icon_state = "switchblade_ext_ms"
+	disarm_chance_modifier = -5
 
 /obj/item/switchblade/plastitanium
 	name = "plastitanium switchblade"
@@ -415,6 +419,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	extended_force = 15
 	extended_throwforce = 17
 	extended_icon_state = "switchblade_ext_msf"
+	disarm_chance_modifier = -7 //Switchblades take a bit of effort to make so they get a small bonus
 
 /obj/item/phone
 	name = "red phone"
@@ -864,6 +869,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	force = 10
 	throwforce = 5
 	attack_verb = list("clubbed", "bludgeoned")
+	disarm_chance_modifier = -10
 	var/breakforce = 30
 	var/stamforce = 15
 
@@ -926,6 +932,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = ITEM_SLOT_BACK
 	hitsound = 'sound/weapons/bladeslice.ogg'
+	disarm_chance_modifier = -40
 
 /obj/item/vibro_weapon/ComponentInitialize()
 	. = ..()
