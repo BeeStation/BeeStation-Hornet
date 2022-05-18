@@ -1,15 +1,12 @@
 //Chemist's heirloom
 
 /obj/item/reagent_containers/glass/chem_heirloom
-	name = "hard locked bottle of"
-	desc = "A hard locked bottle of"
 	volume = 100
 	spillable = FALSE
 	reagent_flags = NONE
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "hard_locked_closed"
 	item_state = "hard_locked_closed"
-	fill_icon_thresholds = list(0, 10, 25, 50, 75, 80, 90)
 	var/locked = TRUE
 	var/datum/reagent/rand_cont //Reagent of choice
 	var/datum/callback/roundend_callback
@@ -19,13 +16,13 @@
 	update_icon()
 	roundend_callback = CALLBACK(src, .proc/unlock)
 	SSticker.OnRoundend(roundend_callback)
+	update_name() //Negative.dm will call this again if it adds the heirloom component.
 
 /obj/item/reagent_containers/glass/chem_heirloom/proc/update_name() //This has to be done after init, since the heirloom component is added after.
 	rand_cont = get_unrestricted_random_reagent_id()
-	name ="[name] [initial(rand_cont.name)]"
+	name ="hard locked bottle of [initial(rand_cont.name)]"
 	var/datum/component/heirloom/H = GetComponent(/datum/component/heirloom)
-	desc = H ? "[ishuman(H.owner) ? "The [H.family_name]" : "[H.owner.name]'s"] family's long-cherished wish is to open this bottle and get its chemical outside. Can you make that wish come true?" : "[desc] [initial(rand_cont.name)]."
-
+	desc = H ? "[ishuman(H.owner) ? "The [H.family_name]" : "[H.owner.name]'s"] family's long-cherished wish is to open this bottle and get its chemical outside. Can you make that wish come true?" : "A hard locked bottle of [initial(rand_cont.name)]."
 
 /obj/item/reagent_containers/glass/chem_heirloom/afterattack(obj/target, mob/user, proximity)
 	if(!locked)
