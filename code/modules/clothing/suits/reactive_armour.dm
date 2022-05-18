@@ -68,7 +68,7 @@
 	if(isprojectile(hitby))
 		var/obj/item/projectile/P = hitby
 		if(P.martial_arts_no_deflect)
-		return FALSE
+			return FALSE
 
 //When the wearer gets hit, this armor will teleport the user a short distance away (to safety or to more danger, no one knows. That's the fun of it!)
 /obj/item/clothing/suit/armor/reactive/teleport
