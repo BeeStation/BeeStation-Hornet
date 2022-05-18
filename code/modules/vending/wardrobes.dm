@@ -57,6 +57,7 @@
 					/obj/item/storage/backpack/medic = 4,
 					/obj/item/storage/backpack/satchel/med = 4,
 					/obj/item/clothing/suit/hooded/wintercoat/medical = 4,
+					/obj/item/clothing/suit/hooded/wintercoat/medical/paramedic = 4,
 					/obj/item/clothing/under/rank/medical/emt = 4,
 					/obj/item/clothing/under/rank/medical/emt/skirt = 4,
 					/obj/item/clothing/under/rank/medical/doctor/nurse = 4,
@@ -169,6 +170,7 @@
 					/obj/item/clothing/head/helmet/space/plasmaman/robotics = 2,
 					/obj/item/clothing/under/rank/rnd/roboticist/retro =2,
 					/obj/item/clothing/suit/toggle/labcoat = 2,
+					/obj/item/clothing/suit/hooded/wintercoat/science/robotics = 3,
 					/obj/item/clothing/shoes/sneakers/black = 2,
 					/obj/item/clothing/gloves/fingerless = 2,
 					/obj/item/clothing/head/soft/black = 2,
@@ -332,6 +334,7 @@
 					/obj/item/clothing/under/rank/civilian/janitor/skirt = 2,
 					/obj/item/clothing/under/plasmaman/janitor = 2,
 					/obj/item/clothing/head/helmet/space/plasmaman/janitor = 2,
+					/obj/item/clothing/suit/hooded/wintercoat/janitor = 2,
 					/obj/item/cartridge/janitor = 2,
 					/obj/item/clothing/gloves/color/black = 2,
 					/obj/item/clothing/head/soft/purple = 2,
@@ -443,6 +446,7 @@
 					/obj/item/clothing/head/helmet/space/plasmaman/chemist = 2,
 					/obj/item/clothing/shoes/sneakers/white = 2,
 					/obj/item/clothing/suit/toggle/labcoat/chemist = 2,
+					/obj/item/clothing/suit/hooded/wintercoat/medical/chemistry = 2,
 					/obj/item/storage/backpack/chemistry = 2,
 					/obj/item/storage/backpack/satchel/chem = 2,
 					/obj/item/storage/bag/chemistry = 2,
@@ -464,6 +468,7 @@
 					/obj/item/clothing/head/helmet/space/plasmaman/genetics = 2,
 					/obj/item/clothing/shoes/sneakers/white = 2,
 					/obj/item/clothing/suit/toggle/labcoat/genetics = 2,
+					/obj/item/clothing/suit/hooded/wintercoat/science/genetics = 2,
 					/obj/item/storage/backpack/genetics = 2,
 					/obj/item/storage/backpack/satchel/gen = 2)
 	refill_canister = /obj/item/vending_refill/wardrobe/gene_wardrobe
@@ -483,6 +488,7 @@
 					/obj/item/clothing/head/helmet/space/plasmaman/viro = 2,
 					/obj/item/clothing/shoes/sneakers/white = 2,
 					/obj/item/clothing/suit/toggle/labcoat/virologist = 2,
+					/obj/item/clothing/suit/hooded/wintercoat/medical/viro = 2,
 					/obj/item/clothing/mask/surgical = 2,
 					/obj/item/storage/backpack/virology = 2,
 					/obj/item/storage/backpack/satchel/vir = 2)
