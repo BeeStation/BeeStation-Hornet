@@ -377,12 +377,12 @@
 
 //Hallucinating
 
-/obj/item/clothing/suit/armor/reactive/hallucination
+/obj/item/clothing/suit/armor/reactive/hallucinating
 	name = "reactive hallucinating armor"
 	desc = "An experimental suit of armor with sensitive detectors hooked up to the mind of the wearer, sending mind pulses that causes hallucinations around you."
 	cooldown_message = "<span class='warning'>The connection is currently out of sync... Recalibrating.</span>"
 	emp_message = "<span class='warning'>You feel the backsurge of a mind pulse.</span>"
-	var/range = 3
+	var/effect_range = 3
 
 /obj/item/clothing/suit/armor/reactive/hallucinating/dropped(mob/user)
 	..()
@@ -401,14 +401,14 @@
 	..()
 
 /obj/item/clothing/suit/armor/reactive/hallucinating/reactive_activation(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	owner.visible_message(span_danger("[src] blocks [attack_text], sending out mental pulses!"))
+	owner.visible_message("<span class='danger'>[src] blocks [attack_text], sending out mental pulses!</span>")
 	var/turf/location = get_turf(owner)
-	if(is_type(location))
-		hallucination_pulse(location, range, strength = 25)
+	if(location)
+		hallucination_pulse(location, effect_range, strength = 25)
 	return TRUE
 
 /obj/item/clothing/suit/armor/reactive/hallucinating/emp_activation(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	owner.visible_message(span_danger("[src] blocks [attack_text], but pulls a massive charge of mental energy into [owner] from the surrounding environment!"))
+	owner.visible_message("<span class='danger'>[src] blocks [attack_text], but pulls a massive charge of mental energy into [owner] from the surrounding environment!</span>")
 	owner.hallucination += 25
 	owner.hallucination = clamp(owner.hallucination, 0, 150)
 	reactivearmor_cooldown = world.time + reactivearmor_cooldown_duration
