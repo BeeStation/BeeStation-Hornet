@@ -62,7 +62,7 @@
 	reactivearmor_cooldown = world.time + 200
 
 ///checks whether the armor should react to being hit. 
-/obj/item/clothing/suit/armor/reactive/check_response()
+/obj/item/clothing/suit/armor/reactive/check_response(atom/movable/hitby)
 	if(!active)
 		return FALSE
 	if(isprojectile(hitby))
@@ -79,7 +79,7 @@
 	reactivearmor_cooldown_duration = 100
 
 /obj/item/clothing/suit/armor/reactive/teleport/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	if(!check_response())
+	if(!check_response(hitby))
 		return FALSE
 	if(prob(hit_reaction_chance))
 		var/mob/living/carbon/human/H = owner
@@ -115,7 +115,7 @@
 	desc = "An experimental suit of armor with a reactive sensor array rigged to a flame emitter. For the stylish pyromaniac."
 
 /obj/item/clothing/suit/armor/reactive/fire/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	if(!check_response())
+	if(!check_response(hitby))
 		return FALSE
 	if(prob(hit_reaction_chance))
 		if(world.time < reactivearmor_cooldown)
@@ -138,7 +138,7 @@
 	desc = "An experimental suit of armor that renders the wearer invisible on detection of imminent harm, and creates a decoy that runs away from the owner. You can't fight what you can't see."
 
 /obj/item/clothing/suit/armor/reactive/stealth/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	if(!check_response())
+	if(!check_response(hitby))
 		return FALSE
 	if(prob(hit_reaction_chance))
 		if(world.time < reactivearmor_cooldown)
@@ -175,7 +175,7 @@
 		user.flags_1 |= TESLA_IGNORE_1
 
 /obj/item/clothing/suit/armor/reactive/tesla/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	if(!check_response())
+	if(!check_response(hitby))
 		return FALSE
 	if(prob(hit_reaction_chance))
 		if(world.time < reactivearmor_cooldown)
@@ -197,7 +197,7 @@
 	var/repulse_force = MOVE_FORCE_EXTREMELY_STRONG
 
 /obj/item/clothing/suit/armor/reactive/repulse/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	if(!check_response())
+	if(!check_response(hitby))
 		return FALSE
 	if(prob(hit_reaction_chance))
 		if(world.time < reactivearmor_cooldown)
@@ -223,7 +223,7 @@
 	var/tele_range = 10
 
 /obj/item/clothing/suit/armor/reactive/table/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	if(!check_response())
+	if(!check_response(hitby))
 		return FALSE
 	if(prob(hit_reaction_chance))
 		var/mob/living/carbon/human/H = owner
