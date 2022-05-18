@@ -1,4 +1,4 @@
-/obj/singularity/factory
+/obj/anomaly/singularity/factory
 	name = "tear in the fabric of reality"
 	desc = "Your own comprehension of reality starts bending as you stare this."
 	icon = 'icons/effects/96x96.dmi'
@@ -9,7 +9,7 @@
 	move_self = 0
 	grav_pull = 1
 
-/obj/singularity/factory/admin_investigate_setup()
+/obj/anomaly/singularity/factory/admin_investigate_setup()
 	return
 
 //AREAS//

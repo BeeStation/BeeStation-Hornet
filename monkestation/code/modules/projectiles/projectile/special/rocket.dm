@@ -21,7 +21,7 @@
 
 /obj/item/projectile/bullet/SRN_rocket/Impact(atom/A)
 	. = ..()
-	if(istype(A, /obj/singularity))
+	if(istype(A, /obj/anomaly/singularity))
 		var/mob/living/user = firer
 		user.client.give_award(/datum/award/achievement/misc/singularity_buster, user)
 		user.emote("scream")
@@ -31,7 +31,7 @@
 			to_chat(player, "<span class='boldannounce'>You feel reality distort for a moment...</span>")
 			shake_camera(player, 15, 3)
 
-		new/obj/singularity/spatial_rift(A.loc)
+		new/obj/spatial_rift(A.loc)
 		qdel(A)
 
 	return

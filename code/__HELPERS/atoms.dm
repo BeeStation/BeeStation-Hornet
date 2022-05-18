@@ -359,11 +359,11 @@ B --><-- A
 	var/user_loc = user.loc
 
 	var/drifting = FALSE
-	if(!user.Process_Spacemove(0) && user.inertia_dir)
+	if(SSmove_manager.processing_on(user, SSspacedrift))
 		drifting = TRUE
 
 	var/target_drifting = FALSE
-	if(!target.Process_Spacemove(0) && target.inertia_dir)
+	if(SSmove_manager.processing_on(user, SSspacedrift))
 		target_drifting = TRUE
 
 	var/target_loc = target.loc
@@ -378,11 +378,11 @@ B --><-- A
 		if(uninterruptible)
 			continue
 
-		if(drifting && !user.inertia_dir)
+		if(drifting && SSmove_manager.processing_on(user, SSspacedrift))
 			drifting = FALSE
 			user_loc = user.loc
 
-		if(target_drifting && !target.inertia_dir)
+		if(target_drifting && SSmove_manager.processing_on(user, SSspacedrift))
 			target_drifting = FALSE
 			target_loc = target.loc
 

@@ -42,6 +42,7 @@
 
 	/// The next world.time this client is allowed to move
 	var/move_delay = 0
+
 	var/area			= null
 
 	var/buzz_playing = null

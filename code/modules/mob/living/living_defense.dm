@@ -416,7 +416,7 @@
 	if(mind)
 		mind.hellbound = TRUE
 		return TRUE
-	return FALSE 
+	return FALSE
 
 /mob/living/proc/ishellbound()
 	return mind && mind.hellbound
