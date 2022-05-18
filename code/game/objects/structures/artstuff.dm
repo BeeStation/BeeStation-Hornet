@@ -450,3 +450,45 @@
 				P.update_painting_stuff()
 		log_admin("[key_name(user)] has deleted a persistent painting made by [author].")
 		message_admins("<span class='notice'>[key_name_admin(user)] has deleted persistent painting made by [author].</span>")
+
+/obj/item/painting_package
+	name = "packaged painting"
+	desc = "What did you bring to work today?"
+	icon = 'icons/obj/storage.dmi'
+	icon_state = "giftbag2"
+
+/obj/item/painting_package/proc/generate_options(mob/living/M)
+	var/list/display_names = list()
+	for(var/list/entry in SSpersistence.paintings["library"])
+		if(entry["owner"] = M.ckey)
+			display_names[entry["title"]] = entry["md5"]
+	if(!display_names.len)
+		return
+	var/choice = input(M,"Which painting did you bring to work today?","Select a painting") as null|anything in sortList(display_names)
+	if(!choice || !M.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
+		return
+	var/list/chosen_portrait = list()
+
+	var/png = "data/paintings/library/[chosen_portrait["md5"]].png"
+	var/icon/art_icon = new(png)
+	var/obj/item/canvas/printed_canvas
+	var/art_width = art_icon.Width()
+	var/art_height = art_icon.Height()
+	for(var/canvas_type in typesof(/obj/item/canvas))
+		printed_canvas = canvas_type
+		if(initial(printed_canvas.width) == art_width && initial(printed_canvas.height) == art_height)
+			printed_canvas = new canvas_type(get_turf(computer.physical))
+			break
+	printed_canvas.fill_grid_from_icon(art_icon)
+	printed_canvas.generated_icon = art_icon
+	printed_canvas.icon_generated = TRUE
+	printed_canvas.finalized = TRUE
+	printed_canvas.painting_name = title
+	printed_canvas.author_ckey = author
+	printed_canvas.name = title
+	printed_canvas.no_save = TRUE
+	printed_canvas.update_icon()
+
+/obj/item/painting_package/attack_self(mob/user)
+	if(user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
+		generate_options(user)
