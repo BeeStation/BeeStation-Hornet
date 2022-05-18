@@ -1,7 +1,7 @@
 //Chemist's heirloom
 
 /obj/item/reagent_containers/glass/chem_heirloom
-	volume = 100
+	volume = 0
 	spillable = FALSE
 	reagent_flags = NONE
 	icon = 'icons/obj/chemical.dmi'
@@ -24,25 +24,20 @@
 	var/datum/component/heirloom/H = GetComponent(/datum/component/heirloom)
 	desc = H ? "[ishuman(H.owner) ? "The [H.family_name]" : "[H.owner.name]'s"] family's long-cherished wish is to open this bottle and get its chemical outside. Can you make that wish come true?" : "A hard locked bottle of [initial(rand_cont.name)]."
 
-/obj/item/reagent_containers/glass/chem_heirloom/afterattack(obj/target, mob/user, proximity)
-	if(!locked)
-		..()
-	return
-
-/obj/item/reagent_containers/glass/chem_heirloom/attackby(obj/item/I, mob/user, params)
-	if(!locked)
-		..()
-	return
-
 /obj/item/reagent_containers/glass/chem_heirloom/proc/unlock()
 	if(!locked) //A little bird said this would be an issue if goober-min tried to call this twice.
 		return
 	if(isliving(loc))
 		var/mob/living/M = loc
 		to_chat(M, "<span class='notice'>The [src] unlocks!</span>")
+	volume = 100
 	reagents.add_reagent(rand_cont, volume) //Add reagents
 	item_state = "hard_locked_open"
 	icon_state = "hard_locked_open"
 	locked = FALSE
 	spillable = TRUE
 	reagent_flags = OPENCONTAINER
+
+/obj/item/reagent_containers/glass/chem_heirloom/Destroy()
+	. = ..()
+	qdel(roundend_callback)
