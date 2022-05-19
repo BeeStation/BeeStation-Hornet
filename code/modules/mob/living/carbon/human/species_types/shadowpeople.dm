@@ -187,12 +187,10 @@
 	AM.lighteater_act(src)
 
 /mob/living/lighteater_act(obj/item/light_eater/light_eater)
+	..()
 	if(on_fire)
 		ExtinguishMob()
 		playsound(src, 'sound/items/cig_snuff.ogg', 50, 1)
-	for(var/obj/item/O in src)
-		if(O.light_range && O.light_power)
-			O.lighteater_act(light_eater)
 	if(pulling && pulling.light_range)
 		pulling.lighteater_act(light_eater)
 
@@ -208,11 +206,13 @@
 		to_chat(src, "<span class='danger'>Your headlamp is fried! You'll need a human to help replace it.</span>")
 
 /obj/structure/bonfire/lighteater_act(obj/item/light_eater/light_eater)
+	..()
 	if(burning)
 		extinguish()
 		playsound(src, 'sound/items/cig_snuff.ogg', 50, 1)
 
 /obj/item/pda/lighteater_act(obj/item/light_eater/light_eater)
+	..()
 	if(!light_range || !light_power)
 		return
 	set_light_on(FALSE)
@@ -222,6 +222,7 @@
 	visible_message("<span class='danger'>The light in [src] shorts out!</span>")
 
 /obj/item/lighteater_act(obj/item/light_eater/light_eater)
+	..()
 	if(!light_range || !light_power)
 		return
 	if(light_eater)

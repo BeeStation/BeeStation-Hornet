@@ -803,7 +803,8 @@
   * Called when lighteater is called on this.
   */
 /atom/proc/lighteater_act(obj/item/light_eater/light_eater)
-	return
+	for(var/atom/A in src)
+		A.lighteater_act(light_eater)
 
 /**
   * Respond to the eminence clicking on our atom
