@@ -1,0 +1,7 @@
+author: DatBoiTim
+delete-after: true
+changes:
+  - bugfix: fixed large number of plane_master_controller harddels
+  - bugfix: Rotatium now works properly
+  - tweak: create_and_destroy unit test ignores plane_master_controllers to avoid
+      runtimes
