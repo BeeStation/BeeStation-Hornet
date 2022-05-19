@@ -213,3 +213,12 @@
 	description = "<span class='nicegreen'>Watching fish in aquarium is calming.</span>\n"
 	mood_change = 3
 	timeout = 1.5 MINUTES
+
+/datum/mood_event/toxoplasmosis
+	description = "<span class='nicegreen'>I really like being around cats!</span>\n"
+	mood_change = 2
+	timeout = 30 SECONDS
+
+/datum/mood_event/feline_mania
+	description = "<span class='nicegreen'>I'M SO HECKIN CUTE OMIGOSH!</span>\n"
+	mood_change = 5

@@ -73,6 +73,10 @@
 			S.End(src)
 	return ..()
 
+/**
+* add the disease with no checks
+* Don't use this proc. use ForceContractDisease on mob/living/carbon instead
+*/
 /datum/disease/advance/try_infect(mob/living/infectee, make_copy = TRUE)
 	//see if we are more transmittable than enough diseases to replace them
 	//diseases replaced in this way do not confer immunity
