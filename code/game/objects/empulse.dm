@@ -1,4 +1,4 @@
-/proc/empulse(turf/epicenter, heavy_range, light_range, log=0, magic=FALSE, holy=FALSE)
+/proc/empulse(turf/epicenter, heavy_range, light_range, log=0, magic=FALSE, holy=FALSE, check_tick = FALSE)
 	if(!epicenter)
 		return
 
@@ -29,6 +29,8 @@
 					continue
 			empulse_atoms += A
 		empulse_atoms += T
+		if(check_tick)
+			CHECK_TICK
 
 	for(var/atom/A as() in empulse_atoms)
 		var/distance = get_dist(epicenter, A)
@@ -43,4 +45,6 @@
 				A.emp_act(EMP_LIGHT)
 		else if(distance <= light_range)
 			A.emp_act(EMP_LIGHT)
+		if(check_tick)
+			CHECK_TICK
 	return 1

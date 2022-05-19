@@ -290,6 +290,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	explode()
 
 /obj/machinery/power/supermatter_crystal/proc/explode()
+
 	for(var/mob in GLOB.alive_mob_list)
 		var/mob/living/L = mob
 		if(istype(L) && L.get_virtual_z_level() == get_virtual_z_level())
@@ -301,6 +302,11 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 			L.rad_act(rads)
 
 	var/turf/T = get_turf(src)
+
+	//Big empulse
+	INVOKE_ASYNC(GLOBAL_PROC, /proc/empulse, T, 200 * gasmix_power_ratio, 300 * gasmix_power_ratio, check_tick = TRUE)
+
+	//Reality distortion
 	for(var/mob/M in GLOB.player_list)
 		if(M.get_virtual_z_level() == get_virtual_z_level())
 			SEND_SOUND(M, 'sound/magic/charge.ogg')
