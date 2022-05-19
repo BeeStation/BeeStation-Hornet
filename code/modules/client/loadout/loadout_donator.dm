@@ -133,4 +133,8 @@
 /datum/gear/donator/item/plush_opa
 	display_name = "metal opa plushie"
 	path = /obj/item/toy/plush/opa
-
+	
+/datum/gear/donator/colorizer/doctorbag
+	display_name = "doctor's bag"
+    path = /obj/item/colorizer/doctorbag
+    allowed_roles = list("Paramedic", "Medical Doctor", "Chief Medical Officer")
