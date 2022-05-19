@@ -37,6 +37,7 @@
 	new /obj/item/storage/bag/construction(src)
 	new /obj/item/construction/rcd/loaded(src)
 	new /obj/item/rcd_ammo/large(src)
+	new /obj/item/clothing/suit/hooded/wintercoat/engineering/ce(src)
 
 /obj/structure/closet/secure_closet/engineering_electrical
 	name = "electrical supplies locker"

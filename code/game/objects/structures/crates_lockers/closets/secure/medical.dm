@@ -109,6 +109,7 @@
 	new /obj/item/card/id/departmental_budget/med(src)
 	new /obj/item/extrapolator(src)
 	new /obj/item/storage/lockbox/medal/med(src)
+	new /obj/item/clothing/suit/hooded/wintercoat/medical/cmo(src)
 
 /obj/structure/closet/secure_closet/animal
 	name = "animal control"
