@@ -105,6 +105,8 @@
 
 #define STATUS_EFFECT_IPC_EMP /datum/status_effect/ipc/emp //EMP'd IPC
 
+#define STATUS_EFFECT_SLIMEGRUB /datum/status_effect/slimegrub //infected slime
+
 //---------//
 // NEUTRAL //
 //---------//
