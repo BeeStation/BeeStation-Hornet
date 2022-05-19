@@ -1,7 +1,7 @@
 #define BP_MAX_ROOM_SIZE 300
 
 GLOBAL_LIST_INIT(typecache_powerfailure_safe_areas, typecacheof(/area/engine/engineering, \
-															    /area/engine/supermatter, \
+															    /area/engine/engine_core, \
 															    /area/engine/atmospherics_engine, \
 															    /area/ai_monitored/turret_protected/ai))
 

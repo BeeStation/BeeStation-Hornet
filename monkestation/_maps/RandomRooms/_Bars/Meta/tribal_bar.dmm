@@ -2,11 +2,11 @@
 "a" = (
 /obj/structure/table/wood,
 /turf/open/floor/grass/fakebasalt,
-/area/template_noop)
+/area/crew_quarters/bar)
 "b" = (
 /obj/structure/bonfire/prelit,
 /turf/open/floor/grass/fakebasalt,
-/area/template_noop)
+/area/crew_quarters/bar)
 "d" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -16,17 +16,17 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3,
 /turf/open/floor/grass/fakebasalt,
-/area/template_noop)
+/area/crew_quarters/bar)
 "e" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/drinks/drinkingglass{
 	pixel_y = 5
 	},
 /turf/open/floor/plating/beach/sand,
-/area/template_noop)
+/area/crew_quarters/bar)
 "f" = (
 /turf/open/floor/plating/beach/sand,
-/area/template_noop)
+/area/crew_quarters/bar)
 "g" = (
 /obj/structure/table/wood,
 /obj/item/spear/bonespear{
@@ -38,19 +38,19 @@
 	pixel_y = 6
 	},
 /turf/open/floor/plating/beach/sand,
-/area/template_noop)
+/area/crew_quarters/bar)
 "h" = (
 /obj/structure/table/wood,
 /obj/machinery/chem_dispenser/drinks{
 	dir = 8
 	},
 /turf/open/floor/grass/fakebasalt,
-/area/template_noop)
+/area/crew_quarters/bar)
 "i" = (
 /obj/structure/table/wood,
 /obj/item/clothing/head/helmet/gladiator,
 /turf/open/floor/plating/beach/sand,
-/area/template_noop)
+/area/crew_quarters/bar)
 "j" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3,
 /obj/structure/table/wood,
@@ -58,7 +58,7 @@
 	dir = 8
 	},
 /turf/open/floor/grass/fakebasalt,
-/area/template_noop)
+/area/crew_quarters/bar)
 "k" = (
 /obj/structure/closet/crate/wooden,
 /obj/item/toy/plush/lizardplushie,
@@ -70,11 +70,11 @@
 /obj/item/stack/sheet/animalhide/lizard,
 /mob/living/simple_animal/hostile/lizard,
 /turf/open/floor/grass/fakebasalt,
-/area/template_noop)
+/area/crew_quarters/bar)
 "l" = (
 /obj/structure/sign/poster/contraband/lizard,
 /turf/closed/wall/mineral/iron,
-/area/template_noop)
+/area/crew_quarters/bar)
 "m" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -84,7 +84,7 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1,
 /turf/open/floor/plating/beach/sand,
-/area/template_noop)
+/area/crew_quarters/bar)
 "o" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -97,7 +97,7 @@
 	dir = 4
 	},
 /turf/open/floor/grass/fakebasalt,
-/area/template_noop)
+/area/crew_quarters/bar)
 "p" = (
 /obj/machinery/firealarm{
 	dir = 4;
@@ -105,7 +105,7 @@
 	},
 /mob/living/carbon/monkey/punpun,
 /turf/open/floor/grass/fakebasalt,
-/area/template_noop)
+/area/crew_quarters/bar)
 "r" = (
 /obj/machinery/door/airlock{
 	name = "Bar Storage";
@@ -118,26 +118,26 @@
 	},
 /obj/machinery/door/firedoor,
 /turf/open/floor/wood,
-/area/template_noop)
+/area/crew_quarters/bar)
 "s" = (
 /obj/structure/table/wood,
 /obj/item/flashlight/lantern{
 	pixel_y = 7
 	},
 /turf/open/floor/plating/beach/sand,
-/area/template_noop)
+/area/crew_quarters/bar)
 "t" = (
 /obj/structure/table/wood,
 /obj/item/clothing/under/costume/gladiator,
 /turf/open/floor/plating/beach/sand,
-/area/template_noop)
+/area/crew_quarters/bar)
 "v" = (
 /obj/structure/table/wood,
 /obj/item/clothing/under/costume/gladiator{
 	pixel_y = 4
 	},
 /turf/open/floor/grass/fakebasalt,
-/area/template_noop)
+/area/crew_quarters/bar)
 "w" = (
 /obj/structure/disposalpipe/trunk{
 	dir = 8
@@ -147,11 +147,11 @@
 	pixel_x = 25
 	},
 /turf/open/floor/grass/fakebasalt,
-/area/template_noop)
+/area/crew_quarters/bar)
 "y" = (
 /obj/structure/statue/sandstone/assistant,
 /turf/open/floor/grass/fakebasalt,
-/area/template_noop)
+/area/crew_quarters/bar)
 "z" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -163,14 +163,14 @@
 	dir = 4
 	},
 /turf/open/floor/grass/fakebasalt,
-/area/template_noop)
+/area/crew_quarters/bar)
 "A" = (
 /turf/closed/wall/mineral/iron,
-/area/template_noop)
+/area/crew_quarters/bar)
 "C" = (
 /obj/machinery/vending/boozeomat,
 /turf/closed/wall/mineral/iron,
-/area/template_noop)
+/area/crew_quarters/bar)
 "D" = (
 /obj/machinery/door/airlock{
 	name = "Bar Access";
@@ -184,18 +184,18 @@
 	},
 /obj/machinery/door/firedoor,
 /turf/open/floor/wood,
-/area/template_noop)
+/area/crew_quarters/bar)
 "E" = (
 /obj/machinery/smartfridge/drinks{
 	icon_state = "boozeomat"
 	},
 /turf/closed/wall,
-/area/template_noop)
+/area/crew_quarters/bar)
 "F" = (
 /obj/structure/chair/stool,
 /obj/effect/landmark/start/assistant,
 /turf/open/floor/grass/fakebasalt,
-/area/template_noop)
+/area/crew_quarters/bar)
 "G" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer1,
 /obj/structure/table/wood,
@@ -203,7 +203,7 @@
 	pixel_y = 10
 	},
 /turf/open/floor/plating/beach/sand,
-/area/template_noop)
+/area/crew_quarters/bar)
 "H" = (
 /obj/structure/table/wood,
 /obj/item/clothing/head/helmet/gladiator{
@@ -211,7 +211,7 @@
 	pixel_y = 3
 	},
 /turf/open/floor/grass/fakebasalt,
-/area/template_noop)
+/area/crew_quarters/bar)
 "I" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -228,10 +228,10 @@
 	pixel_y = 6
 	},
 /turf/open/floor/plating/beach/sand,
-/area/template_noop)
+/area/crew_quarters/bar)
 "J" = (
 /turf/open/floor/grass/fakebasalt,
-/area/template_noop)
+/area/crew_quarters/bar)
 "K" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/drinks/drinkingglass{
@@ -239,22 +239,22 @@
 	pixel_y = 5
 	},
 /turf/open/floor/grass/fakebasalt,
-/area/template_noop)
+/area/crew_quarters/bar)
 "L" = (
 /obj/structure/table/wood,
 /obj/item/clothing/head/helmet/gladiator,
 /turf/open/floor/grass/fakebasalt,
-/area/template_noop)
+/area/crew_quarters/bar)
 "M" = (
 /obj/structure/chair/stool,
 /turf/open/floor/grass/fakebasalt,
-/area/template_noop)
+/area/crew_quarters/bar)
 "N" = (
 /obj/structure/disposalpipe/segment{
 	dir = 5
 	},
 /turf/open/floor/grass/fakebasalt,
-/area/template_noop)
+/area/crew_quarters/bar)
 "O" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -267,7 +267,7 @@
 	},
 /obj/structure/table/wood,
 /turf/open/floor/grass/fakebasalt,
-/area/template_noop)
+/area/crew_quarters/bar)
 "P" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -280,19 +280,19 @@
 	dir = 4
 	},
 /turf/open/floor/grass/fakebasalt,
-/area/template_noop)
+/area/crew_quarters/bar)
 "Q" = (
 /obj/effect/landmark/event_spawn,
 /turf/open/floor/grass/fakebasalt,
-/area/template_noop)
+/area/crew_quarters/bar)
 "R" = (
 /obj/effect/landmark/start/bartender,
 /turf/open/floor/grass/fakebasalt,
-/area/template_noop)
+/area/crew_quarters/bar)
 "S" = (
 /obj/structure/table/wood,
 /turf/open/floor/plating/beach/sand,
-/area/template_noop)
+/area/crew_quarters/bar)
 "U" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -305,31 +305,31 @@
 	},
 /obj/effect/landmark/start/bartender,
 /turf/open/floor/grass/fakebasalt,
-/area/template_noop)
+/area/crew_quarters/bar)
 "V" = (
 /obj/structure/sign/barsign{
 	pixel_y = 64
 	},
 /turf/open/floor/grass/fakebasalt,
-/area/template_noop)
+/area/crew_quarters/bar)
 "W" = (
 /obj/structure/table/wood,
 /obj/item/clothing/under/costume/gladiator{
 	pixel_y = 5
 	},
 /turf/open/floor/grass/fakebasalt,
-/area/template_noop)
+/area/crew_quarters/bar)
 "Y" = (
 /obj/machinery/door/firedoor,
 /turf/open/floor/grass/fakebasalt,
-/area/template_noop)
+/area/crew_quarters/bar)
 "Z" = (
 /obj/machinery/airalarm{
 	dir = 1;
 	pixel_y = -22
 	},
 /turf/open/floor/grass/fakebasalt,
-/area/template_noop)
+/area/crew_quarters/bar)
 
 (1,1,1) = {"
 A
