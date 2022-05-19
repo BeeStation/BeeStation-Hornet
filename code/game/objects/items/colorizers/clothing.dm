@@ -13,3 +13,8 @@
     name = "Head of Security's Cloak Colorizer (Royal)"
     allowed_targets = list(/obj/item/clothing/neck/cloak/hos)
     apply_icon_state = "royalhoscloak"
+
+/obj/item/colorizer/doctorbag
+    name = "doctor's bag"
+    allowed_targets = list(/obj/item/storage/firstaid/medical)
+    apply_icon_state = "firstaid-surgeryalt"
