@@ -12,7 +12,9 @@
 	dedicated_rooms = list(/datum/map_template/random_room/box_default_bar = 1,
 							/datum/map_template/random_room/box_clown_bar = 1,
 							/datum/map_template/random_room/box_syndi_bar = 1,
-							/datum/map_template/random_room/box_vietmoth_bar = 1)
+							/datum/map_template/random_room/box_vietmoth_bar = 1,
+							/datum/map_template/random_room/box_bloody_bar = 1,
+							/datum/map_template/random_room/box_clockwork_bar = 1)
 	room_width = 15
 	room_height = 9
 
@@ -30,7 +32,8 @@
 	dedicated_rooms = list(/datum/map_template/random_room/meta_default_bar = 1,
 							/datum/map_template/random_room/meta_grungy_bar = 1,
 							/datum/map_template/random_room/meta_medical_bar = 1,
-							/datum/map_template/random_room/meta_tribal_bar = 1)
+							/datum/map_template/random_room/meta_tribal_bar = 1,
+							/datum/map_template/random_room/meta_magical_bar = 1)
 	room_width = 9
 	room_height = 9
 
