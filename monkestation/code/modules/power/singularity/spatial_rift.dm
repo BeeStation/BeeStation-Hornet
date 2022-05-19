@@ -21,7 +21,7 @@
 		consume_callback = CALLBACK(src, .proc/consume), \
 		admin_investigate_callback = CALLBACK(src, .proc/admin_investigate_setup), \
 		consume_range = 1, \
-		grav_pull = 12, \
+		grav_pull = 8, \
 		roaming = FALSE, \
 		singularity_size = STAGE_FIVE, \
 	)
