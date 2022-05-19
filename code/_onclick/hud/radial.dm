@@ -67,6 +67,11 @@ GLOBAL_LIST_EMPTY(radial_menus)
 	if(usr.client == parent.current_user)
 		parent.finished = TRUE
 
+/atom/movable/screen/radial/center/Destroy()
+	.=..()
+	if(parent)
+		parent.close_button = null
+
 /datum/radial_menu
 	/// List of choice IDs
 	var/list/choices = list()
