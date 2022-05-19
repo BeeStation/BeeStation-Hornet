@@ -2271,7 +2271,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	head after three seconds uninterrupted."
 	cost = 4
 	item = /obj/item/reverse_bear_trap
-	restricted_roles = list("Clown")
+	restricted_roles = list("Clown", "Curator") //MonkeStation Edit
 
 /datum/uplink_item/role_restricted/reverse_revolver
 	name = "Reverse Revolver"
