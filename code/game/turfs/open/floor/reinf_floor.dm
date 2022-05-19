@@ -30,6 +30,14 @@
 /turf/open/floor/engine/airless/light
 	icon_state = "engine_light"
 
+// MONKE EDIT ADDITION //
+/// plating generated only by shuttle code for shuttle ceilings on multi-z maps, should not be mapped in or creatable in any other way
+/turf/open/floor/engine/ceiling
+	name = "shuttle ceiling plating"
+	desc = "Sturdy exterior hull plating, keeping the shuttle below safe."
+	initial_gas_mix = AIRLESS_ATMOS
+// MONKE EDIT END //
+
 /turf/open/floor/engine/break_tile()
 	return //unbreakable
 
