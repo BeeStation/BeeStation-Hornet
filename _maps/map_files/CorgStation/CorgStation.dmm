@@ -59104,7 +59104,7 @@
 "qFw" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/eastleft{
-	name = s;
+	name = "Hydroponics Desk";
 	req_access_txt = "35"
 	},
 /obj/effect/turf_decal/tile/green{
