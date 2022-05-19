@@ -1186,6 +1186,9 @@
 
 /obj/item/hierophant_club/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
+	if(user.mind.martial_art.no_guns) 
+		to_chat(user, "<span class='warning'>To use this weapon would bring dishonor to the clan.</span>")
+		return
 	var/turf/T = get_turf(target)
 	if(!T || timer > world.time)
 		return
