@@ -135,7 +135,7 @@
 	path = /obj/item/toy/plush/opa
 	
 /datum/gear/donator/colorizer/doctorbag
-	display_name = "Surgery kit colorizer"
+	display_name = "surgery kit colorizer"
     path = /obj/item/colorizer/doctorbag
     allowed_roles = list("Paramedic", "Medical Doctor", "Chief Medical Officer")
 	
