@@ -68,7 +68,7 @@ GLOBAL_LIST_EMPTY(radial_menus)
 		parent.finished = TRUE
 
 /atom/movable/screen/radial/center/Destroy()
-	.=..()
+	. = ..()
 	if(parent)
 		parent.close_button = null
 
