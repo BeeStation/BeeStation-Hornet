@@ -313,7 +313,7 @@
 	if(!COOLDOWN_FINISHED(src, xenoa_cooldown))
 		return FALSE
 	charge = chr
-	true_target += process_target(target)
+	true_target = !(locate(target) in true_target) ? true_target+process_target(target) : true_target
 	check_charge(user)
 	return TRUE
 
