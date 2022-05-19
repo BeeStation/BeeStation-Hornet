@@ -1,0 +1,6 @@
+author: DoctorSquishy
+delete-after: true
+changes:
+  - rscadd: Added an achievement for nullifying Eldritch
+  - bugfix: Fixes SRN so they can nullify tesloose and Eldritch again
+  - bugfix: Spatial Rift's grav_pull is lower
