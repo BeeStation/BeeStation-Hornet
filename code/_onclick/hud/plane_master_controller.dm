@@ -23,7 +23,8 @@ INITIALIZE_IMMEDIATE(/atom/movable/plane_master_controller)
 	controlled_planes = assoc_controlled_planes
 
 /atom/movable/plane_master_controller/Destroy()
-	owner_hud.plane_master_controllers -= src
+	if(owner_hud)
+		owner_hud.plane_master_controllers -= src
 	controlled_planes.Cut()
 	return ..()
 
