@@ -23,6 +23,8 @@
 /obj/item/reagent_containers/glass/chem_heirloom/examine(mob/living/carbon/user)
 	//Add, then remove, reagent contents for examine.
 	. = ..() //This makes the text out of order, but it's hardly noticable
+	if(!locked)
+		return
 	var/smartguy
 	if(ishuman(user) && istype(user?.glasses, /obj/item/clothing/glasses/science))
 		smartguy = TRUE
