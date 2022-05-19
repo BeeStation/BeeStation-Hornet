@@ -1,7 +1,7 @@
 //Chemist's heirloom
 
 /obj/item/reagent_containers/glass/chem_heirloom
-	volume = 0
+	volume = 100 //Set this to 0 in init. Doing otherwise breaks add_reagent
 	spillable = FALSE
 	reagent_flags = NONE
 	icon = 'icons/obj/chemical.dmi'
@@ -13,6 +13,7 @@
 
 /obj/item/reagent_containers/glass/chem_heirloom/Initialize(mapload, vol)
 	..()
+	volume = 0
 	update_icon()
 	roundend_callback = CALLBACK(src, .proc/unlock)
 	SSticker.OnRoundend(roundend_callback)
@@ -31,12 +32,13 @@
 		var/mob/living/M = loc
 		to_chat(M, "<span class='notice'>The [src] unlocks!</span>")
 	volume = 100
-	reagents.add_reagent(rand_cont, volume) //Add reagents
 	item_state = "hard_locked_open"
 	icon_state = "hard_locked_open"
 	locked = FALSE
 	spillable = TRUE
 	reagent_flags = OPENCONTAINER
+	say("Add [rand_cont] [volume]")
+	reagents.add_reagent(rand_cont, volume) //Add reagents
 
 /obj/item/reagent_containers/glass/chem_heirloom/Destroy()
 	. = ..()
