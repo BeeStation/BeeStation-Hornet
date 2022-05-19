@@ -1,4 +1,4 @@
-/proc/empulse(turf/epicenter, heavy_range, light_range, log=0, magic=FALSE, holy=FALSE, check_tick = FALSE)
+/proc/empulse(turf/epicenter, heavy_range, light_range, log=0, magic=FALSE, holy=FALSE, check_tick=FALSE)
 	if(!epicenter)
 		return
 

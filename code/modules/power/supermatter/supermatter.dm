@@ -304,7 +304,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	var/turf/T = get_turf(src)
 
 	//Big empulse
-	INVOKE_ASYNC(GLOBAL_PROC, /proc/empulse, T, 200 * gasmix_power_ratio, 300 * gasmix_power_ratio, check_tick = TRUE)
+	INVOKE_ASYNC(GLOBAL_PROC, /proc/empulse, T, 200 * max(0.2, gasmix_power_ratio), 300 * max(0.2, gasmix_power_ratio), TRUE, FALSE, FALSE, TRUE)
 
 	//Reality distortion
 	for(var/mob/M in GLOB.player_list)
