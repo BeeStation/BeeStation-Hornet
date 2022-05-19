@@ -1,7 +1,8 @@
 //Chemist's heirloom
+#define CHEM_H_VOL 100
 
 /obj/item/reagent_containers/glass/chem_heirloom
-	volume = 100 //Set this to 0 in init. Doing otherwise breaks add_reagent
+	volume = CHEM_H_VOL //Set this to 0 in init. Doing otherwise breaks add_reagent
 	spillable = FALSE
 	reagent_flags = NONE
 	icon = 'icons/obj/chemical.dmi'
@@ -19,6 +20,14 @@
 	SSticker.OnRoundend(roundend_callback)
 	update_name() //Negative.dm will call this again if it adds the heirloom component.
 
+/obj/item/reagent_containers/glass/chem_heirloom/examine(mob/living/carbon/user)
+	//Add, then remove, reagent contents for examine.
+	. = ..() //This makes the text out of order, but it's hardly noticable
+	var/smartguy
+	if(ishuman(user) && istype(user?.glasses, /obj/item/clothing/glasses/science))
+		smartguy = TRUE
+	. += "It contains:\n100 units of [smartguy ? initial(rand_cont.name) : "various reagents"]" //Luckily science goggles say nothing if there's no reagents
+
 /obj/item/reagent_containers/glass/chem_heirloom/proc/update_name() //This has to be done after init, since the heirloom component is added after.
 	rand_cont = get_unrestricted_random_reagent_id()
 	name ="hard locked bottle of [initial(rand_cont.name)]"
@@ -26,20 +35,22 @@
 	desc = H ? "[ishuman(H.owner) ? "The [H.family_name]" : "[H.owner.name]'s"] family's long-cherished wish is to open this bottle and get its chemical outside. Can you make that wish come true?" : "A hard locked bottle of [initial(rand_cont.name)]."
 
 /obj/item/reagent_containers/glass/chem_heirloom/proc/unlock()
-	if(!locked) //A little bird said this would be an issue if goober-min tried to call this twice.
+	if(!locked) //A little bird said this would be an issue if a goober-min tried to call this twice.
 		return
 	if(isliving(loc))
 		var/mob/living/M = loc
 		to_chat(M, "<span class='notice'>The [src] unlocks!</span>")
-	volume = 100
+	desc = "An opened bottle of [initial(rand_cont.name)]."
+	name = "bottle of [initial(rand_cont.name)]"
+	volume = CHEM_H_VOL
 	item_state = "hard_locked_open"
 	icon_state = "hard_locked_open"
 	locked = FALSE
 	spillable = TRUE
 	reagent_flags = OPENCONTAINER
-	say("Add [rand_cont] [volume]")
 	reagents.add_reagent(rand_cont, volume) //Add reagents
 
 /obj/item/reagent_containers/glass/chem_heirloom/Destroy()
 	. = ..()
-	qdel(roundend_callback)
+	LAZYREMOVE(SSticker.round_end_events, roundend_callback)
+	roundend_callback = null

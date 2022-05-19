@@ -1020,7 +1020,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 		return
 	switch(scanmode)
 		if(PDA_SCANNER_REAGENT)
-			if(!istype(A, /obj/item/reagent_containers/pill/floorpill))
+			if(!istype(A, /obj/item/reagent_containers/pill/floorpill) && !istype(A, /obj/item/reagent_containers/glass/chem_heirloom))
 				if(!isnull(A.reagents))
 					if(A.reagents.reagent_list.len > 0)
 						var/reagents_length = A.reagents.reagent_list.len
