@@ -9,6 +9,7 @@
 	var/extracting = FALSE
 	var/obj/item/radio/radio
 	var/radio_channel = RADIO_CHANNEL_COMMAND
+	var/timerid
 
 /obj/machinery/computer/robotics/Initialize(mapload)
 	. = ..()
@@ -19,18 +20,11 @@
 
 /obj/machinery/computer/robotics/Destroy()
 	QDEL_NULL(radio)
+	if(timerid)
+		deltimer(timerid)
 	return ..()
 
 /obj/machinery/computer/robotics/proc/extraction(mob/user)
-	if(allowed(user))
-		say("Credentials successfully verified, commencing extraction.")
-		sleep(120)
-	else
-		var/message = "ALERT: UNAUTHORIZED UPLOAD KEY EXTRACTION AT [get_area_name(loc, TRUE)]"
-		radio.talk_into(src, message, radio_channel)
-		sleep(600)
-		say("Extraction at 50%")
-		sleep(600)
 	var/obj/item/paper/P = new /obj/item/paper(loc)
 	P.name = "Silicon Upload key"
 	P.info = "Current Upload key is: [GLOB.upload_code]"
@@ -188,6 +182,14 @@
 			message_admins("[ADMIN_LOOKUPFLW(usr)] is extracting the upload key!")
 			extracting = TRUE
 			ui_update()
-			extraction(usr)
+			if(allowed(usr))
+				say("Credentials successfully verified, commencing extraction.")
+				src.timerid = addtimer(CALLBACK(src, .proc/extraction,usr), 300, TIMER_STOPPABLE)
+			else
+				var/message = "ALERT: UNAUTHORIZED UPLOAD KEY EXTRACTION AT [get_area_name(loc, TRUE)]"
+				radio.talk_into(src, message, radio_channel)
+				src.timerid = addtimer(CALLBACK(src, .proc/extraction,usr), 600, TIMER_STOPPABLE)
+
+
 
 
