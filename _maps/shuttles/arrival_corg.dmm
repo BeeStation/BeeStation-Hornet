@@ -372,12 +372,6 @@
 	},
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/arrival)
-"Q" = (
-/obj/machinery/computer/shuttle_flight{
-	dir = 1
-	},
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/arrival)
 "R" = (
 /obj/structure/chair/comfy/shuttle,
 /obj/effect/turf_decal/tile/blue{
@@ -547,7 +541,7 @@ J
 h
 T
 R
-Q
+N
 V
 "}
 (7,1,1) = {"
