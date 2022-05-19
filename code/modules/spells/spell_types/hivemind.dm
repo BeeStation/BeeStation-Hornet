@@ -56,7 +56,7 @@
 	var/datum/antagonist/hivemind/hive = user.mind.has_antag_datum(/datum/antagonist/hivemind)
 	var/success = FALSE
 
-	if(target.mind && target.client && target.stat != DEAD)
+	if(target.stat != DEAD)
 		if((!HAS_TRAIT(target, TRAIT_MINDSHIELD) || ignore_mindshield) && !istype(target.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat))
 			if(HAS_TRAIT(target, TRAIT_MINDSHIELD) && ignore_mindshield)
 				to_chat(user, "<span class='notice'>We bruteforce our way past the mental barriers of [target.name] and begin linking our minds!</span>")
@@ -606,44 +606,6 @@
 	var/datum/antagonist/hivemind/hive = user.mind.has_antag_datum(/datum/antagonist/hivemind)
 	if(hive)
 		hive.threat_level += 4
-
-/obj/effect/proc_holder/spell/target_hive/hive_warp
-	name = "Distortion Field"
-	desc = "We warp reality surrounding a vessel, causing hallucinations in everybody around them over a short period of time, eventually weakening those caught within the field. This power's effectiveness scales with hive size."
-
-	charge_max = 900
-	action_icon_state = "warp"
-
-/obj/effect/proc_holder/spell/target_hive/hive_warp/cast(list/targets, mob/living/user = usr)
-	var/mob/living/carbon/target = targets[1]
-	var/datum/antagonist/hivemind/hive = user.mind.has_antag_datum(/datum/antagonist/hivemind)
-	if(!hive)
-		to_chat(user, "<span class='notice'>This is a bug. Error:HIVE1</span>")
-		return
-	if(target.get_virtual_z_level() != user.get_virtual_z_level())
-		to_chat(user, "<span class='notice'>We are too far away from [target.name] to affect them!</span>")
-		return
-	to_chat(user, "<span class='notice'>We successfully distort reality surrounding [target.name]!</span>")
-	var/pulse_cap = min(12, 8+(round(hive.hive_size/20)))
-	distort(user, target, pulse_cap)
-
-/obj/effect/proc_holder/spell/target_hive/hive_warp/proc/distort(user, target, pulse_cap, pulses = 0)
-	for(var/mob/living/carbon/human/victim in hearers(7,target))
-		if(user == victim || victim.is_real_hivehost())
-			continue
-		if(pulses < 4)
-			victim.apply_damage(10, STAMINA, victim.get_bodypart(BODY_ZONE_HEAD)) // 25 over 10 seconds when taking stamina regen (3 per tick(2 seconds)) into account
-			victim.hallucination += 5
-		else if(pulses < 8)
-			victim.apply_damage(15, STAMINA, victim.get_bodypart(BODY_ZONE_HEAD)) // 45 over 10 seconds when taking stamina regen into account
-			victim.hallucination += 10
-		else
-			victim.apply_damage(20, STAMINA, victim.get_bodypart(BODY_ZONE_HEAD)) // 65 over 10 seconds when taking stamina regen into account
-			victim.hallucination += 15
-
-	if(pulses < pulse_cap && user && target)
-		addtimer(CALLBACK(src, "distort", user, target, pulse_cap, pulses+1), 25)
-
 /obj/effect/proc_holder/spell/targeted/hive_hack
 	name = "Network Invasion"
 	desc = "We probe the mind of an adjacent target and extract valuable information on any enemy hives they may belong to. Takes longer if the target is not in our hive."
@@ -712,9 +674,9 @@
 		to_chat(user, "<span class='notice'>Our concentration has been broken!</span>")
 		revert_cast()
 
-/obj/effect/proc_holder/spell/targeted/hive_reclaim
-	name = "Reclaim"
-	desc = "Allows us to instantly syphon the psionic energy from an adjacent critically injured host, killing them immediately. If it succeeds, we will be able to advance our own powers a great deal."
+/obj/effect/proc_holder/spell/targeted/hive_integrate
+	name = "Integrate"
+	desc = "Allows us syphon the psionic energy from a Host withing our grasp"
 	panel = "Hivemind Abilities"
 	charge_max = 600
 	range = 1
@@ -727,37 +689,54 @@
 	action_icon_state = "reclaim"
 	antimagic_allowed = TRUE
 
-/obj/effect/proc_holder/spell/targeted/hive_reclaim/cast(list/targets, mob/living/user = usr)
-	var/datum/antagonist/hivemind/hive = user.mind.has_antag_datum(/datum/antagonist/hivemind)
-	if(!hive)
+/obj/effect/proc_holder/spell/targeted/hive_integrate/cast(list/targets, mob/living/user = usr)
+	var/datum/antagonist/hivemind/hivehost = user.mind.has_antag_datum(/datum/antagonist/hivemind)
+	if(!hivehost)
 		to_chat(user, "<span class='notice'>This is a bug. Error:HIVE1</span>")
 		return
-	var/found_target = FALSE
-	var/gibbed = FALSE
-
-	for(var/mob/living/carbon/C in targets)
-		if(!is_hivehost(C))
-			continue
-		if(C.InCritical() || (C.stat == DEAD && C?.mind.last_death + 150 >= world.time) )
-			C.gib()
-			hive.track_bonus += TRACKER_BONUS_LARGE
-			hive.size_mod += 5
-			hive.threat_level += 1
-			gibbed = TRUE
-			found_target = TRUE
-		else if(C.IsUnconscious())
-			C.adjustOxyLoss(100)
-			found_target = TRUE
-
-	if(!found_target)
+	var/mob/living/carbon/human/target = user.pulling
+	if(!target)
+		to_chat(user, "<span class='warning'>We must be grabbing a creature to integrate them!</span>")
+		hivehost.isintegrating = FALSE
 		revert_cast()
 		return
+	if(!is_hivehost(target))
+		to_chat(user, "<span class='warning'>Their mind is worthless to us!.</span>")
+		revert_cast()
+		return
+	if(hivehost.isintegrating)
+		to_chat(user, "<span class='warning'>We are already integrating a mind!</span>")
+		revert_cast()
+		return
+	if(user.grab_state <= GRAB_NECK)
+		to_chat(user, "<span class='warning'>We must have a tighter grip to integrate their mind!</span>")
+		revert_cast()
+		return
+	hivehost.isintegrating = TRUE
 
+	for(var/i in 1 to 3)
+		switch(i)
+			if(1)
+				to_chat(user, "<span class='notice'>This shining mind is with reach.We must stay still..</span>")
+			if(2)
+				user.visible_message("<span class='warning'>[user] places their hands on [target]'s head!</span>", "<span class='notice'>We place our hands on their temple</span>")
+			if(3)
+				user.visible_message("<span class='danger'>[user] stabs [target] with the proboscis!</span>", "<span class='notice'>We stab [target] with the proboscis.</span>")
+				to_chat(target, "<span class='userdanger'>Your conciousness beings to waver!</span>")
+
+		if(!do_mob(user, target, 150))
+			to_chat(user, "<span class='warning'>Our integration of [target] has been interrupted!</span>")
+			hivehost.isintegrating = 0
+			return
+	to_chat(target, "<span class='userdanger'>You mind is shattered!</span>")
+	target.gib()
+	hivehost.track_bonus += TRACKER_BONUS_LARGE
+	hivehost.size_mod += 5
+	hivehost.threat_level += 1
 	flash_color(user, flash_color="#800080", flash_time=10)
-	if(gibbed)
-		to_chat(user,"<span class='assimilator'>We have reclaimed what gifts weaker minds were squandering and gain ever more insight on our psionic abilities.</span>")
-		to_chat(user,"<span class='assimilator'>Thanks to this new knowledge, our sensory powers last a great deal longer.</span>")
-		hive.check_powers()
+	to_chat(user,"<span class='assimilator'>We have reclaimed what gifts weaker minds were squandering and gain ever more insight on our psionic abilities.</span>")
+	to_chat(user,"<span class='assimilator'>Thanks to this new knowledge, our sensory powers last a great deal longer.</span>")
+	hivehost.check_powers()
 
 /obj/effect/proc_holder/spell/self/hive_wake
 	name = "Chaos Induction"
@@ -956,13 +935,13 @@
 
 /obj/effect/proc_holder/spell/self/hive_comms/cast(mob/living/user = usr)
 	var/message = stripped_input(user, "What do you want to say?", "Hive Communication")
+	var/datum/antagonist/hivemind/hivehost = user.mind.has_antag_datum(/datum/antagonist/hivemind)
+	if(!hivehost)
+		return
 	if(!message)
 		return
-	var/title = "One Mind"
-	var/span = "changeling"
-	if(user.mind && user.mind.has_antag_datum(/datum/antagonist/hivemind))
-		span = "assimilator"
-	var/my_message = "<span class='[span]'><b>[title] [findtextEx(user.name, user.real_name) ? user.name : "[user.real_name] (as [user.name])"]:</b> [message]</span>"
+	var/title = "Hive"
+	var/my_message = "<span class='changeling'><b>[title] [hivehost.hiveID]:</b> [message]</span>"
 	for(var/i in GLOB.player_list)
 		var/mob/M = i
 		if(is_hivehost(M) || is_hivemember(M))

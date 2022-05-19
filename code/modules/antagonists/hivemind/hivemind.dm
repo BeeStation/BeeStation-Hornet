@@ -14,6 +14,8 @@
 	var/unlocked_one_mind = FALSE
 	var/datum/team/hivemind/active_one_mind
 	var/mutable_appearance/glow
+	var/isintegrating = 0
+	var/hiveID = "Hivemind"
 
 	var/list/upgrade_tiers = list(
 		//Tier 1 - Roundstart powers
@@ -21,11 +23,10 @@
 		/obj/effect/proc_holder/spell/target_hive/hive_remove = 0,
 		/obj/effect/proc_holder/spell/target_hive/hive_see = 0,
 		/obj/effect/proc_holder/spell/target_hive/hive_shock = 0,
-		/obj/effect/proc_holder/spell/target_hive/hive_warp = 0,
+		/obj/effect/proc_holder/spell/self/hive_comms
 		//Tier 2 - Tracking related powers
-		/obj/effect/proc_holder/spell/self/hive_scan = 5,
-		/obj/effect/proc_holder/spell/targeted/hive_reclaim = 5,
-		/obj/effect/proc_holder/spell/targeted/hive_hack = 5,
+		/obj/effect/proc_holder/spell/targeted/hive_integrate = 5,
+
 		//Tier 3 - Combat related powers
 		/obj/effect/proc_holder/spell/self/hive_drain = 10,
 		/obj/effect/proc_holder/spell/targeted/induce_panic = 10,
@@ -209,6 +210,7 @@
 
 /datum/antagonist/hivemind/on_gain()
 	owner.special_role = special_role
+	generate_name()
 	check_powers()
 	forge_objectives()
 	..()
@@ -298,3 +300,9 @@
 
 /datum/antagonist/hivemind/is_gamemode_hero()
 	return SSticker.mode.name == "Assimilation"
+
+/datum/antagonist/hivemind/proc/generate_name()
+	var/static/list/prefix = list("Azure","Crimson","Silver","Verdant","Ivory","Sepia","Gold","Canary","Rust","Cider","Scarlet","Rose","Magenta","Navy","Lapis","Emerald")
+	var/static/list/postfix = list("Flame","Presence","Maw","Revelation","Conciousness","Blanket","Structure","Command","Hierarchy","Aristocrat","Zealotry","Fascination")
+	hiveID = pick_n_take(prefix) + " " + pick_n_take(postfix)
+
