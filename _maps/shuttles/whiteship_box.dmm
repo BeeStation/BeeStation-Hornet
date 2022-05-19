@@ -12,25 +12,6 @@
 /obj/structure/sign/departments/medbay/alt,
 /turf/closed/wall/mineral/titanium/nodiagonal,
 /area/shuttle/abandoned/crew)
-"ae" = (
-/obj/machinery/door/airlock/external,
-/obj/effect/mapping_helpers/airlock/cyclelink_helper,
-/obj/docking_port/mobile{
-	callTime = 250;
-	dheight = 0;
-	dir = 2;
-	dwidth = 11;
-	height = 17;
-	id = "whiteship";
-	launch_status = 0;
-	movement_force = list("KNOCKDOWN" = 0, "THROW" = 0);
-	name = "Hospital Ship";
-	port_direction = 8;
-	preferred_direction = 4;
-	width = 34
-	},
-/turf/open/floor/plating,
-/area/shuttle/abandoned/crew)
 "ag" = (
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/abandoned/medbay)
@@ -383,7 +364,7 @@
 /obj/machinery/power/apc{
 	dir = 1;
 	name = "Hospital Ship Crew Quarters APC";
-	pixel_y = 23;
+	pixel_y = 24;
 	req_access = null
 	},
 /obj/effect/turf_decal/tile/neutral,
@@ -1045,7 +1026,7 @@
 /obj/machinery/power/apc{
 	dir = 1;
 	name = "Hospital Ship Medbay APC";
-	pixel_y = 23;
+	pixel_y = 24;
 	req_access = null
 	},
 /turf/open/floor/plasteel/white,
@@ -2126,7 +2107,7 @@
 /obj/machinery/power/apc{
 	dir = 1;
 	name = "Hospital Ship Bridge APC";
-	pixel_y = 23;
+	pixel_y = 24;
 	req_access = null
 	},
 /obj/effect/turf_decal/tile/blue{
@@ -2140,6 +2121,26 @@
 	},
 /turf/closed/wall/mineral/titanium/nodiagonal,
 /area/shuttle/abandoned/engine)
+"pd" = (
+/obj/machinery/door/airlock/external,
+/obj/effect/mapping_helpers/airlock/cyclelink_helper,
+/obj/docking_port/mobile{
+	callTime = 250;
+	dheight = 0;
+	dir = 2;
+	dwidth = 11;
+	dynamic_id = 1;
+	height = 17;
+	id = "whiteship";
+	launch_status = 0;
+	movement_force = list("KNOCKDOWN" = 0, "THROW" = 0);
+	name = "Hospital Ship";
+	port_direction = 8;
+	preferred_direction = 4;
+	width = 34
+	},
+/turf/open/floor/plating,
+/area/shuttle/abandoned/crew)
 "vk" = (
 /obj/structure/shuttle/engine/propulsion/left{
 	dir = 8
@@ -2578,7 +2579,7 @@ al
 cY
 "}
 (23,1,1) = {"
-ae
+pd
 aj
 ap
 aB
