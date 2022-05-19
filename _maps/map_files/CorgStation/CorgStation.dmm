@@ -6394,6 +6394,10 @@
 	},
 /turf/open/floor/plasteel,
 /area/security/brig)
+"buQ" = (
+/obj/machinery/vending/cola/random,
+/turf/open/floor/wood,
+/area/hallway/primary/fore)
 "bvr" = (
 /obj/effect/turf_decal/tile/green,
 /obj/effect/turf_decal/tile/yellow{
@@ -8609,6 +8613,7 @@
 	dir = 1
 	},
 /obj/machinery/airalarm/directional/north,
+/obj/item/reagent_containers/glass/bucket,
 /turf/open/floor/plasteel,
 /area/janitor)
 "ccE" = (
@@ -21308,6 +21313,9 @@
 	},
 /turf/open/floor/wood,
 /area/maintenance/port)
+"fQQ" = (
+/turf/open/floor/plasteel,
+/area/janitor)
 "fQW" = (
 /obj/effect/turf_decal/tile/red{
 	dir = 1
@@ -33878,11 +33886,6 @@
 /obj/structure/bookcase,
 /turf/open/floor/carpet,
 /area/hallway/primary/fore)
-"jru" = (
-/obj/structure/reagent_dispensers/watertank,
-/obj/item/reagent_containers/glass/bucket,
-/turf/open/floor/plating,
-/area/maintenance/port/central)
 "jrz" = (
 /obj/effect/turf_decal/tile/red{
 	dir = 2
@@ -35297,6 +35300,25 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/fore)
+"jLx" = (
+/obj/item/radio/intercom{
+	pixel_x = -28;
+	pixel_y = -2
+	},
+/obj/structure/reagent_dispensers/watertank/high,
+/obj/item/reagent_containers/glass/bucket,
+/obj/effect/turf_decal/tile/green{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/green{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/green{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/green,
+/turf/open/floor/plasteel,
+/area/janitor)
 "jLG" = (
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
@@ -50182,7 +50204,9 @@
 /turf/open/floor/plating,
 /area/maintenance/disposal)
 "nYH" = (
-/obj/effect/spawner/lootdrop/glowstick/lit,
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
 /turf/open/floor/plating,
 /area/maintenance/port/central)
 "nYV" = (
@@ -58343,6 +58367,10 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /turf/open/floor/plasteel,
 /area/crew_quarters/dorms)
+"qrU" = (
+/obj/machinery/portable_atmospherics/canister/water_vapor,
+/turf/open/floor/plasteel,
+/area/janitor)
 "qst" = (
 /obj/machinery/door/airlock/external/glass{
 	name = "Escape Pod Charlie"
@@ -58455,15 +58483,15 @@
 /area/construction/mining/aux_base)
 "quk" = (
 /obj/structure/table/reinforced,
-/obj/machinery/door/window/eastleft{
-	name = "Hydroponics Desk";
-	req_access_txt = "35"
-	},
 /obj/effect/turf_decal/tile/green{
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/green{
 	dir = 1
+	},
+/obj/machinery/door/window/eastright{
+	req_access_txt = "35";
+	name = "Hydroponics Desk"
 	},
 /turf/open/floor/plasteel,
 /area/hydroponics)
@@ -59076,6 +59104,20 @@
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple,
 /turf/open/space/basic,
 /area/space/nearstation)
+"qFw" = (
+/obj/structure/table/reinforced,
+/obj/machinery/door/window/eastleft{
+	name = s;
+	req_access_txt = s
+	},
+/obj/effect/turf_decal/tile/green{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/green{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/hydroponics)
 "qFN" = (
 /obj/machinery/atmospherics/components/unary/outlet_injector/on{
 	dir = 4
@@ -64623,6 +64665,15 @@
 /obj/machinery/biogenerator,
 /turf/open/floor/grass,
 /area/hydroponics/garden)
+"ssV" = (
+/obj/machinery/atmospherics/components/trinary/filter/critical{
+	filter_type = "n2"
+	},
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/open/floor/engine,
+/area/engine/engine_room)
 "stc" = (
 /obj/effect/turf_decal/tile/green,
 /obj/effect/turf_decal/tile/green{
@@ -71896,10 +71947,6 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/green,
-/obj/item/radio/intercom{
-	pixel_x = -28;
-	pixel_y = -2
-	},
 /turf/open/floor/plasteel,
 /area/janitor)
 "uBx" = (
@@ -74244,6 +74291,13 @@
 /obj/item/radio/intercom{
 	pixel_x = -28;
 	pixel_y = -2
+	},
+/obj/item/clothing/glasses/meson/engine,
+/obj/item/clothing/glasses/meson/engine{
+	pixel_y = 6
+	},
+/obj/item/clothing/glasses/meson/engine{
+	pixel_y = -6
 	},
 /turf/open/floor/plasteel,
 /area/engine/engine_room)
@@ -77125,7 +77179,6 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/green,
-/obj/effect/landmark/start/janitor,
 /obj/machinery/power/apc/auto_name/west{
 	pixel_x = -24
 	},
@@ -79104,6 +79157,23 @@
 /obj/item/restraints/legcuffs/beartrap,
 /obj/structure/table,
 /obj/machinery/light/small,
+/obj/item/grenade/chem_grenade/cleaner{
+	pixel_x = -7;
+	pixel_y = 12
+	},
+/obj/item/grenade/chem_grenade/cleaner{
+	pixel_x = -7;
+	pixel_y = 12
+	},
+/obj/item/grenade/chem_grenade/cleaner{
+	pixel_x = -7;
+	pixel_y = 12
+	},
+/obj/item/grenade/chem_grenade/cleaner{
+	pixel_x = -7;
+	pixel_y = 12
+	},
+/obj/item/reagent_containers/spray/cleaner,
 /turf/open/floor/plasteel,
 /area/janitor)
 "wDn" = (
@@ -97630,7 +97700,7 @@ dMM
 alJ
 anh
 aaG
-aeS
+ssV
 asK
 aMB
 asK
@@ -115922,12 +115992,12 @@ fKx
 fKx
 aTq
 hzU
-fKx
-hzU
-fKx
-jru
-jru
-hzU
+lzJ
+lxe
+eJK
+eJK
+uMr
+lxe
 nYH
 hzU
 fKx
@@ -116180,12 +116250,12 @@ fKx
 fKx
 laH
 nHS
-lxe
-eJK
-eJK
-uMr
-lxe
-eJK
+fHC
+fHC
+fHC
+oWJ
+fHC
+mfo
 lxe
 eJK
 eJK
@@ -116438,9 +116508,9 @@ fKx
 hzU
 aPI
 fHC
-fHC
-fHC
-oWJ
+jLx
+qrU
+fQQ
 fHC
 fHC
 fHC
@@ -116454,7 +116524,7 @@ cSD
 wnO
 sBH
 aTc
-fKx
+lzJ
 dbA
 vQj
 fuh
@@ -117207,7 +117277,7 @@ fKx
 pke
 fKx
 eSR
-fKx
+lzJ
 fHC
 cvw
 uCZ
@@ -119276,7 +119346,7 @@ fjZ
 qYI
 boA
 quk
-quk
+qFw
 sDS
 umy
 boA
@@ -120785,7 +120855,7 @@ ngU
 pPJ
 nIH
 gOQ
-xyB
+buQ
 xyB
 rQV
 hcA
