@@ -98,7 +98,7 @@
  * Hand-tele
  */
 /obj/item/hand_tele
-	name = "hand tele"
+	name = "hand teleporter"
 	desc = "A portable item using blue-space technology."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "hand_tele"

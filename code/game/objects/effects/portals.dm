@@ -171,6 +171,13 @@
 		if(istype(M, /obj/item/projectile))
 			var/obj/item/projectile/P = M
 			P.ignore_source_check = TRUE
+		if(istype(real_target, /turf/closed) && istype(M, /mob/living))
+			var/mob/living/L = M
+			playsound(real_target, "sparks", 50, TRUE)
+			playsound(real_target, "sound/magic/disintegrate.ogg", 50, TRUE)
+			to_chat(L, "<span class='userdanger'>You teleport into the wall, the portal tries to save you, but-</span>")
+			real_target.ex_act(2) //Destroy the wall
+			L.gib()
 		return TRUE
 	return FALSE
 
