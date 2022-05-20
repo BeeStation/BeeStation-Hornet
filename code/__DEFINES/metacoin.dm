@@ -8,3 +8,5 @@
 #define METACOIN_NOTSURVIVE_REWARD       10
 /// Rewarded when you are alive and active for 10 minutes
 #define METACOIN_TENMINUTELIVING_REWARD  4
+/// Rewarded for being a BYOND Member
+#define METACOIN_BYONDMEMBERSHIP         40
