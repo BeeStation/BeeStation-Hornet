@@ -1,0 +1,5 @@
+author: unit0016
+delete-after: true
+changes:
+  - tweak: Dying off-station now is much more obvious to everyone else, assuming they
+      don't just tune it out while listening to music or something.
