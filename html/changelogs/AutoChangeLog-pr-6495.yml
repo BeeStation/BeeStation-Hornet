@@ -1,0 +1,7 @@
+author: red031000
+delete-after: true
+changes:
+  - rscadd: Add the ability for moths to open their wings when they are able to fly
+      (either through genetics, or flight potions)
+  - tweak: Change time for flap and aflap to half
+  - imageadd: Add moth wings open images from yogstation
