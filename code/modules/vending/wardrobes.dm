@@ -334,7 +334,7 @@
 					/obj/item/clothing/under/rank/civilian/janitor/skirt = 2,
 					/obj/item/clothing/under/plasmaman/janitor = 2,
 					/obj/item/clothing/head/helmet/space/plasmaman/janitor = 2,
-					/obj/item/clothing/suit/hooded/wintercoat/janitr = 2,
+					/obj/item/clothing/suit/hooded/wintercoat/janitor = 2,
 					/obj/item/cartridge/janitor = 2,
 					/obj/item/clothing/gloves/color/black = 2,
 					/obj/item/clothing/head/soft/purple = 2,

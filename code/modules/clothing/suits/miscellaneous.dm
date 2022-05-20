@@ -672,7 +672,7 @@
 	allowed = list(/obj/item/toy, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/plasmaman, /obj/item/storage/fancy/cigarettes, /obj/item/lighter,/obj/item/grenade/chem_grenade,/obj/item/lightreplacer,/obj/item/flashlight,/obj/item/reagent_containers/glass/beaker,/obj/item/reagent_containers/glass/bottle,/obj/item/reagent_containers/spray,/obj/item/soap,/obj/item/holosign_creator,/obj/item/key/janitor,/obj/item/melee/flyswatter,/obj/item/paint/paint_remover,/obj/item/storage/bag/trash,/obj/item/reagent_containers/glass/bucket)
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/janitor
 
-	/obj/item/clothing/head/hooded/winterhood/janitor
+/obj/item/clothing/head/hooded/winterhood/janitor
 	desc = "A purple hood that smells of space cleaner."
 	icon_state = "winterhood_janitor"
 
@@ -787,20 +787,20 @@
 	name = "research director's winter coat"
 	desc = "A thick arctic winter coat with an outdated atomic model instead of a plastic zipper tab. Most in the know are heavily aware that Bohr's model of the atom was outdated by the time of the 1930s when the Heisenbergian and Schrodinger models were generally accepted for true. Nevertheless, we still see its use in anachronism, roleplaying, and, in this case, as a zipper tab. At least it should keep you warm on your ivory pillar."
 	icon_state = "coatrd"
-	inhand_icon_state = "coatrd"
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 20, "bio" = 0, "rad" = 0, "fire" = 30, "acid", = 0, "stamina" = 0)
+	item_state = "coatrd"
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 20, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 0, "stamina" = 0)
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/science/rd
 
 /obj/item/clothing/head/hooded/winterhood/science/rd
 	desc = "A white winter coat hood. It smells faintly of hair gel."
 	icon_state = "winterhood_rd"
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 20, "bio" = 0, "rad" = 0, "fire" = 30, "acid", = 0, "stamina" = 0)
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 20, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 0, "stamina" = 0)
 
 /obj/item/clothing/suit/hooded/wintercoat/science/robotics
 	name = "robotics winter coat"
 	desc = "A black winter coat with a badass flaming robotic skull for the zipper tab. This one has bright red designs and a few useless buttons."
 	icon_state = "coatrobotics"
-	inhand_icon_state = "coatrobotics"
+	item_state = "coatrobotics"
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/science/robotics
 
 /obj/item/clothing/head/hooded/winterhood/science/robotics
@@ -811,7 +811,7 @@
 	name = "genetics winter coat"
 	desc = "A white winter coat with a DNA helix for the zipper tab."
 	icon_state = "coatgenetics"
-	inhand_icon_state = "coatgenetics"
+	item_state = "coatgenetics"
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/science/genetics
 
 /obj/item/clothing/head/hooded/winterhood/science/genetics
@@ -838,7 +838,7 @@
 	name = "chief engineer's winter coat"
 	desc = "A white winter coat with reflective green and yellow stripes. Stuffed with asbestos, treated with fire retardant PBDE, lined with a micro thin sheet of lead foil and snugly fitted to your body's measurements. This baby's ready to save you from anything except the thyroid cancer and systemic fibrosis you'll get from wearing it. The zipper tab is a tiny golden wrench."
 	icon_state = "coatce"
-	inhand_icon_state = "coatce"
+	item_state = "coatce"
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 20, "fire" = 30, "acid" = 10, "stamina" = 0)
 	hoodtype = /obj/item/clothing/head/hooded/winterhood/engineering/ce
 
