@@ -56,10 +56,6 @@
 			target.apply_status_effect(STATUS_EFFECT_HIVE_RADAR)
 			remove_hivemember(target)
 
-		if(woke)
-			woke.one_mind?.remove_member(target.mind)
-			target.mind.remove_antag_datum(/datum/antagonist/hivevessel)
-
 		var/datum/antagonist/rev/rev = target.mind.has_antag_datum(/datum/antagonist/rev)
 		if(rev)
 			rev.remove_revolutionary(FALSE, user)

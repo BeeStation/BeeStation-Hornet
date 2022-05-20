@@ -12,10 +12,12 @@
 	var/size_mod = 0 // Bonus size for using reclaim
 	var/list/individual_track_bonus = list() // Bonus time to tracking individual targets
 	var/unlocked_one_mind = FALSE
-	var/datum/team/hivemind/active_one_mind
 	var/mutable_appearance/glow
 	var/isintegrating = 0
 	var/hiveID = "Hivemind"
+	var/searchcharge = 0
+	var/datum/psychic_plane/psychic_plane
+	var/datum/action/innate/psychic_plane/plane_action
 
 	var/list/upgrade_tiers = list(
 		//Tier 1 - Roundstart powers
@@ -23,16 +25,17 @@
 		/obj/effect/proc_holder/spell/target_hive/hive_remove = 0,
 		/obj/effect/proc_holder/spell/target_hive/hive_see = 0,
 		/obj/effect/proc_holder/spell/target_hive/hive_shock = 0,
-		/obj/effect/proc_holder/spell/self/hive_comms
+		/obj/effect/proc_holder/spell/self/hive_comms = 0,
 		//Tier 2 - Tracking related powers
 		/obj/effect/proc_holder/spell/targeted/hive_integrate = 5,
+		/obj/effect/proc_holder/spell/targeted/hive_hack = 0,
+
 
 		//Tier 3 - Combat related powers
 		/obj/effect/proc_holder/spell/self/hive_drain = 10,
 		/obj/effect/proc_holder/spell/targeted/induce_panic = 10,
 		/obj/effect/proc_holder/spell/targeted/forcewall/hive = 10,
 		//Tier 4 - Chaos-spreading powers
-		/obj/effect/proc_holder/spell/self/hive_wake = 15,
 		/obj/effect/proc_holder/spell/self/hive_loyal = 15,
 		/obj/effect/proc_holder/spell/target_hive/hive_control = 15,
 		//Tier 5 - Deadly powers
@@ -72,19 +75,6 @@
 			if(hive_size > 0)
 				to_chat(owner, "<span class='assimilator'>We have unlocked [the_spell.name].</span><span class='bold'> [the_spell.desc]</span>")
 
-	if(!unlocked_one_mind && hive_size >= 15)
-		var/lead = TRUE
-		for(var/datum/antagonist/hivemind/enemy in GLOB.antagonists)
-			if(enemy == src)
-				continue
-			if(!enemy.active_one_mind && enemy.hive_size <= hive_size + size_mod - 20)
-				continue
-			lead = FALSE
-			break
-		if(lead)
-			unlocked_one_mind = TRUE
-			owner.AddSpell(new/obj/effect/proc_holder/spell/self/one_mind)
-			to_chat(owner, "<big><span class='assimilator'>Our true power, the One Mind, is finally within reach.</span></big>")
 
 /datum/antagonist/hivemind/proc/add_track_bonus(datum/antagonist/hivemind/enemy, bonus)
 	if(!individual_track_bonus[enemy])
@@ -112,8 +102,6 @@
 		var/eject_time = rand(1400,1600) //2.5 minutes +- 10 seconds
 		addtimer(CALLBACK(GLOBAL_PROC, /proc/to_chat, C, user_warning), rand(500,1300)) // If the host has assimilated an enemy hive host, alert the enemy before booting them from the hive after a short while
 		addtimer(CALLBACK(src, .proc/handle_ejection, C), eject_time)
-	else if(active_one_mind)
-		C.hive_awaken(final_form=active_one_mind)
 
 /datum/antagonist/hivemind/proc/is_carbon_member(mob/living/carbon/C)
 	if(!hivemembers || !C || !iscarbon(C))
@@ -128,10 +116,6 @@
 	if(M)
 		hivemembers -= M
 		calc_size()
-		if(active_one_mind)
-			var/datum/antagonist/hivevessel/V = C.is_wokevessel()
-			if(V)
-				M.remove_antag_datum(/datum/antagonist/hivevessel)
 
 /datum/antagonist/hivemind/proc/handle_ejection(mob/living/carbon/C)
 	var/user_warning = "The enemy host has been ejected from our mind"
@@ -162,7 +146,6 @@
 	to_chat(real_C, "<span class='userdanger'>[user_warning]!</span>")
 
 /datum/antagonist/hivemind/proc/destroy_hive()
-	go_back_to_sleep()
 	hivemembers = list()
 	calc_size()
 	for(var/power in upgrade_tiers)
@@ -173,44 +156,11 @@
 /datum/antagonist/hivemind/antag_panel_data()
 	return "Vessels Assimilated: [hive_size] (+[size_mod])"
 
-/datum/antagonist/hivemind/proc/awaken()
-	if(!owner?.current)
-		return
-	var/mob/living/carbon/C = owner.current.get_real_hivehost()
-	if(!C)
-		return
-	owner.AddSpell(new/obj/effect/proc_holder/spell/self/hive_comms)
-	ADD_TRAIT(C, TRAIT_STUNIMMUNE, HIVEMIND_ONE_MIND_TRAIT)
-	ADD_TRAIT(C, TRAIT_SLEEPIMMUNE, HIVEMIND_ONE_MIND_TRAIT)
-	ADD_TRAIT(C, TRAIT_VIRUSIMMUNE, HIVEMIND_ONE_MIND_TRAIT)
-	ADD_TRAIT(C, TRAIT_NOLIMBDISABLE, HIVEMIND_ONE_MIND_TRAIT)
-	ADD_TRAIT(C, TRAIT_NOHUNGER, HIVEMIND_ONE_MIND_TRAIT)
-	ADD_TRAIT(C, TRAIT_NODISMEMBER, HIVEMIND_ONE_MIND_TRAIT)
-	log_game("[key_name(owner)] has awakened vessels.")
-
-/datum/antagonist/hivemind/proc/go_back_to_sleep()
-	if(!active_one_mind)
-		return
-	for(var/datum/mind/M in hivemembers)
-		M.remove_antag_datum(/datum/antagonist/hivevessel)
-		active_one_mind.remove_member(M)
-	if(!(owner?.current))
-		return
-	var/mob/living/carbon/C = owner.current.get_real_hivehost()
-	if(!C)
-		return
-	owner.RemoveSpell(new/obj/effect/proc_holder/spell/self/hive_comms)
-	REMOVE_TRAIT(C, TRAIT_STUNIMMUNE, HIVEMIND_ONE_MIND_TRAIT)
-	REMOVE_TRAIT(C, TRAIT_SLEEPIMMUNE, HIVEMIND_ONE_MIND_TRAIT)
-	REMOVE_TRAIT(C, TRAIT_VIRUSIMMUNE, HIVEMIND_ONE_MIND_TRAIT)
-	REMOVE_TRAIT(C, TRAIT_NOLIMBDISABLE, HIVEMIND_ONE_MIND_TRAIT)
-	REMOVE_TRAIT(C, TRAIT_NOHUNGER, HIVEMIND_ONE_MIND_TRAIT)
-	REMOVE_TRAIT(C, TRAIT_NODISMEMBER, HIVEMIND_ONE_MIND_TRAIT)
-	active_one_mind.Destroy()
 
 /datum/antagonist/hivemind/on_gain()
 	owner.special_role = special_role
 	generate_name()
+	create_actions()
 	check_powers()
 	forge_objectives()
 	..()
@@ -276,7 +226,8 @@
 		target, and after ten seconds he will be one of the hive. This is completely silent and safe to use, and failing will reset the cooldown. As \
 		you assimilate the crew, you will gain more powers to use. Most are silent and won't help you in a fight, but grant you great power over your \
 		vessels. Hover your mouse over a power's action icon for an extended description on what it does. There are other hiveminds onboard the station, \
-		collaboration is possible, but a strong enough hivemind can reap many rewards from a well planned betrayal.")
+		our powers will grow if we integrate them with our own conciousness.")
+	to_chat(owner.current,"<span class='assimilator'>We are hive [hiveID]!</span>")
 
 /datum/antagonist/hivemind/roundend_report()
 	var/list/result = list()
@@ -306,3 +257,13 @@
 	var/static/list/postfix = list("Flame","Presence","Maw","Revelation","Conciousness","Blanket","Structure","Command","Hierarchy","Aristocrat","Zealotry","Fascination")
 	hiveID = pick_n_take(prefix) + " " + pick_n_take(postfix)
 
+/datum/antagonist/hivemind/proc/create_actions()
+	psychic_plane = new(src)
+	plane_action = new(psychic_plane)
+	plane_action.Grant(owner.current)
+
+/datum/antagonist/hivemind/Destroy()
+	destroy_hive()
+	QDEL_NULL(psychic_plane)
+	QDEL_NULL(plane_action)
+	return ..()

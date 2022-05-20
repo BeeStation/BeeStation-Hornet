@@ -112,11 +112,6 @@
 	hive.calc_size()
 	hive.threat_level += 0.1
 	to_chat(user, "<span class='notice'>We remove [target.name] from the hive</span>")
-	if(hive.active_one_mind)
-		var/datum/antagonist/hivevessel/woke = target.is_wokevessel()
-		if(woke)
-			hive.active_one_mind.remove_member(M)
-			M.remove_antag_datum(/datum/antagonist/hivevessel)
 
 /obj/effect/proc_holder/spell/target_hive/hive_see
 	name = "Hive Vision"
@@ -656,12 +651,13 @@
 
 			if(enemy.owner == M && target.is_real_hivehost())
 				var/atom/throwtarget
+				var/datum/antagonist/hivemind/hivetarget = target.mind.has_antag_datum(/datum/antagonist/hivemind)
 				throwtarget = get_edge_target_turf(src, get_dir(src, get_step_away(user, src)))
 				SEND_SOUND(user, sound(pick('sound/hallucinations/turn_around1.ogg','sound/hallucinations/turn_around2.ogg'),0,1,50))
 				flash_color(user, flash_color="#800080", flash_time=10)
 				user.Paralyze(10)
 				user.throw_at(throwtarget, 5, 1,src)
-				to_chat(user, "<span class='userdanger'>A sudden surge of psionic energy rushes into your mind, only a Hive host could have such power!!</span>")
+				to_chat(user, "<span class='userdanger'>A sudden surge of psionic energy, a recognizable presence, this is the host of [hivetarget.hiveID]</span>")
 				return
 		if(enemies.len)
 			hive.track_bonus += TRACKER_BONUS_SMALL
@@ -676,7 +672,7 @@
 
 /obj/effect/proc_holder/spell/targeted/hive_integrate
 	name = "Integrate"
-	desc = "Allows us syphon the psionic energy from a Host withing our grasp"
+	desc = "Allows us to syphon the psionic energy from a Host withing our grasp"
 	panel = "Hivemind Abilities"
 	charge_max = 600
 	range = 1
@@ -737,54 +733,6 @@
 	to_chat(user,"<span class='assimilator'>We have reclaimed what gifts weaker minds were squandering and gain ever more insight on our psionic abilities.</span>")
 	to_chat(user,"<span class='assimilator'>Thanks to this new knowledge, our sensory powers last a great deal longer.</span>")
 	hivehost.check_powers()
-
-/obj/effect/proc_holder/spell/self/hive_wake
-	name = "Chaos Induction"
-	desc = "A one-use power, we awaken four random vessels within our hive and force them to do our bidding."
-	panel = "Hivemind Abilities"
-	charge_type = "charges"
-	charge_max = 1
-	invocation_type = "none"
-	clothes_req = 0
-	human_req = 1
-	action_icon = 'icons/mob/actions/actions_hive.dmi'
-	action_background_icon_state = "bg_hive"
-	action_icon_state = "chaos"
-	antimagic_allowed = TRUE
-
-/obj/effect/proc_holder/spell/self/hive_wake/cast(mob/living/user = usr)
-	var/datum/antagonist/hivemind/hive = user.mind.has_antag_datum(/datum/antagonist/hivemind)
-	if(!hive)
-		to_chat(user, "<span class='notice'>This is a bug. Error:HIVE1</span>")
-		return
-	if(!hive.hivemembers)
-		return
-	var/list/valid_targets = list()
-	for(var/datum/mind/M in hive.hivemembers)
-		var/mob/living/carbon/C = M.current
-		if(!C)
-			continue
-		if(is_hivehost(C) || C.is_wokevessel())
-			continue
-		if(C.stat == DEAD || C.InCritical())
-			continue
-		valid_targets += C
-
-	if(!valid_targets || valid_targets.len < 4)
-		to_chat(user, "<span class='assimilator'>We lack the vessels to use this power.</span>")
-		revert_cast()
-		return
-
-	var/objective = stripped_input(user, "What objective do you want to give to your vessels?", "Objective")
-
-	if(!objective || !hive)
-		revert_cast()
-		return
-
-	hive.threat_level += 6
-	for(var/i = 0, i < 4, i++)
-		var/mob/living/carbon/C = pick_n_take(valid_targets)
-		C.hive_awaken(objective)
 
 /obj/effect/proc_holder/spell/self/hive_loyal
 	name = "Bruteforce"
@@ -862,63 +810,6 @@
 	pixel_x = 0
 	pixel_y = 0
 	invisibility = INVISIBILITY_MAXIMUM
-
-/obj/effect/proc_holder/spell/self/one_mind
-	name = "One Mind"
-	desc = "Our true power... finally within reach."
-	panel = "Hivemind Abilities"
-	charge_type = "charges"
-	charge_max = 1
-	invocation_type = "none"
-	clothes_req = 0
-	human_req = 1
-	action_icon = 'icons/mob/actions/actions_hive.dmi'
-	action_background_icon_state = "bg_hive"
-	action_icon_state = "assim"
-	antimagic_allowed = TRUE
-
-/obj/effect/proc_holder/spell/self/one_mind/cast(mob/living/user = usr)
-	var/datum/antagonist/hivemind/hive = user.mind.has_antag_datum(/datum/antagonist/hivemind)
-	if(!hive)
-		to_chat(user, "<span class='notice'>This is a bug. Error:HIVE1</span>")
-		return
-	var/mob/living/boss = user.get_real_hivehost()
-	var/datum/objective/protect/new_objective = new /datum/objective/protect
-	new_objective.set_target(user.mind)
-	new_objective.explanation_text = "Ensure the One Mind survives under the leadership of [boss.real_name]."
-	var/datum/team/hivemind/one_mind_team = new /datum/team/hivemind(user.mind)
-	hive.active_one_mind = one_mind_team
-	one_mind_team.objectives += new_objective
-	for(var/datum/antagonist/hivevessel/vessel in GLOB.antagonists)
-		var/mob/living/carbon/C = vessel.owner?.current
-		if(C && hive.is_carbon_member(C))
-			vessel.one_mind = one_mind_team
-	for(var/datum/antagonist/hivemind/enemy in GLOB.antagonists)
-		if(enemy.owner)
-			enemy.owner.RemoveSpell(new/obj/effect/proc_holder/spell/self/one_mind)
-	sound_to_playing_players('sound/effects/one_mind.ogg')
-	hive.glow = mutable_appearance('icons/effects/hivemind.dmi', "awoken", -BODY_BEHIND_LAYER)
-	addtimer(CALLBACK(user, /atom/proc/add_overlay, hive.glow), 150)
-	addtimer(CALLBACK(hive, /datum/antagonist/hivemind/proc/awaken), 150)
-	addtimer(CALLBACK(GLOBAL_PROC, /proc/send_to_playing_players, "<span class='bigassimilator'>THE ONE MIND RISES</span>"), 150)
-	addtimer(CALLBACK(GLOBAL_PROC, /proc/sound_to_playing_players, 'sound/effects/magic.ogg'), 150)
-	for(var/datum/mind/M in hive.hivemembers)
-		var/mob/living/carbon/C = M.current
-		if(!C)
-			continue
-		if(is_hivehost(C))
-			continue
-		if(C.stat == DEAD)
-			continue
-		C.Jitter(15)
-		C.Unconscious(150)
-		to_chat(C, "<span class='boldwarning'>Something's wrong...</span>")
-		addtimer(CALLBACK(GLOBAL_PROC, /proc/to_chat, C, "<span class='boldwarning'>...your memories are becoming fuzzy.</span>"), 45)
-		addtimer(CALLBACK(GLOBAL_PROC, /proc/to_chat, C, "<span class='boldwarning'>You try to remember who you are...</span>"), 90)
-		addtimer(CALLBACK(GLOBAL_PROC, /proc/to_chat, C, "<span class='assimilator'>There is no you...</span>"), 110)
-		addtimer(CALLBACK(GLOBAL_PROC, /proc/to_chat, C, "<span class='bigassimilator'>...there is only us.</span>"), 130)
-		addtimer(CALLBACK(C, /mob/living/proc/hive_awaken, new_objective, one_mind_team), 150)
-		log_objective(M, new_objective.explanation_text)
 
 /obj/effect/proc_holder/spell/self/hive_comms
 	name = "Hive Communication"
