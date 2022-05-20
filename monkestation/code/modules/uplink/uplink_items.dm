@@ -6,3 +6,12 @@
 	item = /obj/item/clothing/shoes/magboots/boomboots
 	cost = 20
 	restricted_roles = list("Clown")
+
+/datum/uplink_item/role_restricted/psycho_scroll
+	name = "The Rants of the Debtor"
+	desc = "This roll of toilet paper has writings on it that will allow you to master the art of the Psychotic Brawl, but beware the cost to your own sanity."
+	item = /obj/item/book/granter/martial/psychotic_brawl
+	cost = 8
+	restricted_roles = list("Debtor")
+	surplus = 0
+

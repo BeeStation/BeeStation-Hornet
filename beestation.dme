@@ -3608,6 +3608,7 @@
 #include "monkestation\code\game\objects\effects\spawners\roomspawner.dm"
 #include "monkestation\code\game\objects\items\anime.dm"
 #include "monkestation\code\game\objects\items\fluff_papers.dm"
+#include "monkestation\code\game\objects\items\granters.dm"
 #include "monkestation\code\game\objects\items\mail.dm"
 #include "monkestation\code\game\objects\items\plushes.dm"
 #include "monkestation\code\game\objects\items\prosthetic.dm"

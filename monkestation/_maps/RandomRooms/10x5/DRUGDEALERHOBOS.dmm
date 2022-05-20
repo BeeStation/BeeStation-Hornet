@@ -128,7 +128,6 @@
 /area/template_noop)
 "R" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/start/randommaint/hobo,
 /turf/open/floor/plating,
 /area/template_noop)
 "Y" = (

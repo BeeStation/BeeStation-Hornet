@@ -87,7 +87,6 @@
 	outfit = /datum/outfit/job/gimmick/hobo
 	access = list(ACCESS_MAINT_TUNNELS)
 	minimal_access = list(ACCESS_MAINT_TUNNELS)
-	total_positions = 2 //MonkeStation Edit: Gimmick Latejoin
 	gimmick = TRUE
 	chat_color = "#929292"
 	departments = NONE		//being hobo is not a real job
@@ -128,8 +127,6 @@
 	var/chosen_drugs = pick(possible_drugs)
 	var/obj/item/storage/pill_bottle/I = new chosen_drugs(src)
 	H.equip_to_slot_or_del(I,ITEM_SLOT_BACKPACK)
-	var/datum/martial_art/psychotic_brawling/junkie = new //this fits well, but i'm unsure about it, cuz this martial art is so fucking rng dependent i swear...
-	junkie.teach(H)
 	ADD_TRAIT(H, TRAIT_APPRAISAL, JOB_TRAIT)
 
 
