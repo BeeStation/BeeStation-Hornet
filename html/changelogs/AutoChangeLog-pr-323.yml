@@ -1,0 +1,7 @@
+author: williamcll
+delete-after: true
+changes:
+  - rscadd: DonutStation
+  - rscadd: DonutStation Exploration office
+  - tweak: Updates Mining vendors
+  - rscdel: incompatible pianos
