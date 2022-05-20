@@ -1,9 +1,0 @@
-author: PestoVerde322
-delete-after: true
-changes:
-  - rscadd: now Syndicate PDAs cannot be detonated anymore
-  - bugfix: tweaked numerous description of many PDAs, like the Captain's
-  - bugfix: the VIP now get their proper full golden ID to demonstrate their wealth
-  - bugfix: fixed the missing option to paint a PDA/ID with the Exploration crew's
-      colours
-  - imageadd: Added new icons for the PDAs and cartridges
