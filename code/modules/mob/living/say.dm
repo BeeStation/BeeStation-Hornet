@@ -26,29 +26,29 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 
 
 	//kinda localization -- rastaf0
-	//same keys as above, but on russian keyboard layout. This file uses cp1251 as encoding.
+	//same keys as above, but on russian keyboard layout.
 	// Location
-	"ê" = MODE_R_HAND,
-	"ä" = MODE_L_HAND,
-	"ø" = MODE_INTERCOM,
+	"к" = MODE_R_HAND,
+	"л" = MODE_L_HAND,
+	"ш" = MODE_INTERCOM,
 
 	// Department
-	"ð" = MODE_DEPARTMENT,
-	"ñ" = RADIO_CHANNEL_COMMAND,
-	"ò" = RADIO_CHANNEL_SCIENCE,
-	"ü" = RADIO_CHANNEL_MEDICAL,
-	"ó" = RADIO_CHANNEL_ENGINEERING,
-	"û" = RADIO_CHANNEL_SECURITY,
-	"ã" = RADIO_CHANNEL_SUPPLY,
-	"ì" = RADIO_CHANNEL_SERVICE,
+	"р" = MODE_DEPARTMENT,
+	"с" = RADIO_CHANNEL_COMMAND,
+	"т" = RADIO_CHANNEL_SCIENCE,
+	"ь" = RADIO_CHANNEL_MEDICAL,
+	"у" = RADIO_CHANNEL_ENGINEERING,
+	"ы" = RADIO_CHANNEL_SECURITY,
+	"г" = RADIO_CHANNEL_SUPPLY,
+	"м" = RADIO_CHANNEL_SERVICE,
 	"ю" = RADIO_CHANNEL_EXPLORATION,
 
 	// Faction
-	"å" = RADIO_CHANNEL_SYNDICATE,
-	"í" = RADIO_CHANNEL_CENTCOM,
+	"е" = RADIO_CHANNEL_SYNDICATE,
+	"н" = RADIO_CHANNEL_CENTCOM,
 
 	// Misc
-	"ù" = RADIO_CHANNEL_AI_PRIVATE
+	"щ" = RADIO_CHANNEL_AI_PRIVATE
 ))
 
 /mob/living/proc/Ellipsis(original_msg, chance = 50, keep_words)
@@ -74,8 +74,8 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	return new_msg
 
 /mob/living/say(message, bubble_type, var/list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null)
-	var/static/list/crit_allowed_modes = list(WHISPER_MODE = TRUE, MODE_CHANGELING = TRUE, MODE_ALIEN = TRUE)
-	var/static/list/unconscious_allowed_modes = list(MODE_CHANGELING = TRUE, MODE_ALIEN = TRUE)
+	var/static/list/crit_allowed_modes = list(WHISPER_MODE = TRUE, MODE_ALIEN = TRUE)
+	var/static/list/unconscious_allowed_modes = list(MODE_ALIEN = TRUE)
 
 	var/ic_blocked = FALSE
 	if(client && !forced && CHAT_FILTER_CHECK(message))

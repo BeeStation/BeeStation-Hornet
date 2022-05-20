@@ -98,6 +98,7 @@
 /datum/quirk/monochromatic/remove()
 	quirk_holder.remove_client_colour(/datum/client_colour/monochrome)
 
+
 /datum/status_effect/offering
 	id = "offering"
 	duration = -1
@@ -174,3 +175,12 @@
 /datum/status_effect/offering/proc/dropped_item(obj/item/source)
 	SIGNAL_HANDLER
 	qdel(src)
+
+/datum/quirk/mute
+	name = "Mute"
+	desc = "You are unable to speak."
+	value = 0
+	mob_trait = TRAIT_MUTE
+	gain_text = "<span class='danger'>You feel unable to talk.</span>"
+	lose_text = "<span class='notice'>You feel able to talk again.</span>"
+	medical_record_text = "Patient is unable to speak."

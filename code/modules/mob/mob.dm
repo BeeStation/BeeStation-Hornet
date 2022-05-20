@@ -118,6 +118,7 @@
 			else
 				var/image/I = image('icons/mob/hud.dmi', src, "")
 				I.appearance_flags = RESET_COLOR|RESET_TRANSFORM
+				I.plane = DATA_HUD_PLANE
 				hud_list[hud] = I
 
 /**

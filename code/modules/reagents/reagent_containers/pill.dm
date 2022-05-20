@@ -67,11 +67,11 @@
 	if(!dissolvable || !target.is_refillable())
 		return
 	if(target.is_drainable() && !target.reagents.total_volume)
-		balloon_alert(user, "It's empty")
+		balloon_alert(user, "[target] is empty!")
 		return
 
 	if(target.reagents.holder_full())
-		balloon_alert(user, "It's full")
+		balloon_alert(user, "[target] is full!")
 		return
 
 	user.visible_message("<span class='warning'>[user] slips something into [target]!</span>", "<span class='notice'>You dissolve [src] in [target].</span>", null, 2)
@@ -285,7 +285,3 @@
 	. = ..()
 	if(prob(20))
 		. += "[pick(descs)]"
-	if(HAS_TRAIT(user, TRAIT_APPRAISAL))
-		if(length(reagents.reagent_list))
-			for(var/datum/reagent/R in reagents.reagent_list)
-				. += "It contains [R.volume] units of [R.name]"
