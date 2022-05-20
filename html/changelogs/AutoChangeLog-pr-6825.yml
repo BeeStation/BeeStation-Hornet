@@ -1,6 +1,0 @@
-author: St0rmC4st3r
-delete-after: true
-changes:
-  - rscadd: Epinephrine, Dexalin and Atropine medipens are now printable in the medical
-      lathe.
-  - tweak: Reagents in the protolathe recipes no longer scale with part efficiency.
