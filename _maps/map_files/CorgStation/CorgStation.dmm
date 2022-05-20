@@ -3523,7 +3523,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating,
-/area/science/xenobiology)
+/area/maintenance/department/science/central)
 "aKT" = (
 /obj/machinery/door/airlock/command{
 	name = "E.V.A. Secure Storage";
@@ -10521,7 +10521,7 @@
 	dir = 9
 	},
 /turf/open/floor/plating,
-/area/science/xenobiology)
+/area/maintenance/department/science/central)
 "cHk" = (
 /obj/effect/turf_decal/tile/red{
 	dir = 1
@@ -18168,9 +18168,6 @@
 /obj/effect/turf_decal/tile/neutral,
 /turf/open/floor/plasteel,
 /area/science/xenobiology)
-"eTm" = (
-/turf/open/floor/plating,
-/area/science/xenobiology)
 "eTp" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
@@ -24411,7 +24408,7 @@
 	dir = 8
 	},
 /turf/open/floor/plasteel/white,
-/area/science/xenobiology)
+/area/maintenance/department/science/central)
 "gJe" = (
 /obj/structure/disposalpipe/segment{
 	dir = 6
@@ -34554,7 +34551,7 @@
 	dir = 8
 	},
 /turf/open/floor/plasteel/white,
-/area/science/xenobiology)
+/area/maintenance/department/science/central)
 "jBX" = (
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
@@ -43284,7 +43281,7 @@
 /obj/machinery/portable_atmospherics/canister/air,
 /obj/item/wrench,
 /turf/open/floor/plating,
-/area/science/xenobiology)
+/area/maintenance/department/science/central)
 "lWB" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
@@ -82406,7 +82403,7 @@
 	},
 /obj/machinery/portable_atmospherics/canister/bz,
 /turf/open/floor/plating,
-/area/science/xenobiology)
+/area/maintenance/department/science/central)
 "xBH" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/siphon/on{
 	dir = 8;
@@ -83312,7 +83309,7 @@
 	},
 /obj/machinery/door/firedoor,
 /turf/open/floor/plating,
-/area/science/xenobiology)
+/area/science/shuttle)
 "xRf" = (
 /obj/effect/turf_decal/tile/red{
 	dir = 4
@@ -109539,9 +109536,9 @@ pDf
 uPx
 nKN
 ydM
-wpg
-eTm
-eTm
+ixJ
+dcu
+dcu
 gIZ
 jBS
 wpg
@@ -110053,7 +110050,7 @@ pWD
 fHf
 fFV
 nxx
-wpg
+fHf
 dcu
 rOi
 dcu
@@ -110310,7 +110307,7 @@ nwX
 vJJ
 irz
 lew
-wpg
+fHf
 mQF
 dcu
 dcu
@@ -110567,7 +110564,7 @@ dZp
 jhq
 pWk
 vkT
-wpg
+fHf
 syp
 dcu
 qqS
