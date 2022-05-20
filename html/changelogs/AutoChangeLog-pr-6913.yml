@@ -1,4 +1,0 @@
-author: Sarchutar
-delete-after: true
-changes:
-  - bugfix: Belt overlay not updating on dumping items
