@@ -12,6 +12,11 @@
 				inc_metabalance(METACOIN_ESCAPE_REWARD, reason="Survived the shift.")
 		else
 			inc_metabalance(METACOIN_NOTSURVIVE_REWARD, reason="You tried.")
+		if(is_content_unlocked())
+			inc_metabalance(METACOIN_BYONDMEMBERSHIP, reason="You're a BYOND Member!")
+
+
+
 
 /client/proc/process_greentext()
 	src.give_award(/datum/award/achievement/misc/greentext, src.mob)
