@@ -1,0 +1,4 @@
+author: Hardly
+delete-after: true
+changes:
+  - rscadd: Added mute as a neutral quirk
