@@ -1,7 +1,0 @@
-author: MNarath1
-delete-after: true
-changes:
-  - rscadd: adds a check to ensure we won't keep on overwriting basically the same
-      moveloop
-  - bugfix: fixes mobs that would have an insane long move delay thus overwriting
-      their moveloop before it could fire
