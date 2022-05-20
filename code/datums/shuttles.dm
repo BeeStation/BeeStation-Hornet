@@ -332,6 +332,13 @@
 	admin_notes = "It's big to spawn, it may or may not collide with the surrounding stuff on other maps that don't have a massive emergency docking area."
 	credit_cost = 8000
 
+/datum/map_template/shuttle/emergency/donut
+	suffix = "donut"
+	name = "Donut Station Emergency shuttle"
+	description = "A streamlined shuttle for a streamlined getaway from whatever hells going on."
+	admin_notes = "This shuttle hasn't updated since 2018, so there might be bugs."
+	credit_cost = 4500
+
 /datum/map_template/shuttle/emergency/mini
 	suffix = "mini"
 	name = "Ministation emergency shuttle"
