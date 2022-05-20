@@ -28,7 +28,7 @@
 	jobtype = /datum/job/hydro
 
 	id = /obj/item/card/id/job/serv
-	belt = /obj/item/pda/botanist
+	belt = /obj/item/pda/service
 	ears = /obj/item/radio/headset/headset_srv
 	uniform = /obj/item/clothing/under/rank/civilian/hydroponics
 	suit = /obj/item/clothing/suit/apron
