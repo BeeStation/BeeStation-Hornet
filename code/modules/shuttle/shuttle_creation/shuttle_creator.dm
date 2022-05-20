@@ -352,14 +352,14 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 		return FALSE
 
 	//Remove turfs not in our buffer
-	for(var/turf/T in recorded_shuttle_area.contents)
+	for(var/turf/T in port.underlying_turf_area)
 		if(T in loggedTurfs)
 			continue
 		port.remove_turf(T)
 
 	//Add turfs not in the area
 	for(var/turf/T in loggedTurfs)
-		if(T in recorded_shuttle_area.contents)
+		if(T in port.underlying_turf_area)
 			continue
 		port.add_turf(T, recorded_shuttle_area)
 
@@ -493,6 +493,16 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 		for(var/turf/T in recorded_shuttle_area.contents)
 			loggedTurfs |= T
 			overlay_holder.create_hightlight(T, T == recorded_origin)
+	var/obj/docking_port/mobile/port
+	if(linkedShuttleId)
+		port = SSshuttle.getShuttle(linkedShuttleId)
+	if(port)
+		for(var/obj/docking_port/mobile/M in port.towed_shuttles)
+			var/list/intersect_bounds = port.return_intersect_coords(M)
+			for(var/turf/T in block(locate(intersect_bounds[1], intersect_bounds[2], port.z), locate(intersect_bounds[3], intersect_bounds[4], port.z)))
+				if(port.shuttle_areas[M.underlying_turf_area[T]])
+					loggedTurfs |= T
+					overlay_holder.create_hightlight(T, T == recorded_origin)
 	if(loud)
 		to_chat(usr, "<span class='notice'>You reset the area buffer on the [src].</span>")
 

@@ -94,6 +94,30 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 		_y + (-dwidth+width-1)*sin + (-dheight+height-1)*cos
 		)
 
+//Returns the the bounding box fully containing both docking ports
+/obj/docking_port/proc/return_union_coords(var/obj/docking_port/other)
+	var/list/self_bounds = return_coords()
+	var/list/other_bounds = other.return_coords()
+	var/list/union_bounds = list(
+		min(other_bounds[1], self_bounds[1], other_bounds[3], self_bounds[3]),
+		min(other_bounds[2], self_bounds[2], other_bounds[4], self_bounds[4]),
+		max(other_bounds[1], self_bounds[1], other_bounds[3], self_bounds[3]),
+		max(other_bounds[2], self_bounds[2], other_bounds[4], self_bounds[4])
+	)
+	return union_bounds
+
+//Returns the bounding box containing only the intersection both docking ports
+/obj/docking_port/proc/return_intersect_coords(var/obj/docking_port/other)
+	var/list/self_bounds = return_coords()
+	var/list/other_bounds = other.return_coords()
+	var/list/intersect_bounds = list(
+		min(max(other_bounds[1], other_bounds[3]), max(self_bounds[1], self_bounds[3])),
+		min(max(other_bounds[2], other_bounds[4]), max(self_bounds[2], self_bounds[4])),
+		max(min(other_bounds[1], other_bounds[3]), min(self_bounds[1], self_bounds[3])),
+		max(min(other_bounds[2], other_bounds[4]), min(self_bounds[2], self_bounds[4]))
+	)
+	return intersect_bounds
+
 //returns turfs within our projected rectangle in no particular order
 /obj/docking_port/proc/return_turfs()
 	var/list/L = return_coords()
@@ -357,25 +381,77 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 
 /obj/docking_port/mobile/proc/remove_turf(var/turf/T)
 
-	var/area/A = get_area(T)
-	if(!shuttle_areas[A])
-		return
+	var/area/shuttle/A = get_area(T)
+	var/shuttle_layers = 1
+	var/obj/docking_port/mobile/M = istype(A) ? A.mobile_port : null
+	var/obj/docking_port/mobile/bottom_shuttle = null
+	while(M && M != src)
+		shuttle_layers++
+		A = M.underlying_turf_area[T]
+		bottom_shuttle = M
+		M = istype(A) ? A.mobile_port : null
+	if(!M) //Our shuttle isn't here
+		return TRUE
 
-	//Get the new area type of our dock
-	var/area/new_area = underlying_turf_area[T] ? underlying_turf_area[T] : GLOB.areas_by_type[SHUTTLE_DEFAULT_UNDERLYING_AREA]
+	//Get the new area under this turf
+	var/area/shuttle/new_area = underlying_turf_area[T] ? underlying_turf_area[T] : GLOB.areas_by_type[SHUTTLE_DEFAULT_UNDERLYING_AREA]
+	var/list/intersect_bounds
+	var/turf/T0
+	var/turf/T1
+	var/towed
 	underlying_turf_area -= T
+	if(shuttle_layers == 1) //Only change the area if we aren't covered by another shuttle
+		A.contents -= T
+		new_area.contents += T
+		T.change_area(A, new_area)
+	else if(bottom_shuttle) //update the underlying turfs of the shuttle on top of us
+		bottom_shuttle.underlying_turf_area[T] = new_area
+		intersect_bounds = return_intersect_coords(bottom_shuttle)
+		T0 = locate(intersect_bounds[1], intersect_bounds[2], z)
+		T1 = locate(intersect_bounds[3], intersect_bounds[4], z)
+		towed = TRUE
+		for(var/turf/intersect_turf in block(T0,T1))
+			if(shuttle_areas[bottom_shuttle.underlying_turf_area[intersect_turf]])
+				towed = FALSE
+				break
+		if(towed)
+			towed_shuttles -= bottom_shuttle
 
-	A.contents -= T
-	new_area.contents += T
-	T.change_area(A, new_area)
-	T.baseturfs -= /turf/baseturf_skipover/shuttle
+	//update towed_shuttles of the shuttle under us
+	if(istype(new_area) && new_area.mobile_port)
+		var/obj/docking_port/mobile/other = new_area.mobile_port
+		intersect_bounds = return_intersect_coords(new_area.mobile_port)
+		T0 = locate(intersect_bounds[1], intersect_bounds[2], z)
+		T1 = locate(intersect_bounds[3], intersect_bounds[4], z)
+		towed = TRUE
+		for(var/turf/intersect_turf in block(T0,T1))
+			if(other.shuttle_areas[underlying_turf_area[intersect_turf]])
+				towed = FALSE
+				break
+		if(towed)
+			other.towed_shuttles -= src
+
+	if(!islist(T.baseturfs))
+		return
+	var/BT_len = T.baseturfs.len //Remove our targeted baseturf
+	for(var/i in 0 to (BT_len-1))
+		if(T.baseturfs[BT_len-i] != /turf/baseturf_skipover/shuttle)
+			continue
+		shuttle_layers--
+		if(!shuttle_layers)
+			T.baseturfs.Cut(BT_len-i,BT_len-i+1)
+			break
+	if(T.baseturfs.len == 1) //Make the list not a list if length is 1
+		T.baseturfs = T.baseturfs[1]
+
 
 //A common proc used to find the amount of turfs in the shuttle
 /obj/docking_port/mobile/proc/calculate_mass()
 	. = 0
-	for(var/area/shuttleArea in shuttle_areas)
-		for(var/turf/T in shuttleArea.contents)
-			. += 1
+	for(var/obj/docking_port/mobile/M in get_all_towed_shuttles())
+		for(var/area/shuttleArea in M.shuttle_areas)
+			for(var/turf/T in shuttleArea.contents)
+				. += 1
 
 /obj/docking_port/mobile/return_ordered_turfs(_x, _y, _z, _dir, include_towed = TRUE)
 	if(!include_towed) //I hate this, but I need to access the superfunction somehow.

@@ -56,19 +56,19 @@
 	var/mob/camera/ai_eye/remote/shuttle_docker/the_eye = eyeobj
 	the_eye.setDir(shuttle_port.dir)
 	var/turf/origin = locate(shuttle_port.x, shuttle_port.y, shuttle_port.z)
-	for(var/V in shuttle_port.shuttle_areas)
-		var/area/A = V
-		for(var/turf/T in A)
-			if(T.get_virtual_z_level() != origin.get_virtual_z_level())
-				continue
-			var/image/I = image('icons/effects/alphacolors.dmi', origin, "red")
-			var/x_off = T.x - origin.x
-			var/y_off = T.y - origin.y
-			I.loc = locate(origin.x + x_off, origin.y + y_off, origin.z) //we have to set this after creating the image because it might be null, and images created in nullspace are immutable.
-			I.layer = ABOVE_NORMAL_TURF_LAYER
-			I.plane = 0
-			I.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-			the_eye.placement_images[I] = list(x_off, y_off)
+	for(var/obj/docking_port/mobile/M in shuttle_port.get_all_towed_shuttles())
+		for(var/area/A in M.shuttle_areas)
+			for(var/turf/T in A)
+				if(T.get_virtual_z_level() != origin.get_virtual_z_level())
+					continue
+				var/image/I = image('icons/effects/alphacolors.dmi', origin, "red")
+				var/x_off = T.x - origin.x
+				var/y_off = T.y - origin.y
+				I.loc = locate(origin.x + x_off, origin.y + y_off, origin.z) //we have to set this after creating the image because it might be null, and images created in nullspace are immutable.
+				I.layer = ABOVE_NORMAL_TURF_LAYER
+				I.plane = 0
+				I.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+				the_eye.placement_images[I] = list(x_off, y_off)
 
 /obj/machinery/computer/shuttle_flight/proc/give_eye_control(mob/user)
 	if(!isliving(user))
