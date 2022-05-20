@@ -110,11 +110,6 @@
 /turf/open/floor/plating,
 /area/bridge)
 "aaA" = (
-/obj/machinery/power/apc/highcap/five_k{
-	dir = 1;
-	name = "Virology APC";
-	pixel_x = 27
-	},
 /obj/structure/cable/yellow,
 /obj/effect/turf_decal/tile/green{
 	dir = 8
@@ -128,6 +123,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/machinery/power/apc/auto_name/east,
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
 "aaB" = (
@@ -21815,9 +21811,6 @@
 "bEt" = (
 /obj/structure/bed/roller,
 /obj/structure/window/reinforced,
-/obj/machinery/light{
-	dir = 8
-	},
 /turf/open/floor/plasteel/freezer,
 /area/medical/virology)
 "bEu" = (
@@ -41734,9 +41727,6 @@
 	pixel_y = 1
 	},
 /obj/structure/bed/roller,
-/obj/machinery/light{
-	dir = 8
-	},
 /turf/open/floor/plasteel/freezer,
 /area/medical/virology)
 "iLD" = (

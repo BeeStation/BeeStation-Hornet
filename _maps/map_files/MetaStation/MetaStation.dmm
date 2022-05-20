@@ -41274,7 +41274,6 @@
 /area/medical/virology)
 "cHr" = (
 /obj/machinery/airalarm/directional/north,
-/obj/effect/turf_decal/box,
 /turf/open/floor/plasteel,
 /area/medical/virology)
 "cHt" = (
@@ -42077,6 +42076,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 6
+	},
+/obj/machinery/light_switch{
+	pixel_x = -28
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
@@ -53078,6 +53080,9 @@
 	},
 /obj/effect/turf_decal/tile/green{
 	dir = 8
+	},
+/obj/machinery/light_switch{
+	pixel_y = -25
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
@@ -74183,6 +74188,16 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plasteel,
 /area/construction/mining/aux_base)
+"sRL" = (
+/obj/effect/turf_decal/tile/green,
+/obj/effect/turf_decal/tile/green{
+	dir = 8
+	},
+/obj/machinery/light_switch{
+	pixel_y = -25
+	},
+/turf/open/floor/plasteel/white,
+/area/medical/virology)
 "sSg" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -102371,7 +102386,7 @@ xOG
 xOG
 xOG
 cKZ
-cKf
+sRL
 xOG
 xOG
 xOG
