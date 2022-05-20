@@ -170,19 +170,18 @@
 	if(logging)
 		log_game("[user] attempted to activate [src] at [world.time]. Located at [x] [y] [z].")
 
-	if(prob(malfunction_chance)) //See if we pick up an malfunction
-		var/datum/xenoartifact_trait/t = pick(subtypesof(/datum/xenoartifact_trait/malfunction))
-		traits+=new t
-		malfunction_chance=malfunction_chance*0.2 //Lower chance after contracting 
-	else    
-		malfunction_chance+=malfunction_mod //otherwise increase chance
+	if(COOLDOWN_FINISHED(src, xenoa_cooldown))
+		if(prob(malfunction_chance)) //See if we pick up an malfunction
+			var/datum/xenoartifact_trait/t = pick(subtypesof(/datum/xenoartifact_trait/malfunction))
+			traits+=new t
+			malfunction_chance=malfunction_chance*0.2 //Lower chance after contracting 
+		else    
+			malfunction_chance+=malfunction_mod //otherwise increase chance
 
-	for(var/atom/M in true_target) //Cull bad targets
-		if(get_dist(get_turf(src), get_turf(M)) > max_range)   
-			true_target -= M
-
-	charge+=charge_mod
-	if(COOLDOWN_FINISHED(src, xenoa_cooldown))//Execution of traits here
+		for(var/atom/M in true_target) //Cull bad targets
+			if(get_dist(get_turf(src), get_turf(M)) > max_range)   
+				true_target -= M
+		charge+=charge_mod
 		for(var/datum/xenoartifact_trait/t as() in traits)//Minor & malfunction traits aren't apart of the target loop
 			if(!istype(t, /datum/xenoartifact_trait/major))
 				t.activate(src, user, user)

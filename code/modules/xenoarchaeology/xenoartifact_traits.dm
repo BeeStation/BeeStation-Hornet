@@ -106,7 +106,7 @@
 		X.process_type = IS_LIT
 		sleep(5) //Give them a chance to escape
 		START_PROCESSING(SSobj, X)
-		log_game("[user]:[user?.ckey] lit [X] at [world.time] using [thing]. [X] located at [X.x] [X.y] [X.z].")
+		log_game("[user]:[isliving(user) ? user?.ckey : "no ckey"] lit [X] at [world.time] using [thing]. [X] located at [X.x] [X.y] [X.z].")
 
 /datum/xenoartifact_trait/activator/clock
 	label_name = "Tuned"
@@ -129,7 +129,7 @@
 	var/obj/item/xenoartifact/X = source
 	X.process_type = IS_TICK
 	START_PROCESSING(SSobj, X)
-	log_game("[user]:[user?.ckey] set clock on [X] at [world.time] using [thing]. [X] located at [X.x] [X.y] [X.z].")
+	log_game("[user]:[isliving(user) ? user?.ckey : "no ckey"] set clock on [X] at [world.time] using [thing]. [X] located at [X.x] [X.y] [X.z].")
 
 /datum/xenoartifact_trait/activator/signal
 	label_name = "Signal"
@@ -153,7 +153,7 @@
 /datum/xenoartifact_trait/activator/signal/calculate_charge(datum/source, obj/item/thing, mob/user, atom/target, params)
 	var/obj/item/xenoartifact/X = source
 	X.default_activate(charge, user, target)
-	log_game("[user]:[user?.ckey] signalled [X] at [world.time]. [X] located at [X.x] [X.y] [X.z].")
+	log_game("[user]:[isliving(user) ? user?.ckey : "no ckey"] signalled [X] at [world.time]. [X] located at [X.x] [X.y] [X.z].")
 
 /datum/xenoartifact_trait/activator/batteryneed
 	desc = "Charged"
