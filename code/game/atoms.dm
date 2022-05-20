@@ -879,6 +879,7 @@
 	if(user.active_storage) //refresh the HUD to show the transfered contents
 		user.active_storage.close(user)
 		user.active_storage.show_to(user)
+	src_object.update_icon()
 	return TRUE
 
 ///Get the best place to dump the items contained in the source storage item?
