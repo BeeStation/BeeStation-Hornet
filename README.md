@@ -89,9 +89,10 @@ If you'd like a more robust server hosting option, check out tgstation's server 
 
 Monkestation currently comes equipped with these maps.
 
-* [DeltaStation (default)](https://wiki.beestation13.com/view/DeltaStation)
 * [BoxStation](https://wiki.beestation13.com/view/Boxstation)
-* [MetaStation](https://wiki.beestation13.com/view/MetaStation)
+* [DeltaStation](https://wiki.beestation13.com/view/DeltaStation)
+* [DonutStation](https://wiki.beestation13.com/view/DonutStation)
+* [MetaStation (default)](https://wiki.beestation13.com/view/MetaStation)
 * [PubbyStation](https://wiki.beestation13.com/view/PubbyStation)
 
 All maps have their own code file that is in the base of the `_maps` directory. Maps are loaded dynamically when the game starts. Follow this guideline when adding your own map, to your fork, for easy compatibility.
