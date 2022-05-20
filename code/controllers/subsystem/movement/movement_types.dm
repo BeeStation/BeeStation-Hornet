@@ -457,14 +457,14 @@
 	var/target_turf
 
 /datum/move_loop/has_target/jps/hostile/recalculate_path()
-	if(!COOLDOWN_FINISHED(src, repath_cooldown) || repath_active)
+	if(!COOLDOWN_FINISHED(src, repath_cooldown) || repath_active || QDELETED(src))
 		return
 	repath_active = TRUE
 	COOLDOWN_START(src, repath_cooldown, repath_delay)
 	SEND_SIGNAL(src, COMSIG_MOVELOOP_JPS_REPATH)
 	movement_path = get_path_to(moving, target, max_path_length, minimum_distance, id, simulated_only, avoid, skip_first)
 	// Implementing pathfinding fallback solution
-	if(!length(movement_path))
+	if(!length(movement_path) && !QDELETED(src))
 		var/ln = get_dist(moving, target)
 		var/turf/target_new = target
 		var/found_blocker
