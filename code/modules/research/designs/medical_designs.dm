@@ -192,6 +192,39 @@
 	category = list("Medical Designs")
 	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
 
+/datum/design/medipen_epi
+	name = "Epinephrine Medipen"
+	desc = "A rapid and safe way to stabilize patients in critical condition for personnel without advanced medical knowledge. Contains a powerful preservative that can delay decomposition when applied to a dead body."
+	id = "medipen_epi"
+	build_path = /obj/item/reagent_containers/hypospray/medipen
+	build_type = PROTOLATHE
+	materials = list(/datum/material/plastic = 200)
+	reagents_list = list(/datum/reagent/medicine/epinephrine = 10, /datum/reagent/toxin/formaldehyde = 3)
+	category = list("Medical Designs")
+	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
+
+/datum/design/medipen_dex
+	name = "Dexalin Medipen"
+	desc = "An autoinjector containing dexalin, used to heal oxygen damage quickly."
+	id = "medipen_dex"
+	build_path = /obj/item/reagent_containers/hypospray/medipen/dexalin
+	build_type = PROTOLATHE
+	materials = list(/datum/material/plastic = 200)
+	reagents_list = list(/datum/reagent/medicine/dexalin = 10)
+	category = list("Medical Designs")
+	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
+
+/datum/design/medipen_atropine
+	name = "Atropine Medipen"
+	desc = "A rapid way to save a person from a critical injury state!"
+	id = "medipen_atropine"
+	build_path = /obj/item/reagent_containers/hypospray/medipen/atropine
+	build_type = PROTOLATHE
+	materials = list(/datum/material/plastic = 200)
+	reagents_list = list(/datum/reagent/medicine/atropine = 10)
+	category = list("Medical Designs")
+	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
+
 /datum/design/surgical_drapes
 	name = "Surgical Drapes"
 	id = "surgical_drapes"
