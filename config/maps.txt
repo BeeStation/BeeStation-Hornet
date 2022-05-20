@@ -47,8 +47,6 @@ map deadstation
 	votable
 endmap
 
-#Does not support fastmos
-
 map kilostation
 	maxplayers 50
 	votable
