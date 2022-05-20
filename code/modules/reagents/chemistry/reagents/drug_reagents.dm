@@ -279,6 +279,7 @@
 	overdose_threshold = 20
 	addiction_threshold = 10
 	taste_description = "salt" // because they're bathsalts?
+	var/datum/martial_art/psychotic_brawling/brawling
 
 /datum/reagent/drug/bath_salts/on_mob_metabolize(mob/living/L)
 	..()
@@ -288,6 +289,9 @@
 	ADD_TRAIT(L, TRAIT_NOSTAMCRIT, type)
 	ADD_TRAIT(L, TRAIT_NOLIMBDISABLE, type)
 	ADD_TRAIT(L, TRAIT_NOBLOCK, type)
+	brawling = new(null)
+	if(!brawling.teach(L, TRUE))
+		QDEL_NULL(brawling)
 
 /datum/reagent/drug/bath_salts/on_mob_end_metabolize(mob/living/L)
 	REMOVE_TRAIT(L, TRAIT_STUNIMMUNE, type)
@@ -296,6 +300,8 @@
 	REMOVE_TRAIT(L, TRAIT_NOSTAMCRIT, type)
 	REMOVE_TRAIT(L, TRAIT_NOLIMBDISABLE, type)
 	REMOVE_TRAIT(L, TRAIT_NOBLOCK, type)
+	brawling.remove(L)
+	QDEL_NULL(brawling)
 	..()
 
 /datum/reagent/drug/bath_salts/on_mob_life(mob/living/carbon/M)
@@ -510,11 +516,11 @@
 	..()
 
 /datum/reagent/drug/ketamine/overdose_process(mob/living/M)
-	//Dissociative anesthetics? Overdosing? Time to dissociate hard.
 	var/obj/item/organ/brain/B = M.getorgan(/obj/item/organ/brain)
-	if(B.can_gain_trauma(/datum/brain_trauma/severe/split_personality, 5))
-		B.brain_gain_trauma(/datum/brain_trauma/severe/split_personality, 5)
-		. = 1
+	var/gained_trauma = FALSE
+	if(!gained_trauma)
+		B.gain_trauma_type(BRAIN_TRAUMA_SEVERE, TRAUMA_RESILIENCE_SURGERY)
+		gained_trauma = TRUE
 	M.hallucination += 10
 	//Uh Oh Someone is tired
 	if(prob(40))
