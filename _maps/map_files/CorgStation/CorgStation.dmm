@@ -59635,6 +59635,7 @@
 	},
 /obj/structure/bed/dogbed/walter,
 /mob/living/simple_animal/pet/dog/australianshepherd/captain,
+/turf/open/floor/plasteel,
 /area/security/warden)
 "oaj" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
