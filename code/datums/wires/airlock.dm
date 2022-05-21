@@ -36,12 +36,12 @@
 /datum/wires/airlock/on_pulse(wire)
 	set waitfor = FALSE
 	var/obj/machinery/door/airlock/A = holder
-	if(wire == WIRE_POWER1 || wire == WIRE_POWER2) // Pulse to loose power.
-		A.loseMainPower()
-	if(wire == WIRE_BACKUP1 || wire == WIRE_BACKUP2) // Pulse to loose backup power.
-		A.loseBackupPower()
 	if(A.hasPower()) //Multitool has no effect at all if the door has lost power
 		switch(wire)
+			if(WIRE_POWER1, WIRE_POWER2) // Pulse to loose power.
+				A.loseMainPower()
+			if(WIRE_BACKUP1, WIRE_BACKUP2) // Pulse to loose backup power.
+				A.loseBackupPower()
 			if(WIRE_OPEN) // Pulse to open door (only works not emagged and ID wire is cut or no access is required).
 				if(A.obj_flags & EMAGGED)
 					return
@@ -98,7 +98,7 @@
 
 /datum/wires/airlock/on_cut(wire, mend)
 	var/obj/machinery/door/airlock/A = holder
-	if(isliving(usr) && A.hasPower)	
+	if(isliving(usr) && A.hasPower())	
 		A.shock(usr, 100) //Cutting wires directly on powered doors without protection is not advised. 
 	switch(wire)
 		if(WIRE_POWER1, WIRE_POWER2) // Cut to loose power, repair all to gain power.
