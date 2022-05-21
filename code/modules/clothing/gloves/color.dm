@@ -53,17 +53,6 @@
 	. = ..()
 	siemens_coefficient = pick(0,0.5,0.5,0.5,0.5,0.75,1.5)
 
-/obj/item/clothing/gloves/color/fyellow/examine(mob/user)
-	. = ..()
-	var/protectionpercentage = ((1 - siemens_coefficient) * 100)
-	if(HAS_TRAIT(user, TRAIT_APPRAISAL))
-		if(siemens_coefficient <= 0)
-			. += "[src] will fully protect from electric shocks."
-		if(siemens_coefficient > 1)
-			. += "[src] will only make shocks worse."
-		else
-			. += "[src] will provide [protectionpercentage] percent protection from electric shocks."
-
 /obj/item/clothing/gloves/color/fyellow/old
 	desc = "Old and worn out insulated gloves, hopefully they still work."
 	name = "worn out insulated gloves"
@@ -77,6 +66,7 @@
 	name = "fingerless insulated gloves"
 	icon_state = "yellowcut"
 	item_state = "ygloves"
+	worn_icon_state = "ygloves"
 	transfer_prints = TRUE
 
 /obj/item/clothing/gloves/cut/heirloom

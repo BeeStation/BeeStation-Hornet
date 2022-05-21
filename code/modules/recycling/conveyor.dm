@@ -1,16 +1,13 @@
-//conveyor2 is pretty much like the original, except it supports corners, but not diverters.
-//note that corner pieces transfer stuff clockwise when running forward, and anti-clockwise backwards.
-
 GLOBAL_LIST_EMPTY(conveyors_by_id)
 #define MAX_CONVEYOR_ITEMS_MOVE 30
+
 /obj/machinery/conveyor
 	icon = 'icons/obj/recycling.dmi'
 	icon_state = "conveyor_map"
 	name = "conveyor belt"
 	desc = "A conveyor belt."
 	layer = BELOW_OPEN_DOOR_LAYER
-	processing_flags = START_PROCESSING_MANUALLY
-	subsystem_type = /datum/controller/subsystem/processing/fastprocess
+	processing_flags = NONE
 	var/operating = 0	// 1 if running forward, -1 if backwards, 0 if off
 	var/operable = 1	// true if can operate (no broken segments in this belt run)
 	var/forwards		// this is the default (forward) direction, set by the map dir
@@ -20,6 +17,8 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 	var/id = ""			// the control ID	- must match controller ID
 	var/verted = 1		// Inverts the direction the conveyor belt moves.
 	var/conveying = FALSE
+	//Direction -> if we have a conveyor belt in that direction
+	var/list/neighbors
 
 /obj/machinery/conveyor/centcom_auto
 	id = "round_end_belt"
@@ -38,22 +37,25 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 
 /obj/machinery/conveyor/auto/Initialize(mapload, newdir)
 	. = ..()
-	operating = TRUE
+	set_operating(TRUE)
 	update_move_direction()
 	begin_processing()
 
 /obj/machinery/conveyor/auto/update()
 	if(stat & BROKEN)
 		icon_state = "conveyor-broken"
-		operating = FALSE
+		set_operating(FALSE)
 		return
 	else if(!operable)
-		operating = FALSE
+		set_operating(FALSE)
 	else if(stat & NOPOWER)
-		operating = FALSE
+		set_operating(FALSE)
 	else
-		operating = TRUE
+		set_operating(TRUE)
 	icon_state = "conveyor[operating * verted]"
+	if(operating)
+		for(var/atom/movable/movable in get_turf(src))
+			start_conveying(movable)
 
 // create a conveyor
 /obj/machinery/conveyor/Initialize(mapload, newdir, newid)
@@ -62,10 +64,25 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 		setDir(newdir)
 	if(newid)
 		id = newid
+	neighbors = list()
+	///Leaving onto conveyor detection won't work at this point, but that's alright since it's an optimization anyway
+	///Should be fine without it
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_EXITED = .proc/conveyable_exit,
+		COMSIG_ATOM_ENTERED = .proc/conveyable_enter,
+		COMSIG_ATOM_CREATED = .proc/conveyable_enter
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
 	update_move_direction()
 	LAZYADD(GLOB.conveyors_by_id[id], src)
+	return INITIALIZE_HINT_LATELOAD
+
+/obj/machinery/conveyor/LateInitialize()
+	. = ..()
+	build_neighbors()
 
 /obj/machinery/conveyor/Destroy()
+	set_operating(FALSE)
 	LAZYREMOVE(GLOB.conveyors_by_id[id], src)
 	. = ..()
 
@@ -81,6 +98,34 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 /obj/machinery/conveyor/setDir(newdir)
 	. = ..()
 	update_move_direction()
+
+/obj/machinery/conveyor/Moved(atom/OldLoc, Dir)
+	. = ..()
+	if(!.)
+		return
+	//Now that we've moved, rebuild our neighbors list
+	neighbors = list()
+	build_neighbors()
+
+/obj/machinery/conveyor/proc/build_neighbors()
+	//This is acceptable because conveyor belts only move sometimes. Otherwise would be n^2 insanity
+	var/turf/our_turf = get_turf(src)
+	for(var/direction in GLOB.cardinals)
+		var/turf/new_turf = get_step(our_turf, direction)
+		var/obj/machinery/conveyor/valid = locate(/obj/machinery/conveyor) in new_turf
+		if(QDELETED(valid))
+			continue
+		neighbors["[direction]"] = TRUE
+		valid.neighbors["[turn(direction, 180)]"] = TRUE
+		RegisterSignal(valid, COMSIG_MOVABLE_MOVED, .proc/nearby_belt_changed, override=TRUE)
+		RegisterSignal(valid, COMSIG_PARENT_QDELETING, .proc/nearby_belt_changed, override=TRUE)
+		valid.RegisterSignal(src, COMSIG_MOVABLE_MOVED, .proc/nearby_belt_changed, override=TRUE)
+		valid.RegisterSignal(src, COMSIG_PARENT_QDELETING, .proc/nearby_belt_changed, override=TRUE)
+
+/obj/machinery/conveyor/proc/nearby_belt_changed(datum/source)
+	SIGNAL_HANDLER
+	neighbors = list()
+	build_neighbors()
 
 /obj/machinery/conveyor/proc/update_move_direction()
 	switch(dir)
@@ -118,54 +163,57 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 		movedir = backwards
 	update()
 
+/obj/machinery/conveyor/proc/set_operating(new_value)
+	if(operating == new_value)
+		return
+	operating = new_value
+	update_icon_state()
+	update_move_direction()
+	if(!operating) //If we ever turn off, disable moveloops
+		for(var/atom/movable/movable in get_turf(src))
+			stop_conveying(movable)
+
 /obj/machinery/conveyor/proc/update()
 	if(stat & BROKEN)
 		icon_state = "conveyor-broken"
-		operating = FALSE
+		set_operating(FALSE)
 		return
 	if(!operable)
-		operating = FALSE
+		set_operating(FALSE)
 	if(stat & NOPOWER)
-		operating = FALSE
+		set_operating(FALSE)
 	icon_state = "conveyor[operating * verted]"
+	if(operating)
+		for(var/atom/movable/movable in get_turf(src))
+			start_conveying(movable)
 
-// machine process
-// move items to the target location
-/obj/machinery/conveyor/process()
-	if(stat & (BROKEN | NOPOWER))
-		return
-
+/obj/machinery/conveyor/proc/conveyable_enter(datum/source, atom/convayable)
+	SIGNAL_HANDLER
 	if(!operating)
+		SSmove_manager.stop_looping(convayable, SSconveyors)
 		return
+	var/datum/move_loop/move/moving_loop = SSmove_manager.processing_on(convayable, SSconveyors)
+	if(moving_loop)
+		moving_loop.direction = movedir
+		return
+	start_conveying(convayable)
 
-	var/turf/T = get_turf(src)
+/obj/machinery/conveyor/proc/conveyable_exit(datum/source, atom/convayable, direction)
+	SIGNAL_HANDLER
+	var/has_conveyor = neighbors["[direction]"]
+	if(!has_conveyor || !isturf(convayable.loc)) //If you've entered something on us, stop moving
+		SSmove_manager.stop_looping(convayable, SSconveyors)
 
-	use_power(6)
+/obj/machinery/conveyor/proc/start_conveying(atom/movable/moving)
+	var/static/list/unconveyables = typecacheof(list(/obj/effect, /mob/dead))
+	if(!istype(moving) || is_type_in_typecache(moving, unconveyables) || moving == src)
+		return
+	moving.AddComponent(/datum/component/convey, movedir, 0.2 SECONDS)
 
-	//get the first 30 items in contents
-	var/i = 0
-	var/list/affected = list()
-	for(var/atom/movable/M in T)
-		if(M == src)
-			continue
-		i++
-		if(!QDELETED(M) && (M.loc == loc) && !M.anchored && M.move_resist != INFINITY && M.has_gravity())
-			if(isliving(M))
-				var/mob/living/L = M
-				if((L.movement_type & FLYING) && !L.stat)
-					continue
-			affected.Add(M)
-		if(i >= MAX_CONVEYOR_ITEMS_MOVE)
-			break
-		CHECK_TICK
-	if(affected.len)
-		//moving is slightly delayed to prevent moving to a conveyor which has yet to be ticked, creating bluespace-tier conveyor speeds
-		addtimer(CALLBACK(src, .proc/convey, affected), 0)
-
-/obj/machinery/conveyor/proc/convey(items)
-	if(operating) //the problem with slightly delaying movement is that stuff gets confused right after the conveyors are turned off
-		for(var/M in items)
-			step(M, movedir)
+/obj/machinery/conveyor/proc/stop_conveying(atom/movable/thing)
+	if(!ismovable(thing))
+		return
+	SSmove_manager.stop_looping(thing, SSconveyors)
 
 // attack with item, place item on conveyor
 /obj/machinery/conveyor/attackby(obj/item/I, mob/user, params)
@@ -173,10 +221,13 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 		user.visible_message("<span class='notice'>[user] struggles to pry up \the [src] with \the [I].</span>", \
 		"<span class='notice'>You struggle to pry up \the [src] with \the [I].</span>")
 		if(I.use_tool(src, user, 40, volume=40))
+			set_operating(FALSE)
 			if(!(stat & BROKEN))
-				var/obj/item/stack/conveyor/C = new /obj/item/stack/conveyor(loc, 1, TRUE, id)
-				transfer_fingerprints_to(C)
+				var/obj/item/stack/conveyor/C = new /obj/item/stack/conveyor(loc, 1, TRUE, null, id)
+				if(!QDELETED(C)) //God I hate stacks
+					transfer_fingerprints_to(C)
 			to_chat(user, "<span class='notice'>You remove the conveyor belt.</span>")
+
 			qdel(src)
 
 	else if(I.tool_behaviour == TOOL_WRENCH)
@@ -293,13 +344,7 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 /// Updates all conveyor belts that are linked to this switch, and tells them to start processing.
 /obj/machinery/conveyor_switch/proc/update_linked_conveyors()
 	for(var/obj/machinery/conveyor/C in GLOB.conveyors_by_id[id])
-		C.operating = position
-		C.update_move_direction()
-		C.update_icon()
-		if(C.operating)
-			C.begin_processing()
-		else
-			C.end_processing()
+		C.set_operating(position)
 		CHECK_TICK
 
 /// Finds any switches with same `id` as this one, and set their position and icon to match us.
@@ -329,6 +374,7 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 /// Called when a user clicks on this switch with an open hand.
 /obj/machinery/conveyor_switch/interact(mob/user)
 	add_fingerprint(user)
+	play_click_sound("switch")
 	update_position()
 	update_icon()
 	update_linked_conveyors()
@@ -398,7 +444,8 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 	///id for linking
 	var/id = ""
 
-/obj/item/stack/conveyor/Initialize(mapload, new_amount, merge = TRUE, _id)
+
+/obj/item/stack/conveyor/Initialize(mapload, new_amount, merge = TRUE, mob/user = null, _id)
 	. = ..()
 	id = _id
 

@@ -125,8 +125,6 @@
 	if (T && AIStatus == AI_Z_OFF)
 		SSidlenpcpool.idle_mobs_by_zlevel[T.z] -= src
 
-	//Walking counts as a reference, putting this here because most things don't walk, clean this up once walk() procs are dead
-	walk(src, 0)
 	return ..()
 
 /mob/living/simple_animal/examine(mob/user)
@@ -462,7 +460,7 @@
 		else
 			mobility_flags = NONE
 	if(!(mobility_flags & MOBILITY_MOVE))
-		walk(src, 0) //stop mid walk
+		SSmove_manager.stop_looping(src) //stop mid walk
 
 	update_transform()
 	update_action_buttons_icon()

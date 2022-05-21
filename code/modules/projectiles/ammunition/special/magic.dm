@@ -31,7 +31,7 @@
 	harmful = FALSE
 
 /obj/item/ammo_casing/magic/fireball
-	projectile_type = /obj/item/projectile/magic/aoe/fireball
+	projectile_type = /obj/item/projectile/magic/fireball
 
 /obj/item/ammo_casing/magic/chaos
 	projectile_type = /obj/item/projectile/magic

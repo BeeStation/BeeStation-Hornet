@@ -109,6 +109,7 @@
 	return 0
 
 /mob/living/carbon/human/proc/check_shields(atom/AM, var/damage, attack_text = "the attack", attack_type = MELEE_ATTACK, armour_penetration = 0)
+	SEND_SIGNAL(src, COMSIG_HUMAN_ATTACKED, AM, attack_text, damage, attack_type, armour_penetration)
 	for(var/obj/item/I in held_items)
 		if(!isclothing(I))
 			if(I.hit_reaction(src, AM, attack_text, damage, attack_type))
@@ -521,7 +522,7 @@
 		if(head)
 			head_clothes = head
 		if(head_clothes)
-			if(!(head_clothes.resistance_flags & UNACIDABLE))
+			if(!(head_clothes.resistance_flags & (UNACIDABLE | INDESTRUCTIBLE)))
 				head_clothes.acid_act(acidpwr, acid_volume)
 				update_inv_glasses()
 				update_inv_wear_mask()
@@ -544,7 +545,7 @@
 		if(wear_suit)
 			chest_clothes = wear_suit
 		if(chest_clothes)
-			if(!(chest_clothes.resistance_flags & UNACIDABLE))
+			if(!(chest_clothes.resistance_flags & (UNACIDABLE | INDESTRUCTIBLE)))
 				chest_clothes.acid_act(acidpwr, acid_volume)
 				update_inv_w_uniform()
 				update_inv_wear_suit()
@@ -575,7 +576,7 @@
 			arm_clothes = wear_suit
 
 		if(arm_clothes)
-			if(!(arm_clothes.resistance_flags & UNACIDABLE))
+			if(!(arm_clothes.resistance_flags & (UNACIDABLE | INDESTRUCTIBLE)))
 				arm_clothes.acid_act(acidpwr, acid_volume)
 				update_inv_gloves()
 				update_inv_w_uniform()
@@ -601,7 +602,7 @@
 		if(wear_suit && ((wear_suit.body_parts_covered & FEET) || (bodyzone_hit != "feet" && (wear_suit.body_parts_covered & LEGS))))
 			leg_clothes = wear_suit
 		if(leg_clothes)
-			if(!(leg_clothes.resistance_flags & UNACIDABLE))
+			if(!(leg_clothes.resistance_flags & (UNACIDABLE | INDESTRUCTIBLE)))
 				leg_clothes.acid_act(acidpwr, acid_volume)
 				update_inv_shoes()
 				update_inv_w_uniform()
