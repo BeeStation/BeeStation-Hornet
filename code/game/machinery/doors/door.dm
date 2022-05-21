@@ -145,8 +145,6 @@
 	if(operating)
 		return
 	add_fingerprint(user)
-	if(!src.requiresID())
-		user = null
 
 	if(density && !(obj_flags & EMAGGED))
 		if(allowed(user))
@@ -162,7 +160,7 @@
 	return try_to_activate_door(null, user)
 
 /obj/machinery/door/attack_tk(mob/user)
-	if(requiresID() && !allowed(null))
+	if(!allowed(null))
 		return
 	..()
 
@@ -170,8 +168,6 @@
 	add_fingerprint(user)
 	if(operating || (obj_flags & EMAGGED))
 		return
-	if(!requiresID())
-		user = null //so allowed(user) always succeeds
 	if(allowed(user))
 		if(density)
 			open()
@@ -183,6 +179,8 @@
 
 /obj/machinery/door/allowed(mob/M)
 	if(emergency)
+		return TRUE
+	if(!requiresID())
 		return TRUE
 	if(unrestricted_side(M))
 		return TRUE

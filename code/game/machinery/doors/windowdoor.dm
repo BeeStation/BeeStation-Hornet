@@ -95,8 +95,6 @@
 	if( operating || !density )
 		return
 	add_fingerprint(user)
-	if(!requiresID())
-		user = null
 
 	if(allowed(user))
 		open_and_close()
