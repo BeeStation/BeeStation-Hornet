@@ -1471,7 +1471,9 @@ If it ever becomes necesary to get a more performant REF(), this lies here in wa
 		/obj/item/reagent_containers/food/snacks/clothing,
 		/obj/item/reagent_containers/food/snacks/grown/shell, //base types
 		/obj/item/reagent_containers/food/snacks/store/bread,
-		/obj/item/reagent_containers/food/snacks/grown/nettle
+		/obj/item/reagent_containers/food/snacks/grown/nettle,
+		/obj/item/reagent_containers/food/snacks/burger/roburger,
+		/obj/item/reagent_containers/food/snacks/grown/shell/gatfruit
 		)
 	blocked |= typesof(/obj/item/reagent_containers/food/snacks/customizable)
 

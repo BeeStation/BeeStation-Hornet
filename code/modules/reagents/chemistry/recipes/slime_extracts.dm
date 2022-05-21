@@ -158,18 +158,13 @@
 
 	for(var/mob/living/carbon/C in viewers(T))
 		C.flash_act()
-
-	for(var/i in 1 to 4 + rand(1,2))
-		var/chosen = getbork()
-		var/obj/B = new chosen(T)
-		if(prob(5))//Fry it!
-			var/obj/item/reagent_containers/food/snacks/deepfryholder/fried
-			fried = new(T, B)
-			fried.fry() // actually set the name and colour it
-			B = fried
-		if(prob(50))
-			for(var/j in 1 to rand(1, 3))
-				step(B, pick(NORTH,SOUTH,EAST,WEST))
+	var/chosen = getbork()
+	var/obj/B = new chosen(T)
+	if(prob(5))//Fry it!
+		var/obj/item/reagent_containers/food/snacks/deepfryholder/fried
+		fried = new(T, B)
+		fried.fry() // actually set the name and colour it
+		B = fried
 	..()
 
 /datum/chemical_reaction/slime/slimebork/proc/getbork()
