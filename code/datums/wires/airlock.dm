@@ -80,7 +80,7 @@
 			if(WIRE_LIGHT)
 				A.lights = !A.lights
 				A.update_icon()
-			if(WIRE_ZAP1, WIRE_ZAP2) // Doors have a lot of power in them, you need gloves to safely work on them even with a multitool
+			if(WIRE_ZAP1, WIRE_ZAP2) // Doors have a lot of power coursing through them, even a multitool can be overloaded on the wrong wires
 				if(isliving(usr))
 					A.shock(usr, 100) 
 	ui_update()
