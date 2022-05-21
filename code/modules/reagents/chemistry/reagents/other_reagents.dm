@@ -1323,7 +1323,7 @@
 	color = "E1A116"
 	taste_description = "sourness"
 	///stores whether or not the mob has been warned that they are having difficulty breathing. 
-	var/warned = 0
+	var/warned = FALSE
 
 /datum/reagent/stimulum/on_mob_metabolize(mob/living/L)
 	..()
