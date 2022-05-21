@@ -13,6 +13,9 @@
 			remove_ripples()
 			return DOCKING_IMMOBILIZED
 
+	//Count the number of engines (and also for sound effect)
+	current_engines = count_engines()
+
 	var/obj/docking_port/stationary/old_dock = get_docked()
 
 	// The area that gets placed under where the shuttle moved from
