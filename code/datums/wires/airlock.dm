@@ -96,7 +96,7 @@
 
 /datum/wires/airlock/on_cut(wire, mend)
 	var/obj/machinery/door/airlock/A = holder
-	if(isliving(usr))	//Cutting wires directly on powered doors is not advised
+	if(isliving(usr))	//Cutting wires directly on powered doors without protection is not advised
 		A.shock(usr, 100)
 	switch(wire)
 		if(WIRE_POWER1, WIRE_POWER2) // Cut to loose power, repair all to gain power.
