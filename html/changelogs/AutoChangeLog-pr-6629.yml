@@ -1,0 +1,5 @@
+author: zeskorion
+delete-after: true
+changes:
+  - balance: silver extracts now only spawn one item
+  - balance: silver extracts can no longer spawn gatfruit or roburgers
