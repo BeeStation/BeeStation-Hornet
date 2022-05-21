@@ -1317,7 +1317,7 @@
 
 /datum/reagent/stimulum
 	name = "Stimulum"
-	description = "An unstable experimental gas that greatly increases the energy of those that inhale it, but also causes hypoxia"
+	description = "An unstable experimental gas that greatly increases the energy of those that inhale it, but also causes hypoxia."
 	reagent_state = GAS
 	metabolization_rate = REAGENTS_METABOLISM * 0.5 // Because stimulum/nitryl are handled through gas breathing, metabolism must be lower for breathcode to keep up
 	color = "E1A116"
