@@ -1,8 +1,6 @@
 /datum/wires/airlock
 	holder_type = /obj/machinery/door/airlock
 	proper_name = "Airlock"
-
-/datum/wires/airlock/secure
 	randomize = TRUE
 
 /datum/wires/airlock/New(atom/holder)
@@ -38,50 +36,53 @@
 /datum/wires/airlock/on_pulse(wire)
 	set waitfor = FALSE
 	var/obj/machinery/door/airlock/A = holder
-	switch(wire)
-		if(WIRE_POWER1, WIRE_POWER2) // Pulse to loose power.
-			A.loseMainPower()
-		if(WIRE_BACKUP1, WIRE_BACKUP2) // Pulse to loose backup power.
-			A.loseBackupPower()
-		if(WIRE_OPEN) // Pulse to open door (only works not emagged and ID wire is cut or no access is required).
-			if(A.obj_flags & EMAGGED)
-				return
-			if(!A.requiresID() || A.check_access(null))
-				if(A.density)
-					INVOKE_ASYNC(A, /obj/machinery/door/airlock.proc/open)
+	if(wire == WIRE_POWER1 || wire == WIRE_POWER2) // Pulse to loose power.
+		A.loseMainPower()
+	if(wire == WIRE_BACKUP1 || wire == WIRE_BACKUP2) // Pulse to loose backup power.
+		A.loseBackupPower()
+	if(A.hasPower()) //Multitool has no effect at all if the door has lost power
+		switch(wire)
+			if(WIRE_OPEN) // Pulse to open door (only works not emagged and ID wire is cut or no access is required).
+				if(A.obj_flags & EMAGGED)
+					return
+				if(!A.requiresID() || A.check_access(null))
+					if(A.density)
+						INVOKE_ASYNC(A, /obj/machinery/door/airlock.proc/open)
+					else
+						INVOKE_ASYNC(A, /obj/machinery/door/airlock.proc/close)
+			if(WIRE_BOLTS) // Pulse to toggle bolts
+				if(!A.locked)
+					A.bolt()
 				else
-					INVOKE_ASYNC(A, /obj/machinery/door/airlock.proc/close)
-		if(WIRE_BOLTS) // Pulse to toggle bolts (but only raise if power is on).
-			if(!A.locked)
-				A.bolt()
-			else
-				if(A.hasPower())
 					A.unbolt()
-			A.update_icon()
-		if(WIRE_IDSCAN) // Pulse to disable emergency access and flash red lights.
-			if(A.hasPower() && A.density)
-				A.do_animate("deny")
-				if(A.emergency)
-					A.emergency = FALSE
-					A.update_icon()
-		if(WIRE_AI) // Pulse to disable WIRE_AI control for 10 ticks (follows same rules as cutting).
-			if(A.aiControlDisabled == 0)
-				A.aiControlDisabled = 1
-			else if(A.aiControlDisabled == -1)
-				A.aiControlDisabled = 2
-			addtimer(CALLBACK(A, /obj/machinery/door/airlock.proc/reset_ai_wire), 1 SECONDS)
-		if(WIRE_SHOCK) // Pulse to shock the door for 10 ticks.
-			if(!A.secondsElectrified)
-				A.set_electrified(MACHINE_DEFAULT_ELECTRIFY_TIME, usr)
-		if(WIRE_SAFETY)
-			A.safe = !A.safe
-			if(!A.density)
-				A.close()
-		if(WIRE_TIMING)
-			A.normalspeed = !A.normalspeed
-		if(WIRE_LIGHT)
-			A.lights = !A.lights
-			A.update_icon()
+				A.update_icon()
+			if(WIRE_IDSCAN) // Pulse to disable emergency access and flash red lights.
+				if(A.hasPower() && A.density)
+					A.do_animate("deny")
+					if(A.emergency)
+						A.emergency = FALSE
+						A.update_icon()
+			if(WIRE_AI) // Pulse to disable WIRE_AI control for 10 ticks (follows same rules as cutting).
+				if(A.aiControlDisabled == 0)
+					A.aiControlDisabled = 1
+				else if(A.aiControlDisabled == -1)
+					A.aiControlDisabled = 2
+				addtimer(CALLBACK(A, /obj/machinery/door/airlock.proc/reset_ai_wire), 1 SECONDS)
+			if(WIRE_SHOCK) // Pulse to shock the door for 10 ticks.
+				if(!A.secondsElectrified)
+					A.set_electrified(MACHINE_DEFAULT_ELECTRIFY_TIME, usr)
+			if(WIRE_SAFETY)
+				A.safe = !A.safe
+				if(!A.density)
+					A.close()
+			if(WIRE_TIMING)
+				A.normalspeed = !A.normalspeed
+			if(WIRE_LIGHT)
+				A.lights = !A.lights
+				A.update_icon()
+			if(WIRE_ZAP1, WIRE_ZAP2) // Doors have a lot of power in them, you need gloves to safely work on them even with a multitool
+				if(isliving(usr))
+					A.shock(usr, 100) 
 	ui_update()
 	A.ui_update()
 
@@ -95,6 +96,8 @@
 
 /datum/wires/airlock/on_cut(wire, mend)
 	var/obj/machinery/door/airlock/A = holder
+	if(isliving(usr))	//Cutting wires directly on powered doors is not advised
+		A.shock(usr, 100)
 	switch(wire)
 		if(WIRE_POWER1, WIRE_POWER2) // Cut to loose power, repair all to gain power.
 			if(mend && !is_cut(WIRE_POWER1) && !is_cut(WIRE_POWER2))
@@ -140,8 +143,5 @@
 		if(WIRE_LIGHT) // Cut to disable lights, mend to re-enable.
 			A.lights = mend
 			A.update_icon()
-		if(WIRE_ZAP1, WIRE_ZAP2) // Ouch.
-			if(isliving(usr))
-				A.shock(usr, 50)
 	ui_update()
 	A.ui_update()
