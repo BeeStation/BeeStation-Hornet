@@ -159,6 +159,7 @@
 
 /datum/antagonist/hivemind/on_gain()
 	owner.special_role = special_role
+	GLOB.hivehosts += src
 	generate_name()
 	create_actions()
 	check_powers()
@@ -179,6 +180,7 @@
 
 /datum/antagonist/hivemind/on_removal()
 	//Remove all hive powers here
+	GLOB.hivehosts -= src
 	for(var/power in upgrade_tiers)
 		owner.RemoveSpell(power)
 
@@ -231,9 +233,7 @@
 
 /datum/antagonist/hivemind/roundend_report()
 	var/list/result = list()
-
-	result += printplayer(owner)
-	result += "<b>Hive Size:</b> [hive_size]"
+	result += "<span class='header'>Hive [hiveID]:</span>"
 	var/greentext = TRUE
 	if(objectives)
 		result += printobjectives(objectives)
@@ -246,7 +246,12 @@
 		result += "<span class='greentext big'>The [name] was successful!</span>"
 	else
 		result += "<span class='redtext big'>The [name] has failed!</span>"
-
+	result += "The Hivemind Host was:"
+	result += printplayer(owner)
+	result += "The Awakened Vessels were:"
+	for(var/datum/antagonist/hivevessel/V in GLOB.avessels)
+		if(V.hiveID == hiveID)
+			result += printplayer(V.owner)
 	return result.Join("<br>")
 
 /datum/antagonist/hivemind/is_gamemode_hero()
@@ -263,6 +268,7 @@
 	plane_action.Grant(owner.current)
 
 /datum/antagonist/hivemind/Destroy()
+	GLOB.hivehosts -= src
 	destroy_hive()
 	QDEL_NULL(psychic_plane)
 	QDEL_NULL(plane_action)

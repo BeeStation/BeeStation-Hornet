@@ -32,9 +32,7 @@
 	data["charges"] = charges
 
 	data["hives"] = list()
-	for(var/datum/antagonist/hivemind/hivehosts in GLOB.antagonists)
-		if(hivehosts.hiveID == "Hivemind") //This should not happen normally
-			continue
+	for(var/datum/antagonist/hivemind/hivehosts in GLOB.hivehosts)
 		var/list/hive_data = list(
 			hive = hivehosts.hiveID,
 			size = hivehosts.hive_size
@@ -57,7 +55,7 @@
 		if(!do_after(ourhive,5,0,ourhive))
 			to_chat(ourhive, "<span class='notice'>Our concentration has been broken!</span>")
 		else
-			for(var/datum/antagonist/hivemind/hivehosts in GLOB.antagonists)
+			for(var/datum/antagonist/hivemind/hivehosts in GLOB.hivehosts)
 				if(hivehosts.hiveID == hivetarget)
 					var/mob/living/carbon/enemy = hivehosts.owner?.current
 					if(hivehosts.owner.current.stat == DEAD) //ourhive.get_virtual_z_level() != enemy.get_virtual_z_level() ||

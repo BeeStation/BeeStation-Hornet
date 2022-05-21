@@ -45,7 +45,7 @@
 	var/datum/antagonist/hivemind/host = owner.has_antag_datum(/datum/antagonist/hivemind)
 	if(!host)
 		return ..()
-	for(var/datum/antagonist/hivemind/H in GLOB.antagonists)
+	for(var/datum/antagonist/hivemind/H as() in GLOB.hivehosts)
 		if(H == host)
 			continue
 		if(H.hive_size >= host.hive_size)

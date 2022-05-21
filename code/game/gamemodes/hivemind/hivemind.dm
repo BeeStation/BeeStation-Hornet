@@ -1,3 +1,5 @@
+GLOBAL_LIST_EMPTY(hivehosts)
+GLOBAL_LIST_EMPTY(avessels)
 /datum/game_mode/hivemind
 	name = "Assimilation"
 	config_tag = "hivemind"
@@ -25,7 +27,7 @@
 	return M.mind.has_antag_datum(/datum/antagonist/hivemind)
 
 /mob/living/proc/is_real_hivehost() //This proc ignores mind controlled vessels
-	for(var/datum/antagonist/hivemind/hive in GLOB.antagonists)
+	for(var/datum/antagonist/hivemind/hive as() in GLOB.hivehosts)
 		if(!hive.owner?.spell_list)
 			continue
 		var/obj/effect/proc_holder/spell/target_hive/hive_control/the_spell = locate(/obj/effect/proc_holder/spell/target_hive/hive_control) in hive.owner.spell_list
@@ -52,7 +54,7 @@
 	var/datum/mind/M = L.mind
 	if(!M)
 		return FALSE
-	for(var/datum/antagonist/hivemind/H in GLOB.antagonists)
+	for(var/datum/antagonist/hivemind/H as() in GLOB.hivehosts)
 		if(H.hivemembers.Find(M))
 			return TRUE
 	return FALSE
@@ -61,7 +63,7 @@
 	var/datum/mind/M = L?.mind
 	if(!M)
 		return
-	for(var/datum/antagonist/hivemind/H in GLOB.antagonists)
+	for(var/datum/antagonist/hivemind/H as() in GLOB.hivehosts)
 		if(H.hivemembers.Find(M))
 			H.hivemembers -= M
 			H.calc_size()
@@ -108,3 +110,23 @@
 	return "Reports of psychic activity have been showing up in this sector, and we believe this may have to do with a containment breach on \[REDACTED\] last month \
 		when a sapient hive intelligence displaying paranormal powers escaped into the unknown. They present a very large risk as they can assimilate people into \
 		the hivemind with ease, although they appear unable to affect mindshielded personnel."
+
+/datum/game_mode/hivemind/generate_credit_text()
+	var/list/round_credits = list()
+	var/len_before_addition
+
+	for(var/datum/antagonist/hivemind/H as() in GLOB.hivehosts)
+		if(H.hiveID == "Hivemind")
+			continue
+		round_credits += "<center><h1>Hive [H.hiveID]:</h1>"
+		len_before_addition = round_credits.len
+		round_credits += "<center><h2>[H.name] as the Hivemind Host</h2>"
+		for(var/datum/antagonist/hivevessel/V as() in GLOB.hivehosts)
+			if(V.hiveID == H.hiveID)
+				round_credits += "<center><h2>[V.name] as an Awakened Vessel</h2>"
+		if(len_before_addition == round_credits.len)
+			round_credits += list("<center><h2>Hive [H.hiveID] couldn't withstand the competition!</h2>")
+		round_credits += "<br>"
+
+	round_credits += ..()
+	return round_credits

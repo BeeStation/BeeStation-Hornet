@@ -400,7 +400,7 @@
 			to_chat(user, "<span class='notice'>Our vessel is too far away to control.</span>")
 			revert_cast()
 			return
-		for(var/datum/antagonist/hivemind/H in GLOB.antagonists)
+		for(var/datum/antagonist/hivemind/H as() in GLOB.hivehosts)
 			if(H.owner == user.mind)
 				continue
 			if(H.owner == vessel.mind)
@@ -632,7 +632,7 @@
 				to_chat(user, "<span class='notice'>Our concentration has been broken!</span>")
 				revert_cast()
 				return
-		for(var/datum/antagonist/hivemind/enemy in GLOB.antagonists)
+		for(var/datum/antagonist/hivemind/enemy as() in GLOB.hivehosts)
 			var/datum/mind/M = enemy.owner
 			if(!M?.current)
 				continue
