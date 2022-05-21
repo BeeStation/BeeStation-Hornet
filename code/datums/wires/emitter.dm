@@ -1,5 +1,7 @@
 
 /datum/wires/emitter
+	proper_name = "Emitter"
+	randomize = TRUE //To hide this from being "Unknown" on blueprints
 	holder_type = /obj/machinery/power/emitter
 
 /datum/wires/emitter/New(atom/holder)
