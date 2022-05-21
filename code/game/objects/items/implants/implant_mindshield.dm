@@ -26,14 +26,6 @@
 		if(target.mind.has_antag_datum(/datum/antagonist/brainwashed))
 			target.mind.remove_antag_datum(/datum/antagonist/brainwashed)
 
-		var/datum/antagonist/hivemind/host = target.mind.has_antag_datum(/datum/antagonist/hivemind) //Releases the target from mind control beforehand
-		if(host)
-			var/datum/mind/M = host.owner
-			if(M)
-				var/obj/effect/proc_holder/spell/target_hive/hive_control/the_spell = locate(/obj/effect/proc_holder/spell/target_hive/hive_control) in M.spell_list
-				if(the_spell?.active)
-					the_spell.release_control()
-
 		if(target.mind.has_antag_datum(/datum/antagonist/rev/head) || target.mind.has_antag_datum(/datum/antagonist/hivemind) || target.mind.unconvertable)
 			if(!silent)
 				target.visible_message("<span class='warning'>[target] seems to resist the implant!</span>", "<span class='warning'>You feel something interfering with your mental conditioning, but you resist it!</span>")

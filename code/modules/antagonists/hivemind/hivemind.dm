@@ -26,21 +26,20 @@
 		/obj/effect/proc_holder/spell/target_hive/hive_see = 0,
 		/obj/effect/proc_holder/spell/target_hive/hive_shock = 0,
 		/obj/effect/proc_holder/spell/self/hive_comms = 0,
-		//Tier 2 - Tracking related powers
+		//Tier 2 - Host vs Host
 		/obj/effect/proc_holder/spell/targeted/hive_integrate = 5,
 		/obj/effect/proc_holder/spell/targeted/hive_hack = 0,
 
 
 		//Tier 3 - Combat related powers
-		/obj/effect/proc_holder/spell/self/hive_drain = 10,
 		/obj/effect/proc_holder/spell/targeted/induce_panic = 10,
 		/obj/effect/proc_holder/spell/targeted/forcewall/hive = 10,
 		//Tier 4 - Chaos-spreading powers
 		/obj/effect/proc_holder/spell/self/hive_loyal = 15,
-		/obj/effect/proc_holder/spell/target_hive/hive_control = 15,
+		/obj/effect/proc_holder/spell/self/hive_drain = 15,
+		/obj/effect/proc_holder/spell/targeted/forcewall/hive = 15,
+		/obj/effect/proc_holder/spell/targeted/induce_panic = 15,
 		//Tier 5 - Deadly powers
-		/obj/effect/proc_holder/spell/targeted/induce_sleep = 20,
-		/obj/effect/proc_holder/spell/target_hive/hive_attack = 20
 	)
 
 

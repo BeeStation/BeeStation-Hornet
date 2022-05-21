@@ -134,16 +134,12 @@
 			user.reset_perspective(vessel)
 			active = TRUE
 			host = user
-			user.clear_fullscreen("hive_mc")
 			user.overlay_fullscreen("hive_eyes", /atom/movable/screen/fullscreen/hive_eyes)
 		revert_cast()
 	else
 		vessel.remove_status_effect(STATUS_EFFECT_BUGGED)
 		user.reset_perspective()
 		user.clear_fullscreen("hive_eyes")
-		var/obj/effect/proc_holder/spell/target_hive/hive_control/the_spell = locate(/obj/effect/proc_holder/spell/target_hive/hive_control) in user.mind.spell_list
-		if(the_spell && the_spell.active)
-			user.overlay_fullscreen("hive_mc", /atom/movable/screen/fullscreen/hive_mc)
 		active = FALSE
 		revert_cast()
 
@@ -332,158 +328,6 @@
 /mob/living/passenger/Hear(message, atom/movable/speaker, datum/language/message_language, raw_message, radio_freq, list/spans, message_mods)
 	return
 
-/obj/effect/proc_holder/spell/target_hive/hive_control
-	name = "Mind Control"
-	desc = "We assume direct control of one of our vessels, leaving our current body for up to a minute. It can be cancelled at any time by casting it again. Powers can be used via our vessel, although if it dies, the entire hivemind will come down with it. Our ability to sense psionic energy is completely nullified while using this power, and it will end immediately should we attempt to move too far from our starting point."
-	charge_max = 1500
-	action_icon_state = "force"
-	active  = FALSE
-	var/mob/living/carbon/human/original_body //The original hivemind host
-	var/mob/living/carbon/human/vessel
-	var/mob/living/passenger/backseat //Storage for the mind controlled vessel
-	var/turf/starting_spot
-	var/power = 600
-	var/time_initialized = 0
-	var/out_of_range = FALSE
-
-/obj/effect/proc_holder/spell/target_hive/hive_control/proc/release_control() //If the spell is active, force everybody into their original bodies if they exist, ghost them otherwise, delete the backseat
-	if(!active)
-		return
-	active = FALSE
-	charge_counter = max((0.5-(world.time-time_initialized)/power)*charge_max, 0) //Partially refund the power based on how long it was used, up to a max of half the charge time
-
-	if(!QDELETED(vessel))
-		vessel.clear_fullscreen("hive_mc")
-		if(vessel.mind)
-			if(QDELETED(original_body))
-				vessel.ghostize(0)
-			else
-				vessel.mind.transfer_to(original_body, 1)
-				original_body.Sleeping(vessel.AmountSleeping()) // Mirrors any sleep or unconsciousness from the vessel
-				original_body.Unconscious(vessel.AmountUnconscious())
-
-	if(!QDELETED(backseat) && backseat.mind)
-		if(QDELETED(vessel))
-			backseat.ghostize(0)
-		else
-			backseat.mind.transfer_to(vessel,1)
-
-	message_admins("[ADMIN_LOOKUPFLW(vessel)] is no longer being controlled by [ADMIN_LOOKUPFLW(original_body)] (Hivemind Host).")
-	log_game("[key_name(vessel)] was released from Mind Control by [key_name(original_body)].")
-
-	QDEL_NULL(backseat)
-
-	if(original_body?.mind)
-		var/datum/antagonist/hivemind/hive = original_body.mind.has_antag_datum(/datum/antagonist/hivemind)
-		if(hive)
-			hive.threat_level += 1
-
-
-/obj/effect/proc_holder/spell/target_hive/hive_control/on_lose(mob/user)
-	release_control()
-
-/obj/effect/proc_holder/spell/target_hive/hive_control/cast(list/targets, mob/living/user = usr)
-	if(!active)
-		vessel = targets[1]
-		var/datum/antagonist/hivemind/hive = user.mind.has_antag_datum(/datum/antagonist/hivemind)
-		if(!hive)
-			to_chat(user, "<span class='notice'>This is a bug. Error:HIVE1</span>")
-			return
-		original_body = user
-		vessel = targets[1]
-		to_chat(user, "<span class='notice'>We begin merging our mind with [vessel.name].</span>")
-		if(!do_after(user,50,0,user))
-			to_chat(user, "<span class='notice'>We fail to assume control of the target.</span>")
-			revert_cast()
-			return
-		if(user.get_virtual_z_level() != vessel.get_virtual_z_level())
-			to_chat(user, "<span class='notice'>Our vessel is too far away to control.</span>")
-			revert_cast()
-			return
-		for(var/datum/antagonist/hivemind/H as() in GLOB.hivehosts)
-			if(H.owner == user.mind)
-				continue
-			if(H.owner == vessel.mind)
-				to_chat(user, "<span class='danger'>We have detected a foreign presence within this mind, it would be unwise to merge so intimately with it.</span>")
-				revert_cast()
-				return
-		backseat = new /mob/living/passenger()
-		if(vessel && vessel.mind && backseat)
-			var/obj/effect/proc_holder/spell/target_hive/hive_see/the_spell = locate(/obj/effect/proc_holder/spell/target_hive/hive_see) in user.mind.spell_list
-			if(the_spell?.active) //Uncast Hive Sight just to make things easier when casting during mind control
-				the_spell.perform(,user)
-
-			message_admins("[ADMIN_LOOKUPFLW(vessel)] has been temporarily taken over by [ADMIN_LOOKUPFLW(user)] (Hivemind Host).")
-			log_game("[key_name(vessel)] was Mind Controlled by [key_name(user)].")
-
-			deadchat_broadcast("<span class='deadsay'><span class='name'>[vessel]</span> has just been mind controlled!</span>", vessel)
-
-			original_body = user
-			backseat.loc = vessel
-			backseat.name = vessel.real_name
-			backseat.real_name = vessel.real_name
-			vessel.mind.transfer_to(backseat, 1)
-			user.mind.transfer_to(vessel, 1)
-			backseat.blind_eyes(power)
-			vessel.overlay_fullscreen("hive_mc", /atom/movable/screen/fullscreen/hive_mc)
-			active = TRUE
-			out_of_range = FALSE
-			starting_spot = get_turf(vessel)
-			time_initialized = world.time
-			revert_cast()
-			to_chat(vessel, "<span class='assimilator'>We can sustain our control for a maximum of [round(power/10)] seconds.</span>")
-			if(do_after(user,power,0,user,0))
-				to_chat(vessel, "<span class='warning'>We cannot sustain the mind control any longer and release control!</span>")
-			else
-				to_chat(vessel, "<span class='warning'>Our body has been disturbed, interrupting the mind control!</span>")
-			release_control()
-		else
-			to_chat(usr, "<span class='warning'>We detect no neural activity in our vessel!</span>")
-			revert_cast()
-	else
-		release_control()
-
-/obj/effect/proc_holder/spell/target_hive/hive_control/process()
-	if(active)
-		if(QDELETED(vessel)) //If we've been gibbed or otherwise deleted, ghost both of them and kill the original
-			original_body.adjustOrganLoss(ORGAN_SLOT_BRAIN, 200)
-			release_control()
-		else if(!is_hivemember(backseat)) //If the vessel is no longer a hive member, return to original bodies
-			to_chat(vessel, "<span class='warning'>Our vessel is one of us no more!</span>")
-			release_control()
-		else if(!QDELETED(original_body) && (!backseat.ckey || vessel.stat == DEAD)) //If the original body exists and the vessel is dead/ghosted, return both to body but not before killing the original
-			original_body.adjustOrganLoss(ORGAN_SLOT_BRAIN, 200)
-			to_chat(vessel.mind, "<span class='warning'>Our vessel is one of us no more!</span>")
-			release_control()
-		else if(!QDELETED(original_body) && original_body.get_virtual_z_level() != vessel.get_virtual_z_level()) //Return to original bodies
-			release_control()
-			to_chat(original_body, "<span class='warning'>Our vessel is too far away to control!</span>")
-		else if(QDELETED(original_body) || original_body.stat == DEAD) //Return vessel to its body, either return or ghost the original
-			to_chat(vessel, "<span class='userdanger'>Our body has been destroyed, the hive cannot survive without its host!</span>")
-			release_control()
-		else if(!out_of_range && get_dist(starting_spot, vessel) > 14)
-			out_of_range = TRUE
-			flash_color(vessel, flash_color="#800080", flash_time=10)
-			to_chat(vessel, "<span class='warning'>Our vessel has been moved too far away from the initial point of control, we will be disconnected if we go much further!</span>")
-			addtimer(CALLBACK(src, "range_check"), 30)
-		else if(get_dist(starting_spot, vessel) > 21)
-			release_control()
-
-	..()
-
-/obj/effect/proc_holder/spell/target_hive/hive_control/proc/range_check()
-	if(!active)
-		return
-	if(get_dist(starting_spot, vessel) > 14)
-		release_control()
-	out_of_range = FALSE
-
-/obj/effect/proc_holder/spell/target_hive/hive_control/choose_targets(mob/user = usr)
-	if(!active)
-		..()
-	else
-		perform(,user)
-
 /obj/effect/proc_holder/spell/targeted/induce_panic
 	name = "Induce Panic"
 	desc = "We unleash a burst of psionic energy, inducing a debilitating fear in those around us and reducing their combat readiness. We can also briefly affect silicon-based life with this burst."
@@ -541,66 +385,6 @@
 	for(var/mob/living/silicon/target in targets)
 		target.Unconscious(50)
 
-/obj/effect/proc_holder/spell/targeted/induce_sleep
-	name = "Circadian Shift"
-	desc = "We send out a controlled pulse of psionic energy, temporarily causing a deep sleep to anybody in sight, even in silicon-based lifeforms. The fewer people in sight, the more effective this power is. The weak mind of a vessels cannot handle this ability, using Mind Control and this at the same time would be most unwise."
-	panel = "Hivemind Abilities"
-	charge_max = 1200
-	range = 7
-	invocation_type = "none"
-	clothes_req = 0
-	max_targets = 0
-	include_user = 1 //Checks for real hivemind hosts during the cast, won't smack you unless using mind control
-	antimagic_allowed = TRUE
-	action_icon = 'icons/mob/actions/actions_hive.dmi'
-	action_background_icon_state = "bg_hive"
-	action_icon_state = "sleep"
-
-/obj/effect/proc_holder/spell/targeted/induce_sleep/cast(list/targets, mob/living/user = usr)
-	if(!targets)
-		to_chat(user, "<span class='notice'>Nobody is in sight, it'd be a waste to do that now.</span>")
-		revert_cast()
-		return
-	var/list/victims = list()
-	for(var/mob/living/target in targets)
-		if(target.stat == DEAD)
-			continue
-		if(target.is_real_hivehost() || (!iscarbon(target) && !issilicon(target)))
-			continue
-		victims += target
-	for(var/mob/living/carbon/victim in victims)
-		victim.Sleeping(max(80,240/(1+round(victims.len/3))))
-	for(var/mob/living/silicon/victim in victims)
-		victim.Unconscious(240)
-	var/datum/antagonist/hivemind/hive = user.mind.has_antag_datum(/datum/antagonist/hivemind)
-	if(victims.len && hive)
-		hive.threat_level += 1
-
-/obj/effect/proc_holder/spell/target_hive/hive_attack
-	name = "Medullary Failure"
-	desc = "We overload the target's medulla, inducing an immediate heart attack."
-	range = 7
-	charge_max = 3000
-	action_icon_state = "attack"
-
-/obj/effect/proc_holder/spell/target_hive/hive_attack/cast(list/targets, mob/living/user = usr)
-	var/mob/living/carbon/target = targets[1]
-	if(!user.is_real_hivehost())
-		to_chat(user, "<span class='notice'>Our vessel is too weak to handle this power, we must cease our mind control beforehand.</span>")
-		revert_cast()
-		return
-	if(!target.undergoing_cardiac_arrest() && target.can_heartattack())
-		target.set_heartattack(TRUE)
-		to_chat(target, "<span class='userdanger'>You feel a sharp pain, and foreign presence in your mind!!</span>")
-		to_chat(user, "<span class='notice'>We have overloaded the vessel's medulla! Without medical attention, they will shortly die.</span>")
-		if(target.stat == CONSCIOUS)
-			target.visible_message("<span class='userdanger'>[target] clutches at [target.p_their()] chest as if [target.p_their()] heart stopped!</span>")
-			deadchat_broadcast("<span class='deadsay'><span class='name'>[target]</span> has suffered a mysterious heart attack!</span>", target)
-	else
-		to_chat(user, "<span class='warning'>We are unable to induce a heart attack!</span>")
-	var/datum/antagonist/hivemind/hive = user.mind.has_antag_datum(/datum/antagonist/hivemind)
-	if(hive)
-		hive.threat_level += 4
 /obj/effect/proc_holder/spell/targeted/hive_hack
 	name = "Network Invasion"
 	desc = "We probe the mind of an adjacent target and extract valuable information on any enemy hives they may belong to. Takes longer if the target is not in our hive."
