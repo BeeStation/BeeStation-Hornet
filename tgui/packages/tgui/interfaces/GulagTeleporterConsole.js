@@ -16,6 +16,7 @@ export const GulagTeleporterConsole = (props, context) => {
     can_teleport,
     goal = 0,
     prisoner = {},
+    permanent,
   } = data;
   return (
     <Window
@@ -78,6 +79,10 @@ export const GulagTeleporterConsole = (props, context) => {
                 minValue={1}
                 maxValue={1000}
                 onChange={(e, value) => act('set_goal', { value })} />
+              <Button.Checkbox
+                content="Permanent sentence"
+                checked={permanent}
+                onClick={() => act('set_permanent')} />
             </LabeledList.Item>
             <LabeledList.Item label="Occupant">
               {prisoner.name || 'No Occupant'}
