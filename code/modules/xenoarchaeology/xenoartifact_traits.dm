@@ -452,10 +452,13 @@
 
 /datum/xenoartifact_trait/major/capture/activate(obj/item/xenoartifact/X, atom/target)
 	if(ismovable(target))
-		if(!istype(target, obj/item/xenoartifact/X))
-			var/atom/movable/AM = target
+		var/atom/movable/AM 
+		if(!istype(target, /obj/item/xenoartifact))
+			AM = target
 		else if(isliving(X.loc)) //occurs when xenoartifact has maltargetting
-			var/atom/movable/AM = X.loc
+			AM = X.loc
+		else
+			return
 		AM.forceMove(X)
 		AM.anchored = TRUE
 		addtimer(CALLBACK(src, .proc/release, X, AM), X.charge*0.3 SECONDS)
@@ -633,7 +636,7 @@
 		to_chat(user, "<span class='notice'>You see your reflection in the [X.name].</span>")
 	return TRUE
 
-/datum/xenoartifact_trait/major/mirrored/activate(obj/item/xenoartifact/X, atom/target, atom/user)
+/datum/xenoartifact_trait/major/mirrored/activate(obj/item/xenoartifact/X, mob/target, atom/user)
 	if(!isliving(target) || target?.key)
 		playsound(get_turf(X), 'sound/machines/buzz-sigh.ogg', 15, TRUE)
 		return
