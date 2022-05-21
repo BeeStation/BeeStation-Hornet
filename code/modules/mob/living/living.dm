@@ -1029,7 +1029,7 @@
 /mob/living/rad_act(amount)
 	. = ..()
 
-	if(!amount || (amount < RAD_MOB_SKIN_PROTECTION) || HAS_TRAIT(src, TRAIT_RADIMMUNE) || istype(src, /mob/living/simple_animal/revenant) || istype(src, /mob/living/simple_animal/eminence))
+	if(!amount || (amount < RAD_MOB_SKIN_PROTECTION) || HAS_TRAIT(src, TRAIT_RADIMMUNE))
 		return
 
 	amount -= RAD_BACKGROUND_RADIATION // This will always be at least 1 because of how skin protection is calculated
