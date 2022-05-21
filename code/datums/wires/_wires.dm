@@ -252,10 +252,11 @@
 	else if(user.is_holding_item_of_type(/obj/item/multitool/abductor))
 		reveal_wires = TRUE
 
+	/*
 	// Station blueprints do that too
 	else if(user.is_holding_item_of_type(/obj/item/areaeditor/blueprints))
 		if(!randomize || holder_type == /obj/machinery/door/airlock)
-			reveal_wires = TRUE
+			reveal_wires = TRUE */
 
 	for(var/color in colors)
 		payload.Add(list(list(
