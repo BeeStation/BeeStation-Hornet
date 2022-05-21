@@ -452,7 +452,10 @@
 
 /datum/xenoartifact_trait/major/capture/activate(obj/item/xenoartifact/X, atom/target)
 	if(ismovable(target))
-		var/atom/movable/AM = target
+		if(!istype(target, obj/item/xenoartifact/X))
+			var/atom/movable/AM = target
+		else if(isliving(X.loc)) //occurs when xenoartifact has maltargetting
+			var/atom/movable/AM = X.loc
 		AM.forceMove(X)
 		AM.anchored = TRUE
 		addtimer(CALLBACK(src, .proc/release, X, AM), X.charge*0.3 SECONDS)
@@ -541,13 +544,14 @@
 /datum/xenoartifact_trait/major/bomb/activate(obj/item/xenoartifact/X, atom/target, mob/user)
 	X.visible_message("<span class='danger'>The [X.name] begins to tick loudly...</span>")
 	to_chat(user,"<span class='danger'>The [X.name] begins to tick loudly...</span>")
+	X.visible_message("<span class='danger'>The [X.name] begins to tick loudly...</span>")
 	addtimer(CALLBACK(src, .proc/explode, X), (10-(X.charge*0.06)) SECONDS)
 	log_game("[X] primed an explosion at [world.time]. [X] will detonate in [(10-(X.charge*0.06))] seconds. [X] located at [X.x] [X.y] [X.z]")
 	X.cooldownmod = (10-(X.charge*0.06)) SECONDS
 	preserved_charge = X.charge
 
 /datum/xenoartifact_trait/major/bomb/proc/explode(obj/item/xenoartifact/X)
-	explosion(X.loc,1*(preserved_charge*0.1),1.5*(preserved_charge*0.1),2*(preserved_charge*0.1))
+	explosion(X.loc,1*(preserved_charge*0.1) > 0 ? 1*(preserved_charge*0.1) : 0, 1.5*(preserved_charge*0.1), 2*(preserved_charge*0.1))
 	qdel(X) //Bon voyage. If you remove this, keep in mind there's a callback bug regarding a looping issue.
 
 /datum/xenoartifact_trait/major/corginator //All of this is stolen from corgium. 
@@ -630,16 +634,11 @@
 	return TRUE
 
 /datum/xenoartifact_trait/major/mirrored/activate(obj/item/xenoartifact/X, atom/target, atom/user)
-	if(!isliving(target))
+	if(!isliving(target) || target?.key)
 		playsound(get_turf(X), 'sound/machines/buzz-sigh.ogg', 15, TRUE)
 		return
 	victim = target
 	caster = user
-	if(!caster?.key || !victim?.key)
-		playsound(get_turf(X), 'sound/machines/buzz-sigh.ogg', 15, TRUE)
-		victim = null
-		caster = null
-		return
 	var/obj/effect/proc_holder/spell/targeted/mind_transfer/M = new
 	M.range = X.max_range
 	M.cast(list(victim), caster, TRUE)
@@ -879,13 +878,17 @@
 /datum/xenoartifact_trait/malfunction/bear //makes bears
 	label_name = "P.B.R" 
 	label_desc = "Parallel Bearspace Retrieval: A strange malfunction causes the Artifact to open a gateway to deep bearspace."
+	var/bears //bear per bears
 
 /datum/xenoartifact_trait/malfunction/bear/activate(obj/item/xenoartifact/X)
-	if(prob(33))
+	if(prob(33) && bears < 7)
+		bears+=1
 		var/mob/living/simple_animal/hostile/bear/new_bear
 		new_bear = new(get_turf(X.loc))
 		new_bear.name = pick("Freddy", "Bearington", "Smokey", "Beorn", "Pooh", "Paddington", "Winnie", "Baloo", "Rupert", "Yogi", "Fozzie", "Boo") //Why not?
 		log_game("[X] spawned a (/mob/living/simple_animal/hostile/bear) at [world.time]. [X] located at [X.x] [X.y] [X.z]")
+	else
+		qdel(X)
 
 /datum/xenoartifact_trait/malfunction/badtarget
 	label_name = "Maltargeting"
