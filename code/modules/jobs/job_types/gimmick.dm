@@ -79,31 +79,6 @@
 	backpack_contents = list(/obj/item/choice_beacon/magic=1)
 	can_be_admin_equipped = TRUE
 
-/datum/job/gimmick/shrink
-	title = "Psychiatrist"
-	flag = SHRINK
-	outfit = /datum/outfit/job/gimmick/shrink
-	access = list(ACCESS_MAINT_TUNNELS, ACCESS_MEDICAL)
-	minimal_access = list(ACCESS_MAINT_TUNNELS, ACCESS_MEDICAL)
-	paycheck = PAYCHECK_EASY
-	gimmick = TRUE
-	chat_color = "#a2dfdc"
-	departments = DEPARTMENT_MEDICAL
-
-	species_outfits = list(
-		SPECIES_PLASMAMAN = /datum/outfit/plasmaman
-	)
-
-/datum/outfit/job/gimmick/shrink //psychiatrist doesnt get much shit, but he has more access and a cushier paycheck
-	name = "Psychiatrist"
-	jobtype = /datum/job/gimmick/shrink
-
-	belt = /obj/item/pda/medical
-	ears = /obj/item/radio/headset/headset_med
-	uniform = /obj/item/clothing/under/suit/black
-	shoes = /obj/item/clothing/shoes/laceup
-	backpack_contents = list(/obj/item/choice_beacon/pet/ems=1)
-	can_be_admin_equipped = TRUE
 
 /datum/job/gimmick/celebrity
 	title = "VIP"

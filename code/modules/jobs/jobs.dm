@@ -20,7 +20,8 @@ GLOBAL_LIST_INIT(medical_positions, list(
 	"Virologist",
 	"Paramedic",
 	"Chemist",
-	"Brig Physician"))
+	"Brig Physician",
+	"Psychologist"))
 
 
 GLOBAL_LIST_INIT(science_positions, list(
@@ -52,7 +53,6 @@ GLOBAL_LIST_INIT(gimmick_positions, list(
 	"Gimmick",
 	"Barber",
 	"Stage Magician",
-	"Psychiatrist",
 	"VIP"))
 
 GLOBAL_LIST_INIT(security_positions, list(

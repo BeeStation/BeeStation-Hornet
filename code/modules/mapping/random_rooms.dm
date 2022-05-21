@@ -1161,15 +1161,6 @@
 	template_width = 10
 	weight = 3
 
-/datum/map_template/random_room/sk_rdm137
-	name = "Tiny psych ward"
-	room_id = "sk_rdm137_tinyshrink"
-	mappath = "_maps/RandomRooms/3x5/sk_rdm137_tinyshrink.dmm"
-	centerspawner = FALSE
-	template_height = 5
-	template_width = 3
-	weight = 4
-
 /datum/map_template/random_room/sk_rdm138
 	name = "Dressing Room"
 	room_id = "sk_rdm138_magicroom"

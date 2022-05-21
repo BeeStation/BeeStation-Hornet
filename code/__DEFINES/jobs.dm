@@ -27,6 +27,7 @@
 #define GENETICIST		(1<<6)
 #define VIROLOGIST		(1<<7)
 #define EMT				(1<<8)
+#define PSYCHOLOGIST	(1<<9)
 
 
 #define CIVILIAN		(1<<2)

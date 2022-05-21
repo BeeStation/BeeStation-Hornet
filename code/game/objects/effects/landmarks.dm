@@ -153,6 +153,10 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 	name = "Medical Doctor"
 	icon_state = "Medical Doctor"
 
+/obj/effect/landmark/start/psychologist
+	name = "Psychologist"
+	icon_state = "x2"
+
 /obj/effect/landmark/start/emt
 	name = "Paramedic"
 	icon_state = "Medical Doctor"
@@ -233,9 +237,6 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 	name = "Stage Magician"
 	job = "Stage Magician"
 
-/obj/effect/landmark/start/randommaint/shrink
-	name = "Psychiatrist"
-	job = "Psychiatrist"
 
 /obj/effect/landmark/start/randommaint/celebrity
 	name = "VIP"
