@@ -1,0 +1,4 @@
+author: ivanmixo
+delete-after: true
+changes:
+  - rscadd: You can now toggle throw mode by pressing space bar!
