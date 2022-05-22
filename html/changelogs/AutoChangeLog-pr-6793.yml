@@ -1,6 +1,0 @@
-author: 'Ryll/Shaps, '
-delete-after: true
-changes:
-  - rscadd: You can slam table with *slap emote
-  - bugfix: fixed out of range bugged message when giving an item
-  - refactor: refactored giving code
