@@ -17,6 +17,7 @@
 
 
 #define MEDSCI			(1<<1)
+#define CIVSCI			(1<<1)
 
 #define RD_JF			(1<<0)
 #define SCIENTIST		(1<<1)

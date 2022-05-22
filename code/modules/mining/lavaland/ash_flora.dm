@@ -225,7 +225,8 @@
 	potency = 15
 	growthstages = 3
 	rarity = 20
-	reagents_add = list(/datum/reagent/consumable/nutriment = 0.1)
+	reagents_set = list(
+		/datum/reagent/consumable/nutriment = list(6, 12))
 	resistance_flags = FIRE_PROOF
 
 /obj/item/seeds/lavaland/cactus
@@ -238,7 +239,10 @@
 	genes = list(/datum/plant_gene/trait/fire_resistance)
 	growing_icon = 'icons/obj/hydroponics/growing_fruits.dmi'
 	growthstages = 2
-	reagents_add = list(/datum/reagent/consumable/nutriment/vitamin = 0.04, /datum/reagent/consumable/nutriment = 0.04, /datum/reagent/consumable/vitfro = 0.08)
+	reagents_set = list(
+		/datum/reagent/consumable/nutriment = list(2, 10),
+		/datum/reagent/consumable/nutriment/vitamin = list(2, 10),
+		/datum/reagent/consumable/vitfro = list(2, 20))
 
 /obj/item/seeds/lavaland/polypore
 	name = "pack of polypore mycelium"
@@ -247,9 +251,14 @@
 	species = "polypore"
 	plantname = "Polypore Mushrooms"
 	product = /obj/item/reagent_containers/food/snacks/grown/ash_flora/shavings
-	genes = list(/datum/plant_gene/trait/plant_type/fungal_metabolism, /datum/plant_gene/trait/fire_resistance)
+	genes = list(/datum/plant_gene/family/fungal_metabolism, /datum/plant_gene/trait/fire_resistance)
 	growing_icon = 'icons/obj/hydroponics/growing_mushrooms.dmi'
-	reagents_add = list(/datum/reagent/consumable/sugar = 0.06, /datum/reagent/consumable/ethanol = 0.04, /datum/reagent/stabilizing_agent = 0.06, /datum/reagent/toxin/minttoxin = 0.02)
+	reagents_set = list(
+		/datum/reagent/consumable/sugar = list(6, 20),
+		/datum/reagent/consumable/ethanol = list(4, 6),
+		/datum/reagent/stabilizing_agent = list(3, 10),
+		/datum/reagent/toxin/minttoxin = list(1, 4),
+		/datum/reagent/consumable/menthol = list(2, 6))
 
 /obj/item/seeds/lavaland/porcini
 	name = "pack of porcini mycelium"
@@ -258,9 +267,12 @@
 	species = "porcini"
 	plantname = "Porcini Mushrooms"
 	product = /obj/item/reagent_containers/food/snacks/grown/ash_flora/mushroom_leaf
-	genes = list(/datum/plant_gene/trait/plant_type/fungal_metabolism, /datum/plant_gene/trait/fire_resistance)
+	genes = list(/datum/plant_gene/family/fungal_metabolism, /datum/plant_gene/trait/fire_resistance)
 	growing_icon = 'icons/obj/hydroponics/growing_mushrooms.dmi'
-	reagents_add = list(/datum/reagent/consumable/nutriment = 0.06, /datum/reagent/consumable/vitfro = 0.04, /datum/reagent/drug/nicotine = 0.04)
+	reagents_set = list(
+		/datum/reagent/consumable/nutriment = list(3, 8),
+		/datum/reagent/consumable/vitfro = list(2, 15),
+		/datum/reagent/drug/nicotine = list(2, 35))
 
 
 /obj/item/seeds/lavaland/inocybe
@@ -270,9 +282,12 @@
 	species = "inocybe"
 	plantname = "Inocybe Mushrooms"
 	product = /obj/item/reagent_containers/food/snacks/grown/ash_flora/mushroom_cap
-	genes = list(/datum/plant_gene/trait/plant_type/fungal_metabolism, /datum/plant_gene/trait/fire_resistance)
+	genes = list(/datum/plant_gene/family/fungal_metabolism, /datum/plant_gene/trait/fire_resistance)
 	growing_icon = 'icons/obj/hydroponics/growing_mushrooms.dmi'
-	reagents_add = list(/datum/reagent/toxin/mindbreaker = 0.04, /datum/reagent/consumable/entpoly = 0.08, /datum/reagent/drug/mushroomhallucinogen = 0.04)
+	reagents_set = list(
+		/datum/reagent/toxin/mindbreaker = list(2, 15),
+		/datum/reagent/consumable/entpoly = list(4, 15),
+		/datum/reagent/drug/mushroomhallucinogen = list(2, 15))
 
 /obj/item/seeds/lavaland/ember
 	name = "pack of embershroom mycelium"
@@ -281,9 +296,12 @@
 	species = "ember"
 	plantname = "Embershroom Mushrooms"
 	product = /obj/item/reagent_containers/food/snacks/grown/ash_flora/mushroom_stem
-	genes = list(/datum/plant_gene/trait/plant_type/fungal_metabolism, /datum/plant_gene/trait/glow, /datum/plant_gene/trait/fire_resistance)
+	genes = list(/datum/plant_gene/family/fungal_metabolism, /datum/plant_gene/trait/glow, /datum/plant_gene/trait/fire_resistance)
 	growing_icon = 'icons/obj/hydroponics/growing_mushrooms.dmi'
-	reagents_add = list(/datum/reagent/consumable/tinlux = 0.04, /datum/reagent/consumable/nutriment/vitamin = 0.02, /datum/reagent/drug/space_drugs = 0.02)
+	reagents_set = list(
+		/datum/reagent/consumable/nutriment/vitamin = list(2, 15),
+		/datum/reagent/consumable/tinlux = list(2, 15),
+		/datum/reagent/drug/space_drugs = list(2, 20))
 
 //CRAFTING
 

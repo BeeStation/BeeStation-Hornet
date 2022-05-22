@@ -15,8 +15,10 @@
 	icon_grow = "potato-grow"
 	icon_dead = "potato-dead"
 	genes = list(/datum/plant_gene/trait/battery)
+	reagents_set = list(
+		/datum/reagent/consumable/nutriment = list(6, 12),
+		/datum/reagent/consumable/nutriment/vitamin = list(2, 6))
 	mutatelist = list(/obj/item/seeds/potato/sweet)
-	reagents_add = list(/datum/reagent/consumable/nutriment/vitamin = 0.04, /datum/reagent/consumable/nutriment = 0.1)
 
 /obj/item/reagent_containers/food/snacks/grown/potato
 	seed = /obj/item/seeds/potato
@@ -56,8 +58,11 @@
 	species = "sweetpotato"
 	plantname = "Sweet Potato Plants"
 	product = /obj/item/reagent_containers/food/snacks/grown/potato/sweet
-	mutatelist = list()
-	reagents_add = list(/datum/reagent/consumable/nutriment/vitamin = 0.1, /datum/reagent/consumable/sugar = 0.1, /datum/reagent/consumable/nutriment = 0.1)
+	reagents_set = list(
+		/datum/reagent/consumable/nutriment = list(8, 16),
+		/datum/reagent/consumable/nutriment/vitamin = list(8, 16),
+		/datum/reagent/consumable/sugar = list(12, 20))
+	mutatelist = list(/obj/item/seeds/potato)
 
 /obj/item/reagent_containers/food/snacks/grown/potato/sweet
 	seed = /obj/item/seeds/potato/sweet

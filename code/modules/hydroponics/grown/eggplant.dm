@@ -13,7 +13,9 @@
 	icon_dead = "eggplant-dead"
 	genes = list(/datum/plant_gene/trait/repeated_harvest)
 	mutatelist = list(/obj/item/seeds/eggplant/eggy)
-	reagents_add = list(/datum/reagent/consumable/nutriment/vitamin = 0.04, /datum/reagent/consumable/nutriment = 0.1)
+	reagents_set = list(
+		/datum/reagent/consumable/nutriment = list(8, 12),
+		/datum/reagent/consumable/nutriment/vitamin = list(4, 8))
 
 /obj/item/reagent_containers/food/snacks/grown/eggplant
 	seed = /obj/item/seeds/eggplant
@@ -35,8 +37,10 @@
 	product = /obj/item/reagent_containers/food/snacks/grown/shell/eggy
 	lifespan = 75
 	production = 12
-	mutatelist = list()
-	reagents_add = list(/datum/reagent/consumable/nutriment = 0.1)
+	reagents_set = list(
+		/datum/reagent/consumable/nutriment = list(8, 12),
+		/datum/reagent/consumable/nutriment/vitamin = list(0, 4))
+	mutatelist = list(/obj/item/seeds/eggplant)
 
 /obj/item/reagent_containers/food/snacks/grown/shell/eggy
 	seed = /obj/item/seeds/eggplant/eggy

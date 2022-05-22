@@ -19,9 +19,12 @@
 	yield = 4
 	potency = 15
 	growthstages = 4
-	genes = list(/datum/plant_gene/trait/plant_type/fungal_metabolism)
+	genes = list(/datum/plant_gene/family/fungal_metabolism)
 	growing_icon = 'icons/obj/hydroponics/growing_mushrooms.dmi'
-	reagents_add = list(/datum/reagent/medicine/morphine = 0.35, /datum/reagent/medicine/charcoal = 0.35, /datum/reagent/consumable/nutriment = 0)
+	reagents_set = list(
+		/datum/reagent/consumable/nutriment = list(4, 10),
+		/datum/reagent/medicine/charcoal = list(20, 35),
+		/datum/reagent/medicine/morphine = list(25, 35))
 
 /obj/item/reagent_containers/food/snacks/grown/mushroom/reishi
 	seed = /obj/item/seeds/reishi
@@ -44,10 +47,15 @@
 	production = 5
 	yield = 4
 	growthstages = 3
-	genes = list(/datum/plant_gene/trait/plant_type/fungal_metabolism)
+	genes = list(/datum/plant_gene/family/fungal_metabolism)
 	growing_icon = 'icons/obj/hydroponics/growing_mushrooms.dmi'
 	mutatelist = list(/obj/item/seeds/angel)
-	reagents_add = list(/datum/reagent/drug/mushroomhallucinogen = 0.04, /datum/reagent/toxin/amatoxin = 0.35, /datum/reagent/consumable/nutriment = 0, /datum/reagent/growthserum = 0.1)
+
+	reagents_set = list(
+		/datum/reagent/consumable/nutriment = list(4, 10),
+		/datum/reagent/toxin/amatoxin = list(25, 35),
+		/datum/reagent/drug/mushroomhallucinogen = list(4, 15),
+		/datum/reagent/growthserum = list(10, 50))
 
 /obj/item/reagent_containers/food/snacks/grown/mushroom/amanita
 	seed = /obj/item/seeds/amanita
@@ -71,10 +79,15 @@
 	yield = 2
 	potency = 35
 	growthstages = 3
-	genes = list(/datum/plant_gene/trait/plant_type/fungal_metabolism)
+	genes = list(/datum/plant_gene/family/fungal_metabolism)
 	growing_icon = 'icons/obj/hydroponics/growing_mushrooms.dmi'
-	reagents_add = list(/datum/reagent/drug/mushroomhallucinogen = 0.04, /datum/reagent/toxin/amatoxin = 0.1, /datum/reagent/consumable/nutriment = 0, /datum/reagent/toxin/amanitin = 0.2)
+	reagents_set = list(
+		/datum/reagent/consumable/nutriment = list(4, 10),
+		/datum/reagent/toxin/amatoxin = list(10, 15),
+		/datum/reagent/toxin/amanitin = list(15, 25),
+		/datum/reagent/drug/mushroomhallucinogen = list(10, 15))
 	rarity = 30
+	mutatelist = list(/obj/item/seeds/amanita)
 
 /obj/item/reagent_containers/food/snacks/grown/mushroom/angel
 	seed = /obj/item/seeds/angel
@@ -98,9 +111,11 @@
 	yield = 5
 	potency = 15
 	growthstages = 3
-	genes = list(/datum/plant_gene/trait/plant_type/fungal_metabolism)
+	genes = list(/datum/plant_gene/family/fungal_metabolism)
 	growing_icon = 'icons/obj/hydroponics/growing_mushrooms.dmi'
-	reagents_add = list(/datum/reagent/drug/mushroomhallucinogen = 0.25, /datum/reagent/consumable/nutriment = 0.02)
+	reagents_set = list(
+		/datum/reagent/consumable/nutriment = list(2, 6),
+		/datum/reagent/drug/mushroomhallucinogen = list(20, 40))
 
 /obj/item/reagent_containers/food/snacks/grown/mushroom/libertycap
 	seed = /obj/item/seeds/liberty
@@ -123,10 +138,12 @@
 	yield = 4
 	potency = 15
 	growthstages = 3
-	genes = list(/datum/plant_gene/trait/plant_type/fungal_metabolism)
+	genes = list(/datum/plant_gene/family/fungal_metabolism)
 	growing_icon = 'icons/obj/hydroponics/growing_mushrooms.dmi'
+	reagents_set = list(
+		/datum/reagent/consumable/nutriment = list(8, 12),
+		/datum/reagent/consumable/nutriment/vitamin = list(3, 6))
 	mutatelist = list(/obj/item/seeds/plump/walkingmushroom)
-	reagents_add = list(/datum/reagent/consumable/nutriment/vitamin = 0.04, /datum/reagent/consumable/nutriment = 0.1)
 
 /obj/item/reagent_containers/food/snacks/grown/mushroom/plumphelmet
 	seed = /obj/item/seeds/plump
@@ -149,9 +166,11 @@
 	maturation = 5
 	yield = 1
 	growing_icon = 'icons/obj/hydroponics/growing_mushrooms.dmi'
-	mutatelist = list()
-	reagents_add = list(/datum/reagent/consumable/nutriment/vitamin = 0.05, /datum/reagent/consumable/nutriment = 0.15)
+	reagents_set = list(
+		/datum/reagent/consumable/nutriment = list(10, 15),
+		/datum/reagent/consumable/nutriment/vitamin = list(4, 8))
 	rarity = 30
+	mutatelist = list(/obj/item/seeds/plump)
 
 /obj/item/reagent_containers/food/snacks/grown/mushroom/walkingmushroom
 	seed = /obj/item/seeds/plump/walkingmushroom
@@ -189,9 +208,10 @@
 	yield = 5
 	potency = 15
 	growthstages = 3
-	genes = list(/datum/plant_gene/trait/plant_type/fungal_metabolism)
+	genes = list(/datum/plant_gene/family/fungal_metabolism)
 	growing_icon = 'icons/obj/hydroponics/growing_mushrooms.dmi'
-	reagents_add = list(/datum/reagent/consumable/nutriment = 0.1)
+	reagents_set = list(
+		/datum/reagent/consumable/nutriment = list(6, 12))
 	mutatelist = list(/obj/item/seeds/chanterelle/jupitercup)
 
 /obj/item/reagent_containers/food/snacks/grown/mushroom/chanterelle
@@ -214,15 +234,17 @@
 	endurance = 8
 	yield = 4
 	growthstages = 2
-	genes = list(/datum/plant_gene/trait/plant_type/fungal_metabolism, /datum/plant_gene/reagent/liquidelectricity, /datum/plant_gene/trait/plant_type/carnivory)
+	genes = list(/datum/plant_gene/family/fungal_metabolism, /datum/plant_gene/family/carnivory)
 	growing_icon = 'icons/obj/hydroponics/growing_mushrooms.dmi'
-	reagents_add = list(/datum/reagent/consumable/nutriment = 0.1)
+	reagents_set = list(
+		/datum/reagent/consumable/nutriment = list(6, 12),
+		/datum/reagent/consumable/liquidelectricity = list(20, 1))
+	mutatelist = list(/obj/item/seeds/chanter)
 
 /obj/item/seeds/chanterelle/jupitercup/Initialize(mapload,nogenes)
 	. = ..()
 	if(!nogenes)
-		unset_mutability(/datum/plant_gene/reagent/liquidelectricity, PLANT_GENE_EXTRACTABLE)
-		unset_mutability(/datum/plant_gene/trait/plant_type/carnivory, PLANT_GENE_REMOVABLE)
+		unset_mutability(/datum/plant_gene/family/carnivory, PLANT_GENE_REMOVABLE)
 
 /obj/item/reagent_containers/food/snacks/grown/mushroom/jupitercup
 	seed = /obj/item/seeds/chanterelle/jupitercup
@@ -248,10 +270,13 @@
 	potency = 30 //-> brightness
 	growthstages = 4
 	rarity = 20
-	genes = list(/datum/plant_gene/trait/glow, /datum/plant_gene/trait/plant_type/fungal_metabolism)
+	genes = list(/datum/plant_gene/trait/glow, /datum/plant_gene/family/fungal_metabolism)
 	growing_icon = 'icons/obj/hydroponics/growing_mushrooms.dmi'
 	mutatelist = list(/obj/item/seeds/glowshroom/glowcap, /obj/item/seeds/glowshroom/shadowshroom)
-	reagents_add = list(/datum/reagent/uranium/radium = 0.1, /datum/reagent/phosphorus = 0.1, /datum/reagent/consumable/nutriment = 0.04)
+	reagents_set = list(
+		/datum/reagent/consumable/nutriment = list(8, 12),
+		/datum/reagent/uranium/radium = list(5, 10),
+		/datum/reagent/phosphorus = list(5, 10))
 
 /obj/item/reagent_containers/food/snacks/grown/mushroom/glowshroom
 	seed = /obj/item/seeds/glowshroom
@@ -292,12 +317,15 @@
 	desc = "This mycelium -powers- into mushrooms!"
 	icon_state = "mycelium-glowcap"
 	species = "glowcap"
+	icon_harvest = "glowcap-harvest"
 	plantname = "Glowcaps"
 	product = /obj/item/reagent_containers/food/snacks/grown/mushroom/glowshroom/glowcap
-	genes = list(/datum/plant_gene/trait/glow/red, /datum/plant_gene/trait/cell_charge, /datum/plant_gene/trait/plant_type/fungal_metabolism)
-	mutatelist = list()
-	reagents_add = list(/datum/reagent/teslium = 0.1, /datum/reagent/consumable/nutriment = 0.04)
+	genes = list(/datum/plant_gene/trait/glow/red, /datum/plant_gene/trait/cell_charge, /datum/plant_gene/family/fungal_metabolism)
+	reagents_set = list(
+		/datum/reagent/consumable/nutriment = list(6, 12),
+		/datum/reagent/teslium = list(5, 15))
 	rarity = 30
+	mutatelist = list(/obj/item/seeds/glowshroom)
 
 /obj/item/reagent_containers/food/snacks/grown/mushroom/glowshroom/glowcap
 	seed = /obj/item/seeds/glowshroom/glowcap
@@ -315,12 +343,16 @@
 	desc = "This mycelium will grow into something shadowy."
 	icon_state = "mycelium-shadowshroom"
 	species = "shadowshroom"
+	icon_grow = "shadowshroom-grow"
+	icon_dead = "shadowshroom-dead"
 	plantname = "Shadowshrooms"
 	product = /obj/item/reagent_containers/food/snacks/grown/mushroom/glowshroom/shadowshroom
-	genes = list(/datum/plant_gene/trait/glow/shadow, /datum/plant_gene/trait/plant_type/fungal_metabolism)
-	mutatelist = list()
-	reagents_add = list(/datum/reagent/uranium/radium = 0.2, /datum/reagent/consumable/nutriment = 0.04)
+	genes = list(/datum/plant_gene/trait/glow/shadow, /datum/plant_gene/family/fungal_metabolism)
+	reagents_set = list(
+		/datum/reagent/consumable/nutriment = list(4, 12),
+		/datum/reagent/uranium/radium = list(20, 20))
 	rarity = 30
+	mutatelist = list(/obj/item/seeds/glowshroom)
 
 /obj/item/reagent_containers/food/snacks/grown/mushroom/glowshroom/shadowshroom
 	seed = /obj/item/seeds/glowshroom/shadowshroom

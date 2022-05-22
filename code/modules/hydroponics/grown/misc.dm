@@ -13,8 +13,8 @@
 	potency = 10
 	growthstages = 3
 	growing_icon = 'icons/obj/hydroponics/growing_flowers.dmi'
-	genes = list(/datum/plant_gene/trait/plant_type/weed_hardy)
-	mutatelist = list(/obj/item/seeds/galaxythistle)
+	genes = list(/datum/plant_gene/family/weed_hardy)
+	mutatelist = list(/obj/item/seeds/starthistle/corpse_flower, /obj/item/seeds/galaxythistle)
 
 /obj/item/seeds/starthistle/harvest(mob/user)
 	var/obj/machinery/hydroponics/parent = loc
@@ -27,6 +27,39 @@
 			harvestseeds.forceMove(output_loc)
 
 	parent.update_tray()
+
+// Corpse flower
+/obj/item/seeds/starthistle/corpse_flower
+	name = "pack of corpse flower seeds"
+	desc = "A species of plant that emits a horrible odor. The odor stops being produced in difficult atmospheric conditions."
+	icon_state = "seed-corpse-flower"
+	species = "corpse-flower"
+	plantname = "Corpse flower"
+	production = 2
+	growing_icon = 'icons/obj/hydroponics/growing_flowers.dmi'
+	genes = list()
+	mutatelist = list(/obj/item/seeds/starthistle)
+
+/obj/item/seeds/starthistle/corpse_flower/pre_attack(obj/machinery/hydroponics/I)
+	if(istype(I, /obj/machinery/hydroponics))
+		if(!I.myseed)
+			START_PROCESSING(SSobj, src)
+	return ..()
+
+/obj/item/seeds/starthistle/corpse_flower/process(delta_time)
+	var/obj/machinery/hydroponics/parent = loc
+	if(parent.age < maturation) // Start a little before it blooms
+		return
+
+	var/turf/open/T = get_turf(parent)
+	if(abs(ONE_ATMOSPHERE - T.return_air().return_pressure()) > (potency/10 + 10)) // clouds can begin showing at around 50-60 potency in standard atmos
+		return
+
+	var/datum/gas_mixture/stank = new
+	stank.set_moles(GAS_MIASMA, (yield + 6)*3.5*MIASMA_CORPSE_MOLES*delta_time) // this process is only being called about 2/7 as much as corpses so this is 12-32 times a corpses
+	stank.set_temperature(T20C) // without this the room would eventually freeze and miasma mining would be easier
+	T.assume_air(stank)
+	T.air_update_turf()
 
 //Galaxy Thistle
 /obj/item/seeds/galaxythistle
@@ -44,9 +77,12 @@
 	potency = 25
 	growthstages = 3
 	growing_icon = 'icons/obj/hydroponics/growing_flowers.dmi'
-	genes = list(/datum/plant_gene/trait/plant_type/weed_hardy, /datum/plant_gene/trait/invasive)
-	mutatelist = list()
-	reagents_add = list(/datum/reagent/consumable/nutriment = 0.05, /datum/reagent/medicine/silibinin = 0.1)
+	genes = list(/datum/plant_gene/family/weed_hardy, /datum/plant_gene/trait/invasive)
+	reagents_set = list(
+		/datum/reagent/consumable/nutriment = list(4, 8),
+		/datum/reagent/consumable/nutriment/vitamin = list(1, 4),
+		/datum/reagent/medicine/silibinin = list(10, 15))
+	mutatelist = list(/obj/item/seeds/starthistle)
 
 /obj/item/seeds/galaxythistle/Initialize(mapload,nogenes)
 	. = ..()
@@ -81,7 +117,9 @@
 	growing_icon = 'icons/obj/hydroponics/growing_vegetables.dmi'
 	genes = list(/datum/plant_gene/trait/repeated_harvest)
 	mutatelist = list(/obj/item/seeds/replicapod)
-	reagents_add = list(/datum/reagent/consumable/nutriment/vitamin = 0.04, /datum/reagent/consumable/nutriment = 0.1)
+	reagents_set = list(
+		/datum/reagent/consumable/nutriment = list(10, 12),
+		/datum/reagent/consumable/nutriment/vitamin = list(4, 6))
 
 /obj/item/reagent_containers/food/snacks/grown/cabbage
 	seed = /obj/item/seeds/cabbage
@@ -107,7 +145,10 @@
 	maturation = 3
 	yield = 4
 	growthstages = 3
-	reagents_add = list(/datum/reagent/consumable/sugar = 0.25)
+	reagents_set = list(
+		/datum/reagent/consumable/nutriment = list(0, 1),
+		/datum/reagent/consumable/nutriment/vitamin = list(0, 1),
+		/datum/reagent/consumable/sugar = list(25, 50))
 	mutatelist = list(/obj/item/seeds/bamboo)
 
 /obj/item/reagent_containers/food/snacks/grown/sugarcane
@@ -138,7 +179,13 @@
 	growthstages = 2
 	rarity = 60 // Obtainable only with xenobio+superluck.
 	growing_icon = 'icons/obj/hydroponics/growing_fruits.dmi'
-	reagents_add = list(/datum/reagent/sulfur = 0.1, /datum/reagent/carbon = 0.1, /datum/reagent/nitrogen = 0.07, /datum/reagent/potassium = 0.05)
+	reagents_set = list(
+		/datum/reagent/consumable/nutriment = list(0, 1),
+		/datum/reagent/consumable/nutriment/vitamin = list(0, 1),
+		/datum/reagent/carbon = list(10, 15),
+		/datum/reagent/sulfur = list(10, 15),
+		/datum/reagent/nitrogen = list(7, 15),
+		/datum/reagent/potassium = list(5, 15))
 
 /obj/item/reagent_containers/food/snacks/grown/shell/gatfruit
 	seed = /obj/item/seeds/gatfruit
@@ -160,7 +207,11 @@
 	plantname = "Cherry Bomb Tree"
 	product = /obj/item/reagent_containers/food/snacks/grown/cherry_bomb
 	mutatelist = list()
-	reagents_add = list(/datum/reagent/consumable/nutriment = 0.1, /datum/reagent/consumable/sugar = 0.1, /datum/reagent/blackpowder = 0.7)
+	reagents_set = list(
+		/datum/reagent/consumable/nutriment = list(8, 15),
+		/datum/reagent/consumable/nutriment/vitamin = list(2, 10),
+		/datum/reagent/consumable/sugar = list(10, 15),
+		/datum/reagent/blackpowder = list(70, 100))
 	rarity = 60 //See above
 
 /obj/item/reagent_containers/food/snacks/grown/cherry_bomb

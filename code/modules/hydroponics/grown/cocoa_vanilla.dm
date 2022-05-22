@@ -16,7 +16,10 @@
 	icon_dead = "cocoapod-dead"
 	genes = list(/datum/plant_gene/trait/repeated_harvest)
 	mutatelist = list(/obj/item/seeds/cocoapod/vanillapod, /obj/item/seeds/cocoapod/bungotree)
-	reagents_add = list(/datum/reagent/consumable/cocoa = 0.25, /datum/reagent/consumable/nutriment = 0.1)
+	reagents_set = list(
+		/datum/reagent/consumable/nutriment = list(10, 12),
+		/datum/reagent/consumable/nutriment/vitamin = list(0, 5),
+		/datum/reagent/consumable/cocoa = list(20, 30))
 
 /obj/item/reagent_containers/food/snacks/grown/cocoapod
 	seed = /obj/item/seeds/cocoapod
@@ -38,8 +41,11 @@
 	plantname = "Vanilla Tree"
 	product = /obj/item/reagent_containers/food/snacks/grown/vanillapod
 	genes = list(/datum/plant_gene/trait/repeated_harvest)
-	mutatelist = list()
-	reagents_add = list(/datum/reagent/consumable/vanilla = 0.25, /datum/reagent/consumable/nutriment = 0.1)
+	mutatelist = list(/obj/item/seeds/cocoapod)
+	reagents_set = list(
+		/datum/reagent/consumable/nutriment = list(10, 12),
+		/datum/reagent/consumable/nutriment/vitamin = list(0, 5),
+		/datum/reagent/consumable/vanilla = list(20, 30))
 
 /obj/item/reagent_containers/food/snacks/grown/vanillapod
 	seed = /obj/item/seeds/cocoapod/vanillapod
@@ -64,8 +70,11 @@
 	yield = 3
 	production = 7
 	genes = list(/datum/plant_gene/trait/repeated_harvest)
-	mutatelist = list()
-	reagents_add = list(/datum/reagent/consumable/enzyme = 0.1, /datum/reagent/consumable/nutriment = 0.1)
+	mutatelist = list(/obj/item/seeds/cocoapod)
+	reagents_set = list(
+		/datum/reagent/consumable/nutriment = list(10, 12),
+		/datum/reagent/consumable/nutriment/vitamin = list(0, 5),
+		/datum/reagent/consumable/enzyme = list(10, 20))
 	growthstages = 4
 	growing_icon = 'icons/obj/hydroponics/growing_fruits.dmi'
 	icon_grow = "bungotree-grow"

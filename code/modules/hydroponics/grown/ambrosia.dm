@@ -22,16 +22,29 @@
 	endurance = 25
 	yield = 6
 	potency = 5
+	maturation = 1 //temp
+	production = 1 //temp
 	icon_dead = "ambrosia-dead"
 	genes = list(/datum/plant_gene/trait/repeated_harvest)
+	family = /datum/plant_gene/family/weed_hardy
 	mutatelist = list(/obj/item/seeds/ambrosia/deus)
-	reagents_add = list(/datum/reagent/drug/space_drugs = 0.15, /datum/reagent/medicine/bicaridine = 0.1, /datum/reagent/medicine/kelotane = 0.1, /datum/reagent/consumable/nutriment/vitamin = 0.04, /datum/reagent/consumable/nutriment = 0.05, /datum/reagent/toxin = 0.1)
+
+	reagents_innate = list(
+		/datum/reagent/consumable/nutriment = 0.03)
+	reagents_set = list(
+		/datum/reagent/consumable/nutriment = list(3, 9),
+		/datum/reagent/consumable/nutriment/vitamin = list(2, 6),
+		/datum/reagent/toxin = list(5, 15),
+		/datum/reagent/medicine/bicaridine = list(5, 15),
+		/datum/reagent/medicine/kelotane = list(5, 5),
+		/datum/reagent/drug/space_drugs = list(5, 1))
 
 /obj/item/reagent_containers/food/snacks/grown/ambrosia/vulgaris
 	seed = /obj/item/seeds/ambrosia
 	name = "ambrosia vulgaris branch"
 	desc = "This is a plant containing various healing chemicals."
 	wine_power = 30
+	wine_flavor = "the regenerative power of the earth"
 
 // Ambrosia Deus
 /obj/item/seeds/ambrosia/deus
@@ -41,8 +54,13 @@
 	species = "ambrosiadeus"
 	plantname = "Ambrosia Deus"
 	product = /obj/item/reagent_containers/food/snacks/grown/ambrosia/deus
-	mutatelist = list(/obj/item/seeds/ambrosia/gaia)
-	reagents_add = list(/datum/reagent/medicine/omnizine = 0.15, /datum/reagent/medicine/synaptizine = 0.15, /datum/reagent/drug/space_drugs = 0.1, /datum/reagent/consumable/nutriment/vitamin = 0.04, /datum/reagent/consumable/nutriment = 0.05)
+	mutatelist = list(/obj/item/seeds/ambrosia, /obj/item/seeds/ambrosia/gaia)
+	reagents_set = list(
+		/datum/reagent/consumable/nutriment = list(3, 9),
+		/datum/reagent/consumable/nutriment/vitamin = list(2, 6),
+		/datum/reagent/medicine/omnizine = list(2, 6),
+		/datum/reagent/medicine/synaptizine = list(5, 15),
+		/datum/reagent/drug/space_drugs = list(5, 10))
 	rarity = 40
 
 /obj/item/reagent_containers/food/snacks/grown/ambrosia/deus
@@ -52,6 +70,7 @@
 	icon_state = "ambrosiadeus"
 	filling_color = "#008B8B"
 	wine_power = 50
+	wine_flavor = "the faint immortality of the gods"
 	discovery_points = 300
 
 //Ambrosia Gaia
@@ -63,7 +82,13 @@
 	plantname = "Ambrosia Gaia"
 	product = /obj/item/reagent_containers/food/snacks/grown/ambrosia/gaia
 	mutatelist = list(/obj/item/seeds/ambrosia/deus)
-	reagents_add = list(/datum/reagent/medicine/earthsblood = 0.05, /datum/reagent/consumable/nutriment = 0.06, /datum/reagent/consumable/nutriment/vitamin = 0.05)
+
+	reagents_innate = list(
+		/datum/reagent/medicine/earthsblood = 0.03)
+	reagents_set = list(
+		/datum/reagent/consumable/nutriment = list(4, 12),
+		/datum/reagent/consumable/nutriment/vitamin = list(3, 9),
+		/datum/reagent/medicine/earthsblood = list(3, 9))
 	rarity = 30 //These are some pretty good plants right here
 	genes = list()
 	weed_rate = 4

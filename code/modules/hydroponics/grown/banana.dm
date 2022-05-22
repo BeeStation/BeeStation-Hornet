@@ -10,9 +10,14 @@
 	endurance = 30
 	growing_icon = 'icons/obj/hydroponics/growing_fruits.dmi'
 	icon_dead = "banana-dead"
+	bitesize_mod = 5
 	genes = list(/datum/plant_gene/trait/slip, /datum/plant_gene/trait/repeated_harvest)
 	mutatelist = list(/obj/item/seeds/banana/mime, /obj/item/seeds/banana/bluespace)
-	reagents_add = list(/datum/reagent/consumable/banana = 0.1, /datum/reagent/potassium = 0.1, /datum/reagent/consumable/nutriment/vitamin = 0.04, /datum/reagent/consumable/nutriment = 0.02)
+	reagents_set = list(
+		/datum/reagent/consumable/nutriment = list(2, 6),
+		/datum/reagent/consumable/nutriment/vitamin = list(3, 9),
+		/datum/reagent/consumable/banana = list(5, 5),
+		/datum/reagent/potassium = list(5, 10))
 
 /obj/item/reagent_containers/food/snacks/grown/banana
 	seed = /obj/item/seeds/banana
@@ -69,9 +74,12 @@
 	plantname = "Mimana Tree"
 	product = /obj/item/reagent_containers/food/snacks/grown/banana/mime
 	growthstages = 4
-	mutatelist = list()
-	reagents_add = list(/datum/reagent/consumable/nothing = 0.1, /datum/reagent/toxin/mutetoxin = 0.1, /datum/reagent/consumable/nutriment = 0.02)
+	reagents_set = list(
+		/datum/reagent/consumable/nutriment = list(2, 6),
+		/datum/reagent/consumable/nothing = list(5, 20),
+		/datum/reagent/toxin/mutetoxin = list(5, 15))
 	rarity = 15
+	mutatelist = list(/obj/item/seeds/banana)
 
 /obj/item/reagent_containers/food/snacks/grown/banana/mime
 	seed = /obj/item/seeds/banana/mime
@@ -101,7 +109,11 @@
 	product = /obj/item/reagent_containers/food/snacks/grown/banana/bluespace
 	mutatelist = list()
 	genes = list(/datum/plant_gene/trait/slip, /datum/plant_gene/trait/teleport, /datum/plant_gene/trait/repeated_harvest)
-	reagents_add = list(/datum/reagent/bluespace = 0.2, /datum/reagent/consumable/banana = 0.1, /datum/reagent/consumable/nutriment/vitamin = 0.04, /datum/reagent/consumable/nutriment = 0.02)
+	reagents_set = list(
+		/datum/reagent/consumable/nutriment = list(2, 8),
+		/datum/reagent/consumable/nutriment/vitamin = list(3, 12),
+		/datum/reagent/consumable/banana = list(10, 20),
+		/datum/reagent/bluespace = list(10, 20))
 	rarity = 30
 
 /obj/item/reagent_containers/food/snacks/grown/banana/bluespace

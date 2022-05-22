@@ -9,9 +9,10 @@
 	endurance = 40 // tuff like a toiger
 	yield = 4
 	growthstages = 5
-	genes = list(/datum/plant_gene/trait/repeated_harvest, /datum/plant_gene/trait/plant_type/weed_hardy)
+	genes = list(/datum/plant_gene/trait/repeated_harvest, /datum/plant_gene/family/weed_hardy)
 	mutatelist = list(/obj/item/seeds/nettle/death)
-	reagents_add = list(/datum/reagent/toxin/acid = 0.25)
+	reagents_set = list(
+		/datum/reagent/toxin/acid = list(50, 25))
 
 /obj/item/seeds/nettle/death
 	name = "pack of death-nettle seeds"
@@ -23,9 +24,11 @@
 	endurance = 25
 	maturation = 8
 	yield = 2
-	genes = list(/datum/plant_gene/trait/repeated_harvest, /datum/plant_gene/trait/plant_type/weed_hardy, /datum/plant_gene/trait/stinging)
-	mutatelist = list()
-	reagents_add = list(/datum/reagent/toxin/acid/fluacid = 0.25)
+	genes = list(/datum/plant_gene/trait/repeated_harvest, /datum/plant_gene/family/weed_hardy, /datum/plant_gene/trait/stinging)
+	mutatelist = list(/obj/item/seeds/nettle)
+	reagents_set = list(
+		/datum/reagent/toxin/acid/fluacid = list(50, 25),
+		/datum/reagent/toxin/acid = list(25, 50))
 	rarity = 20
 
 /obj/item/reagent_containers/food/snacks/grown/nettle // "snack"

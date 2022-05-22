@@ -16,7 +16,10 @@
 	icon_dead = "grass-dead"
 	genes = list(/datum/plant_gene/trait/repeated_harvest)
 	mutatelist = list(/obj/item/seeds/grass/carpet, /obj/item/seeds/grass/fairy)
-	reagents_add = list(/datum/reagent/consumable/nutriment = 0.02, /datum/reagent/hydrogen = 0.05)
+	reagents_set = list(
+		/datum/reagent/consumable/nutriment = list(2, 5),
+		/datum/reagent/consumable/nutriment/vitamin = list(0, 2),
+		/datum/reagent/hydrogen = list(4, 7))
 
 /obj/item/reagent_containers/food/snacks/grown/grass
 	seed = /obj/item/seeds/grass
@@ -49,8 +52,13 @@
 	plantname = "Fairygrass"
 	product = /obj/item/reagent_containers/food/snacks/grown/grass/fairy
 	icon_grow = "fairygrass-grow"
+	icon_dead = "grass-dead"
 	genes = list(/datum/plant_gene/trait/repeated_harvest, /datum/plant_gene/trait/glow/blue)
-	reagents_add = list(/datum/reagent/consumable/nutriment = 0.02, /datum/reagent/hydrogen = 0.05, /datum/reagent/drug/space_drugs = 0.15)
+	reagents_set = list(
+		/datum/reagent/consumable/nutriment = list(2, 5),
+		/datum/reagent/consumable/nutriment/vitamin = list(0, 2),
+		/datum/reagent/drug/space_drugs = list(10, 15))
+	mutatelist = list(/obj/item/seeds/grass)
 
 /obj/item/reagent_containers/food/snacks/grown/grass/fairy
 	seed = /obj/item/seeds/grass/fairy
@@ -95,10 +103,14 @@
 	name = "pack of carpet seeds"
 	desc = "These seeds grow into stylish carpet samples."
 	icon_state = "seed-carpet"
-	species = "carpet"
+	species = /datum/reagent/carpet
 	plantname = "Carpet"
 	product = /obj/item/reagent_containers/food/snacks/grown/grass/carpet
-	mutatelist = list()
+	reagents_set = list(
+		/datum/reagent/consumable/nutriment = list(2, 5),
+		/datum/reagent/consumable/nutriment/vitamin = list(0, 2),
+		/datum/reagent/hydrogen = list(5, 12))
+	mutatelist = list(/obj/item/seeds/grass)
 	rarity = 10
 
 /obj/item/reagent_containers/food/snacks/grown/grass/carpet

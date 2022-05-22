@@ -11,8 +11,10 @@
 	icon_grow = "tomato-grow"
 	icon_dead = "tomato-dead"
 	genes = list(/datum/plant_gene/trait/squash, /datum/plant_gene/trait/repeated_harvest)
+	reagents_set = list(
+		/datum/reagent/consumable/nutriment = list(6, 12),
+		/datum/reagent/consumable/nutriment/vitamin = list(2, 6))
 	mutatelist = list(/obj/item/seeds/tomato/blue, /obj/item/seeds/tomato/blood, /obj/item/seeds/tomato/killer)
-	reagents_add = list(/datum/reagent/consumable/nutriment/vitamin = 0.04, /datum/reagent/consumable/nutriment = 0.1)
 
 /obj/item/reagent_containers/food/snacks/grown/tomato
 	seed = /obj/item/seeds/tomato
@@ -35,9 +37,12 @@
 	species = "bloodtomato"
 	plantname = "Blood-Tomato Plants"
 	product = /obj/item/reagent_containers/food/snacks/grown/tomato/blood
-	mutatelist = list()
-	reagents_add = list(/datum/reagent/blood = 0.2, /datum/reagent/consumable/nutriment/vitamin = 0.04, /datum/reagent/consumable/nutriment = 0.1)
+	reagents_set = list(
+		/datum/reagent/consumable/nutriment = list(6, 12),
+		/datum/reagent/consumable/nutriment/vitamin = list(2, 6),
+		/datum/reagent/blood = list(10, 30))
 	rarity = 20
+	mutatelist = list(/obj/item/seeds/tomato)
 
 /obj/item/reagent_containers/food/snacks/grown/tomato/blood
 	seed = /obj/item/seeds/tomato/blood
@@ -66,10 +71,13 @@
 	product = /obj/item/reagent_containers/food/snacks/grown/tomato/blue
 	yield = 2
 	icon_grow = "bluetomato-grow"
-	mutatelist = list(/obj/item/seeds/tomato/blue/bluespace)
 	genes = list(/datum/plant_gene/trait/slip, /datum/plant_gene/trait/repeated_harvest)
-	reagents_add = list(/datum/reagent/lube = 0.2, /datum/reagent/consumable/nutriment/vitamin = 0.04, /datum/reagent/consumable/nutriment = 0.1)
+	reagents_set = list(
+		/datum/reagent/consumable/nutriment = list(8, 12),
+		/datum/reagent/consumable/nutriment/vitamin = list(2, 6),
+		/datum/reagent/lube = list(25, 20))
 	rarity = 20
+	mutatelist = list(/obj/item/seeds/tomato, /obj/item/seeds/tomato/blue/bluespace)
 
 /obj/item/reagent_containers/food/snacks/grown/tomato/blue
 	seed = /obj/item/seeds/tomato/blue
@@ -90,10 +98,14 @@
 	plantname = "Bluespace Tomato Plants"
 	product = /obj/item/reagent_containers/food/snacks/grown/tomato/blue/bluespace
 	yield = 2
-	mutatelist = list()
 	genes = list(/datum/plant_gene/trait/squash, /datum/plant_gene/trait/slip, /datum/plant_gene/trait/teleport, /datum/plant_gene/trait/repeated_harvest)
-	reagents_add = list(/datum/reagent/lube = 0.2, /datum/reagent/bluespace = 0.2, /datum/reagent/consumable/nutriment/vitamin = 0.04, /datum/reagent/consumable/nutriment = 0.1)
+	reagents_set = list(
+		/datum/reagent/consumable/nutriment = list(8, 12),
+		/datum/reagent/consumable/nutriment/vitamin = list(2, 6),
+		/datum/reagent/bluespace = list(20, 20),
+		/datum/reagent/lube = list(25, 20))
 	rarity = 50
+	mutatelist = list(/obj/item/seeds/tomato/blue)
 
 /obj/item/reagent_containers/food/snacks/grown/tomato/blue/bluespace
 	seed = /obj/item/seeds/tomato/blue/bluespace
@@ -118,8 +130,11 @@
 	icon_grow = "killertomato-grow"
 	icon_harvest = "killertomato-harvest"
 	icon_dead = "killertomato-dead"
-	mutatelist = list()
+	reagents_set = list(
+		/datum/reagent/consumable/nutriment = list(6, 12),
+		/datum/reagent/consumable/nutriment/vitamin = list(2, 6))
 	rarity = 30
+	mutatelist = list(/obj/item/seeds/tomato)
 
 /obj/item/reagent_containers/food/snacks/grown/tomato/killer
 	seed = /obj/item/seeds/tomato/killer
@@ -145,7 +160,7 @@
 	awakening = TRUE
 	log_game("[key_name(user)] awakened a killer tomato at [AREACOORD(user)].")
 	addtimer(CALLBACK(src, .proc/make_killer_tomato), 30)
-	
+
 /obj/item/reagent_containers/food/snacks/grown/tomato/killer/proc/make_killer_tomato()
 	if(!QDELETED(src))
 		var/mob/living/simple_animal/hostile/killertomato/K = new /mob/living/simple_animal/hostile/killertomato(get_turf(src.loc))

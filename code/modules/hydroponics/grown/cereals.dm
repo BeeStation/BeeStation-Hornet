@@ -10,8 +10,10 @@
 	yield = 4
 	potency = 15
 	icon_dead = "wheat-dead"
+	reagents_set = list(
+		/datum/reagent/consumable/nutriment = list(4, 6),
+		/datum/reagent/consumable/nutriment/vitamin = list(0, 2)) // intentional. discovery purpose.
 	mutatelist = list(/obj/item/seeds/wheat/oat, /obj/item/seeds/wheat/meat)
-	reagents_add = list(/datum/reagent/consumable/nutriment = 0.04)
 
 /obj/item/reagent_containers/food/snacks/grown/wheat
 	seed = /obj/item/seeds/wheat
@@ -34,7 +36,10 @@
 	species = "oat"
 	plantname = "Oat Stalks"
 	product = /obj/item/reagent_containers/food/snacks/grown/oat
-	mutatelist = list()
+	reagents_set = list(
+		/datum/reagent/consumable/nutriment = list(4, 6),
+		/datum/reagent/consumable/nutriment/vitamin = list(0, 3)) // intentional. discovery purpose.
+	mutatelist = list(/obj/item/seeds/wheat)
 
 /obj/item/reagent_containers/food/snacks/grown/oat
 	seed = /obj/item/seeds/wheat/oat
@@ -55,11 +60,14 @@
 	name = "pack of rice seeds"
 	desc = "These may, or may not, grow into rice."
 	icon_state = "seed-rice"
-	species = "rice"
+	species = /datum/reagent/consumable/rice
 	plantname = "Rice Stalks"
 	product = /obj/item/reagent_containers/food/snacks/grown/rice
-	mutatelist = list()
+	reagents_set = list(
+		/datum/reagent/consumable/nutriment = list(4, 6),
+		/datum/reagent/consumable/nutriment/vitamin = list(0, 2)) // intentional. discovery purpose.
 	growthstages = 3
+	mutatelist = list()
 
 /obj/item/reagent_containers/food/snacks/grown/rice
 	seed = /obj/item/seeds/wheat/rice
@@ -82,7 +90,10 @@
 	species = "meatwheat"
 	plantname = "Meatwheat"
 	product = /obj/item/reagent_containers/food/snacks/grown/meatwheat
-	mutatelist = list()
+	reagents_set = list(
+		/datum/reagent/consumable/nutriment = list(4, 6),
+		/datum/reagent/consumable/nutriment/vitamin = list(0, 3)) // intentional. discovery purpose.
+	mutatelist = list(/obj/item/seeds/wheat)
 
 /obj/item/reagent_containers/food/snacks/grown/meatwheat
 	name = "meatwheat"
