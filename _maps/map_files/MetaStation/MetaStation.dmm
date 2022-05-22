@@ -4375,9 +4375,7 @@
 /area/crew_quarters/fitness/recreation)
 "ahR" = (
 /obj/structure/displaycase/captain{
-	pixel_y = 5;
-	req_access = null;
-	req_access_txt = "20"
+	pixel_y = 5
 	},
 /obj/machinery/status_display/evac{
 	pixel_y = 32

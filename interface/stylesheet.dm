@@ -161,6 +161,7 @@ h1.alert, h2.alert		{color: #000000;}
 .bigassimilator			{color: #800080;	font-size: 4 ; font-weight: bold;}
 
 .spider					{color: #4d004d;}
+.spiderlarge			{color: #4d004d;	font-size: 3 ; font-weight: bold;}
 
 .interface				{color: #330033;}
 
