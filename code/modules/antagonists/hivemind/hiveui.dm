@@ -52,6 +52,10 @@
 		if(hivetarget == hivehost.hiveID)
 			to_chat(ourhive, "<span class='notice'>We cannot track ourselves!</span>")
 			return
+		if(hivehost.searchcharge <= 0)
+			to_chat(ourhive, "<span class='notice'>We don't have any tracking charges!</span>")
+			return
+		hivehost.searchcharge -= 1
 		if(!do_after(ourhive,5,0,ourhive))
 			to_chat(ourhive, "<span class='notice'>Our concentration has been broken!</span>")
 		else

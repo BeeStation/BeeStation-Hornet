@@ -59,7 +59,7 @@
 	if(HAS_TRAIT(target, TRAIT_HIVE_BURNT))
 		to_chat(user, "<span class='notice'>This mind was ridden bare and holds no value anymore.</span>")
 		return
-	if(target.stat != DEAD) //target.mind && target.client && target.stat != DEAD
+	if(target.mind && target.client && target.stat != DEAD)
 		if((!HAS_TRAIT(target, TRAIT_MINDSHIELD) || ignore_mindshield) && !istype(target.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat))
 			if(HAS_TRAIT(target, TRAIT_MINDSHIELD) && ignore_mindshield)
 				to_chat(user, "<span class='notice'>We bruteforce our way past the mental barriers of [target.name] and begin linking our minds!</span>")
@@ -416,8 +416,11 @@
 			return
 	to_chat(target, "<span class='userdanger'>You mind is shattered!</span>")
 	hivehost.isintegrating = FALSE
+	var/datum/antagonist/hivemind/enemy = target.mind.has_antag_datum(/datum/antagonist/hivemind)
+	enemy.destroy_hive() //Just in case
 	target.gib()
 	hivehost.size_mod += 5
+	hivehost.avessel_limit += 1
 	flash_color(user, flash_color="#800080", flash_time=10)
 	to_chat(user,"<span class='assimilator'>We have reclaimed what gifts weaker minds were squandering and gain ever more insight on our psionic abilities.</span>")
 	to_chat(user,"<span class='assimilator'>Thanks to this new strenght we may awaken an additional vessel..</span>")
@@ -453,7 +456,7 @@
 
 /obj/effect/proc_holder/spell/targeted/forcewall/hive
 	name = "Telekinetic Field"
-	desc = "Our psionic powers form a barrier around us in the phsyical world that only we can pass through."
+	desc = "Our psionic powers form a barrier around us in the physical world that only we can pass through."
 	panel = "Hivemind Abilities"
 	charge_max = 600
 	clothes_req = 0
@@ -548,7 +551,7 @@
 		return
 	var/directive = stripped_input(user, "What objective do you want to give that vessel?", "Objective")
 
-	if(target.stat != DEAD) //target.mind && target.client && target.stat != DEAD
+	if(target.mind && target.client && target.stat != DEAD)
 		if((!HAS_TRAIT(target, TRAIT_MINDSHIELD)) && !istype(target.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat))
 			if(!is_hivehost(target))
 				target.hive_weak_awaken(directive)
@@ -637,6 +640,9 @@
 	if(!hivehost)
 		to_chat(user, "<span class='notice'>This is a bug. Error:HIVE1</span>")
 		return
+	if(hivehost.avessels.len >= hivehost.avessel_limit)
+		to_chat(user, "<span class='notice'>We can't support another awakened vessel!</span>")
+		return
 	var/mob/living/carbon/human/target = user.pulling
 	if(!target)
 		to_chat(user, "<span class='warning'>We must be grabbing a creature to awaken them!</span>")
@@ -679,6 +685,8 @@
 	target.mind.add_antag_datum(V)
 	flash_color(user, flash_color="#800080", flash_time=10)
 	to_chat(user,"<span class='assimilator'>This vessel is now an extension of our will.</span>")
+	if(hivehost.unlocked_dominance)
+		target.add_overlay(hivehost.glow)
 
 /obj/effect/proc_holder/spell/self/hive_comms/cast(mob/living/user = usr)
 	var/message = stripped_input(user, "What do you want to say?", "Hive Communication")
@@ -744,7 +752,7 @@
 	antimagic_allowed = TRUE
 	action_icon = 'icons/mob/actions/actions_hive.dmi'
 	action_background_icon_state = "bg_hive"
-	action_icon_state = "sleep"
+	action_icon_state = "rally"
 
 /obj/effect/proc_holder/spell/targeted/hive_rally/cast(list/targets, mob/living/user = usr)
 	var/datum/antagonist/hivemind/hive = user.mind.has_antag_datum(/datum/antagonist/hivemind)
@@ -769,5 +777,56 @@
 		affected.SetImmobilized(0)
 		affected.SetParalyzed(0)
 		affected.adjustStaminaLoss(-200)
+
+
+/obj/effect/proc_holder/spell/self/hive_dominance
+	name = "One Mind"
+	desc = "Our true power... finally within reach."
+	panel = "Hivemind Abilities"
+	charge_type = "charges"
+	charge_max = 1
+	invocation_type = "none"
+	clothes_req = 0
+	human_req = 1
+	action_icon = 'icons/mob/actions/actions_hive.dmi'
+	action_background_icon_state = "bg_hive"
+	action_icon_state = "assim"
+	antimagic_allowed = TRUE
+
+/obj/effect/proc_holder/spell/self/hive_dominance/cast(mob/living/user = usr)
+	var/datum/antagonist/hivemind/hive = user.mind.has_antag_datum(/datum/antagonist/hivemind)
+	if(!hive)
+		to_chat(user, "<span class='notice'>This is a bug. Error:HIVE1</span>")
+		return
+	hive.glow = mutable_appearance('icons/effects/hivemind.dmi', "awoken", -BODY_BEHIND_LAYER)
+	for(var/datum/antagonist/hivevessel/vessel in hive.avessels)
+		var/mob/living/carbon/C = vessel.owner?.current
+		C.Jitter(15)
+		C.Unconscious(150)
+		to_chat(C, "<span class='boldwarning'>Something's wrong...</span>")
+		addtimer(CALLBACK(GLOBAL_PROC, /proc/to_chat, C, "<span class='boldwarning'>...your memories are becoming fuzzy.</span>"), 45)
+		addtimer(CALLBACK(GLOBAL_PROC, /proc/to_chat, C, "<span class='boldwarning'>You try to remember who you are...</span>"), 90)
+		addtimer(CALLBACK(GLOBAL_PROC, /proc/to_chat, C, "<span class='assimilator'>There is no you...</span>"), 110)
+		addtimer(CALLBACK(GLOBAL_PROC, /proc/to_chat, C, "<span class='bigassimilator'>...there is only us.</span>"), 130)
+		addtimer(CALLBACK(C, /atom/proc/add_overlay, hive.glow), 150)
+
+	for(var/datum/antagonist/hivemind/enemy in GLOB.hivehosts)
+		if(enemy.owner)
+			enemy.owner.RemoveSpell(new/obj/effect/proc_holder/spell/self/hive_dominance)
+			var/mob/living/carbon/C = enemy.owner?.current
+			if(!enemy.hiveID == hive.hiveID)
+				to_chat(C, "<span class='boldwarning'>Something's wrong...</span>")
+				addtimer(CALLBACK(GLOBAL_PROC, /proc/to_chat, C, "<span class='boldwarning'>...a new presence.</span>"), 45)
+				addtimer(CALLBACK(GLOBAL_PROC, /proc/to_chat, C, "<span class='boldwarning'>It feels overwhelming...</span>"), 90)
+				addtimer(CALLBACK(GLOBAL_PROC, /proc/to_chat, C, "<span class='assimilator'>It can't be!</span>"), 110)
+				addtimer(CALLBACK(GLOBAL_PROC, /proc/to_chat, C, "<span class='bigassimilator'>Get away, run!</span>"), 130)
+	sound_to_playing_players('sound/effects/one_mind.ogg')
+	addtimer(CALLBACK(user, /atom/proc/add_overlay, hive.glow), 150)
+	addtimer(CALLBACK(hive, /datum/antagonist/hivemind/proc/dominance), 150)
+	addtimer(CALLBACK(GLOBAL_PROC, /proc/send_to_playing_players, "<span class='bigassimilator'>THE ONE MIND RISES</span>"), 150)
+	addtimer(CALLBACK(GLOBAL_PROC, /proc/sound_to_playing_players, 'sound/effects/magic.ogg'), 150)
+
+
+
 
 

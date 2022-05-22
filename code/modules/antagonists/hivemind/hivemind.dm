@@ -11,13 +11,14 @@
 	var/track_bonus = 0 // Bonus time to your tracking abilities
 	var/size_mod = 0 // Bonus size for using reclaim
 	var/list/individual_track_bonus = list() // Bonus time to tracking individual targets
-	var/unlocked_one_mind = FALSE
+	var/unlocked_dominance = FALSE
 	var/mutable_appearance/glow
 	var/isintegrating = 0
 	var/hiveID = "Hivemind"
 	var/searchcharge = 0
 	var/datum/psychic_plane/psychic_plane
 	var/datum/action/innate/psychic_plane/plane_action
+	var/avessel_limit = 1
 
 	var/list/upgrade_tiers = list(
 		//Tier 1 - Roundstart powers
@@ -69,6 +70,19 @@
 			owner.AddSpell(the_spell)
 			if(hive_size > 0)
 				to_chat(owner, "<span class='assimilator'>We have unlocked [the_spell.name].</span><span class='bold'> [the_spell.desc]</span>")
+	if(!unlocked_dominance && hive_size >= 20)
+		var/lead = TRUE
+		for(var/datum/antagonist/hivemind/enemy in GLOB.hivehosts)
+			if(enemy == src)
+				continue
+			if(!enemy.unlocked_dominance && enemy.hive_size <= hive_size + size_mod - 20 && enemy.size_mod <= size_mod)
+				continue
+			lead = FALSE
+			break
+		if(lead)
+			unlocked_dominance = TRUE
+			owner.AddSpell(/obj/effect/proc_holder/spell/self/hive_dominance)
+			to_chat(owner, "<span class='assimilator'>Our strenght overflowing and our competitors left in the dust, we can proclaim our Dominance and enter a heightened state.</span>")
 
 /datum/antagonist/hivemind/proc/add_to_hive(mob/living/carbon/C)
 	if(!C)
@@ -249,3 +263,18 @@
 	QDEL_NULL(psychic_plane)
 	QDEL_NULL(plane_action)
 	return ..()
+
+/datum/antagonist/hivemind/proc/dominance()
+	if(!owner?.current)
+		return
+	var/mob/living/carbon/C = owner.current
+	if(!C)
+		return
+	ADD_TRAIT(C, TRAIT_STUNIMMUNE, HIVEMIND_TRAIT)
+	ADD_TRAIT(C, TRAIT_SLEEPIMMUNE, HIVEMIND_TRAIT)
+	ADD_TRAIT(C, TRAIT_VIRUSIMMUNE, HIVEMIND_TRAIT)
+	ADD_TRAIT(C, TRAIT_NOLIMBDISABLE, HIVEMIND_TRAIT)
+	ADD_TRAIT(C, TRAIT_NOHUNGER, HIVEMIND_TRAIT)
+	ADD_TRAIT(C, TRAIT_NODISMEMBER, HIVEMIND_TRAIT)
+	ADD_TRAIT(C, TRAIT_NOSOFTCRIT, HIVEMIND_TRAIT)
+	ADD_TRAIT(C, TRAIT_NOHARDCRIT, HIVEMIND_TRAIT)

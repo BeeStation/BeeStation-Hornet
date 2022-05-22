@@ -9,6 +9,7 @@
 	var/hiveID = "Hivemind"
 	var/datum/antagonist/hivemind/master
 	var/special_role = ROLE_HIVE_VESSEL
+	var/mutable_appearance/glow
 
 
 /mob/living/proc/is_wokevessel()
@@ -42,6 +43,8 @@
 /datum/antagonist/hivevessel/on_removal()
 	if(master)
 		to_chat(master.owner, "<span class='assimilator'>A figment of our conciousness snaps out, we have lost an awakened vessel!</span>")
+	if(owner?.current && glow)
+		owner.current.cut_overlay(glow)
 	owner.special_role = null
 	master.avessels -= owner
 	master = null

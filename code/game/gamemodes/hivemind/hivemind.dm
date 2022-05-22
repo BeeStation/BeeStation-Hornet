@@ -1,15 +1,15 @@
 GLOBAL_LIST_EMPTY(hivehosts)
 
 /datum/game_mode/hivemind
-	name = "Assimilation"
+	name = "assimilation"
 	config_tag = "hivemind"
 	report_type = "hivemind"
 	antag_flag = ROLE_HIVE
 	false_report_weight = 5
 	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain")
 	restricted_jobs = list("Cyborg","AI")
-	required_players = 24
-	required_enemies = 2
+	required_players = 40
+	required_enemies = 3
 	recommended_enemies = 3
 	reroll_friendly = 1
 	enemy_minimum_age = 0
@@ -75,7 +75,7 @@ GLOBAL_LIST_EMPTY(hivehosts)
 	if(CONFIG_GET(flag/protect_heads_from_antagonist))
 		restricted_jobs += GLOB.command_positions
 
-	var/num_hosts = max( 1 , rand(0,1) + min(8, round(num_players() / 8) ) ) //1 host for every 8 players up to 64, with a 50% chance of an extra
+	var/num_hosts = max( 3 , rand(0,1) + min(8, round(num_players() / 8) ) ) //1 host for every 8 players up to 64, with a 50% chance of an extra
 
 	for(var/j = 0, j < num_hosts, j++)
 		if (!antag_candidates.len)

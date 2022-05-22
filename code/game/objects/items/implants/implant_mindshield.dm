@@ -41,8 +41,8 @@
 						if(C.mind)
 							to_chat(C, "<span class='assimilator'>We detect a surge of psionic energy from a far away vessel before they disappear from the hive. Whatever happened, there's a good chance they're after us now.</span>")
 			if(target.is_wokevessel())
-				target.mind.remove_antag_datum(/datum/antagonist/hivevessel)TRAIT_HIVE_BURNT
-				ADD_TRAIT(target, TRAIT_HIVE_BURNT, INNATE_TRAIT)
+				target.mind.remove_antag_datum(/datum/antagonist/hivevessel)
+				ADD_TRAIT(target, TRAIT_HIVE_BURNT, HIVEMIND_TRAIT)
 			to_chat(target, "<span class='assimilator'>You hear supernatural wailing echo throughout your mind as you are finally set free. Deep down, you can feel the lingering presence of those who enslaved you... as can they!</span>")
 			remove_hivemember(target)
 
