@@ -146,59 +146,58 @@
 	return index && hand_bodyparts[index]
 
 /**
- * Proc called when giving an item to another player
+ * Proc called when offering an item to another player
  *
  * This handles creating an alert and adding an overlay to it
  */
 
 /mob/living/carbon/proc/give()
-	var/alert = null
-	var/obj/item/receiving = get_active_held_item()
-	if(!receiving)
+	var/obj/item/offered_item = get_active_held_item()
+	if(!offered_item)
 		to_chat(src, "<span class='warning'>You're not holding anything to give!</span>")
 		return
 
-	for(var/mob/living/carbon/C in orange(1, src)) //Fixed that, now it shouldn't be able to give benos stunbatons and IDs
-		if(!CanReach(C) || !C.can_hold_items())
-			continue
+	if(IS_DEAD_OR_INCAP(src))
+		to_chat(src, "<span class='warning'>You're unable to offer anything in your current state!</span>")
+		return
+	if(has_status_effect(STATUS_EFFECT_OFFERING))
+		to_chat(src, "<span class='warning'>You're already offering up something!</span>")
+		return
 
-		var/atom/movable/screen/alert/give/G = C.throw_alert("[src]", /atom/movable/screen/alert/give)
-		if(!G)
-			to_chat(src, "<span class='warning'>There is nobody nearby to give [receiving]!</span>")
-			continue
+	if(offered_item.on_offered(src)) // see if the item interrupts with its own behavior
+		return
 
-		G.setup(C, src, receiving)
+	visible_message("<span class='notice'>[src] is offering [offered_item].</span>", \
+					"<span class='notice'>You offer [offered_item].</span>", null, 2)
 
-		if(!alert) // only displays alert once
-			do_alert_animation(src)
-			visible_message("<span class='notice'>[src] is offering [receiving].</span>", \
-							"<span class='notice'>You offer [receiving].</span>", null, 2)
-		alert=1 // disable alert animation and chat message for possible second alert
+	apply_status_effect(STATUS_EFFECT_OFFERING, offered_item)
 
 /**
  * Proc called when the player clicks the give alert
  *
- * Handles checking if the player taking the item has open slots and is in range of the giver
+ * Handles checking if the player taking the item has open slots and is in range of the offerer
  * Also deals with the actual transferring of the item to the players hands
  * Arguments:
- * * giver - The person giving the original item
- * * I - The item being given by the giver
+ * * offerer - The person giving the original item
+ * * I - The item being given by the offerer
  */
 
-/mob/living/carbon/proc/take(mob/living/carbon/giver, obj/item/I)
-	clear_alert("[giver]")
-	if(get_dist(src, giver) > 1)
-		to_chat(src, "<span class='warning'>[giver] is out of range! </span>")
+/mob/living/carbon/proc/take(mob/living/carbon/offerer, obj/item/I)
+	clear_alert("[offerer]")
+	if(get_dist(src, offerer) > 1)
+		to_chat(src, "<span class='warning'>[offerer] is out of range!</span>")
 		return
-	if(!I || giver.get_active_held_item() != I)
-		to_chat(src, "<span class='warning'>[giver] is no longer holding the item they were offering! </span>")
+	if(!I || offerer.get_active_held_item() != I)
+		to_chat(src, "<span class='warning'>[offerer] is no longer holding the item they were offering! </span>")
 		return
 	if(!get_empty_held_indexes())
 		to_chat(src, "<span class='warning'>You have no empty hands!</span>")
 		return
-	if(!giver.temporarilyRemoveItemFromInventory(I))
-		visible_message("<span class='notice'>[giver] tries to hand over [I] but it's stuck to them....</span>")
+	if(I.on_offer_taken(offerer, src)) // see if the item has special behavior for being accepted
 		return
-	visible_message("<span class='notice'>[src] takes [I] from [giver]</span>", \
-					"<span class='notice'>You take [I] from [giver]</span>")
+	if(!offerer.temporarilyRemoveItemFromInventory(I))
+		visible_message("<span class='notice'>[offerer] tries to hand over [I] but it's stuck to them....</span>")
+		return
+	visible_message("<span class='notice'>[src] takes [I] from [offerer]</span>", \
+					"<span class='notice'>You take [I] from [offerer]</span>")
 	put_in_hands(I)
