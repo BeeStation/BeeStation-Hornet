@@ -199,6 +199,9 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 	highlight("#f00")
 	#endif
 
+	if(SSshuttle.shuttles_loaded)
+		load_roundstart()
+
 /obj/docking_port/stationary/Destroy(force)
 	if(force)
 		SSshuttle.stationary -= src
@@ -306,7 +309,11 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 	//The virtual Z-Value of the shuttle
 	var/virtual_z
 
+	var/sound_played = 0 //If the launch sound has been sent to all players on the shuttle itself
+
 	var/shuttle_object_type = /datum/orbital_object/shuttle
+
+	var/dynamic_id = FALSE
 
 /obj/docking_port/mobile/proc/register()
 	SSshuttle.mobile |= src
@@ -379,11 +386,17 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 		for(var/turf/T in shuttleArea.contents)
 			. += 1
 
+/obj/docking_port/newtonian_move(direction, instant = FALSE) // Please don't spacedrift thanks
+	return TRUE
+
 /obj/docking_port/mobile/Initialize(mapload)
 	. = ..()
 
 	if(!id)
 		id = "[SSshuttle.mobile.len]"
+	else if(dynamic_id)
+		name = "[name] [SSshuttle.mobile.len]"
+		id = "[id][SSshuttle.mobile.len]"
 	if(name == "shuttle")
 		name = "shuttle[SSshuttle.mobile.len]"
 
@@ -396,6 +409,13 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 			shuttle_areas[cur_area] = TRUE
 			if(!cur_area.mobile_port)
 				cur_area.link_to_shuttle(src)
+		//Link up shuttle consoles
+		if(dynamic_id)
+			var/obj/machinery/computer/shuttle_flight/flight_computer = locate() in curT
+			if(!flight_computer)
+				continue
+			flight_computer.shuttleId = "[id]"
+			flight_computer.shuttlePortId = "[id]_custom"
 
 	initial_engines = count_engines()
 	current_engines = initial_engines
@@ -635,11 +655,13 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 //used by shuttle subsystem to check timers
 /obj/docking_port/mobile/proc/check()
 	check_effects()
+	check_sound()
 
 	if(mode == SHUTTLE_IGNITING)
 		check_transit_zone()
 
-	if(timeLeft(1) > 0)
+	var/time_left = timeLeft(1)
+	if(time_left > 0)
 		return
 	// If we can't dock or we don't have a transit slot, wait for 20 ds,
 	// then try again
@@ -680,6 +702,18 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 	mode = SHUTTLE_IDLE
 	timer = 0
 	destination = null
+
+/obj/docking_port/mobile/proc/check_sound()
+	var/time_left = timeLeft(1)
+	switch(mode)
+		if(SHUTTLE_IGNITING)
+			if(time_left <= 50 && sound_played != mode)
+				hyperspace_sound(HYPERSPACE_WARMUP, shuttle_areas)
+			if(time_left <= 0)
+				hyperspace_sound(HYPERSPACE_LAUNCH, shuttle_areas)
+		if(SHUTTLE_CALL)
+			if(sound_played != mode && time_left <= HYPERSPACE_END_TIME)
+				hyperspace_sound(HYPERSPACE_END, shuttle_areas)
 
 /obj/docking_port/mobile/proc/check_effects()
 	if(!ripples.len)
@@ -832,6 +866,7 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 	return null
 
 /obj/docking_port/mobile/proc/hyperspace_sound(phase, list/areas)
+	sound_played = mode
 	var/selected_sound
 	switch(phase)
 		if(HYPERSPACE_WARMUP)
@@ -867,6 +902,9 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 	if(distant_source)
 		for(var/mob/M as() in SSmobs.clients_by_zlevel[z])
 			var/dist_far = get_dist(M, distant_source)
+			//Cannot hear shuttles from other shuttles
+			if(M.get_virtual_z_level() != get_virtual_z_level())
+				continue
 			if(dist_far <= long_range && dist_far > range)
 				M.playsound_local(distant_source, "sound/effects/[selected_sound]_distance.ogg", 100, falloff_exponent = 20)
 			else if(dist_far <= range)
