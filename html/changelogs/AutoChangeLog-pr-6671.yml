@@ -1,7 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - bugfix: Fixes docking randomly failing due to hyperspace being an area registered
-      to all shuttles.
-  - refactor: Shuttle docking camera will now correctly resize to the size of the
-      shuttle being docked.
