@@ -35,13 +35,6 @@
 //Overthrow time to update heads obj
 #define OBJECTIVE_UPDATING_TIME 300
 
-//Assimilation
-#define TRACKER_DEFAULT_TIME 900
-#define TRACKER_MINDSHIELD_TIME 1200
-#define TRACKER_AWAKENED_TIME	3000
-#define TRACKER_BONUS_LARGE 300
-#define TRACKER_BONUS_SMALL 100
-
 //gang dominators
 #define NOT_DOMINATING			-1
 #define MAX_LEADERS_GANG		3

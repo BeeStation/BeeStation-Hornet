@@ -72,7 +72,6 @@ GLOBAL_LIST_INIT(special_roles, list(
 	ROLE_DEVIL = /datum/game_mode/devil,
 	ROLE_OVERTHROW = /datum/game_mode/overthrow,
 	ROLE_HIVE = /datum/game_mode/hivemind,
-	ROLE_HIVE_VESSEL = /datum/game_mode/hivemind,
 	ROLE_INTERNAL_AFFAIRS = /datum/game_mode/traitor/internal_affairs,
 	ROLE_SENTIENCE,
 	ROLE_GANG = /datum/game_mode/gang,

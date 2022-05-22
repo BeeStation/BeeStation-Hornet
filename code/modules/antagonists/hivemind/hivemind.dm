@@ -6,8 +6,8 @@
 	antag_moodlet = /datum/mood_event/focused
 	var/special_role = ROLE_HIVE
 	var/list/hivemembers = list()
+	var/list/avessels = list()
 	var/hive_size = 0
-	var/threat_level = 0 // Part of what determines how strong the radar is, on a scale of 0 to 10
 	var/track_bonus = 0 // Bonus time to your tracking abilities
 	var/size_mod = 0 // Bonus size for using reclaim
 	var/list/individual_track_bonus = list() // Bonus time to tracking individual targets
@@ -22,24 +22,24 @@
 	var/list/upgrade_tiers = list(
 		//Tier 1 - Roundstart powers
 		/obj/effect/proc_holder/spell/target_hive/hive_add = 0,
-		/obj/effect/proc_holder/spell/target_hive/hive_remove = 0,
 		/obj/effect/proc_holder/spell/target_hive/hive_see = 0,
 		/obj/effect/proc_holder/spell/target_hive/hive_shock = 0,
 		/obj/effect/proc_holder/spell/self/hive_comms = 0,
 		//Tier 2 - Host vs Host
 		/obj/effect/proc_holder/spell/targeted/hive_integrate = 5,
-		/obj/effect/proc_holder/spell/targeted/hive_hack = 0,
-
-
-		//Tier 3 - Combat related powers
-		/obj/effect/proc_holder/spell/targeted/induce_panic = 10,
-		/obj/effect/proc_holder/spell/targeted/forcewall/hive = 10,
-		//Tier 4 - Chaos-spreading powers
-		/obj/effect/proc_holder/spell/self/hive_loyal = 15,
+		/obj/effect/proc_holder/spell/targeted/hive_hack = 5,
+		/obj/effect/proc_holder/spell/targeted/hive_probe = 5,
+		//Tier 3 - Crew manipulation powers
+		/obj/effect/proc_holder/spell/target_hive/hive_compell = 10,
+		/obj/effect/proc_holder/spell/self/hive_loyal = 10,
+		/obj/effect/proc_holder/spell/targeted/hive_thrall = 10,
+		//Tier 4 - Combat powers
 		/obj/effect/proc_holder/spell/self/hive_drain = 15,
 		/obj/effect/proc_holder/spell/targeted/forcewall/hive = 15,
 		/obj/effect/proc_holder/spell/targeted/induce_panic = 15,
-		//Tier 5 - Deadly powers
+		//Tier 5 - Finishers
+		/obj/effect/proc_holder/spell/target_hive/hive_shatter = 20,
+		/obj/effect/proc_holder/spell/targeted/hive_rally = 20,
 	)
 
 
@@ -52,10 +52,6 @@
 	if(hive_size != temp)
 		hive_size = temp
 		check_powers()
-
-/datum/antagonist/hivemind/proc/get_threat_multiplier()
-	calc_size()
-	return min((hive_size+size_mod*2)/50 + threat_level/20, 1)
 
 /datum/antagonist/hivemind/proc/get_carbon_members()
 	var/list/carbon_members = list()
@@ -73,20 +69,6 @@
 			owner.AddSpell(the_spell)
 			if(hive_size > 0)
 				to_chat(owner, "<span class='assimilator'>We have unlocked [the_spell.name].</span><span class='bold'> [the_spell.desc]</span>")
-
-
-/datum/antagonist/hivemind/proc/add_track_bonus(datum/antagonist/hivemind/enemy, bonus)
-	if(!individual_track_bonus[enemy])
-		individual_track_bonus[enemy] = bonus
-	else
-		individual_track_bonus[enemy] += bonus
-
-/datum/antagonist/hivemind/proc/get_track_bonus(datum/antagonist/hivemind/enemy)
-	if(!individual_track_bonus[enemy])
-		. = 0
-	else
-		. = individual_track_bonus[enemy]
-	. += (TRACKER_DEFAULT_TIME + track_bonus)
 
 /datum/antagonist/hivemind/proc/add_to_hive(mob/living/carbon/C)
 	if(!C)
@@ -117,7 +99,6 @@
 		calc_size()
 
 /datum/antagonist/hivemind/proc/handle_ejection(mob/living/carbon/C)
-	var/user_warning = "The enemy host has been ejected from our mind"
 	if(!C || !owner)
 		return
 	var/mob/living/carbon/C2 = owner.current
@@ -134,18 +115,15 @@
 		hive_C2 = real_C2.mind.has_antag_datum(/datum/antagonist/hivemind)
 	if(!hive_C || !hive_C2)
 		return
-	if(C == real_C) //Mind control check
-		real_C2.apply_status_effect(STATUS_EFFECT_HIVE_TRACKER, real_C, hive_C.get_track_bonus(hive_C2))
-		real_C.apply_status_effect(STATUS_EFFECT_HIVE_RADAR)
+	if(C == real_C) //Making sure
 		to_chat(real_C2, "<span class='assimilator'>We detect a surge of psionic energy from a far away vessel before they disappear from the hive. Whatever happened, there's a good chance they're after us now.</span>")
-	if(C2 == real_C2)
-		real_C.apply_status_effect(STATUS_EFFECT_HIVE_TRACKER, real_C2, hive_C2.get_track_bonus(hive_C))
-		real_C2.apply_status_effect(STATUS_EFFECT_HIVE_RADAR)
-		user_warning += " and we've managed to pinpoint their location"
-	to_chat(real_C, "<span class='userdanger'>[user_warning]!</span>")
+	to_chat(C, "<span class='warning'> The enemy host has been ejected from our mind </span>" )
 
 /datum/antagonist/hivemind/proc/destroy_hive()
 	hivemembers = list()
+	for(var/datum/mind/mind in avessels)
+		mind.remove_antag_datum(/datum/antagonist/hivevessel)
+	avessels = list()
 	calc_size()
 	for(var/power in upgrade_tiers)
 		if(!upgrade_tiers[power])
@@ -248,9 +226,8 @@
 	result += "The Hivemind Host was:"
 	result += printplayer(owner)
 	result += "The Awakened Vessels were:"
-	for(var/datum/antagonist/hivevessel/V in GLOB.avessels)
-		if(V.hiveID == hiveID)
-			result += printplayer(V.owner)
+	for(var/datum/antagonist/hivevessel/V in avessels)
+		result += printplayer(V.owner)
 	return result.Join("<br>")
 
 /datum/antagonist/hivemind/is_gamemode_hero()

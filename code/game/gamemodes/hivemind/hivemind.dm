@@ -1,5 +1,5 @@
 GLOBAL_LIST_EMPTY(hivehosts)
-GLOBAL_LIST_EMPTY(avessels)
+
 /datum/game_mode/hivemind
 	name = "Assimilation"
 	config_tag = "hivemind"
