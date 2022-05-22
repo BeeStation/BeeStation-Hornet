@@ -70,7 +70,7 @@
 				"name" = S.name,
 				"dialogue" = S.dialogue,
 				"price" = S.price,
-				"id" = S.unique_id,
+				"id" = REF(S),
 		))
 	data["buyer"] = list()
 	for(var/datum/xenoartifact_seller/buyer/B as() in buyers) //Buyer data
@@ -79,7 +79,7 @@
 				"name" = B.name,
 				"dialogue" = B.dialogue,
 				"price" = B.price,
-				"id" = B.unique_id,
+				"id" = B,
 		))
 	data["tab_index"] = tab_index
 	data["current_tab"] = current_tab
@@ -99,39 +99,37 @@
 	else if(action == "sell")
 		sell()
 		return
-
-	for(var/t in tab_index) //Handle swapping tabs.
-		if(action == "set_tab_[t]")
-			if(current_tab != t)
-				current_tab = t
-				switch(t)
-					if("Listings")//Not the best way of doing this but I can't be fucked otherwise.
-						current_tab_info = "Here you can find listings for various research samples, usually fresh from the field. These samples aren't distrubuted by the Nanotrasen affiliated cargo system, so instead listing data is sourced from stray bluespace-threads."
-					if("Export")
-						current_tab_info = "Sell any export your department produces through open bluespace strings. Anonymously trade and sell ancient alien bombs, explosive slime cores, or just regular bombs."
-					if("Linking")
-						current_tab_info = "Link machines to the Listing Console."
-			else if(current_tab == t)
-				current_tab = ""
-				current_tab_info = ""
-			return
-
-	for(var/datum/xenoartifact_seller/S as() in sellers) //Handle buying artifacts.
-		if(action == "purchase_[S.unique_id]")
-			if(!linked_inbox)
-				say("Error. No linked hardware.")
-			else if(budget.account_balance-S.price < 0)
-				say("Error. Insufficient funds.")
-			else if(linked_inbox && budget.account_balance-S.price >= 0)
-				var/obj/item/xenoartifact/A = new (get_turf(linked_inbox.loc), S.difficulty)
-				var/datum/component/xenoartifact_pricing/X = A.GetComponent(/datum/component/xenoartifact_pricing)
-				if(X)
-					X.price = S.price
-					sellers -= S
-					budget.adjust_money(-1*S.price)
-					say("Purchase complete. [budget.account_balance] credits remaining in Research Budget")
-					addtimer(CALLBACK(src, .proc/generate_new_seller), (rand(1,5)*60) SECONDS)
-					A = null
+	else if(copytext(action, 1, 8) == "set_tab") //Set unique tab information
+		var/t = copytext(action, 9, length(action)+1)
+		if(current_tab != t)
+			current_tab = t
+			switch(t)
+				if("Listings")//Not the best way of doing this but I can't be fucked otherwise.
+					current_tab_info = "Here you can find listings for various research samples, usually fresh from the field. These samples aren't distrubuted by the Nanotrasen affiliated cargo system, so instead listing data is sourced from stray bluespace-threads."
+				if("Export")
+					current_tab_info = "Sell any export your department produces through open bluespace strings. Anonymously trade and sell ancient alien bombs, explosive slime cores, or just regular bombs."
+				if("Linking")
+					current_tab_info = "Link machines to the Listing Console."
+		else if(current_tab == t)
+			current_tab = ""
+			current_tab_info = ""
+		return
+	else //Buy xenoartifact
+		var/datum/xenoartifact_seller/S = locate(action)
+		if(!linked_inbox)
+			say("Error. No linked hardware.")
+		else if(budget.account_balance-S.price < 0)
+			say("Error. Insufficient funds.")
+		else if(linked_inbox && budget.account_balance-S.price >= 0)
+			var/obj/item/xenoartifact/A = new (get_turf(linked_inbox.loc), S.difficulty)
+			var/datum/component/xenoartifact_pricing/X = A.GetComponent(/datum/component/xenoartifact_pricing)
+			if(X)
+				X.price = S.price
+				sellers -= S
+				budget.adjust_money(-1*S.price)
+				say("Purchase complete. [budget.account_balance] credits remaining in Research Budget")
+				addtimer(CALLBACK(src, .proc/generate_new_seller), (rand(1,5)*60) SECONDS)
+				A = null
 
 	update_icon()
 
@@ -230,7 +228,6 @@
 	var/name
 	var/price
 	var/dialogue
-	var/unique_id //Unique ID occsionally used to address sellers
 	var/difficulty //Xenoartifact shit, not exactly difficulty
 
 /datum/xenoartifact_seller/proc/generate()
@@ -247,7 +244,6 @@
 		if(701 to 800)
 			difficulty = XENOA_BANANIUM
 	price = price * rand(1.0, 1.5) //Measure of error for no particular reason
-	unique_id = "[rand(1,100)][rand(1,100)][rand(1,100)]:[world.time]"
 	addtimer(CALLBACK(src, .proc/change_item), (rand(1,3)*60) SECONDS)
 
 /datum/xenoartifact_seller/proc/change_item()
@@ -261,5 +257,4 @@
 	buying = pick(/obj/item/xenoartifact)
 	if(buying == /obj/item/xenoartifact) //Don't bother trying to use istype here
 		dialogue = "[name] is requesting: artifact::item-class"
-	unique_id = "[rand(1,100)][rand(1,100)][rand(1,100)]:[world.time]"
 	addtimer(CALLBACK(src, .proc/change_item), (rand(1,3)*60) SECONDS)
