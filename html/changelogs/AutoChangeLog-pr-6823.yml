@@ -1,5 +1,0 @@
-author: ivanmixo
-delete-after: true
-changes:
-  - bugfix: improved the automute spam filter, should help with lowering the amount
-      of false positives
