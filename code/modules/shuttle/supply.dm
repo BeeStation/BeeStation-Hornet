@@ -216,8 +216,9 @@ GLOBAL_LIST_INIT(blacklisted_cargo_types, typecacheof(list(
 	//spawn crate
 	var/list/empty_turfs = list()
 	for(var/area/shuttle/shuttle_area in shuttle_areas)
-		if(is_blocked_turf(T))
-			continue
-		empty_turfs += T
+		for(var/turf/open/floor/T in shuttle_area)
+			if(is_blocked_turf(T))
+				continue
+			empty_turfs += T
 
 	new /obj/structure/closet/crate/mail/economy(pick(empty_turfs))
