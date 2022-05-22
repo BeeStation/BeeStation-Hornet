@@ -1,0 +1,5 @@
+author: Autisem
+delete-after: true
+changes:
+  - tweak: light eater works on wisps
+  - bugfix: Light eater works on mechs
