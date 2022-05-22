@@ -52,10 +52,10 @@
 		shuttle_port = null
 		return
 
-	eyeobj = new /mob/camera/ai_eye/remote/shuttle_docker(null, src)
+	var/turf/origin = locate(shuttle_port.x, shuttle_port.y, shuttle_port.z)
+	eyeobj = new /mob/camera/ai_eye/remote/shuttle_docker(origin, src)
 	var/mob/camera/ai_eye/remote/shuttle_docker/the_eye = eyeobj
 	the_eye.setDir(shuttle_port.dir)
-	var/turf/origin = locate(shuttle_port.x, shuttle_port.y, shuttle_port.z)
 	for(var/V in shuttle_port.shuttle_areas)
 		var/area/A = V
 		for(var/turf/T in A)
@@ -83,7 +83,6 @@
 	user.remote_control = eyeobj
 	user.reset_perspective(eyeobj)
 	eyeobj.setLoc(eyeobj.loc)
-	user.client.view_size.supress()
 	if(!QDELETED(user) && user.client)
 		var/mob/camera/ai_eye/remote/shuttle_docker/the_eye = eyeobj
 		var/list/to_add = list()
@@ -109,8 +108,6 @@
 		user.reset_perspective(null)
 		if(eyeobj.visible_icon && user.client)
 			user.client.images -= eyeobj.user_image
-
-		user.client.view_size.unsupress()
 
 	eyeobj.eye_user = null
 	user.remote_control = null
