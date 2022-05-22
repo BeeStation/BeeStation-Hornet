@@ -12,13 +12,13 @@
 	throwforce = 0
 	throw_range = 1
 	throw_speed = 1
-	// Destination tagging for the mail sorter.
+	/// Destination tagging for the mail sorter.
 	mouse_drag_pointer = MOUSE_ACTIVE_POINTER
-	// Weak reference to who this mail is for and who can open it.
+	/// Weak reference to who this mail is for and who can open it.
 	var/sort_tag = 0
-	// How many goodies this mail contains.
+	/// How many goodies this mail contains.
 	var/datum/weakref/recipient_ref
-	// Goodies which can be given to anyone. The base weight for cash is 56. For there to be a 50/50 chance of getting a department item, they need 56 weight as well.
+	/// Goodies which can be given to anyone. The base weight for cash is 56. For there to be a 50/50 chance of getting a department item, they need 56 weight as well.
 	var/goodie_count = 1
 
 	var/static/list/generic_goodies = list(
@@ -54,20 +54,20 @@
 			/obj/item/gun/ballistic/revolver/nagant
 		)
 
-	// Overlays (pure fluff), Does the letter have the postmark overlay?
-	// Does the letter have postmarks?
+	/// Overlays (pure fluff), Does the letter have the postmark overlay?
+	/// Does the letter have postmarks?
 	var/postmarked = TRUE
-	// Does the letter have a stamp overlay?
+	/// Does the letter have a stamp overlay?
 	var/stamped = TRUE
-	// List of all stamp overlays on the letter.
+	/// List of all stamp overlays on the letter.
 	var/list/stamps = list()
-	// Maximum number of stamps on the letter.
+	/// Maximum number of stamps on the letter.
 	var/stamp_max = 1
-	// Physical offset of stamps on the object. X direction.
+	/// Physical offset of stamps on the object. X direction.
 	var/stamp_offset_x = 0
-	// Physical offset of stamps on the object. Y direction.
+	/// Physical offset of stamps on the object. Y direction.
 	var/stamp_offset_y = 2
-	// Mail will have the color of the department the recipient is in.
+	/// Mail will have the color of the department the recipient is in.
 	var/static/list/department_colors
 
 /obj/item/mail/envelope
@@ -198,7 +198,7 @@
 		var/atom/movable/target_atom = new target_good(src)
 		body.log_message("[key_name(body)] received [target_atom.name] in the mail ([target_good])", LOG_GAME)
 		if(target_atom.type in danger_goodies)
-			to_chat(GLOB.admins, "<span class='adminnotice'><b><font color=orange>DANGEROUS ITEM RECIEVED:</font></b>[ADMIN_LOOKUPFLW(body)] received [target_atom.name] in the mail ([target_good]) as a [recipient.assigned_role]</span>")
+			message_admins("<span class='adminnotice'><b><font color=orange>DANGEROUS ITEM RECIEVED:</font></b>[ADMIN_LOOKUPFLW(body)] received [target_atom.name] in the mail ([target_good]) as a [recipient.assigned_role]</span>")
 
 	return TRUE
 
@@ -217,7 +217,7 @@
 						/obj/item/paper/fluff/nice_argument
 						))
 
-	var/list/junk_names = list(
+	var/static/list/junk_names = list(
 		/obj/item/paper/pamphlet/gateway = "[initial(name)] for [pick(GLOB.adjectives)] adventurers",
 		/obj/item/paper/pamphlet/violent_video_games = "[initial(name)] for the truth about the arcade centcom doesn't want to hear",
 		/obj/item/paper/fluff/junkmail_redpill = "[initial(name)] for those feeling [pick(GLOB.adjectives)] working at Nanotrasen",
@@ -310,7 +310,7 @@
 /obj/item/paper/fluff/nice_argument/Initialize()
 	. = ..()
 	var/station_name = station_name()
-	info ="Nice argument, however there's a <i>small detail</i>...<br>IP: '[rand(0,10)].[rand(0,255)].[rand(0,255)].[rand(0,255)]'<br> Station name: '[station_name]'<br>"
+	info = "Nice argument, however there's a <i>small detail</i>...<br>IP: '[rand(0,10)].[rand(0,255)].[rand(0,255)].[rand(0,255)]'<br> Station name: '[station_name]'<br>"
 
 /obj/item/paper/fluff/junkmail_redpill/Initialize()
 	. = ..()

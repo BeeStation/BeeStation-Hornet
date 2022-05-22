@@ -456,4 +456,3 @@
 	name = "ketamine bottle"
 	desc = "A small bottle. Contains ketamine, why?"
 	list_reagents = list(/datum/reagent/drug/ketamine = 30)
-\
