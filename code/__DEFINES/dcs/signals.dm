@@ -577,6 +577,15 @@
 
 #define COMSIG_GREYSCALE_CONFIG_REFRESHED "greyscale_config_refreshed"
 
+///Called when an item is being offered, from [/obj/item/proc/on_offered(mob/living/carbon/offerer)]
+#define COMSIG_ITEM_OFFERING "item_offering"
+	///Interrupts the offer proc
+	#define COMPONENT_OFFER_INTERRUPT (1<<0)
+///Called when an someone tries accepting an offered item, from [/obj/item/proc/on_offer_taken(mob/living/carbon/offerer, mob/living/carbon/taker)]
+#define COMSIG_ITEM_OFFER_TAKEN "item_offer_taken"
+	///Interrupts the offer acceptance
+	#define COMPONENT_OFFER_TAKE_INTERRUPT (1<<0)
+
 ///from [/datum/move_loop/start_loop] ():
 #define COMSIG_MOVELOOP_START "moveloop_start"
 ///from [/datum/move_loop/stop_loop] ():
