@@ -1,8 +1,7 @@
 
 import { clamp } from 'common/math';
 import { pureComponentHooks } from 'common/react';
-import { Component, createRef } from 'inferno';
-import { AnimatedNumber } from './AnimatedNumber';
+import { Component } from 'inferno';
 
 const FPS = 20;
 
@@ -25,10 +24,8 @@ export class OrbitalMapComponent extends Component {
       originX: null,
       originY: null,
       suppressingFlicker: false,
-      tickIndex: -1, // Index of the last tick
       xOffset: 0, // Map X offset
       yOffset: 0, // Map Y Offset
-      tickTimer: new Date(),
     };
 
     // Suppresses flickering while the value propagates through the backend
@@ -77,7 +74,6 @@ export class OrbitalMapComponent extends Component {
           onDrag(e, valueX, valueY);
         }
       }, (1000 / FPS));
-      clearInterval(this.tickUpdate);
       document.addEventListener('mousemove', this.handleDragMove);
       document.addEventListener('mouseup', this.handleDragEnd);
     };
@@ -157,7 +153,6 @@ export class OrbitalMapComponent extends Component {
       document.body.style['pointer-events'] = 'auto';
       clearTimeout(this.timer);
       clearInterval(this.dragInterval);
-      this.tickUpdate = setInterval(() => this.dotick(), 1000 / FPS);
       this.setState({
         dragging: false,
         originX: null,
@@ -184,68 +179,24 @@ export class OrbitalMapComponent extends Component {
     };
   }
 
-  dotick() {
-    const { props, state } = this;
-
-    const {
-      tickIndex,
-      tickTimer,
-    } = state;
-
-    const {
-      currentUpdateIndex,
-    } = props;
-
-    let newTimer = tickTimer;
-
-    if (currentUpdateIndex !== tickIndex)
-    {
-      newTimer = new Date();
-    }
-
-    this.setState({
-      tickTimer: newTimer,
-      tickIndex: currentUpdateIndex,
-    });
-  }
-
-  componentDidMount() {
-    this.tickUpdate = setInterval(() => this.dotick(), 1000 / FPS);
-  }
-
-  componentWillUnmount() {
-    clearInterval(this.tickUpdate);
-  }
-
   render() {
     const {
       dragging,
-      tickIndex,
       xOffset,
       yOffset,
-      tickTimer,
     } = this.state;
     const {
       children,
-      currentUpdateIndex,
       isTracking,
       dynamicXOffset,
       dynamicYOffset,
     } = this.props;
-
-    if (currentUpdateIndex !== tickIndex)
-    {
-      this.dotick();
-    }
-
-    let elapsed = (new Date() - tickTimer) / 1000;
 
     // Return a part of the state for higher-level components to use.
     return children({
       dragging: dragging,
       xOffset: (isTracking ? dynamicXOffset : xOffset),
       yOffset: (isTracking ? dynamicYOffset : yOffset),
-      elapsed: elapsed,
       handleDragStart: this.handleDragStart,
     });
 

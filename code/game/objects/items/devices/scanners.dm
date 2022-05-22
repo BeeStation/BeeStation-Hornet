@@ -104,9 +104,9 @@ GENE SCANNER
 
 /obj/item/healthanalyzer/attack(mob/living/M, mob/living/carbon/human/user)
 	flick("[icon_state]-scan", src)	//makes it so that it plays the scan animation upon scanning, including clumsy scanning
+	playsound(src, 'sound/effects/fastbeep.ogg', 10)
 
 	// Clumsiness/brain damage check
-
 	if((HAS_TRAIT(user, TRAIT_CLUMSY) || HAS_TRAIT(user, TRAIT_DUMB)) && prob(50))
 		user.visible_message("<span class='warning'>[user] analyzes the floor's vitals!</span>", \
 							"<span class='notice'>You stupidly try to analyze the floor's vitals!</span>")
@@ -701,6 +701,9 @@ GENE SCANNER
 	if(T.cores > 1)
 		to_chat(user, "Multiple cores detected")
 	to_chat(user, "Growth progress: [T.amount_grown]/[SLIME_EVOLUTION_THRESHOLD]")
+	if(T.has_status_effect(STATUS_EFFECT_SLIMEGRUB))
+		to_chat(user, "<b>Redgrub infestation detected. Quarantine immediately.</b>")
+		to_chat(user, "Redgrubs can be purged from a slime using capsaicin oil or extreme heat")
 	if(T.effectmod)
 		to_chat(user, "<span class='notice'>Core mutation in progress: [T.effectmod]</span>")
 		to_chat(user, "<span class = 'notice'>Progress in core mutation: [T.applied] / [SLIME_EXTRACT_CROSSING_REQUIRED]</span>")
@@ -802,12 +805,13 @@ GENE SCANNER
 	var/ready = TRUE
 	var/cooldown = 200
 
-/obj/item/sequence_scanner/attack(mob/living/M, mob/living/carbon/human/user)
+/obj/item/sequence_scanner/attack(mob/living/M, mob/living/user)
 	add_fingerprint(user)
 	if(!HAS_TRAIT(M, TRAIT_RADIMMUNE) && !HAS_TRAIT(M, TRAIT_BADDNA)) //no scanning if its a husk or DNA-less Species
 		user.visible_message("<span class='notice'>[user] analyzes [M]'s genetic sequence.</span>", \
 							"<span class='notice'>You analyze [M]'s genetic sequence.</span>")
 		gene_scan(M, user)
+		playsound(src, 'sound/effects/fastbeep.ogg', 20)
 
 	else
 		user.visible_message("<span class='notice'>[user] failed to analyse [M]'s genetic sequence.</span>", "<span class='warning'>[M] has no readable genetic sequence!</span>")
@@ -874,7 +878,7 @@ GENE SCANNER
 	ready = TRUE
 
 /obj/item/sequence_scanner/proc/get_display_name(mutation)
-	var/datum/mutation/human/HM = GET_INITIALIZED_MUTATION(mutation)
+	var/datum/mutation/HM = GET_INITIALIZED_MUTATION(mutation)
 	if(!HM)
 		return "ERROR"
 	if(discovered[mutation])
@@ -992,6 +996,7 @@ GENE SCANNER
 		return
 	var/datum/disease/advance/A = input(user,"What disease do you wish to extract") in null|advancediseases
 	if(isolate)
+		using = TRUE
 		for(var/datum/symptom/S in A.symptoms)
 			if(S.level <= 6 + scanner.rating)
 				symptoms += S
@@ -999,6 +1004,7 @@ GENE SCANNER
 		var/datum/symptom/chosen = input(user,"What symptom do you wish to isolate") in null|symptoms
 		var/datum/disease/advance/symptomholder = new
 		if(!symptoms.len || !chosen)
+			using = FALSE
 			to_chat(user, "<span class='warning'>There are no valid diseases to isolate a symptom from.</span>")
 			return
 		symptomholder.name = chosen.name
@@ -1006,7 +1012,6 @@ GENE SCANNER
 		symptomholder.Finalize()
 		symptomholder.Refresh()
 		to_chat(user, "<span class='warning'>you begin isolating [chosen].</span>")
-		using = TRUE
 		if(do_after(user, (600 / (scanner.rating + 1)), target = AM))
 			create_culture(symptomholder, user, AM)
 	else 

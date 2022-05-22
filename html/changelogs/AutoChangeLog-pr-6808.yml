@@ -1,0 +1,7 @@
+author: MNarath1
+delete-after: true
+changes:
+  - tweak: changes the windows infront of singu engine area at delta to reinforced
+      plasma windows
+  - bugfix: fixes containment field generators at delta to be properly anchored from
+      roundstart (only anchored not welded yet)

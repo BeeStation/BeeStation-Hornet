@@ -31,7 +31,7 @@
 
 /datum/component/orbiter/Destroy()
 	var/atom/master = parent
-	master.orbiters = null
+	master?.orbiters = null
 	for(var/i in orbiters)
 		end_orbit(i)
 	orbiters = null

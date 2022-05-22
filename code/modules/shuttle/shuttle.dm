@@ -3,6 +3,12 @@
 #define DOCKING_PORT_HIGHLIGHT
 #endif
 
+GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
+	/turf/baseturf_bottom,
+	/turf/open/space,
+	/turf/open/lava,
+)))
+
 //NORTH default dir
 /obj/docking_port
 	invisibility = INVISIBILITY_ABSTRACT
@@ -193,6 +199,9 @@
 	highlight("#f00")
 	#endif
 
+	if(SSshuttle.shuttles_loaded)
+		load_roundstart()
+
 /obj/docking_port/stationary/Destroy(force)
 	if(force)
 		SSshuttle.stationary -= src
@@ -300,10 +309,14 @@
 	//The virtual Z-Value of the shuttle
 	var/virtual_z
 
+	var/sound_played = 0 //If the launch sound has been sent to all players on the shuttle itself
+
 	var/shuttle_object_type = /datum/orbital_object/shuttle
 
+	var/dynamic_id = FALSE
+
 /obj/docking_port/mobile/proc/register()
-	SSshuttle.mobile += src
+	SSshuttle.mobile |= src
 
 /obj/docking_port/mobile/Destroy(force)
 	if(force)
@@ -315,11 +328,75 @@
 		remove_ripples()
 	. = ..()
 
+/obj/docking_port/mobile/is_in_shuttle_bounds(atom/A)
+	return shuttle_areas[get_area(A)]
+
+
+/obj/docking_port/mobile/proc/add_turf(var/turf/T, var/area/shuttle/A)
+	if(!shuttle_areas[A]) //Invalid area
+		return TRUE
+
+	if(GLOB.shuttle_turf_blacklist[T.type]) //Check if the turf is valid
+		for(var/obj/structure/lattice/lattice in T)
+			A.contents |= T //Keep the lattice, not the turf
+			break
+		return TRUE
+
+	T.baseturfs = length(T.baseturfs) ? T.baseturfs : list(T.baseturfs) //We need this as a list for now
+	var/base_length = length(T.baseturfs)
+	var/skipover_index = 2 //We should always leave atleast something else below our skipover
+
+	for(var/i in 0 to base_length-1) //Place the skipover after the first blacklisted baseturf from the top
+		if(GLOB.shuttle_turf_blacklist[T.baseturfs[base_length - i]])
+			skipover_index = base_length - i + 1
+			break
+
+	A.contents |= T
+	if(!(/turf/baseturf_skipover/shuttle in T.baseturfs))
+		T.baseturfs.Insert(skipover_index, /turf/baseturf_skipover/shuttle)
+	if(length(T.baseturfs) == 1)
+		T.baseturfs = T.baseturfs[1] //Back to a single value. I wish this wasn't a thing but I fear everything would break if I left it as a list
+
+/obj/docking_port/mobile/proc/remove_turf(var/turf/T)
+
+	var/area/A = get_area(T)
+	if(!shuttle_areas[A])
+		return
+
+	//Get the new area type of our dock
+	var/obj/docking_port/stationary/dock = get_docked()
+	var/area_type = dock?.area_type
+	if(!area_type)
+		area_type = SHUTTLE_DEFAULT_UNDERLYING_AREA
+
+	//The new area (shamelessly taken from initiate_docking())
+	var/area/new_area = GLOB.areas_by_type[area_type]
+	if(!new_area)
+		new_area = new area_type(null)
+
+	A.contents -= T
+	new_area.contents += T
+	T.change_area(A, new_area)
+	T.baseturfs -= /turf/baseturf_skipover/shuttle
+
+//A common proc used to find the amount of turfs in the shuttle
+/obj/docking_port/mobile/proc/calculate_mass()
+	. = 0
+	for(var/area/shuttleArea in shuttle_areas)
+		for(var/turf/T in shuttleArea.contents)
+			. += 1
+
+/obj/docking_port/newtonian_move(direction, instant = FALSE) // Please don't spacedrift thanks
+	return TRUE
+
 /obj/docking_port/mobile/Initialize(mapload)
 	. = ..()
 
 	if(!id)
 		id = "[SSshuttle.mobile.len]"
+	else if(dynamic_id)
+		name = "[name] [SSshuttle.mobile.len]"
+		id = "[id][SSshuttle.mobile.len]"
 	if(name == "shuttle")
 		name = "shuttle[SSshuttle.mobile.len]"
 
@@ -328,10 +405,17 @@
 	for(var/i in 1 to all_turfs.len)
 		var/turf/curT = all_turfs[i]
 		var/area/shuttle/cur_area = curT.loc
-		if(istype(cur_area, area_type))
+		if(istype(cur_area, area_type) && !istype(cur_area, /area/shuttle/transit))
 			shuttle_areas[cur_area] = TRUE
 			if(!cur_area.mobile_port)
 				cur_area.link_to_shuttle(src)
+		//Link up shuttle consoles
+		if(dynamic_id)
+			var/obj/machinery/computer/shuttle_flight/flight_computer = locate() in curT
+			if(!flight_computer)
+				continue
+			flight_computer.shuttleId = "[id]"
+			flight_computer.shuttlePortId = "[id]_custom"
 
 	initial_engines = count_engines()
 	current_engines = initial_engines
@@ -415,10 +499,10 @@
 /obj/docking_port/mobile/proc/request(obj/docking_port/stationary/S)
 	if(!check_dock(S))
 		testing("check_dock failed on request for [src]")
-		return
+		return TRUE
 
 	if(mode == SHUTTLE_IGNITING && destination == S)
-		return
+		return TRUE
 
 	switch(mode)
 		if(SHUTTLE_CALL)
@@ -571,11 +655,13 @@
 //used by shuttle subsystem to check timers
 /obj/docking_port/mobile/proc/check()
 	check_effects()
+	check_sound()
 
 	if(mode == SHUTTLE_IGNITING)
 		check_transit_zone()
 
-	if(timeLeft(1) > 0)
+	var/time_left = timeLeft(1)
+	if(time_left > 0)
 		return
 	// If we can't dock or we don't have a transit slot, wait for 20 ds,
 	// then try again
@@ -616,6 +702,18 @@
 	mode = SHUTTLE_IDLE
 	timer = 0
 	destination = null
+
+/obj/docking_port/mobile/proc/check_sound()
+	var/time_left = timeLeft(1)
+	switch(mode)
+		if(SHUTTLE_IGNITING)
+			if(time_left <= 50 && sound_played != mode)
+				hyperspace_sound(HYPERSPACE_WARMUP, shuttle_areas)
+			if(time_left <= 0)
+				hyperspace_sound(HYPERSPACE_LAUNCH, shuttle_areas)
+		if(SHUTTLE_CALL)
+			if(sound_played != mode && time_left <= HYPERSPACE_END_TIME)
+				hyperspace_sound(HYPERSPACE_END, shuttle_areas)
 
 /obj/docking_port/mobile/proc/check_effects()
 	if(!ripples.len)
@@ -768,6 +866,7 @@
 	return null
 
 /obj/docking_port/mobile/proc/hyperspace_sound(phase, list/areas)
+	sound_played = mode
 	var/selected_sound
 	switch(phase)
 		if(HYPERSPACE_WARMUP)
@@ -803,6 +902,9 @@
 	if(distant_source)
 		for(var/mob/M as() in SSmobs.clients_by_zlevel[z])
 			var/dist_far = get_dist(M, distant_source)
+			//Cannot hear shuttles from other shuttles
+			if(M.get_virtual_z_level() != get_virtual_z_level())
+				continue
 			if(dist_far <= long_range && dist_far > range)
 				M.playsound_local(distant_source, "sound/effects/[selected_sound]_distance.ogg", 100, falloff_exponent = 20)
 			else if(dist_far <= range)

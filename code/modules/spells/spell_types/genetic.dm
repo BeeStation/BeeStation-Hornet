@@ -21,7 +21,7 @@
 	for(var/mob/living/carbon/target in targets)
 		if(target.anti_magic_check())
 			continue
-		if(!target.dna)
+		if(!target.has_dna())
 			continue
 		for(var/A in mutations)
 			target.dna.add_mutation(A)
@@ -38,7 +38,7 @@
 
 /obj/effect/proc_holder/spell/targeted/genetic/proc/remove(mob/living/carbon/target)
 	active_on -= target
-	if(!QDELETED(target))
+	if(!QDELETED(target) && target.has_dna())
 		for(var/A in mutations)
 			target.dna.remove_mutation(A)
 		for(var/A in traits)

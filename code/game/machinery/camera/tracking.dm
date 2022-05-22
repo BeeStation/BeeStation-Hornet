@@ -68,57 +68,48 @@
 		trackable_mobs()
 
 	var/datum/weakref/target = (isnull(track.humans[target_name]) ? track.others[target_name] : track.humans[target_name])
+	ai_start_tracking(target.resolve())
 
-	ai_actual_track(target.resolve())
-
-/mob/living/silicon/ai/proc/ai_actual_track(mob/living/target)
-	if(!istype(target))
+/mob/living/silicon/ai/proc/ai_start_tracking(mob/living/target) //starts ai tracking
+	if(!target || !target.can_track(src))
+		to_chat(src, "<span class='warning'>Target is not near any active cameras.</span>")
 		return
-	var/mob/living/silicon/ai/U = usr
+	if(ai_tracking_target) //if there is already a tracking going when this gets called makes sure the old tracking gets stopped before we register the new signals
+		ai_stop_tracking()
+	RegisterSignal(target, COMSIG_PARENT_QDELETING, .proc/tracking_target_qdeleted)
+	RegisterSignal(target, COMSIG_MOVABLE_MOVED, .proc/ai_actual_track)
+	ai_tracking_target = target
+	eyeobj.setLoc(get_turf(target)) //on the first call of this we obviously need to jump to the target ourselfs else we would go there only after they moved once
+	to_chat(src, "<span class='notice'>Now tracking [target.get_visible_name()] on camera.</span>")
 
-	U.cameraFollow = target
-	U.tracking = 1
+/mob/living/silicon/ai/proc/tracking_target_qdeleted() //we wrap the ai_stop_tracking proc so we don't need to offset the arguments in ai_stop_tracking
+	SIGNAL_HANDLER
+	ai_stop_tracking()
 
-	if(!target || !target.can_track(usr))
-		to_chat(U, "<span class='warning'>Target is not near any active cameras.</span>")
-		U.cameraFollow = null
+/mob/living/silicon/ai/proc/ai_stop_tracking(var/reacquire_failed = FALSE) //stops ai tracking
+	UnregisterSignal(ai_tracking_target, COMSIG_PARENT_QDELETING)
+	UnregisterSignal(ai_tracking_target, COMSIG_MOVABLE_MOVED)
+	ai_tracking_target = null
+	if(reacquire_timer)
+		if(reacquire_failed) //edge case when someone might jump to another camera while the reacquire timer is running
+			to_chat(src, "<span class='warning'>Unable to reacquire, cancelling track...</span>")
+		else
+			deltimer(reacquire_timer)
+		reacquire_timer = null
+
+/mob/living/silicon/ai/proc/ai_actual_track() //proc that gets called by the moved signal of the target
+	SIGNAL_HANDLER
+	if(ai_tracking_target.can_track(src))
+		if(reacquire_timer)	//if we can track our target again but there is a timer running delete the timer and null the timer id
+			deltimer(reacquire_timer)
+			reacquire_timer = null
+	else
+		if(!reacquire_timer)
+			reacquire_timer = addtimer(CALLBACK(src, .proc/ai_stop_tracking, TRUE), 10 SECONDS, TIMER_STOPPABLE) //A timer for how long to wait before we stop tracking someone after loosing them
+			to_chat(src, "<span class='warning'>Target is not near any active cameras. Attempting to reacquire...</span>")
 		return
 
-	to_chat(U, "<span class='notice'>Now tracking [target.get_visible_name()] on camera.</span>")
-
-	var/cameraticks = 0
-	spawn(0)
-		while(U.cameraFollow == target)
-			if(U.cameraFollow == null)
-				return
-
-			if(!target.can_track(usr))
-				U.tracking = 1
-				if(!cameraticks)
-					to_chat(U, "<span class='warning'>Target is not near any active cameras. Attempting to reacquire...</span>")
-				cameraticks++
-				if(cameraticks > 9)
-					U.cameraFollow = null
-					to_chat(U, "<span class='warning'>Unable to reacquire, cancelling track...</span>")
-					tracking = 0
-					return
-				else
-					sleep(10)
-					continue
-
-			else
-				cameraticks = 0
-				U.tracking = 0
-
-			if(U.eyeobj)
-				U.eyeobj.setLoc(get_turf(target))
-
-			else
-				view_core()
-				U.cameraFollow = null
-				return
-
-			sleep(10)
+	eyeobj.setLoc(get_turf(ai_tracking_target))
 
 /proc/near_camera(mob/living/M)
 	if (!isturf(M.loc))

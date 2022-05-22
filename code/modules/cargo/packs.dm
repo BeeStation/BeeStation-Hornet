@@ -68,7 +68,7 @@
 					/obj/item/key,
 					/obj/item/clothing/suit/jacket/leather/overcoat,
 					/obj/item/clothing/gloves/color/black,
-					/obj/item/clothing/head/soft,
+					/obj/item/clothing/head/soft/cargo,
 					/obj/item/clothing/mask/bandana/skull)//so you can properly #cargoniabikergang
 	crate_name = "Biker Kit"
 	crate_type = /obj/structure/closet/crate/large
@@ -898,10 +898,10 @@
 	charge = 5000
 
 /datum/supply_pack/engineering/inducers
-	name = "NT-75 Electromagnetic Power Inducers Crate"
-	desc = "No rechargers? No problem, with the NT-75 EPI, you can recharge any standard cell-based equipment anytime, anywhere. Contains two Inducers."
-	cost = 1500
-	contains = list(/obj/item/inducer/sci {cell_type = /obj/item/stock_parts/cell/inducer_supply; opened = 0}, /obj/item/inducer/sci {cell_type = /obj/item/stock_parts/cell/inducer_supply; opened = 0}) //FALSE doesn't work in modified type paths apparently.
+	name = "NT-100 Heavy-Duty Inducers Crate"
+	desc = "No rechargers? No problem, with the NT-100 EPI, you can recharge any standard cell-based equipment anytime, anywhere, twice faster than consumer alternatives! Contains two Engineering inducers."
+	cost = 2000
+	contains = list(/obj/item/inducer {cell_type = /obj/item/stock_parts/cell/high; opened = 0}, /obj/item/inducer {cell_type = /obj/item/stock_parts/cell/inducer_supply; opened = 0}) //FALSE doesn't work in modified type paths apparently.
 	crate_name = "inducer crate"
 	crate_type = /obj/structure/closet/crate/engineering/electrical
 
@@ -1738,6 +1738,13 @@
 	crate_name = "recharging station crate"
 	crate_type = /obj/structure/closet/crate/secure/science
 
+/datum/supply_pack/science/inducers
+	name = "NT-50 Inducers Crate"
+	desc = "No rechargers? No problem, with the NT-50 EPI, you can recharge any standard cell-based equipment anytime, anywhere! Contains two Science inducers."
+	cost = 1000
+	contains = list(/obj/item/inducer/sci {cell_type = /obj/item/stock_parts/cell/inducer_supply; opened = 0}, /obj/item/inducer/sci {cell_type = /obj/item/stock_parts/cell/inducer_supply; opened = 0}) //FALSE doesn't work in modified type paths apparently.
+	crate_name = "inducer crate"
+
 /datum/supply_pack/science/rped
 	name = "RPED crate"
 	desc = "Need to rebuild the ORM but science got annihialted after a bomb test? Buy this for the most advanced parts NT can give you."
@@ -2033,11 +2040,10 @@
 /datum/supply_pack/service/randomized/donkpockets
 	name = "Donk Pocket Variety Crate"
 	desc = "Featuring a line up of Donk Co.'s most popular pastry!"
-	cost = 2000
+	cost = 1500
 	contains = list(/obj/item/storage/box/donkpockets/donkpocketspicy,
 	/obj/item/storage/box/donkpockets/donkpocketteriyaki,
 	/obj/item/storage/box/donkpockets/donkpocketpizza,
-	/obj/item/storage/box/donkpockets/donkpocketgondola,
 	/obj/item/storage/box/donkpockets/donkpocketberry,
 	/obj/item/storage/box/donkpockets/donkpockethonk)
 	crate_name = "donk pocket crate"
@@ -2781,6 +2787,22 @@
 		/obj/item/cardboard_cutout/adaptive/chess/black/pawn,
 	)
 	crate_type = /obj/structure/closet/crate/wooden
+
+
+/datum/supply_pack/costumes_toys/randomised/plush
+	name = "Plushie Crate"
+	desc = "A crate filled with 5 plushies!"
+	cost = 1500
+	num_contained = 5
+	contains = list()
+	crate_type = /obj/structure/closet/crate/wooden
+	crate_name = "plushie crate"
+
+/datum/supply_pack/costumes_toys/randomised/plush/fill(obj/structure/closet/crate/C)
+	var/plush
+	for(var/i in 1 to num_contained)
+		plush = pick(subtypesof(/obj/item/toy/plush))
+		new plush(C)
 
 //////////////////////////////////////////////////////////////////////////////
 ///////////////////////// Wardrobe Resupplies ////////////////////////////////

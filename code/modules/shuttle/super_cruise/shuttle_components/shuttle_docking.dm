@@ -52,10 +52,10 @@
 		shuttle_port = null
 		return
 
-	eyeobj = new /mob/camera/ai_eye/remote/shuttle_docker(null, src)
+	var/turf/origin = locate(shuttle_port.x, shuttle_port.y, shuttle_port.z)
+	eyeobj = new /mob/camera/ai_eye/remote/shuttle_docker(origin, src)
 	var/mob/camera/ai_eye/remote/shuttle_docker/the_eye = eyeobj
 	the_eye.setDir(shuttle_port.dir)
-	var/turf/origin = locate(shuttle_port.x, shuttle_port.y, shuttle_port.z)
 	for(var/V in shuttle_port.shuttle_areas)
 		var/area/A = V
 		for(var/turf/T in A)
@@ -73,8 +73,9 @@
 /obj/machinery/computer/shuttle_flight/proc/give_eye_control(mob/user)
 	if(!isliving(user))
 		return
-	if(!eyeobj)
-		CreateEye()
+	if(eyeobj)
+		qdel(eyeobj) //Custom shuttles can be modified, this needs to be updated to catch for that.
+	CreateEye()
 	GrantActions(user)
 	current_user = user
 	eyeobj.eye_user = user
@@ -82,7 +83,6 @@
 	user.remote_control = eyeobj
 	user.reset_perspective(eyeobj)
 	eyeobj.setLoc(eyeobj.loc)
-	user.client.view_size.supress()
 	if(!QDELETED(user) && user.client)
 		var/mob/camera/ai_eye/remote/shuttle_docker/the_eye = eyeobj
 		var/list/to_add = list()
@@ -108,8 +108,6 @@
 		user.reset_perspective(null)
 		if(eyeobj.visible_icon && user.client)
 			user.client.images -= eyeobj.user_image
-
-		user.client.view_size.unsupress()
 
 	eyeobj.eye_user = null
 	user.remote_control = null
@@ -310,6 +308,9 @@
 /mob/camera/ai_eye/remote/shuttle_docker/Initialize(mapload, obj/machinery/computer/camera_advanced/origin)
 	src.origin = origin
 	return ..()
+
+/mob/camera/ai_eye/remote/shuttle_docker/canZMove(direction, turf/target)
+	return TRUE
 
 /mob/camera/ai_eye/remote/shuttle_docker/setLoc(destination)
 	. = ..()

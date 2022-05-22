@@ -2,11 +2,11 @@
 	// Animated beings of stone. They have increased defenses, and do not need to breathe. They're also slow as fuuuck.
 	name = "\improper Golem"
 	id = "iron_golem"
-	say_mod = "rumbles"
 	species_traits = list(NOBLOOD,MUTCOLORS,NO_UNDERWEAR,NOTRANSSTING)
 	inherent_traits = list(TRAIT_RESISTHEAT,TRAIT_NOBREATH,TRAIT_RESISTCOLD,TRAIT_RESISTHIGHPRESSURE,TRAIT_RESISTLOWPRESSURE,TRAIT_NOFIRE,TRAIT_NOGUNS,TRAIT_RADIMMUNE,TRAIT_PIERCEIMMUNE,TRAIT_NODISMEMBER, TRAIT_NONECRODISEASE)
 	inherent_biotypes = list(MOB_INORGANIC, MOB_HUMANOID)
 	mutant_organs = list(/obj/item/organ/adamantine_resonator)
+	mutanttongue = /obj/item/organ/tongue/golem
 	speedmod = 2
 	armor = 55
 	siemens_coeff = 0
@@ -524,9 +524,9 @@
 	name = "Bananium Golem"
 	id = "bananium_golem"
 	species_traits = list(NOBLOOD,NO_UNDERWEAR,NOEYESPRITES,NOTRANSSTING)
-	say_mod = "honks"
 	punchdamage = 0
 	meat = /obj/item/stack/ore/bananium
+	mutanttongue = /obj/item/organ/tongue/golem/bananium
 	info_text = "As a <span class='danger'>Bananium Golem</span>, you are made for pranking. Your body emits natural honks, and you can barely even hurt people when punching them. Your skin also bleeds banana peels when damaged."
 	attack_verb = "honk"
 	attack_sound = 'sound/items/airhorn2.ogg'
@@ -675,7 +675,6 @@
 /datum/species/golem/clockwork
 	name = "Clockwork Golem"
 	id = "clockwork_golem"
-	say_mod = "clicks"
 	info_text = "<span class='bold alloy'>As a </span><span class='bold brass'>Clockwork Golem</span><span class='bold alloy'>, you are faster than other types of golems. On death, you will break down into scrap.</span>"
 	species_traits = list(NOBLOOD,NO_UNDERWEAR,NOEYESPRITES,NOFLASH,NOTRANSSTING)
 	inherent_biotypes = list(MOB_ROBOTIC, MOB_HUMANOID)
@@ -689,6 +688,7 @@
 	prefix = "Clockwork"
 	special_names = list("Remnant", "Relic", "Scrap", "Vestige") //RIP Ratvar
 	inherent_factions = list("ratvar")
+	mutanttongue = /obj/item/organ/tongue/golem/clockwork
 	var/has_corpse
 
 	species_chest = /obj/item/bodypart/chest/golem/clock
@@ -825,7 +825,7 @@
 /obj/structure/cloth_pile/proc/revive()
 	if(QDELETED(src) || QDELETED(cloth_golem)) //QDELETED also checks for null, so if no cloth golem is set this won't runtime
 		return
-	if(cloth_golem.suiciding || cloth_golem.hellbound)
+	if(cloth_golem.suiciding || cloth_golem.ishellbound())
 		QDEL_NULL(cloth_golem)
 		return
 
@@ -1021,7 +1021,6 @@
 /datum/species/golem/bone
 	name = "Bone Golem"
 	id = "bone_golem"
-	say_mod = "rattles"
 	prefix = "Bone"
 	special_names = list("Head", "Broth", "Fracture", "Rattler", "Appetit")
 	liked_food = GROSS | MEAT | RAW

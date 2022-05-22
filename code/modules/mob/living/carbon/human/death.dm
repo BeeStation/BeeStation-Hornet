@@ -79,6 +79,18 @@
 	if(is_hivehost(src))
 		var/datum/antagonist/hivemind/hive = mind.has_antag_datum(/datum/antagonist/hivemind)
 		hive.destroy_hive()
+	if(HAS_TRAIT(src, TRAIT_DROPS_ITEMS_ON_DEATH)) //if you want to add anything else, do it before this if statement
+		var/list/turfs_to_throw = view(2, src)
+		for(var/obj/item/I in contents)
+			dropItemToGround(I, TRUE)
+			if(QDELING(I))
+				continue //skip it
+			I.throw_at(pick(turfs_to_throw), 3, 1, spin = FALSE)
+			I.pixel_x = rand(-10, 10)
+			I.pixel_y = rand(-10, 10)
+		//Death
+		dust(TRUE)
+		return
 
 /mob/living/carbon/human/proc/makeSkeleton()
 	ADD_TRAIT(src, TRAIT_DISFIGURED, TRAIT_GENERIC)

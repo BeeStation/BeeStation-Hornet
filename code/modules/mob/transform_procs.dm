@@ -48,19 +48,13 @@
 		O.real_name = "monkey ([copytext_char(rustg_hash_string(RUSTG_HASH_MD5, real_name), 2, 6)])"
 
 	//handle DNA and other attributes
-	dna.transfer_identity(O)
+	dna.transfer_identity(O, tr_flags & TR_KEEPSE)
 	O.set_species(/datum/species/monkey)
+	O.dna.set_se(TRUE, GET_INITIALIZED_MUTATION(RACEMUT))
 	O.updateappearance(icon_update=0)
-
-	if(tr_flags & TR_KEEPSE)
-		O.dna.mutation_index = dna.mutation_index
-		O.dna.default_mutation_genes = dna.default_mutation_genes
-		O.dna.set_se(1, GET_INITIALIZED_MUTATION(RACEMUT))
 
 	if(suiciding)
 		O.set_suicide(suiciding)
-	if(hellbound)
-		O.hellbound = hellbound
 	O.a_intent = INTENT_HARM
 
 	//keep viruses?
@@ -221,8 +215,6 @@
 
 	if(suiciding)
 		O.set_suicide(suiciding)
-	if(hellbound)
-		O.hellbound = hellbound
 	O.a_intent = INTENT_HARM
 
 	//keep viruses?
@@ -368,7 +360,8 @@
 			continue
 		O.equip_to_appropriate_slot(C)
 
-	dna.transfer_identity(O)
+	dna.transfer_identity(O, tr_flags & TR_KEEPSE)
+	O.dna.set_se(FALSE, GET_INITIALIZED_MUTATION(RACEMUT))
 	O.updateappearance(mutcolor_update=1)
 
 	if(findtext(O.dna.real_name, "monkey", 1, 7)) //7 == length("monkey") + 1
@@ -378,16 +371,8 @@
 		O.real_name = O.dna.real_name
 	O.name = O.real_name
 
-	if(tr_flags & TR_KEEPSE)
-		O.dna.mutation_index = dna.mutation_index
-		O.dna.default_mutation_genes = dna.default_mutation_genes
-		O.dna.set_se(0, GET_INITIALIZED_MUTATION(RACEMUT))
-		O.domutcheck()
-
 	if(suiciding)
 		O.set_suicide(suiciding)
-	if(hellbound)
-		O.hellbound = hellbound
 
 	//keep viruses?
 	if (tr_flags & TR_KEEPVIRUS)
@@ -658,7 +643,7 @@
 	qdel(src)
 
 
-/mob/living/carbon/human/proc/corgize()
+/mob/living/carbon/proc/corgize()
 	if (notransform)
 		return
 	notransform = TRUE

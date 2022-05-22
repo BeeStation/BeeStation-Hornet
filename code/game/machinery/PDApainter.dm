@@ -9,10 +9,11 @@
 	var/obj/item/pda/storedpda = null
 	var/obj/item/card/id/storedid = null
 	var/pda_icons = list(
-		"Assistant" = "pda",
+		"neutral" = "pda",
+		"Assistant" = "pda-assistant",
 		"Atmospheric Technician" = "pda-atmos",
 		"Bartender" = "pda-bartender",
-		"Botanist" = "pda-hydro",
+		"Service" = "pda-service",
 		"Captain" = "pda-captain",
 		"Cargo Technician" = "pda-cargo",
 		"Chaplain" = "pda-chaplain",
@@ -30,6 +31,7 @@
 		"Lawyer" = "pda-lawyer",
 		"Janitor" = "pda-janitor",
 		"Medical Doctor" = "pda-medical",
+		"Paramedic" = "pda-paramedical",
 		"Mime" = "pda-mime",
 		"Quartermaster" = "pda-qm",
 		"Research Director" = "pda-rd",
@@ -38,7 +40,8 @@
 		"Security Officer" = "pda-security",
 		"Shaft Miner" = "pda-miner",
 		"Virologist" = "pda-virology",
-		"Warden" = "pda-warden"
+		"Warden" = "pda-warden",
+		"Exploration Crew" = "pda-exploration"
 		)
 	var/id_icons = list(
 		"Assistant" = "id",
@@ -70,7 +73,8 @@
 		"Brig Physician" = "brigphys",
 		"Deputy" = "deputy",
 		"Roboticist" = "roboticist",
-		"Janitor" = "janitor"
+		"Janitor" = "janitor",
+		"Exploration Crew" = "exploration"
 		)
 	max_integrity = 200
 	var/list/colorlist = list()

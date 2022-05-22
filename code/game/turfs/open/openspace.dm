@@ -54,6 +54,9 @@ GLOBAL_DATUM_INIT(openspace_backdrop_one_for_all, /atom/movable/openspace_backdr
 /turf/open/openspace/can_have_cabling()
 	if(locate(/obj/structure/lattice/catwalk, src))
 		return TRUE
+	var/turf/B = below()
+	if(B)
+		return B.can_lay_cable()
 	return FALSE
 
 /turf/open/openspace/update_multiz(prune_on_fail = FALSE, init = FALSE)
@@ -182,6 +185,9 @@ GLOBAL_DATUM_INIT(openspace_backdrop_one_for_all, /atom/movable/openspace_backdr
 			to_chat(user, "<span class='notice'>You build a floor.</span>")
 			PlaceOnTop(/turf/open/floor/plating, flags = CHANGETURF_INHERIT_AIR)
 			return TRUE
+	return FALSE
+
+/turf/open/openspace/rust_heretic_act()
 	return FALSE
 
 //Returns FALSE if gravity is force disabled. True if grav is possible

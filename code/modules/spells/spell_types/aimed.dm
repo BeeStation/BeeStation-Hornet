@@ -118,7 +118,7 @@
 	invocation_type = "shout"
 	range = 20
 	cooldown_min = 40 //10 deciseconds reduction per rank
-	projectile_type = /obj/item/projectile/magic/aoe/fireball
+	projectile_type = /obj/item/projectile/magic/fireball
 	base_icon_state = "fireball"
 	action_icon_state = "fireball0"
 	sound = 'sound/magic/fireball.ogg'

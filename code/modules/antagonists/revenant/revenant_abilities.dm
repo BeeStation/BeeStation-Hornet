@@ -17,6 +17,11 @@
 		else if(in_range(src, A))
 			Harvest(A)
 
+	if(isturf(A))
+		var/turf/T = A
+		if(T == get_turf(src))
+			T.check_z_travel(src)
+
 
 //Harvest; activated by clicking the target, will try to drain their essence.
 /mob/living/simple_animal/revenant/proc/Harvest(mob/living/carbon/human/target)
@@ -252,10 +257,10 @@
 		floor.make_plating(1)
 	if(T.type == /turf/closed/wall && prob(15))
 		new /obj/effect/temp_visual/revenant(T)
-		T.ChangeTurf(/turf/closed/wall/rust)
+		T.AddElement(/datum/element/rust)
 	if(T.type == /turf/closed/wall/r_wall && prob(10))
 		new /obj/effect/temp_visual/revenant(T)
-		T.ChangeTurf(/turf/closed/wall/r_wall/rust)
+		T.AddElement(/datum/element/rust)
 	for(var/obj/effect/decal/cleanable/food/salt/salt in T)
 		new /obj/effect/temp_visual/revenant(T)
 		qdel(salt)
