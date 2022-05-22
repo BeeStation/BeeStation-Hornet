@@ -59,6 +59,9 @@ GLOBAL_VAR(clockcult_eminence)
 		if(!antag_candidates.len)
 			break
 		var/datum/mind/clockie = antag_pick(antag_candidates, ROLE_SERVANT_OF_RATVAR)
+		//In case antag_pick breaks
+		if(!clockie)
+			continue
 		antag_candidates -= clockie
 		selected_servants += clockie
 		clockie.assigned_role = ROLE_SERVANT_OF_RATVAR
