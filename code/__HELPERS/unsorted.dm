@@ -1229,6 +1229,7 @@ Increases delay as the server gets more overloaded, as sleeps aren't cheap and s
 
 /**
  * random code generator (only numbers)
+ * This returns a string
  * Arguments
  * n_length - length of the random code
  *
