@@ -53,8 +53,9 @@
 
 /obj/item/organ/body_egg/alien_embryo/on_death()
 	. = ..()
-	if(!owner && next_stage_time) // No growing outside the body
-		COOLDOWN_RESET(src, next_stage_time)
+	if(!owner) // If we're out of the body, kill us and stop processing
+		applyOrganDamage(maxHealth)
+		STOP_PROCESSING(SSobj, src)
 
 /obj/item/organ/body_egg/alien_embryo/egg_process()
 	var/mob/living/L = owner
