@@ -667,11 +667,11 @@
 	to_chat(new_owner, "<span class='boldwarning'>My body can't handle the mutations! I need to get my mutations removed fast!</span>")
 
 /datum/status_effect/dna_melt/on_remove()
-	if(!ishuman(owner))
+	if(!owner.has_dna())
 		owner.gib() //fuck you in particular
 		return
-	var/mob/living/carbon/human/H = owner
-	H.something_horrible(kill_either_way)
+	var/mob/living/carbon/C = owner
+	C.something_horrible(kill_either_way)
 
 /atom/movable/screen/alert/status_effect/dna_melt
 	name = "Genetic Breakdown"
@@ -944,3 +944,52 @@
 	name = "Electro-Magnetic Pulse"
 	desc = "You've been hit with an EMP! You're malfunctioning!"
 	icon_state = "hypnosis"
+
+/datum/status_effect/slimegrub
+	id = "grub_infection"
+	duration = 60 SECONDS //a redgrub infestation in a slime 
+	status_type = STATUS_EFFECT_UNIQUE
+	tick_interval = 1
+	alert_type = /atom/movable/screen/alert/status_effect/grub
+	var/adult = FALSE 
+	var/spawnbonus = 0
+	var/deathcounter = 300
+	var/list/diseases = list()
+
+/datum/status_effect/slimegrub/on_apply(mob/living/new_owner, ...)
+	. = ..()
+	if(isslime(new_owner))
+		var/mob/living/simple_animal/slime/S = new_owner
+		if(S.is_adult)
+			adult = TRUE
+			duration = world.time + 120 SECONDS
+			if(S.amount_grown >= 9)
+				S.amount_grown = 8 //can't split or evolve
+		deathcounter = (300 + (300 * adult))
+
+/datum/status_effect/slimegrub/tick()
+	if(isslime(owner))
+		var/mob/living/simple_animal/slime/S = owner
+		if(S.amount_grown >= 9)
+			S.amount_grown = 8
+		if((S.reagents.has_reagent(/datum/reagent/consumable/capsaicin) || S.bodytemperature > BODYTEMP_HEAT_DAMAGE_LIMIT)) //redgrubs don't like heat. heating them up for too long kills them
+			if(prob(10))
+				qdel(src)
+		else //don't tick while being cured
+			deathcounter -= 2 
+			if(deathcounter <= 0)
+				var/spawns = rand(1, 3 + (adult * 3))
+				for(var/I in 1 to (spawns + spawnbonus))
+					var/mob/living/simple_animal/hostile/redgrub/grub = new(S.loc)
+					grub.grubdisease = diseases
+					grub.food += 15
+				playsound(S, 'sound/effects/attackblob.ogg', 60, 1)
+				S.visible_message("<span class='warning'>[S] is eaten from the inside by [spawns] red grubs, leaving no trace!</span>")
+				S.gib()
+	else 
+		qdel(src)//no effect on nonslimes
+
+/atom/movable/screen/alert/status_effect/grub
+	name = "Infected"
+	desc = "You have a redgrub infection, and can't reproduce or grow! If you don't find a source of heat, you will die!"
+	icon_state = "grub"

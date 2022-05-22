@@ -170,17 +170,17 @@
 
 /datum/action/item_action/Destroy()
 	var/obj/item/I = target
-	I.actions -= src
+	I?.actions -= src
 	UNSETEMPTY(I.actions)
 	return ..()
 
 /datum/action/item_action/Trigger()
 	if(!..())
-		return 0
+		return FALSE
 	if(target)
 		var/obj/item/I = target
 		I.ui_action_click(owner, src)
-	return 1
+	return TRUE
 
 /datum/action/item_action/ApplyIcon(atom/movable/screen/movable/action_button/current_button, force)
 	if(button_icon && button_icon_state)
@@ -570,7 +570,7 @@
 
 /datum/action/spell_action/Destroy()
 	var/obj/effect/proc_holder/S = target
-	S.action = null
+	S?.action = null
 	return ..()
 
 /datum/action/spell_action/Trigger()

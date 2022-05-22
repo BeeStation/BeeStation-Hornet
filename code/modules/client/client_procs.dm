@@ -141,53 +141,31 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 /*
  * Call back proc that should be checked in all paths where a client can send messages
  *
- * Handles checking for duplicate messages and people sending messages too fast
+ * Handles checking for people sending messages too fast.
  *
- * The first checks are if you're sending too fast, this is defined as sending
- * SPAM_TRIGGER_AUTOMUTE messages in
- * 5 seconds, this will start supressing your messages,
- * if you send 2* that limit, you also get muted
+ * This is defined as sending SPAM_TRIGGER_AUTOMUTE (10) messages within 5 seconds of eachother, which gets you auto-muted.
  *
- * The second checks for the same duplicate message too many times and mutes
- * you for it
+ * You will be warned if you send SPAM_TRIGGER_WARNING(5) messages withing 5 seconds of eachother to hopefully prevent false positives.
+ *
  */
 /client/proc/handle_spam_prevention(message, mute_type)
+	if(!(CONFIG_GET(flag/automute_on)))
+		return FALSE
 
-	//Increment message count
-	total_message_count += 1
+	if(COOLDOWN_FINISHED(src, total_count_reset))
+		total_message_count = 0 //reset the count if it's been more than 5 seconds since the last message.
 
-	//store the total to act on even after a reset
-	var/cache = total_message_count
+	total_message_count++
+	COOLDOWN_START(src, total_count_reset, 5 SECONDS)
 
-	if(total_count_reset <= world.time)
-		total_message_count = 0
-		total_count_reset = world.time + (5 SECONDS)
+	if(total_message_count >= SPAM_TRIGGER_AUTOMUTE)
+		to_chat(src, "<span class='userdanger'>You have exceeded the spam filter limit for too many messages. An auto-mute was applied. Make an adminhelp ticket if you think this was in error.</span>")
+		cmd_admin_mute(src, mute_type, TRUE)
+		return TRUE
 
-	//If they're really going crazy, mute them
-	if(cache >= SPAM_TRIGGER_AUTOMUTE * 2)
-		total_message_count = 0
-		total_count_reset = 0
-		cmd_admin_mute(src, mute_type, 1)
-		return 1
-
-	//Otherwise just supress the message
-	else if(cache >= SPAM_TRIGGER_AUTOMUTE)
-		return 1
-
-
-	if(CONFIG_GET(flag/automute_on) && !holder && last_message == message)
-		src.last_message_count++
-		if(src.last_message_count >= SPAM_TRIGGER_AUTOMUTE)
-			to_chat(src, "<span class='danger'>You have exceeded the spam filter limit for identical messages. An auto-mute was applied.</span>")
-			cmd_admin_mute(src, mute_type, 1)
-			return 1
-		if(src.last_message_count >= SPAM_TRIGGER_WARNING)
-			to_chat(src, "<span class='danger'>You are nearing the spam filter limit for identical messages.</span>")
-			return 0
-	else
-		last_message = message
-		src.last_message_count = 0
-		return 0
+	if(total_message_count >= SPAM_TRIGGER_WARNING)
+		to_chat(src, "<span class='userdanger'>You are nearing the spam filter limit for too many messages in a short period. Slow down.</span>")
+		return FALSE
 
 //This stops files larger than UPLOAD_LIMIT being sent from client to server via input(), client.Import() etc.
 /client/AllowUpload(filename, filelength)
@@ -244,6 +222,8 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	if(CONFIG_GET(flag/enable_localhost_rank) && !connecting_admin)
 		var/localhost_addresses = list("127.0.0.1", "::1")
 		if(isnull(address) || (address in localhost_addresses))
+			if(Debugger?.enabled)
+				to_chat_immediate(src, "<span class='userdanger'>Debugger enabled. Make sure you untick \"Runtime errors\" in the bottom left of VSCode's Run and Debug tab.</span>")
 			var/datum/admin_rank/localhost_rank = new("!localhost!", R_EVERYTHING, R_DBRANKS, R_EVERYTHING) //+EVERYTHING -DBRANKS *EVERYTHING
 			new /datum/admins(localhost_rank, ckey, 1, 1)
 	//preferences datum - also holds some persistent data for the client (because we may as well keep these datums to a minimum)
@@ -308,9 +288,9 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 
 		if (num2text(byond_build) in GLOB.blacklisted_builds)
 			log_access("Failed login: [key] - blacklisted byond version")
-			to_chat(src, "<span class='userdanger'>Your version of byond is blacklisted.</span>")
-			to_chat(src, "<span class='danger'>Byond build [byond_build] ([byond_version].[byond_build]) has been blacklisted for the following reason: [GLOB.blacklisted_builds[num2text(byond_build)]].</span>")
-			to_chat(src, "<span class='danger'>Please download a new version of byond. If [byond_build] is the latest, you can go to <a href=\"https://secure.byond.com/download/build\">BYOND's website</a> to download other versions.</span>")
+			to_chat_immediate(src, "<span class='userdanger'>Your version of byond is blacklisted.</span>")
+			to_chat_immediate(src, "<span class='danger'>Byond build [byond_build] ([byond_version].[byond_build]) has been blacklisted for the following reason: [GLOB.blacklisted_builds[num2text(byond_build)]].</span>")
+			to_chat_immediate(src, "<span class='danger'>Please download a new version of byond. If [byond_build] is the latest, you can go to <a href=\"https://secure.byond.com/download/build\">BYOND's website</a> to download other versions.</span>")
 			if(connecting_admin)
 				to_chat(src, "As an admin, you are being allowed to continue using this version, but please consider changing byond versions")
 			else
@@ -337,11 +317,11 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	var/ceb = CONFIG_GET(number/client_error_build)
 	var/cwv = CONFIG_GET(number/client_warn_version)
 	if (byond_version < cev || byond_build < ceb)		//Out of date client.
-		to_chat(src, "<span class='danger'><b>Your version of BYOND is too old:</b></span>")
-		to_chat(src, CONFIG_GET(string/client_error_message))
-		to_chat(src, "Your version: [byond_version].[byond_build]")
-		to_chat(src, "Required version: [cev].[ceb] or later")
-		to_chat(src, "Visit <a href=\"https://secure.byond.com/download\">BYOND's website</a> to get the latest version of BYOND.")
+		to_chat_immediate(src, "<span class='danger'><b>Your version of BYOND is too old:</b></span>")
+		to_chat_immediate(src, CONFIG_GET(string/client_error_message))
+		to_chat_immediate(src, "Your version: [byond_version].[byond_build]")
+		to_chat_immediate(src, "Required version: [cev].[ceb] or later")
+		to_chat_immediate(src, "Visit <a href=\"https://secure.byond.com/download\">BYOND's website</a> to get the latest version of BYOND.")
 		if (connecting_admin)
 			to_chat(src, "Because you are an admin, you are being allowed to walk past this limitation, But it is still STRONGLY suggested you upgrade")
 		else
@@ -364,11 +344,11 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 
 	if (connection == "web" && !connecting_admin)
 		if (!CONFIG_GET(flag/allow_webclient))
-			to_chat(src, "Web client is disabled")
+			to_chat_immediate(src, "Web client is disabled")
 			qdel(src)
 			return 0
 		if (CONFIG_GET(flag/webclient_only_byond_members) && !IsByondMember())
-			to_chat(src, "Sorry, but the web client is restricted to byond members only.")
+			to_chat_immediate(src, "Sorry, but the web client is restricted to byond members only.")
 			qdel(src)
 			return 0
 
@@ -561,7 +541,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	return QDEL_HINT_HARDDEL_NOW
 
 /client/proc/set_client_age_from_db(connectiontopic)
-	if (IS_GUEST_KEY(src.key))
+	if(IS_GUEST_KEY(key))
 		return
 	if(!SSdbcore.Connect())
 		return
@@ -584,14 +564,14 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		qdel(query_get_related_cid)
 		return
 	related_accounts_cid = ""
-	while (query_get_related_cid.NextRow())
+	while(query_get_related_cid.NextRow())
 		related_accounts_cid += "[query_get_related_cid.item[1]], "
 	qdel(query_get_related_cid)
 	var/admin_rank = "Player"
-	if (src.holder?.rank)
-		admin_rank = src.holder.rank.name
+	if(holder?.rank)
+		admin_rank = holder.rank.name
 	else
-		if (!GLOB.deadmins[ckey] && check_randomizer(connectiontopic))
+		if(!GLOB.deadmins[ckey] && check_randomizer(connectiontopic))
 			return
 	var/new_player
 	var/datum/DBQuery/query_client_in_db = SSdbcore.NewQuery(
@@ -621,12 +601,12 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 				message_admins("<span class='adminnotice'>[reject_message]</span>")
 				var/message = CONFIG_GET(string/panic_bunker_message)
 				message = replacetext(message, "%minutes%", living_recs)
-				to_chat(src, message)
+				to_chat_immediate(src, message)
 				var/list/connectiontopic_a = params2list(connectiontopic)
 				var/list/panic_addr = CONFIG_GET(string/panic_server_address)
 				if(panic_addr && !connectiontopic_a["redirect"])
 					var/panic_name = CONFIG_GET(string/panic_server_name)
-					to_chat(src, "<span class='notice'>Sending you to [panic_name ? panic_name : panic_addr].</span>")
+					to_chat_immediate(src, "<span class='notice'>Sending you to [panic_name ? panic_name : panic_addr].</span>")
 					winset(src, null, "command=.options")
 					src << link("[panic_addr]?redirect=1")
 				qdel(query_client_in_db)
@@ -715,7 +695,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		if(R.Find(F))
 			. = R.group[1]
 		else
-			CRASH("Age check regex failed for [src.ckey]")
+			CRASH("Age check regex failed for [ckey]")
 
 /client/proc/validate_key_in_db()
 	var/sql_key
@@ -792,8 +772,8 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		if (oldcid != computer_id && computer_id != lastcid) //IT CHANGED!!!
 			cidcheck -= ckey //so they can try again after removing the cid randomizer.
 
-			to_chat(src, "<span class='userdanger'>Connection Error:</span>")
-			to_chat(src, "<span class='danger'>Invalid ComputerID(spoofed). Please remove the ComputerID spoofer from your byond installation and try again.</span>")
+			to_chat_immediate(src, "<span class='userdanger'>Connection Error:</span>")
+			to_chat_immediate(src, "<span class='danger'>Invalid ComputerID(spoofed). Please remove the ComputerID spoofer from your byond installation and try again.</span>")
 
 			if (!cidcheck_failedckeys[ckey])
 				message_admins("<span class='adminnotice'>[key_name(src)] has been detected as using a cid randomizer. Connection rejected.</span>")
@@ -1098,7 +1078,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 			if(CONFIG_GET(flag/respect_upstream_permabans) && ban["expires"])
 				continue
 
-			to_chat(src, "<span class='userdanger'>Your connection has been closed because you are currently banned from BeeStation.</span>")
+			to_chat_immediate(src, "<span class='userdanger'>Your connection has been closed because you are currently banned from BeeStation.</span>")
 			message_admins("[key_name(src)] was removed from the game due to a ban from BeeStation.")
 			qdel(src)
 			return
@@ -1117,4 +1097,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		SSambience.ambience_listening_clients -= src
 
 /client/proc/give_award(achievement_type, mob/user)
-	return	player_details.achievements.unlock(achievement_type, user)
+	return player_details.achievements.unlock(achievement_type, user)
+
+/client/proc/increase_score(achievement_type, mob/user, value)
+	return player_details.achievements.increase_score(achievement_type, user, value)

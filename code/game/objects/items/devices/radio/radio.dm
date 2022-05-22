@@ -132,11 +132,13 @@
 /obj/item/radio/ui_state(mob/user)
 	return GLOB.inventory_state
 
-/obj/item/radio/ui_interact(mob/user, datum/tgui/ui)
+/obj/item/radio/ui_interact(mob/user, datum/tgui/ui, datum/ui_state/state)
 	. = ..()
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "Radio")
+		if(state)
+			ui.state = state
 		ui.open()
 
 /obj/item/radio/ui_data(mob/user)

@@ -327,7 +327,7 @@ put up a rune with bluespace effects, lots of those runes are fluff or act as a 
 				break
 	if(C?.charge)
 		do_sparks(5,FALSE,C)
-		INVOKE_ASYNC(src, .proc/empulse, rune_turf, 1, 1)
+		INVOKE_ASYNC(src, .proc/empulse, rune_turf, 1, 1, FALSE, TRUE, FALSE)
 		C.use(C.charge)
 		activated_on_step = TRUE
 	. = ..()
@@ -601,7 +601,9 @@ GLOBAL_DATUM(blue_storage, /obj/item/storage/backpack/holding/bluespace)
 		/obj/item/toy/plush/slimeplushie,
 		/obj/item/toy/plush/awakenedplushie,
 		/obj/item/toy/plush/beeplushie,
-		/obj/item/toy/plush/moth,
+		/obj/item/toy/plush/moth/random,
+		/obj/item/toy/plush/gondola,
+		/obj/item/toy/plush/flushed = 2,
 		/obj/item/toy/eightball/haunted,
 		/obj/item/toy/foamblade,
 		/obj/item/toy/katana,

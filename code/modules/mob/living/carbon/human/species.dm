@@ -27,7 +27,6 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	var/toxic_food = TOXIC
 	var/list/no_equip = list()	// slots the race can't equip stuff to
 	var/nojumpsuit = 0	// this is sorta... weird. it basically lets you equip stuff that usually needs jumpsuits without one, like belts and pockets and ids
-	var/say_mod = "says"	// affects the speech message
 	var/species_language_holder = /datum/language_holder
 	var/list/default_features = list("body_size" = "Normal") // Default mutant bodyparts for this species. Don't forget to set one for every mutant bodypart you allow this species to have.
 	var/list/forced_features = list()	// A list of features forced on characters
@@ -128,22 +127,22 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		return TRUE
 	return FALSE
 
-/datum/species/proc/random_name(gender,unique,lastname)
-	if(unique)
-		return random_unique_name(gender)
+/datum/species/proc/random_name(gender, unique, lastname, attempts)
 
-	var/randname
 	if(gender == MALE)
-		randname = pick(GLOB.first_names_male)
+		. = pick(GLOB.first_names_male)
 	else
-		randname = pick(GLOB.first_names_female)
+		. = pick(GLOB.first_names_female)
 
 	if(lastname)
-		randname += " [lastname]"
+		. += " [lastname]"
 	else
-		randname += " [pick(GLOB.last_names)]"
+		. += " [pick(GLOB.last_names)]"
 
-	return randname
+	if(unique && attempts < 10)
+		. = .(gender, TRUE, lastname, ++attempts)
+
+
 
 //Called when cloning, copies some vars that should be kept
 /datum/species/proc/copy_properties_from(datum/species/old_species)
@@ -345,7 +344,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	if(exotic_bloodtype && C.dna.blood_type != exotic_bloodtype)
 		C.dna.blood_type = exotic_bloodtype
 
-	if(old_species.mutanthands)
+	if(old_species?.mutanthands)
 		for(var/obj/item/I in C.held_items)
 			if(istype(I, old_species.mutanthands))
 				qdel(I)
@@ -795,6 +794,8 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 					S = GLOB.legs_list[H.dna.features["legs"]]
 				if("moth_wings")
 					S = GLOB.moth_wings_list[H.dna.features["moth_wings"]]
+				if("moth_wingsopen")
+					S = GLOB.moth_wingsopen_list[H.dna.features["moth_wings"]]
 				if("caps")
 					S = GLOB.caps_list[H.dna.features["caps"]]
 				if("ipc_screen")
@@ -2055,7 +2056,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		override_float = TRUE
 		H.pass_flags |= PASSTABLE
 		H.update_mobility()
-		if("wings" in H.dna.species.mutant_bodyparts)
+		if(("wings" in H.dna.species.mutant_bodyparts) || ("moth_wings" in H.dna.species.mutant_bodyparts))
 			H.Togglewings()
 	else
 		stunmod *= 0.5
@@ -2063,7 +2064,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		H.setMovetype(H.movement_type & ~FLYING)
 		override_float = FALSE
 		H.pass_flags &= ~PASSTABLE
-		if("wingsopen" in H.dna.species.mutant_bodyparts)
+		if(("wingsopen" in H.dna.species.mutant_bodyparts) || ("moth_wingsopen" in H.dna.species.mutant_bodyparts))
 			H.Togglewings()
 		if(isturf(H.loc))
 			var/turf/T = H.loc

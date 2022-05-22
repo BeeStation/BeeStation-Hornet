@@ -261,6 +261,11 @@
 /obj/item/restraints/legcuffs/bola/cult/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	if(iscultist(hit_atom))
 		return
+	if(ismob(hit_atom))
+		var/mob/M = hit_atom
+		if(M.anti_magic_check(holy = TRUE))
+			M.visible_message("[src] passes right through [M]!")
+			return
 	. = ..()
 
 
@@ -483,7 +488,7 @@
 	if(curselimit > 1)
 		to_chat(user, "<span class='notice'>We have exhausted our ability to curse the shuttle.</span>")
 		return
-	if(locate(/obj/singularity/narsie) in GLOB.poi_list)
+	if(locate(/obj/eldritch/narsie) in GLOB.poi_list)
 		to_chat(user, "<span class='warning'>Nar'Sie is already on this plane, there is no delaying the end of all things.</span>")
 		return
 
@@ -675,7 +680,7 @@
 			else
 				L.visible_message("<span class='warning'>[src] bounces off of [L], as if repelled by an unseen force!</span>")
 		else if(!..())
-			if(!L.anti_magic_check(holy = TRUE))
+			if(!L.anti_magic_check(magic=FALSE,holy=TRUE))
 				L.Knockdown(50)
 			break_spear(T)
 	else
@@ -946,7 +951,7 @@
 			else
 				L.visible_message("<span class='warning'>[src] bounces off of [L], as if repelled by an unseen force!</span>")
 		else if(!..())
-			if(!L.anti_magic_check(holy = TRUE))
+			if(!L.anti_magic_check(magic=FALSE,holy=TRUE))
 				L.Knockdown(30)
 				if(D?.thrower)
 					for(var/mob/living/Next in orange(2, T))

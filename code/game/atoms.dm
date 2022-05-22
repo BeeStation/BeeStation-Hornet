@@ -651,8 +651,9 @@
   * default behaviour is to send the COMSIG_ATOM_BLOB_ACT signal
   */
 /atom/proc/blob_act(obj/structure/blob/B)
-	SEND_SIGNAL(src, COMSIG_ATOM_BLOB_ACT, B)
-	return
+	if(SEND_SIGNAL(src, COMSIG_ATOM_BLOB_ACT, B) & COMPONENT_CANCEL_BLOB_ACT)
+		return FALSE
+	return TRUE
 
 /atom/proc/fire_act(exposed_temperature, exposed_volume)
 	SEND_SIGNAL(src, COMSIG_ATOM_FIRE_ACT, exposed_temperature, exposed_volume)
@@ -754,7 +755,7 @@
   *
   * Default behaviour is to send COMSIG_ATOM_SING_PULL and return
   */
-/atom/proc/singularity_pull(obj/singularity/S, current_size)
+/atom/proc/singularity_pull(obj/anomaly/singularity/S, current_size)
 	SEND_SIGNAL(src, COMSIG_ATOM_SING_PULL, S, current_size)
 
 
@@ -802,7 +803,8 @@
   * Called when lighteater is called on this.
   */
 /atom/proc/lighteater_act(obj/item/light_eater/light_eater)
-	return
+	SHOULD_CALL_PARENT(TRUE)
+	SEND_SIGNAL(src,COMSIG_ATOM_LIGHTEATER_ACT)
 
 /**
   * Respond to the eminence clicking on our atom
@@ -878,6 +880,7 @@
 	if(user.active_storage) //refresh the HUD to show the transfered contents
 		user.active_storage.close(user)
 		user.active_storage.show_to(user)
+	src_object.update_icon()
 	return TRUE
 
 ///Get the best place to dump the items contained in the source storage item?

@@ -785,7 +785,6 @@ const DnaConsoleSequencer = (props, context) => {
   const mutations = data.storage?.occupant ?? [];
   const {
     isJokerReady,
-    isMonkey,
     jokerSeconds,
     subjectStatus,
   } = data;
@@ -829,10 +828,6 @@ const DnaConsoleSequencer = (props, context) => {
       {subjectStatus === SUBJECT_DEAD && (
         <Section color="bad">
           Genetic sequence corrupted. Subject diagnostic report: DECEASED.
-        </Section>
-      ) || (isMonkey && mutation?.Name !== 'Monkified') && (
-        <Section color="bad">
-          Genetic sequence corrupted. Subject diagnostic report: MONKEY.
         </Section>
       ) || (subjectStatus === SUBJECT_TRANSFORMING) && (
         <Section color="bad">

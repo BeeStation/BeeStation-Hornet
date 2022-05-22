@@ -703,7 +703,7 @@
 			to_chat(user, "<span class='notice'>You yank [I] towards yourself.</span>")
 			log_combat(user, target, "disarmed", src)
 			if(!user.get_inactive_held_item())
-				user.throw_mode_on()
+				user.throw_mode_on(THROW_MODE_TOGGLE)
 				user.swap_hand()
 				I.throw_at(user, 10, 2)
 
@@ -737,8 +737,8 @@
 
 /obj/item/melee/roastingstick/Initialize(mapload)
 	. = ..()
-	if (!ovens)
-		ovens = typecacheof(list(/obj/singularity, /obj/machinery/power/supermatter_crystal, /obj/structure/bonfire))
+	if(!ovens)
+		ovens = typecacheof(list(/obj/anomaly, /obj/machinery/power/supermatter_crystal, /obj/structure/bonfire))
 
 /obj/item/melee/roastingstick/attack_self(mob/user)
 	on = !on
@@ -801,13 +801,13 @@
 
 /obj/item/melee/roastingstick/afterattack(atom/target, mob/user, proximity)
 	. = ..()
-	if (!on)
+	if(!on)
 		return
-	if (is_type_in_typecache(target, ovens))
-		if (held_sausage && held_sausage.roasted)
+	if(is_type_in_typecache(target, ovens))
+		if(held_sausage && held_sausage.roasted)
 			to_chat("Your [held_sausage] has already been cooked.")
 			return
-		if (istype(target, /obj/singularity) && get_dist(user, target) < 10)
+		if(istype(target, /obj/anomaly) && get_dist(user, target) < 10)
 			to_chat(user, "You send [held_sausage] towards [target].")
 			playsound(src, 'sound/items/rped.ogg', 50, 1)
 			beam = user.Beam(target,icon_state="rped_upgrade",time=100)

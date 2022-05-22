@@ -232,6 +232,10 @@
 	var/shield_range = 8
 	var/obj/structure/cable/attached // the attached cable
 
+/obj/machinery/shieldwallgen/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_ATOM_SINGULARITY_TRY_MOVE, .proc/block_singularity_if_active)
+
 /obj/machinery/shieldwallgen/xenobiologyaccess		//use in xenobiology containment
 	name = "xenobiology shield wall generator"
 	desc = "A shield generator meant for use in xenobiology."
@@ -337,6 +341,11 @@
 		if(F && (F.gen_primary == src || F.gen_secondary == src)) //it's ours, kill it.
 			qdel(F)
 
+/obj/machinery/shieldwallgen/proc/block_singularity_if_active()
+	SIGNAL_HANDLER
+	if(active)
+		return SINGULARITY_TRY_MOVE_BLOCK
+
 /obj/machinery/shieldwallgen/can_be_unfasten_wrench(mob/user, silent)
 	if(active)
 		if(!silent)
@@ -421,6 +430,7 @@
 	for(var/mob/living/L in get_turf(src))
 		visible_message("<span class='danger'>\The [src] is suddenly occupying the same space as \the [L]!</span>")
 		L.gib()
+	RegisterSignal(src, COMSIG_ATOM_SINGULARITY_TRY_MOVE, .proc/block_singularity)
 
 /obj/machinery/shieldwall/Destroy()
 	gen_primary = null
@@ -453,6 +463,10 @@
 		gen_primary.use_stored_power(drain_amount*0.5)
 		if(gen_secondary) //using power may cause us to be destroyed
 			gen_secondary.use_stored_power(drain_amount*0.5)
+
+/obj/machinery/shieldwall/proc/block_singularity()
+	SIGNAL_HANDLER
+	return SINGULARITY_TRY_MOVE_BLOCK
 
 /obj/machinery/shieldwall/CanAllowThrough(atom/movable/mover, turf/target)
 	. = ..()

@@ -3,12 +3,12 @@
 	id = SPECIES_OOZELING
 	bodyflag = FLAG_OOZELING
 	default_color = "00FF90"
-	say_mod = "blorbles"
 	species_traits = list(MUTCOLORS,EYECOLOR,HAIR,FACEHAIR)
 	inherent_traits = list(TRAIT_TOXINLOVER,TRAIT_NOFIRE,TRAIT_ALWAYS_CLEAN,TRAIT_EASYDISMEMBER)
 	hair_color = "mutcolor"
 	hair_alpha = 150
 	mutantlungs = /obj/item/organ/lungs/oozeling
+	mutanttongue = /obj/item/organ/tongue/slime
 	meat = /obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/slime
 	exotic_blood = /datum/reagent/toxin/slimeooze
 	damage_overlay_type = ""
@@ -29,16 +29,16 @@
 	species_l_leg = /obj/item/bodypart/l_leg/oozeling
 	species_r_leg = /obj/item/bodypart/r_leg/oozeling
 
-/datum/species/oozeling/random_name(gender,unique,lastname)
-	if(unique)
-		return random_unique_ooze_name()
-
-	var/randname = ooze_name()
-
+/datum/species/oozeling/random_name(gender, unique, lastname, attempts)
+	. = "[pick(GLOB.oozeling_first_names)]"
 	if(lastname)
-		randname += " [lastname]"
+		. += " [lastname]"
+	else
+		. += " [pick(GLOB.oozeling_last_names)]"
 
-	return randname
+	if(unique && attempts < 10)
+		if(findname(.))
+			. = .(gender, TRUE, lastname, ++attempts)
 
 /datum/species/oozeling/on_species_loss(mob/living/carbon/C)
 	if(regenerate_limbs)

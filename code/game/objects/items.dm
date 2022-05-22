@@ -664,10 +664,11 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		qdel(src)
 	item_flags &= ~PICKED_UP
 	SEND_SIGNAL(src, COMSIG_ITEM_DROPPED, user)
+	SEND_SIGNAL(user, COMSIG_MOB_DROPPED_ITEM, src, loc)
 	if(item_flags & SLOWS_WHILE_IN_HAND)
 		user.update_equipment_speed_mods()
 	remove_outline()
-	if(verbs && user.client)
+	if(verbs && user?.client)
 		user.client.remove_verbs(verbs)
 
 // called just as an item is picked up (loc is not yet changed)
@@ -689,6 +690,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 // note this isn't called during the initial dressing of a player
 /obj/item/proc/equipped(mob/user, slot)
 	SEND_SIGNAL(src, COMSIG_ITEM_EQUIPPED, user, slot)
+	SEND_SIGNAL(user, COMSIG_MOB_EQUIPPED_ITEM, src, slot)
 	for(var/X in actions)
 		var/datum/action/A = X
 		if(item_action_slot_check(slot, user)) //some items only give their actions buttons when in a specific slot.
@@ -731,7 +733,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 //This proc is executed when someone clicks the on-screen UI button.
 //The default action is attack_self().
 //Checks before we get to here are: mob is alive, mob is not restrained, stunned, asleep, resting, laying, item is on the mob.
-/obj/item/proc/ui_action_click(mob/user, actiontype)
+/obj/item/proc/ui_action_click(mob/user, datum/actiontype)
 	attack_self(user)
 
 /obj/item/proc/IsReflect(var/def_zone) //This proc determines if and at what% an object will reflect energy projectiles if it's in l_hand,r_hand or wear_suit
@@ -759,7 +761,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		to_chat(user, "<span class='danger'>You cannot locate any organic eyes on this brain!</span>")
 		return
 
-	src.add_fingerprint(user)
+	add_fingerprint(user)
 
 	playsound(loc, src.hitsound, 30, 1, -1)
 
@@ -1190,3 +1192,28 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		pain_stam_pct = (!isnull(embedding["pain_stam_pct"]) ? embedding["pain_stam_pct"] : EMBEDDED_PAIN_STAM_PCT),\
 		armour_block = (!isnull(embedding["armour_block"]) ? embedding["armour_block"] : EMBEDDED_ARMOUR_BLOCK))
 	return TRUE
+
+/**
+ * * An interrupt for offering an item to other people, called mainly from [/mob/living/carbon/proc/give], in case you want to run your own offer behavior instead.
+ *
+ * * Return TRUE if you want to interrupt the offer.
+ *
+ * * Arguments:
+ * * offerer - the person offering the item
+ */
+/obj/item/proc/on_offered(mob/living/carbon/offerer)
+	if(SEND_SIGNAL(src, COMSIG_ITEM_OFFERING, offerer) & COMPONENT_OFFER_INTERRUPT)
+		return TRUE
+
+/**
+ * * An interrupt for someone trying to accept an offered item, called mainly from [/mob/living/carbon/proc/take], in case you want to run your own take behavior instead.
+ *
+ * * Return TRUE if you want to interrupt the taking.
+ *
+ * * Arguments:
+ * * offerer - the person offering the item
+ * * taker - the person trying to accept the offer
+ */
+/obj/item/proc/on_offer_taken(mob/living/carbon/offerer, mob/living/carbon/taker)
+	if(SEND_SIGNAL(src, COMSIG_ITEM_OFFER_TAKEN, offerer, taker) & COMPONENT_OFFER_INTERRUPT)
+		return TRUE

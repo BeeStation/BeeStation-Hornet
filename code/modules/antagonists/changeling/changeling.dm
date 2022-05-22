@@ -81,7 +81,7 @@
 	create_initial_profile()
 	if(give_objectives)
 		forge_objectives()
-	remove_clownmut()
+	handle_clown_mutation(owner.current, "You have evolved beyond your clownish nature, allowing you to wield weapons without harming yourself.")
 	owner.current.grant_all_languages(FALSE, FALSE, TRUE)	//Grants omnitongue. We are able to transform our body after all.
 	. = ..()
 
@@ -94,14 +94,8 @@
 			B.organ_flags |= ORGAN_VITAL
 			B.decoy_override = FALSE
 	remove_changeling_powers()
+	handle_clown_mutation(owner.current, removing=FALSE)
 	. = ..()
-
-/datum/antagonist/changeling/proc/remove_clownmut()
-	if (owner)
-		var/mob/living/carbon/human/H = owner.current
-		if(istype(H) && owner.assigned_role == "Clown")
-			to_chat(H, "You have evolved beyond your clownish nature, allowing you to wield weapons without harming yourself.")
-			H.dna.remove_mutation(CLOWNMUT)
 
 /datum/antagonist/changeling/proc/reset_properties()
 	changeling_speak = 0
@@ -282,7 +276,9 @@
 	prof.socks = H.socks
 
 	if(H.wear_id?.GetID())
-		prof.id_icon = "hud[ckey(H.wear_id.GetJobName())]"
+		var/obj/item/card/id/I = H.wear_id
+		if(istype(I))
+			prof.id_job_name = I.assignment
 
 	var/list/slots = list("head", "wear_mask", "back", "wear_suit", "w_uniform", "shoes", "belt", "gloves", "glasses", "ears", "wear_id", "s_store")
 	for(var/slot in slots)
@@ -368,7 +364,6 @@
 /datum/antagonist/changeling/greet()
 	if (you_are_greet)
 		to_chat(owner.current, "<span class='boldannounce'>You are [changelingID], a changeling! You have absorbed and taken the form of a human.</span>")
-	to_chat(owner.current, "<span class='boldannounce'>Use say \"[MODE_TOKEN_CHANGELING] message\" to communicate with your fellow changelings.</span>")
 	to_chat(owner.current, "<b>You must complete the following tasks:</b>")
 	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/ling_aler.ogg', 100, FALSE, pressure_affected = FALSE, use_reverb = FALSE)
 
@@ -520,7 +515,7 @@
 	var/socks
 
 	/// ID HUD icon associated with the profile
-	var/id_icon
+	var/id_job_name
 
 /datum/changelingprofile/Destroy()
 	qdel(dna)
@@ -543,7 +538,7 @@
 	newprofile.underwear = underwear
 	newprofile.undershirt = undershirt
 	newprofile.socks = socks
-	newprofile.id_icon = id_icon
+	newprofile.id_job_name = id_job_name
 
 /datum/antagonist/changeling/xenobio
 	name = "Xenobio Changeling"

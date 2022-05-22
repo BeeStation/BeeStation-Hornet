@@ -74,7 +74,7 @@
 	if(!GLOB.Debug2)
 		if(playerC < required_players || (maximum_players >= 0 && playerC > maximum_players))
 			return FALSE
-	antag_candidates = get_players_for_role(antag_flag)
+	setup_antag_candidates()
 	if(!GLOB.Debug2)
 		if(antag_candidates.len < required_enemies)
 			return FALSE
@@ -85,6 +85,9 @@
 
 /datum/game_mode/proc/setup_maps()
 	return 1
+
+/datum/game_mode/proc/setup_antag_candidates()
+	antag_candidates = get_players_for_role(antag_flag)
 
 ///Attempts to select players for special roles the mode might have.
 /datum/game_mode/proc/pre_setup()
@@ -441,6 +444,9 @@
 	for(var/datum/mind/mind in candidates)
 		p_ckey = ckey(mind.key)
 		var/mob/dead/new_player/player = get_mob_by_ckey(p_ckey)
+		if(!player)
+			candidates -= mind
+			continue
 		total_tickets += min(((role in player.client.prefs.be_special) ? SSpersistence.antag_rep[p_ckey] : 0) + DEFAULT_ANTAG_TICKETS, MAX_TICKETS_PER_ROLL)
 
 	var/antag_select = rand(1,total_tickets)

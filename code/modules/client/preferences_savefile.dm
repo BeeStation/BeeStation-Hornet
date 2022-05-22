@@ -5,7 +5,7 @@
 //	You do not need to raise this if you are adding new values that have sane defaults.
 //	Only raise this value when changing the meaning/format/name/layout of an existing value
 //	where you would want the updater procs below to run
-#define SAVEFILE_VERSION_MAX	36
+#define SAVEFILE_VERSION_MAX	37
 
 /*
 SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Carn
@@ -74,6 +74,10 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 		//the keybindings are defined as "key" = list("action") in the savefile (for multiple actions -> 1 key)
 		//so im doing that
 		key_bindings += list("W" = list("move_north"), "A" = list("move_west"), "S" = list("move_south"), "D" = list("move_east"))
+		WRITE_FILE(S["key_bindings"], key_bindings)
+	if(current_version < 37)
+		key_bindings = S["key_bindings"]
+		key_bindings += list("Space" = list("hold_throw_mode"))
 		WRITE_FILE(S["key_bindings"], key_bindings)
 	return
 
@@ -428,8 +432,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 
 	real_name = reject_bad_name(real_name, pref_species.allow_numbers_in_name)
 	gender = sanitize_gender(gender)
-	if(!real_name)
-		real_name = random_unique_name(gender)
+	real_name ||= pref_species.random_name(gender, TRUE)
 
 	for(var/custom_name_id in GLOB.preferences_custom_names)
 		var/namedata = GLOB.preferences_custom_names[custom_name_id]

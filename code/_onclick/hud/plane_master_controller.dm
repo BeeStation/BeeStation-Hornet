@@ -22,6 +22,12 @@ INITIALIZE_IMMEDIATE(/atom/movable/plane_master_controller)
 		assoc_controlled_planes["[i]"] = instance
 	controlled_planes = assoc_controlled_planes
 
+/atom/movable/plane_master_controller/Destroy()
+	if(owner_hud)
+		owner_hud.plane_master_controllers -= src
+	controlled_planes.Cut()
+	return ..()
+
 ///Full override so we can just use filterrific
 /atom/movable/plane_master_controller/add_filter(name, priority, list/params)
 	. = ..()
