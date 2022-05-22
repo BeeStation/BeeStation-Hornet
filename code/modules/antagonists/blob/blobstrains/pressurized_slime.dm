@@ -36,6 +36,7 @@
 	name = "Pressurized Slime"
 	taste_description = "a sponge"
 	color = "#AAAABB"
+	chem_flags = CHEMICAL_NOT_SYNTH | CHEMICAL_RNG_FUN
 
 /datum/reagent/blob/pressurized_slime/reaction_mob(mob/living/M, method=TOUCH, reac_volume, show_message, touch_protection, mob/camera/blob/O)
 	reac_volume = ..()

@@ -30,13 +30,12 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 	var/current_cycle = 0
 	var/volume = 0									//pretend this is moles
 	var/color = "#000000" // rgb: 0, 0, 0
-	var/can_synth = TRUE // can this reagent be synthesized? (for example: odysseus syringe gun)
+	var/chem_flags = CHEMICAL_NOT_DEFINED   // default = I am not sure this shit + CHEMICAL_NOT_SYNTH
 	var/metabolization_rate = REAGENTS_METABOLISM //how fast the reagent is metabolized by the mob
 	var/overrides_metab = 0
 	var/overdose_threshold = 0
 	var/addiction_threshold = 0
 	var/addiction_stage = 0
-	var/random_unrestricted = TRUE
 	var/process_flags = ORGANIC // What can process this? ORGANIC, SYNTHETIC, or ORGANIC | SYNTHETIC?. We'll assume by default that it affects organics.
 	var/overdosed = 0 // You fucked up and this is now triggering its overdose effects, purge that shit quick.
 	var/self_consuming = FALSE
