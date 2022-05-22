@@ -174,7 +174,7 @@
 	// But if we *have* cut the wire, this eventually falls through to attack_hand(), which calls try_to_activate_door(),
 	// which will fail because the door won't work if the wire is cut! Catch-22.
 	// Basically, TK won't work unless the door is all-access.
-	if(!id_scan_hacked() && !allowed(null))
+	if(!id_scan_hacked() && !allowed())
 		return
 	..()
 
