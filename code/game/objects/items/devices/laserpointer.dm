@@ -122,7 +122,6 @@
 		if(prob(effectchance * diode.rating))
 			S.flash_act(affect_silicon = 1)
 			to_chat(S, "<span class='danger'>Your sensors were overloaded by a laser!</span>")
-
 			outmsg = "<span class='notice'>You overload [S] by shining [src] at [S.p_their()] sensors.</span>"
 		else
 			outmsg = "<span class='warning'>You fail to overload [S] by shining [src] at [S.p_their()] sensors!</span>"
