@@ -16,7 +16,10 @@
 	icon_dead = "chili-dead" // Same for the dead icon
 	genes = list(/datum/plant_gene/trait/repeated_harvest)
 	mutatelist = list(/obj/item/seeds/chili/ice, /obj/item/seeds/chili/ghost)
-	reagents_add = list(/datum/reagent/consumable/capsaicin = 0.25, /datum/reagent/consumable/nutriment/vitamin = 0.04, /datum/reagent/consumable/nutriment = 0.04)
+	reagents_set = list(
+		/datum/reagent/consumable/nutriment = list(4, 6),
+		/datum/reagent/consumable/nutriment/vitamin = list(4, 6),
+		/datum/reagent/consumable/capsaicin = list(25, 30))
 
 /obj/item/reagent_containers/food/snacks/grown/chili
 	seed = /obj/item/seeds/chili
@@ -40,8 +43,11 @@
 	maturation = 4
 	production = 4
 	rarity = 20
-	mutatelist = list()
-	reagents_add = list(/datum/reagent/consumable/frostoil = 0.25, /datum/reagent/consumable/nutriment/vitamin = 0.02, /datum/reagent/consumable/nutriment = 0.02)
+	mutatelist = list(/obj/item/seeds/chili)
+	reagents_set = list(
+		/datum/reagent/consumable/nutriment = list(2, 8),
+		/datum/reagent/consumable/nutriment/vitamin = list(2, 8),
+		/datum/reagent/consumable/frostoil = list(20, 30))
 
 /obj/item/reagent_containers/food/snacks/grown/icepepper
 	seed = /obj/item/seeds/chili/ice
@@ -67,8 +73,12 @@
 	production = 10
 	yield = 3
 	rarity = 20
-	mutatelist = list()
-	reagents_add = list(/datum/reagent/consumable/condensedcapsaicin = 0.3, /datum/reagent/consumable/capsaicin = 0.55, /datum/reagent/consumable/nutriment = 0.04)
+	mutatelist = list(/obj/item/seeds/chili)
+	reagents_set = list(
+		/datum/reagent/consumable/nutriment = list(2, 8),
+		/datum/reagent/consumable/nutriment/vitamin = list(2, 8),
+		/datum/reagent/consumable/capsaicin = list(25, 50),
+		/datum/reagent/consumable/condensedcapsaicin = list(55, 70))
 
 /obj/item/reagent_containers/food/snacks/grown/ghost_chili
 	seed = /obj/item/seeds/chili/ghost

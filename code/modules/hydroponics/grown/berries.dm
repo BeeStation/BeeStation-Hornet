@@ -15,7 +15,9 @@
 	icon_dead = "berry-dead" // Same for the dead icon
 	genes = list(/datum/plant_gene/trait/repeated_harvest)
 	mutatelist = list(/obj/item/seeds/berry/glow, /obj/item/seeds/berry/poison)
-	reagents_add = list(/datum/reagent/consumable/nutriment/vitamin = 0.04, /datum/reagent/consumable/nutriment = 0.1)
+	reagents_set = list(
+		/datum/reagent/consumable/nutriment = list(7, 15),
+		/datum/reagent/consumable/nutriment/vitamin = list(4, 12))
 
 /obj/item/reagent_containers/food/snacks/grown/berries
 	seed = /obj/item/seeds/berry
@@ -39,7 +41,11 @@
 	plantname = "Poison-Berry Bush"
 	product = /obj/item/reagent_containers/food/snacks/grown/berries/poison
 	mutatelist = list(/obj/item/seeds/berry/death)
-	reagents_add = list(/datum/reagent/toxin/cyanide = 0.15, /datum/reagent/toxin/staminatoxin = 0.2, /datum/reagent/consumable/nutriment/vitamin = 0.04, /datum/reagent/consumable/nutriment = 0.1)
+	reagents_set = list(
+		/datum/reagent/consumable/nutriment = list(8, 18),
+		/datum/reagent/consumable/nutriment/vitamin = list(4, 12),
+		/datum/reagent/toxin/cyanide = list(10, 15),
+		/datum/reagent/toxin/staminatoxin = list(15, 25))
 	rarity = 10 // Mildly poisonous berries are common in reality
 
 /obj/item/reagent_containers/food/snacks/grown/berries/poison
@@ -66,7 +72,11 @@
 	lifespan = 30
 	potency = 50
 	mutatelist = list()
-	reagents_add = list(/datum/reagent/toxin/coniine = 0.08, /datum/reagent/toxin/staminatoxin = 0.1, /datum/reagent/consumable/nutriment/vitamin = 0.04, /datum/reagent/consumable/nutriment = 0.1)
+	reagents_set = list(
+		/datum/reagent/consumable/nutriment = list(8, 18),
+		/datum/reagent/consumable/nutriment/vitamin = list(4, 12),
+		/datum/reagent/toxin/coniine = list(8, 12),
+		/datum/reagent/toxin/staminatoxin = list(8, 12))
 	rarity = 30
 
 /obj/item/reagent_containers/food/snacks/grown/berries/death
@@ -93,7 +103,11 @@
 	endurance = 25
 	mutatelist = list()
 	genes = list(/datum/plant_gene/trait/glow/white, /datum/plant_gene/trait/repeated_harvest)
-	reagents_add = list(/datum/reagent/uranium = 0.25, /datum/reagent/iodine = 0.2, /datum/reagent/consumable/nutriment/vitamin = 0.04, /datum/reagent/consumable/nutriment = 0.1)
+	reagents_set = list(
+		/datum/reagent/consumable/nutriment = list(8, 18),
+		/datum/reagent/consumable/nutriment/vitamin = list(6, 12),
+		/datum/reagent/uranium = list(25, 30),
+		/datum/reagent/iodine = list(20, 30))
 	rarity = 20
 
 /obj/item/reagent_containers/food/snacks/grown/berries/glow
@@ -124,9 +138,13 @@
 	growing_icon = 'icons/obj/hydroponics/growing_fruits.dmi'
 	icon_grow = "cherry-grow"
 	icon_dead = "cherry-dead"
+	icon_harvest = "cherry-harvest"
 	genes = list(/datum/plant_gene/trait/repeated_harvest)
 	mutatelist = list(/obj/item/seeds/cherry/blue, /obj/item/seeds/cherry/bulb)
-	reagents_add = list(/datum/reagent/consumable/nutriment = 0.07, /datum/reagent/consumable/sugar = 0.07)
+	reagents_set = list(
+		/datum/reagent/consumable/nutriment = list(7, 15),
+		/datum/reagent/consumable/nutriment/vitamin = list(0.5, 2),
+		/datum/reagent/consumable/sugar = list(5, 10))
 
 /obj/item/reagent_containers/food/snacks/grown/cherries
 	seed = /obj/item/seeds/cherry
@@ -150,7 +168,10 @@
 	plantname = "Blue Cherry Tree"
 	product = /obj/item/reagent_containers/food/snacks/grown/bluecherries
 	mutatelist = list()
-	reagents_add = list(/datum/reagent/consumable/nutriment = 0.07, /datum/reagent/consumable/sugar = 0.07)
+	reagents_set = list(
+		/datum/reagent/consumable/nutriment = list(7, 15),
+		/datum/reagent/consumable/nutriment/vitamin = list(1, 5),
+		/datum/reagent/consumable/sugar = list(7, 12))
 	rarity = 10
 
 /obj/item/reagent_containers/food/snacks/grown/bluecherries
@@ -173,11 +194,13 @@
 	icon_state = "seed-cherrybulb"
 	species = "cherrybulb"
 	plantname = "Cherry Bulb Tree"
-	icon_harvest = "cherry-harvest"
 	product = /obj/item/reagent_containers/food/snacks/grown/cherrybulbs
 	genes = list(/datum/plant_gene/trait/repeated_harvest, /datum/plant_gene/trait/glow/pink)
 	mutatelist = list()
-	reagents_add = list(/datum/reagent/consumable/nutriment = 0.07, /datum/reagent/consumable/sugar = 0.07)
+	reagents_set = list(
+		/datum/reagent/consumable/nutriment = list(7, 15),
+		/datum/reagent/consumable/nutriment/vitamin = list(1, 5),
+		/datum/reagent/consumable/sugar = list(7, 12))
 	rarity = 10
 
 /obj/item/reagent_containers/food/snacks/grown/cherrybulbs
@@ -212,7 +235,10 @@
 	icon_dead = "grape-dead"
 	genes = list(/datum/plant_gene/trait/repeated_harvest)
 	mutatelist = list(/obj/item/seeds/grape/green)
-	reagents_add = list(/datum/reagent/consumable/nutriment/vitamin = 0.04, /datum/reagent/consumable/nutriment = 0.1, /datum/reagent/consumable/sugar = 0.1)
+	reagents_set = list(
+		/datum/reagent/consumable/nutriment = list(8, 18),
+		/datum/reagent/consumable/nutriment/vitamin = list(4, 12),
+		/datum/reagent/consumable/sugar = list(5, 10))
 
 /obj/item/reagent_containers/food/snacks/grown/grapes
 	seed = /obj/item/seeds/grape
@@ -235,7 +261,11 @@
 	species = "greengrape"
 	plantname = "Green-Grape Vine"
 	product = /obj/item/reagent_containers/food/snacks/grown/grapes/green
-	reagents_add = list(/datum/reagent/medicine/kelotane = 0.2, /datum/reagent/consumable/nutriment/vitamin = 0.04, /datum/reagent/consumable/nutriment = 0.1, /datum/reagent/consumable/sugar = 0.1)
+	reagents_set = list(
+		/datum/reagent/consumable/nutriment = list(8, 18),
+		/datum/reagent/consumable/nutriment/vitamin = list(4, 12),
+		/datum/reagent/consumable/sugar = list(5, 10),
+		/datum/reagent/medicine/kelotane = list(20, 35))
 	// No rarity: technically it's a beneficial mutant, but it's not exactly "new"...
 	mutatelist = list()
 

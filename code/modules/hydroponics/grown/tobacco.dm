@@ -12,8 +12,10 @@
 	yield = 10
 	growthstages = 3
 	icon_dead = "tobacco-dead"
+	reagents_set = list(
+		/datum/reagent/consumable/nutriment = list(1, 5),
+		/datum/reagent/drug/nicotine = list(5, 15))
 	mutatelist = list(/obj/item/seeds/tobacco/space)
-	reagents_add = list(/datum/reagent/drug/nicotine = 0.03, /datum/reagent/consumable/nutriment = 0.03)
 
 /obj/item/reagent_containers/food/snacks/grown/tobacco
 	seed = /obj/item/seeds/tobacco
@@ -31,9 +33,12 @@
 	species = "stobacco"
 	plantname = "Space Tobacco Plant"
 	product = /obj/item/reagent_containers/food/snacks/grown/tobacco/space
-	mutatelist = list()
-	reagents_add = list(/datum/reagent/medicine/salbutamol = 0.05, /datum/reagent/drug/nicotine = 0.08, /datum/reagent/consumable/nutriment = 0.03)
+	reagents_set = list(
+		/datum/reagent/consumable/nutriment = list(1, 5),
+		/datum/reagent/drug/nicotine = list(15, 35),
+		/datum/reagent/medicine/salbutamol = list(3, 10))
 	rarity = 20
+	mutatelist = list(/obj/item/seeds/tobacco)
 
 /obj/item/reagent_containers/food/snacks/grown/tobacco/space
 	seed = /obj/item/seeds/tobacco/space
@@ -54,8 +59,11 @@
 	plantname = "Lavaland Tobacco Plant"
 	product = /obj/item/reagent_containers/food/snacks/grown/tobacco/lavaland
 	mutatelist = list()
-	reagents_add = list(/datum/reagent/medicine/salbutamol = 0.1, /datum/reagent/drug/nicotine = 0.08, /datum/reagent/toxin/lipolicide = 0.4)
-	genes = list(/datum/plant_gene/trait/plant_type/fungal_metabolism)
+	reagents_set = list(
+		/datum/reagent/consumable/nutriment = list(1, 5),
+		/datum/reagent/drug/nicotine = list(8, 55),
+		/datum/reagent/toxin/lipolicide = list(4, 25))
+	genes = list(/datum/plant_gene/family/fungal_metabolism)
 	rarity = 20
 
 /obj/item/reagent_containers/food/snacks/grown/tobacco/lavaland

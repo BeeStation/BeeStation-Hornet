@@ -7,7 +7,10 @@
 	icon = 'icons/obj/hydroponics/harvest.dmi'
 	resistance_flags = FLAMMABLE
 	var/obj/item/seeds/seed = null // type path, gets converted to item on New(). It's safe to assume it's always a seed item.
-	var/discovery_points = 0 //Amount of discovery points given for scanning
+
+	var/roundstart = 1           //roundstart crops are not researchable. Grown crops will become 0, so that you can scan them.
+	var/discovery_points = 200   //Amount of discovery points given for scanning
+	var/research_identifier      //used to check if a plant was researched. strange seed needs customised identifier.
 
 /obj/item/grown/Initialize(mapload, obj/item/seeds/new_seed)
 	. = ..()
@@ -29,11 +32,21 @@
 
 		if(istype(src, seed.product)) // no adding reagents if it is just a trash item
 			seed.prepare_result(src)
-		transform *= TRANSFORM_USING_VARIABLE(seed.potency, 100) + 0.5
-		add_juice()
+		transform *= TRANSFORM_USING_VARIABLE(seed.potency/1.33+25, 100) + 0.5
+		//add_juice() //it shouldn't exist here, because it's not edible
 
 	if(discovery_points)
 		AddComponent(/datum/component/discoverable, discovery_points)
+
+	if(!isnull(seed))
+		research_identifier = seed.research_identifier
+
+/obj/item/grown/examine(user)
+	. = ..()
+	if(seed)
+		for(var/datum/plant_gene/trait/T in seed.genes)
+			if(T.examine_line)
+				. += T.examine_line
 
 /obj/item/grown/attackby(obj/item/O, mob/user, params)
 	..()

@@ -11,8 +11,11 @@
 	yield = 5
 	growthstages = 3
 	growing_icon = 'icons/obj/hydroponics/growing_vegetables.dmi'
+	reagents_set = list(
+		/datum/reagent/consumable/nutriment = list(4, 12),
+		/datum/reagent/consumable/nutriment/vitamin = list(4, 8),
+		/datum/reagent/medicine/oculine = list(5, 25))
 	mutatelist = list(/obj/item/seeds/carrot/parsnip)
-	reagents_add = list(/datum/reagent/medicine/oculine = 0.25, /datum/reagent/consumable/nutriment/vitamin = 0.04, /datum/reagent/consumable/nutriment = 0.05)
 
 /obj/item/reagent_containers/food/snacks/grown/carrot
 	seed = /obj/item/seeds/carrot
@@ -44,8 +47,11 @@
 	plantname = "Parsnip"
 	product = /obj/item/reagent_containers/food/snacks/grown/parsnip
 	icon_dead = "carrot-dead"
-	mutatelist = list()
-	reagents_add = list(/datum/reagent/consumable/nutriment/vitamin = 0.05, /datum/reagent/consumable/nutriment = 0.05)
+	reagents_set = list(
+		/datum/reagent/consumable/nutriment = list(5, 15),
+		/datum/reagent/consumable/nutriment/vitamin = list(5, 10))
+	mutatelist = list(/obj/item/seeds/carrot)
+
 
 /obj/item/reagent_containers/food/snacks/grown/parsnip
 	seed = /obj/item/seeds/carrot/parsnip
@@ -72,8 +78,11 @@
 	yield = 6
 	growing_icon = 'icons/obj/hydroponics/growing_vegetables.dmi'
 	icon_dead = "whitebeet-dead"
+	reagents_set = list(
+		/datum/reagent/consumable/nutriment = list(5, 15),
+		/datum/reagent/consumable/nutriment/vitamin = list(4, 8),
+		/datum/reagent/consumable/sugar = list(15, 25))
 	mutatelist = list(/obj/item/seeds/redbeet)
-	reagents_add = list(/datum/reagent/consumable/nutriment/vitamin = 0.04, /datum/reagent/consumable/sugar = 0.2, /datum/reagent/consumable/nutriment = 0.05)
 
 /obj/item/reagent_containers/food/snacks/grown/whitebeet
 	seed = /obj/item/seeds/whitebeet
@@ -99,7 +108,11 @@
 	growing_icon = 'icons/obj/hydroponics/growing_vegetables.dmi'
 	icon_dead = "whitebeet-dead"
 	genes = list(/datum/plant_gene/trait/maxchem)
-	reagents_add = list(/datum/reagent/consumable/nutriment/vitamin = 0.05, /datum/reagent/consumable/nutriment = 0.05)
+	reagents_set = list(
+		/datum/reagent/consumable/nutriment = list(5, 12),
+		/datum/reagent/consumable/nutriment/vitamin = list(4, 8),
+		/datum/reagent/consumable/sugar = list(0, 25))
+	mutatelist = list(/obj/item/seeds/whitebeet)
 
 /obj/item/reagent_containers/food/snacks/grown/redbeet
 	seed = /obj/item/seeds/redbeet

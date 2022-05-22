@@ -14,8 +14,11 @@
 	growing_icon = 'icons/obj/hydroponics/growing_flowers.dmi'
 	icon_grow = "poppy-grow"
 	icon_dead = "poppy-dead"
+	reagents_set = list(
+		/datum/reagent/consumable/nutriment = list(4, 8),
+		/datum/reagent/consumable/nutriment/vitamin = list(1, 4),
+		/datum/reagent/medicine/bicaridine = list(20, 25))
 	mutatelist = list(/obj/item/seeds/poppy/geranium, /obj/item/seeds/poppy/lily)
-	reagents_add = list(/datum/reagent/medicine/bicaridine = 0.2, /datum/reagent/consumable/nutriment = 0.05)
 
 /obj/item/reagent_containers/food/snacks/grown/poppy
 	seed = /obj/item/seeds/poppy
@@ -38,6 +41,10 @@
 	product = /obj/item/reagent_containers/food/snacks/grown/poppy/lily
 	icon_grow = "lily-grow"
 	icon_dead = "lily-dead"
+	reagents_set = list(
+		/datum/reagent/consumable/nutriment = list(4, 8),
+		/datum/reagent/consumable/nutriment/vitamin = list(1, 4),
+		/datum/reagent/medicine/bicaridine = list(20, 35))
 	mutatelist = list(/obj/item/seeds/poppy/lily/trumpet)
 
 /obj/item/reagent_containers/food/snacks/grown/poppy/lily
@@ -68,15 +75,14 @@
 	growing_icon = 'icons/obj/hydroponics/growing_flowers.dmi'
 	icon_grow = "spacemanstrumpet-grow"
 	icon_dead = "spacemanstrumpet-dead"
-	mutatelist = list()
 	genes = list(/datum/plant_gene/reagent/polypyr)
-	reagents_add = list(/datum/reagent/consumable/nutriment = 0.05)
+	reagents_set = list(
+		/datum/reagent/consumable/nutriment = list(4, 8),
+		/datum/reagent/consumable/nutriment/vitamin = list(1, 4),
+		/datum/reagent/medicine/polypyr = list(15, 5))
 	rarity = 30
+	mutatelist = list(/obj/item/seeds/poppy)
 
-/obj/item/seeds/poppy/lily/trumpet/Initialize(mapload,nogenes)
-	. = ..()
-	if(!nogenes)
-		unset_mutability(/datum/plant_gene/reagent/polypyr, PLANT_GENE_EXTRACTABLE)
 
 /obj/item/reagent_containers/food/snacks/grown/trumpet
 	seed = /obj/item/seeds/poppy/lily/trumpet
@@ -97,6 +103,10 @@
 	product = /obj/item/reagent_containers/food/snacks/grown/poppy/geranium
 	icon_grow = "geranium-grow"
 	icon_dead = "geranium-dead"
+	reagents_set = list(
+		/datum/reagent/consumable/nutriment = list(4, 8),
+		/datum/reagent/consumable/nutriment/vitamin = list(1, 4),
+		/datum/reagent/medicine/bicaridine = list(20, 35))
 	mutatelist = list(/obj/item/seeds/poppy/geranium/forgetmenot)
 
 /obj/item/reagent_containers/food/snacks/grown/poppy/geranium
@@ -121,8 +131,11 @@
 	potency = 25
 	icon_grow = "forget_me_not-grow"
 	icon_dead = "forget_me_not-dead"
-	mutatelist = list()
-	reagents_add = list(/datum/reagent/medicine/kelotane = 0.2, /datum/reagent/consumable/nutriment = 0.05)
+	reagents_set = list(
+		/datum/reagent/consumable/nutriment = list(4, 8),
+		/datum/reagent/consumable/nutriment/vitamin = list(1, 4),
+		/datum/reagent/medicine/kelotane = list(20, 25))
+	mutatelist = list(/obj/item/seeds/poppy/geranium)
 
 /obj/item/reagent_containers/food/snacks/grown/poppy/geranium/forgetmenot
 	seed = /obj/item/seeds/poppy/geranium/forgetmenot
@@ -148,9 +161,11 @@
 	yield = 2
 	potency = 30
 	growthstages = 4
-	genes = list(/datum/plant_gene/trait/plant_type/weed_hardy)
+	genes = list(/datum/plant_gene/family/weed_hardy)
 	growing_icon = 'icons/obj/hydroponics/growing_flowers.dmi'
-	reagents_add = list(/datum/reagent/consumable/nutriment = 0.04)
+	reagents_set = list(
+		/datum/reagent/consumable/nutriment = list(3, 6),
+		/datum/reagent/consumable/nutriment/vitamin = list(1, 5))
 
 /obj/item/reagent_containers/food/snacks/grown/harebell
 	seed = /obj/item/seeds/harebell
@@ -177,8 +192,11 @@
 	growing_icon = 'icons/obj/hydroponics/growing_flowers.dmi'
 	icon_grow = "sunflower-grow"
 	icon_dead = "sunflower-dead"
+	reagents_set = list(
+		/datum/reagent/consumable/nutriment = list(3, 8),
+		/datum/reagent/consumable/nutriment/vitamin = list(1, 2),
+		/datum/reagent/consumable/cornoil = list(6, 10))
 	mutatelist = list(/obj/item/seeds/sunflower/moonflower, /obj/item/seeds/sunflower/novaflower)
-	reagents_add = list(/datum/reagent/consumable/cornoil = 0.08, /datum/reagent/consumable/nutriment = 0.04)
 
 /obj/item/grown/sunflower // FLOWER POWER!
 	seed = /obj/item/seeds/sunflower
@@ -212,9 +230,13 @@
 	icon_dead = "sunflower-dead"
 	product = /obj/item/reagent_containers/food/snacks/grown/moonflower
 	genes = list(/datum/plant_gene/trait/glow/purple)
-	mutatelist = list()
-	reagents_add = list(/datum/reagent/consumable/ethanol/moonshine = 0.2,/datum/reagent/medicine/morphine = 0.3, /datum/reagent/consumable/nutriment = 0.02)
+	reagents_set = list(
+		/datum/reagent/consumable/nutriment = list(1, 6),
+		/datum/reagent/consumable/nutriment/vitamin = list(1, 3),
+		/datum/reagent/consumable/ethanol/moonshine = list(10, 30),
+		/datum/reagent/medicine/morphine = list(10, 10))
 	rarity = 20
+	mutatelist = list(/obj/item/seeds/sunflower)
 
 /obj/item/reagent_containers/food/snacks/grown/moonflower
 	seed = /obj/item/seeds/sunflower/moonflower
@@ -237,9 +259,13 @@
 	icon_grow = "novaflower-grow"
 	icon_dead = "sunflower-dead"
 	product = /obj/item/grown/novaflower
-	mutatelist = list()
-	reagents_add = list(/datum/reagent/consumable/condensedcapsaicin = 0.25, /datum/reagent/consumable/capsaicin = 0.3, /datum/reagent/consumable/nutriment = 0)
+	reagents_set = list(
+		/datum/reagent/consumable/nutriment = list(1, 10),
+		/datum/reagent/consumable/nutriment/vitamin = list(0, 2),
+		/datum/reagent/consumable/condensedcapsaicin = list(20, 50),
+		/datum/reagent/consumable/capsaicin = list(25, 40))
 	rarity = 15
+	mutatelist = list(/obj/item/seeds/sunflower)
 
 /obj/item/grown/novaflower
 	seed = /obj/item/seeds/sunflower/novaflower

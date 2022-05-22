@@ -13,8 +13,10 @@
 	growthstages = 5
 	icon_dead = "tea-dead"
 	genes = list(/datum/plant_gene/trait/repeated_harvest)
+	reagents_set = list(
+		/datum/reagent/consumable/nutriment/vitamin = list(3, 9),
+		/datum/reagent/toxin/teapowder = list(5, 10))
 	mutatelist = list(/obj/item/seeds/tea/astra)
-	reagents_add = list(/datum/reagent/consumable/nutriment/vitamin = 0.04, /datum/reagent/toxin/teapowder = 0.1)
 
 /obj/item/reagent_containers/food/snacks/grown/tea
 	seed = /obj/item/seeds/tea
@@ -33,9 +35,12 @@
 	species = "teaastra"
 	plantname = "Tea Astra Plant"
 	product = /obj/item/reagent_containers/food/snacks/grown/tea/astra
-	mutatelist = list()
-	reagents_add = list(/datum/reagent/medicine/synaptizine = 0.1, /datum/reagent/consumable/nutriment/vitamin = 0.04, /datum/reagent/toxin/teapowder = 0.1)
+	reagents_set = list(
+		/datum/reagent/consumable/nutriment/vitamin = list(3, 9),
+		/datum/reagent/toxin/teapowder = list(10, 15),
+		/datum/reagent/medicine/psicodine = list(5, 15))
 	rarity = 20
+	mutatelist = list(/obj/item/seeds/tea)
 
 /obj/item/reagent_containers/food/snacks/grown/tea/astra
 	seed = /obj/item/seeds/tea/astra
@@ -63,8 +68,10 @@
 	growthstages = 5
 	icon_dead = "coffee-dead"
 	genes = list(/datum/plant_gene/trait/repeated_harvest)
+	reagents_set = list(
+		/datum/reagent/consumable/nutriment/vitamin = list(3, 9),
+		/datum/reagent/toxin/coffeepowder = list(5, 10))
 	mutatelist = list(/obj/item/seeds/coffee/robusta)
-	reagents_add = list(/datum/reagent/consumable/nutriment/vitamin = 0.04, /datum/reagent/toxin/coffeepowder = 0.1)
 
 /obj/item/reagent_containers/food/snacks/grown/coffee
 	seed = /obj/item/seeds/coffee
@@ -85,9 +92,12 @@
 	species = "coffeer"
 	plantname = "Coffee Robusta Bush"
 	product = /obj/item/reagent_containers/food/snacks/grown/coffee/robusta
-	mutatelist = list()
-	reagents_add = list(/datum/reagent/medicine/ephedrine = 0.1, /datum/reagent/consumable/nutriment/vitamin = 0.04, /datum/reagent/toxin/coffeepowder = 0.1)
+	reagents_set = list(
+		/datum/reagent/consumable/nutriment/vitamin = list(3, 9),
+		/datum/reagent/toxin/coffeepowder = list(10, 15),
+		/datum/reagent/medicine/ephedrine = list(5, 15))
 	rarity = 20
+	mutatelist = list(/obj/item/seeds/coffee)
 
 /obj/item/reagent_containers/food/snacks/grown/coffee/robusta
 	seed = /obj/item/seeds/coffee/robusta

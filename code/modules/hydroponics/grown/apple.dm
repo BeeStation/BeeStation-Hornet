@@ -14,7 +14,9 @@
 	icon_dead = "apple-dead"
 	genes = list(/datum/plant_gene/trait/repeated_harvest)
 	mutatelist = list(/obj/item/seeds/apple/gold)
-	reagents_add = list(/datum/reagent/consumable/nutriment/vitamin = 0.04, /datum/reagent/consumable/nutriment = 0.1)
+	reagents_set = list(
+		/datum/reagent/consumable/nutriment = list(5, 15),
+		/datum/reagent/consumable/nutriment/vitamin = list(2, 6))
 
 /obj/item/reagent_containers/food/snacks/grown/apple
 	seed = /obj/item/seeds/apple
@@ -39,7 +41,10 @@
 	maturation = 10
 	production = 10
 	mutatelist = list()
-	reagents_add = list(/datum/reagent/gold = 0.2, /datum/reagent/consumable/nutriment/vitamin = 0.04, /datum/reagent/consumable/nutriment = 0.1)
+	reagents_set = list(
+		/datum/reagent/consumable/nutriment = list(3, 9),
+		/datum/reagent/consumable/nutriment/vitamin = list(2, 6),
+		/datum/reagent/gold = list(15, 30))
 	rarity = 40 // Alchemy!
 
 /obj/item/reagent_containers/food/snacks/grown/apple/gold
@@ -50,4 +55,5 @@
 	filling_color = "#FFD700"
 	distill_reagent = null
 	wine_power = 50
+	wine_flavor = "the precursor of the gods' elixir"
 	discovery_points = 300

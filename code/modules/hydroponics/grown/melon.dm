@@ -12,7 +12,10 @@
 	icon_dead = "watermelon-dead"
 	genes = list(/datum/plant_gene/trait/repeated_harvest)
 	mutatelist = list(/obj/item/seeds/watermelon/holy)
-	reagents_add = list(/datum/reagent/water = 0.2, /datum/reagent/consumable/nutriment/vitamin = 0.04, /datum/reagent/consumable/nutriment = 0.2)
+	reagents_set = list(
+		/datum/reagent/consumable/nutriment = list(15, 20),
+		/datum/reagent/consumable/nutriment/vitamin = list(4, 6),
+		/datum/reagent/water = list(15, 20))
 
 /obj/item/seeds/watermelon/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is swallowing [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
@@ -45,8 +48,11 @@
 	plantname = "Holy Melon Vines"
 	product = /obj/item/reagent_containers/food/snacks/grown/holymelon
 	genes = list(/datum/plant_gene/trait/glow/yellow)
-	mutatelist = list()
-	reagents_add = list(/datum/reagent/water/holywater = 0.2, /datum/reagent/consumable/nutriment/vitamin = 0.04, /datum/reagent/consumable/nutriment = 0.1)
+	mutatelist = list(/obj/item/seeds/watermelon)
+	reagents_set = list(
+		/datum/reagent/consumable/nutriment = list(10, 20),
+		/datum/reagent/consumable/nutriment/vitamin = list(4, 6),
+		/datum/reagent/water/holywater = list(20, 5)) // Holywater is only fluent when it is in holymelon
 	rarity = 20
 
 /obj/item/reagent_containers/food/snacks/grown/holymelon

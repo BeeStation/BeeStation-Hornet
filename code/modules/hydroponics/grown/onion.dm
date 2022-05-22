@@ -13,7 +13,9 @@
 	growthstages = 3
 	weed_chance = 3
 	growing_icon = 'icons/obj/hydroponics/growing_vegetables.dmi'
-	reagents_add = list(/datum/reagent/consumable/nutriment/vitamin = 0.04, /datum/reagent/consumable/nutriment = 0.1)
+	reagents_set = list(
+		/datum/reagent/consumable/nutriment = list(6, 12),
+		/datum/reagent/consumable/nutriment/vitamin = list(2, 6))
 	mutatelist = list(/obj/item/seeds/onion/red)
 
 /obj/item/reagent_containers/food/snacks/grown/onion
@@ -36,7 +38,11 @@
 	plantname = "Red Onion Sprouts"
 	weed_chance = 1
 	product = /obj/item/reagent_containers/food/snacks/grown/onion/red
-	reagents_add = list(/datum/reagent/consumable/nutriment/vitamin = 0.04, /datum/reagent/consumable/nutriment = 0.1, /datum/reagent/consumable/tearjuice = 0.05)
+	reagents_set = list(
+		/datum/reagent/consumable/nutriment = list(6, 12),
+		/datum/reagent/consumable/nutriment/vitamin = list(4, 8),
+		/datum/reagent/consumable/tearjuice = list(5, 15))
+	mutatelist = list(/obj/item/seeds/onion)
 
 /obj/item/reagent_containers/food/snacks/grown/onion/red
 	seed = /obj/item/seeds/onion/red

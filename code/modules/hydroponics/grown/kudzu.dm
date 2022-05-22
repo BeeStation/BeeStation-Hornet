@@ -7,14 +7,17 @@
 	species = "kudzu"
 	plantname = "Kudzu"
 	product = /obj/item/reagent_containers/food/snacks/grown/kudzupod
-	genes = list(/datum/plant_gene/trait/repeated_harvest, /datum/plant_gene/trait/plant_type/weed_hardy)
+	genes = list(/datum/plant_gene/trait/repeated_harvest, /datum/plant_gene/family/weed_hardy)
 	lifespan = 20
 	endurance = 10
 	yield = 4
 	growthstages = 4
 	rarity = 30
 	var/list/mutations = list()
-	reagents_add = list(/datum/reagent/medicine/charcoal = 0.04, /datum/reagent/consumable/nutriment = 0.02)
+	reagents_set = list(
+		/datum/reagent/consumable/nutriment = list(2, 6),
+		/datum/reagent/consumable/nutriment/vitamin = list(1, 3),
+		/datum/reagent/medicine/charcoal = list(5, 1000)) //Heh
 
 /obj/item/seeds/kudzu/Copy()
 	var/obj/item/seeds/kudzu/S = ..()

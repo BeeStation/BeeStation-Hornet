@@ -17,7 +17,9 @@
 						/obj/item/seeds/cannabis/death,
 						/obj/item/seeds/cannabis/white,
 						/obj/item/seeds/cannabis/ultimate)
-	reagents_add = list(/datum/reagent/drug/space_drugs = 0.15, /datum/reagent/toxin/lipolicide = 0.35) // gives u the munchies
+	reagents_set = list(
+		/datum/reagent/drug/space_drugs = list(30, 5),
+		/datum/reagent/toxin/lipolicide = list(35, 10)) // intentional values.
 
 
 /obj/item/seeds/cannabis/rainbow
@@ -28,7 +30,11 @@
 	plantname = "Rainbow Weed"
 	product = /obj/item/reagent_containers/food/snacks/grown/cannabis/rainbow
 	mutatelist = list()
-	reagents_add = list(/datum/reagent/toxin/mindbreaker = 0.15, /datum/reagent/toxin/lipolicide = 0.35)
+	reagents_set = list(
+		/datum/reagent/toxin/mindbreaker = list(40, 25),
+		/datum/reagent/drug/space_drugs = list(30, 5),
+		/datum/reagent/toxin/lipolicide = list(25, 40),
+		/datum/reagent/drug/happiness = list(40, 10)) //intentional values
 	rarity = 40
 
 /obj/item/seeds/cannabis/death
@@ -38,8 +44,11 @@
 	species = "blackcannabis"
 	plantname = "Deathweed"
 	product = /obj/item/reagent_containers/food/snacks/grown/cannabis/death
-	mutatelist = list()
-	reagents_add = list(/datum/reagent/toxin/cyanide = 0.35, /datum/reagent/drug/space_drugs = 0.15, /datum/reagent/toxin/lipolicide = 0.15)
+	mutatelist = list(/obj/item/seeds/cannabis)
+	reagents_set = list(
+		/datum/reagent/toxin/cyanide = list(25, 35),
+		/datum/reagent/drug/space_drugs = list(15, 35),
+		/datum/reagent/toxin/lipolicide = list(15, 35))
 	rarity = 40
 
 /obj/item/seeds/cannabis/white
@@ -49,8 +58,12 @@
 	species = "whitecannabis"
 	plantname = "Lifeweed"
 	product = /obj/item/reagent_containers/food/snacks/grown/cannabis/white
-	mutatelist = list()
-	reagents_add = list(/datum/reagent/medicine/omnizine = 0.35, /datum/reagent/drug/space_drugs = 0.15, /datum/reagent/toxin/lipolicide = 0.15)
+	mutatelist = list(/obj/item/seeds/cannabis)
+	reagents_set = list(
+		/datum/reagent/medicine/omnizine = list(25, 40),
+		/datum/reagent/medicine/meclizine = list(15, 30),
+		/datum/reagent/drug/space_drugs = list(15, 30),
+		/datum/reagent/toxin/lipolicide = list(15, 30))
 	rarity = 40
 
 
@@ -62,22 +75,23 @@
 	plantname = "Omega Weed"
 	product = /obj/item/reagent_containers/food/snacks/grown/cannabis/ultimate
 	genes = list(/datum/plant_gene/trait/glow/green)
-	mutatelist = list()
-	reagents_add = list(/datum/reagent/drug/space_drugs = 0.3,
-						/datum/reagent/toxin/mindbreaker = 0.3,
-						/datum/reagent/mercury = 0.15,
-						/datum/reagent/lithium = 0.15,
-						/datum/reagent/medicine/atropine = 0.15,
-						/datum/reagent/medicine/haloperidol = 0.15,
-						/datum/reagent/drug/methamphetamine = 0.15,
-						/datum/reagent/consumable/capsaicin = 0.15,
-						/datum/reagent/barbers_aid = 0.15,
-						/datum/reagent/drug/bath_salts = 0.15,
-						/datum/reagent/toxin/itching_powder = 0.15,
-						/datum/reagent/drug/crank = 0.15,
-						/datum/reagent/drug/krokodil = 0.15,
-						/datum/reagent/toxin/histamine = 0.15,
-						/datum/reagent/toxin/lipolicide = 0.15)
+	mutatelist = list(/obj/item/seeds/cannabis)
+	reagents_set = list(
+		/datum/reagent/drug/space_drugs = list(30, 5),  // intentional. get it from other weeds if you want higher value.
+		/datum/reagent/toxin/mindbreaker = list(30, 5), // same above.
+		/datum/reagent/mercury = list(15, 30),
+		/datum/reagent/lithium = list(15, 30),
+		/datum/reagent/medicine/atropine = list(15, 30),
+		/datum/reagent/medicine/haloperidol = list(15,30),
+		/datum/reagent/drug/methamphetamine = list(15, 30),
+		/datum/reagent/consumable/capsaicin = list(15, 1), // intentional. get pepper if you want capsaicin
+		/datum/reagent/barbers_aid = list(15, 30),
+		/datum/reagent/drug/bath_salts = list(15, 30),
+		/datum/reagent/toxin/itching_powder = list(15, 30),
+		/datum/reagent/drug/crank = list(15, 30),
+		/datum/reagent/drug/krokodil = list(15, 30),
+		/datum/reagent/toxin/histamine = list(15, 30),
+		/datum/reagent/toxin/lipolicide = list(15, 10)) // intentional. same above.
 	rarity = 69
 
 

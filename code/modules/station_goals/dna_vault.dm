@@ -87,12 +87,26 @@
 		if(!H.myseed)
 			return
 		if(!H.harvest)// So it's bit harder.
-			to_chat(user, "<span class='warning'>Plant needs to be ready to harvest to perform full data scan.</span>") //Because space dna is actually magic
+			to_chat(user, "<span class='warning'>Plant needs to be ready to harvest or be grown manually to perform full data scan.</span>") //Because space dna is actually magic
 			return
 		if(plants[H.myseed.type])
 			to_chat(user, "<span class='notice'>Plant data already present in local storage.</span>")
 			return
 		plants[H.myseed.type] = 1
+		to_chat(user, "<span class='notice'>Plant data added to local storage.</span>")
+
+	//plants
+	if(istype(target, /obj/item/reagent_containers/food/snacks/grown))
+		var/obj/item/reagent_containers/food/snacks/grown/G = target
+		if(!G.seed)
+			return
+		if(G.roundstart) //No roundstarting crops
+			to_chat(user, "<span class='warning'>Plant needs to be grown manually.</span>")
+			return
+		if(plants[G.seed.type])
+			to_chat(user, "<span class='notice'>Plant data already present in local storage.</span>")
+			return
+		plants[G.seed.type] = 1
 		to_chat(user, "<span class='notice'>Plant data added to local storage.</span>")
 
 	//animals

@@ -14,14 +14,17 @@
 	dried_type = -1
 	// Saves us from having to define each stupid grown's dried_type as itself.
 	// If you don't want a plant to be driable (watermelons) set this to null in the time definition.
+	// #EvilDragon notes: How is a crop not able to be dried? Evne dried watermelons exist in real world. steelcap might not be.
 	resistance_flags = FLAMMABLE
-	var/dry_grind = FALSE //If TRUE, this object needs to be dry to be ground up
-	var/can_distill = TRUE //If FALSE, this object cannot be distilled into an alcohol.
-	var/distill_reagent //If NULL and this object can be distilled, it uses a generic fruit_wine reagent and adjusts its variables.
-	var/wine_flavor //If NULL, this is automatically set to the fruit's flavor. Determines the flavor of the wine if distill_reagent is NULL.
-	var/wine_power = 10 //Determines the boozepwr of the wine if distill_reagent is NULL.
+	var/dry_grind = FALSE    //If TRUE, this object needs to be dry to be ground up
+	var/can_distill = TRUE   //If FALSE, this object cannot be distilled into an alcohol.
+	var/distill_reagent      //If NULL and this object can be distilled, it uses a generic fruit_wine reagent and adjusts its variables.
+	var/wine_flavor          //If NULL, this is automatically set to the fruit's flavor. Determines the flavor of the wine if distill_reagent is NULL.
+	var/wine_power = 10      //Determines the boozepwr of the wine if distill_reagent is NULL.
 
-	var/discovery_points = 0 //Amount of discovery points given for scanning
+	var/roundstart = 1           //roundstart crops are not researchable. Grown crops will become 0, so that you can scan them.
+	var/discovery_points = 200   //Amount of discovery points given for scanning
+	var/research_identifier      //used to check if a plant was researched. strange seed needs customised identifier.
 
 /obj/item/reagent_containers/food/snacks/grown/Initialize(mapload, obj/item/seeds/new_seed)
 	. = ..()
@@ -45,11 +48,14 @@
 		for(var/datum/plant_gene/trait/T in seed.genes)
 			T.on_new(src, loc)
 		seed.prepare_result(src)
-		transform *= TRANSFORM_USING_VARIABLE(seed.potency, 100) + 0.5 //Makes the resulting produce's sprite larger or smaller based on potency!
+		transform *= TRANSFORM_USING_VARIABLE(seed.potency/1.33+25, 100) + 0.5 //Makes the resulting produce's sprite larger or smaller based on potency!
 		add_juice()
-	
+
 	if(discovery_points)
 		AddComponent(/datum/component/discoverable, discovery_points)
+
+	if(!isnull(seed))
+		research_identifier = seed.research_identifier
 
 
 
@@ -75,7 +81,7 @@
 			msg += seed.get_analyzer_text()
 		var/reag_txt = ""
 		if(seed)
-			for(var/reagent_id in seed.reagents_add)
+			for(var/reagent_id in seed.reagents_set) //$$$need to change - check health analyzer
 				var/datum/reagent/R  = GLOB.chemical_reagents_list[reagent_id]
 				var/amt = reagents.get_reagent_amount(reagent_id)
 				reag_txt += "\n<span class='info'>- [R.name]: [amt]</span>"
@@ -91,46 +97,6 @@
 
 
 // Various gene procs
-/obj/item/reagent_containers/food/snacks/grown/attack_self(mob/user)
-	if(seed && seed.get_gene(/datum/plant_gene/trait/squash))
-		squash(user)
-	..()
-
-/obj/item/reagent_containers/food/snacks/grown/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
-	if(!..()) //was it caught by a mob?
-		if(seed)
-			for(var/datum/plant_gene/trait/T in seed.genes)
-				T.on_throw_impact(src, hit_atom)
-			if(seed.get_gene(/datum/plant_gene/trait/squash))
-				squash(hit_atom)
-
-/obj/item/reagent_containers/food/snacks/grown/proc/squash(atom/target)
-	var/turf/T = get_turf(target)
-	forceMove(T)
-	if(ispath(splat_type, /obj/effect/decal/cleanable/food/plant_smudge))
-		if(filling_color)
-			var/obj/O = new splat_type(T)
-			O.color = filling_color
-			O.name = "[name] smudge"
-	else if(splat_type)
-		new splat_type(T)
-
-	if(trash)
-		generate_trash(T)
-
-	visible_message("<span class='warning'>[src] has been squashed.</span>","<span class='italics'>You hear a smack.</span>")
-	if(seed)
-		for(var/datum/plant_gene/trait/trait in seed.genes)
-			trait.on_squash(src, target)
-	reagents.reaction(T)
-	for(var/A in T)
-		reagents.reaction(A)
-	qdel(src)
-
-/obj/item/reagent_containers/food/snacks/grown/proc/squashreact()
-	for(var/datum/plant_gene/trait/trait in seed.genes)
-		trait.on_squashreact(src)
-	qdel(src)
 
 /obj/item/reagent_containers/food/snacks/grown/On_Consume()
 	if(iscarbon(usr))
