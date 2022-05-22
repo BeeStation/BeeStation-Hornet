@@ -38,6 +38,8 @@ GLOBAL_LIST_EMPTY(PDAs)
 	var/obj/item/cartridge/cartridge = null //current cartridge
 	var/mode = 0 //Controls what menu the PDA will display. 0 is hub; the rest are either built in or based on cartridge.
 	var/icon_alert = "pda-r" //Icon to be overlayed for message alerts. Taken from the pda icon file.
+	var/icon_pai = "pai-overlay" // Icon to be overlayed when an active pAI is slotted in.
+	var/icon_inactive_pai = "pai-off-overlay" 	// Same as above but for an inactive pAI.
 	var/font_index = 0 //This int tells DM which font is currently selected and lets DM know when the last font has been selected so that it can cycle back to the first font when "toggle font" is pressed again.
 	var/font_mode = "font-family:monospace;" //The currently selected font.
 	var/background_color = "#808000" //The currently selected background color.
@@ -170,10 +172,10 @@ GLOBAL_LIST_EMPTY(PDAs)
 		add_overlay(new /mutable_appearance(overlay))
 	if(pai)
 		if(pai.pai)
-			overlay.icon_state = "pai_overlay"
+			overlay.icon_state = icon_pai
 			add_overlay(new /mutable_appearance(overlay))
 		else
-			overlay.icon_state = "pai_off_overlay"
+			overlay.icon_state = icon_inactive_pai
 			add_overlay(new /mutable_appearance(overlay))
 
 /obj/item/pda/MouseDrop(mob/over, src_location, over_location)
