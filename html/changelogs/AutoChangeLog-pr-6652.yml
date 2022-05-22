@@ -1,0 +1,5 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - balance: Reduces the number of cult ghosts a single person can summon from 3 to
+      1.
