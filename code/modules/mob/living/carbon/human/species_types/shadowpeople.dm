@@ -209,11 +209,13 @@
 		to_chat(src, "<span class='danger'>Your headlamp is fried! You'll need a human to help replace it.</span>")
 
 /obj/structure/bonfire/lighteater_act(obj/item/light_eater/light_eater)
+	..()
 	if(burning)
 		extinguish()
 		playsound(src, 'sound/items/cig_snuff.ogg', 50, 1)
 
 /obj/item/pda/lighteater_act(obj/item/light_eater/light_eater)
+	..()
 	if(!light_range || !light_power)
 		return
 	set_light_on(FALSE)
@@ -223,6 +225,7 @@
 	visible_message("<span class='danger'>The light in [src] shorts out!</span>")
 
 /obj/item/lighteater_act(obj/item/light_eater/light_eater)
+	..()
 	if(!light_range || !light_power)
 		return
 	if(light_eater)
