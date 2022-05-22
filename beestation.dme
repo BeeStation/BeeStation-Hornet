@@ -328,7 +328,6 @@
 #include "code\controllers\subsystem\sound.dm"
 #include "code\controllers\subsystem\sound_loops.dm"
 #include "code\controllers\subsystem\sounds.dm"
-#include "code\controllers\subsystem\spacedrift.dm"
 #include "code\controllers\subsystem\spatial_gridmap.dm"
 #include "code\controllers\subsystem\stat.dm"
 #include "code\controllers\subsystem\stickyban.dm"
