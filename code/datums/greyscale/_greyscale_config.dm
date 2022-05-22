@@ -234,11 +234,18 @@
 /datum/greyscale_config/proc/Generate(color_string, icon/last_external_icon)
 	var/key = color_string
 	var/icon/new_icon = icon_cache[key]
+	//MONKESTATION CHANGES START
 	if(new_icon)
 		return icon(new_icon)
 
-	var/icon/icon_bundle = GenerateBundle(color_string, last_external_icon=last_external_icon)
+	var/icon/icon_bundle = GenerateBundle(color_string)
+
+	// This block is done like this because generated icons are unable to be scaled before getting added to the rsc
 	icon_bundle = fcopy_rsc(icon_bundle)
+	icon_bundle = icon(icon_bundle)
+	icon_bundle.Scale(width, height)
+	icon_bundle = fcopy_rsc(icon_bundle)
+
 	icon_cache[key] = icon_bundle
 	var/icon/output = icon(icon_bundle)
 	return output
@@ -246,6 +253,7 @@
 /// Handles the actual icon manipulation to create the spritesheet
 /datum/greyscale_config/proc/GenerateBundle(list/colors, list/render_steps, icon/last_external_icon)
 	if(!istype(colors))
+	//MONKESTATION CHANGES END
 		colors = SSgreyscale.ParseColorString(colors)
 	if(length(colors) != expected_colors)
 		CRASH("[DebugName()] expected [expected_colors] color arguments but received [length(colors)]")
