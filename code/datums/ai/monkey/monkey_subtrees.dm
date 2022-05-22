@@ -1,7 +1,7 @@
 /datum/ai_planning_subtree/monkey_tree/SelectBehaviors(datum/ai_controller/monkey/controller, delta_time)
 	var/mob/living/living_pawn = controller.pawn
 
-	if(IS_DEAD_OR_INCAP(living_pawn))
+	if(living_pawn.stat >= UNCONSCIOUS)
 		return
 
 	if(SHOULD_RESIST(living_pawn) && DT_PROB(MONKEY_RESIST_PROB, delta_time))
@@ -57,7 +57,7 @@
 	if(selected_enemy || !DT_PROB(MONKEY_SHENANIGAN_PROB, delta_time))
 		return
 
-	if(world.time >= controller.blackboard[BB_MONKEY_NEXT_HUNGRY])
+	if(world.time >= controller.blackboard[BB_MONKEY_NEXT_HUNGRY] && !IS_DEAD_OR_INCAP(living_pawn))
 		var/list/food_candidates = list()
 		for(var/obj/item as anything in living_pawn.held_items)
 			if(!item || !controller.IsEdible(item))
