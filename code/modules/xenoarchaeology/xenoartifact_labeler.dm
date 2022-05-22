@@ -215,15 +215,13 @@
 	return
 
 /obj/item/xenoartifact_labeler/debug/create_label(new_name)
-	var/obj/item/xenoartifact/A = new(get_turf(loc), DEBUGIUM)
+	var/obj/item/xenoartifact/A = new(get_turf(loc), XENOA_DEBUGIUM)
 	say("Created [A] at [A.loc]")
 	A.charge_req = 100
 	A.malfunction_mod = 0
 	A.malfunction_chance = 0
+	qdel(A.traits)
 	A.traits = list()
-	for(var/datum/xenoartifact_trait/t as() in A.traits) //Delete old traits
-		t.on_del(A)
-		qdel(t)
 	for(var/X in sticker_traits) //Add new ones
 		say(X)
 		A.traits += new X

@@ -21,16 +21,24 @@
 	icon_keyboard = "rd_key"
 	circuit = /obj/item/circuitboard/computer/xenoartifact_console
 	
-	var/list/sellers = list() //These lengths need to be set to define an upper limit of sellers and buyers. Generally easier. 
+	///Sellers give artifacts
+	var/list/sellers = list()
+	///Buyers take artifacts
 	var/list/buyers = list()
-	var/list/tab_index = list("Listings", "Export", "Linking") //All tabs
+	///All tabs
+	var/list/tab_index = list("Listings", "Export", "Linking")
 	var/current_tab = "Listings"
 	var/current_tab_info = "Here you can find listings for various research samples, usually fresh from the field. These samples aren't distrubuted by the Nanotrasen affiliated cargo system, so instead listing data is sourced from stray bluespace-threads."
-	var/obj/machinery/xenoartifact_inbox/linked_inbox //used for 'shipping'
-	var/list/linked_machines = list() //List of linked machines for UI purposes
-	var/datum/techweb/linked_techweb //Which science server recieves points
-	var/list/sold_artifacts = list() //Actually just a general list of items you've sold, name is a legacy thing
-	var/datum/bank_account/budget //Which department's budget recieves profit
+	///used for 'shipping'
+	var/obj/machinery/xenoartifact_inbox/linked_inbox
+	///List of linked machines for UI purposes
+	var/list/linked_machines = list()
+	///Which science server recieves points
+	var/datum/techweb/linked_techweb
+	///Actually just a general list of items you've sold
+	var/list/sold_artifacts = list()
+	///Which department's budget recieves profit
+	var/datum/bank_account/budget
 
 /obj/machinery/computer/xenoartifact_console/Initialize()
 	. = ..()
@@ -130,6 +138,7 @@
 /obj/machinery/computer/xenoartifact_console/proc/sell()
 	if(!linked_inbox)
 		say("Error. No linked hardware.")
+		return
 	else
 		var/obj/selling_item
 		for(var/obj/I in oview(1, linked_inbox))
@@ -225,18 +234,18 @@
 	var/difficulty //Xenoartifact shit, not exactly difficulty
 
 /datum/xenoartifact_seller/proc/generate()
-	name = pick(XENO_SELLER_NAMES)
-	dialogue = pick(XENO_SELLER_DIAL)
+	name = pick(XENOA_SELLER_NAMES)
+	dialogue = pick(XENOA_SELLER_DIAL)
 	price = rand(5,80) * 10
 	switch(price)
 		if(50 to 300)
-			difficulty = BLUESPACE
+			difficulty = XENOA_BLUESPACE
 		if(301 to 500)
-			difficulty = PLASMA
+			difficulty = XENOA_PLASMA
 		if(501 to 700)
-			difficulty = URANIUM
+			difficulty = XENOA_URANIUM
 		if(701 to 800)
-			difficulty = BANANIUM
+			difficulty = XENOA_BANANIUM
 	price = price * rand(1.0, 1.5) //Measure of error for no particular reason
 	unique_id = "[rand(1,100)][rand(1,100)][rand(1,100)]:[world.time]"
 	addtimer(CALLBACK(src, .proc/change_item), (rand(1,3)*60) SECONDS)
@@ -248,7 +257,7 @@
 	var/obj/buying
 
 /datum/xenoartifact_seller/buyer/generate()
-	name = pick(XENO_SELLER_NAMES)
+	name = pick(XENOA_SELLER_NAMES)
 	buying = pick(/obj/item/xenoartifact)
 	if(buying == /obj/item/xenoartifact) //Don't bother trying to use istype here
 		dialogue = "[name] is requesting: artifact::item-class"

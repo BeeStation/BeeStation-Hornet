@@ -1,20 +1,29 @@
 /datum/xenoartifact_trait
-	var/desc //Acts as a descriptor for when examining. Also used for naming stuff in the labeler. Keep these short.
-	var/label_name //Used when labeler needs a name and trait is too sneaky to have a descriptor when examining.
-	var/label_desc //Something briefly explaining it in IG terms or a pun.
-	var/list/blacklist_traits = list() //Other traits the original trait wont work with. Referenced when generating traits.
+	///Acts as a descriptor for when examining. Also used for naming stuff in the labeler. Keep these short.
+	var/desc
+	///Used when labeler needs a name and trait is too sneaky to have a descriptor when examining.
+	var/label_name
+	///Something briefly explaining it in IG terms or a pun.
+	var/label_desc
+	///Other traits the original trait wont work with. Referenced when generating traits.
+	var/list/blacklist_traits = list()
 
 //Activator signal shenanignas 
 /datum/xenoartifact_trait/activator
-	var/charge //How much an activator trait can output on a standard, modified by the artifacts charge_req and circumstances.
-	var/list/signals //which signals trait responds to
-	var/obj/item/xenoartifact/xenoa //Not used outside of signal handle, please
+	///How much an activator trait can output on a standard, modified by the artifacts charge_req and circumstances.
+	var/charge
+	///which signals trait responds to
+	var/list/signals
+	///Not used outside of signal handle, please
+	var/obj/item/xenoartifact/xenoa
 
 /datum/xenoartifact_trait/activator/proc/calculate_charge(obj/item/xenoartifact/X)
 	return
 
 /datum/xenoartifact_trait/activator/on_init(obj/item/xenoartifact/X)
 	. = ..()
+	if(!X)
+		return
 	xenoa = X
 	for(var/s in signals)
 		switch(s) //Translating signal params to vaugely resemble (/obj/item, /mob/living, params)
@@ -32,8 +41,10 @@
 				RegisterSignal(xenoa, XENOA_SIGNAL, .proc/translate_attackby)
 	RegisterSignal(xenoa, XENOA_DEFAULT_SIGNAL, .proc/calculate_charge) //Signal sent by handles
 
-/datum/xenoartifact_trait/activator/on_del(obj/item/xenoartifact/X)
+/datum/xenoartifact_trait/activator/Destroy(force, ...)
 	. = ..()
+	if(!xenoa)
+		return
 	for(var/s in signals)
 		UnregisterSignal(xenoa, s)
 	UnregisterSignal(xenoa, XENOA_DEFAULT_SIGNAL)
@@ -71,9 +82,6 @@
 /datum/xenoartifact_trait/proc/on_touch(obj/item/xenoartifact/X, atom/user) //Touch hint
 	return FALSE
 
-/datum/xenoartifact_trait/proc/on_del(obj/item/xenoartifact/X)	//Hard del addressal
-	return
-
 /datum/xenoartifact_trait/special/objective/on_init(obj/item/xenoartifact/X) //Exploration mission GPS trait
 	X.AddComponent(/datum/component/gps, "[scramble_message_replace_chars("#########", 100)]", TRUE)
 
@@ -101,9 +109,9 @@
 
 /datum/xenoartifact_trait/activator/burn/calculate_charge(datum/source, obj/item/thing, mob/user, atom/target, params) //xenoa item handles this, see process proc there
 	var/obj/item/xenoartifact/X = source
-	if(X.process_type != IS_LIT && thing.ignition_effect(X, user))
+	if(X.process_type != PROCESS_TYPE_TICK && thing.ignition_effect(X, user))
 		X.visible_message("<span class='danger'>The [X.name] sparks on.</span>")
-		X.process_type = IS_LIT
+		X.process_type = PROCESS_TYPE_TICK
 		sleep(5) //Give them a chance to escape
 		START_PROCESSING(SSobj, X)
 		log_game("[user]:[isliving(user) ? user?.ckey : "no ckey"] lit [X] at [world.time] using [thing]. [X] located at [X.x] [X.y] [X.z].")
@@ -127,7 +135,7 @@
 
 /datum/xenoartifact_trait/activator/clock/calculate_charge(datum/source, obj/item/thing, mob/user, atom/target, params)
 	var/obj/item/xenoartifact/X = source
-	X.process_type = IS_TICK
+	X.process_type = PROCESS_TYPE_TICK
 	START_PROCESSING(SSobj, X)
 	log_game("[user]:[isliving(user) ? user?.ckey : "no ckey"] set clock on [X] at [world.time] using [thing]. [X] located at [X.x] [X.y] [X.z].")
 
@@ -329,7 +337,8 @@
 			xeno.default_activate(xeno.charge_req)
 			charge_max = xeno.cooldown+xeno.cooldownmod
 
-/datum/xenoartifact_trait/minor/sentient/on_del(obj/item/xenoartifact/X)
+/datum/xenoartifact_trait/minor/sentient/Destroy(force, ...)
+	. = ..()
 	qdel(man) //Kill the inner person. Otherwise invisible 'animal' runs around
 
 /datum/xenoartifact_trait/minor/delicate //Limited uses.
@@ -613,7 +622,8 @@
 		new_corgi.inventory_back = null
 		qdel(new_corgi)
 
-/datum/xenoartifact_trait/major/corginator/on_del() //Transform goobers back if artifact is deleted.
+/datum/xenoartifact_trait/major/corginator/Destroy(force, ...) //Transform goobers back if artifact is deleted.
+	. = ..()
 	var/mob/living/H
 	var/mob/living/simple_animal/pet/dog/corgi/C
 	for(var/M in 1 to victims.len-1)
@@ -685,7 +695,8 @@
 		animate(target, , alpha = 255, time = 10)
 		target = null
 
-/datum/xenoartifact_trait/major/invisible/on_del()
+/datum/xenoartifact_trait/major/invisible/Destroy(force, ...)
+	. = ..()
 	for(var/mob/living/M in victims)
 		reveal(M)
 
