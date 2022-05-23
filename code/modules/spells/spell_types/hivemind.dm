@@ -553,10 +553,10 @@
 
 	if(target.mind && target.client && target.stat != DEAD)
 		if((!HAS_TRAIT(target, TRAIT_MINDSHIELD)) && !istype(target.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat))
-			if(!is_hivehost(target))
+			if(!is_hivehost(target) && !target.is_wokevessel())
 				target.hive_weak_awaken(directive)
 			else
-				to_chat(user, "<span class='warning'>Complex mental barriers protect [target.name]'s mind.</span>") //So they can't meta the fact this is a host
+				to_chat(user, "<span class='warning'>Complex mental barriers protect [target.name]'s mind.</span>")
 		else
 			to_chat(user, "<span class='warning'>Powerful technology protects [target.name]'s mind.</span>")
 	else
@@ -659,6 +659,10 @@
 		return
 	if(user.grab_state == GRAB_PASSIVE)
 		to_chat(user, "<span class='warning'>We must tighten our grip to be able to awaken their mind!</span>")
+		revert_cast()
+		return
+	if(is_hivehost(target) || target.is_wokevessel())
+		to_chat(user, "<span class='warning'>Complex mental barriers protect [target.name]'s mind.</span>")
 		revert_cast()
 		return
 	hivehost.isintegrating = TRUE
