@@ -10,4 +10,11 @@
 
 #define SANITIZE_FILENAME(text) (GLOB.filename_forbidden_chars.Replace(text, ""))
 
-#define MAX_CHAR_WIDTH "max_width"
+/// Index of normal sized character size in runechat lists
+#define NORMAL_FONT_INDEX 1
+
+/// Index of small sized character size in runechat lists
+#define SMALL_FONT_INDEX 2
+
+/// Index of big sized character size in runechat lists
+#define BIG_FONT_INDEX 3

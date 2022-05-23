@@ -23,7 +23,7 @@
 /// How much the message moves up before fading out.
 #define MESSAGE_FADE_PIXEL_Y 10
 /// Approximation of the height
-#define APPROX_HEIGHT(font_size, lines) (font_size * 1.7 * lines) + 2
+#define APPROX_HEIGHT(font_size, lines) ((font_size * 1.7 * lines) + 2)
 /// Default font size (defined in skin.dmf), those are 1 size bigger than in skin, to account 1px black outline
 #define DEFAULT_FONT_SIZE 8
 /// Big font size, used by megaphones and such
@@ -209,14 +209,18 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 		tgt_color = COLOR_CHAT_EMOTE
 
 	// Determine the font size
+	var/bold_font = FALSE
 	var/font_size = DEFAULT_FONT_SIZE
 	if (extra_classes.Find("megaphone"))
 		font_size = BIG_FONT_SIZE
 	else if (extra_classes.Find("italics") || extra_classes.Find("emote"))
 		font_size = WHISPER_FONT_SIZE
+	if (extra_classes.Find("yell"))
+		bold_font = TRUE
 
 	// Append language icon if the language uses one
 	var/datum/language/language_instance = GLOB.language_datum_instances[language]
+	var/has_language_icon = FALSE
 	if (language_instance?.display_icon(first_hearer.mob))
 		var/icon/language_icon = LAZYACCESS(language_icons, language)
 		if (isnull(language_icon))
@@ -224,9 +228,10 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 			language_icon.Scale(CHAT_MESSAGE_ICON_SIZE, CHAT_MESSAGE_ICON_SIZE)
 			LAZYSET(language_icons, language, language_icon)
 		LAZYADD(prefixes, "\icon[language_icon]")
+		has_language_icon = TRUE
 
 	// Approximate text height
-	approx_lines = CEILING(approx_str_width(text, font_size) / CHAT_MESSAGE_WIDTH, 1)
+	approx_lines = CEILING(approx_str_width(text, font_size, bold_font, has_language_icon) / CHAT_MESSAGE_WIDTH, 1)
 
 	//Add on the icons. The icon isn't measured in str_width
 	text = "[prefixes?.Join("&nbsp;")][text]"
@@ -530,7 +535,7 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 	else
 		message_loc = get_atom_on_turf(target)
 
-	approx_lines = CEILING(approx_str_width(text, DEFAULT_FONT_SIZE) / CHAT_MESSAGE_WIDTH, 1)
+	approx_lines = CEILING(approx_str_width(text, DEFAULT_FONT_SIZE, FALSE) / CHAT_MESSAGE_WIDTH, 1)
 
 	// Build message image
 	message = image(loc = message_loc, layer = CHAT_LAYER)
@@ -582,15 +587,29 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
  * Arguments:
  * * string - string to measure width
  * * font size - font size that the displayed string will be in, used to calculate font size multiplier
+ * * is_bold - passed if the font is bold, the approximation takes into account additional width of the font
+ * * has_icon - text has an icon, which adds extra 8 pixels
  */
-/datum/chatmessage/proc/approx_str_width(string, font_size = DEFAULT_FONT_SIZE)
+/datum/chatmessage/proc/approx_str_width(string, font_size = DEFAULT_FONT_SIZE, is_bold = FALSE, has_icon = FALSE)
 	var/value = 0
-	var/font_multiplier = font_size / DEFAULT_FONT_SIZE
+	var/index = NORMAL_FONT_INDEX
+	if(font_size == WHISPER_FONT_SIZE)
+		index = SMALL_FONT_INDEX
+	else if(font_size == BIG_FONT_SIZE)
+		index = BIG_FONT_INDEX
 	for(var/i in 1 to length(string))
-		var/size = SSrunechat.letters[string[i]]
+		//List wasnt initialized or was tampered with
+		if(length(SSrunechat.letters[string[i]]) != 3)
+			value += SSrunechat.max_char_width[index]
+			continue
+		var/size = SSrunechat.letters[string[i]][index]
 		if(!size)
-			size = SSrunechat.letters[MAX_CHAR_WIDTH]
-		value += size * font_multiplier
+			size = SSrunechat.max_char_width
+		value += size
+	if(is_bold)
+		value += length(string)
+	if(has_icon)
+		value += 8
 	return value
 
 #undef BALLOON_TEXT_CHAR_LIFETIME_INCREASE_MIN
