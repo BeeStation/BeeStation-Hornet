@@ -1,0 +1,4 @@
+author: MNarath1
+delete-after: true
+changes:
+  - bugfix: fixes broken gold airlock apparance
