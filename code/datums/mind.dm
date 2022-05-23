@@ -81,6 +81,8 @@
 
 /datum/mind/Destroy()
 	SSticker.minds -= src
+	if(is_hivemember(current))
+		remove_hivemember(current)
 	if(islist(antag_datums))
 		for(var/i in antag_datums)
 			var/datum/antagonist/antag_datum = i

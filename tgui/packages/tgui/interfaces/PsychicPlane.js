@@ -6,7 +6,6 @@ import { Window } from '../layouts';
 export const PsychicPlane = (props, context) => {
   const { act, data } = useBackend(context);
   const {
-    charges,
     hives = [],
   } = data;
   return (
@@ -28,9 +27,19 @@ export const PsychicPlane = (props, context) => {
             )}>
             <LabeledList key={hive.hive}>
               <LabeledList.Item>
-                Vessel Ammount: {hive.size}
-
-
+                {hive.type}
+              </LabeledList.Item>
+              <LabeledList.Item>
+                Vessel Amount: {hive.size}
+              </LabeledList.Item>
+              <LabeledList.Item>
+                Charges: {hive.charges}
+              </LabeledList.Item>
+              <LabeledList.Item>
+                Integrations: {hive.Integrations}
+              </LabeledList.Item>
+              <LabeledList.Item>
+                Awakened Vessels: {hive.avessel_number}
               </LabeledList.Item>
             </LabeledList>
           </Section>

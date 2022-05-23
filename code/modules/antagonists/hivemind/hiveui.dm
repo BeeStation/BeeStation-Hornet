@@ -25,17 +25,16 @@
 
 /datum/psychic_plane/ui_data(mob/user)
 	var/list/data = list()
-	var/datum/antagonist/hivemind/hive = user.mind.has_antag_datum(/datum/antagonist/hivemind)
-
-	var/charges = hive.searchcharge
-
-	data["charges"] = charges
 
 	data["hives"] = list()
 	for(var/datum/antagonist/hivemind/hivehosts in GLOB.hivehosts)
 		var/list/hive_data = list(
 			hive = hivehosts.hiveID,
-			size = hivehosts.hive_size
+			size = hivehosts.hive_size,
+			charges = hivehosts.searchcharge,
+			avessel_number = hivehosts.avessels.len,
+			integrations = hivehosts.size_mod/2,
+			type = hivehosts.descriptor,
 		)
 		data["hives"] += list(hive_data)
 

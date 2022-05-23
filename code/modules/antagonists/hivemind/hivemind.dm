@@ -9,8 +9,7 @@
 	var/list/avessels = list()
 	var/hive_size = 0
 	var/track_bonus = 0 // Bonus time to your tracking abilities
-	var/size_mod = 0 // Bonus size for using reclaim
-	var/list/individual_track_bonus = list() // Bonus time to tracking individual targets
+	var/size_mod = 0 // Bonus size for using integrate
 	var/unlocked_dominance = FALSE
 	var/mutable_appearance/glow
 	var/isintegrating = 0
@@ -19,6 +18,7 @@
 	var/datum/psychic_plane/psychic_plane
 	var/datum/action/innate/psychic_plane/plane_action
 	var/avessel_limit = 1
+	var/descriptor = "Hivemind"
 
 	var/list/upgrade_tiers = list(
 		//Tier 1 - Roundstart powers
@@ -151,7 +151,7 @@
 /datum/antagonist/hivemind/on_gain()
 	owner.special_role = special_role
 	GLOB.hivehosts += src
-	generate_name()
+	generate_flavour()
 	create_actions()
 	check_powers()
 	forge_objectives()
@@ -247,10 +247,24 @@
 /datum/antagonist/hivemind/is_gamemode_hero()
 	return SSticker.mode.name == "Assimilation"
 
-/datum/antagonist/hivemind/proc/generate_name()
+/datum/antagonist/hivemind/proc/generate_flavour()
 	var/static/list/prefix = list("Azure","Crimson","Silver","Verdant","Ivory","Sepia","Gold","Canary","Rust","Cider","Scarlet","Rose","Magenta","Navy","Lapis","Emerald")
 	var/static/list/postfix = list("Flame","Presence","Maw","Revelation","Conciousness","Blanket","Structure","Command","Hierarchy","Aristocrat","Zealotry","Fascination")
 	hiveID = pick_n_take(prefix) + " " + pick_n_take(postfix)
+	var/static/list/types = list(
+		"Domineering and opressive, not a pawn out of place, not a step out of line and ruthless with the oposition.",
+		"Crashing waves of assimilation, no subtlety, just the primal instinct to expand.",
+		"In one hand the olive branch in the other, a knife.",
+		"Opulant and Aristocratic with ambitions to expand their fiefdom.",
+		"Seething Rage and teeming with Anger, the former dominant personality amongst all, returning for its throne.",
+		"A Trickster with a preference for chaos, unpredictable, the emboddiment of mischief.",
+		"Benevolant to their own eyes, seeks to free living beings of the burden of free will",
+		"Caring for their vessels and ruthless against those that would attack them, seeks to expand their protective embrace",
+		"Diplomatic and calm mannered, may seek alliances of convenience to further their own gain",
+		"Vulture-like and opportunistic eager to pounce in a moment of weakness",
+		"Pawns are mere Pawns, and they are expendable, crush our foes in a wave of meat"
+		)
+	descriptor = pick_n_take(types)
 
 /datum/antagonist/hivemind/proc/create_actions()
 	psychic_plane = new(src)
