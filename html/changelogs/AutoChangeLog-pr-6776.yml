@@ -1,5 +1,0 @@
-author: Mat05usz, Rukofamicom
-delete-after: true
-changes:
-  - tweak: Map votes are now weighted by number of votes rather than picking the map
-      with the most votes
