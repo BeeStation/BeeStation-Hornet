@@ -33,9 +33,10 @@
 
 /datum/component/discoverable/proc/discovery_scan(datum/techweb/linked_techweb, mob/user)
 	//Already scanned our atom.
-	var/sound_check = TRUE
+	var/shows_effect = TRUE
 	var/atom/A = parent
 
+	//-------------------------------------- BOTANY --------------------------------------
 	// Need to do this for hydroponics tray plants
 	if(istype(A, /obj/machinery/hydroponics))
 		var/obj/machinery/hydroponics/M = A
@@ -53,11 +54,10 @@
 		A = newparent
 		point_reward = initial(SP.discovery_points)
 
-
 	// Botany scan
 	if(istype(A, /obj/item/reagent_containers/food/snacks/grown))
 		var/obj/item/reagent_containers/food/snacks/grown/P = A
-		var/obj/item/seeds/seed = A.seed
+		var/obj/item/seeds/seed = P.seed
 		if(P.roundstart) //Roundstart crops are not valid to scan
 			to_chat(user, "<span class='warning'>[P.name] has to be manually researched by growing them.</span>")
 			return
@@ -68,12 +68,12 @@
 			to_chat(user, "<span class='notice'>Plant research successful. Data has been added.</span>")
 			playsound(user, 'sound/machines/terminal_success.ogg', 60)
 			pulse_effect(get_turf(A), 4)
-			sound_check = FALSE
+			shows_effect = FALSE
 
 	// I hate this duplication, but need to do for another botany type item.
 	else if(istype(A, /obj/item/grown))
 		var/obj/item/grown/P = A
-		var/obj/item/seeds/seed = A.seed
+		var/obj/item/seeds/seed = P.seed
 		if(P.roundstart) //Roundstart crops are not valid to scan
 			to_chat(user, "<span class='warning'>[P.name] has to be manually researched by growing them.</span>")
 			return
@@ -84,7 +84,8 @@
 			to_chat(user, "<span class='notice'>Plant research successful. Data has been added.</span>")
 			playsound(user, 'sound/machines/terminal_success.ogg', 60)
 			pulse_effect(get_turf(A), 4)
-			sound_check = FALSE
+			shows_effect = FALSE
+	//-------------------------------------- BOTANY DONE --------------------------------------
 
 	// Standard scan check
 	if(scanned)
@@ -104,7 +105,7 @@
 	linked_techweb.add_point_type(TECHWEB_POINT_TYPE_DISCOVERY, point_reward)
 	linked_techweb.scanned_atoms[A.type] = TRUE
 	to_chat(user, "<span class='notice'>New datapoint scanned, [point_reward] discovery points gained.</span>")
-	if(sound_check)
+	if(shows_effect)
 		playsound(user, 'sound/machines/terminal_success.ogg', 60)
 		pulse_effect(get_turf(A), 4)
 

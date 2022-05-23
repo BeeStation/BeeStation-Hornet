@@ -898,7 +898,7 @@
 	reagents = new /datum/reagents(max_vol, flags)
 	reagents.my_atom = src
 
-/proc/get_random_reagent_id(var/flag_check, var/blacklist_flag = NONE, var/union = TRUE, var/return_as_list = FALSE)
+/proc/get_random_reagent_id(var/flag_check, var/blacklist_flag = NONE, var/union = TRUE, var/return_as_list = FALSE, var/find_by_number = 0)
 	/* This proc returns a random reagent ID based on given 'flag_check' which is used to check bitflag for each reagent.
 	 *--- arguments ---*
 		* flag_check
@@ -916,7 +916,13 @@
 			(Bicaridine, Bicardine, Bicaridine means 3x chance than normal.)
 		* return_as_list
 			default FALSE. if TRUE, the proc will return its list rather than pick a certain ID from the list. Useful when you're going to set blacklist yourself (or add)
-
+			mutually exclusive with find_by_number
+		* find_by_number
+			default 0. when you want a certain chem in the list.
+			if more than 0, It will return the chem id by the number.
+			  i.e.) random_reagents_list[flag_check][find_by_number] = bicaridine
+			This is useful when you need to have random chem id in a cycle.
+			mutually exclusive with return_as_list
 	 *--- How to add a new random reagent category ---*
 		1. add a new flag at 'code\__DEFINES\reagents.dm' and `var/list/chem_defines` below
 			i.e.) `#define CHEMICAL_SOMETHING_NEW (1<10)`
@@ -949,7 +955,7 @@
 	var/static/list/random_reagents_goal_b = list()  // CHEMICAL_GOAL_CHEMIST_BLOODSTREAM
 	var/static/list/random_reagents_goal_c = list()  // CHEMICAL_GOAL_BOTANIST_HARVEST
 	var/static/list/random_reagents_goal_d = list()  // CHEMICAL_GOAL_BARTENDER_SERVING
-	var/static/list/random_reagent = list(
+	var/static/list/random_reagents_list = list(
 		random_reagents_a,
 		random_reagents_b,
 		random_reagents_c,
@@ -970,7 +976,7 @@
 				i += 1
 				var/datum/reagent/R = thing
 				if(initial(R.chem_flags) & each_define)
-					random_reagent[i] += R
+					random_reagents_list[i] += R
 
 	// returns a pick from a static before making a list - saving memory
 	var/j = 0
@@ -978,7 +984,15 @@
 		for(var/each_define in chem_defines)
 			j += 1
 			if(each_define == flag_check)
-				return (return_as_list ? random_reagent[j] : pick(random_reagent[j]))
+				if(find_by_number)
+					if(length(random_reagents_list[j]) < find_by_number)
+						world.log << "len: [length(random_reagents_list[j])] / ID: [find_by_number]"
+						return // prevents runtime error
+					return random_reagents_list[j][find_by_number]
+				else if(return_as_list)
+					return random_reagents_list[j]
+				else
+					return pick(random_reagents_list[j])
 
 	// if flag_check has multiple bitflags, then we're going to make a possible list.
 	var/list/possible = list()
@@ -987,18 +1001,25 @@
 		j += 1
 		if(each_define & flag_check)
 			if(union)
-				possible |= random_reagent[j]
+				possible |= random_reagents_list[j]
 			else //concatenation
-				possible += random_reagent[j]
+				possible += random_reagents_list[j]
 
 	if(blacklist_flag)
 		j = 0
 		for(var/each_define in chem_defines)
 			j += 1
 			if(each_define & flag_check)
-				possible -= random_reagent[j]
+				possible -= random_reagents_list[j]
 
-	return (return_as_list ? possible : pick(possible))
+	if(find_by_number)
+		if(length(possible) > find_by_number) // THIS IS BAD
+			return
+		return possible[find_by_number]
+	else if(return_as_list)
+		return possible
+	else
+		return pick(possible)
 
 /proc/get_chem_id(chem_name)
 	for(var/X in GLOB.chemical_reagents_list)
