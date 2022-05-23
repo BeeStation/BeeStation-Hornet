@@ -66,9 +66,6 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/line,
-/obj/machinery/atmospherics/components/unary/vent_pump/on{
-	dir = 4
-	},
 /turf/open/floor/mineral/titanium/yellow,
 /area/shuttle/mining)
 "j" = (
@@ -89,10 +86,6 @@
 	name = "mining shuttle";
 	port_direction = 4;
 	width = 7
-	},
-/obj/machinery/atmospherics/pipe/simple/general/hidden{
-	dir = 8;
-	icon_state = "pipe11-2"
 	},
 /obj/structure/fans/tiny,
 /turf/open/floor/mineral/plastitanium,
@@ -188,10 +181,6 @@
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/general/hidden{
-	dir = 8;
-	icon_state = "pipe11-2"
 	},
 /turf/open/floor/mineral/titanium/yellow,
 /area/shuttle/mining)
