@@ -4,7 +4,7 @@
 
 /datum/award/achievement/antagmastery/on_unlock(mob/user)
 	. = ..()
-	for(var/datum/award/achievement/antagmastery/A in subtypesof(/datum/award/achievement/antagmastery))
+	for(var/datum/award/achievement/antagmastery/A in SSachievements.antag_mastery_list)
 		if(!user.client?.player_details.achievements.get_achievement_status(A))
 			return
 	user.client?.give_award(/datum/award/achievement/antagmastery/super, user)

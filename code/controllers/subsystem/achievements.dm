@@ -10,11 +10,15 @@ SUBSYSTEM_DEF(achievements)
 	var/list/datum/award/score/scores = list()
 	///List of all awards
 	var/list/datum/award/awards = list()
+	///List of all antag mastery achievements, kept here for Syndie Supreme checking
+	var/list/datum/award/achievement/antagmastery/antag_mastery_list = list()
 
 /datum/controller/subsystem/achievements/Initialize(timeofday)
 	if(!SSdbcore.Connect())
 		return ..()
 	achievements_enabled = TRUE
+
+	antag_mastery_list = subtypesof(/datum/award/achievement/antagmastery)
 
 	for(var/T in subtypesof(/datum/award/achievement))
 		var/instance = new T
