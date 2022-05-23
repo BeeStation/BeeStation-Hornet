@@ -656,6 +656,7 @@ This is here to make the tiles around the station mininuke change when it's arme
 	var/turf/lastlocation
 	var/last_disk_move
 	var/process_tick = 0
+	COOLDOWN_DECLARE(weight_increase_cooldown)
 
 /obj/item/disk/nuclear/Initialize(mapload)
 	. = ..()
@@ -687,11 +688,11 @@ This is here to make the tiles around the station mininuke change when it's arme
 			if(istype(comfort_item, /obj/item/bedsheet) || istype(comfort_item, /obj/structure/bed))
 				disk_comfort_level++
 
-		if(last_disk_move < world.time - 300 SECONDS && world.time > 30 MINUTES)
+		if(COOLDOWN_FINISHED(src, weight_increase_cooldown) && last_disk_move < world.time - (5 MINUTES) && world.time > (30 MINUTES))
 			var/datum/round_event_control/operative/loneop = locate(/datum/round_event_control/operative) in SSevents.control
 			if(istype(loneop) && loneop.occurrences < loneop.max_occurrences)
 				loneop.weight += 5
-				last_disk_move = world.time
+				COOLDOWN_START(src, weight_increase_cooldown, 5 MINUTES)
 				message_admins("[src] is stationary in [ADMIN_VERBOSEJMP(newturf)]. The weight of Lone Operative is now [loneop.weight].")
 				log_game("[src] is stationary for too long in [loc_name(newturf)], and has increased the weight of the Lone Operative event to [loneop.weight].")
 				if(disk_comfort_level >= 2 && (process_tick % 30) == 0)
