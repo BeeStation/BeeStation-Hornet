@@ -1,0 +1,5 @@
+author: Rukofamicom
+delete-after: true
+changes:
+  - bugfix: Fixed an edge case where attempting to feed as a slime fails. You are
+      no longer safe from hungry slimes by buckling to a cyborg, scooter or chair.
