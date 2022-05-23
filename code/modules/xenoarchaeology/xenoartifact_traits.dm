@@ -57,10 +57,17 @@
 	SEND_SIGNAL(xenoa, XENOA_DEFAULT_SIGNAL, xenoa, user, target)
 
 /datum/xenoartifact_trait/activator/proc/translate_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
-	SEND_SIGNAL(xenoa, XENOA_DEFAULT_SIGNAL, xenoa, hit_atom, throwingdatum) //Weird order to fix this
+	SEND_SIGNAL(xenoa, XENOA_DEFAULT_SIGNAL, xenoa, hit_atom, throwingdatum) //Weird order to fix this becuase signals are dogshit
 
 /datum/xenoartifact_trait/activator/proc/translate_afterattack(atom/target, mob/user, params)
-	SEND_SIGNAL(xenoa, XENOA_DEFAULT_SIGNAL, xenoa, target, user)//And this
+	var/mob/living/real_user
+	if(isliving(user))
+		real_user = user
+	else if(isliving(user.loc))
+		real_user = user.loc
+	else 
+		return 
+	SEND_SIGNAL(xenoa, XENOA_DEFAULT_SIGNAL, xenoa, target, real_user)//And this
 
 //End activator
 //Declare procs
@@ -460,16 +467,16 @@
 		fren = TRUE
 
 /datum/xenoartifact_trait/major/capture/activate(obj/item/xenoartifact/X, atom/target)
+	if(isliving(X.loc))
+		var/mob/living/holder = X.loc
+		holder.dropItemToGround(X)
 	if(ismovable(target))
-		var/atom/movable/AM 
-		if(!istype(target, /obj/item/xenoartifact))
-			AM = target
-		else if(isliving(X.loc)) //occurs when xenoartifact has maltargetting
-			AM = X.loc
-		else
-			return
+		var/atom/movable/AM = target
 		AM.forceMove(X)
 		AM.anchored = TRUE
+		if(isliving(target)) //stop awful hobbit-sis from wriggling 
+			var/mob/living/victim = target
+			victim.Paralyze(X.charge*0.3 SECONDS, ignore_canstun = TRUE)
 		addtimer(CALLBACK(src, .proc/release, X, AM), X.charge*0.3 SECONDS)
 		X.cooldownmod = X.charge*0.5 SECONDS
 
@@ -841,7 +848,7 @@
 
 /datum/xenoartifact_trait/major/chem/on_init(obj/item/xenoartifact/X)
 	amount = pick(5, 9, 10, 15)
-	formula = get_random_reagent_id(CHEMICAL_RNG_GENERAL)
+	formula = get_random_reagent_id(/*CHEMICAL_RNG_GENERAL*/)
 
 /datum/xenoartifact_trait/major/chem/activate(obj/item/xenoartifact/X, atom/target)
 	if(target?.reagents)
@@ -909,9 +916,14 @@
 	label_desc = "Maltargeting: A strange malfunction that causes the Artifact to always target the original user."
 
 /datum/xenoartifact_trait/malfunction/badtarget/activate(obj/item/xenoartifact/X, atom/target, atom/user)
-	var/mob/living/M = user
-	if(M)
-		X.true_target = list(M)
+	var/mob/living/M
+	if(isliving(user))
+		M = user
+	else if(isliving(user.loc))
+		M = user.loc
+	else
+		return
+	X.true_target = list(M)
 
 /datum/xenoartifact_trait/malfunction/strip
 	label_name = "B.A.D"

@@ -268,6 +268,8 @@
 	add_overlay(icon_overlay)
 
 /obj/item/xenoartifact/proc/process_target(atom/target) //Used for hand-holding secret technique. Pulling entities swaps them for you in the target list.
+	if(!target)
+		return
 	. = target
 	if(isliving(target?.loc))
 		. = target?.loc
@@ -300,7 +302,7 @@
 /obj/item/xenoartifact/proc/set_frequency(new_frequency) //Signaler traits
 	SSradio.remove_object(src, frequency)
 	frequency = new_frequency
-	radio_connection = SSradio.add_object(src, frequency, RADIO_SIGNALER)
+	radio_connection = SSradio.add_object(src, frequency, RADIO_XENOA)
 
 /obj/item/xenoartifact/proc/send_signal(var/datum/signal/signal)
 	if(!radio_connection||!signal)
