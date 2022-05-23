@@ -10,6 +10,8 @@
 	var/obj/item/seeds/seed
 	var/obj/item/seeds/newseed // Used to store a new seed from mutation
 	var/datum/plant_gene/newgene
+	var/reagent_id
+	var/reag_unit_max
 
 	var/list/core_genes = list()
 	var/list/reagent_genes = list()
@@ -34,6 +36,8 @@
 
 	var/datum/techweb/stored_research
 	var/botany_research_type
+
+
 
 /obj/machinery/plantgenes/Initialize(mapload)
 	. = ..()
@@ -188,10 +192,10 @@
 	var/list/L = list()
 	. = L
 
-	L += list(build_mutate_null())
 	for(var/S in mutablelist)
 		var/obj/item/seeds/each = S
 		L += list(build_mutate(each))
+
 
 /obj/machinery/plantgenes/proc/build_mutate(obj/item/seeds/P)
 	if(!P)
@@ -203,13 +207,6 @@
 	L["plantname"] = initial(P.plantname)
 	L["plantpath"] = P
 
-
-/obj/machinery/plantgenes/proc/build_mutate_null()
-	var/list/L = list()
-	. = L
-
-	L["plantname"] = "Stable"
-	L["plantpath"] = null
 
 /obj/machinery/plantgenes/proc/build_gene_list(list/genes, filter_type)
 	var/list/L = list()
@@ -363,10 +360,6 @@
 		if("mutate")
 			if(seed)
 				newseed = text2path(params["mutation_path"]) //take a path first
-				if(ispath(newseed, /obj/item/seeds/random))
-					newseed = new newseed(seed.research_identifier) // Strange seed will have their own cycle
-				else
-					newseed = new newseed
 				if(!newseed)
 					return FALSE
 				operation = action
@@ -381,17 +374,15 @@
 						var/gene_type = stored_research.researched_genes[each][3]
 						switch(gene_type)
 							if("reagent")
-								var/reagent_id = stored_research.researched_genes[each][2]
-								var/reag_unit_max = stored_research.researched_genes[each][5]
-								var/datum/plant_gene/reagent/newreagent = new /datum/plant_gene/reagent(reagent_id, list(reag_unit_max, reag_unit_max))
+								reagent_id = stored_research.researched_genes[each][2]
+								reag_unit_max = stored_research.researched_genes[each][5]
+								var/datum/plant_gene/reagent/newreagent = /datum/plant_gene/reagent()
 								newgene = newreagent
 							if("trait")
 								var/datum/plant_gene/trait/newtrait = stored_research.researched_genes[each][2]
-								newtrait = new newtrait
 								newgene = newtrait
 							if("family")
 								var/datum/plant_gene/family/newfamily = stored_research.researched_genes[each][2]
-								newfamily = new newfamily
 								newgene = newfamily
 						break
 				operation = action
@@ -436,11 +427,17 @@
 
 			if("insert")
 				if((istype(newgene, /datum/plant_gene/trait) || istype(newgene, /datum/plant_gene/reagent)) && newgene.can_add(seed))
+					if(istype(newgene, /datum/plant_gene/reagent))
+						newgene = new newgene(reagent_id, list(reag_unit_max, reag_unit_max))
+						reagent_id = null
+						reag_unit_max = list(0, 0)
+					if(istype(newgene, /datum/plant_gene/trait))
+						newgene = new newgene
 					seed.genes += newgene.Copy()
 					if(istype(newgene, /datum/plant_gene/reagent))
 						seed.reagents_from_genes()
 					repaint_seed()
-				qdel(newgene)
+					qdel(newgene)
 				newgene = null
 
 			if("adjust")
@@ -451,7 +448,16 @@
 
 
 			if("mutate")
-				if(istype(newseed, /obj/item/seeds) && seed)
+				world.log << "mutate confirmed"
+				if(ispath(newseed, /obj/item/seeds) && seed)
+					world.log << "mutate ispath okay"
+					if(ispath(newseed, /obj/item/seeds/random))
+						world.log << "mutate ispath strange seed"
+						var/obj/item/seeds/random/newseed_s = newseed
+						newseed_s = new newseed_s(taken_identifier = text2num(seed.research_identifier)) // Strange seed will have their own cycle
+						newseed = newseed_s
+					else
+						newseed = new newseed
 					// proper deletion
 					seed.forceMove(drop_location())
 					qdel(seed)

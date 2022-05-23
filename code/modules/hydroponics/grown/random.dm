@@ -12,47 +12,65 @@
 	icon_harvest = "xpod-harvest"
 	growthstages = 4
 	mutatelist = list(/obj/item/seeds/random) // recursive
-	var/previous_identifier = FALSE
+	var/previous_identifier
+	maturation = 1
+	production = 1
+	var/greekpattern = list("alpha", "beta", "gamma", "delta", "epsilon", "zeta", "eta", "theta", "iota", "kappa", "lambda", "mu", "nu", "xi", "omicron", "pi", "rho", "sigma", "tau", "upsilon", "phi", "chi", "psi", "omega")
 
 /obj/item/seeds/random/Initialize(mapload)
 	. = ..()
-	if(previous_identifier)
-		return
-	randomize_stats()
-	if(prob(60))
-		add_random_reagents(1, 3)
-	else
-		add_random_reagents(1, 1)
+
+	if(isnum(previous_identifier))
+		research_identifier = rand_LCM(previous_identifier, maximum=SHORT_REAL_LIMIT)
+		previous_identifier = null
+
+		var/pickedpattern = "[greekpattern[rand_LCM(research_identifier, maximum=length(greekpattern), flat=1)]] No.[rand_LCM(research_identifier, maximum=999, flat=0)]"
+		name += " [pickedpattern]"
+		plantname += " [pickedpattern]"
+
+	if(research_identifier == name)
+		research_identifier = rand(1, SHORT_REAL_LIMIT)
+		var/pickedpattern = "[pick(greekpattern)] No.[rand(0,999)]"
+		name += " [pickedpattern]"
+		plantname += " [pickedpattern]"
+	//randomize_stats()
+
+	add_random_reagents(research_identifier)
+
 	if(prob(50))
 		add_random_traits(1, 2)
 	else
 		add_random_traits(1, 1)
 	add_random_plant_type(35)
 
-	if(research_identifier == name)
-		research_identifier = "[rand(1, SHORT_REAL_LIMIT)]" //strange seeds won't be researched if it still has a static value.
-
-/obj/item/seeds/random/New(previous_identifier = FALSE)
-	if(!previous_identifier)
-		return
-
-	// This makes each seed have their own cycle. although the key looks ugly, but I found nothing better.
-	// touching `rand_seed()` because botany seed needs can cause unexpectable situation.
-	// len(get_random_reagent_id(CHEMICAL_RNG_BOTANY, return_as_list=TRUE))
-
-	research_identifier = "[randmaker(previous_identifier, maximum = SHORT_REAL_LIMIT)]"
+	research_identifier = "[research_identifier]"
 
 
+/obj/item/seeds/random/New(loc, taken_identifier)
+	. = ..()
+	previous_identifier = taken_identifier
+	if(isnum(previous_identifier))
+		for(var/each in genes)
+			qdel(each)
+		genes = list()
+		Initialize()
 
-/proc/randmaker(var/seed = 0, var/multiplier = seed, var/maximum, var/numbers_of_return = 1, var/flat = 1)
- // Pseudo random number generating - "Modified" Linear Congruential Method
- // Since I didn't want to touch `rand_seed()` proc, I had to make this.
- . = numbers_of_return == 1 ? 0 : list()
+/proc/rand_LCM(var/my_rand_seed = 0, var/maximum, var/numbers_of_return = 1, var/flat = 1)
+	var/multiplier = 3
+	// Pseudo random number generating - "Modified" Linear Congruential Method
+	// Since I didn't want to touch `rand_seed()` proc, I had to make this.
+	// This isn't real Linear Congruential Method.
+	world.log << "-----------------------------"
+	world.log << "LCM: [my_rand_seed] / [multiplier] / [maximum] / [numbers_of_return] / [flat]"
+	. = numbers_of_return == 1 ? 0 : list()
+	world.log << "LCM current return: [.]"
 
- for(var/i in 1 to numbers_of_return)
-  var/seed_result = (seed*multiplier) %maximum +flat
-  seed = seed_result
-  . += seed_result
+	for(var/i in 1 to numbers_of_return)
+		var/seed_result = (my_rand_seed*multiplier) %maximum +flat
+		my_rand_seed = seed_result
+		. += seed_result
+	world.log << "RNG result return: [.] (max: [maximum])"
+
 /obj/item/reagent_containers/food/snacks/grown/random
 	seed = /obj/item/seeds/random
 	name = "strange plant"

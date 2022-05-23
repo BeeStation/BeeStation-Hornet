@@ -4,7 +4,6 @@
 	var/rate = 0.05
 	var/examine_line = ""
 	var/trait_id // must be set and equal for any two traits of the same type
-	var/flag_randomness = NONE
 
 /datum/plant_gene/trait/Copy()
 	var/datum/plant_gene/trait/G = ..()

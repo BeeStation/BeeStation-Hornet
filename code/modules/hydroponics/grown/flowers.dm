@@ -75,7 +75,6 @@
 	growing_icon = 'icons/obj/hydroponics/growing_flowers.dmi'
 	icon_grow = "spacemanstrumpet-grow"
 	icon_dead = "spacemanstrumpet-dead"
-	genes = list(/datum/plant_gene/reagent/polypyr)
 	reagents_set = list(
 		/datum/reagent/consumable/nutriment = list(4, 8),
 		/datum/reagent/consumable/nutriment/vitamin = list(1, 4),

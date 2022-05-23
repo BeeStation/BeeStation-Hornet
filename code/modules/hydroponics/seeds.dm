@@ -516,16 +516,20 @@
 	set_weed_chance(rand(5, 100))
 	maturation = rand(6, 12)
 
-/obj/item/seeds/proc/add_random_reagents(lower = 0, upper = 2)
-	reagents_from_genes()
-	var/amount_random_reagents = rand(lower, upper)
-	for(var/i in 1 to amount_random_reagents)
-		var/random_amount = rand(2, 6)*5
-		var/datum/plant_gene/reagent/R = new(get_random_reagent_id(CHEMICAL_RNG_BOTANY), list(random_amount-5, random_amount))
-		if(R.can_add(src))
-			genes += R
-		else
-			qdel(R)
+/obj/item/seeds/proc/add_random_reagents(var/chem_rand_seed = FALSE)
+	var/static/botany_chem_len
+	if(!botany_chem_len)
+		botany_chem_len = length(get_random_reagent_id(CHEMICAL_RNG_BOTANY, return_as_list=TRUE))
+	world.log << "rand chem----"
+	world.log << "chem seed: [chem_rand_seed] (max: [botany_chem_len])"
+	var/chem_id = get_random_reagent_id(CHEMICAL_RNG_BOTANY, find_by_number=rand_LCM(chem_rand_seed, maximum=botany_chem_len))
+	world.log << "address: [chem_id]"
+	var/random_amount = rand(2, 6)*5
+	var/datum/plant_gene/reagent/R = new(chem_id, list(random_amount-5, random_amount))
+	if(R.can_add(src))
+		genes += R
+	else
+		qdel(R)
 
 /obj/item/seeds/proc/add_random_traits(lower = 0, upper = 2)
 	var/amount_random_traits = rand(lower, upper)
@@ -539,6 +543,7 @@
 
 /obj/item/seeds/proc/add_random_plant_type(normal_plant_chance = 75)
 	if(prob(normal_plant_chance))
+		qdel(family)
 		var/random_plant_type = pick(subtypesof(/datum/plant_gene/family))
 		var/datum/plant_gene/family/P = new random_plant_type
 		if(P.can_add(src))

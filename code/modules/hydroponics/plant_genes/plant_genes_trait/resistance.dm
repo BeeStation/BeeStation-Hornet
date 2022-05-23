@@ -1,5 +1,4 @@
-
-+/datum/plant_gene/trait/fire_resistance // Lavaland
+/datum/plant_gene/trait/fire_resistance // Lavaland
 	name = "Fire Resistance"
 
 /datum/plant_gene/trait/fire_resistance/apply_vars(obj/item/seeds/S)
