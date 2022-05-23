@@ -155,8 +155,9 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	if(COOLDOWN_FINISHED(src, total_count_reset))
 		total_message_count = 0 //reset the count if it's been more than 5 seconds since the last message.
 
+	if(!total_message_count) //so we don't reset it every single message
+		COOLDOWN_START(src, total_count_reset, 5 SECONDS)
 	total_message_count++
-	COOLDOWN_START(src, total_count_reset, 5 SECONDS)
 
 	if(total_message_count >= SPAM_TRIGGER_AUTOMUTE)
 		to_chat(src, "<span class='userdanger'>You have exceeded the spam filter limit for too many messages. An auto-mute was applied. Make an adminhelp ticket if you think this was in error.</span>")
