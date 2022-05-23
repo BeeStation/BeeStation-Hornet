@@ -33,7 +33,7 @@
 			size = hivehosts.hive_size,
 			charges = hivehosts.searchcharge,
 			avessel_number = hivehosts.avessels.len,
-			integrations = hivehosts.size_mod/2,
+			integrations = hivehosts.size_mod/5,
 			type = hivehosts.descriptor,
 		)
 		data["hives"] += list(hive_data)
