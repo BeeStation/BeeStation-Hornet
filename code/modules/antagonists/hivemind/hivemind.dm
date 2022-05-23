@@ -258,11 +258,11 @@
 		"Opulant and Aristocratic with ambitions to expand their fiefdom.",
 		"Seething Rage and teeming with Anger, the former dominant personality amongst all, returning for its throne.",
 		"A Trickster with a preference for chaos, unpredictable, the emboddiment of mischief.",
-		"Benevolant to their own eyes, seeks to free living beings of the burden of free will",
-		"Caring for their vessels and ruthless against those that would attack them, seeks to expand their protective embrace",
-		"Diplomatic and calm mannered, may seek alliances of convenience to further their own gain",
-		"Vulture-like and opportunistic eager to pounce in a moment of weakness",
-		"Pawns are mere Pawns, and they are expendable, crush our foes in a wave of meat"
+		"Benevolant to their own eyes, seeks to free living beings of the burden of free will.",
+		"Caring for their vessels and ruthless against those that would attack them, seeks to expand their protective embrace.",
+		"Diplomatic and calm mannered, may seek alliances of convenience to further their own gain.",
+		"Vulture-like and opportunistic eager to pounce in a moment of weakness.",
+		"Pawns are mere Pawns, and they are expendable, crush our foes in a wave of meat."
 		)
 	descriptor = pick_n_take(types)
 
