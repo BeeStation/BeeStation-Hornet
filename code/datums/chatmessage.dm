@@ -27,7 +27,7 @@
 /// Default font size (defined in skin.dmf), those are 1 size bigger than in skin, to account 1px black outline
 #define DEFAULT_FONT_SIZE 8
 /// Big font size, used by megaphones and such
-#define BIG_FONT_SIZE 10
+#define BIG_FONT_SIZE 9
 /// Small font size, used mostly by whispering
 #define WHISPER_FONT_SIZE 7
 
@@ -609,7 +609,7 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 	if(is_bold)
 		value += length(string)
 	if(has_icon)
-		value += 8
+		value += CHAT_MESSAGE_ICON_SIZE
 	return value
 
 #undef BALLOON_TEXT_CHAR_LIFETIME_INCREASE_MIN
