@@ -19715,7 +19715,7 @@
 "byl" = (
 /obj/machinery/door/airlock/medical{
 	name = "Quarantine Cell A";
-	id_tag = "QuarantineB"
+	id_tag = "QuarantineA"
 	},
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/stripes/line{
@@ -21092,12 +21092,6 @@
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
 "bCh" = (
-/obj/machinery/button/door{
-	id = "ViroB";
-	name = "Quarantine Bolts B";
-	pixel_x = -24;
-	req_access_txt = "39"
-	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
@@ -21107,6 +21101,14 @@
 	},
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 1
+	},
+/obj/machinery/button/door{
+	id = "ViroB";
+	name = "Quarantine Bolts B";
+	normaldoorcontrol = 1;
+	pixel_x = -24;
+	req_access_txt = "39";
+	specialfunctions = 4
 	},
 /turf/open/floor/plasteel/freezer,
 /area/medical/medbay/zone2)
@@ -56961,13 +56963,6 @@
 /area/maintenance/department/science)
 "sSe" = (
 /obj/machinery/button/door{
-	id = "ViroB";
-	name = "Quarantine Bolts B";
-	pixel_x = 5;
-	pixel_y = 24;
-	req_access_txt = "39"
-	},
-/obj/machinery/button/door{
 	id = "ViroA";
 	name = "Quarantine Bolts A";
 	normaldoorcontrol = 1;
@@ -56987,6 +56982,15 @@
 	},
 /obj/effect/turf_decal/tile/green{
 	dir = 1
+	},
+/obj/machinery/button/door{
+	id = "ViroB";
+	name = "Quarantine Bolts B";
+	normaldoorcontrol = 1;
+	pixel_x = 5;
+	pixel_y = 24;
+	req_access_txt = "39";
+	specialfunctions = 4
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/virology)

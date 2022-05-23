@@ -68635,7 +68635,7 @@
 "dXV" = (
 /obj/machinery/door/airlock/medical{
 	name = "Quarantine Cell A";
-	id_tag = "QuarantineB"
+	id_tag = "QuarantineA"
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "quarantineshutters";
@@ -107721,15 +107721,17 @@
 /turf/open/floor/plasteel/white,
 /area/maintenance/department/science)
 "tKd" = (
-/obj/machinery/button/door{
-	id = "ViroB";
-	name = "Quarantine Bolts B";
-	pixel_x = -24;
-	req_access_txt = "39"
-	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/machinery/button/door{
+	id = "ViroB";
+	name = "Quarantine Bolts B";
+	normaldoorcontrol = 1;
+	pixel_x = -24;
+	req_access_txt = "39";
+	specialfunctions = 4
+	},
 /turf/open/floor/plasteel/freezer,
 /area/medical/virology)
 "tKl" = (
@@ -110126,13 +110128,6 @@
 /area/science/research)
 "uMn" = (
 /obj/machinery/button/door{
-	id = "ViroB";
-	name = "Quarantine Bolts B";
-	pixel_x = 5;
-	pixel_y = 24;
-	req_access_txt = "39"
-	},
-/obj/machinery/button/door{
 	id = "ViroA";
 	name = "Quarantine Bolts A";
 	normaldoorcontrol = 1;
@@ -110155,6 +110150,15 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
 	dir = 1
+	},
+/obj/machinery/button/door{
+	id = "ViroB";
+	name = "Quarantine Bolts B";
+	normaldoorcontrol = 1;
+	pixel_x = 5;
+	pixel_y = 24;
+	req_access_txt = "39";
+	specialfunctions = 4
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
