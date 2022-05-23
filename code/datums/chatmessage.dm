@@ -212,7 +212,7 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 	var/font_size = DEFAULT_FONT_SIZE
 	if (extra_classes.Find("megaphone"))
 		font_size = BIG_FONT_SIZE
-	else if (extra_classes.Find("italics"))
+	else if (extra_classes.Find("italics") || extra_classes.Find("emote"))
 		font_size = WHISPER_FONT_SIZE
 
 	// Append language icon if the language uses one
@@ -225,12 +225,15 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 			LAZYSET(language_icons, language, language_icon)
 		LAZYADD(prefixes, "\icon[language_icon]")
 
-	//Add on the icons.
+	// Approximate text height
+	approx_lines = CEILING(approx_str_width(text, font_size) / CHAT_MESSAGE_WIDTH, 1)
+
+	//Add on the icons. The icon isn't measured in str_width
 	text = "[prefixes?.Join("&nbsp;")][text]"
 
-	// Approximate text height
+	// Complete the text with rest of extra classes
 	var/complete_text = "<span class='center [extra_classes.Join(" ")]' style='color: [tgt_color]'>[text]</span>"
-	approx_lines = CEILING(approx_str_width(text, font_size) / CHAT_MESSAGE_WIDTH, 1)
+
 
 	// Translate any existing messages upwards, apply exponential decay factors to timers
 	message_loc = get_atom_on_turf(target)
