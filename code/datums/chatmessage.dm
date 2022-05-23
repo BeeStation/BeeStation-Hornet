@@ -575,6 +575,14 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 	var/duration = BALLOON_TEXT_TOTAL_LIFETIME(duration_mult)
 	fadertimer = addtimer(CALLBACK(src, .proc/end_of_life), duration, TIMER_STOPPABLE|TIMER_DELETE_ME, SSrunechat)
 
+/**
+ * Approximates the chatmesseges width based on cached widths of each char.
+ * If the character is not found in this cache we assume the worst and add the highest possible value.
+ *
+ * Arguments:
+ * * string - string to measure width
+ * * font size - font size that the displayed string will be in, used to calculate font size multiplier
+ */
 /datum/chatmessage/proc/approx_str_width(var/string, var/font_size = DEFAULT_FONT_SIZE)
 	var/value = 0
 	var/font_multiplier = font_size / DEFAULT_FONT_SIZE
