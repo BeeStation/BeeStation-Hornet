@@ -151,20 +151,31 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 /client/proc/handle_spam_prevention(message, mute_type)
 	if(!(CONFIG_GET(flag/automute_on)))
 		return FALSE
+	
+	if(!COOLDOWN_FINISHED(src, total_count_reset))
+		if(message != last_message)
+			COOLDOWN_EXTEND(src, total_count_reset, ((1 MINUTES) / SPAM_TRIGGER_AUTOMUTE)) //extend timer in accordance with messages per minute defined in admin.dm
+		else
+			COOLDOWN_EXTEND(src, total_count_reset, ((1 MINUTES) / SPAM_TRIGGER_AUTOMUTE) * SPAM_TRIGGER_IDENTICAL)
 
-	if(COOLDOWN_FINISHED(src, total_count_reset))
-		total_message_count = 0 //reset the count if it's been more than 5 seconds since the last message.
+	else
+		if(message != last_message)
+			COOLDOWN_START(src, total_count_reset, ((1 MINUTES) / SPAM_TRIGGER_AUTOMUTE))
+		else
+			COOLDOWN_START(src, total_count_reset, ((1 MINUTES) / SPAM_TRIGGER_AUTOMUTE) * SPAM_TRIGGER_IDENTICAL)
 
-	total_message_count++
-	COOLDOWN_START(src, total_count_reset, 5 SECONDS)
+	var/debug_text_variable_thing = COOLDOWN_TIMELEFT(src, total_count_reset) / 30
+	to_chat(src, "<span class='notice'> Your chat rate is [debug_text_variable_thing] messages in the last 30 seconds. \n Same messages are considered to be [SPAM_TRIGGER_IDENTICAL] messages for the purposes of this debug video</span>")
 
-	if(total_message_count >= SPAM_TRIGGER_AUTOMUTE)
+	if(COOLDOWN_TIMELEFT(src, total_count_reset) >= 30 SECONDS) //You have sent more messages in the past 30 seconds than is allowed by the spam filter
 		to_chat(src, "<span class='userdanger'>You have exceeded the spam filter limit for too many messages. An auto-mute was applied. Make an adminhelp ticket if you think this was in error.</span>")
 		cmd_admin_mute(src, mute_type, TRUE)
 		return TRUE
 
-	if(total_message_count >= SPAM_TRIGGER_WARNING)
-		to_chat(src, "<span class='userdanger'>You are nearing the spam filter limit for too many messages in a short period. Slow down.</span>")
+	if(COOLDOWN_TIMELEFT(src, total_count_reset) >= 25 SECONDS)
+		if(COOLDOWN_FINISHED(src, warning_message_cooldown))
+			to_chat(src, "<span class='userdanger'>You are nearing the spam filter limit, slow down. \n This filter can be tripped by emotes as well as speech.</span>")
+			COOLDOWN_START(src, warning_message_cooldown, 3 MINUTES)
 		return FALSE
 
 //This stops files larger than UPLOAD_LIMIT being sent from client to server via input(), client.Import() etc.

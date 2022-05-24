@@ -23,6 +23,7 @@
 	var/total_message_count = 0
 	/// Next tick to reset the total message counter
 	COOLDOWN_DECLARE(total_count_reset)
+	COOLDOWN_DECLARE(warning_message_cooldown)
 	var/externalreplyamount = 0
 	var/cryo_warned = -3000//when was the last time we warned them about not cryoing without an ahelp, set to -5 minutes so that rounstart cryo still warns
 	var/staff_check_rate = 0 //when was the last time they checked online staff

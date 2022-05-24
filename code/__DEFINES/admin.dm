@@ -82,15 +82,14 @@
 
 #define ROUNDSTART_LOGOUT_REPORT_TIME	6000 //Amount of time (in deciseconds) after the rounds starts, that the player disconnect report is issued.
 
-#define SPAM_TRIGGER_WARNING	5	//Number of identical messages required before the spam-prevention will warn you to stfu
-#define SPAM_TRIGGER_AUTOMUTE	10	//Number of identical messages required before the spam-prevention will automute you
+#define SPAM_TRIGGER_AUTOMUTE	20	//Messages per minute before spam filter mutes you
+#define SPAM_TRIGGER_IDENTICAL   5  //If an identical emote or message to the previous one is sent, how many messages does it count as for the purposes of the spam filter
 
 #define MAX_KEYPRESS_COMMANDLENGTH 32 //Max length of a keypress command before it's considered to be a forged packet
 #define MAX_KEYPRESS_AUTOKICK 50
 
 #define STICKYBAN_DB_CACHE_TIME 10 SECONDS
 #define STICKYBAN_ROGUE_CHECK_TIME 5
-
 
 #define POLICY_POLYMORPH "polymorph" //Shown to vicitm of staff of change and related effects.
 #define POLICY_VERB_HEADER "policy_verb_header" //Shown on top of policy verb window
