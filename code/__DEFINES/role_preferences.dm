@@ -44,6 +44,7 @@
 #define ROLE_HOLOPARASITE		"Holoparasite"
 #define ROLE_TERATOMA			"Teratoma"
 #define ROLE_EXPERIMENTAL_CLONE "Experimental Clone"
+#define ROLE_BESIEGER			"Besieger"
 
 //Missing assignment means it's not a gamemode specific role, IT'S NOT A BUG OR ERROR.
 //The gamemode specific ones are just so the gamemodes can query whether a player is old enough
@@ -76,7 +77,8 @@ GLOBAL_LIST_INIT(special_roles, list(
 	ROLE_GANG = /datum/game_mode/gang,
 	ROLE_HOLOPARASITE,
 	ROLE_HERETIC = /datum/game_mode/heretics,
-	ROLE_TERATOMA
+	ROLE_TERATOMA,
+	ROLE_BESIEGER = /datum/game_mode/siege
 ))
 
 //Job defines for what happens when you fail to qualify for any job during job selection

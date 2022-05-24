@@ -147,6 +147,7 @@ CONTINUOUS WIZARD
 CONTINUOUS HIVEMIND
 CONTINUOUS CLOCKCULT
 CONTINUOUS HERESY
+CONTINUOUS SIEGE
 
 #Prevents the death of round-ending antagonist rulesets ending the round immediately.
 
@@ -231,6 +232,9 @@ MAX_POP CLOCKCULT -1
 
 MIN_POP HERESY 25
 MAX_POP HERESY -1
+
+MIN_POP SIEGE 25
+MAX_POP SIEGE -1
 
 ## The amount of time it takes for the emergency shuttle to be called, from round start.
 SHUTTLE_REFUEL_DELAY 12000

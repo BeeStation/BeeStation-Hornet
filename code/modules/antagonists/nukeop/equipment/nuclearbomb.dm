@@ -47,6 +47,11 @@
 	update_icon()
 	GLOB.poi_list |= src
 	previous_level = get_security_level()
+	var/turf/current_turf = get_turf(src)
+	var/z_level = current_turf.z
+	if(GLOB.master_mode == "siege" && z_level == 9)//is_centcom_level doesnt work
+		new /obj/machinery/siege_spawner(src)
+		qdel(src)
 
 /obj/machinery/nuclearbomb/Destroy()
 	safety = FALSE
@@ -338,6 +343,15 @@
 
 /obj/machinery/nuclearbomb/ui_act(action, params)
 	if(..())
+		return
+	if(GLOB.master_mode == "siege")
+		if(ROLE_SYNDICATE in usr.faction)
+			if(!timing)
+				detonation_timer = 90
+				safety = FALSE
+				set_active()
+		else if(timing)
+			set_active()
 		return
 	playsound(src, "terminal_type", 20, FALSE)
 	switch(action)

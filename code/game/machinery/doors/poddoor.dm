@@ -91,3 +91,9 @@
 /obj/machinery/door/poddoor/try_to_crowbar(obj/item/I, mob/user)
 	if(stat & NOPOWER)
 		open(1)
+
+/obj/machinery/door/poddoor/Initialize(mapload)
+	..()
+	if(id == "smindicate")//syndicate shuttle door id
+		new /obj/structure/trap/ctf/siegebarrier(src)
+		qdel(src)
