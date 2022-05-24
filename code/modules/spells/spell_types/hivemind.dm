@@ -150,7 +150,7 @@
 	to_chat(user, "<span class='notice'>We begin increasing the psionic bandwidth between ourself and the vessel!</span>")
 	if(do_after(user,30,0,user))
 		if(target.mind in (GLOB.security_positions || GLOB.command_positions)) //Doesn't work on sec or command for balance reasons
-			to_chat(user, "<span class='warning'>A subconciously trained response barely protects [target.name]'s mind.</span>")
+			to_chat(user, "<span class='warning'>A subconsciously trained response barely protects [target.name]'s mind.</span>")
 			to_chat(target, "<span class='assimilator'>Powerful mental attacks strike out against us, our training allows us to barely overcome it.</span>")
 			return
 		if(HAS_TRAIT(target, TRAIT_MINDSHIELD))
@@ -362,7 +362,7 @@
 
 /obj/effect/proc_holder/spell/targeted/hive_integrate
 	name = "Integrate"
-	desc = "Allows us to syphon the psionic energy from a Host withing our grasp."
+	desc = "Allows us to syphon the psionic energy from a Host within our grasp."
 	panel = "Hivemind Abilities"
 	charge_max = 600
 	range = 1
@@ -387,7 +387,7 @@
 		revert_cast()
 		return
 	if(!is_hivehost(target))
-		to_chat(user, "<span class='warning'>Their mind is worthless to us!.</span>")
+		to_chat(user, "<span class='warning'>Their mind is worthless to us!</span>")
 		revert_cast()
 		return
 	if(hivehost.isintegrating)
@@ -407,8 +407,8 @@
 			if(2)
 				user.visible_message("<span class='warning'>[user] places their hands on [target]'s head!</span>", "<span class='notice'>We place our hands on their temple.</span>")
 			if(3)
-				user.visible_message("<span class='danger'>[target] seems to be falling unconcious</span>", "<span class='notice'>We begin to fragment [target]'s mind.</span>")
-				to_chat(target, "<span class='userdanger'>Your conciousness beings to waver!</span>")
+				user.visible_message("<span class='danger'>[target] seems to be falling unconscious</span>", "<span class='notice'>We begin to fragment [target]'s mind.</span>")
+				to_chat(target, "<span class='userdanger'>Your consciousness begin to waver!</span>")
 
 		if(!do_mob(user, target, 150))
 			to_chat(user, "<span class='warning'>Our integration of [target] has been interrupted!</span>")
@@ -423,7 +423,7 @@
 	hivehost.avessel_limit += 1
 	flash_color(user, flash_color="#800080", flash_time=10)
 	to_chat(user,"<span class='assimilator'>We have reclaimed what gifts weaker minds were squandering and gain ever more insight on our psionic abilities.</span>")
-	to_chat(user,"<span class='assimilator'>Thanks to this new strenght we may awaken an additional vessel..</span>")
+	to_chat(user,"<span class='assimilator'>Thanks to this new strength we may awaken an additional vessel..</span>")
 	hivehost.check_powers()
 
 /obj/effect/proc_holder/spell/self/hive_loyal
@@ -535,7 +535,7 @@
 
 /obj/effect/proc_holder/spell/target_hive/hive_compell
 	name = "Compell"
-	desc = "We forcefully insert a directive into a vessels mind for a limited time, they'll obey with anything short of suicide."
+	desc = "We forcefully insert a directive into a vessels mind for a limited time, they'll obey anything short of suicide."
 	action_icon_state = "empower"
 
 	charge_max = 1800
@@ -614,7 +614,7 @@
 				to_chat(user, "<span class='userdanger'>A sudden surge of psionic energy, a recognizable presence, this is the host of [hivetarget.hiveID]!</span>")
 				return
 		if(!detected)
-			to_chat(user, "<span class='notice'>Untroubled waters meet our tentative search,there is nothing out of the ordinary here.</span>")
+			to_chat(user, "<span class='notice'>Untroubled waters meet our tentative search, there is nothing out of the ordinary here.</span>")
 	else
 		to_chat(user, "<span class='notice'>Our concentration has been broken!</span>")
 		revert_cast()
@@ -622,7 +622,7 @@
 
 /obj/effect/proc_holder/spell/targeted/hive_thrall
 	name = "Awaken Vessel"
-	desc = "We awaken one of our vessels, permanently turning them into an extension of our will, we can only sustain a limited ammount of awakened vessels increasing with integrations."
+	desc = "We awaken one of our vessels, permanently turning them into an extension of our will, we can only sustain a limited amount of awakened vessels increasing with integrations."
 	panel = "Hivemind Abilities"
 	charge_max = 600
 	range = 1
@@ -670,12 +670,12 @@
 	for(var/i in 1 to 3)
 		switch(i)
 			if(1)
-				to_chat(user, "<span class='notice'>We tap into our vessel's mind.We must stay still..</span>")
+				to_chat(user, "<span class='notice'>We tap into our vessel's mind. We must stay still..</span>")
 			if(2)
 				user.visible_message("<span class='warning'>[user] places their hands on [target]'s head!</span>", "<span class='notice'>We place our hands on their temple</span>")
 			if(3)
-				user.visible_message("<span class='danger'>[target] begins to look frantic!</span>", "<span class='notice'>We begin to override [target]'s conciousness with our own.</span>")
-				to_chat(target, "<span class='userdanger'>Your conciousness beings to waver!</span>")
+				user.visible_message("<span class='danger'>[target] begins to look frantic!</span>", "<span class='notice'>We begin to override [target]'s consciousness with our own.</span>")
+				to_chat(target, "<span class='userdanger'>Your consciousness beings to waver!</span>")
 
 		if(!do_mob(user, target, 10))
 			to_chat(user, "<span class='warning'>Our awakening of [target] has been interrupted!</span>")
@@ -733,7 +733,7 @@
 		if(!do_after(user,200,0))
 			for(var/obj/item/implant/mindshield/M in target.implants)
 				to_chat(user, "<span class='notice'>We shatter their mental protections!</span>")
-				to_chat(target, "<span class='assimilator'>We feel a pang of pain course through our head!</span>")
+				to_chat(target, "<span class='assimilator'>You feel a pang of pain course through your head!</span>")
 				flash_color(target, flash_color="#800080", flash_time=10)
 				qdel(M)
 
@@ -773,7 +773,7 @@
 			victims += target
 		flash_color(target, flash_color="#800080", flash_time=10)
 	for(var/mob/living/carbon/affected in victims)
-		to_chat(affected, "<span class='assimilator'>Otherwordly strength flows through us!</span>")
+		to_chat(affected, "<span class='assimilator'>Otherworldly strength flows through us!</span>")
 		affected.SetSleeping(0)
 		affected.SetUnconscious(0)
 		affected.SetStun(0)

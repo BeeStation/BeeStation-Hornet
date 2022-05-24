@@ -82,7 +82,7 @@
 		if(lead)
 			unlocked_dominance = TRUE
 			owner.AddSpell(/obj/effect/proc_holder/spell/self/hive_dominance)
-			to_chat(owner, "<span class='assimilator'>Our strenght overflowing and our competitors left in the dust, we can proclaim our Dominance and enter a heightened state.</span>")
+			to_chat(owner, "<span class='assimilator'>Our strength overflowing and our competitors left in the dust, we can proclaim our Dominance and enter a heightened state.</span>")
 
 /datum/antagonist/hivemind/proc/add_to_hive(mob/living/carbon/C)
 	if(!C)
@@ -131,7 +131,7 @@
 		return
 	if(C == real_C) //Making sure
 		to_chat(real_C2, "<span class='assimilator'>We detect a surge of psionic energy from a far away vessel before they disappear from the hive. Whatever happened, there's a good chance they're after us now.</span>")
-	to_chat(C, "<span class='warning'> The enemy host has been ejected from our mind </span>" )
+	to_chat(C, "<span class='warning'>The enemy host has been ejected from our mind.</span>" )
 
 /datum/antagonist/hivemind/proc/destroy_hive()
 	hivemembers = list()
@@ -219,7 +219,7 @@
 		target, and after ten seconds he will be one of the hive. This is completely silent and safe to use, and failing will reset the cooldown. As \
 		you assimilate the crew, you will gain more powers to use. Most are silent and won't help you in a fight, but grant you great power over your \
 		vessels. Hover your mouse over a power's action icon for an extended description on what it does. There are other hiveminds onboard the station, \
-		our powers will grow if we integrate them with our own conciousness.")
+		our powers will grow if we integrate them with our own consciousness.")
 	to_chat(owner.current,"<span class='assimilator'>We are hive [hiveID]!</span>")
 
 /datum/antagonist/hivemind/roundend_report()
@@ -249,19 +249,19 @@
 
 /datum/antagonist/hivemind/proc/generate_flavour()
 	var/static/list/prefix = list("Azure","Crimson","Silver","Verdant","Ivory","Sepia","Gold","Canary","Rust","Cider","Scarlet","Rose","Magenta","Navy","Lapis","Emerald")
-	var/static/list/postfix = list("Flame","Presence","Maw","Revelation","Conciousness","Blanket","Structure","Command","Hierarchy","Aristocrat","Zealotry","Fascination")
+	var/static/list/postfix = list("Flame","Presence","Maw","Revelation","Consciousness","Blanket","Structure","Command","Hierarchy","Aristocrat","Zealotry","Fascination")
 	hiveID = pick_n_take(prefix) + " " + pick_n_take(postfix)
 	var/static/list/types = list(
 		"Domineering and opressive, not a pawn out of place, not a step out of line and ruthless with the oposition.",
 		"Crashing waves of assimilation, no subtlety, just the primal instinct to expand.",
-		"In one hand the olive branch in the other, a knife.",
-		"Opulant and Aristocratic with ambitions to expand their fiefdom.",
-		"Seething Rage and teeming with Anger, the former dominant personality amongst all, returning for its throne.",
+		"In one hand, the olive branch in the other; a knife.",
+		"Opulent and Aristocratic with ambitions to expand their fiefdom.",
+		"Seething with Rage and teeming with Anger, the former dominant personality amongst all, returning for its throne.",
 		"A Trickster with a preference for chaos, unpredictable, the emboddiment of mischief.",
-		"Benevolant to their own eyes, seeks to free living beings of the burden of free will.",
+		"Benevolent to their own eyes, seeks to free living beings of the burden of free will.",
 		"Caring for their vessels and ruthless against those that would attack them, seeks to expand their protective embrace.",
 		"Diplomatic and calm mannered, may seek alliances of convenience to further their own gain.",
-		"Vulture-like and opportunistic eager to pounce in a moment of weakness.",
+		"Vulture-like and opportunistic, eager to pounce in a moment of weakness.",
 		"Pawns are mere Pawns, and they are expendable, crush our foes in a wave of meat."
 		)
 	descriptor = pick_n_take(types)

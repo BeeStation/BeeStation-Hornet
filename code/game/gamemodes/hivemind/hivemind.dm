@@ -8,7 +8,7 @@ GLOBAL_LIST_EMPTY(hivehosts)
 	false_report_weight = 5
 	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain")
 	restricted_jobs = list("Cyborg","AI")
-	required_players = 40
+	required_players = 30
 	required_enemies = 3
 	recommended_enemies = 3
 	reroll_friendly = 1

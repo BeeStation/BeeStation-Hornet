@@ -23,7 +23,7 @@
 		to_chat(user, "<span class='assimilator'>Foreign energies force themselves upon your thoughts!</span>")
 		flash_color(user, flash_color="#800080", flash_time=10)
 		brainwash(user, directive)
-		to_chat(user, "<span class='assimilator'>A figment of your subconcious stays firm, you would be incapable of killing yourself if ordered!</span>")
+		to_chat(user, "<span class='assimilator'>A figment of your subconscious stays firm, you would be incapable of killing yourself if ordered!</span>")
 		user.overlay_fullscreen("hive_mc", /atom/movable/screen/fullscreen/hive_mc)
 		addtimer(CALLBACK(user, .proc/hive_weak_clear, user.mind), 18000, TIMER_STOPPABLE)
 
@@ -31,7 +31,7 @@
 	if(!mind)
 		return
 	var/mob/living/user = mind.current
-	to_chat(user, "<span class='assimilator'>Our subconcious fights back the invasive forces, our will is once again our own!</span>")
+	to_chat(user, "<span class='assimilator'>Our subconscious fights back the invasive forces, our will is once again our own!</span>")
 	flash_color(user, flash_color="#800080", flash_time=10)
 	user.clear_fullscreen("hive_mc")
 	mind.remove_antag_datum(/datum/antagonist/brainwashed)
@@ -42,7 +42,7 @@
 
 /datum/antagonist/hivevessel/on_removal()
 	if(master)
-		to_chat(master.owner, "<span class='assimilator'>A figment of our conciousness snaps out, we have lost an awakened vessel!</span>")
+		to_chat(master.owner, "<span class='assimilator'>A figment of our consciousness snaps out, we have lost an awakened vessel!</span>")
 	if(owner?.current && glow)
 		owner.current.cut_overlay(glow)
 	owner.special_role = null
