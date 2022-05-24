@@ -21,9 +21,9 @@
 	ADD_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, TRAIT_HULK)
 	ADD_TRAIT(owner, TRAIT_NOSTAMCRIT, TRAIT_HULK)
 	ADD_TRAIT(owner, TRAIT_NOLIMBDISABLE, TRAIT_HULK)
-	owner.update_body_parts()
 	SEND_SIGNAL(owner, COMSIG_ADD_MOOD_EVENT, "hulk", /datum/mood_event/hulk)
 	RegisterSignal(owner, COMSIG_MOB_SAY, .proc/handle_speech)
+	owner.update_body_parts()
 
 /datum/mutation/hulk/on_attack_hand(atom/target, proximity)
 	if(proximity) //no telekinetic hulk attack
@@ -43,14 +43,15 @@
 	REMOVE_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, TRAIT_HULK)
 	REMOVE_TRAIT(owner, TRAIT_NOSTAMCRIT, TRAIT_HULK)
 	REMOVE_TRAIT(owner, TRAIT_NOLIMBDISABLE, TRAIT_HULK)
-	owner.update_body_parts()
 	SEND_SIGNAL(owner, COMSIG_CLEAR_MOOD_EVENT, "hulk")
+	owner.update_body_parts()
+	UnregisterSignal(owner, COMSIG_MOB_SAY)
 
-/datum/mutation/hulk/proc/handle_speech(original_message, wrapped_message)
+/datum/mutation/hulk/proc/handle_speech(datum/source, list/speech_args)
 	SIGNAL_HANDLER
 
-	var/message = wrapped_message[1]
+	var/message = speech_args[SPEECH_MESSAGE]
 	if(message)
 		message = "[replacetext(message, ".", "!")]!!"
-	wrapped_message[1] = message
+	speech_args[SPEECH_MESSAGE] = message
 	return COMPONENT_UPPERCASE_SPEECH
