@@ -106,7 +106,7 @@
 
 /datum/xenoartifact_trait/activator/burn
 	desc = "Flammable"
-	label_desc = "Flammable: The material is flamable, and seems to react when ignited."
+	label_desc = "Flammable: The material is flammable, and seems to react when ignited."
 	charge = 25
 	signals = list(COMSIG_PARENT_ATTACKBY)
 
@@ -116,9 +116,9 @@
 
 /datum/xenoartifact_trait/activator/burn/calculate_charge(datum/source, obj/item/thing, mob/user, atom/target, params) //xenoa item handles this, see process proc there
 	var/obj/item/xenoartifact/X = source
-	if(X.process_type != PROCESS_TYPE_TICK && thing.ignition_effect(X, user))
+	if(X.process_type != PROCESS_TYPE_LIT && thing.ignition_effect(X, user))
 		X.visible_message("<span class='danger'>The [X.name] sparks on.</span>")
-		X.process_type = PROCESS_TYPE_TICK
+		X.process_type = PROCESS_TYPE_LIT
 		sleep(5) //Give them a chance to escape
 		START_PROCESSING(SSobj, X)
 		log_game("[user]:[isliving(user) ? user?.ckey : "no ckey"] lit [X] at [world.time] using [thing]. [X] located at [X.x] [X.y] [X.z].")
@@ -672,7 +672,7 @@
 	label_desc = "EMP: The shape of the Artifact doesn't resemble anything particularly interesting. Technology around the Artifact seems to malfunction."
 
 /datum/xenoartifact_trait/major/emp/activate(obj/item/xenoartifact/X)
-	empulse(get_turf(X.loc), X.charge*0.03, X.charge*0.07, 1) //This might be too big
+	empulse(get_turf(X.loc), max(1, X.charge*0.03), max(1, X.charge*0.07, 1)) //This might be too big
 
 /datum/xenoartifact_trait/major/invisible //One step closer to the one ring
 	label_name = "Transparent"

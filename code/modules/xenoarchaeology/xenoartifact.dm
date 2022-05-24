@@ -178,7 +178,8 @@
 		return
 	..()
 
-/obj/item/xenoartifact/proc/check_charge(mob/user, charge_mod) //Run traits
+///Run traits. Used to activate all minor, major, and malfunctioning traits in the artifact's trait list. Sets cooldown when properly finished.
+/obj/item/xenoartifact/proc/check_charge(mob/user, charge_mod)
 	log_game("[user] attempted to activate [src] at [world.time]. Located at [x] [y] [z].")
 
 	if(COOLDOWN_FINISHED(src, xenoa_cooldown))
@@ -207,7 +208,8 @@
 	charge = 0
 	true_target = list()
 
-/obj/item/xenoartifact/proc/generate_traits(var/list/blacklist_traits, malf = FALSE) //Generate traits outside of blacklist. Malf = TRUE if you want malfunctions
+///Generate traits outside of blacklist. Malf = TRUE if you want malfunctioning traits.
+/obj/item/xenoartifact/proc/generate_traits(var/list/blacklist_traits, malf = FALSE)
 	var/datum/xenoartifact_trait/desc_holder
 	desc_holder = generate_trait_unique(XENOA_ACTIVATORS, blacklist_traits, FALSE) //Activator
 	special_desc = initial(desc_holder.desc) ? "[special_desc] [initial(desc_holder.desc)]" : special_desc
@@ -233,7 +235,8 @@
 
 	charge_req = rand(1, 10) * 10
 
-/obj/item/xenoartifact/proc/generate_trait_unique(var/list/trait_list, var/list/blacklist_traits) //generate a single trait against a blacklist.
+///generate a single trait against a blacklist. Used in larger /obj/item/xenoartifact/proc/generate_traits()
+/obj/item/xenoartifact/proc/generate_trait_unique(var/list/trait_list, var/list/blacklist_traits)
 	var/datum/xenoartifact_trait/new_trait //Selection
 	var/list/selection = trait_list //Selectable traits
 	selection -= blacklist_traits
@@ -248,17 +251,20 @@
 	qdel(new_trait)
 	return new_trait
 	
-/obj/item/xenoartifact/proc/get_target_in_proximity(range) //Gets a singular entity, there's a specific traits that handles multiple.
+///Gets a singular entity, there's a specific traits that handles multiple.
+/obj/item/xenoartifact/proc/get_target_in_proximity(range)
 	for(var/mob/living/M in oview(range, get_turf(src)))
 		. = process_target(M)
 	if(isliving(loc) && !.)
 		. = loc
 	return
 
-/obj/item/xenoartifact/proc/get_trait(typepath) //Returns the desired trait and it's values if it's in the artifact's list
+///Returns the desired trait and it's values if it's in the artifact's list
+/obj/item/xenoartifact/proc/get_trait(typepath)
 	return (locate(typepath) in traits)
 
-/obj/item/xenoartifact/proc/generate_icon(var/icn, var/icnst = "", colour) //Add extra icon overlays. Ghetto GAGS
+///Add extra icon overlays. Ghetto GAGS.
+/obj/item/xenoartifact/proc/generate_icon(var/icn, var/icnst = "", colour)
 	icon_overlay = mutable_appearance(icn, icnst)
 	icon_overlay.layer = FLOAT_LAYER //Not doing this fucks the object icons when you're holding it
 	icon_overlay.appearance_flags = RESET_ALPHA// Not doing this fucks the alpha?
@@ -267,7 +273,8 @@
 		icon_overlay.color = colour
 	add_overlay(icon_overlay)
 
-/obj/item/xenoartifact/proc/process_target(atom/target) //Used for hand-holding secret technique. Pulling entities swaps them for you in the target list.
+///Used for hand-holding secret technique. Pulling entities swaps them for you in the target list.
+/obj/item/xenoartifact/proc/process_target(atom/target)
 	if(!target)
 		return
 	. = target
@@ -279,19 +286,22 @@
 	RegisterSignal(target, COMSIG_PARENT_QDELETING, .proc/on_target_del, target)
 	return
 
-/obj/item/xenoartifact/proc/on_target_del(atom/target) //Hard del handle
+///Hard del handle
+/obj/item/xenoartifact/proc/on_target_del(atom/target)
 	UnregisterSignal(target, COMSIG_PARENT_QDELETING)
 	true_target -= target
 	target = null
 
-/obj/item/xenoartifact/proc/create_beam(atom/target) //Helps show how the artifact is working. Hint stuff.
+///Helps show how the artifact is working. Hint stuff. Draws a beam between artifact and target
+/obj/item/xenoartifact/proc/create_beam(atom/target)
 	if(isliving(loc) || !get_turf(target))
 		return
 	var/datum/beam/xenoa_beam/B = new(src.loc, target, time=1.5 SECONDS, beam_icon='icons/obj/xenoarchaeology/xenoartifact.dmi', beam_icon_state="xenoa_beam", btype=/obj/effect/ebeam/xenoa_ebeam)
 	B.set_color(material)
 	INVOKE_ASYNC(B, /datum/beam/xenoa_beam.proc/Start)
 
-/obj/item/xenoartifact/proc/default_activate(chr, mob/user, atom/target) //Default template used to interface with activator signals. Handle
+///Default template used to interface with activator signals.
+/obj/item/xenoartifact/proc/default_activate(chr, mob/user, atom/target)
 	if(!COOLDOWN_FINISHED(src, xenoa_cooldown))
 		return FALSE
 	charge = chr
@@ -299,11 +309,13 @@
 	check_charge(user)
 	return TRUE
 
-/obj/item/xenoartifact/proc/set_frequency(new_frequency) //Signaler traits
+///Signaler traits. Sets listening freq
+/obj/item/xenoartifact/proc/set_frequency(new_frequency)
 	SSradio.remove_object(src, frequency)
 	frequency = new_frequency
 	radio_connection = SSradio.add_object(src, frequency, RADIO_XENOA)
 
+///Signaler traits. Sends signal
 /obj/item/xenoartifact/proc/send_signal(var/datum/signal/signal)
 	if(!radio_connection||!signal)
 		return
@@ -355,14 +367,16 @@
 	material = XENOA_BLUESPACE
 
 /obj/item/xenoartifact/maint/Initialize(mapload, difficulty)
-	if(prob(0.1))
+	if(prob(1))
 		material = pick(XENOA_PLASMA, XENOA_URANIUM, XENOA_BANANIUM)
 	difficulty = material
 	..()
 
 /datum/component/xenoartifact_pricing ///Pricing component for shipping solution. Consider swapping to cargo after change.
-	var/modifier = 0.65 ///Buying and selling related
-	var/price ///default price gets generated if it isn't set by console. This only happens if the artifact spawns outside of that process
+	///Buying and selling related
+	var/modifier = 0.65
+	///default price gets generated if it isn't set by console. This only happens if the artifact spawns outside of that process
+	var/price
 
 /obj/item/xenoartifact/objective/Initialize(mapload, difficulty) //Objective version for exploration
 	. = ..()
