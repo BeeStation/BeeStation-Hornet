@@ -1,4 +1,0 @@
-author: Rukofamicom
-delete-after: true
-changes:
-  - tweak: simplified how lone op counter increments when nuclear disk is stationary
