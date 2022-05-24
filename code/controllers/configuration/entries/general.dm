@@ -273,6 +273,14 @@
 
 /datum/config_entry/flag/automute_on	//enables automuting/spam prevention
 
+/datum/config_entry/number/spam_trigger_automute
+	config_entry_value = null
+	min_val = 0
+
+/datum/config_entry/number/spam_trigger_identical
+	config_entry_value = null
+	min_val = 0
+
 /datum/config_entry/string/panic_server_name
 
 /datum/config_entry/string/panic_server_name/ValidateAndSet(str_val)

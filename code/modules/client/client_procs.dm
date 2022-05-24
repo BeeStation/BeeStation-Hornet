@@ -151,14 +151,15 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 /client/proc/handle_spam_prevention(message, mute_type)
 	if(!(CONFIG_GET(flag/automute_on)))
 		return FALSE
+	var/trigger_automute = CONFIG_GET(number/spam_trigger_automute)
 	var/same_message_penalty = 1
 
 	if(message == last_message)
-		same_message_penalty = SPAM_TRIGGER_IDENTICAL
+		same_message_penalty = CONFIG_GET(number/spam_trigger_identical)
 	else
 		last_message = message
 
-	COOLDOWN_EXTEND(src, total_count_reset, ((1 MINUTES) / SPAM_TRIGGER_AUTOMUTE) * same_message_penalty) //extend timer in accordance with definitions set in admin.dm
+	COOLDOWN_EXTEND(src, total_count_reset, ((1 MINUTES) / trigger_automute) * same_message_penalty) //extend timer in accordance with automute configuration
 
 	if(COOLDOWN_TIMELEFT(src, total_count_reset) >= 30 SECONDS) //You have sent more messages in the past 30 seconds than is allowed by the spam filter
 		if(!COOLDOWN_FINISHED(src, warning_message_cooldown)) //ensures the player is warned before they are muted, since it is possible for some configurations to bypass the warning message. 

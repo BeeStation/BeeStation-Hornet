@@ -82,9 +82,6 @@
 
 #define ROUNDSTART_LOGOUT_REPORT_TIME	6000 //Amount of time (in deciseconds) after the rounds starts, that the player disconnect report is issued.
 
-#define SPAM_TRIGGER_AUTOMUTE	15	//Messages per minute before spam filter mutes you
-#define SPAM_TRIGGER_IDENTICAL   3  //If an identical emote or message to the previous one is sent, how many messages does it count as for the purposes of the spam filter
-
 #define MAX_KEYPRESS_COMMANDLENGTH 32 //Max length of a keypress command before it's considered to be a forged packet
 #define MAX_KEYPRESS_AUTOKICK 50
 

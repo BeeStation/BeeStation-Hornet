@@ -339,6 +339,12 @@ TICKLAG 0.5
 ## Comment this out to disable automuting
 AUTOMUTE_ON
 
+## Maximum rate of messages per minute before auto-mute kicks in. 
+SPAM_TRIGGER_AUTOMUTE 30
+
+## If a player sends an identical message twice or more times in a row, how many messages does it count as to the spam filter
+SPAM_TRIGGER_IDENTICAL 2
+
 ## Uncomment this to let players see their own notes (they can still be set by admins only)
 SEE_OWN_NOTES
 
