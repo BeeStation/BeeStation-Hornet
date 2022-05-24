@@ -1,0 +1,4 @@
+author: unit0016
+delete-after: true
+changes:
+  - bugfix: Cybersun Assassination targets have their hardsuit for real this time.
