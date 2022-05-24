@@ -151,7 +151,9 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 /client/proc/handle_spam_prevention(message, mute_type)
 	if(!(CONFIG_GET(flag/automute_on)))
 		return FALSE
+	///Defined by config, the rate of messages per minute which will cause the spam filter to trigger.
 	var/trigger_automute = CONFIG_GET(number/spam_trigger_automute)
+	///set to 1 by default, switched to the value set in config if identical messages are sent consecutively
 	var/same_message_penalty = 1
 
 	if(message == last_message)
@@ -163,7 +165,10 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 
 	if(COOLDOWN_TIMELEFT(src, total_count_reset) >= 30 SECONDS) //You have sent more messages in the past 30 seconds than is allowed by the spam filter
 		if(!COOLDOWN_FINISHED(src, warning_message_cooldown)) //ensures the player is warned before they are muted, since it is possible for some configurations to bypass the warning message. 
-			to_chat(src, "<span class='userdanger'>You have exceeded the spam filter limit. \n Make an adminhelp ticket if you think this was in error.</span>")
+			if(prob(95))
+				to_chat(src, "<span class='userdanger'>You have exceeded the spam filter limit. \n Make an adminhelp ticket if you think this was in error.</span>")
+			else
+				to_chat(src, "<span class='userdanger'>You have been 1984'd by the spam filter. \n Make an adminhelp ticket if you think this was in error.</span>")
 			cmd_admin_mute(src, mute_type, TRUE)
 			return TRUE
 
