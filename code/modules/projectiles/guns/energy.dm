@@ -13,9 +13,9 @@
 	///The state of the select fire switch. Determines from the ammo_type list what kind of shot is fired next.
 	var/select = 1 
 	///Can it be charged in a recharger?
-	var/can_charge = TRUE 
+	var/can_charge = TRUE
 	///Do we handle overlays with base update_icon()?
-	var/automatic_charge_overlays = TRUE	
+	var/automatic_charge_overlays = TRUE
 	var/charge_sections = 4
 	ammo_x_offset = 2
 	///if this gun uses a stateful charge bar for more detail

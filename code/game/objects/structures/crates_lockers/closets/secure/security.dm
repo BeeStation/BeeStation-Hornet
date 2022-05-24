@@ -5,6 +5,7 @@
 
 /obj/structure/closet/secure_closet/captains/PopulateContents()
 	..()
+	new /obj/item/gun/energy/e_gun/mini/heads(src)
 	new /obj/item/clothing/head/beret/captain(src)
 	new /obj/item/clothing/suit/hooded/wintercoat/captain(src)
 	new /obj/item/storage/backpack/captain(src)
@@ -32,7 +33,6 @@
 	new /obj/item/clothing/gloves/color/captain(src)
 	new /obj/item/restraints/handcuffs/cable/zipties(src)
 	new /obj/item/storage/belt/sabre(src)
-	new /obj/item/gun/energy/e_gun(src)
 	new /obj/item/door_remote/captain(src)
 	new /obj/item/storage/photo_album/Captain(src)
 	new /obj/item/card/id/departmental_budget/civ(src)
@@ -44,6 +44,7 @@
 
 /obj/structure/closet/secure_closet/hop/PopulateContents()
 	..()
+	new /obj/item/gun/energy/e_gun/mini/heads(src)
 	new /obj/item/clothing/neck/cloak/hop(src)
 	new /obj/item/storage/lockbox/medal/service(src)
 	new /obj/item/clothing/under/rank/civilian/head_of_personnel(src)
@@ -59,7 +60,6 @@
 	new /obj/item/assembly/flash/handheld(src)
 	new /obj/item/clothing/glasses/sunglasses/advanced(src)
 	new /obj/item/restraints/handcuffs/cable/zipties(src)
-	new /obj/item/gun/energy/e_gun/mini(src)
 	new /obj/item/clothing/neck/petcollar(src)
 	new /obj/item/pet_carrier(src)
 	new /obj/item/door_remote/civillian(src)
