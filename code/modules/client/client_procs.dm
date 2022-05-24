@@ -154,9 +154,8 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 
 	if(COOLDOWN_FINISHED(src, total_count_reset))
 		total_message_count = 0 //reset the count if it's been more than 5 seconds since the first message
+		COOLDOWN_START(src, total_count_reset, 5 SECONDS) //inside this if so we don't reset it every single message
 
-	if(!total_message_count) //so we don't reset it every single message
-		COOLDOWN_START(src, total_count_reset, 5 SECONDS)
 	total_message_count++
 
 	if(total_message_count >= SPAM_TRIGGER_AUTOMUTE)
