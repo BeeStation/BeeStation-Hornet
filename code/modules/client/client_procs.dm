@@ -164,12 +164,9 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	else
 		COOLDOWN_START(src, total_count_reset, ((1 MINUTES) / SPAM_TRIGGER_AUTOMUTE) * same_message_penalty)
 
-	var/debug_text_variable_thing = COOLDOWN_TIMELEFT(src, total_count_reset) / 10
-	to_chat(src, "<span class='notice'> Your chat rate counter is [debug_text_variable_thing]. \n A mute will be applied when this exceeds 30, which indicates more messages per minute than allowed by spam filter.</span>")
-
 	if(COOLDOWN_TIMELEFT(src, total_count_reset) >= 30 SECONDS) //You have sent more messages in the past 30 seconds than is allowed by the spam filter
 		if(!COOLDOWN_FINISHED(src, warning_message_cooldown)) //ensures the player is warned before they are muted, since it is possible for some configurations to bypass the warning message. 
-			to_chat(src, "<span class='userdanger'>You have exceeded the spam filter limit for too many messages. An auto-mute was applied. Make an adminhelp ticket if you think this was in error.</span>")
+			to_chat(src, "<span class='userdanger'>You have exceeded the spam filter limit. \n Make an adminhelp ticket if you think this was in error.</span>")
 			cmd_admin_mute(src, mute_type, TRUE)
 			return TRUE
 
