@@ -158,11 +158,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	else
 		last_message = message
 
-	if(!COOLDOWN_FINISHED(src, total_count_reset))
-
-		COOLDOWN_EXTEND(src, total_count_reset, ((1 MINUTES) / SPAM_TRIGGER_AUTOMUTE) * same_message_penalty) //extend timer in accordance with definitions set in admin.dm
-	else
-		COOLDOWN_START(src, total_count_reset, ((1 MINUTES) / SPAM_TRIGGER_AUTOMUTE) * same_message_penalty)
+	COOLDOWN_EXTEND(src, total_count_reset, ((1 MINUTES) / SPAM_TRIGGER_AUTOMUTE) * same_message_penalty) //extend timer in accordance with definitions set in admin.dm
 
 	if(COOLDOWN_TIMELEFT(src, total_count_reset) >= 30 SECONDS) //You have sent more messages in the past 30 seconds than is allowed by the spam filter
 		if(!COOLDOWN_FINISHED(src, warning_message_cooldown)) //ensures the player is warned before they are muted, since it is possible for some configurations to bypass the warning message. 

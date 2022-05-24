@@ -66,7 +66,8 @@
 
 #define COOLDOWN_START(cd_source, cd_index, cd_time) (cd_source.cd_index = world.time + (cd_time))
 
-#define COOLDOWN_EXTEND(cd_source, cd_index, cd_time) (cd_source.cd_index += (cd_time)) //call only if COOLDOWN_FINISHED is not true
+//for when you want a cooldown to get longer each time it is called instead of simply restarting the timer. Will restart automatically if the timer finished since last call
+#define COOLDOWN_EXTEND(cd_source, cd_index, cd_time) (COOLDOWN_FINISHED(cd_source, cd_index) ? COOLDOWN_START(cd_source, cd_index, cd_time) : (cd_source.cd_index += (cd_time)))
 
 //Returns true if the cooldown has run its course, false otherwise
 #define COOLDOWN_FINISHED(cd_source, cd_index) (cd_source.cd_index < world.time)
