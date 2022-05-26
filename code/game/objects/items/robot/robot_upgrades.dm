@@ -457,7 +457,7 @@
 				cyborg.cell.use(powercost)
 				repair_ticks--
 			else
-				to_chat(cyborg, "<span class='notice'>Your self-repair module has fully repaired you and deactivated early.</span>")
+				to_chat(cyborg, "<span class='notice'>You are fully repaired, your module has deactivated early.</span>")
 				repair_ticks = 0
 	if(!repair_ticks && icon_state == "selfrepair_on")
 		icon_state = "selfrepair_off"
