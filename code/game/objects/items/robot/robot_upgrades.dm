@@ -347,7 +347,6 @@
 	var/running_sounds = list('sound/machines/generator/generator_mid1.ogg', 'sound/machines/generator/generator_mid2.ogg', 'sound/machines/generator/generator_mid3.ogg')
 	var/deactivation_sound = 'sound/effects/turbolift/turbolift-close.ogg'
 
-
 /obj/item/borg/upgrade/selfrepair/proc/begin_timer_animation()
 	if(!(action?.button) || timer_overlay_active)
 		return
@@ -436,6 +435,8 @@
 	STOP_PROCESSING(SSobj, src)
 
 /obj/item/borg/upgrade/selfrepair/process(delta_time)
+	if(!cyborg) //Sanity check to prevent runtimes in case borgo gets blown up mid-repair.
+		return FALSE
 	if(!recharging && icon_state == "selfrepair_on")
 		while(repair_ticks)
 			sleep(10)
