@@ -424,10 +424,13 @@
 
 /obj/item/borg/upgrade/selfrepair/update_icon()
 	. = ..()
-	if(timer_overlay_active && !recharging)
-		end_timer_animation()
-	if(action)
-		action.UpdateButtonIcon()
+	if(cyborg)
+		if(timer_overlay_active && !recharging)
+			end_timer_animation()
+		if(action)
+			action.UpdateButtonIcon()
+	else
+		icon_state = "cyborg_upgrade5"
 
 
 
@@ -435,7 +438,11 @@
 	STOP_PROCESSING(SSobj, src)
 
 /obj/item/borg/upgrade/selfrepair/process(delta_time)
-	if(!cyborg) //Sanity check to prevent runtimes in case borgo gets blown up mid-repair.
+	if(!cyborg) //Sanity check to reset the module in case it is somehow removed while running. 
+		update_icon()
+		recharging = FALSE
+		counter = 0
+		repair_ticks = 10
 		return FALSE
 	if(!recharging && icon_state == "selfrepair_on")
 		while(repair_ticks)
