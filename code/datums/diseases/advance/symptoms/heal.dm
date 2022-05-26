@@ -691,7 +691,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 			else
 				bloodpoints += max(0, grabbedblood)
 			for(var/I in 1 to power)//power doesnt increase efficiency, just usage. 
-				if(bloodpoints)
+				if(bloodpoints > 0)
 					if(ishuman(M))
 						var/mob/living/carbon/human/H = M
 						if(H.bleed_rate >= 2 && bruteheal && bloodpoints)
@@ -732,15 +732,16 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 			if(bloodpoints >= 200 && H.health > 0 && H.blood_volume >= BLOOD_VOLUME_NORMAL) //note that you need to actually need to heal, so a maxed out virus won't be bringing you back instantly in most cases. *even so*, if this needs to be nerfed ill do it in a heartbeat
 				H.revive(0)
 				H.visible_message("<span class='warning'>[H.name]'s skin takes on a rosy hue as they begin moving. They live again!</span>", "<span class='userdanger'>As your body fills with fresh blood, you feel your limbs once more, accompanied by an insatiable thirst for blood.</span>")
-				bloodpoints -= 200
+				bloodpoints = 0
 				return 0
 			else if(bloodbag && bloodbag.blood_volume && (bloodbag.stat || bloodbag.bleed_rate))
 				if(get_dist(bloodbag, H) <= 1 && bloodbag.z == H.z)
-					var/amt = ((bloodbag.stat * 2) + 5) * power
+					var/amt = ((bloodbag.stat * 2) + 2) * power
 					var/excess = max(((min(amt, bloodbag.blood_volume) - (BLOOD_VOLUME_NORMAL - H.blood_volume)) / 2), 0)
 					H.blood_volume = min(H.blood_volume + min(amt, bloodbag.blood_volume), BLOOD_VOLUME_NORMAL)
 					bloodbag.blood_volume = max(bloodbag.blood_volume - amt, 0)
 					bloodpoints += max(excess, 0)
+					playsound(bloodbag.loc, 'sound/magic/exit_blood.ogg', 10, 1)
 					bloodbag.visible_message("<span class='warning'>Blood flows from [bloodbag.name]'s wounds into [H.name]'s corpse!</span>", "<span class='userdanger'>Blood flows from your wounds into [H.name]'s corpse!</span>")
 				else if(get_dist(bloodbag, H) >= possibledist) //they've been taken out of range.
 					bloodbag = null
@@ -770,7 +771,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 								bloodbag.throw_at(H, 1, 1)
 								bloodpoints -= 2
 								bloodbag.visible_message("<span class='warning'>A current of blood pushes [bloodbag.name] towards [H.name]'s corpse!</span>")
-								playsound(bloodbag.loc, 'sound/magic/exit_blood.ogg', 50, 1)
+								playsound(bloodbag.loc, 'sound/magic/exit_blood.ogg', 25, 1)
 								return 0 
 			else 
 				var/list/candidates = list()
@@ -805,7 +806,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 					C.blood_volume = max(C.blood_volume - amt, 0)
 					gainedpoints = CLAMP(excess, 0, maxbloodpoints - bloodpoints)
 					C.visible_message("<span class='warning'>Blood flows from [C.name]'s wounds into [H.name]!</span>", "<span class='userdanger'>Blood flows from your wounds into [H.name]!</span>")
-					playsound(C.loc, 'sound/magic/exit_blood.ogg', 50, 1)
+					playsound(C.loc, 'sound/magic/exit_blood.ogg', 25, 1)
 					return gainedpoints
 	if(locate(/obj/effect/decal/cleanable/blood) in M.loc)
 		var/obj/effect/decal/cleanable/blood/initialstain = (locate(/obj/effect/decal/cleanable/blood) in M.loc)

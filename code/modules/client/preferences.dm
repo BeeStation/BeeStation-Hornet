@@ -1708,7 +1708,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						default += " ([config.defaultmap.map_name])"
 					for (var/M in config.maplist)
 						var/datum/map_config/VM = config.maplist[M]
-						if(!VM.votable)
+						if(!VM.votable || SSmapping.config.map_name == VM.map_name) //current map will be excluded from the vote
 							continue
 						var/friendlyname = "[VM.map_name] "
 						if (VM.voteweight <= 0)
