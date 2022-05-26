@@ -9,10 +9,10 @@
 	antag_flag = ROLE_BESIEGER
 	restricted_jobs = list("AI", "Cyborg")
 	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Head of Personnel", "Captain")
-	required_players = 0
+	required_players = 25
 	required_enemies = 1
-	recommended_enemies = 1
-	enemy_minimum_age = 0
+	recommended_enemies = 3
+	enemy_minimum_age = 60
 	title_icon = "nuclear"
 	announce_span = "danger"
 	announce_text = "The syndicate has united and is launching an all out war on NanoTrasen!\n\
@@ -29,7 +29,7 @@
 		restricted_jobs += GLOB.command_positions
 
 	var/list/datum/mind/possible_besiegers = get_players_for_role(ROLE_BESIEGER)
-	var/team_size = 1//required_enemies + round(num_players() * CONFIG_GET(number/traitor_scaling_coeff) / 2)
+	var/team_size = required_enemies + round(num_players() * CONFIG_GET(number/traitor_scaling_coeff) / 2)
 	team = new
 	for(var/k = 1 to team_size)
 		if (!antag_candidates.len)
