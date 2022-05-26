@@ -27,7 +27,10 @@
 		to_chat(X, mentor_msg)
 
 	to_chat(src, "<span class='mentornotice'><span class='mentorhelp'>>PM to-<b>Mentors</b>: [msg]</span></span>")
-	send2chat("Mentorhelp from [key_name_mentor(src)]: [msg]\nThere are [GLOB.mentors.len] online able to respond.", "mhelp")
+	if(GLOB.mentors.len)
+		send2chat("Mentorhelp from [key_name_mentor(src)]: [msg]\nThere are [GLOB.mentors.len] online able to respond.", "mhelp")
+	else
+		send2chat("Mentorhelp from [key_name_mentor(src)]: [msg]\nThere are no mentors online.", "mhelp")
 	return
 
 /proc/get_mentor_counts()
