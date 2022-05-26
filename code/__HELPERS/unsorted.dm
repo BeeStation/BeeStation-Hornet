@@ -1565,7 +1565,7 @@ config_setting should be one of the following:
 			channels_to_use += channel
 
 	if(channels_to_use.len)
-		world.TgsChatBroadcast()
+		world.TgsChatBroadcast(message, channels_to_use)
 
 /proc/num2sign(numeric)
 	if(numeric > 0)
