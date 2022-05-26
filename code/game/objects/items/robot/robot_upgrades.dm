@@ -329,8 +329,8 @@
 	var/timer_icon = 'icons/effects/cooldown.dmi'
 	var/timer_icon_state_active = "second"
 
-	/// deciseconds until cooldown is up
-	var/cooldown = 1200
+	/// time until cooldown is up
+	var/cooldown = (2 MINUTES)
 	/// Is the module currently recharging?
 	var/recharging = FALSE
 	/// used for counting up to the cooldown
@@ -347,10 +347,6 @@
 	var/running_sounds = list('sound/machines/generator/generator_mid1.ogg', 'sound/machines/generator/generator_mid2.ogg', 'sound/machines/generator/generator_mid3.ogg')
 	var/deactivation_sound = 'sound/effects/turbolift/turbolift-close.ogg'
 
-
-/obj/item/borg/upgrade/selfrepair/proc/startrecharge()
-	recharging = TRUE
-	begin_timer_animation()
 
 /obj/item/borg/upgrade/selfrepair/proc/begin_timer_animation()
 	if(!(action?.button) || timer_overlay_active)
@@ -463,7 +459,8 @@
 		icon_state = "selfrepair_off"
 		update_icon()
 		playsound(cyborg.loc, deactivation_sound, 60)
-		startrecharge()
+		recharging = TRUE
+		begin_timer_animation()
 	if(recharging && (counter < cooldown))
 		counter += delta_time * 10
 		update_timer_animation()
