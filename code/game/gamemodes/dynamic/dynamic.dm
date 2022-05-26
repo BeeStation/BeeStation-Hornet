@@ -92,10 +92,10 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 	var/midround_injection_cooldown = 0
 
 	/// The minimum time the recurring midround ruleset timer is allowed to be.
-	var/midround_delay_min = (15 MINUTES)
+#define MIDROUND_DELAY_MIN 10 MINUTES
 
 	/// The maximum time the recurring midround ruleset timer is allowed to be.
-	var/midround_delay_max = (35 MINUTES)
+#define MIDROUND_DELAY_MAX 25 MINUTES
 
 	/// If above this threat, increase the chance of injection
 	var/higher_injection_chance_minimum_threat = 70
@@ -356,8 +356,8 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 	var/latejoin_injection_cooldown_middle = 0.5*(latejoin_delay_max + latejoin_delay_min)
 	latejoin_injection_cooldown = round(clamp(EXP_DISTRIBUTION(latejoin_injection_cooldown_middle), latejoin_delay_min, latejoin_delay_max)) + world.time
 
-	var/midround_injection_cooldown_middle = 0.5*(midround_delay_max + midround_delay_min)
-	midround_injection_cooldown = round(clamp(EXP_DISTRIBUTION(midround_injection_cooldown_middle), midround_delay_min, midround_delay_max)) + world.time
+	var/midround_injection_cooldown_middle = 0.5*(MIDROUND_DELAY_MAX + MIDROUND_DELAY_MIN)
+	midround_injection_cooldown = round(clamp(EXP_DISTRIBUTION(midround_injection_cooldown_middle), MIDROUND_DELAY_MIN, MIDROUND_DELAY_MAX)) + world.time
 
 /datum/game_mode/dynamic/pre_setup()
 	if(CONFIG_GET(flag/dynamic_config_enabled))
@@ -591,16 +591,18 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 
 		// Somehow it managed to trigger midround multiple times so this was moved here.
 		// There is no way this should be able to trigger an injection twice now.
-		var/midround_injection_cooldown_middle = 0.5*(midround_delay_max + midround_delay_min)
-		midround_injection_cooldown = (round(clamp(EXP_DISTRIBUTION(midround_injection_cooldown_middle), midround_delay_min, midround_delay_max)) + world.time)
+		var/midround_injection_cooldown_middle = 0.5*(MIDROUND_DELAY_MAX + MIDROUND_DELAY_MIN)
+		midround_injection_cooldown = (round(clamp(EXP_DISTRIBUTION(midround_injection_cooldown_middle), MIDROUND_DELAY_MIN, MIDROUND_DELAY_MAX)) + world.time)
 
 		// Time to inject some threat into the round
-		if(EMERGENCY_ESCAPED_OR_ENDGAMED) // Unless the shuttle is gone
+		if(EMERGENCY_AT_LEAST_DOCKED) // Unless the shuttle is gone
 			return
 
 		dynamic_log("Checking for midround injection.")
 
 		last_midround_injection_attempt = world.time
+		if(current_players[CURRENT_LIVING_PLAYERS].len > mid_round_budget && mid_round_budget < 100)
+			mid_round_budget += (current_players[CURRENT_LIVING_PLAYERS].len / 10) //Extra Pop divided by ten budget every check to ensure midround interest
 
 		if (prob(get_midround_injection_chance()))
 			var/list/drafted_rules = list()
@@ -790,3 +792,5 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 #undef FAKE_REPORT_CHANCE
 #undef REPORT_NEG_DIVERGENCE
 #undef REPORT_POS_DIVERGENCE
+#undef MIDROUND_DELAY_MIN
+#undef MIDROUND_DELAY_MAX

@@ -11,7 +11,7 @@
 	/// If set to TRUE, dynamic mode will be able to draft this ruleset again later on. (doesn't apply for roundstart rules)
 	var/repeatable = FALSE
 	/// If set higher than 0 decreases weight by itself causing the ruleset to appear less often the more it is repeated.
-	var/repeatable_weight_decrease = 2
+	var/repeatable_weight_decrease = 10
 	/// List of players that are being drafted for this rule
 	var/list/mob/candidates = list()
 	/// List of players that were selected for this rule
