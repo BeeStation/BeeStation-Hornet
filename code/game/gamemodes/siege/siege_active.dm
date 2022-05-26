@@ -6,7 +6,7 @@
 	icon_state = "syndbeacon"
 	resistance_flags = INDESTRUCTIBLE
 	var/status_overide = 0 // 0 = no spawning, 1 = normal role spawning, 2 = elite role spawning active
-	var/respawn_delay = 1800
+	var/respawn_delay = 6 MINUTES //Inaccurate due to lag
 
 	var/static/datum/outfit/siege/roles = list(/datum/outfit/siege/pirate,
 		/datum/outfit/siege/specialist,
@@ -16,11 +16,11 @@
 		/datum/outfit/siege/intruder,
 		/datum/outfit/siege/intruder/brawler,
 		/datum/outfit/siege/engineer,
-		/datum/outfit/siege/medic,
-		/datum/outfit/siege/zombie)
+		/datum/outfit/siege/medic)
 	var/static/datum/outfit/siege/elite_roles = list(/datum/outfit/syndicate, //nukie
 		/datum/outfit/siege/abductor,
-		/datum/outfit/siege/wizard)//with less spell points
+		/datum/outfit/siege/wizard,
+		/datum/outfit/siege/zombie)//with less spell points
 
 	var/list/ops = list()
 

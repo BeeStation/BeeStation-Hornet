@@ -47,11 +47,6 @@
 	update_icon()
 	GLOB.poi_list |= src
 	previous_level = get_security_level()
-	var/turf/current_turf = get_turf(src)
-	var/z_level = current_turf.z
-	if(GLOB.master_mode == "siege" && z_level == 9)//is_centcom_level doesnt work
-		new /obj/machinery/siege_spawner(src)
-		qdel(src)
 
 /obj/machinery/nuclearbomb/Destroy()
 	safety = FALSE
@@ -94,6 +89,12 @@
 		if(2)
 			return CINEMATIC_NUKE_FAR
 	return CINEMATIC_NUKE_FAR
+
+/obj/machinery/nuclearbomb/syndicate/Initialize(mapload)
+	if(GLOB.master_mode == "siege")
+		new /obj/machinery/siege_spawner(src)
+		qdel(src)
+	..()
 
 /obj/machinery/nuclearbomb/proc/disk_check(obj/item/disk/nuclear/D)
 	if(D.fake)
