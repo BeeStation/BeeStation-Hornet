@@ -1,6 +1,0 @@
-author: unit0016
-delete-after: true
-changes:
-  - rscadd: A new deadpop oriented map has been added, Holestation!
-  - server: Maps config has been tweaked for Holestation's existence, and will need
-      to be updated.
