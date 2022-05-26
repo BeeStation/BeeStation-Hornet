@@ -41,10 +41,6 @@
 	QDEL_NULL(button)
 	return ..()
 
-/datum/action/proc/Name(newname = "Generic Action")
-	name = newname
-	return
-
 /datum/action/proc/Grant(mob/M)
 	if(M)
 		if(owner)
