@@ -1,0 +1,13 @@
+{
+	"map_name": "Holestation",
+	"map_link": "None",
+	"map_path": "map_files/HoleStation",
+	"map_file": "holestation.dmm",
+	"shuttles": {
+		"cargo": "cargo_holestation",
+		"ferry": "ferry_fancy",
+		"whiteship": "whiteship_box",
+		"emergency": "emergency_holestation"
+	},
+	"traits": [{"Up" : 1, "Linkage" : "Cross"}, {"Down" : -1, "Baseturf" : "/turf/open/openspace", "Linkage" : "Cross"}]
+	}

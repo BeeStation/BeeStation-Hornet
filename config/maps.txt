@@ -51,6 +51,11 @@ map flandstation
 	votable
 endmap
 
+map holestation
+	maxplayers 15
+ 	votable
+endmap
+
 map donutstation
 	Maxplayers 60
 	votable
