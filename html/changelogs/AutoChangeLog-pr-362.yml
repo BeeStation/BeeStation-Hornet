@@ -1,5 +1,0 @@
-author: DoctorSquishy
-delete-after: true
-changes:
-  - bugfix: Fixes random Engines and Bars spawning
-  - code_imp: New seperate systems for Random Engines and Bars for better control
