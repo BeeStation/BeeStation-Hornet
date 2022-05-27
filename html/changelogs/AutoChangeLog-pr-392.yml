@@ -1,5 +1,0 @@
-author: unit0016
-delete-after: true
-changes:
-  - bugfix: The large maint room on Holestation can no longer occasionally lead to
-      wall
