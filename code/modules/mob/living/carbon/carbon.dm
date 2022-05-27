@@ -983,11 +983,3 @@
 	if(mood)
 		if(mood.sanity < SANITY_UNSTABLE)
 			return TRUE
-
-/mob/living/carbon/incapacitated(ignore_restraints = FALSE, ignore_grab = FALSE, check_immobilized = FALSE, ignore_stasis = FALSE)
-	if(..() || is_nugget())
-		return TRUE
-
-/mob/living/carbon/is_nugget()
-	if(get_num_legs() == 0 && get_num_arms() == 0)
-		return TRUE

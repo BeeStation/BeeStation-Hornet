@@ -635,11 +635,8 @@
 			lying = 270
 		update_transform()
 		lying_prev = lying
-	if (buckled && buckled.loc != newloc) //not updating position
-		if (!buckled.anchored)
-			return buckled.Move(newloc, direct)
-		else
-			return 0
+	if (buckled) //not updating position
+		return buckled.relaymove(src, direct)
 
 	var/old_direction = dir
 	var/turf/T = loc
