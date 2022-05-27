@@ -66,20 +66,20 @@
 	transfer_prints = TRUE
 	var/warcry = "AT"
 
-/obj/item/clothing/gloves/rapid/Touch(atom/A, proximity)
-	var/mob/living/M = loc
-	if(get_dist(A, M) <= 1)
-		if(isliving(A) && M.a_intent == INTENT_HARM)
-			M.changeNext_move(CLICK_CD_RAPID)
+/obj/item/clothing/gloves/rapid/Touch(atom/target, proximity)
+	var/mob/living/user = loc
+	if(get_dist(target, user) <= 1)
+		if(isliving(target) && user.a_intent == INTENT_HARM)
+			user.changeNext_move(CLICK_CD_RAPID)
 			if(warcry)
-				M.say("[warcry]", ignore_spam = TRUE, forced = "north star warcry")
+				user.say("[warcry]", ignore_spam = TRUE, forced = "north star warcry")
 
-	else if(M.a_intent == INTENT_HARM)
-		for(var/mob/living/L in oview(1, M))
-			L.attack_hand(M)
-			M.changeNext_move(CLICK_CD_RAPID)
+	else if(user.a_intent == INTENT_HARM)
+		for(var/mob/living/living_target in oview(1, user))
+			living_target.attack_hand(user)
+			user.changeNext_move(CLICK_CD_RAPID)
 			if(warcry)
-				M.say("[warcry]", ignore_spam = TRUE, forced = "north star warcry")
+				user.say("[warcry]", ignore_spam = TRUE, forced = "north star warcry")
 			break
 	.= FALSE
 
@@ -99,27 +99,29 @@
 	item_state = "wgloves"
 	var/range = 3
 
-/obj/item/clothing/gloves/color/white/magic/attackby(obj/item/W, mob/user, params)
+/obj/item/clothing/gloves/color/white/magic/attackby(obj/item/attacking_item, mob/user, params)
 	. = ..()
-	if(istype(W, /obj/item/upgradewand))
-		var/obj/item/upgradewand/wand = W
+	if(istype(attacking_item, /obj/item/upgradewand))
+		var/obj/item/upgradewand/wand = attacking_item
 		if(!wand.used && range == initial(range))
 			wand.used = TRUE
 			range = 6
 			to_chat(user, "<span_class='notice'>You upgrade the [src] with the [wand].</span>")
 			playsound(user, 'sound/weapons/emitter2.ogg', 25, 1, -1)
 
-/obj/item/clothing/gloves/color/white/magic/Touch(atom/A, proximity)
-	var/mob/living/M = loc
-	if(get_dist(A, M) <= 1)
-		return 0
-	if(M in viewers(range, A))
-		M.visible_message("<span_class ='danger'>[M] waves their hands at [A]</span>", "<span_class ='notice'>You begin manipulating [A].</span>")
-		new	/obj/effect/temp_visual/telegloves(A.loc)
-		M.changeNext_move(CLICK_CD_MELEE)
-		if(do_after_mob(M, A, 8))
-			new /obj/effect/temp_visual/telekinesis(M.loc)
-			playsound(M, 'sound/weapons/emitter2.ogg', 25, 1, -1)
-			A.attack_hand(M)
-			return 1
+/obj/item/clothing/gloves/color/white/magic/Touch(atom/target, proximity)
+	var/mob/living/user = loc
+	if(get_dist(target, user) <= 1)
+		return FALSE
+	if(istype(target, /obj/structure))
+		return FALSE
+	if(user in viewers(range, target))
+		user.visible_message("<span_class ='danger'>[user] waves their hands at [target]</span>", "<span_class ='notice'>You begin manipulating [target].</span>")
+		new	/obj/effect/temp_visual/telegloves(target.loc)
+		user.changeNext_move(CLICK_CD_MELEE)
+		if(do_after_mob(user, target, 8))
+			new /obj/effect/temp_visual/telekinesis(user.loc)
+			playsound(user, 'sound/weapons/emitter2.ogg', 25, 1, -1)
+			target.attack_hand(user)
+			return TRUE
 
