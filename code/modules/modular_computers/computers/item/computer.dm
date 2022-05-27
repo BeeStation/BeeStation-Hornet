@@ -6,6 +6,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 /obj/item/modular_computer
 	name = "modular microcomputer"
 	desc = "A small portable microcomputer."
+	light_system = MOVABLE_LIGHT
 
 	var/enabled = 0											// Whether the computer is turned on.
 	var/screen_on = 1										// Whether the computer is active/opened/it's screen is on.
@@ -56,11 +57,16 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	var/saved_job = null
 	/// The amount of honks. honk honk honk honk honk honkh onk honkhnoohnk
 	var/honk_amount = 0
-	var/list/idle_threads							// Idle programs on background. They still receive process calls but can't be interacted with.
-	var/obj/physical = null									// Object that represents our computer. It's used for Adjacent() and UI visibility checks.
-	var/has_light = FALSE						//If the computer has a flashlight/LED light/what-have-you installed
-	var/comp_light_luminosity = 3				//The brightness of that light
-	var/comp_light_color			//The color of that light
+	/// Idle programs on background. They still receive process calls but can't be interacted with.
+	var/list/idle_threads
+	/// Object that represents our computer. It's used for Adjacent() and UI visibility checks.
+	var/obj/physical = null
+	/// If the computer has a flashlight/LED light/what-have-you installed
+	var/has_light = FALSE
+	/// How far the computer's light can reach, is not editable by players.
+	var/comp_light_luminosity = 3
+	/// The built-in light's color, editable by players.
+	var/comp_light_color = "#FFFFFF"
 	/// Override behavior from atom so flashlight button is not marked as ON
 	light_on = FALSE
 	/// Whether or not the tablet is invisible in messenger and other apps
@@ -81,7 +87,8 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	START_PROCESSING(SSobj, src)
 	if(!physical)
 		physical = src
-	comp_light_color = "#FFFFFF"
+	set_light_color(comp_light_color)
+	set_light_range(comp_light_luminosity)
 	idle_threads = list()
 	if(id)
 		id.UpdateDisplay()
@@ -474,7 +481,6 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 		return FALSE
 	comp_light_color = color
 	set_light_color(color)
-	update_light()
 	return TRUE
 
 /obj/item/modular_computer/screwdriver_act(mob/user, obj/item/tool)
@@ -505,15 +511,15 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	uninstall_component(H, user)
 	return
 
-/obj/item/modular_computer/attackby(obj/item/W as obj, mob/user as mob)
+/obj/item/modular_computer/attackby(obj/item/attacking_item, mob/user, params)
 	// Check for ID first
-	if(istype(W, /obj/item/card/id) && InsertID(W))
+	if(istype(attacking_item, /obj/item/card/id) && InsertID(attacking_item))
 		return
 
 	// Scan a photo.
-	if(istype(W, /obj/item/photo))
+	if(istype(attacking_item, /obj/item/photo))
 		var/obj/item/computer_hardware/hard_drive/hdd = all_components[MC_HDD]
-		var/obj/item/photo/pic = W
+		var/obj/item/photo/pic = attacking_item
 		if(hdd)
 			for(var/datum/computer_file/program/messenger/messenger in hdd.stored_files)
 				saved_image = pic.picture
@@ -523,35 +529,35 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	// Insert items into the components
 	for(var/h in all_components)
 		var/obj/item/computer_hardware/H = all_components[h]
-		if(H.try_insert(W, user))
+		if(H.try_insert(attacking_item, user))
 			return
 
 	// Insert new hardware
-	if(istype(W, /obj/item/computer_hardware) && upgradable)
-		if(install_component(W, user))
+	if(istype(attacking_item, /obj/item/computer_hardware) && upgradable)
+		if(install_component(attacking_item, user))
 			return
 
-	if(W.tool_behaviour == TOOL_WRENCH)
+	if(attacking_item.tool_behaviour == TOOL_WRENCH)
 		if(length(all_components))
 			balloon_alert(user, "remove the other components!")
 			return
-		W.play_tool_sound(src, user, 20, volume=20)
+		attacking_item.play_tool_sound(src, user, 20, volume=20)
 		new /obj/item/stack/sheet/iron( get_turf(src.loc), steel_sheet_cost )
 		user.balloon_alert(user, "disassembled")
 		relay_qdel()
 		qdel(src)
 		return
 
-	if(W.tool_behaviour == TOOL_WELDER)
+	if(attacking_item.tool_behaviour == TOOL_WELDER)
 		if(obj_integrity == max_integrity)
 			to_chat(user, "<span class='warning'>\The [src] does not require repairs.</span>")
 			return
 
-		if(!W.tool_start_check(user, amount=1))
+		if(!attacking_item.tool_start_check(user, amount=1))
 			return
 
 		to_chat(user, "<span class='notice'>You begin repairing damage to \the [src]...</span>")
-		if(W.use_tool(src, user, 20, volume=50, amount=1))
+		if(attacking_item.use_tool(src, user, 20, volume=50, amount=1))
 			obj_integrity = max_integrity
 			to_chat(user, "<span class='notice'>You repair \the [src].</span>")
 			update_icon()
@@ -559,9 +565,9 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 
 	var/obj/item/computer_hardware/card_slot/card_slot = all_components[MC_CARD]
 	// Check to see if we have an ID inside, and a valid input for money
-	if(card_slot?.GetID() && iscash(W))
+	if(card_slot?.GetID() && iscash(attacking_item))
 		var/obj/item/card/id/id = card_slot.GetID()
-		id.attackby(W, user) // If we do, try and put that attacking object in
+		id.attackby(attacking_item, user) // If we do, try and put that attacking object in
 		return
 	..()
 
