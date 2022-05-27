@@ -184,7 +184,6 @@
 /area/ai_monitored/turret_protected/ai)
 "ax" = (
 /obj/structure/table/reinforced,
-/obj/item/hand_tele,
 /turf/open/floor/plasteel/dark,
 /area/bridge)
 "ay" = (
@@ -714,12 +713,6 @@
 "bR" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable/yellow{
-	icon_state = "1-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
-/obj/structure/cable/yellow{
 	icon_state = "2-8"
 	},
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3{
@@ -727,6 +720,9 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1{
 	dir = 1
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
 	},
 /turf/open/openspace,
 /area/maintenance/central)
@@ -1183,6 +1179,22 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
 /turf/open/floor/plasteel/techmaint,
 /area/construction/mining/aux_base)
+"dg" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
+/turf/open/openspace,
+/area/maintenance/central)
 "dh" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
@@ -2104,7 +2116,7 @@
 /turf/open/floor/plasteel/dark/side{
 	dir = 4
 	},
-/area/ai_monitored/turret_protected/ai_upload_foyer)
+/area/ai_monitored/turret_protected/ai_upload)
 "fp" = (
 /obj/machinery/atmospherics/components/unary/outlet_injector/atmos/mix_input{
 	dir = 8
@@ -7195,11 +7207,15 @@
 /turf/open/floor/carpet,
 /area/library/lounge)
 "sb" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
-	dir = 10
+/obj/effect/spawner/structure/window/reinforced,
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
 	},
-/turf/closed/wall/r_wall,
-/area/engine/gravity_generator)
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
+/turf/open/floor/plating,
+/area/security/brig)
 "sc" = (
 /obj/machinery/computer/secure_data,
 /obj/effect/turf_decal/tile/red{
@@ -8414,6 +8430,12 @@
 	dir = 1
 	},
 /area/maintenance/central/secondary)
+"vl" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 5
+	},
+/turf/open/floor/plating,
+/area/maintenance/port/aft)
 "vm" = (
 /obj/machinery/door/airlock/grunge{
 	id_tag = "Cabin_1";
@@ -8535,7 +8557,8 @@
 /area/chapel/main)
 "vA" = (
 /obj/effect/turf_decal/monke/siding/wood,
-/obj/machinery/vending/wardrobe/chap_wardrobe,
+/obj/structure/table/wood/fancy,
+/obj/item/fakeartefact,
 /turf/open/floor/wood,
 /area/chapel/main)
 "vB" = (
@@ -9518,11 +9541,11 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
-	dir = 8
-	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
 	dir = 9
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+	dir = 10
 	},
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
@@ -9556,9 +9579,6 @@
 "yl" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/cargo)
@@ -11046,6 +11066,9 @@
 /area/engine/engineering)
 "BX" = (
 /obj/item/kirbyplants/random,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
 /turf/open/floor/plasteel,
 /area/security/brig)
 "BY" = (
@@ -13117,10 +13140,9 @@
 /turf/open/floor/plating,
 /area/quartermaster/storage)
 "Hc" = (
-/obj/structure/cable/yellow{
-	icon_state = "2-4"
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+	dir = 6
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
 "Hd" = (
@@ -13248,6 +13270,15 @@
 /obj/machinery/camera/autoname,
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
+"Hu" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
+/turf/open/floor/plating,
+/area/maintenance/department/cargo)
 "Hv" = (
 /obj/machinery/computer/atmos_control/tank/carbon_tank{
 	dir = 8
@@ -15256,11 +15287,10 @@
 /turf/open/floor/plasteel,
 /area/security/brig)
 "MC" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
 /obj/machinery/advanced_airlock_controller/directional/north,
-/obj/machinery/atmospherics/components/binary/dp_vent_pump/high_volume,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+	dir = 10
+	},
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
 "MD" = (
@@ -17450,6 +17480,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
 /turf/open/floor/engine/airless/light,
 /area/space/nearstation)
 "RV" = (
@@ -17588,14 +17621,20 @@
 /turf/closed/wall/r_wall,
 /area/engine/gravity_generator)
 "Ss" = (
+/obj/structure/lattice/catwalk,
 /obj/structure/cable/yellow{
-	icon_state = "2-4"
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
+/obj/structure/railing{
+	dir = 4
 	},
 /obj/structure/cable/yellow{
-	icon_state = "2-8"
+	icon_state = "1-8"
 	},
-/turf/open/floor/engine/airless/light,
-/area/space/nearstation)
+/turf/open/openspace,
+/area/maintenance/port/aft)
 "St" = (
 /obj/machinery/camera/autoname{
 	dir = 6
@@ -17757,10 +17796,11 @@
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/theatre)
 "SS" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
-	dir = 6
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
 	},
-/turf/closed/wall,
+/obj/machinery/atmospherics/components/binary/dp_vent_pump/high_volume,
+/turf/open/floor/plating,
 /area/maintenance/port/aft)
 "ST" = (
 /obj/machinery/airalarm/directional/north,
@@ -17901,11 +17941,11 @@
 /turf/open/floor/engine,
 /area/science/xenobiology)
 "Tl" = (
-/obj/machinery/atmospherics/pipe/layer_manifold{
+/obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/turf/closed/wall/r_wall,
-/area/engine/gravity_generator)
+/turf/open/floor/mineral/plastitanium/airless,
+/area/space/nearstation)
 "Tm" = (
 /obj/effect/turf_decal/tile/brown{
 	dir = 1
@@ -19006,6 +19046,9 @@
 "VV" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
 	},
 /turf/open/floor/plasteel,
 /area/security/brig)
@@ -113923,7 +113966,7 @@ SF
 SF
 uG
 uG
-Bx
+sb
 RC
 RC
 RC
@@ -114180,7 +114223,7 @@ La
 sB
 jS
 Rw
-Rw
+Ss
 Rw
 BZ
 zO
@@ -114688,10 +114731,10 @@ zO
 SF
 SF
 SF
-SS
+zO
 Hc
 yg
-SF
+vl
 zO
 Fb
 Fb
@@ -114945,10 +114988,10 @@ Sr
 Sr
 Sr
 Sr
-Tl
+ay
+xz
 Mc
 xz
-ay
 ay
 ay
 kN
@@ -115202,11 +115245,11 @@ fu
 fu
 fu
 fu
-sb
+ay
 MC
+SS
 Uw
 ay
-Ap
 Ud
 Ud
 Ud
@@ -115459,11 +115502,11 @@ fu
 fu
 fu
 fu
-Sr
+ay
+ay
 Xr
 ay
 ay
-Ap
 Ct
 XT
 XT
@@ -115717,9 +115760,9 @@ fu
 fu
 fu
 Sr
+Tl
 Qo
 dx
-Ap
 xJ
 Ud
 su
@@ -115974,7 +116017,7 @@ fu
 fu
 fu
 Sr
-Ss
+LI
 RU
 Bq
 Ud
@@ -116988,12 +117031,12 @@ rj
 rj
 Fz
 ww
-Wg
-ww
-ww
-ww
-fh
-mf
+Hu
+wF
+wF
+wF
+We
+dg
 qy
 SE
 Ud
@@ -117760,10 +117803,10 @@ rj
 Fz
 LD
 yl
-wF
-wF
-wF
-We
+ww
+ww
+ww
+fh
 bR
 gq
 gq
