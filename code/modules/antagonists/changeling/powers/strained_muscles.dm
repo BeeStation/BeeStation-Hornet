@@ -31,7 +31,7 @@
 
 /datum/action/changeling/strained_muscles/proc/muscle_loop(mob/living/carbon/user)
 	while(active)
-		user.add_movespeed_modifier(MOVESPEED_ID_CHANGELING_MUSCLES, update=TRUE, priority=100, multiplicative_slowdown=-1, blacklisted_movetypes=(FLYING|FLOATING))
+		user.add_movespeed_modifier(MOVESPEED_ID_CHANGELING_MUSCLES, update=TRUE, priority=100, multiplicative_slowdown=-0.5, blacklisted_movetypes=(FLYING|FLOATING))
 		if(user.stat != CONSCIOUS || user.staminaloss >= 90)
 			active = !active
 			to_chat(user, "<span class='notice'>Our muscles relax without the energy to strengthen them.</span>")
