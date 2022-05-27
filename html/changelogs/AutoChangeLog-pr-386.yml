@@ -1,0 +1,7 @@
+author: BetaCentari
+delete-after: true
+changes:
+  - rscadd: Added hissing, humming and clicking your tongue emotes
+  - rscadd: Added zap emote for ethereals
+  - code_imp: Added unique message option for insect-like mobs (moths, apids and flypeople)
+  - soundadd: Added a dialup sound for IPC players when they are revived
