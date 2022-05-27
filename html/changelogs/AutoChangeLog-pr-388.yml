@@ -1,0 +1,5 @@
+author: DoctorSquishy
+delete-after: true
+changes:
+  - bugfix: Fixes Stage Magician tele-gloves unintended teleport interaction with
+      pool ladders.
