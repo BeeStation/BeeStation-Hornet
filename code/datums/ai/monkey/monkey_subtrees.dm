@@ -54,7 +54,7 @@
 	if(selected_enemy || !DT_PROB(MONKEY_SHENANIGAN_PROB, delta_time))
 		return
 
-	if(world.time >= controller.blackboard[BB_MONKEY_NEXT_HUNGRY] && !IS_DEAD_OR_INCAP(living_pawn))
+	if(world.time >= controller.blackboard[BB_MONKEY_NEXT_HUNGRY])
 		var/list/food_candidates = list()
 		for(var/obj/item as anything in living_pawn.held_items)
 			if(!item || !controller.IsEdible(item))
