@@ -22,3 +22,13 @@
 	name = "Sneakers marisa"
 	icon_file = 'monkestation/icons/mob/species/simian/simian_shoes.dmi'
 	json_config = 'code/datums/greyscale/json_configs/sneakers_marisa.json'
+
+/datum/greyscale_config/catgloves
+	name = "Catgloves"
+	icon_file = 'monkestation/icons/obj/clothing/catgloves.dmi'
+	json_config = 'code/datums/greyscale/json_configs/catgloves.json'
+
+/datum/greyscale_config/catgloves_worn
+	name = "Catgloves Worn"
+	icon_file = 'monkestation/icons/mob/catgloves.dmi'
+	json_config = 'code/datums/greyscale/json_configs/catgloves_worn.json'
