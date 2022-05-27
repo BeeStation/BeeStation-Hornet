@@ -122,7 +122,7 @@
 		ResetModule()
 		return
 
-	SetEmagged(1)
+	SetEmagged(TRUE)
 	SetStun(60) //Borgs were getting into trouble because they would attack the emagger before the new laws were shown
 	lawupdate = FALSE
 	connected_ai = null

@@ -14,7 +14,7 @@
 	if(!istype(R))
 		return
 	if(isAI(user))
-		if(R.connected_ai != user)
+		if(R.emagged == TRUE)
 			return
 	if(iscyborg(user))
 		if(R != user)
