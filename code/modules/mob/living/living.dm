@@ -635,7 +635,7 @@
 			lying = 270
 		update_transform()
 		lying_prev = lying
-	if (buckled) //not updating position
+	if (buckled) //if the mob is buckled to something, tell it we moved.
 		return buckled.relaymove(src, direct)
 
 	var/old_direction = dir
