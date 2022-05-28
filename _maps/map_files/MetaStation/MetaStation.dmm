@@ -25427,6 +25427,16 @@
 	},
 /turf/open/floor/wood,
 /area/vacant_room/office)
+"bJv" = (
+/obj/effect/turf_decal/tile/green,
+/obj/effect/turf_decal/tile/green{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/green{
+	dir = 1
+	},
+/turf/open/floor/plasteel/white,
+/area/medical/virology)
 "bJw" = (
 /obj/structure/chair/office{
 	dir = 8
@@ -40261,7 +40271,7 @@
 "cDL" = (
 /obj/structure/lattice,
 /turf/closed/wall/r_wall,
-/area/maintenance/port/aft)
+/area/medical/virology)
 "cDM" = (
 /obj/structure/disposalpipe/segment{
 	dir = 9
@@ -48561,8 +48571,24 @@
 /turf/open/floor/plasteel/white/corner,
 /area/hallway/secondary/entry)
 "dzK" = (
-/turf/closed/wall/r_wall,
-/area/maintenance/port/aft)
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/effect/turf_decal/tile/green{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/green{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/green{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/green,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/machinery/airalarm/directional/east,
+/turf/open/floor/plasteel/white,
+/area/medical/virology)
 "dzL" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -49345,16 +49371,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/security/brig)
-"dIC" = (
-/obj/effect/turf_decal/tile/green,
-/obj/effect/turf_decal/tile/green{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/green{
-	dir = 1
-	},
-/turf/open/floor/plasteel/white,
-/area/medical/virology)
 "dIM" = (
 /obj/structure/closet/wardrobe/black,
 /obj/effect/turf_decal/tile/neutral{
@@ -50691,22 +50707,6 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/plasteel/white/corner,
 /area/hallway/secondary/entry)
-"eBc" = (
-/obj/effect/turf_decal/tile/green{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/green{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/green,
-/turf/open/floor/plasteel/white,
-/area/medical/virology)
 "eBF" = (
 /obj/effect/landmark/start/security_officer,
 /obj/effect/turf_decal/tile/red{
@@ -51220,25 +51220,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/storage/primary)
-"eTr" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/effect/turf_decal/tile/green{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/green{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/green{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/green,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/machinery/airalarm/directional/east,
-/turf/open/floor/plasteel/white,
-/area/medical/virology)
 "eTI" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -52534,6 +52515,22 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
+"fHI" = (
+/obj/effect/turf_decal/tile/green{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/green{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/green,
+/turf/open/floor/plasteel/white,
+/area/medical/virology)
 "fHW" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -54234,6 +54231,16 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/science/mixing)
+"gBf" = (
+/obj/effect/turf_decal/tile/green,
+/obj/effect/turf_decal/tile/green{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/green{
+	dir = 4
+	},
+/turf/open/floor/plasteel/white,
+/area/medical/virology)
 "gBh" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Security Maintenance";
@@ -72955,16 +72962,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/fore)
-"scf" = (
-/obj/effect/turf_decal/tile/green,
-/obj/effect/turf_decal/tile/green{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/green{
-	dir = 4
-	},
-/turf/open/floor/plasteel/white,
-/area/medical/virology)
 "scl" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -101180,14 +101177,14 @@ dux
 bXE
 bXE
 dBO
-dzK
-dzK
-dzK
-dzK
-dzK
-dzK
-dzK
-dzK
+cBR
+cBR
+cBR
+cBR
+cBR
+cBR
+cBR
+cBR
 auv
 cJh
 bXE
@@ -101690,10 +101687,10 @@ dux
 bXE
 dBO
 bXE
-dzK
-dzK
+cBR
+cBR
 cDL
-dzK
+cBR
 cBR
 cDG
 cEJ
@@ -102204,7 +102201,7 @@ huL
 cKj
 cEM
 cIv
-eTr
+dzK
 cLO
 cLS
 cGq
@@ -102468,11 +102465,11 @@ sRL
 xOG
 xOG
 xOG
-dzK
-dzK
-dzK
-dzK
-dzK
+cBR
+cBR
+cBR
+cBR
+cBR
 dux
 dux
 dux
@@ -102725,7 +102722,7 @@ cKf
 cMv
 cKe
 cDA
-dzK
+cBR
 bXE
 cGH
 cMA
@@ -102982,7 +102979,7 @@ cKf
 cHn
 cKe
 cDA
-dzK
+cBR
 bXE
 bXE
 bXE
@@ -103234,12 +103231,12 @@ bFt
 xOG
 cIt
 cwn
-eBc
-scf
+fHI
+gBf
 cMv
 cKe
 cDA
-dzK
+cBR
 bXE
 bXE
 bXE
@@ -103496,7 +103493,7 @@ cFM
 xOG
 cBR
 cBR
-dzK
+cBR
 bXE
 bXE
 bXE
@@ -103749,7 +103746,7 @@ xOG
 dvq
 jdV
 css
-dIC
+bJv
 dvq
 cBR
 cBS
