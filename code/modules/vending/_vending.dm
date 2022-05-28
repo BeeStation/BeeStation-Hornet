@@ -54,6 +54,7 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 	integrity_failure = 100
 	armor = list("melee" = 20, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 70, "stamina" = 0)
 	circuit = /obj/item/circuitboard/machine/vendor
+	clicksound = 'sound/machines/pda_button1.ogg'
 	payment_department = ACCOUNT_SRV
 
 	light_color = LIGHT_COLOR_BLUE
@@ -788,8 +789,12 @@ GLOBAL_LIST_EMPTY(vending_products)
 			if(icon_vend) //Show the vending animation if needed
 				flick(icon_vend,src)
 			playsound(src, 'sound/machines/machine_vend.ogg', 50, TRUE, extrarange = -3)
-			new R.product_path(get_turf(src))
+			var/obj/item/vended_item = new R.product_path(get_turf(src))
 			R.amount--
+			if(usr.CanReach(src) && usr.put_in_hands(vended_item))
+				to_chat(usr, "<span class='notice'>You take [R.name] out of the slot.</span>")
+			else
+				to_chat(usr, "<span class='warning'>[capitalize(R.name)] falls onto the floor!</span>")
 			. = TRUE
 			SSblackbox.record_feedback("nested tally", "vending_machine_usage", 1, list("[type]", "[R.product_path]"))
 			vend_ready = TRUE
@@ -853,7 +858,7 @@ GLOBAL_LIST_EMPTY(vending_products)
 /obj/machinery/vending/proc/throw_item()
 	var/obj/throw_item = null
 	var/mob/living/target = locate() in view(7,src)
-	if(!target)
+	if(!target || target.incorporeal_move >= INCORPOREAL_MOVE_BASIC)
 		return 0
 
 	for(var/datum/data/vending_product/R in shuffle(product_records))

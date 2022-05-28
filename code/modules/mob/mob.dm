@@ -118,6 +118,7 @@
 			else
 				var/image/I = image('icons/mob/hud.dmi', src, "")
 				I.appearance_flags = RESET_COLOR|RESET_TRANSFORM
+				I.plane = DATA_HUD_PLANE
 				hud_list[hud] = I
 
 /**
@@ -943,7 +944,7 @@
   * Turns you to face the other mob too
   */
 /mob/buckle_mob(mob/living/M, force = FALSE, check_loc = TRUE)
-	if(M.buckled)
+	if(M.buckled && !force)
 		return FALSE
 	var/turf/T = get_turf(src)
 	if(M.loc != T)

@@ -18,7 +18,8 @@
 		/obj/item/storage/box/rxglasses = 1,
 		/obj/item/stack/ducts/fifty = 4,
 		/obj/item/construction/plumbing = 2,
-		/obj/item/plunger = 2)
+		/obj/item/plunger = 2,
+		/obj/item/rcd_ammo = 4)
 	generate_items_inside(items_inside,src)
 
 /obj/structure/closet/secure_closet/medical2
@@ -79,6 +80,7 @@
 
 /obj/structure/closet/secure_closet/CMO/PopulateContents()
 	..()
+	new /obj/item/gun/energy/e_gun/mini/heads(src)
 	new /obj/item/clothing/head/beret/cmo(src)
 	new /obj/item/clothing/neck/cloak/cmo(src)
 	new /obj/item/storage/backpack/duffelbag/med(src)
@@ -139,6 +141,8 @@
 	new /obj/item/construction/plumbing(src)
 	new	/obj/item/plunger(src)
 	new	/obj/item/plunger(src)
+	new /obj/item/rcd_ammo(src)
+	new /obj/item/rcd_ammo(src)
 
 /obj/structure/closet/secure_closet/chemical/heisenberg //contains one of each beaker, syringe etc.
 	name = "advanced chemical closet"
