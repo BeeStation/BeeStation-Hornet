@@ -69,8 +69,6 @@ TIMER_SUBSYSTEM_DEF(runechat)
 /datum/controller/subsystem/timer/runechat/proc/add_new_character_for_client(client/actor, character)
 	set waitfor = FALSE
 
-	if(!actor)
-		return
 	var/ckey = actor.ckey
 
 	//We're already initializing the list for this user or it wasn't yet initialized
@@ -86,7 +84,7 @@ TIMER_SUBSYSTEM_DEF(runechat)
 	while(initialize_tokens[ckey] > 0)
 		sleep(world.tick_lag)
 
-	for(var/value in letters[ckey][character])
+	for(!C || values.Find(null))
 		//We failed, client logged out mid measuring
 		if(isnull(value))
 			letters[ckey] = null
