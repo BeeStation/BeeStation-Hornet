@@ -1,9 +1,0 @@
-author: DoctorSquishy, lordScrubling, Ghilker, nicbn
-delete-after: true
-changes:
-  - rscadd: atmospherics now has 2 additional layers; excludes HE pipes
-  - rscadd: multi-z adapters can now be placed with RPDs
-  - tweak: layer manifold has its volume increased from 280L to 350 to compensate
-      for increase in layers
-  - tweak: Heat Exchange pipes are slightly lighter to improve contrast on space background
-  - bugfix: Monkey Mapper icon state
