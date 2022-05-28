@@ -69,8 +69,8 @@ TIMER_SUBSYSTEM_DEF(runechat)
 /datum/controller/subsystem/timer/runechat/proc/add_new_character_for_client(client/actor, character)
 	set waitfor = FALSE
 
-	//We're already initializing the list for this user
-	if(initialize_tokens[actor.ckey] != null)
+	//We're already initializing the list for this user or it wasn't yet initialized
+	if(initialize_tokens[actor.ckey] != null || letters[actor.ckey] == null)
 		return
 
 	initialize_tokens[actor.ckey] = 3

@@ -46,12 +46,15 @@
 		"&" = null,\
 		"*" = null,\
 		"%" = null,\
+		"#" = null,\
 		"^" = null,\
 		"{" = null,\
 		"}" = null,\
 		"|" = null,\
 		"~" = null,\
 		"`" = null,\
+		"[" = null,\
+		"]" = null,\
 		"A" = null,\
 		"B" = null,\
 		"C" = null,\
@@ -104,5 +107,15 @@
 		"x" = null,\
 		"y" = null,\
 		"z" = null,\
+		"0" = null,\
+		"1" = null,\
+		"2" = null,\
+		"3" = null,\
+		"4" = null,\
+		"5" = null,\
+		"6" = null,\
+		"7" = null,\
+		"8" = null,\
+		"9" = null,\
 		MAX_CHAR_WIDTH = list(0, 0, 0)\
 	)
