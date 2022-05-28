@@ -84,7 +84,8 @@ TIMER_SUBSYSTEM_DEF(runechat)
 	while(initialize_tokens[ckey] > 0)
 		sleep(world.tick_lag)
 
-	if(!actor || letters[ckey][character].Find(null))
+	var/list/values = letters[ckey][character]
+	if(!actor || values.Find(null))
 		//We failed, client logged out mid measuring
 		letters[ckey] = null
 
