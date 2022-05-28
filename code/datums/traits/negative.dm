@@ -671,3 +671,18 @@
 /datum/quirk/phobia/remove()
 	var/mob/living/carbon/human/H = quirk_holder
 	H.cure_trauma_type(/datum/brain_trauma/mild/phobia, TRAUMA_RESILIENCE_ABSOLUTE)
+
+/datum/quirk/british
+	name = "British"
+	desc = "You're British"
+	value = -1
+	gain_text = "<span class='danger'>You are now British.</span>"
+	lose_text = "<span class='notice'>You are no longer British.</span>"
+	medical_record_text = "Patient suffers from being British"
+
+/datum/quirk/british/add()
+	var/mob/living/carbon/H = quirk_holder
+	if(!H.has_dna())
+		return
+	H.dna.add_mutation(CHAV)
+
