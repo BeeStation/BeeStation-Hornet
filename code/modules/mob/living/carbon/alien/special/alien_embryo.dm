@@ -8,7 +8,7 @@
 	var/bursting = FALSE
 
 /obj/item/organ/body_egg/alien_embryo/on_find(mob/living/finder)
-	..()
+	. = ..()
 	if(stage < 4)
 		to_chat(finder, "It's small and weak, barely the size of a foetus.")
 	else
