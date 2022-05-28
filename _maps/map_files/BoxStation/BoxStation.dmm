@@ -33419,7 +33419,6 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/mob/living/simple_animal/pet/hamster/vector,
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
 "eZS" = (
@@ -35832,9 +35831,6 @@
 	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
-	},
-/obj{
-	name = "---Merge conflict marker---"
 	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
@@ -55678,6 +55674,7 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
 	},
+/mob/living/simple_animal/pet/hamster/vector,
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
 "tHx" = (
@@ -59592,6 +59589,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
 /turf/open/floor/plating,
 /area/medical/virology)
 "wGO" = (
@@ -61331,6 +61331,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 5
 	},
+/obj/structure/bed/dogbed/vector,
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
 "xKU" = (

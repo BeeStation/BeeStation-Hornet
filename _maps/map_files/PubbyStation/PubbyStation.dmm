@@ -71,6 +71,12 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 10
 	},
+/obj/effect/turf_decal/tile/green{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/green{
+	dir = 4
+	},
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
 "aar" = (
@@ -329,6 +335,9 @@
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
 	},
 /turf/open/floor/plating,
 /area/medical/virology)
@@ -21833,6 +21842,11 @@
 	c_tag = "Cargo Mailroom";
 	dir = 8
 	},
+/obj/item/radio/intercom{
+	frequency = 1485;
+	name = "Station Intercom (Medbay)";
+	pixel_x = 28
+	},
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
 "bEv" = (
@@ -24446,6 +24460,9 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/green{
 	dir = 4
 	},
 /turf/open/floor/plasteel/white,
@@ -33624,9 +33641,6 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4,
-/obj{
-	name = "---Merge conflict marker---"
-	},
 /turf/open/floor/plasteel/white,
 /area/medical/genetics)
 "dFR" = (
@@ -33916,6 +33930,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/delivery,
+/obj/effect/turf_decal/tile/green,
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
 "dQI" = (
@@ -34073,17 +34088,8 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj{
-	name = "---Merge conflict marker---"
-	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
-	},
-/obj/effect/turf_decal/tile/purple{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/purple{
-	dir = 4
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 5
@@ -40128,7 +40134,6 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
 "hLC" = (
-/mob/living/simple_animal/pet/hamster/vector,
 /obj/effect/turf_decal/tile/green{
 	dir = 8
 	},
@@ -40486,34 +40491,22 @@
 /turf/open/floor/plating,
 /area/maintenance/department/engine)
 "hVZ" = (
-/obj/item/radio/intercom{
-	frequency = 1485;
-	name = "Station Intercom (Medbay)";
-	pixel_x = 28
-	},
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 11
-	},
-/obj/effect/turf_decal/tile/green{
-	dir = 4
-	},
-/obj/item/radio/intercom{
-	frequency = 1485;
-	name = "Station Intercom (Medbay)";
-	pixel_x = 28
-	},
-/obj/structure/curtain{
-	layer = 4.5
-	},
-/obj/item/bedsheet/medical,
-/obj/structure/bed,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/effect/turf_decal/tile/green,
-/obj/effect/turf_decal/delivery,
-/turf/open/floor/plasteel/white,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/arrows/red{
+	dir = 4;
+	icon_state = "arrows_red"
+	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "quarantineshutters";
+	name = "isolation shutters"
+	},
+/turf/open/floor/plasteel,
 /area/medical/virology)
 "hXh" = (
 /obj/machinery/door/window/southleft{
@@ -41101,6 +41094,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 10
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
 	},
 /turf/open/floor/plating,
 /area/medical/virology)
@@ -42764,32 +42760,14 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj{
-	name = "---Merge conflict marker---"
-	},
 /obj/machinery/door/airlock/research/glass{
 	name = "Genetics";
 	req_access_txt = "9"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/line,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
 	},
 /obj/machinery/door/firedoor,
 /obj/structure/disposalpipe/segment,
@@ -46925,19 +46903,19 @@
 /turf/open/floor/engine,
 /area/engine/engineering)
 "meW" = (
-/obj/effect/turf_decal/tile/green{
+/obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/structure/curtain{
-	layer = 4.5
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/arrows/red{
+	dir = 8;
+	icon_state = "arrows_red"
 	},
-/obj/item/bedsheet/medical,
-/obj/structure/bed,
-/obj/effect/turf_decal/tile/green{
-	dir = 8
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "quarantineshutters";
+	name = "isolation shutters"
 	},
-/obj/effect/turf_decal/delivery,
-/turf/open/floor/plasteel/white,
+/turf/open/floor/plasteel,
 /area/medical/virology)
 "meY" = (
 /obj/effect/spawner/structure/window/reinforced,
@@ -48162,6 +48140,9 @@
 /obj/effect/turf_decal/delivery,
 /obj/item/bedsheet/medical,
 /obj/structure/bed,
+/obj/effect/turf_decal/tile/green{
+	dir = 8
+	},
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
 "mYD" = (
@@ -51249,9 +51230,6 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 1
 	},
-/obj{
-	name = "---Merge conflict marker---"
-	},
 /turf/open/floor/plasteel/white,
 /area/medical/genetics)
 "pbD" = (
@@ -51432,9 +51410,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj{
-	name = "---Merge conflict marker---"
-	},
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
 	},
@@ -53061,9 +53036,6 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
 	},
-/obj{
-	name = "---Merge conflict marker---"
-	},
 /obj/machinery/requests_console{
 	department = "Genetics";
 	departmentType = 0;
@@ -53266,6 +53238,9 @@
 	icon_state = "1-2"
 	},
 /obj/structure/cable/yellow,
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
 /turf/open/floor/plating,
 /area/medical/virology)
 "qmy" = (
@@ -58241,9 +58216,6 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 4
 	},
-/obj{
-	name = "---Merge conflict marker---"
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
@@ -59463,6 +59435,9 @@
 	dir = 8;
 	level = 2
 	},
+/obj/effect/turf_decal/tile/green{
+	dir = 1
+	},
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
 "uJB" = (
@@ -60585,6 +60560,14 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
+"vBs" = (
+/obj/effect/turf_decal/tile/green{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/green,
+/mob/living/simple_animal/pet/hamster/vector,
+/turf/open/floor/plasteel/white,
+/area/medical/virology)
 "vBw" = (
 /obj/machinery/door/airlock/maintenance,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
@@ -61288,8 +61271,16 @@
 /turf/open/floor/plasteel,
 /area/crew_quarters/fitness/recreation)
 "waP" = (
-/mob/living/simple_animal/pet/hamster/vector,
-/turf/open/floor/plasteel/white,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/caution/stand_clear/red,
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "quarantineshutters";
+	name = "isolation shutters"
+	},
+/turf/open/floor/plasteel,
 /area/medical/virology)
 "wbg" = (
 /obj/structure/cable/yellow{
@@ -90338,7 +90329,7 @@ lca
 bAX
 sSe
 bGW
-bGW
+vBs
 waP
 aao
 rSz

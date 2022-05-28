@@ -36445,6 +36445,9 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
+/obj/effect/turf_decal/tile/green{
+	dir = 8
+	},
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
 "cst" = (
@@ -40872,16 +40875,25 @@
 /area/medical/virology)
 "cFM" = (
 /obj/machinery/firealarm/directional/south,
-/obj/effect/turf_decal/tile/green,
-/obj/effect/turf_decal/tile/green{
-	dir = 8
-	},
 /obj/machinery/camera{
 	c_tag = "Medbay Break Room";
 	dir = 1;
 	network = list("ss13","medbay")
 	},
-/turf/open/floor/plasteel/white,
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "quarantineshutters";
+	name = "isolation shutters"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/caution/stand_clear/red{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
 /area/medical/virology)
 "cFN" = (
 /obj/structure/disposalpipe/segment{
@@ -41072,7 +41084,6 @@
 	dir = 4
 	},
 /obj/machinery/light,
-/mob/living/simple_animal/pet/hamster/vector,
 /turf/open/floor/plasteel,
 /area/medical/virology)
 "cGv" = (
@@ -41274,6 +41285,8 @@
 /area/medical/virology)
 "cHr" = (
 /obj/machinery/airalarm/directional/north,
+/obj/structure/bed/dogbed/vector,
+/mob/living/simple_animal/pet/hamster/vector,
 /turf/open/floor/plasteel,
 /area/medical/virology)
 "cHt" = (
@@ -42576,22 +42589,26 @@
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
 "cMy" = (
-/obj/effect/turf_decal/tile/green{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/green{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
-/obj/machinery/light{
-	dir = 1
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "quarantineshutters";
+	name = "isolation shutters"
 	},
-/turf/open/floor/plasteel/white,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/caution/stand_clear/red{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
 /area/medical/virology)
 "cMA" = (
 /obj/effect/decal/cleanable/blood/old,
@@ -49328,6 +49345,16 @@
 	},
 /turf/open/floor/plasteel,
 /area/security/brig)
+"dIC" = (
+/obj/effect/turf_decal/tile/green,
+/obj/effect/turf_decal/tile/green{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/green{
+	dir = 1
+	},
+/turf/open/floor/plasteel/white,
+/area/medical/virology)
 "dIM" = (
 /obj/structure/closet/wardrobe/black,
 /obj/effect/turf_decal/tile/neutral{
@@ -50664,6 +50691,22 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/plasteel/white/corner,
 /area/hallway/secondary/entry)
+"eBc" = (
+/obj/effect/turf_decal/tile/green{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/green{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/green,
+/turf/open/floor/plasteel/white,
+/area/medical/virology)
 "eBF" = (
 /obj/effect/landmark/start/security_officer,
 /obj/effect/turf_decal/tile/red{
@@ -51177,6 +51220,25 @@
 	},
 /turf/open/floor/plasteel,
 /area/storage/primary)
+"eTr" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/effect/turf_decal/tile/green{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/green{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/green{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/green,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/machinery/airalarm/directional/east,
+/turf/open/floor/plasteel/white,
+/area/medical/virology)
 "eTI" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -58324,7 +58386,6 @@
 /turf/open/space/basic,
 /area/space)
 "jdV" = (
-/obj/machinery/airalarm/directional/west,
 /obj/effect/turf_decal/tile/green{
 	dir = 1
 	},
@@ -58332,6 +58393,9 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/green{
+	dir = 8
+	},
+/obj/machinery/light{
 	dir = 8
 	},
 /turf/open/floor/plasteel/white,
@@ -72891,6 +72955,16 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/fore)
+"scf" = (
+/obj/effect/turf_decal/tile/green,
+/obj/effect/turf_decal/tile/green{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/green{
+	dir = 4
+	},
+/turf/open/floor/plasteel/white,
+/area/medical/virology)
 "scl" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -102130,7 +102204,7 @@ huL
 cKj
 cEM
 cIv
-cLO
+eTr
 cLO
 cLS
 cGq
@@ -103160,8 +103234,8 @@ bFt
 xOG
 cIt
 cwn
-iuV
-cKf
+eBc
+scf
 cMv
 cKe
 cDA
@@ -103675,7 +103749,7 @@ xOG
 dvq
 jdV
 css
-cKf
+dIC
 dvq
 cBR
 cBS

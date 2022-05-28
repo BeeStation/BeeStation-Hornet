@@ -1254,6 +1254,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
 /turf/open/floor/plating,
 /area/medical/virology)
 "adW" = (
@@ -1618,6 +1621,9 @@
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
 	},
 /turf/open/floor/plating,
 /area/medical/virology)
@@ -67955,7 +67961,6 @@
 /turf/closed/wall/r_wall,
 /area/medical/surgery)
 "dVA" = (
-/mob/living/simple_animal/pet/hamster/vector,
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 8;
 	level = 2
@@ -68933,6 +68938,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
+/obj/structure/bed/dogbed/vector,
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
 "dZe" = (
@@ -104203,6 +104209,20 @@
 "saw" = (
 /turf/closed/wall/r_wall,
 /area/science/misc_lab/range)
+"saH" = (
+/obj/effect/turf_decal/tile/green,
+/obj/effect/turf_decal/tile/green{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/green{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/green{
+	dir = 4
+	},
+/mob/living/simple_animal/pet/hamster/vector,
+/turf/open/floor/plasteel/white,
+/area/medical/virology)
 "saN" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
@@ -109744,6 +109764,9 @@
 	dir = 4
 	},
 /obj/effect/spawner/structure/window/reinforced,
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
 /turf/open/floor/plating,
 /area/medical/virology)
 "uDX" = (
@@ -166112,7 +166135,7 @@ dPr
 dPr
 aeH
 eby
-adN
+saH
 dQj
 dXY
 dTi
