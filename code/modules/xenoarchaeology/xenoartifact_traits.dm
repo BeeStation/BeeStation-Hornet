@@ -364,6 +364,8 @@
 	else if(X.obj_integrity <= 0)
 		X.visible_message("<span class='danger'>The [X.name] shatters!</span>")
 		to_chat(user, "<span class='danger'>The [X.name] shatters!</span>")
+		var/obj/effect/decal/cleanable/ash/A = new(get_turf(X))
+		A.color = X.material
 		qdel(X)
 
 /datum/xenoartifact_trait/minor/aura
@@ -637,7 +639,6 @@
 	for(var/M in 1 to victims.len-1)
 		H = victims[M]
 		C = victims[M+1]
-		xenoa.say("[H] [C]")
 		if(!istype(H, /mob/living/simple_animal/pet/dog/corgi))
 			transform_back(xenoa, H, C)
 
@@ -941,13 +942,12 @@
 	label_desc = "Organic Extrusion Exclusion: A strange malfunction that causes the Artifact to sever any extruding organic matter on a given user."
 
 /datum/xenoartifact_trait/malfunction/limbdenier/activate(obj/item/xenoartifact/X, atom/target, atom/user) //Borrowed from self_amputation
-	var/list/parts = list()
 	if(istype(target, /mob/living/carbon))
+		var/list/parts = list()
 		var/mob/living/carbon/victim = target
 		for(var/obj/item/bodypart/BP as() in victim.bodyparts)
-			if(BP.body_part != HEAD && BP.body_part != CHEST)
-				if(BP.dismemberable)
-					parts += BP
+			if(BP.body_part != HEAD && BP.body_part != CHEST && BP.dismemberable)
+				parts += BP
 		if(parts.len)
 			var/obj/item/bodypart/BP = pick(parts)
 			BP.dismember()

@@ -190,17 +190,17 @@
 			malfunction_chance += malfunction_mod + (malfunction_chance < 100 ? malfunction_chance : 0)  //otherwise increase chance. Increasing above 99 fucks with it, deletes source
 
 		charge += charge_mod
-		for(var/datum/xenoartifact_trait/t as() in traits)//Minor & malfunction traits aren't apart of the target loop
-			if(!istype(t, /datum/xenoartifact_trait/major))
-				t?.activate(src, user, user)
-				log_game("[src] activated [istype(t, /datum/xenoartifact_trait/malfunction) ? "malfunction" : "minor"] trait [t] at [world.time]. Located at [x] [y] [z]")
-		charge = (charge+charge_req)/1.9 //Not quite an average. Generally produces better results.     
+		for(var/datum/xenoartifact_trait/minor/t in traits)//Minor & malfunction traits aren't apart of the target loop
+			t?.activate(src, user, user)
+			log_game("[src] activated minor trait [t] at [world.time]. Located at [x] [y] [z]")
+		charge = (charge+charge_req)/1.9 //Not quite an average. Generally produces better results.   
 		for(var/atom/M in true_target) //target loop
 			if(get_dist(get_turf(src), get_turf(M)) <= max_range) 
 				create_beam(M) //Indicator beam, points to target, M
-				for(var/datum/xenoartifact_trait/major/t as() in traits) //Major traits
-					log_game("[src] activated major trait [t] at [world.time]. Located at [x] [y] [z]")
-					t.activate(src, M, user)
+				for(var/datum/xenoartifact_trait/t as() in traits) //Major traits
+					if(istype(t, /datum/xenoartifact_trait/major) || istype(t, /datum/xenoartifact_trait/malfunction))
+						log_game("[src] activated major trait [t] at [world.time]. Located at [x] [y] [z]")
+						t.activate(src, M, user)
 				if(!(get_trait(/datum/xenoartifact_trait/minor/aura))) //Quick fix for bug that selects multiple targets for noraisin
 					break
 		COOLDOWN_START(src, xenoa_cooldown, cooldown+cooldownmod)
@@ -226,11 +226,11 @@
 
 	special_desc = desc_holder ? "[special_desc] [initial(desc_holder.desc)] material." : "[special_desc] material"
 
-	desc_holder = generate_trait_unique(XENOA_MAJORS, blacklist_traits, FALSE) //Major
-	special_desc = initial(desc_holder.desc) ? "[special_desc] The shape is [initial(desc_holder.desc)]." : special_desc
-
 	if(malf)
 		generate_trait_unique(XENOA_MALFS, blacklist_traits) //Malf
+
+	desc_holder = generate_trait_unique(XENOA_MAJORS, blacklist_traits, FALSE) //Major
+	special_desc = initial(desc_holder.desc) ? "[special_desc] The shape is [initial(desc_holder.desc)]." : special_desc
 
 	charge_req = rand(1, 10) * 10
 
@@ -304,7 +304,7 @@
 	if(!COOLDOWN_FINISHED(src, xenoa_cooldown))
 		return FALSE
 	charge = chr
-	true_target = !(locate(target) in true_target) ? true_target+process_target(target) : true_target
+	true_target |= target
 	check_charge(user)
 	return TRUE
 
