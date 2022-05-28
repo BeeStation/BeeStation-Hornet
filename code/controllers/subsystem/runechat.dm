@@ -69,25 +69,29 @@ TIMER_SUBSYSTEM_DEF(runechat)
 /datum/controller/subsystem/timer/runechat/proc/add_new_character_for_client(client/actor, character)
 	set waitfor = FALSE
 
+	if(!actor)
+		return
+	var/ckey = actor.ckey
+
 	//We're already initializing the list for this user or it wasn't yet initialized
-	if(initialize_tokens[actor.ckey] != null || letters[actor.ckey] == null)
+	if(initialize_tokens[ckey] != null || letters[ckey] == null)
 		return
 
-	initialize_tokens[actor.ckey] = 3
-	letters[actor.ckey][character] = list(null, null, null)
+	initialize_tokens[ckey] = 3
+	letters[ckey][character] = list(null, null, null)
 	handle_single_letter(character, actor, NORMAL_FONT_INDEX)
 	handle_single_letter(character, actor, SMALL_FONT_INDEX)
 	handle_single_letter(character, actor, BIG_FONT_INDEX)
 
-	while(initialize_tokens[actor.ckey] > 0)
+	while(initialize_tokens[ckey] > 0)
 		sleep(world.tick_lag)
 
-	for(var/value in letters[actor.ckey][character])
+	for(var/value in letters[ckey][character])
 		//We failed, client logged out mid measuring
 		if(isnull(value))
-			letters[actor.ckey] = null
+			letters[ckey] = null
 
-	initialize_tokens[actor.ckey] = null
+	initialize_tokens[ckey] = null
 
 /datum/controller/subsystem/timer/runechat/proc/handle_single_letter(letter, client/measured_client, font_index)
 	set waitfor = FALSE
