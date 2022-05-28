@@ -15,7 +15,7 @@ TIMER_SUBSYSTEM_DEF(runechat)
 		init_runechat_list(client)
 
 /datum/controller/subsystem/timer/runechat/proc/preinit_runechat_list(client/actor)
-	if(SSrunechat.letters[actor.ckey] == null)
+	if(!SSrunechat.letters[actor.ckey])
 		init_runechat_list(actor)
 	else
 		init_additional_letters(actor)
@@ -84,7 +84,7 @@ TIMER_SUBSYSTEM_DEF(runechat)
 	while(initialize_tokens[ckey] > 0)
 		sleep(world.tick_lag)
 
-	for(!C || values.Find(null))
+	for(!actor || values.Find(null))
 		//We failed, client logged out mid measuring
 		if(isnull(value))
 			letters[ckey] = null
