@@ -59,6 +59,7 @@
 			module = R.module ? "[R.module.name] Module" : "No Module Detected",
 			synchronization = R.connected_ai,
 			emagged =  R.emagged,
+			can_user_act = R.connected_ai == user || !isAI(user),
 			ref = REF(R)
 		)
 		data["cyborgs"] += list(cyborg_data)
