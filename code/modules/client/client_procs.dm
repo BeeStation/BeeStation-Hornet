@@ -461,8 +461,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	mob.UpdateMobStat(TRUE)
 
 	//Initialize runechat letter cache for this client
-	if(SSrunechat.letters[ckey] == null)
-		SSrunechat.init_runechat_list(src)
+	SSrunechat.preinit_runechat_list(src)
 
 /client/proc/time_to_redirect()
 	var/redirect_address = CONFIG_GET(string/redirect_address)

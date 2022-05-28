@@ -16,6 +16,12 @@ TIMER_SUBSYSTEM_DEF(runechat)
 	for(var/client/client in GLOB.clients)
 		init_runechat_list(client)
 
+/datum/controller/subsystem/timer/runechat/proc/preinit_runechat_list(client/actor)
+	if(SSrunechat.letters[actor.ckey] == null)
+		init_runechat_list(actor)
+	else
+		init_additional_letters(actor)
+
 /datum/controller/subsystem/timer/runechat/proc/init_runechat_list(client/actor)
 	has_client = TRUE
 
@@ -48,6 +54,18 @@ TIMER_SUBSYSTEM_DEF(runechat)
 	UnregisterSignal(actor, COMSIG_PARENT_QDELETING)
 	initialize_tokens[actor.ckey] = null
 	has_client = FALSE
+
+/datum/controller/subsystem/timer/runechat/proc/init_additional_letters(client/actor)
+	var/ckey = actor.ckey
+
+	for(var/key in additional_letters)
+		if(length(letters[ckey][key]) == 3 && !letters[ckey][key].Find(null))
+			continue
+		message_admins("Letter [key] not found!!!")
+		letters[ckey][key] = list(null, null, null)
+		handle_single_letter(key, actor, NORMAL_FONT_INDEX)
+		handle_single_letter(key, actor, SMALL_FONT_INDEX)
+		handle_single_letter(key, actor, BIG_FONT_INDEX)
 
 /// If the character is not found in precoded list, it'll be calculated for each client and added to their respective list
 /datum/controller/subsystem/timer/runechat/proc/add_new_character_globally(character)
