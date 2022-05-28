@@ -535,7 +535,7 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 	else
 		message_loc = get_atom_on_turf(target)
 
-	approx_lines = CEILING(approx_str_width(text, DEFAULT_FONT_SIZE, FALSE, owned_by.ckey) / CHAT_MESSAGE_WIDTH, 1)
+	approx_lines = CEILING(approx_str_width(text, DEFAULT_FONT_SIZE, FALSE, FALSE, owned_by.ckey) / CHAT_MESSAGE_WIDTH, 1)
 
 	// Build message image
 	message = image(loc = message_loc, layer = CHAT_LAYER)
