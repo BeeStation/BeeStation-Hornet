@@ -25427,16 +25427,6 @@
 	},
 /turf/open/floor/wood,
 /area/vacant_room/office)
-"bJv" = (
-/obj/effect/turf_decal/tile/green,
-/obj/effect/turf_decal/tile/green{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/green{
-	dir = 1
-	},
-/turf/open/floor/plasteel/white,
-/area/medical/virology)
 "bJw" = (
 /obj/structure/chair/office{
 	dir = 8
@@ -37903,7 +37893,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
-/turf/open/floor/plasteel/white,
+/turf/open/floor/plating,
 /area/medical/virology)
 "cws" = (
 /obj/effect/turf_decal/stripes/line,
@@ -48571,22 +48561,13 @@
 /turf/open/floor/plasteel/white/corner,
 /area/hallway/secondary/entry)
 "dzK" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/effect/turf_decal/tile/green,
 /obj/effect/turf_decal/tile/green{
-	dir = 1
+	dir = 8
 	},
 /obj/effect/turf_decal/tile/green{
 	dir = 4
 	},
-/obj/effect/turf_decal/tile/green{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/green,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/machinery/airalarm/directional/east,
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
 "dzL" = (
@@ -52348,6 +52329,22 @@
 	},
 /turf/open/floor/plasteel/white/corner,
 /area/hallway/primary/aft)
+"fBs" = (
+/obj/effect/turf_decal/tile/green{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/green{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/green,
+/turf/open/floor/plasteel/white,
+/area/medical/virology)
 "fCb" = (
 /obj/structure/closet,
 /obj/item/bedsheet/cosmos,
@@ -52515,22 +52512,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
-"fHI" = (
-/obj/effect/turf_decal/tile/green{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/green{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/green,
-/turf/open/floor/plasteel/white,
-/area/medical/virology)
 "fHW" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -54231,16 +54212,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/science/mixing)
-"gBf" = (
-/obj/effect/turf_decal/tile/green,
-/obj/effect/turf_decal/tile/green{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/green{
-	dir = 4
-	},
-/turf/open/floor/plasteel/white,
-/area/medical/virology)
 "gBh" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Security Maintenance";
@@ -63643,7 +63614,7 @@
 	icon_state = "0-4"
 	},
 /obj/effect/spawner/structure/window/reinforced,
-/turf/open/floor/plasteel/white,
+/turf/open/floor/plating,
 /area/medical/virology)
 "mmV" = (
 /obj/structure/cable/yellow{
@@ -71040,6 +71011,16 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/entry)
+"qWw" = (
+/obj/effect/turf_decal/tile/green,
+/obj/effect/turf_decal/tile/green{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/green{
+	dir = 1
+	},
+/turf/open/floor/plasteel/white,
+/area/medical/virology)
 "qWJ" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -75535,6 +75516,25 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
+"tIO" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/effect/turf_decal/tile/green{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/green{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/green{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/green,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/machinery/airalarm/directional/east,
+/turf/open/floor/plasteel/white,
+/area/medical/virology)
 "tIW" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -102201,7 +102201,7 @@ huL
 cKj
 cEM
 cIv
-dzK
+tIO
 cLO
 cLS
 cGq
@@ -103231,8 +103231,8 @@ bFt
 xOG
 cIt
 cwn
-fHI
-gBf
+fBs
+dzK
 cMv
 cKe
 cDA
@@ -103746,7 +103746,7 @@ xOG
 dvq
 jdV
 css
-bJv
+qWw
 dvq
 cBR
 cBS
