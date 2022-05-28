@@ -173,7 +173,7 @@
 
 /obj/item/xenoartifact/attackby(obj/item/I, mob/living/user, params)
 	for(var/datum/xenoartifact_trait/t as() in traits)
-		t.on_item(src, user, I)
+		t?.on_item(src, user, I)
 	if(!(COOLDOWN_FINISHED(src, xenoa_cooldown))||user?.a_intent == INTENT_GRAB||istype(I, /obj/item/xenoartifact_label)||istype(I, /obj/item/xenoartifact_labeler))
 		return
 	..()
@@ -183,17 +183,16 @@
 	log_game("[user] attempted to activate [src] at [world.time]. Located at [x] [y] [z].")
 
 	if(COOLDOWN_FINISHED(src, xenoa_cooldown))
-		if(prob(malfunction_chance)) //See if we pick up an malfunction
-			var/datum/xenoartifact_trait/t = pick(subtypesof(/datum/xenoartifact_trait/malfunction))
-			traits += new t
-			malfunction_chance = malfunction_chance*0.2 //Lower chance after contracting 
+		if(prob(malfunction_chance) && traits.len < 6 + (material == XENOA_URANIUM ? 1 : 0)) //See if we pick up an malfunction
+			generate_trait_unique(XENOA_MALFS)
+			malfunction_chance = 0 //Lower chance after contracting 
 		else
-			malfunction_chance += malfunction_mod //otherwise increase chance
+			malfunction_chance += malfunction_mod + (malfunction_chance < 100 ? malfunction_chance : 0)  //otherwise increase chance. Increasing above 99 fucks with it, deletes source
 
 		charge += charge_mod
 		for(var/datum/xenoartifact_trait/t as() in traits)//Minor & malfunction traits aren't apart of the target loop
 			if(!istype(t, /datum/xenoartifact_trait/major))
-				t.activate(src, user, user)
+				t?.activate(src, user, user)
 				log_game("[src] activated [istype(t, /datum/xenoartifact_trait/malfunction) ? "malfunction" : "minor"] trait [t] at [world.time]. Located at [x] [y] [z]")
 		charge = (charge+charge_req)/1.9 //Not quite an average. Generally produces better results.     
 		for(var/atom/M in true_target) //target loop
@@ -236,7 +235,7 @@
 	charge_req = rand(1, 10) * 10
 
 ///generate a single trait against a blacklist. Used in larger /obj/item/xenoartifact/proc/generate_traits()
-/obj/item/xenoartifact/proc/generate_trait_unique(var/list/trait_list, var/list/blacklist_traits)
+/obj/item/xenoartifact/proc/generate_trait_unique(var/list/trait_list, var/list/blacklist_traits = list())
 	var/datum/xenoartifact_trait/new_trait //Selection
 	var/list/selection = trait_list //Selectable traits
 	selection -= blacklist_traits
