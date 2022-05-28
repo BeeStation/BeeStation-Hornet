@@ -61,7 +61,6 @@ TIMER_SUBSYSTEM_DEF(runechat)
 	for(var/key in additional_letters)
 		if(length(letters[ckey][key]) == 3 && !letters[ckey][key].Find(null))
 			continue
-		message_admins("Letter [key] not found!!!")
 		letters[ckey][key] = list(null, null, null)
 		handle_single_letter(key, actor, NORMAL_FONT_INDEX)
 		handle_single_letter(key, actor, SMALL_FONT_INDEX)
