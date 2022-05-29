@@ -143,9 +143,9 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
  *
  * Handles checking for people sending messages too fast.
  *
- * This is defined as sending SPAM_TRIGGER_AUTOMUTE (10) messages within 5 seconds of eachother, which gets you auto-muted.
+ * This is defined as sending SPAM_TRIGGER_AUTOMUTE (10) messages within 5 seconds, which gets you auto-muted.
  *
- * You will be warned if you send SPAM_TRIGGER_WARNING(5) messages withing 5 seconds of eachother to hopefully prevent false positives.
+ * You will be warned if you send SPAM_TRIGGER_WARNING(5) messages withing 5 seconds to hopefully prevent false positives.
  *
  */
 /client/proc/handle_spam_prevention(message, mute_type)
@@ -153,10 +153,10 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		return FALSE
 
 	if(COOLDOWN_FINISHED(src, total_count_reset))
-		total_message_count = 0 //reset the count if it's been more than 5 seconds since the last message.
+		total_message_count = 0 //reset the count if it's been more than 5 seconds since the first message
+		COOLDOWN_START(src, total_count_reset, 5 SECONDS) //inside this if so we don't reset it every single message
 
 	total_message_count++
-	COOLDOWN_START(src, total_count_reset, 5 SECONDS)
 
 	if(total_message_count >= SPAM_TRIGGER_AUTOMUTE)
 		to_chat(src, "<span class='userdanger'>You have exceeded the spam filter limit for too many messages. An auto-mute was applied. Make an adminhelp ticket if you think this was in error.</span>")
