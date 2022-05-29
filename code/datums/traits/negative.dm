@@ -682,7 +682,37 @@
 
 /datum/quirk/british/add()
 	var/mob/living/carbon/H = quirk_holder
-	if(!H.has_dna())
-		return
-	H.dna.add_mutation(CHAV)
+	RegisterSignal(H, COMSIG_MOB_SAY, .proc/handle_speech)
+
+/datum/quirk/british/proc/handle_speech(datum/source, list/speech_args)
+	SIGNAL_HANDLER
+
+	var/message = speech_args[SPEECH_MESSAGE]
+	if(message[1] != "*")
+		message = " [message]"
+		var/list/whole_words = strings(BRIISH_TALK_FILE, "words")
+		var/list/british_sounds = strings(BRIISH_TALK_FILE, "sounds")
+		var/list/british_appends = strings(BRIISH_TALK_FILE, "appends")
+
+		for(var/key in whole_words)
+			var/value = whole_words[key]
+			if(islist(value))
+				value = pick(value)
+
+			message = replacetextEx(message, " [uppertext(key)]", " [uppertext(value)]")
+			message = replacetextEx(message, " [capitalize(key)]", " [capitalize(value)]")
+			message = replacetextEx(message, " [key]", " [value]")
+
+		for(var/key in british_sounds)
+			var/value = british_sounds[key]
+			if(islist(value))
+				value = pick(value)
+
+			message = replacetextEx(message, "[uppertext(key)]", "[uppertext(value)]")
+			message = replacetextEx(message, "[capitalize(key)]", "[capitalize(value)]")
+			message = replacetextEx(message, "[key]", "[value]")
+
+		if(prob(8))
+			message += pick(british_appends)
+	speech_args[SPEECH_MESSAGE] = trim(message)
 
