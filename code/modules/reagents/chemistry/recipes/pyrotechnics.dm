@@ -306,13 +306,13 @@
 	mob_react = FALSE
 
 /datum/chemical_reaction/ez_smoke
-	name = /datum/reagent/smoke_powder_ez1
-	results = list(/datum/reagent/smoke_powder_ez1 = 1)
-	required_reagents = list(/datum/reagent/smoke_powder_ez1 = 1, /datum/reagent/smoke_powder_ez1/ez2 = 1)
+	name = /datum/reagent/smoke_powder
+	results = list(/datum/reagent/smoke_powder = 1)
+	required_reagents = list(/datum/reagent/smoke_powder = 1, /datum/reagent/smoke_powder_activator = 1)
 
 /datum/chemical_reaction/ez_smoke/on_reaction(datum/reagents/holder, created_volume)
-	holder.remove_reagent(/datum/reagent/smoke_powder_ez1, created_volume)
-	var/smoke_radius = min(created_volume, 5) //Caps the smoke size to what a borg can produce by itself to prevent unintended abuse. 
+	holder.remove_reagent(/datum/reagent/smoke_powder, created_volume)
+	var/smoke_radius = min(created_volume, 5) //Caps the smoke size to what a borg can mix to prevent abuse
 	var/location = get_turf(holder.my_atom)
 	var/datum/effect_system/smoke_spread/chem/S = new
 	S.attach(location)

@@ -130,16 +130,11 @@
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	taste_description = "smoke"
 
-/datum/reagent/smoke_powder_ez1 //making it a subtype of normal smoke powder causes a myriad of issues with reactions
-	name = "EZ Smoke"
-	description = "Makes a large cloud of smoke that can carry reagents."
+/datum/reagent/smoke_powder_activator
+	name = "Smoke Activator"
+	description = "Activates smoke powder"
 	reagent_state = LIQUID
 	color = "#C8C8C8"
-	chem_flags = CHEMICAL_RNG_GENERAL
-	taste_description = "smoke"
-
-/datum/reagent/smoke_powder_ez1/ez2
-	name = "EZ Smoke Activator"
 
 /datum/reagent/sonic_powder
 	name = "Sonic Powder"
