@@ -323,11 +323,6 @@
 /datum/team/gang/roundend_report()
 	var/list/report = list()
 	report += "<span class='header'>[name]:</span>"
-	if(winner)
-		report += "<span class='greentext'>The [name] gang was successful!</span>"
-	else
-		report += "<span class='redtext'>The [name] gang has failed!</span>"
-
 	report += "The [name] gang bosses were:"
 	report += printplayerlist(leaders)
 	report += "The [name] [member_name]s were:"

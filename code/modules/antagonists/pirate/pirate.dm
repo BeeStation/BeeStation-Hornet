@@ -90,21 +90,11 @@
 	var/list/parts = list()
 
 	parts += "<span class='header'>Space Pirates were:</span>"
-
-	var/all_dead = TRUE
-	for(var/datum/mind/M in members)
-		if(considered_alive(M))
-			all_dead = FALSE
 	parts += printplayerlist(members)
 
 	parts += "Loot stolen: "
 	var/datum/objective/loot/L = locate() in objectives
 	parts += L.loot_listing()
 	parts += "Total loot value : [L.get_loot_value()]/[L.target_value] credits"
-
-	if(L.check_completion() && !all_dead)
-		parts += "<span class='greentext big'>The pirate crew was successful!</span>"
-	else
-		parts += "<span class='redtext big'>The pirate crew has failed.</span>"
 
 	return "<div class='panel redborder'>[parts.Join("<br>")]</div>"

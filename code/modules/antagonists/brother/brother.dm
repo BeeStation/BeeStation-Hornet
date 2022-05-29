@@ -129,20 +129,10 @@
 	parts += "<span class='header'>The blood brothers of [name] were:</span>"
 	for(var/datum/mind/M in members)
 		parts += printplayer(M)
-	var/win = TRUE
 	var/objective_count = 1
 	for(var/datum/objective/objective in objectives)
-		if(objective.check_completion())
-			parts += "<B>Objective #[objective_count]</B>: [objective.explanation_text] <span class='greentext'>Success!</span>"
-		else
-			parts += "<B>Objective #[objective_count]</B>: [objective.explanation_text] <span class='redtext'>Fail.</span>"
-			win = FALSE
+		parts += "<B>Objective #[objective_count]</B>: [objective.explanation_text]"
 		objective_count++
-	if(win)
-		parts += "<span class='greentext'>The blood brothers were successful!</span>"
-	else
-		parts += "<span class='redtext'>The blood brothers have failed!</span>"
-
 	return "<div class='panel redborder'>[parts.Join("<br>")]</div>"
 
 /datum/team/brother_team/proc/add_objective(datum/objective/O, needs_target = FALSE)

@@ -178,30 +178,8 @@
 			return TRUE
 	return FALSE
 
-/datum/team/monkey/proc/get_result()
-	if(infected_monkeys_escaped() || infected_gorillas_escaped())
-		return MONKEYS_ESCAPED
-	if(infected_monkeys_alive() || infected_gorillas_alive())
-		return MONKEYS_LIVED
-	if(infected_humans_alive() || infected_humans_escaped())
-		return DISEASE_LIVED
-	return MONKEYS_DIED
-
 /datum/team/monkey/roundend_report()
 	var/list/parts = list()
-	switch(get_result())
-		if(MONKEYS_ESCAPED)
-			parts += "<span class='greentext big'><B>Monkey Major Victory!</B></span>"
-			parts += "<span class='greentext'><B>Central Command and [station_name()] were taken over by the monkeys! Ook ook!</B></span>"
-		if(MONKEYS_LIVED)
-			parts += "<FONT size = 3><B>Monkey Minor Victory!</B></FONT>"
-			parts += "<span class='greentext'><B>[station_name()] was taken over by the monkeys! Ook ook!</B></span>"
-		if(DISEASE_LIVED)
-			parts += "<span class='redtext big'><B>Monkey Minor Defeat!</B></span>"
-			parts += "<span class='redtext'><B>All the monkeys died, but the disease lives on! The future is uncertain.</B></span>"
-		if(MONKEYS_DIED)
-			parts += "<span class='redtext big'><B>Monkey Major Defeat!</B></span>"
-			parts += "<span class='redtext'><B>All the monkeys died, and Jungle Fever was wiped out!</B></span>"
 	var/list/leaders = get_antag_minds(/datum/antagonist/monkey/leader, TRUE)
 	var/list/monkeys = get_antag_minds(/datum/antagonist/monkey, TRUE)
 

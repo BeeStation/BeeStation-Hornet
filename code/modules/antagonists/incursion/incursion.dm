@@ -119,16 +119,11 @@
 	parts += "<span class='header'>The members of the Syndicate incursion were:</span>"
 	for(var/datum/mind/M in members)
 		parts += printplayer(M)
-	var/win = TRUE
 	var/objective_count = 1
 	for(var/datum/objective/objective in objectives)
-		if(objective.check_completion())
-			parts += "<B>Objective #[objective_count]</B>: [objective.explanation_text] <span class='greentext'>Success!</span>"
-		else
-			parts += "<B>Objective #[objective_count]</B>: [objective.explanation_text] <span class='redtext'>Fail.</span>"
-			win = FALSE
+		parts += "<B>Objective #[objective_count]</B>: [objective.explanation_text]"
 		objective_count++
-
+		
 	var/purchases = ""
 	var/TC_uses = 0
 	LAZYINITLIST(GLOB.uplink_purchase_logs_by_key)
@@ -139,12 +134,6 @@
 			TC_uses += H.total_spent
 			purchases += H.generate_render(show_key = FALSE)
 	parts += "(Syndicates used [TC_uses] TC) [purchases]"
-
-	if(win)
-		parts += "<span class='greentext'>The Syndicate were successful with their operation!</span>"
-	else
-		parts += "<span class='redtext'>The Syndicate failed their incursion!</span>"
-
 	return "<div class='panel redborder'>[parts.Join("<br>")]</div>"
 
 /datum/team/incursion/proc/add_objective(datum/objective/O, needs_target = FALSE)

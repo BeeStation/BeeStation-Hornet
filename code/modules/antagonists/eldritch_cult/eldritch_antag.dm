@@ -160,9 +160,6 @@
 
 /datum/antagonist/heretic/roundend_report()
 	var/list/parts = list()
-
-	var/cultiewin = TRUE
-
 	parts += printplayer(owner)
 	parts += "<b>Sacrifices Made:</b> [total_sacrifices]"
 
@@ -173,21 +170,8 @@
 				stack_trace("Heretic objective was NULL'ed")
 				continue
 			var/datum/objective/objective = o
-			if(objective.check_completion())
-				parts += "<b>Objective #[count]</b>: [objective.explanation_text] <span class='greentext'>Success!</b></span>"
-			else
-				parts += "<b>Objective #[count]</b>: [objective.explanation_text] <span class='redtext'>Fail.</span>"
-				cultiewin = FALSE
+			parts += "<b>Objective #[count]</b>: [objective.explanation_text]"
 			count++
-
-	if(ascended)
-		//Ascension isn't technically finishing the objectives, buut it is to be considered a great win.
-		parts += "<span class='greentext'>THIS HERETIC ASCENDED!</span>"
-	else
-		if(cultiewin)
-			parts += "<span class='greentext big'>The heretic was successful!</span>"
-		else
-			parts += "<span class='redtext'>The heretic has failed.</span>"
 
 	var/list/knowledge_message = list()
 	var/list/knowledge = get_all_knowledge()

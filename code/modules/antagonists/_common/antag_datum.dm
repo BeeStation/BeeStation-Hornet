@@ -174,18 +174,8 @@ GLOBAL_LIST(admin_antag_list)
 
 	report += printplayer(owner)
 
-	var/objectives_complete = TRUE
 	if(objectives.len)
 		report += printobjectives(objectives)
-		for(var/datum/objective/objective in objectives)
-			if(!objective.check_completion())
-				objectives_complete = FALSE
-				break
-
-	if(objectives.len == 0 || objectives_complete)
-		report += "<span class='greentext big'>The [name] was successful!</span>"
-	else
-		report += "<span class='redtext big'>The [name] has failed!</span>"
 
 	return report.Join("<br>")
 

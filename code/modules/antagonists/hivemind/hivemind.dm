@@ -281,19 +281,8 @@
 
 	result += printplayer(owner)
 	result += "<b>Hive Size:</b> [hive_size]"
-	var/greentext = TRUE
 	if(objectives)
 		result += printobjectives(objectives)
-		for(var/datum/objective/objective in objectives)
-			if(!objective.check_completion())
-				greentext = FALSE
-				break
-
-	if(objectives.len == 0 || greentext)
-		result += "<span class='greentext big'>The [name] was successful!</span>"
-	else
-		result += "<span class='redtext big'>The [name] has failed!</span>"
-
 	return result.Join("<br>")
 
 /datum/antagonist/hivemind/is_gamemode_hero()

@@ -548,11 +548,6 @@
 
 /datum/antagonist/changeling/roundend_report()
 	var/list/parts = list()
-
-	var/changelingwin = 1
-	if(!owner.current)
-		changelingwin = 0
-
 	parts += printplayer(owner)
 
 	//Removed sanity if(changeling) because we -want- a runtime to inform us that the changelings list is incorrect and needs to be fixed.
@@ -562,18 +557,8 @@
 	if(objectives.len)
 		var/count = 1
 		for(var/datum/objective/objective in objectives)
-			if(objective.check_completion())
-				parts += "<b>Objective #[count]</b>: [objective.explanation_text] <span class='greentext'>Success!</b></span>"
-			else
-				parts += "<b>Objective #[count]</b>: [objective.explanation_text] <span class='redtext'>Fail.</span>"
-				changelingwin = 0
+			parts += "<b>Objective #[count]</b>: [objective.explanation_text]"
 			count++
-
-	if(changelingwin)
-		parts += "<span class='greentext'>The changeling was successful!</span>"
-	else
-		parts += "<span class='redtext'>The changeling has failed.</span>"
-
 	return parts.Join("<br>")
 
 /datum/antagonist/changeling/antag_listing_name()
