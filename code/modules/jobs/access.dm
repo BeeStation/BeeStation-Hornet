@@ -1,5 +1,6 @@
 
-//returns TRUE if this mob has sufficient access to use this object
+///returns TRUE if this mob has sufficient access to use this object.
+///Note that this will return FALSE when passed null, unless the door doesn't require any access.
 /obj/proc/allowed(mob/M)
 	//check if it doesn't require any access at all
 	if(src.check_access(null))

@@ -143,9 +143,9 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
  *
  * Handles checking for people sending messages too fast.
  *
- * This is defined as sending SPAM_TRIGGER_AUTOMUTE (10) messages within 5 seconds of eachother, which gets you auto-muted.
+ * This is defined as sending SPAM_TRIGGER_AUTOMUTE (10) messages within 5 seconds, which gets you auto-muted.
  *
- * You will be warned if you send SPAM_TRIGGER_WARNING(5) messages withing 5 seconds of eachother to hopefully prevent false positives.
+ * You will be warned if you send SPAM_TRIGGER_WARNING(5) messages withing 5 seconds to hopefully prevent false positives.
  *
  */
 /client/proc/handle_spam_prevention(message, mute_type)

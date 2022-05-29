@@ -635,11 +635,8 @@
 			lying = 270
 		update_transform()
 		lying_prev = lying
-	if (buckled && buckled.loc != newloc) //not updating position
-		if (!buckled.anchored)
-			return buckled.Move(newloc, direct)
-		else
-			return 0
+	if (buckled) //if the mob is buckled to something, tell it we moved.
+		return buckled.relaymove(src, direct)
 
 	var/old_direction = dir
 	var/turf/T = loc
@@ -841,7 +838,7 @@
 // Override if a certain type of mob should be behave differently when stripping items (can't, for example)
 /mob/living/stripPanelUnequip(obj/item/what, mob/who, where)
 	if(!what.canStrip(who))
-		to_chat(src, "<span class='warning'>You can't remove \the [what.name], it appears to be stuck!</span>")
+		to_chat(src, "<span class='warning'>You can't remove [what.name], it appears to be stuck!</span>")
 		return
 	who.visible_message("<span class='danger'>[src] tries to remove [who]'s [what.name].</span>", \
 					"<span class='userdanger'>[src] tries to remove your [what.name].</span>")
