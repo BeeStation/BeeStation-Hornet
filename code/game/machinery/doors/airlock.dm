@@ -6,7 +6,7 @@
 	canAIControl - 1 if the AI can control the airlock, 0 if not (then check canAIHack to see if it can hack in)
 	canAIHack - 1 if the AI can hack into the airlock to recover control, 0 if not. Also returns 0 if the AI does not *need* to hack it.
 	hasPower - 1 if the main or backup power are functioning, 0 if not.
-	requiresIDs - 1 if the airlock is requiring IDs, 0 if not
+	id_scan_hacked - Whether the AI has disabled the ID scanner, or the wire has been cut.
 	isAllPowerCut - 1 if the main and backup power both have cut wires.
 	regainMainPower - handles the effect of main power coming back on.
 	loseMainPower - handles the effect of main power going offline. Usually (if one isn't already running) spawn a thread to count down how long it will be offline - counting down won't happen if main power was completely cut along with backup power, though, the thread will just sleep.
@@ -234,7 +234,8 @@
 			cyclelinkairlock()
 
 /obj/machinery/door/airlock/check_access_ntnet(datum/netdata/data)
-	return !requiresID() || ..()
+	// Cutting WIRE_IDSCAN grants remote access
+	return id_scan_hacked() || ..()
 
 /obj/machinery/door/airlock/ntnet_receive(datum/netdata/data)
 	// Check if the airlock is powered and can accept control packets.
@@ -456,8 +457,8 @@
 		return TRUE
 	return ((!secondsMainPowerLost || !secondsBackupPowerLost) && !(stat & NOPOWER))
 
-/obj/machinery/door/airlock/requiresID()
-	return !(wires.is_cut(WIRE_IDSCAN) || aiDisabledIdScanner)
+/obj/machinery/door/airlock/id_scan_hacked()
+	return wires.is_cut(WIRE_IDSCAN) || aiDisabledIdScanner
 
 /obj/machinery/door/airlock/proc/isAllPowerCut()
 	if(protected_door)
