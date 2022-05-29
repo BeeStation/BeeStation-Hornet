@@ -17,6 +17,7 @@
 	var/list/icon/current = list() //the current hud icons
 	var/vision_correction = 0 //does wearing these glasses correct some of our vision defects?
 	var/glass_colour_type //colors your vision when worn
+	var/force_glass_colour = FALSE	//Should the user be forced to see the colour?
 
 /obj/item/clothing/glasses/suicide_act(mob/living/carbon/user)
 	user.visible_message("<span class='suicide'>[user] is stabbing \the [src] into [user.p_their()] eyes! It looks like [user.p_theyre()] trying to commit suicide!</span>")
@@ -304,8 +305,9 @@
 	icon_state = "bustin-g"
 	item_state = "bustin-g"
 	flash_protect = 1
-	visor_vars_to_toggle = VISOR_FLASHPROTECT | VISOR_TINT
+	tint = 1
 	glass_colour_type = /datum/client_colour/glass_colour/green
+	force_glass_colour = TRUE
 
 /obj/item/clothing/glasses/welding/ghostbuster/ComponentInitialize()
 	. = ..()
@@ -313,8 +315,12 @@
 
 /obj/item/clothing/glasses/welding/ghostbuster/visor_toggling()
 	..()
-	var/datum/component/team_monitor/ghost_vision = GetComponent(/datum/component/team_monitor)
-	ghost_vision.toggle_hud(!ghost_vision.hud_visible, usr)
+	if(iscarbon(loc))
+		var/mob/living/carbon/C = loc
+		if(C.glasses != src)
+			return
+		var/datum/component/team_monitor/ghost_vision = GetComponent(/datum/component/team_monitor)
+		ghost_vision.toggle_hud(!ghost_vision.hud_visible, C)
 
 /obj/item/clothing/glasses/blindfold
 	name = "blindfold"
@@ -499,7 +505,7 @@
 
 
 /mob/living/carbon/human/proc/update_glasses_color(obj/item/clothing/glasses/G, glasses_equipped)
-	if(client && client.prefs.uses_glasses_colour && glasses_equipped)
+	if(((client && client.prefs.uses_glasses_colour) || force_glass_colour) && glasses_equipped)
 		add_client_colour(G.glass_colour_type)
 	else
 		remove_client_colour(G.glass_colour_type)
