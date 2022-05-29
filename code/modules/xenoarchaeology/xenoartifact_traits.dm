@@ -879,7 +879,7 @@
 
 /datum/xenoartifact_trait/major/chem/on_init(obj/item/xenoartifact/X)
 	amount = pick(5, 9, 10, 15)
-	formula = get_random_reagent_id(/*CHEMICAL_RNG_GENERAL*/)
+	formula = get_random_reagent_id(CHEMICAL_RNG_GENERAL)
 
 /datum/xenoartifact_trait/major/chem/activate(obj/item/xenoartifact/X, atom/target)
 	if(target?.reagents)
