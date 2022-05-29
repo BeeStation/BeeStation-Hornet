@@ -252,7 +252,7 @@
 	else if(user.is_holding_item_of_type(/obj/item/multitool/abductor))
 		reveal_wires = TRUE
 
-	// Station blueprints do that too
+	// Station blueprints do that too, but only if the wires are not randomized.
 	else if(user.is_holding_item_of_type(/obj/item/areaeditor/blueprints) && !randomize)
 		reveal_wires = TRUE
 
