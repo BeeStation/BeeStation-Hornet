@@ -298,6 +298,11 @@
 	if(holder && holder.my_atom)
 		holder.clear_reagents()
 
+/datum/chemical_reaction/smoke_powder/ez
+	name = /datum/reagent/smoke_powder/ez
+	results = list(/datum/reagent/smoke_powder = 3)
+	required_reagents = list(/datum/reagent/smoke_powder/ez = 1)
+
 /datum/chemical_reaction/smoke_powder_smoke
 	name = "smoke_powder_smoke"
 	id = "smoke_powder_smoke"

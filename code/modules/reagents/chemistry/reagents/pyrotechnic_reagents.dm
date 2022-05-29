@@ -130,6 +130,9 @@
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	taste_description = "smoke"
 
+/datum/reagent/smoke_powder/ez
+	name = "EZ Smoke"
+
 /datum/reagent/sonic_powder
 	name = "Sonic Powder"
 	description = "Makes a deafening noise."
