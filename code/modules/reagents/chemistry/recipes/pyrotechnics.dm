@@ -312,7 +312,7 @@
 
 /datum/chemical_reaction/ez_smoke/on_reaction(datum/reagents/holder, created_volume)
 	holder.remove_reagent(/datum/reagent/smoke_powder_ez1, created_volume)
-	var/smoke_radius = 5 //Set but decently large radius
+	var/smoke_radius = min(created_volume, 5) //Caps the smoke size to what a borg can produce by itself to prevent unintended abuse. 
 	var/location = get_turf(holder.my_atom)
 	var/datum/effect_system/smoke_spread/chem/S = new
 	S.attach(location)
