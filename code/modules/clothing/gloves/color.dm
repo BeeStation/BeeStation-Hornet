@@ -228,3 +228,10 @@
 		/obj/item/clothing/gloves/color/brown = 1,
 		/obj/item/clothing/gloves/color/white = 1,
 		/obj/item/clothing/gloves/color/rainbow = 1)
+
+/obj/item/clothing/gloves/maid
+	name = "maid arm covers"
+	desc = "Cylindrical looking tubes that go over your arm, weird."
+	icon_state = "maid_arms"
+	item_state = "maid_arms"
+	worn_icon_state = "maid_arms"
