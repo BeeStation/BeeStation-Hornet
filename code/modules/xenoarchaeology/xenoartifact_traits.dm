@@ -315,13 +315,14 @@
 	new /obj/effect/mob_spawn/sentient_artifact(get_turf(X), X)
 
 /datum/xenoartifact_trait/minor/sentient/proc/setup_sentience(obj/item/xenoartifact/X, ckey)	
-	man = new /mob/living/simple_animal(get_turf(X))
+	man = new(get_turf(X))
+	man.name = "[pick("Calcifer", "Lucifer", "Ahpuch", "Ahriman")]"
 	man.key = ckey
 	log_game("[man]:[man.ckey] took control of the sentient [X]. [X] located at [X.x] [X.y] [X.z]")
-	ADD_TRAIT(man, TRAIT_NOBREATH, TRAIT_MUTE)
+	ADD_TRAIT(man, TRAIT_NOBREATH, TRAIT_NODEATH)
 	man.forceMove(X)
 	man.anchored = TRUE
-	var/obj/effect/proc_holder/spell/targeted/xeno_senitent_action/P = new /obj/effect/proc_holder/spell/targeted/xeno_senitent_action(get_turf(man), X)
+	var/obj/effect/proc_holder/spell/targeted/xeno_senitent_action/P = new /obj/effect/proc_holder/spell/targeted/xeno_senitent_action(,X)
 	man.AddSpell(P)
 	P.RegisterSignal(man, COMSIG_PARENT_QDELETING, /obj/effect/proc_holder/spell/targeted/xeno_senitent_action/proc/on_owner_del)
 
@@ -351,7 +352,8 @@
 
 /datum/xenoartifact_trait/minor/sentient/Destroy(force, ...)
 	. = ..()
-	qdel(man) //Kill the inner person. Otherwise invisible 'animal' runs around
+	if(man)
+		qdel(man) //Kill the inner person. Otherwise invisible 'animal' runs around
 
 /obj/effect/proc_holder/spell/targeted/xeno_senitent_action/proc/on_owner_del()
 	qdel(src) //I don't know why but deleting the owner just drops this on the ground, mental
@@ -879,7 +881,7 @@
 
 /datum/xenoartifact_trait/major/chem/on_init(obj/item/xenoartifact/X)
 	amount = pick(5, 9, 10, 15)
-	formula = get_random_reagent_id(CHEMICAL_RNG_GENERAL)
+	formula = get_random_reagent_id(/*CHEMICAL_RNG_GENERAL*/)
 
 /datum/xenoartifact_trait/major/chem/activate(obj/item/xenoartifact/X, atom/target)
 	if(target?.reagents)

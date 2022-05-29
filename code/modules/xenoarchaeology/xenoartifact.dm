@@ -157,6 +157,7 @@
 		to_chat(user, "<span class='notice'>[special_desc]</span>")
 		for(var/datum/xenoartifact_trait/t as() in traits)
 			to_chat(user, "<span class='notice'>[t.desc ? t.desc : t.label_name]</span>")
+			to_chat("test")
 	else if(iscarbon(user) && istype(user?.glasses, /obj/item/clothing/glasses/science)) //Not checking carbon throws a runtime concerning observers
 		to_chat(user, "<span class='notice'>[special_desc]</span>")
 
@@ -221,7 +222,6 @@
 		if(!touch_desc)
 			touch_desc = traits[traits.len] 
 			if(!touch_desc.on_touch(src, src))
-				qdel(touch_desc)
 				touch_desc = null //not setting this to null fucks with check, qdel refuses to be helpful another day
 
 	special_desc = desc_holder ? "[special_desc] [initial(desc_holder.desc)] material." : "[special_desc] material"
@@ -245,9 +245,8 @@
 	new_trait = pick(selection)
 	blacklist_traits += new_trait //Add chosen trait to blacklist
 	traits += new new_trait
-	new_trait = new new_trait
-	blacklist_traits += new_trait.blacklist_traits
-	qdel(new_trait)
+	new_trait = new new_trait //type converting doesn't work too well here but this should be fine.
+	blacklist_traits += new_trait.blacklist_traits //Cant use initial() to access lists without bork'ing it
 	return new_trait
 	
 ///Gets a singular entity, there's a specific traits that handles multiple.
@@ -274,7 +273,7 @@
 
 ///Used for hand-holding secret technique. Pulling entities swaps them for you in the target list.
 /obj/item/xenoartifact/proc/process_target(mob/target)
-	. = target?.pulling ? target?.pulling : target
+	. = isliving(target) ? target?.pulling ? target?.pulling : target : target
 	RegisterSignal(., COMSIG_PARENT_QDELETING, .proc/on_target_del, .)
 	return
 
@@ -345,7 +344,8 @@
 
 /obj/item/xenoartifact/Destroy()
 	SSradio.remove_object(src, frequency)
-	qdel(traits)
+	for(var/datum/xenoartifact_trait/T as() in traits)
+		qdel(T) //deleting the traits individually ensures they properly destroy, deleting the list bunks it
 	qdel(touch_desc)
 	for(var/atom/movable/AM in contents)
 		if(istype(AM, /obj/item/xenoartifact_label)) //Delete stickers
