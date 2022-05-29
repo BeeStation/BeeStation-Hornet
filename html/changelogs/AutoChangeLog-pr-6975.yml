@@ -1,4 +1,0 @@
-author: Penwin0
-delete-after: true
-changes:
-  - bugfix: Reverts PR that broke everything to do with buckling
