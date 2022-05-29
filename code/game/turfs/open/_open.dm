@@ -114,7 +114,7 @@
 	icon = 'icons/turf/floors/hierophant_floor.dmi'
 	initial_gas_mix = LAVALAND_DEFAULT_ATMOS
 	baseturfs = /turf/open/indestructible/hierophant
-	smooth = SMOOTH_TRUE
+	//smooth = SMOOTH_TRUE //MONKESTATION REMOVAL
 	tiled_dirt = FALSE
 
 /turf/open/indestructible/hierophant/two

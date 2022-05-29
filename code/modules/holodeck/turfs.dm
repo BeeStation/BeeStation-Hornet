@@ -130,8 +130,8 @@
 	icon = 'icons/turf/floors/carpet.dmi'
 	icon_state = "carpet"
 	floor_tile = /obj/item/stack/tile/carpet
-	smooth = SMOOTH_TRUE
-	canSmoothWith = null
+	//smooth = SMOOTH_TRUE //MONKESTATION REMOVAL
+	//canSmoothWith = null //MONKESTATION REMOVAL
 	bullet_bounce_sound = null
 	tiled_dirt = FALSE
 
@@ -142,7 +142,7 @@
 /turf/open/floor/holofloor/carpet/update_icon()
 	. = ..()
 	if(intact)
-		queue_smooth(src)
+		QUEUE_SMOOTH(src) //MONKESTATION CHANGE
 
 /turf/open/floor/holofloor/wood
 	icon_state = "wood"

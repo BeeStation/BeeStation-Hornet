@@ -1,11 +1,11 @@
 /obj/structure/lattice/catwalk
 	name = "catwalk"
 	desc = "A catwalk for easier EVA maneuvering and cable placement."
-	icon = 'icons/obj/smooth_structures/catwalk.dmi'
+	icon = 'icons/obj/smooth_structures/catwalk.dmi'//MONKESTATION OVERRIDE SEE monkestation/code/modules/bitmask_smoothing/code for all code pertaining to new smooth objects
 	icon_state = "catwalk"
 	number_of_rods = 2
-	smooth = SMOOTH_TRUE
-	canSmoothWith = null
+	//smooth = SMOOTH_TRUE //MONKESTATION REMOVAL
+	//canSmoothWith = null //MONKESTATION REMOVAL
 	obj_flags = CAN_BE_HIT | BLOCK_Z_OUT_DOWN | BLOCK_Z_IN_UP
 	//Negates the effect of space and openspace.
 	//Shouldn't be placed above anything else.

@@ -4314,7 +4314,6 @@
 /turf/closed/indestructible{
 	icon = 'icons/turf/walls/wood_wall.dmi';
 	icon_state = "wood";
-	smooth = 1
 	},
 /area/centcom/holding)
 "pz" = (
@@ -9929,7 +9928,6 @@
 /turf/closed/indestructible{
 	icon = 'icons/turf/walls/wood_wall.dmi';
 	icon_state = "wood";
-	smooth = 1
 	},
 /area/centcom/holding)
 "BY" = (
@@ -11335,7 +11333,6 @@
 /turf/closed/indestructible{
 	icon = 'icons/turf/walls/wood_wall.dmi';
 	icon_state = "wood";
-	smooth = 1
 	},
 /area/centcom/holding)
 "EE" = (
@@ -14859,7 +14856,6 @@
 /turf/closed/indestructible{
 	icon = 'icons/turf/walls/wood_wall.dmi';
 	icon_state = "wood";
-	smooth = 1
 	},
 /area/centcom/holding)
 "Nh" = (
@@ -15490,7 +15486,6 @@
 /turf/closed/indestructible{
 	icon = 'icons/turf/walls/wood_wall.dmi';
 	icon_state = "wood";
-	smooth = 1
 	},
 /area/centcom/holding)
 "QU" = (

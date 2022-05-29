@@ -49,7 +49,7 @@
 	icon = 'icons/turf/walls/sandstone_wall.dmi'
 	icon_state = "sandstone"
 	baseturfs = /turf/closed/indestructible/sandstone
-	smooth = SMOOTH_TRUE
+	//smooth = SMOOTH_TRUE //MONKESTATION REMOVAL
 
 /turf/closed/indestructible/oldshuttle/corner
 	icon_state = "corner"
@@ -79,16 +79,17 @@ INITIALIZE_IMMEDIATE(/turf/closed/indestructible/splashscreen)
 /turf/closed/indestructible/riveted
 	icon = 'icons/turf/walls/riveted.dmi'
 	icon_state = "riveted"
-	smooth = SMOOTH_TRUE
+	//smooth = SMOOTH_TRUE //MONKESTATION REMOVAL
 
 /turf/closed/indestructible/syndicate
 	icon = 'icons/turf/walls/plastitanium_wall.dmi'
 	icon_state = "map-shuttle"
-	smooth = SMOOTH_MORE
+	//smooth = SMOOTH_MORE //MONKESTATION REMOVAL
 
 /turf/closed/indestructible/riveted/uranium
 	icon = 'icons/turf/walls/uranium_wall.dmi'
 	icon_state = "uranium"
+	//smooth = SMOOTH_MORE //MONKESTATION REMOVAL
 
 /turf/closed/indestructible/abductor
 	icon_state = "alien1"
@@ -100,7 +101,7 @@ INITIALIZE_IMMEDIATE(/turf/closed/indestructible/splashscreen)
 	name = "window"
 	icon_state = "fake_window"
 	opacity = 0
-	smooth = SMOOTH_TRUE
+	//smooth = SMOOTH_TRUE //MONKESTATION REMOVAL
 	icon = 'icons/obj/smooth_structures/reinforced_window.dmi'
 
 /turf/closed/indestructible/fakeglass/Initialize(mapload)
@@ -113,7 +114,7 @@ INITIALIZE_IMMEDIATE(/turf/closed/indestructible/splashscreen)
 	name = "window"
 	icon_state = "plastitanium_window"
 	opacity = 0
-	smooth = SMOOTH_TRUE
+	//smooth = SMOOTH_TRUE //MONKESTATION REMOVAL
 	icon = 'icons/obj/smooth_structures/plastitanium_window.dmi'
 
 /turf/closed/indestructible/opsglass/Initialize(mapload)
@@ -171,7 +172,7 @@ INITIALIZE_IMMEDIATE(/turf/closed/indestructible/splashscreen)
 	desc = "A thick, seemingly indestructible stone wall."
 	icon = 'icons/turf/walls/boss_wall.dmi'
 	icon_state = "wall"
-	canSmoothWith = list(/turf/closed/indestructible/riveted/boss, /turf/closed/indestructible/riveted/boss/see_through)
+	//canSmoothWith = list(/turf/closed/indestructible/riveted/boss, /turf/closed/indestructible/riveted/boss/see_through) //MONKESTATION REMOVAL
 	explosion_block = 50
 	baseturfs = /turf/closed/indestructible/riveted/boss
 

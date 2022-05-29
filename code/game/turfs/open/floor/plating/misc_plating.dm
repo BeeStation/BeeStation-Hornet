@@ -36,7 +36,7 @@
 	gender = PLURAL
 	name = "ash"
 	icon_state = "ash"
-	smooth = SMOOTH_MORE|SMOOTH_BORDER
+	//smooth = SMOOTH_MORE|SMOOTH_BORDER //MONKESTATION REMOVAL
 	var/smooth_icon = 'icons/turf/floors/ash.dmi'
 	desc = "The ground is covered in volcanic ash."
 	baseturfs = /turf/open/floor/plating/ashplanet/wateryrock //I assume this will be a chasm eventually, once this becomes an actual surface
@@ -50,7 +50,7 @@
 	tiled_dirt = FALSE
 
 /turf/open/floor/plating/ashplanet/Initialize(mapload)
-	if(smooth)
+	if(smoothing_flags & (SMOOTH_CORNERS|SMOOTH_BITMASK)) //MONKESTATION CHANGE
 		var/matrix/M = new
 		M.Translate(-4, -4)
 		transform = M
@@ -67,7 +67,7 @@
 	return
 
 /turf/open/floor/plating/ashplanet/ash
-	canSmoothWith = list(/turf/open/floor/plating/ashplanet/ash, /turf/closed)
+	//canSmoothWith = list(/turf/open/floor/plating/ashplanet/ash, /turf/closed) //MONKESTATION REMOVAL
 	layer = HIGH_TURF_LAYER
 	slowdown = 1
 
@@ -77,7 +77,6 @@
 	icon_state = "rockyash"
 	smooth_icon = 'icons/turf/floors/rocky_ash.dmi'
 	layer = MID_TURF_LAYER
-	canSmoothWith = list(/turf/open/floor/plating/ashplanet/rocky, /turf/closed)
 	footstep = FOOTSTEP_FLOOR
 	barefootstep = FOOTSTEP_HARD_BAREFOOT
 	clawfootstep = FOOTSTEP_HARD_CLAW
@@ -86,7 +85,7 @@
 /turf/open/floor/plating/ashplanet/wateryrock
 	gender = PLURAL
 	name = "wet rocky ground"
-	smooth = null
+	//smooth = null //MONKETSTATION REMOVAL
 	icon_state = "wateryrock"
 	slowdown = 2
 	footstep = FOOTSTEP_FLOOR
@@ -190,8 +189,8 @@
 
 /turf/open/floor/plating/ice/smooth
 	icon_state = "smooth"
-	smooth = SMOOTH_MORE | SMOOTH_BORDER
-	canSmoothWith = list(/turf/open/floor/plating/ice/smooth, /turf/open/floor/plating/ice, /turf/open/floor/plating/ice/colder)
+	//smooth = SMOOTH_MORE | SMOOTH_BORDER //MONKESTATION REMOVAL
+	//canSmoothWith = list(/turf/open/floor/plating/ice/smooth, /turf/open/floor/plating/ice, /turf/open/floor/plating/ice/colder) //MONKESTATION REMOVAL
 
 /turf/open/floor/plating/ice/colder
 	initial_temperature = 140
@@ -224,11 +223,12 @@
 	initial_gas_mix = "n2=82;plasma=24;TEMP=120"
 
 /turf/open/floor/plating/snowed/smoothed
-	smooth = SMOOTH_MORE | SMOOTH_BORDER
-	canSmoothWith = list(/turf/open/floor/plating/snowed/smoothed, /turf/open/floor/plating/snowed)
+	//smooth = SMOOTH_MORE | SMOOTH_BORDER //MONKESTATION REMOVAL
+	//canSmoothWith = list(/turf/open/floor/plating/snowed/smoothed, /turf/open/floor/plating/snowed) //MONKESTATION REMOVAL
 	planetary_atmos = TRUE
 	icon = 'icons/turf/floors/snow_turf.dmi'
 	icon_state = "smooth"
+	planetary_atmos = TRUE
 
 /turf/open/floor/plating/snowed/colder
 	initial_temperature = 140

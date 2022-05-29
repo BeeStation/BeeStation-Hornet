@@ -65,7 +65,7 @@
 /turf/open/floor/plating,
 /area/shuttle/supply)
 "l" = (
-/turf/closed/wall/mineral/titanium/interior,
+/turf/closed/wall/mineral/titanium/nodiagonal,
 /area/shuttle/supply)
 "q" = (
 /obj/structure/window/reinforced{

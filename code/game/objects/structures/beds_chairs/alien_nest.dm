@@ -3,13 +3,13 @@
 /obj/structure/bed/nest
 	name = "alien nest"
 	desc = "It's a gruesome pile of thick, sticky resin shaped like a nest."
-	icon = 'icons/obj/smooth_structures/alien/nest.dmi'
+	icon = 'icons/obj/smooth_structures/alien/nest.dmi'//MONKESTATION OVERRIDE SEE monkestation/code/modules/bitmask_smoothing/code for all code pertaining to new smooth objects
 	icon_state = "nest"
 	max_integrity = 120
-	smooth = SMOOTH_TRUE
+	//smooth = SMOOTH_TRUE //MONKESTATION REMOVAL
 	can_be_unanchored = FALSE
-	canSmoothWith = null
 	buildstacktype = null
+	//canSmoothWith = null //MONKESTATION REMOVAL
 	flags_1 = NODECONSTRUCT_1
 	bolts = FALSE
 	var/static/mutable_appearance/nest_overlay = mutable_appearance('icons/mob/alien.dmi', "nestoverlay", LYING_MOB_LAYER)

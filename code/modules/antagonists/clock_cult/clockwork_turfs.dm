@@ -147,12 +147,12 @@
 	. = ..()
 	if(d_state == INTACT)
 		realappearence.icon_state = "clockwork_wall"
-		smooth = SMOOTH_TRUE
-		queue_smooth_neighbors(src)
-		queue_smooth(src)
+		smoothing_flags = SMOOTH_BITMASK  //MONKESTATION CHANGE
+		QUEUE_SMOOTH_NEIGHBORS(src) //MONKESTATION CHANGE
+		QUEUE_SMOOTH(src) //MONKESTATION CHANGE
 	else
 		realappearence.icon_state = "clockwork_wall-[d_state]"
-		smooth = SMOOTH_FALSE
+		smoothing_flags = NONE  //MONKESTATION CHANGE
 		clear_smooth_overlays()
 	realappearence.update_icon()
 	return
@@ -303,11 +303,13 @@
 /obj/structure/lattice/catwalk/clockwork
 	name = "clockwork catwalk"
 	icon = 'icons/obj/smooth_structures/catwalk_clockwork.dmi'
+	/* //MONKESTATION REMOVAL
 	canSmoothWith = list(/obj/structure/lattice,
 	/turf/open/floor,
 	/turf/closed/wall,
 	/obj/structure/falsewall)
 	smooth = SMOOTH_MORE
+	*/ //MONKESTATION REMOVAL
 
 /obj/structure/lattice/catwalk/clockwork/Initialize(mapload)
 	. = ..()
@@ -557,8 +559,7 @@
 
 /obj/structure/window/reinforced/clockwork/fulltile
 	icon_state = "clockwork_window"
-	smooth = SMOOTH_TRUE
-	canSmoothWith = null
+	//smooth = SMOOTH_TRUE //MONKETSTATION REMOVAL
 	fulltile = TRUE
 	flags_1 = PREVENT_CLICK_UNDER_1
 	dir = FULLTILE_WINDOW_DIR
