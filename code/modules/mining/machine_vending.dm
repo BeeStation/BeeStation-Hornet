@@ -203,7 +203,7 @@
 	return ..()
 
 /obj/machinery/vendor/mining/proc/RedeemVoucher(obj/item/mining_voucher/voucher, mob/redeemer)
-	var/items = list("Asteroid Miner Kit", "Crusher Kit", "Survivalist Kit", "Minebot Kit", "Mining Conscription Kit")
+	var/items = list("Asteroid Miner Kit", "Crusher Kit", "Survivalist Kit", "Extraction and Rescue Kit", "Minebot Kit", "Mining Conscription Kit")
 
 	var/selection = input(redeemer, "Pick your equipment", "Mining Voucher Redemption") as null|anything in sortList(items)
 	if(!selection || !Adjacent(redeemer) || QDELETED(voucher) || voucher.loc != redeemer)
@@ -222,6 +222,10 @@
 			new /obj/item/survivalcapsule(drop_location)
 			new /obj/item/wormhole_jaunter(drop_location)
 			new /obj/item/hivelordstabilizer(drop_location)
+		if("Extraction and Rescue Kit")
+			new /obj/item/extraction_pack(drop_location)
+			new /obj/item/fulton_core(drop_location)
+			new /obj/item/stack/marker_beacon/thirty(drop_location)
 		if("Minebot Kit")
 			new /mob/living/simple_animal/hostile/mining_drone(drop_location)
 			new /obj/item/weldingtool(drop_location)
