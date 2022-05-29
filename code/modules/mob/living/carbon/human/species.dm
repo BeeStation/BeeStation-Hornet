@@ -1503,10 +1503,14 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		if(target.IsKnockdown())
 			var/target_held_item = target.get_active_held_item()
 			if(target_held_item)
-				target.drop_all_held_items()
 				target.visible_message("<span class='danger'>[user.name] kicks \the [target_held_item] out of [target]'s hand!</span>",
 									"<span class='danger'>[user.name] kicks \the [target_held_item] out of your hand!</span>", null, COMBAT_MESSAGE_RANGE)
 				log_combat(user, target, "disarms [target_held_item]")
+			else
+				target.visible_message("<span class='danger'>[user.name] kicks [target.name] onto [target.p_their()] side!</span>",
+									"<span class='danger'>[user.name] kicks you onto your side!</span>", null, COMBAT_MESSAGE_RANGE)
+				log_combat(user, target, "kicks", "onto their side (paralyzing)")
+			target.Paralyze(SHOVE_CHAIN_PARALYZE) //duration slightly shorter than disarm cd
 		if(shove_blocked && !target.is_shove_knockdown_blocked() && !target.buckled)
 			var/directional_blocked = FALSE
 			if(shove_dir in GLOB.cardinals) //Directional checks to make sure that we're not shoving through a windoor or something like that
