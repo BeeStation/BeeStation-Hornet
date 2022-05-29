@@ -1,5 +1,0 @@
-author: Archanial
-delete-after: true
-changes:
-  - tweak: regenerative bluespace now teleports you instead of forcemoving.
-  - refactor: refactored some code related to xenobio extracts
