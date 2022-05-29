@@ -3902,7 +3902,7 @@
 /area/awaymission/cabin/lumbermill)
 "jW" = (
 /obj/structure/table/wood,
-/obj/item/gun/energy/floragun,
+/obj/item/seeds/random,
 /turf/open/floor/wood/cold,
 /area/awaymission/cabin/lumbermill)
 "jX" = (

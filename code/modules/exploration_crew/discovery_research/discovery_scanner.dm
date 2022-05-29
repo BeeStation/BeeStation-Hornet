@@ -8,6 +8,8 @@
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 	w_class = WEIGHT_CLASS_SMALL
 	var/datum/techweb/linked_techweb
+	var/research_faction = BOTANY_RESEARCHED_NANOTRASEN
+	var/scanning_speed = 50
 
 /obj/item/discovery_scanner/Initialize(mapload)
 	. = ..()
@@ -32,7 +34,18 @@
 		return
 	. = ..()
 
-/obj/item/discovery_scanner/proc/begin_scanning(mob/user, datum/component/discoverable/discoverable)
+/obj/item/discovery_scanner/proc/begin_scanning(mob/user, datum/component/discoverable/discoverable, scanning_speed)
 	to_chat(user, "<span class='notice'>You begin scanning [discoverable.parent]...</span>")
-	if(do_after(user, 50, target=get_turf(user)))
-		discoverable.discovery_scan(linked_techweb, user)
+	if(do_after(user, scanning_speed, target=get_turf(user)))
+		discoverable.discovery_scan(linked_techweb, user, faction=research_faction)
+
+/obj/item/discovery_scanner/lifebringer
+	name = "lifebringer's botanical research scanner"
+	desc = "A scanner used by podpeople to collect research data about plants."
+	research_faction = BOTANY_RESEARCHED_LIFEBRINGER
+
+/obj/item/discovery_scanner/centcom
+	name = "CentCom botanical research scanner"
+	desc = "A botanical scanner for CentCom's private research."
+	research_faction = BOTANY_RESEARCHED_CENTCOM
+	scanning_speed = 5

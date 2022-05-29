@@ -6,9 +6,9 @@
 #define BEE_TRAY_RECENT_VISIT	200	//How long in deciseconds until a tray can be visited by a bee again
 #define BEE_DEFAULT_COLOUR		"#e5e500" //the colour we make the stripes of the bee if our reagent has no colour (or we have no reagent)
 
-#define BEE_POLLINATE_YIELD_CHANCE		33
-#define BEE_POLLINATE_PEST_CHANCE		33
-#define BEE_POLLINATE_POTENCY_CHANCE	50
+#define BEE_POLLINATE_YIELD_CHANCE  33
+#define BEE_POLLINATE_PEST_CHANCE   33
+#define BEE_POLLINATE_CYCLE_CHANCE  33
 
 /mob/living/simple_animal/hostile/poison/bees
 	name = "bee"
@@ -180,13 +180,19 @@
 	var/growth = health //Health also means how many bees are in the swarm, roughly.
 	//better healthier plants!
 	Hydro.adjustHealth(growth*0.5)
+	var/datum/plant_gene/family/F = Hydro.family
 	if(prob(BEE_POLLINATE_PEST_CHANCE))
-		Hydro.adjustPests(-10)
+		if((F.family_flags & PLANT_FAMILY_NEEDPEST) || (F.family_flag & PLANT_FAMILY_HEALFROMPEST))
+			growth = round(growth/1.5, 0.5)
+			health = round(health/1.5, 0.5)
+			// It's carnivory. It's even bad to bees.
+		else
+			Hydro.adjustPests(-10)
+			// If plant is not mean to bees, they'll remove pests.
 	if(prob(BEE_POLLINATE_YIELD_CHANCE))
-		Hydro.myseed.adjust_yield(1)
-		Hydro.yieldmod = 2
-	if(prob(BEE_POLLINATE_POTENCY_CHANCE))
-		Hydro.myseed.adjust_potency(1)
+		Hydro.yieldmod = 1.3
+	if(prob(BEE_POLLINATE_CYCLE_CHANCE))
+		Hydro.cycledelay *= 90%
 
 	if(beehome)
 		beehome.bee_resources = min(beehome.bee_resources + growth, 100)

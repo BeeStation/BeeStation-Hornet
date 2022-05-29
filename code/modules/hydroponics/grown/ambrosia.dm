@@ -6,7 +6,6 @@
 	icon_state = "ambrosiavulgaris"
 	slot_flags = ITEM_SLOT_HEAD
 	filling_color = "#008000"
-	bitesize_mod = 2
 	foodtype = VEGETABLES
 	tastes = list("ambrosia" = 1)
 
@@ -14,23 +13,30 @@
 /obj/item/seeds/ambrosia
 	name = "pack of ambrosia vulgaris seeds"
 	desc = "These seeds grow into common ambrosia, a plant grown by and from medicine."
-	icon_state = "seed-ambrosiavulgaris"
-	species = "ambrosiavulgaris"
 	plantname = "Ambrosia Vulgaris"
+	species = "ambrosiavulgaris"
+
+	icon_state = "seed-ambrosiavulgaris"
+	icon_dead = "ambrosia-dead"
+
+	// seed stats
 	product = /obj/item/reagent_containers/food/snacks/grown/ambrosia/vulgaris
+	potency = 5
 	lifespan = 60
 	endurance = 25
 	yield = 6
-	potency = 5
 	maturation = 1 //temp
 	production = 1 //temp
-	icon_dead = "ambrosia-dead"
-	genes = list(/datum/plant_gene/trait/repeated_harvest)
+
+	// plant stats
+	bitesize_mod = 2
+	bite_type = PLANT_BITE_TYPE_RATIO
+	genes = list(/datum/plant_gene/trait/repeated_harvest, /datum/plant_gene/trait/glow/random)
 	family = /datum/plant_gene/family/weed_hardy
 	mutatelist = list(/obj/item/seeds/ambrosia/deus)
 
 	reagents_innate = list(
-		/datum/reagent/consumable/nutriment = 0.03)
+		/datum/reagent/consumable/nutriment = list(3, 9, PLANT_GENE_COMMON_REMOVABLE))
 	reagents_set = list(
 		/datum/reagent/consumable/nutriment = list(3, 9),
 		/datum/reagent/consumable/nutriment/vitamin = list(2, 6),

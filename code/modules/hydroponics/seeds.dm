@@ -17,13 +17,14 @@
 	var/icon_grow					// Used to override grow icon (default is "[species]-grow"). You can use one grow icon for multiple closely related plants with it.
 	var/icon_dead					// Used to override dead icon (default is "[species]-dead"). You can use one dead icon for multiple closely related plants with it.
 	var/icon_harvest				// Used to override harvest icon (default is "[species]-harvest"). If null, plant will use [icon_grow][growthstages].
+
 	var/growthstages = 6   // Amount of growth sprites the plant has.
 	var/list/mutatelist = list()    // The type of plants that this plant can mutate into.
 	/* ## Structure rule:
 			mutatelist = list(/obj/item/seeds/something1, /obj/item/seeds/another2, /obj/item/seeds/maybe3)
 	*/
 
-	// Plant stats
+	// Seed stats
 	var/potency = 50       // The 'power' of a plant. Effects the intensity of abilities in a plant. (It was used to effect the amount of reagents in a plant, but not anymore.)
 	var/lifespan = 25      // How long before the plant begins to take damage from age.
 	var/endurance = 20     // Amount of health the plant has.
@@ -33,20 +34,33 @@
 	var/maxyield = 10      // r
 	var/weed_rate = 1      //If the chance below passes, then this many weeds sprout during growth
 	var/weed_chance = 5    //Percentage chance per tray update to grow weeds
-	var/bitesize_mod = 4
-	var/volume_mod = 50
+
+	// Plant stats
+	var/bitesize_mod = 5      //How much do you eat - default 5u
+	var/bite_type = PLANT_BITE_TYPE_CONST  // bitesize_mod 5, CONST = 5u / size 5, RATIO = 5%
+	var/volume_mod = 50    //How big this plant is
+	var/can_distill = TRUE //If FALSE, this object cannot be distilled into an alcohol.
+	var/distill_reagent    //If NULL and this object can be distilled, it uses a generic fruit_wine reagent and adjusts its variables.
+	var/wine_power = 10    //Determines the boozepwr of the wine if distill_reagent is NULL.
 	var/rarity = 0					// How rare the plant is. Used for giving points to cargo when shipping off to CentCom.
 
 	var/list/genes = list()			// Plant genes are stored here, see plant_genes.dm for more info.
 	var/family = /datum/plant_gene/family // Basic family that does nothing.
 
+
+	//
 	var/list/reagents_innate = list()
-	var/list/reagents_set = list()     // Contains a reagent ID, and a pair of its size and its maximum size.
+	var/list/reagents_set = list()
 	/* ## Structure rule:
 		reagents_set = list(
 			[datum path: datum/reagent/something1] = list([number: default_reagent_size], [number: maximum_reagent_size])
-			[datum path: datum/reagent/another2] = list([number: default_reagent_size], [number: maximum_reagent_size]))
-	*/
+			[datum path: datum/reagent/another2] = list([number: default_reagent_size], [number: maximum_reagent_size])
+			innate needs FLAG additionally.
+		## Example:
+			reagents_innate = list(
+				/datum/reagent/consumable/nutriment = list(1, 2, NONE),
+				/datum/reagent/consumable/nutriment/vitamin = list(3, 4, PLANT_GENE_REAGENT_ADJUSTABLE),
+				/datum/reagent/consumable/banana = list(5, 7, PLANT_GENE_COMMON_REMOVABLE)) */
 
 	var/research_identifier
 	// used to check if a plant was researched through checking its `product` path. strange seed needs customised identifier.
@@ -76,35 +90,52 @@
 	//mutatelist = setting_crops(mutatelist)
 
 	if(!nogenes) // not used on Copy()
-		genes += new /datum/plant_gene/core/lifespan(lifespan)
-		genes += new /datum/plant_gene/core/endurance(endurance)
-		genes += new /datum/plant_gene/core/weed_rate(weed_rate)
-		genes += new /datum/plant_gene/core/weed_chance(weed_chance)
-		if(yield != -1)
-			genes += new /datum/plant_gene/core/yield(yield)
-			genes += new /datum/plant_gene/core/production(production)
-		if(potency != -1)
-			genes += new /datum/plant_gene/core/potency(potency)
-		//$$$마추라, 바이트 등등 넣어야함
 
+		// Basic core genes
+		set_core_genes()
+
+		// trait genes
+		for(var/G in genes)
+			if(ispath(G))
+				genes -= G
+				genes += new G // Core genes will not get "new" here, thanks to `if(ispath(G))`
+
+		// trait genes apply
+		for(var/datum/plant_gene/G in genes)
+			if(istype(G, /datum/plant_gene/trait))
+				G.on_new_seed(src)
+		// I know this looks weird, but need to do it separately.
+
+		// family genes
 		family = new family
+		// For some reasons from code design, I wanted to put it here rather than `genes`
 
-		for(var/p in genes)
-			if(ispath(p))
-				genes -= p
-				genes += new p
-
-
-		//reagents_from_genes() // innate reagents comes first
+		// reagent genes
+		for(var/reag_id in reagents_innate)
+			genes += new /datum/plant_gene/reagent/innate(reag_id, reagents_innate[reag_id])
 		for(var/reag_id in reagents_set)
-			genes += new /datum/plant_gene/reagent(reag_id, reagents_set[reag_id])
-		reagents_from_genes()
+			genes += new /datum/plant_gene/reagent/sandbox(reag_id, reagents_set[reag_id])
 
-/*
-	research_identifier = product // needed to check
-	if(istype(research_identifier, /obj/item/seeds/random))
-		var/obj/item/seeds/random/S = .
-		research_identifier = S.random_identifier*/
+
+/obj/item/seeds/proc/set_core_genes()
+	genes += new /datum/plant_gene/core/potency(potency)
+	genes += new /datum/plant_gene/core/yield(yield)
+	genes += new /datum/plant_gene/core/maturation(maturation)
+	genes += new /datum/plant_gene/core/production(production)
+	genes += new /datum/plant_gene/core/lifespan(lifespan)
+	genes += new /datum/plant_gene/core/endurance(endurance)
+	genes += new /datum/plant_gene/core/weed_rate(weed_rate)
+	genes += new /datum/plant_gene/core/weed_chance(weed_chance)
+	if(bite_type) // non-edible
+		genes += new /datum/plant_gene/core/volume_mod(volume_mod)
+		genes += new /datum/plant_gene/core/bitesize_mod(bitesize_mod)
+		genes += new /datum/plant_gene/core/bite_type(bite_type)
+	genes += new /datum/plant_gene/core/distill_reagent(distill_reagent)
+	if(wine_power) // fermentable but not alchohol
+		genes += new /datum/plant_gene/core/wine_power(wine_power)
+	if(rarity)
+		genes += new /datum/plant_gene/core/rarity(rarity)
+
 
 /obj/item/seeds/proc/gettype()
 	return type
@@ -130,20 +161,18 @@
 	for(var/g in genes)
 		var/datum/plant_gene/G = g
 		S.genes += G.Copy()
+	S.bitesize_mod = bitesize_mod
+	S.bite_type = bite_type
+	S.distill_reagent = distill_reagent
+	S.wine_power = wine_power
+	S.rarity = rarity
 	S.reagents_innate = reagents_innate.Copy() // Faster than grabbing the list from genes.
 	S.reagents_set = reagents_set.Copy()
 	S.research_identifier = research_identifier
 	return S
-	//$$$마추라, 바이트 등등 넣어야함
 
 /obj/item/seeds/proc/get_gene(typepath)
 	return (locate(typepath) in genes)
-
-
-/obj/item/seeds/proc/reagents_from_genes()
-	reagents_set = list()
-	for(var/datum/plant_gene/reagent/R in genes)
-		reagents_set[R.reagent_id] = list(R.reag_unit, R.reag_unit_max)
 
 ///This proc adds a mutability_flag to a gene
 /obj/item/seeds/proc/set_mutability(typepath, mutability)
@@ -167,22 +196,6 @@
 	adjust_weed_chance(rand(-wcmut, wcmut))
 	if(prob(traitmut))
 		add_random_traits(1, 1)
-
-
-
-/obj/item/seeds/bullet_act(obj/item/projectile/Proj) //Works with the Somatoray to modify plant variables.
-	if(istype(Proj, /obj/item/projectile/energy/florayield))
-		var/rating = 1
-		if(istype(loc, /obj/machinery/hydroponics))
-			var/obj/machinery/hydroponics/H = loc
-			rating = H.rating
-
-		if(yield == 0)//Oh god don't divide by zero you'll doom us all.
-			adjust_yield(1 * rating)
-		else if(prob(1/(yield * yield) * 100))//This formula gives you diminishing returns based on yield. 100% with 1 yield, decreasing to 25%, 11%, 6, 4, 2...
-			adjust_yield(1 * rating)
-	else
-		return ..()
 
 
 // Harvest procs
@@ -352,7 +365,7 @@
 			return
 		if("reagent_size")
 			return
-		if("bite_size")
+		if("bitesize_mod")
 			return
 
 /obj/item/seeds/proc/set_yield(adjustamt)
@@ -520,12 +533,9 @@
 	var/static/botany_chem_len
 	if(!botany_chem_len)
 		botany_chem_len = length(get_random_reagent_id(CHEMICAL_RNG_BOTANY, return_as_list=TRUE))
-	world.log << "rand chem----"
-	world.log << "chem seed: [chem_rand_seed] (max: [botany_chem_len])"
 	var/chem_id = get_random_reagent_id(CHEMICAL_RNG_BOTANY, find_by_number=rand_LCM(chem_rand_seed, maximum=botany_chem_len))
-	world.log << "address: [chem_id]"
-	var/random_amount = rand(2, 6)*5
-	var/datum/plant_gene/reagent/R = new(chem_id, list(random_amount-5, random_amount))
+	var/random_amount = (rand_LCM(chem_rand_seed, maximum=4, flat=0)+2)*5 // 10u~30u
+	var/datum/plant_gene/reagent/sandbox/R = new(chem_id, list(random_amount-5, random_amount))
 	if(R.can_add(src))
 		genes += R
 	else

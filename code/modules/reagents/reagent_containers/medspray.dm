@@ -17,7 +17,7 @@
 	amount_per_transfer_from_this = 10
 	volume = 60
 	var/can_fill_from_container = TRUE
-	var/apply_type = PATCH
+	apply_type = PATCH
 	var/apply_method = "spray"
 	var/self_delay = 30
 	var/squirt_mode = 0

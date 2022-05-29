@@ -54,7 +54,7 @@
 /obj/item/seeds/galaxythistle/Initialize(mapload,nogenes)
 	. = ..()
 	if(!nogenes)
-		unset_mutability(/datum/plant_gene/trait/invasive, PLANT_GENE_REMOVABLE)
+		unset_mutability(/datum/plant_gene/trait/invasive, PLANT_GENE_COMMON_REMOVABLE)
 
 /obj/item/reagent_containers/food/snacks/grown/galaxythistle
 	seed = /obj/item/seeds/galaxythistle

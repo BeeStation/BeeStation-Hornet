@@ -212,7 +212,7 @@
 /area/ruin/space/has_grav/abandonedzoo)
 "aG" = (
 /obj/structure/table/reinforced,
-/obj/item/gun/energy/floragun,
+/obj/item/seeds/random,
 /turf/open/floor/plasteel/dark/side,
 /area/ruin/space/has_grav/abandonedzoo)
 "aI" = (

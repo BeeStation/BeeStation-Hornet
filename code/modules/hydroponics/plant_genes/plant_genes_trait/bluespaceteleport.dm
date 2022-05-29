@@ -1,12 +1,12 @@
-
-
-
-
 /datum/plant_gene/trait/teleport
 	// Makes plant teleport people when squashed or slipped on.
 	// Teleport radius is calculated as max(round(potency*rate), 1)
 	name = "Bluespace Activity"
+	desc = "This makes your plants allow teleporting your victim."
+	plusdesc = "NOTICE: This needs Liquid Contents trait or Slippery skin trait."
+	randomness_flags = BOTANY_RANDOM_COMMON
 	rate = 0.1
+	research_needed = 2
 
 /datum/plant_gene/trait/teleport/on_squash(obj/item/reagent_containers/food/snacks/grown/G, atom/target)
 	if(isliving(target))

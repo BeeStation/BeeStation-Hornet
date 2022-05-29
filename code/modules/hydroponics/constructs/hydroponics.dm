@@ -1,3 +1,10 @@
+#define BOTANY_NUTRI_EZNUTRI "EZ"
+#define BOTANY_NUTRI_L4Z "L4Z"
+#define BOTANY_NUTRI_ROBHAR "RH"
+#define BOTANY_NUTRI_EARTHB "EARB"
+#define BOTANY_NUTRI_OMNIZ "OMNIZ"
+#define BOTANY_NUTRI_MUTAGEN "MUTAGEN"
+
 /obj/machinery/hydroponics
 	name = "hydroponics tray"
 	icon = 'icons/obj/hydroponics/equipment.dmi'
@@ -6,17 +13,19 @@
 	pixel_z = 8
 	obj_flags = CAN_BE_HIT | UNIQUE_RENAME
 	circuit = /obj/item/circuitboard/machine/hydroponics
+
+	// Water, nutri, pest, weed
 	var/waterlevel = 150	//The amount of water in the tray (max 100)
 	var/maxwater = 150		//The maximum amount of water in the tray
-	var/nutrilevel = 10		//The amount of nutrient in the tray (max 10)
-	var/list/nutris = list("EZ" = 7, "L4Z" = 7, "RH" = 6) // Existing nutriments inside a tray. This is default starting.
+	var/nutrilevel = 20		//The amount of nutrient in the tray (max 10)
+	var/list/nutris = list() // Existing nutriments inside a tray. This is default starting.
 	var/maxnutri = 20       //The maximum nutrient of water in the tray
-	var/maxnutri_mod = 0    //The maximum nutrient of water in the tray
 	var/pestlevel = 0		//The amount of pests in the tray (max 10)
 	var/weedlevel = 0		//The amount of weeds in the tray (max 10)
-	var/yieldmod = 1		//Nutriment's effect on yield
-	var/mutmod = 1			//Nutriment's effect on mutations
 	var/toxic = 0			//Toxicity in the tray?
+
+
+	var/yieldmod = 1		//Nutriment's effect on yield
 	var/age = 0				//Current age
 	var/dead = 0			//Is it dead?
 	var/plant_health		//Its health
@@ -33,9 +42,18 @@
 	var/self_sufficiency_progress = 0
 	var/self_sustaining = FALSE //If the tray generates nutrients and water on its own
 
+	var/dont_warn_me = FALSE // used in Eternal Blooming trait
+
 /obj/machinery/hydroponics/Initialize(mapload, obj/machinery/hydroponics)
 	. = ..()
 	AddComponent(/datum/component/discoverable, 0)
+	fill_nutri()
+
+/obj/machinery/hydroponics/proc/fill_nutri(nutri_type=BOTANY_NUTRI_EZNUTRI)
+	nutrilevel = length(nutris)
+	for(var/i in 1 to maxnutri-nutrilevel)
+		nutris += nutri_type
+	nutrilevel = length(nutris)
 
 /obj/machinery/hydroponics/constructable
 	name = "hydroponics tray"
@@ -61,6 +79,7 @@
 	if(myseed)
 		qdel(myseed)
 		myseed = null
+		wipe_tray()
 	return ..()
 
 /obj/machinery/hydroponics/constructable/attackby(obj/item/I, mob/user, params)
@@ -96,177 +115,293 @@
 	return connected
 
 
-/obj/machinery/hydroponics/bullet_act(obj/item/projectile/Proj) //Works with the Somatoray to modify plant variables.
-	if(!myseed)
-		return ..()
-	if(istype(Proj , /obj/item/projectile/energy/floramut))
-		mutate()
-	else if(istype(Proj , /obj/item/projectile/energy/florayield))
-		return myseed.bullet_act(Proj)
-	else
-		return ..()
-
 /obj/machinery/hydroponics/process(delta_time)
 	var/needs_update = 0 // Checks if the icon needs updating so we don't redraw empty trays every time
 
 	if(myseed && (myseed.loc != src))
 		myseed.forceMove(src)
 
-	if(self_sustaining)
-		adjustNutri(0.5 * delta_time)
-		adjustWater(rand(1,2) * delta_time * 0.5)
-		adjustWeeds(-1 * delta_time)
-		adjustPests(-1 * delta_time)
-		adjustToxic(-1 * delta_time)
-
 	if(world.time > (lastcycle + cycledelay))
 		lastcycle = world.time
 		if(myseed && !dead)
-			// Advance age
-			age++
-			if(age < myseed.maturation)
-				lastproduce = age
+			//family gene initialisation
+			var/datum/plant_gene/family/F = myseed.family
+			var/eat
+			var/process_aging = 1 // 1=aging once, 2=aging twice
 
-			needs_update = 1
+			//Weed/Pest growing----------------------------------------------------------
+			// Sufficient water level and nutrient level = spawns weeds
+			if(waterlevel >10 && nutrilevel >0)
+				if(myseed && prob(myseed.weed_chance))
+					adjustWeeds(myseed.weed_rate)
+			// On each tick, there's a 5 percent chance the pest population will increase
+			if(prob(5))
+				adjustPests(F.pest_adjust)
+
+			//---------------------------------------------------------------------
+			//Weed-----------------------------------------------------------------
+			eat = FALSE
+			if(!(F.family_flags & PLANT_FAMILY_WEEDIMMUNE))
+				if(weedlevel >= F.weed_danger_threshold) // default: >= 5
+					adjustHealth(-F.weed_damage)
+
+			if(F.family_flags & PLANT_FAMILY_NEEDWEED) // this plant eats weed
+				if(weedlevel >= F.weed_adjust)
+					eat = TRUE
+
+			if(F.family_flags & PLANT_FAMILY_HEALFROMWEED)
+				if(weedlevel >= F.weed_danger_threshold)
+					adjustHealth(F.weed_damage)
+					eat = TRUE
+
+			if(eat)
+				adjustWeeds(-F.weed_adjust)
+				if(prob(50))
+					adjustHealth(F.wellfed_heal)
+			else
+				if(F.family_flags & PLANT_FAMILY_NEEDWEED)
+					adjustHealth(-F.weed_damage)
+
+			if(weedlevel >= 10 && prob(50)) // At this point the plant is kind of fucked. Weeds can overtake the plant spot.yseed)
+				if(F.family_flags & PLANT_FAMILY_WEEDINVASIONIMMUNE) // If a normal plant
+					weedinvasion()
+			//---------------------------------------------------------------------
+			//Pest-----------------------------------------------------------------
+			eat = FALSE
+			if(!(F.family_flags & PLANT_FAMILY_PESTIMMUNE))
+				if(pestlevel >= F.pest_danger_threshold) // default: >= 8
+					adjustHealth(-F.pest_damage*2)
+				else if(pestlevel >= F.pest_danger_threshold/2) // default: >= 4 (8/2)
+					adjustHealth(-F.pest_damage)
+
+			if(F.family_flags & PLANT_FAMILY_NEEDPEST) // hungry carnivorous plant
+				if(prob(5))
+					eat = TRUE
+				if(pestlevel >= F.pest_adjust)
+					eat = TRUE
+
+			if(F.family_flags & PLANT_FAMILY_HEALFROMPEST)
+				if(pestlevel >= F.pest_danger_threshold) // default: >= 8
+					adjustHealth(F.pest_damage*2)
+					eat = TRUE
+				else if(pestlevel >= F.pest_danger_threshold/2) // default: >= 4 (8/2)
+					adjustHealth(F.pest_damage)
+					if(prob(50))
+						eat = TRUE
+
+			if(eat)
+				adjustPests(-F.pest_adjust)
+				if(prob(50))
+					adjustHealth(F.wellfed_heal)
+			else
+				if(F.family_flags & PLANT_FAMILY_NEEDPEST)
+					adjustHealth(-F.pest_damage)
+
+			//---------------------------------------------------------------------
+			//Toxins---------------------------------------------------------------
+			eat = FALSE
+			if(!(F.family_flags & PLANT_FAMILY_TOXINIMMUNE))
+				if(toxic >= F.toxin_danger_threshold) // default: >= 80
+					adjustHealth(-F.toxin_damage*2)
+					if(prob(F.toxin_danger_threshold))
+						eat = TRUE //actually It's not eating, but it needs to purge toxin by itself.
+				else if(toxic >= F.toxin_danger_threshold/2) // default: >= 40 (80/2)
+					adjustHealth(-F.toxin_damage)
+					if(prob(F.toxin_danger_threshold/2))
+						eat = TRUE
+
+			if(F.family_flags & PLANT_FAMILY_NEEDTOXIN) // this plant eats toxin
+				if(toxic >= F.toxin_adjust)
+					eat = TRUE
+
+			if(F.family_flags & PLANT_FAMILY_HEALFROMTOXIN)
+				if(toxic >= F.toxin_danger_threshold) // default: >= 80
+					adjustHealth(-F.toxin_damage*2)
+					eat = TRUE
+				else if(toxic >= F.toxin_danger_threshold/2) // default: >= 40 (80/2)
+					adjustHealth(-F.toxin_damage)
+					if(prob(50))
+						eat = TRUE
+
+			if(eat)
+				adjustToxic(-F.toxin_adjust)
+				if(prob(50))
+					adjustHealth(F.wellfed_heal)
+			else
+				if(F.family_flags & PLANT_FAMILY_NEEDTOXIN) // this plant eats toxin
+					adjustHealth(-F.toxin_damage)
+
+			//---------------------------------------------------------------------
+			//Nutrients-----------------------------------------------------------------
+			eat = FALSE
+			if(!(F.family_flags & PLANT_FAMILY_NUTRIFREE))
+				if(nutrilevel >= F.nutri_adjust)
+					eat = TRUE
+				else
+					adjustHealth(-F.nutri_damage)
+			else if(nutrilevel >= F.nutri_adjust)
+				eat = TRUE  //even if NUTRIFREE, they eat nutrient
+
+			if(F.family_flags & PLANT_FAMILY_BADNUTRI)
+				if(nutrilevel <= F.nutri_danger_threshold) // default: >= 8
+					adjustHealth(-F.nutri_damage)
+
+			if(eat)
+				if(nutrilevel < F.nutri_adjust)
+					process_aging = nutrimentProcess(nutrilevel)
+				else
+					process_aging = nutrimentProcess(F.nutri_adjust)
+				if(prob(50))
+					adjustHealth(F.wellfed_heal)
+
+			//---------------------------------------------------------------------
+			//Water-----------------------------------------------------------------
+			eat = FALSE
+
+			if(!(F.family_flags & PLANT_FAMILY_WATERFREE))
+				if(waterlevel >= F.water_adjust)
+					eat = TRUE
+				if(waterlevel <= F.water_need_threshold)
+					if(prob(50))
+						adjustHealth(-F.water_damage)
+					if(waterlevel <= 0)
+						adjustHealth(-F.water_damage)
+			else if(waterlevel >= F.water_adjust)
+				eat = TRUE //they eat water anyways
 
 
-//Nutrients//////////////////////////////////////////////////////////////
-			// Nutrients deplete slowly
-			if(prob(50))
-				adjustNutri(-1 / rating)
+			if(F.family_flags & PLANT_FAMILY_BADWATER)
+				if(waterlevel < F.water_danger_threshold) // default: < 10
+					adjustHealth(-F.water_damage)
 
-			// Lack of nutrients hurts non-weeds
-			if(nutrilevel <= 0 && !myseed.get_gene(/datum/plant_gene/family/weed_hardy))
-				adjustHealth(-rand(1,3))
 
-//Photosynthesis/////////////////////////////////////////////////////////
-			// Lack of light hurts non-mushrooms
+			if(eat)
+				adjustWater(F.water_adjust +rand(-2, 2))
+				if(prob(50))
+					adjustHealth(F.wellfed_heal)
+
+
+			//---------------------------------------------------------------------
+			//Photosynthesis-----------------------------------------------------------------
 			if(isturf(loc))
 				var/turf/currentTurf = loc
 				var/lightAmt = currentTurf.get_lumcount()
-				if(myseed.get_gene(/datum/plant_gene/family/fungal_metabolism))
-					if(lightAmt < 0.2)
-						adjustHealth(-1 / rating)
-				else // Non-mushroom
-					if(lightAmt < 0.4)
-						adjustHealth(-2 / rating)
+				if(!(F.family_flags & PLANT_FAMILY_DARKIMMNE))
+					if(lightAmt < 0.2) // too dark
+						adjustHealth(-F.dark_damage)
+				if(!(F.family_flags & PLANT_FAMILY_LIGHTFREE))
+					if(lightAmt < 0.4) // too light
+						adjustHealth(-F.light_damage)
+				if(F.family_flags & PLANT_FAMILY_BADLIGHT)
+					if(lightAmt > 0.8) // too light
+						adjustHealth(-F.light_damage)
 
-//Water//////////////////////////////////////////////////////////////////
-			// Drink random amount of water
-			adjustWater(-rand(1,6) / rating)
 
-			// If the plant is dry, it loses health pretty fast, unless mushroom
-			if(waterlevel <= 10 && !myseed.get_gene(/datum/plant_gene/family/fungal_metabolism))
-				adjustHealth(-rand(0,1) / rating)
-				if(waterlevel <= 0)
-					adjustHealth(-rand(0,2) / rating)
+			//---------------------------------------------------------------------
+			//for on_grown proc///////////////////////////////////////////////////////////
+			for(var/each in myseed.genes)
+				if(istype(each, /datum/plant_gene/trait))
+					var/datum/plant_gene/trait/T = each
+					if(myseed && prob(T.on_grow_chance))
+						T.on_grow(src)
 
-			// Sufficient water level and nutrient level = plant healthy but also spawns weeds
-			else if(waterlevel > 10 && nutrilevel > 0)
-				adjustHealth(rand(1,2) / rating)
-				if(myseed && prob(myseed.weed_chance))
-					adjustWeeds(myseed.weed_rate)
-				else if(prob(5))  //5 percent chance the weed population will increase
-					adjustWeeds(1 / rating)
+			//---------------------------------------------------------------------
+			//Health & Age-----------------------------------------------------------------
 
-//Toxins/////////////////////////////////////////////////////////////////
-
-			// Too much toxins cause harm, but when the plant drinks the contaiminated water, the toxins disappear slowly
-			if(toxic >= 40 && toxic < 80)
-				adjustHealth(-1 / rating)
-				adjustToxic(-rand(1,10) / rating)
-			else if(toxic >= 80) // I don't think it ever gets here tbh unless above is commented out
-				adjustHealth(-3)
-				adjustToxic(-rand(1,10) / rating)
-
-//Pests & Weeds//////////////////////////////////////////////////////////
-
-			if(pestlevel >= 8)
-				if(!myseed.get_gene(/datum/plant_gene/family/carnivory))
-					adjustHealth(-2 / rating)
-
-				else
-					adjustHealth(2 / rating)
-					adjustPests(-1 / rating)
-
-			else if(pestlevel >= 4)
-				if(!myseed.get_gene(/datum/plant_gene/family/carnivory))
-					adjustHealth(-1 / rating)
-
-				else
-					adjustHealth(1 / rating)
-					if(prob(50))
-						adjustPests(-1 / rating)
-
-			else if(pestlevel < 4 && myseed.get_gene(/datum/plant_gene/family/carnivory))
-				adjustHealth(-2 / rating)
-				if(prob(5))
-					adjustPests(-1 / rating)
-
-			// If it's a weed, it doesn't stunt the growth
-			if(weedlevel >= 5 && !myseed.get_gene(/datum/plant_gene/family/weed_hardy))
-				adjustHealth(-1 / rating)
-
-//Health & Age///////////////////////////////////////////////////////////
-
-			// Plant dies if plant_health <= 0
-			if(plant_health <= 0)
-				plantdies()
-				adjustWeeds(1 / rating) // Weeds flourish
-
-			// If the plant is too old, lose health fast
+			// Old plant dies quickly
 			if(age > myseed.lifespan)
-				adjustHealth(-rand(1,5) / rating)
+				adjustHealth(-5)
+				if(plant_health <= 0 && !harvest) // if harvestable, last chance allowed
+					plantdies()
+					adjustWeeds(1) // Weeds flourish
+
+			// damaged plant will not be aged
+			if(plant_health <= 0)
+				process_aging = 0
+
+			for(var/i in 1 to process_aging)
+				age++
+			if(age < myseed.maturation)
+				lastproduce = age
+			needs_update = 1
 
 			// Harvest code
 			if(age > myseed.production && (age - lastproduce) > myseed.production && (!harvest && !dead))
-				nutrimentMutation()
 				if(myseed && myseed.yield != -1) // Unharvestable shouldn't be harvested
-					harvest = 1
+					if(plant_health <= 0) // harvest from a badly damaged plant? no, no
+						harvest = 1
 				else
 					lastproduce = age
-			if(prob(5))  // On each tick, there's a 5 percent chance the pest population will increase
-				adjustPests(1 / rating)
+
+
+			//---------------------------------------------------------------
+			//------------------ End of plant life process ------------------
+			//---------------------------------------------------------------
+
+
+
+		// from `if(myseed && !dead)`
 		else
 			if(waterlevel > 10 && nutrilevel > 0 && prob(10))  // If there's no plant, the percentage chance is 10%
-				adjustWeeds(1 / rating)
+				adjustWeeds(1)
 
-		// Weeeeeeeeeeeeeeedddssss
+
+		// Weeed invasion
+		// it should be here to work for dead plants
 		if(weedlevel >= 10 && prob(50)) // At this point the plant is kind of fucked. Weeds can overtake the plant spot.
-			if(myseed)
-				if(!myseed.get_gene(/datum/plant_gene/family/weed_hardy) && !myseed.get_gene(/datum/plant_gene/family/fungal_metabolism)) // If a normal plant
-					weedinvasion()
-			else
-				weedinvasion() // Weed invasion into empty tray
+			weedinvasion() // Weed invasion into empty tray
 			needs_update = 1
 		if (needs_update)
 			update_icon()
 
-		if(myseed && prob(5 * (11-myseed.production)))
-			for(var/g in myseed.genes)
-				if(istype(g, /datum/plant_gene/trait))
-					var/datum/plant_gene/trait/selectedtrait = g
-					selectedtrait.on_grow(src)
+		if(dead)
+			dead++
+			if(dead > 25)
+				wipe_tray()
+
 	return
 
-/obj/machinery/hydroponics/proc/nutrimentMutation()
-	if (mutmod == 0)
-		return
-	if (mutmod == 1)
-		if(prob(80))		//80%
-			mutate()
-		else if(prob(75))	//15%
-			hardmutate()
-		return
-	if (mutmod == 2)
-		if(prob(50))		//50%
-			mutate()
-		else if(prob(50))	//25%
-			hardmutate()
-		else if(prob(50))	//12.5%
-			mutatespecie()
-		return
-	return
+/obj/machinery/hydroponics/proc/nutrimentProcess(count)
+	. = 1 // return value = how much this plant will be anged
+	var/earthsblood = FALSE
+	for(var/i in 1 to count)
+		var/chosen_nutriment = pick(nutris)
+		nutris -= chosen_nutriment
+		switch(chosen_nutriment)
+			if(BOTANY_NUTRI_EZNUTRI)
+				if(prob(66))
+					if(nutrilevel < maxnutri)
+						nutris += BOTANY_NUTRI_EZNUTRI
+			if(BOTANY_NUTRI_L4Z)
+				adjustHealth(2)
+				if(plant_health<=0)
+					adjustHealth(2)
+			if(BOTANY_NUTRI_ROBHAR)
+				if(length(nutris)>=2)
+					chosen_nutriment = pick(nutris)
+					nutris -= chosen_nutriment
+					. += 1
+			if(BOTANY_NUTRI_EARTHB)
+				toxic = 0
+				weedlevel = 0
+				pestlevel = 0
+				waterlevel = maxwater
+				if(prob(80))
+					nutris += BOTANY_NUTRI_EARTHB
+					earthsblood = 1
+				else
+					nutris += BOTANY_NUTRI_EZNUTRI
+			if(BOTANY_NUTRI_OMNIZ)
+				toxic = 0
+				adjustWeeds(4)
+			if(BOTANY_NUTRI_MUTAGEN)
+				. += 2
+				adjustToxic(50)
+		if(nutrilevel<=0)
+			break
+	if(earthsblood)
+		. = 0
+	nutrilevel = length(nutris)
 
 /obj/machinery/hydroponics/update_icon()
 	//Refreshes the icon and sets the luminosity
@@ -283,7 +418,8 @@
 
 	if(myseed)
 		update_icon_plant()
-		update_icon_lights()
+		if(!dont_warn_me)
+			update_icon_lights()
 
 	if(!self_sustaining)
 		if(myseed && myseed.get_gene(/datum/plant_gene/trait/glow))
@@ -293,6 +429,7 @@
 			set_light(0)
 
 	return
+
 
 /obj/machinery/hydroponics/proc/update_icon_hoses()
 	var/n = 0
@@ -322,7 +459,7 @@
 		add_overlay(mutable_appearance('icons/obj/hydroponics/equipment.dmi', "over_lowwater3"))
 	if(nutrilevel <= 2)
 		add_overlay(mutable_appearance('icons/obj/hydroponics/equipment.dmi', "over_lownutri3"))
-	if(plant_health <= (myseed.endurance / 2))
+	if(plant_health <= 0 || age > myseed.lifespan)
 		add_overlay(mutable_appearance('icons/obj/hydroponics/equipment.dmi', "over_lowhealth3"))
 	if(weedlevel >= 5 || pestlevel >= 5 || toxic >= 40)
 		add_overlay(mutable_appearance('icons/obj/hydroponics/equipment.dmi', "over_alert3"))
@@ -378,7 +515,7 @@
 		if(10 to 11)
 			myseed = new /obj/item/seeds/amanita(src)
 		if(8 to 9)
-			myseed = new /obj/item/seeds/chanter(src)
+			myseed = new /obj/item/seeds/chanterelle(src)
 		if(6 to 7)
 			myseed = new /obj/item/seeds/tower(src)
 		if(4 to 5)
@@ -518,18 +655,12 @@
 
 	// Nutriments
 	if(S.has_reagent(/datum/reagent/plantnutriment/eznutriment, 1))
-		yieldmod = 1
-		mutmod = 1
 		adjustNutri(round(S.get_reagent_amount(/datum/reagent/plantnutriment/eznutriment) * 1))
 
 	if(S.has_reagent(/datum/reagent/plantnutriment/left4zednutriment, 1))
-		yieldmod = 0
-		mutmod = 2
 		adjustNutri(round(S.get_reagent_amount(/datum/reagent/plantnutriment/left4zednutriment) * 1))
 
 	if(S.has_reagent(/datum/reagent/plantnutriment/robustharvestnutriment, 1))
-		yieldmod = 1.3
-		mutmod = 0
 		adjustNutri(round(S.get_reagent_amount(/datum/reagent/plantnutriment/robustharvestnutriment) *1 ))
 
 	// Ambrosia Gaia produces earthsblood.
@@ -792,6 +923,7 @@
 			to_chat(user, "<span class='notice'>You plant [O].</span>")
 			dead = 0
 			myseed = O
+			dont_warn_me = FALSE
 			update_name()
 			age = 1
 			lastproduce = 1
@@ -810,7 +942,7 @@
 				to_chat(user, text_string)
 		else
 			to_chat(user, "<B>No plant found.</B>")
-		to_chat(user, "- Weed level: <span class='notice'>[weedlevel] / 10</span>")
+		to_chat(user, "- Weed level: <span class='notice'>[weedlevel] / 10]</span>")
 		to_chat(user, "- Pest level: <span class='notice'>[pestlevel] / 10</span>")
 		to_chat(user, "- Toxicity level: <span class='notice'>[toxic] / 100</span>")
 		to_chat(user, "- Water level: <span class='notice'>[waterlevel] / [maxwater]</span>")
@@ -886,23 +1018,47 @@
 		return
 	harvest_plant(user)
 
+
+
 /obj/machinery/hydroponics/proc/harvest_plant(mob/user)
-	if(harvest)
+	if(harvest && !dont_warn_me)
 		if(ispath(myseed.product, /obj/item/reagent_containers/food/snacks/grown))
 			return myseed.harvest(user)
 		else if(ispath(myseed.product, /obj/item/grown))
 			return myseed.harvest_inedible(user)
-
+		yieldmod = 1
+		cycledelay = 200
+		recent_bee_visit = FALSE
+		if(plant_health >= 0 && age > myseed.lifespan)
+			plantdies()
+	else if(dont_warn_me && myseed.maturation+myseed.production <= age)
+		to_chat(user, "<span class='notice'>You touch [src]. It's eternally blooming...</span>")
+		SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "eternalbloom", /datum/mood_event/eternalbloom, myseed.plantname)
 	else if(dead)
-		dead = 0
 		to_chat(user, "<span class='notice'>You remove the dead plant from [src].</span>")
+		wipe_tray()
+
+	else
+		if(user)
+			examine(user)
+
+/obj/machinery/hydroponics/proc/wipe_tray()
+	if(dead)
+		dead = 0
 		qdel(myseed)
 		myseed = null
 		update_name()
 		update_icon()
-	else
-		if(user)
-			examine(user)
+	// normal wipe
+	waterlevel = maxwater
+	fill_nutri()
+	weedlevel = 0
+	pestlevel = 0
+	toxic = 0
+	dont_warn_me = FALSE
+	yieldmod = 1
+	cycledelay = 200
+	recent_bee_visit = FALSE
 
 /obj/machinery/hydroponics/proc/update_tray(mob/user)
 	harvest = 0
@@ -934,7 +1090,7 @@
 
 /obj/machinery/hydroponics/proc/adjustHealth(adjustamt)
 	if(myseed && !dead)
-		plant_health = CLAMP(plant_health + adjustamt, 0, myseed.endurance)
+		plant_health = CLAMP(plant_health + adjustamt, -12, myseed.endurance)
 
 /obj/machinery/hydroponics/proc/adjustToxic(adjustamt)
 	toxic = CLAMP(toxic + adjustamt, 0, 100)

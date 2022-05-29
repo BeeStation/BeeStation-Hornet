@@ -13,7 +13,7 @@
 					/obj/item/seeds/cabbage = 3,
 					/obj/item/seeds/carrot = 3,
 					/obj/item/seeds/cherry = 3,
-					/obj/item/seeds/chanter = 3,
+					/obj/item/seeds/chanterelle = 3,
 					/obj/item/seeds/chili = 3,
 					/obj/item/seeds/cocoapod = 3,
 					/obj/item/seeds/coffee = 3,
@@ -41,15 +41,16 @@
 					/obj/item/seeds/tower = 3,
 					/obj/item/seeds/watermelon = 3,
 					/obj/item/seeds/wheat = 3,
-					/obj/item/seeds/whitebeet = 3)
-	contraband = list(/obj/item/seeds/amanita = 2,
-					  /obj/item/seeds/glowshroom = 2,
-					  /obj/item/seeds/liberty = 2,
-					  /obj/item/seeds/nettle = 2,
-					  /obj/item/seeds/plump = 2,
-					  /obj/item/seeds/reishi = 2,
-					  /obj/item/seeds/cannabis = 3,
-					  /obj/item/seeds/starthistle = 2,
+					/obj/item/seeds/whitebeet = 3,
+					/obj/item/seeds/amanita = 2,
+					/obj/item/seeds/glowshroom = 2,
+					/obj/item/seeds/liberty = 2,
+					/obj/item/seeds/nettle = 2,
+					/obj/item/seeds/plump = 2,
+					/obj/item/seeds/reishi = 2,
+					/obj/item/seeds/cannabis = 3,
+					/obj/item/seeds/starthistle = 2,)
+	contraband = list(
 					  /obj/item/seeds/random = 2)
 	premium = list(/obj/item/reagent_containers/spray/waterflower = 1)
 	refill_canister = /obj/item/vending_refill/hydroseeds

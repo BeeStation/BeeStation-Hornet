@@ -986,7 +986,6 @@
 			if(each_define == flag_check)
 				if(find_by_number)
 					if(length(random_reagents_list[j]) < find_by_number)
-						world.log << "len: [length(random_reagents_list[j])] / ID: [find_by_number]"
 						return // prevents runtime error
 					return random_reagents_list[j][find_by_number]
 				else if(return_as_list)
@@ -1012,8 +1011,9 @@
 			if(each_define & flag_check)
 				possible -= random_reagents_list[j]
 
+	// now we return from a possible list
 	if(find_by_number)
-		if(length(possible) > find_by_number) // THIS IS BAD
+		if(length(possible) < find_by_number)
 			return
 		return possible[find_by_number]
 	else if(return_as_list)

@@ -222,3 +222,11 @@
 /datum/mood_event/feline_mania
 	description = "<span class='nicegreen'>I'M SO HECKIN CUTE OMIGOSH!</span>\n"
 	mood_change = 5
+
+/datum/mood_event/eternalbloom
+	description = "<span class='nicegreen'>This plant is so gorgeous... Eternally blooming...</span>\n"
+	mood_change = 1
+	timeout = 3 MINUTES
+
+/datum/mood_event/eternalbloom/add_effects(plant)
+	description = "<span class='nicegreen'>[plant] is so gorgeous... Eternally blooming...</span>\n"

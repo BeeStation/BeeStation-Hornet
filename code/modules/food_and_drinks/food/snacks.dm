@@ -54,6 +54,7 @@ All foods are distributed among various categories. Use common sense.
 	var/list/bonus_reagents //the amount of reagents (usually nutriment and vitamin) added to crafted/cooked snacks, on top of the ingredients reagents.
 	var/customfoodfilling = 1 // whether it can be used as filling in custom food
 	var/list/tastes  // for example list("crisps" = 2, "salt" = 1)
+	var/eat_delay = 30 // used for big foods
 
 	//Placeholder for effect that trigger on eating that aren't tied to reagents.
 
@@ -127,7 +128,7 @@ All foods are distributed among various categories. Use common sense.
 										"<span class='warning'>[user] cannot force any more of [src] down your throat!</span>")
 					return FALSE
 
-				if(!do_mob(user, M))
+				if(!do_mob(user, M, eat_delay))
 					return
 				log_combat(user, M, "fed", reagents.log_list())
 				M.visible_message("<span class='danger'>[user] forces [M] to eat [src]!</span>", \
@@ -137,21 +138,24 @@ All foods are distributed among various categories. Use common sense.
 				to_chat(user, "<span class='warning'>[M] doesn't seem to have a mouth!</span>")
 				return
 
-		if(reagents)								//Handle ingestion of the reagent.
-			if(M.satiety > -200)
-				M.satiety -= junkiness
-			playsound(M.loc,'sound/items/eatfood.ogg', rand(10,50), 1)
-			if(reagents.total_volume)
-				SEND_SIGNAL(src, COMSIG_FOOD_EATEN, M, user)
-				var/fraction = min(bitesize / reagents.total_volume, 1)
-				reagents.reaction(M, INGEST, fraction)
-				reagents.trans_to(M, bitesize, transfered_by = user)
-				bitecount++
-				On_Consume(M)
-				checkLiked(fraction, M)
-				return TRUE
+		if(reagents)  //Handle ingestion of the reagent.
+			return injest()
 
 	return 0
+
+/obj/item/reagent_containers/food/snacks/proc/injest()
+	if(M.satiety > -200)
+		M.satiety -= junkiness
+		playsound(M.loc,'sound/items/eatfood.ogg', rand(10,50), 1)
+		if(reagents.total_volume)
+			SEND_SIGNAL(src, COMSIG_FOOD_EATEN, M, user)
+			var/fraction = min(bitesize / reagents.total_volume, 1)
+			reagents.reaction(M, apply_type, fraction)
+			reagents.trans_to(M, bitesize, transfered_by = user)
+			bitecount++
+			On_Consume(M)
+			checkLiked(fraction, M)
+			return TRUE
 
 /obj/item/reagent_containers/food/snacks/examine(mob/user)
 	. = ..()

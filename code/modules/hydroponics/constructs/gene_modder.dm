@@ -8,7 +8,7 @@
 	pass_flags = PASSTABLE
 
 	var/obj/item/seeds/seed
-	var/obj/item/seeds/newseed // Used to store a new seed from mutation
+	var/newseed // Used to store a new seed from mutation
 	var/datum/plant_gene/newgene
 	var/reagent_id
 	var/reag_unit_max
@@ -28,6 +28,8 @@
 	var/min_wchance = 67
 	var/min_wrate = 10
 
+	var/unit_guage = 0.01
+
 	var/tgui_view_state = "basic"
 	var/skip_confirmation = FALSE
 	var/reag_target_value = 0
@@ -35,7 +37,7 @@
 	var/action_strong_confirmation = FALSE
 
 	var/datum/techweb/stored_research
-	var/botany_research_type
+	var/research_faction_type
 
 
 
@@ -43,7 +45,7 @@
 	. = ..()
 	if(!stored_research)
 		stored_research = SSresearch.science_tech
-	botany_research_type = BOTANY_RESEARCHED_NANOTRASEN
+	research_faction_type = BOTANY_RESEARCHED_NANOTRASEN
 
 /obj/machinery/plantgenes/RefreshParts() // Comments represent the max you can set per tier, respectively. seeds.dm [219] clamps these for us but we don't want to mislead the viewer.
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)
@@ -131,7 +133,7 @@
 	data["operation_target"] = build_gene(target)
 
 	data["core_genes"] = build_gene_list(core_genes, /datum/plant_gene/core)
-	data["reagent_genes"] = build_gene_list(reagent_genes, /datum/plant_gene/reagent)
+	data["reagent_genes"] = build_gene_list(reagent_genes, /datum/plant_gene/reagent/sandbox)
 	data["trait_genes"] = build_gene_list(trait_genes, /datum/plant_gene/trait)
 	data["family_gene"] = build_gene(family_gene, /datum/plant_gene/family)
 
@@ -143,7 +145,7 @@
 	data["research_datas"] = build_gene_data_list()
 	data["research_valid"] = research_valid
 	// `stored_research.researched_plants` is stored with researched plant list.
-	data["botany_research_type"] = botany_research_type
+	data["research_faction_type"] = research_faction_type
 
 
 /obj/machinery/plantgenes/proc/build_gene_data_list()
@@ -219,8 +221,8 @@
 	if(istype(gene, /datum/plant_gene/core))
 		var/datum/plant_gene/core/core_gene = gene
 		return "core[core_gene.type]"
-	if(istype(gene, /datum/plant_gene/reagent))
-		var/datum/plant_gene/reagent/reagent_gene = gene
+	if(istype(gene, /datum/plant_gene/reagent/sandbox))
+		var/datum/plant_gene/reagent/sandbox/reagent_gene = gene
 		return "reagent[reagent_gene.reagent_id]"
 	if(istype(gene, /datum/plant_gene/trait))
 		var/datum/plant_gene/trait/trait_gene = gene
@@ -240,8 +242,8 @@
 
 	L["name"] = gene.get_name()
 
-	L["extractable"] = gene.mutability_flags & PLANT_GENE_EXTRACTABLE
-	L["removable"] = gene.mutability_flags & PLANT_GENE_REMOVABLE
+	L["removable"] = gene.mutability_flags & PLANT_GENE_COMMON_REMOVABLE
+	L["adjustable"] = gene.mutability_flags & PLANT_GENE_REAGENT_ADJUSTABLE
 
 	if(istype(gene, /datum/plant_gene/core))
 		var/datum/plant_gene/core/core_gene = gene
@@ -251,8 +253,8 @@
 		L["id"] = get_gene_id(gene)
 		L["value"] = core_gene.value
 
-	if(istype(gene, /datum/plant_gene/reagent))
-		var/datum/plant_gene/reagent/reagent_gene = gene
+	if(istype(gene, /datum/plant_gene/reagent/sandbox))
+		var/datum/plant_gene/reagent/sandbox/reagent_gene = gene
 
 		L["type"] = "reagent"
 		L["id"] = get_gene_id(gene)
@@ -343,10 +345,12 @@
 
 		if("adjust")
 			if(seed)
-				var/datum/plant_gene/reagent/G = find_gene_by_id(params["gene_id"])
+				var/datum/plant_gene/reagent/sandbox/G = find_gene_by_id(params["gene_id"])
 				if(!G)
 					return FALSE
-				reag_target_value = clamp(params["value"], 0.01, G.reag_unit_max) //save value
+				reag_target_value = clamp(params["value"], unit_guage, G.reag_unit_max) //save value
+				if(reag_target_value % unit_guage != 0) //server side cheat check
+					return FALSE
 
 				//adjust doesn't need confirmation unless it's revertable
 				action_strong_confirmation = FALSE
@@ -362,6 +366,15 @@
 				newseed = text2path(params["mutation_path"]) //take a path first
 				if(!newseed)
 					return FALSE
+
+				var/found = FALSE
+				for(var/i in seed.mutatelist) // server side cheat check
+					if(ispath(newseed, i))
+						found = TRUE
+						break
+				if(!found) // you sick hacker
+					return
+
 				operation = action
 				. = TRUE
 
@@ -370,20 +383,17 @@
 				if(!params["data_id"])
 					return
 				for(var/each in stored_research.researched_genes)
-					if(each == params["data_id"] && (botany_research_type & stored_research.researched_genes[each][1]))
+					if(each == params["data_id"] && (research_faction_type & stored_research.researched_genes[each][1]))
 						var/gene_type = stored_research.researched_genes[each][3]
 						switch(gene_type)
 							if("reagent")
 								reagent_id = stored_research.researched_genes[each][2]
 								reag_unit_max = stored_research.researched_genes[each][5]
-								var/datum/plant_gene/reagent/newreagent = /datum/plant_gene/reagent()
-								newgene = newreagent
+								newgene = /datum/plant_gene/reagent/sandbox
 							if("trait")
-								var/datum/plant_gene/trait/newtrait = stored_research.researched_genes[each][2]
-								newgene = newtrait
+								newgene = stored_research.researched_genes[each][2]
 							if("family")
-								var/datum/plant_gene/family/newfamily = stored_research.researched_genes[each][2]
-								newgene = newfamily
+								newgene = stored_research.researched_genes[each][2]
 						break
 				operation = action
 				target = null
@@ -392,7 +402,7 @@
 		if("confirm")
 			action_strong_confirmation = FALSE
 			. = TRUE
-			//this is needed to let 'adjust' ignore confirmation but check it under a special situation.
+			//this is needed to let 'adjust' ignore confirmation but check if it is under a special situation.
 
 		//TGUI control
 		if("set_view")
@@ -421,41 +431,40 @@
 				if(G)
 					if(!istype(G, /datum/plant_gene/core))
 						seed.genes -= G
-						if(istype(G, /datum/plant_gene/reagent))
-							seed.reagents_from_genes()
+						if(istype(G, /datum/plant_gene/trait))
+							G.on_removal(seed)
+						qdel(G)
 					repaint_seed()
 
 			if("insert")
-				if((istype(newgene, /datum/plant_gene/trait) || istype(newgene, /datum/plant_gene/reagent)) && newgene.can_add(seed))
-					if(istype(newgene, /datum/plant_gene/reagent))
+				if((ispath(newgene, /datum/plant_gene/trait) || ispath(newgene, /datum/plant_gene/reagent/sandbox)))
+					if(ispath(newgene, /datum/plant_gene/reagent/sandbox))
 						newgene = new newgene(reagent_id, list(reag_unit_max, reag_unit_max))
 						reagent_id = null
 						reag_unit_max = list(0, 0)
-					if(istype(newgene, /datum/plant_gene/trait))
+					if(ispath(newgene, /datum/plant_gene/trait))
 						newgene = new newgene
-					seed.genes += newgene.Copy()
-					if(istype(newgene, /datum/plant_gene/reagent))
-						seed.reagents_from_genes()
+					if(newgene.can_add(seed))
+						seed.genes += newgene
+						newgene.on_new_seed(seed)
+					else
+						qdel(newgene)
 					repaint_seed()
-					qdel(newgene)
 				newgene = null
 
 			if("adjust")
-				var/datum/plant_gene/reagent/G = target
-				if(istype(G, /datum/plant_gene/reagent))
+				var/datum/plant_gene/reagent/sandbox/G = target
+				if(istype(G, /datum/plant_gene/reagent/sandbox))
 					G.reag_unit = reag_target_value
 					repaint_seed()
 
 
 			if("mutate")
-				world.log << "mutate confirmed"
 				if(ispath(newseed, /obj/item/seeds) && seed)
-					world.log << "mutate ispath okay"
 					if(ispath(newseed, /obj/item/seeds/random))
-						world.log << "mutate ispath strange seed"
+						newseed = new newseed
 						var/obj/item/seeds/random/newseed_s = newseed
-						newseed_s = new newseed_s(taken_identifier = text2num(seed.research_identifier)) // Strange seed will have their own cycle
-						newseed = newseed_s
+						newseed_s.set_random(text2num(seed.research_identifier)) // Strange seed will have their own cycle
 					else
 						newseed = new newseed
 					// proper deletion
@@ -512,7 +521,7 @@
 		return
 
 	if(S.research_identifier in plantdata)
-		if(plantdata[S.research_identifier] & botany_research_type)
+		if(plantdata[S.research_identifier] & research_faction_type)
 			return TRUE
 
 /obj/machinery/plantgenes/proc/update_genes()
@@ -535,7 +544,7 @@
 		for(var/a in gene_paths)
 			core_genes += seed.get_gene(a)
 
-		for(var/datum/plant_gene/reagent/G in seed.genes)
+		for(var/datum/plant_gene/reagent/sandbox/G in seed.genes)
 			reagent_genes += G
 
 		for(var/datum/plant_gene/trait/G in seed.genes)
@@ -582,41 +591,22 @@
 
 // Gene modder for seed vault ship, built with high tech alien parts.
 /obj/machinery/plantgenes/seedvault
+	name = "lifebringer's plant DNA manipulator"
+	desc = "An advanced device designed to manipulate plant genetic makeup for scientific podpeople."
 	circuit = /obj/item/circuitboard/machine/plantgenes/vault
 
-/*
- *  Plant DNA disk
- */
-
-/obj/item/disk/plantgene
-	name = "plant data disk"
-	desc = "A disk for storing plant genetic data."
-	icon_state = "datadisk_hydro"
-	materials = list(/datum/material/iron=30, /datum/material/glass=10)
-	var/datum/plant_gene/gene
-	var/read_only = 0 //Well, it's still a floppy disk
-	obj_flags = UNIQUE_RENAME
-
-
-/obj/item/disk/plantgene/Initialize(mapload)
+/obj/machinery/plantgenes/seedvault/Initialize(mapload)
 	. = ..()
-	add_overlay("datadisk_gene")
-	src.pixel_x = rand(-5, 5)
-	src.pixel_y = rand(-5, 5)
+	if(!stored_research)
+		stored_research = SSresearch.science_tech
+	research_faction_type = BOTANY_RESEARCHED_LIFEBRINGER
 
+/obj/machinery/plantgenes/centcom
+	name = "CentCom plant DNA manipulator"
+	circuit = /obj/item/circuitboard/machine/plantgenes/centcom
 
-/obj/item/disk/plantgene/proc/update_name()
-	if(gene)
-		name = "[gene.get_name()] (plant data disk)"
-	else
-		name = "plant data disk"
-
-/obj/item/disk/plantgene/attack_self(mob/user)
-	read_only = !read_only
-	to_chat(user, "<span class='notice'>You flip the write-protect tab to [src.read_only ? "protected" : "unprotected"].</span>")
-
-/obj/item/disk/plantgene/examine(mob/user)
+/obj/machinery/plantgenes/centcom/Initialize(mapload)
 	. = ..()
-	if(gene && (istype(gene, /datum/plant_gene/core/potency)))
-		. += "<span class='notice'>Percent is relative to potency, not maximum volume of the plant.</span>"
-	. += "The write-protect tab is set to [src.read_only ? "protected" : "unprotected"]."
+	if(!stored_research)
+		stored_research = SSresearch.science_tech
+	research_faction_type = BOTANY_RESEARCHED_CENTCOM
