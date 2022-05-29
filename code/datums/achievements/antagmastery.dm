@@ -6,7 +6,7 @@
 	. = ..()
 	for(var/A in SSachievements.antag_mastery_list)
 		var/datum/award/achievement/antagmastery/cheevo = A
-		if(!user.client?.player_details.achievements.get_achievement_status(B))
+		if(!user.client?.player_details.achievements.get_achievement_status(cheevo))
 			return
 	user.client?.give_award(/datum/award/achievement/antagmastery/super, user)
 
