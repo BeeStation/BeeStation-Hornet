@@ -1,0 +1,5 @@
+author: d0sboots
+delete-after: true
+changes:
+  - bugfix: Using Ctrl and Alt with movement works correctly
+  - rscdel: Removed "change facing" keybinds, they are no longer needed
