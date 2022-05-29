@@ -19,7 +19,6 @@ Borg Hypospray
 	amount_per_transfer_from_this = 5
 	volume = 30
 	possible_transfer_amounts = list()
-	reagent_flags = NO_REACT
 	var/mode = 1
 	var/charge_cost = 50
 	var/charge_timer = 0
@@ -65,7 +64,7 @@ Borg Hypospray
 	reagent_list += RG
 
 	var/datum/reagents/R = reagent_list[reagent_list.len]
-	R.add_reagent(reagent, 30, no_react = 1)
+	R.add_reagent(reagent, 30)
 
 	modes[reagent] = modes.len + 1
 	reagent_names[initial(reagent.name)] = reagent
@@ -94,7 +93,7 @@ Borg Hypospray
 				var/datum/reagents/RG = reagent_list[i]
 				if(RG.total_volume < RG.maximum_volume) 	//Don't recharge reagents and drain power if the storage is full.
 					R.cell.use(charge_cost) 					//Take power from borg...
-					RG.add_reagent(reagent_ids[i], 5)		//And fill hypo with reageant
+					RG.add_reagent(reagent_ids[i], 5)		//And fill hypo with reagent
 
 /obj/item/reagent_containers/borghypo/attack(mob/living/carbon/M, mob/user)
 	var/datum/reagents/R = reagent_list[mode]
@@ -225,7 +224,7 @@ Borg Shaker
 				var/datum/reagents/RG = reagent_list[valueofi]
 				if(RG.total_volume < RG.maximum_volume)
 					R.cell.use(charge_cost)
-					RG.add_reagent(reagent_ids[valueofi], 5, no_react = 1)
+					RG.add_reagent(reagent_ids[valueofi], 5)
 
 /obj/item/reagent_containers/borghypo/borgshaker/afterattack(obj/target, mob/user, proximity)
 	. = ..()
@@ -263,7 +262,7 @@ Borg Shaker
 	recharge_time = 3
 	accepts_reagent_upgrades = FALSE
 
-	reagent_ids = list(/datum/reagent/consumable/ethanol/fernet, /datum/reagent/consumable/ethanol/bastion_bourbon, /datum/reagent/toxin/zombiepowder/, /datum/reagent/smoke_powder/ez1, /datum/reagent/smoke_powder/ez2)
+	reagent_ids = list(/datum/reagent/consumable/ethanol/fernet, /datum/reagent/consumable/ethanol/bastion_bourbon, /datum/reagent/toxin/zombiepowder/, /datum/reagent/smoke_powder_ez1, /datum/reagent/smoke_powder_ez1/ez2)
 
 /obj/item/reagent_containers/borghypo/peace
 	name = "Peace Hypospray"

@@ -298,17 +298,30 @@
 	if(holder && holder.my_atom)
 		holder.clear_reagents()
 
-/datum/chemical_reaction/smoke_powder/ez_mix
-	name = /datum/reagent/smoke_powder/ez1
-	results = list(/datum/reagent/smoke_powder = 10)
-	required_reagents = list(/datum/reagent/smoke_powder/ez1 = 1, /datum/reagent/smoke_powder/ez2 = 1)
-
 /datum/chemical_reaction/smoke_powder_smoke
 	name = "smoke_powder_smoke"
 	id = "smoke_powder_smoke"
 	required_reagents = list(/datum/reagent/smoke_powder = 1)
 	required_temp = 374
 	mob_react = FALSE
+
+/datum/chemical_reaction/ez_smoke
+	name = /datum/reagent/smoke_powder_ez1
+	results = list(/datum/reagent/smoke_powder_ez1 = 1)
+	required_reagents = list(/datum/reagent/smoke_powder_ez1 = 1, /datum/reagent/smoke_powder_ez1/ez2 = 1)
+
+/datum/chemical_reaction/ez_smoke/on_reaction(datum/reagents/holder, created_volume)
+	holder.remove_reagent(/datum/reagent/smoke_powder_ez1, created_volume)
+	var/smoke_radius = 5 //Set but decently large radius
+	var/location = get_turf(holder.my_atom)
+	var/datum/effect_system/smoke_spread/chem/S = new
+	S.attach(location)
+	playsound(location, 'sound/effects/smoke.ogg', 50, 1, -3)
+	if(S)
+		S.set_up(holder, smoke_radius, location, 0)
+		S.start()
+	if(holder && holder.my_atom)
+		holder.clear_reagents()
 
 /datum/chemical_reaction/smoke_powder_smoke/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
