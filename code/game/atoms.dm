@@ -931,6 +931,11 @@
 	SEND_SIGNAL(src, COMSIG_ATOM_DIR_CHANGE, dir, newdir)
 	dir = newdir
 
+/// Attempts to turn to the given direction. May fail if anchored/unconscious/etc.
+/atom/proc/try_face(newdir)
+	setDir(newdir)
+	return TRUE
+
 ///Handle melee attack by a mech
 /atom/proc/mech_melee_attack(obj/mecha/M)
 	return
