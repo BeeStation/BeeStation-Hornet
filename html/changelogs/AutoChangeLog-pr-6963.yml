@@ -1,4 +1,0 @@
-author: ivanmixo
-delete-after: true
-changes:
-  - bugfix: fixed the extra 'the' when stripping people
