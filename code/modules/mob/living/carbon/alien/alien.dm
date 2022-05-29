@@ -91,7 +91,7 @@ Proc: AddInfectionImages()
 Des: Gives the client of the alien an image on each infected mob.
 ----------------------------------------*/
 /mob/living/carbon/alien/proc/AddInfectionImages()
-	if(client)
+	if(!client)
 		return
 	for(var/i in GLOB.mob_living_list)
 		var/mob/living/L = i
