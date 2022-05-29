@@ -112,7 +112,7 @@
 #define DEFAULT_MESSAGE_RANGE 7
 
 //Shove knockdown lengths (deciseconds)
-#define SHOVE_KNOCKDOWN_SOLID 45
+#define SHOVE_KNOCKDOWN_SOLID 45  //half of this knockdown is also an immobilize
 #define SHOVE_KNOCKDOWN_HUMAN 30
 #define SHOVE_KNOCKDOWN_TABLE 30
 #define SHOVE_KNOCKDOWN_COLLATERAL 10
