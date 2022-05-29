@@ -49,7 +49,6 @@
 //Actual combat defines
 
 //click cooldowns, in tenths of a second, used for various combat actions
-#define CLICK_CD_DISARM 12 // Disarm actions have a longer cooldown before the next action can be taken
 #define CLICK_CD_MELEE 8
 #define CLICK_CD_THROW 4
 #define CLICK_CD_RANGE 4
@@ -116,7 +115,7 @@
 #define SHOVE_KNOCKDOWN_HUMAN 30
 #define SHOVE_KNOCKDOWN_TABLE 30
 #define SHOVE_KNOCKDOWN_COLLATERAL 10
-#define SHOVE_CHAIN_PARALYZE 10
+#define SHOVE_CHAIN_PARALYZE 6
 //Shove slowdown
 #define SHOVE_SLOWDOWN_LENGTH 30
 #define SHOVE_SLOWDOWN_STRENGTH 0.85 //multiplier
