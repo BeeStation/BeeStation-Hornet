@@ -130,6 +130,8 @@
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	taste_description = "smoke"
 
+/datum/reagent/smoke_powder/ez
+
 /datum/reagent/smoke_powder_activator
 	name = "Smoke Activator"
 	description = "Activates smoke powder"
@@ -141,7 +143,7 @@
 	description = "Makes a deafening noise."
 	reagent_state = LIQUID
 	color = "#C8C8C8"
-	chem_flags = CHEMICAL_RNG_GENERAL 
+	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	taste_description = "loud noises"
 
 /datum/reagent/phlogiston

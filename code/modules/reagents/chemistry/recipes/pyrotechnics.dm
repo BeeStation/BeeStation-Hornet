@@ -308,7 +308,8 @@
 /datum/chemical_reaction/ez_smoke
 	name = /datum/reagent/smoke_powder
 	results = list(/datum/reagent/smoke_powder = 1)
-	required_reagents = list(/datum/reagent/smoke_powder = 1, /datum/reagent/smoke_powder_activator = 1)
+	required_reagents = list(/datum/reagent/smoke_powder/ez = 1)
+	required_catalysts = list(/datum/reagent/smoke_powder_activator = 1)
 
 /datum/chemical_reaction/ez_smoke/on_reaction(datum/reagents/holder, created_volume)
 	holder.remove_reagent(/datum/reagent/smoke_powder, created_volume)

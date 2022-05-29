@@ -262,7 +262,7 @@ Borg Shaker
 	recharge_time = 3
 	accepts_reagent_upgrades = FALSE
 
-	reagent_ids = list(/datum/reagent/consumable/ethanol/fernet, /datum/reagent/consumable/ethanol/bastion_bourbon, /datum/reagent/toxin/zombiepowder, /datum/reagent/smoke_powder, /datum/reagent/smoke_powder_activator)
+	reagent_ids = list(/datum/reagent/consumable/ethanol/fernet, /datum/reagent/consumable/ethanol/bastion_bourbon, /datum/reagent/toxin/zombiepowder, /datum/reagent/smoke_powder/ez, /datum/reagent/smoke_powder_activator)
 
 /obj/item/reagent_containers/borghypo/peace
 	name = "Peace Hypospray"
