@@ -1,8 +1,0 @@
-author: Rukofamicom
-delete-after: true
-changes:
-  - balance: Stimulum is toxic again!
-  - tweak: Stimulum now causes difficulty breathing and oxyloss instead of plain toxin
-      damage, and has new notifications to assist in its usage. Recommended usage
-      is huffing one breath of stimulum for a high, and then waiting two minutes for
-      it to wear off before huffing again.
