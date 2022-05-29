@@ -128,7 +128,7 @@
 				sellers -= S
 				budget.adjust_money(-1*S.price)
 				say("Purchase complete. [budget.account_balance] credits remaining in Research Budget")
-				addtimer(CALLBACK(src, .proc/generate_new_seller), (rand(1,5)*60) SECONDS)
+				addtimer(CALLBACK(src, .proc/generate_new_seller), (rand(1,3)*60) SECONDS)
 				A = null
 
 	update_icon()
@@ -143,7 +143,7 @@
 			for(var/datum/xenoartifact_seller/buyer/B in buyers)
 				if(istype(I, B.buying))
 					buyers -= B
-					addtimer(CALLBACK(src, .proc/generate_new_buyer), (rand(1,5)*60) SECONDS)
+					addtimer(CALLBACK(src, .proc/generate_new_buyer), (rand(1,3)*60) SECONDS)
 					selling_item = I
 					break
 			if(selling_item)
@@ -180,7 +180,6 @@
 	B.generate()
 	buyers += B
 	ui_update()
-	addtimer(CALLBACK(GLOBAL_PROC, .proc/qdel, B), (rand(1,5)*60) SECONDS)
 
 /obj/machinery/computer/xenoartifact_console/proc/sync_devices()
 	for(var/obj/machinery/xenoartifact_inbox/I in oview(9,src))

@@ -95,7 +95,7 @@
 //Activation traits - only used to generate charge
 /datum/xenoartifact_trait/activator/impact
 	desc = "Sturdy"
-	label_desc = "Sturdy: The material is sturdy, striking it against the clown's skull seems to cause a unique reaction."
+	label_desc = "Sturdy: The material is sturdy. The amount of force applied seems to directly correlate to the size of the reaction."
 	charge = 25
 	signals = list(COMSIG_PARENT_ATTACKBY, COMSIG_MOVABLE_IMPACT, XENOA_INTERACT, COMSIG_ITEM_AFTERATTACK)
 
@@ -242,6 +242,7 @@
 /datum/xenoartifact_trait/minor/dense/on_init(obj/item/xenoartifact/X)
 	X.density = TRUE
 	X.interaction_flags_atom = INTERACT_ATOM_ATTACK_HAND
+	X.interaction_flags_item = INTERACT_ATOM_ATTACK_HAND
 
 /datum/xenoartifact_trait/minor/sharp
 	desc = "Sharp"
@@ -255,12 +256,9 @@
 /datum/xenoartifact_trait/minor/sharp/on_init(obj/item/xenoartifact/X)
 	X.sharpness = IS_SHARP_ACCURATE
 	X.force = X.charge_req*0.15
-	X.throwforce = 10
 	X.attack_verb = list("cleaved", "slashed", "stabbed", "sliced", "tore", "ripped", "diced", "cut")
 	X.attack_weight = 2
 	X.armour_penetration = 5
-	X.throw_speed = 3
-	X.throw_range = 6
 
 /datum/xenoartifact_trait/minor/radioactive
 	label_name = "Roadiactive"
@@ -312,14 +310,20 @@
 	var/list/mob/dead/observer/candidates = pollGhostCandidates("Do you want to play as the maleviolent force inside the [X.name]?", ROLE_SENTIENCE, null, FALSE, 5 SECONDS, POLL_IGNORE_SENTIENCE_POTION)
 	if(LAZYLEN(candidates))
 		var/mob/dead/observer/C = pick(candidates)
-		man = new /mob/living/simple_animal(get_turf(X))
-		man.key = C.key
-		log_game("[man]:[man.ckey] took control of the sentient [X]. [X] located at [X.x] [X.y] [X.z]")
-		ADD_TRAIT(man, TRAIT_NOBREATH, TRAIT_MUTE)
-		man.forceMove(X)
-		man.anchored = TRUE
-		var/obj/effect/proc_holder/spell/targeted/xeno_senitent_action/P = new /obj/effect/proc_holder/spell/targeted/xeno_senitent_action(get_turf(man), X)
-		man.AddSpell(P)
+		setup_sentience(X, C.ckey)
+		return
+	new /obj/effect/mob_spawn/sentient_artifact(get_turf(X), X)
+
+/datum/xenoartifact_trait/minor/sentient/proc/setup_sentience(obj/item/xenoartifact/X, ckey)	
+	man = new /mob/living/simple_animal(get_turf(X))
+	man.key = ckey
+	log_game("[man]:[man.ckey] took control of the sentient [X]. [X] located at [X.x] [X.y] [X.z]")
+	ADD_TRAIT(man, TRAIT_NOBREATH, TRAIT_MUTE)
+	man.forceMove(X)
+	man.anchored = TRUE
+	var/obj/effect/proc_holder/spell/targeted/xeno_senitent_action/P = new /obj/effect/proc_holder/spell/targeted/xeno_senitent_action(get_turf(man), X)
+	man.AddSpell(P)
+	P.RegisterSignal(man, COMSIG_PARENT_QDELETING, /obj/effect/proc_holder/spell/targeted/xeno_senitent_action/proc/on_owner_del)
 
 /obj/effect/proc_holder/spell/targeted/xeno_senitent_action //Lets sentience target goober
 	name = "Activate"
@@ -348,6 +352,31 @@
 /datum/xenoartifact_trait/minor/sentient/Destroy(force, ...)
 	. = ..()
 	qdel(man) //Kill the inner person. Otherwise invisible 'animal' runs around
+
+/obj/effect/proc_holder/spell/targeted/xeno_senitent_action/proc/on_owner_del()
+	qdel(src) //I don't know why but deleting the owner just drops this on the ground, mental
+
+/obj/effect/mob_spawn/sentient_artifact
+	death = FALSE
+	roundstart = FALSE
+	random = TRUE
+	name = "Sentient Xenoartifact"
+	short_desc = "You're a maleviolent sentience, possesing an ancient alien artifact."
+	flavour_text = "Return to your master..."
+	use_cooldown = TRUE
+	invisibility = 101
+	var/obj/item/xenoartifact/X
+
+/obj/effect/mob_spawn/sentient_artifact/Initialize(mapload, var/obj/item/xenoartifact/Z)
+	. = ..()
+	if(!Z)
+		qdel(src)
+		return FALSE
+	X = Z
+
+/obj/effect/mob_spawn/sentient_artifact/create(ckey, name)
+	var/datum/xenoartifact_trait/minor/sentient/S = X.get_trait(/datum/xenoartifact_trait/minor/sentient)
+	S.setup_sentience(X, ckey)
 
 /datum/xenoartifact_trait/minor/delicate //Limited uses.
 	desc = "Fragile"
@@ -379,10 +408,10 @@
 /datum/xenoartifact_trait/minor/aura/activate(obj/item/xenoartifact/X)
 	X.true_target = list()
 	for(var/mob/living/M in oview(min(X.max_range, 5), get_turf(X.loc))) //Look for mobs
-		X.true_target += M
+		X.true_target += X.process_target(M)
 	for(var/obj/M in oview(min(X.max_range, 5), get_turf(X.loc))) //Look for items
 		if(!(M.anchored))
-			X.true_target += M
+			X.true_target += X.process_target(M)
 
 /datum/xenoartifact_trait/minor/long //Essentially makes the artifact a ranged wand. Makes barreled useful.
 	desc = "Scoped"
@@ -473,7 +502,7 @@
 	if(isliving(X.loc))
 		var/mob/living/holder = X.loc
 		holder.dropItemToGround(X)
-	if(ismovable(target))
+	if(ismovable(target) && !(istype(target, /obj/structure)))
 		var/atom/movable/AM = target
 		AM.forceMove(X)
 		AM.anchored = TRUE
@@ -921,7 +950,7 @@
 	var/mob/living/M
 	if(isliving(user))
 		M = user
-	else if(isliving(user.loc))
+	else if(isliving(user?.loc))
 		M = user.loc
 	else
 		return

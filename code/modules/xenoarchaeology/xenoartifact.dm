@@ -45,7 +45,7 @@
 	///Everytime the artifact is used this increases. When this is successfully proc'd the artifact gains a malfunction and this is lowered.
 	var/malfunction_chance = 0
 	///How much the chance can change in a sinlge itteration
-	var/malfunction_mod = 1
+	var/malfunction_mod = 0.5
 
 /obj/item/xenoartifact/ComponentInitialize()
 	. = ..()
@@ -83,7 +83,7 @@
 							/datum/xenoartifact_trait/activator/batteryneed))
 			if(!xenop.price)
 				xenop.price = pick(200, 300, 500)
-			malfunction_mod = 2
+			malfunction_mod = 1
 
 		if(XENOA_URANIUM)
 			name = "uranium [name]"
@@ -101,7 +101,7 @@
 			generate_traits(list(/datum/xenoartifact_trait/major/sing))
 			if(!xenop.price)
 				xenop.price = pick(500, 800, 1000) 
-			malfunction_mod = 0.5
+			malfunction_mod = 0.25
 
 	//Initialize traits that require that.
 	for(var/datum/xenoartifact_trait/t as() in traits)
@@ -273,16 +273,9 @@
 	add_overlay(icon_overlay)
 
 ///Used for hand-holding secret technique. Pulling entities swaps them for you in the target list.
-/obj/item/xenoartifact/proc/process_target(atom/target)
-	if(!target)
-		return
-	. = target
-	if(isliving(target?.loc))
-		. = target?.loc
-	var/mob/living/M = istype(target, /mob/living) ? target : null //Have to type convert to access pulling
-	if(M?.pulling)
-		. = M?.pulling
-	RegisterSignal(target, COMSIG_PARENT_QDELETING, .proc/on_target_del, target)
+/obj/item/xenoartifact/proc/process_target(mob/target)
+	. = target?.pulling ? target?.pulling : target
+	RegisterSignal(., COMSIG_PARENT_QDELETING, .proc/on_target_del, .)
 	return
 
 ///Hard del handle
@@ -293,7 +286,7 @@
 
 ///Helps show how the artifact is working. Hint stuff. Draws a beam between artifact and target
 /obj/item/xenoartifact/proc/create_beam(atom/target)
-	if(isliving(loc) || !get_turf(target))
+	if((locate(src) in target) || !get_turf(target))
 		return
 	var/datum/beam/xenoa_beam/B = new(src.loc, target, time=1.5 SECONDS, beam_icon='icons/obj/xenoarchaeology/xenoartifact.dmi', beam_icon_state="xenoa_beam", btype=/obj/effect/ebeam/xenoa_ebeam)
 	B.set_color(material)
@@ -304,7 +297,7 @@
 	if(!COOLDOWN_FINISHED(src, xenoa_cooldown))
 		return FALSE
 	charge = chr
-	true_target |= target
+	true_target |= process_target(target)
 	check_charge(user)
 	return TRUE
 
