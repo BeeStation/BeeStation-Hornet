@@ -48,10 +48,10 @@
 	if(Uses)
 		grind_results[/datum/reagent/toxin/slimejelly] = 20
 
-//Effect when activated by a Luminescent. Separated into a minor and major effect. Returns cooldown in deciseconds.
+//Effect when activated by a Luminescent. Separated into a minor and major effect. Returns cooldown in seconds.
 /obj/item/slime_extract/proc/activate(mob/living/carbon/human/user, datum/species/species, activation_type)
 	to_chat(user, "<span class='notice'>Nothing happened... This slime extract cannot be activated this way.</span>")
-	return 0
+	return 5 SECONDS
 
 //Core-crossing: Feeding adult slimes extracts to obtain a much more powerful, single extract.
 /obj/item/slime_extract/attack(mob/living/simple_animal/slime/M, mob/user)
@@ -88,21 +88,20 @@
 /obj/item/slime_extract/grey/activate(mob/living/carbon/human/user, datum/species/species, activation_type)
 	switch(activation_type)
 		if(SLIME_ACTIVATE_MINOR)
-			var/obj/item/reagent_containers/food/snacks/monkeycube/M = new
-			if(!user.put_in_active_hand(M))
-				M.forceMove(user.drop_location())
+			var/obj/item/reagent_containers/food/snacks/monkeycube/M = new(drop_location())
+			user.put_in_active_hand(M)
 			playsound(user, 'sound/effects/splat.ogg', 50, 1)
 			to_chat(user, "<span class='notice'>You spit out a monkey cube.</span>")
-			return 120
+			return 12 SECONDS
 		if(SLIME_ACTIVATE_MAJOR)
 			to_chat(user, "<span class='notice'>Your [name] starts pulsing...</span>")
-			if(do_after(user, 40, target = user))
+			if(do_after(user, 4 SECONDS, target = user))
 				var/mob/living/simple_animal/slime/S = new(get_turf(user), "grey")
 				playsound(user, 'sound/effects/splat.ogg', 50, 1)
 				to_chat(user, "<span class='notice'>You spit out [S].</span>")
-				return 350
+				return 35 SECONDS
 			else
-				return 0
+				return 5 SECONDS
 
 /obj/item/slime_extract/gold
 	name = "gold slime extract"
@@ -115,16 +114,16 @@
 	switch(activation_type)
 		if(SLIME_ACTIVATE_MINOR)
 			user.visible_message("<span class='warning'>[user] starts shaking!</span>","<span class='notice'>Your [name] starts pulsing gently...</span>")
-			if(do_after(user, 40, target = user))
+			if(do_after(user, 4 SECONDS, target = user))
 				var/mob/living/simple_animal/S = create_random_mob(user.drop_location(), FRIENDLY_SPAWN)
 				S.faction |= "neutral"
 				playsound(user, 'sound/effects/splat.ogg', 50, 1)
 				user.visible_message("<span class='warning'>[user] spits out [S]!</span>", "<span class='notice'>You spit out [S]!</span>")
-				return 300
+				return 30 SECONDS
 
 		if(SLIME_ACTIVATE_MAJOR)
 			user.visible_message("<span class='warning'>[user] starts shaking violently!</span>","<span class='warning'>Your [name] starts pulsing violently...</span>")
-			if(do_after(user, 50, target = user))
+			if(do_after(user, 5 SECONDS, target = user))
 				var/mob/living/simple_animal/S = create_random_mob(user.drop_location(), HOSTILE_SPAWN)
 				if(user.a_intent != INTENT_HARM)
 					S.faction |= "neutral"
@@ -132,7 +131,7 @@
 					S.faction |= "slime"
 				playsound(user, 'sound/effects/splat.ogg', 50, 1)
 				user.visible_message("<span class='warning'>[user] spits out [S]!</span>", "<span class='warning'>You spit out [S]!</span>")
-				return 600
+				return 60 SECONDS
 
 /obj/item/slime_extract/silver
 	name = "silver slime extract"
@@ -145,20 +144,18 @@
 	switch(activation_type)
 		if(SLIME_ACTIVATE_MINOR)
 			var/food_type = get_random_food()
-			var/obj/O = new food_type
-			if(!user.put_in_active_hand(O))
-				O.forceMove(user.drop_location())
+			var/obj/O = new food_type(user.drop_location())
+			user.put_in_active_hand(O)
 			playsound(user, 'sound/effects/splat.ogg', 50, 1)
 			user.visible_message("<span class='warning'>[user] spits out [O]!</span>", "<span class='notice'>You spit out [O]!</span>")
-			return 200
+			return 20 SECONDS
 		if(SLIME_ACTIVATE_MAJOR)
 			var/drink_type = get_random_drink()
-			var/obj/O = new drink_type
-			if(!user.put_in_active_hand(O))
-				O.forceMove(user.drop_location())
+			var/obj/O = new drink_type(user.drop_location())
+			user.put_in_active_hand(O)
 			playsound(user, 'sound/effects/splat.ogg', 50, 1)
 			user.visible_message("<span class='warning'>[user] spits out [O]!</span>", "<span class='notice'>You spit out [O]!</span>")
-			return 200
+			return 20 SECONDS
 
 /obj/item/slime_extract/metal
 	name = "metal slime extract"
@@ -170,20 +167,18 @@
 /obj/item/slime_extract/metal/activate(mob/living/carbon/human/user, datum/species/species, activation_type)
 	switch(activation_type)
 		if(SLIME_ACTIVATE_MINOR)
-			var/obj/item/stack/sheet/glass/O = new(null, 5)
-			if(!user.put_in_active_hand(O))
-				O.forceMove(user.drop_location())
+			var/obj/item/stack/sheet/glass/O = new(user.drop_location(), 5)
+			user.put_in_active_hand(O)
 			playsound(user, 'sound/effects/splat.ogg', 50, 1)
 			user.visible_message("<span class='warning'>[user] spits out [O]!</span>", "<span class='notice'>You spit out [O]!</span>")
-			return 150
+			return 15 SECONDS
 
 		if(SLIME_ACTIVATE_MAJOR)
-			var/obj/item/stack/sheet/iron/O = new(null, 5)
-			if(!user.put_in_active_hand(O))
-				O.forceMove(user.drop_location())
+			var/obj/item/stack/sheet/iron/O = new(user.drop_location(), 5)
+			user.put_in_active_hand(O)
 			playsound(user, 'sound/effects/splat.ogg', 50, 1)
 			user.visible_message("<span class='warning'>[user] spits out [O]!</span>", "<span class='notice'>You spit out [O]!</span>")
-			return 200
+			return 20 SECONDS
 
 /obj/item/slime_extract/purple
 	name = "purple slime extract"
@@ -198,12 +193,12 @@
 			user.adjust_nutrition(50)
 			user.blood_volume += 50
 			to_chat(user, "<span class='notice'>You activate [src], and your body is refilled with fresh slime jelly!</span>")
-			return 150
+			return 15 SECONDS
 
 		if(SLIME_ACTIVATE_MAJOR)
 			to_chat(user, "<span class='notice'>You activate [src], and it releases regenerative chemicals!</span>")
 			user.reagents.add_reagent(/datum/reagent/medicine/regen_jelly,10)
-			return 600
+			return 60 SECONDS
 
 /obj/item/slime_extract/darkpurple
 	name = "dark purple slime extract"
@@ -215,19 +210,18 @@
 /obj/item/slime_extract/darkpurple/activate(mob/living/carbon/human/user, datum/species/species, activation_type)
 	switch(activation_type)
 		if(SLIME_ACTIVATE_MINOR)
-			var/obj/item/stack/sheet/mineral/plasma/O = new(null, 1)
-			if(!user.put_in_active_hand(O))
-				O.forceMove(user.drop_location())
+			var/obj/item/stack/sheet/mineral/plasma/O = new(user.drop_location(), 1)
+			user.put_in_active_hand(O)
 			playsound(user, 'sound/effects/splat.ogg', 50, 1)
 			user.visible_message("<span class='warning'>[user] spits out [O]!</span>", "<span class='notice'>You spit out [O]!</span>")
-			return 150
+			return 15 SECONDS
 
 		if(SLIME_ACTIVATE_MAJOR)
 			var/turf/open/T = get_turf(user)
 			if(istype(T))
 				T.atmos_spawn_air("plasma=20")
 			to_chat(user, "<span class='warning'>You activate [src], and a cloud of plasma bursts out of your skin!</span>")
-			return 900
+			return 90 SECONDS
 
 /obj/item/slime_extract/orange
 	name = "orange slime extract"
@@ -241,14 +235,14 @@
 		if(SLIME_ACTIVATE_MINOR)
 			to_chat(user, "<span class='notice'>You activate [src]. You start feeling hot!</span>")
 			user.reagents.add_reagent(/datum/reagent/consumable/capsaicin,10)
-			return 150
+			return 15 SECONDS
 
 		if(SLIME_ACTIVATE_MAJOR)
 			user.reagents.add_reagent(/datum/reagent/phosphorus,5)//
 			user.reagents.add_reagent(/datum/reagent/potassium,5) // = smoke, along with any reagents inside mr. slime
 			user.reagents.add_reagent(/datum/reagent/consumable/sugar,5)     //
 			to_chat(user, "<span class='warning'>You activate [src], and a cloud of smoke bursts out of your skin!</span>")
-			return 450
+			return 45 SECONDS
 
 /obj/item/slime_extract/yellow
 	name = "yellow slime extract"
@@ -268,19 +262,19 @@
 				lum_species.update_glow(user, 5)
 				addtimer(CALLBACK(lum_species, /datum/species/jelly/luminescent.proc/update_glow, user, LUMINESCENT_DEFAULT_GLOW), 600)
 				to_chat(user, "<span class='notice'>You start glowing brighter.</span>")
-				return 600
+				return 60 SECONDS
 			else
 				var/obj/effect/dummy/luminescent_glow/glowth = new(user) //copied from glowy mutation, copied from luminescents
 				glowth.set_light(2.5, 2.5, user.dna.features["mcolor"]) //Weaker than regular luminescents
 				QDEL_IN(glowth, 600)
-				return 600
+				return 60 SECONDS
 
 		if(SLIME_ACTIVATE_MAJOR)
 			user.visible_message("<span class='warning'>[user]'s skin starts flashing intermittently...</span>", "<span class='warning'>Your skin starts flashing intermittently...</span>")
 			if(do_after(user, 25, target = user))
 				empulse(user, 1, 2, magic=TRUE)
 				user.visible_message("<span class='warning'>[user]'s skin flashes!</span>", "<span class='warning'>Your skin flashes as you emit an electromagnetic pulse!</span>")
-				return 600
+				return 60 SECONDS
 
 /obj/item/slime_extract/red
 	name = "red slime extract"
@@ -294,14 +288,14 @@
 		if(SLIME_ACTIVATE_MINOR)
 			to_chat(user, "<span class='notice'>You activate [src]. You start feeling fast!</span>")
 			user.reagents.add_reagent(/datum/reagent/medicine/ephedrine,5)
-			return 450
+			return 45 SECONDS
 
 		if(SLIME_ACTIVATE_MAJOR)
 			user.visible_message("<span class='warning'>[user]'s skin flashes red for a moment...</span>", "<span class='warning'>Your skin flashes red as you emit rage-inducing pheromones...</span>")
 			for(var/mob/living/simple_animal/slime/slime in viewers(get_turf(user)))
 				slime.rabid = TRUE
 				slime.visible_message("<span class='danger'>The [slime] is driven into a frenzy!</span>")
-			return 600
+			return 60 SECONDS
 
 /obj/item/slime_extract/blue
 	name = "blue slime extract"
@@ -317,7 +311,7 @@
 			user.adjustCloneLoss(-15)
 			user.reagents.add_reagent(/datum/reagent/medicine/mutadone, 10)
 			user.reagents.add_reagent(/datum/reagent/medicine/potass_iodide, 10)
-			return 250
+			return 25 SECONDS
 
 		if(SLIME_ACTIVATE_MAJOR)
 			var/location = get_turf(user)
@@ -326,7 +320,7 @@
 			s.start()
 			user.reagents.clear_reagents()
 			user.visible_message("<span class='danger'>Foam spews out from [user]'s skin!</span>", "<span class='warning'>You activate [src], and foam bursts out of your skin!</span>")
-			return 600
+			return 60 SECONDS
 
 /obj/item/slime_extract/darkblue
 	name = "dark blue slime extract"
@@ -343,14 +337,14 @@
 			user.adjust_fire_stacks(-20)
 			user.reagents.add_reagent(/datum/reagent/consumable/frostoil,4)
 			user.reagents.add_reagent(/datum/reagent/medicine/cryoxadone,5)
-			return 100
+			return 10 SECONDS
 
 		if(SLIME_ACTIVATE_MAJOR)
 			var/turf/open/T = get_turf(user)
 			if(istype(T))
 				T.atmos_spawn_air("nitrogen=40;TEMP=2.7")
 			to_chat(user, "<span class='warning'>You activate [src], and icy air bursts out of your skin!</span>")
-			return 900
+			return 90 SECONDS
 
 /obj/item/slime_extract/pink
 	name = "pink slime extract"
@@ -364,7 +358,7 @@
 		if(SLIME_ACTIVATE_MINOR)
 			if(user.gender != MALE && user.gender != FEMALE)
 				to_chat(user, "<span class='warning'>You can't swap your gender!</span>")
-				return
+				return 5 SECONDS
 
 			if(user.gender == MALE)
 				user.gender = FEMALE
@@ -372,7 +366,7 @@
 			else
 				user.gender = MALE
 				user.visible_message("<span class='boldnotice'>[user] suddenly looks more masculine!</span>", "<span class='boldwarning'>You suddenly feel more masculine!</span>")
-			return 100
+			return 10 SECONDS
 
 		if(SLIME_ACTIVATE_MAJOR)
 			user.visible_message("<span class='warning'>[user]'s skin starts flashing hypnotically...</span>", "<span class='notice'>Your skin starts forming odd patterns, pacifying creatures around you.</span>")
@@ -394,7 +388,7 @@
 			if(do_after(user, 120, target = user))
 				to_chat(user, "<span class='warning'>You feel human again!</span>")
 				user.set_species(/datum/species/human)
-				return 600 //This is only for gentle extracts
+				return 60 SECONDS //This is only for gentle extracts
 			to_chat(user, "<span class='notice'>You stop the transformation.</span>")
 
 		if(SLIME_ACTIVATE_MAJOR)
@@ -402,7 +396,7 @@
 			if(do_after(user, 120, target = user))
 				to_chat(user, "<span class='warning'>You feel different!</span>")
 				user.set_species(pick(/datum/species/jelly/slime, /datum/species/jelly/stargazer))
-				return 600
+				return 60 SECONDS
 			to_chat(user, "<span class='notice'>You stop the transformation.</span>")
 
 /obj/item/slime_extract/lightpink
@@ -415,20 +409,18 @@
 /obj/item/slime_extract/lightpink/activate(mob/living/carbon/human/user, datum/species/species, activation_type)
 	switch(activation_type)
 		if(SLIME_ACTIVATE_MINOR)
-			var/obj/item/slimepotion/slime/renaming/O = new(null, 1)
-			if(!user.put_in_active_hand(O))
-				O.forceMove(user.drop_location())
+			var/obj/item/slimepotion/slime/renaming/O = new(user.drop_location(), 1)
+			user.put_in_active_hand(O)
 			playsound(user, 'sound/effects/splat.ogg', 50, 1)
 			user.visible_message("<span class='warning'>[user] spits out [O]!</span>", "<span class='notice'>You spit out [O]!</span>")
-			return 150
+			return 15 SECONDS
 
 		if(SLIME_ACTIVATE_MAJOR)
-			var/obj/item/slimepotion/slime/sentience/O = new(null, 1)
-			if(!user.put_in_active_hand(O))
-				O.forceMove(user.drop_location())
+			var/obj/item/slimepotion/slime/sentience/O = new(user.drop_location(), 1)
+			user.put_in_active_hand(O)
 			playsound(user, 'sound/effects/splat.ogg', 50, 1)
 			user.visible_message("<span class='warning'>[user] spits out [O]!</span>", "<span class='notice'>You spit out [O]!</span>")
-			return 450
+			return 45 SECONDS
 
 /obj/item/slime_extract/black
 	name = "black slime extract"
@@ -442,14 +434,14 @@
 		if(SLIME_ACTIVATE_MINOR)
 			to_chat(user, "<span class='userdanger'>You feel something <i>wrong</i> inside you...</span>")
 			user.ForceContractDisease(new /datum/disease/transformation/slime(), FALSE, TRUE)
-			return 100
+			return 10 SECONDS
 
 		if(SLIME_ACTIVATE_MAJOR)
 			to_chat(user, "<span class='warning'>You feel your own light turning dark...</span>")
 			if(do_after(user, 120, target = user))
 				to_chat(user, "<span class='warning'>You feel a longing for darkness.</span>")
 				user.set_species(pick(/datum/species/shadow))
-				return 600
+				return 60 SECONDS
 			to_chat(user, "<span class='notice'>You stop feeding [src].</span>")
 
 /obj/item/slime_extract/oil
@@ -465,15 +457,15 @@
 			to_chat(user, "<span class='warning'>You vomit slippery oil.</span>")
 			playsound(user, 'sound/effects/splat.ogg', 50, 1)
 			new /obj/effect/decal/cleanable/oil/slippery(get_turf(user))
-			return 450
+			return 45 SECONDS
 
 		if(SLIME_ACTIVATE_MAJOR)
 			user.visible_message("<span class='warning'>[user]'s skin starts pulsing and glowing ominously...</span>", "<span class='userdanger'>You feel unstable...</span>")
-			if(do_after(user, 60, target = user))
+			if(do_after(user, 6 SECONDS, target = user))
 				to_chat(user, "<span class='userdanger'>You explode!</span>")
 				explosion(get_turf(user), 1 ,3, 6)
 				user.gib()
-				return 600
+				return 60 SECONDS
 			to_chat(user, "<span class='notice'>You stop feeding [src], and the feeling passes.</span>")
 
 /obj/item/slime_extract/adamantine
@@ -491,15 +483,15 @@
 				return
 			to_chat(user, "<span class='notice'>You feel your skin harden and become more resistant.</span>")
 			species.armor += 25
-			addtimer(CALLBACK(src, .proc/reset_armor, species), 1200)
-			return 450
+			addtimer(CALLBACK(src, .proc/reset_armor, species), 120 SECONDS)
+			return 45 SECONDS
 
 		if(SLIME_ACTIVATE_MAJOR)
 			to_chat(user, "<span class='warning'>You feel your body rapidly crystallizing...</span>")
-			if(do_after(user, 120, target = user))
+			if(do_after(user, 12 SECONDS, target = user))
 				to_chat(user, "<span class='warning'>You feel solid.</span>")
 				user.set_species(pick(/datum/species/golem/adamantine))
-				return 600
+				return 60 SECONDS
 			to_chat(user, "<span class='notice'>You stop feeding [src], and your body returns to its slimelike state.</span>")
 
 /obj/item/slime_extract/adamantine/proc/reset_armor(datum/species/species)
@@ -521,7 +513,7 @@
 	switch(activation_type)
 		if(SLIME_ACTIVATE_MINOR)
 			to_chat(user, "<span class='notice'>You feel your body vibrating...</span>")
-			if(!do_after(user, 25, target = user))
+			if(!do_after(user, 2.5 SECONDS, target = user))
 				to_chat(user, "<span class='warning'>You need to hold still to teleport!</span>")
 				return
 			to_chat(user, "<span class='warning'>You teleport!</span>")
@@ -531,7 +523,7 @@
 		if(SLIME_ACTIVATE_MAJOR)
 			if(!teleport_ready)
 				to_chat(user, "<span class='notice'>You feel yourself anchoring to this point...</span>")
-				if(!do_after(user, 25, target = user))
+				if(!do_after(user, 2.5 SECONDS, target = user))
 					to_chat(user, "<span class='notice'>You need to hold still to finish anchoring yourself!</span>")
 					return
 				var/turf/T = get_turf(user)
@@ -542,7 +534,7 @@
 				to_chat(user, "<span class='notice'>You anchor yourself to this point!</span>")
 			else
 				to_chat(user, "<span class='notice'>You feel yourself being pulled back to your anchor point...</span>")
-				if(!do_after(user, 25, target = user))
+				if(!do_after(user, 2.5 SECONDS, target = user))
 					to_chat(user, "<span class ='warning'>Your teleport was interrupted!</span>")
 					return
 				teleport_ready = FALSE
@@ -552,7 +544,7 @@
 				var/turf/T = locate(teleport_x, teleport_y, teleport_z)
 				to_chat(user, "<span class='notice'>You snap back to your anchor point!</span>")
 				do_teleport(user, T,  asoundin = 'sound/weapons/emitter2.ogg', channel = TELEPORT_CHANNEL_BLUESPACE)
-				return 450
+				return 45 SECONDS
 
 
 /obj/item/slime_extract/pyrite
@@ -565,22 +557,36 @@
 /obj/item/slime_extract/pyrite/activate(mob/living/carbon/human/user, datum/species/species, activation_type)
 	switch(activation_type)
 		if(SLIME_ACTIVATE_MINOR)
-			var/chosen = pick(difflist(subtypesof(/obj/item/toy/crayon),typesof(/obj/item/toy/crayon/spraycan)))
-			var/obj/item/O = new chosen(null)
-			if(!user.put_in_active_hand(O))
-				O.forceMove(user.drop_location())
+			var/chosen = pick(list(
+									/obj/item/toy/crayon/red,
+									/obj/item/toy/crayon/orange,
+									/obj/item/toy/crayon/yellow,
+									/obj/item/toy/crayon/green,
+									/obj/item/toy/crayon/blue,
+									/obj/item/toy/crayon/purple,
+									/obj/item/toy/crayon/black,
+									/obj/item/toy/crayon/white,
+									/obj/item/toy/crayon/mime,
+									/obj/item/toy/crayon/rainbow
+								))
+			var/obj/item/O = new chosen(user.drop_location())
+			user.put_in_active_hand(O)
 			playsound(user, 'sound/effects/splat.ogg', 50, 1)
 			user.visible_message("<span class='warning'>[user] spits out [O]!</span>", "<span class='notice'>You spit out [O]!</span>")
-			return 150
+			return 15 SECONDS
 
 		if(SLIME_ACTIVATE_MAJOR)
-			var/chosen = pick(subtypesof(/obj/item/toy/crayon/spraycan))
-			var/obj/item/O = new chosen(null)
-			if(!user.put_in_active_hand(O))
-				O.forceMove(user.drop_location())
+			var/chosen = pick(list(
+									/obj/item/toy/crayon/spraycan,
+									/obj/item/toy/crayon/spraycan/hellcan,
+									/obj/item/toy/crayon/spraycan/lubecan,
+									/obj/item/toy/crayon/spraycan/mimecan
+								))
+			var/obj/item/O = new chosen(user.drop_location())
+			user.put_in_active_hand(O)
 			playsound(user, 'sound/effects/splat.ogg', 50, 1)
 			user.visible_message("<span class='warning'>[user] spits out [O]!</span>", "<span class='notice'>You spit out [O]!</span>")
-			return 250
+			return 25 SECONDS
 
 /obj/item/slime_extract/cerulean
 	name = "cerulean slime extract"
@@ -594,14 +600,14 @@
 		if(SLIME_ACTIVATE_MINOR)
 			user.reagents.add_reagent(/datum/reagent/medicine/salbutamol,15)
 			to_chat(user, "<span class='notice'>You feel like you don't need to breathe!</span>")
-			return 150
+			return 15 SECONDS
 
 		if(SLIME_ACTIVATE_MAJOR)
 			var/turf/open/T = get_turf(user)
 			if(istype(T))
 				T.atmos_spawn_air("o2=11;n2=41;TEMP=293.15")
 				to_chat(user, "<span class='warning'>You activate [src], and fresh air bursts out of your skin!</span>")
-				return 600
+				return 60 SECONDS
 
 /obj/item/slime_extract/sepia
 	name = "sepia slime extract"
@@ -613,18 +619,16 @@
 /obj/item/slime_extract/sepia/activate(mob/living/carbon/human/user, datum/species/species, activation_type)
 	switch(activation_type)
 		if(SLIME_ACTIVATE_MINOR)
-			var/obj/item/camera/O = new(null, 1)
-			if(!user.put_in_active_hand(O))
-				O.forceMove(user.drop_location())
+			var/obj/item/camera/O = new(user.drop_location(), 1)
 			playsound(user, 'sound/effects/splat.ogg', 50, 1)
 			user.visible_message("<span class='warning'>[user] spits out [O]!</span>", "<span class='notice'>You spit out [O]!</span>")
-			return 150
+			return 15 SECONDS
 
 		if(SLIME_ACTIVATE_MAJOR)
 			to_chat(user, "<span class='warning'>You feel time slow down...</span>")
-			if(do_after(user, 30, target = user))
+			if(do_after(user, 3 SECONDS, target = user))
 				new /obj/effect/timestop(get_turf(user), 2, 50, list(user))
-				return 900
+				return 90 SECONDS
 
 /obj/item/slime_extract/rainbow
 	name = "rainbow slime extract"
@@ -637,21 +641,42 @@
 	switch(activation_type)
 		if(SLIME_ACTIVATE_MINOR)
 			user.dna.features["mcolor"] = pick("FFFFFF","7F7F7F", "7FFF7F", "7F7FFF", "FF7F7F", "7FFFFF", "FF7FFF", "FFFF7F")
-			user.updateappearance(mutcolor_update=1)
+			user.updateappearance(mutcolor_update = TRUE)
 			if(istype(species,/datum/species/jelly/luminescent))
 				var/datum/species/jelly/luminescent/lum_species = species
 				lum_species.update_glow(user)
 			to_chat(user, "<span class='notice'>You feel different...</span>")
-			return 100
+			return 10 SECONDS
 
 		if(SLIME_ACTIVATE_MAJOR)
-			var/chosen = pick(subtypesof(/obj/item/slime_extract))
-			var/obj/item/O = new chosen(null)
-			if(!user.put_in_active_hand(O))
-				O.forceMove(user.drop_location())
+			var/chosen = pick(list(
+								/obj/item/slime_extract/grey,
+								/obj/item/slime_extract/gold,
+								/obj/item/slime_extract/silver,
+								/obj/item/slime_extract/metal,
+								/obj/item/slime_extract/purple,
+								/obj/item/slime_extract/darkpurple,
+								/obj/item/slime_extract/orange,
+								/obj/item/slime_extract/yellow,
+								/obj/item/slime_extract/red,
+								/obj/item/slime_extract/blue,
+								/obj/item/slime_extract/darkblue,
+								/obj/item/slime_extract/pink,
+								/obj/item/slime_extract/green,
+								/obj/item/slime_extract/lightpink,
+								/obj/item/slime_extract/black,
+								/obj/item/slime_extract/oil,
+								/obj/item/slime_extract/adamantine,
+								/obj/item/slime_extract/bluespace,
+								/obj/item/slime_extract/pyrite,
+								/obj/item/slime_extract/cerulean,
+								/obj/item/slime_extract/sepia
+								))
+			var/obj/item/O = new chosen(user.drop_location())
+			user.put_in_active_hand(O)
 			playsound(user, 'sound/effects/splat.ogg', 50, 1)
 			user.visible_message("<span class='warning'>[user] spits out [O]!</span>", "<span class='notice'>You spit out [O]!</span>")
-			return 150
+			return 15 SECONDS
 
 ////Slime-derived potions///
 

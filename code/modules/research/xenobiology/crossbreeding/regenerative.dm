@@ -11,6 +11,7 @@ Regenerative extracts:
 
 /obj/item/slimecross/regenerative/proc/core_effect(mob/living/carbon/human/target, mob/user)
 	return
+
 /obj/item/slimecross/regenerative/proc/core_effect_before(mob/living/carbon/human/target, mob/user)
 	return
 
@@ -149,9 +150,7 @@ Regenerative extracts:
 
 /obj/item/slimecross/regenerative/bluespace/core_effect(mob/living/target, mob/user)
 	target.visible_message("<span class='warning'>[src] disappears in a shower of sparks!</span>","<span class='danger'>The milky goo teleports you somewhere it remembers!</span>")
-	do_sparks(5,FALSE,target)
-	target.forceMove(T)
-	do_sparks(5,FALSE,target)
+	do_teleport(target, T, effectin = new /datum/effect_system/spark_spread, effectout = new /datum/effect_system/spark_spread, asoundin = 'sound/weapons/emitter2.ogg', channel = TELEPORT_CHANNEL_BLUESPACE)
 
 /obj/item/slimecross/regenerative/bluespace/Initialize(mapload)
 	. = ..()
@@ -170,7 +169,7 @@ Regenerative extracts:
 	effect_desc = "Heals the target and makes a second regenerative core with no special effects."
 
 /obj/item/slimecross/regenerative/cerulean/core_effect(mob/living/target, mob/user)
-	src.forceMove(user.loc)
+	forceMove(user.loc)
 	var/obj/item/slimecross/X = new /obj/item/slimecross/regenerative(user.loc)
 	X.name = name
 	X.desc = desc
