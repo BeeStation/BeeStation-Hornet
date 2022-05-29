@@ -388,7 +388,7 @@
 /obj/item/robot_module/security
 	name = "Security"
 	basic_modules = list(
-		/obj/item/assembly/flash/cyborg,				// Left this here even though the module is unused. It makes no sense to take it away if this module ever returns.
+		/obj/item/assembly/flash/cyborg,
 		/obj/item/restraints/handcuffs/cable/zipties,
 		/obj/item/melee/baton/loaded,
 		/obj/item/borg/charger,
