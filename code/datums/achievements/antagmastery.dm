@@ -13,7 +13,6 @@
 	name = "Syndie Supreme"
 	desc = "Possess all other antagonist mastery achievements."
 	database_id = MASTERY_ALLANTAGS
-	reward = 5000
 
 /datum/award/achievement/antagmastery/abductor
 	name = "Area 51"
