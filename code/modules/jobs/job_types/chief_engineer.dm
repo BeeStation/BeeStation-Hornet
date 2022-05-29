@@ -50,7 +50,9 @@
 	head = /obj/item/clothing/head/hardhat/white
 	gloves = /obj/item/clothing/gloves/color/black
 	backpack_contents = list(/obj/item/melee/classic_baton/police/telescopic=1,
-		/obj/item/modular_computer/tablet/preset/advanced/command=1)
+		/obj/item/modular_computer/tablet/preset/advanced/command=1,
+		/obj/item/gun/energy/e_gun/heads
+		)
 
 	backpack = /obj/item/storage/backpack/industrial
 	satchel = /obj/item/storage/backpack/satchel/eng

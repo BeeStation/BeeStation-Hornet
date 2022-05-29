@@ -15,6 +15,9 @@
 	e_cost = 200
 	select_name = "kill"
 
+/obj/item/ammo_casing/energy/laser/heads
+	e_cost = 120
+
 /obj/item/ammo_casing/energy/laser/hos
 	e_cost = 120
 

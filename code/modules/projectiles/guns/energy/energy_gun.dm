@@ -29,6 +29,28 @@
 	set_gun_light(new /obj/item/flashlight/seclite(src))
 	return ..()
 
+/obj/item/gun/energy/e_gun/heads
+	name = "Personal Tiny Self Defense Gun"
+	desc = "The PTSD gun has a built-in flashlight and the ability to recharge itself in two minutes. PTSD is standard issue for leadership within Nanotrasen. It has two settings: disable and kill."
+	cell_type = /obj/item/stock_parts/cell{charge = 600; maxcharge = 600}
+	ammo_type = list(/obj/item/ammo_casing/energy/disabler/heads, /obj/item/ammo_casing/energy/laser/heads) ///uses the hos disabler rounds to slightly weaken the disabler count and also to avoid encountering a visual bug where the gun is out of charge but displays that it has one enough for another shot.
+	selfcharge = TRUE
+	charge_delay = 20
+	can_charge = FALSE ///Not compatible with fast charging stations, must recharge slowly.
+	icon_state = "personal"
+	item_state = "gun"
+	w_class = WEIGHT_CLASS_SMALL
+	ammo_x_offset = 2
+	charge_sections = 2
+	flight_x_offset = 17
+	flight_y_offset = 10
+	can_flashlight = FALSE // Can't attach or detach the flashlight, and override it's icon update
+	weapon_weight = WEAPON_LIGHT
+
+/obj/item/gun/energy/e_gun/heads/Initialize(mapload)
+	set_gun_light(new /obj/item/flashlight/seclite(src))
+	return ..()
+
 /obj/item/gun/energy/e_gun/stun
 	name = "tactical energy gun"
 	desc = "Military issue energy gun, is able to fire stun rounds."

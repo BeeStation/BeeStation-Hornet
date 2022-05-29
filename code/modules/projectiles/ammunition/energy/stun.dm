@@ -27,3 +27,6 @@
 
 /obj/item/ammo_casing/energy/disabler/hos
 	e_cost = 50
+
+/obj/item/ammo_casing/energy/disabler/heads
+	e_cost = 60
