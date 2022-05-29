@@ -676,17 +676,26 @@
 	name = "British"
 	desc = "You're British"
 	value = -1
-	gain_text = "<span class='danger'>You are now British.</span>"
-	lose_text = "<span class='notice'>You are no longer British.</span>"
-	medical_record_text = "Patient suffers from being British"
+	gain_text = "<span class='danger'>Ye feel like a reet prat like, innit?.</span>"
+	lose_text = "<span class='notice'>You no longer feel like being rude and sassy.</span>"
 
 /datum/quirk/british/add()
-	var/mob/living/carbon/H = quirk_holder
+	var/mob/living/carbon/human/H = quirk_holder
 	RegisterSignal(H, COMSIG_MOB_SAY, .proc/handle_speech)
+	var/datum/species/species = H.dna.species
+	var/liked = species.liked_food
+	species.liked_food = /obj/item/reagent_containers/food/snacks/canned/beans
+	species.disliked_food = liked
+
+/datum/quirk/british/remove()
+	var/mob/living/carbon/human/H = quirk_holder
+	UnregisterSignal(H, COMSIG_MOB_SAY)
+	var/datum/species/species = H.dna.species
+	species.liked_food = initial(species.liked_food)
+	species.disliked_food = initial(species.disliked_food)
 
 /datum/quirk/british/proc/handle_speech(datum/source, list/speech_args)
 	SIGNAL_HANDLER
-
 	var/message = speech_args[SPEECH_MESSAGE]
 	if(message[1] != "*")
 		message = " [message]"
