@@ -328,13 +328,8 @@
 	var/timer_overlay_active = FALSE
 	var/timer_icon = 'icons/effects/cooldown.dmi'
 	var/timer_icon_state_active = "second"
+	COOLDOWN_DECLARE(recharging_repmod)
 
-	/// time until cooldown is up
-	var/cooldown = (2 MINUTES)
-	/// Is the module currently recharging?
-	var/recharging = FALSE
-	/// used for counting up to the cooldown
-	var/counter = 0	
 	/// how many times the repair tries to tick.
 	var/repair_ticks = 10
 	/// amount repaired per tick
@@ -374,7 +369,7 @@
 /obj/item/borg/upgrade/selfrepair/proc/update_timer_animation()
 	if(!(action?.button))
 		return
-	text_overlay.maptext = "<center><span class='chatOverhead' style='font-weight: bold;color: #eeeeee;'>[FLOOR((cooldown-counter)/10, 1)]</span></center>"
+	text_overlay.maptext = "<center><span class='chatOverhead' style='font-weight: bold;color: #eeeeee;'>[FLOOR(COOLDOWN_TIMELEFT(src, recharging_repmod)/10, 1)]</span></center>"
 
 /obj/item/borg/upgrade/selfrepair/proc/end_timer_animation()
 	if(!(action?.button) || !timer_overlay_active)
@@ -412,11 +407,10 @@
 		action.Grant(R)
 
 /obj/item/borg/upgrade/selfrepair/ui_action_click()
-	if(!recharging && icon_state == "selfrepair_off")
+	if(COOLDOWN_FINISHED(src, recharging_repmod) && icon_state == "selfrepair_off")
 		icon_state = "selfrepair_on"
 		to_chat(cyborg, "<span class='notice'>You activate the self-repair module.</span>")
 		playsound(cyborg.loc, activation_sound, 30)
-		counter = 0
 		update_icon()
 		process()
 	else
@@ -425,7 +419,7 @@
 /obj/item/borg/upgrade/selfrepair/update_icon()
 	. = ..()
 	if(cyborg)
-		if(timer_overlay_active && !recharging)
+		if(timer_overlay_active && COOLDOWN_FINISHED(src, recharging_repmod))
 			end_timer_animation()
 		if(action)
 			action.UpdateButtonIcon()
@@ -437,14 +431,20 @@
 /obj/item/borg/upgrade/selfrepair/proc/deactivate_sr()
 	STOP_PROCESSING(SSobj, src)
 
+/obj/item/borg/upgrade/selfrepair/proc/cooldown_start(ticksleft = 0)
+	icon_state = "selfrepair_off"
+	update_icon()
+	playsound(cyborg.loc, deactivation_sound, 60)
+	COOLDOWN_START(src, recharging_repmod, ((20 SECONDS) + ((100 SECONDS) - ((10 SECONDS) * ticksleft)))) //20 seconds + 10 seconds for every repair tick used up. 2 minutes max
+	begin_timer_animation()
+
 /obj/item/borg/upgrade/selfrepair/process(delta_time)
 	if(!cyborg) //Sanity check to reset the module in case it is somehow removed while running. 
 		update_icon()
-		recharging = FALSE
-		counter = 0
+		COOLDOWN_RESET(src, recharging_repmod)
 		repair_ticks = 10
-		return FALSE
-	if(!recharging && icon_state == "selfrepair_on")
+		deactivate_sr()
+	if(COOLDOWN_FINISHED(src, recharging_repmod) && icon_state == "selfrepair_on")
 		while(repair_ticks)
 			sleep(10)
 			if(cyborg.cell.charge <= powercost * 10)
@@ -462,26 +462,18 @@
 				repair_ticks--
 			else
 				to_chat(cyborg, "<span class='notice'>You are fully repaired, your module has deactivated early.</span>")
+				cooldown_start(repair_ticks)
 				repair_ticks = 0
 	if(!repair_ticks && icon_state == "selfrepair_on")
-		icon_state = "selfrepair_off"
-		update_icon()
-		playsound(cyborg.loc, deactivation_sound, 60)
-		recharging = TRUE
-		begin_timer_animation()
-	if(recharging && (counter < cooldown))
-		counter += delta_time * 10
+		cooldown_start(0)
+	if(!COOLDOWN_FINISHED(src, recharging_repmod))
 		update_timer_animation()
-		if(counter >= cooldown)
-			end_timer_animation()
-			action.UpdateButtonIcon()
-			recharging = FALSE
-			repair_ticks = 10
-	else
+	if(COOLDOWN_FINISHED(src, recharging_repmod) && icon_state == "selfrepair_off")
 		end_timer_animation()
 		action.UpdateButtonIcon()
-		recharging = FALSE
 		repair_ticks = 10
+		deactivate_sr()
+
 
 /obj/item/borg/upgrade/hypospray
 	name = "medical cyborg hypospray advanced synthesiser"
