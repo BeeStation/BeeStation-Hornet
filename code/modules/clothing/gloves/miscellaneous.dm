@@ -1,4 +1,94 @@
+//AURORA
+/obj/item/clothing/gloves/cobalt_armchains
+	name = "cobalt armchains"
+	desc = "A set of luxurious chains intended to be wrapped around long, lanky arms. They don't seem particularly comfortable. They're encrusted with cobalt-blue gems, and made of <b>REAL</b> faux gold."
+	icon_state = "cobalt_armchains"
+	item_state = "cobalt_armchains"
+	worn_icon_state = "cobalt_armchains"
+	transfer_prints = TRUE
+	undyeable = TRUE
+/obj/item/clothing/gloves/emerald_armchains
+	name = "emerald armchains"
+	desc = "A set of luxurious chains intended to be wrapped around long, lanky arms. They don't seem particularly comfortable. They're encrusted with emerald-green gems, and made of <b>REAL</b> faux gold."
+	icon_state = "emerald_armchains"
+	item_state = "emerald_armchains"
+	worn_icon_state = "emerald_armchains"
+	transfer_prints = TRUE
+	undyeable = TRUE
+/obj/item/clothing/gloves/ruby_armchains
+	name = "ruby armchains"
+	desc = "A set of luxurious chains intended to be wrapped around long, lanky arms. They don't seem particularly comfortable. They're encrusted with ruby-red gems, and made of <b>REAL</b> faux gold."
+	icon_state = "ruby_armchains"
+	item_state = "ruby_armchains"
+	worn_icon_state = "ruby_armchains"
+	transfer_prints = TRUE
+	undyeable = TRUE
+/obj/item/clothing/gloves/cobalt_bracers
+	name = "cobalt bracers"
+	desc = "A pair of sturdy and thick decorative bracers, seeming better for fashion than protection. They're encrusted with cobalt-blue gems, and made of <b>REAL</b> faux gold."
+	icon_state = "cobalt_bracers"
+	item_state = "cobalt_bracers"
+	worn_icon_state = "cobalt_bracers"
+	transfer_prints = TRUE
+	undyeable = TRUE
+/obj/item/clothing/gloves/emerald_bracers
+	name = "emerald bracers"
+	desc = "A pair of sturdy and thick decorative bracers, seeming better for fashion than protection. They're encrusted with emerald-green gems, and made of <b>REAL</b> faux gold."
+	icon_state = "emerald_bracers"
+	item_state = "emerald_bracers"
+	worn_icon_state = "emerald_bracers"
+	transfer_prints = TRUE
+	undyeable = TRUE
+/obj/item/clothing/gloves/ruby_bracers
+	name = "ruby bracers"
+	desc = "A pair of sturdy and thick decorative bracers, seeming better for fashion than protection. They're encrusted with ruby-red gems, and made of <b>REAL</b> faux gold."
+	icon_state = "ruby_bracers"
+	item_state = "ruby_bracers"
+	worn_icon_state = "ruby_bracers"
+	transfer_prints = TRUE
+	undyeable = TRUE
+/obj/item/clothing/gloves/beaded
+	name = "beaded bracelet"
+	desc = "Made from loose beads with a center hole and connected by a piece of string or elastic band through said holes."
+	icon_state = "beaded"
+	item_state = "beaded"
+	worn_icon_state = "beaded"
+	transfer_prints = TRUE
+	undyeable = TRUE
+/obj/item/clothing/gloves/bracelet
+	name = "bracelet"
+	desc = "Made out of some synthetic polymer. Management encourages you to not ask questions."
+	icon_state = "bracelet"
+	item_state = "bracelet"
+	worn_icon_state = "bracelet"
+	transfer_prints = TRUE
+	undyeable = TRUE
+/obj/item/clothing/gloves/watch
+	name = "watch"
+	desc = "For those who want too much time on their wrists instead."
+	icon_state = "watch"
+	item_state = "watch"
+	worn_icon_state = "watch"
+	transfer_prints = TRUE
+	undyeable = TRUE
+/obj/item/clothing/gloves/watch_silver
+	name = "silver watch"
+	desc = "It's a GaussIo ZeitMeister, a finely tuned wristwatch encased in silver.."
+	icon_state = "watch_silver"
+	item_state = "watch_silver"
+	worn_icon_state = "watch_silver"
+	transfer_prints = TRUE
+	undyeable = TRUE
+/obj/item/clothing/gloves/watch_gold
+	name = "gold watch"
+	desc = "It's a GaussIo ZeitMeister, a finely tuned wristwatch encased in <b>REAL</b> faux gold.."
+	icon_state = "watch_gold"
+	item_state = "watch_gold"
+	worn_icon_state = "watch_gold"
+	transfer_prints = TRUE
+	undyeable = TRUE
 
+//MISC
 /obj/item/clothing/gloves/fingerless
 	name = "fingerless gloves"
 	desc = "Plain black gloves without fingertips for the hard working."

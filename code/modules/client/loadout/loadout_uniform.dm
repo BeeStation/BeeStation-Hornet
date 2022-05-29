@@ -362,3 +362,17 @@
 	display_name = "security jumpsuit, Nanotrasen mall cop uniform"
 	path = /obj/item/clothing/under/rank/security/officer/mallcop
 	cost = 7500
+/datum/gear/uniform/orderly_uniform
+	display_name = "orderly uniform"
+	path = /obj/item/clothing/under/misc/orderly_uniform
+	cost = 10000
+
+/datum/gear/uniform/nt_skirtsuit
+	display_name = "nanotrasen skirtsuit"
+	path = /obj/item/clothing/under/misc/nt_skirtsuit
+	cost = 1250
+
+/datum/gear/uniform/hos_formal_male
+	display_name = "red formal coat"
+	path = /obj/item/clothing/under/misc/hos_formal_male
+	cost = 1250

@@ -579,8 +579,11 @@
 	body_parts_covered = CHEST|GROIN
 	attack_verb = list("warned", "cautioned", "smashed")
 	armor = list("melee" = 5, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0, "stamina" = 0)
-
-
+/obj/item/clothing/suit/coat_medical
+	name = "blue medical coat"
+	desc = "A blue labcoat, supplied to the medical department."
+	icon_state = "coat_medical"
+	item_state = "coat_medical"
 
 // WINTER COATS
 

@@ -189,6 +189,15 @@
 	description = "Yarr. Comes with one free pirate speak manual."
 	path = /obj/item/clothing/head/pirate
 	cost = 5000
+/datum/gear/hat/piratebandana
+	display_name = "pirate bandana"
+	path = /obj/item/clothing/head/bandana
+	cost = 5000
+
+//MISC
+/datum/gear/hat/franks_hat
+	path = /obj/item/clothing/head/franks_hat
+	cost = 25000
 
 //CHAPLAIN HATS
 

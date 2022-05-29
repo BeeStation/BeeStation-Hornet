@@ -95,58 +95,6 @@
 	path = /obj/item/clothing/ears/headphones
 	cost = 2000
 
-//GLASSES
-
-/datum/gear/accessory/eyepatch
-	display_name = "eyepatch"
-	slot = ITEM_SLOT_EYES
-	path = /obj/item/clothing/glasses/eyepatch
-	cost = 1200
-
-/datum/gear/accessory/monocle
-	display_name = "monocle"
-	slot = ITEM_SLOT_EYES
-	path = /obj/item/clothing/glasses/monocle
-	cost = 1200
-
-/datum/gear/accessory/glasses
-	display_name = "prescription glasses"
-	slot = ITEM_SLOT_EYES
-	path = /obj/item/clothing/glasses/regular
-	cost = 3000
-
-/datum/gear/accessory/glasses/jamjar
-	display_name = "jam jar glasses"
-	path = /obj/item/clothing/glasses/regular/jamjar
-
-/datum/gear/accessory/glasses/hipster
-	display_name = "hipster glasses"
-	path = /obj/item/clothing/glasses/regular/hipster
-
-/datum/gear/accessory/glasses/circle
-	display_name = "circular glasses"
-	path = /obj/item/clothing/glasses/regular/circle
-
-/datum/gear/accessory/glasses/sunglasses
-	display_name = "sunglasses"
-	path = /obj/item/clothing/glasses/sunglasses
-
-/datum/gear/accessory/glasses/cold
-	display_name = "cold goggles"
-	path = /obj/item/clothing/glasses/cold
-
-/datum/gear/accessory/glasses/heat
-	display_name = "heat goggles"
-	path = /obj/item/clothing/glasses/heat
-
-/datum/gear/accessory/glasses/orange
-	display_name = "orange sunglasses"
-	path = /obj/item/clothing/glasses/orange
-
-/datum/gear/accessory/glasses/red
-	display_name = "red glasses"
-	path = /obj/item/clothing/glasses/red
-
 //LIPSTICK
 
 /datum/gear/accessory/cosmetics

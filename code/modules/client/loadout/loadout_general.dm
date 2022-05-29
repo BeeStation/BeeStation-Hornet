@@ -62,3 +62,9 @@
 	display_name = "cigar, premium Havanian"
 	path = /obj/item/clothing/mask/cigarette/cigar/havana
 	cost = 2400
+
+/datum/gear/misc/cigarettes/rollie
+	display_name = "rollie"
+	description = "You managed to smuggle cannabis on board."
+	path = /obj/item/clothing/mask/cigarette/rollie
+	cost = 20000
