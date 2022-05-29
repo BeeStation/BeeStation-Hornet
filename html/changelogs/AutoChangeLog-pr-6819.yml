@@ -1,0 +1,5 @@
+author: giacomoh
+delete-after: true
+changes:
+  - rscadd: Added character selection slots in beecoin shop
+  - rscadd: Added equipped_loadout to save_character
