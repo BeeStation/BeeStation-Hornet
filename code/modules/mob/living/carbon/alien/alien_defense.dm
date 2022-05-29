@@ -56,6 +56,30 @@ In all, this is a lot like the monkey code. /N
 		var/obj/item/bodypart/affecting = get_bodypart(ran_zone(M.zone_selected))
 		apply_damage(rand(3), BRUTE, affecting)
 
+/mob/living/carbon/alien/attack_hand(mob/living/carbon/human/M)
+	if(..())	//to allow surgery to return properly.
+		return
+
+	switch(M.a_intent)
+		if("harm", "disarm") //harm and disarm will do the same, I doubt trying to shove a xeno would go well for you
+			if(HAS_TRAIT(M, TRAIT_PACIFISM))
+				to_chat(M, "<span class='notice'>You don't want to hurt [src]!</span>")
+				return
+			playsound(loc, "punch", 25, 1, -1)
+			visible_message("<span class='danger'>[M] punches [src]!</span>", \
+					"<span class='userdanger'>[M] punches you!</span>", null, COMBAT_MESSAGE_RANGE)
+			var/obj/item/bodypart/affecting = get_bodypart(ran_zone(M.zone_selected))
+			apply_damage(M.dna.species.punchdamage, BRUTE, affecting)
+			log_combat(M, src, "attacked")
+			M.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
+
+		if("help")
+			M.visible_message("<span class='notice'>[M] hugs [src] to make [src.p_them()] feel better!</span>", \
+								"<span class='notice'>You hug [src] to make [src.p_them()] feel better!</span>")
+			playsound(M.loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+
+		if("grab")
+			grabbedby(M)
 
 /mob/living/carbon/alien/attack_animal(mob/living/simple_animal/M)
 	if(!..())
