@@ -141,53 +141,31 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 /*
  * Call back proc that should be checked in all paths where a client can send messages
  *
- * Handles checking for duplicate messages and people sending messages too fast
+ * Handles checking for people sending messages too fast.
  *
- * The first checks are if you're sending too fast, this is defined as sending
- * SPAM_TRIGGER_AUTOMUTE messages in
- * 5 seconds, this will start supressing your messages,
- * if you send 2* that limit, you also get muted
+ * This is defined as sending SPAM_TRIGGER_AUTOMUTE (10) messages within 5 seconds of eachother, which gets you auto-muted.
  *
- * The second checks for the same duplicate message too many times and mutes
- * you for it
+ * You will be warned if you send SPAM_TRIGGER_WARNING(5) messages withing 5 seconds of eachother to hopefully prevent false positives.
+ *
  */
 /client/proc/handle_spam_prevention(message, mute_type)
+	if(!(CONFIG_GET(flag/automute_on)))
+		return FALSE
 
-	//Increment message count
-	total_message_count += 1
+	if(COOLDOWN_FINISHED(src, total_count_reset))
+		total_message_count = 0 //reset the count if it's been more than 5 seconds since the last message.
 
-	//store the total to act on even after a reset
-	var/cache = total_message_count
+	total_message_count++
+	COOLDOWN_START(src, total_count_reset, 5 SECONDS)
 
-	if(total_count_reset <= world.time)
-		total_message_count = 0
-		total_count_reset = world.time + (5 SECONDS)
+	if(total_message_count >= SPAM_TRIGGER_AUTOMUTE)
+		to_chat(src, "<span class='userdanger'>You have exceeded the spam filter limit for too many messages. An auto-mute was applied. Make an adminhelp ticket if you think this was in error.</span>")
+		cmd_admin_mute(src, mute_type, TRUE)
+		return TRUE
 
-	//If they're really going crazy, mute them
-	if(cache >= SPAM_TRIGGER_AUTOMUTE * 2)
-		total_message_count = 0
-		total_count_reset = 0
-		cmd_admin_mute(src, mute_type, 1)
-		return 1
-
-	//Otherwise just supress the message
-	else if(cache >= SPAM_TRIGGER_AUTOMUTE)
-		return 1
-
-
-	if(CONFIG_GET(flag/automute_on) && !holder && last_message == message)
-		src.last_message_count++
-		if(src.last_message_count >= SPAM_TRIGGER_AUTOMUTE)
-			to_chat(src, "<span class='danger'>You have exceeded the spam filter limit for identical messages. An auto-mute was applied.</span>")
-			cmd_admin_mute(src, mute_type, 1)
-			return 1
-		if(src.last_message_count >= SPAM_TRIGGER_WARNING)
-			to_chat(src, "<span class='danger'>You are nearing the spam filter limit for identical messages.</span>")
-			return 0
-	else
-		last_message = message
-		src.last_message_count = 0
-		return 0
+	if(total_message_count >= SPAM_TRIGGER_WARNING)
+		to_chat(src, "<span class='userdanger'>You are nearing the spam filter limit for too many messages in a short period. Slow down.</span>")
+		return FALSE
 
 //This stops files larger than UPLOAD_LIMIT being sent from client to server via input(), client.Import() etc.
 /client/AllowUpload(filename, filelength)
@@ -563,7 +541,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	return QDEL_HINT_HARDDEL_NOW
 
 /client/proc/set_client_age_from_db(connectiontopic)
-	if (IS_GUEST_KEY(src.key))
+	if(IS_GUEST_KEY(key))
 		return
 	if(!SSdbcore.Connect())
 		return
@@ -586,14 +564,14 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		qdel(query_get_related_cid)
 		return
 	related_accounts_cid = ""
-	while (query_get_related_cid.NextRow())
+	while(query_get_related_cid.NextRow())
 		related_accounts_cid += "[query_get_related_cid.item[1]], "
 	qdel(query_get_related_cid)
 	var/admin_rank = "Player"
-	if (src.holder?.rank)
-		admin_rank = src.holder.rank.name
+	if(holder?.rank)
+		admin_rank = holder.rank.name
 	else
-		if (!GLOB.deadmins[ckey] && check_randomizer(connectiontopic))
+		if(!GLOB.deadmins[ckey] && check_randomizer(connectiontopic))
 			return
 	var/new_player
 	var/datum/DBQuery/query_client_in_db = SSdbcore.NewQuery(
@@ -717,7 +695,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		if(R.Find(F))
 			. = R.group[1]
 		else
-			CRASH("Age check regex failed for [src.ckey]")
+			CRASH("Age check regex failed for [ckey]")
 
 /client/proc/validate_key_in_db()
 	var/sql_key

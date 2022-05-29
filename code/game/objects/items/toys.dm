@@ -1160,6 +1160,40 @@
 	w_class = WEIGHT_CLASS_SMALL
 
 /*
+ * Toy Cog
+ */
+
+/obj/item/toy/cog
+	name = "integration cog"
+	desc = "A small cog that seems to spin by its own acord when left alone."
+	resistance_flags = FIRE_PROOF | ACID_PROOF
+	icon = 'icons/obj/clockwork_objects.dmi'
+	icon_state = "integration_cog"
+	w_class = WEIGHT_CLASS_SMALL
+
+/obj/item/toy/cog/examine(mob/user)
+	. = ..()
+	if(is_servant_of_ratvar(user))
+		. += "<span class='warning'>It's clearly a fake, how could anybody fall for this!</span>"
+
+/*
+ * Replica fabricator
+ */
+
+/obj/item/toy/replica_fabricator
+	name = "replica fabricator"
+	desc = "A strange, brass device with many twisting cogs and vents."
+	resistance_flags = FIRE_PROOF | ACID_PROOF
+	icon = 'icons/obj/clockwork_objects.dmi'
+	icon_state = "replica_fabricator"
+	w_class = WEIGHT_CLASS_SMALL
+
+/obj/item/toy/replica_fabricator/examine(mob/user)
+	. = ..()
+	if(is_servant_of_ratvar(user))
+		. += "<span class='warning'>It's clearly a fake, how could anybody fall for this!</span>"
+
+/*
  * Xenomorph action figure
  */
 
