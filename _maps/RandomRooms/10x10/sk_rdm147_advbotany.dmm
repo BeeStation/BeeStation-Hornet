@@ -99,7 +99,7 @@
 /area/template_noop)
 "C" = (
 /obj/structure/table/wood,
-/obj/item/storage/box/disks_plantgene,
+/obj/item/discovery_scanner/lifebringer,
 /obj/machinery/light/small{
 	dir = 8
 	},

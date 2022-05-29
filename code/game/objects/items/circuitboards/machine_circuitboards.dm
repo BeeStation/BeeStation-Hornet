@@ -1281,6 +1281,14 @@
 		/obj/item/stock_parts/micro_laser = /obj/item/stock_parts/micro_laser/quadultra,
 		/obj/item/stock_parts/scanning_module = /obj/item/stock_parts/scanning_module/triphasic)
 
+/obj/item/circuitboard/machine/plantgenes/centcom
+	name = "CentCom Plant DNA manipulator (Abductor Machine Board)"
+	icon_state = "abductor_mod"
+	def_components = list(
+		/obj/item/stock_parts/manipulator = /obj/item/stock_parts/manipulator/femto,
+		/obj/item/stock_parts/micro_laser = /obj/item/stock_parts/micro_laser/quadultra,
+		/obj/item/stock_parts/scanning_module = /obj/item/stock_parts/scanning_module/triphasic)
+
 /obj/item/circuitboard/machine/clockwork
 	name = "clockwork board (Report This)"
 	icon_state = "clock_mod"

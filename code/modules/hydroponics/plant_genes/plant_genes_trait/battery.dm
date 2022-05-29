@@ -1,5 +1,8 @@
 /datum/plant_gene/trait/battery
 	name = "Capacitive Cell Production"
+	desc = "You can make this plant a battery cell through cables."
+	randomness_flags = BOTANY_RANDOM_COMMON
+	research_needed = 1
 
 /datum/plant_gene/trait/battery/on_attackby(obj/item/reagent_containers/food/snacks/grown/G, obj/item/I, mob/user)
 	if(istype(I, /obj/item/stack/cable_coil))

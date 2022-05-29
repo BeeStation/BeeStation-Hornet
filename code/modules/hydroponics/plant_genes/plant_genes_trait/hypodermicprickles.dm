@@ -1,5 +1,8 @@
 /datum/plant_gene/trait/stinging
 	name = "Hypodermic Prickles"
+	desc = "This makes your plant injecting its contents into a person when they're thrown to them."
+	randomness_flags = BOTANY_RANDOM_COMMON
+	research_needed = 1
 
 /datum/plant_gene/trait/stinging/on_slip(obj/item/reagent_containers/food/snacks/grown/G, atom/target)
 	if(!isliving(target) || !G.reagents || !G.reagents.total_volume)

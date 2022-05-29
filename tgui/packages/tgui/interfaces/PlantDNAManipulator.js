@@ -457,7 +457,7 @@ const PlantDNAManipulatorWindowChemicalsContents = (props, context) => {
   const { act, data } = useBackend(context);
   const {
     research_datas,
-    botany_research_type,
+    research_faction_type,
   } = data;
   const act_data = { data_id: null };
   const r_datas = data.research_datas || [];
@@ -476,7 +476,7 @@ const PlantDNAManipulatorWindowChemicalsContents = (props, context) => {
         </Table.Cell>
       </Table.Row>
       {r_datas.map(r_data => (
-        (r_data.type === "reagent") && (r_data.faction & botany_research_type)) ? (
+        (r_data.type === "reagent") && (r_data.faction & research_faction_type)) ? (
           <Table.Row key={r_data.id}>
             <Table.Cell m={0.2}>
               {r_data.name}
@@ -515,7 +515,7 @@ const PlantDNAManipulatorWindowTraitsContents = (props, context) => {
   const { act, data } = useBackend(context);
   const {
     research_datas,
-    botany_research_type,
+    research_faction_type,
   } = data;
   const act_data = { data_id: null };
   const r_datas = data.research_datas || [];
@@ -531,7 +531,7 @@ const PlantDNAManipulatorWindowTraitsContents = (props, context) => {
         </Table.Cell>
       </Table.Row>
       {r_datas.map(r_data => (
-        (r_data.type === "trait") && (r_data.faction & botany_research_type)) ? (
+        (r_data.type === "trait") && (r_data.faction & research_faction_type)) ? (
           <Table.Row key={r_data.id}>
             <Table.Cell m={0.2}>
               {r_data.name}

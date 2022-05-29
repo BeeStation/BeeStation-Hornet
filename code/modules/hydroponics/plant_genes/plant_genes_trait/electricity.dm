@@ -4,7 +4,10 @@
 	// Small (potency*rate*5) chance to shock squish or slip target for (potency*rate*5) damage.
 	// Also affects plant batteries see capatative cell production datum
 	name = "Electrical Activity"
+	desc = "This makes your plants electrifying. It will boost the battery power if it can be made as a power cell."
+	randomness_flags = BOTANY_RANDOM_COMMON
 	rate = 0.2
+	research_needed = 1
 
 /datum/plant_gene/trait/cell_charge/on_slip(obj/item/reagent_containers/food/snacks/grown/G, mob/living/carbon/C)
 	var/power = round(G.seed.potency*rate)

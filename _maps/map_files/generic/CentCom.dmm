@@ -4351,7 +4351,9 @@
 /turf/open/floor/plasteel,
 /area/centcom/supplypod/loading/ert)
 "pE" = (
-/obj/machinery/plantgenes/seedvault,
+/obj/item/discovery_scanner/centcom,
+/obj/item/discovery_scanner/centcom,
+/obj/machinery/plantgenes/centcom,
 /obj/effect/turf_decal/tile/green{
 	dir = 1
 	},

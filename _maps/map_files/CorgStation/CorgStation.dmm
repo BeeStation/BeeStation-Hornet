@@ -44706,6 +44706,7 @@
 	dir = 4;
 	pixel_x = 12
 	},
+<<<<<<< testbotany
 /turf/open/floor/plasteel/white,
 /area/medical/genetics)
 "mxX" = (
@@ -44719,6 +44720,12 @@
 "myy" = (
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
+=======
+/turf/open/floor/plasteel,
+/area/hydroponics)
+"kKC" = (
+/obj/effect/turf_decal/tile/purple{
+>>>>>>> so many changes
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/neutral{

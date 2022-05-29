@@ -28,7 +28,7 @@
 
 	if(seed)
 		for(var/datum/plant_gene/trait/T in seed.genes)
-			T.on_new(src, loc)
+			T.on_new_plant(src, loc)
 
 		if(istype(src, seed.product)) // no adding reagents if it is just a trash item
 			seed.prepare_result(src)

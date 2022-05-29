@@ -81,11 +81,12 @@
 /area/ruin/powered/seedvault)
 "as" = (
 /obj/structure/table/wood,
-/obj/item/gun/energy/floragun,
-/obj/item/gun/energy/floragun,
-/obj/item/gun/energy/floragun,
-/obj/item/gun/energy/floragun,
-/obj/item/storage/box/disks_plantgene,
+/obj/item/seeds/random,
+/obj/item/seeds/random,
+/obj/item/seeds/random,
+/obj/item/discovery_scanner/lifebringer,
+/obj/item/discovery_scanner/lifebringer,
+/obj/item/discovery_scanner/lifebringer,
 /turf/open/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
 "at" = (
@@ -268,7 +269,7 @@
 /area/lavaland/surface/outdoors)
 "lp" = (
 /obj/structure/table/wood,
-/obj/item/storage/box/disks_plantgene,
+/obj/item/discovery_scanner/lifebringer,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -313,7 +314,7 @@
 /area/ruin/powered/seedvault)
 "tE" = (
 /obj/structure/table/wood,
-/obj/item/storage/box/disks_plantgene,
+/obj/item/discovery_scanner/lifebringer,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 6
 	},

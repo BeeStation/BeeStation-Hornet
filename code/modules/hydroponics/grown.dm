@@ -8,21 +8,26 @@
 	icon = 'icons/obj/hydroponics/harvest.dmi'
 	var/obj/item/seeds/seed = null // type path, gets converted to item on New(). It's safe to assume it's always a seed item.
 	var/plantname = ""
-	var/bitesize_mod = 0
 	var/splat_type = /obj/effect/decal/cleanable/food/plant_smudge
-	// If set, bitesize = 1 + round(reagents.total_volume / bitesize_mod)
 	dried_type = -1
 	// Saves us from having to define each stupid grown's dried_type as itself.
 	// If you don't want a plant to be driable (watermelons) set this to null in the time definition.
 	// #EvilDragon notes: How is a crop not able to be dried? Evne dried watermelons exist in real world. steelcap might not be.
 	resistance_flags = FLAMMABLE
 	var/dry_grind = FALSE    //If TRUE, this object needs to be dry to be ground up
-	var/can_distill = TRUE   //If FALSE, this object cannot be distilled into an alcohol.
-	var/distill_reagent      //If NULL and this object can be distilled, it uses a generic fruit_wine reagent and adjusts its variables.
 	var/wine_flavor          //If NULL, this is automatically set to the fruit's flavor. Determines the flavor of the wine if distill_reagent is NULL.
-	var/wine_power = 10      //Determines the boozepwr of the wine if distill_reagent is NULL.
 
-	var/roundstart = 1           //roundstart crops are not researchable. Grown crops will become 0, so that you can scan them.
+	// -----
+	// Plant stats from seed - Check the detail in the seeds code
+	var/bitesize_mod = 5
+	var/bite_type = PLANT_BITE_TYPE_CONST
+	var/can_distill = TRUE
+	var/distill_reagent
+	var/wine_power = 10
+	var/rarity = 0
+	// ------
+
+	var/roundstart = 0           //roundstart crops are not researchable. Grown crops will become 0, so that you can scan them.
 	var/discovery_points = 200   //Amount of discovery points given for scanning
 	var/research_identifier      //used to check if a plant was researched. strange seed needs customised identifier.
 
@@ -45,8 +50,10 @@
 		dried_type = src.type
 
 	if(seed)
-		for(var/datum/plant_gene/trait/T in seed.genes)
-			T.on_new(src, loc)
+		for(var/datum/plant_gene/T in seed.genes)
+			T.on_new_seed(seed, loc)
+			T.on_new_plant(src, loc)
+		can_distill = seed.can_distill
 		seed.prepare_result(src)
 		transform *= TRANSFORM_USING_VARIABLE(seed.potency/1.33+25, 100) + 0.5 //Makes the resulting produce's sprite larger or smaller based on potency!
 		add_juice()
@@ -60,9 +67,22 @@
 
 
 /obj/item/reagent_containers/food/snacks/grown/proc/add_juice()
-	if(reagents)
-		if(bitesize_mod)
-			bitesize = 1 + round(reagents.total_volume / bitesize_mod)
+	if(reagents && bitesize_mod > 0)
+		switch(bite_type)
+			if(PLANT_BITE_TYPE_CONST)
+				var/calcuation = reagents.total_volume / bitesize_mod % 1
+				bitesize = reagents.total_volume / bitesize_mod - calcuation
+				// This makes 5~5.999 bites to 5 bites
+			if(PLANT_BITE_TYPE_RATIO)
+				var/calcuation = 1 / bitesize_mod * 100 % 1
+				bitesize = round(1 / bitesize_mod * 100 - calcuation)
+				// 51~100% = 1 bites, 34~50% = 2 bites
+			if(PLANT_BITE_TYPE_PATCH)
+				bitesize = 1
+				if(reagents.total_volume>30)
+					eat_delay += (reagents.total_volume-30)/2
+		if(bitesize<0)
+			bitesize = 1
 		return 1
 	return 0
 
@@ -72,6 +92,58 @@
 		for(var/datum/plant_gene/trait/T in seed.genes)
 			if(T.examine_line)
 				. += T.examine_line
+
+/obj/item/reagent_containers/food/snacks/grown/attack_self(mob/user)
+	if(seed)
+		if(user.a_intent == INTENT_HARM)
+			for(var/datum/plant_gene/trait/T in seed.genes)
+				T.attack(user)
+
+/obj/item/reagent_containers/food/snacks/grown/attack(mob/M, mob/user, def_zone)
+	if(!seed)
+		..()
+	else
+		if(user.a_intent == INTENT_HARM)
+			. = ..()
+			for(var/datum/plant_gene/trait/T in seed.genes)
+				T.attack(M)
+		else
+			if(ishuman(M) && apply_type == PATCH) // Patch type application
+				var/mob/living/L = M
+				var/obj/item/bodypart/affecting = L.get_bodypart(check_zone(user.zone_selected))
+				if(!affecting)
+					balloon_alert(user, "The limb is missing.")
+					return
+				if(!IS_ORGANIC_LIMB(affecting))
+					balloon_alert(user, "[src] doesn't work on robotic limbs.")
+					return
+				if(!canconsume(M, user))
+					return FALSE
+				if(iscarbon(M))
+					var/mob/living/carbon/C = M
+					if(/datum/surgery/dental_implant in C.surgeries)
+						return
+				if(M == user)
+					M.visible_message("<span class='notice'>[user] attempts to [eatverb] [src].</span>")
+					if(eat_delay)
+						if(!do_mob(user, M, eat_delay))
+							return FALSE
+					to_chat(M, "<span class='notice'>You [eatverb] [src].</span>")
+
+				else
+					M.visible_message("<span class='danger'>[user] attempts to force [M] to [eatverb] [src].</span>", \
+										"<span class='userdanger'>[user] attempts to force you to [eatverb] [src].</span>")
+					if(!do_mob(user, M))
+						return FALSE
+					M.visible_message("<span class='danger'>[user] forces [M] to [eatverb] [src].</span>", \
+										"<span class='userdanger'>[user] forces you to [eatverb] [src].</span>")
+
+				if(reagents)
+					injest()
+
+				return
+			. = ..()
+
 
 /obj/item/reagent_containers/food/snacks/grown/attackby(obj/item/O, mob/user, params)
 	..()
@@ -97,7 +169,6 @@
 
 
 // Various gene procs
-
 /obj/item/reagent_containers/food/snacks/grown/On_Consume()
 	if(iscarbon(usr))
 		if(seed)

@@ -194,7 +194,7 @@
 
 
 // Chanterelle
-/obj/item/seeds/chanter
+/obj/item/seeds/chanterelle
 	name = "pack of chanterelle mycelium"
 	desc = "This mycelium grows into chanterelle mushrooms."
 	icon_state = "mycelium-chanter"
@@ -215,7 +215,7 @@
 	mutatelist = list(/obj/item/seeds/chanterelle/jupitercup)
 
 /obj/item/reagent_containers/food/snacks/grown/mushroom/chanterelle
-	seed = /obj/item/seeds/chanter
+	seed = /obj/item/seeds/chanterelle
 	name = "chanterelle cluster"
 	desc = "<I>Cantharellus Cibarius</I>: These jolly yellow little shrooms sure look tasty!"
 	icon_state = "chanterelle"
@@ -239,12 +239,12 @@
 	reagents_set = list(
 		/datum/reagent/consumable/nutriment = list(6, 12),
 		/datum/reagent/consumable/liquidelectricity = list(20, 1))
-	mutatelist = list(/obj/item/seeds/chanter)
+	mutatelist = list(/obj/item/seeds/chanterelle)
 
 /obj/item/seeds/chanterelle/jupitercup/Initialize(mapload,nogenes)
 	. = ..()
 	if(!nogenes)
-		unset_mutability(/datum/plant_gene/family/carnivory, PLANT_GENE_REMOVABLE)
+		unset_mutability(/datum/plant_gene/family/carnivory, PLANT_GENE_COMMON_REMOVABLE)
 
 /obj/item/reagent_containers/food/snacks/grown/mushroom/jupitercup
 	seed = /obj/item/seeds/chanterelle/jupitercup

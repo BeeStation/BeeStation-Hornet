@@ -2185,7 +2185,7 @@
 					/obj/item/plant_analyzer,
 					/obj/item/clothing/gloves/botanic_leather,
 					/obj/item/clothing/suit/apron,
-					/obj/item/storage/box/disks_plantgene)
+					/obj/item/discovery_scanner)
 	crate_name = "hydroponics crate"
 	crate_type = /obj/structure/closet/crate/hydroponics
 
@@ -2258,7 +2258,7 @@
 					/obj/item/seeds/wheat/rice,
 					/obj/item/seeds/carrot,
 					/obj/item/seeds/sunflower,
-					/obj/item/seeds/chanter,
+					/obj/item/seeds/chanterelle,
 					/obj/item/seeds/potato,
 					/obj/item/seeds/sugarcane)
 	crate_name = "seeds crate"

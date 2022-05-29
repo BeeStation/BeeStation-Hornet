@@ -31,7 +31,6 @@
 		/obj/item/melee/baton/loaded = 1,
 		/obj/item/gun/energy/e_gun/mini = 1,
 		/obj/item/seeds/random = 1,
-		/obj/item/gun/energy/floragun = 1,
 		/obj/item/stack/spacecash/c1000 = 2,
 		/obj/item/grenade/exploration = 1,
 	)

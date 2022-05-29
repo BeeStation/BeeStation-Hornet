@@ -9,7 +9,7 @@
 	possible_transfer_amounts = list()
 	volume = 50
 	grind_results = list()
-	var/apply_type = INGEST
+	apply_type = INGEST
 	var/apply_method = "swallow"
 	var/rename_with_volume = FALSE
 	var/self_delay = 0 //pills are instant, this is because patches inheret their aplication from pills
