@@ -1501,6 +1501,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 
 		if(target.IsKnockdown() && !target.IsParalyzed())
 			target.Paralyze(SHOVE_CHAIN_PARALYZE)
+			target.drop_all_held_items()
 			target.visible_message("<span class='danger'>[user.name] kicks [target.name] onto [target.p_their()] side!</span>",
 				"<span class='danger'>[user.name] kicks you onto your side!</span>", null, COMBAT_MESSAGE_RANGE)
 			addtimer(CALLBACK(target, /mob/living/proc/SetKnockdown, 0), SHOVE_CHAIN_PARALYZE)
@@ -1521,7 +1522,6 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 							break
 			if((!target_table && !target_collateral_human && !target_disposal_bin && !target_pool) || directional_blocked)
 				target.Knockdown(SHOVE_KNOCKDOWN_SOLID)
-				target.drop_all_held_items()
 				user.visible_message("<span class='danger'>[user.name] shoves [target.name], knocking [target.p_them()] down!</span>",
 					"<span class='danger'>You shove [target.name], knocking [target.p_them()] down!</span>", null, COMBAT_MESSAGE_RANGE)
 				log_combat(user, target, "shoved", "knocking them down")
