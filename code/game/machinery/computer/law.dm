@@ -25,7 +25,7 @@
 			return
 		var/input = stripped_input(user, "Please enter the Upload code.", "Uplode Code Check")
 		if(!GLOB.upload_code)
-			GLOB.upload_code = random_nukecode()
+			GLOB.upload_code = random_code(4)
 		if(!(input == GLOB.upload_code))
 			return
 		if(!can_upload_to(current))
@@ -42,7 +42,7 @@
 		if(alert("Do you wish to scramble the upload code?", "Scramble Code", "Yes", "No") == "No")
 			return
 		message_admins("[ADMIN_LOOKUPFLW(usr)] has scrambled the upload code [GLOB.upload_code]!")
-		GLOB.upload_code = random_nukecode()
+		GLOB.upload_code = random_code(4)
 		to_chat(user, "<span class='notice'>You scramble the upload code</span>")
 	else
 		return ..()

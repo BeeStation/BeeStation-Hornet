@@ -177,7 +177,7 @@
 					D.gib()
 		if("extract")
 			if(!GLOB.upload_code)
-				GLOB.upload_code = random_nukecode()
+				GLOB.upload_code = random_code(4)
 
 			message_admins("[ADMIN_LOOKUPFLW(usr)] is extracting the upload key!")
 			extracting = TRUE
