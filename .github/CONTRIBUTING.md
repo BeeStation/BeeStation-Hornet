@@ -98,7 +98,7 @@ If at any point you are confused or unsure of an asset's license or our policy, 
 
 ## 7. Pull Request Standards
 
-You should complete the pull-request template in its entirity.
+You should complete the pull-request template in its entirety.
 
 Any pull-request that does not adequately complete the pull-request template will not be merged and may be closed by maintainers (It is up to the discretion of the maintainers to decide if the PR will be accepted, closed or marked as 'do not merge').
  - Balance changes must indicate that they affect the balance of the game.
