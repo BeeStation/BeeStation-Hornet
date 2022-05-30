@@ -15378,7 +15378,7 @@
 /area/crew_quarters/dorms)
 "aEb" = (
 /obj/structure/table,
-/obj/item/toy/cards/deck,
+/obj/structure/bedsheetbin,
 /turf/open/floor/plasteel,
 /area/crew_quarters/dorms)
 "aEc" = (
@@ -22811,8 +22811,18 @@
 /obj/machinery/newscaster{
 	pixel_y = -32
 	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
 /obj/effect/turf_decal/tile/neutral,
-/turf/open/floor/plasteel,
+/obj/machinery/vending/autodrobe,
+/turf/open/floor/plasteel/dark,
 /area/crew_quarters/locker)
 "aTA" = (
 /obj/effect/turf_decal/tile/neutral,
@@ -23577,6 +23587,12 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/locker)
 "aUS" = (
@@ -23591,6 +23607,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
+/obj/effect/turf_decal/tile/neutral,
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/locker)
 "aUU" = (
@@ -81082,6 +81099,9 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/locker)
 "nHj" = (
@@ -118878,8 +118898,8 @@ aOD
 aPK
 aOw
 aOv
+aTA
 aTz
-aUM
 aUM
 aYe
 dnh

@@ -14959,7 +14959,7 @@
 /turf/open/floor/plasteel,
 /area/crew_quarters/locker)
 "aQU" = (
-/obj/machinery/vending/cigarette,
+/obj/machinery/vending/autodrobe,
 /turf/open/floor/plasteel,
 /area/crew_quarters/locker)
 "aQV" = (
@@ -14974,7 +14974,7 @@
 /obj/machinery/firealarm{
 	pixel_y = 24
 	},
-/obj/item/kirbyplants/random,
+/obj/machinery/vending/cigarette,
 /turf/open/floor/plasteel,
 /area/crew_quarters/locker)
 "aRb" = (
