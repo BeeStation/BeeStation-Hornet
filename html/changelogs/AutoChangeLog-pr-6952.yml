@@ -1,5 +1,0 @@
-author: Rukofamicom
-delete-after: true
-changes:
-  - bugfix: Warping grey crossbreeds are now properly created when feeding bluespace
-      extracts to a grey slime.
