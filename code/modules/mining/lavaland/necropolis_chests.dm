@@ -289,10 +289,14 @@
 		return
 
 	if(wisp.loc == src)
-		to_chat(user, "<span class='notice'>You release the wisp. It begins to bob around your head.</span>")
-		icon_state = "lantern"
-		wisp.orbit(user, 20)
-		SSblackbox.record_feedback("tally", "wisp_lantern", 1, "Freed")
+		if(COOLDOWN_FINISHED(wisp,wisp_tired))
+			to_chat(user, "<span class='notice'>You release the wisp. It begins to bob around your head.</span>")
+			icon_state = "lantern"
+			wisp.orbit(user, 20)
+			wisp.set_light_on(TRUE)
+			SSblackbox.record_feedback("tally", "wisp_lantern", 1, "Freed")
+		else
+			to_chat(user,"<span class='warning'>The wisp is tired, let it rest for bit longer.</span>")
 
 	else
 		to_chat(user, "<span class='notice'>You return the wisp to the lantern.</span>")
@@ -300,9 +304,14 @@
 		wisp.forceMove(src)
 		SSblackbox.record_feedback("tally", "wisp_lantern", 1, "Returned")
 
+/obj/item/wisp_lantern/lighteater_act(obj/item/light_eater/light_eater)
+	. = ..()
+	wisp.lighteater_act(light_eater)
+
 /obj/item/wisp_lantern/Initialize(mapload)
 	. = ..()
 	wisp = new(src)
+	wisp.home = src
 
 /obj/item/wisp_lantern/Destroy()
 	if(wisp)
@@ -321,13 +330,17 @@
 	light_range = 7
 	light_flags = LIGHT_ATTACHED
 	layer = ABOVE_ALL_MOB_LAYER
+	var/obj/item/wisp_lantern/home
 	var/sight_flags = SEE_MOBS
 	var/lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
+	COOLDOWN_DECLARE(wisp_tired)
+	var/time
 
 /obj/effect/wisp/orbit(atom/thing, radius, clockwise, rotation_speed, rotation_segments, pre_rotation, lockinorbit)
 	. = ..()
 	if(ismob(thing))
 		RegisterSignal(thing, COMSIG_MOB_UPDATE_SIGHT, .proc/update_user_sight)
+		RegisterSignal(thing, COMSIG_ATOM_LIGHTEATER_ACT, .proc/on_lighteater_act)
 		var/mob/being = thing
 		being.update_sight()
 		to_chat(thing, "<span class='notice'>The wisp enhances your vision.</span>")
@@ -336,6 +349,7 @@
 	. = ..()
 	if(ismob(orbits.parent))
 		UnregisterSignal(orbits.parent, COMSIG_MOB_UPDATE_SIGHT)
+		UnregisterSignal(orbits.parent, COMSIG_ATOM_LIGHTEATER_ACT)
 		to_chat(orbits.parent, "<span class='notice'>Your vision returns to normal.</span>")
 
 /obj/effect/wisp/proc/update_user_sight(mob/user)
@@ -345,8 +359,24 @@
 	if(!isnull(lighting_alpha))
 		user.lighting_alpha = min(user.lighting_alpha, lighting_alpha)
 
+/obj/effect/wisp/proc/on_lighteater_act(obj/item/light_eater/light_eater)
+	SIGNAL_HANDLER
+	src.lighteater_act(light_eater)
+
+/obj/effect/wisp/lighteater_act(obj/item/light_eater/light_eater)
+	. = ..()
+	if(home)
+		src.forceMove(home)
+		COOLDOWN_START(src,wisp_tired, 5 MINUTES)
+		home.icon_state = "lantern-blue"
+		set_light_on(FALSE)
+	else
+		stop_orbit()
+		qdel(src)
+
 // Relic water bottle
 /obj/item/reagent_containers/glass/waterbottle/relic
+	name = "ancient bottle of unknown reagent"
 	desc = "A bottle of water filled with unknown liquids. It seems to be radiating some kind of energy."
 	flip_chance = 100 // FLIPP
 	list_reagents = list()
@@ -355,7 +385,7 @@
 	var/reagents = volume
 	while(reagents)
 		var/newreagent = rand(1, min(reagents, 30))
-		list_reagents += list(get_unrestricted_random_reagent_id() = newreagent)
+		list_reagents += list(get_random_reagent_id(CHEMICAL_RNG_FUN) = newreagent)
 		reagents -= newreagent
 	. = ..()
 
@@ -653,6 +683,7 @@
 	reagent_state = LIQUID
 	process_flags = ORGANIC | SYNTHETIC
 	color = "#FFEBEB"
+	chem_flags = CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 
 /datum/reagent/flightpotion/reaction_mob(mob/living/M, method=TOUCH, reac_volume, show_message = 1)
 	if(iscarbon(M) && M.stat != DEAD)
@@ -1186,6 +1217,9 @@
 
 /obj/item/hierophant_club/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
+	if(user.mind.martial_art.no_guns) 
+		to_chat(user, "<span class='warning'>To use this weapon would bring dishonor to the clan.</span>")
+		return
 	var/turf/T = get_turf(target)
 	if(!T || timer > world.time)
 		return

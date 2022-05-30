@@ -724,6 +724,23 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						type_blacklist += G.subtype_path
 					else
 						equipped_gear.Cut(i,i+1)
+			if(path)
+				var/savefile/S = new /savefile(path)
+				if(S)
+					dat += "<center>"
+					var/name
+					var/unspaced_slots = 0
+					for(var/i in 1 to max_save_slots)
+						unspaced_slots++
+						if(unspaced_slots > 4)
+							dat += "<br>"
+							unspaced_slots = 0
+						S.cd = "/character[i]"
+						S["real_name"] >> name
+						if(!name)
+							name = "Character[i]"
+						dat += "<a style='white-space:nowrap;' href='?_src_=prefs;preference=changeslot;num=[i];' [i == default_slot ? "class='linkOn'" : ""]>[name]</a> "
+					dat += "</center>"
 
 			var/fcolor =  "#3366CC"
 			var/metabalance = user.client.get_metabalance()
@@ -1019,7 +1036,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			var/bound_key = user_binds[kb.name]
 			bound_key = (bound_key) ? bound_key : "Unbound"
 
-			HTML += "<label>[kb.full_name]</label> <a href ='?_src_=prefs;preference=keybindings_capture;keybinding=[kb.name];old_key=[bound_key]'>[bound_key] Default: ( [kb.key] )</a>"
+			HTML += "<label>[kb.full_name]</label> <a href ='?_src_=prefs;preference=keybindings_capture;keybinding=[kb.name];old_key=[url_encode(bound_key)]'>[bound_key] Default: ( [kb.key] )</a>"
 			HTML += "<br>"
 
 	HTML += "<br><br>"
@@ -1044,7 +1061,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		var ctrl = e.ctrlKey ? 1 : 0;
 		var numpad = (95 < e.keyCode && e.keyCode < 112) ? 1 : 0;
 		var escPressed = e.keyCode == 27 ? 1 : 0;
-		var url = 'byond://?_src_=prefs;preference=keybindings_set;keybinding=[kb.name];old_key=[old_key];clear_key='+escPressed+';key='+e.key+';shift='+shift+';alt='+alt+';ctrl='+ctrl+';numpad='+numpad+';key_code='+e.keyCode;
+		var url = 'byond://?_src_=prefs;preference=keybindings_set;keybinding=[kb.name];old_key=[url_encode(old_key)];clear_key='+escPressed+';key='+encodeURIComponent(e.key)+';shift='+shift+';alt='+alt+';ctrl='+ctrl+';numpad='+numpad+';key_code='+e.keyCode;
 		window.location=url;
 	}
 	document.getElementById('focus').focus();
@@ -1308,13 +1325,13 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						to_chat(user, "<span class='warning'>Can't equip [TG.display_name]. It conflicts with an already-equipped item.</span>")
 				else
 					log_href_exploit(user)
-			save_preferences()
+			save_character()
 
 		else if(href_list["select_category"])
 			gear_tab = href_list["select_category"]
 		else if(href_list["clear_loadout"])
 			equipped_gear.Cut()
-			save_preferences()
+			save_character()
 
 		ShowChoices(user)
 		return
@@ -1708,7 +1725,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						default += " ([config.defaultmap.map_name])"
 					for (var/M in config.maplist)
 						var/datum/map_config/VM = config.maplist[M]
-						if(!VM.votable)
+						if(!VM.votable || SSmapping.config.map_name == VM.map_name) //current map will be excluded from the vote
 							continue
 						var/friendlyname = "[VM.map_name] "
 						if (VM.voteweight <= 0)

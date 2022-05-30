@@ -171,7 +171,7 @@
 
 	if(locked)
 		var/atom/host = parent
-		host.balloon_alert(M, "It's locked")
+		host.balloon_alert(M, "[host] is locked.")
 		return FALSE
 	if((M.get_active_held_item() == parent) && allow_quick_empty)
 		INVOKE_ASYNC(src, .proc/quick_empty, M)
@@ -184,7 +184,7 @@
 	. = COMPONENT_NO_ATTACK
 	if(locked)
 		var/atom/host = parent
-		host.balloon_alert(M, "It's locked")
+		host.balloon_alert(M, "[host] is locked.")
 		return FALSE
 	var/obj/item/I = O
 	if(collection_mode == COLLECT_ONE)
@@ -260,11 +260,11 @@
 		return
 	if(locked)
 		var/atom/host = parent
-		host.balloon_alert(M, "It's locked")
+		host.balloon_alert(M, "[host] is locked.")
 		return FALSE
 	A.add_fingerprint(M)
 	var/atom/host = parent
-	host.balloon_alert(M, "You start dumping out the contents")
+	host.balloon_alert(M, "You start dumping out the contents...")
 	var/turf/T = get_turf(A)
 	var/list/things = contents()
 	var/datum/progressbar/progress = new(M, length(things), T)
@@ -495,7 +495,7 @@
 	if(A.Adjacent(M) && dump_destination && M.Adjacent(dump_destination))
 		if(locked)
 			var/atom/host = parent
-			host.balloon_alert(M, "It's locked")
+			host.balloon_alert(M, "[host] is locked.")
 			return FALSE
 		if(dump_destination.storage_contents_dump_act(src, M))
 			playsound(A, "rustle", 50, 1, -5)
@@ -582,7 +582,7 @@
 	A.add_fingerprint(M)
 	if(locked && !force)
 		var/atom/host = parent
-		host.balloon_alert(M, "It's locked")
+		host.balloon_alert(M, "[host] is locked.")
 		return FALSE
 	if(force || M.CanReach(parent, view_only = TRUE))
 		show_to(M)
@@ -614,7 +614,7 @@
 	if(locked)
 		if(M && !stop_messages)
 			host.add_fingerprint(M)
-			host.balloon_alert(M, "It's locked")
+			host.balloon_alert(M, "[host] is locked.")
 		return FALSE
 	if(real_location.contents.len >= max_items)
 		if(!stop_messages)
@@ -790,7 +790,7 @@
 		. = COMPONENT_NO_ATTACK_HAND
 		if(locked)
 			var/atom/host = parent
-			host.balloon_alert(user, "It's locked")
+			host.balloon_alert(user, "[host] is locked.")
 		else
 			show_to(user)
 
@@ -827,7 +827,7 @@
 		return
 	if(locked)
 		var/atom/host = parent
-		host.balloon_alert(user, "It's locked")
+		host.balloon_alert(user, "[host] is locked.")
 		return
 
 	var/atom/A = parent
