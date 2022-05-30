@@ -10,7 +10,8 @@ CONTRIBUTING
 4. Code Standards
 5. Codebase-specific Policies
 6. Asset Policy
-7. Banned Content
+7. Pull Request Standards
+8. Banned Content
 
 ## 1. Introduction
 Hello and welcome to BeeStation's contributing page. You are presumably here because you are interested in contributing - thank you! Everyone is free to contribute to this project as long as they follow the simple guidelines and specifications below; at BeeStation, we strive to maintain code stability and maintainability, and to do that, we need all pull requests to meet our standards. It's in everyone's best interests - including yours!
@@ -107,6 +108,8 @@ Any pull-request that does not adequately complete the provided template may be 
  - The section labeled "why it's good for the game" should include the reasons behind the changes and how they will be good for the game.
  - The testing section should contain screenshots, videos, and/or reproducible testing procedures showing that the PR works as specified. Pull-requests that ignore this section, or are not tested, may be closed by maintainers. This applies to small PRs that may seem trivial.
  - The changelog should include a short summary of the changes made; including any other authors that contributed to the pull-request (Include their names after the :cl: tag along with your own)
+
+If a pull-request requires updates to the wiki, these changes should be made on your user account page (For example: https://wiki.beestation13.com/view/User:Powerfulbacon), so that the original page can be updated on merge.
 
 ## 8. Banned Content
 
