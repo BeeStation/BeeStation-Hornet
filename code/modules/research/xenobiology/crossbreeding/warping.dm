@@ -8,7 +8,6 @@ put up a rune with bluespace effects, lots of those runes are fluff or act as a 
 	desc = "It just won't stay in place."
 	icon_state = "warping"
 	effect = "warping"
-	colour = "grey"
 	///what runes will be drawn depending on the crossbreed color
 	var/obj/effect/warped_rune/runepath
 	/// the number of "charge" a bluespace crossbreed start with
