@@ -100,7 +100,7 @@ If at any point you are confused or unsure of an asset's license or our policy, 
 
 You should complete the pull-request template in its entirity.
 
-Any pull-request that does not adequately complete the pull-request template will not be merged and may be closed by maintainers (Updating the PR will allow for the pull-request to be reopened).
+Any pull-request that does not adequately complete the pull-request template will not be merged and may be closed by maintainers (It is up to the discretion of the maintainers to decide if the PR will be accepted, closed or marked as 'do not merge').
  - Balance changes must indicate that they affect the balance of the game.
  - Changes must be documented in their entirity, and the full extend of their effects mentioned. (For example, if you change it so all mobs are half speed, don't label the PR as 'monkeys now move twice as slow'). Failing to document the full extent of the changes may be seen as malicious and could result in a repo-ban in a worst case scenario.
  - The section labeled 'about this pull request' should state the changes that the pull-request makes.
