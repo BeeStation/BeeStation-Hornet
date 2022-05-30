@@ -1,0 +1,5 @@
+author: mcmeiler
+delete-after: true
+changes:
+  - bugfix: fixed players getting first person messages when someone emags a power
+      flow control console
