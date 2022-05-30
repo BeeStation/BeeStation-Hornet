@@ -1,4 +1,0 @@
-author: mcmeiler
-delete-after: true
-changes:
-  - spellcheck: Removed the redundant species name from limb names, moves it to description
