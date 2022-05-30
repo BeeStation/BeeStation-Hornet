@@ -1540,28 +1540,28 @@ If it ever becomes necesary to get a more performant REF(), this lies here in wa
 		for(var/i in 1 to items_list[each_item])
 			new each_item(where_to)
 
+
 /**
-sends a message to chat
-
-config_setting should be one of the following:
-
-- null - noop
-- empty string - use TgsTargetBroadcast with `admin_only = FALSE`
-- other string - use TgsChatBroadcast with the tag that matches config_setting, only works with TGS4, if using TGS3 the above method is used
-*/
-/proc/send2chat(message, config_setting)
-	if(config_setting == null || !world.TgsAvailable())
+ * Sends a message to TGS chat channels.
+ *
+ * message - The message to send.
+ * channel_tag - Required. If "", the message with be sent to all connected (Game-type for TGS3) channels. Otherwise, it will be sent to TGS4 channels with that tag (Delimited by ','s).
+ * admin_only - Determines if this communication can only be sent to admin only channels.
+ */
+/proc/send2chat(message, channel_tag, admin_only = FALSE)
+	if(channel_tag == null || !world.TgsAvailable())
 		return
 
 	var/datum/tgs_version/version = world.TgsVersion()
-	if(config_setting == "" || version.suite == 3)
-		world.TgsTargetedChatBroadcast(message, FALSE)
+	if(channel_tag == "" || version.suite == 3)
+		world.TgsTargetedChatBroadcast(message, admin_only)
 		return
 
 	var/list/channels_to_use = list()
 	for(var/I in world.TgsChatChannelInfo())
 		var/datum/tgs_chat_channel/channel = I
-		if(channel.tag == config_setting)
+		var/list/applicable_tags = splittext(channel.custom_tag, ",")
+		if((!admin_only || channel.is_admin_channel) && (channel_tag in applicable_tags))
 			channels_to_use += channel
 
 	if(channels_to_use.len)
