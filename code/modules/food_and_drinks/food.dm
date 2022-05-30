@@ -27,6 +27,14 @@
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
 			var/obj/item/organ/tongue/T = H.getorganslot(ORGAN_SLOT_TONGUE)
+
+			if((foodtype & BREAKFAST) && world.time - SSticker.round_start_time < STOP_SERVING_BREAKFAST)
+				SEND_SIGNAL(H, COMSIG_ADD_MOOD_EVENT, "breakfast", /datum/mood_event/breakfast)
+			last_check_time = world.time
+
+			if(!T) //if you don't have a tongue you don't taste..
+				return
+
 			if(!HAS_TRAIT(H, TRAIT_AGEUSIA))
 				if(foodtype & T.toxic_food)
 					to_chat(H,"<span class='warning'>What the hell was that thing?!</span>")
@@ -44,8 +52,5 @@
 				if(foodtype & T.toxic_food)
 					to_chat(H, "<span class='warning'>You don't feel so good...</span>")
 					H.adjust_disgust(25 + 30 * fraction)
-			if((foodtype & BREAKFAST) && world.time - SSticker.round_start_time < STOP_SERVING_BREAKFAST)
-				SEND_SIGNAL(H, COMSIG_ADD_MOOD_EVENT, "breakfast", /datum/mood_event/breakfast)
-			last_check_time = world.time
 
 #undef STOP_SERVING_BREAKFAST

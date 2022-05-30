@@ -350,4 +350,4 @@
 	var/obj/item/pizza_type = pizza_preferences[noms.ckey]
 	pizza = new pizza_type (src)
 	var/obj/item/organ/tongue/T = noms.getorganslot(ORGAN_SLOT_TONGUE)
-	pizza.foodtype = T.liked_food //it's our favorite!
+	pizza.foodtype = T?.liked_food //it's our favorite!
