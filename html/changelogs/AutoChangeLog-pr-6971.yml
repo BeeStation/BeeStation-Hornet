@@ -1,0 +1,4 @@
+author: Penwin0
+delete-after: true
+changes:
+  - bugfix: fixes harddel with atmos backpack nozzle
