@@ -106,7 +106,7 @@ Any pull-request that does not adequately complete the provided template may be 
  - The section labeled 'about this pull request' should state the changes that the pull-request makes.
  - The section labeled "why it's good for the game" should include the reasons behind the changes and how they will be good for the game.
  - The testing section should contain screenshots, videos, and/or reproducible testing procedures showing that the PR works as specified. Pull-requests that ignore this section, or are not tested, may be closed by maintainers. This applies to small PRs that may seem trivial.
- - The changelog should include a short summary of the changes made, as well as any other authors that contributed to the pull-request (Include their names after the :cl: tag along with your own)
+ - The changelog should include a short summary of the changes made; including any other authors that contributed to the pull-request (Include their names after the :cl: tag along with your own)
 
 ## 8. Banned Content
 
