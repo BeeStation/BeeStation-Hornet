@@ -102,7 +102,7 @@ You should complete the pull-request template in its entirity.
 
 Any pull-request that does not adequately complete the pull-request template will not be merged and may be closed by maintainers (It is up to the discretion of the maintainers to decide if the PR will be accepted, closed or marked as 'do not merge').
  - Balance changes must indicate that they affect the balance of the game.
- - Changes must be documented in their entirity, and the full extend of their effects mentioned. (For example, if you change it so all mobs are half speed, don't label the PR as 'monkeys now move twice as slow'). Failing to document the full extent of the changes may be seen as malicious and could result in a repo-ban in a worst case scenario.
+ - Changes must be documented in their entirity, and the full extend of their effects mentioned. (For example, if you change it so all mobs are half speed, don't label the PR as 'monkeys now move twice as slow'). Failing to document the full extent of the changes may result in a repo-ban if the intent of hiding changes is seen as malicious.
  - The section labeled 'about this pull request' should state the changes that the pull-request makes.
  - The section labeled "why it's good for the game" should include the reasons behind the changes and how they will be good for the game.
  - The testing section should contain screenshots, videos or a description showing that the PR works as specified. Pull-requests that ignore this section or are not tested may be closed by maintainers. This applies to small PRs that may seem trivial.
