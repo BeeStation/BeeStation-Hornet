@@ -207,6 +207,13 @@ GLOBAL_LIST_EMPTY(station_turfs)
 			travel_z(user, below, FALSE)
 
 /turf/proc/travel_z(mob/user, turf/target, upwards = TRUE)
+	if(!target)
+		to_chat(user, "<span class='warning'>There is nothing in that direction!</span>")
+		return
+	//Check if we can travel in that direction
+	if((upwards && !target.allow_z_travel) || (!upwards && !allow_z_travel))
+		to_chat(user, "<span class='warning'>Something is blocking you!</span>")
+		return
 	user.visible_message("<span class='notice'>[user] begins floating [upwards ? "upwards" : "downwards"]!</span>", "<span class='notice'>You begin floating [upwards ? "upwards" : "downwards"].")
 	var/matrix/M = user.transform
 	//Animation is inverted due to immediately resetting user vars.
