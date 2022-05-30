@@ -1,0 +1,7 @@
+author: MNarath1
+delete-after: true
+changes:
+  - code_imp: reworks nuke_code proc (now random_code proc) to not use padding and
+      be able to accept variable code lengths
+  - refactor: make the antag uplinke code (for pda uplinks at least) also use this
+      proc
