@@ -109,7 +109,7 @@ Any pull-request that does not adequately complete the provided template may be 
  - The testing section should contain screenshots, videos, and/or reproducible testing procedures showing that the PR works as specified. Pull-requests that ignore this section, or are not tested, may be closed by maintainers. This applies to small PRs that may seem trivial.
  - The changelog should include a short summary of the changes made; including any other authors that contributed to the pull-request (Include their names after the :cl: tag along with your own)
 
-If a pull-request requires updates to the wiki, these changes should be made on your user account page (For example: https://wiki.beestation13.com/view/User:Powerfulbacon), so that the original page can be updated on merge.
+If a pull-request requires updates to the wiki, these changes should be made on your user account page (For example: https://wiki.beestation13.com/view/User:PowerfulBacon), so that the original page can be updated on merge.
 
 ## 8. Banned Content
 
