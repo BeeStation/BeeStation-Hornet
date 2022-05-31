@@ -14,18 +14,28 @@
 	/// var to check if it got opened by a key
 	var/spawned_loot = FALSE
 
-/obj/structure/closet/crate/necropolis/tendril
-	desc = "It's watching you suspiciously."
-
-/obj/structure/closet/crate/necropolis/tendril/Initialize(mapload)
+/obj/structure/closet/crate/necropolis/Initialize(mapload)
 	. = ..()
 	RegisterSignal(src, COMSIG_PARENT_ATTACKBY, .proc/try_spawn_loot)
 
-/obj/structure/closet/crate/necropolis/tendril/proc/try_spawn_loot(datum/source, obj/item/item, mob/user, params) ///proc that handles key checking and generating loot
+/obj/structure/closet/crate/necropolis/proc/try_spawn_loot(datum/source, obj/item/item, mob/user, params)
 	SIGNAL_HANDLER
 
 	if(!istype(item, /obj/item/skeleton_key) || spawned_loot)
 		return FALSE
+	spawned_loot = TRUE
+	qdel(item)
+	to_chat(user, "<span class='notice'>You disable the magic lock with the [item].</span>")
+	return TRUE
+
+
+/obj/structure/closet/crate/necropolis/tendril
+	desc = "It's watching you suspiciously."
+
+
+
+/obj/structure/closet/crate/necropolis/tendril/try_spawn_loot(datum/source, obj/item/item, mob/user, params) ///proc that handles key checking and generating loot
+	..()
 	var/loot = rand(1,18)
 	switch(loot)
 		if(1)
@@ -64,10 +74,6 @@
 			new /obj/item/shared_storage/red(src)
 		if(18)
 			new /obj/item/staff/storm(src)
-	spawned_loot = TRUE
-	qdel(item)
-	to_chat(user, "<span class='notice'>You disable the magic lock, revealing the loot.</span>")
-	return TRUE
 
 /obj/structure/closet/crate/necropolis/can_open(mob/living/user, force = FALSE)
 	if(!spawned_loot)
@@ -78,12 +84,6 @@
 	. = ..()
 	if(!spawned_loot)
 		. += "<span class='notice'>You need a skeleton key to open it.</span>"
-
-
-//KA modkit design discs
-
-
-//Spooky special loot
 
 //Rod of Asclepius
 /obj/item/rod_of_asclepius
@@ -102,7 +102,6 @@
 	if(!activated)
 		return FALSE
 	return ..()
-
 
 /obj/item/rod_of_asclepius/attack_self(mob/user)
 	if(activated)
@@ -687,43 +686,21 @@
 /obj/structure/closet/crate/necropolis/legion
 	name = "legion chest"
 
-/obj/structure/closet/crate/necropolis/legion/Initialize(mapload)
-	. = ..()
-	RegisterSignal(src, COMSIG_PARENT_ATTACKBY, .proc/try_spawn_loot)
-
-/obj/structure/closet/crate/necropolis/legion/proc/try_spawn_loot(datum/source, obj/item/item, mob/user, params) ///proc that handles key checking and generating loot
-	SIGNAL_HANDLER
-
-	if(!istype(item, /obj/item/skeleton_key) || spawned_loot)
-		return FALSE
+/obj/structure/closet/crate/necropolis/legion/try_spawn_loot(datum/source, obj/item/item, mob/user, params) ///proc that handles key checking and generating loot
+	..()
 	var/list/choices = subtypesof(/obj/machinery/anomalous_crystal)
 	var/random_crystal = pick(choices)
 	new random_crystal(src)
-	spawned_loot = TRUE
-	qdel(item)
-	to_chat(user, "<span class='notice'>You disable the magic lock, revealing the loot.</span>")
-	return TRUE
 
 //Miniboss Miner
 
 /obj/structure/closet/crate/necropolis/bdm
 	name = "blood-drunk miner chest"
 
-/obj/structure/closet/crate/necropolis/bdm/Initialize(mapload)
-	. = ..()
-	RegisterSignal(src, COMSIG_PARENT_ATTACKBY, .proc/try_spawn_loot)
-
-/obj/structure/closet/crate/necropolis/bdm/proc/try_spawn_loot(datum/source, obj/item/item, mob/user, params) ///proc that handles key checking and generating loot
-	SIGNAL_HANDLER
-
-	if(!istype(item, /obj/item/skeleton_key) || spawned_loot)
-		return FALSE
+/obj/structure/closet/crate/necropolis/bdm/try_spawn_loot(datum/source, obj/item/item, mob/user, params) ///proc that handles key checking and generating loot
+	..()
 	new /obj/item/melee/transforming/cleaving_saw(src)
 	new /obj/item/crusher_trophy/miner_eye(src)
-	spawned_loot = TRUE
-	qdel(item)
-	to_chat(user, "<span class='notice'>You disable the magic lock, revealing the loot.</span>")
-	return TRUE
 
 /obj/item/melee/transforming/cleaving_saw
 	name = "cleaving saw"
@@ -821,22 +798,12 @@
 /obj/structure/closet/crate/necropolis/dragon
 	name = "drake chest"	
 
-/obj/structure/closet/crate/necropolis/dragon/Initialize(mapload)
-	. = ..()
-	RegisterSignal(src, COMSIG_PARENT_ATTACKBY, .proc/try_spawn_loot)
-
-/obj/structure/closet/crate/necropolis/dragon/proc/try_spawn_loot(datum/source, obj/item/item, mob/user, params) ///proc that handles key checking and generating loot
-	SIGNAL_HANDLER
-
-	if(!istype(item, /obj/item/skeleton_key) || spawned_loot)
-		return FALSE
+/obj/structure/closet/crate/necropolis/dragon/try_spawn_loot(datum/source, obj/item/item, mob/user, params) ///proc that handles key checking and generating loot
+	..()
 	new /obj/item/dragons_blood(src)
 	new /obj/item/clothing/suit/hooded/cloak/drake(src)	 //Drake armor crafted only by Ashwalkers now, but still available as drop for miners
 	new /obj/item/crusher_trophy/tail_spike(src)
-	spawned_loot = TRUE
-	qdel(item)
-	to_chat(user, "<span class='notice'>You disable the magic lock, revealing the loot.</span>")
-	return TRUE
+
 
 // Ghost Sword - left in for other references and admin shenanigans
 
@@ -1058,22 +1025,11 @@
 /obj/structure/closet/crate/necropolis/bubblegum
 	name = "bubblegum chest"
 
-/obj/structure/closet/crate/necropolis/bubblegum/Initialize(mapload)
-	. = ..()
-	RegisterSignal(src, COMSIG_PARENT_ATTACKBY, .proc/try_spawn_loot)
-
-/obj/structure/closet/crate/necropolis/bubblegum/proc/try_spawn_loot(datum/source, obj/item/item, mob/user, params) ///proc that handles key checking and generating loot
-	SIGNAL_HANDLER
-
-	if(!istype(item, /obj/item/skeleton_key) || spawned_loot)
-		return FALSE
+/obj/structure/closet/crate/necropolis/bubblegum/try_spawn_loot(datum/source, obj/item/item, mob/user, params) ///proc that handles key checking and generating loot
+	..()
 	new /obj/item/clothing/suit/space/hostile_environment(src)
 	new /obj/item/clothing/head/helmet/space/hostile_environment(src)
 	new /obj/item/crusher_trophy/demon_claws(src)
-	spawned_loot = TRUE
-	qdel(item)
-	to_chat(user, "<span class='notice'>You disable the magic lock, revealing the loot.</span>")
-	return TRUE
 
 /obj/item/mayhem
 	name = "mayhem in a bottle"
@@ -1139,43 +1095,20 @@
 /obj/structure/closet/crate/necropolis/colossus
 	name = "colossus chest"
 
-/obj/structure/closet/crate/necropolis/colossus/Initialize(mapload)
-	. = ..()
-	RegisterSignal(src, COMSIG_PARENT_ATTACKBY, .proc/try_spawn_loot)
-
-/obj/structure/closet/crate/necropolis/colossus/proc/try_spawn_loot(datum/source, obj/item/item, mob/user, params) ///proc that handles key checking and generating loot
-	SIGNAL_HANDLER
-
-	if(!istype(item, /obj/item/skeleton_key) || spawned_loot)
-		return FALSE
+/obj/structure/closet/crate/necropolis/colossus/try_spawn_loot(datum/source, obj/item/item, mob/user, params) ///proc that handles key checking and generating loot
+	..()
 	new /obj/item/organ/vocal_cords/colossus(src)
 	new /obj/item/crusher_trophy/blaster_tubes(src)
-	spawned_loot = TRUE
-	qdel(item)
-	to_chat(user, "<span class='notice'>You disable the magic lock, revealing the loot.</span>")
-	return TRUE
-
 
 //Hierophant
 
 /obj/structure/closet/crate/necropolis/hierophant
 	name = "hierophant chest"
 
-/obj/structure/closet/crate/necropolis/hierophant/Initialize(mapload)
-	. = ..()
-	RegisterSignal(src, COMSIG_PARENT_ATTACKBY, .proc/try_spawn_loot)
-
-/obj/structure/closet/crate/necropolis/hierophant/proc/try_spawn_loot(datum/source, obj/item/item, mob/user, params) ///proc that handles key checking and generating loot
-	SIGNAL_HANDLER
-
-	if(!istype(item, /obj/item/skeleton_key) || spawned_loot)
-		return FALSE
+/obj/structure/closet/crate/necropolis/hierophant/try_spawn_loot(datum/source, obj/item/item, mob/user, params) ///proc that handles key checking and generating loot
+	..()
 	new /obj/item/hierophant_club(src)
 	new /obj/item/crusher_trophy/vortex_talisman(src)
-	spawned_loot = TRUE
-	qdel(item)
-	to_chat(user, "<span class='notice'>You disable the magic lock, revealing the loot.</span>")
-	return TRUE
 
 /obj/item/hierophant_club
 	name = "hierophant club"
