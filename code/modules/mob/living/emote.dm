@@ -116,7 +116,7 @@
 	key_third_person = "flaps"
 	message = "flaps their wings"
 	restraint_check = TRUE
-	var/wing_time = 20
+	var/wing_time = 10
 
 /datum/emote/living/flap/run_emote(mob/user, params, type_override, intentional)
 	. = ..()
@@ -130,7 +130,7 @@
 	key_third_person = "aflaps"
 	message = "flaps their wings aggressively"
 	restraint_check = TRUE
-	wing_time = 10
+	wing_time = 5
 
 /datum/emote/living/frown
 	key = "frown"
@@ -551,12 +551,47 @@
 		qdel(N)
 		to_chat(user, "<span class='warning'>You don't have any free hands to make fingerguns with.</span>")
 
-/datum/emote/inhale
-	key = "inhale"
-	key_third_person = "inhales"
-	message = "breathes in"
+/datum/emote/living/click
+	key = "click"
+	key_third_person = "clicks their tongue"
+	message = "clicks their tongue"
+	message_ipc = "makes a click sound"
+	message_insect = "clicks their mandibles"
 
-/datum/emote/exhale
-	key = "exhale"
-	key_third_person = "exhales"
-	message = "breathes out"
+/datum/emote/living/click/get_sound(mob/living/user)
+	if(ismoth(user) || isapid(user) || isflyperson(user))
+		return 'sound/creatures/rattle.ogg'
+	else if(isipc(user))
+		return 'sound/machines/click.ogg'
+	else
+		return FALSE
+
+/datum/emote/living/zap
+	key = "zap"
+	key_third_person = "zaps"
+	message = "zaps"
+
+/datum/emote/living/zap/can_run_emote(mob/user, status_check = TRUE , intentional)
+	. = ..()
+	if(isethereal(user))
+		return TRUE
+	else
+		return FALSE
+
+/datum/emote/living/zap/get_sound(mob/living/user)
+	if(isethereal(user))
+		return 'sound/machines/defib_zap.ogg'
+
+/datum/emote/living/hum
+	key = "hum"
+	key_third_person = "hums"
+	message = "hums"
+
+/datum/emote/living/hiss
+	key = "hiss"
+	key_third_person = "hisses"
+	message = "hisses"
+
+/datum/emote/living/hiss/get_sound(mob/living/user)
+	if(islizard(user))
+		return pick('sound/voice/hiss1.ogg', 'sound/voice/hiss2.ogg', 'sound/voice/hiss3.ogg', 'sound/voice/hiss4.ogg', 'sound/voice/hiss5.ogg', 'sound/voice/hiss6.ogg')

@@ -13,9 +13,6 @@
 	fire_rate = 3
 	automatic = 1
 
-/obj/item/gun/energy/pulse/emp_act(severity)
-	return
-
 /obj/item/gun/energy/pulse/prize
 	pin = /obj/item/firing_pin
 

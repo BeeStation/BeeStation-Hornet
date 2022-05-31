@@ -303,13 +303,13 @@
 		say("Not enough materials to complete prototype[amount > 1? "s" : ""].")
 		return FALSE
 	for(var/R in D.reagents_list)
-		if(!reagents.has_reagent(R, D.reagents_list[R]*amount/coeff))
+		if(!reagents.has_reagent(R, D.reagents_list[R]*amount))
 			say("Not enough reagents to complete prototype[amount > 1? "s" : ""].")
 			return FALSE
 	materials.mat_container.use_materials(efficient_mats, amount)
 	materials.silo_log(src, "built", -amount, "[D.name]", efficient_mats)
 	for(var/R in D.reagents_list)
-		reagents.remove_reagent(R, D.reagents_list[R]*amount/coeff)
+		reagents.remove_reagent(R, D.reagents_list[R]*amount)
 	busy = TRUE
 	if(production_animation)
 		flick(production_animation, src)

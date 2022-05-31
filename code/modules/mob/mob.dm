@@ -118,6 +118,7 @@
 			else
 				var/image/I = image('icons/mob/hud.dmi', src, "")
 				I.appearance_flags = RESET_COLOR|RESET_TRANSFORM
+				I.plane = DATA_HUD_PLANE
 				hud_list[hud] = I
 
 /**
@@ -837,41 +838,12 @@
 /mob/dead/observer/canface()
 	return TRUE
 
-///Hidden verb to turn east
-/mob/verb/eastface()
-	set hidden = TRUE
+/mob/try_face(newdir)
 	if(!canface())
 		return FALSE
-	setDir(EAST)
-	client.last_turn = world.time + MOB_FACE_DIRECTION_DELAY
-	return TRUE
-
-///Hidden verb to turn west
-/mob/verb/westface()
-	set hidden = TRUE
-	if(!canface())
-		return FALSE
-	setDir(WEST)
-	client.last_turn = world.time + MOB_FACE_DIRECTION_DELAY
-	return TRUE
-
-///Hidden verb to turn north
-/mob/verb/northface()
-	set hidden = TRUE
-	if(!canface())
-		return FALSE
-	setDir(NORTH)
-	client.last_turn = world.time + MOB_FACE_DIRECTION_DELAY
-	return TRUE
-
-///Hidden verb to turn south
-/mob/verb/southface()
-	set hidden = TRUE
-	if(!canface())
-		return FALSE
-	setDir(SOUTH)
-	client.last_turn = world.time + MOB_FACE_DIRECTION_DELAY
-	return TRUE
+	. = ..()
+	if(.)
+		client.last_turn = world.time + MOB_FACE_DIRECTION_DELAY
 
 ///This might need a rename but it should replace the can this mob use things check
 /mob/proc/IsAdvancedToolUser()
@@ -943,7 +915,7 @@
   * Turns you to face the other mob too
   */
 /mob/buckle_mob(mob/living/M, force = FALSE, check_loc = TRUE)
-	if(M.buckled)
+	if(M.buckled && !force)
 		return FALSE
 	var/turf/T = get_turf(src)
 	if(M.loc != T)

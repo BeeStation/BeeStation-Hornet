@@ -701,6 +701,9 @@ GENE SCANNER
 	if(T.cores > 1)
 		to_chat(user, "Multiple cores detected")
 	to_chat(user, "Growth progress: [T.amount_grown]/[SLIME_EVOLUTION_THRESHOLD]")
+	if(T.has_status_effect(STATUS_EFFECT_SLIMEGRUB))
+		to_chat(user, "<b>Redgrub infestation detected. Quarantine immediately.</b>")
+		to_chat(user, "Redgrubs can be purged from a slime using capsaicin oil or extreme heat")
 	if(T.effectmod)
 		to_chat(user, "<span class='notice'>Core mutation in progress: [T.effectmod]</span>")
 		to_chat(user, "<span class = 'notice'>Progress in core mutation: [T.applied] / [SLIME_EXTRACT_CROSSING_REQUIRED]</span>")
@@ -802,7 +805,7 @@ GENE SCANNER
 	var/ready = TRUE
 	var/cooldown = 200
 
-/obj/item/sequence_scanner/attack(mob/living/M, mob/living/carbon/human/user)
+/obj/item/sequence_scanner/attack(mob/living/M, mob/living/user)
 	add_fingerprint(user)
 	if(!HAS_TRAIT(M, TRAIT_RADIMMUNE) && !HAS_TRAIT(M, TRAIT_BADDNA)) //no scanning if its a husk or DNA-less Species
 		user.visible_message("<span class='notice'>[user] analyzes [M]'s genetic sequence.</span>", \
@@ -875,7 +878,7 @@ GENE SCANNER
 	ready = TRUE
 
 /obj/item/sequence_scanner/proc/get_display_name(mutation)
-	var/datum/mutation/human/HM = GET_INITIALIZED_MUTATION(mutation)
+	var/datum/mutation/HM = GET_INITIALIZED_MUTATION(mutation)
 	if(!HM)
 		return "ERROR"
 	if(discovered[mutation])

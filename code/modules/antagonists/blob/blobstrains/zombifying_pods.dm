@@ -30,6 +30,7 @@
 /datum/reagent/blob/zombifying_pods
 	name = "Zombifying Pods"
 	color = "#E88D5D"
+	chem_flags = CHEMICAL_NOT_SYNTH | CHEMICAL_RNG_FUN
 
 /datum/reagent/blob/zombifying_pods/reaction_mob(mob/living/M, method=TOUCH, reac_volume, show_message, touch_protection, mob/camera/blob/O)
 	reac_volume = ..()

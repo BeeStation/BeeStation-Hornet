@@ -95,10 +95,8 @@
 	if( operating || !density )
 		return
 	add_fingerprint(user)
-	if(!requiresID())
-		user = null
-
-	if(allowed(user))
+	// Cutting WIRE_IDSCAN disables normal entry... or it would, if we could hack windowdoors.
+	if(!id_scan_hacked() && allowed(user))
 		open_and_close()
 	else
 		do_animate("deny")
@@ -320,7 +318,8 @@
 			flick("[base_state]deny", src)
 
 /obj/machinery/door/window/check_access_ntnet(datum/netdata/data)
-	return !requiresID() || ..()
+	// Cutting WIRE_IDSCAN grants remote access... or it would, if we could hack windowdoors.
+	return id_scan_hacked() || ..()
 
 /obj/machinery/door/window/ntnet_receive(datum/netdata/data)
 	// Check if the airlock is powered.
