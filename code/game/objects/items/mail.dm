@@ -318,7 +318,7 @@
 	if(!prob(nuclear_option_odds))
 		info = "<i>You need to escape the simulation. Don't forget the numbers, they help you remember:</i> '[rand(0,9)][rand(0,9)][rand(0,9)][rand(0,9)]...'"
 		return
-	var/code = random_nukecode()
+	var/code = random_code(5)
 	for(var/obj/machinery/nuclearbomb/selfdestruct/self_destruct in GLOB.nuke_list)
 		self_destruct.r_code = code
 	message_admins("Through junkmail, the self-destruct code was set to \"[code]\".")
