@@ -411,16 +411,15 @@
 			user.changeNext_move(CLICK_CD_MELEE)
 			to_chat(user, "<span class='notice'>You are already busy!</span>")
 			return
-	if(W.tool_behaviour == TOOL_WELDER && (user.a_intent != INTENT_HARM || user == src))
+	if(W.tool_behaviour == TOOL_WELDER && (user.a_intent != INTENT_HARM))
 		user.changeNext_move(CLICK_CD_MELEE)
+		if(src == user)
+			to_chat(user, "<span class='notice'>You are unable properly repair yourself, seek assistance.</span>")
+			return
 		if (!getBruteLoss())
 			to_chat(user, "<span class='warning'>[src] is already in good condition!</span>")
 			return
-		while (getBruteLoss() && W.tool_start_check(user, amount=0))	//Repeatedly attempt to repair dents until done or welder is out of fuel, just like tend wounds. No need to spam click
-			if(src == user)
-				to_chat(user, "<span class='notice'>You start fixing yourself.</span>")
-			if(!W.use_tool(src, user, 60))
-				return
+		while (getBruteLoss() && W.tool_start_check(user, amount=0) && W.use_tool(src, user, 60))	//Repeatedly attempt to repair dents until done or welder is out of fuel, just like tend wounds. No need to spam click
 			W.use(1)  //Due to the loop, welding fuel was only being burned passively and not actually consumed each step. This causes it to use 1 every step. 
 			adjustBruteLoss(-15)
 			updatehealth()
@@ -434,9 +433,7 @@
 		if (!getFireLoss())
 			to_chat(user, "The wires seem fine, there's no need to fix them.")
 			return
-		while(getFireLoss())		//Repeatedly attempt to repair wires until done, just like tend wounds. No need to spam click
-			if(!do_after(user, 60, target = src))
-				return
+		while(getFireLoss() && do_after(user, 60, target = src))		//Repeatedly attempt to repair wires until done, just like tend wounds. No need to spam click
 			if (coil.use(1))
 				adjustFireLoss(-15)
 				updatehealth()
@@ -444,7 +441,6 @@
 			else
 				to_chat(user, "<span class='warning'>You need more cable to repair [src]!</span>")
 				return
-		return
 			
 	else if(W.tool_behaviour == TOOL_CROWBAR)	// crowbar means open or close the cover
 		if(opened)
