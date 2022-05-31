@@ -442,6 +442,8 @@
 /obj/item/borg/upgrade/selfrepair/proc/startrepair()
 	while(repair_ticks)
 		sleep(10)
+		if(!cyborg)
+			return FALSE
 		if(!cyborg.cell || cyborg.cell.charge <= powercost * 10)
 			repair_ticks = 0
 			to_chat(cyborg, "<span class='notice'>Power level critically low! Your self-repair module has deactivated early.</span>")
