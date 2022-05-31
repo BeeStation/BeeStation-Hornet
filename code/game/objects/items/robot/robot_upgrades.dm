@@ -413,6 +413,7 @@
 		playsound(cyborg.loc, activation_sound, 30)
 		update_icon()
 		process()
+		startrepair()
 	else
 		to_chat(cyborg, "<span class='notice'>Your self-repair module is not ready to be activated again yet.</span>")
 
@@ -438,34 +439,34 @@
 	COOLDOWN_START(src, recharging_repmod, ((20 SECONDS) + ((100 SECONDS) - ((10 SECONDS) * ticksleft)))) //20 seconds + 10 seconds for every repair tick used up. 2 minutes max
 	begin_timer_animation()
 
+/obj/item/borg/upgrade/selfrepair/proc/startrepair()
+	while(repair_ticks)
+		sleep(10)
+		if(!cyborg.cell || cyborg.cell.charge <= powercost * 10)
+			repair_ticks = 0
+			to_chat(cyborg, "<span class='notice'>Power level critically low! Your self-repair module has deactivated early.</span>")
+		else if(cyborg.getFireLoss())
+			playsound(cyborg.loc, pick(running_sounds), 30)
+			cyborg.adjustFireLoss(repair_amount)
+			cyborg.cell.use(powercost)
+			repair_ticks--
+		else if(cyborg.getBruteLoss())
+			playsound(cyborg.loc, pick(running_sounds), 30)
+			cyborg.adjustBruteLoss(repair_amount)
+			cyborg.cell.use(powercost)
+			repair_ticks--
+		else
+			to_chat(cyborg, "<span class='notice'>You are fully repaired, your module has deactivated early.</span>")
+			cooldown_start(repair_ticks)
+			repair_ticks = 0
+	cooldown_start(0)
+
 /obj/item/borg/upgrade/selfrepair/process(delta_time)
-	if(!cyborg) //Sanity check to reset the module in case it is somehow removed while running. 
+	if(!cyborg) //Sanity check to reset the module in case it is somehow removed while running.
 		update_icon()
 		COOLDOWN_RESET(src, recharging_repmod)
 		repair_ticks = 10
 		deactivate_sr()
-	if(COOLDOWN_FINISHED(src, recharging_repmod) && icon_state == "selfrepair_on")
-		while(repair_ticks)
-			sleep(10)
-			if(!cyborg.cell || cyborg.cell.charge <= powercost * 10)
-				repair_ticks = 0
-				to_chat(cyborg, "<span class='notice'>Power level critically low! Your self-repair module has deactivated early.</span>")
-			else if(cyborg.getFireLoss())
-				playsound(cyborg.loc, pick(running_sounds), 30)
-				cyborg.adjustFireLoss(repair_amount)
-				cyborg.cell.use(powercost)
-				repair_ticks--
-			else if(cyborg.getBruteLoss())
-				playsound(cyborg.loc, pick(running_sounds), 30)
-				cyborg.adjustBruteLoss(repair_amount)
-				cyborg.cell.use(powercost)
-				repair_ticks--
-			else
-				to_chat(cyborg, "<span class='notice'>You are fully repaired, your module has deactivated early.</span>")
-				cooldown_start(repair_ticks)
-				repair_ticks = 0
-	if(!repair_ticks && icon_state == "selfrepair_on")
-		cooldown_start(0)
 	if(!COOLDOWN_FINISHED(src, recharging_repmod))
 		update_timer_animation()
 	if(COOLDOWN_FINISHED(src, recharging_repmod) && icon_state == "selfrepair_off")
