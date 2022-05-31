@@ -120,36 +120,6 @@
 	var/tele_range = 6
 	var/rad_amount= 15
 
-/obj/item/clothing/suit/armor/reactive/teleport/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
-	if(!active)
-		return 0
-	if(prob(hit_reaction_chance))
-		var/mob/living/carbon/human/H = owner
-		if(world.time < reactivearmor_cooldown)
-			owner.visible_message("<span class='danger'>The reactive teleport system is still recharging! It fails to teleport [H]!</span>")
-			return
-		owner.visible_message("<span class='danger'>The reactive teleport system flings [H] clear of [attack_text], shutting itself off in the process!</span>")
-		playsound(get_turf(owner),'sound/magic/blink.ogg', 100, 1)
-		var/list/turfs = new/list()
-		for(var/turf/T as() in (RANGE_TURFS(tele_range, H)-get_turf(H)))
-			if(T.density)
-				continue
-			if(T.x>world.maxx-tele_range || T.x<tele_range)
-				continue
-			if(T.y>world.maxy-tele_range || T.y<tele_range)
-				continue
-			turfs += T
-		if(!turfs.len)
-			turfs += pick(RANGE_TURFS(tele_range, H)-get_turf(H))
-		var/turf/picked = pick(turfs)
-		if(!isturf(picked))
-			return
-		do_teleport(H, picked, no_effects = TRUE)
-		H.rad_act(rad_amount)
-		reactivearmor_cooldown = world.time + reactivearmor_cooldown_duration
-		return 1
-	return 0
-
 /obj/item/clothing/suit/armor/reactive/teleport/reactive_activation(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
 	owner.visible_message("<span class='danger'>The reactive teleport system flings [owner] clear of [attack_text], shutting itself off in the process!</span>")
 	playsound(get_turf(owner),'sound/magic/blink.ogg', 100, 1)
@@ -265,21 +235,6 @@
 	..()
 	if(slot_flags & slot) //Was equipped to a valid slot for this item?
 		user.flags_1 |= TESLA_IGNORE_1
-
-/obj/item/clothing/suit/armor/reactive/tesla/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
-	if(!active)
-		return FALSE
-	if(prob(hit_reaction_chance))
-		if(world.time < reactivearmor_cooldown)
-			var/datum/effect_system/spark_spread/sparks = new /datum/effect_system/spark_spread
-			sparks.set_up(1, 1, src)
-			sparks.start()
-			owner.visible_message("<span class='danger'>The tesla capacitors on [owner]'s reactive tesla armor are still recharging! The armor merely emits some sparks.</span>")
-			return
-		owner.visible_message("<span class='danger'>[src] blocks [attack_text], sending out arcs of lightning!</span>")
-		tesla_zap(owner, tesla_range, tesla_power, tesla_flags)
-		reactivearmor_cooldown = world.time + reactivearmor_cooldown_duration
-		return TRUE
 
 /obj/item/clothing/suit/armor/reactive/tesla/cooldown_activation(mob/living/carbon/human/owner)
 	var/datum/effect_system/spark_spread/sparks = new /datum/effect_system/spark_spread
