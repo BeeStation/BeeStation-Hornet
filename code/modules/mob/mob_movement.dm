@@ -9,17 +9,6 @@
 	return cached_multiplicative_slowdown
 
 /**
-  * If your mob is concious, drop the item in the active hand
-  *
-  * This is a hidden verb, likely for binding with winset for hotkeys
-  */
-/client/verb/drop_item()
-	set hidden = 1
-	if(!iscyborg(mob) && mob.stat == CONSCIOUS)
-		mob.dropItemToGround(mob.get_active_held_item())
-	return
-
-/**
   * force move the control_object of your client mob
   *
   * Used in admin possession and called from the client Move proc

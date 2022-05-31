@@ -41,7 +41,6 @@
 		if(gravity > STANDARD_GRAVITY)
 			if(!get_filter("gravity"))
 				add_filter("gravity",1,list("type"="motion_blur", "x"=0, "y"=0))
-			INVOKE_ASYNC(src, .proc/gravity_pulse_animation)
 			handle_high_gravity(gravity)
 
 		if(stat != DEAD)
@@ -113,16 +112,6 @@
 
 /mob/living/proc/update_damage_hud()
 	return
-
-/mob/living/proc/gravity_animate()
-	if(!get_filter("gravity"))
-		add_filter("gravity",1,list("type"="motion_blur", "x"=0, "y"=0))
-	INVOKE_ASYNC(src, .proc/gravity_pulse_animation)
-
-/mob/living/proc/gravity_pulse_animation()
-	animate(get_filter("gravity"), y = 1, time = 10)
-	sleep(10)
-	animate(get_filter("gravity"), y = 0, time = 10)
 
 /mob/living/proc/handle_high_gravity(gravity)
 	if(gravity >= GRAVITY_DAMAGE_TRESHOLD) //Aka gravity values of 3 or more

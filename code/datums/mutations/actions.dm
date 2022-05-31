@@ -107,7 +107,7 @@
 	charge_max = 600
 	clothes_req = FALSE
 	range = 20
-	projectile_type = /obj/item/projectile/magic/aoe/fireball/firebreath
+	projectile_type = /obj/item/projectile/magic/fireball/firebreath
 	base_icon_state = "fireball"
 	action_icon_state = "fireball0"
 	sound = 'sound/magic/demon_dies.ogg' //horrifying lizard noises
@@ -126,13 +126,13 @@
 			return FALSE
 
 /obj/effect/proc_holder/spell/aimed/firebreath/ready_projectile(obj/item/projectile/P, atom/target, mob/user, iteration)
-	if(!istype(P, /obj/item/projectile/magic/aoe/fireball))
+	if(!istype(P, /obj/item/projectile/magic/fireball))
 		return
-	var/obj/item/projectile/magic/aoe/fireball/F = P
+	var/obj/item/projectile/magic/fireball/F = P
 	F.exp_light = strength-1
 	F.exp_fire += strength
 
-/obj/item/projectile/magic/aoe/fireball/firebreath
+/obj/item/projectile/magic/fireball/firebreath
 	name = "fire breath"
 	exp_heavy = 0
 	exp_light = 0
