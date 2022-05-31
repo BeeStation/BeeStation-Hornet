@@ -8,9 +8,10 @@
 /obj/item/reactive_armour_shell/attackby(obj/item/weapon, mob/user, params)
 	..()
 	var/static/list/anomaly_armour_types = list(
-		/obj/effect/anomaly/grav	                = /obj/item/clothing/suit/armor/reactive/repulse,
-		/obj/effect/anomaly/flux 	           		= /obj/item/clothing/suit/armor/reactive/tesla,
 		/obj/effect/anomaly/bluespace 	            = /obj/item/clothing/suit/armor/reactive/teleport,
+		/obj/effect/anomaly/delimber				= /obj/item/clothing/suit/armor/reactive/delimbering,
+		/obj/effect/anomaly/flux 	           		= /obj/item/clothing/suit/armor/reactive/tesla,
+		/obj/effect/anomaly/grav	                = /obj/item/clothing/suit/armor/reactive/repulse,
 		/obj/effect/anomaly/hallucination			= /obj/item/clothing/suit/armor/reactive/hallucinating
 		)
 
@@ -412,4 +413,57 @@
 	owner.hallucination += 25
 	owner.hallucination = clamp(owner.hallucination, 0, 150)
 	reactivearmor_cooldown = world.time + reactivearmor_cooldown_duration
+	return TRUE
+
+//Delimbering
+
+/obj/item/clothing/suit/armor/reactive/delimbering
+	name = "reactive delimbering armor"
+	desc = "An experimental suit of armor with sensitive detectors hooked up to a biohazard release valve. It scrambles the bodies of those around."
+	cooldown_message = "<span class='danger'>The connection is currently out of sync... Recalibrating.</span>"
+	emp_message = "<span class='warning'>You feel the armor squirm.</span>"
+	///Range of the effect.
+	var/range = 4
+	///Lists for zones and bodyparts to swap and randomize
+	var/static/list/zones = list(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
+	var/static/list/chests
+	var/static/list/heads
+	var/static/list/l_arms
+	var/static/list/r_arms
+	var/static/list/l_legs
+	var/static/list/r_legs
+	var/static/list/organs
+
+/obj/item/clothing/suit/armor/reactive/delimbering/Initialize(mapload)
+	. = ..()
+	if(!chests)
+		chests = typesof(/obj/item/bodypart/chest)
+	if(!heads)
+		heads = typesof(/obj/item/bodypart/head)
+	if(!l_arms)
+		l_arms = typesof(/obj/item/bodypart/l_arm)
+	if(!r_arms)
+		r_arms = typesof(/obj/item/bodypart/r_arm)
+	if(!l_legs)
+		l_legs = typesof(/obj/item/bodypart/l_leg)
+	if(!r_legs)
+		r_legs = typesof(/obj/item/bodypart/r_leg)
+	if(!organs)
+		organs = subtypesof(/obj/item/organ)
+
+
+/obj/item/clothing/suit/armor/reactive/delimbering/cooldown_activation(mob/living/carbon/human/owner)
+	var/datum/effect_system/spark_spread/sparks = new /datum/effect_system/spark_spread
+	sparks.set_up(1, 1, src)
+	sparks.start()
+	..()
+
+/obj/item/clothing/suit/armor/reactive/delimbering/reactive_activation(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+	owner.visible_message("<span class='danger'>[src] blocks [attack_text], biohazard body scramble released!</span>")
+	delimber_pulse(owner, range, FALSE)
+	return TRUE
+
+/obj/item/clothing/suit/armor/reactive/delimbering/emp_activation(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
+	owner.visible_message("<span class='danger'>[src] blocks [attack_text], but pulls a massive charge of biohazard material into [owner] from the surrounding environment!</span>")
+	delimber_pulse(owner, range, TRUE)
 	return TRUE

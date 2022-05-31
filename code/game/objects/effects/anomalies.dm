@@ -3,6 +3,18 @@
 /// Chance of taking a step per second
 #define ANOMALY_MOVECHANCE 45
 
+/// Lists for zones and bodyparts to swap and randomize
+#define ANOMALY_DELIMBER_ZONES list(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
+#define ANOMALY_DELIMBER_ZONE_CHEST typesof(/obj/item/bodypart/chest)
+#define ANOMALY_DELIMBER_ZONE_HEAD typesof(/obj/item/bodypart/head)
+#define ANOMALY_DELIMBER_ZONE_L_LEG typesof(/obj/item/bodypart/l_arm)
+#define ANOMALY_DELIMBER_ZONE_R_LEG typesof(/obj/item/bodypart/r_arm)
+#define ANOMALY_DELIMBER_ZONE_L_ARM typesof(/obj/item/bodypart/l_leg)
+#define ANOMALY_DELIMBER_ZONE_R_ARM typesof(/obj/item/bodypart/r_leg)
+#define ANOMALY_DELIMBER_ZONE_ORGANS typesof(/obj/item/organ)
+
+/////////////////////
+
 /obj/effect/anomaly
 	name = "anomaly"
 	desc = "A mysterious anomaly, seen commonly only in the region of space that the station orbits..."
@@ -19,6 +31,9 @@
 
 	var/countdown_colour
 	var/obj/effect/countdown/anomaly/countdown
+
+	/// Do we keep on living forever?
+	var/immortal = FALSE
 
 /obj/effect/anomaly/Initialize(mapload, new_lifespan)
 	. = ..()
@@ -39,6 +54,9 @@
 	if(new_lifespan)
 		lifespan = new_lifespan
 	death_time = world.time + lifespan
+
+	if(immortal)
+		return // no countdown for forever anomalies
 	countdown = new(src)
 	if(countdown_colour)
 		countdown.color = countdown_colour
@@ -46,7 +64,7 @@
 
 /obj/effect/anomaly/process(delta_time)
 	anomalyEffect(delta_time)
-	if(death_time < world.time)
+	if(death_time < world.time && !immortal)
 		if(loc)
 			detonate()
 		qdel(src)
@@ -426,4 +444,80 @@
 		)
 		to_chat(near, "<span class='warning'>[pick(messages)]</span>")
 
+/////////////////////
+
+/obj/effect/anomaly/delimber
+	name = "delimber anomaly"
+	icon_state = "delimber_anomaly"
+	aSignal = /obj/item/assembly/signaler/anomaly/delimber
+	immortal = TRUE
+	/// Cooldown for every anomaly pulse
+	COOLDOWN_DECLARE(pulse_cooldown)
+	/// How many seconds between each anomaly pulses
+	var/pulse_delay = 15 SECONDS
+	/// Range of the anomaly pulse
+	var/range = 5
+
+/obj/effect/anomaly/delimber/Initialize(mapload, new_lifespan)
+	. = ..()
+	if(new_lifespan)
+		immortal = FALSE //manually override the immortality lifespan
+
+/obj/effect/anomaly/delimber/anomalyEffect(delta_time)
+	. = ..()
+
+	if(!COOLDOWN_FINISHED(src, pulse_cooldown))
+		return
+
+	COOLDOWN_START(src, pulse_cooldown, pulse_delay)
+
+	delimber_pulse(src, range)
+
+/proc/delimber_pulse(atom/owner, range = 5, ignore_owner = FALSE)
+	for(var/mob/living/carbon/target in range(range, owner))
+		if(!ignore_owner && target == owner)
+			continue
+		if(target.run_armor_check(attack_flag = "bio", absorb_text = "Your armor protects you from [owner]!") >= 100)
+			continue //We are protected
+
+		// Insert a random organ
+		var/obj/item/organ/picked_organ = pick(ANOMALY_DELIMBER_ZONE_ORGANS)
+		var/obj/item/organ/new_organ = new picked_organ
+		new_organ.Insert(target, TRUE, FALSE)
+
+		// Replace a random limb
+		var/picked_zone = pick(ANOMALY_DELIMBER_ZONES)
+		var/obj/item/bodypart/picked_user_part = target.get_bodypart(picked_zone)
+		if(!picked_user_part)
+			target.update_body(TRUE)
+			target.balloon_alert(target, "something has changed about you")
+			return
+		var/obj/item/bodypart/picked_part
+		switch(picked_zone)
+			if(BODY_ZONE_HEAD)
+				picked_part = pick(ANOMALY_DELIMBER_ZONE_HEAD)
+			if(BODY_ZONE_CHEST)
+				picked_part = pick(ANOMALY_DELIMBER_ZONE_CHEST)
+			if(BODY_ZONE_L_ARM)
+				picked_part = pick(ANOMALY_DELIMBER_ZONE_L_ARM)
+			if(BODY_ZONE_R_ARM)
+				picked_part = pick(ANOMALY_DELIMBER_ZONE_R_ARM)
+			if(BODY_ZONE_L_LEG)
+				picked_part = pick(ANOMALY_DELIMBER_ZONE_L_LEG)
+			if(BODY_ZONE_R_LEG)
+				picked_part = pick(ANOMALY_DELIMBER_ZONE_R_LEG)
+		var/obj/item/bodypart/new_part = new picked_part()
+		new_part.replace_limb(target, TRUE, iscreating = TRUE)
+		qdel(picked_user_part)
+		target.update_body(TRUE)
+		target.balloon_alert(target, "something has changed about you")
+
 #undef ANOMALY_MOVECHANCE
+#undef ANOMALY_DELIMBER_ZONES
+#undef ANOMALY_DELIMBER_ZONE_CHEST
+#undef ANOMALY_DELIMBER_ZONE_HEAD
+#undef ANOMALY_DELIMBER_ZONE_L_LEG
+#undef ANOMALY_DELIMBER_ZONE_R_LEG
+#undef ANOMALY_DELIMBER_ZONE_L_ARM
+#undef ANOMALY_DELIMBER_ZONE_R_ARM
+#undef ANOMALY_DELIMBER_ZONE_ORGANS
