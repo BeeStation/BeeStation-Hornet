@@ -2027,6 +2027,7 @@
 #include "code\modules\events\nightmare.dm"
 #include "code\modules\events\operative.dm"
 #include "code\modules\events\pirates.dm"
+#include "code\modules\events\plasma_decon.dm"
 #include "code\modules\events\portal_storm.dm"
 #include "code\modules\events\prison_break.dm"
 #include "code\modules\events\processor_overload.dm"
