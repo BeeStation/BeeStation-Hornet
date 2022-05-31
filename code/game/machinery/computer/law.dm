@@ -26,7 +26,8 @@
 		var/input = stripped_input(user, "Please enter the Upload code.", "Uplode Code Check")
 		if(!GLOB.upload_code)
 			GLOB.upload_code = random_code(4)
-		if(!(input == GLOB.upload_code))
+		if(input != GLOB.upload_code)
+			to_chat(user, "<span class='caution'>Upload failed!</span> The code inputted was incorrect!")
 			return
 		if(!can_upload_to(current))
 			to_chat(user, "<span class='caution'>Upload failed!</span> Check to make sure [current.name] is functioning properly.")

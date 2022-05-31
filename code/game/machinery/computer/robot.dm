@@ -105,7 +105,7 @@
 	for(var/obj/machinery/computer/upload/U as() in GLOB.uploads_list)
 		if(stat & (NOPOWER|BROKEN))
 			continue
-		if(get_virtual_z_level() != U.get_virtual_z_level())
+		if(!(is_station_level(src.z) && is_station_level(U.z)))
 			continue
 		var/turf/loc = get_turf(U)
 		var/list/upload_data = list(
