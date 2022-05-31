@@ -138,7 +138,7 @@
 			visible_message("<span class='danger'>[user] has pressed one of the colorful buttons on [src] and unknown chemicals flood out of it.</span>")
 			var/datum/reagents/R = new/datum/reagents(300)
 			R.my_atom = src
-			R.add_reagent(get_random_reagent_id(), 100)
+			R.add_reagent(get_random_reagent_id(CHEMICAL_RNG_GENERAL), 100)
 			var/datum/effect_system/foam_spread/foam = new
 			foam.set_up(200, loc, R)
 			foam.start()

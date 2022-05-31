@@ -9,6 +9,7 @@
 	full_name = "Move North"
 	description = ""
 	keybind_signal = COMSIG_KB_MOB_MOVENORTH_DOWN
+	any_modifier = TRUE
 
 /datum/keybinding/mob/move_north/down(client/user)
 	. = ..()
@@ -33,6 +34,7 @@
 	full_name = "Move East"
 	description = ""
 	keybind_signal = COMSIG_KB_MOB_MOVEEAST_DOWN
+	any_modifier = TRUE
 
 /datum/keybinding/mob/move_east/down(client/user)
 	. = ..()
@@ -57,6 +59,7 @@
 	full_name = "Move South"
 	description = ""
 	keybind_signal = COMSIG_KB_MOB_MOVESOUTH_DOWN
+	any_modifier = TRUE
 
 /datum/keybinding/mob/move_south/down(client/user)
 	. = ..()
@@ -81,6 +84,7 @@
 	full_name = "Move West"
 	description = ""
 	keybind_signal = COMSIG_KB_MOB_MOVEWEST_DOWN
+	any_modifier = TRUE
 
 /datum/keybinding/mob/move_west/down(client/user)
 	. = ..()
@@ -98,73 +102,6 @@
 	user.keyUp("West")
 	return TRUE
 	
-	
-/datum/keybinding/mob/face_north
-	key = "Ctrl-W"
-	name = "face_north"
-	full_name = "Face North"
-	description = ""
-	keybind_signal = COMSIG_KB_MOB_FACENORTH_DOWN
-
-/datum/keybinding/mob/face_north/down(client/user)
-	. = ..()
-	if(.)
-		return
-	if(!user.mob) return
-	var/mob/M = user.mob
-	M.northface()
-	return TRUE
-
-
-/datum/keybinding/mob/face_east
-	key = "Ctrl-D"
-	name = "face_east"
-	full_name = "Face East"
-	description = ""
-	keybind_signal = COMSIG_KB_MOB_FACEEAST_DOWN
-
-/datum/keybinding/mob/face_east/down(client/user)
-	. = ..()
-	if(.)
-		return
-	if(!user.mob) return
-	var/mob/M = user.mob
-	M.eastface()
-	return TRUE
-
-
-/datum/keybinding/mob/face_south
-	key = "Ctrl-S"
-	name = "face_south"
-	full_name = "Face South"
-	description = ""
-	keybind_signal = COMSIG_KB_MOB_FACESOUTH_DOWN
-
-/datum/keybinding/mob/face_south/down(client/user)
-	. = ..()
-	if(.)
-		return
-	if(!user.mob) return
-	var/mob/M = user.mob
-	M.southface()
-	return TRUE
-
-/datum/keybinding/mob/face_west
-	key = "Ctrl-A"
-	name = "face_west"
-	full_name = "Face West"
-	description = ""
-	keybind_signal = COMSIG_KB_MOB_FACEWEST_DOWN
-
-/datum/keybinding/mob/face_west/down(client/user)
-	. = ..()
-	if(.)
-		return
-	if(!user.mob) return
-	var/mob/M = user.mob
-	M.westface()
-	return TRUE
-
 /datum/keybinding/mob/stop_pulling
 	key = "H"
 	name = "stop_pulling"
@@ -412,7 +349,7 @@
 /datum/keybinding/mob/prevent_movement
 	key = "Ctrl"
 	name = "block_movement"
-	full_name = "Block movement"
+	full_name = "Hold to change facing"
 	description = "While pressed, prevents movement when pressing directional keys; instead just changes your facing direction"
 	keybind_signal = COMSIG_KB_MOB_PREVENTMOVEMENT_DOWN
 

@@ -11,8 +11,8 @@
 /datum/component/storage/concrete/rped/can_be_inserted(obj/item/I, stop_messages, mob/M)
 	. = ..()
 	if(!I.get_part_rating())
-		if (!stop_messages)
-			M.balloon_alert(M, "Only machine parts fit")
+		if(!stop_messages)
+			M.balloon_alert(M, "The RPED can only hold machine parts!")
 		return FALSE
 
 /datum/component/storage/concrete/bluespace/rped
@@ -28,6 +28,6 @@
 /datum/component/storage/concrete/bluespace/rped/can_be_inserted(obj/item/I, stop_messages, mob/M)
 	. = ..()
 	if(!I.get_part_rating())
-		if (!stop_messages)
-			M.balloon_alert(M, "Only machine parts fit")
+		if(!stop_messages)
+			M.balloon_alert(M, "The RPED can only hold machine parts!")
 		return FALSE

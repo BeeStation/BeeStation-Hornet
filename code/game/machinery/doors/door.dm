@@ -141,19 +141,26 @@
 	if(istype(mover) && (mover.pass_flags & PASSGLASS))
 		return !opacity
 
-/obj/machinery/door/proc/bumpopen(mob/user)
-	if(operating)
-		return
+/// Helper method for bumpopen() and try_to_activate_door(). Don't override.
+/obj/machinery/door/proc/activate_door_base(mob/user, can_close_door)
 	add_fingerprint(user)
-	if(!src.requiresID())
-		user = null
-
-	if(density && !(obj_flags & EMAGGED))
-		if(allowed(user))
+	if(operating || (obj_flags & EMAGGED))
+		return
+	// Cutting WIRE_IDSCAN disables normal entry
+	if(!id_scan_hacked() && allowed(user))
+		if(density)
 			open()
 		else
-			do_animate("deny")
-	return
+			if(!can_close_door)
+				return FALSE
+			close()
+		return TRUE
+	if(density)
+		do_animate("deny")
+
+/// Handles a door getting "bumped" by a mob/living.
+/obj/machinery/door/proc/bumpopen(mob/user)
+	activate_door_base(user, FALSE)
 
 /obj/machinery/door/attack_hand(mob/user)
 	. = ..()
@@ -162,24 +169,18 @@
 	return try_to_activate_door(null, user)
 
 /obj/machinery/door/attack_tk(mob/user)
-	if(requiresID() && !allowed(null))
+	// allowed(null) will always return false, unless the door is all-access.
+	// So unless we've cut the id-scan wire, TK won't go through at all - not even showing an animation.
+	// But if we *have* cut the wire, this eventually falls through to attack_hand(), which calls try_to_activate_door(),
+	// which will fail because the door won't work if the wire is cut! Catch-22.
+	// Basically, TK won't work unless the door is all-access.
+	if(!id_scan_hacked() && !allowed())
 		return
 	..()
 
+/// Handles door activation via clicks, through attackby().
 /obj/machinery/door/proc/try_to_activate_door(obj/item/I, mob/user)
-	add_fingerprint(user)
-	if(operating || (obj_flags & EMAGGED))
-		return
-	if(!requiresID())
-		user = null //so allowed(user) always succeeds
-	if(allowed(user))
-		if(density)
-			open()
-		else
-			close()
-		return TRUE
-	if(density)
-		do_animate("deny")
+	return activate_door_base(user, TRUE)
 
 /obj/machinery/door/allowed(mob/M)
 	if(emergency)
@@ -383,8 +384,10 @@
 /obj/machinery/door/proc/autoclose_in(wait)
 	addtimer(CALLBACK(src, .proc/autoclose), wait, TIMER_UNIQUE | TIMER_NO_HASH_WAIT | TIMER_OVERRIDE)
 
-/obj/machinery/door/proc/requiresID()
-	return 1
+/// Is the ID Scan wire cut, or has the AI disabled it?
+/// This has a variety of non-uniform effects - it doesn't simply grant access.
+/obj/machinery/door/proc/id_scan_hacked()
+	return FALSE
 
 /obj/machinery/door/proc/hasPower()
 	return !(stat & NOPOWER)

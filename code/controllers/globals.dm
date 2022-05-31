@@ -43,6 +43,11 @@ GLOBAL_REAL(GLOB, /datum/controller/global_vars)
 		return FALSE
 	return ..()
 
+/datum/controller/global_vars/can_vv_get(var_name)
+	if(var_name == "gvars_datum_protected_varlist" || var_name == "gvars_datum_in_built_vars")
+		return FALSE
+	. = ..()
+
 /datum/controller/global_vars/Initialize()
 	gvars_datum_init_order = list()
 	gvars_datum_protected_varlist = list(NAMEOF(src, gvars_datum_protected_varlist) = TRUE)

@@ -1,25 +1,19 @@
 /datum/mutation
-
-	var/name
-
-/datum/mutation/human
-	name = "mutation"
+	var/name = "mutation"
 	var/desc = "A mutation."
 	var/locked
 	var/quality
-	var/get_chance = 100
-	var/lowest_value = 256 * 8
 	var/text_gain_indication = ""
 	var/text_lose_indication = ""
 	var/static/list/visual_indicators = list()
 	var/obj/effect/proc_holder/spell/power
 	var/layer_used = MUTATIONS_LAYER //which mutation layer to use
 	var/list/species_allowed = list() //to restrict mutation to only certain species
+	var/list/mobtypes_allowed = list() //to restrict mutation to only certain mobs
 	var/health_req //minimum health required to acquire the mutation
 	var/limb_req //required limbs to acquire this mutation
-	var/time_coeff = 1 //coefficient for timed mutations
 	var/datum/dna/dna
-	var/mob/living/carbon/human/owner
+	var/mob/living/carbon/owner
 	var/instability = 0 //instability the holder gets when the mutation is not native
 	var/blocks = 4 //Amount of those big blocks with gene sequences
 	var/difficulty = 8 //Amount of missing sequences. Sometimes it removes an entire pair for 2 points
@@ -46,36 +40,37 @@
 	var/power_coeff = -1 //boosts mutation strength
 	var/energy_coeff = -1 //lowers mutation cooldown
 
-/datum/mutation/human/New(class_ = MUT_OTHER, timer, datum/mutation/human/copymut)
+/datum/mutation/New(class_ = MUT_OTHER, timer, datum/mutation/copymut)
 	. = ..()
 	class = class_
 	if(timer)
 		addtimer(CALLBACK(src, .proc/remove), timer)
 		timed = TRUE
-	if(copymut && istype(copymut, /datum/mutation/human))
+	if(copymut && istype(copymut, /datum/mutation))
 		copy_mutation(copymut)
 
-/datum/mutation/human/proc/on_acquiring(mob/living/carbon/human/H)
-	if(!H || !istype(H) || H.stat == DEAD || (src in H.dna.mutations))
+/datum/mutation/proc/on_acquiring(mob/living/carbon/C)
+	if(!C || !istype(C) || C.stat == DEAD || !C.has_dna() || (src in C.dna.mutations))
 		return TRUE
-	if(species_allowed.len && !species_allowed.Find(H.dna.species.id))
+	if(length(mobtypes_allowed) && !mobtypes_allowed.Find(C.type))
 		return TRUE
-	if(health_req && H.health < health_req)
+	if(length(species_allowed) && !species_allowed.Find(C.dna.species.id))
 		return TRUE
-	if(limb_req && !H.get_bodypart(limb_req))
+	if(health_req && C.health < health_req)
 		return TRUE
-	for(var/M in H.dna.mutations)//check for conflicting powers
-		var/datum/mutation/human/mewtayshun = M
-		if(!(mewtayshun.type in conflicts) && !(type in mewtayshun.conflicts))
+	if(limb_req && !C.get_bodypart(limb_req))
+		return TRUE
+	for(var/datum/mutation/M as() in C.dna.mutations)//check for conflicting powers
+		if(!(M.type in conflicts) && !(type in M.conflicts))
 			continue
-		to_chat(H, "<span class='warning'>You feel your genes resisting something.</span>")
+		to_chat(C, "<span class='warning'>You feel your genes resisting something.</span>")
 		return TRUE
-	owner = H
-	dna = H.dna
+	owner = C
+	dna = C.dna
 	dna.mutations += src
 	if(text_gain_indication)
 		to_chat(owner, text_gain_indication)
-	if(visual_indicators.len)
+	if(length(visual_indicators))
 		var/list/mut_overlay = list(get_visual_indicator())
 		if(owner.overlays_standing[layer_used])
 			mut_overlay = owner.overlays_standing[layer_used]
@@ -88,27 +83,27 @@
 		addtimer(CALLBACK(src, .proc/modify, 5)) //gonna want children calling ..() to run first
 	RegisterSignal(owner, COMSIG_MOVABLE_MOVED, .proc/on_move)
 
-/datum/mutation/human/proc/get_visual_indicator()
+/datum/mutation/proc/get_visual_indicator()
 	return
 
-/datum/mutation/human/proc/on_attack_hand( atom/target, proximity)
+/datum/mutation/proc/on_attack_hand(atom/target, proximity)
 	return
 
-/datum/mutation/human/proc/on_ranged_attack(atom/target)
+/datum/mutation/proc/on_ranged_attack(atom/target)
 	return
 
-/datum/mutation/human/proc/on_move(new_loc)
+/datum/mutation/proc/on_move(new_loc)
 	SIGNAL_HANDLER
 	return
 
-/datum/mutation/human/proc/on_life()
+/datum/mutation/proc/on_life()
 	return
 
-/datum/mutation/human/proc/on_losing(mob/living/carbon/human/owner)
+/datum/mutation/proc/on_losing(mob/living/carbon/owner)
 	if(owner && istype(owner) && (owner.dna.mutations.Remove(src)))
 		if(text_lose_indication && owner.stat != DEAD)
 			to_chat(owner, text_lose_indication)
-		if(visual_indicators.len)
+		if(length(visual_indicators))
 			var/list/mut_overlay = list()
 			if(owner.overlays_standing[layer_used])
 				mut_overlay = owner.overlays_standing[layer_used]
@@ -124,14 +119,16 @@
 	return 1
 
 /mob/living/carbon/proc/update_mutations_overlay()
-	return
-
-/mob/living/carbon/human/update_mutations_overlay()
-	for(var/datum/mutation/human/CM in dna.mutations)
-		if(CM.species_allowed.len && !CM.species_allowed.Find(dna.species.id))
+	if(!has_dna())
+		return
+	for(var/datum/mutation/CM as() in dna.mutations)
+		if(length(CM.mobtypes_allowed) && !CM.mobtypes_allowed.Find(src.type))
+			dna.force_lose(CM)
+			continue
+		if(length(CM.species_allowed) && !CM.species_allowed.Find(dna.species.id))
 			dna.force_lose(CM) //shouldn't have that mutation at all
 			continue
-		if(CM.visual_indicators.len)
+		if(length(CM.visual_indicators))
 			var/list/mut_overlay = list()
 			if(overlays_standing[CM.layer_used])
 				mut_overlay = overlays_standing[CM.layer_used]
@@ -144,14 +141,14 @@
 				overlays_standing[CM.layer_used] = mut_overlay
 				apply_overlay(CM.layer_used)
 
-/datum/mutation/human/proc/modify() //called when a genome is applied so we can properly update some stats without having to remove and reapply the mutation from someone
+/datum/mutation/proc/modify() //called when a genome is applied so we can properly update some stats without having to remove and reapply the mutation from someone
 	if(modified || !power || !owner)
 		return
 	power.charge_max *= GET_MUTATION_ENERGY(src)
 	power.charge_counter *= GET_MUTATION_ENERGY(src)
 	modified = TRUE
 
-/datum/mutation/human/proc/copy_mutation(datum/mutation/human/HM)
+/datum/mutation/proc/copy_mutation(datum/mutation/HM)
 	if(!HM)
 		return
 	chromosome_name = HM.chromosome_name
@@ -163,7 +160,7 @@
 	can_chromosome = HM.can_chromosome
 	valid_chrom_list = HM.valid_chrom_list
 
-/datum/mutation/human/proc/remove_chromosome()
+/datum/mutation/proc/remove_chromosome()
 	stabilizer_coeff = initial(stabilizer_coeff)
 	synchronizer_coeff = initial(synchronizer_coeff)
 	power_coeff = initial(power_coeff)
@@ -172,13 +169,13 @@
 	can_chromosome = initial(can_chromosome)
 	chromosome_name = null
 
-/datum/mutation/human/proc/remove()
+/datum/mutation/proc/remove()
 	if(dna)
 		dna.force_lose(src)
 	else
 		qdel(src)
 
-/datum/mutation/human/proc/grant_spell()
+/datum/mutation/proc/grant_spell()
 	if(!ispath(power) || !owner)
 		return FALSE
 
@@ -190,7 +187,7 @@
 
 // Runs through all the coefficients and uses this to determine which chromosomes the
 // mutation can take. Stores these as text strings in a list.
-/datum/mutation/human/proc/update_valid_chromosome_list()
+/datum/mutation/proc/update_valid_chromosome_list()
 	valid_chrom_list.Cut()
 
 	if(can_chromosome == CHROMOSOME_NEVER)

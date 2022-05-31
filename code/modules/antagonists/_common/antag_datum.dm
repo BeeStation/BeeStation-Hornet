@@ -316,11 +316,11 @@ GLOBAL_LIST(admin_antag_list)
 
 // Handles adding and removing the clumsy mutation from clown antags. Gets called in apply/remove_innate_effects
 /datum/antagonist/proc/handle_clown_mutation(mob/living/mob_override, message, removing = TRUE)
-	var/mob/living/carbon/human/H = mob_override
-	if(H && istype(H) && owner.assigned_role == "Clown")
+	var/mob/living/carbon/C = mob_override
+	if(C && istype(C) && C.has_dna() && owner.assigned_role == "Clown")
 		if(removing) // They're a clown becoming an antag, remove clumsy
-			H.dna.remove_mutation(CLOWNMUT)
+			C.dna.remove_mutation(CLOWNMUT)
 			if(!silent && message)
-				to_chat(H, "<span class='boldnotice'>[message]</span>")
+				to_chat(C, "<span class='boldnotice'>[message]</span>")
 		else
-			H.dna.add_mutation(CLOWNMUT) // We're removing their antag status, add back clumsy
+			C.dna.add_mutation(CLOWNMUT) // We're removing their antag status, add back clumsy

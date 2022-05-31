@@ -136,6 +136,9 @@ Class Procs:
 	var/tgui_id // ID of TGUI interface
 	var/ui_style // ID of custom TGUI style (optional)
 
+	/// Maximum time an EMP will disable this machine for
+	var/emp_disable_time = 2 MINUTES
+
 /obj/machinery/Initialize(mapload)
 	if(!armor)
 		armor = list("melee" = 25, "bullet" = 10, "laser" = 10, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 70, "stamina" = 0)
@@ -186,7 +189,19 @@ Class Procs:
 	. = ..()
 	if(use_power && !stat && !(. & EMP_PROTECT_SELF))
 		use_power(7500/severity)
+		//Set the machine to be EMPed
+		stat |= EMPED
+		//Reset EMP state in 120/60 seconds
+		addtimer(CALLBACK(src, .proc/emp_reset), (emp_disable_time / severity) + rand(-10, 10))
+		//Update power
+		power_change()
 		new /obj/effect/temp_visual/emp(loc)
+
+/obj/machinery/proc/emp_reset()
+	//Reset EMP state
+	stat &= ~EMPED
+	//Update power
+	power_change()
 
 /obj/machinery/proc/open_machine(drop = TRUE)
 	SEND_SIGNAL(src, COMSIG_MACHINE_OPEN, drop)
@@ -272,8 +287,8 @@ Class Procs:
 			return FALSE
 
 		if(!Adjacent(user)) // Next make sure we are next to the machine unless we have telekinesis
-			var/mob/living/carbon/H = L
-			if(!(istype(H) && H.has_dna() && H.dna.check_mutation(TK)))
+			var/mob/living/carbon/C = L
+			if(!(istype(C) && C.has_dna() && C.dna.check_mutation(TK)))
 				return FALSE
 
 		if(L.incapacitated()) // Finally make sure we aren't incapacitated

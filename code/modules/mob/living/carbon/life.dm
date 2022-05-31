@@ -40,6 +40,10 @@
 				var/datum/brain_trauma/BT = T
 				BT.on_life()
 
+		if(stat != DEAD && has_dna())
+			for(var/datum/mutation/HM as() in dna.mutations)
+				HM.on_life()
+
 	else
 		. = ..()
 
@@ -348,7 +352,7 @@
 						dna.previous.Remove("blood_type")
 					dna.temporary_mutations.Remove(mut)
 					continue
-		for(var/datum/mutation/human/HM in dna.mutations)
+		for(var/datum/mutation/HM as() in dna.mutations)
 			if(HM?.timed)
 				dna.remove_mutation(HM.type)
 
