@@ -103,9 +103,9 @@
 	. = ..()
 	if(istype(attacking_item, /obj/item/upgradewand))
 		var/obj/item/upgradewand/wand = attacking_item
-		if(!wand.used && range == initial(range))
+		if(!wand.used)
 			wand.used = TRUE
-			range = 6
+			range += 3
 			to_chat(user, "<span_class='notice'>You upgrade the [src] with the [wand].</span>")
 			playsound(user, 'sound/weapons/emitter2.ogg', 25, 1, -1)
 

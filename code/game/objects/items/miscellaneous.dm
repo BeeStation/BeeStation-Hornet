@@ -202,11 +202,11 @@
 	. = ..()
 	if(istype(W, /obj/item/upgradewand))
 		var/obj/item/upgradewand/wand = W
-		if(!wand.used && kidnappingcoefficient == initial(kidnappingcoefficient))
+		if(!wand.used)
 			wand.used = TRUE
-			kidnappingcoefficient = 0.5
-			capacity = 4
-			maximum_size = 4
+			kidnappingcoefficient *= 0.5
+			capacity += 2
+			maximum_size += 2
 			to_chat(user, "<span_class='notice'>You upgrade the [src] with the [wand].</span>")
 			playsound(user, 'sound/weapons/emitter2.ogg', 25, 1, -1)
 

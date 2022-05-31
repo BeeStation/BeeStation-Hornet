@@ -15,3 +15,10 @@
 	restricted_roles = list("Debtor")
 	surplus = 0
 
+/datum/uplink_item/role_restricted/arcane_beacon
+	name = "Beacon of Magical Items"
+	desc = "This beacon allows you to choose a rare magitech item that will make your performance truly unforgettable."
+	item = /obj/item/choice_beacon/magic
+	cost = 5
+	restricted_roles = list("Stage Magician")
+	surplus = 0

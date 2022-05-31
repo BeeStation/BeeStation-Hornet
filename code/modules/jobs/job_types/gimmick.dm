@@ -78,7 +78,6 @@
 	shoes = /obj/item/clothing/shoes/laceup
 	gloves = /obj/item/clothing/gloves/color/white
 	l_hand = /obj/item/cane
-	backpack_contents = list(/obj/item/choice_beacon/magic=1)
 	can_be_admin_equipped = TRUE
 
 /datum/job/gimmick/hobo
