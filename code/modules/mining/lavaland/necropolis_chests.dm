@@ -35,45 +35,45 @@
 
 
 /obj/structure/closet/crate/necropolis/tendril/try_spawn_loot(datum/source, obj/item/item, mob/user, params) ///proc that handles key checking and generating loot
-	..()
-	var/loot = rand(1,18)
-	switch(loot)
-		if(1)
-			new /obj/item/clothing/glasses/godeye(src)
-		if(2)
-			new /obj/item/reagent_containers/glass/bottle/potion/flight(src)
-		if(3)
-			new /obj/item/pickaxe/diamond(src) //Ashwalkers exist. This is actually a great drop for them
-		if(4)
-			new /obj/item/rod_of_asclepius(src)
-		if(5)
-			new /obj/item/organ/heart/cursed/wizard(src)
-		if(6)
-			new /obj/item/ship_in_a_bottle(src)
-		if(7)
-			new /obj/item/jacobs_ladder(src)
-		if(8)
-			new /obj/item/warp_cube/red(src)
-		if(9)
-			new /obj/item/wisp_lantern(src)
-		if(10)
-			new /obj/item/immortality_talisman(src)
-		if(11)
-			new /obj/item/gun/magic/hook(src)
-		if(12)
-			new /obj/item/book_of_babel(src)
-		if(13)
-			new /obj/item/clothing/neck/necklace/memento_mori(src)
-		if(14)
-			new /obj/item/reagent_containers/glass/waterbottle/relic(src)
-		if(15)
-			new /obj/item/reagent_containers/glass/bottle/necropolis_seed(src)
-		if(16)
-			new /obj/item/borg/upgrade/modkit/lifesteal(src)
-		if(17)
-			new /obj/item/shared_storage/red(src)
-		if(18)
-			new /obj/item/staff/storm(src)
+	if(..())
+		var/loot = rand(1,18)
+		switch(loot)
+			if(1)
+				new /obj/item/clothing/glasses/godeye(src)
+			if(2)
+				new /obj/item/reagent_containers/glass/bottle/potion/flight(src)
+			if(3)
+				new /obj/item/pickaxe/diamond(src) //Ashwalkers exist. This is actually a great drop for them
+			if(4)
+				new /obj/item/rod_of_asclepius(src)
+			if(5)
+				new /obj/item/organ/heart/cursed/wizard(src)
+			if(6)
+				new /obj/item/ship_in_a_bottle(src)
+			if(7)
+				new /obj/item/jacobs_ladder(src)
+			if(8)
+				new /obj/item/warp_cube/red(src)
+			if(9)
+				new /obj/item/wisp_lantern(src)
+			if(10)
+				new /obj/item/immortality_talisman(src)
+			if(11)
+				new /obj/item/gun/magic/hook(src)
+			if(12)
+				new /obj/item/book_of_babel(src)
+			if(13)
+				new /obj/item/clothing/neck/necklace/memento_mori(src)
+			if(14)
+				new /obj/item/reagent_containers/glass/waterbottle/relic(src)
+			if(15)
+				new /obj/item/reagent_containers/glass/bottle/necropolis_seed(src)
+			if(16)
+				new /obj/item/borg/upgrade/modkit/lifesteal(src)
+			if(17)
+				new /obj/item/shared_storage/red(src)
+			if(18)
+				new /obj/item/staff/storm(src)
 
 /obj/structure/closet/crate/necropolis/can_open(mob/living/user, force = FALSE)
 	if(!spawned_loot)
@@ -687,10 +687,10 @@
 	name = "legion chest"
 
 /obj/structure/closet/crate/necropolis/legion/try_spawn_loot(datum/source, obj/item/item, mob/user, params) ///proc that handles key checking and generating loot
-	..()
-	var/list/choices = subtypesof(/obj/machinery/anomalous_crystal)
-	var/random_crystal = pick(choices)
-	new random_crystal(src)
+	if(..())
+		var/list/choices = subtypesof(/obj/machinery/anomalous_crystal)
+		var/random_crystal = pick(choices)
+		new random_crystal(src)
 
 //Miniboss Miner
 
@@ -698,9 +698,9 @@
 	name = "blood-drunk miner chest"
 
 /obj/structure/closet/crate/necropolis/bdm/try_spawn_loot(datum/source, obj/item/item, mob/user, params) ///proc that handles key checking and generating loot
-	..()
-	new /obj/item/melee/transforming/cleaving_saw(src)
-	new /obj/item/crusher_trophy/miner_eye(src)
+	if(..())
+		new /obj/item/melee/transforming/cleaving_saw(src)
+		new /obj/item/crusher_trophy/miner_eye(src)
 
 /obj/item/melee/transforming/cleaving_saw
 	name = "cleaving saw"
@@ -799,10 +799,10 @@
 	name = "drake chest"	
 
 /obj/structure/closet/crate/necropolis/dragon/try_spawn_loot(datum/source, obj/item/item, mob/user, params) ///proc that handles key checking and generating loot
-	..()
-	new /obj/item/dragons_blood(src)
-	new /obj/item/clothing/suit/hooded/cloak/drake(src)	 //Drake armor crafted only by Ashwalkers now, but still available as drop for miners
-	new /obj/item/crusher_trophy/tail_spike(src)
+	if(..())
+		new /obj/item/dragons_blood(src)
+		new /obj/item/clothing/suit/hooded/cloak/drake(src)	 //Drake armor crafted only by Ashwalkers now, but still available as drop for miners
+		new /obj/item/crusher_trophy/tail_spike(src)
 
 
 // Ghost Sword - left in for other references and admin shenanigans
@@ -1026,10 +1026,10 @@
 	name = "bubblegum chest"
 
 /obj/structure/closet/crate/necropolis/bubblegum/try_spawn_loot(datum/source, obj/item/item, mob/user, params) ///proc that handles key checking and generating loot
-	..()
-	new /obj/item/clothing/suit/space/hostile_environment(src)
-	new /obj/item/clothing/head/helmet/space/hostile_environment(src)
-	new /obj/item/crusher_trophy/demon_claws(src)
+	if(..())
+		new /obj/item/clothing/suit/space/hostile_environment(src)
+		new /obj/item/clothing/head/helmet/space/hostile_environment(src)
+		new /obj/item/crusher_trophy/demon_claws(src)
 
 /obj/item/mayhem
 	name = "mayhem in a bottle"
@@ -1096,9 +1096,9 @@
 	name = "colossus chest"
 
 /obj/structure/closet/crate/necropolis/colossus/try_spawn_loot(datum/source, obj/item/item, mob/user, params) ///proc that handles key checking and generating loot
-	..()
-	new /obj/item/organ/vocal_cords/colossus(src)
-	new /obj/item/crusher_trophy/blaster_tubes(src)
+	if(..())
+		new /obj/item/organ/vocal_cords/colossus(src)
+		new /obj/item/crusher_trophy/blaster_tubes(src)
 
 //Hierophant
 
@@ -1106,9 +1106,9 @@
 	name = "hierophant chest"
 
 /obj/structure/closet/crate/necropolis/hierophant/try_spawn_loot(datum/source, obj/item/item, mob/user, params) ///proc that handles key checking and generating loot
-	..()
-	new /obj/item/hierophant_club(src)
-	new /obj/item/crusher_trophy/vortex_talisman(src)
+	if(..())
+		new /obj/item/hierophant_club(src)
+		new /obj/item/crusher_trophy/vortex_talisman(src)
 
 /obj/item/hierophant_club
 	name = "hierophant club"
