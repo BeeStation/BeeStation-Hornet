@@ -505,7 +505,7 @@
 	button.moved = "6:157,4:-2"
 
 /datum/action/item_action/cult_dagger/Trigger()
-	for(var/obj/item/melee/cultblade/dagger/held_item as() in owner.held_items) // In case we were already holding a dagger
+	for(var/obj/item/melee/cultblade/dagger/held_item in owner.held_items) // In case we were already holding a dagger
 		held_item.attack_self(owner)
 		return
 	var/obj/item/target_item = target
