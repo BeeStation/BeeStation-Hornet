@@ -76,7 +76,7 @@
 
 /obj/item/bodypart/Initialize(mapload)
 	..()
-	name = "[limb_id] [parse_zone(body_zone)]"
+	name = "[parse_zone(body_zone)]"
 	if(is_dimorphic)
 		limb_gender = pick("m", "f")
 	update_icon_dropped()
@@ -92,6 +92,8 @@
 		. += "<span class='warning'>This limb has [brute_dam > 30 ? "severe" : "minor"] bruising.</span>"
 	if(burn_dam > DAMAGE_PRECISION)
 		. += "<span class='warning'>This limb has [burn_dam > 30 ? "severe" : "minor"] burns.</span>"
+	if(limb_id)
+		. += "<span class='notice'>It is a [limb_id] [parse_zone(body_zone)].</span>"
 
 /obj/item/bodypart/blob_act()
 	take_damage(max_damage)
