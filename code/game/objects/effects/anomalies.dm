@@ -507,7 +507,7 @@
 			if(BODY_ZONE_R_LEG)
 				picked_part = pick(ANOMALY_DELIMBER_ZONE_R_LEG)
 		var/obj/item/bodypart/new_part = new picked_part()
-		new_part.replace_limb(target, TRUE, iscreating = TRUE)
+		new_part.replace_limb(target, TRUE, is_creating = TRUE)
 		qdel(picked_user_part)
 		target.update_body(TRUE)
 		target.balloon_alert(target, "something has changed about you")

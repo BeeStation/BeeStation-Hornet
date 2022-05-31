@@ -47,7 +47,7 @@
 	///Duration of the cooldown specific to reactive armor for when it can activate again.
 	var/reactivearmor_cooldown_duration = 0
 	///The cooldown itself of the reactive armor for when it can activate again.
-	var/reactivearmor_cooldown = 0
+	COOLDOWN_DECLARE(reactivearmor_cooldown)
 	pocket_storage_component_path = FALSE
 
 /obj/item/clothing/suit/armor/reactive/attack_self(mob/user)
@@ -68,9 +68,12 @@
 
 	if(!active || !prob(hit_reaction_chance))
 		return FALSE
-	if(world.time < reactivearmor_cooldown)
+	if(reactivearmor_cooldown_duration && !COOLDOWN_FINISHED(src, reactivearmor_cooldown))
 		cooldown_activation(owner)
 		return FALSE
+	if(reactivearmor_cooldown_duration)
+		COOLDOWN_START(src, reactivearmor_cooldown, reactivearmor_cooldown_duration)
+
 	if(bad_effect)
 		return emp_activation(owner, hitby, attack_text, damage, attack_type)
 	else
@@ -106,11 +109,12 @@
 	. = ..()
 	if(. & EMP_PROTECT_SELF || bad_effect || !active) //didn't get hit or already emp'd, or off
 		return
-	visible_message(emp_message)
+	if(ismob(loc))
+		to_chat(loc, emp_message)
 	bad_effect = TRUE
 	addtimer(VARSET_CALLBACK(src, bad_effect, FALSE), 30 SECONDS)
 
-///checks whether the armor should react to being hit. 
+///checks whether the armor should react to being hit.
 /obj/item/clothing/suit/armor/reactive/proc/does_react(atom/movable/hitby)
 	if(!active)
 		return FALSE
@@ -135,7 +139,6 @@
 	playsound(get_turf(owner),'sound/magic/blink.ogg', 100, 1)
 	do_teleport(teleatom = owner, destination = get_turf(owner), no_effects = TRUE, precision = tele_range, channel = TELEPORT_CHANNEL_BLUESPACE)
 	owner.rad_act(rad_amount)
-	reactivearmor_cooldown = world.time + reactivearmor_cooldown_duration
 	return TRUE
 
 /obj/item/clothing/suit/armor/reactive/teleport/emp_activation(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
@@ -145,7 +148,6 @@
 	playsound(get_turf(owner), 'sound/magic/blink.ogg', 100, 1)
 	do_teleport(teleatom = src, destination = get_turf(owner), no_effects = TRUE, precision = tele_range, channel = TELEPORT_CHANNEL_BLUESPACE)
 	owner.rad_act(rad_amount)
-	reactivearmor_cooldown = world.time + reactivearmor_cooldown_duration
 	return FALSE //you didn't actually evade the attack now did you
 
 //Fire
@@ -163,7 +165,6 @@
 		C.fire_stacks += 8
 		C.IgniteMob()
 	owner.fire_stacks = -20
-	reactivearmor_cooldown = world.time + reactivearmor_cooldown_duration
 	return TRUE
 
 /obj/item/clothing/suit/armor/reactive/fire/emp_activation(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
@@ -171,7 +172,6 @@
 	playsound(get_turf(owner),'sound/magic/fireball.ogg', 100, 1)
 	owner.fire_stacks += 12
 	owner.IgniteMob()
-	reactivearmor_cooldown = world.time + reactivearmor_cooldown_duration
 	return FALSE
 
 //Stealth
@@ -207,7 +207,6 @@
 	in_stealth = TRUE
 	owner.visible_message("<span class='danger'>[owner] is hit by [attack_text] in the chest!</span>") //We pretend to be hit, since blocking it would stop the message otherwise
 	addtimer(CALLBACK(src, .proc/end_stealth, owner), 40)
-	reactivearmor_cooldown = world.time + reactivearmor_cooldown_duration
 	return TRUE
 
 /obj/item/clothing/suit/armor/reactive/stealth/proc/end_stealth(mob/living/carbon/human/owner)
@@ -221,7 +220,6 @@
 	owner.visible_message("<span class='danger'>[src] activates, cloaking the wrong person!</span>")
 	attacker.alpha = 0
 	addtimer(VARSET_CALLBACK(attacker, alpha, initial(attacker.alpha)), 4 SECONDS)
-	reactivearmor_cooldown = world.time + reactivearmor_cooldown_duration
 	return FALSE
 
 //Tesla
@@ -255,7 +253,6 @@
 /obj/item/clothing/suit/armor/reactive/tesla/reactive_activation(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
 	owner.visible_message("<span class='danger'>[src] blocks [attack_text], sending out arcs of lightning!</span>")
 	tesla_zap(owner, tesla_range, tesla_power, tesla_flags)
-	reactivearmor_cooldown = world.time + reactivearmor_cooldown_duration
 	return TRUE
 
 /obj/item/clothing/suit/armor/reactive/tesla/emp_activation(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
@@ -264,7 +261,6 @@
 		owner.flags_1 &= ~TESLA_IGNORE_1
 	electrocute_mob(owner, get_area(src), src, 1)
 	owner.flags_1 |= TESLA_IGNORE_1
-	reactivearmor_cooldown = world.time + reactivearmor_cooldown_duration
 	return FALSE
 
 //Repulse
@@ -288,7 +284,6 @@
 		A.safe_throw_at(throwtarget, 10, 1, force = repulse_force)
 		thrown_items[A] = A
 
-	reactivearmor_cooldown = world.time + reactivearmor_cooldown_duration
 	return TRUE
 
 /obj/item/clothing/suit/armor/reactive/repulse/emp_activation(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
@@ -302,7 +297,6 @@
 		A.safe_throw_at(owner, 10, 1, force = repulse_force)
 		thrown_items[A] = A
 
-	reactivearmor_cooldown = world.time + reactivearmor_cooldown_duration
 	return FALSE
 
 //Table
@@ -335,7 +329,6 @@
 		return
 	do_teleport(owner, picked, no_effects = TRUE)
 	new /obj/structure/table(get_turf(owner))
-	reactivearmor_cooldown = world.time + reactivearmor_cooldown_duration
 	return TRUE
 
 /obj/item/clothing/suit/armor/reactive/table/emp_activation(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
@@ -377,7 +370,6 @@
 	owner.visible_message("<span class='danger'>[src] blocks [attack_text], but pulls a massive charge of mental energy into [owner] from the surrounding environment!</span>")
 	owner.hallucination += 25
 	owner.hallucination = clamp(owner.hallucination, 0, 150)
-	reactivearmor_cooldown = world.time + reactivearmor_cooldown_duration
 	return TRUE
 
 //Delimbering
