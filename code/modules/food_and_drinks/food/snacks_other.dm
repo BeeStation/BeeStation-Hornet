@@ -608,7 +608,7 @@
 	list_reagents = list(/datum/reagent/consumable/nutriment = 10)
 	filling_color = "#B22222"
 	tastes = list("beans" = 1)
-	foodtype = VEGETABLES
+	foodtype = VEGETABLES | BEANS
 
 /obj/item/reagent_containers/food/snacks/canned/peaches
 	name = "canned peaches"

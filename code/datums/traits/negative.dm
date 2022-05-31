@@ -684,7 +684,7 @@
 	RegisterSignal(H, COMSIG_MOB_SAY, .proc/handle_speech)
 	var/datum/species/species = H.dna.species
 	var/liked = species.liked_food
-	species.liked_food = /obj/item/reagent_containers/food/snacks/canned/beans
+	species.liked_food = BEANS
 	species.disliked_food = liked
 
 /datum/quirk/british/remove()

@@ -13,6 +13,7 @@
 #define PINEAPPLE	(1<<12)
 #define BREAKFAST	(1<<13)
 #define CLOTH 		(1<<14)
+#define BEANS		(1<<15)
 
 #define DRINK_BAD   1
 #define DRINK_NICE	2
