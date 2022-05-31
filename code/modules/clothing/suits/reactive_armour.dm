@@ -110,6 +110,16 @@
 	bad_effect = TRUE
 	addtimer(VARSET_CALLBACK(src, bad_effect, FALSE), 30 SECONDS)
 
+///checks whether the armor should react to being hit. 
+/obj/item/clothing/suit/armor/reactive/proc/does_react(atom/movable/hitby)
+	if(!active)
+		return FALSE
+	if(isprojectile(hitby))
+		var/obj/item/projectile/P = hitby
+		if(P.martial_arts_no_deflect)
+			return FALSE
+	return TRUE
+
 //When the wearer gets hit, this armor will teleport the user a short distance away (to safety or to more danger, no one knows. That's the fun of it!)
 /obj/item/clothing/suit/armor/reactive/teleport
 	name = "reactive teleport armor"

@@ -26,7 +26,7 @@
 
 /obj/item/reagent_containers/food/snacks/egg/gland/Initialize(mapload)
 	. = ..()
-	reagents.add_reagent(get_random_reagent_id(), 15)
+	reagents.add_reagent(get_random_reagent_id(CHEMICAL_RNG_GENERAL), 15)
 
 	var/color = mix_color_from_reagents(reagents.reagent_list)
 	add_atom_colour(color, FIXED_COLOUR_PRIORITY)
