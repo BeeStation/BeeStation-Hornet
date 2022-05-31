@@ -137,4 +137,7 @@
 
 /mob/living/silicon/flash_act(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, type = /atom/movable/screen/fullscreen/flash/static)
 	if(affect_silicon)
-		return ..()
+		overlay_fullscreen("flash", type)
+		addtimer(CALLBACK(src, .proc/clear_fullscreen, "flash", 25), 70) //Flashes now blind silicons for the duration they used to stun
+		return TRUE
+	return FALSE
