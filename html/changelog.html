@@ -56,6 +56,75 @@
 		-->
 		<div class="commit sansserif">
 
+			<h2 class="date">30 May 2022</h2>
+			<h3 class="author">MNarath1 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="code_imp">reworks nuke_code proc (now random_code proc) to not use padding and be able to accept variable code lengths</li>
+				<li class="refactor">make the antag uplinke code (for pda uplinks at least) also use this proc</li>
+			</ul>
+			<h3 class="author">Penwin0 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">fixes harddel with atmos backpack nozzle</li>
+			</ul>
+			<h3 class="author">PowerfulBacon updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Move upwards and move downwards no longer animate if there is nowhere to move in that direction.</li>
+				<li class="bugfix">Fixes href pings being logged erronously.</li>
+			</ul>
+			<h3 class="author">Rukofamicom updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Warping grey crossbreeds are now properly created when feeding bluespace extracts to a grey slime.</li>
+			</ul>
+			<h3 class="author">mcmeiler updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="spellcheck">Removed the redundant species name from limb names, moves it to description</li>
+				<li class="bugfix">fixed players getting first person messages when someone emags a power flow control console</li>
+			</ul>
+
+			<h2 class="date">29 May 2022</h2>
+			<h3 class="author">Archanial updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">regenerative bluespace now teleports you instead of forcemoving.</li>
+				<li class="refactor">refactored some code related to xenobio extracts</li>
+			</ul>
+			<h3 class="author">Ebin-Halcyon, ported by Hardly. updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="imageadd">The maid costume has a new sprite!</li>
+				<li class="imageadd">Added maid headband, neck cover and arm cover.</li>
+			</ul>
+			<h3 class="author">MNarath1 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">makes spam protection work around messages per timeframe instead of you have to wait so long before you can message again</li>
+			</ul>
+			<h3 class="author">Mat05usz updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fixes living mobs forcefully moving unanchored stuff they are buckled to</li>
+			</ul>
+			<h3 class="author">Penwin0 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Reverts PR that broke everything to do with buckling</li>
+			</ul>
+			<h3 class="author">Rukofamicom updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="balance">Stimulum is toxic again!</li>
+				<li class="tweak">Stimulum now causes difficulty breathing and oxyloss instead of plain toxin damage, and has new notifications to assist in its usage. Recommended usage is huffing one breath of stimulum for a high, and then waiting two minutes for it to wear off before huffing again.</li>
+			</ul>
+			<h3 class="author">d0sboots updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Using Ctrl and Alt with movement works correctly</li>
+				<li class="rscdel">Removed "change facing" keybinds, they are no longer needed</li>
+				<li class="refactor">document behavior around airlocks and the id scan wire</li>
+			</ul>
+			<h3 class="author">giacomoh updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Added character selection slots in beecoin shop</li>
+				<li class="rscadd">Added equipped_loadout to save_character</li>
+			</ul>
+			<h3 class="author">ivanmixo updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">fixed the extra 'the' when stripping people</li>
+			</ul>
+
 			<h2 class="date">27 May 2022</h2>
 			<h3 class="author">ivanmixo updated:</h3>
 			<ul class="changes bgimages16">
@@ -1151,71 +1220,6 @@
 				<li class="bugfix">fixed not being able to insert eyes during organ manipulation surgery</li>
 				<li class="bugfix">fixed species change removing organs, etc.</li>
 				<li class="bugfix">other misc eye-related fixes</li>
-			</ul>
-
-			<h2 class="date">29 March 2022</h2>
-			<h3 class="author">Ivniinvi updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Eminence can no longer teleport to Servants of Rat'Var on the CentCom Z Level</li>
-			</ul>
-
-			<h2 class="date">28 March 2022</h2>
-			<h3 class="author">DatBoiTim updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscdel">Removed Corporate Agents</li>
-				<li class="rscdel">Removed Mushroom Species</li>
-			</ul>
-			<h3 class="author">Dejaku51 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Used grenades now look used when examined.</li>
-				<li class="bugfix">It should no longer be possible to DC admins by spamming grenades.</li>
-				<li class="rscadd">Added a new machine to the robotics lab; the ectoscopic sniffer.</li>
-			</ul>
-			<h3 class="author">Isy232 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="balance">Nanite armour 50/35 => 30.</li>
-			</ul>
-			<h3 class="author">Jeff-3 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">the blind can no longer see</li>
-			</ul>
-			<h3 class="author">Ryll-Ryll AnCopper updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">Clowns are now unable to conceptualize death and think corpses of people are simply sleeping.</li>
-			</ul>
-			<h3 class="author">Victor239 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="balance">Reinforced and nar'sien bolas now knockdown instead.</li>
-			</ul>
-			<h3 class="author">zeskorion updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">fixes an extrapolator bug</li>
-			</ul>
-
-			<h2 class="date">27 March 2022</h2>
-			<h3 class="author">Archanial updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">GAGS to enviro helmets, protective helmets and mk.2 helmets.</li>
-				<li class="rscadd">Some more mk.2 and protective helmets (for vip, CC roles and bartender).</li>
-				<li class="rscdel">Removed enviro replacement helmet variants.</li>
-				<li class="bugfix">fixed some description in protective helmets.</li>
-				<li class="tweak">tweaked sprite of curator's envirohelm to actually have a visor (and light!)</li>
-				<li class="tweak">plasmaman bartender starts with tophat attached to his actual hat</li>
-			</ul>
-			<h3 class="author">Crossedfall updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="server">BYOND bumped to 514.1583</li>
-				<li class="server">Bumps minimist to 1.2.6</li>
-			</ul>
-			<h3 class="author">Mat05usz updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">Autotransfer vote is now using real time instead of time-dilated timer, making it trigger consistently at 90 minutes.</li>
-			</ul>
-			<h3 class="author">zeskorion updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">IPC crit damage now checks the nocritdamage trait.</li>
-				<li class="bugfix">IPC crit damage no longer accounts for robotic limb resilience that they dont have.</li>
-				<li class="tweak">at maintainer request, ipc crit damage works like other species with nobreath (ipcs take 1 brute damage per life tick, as opposed to 6 burn damage.)</li>
 			</ul>
 		</div>
 
