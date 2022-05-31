@@ -183,8 +183,7 @@ Difficulty: Medium
 	if(storm_cooldown > world.time)
 		to_chat(user, "<span class='warning'>The staff is still recharging!</span>")
 		return
-
-	if(user.z != 5)
+	if(!is_mining_level(user.z))
 		to_chat(user, "<span class='warning'>The staff's power is too dim to function this far from the necropolis")
 		return
 	var/area/user_area = get_area(user)
