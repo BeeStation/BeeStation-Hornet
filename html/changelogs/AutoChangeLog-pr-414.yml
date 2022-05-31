@@ -1,0 +1,7 @@
+author: nednaZ
+delete-after: true
+changes:
+  - rscadd: The Beacon of Magical Items is now a 5 TC traitor item.
+  - rscdel: The Beacon of Magical Items is removed from roundstart Stage Magicians.
+  - balance: The Upgrade Wand may now upgrade the magic gloves and tophat more than
+      once, if you are willing to spend the TC.
