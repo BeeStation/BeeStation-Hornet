@@ -84,6 +84,12 @@
 		return
 	if(severity) //catch to prevent divide by zero
 		Stun(30/severity)
+		uneq_module(held_items[1])
+		uneq_module(held_items[2])
+		uneq_module(held_items[3])
+		audible_message("<span class='warning'>[src] sounds an alarm! \"CRITICAL ERROR: All modules OFFLINE.\"</span>")
+		to_chat(src, "<span class='userdanger'>CRITICAL ERROR: All modules OFFLINE.</span>")
+		playsound(loc, 'sound/machines/warning-buzzer.ogg', 75, 1, 1)
 
 /mob/living/silicon/robot/emag_act(mob/user)
 	if(user == src)//To prevent syndieborgs from emagging themselves

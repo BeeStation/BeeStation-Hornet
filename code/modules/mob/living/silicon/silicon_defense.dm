@@ -110,7 +110,7 @@
 	if(. & EMP_PROTECT_SELF)
 		return
 	if(severity) //catch to prevent divide by zero
-		take_bodypart_damage(burn = 20/severity)
+		take_bodypart_damage(burn = 40/severity)
 	to_chat(src, "<span class='userdanger'>*BZZZT*</span>")
 	for(var/mob/living/M in buckled_mobs)
 		if(prob(severity*50))
