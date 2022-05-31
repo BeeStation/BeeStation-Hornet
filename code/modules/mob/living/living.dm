@@ -635,8 +635,11 @@
 			lying = 270
 		update_transform()
 		lying_prev = lying
-	if (buckled) //if the mob is buckled to something, tell it we moved.
-		return buckled.relaymove(src, direct)
+	if (buckled && buckled.loc != newloc) //not updating position
+		if (!buckled.anchored)
+			return buckled.Move(newloc, direct)
+		else
+			return 0
 
 	var/old_direction = dir
 	var/turf/T = loc
