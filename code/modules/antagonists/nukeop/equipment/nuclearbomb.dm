@@ -729,6 +729,19 @@ This is here to make the tiles around the station mininuke change when it's arme
 		return TRUE
 	return ..()
 
+/obj/item/disk/nuclear/pickup(mob/living/user)
+	. = ..()
+	if(!iscarbon(user) || fake)
+		return FALSE
+	log_item(user, INVESTIGATE_VERB_PICKEDUP, TRUE)
+
+/obj/item/disk/nuclear/dropped(mob/living/user)
+	. = ..()
+	if(!iscarbon(user) || fake)
+		return FALSE
+	log_item(user, INVESTIGATE_VERB_DROPPED, TRUE)
+
+
 /obj/item/disk/nuclear/Destroy(force=FALSE)
 	// respawning is handled in /obj/Destroy()
 	if(force)

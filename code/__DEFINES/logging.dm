@@ -15,6 +15,10 @@
 #define INVESTIGATE_EXONET			"exonet"
 #define INVESTIGATE_NANITES			"nanites"
 #define INVESTIGATE_PRESENTS		"presents"
+#define INVESTIGATE_ITEMS			"items"
+
+#define INVESTIGATE_VERB_PICKEDUP	"picked up"
+#define INVESTIGATE_VERB_DROPPED	"dropped"
 
 // Logging types for log_message()
 #define LOG_ATTACK			(1 << 0)

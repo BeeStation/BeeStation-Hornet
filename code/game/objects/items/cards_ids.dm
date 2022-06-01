@@ -511,6 +511,19 @@ update_label("John Doe", "Clowny")
 	access = J.get_access()
 	. = ..()
 
+// log track
+/obj/item/card/id/captains_spare/pickup(mob/living/user)
+	. = ..()
+	if(!iscarbon(user))
+		return FALSE
+	log_item(user, INVESTIGATE_VERB_PICKEDUP, TRUE)
+
+/obj/item/card/id/captains_spare/dropped(mob/living/user)
+	. = ..()
+	if(!iscarbon(user))
+		return FALSE
+	log_item(user, INVESTIGATE_VERB_DROPPED, TRUE)
+
 /obj/item/card/id/centcom
 	name = "\improper CentCom ID"
 	desc = "A shimmering Central Command ID card. Simply seeing this is illegal for the majority of the crew."
@@ -746,8 +759,21 @@ update_label("John Doe", "Clowny")
 	department_name = ACCOUNT_SEC_NAME
 	icon_state = "budget_sec"
 
-///Job Specific ID Cards///
+// Log track
+/obj/item/card/id/departmental_budget/pickup(mob/living/user)
+	. = ..()
+	if(!iscarbon(user))
+		return FALSE
+	log_item(user, "picked up")
 
+/obj/item/card/id/departmental_budget/dropped(mob/living/user)
+	. = ..()
+	if(!iscarbon(user))
+		return FALSE
+	log_item(user, "dropped")
+
+
+///Job Specific ID Cards///
 /obj/item/card/id/job/captain
 	icon_state = "captain"
 

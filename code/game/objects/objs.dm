@@ -374,6 +374,12 @@
 /obj/proc/plunger_act(obj/item/plunger/P, mob/living/user, reinforced)
 	return
 
+/obj/proc/log_item(mob/user, actverb, notify_to_admin=FALSE, additional_info="")
+	if(notify_to_admin)
+		message_admins("[src] is [actverb] by [ADMIN_LOOKUPFLW(user)] at [ADMIN_VERBOSEJMP(user)]. [additional_info]")
+	investigate_log("[src] was [actverb] by [key_name(user)] at [AREACOORD(user)]. [additional_info]", INVESTIGATE_ITEMS)
+	return
+
 //For returning special data when the object is saved
 //For example, or silos will return a list of their materials which will be dumped on top of them
 //Can be customised if you have something that contains something you want saved
