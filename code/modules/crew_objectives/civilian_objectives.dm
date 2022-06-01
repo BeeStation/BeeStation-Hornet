@@ -55,11 +55,11 @@
 		return ..()
 
 /datum/objective/crew/cocktail
-	explanation_text = "Have a bottle that contains 'something' when the shift ends. <br />Each of them must be at least 'something'u, and only glass bottle from Booze-O-Mat is allowed."
+	explanation_text = "Have a bottle(any type) that contains 'something' when the shift ends. Each of them must be at least 'something'u."
 	jobs = "bartender"
 	var/targetchems = list()
+	var/chemnames = ""
 	var/chemsize
-	var/desc
 	var/datum/reagent/chempath
 
 /datum/objective/crew/cocktail/New()
@@ -71,15 +71,15 @@
 			targetchems += chempath
 			mydrink += "[initial(chempath.name)]"
 	for(var/i in 1 to length(mydrink)-1)
-		desc += "[mydrink[i]], "
-	desc += "and [mydrink[length(mydrink)]]"
+		chemnames += "[mydrink[i]], "
+	chemnames += "and [mydrink[length(mydrink)]]"
 	qdel(mydrink)
 	chemsize = 4+(5-length(targetchems))
 	update_explanation_text()
 
 /datum/objective/crew/cocktail/update_explanation_text()
 	. = ..()
-	explanation_text = "Have a bottle that contains '[desc]' when the shift ends. <br />Each of them must be at least [chemsize]u, and only glass bottle from Booze-O-Mat is allowed."
+	explanation_text = "Have a bottle(any type) that contains '[chemnames]' when the shift ends. Each of them must be at least [chemsize]u."
 
 /datum/objective/crew/cocktail/check_completion()
 	var/count = length(targetchems)
