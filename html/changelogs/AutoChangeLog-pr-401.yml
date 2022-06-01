@@ -1,0 +1,12 @@
+author: williamcll
+delete-after: true
+changes:
+  - bugfix: DonutStation pipe layers, putting disposals back to the bottom
+  - bugfix: All pipe errors on Donutstation should be gone
+  - bugfix: Fixes supply, scrubber pipes as well as wires in metastation AI satellite
+  - bugfix: Fixes MetaStation emergency shuttle airlock airTank not connected to airlock
+      pipes.
+  - bugfix: All pipe errors on Metastation should be gone
+  - bugfix: Updates all Airlocks on Boxstation to modern standards
+  - bugfix: All pipe errors on Boxstation should be gone
+  - bugfix: All pipes errors on Deltastation should be gone
