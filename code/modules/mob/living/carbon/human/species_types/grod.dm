@@ -11,8 +11,9 @@
 
 #define CROWNSPIDER_MAX_HEALTH 30
 #define CROWNSPIDER_BASE_HEALTH 30
+
 /datum/species/grod
-	name = "Grod"
+	name = "\improper Grod"
 	id = SPECIES_GROD
 	bodyflag = FLAG_GROD
 	sexes = FALSE
@@ -20,7 +21,14 @@
 	species_traits = list(NO_DNA_COPY, AGENDER, NOHUSK, NO_UNDERWEAR, NOEYESPRITES, MUTCOLORS)
 	inherent_traits = list(TRAIT_NO_DEFIB, TRAIT_RESISTLOWPRESSURE, TRAIT_NOSLIPWATER, TRAIT_NEVER_STUBS)
 	inherent_biotypes = list(MOB_ORGANIC, MOB_HUMANOID)
-	default_features = list("mcolor" = "#00FF00", "grod_crown" = "Crown")
+	// -- Added during grod revival project--
+	species_chest = /obj/item/bodypart/chest/grod
+	species_head = /obj/item/bodypart/head/grod
+	species_l_arm = /obj/item/bodypart/l_arm/grod_upper
+	species_r_arm = /obj/item/bodypart/r_arm/grod_upper
+	species_l_leg = /obj/item/bodypart/l_leg/grod
+	species_r_leg = /obj/item/bodypart/r_leg/grod
+	// -- End --
 	mutant_bodyparts = list("grod_crown")
 	mutant_brain = /obj/item/organ/brain/grod
 	brutemod = GROD_BRUTEMOD
@@ -48,6 +56,7 @@
 	if(ishuman(C))
 		var/mob/living/carbon/human/H = C
 		H.update_hands_on_rotate()
+
 		if(!swap_stance)
 			swap_stance = new
 			swap_stance.Grant(C)
@@ -86,7 +95,7 @@
 		var/obj/item/G = H.gloves
 		if(G)
 			H.doUnEquip(H.gloves)
-		H.change_number_of_hands(4)
+		H.change_number_of_hands(4, /obj/item/bodypart/l_arm/grod_lower, /obj/item/bodypart/r_arm/grod_lower)
 		if(G)
 			H.equip_to_slot_if_possible(G, ITEM_SLOT_GLOVES) //Hacky? Yes. Works? Yes. Do I want to touch bodypart code? No.
 		to_chat(H,"<span class ='warning'>You focus your energy into your additional hands.</span>")
@@ -118,6 +127,12 @@
 	icon_icon = 'icons/mob/actions/actions_grod.dmi'
 	button_icon_state = "crownspider"
 
+/datum/action/innate/grod/crownspider/Grant()
+	..()
+	if(!isgrod(owner))
+		return
+	RegisterSignal(owner, COMSIG_MOB_DEATH, .proc/on_death)
+
 /datum/action/innate/grod/crownspider/Activate()
 	if(!isgrod(owner)) //Stop trying to break shit
 		return
@@ -128,10 +143,24 @@
 	if(H.incapacitated())
 		to_chat(H, "<span class='warning'>You cannot use this ability right now</span>")
 		return
-
 	if(alert("Are you sure you wish to leave your current body, this will cause massive damage to your Crown!",,"Yes", "No") == "No")
 		return
+	do_leave_body()
 
+/datum/action/innate/grod/crownspider/proc/on_death()
+	if(!isgrod(owner)) //Stop trying to break shit
+		return
+	var/mob/living/carbon/human/H = owner
+	if(!istype(H.getorganslot(ORGAN_SLOT_BRAIN), /obj/item/organ/brain/grod))
+		to_chat(H, "<span class = 'warning'>You dont have a crown! Contact a coder!</span>")
+		return
+	if(alert("Do you wish to leave your current body, this will cause massive damage to your Crown!\nThis is your last chance to do so, before death.",,"Yes", "No") == "No")
+		return
+	do_leave_body()
+
+
+/datum/action/innate/grod/crownspider/proc/do_leave_body() //disconnect from body
+	var/mob/living/carbon/human/H = owner
 	var/datum/mind/M = H.mind
 	var/list/organs = H.getorganszone(BODY_ZONE_HEAD, 1)
 	var/turf = get_turf(H)
@@ -145,7 +174,7 @@
 	crown.color = "#" + H.dna.features["mcolor"]
 	for(var/obj/item/organ/brain/I in organs)
 		I.forceMove(crown)
-		crown.health = (200 - I.damage) > crown.maxHealth ? crown.maxHealth : 200 - I.damage
+		crown.health = crown.health*abs(1-(I.damage/I.maxHealth)) //Adjust crown-mob's health to match brain health
 
 	crown.origin = M
 	if(crown.origin)
@@ -321,6 +350,7 @@
 			O = new /datum/outfit/grod/assistant
 	H.equipOutfit(O, visualsOnly)
 	return 0
+
 ///////Grod Crown////////
 /mob/living/simple_animal/hostile/crown_spider
 	name = "Crownspider"
@@ -336,7 +366,6 @@
 	attacktext = "pinches"
 	attack_sound = 'sound/weapons/bite.ogg'
 	speak_emote = list("squeaks")
-	ventcrawler = VENTCRAWLER_NONE
 	color = "#00FF00"
 	can_be_held = TRUE
 	worn_slot_flags = ITEM_SLOT_HEAD
@@ -345,20 +374,32 @@
 	initial_language_holder = /datum/language_holder/grodcrown //They can only speak Poh'lan in spider
 	var/datum/mind/origin
 
-/mob/living/simple_animal/hostile/crown_spider/MouseDrop(var/atom/over)
+	pass_flags = PASSMOB
+	speed = 3
+	can_be_held = TRUE
+
+/mob/living/simple_animal/hostile/crown_spider/UnarmedAttack(atom/M)
+	if(try_infect(M))
+		return
+	..()
+
+/mob/living/simple_animal/hostile/crown_spider/MouseDrop(over)
 	. = ..()
-	if(ishuman(over))
-		var/mob/living/carbon/human/H = over
-		if(H.stat > CONSCIOUS)
-			if(alert("This one is no longer living. Are you sure we should infest it?",,"Yes", "No") == "No")
-				return
+	try_infect(over)
+
+/mob/living/simple_animal/hostile/crown_spider/proc/try_infect(atom/target) //default process before action
+	if(ishuman(target))
+		var/mob/living/carbon/human/H = target
+		if(H.stat > CONSCIOUS && (alert("This one is no longer living. Are you sure we should infest it?",,"Yes", "No") == "No"))
+			return
 		if(H.getorganslot(ORGAN_SLOT_BRAIN))
 			to_chat(src, "<span class='userdanger'>A foreign presence repels us from this body. Perhaps we should try to infest another?</span>")
 			return
 		Infect(H)
+		return TRUE
 
-	if(istype(over, /obj/machinery/hydroponics))
-		var/obj/machinery/hydroponics/O = over
+	else if(istype(target, /obj/machinery/hydroponics))
+		var/obj/machinery/hydroponics/O = target
 		for(var/obj/item/organ/brain/grod/brain in src)
 			if(O.myseed)
 				to_chat(src, "<span class='userdanger'>This tray is already in use!</span>")
@@ -366,16 +407,19 @@
 			O.myseed = brain.seed
 			src.visible_message("<span class='danger'>[src] burrows into the hydroponics tray!</span>", "<span class='danger'>You borrow into the hydroponics tray, attempting to grow a new body!</span>")
 			qdel(src)
+		return TRUE
 
 /mob/living/simple_animal/hostile/crown_spider/proc/Infect(mob/living/carbon/C)
 	if(!origin)
 		return
 	for(var/obj/item/organ/I in src)
 		I.Insert(C, 1)
-		//The following math is FUCKING BAD and needs to be written by someone smarter than me. Same with the math on line 134.
-		if(I.damage < 84) //84 is the point where max damage_to_deal (116) would instantly kill the brain
-			var/damage_to_deal = (maxHealth - health) * 4
-			I.damage += damage_to_deal > CROWNSPIDER_MAX_HEALTH ? damage_to_deal : CROWNSPIDER_MAX_HEALTH //Deals a minimum of 30 damage to the brain
+		// -- Added during grod revival project --
+		//Deal a minimum of 30 damage, if damage dealt is greater than 115, (116 will kill a brain), the amount of damage dealt will taper off until it's safe.
+		//So 30 damage_to_deal at 90 I.damage would taper down to 25
+		var/damage_to_deal = (maxHealth - health) * 4 > CROWNSPIDER_MAX_HEALTH ? (maxHealth - health) * 4 : CROWNSPIDER_MAX_HEALTH
+		damage_to_deal = ((damage_to_deal+I.damage) < 115) ? damage_to_deal : damage_to_deal - ((damage_to_deal+I.damage)-115)
+		I.damage += damage_to_deal
 	announce_infest(C)
 	origin.transfer_to(C)
 	C.key = origin.key
@@ -387,3 +431,13 @@
 	else
 		src.visible_message("<span class='danger'>[src] burrows into [target]'s head!</span>")
 
+/datum/species/grod/replace_body(mob/living/carbon/C, var/datum/species/new_species)
+	..()
+	/*
+	var/obj/item/bodypart/l_arm/l = new /obj/item/bodypart/l_arm/grod_lower() //Add extra grod limbs
+	l.replace_limb(C, TRUE)
+	l.update_limb(is_creating = TRUE)
+
+	var/obj/item/bodypart/r_arm/r = new /obj/item/bodypart/r_arm/grod_lower()
+	r.replace_limb(C, TRUE)
+	r.update_limb(is_creating = TRUE)*/

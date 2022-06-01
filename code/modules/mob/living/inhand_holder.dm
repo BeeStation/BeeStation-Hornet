@@ -93,3 +93,18 @@
 		return ..()
 	icon = 'icons/mob/drone.dmi'
 	icon_state = "[D.visualAppearence]_hat"
+
+// -- Added during grod revival project --
+/obj/item/clothing/head/mob_holder/attack(mob/M, mob/user, def_zone) //Allow users to insert grod crowns
+	. = ..()
+	if(istype(held_mob, /mob/living/simple_animal/hostile/crown_spider))
+		if(M.getorganslot(ORGAN_SLOT_BRAIN))
+			to_chat(user, "<span class='userdanger'>There is already a brain in [M]!</span>")
+			return
+		var/mob/living/simple_animal/hostile/crown_spider/C = held_mob //type cast
+		to_chat(user, "<span class='notice'>You begin inserting [C] into [M]...</span>")
+		if(do_after(user, 50, target = M))
+			to_chat(user, "<span class='notice'>You insert [C] into [M].</span>")
+			C.Infect(M)
+		else
+			to_chat(user, "<span class='warning'>You fail to insert [C] into [M]!</span>")

@@ -304,6 +304,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 				new_part.replace_limb(C, TRUE)
 				new_part.update_limb(is_creating = TRUE)
 				qdel(old_part)
+
 			if(BODY_ZONE_L_ARM)
 				var/obj/item/bodypart/l_arm/new_part = new new_species.species_l_arm()
 				new_part.replace_limb(C, TRUE)

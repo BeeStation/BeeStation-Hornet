@@ -2410,3 +2410,9 @@
 /datum/sprite_accessory/grod_marks/xestia
 	name = "Xestia"
 	icon_state = "xestia"
+
+/datum/sprite_accessory/arms
+	icon = null
+
+/datum/sprite_accessory/arms/extraarms_grod
+	name = "Grod Extra Arms"
