@@ -12,7 +12,7 @@
 	yield = 5
 	growthstages = 5
 	icon_dead = "tea-dead"
-	genes = list(/datum/plant_gene/trait/repeated_harvest)
+	genes = list(/datum/plant_gene/trait/perennial)
 	reagents_set = list(
 		/datum/reagent/consumable/nutriment/vitamin = list(3, 9),
 		/datum/reagent/toxin/teapowder = list(5, 10))
@@ -67,7 +67,7 @@
 	yield = 5
 	growthstages = 5
 	icon_dead = "coffee-dead"
-	genes = list(/datum/plant_gene/trait/repeated_harvest)
+	genes = list(/datum/plant_gene/trait/perennial)
 	reagents_set = list(
 		/datum/reagent/consumable/nutriment/vitamin = list(3, 9),
 		/datum/reagent/toxin/coffeepowder = list(5, 10))

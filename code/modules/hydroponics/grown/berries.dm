@@ -2,19 +2,23 @@
 /obj/item/seeds/berry
 	name = "pack of berry seeds"
 	desc = "These seeds grow into berry bushes."
-	icon_state = "seed-berry"
-	species = "berry"
 	plantname = "Berry Bush"
+	species = "berry"
+	growing_icon = 'icons/obj/hydroponics/growing_fruits.dmi'
+	icon_grow = "berry-grow" // Uses one growth icons set for all the subtypes
+	icon_dead = "berry-dead" // Same for the dead icon
+	icon_state = "seed-berry"
 	product = /obj/item/reagent_containers/food/snacks/grown/berries
+
 	lifespan = 20
 	maturation = 5
 	production = 5
 	yield = 2
-	growing_icon = 'icons/obj/hydroponics/growing_fruits.dmi'
-	icon_grow = "berry-grow" // Uses one growth icons set for all the subtypes
-	icon_dead = "berry-dead" // Same for the dead icon
-	genes = list(/datum/plant_gene/trait/repeated_harvest)
+	bitesize_mod = 2
+	distill_reagent = /datum/reagent/consumable/ethanol/gin
+
 	mutatelist = list(/obj/item/seeds/berry/glow, /obj/item/seeds/berry/poison)
+	genes = list(/datum/plant_gene/trait/perennial)
 	reagents_set = list(
 		/datum/reagent/consumable/nutriment = list(7, 15),
 		/datum/reagent/consumable/nutriment/vitamin = list(4, 12))
@@ -26,27 +30,28 @@
 	icon_state = "berrypile"
 	gender = PLURAL
 	filling_color = "#FF00FF"
-	bitesize_mod = 2
 	foodtype = FRUIT
 	juice_results = list(/datum/reagent/consumable/berryjuice = 0)
 	tastes = list("berry" = 1)
-	distill_reagent = /datum/reagent/consumable/ethanol/gin
 
 // Poison Berries
 /obj/item/seeds/berry/poison
 	name = "pack of poison-berry seeds"
 	desc = "These seeds grow into poison-berry bushes."
-	icon_state = "seed-poisonberry"
-	species = "poisonberry"
 	plantname = "Poison-Berry Bush"
+	species = "poisonberry"
+	icon_state = "seed-poisonberry"
 	product = /obj/item/reagent_containers/food/snacks/grown/berries/poison
+
+	rarity = 10 // Mildly poisonous berries are common in reality
+
+
 	mutatelist = list(/obj/item/seeds/berry/death)
 	reagents_set = list(
 		/datum/reagent/consumable/nutriment = list(8, 18),
 		/datum/reagent/consumable/nutriment/vitamin = list(4, 12),
 		/datum/reagent/toxin/cyanide = list(10, 15),
 		/datum/reagent/toxin/staminatoxin = list(15, 25))
-	rarity = 10 // Mildly poisonous berries are common in reality
 
 /obj/item/reagent_containers/food/snacks/grown/berries/poison
 	seed = /obj/item/seeds/berry/poison
@@ -95,20 +100,23 @@
 /obj/item/seeds/berry/glow
 	name = "pack of glow-berry seeds"
 	desc = "These seeds grow into glow-berry bushes."
-	icon_state = "seed-glowberry"
-	species = "glowberry"
 	plantname = "Glow-Berry Bush"
+	species = "glowberry"
+	icon_state = "seed-glowberry"
 	product = /obj/item/reagent_containers/food/snacks/grown/berries/glow
+
 	lifespan = 30
 	endurance = 25
-	mutatelist = list()
-	genes = list(/datum/plant_gene/trait/glow/white, /datum/plant_gene/trait/repeated_harvest)
-	reagents_set = list(
-		/datum/reagent/consumable/nutriment = list(8, 18),
-		/datum/reagent/consumable/nutriment/vitamin = list(6, 12),
-		/datum/reagent/uranium = list(25, 30),
-		/datum/reagent/iodine = list(20, 30))
+	volume_mod = 10
 	rarity = 20
+
+	mutatelist = list()
+	genes = list(/datum/plant_gene/trait/glow/white, /datum/plant_gene/trait/perennial, /datum/plant_gene/trait/noreact)
+	reagents_set = list(
+		/datum/reagent/consumable/nutriment = list(1, 18),
+		/datum/reagent/consumable/nutriment/vitamin = list(0, 12),
+		/datum/reagent/uranium = list(5, 30),
+		/datum/reagent/iodine = list(5, 30))
 
 /obj/item/reagent_containers/food/snacks/grown/berries/glow
 	seed = /obj/item/seeds/berry/glow
@@ -139,7 +147,7 @@
 	icon_grow = "cherry-grow"
 	icon_dead = "cherry-dead"
 	icon_harvest = "cherry-harvest"
-	genes = list(/datum/plant_gene/trait/repeated_harvest)
+	genes = list(/datum/plant_gene/trait/perennial)
 	mutatelist = list(/obj/item/seeds/cherry/blue, /obj/item/seeds/cherry/bulb)
 	reagents_set = list(
 		/datum/reagent/consumable/nutriment = list(7, 15),
@@ -195,7 +203,7 @@
 	species = "cherrybulb"
 	plantname = "Cherry Bulb Tree"
 	product = /obj/item/reagent_containers/food/snacks/grown/cherrybulbs
-	genes = list(/datum/plant_gene/trait/repeated_harvest, /datum/plant_gene/trait/glow/pink)
+	genes = list(/datum/plant_gene/trait/perennial, /datum/plant_gene/trait/glow/pink)
 	mutatelist = list()
 	reagents_set = list(
 		/datum/reagent/consumable/nutriment = list(7, 15),
@@ -233,7 +241,7 @@
 	growing_icon = 'icons/obj/hydroponics/growing_fruits.dmi'
 	icon_grow = "grape-grow"
 	icon_dead = "grape-dead"
-	genes = list(/datum/plant_gene/trait/repeated_harvest)
+	genes = list(/datum/plant_gene/trait/perennial)
 	mutatelist = list(/obj/item/seeds/grape/green)
 	reagents_set = list(
 		/datum/reagent/consumable/nutriment = list(8, 18),

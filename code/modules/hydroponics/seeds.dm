@@ -1,7 +1,7 @@
 // ********************************************************
 // Here's all the seeds (plants) that can be used in hydro
 // ********************************************************
-
+#define BTNY_CALC_WRAP(X)
 
 /obj/item/seeds
 	icon = 'icons/obj/hydroponics/seeds.dmi'
@@ -10,15 +10,16 @@
 	resistance_flags = FLAMMABLE
 	var/plantname = "Plants"		// Name of plant when planted.
 	var/plantdesc
-	var/product                     // A type path. The thing that is created when the plant is harvested.
 	var/species = ""                // Used to update icons. Should match the name in the sprites unless all icon_* are overridden.
 
 	var/growing_icon = 'icons/obj/hydroponics/growing.dmi' //the file that stores the sprites of the growing plant from this seed.
 	var/icon_grow					// Used to override grow icon (default is "[species]-grow"). You can use one grow icon for multiple closely related plants with it.
 	var/icon_dead					// Used to override dead icon (default is "[species]-dead"). You can use one dead icon for multiple closely related plants with it.
 	var/icon_harvest				// Used to override harvest icon (default is "[species]-harvest"). If null, plant will use [icon_grow][growthstages].
-
 	var/growthstages = 6   // Amount of growth sprites the plant has.
+
+	var/product                     // A type path. The thing that is created when the plant is harvested.
+
 	var/list/mutatelist = list()    // The type of plants that this plant can mutate into.
 	/* ## Structure rule:
 			mutatelist = list(/obj/item/seeds/something1, /obj/item/seeds/another2, /obj/item/seeds/maybe3)
@@ -34,21 +35,20 @@
 	var/maxyield = 10      // r
 	var/weed_rate = 1      //If the chance below passes, then this many weeds sprout during growth
 	var/weed_chance = 5    //Percentage chance per tray update to grow weeds
+	var/max_stat = 16
 
 	// Plant stats
 	var/bitesize_mod = 5      //How much do you eat - default 5u
-	var/bite_type = PLANT_BITE_TYPE_CONST  // bitesize_mod 5, CONST = 5u / size 5, RATIO = 5%
+	var/bite_type = PLANT_BITE_TYPE_DYNAM  // bitesize_mod 5, CONST = 5u / size 5, RATIO = 5%
 	var/volume_mod = 50    //How big this plant is
 	var/can_distill = TRUE //If FALSE, this object cannot be distilled into an alcohol.
 	var/distill_reagent    //If NULL and this object can be distilled, it uses a generic fruit_wine reagent and adjusts its variables.
 	var/wine_power = 10    //Determines the boozepwr of the wine if distill_reagent is NULL.
 	var/rarity = 0					// How rare the plant is. Used for giving points to cargo when shipping off to CentCom.
 
+	// Plant genes
 	var/list/genes = list()			// Plant genes are stored here, see plant_genes.dm for more info.
-	var/family = /datum/plant_gene/family // Basic family that does nothing.
-
-
-	//
+	var/datum/plant_gene/family/family = /datum/plant_gene/family // Basic family that does nothing.
 	var/list/reagents_innate = list()
 	var/list/reagents_set = list()
 	/* ## Structure rule:
@@ -67,8 +67,7 @@
 	// You don't have to touch this value unless you certainly believe you need to do.
 	// TLDR: Don't touch this.
 
-	var/modified = FALSE //Used to block scan a crop when they're modified. rarely happens.
-
+	var/modified = FALSE //Used to block scan a crop when they're modified. need to block cross-research between factions.
 
 
 /obj/item/seeds/Initialize(mapload, nogenes = 0)
@@ -87,54 +86,138 @@
 
 	research_identifier = name
 
-	//mutatelist = setting_crops(mutatelist)
-
 	if(!nogenes) // not used on Copy()
-
-		// Basic core genes
 		set_core_genes()
+		set_trait_genes()
+		set_family_gene()
+		set_reagent_genes()
 
-		// trait genes
-		for(var/G in genes)
-			if(ispath(G))
-				genes -= G
-				genes += new G // Core genes will not get "new" here, thanks to `if(ispath(G))`
+/obj/item/seeds/Destroy()
+	qdel_genes() //qdel_genes should be used for seed re-initialization.
+	if(mutatelist)
+		qdel(mutatelist)
+	return ..()
 
-		// trait genes apply
-		for(var/datum/plant_gene/G in genes)
-			if(istype(G, /datum/plant_gene/trait))
-				G.on_new_seed(src)
-		// I know this looks weird, but need to do it separately.
-
-		// family genes
-		family = new family
-		// For some reasons from code design, I wanted to put it here rather than `genes`
-
-		// reagent genes
-		for(var/reag_id in reagents_innate)
-			genes += new /datum/plant_gene/reagent/innate(reag_id, reagents_innate[reag_id])
-		for(var/reag_id in reagents_set)
-			genes += new /datum/plant_gene/reagent/sandbox(reag_id, reagents_set[reag_id])
+/obj/item/seeds/proc/qdel_genes()
+	// some genes are a static object which used in every plant - i.e.)perennial growth
+	if(genes)
+		for(var/datum/plant_gene/C in genes)
+			if(C.get_plant_gene_flags() & PLANT_GENE_QDEL_TARGET)
+				qdel(C)
+		qdel(genes) // qdel list() object. don't do qdel_list() this.
+		genes = null
+	if(istype(family))
+		if(family.get_plant_gene_flags() & PLANT_GENE_QDEL_TARGET)
+			qdel(family)
+		family = null
 
 
+/////////////////////////////////////////
+///// plant gene controlling system /////
+// core -------------------------
 /obj/item/seeds/proc/set_core_genes()
-	genes += new /datum/plant_gene/core/potency(potency)
-	genes += new /datum/plant_gene/core/yield(yield)
-	genes += new /datum/plant_gene/core/maturation(maturation)
-	genes += new /datum/plant_gene/core/production(production)
-	genes += new /datum/plant_gene/core/lifespan(lifespan)
-	genes += new /datum/plant_gene/core/endurance(endurance)
-	genes += new /datum/plant_gene/core/weed_rate(weed_rate)
-	genes += new /datum/plant_gene/core/weed_chance(weed_chance)
+	genes += new PLANT_GENEPATH_POTENT(potency)
+	genes += new PLANT_GENEPATH_YIELD(yield)
+	genes += new PLANT_GENEPATH_MATURA(maturation)
+	genes += new PLANT_GENEPATH_PRODUC(production)
+	genes += new PLANT_GENEPATH_LIFESP(lifespan)
+	genes += new PLANT_GENEPATH_ENDURA(endurance)
+	genes += new PLANT_GENEPATH_WEEDRA(weed_rate)
+	genes += new PLANT_GENEPATH_WEEDCH(weed_chance)
 	if(bite_type) // non-edible
-		genes += new /datum/plant_gene/core/volume_mod(volume_mod)
-		genes += new /datum/plant_gene/core/bitesize_mod(bitesize_mod)
-		genes += new /datum/plant_gene/core/bite_type(bite_type)
-	genes += new /datum/plant_gene/core/distill_reagent(distill_reagent)
-	if(wine_power) // fermentable but not alchohol
-		genes += new /datum/plant_gene/core/wine_power(wine_power)
+		genes += new PLANT_GENEPATH_VOLUME(volume_mod)
+		genes += new PLANT_GENEPATH_BITESI(bitesize_mod)
+		genes += new PLANT_GENEPATH_BITETY(bite_type)
+	genes += new PLANT_GENEPATH_DISTIL(distill_reagent)
+	if(!isnull(distill_reagent))
+		genes += new PLANT_GENEPATH_WINEPO(wine_power)
 	if(rarity)
-		genes += new /datum/plant_gene/core/rarity(rarity)
+		genes += new PLANT_GENEPATH_RARITY(rarity)
+
+
+/obj/item/seeds/proc/gene_update_from_seed(var/target)
+	var/datum/plant_gene/core/thing = get_gene(target)
+	if(!isnull(thing))
+		thing.update_from_seed(src)
+
+// trait -------------------------
+/obj/item/seeds/proc/get_trait_gene_from_static(var/datum/plant_gene/trait/genepath)
+	if(isnull(genepath))
+		return
+	if(istype(genepath))
+		genepath = genepath.type
+
+	var/static/list/trait_genes
+	if(isnull(trait_genes))
+		trait_genes = list()
+		for(var/each as() in subtypesof(/datum/plant_gene/trait))
+			trait_genes[each] += new each
+
+	var/datum/plant_gene/trait/T = trait_genes[genepath]
+	return (initial(T.plant_gene_flags) & PLANT_GENE_QDEL_TARGET) ? new trait_genes[genepath] : trait_genes[genepath]
+
+/obj/item/seeds/proc/set_trait_genes()
+	for(var/G in genes)
+		if(ispath(G))
+			genes -= G
+			genes += get_trait_gene_from_static(G)
+
+	// trait genes apply
+	for(var/datum/plant_gene/G in genes)
+		if(istype(G, /datum/plant_gene/trait))
+			G.on_new_seed(src)
+
+// family -------------------------
+/obj/item/seeds/proc/get_family_gene_from_static(var/datum/plant_gene/family/genepath)
+	if(isnull(genepath))
+		return
+	if(istype(genepath))
+		genepath = genepath.type
+
+	var/static/list/family_genes
+	if(isnull(family_genes))
+		family_genes = list()
+		for(var/datum/plant_gene/family/each as() in typesof(/datum/plant_gene/family))
+			family_genes[each] += new each
+
+	var/datum/plant_gene/family/F = family_genes[genepath]
+	return (initial(F.plant_gene_flags) & PLANT_GENE_QDEL_TARGET) ? new family_genes[genepath] : family_genes[genepath]
+
+
+/obj/item/seeds/proc/set_family_gene()
+	family = get_family_gene_from_static(family)
+
+// reagent -------------------------
+/obj/item/seeds/proc/set_reagent_genes()
+	for(var/reag_id in reagents_innate)
+		genes += new /datum/plant_gene/reagent/innate(reag_id, reagents_innate[reag_id])
+		qdel(reagents_innate[reag_id]) //don't QDEL_LIST() here.
+	if(reagents_innate)
+		qdel(reagents_innate)
+	reagents_innate = null
+
+	for(var/reag_id in reagents_set)
+		genes += new /datum/plant_gene/reagent/sandbox(reag_id, reagents_set[reag_id])
+		qdel(reagents_set[reag_id])
+	if(reagents_set)
+		qdel(reagents_set)
+	reagents_set = null
+
+
+/obj/item/seeds/proc/get_gene(typepath)
+	return (locate(typepath) in genes)
+
+///This proc adds a mutability_flag to a gene
+/obj/item/seeds/proc/set_plant_gene_flags(typepath, mutability)
+	var/datum/plant_gene/g = get_gene(typepath)
+	if(g)
+		g.plant_gene_flags |=  mutability
+
+///This proc removes a mutability_flag from a gene
+/obj/item/seeds/proc/unset_plant_gene_flags(typepath, mutability)
+	var/datum/plant_gene/g = get_gene(typepath)
+	if(g)
+		g.plant_gene_flags &=  ~mutability
 
 
 /obj/item/seeds/proc/gettype()
@@ -142,49 +225,47 @@
 
 /obj/item/seeds/proc/Copy()
 	var/obj/item/seeds/S = new type(null, 1)
-	// Copy all the stats
-	S.lifespan = lifespan
-	S.endurance = endurance
-	S.maturation = maturation
-	S.production = production
-	S.yield = yield
-	S.potency = potency
-	S.weed_rate = weed_rate
-	S.weed_chance = weed_chance
+	//plant info
 	S.name = name
 	S.plantname = plantname
 	S.desc = desc
 	S.plantdesc = plantdesc
-	S.genes = list()
 	S.species = species
-	S.family = family
-	for(var/g in genes)
-		var/datum/plant_gene/G = g
-		S.genes += G.Copy()
-	S.bitesize_mod = bitesize_mod
-	S.bite_type = bite_type
-	S.distill_reagent = distill_reagent
-	S.wine_power = wine_power
-	S.rarity = rarity
-	S.reagents_innate = reagents_innate.Copy() // Faster than grabbing the list from genes.
-	S.reagents_set = reagents_set.Copy()
 	S.research_identifier = research_identifier
+	S.modified = modified
+
+	// gene initialize
+	S.qdel_genes()
+	S.genes = list()
+
+	// Copy core genes
+	for(var/datum/plant_gene/core/each in genes)
+		var/datum/plant_gene/core/G = each
+		S.genes += G.Copy()
+		G.apply_stat(S)
+
+	// trait genes
+	for(var/datum/plant_gene/trait/each in genes)
+		S.genes += get_trait_gene_from_static(each)
+
+	// trait genes apply
+	for(var/datum/plant_gene/G in genes)
+		if(istype(G, /datum/plant_gene/trait))
+			G.on_new_seed(S)
+
+	// Copy family gene
+	if(istype(family, /datum/plant_gene/family/alien_properties))
+		var/datum/plant_gene/family/F = family
+		S.family = F.Copy()
+	else
+		S.family = get_family_gene_from_static(family)
+
+	// Copy reagent genes
+	for(var/datum/plant_gene/reagent/each in genes)
+		var/datum/plant_gene/reagent/R = each
+		S.genes += R.Copy()
+
 	return S
-
-/obj/item/seeds/proc/get_gene(typepath)
-	return (locate(typepath) in genes)
-
-///This proc adds a mutability_flag to a gene
-/obj/item/seeds/proc/set_mutability(typepath, mutability)
-	var/datum/plant_gene/g = get_gene(typepath)
-	if(g)
-		g.mutability_flags |=  mutability
-
-///This proc removes a mutability_flag from a gene
-/obj/item/seeds/proc/unset_mutability(typepath, mutability)
-	var/datum/plant_gene/g = get_gene(typepath)
-	if(g)
-		g.mutability_flags &=  ~mutability
 
 /obj/item/seeds/proc/mutate(lifemut = 2, endmut = 5, productmut = 1, yieldmut = 2, potmut = 25, wrmut = 2, wcmut = 5, traitmut = 0)
 	adjust_lifespan(rand(-lifemut,lifemut))
@@ -194,8 +275,6 @@
 	adjust_potency(rand(-potmut,potmut))
 	adjust_weed_rate(rand(-wrmut, wrmut))
 	adjust_weed_chance(rand(-wcmut, wcmut))
-	if(prob(traitmut))
-		add_random_traits(1, 1)
 
 
 // Harvest procs
@@ -418,34 +497,23 @@
 
 
 /obj/item/seeds/proc/get_analyzer_text()  //in case seeds have something special to tell to the analyzer
+	var/datum/plant_gene/family/F = family
 	var/text = ""
-	if(!get_gene(/datum/plant_gene/family/weed_hardy) && !get_gene(/datum/plant_gene/family/fungal_metabolism) && !get_gene(/datum/plant_gene/family/alien_properties))
-		text += "- Plant type: Normal plant\n"
-	if(get_gene(/datum/plant_gene/family/weed_hardy))
-		text += "- Plant type: Weed. Can grow in nutrient-poor soil.\n"
-	if(get_gene(/datum/plant_gene/family/fungal_metabolism))
-		text += "- Plant type: Mushroom. Can grow in dry soil.\n"
-	if(get_gene(/datum/plant_gene/family/alien_properties))
-		text += "- Plant type: <span class='warning'>UNKNOWN</span> \n"
-	if(potency != -1)
-		text += "- Potency: [potency]\n"
-	if(yield != -1)
-		text += "- Yield: [yield]\n"
+	text += "- Plant family: [F.fname] \n"
+	text += "- Potency: [potency]\n"
+	text += "- Yield: [yield]\n"
 	text += "- Maturation speed: [maturation]\n"
-	if(yield != -1)
-		text += "- Production speed: [production]\n"
-	text += "- Endurance: [endurance]\n"
+	text += "- Production speed: [production]\n"
 	text += "- Lifespan: [lifespan]\n"
+	text += "- Endurance: [endurance]\n"
 	text += "- Weed Growth Rate: [weed_rate]\n"
 	text += "- Weed Vulnerability: [weed_chance]\n"
 	if(rarity)
 		text += "- Species Discovery Value: [rarity]\n"
 	var/all_traits = ""
 	for(var/datum/plant_gene/trait/traits in genes)
-		if(istype(traits, /datum/plant_gene/family))
-			continue
-		all_traits += " [traits.get_name()]"
-	text += "- Plant Traits:[all_traits]\n"
+		all_traits += "\[[traits.get_name()]\] "
+	text += "- Plant Traits: [all_traits]\n"
 
 	text += "*---------*"
 
@@ -541,15 +609,37 @@
 	else
 		qdel(R)
 
-/obj/item/seeds/proc/add_random_traits(lower = 0, upper = 2)
-	var/amount_random_traits = rand(lower, upper)
-	for(var/i in 1 to amount_random_traits)
-		var/random_trait = pick(subtypesof(/datum/plant_gene/trait))
-		var/datum/plant_gene/trait/T = new random_trait
-		if(T.can_add(src))
-			genes += T
-		else
-			qdel(T)
+/obj/item/seeds/proc/add_random_traits(var/chem_rand_seed = FALSE)
+	var/static/trait_len
+	var/static/list/trait_list = list()
+	if(!trait_list.len)
+		for(var/each in subtypesof(/datum/plant_gene/trait))
+			var/datum/plant_gene/trait/T = each
+			if(initial(T.plant_gene_flags) & PLANT_GENE_RANDOM_ALLOWED)
+				trait_list += T
+		trait_len = length(trait_list)
+
+	var/trait_id = trait_list[rand_LCM(chem_rand_seed, maximum=trait_len)]
+	var/datum/plant_gene/trait/T
+	if(ispath(trait_id, /datum/plant_gene/trait/glow/random))
+		T = get_trait_gene_from_static(trait_id)
+		T.on_new_seed(src, rand_LCM(chem_rand_seed, maximum=8)) // max=8 : current biolumi trait maximum
+	if(isnull(trait_id))
+		CRASH("random trait [T] is called as null.")
+		return
+	T = get_trait_gene_from_static(trait_id)
+	if(!istype(T))
+		return
+	if(T.can_add(src))
+		genes += T
+	else if(T.plant_gene_flags & PLANT_GENE_QDEL_TARGET)
+		qdel(T)
+	for(var/datum/plant_gene/G in genes)
+		if(istype(G, /datum/plant_gene/trait))
+			G.on_new_seed(src)
+
+
+
 
 /obj/item/seeds/proc/add_random_plant_type(normal_plant_chance = 75)
 	if(prob(normal_plant_chance))

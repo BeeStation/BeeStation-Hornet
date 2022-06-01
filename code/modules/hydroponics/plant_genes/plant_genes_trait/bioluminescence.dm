@@ -7,7 +7,7 @@
 	examine_line = "<span class='info'>It emits a soft glow.</span>"
 	trait_id = "glow"
 	var/glow_color = "#C3E381"
-	randomness_flags = NONE // use `/datum/plant_gene/trait/glow/random` instead
+	plant_gene_flags = PLANT_GENE_COMMON_REMOVABLE // use `/datum/plant_gene/trait/glow/random` instead
 	research_needed = 1
 
 /datum/plant_gene/trait/glow/proc/glow_range(obj/item/seeds/S)
@@ -28,7 +28,7 @@
 	desc = "Absorbes lights so that it would make the station miserable. This is useful to treat a shadowling."
 	rate = 0.04
 	glow_color = "#AAD84B"
-	randomness_flags = BOTANY_RANDOM_COMMON
+	plant_gene_flags = PLANT_GENE_COMMON_REMOVABLE | PLANT_GENE_RANDOM_ALLOWED
 
 /datum/plant_gene/trait/glow/shadow/glow_power(obj/item/seeds/S)
 	return -max(S.potency*(rate*0.2), 0.2)
@@ -37,53 +37,53 @@
 	name = "White Bioluminescence"
 	desc = "Glowing white."
 	glow_color = "#FFFFFF"
-	randomness_flags = NONE
+	plant_gene_flags = PLANT_GENE_COMMON_REMOVABLE
 
 /datum/plant_gene/trait/glow/red
 	name = "Red Bioluminescence"
 	desc = "Glowing red."
 	glow_color = "#FF3333"
-	randomness_flags = NONE
+	plant_gene_flags = PLANT_GENE_COMMON_REMOVABLE
 
 /datum/plant_gene/trait/glow/yellow
 	name = "Yellow Bioluminescence"
 	desc = "Glowing yellow."
 	glow_color = "#FFFF66"
-	randomness_flags = NONE
+	plant_gene_flags = PLANT_GENE_COMMON_REMOVABLE
 
 /datum/plant_gene/trait/glow/green
 	name = "Green Bioluminescence"
 	desc = "Glowing green. It's not radioactive, no worries."
 	glow_color = "#99FF99"
-	randomness_flags = NONE
+	plant_gene_flags = PLANT_GENE_COMMON_REMOVABLE
 
 /datum/plant_gene/trait/glow/blue
 	name = "Blue Bioluminescence"
 	desc = "Glowing blue. the best one."
 	glow_color = "#6699FF"
-	randomness_flags = NONE
+	plant_gene_flags = PLANT_GENE_COMMON_REMOVABLE
 
 /datum/plant_gene/trait/glow/purple
 	name = "Purple Bioluminescence"
 	desc = "Glowing purple. Hmm, so flirting color."
 	glow_color = "#D966FF"
-	randomness_flags = NONE
+	plant_gene_flags = PLANT_GENE_COMMON_REMOVABLE
 
 /datum/plant_gene/trait/glow/pink
 	name = "Pink Bioluminescence"
 	desc = "Glowing pink. Colour of le princesse de pinkland."
 	glow_color = "#FFB3DA"
-	randomness_flags = NONE
+	plant_gene_flags = PLANT_GENE_COMMON_REMOVABLE
 
 
 /datum/plant_gene/trait/glow/random
 	name = "random dummy Bioluminescence"
 	desc = "this shouldn't exist."
-	randomness_flags = BOTANY_RANDOM_COMMON
+	plant_gene_flags = PLANT_GENE_COMMON_REMOVABLE | PLANT_GENE_RANDOM_ALLOWED
 
 /datum/plant_gene/trait/glow/random/on_new_seed(obj/item/seeds/S, var/find_by_number=0)
-	var/static/list/newgenes = list()
-	if(!newgenes.len)
+	var/static/list/newgenes
+	if(isnull(newgenes))
 		newgenes = subtypesof(/datum/plant_gene/trait/glow) - list(/datum/plant_gene/trait/glow/shadow, /datum/plant_gene/trait/glow/random)
 	var/chosen = null
 	if(find_by_number)
@@ -93,6 +93,4 @@
 	else
 		chosen = pick(newgenes)
 	S.genes -= src
-	S.genes += new chosen
-	qdel(src)
-
+	S.genes += S.get_trait_gene_from_static(chosen)

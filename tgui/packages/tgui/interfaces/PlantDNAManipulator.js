@@ -198,6 +198,7 @@ const PlantDNAManipulatorContent = (props, context) => {
   const {
     seed,
     core_genes,
+    core_genes_sub,
     reagent_genes,
     trait_genes,
   } = data;
@@ -216,12 +217,20 @@ const PlantDNAManipulatorContent = (props, context) => {
 
   return (
     <>
-      <PlantDNAManipulatorGenes label="Core genes"
-        type="core" list={core_genes} />
+      <Flex>
+        <Flex.Item width="220px">
+          <PlantDNAManipulatorGenes label="Core genes"
+            category="core" list={core_genes} />
+        </Flex.Item>
+        <Flex.Item width="220px">
+          <PlantDNAManipulatorGenes label="Core Sub genes"
+            category="core" list={core_genes_sub} />
+        </Flex.Item>
+      </Flex>
       <PlantDNAManipulatorGenes label="Reagent genes"
-        type="reagent" list={reagent_genes} />
+        category="reagent" list={reagent_genes} />
       <PlantDNAManipulatorGenes label="Trait genes"
-        type="trait" list={trait_genes} />
+        category="trait" list={trait_genes} />
     </>
   );
 };
@@ -250,6 +259,7 @@ const PlantDNAManipulatorGene = (props, context) => {
   const { act, data } = useBackend(context);
   const {
     stat_tooltips,
+    unit_guage,
   } = data;
   const {
     gene,
@@ -257,7 +267,7 @@ const PlantDNAManipulatorGene = (props, context) => {
 
   const act_data = { gene_id: gene?.id };
 
-  const tooltip_text = gene.type === "core" && stat_tooltips[gene.stat.toLowerCase()];
+  const tooltip_text = gene.category === "core" && stat_tooltips[gene.stat.toLowerCase()];
 
   return (
     <Table.Row className="candystripe">
@@ -274,7 +284,7 @@ const PlantDNAManipulatorGene = (props, context) => {
       <Table.Cell />
       <Table.Cell collapsing>
         {
-          gene.type === "reagent" && (
+          gene.category === "reagent" && (
             <box>
               [max: {gene.reag_unit_max}u]
             </box>
@@ -283,14 +293,18 @@ const PlantDNAManipulatorGene = (props, context) => {
       </Table.Cell>
       <Table.Cell collapsing py={0.1}>
         {
-          gene.type === "reagent" && (
+          gene.category === "reagent" && (
             <NumberInput
               value={gene.reag_unit}
+              disabled={!gene.adjustable}
               unit="u"
               width="65px"
-              minValue={0.01}
-              maxValue={gene.reag_unit_max}
-              step={0.01}
+              minValue={unit_guage}
+              maxValue={
+                gene.reag_unit > gene.reag_unit_max
+                  ? gene.reag_unit : gene.reag_unit_max
+              }
+              step={unit_guage}
               stepPixelSize={2}
               onChange={(e, value) => { act_data.value = value; act("adjust", act_data); }} />
           )
@@ -298,7 +312,7 @@ const PlantDNAManipulatorGene = (props, context) => {
       </Table.Cell>
       <Table.Cell collapsing py={0.1}>
         {
-          (gene.type === "core") ? "" : (
+          (gene.category === "core") ? "" : (
             <Button
               content="Remove"
               disabled={!gene.removable}
@@ -316,7 +330,7 @@ const PlantDNAManipulatorGenes = (props, context) => {
   const { act, data } = useBackend(context);
   const {
     label,
-    type,
+    category,
     list,
   } = props;
 
@@ -476,7 +490,7 @@ const PlantDNAManipulatorWindowChemicalsContents = (props, context) => {
         </Table.Cell>
       </Table.Row>
       {r_datas.map(r_data => (
-        (r_data.type === "reagent") && (r_data.faction & research_faction_type)) ? (
+        (r_data.category === "reagent") && (r_data.faction & research_faction_type)) ? (
           <Table.Row key={r_data.id}>
             <Table.Cell m={0.2}>
               {r_data.name}
@@ -531,7 +545,7 @@ const PlantDNAManipulatorWindowTraitsContents = (props, context) => {
         </Table.Cell>
       </Table.Row>
       {r_datas.map(r_data => (
-        (r_data.type === "trait") && (r_data.faction & research_faction_type)) ? (
+        (r_data.category === "trait") && (r_data.faction & research_faction_type)) ? (
           <Table.Row key={r_data.id}>
             <Table.Cell m={0.2}>
               {r_data.name}

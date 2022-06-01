@@ -71,7 +71,6 @@
 			var/obj/item/flashlight/flare/torch/T = new /obj/item/flashlight/flare/torch(user.loc)
 			usr.dropItemToGround(W)
 			usr.put_in_active_hand(T)
-			qdel(leaf)
 			qdel(src)
 			return
 		else
@@ -114,7 +113,7 @@
 	growthstages = 3
 	growing_icon = 'icons/obj/hydroponics/growing.dmi'
 	icon_dead = "bamboo-dead"
-	genes = list(/datum/plant_gene/trait/repeated_harvest)
+	genes = list(/datum/plant_gene/trait/perennial)
 	mutatelist = list(/obj/item/seeds/sugarcane)
 
 /obj/item/grown/log/bamboo

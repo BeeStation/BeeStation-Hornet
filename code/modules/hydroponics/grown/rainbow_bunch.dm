@@ -15,7 +15,7 @@
 	growthstages = 4
 	growing_icon = 'icons/obj/hydroponics/growing_flowers.dmi'
 	icon_dead = "rainbowbunch-dead"
-	genes = list(/datum/plant_gene/trait/repeated_harvest)
+	genes = list(/datum/plant_gene/trait/perennial)
 	reagents_set = list(
 		/datum/reagent/consumable/nutriment = list(2, 4),
 		/datum/reagent/consumable/nutriment/vitamin = list(0, 2),

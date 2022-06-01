@@ -14,7 +14,7 @@
 	growthstages = 2
 	icon_grow = "grass-grow"
 	icon_dead = "grass-dead"
-	genes = list(/datum/plant_gene/trait/repeated_harvest)
+	genes = list(/datum/plant_gene/trait/perennial)
 	mutatelist = list(/obj/item/seeds/grass/carpet, /obj/item/seeds/grass/fairy)
 	reagents_set = list(
 		/datum/reagent/consumable/nutriment = list(2, 5),
@@ -53,7 +53,7 @@
 	product = /obj/item/reagent_containers/food/snacks/grown/grass/fairy
 	icon_grow = "fairygrass-grow"
 	icon_dead = "grass-dead"
-	genes = list(/datum/plant_gene/trait/repeated_harvest, /datum/plant_gene/trait/glow/blue)
+	genes = list(/datum/plant_gene/trait/perennial, /datum/plant_gene/trait/glow/blue)
 	reagents_set = list(
 		/datum/reagent/consumable/nutriment = list(2, 5),
 		/datum/reagent/consumable/nutriment/vitamin = list(0, 2),

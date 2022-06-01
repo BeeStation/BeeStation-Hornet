@@ -21,7 +21,7 @@
 	yield = 4
 	potency = 15
 	growing_icon = 'icons/obj/hydroponics/growing_fruits.dmi'
-	genes = list(/datum/plant_gene/trait/repeated_harvest)
+	genes = list(/datum/plant_gene/trait/perennial)
 	mutatelist = list(/obj/item/seeds/orange)
 	reagents_set = list(
 		/datum/reagent/consumable/nutriment = list(4, 8),
@@ -50,7 +50,7 @@
 	growing_icon = 'icons/obj/hydroponics/growing_fruits.dmi'
 	icon_grow = "lime-grow"
 	icon_dead = "lime-dead"
-	genes = list(/datum/plant_gene/trait/repeated_harvest)
+	genes = list(/datum/plant_gene/trait/perennial)
 	mutatelist = list(/obj/item/seeds/lime, /obj/item/seeds/orange_3d)
 	reagents_set = list(
 		/datum/reagent/consumable/nutriment = list(4, 8),
@@ -79,7 +79,7 @@
 	growing_icon = 'icons/obj/hydroponics/growing_fruits.dmi'
 	icon_grow = "lime-grow"
 	icon_dead = "lime-dead"
-	genes = list(/datum/plant_gene/trait/repeated_harvest)
+	genes = list(/datum/plant_gene/trait/perennial)
 	reagents_set = list(
 		/datum/reagent/consumable/nutriment = list(4, 8),
 		/datum/reagent/consumable/nutriment/vitamin = list(4, 8))
@@ -104,7 +104,7 @@
 	growing_icon = 'icons/obj/hydroponics/growing_fruits.dmi'
 	icon_grow = "lime-grow"
 	icon_dead = "lime-dead"
-	genes = list(/datum/plant_gene/trait/repeated_harvest)
+	genes = list(/datum/plant_gene/trait/perennial)
 	lifespan = 55
 	endurance = 45
 	yield = 4
@@ -143,27 +143,19 @@
 	qdel(src) //Ensuring that it's deleted by its own explosion
 
 /obj/item/reagent_containers/food/snacks/grown/firelemon/proc/prime(mob/living/lanced_by)
+	update_mob()
 	switch(seed.potency) //Combustible lemons are alot like IEDs, lots of flame, very little bang.
 		if(0 to 30)
-			update_mob()
 			explosion(src.loc,-1,-1,2, flame_range = 1)
-			qdel(src)
 		if(31 to 50)
-			update_mob()
 			explosion(src.loc,-1,-1,2, flame_range = 2)
-			qdel(src)
 		if(51 to 70)
-			update_mob()
 			explosion(src.loc,-1,-1,2, flame_range = 3)
-			qdel(src)
 		if(71 to 90)
-			update_mob()
 			explosion(src.loc,-1,-1,2, flame_range = 4)
-			qdel(src)
 		else
-			update_mob()
 			explosion(src.loc,-1,-1,2, flame_range = 5)
-			qdel(src)
+	qdel(src) //Ensuring that it's deleted by its own explosion
 
 //3D Orange
 /obj/item/seeds/orange_3d
@@ -180,7 +172,7 @@
 	growing_icon = 'icons/obj/hydroponics/growing_fruits.dmi'
 	icon_grow = "lime-grow"
 	icon_dead = "lime-dead"
-	genes = list(/datum/plant_gene/trait/repeated_harvest)
+	genes = list(/datum/plant_gene/trait/perennial)
 	reagents_set = list(
 		/datum/reagent/consumable/nutriment = list(3, 9),
 		/datum/reagent/consumable/nutriment/vitamin = list(6, 12))

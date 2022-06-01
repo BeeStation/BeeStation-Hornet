@@ -113,6 +113,9 @@
 		playsound(user, 'sound/machines/terminal_success.ogg', 60)
 		pulse_effect(get_turf(A), 4)
 
+
+
+
 /datum/component/discoverable/proc/discovery_scan_botany(datum/techweb/linked_techweb, mob/user, atom/A, obj/item/seeds/S, var/research_identifier, var/research_faction_type)
 	/*  <what does this do?>
 		This stores botanical datas once you grow crops and scan them.
@@ -125,30 +128,26 @@
 								and if you store it as path type, you won't be able to research strange seeds more than once.
 
 		<variables from `techweb`>
-		*researched_plants: [key from research_identifier] [value as bitflag from research_faction_type]
+		*researched_plants: [key from research_identifier]:list([value as bitflag from research_faction_type], [plant name])
 							Stores researched plants so that preventing you spamming scan to research them again.
 		*researched_genes:  [key as data_id] Stores traits/chemicals from researched plants.
 
 		<`researched_genes` array structure>
-		## Structure rule:
-				researched_genes[data_id] = list([bitflag], [path], [string], [number], [number])
-
 		*[data_id]: just an unique key not to conflict themselves
 			i.e.)
 				trait:   F1T/datum/plant_gene/trait/cell_charge
 				reagent: F1R/datum/plant_gene/reagent/sandbox (this stores reagent path already)
 				family:  F1F/datum/plant_gene/family/carnivory
-		*[data_id][1]: <bitflag> (from `research_faction_type` variable)
+		*[data_id]["faction"]: <bitflag> (from `research_faction_type` variable)
 			Stores where this data belongs to.
 		    `research_faction_type=BOTANY_RESEARCHED_NANOTRASEN` means this data is bound to station.
 		    Lifebringers use BOTANY_RESEARCHED_LIFEBRINGERS instead of it, so they don't share data.
-		*[data_id][2]: <path> Path of its data
-			i.e.)    /datum/plant_gene/trait/cell_charge
-		*[data_id][3]: <string> category of this gene, just as string.
-		*[data_id][4]: <number> How many this data is researched.
+		*[data_id]["path"]: <path> Path of its data
+		*[data_id]["category"]: <string> category of this gene, just as string.
+		*[data_id]["level"]: <number> How many this data is researched.
 			This is needed to store when you want a trait is unlocked after a few researches.
-			i.e.) Perenial growth needs 5 research levels to unlock
-		*[data_id][5]: <number> (reagent trait only) How much you can maximize this type of reagent. 10 means 10u is maximum.
+			i.e.) perennial growth needs 5 research levels to unlock
+		*[data_id]["maxvolume"]: <number> (reagent trait only) How much you can maximize this type of reagent. 10 means 10u is maximum.
 		    `max(linked_techweb.researched_genes[data_id][5], reagent_gene.reag_unit_max)` is to override as the highest value from researched plants.
 
 		<defines - used in `research_faction_type`>
@@ -163,64 +162,76 @@
 		//------------------------------------------------------------------------------------------------------------------
 		// Storing roundstart researches
 		// Basically the same code from "trait" part of the code below.
-		var/static/roundstart
-		if(!isnull(roundstart))
-			roundstart = TRUE
+		var/static/roundstart = TRUE
+		if(roundstart)
+			roundstart = FALSE
 			var/all_factions = BOTANY_RESEARCHED_NANOTRASEN | BOTANY_RESEARCHED_LIFEBRINGER | BOTANY_RESEARCHED_CENTCOM
-			for(var/each in subtypesof(/datum/plant_gene/trait)) // `var/datum/plant_gene/trait/each` doesn't work. don't ask me why.
+			for(var/each in subtypesof(/datum/plant_gene/trait))
 				var/datum/plant_gene/trait/T = each
 				var/data_id
 				if(initial(T.research_needed) == 0) // if a research_needed is `0`, this will be roundstarting.
 					data_id = "F[all_factions]T[T]"
 					if(!linked_techweb.researched_genes[data_id])
-						linked_techweb.researched_genes[data_id] += list(all_factions, null, "trait", 0)
-					linked_techweb.researched_genes[data_id][2] = T
-					linked_techweb.researched_genes[data_id][4] += 1
+						linked_techweb.researched_genes[data_id] = list()
+						linked_techweb.researched_genes[data_id]["faction"] = all_factions
+						linked_techweb.researched_genes[data_id]["path"] = T
+						linked_techweb.researched_genes[data_id]["category"] = "trait"
+						linked_techweb.researched_genes[data_id]["level"] = 0
+					linked_techweb.researched_genes[data_id]["level"] += 1
 		//------------------------------------------------------------------------------------------------------------------
 
 		if(!linked_techweb.researched_plants[research_identifier])
-			linked_techweb.researched_plants[research_identifier] = 0
+			linked_techweb.researched_plants[research_identifier] = list()
+			linked_techweb.researched_plants[research_identifier]["faction"] = 0
+			linked_techweb.researched_plants[research_identifier]["plant_name"] = S.plantname
 			// Establishing a storable variable in the list
-		if(!(linked_techweb.researched_plants[research_identifier] & research_faction_type))
-			linked_techweb.researched_plants[research_identifier] |= research_faction_type // Remembers which faction researched this data.
+		if(!(linked_techweb.researched_plants[research_identifier]["faction"] & research_faction_type))
+			linked_techweb.researched_plants[research_identifier]["faction"] |= research_faction_type // Remembers which faction researched this data.
 			. = TRUE //need this to pass TRUE to discoverable result.
-
 			var/data_id
 			for(var/datum/plant_gene/each in S.genes)
-				// We only save genes from trait and reagent.
+				// Trait
 				if(istype(each, /datum/plant_gene/trait))
 					var/datum/plant_gene/trait/trait_gene = each
 					if(initial(trait_gene.research_needed) == -1) // if a research_needed is `-1`, this means unresearchable
 						continue
 					data_id = "F[research_faction_type]T[trait_gene.type]"
 					if(!linked_techweb.researched_genes[data_id])
-						linked_techweb.researched_genes[data_id] += list(research_faction_type, null, "trait", 0)
-						// Establishing a storable variable in the list
-					linked_techweb.researched_genes[data_id][2] = trait_gene.type
-					linked_techweb.researched_genes[data_id][4] += 1
-					// As stated abive, second array in the list is how much this is researched
-					// Some plant genes should be researched more than once.
+						linked_techweb.researched_genes[data_id] = list()
+						linked_techweb.researched_genes[data_id]["faction"] = research_faction_type
+						linked_techweb.researched_genes[data_id]["path"] = trait_gene.type
+						linked_techweb.researched_genes[data_id]["category"] = "trait"
+						linked_techweb.researched_genes[data_id]["level"] = 0
+					linked_techweb.researched_genes[data_id]["level"] += 1
+
+				// Reagent
 				if(istype(each, /datum/plant_gene/reagent/sandbox))
 					var/datum/plant_gene/reagent/sandbox/reagent_gene = each
 					data_id = "F[research_faction_type]R[reagent_gene.reagent_id]"
 					if(!linked_techweb.researched_genes[data_id])
-						linked_techweb.researched_genes[data_id] += list(research_faction_type, null, "reagent", 0, 0)
-						// Establishing a storable variable in the list
-					linked_techweb.researched_genes[data_id][2] = reagent_gene.reagent_id
-					linked_techweb.researched_genes[data_id][4] += 1
+						linked_techweb.researched_genes[data_id] = list()
+						linked_techweb.researched_genes[data_id]["faction"] = research_faction_type
+						linked_techweb.researched_genes[data_id]["path"] = reagent_gene.reagent_id
+						linked_techweb.researched_genes[data_id]["category"] = "reagent"
+						linked_techweb.researched_genes[data_id]["level"] = 0
+						linked_techweb.researched_genes[data_id]["maxvolume"] = 0
+					linked_techweb.researched_genes[data_id]["level"] += 1
 					if(reagent_gene.reagent_id == /datum/reagent/consumable/nutriment)
-						linked_techweb.researched_genes[data_id][5] = max(2.5, linked_techweb.researched_genes[data_id][5]+0.5) // starts at 2.5u nutriment, and 0.5+ per research
+						linked_techweb.researched_genes[data_id]["maxvolume"] = max(BTNY_CFG_NUTRI_START, linked_techweb.researched_genes[data_id]["maxvolume"]+BTNY_CFG_NUTRI_ADD) // starts at 2.5u nutriment, and 0.5+ per research
 					else if(reagent_gene.reagent_id == /datum/reagent/consumable/nutriment/vitamin)
-						linked_techweb.researched_genes[data_id][5] = max(1.25, linked_techweb.researched_genes[data_id][5]+0.25) // starts at 1.25u vitamin, and 0.25+ per research
-						// because I don't want people to cherry-pick 20u nutriment at the roundstarting
+						linked_techweb.researched_genes[data_id]["maxvolume"] = max(BTNY_CFG_VITAMIN_START, linked_techweb.researched_genes[data_id]["maxvolume"]+BTNY_CFG_VITAMIN_ADD) // starts at 1.25u vitamin, and 0.25+ per research
+						// because I don't want people to cherry-pick 20u nutriment at roundstarting
 					else
-						linked_techweb.researched_genes[data_id][5] = max(linked_techweb.researched_genes[data_id][5], reagent_gene.reag_unit_max)
+						linked_techweb.researched_genes[data_id]["maxvolume"] = max(linked_techweb.researched_genes[data_id]["maxvolume"], reagent_gene.reag_unit_max)
 						// fifth array is maximum reagent unit. 15 means 15u, and botanist can't exceed this value by gene manipulation.
 
 			// family gene isn't in `S.genes` variable, so we need to do this separately.
 			var/datum/plant_gene/family/family_gene = S.family
-			data_id = "F[research_faction_type]F[family_gene.type]"
+			data_id = "F[research_faction_type]F[family_gene.research_identifier]"
 			if(!linked_techweb.researched_genes[data_id])
-				linked_techweb.researched_genes[data_id] += list(research_faction_type, null, "family", 0)
-			linked_techweb.researched_genes[data_id][2] = family_gene.type
-			linked_techweb.researched_genes[data_id][4] += 1
+				linked_techweb.researched_genes[data_id] = list()
+				linked_techweb.researched_genes[data_id]["faction"] = research_faction_type
+				linked_techweb.researched_genes[data_id]["path"] = family_gene.type
+				linked_techweb.researched_genes[data_id]["category"] = "family"
+				linked_techweb.researched_genes[data_id]["level"] = 0
+			linked_techweb.researched_genes[data_id]["level"] += 1

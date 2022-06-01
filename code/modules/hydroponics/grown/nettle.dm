@@ -1,36 +1,42 @@
 /obj/item/seeds/nettle
 	name = "pack of nettle seeds"
 	desc = "These seeds grow into nettles."
-	icon_state = "seed-nettle"
-	species = "nettle"
 	plantname = "Nettles"
+	species = "nettle"
+	icon_state = "seed-nettle"
+	growthstages = 5
 	product = /obj/item/reagent_containers/food/snacks/grown/nettle
+
 	lifespan = 30
 	endurance = 40 // tuff like a toiger
 	yield = 4
-	growthstages = 5
-	genes = list(/datum/plant_gene/trait/repeated_harvest, /datum/plant_gene/family/weed_hardy)
+	volume_mod = 10
+
 	mutatelist = list(/obj/item/seeds/nettle/death)
+	genes = list(/datum/plant_gene/trait/perennial, /datum/plant_gene/family/weed_hardy)
 	reagents_set = list(
-		/datum/reagent/toxin/acid = list(50, 25))
+		/datum/reagent/toxin/acid = list(50, 10))
 
 /obj/item/seeds/nettle/death
 	name = "pack of death-nettle seeds"
 	desc = "These seeds grow into death-nettles."
-	icon_state = "seed-deathnettle"
-	species = "deathnettle"
 	plantname = "Death Nettles"
+	species = "deathnettle"
+	icon_state = "seed-deathnettle"
 	product = /obj/item/reagent_containers/food/snacks/grown/nettle/death
+
 	endurance = 25
 	maturation = 8
 	yield = 2
-	genes = list(/datum/plant_gene/trait/repeated_harvest, /datum/plant_gene/family/weed_hardy, /datum/plant_gene/trait/stinging)
-	mutatelist = list(/obj/item/seeds/nettle)
-	reagents_set = list(
-		/datum/reagent/toxin/acid/fluacid = list(50, 25),
-		/datum/reagent/toxin/acid = list(25, 50))
 	rarity = 20
 
+	mutatelist = list(/obj/item/seeds/nettle)
+	genes = list(/datum/plant_gene/trait/perennial, /datum/plant_gene/family/weed_hardy, /datum/plant_gene/trait/stinging)
+	reagents_set = list(
+		/datum/reagent/toxin/acid/fluacid = list(50, 5),
+		/datum/reagent/toxin/acid = list(25, 20))
+
+// plant stats
 /obj/item/reagent_containers/food/snacks/grown/nettle // "snack"
 	seed = /obj/item/seeds/nettle
 	name = "nettle"
@@ -39,11 +45,11 @@
 	icon_state = "nettle"
 	lefthand_file = 'icons/mob/inhands/weapons/plants_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/plants_righthand.dmi'
+	hitsound = 'sound/weapons/bladeslice.ogg'
+	w_class = WEIGHT_CLASS_TINY
 	damtype = "fire"
 	force = 15
-	hitsound = 'sound/weapons/bladeslice.ogg'
 	throwforce = 5
-	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 1
 	throw_range = 3
 	attack_verb = list("stung")

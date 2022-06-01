@@ -15,28 +15,28 @@
 	desc = "These seeds grow into common ambrosia, a plant grown by and from medicine."
 	plantname = "Ambrosia Vulgaris"
 	species = "ambrosiavulgaris"
-
 	icon_state = "seed-ambrosiavulgaris"
 	icon_dead = "ambrosia-dead"
+	product = /obj/item/reagent_containers/food/snacks/grown/ambrosia/vulgaris
 
 	// seed stats
-	product = /obj/item/reagent_containers/food/snacks/grown/ambrosia/vulgaris
 	potency = 5
 	lifespan = 60
 	endurance = 25
 	yield = 6
 	maturation = 1 //temp
 	production = 1 //temp
+	wine_power = 30
 
 	// plant stats
-	bitesize_mod = 2
-	bite_type = PLANT_BITE_TYPE_RATIO
-	genes = list(/datum/plant_gene/trait/repeated_harvest, /datum/plant_gene/trait/glow/random)
-	family = /datum/plant_gene/family/weed_hardy
-	mutatelist = list(/obj/item/seeds/ambrosia/deus)
+	bitesize_mod = 4
+	bite_type = PLANT_BITE_TYPE_CONST
 
+	mutatelist = list(/obj/item/seeds/ambrosia/deus)
+	family = /datum/plant_gene/family/weed_hardy
+	genes = list(/datum/plant_gene/trait/perennial, /datum/plant_gene/trait/glow/random)
 	reagents_innate = list(
-		/datum/reagent/consumable/nutriment = list(3, 9, PLANT_GENE_COMMON_REMOVABLE))
+		/datum/reagent/consumable/nutriment = list(2, 3, NONE))
 	reagents_set = list(
 		/datum/reagent/consumable/nutriment = list(3, 9),
 		/datum/reagent/consumable/nutriment/vitamin = list(2, 6),
@@ -49,17 +49,20 @@
 	seed = /obj/item/seeds/ambrosia
 	name = "ambrosia vulgaris branch"
 	desc = "This is a plant containing various healing chemicals."
-	wine_power = 30
 	wine_flavor = "the regenerative power of the earth"
 
 // Ambrosia Deus
 /obj/item/seeds/ambrosia/deus
 	name = "pack of ambrosia deus seeds"
 	desc = "These seeds grow into ambrosia deus. Could it be the food of the gods..?"
-	icon_state = "seed-ambrosiadeus"
 	species = "ambrosiadeus"
 	plantname = "Ambrosia Deus"
+	icon_state = "seed-ambrosiadeus"
 	product = /obj/item/reagent_containers/food/snacks/grown/ambrosia/deus
+
+	wine_power = 50
+	rarity = 40
+
 	mutatelist = list(/obj/item/seeds/ambrosia, /obj/item/seeds/ambrosia/gaia)
 	reagents_set = list(
 		/datum/reagent/consumable/nutriment = list(3, 9),
@@ -67,7 +70,6 @@
 		/datum/reagent/medicine/omnizine = list(2, 6),
 		/datum/reagent/medicine/synaptizine = list(5, 15),
 		/datum/reagent/drug/space_drugs = list(5, 10))
-	rarity = 40
 
 /obj/item/reagent_containers/food/snacks/grown/ambrosia/deus
 	seed = /obj/item/seeds/ambrosia/deus
@@ -75,7 +77,6 @@
 	desc = "Eating this makes you feel immortal!"
 	icon_state = "ambrosiadeus"
 	filling_color = "#008B8B"
-	wine_power = 50
 	wine_flavor = "the faint immortality of the gods"
 	discovery_points = 300
 
@@ -83,22 +84,24 @@
 /obj/item/seeds/ambrosia/gaia
 	name = "pack of ambrosia gaia seeds"
 	desc = "These seeds grow into ambrosia gaia, filled with infinite potential."
+	plantname = "Ambrosia Gaia"
 	icon_state = "seed-ambrosia_gaia"
 	species = "ambrosia_gaia"
-	plantname = "Ambrosia Gaia"
 	product = /obj/item/reagent_containers/food/snacks/grown/ambrosia/gaia
-	mutatelist = list(/obj/item/seeds/ambrosia/deus)
 
+	weed_rate = 4
+	weed_chance = 100
+	wine_power = 70
+	rarity = 30 //These are some pretty good plants right here
+
+	mutatelist = list(/obj/item/seeds/ambrosia/deus)
+	genes = list()
 	reagents_innate = list(
-		/datum/reagent/medicine/earthsblood = 0.03)
+		/datum/reagent/medicine/earthsblood = list(3, 3, NONE))
 	reagents_set = list(
 		/datum/reagent/consumable/nutriment = list(4, 12),
 		/datum/reagent/consumable/nutriment/vitamin = list(3, 9),
-		/datum/reagent/medicine/earthsblood = list(3, 9))
-	rarity = 30 //These are some pretty good plants right here
-	genes = list()
-	weed_rate = 4
-	weed_chance = 100
+		/datum/reagent/medicine/earthsblood = list(2, 9))
 
 /obj/item/reagent_containers/food/snacks/grown/ambrosia/gaia
 	name = "ambrosia gaia branch"
@@ -108,6 +111,5 @@
 	light_system = MOVABLE_LIGHT
 	light_range = 3
 	seed = /obj/item/seeds/ambrosia/gaia
-	wine_power = 70
 	wine_flavor = "the earthmother's blessing"
 	discovery_points = 300

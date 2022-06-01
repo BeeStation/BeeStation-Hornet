@@ -1,7 +1,7 @@
 /datum/plant_gene/trait/eternalbloom
 	name = "Eternal Blooming"
 	desc = "Your plant will never be harvestable, but will never die. Always blooming. This is good for gardening purpose."
-	randomness_flags = NONE // This shouldn't come out to random, NEVER. because you will never be able to research this as it's not harvestable.
+	plant_gene_flags = PLANT_GENE_COMMON_REMOVABLE
 	research_needed = 0 //roundstart research
 	on_grow_chance = 100
 

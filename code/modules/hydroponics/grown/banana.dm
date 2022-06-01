@@ -2,17 +2,21 @@
 /obj/item/seeds/banana
 	name = "pack of banana seeds"
 	desc = "They're seeds that grow into banana trees. When grown, keep away from clown."
-	icon_state = "seed-banana"
-	species = "banana"
 	plantname = "Banana Tree"
+	species = "banana"
+	growing_icon = 'icons/obj/hydroponics/growing_fruits.dmi'
+	icon_state = "seed-banana"
+	icon_dead = "banana-dead"
 	product = /obj/item/reagent_containers/food/snacks/grown/banana
+
 	lifespan = 50
 	endurance = 30
-	growing_icon = 'icons/obj/hydroponics/growing_fruits.dmi'
-	icon_dead = "banana-dead"
 	bitesize_mod = 5
-	genes = list(/datum/plant_gene/trait/slip, /datum/plant_gene/trait/repeated_harvest)
+	bite_type = PLANT_BITE_TYPE_DYNAM
+	distill_reagent = /datum/reagent/consumable/ethanol/bananahonk
+
 	mutatelist = list(/obj/item/seeds/banana/mime, /obj/item/seeds/banana/bluespace)
+	genes = list(/datum/plant_gene/trait/slip, /datum/plant_gene/trait/perennial)
 	reagents_set = list(
 		/datum/reagent/consumable/nutriment = list(2, 6),
 		/datum/reagent/consumable/nutriment/vitamin = list(3, 9),
@@ -27,10 +31,8 @@
 	item_state = "banana"
 	trash = /obj/item/grown/bananapeel
 	filling_color = "#FFFF00"
-	bitesize = 5
 	foodtype = FRUIT
 	juice_results = list(/datum/reagent/consumable/banana = 0)
-	distill_reagent = /datum/reagent/consumable/ethanol/bananahonk
 
 /obj/item/reagent_containers/food/snacks/grown/banana/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is aiming [src] at [user.p_them()]self! It looks like [user.p_theyre()] trying to commit suicide!</span>")
@@ -69,17 +71,20 @@
 /obj/item/seeds/banana/mime
 	name = "pack of mimana seeds"
 	desc = "They're seeds that grow into mimana trees. When grown, keep away from mime."
-	icon_state = "seed-mimana"
-	species = "mimana"
 	plantname = "Mimana Tree"
-	product = /obj/item/reagent_containers/food/snacks/grown/banana/mime
+	species = "mimana"
+	icon_state = "seed-mimana"
 	growthstages = 4
+	product = /obj/item/reagent_containers/food/snacks/grown/banana/mime
+
+	rarity = 15
+	distill_reagent = /datum/reagent/consumable/ethanol/silencer
+
+	mutatelist = list(/obj/item/seeds/banana)
 	reagents_set = list(
 		/datum/reagent/consumable/nutriment = list(2, 6),
 		/datum/reagent/consumable/nothing = list(5, 20),
 		/datum/reagent/toxin/mutetoxin = list(5, 15))
-	rarity = 15
-	mutatelist = list(/obj/item/seeds/banana)
 
 /obj/item/reagent_containers/food/snacks/grown/banana/mime
 	seed = /obj/item/seeds/banana/mime
@@ -88,7 +93,6 @@
 	icon_state = "mimana"
 	trash = /obj/item/grown/bananapeel/mimanapeel
 	filling_color = "#FFFFEE"
-	distill_reagent = /datum/reagent/consumable/ethanol/silencer
 	discovery_points = 300
 
 /obj/item/grown/bananapeel/mimanapeel
@@ -102,19 +106,22 @@
 /obj/item/seeds/banana/bluespace
 	name = "pack of bluespace banana seeds"
 	desc = "They're seeds that grow into bluespace banana trees. When grown, keep away from bluespace clown."
-	icon_state = "seed-banana-blue"
-	species = "bluespacebanana"
-	icon_grow = "banana-grow"
 	plantname = "Bluespace Banana Tree"
+	species = "bluespacebanana"
+	icon_state = "seed-banana-blue"
+	icon_grow = "banana-grow"
 	product = /obj/item/reagent_containers/food/snacks/grown/banana/bluespace
+
+	wine_power = 60
+	rarity = 30
+
 	mutatelist = list()
-	genes = list(/datum/plant_gene/trait/slip, /datum/plant_gene/trait/teleport, /datum/plant_gene/trait/repeated_harvest)
+	genes = list(/datum/plant_gene/trait/slip, /datum/plant_gene/trait/teleport, /datum/plant_gene/trait/perennial)
 	reagents_set = list(
 		/datum/reagent/consumable/nutriment = list(2, 8),
 		/datum/reagent/consumable/nutriment/vitamin = list(3, 12),
 		/datum/reagent/consumable/banana = list(10, 20),
 		/datum/reagent/bluespace = list(10, 20))
-	rarity = 30
 
 /obj/item/reagent_containers/food/snacks/grown/banana/bluespace
 	seed = /obj/item/seeds/banana/bluespace
@@ -124,7 +131,6 @@
 	trash = /obj/item/grown/bananapeel/bluespace
 	filling_color = "#0000FF"
 	tastes = list("banana" = 1)
-	wine_power = 60
 	wine_flavor = "slippery hypercubes"
 	discovery_points = 300
 
