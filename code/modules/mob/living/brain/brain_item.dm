@@ -202,21 +202,6 @@
 			else
 				return brain_message
 
-// Log track
-/obj/item/organ/brain/pickup(mob/living/user)
-	. = ..()
-	if(!iscarbon(user) || isnull(brainmob.mind))
-		return FALSE
-	var/datum/mind/M = brainmob.mind
-	log_item(user, INVESTIGATE_VERB_PICKEDUP, FALSE, "The brain's owner is [M.name] (CKey: [M.key]).")
-
-/obj/item/organ/brain/dropped(mob/living/user)
-	. = ..()
-	if(!iscarbon(user) || isnull(brainmob.mind))
-		return FALSE
-	var/datum/mind/M = brainmob.mind
-	log_item(user, INVESTIGATE_VERB_DROPPED, FALSE, "The brain's owner is [M.name] (CKey: [M.key]).")
-
 /obj/item/organ/brain/alien
 	name = "alien brain"
 	desc = "We barely understand the brains of terrestial animals. Who knows what we may find in the brain of such an advanced species?"
