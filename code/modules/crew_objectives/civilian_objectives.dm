@@ -65,6 +65,44 @@
 				return ..()
 	return TRUE
 
+/datum/objective/crew/cocktail
+	explanation_text = "Have a bottle that contains: \[list here\](each of them must be 5u) when the shift ends. (Note: only glass bottle from Booze-O-Mat is allowed)"
+	jobs = "bartender"
+	var/targetchems = list()
+	var/mydrink = ""
+	var/datum/reagent/chempath
+
+/datum/objective/crew/cocktail/New()
+	. = ..()
+	for(var/i in 1 to 2)
+		chempath = get_random_reagent_id(CHEMICAL_GOAL_BARTENDER_SERVING)
+		if(!chempath in targetchems)
+			targetchems += chempath
+			mydrink += "\[[initial(chempath.name)]\] "
+	update_explanation_text()
+
+/datum/objective/crew/cocktail/update_explanation_text()
+	. = ..()
+	explanation_text = "Have a bottle that contains: [mydrink] (each of them must be 5u) when the shift ends. (Note: only glass bottle from Booze-O-Mat is allowed)"
+
+/datum/objective/crew/cocktail/check_completion()
+	var/count = length(targetchems)
+	var/targetchem
+	if(owner.current)
+		if(owner.current.contents)
+			for(var/obj/item/reagent_containers/food/drinks/bottle/blank/B in owner.current.get_contents())
+				for(var/each in targetchem)
+					if(B.reagents.has_reagent(targetchem, 5))
+						count--
+				if(count > 0)
+					count = length(targetchems)
+				else
+					break
+	if(count <= 0)
+		return TRUE
+	else
+		return ..()
+
 /datum/objective/crew/clean //ported from old Hippie
 	var/list/areas = list()
 	var/hardmode = FALSE
