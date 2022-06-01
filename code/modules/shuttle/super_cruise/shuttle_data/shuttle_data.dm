@@ -37,6 +37,9 @@
 		//Handle shuttle engines
 		for(var/obj/machinery/shuttle/engine/shuttle_engine in shuttle_area)
 			register_thruster(shuttle_engine)
+		//Handle shuttle shields
+		for(var/obj/machinery/power/shuttle_shield_generator/shield_generator in shuttle_area)
+			register_shield_generator(shield_generator)
 
 //====================
 // Shield Damage

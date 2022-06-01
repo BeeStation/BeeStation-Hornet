@@ -81,17 +81,32 @@
 		return FALSE
 	return TRUE
 
+/// Public
+/// Undocks from the current docking target
+/datum/orbital_object/shuttle/proc/undock()
+	if(!docking_target || is_docking)
+		return
+	velocity.x = docking_target.velocity.x * 1.1
+	velocity.y = docking_target.velocity.y * 1.1
+	position.x = docking_target.position.x
+	position.y = docking_target.position.y
+	docking_target = null
+	collision_ignored = TRUE
+
 ///Public
 ///Commences docking with a specified orbital object. This will force our shuttle to remain locked at their location
 ///Parameters:
 /// - docking: The orbital object that we are docking with
 /// - forced: If set to true, then we will be forced to dock with the location (otherwise, we may just indicate that we can dock, but not actually dock)
-/datum/orbital_object/shuttle/proc/commence_docking(datum/orbital_object/z_linked/docking, forced = FALSE, quick_generation = FALSE)
+/// - quick_generation: Indicates if the generators should be faster than usual (small asteroids)
+/// - block_undocking: If true, will prevent undocking
+/datum/orbital_object/shuttle/proc/commence_docking(datum/orbital_object/z_linked/docking, forced = FALSE, quick_generation = FALSE, block_undocking = FALSE)
 	//Check for valid docks on z-level
 	if((!docking.forced_docking || collision_ignored) && !forced)
 		can_dock_with = docking
 		return
 	//Begin docking.
+	is_docking = block_undocking
 	docking_target = docking
 	//Check for ruin stuff
 	var/datum/orbital_object/z_linked/beacon/ruin/ruin_obj = docking_target
@@ -172,12 +187,28 @@
 /datum/orbital_object/shuttle/proc/begin_dethrottle(target_z, crashing = FALSE)
 	//Determine if we are crashing or not
 	is_crashing = crashing
+	is_docking = TRUE
+	if(is_crashing)
+		INVOKE_ASYNC(src, .proc/do_warning)
 	var/datum/space_level/space_level = SSmapping.get_level(target_z)
 	timer_id = addtimer(CALLBACK(src, .proc/unfreeze_shuttle), 3 MINUTES, TIMER_STOPPABLE)
 	RegisterSignal(space_level, COMSIG_SPACE_LEVEL_GENERATED, .proc/unfreeze_shuttle)
 	//Check if its already generated afterwards due to asynchronous behaviours
 	if(!space_level.generating)
 		unfreeze_shuttle(space_level)
+
+// Oh fuck
+/datum/orbital_object/shuttle/proc/do_warning()
+	SEND_SIGNAL(src, COMSIG_ORBITAL_BODY_MESSAGE, "Collision alert, high velocity impact imminent. Abandon ship.")
+	var/obj/docking_port/mobile/mobile_port = SSshuttle.getShuttle(shuttle_port_id)
+	if(!mobile_port)
+		return
+	//Make all the lights go red
+	for (var/area/shuttle_area in mobile_port.shuttle_areas)
+		for(var/obj/machinery/light/light in shuttle_area)
+			light.update(FALSE, TRUE)
+		for(var/obj/machinery/computer/shuttle_flight/shuttle_computer in shuttle_area)
+			shuttle_computer.emergency_alarm?.start()
 
 /datum/orbital_object/shuttle/proc/unfreeze_shuttle(datum/source)
 	var/obj/docking_port/mobile/shuttle_dock = SSshuttle.getShuttle(shuttle_port_id)

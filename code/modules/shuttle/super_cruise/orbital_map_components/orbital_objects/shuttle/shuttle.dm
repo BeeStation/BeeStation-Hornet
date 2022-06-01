@@ -17,6 +17,9 @@
 	//Crashing
 	var/is_crashing = FALSE
 
+	//Once we start docking, we can't release
+	var/is_docking = FALSE
+
 	//Docking
 	var/docking_frozen = FALSE
 	var/datum/orbital_object/z_linked/can_dock_with
@@ -89,6 +92,10 @@
 	if(check_stuck())
 		return
 
+	//Process AI action
+	if(ai_pilot)
+		ai_pilot.handle_ai_action(src)
+
 	if(!QDELETED(docking_target))
 		velocity.x = 0
 		velocity.y = 0
@@ -113,9 +120,6 @@
 		if(shuttle_data.is_stranded())
 			strand_shuttle()
 			return
-	//Process AI action
-	if(ai_pilot)
-		ai_pilot.handle_ai_action(src)
 	//AUTOPILOT
 	handle_autopilot()
 	//Do thrust
@@ -134,14 +138,14 @@
 	if(!docking_target)
 		//Dock with the current location
 		if(can_dock_with)
-			commence_docking(can_dock_with, TRUE)
+			commence_docking(can_dock_with, TRUE, FALSE, TRUE)
 			message_admins("Shuttle [shuttle_port_id] is dropping to a random location at [can_dock_with.name] due to running out of fuel/incorrect engine configuration. (EXPLOSION INCOMMING!!)")
 			explosive_landing = TRUE
 		//Create a new orbital waypoint to drop at
 		else
 			var/datum/orbital_object/z_linked/beacon/ruin/stranded_shuttle/shuttle_location = new(new /datum/orbital_vector(position.x, position.y))
 			shuttle_location.name = "Stranded [name]"
-			commence_docking(shuttle_location, TRUE)
+			commence_docking(shuttle_location, TRUE, FALSE, TRUE)
 	//No more custom docking
 	docking_frozen = TRUE
 	if(!random_drop(docking_target.linked_z_level[1].z_value, explosive_landing))

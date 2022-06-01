@@ -236,16 +236,14 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 		see_stealthed = FALSE,
 		//Our attached orbital object (Overrides stealth)
 		datum/orbital_object/attached_orbital_object = null,
+		//Our attached data
+		datum/shuttle_data/attached_data = null
 	)
 	var/data = list()
 	data["update_index"] = SSorbits.times_fired
 	data["map_objects"] = list()
 	//Locate shuttle data if we have one
-	var/datum/shuttle_data/shuttle_data
-	if(istype(attached_orbital_object, /datum/orbital_object/shuttle))
-		var/datum/orbital_object/shuttle/shuttle = attached_orbital_object
-		shuttle_data = shuttle.shuttle_data
-		data["detection_range"] = shuttle_data?.detection_range
+	data["detection_range"] = attached_data?.detection_range
 	//Fetch the active single instances
 	//Get the objects
 	for(var/datum/orbital_object/object as() in showing_map.get_all_bodies())
@@ -260,7 +258,7 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 		//Check visibility
 		var/distress = object.is_distress()
 		if(attached_orbital_object && !distress)
-			var/max_vis_distance = max(shuttle_data?.detection_range, object.signal_range)
+			var/max_vis_distance = max(attached_data?.detection_range, object.signal_range)
 			//Quick Distance Check
 			if(attached_orbital_object.position.x > object.position.x + max_vis_distance\
 				|| attached_orbital_object.position.x < object.position.x - max_vis_distance\

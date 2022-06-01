@@ -34,6 +34,9 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 	//Our orbital body.
 	var/datum/orbital_object/shuttle/shuttleObject
 
+	//Looping sound
+	var/datum/looping_sound/shuttle_crash/emergency_alarm
+
 /obj/machinery/computer/shuttle_flight/Initialize(mapload, obj/item/circuitboard/C)
 	. = ..()
 	valid_docks = params2list(possible_destinations)
@@ -44,9 +47,12 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 		shuttlePortId = "unlinked_shuttle_console_[i++]"
 	RegisterSignal(SSorbits, COMSIG_ORBITAL_BODY_CREATED, .proc/register_shuttle_object)
 	register_shuttle_object(null, SSorbits.assoc_shuttles[shuttleId])
+	//Setup the looping sound
+	emergency_alarm = new(list(src))
 
 /obj/machinery/computer/shuttle_flight/Destroy()
 	. = ..()
+	QDEL_NULL(emergency_alarm)
 	SSorbits.open_orbital_maps -= SStgui.get_all_open_uis(src)
 	unregister_shuttle_object(shuttleObject, FALSE)
 	UnregisterSignal(SSorbits, COMSIG_ORBITAL_BODY_CREATED)
@@ -72,6 +78,7 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 		return
 	if(shuttle.shuttle_port_id != shuttleId)
 		return
+	emergency_alarm?.stop()
 	shuttleObject = body
 	RegisterSignal(shuttleObject, COMSIG_PARENT_QDELETING, .proc/unregister_shuttle_object)
 	RegisterSignal(shuttleObject, COMSIG_ORBITAL_BODY_MESSAGE, .proc/on_shuttle_messaged)
@@ -125,14 +132,26 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 /obj/machinery/computer/shuttle_flight/ui_data(mob/user)
 	//Fetch data
 	var/user_ref = "[REF(user)]"
+	var/datum/shuttle_data/shuttle_data = SSorbits.get_shuttle_data(shuttleId)
+
+	//If we have no shuttle object, locate the object we are docked at
+	var/datum/orbital_object/map_reference_object = shuttleObject
+	if(!map_reference_object)
+		//Locate the port
+		var/obj/docking_port/mobile/mobile_port = SSshuttle.getShuttle(shuttleId)
+		var/datum/space_level/space_level = SSmapping.get_level(mobile_port.z)
+		map_reference_object = space_level.orbital_body
 
 	//Get the base map data
 	var/list/data = SSorbits.get_orbital_map_base_data(
 		SSorbits.orbital_maps[orbital_map_index],
 		user_ref,
 		FALSE,
-		shuttleObject
+		map_reference_object,
+		shuttle_data
 	)
+
+	data["shuttleName"] = map_reference_object?.name
 
 	//Send shuttle data
 	if(!SSshuttle.getShuttle(shuttleId))
@@ -140,7 +159,6 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 		return data
 
 	//Get shuttle data object
-	var/datum/shuttle_data/shuttle_data = SSorbits.get_shuttle_data(shuttleId)
 	if(length(shuttle_data.registered_engines))
 		data["display_fuel"] = TRUE
 		data["fuel"] = shuttle_data.get_fuel()
@@ -196,6 +214,11 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 	data["shuttleTargetY"] = shuttleObject.shuttleTargetPos?.y
 	data["validDockingPorts"] = list()
 	if(shuttleObject.docking_target && !shuttleObject.docking_frozen)
+		//Undock option
+		data["validDockingPorts"] += list(list(
+			"name" = "Undock",
+			"id" = "undock"
+		))
 		//Stealth shuttles bypass shuttle jamming.
 		if(shuttleObject.docking_target.can_dock_anywhere && (!GLOB.shuttle_docking_jammed || shuttleObject.stealth || !istype(shuttleObject.docking_target, /datum/orbital_object/z_linked/station)))
 			data["validDockingPorts"] += list(list(
@@ -345,16 +368,20 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 			priority_announce("Supercruise interdiction detected, interdicted shuttles have been registered onto local GPS units. Source: [shuttleObject.name]")
 			//Get all shuttle objects in range
 			for(var/datum/orbital_object/shuttle/other_shuttle in interdicted_shuttles)
-				other_shuttle.commence_docking(z_linked, TRUE)
+				other_shuttle.commence_docking(z_linked, TRUE, FALSE, TRUE)
 				other_shuttle.random_drop(z_linked.linked_z_level[1].z_value)
 				SSorbits.interdicted_shuttles[other_shuttle.shuttle_port_id] = world.time + interdiction_time
-			shuttleObject.commence_docking(z_linked, TRUE)
+			shuttleObject.commence_docking(z_linked, TRUE, FALSE, TRUE)
 			shuttleObject.random_drop(z_linked.linked_z_level[1].z_value)
 			SSorbits.interdicted_shuttles[shuttleId] = world.time + interdiction_time
 		//Go to valid port
 		if("gotoPort")
 			if(!shuttleObject)
 				say("Shuttle has already landed, cannot dock at this time.")
+				return
+			//Undock
+			if(params["port"] == "undock")
+				shuttleObject.undock()
 				return
 			//Special check
 			if(params["port"] == "custom_location")

@@ -65,7 +65,7 @@
 		//Check overspeed
 		if(min_collision_velocity && other.velocity.Length() > min_collision_velocity)
 			//You crashed...
-			shuttle.commence_docking(src, TRUE)
+			shuttle.commence_docking(src, TRUE, FALSE, TRUE)
 			var/datum/space_level/picked_level = pick(linked_z_level)
 			//Crashing
 			shuttle.random_drop(picked_level.z_value, TRUE)

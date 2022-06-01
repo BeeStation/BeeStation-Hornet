@@ -30,7 +30,7 @@
 	var/area/shuttle/current_area = get_area(src)
 	if(istype(current_area) && current_area.mobile_port)
 		var/datum/shuttle_data/shuttle_data = SSorbits.get_shuttle_data(current_area.mobile_port.id)
-		shuttle_data.register_thruster(src)
+		shuttle_data?.register_thruster(src)
 
 /obj/machinery/shuttle/engine/proc/consume_fuel(amount)
 	return
@@ -72,6 +72,9 @@
 		return
 	var/datum/gas_mixture/env = heatTurf.return_air()
 	var/heat_cap = env.heat_capacity()
+	//Shuttle is in space
+	if(!heat_cap)
+		return
 	var/req_power = abs(env.return_temperature() - ENGINE_HEAT_TARGET) * heat_cap
 	req_power = min(req_power, ENGINE_HEATING_POWER)
 	var/deltaTemperature = req_power / heat_cap

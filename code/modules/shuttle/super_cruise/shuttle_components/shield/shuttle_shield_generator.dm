@@ -23,7 +23,7 @@
 	var/area/shuttle/current_area = get_area(src)
 	if(istype(current_area) && current_area.mobile_port)
 		var/datum/shuttle_data/shuttle_data = SSorbits.get_shuttle_data(current_area.mobile_port.id)
-		shuttle_data.register_shield_generator(src)
+		shuttle_data?.register_shield_generator(src)
 
 /obj/machinery/power/shuttle_shield_generator/Destroy()
 	//Remove our health from the shuttle object

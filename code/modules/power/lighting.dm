@@ -388,11 +388,11 @@
 	. += mutable_appearance(overlayicon, base_state)
 
 // update the icon_state and luminosity of the light depending on its state
-/obj/machinery/light/proc/update(trigger = TRUE)
+/obj/machinery/light/proc/update(trigger = TRUE, force_emergency = FALSE)
 	switch(status)
 		if(LIGHT_BROKEN,LIGHT_BURNED,LIGHT_EMPTY)
 			on = FALSE
-	emergency_mode = FALSE
+	emergency_mode = force_emergency
 	if(on)
 		var/BR = brightness
 		var/PO = bulb_power
