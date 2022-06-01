@@ -1,0 +1,4 @@
+author: DoctorSquishy
+delete-after: true
+changes:
+  - rscadd: Added a cancel buttons when using radio hotkey
