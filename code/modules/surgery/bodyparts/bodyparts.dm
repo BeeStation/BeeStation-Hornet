@@ -76,7 +76,7 @@
 
 /obj/item/bodypart/Initialize(mapload)
 	..()
-	name = "[parse_zone(body_zone)]"
+	name = "[limb_id] [parse_zone(body_zone)]"
 	if(is_dimorphic)
 		limb_gender = pick("m", "f")
 	update_icon_dropped()
