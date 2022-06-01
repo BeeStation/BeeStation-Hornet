@@ -3606,6 +3606,7 @@
 #include "monkestation\code\datums\traits\negative.dm"
 #include "monkestation\code\datums\traits\neutral.dm"
 #include "monkestation\code\game\area\Space_Station_13_areas.dm"
+#include "monkestation\code\game\machinery\suit_storage_unit.dm"
 #include "monkestation\code\game\machinery\doors\airlock_types.dm"
 #include "monkestation\code\game\mecha\makeshift\lockermech.dm"
 #include "monkestation\code\game\mecha\makeshift\makeshift_tools.dm"
