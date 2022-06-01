@@ -1615,7 +1615,7 @@
 	description = "For those that need a more creative way to roll out a red carpet."
 	reagent_state = LIQUID
 	color = "#C8A5DC"
-	chem_flags = CHEMICAL_GOAL_BARTENDER_SERVING // this is lame one to put random. at least bartender flavor.
+	chem_flags = CHEMICAL_GOAL_BARTENDER_SERVING // this is lame one to put random. at least good as bartender flavor.
 	taste_description = "carpet" // Your tounge feels furry.
 
 /datum/reagent/carpet/reaction_turf(turf/T, reac_volume)
