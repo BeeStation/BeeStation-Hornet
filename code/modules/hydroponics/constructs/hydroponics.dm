@@ -71,8 +71,8 @@
 
 /obj/machinery/hydroponics/constructable/examine(mob/user)
 	. = ..()
-	if(in_range(user, src) || isobserver(user))
-		. += "<span class='notice'>The status display reads: Tray efficiency at <b>[rating*100]%</b>.</span>"
+	if(dont_warn_me && myseed.maturation+myseed.production <= age)
+		. += "<span class='notice'>[myseed.plantname] looks </span>"
 
 
 /obj/machinery/hydroponics/Destroy()
@@ -276,7 +276,8 @@
 
 
 			if(eat)
-				adjustWater(F.water_adjust +rand(-2, 2))
+				eat = rand(-2, 2)
+				adjustWater(F.water_adjust+eat)
 				if(prob(50))
 					adjustHealth(F.wellfed_heal)
 
@@ -328,7 +329,7 @@
 			// Harvest code
 			if(age > myseed.production && (age - lastproduce) > myseed.production && (!harvest && !dead))
 				if(myseed && myseed.yield != -1) // Unharvestable shouldn't be harvested
-					if(plant_health <= 0) // harvest from a badly damaged plant? no, no
+					if(plant_health > 0) // harvest from a badly damaged plant? no, no
 						harvest = 1
 				else
 					lastproduce = age
@@ -455,14 +456,19 @@
 	add_overlay(plant_overlay)
 
 /obj/machinery/hydroponics/proc/update_icon_lights()
+	// Blue
 	if(waterlevel <= 10)
 		add_overlay(mutable_appearance('icons/obj/hydroponics/equipment.dmi', "over_lowwater3"))
+	// Yello
 	if(nutrilevel <= 2)
 		add_overlay(mutable_appearance('icons/obj/hydroponics/equipment.dmi', "over_lownutri3"))
+	// Red
 	if(plant_health <= 0 || age > myseed.lifespan)
 		add_overlay(mutable_appearance('icons/obj/hydroponics/equipment.dmi', "over_lowhealth3"))
+	// Orange Blink
 	if(weedlevel >= 5 || pestlevel >= 5 || toxic >= 40)
 		add_overlay(mutable_appearance('icons/obj/hydroponics/equipment.dmi', "over_alert3"))
+	// Green
 	if(harvest)
 		add_overlay(mutable_appearance('icons/obj/hydroponics/equipment.dmi', "over_harvest3"))
 
@@ -921,15 +927,7 @@
 			if(!user.transferItemToLoc(O, src))
 				return
 			to_chat(user, "<span class='notice'>You plant [O].</span>")
-			dead = 0
-			myseed = O
-			dont_warn_me = FALSE
-			update_name()
-			age = 1
-			lastproduce = 1
-			plant_health = myseed.endurance
-			lastcycle = world.time
-			update_icon()
+			plant_seed(O)
 		else
 			to_chat(user, "<span class='warning'>[src] already has seeds in it!</span>")
 
@@ -999,6 +997,22 @@
 	else
 		return ..()
 
+/obj/machinery/hydroponics/proc/plant_seed(obj/item/seeds/S, var/try_reset=FALSE)
+	dead = 0
+	myseed = S
+	dont_warn_me = FALSE
+	update_name()
+	age = 1
+	lastproduce = 1
+	plant_health = myseed.endurance
+	lastcycle = world.time
+	harvest = 0
+	if(try_reset)
+		weedlevel = 0
+		pestlevel = 0
+	update_icon()
+
+
 /obj/machinery/hydroponics/can_be_unfasten_wrench(mob/user, silent)
 	if (!unwrenchable)  // case also covered by NODECONSTRUCT checks in default_unfasten_wrench
 		return CANT_UNFASTEN
@@ -1032,7 +1046,7 @@
 		if(plant_health >= 0 && age > myseed.lifespan)
 			plantdies()
 	else if(dont_warn_me && myseed.maturation+myseed.production <= age)
-		to_chat(user, "<span class='notice'>You touch [src]. It's eternally blooming...</span>")
+		to_chat(user, "<span class='notice'>You touch [myseed.plantname]. It's eternally blooming...</span>")
 		SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "eternalbloom", /datum/mood_event/eternalbloom, myseed.plantname)
 	else if(dead)
 		to_chat(user, "<span class='notice'>You remove the dead plant from [src].</span>")
@@ -1069,7 +1083,7 @@
 		to_chat(user, "<span class='warning'>You fail to harvest anything useful!</span>")
 	else
 		to_chat(user, "<span class='notice'>You harvest [myseed.getYield()] items from the [myseed.plantname].</span>")
-	if(!myseed.get_gene(/datum/plant_gene/trait/repeated_harvest))
+	if(!myseed.get_gene(/datum/plant_gene/trait/perennial))
 		qdel(myseed)
 		myseed = null
 		update_name()

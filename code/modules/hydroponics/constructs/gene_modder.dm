@@ -1,3 +1,5 @@
+
+
 /obj/machinery/plantgenes
 	name = "plant DNA manipulator"
 	desc = "An advanced device designed to manipulate plant genetic makeup."
@@ -14,6 +16,7 @@
 	var/reag_unit_max
 
 	var/list/core_genes = list()
+	var/list/core_genes_sub = list()
 	var/list/reagent_genes = list()
 	var/list/trait_genes = list()
 	var/family_gene
@@ -21,6 +24,9 @@
 
 	var/datum/plant_gene/target
 	var/operation = null
+
+
+
 	var/max_potency = 50 // See RefreshParts() for how these work
 	var/max_yield = 2
 	var/min_production = 12
@@ -28,7 +34,11 @@
 	var/min_wchance = 67
 	var/min_wrate = 10
 
+
+
 	var/unit_guage = 0.01
+	var/stat_used = 0
+	var/bonus_stat = 0
 
 	var/tgui_view_state = "basic"
 	var/skip_confirmation = FALSE
@@ -46,6 +56,16 @@
 	if(!stored_research)
 		stored_research = SSresearch.science_tech
 	research_faction_type = BOTANY_RESEARCHED_NANOTRASEN
+
+/obj/machinery/plantgenes/Destroy()
+	. = ..()
+
+	core_genes = null
+	core_genes_sub = null
+	reagent_genes = null
+	trait_genes = null
+	mutate_list = null
+
 
 /obj/machinery/plantgenes/RefreshParts() // Comments represent the max you can set per tier, respectively. seeds.dm [219] clamps these for us but we don't want to mislead the viewer.
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)
@@ -133,7 +153,8 @@
 	data["operation_target"] = build_gene(target)
 
 	data["core_genes"] = build_gene_list(core_genes, /datum/plant_gene/core)
-	data["reagent_genes"] = build_gene_list(reagent_genes, /datum/plant_gene/reagent/sandbox)
+	data["core_genes_sub"] = build_gene_list(core_genes_sub, /datum/plant_gene/core)
+	data["reagent_genes"] = build_gene_list(reagent_genes, /datum/plant_gene/reagent)
 	data["trait_genes"] = build_gene_list(trait_genes, /datum/plant_gene/trait)
 	data["family_gene"] = build_gene(family_gene, /datum/plant_gene/family)
 
@@ -143,16 +164,35 @@
 	data["skip_confirmation"] = skip_confirmation
 
 	data["research_datas"] = build_gene_data_list()
-	data["research_valid"] = research_valid
-	// `stored_research.researched_plants` is stored with researched plant list.
+	data["researched_plants"] = build_plant_data_list()
 	data["research_faction_type"] = research_faction_type
+	data["research_valid"] = research_valid
+	data["unit_guage"] = unit_guage
 
 
 /obj/machinery/plantgenes/proc/build_gene_data_list()
-	var/list/L = list()
-	. = L
-	for(var/D in stored_research.researched_genes)
-		L += list(build_gene_data(D, stored_research.researched_genes[D]))
+	var/static/history = 0
+	var/static/list/static_list
+	if(isnull(static_list))
+		static_list = list()
+	. = static_list
+
+	if(length(stored_research.researched_genes) > history)
+		history = length(stored_research.researched_genes)
+		var/list/L = list()
+		for(var/D in stored_research.researched_genes)
+			L += list(build_gene_data(D, stored_research.researched_genes[D]))
+		QDEL_LIST(static_list)
+		static_list = L
+		. = L
+
+		//It should be better to be here because of saving resource
+		//It calculates the bonus stat for gene mod based on the amount of researched plants
+		var/count = 0
+		for(var/plant in L)
+			count += (L["faction"] & research_faction_type) ? 1 : 0
+		bonus_stat = count
+		// every 15 plants researched, you get 1 point.
 
 /obj/machinery/plantgenes/proc/build_gene_data(var/list/DI, var/D)
 	if(!D)
@@ -161,16 +201,32 @@
 	var/list/L = list()
 	. = L
 
-
 	L["id"] = DI //I don't know how to get a key only from `var/D`.
-	L["name"] = initial(D[2].name) //but also, I don't know how to get values from `var/list/DI`
-	L["faction"] = D[1]
-	L["path"] = D[2]
-	L["type"] = D[3]
-	L["level"] = D[4]
+	L["name"] = initial(D["path"].name)
+	L["faction"] = D["faction"]
+	L["category"] = D["category"]
+	L["level"] = D["level"]
 
-	if(D[3] == "reagent")
-		L["max_reagent"] = D[5]
+	if(D["category"] == "reagent")
+		L["max_reagent"] = D["maxvolume"]
+
+
+
+
+/obj/machinery/plantgenes/proc/build_plant_data_list()
+	var/static/history = 0
+	var/static/list/data
+
+	if(isnull(data))
+		data = list()
+	. = data
+	if(length(stored_research.researched_plants) > history)
+		var/list/L = list()
+		history = length(stored_research.researched_plants)
+		for(var/D in stored_research.researched_plants)
+			L += list(stored_research.researched_plants["faction"], stored_research.researched_plants["plant_name"])
+		data = L
+		. = L
 
 
 
@@ -221,8 +277,11 @@
 	if(istype(gene, /datum/plant_gene/core))
 		var/datum/plant_gene/core/core_gene = gene
 		return "core[core_gene.type]"
+	if(istype(gene, /datum/plant_gene/reagent/innate))
+		var/datum/plant_gene/reagent/reagent_gene = gene
+		return "innatereagent[reagent_gene.reagent_id]"
 	if(istype(gene, /datum/plant_gene/reagent/sandbox))
-		var/datum/plant_gene/reagent/sandbox/reagent_gene = gene
+		var/datum/plant_gene/reagent/reagent_gene = gene
 		return "reagent[reagent_gene.reagent_id]"
 	if(istype(gene, /datum/plant_gene/trait))
 		var/datum/plant_gene/trait/trait_gene = gene
@@ -242,21 +301,21 @@
 
 	L["name"] = gene.get_name()
 
-	L["removable"] = gene.mutability_flags & PLANT_GENE_COMMON_REMOVABLE
-	L["adjustable"] = gene.mutability_flags & PLANT_GENE_REAGENT_ADJUSTABLE
+	L["removable"] = gene.plant_gene_flags & PLANT_GENE_COMMON_REMOVABLE
+	L["adjustable"] = gene.plant_gene_flags & PLANT_GENE_REAGENT_ADJUSTABLE
 
 	if(istype(gene, /datum/plant_gene/core))
 		var/datum/plant_gene/core/core_gene = gene
 
-		L["type"] = "core"
+		L["category"] = "core"
 		L["stat"] = core_gene.name
 		L["id"] = get_gene_id(gene)
 		L["value"] = core_gene.value
 
-	if(istype(gene, /datum/plant_gene/reagent/sandbox))
-		var/datum/plant_gene/reagent/sandbox/reagent_gene = gene
+	if(istype(gene, /datum/plant_gene/reagent))
+		var/datum/plant_gene/reagent/reagent_gene = gene
 
-		L["type"] = "reagent"
+		L["category"] = "reagent"
 		L["id"] = get_gene_id(gene)
 		L["reag_unit"] = reagent_gene.reag_unit
 		L["reag_unit_max"] = reagent_gene.reag_unit_max
@@ -264,14 +323,14 @@
 	if(istype(gene, /datum/plant_gene/trait))
 		var/datum/plant_gene/trait/trait_gene = gene
 
-		L["type"] = "trait"
+		L["category"] = "trait"
 		L["id"] = get_gene_id(gene)
 		L["trait_id"] = trait_gene.trait_id
 
 
 	if(istype(gene, /datum/plant_gene/family))
 		var/datum/plant_gene/family/famili_gene = gene // There'a a variable family_gene already.
-		L["type"] = "family"
+		L["category"] = "family"
 		L["family_name"] = famili_gene.fname
 		//L["id"] = get_gene_id(famili_gene) // actually not needed
 		L["desc"] = famili_gene.desc
@@ -319,6 +378,10 @@
 			operation = null
 			target = null
 			action_strong_confirmation = FALSE
+			reagent_id = null
+			reag_unit_max = null
+			newgene = null
+			newseed = null
 			. = TRUE
 			return
 
@@ -339,17 +402,22 @@
 				var/datum/plant_gene/G = find_gene_by_id(params["gene_id"])
 				if(!G)
 					return FALSE
+				if(!G.plant_gene_flags & PLANT_GENE_COMMON_REMOVABLE)
+					return FALSE
 				operation = action
 				target = G
 				. = TRUE
 
 		if("adjust")
 			if(seed)
-				var/datum/plant_gene/reagent/sandbox/G = find_gene_by_id(params["gene_id"])
+				var/datum/plant_gene/reagent/G = find_gene_by_id(params["gene_id"])
 				if(!G)
 					return FALSE
-				reag_target_value = clamp(params["value"], unit_guage, G.reag_unit_max) //save value
-				if(reag_target_value % unit_guage != 0) //server side cheat check
+				if(!G.plant_gene_flags & PLANT_GENE_REAGENT_ADJUSTABLE)
+					return FALSE
+				reag_unit_max = G.reag_unit > G.reag_unit_max ? G.reag_unit : G.reag_unit_max
+				reag_target_value = clamp(params["value"], unit_guage, reag_unit_max) //save value
+				if(((reag_target_value*100)%(unit_guage*100))!=0) //server side cheat check
 					return FALSE
 
 				//adjust doesn't need confirmation unless it's revertable
@@ -382,21 +450,18 @@
 			if(seed)
 				if(!params["data_id"])
 					return
-				for(var/each in stored_research.researched_genes)
-					if(each == params["data_id"] && (research_faction_type & stored_research.researched_genes[each][1]))
-						var/gene_type = stored_research.researched_genes[each][3]
-						switch(gene_type)
-							if("reagent")
-								reagent_id = stored_research.researched_genes[each][2]
-								reag_unit_max = stored_research.researched_genes[each][5]
-								newgene = /datum/plant_gene/reagent/sandbox
-							if("trait")
-								newgene = stored_research.researched_genes[each][2]
-							if("family")
-								newgene = stored_research.researched_genes[each][2]
-						break
+				newgene = stored_research.researched_genes[params["data_id"]]
+				if(!newgene)
+					return
+				if(newgene["faction"] & research_faction_type)
+					switch(newgene["category"])
+						if("reagent")
+							reagent_id = newgene["path"]
+							reag_unit_max = newgene["maxvolume"]
+							newgene = /datum/plant_gene/reagent/sandbox
+						if("trait")
+							newgene = newgene["path"]
 				operation = action
-				target = null
 				. = TRUE
 
 		if("confirm")
@@ -433,28 +498,27 @@
 						seed.genes -= G
 						if(istype(G, /datum/plant_gene/trait))
 							G.on_removal(seed)
-						qdel(G)
+						if(G.get_plant_gene_flags() & PLANT_GENE_QDEL_TARGET)
+							qdel(G)
 					repaint_seed()
 
 			if("insert")
 				if((ispath(newgene, /datum/plant_gene/trait) || ispath(newgene, /datum/plant_gene/reagent/sandbox)))
 					if(ispath(newgene, /datum/plant_gene/reagent/sandbox))
 						newgene = new newgene(reagent_id, list(reag_unit_max, reag_unit_max))
-						reagent_id = null
-						reag_unit_max = list(0, 0)
 					if(ispath(newgene, /datum/plant_gene/trait))
-						newgene = new newgene
+						newgene = seed.get_trait_gene_from_static(newgene)
 					if(newgene.can_add(seed))
 						seed.genes += newgene
 						newgene.on_new_seed(seed)
 					else
-						qdel(newgene)
+						if(newgene.get_plant_gene_flags() & PLANT_GENE_QDEL_TARGET)
+							qdel(newgene)
 					repaint_seed()
-				newgene = null
 
 			if("adjust")
-				var/datum/plant_gene/reagent/sandbox/G = target
-				if(istype(G, /datum/plant_gene/reagent/sandbox))
+				var/datum/plant_gene/reagent/G = target
+				if(istype(G, /datum/plant_gene/reagent))
 					G.reag_unit = reag_target_value
 					repaint_seed()
 
@@ -464,19 +528,19 @@
 					if(ispath(newseed, /obj/item/seeds/random))
 						newseed = new newseed
 						var/obj/item/seeds/random/newseed_s = newseed
-						newseed_s.set_random(text2num(seed.research_identifier)) // Strange seed will have their own cycle
+						newseed_s.set_new_seed(seed.research_identifier) // Strange seed will have their own cycle
 					else
 						newseed = new newseed
-					// proper deletion
-					seed.forceMove(drop_location())
 					qdel(seed)
 					seed = null
-					// insert new seed
 					insert_seed(newseed)
-					newseed = null
 
+		newseed = null
 		operation = null
 		target = null
+		reagent_id = null
+		reag_unit_max = null
+		newgene = null
 		action_strong_confirmation = FALSE
 		. = TRUE
 
@@ -511,7 +575,7 @@
 
 /obj/machinery/plantgenes/proc/research_valid_check()
 	// Check if the seed is researched or you can't manipulate this seed
-
+	research_valid = TRUE
 	if(seed)
 		research_valid = researched_plant_check(seed, stored_research.researched_plants)
 
@@ -521,11 +585,12 @@
 		return
 
 	if(S.research_identifier in plantdata)
-		if(plantdata[S.research_identifier] & research_faction_type)
+		if(plantdata[S.research_identifier]["faction"] & research_faction_type)
 			return TRUE
 
 /obj/machinery/plantgenes/proc/update_genes()
 	core_genes = list()
+	core_genes_sub = list()
 	reagent_genes = list()
 	trait_genes = list()
 	family_gene = null
@@ -539,12 +604,26 @@
 			/datum/plant_gene/core/endurance,
 			/datum/plant_gene/core/lifespan,
 			/datum/plant_gene/core/weed_rate,
-			/datum/plant_gene/core/weed_chance //$$$작업필요
+			/datum/plant_gene/core/weed_chance
 			)
 		for(var/a in gene_paths)
-			core_genes += seed.get_gene(a)
+			var/datum/plant_gene/temp = seed.get_gene(a)
+			if(!isnull(temp))
+				core_genes += temp
 
-		for(var/datum/plant_gene/reagent/sandbox/G in seed.genes)
+		gene_paths = list(
+			/datum/plant_gene/core/volume_mod,
+			/datum/plant_gene/core/bitesize_mod,
+			/datum/plant_gene/core/bite_type,
+			/datum/plant_gene/core/distill_reagent,
+			/datum/plant_gene/core/wine_power,
+			/datum/plant_gene/core/rarity)
+		for(var/a in gene_paths)
+			var/datum/plant_gene/temp = seed.get_gene(a)
+			if(!isnull(temp))
+				core_genes_sub += temp
+
+		for(var/datum/plant_gene/reagent/G in seed.genes)
 			reagent_genes += G
 
 		for(var/datum/plant_gene/trait/G in seed.genes)

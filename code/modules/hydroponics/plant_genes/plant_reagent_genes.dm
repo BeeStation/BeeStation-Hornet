@@ -5,18 +5,7 @@
 	var/reagent_id = /datum/reagent/consumable/nutriment
 	var/reag_unit = 4
 	var/reag_unit_max = 4
-	mutability_flags = PLANT_GENE_COMMON_REMOVABLE | PLANT_GENE_REAGENT_ADJUSTABLE
-
-/datum/plant_gene/reagent/get_name()
-	var/formatted_name
-	if(!(mutability_flags & PLANT_GENE_REAGENT_ADJUSTABLE) && !(mutability_flags & PLANT_GENE_COMMON_REMOVABLE))
-		formatted_name = "Stubborn: "
-	else if(!mutability_flags & PLANT_GENE_REAGENT_ADJUSTABLE)
-		formatted_name = "Flexible: "
-	else if(!mutability_flags & PLANT_GENE_COMMON_REMOVABLE)
-		formatted_name = "Essential: "
-	formatted_name += name
-	return formatted_name
+	plant_gene_flags = PLANT_GENE_COMMON_REMOVABLE | PLANT_GENE_REAGENT_ADJUSTABLE | PLANT_GENE_QDEL_TARGET
 
 /datum/plant_gene/reagent/proc/set_reagent(reag_id)
 	reagent_id = reag_id
@@ -43,7 +32,6 @@
 	G.reagent_id = reagent_id
 	G.reag_unit = reag_unit
 	G.reag_unit_max = reag_unit_max
-	G.mutability_flags = mutability_flags
 	return G
 
 /datum/plant_gene/reagent/can_add(obj/item/seeds/S)
@@ -56,12 +44,12 @@
 
 // basic reagent genes we play
 /datum/plant_gene/reagent/sandbox
-	mutability_flags = PLANT_GENE_COMMON_REMOVABLE | PLANT_GENE_REAGENT_ADJUSTABLE
+	plant_gene_flags = PLANT_GENE_COMMON_REMOVABLE | PLANT_GENE_REAGENT_ADJUSTABLE | PLANT_GENE_QDEL_TARGET
 
 /datum/plant_gene/reagent/sandbox/can_add(obj/item/seeds/S)
 	if(!..())
 		return FALSE
-	for(var/datum/plant_gene/reagent/R in S.genes)
+	for(var/datum/plant_gene/reagent/sandbox/R in S.genes)
 		if(!istype(R, /datum/plant_gene/reagent/sandbox))
 			continue
 		if(R.reagent_id == reagent_id)
@@ -71,9 +59,9 @@
 // special reagent genes which is restricted to play
 // This is needed to stack with the same reagent togather
 // i.e.) Nutriment 2u from innate, Nutriment 4u from sandbox = 6u nutriment
-// 		 innate nutriment 2u is not changable, but 4u can be removed.
+// 		 innate nutriment 2u is not changable, but sandbox nutriment 4u can be removed.
 /datum/plant_gene/reagent/innate
-	mutability_flags = NONE
+	plant_gene_flags = PLANT_GENE_QDEL_TARGET
 
 /datum/plant_gene/reagent/innate/New(reag_id = null, reag_pair = list(0, 0, NONE))
 	if(isnull(reag_id))
@@ -86,5 +74,5 @@
 		reag_unit_max = reag_pair[2]
 
 	if(reag_pair[3])
-		mutability_flags = reag_pair[3]
+		plant_gene_flags |= reag_pair[3]
 

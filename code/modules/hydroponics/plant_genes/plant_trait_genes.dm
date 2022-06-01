@@ -3,9 +3,9 @@
 /datum/plant_gene/trait
 	var/rate = 0.05
 	var/examine_line = ""
-	var/randomness_flags = NONE  //used to check random resistrction or aviliability
 	var/trait_id // must be set and equal for any two traits of the same type
 	var/on_grow_chance // used in on_grow proc
+	plant_gene_flags = NONE
 
 /datum/plant_gene/proc/Initialize(mapload)
 	if(plusdesc)
@@ -16,6 +16,9 @@
 /datum/plant_gene/trait/Copy()
 	var/datum/plant_gene/trait/G = ..()
 	G.rate = rate
+	G.examine_line = examine_line
+	G.trait_id = trait_id
+	G.on_grow_chance = on_grow_chance
 	return G
 
 /datum/plant_gene/trait/can_add(obj/item/seeds/S)

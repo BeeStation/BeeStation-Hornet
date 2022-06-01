@@ -244,7 +244,7 @@
 /obj/item/seeds/chanterelle/jupitercup/Initialize(mapload,nogenes)
 	. = ..()
 	if(!nogenes)
-		unset_mutability(/datum/plant_gene/family/carnivory, PLANT_GENE_COMMON_REMOVABLE)
+		unset_plant_gene_flags(/datum/plant_gene/family/carnivory, PLANT_GENE_COMMON_REMOVABLE)
 
 /obj/item/reagent_containers/food/snacks/grown/mushroom/jupitercup
 	seed = /obj/item/seeds/chanterelle/jupitercup

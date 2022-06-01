@@ -26,7 +26,7 @@
 	if(extractor)
 		seedloc = extractor.loc
 
-	if(istype(O, /obj/item/reagent_containers/food/snacks/grown/))
+	if(istype(O, /obj/item/reagent_containers/food/snacks/grown))
 		var/obj/item/reagent_containers/food/snacks/grown/F = O
 		if(F.seed)
 			if(user && !user.temporarilyRemoveItemFromInventory(O)) //couldn't drop the item
@@ -151,7 +151,7 @@
 		var/mob/M = O.loc
 		if(!M.transferItemToLoc(O, src))
 			return FALSE
-		
+
 	var/seed_string = generate_seed_string(O)
 	if(piles[seed_string])
 		piles[seed_string] += WEAKREF(O)

@@ -5,8 +5,9 @@
 	name = "Normal"
 	var/fname = "Normal"
 	desc = "Nothing special"
+	plant_gene_flags = NONE
 	var/family_flags = NONE
-	var/research_identifier
+	var/research_identifier = "normal"
 	research_needed = 3
 
 	//family system values
@@ -39,9 +40,6 @@
 
 	//var/nutri_need_threshold = 10   // It's not needed
 	var/water_need_threshold = 10    // default, disabled with PLANT_FAMILY_WATERFREE
-
-
-	var/flags = NONE
 
 
 /datum/plant_gene/family/proc/set_desc()
@@ -121,11 +119,14 @@
 
 	return
 
+/datum/plant_gene/family/proc/getfamilyflags()
+	return family_flags
 
 /datum/plant_gene/family/weed_hardy
 	name = "Weed Adaptation"
 	fname = "Weed"
 	desc = "Adaptabiltiy of weed"
+	research_identifier = "weed"
 	research_needed = 3
 	family_flags = PLANT_FAMILY_WEEDIMMUNE | PLANT_FAMILY_NUTRIFREE | PLANT_FAMILY_WEEDINVASIONIMMUNE
 
@@ -133,6 +134,7 @@
 	name = "Fungal Vitality"
 	fname = "Mushroom"
 	desc = "Vitality of fungi"
+	research_identifier = "fungi"
 	research_needed = 3
 	family_flags = PLANT_FAMILY_WEEDIMMUNE | PLANT_FAMILY_WATERFREE | PLANT_FAMILY_LIGHTFREE | PLANT_FAMILY_WEEDINVASIONIMMUNE
 
@@ -140,6 +142,7 @@
 	name = "Obligate Carnivory"
 	fname = "Carnivoras"
 	desc = "Carnivore of plants"
+	research_identifier = "carnivores"
 	research_needed = 3
 	family_flags = PLANT_FAMILY_PESTIMMUNE | PLANT_FAMILY_NEEDPEST | PLANT_FAMILY_HEALFROMPEST
 
@@ -147,12 +150,16 @@
 	name = "Unidentified"
 	fname = "???"
 	desc = "very randomised"
+	research_identifier = "veryrandom"
 	research_needed = 1
+	plant_gene_flags = PLANT_GENE_QDEL_TARGET
+
+/datum/plant_gene/family/alien_properties/proc/set_random()
+	family_flags |= 1
 
 /datum/plant_gene/family/Copy()
 	var/datum/plant_gene/family/G = ..()
-	G.name = name
-	G.desc = desc
-	G.research_needed = research_needed
+	G.fname = fname
+	G.family_flags = family_flags
 	G.research_identifier = research_identifier
 	return G

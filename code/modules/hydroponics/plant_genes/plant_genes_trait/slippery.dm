@@ -3,12 +3,12 @@
 	// Applies other trait effects (teleporting, etc) to the target by on_slip.
 	name = "Slippery Skin"
 	desc = "This makes your plants slippery. Be careful of stepping on them!"
-	randomness_flags = BOTANY_RANDOM_COMMON
+	plant_gene_flags = PLANT_GENE_COMMON_REMOVABLE | PLANT_GENE_RANDOM_ALLOWED
 	rate = 1.6
 	examine_line = "<span class='info'>It has a very slippery skin.</span>"
 	research_needed = 3
 
-/datum/plant_gene/trait/slip/on_new(obj/item/reagent_containers/food/snacks/grown/G, newloc)
+/datum/plant_gene/trait/slip/on_new_plant(obj/item/reagent_containers/food/snacks/grown/G, newloc)
 	..()
 	if(istype(G) && ispath(G.trash, /obj/item/grown))
 		return

@@ -180,9 +180,10 @@
 	var/growth = health //Health also means how many bees are in the swarm, roughly.
 	//better healthier plants!
 	Hydro.adjustHealth(growth*0.5)
-	var/datum/plant_gene/family/F = Hydro.family
+	var/obj/item/seeds/S = Hydro.myseed
+	var/datum/plant_gene/family/F = S.family
 	if(prob(BEE_POLLINATE_PEST_CHANCE))
-		if((F.family_flags & PLANT_FAMILY_NEEDPEST) || (F.family_flag & PLANT_FAMILY_HEALFROMPEST))
+		if((F.family_flags & PLANT_FAMILY_NEEDPEST) || (F.family_flags & PLANT_FAMILY_HEALFROMPEST))
 			growth = round(growth/1.5, 0.5)
 			health = round(health/1.5, 0.5)
 			// It's carnivory. It's even bad to bees.
@@ -192,7 +193,7 @@
 	if(prob(BEE_POLLINATE_YIELD_CHANCE))
 		Hydro.yieldmod = 1.3
 	if(prob(BEE_POLLINATE_CYCLE_CHANCE))
-		Hydro.cycledelay *= 90%
+		Hydro.cycledelay *= 0.9
 
 	if(beehome)
 		beehome.bee_resources = min(beehome.bee_resources + growth, 100)

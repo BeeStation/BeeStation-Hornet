@@ -12,7 +12,7 @@
 	growing_icon = 'icons/obj/hydroponics/growing_fruits.dmi'
 	icon_grow = "pumpkin-grow"
 	icon_dead = "pumpkin-dead"
-	genes = list(/datum/plant_gene/trait/repeated_harvest)
+	genes = list(/datum/plant_gene/trait/perennial)
 	mutatelist = list(/obj/item/seeds/pumpkin/blumpkin)
 	reagents_set = list(
 		/datum/reagent/consumable/nutriment = list(15, 20),

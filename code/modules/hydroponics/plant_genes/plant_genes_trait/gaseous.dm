@@ -1,7 +1,7 @@
 /datum/plant_gene/trait/smoke
 	name = "Gaseous Decomposition"
 	desc = "This makes your plants spewing gas of its contents when they're squashed through Liquid Contents trait."
-	randomness_flags = BOTANY_RANDOM_COMMON
+	plant_gene_flags = PLANT_GENE_COMMON_REMOVABLE | PLANT_GENE_RANDOM_ALLOWED
 	research_needed = 1
 
 /datum/plant_gene/trait/smoke/on_squash(obj/item/reagent_containers/food/snacks/grown/G, atom/target)

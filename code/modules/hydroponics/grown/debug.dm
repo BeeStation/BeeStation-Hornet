@@ -11,6 +11,8 @@
 	potency = 100
 	yield = 10
 	growthstages = 4
+	wine_power = 20
+	bitesize_mod = 2
 	growing_icon = 'icons/obj/hydroponics/growing_vegetables.dmi'
 	icon_grow = "soybean-grow"
 	icon_dead = "soybean-dead"
@@ -27,11 +29,9 @@
 	gender = PLURAL
 	icon_state = "soybeans"
 	filling_color = "#F0E68C"
-	bitesize_mod = 2
 	foodtype = VEGETABLES
 	grind_results = list(/datum/reagent/consumable/soymilk = 0)
 	tastes = list("soy" = 1)
-	wine_power = 20
 	roundstart = 0
 
 

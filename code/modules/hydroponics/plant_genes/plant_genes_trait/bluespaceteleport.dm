@@ -4,7 +4,7 @@
 	name = "Bluespace Activity"
 	desc = "This makes your plants allow teleporting your victim."
 	plusdesc = "NOTICE: This needs Liquid Contents trait or Slippery skin trait."
-	randomness_flags = BOTANY_RANDOM_COMMON
+	plant_gene_flags = PLANT_GENE_COMMON_REMOVABLE | PLANT_GENE_RANDOM_ALLOWED
 	rate = 0.1
 	research_needed = 2
 
@@ -33,3 +33,8 @@
 	else
 		new /obj/effect/decal/cleanable/molten_object(T) //Leave a pile of goo behind for dramatic effect...
 		qdel(G)
+
+/*
+/datum/plant_gene/trait/teleport/proc/give_trait(mob/living/carbon/C)
+	SEND_SIGNAL(C, COMSIG_ADD_MOOD_EVENT, "depression", /datum/mood_event/depression)
+		SEND_SIGNAL(quirk_holder, COMSIG_ADD_MOOD_EVENT, "depression", /datum/mood_event/depression)*/

@@ -10,7 +10,7 @@
 	endurance = 40
 	growing_icon = 'icons/obj/hydroponics/growing_fruits.dmi'
 	icon_dead = "watermelon-dead"
-	genes = list(/datum/plant_gene/trait/repeated_harvest)
+	genes = list(/datum/plant_gene/trait/perennial)
 	mutatelist = list(/obj/item/seeds/watermelon/holy)
 	reagents_set = list(
 		/datum/reagent/consumable/nutriment = list(15, 20),

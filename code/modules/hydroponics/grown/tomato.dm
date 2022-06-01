@@ -10,7 +10,7 @@
 	growing_icon = 'icons/obj/hydroponics/growing_fruits.dmi'
 	icon_grow = "tomato-grow"
 	icon_dead = "tomato-dead"
-	genes = list(/datum/plant_gene/trait/squash, /datum/plant_gene/trait/repeated_harvest)
+	genes = list(/datum/plant_gene/trait/squash, /datum/plant_gene/trait/perennial)
 	reagents_set = list(
 		/datum/reagent/consumable/nutriment = list(6, 12),
 		/datum/reagent/consumable/nutriment/vitamin = list(2, 6))
@@ -71,7 +71,7 @@
 	product = /obj/item/reagent_containers/food/snacks/grown/tomato/blue
 	yield = 2
 	icon_grow = "bluetomato-grow"
-	genes = list(/datum/plant_gene/trait/slip, /datum/plant_gene/trait/repeated_harvest)
+	genes = list(/datum/plant_gene/trait/slip, /datum/plant_gene/trait/perennial)
 	reagents_set = list(
 		/datum/reagent/consumable/nutriment = list(8, 12),
 		/datum/reagent/consumable/nutriment/vitamin = list(2, 6),
@@ -98,7 +98,7 @@
 	plantname = "Bluespace Tomato Plants"
 	product = /obj/item/reagent_containers/food/snacks/grown/tomato/blue/bluespace
 	yield = 2
-	genes = list(/datum/plant_gene/trait/squash, /datum/plant_gene/trait/slip, /datum/plant_gene/trait/teleport, /datum/plant_gene/trait/repeated_harvest)
+	genes = list(/datum/plant_gene/trait/squash, /datum/plant_gene/trait/slip, /datum/plant_gene/trait/teleport, /datum/plant_gene/trait/perennial)
 	reagents_set = list(
 		/datum/reagent/consumable/nutriment = list(8, 12),
 		/datum/reagent/consumable/nutriment/vitamin = list(2, 6),

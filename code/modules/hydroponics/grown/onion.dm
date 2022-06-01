@@ -62,6 +62,7 @@
 	if(..())
 		S.start()
 		return TRUE
+	qdel(src)
 	qdel(S)
 
 /obj/item/reagent_containers/food/snacks/onion_slice

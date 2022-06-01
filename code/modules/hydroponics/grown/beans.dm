@@ -2,19 +2,23 @@
 /obj/item/seeds/soya
 	name = "pack of soybean seeds"
 	desc = "These seeds grow into soybean plants."
-	icon_state = "seed-soybean"
-	species = "soybean"
 	plantname = "Soybean Plants"
-	product = /obj/item/reagent_containers/food/snacks/grown/soybeans
-	maturation = 4
-	production = 4
-	potency = 15
-	growthstages = 4
+	species = "soybean"
 	growing_icon = 'icons/obj/hydroponics/growing_vegetables.dmi'
+	icon_state = "seed-soybean"
 	icon_grow = "soybean-grow"
 	icon_dead = "soybean-dead"
-	genes = list(/datum/plant_gene/trait/repeated_harvest)
+	growthstages = 4
+	product = /obj/item/reagent_containers/food/snacks/grown/soybeans
+
+	potency = 15
+	maturation = 4
+	production = 4
+	bitesize_mod = 2
+	bite_type = PLANT_BITE_TYPE_CONST
+
 	mutatelist = list(/obj/item/seeds/soya/koi)
+	genes = list(/datum/plant_gene/trait/perennial)
 	reagents_set = list(
 		/datum/reagent/consumable/nutriment = list(5, 10),
 		/datum/reagent/consumable/nutriment/vitamin = list(4, 8))
@@ -26,7 +30,6 @@
 	gender = PLURAL
 	icon_state = "soybeans"
 	filling_color = "#F0E68C"
-	bitesize_mod = 2
 	foodtype = VEGETABLES
 	grind_results = list(/datum/reagent/consumable/soymilk = 0)
 	tastes = list("soy" = 1)

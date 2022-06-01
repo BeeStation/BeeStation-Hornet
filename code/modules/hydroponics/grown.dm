@@ -20,7 +20,7 @@
 	// -----
 	// Plant stats from seed - Check the detail in the seeds code
 	var/bitesize_mod = 5
-	var/bite_type = PLANT_BITE_TYPE_CONST
+	var/bite_type = PLANT_BITE_TYPE_DYNAM
 	var/can_distill = TRUE
 	var/distill_reagent
 	var/wine_power = 10
@@ -30,6 +30,7 @@
 	var/roundstart = 0           //roundstart crops are not researchable. Grown crops will become 0, so that you can scan them.
 	var/discovery_points = 200   //Amount of discovery points given for scanning
 	var/research_identifier      //used to check if a plant was researched. strange seed needs customised identifier.
+	var/eat_delay = 30 // used for patch trait
 
 /obj/item/reagent_containers/food/snacks/grown/Initialize(mapload, obj/item/seeds/new_seed)
 	. = ..()
@@ -41,7 +42,6 @@
 	else if(ispath(seed))
 		// This is for adminspawn or map-placed growns. They get the default stats of their seed type.
 		seed = new seed()
-		seed.adjust_potency(50-seed.potency)
 
 	pixel_x = rand(-5, 5)
 	pixel_y = rand(-5, 5)
@@ -51,8 +51,7 @@
 
 	if(seed)
 		for(var/datum/plant_gene/T in seed.genes)
-			T.on_new_seed(seed, loc)
-			T.on_new_plant(src, loc)
+			T.on_new_plant(src, loc) // apply seed genes on this crop
 		can_distill = seed.can_distill
 		seed.prepare_result(src)
 		transform *= TRANSFORM_USING_VARIABLE(seed.potency/1.33+25, 100) + 0.5 //Makes the resulting produce's sprite larger or smaller based on potency!
@@ -64,23 +63,25 @@
 	if(!isnull(seed))
 		research_identifier = seed.research_identifier
 
-
+/obj/item/reagent_containers/food/snacks/grown/Destroy()
+	if(seed)
+		qdel(seed)
+		seed = null
+	return ..()
 
 /obj/item/reagent_containers/food/snacks/grown/proc/add_juice()
 	if(reagents && bitesize_mod > 0)
 		switch(bite_type)
-			if(PLANT_BITE_TYPE_CONST)
-				var/calcuation = reagents.total_volume / bitesize_mod % 1
-				bitesize = reagents.total_volume / bitesize_mod - calcuation
+			if(PLANT_BITE_TYPE_DYNAM)
+				var/calcuation = reagents.total_volume % bitesize_mod
+				bitesize = (reagents.total_volume-calcuation) / bitesize_mod
 				// This makes 5~5.999 bites to 5 bites
-			if(PLANT_BITE_TYPE_RATIO)
-				var/calcuation = 1 / bitesize_mod * 100 % 1
-				bitesize = round(1 / bitesize_mod * 100 - calcuation)
-				// 51~100% = 1 bites, 34~50% = 2 bites
+			if(PLANT_BITE_TYPE_CONST)
+				bitesize = round(bitesize_mod)
+				// Always the constant value
 			if(PLANT_BITE_TYPE_PATCH)
 				bitesize = 1
-				if(reagents.total_volume>30)
-					eat_delay += (reagents.total_volume-30)/2
+				eat_delay += reagents.total_volume/2
 		if(bitesize<0)
 			bitesize = 1
 		return 1
@@ -93,57 +94,113 @@
 			if(T.examine_line)
 				. += T.examine_line
 
-/obj/item/reagent_containers/food/snacks/grown/attack_self(mob/user)
+
+// ----------grown plant behaves---------
+// Squash
+/obj/item/reagent_containers/food/snacks/grown/proc/squash(atom/target)
+	var/turf/T = get_turf(target)
+	forceMove(T)
+	if(ispath(splat_type, /obj/effect/decal/cleanable/food/plant_smudge))
+		if(filling_color)
+			var/obj/O = new splat_type(T)
+			O.color = filling_color
+			O.name = "[name] smudge"
+	else if(splat_type)
+		new splat_type(T)
+
+	if(trash)
+		generate_trash(T)
+
+	visible_message("<span class='warning'>[src] has been squashed.</span>","<span class='italics'>You hear a smack.</span>")
 	if(seed)
-		if(user.a_intent == INTENT_HARM)
+		for(var/datum/plant_gene/trait/trait in seed.genes)
+			trait.on_squash(src, target)
+
+	if(seed.get_gene(/datum/plant_gene/trait/noreact))
+		visible_message("<span class='warning'>[src] crumples, and bubbles ominously as its contents mix.</span>")
+		addtimer(CALLBACK(src, .proc/squashreact), 20)
+	else
+		reagents.reaction(T)
+		for(var/A in T)
+			reagents.reaction(A)
+		qdel(src)
+
+/obj/item/reagent_containers/food/snacks/grown/proc/squashreact()
+	for(var/datum/plant_gene/trait/trait in seed.genes)
+		trait.on_squashreact(src)
+	qdel(src)
+
+/obj/item/reagent_containers/food/snacks/grown/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
+	if(!..()) //was it caught by a mob?
+		if(seed)
 			for(var/datum/plant_gene/trait/T in seed.genes)
-				T.attack(user)
+				T.on_throw_impact(src, hit_atom)
+			if(seed.get_gene(/datum/plant_gene/trait/squash))
+				squash(hit_atom)
+
+// attack
+/obj/item/reagent_containers/food/snacks/grown/attack_self(mob/user)
+	if(user.a_intent == INTENT_HARM)
+		if(seed && iscarbon(user))
+			for(var/datum/plant_gene/trait/T in seed.genes)
+				T.on_attack(user)
+	..()
 
 /obj/item/reagent_containers/food/snacks/grown/attack(mob/M, mob/user, def_zone)
 	if(!seed)
-		..()
+		. = ..()
 	else
 		if(user.a_intent == INTENT_HARM)
 			. = ..()
 			for(var/datum/plant_gene/trait/T in seed.genes)
-				T.attack(M)
+				T.on_attack(M) // proc plant efects
 		else
-			if(ishuman(M) && apply_type == PATCH) // Patch type application
-				var/mob/living/L = M
-				var/obj/item/bodypart/affecting = L.get_bodypart(check_zone(user.zone_selected))
+			if(iscarbon(M) && apply_type == PATCH && seed.get_gene(/datum/plant_gene/trait/squash)) // Patch type application
+
+				// duplication code from Patch.dm
+				var/mob/living/carbon/C = M
+				var/obj/item/bodypart/affecting = C.get_bodypart(check_zone(user.zone_selected))
 				if(!affecting)
 					balloon_alert(user, "The limb is missing.")
 					return
 				if(!IS_ORGANIC_LIMB(affecting))
 					balloon_alert(user, "[src] doesn't work on robotic limbs.")
 					return
-				if(!canconsume(M, user))
-					return FALSE
-				if(iscarbon(M))
-					var/mob/living/carbon/C = M
-					if(/datum/surgery/dental_implant in C.surgeries)
-						return
+
+				// and this is from Pill.dm
 				if(M == user)
 					M.visible_message("<span class='notice'>[user] attempts to [eatverb] [src].</span>")
 					if(eat_delay)
 						if(!do_mob(user, M, eat_delay))
-							return FALSE
+							visible_message(M, "<span class='notice'>[user] is interrupted to [eatverb] [src]!</span>")
+							if(prob(50))
+								squash(loc)
+							else
+								squash(user)
+							return
 					to_chat(M, "<span class='notice'>You [eatverb] [src].</span>")
-
 				else
 					M.visible_message("<span class='danger'>[user] attempts to force [M] to [eatverb] [src].</span>", \
 										"<span class='userdanger'>[user] attempts to force you to [eatverb] [src].</span>")
-					if(!do_mob(user, M))
-						return FALSE
+					if(!do_mob(user, M, eat_delay))
+						to_chat(M, "<span class='notice'>You are interrupted to [eatverb] [src]!</span>")
+						if(prob(50))
+							squash(loc)
+						else if(prob(50))
+							squash(user)
+						else
+							squash(M)
+						return
 					M.visible_message("<span class='danger'>[user] forces [M] to [eatverb] [src].</span>", \
 										"<span class='userdanger'>[user] forces you to [eatverb] [src].</span>")
 
 				if(reagents)
-					injest()
+					act_eat(M, user)
 
 				return
 			. = ..()
-
+	if(!. && !reagents.total_volume)
+		qdel(src)
 
 /obj/item/reagent_containers/food/snacks/grown/attackby(obj/item/O, mob/user, params)
 	..()
@@ -153,11 +210,9 @@
 			msg += seed.get_analyzer_text()
 		var/reag_txt = ""
 		if(seed)
-			for(var/reagent_id in seed.reagents_set) //$$$need to change - check health analyzer
-				var/datum/reagent/R  = GLOB.chemical_reagents_list[reagent_id]
-				var/amt = reagents.get_reagent_amount(reagent_id)
-				reag_txt += "\n<span class='info'>- [R.name]: [amt]</span>"
-
+			if(length(reagents.reagent_list))
+				for(var/datum/reagent/R in reagents.reagent_list)
+					reag_txt += "\n<span class='info'>- [R.name]: [R.volume] units</span>"
 		if(reag_txt)
 			msg += reag_txt
 			msg += "<br><span class='info'>*---------*</span>"
@@ -167,6 +222,11 @@
 			for(var/datum/plant_gene/trait/T in seed.genes)
 				T.on_attackby(src, O, user)
 
+
+/obj/item/reagent_containers/pill/patch/canconsume(mob/eater, mob/user)
+	if(!iscarbon(eater))
+		return 0
+	return 1
 
 // Various gene procs
 /obj/item/reagent_containers/food/snacks/grown/On_Consume()

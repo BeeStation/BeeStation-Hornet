@@ -14,7 +14,7 @@
 	growing_icon = 'icons/obj/hydroponics/growing_fruits.dmi'
 	icon_grow = "cocoapod-grow"
 	icon_dead = "cocoapod-dead"
-	genes = list(/datum/plant_gene/trait/repeated_harvest)
+	genes = list(/datum/plant_gene/trait/perennial)
 	mutatelist = list(/obj/item/seeds/cocoapod/vanillapod, /obj/item/seeds/cocoapod/bungotree)
 	reagents_set = list(
 		/datum/reagent/consumable/nutriment = list(10, 12),
@@ -40,7 +40,7 @@
 	species = "vanillapod"
 	plantname = "Vanilla Tree"
 	product = /obj/item/reagent_containers/food/snacks/grown/vanillapod
-	genes = list(/datum/plant_gene/trait/repeated_harvest)
+	genes = list(/datum/plant_gene/trait/perennial)
 	mutatelist = list(/obj/item/seeds/cocoapod)
 	reagents_set = list(
 		/datum/reagent/consumable/nutriment = list(10, 12),
@@ -69,7 +69,7 @@
 	maturation = 4
 	yield = 3
 	production = 7
-	genes = list(/datum/plant_gene/trait/repeated_harvest)
+	genes = list(/datum/plant_gene/trait/perennial)
 	mutatelist = list(/obj/item/seeds/cocoapod)
 	reagents_set = list(
 		/datum/reagent/consumable/nutriment = list(10, 12),

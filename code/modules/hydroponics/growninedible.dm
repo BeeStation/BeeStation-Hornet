@@ -21,7 +21,7 @@
 	else if(ispath(seed))
 		// This is for adminspawn or map-placed growns. They get the default stats of their seed type.
 		seed = new seed()
-		seed.adjust_potency(50-seed.potency)
+		seed.adjust_potency(50)
 
 	pixel_x = rand(-5, 5)
 	pixel_y = rand(-5, 5)
@@ -40,6 +40,12 @@
 
 	if(!isnull(seed))
 		research_identifier = seed.research_identifier
+
+/obj/item/grown/Destroy()
+	if(seed)
+		qdel(seed)
+		seed = null
+	return ..()
 
 /obj/item/grown/examine(user)
 	. = ..()

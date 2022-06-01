@@ -3,7 +3,7 @@
 	name = "Invasive Spreading"
 	desc = "This makes your plant spreading to nearby trays or dirts."
 	var/chance = 15
-	randomness_flags = BOTANY_RANDOM_COMMON
+	plant_gene_flags = PLANT_GENE_COMMON_REMOVABLE | PLANT_GENE_RANDOM_ALLOWED
 	research_needed = 1
 
 /datum/plant_gene/trait/invasive/Initialize(mapload)
@@ -16,17 +16,10 @@
 		if(HY && prob(chance))
 			if(HY.myseed) // check if there is something in the tray.
 				var/obj/item/seeds/S = HY.myseed
-				if(S.gettype() == S.gettype() && HY.dead != 0)
+				if(S.plantname == S.plantname && S.research_identifier == S.research_identifier && HY.dead != 0)
 					continue //It should not destroy its owm kind.
-				qdel(HY.myseed)
+				qdel(S)
 				HY.myseed = null
 			HY.myseed = H.myseed.Copy()
-			HY.age = 0
-			HY.dead = 0
-			HY.plant_health = HY.myseed.endurance
-			HY.lastcycle = world.time
-			HY.harvest = 0
-			HY.weedlevel = 0 // Reset
-			HY.pestlevel = 0 // Reset
-			HY.update_icon()
+			HY.plant_seed(HY.myseed, TRUE)
 			HY.visible_message("<span class='warning'>The [H.myseed.plantname] spreads!</span>")
