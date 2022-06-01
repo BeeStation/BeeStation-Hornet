@@ -3699,6 +3699,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
+/obj/machinery/atmospherics/components/unary/passive_vent{
+	name = "freezer passive vent"
+	},
 /turf/open/floor/plasteel/dark/telecomms,
 /area/quartermaster/exploration_prep)
 "agE" = (
@@ -20407,7 +20410,7 @@
 	},
 /obj/machinery/atmospherics/components/trinary/filter/atmos{
 	dir = 8;
-	icon_state = "filter_on-0"
+	icon_state = "filter_on"
 	},
 /turf/open/floor/plasteel,
 /area/engine/atmos)
@@ -20593,7 +20596,7 @@
 /obj/structure/window/reinforced,
 /obj/machinery/atmospherics/components/trinary/filter/atmos/co2{
 	dir = 4;
-	icon_state = "filter_on-0"
+	icon_state = "filter_on"
 	},
 /turf/open/floor/plasteel/dark,
 /area/engine/atmos)
@@ -34694,7 +34697,7 @@
 "bbS" = (
 /obj/machinery/atmospherics/components/trinary/mixer/flipped{
 	dir = 1;
-	icon_state = "mixer_off-0_f"
+	icon_state = "mixer_off_f"
 	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
@@ -74657,7 +74660,7 @@
 /obj/structure/window/reinforced,
 /obj/machinery/atmospherics/components/trinary/filter/atmos/plasma{
 	dir = 4;
-	icon_state = "filter_on-0"
+	icon_state = "filter_on"
 	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/engine/atmos)
@@ -77559,7 +77562,7 @@
 /obj/structure/window/reinforced,
 /obj/machinery/atmospherics/components/trinary/filter/atmos/n2o{
 	dir = 4;
-	icon_state = "filter_on-0"
+	icon_state = "filter_on"
 	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/engine/atmos)
@@ -97350,8 +97353,9 @@
 /turf/open/floor/plasteel/dark,
 /area/science/shuttledock)
 "lqU" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/on{
-	dir = 1
+/obj/machinery/atmospherics/components/unary/passive_vent{
+	dir = 1;
+	name = "freezer passive vent"
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -99897,14 +99901,11 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer2{
-	dir = 10
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /mob/living/carbon/monkey{
 	name = "Ook";
 	unique_name = 0
 	},
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /turf/open/floor/plasteel/showroomfloor,
 /area/security/warden)
 "rrF" = (
