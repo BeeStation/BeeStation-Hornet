@@ -1,0 +1,5 @@
+author: AsciiSquid for Shiptest
+delete-after: true
+changes:
+  - rscadd: A suit storage mapping helper's been added for non-preset use-cases. Please
+      consider creating a new preset if you use the same types repeatedly.
