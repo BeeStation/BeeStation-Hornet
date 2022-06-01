@@ -54,19 +54,8 @@
 	else
 		return ..()
 
-/datum/objective/crew/responsibility
-	explanation_text = "Make sure nobody dies with alcohol poisoning."
-	jobs = "bartender"
-
-/datum/objective/crew/responsibility/check_completion()
-	for(var/mob/living/carbon/human/H in GLOB.mob_list)
-		if(H.stat == DEAD && H.drunkenness >= 80)
-			if((H.z in SSmapping.levels_by_trait(ZTRAIT_STATION)) || SSshuttle.emergency.shuttle_areas[get_area(H)])
-				return ..()
-	return TRUE
-
 /datum/objective/crew/cocktail
-	explanation_text = "Have a bottle that contains: \[list here\](each of them must be 5u) when the shift ends. (Note: only glass bottle from Booze-O-Mat is allowed)"
+	explanation_text = "Have a bottle that contains: \[list here\](each of them must be at least 4u) when the shift ends. (Note: only glass bottle from Booze-O-Mat is allowed)"
 	jobs = "bartender"
 	var/targetchems = list()
 	var/mydrink = ""
@@ -74,25 +63,24 @@
 
 /datum/objective/crew/cocktail/New()
 	. = ..()
-	for(var/i in 1 to 2)
+	for(var/i in 1 to 5)
 		chempath = get_random_reagent_id(CHEMICAL_GOAL_BARTENDER_SERVING)
-		if(!chempath in targetchems)
+		if(!(chempath in targetchems))
 			targetchems += chempath
 			mydrink += "\[[initial(chempath.name)]\] "
 	update_explanation_text()
 
 /datum/objective/crew/cocktail/update_explanation_text()
 	. = ..()
-	explanation_text = "Have a bottle that contains: [mydrink] (each of them must be 5u) when the shift ends. (Note: only glass bottle from Booze-O-Mat is allowed)"
+	explanation_text = "Have a bottle that contains: [mydrink] (each of them must be at least 4u) when the shift ends. (Note: only glass bottle from Booze-O-Mat is allowed)"
 
 /datum/objective/crew/cocktail/check_completion()
 	var/count = length(targetchems)
-	var/targetchem
 	if(owner.current)
 		if(owner.current.contents)
 			for(var/obj/item/reagent_containers/food/drinks/bottle/blank/B in owner.current.get_contents())
-				for(var/each in targetchem)
-					if(B.reagents.has_reagent(targetchem, 5))
+				for(var/each in targetchems)
+					if(B.reagents.has_reagent(each, 4))
 						count--
 				if(count > 0)
 					count = length(targetchems)
