@@ -85,7 +85,7 @@
 	var/count = length(targetchems)
 	if(owner.current)
 		if(owner.current.contents)
-			for(var/obj/item/reagent_containers/food/drinks/bottle/blank/B in owner.current.get_contents())
+			for(var/obj/item/reagent_containers/B in owner.current.get_contents())
 				for(var/each in targetchems)
 					if(B.reagents.has_reagent(each, chemsize))
 						count--
