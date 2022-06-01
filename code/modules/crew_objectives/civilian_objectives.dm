@@ -55,30 +55,31 @@
 		return ..()
 
 /datum/objective/crew/cocktail
-	explanation_text = "Have a bottle that contains: \[list here\](each of them must be at least 4u) when the shift ends. (Note: only glass bottle from Booze-O-Mat is allowed)"
+	explanation_text = "Have a bottle that contains 'something' when the shift ends. <br />Each of them must be at least 'something'u, and only glass bottle from Booze-O-Mat is allowed."
 	jobs = "bartender"
 	var/targetchems = list()
-	var/mydrink = list()
+	var/chemsize
+	var/desc
 	var/datum/reagent/chempath
 
 /datum/objective/crew/cocktail/New()
 	. = ..()
+	var/mydrink = list()
 	for(var/i in 1 to 5)
 		chempath = get_random_reagent_id(CHEMICAL_GOAL_BARTENDER_SERVING)
 		if(!(chempath in targetchems))
 			targetchems += chempath
 			mydrink += "[initial(chempath.name)]"
-	var/desc = ""
 	for(var/i in 1 to length(mydrink)-1)
 		desc += "[mydrink[i]], "
 	desc += "and [mydrink[length(mydrink)]]"
 	qdel(mydrink)
-	mydrink = desc
+	chemsize = 4+(5-length(targetchems))
 	update_explanation_text()
 
 /datum/objective/crew/cocktail/update_explanation_text()
 	. = ..()
-	explanation_text = "Have a bottle that contains '[mydrink]' when the shift ends. \nEach of them must be at least 4u, and only glass bottle from Booze-O-Mat is allowed."
+	explanation_text = "Have a bottle that contains '[desc]' when the shift ends. <br />Each of them must be at least [chemsize]u, and only glass bottle from Booze-O-Mat is allowed."
 
 /datum/objective/crew/cocktail/check_completion()
 	var/count = length(targetchems)
@@ -86,7 +87,7 @@
 		if(owner.current.contents)
 			for(var/obj/item/reagent_containers/food/drinks/bottle/blank/B in owner.current.get_contents())
 				for(var/each in targetchems)
-					if(B.reagents.has_reagent(each, 4))
+					if(B.reagents.has_reagent(each, chemsize))
 						count--
 				if(count > 0)
 					count = length(targetchems)
