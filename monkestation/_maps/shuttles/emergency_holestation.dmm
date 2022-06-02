@@ -45,8 +45,7 @@
 /turf/open/floor/carpet/purple,
 /area/shuttle/escape)
 "fa" = (
-/obj/structure/grille,
-/obj/structure/window/shuttle/survival_pod,
+/obj/effect/spawner/structure/window/survival_pod,
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "ga" = (
@@ -66,19 +65,15 @@
 /turf/open/floor/plasteel/white,
 /area/shuttle/escape)
 "hB" = (
-/obj/structure/window/reinforced/survival_pod{
-	dir = 4
-	},
-/obj/structure/window/reinforced/survival_pod{
-	dir = 1
-	},
-/obj/structure/window/reinforced/survival_pod{
-	dir = 5
-	},
 /obj/effect/turf_decal/monke/siding/thinplating/dark{
 	dir = 5
 	},
 /obj/structure/flora/ausbushes/leafybush,
+/obj/structure/window/reinforced/survival_pod/spawner/east,
+/obj/structure/window/reinforced/survival_pod/spawner/north,
+/obj/structure/window/reinforced/survival_pod{
+	dir = 5
+	},
 /turf/open/floor/grass,
 /area/shuttle/escape)
 "ii" = (
@@ -136,12 +131,10 @@
 /area/shuttle/escape)
 "kX" = (
 /obj/structure/shuttle/engine/heater,
-/obj/structure/window/reinforced/survival_pod{
-	dir = 1
-	},
 /obj/effect/turf_decal/monke/siding/thinplating/light{
 	dir = 1
 	},
+/obj/structure/window/reinforced/survival_pod/spawner/north,
 /turf/open/floor/plating/airless,
 /area/shuttle/escape)
 "li" = (
@@ -152,14 +145,12 @@
 /turf/open/floor/wood,
 /area/shuttle/escape)
 "lz" = (
-/obj/structure/window/reinforced/survival_pod{
-	dir = 1
-	},
 /obj/effect/turf_decal/monke/siding/thinplating/dark{
 	dir = 1
 	},
 /obj/structure/flora/ausbushes/brflowers,
 /obj/structure/flora/ausbushes/sunnybush,
+/obj/structure/window/reinforced/survival_pod/spawner/north,
 /turf/open/floor/grass,
 /area/shuttle/escape)
 "lI" = (
@@ -235,13 +226,11 @@
 /area/shuttle/escape)
 "rm" = (
 /obj/structure/window/reinforced/survival_pod,
-/obj/structure/window/reinforced/survival_pod{
-	dir = 1
-	},
 /obj/effect/turf_decal/monke/siding/thinplating/dark{
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/line,
+/obj/structure/window/reinforced/survival_pod/spawner/north,
 /turf/open/floor/fakespace,
 /area/shuttle/escape)
 "rF" = (
@@ -332,12 +321,10 @@
 /area/shuttle/escape)
 "xS" = (
 /obj/structure/shuttle/engine/heater,
-/obj/structure/window/reinforced/survival_pod{
-	dir = 1
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
+/obj/structure/window/reinforced/survival_pod/spawner/north,
 /turf/open/floor/plating/airless,
 /area/shuttle/escape)
 "yX" = (
@@ -359,15 +346,13 @@
 /turf/open/floor/pod,
 /area/shuttle/escape)
 "Be" = (
-/obj/structure/window/reinforced/survival_pod{
-	dir = 1
-	},
 /obj/effect/turf_decal/monke/siding/thinplating/dark{
 	dir = 1
 	},
 /obj/item/toy/plush/moth/ookplush,
 /obj/structure/flora/grass/jungle/b,
 /obj/structure/flora/junglebush,
+/obj/structure/window/reinforced/survival_pod/spawner/north,
 /turf/open/floor/grass,
 /area/shuttle/escape)
 "Bn" = (
@@ -451,13 +436,11 @@
 /turf/open/floor/pod/dark,
 /area/shuttle/escape)
 "Gg" = (
-/obj/structure/window/reinforced/survival_pod{
-	dir = 1
-	},
 /obj/effect/turf_decal/monke/siding/thinplating/dark{
 	dir = 1
 	},
 /obj/structure/flora/grass/jungle,
+/obj/structure/window/reinforced/survival_pod/spawner/north,
 /turf/open/floor/grass,
 /area/shuttle/escape)
 "HX" = (
@@ -475,9 +458,7 @@
 	pixel_y = 4
 	},
 /obj/item/pen,
-/obj/structure/window/reinforced/survival_pod{
-	dir = 8
-	},
+/obj/structure/window/reinforced/survival_pod/spawner/west,
 /turf/open/floor/pod,
 /area/shuttle/escape)
 "IC" = (
@@ -523,9 +504,7 @@
 	dir = 4
 	},
 /obj/item/kirbyplants/random,
-/obj/structure/window/reinforced/survival_pod{
-	dir = 4
-	},
+/obj/structure/window/reinforced/survival_pod/spawner/east,
 /turf/open/floor/pod,
 /area/shuttle/escape)
 "Lu" = (
@@ -539,14 +518,12 @@
 /area/shuttle/escape)
 "LU" = (
 /obj/structure/window/reinforced/survival_pod,
-/obj/structure/window/reinforced/survival_pod{
-	dir = 1
-	},
 /obj/item/toy/plush/moth/tyriaplush,
 /obj/effect/turf_decal/monke/siding/thinplating/dark{
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/line,
+/obj/structure/window/reinforced/survival_pod/spawner/north,
 /turf/open/floor/fakespace,
 /area/shuttle/escape)
 "MM" = (
@@ -562,20 +539,16 @@
 /turf/open/floor/carpet/green,
 /area/shuttle/escape)
 "MP" = (
-/obj/structure/window/reinforced/survival_pod{
-	dir = 8
-	},
-/obj/structure/window/reinforced/survival_pod{
-	dir = 1
-	},
-/obj/structure/window/reinforced/survival_pod{
-	dir = 9
-	},
 /obj/effect/turf_decal/monke/siding/thinplating/dark{
 	dir = 9
 	},
 /obj/structure/flora/rock/jungle,
 /obj/structure/flora/ausbushes/ppflowers,
+/obj/structure/window/reinforced/survival_pod/spawner/west,
+/obj/structure/window/reinforced/survival_pod/spawner/north,
+/obj/structure/window/reinforced/survival_pod{
+	dir = 9
+	},
 /turf/open/floor/grass,
 /area/shuttle/escape)
 "Nk" = (

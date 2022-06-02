@@ -121,10 +121,8 @@
 /turf/closed/wall,
 /area/crew_quarters/heads/hop)
 "aaw" = (
-/obj/structure/window/reinforced/survival_pod{
-	dir = 4
-	},
 /obj/machinery/camera/autoname,
+/obj/structure/window/reinforced/survival_pod/spawner/east,
 /turf/open/openspace,
 /area/ai_monitored/turret_protected/ai)
 "aax" = (
@@ -2270,9 +2268,7 @@
 /turf/open/floor/carpet,
 /area/maintenance/port/aft)
 "aje" = (
-/obj/structure/window/reinforced/survival_pod{
-	dir = 8
-	},
+/obj/structure/window/reinforced/survival_pod/spawner/west,
 /turf/open/openspace,
 /area/ai_monitored/turret_protected/ai)
 "ajf" = (
@@ -5113,9 +5109,7 @@
 	},
 /area/ai_monitored/turret_protected/ai_upload)
 "atx" = (
-/obj/structure/window/reinforced/survival_pod{
-	dir = 4
-	},
+/obj/structure/window/reinforced/survival_pod/spawner/east,
 /turf/open/openspace,
 /area/ai_monitored/turret_protected/ai)
 "aty" = (
@@ -5831,12 +5825,10 @@
 /turf/open/floor/plasteel,
 /area/security/nuke_storage)
 "awi" = (
-/obj/structure/window/reinforced/survival_pod{
-	dir = 8
-	},
 /obj/machinery/camera/autoname{
 	dir = 6
 	},
+/obj/structure/window/reinforced/survival_pod/spawner/west,
 /turf/open/openspace,
 /area/ai_monitored/turret_protected/ai)
 "awk" = (
@@ -6049,14 +6041,12 @@
 /turf/open/floor/plasteel,
 /area/hallway/secondary/entry)
 "awX" = (
-/obj/structure/window/reinforced/survival_pod,
-/obj/structure/window/reinforced/survival_pod{
-	dir = 8
-	},
-/obj/structure/window/reinforced/survival_pod{
+/obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
-/obj/effect/turf_decal/stripes/line{
+/obj/structure/window/reinforced/survival_pod/spawner/west,
+/obj/structure/window/reinforced/survival_pod,
+/obj/structure/window/reinforced/survival_pod{
 	dir = 10
 	},
 /turf/open/floor/plating,
@@ -8394,14 +8384,12 @@
 /turf/open/floor/plating,
 /area/maintenance/central)
 "aGr" = (
-/obj/structure/window/reinforced/survival_pod{
-	dir = 4
-	},
-/obj/structure/window/reinforced/survival_pod,
-/obj/structure/window/reinforced/survival_pod{
+/obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
-/obj/effect/turf_decal/stripes/line{
+/obj/structure/window/reinforced/survival_pod/spawner/east,
+/obj/structure/window/reinforced/survival_pod,
+/obj/structure/window/reinforced/survival_pod{
 	dir = 6
 	},
 /turf/open/floor/plating,
@@ -10096,19 +10084,17 @@
 /turf/open/floor/plasteel,
 /area/tcommsat/server)
 "aMQ" = (
-/obj/structure/window/reinforced/survival_pod{
-	dir = 4
-	},
-/obj/structure/window/reinforced/survival_pod,
-/obj/structure/window/reinforced/survival_pod{
-	dir = 6
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
 /obj/machinery/power/apc/auto_name/north,
 /obj/structure/cable/orange{
 	icon_state = "0-8"
+	},
+/obj/structure/window/reinforced/survival_pod/spawner/east,
+/obj/structure/window/reinforced/survival_pod,
+/obj/structure/window/reinforced/survival_pod{
+	dir = 6
 	},
 /turf/open/floor/plating,
 /area/ai_monitored/turret_protected/ai)
@@ -10739,13 +10725,11 @@
 /turf/open/floor/plasteel,
 /area/maintenance/disposal/incinerator)
 "aPg" = (
-/obj/structure/window/reinforced/survival_pod{
-	dir = 8
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
 /obj/machinery/porta_turret/ai,
+/obj/structure/window/reinforced/survival_pod/spawner/west,
 /turf/open/floor/plating,
 /area/ai_monitored/turret_protected/ai)
 "aPh" = (
@@ -11884,13 +11868,11 @@
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
 "aSH" = (
-/obj/structure/window/reinforced/survival_pod{
-	dir = 4
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
 /obj/machinery/porta_turret/ai,
+/obj/structure/window/reinforced/survival_pod/spawner/east,
 /turf/open/floor/plating,
 /area/ai_monitored/turret_protected/ai)
 "aSI" = (
@@ -12121,17 +12103,15 @@
 /turf/open/floor/plasteel,
 /area/engine/storage)
 "aTz" = (
-/obj/structure/window/reinforced/survival_pod,
-/obj/structure/window/reinforced/survival_pod{
-	dir = 8
-	},
-/obj/structure/window/reinforced/survival_pod{
-	dir = 10
-	},
 /obj/machinery/turretid{
 	pixel_y = 24
 	},
 /obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
+/obj/structure/window/reinforced/survival_pod/spawner/west,
+/obj/structure/window/reinforced/survival_pod,
+/obj/structure/window/reinforced/survival_pod{
 	dir = 10
 	},
 /turf/open/floor/plating,

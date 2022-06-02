@@ -415,9 +415,7 @@
 /obj/machinery/atmospherics/components/unary/shuttle/heater{
 	dir = 1
 	},
-/obj/structure/window/reinforced/survival_pod{
-	dir = 1
-	},
+/obj/structure/window/reinforced/survival_pod/spawner/north,
 /turf/open/floor/plating/airless,
 /area/shuttle/exploration)
 "Um" = (
