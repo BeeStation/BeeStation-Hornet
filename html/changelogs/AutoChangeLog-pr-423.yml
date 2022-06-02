@@ -1,0 +1,5 @@
+author: unit0016
+delete-after: true
+changes:
+  - bugfix: Survival pod window spawners now finally work and are no longer improperly
+      pathed.
