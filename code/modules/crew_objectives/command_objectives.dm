@@ -1,5 +1,5 @@
 /*				COMMAND OBJECTIVES				*/
-
+// Captain's hat -------------------------------------------------------
 /datum/objective/crew/caphat //Ported from Goon
 	explanation_text = "Don't lose your hat."
 	jobs = "captain"
@@ -10,6 +10,7 @@
 	else
 		return ..()
 
+// Captain's nuke disk -------------------------------------------------------
 /datum/objective/crew/datfukkendisk //Ported from old Hippie
 	explanation_text = "Defend the nuclear authentication disk at all costs, and be the one to personally deliver it to CentCom."
 	jobs = "captain" //give this to other heads at your own risk.
@@ -20,6 +21,7 @@
 	else
 		return ..()
 
+// Captain's end -------------------------------------------------------
 /datum/objective/crew/downwiththestation
 	explanation_text = "Go down with your station. Do not leave on the shuttle or an escape pod. Instead, stay on the bridge."
 	jobs = "captain"
@@ -30,6 +32,7 @@
 			return TRUE
 	return ..()
 
+// HoP Ian -------------------------------------------------------
 /datum/objective/crew/ian //Ported from old Hippie
 	explanation_text = "Defend Ian at all costs, and ensure he gets delivered to CentCom at the end of the shift."
 	jobs = "headofpersonnel"
@@ -38,5 +41,20 @@
 	if(owner?.current)
 		for(var/mob/living/simple_animal/pet/dog/corgi/Ian/goodboy in GLOB.mob_list)
 			if(goodboy.stat != DEAD && SSshuttle.emergency.shuttle_areas[get_area(goodboy)])
+				return TRUE
+	return ..()
+
+// All heads duty (except HoS) -------------------------------------------------------
+/datum/objective/crew/headsduty //Ported from old Hippie
+	explanation_text = "Success the station goal."
+	jobs = "captain,headofpersonnel,chiefengineer,chiefmedicalofficer,researchdirector"
+	// HoS can't actually do the station goal work. Let's exclude them from this duty.
+
+/datum/objective/crew/headsduty/check_completion()
+	var/datum/game_mode/dynamic/mode = SSticker.mode
+	if(mode.station_goals.len)
+		for(var/V in mode.station_goals)
+			var/datum/station_goal/G = V
+			if(G.check_completion())
 				return TRUE
 	return ..()

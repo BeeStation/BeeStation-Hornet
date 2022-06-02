@@ -1,8 +1,8 @@
 /*				MEDICAL OBJECTIVES				*/
-
+// Clean body medbay -------------------------------------------------------
 /datum/objective/crew/morgue //Ported from old Hippie
 	explanation_text = "Ensure the Medbay has been cleaned of any corpses when the shift ends."
-	jobs = "chiefmedicalofficer,geneticist,medicaldoctor"
+	jobs = "chiefmedicalofficer,medicaldoctor"
 
 /datum/objective/crew/morgue/check_completion()
 	var/list/medical_areas = typecacheof(list(/area/medical/cryo, /area/medical/genetics/cloning, /area/medical/exam_room,
@@ -14,6 +14,7 @@
 			return ..()
 	return TRUE
 
+// Clean body station (paramedic) -------------------------------------------------------
 /datum/objective/crew/emtmorgue
 	explanation_text = "Ensure that no corpses remain outside of Medbay when the shift ends."
 	jobs = "paramedic"
@@ -28,6 +29,7 @@
 			return ..()
 	return TRUE
 
+// chemist Chem eat -------------------------------------------------------
 /datum/objective/crew/chems //Ported from old Hippie
 	var/targetchem = "none"
 	var/datum/reagent/chempath
@@ -51,6 +53,7 @@
 				return TRUE
 	return ..()
 
+// chemist drug maker -------------------------------------------------------
 /datum/objective/crew/druglordchem //ported from old Hippie with adjustments
 	var/targetchem = "none"
 	var/datum/reagent/chempath
@@ -82,11 +85,43 @@
 	else
 		return ..()
 
-/datum/objective/crew/noinfections
-	explanation_text = "Let more than half crew members have a vaccine of any diesease at the end of the shift."
-	jobs = "virologist"
+// geneticist mutation give -------------------------------------------------------
+/datum/objective/crew/crewmutant
+	explanation_text = "Let more than one third crew members have a mutation at least at the end of the shift."
+	jobs = "chiefmedicalofficer,geneticist"
 
-/datum/objective/crew/noinfections/check_completion()
+/datum/objective/crew/crewmutant/check_completion()
+	var/realperson = 0
+	var/hadmutation = 0
+	for(var/mob/living/carbon/human/H in GLOB.mob_list)
+		if(H.mind && H.mind.assigned_role)
+			realperson++
+		if(length(H.dna.mutations))
+			hadmutation++
+	if(realperson/3 <= hadmutation) //don't have to `round(realperson/2)`
+		return TRUE
+	return ..()
+
+// geneticist self enhancement
+/datum/objective/crew/selfmutant
+	explanation_text = "Have yourself enhanced by spending more than 50 genetic stability when the shift ends."
+	jobs = "geneticist"
+
+/datum/objective/crew/selfmutant/check_completion()
+	if(owner.current)
+		if(ishuman(owner.current)) // in case that your body is fucked (i.e. corgified)
+			var/mob/living/carbon/human/you = owner.current
+			var/datum/dna/yourdna = you.dna
+			if(yourdna.stability <= 50)
+				return TRUE
+	return ..()
+
+// virologist Vaccine -------------------------------------------------------
+/datum/objective/crew/vaccine
+	explanation_text = "Let more than half crew members have a vaccine of any diesease at the end of the shift."
+	jobs = "chiefmedicalofficer,virologist"
+
+/datum/objective/crew/vaccine/check_completion()
 	var/realperson = 0
 	var/hadvaccine = 0
 	for(var/mob/living/carbon/human/H in GLOB.mob_list)
@@ -94,6 +129,6 @@
 			realperson++
 		if(length(H.disease_resistances))
 			hadvaccine++
-	if(realperson/2 <= hadvaccine) //don't have to round(realperson)
+	if(realperson/2 <= hadvaccine) //don't have to `round(realperson/2)`
 		return TRUE
 	return ..()

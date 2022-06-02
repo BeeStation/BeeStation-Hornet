@@ -1,5 +1,5 @@
 /*				ENGINEERING OBJECTIVES				*/
-
+// engineer SM integrity -------------------------------------------------------
 /datum/objective/crew/integrity //ported from old Hippie
 	explanation_text = "Ensure the station's integrity rating is at least (Something broke, yell on GitHub)% when the shift ends."
 	jobs = "chiefengineer,stationengineer"
@@ -22,6 +22,7 @@
 	else
 		return ..()
 
+// CE poly -------------------------------------------------------
 /datum/objective/crew/poly
 	explanation_text = "Make sure Poly keeps his headset, and stays alive until the end of the shift."
 	jobs = "chiefengineer"

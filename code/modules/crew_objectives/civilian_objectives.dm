@@ -1,5 +1,5 @@
 /*				CIVILIAN OBJECTIVES			*/
-
+// botanist plant -------------------------------------------------------
 /datum/objective/crew/druglordbot //ported from old Hippie with adjustments
 	var/targetchem = "none"
 	var/datum/reagent/chempath
@@ -29,6 +29,7 @@
 	else
 		return ..()
 
+// cook food delivery -------------------------------------------------------
 /datum/objective/crew/foodhoard
 	var/datum/crafting_recipe/food/targetfood
 	var/obj/item/reagent_containers/food/foodpath
@@ -54,6 +55,7 @@
 	else
 		return ..()
 
+// bartender -------------------------------------------------------
 /datum/objective/crew/responsibility
 	explanation_text = "Make sure nobody dies with alcohol poisoning."
 	jobs = "bartender"
@@ -65,6 +67,7 @@
 				return ..()
 	return TRUE
 
+// clean station -------------------------------------------------------
 /datum/objective/crew/clean //ported from old Hippie
 	var/list/areas = list()
 	var/hardmode = FALSE
@@ -106,6 +109,7 @@
 			return ..()
 	return TRUE
 
+// mice catcher -------------------------------------------------------
 /datum/objective/crew/exterminator
 	explanation_text = "Ensure that there are no more than (Yell on github, this objective broke) living mice on the station when the round ends."
 	jobs = "janitor"
@@ -128,6 +132,7 @@
 		return TRUE
 	return ..()
 
+// key holder -------------------------------------------------------
 /datum/objective/crew/lostkeys
 	explanation_text = "Don't lose the janicart keys. Have them with you when the shift ends."
 	jobs = "janitor"
@@ -137,6 +142,7 @@
 		return TRUE
 	return ..()
 
+// clown slip prank -------------------------------------------------------
 /datum/objective/crew/slipster //ported from old Hippie with adjustments
 	explanation_text = "Slip at least (Yell on GitHub if you see this) different people with your PDA, and have it on you at the end of the shift."
 	jobs = "clown"
@@ -161,6 +167,7 @@
 	else
 		return ..()
 
+// clown shoes steal prank -------------------------------------------------------
 /datum/objective/crew/shoethief
 	explanation_text = "Steal at least (Yell on github, this objective broke) pairs of shoes, and have them in your bag at the end of the shift. Bonus points if they are stolen from crewmembers instead of ClothesMates."
 	jobs = "clown"
@@ -184,6 +191,7 @@
 		return TRUE
 	return ..()
 
+// mime does mime -------------------------------------------------------
 /datum/objective/crew/vow //ported from old Hippie
 	explanation_text = "Never break your vow of silence."
 	jobs = "mime"
@@ -195,6 +203,7 @@
 			return ..()
 	return TRUE
 
+// mime has nothing -------------------------------------------------------
 /datum/objective/crew/nothingreallymatterstome
 	explanation_text = "Have a Bottle of Nothing with you at the end of the shift."
 	jobs = "mime"
@@ -204,6 +213,7 @@
 		return TRUE
 	return ..()
 
+// chaplain nullrod -------------------------------------------------------
 /datum/objective/crew/nullrod
 	explanation_text = "Don't lose your nullrod. You can still transform it into another item."
 	jobs = "chaplain"
@@ -215,6 +225,7 @@
 				return TRUE
 	return ..()
 
+// curator curating -------------------------------------------------------
 /datum/objective/crew/reporter //ported from old hippie
 	var/charcount = 100
 	explanation_text = "Publish at least (Yo something broke) articles containing at least (Report this on GitHub) characters."
@@ -243,6 +254,7 @@
 	else
 		return ..()
 
+// assistant grubby  -------------------------------------------------------
 /datum/objective/crew/pwrgame //ported from Goon with adjustments
 	var/obj/item/clothing/targettidegarb
 	explanation_text = "Get your grubby hands on a (Dear god something broke. Report this on GitHub)."
@@ -267,6 +279,7 @@
 				return TRUE
 	return ..()
 
+// assistant got job -------------------------------------------------------
 /datum/objective/crew/promotion //ported from Goon
 	explanation_text = "Have a non-assistant ID registered to you at the end of the shift."
 	jobs = "assistant"
@@ -280,6 +293,7 @@
 				return TRUE
 	return ..()
 
+// lawyer's responsibility -------------------------------------------------------
 /datum/objective/crew/justicecrew
 	explanation_text = "Ensure there are no members of security in the prison wing when the shift ends."
 	jobs = "lawyer"
