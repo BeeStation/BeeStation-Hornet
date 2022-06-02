@@ -45,7 +45,7 @@
 	return ..()
 
 // All heads duty (except HoS) -------------------------------------------------------
-/datum/objective/crew/headsduty //Ported from old Hippie
+/datum/objective/crew/headsduty
 	explanation_text = "Success the station goal."
 	jobs = "captain,headofpersonnel,chiefengineer,chiefmedicalofficer,researchdirector"
 	// HoS can't actually do the station goal work. Let's exclude them from this duty.
