@@ -133,7 +133,7 @@
 			close_animation()
 			sleep(CLOSE_DURATION + 2)
 			if(open_status == STATION_TUBE_CLOSED && pod && pod.loc == loc)
-				pod.follow_tube()
+				pod.follow_tube(src)
 			pod_moving = 0
 			return 1
 	return 0

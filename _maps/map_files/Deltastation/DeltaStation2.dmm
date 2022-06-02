@@ -52750,10 +52750,7 @@
 /turf/open/floor/wood,
 /area/crew_quarters/heads/captain)
 "bXg" = (
-/obj/structure/displaycase/captain{
-	req_access = null;
-	req_access_txt = "20"
-	},
+/obj/structure/displaycase/captain,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 9
 	},
@@ -59235,10 +59232,6 @@
 	},
 /turf/open/space,
 /area/space/nearstation)
-"cjd" = (
-/obj/effect/spawner/structure/window/reinforced,
-/turf/open/floor/plating,
-/area/engine/engineering)
 "cje" = (
 /obj/machinery/power/rad_collector/anchored,
 /obj/structure/cable{
@@ -60395,7 +60388,8 @@
 	dir = 9
 	},
 /obj/machinery/field/generator{
-	anchored = 1
+	anchored = 1;
+	state = 1
 	},
 /turf/open/floor/plating/airless,
 /area/space/nearstation)
@@ -60404,7 +60398,8 @@
 	dir = 5
 	},
 /obj/machinery/field/generator{
-	anchored = 1
+	anchored = 1;
+	state = 1
 	},
 /turf/open/floor/plating/airless,
 /area/space/nearstation)
@@ -62941,7 +62936,7 @@
 /turf/open/floor/plating/airless,
 /area/space/nearstation)
 "crM" = (
-/obj/effect/spawner/structure/window/reinforced,
+/obj/effect/spawner/structure/window/plasma/reinforced,
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
@@ -65531,7 +65526,8 @@
 	dir = 10
 	},
 /obj/machinery/field/generator{
-	anchored = 1
+	anchored = 1;
+	state = 1
 	},
 /turf/open/floor/plating/airless,
 /area/space/nearstation)
@@ -65540,7 +65536,8 @@
 	dir = 6
 	},
 /obj/machinery/field/generator{
-	anchored = 1
+	anchored = 1;
+	state = 1
 	},
 /turf/open/floor/plating/airless,
 /area/space/nearstation)
@@ -113153,6 +113150,10 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/fore)
+"roT" = (
+/obj/effect/spawner/structure/window/plasma/reinforced,
+/turf/open/floor/plating,
+/area/engine/engineering)
 "rpP" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -141770,13 +141771,13 @@ aaa
 aad
 aaa
 aad
-cjd
-cjd
-cjd
+roT
+roT
+roT
 crM
-cjd
-cjd
-cjd
+roT
+roT
+roT
 aad
 aaa
 aad
@@ -142024,19 +142025,19 @@ car
 cdH
 car
 car
-cjd
-cjd
-cjd
-cjd
+roT
+roT
+roT
+roT
 coZ
 cqq
 crN
 cqq
 cuP
-cjd
-cjd
-cjd
-cjd
+roT
+roT
+roT
+roT
 car
 car
 cFM
@@ -142284,13 +142285,13 @@ chu
 cje
 cje
 cje
-cjd
+roT
 cpa
 cqr
 cqr
 ctp
 cuQ
-cjd
+roT
 cje
 cje
 cAK

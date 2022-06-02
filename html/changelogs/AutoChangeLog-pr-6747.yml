@@ -1,5 +1,0 @@
-author: Archanial
-delete-after: true
-changes:
-  - bugfix: fixed a runtime when deconstructing something, while having a stack of
-      an item already under you

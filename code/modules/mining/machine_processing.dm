@@ -144,7 +144,7 @@
 	var/datum/techweb/stored_research
 	var/link_id = null
 	var/points = 0
-	var/allow_point_redemption = TRUE
+	var/allow_point_redemption = FALSE
 
 /obj/machinery/mineral/processing_unit/laborcamp
 	allow_point_redemption = FALSE

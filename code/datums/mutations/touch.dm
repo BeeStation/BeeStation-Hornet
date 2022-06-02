@@ -1,4 +1,4 @@
-/datum/mutation/human/shock
+/datum/mutation/shock
 	name = "Shock Touch"
 	desc = "The affected can channel excess electricity through their hands without shocking themselves, allowing them to shock others."
 	quality = POSITIVE
