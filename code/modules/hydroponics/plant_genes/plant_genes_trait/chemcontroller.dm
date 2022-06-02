@@ -28,21 +28,6 @@
 	research_needed = -1
 	plant_gene_flags = NONE
 
-// Seprated chemicals
-/datum/plant_gene/trait/noreact
-	name = "Separated Chemicals"
-	desc = "Chemicals don't mix until it's used."
-	trait_id = "chemmix"
-	plant_gene_flags = NONE
-	research_needed = -1
-
-/datum/plant_gene/trait/noreact/on_new_plant(obj/item/reagent_containers/food/snacks/grown/G, newloc)
-	ENABLE_BITFIELD(G.reagents.flags, NO_REACT)
-
-/datum/plant_gene/trait/noreact/on_squashreact(obj/item/reagent_containers/food/snacks/grown/G, atom/target)
-	DISABLE_BITFIELD(G.reagents.flags, NO_REACT)
-	G.reagents.handle_reactions()
-
 // doubles the bite size
 /datum/plant_gene/trait/doublebite
 	name = "Embiggened Size"
