@@ -1,0 +1,4 @@
+author: h42
+delete-after: true
+changes:
+  - bugfix: Exploration radio is now included when filtering radio channels in tgui
