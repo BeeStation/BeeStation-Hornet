@@ -1,6 +1,0 @@
-author: Rukofamicom
-delete-after: true
-changes:
-  - config: Map voting is enabled again
-  - config: Map votes may now have a minimum round length defined before they trigger
-  - bugfix: Map votes will always exclude the current map from the voting pool.
