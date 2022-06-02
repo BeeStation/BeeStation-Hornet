@@ -1,27 +1,43 @@
 /*				SCIENCE OBJECTIVES				*/
 
-/datum/objective/crew/cyborgs //Ported from old Hippie
-	explanation_text = "Ensure there are at least (Yell on GitHub, something broke) functioning cyborgs when the shift ends."
+/datum/objective/crew/botmaker //Ported from old Hippie
+	explanation_text = "Ensure there are at least (Yell on GitHub, something broke) functioning bots when the shift ends. The roundstarting ones don't count."
 	jobs = "researchdirector,roboticist"
+	var/static/roundstartcount
 
-/datum/objective/crew/cyborgs/New()
+/datum/objective/crew/botmaker/New()
 	. = ..()
-	target_amount = rand(3,10)
+	target_amount = rand(4,16)
+	if(isnull(roundstartcount))
+		roundstartcount = 0
+		for(var/mob/living/simple_animal/bot/B in GLOB.alive_mob_list)
+			roundstartcount++
+	target_amount += roundstartcount
 	update_explanation_text()
 
-/datum/objective/crew/cyborgs/update_explanation_text()
+/datum/objective/crew/botmaker/update_explanation_text()
 	. = ..()
-	explanation_text = "Ensure there are at least [target_amount] functioning cyborgs when the shift ends."
+	explanation_text = "Ensure there are at least [target_amount-roundstartcount] functioning bots when the shift ends. The roundstarting ones don't count."
 
-/datum/objective/crew/cyborgs/check_completion()
-	var/borgcount = target_amount
-	for(var/mob/living/silicon/robot/R in GLOB.alive_mob_list)
-		if(!(R.stat == DEAD))
-			borgcount--
-	if(borgcount <= 0)
+
+/datum/objective/crew/botmaker/check_completion()
+	var/botcount = target_amount
+	for(var/mob/living/simple_animal/bot/B in GLOB.alive_mob_list)
+		if(!(B.stat == DEAD))
+			botcount--
+		if(botcount <= 0)
+			return TRUE
+	return ..()
+
+/datum/objective/crew/servertech //Ported from old Hippie
+	explanation_text = "reach the 4 tech tier from the station R&D server when the shift ends."
+	jobs = "researchdirector,scientist,explorationcrew"
+
+/datum/objective/crew/servertech/check_completion()
+	var/datum/techweb/stored_research = SSresearch.science_tech
+	if(stored_research.current_tier >= 4)
 		return TRUE
-	else
-		return ..()
+	return ..()
 
 //TODO: make the research objective work with techwebs
 /*

@@ -83,13 +83,17 @@
 		return ..()
 
 /datum/objective/crew/noinfections
-	explanation_text = "Make sure there are no crew members with harmful diseases at the end of the shift."
+	explanation_text = "Let more than half crew members have a vaccine of any diesease at the end of the shift."
 	jobs = "virologist"
 
 /datum/objective/crew/noinfections/check_completion()
+	var/realperson = 0
+	var/hadvaccine = 0
 	for(var/mob/living/carbon/human/H in GLOB.mob_list)
-		if(!H.stat == DEAD)
-			if((H.z in SSmapping.levels_by_trait(ZTRAIT_STATION)) || SSshuttle.emergency.shuttle_areas[get_area(H)])
-				if(H.check_virus() == 2) //Harmful viruses only
-					return ..()
-	return TRUE
+		if(H.mind)
+			realperson++
+		if(length(H.disease_resistances))
+			hadvaccine++
+	if(round(realperson/2) <= hadvaccine)
+		return TRUE
+	return ..()
