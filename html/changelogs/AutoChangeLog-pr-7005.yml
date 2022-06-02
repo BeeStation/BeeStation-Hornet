@@ -1,0 +1,9 @@
+author: DatBoiTim
+delete-after: true
+changes:
+  - bugfix: Fixed a conjugation issue for examining unknowns or plural gendered mobs
+      with special limbs
+  - bugfix: Prosthetic Limbs showing up as right/left arm/leg in examine instead of
+      robotic right/left arm/leg
+  - bugfix: Attack messages now mention the zone affected rather than the name of
+      the limb affected
