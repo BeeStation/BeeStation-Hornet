@@ -16,7 +16,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	var/lastchangelog = ""				//Saved changlog filesize to detect if there was a change
 	var/ooccolor = "#c43b23"
 	var/asaycolor = "#ff4500"			//This won't change the color for current admins, only incoming ones.
-	var/enable_tips = TRUE
 	var/tip_delay = 500 //tip delay in milliseconds
 
 	//Antag preferences
@@ -26,34 +25,19 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 										//autocorrected this round, not that you'd need to check that.
 
 	var/UI_style = null
-	var/outline_enabled = TRUE
 	var/outline_color = COLOR_BLUE_GRAY
-	var/buttons_locked = FALSE
-	var/hotkeys = FALSE
 
-	///Runechat preference. If true, certain messages will be displayed on the map, not ust on the chat area. Boolean.
-	var/chat_on_map = TRUE
-	///Whether non-mob messages will be displayed, such as machine vendor announcements. Requires chat_on_map to have effect. Boolean.
-	var/see_chat_non_mob = TRUE
-	///Whether emotes will be displayed on runechat. Requires chat_on_map to have effect. Boolean.
-	var/see_rc_emotes = TRUE
 	///Whether we want balloon alerts displayed alone, with chat or not displayed at all
 	var/see_balloon_alerts = BALLOON_ALERT_ALWAYS
 
-	var/tgui_fancy = TRUE
-	var/tgui_lock = TRUE
-	var/windowflashing = TRUE
-	var/crew_objectives = TRUE
 	var/toggles = TOGGLES_DEFAULT
+	var/toggles2 = TOGGLES_2_DEFAULT
 	var/db_flags
 	var/chat_toggles = TOGGLES_DEFAULT_CHAT
 	var/ghost_form = "ghost"
 	var/ghost_orbit = GHOST_ORBIT_CIRCLE
 	var/ghost_accs = GHOST_ACCS_DEFAULT_OPTION
 	var/ghost_others = GHOST_OTHERS_DEFAULT_OPTION
-	var/ghost_hud = 1
-	var/inquisitive_ghost = 1
-	var/allow_midround_antag = 1
 	var/preferred_map = null
 	var/pda_style = MONO
 	var/pda_color = "#808000"
@@ -61,9 +45,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 	// Custom Keybindings
 	var/list/key_bindings = null
-
-
-	var/uses_glasses_colour = 0
 
 	//character preferences
 	var/real_name						//our character's name
@@ -132,9 +113,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 	var/parallax
 
-	var/ambientocclusion = TRUE
-	///Should we automatically fit the viewport?
-	var/auto_fit_viewport = TRUE
 	///What size should pixels be displayed as? 0 is strech to fit
 	var/pixel_size = 0
 	///What scaling method should we use?
@@ -143,7 +121,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 	var/list/exp = list()
 	var/job_exempt = 0
-	var/list/menuoptions
 
 	//Loadout stuff
 	var/list/purchased_gear = list()
@@ -167,7 +144,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				max_save_slots = 8
 		else if(!length(key_bindings)) // Guests need default keybinds
 			key_bindings = deepCopyList(GLOB.keybinding_list_by_key)
-	var/loaded_preferences_successfully = load_preferences()
+	var/loaded_preferences_successfully = load_from_database()
 	if(loaded_preferences_successfully)
 		if("6030fe461e610e2be3a2c3e75c06067e" in purchased_gear) //MD5 hash of, "extra character slot"
 			max_save_slots += 1
@@ -179,7 +156,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	if(!loaded_preferences_successfully)
 		save_preferences()
 	save_character()		//let's save this new random character so it doesn't keep generating new ones.
-	menuoptions = list()
 	return
 
 #define APPEARANCE_CATEGORY_COLUMN "<td valign='top' width='14%'>"
@@ -581,22 +557,22 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			dat += "<table><tr><td width='340px' height='300px' valign='top'>"
 			dat += "<h2>General Settings</h2>"
 			dat += "<b>UI Style:</b> <a href='?_src_=prefs;task=input;preference=ui'>[UI_style]</a><br>"
-			dat += "<b>Outline:</b> <a href='?_src_=prefs;preference=outline_enabled'>[outline_enabled ? "Enabled" : "Disabled"]</a><br>"
+			dat += "<b>Outline:</b> <a href='?_src_=prefs;preference=outline_enabled'>[toggles & PREFTOGGLE_OUTLINE_ENABLED ? "Enabled" : "Disabled"]</a><br>"
 			dat += "<b>Outline Color:</b> <span style='border:1px solid #161616; background-color: [outline_color];'>&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=outline_color'>Change</a><BR>"
-			dat += "<b>tgui Monitors:</b> <a href='?_src_=prefs;preference=tgui_lock'>[(tgui_lock) ? "Primary" : "All"]</a><br>"
-			dat += "<b>tgui Style:</b> <a href='?_src_=prefs;preference=tgui_fancy'>[(tgui_fancy) ? "Fancy" : "No Frills"]</a><br>"
-			dat += "<b>Show Runechat Chat Bubbles:</b> <a href='?_src_=prefs;preference=chat_on_map'>[chat_on_map ? "Enabled" : "Disabled"]</a><br>"
-			dat += "<b>See Runechat for non-mobs:</b> <a href='?_src_=prefs;preference=see_chat_non_mob'>[see_chat_non_mob ? "Enabled" : "Disabled"]</a><br>"
-			dat += "<b>See Runechat emotes:</b> <a href='?_src_=prefs;preference=see_rc_emotes'>[see_rc_emotes ? "Enabled" : "Disabled"]</a><br>"
+			dat += "<b>tgui Monitors:</b> <a href='?_src_=prefs;preference=tgui_lock'>[(toggles2 & PREFTOGGLE_2_LOCKED_TGUI) ? "Primary" : "All"]</a><br>"
+			dat += "<b>tgui Style:</b> <a href='?_src_=prefs;preference=tgui_fancy'>[(toggles2 & PREFTOGGLE_2_FANCY_TGUI) ? "Fancy" : "No Frills"]</a><br>"
+			dat += "<b>Show Runechat Chat Bubbles:</b> <a href='?_src_=prefs;preference=chat_on_map'>[toggles & PREFTOGGLE_RUNECHAT_GLOBAL ? "Enabled" : "Disabled"]</a><br>"
+			dat += "<b>See Runechat for non-mobs:</b> <a href='?_src_=prefs;preference=see_chat_non_mob'>[toggles & PREFTOGGLE_RUNECHAT_NONMOBS ? "Enabled" : "Disabled"]</a><br>"
+			dat += "<b>See Runechat emotes:</b> <a href='?_src_=prefs;preference=see_rc_emotes'>[toggles & PREFTOGGLE_RUNECHAT_EMOTES ? "Enabled" : "Disabled"]</a><br>"
 			dat += "<b>See Balloon alerts: </b> <a href='?_src_=prefs;preference=see_balloon_alerts;task=input'>[see_balloon_alerts]</a>"
 			dat += "<br>"
-			dat += "<b>Action Buttons:</b> <a href='?_src_=prefs;preference=action_buttons'>[(buttons_locked) ? "Locked In Place" : "Unlocked"]</a><br>"
-			dat += "<b>Hotkey Mode:</b> <a href='?_src_=prefs;preference=hotkeys'>[(hotkeys) ? "Hotkeys" : "Default"]</a><br>"
+			dat += "<b>Action Buttons:</b> <a href='?_src_=prefs;preference=action_buttons'>[(toggles2 & PREFTOGGLE_2_LOCKED_BUTTONS) ? "Locked In Place" : "Unlocked"]</a><br>"
+			dat += "<b>Hotkey Mode:</b> <a href='?_src_=prefs;preference=hotkeys'>[(toggles2 & PREFTOGGLE_2_HOTKEYS) ? "Hotkeys" : "Default"]</a><br>"
 			dat += "<br>"
 			dat += "<b>PDA Color:</b> <span style='border:1px solid #161616; background-color: [pda_color];'>&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=pda_color;task=input'>Change</a><BR>"
 			dat += "<b>PDA Style:</b> <a href='?_src_=prefs;task=input;preference=pda_style'>[pda_style]</a><br>"
 			dat += "<br>"
-			dat += "<b>Crew Objectives:</b> <a href='?_src_=prefs;preference=crewobj'>[(crew_objectives) ? "Yes" : "No"]</a><br>"
+			dat += "<b>Crew Objectives:</b> <a href='?_src_=prefs;preference=crewobj'>[(toggles2 & PREFTOGGLE_2_CREW_OBJECTIVES) ? "Yes" : "No"]</a><br>"
 			dat += "<br>"
 			dat += "<b>Ghost Ears:</b> <a href='?_src_=prefs;preference=ghost_ears'>[(chat_toggles & CHAT_GHOSTEARS) ? "All Speech" : "Nearest Creatures"]</a><br>"
 			dat += "<b>Ghost Radio:</b> <a href='?_src_=prefs;preference=ghost_radio'>[(chat_toggles & CHAT_GHOSTRADIO) ? "All Messages":"No Messages"]</a><br>"
@@ -650,8 +626,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					dat += "High"
 			dat += "</a><br>"
 
-			dat += "<b>Ambient Occlusion:</b> <a href='?_src_=prefs;preference=ambientocclusion'>[ambientocclusion ? "Enabled" : "Disabled"]</a><br>"
-			dat += "<b>Fit Viewport:</b> <a href='?_src_=prefs;preference=auto_fit_viewport'>[auto_fit_viewport ? "Auto" : "Manual"]</a><br>"
+			dat += "<b>Ambient Occlusion:</b> <a href='?_src_=prefs;preference=ambientocclusion'>[toggles2 & PREFTOGGLE_2_AMBIENT_OCCLUSION ? "Enabled" : "Disabled"]</a><br>"
+			dat += "<b>Fit Viewport:</b> <a href='?_src_=prefs;preference=auto_fit_viewport'>[toggles2 & PREFTOGGLE_2_AUTO_FIT_VIEWPORT ? "Auto" : "Manual"]</a><br>"
 
 			button_name = pixel_size
 			dat += "<b>Pixel Scaling:</b> <a href='?_src_=prefs;preference=pixel_size'>[(button_name) ? "Pixel Perfect [button_name]x" : "Stretch to fit"]</a><br>"
@@ -707,7 +683,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					else
 						dat += "<b>Be [capitalize(i)]:</b> <a href='?_src_=prefs;preference=be_special;be_special_type=[i]'>[(i in be_special) ? "Enabled" : "Disabled"]</a><br>"
 			dat += "<br>"
-			dat += "<b>Midround Antagonist:</b> <a href='?_src_=prefs;preference=allow_midround_antag'>[(toggles & MIDROUND_ANTAG) ? "Enabled" : "Disabled"]</a><br>"
+			dat += "<b>Midround Antagonist:</b> <a href='?_src_=prefs;preference=allow_midround_antag'>[(toggles & PREFTOGGLE_MIDROUND_ANTAG) ? "Enabled" : "Disabled"]</a><br>"
 
 			dat += "</td></tr><tr><td> </td></tr>" // i hate myself for this
 			dat += "<tr><td colspan='2' width='100%'><center><a style='font-size: 18px;' href='?_src_=prefs;preference=keybindings_menu'>Customize Keybinds</a></center></td></tr>"
@@ -800,17 +776,17 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		if(3) //OOC Preferences
 			dat += "<table><tr><td width='340px' height='300px' valign='top'>"
 			dat += "<h2>OOC Settings</h2>"
-			dat += "<b>Window Flashing:</b> <a href='?_src_=prefs;preference=winflash'>[(windowflashing) ? "Enabled":"Disabled"]</a><br>"
+			dat += "<b>Window Flashing:</b> <a href='?_src_=prefs;preference=winflash'>[(toggles2 & PREFTOGGLE_2_WINDOW_FLASHING) ? "Enabled":"Disabled"]</a><br>"
 			dat += "<br>"
-			dat += "<b>Play Admin MIDIs:</b> <a href='?_src_=prefs;preference=hear_midis'>[(toggles & SOUND_MIDI) ? "Enabled":"Disabled"]</a><br>"
-			dat += "<b>Play Lobby Music:</b> <a href='?_src_=prefs;preference=lobby_music'>[(toggles & SOUND_LOBBY) ? "Enabled":"Disabled"]</a><br>"
+			dat += "<b>Play Admin MIDIs:</b> <a href='?_src_=prefs;preference=hear_midis'>[(toggles & PREFTOGGLE_SOUND_MIDI) ? "Enabled":"Disabled"]</a><br>"
+			dat += "<b>Play Lobby Music:</b> <a href='?_src_=prefs;preference=lobby_music'>[(toggles & PREFTOGGLE_SOUND_LOBBY) ? "Enabled":"Disabled"]</a><br>"
 			dat += "<b>See Pull Requests:</b> <a href='?_src_=prefs;preference=pull_requests'>[(chat_toggles & CHAT_PULLR) ? "Enabled":"Disabled"]</a><br>"
 			dat += "<br>"
 
 
 			if(user.client)
 				if(unlock_content)
-					dat += "<b>BYOND Membership Publicity:</b> <a href='?_src_=prefs;preference=publicity'>[(toggles & MEMBER_PUBLIC) ? "Public" : "Hidden"]</a><br>"
+					dat += "<b>BYOND Membership Publicity:</b> <a href='?_src_=prefs;preference=publicity'>[(toggles & PREFTOGGLE_MEMBER_PUBLIC) ? "Public" : "Hidden"]</a><br>"
 
 				if(unlock_content || check_rights_for(user.client, R_ADMIN))
 					dat += "<b>OOC Color:</b> <span style='border: 1px solid #161616; background-color: [ooccolor ? ooccolor : GLOB.normal_ooc_colour];'>&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=ooccolor;task=input'>Change</a><br>"
@@ -822,11 +798,11 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 				dat += "<h2>Admin Settings</h2>"
 
-				dat += "<b>Adminhelp Sounds:</b> <a href='?_src_=prefs;preference=hear_adminhelps'>[(toggles & SOUND_ADMINHELP)?"Enabled":"Disabled"]</a><br>"
-				dat += "<b>Prayer Sounds:</b> <a href = '?_src_=prefs;preference=hear_prayers'>[(toggles & SOUND_PRAYERS)?"Enabled":"Disabled"]</a><br>"
-				dat += "<b>Announce Login:</b> <a href='?_src_=prefs;preference=announce_login'>[(toggles & ANNOUNCE_LOGIN)?"Enabled":"Disabled"]</a><br>"
+				dat += "<b>Adminhelp Sounds:</b> <a href='?_src_=prefs;preference=hear_adminhelps'>[(toggles & PREFTOGGLE_SOUND_ADMINHELP)?"Enabled":"Disabled"]</a><br>"
+				dat += "<b>Prayer Sounds:</b> <a href = '?_src_=prefs;preference=hear_prayers'>[(toggles & PREFTOGGLE_SOUND_PRAYERS)?"Enabled":"Disabled"]</a><br>"
+				dat += "<b>Announce Login:</b> <a href='?_src_=prefs;preference=announce_login'>[(toggles & PREFTOGGLE_ANNOUNCE_LOGIN)?"Enabled":"Disabled"]</a><br>"
 				dat += "<br>"
-				dat += "<b>Combo HUD Lighting:</b> <a href = '?_src_=prefs;preference=combohud_lighting'>[(toggles & COMBOHUD_LIGHTING)?"Full-bright":"No Change"]</a><br>"
+				dat += "<b>Combo HUD Lighting:</b> <a href = '?_src_=prefs;preference=combohud_lighting'>[(toggles & PREFTOGGLE_COMBOHUD_LIGHTING)?"Full-bright":"No Change"]</a><br>"
 				dat += "<br>"
 				dat += "<b>Hide Dead Chat:</b> <a href = '?_src_=prefs;preference=toggle_dead_chat'>[(chat_toggles & CHAT_DEAD)?"Shown":"Hidden"]</a><br>"
 				dat += "<b>Hide Radio Messages:</b> <a href = '?_src_=prefs;preference=toggle_radio_chatter'>[(chat_toggles & CHAT_RADIO)?"Shown":"Hidden"]</a><br>"
@@ -840,26 +816,26 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				if(CONFIG_GET(flag/auto_deadmin_players))
 					dat += "<b>Always Deadmin:</b> FORCED</a><br>"
 				else
-					dat += "<b>Always Deadmin:</b> <a href = '?_src_=prefs;preference=toggle_deadmin_always'>[(toggles & DEADMIN_ALWAYS)?"Enabled":"Disabled"]</a><br>"
-					if(!(toggles & DEADMIN_ALWAYS))
+					dat += "<b>Always Deadmin:</b> <a href = '?_src_=prefs;preference=toggle_deadmin_always'>[(toggles & PREFTOGGLE_DEADMIN_ALWAYS)?"Enabled":"Disabled"]</a><br>"
+					if(!(toggles & PREFTOGGLE_DEADMIN_ALWAYS))
 						dat += "<br>"
 						if(!CONFIG_GET(flag/auto_deadmin_antagonists))
-							dat += "<b>As Antag:</b> <a href = '?_src_=prefs;preference=toggle_deadmin_antag'>[(toggles & DEADMIN_ANTAGONIST)?"Deadmin":"Keep Admin"]</a><br>"
+							dat += "<b>As Antag:</b> <a href = '?_src_=prefs;preference=toggle_deadmin_antag'>[(toggles & PREFTOGGLE_DEADMIN_ANTAGONIST)?"Deadmin":"Keep Admin"]</a><br>"
 						else
 							dat += "<b>As Antag:</b> FORCED<br>"
 
 						if(!CONFIG_GET(flag/auto_deadmin_heads))
-							dat += "<b>As Command:</b> <a href = '?_src_=prefs;preference=toggle_deadmin_head'>[(toggles & DEADMIN_POSITION_HEAD)?"Deadmin":"Keep Admin"]</a><br>"
+							dat += "<b>As Command:</b> <a href = '?_src_=prefs;preference=toggle_deadmin_head'>[(toggles & PREFTOGGLE_DEADMIN_POSITION_HEAD)?"Deadmin":"Keep Admin"]</a><br>"
 						else
 							dat += "<b>As Command:</b> FORCED<br>"
 
 						if(!CONFIG_GET(flag/auto_deadmin_security))
-							dat += "<b>As Security:</b> <a href = '?_src_=prefs;preference=toggle_deadmin_security'>[(toggles & DEADMIN_POSITION_SECURITY)?"Deadmin":"Keep Admin"]</a><br>"
+							dat += "<b>As Security:</b> <a href = '?_src_=prefs;preference=toggle_deadmin_security'>[(toggles & PREFTOGGLE_DEADMIN_POSITION_SECURITY)?"Deadmin":"Keep Admin"]</a><br>"
 						else
 							dat += "<b>As Security:</b> FORCED<br>"
 
 						if(!CONFIG_GET(flag/auto_deadmin_silicons))
-							dat += "<b>As Silicon:</b> <a href = '?_src_=prefs;preference=toggle_deadmin_silicon'>[(toggles & DEADMIN_POSITION_SILICON)?"Deadmin":"Keep Admin"]</a><br>"
+							dat += "<b>As Silicon:</b> <a href = '?_src_=prefs;preference=toggle_deadmin_silicon'>[(toggles & PREFTOGGLE_DEADMIN_POSITION_SILICON)?"Deadmin":"Keep Admin"]</a><br>"
 						else
 							dat += "<b>As Silicon:</b> FORCED<br>"
 
@@ -1764,7 +1740,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			switch(href_list["preference"])
 				if("publicity")
 					if(unlock_content)
-						toggles ^= MEMBER_PUBLIC
+						toggles ^= PREFTOGGLE_MEMBER_PUBLIC
 				if("gender")
 					if(gender == MALE)
 						gender = FEMALE
@@ -1777,27 +1753,27 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					hair_style = random_hair_style(gender)
 
 				if("hotkeys")
-					hotkeys = !hotkeys
-					if(hotkeys)
+					toggles2 ^= PREFTOGGLE_2_HOTKEYS
+					if(toggles2 & PREFTOGGLE_2_HOTKEYS)
 						winset(user, null, "input.focus=true input.background-color=[COLOR_INPUT_ENABLED] mainwindow.macro=default")
 					else
 						winset(user, null, "input.focus=true input.background-color=[COLOR_INPUT_ENABLED] mainwindow.macro=old_default")
 				if("action_buttons")
-					buttons_locked = !buttons_locked
+					toggles2 ^= PREFTOGGLE_2_LOCKED_BUTTONS
 				if("tgui_fancy")
-					tgui_fancy = !tgui_fancy
+					toggles2 ^= PREFTOGGLE_2_FANCY_TGUI
 				if("outline_enabled")
-					outline_enabled = !outline_enabled
+					toggles ^= PREFTOGGLE_OUTLINE_ENABLED
 				if("outline_color")
 					var/pickedOutlineColor = input(user, "Choose your outline color.", "General Preference", outline_color) as color|null
 					if(pickedOutlineColor)
 						outline_color = pickedOutlineColor
 				if("tgui_lock")
-					tgui_lock = !tgui_lock
+					toggles2 ^= PREFTOGGLE_2_LOCKED_TGUI
 				if("winflash")
-					windowflashing = !windowflashing
+					toggles2 ^= PREFTOGGLE_2_WINDOW_FLASHING
 				if("crewobj")
-					crew_objectives = !crew_objectives
+					toggles2 ^= PREFTOGGLE_2_WINDOW_FLASHING
 
 				//here lies the badmins
 				if("hear_adminhelps")
@@ -1807,7 +1783,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				if("announce_login")
 					user.client.toggleannouncelogin()
 				if("combohud_lighting")
-					toggles ^= COMBOHUD_LIGHTING
+					toggles ^= PREFTOGGLE_COMBOHUD_LIGHTING
 				if("toggle_dead_chat")
 					user.client.deadchat()
 				if("toggle_radio_chatter")
@@ -1815,15 +1791,15 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				if("toggle_prayers")
 					user.client.toggleprayers()
 				if("toggle_deadmin_always")
-					toggles ^= DEADMIN_ALWAYS
+					toggles ^= PREFTOGGLE_DEADMIN_ALWAYS
 				if("toggle_deadmin_antag")
-					toggles ^= DEADMIN_ANTAGONIST
+					toggles ^= PREFTOGGLE_DEADMIN_ANTAGONIST
 				if("toggle_deadmin_head")
-					toggles ^= DEADMIN_POSITION_HEAD
+					toggles ^= PREFTOGGLE_DEADMIN_POSITION_HEAD
 				if("toggle_deadmin_security")
-					toggles ^= DEADMIN_POSITION_SECURITY
+					toggles ^= PREFTOGGLE_DEADMIN_POSITION_SECURITY
 				if("toggle_deadmin_silicon")
-					toggles ^= DEADMIN_POSITION_SILICON
+					toggles ^= PREFTOGGLE_DEADMIN_POSITION_SILICON
 
 
 				if("be_special")
@@ -1840,11 +1816,11 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					be_random_body = !be_random_body
 
 				if("hear_midis")
-					toggles ^= SOUND_MIDI
+					toggles ^= PREFTOGGLE_SOUND_MIDI
 
 				if("lobby_music")
-					toggles ^= SOUND_LOBBY
-					if((toggles & SOUND_LOBBY) && user.client && isnewplayer(user))
+					toggles ^= PREFTOGGLE_SOUND_LOBBY
+					if((toggles & PREFTOGGLE_SOUND_LOBBY) && user.client && isnewplayer(user))
 						user.client.playtitlemusic()
 					else
 						user.stop_sound_channel(CHANNEL_LOBBYMUSIC)
@@ -1874,7 +1850,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					chat_toggles ^= CHAT_PULLR
 
 				if("allow_midround_antag")
-					toggles ^= MIDROUND_ANTAG
+					toggles ^= PREFTOGGLE_MIDROUND_ANTAG
 
 				if("parallaxup")
 					parallax = WRAP(parallax + 1, PARALLAX_INSANE, PARALLAX_DISABLE + 1)
@@ -1887,14 +1863,14 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						parent.mob.hud_used.update_parallax_pref(parent.mob)
 
 				if("ambientocclusion")
-					ambientocclusion = !ambientocclusion
+					toggles2 ^= PREFTOGGLE_2_AMBIENT_OCCLUSION
 					if(parent && parent.screen && parent.screen.len)
 						var/atom/movable/screen/plane_master/game_world/PM = locate(/atom/movable/screen/plane_master/game_world) in parent.screen
 						PM.backdrop(parent.mob)
 
 				if("auto_fit_viewport")
-					auto_fit_viewport = !auto_fit_viewport
-					if(auto_fit_viewport && parent)
+					toggles2 ^= PREFTOGGLE_2_AUTO_FIT_VIEWPORT
+					if((toggles2 & PREFTOGGLE_2_AUTO_FIT_VIEWPORT) && parent)
 						parent.fit_viewport()
 
 				if("pixel_size")
@@ -1926,7 +1902,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					save_character()
 
 				if("load")
-					load_preferences()
+					load_from_database()
 					load_character()
 
 				if("changeslot")
@@ -2010,11 +1986,11 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					return
 
 				if("chat_on_map")
-					chat_on_map = !chat_on_map
+					toggles ^= PREFTOGGLE_RUNECHAT_GLOBAL
 				if("see_chat_non_mob")
-					see_chat_non_mob = !see_chat_non_mob
+					toggles ^= PREFTOGGLE_RUNECHAT_NONMOBS
 				if("see_rc_emotes")
-					see_rc_emotes = !see_rc_emotes
+					toggles ^= PREFTOGGLE_RUNECHAT_EMOTES
 
 	ShowChoices(user)
 	return 1

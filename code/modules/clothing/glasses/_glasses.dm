@@ -480,8 +480,8 @@
 		if(H.client)
 			if(H.client.prefs)
 				if(src == H.glasses)
-					H.client.prefs.uses_glasses_colour = !H.client.prefs.uses_glasses_colour
-					if(H.client.prefs.uses_glasses_colour)
+					H.client.prefs.toggles2 ^= PREFTOGGLE_2_USES_GLASSES_COLOUR
+					if(H.client.prefs.toggles2 & PREFTOGGLE_2_USES_GLASSES_COLOUR)
 						to_chat(H, "You will now see glasses colors.")
 					else
 						to_chat(H, "You will no longer see glasses colors.")
@@ -499,7 +499,7 @@
 
 
 /mob/living/carbon/human/proc/update_glasses_color(obj/item/clothing/glasses/G, glasses_equipped)
-	if(client && client.prefs.uses_glasses_colour && glasses_equipped)
+	if(client && (client.prefs.toggles2 & PREFTOGGLE_2_USES_GLASSES_COLOUR) && glasses_equipped)
 		add_client_colour(G.glass_colour_type)
 	else
 		remove_client_colour(G.glass_colour_type)

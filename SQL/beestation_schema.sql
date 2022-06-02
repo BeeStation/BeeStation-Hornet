@@ -400,44 +400,14 @@ CREATE TABLE IF NOT EXISTS `SS13_poll_vote` (
 
 -- Dumping structure for table ss13tgdb.SS13_preferences
 DROP TABLE IF EXISTS `SS13_preferences`;
-CREATE TABLE IF NOT EXISTS `SS13_preferences` (
-  `ckey` varchar(32) NOT NULL,
-  `asaycolor` varchar(7) DEFAULT NULL,
-  `ooccolor` varchar(7) DEFAULT NULL,
-  `lastchangelog` varchar(50) DEFAULT NULL,
-  `ui_style` varchar(50) DEFAULT NULL,
-  `hotkeys` tinyint(3) unsigned DEFAULT NULL,
-  `tgui_fancy` tinyint(3) unsigned DEFAULT NULL,
-  `tgui_lock` tinyint(3) unsigned DEFAULT NULL,
-  `buttons_locked` tinyint(3) unsigned DEFAULT NULL,
-  `windowflashing` tinyint(3) unsigned DEFAULT NULL,
-  `default_slot` tinyint(3) unsigned DEFAULT NULL,
-  `toggles` smallint(5) unsigned DEFAULT NULL,
-  `chat_toggles` smallint(5) unsigned DEFAULT NULL,
-  `clientfps` smallint(5) unsigned DEFAULT NULL,
-  `parallax` tinyint(4) DEFAULT NULL,
-  `ambientocclusion` tinyint(3) unsigned DEFAULT NULL,
-  `auto_fit_viewport` tinyint(3) unsigned DEFAULT NULL,
-  `ghost_form` varchar(50) DEFAULT NULL,
-  `ghost_orbit` varchar(50) DEFAULT NULL,
-  `ghost_accs` tinyint(3) unsigned DEFAULT NULL,
-  `ghost_others` tinyint(3) unsigned DEFAULT NULL,
-  `menuoptions` json DEFAULT NULL,
-  `be_special` json DEFAULT NULL,
-  `crew_objectives` tinyint(3) unsigned DEFAULT NULL,
-  `pda_style` varchar(50) DEFAULT NULL,
-  `pda_color` varchar(7) DEFAULT NULL,
-  `key_bindings` json DEFAULT NULL,
-  `preferred_map` varchar(50) DEFAULT NULL,
-  `ghost_hud` tinyint(4) DEFAULT NULL,
-  `ignoring` json DEFAULT NULL,
-  `inquisitive_ghost` tinyint(4) unsigned DEFAULT NULL,
-  `uses_glasses_colour` tinyint(4) unsigned DEFAULT NULL,
-  `enable_tips` tinyint(4) unsigned DEFAULT NULL,
-  `tip_delay` mediumint(8) unsigned DEFAULT NULL,
-  PRIMARY KEY (`ckey`)
+CREATE TABLE `SS13_preferences` (
+	`id` BIGINT(20) NOT NULL AUTO_INCREMENT,
+	`ckey` VARCHAR(64) NOT NULL DEFAULT '0' COLLATE 'utf8mb4_general_ci',
+	`preference_tag` INT(11) NOT NULL DEFAULT '0',
+	`preference_value` MEDIUMTEXT NOT NULL COLLATE 'utf8mb4_general_ci',
+	PRIMARY KEY (`id`) USING BTREE
+	UNIQUE INDEX `prefbinding` (`ckey`, `preference_tag`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
 
 
 -- Dumping structure for table ss13tgdb.SS13_role_time
@@ -568,6 +538,9 @@ CREATE TABLE IF NOT EXISTS `SS13_achievement_metadata` (
 	`achievement_description` VARCHAR(512) NULL DEFAULT NULL,
 	PRIMARY KEY (`achievement_key`)
 ) ENGINE=InnoDB;
+
+
+
 
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

@@ -43,10 +43,10 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 
 /datum/preferences/proc/update_preferences(current_version, savefile/S)
 	if(current_version < 33)
-		chat_on_map = TRUE
+		//chat_on_map = TRUE
 //		max_chat_length = CHAT_MESSAGE_MAX_LENGTH			> Depreciated as of 31/07/2021
-		see_chat_non_mob = TRUE
-		see_rc_emotes = TRUE
+		//see_chat_non_mob = TRUE
+		//see_rc_emotes = TRUE
 		S.dir.Remove("overhead_chat")
 	if(current_version < 35)
 		see_balloon_alerts = BALLOON_ALERT_ALWAYS
@@ -147,118 +147,6 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 		return
 	path = "data/player_saves/[ckey[1]]/[ckey]/[filename]"
 
-/datum/preferences/proc/load_preferences()
-	if(!path)
-		return FALSE
-	if(!fexists(path))
-		return FALSE
-
-	var/savefile/S = new /savefile(path)
-	if(!S)
-		return FALSE
-	S.cd = "/"
-
-	var/needs_update = savefile_needs_update(S)
-	if(needs_update == -2)		//fatal, can't load any data
-		return FALSE
-
-	//general preferences
-	READ_FILE(S["asaycolor"], asaycolor)
-	READ_FILE(S["ooccolor"], ooccolor)
-	READ_FILE(S["lastchangelog"], lastchangelog)
-	READ_FILE(S["UI_style"], UI_style)
-	READ_FILE(S["outline_color"], outline_color)
-	READ_FILE(S["outline_enabled"], outline_enabled)
-	READ_FILE(S["hotkeys"], hotkeys)
-	READ_FILE(S["chat_on_map"], chat_on_map)
-	READ_FILE(S["see_chat_non_mob"] , see_chat_non_mob)
-	READ_FILE(S["see_rc_emotes"] , see_rc_emotes)
-	READ_FILE(S["see_balloon_alerts"], see_balloon_alerts)
-	READ_FILE(S["tgui_fancy"], tgui_fancy)
-	READ_FILE(S["tgui_lock"], tgui_lock)
-	READ_FILE(S["buttons_locked"], buttons_locked)
-	READ_FILE(S["windowflash"], windowflashing)
-	READ_FILE(S["be_special"], be_special)
-
-	READ_FILE(S["crew_objectives"], crew_objectives)
-
-
-	READ_FILE(S["default_slot"], default_slot)
-	READ_FILE(S["chat_toggles"], chat_toggles)
-	READ_FILE(S["toggles"], toggles)
-	READ_FILE(S["ghost_form"], ghost_form)
-	READ_FILE(S["ghost_orbit"], ghost_orbit)
-	READ_FILE(S["ghost_accs"], ghost_accs)
-	READ_FILE(S["ghost_others"], ghost_others)
-	READ_FILE(S["preferred_map"], preferred_map)
-	READ_FILE(S["ignoring"], ignoring)
-	READ_FILE(S["ghost_hud"], ghost_hud)
-	READ_FILE(S["inquisitive_ghost"], inquisitive_ghost)
-	READ_FILE(S["uses_glasses_colour"], uses_glasses_colour)
-	READ_FILE(S["clientfps"], clientfps)
-	READ_FILE(S["parallax"], parallax)
-	READ_FILE(S["ambientocclusion"], ambientocclusion)
-	READ_FILE(S["auto_fit_viewport"], auto_fit_viewport)
-	READ_FILE(S["pixel_size"], pixel_size)
-	READ_FILE(S["scaling_method"], scaling_method)
-	READ_FILE(S["menuoptions"], menuoptions)
-	READ_FILE(S["enable_tips"], enable_tips)
-	READ_FILE(S["tip_delay"], tip_delay)
-	READ_FILE(S["pda_style"], pda_style)
-	READ_FILE(S["pda_color"], pda_color)
-	READ_FILE(S["show_credits"], show_credits)
-
-	READ_FILE(S["key_bindings"], key_bindings)
-
-	READ_FILE(S["purchased_gear"], purchased_gear)
-
-
-	//try to fix any outdated data if necessary
-	if(needs_update >= 0)
-		update_preferences(needs_update, S)		//needs_update = savefile_version if we need an update (positive integer)
-
-	//Sanitize
-	asaycolor		= sanitize_ooccolor(sanitize_hexcolor(asaycolor, 6, TRUE, initial(asaycolor)))
-	ooccolor		= sanitize_ooccolor(sanitize_hexcolor(ooccolor, 6, TRUE, initial(ooccolor)))
-	lastchangelog	= sanitize_text(lastchangelog, initial(lastchangelog))
-	UI_style		= sanitize_inlist(UI_style, GLOB.available_ui_styles, GLOB.available_ui_styles[1])
-	hotkeys			= sanitize_integer(hotkeys, FALSE, TRUE, initial(hotkeys))
-	chat_on_map		= sanitize_integer(chat_on_map, FALSE, TRUE, initial(chat_on_map))
-	see_chat_non_mob	= sanitize_integer(see_chat_non_mob, FALSE, TRUE, initial(see_chat_non_mob))
-	tgui_fancy		= sanitize_integer(tgui_fancy, FALSE, TRUE, initial(tgui_fancy))
-	tgui_lock		= sanitize_integer(tgui_lock, FALSE, TRUE, initial(tgui_lock))
-	buttons_locked	= sanitize_integer(buttons_locked, FALSE, TRUE, initial(buttons_locked))
-	windowflashing		= sanitize_integer(windowflashing, FALSE, TRUE, initial(windowflashing))
-	default_slot	= sanitize_integer(default_slot, TRUE, max_save_slots, initial(default_slot))
-	toggles			= sanitize_integer(toggles, FALSE, 65535, initial(toggles))
-	clientfps		= sanitize_integer(clientfps, FALSE, 1000, FALSE)
-	parallax		= sanitize_integer(parallax, PARALLAX_INSANE, PARALLAX_DISABLE, null)
-	ambientocclusion	= sanitize_integer(ambientocclusion, FALSE, TRUE, initial(ambientocclusion))
-	auto_fit_viewport	= sanitize_integer(auto_fit_viewport, FALSE, TRUE, initial(auto_fit_viewport))
-	pixel_size		= sanitize_float(pixel_size, PIXEL_SCALING_AUTO, PIXEL_SCALING_3X, 0.5, initial(pixel_size))
-	scaling_method  = sanitize_text(scaling_method, initial(scaling_method))
-	ghost_form		= sanitize_inlist(ghost_form, GLOB.ghost_forms, initial(ghost_form))
-	ghost_orbit 	= sanitize_inlist(ghost_orbit, GLOB.ghost_orbits, initial(ghost_orbit))
-	ghost_accs		= sanitize_inlist(ghost_accs, GLOB.ghost_accs_options, GHOST_ACCS_DEFAULT_OPTION)
-	ghost_others	= sanitize_inlist(ghost_others, GLOB.ghost_others_options, GHOST_OTHERS_DEFAULT_OPTION)
-	menuoptions		= SANITIZE_LIST(menuoptions)
-	be_special		= SANITIZE_LIST(be_special)
-	crew_objectives		= sanitize_integer(crew_objectives, FALSE, TRUE, initial(crew_objectives))
-	pda_style		= sanitize_inlist(pda_style, GLOB.pda_styles, initial(pda_style))
-	pda_color		= sanitize_hexcolor(pda_color, 6, TRUE, initial(pda_color))
-	show_credits		= sanitize_integer(show_credits, FALSE, TRUE, initial(show_credits))
-
-	key_bindings 	= sanitize_islist(key_bindings, deepCopyList(GLOB.keybinding_list_by_key))
-	if (!key_bindings)
-		key_bindings = deepCopyList(GLOB.keybinding_list_by_key)
-
-	if(!purchased_gear)
-		purchased_gear = list()
-	if(!equipped_gear)
-		equipped_gear = list()
-
-	return TRUE
-
 /datum/preferences/proc/save_preferences()
 	if(!path)
 		return FALSE
@@ -274,19 +162,19 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	WRITE_FILE(S["ooccolor"], ooccolor)
 	WRITE_FILE(S["lastchangelog"], lastchangelog)
 	WRITE_FILE(S["UI_style"], UI_style)
-	WRITE_FILE(S["outline_enabled"], outline_enabled)
+	//WRITE_FILE(S["outline_enabled"], outline_enabled)
 	WRITE_FILE(S["outline_color"], outline_color)
-	WRITE_FILE(S["hotkeys"], hotkeys)
-	WRITE_FILE(S["chat_on_map"], chat_on_map)
-	WRITE_FILE(S["see_chat_non_mob"], see_chat_non_mob)
-	WRITE_FILE(S["see_rc_emotes"], see_rc_emotes)
+	//WRITE_FILE(S["hotkeys"], hotkeys)
+	//WRITE_FILE(S["chat_on_map"], chat_on_map)
+	//WRITE_FILE(S["see_chat_non_mob"], see_chat_non_mob)
+	//WRITE_FILE(S["see_rc_emotes"], see_rc_emotes)
 	WRITE_FILE(S["see_balloon_alerts"], see_balloon_alerts)
-	WRITE_FILE(S["tgui_fancy"], tgui_fancy)
-	WRITE_FILE(S["tgui_lock"], tgui_lock)
-	WRITE_FILE(S["buttons_locked"], buttons_locked)
-	WRITE_FILE(S["windowflash"], windowflashing)
+	//WRITE_FILE(S["tgui_fancy"], tgui_fancy)
+	//WRITE_FILE(S["tgui_lock"], tgui_lock)
+	//WRITE_FILE(S["buttons_locked"], buttons_locked)
+	//WRITE_FILE(S["windowflash"], windowflashing)
 	WRITE_FILE(S["be_special"], be_special)
-	WRITE_FILE(S["crew_objectives"], crew_objectives)
+	//WRITE_FILE(S["crew_objectives"], crew_objectives)
 	WRITE_FILE(S["default_slot"], default_slot)
 	WRITE_FILE(S["toggles"], toggles)
 	WRITE_FILE(S["chat_toggles"], chat_toggles)
@@ -296,17 +184,16 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	WRITE_FILE(S["ghost_others"], ghost_others)
 	WRITE_FILE(S["preferred_map"], preferred_map)
 	WRITE_FILE(S["ignoring"], ignoring)
-	WRITE_FILE(S["ghost_hud"], ghost_hud)
-	WRITE_FILE(S["inquisitive_ghost"], inquisitive_ghost)
-	WRITE_FILE(S["uses_glasses_colour"], uses_glasses_colour)
+	//WRITE_FILE(S["ghost_hud"], ghost_hud)
+	//WRITE_FILE(S["inquisitive_ghost"], inquisitive_ghost)
+	//WRITE_FILE(S["uses_glasses_colour"], uses_glasses_colour)
 	WRITE_FILE(S["clientfps"], clientfps)
 	WRITE_FILE(S["parallax"], parallax)
-	WRITE_FILE(S["ambientocclusion"], ambientocclusion)
-	WRITE_FILE(S["auto_fit_viewport"], auto_fit_viewport)
+	//WRITE_FILE(S["ambientocclusion"], ambientocclusion)
+	//WRITE_FILE(S["auto_fit_viewport"], auto_fit_viewport)
 	WRITE_FILE(S["pixel_size"], pixel_size)
 	WRITE_FILE(S["scaling_method"], scaling_method)
-	WRITE_FILE(S["menuoptions"], menuoptions)
-	WRITE_FILE(S["enable_tips"], enable_tips)
+	//WRITE_FILE(S["enable_tips"], enable_tips)
 	WRITE_FILE(S["tip_delay"], tip_delay)
 	WRITE_FILE(S["pda_style"], pda_style)
 	WRITE_FILE(S["pda_color"], pda_color)
