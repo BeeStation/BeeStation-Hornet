@@ -306,6 +306,10 @@
 
 /datum/config_entry/flag/automapvote
 
+/datum/config_entry/number/automapvote_threshold
+	config_entry_value = null
+	min_val = 0
+
 /datum/config_entry/number/maprotatechancedelta
 	config_entry_value = 0.75
 	min_val = 0
