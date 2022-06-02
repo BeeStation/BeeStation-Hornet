@@ -56,7 +56,7 @@
 
 /datum/objective/crew/xenoslime/New()
 	. = ..()
-	target_amount = rand(33,66)
+	target_amount = rand(33,60)
 	update_explanation_text()
 
 /datum/objective/crew/xenoslime/update_explanation_text()
