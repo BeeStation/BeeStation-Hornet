@@ -7,6 +7,8 @@
 #define BTNY_CFG_RNG_REAG_CHANCE_FIRST 100  // you always get a reagent. 100%
 #define BTNY_CFG_RNG_REAG_CHANCE_SECOND 80   // at second reagent, 80%
 #define BTNY_CFG_RNG_TRAIT_CHANCE 80
+#define BTNY_CFG_TRAIT_INJECT_IMMUME_TIME 300 // immune inject for 30s
+#define BTNY_CFG_TRAIT_TELE_IMMUME_TIME 300 // immune teleport for 30s
 
 
 /* Summary:
