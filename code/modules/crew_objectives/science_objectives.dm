@@ -7,7 +7,7 @@
 
 /datum/objective/crew/botmaker/New()
 	. = ..()
-	target_amount = rand(4,16)
+	target_amount = rand(7,16)
 	if(isnull(roundstartcount))
 		roundstartcount = 0
 		for(var/mob/living/simple_animal/bot/B in GLOB.alive_mob_list)

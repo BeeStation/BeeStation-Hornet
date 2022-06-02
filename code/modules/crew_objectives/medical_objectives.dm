@@ -90,10 +90,10 @@
 	var/realperson = 0
 	var/hadvaccine = 0
 	for(var/mob/living/carbon/human/H in GLOB.mob_list)
-		if(H.mind)
+		if(H.mind && H.mind.assigned_role)
 			realperson++
 		if(length(H.disease_resistances))
 			hadvaccine++
-	if(round(realperson/2) <= hadvaccine)
+	if(realperson/2 <= hadvaccine) //don't have to round(realperson)
 		return TRUE
 	return ..()
