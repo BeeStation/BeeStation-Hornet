@@ -65,14 +65,11 @@
 /turf/open/floor/pod,
 /area/survivalpod)
 "n" = (
-/obj/structure/window/reinforced/survival_pod{
-	dir = 8;
-	layer = 3
-	},
 /obj/machinery/door/window/survival_pod{
 	dir = 1;
 	icon_state = "windoor"
 	},
+/obj/structure/window/reinforced/survival_pod/spawner/west,
 /turf/open/floor/carpet/black,
 /area/survivalpod)
 "o" = (
@@ -82,9 +79,7 @@
 	icon_state = "cutout_lusty";
 	name = "lusty xenomorph maid"
 	},
-/obj/structure/window/reinforced/survival_pod{
-	dir = 1
-	},
+/obj/structure/window/reinforced/survival_pod/spawner/north,
 /turf/open/floor/carpet/black,
 /area/survivalpod)
 "p" = (
@@ -101,9 +96,7 @@
 /turf/open/floor/pod,
 /area/survivalpod)
 "r" = (
-/obj/structure/window/reinforced/survival_pod{
-	dir = 8
-	},
+/obj/structure/window/reinforced/survival_pod/spawner/west,
 /turf/open/floor/carpet/black,
 /area/survivalpod)
 "s" = (
@@ -126,12 +119,10 @@
 /obj/machinery/microwave{
 	pixel_y = -2
 	},
-/obj/structure/window/reinforced/survival_pod{
-	dir = 1
-	},
 /obj/structure/table/wood/fancy/black{
 	pixel_y = -9
 	},
+/obj/structure/window/reinforced/survival_pod/spawner/north,
 /turf/open/floor/carpet/black,
 /area/survivalpod)
 "u" = (
@@ -142,9 +133,6 @@
 /turf/open/floor/carpet/black,
 /area/survivalpod)
 "v" = (
-/obj/structure/window/reinforced/survival_pod{
-	dir = 1
-	},
 /obj/structure/displaycase{
 	alert = 0;
 	desc = "A display case containing an expensive forgery, probably.";
@@ -152,6 +140,7 @@
 	req_access_txt = "48";
 	start_showpiece_type = /obj/item/fakeartefact
 	},
+/obj/structure/window/reinforced/survival_pod/spawner/north,
 /turf/open/floor/carpet/black,
 /area/survivalpod)
 "w" = (

@@ -3,9 +3,7 @@
 /turf/closed/wall/mineral/titanium/survival,
 /area/shuttle/mining)
 "b" = (
-/obj/effect/spawner/structure/window/hollow/survival_pod/directional{
-	dir = 1
-	},
+/obj/effect/spawner/structure/window/survival_pod,
 /turf/open/floor/plating,
 /area/shuttle/mining)
 "c" = (
@@ -256,16 +254,10 @@
 /area/shuttle/mining)
 "r" = (
 /obj/structure/shuttle/engine/heater,
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/obj/structure/window/reinforced{
-	dir = 8
-	},
 /obj/effect/turf_decal/stripes/line,
+/obj/structure/window/reinforced/spawner/west,
+/obj/structure/window/reinforced/spawner/east,
+/obj/structure/window/reinforced/spawner/north,
 /turf/open/floor/plating/airless,
 /area/shuttle/mining)
 "s" = (
@@ -279,24 +271,9 @@
 /area/shuttle/mining)
 "t" = (
 /obj/structure/shuttle/engine/propulsion/burst,
-/obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
-	},
 /obj/effect/turf_decal/stripes/line,
+/obj/structure/window/reinforced/spawner/north,
 /turf/open/floor/plating/airless,
-/area/shuttle/mining)
-"J" = (
-/obj/effect/spawner/structure/window/hollow/survival_pod/directional{
-	dir = 4
-	},
-/turf/open/floor/plating,
-/area/shuttle/mining)
-"Q" = (
-/obj/effect/spawner/structure/window/hollow/survival_pod/directional{
-	dir = 8
-	},
-/turf/open/floor/plating,
 /area/shuttle/mining)
 "S" = (
 /turf/closed/wall/mineral/titanium/survival/nodiagonal,
@@ -305,9 +282,9 @@
 (1,1,1) = {"
 a
 S
-Q
+b
 i
-Q
+b
 S
 a
 "}
@@ -341,9 +318,9 @@ S
 (5,1,1) = {"
 a
 S
-J
+b
 m
-J
+b
 S
 a
 "}

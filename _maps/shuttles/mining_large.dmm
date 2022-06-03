@@ -2,12 +2,6 @@
 "a" = (
 /turf/template_noop,
 /area/template_noop)
-"b" = (
-/obj/effect/spawner/structure/window/hollow/survival_pod/directional{
-	dir = 9
-	},
-/turf/open/floor/plating,
-/area/shuttle/mining/large)
 "c" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/toolbox/emergency,
@@ -434,10 +428,7 @@
 /area/shuttle/mining/large)
 "G" = (
 /obj/structure/shuttle/engine/heater,
-/obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
-	},
+/obj/structure/window/reinforced/spawner/north,
 /turf/open/floor/plating/airless,
 /area/shuttle/mining/large)
 "H" = (
@@ -475,46 +466,26 @@
 /obj/structure/fans/tiny,
 /turf/open/floor/plating,
 /area/shuttle/mining/large)
-"N" = (
-/obj/effect/spawner/structure/window/hollow/survival_pod/directional{
-	dir = 4
-	},
-/turf/open/floor/plating,
-/area/shuttle/mining/large)
 "Q" = (
-/obj/effect/spawner/structure/window/hollow/survival_pod/directional{
-	dir = 5
-	},
-/turf/open/floor/plating,
-/area/shuttle/mining/large)
-"U" = (
-/obj/effect/spawner/structure/window/hollow/survival_pod/directional{
-	dir = 8
-	},
-/turf/open/floor/plating,
-/area/shuttle/mining/large)
-"Y" = (
-/obj/effect/spawner/structure/window/hollow/survival_pod/directional{
-	dir = 1
-	},
+/obj/effect/spawner/structure/window/survival_pod,
 /turf/open/floor/plating,
 /area/shuttle/mining/large)
 
 (1,1,1) = {"
 a
-U
-U
+Q
+Q
 k
 k
 k
-U
+Q
 k
 F
 a
 "}
 (2,1,1) = {"
-b
-Y
+Q
+Q
 f
 l
 k
@@ -525,7 +496,7 @@ G
 I
 "}
 (3,1,1) = {"
-Y
+Q
 c
 g
 m
@@ -537,7 +508,7 @@ k
 k
 "}
 (4,1,1) = {"
-Y
+Q
 d
 h
 n
@@ -549,7 +520,7 @@ H
 J
 "}
 (5,1,1) = {"
-Y
+Q
 e
 i
 o
@@ -562,7 +533,7 @@ k
 "}
 (6,1,1) = {"
 Q
-Y
+Q
 j
 p
 k
@@ -575,11 +546,11 @@ I
 (7,1,1) = {"
 a
 Q
-N
+Q
 k
 k
 k
-N
+Q
 k
 F
 a
