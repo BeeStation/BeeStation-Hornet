@@ -1,6 +1,7 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "aa" = (
 /obj/machinery/airalarm/directional/north,
+/obj/effect/landmark/start/assistant,
 /turf/open/floor/plating,
 /area/maintenance/upper/port/central)
 "ad" = (
@@ -1176,6 +1177,10 @@
 	},
 /turf/open/floor/plasteel/grimy,
 /area/tcommsat/computer)
+"fL" = (
+/obj/structure/lattice,
+/turf/open/space/basic,
+/area/space)
 "fN" = (
 /obj/machinery/atmospherics/pipe/simple/brown/visible/layer4{
 	dir = 5
@@ -1630,6 +1635,10 @@
 	},
 /turf/open/floor/plasteel,
 /area/science/xenobiology)
+"ij" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating/airless,
+/area/maintenance/upper/port/central)
 "ik" = (
 /obj/effect/turf_decal/tile/purple{
 	dir = 4
@@ -1776,6 +1785,21 @@
 	},
 /turf/open/floor/wood,
 /area/maintenance/upper/starboard/central)
+"iX" = (
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
+/turf/open/floor/plating,
+/area/maintenance/department/security)
 "jc" = (
 /obj/structure/sign/warning/securearea{
 	desc = "A warning sign which reads 'WARNING: Do Not Enter When Red Light Shows', detailing the penalties that any Nanotrasen employee or silicon will suffer if violating this rule.";
@@ -2008,6 +2032,11 @@
 /obj/effect/landmark/start/roboticist,
 /turf/open/floor/plasteel,
 /area/science/robotics)
+"kx" = (
+/turf/open/floor/plating/airless{
+	icon_state = "platingdmg2"
+	},
+/area/maintenance/upper/port/central)
 "kA" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -2211,6 +2240,10 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /turf/open/floor/plasteel/dark,
 /area/bridge/meeting_room/council)
+"lJ" = (
+/obj/effect/decal/cleanable/blood/old,
+/turf/open/floor/plating/airless,
+/area/maintenance/upper/port/central)
 "lM" = (
 /obj/machinery/firealarm/directional/west,
 /turf/open/floor/plasteel/grimy,
@@ -2345,6 +2378,12 @@
 	},
 /turf/open/floor/plasteel,
 /area/science/robotics)
+"mt" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/open/floor/plating,
+/area/maintenance/department/security)
 "mu" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
@@ -3696,6 +3735,10 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plating,
 /area/maintenance/upper/starboard/aft)
+"sq" = (
+/obj/effect/landmark/start/assistant,
+/turf/open/floor/plating,
+/area/maintenance/upper/starboard/aft)
 "ss" = (
 /obj/machinery/atmospherics/pipe/manifold/brown/visible/layer4,
 /obj/item/lighter,
@@ -4050,9 +4093,24 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/security)
+"uf" = (
+/turf/open/floor/plating/airless{
+	icon_state = "platingdmg1"
+	},
+/area/maintenance/upper/port/central)
 "uh" = (
 /turf/closed/wall,
 /area/maintenance/upper/port/central)
+"uk" = (
+/obj/machinery/door/airlock/maintenance{
+	name = "Maintenance Access";
+	req_one_access_txt = "12"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/open/floor/plating,
+/area/maintenance/department/security)
 "ul" = (
 /obj/machinery/atmospherics/components/binary/valve{
 	dir = 8
@@ -4527,6 +4585,10 @@
 	},
 /turf/open/floor/plasteel,
 /area/maintenance/upper/starboard/central)
+"xq" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/plating/airless,
+/area/maintenance/upper/port/central)
 "xs" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -4732,10 +4794,21 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plating,
 /area/maintenance/department/engine)
+"yu" = (
+/obj/effect/decal/cleanable/vomit/old,
+/turf/open/floor/plating/airless{
+	icon_state = "plating_rust"
+	},
+/area/maintenance/upper/port/central)
 "yx" = (
 /obj/machinery/vending/coffee,
 /turf/open/floor/plasteel/dark,
 /area/bridge/meeting_room/council)
+"yA" = (
+/obj/effect/spawner/structure/window/reinforced,
+/obj/structure/cable/yellow,
+/turf/open/floor/plating,
+/area/maintenance/department/security)
 "yC" = (
 /turf/closed/wall,
 /area/maintenance/upper/starboard/central)
@@ -5120,6 +5193,10 @@
 	},
 /turf/open/floor/wood,
 /area/maintenance/upper/starboard/central)
+"Aw" = (
+/obj/effect/decal/cleanable/crayon,
+/turf/open/floor/plating/airless,
+/area/maintenance/upper/port/central)
 "Ay" = (
 /obj/machinery/atmospherics/pipe/multiz/layer4,
 /turf/open/floor/plating,
@@ -5540,6 +5617,15 @@
 	},
 /turf/open/floor/plasteel,
 /area/science/mixing)
+"Dm" = (
+/obj/machinery/door/airlock/maintenance{
+	name = "Maintenance Access";
+	req_one_access_txt = "12"
+	},
+/obj/effect/mapping_helpers/airlock/locked,
+/obj/effect/mapping_helpers/airlock/abandoned,
+/turf/open/floor/plating,
+/area/maintenance/upper/port/central)
 "Dn" = (
 /obj/structure/railing/corner{
 	dir = 4
@@ -6157,6 +6243,13 @@
 	},
 /turf/open/floor/wood,
 /area/maintenance/upper/starboard/central)
+"Id" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/effect/landmark/start/assistant,
+/turf/open/floor/plating,
+/area/maintenance/upper/starboard/aft)
 "If" = (
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
@@ -6501,6 +6594,12 @@
 	},
 /turf/open/floor/circuit/telecomms/mainframe,
 /area/tcommsat/server)
+"JB" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
+/turf/open/floor/plating,
+/area/maintenance/department/security)
 "JD" = (
 /obj/machinery/atmospherics/pipe/multiz/layer4,
 /turf/open/floor/plating,
@@ -7488,6 +7587,12 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/upper/port/central)
+"Pd" = (
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
+/turf/open/floor/plating,
+/area/maintenance/department/security)
 "Pe" = (
 /obj/machinery/atmospherics/components/unary/portables_connector/layer4,
 /obj/machinery/portable_atmospherics/canister/water_vapor,
@@ -8434,6 +8539,10 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/upper/starboard/central)
+"Ve" = (
+/obj/machinery/suit_storage_unit/standard_unit,
+/turf/open/floor/plating,
+/area/maintenance/department/security)
 "Vk" = (
 /obj/structure/railing{
 	dir = 4
@@ -8522,6 +8631,16 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/upper/starboard/aft)
+"VL" = (
+/obj/machinery/door/airlock/maintenance{
+	name = "Maintenance Access";
+	req_one_access_txt = "12"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/turf/open/floor/plating,
+/area/maintenance/department/security)
 "VO" = (
 /turf/open/floor/plating,
 /area/tcommsat/computer)
@@ -8529,6 +8648,11 @@
 /obj/machinery/door/firedoor,
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/turret_protected/ai)
+"VR" = (
+/turf/open/floor/plating/airless{
+	icon_state = "platingdmg3"
+	},
+/area/maintenance/upper/port/central)
 "VW" = (
 /obj/structure/railing/corner{
 	dir = 1
@@ -34601,10 +34725,10 @@ gw
 cS
 Tz
 gw
+Tz
 gw
 gw
 gw
-mj
 xB
 MA
 RK
@@ -34858,10 +34982,10 @@ gw
 gw
 eX
 gw
-gw
-gw
-gw
-gw
+Tz
+Tz
+Tz
+Tz
 xB
 RB
 KG
@@ -35631,7 +35755,7 @@ gw
 gw
 gw
 gw
-gw
+Tz
 gw
 xB
 Ah
@@ -35859,7 +35983,7 @@ pm
 Zq
 uh
 pm
-pm
+uh
 pm
 uh
 pm
@@ -35888,7 +36012,7 @@ Tz
 gw
 gw
 gw
-gw
+Tz
 gw
 xB
 pe
@@ -36115,8 +36239,8 @@ pm
 pm
 pm
 uh
-pm
-pm
+uh
+uh
 pm
 uh
 pm
@@ -36393,7 +36517,7 @@ Zq
 uh
 pm
 pm
-Zq
+pm
 Tz
 gw
 Fl
@@ -36631,7 +36755,7 @@ pm
 uh
 pm
 pm
-pm
+uh
 uh
 pm
 pm
@@ -36648,9 +36772,9 @@ pm
 zr
 pm
 uh
-pm
-pm
-pm
+uh
+uh
+uh
 Tz
 gw
 Mq
@@ -36907,7 +37031,7 @@ pm
 ka
 pm
 pm
-pm
+uh
 Tz
 gw
 gw
@@ -37140,7 +37264,7 @@ QI
 QI
 UZ
 uh
-ka
+Dm
 uh
 uh
 pm
@@ -37164,7 +37288,7 @@ pm
 uh
 pm
 pm
-pm
+uh
 Tz
 gw
 gw
@@ -37396,9 +37520,9 @@ QI
 QI
 QI
 UZ
-pm
-pm
-pm
+xq
+yu
+ij
 uh
 pm
 pm
@@ -37421,7 +37545,7 @@ pm
 uh
 pm
 pm
-pm
+uh
 Tz
 Tz
 eX
@@ -37652,10 +37776,10 @@ QI
 QI
 QI
 QI
-UZ
-pm
-pm
-pm
+QI
+fL
+uf
+Aw
 uh
 pm
 pm
@@ -37680,9 +37804,9 @@ uh
 ka
 uh
 Tz
+Tz
 gw
-gw
-YM
+Tz
 Tz
 gw
 gw
@@ -37909,10 +38033,10 @@ QI
 QI
 QI
 QI
-UZ
-pm
-pm
-pm
+QI
+QI
+VR
+lJ
 uh
 pm
 pm
@@ -37937,9 +38061,9 @@ pm
 pm
 Zq
 Tz
+Tz
 gw
-gw
-gw
+Tz
 Tz
 gw
 gw
@@ -38166,10 +38290,10 @@ QI
 QI
 QI
 QI
-UZ
-pm
-pm
-pm
+QI
+QI
+fL
+kx
 uh
 pm
 pm
@@ -38194,7 +38318,7 @@ pm
 pm
 pm
 Tz
-gw
+Tz
 gw
 gw
 eX
@@ -38423,9 +38547,9 @@ QI
 QI
 QI
 QI
-UZ
-UZ
-UZ
+QI
+QI
+QI
 UZ
 UZ
 UZ
@@ -38451,9 +38575,9 @@ pm
 pm
 pm
 Tz
-gw
-gw
-gw
+Tz
+Tz
+Tz
 Tz
 gw
 gw
@@ -39219,7 +39343,7 @@ ic
 uh
 uh
 uh
-ka
+uh
 uh
 QB
 Sm
@@ -41767,9 +41891,9 @@ kH
 bZ
 kH
 UQ
+sz
 OL
-OL
-ep
+Ve
 UQ
 WZ
 WZ
@@ -42023,11 +42147,11 @@ Da
 kH
 bZ
 kH
-Dc
-OL
-OL
-OL
 UQ
+sz
+Pd
+mt
+yA
 WZ
 WZ
 WZ
@@ -42281,9 +42405,9 @@ UQ
 bk
 UQ
 UQ
-OL
-OL
-OL
+sz
+JE
+Ve
 UQ
 WZ
 WZ
@@ -42539,7 +42663,7 @@ bZ
 ZZ
 UQ
 UQ
-Dc
+uk
 UQ
 UQ
 sz
@@ -42579,7 +42703,7 @@ lq
 Ue
 mM
 Oa
-Ce
+Id
 gm
 dm
 Dk
@@ -42796,7 +42920,7 @@ nN
 OL
 UQ
 OL
-OL
+JE
 ep
 UQ
 WZ
@@ -43049,11 +43173,11 @@ OL
 OL
 Dc
 OL
-nN
-OL
-Dc
-OL
-OL
+iX
+mt
+VL
+mt
+JB
 OL
 UQ
 WZ
@@ -43606,7 +43730,7 @@ rk
 wg
 Fb
 fq
-Oa
+sq
 Ce
 pL
 pQ
@@ -44899,7 +45023,7 @@ Oa
 Oa
 ea
 Oa
-Oa
+sq
 Oa
 NJ
 Jv
