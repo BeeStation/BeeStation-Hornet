@@ -1,5 +1,0 @@
-author: Oricana-16
-delete-after: true
-changes:
-  - rscadd: Sound Synthesizers, QSIs, and Secways are now able to be circuit shells
-  - rscadd: Modular Assemblies can now be attached to wires
