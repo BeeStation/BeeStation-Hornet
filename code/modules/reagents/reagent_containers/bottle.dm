@@ -318,6 +318,11 @@
 	desc = "A small bottle. Contains a sample of nano-feline toxoplasma in synthblood medium."
 	spawned_disease = /datum/disease/transformation/felinid/contagious
 
+/obj/item/reagent_containers/glass/bottle/grod
+	name = "Crown Mutation Toxin"
+	desc = "A small bottle. Contains Crown Mutation Toxin."
+	list_reagents = list(/datum/reagent/crowntoxin = 30)
+
 //Oldstation.dmm chemical storage bottles
 
 /obj/item/reagent_containers/glass/bottle/hydrogen

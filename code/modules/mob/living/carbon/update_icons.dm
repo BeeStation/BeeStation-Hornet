@@ -269,8 +269,6 @@
 		. += "[BP.limb_gender]-"
 	. += "[BP.limb_id]"
 	. += "-[BP.body_zone]"
-	if(BP.limb_altitude)
-		. += "-[BP.limb_altitude]"
 	if(BP.should_draw_greyscale && BP.draw_color)
 		. += "-[BP.draw_color]"
 

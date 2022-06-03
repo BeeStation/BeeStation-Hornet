@@ -48,7 +48,7 @@
 	medium_burn_msg = "scorched"
 	heavy_burn_msg = "seared"
 
-	body_zone = BODY_ZONE_L_ARM+GROD_LIMB_UPPER
+	body_zone = BODY_ZONE_L_ARM
 
 /obj/item/bodypart/r_arm/grod_upper //upper right arm
 	static_icon = 'icons/mob/species/grod/bodyparts.dmi'
@@ -65,7 +65,7 @@
 	medium_burn_msg = "scorched"
 	heavy_burn_msg = "seared"
 
-	body_zone = BODY_ZONE_R_ARM+GROD_LIMB_UPPER
+	body_zone = BODY_ZONE_R_ARM
 
 /obj/item/bodypart/l_arm/grod_lower //lower left arm
 	static_icon = 'icons/mob/species/grod/bodyparts.dmi'

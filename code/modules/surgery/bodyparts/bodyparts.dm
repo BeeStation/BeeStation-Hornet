@@ -74,9 +74,6 @@
 	var/medium_burn_msg = "blistered"
 	var/heavy_burn_msg = "peeling away"
 
-	//Grod content
-	var/limb_altitude
-
 /obj/item/bodypart/Initialize()
 	..()
 	name = "[limb_id] [parse_zone(body_zone)]"
@@ -443,7 +440,7 @@
 		limb.icon = icon
 
 	///The icon_state overlay for the limb
-	limb.icon_state = "[limb_id]_[body_zone][is_dimorphic ? "_[limb_gender]" : ""][limb_altitude ? "_[limb_altitude]" : ""]"
+	limb.icon_state = "[limb_id]_[body_zone][is_dimorphic ? "_[limb_gender]" : ""]"
 
 	if(!icon_exists(limb.icon, limb.icon_state))
 		stack_trace("Limb generated with nonexistant icon. File: [limb.icon] | State: [limb.icon_state]")

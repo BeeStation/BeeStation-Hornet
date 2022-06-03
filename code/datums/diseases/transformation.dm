@@ -454,3 +454,25 @@
 	stage5	= list("<span class='userdanger'>You have become one of Legion. You are one with the Necropolis now, and have no other loyalties. Serve well.</span>")
 	new_form = /mob/living/simple_animal/hostile/asteroid/hivelord/legion/tendril
 	infectable_biotypes = list(MOB_ORGANIC, MOB_INORGANIC, MOB_UNDEAD)
+
+/datum/disease/transformation/grod
+	name = "Grod Mutation Metamorphisis"
+	agent = "Crown Microbes"
+	desc = "Who knows why Crowns do this?"
+	danger = DISEASE_MINOR
+	visibility_flags = 0
+	stage_prob = 35
+	cures = list(/datum/reagent/consumable/sodiumchloride)
+	cure_chance = 10
+	stage1	= list("Your joints feel soft.")
+	stage2	= list("Your skin feels soft.")
+	stage3	= list("You feel slugish.")
+	stage4	= list("You feel sleepy.")
+	stage5	= list("You want to sleep...")
+	new_form = /mob/living/carbon/human/species/grod
+	infectable_biotypes = list(MOB_ORGANIC, MOB_INORGANIC, MOB_UNDEAD)
+
+/datum/disease/transformation/grod/do_disease_transformation(mob/living/affected_mob)
+	var/obj/structure/grod_caccoon/C = new(get_turf(affected_mob))
+	affected_mob?.forceMove(C)
+	..()

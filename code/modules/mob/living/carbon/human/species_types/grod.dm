@@ -95,7 +95,12 @@
 		var/obj/item/G = H.gloves
 		if(G)
 			H.doUnEquip(H.gloves)
-		H.change_number_of_hands(4, /obj/item/bodypart/l_arm/grod_lower, /obj/item/bodypart/r_arm/grod_lower)
+		//H.change_number_of_hands(4, /obj/item/bodypart/l_arm/grod_lower, /obj/item/bodypart/r_arm/grod_lower)
+		for(var/i in 3 to 4)
+			if(H?.hand_bodyparts[i])
+				var/obj/item/bodypart/L = H?.hand_bodyparts[i]
+				L?.disabled = FALSE
+		H.update_hud_handcuffed()
 		if(G)
 			H.equip_to_slot_if_possible(G, ITEM_SLOT_GLOVES) //Hacky? Yes. Works? Yes. Do I want to touch bodypart code? No.
 		to_chat(H,"<span class ='warning'>You focus your energy into your additional hands.</span>")
@@ -110,7 +115,16 @@
 		var/obj/item/G = H.gloves
 		if(G)
 			H.doUnEquip(H.gloves)
-		H.change_number_of_hands(2)
+		//H.change_number_of_hands(2)
+		for(var/i in 3 to 4)
+			if(H?.hand_bodyparts[i])
+				var/obj/item/bodypart/L = H?.hand_bodyparts[i]
+				L?.disabled = TRUE
+				if(H.held_items.len > 2)
+					H.dropItemToGround(H.held_items[3])
+					if(H.held_items.len > 3)
+						H.dropItemToGround(H.held_items[4])
+		H.update_hud_handcuffed()
 		if(G)
 			H.equip_to_slot_if_possible(G, ITEM_SLOT_GLOVES)
 		to_chat(H,"<span class ='warning'>You focus your energy back into your legs.</span>")
@@ -134,8 +148,8 @@
 	RegisterSignal(owner, COMSIG_MOB_DEATH, .proc/on_death)
 
 /datum/action/innate/grod/crownspider/Activate()
-	if(!isgrod(owner)) //Stop trying to break shit
-		return
+	//if(!isgrod(owner)) //Stop trying to break shit
+		//return
 	var/mob/living/carbon/human/H = owner
 	if(!istype(H.getorganslot(ORGAN_SLOT_BRAIN), /obj/item/organ/brain/grod))
 		to_chat(H, "<span class = 'warning'>You dont have a crown! Contact a coder!</span>")
@@ -414,12 +428,15 @@
 		return
 	for(var/obj/item/organ/I in src)
 		I.Insert(C, 1)
-		// -- Added during grod revival project --
 		//Deal a minimum of 30 damage, if damage dealt is greater than 115, (116 will kill a brain), the amount of damage dealt will taper off until it's safe.
 		//So 30 damage_to_deal at 90 I.damage would taper down to 25
 		var/damage_to_deal = (maxHealth - health) * 4 > CROWNSPIDER_MAX_HEALTH ? (maxHealth - health) * 4 : CROWNSPIDER_MAX_HEALTH
 		damage_to_deal = ((damage_to_deal+I.damage) < 115) ? damage_to_deal : damage_to_deal - ((damage_to_deal+I.damage)-115)
 		I.damage += damage_to_deal
+	if(!isgrod(C)) //Convert non-grod hosts to grods over time
+		C.ForceContractDisease(new /datum/disease/transformation/grod())
+		var/datum/action/innate/grod/crownspider/S = new
+		S.Grant(C)
 	announce_infest(C)
 	origin.transfer_to(C)
 	C.key = origin.key
@@ -433,11 +450,26 @@
 
 /datum/species/grod/replace_body(mob/living/carbon/C, var/datum/species/new_species)
 	..()
-	/*
-	var/obj/item/bodypart/l_arm/l = new /obj/item/bodypart/l_arm/grod_lower() //Add extra grod limbs
-	l.replace_limb(C, TRUE)
-	l.update_limb(is_creating = TRUE)
+	C.change_number_of_hands(4, /obj/item/bodypart/l_arm/grod_lower, /obj/item/bodypart/r_arm/grod_lower) //Add extra grod limbs
+	for(var/i in 3 to 4) //disable new limbs
+		if(C?.hand_bodyparts[i])
+			var/obj/item/bodypart/L = C?.hand_bodyparts[i]
+			L?.disabled = TRUE
+	C.update_hud_handcuffed()
 
-	var/obj/item/bodypart/r_arm/r = new /obj/item/bodypart/r_arm/grod_lower()
-	r.replace_limb(C, TRUE)
-	r.update_limb(is_creating = TRUE)*/
+/obj/structure/grod_caccoon
+	name = "grod caccoon"
+	desc = "A mysterious phenominom, rarely observed." //fix spilling plox
+	icon = 'icons/effects/wrap_target.dmi'
+	icon_state = "all"
+
+/obj/structure/grod_caccoon/attack_hand(mob/user)
+	..()
+	visible_message("<span class ='warning'>[user] rips [src] open!</span>", "<span class ='warning'>You rip open the [src]!</span>")
+	qdel(src)
+
+/obj/structure/grod_caccoon/Destroy()
+	for(var/atom/movable/AM in contents)
+		visible_message("<span class ='warning'>[AM] emerges from the [src]!</span>")
+		AM.forceMove(get_turf(src))
+	..()
