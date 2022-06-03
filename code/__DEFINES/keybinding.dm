@@ -77,3 +77,9 @@
 //MonkeStation Edit: Hotkey Emotes
 
 #define COMSIG_KB_EMOTE_QUICK_EMOTE		"keybinding_emote"
+
+//Movement Passthrough
+#define COMSIG_KB_MOB_MOVENORTH_PASSTHROUGH "keybinding_mob_move_north_passthrough"
+#define COMSIG_KB_MOB_MOVESOUTH_PASSTHROUGH "keybinding_mob_move_south_passthrough"
+#define COMSIG_KB_MOB_MOVEEAST_PASSTHROUGH "keybinding_mob_move_east_passthrough"
+#define COMSIG_KB_MOB_MOVEWEST_PASSTHROUGH "keybinding_mob_move_west_passthrough"

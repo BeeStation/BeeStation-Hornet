@@ -3601,6 +3601,7 @@
 #include "monkestation\code\datums\greyscale\greyscale_configs.dm"
 #include "monkestation\code\datums\keybinding\human.dm"
 #include "monkestation\code\datums\keybinding\living.dm"
+#include "monkestation\code\datums\keybinding\passthrough.dm"
 #include "monkestation\code\datums\station_traits\neutral_traits.dm"
 #include "monkestation\code\datums\traits\good.dm"
 #include "monkestation\code\datums\traits\negative.dm"
