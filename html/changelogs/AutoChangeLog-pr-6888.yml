@@ -1,0 +1,5 @@
+author: ValuedEmployee
+delete-after: true
+changes:
+  - tweak: Changed the positronic brain prompt for players spawning in to allow harm
+      to anything that isn't a crewmember or the AI instead of disallowing harm altogether.
