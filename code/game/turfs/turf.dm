@@ -176,7 +176,7 @@ GLOBAL_LIST_EMPTY(station_turfs)
 
 /turf/attack_hand(mob/user)
 	//Must have no gravity.
-	if(allow_z_travel && get_turf(user) == src)
+	if(get_turf(user) == src)
 		if(!user.has_gravity(src) || (user.movement_type & FLYING))
 			check_z_travel(user)
 			return
@@ -188,6 +188,12 @@ GLOBAL_LIST_EMPTY(station_turfs)
 	if(.)
 		return
 	user.Move_Pulled(src)
+
+/turf/eminence_act(mob/living/simple_animal/eminence/eminence)
+	if(get_turf(eminence) == src)
+		check_z_travel(eminence)
+		return
+	return ..()
 
 /turf/proc/check_z_travel(mob/user)
 	if(get_turf(user) != src)
@@ -215,7 +221,7 @@ GLOBAL_LIST_EMPTY(station_turfs)
 			travel_z(user, below, FALSE)
 
 /turf/proc/travel_z(mob/user, turf/target, upwards = TRUE)
-	user.visible_message("<span class='notice'>[user] begins floating upwards!</span>", "<span class='notice'>You begin floating upwards.</span>")
+	user.visible_message("<span class='notice'>[user] begins floating [upwards ? "upwards" : "downwards"]!</span>", "<span class='notice'>You begin floating [upwards ? "upwards" : "downwards"].")
 	var/matrix/M = user.transform
 	//Animation is inverted due to immediately resetting user vars.
 	animate(user, 30, pixel_y = upwards ? -64 : 64, transform = matrix() * (upwards ? 0.7 : 1.3))
@@ -224,7 +230,13 @@ GLOBAL_LIST_EMPTY(station_turfs)
 	if(!do_after(user, 30, FALSE, get_turf(user)))
 		animate(user, 0, flags = ANIMATION_END_NOW)
 		return
-	if(!istype(target, /turf/open/space) && !istype(target, /turf/open/openspace))
+	if(isliving(user))
+		var/mob/living/living_user = user
+		if(living_user.incorporeal_move) // Allow most jaunting
+			user.client?.Process_Incorpmove(upwards ? UP : DOWN)
+			return
+	// You can push off of or land on the floor, but not go through it
+	if((upwards && !target.allow_z_travel) || (!upwards && !allow_z_travel))
 		to_chat(user, "<span class='warning'>Something is blocking you!</span>")
 		return
 	var/atom/movable/AM
@@ -242,21 +254,21 @@ GLOBAL_LIST_EMPTY(station_turfs)
 /// Returns TRUE if the turf cannot be moved onto
 /proc/is_blocked_turf(turf/T, exclude_mobs)
 	if(T.density)
-		return 1
+		return TRUE
 	for(var/i in T)
 		var/atom/A = i
 		if(A.density && (!exclude_mobs || !ismob(A)))
-			return 1
-	return 0
+			return TRUE
+	return FALSE
 
 /proc/is_anchored_dense_turf(turf/T) //like the older version of the above, fails only if also anchored
 	if(T.density)
-		return 1
+		return TRUE
 	for(var/i in T)
 		var/atom/movable/A = i
 		if(A.density && A.anchored)
-			return 1
-	return 0
+			return TRUE
+	return FALSE
 
 //zPassIn doesn't necessarily pass an atom!
 //direction is direction of travel of air
@@ -275,72 +287,72 @@ GLOBAL_LIST_EMPTY(station_turfs)
 /turf/proc/zAirOut(direction, turf/source)
 	return FALSE
 
-/turf/proc/zImpact(atom/movable/A, levels = 1, turf/prev_turf)
+///Called each time the target falls down a z level possibly making their trajectory come to a halt. see __DEFINES/movement.dm.
+/turf/proc/zImpact(atom/movable/falling_atom, levels = 1, turf/prev_turf)
 	var/flags = NONE
-	var/mov_name = A.name
+	var/mov_name = falling_atom.name
 	for(var/i in contents)
 		var/atom/thing = i
-		flags |= thing.intercept_zImpact(A, levels)
+		flags |= thing.intercept_zImpact(falling_atom, levels)
 		if(flags & FALL_STOP_INTERCEPTING)
 			break
 	if(prev_turf && !(flags & FALL_NO_MESSAGE))
 		prev_turf.visible_message("<span class='danger'>[mov_name] falls through [prev_turf]!</span>")
 	if(flags & FALL_INTERCEPTED)
 		return
-	if(zFall(A, ++levels))
+	if(zFall(falling_atom, ++levels))
 		return FALSE
-	A.visible_message("<span class='danger'>[A] crashes into [src]!</span>")
-	A.onZImpact(src, levels)
+	falling_atom.visible_message("<span class='danger'>[falling_atom] crashes into [src]!</span>")
+	falling_atom.onZImpact(src, levels)
 	return TRUE
 
-/turf/proc/can_zFall(atom/movable/A, levels = 1, turf/target)
-	return zPassOut(A, DOWN, target) && target.zPassIn(A, DOWN, src)
+/turf/proc/can_zFall(atom/movable/falling_atom, levels = 1, turf/target)
+	return zPassOut(falling_atom, DOWN, target) && target.zPassIn(falling_atom, DOWN, src)
 
-/turf/proc/zFall(atom/movable/A, levels = 1, force = FALSE)
+/// Precipitates a movable (plus whatever buckled to it) to lower z levels if possible and then calls zImpact()
+/turf/proc/zFall(atom/movable/falling_atom, levels = 1, force = FALSE, old_loc = null)
 	var/turf/target = get_step_multiz(src, DOWN)
-	if(!target || (!isobj(A) && !ismob(A)))
+	if(!target || (!isobj(falling_atom) && !ismob(falling_atom)))
 		return FALSE
-	if(!force && (!can_zFall(A, levels, target) || !A.can_zFall(src, levels, target, DOWN)))
+	if(!force && (!can_zFall(falling_atom, levels, target) || !falling_atom.can_zFall(src, levels, target, DOWN)))
 		return FALSE
-	A.zfalling = TRUE
-	var/atom/movable/pulling = A.pulling
-	A.forceMove(target)
-	A.zfalling = FALSE
-	if(pulling)
-		//Things you are pulling fall with you
-		pulling.zfalling = TRUE
-		pulling.forceMove(target)
-		A.start_pulling(pulling)
-		pulling.zfalling = FALSE
-		target.zImpact(pulling, levels, src)
-	target.zImpact(A, levels, src)
-	return TRUE
+	. = TRUE
+	if(!falling_atom.zfalling)
+		falling_atom.zfalling = TRUE
+		if(falling_atom.pulling && old_loc) // Moves whatever we're pulling to where we were before so we're still adjacent
+			falling_atom.pulling.moving_from_pull = falling_atom
+			falling_atom.pulling.Move(old_loc)
+			falling_atom.pulling.moving_from_pull = null
+		if(!falling_atom.Move(target))
+			falling_atom.doMove(target)
+		. = target.zImpact(falling_atom, levels, src)
+		falling_atom.zfalling = FALSE
 
-/turf/proc/handleRCL(obj/item/rcl/C, mob/user)
-	if(C.loaded)
+/turf/proc/handleRCL(obj/item/rcl/rcl_tool, mob/user)
+	if(rcl_tool.loaded)
 		for(var/obj/structure/cable/LC in src)
 			if(!LC.d1 || !LC.d2)
-				LC.handlecable(C, user)
+				LC.handlecable(rcl_tool, user)
 				return
-		C.loaded.place_turf(src, user)
-		if(C.wiring_gui_menu)
-			C.wiringGuiUpdate(user)
-		C.is_empty(user)
+		rcl_tool.loaded.place_turf(src, user)
+		if(rcl_tool.wiring_gui_menu)
+			rcl_tool.wiringGuiUpdate(user)
+		rcl_tool.is_empty(user)
 
-/turf/attackby(obj/item/C, mob/user, params)
+/turf/attackby(obj/item/cable_item, mob/user, params)
 	if(..())
 		return TRUE
-	if(can_lay_cable() && istype(C, /obj/item/stack/cable_coil))
-		var/obj/item/stack/cable_coil/coil = C
+	if(can_lay_cable() && istype(cable_item, /obj/item/stack/cable_coil))
+		var/obj/item/stack/cable_coil/coil = cable_item
 		for(var/obj/structure/cable/LC in src)
 			if(!LC.d1 || !LC.d2)
-				LC.attackby(C,user)
+				LC.attackby(cable_item,user)
 				return
 		coil.place_turf(src, user)
 		return TRUE
 
-	else if(istype(C, /obj/item/rcl))
-		handleRCL(C, user)
+	else if(istype(cable_item, /obj/item/rcl))
+		handleRCL(cable_item, user)
 
 	return FALSE
 
@@ -392,7 +404,7 @@ GLOBAL_LIST_EMPTY(station_turfs)
 		if(O.obj_flags & FROZEN)
 			O.make_unfrozen()
 	if(!arrived.zfalling)
-		zFall(arrived)
+		zFall(arrived, old_loc = old_loc)
 
 /turf/proc/is_plasteel_floor()
 	return FALSE
@@ -480,7 +492,7 @@ GLOBAL_LIST_EMPTY(station_turfs)
 	if(.)
 		return
 	if(length(src_object.contents()))
-		balloon_alert(usr, "You dump out the contents")
+		balloon_alert(usr, "You dump out the contents.")
 		if(!do_after(usr,20,target=src_object.parent))
 			return FALSE
 
