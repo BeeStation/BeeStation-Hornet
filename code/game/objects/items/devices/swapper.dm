@@ -13,6 +13,12 @@
 	var/next_use = 0
 	var/obj/item/swapper/linked_swapper
 
+/obj/item/swapper/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/shell, list(
+		new /obj/item/circuit_component/swapper()
+	), SHELL_CAPACITY_SMALL)
+
 /obj/item/swapper/Destroy()
 	if(linked_swapper)
 		linked_swapper.linked_swapper = null //*inception music*
@@ -101,10 +107,13 @@
 	if(QDELETED(linked_swapper) || world.time < linked_swapper.cooldown)
 		return
 
+
 	var/atom/movable/A = get_teleportable_container()
 	var/atom/movable/B = linked_swapper.get_teleportable_container()
 	var/target_A = A.drop_location()
 	var/target_B = B.drop_location()
+
+	SEND_SIGNAL(src, COMSIG_SWAPPER_USED)
 
 	//TODO: add a sound effect or visual effect
 	if(do_teleport(A, target_B, channel = TELEPORT_CHANNEL_QUANTUM))
@@ -114,3 +123,57 @@
 			to_chat(M, "<span class='warning'>[linked_swapper] activates, and you find yourself somewhere else.</span>")
 			log_combat(user, B, "swapped to [AREACOORD(B)]")
 			log_game("[key_name(B)] has been swapped to [AREACOORD(B)]! Quantum Spin Inverter activated by [key_name(user)].")
+
+
+/*
+Circuitry Stuff Below Here
+*/
+/obj/item/circuit_component/swapper
+	display_name = "QSI"
+	display_desc = "Used to activate and detect the usage of the Quantum Spin Inverter."
+
+	var/datum/port/input/swap
+	var/datum/port/input/breaklink
+	var/datum/port/output/swapped /// Called when the QSI is pressed
+
+/obj/item/circuit_component/swapper/Initialize(mapload)
+	. = ..()
+	swap = add_input_port("Activate", PORT_TYPE_SIGNAL)
+	breaklink = add_input_port("Break Link", PORT_TYPE_SIGNAL)
+	swapped = add_output_port("Swapped", PORT_TYPE_SIGNAL)
+
+/obj/item/circuit_component/swapper/Destroy()
+	swap = null
+	breaklink = null
+	swapped = null
+	return ..()
+
+/obj/item/circuit_component/swapper/register_shell(atom/movable/shell)
+	RegisterSignal(shell, COMSIG_SWAPPER_USED, .proc/on_swapper_used)
+
+/obj/item/circuit_component/swapper/unregister_shell(atom/movable/shell)
+	UnregisterSignal(shell, COMSIG_SWAPPER_USED)
+
+/**
+ * Called when the QSI is used
+ */
+/obj/item/circuit_component/swapper/proc/on_swapper_used(atom/source, mob/user)
+	SIGNAL_HANDLER
+	swapped.set_output(COMPONENT_SIGNAL)
+
+/obj/item/circuit_component/swapper/input_received(datum/port/input/port)
+	. = ..()
+	if(.)
+		return
+
+	var/obj/item/swapper/shell = parent.shell
+	if(!shell)
+		return
+	if(COMPONENT_TRIGGERED_BY(swap, port))
+		shell.attack_self(shell)
+	else if(COMPONENT_TRIGGERED_BY(breaklink, port))
+		if(!QDELETED(shell.linked_swapper))
+			shell.linked_swapper.linked_swapper = null
+			shell.linked_swapper.update_icon()
+			shell.linked_swapper = null
+		shell.update_icon()

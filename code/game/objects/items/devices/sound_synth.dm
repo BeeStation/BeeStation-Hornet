@@ -48,6 +48,12 @@
     "Oohing" = "selected_sound=sound/effects/audience-ooh.ogg&shiftpitch=0&volume=80"
     )
 
+/obj/item/soundsynth/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/shell, list(
+		new /obj/item/circuit_component/soundsynth()
+	), SHELL_CAPACITY_SMALL)
+
 /obj/item/soundsynth/verb/pick_sound()
     set category = "Object"
     set name = "Select Sound Playback"
@@ -61,9 +67,11 @@
     volume = text2num(assblast["volume"])
 
 /obj/item/soundsynth/attack_self(mob/user as mob)
-    if(spam_flag + 2 SECONDS < world.timeofday)
-        playsound(src, selected_sound, volume, shiftpitch)
-        spam_flag = world.timeofday
+	if(spam_flag + 2 SECONDS < world.timeofday)
+		playsound(src, selected_sound, volume, shiftpitch)
+		SEND_SIGNAL(src, COMSIG_SOUNDSYNTH_USED)
+		spam_flag = world.timeofday
+
 
 /obj/item/soundsynth/AltClick(mob/living/carbon/user)
 	pick_sound()
@@ -75,3 +83,54 @@
         M.playsound_local(get_turf(src), selected_sound, volume, shiftpitch)
         spam_flag = world.timeofday
         //to_chat(M, selected_sound) //this doesn't actually go to their chat very much at all.
+
+/obj/item/circuit_component/soundsynth
+	display_name = "Sound Synthesizer"
+	display_desc = "Play funny sounds."
+
+	var/datum/port/input/soundtoplay
+	var/datum/port/input/play
+	var/datum/port/output/played
+
+/obj/item/circuit_component/soundsynth/Initialize(mapload)
+	. = ..()
+	soundtoplay = add_input_port("Sound", PORT_TYPE_STRING)
+	play = add_input_port("Play Sound", PORT_TYPE_SIGNAL)
+	played = add_output_port("Sound Played", PORT_TYPE_SIGNAL)
+
+/obj/item/circuit_component/soundsynth/Destroy()
+	soundtoplay = null
+	play = null
+	played = null
+	return ..()
+
+/obj/item/circuit_component/soundsynth/register_shell(atom/movable/shell)
+	RegisterSignal(shell, COMSIG_SOUNDSYNTH_USED, .proc/on_soundsynth_used)
+
+/obj/item/circuit_component/soundsynth/unregister_shell(atom/movable/shell)
+	UnregisterSignal(shell, COMSIG_SOUNDSYNTH_USED)
+
+/**
+ * Called when the Sound Synth is used
+ */
+/obj/item/circuit_component/soundsynth/proc/on_soundsynth_used(atom/source, mob/user)
+	SIGNAL_HANDLER
+	played.set_output(COMPONENT_SIGNAL)
+
+/obj/item/circuit_component/soundsynth/input_received(datum/port/input/port)
+	. = ..()
+	if(.)
+		return
+
+	var/obj/item/soundsynth/shell = parent.shell
+	if(!shell)
+		return
+	if(COMPONENT_TRIGGERED_BY(play, port))
+		if(shell.spam_flag + 2 SECONDS < world.timeofday)
+			SEND_SIGNAL(src, COMSIG_SOUNDSYNTH_USED)
+			var/list/sound_list_data = params2list(shell.sound_list[soundtoplay.input_value])
+			shell.selected_sound = sound_list_data["selected_sound"]
+			shell.shiftpitch = text2num(sound_list_data["shiftpitch"])
+			shell.volume = text2num(sound_list_data["volume"])
+			playsound(shell, shell.selected_sound, shell.volume, shell.shiftpitch)
+			shell.spam_flag = world.timeofday

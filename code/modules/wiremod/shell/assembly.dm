@@ -13,6 +13,7 @@
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
 
 	securable = FALSE //This item should only ever be used as an assembly and the shell datum uses screwdriver_act, might as well make it permanently unsecured
+	attachable = TRUE //Circuitry is already very weak, letting it attach to doors and stuff would allow a lot of much cooler things to be done.
 
 	var/datum/port/output/pulse_out
 

@@ -39,3 +39,8 @@
 	/// Cancels the attack chain, but without performing any other action.
 	#define COMSIG_CANCEL_USB_CABLE_ATTACK (1<<2)
 
+/// Sent when a QSI teleports itself/the mobs
+#define COMSIG_SWAPPER_USED "swapper_used"
+
+/// Sent when a Sound Synth plays its sound
+#define COMSIG_SOUNDSYNTH_USED "soundsynth_used"
