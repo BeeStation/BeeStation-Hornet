@@ -26,7 +26,7 @@
 	if(!locked)
 		return
 	var/smartguy
-	if(ishuman(user) && istype(user?.glasses, /obj/item/clothing/glasses/science))
+	if(user.can_see_reagents())
 		smartguy = TRUE
 	. += "It contains:\n100 units of [smartguy ? initial(rand_cont.name) : "various reagents"]" //Luckily science goggles say nothing if there's no reagents
 
