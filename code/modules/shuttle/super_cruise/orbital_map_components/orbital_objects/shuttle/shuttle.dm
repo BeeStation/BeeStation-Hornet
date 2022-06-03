@@ -16,6 +16,8 @@
 
 	//Crashing
 	var/is_crashing = FALSE
+	/// World time since crashing started
+	var/crash_time
 
 	//Once we start docking, we can't release
 	var/is_docking = FALSE

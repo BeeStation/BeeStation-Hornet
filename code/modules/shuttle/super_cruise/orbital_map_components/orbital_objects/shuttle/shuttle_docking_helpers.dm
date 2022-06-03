@@ -187,6 +187,7 @@
 /datum/orbital_object/shuttle/proc/begin_dethrottle(target_z, crashing = FALSE)
 	//Determine if we are crashing or not
 	is_crashing = crashing
+	crash_time = world.time
 	is_docking = TRUE
 	if(is_crashing)
 		INVOKE_ASYNC(src, .proc/do_warning)
@@ -230,6 +231,10 @@
 	if(timer_id)
 		deltimer(timer_id)
 		timer_id = null
-	shuttle_dock.setTimer(20)
+	if(is_crashing)
+		//You have at least 30 seconds to abandon ship
+		shuttle_dock.setTimer(max(20, crash_time + 30 SECONDS - world.time))
+	else
+		shuttle_dock.setTimer(20)
 	shuttle_dock.crash_landing = is_crashing
 	qdel(src)
