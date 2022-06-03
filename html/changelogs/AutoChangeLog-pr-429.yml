@@ -1,0 +1,4 @@
+author: unit0016
+delete-after: true
+changes:
+  - bugfix: A bunch of double objects from a Holestation Merge conflict are gone now.
