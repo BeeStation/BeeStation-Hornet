@@ -3,6 +3,7 @@
 	stop_automated_movement_when_pulled = 0
 	obj_damage = 40
 	environment_smash = ENVIRONMENT_SMASH_STRUCTURES //Bitflags. Set to ENVIRONMENT_SMASH_STRUCTURES to break closets,tables,racks, etc; ENVIRONMENT_SMASH_WALLS for walls; ENVIRONMENT_SMASH_RWALLS for rwalls
+	var/atom/persistant_target
 	///The current target of our attacks, use GiveTarget and LoseTarget to set this var
 	var/atom/target
 	var/ranged = FALSE
@@ -138,6 +139,8 @@
 				. += A
 	else
 		. = oview(vision_range, target_from)
+	if(persistant_target)
+		. += persistant_target
 
 /mob/living/simple_animal/hostile/proc/FindTarget(var/list/possible_targets, var/HasTargetsList = 0)//Step 2, filter down possible targets to things we actually care about
 	. = list()
@@ -191,6 +194,9 @@
 /mob/living/simple_animal/hostile/CanAttack(atom/the_target)//Can we actually attack a possible target?
 	if(isturf(the_target) || !the_target || the_target.type == /atom/movable/lighting_object) // bail out on invalids
 		return FALSE
+
+	if(the_target == persistant_target)
+		return TRUE
 
 	if(ismob(the_target)) //Target is in godmode, ignore it.
 		var/mob/M = the_target
@@ -596,9 +602,22 @@
 	target = null
 	LoseTarget()
 
+/mob/living/simple_animal/hostile/proc/handle_persistant_target_del(datum/source)
+	SIGNAL_HANDLER
+
+	UnregisterSignal(persistant_target, COMSIG_PARENT_QDELETING)
+	persistant_target = null
+
 /mob/living/simple_animal/hostile/proc/add_target(new_target)
 	if(target)
 		UnregisterSignal(target, COMSIG_PARENT_QDELETING)
 	target = new_target
 	if(target)
 		RegisterSignal(target, COMSIG_PARENT_QDELETING, .proc/handle_target_del)
+
+/mob/living/simple_animal/hostile/proc/add_persistant_target(new_target)
+	if(persistant_target)
+		UnregisterSignal(persistant_target, COMSIG_PARENT_QDELETING)
+	persistant_target = new_target
+	if(persistant_target)
+		RegisterSignal(persistant_target, COMSIG_PARENT_QDELETING, .proc/handle_persistant_target_del)
