@@ -301,10 +301,10 @@ GLOBAL_LIST_INIT(ghost_orbits, list(GHOST_ORBIT_CIRCLE,GHOST_ORBIT_TRIANGLE,GHOS
 	set category = "Preferences"
 	set desc = "Hide/Show Credits"
 
-	prefs.show_credits = !prefs.show_credits
-	to_chat(src, "Credits will now be [prefs.show_credits ? "visible" : "hidden"].")
+	prefs.toggles2 ^= PREFTOGGLE_2_SHOW_CREDITS
+	to_chat(src, "Credits will now be [prefs.toggles2 & PREFTOGGLE_2_SHOW_CREDITS ? "visible" : "hidden"].")
 	prefs.save_preferences()
-	SSblackbox.record_feedback("nested tally", "preferences_verb", 1, list("Toggle Credits", "[prefs.show_credits ? "Enabled" : "Disabled"]"))
+	SSblackbox.record_feedback("nested tally", "preferences_verb", 1, list("Toggle Credits", "[prefs.toggles2 & PREFTOGGLE_2_SHOW_CREDITS ? "Enabled" : "Disabled"]"))
 
 /client/verb/toggle_inquisition() // warning: unexpected inquisition
 	set name = "Toggle Inquisitiveness"

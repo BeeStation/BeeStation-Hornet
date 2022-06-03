@@ -401,11 +401,9 @@ CREATE TABLE IF NOT EXISTS `SS13_poll_vote` (
 -- Dumping structure for table ss13tgdb.SS13_preferences
 DROP TABLE IF EXISTS `SS13_preferences`;
 CREATE TABLE `SS13_preferences` (
-	`id` BIGINT(20) NOT NULL AUTO_INCREMENT,
-	`ckey` VARCHAR(64) NOT NULL DEFAULT '0' COLLATE 'utf8mb4_general_ci',
-	`preference_tag` INT(11) NOT NULL DEFAULT '0',
+	`ckey` VARCHAR(64) NOT NULL COLLATE 'utf8mb4_general_ci',
+	`preference_tag` INT(11) NOT NULL,
 	`preference_value` MEDIUMTEXT NOT NULL COLLATE 'utf8mb4_general_ci',
-	PRIMARY KEY (`id`) USING BTREE
 	UNIQUE INDEX `prefbinding` (`ckey`, `preference_tag`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
