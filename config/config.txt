@@ -431,7 +431,11 @@ MAPROTATION
 PREFERENCE_MAP_VOTING 0
 
 ## Starts a map vote at the end of rounds
-#AUTOMAPVOTE
+AUTOMAPVOTE
+
+## Sets a minimum round length (in minutes) before a map vote will be called to discourage players from forcing early round ends just to change map
+## Set to 0 to disable.
+AUTOMAPVOTE_THRESHOLD 45
 
 ## Map rotate chance delta
 ## This is the chance of map rotation factored to the round length.

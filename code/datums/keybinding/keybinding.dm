@@ -6,6 +6,9 @@
 	var/category = CATEGORY_MISC
 	var/weight = WEIGHT_LOWEST
 	var/keybind_signal
+	/// Does this keybind apply regardless of any modifier keys (SHIFT-, ALT-, CTRL-)?
+	/// Important for movement keys, which need to still activate despite other "hold to toggle" bindings on the modifier keys.
+	var/any_modifier = FALSE
 
 //I don't know why this is done in New() and not down() when it says down(), but that's how it's currently on tg
 /datum/keybinding/New()

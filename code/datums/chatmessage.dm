@@ -30,9 +30,9 @@
 
 #define BUCKET_LIMIT (world.time + TICKS2DS(min(BUCKET_LEN - (SSrunechat.practical_offset - DS2TICKS(world.time - SSrunechat.head_offset)) - 1, BUCKET_LEN - 1)))
 #define BALLOON_TEXT_WIDTH 200
-#define BALLOON_TEXT_SPAWN_TIME (0.2 SECONDS)
+#define BALLOON_TEXT_SPAWN_TIME (0.1 SECONDS)
 #define BALLOON_TEXT_FADE_TIME (0.1 SECONDS)
-#define BALLOON_TEXT_FULLY_VISIBLE_TIME (0.7 SECONDS)
+#define BALLOON_TEXT_FULLY_VISIBLE_TIME (1.5 SECONDS)
 #define BALLOON_TEXT_TOTAL_LIFETIME(mult) (BALLOON_TEXT_SPAWN_TIME + BALLOON_TEXT_FULLY_VISIBLE_TIME*mult + BALLOON_TEXT_FADE_TIME)
 /// The increase in duration per character in seconds
 #define BALLOON_TEXT_CHAR_LIFETIME_INCREASE_MULT (0.05)
@@ -522,6 +522,7 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 	message = image(loc = message_loc, layer = CHAT_LAYER)
 	message.plane = BALLOON_CHAT_PLANE
 	message.alpha = 0
+	message.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA | KEEP_APART
 	message.maptext_width = BALLOON_TEXT_WIDTH
 	message.maptext_height = WXH_TO_HEIGHT(owned_by?.MeasureText(text, null, BALLOON_TEXT_WIDTH))
 	message.maptext_x = (BALLOON_TEXT_WIDTH - bound_width) * -0.5

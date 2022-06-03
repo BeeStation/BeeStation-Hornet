@@ -66,10 +66,10 @@
 /mob/living/simple_animal/hostile/poison/giant_spider/Login()
 	..()
 	if(directive)
-		to_chat(src, "<span class='spider'>Your mother left you a directive! Follow it at all costs.</span>")
-		to_chat(src, "<span class='spider'><b>[directive]</b></span>")
+		to_chat(src, "<span class='spiderlarge'>Your mother left you a directive! Follow it at all costs.</span>")
+		to_chat(src, "<span class='spiderlarge'><b>Directive: [directive]</b></span>")
 		if(mind)
-			mind.store_memory("<span class='spider'><b>[directive]</b></span>")
+			mind.store_memory("<span class='spiderlarge'><b>Directive: [directive]</b></span>")
 
 /mob/living/simple_animal/hostile/poison/giant_spider/give_mind(mob/user)
 	..()
