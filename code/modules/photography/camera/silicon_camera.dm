@@ -14,10 +14,6 @@
 	else
 		camera_mode_on(user)
 
-/obj/item/camera/siliconcam/lighteater_act(obj/item/light_eater/light_eater)
-	..()
-	return
-
 /obj/item/camera/siliconcam/burn()
 	return
 
