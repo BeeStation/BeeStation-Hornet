@@ -1,0 +1,5 @@
+author: ike709, Ruko
+delete-after: true
+changes:
+  - bugfix: fixed a runtime on roundend preventing the mapvote panel from automatically
+      popping up
