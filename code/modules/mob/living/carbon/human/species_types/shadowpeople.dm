@@ -186,14 +186,19 @@
 		return
 	AM.lighteater_act(src)
 
+/atom/movable/lighteater_act(obj/item/light_eater/light_eater)
+	..()
+	for(var/datum/component/overlay_lighting/light_source in affected_dynamic_lights)
+		if(light_source.parent != src)
+			var/atom/A = light_source.parent
+			A.lighteater_act(light_eater)
+
 /mob/living/lighteater_act(obj/item/light_eater/light_eater)
+	..()
 	if(on_fire)
 		ExtinguishMob()
 		playsound(src, 'sound/items/cig_snuff.ogg', 50, 1)
-	for(var/obj/item/O in src)
-		if(O.light_range && O.light_power)
-			O.lighteater_act(light_eater)
-	if(pulling && pulling.light_range)
+	if(pulling)
 		pulling.lighteater_act(light_eater)
 
 /mob/living/carbon/human/lighteater_act(obj/item/light_eater/light_eater)
@@ -208,26 +213,30 @@
 		to_chat(src, "<span class='danger'>Your headlamp is fried! You'll need a human to help replace it.</span>")
 
 /obj/structure/bonfire/lighteater_act(obj/item/light_eater/light_eater)
+	..()
 	if(burning)
 		extinguish()
 		playsound(src, 'sound/items/cig_snuff.ogg', 50, 1)
-
-/obj/item/pda/lighteater_act(obj/item/light_eater/light_eater)
-	if(!light_range || !light_power)
-		return
-	set_light_on(FALSE)
-	light_power = 0
-	shorted = TRUE
-	update_icon()
-	visible_message("<span class='danger'>The light in [src] shorts out!</span>")
+	..()
 
 /obj/item/lighteater_act(obj/item/light_eater/light_eater)
-	if(!light_range || !light_power)
+	..()
+	if(!light_range || !light_power || !light_on)
 		return
 	if(light_eater)
 		visible_message("<span class='danger'>[src] is disintegrated by [light_eater]!</span>")
 	burn()
 	playsound(src, 'sound/items/welder.ogg', 50, 1)
+
+/obj/item/pda/lighteater_act(obj/item/light_eater/light_eater)
+	if(light_range && light_power && light_on)
+		//Eject the ID card
+		if(id)
+			id.forceMove(get_turf(src))
+			id = null
+			update_icon()
+			playsound(src, 'sound/machines/terminal_eject.ogg', 50, TRUE)
+	..()
 
 #undef HEART_SPECIAL_SHADOWIFY
 #undef HEART_RESPAWN_THRESHHOLD

@@ -278,6 +278,8 @@
 				return
 			var/line_one = reject_bad_text(params["lineOne"] || "", MAX_STATUS_LINE_LENGTH)
 			var/line_two = reject_bad_text(params["lineTwo"] || "", MAX_STATUS_LINE_LENGTH)
+			message_admins("[ADMIN_LOOKUPFLW(usr)] changed the Status Message to - [line_one], [line_two] - From a Communications Console.")
+			log_game("[key_name(usr)] changed the Status Message to - [line_one], [line_two] - From a Communications Console.")
 			post_status("alert", "blank")
 			post_status("message", line_one, line_two)
 			last_status_display = list(line_one, line_two)

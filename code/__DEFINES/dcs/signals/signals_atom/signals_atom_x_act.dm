@@ -24,6 +24,8 @@
 #define COMSIG_ATOM_NARSIE_ACT "atom_narsie_act"
 /// from base of atom/ratvar_act(): ()
 #define COMSIG_ATOM_RATVAR_ACT "atom_ratvar_act"
+/// from base of atom/light_eater_act(): (obj/item/light_eater/light_eater)
+#define COMSIG_ATOM_LIGHTEATER_ACT "atom_lighteater_act"
 /// from base of atom/eminence_act(): ()
 #define COMSIG_ATOM_EMINENCE_ACT "atom_eminence_act"
 /// from base of atom/blob_act(): (/obj/structure/blob)
