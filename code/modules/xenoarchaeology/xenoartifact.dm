@@ -45,7 +45,7 @@
 	///Everytime the artifact is used this increases. When this is successfully proc'd the artifact gains a malfunction and this is lowered.
 	var/malfunction_chance = 0
 	///How much the chance can change in a sinlge itteration
-	var/malfunction_mod = 0.5
+	var/malfunction_mod = 0.1
 
 /obj/item/xenoartifact/ComponentInitialize()
 	. = ..()
@@ -83,7 +83,7 @@
 							/datum/xenoartifact_trait/activator/batteryneed))
 			if(!xenop.price)
 				xenop.price = pick(200, 300, 500)
-			malfunction_mod = 1
+			malfunction_mod = 0.5
 
 		if(XENOA_URANIUM)
 			name = "uranium [name]"
@@ -94,7 +94,7 @@
 							/datum/xenoartifact_trait/major/heal), TRUE) 
 			if(!xenop.price)
 				xenop.price = pick(300, 500, 800) 
-			malfunction_mod = 8
+			malfunction_mod = 1
 
 		if(XENOA_BANANIUM)
 			name = "bananium [name]"

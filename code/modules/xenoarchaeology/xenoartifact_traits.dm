@@ -506,15 +506,19 @@
 		holder.dropItemToGround(X)
 	if(ismovable(target) && !(istype(target, /obj/structure)))
 		var/atom/movable/AM = target
+		if(QDELETED(src) || QDELETED(X) || QDELETED(AM)) //Sometimes we can get pressed on z-levels, lacking.
+			return
+		addtimer(CALLBACK(src, .proc/release, X, AM), X.charge*0.3 SECONDS)
 		AM.forceMove(X)
 		AM.anchored = TRUE
 		if(isliving(target)) //stop awful hobbit-sis from wriggling 
 			var/mob/living/victim = target
 			victim.Paralyze(X.charge*0.3 SECONDS, ignore_canstun = TRUE)
-		addtimer(CALLBACK(src, .proc/release, X, AM), X.charge*0.3 SECONDS)
 		X.cooldownmod = X.charge*0.5 SECONDS
 
 /datum/xenoartifact_trait/major/capture/proc/release(obj/item/xenoartifact/X, var/atom/movable/AM) //Empty contents
+	if(QDELETED(src) || QDELETED(X) || QDELETED(AM))
+		return
 	var/turf/T = get_turf(X.loc)
 	AM.anchored = FALSE
 	AM.forceMove(T)
@@ -881,7 +885,7 @@
 
 /datum/xenoartifact_trait/major/chem/on_init(obj/item/xenoartifact/X)
 	amount = pick(5, 9, 10, 15)
-	formula = get_random_reagent_id(CHEMICAL_RNG_GENERAL)
+	formula = get_random_reagent_id(/*CHEMICAL_RNG_GENERAL*/)
 
 /datum/xenoartifact_trait/major/chem/activate(obj/item/xenoartifact/X, atom/target)
 	if(target?.reagents)
