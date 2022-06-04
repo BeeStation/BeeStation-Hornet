@@ -2,7 +2,7 @@
 /obj/item/mail
 	name = "mail"
 	gender = NEUTER
-	desc = "An officially postmarked, tamper-evident parcel regulated by CentCom and made of high-quality materials."
+	desc = "An officially postmarked, tamper-evident parcel powered by bluespace technology and regulated by CentComm, it's made of rather high-quality materials."
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "mail_small"
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
@@ -155,7 +155,7 @@
 		// If the recipient's mind has gone, then anyone can open their mail
 		// whether a mind can actually be qdel'd is an exercise for the reader
 		if(recipient && recipient != user?.mind)
-			to_chat(user, "<span class='notice'>You can't open somebody else's mail! That's <em>illegal</em>!</span>")
+			to_chat(user, "<span class='notice'>You can't open somebody else's mail! That's <em>immoral</em>!</span>")
 			return
 
 	user.visible_message("[user] start to unwrap the package...", \
@@ -172,12 +172,10 @@
 // Accepts a mind to initialize goodies for a piece of mail.
 /obj/item/mail/proc/initialize_for_recipient(datum/mind/recipient)
 	switch(rand(1,5))
-		if(1,2)
-			name = "[initial(name)] for [recipient.name] ([recipient.assigned_role])"
-		if(3,4)
-			name = "[initial(name)] for [recipient.name]"
 		if(5)
-			name = "[initial(name)] critical to [recipient.name]"
+			name = "[initial(name)] critical to [recipient.name] ([recipient.assigned_role])"
+		else
+			name = "[initial(name)] for [recipient.name] ([recipient.assigned_role])"
 	recipient_ref = WEAKREF(recipient)
 
 	//Recipients
@@ -186,6 +184,7 @@
 	var/list/goodies = generic_goodies
 	//Load the List of Dangerous goodies
 	var/list/danger_goodies = hazard_goodies
+
 	//Load the job the player have
 	var/datum/job/this_job = SSjob.name_occupations[recipient.assigned_role]
 	if(this_job)
@@ -224,8 +223,18 @@
 		/obj/item/paper/fluff/nice_argument = "[initial(name)] with INCREDIBLY IMPORTANT ARTIFACT- DELIVER TO SCIENCE DIVISION. HANDLE WITH CARE.",
 	)
 
-	color = pick(department_colors)
-	name = special_name ? junk_names[junk] : "important [initial(name)]"
+	//better spam mail names instead of being "IMPORTANT MAIL", courtesy of Monkestation
+	color = "#[pick(random_short_color())]"
+	switch(rand(1,10))
+
+		if(1,2)
+			name = special_name ? junk_names[junk] : "[initial(name)] for [pick(GLOB.alive_mob_list)]" //LETTER FOR IAN / BUBBLEGUM / MONKEY(420)
+		if(3,4)
+			name = special_name ? junk_names[junk] : "[initial(name)] for [pick(GLOB.player_list)]" //Letter for ANYONE, even that wizard rampaging through the station.
+		if(5)
+			name = special_name ? junk_names[junk] : "DO NOT OPEN"
+		else
+			name = special_name ? junk_names[junk] : "[pick("important","critical","crucial","serious","vital")] [initial(name)]"
 
 	junk = new junk(src)
 	return TRUE
@@ -330,7 +339,9 @@
 
 /obj/item/paper/fluff/junkmail_generic
 	name = "important document"
+	desc = "I wonder what's so important here..."
 	icon_state = "paper_spam"
+	color = "#FFCCFF"
 
 /obj/item/paper/fluff/junkmail_generic/Initialize()
 	. = ..()
