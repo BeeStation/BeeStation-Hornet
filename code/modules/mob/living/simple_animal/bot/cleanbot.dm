@@ -301,6 +301,7 @@
 	name = "\improper Larry"
 	desc = "A little Larry, he looks so excited!"
 	icon_state = "larry0"
+	var/obj/item/kitchen/knife/knife //You know exactly what this is about
 
 /mob/living/simple_animal/bot/cleanbot/larry/Initialize(mapload)
 	. = ..()
@@ -377,6 +378,47 @@
 				qdel(C)
 	anchored = FALSE
 	target = null
+
+
+/mob/living/simple_animal/bot/cleanbot/larry/attackby(obj/item/I, mob/living/user)
+	if(user.a_intent == INTENT_HELP)
+		if(istype(I, /obj/item/kitchen/knife) && !knife) //Is it a knife?
+			var/obj/item/kitchen/knife/newknife = I
+			knife = newknife
+			newknife.forceMove(src)
+			message_admins("[user] attached a [newknife.name] to [src]") //This should definitely be a notified thing.
+			AddComponent(/datum/component/knife_attached_to_movable, knife.force)
+			update_icons()
+		else
+			return ..()
+	else
+		return ..()
+
+/mob/living/simple_animal/bot/cleanbot/larry/update_icons()
+	if(knife)
+		var/mutable_appearance/knife_overlay = knife.build_worn_icon(default_layer = 20, default_icon_file = 'icons/mob/inhands/misc/larry.dmi')
+		add_overlay(knife_overlay)
+
+/mob/living/simple_animal/bot/cleanbot/larry/explode()
+	on = FALSE
+	visible_message("<span class='boldannounce'>[src] blows apart!</span>")
+	var/atom/Tsec = drop_location()
+
+	new /obj/item/larryframe(Tsec)
+	new /obj/item/assembly/prox_sensor(Tsec)
+
+	if(prob(50))
+		drop_part(robot_arm, Tsec)
+	if(knife && prob(50))
+		new knife(Tsec)
+
+	do_sparks(3, TRUE, src)
+	qdel(src)
+
+/mob/living/simple_animal/bot/cleanbot/larry/Destroy()
+	..()
+	if(knife)
+		QDEL_NULL(knife)
 
 /obj/machinery/bot_core/cleanbot
 	req_one_access = list(ACCESS_JANITOR, ACCESS_ROBOTICS)

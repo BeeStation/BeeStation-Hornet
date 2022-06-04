@@ -43,18 +43,6 @@
 	},
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/caravan/syndicate1)
-"uW" = (
-/obj/machinery/button/door{
-	id = "caravansyndicate1_bolt";
-	name = "External Bolt Control";
-	normaldoorcontrol = 1;
-	pixel_x = -25;
-	req_access_txt = "150";
-	specialfunctions = 4
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/mineral/plastitanium/red,
-/area/shuttle/caravan/syndicate1)
 "vD" = (
 /obj/machinery/porta_turret/syndicate/energy{
 	dir = 4;
@@ -67,7 +55,7 @@
 /obj/machinery/power/apc/highcap/fifteen_k{
 	dir = 8;
 	name = "Syndicate Fighter APC";
-	pixel_x = -25;
+	pixel_x = -24;
 	req_access = null;
 	req_access_txt = "150"
 	},
@@ -78,7 +66,7 @@
 /obj/structure/cable/yellow,
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/caravan/syndicate1)
-"wV" = (
+"xg" = (
 /obj/effect/mapping_helpers/airlock/locked,
 /obj/machinery/door/airlock/hatch{
 	id_tag = "caravansyndicate1_bolt";
@@ -91,6 +79,7 @@
 	callTime = 50;
 	dir = 4;
 	dwidth = 4;
+	dynamic_id = 1;
 	height = 5;
 	id = "caravansyndicate1";
 	ignitionTime = 25;
@@ -104,6 +93,21 @@
 "Jv" = (
 /turf/template_noop,
 /area/template_noop)
+"Wr" = (
+/obj/machinery/button/door{
+	id = "caravansyndicate1_bolt";
+	name = "External Bolt Control";
+	normaldoorcontrol = 1;
+	pixel_x = -25;
+	req_access_txt = "150";
+	specialfunctions = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/frame/computer{
+	anchored = 1
+	},
+/turf/open/floor/mineral/plastitanium/red,
+/area/shuttle/caravan/syndicate1)
 "YP" = (
 /obj/structure/shuttle/engine/propulsion/burst{
 	dir = 8
@@ -119,7 +123,7 @@ Jv
 Jv
 YP
 fp
-wV
+xg
 fp
 YP
 Jv
@@ -129,7 +133,7 @@ Jv
 Jv
 YP
 fp
-uW
+Wr
 aA
 vK
 fp

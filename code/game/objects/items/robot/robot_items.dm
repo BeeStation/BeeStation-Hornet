@@ -383,6 +383,7 @@
 	check_amount()
 
 /obj/item/borg/lollipop/dropped()
+	..()
 	check_amount()
 
 /obj/item/borg/lollipop/proc/check_amount()	//Doesn't even use processing ticks.
@@ -647,7 +648,7 @@
 	return null
 
 /obj/item/borg/projectile_dampen/dropped()
-	. = ..()
+	..()
 	host = loc
 
 /obj/item/borg/projectile_dampen/equipped()

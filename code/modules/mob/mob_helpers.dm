@@ -106,6 +106,8 @@
 				newletter += "[newletter]"
 			if(20)
 				newletter += "[newletter][newletter]"
+			else
+				SWITCH_EMPTY_STATEMENT
 		. += "[newletter]"
 	return sanitize(.)
 
@@ -149,6 +151,8 @@
 				newletter = "nglu"
 			if(5)
 				newletter = "glor"
+			else
+				SWITCH_EMPTY_STATEMENT
 		. += newletter
 	return sanitize(.)
 
@@ -191,6 +195,8 @@
 				newletter = "kth"
 			if(5)
 				newletter = "toc"
+			else
+				SWITCH_EMPTY_STATEMENT
 		. += newletter
 	return sanitize(.)
 
@@ -277,11 +283,10 @@
 /proc/findname(msg)
 	if(!istext(msg))
 		msg = "[msg]"
-	for(var/i in GLOB.mob_list)
-		var/mob/M = i
-		if(M.real_name == msg)
+	for(var/mob/M as anything in GLOB.mob_list)
+		if(lowertext(M.real_name) == lowertext(msg))
 			return M
-	return 0
+	return FALSE
 
 ///Find the first name of a mob from the real name with regex
 /mob/proc/first_name()

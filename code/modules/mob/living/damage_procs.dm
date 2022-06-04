@@ -222,7 +222,7 @@
 		updatehealth()
 	return amount
 
-/mob/living/proc/adjustOrganLoss(slot, amount, maximum)
+/mob/living/proc/adjustOrganLoss(slot, amount, maximum, required_status)
 	return
 
 /mob/living/proc/setOrganLoss(slot, amount, maximum)

@@ -138,6 +138,7 @@
 	volume = 40
 	throw_range = 7
 	w_class = WEIGHT_CLASS_NORMAL
+	slot_flags = ITEM_SLOT_BACK | ITEM_SLOT_BELT
 
 /obj/item/tank/jetpack/oxygen/captain
 	name = "\improper Captain's jetpack"

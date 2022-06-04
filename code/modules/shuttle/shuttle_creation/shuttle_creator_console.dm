@@ -9,6 +9,7 @@
 	var/datum/action/innate/shuttle_creator/clear_turf/clear_turf_action = new
 	var/datum/action/innate/shuttle_creator/reset/reset_action = new
 	var/datum/action/innate/shuttle_creator/airlock/airlock_action = new
+	var/datum/action/innate/shuttle_creator/modify/modify_action = new
 
 /obj/machinery/computer/camera_advanced/shuttle_creator/check_eye(mob/user)
 	if(user.eye_blind || user.incapacitated())
@@ -49,10 +50,14 @@
 		reset_action.target = src
 		reset_action.Grant(user)
 		actions += reset_action
-	if(airlock_action)
+	if(!owner_rsd.linkedShuttleId && airlock_action)
 		airlock_action.target = src
 		airlock_action.Grant(user)
 		actions += airlock_action
+	if(owner_rsd.linkedShuttleId && modify_action)
+		modify_action.target = src
+		modify_action.Grant(user)
+		actions += modify_action
 
 /obj/machinery/computer/camera_advanced/shuttle_creator/remove_eye_control(mob/living/user)
 	. = ..()

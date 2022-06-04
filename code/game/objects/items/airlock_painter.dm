@@ -165,16 +165,23 @@
 			list("Stand Clear Label","stand_clear"),
 			list("Box","box"),
 			list("Box Corner","box_corners"),
-			list("Delivery Marker","delivery"),
-			list("Warning Box","warn_full"))
+			list("Delivery Marker","delivery"))
 
 /obj/item/airlock_painter/decal/afterattack(atom/target, mob/user, proximity)
 	. = ..()
 	if(!proximity)
-		to_chat(user, "<span class=notice>You need to get closer!")
+		to_chat(user, "<span class=notice>You need to get closer!</span>")
 		return
-	if(use_paint(user) && isturf(target))
+	if(isturf(target))
 		var/turf/open/floor/F = target
+
+		if(!istype(F))
+			to_chat(user, "<span class=notice>Only floors can be painted!</span>")
+			return
+
+		if(!use_paint(user))
+			return
+
 		F.AddElement(/datum/element/decal, 'icons/turf/decals.dmi', stored_decal_total, stored_dir, null, null, alpha, color, null, TRUE, null)
 
 /obj/item/airlock_painter/decal/AltClick(mob/user)

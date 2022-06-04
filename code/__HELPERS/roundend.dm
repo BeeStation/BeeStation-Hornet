@@ -269,6 +269,20 @@
 
 	CHECK_TICK
 
+	//Process veteran achievements
+	for(var/client/C as() in GLOB.clients)
+		var/hours = round(C?.get_exp_living(TRUE)/60)
+		if(hours > 1000)
+			C?.give_award(/datum/award/achievement/misc/onekhours, C.mob)
+		if(hours > 2000)
+			C?.give_award(/datum/award/achievement/misc/twokhours, C.mob)
+		if(hours > 3000)
+			C?.give_award(/datum/award/achievement/misc/threekhours, C.mob)
+		if(hours > 4000)
+			C?.give_award(/datum/award/achievement/misc/fourkhours, C.mob)
+
+	CHECK_TICK
+
 	//Now print them all into the log!
 	log_game("Antagonists at round end were...")
 	for(var/antag_name in total_antagonists)
@@ -285,7 +299,8 @@
 	SSblackbox.Seal()
 
 	if(CONFIG_GET(flag/automapvote))
-		SSvote.initiate_vote("map", "BeeBot", forced=TRUE, popup=TRUE) //automatic map voting
+		if((world.time - SSticker.round_start_time) >= (CONFIG_GET(number/automapvote_threshold) MINUTES))
+			SSvote.initiate_vote("map", "BeeBot", forced=TRUE, popup=TRUE) //automatic map voting
 
 	sleep(50)
 	ready_for_reboot = TRUE
@@ -679,6 +694,7 @@
 /datum/controller/subsystem/ticker/proc/sendtodiscord(var/survivors, var/escapees, var/integrity)
     var/discordmsg = ""
     discordmsg += "--------------ROUND END--------------\n"
+    discordmsg += "Server: [CONFIG_GET(string/servername)]\n"
     discordmsg += "Round Number: [GLOB.round_id]\n"
     discordmsg += "Duration: [DisplayTimeText(world.time - SSticker.round_start_time)]\n"
     discordmsg += "Players: [GLOB.player_list.len]\n"

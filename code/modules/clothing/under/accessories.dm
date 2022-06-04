@@ -239,7 +239,17 @@
 	name = "nobel sciences award"
 	desc = "A plasma medal which represents significant contributions to the field of science or engineering."
 
+/obj/item/clothing/accessory/medal/med_medal
+	name = "exemplary performance medal"
+	desc = "A medal awarded to those who have shown distinguished conduct, performance, and initiative within the medical department."
+	icon_state = "med_medal"
+	above_suit = TRUE
 
+/obj/item/clothing/accessory/medal/med_medal2
+	name = "excellence in medicine medal"
+	desc = "A medal awarded to those who have shown legendary performance, competence, and initiative beyond all expectations within the medical department."
+	icon_state = "med_medal2"
+	above_suit = TRUE
 
 ////////////
 //Armbands//

@@ -64,12 +64,22 @@
 ///Unlocks an achievement of a specific type.
 /datum/achievement_data/proc/unlock(achievement_type, mob/user)
 	var/datum/award/A = SSachievements.awards[achievement_type]
+	if(!A)	//SSachievements wasn't initialized or we don't have those enabled
+		return FALSE
 	get_data(achievement_type) //Get the current status first if necessary
 	if(istype(A, /datum/award/achievement) && !data[achievement_type])
 		data[achievement_type] = TRUE
 		A.on_unlock(user) //Only on default achievement, as scores keep going up.
 	else if(istype(A, /datum/award/score))
 		data[achievement_type] += 1
+
+/datum/achievement_data/proc/increase_score(datum/award/score/achievement_type, mob/user, value)
+	var/datum/award/score/A = SSachievements.awards[achievement_type]
+	get_data(achievement_type) //Get the current status first if necessary
+	if(length(A.high_scores) == 0 || A.high_scores[A.high_scores[1]] < value)
+		to_chat(world, "<span class='greenannounce'><B>[user.client.key] set a new high score in [A.name]: [value]</B></span>")
+	if(!data[achievement_type] || value > data[achievement_type])
+		data[achievement_type] = value
 
 ///Getter for the status/score of an achievement
 /datum/achievement_data/proc/get_achievement_status(achievement_type)

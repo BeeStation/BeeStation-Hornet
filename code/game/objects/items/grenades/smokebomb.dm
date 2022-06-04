@@ -19,6 +19,8 @@
 
 /obj/item/grenade/smokebomb/prime(mob/living/lanced_by)
 	. = ..()
+	if(!.)
+		return
 	update_mob()
 	playsound(src, 'sound/effects/smoke.ogg', 50, 1, -3)
 	smoke.set_up(4, src)

@@ -32,7 +32,7 @@
 		C.adjustBruteLoss(-5)
 		C.adjustFireLoss(-5)
 		C.adjustOxyLoss(-5)
-		C.adjustToxLoss(-5, FALSE, TRUE)
+		C.adjustToxLoss(-5, FALSE, FALSE)
 		var/obj/effect/temp_visual/heal/H = new /obj/effect/temp_visual/heal(get_turf(C))
 		if(guardiancolor)
 			H.color = guardiancolor

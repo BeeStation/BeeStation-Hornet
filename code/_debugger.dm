@@ -2,6 +2,7 @@
 //Datum gets created in master.dm because for whatever reason global code in there gets runs first
 //In case we ever figure out how to manipulate global init order please move the datum creation into this file
 /datum/debugger
+	var/enabled = FALSE
 
 /datum/debugger/New()
 		enable_debugger()
@@ -11,3 +12,4 @@
 	if (dll)
 		call(dll, "auxtools_init")()
 		enable_debugging()
+		enabled = TRUE

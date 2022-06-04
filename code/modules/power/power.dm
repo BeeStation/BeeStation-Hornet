@@ -78,7 +78,8 @@
 		return FALSE
 	if(!use_power)
 		return TRUE
-
+	if(stat & EMPED)
+		return FALSE
 	var/area/A = get_area(src)		// make sure it's in an area
 	if(!A)
 		return FALSE					// if not, then not powered
@@ -113,7 +114,6 @@
 	if(powered(power_channel))
 		stat &= ~NOPOWER
 	else
-
 		stat |= NOPOWER
 	return
 

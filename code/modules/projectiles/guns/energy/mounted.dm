@@ -21,6 +21,3 @@
 	force = 5
 	selfcharge = 1
 	trigger_guard = TRIGGER_GUARD_ALLOW_ALL
-
-/obj/item/gun/energy/laser/mounted/dropped()
-	..()

@@ -92,6 +92,8 @@
 		. += "<span class='warning'>This limb has [brute_dam > 30 ? "severe" : "minor"] bruising.</span>"
 	if(burn_dam > DAMAGE_PRECISION)
 		. += "<span class='warning'>This limb has [burn_dam > 30 ? "severe" : "minor"] burns.</span>"
+	if(limb_id)
+		. += "<span class='notice'>It is a [limb_id] [parse_zone(body_zone)].</span>"
 
 /obj/item/bodypart/blob_act()
 	take_damage(max_damage)
@@ -231,7 +233,7 @@
 	if(owner && updating_health)
 		owner.updatehealth()
 	if(owner.dna && owner.dna.species && (REVIVESBYHEALING in owner.dna.species.species_traits))
-		if(owner.health > 0 && !owner.hellbound)
+		if(owner.health > 0 && !owner.ishellbound())
 			owner.revive(0)
 			owner.cure_husk(0) // If it has REVIVESBYHEALING, it probably can't be cloned. No husk cure.
 	consider_processing()

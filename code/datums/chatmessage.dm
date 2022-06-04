@@ -30,9 +30,9 @@
 
 #define BUCKET_LIMIT (world.time + TICKS2DS(min(BUCKET_LEN - (SSrunechat.practical_offset - DS2TICKS(world.time - SSrunechat.head_offset)) - 1, BUCKET_LEN - 1)))
 #define BALLOON_TEXT_WIDTH 200
-#define BALLOON_TEXT_SPAWN_TIME (0.2 SECONDS)
+#define BALLOON_TEXT_SPAWN_TIME (0.1 SECONDS)
 #define BALLOON_TEXT_FADE_TIME (0.1 SECONDS)
-#define BALLOON_TEXT_FULLY_VISIBLE_TIME (0.7 SECONDS)
+#define BALLOON_TEXT_FULLY_VISIBLE_TIME (1.5 SECONDS)
 #define BALLOON_TEXT_TOTAL_LIFETIME(mult) (BALLOON_TEXT_SPAWN_TIME + BALLOON_TEXT_FULLY_VISIBLE_TIME*mult + BALLOON_TEXT_FADE_TIME)
 /// The increase in duration per character in seconds
 #define BALLOON_TEXT_CHAR_LIFETIME_INCREASE_MULT (0.05)
@@ -339,6 +339,13 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 	// Ensure the list we are using, if present, is a copy so we don't modify the list provided to us
 	spans = spans ? spans.Copy() : list()
 
+	var/handled_message = raw_message
+
+	// Message language override, if no language was spoken emote 'makes a strange noise'
+	if(!message_language && !message_mods[CHATMESSAGE_EMOTE])
+		message_mods[CHATMESSAGE_EMOTE] = TRUE
+		handled_message = "makes a strange sound."
+
 	// Check for virtual speakers (aka hearing a message through a radio)
 	if (istype(speaker, /atom/movable/virtualspeaker))
 		var/atom/movable/virtualspeaker/v = speaker
@@ -358,7 +365,7 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 		for(var/mob/M as() in hearers)
 			if(M?.should_show_chat_message(speaker, message_language, TRUE))
 				clients += M.client
-		new /datum/chatmessage(raw_message, speaker, clients, message_language, list("emote"))
+		new /datum/chatmessage(handled_message, speaker, clients, message_language, list("emote"))
 	else
 		//4 Possible chat message states:
 		//Show Icon, Understand (Most other languages)
@@ -384,13 +391,13 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 		var/scrambled_message
 		var/datum/language/language_instance = message_language ? GLOB.language_datum_instances[message_language] : null
 		if(LAZYLEN(show_icon_scrambled) || LAZYLEN(hide_icon_scrambled))
-			scrambled_message = language_instance?.scramble(raw_message) || scramble_message_replace_chars(raw_message, 100)
+			scrambled_message = language_instance?.scramble(handled_message) || scramble_message_replace_chars(handled_message, 100)
 		//Show the correct message to people who should see the icon and understand the language
 		if(LAZYLEN(show_icon_understand))
-			new /datum/chatmessage(raw_message, speaker, show_icon_understand, message_language, spans)
+			new /datum/chatmessage(handled_message, speaker, show_icon_understand, message_language, spans)
 		//Show the correct message to people who should see the icon but not understand the language
 		if(LAZYLEN(hide_icon_understand))
-			new /datum/chatmessage(raw_message, speaker, hide_icon_understand, message_language, spans)
+			new /datum/chatmessage(handled_message, speaker, hide_icon_understand, message_language, spans)
 		//Show the correct message to people who don't understand the language and should see the icon
 		if(LAZYLEN(show_icon_scrambled))
 			new /datum/chatmessage(scrambled_message, speaker, show_icon_scrambled, message_language, spans)
@@ -515,6 +522,7 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 	message = image(loc = message_loc, layer = CHAT_LAYER)
 	message.plane = BALLOON_CHAT_PLANE
 	message.alpha = 0
+	message.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA | KEEP_APART
 	message.maptext_width = BALLOON_TEXT_WIDTH
 	message.maptext_height = WXH_TO_HEIGHT(owned_by?.MeasureText(text, null, BALLOON_TEXT_WIDTH))
 	message.maptext_x = (BALLOON_TEXT_WIDTH - bound_width) * -0.5

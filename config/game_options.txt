@@ -634,3 +634,6 @@ DONATOR_ITEMS
 
 ## Do we want all the heads to get codes to spare safe, or just one highest in CoC?
 SPARE_ENFORCE_COC
+
+## Uncoment to disable local bans, effectively enforcing only global bans
+DISABLE_LOCAL_BANS

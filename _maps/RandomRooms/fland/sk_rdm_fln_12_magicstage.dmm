@@ -9,8 +9,8 @@
 /turf/open/floor/wood,
 /area/template_noop)
 "c" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/structure/curtain/bounty,
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
@@ -28,8 +28,8 @@
 /turf/open/floor/carpet,
 /area/template_noop)
 "i" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
 "m" = (
@@ -46,7 +46,7 @@
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
 "s" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/structure/chair/sofa/right,
 /turf/open/floor/carpet/red,
 /area/template_noop)
@@ -62,8 +62,8 @@
 /turf/open/floor/carpet/red,
 /area/template_noop)
 "w" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 6
 	},
 /turf/open/floor/wood,
@@ -81,7 +81,7 @@
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
 "A" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 10
 	},
 /obj/structure/chair/sofa/right,
@@ -92,7 +92,7 @@
 /turf/open/floor/carpet/red,
 /area/template_noop)
 "D" = (
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
 	},
 /obj/machinery/light_switch{
@@ -101,7 +101,7 @@
 /turf/open/floor/wood,
 /area/template_noop)
 "E" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer1{
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
 	},
 /turf/open/floor/carpet/red,
@@ -115,15 +115,15 @@
 /area/template_noop)
 "J" = (
 /obj/machinery/door/airlock/maintenance,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/template_noop,
 /area/template_noop)
 "Q" = (
 /turf/closed/wall/r_wall,
 /area/template_noop)
 "R" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/wood,
 /area/template_noop)
 "S" = (
@@ -131,7 +131,7 @@
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
 "T" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 8
 	},
 /turf/open/floor/wood,

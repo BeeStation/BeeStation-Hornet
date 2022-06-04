@@ -219,7 +219,7 @@
 	rad_act(amount)
 
 /obj/item/geiger_counter/cyborg/dropped()
-	. = ..()
+	..()
 	if(listeningTo)
 		UnregisterSignal(listeningTo, COMSIG_ATOM_RAD_ACT)
 

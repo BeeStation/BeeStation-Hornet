@@ -60,8 +60,8 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 		A.category = category_name
 		I.refundable = FALSE //THIS MAN USES ONE WEIRD TRICK TO GAIN FREE TC, CODERS HATES HIM!
 		A.refundable = FALSE
-		switch(rand(1, 5))
-			if(1 to 3 || A.cost == 1)
+		switch(A.cost == 1 ? 1 : rand(1, 5))
+			if(1 to 3)
 				if(A.cost <= 3)
 					//Bulk discount
 					var/count = rand(3,7)
@@ -2008,7 +2008,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	name = "Bottle of Mystery Pills"
 	desc = "We found these lying around Warehouse R1O-GN, which was decommissioned years ago. We were going to throw them out but we heard you might be interested in them."
 	item = /obj/item/storage/pill_bottle/floorpill/full
-	restricted_roles = list("Assistant", "Debtor")
+	restricted_roles = list("Assistant")
 	cost = 2
 
 /datum/uplink_item/role_restricted/clown_bomb

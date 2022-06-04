@@ -361,7 +361,7 @@
 			if(MT)
 				visible_message("<span class='danger'>[src] dangerously overheats, launching a flaming fuel orb!</span>")
 				investigate_log("Experimentor has launched a <font color='red'>fireball</font> at [M]!", INVESTIGATE_EXPERIMENTOR)
-				var/obj/item/projectile/magic/aoe/fireball/FB = new /obj/item/projectile/magic/aoe/fireball(start)
+				var/obj/item/projectile/magic/fireball/FB = new /obj/item/projectile/magic/fireball(start)
 				FB.preparePixelProjectile(MT, start)
 				FB.fire()
 		else if(prob(EFFECT_PROB_LOW-badThingCoeff))
@@ -596,7 +596,7 @@
 	playsound(src, "sparks", rand(25,50), 1)
 	var/obj/item/grenade/chem_grenade/cleaner/CL = new/obj/item/grenade/chem_grenade/cleaner(get_turf(user))
 	CL.prime()
-	warn_admins(user, "Smoke", 0)
+	warn_admins(user, "Foam", 0)
 
 /obj/item/relic/proc/flash(mob/user)
 	playsound(src, "sparks", rand(25,50), 1)

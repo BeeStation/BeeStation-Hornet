@@ -70,8 +70,8 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	matchburnout()
 
 /obj/item/match/dropped(mob/user)
+	..()
 	matchburnout()
-	. = ..()
 
 /obj/item/match/attack(mob/living/carbon/M, mob/living/carbon/user)
 	if(!isliving(M))
@@ -870,6 +870,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 			to_chat(user, "<span class='warning'>You need to close the cap first!</span>")
 
 /obj/item/clothing/mask/vape/dropped(mob/user)
+	..()
 	if(user.get_item_by_slot(ITEM_SLOT_MASK) == src)
 		ENABLE_BITFIELD(reagents.flags, NO_REACT)
 		STOP_PROCESSING(SSobj, src)

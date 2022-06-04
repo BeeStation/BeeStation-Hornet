@@ -12,6 +12,11 @@
 	remote_eye = C.remote_control
 	var/obj/machinery/computer/camera_advanced/shuttle_creator/internal_console = target
 	shuttle_creator = internal_console.owner_rsd
+	if(shuttle_creator.update_origin())
+		to_chat(usr, "<span class='warning'>Warning, the shuttle has moved during designation. Please wait for the shuttle to dock and try again.</warning>")
+		shuttle_creator.reset_saved_area(FALSE)
+		internal_console.remove_eye_control(owner)
+		return TRUE
 
 //Add an area
 /datum/action/innate/shuttle_creator/designate_area
@@ -32,7 +37,7 @@
 	if(..())
 		return
 	var/turf/T = get_turf(remote_eye)
-	if(istype(T, /turf/open/space))
+	if(GLOB.shuttle_turf_blacklist[T.type])
 		var/connectors_exist = FALSE
 		for(var/obj/structure/lattice/lattice in T)
 			connectors_exist = TRUE
@@ -94,8 +99,22 @@
 			return
 		if(shuttle_creator.shuttle_create_docking_port(A, C))
 			to_chat(C, "<span class='notice'>Shuttle created!</span>")
-		//Remove eye control
-		var/obj/machinery/computer/camera_advanced/shuttle_creator/internal_console = target
-		internal_console.remove_eye_control()
-		qdel(internal_console)
+	//Remove eye control
+	var/obj/machinery/computer/camera_advanced/shuttle_creator/internal_console = target
+	internal_console.remove_eye_control(owner)
+
+/datum/action/innate/shuttle_creator/modify
+	name = "Confirm Shuttle Modifications"
+	button_icon_state = "modify"
+
+/datum/action/innate/shuttle_creator/modify/Activate()
+	if(..())
 		return
+	if(shuttle_creator.loggedTurfs.len > SHUTTLE_CREATOR_MAX_SIZE)
+		to_chat(C, "<span class='warning'>This shuttle is too large!</span>")
+		return
+	if(shuttle_creator.modify_shuttle_area(C))
+		to_chat(C, "<span class='notice'>Shuttle modifications have been finalized.</span>")
+		//Remove eye control
+	var/obj/machinery/computer/camera_advanced/shuttle_creator/internal_console = target
+	internal_console.remove_eye_control(owner)

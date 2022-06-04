@@ -50,6 +50,7 @@
 /mob/living/carbon/human/Destroy()
 	QDEL_NULL(physiology)
 	QDEL_LIST(bioware)
+	GLOB.suit_sensors_list -= src
 	return ..()
 
 
@@ -405,41 +406,49 @@
 /mob/living/carbon/human/proc/canUseHUD()
 	return (mobility_flags & MOBILITY_USE)
 
-/mob/living/carbon/human/can_inject(mob/user, error_msg, target_zone, var/penetrate_thick = 0)
-	. = 1 // Default to returning true.
-	if(user && !target_zone)
-		target_zone = user.zone_selected
+/mob/living/carbon/human/can_inject(mob/user, error_msg, target_zone, penetrate_thick = FALSE)
 	if(HAS_TRAIT(src, TRAIT_PIERCEIMMUNE))
-		. = 0
+		return FALSE
+	if(penetrate_thick)
+		return TRUE
+
+	if(!target_zone)
+		if(user)
+			target_zone = user.zone_selected
+		else
+			target_zone = BODY_ZONE_CHEST
 	// If targeting the head, see if the head item is thin enough.
 	// If targeting anything else, see if the wear suit is thin enough.
-	if (!penetrate_thick)
-		if(above_neck(target_zone))
-			if(head && isclothing(head))
-				var/obj/item/clothing/head/CH = head
-				if(CH.clothing_flags & THICKMATERIAL)
-					balloon_alert(user, "There is no exposed flesh on [p_their()] head")
+	if(above_neck(target_zone))
+		if(!head || !isclothing(head))
+			return TRUE
+		var/obj/item/clothing/head/CH = head
+		if(CH.clothing_flags & THICKMATERIAL)
+			balloon_alert(user, "There is no exposed flesh on [p_their()] head.")
+			return FALSE
+		return TRUE
+	if(!wear_suit || !isclothing(wear_suit))
+		return TRUE
+	var/obj/item/clothing/suit/CS = wear_suit
+	if(CS.clothing_flags & THICKMATERIAL)
+		switch(target_zone)
+			if(BODY_ZONE_CHEST)
+				if(CS.body_parts_covered & CHEST)
+					balloon_alert(user, "There is no exposed flesh on [p_their()] chest.")
 					return FALSE
-		if(wear_suit && isclothing(wear_suit))
-			var/obj/item/clothing/suit/CS = wear_suit
-			if(CS.clothing_flags & THICKMATERIAL)
-				switch(target_zone)
-					if(BODY_ZONE_CHEST)
-						if(CS.body_parts_covered & CHEST)
-							balloon_alert(user, "There is no exposed flesh on this chest")
-							return FALSE
-					if(BODY_ZONE_PRECISE_GROIN)
-						if(CS.body_parts_covered & GROIN)
-							balloon_alert(user, "There is no exposed flesh on this groin")
-							return FALSE
-					if(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)
-						if(CS.body_parts_covered & ARMS)
-							balloon_alert(user, "There is no exposed flesh on these arms")
-							return FALSE
-					if(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
-						if(CS.body_parts_covered & LEGS)
-							balloon_alert(user, "There is no exposed flesh on these legs")
-							return FALSE
+			if(BODY_ZONE_PRECISE_GROIN)
+				if(CS.body_parts_covered & GROIN)
+					balloon_alert(user, "There is no exposed flesh on [p_their()] groin.")
+					return FALSE
+			if(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)
+				if(CS.body_parts_covered & ARMS)
+					balloon_alert(user, "There is no exposed flesh on [p_their()] arms.")
+					return FALSE
+			if(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
+				if(CS.body_parts_covered & LEGS)
+					balloon_alert(user, "There is no exposed flesh on [p_their()] legs.")
+					return FALSE
+	return TRUE
 
 /mob/living/carbon/human/assess_threat(judgment_criteria, lasercolor = "", datum/callback/weaponcheck=null)
 	if(judgment_criteria & JUDGE_EMAGGED)
@@ -507,7 +516,7 @@
 		threatcount += 1
 
 	//mindshield implants imply trustworthyness
-	if(HAS_TRAIT(src, TRAIT_MINDSHIELD))
+	if(has_mindshield_hud_icon())
 		threatcount -= 1
 
 	//Agent cards lower threatlevel.
@@ -718,7 +727,7 @@
 	remove_all_embedded_objects()
 	set_heartattack(FALSE)
 	drunkenness = 0
-	for(var/datum/mutation/human/HM in dna.mutations)
+	for(var/datum/mutation/HM as() in dna.mutations)
 		if(HM.quality != POSITIVE)
 			dna.remove_mutation(HM.name)
 	..()
@@ -1012,6 +1021,13 @@
 	riding_datum.handle_vehicle_layer()
 	. = ..(target, force, check_loc)
 
+	//Something went wrong with buckling, remove inhands and restore target's position!
+	if(!.)
+		riding_datum.unequip_buckle_inhands(src)
+		riding_datum.unequip_buckle_inhands(target)
+		riding_datum.restore_position(target)
+		to_chat(src, "<span class='warning'>You seem to be unable to carry [target]!</span>")
+
 /mob/living/carbon/human/proc/is_shove_knockdown_blocked() //If you want to add more things that block shove knockdown, extend this
 	var/list/body_parts = list(head, wear_mask, wear_suit, w_uniform, back, gloves, shoes, belt, s_store, glasses, ears, wear_id) //Everything but pockets. Pockets are l_store and r_store. (if pockets were allowed, putting something armored, gloves or hats for example, would double up on the armor)
 	for(var/bp in body_parts)
@@ -1104,9 +1120,6 @@
 
 /mob/living/carbon/human/species/apid
 	race = /datum/species/apid
-
-/mob/living/carbon/human/species/corporate
-	race = /datum/species/corporate
 
 /mob/living/carbon/human/species/dullahan
 	race = /datum/species/dullahan
@@ -1237,8 +1250,6 @@
 /mob/living/carbon/human/species/moth
 	race = /datum/species/moth
 
-/mob/living/carbon/human/species/mush
-	race = /datum/species/mush
 
 /mob/living/carbon/human/species/plasma
 	race = /datum/species/plasmaman

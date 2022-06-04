@@ -23,7 +23,7 @@
 			H.mind?.AddSpell(S)
 
 /obj/item/clothing/shoes/clown_shoes/taeclowndo/dropped(mob/user)
-	. = ..()
+	..()
 	if(!ishuman(user))
 		return
 	var/mob/living/carbon/human/H = user

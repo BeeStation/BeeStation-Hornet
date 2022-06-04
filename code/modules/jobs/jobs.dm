@@ -52,7 +52,6 @@ GLOBAL_LIST_INIT(gimmick_positions, list(
 	"Gimmick",
 	"Barber",
 	"Stage Magician",
-	"Debtor",
 	"Psychiatrist",
 	"VIP"))
 

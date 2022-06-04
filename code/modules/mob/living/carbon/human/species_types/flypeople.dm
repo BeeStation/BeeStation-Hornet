@@ -2,7 +2,6 @@
 	name = "\improper Flyperson"
 	id = SPECIES_FLY
 	bodyflag = FLAG_FLY
-	say_mod = "buzzes"
 	species_traits = list(NOEYESPRITES, NO_UNDERWEAR, TRAIT_BEEFRIEND)
 	inherent_biotypes = list(MOB_ORGANIC, MOB_HUMANOID, MOB_BUG)
 	mutanttongue = /obj/item/organ/tongue/fly
@@ -10,7 +9,7 @@
 	mutantstomach = /obj/item/organ/stomach/fly
 	meat = /obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/fly
 	mutant_bodyparts = list("insect_type")
-	default_features = list("insect_type" = "housefly")
+	default_features = list("insect_type" = "housefly", "body_size" = "Normal")
 	burnmod = 1.4
 	brutemod = 1.4
 	speedmod = 0.7

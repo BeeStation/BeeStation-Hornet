@@ -100,8 +100,9 @@
 	w_class = WEIGHT_CLASS_BULKY
 	full_auto = TRUE
 
-/obj/item/gun/ballistic/automatic/wt550/rubber_loaded
-	mag_type = /obj/item/ammo_box/magazine/wt550m9/rubber
+/obj/item/gun/ballistic/automatic/wt550/rubber_loaded/Initialize(mapload)
+	magazine = new /obj/item/ammo_box/magazine/wt550m9/rubber(src)
+	. = ..()
 
 /obj/item/gun/ballistic/automatic/mini_uzi
 	name = "\improper Type U3 Uzi"
@@ -228,7 +229,6 @@
 	fire_rate = 6
 	spread = 7
 	pin = /obj/item/firing_pin/implant/pindicate
-	spread_unwielded = 15 //This can't be fired onehanded?
 	bolt_type = BOLT_TYPE_OPEN
 	mag_display = TRUE
 	mag_display_ammo = TRUE

@@ -12,19 +12,6 @@
 	name = "incendiary slug"
 	damage = 20
 
-/obj/item/projectile/bullet/sleepy
-	name = "soporific slug"
-	damage = 0
-
-/obj/item/projectile/bullet/sleepy/on_hit(atom/target, blocked = FALSE)
-	if((blocked != 100) && ishuman(target))
-		var/mob/living/L = target
-		if(L.confused)
-			L.Sleeping(50)
-		else
-			L.confused = 80
-	return ..()
-
 /obj/item/projectile/bullet/incendiary/shotgun/dragonsbreath
 	name = "dragonsbreath pellet"
 	damage = 5

@@ -19,6 +19,7 @@
 /obj/machinery/defibrillator_mount/loaded/Initialize(mapload) //loaded subtype for mapping use
 	. = ..()
 	defib = new/obj/item/defibrillator/loaded(src)
+	update_icon()
 
 /obj/machinery/defibrillator_mount/Destroy()
 	if(defib)

@@ -111,7 +111,7 @@
 	ADD_TRAIT(src, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT)
 
 /obj/item/clothing/mask/breath/machine/dropped(mob/user)
-	. = ..()
+	..()
 	if(loc != machine_attached) // If not already in machine, go back in when dropped (dropped is called on unequip)
 		to_chat(user, "<span class='notice'>The mask snaps back into the [machine_attached].</span>")
 		machine_attached.retract_mask()

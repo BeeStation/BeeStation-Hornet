@@ -93,7 +93,7 @@
 		if(!istype(G) || G.transfer_prints)
 			H.reagents.add_reagent(contact_poison,contact_poison_volume)
 			contact_poison = null
-	. = ..()
+	..()
 
 /obj/item/paper/Initialize(mapload)
 	..()
@@ -400,7 +400,7 @@
 	var/code
 	for(var/obj/machinery/nuclearbomb/beer/beernuke in GLOB.nuke_list)
 		if(beernuke.r_code == "ADMIN")
-			beernuke.r_code = random_nukecode()
+			beernuke.r_code = random_code(5)
 		code = beernuke.r_code
 	info = "important party info, DONT FORGET: <b>[code]</b>"
 

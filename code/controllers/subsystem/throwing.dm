@@ -89,7 +89,7 @@ SUBSYSTEM_DEF(throwing)
 /datum/thrownthing/Destroy()
 	SSthrowing.processing -= thrownthing
 	SSthrowing.currentrun -= thrownthing
-	thrownthing.throwing = null
+	thrownthing?.throwing = null
 	thrownthing = null
 	thrower = null
 	initial_target = null

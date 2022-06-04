@@ -159,7 +159,7 @@
 
 /obj/item/book/granter/spell/fireball/recoil(mob/user)
 	..()
-	explosion(user.loc, 1, 0, 2, 3, FALSE, FALSE, 2)
+	explosion(user.loc, 1, 0, 2, 3, FALSE, FALSE, 2, magic = TRUE)
 	qdel(src)
 
 /obj/item/book/granter/spell/sacredflame
@@ -286,7 +286,7 @@
 /obj/item/book/granter/spell/charge/recoil(mob/user)
 	..()
 	to_chat(user,"<span class='warning'>[src] suddenly feels very warm!</span>")
-	empulse(src, 1, 1)
+	empulse(src, 1, 1, magic=TRUE)
 
 /obj/item/book/granter/spell/summonitem
 	spell = /obj/effect/proc_holder/spell/targeted/summonitem

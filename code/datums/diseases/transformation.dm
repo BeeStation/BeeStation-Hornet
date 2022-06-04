@@ -33,16 +33,16 @@
 	..()
 	switch(stage)
 		if(1)
-			if (prob(stage_prob) && stage1)
+			if (prob(stage_prob) && length(stage1))
 				to_chat(affected_mob, pick(stage1))
 		if(2)
-			if (prob(stage_prob) && stage2)
+			if (prob(stage_prob) && length(stage2))
 				to_chat(affected_mob, pick(stage2))
 		if(3)
-			if (prob(stage_prob*2) && stage3)
+			if (prob(stage_prob*2) && length(stage3))
 				to_chat(affected_mob, pick(stage3))
 		if(4)
-			if (prob(stage_prob*2) && stage4)
+			if (prob(stage_prob*2) && length(stage4))
 				to_chat(affected_mob, pick(stage4))
 		if(5)
 			if(is_mutagenic)	//we don't do it normally
@@ -52,7 +52,7 @@
 
 /datum/disease/transformation/proc/do_disease_transformation(mob/living/affected_mob)
 	if(istype(affected_mob, /mob/living/carbon) && affected_mob.stat != DEAD)
-		if(stage5)
+		if(length(stage5))
 			to_chat(affected_mob, pick(stage5))
 		if(QDELETED(affected_mob))
 			return
@@ -237,7 +237,7 @@
 	stage3	= list("<span class='danger'>Your appendages are melting away.</span>", "<span class='danger'>Your limbs begin to lose their shape.</span>")
 	stage4	= list("<span class='danger'>You are turning into a slime.</span>")
 	stage5	= list("<span class='danger'>You have become a slime.</span>")
-	new_form = /mob/living/simple_animal/slime/random
+	new_form = /mob/living/simple_animal/slime
 
 /datum/disease/transformation/slime/stage_act()
 	..()

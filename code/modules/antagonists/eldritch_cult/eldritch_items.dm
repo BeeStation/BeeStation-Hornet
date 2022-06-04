@@ -69,6 +69,12 @@
 	to_chat(holder,"<span class='warning'>You feel a gust of energy flow through your body... the Rusted Hills heard your call...</span>")
 	qdel(sword)
 
+/datum/action/innate/heretic_shatter/Destroy()
+	if(sword)
+		sword.linked_action = null
+		sword = null
+	holder = null
+	return ..()
 
 /obj/item/melee/sickly_blade
 	name = "Sickly blade"
@@ -102,11 +108,11 @@
 	return ..()
 
 /obj/item/melee/sickly_blade/pickup(mob/user)
-	. = ..()
+	..()
 	linked_action.Grant(user, src)
 
 /obj/item/melee/sickly_blade/dropped(mob/user, silent)
-	. = ..()
+	..()
 	linked_action.Remove(user, src)
 
 /obj/item/melee/sickly_blade/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
@@ -156,7 +162,7 @@
 		user.update_sight()
 
 /obj/item/clothing/neck/eldritch_amulet/dropped(mob/user)
-	. = ..()
+	..()
 	REMOVE_TRAIT(user, trait, CLOTHING_TRAIT)
 	user.update_sight()
 
@@ -230,10 +236,10 @@
 		ADD_TRAIT(src, TRAIT_NODROP, CLOTHING_TRAIT)
 
 /obj/item/clothing/mask/void_mask/dropped(mob/M)
+	..()
 	local_user = null
 	STOP_PROCESSING(SSobj,src)
 	REMOVE_TRAIT(src, TRAIT_NODROP, CLOTHING_TRAIT)
-	return ..()
 
 /obj/item/clothing/mask/void_mask/process()
 	if(!local_user)
@@ -275,7 +281,7 @@
 		ADD_TRAIT(user, TRAIT_WARDED, CLOTHING_TRAIT)
 
 /obj/item/clothing/neck/crucifix/dropped(mob/user)
-	. = ..()
+	..()
 	REMOVE_TRAIT(user, TRAIT_WARDED, CLOTHING_TRAIT)
 
 /obj/item/clothing/neck/crucifix/rosary

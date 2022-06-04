@@ -116,8 +116,8 @@
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	var/mining_points = 0 //For redeeming at mining equipment vendors
 	var/list/access = list()
-	var/registered_name = null // The name registered_name on the card
-	var/assignment = null
+	var/registered_name// The name registered_name on the card
+	var/assignment
 	var/access_txt // mapping aid
 	var/datum/bank_account/registered_account
 	var/obj/machinery/paystand/my_store
@@ -595,12 +595,19 @@ update_label("John Doe", "Clowny")
 	lefthand_file = 'icons/mob/inhands/equipment/idcards_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/idcards_righthand.dmi'
 	assignment = "Prisoner"
-	registered_name = "Scum"
+	registered_name = "Prisoner"
 	var/goal = 0 //How far from freedom?
 	var/points = 0
+	var/permanent = FALSE
 
-/obj/item/card/id/prisoner/attack_self(mob/user)
-	to_chat(usr, "<span class='notice'>You have accumulated [points] out of the [goal] points you need for freedom.</span>")
+/obj/item/card/id/prisoner/examine(mob/user)
+	. = ..()
+
+	if(!permanent)
+		. += "<span class='notice'>A little display on the card reads: You have accumulated [points] out of the [goal] points you need for freedom.</span>"
+
+	else
+		. += "<span class='notice'>The mark on the ID indicates the sentence is permanent.</span>"
 
 /obj/item/card/id/prisoner/one
 	name = "Prisoner #13-001"
@@ -741,6 +748,12 @@ update_label("John Doe", "Clowny")
 
 ///Job Specific ID Cards///
 
+/obj/item/card/id/job/captain
+	icon_state = "captain"
+
+/obj/item/card/id/job/hop
+	icon_state = "hop"
+
 /obj/item/card/id/job/ce
 	icon_state = "ce"
 
@@ -756,11 +769,29 @@ update_label("John Doe", "Clowny")
 /obj/item/card/id/job/med
 	icon_state = "med"
 
+/obj/item/card/id/job/paramed
+	icon_state = "paramed"
+
+/obj/item/card/id/job/viro
+	icon_state = "viro"
+
+/obj/item/card/id/job/chemist
+	icon_state = "chemist"
+
+/obj/item/card/id/job/gene
+	icon_state = "gene"
+
 /obj/item/card/id/job/hos
 	icon_state = "hos"
 
 /obj/item/card/id/job/sec
 	icon_state = "sec"
+
+/obj/item/card/id/job/brigphys
+	icon_state = "brigphys"
+
+/obj/item/card/id/job/deputy
+	icon_state = "deputy"
 
 /obj/item/card/id/job/detective
 	icon_state = "detective"
@@ -771,6 +802,9 @@ update_label("John Doe", "Clowny")
 /obj/item/card/id/job/rd
 	icon_state = "rd"
 
+/obj/item/card/id/job/roboticist
+	icon_state = "roboticist"
+
 /obj/item/card/id/job/sci
 	icon_state = "sci"
 
@@ -779,6 +813,9 @@ update_label("John Doe", "Clowny")
 
 /obj/item/card/id/job/chap
 	icon_state = "chap"
+
+/obj/item/card/id/job/janitor
+	icon_state = "janitor"
 
 /obj/item/card/id/job/qm
 	icon_state = "qm"

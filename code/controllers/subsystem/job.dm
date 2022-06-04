@@ -106,7 +106,7 @@ SUBSYSTEM_DEF(job)
 		var/datum/job/job = GetJob(rank)
 		if(!job)
 			return FALSE
-		if(is_banned_from(player.ckey, rank) || QDELETED(player))
+		if(QDELETED(player) || is_banned_from(player.ckey, rank))
 			return FALSE
 		if(!job.player_old_enough(player.client))
 			return FALSE
@@ -136,7 +136,7 @@ SUBSYSTEM_DEF(job)
 	JobDebug("Running FOC, Job: [job], Level: [level], Flag: [flag]")
 	var/list/candidates = list()
 	for(var/mob/dead/new_player/player in unassigned)
-		if(is_banned_from(player.ckey, job.title) || QDELETED(player))
+		if(QDELETED(player) || is_banned_from(player.ckey, job.title))
 			JobDebug("FOC isbanned failed, Player: [player]")
 			continue
 		if(!job.player_old_enough(player.client))
@@ -169,10 +169,11 @@ SUBSYSTEM_DEF(job)
 		if(job.title in GLOB.command_positions) //If you want a command position, select it!
 			continue
 
-		if(is_banned_from(player.ckey, job.title) || QDELETED(player))
-			if(QDELETED(player))
-				JobDebug("GRJ isbanned failed, Player deleted")
-				break
+		if(QDELETED(player))
+			JobDebug("GRJ isbanned failed, Player deleted")
+			break
+
+		if(is_banned_from(player.ckey, job.title))
 			JobDebug("GRJ isbanned failed, Player: [player], Job: [job.title]")
 			continue
 
@@ -460,7 +461,7 @@ SUBSYSTEM_DEF(job)
 			DropLandAtRandomHallwayPoint(living_mob)
 			spawning_handled = TRUE
 		else if(HAS_TRAIT(SSstation, STATION_TRAIT_HANGOVER) && job.random_spawns_possible)
-			SpawnLandAtRandomHallwayPoint(living_mob)
+			SpawnLandAtRandom(living_mob, (typesof(/area/hallway) | typesof(/area/crew_quarters/bar) | typesof(/area/crew_quarters/dorms)))
 			spawning_handled = TRUE
 		else if(length(GLOB.jobspawn_overrides[rank]))
 			S = pick(GLOB.jobspawn_overrides[rank])
@@ -696,8 +697,8 @@ SUBSYSTEM_DEF(job)
 		CRASH(msg)
 
 ///Spawns specified mob at a random spot in the hallways
-/datum/controller/subsystem/job/proc/SpawnLandAtRandomHallwayPoint(mob/living/living_mob)
-	var/turf/spawn_turf = get_safe_random_station_turfs(typesof(/area/hallway))
+/datum/controller/subsystem/job/proc/SpawnLandAtRandom(mob/living/living_mob, areas = typesof(/area/hallway))
+	var/turf/spawn_turf = get_safe_random_station_turfs(areas)
 
 	if(!spawn_turf)
 		SendToLateJoin(living_mob)

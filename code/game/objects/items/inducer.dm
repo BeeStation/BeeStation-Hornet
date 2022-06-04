@@ -1,6 +1,6 @@
 /obj/item/inducer
-	name = "inducer"
-	desc = "A tool for inductively charging internal power cells."
+	name = "heavy-duty inducer"
+	desc = "A tool for inductively charging internal power cells. It is ruggedized for frequent use."
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "inducer-engi"
 	item_state = "inducer-engi"
@@ -170,7 +170,18 @@
 		else
 			add_overlay("inducer-bat")
 
+///Starts empty for engineering protolathe
+/obj/item/inducer/eng
+	name = "heavy-duty inducer"
+	cell_type = null
+	opened = TRUE
+
+/obj/item/inducer/eng/Initialize(mapload)
+	. = ..()
+	update_icon()
+
 /obj/item/inducer/sci
+	name = "inducer"
 	icon_state = "inducer-sci"
 	item_state = "inducer-sci"
 	desc = "A tool for inductively charging internal power cells. This one has a science color scheme, and is less potent than its engineering counterpart."

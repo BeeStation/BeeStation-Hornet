@@ -54,13 +54,13 @@
 					if(directions.len)
 						if(istype(gib, /obj/effect/decal/cleanable/blood/gibs))
 							var/obj/effect/decal/cleanable/blood/gibs/G = gib
-							G.streak(directions)
+							G.streak(directions, mapload)
 						else if(istype(gib, /obj/effect/decal/cleanable/xenoblood/xgibs))
 							var/obj/effect/decal/cleanable/xenoblood/xgibs/G = gib
-							G.streak(directions)
+							G.streak(directions, mapload)
 						else if(istype(gib, /obj/effect/decal/cleanable/robot_debris))
-							var/obj/effect/decal/cleanable/xenoblood/xgibs/G = gib
-							G.streak(directions)
+							var/obj/effect/decal/cleanable/robot_debris/G = gib
+							G.streak(directions, mapload)
 
 	return INITIALIZE_HINT_QDEL
 

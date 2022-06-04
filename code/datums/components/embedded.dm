@@ -239,7 +239,7 @@
 		to_chat(user, "<span class='warning'>You don't have the dexterity to do this!</span>")
 		return
 
-	if(istype(victim)) // check to see if the limb is actually exposed
+	if(ishuman(victim)) // check to see if the limb is actually exposed
 		var/mob/living/carbon/human/victim_human = victim
 		if(!victim_human.can_inject(user, TRUE, limb.body_zone, penetrate_thick = FALSE))
 			return TRUE

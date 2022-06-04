@@ -61,6 +61,8 @@
 
 /obj/item/grenade/plastic/prime(mob/living/lanced_by)
 	. = ..()
+	if(!.)
+		return
 	var/turf/location
 	var/density_check = FALSE
 	if(target)
@@ -219,7 +221,11 @@
 
 /obj/item/grenade/plastic/c4/prime(mob/living/lanced_by)
 	if(QDELETED(src))
-		return
+		return FALSE
+	if(dud_flags)
+		active = FALSE
+		update_icon()
+		return FALSE
 
 	. = ..()
 	var/turf/location

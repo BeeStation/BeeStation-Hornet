@@ -120,10 +120,10 @@
 /obj/item/storage/secure/briefcase
 	name = "secure briefcase"
 	icon = 'icons/obj/storage.dmi'
-	icon_state = "secure"
+	icon_state = "sec-case"
 	item_state = "sec-case"
-	lefthand_file = 'icons/mob/inhands/equipment/briefcase_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/equipment/briefcase_righthand.dmi'
+	lefthand_file = 'icons/mob/inhands/equipment/case_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/equipment/case_righthand.dmi'
 	desc = "A large briefcase with a digital locking system."
 	force = 8
 	hitsound = "swing_hit"

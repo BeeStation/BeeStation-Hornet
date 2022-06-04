@@ -43,6 +43,7 @@
 #define ROLE_GANG				"Gangster"
 #define ROLE_HOLOPARASITE		"Holoparasite"
 #define ROLE_TERATOMA			"Teratoma"
+#define ROLE_EXPERIMENTAL_CLONE "Experimental Clone"
 
 //Missing assignment means it's not a gamemode specific role, IT'S NOT A BUG OR ERROR.
 //The gamemode specific ones are just so the gamemodes can query whether a player is old enough

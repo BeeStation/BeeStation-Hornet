@@ -121,7 +121,7 @@
 					"name" = A.area.name,
 					"charge" = cell_charge,
 					"load" = DisplayPower(A.lastused_total),
-					"charging" = A.charging,
+					"charging" = A.integration_cog ? 2 : A.charging,
 					"eqp" = A.equipment,
 					"lgt" = A.lighting,
 					"env" = A.environ

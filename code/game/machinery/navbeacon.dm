@@ -28,11 +28,11 @@
 
 	var/turf/T = loc
 	hide(T.intact)
-	if(codes["patrol"])
+	if(codes?["patrol"])
 		if(!GLOB.navbeacons["[z]"])
 			GLOB.navbeacons["[z]"] = list()
 		GLOB.navbeacons["[z]"] += src //Register with the patrol list!
-	if(codes["delivery"])
+	if(codes?["delivery"])
 		GLOB.deliverybeacons += src
 		GLOB.deliverybeacontags += location
 

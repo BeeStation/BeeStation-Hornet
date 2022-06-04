@@ -14,7 +14,6 @@
 	potency = 20
 	growthstages = 4
 	growing_icon = 'icons/obj/hydroponics/growing_flowers.dmi'
-	icon_dead = "rainbowbunch-dead"
 	genes = list(/datum/plant_gene/trait/repeated_harvest)
 	reagents_add = list(/datum/reagent/consumable/nutriment = 0.05)
 

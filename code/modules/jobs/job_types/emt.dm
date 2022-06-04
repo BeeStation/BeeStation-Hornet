@@ -34,8 +34,8 @@
 	name = "Paramedic"
 	jobtype = /datum/job/emt
 
-	id = /obj/item/card/id/job/med
-	belt = /obj/item/pda/medical
+	id = /obj/item/card/id/job/paramed
+	belt = /obj/item/pda/paramedic
 	ears = /obj/item/radio/headset/headset_med
 	gloves = /obj/item/clothing/gloves/color/latex/nitrile
 	uniform = /obj/item/clothing/under/rank/medical/emt

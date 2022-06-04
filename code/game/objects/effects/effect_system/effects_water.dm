@@ -24,6 +24,16 @@
 		reagents.reaction(A)
 	return ..()
 
+///Extinguisher snowflake
+/obj/effect/particle_effect/water/extinguisher
+
+/obj/effect/particle_effect/water/extinguisher/Move()
+	. = ..()
+	if(!reagents)
+		return
+	reagents.reaction(get_turf(src))
+	for(var/atom/thing as anything in get_turf(src))
+		reagents.reaction(thing)
 
 /////////////////////////////////////////////
 // GENERIC STEAM SPREAD SYSTEM
