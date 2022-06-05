@@ -315,14 +315,17 @@
 	var/obj/effect/mob_spawn/sentient_artifact/S = new(get_turf(X), X)
 	S.density = FALSE
 
-/datum/xenoartifact_trait/minor/sentient/proc/setup_sentience(obj/item/xenoartifact/X, ckey)	
+/datum/xenoartifact_trait/minor/sentient/proc/setup_sentience(obj/item/xenoartifact/X, ckey)
+	if(!(SSzclear.get_free_z_level()))
+		playsound(get_turf(X), 'sound/machines/buzz-sigh.ogg', 15, TRUE) 
+		return	
 	man = new(get_turf(X))
 	man.name = "[pick("Calcifer", "Lucifer", "Ahpuch", "Ahriman")]"
 	man.real_name = "[man.name] - the [src]"
 	man.key = ckey
 	log_game("[man]:[man.ckey] took control of the sentient [X]. [X] located at [X.x] [X.y] [X.z]")
 	ADD_TRAIT(man, TRAIT_NOBREATH, TRAIT_NODEATH)
-	man.forceMove(X)
+	man.forceMove(X) //Better hope no greedy goblins took all the zlevels
 	man.anchored = TRUE
 	var/obj/effect/proc_holder/spell/targeted/xeno_senitent_action/P = new /obj/effect/proc_holder/spell/targeted/xeno_senitent_action(,X)
 	man.AddSpell(P)
@@ -503,14 +506,14 @@
 		fren = TRUE
 
 /datum/xenoartifact_trait/major/capture/activate(obj/item/xenoartifact/X, atom/target)
+	if(QDELETED(src) || QDELETED(X) || QDELETED(AM) || !(SSzclear.get_free_z_level())) //Sometimes we can get pressed on z-levels
+		playsound(get_turf(X), 'sound/machines/buzz-sigh.ogg', 15, TRUE) //this shouldn't happen too often but, exploration can eat a few zlevels.
+		return
 	if(isliving(X.loc))
 		var/mob/living/holder = X.loc
 		holder.dropItemToGround(X)
 	if(ismovable(target) && !(istype(target, /obj/structure)))
 		var/atom/movable/AM = target
-		if(QDELETED(src) || QDELETED(X) || QDELETED(AM) || !(SSzclear.get_free_z_level())) //Sometimes we can get pressed on z-levels
-			playsound(get_turf(X), 'sound/machines/buzz-sigh.ogg', 15, TRUE) //this shouldn't happen too often but, exploration can eat a few zlevels.
-			return
 		addtimer(CALLBACK(src, .proc/release, X, AM), X.charge*0.3 SECONDS)
 		AM.forceMove(X)
 		AM.anchored = TRUE
@@ -633,6 +636,9 @@
 		X.cooldownmod = (X.charge*0.6) SECONDS
 
 /datum/xenoartifact_trait/major/corginator/proc/transform(obj/item/xenoartifact/X, mob/living/target)
+	if(!(SSzclear.get_free_z_level()))
+		playsound(get_turf(X), 'sound/machines/buzz-sigh.ogg', 15, TRUE)
+		return
 	var/mob/living/simple_animal/pet/dog/corgi/new_corgi
 	new_corgi = new(get_turf(target))
 	new_corgi.key = target.key
@@ -645,7 +651,7 @@
 		var/obj/item/hat = C.get_item_by_slot(ITEM_SLOT_HEAD)
 		if(hat)
 			new_corgi.place_on_head(hat,null,FALSE)
-	target.forceMove(new_corgi)
+	target.forceMove(new_corgi) //This is why we check for free z-levels
 	return new_corgi
 
 /datum/xenoartifact_trait/major/corginator/proc/transform_back(obj/item/xenoartifact/X, mob/living/target, mob/living/simple_animal/pet/dog/corgi/new_corgi)
