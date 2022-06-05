@@ -261,8 +261,8 @@
 	X.armour_penetration = 5
 
 /datum/xenoartifact_trait/minor/radioactive
-	label_name = "Roadiactive"
-	label_desc = "Roadiactive: The Artifact Emmits harmful particles when a reaction takes place."
+	label_name = "Radioactive"
+	label_desc = "Radioactive: The Artifact Emmits harmful particles when a reaction takes place."
 
 /datum/xenoartifact_trait/minor/radioactive/on_init(obj/item/xenoartifact/X)
 	X.AddComponent(/datum/component/radioactive, 25)
@@ -312,11 +312,13 @@
 		var/mob/dead/observer/C = pick(candidates)
 		setup_sentience(X, C.ckey)
 		return
-	new /obj/effect/mob_spawn/sentient_artifact(get_turf(X), X)
+	var/obj/effect/mob_spawn/sentient_artifact/S = new(get_turf(X), X)
+	S.density = FALSE
 
 /datum/xenoartifact_trait/minor/sentient/proc/setup_sentience(obj/item/xenoartifact/X, ckey)	
 	man = new(get_turf(X))
 	man.name = "[pick("Calcifer", "Lucifer", "Ahpuch", "Ahriman")]"
+	man.real_name = "[man.name] - the [src]"
 	man.key = ckey
 	log_game("[man]:[man.ckey] took control of the sentient [X]. [X] located at [X.x] [X.y] [X.z]")
 	ADD_TRAIT(man, TRAIT_NOBREATH, TRAIT_NODEATH)
@@ -410,10 +412,10 @@
 /datum/xenoartifact_trait/minor/aura/activate(obj/item/xenoartifact/X)
 	X.true_target = list()
 	for(var/mob/living/M in oview(min(X.max_range, 5), get_turf(X.loc))) //Look for mobs
-		X.true_target += X.process_target(M)
+		X.true_target |= X.process_target(M)
 	for(var/obj/M in oview(min(X.max_range, 5), get_turf(X.loc))) //Look for items
 		if(!(M.anchored))
-			X.true_target += X.process_target(M)
+			X.true_target |= X.process_target(M)
 
 /datum/xenoartifact_trait/minor/long //Essentially makes the artifact a ranged wand. Makes barreled useful.
 	desc = "Scoped"
@@ -497,7 +499,7 @@
 	var/fren
 
 /datum/xenoartifact_trait/major/capture/on_init(obj/item/xenoartifact/X)
-	if(prob(0.01)) 
+	if(prob(0.5)) 
 		fren = TRUE
 
 /datum/xenoartifact_trait/major/capture/activate(obj/item/xenoartifact/X, atom/target)
@@ -885,7 +887,7 @@
 
 /datum/xenoartifact_trait/major/chem/on_init(obj/item/xenoartifact/X)
 	amount = pick(5, 9, 10, 15)
-	formula = get_random_reagent_id(CHEMICAL_RNG_GENERAL)
+	formula = get_random_reagent_id(/*CHEMICAL_RNG_GENERAL*/)
 
 /datum/xenoartifact_trait/major/chem/activate(obj/item/xenoartifact/X, atom/target)
 	if(target?.reagents)
@@ -946,6 +948,9 @@
 		new_bear.name = pick("Freddy", "Bearington", "Smokey", "Beorn", "Pooh", "Paddington", "Winnie", "Baloo", "Rupert", "Yogi", "Fozzie", "Boo") //Why not?
 		log_game("[X] spawned a (/mob/living/simple_animal/hostile/bear) at [world.time]. [X] located at [X.x] [X.y] [X.z]")
 	else
+		X.visible_message("<span class='danger'>The [X.name] shatters as bearspace collapses! Too many bears!</span>")
+		var/obj/effect/decal/cleanable/ash/A = new(get_turf(X))
+		A.color = X.material
 		qdel(X)
 
 /datum/xenoartifact_trait/malfunction/badtarget

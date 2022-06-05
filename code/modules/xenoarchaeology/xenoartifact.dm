@@ -24,6 +24,8 @@
 	var/datum/xenoartifact_trait/touch_desc
 	///used for special examine circumstance, science goggles & ghosts
 	var/special_desc = "The Xenoartifact is made from a"
+	///Description used for label, used because directly adding shit to desc isn't a good idea
+	var/label_desc
 	///How far the artifact can reach
 	var/max_range = 1
 
@@ -158,8 +160,9 @@
 		for(var/datum/xenoartifact_trait/t as() in traits)
 			to_chat(user, "<span class='notice'>[t.desc ? t.desc : t.label_name]</span>")
 			to_chat("test")
-	else if(iscarbon(user) && istype(user?.glasses, /obj/item/clothing/glasses/science)) //Not checking carbon throws a runtime concerning observers
+	else if(iscarbon(user) && user.can_see_reagents()) //Not checking carbon throws a runtime concerning observers
 		to_chat(user, "<span class='notice'>[special_desc]</span>")
+	return (label_desc ? . + label_desc : .)
 
 /obj/item/xenoartifact/interact(mob/user)
 	. = ..()
@@ -174,9 +177,12 @@
 
 /obj/item/xenoartifact/attackby(obj/item/I, mob/living/user, params)
 	for(var/datum/xenoartifact_trait/t as() in traits)
+		to_chat(user, "<span class='notice'>You preform a safe operation on [src] with [I].</span>")
 		t?.on_item(src, user, I)
 	if(!(COOLDOWN_FINISHED(src, xenoa_cooldown))||user?.a_intent == INTENT_GRAB||istype(I, /obj/item/xenoartifact_label)||istype(I, /obj/item/xenoartifact_labeler))
 		return
+	else if(istype(I, /obj/item/wirecutters) && (locate(/obj/item/xenoartifact_label) in contents))
+		qdel(locate(/obj/item/xenoartifact_label) in contents)
 	..()
 
 ///Run traits. Used to activate all minor, major, and malfunctioning traits in the artifact's trait list. Sets cooldown when properly finished.
@@ -336,7 +342,7 @@
 			visible_message("<span class='notice'>The [name] ticks.</span>")
 			true_target = list(get_target_in_proximity(min(max_range, 5)))
 			default_activate(25, null, null)
-			if(prob(13) && COOLDOWN_FINISHED(src, xenoa_cooldown))
+			if(prob(23) && COOLDOWN_FINISHED(src, xenoa_cooldown))
 				process_type = null
 				return PROCESS_KILL
 		else    

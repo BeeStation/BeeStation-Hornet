@@ -92,6 +92,15 @@
 	var/obj/item/xenoartifact_label/P = create_label(sticker_name)
 	if(!P.afterattack(target, user, TRUE)) //In the circumstance the sticker fails, usually means you're doing something you shouldn't be
 		qdel(P)
+	else
+		sticker_name = null
+		info_list = list()
+		sticker_traits = list()
+		activator = list()
+		minor_trait = list()
+		major_trait = list()
+		malfunction = list()
+		ui_update()
 
 /obj/item/xenoartifact_labeler/proc/create_label(new_name)
 	var/obj/item/xenoartifact_label/P = new(get_turf(src))
@@ -133,10 +142,9 @@
 	desc = "An adhesive label describing the characteristics of a Xenoartifact."
 	var/info = "" 
 	var/set_name = FALSE
-
 	var/mutable_appearance/sticker_overlay
-
 	var/list/trait_list = list() //List of traits used to compare and generate modifier.
+	var/obj/item/xenoartifact/xenoa_target
 
 /obj/item/xenoartifact_label/Initialize()
 	icon_state = "sticker_[pick("star", "box", "tri", "round")]"
@@ -160,19 +168,16 @@
 		addtimer(CALLBACK(src, .proc/remove_sticker, target), 15 SECONDS)
 		return TRUE
 	else if(istype(target, /obj/item/xenoartifact))
-		var/obj/item/xenoartifact/X = target
-		if(locate(/obj/item/xenoartifact_label) in X)
-			if(set_name) //You can update the now, that's cool
-				X.name = name
-			to_chat(user, "<span class='notice'>There's no space left to attach another sticker!</span>")
-			return
-		calculate_modifier(X)
-		add_sticker(X)
+		xenoa_target = target
+		if(set_name) //You can update the now, that's cool
+			xenoa_target.name = name
+		calculate_modifier(xenoa_target)
+		add_sticker(xenoa_target)
 		if(set_name)
-			X.name = name
+			xenoa_target.name = name
 		if(info)
 			var/textinfo = list2text(info)
-			X.desc = "[X.desc] There's a sticker attached, it says-\n[textinfo]"
+			xenoa_target.label_desc = "There's a sticker attached, it says-\n[textinfo]"
 		return TRUE
 	
 /obj/item/xenoartifact_label/proc/add_sticker(mob/target)
@@ -205,7 +210,8 @@
 
 /obj/item/xenoartifact_label/Destroy()
 	. = ..()
-	loc?.cut_overlay(sticker_overlay)
+	xenoa_target?.cut_overlay(sticker_overlay)
+	xenoa_target = null
 
 /obj/item/xenoartifact_labeler/debug
 	name = "Xenoartifact Debug Labeler"      
