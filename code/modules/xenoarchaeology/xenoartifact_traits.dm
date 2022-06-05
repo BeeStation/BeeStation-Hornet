@@ -297,7 +297,10 @@
 /datum/xenoartifact_trait/minor/sentient //One-ring type sentience
 	label_name = "Sentient"
 	label_desc = "Sentient: The Artifact seems to be alive, influencing events around it. The Artifact wants to return to its master..."
+	///he who lives inside
 	var/mob/living/simple_animal/man
+	///His doorbell
+	var/obj/effect/mob_spawn/sentient_artifact/S
 
 /datum/xenoartifact_trait/minor/sentient/on_touch(obj/item/xenoartifact/X, mob/user)
 	to_chat(user, "<span class='warning'>The [X.name] whispers to you...</span>")
@@ -312,12 +315,12 @@
 		var/mob/dead/observer/C = pick(candidates)
 		setup_sentience(X, C.ckey)
 		return
-	var/obj/effect/mob_spawn/sentient_artifact/S = new(get_turf(X), X)
+	S = new(get_turf(X), X)
 	S.density = FALSE
 
 /datum/xenoartifact_trait/minor/sentient/proc/setup_sentience(obj/item/xenoartifact/X, ckey)
 	if(!(SSzclear.get_free_z_level()))
-		playsound(get_turf(X), 'sound/machines/buzz-sigh.ogg', 15, TRUE) 
+		playsound(get_turf(X), 'sound/machines/buzz-sigh.ogg', 50, TRUE) 
 		return	
 	man = new(get_turf(X))
 	man.name = "[pick("Calcifer", "Lucifer", "Ahpuch", "Ahriman")]"
@@ -329,7 +332,6 @@
 	man.anchored = TRUE
 	var/obj/effect/proc_holder/spell/targeted/xeno_senitent_action/P = new /obj/effect/proc_holder/spell/targeted/xeno_senitent_action(,X)
 	man.AddSpell(P)
-	P.RegisterSignal(man, COMSIG_PARENT_QDELETING, /obj/effect/proc_holder/spell/targeted/xeno_senitent_action/proc/on_owner_del)
 
 /obj/effect/proc_holder/spell/targeted/xeno_senitent_action //Lets sentience target goober
 	name = "Activate"
@@ -358,10 +360,8 @@
 /datum/xenoartifact_trait/minor/sentient/Destroy(force, ...)
 	. = ..()
 	if(man)
+		qdel(S)
 		qdel(man) //Kill the inner person. Otherwise invisible 'animal' runs around
-
-/obj/effect/proc_holder/spell/targeted/xeno_senitent_action/proc/on_owner_del()
-	qdel(src) //I don't know why but deleting the owner just drops this on the ground, mental
 
 /obj/effect/mob_spawn/sentient_artifact
 	death = FALSE
@@ -415,10 +415,15 @@
 /datum/xenoartifact_trait/minor/aura/activate(obj/item/xenoartifact/X)
 	X.true_target = list()
 	for(var/mob/living/M in oview(min(X.max_range, 5), get_turf(X.loc))) //Look for mobs
-		X.true_target |= X.process_target(M)
-	for(var/obj/M in oview(min(X.max_range, 5), get_turf(X.loc))) //Look for items
-		if(!(M.anchored))
+		if(X.true_target.len < 9)
 			X.true_target |= X.process_target(M)
+		else
+			break
+	for(var/obj/M in oview(min(X.max_range, 5), get_turf(X.loc))) //Look for items
+		if(!(M.anchored) && X.true_target.len < 9)
+			X.true_target |= X.process_target(M)
+		else
+			break
 
 /datum/xenoartifact_trait/minor/long //Essentially makes the artifact a ranged wand. Makes barreled useful.
 	desc = "Scoped"
@@ -507,7 +512,7 @@
 
 /datum/xenoartifact_trait/major/capture/activate(obj/item/xenoartifact/X, atom/target)
 	if(!(SSzclear.get_free_z_level())) //Sometimes we can get pressed on z-levels
-		playsound(get_turf(X), 'sound/machines/buzz-sigh.ogg', 15, TRUE) //this shouldn't happen too often but, exploration can eat a few zlevels.
+		playsound(get_turf(X), 'sound/machines/buzz-sigh.ogg', 50, TRUE) //this shouldn't happen too often but, exploration can eat a few zlevels.
 		return
 	if(isliving(X.loc))
 		var/mob/living/holder = X.loc
@@ -637,7 +642,7 @@
 
 /datum/xenoartifact_trait/major/corginator/proc/transform(obj/item/xenoartifact/X, mob/living/target)
 	if(!(SSzclear.get_free_z_level()))
-		playsound(get_turf(X), 'sound/machines/buzz-sigh.ogg', 15, TRUE)
+		playsound(get_turf(X), 'sound/machines/buzz-sigh.ogg', 50, TRUE)
 		return
 	var/mob/living/simple_animal/pet/dog/corgi/new_corgi
 	new_corgi = new(get_turf(target))
@@ -689,29 +694,30 @@
 /datum/xenoartifact_trait/major/mirrored //Swaps the last two target's minds
 	desc = "Mirrored"
 	label_desc = "Mirrored: The shape is perfectly symetrical. Perhaps you could interest the Captain?"
-	var/mob/living/victim
-	var/mob/living/caster
-
-/datum/xenoartifact_trait/major/mirrored/on_touch(obj/item/xenoartifact/X, mob/user)
-	if(victim.key != user.key)
-		to_chat(user, "<span class='warning'>You see a reflection in the [X.name], it isn't yours...</span>")
-	else    
-		to_chat(user, "<span class='notice'>You see your reflection in the [X.name].</span>")
-	return TRUE
+	var/list/victims = list()
 
 /datum/xenoartifact_trait/major/mirrored/activate(obj/item/xenoartifact/X, mob/target, atom/user)
-	if(!isliving(target) || target?.key)
-		playsound(get_turf(X), 'sound/machines/buzz-sigh.ogg', 15, TRUE)
-		return
-	victim = target
-	caster = user
-	var/obj/effect/proc_holder/spell/targeted/mind_transfer/M = new
-	M.range = X.max_range
-	M.cast(list(victim), caster, TRUE)
-	log_game("[X] swapped the identities of [victim] & [caster] at [world.time]. [X] located at [X.x] [X.y] [X.z]")
-	victim = null
-	caster = null
-	qdel(M)
+	if(victims.len < 2)
+		if(!isliving(target))
+			playsound(get_turf(X), 'sound/machines/buzz-sigh.ogg', 50, TRUE)
+		else
+			victims += target
+		if(victims.len < 2) //one last check before hand, after adding new target
+			return
+	var/mob/living/caster = victims[1] //The fact this shit initializes at 1 is a sin
+	var/mob/living/victim = victims[2]
+
+	var/mob/dead/observer/ghost = victim.ghostize(0)
+	caster?.mind.transfer_to(victim) //safe access is the name, spamming it is the game
+	ghost?.mind.transfer_to(caster)
+	if(ghost?.key)
+		caster?.key = ghost?.key
+	qdel(ghost)
+
+	caster.Unconscious(5 SECONDS)
+	victim.Unconscious(5 SECONDS)
+	log_game("[X] swapped the identities of [victims[1]] & [victims[2]] at [world.time]. [X] located at [X.x] [X.y] [X.z]")
+	victims = list()
 
 /datum/xenoartifact_trait/major/emp
 	label_name = "EMP"
@@ -873,7 +879,7 @@
 	healing_type = pick(1, 2, 3, 4)
 
 /datum/xenoartifact_trait/major/heal/activate(obj/item/xenoartifact/X, atom/target)
-	playsound(get_turf(target), 'sound/magic/staff_healing.ogg', 15, TRUE)
+	playsound(get_turf(target), 'sound/magic/staff_healing.ogg', 50, TRUE)
 	if(istype(target, /mob/living))
 		var/mob/living/victim = target
 		switch(healing_type)
@@ -894,10 +900,11 @@
 
 /datum/xenoartifact_trait/major/chem/on_init(obj/item/xenoartifact/X)
 	amount = pick(5, 9, 10, 15)
-	formula = get_random_reagent_id(CHEMICAL_RNG_GENERAL)
+	formula = get_random_reagent_id(/*CHEMICAL_RNG_GENERAL*/)
 
 /datum/xenoartifact_trait/major/chem/activate(obj/item/xenoartifact/X, atom/target)
 	if(target?.reagents)
+		playsound(get_turf(X), pick('sound/items/hypospray.ogg','sound/items/hypospray2.ogg'), 50, TRUE)
 		var/datum/reagents/R = target.reagents
 		R.add_reagent(formula, amount)
 		log_game("[X] injected [target] with [amount]u of [formula] at [world.time]. [X] located at [X.x] [X.y] [X.z]")
@@ -938,7 +945,7 @@
 					'sound/weapons/blade1.ogg'))
 
 /datum/xenoartifact_trait/major/horn/activate(obj/item/xenoartifact/X, atom/target, atom/user)
-	playsound(get_turf(target), sound, 18, TRUE)
+	playsound(get_turf(target), sound, 50, FALSE)
 
 //Malfunctions
 
@@ -948,7 +955,7 @@
 	var/bears //bear per bears
 
 /datum/xenoartifact_trait/malfunction/bear/activate(obj/item/xenoartifact/X)
-	if(prob(33) && bears < 7)
+	if(bears < XENOA_MAX_BEARS)
 		bears+=1
 		var/mob/living/simple_animal/hostile/bear/new_bear
 		new_bear = new(get_turf(X.loc))

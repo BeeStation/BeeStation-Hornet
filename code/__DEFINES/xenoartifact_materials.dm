@@ -15,14 +15,22 @@
 #define XENOA_SELLER_DIAL list("Hello, Commrade. I think I have something that might interest you.","Hello, Friend. I think I have something you might be interested in.","Commrade, I can offer you only this.","For you, my Friend, I offer this.", "Commrade, this thing killed my Babushka, take it.","Friend, you want?","My buddy thinks I could sell this.","I'm pretty sure this took several years off my life, take it.","This was hard to find, but you can have it.","I found this one deep in the zone, it was a risk to get.")
 
 //Also not materials but also related
-#define PROCESS_TYPE_LIT "is_lit" //Process type
+///Process type on burn
+#define PROCESS_TYPE_LIT "is_lit"
+///Process type on ticking
 #define PROCESS_TYPE_TICK "is_tick"
 
-#define XENOA_DP 120 //Discovery point reward
+///Discovery point reward
+#define XENOA_DP 120
 
-#define XENOA_MAX_VENDORS 8 //Max vendors / buyers in each catergory
+///Max vendors / buyers in each catergory
+#define XENOA_MAX_VENDORS 8
 
 #define XENOA_ACTIVATORS subtypesof(/datum/xenoartifact_trait/activator) //traits types, referenced for generation
 #define XENOA_MINORS subtypesof(/datum/xenoartifact_trait/minor)
 #define XENOA_MAJORS subtypesof(/datum/xenoartifact_trait/major)
 #define XENOA_MALFS subtypesof(/datum/xenoartifact_trait/malfunction)
+
+//some trait defines
+///Bear limit
+#define XENOA_MAX_BEARS 7

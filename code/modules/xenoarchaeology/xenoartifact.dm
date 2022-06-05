@@ -158,7 +158,7 @@
 	if(isobserver(user))
 		to_chat(user, "<span class='notice'>[special_desc]</span>")
 		for(var/datum/xenoartifact_trait/t as() in traits)
-			to_chat(user, "<span class='notice'>[t.desc ? t.desc : t.label_name]</span>")
+			to_chat(user, "<span class='notice'>[t?.desc ? t.desc : t.label_name]</span>")
 			to_chat("test")
 	else if(iscarbon(user) && user.can_see_reagents()) //Not checking carbon throws a runtime concerning observers
 		to_chat(user, "<span class='notice'>[special_desc]</span>")
@@ -177,9 +177,10 @@
 
 /obj/item/xenoartifact/attackby(obj/item/I, mob/living/user, params)
 	for(var/datum/xenoartifact_trait/t as() in traits)
-		to_chat(user, "<span class='notice'>You preform a safe operation on [src] with [I].</span>")
 		t?.on_item(src, user, I)
 	if(!(COOLDOWN_FINISHED(src, xenoa_cooldown))||user?.a_intent == INTENT_GRAB||istype(I, /obj/item/xenoartifact_label)||istype(I, /obj/item/xenoartifact_labeler))
+		if(user?.a_intent == INTENT_GRAB)
+			to_chat(user, "<span class='notice'>You preform a safe operation on [src] with [I].</span>")
 		return
 	else if(istype(I, /obj/item/wirecutters) && (locate(/obj/item/xenoartifact_label) in contents))
 		qdel(locate(/obj/item/xenoartifact_label) in contents)
@@ -193,8 +194,9 @@
 		if(prob(malfunction_chance) && traits.len < 6 + (material == XENOA_URANIUM ? 1 : 0)) //See if we pick up an malfunction
 			generate_trait_unique(XENOA_MALFS)
 			malfunction_chance = 0 //Lower chance after contracting 
-		else
-			malfunction_chance += malfunction_mod + (malfunction_chance < 100 ? malfunction_chance : 0)  //otherwise increase chance. Increasing above 99 fucks with it, deletes source
+		else //otherwise increase chance.
+			//Ramps malf_mod down if it's going to create a value > 100
+			malfunction_chance += (malfunction_chance+malfunction_mod < 100 ? malfunction_mod : malfunction_mod-((malfunction_chance+malfunction_mod)-100))
 
 		charge += charge_mod
 		for(var/datum/xenoartifact_trait/minor/t in traits)//Minor & malfunction traits aren't apart of the target loop
@@ -218,7 +220,7 @@
 /obj/item/xenoartifact/proc/generate_traits(var/list/blacklist_traits, malf = FALSE)
 	var/datum/xenoartifact_trait/desc_holder
 	desc_holder = generate_trait_unique(XENOA_ACTIVATORS, blacklist_traits, FALSE) //Activator
-	special_desc = initial(desc_holder.desc) ? "[special_desc] [initial(desc_holder.desc)]" : special_desc
+	special_desc = initial(desc_holder.desc) ? "[special_desc] [initial(desc_holder.desc)]" : "[special_desc]n unknown"
 
 	desc_holder = null
 	var/datum/xenoartifact_trait/minor_desc_holder
@@ -230,13 +232,13 @@
 			if(!touch_desc.on_touch(src, src))
 				touch_desc = null //not setting this to null fucks with check, qdel refuses to be helpful another day
 
-	special_desc = desc_holder ? "[special_desc] [initial(desc_holder.desc)] material." : "[special_desc] material"
+	special_desc = desc_holder ? "[special_desc] [initial(desc_holder.desc)] material." : "[special_desc] material."
 
 	if(malf)
 		generate_trait_unique(XENOA_MALFS, blacklist_traits) //Malf
 
 	desc_holder = generate_trait_unique(XENOA_MAJORS, blacklist_traits, FALSE) //Major
-	special_desc = initial(desc_holder.desc) ? "[special_desc] The shape is [initial(desc_holder.desc)]." : special_desc
+	special_desc = initial(desc_holder.desc) ? "[special_desc] The shape is [initial(desc_holder.desc)]." : "[special_desc] The shape is unknown."
 
 	charge_req = rand(1, 10) * 10
 

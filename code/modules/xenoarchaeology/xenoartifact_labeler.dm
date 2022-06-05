@@ -92,15 +92,6 @@
 	var/obj/item/xenoartifact_label/P = create_label(sticker_name)
 	if(!P.afterattack(target, user, TRUE)) //In the circumstance the sticker fails, usually means you're doing something you shouldn't be
 		qdel(P)
-	else
-		sticker_name = null
-		info_list = list()
-		sticker_traits = list()
-		activator = list()
-		minor_trait = list()
-		major_trait = list()
-		malfunction = list()
-		ui_update()
 
 /obj/item/xenoartifact_labeler/proc/create_label(new_name)
 	var/obj/item/xenoartifact_label/P = new(get_turf(src))
@@ -109,6 +100,15 @@
 		P.set_name = TRUE
 	P.trait_list = sticker_traits
 	P.info = activator+minor_trait+major_trait
+	//reset all the options
+	sticker_name = null
+	info_list = list()
+	sticker_traits = list()
+	activator = list()
+	minor_trait = list()
+	major_trait = list()
+	malfunction = list()
+	ui_update()
 	return P
 
 /obj/item/xenoartifact_labeler/proc/trait_toggle(action, toggle_type, var/list/trait_list, var/list/active_trait_list)
