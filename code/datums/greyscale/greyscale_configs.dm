@@ -118,11 +118,6 @@
 	icon_file = 'icons/obj/clothing/shoes.dmi'
 	json_config = 'code/datums/greyscale/json_configs/sneakers_marisa.json'
 
-/datum/greyscale_config/comfy
-	name = "comfy chair"
-	icon_file = 'icons/obj/chairs.dmi'
-	json_config = 'code/datums/greyscale/json_configs/comfy_chairs.json'
-
 /datum/greyscale_config/plasmaman_helmet_default
 	name = "Default plasmaman helmet"
 	icon_file = 'icons/obj/clothing/hats.dmi'
@@ -191,3 +186,23 @@
 /datum/greyscale_config/carp/disk_mouth
 	name = "Space Carp Disk in Mouth"
 	json_config = 'code/datums/greyscale/json_configs/carp_disk_mouth.json'
+
+/datum/greyscale_config/bench_middle
+	name = "Bench Middle"
+	icon_file = 'icons/obj/sofa.dmi'
+	json_config = 'code/datums/greyscale/json_configs/bench_middle.json'
+
+/datum/greyscale_config/bench_left
+	name = "Bench Left"
+	icon_file = 'icons/obj/sofa.dmi'
+	json_config = 'code/datums/greyscale/json_configs/bench_left.json'
+
+/datum/greyscale_config/bench_right
+	name = "Bench Right"
+	icon_file = 'icons/obj/sofa.dmi'
+	json_config = 'code/datums/greyscale/json_configs/bench_right.json'
+
+/datum/greyscale_config/bench_corner
+	name = "Bench Corner"
+	icon_file = 'icons/obj/sofa.dmi'
+	json_config = 'code/datums/greyscale/json_configs/bench_corner.json'

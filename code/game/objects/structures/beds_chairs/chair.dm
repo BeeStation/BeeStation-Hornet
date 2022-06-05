@@ -72,8 +72,8 @@
 
 /obj/structure/chair/attackby(obj/item/W, mob/user, params)
 	if(W.tool_behaviour == TOOL_WRENCH && !(flags_1&NODECONSTRUCT_1))
-		W.play_tool_sound(src)
-		deconstruct()
+		W.use_tool(src, user, 20, volume=50)
+		deconstruct(TRUE)
 	else if(istype(W, /obj/item/assembly/shock_kit))
 		if(!user.temporarilyRemoveItemFromInventory(W))
 			return
@@ -147,7 +147,7 @@
 	var/mutable_appearance/armrest
 
 /obj/structure/chair/fancy/proc/GetArmrest()
-	return mutable_appearance('icons/obj/chairs.dmi', "comfychair_armrest")
+	return mutable_appearance(initial(icon), "[icon_state]_armrest", ABOVE_MOB_LAYER)
 
 /obj/structure/chair/fancy/Destroy()
 	QDEL_NULL(armrest)
@@ -176,53 +176,52 @@
 	name = "comfy chair"
 	desc = "It looks comfy."
 	icon_state = "comfychair"
-	color = rgb(255,255,255)
+	color = rgb(212, 212, 212)
 	resistance_flags = FLAMMABLE
 	max_integrity = 70
 	buildstackamount = 2
 	item_chair = null
-	greyscale_config = /datum/greyscale_config/screwdriver
-	greyscale_colors = "#555555"
 
 /obj/structure/chair/fancy/comfy/brown
 	name = "brown comfy chair"
-	greyscale_colors = rgb(135, 75, 25)
+	color = rgb(136, 76, 26)
 
 /obj/structure/chair/fancy/comfy/beige
 	name = "beige comfy chair"
-	greyscale_colors =  rgb(155, 125, 80)
+	color = rgb(150, 126, 96)
 
 /obj/structure/chair/fancy/comfy/red
 	name = "red comfy chair"
-	greyscale_colors =  rgb(130, 50, 45)
+	color = rgb(130, 50, 46)
 
 /obj/structure/chair/fancy/comfy/grey
 	name = "grey comfy chair"
-	greyscale_colors =  rgb(85, 85, 85)
+	color = rgb(128, 128, 128)
 
 /obj/structure/chair/fancy/comfy/black
 	name = "black comfy chair"
-	greyscale_colors =  rgb(45, 45, 45)
+	color = rgb(48, 48, 48)
 
 /obj/structure/chair/fancy/comfy/yellow
 	name = "yellow comfy chair"
-	greyscale_colors =  rgb(150, 125, 25)
+	color = rgb(186, 150, 20)
 
 /obj/structure/chair/fancy/comfy/lime
 	name = "lime comfy chair"
-	greyscale_colors =  rgb(115, 195, 25)
+	color = rgb(180, 220, 10)
 
 /obj/structure/chair/fancy/comfy/teal
 	name = "teal comfy chair"
-	greyscale_colors =  rgb(20, 175, 175)
+	color = rgb(16, 176, 176)
+
+/obj/structure/chair/fancy/comfy/blue
+	name = "blue comfy chair"
+	color = rgb(42, 132, 190)
 
 /obj/structure/chair/fancy/shuttle
 	name = "shuttle seat"
 	desc = "A comfortable, secure seat. It has a more sturdy looking buckling system for smoother flights."
 	icon_state = "shuttle_chair"
-
-/obj/structure/chair/fancy/shuttle/GetArmrest()
-	return mutable_appearance('icons/obj/chairs.dmi', "shuttle_chair_armrest")
 
 /obj/structure/chair/fancy/plastic
 	name = "plastic chair"
@@ -234,9 +233,6 @@
 	buildstacktype = /obj/item/stack/sheet/plastic
 	buildstackamount = 1
 	item_chair = /obj/item/chair/plastic
-
-/obj/structure/chair/fancy/plastic/GetArmrest()
-	return mutable_appearance('icons/obj/chairs.dmi', "plastic_chair_armrest")
 
 /obj/structure/chair/fancy/plastic/post_buckle_mob(mob/living/M) //you do not want to see an angry spaceman speeding while holding dearly onto it
 	. = ..()

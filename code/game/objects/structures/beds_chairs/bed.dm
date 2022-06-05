@@ -217,3 +217,29 @@
 	name = "resting contraption"
 	desc = "This looks similar to contraptions from Earth. Could aliens be stealing our technology?"
 	icon_state = "abed"
+
+//unfortunateley no sickness mechanics on them... yet
+/obj/structure/bed/maint
+	name = "dirty mattress"
+	desc = "An old grubby mattress. You try to not think about what could be the cause of those stains."
+	icon_state = "dirty_mattress"
+
+//Double Beds, for luxurious sleeping, i.e. the captain and maybe heads- if people use this for ERP, send them to skyrat, or worse, acacia
+/obj/structure/bed/double
+	name = "double bed"
+	desc = "A luxurious double bed, for those too important for small dreams."
+	icon_state = "bed_double"
+	buildstackamount = 4
+	max_buckled_mobs = 2
+	///The mob who buckled to this bed second, to avoid other mobs getting pixel-shifted before they unbuckles.
+	var/mob/living/goldilocks
+
+/obj/structure/bed/double/post_buckle_mob(mob/living/M)
+	if(buckled_mobs.len > 1 && !goldilocks) //Push the second buckled mob a bit higher from the normal lying position
+		M.pixel_y = initial(M.pixel_y) + 6
+		goldilocks = M
+
+/obj/structure/bed/double/post_unbuckle_mob(mob/living/M)
+	M.pixel_y = initial(M.pixel_y) + M.get_standard_pixel_y_offset(M.lying)
+	if(M == goldilocks)
+		goldilocks = null
