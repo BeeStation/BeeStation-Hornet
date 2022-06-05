@@ -508,7 +508,8 @@
 		holder.dropItemToGround(X)
 	if(ismovable(target) && !(istype(target, /obj/structure)))
 		var/atom/movable/AM = target
-		if(QDELETED(src) || QDELETED(X) || QDELETED(AM)) //Sometimes we can get pressed on z-levels, lacking.
+		if(QDELETED(src) || QDELETED(X) || QDELETED(AM) || !(SSzclear.get_free_z_level())) //Sometimes we can get pressed on z-levels
+			playsound(get_turf(X), 'sound/machines/buzz-sigh.ogg', 15, TRUE) //this shouldn't happen too often but, exploration can eat a few zlevels.
 			return
 		addtimer(CALLBACK(src, .proc/release, X, AM), X.charge*0.3 SECONDS)
 		AM.forceMove(X)
@@ -887,7 +888,7 @@
 
 /datum/xenoartifact_trait/major/chem/on_init(obj/item/xenoartifact/X)
 	amount = pick(5, 9, 10, 15)
-	formula = get_random_reagent_id(CHEMICAL_RNG_GENERAL)
+	formula = get_random_reagent_id(/*CHEMICAL_RNG_GENERAL*/)
 
 /datum/xenoartifact_trait/major/chem/activate(obj/item/xenoartifact/X, atom/target)
 	if(target?.reagents)
