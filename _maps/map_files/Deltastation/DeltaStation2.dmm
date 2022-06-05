@@ -82301,6 +82301,9 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
+/obj/item/assembly/igniter,
+/obj/item/stock_parts/cell,
+/obj/item/assembly/signaler,
 /turf/open/floor/plasteel/dark,
 /area/science/explab)
 "djC" = (
@@ -82923,15 +82926,14 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
+/obj/item/xenoartifact_labeler,
+/obj/item/xenoartifact_labeler,
 /turf/open/floor/plasteel/dark,
 /area/science/explab)
 "dlr" = (
-/obj/structure/table/reinforced,
-/obj/item/taperecorder,
-/obj/item/folder/white,
-/obj/effect/turf_decal/bot,
-/obj/item/stack/sheet/mineral/plasma{
-	amount = 5
+/obj/machinery/firealarm{
+	dir = 8;
+	pixel_x = 24
 	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -82943,6 +82945,10 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
+/obj/structure/rack,
+/obj/item/geiger_counter,
+/obj/item/multitool,
+/obj/item/analyzer,
 /turf/open/floor/plasteel/dark,
 /area/science/explab)
 "dlt" = (
@@ -83271,14 +83277,11 @@
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/item/clothing/neck/stethoscope,
+/obj/item/healthanalyzer,
 /turf/open/floor/plasteel/dark,
 /area/science/explab)
 "dmE" = (
-/obj/item/kirbyplants/random,
-/obj/machinery/firealarm{
-	dir = 8;
-	pixel_x = 24
-	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
@@ -83289,6 +83292,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
+/obj/item/kirbyplants/random,
 /turf/open/floor/plasteel/dark,
 /area/science/explab)
 "dmF" = (
@@ -84632,9 +84636,6 @@
 /turf/open/floor/plasteel/white,
 /area/maintenance/department/science)
 "dqj" = (
-/obj/structure/table/reinforced,
-/obj/item/book/manual/wiki/experimentor,
-/obj/item/healthanalyzer,
 /obj/structure/cable/white,
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/stripes/line{
@@ -84651,6 +84652,8 @@
 	dir = 8
 	},
 /obj/machinery/power/apc/auto_name/west,
+/obj/structure/rack,
+/obj/item/xenoartifact,
 /turf/open/floor/plasteel/dark,
 /area/science/explab)
 "dqk" = (
@@ -84672,9 +84675,6 @@
 "dql" = (
 /obj/machinery/light,
 /obj/effect/turf_decal/bot,
-/obj/machinery/computer/rdconsole/experiment{
-	dir = 1
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
@@ -84687,6 +84687,9 @@
 	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
+	},
+/obj/machinery/computer/xenoartifact_console{
+	dir = 1
 	},
 /turf/open/floor/plasteel/dark,
 /area/science/explab)
@@ -86275,13 +86278,10 @@
 "duw" = (
 /turf/open/floor/engine,
 /area/science/explab)
-"dux" = (
-/obj/effect/turf_decal/bot_white,
-/obj/machinery/rnd/experimentor,
-/turf/open/floor/engine,
-/area/science/explab)
 "duy" = (
-/obj/effect/turf_decal/bot_white,
+/obj/effect/turf_decal/delivery,
+/obj/machinery/xenoartifact_inbox,
+/obj/item/xenoartifact,
 /turf/open/floor/engine,
 /area/science/explab)
 "duz" = (
@@ -105141,6 +105141,20 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/science/research)
+"hyT" = (
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/machinery/rnd/experimentor,
+/turf/open/floor/plasteel/dark,
+/area/science/xenobiology)
 "hzc" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/disposalpipe/segment,
@@ -113911,6 +113925,23 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/engine/atmos)
+"syu" = (
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/machinery/computer/rdconsole/experiment{
+	dir = 1
+	},
+/obj/effect/turf_decal/bot,
+/turf/open/floor/plasteel/dark,
+/area/science/xenobiology)
 "szU" = (
 /obj/effect/turf_decal/tile/blue,
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
@@ -144363,7 +144394,7 @@ cNd
 cWV
 cNd
 cNd
-cNd
+hyT
 cMY
 alQ
 lEm
@@ -144877,7 +144908,7 @@ cNd
 cNd
 cNd
 cNd
-cNd
+syu
 cMY
 deX
 lEm
@@ -147716,7 +147747,7 @@ dow
 dqk
 drJ
 duw
-dux
+duw
 dwe
 djA
 dzo

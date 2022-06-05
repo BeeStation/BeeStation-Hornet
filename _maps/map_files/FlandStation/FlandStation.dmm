@@ -8358,10 +8358,6 @@
 /turf/open/floor/plasteel,
 /area/science/robotics/lab)
 "bUs" = (
-/obj/effect/landmark/start/scientist,
-/obj/structure/chair/office/light{
-	dir = 8
-	},
 /obj/machinery/requests_console{
 	department = "Science";
 	departmentType = 2;
@@ -8374,6 +8370,9 @@
 	pixel_x = -24;
 	pixel_y = 24
 	},
+/obj/structure/rack,
+/obj/item/clothing/mask/gas,
+/obj/item/tank/internals/oxygen,
 /turf/open/floor/plasteel/grid/steel,
 /area/science/explab)
 "bUD" = (
@@ -14663,7 +14662,6 @@
 /obj/structure/sign/warning/fire{
 	pixel_y = 32
 	},
-/obj/effect/turf_decal/stripes/line,
 /turf/open/floor/engine,
 /area/science/explab)
 "dol" = (
@@ -15275,17 +15273,10 @@
 /turf/open/floor/carpet/red,
 /area/crew_quarters/heads/hos)
 "dwr" = (
-/obj/structure/rack,
-/obj/item/grenade/chem_grenade,
-/obj/item/grenade/chem_grenade,
-/obj/item/storage/box/beakers{
-	pixel_y = 5
-	},
 /obj/structure/cable/yellow,
 /obj/machinery/power/apc/auto_name/south{
 	pixel_y = -24
 	},
-/obj/item/book/manual/wiki/experimentor,
 /turf/open/floor/plasteel/grid/steel,
 /area/science/explab)
 "dws" = (
@@ -20821,9 +20812,6 @@
 /area/quartermaster/storage)
 "eHl" = (
 /obj/effect/decal/cleanable/blood/old,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
 /turf/open/floor/engine,
 /area/science/explab)
 "eHm" = (
@@ -23893,6 +23881,32 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/bar/atrium)
+"ftz" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/machinery/button/door{
+	id = "telelab";
+	name = "Test Chamber Toggle";
+	pixel_y = 24
+	},
+/obj/structure/table,
+/obj/item/paper_bin{
+	pixel_x = 4;
+	pixel_y = 4
+	},
+/obj/item/pen{
+	pixel_x = 8;
+	pixel_y = 5
+	},
+/obj/item/folder{
+	pixel_x = -6
+	},
+/obj/effect/turf_decal/bot,
+/obj/item/clothing/neck/stethoscope,
+/obj/item/storage/firstaid/regular,
+/turf/open/floor/plasteel/grid/steel,
+/area/science/explab)
 "ftC" = (
 /obj/machinery/holopad{
 	pixel_x = 16;
@@ -25482,9 +25496,6 @@
 	},
 /area/maintenance/port/central)
 "fMz" = (
-/obj/structure/chair/office/light{
-	dir = 8
-	},
 /turf/open/floor/plasteel/grid/steel,
 /area/science/explab)
 "fMF" = (
@@ -29780,13 +29791,10 @@
 	},
 /area/security/nuke_storage)
 "gMK" = (
-/obj/effect/turf_decal/stripes/line{
+/obj/structure/chair/office/light{
 	dir = 8
 	},
-/obj/machinery/computer/rdconsole/experiment{
-	dir = 4
-	},
-/obj/effect/turf_decal/bot,
+/obj/effect/landmark/start/scientist,
 /turf/open/floor/plasteel/grid/steel,
 /area/science/explab)
 "gML" = (
@@ -32575,6 +32583,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
+/obj/machinery/computer/rdconsole/experiment,
 /turf/open/floor/engine,
 /area/science/xenobiology)
 "htI" = (
@@ -42389,6 +42398,15 @@
 "jID" = (
 /turf/closed/wall,
 /area/maintenance/port/central)
+"jIP" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/rnd/experimentor{
+	pixel_x = -32
+	},
+/turf/open/floor/engine,
+/area/science/xenobiology)
 "jJB" = (
 /obj/machinery/light{
 	dir = 1
@@ -43964,13 +43982,6 @@
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plasteel/techmaint,
 /area/science/misc_lab/range)
-"kcf" = (
-/obj/effect/turf_decal/box/corners,
-/obj/effect/turf_decal/stripes/corner{
-	dir = 1
-	},
-/turf/open/floor/engine,
-/area/science/explab)
 "kcg" = (
 /turf/open/floor/plasteel/grid/steel,
 /area/science/mixing)
@@ -57631,9 +57642,6 @@
 	pixel_y = 4
 	},
 /obj/item/stock_parts/cell/high,
-/obj/structure/sign/poster/official/fruit_bowl{
-	pixel_y = 32
-	},
 /turf/open/floor/plasteel/grid/steel,
 /area/science/explab)
 "nqP" = (
@@ -58895,9 +58903,6 @@
 /turf/open/floor/plasteel,
 /area/engine/atmos)
 "nFt" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
 /obj/machinery/camera{
 	c_tag = "Science - Experimentor";
 	dir = 1;
@@ -63059,7 +63064,6 @@
 /obj/effect/turf_decal/box/corners{
 	dir = 1
 	},
-/obj/effect/turf_decal/stripes/corner,
 /obj/effect/landmark/xeno_spawn,
 /obj/machinery/firealarm{
 	dir = 4;
@@ -75664,27 +75668,9 @@
 /turf/open/floor/plasteel/dark,
 /area/gateway)
 "rKr" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/machinery/button/door{
-	id = "telelab";
-	name = "Test Chamber Toggle";
-	pixel_y = 24
-	},
-/obj/structure/table,
-/obj/item/paper_bin{
-	pixel_x = 4;
-	pixel_y = 4
-	},
-/obj/item/pen{
-	pixel_x = 8;
-	pixel_y = 5
-	},
-/obj/item/folder{
-	pixel_x = -6
-	},
-/obj/effect/turf_decal/bot,
+/obj/structure/rack,
+/obj/item/assembly/signaler,
+/obj/item/assembly/igniter,
 /turf/open/floor/plasteel/grid/steel,
 /area/science/explab)
 "rKt" = (
@@ -78591,10 +78577,7 @@
 /turf/open/floor/plasteel/techmaint,
 /area/security/prison/asteroid/shielded)
 "suF" = (
-/obj/effect/turf_decal/stripes/red/full,
-/obj/machinery/rnd/experimentor{
-	pixel_x = -32
-	},
+/obj/effect/landmark/start/scientist,
 /turf/open/floor/engine,
 /area/science/explab)
 "suJ" = (
@@ -78632,16 +78615,6 @@
 	dir = 1
 	},
 /area/crew_quarters/locker)
-"suW" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/item/beacon,
-/obj/effect/turf_decal/caution{
-	dir = 4
-	},
-/turf/open/floor/engine,
-/area/science/explab)
 "suX" = (
 /obj/effect/turf_decal/tile/red/tile_side{
 	dir = 8
@@ -79599,9 +79572,6 @@
 "sGv" = (
 /obj/effect/turf_decal/box/corners{
 	dir = 8
-	},
-/obj/effect/turf_decal/stripes/corner{
-	dir = 4
 	},
 /obj/machinery/status_display/ai{
 	pixel_x = -32
@@ -82426,6 +82396,10 @@
 	dir = 1;
 	pixel_y = -22
 	},
+/obj/structure/rack,
+/obj/item/multitool,
+/obj/item/geiger_counter,
+/obj/item/analyzer,
 /turf/open/floor/plasteel/grid/steel,
 /area/science/explab)
 "tmA" = (
@@ -89602,10 +89576,6 @@
 /turf/open/floor/plasteel/grid/steel,
 /area/science/misc_lab)
 "uTK" = (
-/mob/living/simple_animal/crab{
-	desc = "In the foreign mascot program, this crab Is the mascot of another station. Wonder what's of that place now...";
-	name = "Lord Pincher IV"
-	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 5
 	},
@@ -90904,20 +90874,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
-"vkP" = (
-/obj/effect/turf_decal/box/corners{
-	dir = 4
-	},
-/obj/machinery/button/door{
-	id = "telelab";
-	name = "Test Chamber Toggle";
-	pixel_y = 24
-	},
-/obj/effect/turf_decal/stripes/corner{
-	dir = 8
-	},
-/turf/open/floor/engine,
-/area/science/explab)
 "vkU" = (
 /obj/machinery/door/poddoor/preopen{
 	id = "atmos";
@@ -96688,14 +96644,12 @@
 /turf/open/floor/plasteel/techmaint,
 /area/bridge/showroom/corporate)
 "wKs" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/effect/turf_decal/caution{
-	dir = 8
-	},
 /obj/machinery/light{
 	dir = 8
+	},
+/mob/living/simple_animal/crab{
+	desc = "In the foreign mascot program, this crab Is the mascot of another station. Wonder what's of that place now...";
+	name = "Lord Pincher IV"
 	},
 /turf/open/floor/engine,
 /area/science/explab)
@@ -96828,11 +96782,10 @@
 	name = "science camera";
 	network = list("ss13","rd")
 	},
-/obj/item/hand_labeler,
-/obj/item/stack/packageWrap,
-/obj/item/stack/sheet/glass/fifty,
-/obj/item/stack/sheet/mineral/plasma,
-/obj/item/stack/sheet/iron/fifty,
+/obj/item/xenoartifact_labeler,
+/obj/item/xenoartifact_labeler,
+/obj/item/clothing/glasses/science,
+/obj/item/clothing/glasses/science,
 /turf/open/floor/plasteel/grid/steel,
 /area/science/explab)
 "wLk" = (
@@ -98559,6 +98512,16 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/quartermaster/miningdock)
+"xgC" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/bot,
+/obj/machinery/computer/xenoartifact_console{
+	dir = 4
+	},
+/turf/open/floor/plasteel/grid/steel,
+/area/science/explab)
 "xgF" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -99060,6 +99023,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},
+/obj/effect/landmark/start/scientist,
 /turf/open/floor/plasteel/grid/steel,
 /area/science/explab)
 "xnG" = (
@@ -100344,7 +100308,9 @@
 /area/engine/storage)
 "xEk" = (
 /obj/effect/landmark/event_spawn,
-/obj/effect/turf_decal/stripes/red/full,
+/obj/machinery/xenoartifact_inbox,
+/obj/item/xenoartifact,
+/obj/effect/turf_decal/delivery,
 /turf/open/floor/engine,
 /area/science/explab)
 "xEp" = (
@@ -102793,7 +102759,6 @@
 /turf/closed/wall/mineral/plastitanium,
 /area/maintenance/aft)
 "yjc" = (
-/obj/effect/turf_decal/stripes/line,
 /turf/open/floor/engine,
 /area/science/explab)
 "yjx" = (
@@ -135058,9 +135023,9 @@ qJw
 qaS
 qJw
 oLP
-vkP
-suW
-kcf
+npV
+kwT
+npV
 oLP
 bwp
 uCf
@@ -135315,9 +135280,9 @@ cSl
 mdF
 sHV
 oLP
-npV
-kwT
-npV
+ftz
+svu
+xgC
 oLP
 mDK
 uCf
@@ -135573,7 +135538,7 @@ qaT
 qMq
 oLP
 rKr
-svu
+fMz
 gMK
 oLP
 aKx
@@ -143815,7 +143780,7 @@ hde
 hde
 idf
 jKS
-ikh
+jIP
 iDr
 sbH
 lIq
