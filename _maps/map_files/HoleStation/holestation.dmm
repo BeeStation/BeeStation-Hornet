@@ -14651,13 +14651,6 @@
 /turf/open/floor/plasteel,
 /area/maintenance/disposal/incinerator)
 "dJv" = (
-/obj/effect/turf_decal/stripes/box,
-/obj/structure/cable/yellow{
-	icon_state = "2-16"
-	},
-/obj{
-	name = "---Merge conflict marker---"
-	},
 /obj/structure/closet,
 /obj/effect/spawner/lootdrop/maintenance/three,
 /turf/open/floor/plating,
@@ -20263,13 +20256,6 @@
 /turf/open/floor/plasteel,
 /area/security/nuke_storage)
 "upy" = (
-/obj/effect/turf_decal/stripes/box,
-/obj/structure/cable/yellow{
-	icon_state = "8-32"
-	},
-/obj{
-	name = "---Merge conflict marker---"
-	},
 /obj/structure/cable/yellow{
 	icon_state = "4-9"
 	},
