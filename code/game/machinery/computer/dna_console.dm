@@ -24,13 +24,13 @@
 #define SEARCH_ADV_INJ 8
 
 
-/obj/machinery/computer/scan_consolenew
+/obj/machinery/computer/scan_console
 	name = "\improper DNA scanner access console"
 	desc = "Scan DNA."
 	icon_screen = "dna"
 	icon_keyboard = "med_key"
 	density = TRUE
-	circuit = /obj/item/circuitboard/computer/scan_consolenew
+	circuit = /obj/item/circuitboard/computer/scan_console
 
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 10
@@ -119,7 +119,7 @@
 	/// List of all valid genecodes that can be sent via topic/tgui, used for sanitization.
 	var/static/list/genecodes = list("A", "T", "C", "G", "J", "X", "Y")
 
-/obj/machinery/computer/scan_consolenew/process()
+/obj/machinery/computer/scan_console/process()
 	. = ..()
 
 	// This is for pulsing the UI element with radiation as part of genetic makeup
@@ -128,7 +128,7 @@
 		rad_pulse()
 		return
 
-/obj/machinery/computer/scan_consolenew/attackby(obj/item/I, mob/user, params)
+/obj/machinery/computer/scan_console/attackby(obj/item/I, mob/user, params)
 	if (istype(I, /obj/item/disk/data)) //INSERT SOME DISKETTES
 		if (!src.diskette)
 			if (!user.transferItemToLoc(I,src))
@@ -162,20 +162,20 @@
 	else
 		return ..()
 
-/obj/machinery/computer/scan_consolenew/interact(mob/user, special_state)
+/obj/machinery/computer/scan_console/interact(mob/user, special_state)
 	if(!connected_scanner?.ignore_id && !allowed(user))
 		to_chat(user, "<span class='warning'>Missing required access!</span>")
 		return
 	..()
 
-/obj/machinery/computer/scan_consolenew/AltClick(mob/user)
+/obj/machinery/computer/scan_console/AltClick(mob/user)
 	// Make sure the user can interact with the machine.
 	if(!user.canUseTopic(src, !issilicon(user)))
 		return
 
 	eject_disk(user)
 
-/obj/machinery/computer/scan_consolenew/proc/connect_to_scanner()
+/obj/machinery/computer/scan_console/proc/connect_to_scanner()
 	var/obj/machinery/dna_scannernew/test_scanner = null
 	var/obj/machinery/dna_scannernew/broken_scanner = null
 
@@ -197,7 +197,7 @@
 	if(!isnull(broken_scanner))
 		connect_scanner(broken_scanner)
 
-/obj/machinery/computer/scan_consolenew/proc/connect_scanner(obj/machinery/dna_scannernew/scanner)
+/obj/machinery/computer/scan_console/proc/connect_scanner(obj/machinery/dna_scannernew/scanner)
 	if(connected_scanner)
 		UnregisterSignal(connected_scanner, COMSIG_MACHINE_OPEN)
 		UnregisterSignal(connected_scanner, COMSIG_MACHINE_CLOSE)
@@ -208,7 +208,7 @@
 
 	connected_scanner = scanner
 
-/obj/machinery/computer/scan_consolenew/Initialize(mapload)
+/obj/machinery/computer/scan_console/Initialize(mapload)
 	. = ..()
 
 	// Connect with a nearby DNA Scanner on init
@@ -222,7 +222,7 @@
 
 	stored_research = SSresearch.science_tech
 
-/obj/machinery/computer/scan_consolenew/ui_interact(mob/user, datum/tgui/ui)
+/obj/machinery/computer/scan_console/ui_interact(mob/user, datum/tgui/ui)
 	// Most of ui_interact is spent setting variables for passing to the tgui
 	//  interface.
 	// We can also do some general state processing here too as it's a good
@@ -269,18 +269,18 @@
 		ui.open()
 		ui.set_autoupdate(TRUE)
 
-/obj/machinery/computer/scan_consolenew/examine(mob/user)
+/obj/machinery/computer/scan_console/examine(mob/user)
 	. = ..()
 	if(jokerready < world.time)
 		. += "<span class='notice'>JOKER algorithm available.</span>"
 	else
 		. += "<span class='notice'>JOKER algorithm available in about [round(0.00166666667 * (jokerready - world.time))] minutes.</span>"
 
-/obj/machinery/computer/scan_consolenew/ui_assets()
+/obj/machinery/computer/scan_console/ui_assets()
 	. = ..() || list()
 	. += get_asset_datum(/datum/asset/simple/genetics)
 
-/obj/machinery/computer/scan_consolenew/ui_data(mob/user)
+/obj/machinery/computer/scan_console/ui_data(mob/user)
 	var/list/data = list()
 
 	data["view"] = tgui_view_state
@@ -371,7 +371,7 @@
 
 	return data
 
-/obj/machinery/computer/scan_consolenew/ui_act(action, list/params)
+/obj/machinery/computer/scan_console/ui_act(action, list/params)
 	if(..())
 		return TRUE
 
@@ -1504,7 +1504,7 @@
   * * type - "ui"/"ue"/"mixed" - Which part of the enzyme buffer to apply
   * * buffer_slot - Index of the enzyme buffer to apply
   */
-/obj/machinery/computer/scan_consolenew/proc/apply_genetic_makeup(type, buffer_slot)
+/obj/machinery/computer/scan_console/proc/apply_genetic_makeup(type, buffer_slot)
 	// Note - This proc is only called from code that has already performed the
 	//  necessary occupant guard checks. If you call this code yourself, please
 	//  apply can_modify_occupant() or equivalent checks first.
@@ -1562,7 +1562,7 @@
 /**
   * Checks if there is a connected DNA Scanner that is operational
   */
-/obj/machinery/computer/scan_consolenew/proc/scanner_operational()
+/obj/machinery/computer/scan_console/proc/scanner_operational()
 	if(!connected_scanner)
 		return FALSE
 
@@ -1575,7 +1575,7 @@
 	* modified. Will set the scanner occupant var as part of this check.
 	* Requires that the scanner can be operated and will return early if it can't
   */
-/obj/machinery/computer/scan_consolenew/proc/can_modify_occupant()
+/obj/machinery/computer/scan_console/proc/can_modify_occupant()
 	// GUARD CHECK - We always want to perform the scanner operational check as
 	//  part of checking if we can modify the occupant.
 	// We can never modify the occupant of a broken scanner.
@@ -1604,7 +1604,7 @@
 	* Sets the new scanner occupant and completes delayed enzyme transfer if one
 	* is queued.
   */
-/obj/machinery/computer/scan_consolenew/proc/on_scanner_close()
+/obj/machinery/computer/scan_console/proc/on_scanner_close()
 	SIGNAL_HANDLER
 	// Set the appropriate occupant now the scanner is closed
 	if(connected_scanner.occupant)
@@ -1630,7 +1630,7 @@
 	* Clears enzyme pulse operations, stops processing and nulls the current
 	* scanner occupant var.
   */
-/obj/machinery/computer/scan_consolenew/proc/on_scanner_open()
+/obj/machinery/computer/scan_console/proc/on_scanner_open()
 	SIGNAL_HANDLER
 	// If we had a radiation pulse action ongoing, we want to stop this.
 	// Imagine it being like a microwave stopping when you open the door.
@@ -1642,7 +1642,7 @@
 /**
   * Builds the genetic makeup list which will be sent to tgui interface.
   */
-/obj/machinery/computer/scan_consolenew/proc/build_genetic_makeup_list()
+/obj/machinery/computer/scan_console/proc/build_genetic_makeup_list()
 	// No code will ever null this list, we can safely Cut it.
 	tgui_genetic_makeup.Cut()
 
@@ -1659,7 +1659,7 @@
 	* diskette and chromosomes and any advanced injectors, building the main data
 	* structures which get passed to the tgui interface.
   */
-/obj/machinery/computer/scan_consolenew/proc/build_mutation_list(can_modify_occ)
+/obj/machinery/computer/scan_console/proc/build_mutation_list(can_modify_occ)
 	// No code will ever null these lists. We can safely Cut them.
 	tgui_occupant_mutations.Cut()
 	tgui_diskette_mutations.Cut()
@@ -1883,7 +1883,7 @@
 	* Arguments:
   * * mutation - The mutation to check chromosome compatibility with
   */
-/obj/machinery/computer/scan_consolenew/proc/build_chrom_list(mutation)
+/obj/machinery/computer/scan_console/proc/build_chrom_list(mutation)
 	var/list/chromosomes = list()
 
 	for(var/obj/item/chromosome/CM in stored_chromosomes)
@@ -1902,7 +1902,7 @@
 	* Arguments:
   * * alias - Alias of the mutation to check (ie "Mutation 51" or "Mutation 12")
   */
-/obj/machinery/computer/scan_consolenew/proc/check_discovery(alias)
+/obj/machinery/computer/scan_console/proc/check_discovery(alias)
 	// Note - All code paths that call this have already done checks on the
 	//  current occupant to prevent cheese and other abuses. If you call this
 	//  proc please also do the following checks first:
@@ -1941,7 +1941,7 @@
   * * ref - ATOM ref of the mutation to locate
 	* * target_flags - Flags for storage mediums to search, see #defines
   */
-/obj/machinery/computer/scan_consolenew/proc/get_mut_by_ref(ref, target_flags)
+/obj/machinery/computer/scan_console/proc/get_mut_by_ref(ref, target_flags)
 	var/mutation
 
 	// Assume the occupant is valid and the check has been carried out before
@@ -1979,7 +1979,7 @@
 	* * radduration - Duration of intended radiation pulse
 	* * number_of_blocks - Number of individual data blocks in the pulsed enzyme
   */
-/obj/machinery/computer/scan_consolenew/proc/randomize_radiation_accuracy(position, radduration, number_of_blocks)
+/obj/machinery/computer/scan_console/proc/randomize_radiation_accuracy(position, radduration, number_of_blocks)
 	var/val = round(gaussian(0, RADIATION_ACCURACY_MULTIPLIER/radduration) + position, 1)
 	return WRAP(val, 1, number_of_blocks+1)
 
@@ -1992,7 +1992,7 @@
   * * input - Enzyme identity element to scramble, expected hex value
 	* * rs - Strength of radiation pulse, increases the range of possible outcomes
   */
-/obj/machinery/computer/scan_consolenew/proc/scramble(input,rs)
+/obj/machinery/computer/scan_console/proc/scramble(input,rs)
 	var/length = length(input)
 	var/ran = gaussian(0, rs*RADIATION_STRENGTH_MULTIPLIER)
 	if(ran == 0)
@@ -2009,7 +2009,7 @@
 	* Donor code from previous DNA Console iteration. Called from process() when
 	* there is a radiation pulse in progress. Ends processing.
   */
-/obj/machinery/computer/scan_consolenew/proc/rad_pulse()
+/obj/machinery/computer/scan_console/proc/rad_pulse()
 	// GUARD CHECK - Can we genetically modify the occupant? Includes scanner
 	//  operational guard checks.
 	// If we can't, abort the procedure.
@@ -2033,7 +2033,7 @@
 /**
   * Sets the default state for the tgui interface.
   */
-/obj/machinery/computer/scan_consolenew/proc/set_default_state()
+/obj/machinery/computer/scan_console/proc/set_default_state()
 	tgui_view_state["consoleMode"] = "storage"
 	tgui_view_state["storageMode"] = "console"
 	tgui_view_state["storageConsSubMode"] = "mutations"
@@ -2048,7 +2048,7 @@
 	* Arguments:
   * * user - The mob that is attempting to eject the diskette.
   */
-/obj/machinery/computer/scan_consolenew/proc/eject_disk(mob/user)
+/obj/machinery/computer/scan_console/proc/eject_disk(mob/user)
 	// Check for diskette.
 	if(!diskette)
 		return
@@ -2063,7 +2063,7 @@
 		diskette.forceMove(drop_location())
 	diskette = null
 
-/obj/machinery/computer/scan_consolenew/emag_act(mob/user)
+/obj/machinery/computer/scan_console/emag_act(mob/user)
 	obj_flags |= EMAGGED
 	if(req_access)
 		req_access = list()

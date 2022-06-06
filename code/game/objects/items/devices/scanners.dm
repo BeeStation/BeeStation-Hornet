@@ -827,8 +827,8 @@ GENE SCANNER
 	if(!istype(O) || !proximity)
 		return
 
-	if(istype(O, /obj/machinery/computer/scan_consolenew))
-		var/obj/machinery/computer/scan_consolenew/C = O
+	if(istype(O, /obj/machinery/computer/scan_console))
+		var/obj/machinery/computer/scan_console/C = O
 		if(C.stored_research)
 			to_chat(user, "<span class='notice'>[name] database updated.</span>")
 			discovered = C.stored_research.discovered_mutations
@@ -1014,10 +1014,10 @@ GENE SCANNER
 		to_chat(user, "<span class='warning'>you begin isolating [chosen].</span>")
 		if(do_after(user, (600 / (scanner.rating + 1)), target = AM))
 			create_culture(symptomholder, user, AM)
-	else 
+	else
 		using = TRUE
 		if(do_after(user, (timer / (scanner.rating + 1)), target = AM))
-			create_culture(A, user, AM)	
+			create_culture(A, user, AM)
 	using = FALSE
 
 /obj/item/extrapolator/proc/create_culture(var/datum/disease/advance/A, mob/user)
