@@ -72,17 +72,13 @@
 		"in your right pocket" = ITEM_SLOT_RPOCKET,
 		"in your backpack" = ITEM_SLOT_BACKPACK
 	)
-	var/slot = H.equip_in_one_of_slots(P, slots, FALSE)
-	if(slot)
-		var/list/slots = list(
-		ITEM_SLOT_LPOCKET = "in your left pocket",
-		ITEM_SLOT_RPOCKET = "in your right pocket",
-		ITEM_SLOT_BACKPACK = "in your backpack"
-		)
-		where = slots[slot]
+	where = H.equip_in_one_of_slots(P, slots, FALSE)
 
 /datum/quirk/brainproblems/post_add()
-	to_chat(quirk_holder, "<span class='boldnotice'>There is a bottle of mannitol [where]. You're going to need it.</span>")
+	if(where)
+		to_chat(quirk_holder, "<span class='boldnotice'>There is a bottle of mannitol [where]. You're going to need it.</span>")
+	else
+		to_chat(quirk_holder, "<span class='boldnotice'>You dropped your bottle of mannitol on the shuttle ride here and couldn't find it, it must have fallen into a bluespace pocket! You better find some more at chemistry and fast...</span>")
 
 /datum/quirk/deafness
 	name = "Deaf"
