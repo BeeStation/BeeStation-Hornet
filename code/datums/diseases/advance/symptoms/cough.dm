@@ -55,7 +55,7 @@ BONUS
 	if(A.stage_rate >= 6) //cough more often
 		symptom_delay_max = 10
 	if(A.transmission >= 11) //spread virus
-		infective = true
+		infective =TRUE
 
 /datum/symptom/cough/Activate(datum/disease/advance/A)
 	if(!..())
@@ -79,7 +79,7 @@ BONUS
 				addtimer(CALLBACK(M, /mob/.proc/emote, "cough"), 12)
 				addtimer(CALLBACK(M, /mob/.proc/emote, "cough"), 18)
 			if(infective && !(A.spread_flags & DISEASE_SPREAD_FALTERED) && prob(50))
-				addtimer(CALLBACK(A, .proc/spread, 2), 20)
+				addtimer(CALLBACK(A, /datum/disease/.proc/spread, 2), 20)
 				M.visible_message("<span class='danger'>[M] roughly coughs, letting loose a spray of phlegm and saliva!</span>")
 
 

@@ -51,5 +51,5 @@ Bonus
 		else
 			M.emote("sneeze")
 			if(infective && !(A.spread_flags & DISEASE_SPREAD_FALTERED) && prob(40))
-				addtimer(CALLBACK(A, .proc/spread, 4), 20)
+				addtimer(CALLBACK(A, /datum/disease/.proc/spread, 4), 20)
 				M.visible_message("<span class='danger'>[M] sneezes, letting loose a spray of mucous!</span>")
