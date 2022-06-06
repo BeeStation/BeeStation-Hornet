@@ -341,11 +341,14 @@
 /turf/open/floor/plating/airless,
 /area/science/test_area)
 "bG" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
+	dir = 8
 	},
-/turf/open/floor/plating/airless,
-/area/maintenance/upper/starboard/aft)
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/science/robotics/mechbay)
 "bI" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable/yellow{
@@ -445,16 +448,11 @@
 /turf/open/floor/plating/airless,
 /area/maintenance/department/security)
 "cd" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
+/obj/effect/turf_decal/tile/green{
+	dir = 8
 	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/turf/open/floor/plating/airless,
-/area/maintenance/upper/starboard/aft)
+/turf/open/floor/plasteel/dark,
+/area/storage/tech)
 "ch" = (
 /obj/machinery/porta_turret/ai{
 	dir = 4
@@ -908,14 +906,14 @@
 /turf/open/floor/plasteel/white,
 /area/science/xenobiology)
 "eg" = (
-/obj/machinery/button/door{
-	id = "Skynet_launch";
-	name = "Mech Bay Door Control";
-	pixel_x = -26;
-	pixel_y = 26
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 4
 	},
-/turf/open/floor/mech_bay_recharge_floor,
-/area/science/robotics/mechbay)
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/turf/open/floor/plating,
+/area/maintenance/upper/starboard/aft)
 "eh" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -1121,18 +1119,14 @@
 /turf/open/floor/plating,
 /area/maintenance/upper/starboard/aft)
 "fu" = (
-/obj/machinery/door/poddoor/shutters{
-	id = "Skynet_launch";
-	name = "Mech Bay"
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 4
+/obj/structure/railing/corner{
+	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 4
-	},
-/turf/open/floor/plating/airless,
-/area/science/robotics/mechbay)
+/turf/open/floor/plating,
+/area/maintenance/upper/starboard/aft)
 "fz" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -1338,6 +1332,9 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/airalarm/directional/west,
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
 /turf/open/floor/plating,
 /area/maintenance/upper/starboard/aft)
 "gG" = (
@@ -2562,10 +2559,9 @@
 /area/science/mixing)
 "np" = (
 /obj/structure/cable/yellow{
-	icon_state = "1-2"
+	icon_state = "1-4"
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/structure/railing,
 /turf/open/floor/plating/airless,
 /area/maintenance/upper/starboard/aft)
 "nq" = (
@@ -2928,9 +2924,18 @@
 /turf/open/floor/plating,
 /area/storage/tech)
 "oJ" = (
-/obj/machinery/light,
-/turf/open/floor/plating,
-/area/maintenance/upper/starboard/aft)
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/obj/machinery/door/airlock/research{
+	name = "Mech Bay";
+	req_access_txt = "29"
+	},
+/turf/open/floor/plasteel,
+/area/science/robotics/mechbay)
 "oM" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
@@ -3486,11 +3491,12 @@
 /turf/open/floor/plasteel,
 /area/science/storage)
 "ro" = (
-/obj/machinery/camera/autoname{
-	dir = 1
+/obj/effect/landmark/start/assistant,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
 	},
-/turf/open/floor/mech_bay_recharge_floor,
-/area/science/robotics/mechbay)
+/turf/open/floor/plating,
+/area/maintenance/upper/starboard/aft)
 "rp" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
@@ -4228,17 +4234,8 @@
 /turf/open/floor/plasteel/dark,
 /area/science/nanite)
 "uM" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 5
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 5
-	},
-/turf/open/floor/plating/airless,
-/area/maintenance/upper/starboard/aft)
+/turf/open/floor/mech_bay_recharge_floor,
+/area/science/robotics/mechbay)
 "uQ" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable/yellow{
@@ -4261,13 +4258,13 @@
 /turf/open/floor/carpet/purple,
 /area/crew_quarters/heads/hor)
 "uT" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 4
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
 	},
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
-	dir = 8
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
 	},
-/turf/open/floor/circuit,
+/turf/closed/wall/r_wall,
 /area/science/robotics/mechbay)
 "uU" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
@@ -4284,10 +4281,8 @@
 /turf/open/floor/plasteel/dark,
 /area/bridge/meeting_room/council)
 "uW" = (
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
-	dir = 8
-	},
-/turf/open/floor/circuit,
+/obj/machinery/recharge_station,
+/turf/open/floor/plasteel,
 /area/science/robotics/mechbay)
 "uY" = (
 /obj/machinery/computer/operating{
@@ -4351,7 +4346,10 @@
 /turf/open/floor/circuit/telecomms/server,
 /area/science/server)
 "vt" = (
-/turf/open/floor/circuit,
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
 /area/science/robotics/mechbay)
 "vu" = (
 /obj/structure/cable/yellow,
@@ -4898,12 +4896,14 @@
 /turf/closed/wall,
 /area/maintenance/upper/starboard/aft)
 "yV" = (
-/obj/machinery/door/airlock/research{
-	name = "Mech Bay";
-	req_access_txt = "29"
+/obj/structure/railing/corner{
+	dir = 1
 	},
-/turf/open/floor/plating/airless,
-/area/science/robotics/mechbay)
+/obj/machinery/light{
+	light_color = "#cee5d2"
+	},
+/turf/open/floor/plating,
+/area/maintenance/upper/starboard/aft)
 "yW" = (
 /obj/machinery/portable_atmospherics/pump{
 	name = "Lil Pump"
@@ -6141,9 +6141,11 @@
 /turf/open/floor/plating/airless,
 /area/science/test_area)
 "HA" = (
-/obj/machinery/recharge_station,
-/turf/open/floor/plating,
-/area/maintenance/upper/starboard/aft)
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/closed/wall/r_wall,
+/area/science/robotics/mechbay)
 "HC" = (
 /obj/structure/table,
 /obj/item/storage/box/disks_nanite,
@@ -6575,15 +6577,11 @@
 /turf/open/floor/plasteel/grimy,
 /area/tcommsat/computer)
 "Jv" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
+/obj/structure/railing{
+	dir = 8
 	},
-/obj/machinery/door/poddoor/shutters{
-	id = "Skynet_launch";
-	name = "Mech Bay"
-	},
-/turf/open/floor/plating/airless,
-/area/science/robotics/mechbay)
+/turf/open/floor/plating,
+/area/maintenance/upper/starboard/aft)
 "Jw" = (
 /obj/machinery/telecomms/message_server/preset,
 /obj/structure/cable/yellow{
@@ -7162,6 +7160,18 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/science/mixing)
+"Mz" = (
+/obj/machinery/button/door{
+	id = "Skynet_launch";
+	name = "Mech Bay Door Control";
+	pixel_x = -26;
+	pixel_y = 26
+	},
+/obj/machinery/camera/autoname{
+	network = list("aisat")
+	},
+/turf/open/floor/mech_bay_recharge_floor,
+/area/science/robotics/mechbay)
 "MA" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -8036,8 +8046,8 @@
 /obj/machinery/camera/autoname{
 	network = list("aisat")
 	},
-/turf/open/floor/plating,
-/area/maintenance/upper/starboard/aft)
+/turf/open/space/basic,
+/area/space)
 "Sf" = (
 /obj/structure/railing{
 	dir = 8
@@ -8423,8 +8433,12 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 5
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 5
+	},
 /turf/open/floor/plating,
 /area/maintenance/upper/starboard/aft)
 "Um" = (
@@ -44769,9 +44783,9 @@ sp
 gF
 Uk
 np
-cd
-uM
-bG
+Gp
+Gp
+Oa
 tq
 ds
 QI
@@ -45023,13 +45037,13 @@ Oa
 Oa
 ea
 Oa
-sq
-Oa
-NJ
-Jv
+ro
+eg
 fu
 Jv
-NJ
+Jv
+yV
+tq
 ds
 QI
 QI
@@ -45282,11 +45296,11 @@ sm
 sm
 HA
 oJ
-NJ
-Bv
 uT
-ae
 NJ
+Oa
+Oa
+tq
 ds
 QI
 QI
@@ -45535,15 +45549,15 @@ Oa
 sm
 yc
 zY
-yl
 sm
-RY
-Oa
-yV
-eg
-uW
-ro
+sm
+Bv
+bG
+ae
 NJ
+NJ
+Oa
+tq
 ds
 QI
 QI
@@ -45792,15 +45806,15 @@ JR
 sm
 wf
 wf
-wf
+yl
 sm
-Oa
-Oa
-NJ
-gI
+Mz
 vt
+uM
 Yn
 NJ
+Oa
+tq
 ds
 QI
 QI
@@ -46051,13 +46065,13 @@ sm
 SA
 sm
 sm
-sm
-HA
+gI
+uW
 NJ
 NJ
 NJ
-NJ
-NJ
+tq
+tq
 ds
 QI
 QI
@@ -46306,12 +46320,12 @@ Oa
 sm
 Jd
 Ye
-wf
 ye
 sm
-tq
+sm
 NJ
-QI
+NJ
+RY
 QI
 QI
 QI
@@ -46563,7 +46577,7 @@ yU
 sm
 qL
 Ye
-wf
+cd
 Wd
 sm
 QI

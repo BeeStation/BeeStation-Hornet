@@ -5008,6 +5008,10 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/fore)
+"eYu" = (
+/obj/structure/stairs,
+/turf/open/floor/plasteel,
+/area/hallway/secondary/entry)
 "eZn" = (
 /obj/effect/turf_decal/tile/yellow,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
@@ -59336,9 +59340,9 @@ eFv
 bAf
 twG
 xAV
-eFv
-eFv
-eFv
+eYu
+eYu
+tSs
 tSs
 dss
 dss
