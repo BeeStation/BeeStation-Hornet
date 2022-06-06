@@ -88,7 +88,7 @@
 	lastchangelog	= sanitize_text(lastchangelog, initial(lastchangelog))
 	UI_style		= sanitize_inlist(UI_style, GLOB.available_ui_styles, GLOB.available_ui_styles[1])
 
-	default_slot	= sanitize_integer(default_slot, TRUE, max_save_slots, initial(default_slot))
+	default_slot	= sanitize_integer(default_slot, TRUE, max_usable_slots, initial(default_slot))
 	toggles			= sanitize_integer(toggles, FALSE, INFINITY, initial(toggles)) // yes
 	toggles2		= sanitize_integer(toggles2, FALSE, INFINITY, initial(toggles2))
 	clientfps		= sanitize_integer(clientfps, FALSE, 1000, FALSE)
@@ -111,8 +111,6 @@
 
 	if(!purchased_gear)
 		purchased_gear = list()
-	if(!equipped_gear)
-		equipped_gear = list()
 
 	return TRUE
 
@@ -123,8 +121,11 @@
 
 
 // Writes all prefs to the DB
-/datum/preferences/proc/write_to_db()
+/datum/preferences/proc/save_preferences()
 	if(!SSdbcore.IsConnected())
+		return
+
+	if(IS_GUEST_KEY(parent.ckey))
 		return
 
 	var/list/datum/DBQuery/write_queries = list() // do not rename this you muppet
@@ -160,3 +161,64 @@
 
 	// QuerySelect can execute many queries at once. That name is dumb but w/e
 	SSdbcore.QuerySelect(write_queries, TRUE, TRUE)
+
+
+// Get ready for a disgusting SQL query
+/datum/preferences/proc/load_characters()
+	// Do NOT remove stuff from the start of this query. Only append to the end.
+	// If you delete an entry, god help you as you have to update all the indexes
+	var/datum/DBQuery/read_chars = SSdbcore.NewQuery({"
+		SELECT
+			slot,
+			species,
+			real_name,
+			name_is_always_random,
+			body_is_always_random,
+			gender,
+			age,
+			hair_color,
+			gradient_color,
+			facial_hair_color,
+			skin_tone,
+			hair_style_name,
+			gradient_style,
+			facial_style_name,
+			underwear,
+			underwear_color,
+			undershirt,
+			socks,
+			backbag,
+			jumpsuit_style,
+			uplink_loc,
+			features,
+			custom_names,
+			helmet_style,
+			preferred_ai_core_display,
+			preferred_security_department,
+			joblessrole,
+			job_preferences,
+			all_quirks,
+			equipped_gear
+		FROM [format_table_name("characters")] WHERE
+			ckey=:ckey
+	"}, list("ckey" = parent.ckey))
+
+	if(!read_chars.warn_execute())
+		qdel(read_chars)
+		return
+
+	var/char_loaded = FALSE
+	while(read_chars.NextRow())
+		var/idx = read_chars.item[1]
+		var/datum/character_save/CS = character_saves[idx]
+		CS.handle_query(read_chars)
+		char_loaded = TRUE
+
+	qdel(read_chars)
+	check_usable_slots()
+	return char_loaded
+
+
+/datum/preferences/proc/check_usable_slots()
+	for(var/datum/character_save/CS in character_saves)
+		CS.slot_locked = (CS.slot_number > max_usable_slots)

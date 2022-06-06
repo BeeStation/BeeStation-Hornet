@@ -9,7 +9,9 @@
 	cost = 10000
 
 /datum/gear/ooc/char_slot/purchase(var/client/C)
-	C?.prefs?.max_save_slots += 1
+	// TODO - Make this use getter/setter style procs
+	C?.prefs?.max_usable_slots += 1
+	C?.prefs?.check_usable_slots()
 
 /datum/gear/ooc/real_antagtoken
 	display_name = "antag token"
