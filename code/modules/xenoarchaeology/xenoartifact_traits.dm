@@ -57,16 +57,14 @@
 	SEND_SIGNAL(xenoa, XENOA_DEFAULT_SIGNAL, xenoa, user, target)
 
 /datum/xenoartifact_trait/activator/proc/translate_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
-	SEND_SIGNAL(xenoa, XENOA_DEFAULT_SIGNAL, xenoa, hit_atom, throwingdatum) //Weird order to fix this becuase signals are dogshit
+	SEND_SIGNAL(xenoa, XENOA_DEFAULT_SIGNAL, xenoa, hit_atom, throwingdatum) //Weird order to fix this becuase signals are mean, but efficient
 
 /datum/xenoartifact_trait/activator/proc/translate_afterattack(atom/target, mob/user, params)
-	var/mob/living/real_user
+	var/mob/living/real_user 
 	if(isliving(user))
 		real_user = user
 	else if(isliving(user.loc))
 		real_user = user.loc
-	else 
-		return 
 	SEND_SIGNAL(xenoa, XENOA_DEFAULT_SIGNAL, xenoa, target, real_user)//And this
 
 //End activator

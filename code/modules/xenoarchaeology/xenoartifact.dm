@@ -199,7 +199,7 @@
 			malfunction_chance += (malfunction_chance+malfunction_mod < 100 ? malfunction_mod : malfunction_mod-((malfunction_chance+malfunction_mod)-100))
 
 		charge += charge_mod
-		for(var/datum/xenoartifact_trait/minor/t in traits)//Minor & malfunction traits aren't apart of the target loop
+		for(var/datum/xenoartifact_trait/minor/t in traits)//Minor traits aren't apart of the target loop
 			t?.activate(src, user, user)
 			log_game("[src] activated minor trait [t] at [world.time]. Located at [x] [y] [z]")
 		charge = (charge+charge_req)/1.9 //Not quite an average. Generally produces better results.   
@@ -280,8 +280,12 @@
 	add_overlay(icon_overlay)
 
 ///Used for hand-holding secret technique. Pulling entities swaps them for you in the target list.
-/obj/item/xenoartifact/proc/process_target(mob/target)
-	. = isliving(target) ? target?.pulling ? target?.pulling : target : target
+/obj/item/xenoartifact/proc/process_target(atom/target)
+	if(isliving(target))
+		var/mob/living/M = target
+		. = M?.pulling ? M.pulling : M
+	else
+		. = target
 	RegisterSignal(., COMSIG_PARENT_QDELETING, .proc/on_target_del, .)
 	return
 
