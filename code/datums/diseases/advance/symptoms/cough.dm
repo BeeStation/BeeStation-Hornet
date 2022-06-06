@@ -33,7 +33,8 @@ BONUS
 	threshold_desc = "<b>Resistance 3:</b> Host will drop small items when coughing.<br>\
 					  <b>Resistance 10:</b> Occasionally causes coughing fits that stun the host.<br>\
 					  <b>Stage Speed 6:</b> Increases cough frequency.<br>\
-					  <b>Stealth 4:</b> The symptom remains hidden until active."
+					  <b>Stealth 4:</b> The symptom remains hidden until active.<br>\
+					  <b>Transmission 11:</b> The host's coughing will occasionally spread the virus."
 
 /datum/symptom/cough/severityset(datum/disease/advance/A)
 	. = ..()
@@ -53,6 +54,8 @@ BONUS
 			power = 2
 	if(A.stage_rate >= 6) //cough more often
 		symptom_delay_max = 10
+	if(A.transmission >= 11) //spread virus
+		infective = true
 
 /datum/symptom/cough/Activate(datum/disease/advance/A)
 	if(!..())
@@ -75,4 +78,8 @@ BONUS
 				addtimer(CALLBACK(M, /mob/.proc/emote, "cough"), 6)
 				addtimer(CALLBACK(M, /mob/.proc/emote, "cough"), 12)
 				addtimer(CALLBACK(M, /mob/.proc/emote, "cough"), 18)
+			if(infective && !(A.spread_flags & DISEASE_SPREAD_FALTERED) && prob(50))
+				addtimer(CALLBACK(A, .proc/spread, 2), 20)
+				M.visible_message("<span class='danger'>[M] roughly coughs, letting loose a spray of phlegm and saliva!</span>")
+
 
