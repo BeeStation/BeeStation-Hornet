@@ -4,7 +4,7 @@
 /area/template_noop)
 "l" = (
 /obj/machinery/conveyor{
-	dir = 4;
+	dir = 8;
 	id = "QMLoad2"
 	},
 /obj/structure/plasticflaps,
@@ -60,7 +60,7 @@
 /area/shuttle/supply)
 "Z" = (
 /obj/machinery/conveyor{
-	dir = 8;
+	dir = 4;
 	id = "QMLoad"
 	},
 /obj/structure/plasticflaps,
