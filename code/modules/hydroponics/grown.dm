@@ -32,6 +32,12 @@
 	var/research_identifier      //used to check if a plant was researched. strange seed needs customised identifier.
 	var/eat_delay = 30 // used for patch trait
 
+/obj/item/reagent_containers/food/snacks/grown/Destroy()
+	if(seed)
+		qdel(seed)
+		seed = null
+	return ..()
+
 /obj/item/reagent_containers/food/snacks/grown/Initialize(mapload, obj/item/seeds/new_seed)
 	. = ..()
 	if(!tastes)
@@ -63,12 +69,6 @@
 	if(!isnull(seed))
 		research_identifier = seed.research_identifier
 
-/obj/item/reagent_containers/food/snacks/grown/Destroy()
-	if(seed)
-		qdel(seed)
-		seed = null
-	return ..()
-
 /obj/item/reagent_containers/food/snacks/grown/proc/add_juice()
 	if(reagents && bitesize_mod > 0)
 		switch(bite_type)
@@ -87,17 +87,34 @@
 		return 1
 	return 0
 
-/obj/item/reagent_containers/food/snacks/grown/examine(user)
-	. = ..()
-	if(seed)
-		for(var/datum/plant_gene/trait/T in seed.genes)
-			if(T.examine_line)
-				. += T.examine_line
 
 
-// ----------grown plant behaves---------
-// Squash
-/obj/item/reagent_containers/food/snacks/grown/proc/squash(atom/target)
+// --------------------------Grown Plant Behaviour-----------------------------
+/*
+	[throw_impact] [attack]	[attack_self] [handle_slip (from plantcontroller.dm)]
+	These four DO check 'squash()' before they do something
+
+	[attackby] [On_Consume]
+	These two DOT'T check 'sqush()' before they do something
+*/
+/obj/item/reagent_containers/food/snacks/grown/proc/squash_destruct_check()
+	if(seed.get_gene(/datum/plant_gene/trait/noreact))
+		return FALSE
+	if(seed.get_gene(/datum/plant_gene/trait/squash))
+		return TRUE
+	return FALSE
+
+
+// custom Behaviour: squash ------------------------------------------------------
+/obj/item/reagent_containers/food/snacks/grown/proc/squash(atom/target, var/p_method="attack")
+	if(!seed.get_gene(/datum/plant_gene/trait/squash))
+		return TRUE
+
+	. = TRUE
+	/* squash should always return FALSE or TRUE
+		TRUE: don't interrupt chain process
+	 	FALSE: stop chain - leads to `qdel(src)` imediately
+	 		Don't qdel(src) here. */
 	var/turf/T = get_turf(target)
 	forceMove(T)
 	if(ispath(splat_type, /obj/effect/decal/cleanable/food/plant_smudge))
@@ -108,13 +125,17 @@
 	else if(splat_type)
 		new splat_type(T)
 
-	if(trash)
-		generate_trash(T)
-
 	visible_message("<span class='warning'>[src] has been squashed.</span>","<span class='italics'>You hear a smack.</span>")
 	if(seed)
+		for(var/datum/plant_gene/trait/teleport/trait in seed.genes) // trick
+			trait.on_squash(src, target, p_method)
+			trait.qdel_after_squash(src)
+			visible_message("<span class='warning'>[src] has disappeared into bluespace.</span>")
+			return FALSE
+
 		for(var/datum/plant_gene/trait/trait in seed.genes)
-			trait.on_squash(src, target)
+			trait.on_squash(src, target, p_method)
+			trait.qdel_after_squash(src)
 
 	if(seed.get_gene(/datum/plant_gene/trait/noreact))
 		visible_message("<span class='warning'>[src] crumples, and bubbles ominously as its contents mix.</span>")
@@ -123,40 +144,65 @@
 		reagents.reaction(T)
 		for(var/A in T)
 			reagents.reaction(A)
-		qdel(src)
 
+// custom Behaviour: squash react ------------------------------------------------------
 /obj/item/reagent_containers/food/snacks/grown/proc/squashreact()
 	for(var/datum/plant_gene/trait/trait in seed.genes)
-		trait.on_squashreact(src)
+		trait.on_aftersquash(src)
+	generate_trash(get_turf(src))
 	qdel(src)
 
+// Behaviour: slip is in `plantcontroller.dm` ----
+
+// Behaviour: throw_impact ------------------------------------------------------
 /obj/item/reagent_containers/food/snacks/grown/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	if(!..()) //was it caught by a mob?
 		if(seed)
-			for(var/datum/plant_gene/trait/T in seed.genes)
-				T.on_throw_impact(src, hit_atom)
-			if(seed.get_gene(/datum/plant_gene/trait/squash))
-				squash(hit_atom)
+			var/selfdestruct = FALSE
+			if(squash(hit_atom, "throw"))
+				for(var/datum/plant_gene/trait/T in seed.genes)
+					if(T.on_throw_impact(src, hit_atom))
+						selfdestruct = TRUE
+			if(squash_destruct_check() || selfdestruct)
+				generate_trash(get_turf(hit_atom))
+				qdel(src)
+				return
 
-// attack
+// Behaviour: attack(self) ------------------------------------------------------
 /obj/item/reagent_containers/food/snacks/grown/attack_self(mob/user)
 	if(user.a_intent == INTENT_HARM)
 		if(seed && iscarbon(user))
-			for(var/datum/plant_gene/trait/T in seed.genes)
-				T.on_attack(user)
-	..()
+			var/selfdestruct = FALSE
+			if(squash(user, "attack"))
+				for(var/datum/plant_gene/trait/T in seed.genes)
+					if(T.on_attack(user))
+						selfdestruct = TRUE
+			if(squash_destruct_check() || selfdestruct)
+				generate_trash(get_turf(user))
+				qdel(src)
+				return
+	. = ..()
 
+// Behaviour: attack ------------------------------------------------------
 /obj/item/reagent_containers/food/snacks/grown/attack(mob/M, mob/user, def_zone)
 	if(!seed)
 		. = ..()
 	else
 		if(user.a_intent == INTENT_HARM)
-			. = ..()
-			for(var/datum/plant_gene/trait/T in seed.genes)
-				T.on_attack(M) // proc plant efects
+			if(seed && iscarbon(M))
+				var/selfdestruct = FALSE
+				if(squash(M, "attack"))
+					for(var/datum/plant_gene/trait/T in seed.genes)
+						if(T.on_attack(M))
+							selfdestruct = TRUE
+				if(squash_destruct_check() || selfdestruct)
+					generate_trash(get_turf(M))
+					qdel(src)
+					return
 		else
 			if(iscarbon(M) && apply_type == PATCH && seed.get_gene(/datum/plant_gene/trait/squash)) // Patch type application
 
+				// I am sorry for this hardcode part, but there's no way for patch trait
 				// duplication code from Patch.dm
 				var/mob/living/carbon/C = M
 				var/obj/item/bodypart/affecting = C.get_bodypart(check_zone(user.zone_selected))
@@ -175,8 +221,10 @@
 							visible_message(M, "<span class='notice'>[user] is interrupted to [eatverb] [src]!</span>")
 							if(prob(50))
 								squash(loc)
+								qdel(src)
 							else
 								squash(user)
+								qdel(src)
 							return
 					to_chat(M, "<span class='notice'>You [eatverb] [src].</span>")
 				else
@@ -186,10 +234,13 @@
 						to_chat(M, "<span class='notice'>You are interrupted to [eatverb] [src]!</span>")
 						if(prob(50))
 							squash(loc)
+							qdel(src)
 						else if(prob(50))
 							squash(user)
+							qdel(src)
 						else
 							squash(M)
+							qdel(src)
 						return
 					M.visible_message("<span class='danger'>[user] forces [M] to [eatverb] [src].</span>", \
 										"<span class='userdanger'>[user] forces you to [eatverb] [src].</span>")
@@ -198,10 +249,12 @@
 					act_eat(M, user)
 
 				return
-			. = ..()
+		generate_trash(get_turf(M))
+		. = ..()
 	if(!. && !reagents.total_volume)
 		qdel(src)
 
+// Behaviour: attackby ------------------------------------------------------
 /obj/item/reagent_containers/food/snacks/grown/attackby(obj/item/O, mob/user, params)
 	..()
 	if (istype(O, /obj/item/plant_analyzer))
@@ -219,30 +272,40 @@
 		to_chat(user, msg)
 	else
 		if(seed)
+			var/selfdestruct = FALSE
 			for(var/datum/plant_gene/trait/T in seed.genes)
-				T.on_attackby(src, O, user)
+				if(T.on_attackby(src, O, user))
+					selfdestruct = TRUE
+			if(selfdestruct)
+				generate_trash(get_turf(user))
+				qdel(src)
 
-
-/obj/item/reagent_containers/pill/patch/canconsume(mob/eater, mob/user)
-	if(!iscarbon(eater))
-		return 0
-	return 1
-
-// Various gene procs
-/obj/item/reagent_containers/food/snacks/grown/On_Consume()
+// Behaviour: consume ------------------------------------------------------
+/obj/item/reagent_containers/food/snacks/grown/On_Consume(mob/living/eater)
 	if(iscarbon(usr))
 		if(seed)
+			var/selfdestruct = FALSE
 			for(var/datum/plant_gene/trait/T in seed.genes)
-				T.on_consume(src, usr)
+				if(T.on_consume(src, eater))
+					selfdestruct = TRUE
+			if(selfdestruct)
+				generate_trash(get_turf(eater))
+				qdel(src)
+				return
 	..()
 
-/obj/item/reagent_containers/food/snacks/grown/generate_trash(atom/location)
-	if(trash && (ispath(trash, /obj/item/grown) || ispath(trash, /obj/item/reagent_containers/food/snacks/grown)))
-		. = new trash(location, seed)
-		trash = null
-		return
-	return ..()
 
+
+// ------------------------------------------------------------------------------------------
+// Behaviour: examine ------------------------------------------------------
+/obj/item/reagent_containers/food/snacks/grown/examine(user)
+	. = ..()
+	if(seed)
+		for(var/datum/plant_gene/trait/T in seed.genes)
+			if(T.examine_line)
+				. += T.examine_line
+
+// Behaviour: grinds ------------------------------------------------------
 /obj/item/reagent_containers/food/snacks/grown/grind_requirements()
 	if(dry_grind && !dry)
 		to_chat(usr, "<span class='warning'>[src] needs to be dry before it can be ground up!</span>")
@@ -251,19 +314,36 @@
 
 /obj/item/reagent_containers/food/snacks/grown/on_grind()
 	var/nutriment = reagents.get_reagent_amount(/datum/reagent/consumable/nutriment)
+	var/vitamin = reagents.get_reagent_amount(/datum/reagent/consumable/nutriment/vitamin)
 	if(grind_results&&grind_results.len)
 		for(var/i in 1 to grind_results.len)
-			grind_results[grind_results[i]] = nutriment
+			grind_results[grind_results[i]] = nutriment+round(vitamin*1.5, 0.5)
 		reagents.del_reagent(/datum/reagent/consumable/nutriment)
 		reagents.del_reagent(/datum/reagent/consumable/nutriment/vitamin)
 
 /obj/item/reagent_containers/food/snacks/grown/on_juice()
 	var/nutriment = reagents.get_reagent_amount(/datum/reagent/consumable/nutriment)
+	var/vitamin = reagents.get_reagent_amount(/datum/reagent/consumable/nutriment/vitamin)
 	if(juice_results?.len)
 		for(var/i in 1 to juice_results.len)
-			juice_results[juice_results[i]] = nutriment
+			juice_results[juice_results[i]] = nutriment+round(vitamin*1.5, 0.5)
 		reagents.del_reagent(/datum/reagent/consumable/nutriment)
 		reagents.del_reagent(/datum/reagent/consumable/nutriment/vitamin)
+
+
+// ------------------------------------------------------------------------------------------
+/obj/item/reagent_containers/pill/patch/canconsume(mob/eater, mob/user)
+	if(!iscarbon(eater))
+		return 0
+	return 1
+
+/obj/item/reagent_containers/food/snacks/grown/generate_trash(atom/location)
+	if(trash)
+		if((ispath(trash, /obj/item/grown) || ispath(trash, /obj/item/reagent_containers/food/snacks/grown)))
+			. = new trash(location, seed)
+			trash = null
+			return
+	return ..()
 
 /*
  * Attack self for growns

@@ -6,6 +6,10 @@
 	plant_gene_flags = PLANT_GENE_COMMON_REMOVABLE | PLANT_GENE_RANDOM_ALLOWED
 	research_needed = 6
 
+/* <Behavior table>
+	 This does nothing, but do something in `hydroponics.dm`
+ */
+
 /datum/plant_gene/trait/perennial/can_add(obj/item/seeds/S)
 	if(!..())
 		return FALSE

@@ -4,6 +4,25 @@
 	plant_gene_flags = PLANT_GENE_RANDOM_ALLOWED
 	research_needed = 1
 
+/* <Behavior table>
+	 <A type>
+		[on_squash] ...
+		[on_aftersquash] ...
+
+	 <B type>
+		[on_slip] ...
+		[on_attack] ...
+		[on_throw_impact] ...
+
+	 <C type>
+		[on_attackby] produces a battery, returns TRUE to qdel
+		[on_consume] ...
+		[on_grow] ...
+		[on_new_plant] ...
+		[on_new_seed] ...
+		[on_removal] ...
+ */
+
 /datum/plant_gene/trait/battery/on_attackby(obj/item/reagent_containers/food/snacks/grown/G, obj/item/I, mob/user)
 	if(istype(I, /obj/item/stack/cable_coil))
 		var/obj/item/stack/cable_coil/C = I
@@ -23,7 +42,7 @@
 
 			if(G.reagents.has_reagent(/datum/reagent/toxin/plasma, 2))
 				pocell.rigged = TRUE
-
-			qdel(G)
+			return TRUE
 		else
 			to_chat(user, "<span class='warning'>You need five lengths of cable to make a [G] battery!</span>")
+			return FALSE

@@ -4,7 +4,29 @@
 	plant_gene_flags = PLANT_GENE_COMMON_REMOVABLE | PLANT_GENE_RANDOM_ALLOWED
 	research_needed = 1
 
-/datum/plant_gene/trait/smoke/on_squash(obj/item/reagent_containers/food/snacks/grown/G, atom/target)
+/* <Behavior table>
+	 <A type>
+		[on_squash] activate the effect
+		[on_aftersquash] ...
+
+	 <B type>
+		[on_slip] ... (works through squash)
+		[on_attack] ... (works through squash)
+		[on_throw_impact] ... (works through squash)
+
+	 <C type>
+		[on_attackby] ...
+		[on_consume] ...
+		[on_grow] ...
+		[on_new_plant] ...
+		[on_new_seed] ...
+		[on_removal] ...
+ */
+
+/datum/plant_gene/trait/smoke/on_squash(obj/item/reagent_containers/food/snacks/grown/G, atom/target, var/p_method="attack")
+	activate_effect(G, target, p_method)
+
+/datum/plant_gene/trait/smoke/proc/activate_effect(obj/item/reagent_containers/food/snacks/grown/G, atom/target, p_method="attack")
 	var/datum/effect_system/smoke_spread/chem/S = new
 	var/splat_location = get_turf(target)
 	var/smoke_amount = round(sqrt(G.seed.potency * 0.1), 1)
