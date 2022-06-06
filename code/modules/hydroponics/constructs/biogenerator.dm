@@ -186,11 +186,14 @@
 	var/S = 0
 	for(var/obj/item/reagent_containers/food/snacks/grown/I in contents)
 		S += 5
-		if(I.reagents.get_reagent_amount(/datum/reagent/consumable/nutriment) < 0.1)
+		var/mynutriment = I.reagents.get_reagent_amount(/datum/reagent/consumable/nutriment)
+		var/myvitamin = I.reagents.get_reagent_amount(/datum/reagent/consumable/nutriment/vitamin)
+		var/mymess = mynutriment+round(myvitamin*1.5, 0.5)
+		if(mymess < 0.1)
 			points += 1 * productivity
 			ui_update()
 		else
-			points += I.reagents.get_reagent_amount(/datum/reagent/consumable/nutriment) * 10 * productivity
+			points += mymess * 10 * productivity
 			ui_update()
 		qdel(I)
 	if(S)

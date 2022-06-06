@@ -587,7 +587,8 @@
 			if(!(seed.icon_harvest in states))
 				to_chat(world, "[seed.name] ([seed.type]) lacks the [seed.icon_harvest] icon!")
 
-/obj/item/seeds/proc/randomize_stats()
+/obj/item/seeds/proc/randomize_stats(var/stat_rand_seed = FALSE)
+
 	set_lifespan(rand(25, 60))
 	set_endurance(rand(15, 35))
 	set_production(rand(2, 10))
@@ -609,7 +610,7 @@
 	else
 		qdel(R)
 
-/obj/item/seeds/proc/add_random_traits(var/chem_rand_seed = FALSE)
+/obj/item/seeds/proc/add_random_traits(var/trait_rand_seed = FALSE)
 	var/static/trait_len
 	var/static/list/trait_list = list()
 	if(!trait_list.len)
@@ -619,11 +620,11 @@
 				trait_list += T
 		trait_len = length(trait_list)
 
-	var/trait_id = trait_list[rand_LCM(chem_rand_seed, maximum=trait_len)]
+	var/trait_id = trait_list[rand_LCM(trait_rand_seed, maximum=trait_len)]
 	var/datum/plant_gene/trait/T
 	if(ispath(trait_id, /datum/plant_gene/trait/glow/random))
 		T = get_trait_gene_from_static(trait_id)
-		T.on_new_seed(src, rand_LCM(chem_rand_seed, maximum=8)) // max=8 : current biolumi trait maximum
+		T.on_new_seed(src, rand_LCM(trait_rand_seed, maximum=8)) // max=8 : current biolumi trait maximum
 	if(isnull(trait_id))
 		CRASH("random trait [T] is called as null.")
 		return

@@ -10,6 +10,25 @@
 	plant_gene_flags = PLANT_GENE_COMMON_REMOVABLE // use `/datum/plant_gene/trait/glow/random` instead
 	research_needed = 1
 
+/* <Behavior table>
+	 <A type>
+		[on_squash] ...
+		[on_aftersquash] ...
+
+	 <B type>
+		[on_slip] ...
+		[on_attack] ...
+		[on_throw_impact] ...
+
+	 <C type>
+		[on_attackby] ...
+		[on_consume] ...
+		[on_grow] ...
+		[on_new_plant] Makes the plant glow(or dark)
+		[on_new_seed] ...
+		[on_removal] ...
+ */
+
 /datum/plant_gene/trait/glow/proc/glow_range(obj/item/seeds/S)
 	return 1.4 + S.potency*rate
 
@@ -81,6 +100,13 @@
 	desc = "this shouldn't exist."
 	plant_gene_flags = PLANT_GENE_COMMON_REMOVABLE | PLANT_GENE_RANDOM_ALLOWED
 
+/* <Behavior table>
+	 <C type>
+		[on_new_seed] replaces itself into random glow trait.
+			if `find_by_number` given, returns a certain glow trait based on the number.
+			only used in random trait currently.
+ */
+
 /datum/plant_gene/trait/glow/random/on_new_seed(obj/item/seeds/S, var/find_by_number=0)
 	var/static/list/newgenes
 	if(isnull(newgenes))
@@ -88,6 +114,8 @@
 	var/chosen = null
 	if(find_by_number)
 		if(length(newgenes) < find_by_number)
+			on_new_seed(S) // bad number. just returns random.
+			CRASH("random biolumi trait - Bad find_by_number value: [find_by_number] > [length(newgenes)]")
 			return
 		chosen = newgenes[find_by_number]
 	else

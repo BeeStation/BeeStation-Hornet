@@ -32,39 +32,71 @@
 			return FALSE
 	return TRUE
 
-
 //plant behaviours
-/datum/plant_gene/trait/proc/on_consume(obj/item/reagent_containers/food/snacks/grown/G, mob/living/carbon/target)
-	return
+/*
+	 <A type> - They always happen before B type
+		[on_squash]
+		[on_aftersquash]
 
+	 <B type> - They always happen after A type
+		[on_slip]
+		[on_attack]
+		[on_throw_impact]
+
+	 <C type> - Other types than A, B
+		[on_attackby]
+		[on_consume]
+		[on_grow]
+		[on_new_plant]
+		[on_new_seed]
+		[on_removal]
+*/
+
+// A types
+/datum/plant_gene/trait/proc/on_squash(obj/item/reagent_containers/food/snacks/grown/G, atom/target, var/p_method="attack")
+	return FALSE // return does nothing
+
+/datum/plant_gene/trait/proc/on_aftersquash(obj/item/reagent_containers/food/snacks/grown/G, atom/target)
+	return FALSE // return does nothing
+
+// B types
 /datum/plant_gene/trait/proc/on_slip(obj/item/reagent_containers/food/snacks/grown/G, mob/living/carbon/target)
-	return
-
-/datum/plant_gene/trait/proc/on_squash(obj/item/reagent_containers/food/snacks/grown/G, atom/target)
-	return
-
-/datum/plant_gene/trait/proc/on_squashreact(obj/item/reagent_containers/food/snacks/grown/G, atom/target)
-	return
+	return FALSE // return TRUE: qdel(plant)
 
 /datum/plant_gene/trait/proc/on_attack(obj/item/reagent_containers/food/snacks/grown/G, obj/item/I, mob/user)
-	return
-
-/datum/plant_gene/trait/proc/on_attackby(obj/item/reagent_containers/food/snacks/grown/G, obj/item/I, mob/user)
-	return
+	return FALSE // return TRUE: qdel(plant)
 
 /datum/plant_gene/trait/proc/on_throw_impact(obj/item/reagent_containers/food/snacks/grown/G, atom/target)
-	return
+	return FALSE // return TRUE: qdel(plant)
 
+// C types
+/datum/plant_gene/trait/proc/on_attackby(obj/item/reagent_containers/food/snacks/grown/G, obj/item/I, mob/user)
+	return FALSE // return TRUE: qdel(plant)
 
-///This proc triggers when the tray processes and a roll is sucessful, the success chance scales with production.
+/datum/plant_gene/trait/proc/on_consume(obj/item/reagent_containers/food/snacks/grown/G, mob/living/carbon/target)
+	return FALSE // return TRUE: qdel(plant)
+
 /datum/plant_gene/trait/proc/on_grow(obj/machinery/hydroponics/H)
-	return
+	return FALSE // return does nothing
+
+// other 3 procs at the parent type.
+
+// This is needed after `on_squash()`
+/datum/plant_gene/trait/proc/qdel_after_squash(obj/item/reagent_containers/food/snacks/grown/G)
+	if(G.seed.get_gene(/datum/plant_gene/trait/squash))
+		var/obj/item/seeds/S = G.seed
+		S.genes -= src
+		if(plant_gene_flags & PLANT_GENE_QDEL_TARGET)
+			qdel(src)
+	return FALSE
+
 
 
 /datum/plant_gene/trait/desc
 	name = "innate trait"
 	desc = "you shouldn't see this"
 	research_needed = -1
+	plant_gene_flags = NONE
 	// This is a dummy trait for some special plants (grass, fairygrass, bamboo, holymelon, etc...)
 	// This does nothing, but it is helpful to explain how special a plant is.
 
