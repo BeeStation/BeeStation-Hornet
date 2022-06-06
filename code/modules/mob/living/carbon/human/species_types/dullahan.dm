@@ -2,7 +2,7 @@
 	name = "\improper Dullahan"
 	id = "dullahan"
 	max_bodypart_count = 5 //No head
-	default_color = "FFFFFF"
+	default_color = "FFF"
 	species_traits = list(EYECOLOR,HAIR,FACEHAIR,LIPS)
 	inherent_traits = list(TRAIT_NOHUNGER,TRAIT_NOBREATH, TRAIT_NONECRODISEASE)
 	default_features = list("mcolor" = "FFF", "tail_human" = "None", "ears" = "None", "wings" = "None", "body_size" = "Normal")

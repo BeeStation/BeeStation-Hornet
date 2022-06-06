@@ -55,7 +55,7 @@ BONUS
 				if(H.dna.species.use_skintones)
 					H.skin_tone = "albino"
 				else if(MUTCOLORS in H.dna.species.species_traits)
-					H.dna.features["mcolor"] = "EEE" //pure white.
+					H.dna.set_mcolor("EEE") //pure white.
 				H.regenerate_icons()
 			else
 				H.visible_message("<span class='notice'>[H] looks a bit pale.</span>", "<span class='notice'>Your skin suddenly appears lighter.</span>")
@@ -68,7 +68,7 @@ BONUS
 		if(H.dna.species.use_skintones)
 			H.skin_tone = cachedcolor
 		else if(MUTCOLORS in H.dna.species.species_traits)
-			H.dna.features["mcolor"] = cachedcolor
+			H.dna.set_mcolor(cachedcolor)
 		H.regenerate_icons()
 
 /*
@@ -127,7 +127,7 @@ BONUS
 				if(H.dna.species.use_skintones)
 					H.skin_tone = "african2"
 				else if(MUTCOLORS in H.dna.species.species_traits)
-					H.dna.features["mcolor"] = "000" //pure black.
+					H.dna.set_mcolor("000") //pure black.
 				H.regenerate_icons()
 			else
 				H.visible_message("<span class='notice'>[H] looks a bit dark.</span>", "<span class='notice'>Your skin suddenly appears darker.</span>")
@@ -140,7 +140,7 @@ BONUS
 		if(H.dna.species.use_skintones)
 			H.skin_tone = cachedcolor
 		else if(MUTCOLORS in H.dna.species.species_traits)
-			H.dna.features["mcolor"] = cachedcolor
+			H.dna.set_mcolor(cachedcolor)
 		H.regenerate_icons()
 
 /*
@@ -450,7 +450,7 @@ Thresholds
 	if(!..())
 		return
 	var/mob/living/carbon/M = A.affected_mob
-	
+
 	switch(A.stage)
 		if(2, 3)
 			var/buboes = (rand(1, 3) * power)
@@ -496,7 +496,7 @@ Thresholds
 		C.visible_message("<span class='warning'>[attack_text] bursts [popped] pustules on [source]'s body!</span>")
 		pustules -= popped
 
-		
+
 /datum/symptom/pustule/End(datum/disease/advance/A)
 	. = ..()
 	UnregisterSignal(A.affected_mob, COMSIG_HUMAN_ATTACKED)
@@ -514,7 +514,7 @@ Thresholds
 	if(istype(BB, /obj/item/projectile/pimple))
 		var/obj/item/projectile/pimple/P = BB
 		P.diseases = diseases
-	
+
 
 /obj/item/projectile/pimple
 	name = "high-velocity pustule"
@@ -523,7 +523,7 @@ Thresholds
 	speed = 5
 	damage_type = TOX
 	icon_state = "energy2"
-	flag = "bio" 
+	flag = "bio"
 	var/list/diseases
 
 /obj/item/projectile/pimple/on_hit(atom/target, blocked)

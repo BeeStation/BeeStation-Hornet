@@ -1,7 +1,7 @@
 /datum/species/vampire
 	name = "\improper Vampire"
 	id = "vampire"
-	default_color = "FFFFFF"
+	default_color = "FFF"
 	species_traits = list(EYECOLOR,HAIR,FACEHAIR,LIPS)
 	inherent_traits = list(TRAIT_NOHUNGER,TRAIT_NOBREATH,TRAIT_DRINKSBLOOD)
 	inherent_biotypes = list(MOB_UNDEAD, MOB_HUMANOID)

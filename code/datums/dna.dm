@@ -104,7 +104,7 @@
 		if(!GLOB.hair_styles_list.len)
 			init_sprite_accessory_subtypes(/datum/sprite_accessory/hair,GLOB.hair_styles_list, GLOB.hair_styles_male_list, GLOB.hair_styles_female_list)
 		L[DNA_HAIR_STYLE_BLOCK] = construct_block(GLOB.hair_styles_list.Find(H.hair_style), GLOB.hair_styles_list.len)
-		var/mutant_colour = H.dna?.features["mcolor"] || "FFFFFF"
+		var/mutant_colour = H.dna?.features["mcolor"] || "FFF"
 		L[DNA_MUTANT_COLOUR] = sanitize_hexcolor(mutant_colour)
 		L[DNA_HAIR_COLOR_BLOCK] = sanitize_hexcolor(H.hair_color)
 		if(!GLOB.facial_hair_styles_list.len)
@@ -196,7 +196,7 @@
 		if(DNA_HAIR_STYLE_BLOCK)
 			setblock(uni_identity, blocknumber, construct_block(GLOB.hair_styles_list.Find(H.hair_style), GLOB.hair_styles_list.len))
 		if(DNA_MUTANT_COLOUR)
-			var/mutant_colour = H.dna?.features["mcolor"] || "FFFFFF"
+			var/mutant_colour = H.dna?.features["mcolor"] || "FFF"
 			setblock(uni_identity, blocknumber, sanitize_hexcolor(mutant_colour))
 
 //Please use add_mutation or activate_mutation instead
@@ -376,7 +376,7 @@
 	if(mrace || newfeatures || ui)
 		update_body()
 		update_hair()
-		update_body_parts()
+		update_body_parts(TRUE)
 		update_mutations_overlay()
 
 	if(LAZYLEN(mutations))
@@ -405,12 +405,15 @@
 	eye_color = sanitize_hexcolor(getblock(structure, DNA_EYE_COLOR_BLOCK))
 	facial_hair_style = GLOB.facial_hair_styles_list[deconstruct_block(getblock(structure, DNA_FACIAL_HAIR_STYLE_BLOCK), GLOB.facial_hair_styles_list.len)]
 	hair_style = GLOB.hair_styles_list[deconstruct_block(getblock(structure, DNA_HAIR_STYLE_BLOCK), GLOB.hair_styles_list.len)]
-	dna.features["mcolor"] = sanitize_hexcolor(getblock(structure, DNA_MUTANT_COLOUR))
+	var/new_colour = sanitize_hexcolor(getblock(structure, DNA_MUTANT_COLOUR))
+	if(new_colour != dna.features["mcolor"])
+		dna.features["mcolor"] = new_colour
+		mutcolor_update = TRUE
 	if(icon_update)
 		update_body()
 		update_hair()
 		if(mutcolor_update)
-			update_body_parts()
+			update_body_parts(TRUE)
 		if(mutations_overlay_update)
 			update_mutations_overlay()
 
@@ -673,3 +676,7 @@
 		qdel(eyes)
 		visible_message("<span class='notice'>[src] looks up and their eyes melt away!</span>", "<span class='userdanger'>I understand now.</span>")
 		addtimer(CALLBACK(src, .proc/adjustOrganLoss, ORGAN_SLOT_BRAIN, 200), 20)
+
+/datum/dna/proc/set_mcolor(new_colour)
+	features["mcolor"] = new_colour
+	update_ui_block(DNA_MUTANT_COLOUR)

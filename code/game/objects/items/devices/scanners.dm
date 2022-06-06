@@ -827,8 +827,8 @@ GENE SCANNER
 	if(!istype(O) || !proximity)
 		return
 
-	if(istype(O, /obj/machinery/computer/scan_console))
-		var/obj/machinery/computer/scan_console/C = O
+	if(istype(O, /obj/machinery/computer/scanconsole))
+		var/obj/machinery/computer/scanconsole/C = O
 		if(C.stored_research)
 			to_chat(user, "<span class='notice'>[name] database updated.</span>")
 			discovered = C.stored_research.discovered_mutations

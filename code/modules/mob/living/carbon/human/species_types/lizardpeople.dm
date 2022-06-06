@@ -3,7 +3,7 @@
 	name = "\improper Lizardperson"
 	id = SPECIES_LIZARD
 	bodyflag = FLAG_LIZARD
-	default_color = "00FF00"
+	default_color = "0F0"
 	species_traits = list(MUTCOLORS,EYECOLOR,LIPS,NO_UNDERWEAR)
 	inherent_biotypes = list(MOB_ORGANIC, MOB_HUMANOID, MOB_REPTILE)
 	mutant_bodyparts = list("tail_lizard", "snout", "spines", "horns", "frills", "body_markings", "legs")

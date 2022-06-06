@@ -215,6 +215,7 @@
 	var/list/needs_update = list()
 	var/limb_count_update = FALSE
 	for(var/obj/item/bodypart/BP as() in bodyparts)
+		//Update the colour
 		BP.update_limb(is_creating = update_limb_data) //Update limb actually doesn't do much, get_limb_icon is the cpu eater.
 		var/old_key = icon_render_keys?[BP.body_zone]
 		icon_render_keys[BP.body_zone] = (BP.is_husked) ? generate_husk_key(BP) : generate_icon_key(BP)
@@ -271,6 +272,7 @@
 	. += "-[BP.body_zone]"
 	if(BP.should_draw_greyscale && BP.draw_color)
 		. += "-[BP.draw_color]"
+
 
 /mob/living/carbon/proc/generate_husk_key(obj/item/bodypart/BP)
 	. += "[BP.husk_type]"

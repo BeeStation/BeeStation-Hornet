@@ -307,10 +307,10 @@
 	icon_state = "medical"
 	build_path = /obj/machinery/computer/cloning/prototype
 
-/obj/item/circuitboard/computer/scan_console
+/obj/item/circuitboard/computer/scanconsole
 	name = "DNA machine (Computer Board)"
 	icon_state = "medical"
-	build_path = /obj/machinery/computer/scan_console
+	build_path = /obj/machinery/computer/scanconsole
 
 
 //Science

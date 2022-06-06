@@ -471,7 +471,7 @@
 				/obj/item/circuitboard/computer/cloning,
 				/obj/item/circuitboard/machine/clonepod,
 				/obj/item/circuitboard/machine/chem_dispenser,
-				/obj/item/circuitboard/computer/scan_console,
+				/obj/item/circuitboard/computer/scanconsole,
 				/obj/item/circuitboard/computer/med_data,
 				/obj/item/circuitboard/machine/smoke_machine,
 				/obj/item/circuitboard/machine/chem_master,

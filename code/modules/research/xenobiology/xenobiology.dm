@@ -640,7 +640,7 @@
 /obj/item/slime_extract/rainbow/activate(mob/living/carbon/human/user, datum/species/species, activation_type)
 	switch(activation_type)
 		if(SLIME_ACTIVATE_MINOR)
-			user.dna.features["mcolor"] = pick("FFFFFF","7F7F7F", "7FFF7F", "7F7FFF", "FF7F7F", "7FFFFF", "FF7FFF", "FFFF7F")
+			user.dna.set_mcolor(pick("FFF","888", "8F8", "88F", "F88", "8FF", "F8F", "FF8"))
 			user.updateappearance(mutcolor_update = TRUE)
 			if(istype(species,/datum/species/jelly/luminescent))
 				var/datum/species/jelly/luminescent/lum_species = species

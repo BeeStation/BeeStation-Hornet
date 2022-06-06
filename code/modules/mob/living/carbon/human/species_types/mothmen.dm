@@ -2,7 +2,7 @@
 	name = "\improper Mothman"
 	id = SPECIES_MOTH
 	bodyflag = FLAG_MOTH
-	default_color = "00FF00"
+	default_color = "0F0"
 	species_traits = list(LIPS, NOEYESPRITES)
 	inherent_biotypes = list(MOB_ORGANIC, MOB_HUMANOID, MOB_BUG)
 	mutant_bodyparts = list("moth_wings")

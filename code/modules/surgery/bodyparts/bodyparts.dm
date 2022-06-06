@@ -335,13 +335,6 @@
 	else
 		mutation_color = null
 
-	if(mutation_color) //I hate mutations
-		draw_color = mutation_color
-	else if(should_draw_greyscale)
-		draw_color = (species_color) || (skin_tone && skintone2hex(skin_tone))
-	else
-		draw_color = null
-
 	if(no_update)
 		return
 
@@ -366,15 +359,18 @@
 				species_color = H.dna.features["mcolor"]
 		else
 			species_color = null
-
-		draw_color = mutation_color
-		if(should_draw_greyscale) //Should the limb be colored?
-			draw_color ||= (species_color) || (skin_tone && skintone2hex(skin_tone))
-
 		dmg_overlay_type = S.damage_overlay_type
 
 	else if(animal_origin == MONKEY_BODYPART) //currently monkeys are the only non human mob to have damage overlays.
 		dmg_overlay_type = animal_origin
+
+	//Update draw colour
+	if(mutation_color) //I hate mutations
+		draw_color = mutation_color
+	else if(should_draw_greyscale)
+		draw_color = (species_color) || (skin_tone && skintone2hex(skin_tone))
+	else
+		draw_color = null
 
 	if(!IS_ORGANIC_LIMB(src))
 		dmg_overlay_type = "robotic"
