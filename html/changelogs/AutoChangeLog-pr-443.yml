@@ -1,6 +1,0 @@
-author: unit0016
-delete-after: true
-changes:
-  - tweak: Holestation's now further detailed!
-  - bugfix: Holestation's cargo conveyors now also don't fight themselves, too, as
-      a bonus.
