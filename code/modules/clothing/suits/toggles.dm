@@ -94,6 +94,8 @@
 //Toggle exosuits for different aesthetic styles (hoodies, suit jacket buttons, etc)
 
 /obj/item/clothing/suit/toggle/AltClick(mob/user)
+	if(SEND_SIGNAL(src, COMSIG_CLICK_ALT, user))
+		return
 	if(!user.canUseTopic(src, BE_CLOSE, ismonkey(user)))
 		return
 	else
@@ -102,7 +104,9 @@
 /obj/item/clothing/suit/toggle/ui_action_click()
 	suit_toggle()
 
-/obj/item/clothing/suit/toggle/proc/suit_toggle()
+/obj/item/clothing/suit/toggle/verb/suit_toggle()
+	set name = "Toggle Suit Style"
+	set category = "Object"
 	set src in usr
 
 	if(!can_use(usr))
