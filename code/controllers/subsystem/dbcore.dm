@@ -1,6 +1,6 @@
 SUBSYSTEM_DEF(dbcore)
 	name = "Database"
-	flags = SS_BACKGROUND
+	flags = SS_BACKGROUND | SS_SLEEPER
 	wait = 1 MINUTES
 	init_order = INIT_ORDER_DBCORE
 

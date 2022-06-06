@@ -13,7 +13,7 @@ SUBSYSTEM_DEF(metrics)
 	name = "Metrics"
 	wait = 30 SECONDS
 	runlevels = RUNLEVEL_LOBBY | RUNLEVEL_SETUP | RUNLEVEL_GAME | RUNLEVEL_POSTGAME // ALL THE LEVELS
-	flags = SS_KEEP_TIMING // This needs to ingest every 30 IRL seconds, not ingame seconds.
+	flags = SS_KEEP_TIMING|SS_SLEEPER // This needs to ingest every 30 IRL seconds, not ingame seconds.
 	/// The real time of day the server started. Used to calculate time drift
 	var/world_init_time = 0 // Not set in here. Set in world/New()
 

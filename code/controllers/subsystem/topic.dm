@@ -1,7 +1,7 @@
 SUBSYSTEM_DEF(topic)
 	name = "Topic"
 	init_order = INIT_ORDER_TOPIC
-	flags = SS_NO_FIRE
+	flags = SS_NO_FIRE | SS_SLEEPER
 
 /datum/controller/subsystem/topic/Initialize(timeofday)
 	// Initialize topic datums

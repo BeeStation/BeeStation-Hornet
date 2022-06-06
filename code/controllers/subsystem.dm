@@ -174,7 +174,7 @@
 /datum/controller/subsystem/stat_entry(msg)
 	var/list/tab_data = list()
 
-	if(can_fire && !(SS_NO_FIRE & flags))
+	if(can_fire && !(SS_NO_FIRE & flags) && !(CONFIG_GET(flag/sleeper_server) && !(flags & SS_SLEEPER)))
 		msg = "[round(cost,1)]ms|[round(tick_usage,1)]%([round(tick_overrun,1)]%)|[round(ticks,0.1)]\t[msg]"
 	else
 		msg = "OFFLINE\t[msg]"

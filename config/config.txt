@@ -613,3 +613,6 @@ ELASTICSEARCH_METRICS_APIKEY thisIsSomethingThatsBased64Encoded==
 
 ## Once a typepath causes overrun from hard deletes this many times, stop hard deleting it on garbage collection failures. (set to 0 to disable)
 #HARD_DELETES_OVERRUN_LIMIT 0
+
+## Run a lightweight version of the server only meant to handle topic requests
+#SLEEPER_SERVER

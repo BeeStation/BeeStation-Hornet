@@ -595,3 +595,5 @@
 /datum/config_entry/string/elasticsearch_metrics_endpoint
 
 /datum/config_entry/string/elasticsearch_metrics_apikey
+
+/datum/config_entry/flag/sleeper_server // Used to run a lightweight version of the server only meant to handle topic requests

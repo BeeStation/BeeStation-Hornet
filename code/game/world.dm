@@ -34,7 +34,12 @@ GLOBAL_VAR(restart_counter)
 	//SetupLogs depends on the RoundID, so lets check
 	//DB schema and set RoundID if we can
 	SSdbcore.CheckSchemaVersion()
-	SSdbcore.SetRoundID()
+
+	if (!(CONFIG_GET(flag/sleeper_server)))
+		SSdbcore.SetRoundID()
+	else
+		GLOB.round_id = 0
+
 	SetupLogs()
 	load_poll_data()
 

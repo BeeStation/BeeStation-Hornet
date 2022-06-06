@@ -1,7 +1,7 @@
 SUBSYSTEM_DEF(fail2topic)
 	name = "Fail2Topic"
 	init_order = INIT_ORDER_FAIL2TOPIC
-	flags = SS_BACKGROUND
+	flags = SS_BACKGROUND || SS_SLEEPER
 	runlevels = ALL
 
 	var/list/rate_limiting = list()

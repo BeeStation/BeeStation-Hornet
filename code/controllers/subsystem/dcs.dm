@@ -1,6 +1,6 @@
 PROCESSING_SUBSYSTEM_DEF(dcs)
 	name = "Datum Component System"
-	flags = SS_NO_INIT
+	flags = SS_NO_INIT | SS_SLEEPER
 	wait = 1 SECONDS
 
 	var/list/elements_by_type = list()

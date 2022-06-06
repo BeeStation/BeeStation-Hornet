@@ -57,6 +57,9 @@
 /// This flag overrides SS_KEEP_TIMING
 #define SS_POST_FIRE_TIMING 64
 
+/** Subsystem is still initialized in the lightweight sleeper-server mode */
+#define SS_SLEEPER 128
+
 //! SUBSYSTEM STATES
 #define SS_IDLE 0		/// ain't doing shit.
 #define SS_QUEUED 1		/// queued to run

@@ -212,6 +212,10 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 	for (var/datum/controller/subsystem/SS in subsystems)
 		if (SS.flags & SS_NO_INIT || SS.initialized) //Don't init SSs with the correspondig flag or if they already are initialzized
 			continue
+
+		if (CONFIG_GET(flag/sleeper_server) && !(SS.flags & SS_SLEEPER)) // Don't init subsystems that aren't involved in the sleeper server setup
+			continue
+
 		SS.Initialize(REALTIMEOFDAY)
 		CHECK_TICK
 	current_ticklimit = TICK_LIMIT_RUNNING
@@ -280,7 +284,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 	var/timer = world.time
 	for (var/thing in subsystems)
 		var/datum/controller/subsystem/SS = thing
-		if (SS.flags & SS_NO_FIRE)
+		if (SS.flags & SS_NO_FIRE || (CONFIG_GET(flag/sleeper_server) && !(SS.flags & SS_SLEEPER)))
 			continue
 		SS.queued_time = 0
 		SS.queue_next = null
@@ -436,7 +440,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 		if (SS.next_fire > world.time)
 			continue
 		SS_flags = SS.flags
-		if (SS_flags & SS_NO_FIRE)
+		if (SS_flags & SS_NO_FIRE || (CONFIG_GET(flag/sleeper_server) && !(SS.flags & SS_SLEEPER)))
 			subsystemstocheck -= SS
 			continue
 		if ((SS_flags & (SS_TICKER|SS_KEEP_TIMING)) == SS_KEEP_TIMING && SS.last_fire + (SS.wait * 0.75) > world.time)
