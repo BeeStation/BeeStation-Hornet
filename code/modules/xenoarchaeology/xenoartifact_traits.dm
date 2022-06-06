@@ -324,7 +324,7 @@
 		return	
 	man = new(get_turf(X))
 	man.name = "[pick("Calcifer", "Lucifer", "Ahpuch", "Ahriman")]"
-	man.real_name = "[man.name] - the [src]"
+	man.real_name = "[man.name] - the [X]"
 	man.key = ckey
 	log_game("[man]:[man.ckey] took control of the sentient [X]. [X] located at [X.x] [X.y] [X.z]")
 	ADD_TRAIT(man, TRAIT_NOBREATH, TRAIT_NODEATH)
