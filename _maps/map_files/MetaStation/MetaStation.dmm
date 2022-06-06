@@ -61310,7 +61310,7 @@
 /turf/open/floor/plasteel/dark,
 /area/medical/genetics/cloning)
 "cvx" = (
-/obj/machinery/computer/scan_consolenew{
+/obj/machinery/computer/scanconsole{
 	dir = 4
 	},
 /obj/machinery/camera{
@@ -61376,7 +61376,7 @@
 /turf/open/floor/plasteel/white,
 /area/medical/genetics)
 "cvB" = (
-/obj/machinery/computer/scan_consolenew{
+/obj/machinery/computer/scanconsole{
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/blue{

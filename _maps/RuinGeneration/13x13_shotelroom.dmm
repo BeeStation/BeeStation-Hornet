@@ -8,7 +8,7 @@
 /turf/open/floor/wood,
 /area/ruin/unpowered)
 "b" = (
-/obj/machinery/computer/scan_consolenew,
+/obj/machinery/computer/scanconsole,
 /turf/open/floor/plasteel/tiled,
 /area/ruin/unpowered)
 "d" = (

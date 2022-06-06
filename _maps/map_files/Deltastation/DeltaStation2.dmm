@@ -86557,7 +86557,7 @@
 /turf/open/floor/plasteel/dark,
 /area/medical/genetics)
 "dvk" = (
-/obj/machinery/computer/scan_consolenew,
+/obj/machinery/computer/scanconsole,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -89225,7 +89225,7 @@
 /turf/open/floor/plasteel/dark,
 /area/medical/genetics)
 "dAX" = (
-/obj/machinery/computer/scan_consolenew{
+/obj/machinery/computer/scanconsole{
 	dir = 1
 	},
 /obj/machinery/light,

@@ -26708,7 +26708,7 @@
 /turf/open/floor/plasteel,
 /area/science/storage)
 "bCY" = (
-/obj/machinery/computer/scan_consolenew{
+/obj/machinery/computer/scanconsole{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/purple{

@@ -239,7 +239,7 @@
 /turf/open/floor/plasteel/white,
 /area/ruin/unpowered)
 "M" = (
-/obj/machinery/computer/scan_consolenew{
+/obj/machinery/computer/scanconsole{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/blue{
@@ -282,7 +282,7 @@
 /turf/open/floor/plasteel/white,
 /area/ruin/unpowered)
 "V" = (
-/obj/machinery/computer/scan_consolenew,
+/obj/machinery/computer/scanconsole,
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
 	},

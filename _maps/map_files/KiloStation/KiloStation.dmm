@@ -25389,7 +25389,7 @@
 /turf/open/space/basic,
 /area/maintenance/central)
 "aOl" = (
-/obj/machinery/computer/scan_consolenew{
+/obj/machinery/computer/scanconsole{
 	dir = 4
 	},
 /obj/effect/turf_decal/bot,
@@ -25558,7 +25558,7 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/fore)
 "aOx" = (
-/obj/machinery/computer/scan_consolenew{
+/obj/machinery/computer/scanconsole{
 	dir = 8
 	},
 /obj/effect/turf_decal/bot,

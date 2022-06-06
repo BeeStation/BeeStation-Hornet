@@ -8741,7 +8741,7 @@
 /turf/open/floor/plating,
 /area/science/xenobiology)
 "bYa" = (
-/obj/machinery/computer/scan_consolenew{
+/obj/machinery/computer/scanconsole{
 	dir = 4
 	},
 /obj/machinery/light{
@@ -8792,7 +8792,7 @@
 	},
 /area/security/prison/asteroid/arrival)
 "bYY" = (
-/obj/machinery/computer/scan_consolenew{
+/obj/machinery/computer/scanconsole{
 	dir = 8
 	},
 /obj/machinery/light{
