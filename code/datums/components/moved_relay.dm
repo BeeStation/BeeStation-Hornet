@@ -15,6 +15,11 @@
 	//We will relay the parents move to itself for convenience
 	register_parent(parent)
 
+/datum/component/moved_relay/Destroy(force, silent)
+	. = ..()
+	while(length(ordered_parents))
+		unregister_parent(ordered_parents[1])
+
 /datum/component/moved_relay/proc/register_parent(atom/A)
 	RegisterSignal(A, COMSIG_PARENT_QDELETING, .proc/parent_deleted)
 	RegisterSignal(A, COMSIG_MOVABLE_MOVED, .proc/parent_moved)
