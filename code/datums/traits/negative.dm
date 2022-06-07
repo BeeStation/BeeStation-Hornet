@@ -78,7 +78,7 @@
 	if(where)
 		to_chat(quirk_holder, "<span class='boldnotice'>There is a bottle of mannitol [where]. You're going to need it.</span>")
 	else
-		to_chat(quirk_holder, "<span class='boldnotice'>You dropped your bottle of mannitol on the shuttle ride here and couldn't find it, it must have fallen into a bluespace pocket! You better find some more at chemistry and fast...</span>")
+		to_chat(quirk_holder, "<span class='boldnotice'>You dropped your bottle of mannitol on the floor. better pick it up, you are going to need it.</span>")
 
 /datum/quirk/deafness
 	name = "Deaf"
