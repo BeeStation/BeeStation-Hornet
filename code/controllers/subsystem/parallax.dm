@@ -52,14 +52,14 @@ SUBSYSTEM_DEF(parallax)
 
 /datum/controller/subsystem/parallax/proc/on_mob_login(datum/source, mob/new_login)
 	//Register the required signals
-	RegisterSignal(new_login, COMSIG_PARENT_MOVED_RELAY, .proc/on_morb_moved)
+	RegisterSignal(new_login, COMSIG_PARENT_MOVED_RELAY, .proc/on_mob_moved)
 	RegisterSignal(new_login, COMSIG_MOB_LOGOUT, .proc/on_mob_logout)
 
 /datum/controller/subsystem/parallax/proc/on_mob_logout(mob/source)
 	UnregisterSignal(source, COMSIG_PARENT_MOVED_RELAY)
 	UnregisterSignal(source, COMSIG_MOB_LOGOUT)
 
-/datum/controller/subsystem/parallax/proc/on_morb_moved(mob/moving_mob, atom/parent, force)
+/datum/controller/subsystem/parallax/proc/on_mob_moved(mob/moving_mob, atom/parent, force)
 	update_client_parallax(moving_mob.client)
 
 //We need a client var for optimisation purposes
