@@ -3,9 +3,6 @@
 	var/list/parallax_layers
 	var/list/parallax_layers_cached
 	var/turf/previous_turf
-	var/dont_animate_parallax //world.time of when we can state animate()ing parallax again
-	var/last_parallax_shift //world.time of last update
-	var/parallax_throttle = 0 //ds between updates
 	var/parallax_movedir = 0
 	var/parallax_layers_max = 4
 	var/parallax_animate_timer
@@ -64,17 +61,14 @@
 			pref = PARALLAX_HIGH
 		switch(C.prefs.parallax)
 			if (PARALLAX_INSANE)
-				C.parallax_throttle = FALSE
 				C.parallax_layers_max = 5
 				return TRUE
 
 			if (PARALLAX_MED)
-				C.parallax_throttle = PARALLAX_DELAY_MED
 				C.parallax_layers_max = 3
 				return TRUE
 
 			if (PARALLAX_LOW)
-				C.parallax_throttle = PARALLAX_DELAY_LOW
 				C.parallax_layers_max = 1
 				return TRUE
 
@@ -82,7 +76,6 @@
 				return FALSE
 
 	//This is high parallax.
-	C.parallax_throttle = PARALLAX_DELAY_DEFAULT
 	C.parallax_layers_max = 4
 	return TRUE
 
@@ -107,7 +100,6 @@
 			var/T = PARALLAX_LOOP_TIME / L.speed
 			if (T > animate_time)
 				animate_time = T
-		C.dont_animate_parallax = world.time + min(animate_time, PARALLAX_LOOP_TIME)
 		animatedir = C.parallax_movedir
 
 	var/matrix/newtransform
@@ -184,9 +176,6 @@
 		C.previous_turf = posobj
 		force = TRUE
 
-	if (!force && world.time < C.last_parallax_shift+C.parallax_throttle)
-		return
-
 	//Doing it this way prevents parallax layers from "jumping" when you change Z-Levels.
 	var/offset_x = posobj.x - C.previous_turf.x
 	var/offset_y = posobj.y - C.previous_turf.y
@@ -194,10 +183,7 @@
 	if(!offset_x && !offset_y && !force)
 		return
 
-	var/last_delay = world.time - C.last_parallax_shift
-	last_delay = min(last_delay, C.parallax_throttle)
 	C.previous_turf = posobj
-	C.last_parallax_shift = world.time
 
 	for(var/thing in C.parallax_layers)
 		var/atom/movable/screen/parallax_layer/L = thing
@@ -226,10 +212,9 @@
 			if(L.offset_y < -240)
 				L.offset_y += 480
 
-
-		if(!areaobj.parallax_movedir && C.dont_animate_parallax <= world.time && (offset_x || offset_y) && abs(offset_x) <= max(C.parallax_throttle/world.tick_lag+1,1) && abs(offset_y) <= max(C.parallax_throttle/world.tick_lag+1,1) && (round(abs(change_x)) > 1 || round(abs(change_y)) > 1))
+		if(!areaobj.parallax_movedir && (offset_x || offset_y))
 			L.transform = matrix(1, 0, offset_x*L.speed, 0, 1, offset_y*L.speed)
-			animate(L, transform=matrix(), time = last_delay)
+			animate(L, transform=matrix(), time = 2, flags = ANIMATION_PARALLEL)
 
 		L.screen_loc = "CENTER-7:[round(L.offset_x,1)],CENTER-7:[round(L.offset_y,1)]"
 

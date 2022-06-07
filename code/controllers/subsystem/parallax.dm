@@ -5,7 +5,7 @@ SUBSYSTEM_DEF(parallax)
 	priority = FIRE_PRIORITY_PARALLAX
 	runlevels = RUNLEVEL_LOBBY | RUNLEVELS_DEFAULT
 	var/current_run_pointer = 1
-	var/list/currentrun
+	var/list/currentrun = list()
 	var/list/queued = list()
 	var/planet_x_offset = 128
 	var/planet_y_offset = 128
@@ -44,6 +44,7 @@ SUBSYSTEM_DEF(parallax)
 		//No client (Disconnected)
 		if(!C)
 			continue
+		C?.parallax_update_queued = FALSE
 		//Do the parallax update (Move it to the correct location)
 		C?.mob?.hud_used?.update_parallax()
 	//Processing is completed, clear the list
@@ -51,22 +52,29 @@ SUBSYSTEM_DEF(parallax)
 
 /datum/controller/subsystem/parallax/proc/on_mob_login(datum/source, mob/new_login)
 	//Register the required signals
-	RegisterSignal(new_login, COMSIG_PARENT_MOVED_RELAY, .proc/on_mob_moved)
+	RegisterSignal(new_login, COMSIG_PARENT_MOVED_RELAY, .proc/on_morb_moved)
 	RegisterSignal(new_login, COMSIG_MOB_LOGOUT, .proc/on_mob_logout)
 
 /datum/controller/subsystem/parallax/proc/on_mob_logout(mob/source)
 	UnregisterSignal(source, COMSIG_PARENT_MOVED_RELAY)
 	UnregisterSignal(source, COMSIG_MOB_LOGOUT)
 
-/datum/controller/subsystem/parallax/proc/on_mob_moved(mob/moving_mob, atom/parent, force)
+/datum/controller/subsystem/parallax/proc/on_morb_moved(mob/moving_mob, atom/parent, force)
+	update_client_parallax(moving_mob.client)
 
 //We need a client var for optimisation purposes
 /client
 	var/parallax_update_queued = FALSE
+	var/last_parallax_update_tick
 
 /datum/controller/subsystem/parallax/proc/update_client_parallax(client/updater)
 	//Already queued for update
 	if(!updater || updater?.parallax_update_queued)
+		return
+	//If we haven't updated yet, instantly update
+	if (updater?.last_parallax_update_tick < times_fired)
+		updater?.mob?.hud_used?.update_parallax()
+		updater?.last_parallax_update_tick = times_fired
 		return
 	//Mark it as being queued
 	updater?.parallax_update_queued = TRUE
