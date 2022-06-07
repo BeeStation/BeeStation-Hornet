@@ -11,6 +11,8 @@ SUBSYSTEM_DEF(parallax)
 	var/planet_y_offset = 128
 	var/random_layer
 	var/random_parallax_color
+	//Amount of ticks between the parallax being allowed to freely fire without going into the queue
+	var/parallax_free_fire_delay_ticks = 10
 
 //These are cached per client so needs to be done asap so people joining at roundstart do not miss these.
 /datum/controller/subsystem/parallax/PreInit()
@@ -77,8 +79,8 @@ SUBSYSTEM_DEF(parallax)
 	//If we haven't updated yet, instantly update
 	if (updater?.last_parallax_update_tick < times_fired)
 		updater?.mob?.hud_used?.update_parallax()
-		//Don't allow an instant update on the next fire, to maintain 1 fire per tick max
-		updater?.last_parallax_update_tick = times_fired + 1
+		//Don't allow an instant update on the next fire, to maintain parallax_free_fire_delay_ticks fire per tick max
+		updater?.last_parallax_update_tick = times_fired + parallax_free_fire_delay_ticks
 		return
 	//Mark it as being queued
 	updater?.parallax_update_queued = TRUE
