@@ -23,7 +23,11 @@
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = .proc/on_entered,
 	)
-	AddElement(/datum/element/connect_loc, loc_connections)
+	parent.AddElement(/datum/element/connect_loc, loc_connections)
+
+/datum/component/clockwork_trap/pressure_sensor/Destroy(force, silent)
+	parent.RemoveElement(/datum/element/connect_loc)
+	. = ..()
 
 /datum/component/clockwork_trap/pressure_sensor/proc/on_entered(datum/source, atom/movable/AM)
 	SIGNAL_HANDLER
