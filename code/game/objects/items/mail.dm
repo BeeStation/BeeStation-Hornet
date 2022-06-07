@@ -2,7 +2,7 @@
 /obj/item/mail
 	name = "mail"
 	gender = NEUTER
-	desc = "An officially postmarked, tamper-evident parcel powered by bluespace technology and regulated by CentComm, it's made of rather high-quality materials."
+	desc = "An officially postmarked, tamper-evident parcel powered by bluespace technology and regulated by CentCom, it's made of rather high-quality materials."
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "mail_small"
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
