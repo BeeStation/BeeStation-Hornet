@@ -741,6 +741,14 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		if(!H.dna.features["grod_crown"] || (H.head?.flags_inv & HIDEHAIR)) //Add shit here later, me
 			bodyparts_to_add -= "grod_crown"
 
+	if("grod_marks" in mutant_bodyparts)
+		if(!H.dna.features["grod_marks"] || (H.head?.flags_inv & HIDEJUMPSUIT)) //Add shit here later, me - Pope
+			bodyparts_to_add -= "marks"
+
+	if("grod_tail" in mutant_bodyparts)
+		if(!H.dna.features["grod_tail"] || (H.head?.flags_inv & HIDEJUMPSUIT)) //Add shit here later, me
+			bodyparts_to_add -= "grod_tail"
+
 	////PUT ALL YOUR WEIRD ASS REAL-LIMB HANDLING HERE
 	///Digi handling
 	if(H.dna.species.bodytype & BODYTYPE_DIGITIGRADE)
@@ -822,6 +830,8 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 					S = GLOB.grod_crowns_list[H.dna.features["grod_crown"]]
 				if("grod_marks")
 					S = GLOB.grod_marks_list[H.dna.features["grod_marks"]]
+				if("grod_tail")
+					S = GLOB.grod_tails_list[H.dna.features["grod_tail"]]
 			if(!S || S.icon_state == "none")
 				continue
 

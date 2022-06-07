@@ -2359,13 +2359,13 @@
 	name = "Youngling"
 	icon_state = "youngling"
 
-
 /datum/sprite_accessory/grod_marks
 	icon = 'icons/mob/species/grod/markings.dmi'
+	color_src = HAIR
 
 /datum/sprite_accessory/grod_marks/none
 	name = "None"
-	icon_state = ""
+	icon_state = null
 
 /datum/sprite_accessory/grod_marks/atalanta
 	name = "Atalanta"
@@ -2411,8 +2411,50 @@
 	name = "Xestia"
 	icon_state = "xestia"
 
-/datum/sprite_accessory/arms
-	icon = null
+/datum/sprite_accessory/grod_tail
+	icon = 'icons/mob/species/grod/tails.dmi'
+	color_src = MUTCOLORS
 
-/datum/sprite_accessory/arms/extraarms_grod
-	name = "Grod Extra Arms"
+/datum/sprite_accessory/grod_tail/none
+	name = "None"
+	icon_state = null
+
+/datum/sprite_accessory/grod_tail/royal
+	name = "Royal"
+	icon_state = "royal"
+
+/datum/sprite_accessory/grod_tail/leaf
+	name = "Leaf"
+	icon_state = "leaf"
+
+/datum/sprite_accessory/grod_tail/twins
+	name = "Twins"
+	icon_state = "twins"
+
+/datum/sprite_accessory/grod_tail/hornet
+	name = "Hornet"
+	icon_state = "hornet"
+
+/datum/sprite_accessory/grod_tail/cobra
+	name = "Cobra"
+	icon_state = "cobra"
+
+/datum/sprite_accessory/grod_tail/prolonged
+	name = "Prolonged"
+	icon_state = "prolonged"
+
+/datum/sprite_accessory/grod_tail/regular
+	name = "Regular"
+	icon_state = "Regular"
+
+/datum/sprite_accessory/grod_tail/spiky
+	name = "Spiky"
+	icon_state = "spiky"
+
+/datum/sprite_accessory/grod_tail/snail
+	name = "Snail"
+	icon_state = "snail"
+
+/datum/sprite_accessory/grod_tail/hugger
+	name = "Hugger"
+	icon_state = "hugger"

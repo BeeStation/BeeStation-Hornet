@@ -21,15 +21,14 @@
 	species_traits = list(NO_DNA_COPY, AGENDER, NOHUSK, NO_UNDERWEAR, NOEYESPRITES, MUTCOLORS)
 	inherent_traits = list(TRAIT_NO_DEFIB, TRAIT_RESISTLOWPRESSURE, TRAIT_NOSLIPWATER, TRAIT_NEVER_STUBS)
 	inherent_biotypes = list(MOB_ORGANIC, MOB_HUMANOID)
-	// -- Added during grod revival project--
 	species_chest = /obj/item/bodypart/chest/grod
 	species_head = /obj/item/bodypart/head/grod
 	species_l_arm = /obj/item/bodypart/l_arm/grod_upper
 	species_r_arm = /obj/item/bodypart/r_arm/grod_upper
 	species_l_leg = /obj/item/bodypart/l_leg/grod
 	species_r_leg = /obj/item/bodypart/r_leg/grod
-	// -- End --
-	mutant_bodyparts = list("grod_crown")
+	mutant_bodyparts = list("grod_crown", "grod_marks", "grod_hair", "grod_tail")
+	default_features = list("grod_crown" = "Crown", "grod_marks" = "None", "grod_marks_color" = "9c3030", "grod_tail" = "Regular")
 	mutant_brain = /obj/item/organ/brain/grod
 	brutemod = GROD_BRUTEMOD
 	burnmod = GROD_BURNMOD
@@ -56,6 +55,13 @@
 	if(ishuman(C))
 		var/mob/living/carbon/human/H = C
 		H.update_hands_on_rotate()
+
+		H.change_number_of_hands(4, /obj/item/bodypart/l_arm/grod_lower, /obj/item/bodypart/r_arm/grod_lower) //Add extra grod limbs
+		for(var/i in 3 to 4) //disable new limbs
+			if(H?.hand_bodyparts[i])
+				var/obj/item/bodypart/L = H?.hand_bodyparts[i]
+				L?.disabled = TRUE
+		H.update_hud_handcuffed()
 
 		if(!swap_stance)
 			swap_stance = new
@@ -95,7 +101,6 @@
 		var/obj/item/G = H.gloves
 		if(G)
 			H.doUnEquip(H.gloves)
-		//H.change_number_of_hands(4, /obj/item/bodypart/l_arm/grod_lower, /obj/item/bodypart/r_arm/grod_lower)
 		for(var/i in 3 to 4)
 			if(H?.hand_bodyparts[i])
 				var/obj/item/bodypart/L = H?.hand_bodyparts[i]
@@ -115,7 +120,6 @@
 		var/obj/item/G = H.gloves
 		if(G)
 			H.doUnEquip(H.gloves)
-		//H.change_number_of_hands(2)
 		for(var/i in 3 to 4)
 			if(H?.hand_bodyparts[i])
 				var/obj/item/bodypart/L = H?.hand_bodyparts[i]
@@ -148,8 +152,8 @@
 	RegisterSignal(owner, COMSIG_MOB_DEATH, .proc/on_death)
 
 /datum/action/innate/grod/crownspider/Activate()
-	//if(!isgrod(owner)) //Stop trying to break shit
-		//return
+	if(!isgrod(owner)) //Stop trying to break shit
+		return
 	var/mob/living/carbon/human/H = owner
 	if(!istype(H.getorganslot(ORGAN_SLOT_BRAIN), /obj/item/organ/brain/grod))
 		to_chat(H, "<span class = 'warning'>You dont have a crown! Contact a coder!</span>")
@@ -435,8 +439,6 @@
 		I.damage += damage_to_deal
 	if(!isgrod(C)) //Convert non-grod hosts to grods over time
 		C.ForceContractDisease(new /datum/disease/transformation/grod())
-		var/datum/action/innate/grod/crownspider/S = new
-		S.Grant(C)
 	announce_infest(C)
 	origin.transfer_to(C)
 	C.key = origin.key
@@ -448,20 +450,11 @@
 	else
 		src.visible_message("<span class='danger'>[src] burrows into [target]'s head!</span>")
 
-/datum/species/grod/replace_body(mob/living/carbon/C, var/datum/species/new_species)
-	..()
-	C.change_number_of_hands(4, /obj/item/bodypart/l_arm/grod_lower, /obj/item/bodypart/r_arm/grod_lower) //Add extra grod limbs
-	for(var/i in 3 to 4) //disable new limbs
-		if(C?.hand_bodyparts[i])
-			var/obj/item/bodypart/L = C?.hand_bodyparts[i]
-			L?.disabled = TRUE
-	C.update_hud_handcuffed()
-
 /obj/structure/grod_caccoon
 	name = "grod caccoon"
 	desc = "A mysterious phenominom, rarely observed." //fix spilling plox
-	icon = 'icons/effects/wrap_target.dmi'
-	icon_state = "all"
+	icon = 'icons/mob/species/grod/bodyparts.dmi'
+	icon_state = "caccoon"
 
 /obj/structure/grod_caccoon/attack_hand(mob/user)
 	..()

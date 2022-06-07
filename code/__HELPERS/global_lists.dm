@@ -37,6 +37,7 @@
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/insect_type, GLOB.insect_type_list)
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/grod_crown, GLOB.grod_crowns_list)
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/grod_marks, GLOB.grod_marks_list)
+	init_sprite_accessory_subtypes(/datum/sprite_accessory/grod_tail, GLOB.grod_tails_list)
 
 	//Species
 	for(var/spath in subtypesof(/datum/species))

@@ -397,7 +397,8 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	READ_FILE(S["feature_ipc_chassis"], features["ipc_chassis"])
 	READ_FILE(S["feature_insect_type"], features["insect_type"])
 	READ_FILE(S["feature_grod_crown"], features["grod_crown"])
-	//READ_FILE(S["feature_grod_marks"], features["grod_marks"])
+	READ_FILE(S["feature_grod_marks"], features["grod_marks"])
+	READ_FILE(S["feature_grod_tail"], features["grod_tail"])
 
 	if(!CONFIG_GET(flag/join_with_mutant_humans) && !species_id != "felinid") // felinids arent mutant humans anymore i guess
 		features["tail_human"] = "none"
@@ -474,7 +475,6 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	backbag	= sanitize_inlist(backbag, GLOB.backbaglist, initial(backbag))
 	jumpsuit_style = sanitize_inlist(jumpsuit_style, GLOB.jumpsuitlist, initial(jumpsuit_style))
 	uplink_spawn_loc = sanitize_inlist(uplink_spawn_loc, GLOB.uplink_spawn_loc_list_save, initial(uplink_spawn_loc))
-	features["mcolor"]	= sanitize_hexcolor(features["mcolor"], 3, 0)
 	features["ethcolor"]	= copytext_char(features["ethcolor"], 1, 7)
 	features["tail_lizard"]	= sanitize_inlist(features["tail_lizard"], GLOB.tails_list_lizard)
 	features["tail_human"] 	= sanitize_inlist(features["tail_human"], GLOB.tails_list_human, "None")
@@ -492,6 +492,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	features["insect_type"]	 = sanitize_inlist(features["insect_type"], GLOB.insect_type_list)
 	features["grod_crown"]	= sanitize_inlist(features["grod_crown"], GLOB.grod_crowns_list, "Crown")
 	features["grod_marks"]	= sanitize_inlist(features["grod_marks"], GLOB.grod_marks_list, "None")
+	features["grod_tail"]	= sanitize_inlist(features["grod_tail"], GLOB.grod_tails_list, "Regular")
 
 	//Validate species forced mutant parts
 	for(var/forced_part in pref_species.forced_features)
@@ -562,7 +563,8 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	WRITE_FILE(S["feature_ipc_chassis"]			, features["ipc_chassis"])
 	WRITE_FILE(S["feature_insect_type"]			, features["insect_type"])
 	WRITE_FILE(S["feature_grod_crown"]			, features["grod_crown"])
-	//WRITE_FILE(S["feature_grod_marks"]			, features["grod_marks"])
+	WRITE_FILE(S["feature_grod_marks"]			, features["grod_marks"])
+	WRITE_FILE(S["feature_grod_tail"]			, features["grod_tail"])
 	//Custom names
 	for(var/custom_name_id in GLOB.preferences_custom_names)
 		var/savefile_slot_name = custom_name_id + "_name" //TODO remove this

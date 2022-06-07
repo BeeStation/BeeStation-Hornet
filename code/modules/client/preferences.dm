@@ -106,6 +106,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 							"insect_type" = "Common Fly",
 							"grod_crown" = "Crown",
 							"grod_marks" = "None",
+							"grod_tail" = "Regular",
 						)
 
 	var/list/custom_names = list()
@@ -560,6 +561,20 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				dat += "<h3>Grod Marks</h3>"
 
 				dat += "<a href='?_src_=prefs;preference=grod_marks;task=input'>[features["grod_marks"]]</a><BR>"
+				
+				dat += "<span style='border:1px solid #161616; background-color: #[hair_color];'>&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=hair_color;task=input'>Change</a><BR>"
+
+				mutant_category++
+				if(mutant_category >= MAX_MUTANT_ROWS)
+					dat += "</td>"
+					mutant_category = 0
+
+			if("grod_tail" in pref_species.default_features)
+				if(!mutant_category)
+					dat += APPEARANCE_CATEGORY_COLUMN
+				dat += "<h3>Grod Tail</h3>"
+
+				dat += "<a href='?_src_=prefs;preference=grod_tail;task=input'>[features["grod_tail"]]</a><BR>"
 
 				mutant_category++
 				if(mutant_category >= MAX_MUTANT_ROWS)
@@ -1675,6 +1690,12 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 					new_grod_marks = input(user, "Choose your character's markings:", "Character Preference") as null|anything in GLOB.grod_marks_list
 					if(new_grod_marks)
 						features["grod_marks"] = new_grod_marks
+
+				if("grod_tail")
+					var/new_grod_tail
+					new_grod_tail = input(user, "Choose your character's Tail:", "Character Preference") as null|anything in GLOB.grod_tails_list
+					if(new_grod_tail)
+						features["grod_tail"] = new_grod_tail
 
 				if("s_tone")
 					var/new_s_tone = input(user, "Choose your character's skin-tone:", "Character Preference")  as null|anything in GLOB.skin_tones

@@ -42,10 +42,10 @@ GLOBAL_LIST_EMPTY(ipc_antennas_list)
 GLOBAL_LIST_EMPTY(ipc_chassis_list)
 GLOBAL_LIST_EMPTY(insect_type_list)
 
-	//Grod bits
+//Grod bits
 GLOBAL_LIST_EMPTY(grod_crowns_list)
 GLOBAL_LIST_EMPTY(grod_marks_list)
-GLOBAL_LIST_EMPTY(grod_arms_list)
+GLOBAL_LIST_EMPTY(grod_tails_list)
 
 GLOBAL_LIST_INIT(color_list_ethereal, list(
 	"Red" = "ff3131",
