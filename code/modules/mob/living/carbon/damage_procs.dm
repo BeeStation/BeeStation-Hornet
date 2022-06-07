@@ -211,7 +211,7 @@
 		parts -= picked
 	if(updating_health)
 		updatehealth()
-		update_stamina(stamina > DAMAGE_PRECISION)
+		update_stamina(stamina >= DAMAGE_PRECISION)
 	if(update)
 		update_damage_overlays()
 
@@ -244,4 +244,4 @@
 		updatehealth()
 	if(update)
 		update_damage_overlays()
-	update_stamina(stamina > DAMAGE_PRECISION)
+	update_stamina(stamina >= DAMAGE_PRECISION)

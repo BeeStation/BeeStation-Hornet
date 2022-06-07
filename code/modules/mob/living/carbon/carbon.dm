@@ -503,7 +503,7 @@
 
 /mob/living/carbon/update_stamina(extend_stam_crit = FALSE)
 	var/stam = getStaminaLoss()
-	if(stam > DAMAGE_PRECISION && (maxHealth - stam) <= crit_threshold && !stat && !HAS_TRAIT(src, TRAIT_NOSTAMCRIT))
+	if(stam >= DAMAGE_PRECISION && (maxHealth - stam) <= crit_threshold && !stat && !HAS_TRAIT(src, TRAIT_NOSTAMCRIT))
 		if(extend_stam_crit || !stam_paralyzed)
 			enter_stamcrit()
 	else if(stam_paralyzed)
