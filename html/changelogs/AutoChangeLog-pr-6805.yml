@@ -1,0 +1,8 @@
+author: Rukofamicom
+delete-after: true
+changes:
+  - balance: Crusher hierophant trophy is now a homing projectile that can hit multiple
+      times instead of a cheesy wall that turns our mob AI into window-licking morons.
+  - tweak: 'Colossus now telegraphs its attacks three seconds in advance by shouting
+      one of five phrases: Judgment (Spiral or Double Spiral), Wrath (Ring), Retribution
+      (Shotgun) and Lament (Alternating 4).'
