@@ -195,8 +195,12 @@
 		var/change_y
 
 		if(L.absolute)
-			L.offset_x = -(posobj.x - SSparallax.planet_x_offset) * L.speed
-			L.offset_y = -(posobj.y - SSparallax.planet_y_offset) * L.speed
+			var/new_offset_x = -(posobj.x - SSparallax.planet_x_offset) * L.speed
+			var/new_offset_y = -(posobj.y - SSparallax.planet_y_offset) * L.speed
+			change_x = new_offset_x - L.offset_x
+			change_y = new_offset_y - L.offset_y
+			L.offset_x = new_offset_x
+			L.offset_y = new_offset_y
 		else
 			change_x = offset_x * L.speed
 			L.offset_x -= change_x
@@ -212,9 +216,9 @@
 			if(L.offset_y < -240)
 				L.offset_y += 480
 
-		if(!areaobj.parallax_movedir && (offset_x || offset_y))
+		if(L.smooth_movement && !areaobj.parallax_movedir && (offset_x || offset_y))
 			L.transform = matrix(1, 0, offset_x*L.speed, 0, 1, offset_y*L.speed)
-			animate(L, transform=matrix(), time = 2, flags = ANIMATION_PARALLEL)
+			animate(L, transform=matrix(), time = SSparallax.wait, flags = ANIMATION_PARALLEL)
 
 		L.screen_loc = "CENTER-7:[round(L.offset_x,1)],CENTER-7:[round(L.offset_y,1)]"
 
@@ -230,6 +234,7 @@
 	var/offset_y = 0
 	var/view_sized
 	var/absolute = FALSE
+	var/smooth_movement = FALSE
 	blend_mode = BLEND_ADD
 	plane = PLANE_SPACE_PARALLAX
 	screen_loc = "CENTER-7,CENTER-7"
@@ -292,6 +297,7 @@
 
 /atom/movable/screen/parallax_layer/random/asteroids
 	icon_state = "random_layer2"
+	smooth_movement = TRUE
 
 /atom/movable/screen/parallax_layer/planet
 	icon_state = "planet"
@@ -299,6 +305,7 @@
 	absolute = TRUE //Status of seperation
 	speed = 3
 	layer = 30
+	smooth_movement = TRUE
 
 /atom/movable/screen/parallax_layer/planet/update_status(mob/M)
 	var/turf/T = get_turf(M)

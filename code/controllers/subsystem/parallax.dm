@@ -47,6 +47,9 @@ SUBSYSTEM_DEF(parallax)
 		C?.parallax_update_queued = FALSE
 		//Do the parallax update (Move it to the correct location)
 		C?.mob?.hud_used?.update_parallax()
+		//Tick check to prevent overrunning
+		if(MC_TICK_CHECK)
+			return
 	//Processing is completed, clear the list
 	currentrun.Cut()
 
@@ -74,7 +77,8 @@ SUBSYSTEM_DEF(parallax)
 	//If we haven't updated yet, instantly update
 	if (updater?.last_parallax_update_tick < times_fired)
 		updater?.mob?.hud_used?.update_parallax()
-		updater?.last_parallax_update_tick = times_fired
+		//Don't allow an instant update on the next fire, to maintain 1 fire per tick max
+		updater?.last_parallax_update_tick = times_fired + 1
 		return
 	//Mark it as being queued
 	updater?.parallax_update_queued = TRUE
