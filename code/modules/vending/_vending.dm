@@ -1036,8 +1036,8 @@ GLOBAL_LIST_EMPTY(vending_products)
 		if(vending_machine_input[O] > 0)
 			var/base64
 			var/price = 0
-			for(var/obj/T in contents)
-				if(T.name == O)
+			for(var/obj/item/T in contents)
+				if(format_text(T.name) == O)
 					price = T.custom_price
 					if(!base64)
 						if(base64_cache[T.type])
@@ -1049,8 +1049,11 @@ GLOBAL_LIST_EMPTY(vending_products)
 			var/list/data = list(
 				name = O,
 				price = price,
-				img = base64
+				img = base64,
+				amount = vending_machine_input[O],
+				colorable = FALSE
 			)
+			.["stock"][O] = data
 			.["vending_machine_input"] += list(data)
 
 /obj/machinery/vending/custom/ui_act(action, params)
