@@ -1,0 +1,6 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - bugfix: Taking the minimum amount of stamina damage will now properly heal.
+  - bugfix: Fixes a few miscalculations of minimum damage, meaning that 0.1 damage
+      should properly update the health hud and display on examine.
