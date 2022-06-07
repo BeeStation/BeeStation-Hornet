@@ -1,5 +1,0 @@
-author: DoctorSquishy
-delete-after: true
-changes:
-  - tweak: Tweaked SRN Launcher to have 3 shots
-  - refactor: Refactored SRN Launcher to one file
