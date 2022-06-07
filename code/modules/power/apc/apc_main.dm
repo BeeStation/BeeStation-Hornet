@@ -580,6 +580,20 @@
 			GLOB.clockcult_power += power_delta
 			cell.charge -= power_delta
 
+		/// Sounds for power off and on stages in APCs
+		if(ISINRANGE(cell.percent(), 14, 16) && charging == APC_NOT_CHARGING && apc_sound_stage != 1)
+			playsound(src, 'monkestation/sound/machines/apc/PowerSwitch_Place.ogg', 20, 1)
+			apc_sound_stage = 1
+		if(ISINRANGE(cell.percent(), 29, 31) && charging == APC_NOT_CHARGING && apc_sound_stage != 2)
+			playsound(src, 'monkestation/sound/machines/apc/PowerSwitch_Off.ogg', 10, 1)
+			apc_sound_stage = 2
+		if(ISINRANGE(cell.percent(), 1, 3) && charging == APC_NOT_CHARGING  && apc_sound_stage != 3)
+			playsound(src, 'monkestation/sound/machines/apc/PowerDown_001.ogg', 10, 1)
+			apc_sound_stage = 3
+		if(ISINRANGE(cell.percent(), 1, 3) && charging == APC_CHARGING && apc_sound_stage != 4)
+			playsound(src, 'monkestation/sound/machines/apc/PowerUp_001.ogg', 10, 1)
+			apc_sound_stage = 4
+
 	else // no cell, switch everything off
 
 		charging = APC_NOT_CHARGING
@@ -597,19 +611,7 @@
 	else if (last_ch != charging)
 		queue_icon_update()
 
-	/// Sounds for power off and on stages in APCs
-	if(ISINRANGE(cell.percent(), 14, 16) && charging == APC_NOT_CHARGING && apc_sound_stage != 1)
-		playsound(src, 'monkestation/sound/machines/apc/PowerSwitch_Place.ogg', 20, 1)
-		apc_sound_stage = 1
-	if(ISINRANGE(cell.percent(), 29, 31) && charging == APC_NOT_CHARGING && apc_sound_stage != 2)
-		playsound(src, 'monkestation/sound/machines/apc/PowerSwitch_Off.ogg', 10, 1)
-		apc_sound_stage = 2
-	if(ISINRANGE(cell.percent(), 1, 3) && charging == APC_NOT_CHARGING  && apc_sound_stage != 3)
-		playsound(src, 'monkestation/sound/machines/apc/PowerDown_001.ogg', 10, 1)
-		apc_sound_stage = 3
-	if(ISINRANGE(cell.percent(), 1, 3) && charging == APC_CHARGING && apc_sound_stage != 4)
-		playsound(src, 'monkestation/sound/machines/apc/PowerUp_001.ogg', 10, 1)
-		apc_sound_stage = 4
+
 
 
 /*Power module, used for APC construction*/
