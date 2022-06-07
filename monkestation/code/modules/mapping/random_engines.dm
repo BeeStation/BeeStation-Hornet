@@ -61,3 +61,13 @@
 	template_width = 32
 	weight = 2
 	station_name = "MetaStation"
+
+/datum/map_template/random_engines/meta_rbmk_reactor
+	name = "Meta RBMK Reactor"
+	room_id = "meta_rbmk_reactor"
+	mappath = "monkestation/_maps/RandomEngines/MetaStation/rbmk_reactor.dmm"
+	centerspawner = FALSE
+	template_height = 26
+	template_width = 32
+	weight = 4
+	station_name = "MetaStation"

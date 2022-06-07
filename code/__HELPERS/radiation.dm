@@ -29,7 +29,10 @@
 /proc/radiation_pulse(atom/source, intensity, range_modifier, log=FALSE, can_contaminate=TRUE)
 	if(!SSradiation.can_fire)
 		return
-	
+
+	if(istype(get_turf(source), /turf/open/indestructible/sound/pool)) ///Monkestation Edit - Pools heavily block rads. Spent fuel pool!
+		intensity *= 0.10
+
 	var/list/things = get_rad_contents(isturf(source) ? source : get_turf(source)) //copypasta because I don't want to put special code in waves to handle their origin
 	for(var/k in 1 to things.len)
 		var/atom/thing = things[k]
@@ -47,5 +50,5 @@
 		if(log)
 			var/turf/_source_T = isturf(source) ? source : get_turf(source)
 			log_game("Radiation pulse with intensity: [intensity] and range modifier: [range_modifier] in [loc_name(_source_T)] ")
-	
+
 	return TRUE

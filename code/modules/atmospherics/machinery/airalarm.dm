@@ -101,7 +101,8 @@
 		GAS_TRITIUM			= new/datum/tlv/dangerous,
 		GAS_STIMULUM			= new/datum/tlv/dangerous,
 		GAS_NITRYL			= new/datum/tlv/dangerous,
-		GAS_PLUOXIUM			= new/datum/tlv(-1, -1, 5, 6), // Unlike oxygen, pluoxium does not fuel plasma/tritium fires
+		GAS_PLUOXIUM			= new/datum/tlv(-1, -1, 5, 6),	// Unlike oxygen, pluoxium does not fuel plasma/tritium fires
+		GAS_NUCLEIUM			= new/datum/tlv/dangerous,	//Waste Gas from NSV Nuclear Reactor	//Monkestation Edit
 	)
 
 /obj/machinery/airalarm/server // No checks here.
@@ -120,7 +121,8 @@
 		GAS_TRITIUM			= new/datum/tlv/no_checks,
 		GAS_STIMULUM			= new/datum/tlv/no_checks,
 		GAS_NITRYL			= new/datum/tlv/no_checks,
-		GAS_PLUOXIUM			= new/datum/tlv/no_checks
+		GAS_PLUOXIUM			= new/datum/tlv/no_checks,
+		GAS_NUCLEIUM			= new/datum/tlv/no_checks,	//Waste Gas from NSV Nuclear Reactor	//Monkestation Edit
 	)
 
 /obj/machinery/airalarm/kitchen_cold_room // Kitchen cold rooms start off at -20°C or 253.15°K.
@@ -139,7 +141,8 @@
 		GAS_TRITIUM			= new/datum/tlv/dangerous,
 		GAS_STIMULUM			= new/datum/tlv/dangerous,
 		GAS_NITRYL			= new/datum/tlv/dangerous,
-		GAS_PLUOXIUM			= new/datum/tlv(-1, -1, 1000, 1000) // Unlike oxygen, pluoxium does not fuel plasma/tritium fires
+		GAS_PLUOXIUM			= new/datum/tlv(-1, -1, 1000, 1000), // Unlike oxygen, pluoxium does not fuel plasma/tritium fires
+		GAS_NUCLEIUM			= new/datum/tlv/dangerous, //Waste Gas from NSV Nuclear Reactor	//Monkestation Edit
 	)
 
 /obj/machinery/airalarm/unlocked
@@ -537,7 +540,8 @@
 						GAS_TRITIUM,
 						GAS_BZ,
 						GAS_STIMULUM,
-						GAS_PLUOXIUM
+						GAS_PLUOXIUM,
+						GAS_NUCLEIUM	//Waste Gas from NSV Nuclear Reactor	//Monkestation Edit
 					),
 					"scrubbing" = 1,
 					"widenet" = 1

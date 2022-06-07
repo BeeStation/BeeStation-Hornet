@@ -54,7 +54,8 @@
 		"stimulum" = /obj/machinery/portable_atmospherics/canister/stimulum,
 		"pluoxium" = /obj/machinery/portable_atmospherics/canister/pluoxium,
 		"caution" = /obj/machinery/portable_atmospherics/canister,
-		"miasma" = /obj/machinery/portable_atmospherics/canister/miasma
+		"miasma" = /obj/machinery/portable_atmospherics/canister/miasma,
+		"nucleium" = /obj/machinery/portable_atmospherics/canister/nucleium
 	)
 
 /obj/machinery/portable_atmospherics/canister/interact(mob/user)
@@ -154,6 +155,13 @@
 	gas_type = GAS_TRITIUM
 	greyscale_config = /datum/greyscale_config/canister/hazard
 	greyscale_colors = "#3fcd40#000000"
+
+/obj/machinery/portable_atmospherics/canister/nucleium
+	name = "nucleium canister"
+	desc = "Nucleium. Inhalation might cause irradiation."
+	gas_type = GAS_NUCLEIUM
+	greyscale_config = /datum/greyscale_config/canister/hazard
+	greyscale_colors = "#00b1a2#000000"
 
 /obj/machinery/portable_atmospherics/canister/water_vapor
 	name = "water vapor canister"

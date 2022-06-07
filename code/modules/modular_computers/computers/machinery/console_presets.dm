@@ -36,6 +36,7 @@
 	hard_drive.store_file(new/datum/computer_file/program/power_monitor())
 	hard_drive.store_file(new/datum/computer_file/program/alarm_monitor())
 	hard_drive.store_file(new/datum/computer_file/program/supermatter_monitor())
+	hard_drive.store_file(new/datum/computer_file/program/nuclear_monitor()) //Monkestation -- Nuclear program
 
 // ===== RESEARCH CONSOLE =====
 /obj/machinery/modular_computer/console/preset/research

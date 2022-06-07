@@ -210,8 +210,11 @@
 
 	// This is the power generation function. If anything is needed it's good to plot it in EXCEL before modifying
 	// the TURBGENQ and TURBGENG values
-
-	lastgen = ((compressor.rpm / TURBGENQ)**TURBGENG) * TURBGENQ * productivity
+	if(compressor.gas_contained.get_gases(GAS_NUCLEIUM)) // Helps make power with the Reactor output //MonkeStation Edit
+		var/reactor_modifier = clamp(((compressor.gas_contained.get_moles(GAS_NUCLEIUM)) * 1000), 1, 5)
+		lastgen = ((compressor.rpm / TURBGENQ)**TURBGENG) * TURBGENQ * productivity * reactor_modifier
+	else
+		lastgen = ((compressor.rpm / TURBGENQ)**TURBGENG) * TURBGENQ * productivity
 
 	add_avail(lastgen)
 

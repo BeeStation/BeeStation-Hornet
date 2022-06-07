@@ -8,8 +8,8 @@ export const AtmosFilter = (props, context) => {
   const filterTypes = data.filter_types || [];
   return (
     <Window
-      width={390}
-      height={187}>
+      width={400}
+      height={200}>
       <Window.Content>
         <Section>
           <LabeledList>

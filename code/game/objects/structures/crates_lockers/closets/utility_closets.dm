@@ -139,10 +139,7 @@
 	new /obj/item/geiger_counter(src)
 	new /obj/item/clothing/suit/radiation(src)
 	new /obj/item/clothing/head/radiation(src)
-	if(prob(50))
-		new /obj/item/storage/firstaid/radbgone(src)
-	else
-		new /obj/item/storage/pill_bottle/antirad(src)
+	new /obj/item/storage/pill_bottle/antirad(src)
 
 /*
  * Bombsuit closet

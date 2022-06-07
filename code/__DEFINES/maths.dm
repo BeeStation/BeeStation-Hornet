@@ -240,3 +240,14 @@
 /// Gives the number of pixels in an orthogonal line of tiles.
 #define TILES_TO_PIXELS(tiles)			(tiles * PIXELS)
 // )
+
+/// Temperature Maths
+#define KELVIN_TO_CELSIUS(A) (A-273.15)
+#define CELSIUS_TO_KELVIN(T_K) ((T_K) + T0C)
+
+/// Watts
+#define MEGAWATTS /1e+6
+
+/// Pressure Maths
+#define KPA_TO_PSI(A) (A/6.895)
+#define PSI_TO_KPA(A) (A*6.895)

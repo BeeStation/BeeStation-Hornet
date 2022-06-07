@@ -276,6 +276,8 @@
 #define GAS_STIMULUM			"stim"
 #define GAS_PLUOXIUM			"pluox"
 #define GAS_MIASMA				"miasma"
+//NUCLEIUM added. Waste Gas from RBMK Nuclear Reactor	//Monkestation Edit
+#define GAS_NUCLEIUM			"nucleium"
 
 #define GAS_FLAG_DANGEROUS		(1<<0)
 #define GAS_FLAG_BREATH_PROC	(1<<1)

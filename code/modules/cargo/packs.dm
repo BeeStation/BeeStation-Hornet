@@ -227,6 +227,7 @@
 					/obj/item/clothing/head/radiation,
 					/obj/item/clothing/suit/radiation,
 					/obj/item/clothing/suit/radiation,
+					/obj/item/storage/firstaid/radbgone = 3, //Added radbgone kits //Monkestation Edit
 					/obj/item/geiger_counter,
 					/obj/item/geiger_counter,
 					/obj/item/reagent_containers/food/drinks/bottle/vodka,
