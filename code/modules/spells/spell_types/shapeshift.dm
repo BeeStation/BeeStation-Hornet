@@ -149,6 +149,8 @@
 		restore()
 
 /obj/shapeshift_holder/proc/restore(death=FALSE)
+	if(!stored) //somehow this proc is getting called twice and it runtimes on the second pass because stored has been hit with qdel()
+		return FALSE
 	restoring = TRUE
 	qdel(slink)
 	stored.forceMove(get_turf(src))
@@ -158,12 +160,14 @@
 	if(death)
 		stored.death()
 	else if(source.convert_damage)
+		var/original_blood_volume = stored.blood_volume
 		stored.revive(full_heal = TRUE)
 
 		var/damage_percent = (shape.maxHealth - shape.health)/shape.maxHealth;
 		var/damapply = stored.maxHealth * damage_percent
 
 		stored.apply_damage(damapply, source.convert_damage_type, forced = TRUE)
+		stored.blood_volume = original_blood_volume
 	qdel(shape)
 	qdel(src)
 
