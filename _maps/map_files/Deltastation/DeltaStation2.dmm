@@ -1689,6 +1689,9 @@
 /obj/effect/turf_decal/tile/green{
 	dir = 1
 	},
+/obj/structure/sign/warning/deathsposal{
+	pixel_y = 31
+	},
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
 "aeR" = (
@@ -98927,16 +98930,6 @@
 /obj/machinery/power/apc/auto_name/west,
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
-"pMl" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 6
-	},
-/obj/structure/grille,
-/turf/closed/wall/r_wall,
-/area/space/nearstation)
 "pMC" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -117990,14 +117983,6 @@
 /obj/machinery/firealarm/directional/west,
 /turf/open/floor/plasteel,
 /area/hallway/secondary/entry)
-"xXl" = (
-/obj/effect/turf_decal/stripes/line,
-/obj/machinery/atmospherics/components/unary/outlet_injector/on/layer4{
-	dir = 1
-	},
-/obj/structure/lattice,
-/turf/open/space/basic,
-/area/space/nearstation)
 "xXn" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on,
 /turf/open/floor/engine/vacuum,
@@ -166663,8 +166648,8 @@ maQ
 rDi
 dNS
 qYo
-pMl
-xXl
+ajr
+qYo
 qYo
 qYo
 qYo
