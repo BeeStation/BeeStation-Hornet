@@ -58,6 +58,17 @@
 	desc = "A rusted metal wall."
 	//icon = 'icons/turf/walls/rusty_wall.dmi' //MONKESTATION EDIT - RUST NOW AN OVERLAU
 	hardness = 45
+	//SDMM supports colors, this is simply for easier mapping
+	//and should be removed on initialize
+	color = COLOR_ORANGE
+
+/turf/closed/wall/rust/Initialize(mapload)
+	. = ..()
+	color = null
+
+/turf/closed/wall/rust/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/rust)
 
 /turf/closed/wall/rust/rust_heretic_act()
 	if(prob(70))
@@ -69,6 +80,17 @@
 	desc = "A huge chunk of rusted reinforced metal."
 	//icon = 'icons/turf/walls/rusty_reinforced_wall.dmi' //MONKESTATION EDIT - RUST NOW AN OVERLAU
 	hardness = 15
+	//SDMM supports colors, this is simply for easier mapping
+	//and should be removed on initialize
+	color = COLOR_ORANGE
+
+/turf/closed/wall/r_wall/rust/Initialize(mapload)
+	. = ..()
+	color = null
+
+/turf/closed/wall/r_wall/rust/ComponentInitialize()
+	. = ..()
+	AddElement(/datum/element/rust)
 
 /turf/closed/wall/r_wall/rust/rust_heretic_act()
 	if(prob(50))

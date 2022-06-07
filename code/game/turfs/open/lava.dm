@@ -70,6 +70,9 @@
 			return TRUE
 	return FALSE
 
+/turf/open/lava/rust_heretic_act()
+	return FALSE
+
 /turf/open/lava/singularity_act()
 	return
 

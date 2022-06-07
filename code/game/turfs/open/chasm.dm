@@ -28,6 +28,9 @@
 /turf/open/chasm/MakeDry()
 	return
 
+/turf/open/chasm/rust_heretic_act()
+	return FALSE
+
 /turf/open/chasm/rcd_vals(mob/user, obj/item/construction/rcd/the_rcd)
 	switch(the_rcd.mode)
 		if(RCD_FLOORWALL)
