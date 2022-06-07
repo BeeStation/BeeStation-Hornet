@@ -74,6 +74,7 @@
 #define ADMIN_PUNISHMENT_TOE "Stub Toe (Once)"
 #define ADMIN_PUNISHMENT_TOEPLUS "Stub Toe (Always)"
 #define ADMIN_PUNISHMENT_WEREGORILLA "Weregorilla" //Monkestation edit: weregorilla
+#define ADMIN_PUNISHMENT_BREAD "Bread" //MONKESTATION ADDITION
 
 #define AHELP_UNCLAIMED 1
 #define AHELP_ACTIVE 2

@@ -1072,7 +1072,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(!check_rights(R_ADMIN) || !check_rights(R_FUN))
 		return
 
-	var/list/punishment_list = list(ADMIN_PUNISHMENT_LIGHTNING, ADMIN_PUNISHMENT_BRAINDAMAGE, ADMIN_PUNISHMENT_GIB, ADMIN_PUNISHMENT_BSA, ADMIN_PUNISHMENT_FIREBALL, ADMIN_PUNISHMENT_ROD, ADMIN_PUNISHMENT_SUPPLYPOD_QUICK, ADMIN_PUNISHMENT_SUPPLYPOD, ADMIN_PUNISHMENT_MAZING, ADMIN_PUNISHMENT_FLOORCLUWNE, ADMIN_PUNISHMENT_CLUWNE, ADMIN_PUNISHMENT_IMMERSE, ADMIN_PUNISHMENT_GHOST, ADMIN_PUNISHMENT_DEMOCRACY, ADMIN_PUNISHMENT_ANARCHY, ADMIN_PUNISHMENT_TOE, ADMIN_PUNISHMENT_TOEPLUS, ADMIN_PUNISHMENT_WEREGORILLA) //Monkestation edit: weregorilla
+	var/list/punishment_list = list(ADMIN_PUNISHMENT_LIGHTNING, ADMIN_PUNISHMENT_BRAINDAMAGE, ADMIN_PUNISHMENT_GIB, ADMIN_PUNISHMENT_BSA, ADMIN_PUNISHMENT_FIREBALL, ADMIN_PUNISHMENT_ROD, ADMIN_PUNISHMENT_SUPPLYPOD_QUICK, ADMIN_PUNISHMENT_SUPPLYPOD, ADMIN_PUNISHMENT_MAZING, ADMIN_PUNISHMENT_FLOORCLUWNE, ADMIN_PUNISHMENT_CLUWNE, ADMIN_PUNISHMENT_IMMERSE, ADMIN_PUNISHMENT_GHOST, ADMIN_PUNISHMENT_DEMOCRACY, ADMIN_PUNISHMENT_ANARCHY, ADMIN_PUNISHMENT_TOE, ADMIN_PUNISHMENT_TOEPLUS, ADMIN_PUNISHMENT_WEREGORILLA, ADMIN_PUNISHMENT_BREAD) //Monkestation edit: weregorilla
 	if(istype(target, /mob/living/carbon))
 		punishment_list += ADMIN_PUNISHMENT_NUGGET
 	var/punishment = input("Choose a punishment", "DIVINE SMITING") as null|anything in sortList(punishment_list)
@@ -1205,9 +1205,19 @@ Traitors and the like can also be revived with the previous role mostly intact.
 				target.AddSpell(new /obj/effect/proc_holder/spell/targeted/shapeshift/weregorilla)
 			playsound(target, 'sound/creatures/gorilla.ogg', 50)
 		//monkestation edit end: weregorilla
-
+		//MONKESTATION ADDITION
+		if(ADMIN_PUNISHMENT_BREAD)
+			var/mutable_appearance/bread_appearance = mutable_appearance('icons/obj/food/burgerbread.dmi',"bread")
+			var/mutable_appearance/transform_scanline = mutable_appearance('monkestation/icons/effects/effects.dmi',"transform_effect")
+			target.transformation_animation(bread_appearance,time= 5 SECONDS,transform_overlay=transform_scanline,reset_after=TRUE)
+			addtimer(CALLBACK(GLOBAL_PROC, .proc/breadify, target), 5 SECONDS)
+		//MONKESTATION ADDITION END
 	punish_log(target, punishment)
-
+//MONKESTATION ADDITION
+/proc/breadify(atom/movable/target)
+	var/obj/item/reagent_containers/food/snacks/store/bread/plain/bread = new(get_turf(target))
+	target.forceMove(bread)
+//MONKESTATION ADDITION END
 /client/proc/punish_log(var/whom, var/punishment)
 	var/msg = "[key_name_admin(usr)] punished [key_name_admin(whom)] with [punishment]."
 	message_admins(msg)
