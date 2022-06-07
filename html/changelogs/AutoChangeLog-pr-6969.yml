@@ -1,0 +1,9 @@
+author: Rukofamicom
+delete-after: true
+changes:
+  - tweak: disarm intent cooldown has been reverted
+  - tweak: wallshoves immobilize for half the knockdown duration - less crawling around
+  - tweak: There is now a very brief stun when disarming a knocked down person again.
+      The stun can not be chained back to back consistently.
+  - tweak: Tableshoves now produce a stun instead of just a knockdown.
+  - balance: Wallshoves are slightly better again.
