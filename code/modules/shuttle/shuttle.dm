@@ -735,14 +735,12 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 		shuttle_area.parallax_movedir = FALSE
 	if(assigned_transit && assigned_transit.assigned_area)
 		assigned_transit.assigned_area.parallax_movedir = FALSE
-	var/list/L0 = return_ordered_turfs(x, y, z, dir)
-	for (var/thing in L0)
-		var/turf/T = thing
-		if(!T || !istype(T.loc, area_type))
+	for (var/client/C in SSmobs.clients_by_zlevel[z])
+		var/area/A = get_area(C?.eye)
+		if(!A)
 			continue
-		for (var/atom/movable/movable as anything in T)
-			if (length(movable.client_mobs_in_contents))
-				movable.update_parallax_contents()
+		if(A in shuttle_areas)
+			SSparallax.update_client_parallax(C)
 
 /obj/docking_port/mobile/proc/check_transit_zone()
 	if(assigned_transit)

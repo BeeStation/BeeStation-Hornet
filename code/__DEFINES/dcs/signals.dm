@@ -455,6 +455,9 @@
 // /datum/component/clockwork_trap signals
 #define COMSIG_CLOCKWORK_SIGNAL_RECEIVED "clock_received"			//! When anything the trap is attatched to is triggered
 
+//Movement relay signals
+#define COMSIG_PARENT_MOVED_RELAY "parent_moved_relay"				//! When an atom's loc moves (Requires moved_relay component to be triggered) (atom/mover, atom/oldLoc)
+
 //Xenobio hotkeys
 #define COMSIG_XENO_SLIME_CLICK_CTRL "xeno_slime_click_ctrl"				//! from slime CtrlClickOn(): (/mob)
 #define COMSIG_XENO_SLIME_CLICK_ALT "xeno_slime_click_alt"					//! from slime AltClickOn(): (/mob)

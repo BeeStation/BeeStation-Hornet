@@ -2,7 +2,6 @@
 /client
 	var/list/parallax_layers
 	var/list/parallax_layers_cached
-	var/atom/movable/movingmob
 	var/turf/previous_turf
 	var/dont_animate_parallax //world.time of when we can state animate()ing parallax again
 	var/last_parallax_shift //world.time of last update
@@ -233,12 +232,6 @@
 			animate(L, transform=matrix(), time = last_delay)
 
 		L.screen_loc = "CENTER-7:[round(L.offset_x,1)],CENTER-7:[round(L.offset_y,1)]"
-
-/atom/movable/proc/update_parallax_contents()
-	if(length(client_mobs_in_contents))
-		for(var/mob/client_mob as anything in client_mobs_in_contents)
-			if(length(client_mob?.client?.parallax_layers) && client_mob.hud_used)
-				client_mob.hud_used.update_parallax()
 
 /mob/proc/update_parallax_teleport()	//used for arrivals shuttle
 	if(client && client.eye && hud_used && length(client.parallax_layers))

@@ -84,7 +84,6 @@
 		if(ai.client && !ai.multicam_on)
 			ai.client.eye = src
 		update_ai_detect_hud()
-		update_parallax_contents()
 		//Holopad
 		if(istype(ai.current, /obj/machinery/holopad))
 			var/obj/machinery/holopad/H = ai.current

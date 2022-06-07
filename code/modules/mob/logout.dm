@@ -4,7 +4,6 @@
 	SStgui.on_logout(src)
 	unset_machine()
 	remove_from_player_list()
-	clear_client_in_contents()
 	..()
 
 	if(loc)
@@ -14,5 +13,8 @@
 		for(var/foo in client.player_details.post_logout_callbacks)
 			var/datum/callback/CB = foo
 			CB.Invoke()
+
+	var/datum/component/move_relay = GetComponent(/datum/component/moved_relay)
+	move_relay.RemoveComponent()
 
 	return TRUE

@@ -4,7 +4,9 @@ SUBSYSTEM_DEF(parallax)
 	flags = SS_POST_FIRE_TIMING | SS_BACKGROUND
 	priority = FIRE_PRIORITY_PARALLAX
 	runlevels = RUNLEVEL_LOBBY | RUNLEVELS_DEFAULT
+	var/current_run_pointer = 1
 	var/list/currentrun
+	var/list/queued = list()
 	var/planet_x_offset = 128
 	var/planet_y_offset = 128
 	var/random_layer
@@ -19,32 +21,53 @@ SUBSYSTEM_DEF(parallax)
 	planet_y_offset = rand(100, 160)
 	planet_x_offset = rand(100, 160)
 
+/datum/controller/subsystem/parallax/Initialize(start_timeofday)
+	. = ..()
+	RegisterSignal(SSdcs, COMSIG_GLOB_MOB_LOGGED_IN, .proc/on_mob_login)
+
 /datum/controller/subsystem/parallax/fire(resumed = 0)
-	if (!resumed)
-		src.currentrun = GLOB.clients.Copy()
-
-	//cache for sanic speed (lists are references anyways)
-	var/list/currentrun = src.currentrun
-
-	while(length(currentrun))
-		var/client/C = currentrun[currentrun.len]
-		currentrun.len--
-		if (!C || !C.eye)
-			if (MC_TICK_CHECK)
-				return
-			continue
-		var/atom/movable/A = C.eye
-		if(!istype(A))
-			continue
-		for (A; isloc(A.loc) && !isturf(A.loc); A = A.loc);
-
-		if(A != C.movingmob)
-			if(C.movingmob != null)
-				C.movingmob.client_mobs_in_contents -= C.mob
-				UNSETEMPTY(C.movingmob.client_mobs_in_contents)
-			LAZYINITLIST(A.client_mobs_in_contents)
-			A.client_mobs_in_contents += C.mob
-			C.movingmob = A
-		if (MC_TICK_CHECK)
+	//Swap the 2 lists
+	if(!length(currentrun))
+		//Nothing to process here
+		if(!length(queued))
 			return
-	currentrun = null
+		var/temp = currentrun
+		currentrun = queued
+		queued = temp
+		current_run_pointer = 1
+	//Begin processing the processing queue
+	while(current_run_pointer <= length(currentrun))
+		//Use a pointer, less wasted processing than removing from the list
+		var/client/C = currentrun[current_run_pointer]
+		//Increment the current list pointer, so we process the next element
+		current_run_pointer ++
+		//No client (Disconnected)
+		if(!C)
+			continue
+		//Do the parallax update (Move it to the correct location)
+		C?.mob?.hud_used?.update_parallax()
+	//Processing is completed, clear the list
+	currentrun.Cut()
+
+/datum/controller/subsystem/parallax/proc/on_mob_login(datum/source, mob/new_login)
+	//Register the required signals
+	RegisterSignal(new_login, COMSIG_PARENT_MOVED_RELAY, .proc/on_mob_moved)
+	RegisterSignal(new_login, COMSIG_MOB_LOGOUT, .proc/on_mob_logout)
+
+/datum/controller/subsystem/parallax/proc/on_mob_logout(mob/source)
+	UnregisterSignal(source, COMSIG_PARENT_MOVED_RELAY)
+	UnregisterSignal(source, COMSIG_MOB_LOGOUT)
+
+/datum/controller/subsystem/parallax/proc/on_mob_moved(mob/moving_mob, atom/parent, force)
+
+//We need a client var for optimisation purposes
+/client
+	var/parallax_update_queued = FALSE
+
+/datum/controller/subsystem/parallax/proc/update_client_parallax(client/updater)
+	//Already queued for update
+	if(!updater || updater?.parallax_update_queued)
+		return
+	//Mark it as being queued
+	updater?.parallax_update_queued = TRUE
+	queued += updater
