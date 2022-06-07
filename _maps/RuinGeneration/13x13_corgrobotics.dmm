@@ -82,21 +82,10 @@
 /turf/open/floor/plasteel/dark,
 /area/ruin/unpowered)
 "j" = (
-/obj/machinery/door/firedoor/border_only{
-	dir = 8
-	},
-/obj/machinery/door/firedoor/border_only{
+/obj/effect/turf_decal/tile/neutral/tile_side{
 	dir = 4
 	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/effect/mapping_helpers/airlock/abandoned,
-/obj/machinery/door/airlock/hatch,
-/turf/open/floor/plating,
+/turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "l" = (
 /obj/effect/spawner/lootdrop/glowstick/lit,
@@ -150,7 +139,7 @@
 /area/ruin/unpowered)
 "r" = (
 /obj/effect/mapping_helpers/airlock/abandoned,
-/obj/machinery/door/airlock/hatch,
+/obj/machinery/door/airlock/maintenance_hatch,
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "s" = (
@@ -208,6 +197,10 @@
 /area/ruin/unpowered)
 "A" = (
 /turf/closed/wall,
+/area/ruin/unpowered)
+"B" = (
+/obj/effect/turf_decal/tile/neutral/tile_marquee,
+/turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "C" = (
 /obj/effect/turf_decal/stripes/line{
@@ -370,10 +363,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/machinery/door/firedoor/border_only,
-/obj/machinery/door/firedoor/border_only{
-	dir = 1
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/plasteel/dark,
 /area/ruin/unpowered)
 "Y" = (
@@ -414,7 +404,7 @@ Y
 W
 s
 A
-x
+j
 w
 x
 "}
@@ -429,8 +419,8 @@ h
 m
 Z
 A
-x
-x
+j
+B
 c
 "}
 (4,1,1) = {"
@@ -444,7 +434,7 @@ D
 P
 S
 A
-x
+j
 x
 x
 "}
@@ -540,7 +530,7 @@ G
 "}
 (11,1,1) = {"
 A
-j
+r
 A
 z
 z

@@ -18,9 +18,13 @@
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "A" = (
-/turf/open/space/basic,
+/turf/template_noop/open,
 /area/ruin/unpowered)
 "G" = (
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"O" = (
+/obj/effect/turf_decal/tile/neutral/tile_marquee,
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "Q" = (
@@ -28,7 +32,7 @@
 /area/ruin/unpowered)
 "W" = (
 /obj/structure/lattice,
-/turf/open/space/basic,
+/turf/template_noop/open,
 /area/ruin/unpowered)
 "Z" = (
 /turf/open/floor/plating,
@@ -58,7 +62,7 @@ A
 (4,1,1) = {"
 Q
 G
-G
+O
 Z
 A
 "}

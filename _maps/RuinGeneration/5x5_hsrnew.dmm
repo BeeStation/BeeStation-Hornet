@@ -2,6 +2,10 @@
 "k" = (
 /turf/closed/wall,
 /area/ruin/unpowered)
+"C" = (
+/obj/effect/turf_decal/tile/neutral/tile_marquee,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
 "E" = (
 /obj/effect/abstract/doorway_marker{
 	dir = 4
@@ -45,8 +49,8 @@ U
 (3,1,1) = {"
 P
 U
-U
-U
+C
+C
 W
 "}
 (4,1,1) = {"

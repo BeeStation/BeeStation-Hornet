@@ -11,6 +11,10 @@
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
+"B" = (
+/obj/effect/turf_decal/tile/neutral/tile_marquee,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
 "C" = (
 /turf/closed/wall,
 /area/ruin/unpowered)
@@ -34,21 +38,21 @@ C
 (2,1,1) = {"
 C
 K
-K
+B
 K
 C
 "}
 (3,1,1) = {"
 T
 K
-K
+B
 K
 C
 "}
 (4,1,1) = {"
 C
 K
-K
+B
 K
 C
 "}

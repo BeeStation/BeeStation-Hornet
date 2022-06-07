@@ -1,11 +1,10 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "i" = (
-/obj/structure/closet/emcloset,
-/turf/open/floor/plating,
+/turf/template_noop/open,
 /area/ruin/unpowered)
 "t" = (
 /obj/structure/lattice,
-/turf/open/space/basic,
+/turf/template_noop/open,
 /area/ruin/unpowered)
 "u" = (
 /obj/effect/abstract/open_area_marker{
@@ -14,7 +13,8 @@
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "v" = (
-/turf/open/space/basic,
+/obj/item/chair/stool,
+/turf/template_noop/open,
 /area/ruin/unpowered)
 "A" = (
 /obj/effect/abstract/doorway_marker{
@@ -44,25 +44,25 @@ G
 I
 X
 t
-v
+i
 "}
 (3,1,1) = {"
 A
 X
 v
-v
+i
 G
 "}
 (4,1,1) = {"
 G
 t
 t
-i
+X
 G
 "}
 (5,1,1) = {"
-v
-v
+i
+i
 G
 G
 G

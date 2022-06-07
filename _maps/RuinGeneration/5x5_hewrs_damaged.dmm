@@ -20,10 +20,10 @@
 /area/ruin/unpowered)
 "w" = (
 /obj/structure/lattice,
-/turf/open/space/basic,
+/turf/template_noop/open,
 /area/ruin/unpowered)
 "F" = (
-/turf/open/space/basic,
+/turf/template_noop/open,
 /area/ruin/unpowered)
 "L" = (
 /obj/effect/abstract/open_area_marker{

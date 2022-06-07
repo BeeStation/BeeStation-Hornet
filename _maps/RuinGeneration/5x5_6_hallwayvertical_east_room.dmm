@@ -17,6 +17,10 @@
 "Q" = (
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
+"T" = (
+/obj/effect/turf_decal/tile/neutral/tile_marquee,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
 "V" = (
 /obj/effect/abstract/open_area_marker,
 /turf/open/floor/plasteel,
@@ -38,9 +42,9 @@ Q
 "}
 (3,1,1) = {"
 M
-Q
-Q
-Q
+T
+T
+T
 V
 "}
 (4,1,1) = {"

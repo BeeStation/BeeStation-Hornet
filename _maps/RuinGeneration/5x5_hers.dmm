@@ -12,15 +12,28 @@
 /turf/closed/wall,
 /area/ruin/unpowered)
 "v" = (
-/obj/structure/closet/emcloset,
+/obj/effect/turf_decal/tile/neutral/tile_side{
+	dir = 1
+	},
+/obj/structure/reagent_dispensers/water_cooler,
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "w" = (
 /obj/structure/closet/firecloset,
+/obj/effect/turf_decal/tile/neutral/tile_side{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"x" = (
+/obj/effect/turf_decal/tile/neutral/tile_marquee,
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "A" = (
-/obj/item/twohanded/required/kirbyplants/random,
+/obj/effect/turf_decal/tile/neutral/tile_side{
+	dir = 1
+	},
+/obj/structure/closet/emcloset,
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "W" = (
@@ -52,7 +65,7 @@ W
 (4,1,1) = {"
 r
 o
-o
+x
 o
 r
 "}

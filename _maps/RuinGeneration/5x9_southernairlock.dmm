@@ -18,6 +18,10 @@
 	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
+"P" = (
+/obj/effect/turf_decal/tile/neutral/tile_marquee,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
 "T" = (
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
@@ -58,7 +62,7 @@ U
 "}
 (3,1,1) = {"
 Y
-T
+P
 T
 n
 h

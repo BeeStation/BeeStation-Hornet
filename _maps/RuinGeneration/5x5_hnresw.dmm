@@ -3,6 +3,10 @@
 /obj/effect/abstract/doorway_marker,
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
+"h" = (
+/obj/effect/turf_decal/tile/neutral/tile_marquee,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
 "i" = (
 /turf/closed/wall,
 /area/ruin/unpowered)
@@ -44,8 +48,8 @@ i
 "}
 (3,1,1) = {"
 n
-j
-j
+h
+h
 j
 g
 "}

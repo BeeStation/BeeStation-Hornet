@@ -2,6 +2,13 @@
 "g" = (
 /turf/closed/wall,
 /area/ruin/unpowered)
+"k" = (
+/obj/structure/closet/emcloset,
+/obj/effect/turf_decal/tile/neutral/tile_side{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
 "y" = (
 /turf/template_noop,
 /area/template_noop)
@@ -18,9 +25,17 @@
 "P" = (
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
+"R" = (
+/obj/effect/turf_decal/tile/neutral/tile_side{
+	dir = 1
+	},
+/obj/structure/chair{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
 "V" = (
-/obj/effect/spawner/structure/window,
-/obj/machinery/door/firedoor/window,
+/obj/effect/spawner/structure/window/reinforced/shutter,
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 
@@ -47,9 +62,9 @@ g
 "}
 (4,1,1) = {"
 g
-P
-P
-P
+k
+R
+R
 g
 "}
 (5,1,1) = {"

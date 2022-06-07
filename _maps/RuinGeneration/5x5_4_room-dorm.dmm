@@ -3,8 +3,7 @@
 /turf/closed/wall,
 /area/ruin/unpowered)
 "b" = (
-/obj/structure/bed,
-/obj/item/bedsheet/random,
+/obj/structure/closet/secure_closet/personal/cabinet,
 /turf/open/floor/wood,
 /area/ruin/unpowered)
 "l" = (
@@ -15,32 +14,39 @@
 /obj/structure/bed,
 /obj/item/bedsheet/random,
 /obj/item/toy/plush/carpplushie,
-/turf/open/floor/wood,
+/turf/open/floor/carpet,
 /area/ruin/unpowered)
 "B" = (
 /obj/item/chair/wood,
 /turf/open/floor/wood,
 /area/ruin/unpowered)
+"C" = (
+/obj/structure/table_frame/wood,
+/obj/item/stack/sheet/mineral/wood,
+/turf/open/floor/wood,
+/area/ruin/unpowered)
 "H" = (
 /obj/item/toy/plush/lizardplushie,
+/obj/structure/table/wood,
 /turf/open/floor/wood,
 /area/ruin/unpowered)
 "J" = (
 /obj/effect/abstract/doorway_marker{
 	dir = 4
 	},
+/obj/effect/turf_decal/monke/siding/wood{
+	dir = 4
+	},
 /turf/open/floor/wood,
 /area/ruin/unpowered)
 "U" = (
-/turf/open/floor/wood,
+/turf/open/floor/carpet,
 /area/ruin/unpowered)
 "W" = (
 /obj/structure/sign/poster/official/no_erp{
 	pixel_y = 32
 	},
-/obj/structure/table_frame/wood,
-/obj/item/stack/sheet/mineral/wood,
-/turf/open/floor/wood,
+/turf/open/floor/carpet,
 /area/ruin/unpowered)
 
 (1,1,1) = {"
@@ -54,7 +60,7 @@ a
 a
 l
 B
-l
+C
 a
 "}
 (3,1,1) = {"

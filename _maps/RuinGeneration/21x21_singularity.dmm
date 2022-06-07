@@ -15,9 +15,21 @@
 "g" = (
 /turf/closed/wall,
 /area/ruin)
+"h" = (
+/obj/effect/turf_decal/tile/neutral/tile_side{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/ruin)
 "j" = (
 /obj/structure/sign/warning/radiation{
 	pixel_y = 32
+	},
+/turf/open/floor/plasteel,
+/area/ruin)
+"k" = (
+/obj/effect/turf_decal/tile/neutral/tile_side{
+	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/ruin)
@@ -39,9 +51,17 @@
 	},
 /turf/open/floor/plasteel,
 /area/ruin)
+"s" = (
+/obj/effect/turf_decal/tile/neutral/tile_side,
+/turf/open/floor/plasteel,
+/area/ruin)
 "t" = (
 /turf/template_noop/open,
 /area/template_noop)
+"w" = (
+/obj/effect/turf_decal/tile/neutral/tile_full,
+/turf/open/floor/plasteel,
+/area/ruin)
 "x" = (
 /obj/structure/table/reinforced,
 /turf/open/floor/plasteel,
@@ -69,6 +89,12 @@
 /area/ruin)
 "G" = (
 /obj/effect/abstract/open_area_marker{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/ruin)
+"J" = (
+/obj/effect/turf_decal/tile/neutral/tile_side{
 	dir = 8
 	},
 /turf/open/floor/plasteel,
@@ -128,7 +154,7 @@ z
 c
 c
 c
-c
+s
 c
 c
 c
@@ -150,9 +176,9 @@ c
 c
 c
 c
-c
-c
-c
+J
+w
+h
 c
 c
 c
@@ -304,7 +330,7 @@ g
 (10,1,1) = {"
 c
 c
-c
+s
 c
 c
 R
@@ -320,14 +346,14 @@ N
 R
 E
 c
-c
+s
 c
 c
 "}
 (11,1,1) = {"
 d
-c
-c
+J
+w
 c
 c
 C
@@ -343,14 +369,14 @@ t
 C
 x
 c
-c
-c
+w
+h
 A
 "}
 (12,1,1) = {"
 c
 c
-c
+k
 c
 c
 R
@@ -366,7 +392,7 @@ N
 R
 E
 c
-c
+k
 c
 c
 "}
@@ -518,9 +544,9 @@ c
 c
 c
 c
-c
-c
-c
+J
+w
+h
 c
 c
 c
@@ -542,7 +568,7 @@ z
 c
 c
 c
-c
+k
 c
 c
 c

@@ -7,6 +7,9 @@
 /area/ruin/unpowered)
 "k" = (
 /obj/structure/closet/firecloset,
+/obj/effect/turf_decal/tile/neutral/tile_side{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "s" = (
@@ -16,22 +19,21 @@
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "y" = (
-/turf/open/space/basic,
+/turf/template_noop/open,
 /area/ruin/unpowered)
 "A" = (
 /obj/structure/lattice,
-/turf/open/space/basic,
+/turf/template_noop/open,
 /area/ruin/unpowered)
 "D" = (
 /obj/structure/closet/emcloset,
+/obj/effect/turf_decal/tile/neutral/tile_side{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "S" = (
 /turf/closed/wall,
-/area/ruin/unpowered)
-"V" = (
-/obj/item/twohanded/required/kirbyplants/random,
-/turf/open/floor/plating,
 /area/ruin/unpowered)
 "W" = (
 /obj/effect/abstract/doorway_marker{
@@ -50,7 +52,7 @@ S
 (2,1,1) = {"
 S
 k
-V
+u
 D
 S
 "}

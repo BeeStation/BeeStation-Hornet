@@ -8,7 +8,7 @@
 /area/ruin/unpowered)
 "o" = (
 /obj/structure/lattice,
-/turf/open/space/basic,
+/turf/template_noop/open,
 /area/ruin/unpowered)
 "s" = (
 /turf/open/floor/plating,
@@ -17,7 +17,7 @@
 /turf/closed/wall,
 /area/ruin/unpowered)
 "F" = (
-/turf/open/space/basic,
+/turf/template_noop/open,
 /area/ruin/unpowered)
 "J" = (
 /obj/effect/abstract/doorway_marker,

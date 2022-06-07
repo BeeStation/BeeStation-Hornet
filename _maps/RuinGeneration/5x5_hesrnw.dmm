@@ -8,8 +8,18 @@
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
+"r" = (
+/obj/effect/turf_decal/tile/neutral/tile_side{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
 "t" = (
 /turf/closed/wall,
+/area/ruin/unpowered)
+"x" = (
+/obj/effect/turf_decal/tile/neutral/tile_full,
+/turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "z" = (
 /obj/effect/abstract/open_area_marker{
@@ -19,6 +29,12 @@
 /area/ruin/unpowered)
 "H" = (
 /obj/effect/abstract/open_area_marker,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"M" = (
+/obj/effect/turf_decal/tile/neutral/tile_side{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "U" = (
@@ -45,14 +61,14 @@ e
 (3,1,1) = {"
 U
 e
-e
-e
+x
+M
 H
 "}
 (4,1,1) = {"
 t
 e
-e
+r
 e
 e
 "}

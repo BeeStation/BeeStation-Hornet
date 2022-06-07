@@ -8,6 +8,10 @@
 "j" = (
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
+"m" = (
+/obj/effect/turf_decal/tile/neutral/tile_marquee,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
 "o" = (
 /obj/effect/abstract/doorway_marker,
 /turf/open/floor/plasteel,
@@ -38,14 +42,14 @@ A
 (2,1,1) = {"
 A
 j
-j
+m
 j
 A
 "}
 (3,1,1) = {"
 Q
 j
-j
+m
 j
 o
 "}

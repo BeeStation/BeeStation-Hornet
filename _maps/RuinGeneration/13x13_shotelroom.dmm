@@ -74,10 +74,16 @@
 	},
 /turf/open/floor/carpet/orange,
 /area/ruin/unpowered)
+"p" = (
+/turf/template_noop/open,
+/area/template_noop)
 "q" = (
 /obj/machinery/door/airlock/wood,
 /obj/effect/mapping_helpers/airlock/locked,
-/turf/open/floor/plasteel,
+/obj/effect/turf_decal/monke/siding/wood{
+	dir = 8
+	},
+/turf/open/floor/wood,
 /area/ruin/unpowered)
 "r" = (
 /obj/structure/table/wood/fancy/purple,
@@ -216,7 +222,7 @@
 /area/ruin/unpowered)
 "R" = (
 /obj/structure/falsewall,
-/turf/open/floor/plasteel/tiled,
+/turf/open/floor/plating,
 /area/ruin/unpowered)
 "S" = (
 /obj/structure/table,
@@ -367,9 +373,9 @@ j
 j
 "}
 (7,1,1) = {"
+p
 j
 v
-h
 h
 h
 h
@@ -382,8 +388,8 @@ M
 j
 "}
 (8,1,1) = {"
+p
 j
-h
 h
 h
 h
@@ -397,8 +403,8 @@ l
 j
 "}
 (9,1,1) = {"
+p
 j
-h
 H
 H
 H
@@ -412,8 +418,8 @@ e
 j
 "}
 (10,1,1) = {"
+p
 j
-h
 L
 Z
 n
@@ -427,8 +433,8 @@ l
 j
 "}
 (11,1,1) = {"
+p
 j
-h
 L
 J
 o
@@ -442,8 +448,8 @@ t
 k
 "}
 (12,1,1) = {"
+p
 j
-h
 L
 r
 d
@@ -457,7 +463,7 @@ I
 j
 "}
 (13,1,1) = {"
-j
+p
 j
 j
 j

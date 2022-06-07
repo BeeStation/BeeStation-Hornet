@@ -1,6 +1,8 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "e" = (
-/obj/item/twohanded/required/kirbyplants/random,
+/obj/effect/turf_decal/tile/neutral/tile_side{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "f" = (
@@ -11,7 +13,7 @@
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "q" = (
-/obj/structure/closet/emcloset,
+/obj/effect/turf_decal/tile/neutral/tile_marquee,
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "v" = (
@@ -27,7 +29,10 @@
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "R" = (
-/obj/structure/closet/firecloset,
+/obj/effect/turf_decal/tile/neutral/tile_side{
+	dir = 1
+	},
+/obj/structure/closet/wardrobe/mixed,
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "U" = (
@@ -45,20 +50,20 @@ U
 U
 R
 e
-q
+e
 U
 "}
 (3,1,1) = {"
 F
 f
-f
+q
 f
 g
 "}
 (4,1,1) = {"
 U
 f
-f
+q
 f
 U
 "}

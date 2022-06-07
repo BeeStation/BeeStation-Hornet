@@ -26,7 +26,7 @@
 /area/ruin/unpowered)
 "X" = (
 /obj/structure/lattice,
-/turf/open/space/basic,
+/turf/template_noop/open,
 /area/ruin/unpowered)
 "Z" = (
 /obj/effect/abstract/open_area_marker{

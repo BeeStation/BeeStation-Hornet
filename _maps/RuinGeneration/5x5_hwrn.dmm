@@ -1,13 +1,17 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"f" = (
+/obj/effect/turf_decal/tile/neutral/tile_marquee,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
 "h" = (
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "j" = (
-/obj/structure/closet/emcloset,
+/obj/structure/chair/stool,
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "o" = (
-/obj/item/twohanded/required/kirbyplants/random,
+/obj/machinery/vending/coffee,
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "q" = (
@@ -17,7 +21,7 @@
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "x" = (
-/obj/structure/closet/firecloset,
+/obj/machinery/vending/cigarette,
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "N" = (
@@ -40,14 +44,14 @@ N
 (2,1,1) = {"
 N
 h
-h
+f
 h
 N
 "}
 (3,1,1) = {"
 q
 h
-h
+f
 h
 N
 "}

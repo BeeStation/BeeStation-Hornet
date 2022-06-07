@@ -5,7 +5,7 @@
 /area/ruin/unpowered)
 "d" = (
 /obj/structure/lattice,
-/turf/open/space/basic,
+/turf/template_noop/open,
 /area/ruin/unpowered)
 "h" = (
 /turf/closed/wall,

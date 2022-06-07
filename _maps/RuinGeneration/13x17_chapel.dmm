@@ -39,6 +39,10 @@
 	dir = 10
 	},
 /area/ruin/unpowered)
+"gl" = (
+/obj/effect/turf_decal/tile/neutral/tile_marquee,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
 "gn" = (
 /obj/item/kirbyplants/random,
 /turf/open/floor/carpet/royalblack,
@@ -95,6 +99,10 @@
 /obj/effect/abstract/open_area_marker{
 	dir = 8
 	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"oR" = (
+/obj/effect/turf_decal/tile/neutral/tile_full,
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "pp" = (
@@ -171,6 +179,10 @@
 /obj/item/toy/plush/bubbleplush,
 /turf/open/floor/grass/fakebasalt,
 /area/ruin/unpowered)
+"xy" = (
+/obj/effect/turf_decal/tile/neutral/tile_side,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
 "xP" = (
 /obj/item/stock_parts/cell/potato,
 /obj/item/bot_assembly/secbot,
@@ -186,6 +198,12 @@
 /area/ruin/unpowered)
 "zh" = (
 /turf/closed/wall/mineral/cult,
+/area/ruin/unpowered)
+"AB" = (
+/obj/effect/turf_decal/tile/neutral/tile_side{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "CU" = (
 /obj/structure/window/spawner/west,
@@ -273,6 +291,12 @@
 /turf/open/floor/plasteel/chapel{
 	dir = 4
 	},
+/area/ruin/unpowered)
+"RC" = (
+/obj/effect/turf_decal/tile/neutral/tile_side{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "TA" = (
 /obj/structure/chair/pew/left{
@@ -377,7 +401,7 @@ tQ
 gn
 bB
 qE
-qE
+gl
 qE
 VV
 "}
@@ -396,7 +420,7 @@ tQ
 tQ
 bB
 qE
-qE
+gl
 qE
 EP
 "}
@@ -415,7 +439,7 @@ tQ
 tQ
 bB
 qE
-qE
+gl
 qE
 VV
 "}
@@ -434,7 +458,7 @@ tQ
 tQ
 VV
 qE
-qE
+gl
 qE
 VV
 "}
@@ -453,7 +477,7 @@ tQ
 tQ
 LT
 qE
-qE
+xy
 qE
 qE
 "}
@@ -472,8 +496,8 @@ tQ
 tQ
 bB
 qE
-qE
-qE
+oR
+RC
 YA
 "}
 (8,1,1) = {"
@@ -491,7 +515,7 @@ tQ
 tQ
 LT
 qE
-qE
+AB
 qE
 qE
 "}
@@ -510,7 +534,7 @@ tQ
 tQ
 VV
 ax
-qE
+gl
 qE
 VV
 "}
@@ -529,7 +553,7 @@ tQ
 tQ
 bB
 qE
-qE
+gl
 qE
 VV
 "}
@@ -548,7 +572,7 @@ tQ
 tQ
 bB
 qE
-qE
+gl
 qE
 EP
 "}
@@ -567,7 +591,7 @@ tQ
 gn
 bB
 qE
-qE
+gl
 qE
 VV
 "}

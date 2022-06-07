@@ -9,14 +9,14 @@
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "i" = (
-/turf/open/space/basic,
+/turf/template_noop/open,
 /area/ruin/unpowered)
 "p" = (
 /turf/closed/wall,
 /area/ruin/unpowered)
 "C" = (
 /obj/structure/lattice,
-/turf/open/space/basic,
+/turf/template_noop/open,
 /area/ruin/unpowered)
 "G" = (
 /turf/open/floor/plating,

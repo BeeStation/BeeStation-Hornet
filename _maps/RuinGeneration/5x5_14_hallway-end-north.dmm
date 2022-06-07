@@ -1,5 +1,26 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/obj/structure/closet/firecloset,
+/obj/effect/turf_decal/tile/neutral/tile_side{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
 "f" = (
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"o" = (
+/obj/structure/closet/emcloset,
+/obj/effect/turf_decal/tile/neutral/tile_side{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"y" = (
+/obj/machinery/vending/snack/random,
+/obj/effect/turf_decal/tile/neutral/tile_side{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "N" = (
@@ -14,8 +35,7 @@
 /turf/template_noop,
 /area/template_noop)
 "T" = (
-/obj/effect/spawner/structure/window,
-/obj/machinery/door/firedoor/window,
+/obj/effect/spawner/structure/window/reinforced/shutter,
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "X" = (
@@ -33,21 +53,21 @@ X
 R
 O
 T
-f
+y
 f
 "}
 (3,1,1) = {"
 R
 R
 T
-f
+o
 N
 "}
 (4,1,1) = {"
 R
 O
 T
-f
+a
 f
 "}
 (5,1,1) = {"

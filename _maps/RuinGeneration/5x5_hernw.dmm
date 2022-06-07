@@ -3,7 +3,7 @@
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "q" = (
-/obj/item/twohanded/required/kirbyplants/random,
+/obj/effect/turf_decal/tile/neutral/tile_marquee,
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "u" = (
@@ -39,20 +39,20 @@ U
 U
 o
 o
-q
+o
 U
 "}
 (3,1,1) = {"
 M
 o
-o
+q
 o
 U
 "}
 (4,1,1) = {"
 U
 o
-o
+q
 o
 U
 "}

@@ -8,6 +8,13 @@
 /obj/effect/spawner/lootdrop/snowdin/dungeonlite,
 /turf/open/floor/wood,
 /area/ruin/unpowered)
+"g" = (
+/obj/machinery/door/airlock/maintenance_hatch,
+/obj/effect/turf_decal/monke/siding/wood{
+	dir = 4
+	},
+/turf/open/floor/wood,
+/area/ruin/unpowered)
 "h" = (
 /obj/effect/abstract/doorway_marker,
 /turf/open/floor/plating,
@@ -209,7 +216,7 @@ u
 (9,1,1) = {"
 u
 u
-o
+g
 u
 u
 u

@@ -15,11 +15,11 @@
 /turf/closed/wall,
 /area/ruin/unpowered)
 "I" = (
-/turf/open/space/basic,
+/turf/template_noop/open,
 /area/ruin/unpowered)
 "J" = (
 /obj/structure/lattice,
-/turf/open/space/basic,
+/turf/template_noop/open,
 /area/ruin/unpowered)
 "O" = (
 /obj/effect/abstract/doorway_marker,

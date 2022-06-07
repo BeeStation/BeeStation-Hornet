@@ -51,6 +51,10 @@
 	},
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/unpowered)
+"n" = (
+/obj/effect/turf_decal/tile/neutral/tile_marquee,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
 "o" = (
 /obj/structure/table,
 /obj/item/kitchen/rollingpin,
@@ -81,11 +85,8 @@
 /area/ruin/unpowered)
 "F" = (
 /obj/structure/table/reinforced,
-/obj/machinery/door/firedoor/border_only{
-	dir = 1
-	},
-/obj/machinery/door/firedoor/border_only,
-/turf/open/floor/plasteel/cafeteria,
+/obj/machinery/door/firedoor,
+/turf/open/floor/plating,
 /area/ruin/unpowered)
 "G" = (
 /obj/machinery/processor,
@@ -124,11 +125,8 @@
 "T" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/fancy/donut_box,
-/obj/machinery/door/firedoor/border_only{
-	dir = 1
-	},
-/obj/machinery/door/firedoor/border_only,
-/turf/open/floor/plasteel/cafeteria,
+/obj/machinery/door/firedoor,
+/turf/open/floor/plating,
 /area/ruin/unpowered)
 "Z" = (
 /obj/machinery/deepfryer,
@@ -161,7 +159,7 @@ O
 L
 q
 z
-z
+n
 z
 L
 "}
@@ -176,7 +174,7 @@ O
 L
 q
 z
-z
+n
 z
 L
 "}
@@ -191,7 +189,7 @@ O
 T
 q
 z
-z
+n
 z
 L
 "}
@@ -206,7 +204,7 @@ O
 F
 q
 z
-z
+n
 z
 L
 "}
@@ -221,7 +219,7 @@ O
 F
 q
 z
-z
+n
 z
 L
 "}
@@ -236,7 +234,7 @@ O
 F
 q
 z
-z
+n
 z
 L
 "}
@@ -251,7 +249,7 @@ O
 L
 q
 z
-z
+n
 z
 L
 "}

@@ -141,6 +141,10 @@
 /obj/effect/turf_decal/bot_white/right,
 /turf/open/floor/plasteel/dark/airless,
 /area/ruin/unpowered)
+"U" = (
+/obj/effect/turf_decal/tile/neutral/tile_marquee,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
 "V" = (
 /obj/effect/abstract/open_area_marker{
 	dir = 4
@@ -190,7 +194,7 @@ i
 z
 w
 g
-o
+U
 o
 a
 "}
@@ -205,7 +209,7 @@ i
 z
 w
 g
-o
+U
 o
 h
 "}
@@ -220,7 +224,7 @@ i
 w
 w
 g
-o
+U
 o
 a
 "}
@@ -235,7 +239,7 @@ P
 k
 C
 g
-o
+U
 o
 a
 "}
@@ -250,7 +254,7 @@ i
 w
 w
 g
-o
+U
 o
 a
 "}
@@ -265,7 +269,7 @@ i
 z
 w
 g
-o
+U
 O
 a
 "}
@@ -280,7 +284,7 @@ i
 z
 w
 g
-o
+U
 o
 a
 "}

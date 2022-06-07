@@ -8,6 +8,10 @@
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
+"u" = (
+/obj/effect/turf_decal/tile/neutral/tile_marquee,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
 "v" = (
 /turf/closed/wall,
 /area/ruin/unpowered)
@@ -32,21 +36,21 @@ v
 (2,1,1) = {"
 v
 l
-l
+u
 l
 v
 "}
 (3,1,1) = {"
 v
 l
-l
+u
 l
 V
 "}
 (4,1,1) = {"
 v
 l
-l
+u
 l
 v
 "}

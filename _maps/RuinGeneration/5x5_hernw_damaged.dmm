@@ -13,7 +13,7 @@
 /area/ruin/unpowered)
 "h" = (
 /obj/structure/lattice,
-/turf/open/space/basic,
+/turf/template_noop/open,
 /area/ruin/unpowered)
 "l" = (
 /obj/effect/abstract/open_area_marker{
@@ -22,7 +22,7 @@
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "o" = (
-/turf/open/space/basic,
+/turf/template_noop/open,
 /area/ruin/unpowered)
 "y" = (
 /turf/closed/wall,

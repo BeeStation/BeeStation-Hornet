@@ -40,6 +40,12 @@
 "s" = (
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
+"u" = (
+/obj/effect/turf_decal/trimline/blue/filled/line{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
 "B" = (
 /obj/structure/bodycontainer/morgue{
 	dir = 1
@@ -69,6 +75,7 @@
 /area/ruin/unpowered)
 "J" = (
 /obj/effect/spawner/lootdrop/ruinloot/medical,
+/obj/effect/turf_decal/trimline/blue/filled/line,
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "O" = (
@@ -86,6 +93,10 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/ruin/unpowered)
+"Z" = (
+/obj/effect/turf_decal/trimline/blue/filled/line,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
 
 (1,1,1) = {"
 o
@@ -96,9 +107,9 @@ o
 "}
 (2,1,1) = {"
 o
+u
 s
-s
-s
+Z
 o
 "}
 (3,1,1) = {"
@@ -124,16 +135,16 @@ o
 "}
 (6,1,1) = {"
 o
-s
+u
 s
 J
 o
 "}
 (7,1,1) = {"
 o
-s
+u
 O
-s
+Z
 o
 "}
 (8,1,1) = {"

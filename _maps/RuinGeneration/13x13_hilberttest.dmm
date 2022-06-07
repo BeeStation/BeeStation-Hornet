@@ -2,6 +2,9 @@
 "a" = (
 /obj/structure/table/glass,
 /obj/item/stock_parts/matter_bin/bluespace,
+/obj/effect/turf_decal/monke/siding/thinplating/dark{
+	dir = 4
+	},
 /turf/open/floor/plasteel/grimy{
 	icon_state = "engine"
 	},
@@ -9,6 +12,17 @@
 "b" = (
 /obj/structure/table/glass,
 /obj/item/stack/cable_coil/blue,
+/obj/effect/turf_decal/monke/siding/thinplating/dark{
+	dir = 8
+	},
+/turf/open/floor/plasteel/grimy{
+	icon_state = "engine"
+	},
+/area/ruin/unpowered)
+"c" = (
+/obj/effect/turf_decal/monke/siding/thinplating/dark{
+	dir = 4
+	},
 /turf/open/floor/plasteel/grimy{
 	icon_state = "engine"
 	},
@@ -27,6 +41,28 @@
 	icon_state = "engine"
 	},
 /area/ruin/unpowered)
+"l" = (
+/obj/effect/turf_decal/monke/siding/thinplating/dark{
+	dir = 8
+	},
+/turf/open/floor/plasteel/grimy{
+	icon_state = "engine"
+	},
+/area/ruin/unpowered)
+"n" = (
+/obj/machinery/porta_turret/syndicate{
+	desc = "A ballistic machine gun auto-turret that fires bluespace bullets.";
+	lethal_projectile = /obj/item/projectile/magic/teleport;
+	name = "displacement turret";
+	stun_projectile = /obj/item/projectile/magic/teleport
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
+/turf/open/floor/plasteel/grimy{
+	icon_state = "engine"
+	},
+/area/ruin/unpowered)
 "q" = (
 /turf/closed/wall/r_wall,
 /area/ruin/unpowered)
@@ -36,6 +72,9 @@
 	lethal_projectile = /obj/item/projectile/magic/teleport;
 	name = "displacement turret";
 	stun_projectile = /obj/item/projectile/magic/teleport
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
 	},
 /turf/open/floor/plasteel/grimy{
 	icon_state = "engine"
@@ -57,9 +96,40 @@
 	icon_state = "engine"
 	},
 /area/ruin/unpowered)
+"v" = (
+/obj/machinery/porta_turret/syndicate{
+	desc = "A ballistic machine gun auto-turret that fires bluespace bullets.";
+	lethal_projectile = /obj/item/projectile/magic/teleport;
+	name = "displacement turret";
+	stun_projectile = /obj/item/projectile/magic/teleport
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
+/turf/open/floor/plasteel/grimy{
+	icon_state = "engine"
+	},
+/area/ruin/unpowered)
 "y" = (
 /obj/structure/table/glass,
 /obj/item/stock_parts/subspace/amplifier,
+/obj/effect/turf_decal/monke/siding/thinplating/dark{
+	dir = 4
+	},
+/turf/open/floor/plasteel/grimy{
+	icon_state = "engine"
+	},
+/area/ruin/unpowered)
+"z" = (
+/obj/machinery/porta_turret/syndicate{
+	desc = "A ballistic machine gun auto-turret that fires bluespace bullets.";
+	lethal_projectile = /obj/item/projectile/magic/teleport;
+	name = "displacement turret";
+	stun_projectile = /obj/item/projectile/magic/teleport
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
 /turf/open/floor/plasteel/grimy{
 	icon_state = "engine"
 	},
@@ -70,6 +140,9 @@
 "B" = (
 /obj/structure/table/glass,
 /obj/item/assembly/signaler,
+/obj/effect/turf_decal/monke/siding/thinplating/dark{
+	dir = 8
+	},
 /turf/open/floor/plasteel/grimy{
 	icon_state = "engine"
 	},
@@ -108,6 +181,9 @@
 /obj/structure/table/glass,
 /obj/item/stock_parts/subspace/crystal,
 /obj/item/stock_parts/subspace/transmitter,
+/obj/effect/turf_decal/monke/siding/thinplating/dark{
+	dir = 4
+	},
 /turf/open/floor/plasteel/grimy{
 	icon_state = "engine"
 	},
@@ -122,6 +198,9 @@
 "T" = (
 /obj/structure/table/glass,
 /obj/item/analyzer,
+/obj/effect/turf_decal/monke/siding/thinplating/dark{
+	dir = 8
+	},
 /turf/open/floor/plasteel/grimy{
 	icon_state = "engine"
 	},
@@ -171,7 +250,7 @@ K
 L
 u
 u
-r
+n
 q
 "}
 (3,1,1) = {"
@@ -210,11 +289,11 @@ u
 u
 u
 u
-u
+c
 a
 O
 y
-u
+c
 u
 u
 q
@@ -270,11 +349,11 @@ u
 u
 u
 u
-u
+l
 b
 T
 B
-u
+l
 u
 u
 q
@@ -311,7 +390,7 @@ q
 "}
 (12,1,1) = {"
 q
-r
+z
 u
 u
 K
@@ -321,7 +400,7 @@ W
 K
 u
 u
-r
+v
 q
 "}
 (13,1,1) = {"

@@ -9,6 +9,10 @@
 /obj/effect/abstract/doorway_marker,
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
+"F" = (
+/obj/effect/turf_decal/tile/neutral/tile_full,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
 "H" = (
 /turf/closed/wall,
 /area/ruin/unpowered)
@@ -16,6 +20,22 @@
 /obj/effect/abstract/open_area_marker{
 	dir = 8
 	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"O" = (
+/obj/effect/turf_decal/tile/neutral/tile_side{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"P" = (
+/obj/effect/turf_decal/tile/neutral/tile_side{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"S" = (
+/obj/effect/turf_decal/tile/neutral/tile_side,
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "V" = (
@@ -38,21 +58,21 @@ H
 (2,1,1) = {"
 Y
 Y
-Y
+S
 Y
 H
 "}
 (3,1,1) = {"
 e
-Y
-Y
+P
+F
 Y
 f
 "}
 (4,1,1) = {"
 Y
 Y
-Y
+O
 Y
 H
 "}

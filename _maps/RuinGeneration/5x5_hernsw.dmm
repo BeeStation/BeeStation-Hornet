@@ -2,6 +2,10 @@
 "k" = (
 /turf/closed/wall,
 /area/ruin/unpowered)
+"B" = (
+/obj/effect/turf_decal/tile/neutral/tile_marquee,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
 "G" = (
 /obj/effect/abstract/open_area_marker{
 	dir = 4
@@ -45,14 +49,14 @@ k
 (3,1,1) = {"
 T
 M
-M
+B
 M
 Y
 "}
 (4,1,1) = {"
 k
 M
-M
+B
 M
 k
 "}

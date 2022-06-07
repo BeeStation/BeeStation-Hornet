@@ -86,6 +86,12 @@
 	dir = 4
 	},
 /area/ruin/unpowered)
+"fN" = (
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
 "gv" = (
 /obj/effect/abstract/open_area_marker{
 	dir = 4
@@ -114,6 +120,7 @@
 /area/ruin/unpowered)
 "hq" = (
 /obj/effect/spawner/lootdrop/ruinloot/basic,
+/obj/effect/turf_decal/tile/neutral/tile_marquee,
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "hQ" = (
@@ -121,6 +128,10 @@
 /obj/structure/rack,
 /obj/effect/turf_decal/tile/purple,
 /turf/open/floor/plasteel/white,
+/area/ruin/unpowered)
+"hW" = (
+/obj/effect/turf_decal/tile/neutral/tile_marquee,
+/turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "jR" = (
 /obj/machinery/door/airlock/command/glass{
@@ -490,6 +501,10 @@
 /obj/item/storage/firstaid/regular,
 /turf/open/floor/plasteel/white,
 /area/ruin/unpowered)
+"PV" = (
+/obj/effect/turf_decal/tile/neutral/tile_marquee,
+/turf/open/floor/plasteel/airless,
+/area/ruin/unpowered)
 "QB" = (
 /turf/template_noop,
 /area/template_noop)
@@ -627,7 +642,7 @@ aY
 lm
 lf
 sU
-sU
+hW
 sU
 lf
 wp
@@ -646,7 +661,7 @@ ww
 Ks
 cF
 UJ
-sU
+hW
 sU
 Dy
 ps
@@ -701,7 +716,7 @@ Vu
 Rr
 Ff
 lf
-sU
+fN
 sU
 Zo
 lf
@@ -821,7 +836,7 @@ aW
 lf
 te
 sU
-de
+PV
 de
 lf
 "}
@@ -840,7 +855,7 @@ dS
 lf
 lf
 xZ
-de
+PV
 de
 lf
 "}
@@ -859,7 +874,7 @@ aW
 ES
 KR
 de
-de
+PV
 de
 lf
 "}
@@ -878,7 +893,7 @@ aW
 aW
 Gu
 de
-de
+PV
 de
 lf
 "}
@@ -897,7 +912,7 @@ Sy
 yL
 UP
 de
-de
+PV
 de
 lf
 "}

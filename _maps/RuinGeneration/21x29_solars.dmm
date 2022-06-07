@@ -224,9 +224,6 @@
 	icon_state = "0-8"
 	},
 /obj/machinery/power/smes,
-/obj/machinery/camera/autoname{
-	dir = 1
-	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "U" = (
@@ -615,8 +612,8 @@ z
 q
 q
 f
-b
-b
+f
+f
 F
 p
 S
@@ -647,7 +644,7 @@ q
 q
 q
 q
-b
+f
 b
 b
 b

@@ -13,17 +13,30 @@
 /area/ruin/unpowered)
 "D" = (
 /obj/structure/closet/firecloset,
+/obj/effect/turf_decal/tile/neutral/tile_side{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "H" = (
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "J" = (
-/obj/item/kirbyplants/random,
+/obj/structure/closet/emcloset,
+/obj/effect/turf_decal/tile/neutral/tile_side{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "R" = (
-/obj/structure/closet/emcloset,
+/obj/item/kirbyplants/random,
+/obj/effect/turf_decal/tile/neutral/tile_side{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"V" = (
+/obj/effect/turf_decal/tile/neutral/tile_marquee,
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "W" = (
@@ -54,7 +67,7 @@ W
 (4,1,1) = {"
 W
 H
-H
+V
 H
 W
 "}

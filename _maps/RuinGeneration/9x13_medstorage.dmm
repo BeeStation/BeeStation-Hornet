@@ -10,7 +10,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
-/turf/open/floor/plasteel/white,
+/turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "i" = (
 /obj/structure/window/reinforced,
@@ -43,6 +43,10 @@
 /obj/effect/turf_decal/tile/blue,
 /turf/open/floor/plasteel/white,
 /area/ruin/unpowered)
+"m" = (
+/obj/effect/turf_decal/tile/neutral/tile_marquee,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
 "p" = (
 /obj/structure/table/glass,
 /obj/machinery/door/window{
@@ -65,6 +69,10 @@
 /obj/effect/spawner/lootdrop/ruinloot/medical,
 /obj/effect/spawner/lootdrop/ruinloot/medical,
 /turf/open/floor/plasteel/white,
+/area/ruin/unpowered)
+"w" = (
+/obj/effect/turf_decal/tile/blue,
+/turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "x" = (
 /obj/machinery/vending/wardrobe/medi_wardrobe,
@@ -116,7 +124,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/blue,
-/turf/open/floor/plasteel/white,
+/turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "J" = (
 /obj/effect/turf_decal/tile/blue,
@@ -161,13 +169,10 @@
 /obj/effect/abstract/open_area_marker{
 	dir = 4
 	},
-/turf/open/floor/plasteel/white,
+/turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "P" = (
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/turf/closed/wall,
+/turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "R" = (
 /turf/open/floor/plasteel/white,
@@ -176,7 +181,7 @@
 /obj/effect/abstract/open_area_marker{
 	dir = 8
 	},
-/turf/open/floor/plasteel/white,
+/turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "T" = (
 /obj/structure/table/glass,
@@ -203,29 +208,29 @@
 /area/ruin/unpowered)
 "Y" = (
 /obj/effect/abstract/doorway_marker,
-/turf/open/floor/plasteel/white,
+/turf/open/floor/plasteel,
 /area/ruin/unpowered)
 
 (1,1,1) = {"
 c
-R
-S
-R
-c
-c
-c
-c
-c
-c
-c
 P
+S
+P
+c
+c
+c
+c
+c
+c
+c
+c
 c
 "}
 (2,1,1) = {"
 c
-R
-R
-J
+P
+m
+w
 c
 x
 B
@@ -238,8 +243,8 @@ c
 "}
 (3,1,1) = {"
 c
-R
-R
+P
+m
 E
 M
 t
@@ -253,8 +258,8 @@ Y
 "}
 (4,1,1) = {"
 c
-R
-R
+P
+m
 E
 a
 t
@@ -268,8 +273,8 @@ c
 "}
 (5,1,1) = {"
 c
-R
-R
+P
+m
 E
 M
 t
@@ -283,8 +288,8 @@ c
 "}
 (6,1,1) = {"
 c
-R
-R
+P
+m
 E
 a
 t
@@ -298,8 +303,8 @@ c
 "}
 (7,1,1) = {"
 c
-R
-R
+P
+m
 E
 M
 X
@@ -313,8 +318,8 @@ c
 "}
 (8,1,1) = {"
 c
-R
-R
+P
+m
 f
 c
 A
@@ -328,9 +333,9 @@ c
 "}
 (9,1,1) = {"
 c
-R
+P
 O
-R
+P
 c
 c
 c

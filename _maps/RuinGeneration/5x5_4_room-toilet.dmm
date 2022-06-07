@@ -3,7 +3,7 @@
 /obj/structure/urinal{
 	pixel_y = 32
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/plasteel/showroomfloor,
 /area/ruin/unpowered)
 "g" = (
 /obj/structure/sink{
@@ -13,19 +13,35 @@
 /obj/structure/mirror{
 	pixel_x = -28
 	},
-/turf/open/floor/plasteel,
+/obj/effect/turf_decal/trimline/green/filled/arrow_cw,
+/turf/open/floor/plasteel/showroomfloor,
 /area/ruin/unpowered)
 "l" = (
 /obj/structure/sign/poster/random{
 	pixel_y = 32
 	},
-/turf/open/floor/plasteel,
+/obj/effect/turf_decal/trimline/green/filled/shrink_ccw{
+	dir = 1
+	},
+/turf/open/floor/plasteel/showroomfloor,
+/area/ruin/unpowered)
+"o" = (
+/obj/machinery/shower{
+	dir = 8
+	},
+/obj/machinery/door/window/westright,
+/obj/structure/window/reinforced/tinted,
+/turf/open/floor/plasteel/showroomfloor,
 /area/ruin/unpowered)
 "p" = (
-/turf/open/floor/plasteel,
+/turf/open/floor/plasteel/showroomfloor,
 /area/ruin/unpowered)
 "q" = (
 /turf/closed/wall,
+/area/ruin/unpowered)
+"x" = (
+/obj/effect/turf_decal/tile/green/tile_full,
+/turf/open/floor/plasteel/showroomfloor,
 /area/ruin/unpowered)
 "K" = (
 /obj/effect/abstract/doorway_marker{
@@ -34,15 +50,28 @@
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "M" = (
-/obj/machinery/door/window/eastright,
-/turf/open/floor/plasteel,
+/obj/effect/turf_decal/trimline/green/filled/shrink_ccw,
+/turf/open/floor/plasteel/showroomfloor,
 /area/ruin/unpowered)
 "X" = (
 /obj/structure/toilet{
 	dir = 8
 	},
-/obj/structure/window/reinforced/spawner/north,
-/turf/open/floor/plasteel,
+/obj/structure/window/reinforced/tinted{
+	dir = 1
+	},
+/obj/machinery/door/window/westleft,
+/turf/open/floor/plasteel/showroomfloor,
+/area/ruin/unpowered)
+"Y" = (
+/obj/structure/urinal{
+	pixel_y = 32
+	},
+/obj/structure/window/reinforced/tinted,
+/obj/effect/turf_decal/trimline/green/filled/arrow_cw{
+	dir = 1
+	},
+/turf/open/floor/plasteel/showroomfloor,
 /area/ruin/unpowered)
 
 (1,1,1) = {"
@@ -62,14 +91,14 @@ q
 (3,1,1) = {"
 q
 l
-p
+x
 M
 q
 "}
 (4,1,1) = {"
 q
-c
-p
+Y
+o
 X
 q
 "}

@@ -5,17 +5,37 @@
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
+"b" = (
+/obj/effect/turf_decal/tile/neutral/tile_full,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
 "f" = (
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"i" = (
+/obj/effect/turf_decal/tile/neutral/tile_side{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "m" = (
 /obj/effect/abstract/open_area_marker,
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
+"o" = (
+/obj/effect/turf_decal/tile/neutral/tile_side{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
 "p" = (
 /obj/effect/abstract/open_area_marker{
 	dir = 8
 	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"I" = (
+/obj/effect/turf_decal/tile/neutral/tile_side,
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "J" = (
@@ -38,15 +58,15 @@ J
 (2,1,1) = {"
 f
 f
-f
+I
 f
 f
 "}
 (3,1,1) = {"
 P
-f
-f
-f
+o
+b
+i
 m
 "}
 (4,1,1) = {"

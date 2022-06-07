@@ -3,6 +3,10 @@
 /obj/effect/abstract/doorway_marker,
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
+"j" = (
+/obj/effect/turf_decal/tile/neutral/tile_marquee,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
 "n" = (
 /obj/effect/abstract/open_area_marker{
 	dir = 8
@@ -38,21 +42,21 @@ J
 (2,1,1) = {"
 J
 E
-E
+j
 E
 J
 "}
 (3,1,1) = {"
 V
 E
-E
+j
 E
 e
 "}
 (4,1,1) = {"
 J
 E
-E
+j
 E
 J
 "}

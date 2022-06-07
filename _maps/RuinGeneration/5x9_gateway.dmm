@@ -4,16 +4,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/bot_white,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
+/obj/effect/turf_decal/tile/neutral/tile_full,
 /turf/open/floor/plasteel/dark,
 /area/ruin/unpowered)
 "b" = (
@@ -21,16 +12,7 @@
 	dir = 5
 	},
 /obj/effect/turf_decal/bot_white/left,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
+/obj/effect/turf_decal/tile/neutral/tile_full,
 /turf/open/floor/plasteel/dark,
 /area/ruin/unpowered)
 "d" = (
@@ -40,36 +22,18 @@
 "f" = (
 /obj/machinery/gateway,
 /obj/effect/turf_decal/bot_white,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
+/obj/effect/turf_decal/tile/neutral/tile_full,
 /turf/open/floor/plasteel/dark,
 /area/ruin/unpowered)
 "h" = (
-/turf/closed/wall/r_wall,
+/turf/closed/wall,
 /area/ruin/unpowered)
 "p" = (
 /obj/machinery/gateway{
 	dir = 9
 	},
 /obj/effect/turf_decal/bot_white/right,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
+/obj/effect/turf_decal/tile/neutral/tile_full,
 /turf/open/floor/plasteel/dark,
 /area/ruin/unpowered)
 "s" = (
@@ -77,61 +41,24 @@
 	dir = 6
 	},
 /obj/effect/turf_decal/bot_white/right,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
+/obj/effect/turf_decal/tile/neutral/tile_full,
 /turf/open/floor/plasteel/dark,
 /area/ruin/unpowered)
 "x" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
+/obj/effect/turf_decal/tile/neutral/tile_full,
 /turf/open/floor/plasteel/dark,
 /area/ruin/unpowered)
 "C" = (
-/obj/machinery/door/poddoor/shutters{
-	id = "gateshutter";
-	name = "Gateway Access Shutter"
-	},
 /obj/effect/turf_decal/delivery,
-/obj/machinery/door/firedoor/border_only,
-/obj/machinery/door/firedoor/border_only{
-	dir = 1
-	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "H" = (
 /obj/machinery/gateway{
 	dir = 1
 	},
-/obj/machinery/status_display/evac{
-	pixel_y = 32
-	},
 /obj/effect/turf_decal/bot_white,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
+/obj/effect/turf_decal/tile/neutral/tile_full,
 /turf/open/floor/plasteel/dark,
 /area/ruin/unpowered)
 "K" = (
@@ -139,16 +66,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/bot_white,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
+/obj/effect/turf_decal/tile/neutral/tile_full,
 /turf/open/floor/plasteel/dark,
 /area/ruin/unpowered)
 "M" = (
@@ -164,16 +82,7 @@
 	dir = 10
 	},
 /obj/effect/turf_decal/bot_white/left,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
+/obj/effect/turf_decal/tile/neutral/tile_full,
 /turf/open/floor/plasteel/dark,
 /area/ruin/unpowered)
 "V" = (

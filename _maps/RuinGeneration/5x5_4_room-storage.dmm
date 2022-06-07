@@ -6,7 +6,7 @@
 /obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/effect/spawner/lootdrop/maintenance,
-/turf/open/floor/plasteel,
+/turf/open/floor/plating,
 /area/ruin/unpowered)
 "i" = (
 /turf/open/floor/plasteel,
@@ -23,21 +23,26 @@
 /area/ruin/unpowered)
 "z" = (
 /obj/effect/decal/cleanable/oil/streak,
+/obj/structure/table,
+/obj/machinery/microwave{
+	pixel_y = 6
+	},
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "G" = (
 /obj/effect/decal/cleanable/blood/drip,
-/turf/open/floor/plasteel,
+/obj/item/stack/tile/plasteel,
+/turf/open/floor/plating,
 /area/ruin/unpowered)
 "W" = (
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "X" = (
-/obj/vehicle/ridden/atv,
-/turf/open/floor/plasteel,
+/obj/structure/table,
+/turf/open/floor/plating,
 /area/ruin/unpowered)
 "Y" = (
-/obj/structure/closet/crate/secure/loot,
+/obj/structure/closet/secure_closet/freezer/kitchen/maintenance,
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 
@@ -50,7 +55,7 @@ e
 "}
 (2,1,1) = {"
 e
-X
+i
 G
 Y
 e
@@ -58,8 +63,8 @@ e
 (3,1,1) = {"
 j
 k
-i
 W
+X
 e
 "}
 (4,1,1) = {"

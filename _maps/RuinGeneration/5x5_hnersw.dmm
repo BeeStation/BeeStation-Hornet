@@ -2,6 +2,12 @@
 "f" = (
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
+"g" = (
+/obj/effect/turf_decal/tile/neutral/tile_side{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
 "l" = (
 /obj/effect/abstract/open_area_marker{
 	dir = 1
@@ -20,6 +26,16 @@
 /area/ruin/unpowered)
 "x" = (
 /turf/closed/wall,
+/area/ruin/unpowered)
+"D" = (
+/obj/effect/turf_decal/tile/neutral/tile_full,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"R" = (
+/obj/effect/turf_decal/tile/neutral/tile_side{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "Y" = (
 /obj/effect/abstract/open_area_marker{
@@ -44,15 +60,15 @@ x
 "}
 (3,1,1) = {"
 l
-f
-f
+R
+D
 f
 v
 "}
 (4,1,1) = {"
 f
 f
-f
+g
 f
 x
 "}

@@ -1,4 +1,14 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"c" = (
+/obj/machinery/door/airlock/grunge,
+/turf/open/floor/plasteel/dark,
+/area/ruin/unpowered)
+"e" = (
+/obj/structure/table,
+/obj/item/paper_bin,
+/obj/item/pen,
+/turf/open/floor/plasteel/dark,
+/area/ruin/unpowered)
 "f" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
@@ -6,16 +16,27 @@
 "k" = (
 /obj/structure/table,
 /obj/effect/spawner/lootdrop/gloves,
-/turf/open/floor/plasteel,
+/turf/open/floor/plasteel/dark,
 /area/ruin/unpowered)
 "m" = (
-/turf/open/floor/plasteel,
+/turf/open/floor/plasteel/dark/side{
+	dir = 5
+	},
+/area/ruin/unpowered)
+"n" = (
+/turf/open/floor/plasteel/dark,
 /area/ruin/unpowered)
 "u" = (
 /obj/structure/chair/office{
 	dir = 4
 	},
-/turf/open/floor/plasteel,
+/turf/open/floor/plasteel/dark,
+/area/ruin/unpowered)
+"z" = (
+/obj/machinery/photocopier,
+/turf/open/floor/plasteel/dark/side{
+	dir = 5
+	},
 /area/ruin/unpowered)
 "B" = (
 /obj/effect/abstract/doorway_marker{
@@ -25,15 +46,36 @@
 /area/ruin/unpowered)
 "E" = (
 /obj/structure/table,
-/turf/open/floor/plasteel,
+/turf/open/floor/plasteel/dark,
+/area/ruin/unpowered)
+"F" = (
+/obj/structure/rack,
+/turf/open/floor/plasteel/dark,
 /area/ruin/unpowered)
 "G" = (
 /obj/structure/filingcabinet/chestdrawer,
-/turf/open/floor/plasteel,
+/turf/open/floor/plasteel/dark/side{
+	dir = 6
+	},
+/area/ruin/unpowered)
+"I" = (
+/turf/open/floor/plasteel/dark/side{
+	dir = 6
+	},
+/area/ruin/unpowered)
+"P" = (
+/obj/structure/table,
+/obj/item/modular_computer/laptop/preset/civillian,
+/turf/open/floor/plasteel/dark,
 /area/ruin/unpowered)
 "R" = (
 /obj/structure/filingcabinet/security,
-/turf/open/floor/plasteel,
+/turf/open/floor/plasteel/dark,
+/area/ruin/unpowered)
+"W" = (
+/turf/open/floor/plasteel/dark/side{
+	dir = 4
+	},
 /area/ruin/unpowered)
 "X" = (
 /turf/closed/wall,
@@ -52,45 +94,45 @@ X
 "}
 (2,1,1) = {"
 X
+z
+W
+I
+c
 m
-m
-m
-m
-m
-m
+W
 G
 X
 "}
 (3,1,1) = {"
 X
-m
-m
-m
-m
-m
+F
+n
+n
+X
+n
 u
-E
+e
 X
 "}
 (4,1,1) = {"
 X
 R
-m
-m
-m
+n
+n
+f
 k
-E
+P
 E
 X
 "}
 (5,1,1) = {"
 X
 X
-f
-f
 X
-f
-f
+X
+X
+X
+X
 X
 X
 "}

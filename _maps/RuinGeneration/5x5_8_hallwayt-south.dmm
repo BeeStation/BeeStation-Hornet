@@ -1,4 +1,8 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"h" = (
+/obj/effect/turf_decal/tile/neutral/tile_side,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
 "j" = (
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
@@ -15,10 +19,26 @@
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
+"J" = (
+/obj/effect/turf_decal/tile/neutral/tile_side{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"K" = (
+/obj/effect/turf_decal/tile/neutral/tile_side{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
 "U" = (
 /obj/effect/abstract/open_area_marker{
 	dir = 8
 	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"X" = (
+/obj/effect/turf_decal/tile/neutral/tile_full,
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 
@@ -32,21 +52,21 @@ s
 (2,1,1) = {"
 s
 j
-j
+h
 j
 j
 "}
 (3,1,1) = {"
 s
 j
-j
-j
+X
+K
 p
 "}
 (4,1,1) = {"
 s
 j
-j
+J
 j
 j
 "}

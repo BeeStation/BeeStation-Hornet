@@ -16,10 +16,18 @@
 /obj/structure/shuttle/engine/heater{
 	dir = 4
 	},
-/obj/structure/window/reinforced/tinted{
-	dir = 8
-	},
+/obj/structure/window/reinforced/spawner/west,
 /turf/open/floor/plating,
+/area/ruin/unpowered)
+"e" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/machinery/rnd/production/protolathe/department/cargo,
+/obj/structure/railing{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "f" = (
 /obj/structure/shuttle/engine/propulsion/burst/right{
@@ -42,6 +50,11 @@
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
+"k" = (
+/obj/machinery/modular_fabricator/autolathe,
+/obj/machinery/door/firedoor,
+/turf/open/floor/plating,
+/area/ruin/unpowered)
 "l" = (
 /obj/effect/turf_decal/delivery,
 /obj/effect/spawner/lootdrop/crate_spawner,
@@ -49,6 +62,14 @@
 /area/ruin/unpowered)
 "n" = (
 /obj/effect/turf_decal/bot,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"o" = (
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plating,
+/area/ruin/unpowered)
+"p" = (
+/obj/effect/turf_decal/tile/neutral/tile_marquee,
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "r" = (
@@ -84,6 +105,12 @@
 "w" = (
 /obj/effect/spawner/lootdrop/crate_spawner,
 /turf/open/floor/plasteel/dark,
+/area/ruin/unpowered)
+"x" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/closed/wall,
 /area/ruin/unpowered)
 "y" = (
 /obj/effect/turf_decal/delivery,
@@ -163,6 +190,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
+/obj/structure/railing{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "S" = (
@@ -173,6 +203,10 @@
 	dir = 4
 	},
 /turf/open/floor/plating,
+/area/ruin/unpowered)
+"U" = (
+/obj/effect/turf_decal/tile/neutral/tile_side,
+/turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "V" = (
 /turf/open/floor/plasteel/dark,
@@ -213,9 +247,9 @@ M
 (2,1,1) = {"
 M
 h
+p
 h
-h
-h
+k
 h
 h
 h
@@ -228,9 +262,9 @@ M
 (3,1,1) = {"
 M
 h
+p
 h
-h
-h
+o
 h
 h
 h
@@ -243,9 +277,9 @@ M
 (4,1,1) = {"
 M
 h
+p
 h
-h
-h
+M
 h
 h
 h
@@ -258,9 +292,9 @@ M
 (5,1,1) = {"
 M
 h
+p
 h
-h
-h
+I
 h
 h
 h
@@ -272,10 +306,10 @@ M
 "}
 (6,1,1) = {"
 M
-h
-h
-h
-h
+U
+U
+U
+M
 h
 h
 h
@@ -287,11 +321,11 @@ M
 "}
 (7,1,1) = {"
 M
-Q
-Q
-Q
-Q
-Q
+x
+x
+x
+x
+e
 Q
 i
 J

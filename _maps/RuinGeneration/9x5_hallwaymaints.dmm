@@ -4,12 +4,8 @@
 /area/ruin/unpowered)
 "c" = (
 /obj/structure/closet/firecloset/full,
-/obj/effect/turf_decal/tile/green,
-/obj/effect/turf_decal/tile/green{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/green{
-	dir = 1
+/obj/effect/turf_decal/tile/green/tile_side{
+	dir = 5
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
@@ -29,14 +25,8 @@
 /area/ruin/unpowered)
 "y" = (
 /obj/structure/closet/emcloset,
-/obj/effect/turf_decal/tile/green{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/green{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/green{
-	dir = 4
+/obj/effect/turf_decal/tile/green/tile_side{
+	dir = 10
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
@@ -50,10 +40,7 @@
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "K" = (
-/obj/effect/turf_decal/tile/green{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/green{
+/obj/effect/turf_decal/tile/green/tile_side{
 	dir = 1
 	},
 /turf/open/floor/plasteel,
@@ -67,6 +54,10 @@
 /area/ruin/unpowered)
 "S" = (
 /obj/effect/abstract/open_area_marker,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"T" = (
+/obj/effect/turf_decal/tile/neutral/tile_marquee,
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "W" = (
@@ -118,9 +109,9 @@ P
 "}
 (7,1,1) = {"
 d
-P
-P
-P
+T
+T
+T
 S
 "}
 (8,1,1) = {"

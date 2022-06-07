@@ -67,6 +67,10 @@
 /obj/effect/spawner/lootdrop/ruinloot/basic,
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
+"v" = (
+/obj/effect/turf_decal/tile/neutral/tile_marquee,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
 "x" = (
 /obj/effect/turf_decal/delivery,
 /obj/structure/closet/crate/engineering,
@@ -150,9 +154,9 @@ U
 U
 O
 g
+v
 g
-g
-g
+v
 g
 u
 U
@@ -162,7 +166,7 @@ U
 O
 g
 g
-g
+v
 g
 g
 g
@@ -182,33 +186,33 @@ U
 (6,1,1) = {"
 g
 g
-g
+v
 U
 x
 g
-g
+v
 g
 g
 "}
 (7,1,1) = {"
 G
-g
+v
 g
 U
 g
 g
 g
-g
+v
 q
 "}
 (8,1,1) = {"
 g
 g
-g
+v
 U
 Z
 E
-g
+v
 g
 g
 "}
@@ -228,7 +232,7 @@ U
 g
 g
 g
-g
+v
 g
 g
 g
@@ -238,9 +242,9 @@ U
 U
 g
 g
+v
 g
-g
-g
+v
 g
 g
 U

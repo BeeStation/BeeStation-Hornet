@@ -8,6 +8,10 @@
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
+"y" = (
+/obj/effect/turf_decal/tile/neutral/tile_marquee,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
 "M" = (
 /obj/effect/abstract/open_area_marker{
 	dir = 1
@@ -38,9 +42,9 @@ Q
 "}
 (3,1,1) = {"
 M
-Q
-Q
-Q
+y
+y
+y
 V
 "}
 (4,1,1) = {"

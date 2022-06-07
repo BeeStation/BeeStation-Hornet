@@ -1,4 +1,8 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"c" = (
+/obj/effect/turf_decal/tile/neutral/tile_marquee,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
 "h" = (
 /turf/closed/wall,
 /area/ruin/unpowered)
@@ -44,9 +48,9 @@ Q
 "}
 (3,1,1) = {"
 M
-Q
-Q
-Q
+c
+c
+c
 V
 "}
 (4,1,1) = {"

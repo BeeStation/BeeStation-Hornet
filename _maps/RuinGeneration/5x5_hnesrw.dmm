@@ -1,8 +1,30 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"c" = (
+/obj/effect/turf_decal/tile/neutral/tile_side{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
 "i" = (
 /turf/closed/wall,
 /area/ruin/unpowered)
 "j" = (
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"m" = (
+/obj/effect/turf_decal/tile/neutral/tile_side{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"n" = (
+/obj/effect/turf_decal/tile/neutral/tile_full,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"p" = (
+/obj/effect/turf_decal/tile/neutral/tile_side{
+	dir = 8
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "q" = (
@@ -44,15 +66,15 @@ j
 "}
 (3,1,1) = {"
 T
-j
-j
-j
+p
+n
+c
 D
 "}
 (4,1,1) = {"
 j
 j
-j
+m
 j
 j
 "}

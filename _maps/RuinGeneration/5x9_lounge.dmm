@@ -7,24 +7,49 @@
 /obj/effect/abstract/doorway_marker{
 	dir = 8
 	},
+/obj/effect/turf_decal/monke/siding/wood{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "h" = (
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"k" = (
+/obj/effect/turf_decal/tile/neutral/tile_marquee,
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "q" = (
 /obj/structure/chair/comfy{
 	dir = 4
 	},
-/turf/open/floor/plasteel,
+/obj/effect/turf_decal/monke/siding/wood{
+	dir = 1
+	},
+/turf/open/floor/wood,
 /area/ruin/unpowered)
 "t" = (
+/turf/open/floor/wood,
+/area/ruin/unpowered)
+"w" = (
+/obj/effect/turf_decal/monke/siding/wood{
+	dir = 1
+	},
+/turf/open/floor/wood,
+/area/ruin/unpowered)
+"C" = (
 /obj/machinery/vending/snack/random,
-/turf/open/floor/plasteel,
+/turf/open/floor/wood,
 /area/ruin/unpowered)
 "G" = (
 /obj/machinery/vending/cola/random,
-/turf/open/floor/plasteel,
+/turf/open/floor/wood,
+/area/ruin/unpowered)
+"I" = (
+/obj/structure/chair/comfy{
+	dir = 4
+	},
+/turf/open/floor/wood,
 /area/ruin/unpowered)
 "J" = (
 /obj/effect/abstract/open_area_marker{
@@ -50,33 +75,33 @@ Z
 (2,1,1) = {"
 Z
 c
-q
-q
-q
 h
 h
+q
+I
+t
 t
 Z
 "}
 (3,1,1) = {"
 Z
 h
+k
 h
-h
-h
-h
-h
-h
+w
+t
+t
+t
 Z
 "}
 (4,1,1) = {"
 Z
 h
+k
 h
-h
-h
-h
-h
+w
+t
+C
 G
 Z
 "}

@@ -72,15 +72,28 @@
 "m" = (
 /turf/open/floor/wood,
 /area/ruin/unpowered)
+"n" = (
+/obj/effect/turf_decal/tile/neutral/tile_side{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
 "p" = (
-/obj/effect/spawner/structure/window/shutter,
+/obj/effect/spawner/structure/window,
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "q" = (
 /obj/structure/flora/grass/jungle/b,
 /obj/structure/flora/ausbushes/ppflowers,
 /obj/structure/window/spawner,
+/obj/item/toy/plush/moth/ookplush,
 /turf/open/floor/grass,
+/area/ruin/unpowered)
+"r" = (
+/obj/effect/turf_decal/tile/neutral/tile_side{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "s" = (
 /obj/effect/abstract/doorway_marker{
@@ -112,6 +125,10 @@
 /obj/effect/abstract/doorway_marker,
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
+"z" = (
+/obj/effect/turf_decal/tile/neutral/tile_side,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
 "A" = (
 /obj/structure/table/wood,
 /obj/machinery/chem_dispenser/drinks/beer,
@@ -126,6 +143,10 @@
 "C" = (
 /obj/structure/flora/junglebush/large,
 /turf/open/floor/grass,
+/area/ruin/unpowered)
+"D" = (
+/obj/effect/turf_decal/tile/neutral/tile_full,
+/turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "E" = (
 /obj/structure/dresser,
@@ -177,6 +198,10 @@
 /obj/effect/turf_decal/tile/red/tile_marquee,
 /obj/structure/closet/crate/wooden/toy,
 /obj/effect/spawner/lootdrop/ruinloot/security,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"L" = (
+/obj/effect/turf_decal/tile/neutral/tile_marquee,
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "M" = (
@@ -262,7 +287,7 @@ U
 f
 p
 Y
-Y
+L
 Y
 u
 "}
@@ -277,7 +302,7 @@ U
 G
 p
 Y
-Y
+L
 Y
 y
 "}
@@ -292,7 +317,7 @@ U
 g
 p
 Y
-Y
+L
 Y
 u
 "}
@@ -307,7 +332,7 @@ U
 U
 u
 Y
-Y
+L
 Y
 u
 "}
@@ -322,7 +347,7 @@ U
 U
 l
 Y
-Y
+z
 Y
 Y
 "}
@@ -337,8 +362,8 @@ U
 U
 p
 Y
-Y
-Y
+D
+r
 W
 "}
 (8,1,1) = {"
@@ -352,7 +377,7 @@ U
 U
 l
 Y
-Y
+n
 Y
 Y
 "}
@@ -367,7 +392,7 @@ X
 U
 u
 Y
-Y
+L
 Y
 u
 "}
@@ -382,7 +407,7 @@ X
 U
 p
 Y
-Y
+L
 Y
 u
 "}
@@ -397,7 +422,7 @@ X
 U
 p
 Y
-Y
+L
 Y
 y
 "}
@@ -412,7 +437,7 @@ U
 U
 p
 Y
-Y
+L
 Y
 u
 "}

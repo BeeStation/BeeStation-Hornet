@@ -3,16 +3,36 @@
 /obj/structure/lattice,
 /turf/template_noop,
 /area/template_noop)
+"d" = (
+/obj/effect/turf_decal/tile/neutral/tile_side{
+	dir = 8
+	},
+/obj/structure/chair/stool,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
 "g" = (
 /turf/closed/wall,
 /area/ruin/unpowered)
 "j" = (
 /turf/template_noop,
 /area/template_noop)
+"p" = (
+/obj/effect/turf_decal/tile/neutral/tile_side{
+	dir = 8
+	},
+/obj/structure/closet/emcloset,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
 "C" = (
-/obj/effect/spawner/structure/window,
-/obj/machinery/door/firedoor/window,
+/obj/effect/spawner/structure/window/reinforced/shutter,
 /turf/open/floor/plating,
+/area/ruin/unpowered)
+"E" = (
+/obj/effect/turf_decal/tile/neutral/tile_side{
+	dir = 8
+	},
+/obj/structure/closet/firecloset,
+/turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "P" = (
 /turf/open/floor/plasteel,
@@ -33,21 +53,21 @@ j
 "}
 (2,1,1) = {"
 P
-P
+p
 C
 c
 j
 "}
 (3,1,1) = {"
 Q
-P
+E
 C
 j
 j
 "}
 (4,1,1) = {"
 P
-P
+d
 C
 c
 j

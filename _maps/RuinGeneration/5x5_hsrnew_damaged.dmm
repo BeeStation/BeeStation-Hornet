@@ -19,7 +19,7 @@
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "v" = (
-/turf/open/space/basic,
+/turf/template_noop/open,
 /area/ruin/unpowered)
 "E" = (
 /turf/closed/wall,
@@ -35,7 +35,7 @@
 /area/ruin/unpowered)
 "X" = (
 /obj/structure/lattice,
-/turf/open/space/basic,
+/turf/template_noop/open,
 /area/ruin/unpowered)
 
 (1,1,1) = {"

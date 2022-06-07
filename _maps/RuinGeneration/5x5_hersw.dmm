@@ -1,6 +1,6 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "s" = (
-/obj/item/twohanded/required/kirbyplants/random,
+/obj/effect/turf_decal/tile/neutral/tile_marquee,
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "w" = (
@@ -35,7 +35,7 @@ C
 "}
 (2,1,1) = {"
 C
-s
+K
 K
 K
 C
@@ -43,14 +43,14 @@ C
 (3,1,1) = {"
 C
 K
-K
+s
 K
 M
 "}
 (4,1,1) = {"
 C
 K
-K
+s
 K
 C
 "}

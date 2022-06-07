@@ -1,7 +1,11 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
 /obj/machinery/field/generator,
-/turf/open/floor/engine,
+/turf/open/floor/wood,
+/area/ruin/unpowered)
+"b" = (
+/obj/item/stack/cable_coil,
+/turf/open/floor/wood,
 /area/ruin/unpowered)
 "c" = (
 /turf/closed/wall,
@@ -16,9 +20,12 @@
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "h" = (
-/obj/effect/mapping_helpers/airlock/abandoned,
-/obj/machinery/door/airlock/highsecurity,
+/obj/machinery/door/airlock/grunge,
 /turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"i" = (
+/obj/structure/filingcabinet,
+/turf/open/floor/wood,
 /area/ruin/unpowered)
 "m" = (
 /obj/effect/abstract/open_area_marker{
@@ -26,15 +33,40 @@
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
+"n" = (
+/obj/item/stack/tile/wood,
+/turf/open/floor/plating,
+/area/ruin/unpowered)
+"u" = (
+/obj/structure/table/wood,
+/turf/open/floor/wood,
+/area/ruin/unpowered)
 "w" = (
 /turf/open/floor/plating,
 /area/ruin/unpowered)
+"x" = (
+/obj/machinery/power/port_gen/pacman,
+/turf/open/floor/wood,
+/area/ruin/unpowered)
+"C" = (
+/obj/effect/turf_decal/tile/neutral/tile_marquee,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"F" = (
+/obj/machinery/power/emitter{
+	dir = 4
+	},
+/turf/open/floor/wood,
+/area/ruin/unpowered)
 "G" = (
-/turf/open/floor/engine,
+/turf/open/floor/wood,
+/area/ruin/unpowered)
+"H" = (
+/obj/item/stack/sheet/mineral/plasma/five,
+/turf/open/floor/plating,
 /area/ruin/unpowered)
 "K" = (
-/obj/effect/spawner/structure/window,
-/obj/machinery/door/firedoor/window,
+/obj/effect/spawner/structure/window/reinforced/shutter,
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "N" = (
@@ -86,7 +118,7 @@ N
 "}
 (3,1,1) = {"
 m
-T
+C
 T
 T
 T
@@ -103,7 +135,7 @@ N
 T
 T
 T
-T
+C
 T
 T
 T
@@ -120,7 +152,7 @@ c
 T
 T
 T
-T
+C
 T
 T
 T
@@ -137,7 +169,7 @@ c
 T
 T
 T
-T
+C
 T
 c
 c
@@ -146,8 +178,8 @@ N
 "}
 (7,1,1) = {"
 c
-G
-G
+u
+u
 c
 c
 c
@@ -162,13 +194,13 @@ N
 (8,1,1) = {"
 c
 G
-w
+n
 G
 G
 c
 c
 T
-T
+C
 T
 K
 K
@@ -195,11 +227,11 @@ w
 P
 f
 w
-G
+b
 c
 c
 T
-T
+C
 T
 c
 c
@@ -209,9 +241,9 @@ c
 a
 w
 e
+F
 G
-G
-G
+x
 c
 T
 T
@@ -221,16 +253,16 @@ c
 "}
 (12,1,1) = {"
 c
+i
 G
 G
 G
-G
-w
+H
 G
 c
 c
 T
-T
+C
 T
 c
 "}

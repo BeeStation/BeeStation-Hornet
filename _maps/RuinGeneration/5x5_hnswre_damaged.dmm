@@ -7,7 +7,7 @@
 /area/ruin/unpowered)
 "n" = (
 /obj/structure/lattice,
-/turf/open/space/basic,
+/turf/template_noop/open,
 /area/ruin/unpowered)
 "q" = (
 /obj/effect/abstract/doorway_marker{
@@ -25,7 +25,7 @@
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "D" = (
-/turf/open/space/basic,
+/turf/template_noop/open,
 /area/ruin/unpowered)
 "G" = (
 /turf/closed/wall,

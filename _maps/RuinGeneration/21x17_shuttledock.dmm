@@ -22,6 +22,12 @@
 "k" = (
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
+"o" = (
+/obj/effect/turf_decal/trimline/neutral/filled/warning{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
 "q" = (
 /obj/machinery/vending/cola/random,
 /turf/open/floor/plasteel,
@@ -46,8 +52,26 @@
 /obj/machinery/door/firedoor/window,
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
+"D" = (
+/obj/effect/turf_decal/trimline/neutral/filled/warning{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
 "F" = (
 /turf/closed/wall,
+/area/ruin/unpowered)
+"G" = (
+/obj/effect/turf_decal/trimline/neutral/corner{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"T" = (
+/obj/effect/turf_decal/trimline/neutral/corner{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "W" = (
 /obj/structure/fans/tiny,
@@ -88,10 +112,10 @@ k
 k
 k
 k
-k
-k
-k
-k
+T
+o
+o
+o
 F
 "}
 (3,1,1) = {"
@@ -278,7 +302,7 @@ A
 A
 A
 A
-v
+F
 k
 k
 k
@@ -419,10 +443,10 @@ F
 "}
 (20,1,1) = {"
 F
-k
-k
-k
-k
+D
+D
+D
+G
 k
 k
 k

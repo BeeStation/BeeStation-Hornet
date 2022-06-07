@@ -2,6 +2,10 @@
 "h" = (
 /turf/closed/wall,
 /area/ruin/unpowered)
+"z" = (
+/obj/effect/turf_decal/tile/neutral/tile_marquee,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
 "M" = (
 /obj/effect/abstract/open_area_marker{
 	dir = 1
@@ -32,9 +36,9 @@ Q
 "}
 (3,1,1) = {"
 M
-Q
-Q
-Q
+z
+z
+z
 V
 "}
 (4,1,1) = {"

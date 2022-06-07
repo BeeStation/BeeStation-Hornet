@@ -10,25 +10,18 @@
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "n" = (
-/obj/effect/turf_decal/tile/green,
-/obj/effect/turf_decal/tile/green{
-	dir = 4
+/obj/effect/turf_decal/tile/green/tile_side{
+	dir = 9
 	},
-/obj/effect/turf_decal/tile/green{
-	dir = 8
-	},
+/obj/structure/closet/l3closet/janitor,
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "x" = (
-/obj/effect/turf_decal/tile/green{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/green{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/green,
 /obj/structure/reagent_dispensers/watertank,
 /obj/item/reagent_containers/glass/bucket,
+/obj/effect/turf_decal/tile/green/tile_side{
+	dir = 5
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "y" = (
@@ -37,15 +30,13 @@
 /obj/item/soap/nanotrasen,
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
+"D" = (
+/obj/structure/sign/departments/minsky/supply/janitorial,
+/turf/closed/wall,
+/area/ruin/unpowered)
 "E" = (
-/obj/effect/turf_decal/tile/green{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/green{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/green{
-	dir = 1
+/obj/effect/turf_decal/tile/green/tile_side{
+	dir = 10
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
@@ -53,28 +44,21 @@
 /turf/closed/wall,
 /area/ruin/unpowered)
 "P" = (
-/obj/effect/turf_decal/tile/green{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/green,
-/obj/effect/turf_decal/tile/green{
-	dir = 4
-	},
 /obj/structure/sink{
 	dir = 4;
 	pixel_x = 12
 	},
+/obj/effect/turf_decal/tile/green/tile_side{
+	dir = 6
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "V" = (
-/obj/effect/turf_decal/tile/green{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/green{
-	dir = 4
-	},
 /obj/structure/sign/poster/contraband/lusty_xenomorph{
 	pixel_y = 32
+	},
+/obj/effect/turf_decal/tile/green/tile_side{
+	dir = 4
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
@@ -108,7 +92,7 @@ M
 l
 P
 n
-M
+D
 "}
 (5,1,1) = {"
 M

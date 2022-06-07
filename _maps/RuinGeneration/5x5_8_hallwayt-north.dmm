@@ -5,6 +5,12 @@
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
+"e" = (
+/obj/effect/turf_decal/tile/neutral/tile_side{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
 "l" = (
 /obj/effect/abstract/open_area_marker{
 	dir = 1
@@ -23,6 +29,20 @@
 "E" = (
 /turf/closed/wall,
 /area/ruin/unpowered)
+"L" = (
+/obj/effect/turf_decal/tile/neutral/tile_side,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"P" = (
+/obj/effect/turf_decal/tile/neutral/tile_side{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"Q" = (
+/obj/effect/turf_decal/tile/neutral/tile_full,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
 
 (1,1,1) = {"
 E
@@ -34,21 +54,21 @@ E
 (2,1,1) = {"
 n
 n
-n
+L
 n
 E
 "}
 (3,1,1) = {"
 l
-n
-n
+e
+Q
 n
 E
 "}
 (4,1,1) = {"
 n
 n
-n
+P
 n
 E
 "}

@@ -6,7 +6,7 @@
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "u" = (
-/turf/open/space/basic,
+/turf/template_noop/open,
 /area/ruin/unpowered)
 "x" = (
 /obj/effect/abstract/doorway_marker,
@@ -29,7 +29,7 @@
 /area/ruin/unpowered)
 "L" = (
 /obj/structure/lattice,
-/turf/open/space/basic,
+/turf/template_noop/open,
 /area/ruin/unpowered)
 "Q" = (
 /obj/effect/abstract/open_area_marker{

@@ -22,7 +22,6 @@
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "ee" = (
-/obj/effect/turf_decal/tile/red,
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/ruinloot/security,
 /turf/open/floor/plasteel,
@@ -80,13 +79,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
-"mj" = (
-/obj/effect/turf_decal/tile/red,
-/obj/effect/turf_decal/tile/red{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
-/area/ruin/unpowered)
 "pC" = (
 /obj/structure/table,
 /obj/item/storage/pill_bottle/dice,
@@ -96,9 +88,6 @@
 /obj/machinery/door/airlock/security/glass{
 	name = "Long-Term Cell 1";
 	req_access_txt = "2"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
 	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 1
@@ -174,10 +163,6 @@
 	pixel_x = 1;
 	pixel_y = -27
 	},
-/obj/effect/turf_decal/tile/red,
-/obj/effect/turf_decal/tile/red{
-	dir = 8
-	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "xh" = (
@@ -234,7 +219,7 @@
 /area/ruin/unpowered)
 "Be" = (
 /obj/effect/abstract/doorway_marker,
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "Bh" = (
 /obj/machinery/hydroponics/soil,
@@ -251,6 +236,9 @@
 /obj/structure/table,
 /obj/effect/spawner/lootdrop/ruinloot/security,
 /obj/effect/spawner/lootdrop/ruinloot/security,
+/obj/effect/turf_decal/tile/red/tile_side{
+	dir = 8
+	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "CC" = (
@@ -350,8 +338,7 @@
 /area/ruin/unpowered)
 "Me" = (
 /obj/structure/closet/secure_closet/brig,
-/obj/effect/turf_decal/tile/red,
-/obj/effect/turf_decal/tile/red{
+/obj/effect/turf_decal/tile/red/tile_side{
 	dir = 8
 	},
 /turf/open/floor/plasteel,
@@ -421,14 +408,10 @@
 /obj/item/razor{
 	pixel_x = -6
 	},
-/obj/effect/turf_decal/tile/red,
-/obj/effect/turf_decal/tile/red{
+/obj/effect/spawner/lootdrop/ruinloot/security,
+/obj/effect/turf_decal/tile/red/tile_side{
 	dir = 8
 	},
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
-	dir = 1
-	},
-/obj/effect/spawner/lootdrop/ruinloot/security,
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "Qh" = (
@@ -490,11 +473,8 @@
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "VT" = (
-/obj/effect/turf_decal/tile/red,
-/obj/effect/turf_decal/tile/red{
-	dir = 8
-	},
 /obj/item/kirbyplants/random,
+/obj/effect/turf_decal/tile/red,
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "Wr" = (
@@ -510,14 +490,12 @@
 /obj/effect/turf_decal/tile/green{
 	dir = 4
 	},
-/obj/machinery/camera/autoname,
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "Xh" = (
 /obj/structure/table,
 /obj/item/electropack,
-/obj/effect/turf_decal/tile/red,
-/obj/effect/turf_decal/tile/red{
+/obj/effect/turf_decal/tile/red/tile_side{
 	dir = 8
 	},
 /turf/open/floor/plasteel,
@@ -581,7 +559,7 @@ vM
 lv
 bO
 bO
-mj
+bO
 Be
 "}
 (4,1,1) = {"

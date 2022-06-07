@@ -2,6 +2,11 @@
 "a" = (
 /turf/closed/wall,
 /area/ruin/unpowered)
+"k" = (
+/obj/structure/closet/emcloset,
+/obj/effect/turf_decal/tile/neutral/tile_side,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
 "n" = (
 /obj/structure/lattice,
 /turf/template_noop,
@@ -12,18 +17,21 @@
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
+"C" = (
+/obj/structure/closet/firecloset,
+/obj/effect/turf_decal/tile/neutral/tile_side,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
 "F" = (
 /turf/template_noop,
 /area/template_noop)
 "M" = (
-/obj/effect/spawner/structure/window,
-/obj/machinery/door/firedoor/window,
-/obj/machinery/door/firedoor/window,
-/turf/open/floor/plating,
+/obj/machinery/vending/cola/random,
+/obj/effect/turf_decal/tile/neutral/tile_side,
+/turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "Q" = (
-/obj/effect/spawner/structure/window,
-/obj/machinery/door/firedoor/window,
+/obj/effect/spawner/structure/window/reinforced/shutter,
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "R" = (
@@ -39,16 +47,16 @@ a
 "}
 (2,1,1) = {"
 a
-R
-R
-R
+M
+k
+C
 a
 "}
 (3,1,1) = {"
 a
 Q
 Q
-M
+Q
 a
 "}
 (4,1,1) = {"

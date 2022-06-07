@@ -6,11 +6,17 @@
 /obj/effect/abstract/open_area_marker,
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
+"d" = (
+/obj/effect/turf_decal/tile/neutral/tile_full,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
 "e" = (
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
 	},
-/turf/open/floor/plasteel/white,
+/turf/open/floor/plasteel/white/side{
+	dir = 10
+	},
 /area/ruin/unpowered)
 "f" = (
 /obj/effect/turf_decal/tile/blue{
@@ -19,18 +25,9 @@
 /turf/open/floor/plasteel/white,
 /area/ruin/unpowered)
 "g" = (
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
 /obj/machinery/atmospherics/components/unary/thermomachine/freezer,
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/blue,
 /obj/effect/turf_decal/delivery,
+/obj/effect/turf_decal/tile/blue/tile_full,
 /turf/open/floor/plasteel/white,
 /area/ruin/unpowered)
 "h" = (
@@ -41,10 +38,7 @@
 /turf/open/floor/plasteel/white,
 /area/ruin/unpowered)
 "j" = (
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue{
+/obj/effect/turf_decal/tile/blue/tile_side{
 	dir = 4
 	},
 /turf/open/floor/plasteel/white,
@@ -80,41 +74,25 @@
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "r" = (
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
+/obj/effect/turf_decal/tile/blue/tile_side{
 	dir = 8
 	},
 /turf/open/floor/plasteel/white,
 /area/ruin/unpowered)
 "s" = (
 /obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
+/turf/open/floor/plasteel/white/side{
+	dir = 6
 	},
-/turf/open/floor/plasteel/white,
 /area/ruin/unpowered)
 "t" = (
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
 /obj/structure/closet/crate/freezer/blood,
+/obj/effect/turf_decal/tile/blue/tile_side,
 /turf/open/floor/plasteel/white,
 /area/ruin/unpowered)
 "u" = (
-/obj/effect/turf_decal/tile/blue,
-/obj/structure/table/glass,
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/effect/spawner/lootdrop/ruinloot/medical,
-/turf/open/floor/plasteel/white,
+/obj/effect/turf_decal/tile/neutral/tile_marquee,
+/turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "w" = (
 /obj/effect/turf_decal/tile/blue{
@@ -123,13 +101,10 @@
 /turf/open/floor/plasteel/white,
 /area/ruin/unpowered)
 "x" = (
-/obj/effect/turf_decal/tile/blue,
 /obj/machinery/sleeper{
 	dir = 8
 	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
+/obj/effect/turf_decal/tile/blue/tile_side,
 /turf/open/floor/plasteel/white,
 /area/ruin/unpowered)
 "y" = (
@@ -139,34 +114,16 @@
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "z" = (
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
 /obj/machinery/atmospherics/components/unary/cryo_cell,
 /obj/effect/turf_decal/delivery,
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue,
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
+/obj/effect/turf_decal/tile/blue/tile_full,
 /turf/open/floor/plasteel/white,
 /area/ruin/unpowered)
 "A" = (
-/obj/effect/turf_decal/tile/blue,
 /obj/structure/table/glass,
 /obj/item/reagent_containers/glass/bottle/charcoal,
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
 /obj/effect/spawner/lootdrop/ruinloot/medical,
+/obj/effect/turf_decal/tile/blue/tile_full,
 /turf/open/floor/plasteel/white,
 /area/ruin/unpowered)
 "B" = (
@@ -187,9 +144,8 @@
 /turf/open/floor/plasteel/white,
 /area/ruin/unpowered)
 "E" = (
-/obj/effect/turf_decal/tile/blue,
 /obj/effect/turf_decal/stripes/corner,
-/obj/effect/turf_decal/tile/blue{
+/obj/effect/turf_decal/tile/blue/tile_side{
 	dir = 8
 	},
 /turf/open/floor/plasteel/white,
@@ -200,12 +156,17 @@
 /obj/structure/window/reinforced,
 /turf/open/floor/plasteel/white,
 /area/ruin/unpowered)
+"J" = (
+/obj/effect/turf_decal/tile/neutral/tile_side{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
 "K" = (
-/obj/effect/turf_decal/tile/blue,
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
 	},
-/obj/effect/turf_decal/tile/blue{
+/obj/effect/turf_decal/tile/blue/tile_side{
 	dir = 8
 	},
 /turf/open/floor/plasteel/white,
@@ -217,19 +178,8 @@
 /turf/open/floor/plasteel/white,
 /area/ruin/unpowered)
 "M" = (
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/machinery/atmospherics/components/unary/cryo_cell,
-/obj/effect/turf_decal/delivery,
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/blue,
-/turf/open/floor/plasteel/white,
+/obj/effect/turf_decal/tile/neutral/tile_side,
+/turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "O" = (
 /obj/effect/abstract/open_area_marker{
@@ -246,6 +196,9 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/ruin/unpowered)
+"R" = (
+/turf/open/floor/plasteel/white/side,
+/area/ruin/unpowered)
 "S" = (
 /turf/closed/wall,
 /area/ruin/unpowered)
@@ -260,18 +213,10 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/structure/window/reinforced{
-	dir = 8
-	},
+/obj/structure/window/reinforced/spawner/west,
 /turf/open/floor/plasteel/white,
 /area/ruin/unpowered)
 "X" = (
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
 /obj/structure/table/glass,
 /obj/item/reagent_containers/glass/beaker/cryoxadone{
 	pixel_x = 9;
@@ -286,6 +231,9 @@
 	},
 /obj/effect/turf_decal/bot,
 /obj/effect/spawner/lootdrop/ruinloot/medical,
+/obj/effect/turf_decal/tile/blue/tile_side{
+	dir = 4
+	},
 /turf/open/floor/plasteel/white,
 /area/ruin/unpowered)
 "Y" = (
@@ -296,25 +244,14 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/structure/window/reinforced{
-	dir = 8
-	},
+/obj/structure/window/reinforced/spawner/west,
 /turf/open/floor/plasteel/white,
 /area/ruin/unpowered)
 "Z" = (
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
-	},
 /obj/machinery/portable_atmospherics/canister/oxygen,
-/obj/effect/turf_decal/tile/blue{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/blue,
 /obj/effect/turf_decal/delivery,
 /obj/machinery/atmospherics/components/unary/portables_connector/visible,
+/obj/effect/turf_decal/tile/blue/tile_full,
 /turf/open/floor/plasteel/white,
 /area/ruin/unpowered)
 
@@ -336,18 +273,18 @@ B
 B
 p
 a
-a
+u
 a
 S
 "}
 (3,1,1) = {"
 S
-M
+z
 n
 w
 I
 a
-a
+u
 a
 S
 "}
@@ -358,7 +295,7 @@ Q
 w
 I
 a
-a
+u
 a
 S
 "}
@@ -369,7 +306,7 @@ h
 w
 I
 y
-a
+u
 a
 S
 "}
@@ -380,7 +317,7 @@ Q
 w
 K
 o
-a
+M
 a
 a
 "}
@@ -391,8 +328,8 @@ h
 w
 r
 a
-a
-a
+d
+J
 c
 "}
 (8,1,1) = {"
@@ -430,7 +367,7 @@ S
 "}
 (11,1,1) = {"
 q
-e
+R
 f
 f
 f
@@ -444,7 +381,7 @@ S
 s
 T
 x
-u
+A
 x
 A
 t

@@ -9,11 +9,15 @@
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
+"I" = (
+/obj/effect/turf_decal/tile/neutral/tile_marquee,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
 "K" = (
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "L" = (
-/turf/open/space/basic,
+/turf/template_noop/open,
 /area/ruin/unpowered)
 "N" = (
 /obj/effect/abstract/doorway_marker,
@@ -27,7 +31,7 @@
 /area/ruin/unpowered)
 "Y" = (
 /obj/structure/lattice,
-/turf/open/space/basic,
+/turf/template_noop/open,
 /area/ruin/unpowered)
 
 (1,1,1) = {"
@@ -40,14 +44,14 @@ U
 (2,1,1) = {"
 U
 K
-K
+I
 K
 U
 "}
 (3,1,1) = {"
 L
 V
-K
+I
 K
 N
 "}

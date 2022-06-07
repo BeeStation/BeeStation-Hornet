@@ -73,6 +73,10 @@
 	},
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
+"x" = (
+/obj/effect/turf_decal/tile/neutral/tile_marquee,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
 "z" = (
 /obj/machinery/door/airlock{
 	id_tag = "Dorm3";
@@ -236,17 +240,17 @@ s
 "}
 (7,1,1) = {"
 Y
-s
-s
-s
-s
-s
-s
-s
-s
-s
-s
-s
+x
+x
+x
+x
+x
+x
+x
+x
+x
+x
+x
 e
 "}
 (8,1,1) = {"

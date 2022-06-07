@@ -130,9 +130,6 @@
 /area/ruin/unpowered)
 "tD" = (
 /obj/effect/abstract/doorway_marker,
-/obj/machinery/door/airlock/grunge{
-	name = "Artificial Intelligence research"
-	},
 /turf/open/floor/plasteel/tech/grid,
 /area/ruin/unpowered)
 "tJ" = (
@@ -162,7 +159,9 @@
 /turf/template_noop,
 /area/template_noop)
 "vj" = (
-/obj/machinery/holopad,
+/obj/machinery/power/terminal{
+	dir = 8
+	},
 /turf/open/floor/plasteel/tech/grid,
 /area/ruin/unpowered)
 "vv" = (
@@ -173,8 +172,7 @@
 /area/ruin/unpowered)
 "vX" = (
 /obj/effect/spawner/structure/window/plasma/reinforced,
-/obj/machinery/door/poddoor/shutters/preopen,
-/turf/open/floor/plasteel/tech/grid,
+/turf/open/floor/plating,
 /area/ruin/unpowered)
 "za" = (
 /obj/item/kirbyplants/photosynthetic{
@@ -190,7 +188,6 @@
 	dir = 4
 	},
 /obj/machinery/flasher{
-	id = "AI";
 	pixel_y = 24
 	},
 /obj/effect/spawner/lootdrop/ruinloot/important,
@@ -199,10 +196,6 @@
 "BT" = (
 /obj/machinery/door/airlock/highsecurity,
 /obj/effect/mapping_helpers/airlock/locked,
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "AI Core shutters";
-	name = "AI core shutters"
-	},
 /turf/open/floor/circuit/red,
 /area/ruin/unpowered)
 "CO" = (
@@ -274,11 +267,6 @@
 /area/ruin/unpowered)
 "Lx" = (
 /obj/effect/decal/cleanable/robot_debris/old,
-/obj/machinery/camera{
-	c_tag = "Telecomms - Server Room - Aft-Port";
-	dir = 9;
-	network = list("ss13","tcomms")
-	},
 /obj/effect/decal/cleanable/blood/tracks,
 /obj/item/ammo_casing/c9mm{
 	dir = 8;
@@ -430,7 +418,7 @@ JS
 JS
 tJ
 SV
-SV
+vj
 SV
 SV
 WX
@@ -466,7 +454,7 @@ vX
 JS
 to
 SV
-vj
+SV
 SV
 SV
 JS

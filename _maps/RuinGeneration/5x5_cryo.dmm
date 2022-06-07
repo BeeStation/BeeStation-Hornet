@@ -24,16 +24,12 @@
 	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/ruin/unpowered)
-"u" = (
-/obj/effect/spawner/structure/window/reinforced,
-/turf/open/floor/plating,
-/area/ruin/unpowered)
 "x" = (
 /obj/effect/abstract/doorway_marker,
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "C" = (
-/turf/open/floor/plasteel/showroomfloor,
+/turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "E" = (
 /obj/machinery/cryopod{
@@ -51,7 +47,7 @@
 /obj/machinery/computer/cryopod{
 	pixel_y = 25
 	},
-/turf/open/floor/plasteel/showroomfloor,
+/turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "R" = (
 /obj/effect/turf_decal/stripes/line{
@@ -79,7 +75,7 @@ L
 t
 f
 E
-u
+L
 "}
 (3,1,1) = {"
 L
@@ -93,7 +89,7 @@ L
 j
 R
 T
-u
+L
 "}
 (5,1,1) = {"
 L
