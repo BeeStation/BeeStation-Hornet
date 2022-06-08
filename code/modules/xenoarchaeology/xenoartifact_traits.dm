@@ -632,16 +632,16 @@
 
 /datum/xenoartifact_trait/major/corginator/activate(obj/item/xenoartifact/X, mob/living/target)
 	X.say(pick("Woof!", "Bark!", "Yap!"))
-	if(istype(target, /mob/living) && !(istype(target, /mob/living/simple_animal/pet/dog/corgi)))
-		var/mob/living/simple_animal/pet/dog/corgi/new_corgi = transform(X, target)
-		addtimer(CALLBACK(src, .proc/transform_back, X, target, new_corgi), (X.charge*0.6) SECONDS)
-		victims += list(target, new_corgi)
-		X.cooldownmod = (X.charge*0.6) SECONDS
-
-/datum/xenoartifact_trait/major/corginator/proc/transform(obj/item/xenoartifact/X, mob/living/target)
 	if(!(SSzclear.get_free_z_level()))
 		playsound(get_turf(X), 'sound/machines/buzz-sigh.ogg', 50, TRUE)
 		return
+	if(istype(target, /mob/living) && !(istype(target, /mob/living/simple_animal/pet/dog/corgi)))
+		var/mob/living/simple_animal/pet/dog/corgi/new_corgi = transform(X, target)
+		addtimer(CALLBACK(src, .proc/transform_back, X, target, new_corgi), (X.charge*0.6) SECONDS)
+		victims |= list(target, new_corgi)
+		X.cooldownmod = (X.charge*0.6) SECONDS
+
+/datum/xenoartifact_trait/major/corginator/proc/transform(obj/item/xenoartifact/X, mob/living/target)
 	var/mob/living/simple_animal/pet/dog/corgi/new_corgi
 	new_corgi = new(get_turf(target))
 	new_corgi.key = target.key
@@ -898,7 +898,7 @@
 
 /datum/xenoartifact_trait/major/chem/on_init(obj/item/xenoartifact/X)
 	amount = pick(5, 9, 10, 15)
-	formula = get_random_reagent_id(CHEMICAL_RNG_GENERAL)
+	formula = get_random_reagent_id(/*CHEMICAL_RNG_GENERAL*/)
 
 /datum/xenoartifact_trait/major/chem/activate(obj/item/xenoartifact/X, atom/target)
 	if(target?.reagents)

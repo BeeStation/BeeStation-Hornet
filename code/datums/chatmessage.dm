@@ -469,14 +469,14 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 		if(5)
 			return "#[num2hex(c, 2)][num2hex(m, 2)][num2hex(x, 2)]"
 
-/atom/proc/balloon_alert(mob/viewer, text)
+/atom/proc/balloon_alert(mob/viewer, text, color = null)
 	if(!viewer?.client)
 		return
 	switch(viewer.client.prefs.see_balloon_alerts)
 		if(BALLOON_ALERT_ALWAYS)
-			new /datum/chatmessage/balloon_alert(text, src, viewer)
+			new /datum/chatmessage/balloon_alert(text, src, viewer, color)
 		if(BALLOON_ALERT_WITH_CHAT)
-			new /datum/chatmessage/balloon_alert(text, src, viewer)
+			new /datum/chatmessage/balloon_alert(text, src, viewer, color)
 			to_chat(viewer, "<span class='notice'>[text].</span>")
 		if(BALLOON_ALERT_NEVER)
 			to_chat(viewer, "<span class='notice'>[text].</span>")
@@ -492,18 +492,18 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 		balloon_alert(hearer, (hearer == src && self_message) || message)
 
 /datum/chatmessage/balloon_alert
-	tgt_color = "#ffffff"
+	tgt_color = "#ffffff" //default color
 
-/datum/chatmessage/balloon_alert/New(text, atom/target, mob/owner)
+/datum/chatmessage/balloon_alert/New(text, atom/target, mob/owner, color)
 	if (!istype(target))
 		CRASH("Invalid target given for chatmessage")
 	if(QDELETED(owner) || !istype(owner) || !owner.client)
 		stack_trace("/datum/chatmessage created with [isnull(owner) ? "null" : "invalid"] mob owner")
 		qdel(src)
 		return
-	INVOKE_ASYNC(src, .proc/generate_image, text, target, owner)
+	INVOKE_ASYNC(src, .proc/generate_image, text, target, owner, color)
 
-/datum/chatmessage/balloon_alert/generate_image(text, atom/target, mob/owner)
+/datum/chatmessage/balloon_alert/generate_image(text, atom/target, mob/owner, color)
 	// Register client who owns this message
 	var/client/owned_by = owner.client
 	RegisterSignal(owned_by, COMSIG_PARENT_QDELETING, .proc/on_parent_qdel)
@@ -525,7 +525,7 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 	message.maptext_width = BALLOON_TEXT_WIDTH
 	message.maptext_height = WXH_TO_HEIGHT(owned_by?.MeasureText(text, null, BALLOON_TEXT_WIDTH))
 	message.maptext_x = (BALLOON_TEXT_WIDTH - bound_width) * -0.5
-	message.maptext = MAPTEXT("<span style='text-align: center; -dm-text-outline: 1px #0005; color: [tgt_color]'>[text]</span>")
+	message.maptext = MAPTEXT("<span style='text-align: center; -dm-text-outline: 1px #0005; color: [color ? color : tgt_color]'>[text]</span>")
 
 	// View the message
 	owned_by.images += message
