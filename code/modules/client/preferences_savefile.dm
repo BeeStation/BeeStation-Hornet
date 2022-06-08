@@ -1,11 +1,11 @@
 //This is the lowest supported version, anything below this is completely obsolete and the entire savefile will be wiped.
-#define SAVEFILE_VERSION_MIN	18
+#define SAVEFILE_VERSION_MIN	32
 
 //This is the current version, anything below this will attempt to update (if it's not obsolete)
 //	You do not need to raise this if you are adding new values that have sane defaults.
 //	Only raise this value when changing the meaning/format/name/layout of an existing value
 //	where you would want the updater procs below to run
-#define SAVEFILE_VERSION_MAX	37
+#define SAVEFILE_VERSION_MAX	38
 
 /*
 SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Carn
@@ -42,25 +42,6 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 //if your savefile is 3 months out of date, then 'tough shit'.
 
 /datum/preferences/proc/update_preferences(current_version, savefile/S)
-	if(current_version < 30)
-		outline_enabled = TRUE
-		outline_color = COLOR_BLUE_GRAY
-	if(current_version < 31)
-		auto_fit_viewport = TRUE
-	if(current_version < 32)
-		//Okay this is gonna s u c k
-		var/list/legacy_purchases = purchased_gear.Copy()
-		purchased_gear.Cut()
-		equipped_gear.Cut() //Not gonna bother.
-		for(var/l_gear in legacy_purchases)
-			var/n_gear
-			for(var/rg_nam in GLOB.gear_datums) //this is ugly.
-				var/datum/gear/r_gear = GLOB.gear_datums[rg_nam]
-				if(r_gear.display_name == l_gear)
-					n_gear = r_gear.id
-					break
-			if(n_gear)
-				purchased_gear += n_gear
 	if(current_version < 33)
 		chat_on_map = TRUE
 //		max_chat_length = CHAT_MESSAGE_MAX_LENGTH			> Depreciated as of 31/07/2021
@@ -78,6 +59,15 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	if(current_version < 37)
 		key_bindings = S["key_bindings"]
 		key_bindings += list("Space" = list("hold_throw_mode"))
+		WRITE_FILE(S["key_bindings"], key_bindings)
+	if(current_version < 38)
+		// This isn't critical to functioning, but leaving these values around throws errors in the log
+		key_bindings = S["key_bindings"]
+		for(var/key in key_bindings)
+			for(var/kb_name in key_bindings[key])
+				// Remove all old face_<direction> keybinds
+				if(copytext(kb_name, 1, 6) == "face_")
+					key_bindings[key] -= kb_name
 		WRITE_FILE(S["key_bindings"], key_bindings)
 	return
 
@@ -221,7 +211,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	READ_FILE(S["key_bindings"], key_bindings)
 
 	READ_FILE(S["purchased_gear"], purchased_gear)
-	READ_FILE(S["equipped_gear"], equipped_gear)
+
 
 	//try to fix any outdated data if necessary
 	if(needs_update >= 0)
@@ -322,7 +312,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	WRITE_FILE(S["pda_color"], pda_color)
 	WRITE_FILE(S["show_credits"], show_credits)
 	WRITE_FILE(S["purchased_gear"], purchased_gear)
-	WRITE_FILE(S["equipped_gear"], equipped_gear)
+
 
 	if (!key_bindings)
 		key_bindings = deepCopyList(GLOB.keybinding_list_by_key)
@@ -424,6 +414,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	//Quirks
 	READ_FILE(S["all_quirks"], all_quirks)
 
+	READ_FILE(S["equipped_gear"], equipped_gear)
 	//try to fix any outdated data if necessary
 	if(needs_update >= 0)
 		update_character(needs_update, S)		//needs_update == savefile_version if we need an update (positive integer)
@@ -578,6 +569,8 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 
 	//Quirks
 	WRITE_FILE(S["all_quirks"]			, all_quirks)
+
+	WRITE_FILE(S["equipped_gear"], equipped_gear)
 
 	return TRUE
 

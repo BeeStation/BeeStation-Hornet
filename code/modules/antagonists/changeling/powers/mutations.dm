@@ -187,7 +187,8 @@
 	else if(istype(target, /obj/machinery/door/airlock))
 		var/obj/machinery/door/airlock/A = target
 
-		if((!A.requiresID() || A.allowed(user)) && A.hasPower()) //This is to prevent stupid shit like hitting a door with an arm blade, the door opening because you have acces and still getting a "the airlocks motors resist our efforts to force it" message, power requirement is so this doesn't stop unpowered doors from being pried open if you have access
+		if((A.id_scan_hacked() || A.allowed(user)) && A.hasPower()) //This is to prevent stupid shit like hitting a door with an arm blade, the door opening because you have access and still getting a "the airlocks motors resist our efforts to force it" message, power requirement is so this doesn't stop unpowered doors from being pried open if you have access.
+			//Note that because the id_scan_hacked() check is the opposite from how it works in the actual opening check, a powered + id_scan_hacked airlock will prevent lings from forcing the door with arm blades, while also blocking regular access. Also, the entire premise of the comment/logic above is flawed, since you can only use arm blades on a door with HARM intent (due to this being afterattack()), and that prevents you from interacting normally.
 			return
 		if(A.locked)
 			to_chat(user, "<span class='warning'>The airlock's bolts prevent it from being forced!</span>")
