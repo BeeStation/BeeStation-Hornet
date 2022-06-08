@@ -17,7 +17,7 @@
 	if(HAS_TRAIT(target, TRAIT_HIVE_BURNT))
 		to_chat(user, "<span class='notice'>This mind was ridden bare and holds no value anymore.</span>")
 		return
-	if(target.mind && target.stat != DEAD) //IF THIS IS HERE SOMETHING IS VERY BAD
+	if(target.mind && target.client && target.stat != DEAD) //IF THIS IS HERE SOMETHING IS VERY BAD
 		if((!HAS_TRAIT(target, TRAIT_MINDSHIELD) || ignore_mindshield) && !istype(target.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat))
 			if(HAS_TRAIT(target, TRAIT_MINDSHIELD) && ignore_mindshield)
 				to_chat(user, "<span class='notice'>We bruteforce our way past the mental barriers of [target.name] and begin linking our minds!</span>")
