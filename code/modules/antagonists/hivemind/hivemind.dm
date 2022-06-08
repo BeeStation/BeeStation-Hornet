@@ -240,8 +240,8 @@
 	result += "The Hivemind Host was:"
 	result += printplayer(owner)
 	result += "The Awakened Vessels were:"
-	for(var/datum/antagonist/hivevessel/V in avessels)
-		result += printplayer(V.owner)
+	for(var/datum/mind/mind in avessels)
+		result += printplayer(mind)
 	return result.Join("<br>")
 
 /datum/antagonist/hivemind/is_gamemode_hero()
