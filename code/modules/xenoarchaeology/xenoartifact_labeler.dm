@@ -1,5 +1,5 @@
 /obj/item/xenoartifact_labeler
-	name = "Xenoartifact Labeler"
+	name = "xenoartifact labeler"
 	icon = 'icons/obj/xenoarchaeology/xenoartifact_tech.dmi'
 	icon_state = "xenoartifact_labeler"
 	desc = "A tool scientists use to label their alien bombs."
@@ -138,7 +138,7 @@
 /obj/item/xenoartifact_label
 	icon = 'icons/obj/xenoarchaeology/xenoartifact_sticker.dmi'
 	icon_state = "sticker_star"
-	name = "Xenoartifact Label"
+	name = "xenoartifact label"
 	desc = "An adhesive label describing the characteristics of a Xenoartifact."
 	var/info = "" 
 	var/set_name = FALSE
@@ -214,7 +214,7 @@
 	xenoa_target = null
 
 /obj/item/xenoartifact_labeler/debug
-	name = "Xenoartifact Debug Labeler"      
+	name = "xenoartifact debug labeler"      
 	desc = "Use to create specific Xenoartifacts" 
 
 /obj/item/xenoartifact_labeler/debug/afterattack(atom/target, mob/user)
