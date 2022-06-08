@@ -211,7 +211,7 @@ SUBSYSTEM_DEF(vote)
 				var/list/maps = list()
 				for(var/map in global.config.maplist)
 					var/datum/map_config/VM = config.maplist[map]
-					if(!VM.is_votable())
+					if(!VM.is_votable() || SSmapping.config.map_name == VM.map_name) //Always rotate away from current map
 						continue
 					maps += VM.map_name
 					shuffle_inplace(maps)
@@ -266,7 +266,7 @@ SUBSYSTEM_DEF(vote)
 /mob/verb/vote()
 	set category = "OOC"
 	set name = "Vote"
-	SSvote.ui_interact(usr)
+	SSvote.ui_interact(src)
 
 /datum/controller/subsystem/vote/ui_state()
 	return GLOB.always_state
