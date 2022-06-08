@@ -40,6 +40,10 @@
 				var/datum/brain_trauma/BT = T
 				BT.on_life()
 
+		if(stat != DEAD && has_dna())
+			for(var/datum/mutation/HM as() in dna.mutations)
+				HM.on_life()
+
 	else
 		. = ..()
 
@@ -302,7 +306,7 @@
 	//Find how many bodyparts we have with stamina damage
 	if(stam_regen)
 		for(var/obj/item/bodypart/BP as() in bodyparts)
-			if(BP.stamina_dam > DAMAGE_PRECISION)
+			if(BP.stamina_dam >= DAMAGE_PRECISION)
 				bodyparts_with_stam++
 				total_stamina_loss += BP.stamina_dam * BP.stam_damage_coeff
 		//Force bodyparts to heal if we have more than 120 stamina damage (6 seconds)
@@ -348,7 +352,7 @@
 						dna.previous.Remove("blood_type")
 					dna.temporary_mutations.Remove(mut)
 					continue
-		for(var/datum/mutation/human/HM in dna.mutations)
+		for(var/datum/mutation/HM as() in dna.mutations)
 			if(HM?.timed)
 				dna.remove_mutation(HM.type)
 

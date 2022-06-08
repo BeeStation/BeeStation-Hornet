@@ -1865,12 +1865,9 @@
 /turf/open/floor/plasteel,
 /area/engine/atmos)
 "aAN" = (
-/obj/machinery/power/deck_relay{
-	pixel_y = 32
-	},
 /obj/structure/lattice/catwalk,
 /obj/structure/cable/yellow{
-	icon_state = "0-4"
+	icon_state = "4-32"
 	},
 /obj/machinery/atmospherics/pipe/multiz/layer2,
 /obj/machinery/atmospherics/pipe/multiz/layer4,
@@ -17718,9 +17715,8 @@
 	dir = 4
 	},
 /obj/structure/cable/yellow{
-	icon_state = "0-8"
+	icon_state = "8-16"
 	},
-/obj/machinery/power/deck_relay,
 /turf/open/floor/plasteel/dark,
 /area/engine/gravity_generator)
 "ekf" = (
@@ -21197,9 +21193,8 @@
 /area/crew_quarters/toilet/auxiliary)
 "eVW" = (
 /obj/structure/cable/yellow{
-	icon_state = "0-2"
+	icon_state = "2-32"
 	},
-/obj/machinery/power/deck_relay,
 /turf/open/floor/plating,
 /area/maintenance/upper/aft)
 "eWh" = (
@@ -30583,11 +30578,8 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/machinery/power/deck_relay{
-	pixel_y = 32
-	},
 /obj/structure/cable/yellow{
-	icon_state = "0-8"
+	icon_state = "8-16"
 	},
 /turf/open/floor/plasteel,
 /area/security/brig)
@@ -36698,11 +36690,8 @@
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
 "iyg" = (
-/obj/machinery/power/deck_relay{
-	pixel_y = 32
-	},
 /obj/structure/cable/yellow{
-	icon_state = "0-2"
+	icon_state = "2-16"
 	},
 /obj/machinery/atmospherics/pipe/multiz/layer2,
 /obj/machinery/atmospherics/pipe/multiz/layer4,
@@ -41975,9 +41964,8 @@
 	icon_state = "2-8"
 	},
 /obj/structure/cable/yellow{
-	icon_state = "0-2"
+	icon_state = "2-16"
 	},
-/obj/machinery/power/deck_relay,
 /obj/structure/disposalpipe/segment{
 	dir = 6
 	},
@@ -50314,9 +50302,8 @@
 /area/ai_monitored/storage/eva)
 "lLa" = (
 /obj/structure/cable/yellow{
-	icon_state = "0-2"
+	icon_state = "2-32"
 	},
-/obj/machinery/power/deck_relay,
 /turf/open/floor/circuit/green,
 /area/engine/gravity_generator)
 "lLb" = (
@@ -64096,10 +64083,7 @@
 	dir = 4
 	},
 /obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
-/obj/machinery/power/deck_relay{
-	pixel_y = 32
+	icon_state = "4-32"
 	},
 /turf/open/floor/plasteel,
 /area/medical/chemistry/upper)
@@ -65759,11 +65743,8 @@
 /turf/open/floor/plasteel,
 /area/security/prison)
 "pyT" = (
-/obj/machinery/power/deck_relay{
-	pixel_y = 32
-	},
 /obj/structure/cable/yellow{
-	icon_state = "0-8"
+	icon_state = "8-32"
 	},
 /turf/open/floor/plating,
 /area/security/brig)
@@ -74716,9 +74697,8 @@
 /area/crew_quarters/dorms)
 "rDq" = (
 /obj/structure/cable/yellow{
-	icon_state = "0-2"
+	icon_state = "2-16"
 	},
-/obj/machinery/power/deck_relay,
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
 "rDr" = (
@@ -75824,10 +75804,7 @@
 /area/engine/engine_room)
 "rTJ" = (
 /obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
-/obj/machinery/power/deck_relay{
-	pixel_y = 32
+	icon_state = "4-16"
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/chemistry)
@@ -94824,9 +94801,8 @@
 /area/hallway/upper/primary/fore)
 "wrU" = (
 /obj/structure/cable/yellow{
-	icon_state = "0-2"
+	icon_state = "2-32"
 	},
-/obj/machinery/power/deck_relay,
 /turf/open/floor/plating,
 /area/maintenance/upper/fore)
 "wso" = (

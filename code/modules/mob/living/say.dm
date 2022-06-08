@@ -26,29 +26,29 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 
 
 	//kinda localization -- rastaf0
-	//same keys as above, but on russian keyboard layout. This file uses cp1251 as encoding.
+	//same keys as above, but on russian keyboard layout.
 	// Location
-	"ê" = MODE_R_HAND,
-	"ä" = MODE_L_HAND,
-	"ø" = MODE_INTERCOM,
+	"к" = MODE_R_HAND,
+	"л" = MODE_L_HAND,
+	"ш" = MODE_INTERCOM,
 
 	// Department
-	"ð" = MODE_DEPARTMENT,
-	"ñ" = RADIO_CHANNEL_COMMAND,
-	"ò" = RADIO_CHANNEL_SCIENCE,
-	"ü" = RADIO_CHANNEL_MEDICAL,
-	"ó" = RADIO_CHANNEL_ENGINEERING,
-	"û" = RADIO_CHANNEL_SECURITY,
-	"ã" = RADIO_CHANNEL_SUPPLY,
-	"ì" = RADIO_CHANNEL_SERVICE,
+	"р" = MODE_DEPARTMENT,
+	"с" = RADIO_CHANNEL_COMMAND,
+	"т" = RADIO_CHANNEL_SCIENCE,
+	"ь" = RADIO_CHANNEL_MEDICAL,
+	"у" = RADIO_CHANNEL_ENGINEERING,
+	"ы" = RADIO_CHANNEL_SECURITY,
+	"г" = RADIO_CHANNEL_SUPPLY,
+	"м" = RADIO_CHANNEL_SERVICE,
 	"ю" = RADIO_CHANNEL_EXPLORATION,
 
 	// Faction
-	"å" = RADIO_CHANNEL_SYNDICATE,
-	"í" = RADIO_CHANNEL_CENTCOM,
+	"е" = RADIO_CHANNEL_SYNDICATE,
+	"н" = RADIO_CHANNEL_CENTCOM,
 
 	// Misc
-	"ù" = RADIO_CHANNEL_AI_PRIVATE
+	"щ" = RADIO_CHANNEL_AI_PRIVATE
 ))
 
 /mob/living/proc/Ellipsis(original_msg, chance = 50, keep_words)
@@ -73,9 +73,9 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 
 	return new_msg
 
-/mob/living/say(message, bubble_type, var/list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null)
-	var/static/list/crit_allowed_modes = list(WHISPER_MODE = TRUE, MODE_CHANGELING = TRUE, MODE_ALIEN = TRUE)
-	var/static/list/unconscious_allowed_modes = list(MODE_CHANGELING = TRUE, MODE_ALIEN = TRUE)
+/mob/living/say(message, bubble_type, var/list/spans = list(), sanitize = TRUE, datum/language/language, ignore_spam = FALSE, forced)
+	var/static/list/crit_allowed_modes = list(WHISPER_MODE = TRUE, MODE_ALIEN = TRUE)
+	var/static/list/unconscious_allowed_modes = list(MODE_ALIEN = TRUE)
 
 	var/ic_blocked = FALSE
 	if(client && !forced && CHAT_FILTER_CHECK(message))
@@ -105,7 +105,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 		say_dead(original_message)
 		return
 
-	if(!can_speak_basic(original_message, ignore_spam, forced) || check_emote(original_message, forced))
+	if(is_muted(original_message, ignore_spam, forced) || check_emote(original_message, forced))
 		return
 
 	if(in_critical) //There are cheaper ways to do this, but they're less flexible, and this isn't ran all that often
@@ -145,7 +145,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 			message_mods -= RADIO_EXTENSION
 		message_range = 1
 		message_mods[WHISPER_MODE] = MODE_WHISPER
-		src.log_talk(message, LOG_WHISPER)
+		log_talk(message, LOG_WHISPER)
 		if(fullcrit)
 			var/health_diff = round(-HEALTH_THRESHOLD_DEAD + health)
 			// If we cut our message short, abruptly end it with a-..
@@ -156,11 +156,11 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 			message_mods[WHISPER_MODE] = MODE_WHISPER_CRIT
 			succumbed = TRUE
 	else
-		src.log_talk(message, LOG_SAY, forced_by=forced)
+		log_talk(message, LOG_SAY, forced_by = forced)
 
 	message = treat_message(message) // unfortunately we still need this
 	var/sigreturn = SEND_SIGNAL(src, COMSIG_MOB_SAY, args)
-	if (sigreturn & COMPONENT_UPPERCASE_SPEECH)
+	if(sigreturn & COMPONENT_UPPERCASE_SPEECH)
 		message = uppertext(message)
 	if(!message)
 		return
@@ -196,7 +196,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	//No screams in space, unless you're next to someone.
 	var/turf/T = get_turf(src)
 	var/datum/gas_mixture/environment = T.return_air()
-	var/pressure = (environment)? environment.return_pressure() : 0
+	var/pressure = environment ? environment.return_pressure() : 0
 	if(pressure < SOUND_MINIMUM_PRESSURE)
 		message_range = 1
 
@@ -308,18 +308,18 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	return FALSE
 
 /mob/living/can_speak(message) //For use outside of Say()
-	if(can_speak_basic(message) && can_speak_vocal(message))
+	if(!is_muted(message) && can_speak_vocal(message))
 		return TRUE
 
-/mob/living/proc/can_speak_basic(message, ignore_spam = FALSE, forced = FALSE) //Check BEFORE handling of xeno and ling channels
+/mob/living/proc/is_muted(message, ignore_spam = FALSE, forced = FALSE) //Check BEFORE handling of xeno and ling channels
 	if(client)
 		if(client.prefs.muted & MUTE_IC)
 			to_chat(src, "<span class='danger'>You cannot speak in IC (muted).</span>")
-			return FALSE
-		if(!ignore_spam && !forced && client.handle_spam_prevention(message,MUTE_IC))
-			return FALSE
+			return TRUE
+		if(!ignore_spam && !forced && client.handle_spam_prevention(message, MUTE_IC))
+			return TRUE
 
-	return TRUE
+	return FALSE
 
 /mob/living/proc/can_speak_vocal(message) //Check AFTER handling of xeno and ling channels
 	if(HAS_TRAIT(src, TRAIT_MUTE))

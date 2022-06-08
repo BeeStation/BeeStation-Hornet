@@ -9,11 +9,7 @@
 /datum/objective/crew/druglordbot/New()
 	. = ..()
 	target_amount = rand(3,20)
-	var/blacklist = list(/datum/reagent/drug, /datum/reagent/consumable/menthol, /datum/reagent/medicine, /datum/reagent/medicine/adminordrazine, /datum/reagent/medicine/mine_salve, /datum/reagent/medicine/syndicate_nanites, /datum/reagent/medicine/strange_reagent, /datum/reagent/medicine/changelingadrenaline)
-	var/drugs = typesof(/datum/reagent/drug) - blacklist
-	var/meds = typesof(/datum/reagent/medicine) - blacklist
-	var/chemlist = drugs + meds
-	chempath = pick(chemlist)
+	chempath = get_random_reagent_id(CHEMICAL_GOAL_BOTANIST_HARVEST)
 	targetchem = chempath
 	update_explanation_text()
 

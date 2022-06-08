@@ -269,6 +269,9 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 		tab_data["Time Before Automatic Placement"] = GENERATE_STAT_TEXT("[max(round((autoplace_max_time - world.time)*0.1, 0.1), 0)]")
 	return tab_data
 
+/mob/camera/blob/canZMove(direction, turf/target)
+	return !placed
+
 /mob/camera/blob/Move(NewLoc, Dir = 0)
 	if(placed)
 		var/obj/structure/blob/B = locate() in range("3x3", NewLoc)
