@@ -278,7 +278,7 @@
 
 	//VOMIT
 	else if((findtext(message, vomit_words)))
-		cooldown = COOLDOWN_STUN
+		cooldown = COOLDOWN_DAMAGE
 		for(var/mob/living/carbon/C in listeners)
 			C.vomit(10 * power_multiplier, stun = FALSE, distance = power_multiplier)
 
