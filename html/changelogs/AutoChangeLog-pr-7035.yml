@@ -1,7 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - tweak: Removes bluespace polycrystals and replaces anything that produces them
-      with regular bluespace crystals.
-  - balance: Stabilized metal crossbreed will no longer accept bluespace polycrystals
-      crystals as input.
