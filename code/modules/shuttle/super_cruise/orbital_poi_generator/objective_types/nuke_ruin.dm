@@ -54,6 +54,7 @@ GLOBAL_LIST_EMPTY(decomission_bombs)
 	proper_bomb = FALSE
 	var/datum/orbital_objective/nuclear_bomb/linked_objective
 	var/target_z
+	var/obj/item/radio/headset/radio // Our internal radio.
 
 /obj/machinery/nuclearbomb/decomission/ComponentInitialize()
 	. = ..()
@@ -62,6 +63,7 @@ GLOBAL_LIST_EMPTY(decomission_bombs)
 /obj/machinery/nuclearbomb/decomission/Initialize(mapload)
 	. = ..()
 	GLOB.decomission_bombs += src
+	radio = new /obj/item/radio/headset/silicon/ai(src)
 	r_code = "[rand(10000, 99999)]"
 	print_command_report("Nuclear decomission explosive code: [r_code]")
 	var/obj/structure/closet/supplypod/bluespacepod/pod = new()
@@ -71,6 +73,7 @@ GLOBAL_LIST_EMPTY(decomission_bombs)
 
 /obj/machinery/nuclearbomb/decomission/Destroy()
 	. = ..()
+	QDEL_NULL(radio)
 	GLOB.decomission_bombs -= src
 
 /obj/machinery/nuclearbomb/decomission/process()
@@ -103,9 +106,7 @@ GLOBAL_LIST_EMPTY(decomission_bombs)
 	if(timing)
 		detonation_timer = world.time + (timer_set * 10)
 		countdown.start()
-		priority_announce("Nuclear fission explosive armed at abandoned outpost, vacate \
-			outpost immediately.",
-			null, 'sound/misc/notice1.ogg', "Priority")
+		radio.talk_into(src, "Nuclear fission explosive armed. Vacate area immediately.", list("Exploration"))
 	else
 		detonation_timer = null
 		countdown.stop()
