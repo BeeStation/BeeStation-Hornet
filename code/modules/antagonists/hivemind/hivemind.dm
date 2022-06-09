@@ -196,6 +196,11 @@
 		biggest_objective.owner = owner
 		objectives += biggest_objective
 		log_objective(owner, biggest_objective.explanation_text)
+	if(prob(30))
+		var/datum/objective/hivemind/dominance/assert_dominance = new
+		assert_dominance.owner = owner
+		objectives += assert_dominance
+		log_objective(owner, assert_dominance.explanation_text)
 
 	var/datum/objective/escape/escape_objective = new
 	escape_objective.owner = owner

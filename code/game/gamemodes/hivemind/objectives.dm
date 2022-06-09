@@ -28,6 +28,19 @@
 /datum/objective/hivemind/hiveescape/update_explanation_text()
 	explanation_text = "Have at least [target_amount] members of the hive escape on the shuttle alive and free."
 
+/datum/objective/hivemind/dominance/New()
+	update_explanation_text()
+
+/datum/objective/hivemind/dominance/update_explanation_text()
+	explanation_text = "Assert dominance after having twenty more vessels and more integrations than any other hive."
+
+/datum/objective/hivemind/dominance/check_completion()
+	var/datum/antagonist/hivemind/host = owner.has_antag_datum(/datum/antagonist/hivemind)
+	if(!host)
+		return ..()
+	return host?.unlocked_dominance || ..()
+
+
 /datum/objective/hivemind/hiveescape/check_completion()
 	var/count = 0
 	var/datum/antagonist/hivemind/host = owner.has_antag_datum(/datum/antagonist/hivemind)

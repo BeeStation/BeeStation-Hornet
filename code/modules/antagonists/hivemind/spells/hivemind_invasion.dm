@@ -22,7 +22,7 @@
 	var/list/enemies = list()
 
 	to_chat(user, "<span class='notice'>We begin probing [target.name]'s mind!</span>")
-	if(do_after(user,100,0,target))
+	if(do_after(user,50,0,target))
 		if(!in_hive)
 			to_chat(user, "<span class='notice'>Their mind slowly opens up to us.</span>")
 			if(!do_after(user,200,0,target))
@@ -55,7 +55,7 @@
 		if(enemies.len)
 			to_chat(user, "<span class='userdanger'>In a moment of clarity, we see all. Another hive. Faces. Our nemesis. They have heard our call. They know we are coming.</span>")
 			to_chat(user, "<span class='assimilator'>This vision has provided us insight on the mental lay, allowing us to track our foes.</span>")
-			hive.searchcharge += 2
+			hive.searchcharge += 3
 		else
 			to_chat(user, "<span class='notice'>We strike into the inner depths of their mind and strike at nothing, no enemies lurk inside this mind.</span>")
 	else

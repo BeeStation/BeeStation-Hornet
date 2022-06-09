@@ -22,7 +22,7 @@
 
 
 	to_chat(user, "<span class='notice'>We begin probing [target.name]'s mind!</span>")
-	if(do_after(user,100,0,target))
+	if(do_after(user,20,0,target))
 		for(var/datum/antagonist/hivemind/enemy as() in GLOB.hivehosts)
 			var/datum/mind/M = enemy.owner
 			if(!M?.current)
