@@ -1,7 +1,0 @@
-author: nednaZ
-delete-after: true
-changes:
-  - bugfix: Vampire bat transformation no longer resets blood volume for vampires  (Rukofamicom)
-  - balance: Vampire bat form is now faster  (Rukofamicom)
-  - bugfix: Vampires will no longer have their bat form taken away from them if they
-      are revived
