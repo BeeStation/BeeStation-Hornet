@@ -1,7 +1,7 @@
-#define COOLDOWN_STUN 1200
-#define COOLDOWN_DAMAGE 600
-#define COOLDOWN_MEME 300
-#define COOLDOWN_NONE 100
+#define COOLDOWN_STUN 1
+#define COOLDOWN_DAMAGE 1
+#define COOLDOWN_MEME 1
+#define COOLDOWN_NONE 1
 
 /obj/item/organ/vocal_cords //organs that are activated through speech with the :x/MODE_KEY_VOCALCORDS channel
 	name = "vocal cords"
@@ -280,7 +280,7 @@
 	else if((findtext(message, vomit_words)))
 		cooldown = COOLDOWN_STUN
 		for(var/mob/living/carbon/C in listeners)
-			C.vomit(10 * power_multiplier, distance = power_multiplier)
+			C.vomit(10 * power_multiplier, stun = FALSE, distance = power_multiplier)
 
 	//SILENCE
 	else if((findtext(message, silence_words)))
