@@ -35,6 +35,12 @@
 		C.RemoveSpell(batform)
 		QDEL_NULL(batform)
 
+/datum/species/vampire/spec_death(gibbed, mob/living/carbon/human/H)
+	. = ..()
+	if(!isnull(batform))
+		H.RemoveSpell(batform)
+		QDEL_NULL(batform)
+
 /datum/species/vampire/spec_life(mob/living/carbon/human/C)
 	. = ..()
 	if(istype(C.loc, /obj/structure/closet/crate/coffin))
@@ -56,6 +62,9 @@
 		C.adjustFireLoss(20)
 		C.adjust_fire_stacks(6)
 		C.IgniteMob()
+	if(!batform) //Ensuring they have their bat form, even after death and revival
+		batform = new
+		C.AddSpell(batform)
 
 /datum/species/vampire/check_species_weakness(obj/item/weapon, mob/living/attacker)
 	if(istype(weapon, /obj/item/nullrod/whip))
@@ -137,4 +146,4 @@
 	invocation = "Squeak!"
 	charge_max = 50
 	cooldown_min = 50
-	shapeshift_type = /mob/living/simple_animal/hostile/retaliate/bat
+	shapeshift_type = /mob/living/simple_animal/hostile/retaliate/bat/vampire
