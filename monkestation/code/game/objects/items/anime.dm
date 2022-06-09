@@ -52,7 +52,7 @@
 	tail = new /obj/item/organ/tail/cat
 	food_likes = DAIRY | MEAT | JUNKFOOD
 	food_dislikes = FRUIT | VEGETABLES | SUGAR
-	weeb_screams = list('monkestation/sound/voice/screams/felinid/hiss.ogg','monkestation/sound/voice/screams/felinid/merowr.ogg','monkestation/sound/voice/screams/felinid/scream_cat.ogg')
+	weeb_screams = list('monkestation/sound/voice/screams/felinid/hiss.ogg','monkestation/sound/voice/screams/felinid/merowr.ogg','monkestation/sound/voice/screams/felinid/scream_cat.ogg', 'monkestation/sound/voice/screams/felinid/ooknya.ogg')
 	weeb_laughs = list('monkestation/sound/voice/laugh/felinid/cat_laugh0.ogg','monkestation/sound/voice/laugh/felinid/cat_laugh1.ogg','monkestation/sound/voice/laugh/felinid/cat_laugh2.ogg','monkestation/sound/voice/laugh/felinid/cat_laugh3.ogg')
 
 /obj/item/anime/fox
