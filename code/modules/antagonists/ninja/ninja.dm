@@ -109,20 +109,11 @@
 	. = ..()
 
 /datum/antagonist/ninja/admin_add(datum/mind/new_owner,mob/admin)
-	var/adj
-	switch(input("What kind of ninja?", "Ninja") as null|anything in list("Random","No objectives"))
-		if("Random")
-			adj = ""
-		if("No objectives")
-			give_objectives = FALSE
-			adj = "objectiveless"
-		else
-			return
 	new_owner.assigned_role = ROLE_NINJA
 	new_owner.special_role = ROLE_NINJA
 	new_owner.add_antag_datum(src)
-	message_admins("[key_name_admin(admin)] has [adj] ninja'ed [key_name_admin(new_owner)].")
-	log_admin("[key_name(admin)] has [adj] ninja'ed [key_name(new_owner)].")
+	message_admins("[key_name_admin(admin)] has ninja'd [key_name_admin(new_owner)].")
+	log_admin("[key_name(admin)] has ninja'd [key_name(new_owner)].")
 
 /datum/antagonist/ninja/proc/update_ninja_icons_added(var/mob/living/carbon/human/ninja)
 	var/datum/atom_hud/antag/ninjahud = GLOB.huds[ANTAG_HUD_NINJA]
