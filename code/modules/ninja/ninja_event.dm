@@ -22,12 +22,8 @@ Contents:
 	role_name = "space ninja"
 	minimum_required = 1
 
-	var/helping_station
 	var/spawn_loc
 	var/give_objectives = TRUE
-
-/datum/round_event/ghost_role/ninja/setup()
-	helping_station = rand(0,1)
 
 /datum/round_event/ghost_role/ninja/kill()
 	if(!success_spawn && control)
@@ -72,8 +68,8 @@ Contents:
 		CRASH("Ninja created with incorrect mind")
 
 	spawned_mobs += Ninja
-	message_admins("[ADMIN_LOOKUPFLW(Ninja)] has been made into a ninja by an event. They are employed by [ninjadatum.helping_station?"Nanotrasen":"The Syndicate"].")
-	log_game("[key_name(Ninja)] was spawned as a ninja by an event. They are employed by [ninjadatum.helping_station?"Nanotrasen":"The Syndicate"]")
+	message_admins("[ADMIN_LOOKUPFLW(Ninja)] has been made into a ninja by an event")
+	log_game("[key_name(Ninja)] was spawned as a ninja by an event.")
 
 	return SUCCESSFUL_SPAWN
 
