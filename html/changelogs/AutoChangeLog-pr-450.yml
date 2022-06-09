@@ -1,0 +1,5 @@
+author: unit0016
+delete-after: true
+changes:
+  - tweak: Exploration Nuclear Bombs now talk on exploration comms rather than announcing
+      their armament via command report.
