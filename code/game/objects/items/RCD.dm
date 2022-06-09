@@ -805,14 +805,41 @@ RLD
 	///index, used in the attack self to get the type. stored here since it doesnt change
 	var/list/choices = list()
 	///index, used in the attack self to get the type. stored here since it doesnt change
+	///This list that holds all the plumbing design types the plumberer can construct. Its purpose is to make it easy to make new plumberer subtypes with a different selection of machines.
+	var/list/plumbing_design_types
+
 	var/list/name_to_type = list()
 	///
 	var/list/machinery_data = list("cost" = list(), "delay" = list())
 
+
+/obj/item/construction/plumbing/Initialize(mapload)
+	. = ..()
+	set_plumbing_designs()
+
+
+///Set the list of designs this plumbing rcd can make
+/obj/item/construction/plumbing/proc/set_plumbing_designs()
+	plumbing_design_types = list(
+	/obj/machinery/plumbing/input = 5,
+	/obj/machinery/plumbing/output = 5,
+	/obj/machinery/plumbing/tank = 20,
+	/obj/machinery/plumbing/synthesizer = 15,
+	/obj/machinery/plumbing/reaction_chamber = 15,
+	//Above are the most common machinery which is shown on the first cycle. Keep new additions below THIS line, unless they're probably gonna be needed alot
+	/obj/machinery/plumbing/pill_press = 20,
+	/obj/machinery/plumbing/acclimator = 10,
+	/obj/machinery/plumbing/bottle_dispenser = 50,
+	/obj/machinery/plumbing/disposer = 10,
+	/obj/machinery/plumbing/filter = 5,
+	/obj/machinery/plumbing/grinder_chemical = 30,
+	/obj/machinery/plumbing/splitter = 5
+)
+
 /obj/item/construction/plumbing/attack_self(mob/user)
 	..()
 	if(!choices.len)
-		for(var/A in subtypesof(/obj/machinery/plumbing))
+		for(var/A in plumbing_design_types)
 			var/obj/machinery/plumbing/M = A
 			if(initial(M.rcd_constructable))
 				choices += list(initial(M.name) = image(icon = initial(M.icon), icon_state = initial(M.icon_state)))

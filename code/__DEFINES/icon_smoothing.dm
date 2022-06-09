@@ -114,3 +114,11 @@ DEFINE_BITFIELD(smoothing_flags, list(
 #define SMOOTH_GROUP_HEDGE_FLUFF S_OBJ(65)				///obj/structure/fluff/hedge
 #define SMOOTH_GROUP_SHUTTLE_PARTS S_OBJ(66)			///obj/structure/window/shuttle, /obj/structure/window/plasma/reinforced/plastitanium, /turf/closed/indestructible/opsglass, /obj/structure/shuttle
 #define SMOOTH_GROUP_CLEANABLE_DIRT	S_OBJ(67)			///obj/effect/decal/cleanable/dirt
+
+//LIQUIDS
+
+#define SMOOTH_GROUP_WATER S_OBJ(73) ///obj/effect/abstract/liquid_turf
+
+#define MAX_S_OBJ SMOOTH_GROUP_WATER //Always match this value with the one above it.
+#define SMOOTH_GROUP_ELEVATED_PLASTEEL S_TURF(31)
+#define SMOOTH_GROUP_LOWERED_PLASTEEL S_TURF(32)

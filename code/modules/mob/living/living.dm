@@ -52,6 +52,12 @@
 	return ..()
 
 /mob/living/proc/ZImpactDamage(turf/T, levels)
+	//MONKESTATION EDIT ADDITION
+	SEND_SIGNAL(T, COMSIG_TURF_MOB_FALL, src)
+	if(T.liquids && T.liquids.liquid_state >= LIQUID_STATE_WAIST)
+		Knockdown(20)
+		return
+	//MONKESTATION EDIT END
 	visible_message("<span class='danger'>[src] falls [levels] level[levels > 1 ? "s" : ""] into [T] with a sickening noise!</span>")
 	adjustBruteLoss((levels * 5) ** 1.5)
 	Knockdown(levels * 50)

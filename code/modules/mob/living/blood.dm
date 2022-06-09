@@ -254,6 +254,11 @@
 
 	var/list/temp_blood_DNA
 	if(small_drip)
+
+		if(T.liquids)
+			var/list/blood_drop = list(/datum/reagent/blood = 0.1)
+			T.add_liquid_list(blood_drop, FALSE, 300)
+			return
 		// Only a certain number of drips (or one large splatter) can be on a given turf.
 		var/obj/effect/decal/cleanable/blood/drip/drop = locate() in T
 		if(drop)
@@ -270,17 +275,26 @@
 			drop.transfer_mob_blood_dna(src)
 			return
 
+
 	// Find a blood decal or create a new one.
 	var/obj/effect/decal/cleanable/blood/B = locate() in T
 	if(!B)
 		B = new /obj/effect/decal/cleanable/blood/splatter(T, get_static_viruses())
 	if(QDELETED(B)) //Give it up
 		return
+	if(B.count < 10 )
+		B.count ++
+		B.transfer_mob_blood_dna(src)
 	if (B.bloodiness < MAX_SHOE_BLOODINESS) //add more blood, up to a limit
 		B.bloodiness += BLOOD_AMOUNT_PER_DECAL
 	B.transfer_mob_blood_dna(src) //give blood info to the blood decal.
 	if(temp_blood_DNA)
 		B.add_blood_DNA(temp_blood_DNA)
+
+	if(B.count > 9)
+		qdel(B)
+		var/list/blood_large = list(/datum/reagent/blood = 20)
+		T.add_liquid_list(blood_large, FALSE, 300)
 
 /mob/living/carbon/human/add_splatter_floor(turf/T, small_drip)
 	if(!(NOBLOOD in dna.species.species_traits))

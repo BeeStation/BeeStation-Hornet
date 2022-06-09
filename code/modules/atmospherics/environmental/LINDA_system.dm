@@ -132,6 +132,7 @@
 /turf/air_update_turf(command = 0)
 	if(command)
 		ImmediateCalculateAdjacentTurfs()
+	liquid_update_turf() //MONKESTATION EDIT ADDITION
 
 /atom/movable/proc/move_update_air(turf/T)
     if(isturf(T))

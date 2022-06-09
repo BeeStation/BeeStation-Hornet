@@ -333,6 +333,7 @@
 /datum/reagent/consumable/lemonade
 	name = "Lemonade"
 	description = "Sweet, tangy lemonade. Good for the soul."
+	color = "#fcff66"
 	quality = DRINK_NICE
 	taste_description = "sunshine and summertime"
 	glass_icon_state = "lemonpitcher"

@@ -1284,3 +1284,16 @@
 /obj/item/circuitboard/machine/clockwork
 	name = "clockwork board (Report This)"
 	icon_state = "clock_mod"
+
+//MONKESTATION ADDITION
+/obj/item/circuitboard/machine/liquid_output_pump
+	name = "liquid output pump (Machine Board)"
+	icon_state = "engineering"
+	build_path = /obj/machinery/plumbing/liquid_output_pump
+	req_components = list(
+		/obj/item/stock_parts/matter_bin = 2,
+		/obj/item/stock_parts/capacitor = 1,
+		/obj/item/stock_parts/manipulator = 1,
+		/obj/item/stack/sheet/glass = 1,
+		/obj/item/stock_parts/cell = 1)
+	needs_anchored = FALSE

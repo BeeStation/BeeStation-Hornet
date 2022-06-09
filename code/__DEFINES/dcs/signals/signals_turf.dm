@@ -12,3 +12,7 @@
 #define COMSIG_TURF_MULTIZ_NEW "turf_multiz_new"
 /// from base of turf/proc/afterShuttleMove: (turf/new_turf)
 #define COMSIG_TURF_AFTER_SHUTTLE_MOVE "turf_after_shuttle_move"
+
+#define COMSIG_TURF_MOB_FALL "turf_mob_fall" //MONKESTATION ADDITION
+
+#define COMSIG_TURF_LIQUIDS_CREATION "turf_liquids_creation" //MONKESTATION ADDITION

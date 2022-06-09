@@ -247,6 +247,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		else
 			butt = new()
 		butt.Insert(C)
+
 	//MonkeStation Edit End
 
 	if(tail && (!should_have_tail || replace_current))

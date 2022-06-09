@@ -511,3 +511,12 @@
 	build_path = /obj/item/stack/sticky_tape/pointy
 	category = list("Equipment")
 	departmental_flags = DEPARTMENTAL_FLAG_SERVICE
+
+/datum/design/engi_plumbing_rcd
+	name = "Engineering Plumbing Constructor"
+	id = "engi_plumbing_rcd"
+	build_type = PROTOLATHE
+	materials = list(/datum/material/iron = 75000, /datum/material/glass = 37500, /datum/material/plastic = 1000)
+	build_path = /obj/item/construction/plumbing/engineering
+	category = list("Equipment")
+	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING

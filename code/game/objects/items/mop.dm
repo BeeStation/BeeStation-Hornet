@@ -15,7 +15,7 @@
 	resistance_flags = FLAMMABLE
 	var/mopping = 0
 	var/mopcount = 0
-	var/mopcap = 15
+	var/mopcap = 50 //MONKESTATION EDIT CHANGE
 	var/mopspeed = 15
 	force_string = "robust... against germs"
 	var/insertable = TRUE
@@ -23,6 +23,30 @@
 /obj/item/mop/Initialize(mapload)
 	. = ..()
 	create_reagents(mopcap)
+	//MONKESTATION EDIT ADDITION
+	AddElement(/datum/element/liquids_interaction, on_interaction_callback = /obj/item/mop/.proc/attack_on_liquids_turf)
+
+/obj/item/mop/Destroy()
+	. = ..()
+	RemoveElement(/datum/element/liquids_interaction, on_interaction_callback = /obj/item/mop/.proc/attack_on_liquids_turf)
+
+/obj/item/mop/proc/attack_on_liquids_turf(obj/item/mop/the_mop, turf/T, mob/user, obj/effect/abstract/liquid_turf/liquids)
+	var/free_space = the_mop.reagents.maximum_volume - the_mop.reagents.total_volume
+	if(free_space <= 0)
+		to_chat(user, "<span class='warning'>Your mop can't absorb any more!</span>")
+		return TRUE
+	var/list/range_random = list()
+	for(var/turf/temp in view(5, T))
+		if(temp.liquids)
+			range_random += temp
+	var/turf/choice_turf = get_turf(pick(range_random))
+	var/datum/reagents/tempr = choice_turf.liquids.take_reagents_flat(free_space)
+	tempr.trans_to(the_mop.reagents, tempr.total_volume)
+	to_chat(user, "<span class='notice'>You soak the mop with some liquids.</span>")
+	qdel(tempr)
+	user.changeNext_move(CLICK_CD_MELEE)
+	return TRUE
+	//MONKESTATION EDIT END
 
 /obj/item/mop/proc/clean(turf/A)
 	if(reagents.has_reagent(/datum/reagent/water, 1) || reagents.has_reagent(/datum/reagent/water/holywater, 1) || reagents.has_reagent(/datum/reagent/consumable/ethanol/vodka, 1) || reagents.has_reagent(/datum/reagent/space_cleaner, 1))
@@ -36,6 +60,10 @@
 
 /obj/item/mop/afterattack(atom/A, mob/user, proximity)
 	. = ..()
+	//MONKESTATION EDIT ADDITION
+	if(.)
+		return
+	//MONKESTATION EDIT END
 	if(!proximity)
 		return
 
@@ -76,9 +104,9 @@
 	insertable = FALSE
 
 /obj/item/mop/advanced
-	desc = "The most advanced tool in a custodian's arsenal, complete with a condenser for self-wetting! Just think of all the viscera you will clean up with this!"
+	desc = "The most advanced tool in a custodian's arsenal, complete with a condenser for self-wetting! Just think of all the viscera you will clean up with this! Due to the self-wetting technology, also comes equipped with a self drying mode toggle with ALT." //MONKESTATION EDIT
 	name = "advanced mop"
-	mopcap = 10
+	mopcap = 100 //MONKESTATION EDIT CHANGE
 	icon_state = "advmop"
 	item_state = "mop"
 	lefthand_file = 'icons/mob/inhands/equipment/custodial_lefthand.dmi'
@@ -91,29 +119,37 @@
 	/// Amount of reagent to refill per second
 	var/refill_rate = 0.5
 	var/refill_reagent = /datum/reagent/water //Determins what reagent to use for refilling, just in case someone wanted to make a HOLY MOP OF PURGING
-
+	var/drying_mode = FALSE
 /obj/item/mop/advanced/New()
 	..()
 	START_PROCESSING(SSobj, src)
 
 /obj/item/mop/advanced/attack_self(mob/user)
+	if(drying_mode)
+		to_chat(user, "<span class = 'notice'> Please turn off drying mode before enabling the condenser.</span>")
+		return
 	refill_enabled = !refill_enabled
-	if(refill_enabled)
-		START_PROCESSING(SSobj, src)
-	else
-		STOP_PROCESSING(SSobj,src)
 	to_chat(user, "<span class='notice'>You set the condenser switch to the '[refill_enabled ? "ON" : "OFF"]' position.</span>")
 	playsound(user, 'sound/machines/click.ogg', 30, 1)
 
 /obj/item/mop/advanced/process(delta_time)
-	var/amadd = min(mopcap - reagents.total_volume, refill_rate * delta_time)
-	if(amadd > 0)
-		reagents.add_reagent(refill_reagent, amadd)
-
+	if(refill_enabled)
+		var/amadd = min(mopcap - reagents.total_volume, refill_rate * delta_time)
+		if(amadd > 0)
+			reagents.add_reagent(refill_reagent, amadd)
+	else if(drying_mode)
+		reagents.remove_all(mopcap)
+/obj/item/mop/advanced/AltClick(mob/user)
+	if(refill_enabled)
+		to_chat(user, "<span class = 'notice'> Please turn off the condenser before enabling drying mode.</span>")
+		return
+	drying_mode = !drying_mode
+	to_chat(user, "<span class = 'notice'>You set the drying switch to the '[drying_mode ? "ON" : "OFF"] position.'</span>" )
+	playsound(user, 'sound/machines/click.ogg', 30, 1)
 /obj/item/mop/advanced/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>The condenser switch is set to <b>[refill_enabled ? "ON" : "OFF"]</b>.</span>"
-
+	. += "<span class='notice'>The drying switch is set to <b>[drying_mode ? "ON" : "OFF"]</b>.</span>"
 /obj/item/mop/advanced/Destroy()
 	if(refill_enabled)
 		STOP_PROCESSING(SSobj, src)
