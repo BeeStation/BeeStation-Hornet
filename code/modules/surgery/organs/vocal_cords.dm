@@ -1,7 +1,7 @@
-#define COOLDOWN_STUN 1
-#define COOLDOWN_DAMAGE 1
-#define COOLDOWN_MEME 1
-#define COOLDOWN_NONE 1
+#define COOLDOWN_STUN 2 MINUTES
+#define COOLDOWN_DAMAGE 1 MINUTES
+#define COOLDOWN_MEME 30 SECONDS
+#define COOLDOWN_NONE 10 SECONDS
 
 /obj/item/organ/vocal_cords //organs that are activated through speech with the :x/MODE_KEY_VOCALCORDS channel
 	name = "vocal cords"
