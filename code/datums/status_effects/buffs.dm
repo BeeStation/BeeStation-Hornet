@@ -549,7 +549,7 @@
 
 /datum/status_effect/regenerative_core/on_apply()
 	if(!HAS_TRAIT(owner, TRAIT_NECROPOLIS_INFECTED))
-		to_chat(owner, "<span class='userdanger'>Tendrils of vile corruption knit your flesh together and strengthen your sinew. You resist the temptation of giving in to the corruption.</span>")
+		to_chat(owner, "<span class='userdanger'>Tendrils of vile corruption knit your flesh together and strengthen your sinew. You resist the temptation of giving in to the corruption.\nYou sense that another would overwhelm and corrupt you.</span>")
 	else
 		alreadyinfected = TRUE
 	ADD_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, "legion_core_trait")
@@ -573,7 +573,7 @@
 	REMOVE_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, "legion_core_trait")
 	REMOVE_TRAIT(owner, TRAIT_NECROPOLIS_INFECTED, "legion_core_trait")
 	if(!alreadyinfected)
-		to_chat(owner, "<span class='userdanger'>You feel empty as the vile tendrils slink out of your flesh and leave you, a fragile human once more.</span>")
+		to_chat(owner, "<span class='userdanger'>You feel empty as the vile tendrils slink out of your flesh and leave you, a fragile human once more.</span>\n<span class='warning'>It should be safe to use another regenerative core...</span>")
 
 /datum/status_effect/good_music
 	id = "Good Music"
