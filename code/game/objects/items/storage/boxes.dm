@@ -1230,7 +1230,7 @@
 		/obj/item/stack/sheet/mineral/uranium=50,\
 		/obj/item/stack/sheet/mineral/plasma=50,\
 		/obj/item/stack/sheet/mineral/diamond=50,\
-		/obj/item/stack/sheet/bluespace_crystal=50,\
+		/obj/item/stack/ore/bluespace_crystal/refined=50,\
 		/obj/item/stack/sheet/mineral/bananium=50,\
 		/obj/item/stack/sheet/plastic/fifty=1,\
 		/obj/item/stack/sheet/runed_metal/fifty=1,\
