@@ -44,7 +44,6 @@
 	suit_store = /obj/item/sensor_device
 	l_hand = /obj/item/storage/firstaid/medical
 	head = /obj/item/clothing/head/soft/sec/brig_phys
-	l_pocket = /obj/item/pinpointer/crew
 	backpack = /obj/item/storage/backpack/medic
 	satchel = /obj/item/storage/backpack/satchel/med
 	duffelbag = /obj/item/storage/backpack/duffelbag/med
