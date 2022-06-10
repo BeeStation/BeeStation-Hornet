@@ -1,0 +1,4 @@
+author: dwasint
+delete-after: true
+changes:
+  - bugfix: guns being not able to fire outside of line of sight
