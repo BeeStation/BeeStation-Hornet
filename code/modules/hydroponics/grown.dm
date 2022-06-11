@@ -99,10 +99,10 @@
 */
 /obj/item/reagent_containers/food/snacks/grown/proc/squash_destruct_check()
 	if(seed.get_gene(/datum/plant_gene/trait/noreact))
-		return FALSE
+		return -1
 	if(seed.get_gene(/datum/plant_gene/trait/squash))
-		return TRUE
-	return FALSE
+		return 1
+	return 0
 
 
 // custom Behaviour: squash ------------------------------------------------------
@@ -195,7 +195,7 @@
 					for(var/datum/plant_gene/trait/T in seed.genes)
 						if(T.on_attack(M))
 							selfdestruct = TRUE
-				if(squash_destruct_check() || selfdestruct)
+				if((squash_destruct_check() || selfdestruct) && (squash_destruct_check() != -1))
 					generate_trash(get_turf(M))
 					qdel(src)
 					return
