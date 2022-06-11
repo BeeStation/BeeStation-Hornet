@@ -104,7 +104,7 @@ You should complete the pull-request template in its entirety.
 Any pull-request that does not adequately complete the provided template may be closed or marked 'do not merge' by maintainers.
  - Any changes that may affect game balance should be documented as a balance change. This also applies to bug fixes which directly alter the game's balance.
  - Changes must be documented in their entirety including the extent of their effects. (For example, if you change it so all mobs are half speed, don't label the PR as 'monkeys now move twice as slow'). Failing to document the full extent of the changes may result in a repo-ban if the intent of hiding changes is seen as malicious.
- - The section labeled 'about this pull request' should state the changes that the pull-request makes.
+ - The section labeled 'about this pull request' should describe the pull request's changes in detail. This includes the changes being made, any important details about how it was implemented, the issues it closes, and links to any other pull requests if code is being ported from another codebase.
  - The section labeled "why it's good for the game" should include the reasons behind the changes and how they will be good for the game.
  - The testing section should contain screenshots, videos, and/or reproducible testing procedures showing that the PR works as specified. Pull-requests that ignore this section, or are not tested, may be closed by maintainers. This applies to small PRs that may seem trivial.
  - The changelog should include a short summary of the changes made. If your pull request includes things made by other people, you should list everybody who contributed, including yourself, after the :cl: tag.
