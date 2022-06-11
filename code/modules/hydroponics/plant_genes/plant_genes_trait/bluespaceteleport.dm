@@ -50,13 +50,20 @@
 		switch(p_method)
 			if("slip")
 				if(L.ckey != G.fingerprintslast)
-					L.investigate_log("has slipped on bluespace plant at [AREACOORD(T)] teleporting them to [AREACOORD(L)]. Last fingerprint: [G.fingerprintslast].", INVESTIGATE_BOTANY)
+					L.investigate_log("has slipped on a bluespace plant at [AREACOORD(T)] teleporting them to [AREACOORD(L)]. Last fingerprint: [G.fingerprintslast].", INVESTIGATE_BOTANY)
 					log_combat(L, G, "slipped on", null, "teleporting them from [AREACOORD(T)] to [AREACOORD(L)]. Last fingerprint: [G.fingerprintslast].")
 				to_chat(L, "<span class='warning'>You slip through spacetime!</span>")
-			else
+			if("attack")
+				if(L.ckey != G.fingerprintslast)
+					L.investigate_log("has been attacked by a bluespace plant at [AREACOORD(T)] teleporting them to [AREACOORD(L)]. Last fingerprint: [G.fingerprintslast].", INVESTIGATE_BOTANY)
+					log_combat(L, G, "has attacked by", null, "teleporting them from [AREACOORD(T)] to [AREACOORD(L)]. Last fingerprint: [G.fingerprintslast].")
+				to_chat(L, "<span class='warning'>You are squashed through spacetime!</span>")
+			if("throw")
 				if(L.ckey != G.fingerprintslast)
 					L.investigate_log("has been hit by a bluespace plant at [AREACOORD(T)] teleporting them to [AREACOORD(L)]. Last fingerprint: [G.fingerprintslast].", INVESTIGATE_BOTANY)
 					log_combat(G.thrownby, L, "hit", G, "at [AREACOORD(T)] teleporting them to [AREACOORD(L)]")
+				to_chat(L, "<span class='warning'>You are squashed through spacetime!</span>")
+			if("consume")
 				to_chat(L, "<span class='warning'>You are squashed through spacetime!</span>")
 
 
