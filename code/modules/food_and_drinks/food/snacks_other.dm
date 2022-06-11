@@ -421,6 +421,10 @@
 	var/headcolor = rgb(0, 0, 0)
 	tastes = list("candy" = 1)
 	foodtype = JUNKFOOD | SUGAR
+	slot_flags = ITEM_SLOT_MASK
+	///Essentially IsEquipped
+	var/chewing = TRUE
+	var/tick = 0
 
 /obj/item/reagent_containers/food/snacks/lollipop/Initialize(mapload)
 	. = ..()
@@ -437,6 +441,26 @@
 	..(hit_atom)
 	throw_speed = 1
 	throwforce = 0
+
+/obj/item/reagent_containers/food/snacks/lollipop/equipped(mob/user, slot)
+	. = ..()
+	if(!chewing)
+		chewing = TRUE
+		START_PROCESSING(SSobj, src)
+	else
+		chewing = FALSE
+		STOP_PROCESSING(SSobj, src)
+
+/obj/item/reagent_containers/food/snacks/lollipop/process(delta_time)
+	tick++ //Trying to use delta_time as a reference didn't work too well here.
+	if(!(tick % 5) && iscarbon(loc))
+		tick = 0
+		var/mob/living/carbon/M = loc
+		attack(M, M)
+
+/obj/item/reagent_containers/food/snacks/lollipop/Destroy()
+	. = ..()
+	STOP_PROCESSING(SSobj, src)
 
 /obj/item/reagent_containers/food/snacks/lollipop/cyborg
 	var/spamchecking = TRUE
