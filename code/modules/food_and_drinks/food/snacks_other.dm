@@ -453,7 +453,7 @@
 
 /obj/item/reagent_containers/food/snacks/lollipop/process(delta_time)
 	tick++ //Trying to use delta_time as a reference didn't work too well here.
-	if(!(tick % 5) && iscarbon(loc))
+	if(!(tick % 7) && iscarbon(loc))
 		tick = 0
 		var/mob/living/carbon/M = loc
 		attack(M, M)
