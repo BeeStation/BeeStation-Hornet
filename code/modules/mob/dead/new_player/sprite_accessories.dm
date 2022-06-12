@@ -2458,3 +2458,7 @@
 /datum/sprite_accessory/grod_tail/hugger
 	name = "Hugger"
 	icon_state = "hugger"
+
+/datum/sprite_accessory/grod_tail/hopper
+	name = "Hopper"
+	icon_state = "hopper"

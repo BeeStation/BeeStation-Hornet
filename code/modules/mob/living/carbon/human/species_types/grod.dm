@@ -105,6 +105,10 @@
 			if(H?.hand_bodyparts[i])
 				var/obj/item/bodypart/L = H?.hand_bodyparts[i]
 				L?.disabled = FALSE
+		if(H?.hand_bodyparts.len > 2)
+			H?.hand_bodyparts.Swap(3, 1) //This means if the grod activates its extra hands, people can operate on them
+			if(H?.hand_bodyparts.len > 3)
+				H?.hand_bodyparts.Swap(4, 2)
 		H.update_hud_handcuffed()
 		if(G)
 			H.equip_to_slot_if_possible(G, ITEM_SLOT_GLOVES) //Hacky? Yes. Works? Yes. Do I want to touch bodypart code? No.
@@ -120,6 +124,10 @@
 		var/obj/item/G = H.gloves
 		if(G)
 			H.doUnEquip(H.gloves)
+		if(H?.hand_bodyparts.len > 2)
+			H?.hand_bodyparts.Swap(1, 3) //This means if the grod activates its extra hands, people can operate on them
+		if(H?.hand_bodyparts.len > 3)
+			H?.hand_bodyparts.Swap(2, 4)
 		for(var/i in 3 to 4)
 			if(H?.hand_bodyparts[i])
 				var/obj/item/bodypart/L = H?.hand_bodyparts[i]
@@ -458,8 +466,12 @@
 
 /obj/structure/grod_caccoon/attack_hand(mob/user)
 	..()
-	visible_message("<span class ='warning'>[user] rips [src] open!</span>", "<span class ='warning'>You rip open the [src]!</span>")
-	qdel(src)
+	if(prob(33))
+		visible_message("<span class ='warning'>[user] rips the [src] open!</span>", "<span class ='warning'>You rip open the [src]!</span>")
+		qdel(src)
+	else
+		Shake(5, 5, 2 SECONDS)
+		visible_message("<span class ='warning'>[user] shakes the [src]!</span>", "<span class ='warning'>You shake the [src]!</span>")
 
 /obj/structure/grod_caccoon/Destroy()
 	for(var/atom/movable/AM in contents)
