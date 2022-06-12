@@ -197,7 +197,7 @@
 /obj/machinery/door/firedoor/try_to_crowbar(obj/item/I, mob/user)
 	if(welded || operating)
 		return
-	
+
 	if(density)
 		if(!(stat & NOPOWER))
 			LAZYADD(access_log, "MOTOR_ERR:|MOTOR CONTROLLER REPORTED BACKDRIVE|T_OFFSET:[DisplayTimeText(world.time - SSticker.round_start_time)]")
@@ -205,7 +205,7 @@
 				access_log.Remove(access_log[1])
 			to_chat(user, "<span class='warning'>You begin forcing open \the [src], the motors whine...</span>")
 			playsound(src, 'sound/machines/airlock_alien_prying.ogg', 100, TRUE)
-			if(!do_after(user, 10 SECONDS, TRUE, src))
+			if(!do_after(user, 5 SECONDS, TRUE, src))
 				return
 		else
 			to_chat(user, "<span class='notice'>You begin forcing open \the [src], the motors don't resist...</span>")
