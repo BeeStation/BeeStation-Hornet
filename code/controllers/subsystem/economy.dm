@@ -36,6 +36,10 @@ SUBSYSTEM_DEF(economy)
 		new /datum/bank_account/department(A, budget_to_hand_out)
 	return ..()
 
+/datum/controller/subsystem/economy/Recover()
+	generated_accounts = SSeconomy.generated_accounts
+	dep_cards = SSeconomy.dep_cards
+
 /datum/controller/subsystem/economy/fire(resumed = 0)
 	//MonkeStation Edit: /tg/ Mail Port
 	var/effective_mailcount = living_player_count()

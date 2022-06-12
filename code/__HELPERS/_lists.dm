@@ -437,7 +437,7 @@
 	return (result + R.Copy(Ri, 0))
 
 /// Converts a bitfield to a list of numbers (or words if a wordlist is provided)
-/proc/bitfield2list(bitfield = 0, list/wordlist)
+/proc/bitfield_to_list(bitfield = 0, list/wordlist)
 	var/list/r = list()
 	if(islist(wordlist))
 		var/max = min(wordlist.len,16)

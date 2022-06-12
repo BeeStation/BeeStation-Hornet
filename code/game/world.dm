@@ -13,8 +13,6 @@ GLOBAL_VAR(restart_counter)
 	//Keep the auxtools stuff at the top
 	AUXTOOLS_CHECK(AUXMOS)
 
-	enable_debugger()
-
 	log_world("World loaded at [time_stamp()]!")
 	SSmetrics.world_init_time = REALTIMEOFDAY // Important
 

@@ -16,18 +16,32 @@
 	var/can_fire = TRUE
 
 	// Bookkeeping variables; probably shouldn't mess with these.
-	var/last_fire = 0		//last world.time we called fire()
-	var/next_fire = 0		//scheduled world.time for next fire()
-	var/cost = 0			//average time to execute
-	var/tick_usage = 0		//average tick usage
-	var/tick_overrun = 0	//average tick overrun
-	var/state = SS_IDLE		//tracks the current state of the ss, running, paused, etc.
-	var/paused_ticks = 0	//ticks this ss is taking to run right now.
-	var/paused_tick_usage	//total tick_usage of all of our runs while pausing this run
-	var/ticks = 1			//how many ticks does this ss take to run on avg.
-	var/times_fired = 0		//number of times we have called fire()
-	var/queued_time = 0		//time we entered the queue, (for timing and priority reasons)
-	var/queued_priority 	//we keep a running total to make the math easier, if priority changes mid-fire that would break our running total, so we store it here
+	//last world.time we called fire()
+	var/last_fire = 0
+	//scheduled world.time for next fire()
+	var/next_fire = 0
+	//average time to execute
+	var/cost = 0
+	//average tick usage
+	var/tick_usage = 0
+	//average tick overrun
+	var/tick_overrun = 0
+	//tracks the current state of the ss, running, paused, etc.
+	var/state = SS_IDLE
+	//ticks this ss is taking to run right now.
+	var/paused_ticks = 0
+	//total tick_usage of all of our runs while pausing this run
+	var/paused_tick_usage
+	//how many ticks does this ss take to run on avg.
+	var/ticks = 1
+	//number of times we have called fire()
+	var/times_fired = 0
+	/// How many fires have we been requested to postpone
+	var/postponed_fires = 0
+	//time we entered the queue, (for timing and priority reasons)
+	var/queued_time = 0
+	//we keep a running total to make the math easier, if priority changes mid-fire that would break our running total, so we store it here
+	var/queued_priority
 	//linked list stuff for the queue
 	var/datum/controller/subsystem/queue_next
 	var/datum/controller/subsystem/queue_prev
@@ -70,12 +84,38 @@
 	dequeue()
 	can_fire = 0
 	flags |= SS_NO_FIRE
-	Master.subsystems -= src
+	if (Master)
+		Master.subsystems -= src
 	return ..()
 
-//Queue it to run.
-//	(we loop thru a linked list until we get to the end or find the right point)
-//	(this lets us sort our run order correctly without having to re-sort the entire already sorted list)
+
+/** Update next_fire for the next run.
+ *  reset_time (bool) - Ignore things that would normally alter the next fire, like tick_overrun, and last_fire. (also resets postpone)
+ */
+/datum/controller/subsystem/proc/update_nextfire(reset_time = FALSE)
+	var/queue_node_flags = flags
+
+	if (reset_time)
+		postponed_fires = 0
+		if (queue_node_flags & SS_TICKER)
+			next_fire = world.time + (world.tick_lag * wait)
+		else
+			next_fire = world.time + wait
+		return
+
+	if (queue_node_flags & SS_TICKER)
+		next_fire = world.time + (world.tick_lag * wait)
+	else if (queue_node_flags & SS_POST_FIRE_TIMING)
+		next_fire = world.time + wait + (world.tick_lag * (tick_overrun/100))
+	else if (queue_node_flags & SS_KEEP_TIMING)
+		next_fire += wait
+	else
+		next_fire = queued_time + wait + (world.tick_lag * (tick_overrun/100))
+
+
+///Queue it to run.
+/// (we loop thru a linked list until we get to the end or find the right point)
+/// (this lets us sort our run order correctly without having to re-sort the entire already sorted list)
 /datum/controller/subsystem/proc/enqueue()
 	var/SS_priority = priority
 	var/SS_flags = flags
@@ -139,9 +179,9 @@
 		queue_next.queue_prev = queue_prev
 	if (queue_prev)
 		queue_prev.queue_next = queue_next
-	if (src == Master.queue_tail)
+	if (Master && (src == Master.queue_tail))
 		Master.queue_tail = queue_prev
-	if (src == Master.queue_head)
+	if (Master && (src == Master.queue_head))
 		Master.queue_head = queue_next
 	queued_time = 0
 	if (state == SS_QUEUED)
@@ -206,23 +246,22 @@
 		if (SS_IDLE)
 			. = "  "
 
-//could be used to postpone a costly subsystem for (default one) var/cycles, cycles
-//for instance, during cpu intensive operations like explosions
+ /// Causes the next "cycle" fires to be missed. Effect is accumulative but can reset by calling update_nextfire(reset_time = TRUE)
 /datum/controller/subsystem/proc/postpone(cycles = 1)
-	if(next_fire - world.time < wait)
-		next_fire += (wait*cycles)
+	if (can_fire && cycles >= 1)
+		postponed_fires += cycles
 
 //usually called via datum/controller/subsystem/New() when replacing a subsystem (i.e. due to a recurring crash)
 //should attempt to salvage what it can from the old instance of subsystem
 /datum/controller/subsystem/Recover()
 
 /datum/controller/subsystem/vv_edit_var(var_name, var_value)
-	switch (var_name)
-		if (NAMEOF(src, can_fire))
+	switch(var_name)
+		if(NAMEOF(src, can_fire))
 			//this is so the subsystem doesn't rapid fire to make up missed ticks causing more lag
-			if (var_value)
-				next_fire = world.time + wait
-		if (NAMEOF(src, queued_priority)) //editing this breaks things.
+			if(var_value)
+				update_nextfire(reset_time = TRUE)
+		if(NAMEOF(src, queued_priority)) //editing this breaks things.
 			return FALSE
 	. = ..()
 

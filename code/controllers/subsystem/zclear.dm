@@ -43,6 +43,19 @@ SUBSYSTEM_DEF(zclear)
 	for(var/datum/zclear_data/cleardata as() in processing_levels)
 		continue_wipe(cleardata)
 
+/datum/controller/subsystem/zclear/Recover()
+	if(!islist(autowipe)) autowipe = list()
+	autowipe |= SSzclear.autowipe
+	if(!islist(free_levels)) free_levels = list()
+	free_levels |= SSzclear.free_levels
+	if(!islist(processing_levels)) processing_levels = list()
+	processing_levels |= SSzclear.processing_levels
+	if(!islist(ignored_atoms)) ignored_atoms = list()
+	ignored_atoms |= SSzclear.ignored_atoms
+	nullspaced_mobs |= SSzclear.nullspaced_mobs
+	docking_levels |= SSzclear.docking_levels
+	announced_zombie_levels |= SSzclear.announced_zombie_levels
+
 /*
  * Checks for empty z-levels and wipes them.
 */
