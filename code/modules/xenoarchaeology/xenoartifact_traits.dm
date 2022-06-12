@@ -346,13 +346,13 @@
 /obj/effect/proc_holder/spell/targeted/xeno_senitent_action/Initialize(mapload, var/obj/item/xenoartifact/Z)
 	. = ..()
 	xeno = Z
-	range = Z.max_range
+	range = Z.max_range+3
 
 /obj/effect/proc_holder/spell/targeted/xeno_senitent_action/cast(list/targets, mob/living/simple_animal/revenant/user = usr)
 	for(var/atom/M in targets)
 		if(xeno)
 			xeno.true_target = list(M)
-			xeno.default_activate(xeno.charge_req)
+			xeno.default_activate(xeno.charge_req+50)
 			charge_max = xeno.cooldown+xeno.cooldownmod
 
 /datum/xenoartifact_trait/minor/sentient/Destroy(force, ...)
@@ -517,13 +517,13 @@
 		holder.dropItemToGround(X)
 	if(ismovable(target) && !(istype(target, /obj/structure)))
 		var/atom/movable/AM = target
-		addtimer(CALLBACK(src, .proc/release, X, AM), X.charge*0.3 SECONDS)
+		addtimer(CALLBACK(src, .proc/release, X, AM), X.charge*0.5 SECONDS)
 		AM.forceMove(X)
 		AM.anchored = TRUE
 		if(isliving(target)) //stop awful hobbit-sis from wriggling 
 			var/mob/living/victim = target
-			victim.Paralyze(X.charge*0.3 SECONDS, ignore_canstun = TRUE)
-		X.cooldownmod = X.charge*0.5 SECONDS
+			victim.Paralyze(X.charge*0.5 SECONDS, ignore_canstun = TRUE)
+		X.cooldownmod = X.charge*0.6 SECONDS
 
 /datum/xenoartifact_trait/major/capture/proc/release(obj/item/xenoartifact/X, var/atom/movable/AM) //Empty contents
 	if(QDELETED(src) || QDELETED(X) || QDELETED(AM))
@@ -571,8 +571,8 @@
 	var/turf/T = get_turf(X.loc)
 	if(!X)
 		T = get_turf(target.loc)     
-	new /obj/effect/timestop(T, 2, (X.charge*0.1) SECONDS)
-	X.cooldownmod = (X.charge*0.1) SECONDS
+	new /obj/effect/timestop(T, 2, (X.charge*0.4) SECONDS)
+	X.cooldownmod = (X.charge*0.4) SECONDS
 
 /datum/xenoartifact_trait/major/laser
 	desc = "Barreled"
@@ -611,9 +611,9 @@
 	X.visible_message("<span class='danger'>The [X.name] begins to tick loudly...</span>")
 	to_chat(user,"<span class='danger'>The [X.name] begins to tick loudly...</span>")
 	X.visible_message("<span class='danger'>The [X.name] begins to tick loudly...</span>")
-	addtimer(CALLBACK(src, .proc/explode, X), (10-(X.charge*0.06)) SECONDS)
-	log_game("[X] primed an explosion at [world.time]. [X] will detonate in [(10-(X.charge*0.06))] seconds. [X] located at [X.x] [X.y] [X.z]")
-	X.cooldownmod = (10-(X.charge*0.06)) SECONDS
+	addtimer(CALLBACK(src, .proc/explode, X), (15-(X.charge*0.06)) SECONDS)
+	log_game("[X] primed an explosion at [world.time]. [X] will detonate in [(15-(X.charge*0.06))] seconds. [X] located at [X.x] [X.y] [X.z]")
+	X.cooldownmod = (15-(X.charge*0.06)) SECONDS
 	preserved_charge = X.charge
 
 /datum/xenoartifact_trait/major/bomb/proc/explode(obj/item/xenoartifact/X)
@@ -637,9 +637,9 @@
 		return
 	if(istype(target, /mob/living) && !(istype(target, /mob/living/simple_animal/pet/dog/corgi)))
 		var/mob/living/simple_animal/pet/dog/corgi/new_corgi = transform(X, target)
-		addtimer(CALLBACK(src, .proc/transform_back, X, target, new_corgi), (X.charge*0.6) SECONDS)
+		addtimer(CALLBACK(src, .proc/transform_back, X, target, new_corgi), (X.charge*0.7) SECONDS)
 		victims |= list(target, new_corgi)
-		X.cooldownmod = (X.charge*0.6) SECONDS
+		X.cooldownmod = (X.charge*0.7) SECONDS
 
 /datum/xenoartifact_trait/major/corginator/proc/transform(obj/item/xenoartifact/X, mob/living/target)
 	var/mob/living/simple_animal/pet/dog/corgi/new_corgi
@@ -659,6 +659,7 @@
 
 /datum/xenoartifact_trait/major/corginator/proc/transform_back(obj/item/xenoartifact/X, mob/living/target, mob/living/simple_animal/pet/dog/corgi/new_corgi)
 	if(target)
+		victims -= target
 		REMOVE_TRAIT(target, TRAIT_NOBREATH, CORGIUM_TRAIT)
 		if(QDELETED(new_corgi))
 			if(!QDELETED(target))
@@ -681,6 +682,8 @@
 
 /datum/xenoartifact_trait/major/corginator/Destroy(force, ...) //Transform goobers back if artifact is deleted.
 	. = ..()
+	if(victims.len < 1)
+		return
 	var/mob/living/H
 	var/mob/living/simple_animal/pet/dog/corgi/C
 	for(var/M in 1 to victims.len-1)
@@ -712,8 +715,8 @@
 		caster?.key = ghost?.key
 	qdel(ghost)
 
-	caster.Unconscious(5 SECONDS)
-	victim.Unconscious(5 SECONDS)
+	caster.Unconscious(7 SECONDS)
+	victim.Unconscious(7 SECONDS)
 	log_game("[X] swapped the identities of [victims[1]] & [victims[2]] at [world.time]. [X] located at [X.x] [X.y] [X.z]")
 	victims = list()
 
@@ -741,8 +744,8 @@
 	if(isliving(target))
 		victims += target
 		hide(target)
-		addtimer(CALLBACK(src, .proc/reveal, target), ((X.charge*0.3) SECONDS))
-		X.cooldownmod = ((X.charge*0.3)+1) SECONDS
+		addtimer(CALLBACK(src, .proc/reveal, target), ((X.charge*0.4) SECONDS))
+		X.cooldownmod = ((X.charge*0.4)+1) SECONDS
 
 /datum/xenoartifact_trait/major/invisible/proc/hide(mob/living/target)
 	animate(target, , alpha = 0, time = 5)
@@ -855,15 +858,15 @@
 
 /datum/xenoartifact_trait/major/forcefield/activate(obj/item/xenoartifact/X)
 	if(size >= 1)
-		new /obj/effect/forcefield/xenoartifact_type(get_turf(X.loc), (X.charge*0.3) SECONDS)
+		new /obj/effect/forcefield/xenoartifact_type(get_turf(X.loc), (X.charge*0.4) SECONDS)
 	if(size >= 3)
-		new /obj/effect/forcefield/xenoartifact_type(get_step(X, NORTH), (X.charge*0.3) SECONDS)
-		new /obj/effect/forcefield/xenoartifact_type(get_step(X, SOUTH), (X.charge*0.3) SECONDS)
+		new /obj/effect/forcefield/xenoartifact_type(get_step(X, NORTH), (X.charge*0.4) SECONDS)
+		new /obj/effect/forcefield/xenoartifact_type(get_step(X, SOUTH), (X.charge*0.4) SECONDS)
 	if(size >= 5)
-		new /obj/effect/forcefield/xenoartifact_type(get_step(X, WEST), (X.charge*0.3) SECONDS)
-		new /obj/effect/forcefield/xenoartifact_type(get_step(X, EAST), (X.charge*0.3) SECONDS)
+		new /obj/effect/forcefield/xenoartifact_type(get_step(X, WEST), (X.charge*0.4) SECONDS)
+		new /obj/effect/forcefield/xenoartifact_type(get_step(X, EAST), (X.charge*0.4) SECONDS)
 
-	X.cooldownmod = (X.charge*0.3) SECONDS
+	X.cooldownmod = (X.charge*0.4) SECONDS
 	
 /obj/effect/forcefield/xenoartifact_type //Special wall type for artifact
 	desc = "An impenetrable artifact wall."
@@ -898,7 +901,7 @@
 
 /datum/xenoartifact_trait/major/chem/on_init(obj/item/xenoartifact/X)
 	amount = pick(5, 9, 10, 15)
-	formula = get_random_reagent_id(CHEMICAL_RNG_GENERAL)
+	formula = get_random_reagent_id(/*CHEMICAL_RNG_GENERAL*/)
 
 /datum/xenoartifact_trait/major/chem/activate(obj/item/xenoartifact/X, atom/target)
 	if(target?.reagents)
@@ -986,7 +989,7 @@
 /datum/xenoartifact_trait/malfunction/strip/activate(obj/item/xenoartifact/X, atom/target)
 	if(isliving(target))
 		var/mob/living/carbon/victim = target
-		for(var/obj/item/I in victim.contents)
+		for(var/obj/item/clothing/I in victim.contents)
 			victim.dropItemToGround(I)
 
 /datum/xenoartifact_trait/malfunction/limbdenier

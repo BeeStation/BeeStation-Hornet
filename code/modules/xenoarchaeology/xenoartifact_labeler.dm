@@ -169,7 +169,7 @@
 		return TRUE
 	else if(istype(target, /obj/item/xenoartifact))
 		xenoa_target = target
-		if(set_name) //You can update the now, that's cool
+		if(set_name) //You can update the name now
 			xenoa_target.name = name
 		calculate_modifier(xenoa_target)
 		add_sticker(xenoa_target)
@@ -181,6 +181,8 @@
 		return TRUE
 	
 /obj/item/xenoartifact_label/proc/add_sticker(mob/target)
+	if(locate(/obj/item/xenoartifact_label) in target) //Remove old stickers
+		qdel(locate(/obj/item/xenoartifact_label) in target)
 	target.add_overlay(sticker_overlay)
 	forceMove(target)
 
