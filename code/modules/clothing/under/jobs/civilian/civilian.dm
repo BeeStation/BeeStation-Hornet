@@ -88,7 +88,7 @@
 
 /obj/item/clothing/under/rank/civilian/head_of_personnel/alt/skirt
 	name = "head of personnel's teal jumpskirt"
-	desc = "A teal suit and yellow necktie. An authoritative yet tacky ensemble."
+	desc = "A teal skirt and yellow necktie. An authoritative yet tacky ensemble."
 	icon_state = "teal_suit_skirt"
 	item_state = "g_suit"
 	can_adjust = FALSE
