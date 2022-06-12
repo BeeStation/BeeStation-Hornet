@@ -1,0 +1,4 @@
+#include "code\world.dm"
+#include "code\dbcore.dm"
+#include "code\glob.dm"
+#include "code\savefile_parser.dm"
