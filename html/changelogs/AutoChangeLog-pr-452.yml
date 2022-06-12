@@ -1,0 +1,6 @@
+author: DoctorSquishy, Gamer025, Cyberboss
+delete-after: true
+changes:
+  - code_imp: Failsafe is more robust now and the game can actually recover from an
+      deleted MC
+  - code_imp: Garbage Collection optimizations and better postpone ticks
