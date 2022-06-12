@@ -3594,6 +3594,7 @@
 #include "monkestation\code\datums\emotes.dm"
 #include "monkestation\code\datums\shuttles.dm"
 #include "monkestation\code\datums\status_effects.dm"
+#include "monkestation\code\datums\votesounds.dm"
 #include "monkestation\code\datums\announcers\duke_announcer.dm"
 #include "monkestation\code\datums\brain_damage\mild.dm"
 #include "monkestation\code\datums\components\crafting\recipes.dm"
