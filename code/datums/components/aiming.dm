@@ -1,24 +1,11 @@
 // Aiming component, ported from NSV
-
-// Defines for stages and radial choices
-#define START "start"
-#define RAISE_HANDS "raise_hands"
-#define DROP_WEAPON "drop_weapon"
-#define DROP_TO_FLOOR "drop_to_floor"
-#define CANCEL "cancel"
-#define FIRE "fire"
-#define SURRENDER "surrender"
-#define IGNORE "ignore"
+// Modified to make the radial menu less of a powergamer tool.
 
 /datum/component/aiming
 	can_transfer = FALSE
 	var/mob/living/user = null
 	var/mob/living/target = null
-	var/obj/item/target_held = null
-	var/datum/radial_menu/persistent/choice_menu // Radial menu for the user
-	var/datum/radial_menu/persistent/choice_menu_target // Radial menu for the target
 	COOLDOWN_DECLARE(aiming_cooldown) // 5 second cooldown so you can't spam aiming for faster bullets
-	COOLDOWN_DECLARE(voiceline_cooldown) // 2 seconds, prevents spamming commands
 	COOLDOWN_DECLARE(notification_cooldown) // 5 seconds, prevents spamming the equip notification/sound
 
 /datum/component/aiming/Initialize(source)
@@ -52,9 +39,8 @@
 	RegisterSignal(src.user, COMSIG_MOVABLE_MOVED, .proc/on_move)
 	RegisterSignal(src.target, COMSIG_MOVABLE_MOVED, .proc/on_move)
 
-	// Shows the radials to the aimer and target
-	aim_react(src.target)
-	show_ui(src.user, src.target, stage="start")
+	addtimer(CALLBACK(src, .proc/stop_aiming), 10 SECONDS) //Ten seconds is enough to either have the situation be resolved, or calm enough
+
 
 /*
 
@@ -131,96 +117,7 @@ Methods to alert the aimer about events (Surrendering/equipping an item/dropping
 	user.balloon_alert(user, "You can't see [target] anymore!")
 	stop_aiming()
 
-/**
 
-Method to show a radial menu to the person who's aiming, in stages:
-
-AIMING_START means they just recently started aiming
-AIMING_RAISE_HANDS means they selected the "raise your hands above your head" command
-AIMING_DROP_WEAPON means they selected the "drop your weapon" command
-
-*/
-
-/datum/component/aiming/proc/show_ui(mob/user, mob/target, stage)
-	var/list/options = list()
-	var/list/possible_actions = list(CANCEL, FIRE)
-	switch(stage)
-		if(START)
-			possible_actions += RAISE_HANDS
-			possible_actions += DROP_WEAPON
-		if(RAISE_HANDS)
-			possible_actions += DROP_TO_FLOOR
-			possible_actions += RAISE_HANDS
-		if(DROP_WEAPON)
-			possible_actions += DROP_TO_FLOOR
-			possible_actions += DROP_WEAPON
-			possible_actions += RAISE_HANDS
-		if(DROP_TO_FLOOR)
-			possible_actions += DROP_TO_FLOOR
-			possible_actions += DROP_WEAPON
-	for(var/option in possible_actions)
-		options[option] = image(icon = 'icons/effects/aiming.dmi', icon_state = option)
-	if(choice_menu)
-		choice_menu.change_choices(options)
-		return
-	choice_menu = show_radial_menu_persistent(user, user, options, select_proc = CALLBACK(src, .proc/act))
-
-/datum/component/aiming/proc/act(choice)
-	if(QDELETED(user) || QDELETED(target)) // We lost our user or target somehow, abort aiming
-		stop_aiming()
-		return
-	if(!choice)
-		stop_aiming()
-		return
-	if(choice != CANCEL && choice != FIRE) // Handling voiceline cooldowns and mimes
-		if(!COOLDOWN_FINISHED(src, voiceline_cooldown))
-			to_chat(user, "<span class = 'warning'>You've already given a command recently!</span>")
-			show_ui(user, target, choice)
-			return
-		if(user.mind.assigned_role == "Mime")
-			user.visible_message("<span class='warning'>[user] waves [parent] around menacingly!</span>")
-			show_ui(user, target, choice)
-			COOLDOWN_START(src, voiceline_cooldown, 2 SECONDS)
-			return
-	var/alert_message
-	var/alert_message_3p
-	switch(choice)
-		if(CANCEL) //first off, are they telling us to stop aiming?
-			stop_aiming()
-			return
-		if(FIRE)
-			fire()
-			return
-		if(RAISE_HANDS)
-			alert_message = "raise your hands!"
-			alert_message_3p = "raise their hands!"
-		if(DROP_WEAPON)
-			alert_message = "drop your weapon!"
-			alert_message_3p = "drop their weapon!"
-		if(DROP_TO_FLOOR)
-			alert_message = "lie down!"
-			alert_message_3p = "lie down!"
-	user.balloon_alert(target, "[user] orders you to [alert_message]")
-	user.balloon_alert_to_viewers("[user] orders [target] to [alert_message_3p]!", "You order [target] to [alert_message_3p]", ignored_mobs = target)
-	aim_react(target)
-	COOLDOWN_START(src, voiceline_cooldown, 2 SECONDS)
-	show_ui(user, target, choice)
-
-/datum/component/aiming/proc/fire()
-	var/obj/item/held = user.get_active_held_item()
-	if(held != parent)
-		stop_aiming()
-		return FALSE
-	if(istype(parent, /obj/item/gun)) // If we have a gun, fire it at the target
-		var/obj/item/gun/G = parent
-		G.afterattack(target, user, null, null, TRUE)
-		stop_aiming()
-		return TRUE
-	if(isitem(parent)) // Otherwise, just wave it at them
-		var/obj/item/I = parent
-		I.afterattack(target, user)
-		user.visible_message("<span class='warning'>[user] waves [parent] around menacingly!</span>")
-		stop_aiming()
 
 /datum/component/aiming/proc/stop_aiming()
 	// Clean up our signals
@@ -231,24 +128,7 @@ AIMING_DROP_WEAPON means they selected the "drop your weapon" command
 		UnregisterSignal(target, COMSIG_MOVABLE_MOVED)
 	if(user)
 		UnregisterSignal(user, COMSIG_MOVABLE_MOVED)
-	// Clean up the menu if it's still open
-	QDEL_NULL(choice_menu)
-	QDEL_NULL(choice_menu_target)
 	target = null
-
-/datum/component/aiming/proc/aim_react(mob/target)
-	set waitfor = FALSE
-	if(QDELETED(target) || choice_menu_target) // We lost our target, or they already have a menu up
-		return
-	var/list/options = list()
-	for(var/option in list(SURRENDER, IGNORE))
-		options[option] = image(icon = 'icons/effects/aiming.dmi', icon_state = option)
-	choice_menu_target = show_radial_menu_persistent(target, target, options, select_proc = CALLBACK(src, .proc/aim_react_act))
-
-/datum/component/aiming/proc/aim_react_act(choice)
-	if(choice == SURRENDER)
-		target.emote(SURRENDER)
-	QDEL_NULL(choice_menu_target)
 
 // Shows a crosshair effect when aiming at a target
 /obj/effect/temp_visual/aiming
@@ -267,12 +147,3 @@ AIMING_DROP_WEAPON means they selected the "drop your weapon" command
 /obj/item/reagent_containers/food/snacks/grown/banana/ComponentInitialize()
 	. = ..()
 	AddComponent(/datum/component/aiming)
-
-#undef START
-#undef RAISE_HANDS
-#undef DROP_WEAPON
-#undef DROP_TO_FLOOR
-#undef CANCEL
-#undef FIRE
-#undef SURRENDER
-#undef IGNORE
