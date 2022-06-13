@@ -56,22 +56,19 @@
 		broken_overlay_emissive = initial(broken_overlay_emissive)
 		update_appearance()
 
-/obj/machinery/computer/update_appearance()
-	cut_overlays()
+/obj/machinery/computer/update_overlays()
+	. = ..()
+
 	SSvis_overlays.remove_vis_overlay(src, managed_vis_overlays)
 	if(stat & NOPOWER)
-		add_overlay("[icon_keyboard]_off")
+		. += "[icon_keyboard]_off"
 		return
-	add_overlay(icon_keyboard)
+	. += icon_keyboard
 
 	// This whole block lets screens ignore lighting and be visible even in the darkest room
 	var/overlay_state = icon_screen
 	if(stat & BROKEN)
-		if(broken_overlay_emissive)
-			overlay_state = "[icon_state]_broken"
-		else
-			add_overlay("[icon_state]_broken")
-			overlay_state = null
+		overlay_state = "[icon_state]_broken"
 
 	if(overlay_state)
 		SSvis_overlays.add_vis_overlay(src, icon, overlay_state, layer, plane, dir)

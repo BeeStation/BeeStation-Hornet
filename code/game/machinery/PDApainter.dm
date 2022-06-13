@@ -3,6 +3,7 @@
 	desc = "A machine able to color PDAs and IDs with ease. Insert an ID card or PDA and pick a color scheme."
 	icon = 'icons/obj/pda.dmi'
 	icon_state = "coloriser"
+	base_icon_state = "coloriser"
 	max_integrity = 200
 	density = TRUE
 	anchored = TRUE
@@ -90,25 +91,23 @@
 		)
 	to_chat(user, "<span class='warning'>You short out the design locking circuitry, allowing contraband and special designs.</span>")
 	obj_flags |= EMAGGED
-/obj/machinery/pdapainter/update_appearance()
-	cut_overlays()
 
+/obj/machinery/pdapainter/update_icon_state()
 	if(stat & BROKEN)
-		icon_state = "coloriser-broken"
-		return
+		icon_state = "[base_icon_state]-broken"
+		return ..()
+
+	icon_state = "[base_icon_state][powered() ? null : "-off"]"
+	return ..()
+
+/obj/machinery/pdapainter/update_overlays()
+	. = ..()
 
 	if(storedpda)
-		add_overlay("coloriser-pda-in")
+		. += "[base_icon_state]-pda-in"
 
 	if(storedid)
-		add_overlay("coloriser-id-in")
-
-	if(powered())
-		icon_state = initial(icon_state)
-	else
-		icon_state = "coloriser-off"
-
-	return
+		. += "[base_icon_state]-id-in"
 
 /obj/machinery/pdapainter/Initialize(mapload)
 	. = ..()

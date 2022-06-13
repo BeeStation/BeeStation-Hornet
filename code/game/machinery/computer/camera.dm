@@ -273,11 +273,11 @@
 	broken_overlay_emissive = TRUE
 	light_power = 0
 
-/obj/machinery/computer/security/telescreen/update_appearance()
+/obj/machinery/computer/security/telescreen/update_icon_state()
 	icon_state = initial(icon_state)
 	if(stat & BROKEN)
 		icon_state += "b"
-	return
+	return ..()
 
 /obj/machinery/computer/security/telescreen/entertainment
 	name = "entertainment monitor"

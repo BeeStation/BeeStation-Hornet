@@ -6,6 +6,7 @@ GLOBAL_LIST_EMPTY(announcement_systems)
 	desc = "An automated announcement system that handles minor announcements over the radio."
 	icon = 'icons/obj/machines/telecomms.dmi'
 	icon_state = "AAS_On"
+	base_icon_state = "AAS"
 
 	verb_say = "coldly states"
 	verb_ask = "queries"
@@ -32,22 +33,20 @@ GLOBAL_LIST_EMPTY(announcement_systems)
 	radio = new /obj/item/radio/headset/silicon/ai(src)
 	update_appearance()
 
-/obj/machinery/announcement_system/update_appearance()
-	if(is_operational())
-		icon_state = (panel_open ? "AAS_On_Open" : "AAS_On")
-	else
-		icon_state = (panel_open ? "AAS_Off_Open" : "AAS_Off")
+/obj/machinery/announcement_system/update_icon_state()
+	icon_state = "[base_icon_state]_[is_operational() ? "On" : "Off"][panel_open ? "_Open" : null]"
+	return ..()
 
-
-	cut_overlays()
+/obj/machinery/announcement_system/update_overlays()
+	. = ..()
 	if(arrivalToggle)
-		add_overlay(greenlight)
+		. += greenlight
 
 	if(newheadToggle)
-		add_overlay(pinklight)
+		. += pinklight
 
 	if(stat & BROKEN)
-		add_overlay(errorlight)
+		. += errorlight
 
 /obj/machinery/announcement_system/Destroy()
 	QDEL_NULL(radio)

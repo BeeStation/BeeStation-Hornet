@@ -9,6 +9,7 @@
 	desc = "An enclosed machine used to stabilize and heal patients."
 	icon = 'icons/obj/machines/sleeper.dmi'
 	icon_state = "sleeper"
+	base_icon_state = "sleeper"
 	density = FALSE
 	state_open = TRUE
 	circuit = /obj/item/circuitboard/machine/sleeper
@@ -50,11 +51,9 @@
 	reset_chem_buttons()
 	ui_update()
 
-/obj/machinery/sleeper/update_appearance()
-	if(state_open)
-		icon_state = "[initial(icon_state)]-open"
-	else
-		icon_state = initial(icon_state)
+/obj/machinery/sleeper/update_icon_state()
+	icon_state = "[base_icon_state][state_open ? "-open" : null]"
+	return ..()
 
 /obj/machinery/sleeper/container_resist(mob/living/user)
 	visible_message("<span class='notice'>[occupant] emerges from [src]!</span>",
@@ -268,6 +267,7 @@
 
 /obj/machinery/sleeper/syndie
 	icon_state = "sleeper_s"
+	base_icon_state = "sleeper_s"
 	controls_inside = TRUE
 
 /obj/machinery/sleeper/syndie/fullupgrade
@@ -277,8 +277,10 @@
 	name = "soothing sleeper"
 	desc = "A large cryogenics unit built from brass. Its surface is pleasantly cool the touch."
 	icon_state = "sleeper_clockwork"
+	base_icon_state = "sleeper_clockwork"
 	enter_message = "<span class='bold inathneq_small'>You hear the gentle hum and click of machinery, and are lulled into a sense of peace.</span>"
 	possible_chems = list(list(/datum/reagent/medicine/epinephrine, /datum/reagent/medicine/salbutamol, /datum/reagent/medicine/bicaridine, /datum/reagent/medicine/kelotane, /datum/reagent/medicine/oculine, /datum/reagent/medicine/inacusiate, /datum/reagent/medicine/mannitol))
 
 /obj/machinery/sleeper/old
 	icon_state = "oldpod"
+	base_icon_state = "oldpod"

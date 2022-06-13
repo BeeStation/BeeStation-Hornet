@@ -3,6 +3,7 @@
 	desc = "It scans DNA structures."
 	icon = 'icons/obj/machines/cloning.dmi'
 	icon_state = "scanner"
+	base_icon_state = "scanner"
 	density = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 50
@@ -39,26 +40,26 @@
 		if(scan_level >= 3)
 			. += "<span class='notice'>Scanner has been upgraded to support autoprocessing.</span>"
 
-/obj/machinery/dna_scannernew/update_appearance()
-	cut_overlays()
-
-	if((stat & MAINT) || panel_open)
-		add_overlay("maintenance")
-
+/obj/machinery/dna_scannernew/update_icon_state()
 	//no power or maintenance
 	if(stat & (NOPOWER|BROKEN))
-		icon_state = initial(icon_state)+ (state_open ? "_open" : "") + "_unpowered"
-		return
-	else if(locked)
-		add_overlay("locked")
+		icon_state = "[base_icon_state][state_open ? "_open" : null]_unpowered"
+		return ..()
 
 	//running and someone in there
 	if(occupant)
-		icon_state = initial(icon_state)+ "_occupied"
-		return
+		icon_state = "[base_icon_state]_occupied"
+		return ..()
 
 	//running
-	icon_state = initial(icon_state)+ (state_open ? "_open" : "")
+	icon_state = "[base_icon_state][state_open ? "_open" : null]"
+	return ..()
+
+/obj/machinery/dna_scannernew/update_overlays()
+	if((stat & MAINT) || panel_open)
+		. += "maintenance"
+	if(locked)
+		. += "locked"
 
 /obj/machinery/dna_scannernew/proc/toggle_open(mob/user)
 	if(locked)

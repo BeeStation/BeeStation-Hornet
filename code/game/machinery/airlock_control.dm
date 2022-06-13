@@ -2,6 +2,8 @@
 
 // This code allows for airlocks to be controlled externally by setting an id_tag and comm frequency (disables ID access)
 /obj/machinery/door/airlock
+	/// The current state of the airlock, used to construct the airlock overlays
+	var/airlock_state
 	var/id_tag
 	var/frequency
 	var/datum/radio_frequency/radio_connection
@@ -87,6 +89,7 @@
 /obj/machinery/airlock_sensor
 	icon = 'icons/obj/airlock_machines.dmi'
 	icon_state = "airlock_sensor_off"
+	base_icon_state = "airlock_sensor"
 	name = "airlock sensor"
 	resistance_flags = FIRE_PROOF
 
@@ -113,14 +116,15 @@
 	id_tag = INCINERATOR_SYNDICATELAVA_AIRLOCK_SENSOR
 	master_tag = INCINERATOR_SYNDICATELAVA_AIRLOCK_CONTROLLER
 
-/obj/machinery/airlock_sensor/update_appearance()
-	if(on)
-		if(alert)
-			icon_state = "airlock_sensor_alert"
-		else
-			icon_state = "airlock_sensor_standby"
+/obj/machinery/airlock_sensor/update_icon_state()
+	if(!on)
+		icon_state = "[base_icon_state]_off"
 	else
-		icon_state = "airlock_sensor_off"
+		if(alert)
+			icon_state = "[base_icon_state]_alert"
+		else
+			icon_state = "[base_icon_state]_standby"
+	return ..()
 
 /obj/machinery/airlock_sensor/attack_hand(mob/user)
 	. = ..()
