@@ -81,8 +81,6 @@
 
 /datum/mind/Destroy()
 	SSticker.minds -= src
-	if(is_hivemember(current))
-		remove_hivemember(current)
 	if(islist(antag_datums))
 		for(var/i in antag_datums)
 			var/datum/antagonist/antag_datum = i
@@ -272,6 +270,10 @@
 	remove_cultist()
 	remove_rev()
 	SSticker.mode.update_cult_icons_removed(src)
+
+/datum/mind/proc/remove_from_hives()
+	SIGNAL_HANDLER
+	remove_hivemember(src)
 
 /datum/mind/proc/equip_traitor(employer = "The Syndicate", silent = FALSE, datum/antagonist/uplink_owner, telecrystals = 20, datum/game_mode/gamemode)
 	if(!current)

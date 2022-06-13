@@ -89,7 +89,10 @@
 		return
 	var/datum/mind/M = C.mind
 	if(M)
+		if(is_hivemember(C))
+			UnregisterSignal(M, COMSIG_PARENT_QDELETING)
 		hivemembers |= M
+		RegisterSignal(M, COMSIG_PARENT_QDELETING, M.remove_from_hives())
 		calc_size()
 
 	var/user_warning = "<span class='userdanger'>We have detected an enemy hivemind using our physical form as a vessel and have begun ejecting their mind! They will be alerted of our disappearance once we succeed!</span>"
@@ -107,6 +110,7 @@
 	return TRUE
 
 /datum/antagonist/hivemind/proc/remove_from_hive(mob/living/carbon/C)
+	SIGNAL_HANDLER
 	var/datum/mind/M = C.mind
 	if(M)
 		hivemembers -= M
