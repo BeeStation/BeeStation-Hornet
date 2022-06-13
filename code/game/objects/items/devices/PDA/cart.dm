@@ -198,7 +198,7 @@
 /obj/item/cartridge/annoyance/lesser //HoP can give you this
 	name = "\improper FACEBUCKS cartridge"
 	icon_state = "cart-signal" // might need a new sprite
-	spam_delay = 4
+	spam_delay = 5
 
 /obj/item/cartridge/proc/post_status(command, data1, data2)
 
