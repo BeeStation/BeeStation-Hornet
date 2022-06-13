@@ -108,7 +108,7 @@
 			pai.real_name = pai.name
 			pai.ckey = candidate.ckey
 			src.setPersonality(pai)
-			SSpai.candidates -= candidate
+			SSpai.candidates[pai.ckey].ready = FALSE
 		if("fix_speech")
 			to_chat(pai, "<span class='notice'>Your owner has corrected your speech modulation!</span>")
 			to_chat(usr, "<span class='notice'>You fix the pAI's speech modulator.</span>")
@@ -156,15 +156,15 @@
 			to_chat(usr, "<span class='notice'>You [transmit_holder ? "enable" : "disable"] your pAI's [transmitting ? "outgoing" : "incoming"] radio transmissions!</span>")
 			to_chat(pai, "<span class='notice'>Your owner has [transmit_holder ? "enabled" : "disabled"] your [transmitting ? "outgoing" : "incoming"] radio transmissions!</span>")
 		if("wipe_pai")
-			var/confirm = alert(usr, "Are you certain you wish to delete the current personality? This action cannot be undone.", "Personality Wipe", list("Yes", "No"))
+			var/confirm = alert(usr, "Are you certain you wish to delete the current personality? This action cannot be undone.", "Personality Wipe", "Yes", "No")
 			if(confirm == "Yes")
 				if(pai)
 					to_chat(pai, "<span class='warning'>You feel yourself slipping away from reality.</span>")
 					to_chat(pai, "<span class='danger'>Byte by byte you lose your sense of self.</span>")
 					to_chat(pai, "<span class='userdanger'>Your mental faculties leave you.</span>")
 					to_chat(pai, "<span class='rose'>oblivion... </span>")
-					qdel(pai)
-	return
+					pai.death()
+	return TRUE
 
 // 		WIRE_SIGNAL = 1
 //		WIRE_RECEIVE = 2
@@ -203,7 +203,7 @@
 	if(length(SSpai.candidates))
 		for(var/key in candidates)
 			var/datum/pai_candidate/checked_candidate = candidates[key]
-			if(!checked_candidate.ready)
+			if(!SSpai.check_ready(checked_candidate))
 				continue
 			/// The object containing the candidate data.
 			var/list/candidate = list()

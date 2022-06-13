@@ -1,5 +1,17 @@
 import { useBackend, useSharedState } from '../backend';
-import { Box, Button, LabeledList, Icon, NoticeBox, ProgressBar, Section, Stack, Table, Tabs, Tooltip } from '../components';
+import {
+  Box,
+  Button,
+  LabeledList,
+  Icon,
+  NoticeBox,
+  ProgressBar,
+  Section,
+  Stack,
+  Table,
+  Tabs,
+  Tooltip,
+} from '../components';
 import { Window } from '../layouts';
 
 type PaiInterfaceData = {
@@ -193,7 +205,6 @@ const SystemWallpaper = (_, context) => {
     '',
   ].join('\n');
 
-
   return (
     <Section fill nowrap overflow="hidden">
       <pre>
@@ -226,6 +237,12 @@ const SystemInfo = (_, context) => {
             onClick={() => act('change_image')}
             tooltip="Change your display image.">
             Display
+          </Button>
+          <Button
+            icon="skull"
+            onClick={() => act('wipe_core')}
+            tooltip="Wipe yourself">
+            Wipe
           </Button>
         </>
       }
@@ -348,7 +365,9 @@ const InstalledInfo = (props) => {
           !software
             ? 'Select a Program'
             : software.replace(/(^\w{1})|(\s+\w{1})/g, (letter) =>
-              letter.toUpperCase())
+              letter.toUpperCase()
+            // eslint-disable-next-line react/jsx-indent
+            )
         }>
         {software && (
           <Stack fill vertical>

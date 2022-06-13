@@ -99,7 +99,7 @@
 		if("camera_zoom")
 			aicamera.adjust_zoom(usr)
 		if("change_image")
-			var/newImage = input(usr, "Select your new display image.", "Display Image", sortList(list("Happy", "Cat", "Extremely Happy", "Face", "Laugh", "Off", "Sad", "Angry", "What", "Sunglasses")))
+			var/newImage = input(usr, "Select your new display image.", "Display Image") in sortList(list("Happy", "Cat", "Extremely Happy", "Face", "Laugh", "Off", "Sad", "Angry", "What", "Sunglasses"))
 			switch(newImage)
 				if(null)
 					card.emotion_icon = "null"
@@ -107,7 +107,7 @@
 					card.emotion_icon = "extremely-happy"
 				else
 					card.emotion_icon = "[lowertext(newImage)]"
-			card.update_icon() // have to do it like this until update_appearance() port
+			card.update_icon()
 		if("check_dna")
 			if(!master_dna)
 				to_chat(src, "<span class='warning'>You do not have a master DNA to compare to!</span>")
@@ -199,7 +199,16 @@
 			if(!languages_granted)
 				grant_all_languages(TRUE, TRUE, TRUE, LANGUAGE_SOFTWARE)
 				languages_granted = TRUE
-	return
+		if("wipe_core")
+			var/confirm = alert(src, "Are you certain you want to wipe yourself?", "Personality Wipe", "Yes", "No")
+			if(confirm == "Yes")
+				to_chat(src, "<span class='warning'>You feel yourself slipping away from reality.</span>")
+				to_chat(src, "<span class='danger'>Byte by byte you lose your sense of self.</span>")
+				to_chat(src, "<span class='userdanger'>Your mental faculties leave you.</span>")
+				to_chat(src, "<span class='rose'>oblivion... </span>")
+				death()
+
+	return TRUE
 
 /**
  * Supporting proc for the pAI to prick it's master's hand
