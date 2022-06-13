@@ -108,7 +108,8 @@
 			pai.real_name = pai.name
 			pai.ckey = candidate.ckey
 			src.setPersonality(pai)
-			SSpai.candidates[pai.ckey].ready = FALSE
+			candidate.ready = FALSE
+			SSpai.candidates[candidate.ckey] = candidate
 		if("fix_speech")
 			to_chat(pai, "<span class='notice'>Your owner has corrected your speech modulation!</span>")
 			to_chat(usr, "<span class='notice'>You fix the pAI's speech modulator.</span>")
