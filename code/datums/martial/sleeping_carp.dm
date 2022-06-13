@@ -49,7 +49,7 @@
 		D.apply_damage(5, BRUTE, pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM))
 		D.Stun(60)
 		return 1
-	
+
 	return basic_hit(A,D)
 
 /datum/martial_art/the_sleeping_carp/proc/backKick(mob/living/carbon/human/A, mob/living/carbon/human/D)
@@ -173,6 +173,7 @@
 	attack_verb = list("smashed", "slammed", "whacked", "thwacked")
 	icon = 'icons/obj/items_and_weapons.dmi'
 	icon_state = "bostaff0"
+	base_icon_state = "bostaff"
 	lefthand_file = 'icons/mob/inhands/weapons/staves_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/staves_righthand.dmi'
 	block_level = 1
@@ -181,11 +182,11 @@
 
 /obj/item/staff/bostaff/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/two_handed, force_unwielded=10, force_wielded=24, block_power_unwielded=25, block_power_wielded=50, icon_wielded="bostaff1")
+	AddComponent(/datum/component/two_handed, force_unwielded=10, force_wielded=24, block_power_unwielded=25, block_power_wielded=50, icon_wielded="[base_icon_state]1")
 
 /obj/item/staff/bostaff/update_icon_state()
-	icon_state = "bostaff0"
-	..()
+	icon_state = "[base_icon_state]0"
+	return ..()
 
 /obj/item/staff/bostaff/attack(mob/target, mob/living/user)
 	add_fingerprint(user)

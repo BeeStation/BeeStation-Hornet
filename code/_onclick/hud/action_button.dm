@@ -160,11 +160,8 @@
 	update_appearance()
 
 /atom/movable/screen/movable/action_button/hide_toggle/update_appearance()
-	cut_overlay(list(hide_appearance, show_appearance))
-	if(hidden)
-		add_overlay(show_appearance)
-	else
-		add_overlay(hide_appearance)
+	. = ..()
+	. += hidden ? show_appearance : hide_appearance
 
 
 /atom/movable/screen/movable/action_button/MouseEntered(location,control,params)

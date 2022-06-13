@@ -71,6 +71,7 @@
 /atom/movable/screen/robot/lamp
 	name = "headlamp"
 	icon_state = "lamp0"
+	base_icon_state = "lamp"
 
 /atom/movable/screen/robot/lamp/Click()
 	if(..())
