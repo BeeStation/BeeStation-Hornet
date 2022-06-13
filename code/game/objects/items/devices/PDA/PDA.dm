@@ -786,10 +786,6 @@ GLOBAL_LIST_EMPTY(PDAs)
 /obj/item/pda/proc/send_to_all(mob/living/U, var/multi_delay)
 	if (last_everyone && world.time < (last_everyone + PDA_SPAM_DELAY*multi_delay))
 		to_chat(U,"<span class='warning'>Send To All function is still on cooldown. Enabled in [(last_everyone + PDA_SPAM_DELAY*multi_delay - world.time)/10] seconds.")
-		world.log << world.time
-		world.log << multi_delay
-		world.log << PDA_SPAM_DELAY
-		world.log << PDA_SPAM_DELAY*multi_delay
 		return
 	send_pda_message(U,get_viewable_pdas(), TRUE, multi_delay=multi_delay)
 

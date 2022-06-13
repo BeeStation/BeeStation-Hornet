@@ -32,7 +32,7 @@
 	var/remote_door_id = ""
 
 	var/bot_access_flags = 0 //Bit flags. Selection: SEC_BOT | MULE_BOT | FLOOR_BOT | CLEAN_BOT | MED_BOT | FIRE_BOT
-	var/spam_delay = 0 //Enables "Send to All" Option. 1=1 min, 2=2mins, 3=3mins.
+	var/spam_delay = 0 //Enables "Send to All" Option. 1=1 min, 2=2mins, 2.5=2 min 30 seconds
 
 	var/obj/item/pda/host_pda = null
 	var/menu
@@ -197,8 +197,8 @@
 
 /obj/item/cartridge/annoyance/lesser //HoP can give you this
 	name = "\improper FACEBUCKS cartridge"
-	icon_state = "cart-signal"
-	spam_delay = 5
+	icon_state = "cart-signal" // might need a new sprite
+	spam_delay = 4
 
 /obj/item/cartridge/proc/post_status(command, data1, data2)
 
