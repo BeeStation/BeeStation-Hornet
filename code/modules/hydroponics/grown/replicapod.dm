@@ -154,6 +154,7 @@
 		new V(podman)
 	podman.hardset_dna(null,null,podman.real_name,blood_type, new /datum/species/pod,features,null)//Discard SE's and UI's, podman cloning is inaccurate, and always make them a podman
 	podman.set_cloned_appearance()
+	podman.dna.species.exotic_blood = max(reagents_add) || /datum/reagent/water
 	// On harvest
 	to_chat(podman, "<span class='notice'><b>There is a bright flash!</b><br><i>You feel like a new being.</i></span>")
 	podman.flash_act()
