@@ -39,8 +39,23 @@
 	/// Cancels the attack chain, but without performing any other action.
 	#define COMSIG_CANCEL_USB_CABLE_ATTACK (1<<2)
 
+//MONKESTATION EDIT
 /// Sent when a QSI teleports itself/the mobs
 #define COMSIG_SWAPPER_USED "swapper_used"
 
 /// Sent when a Sound Synth plays its sound
 #define COMSIG_SOUNDSYNTH_USED "soundsynth_used"
+
+/// Sent when someone with circuit goggles turned on examines something
+#define COMSIG_CIRCUIT_GOGGLES_USED "circuit_goggles_used"
+
+/// Sent when someone activates a bluespace launchpad with the send option
+#define COMSIG_LAUNCHPAD_SENT "launchpad_sent"
+
+/// Sent when someone activates a bluespace launchpad with the retrieve option
+#define COMSIG_LAUNCHPAD_RETRIEVED "launchpad_retrieved"
+
+/// Sent when data is received from another shell
+#define COMSIG_DATA_RECEIVED "data_received"
+
+//MONKESTATION EDIT END

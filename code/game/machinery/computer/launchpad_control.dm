@@ -13,6 +13,7 @@
 
 /obj/machinery/computer/launchpad/Initialize(mapload)
 	launchpads = list()
+	AddComponent(/datum/component/shell, list(new /obj/item/circuit_component/launchpad()), SHELL_CAPACITY_LARGE)
 	. = ..()
 
 /obj/machinery/computer/launchpad/attack_paw(mob/user)
@@ -60,6 +61,10 @@
 	if(!pad.isAvailable())
 		to_chat(user, "<span class='warning'>ERROR: Launchpad not operative. Make sure the launchpad is ready and powered.</span>")
 		return
+	if(sending)
+		SEND_SIGNAL(src,COMSIG_LAUNCHPAD_SENT)
+	else
+		SEND_SIGNAL(src,COMSIG_LAUNCHPAD_RETRIEVED)
 	pad.doteleport(user, sending)
 
 /obj/machinery/computer/launchpad/proc/get_pad(number)
@@ -145,3 +150,77 @@
 		if("pull")
 			teleport(usr, current_pad, FALSE)
 			. = TRUE
+
+/*
+Monkestation: Added circuit component
+Ported from /tg/station:
+	https://github.com/tgstation/tgstation/blob/8c7e4ef6ee0b6e60783ccb084d60138353b2e2be/code/game/machinery/computer/launchpad_control.dm
+*/
+
+/obj/item/circuit_component/launchpad
+	display_name = "Launchpad Control Console"
+	display_desc = "Lets you interface with the launchpad control console."
+
+	var/datum/port/input/launchpad_id
+	var/datum/port/input/x_offset
+	var/datum/port/input/y_offset
+	var/datum/port/input/send
+	var/datum/port/input/retrieve
+
+	var/datum/port/output/sent
+	var/datum/port/output/retrieved
+
+
+/obj/item/circuit_component/launchpad/Initialize(mapload)
+	. = ..()
+	launchpad_id = add_input_port("Launchpad ID", PORT_TYPE_NUMBER)
+	x_offset = add_input_port("X offset", PORT_TYPE_NUMBER)
+	y_offset = add_input_port("Y offset", PORT_TYPE_NUMBER)
+	send = add_input_port("Send", PORT_TYPE_SIGNAL)
+	retrieve = add_input_port("Retrieve", PORT_TYPE_SIGNAL)
+
+	sent = add_output_port("Sent", PORT_TYPE_SIGNAL)
+	retrieved = add_output_port("Retrieved", PORT_TYPE_SIGNAL)
+
+/obj/item/circuit_component/launchpad/Destroy()
+	launchpad_id = null
+	x_offset = null
+	y_offset = null
+	send = null
+	retrieve = null
+
+	sent = null
+	retrieved = null
+	return ..()
+
+/obj/item/circuit_component/launchpad/register_shell(atom/movable/shell)
+	RegisterSignal(shell, COMSIG_LAUNCHPAD_SENT, .proc/on_launchpad_sent)
+	RegisterSignal(shell, COMSIG_LAUNCHPAD_RETRIEVED, .proc/on_launchpad_retrieved)
+
+/obj/item/circuit_component/launchpad/unregister_shell(atom/movable/shell)
+	UnregisterSignal(shell, COMSIG_LAUNCHPAD_SENT)
+	UnregisterSignal(shell, COMSIG_LAUNCHPAD_RETRIEVED)
+
+/obj/item/circuit_component/launchpad/proc/on_launchpad_sent(atom/source)
+	SIGNAL_HANDLER
+	sent.set_output(COMPONENT_SIGNAL)
+
+/obj/item/circuit_component/launchpad/proc/on_launchpad_retrieved(atom/source)
+	SIGNAL_HANDLER
+	retrieved.set_output(COMPONENT_SIGNAL)
+
+/obj/item/circuit_component/launchpad/input_received(datum/port/input/port)
+	. = ..()
+	if(.)
+		return
+
+	var/obj/machinery/computer/launchpad/shell = parent.shell
+	if(!istype(shell))
+		return
+	var/obj/machinery/launchpad/current_pad = shell.launchpads[launchpad_id.input_value]
+	current_pad.set_offset(x = x_offset.input_value,y = y_offset.input_value)
+
+	if(COMPONENT_TRIGGERED_BY(send, port))
+		shell.teleport(src, current_pad, TRUE)
+	if(COMPONENT_TRIGGERED_BY(retrieve, port))
+		shell.teleport(src, current_pad, FALSE)

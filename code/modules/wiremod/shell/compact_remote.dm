@@ -11,6 +11,9 @@
 	//worn_icon_state = "electronic"		//remember to change it later lol
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
+	//MONKESTATION EDIT - Cmon its a *compact* remote it has to be able to be put Somewhere
+	slot_flags = ITEM_SLOT_BELT
+	//MONKESTATION EDIT END
 	light_range = FALSE
 
 /obj/item/compact_remote/Initialize(mapload)

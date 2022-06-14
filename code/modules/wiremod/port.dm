@@ -172,6 +172,11 @@
 			// A signal port is just a number port but distinguishable
 			return datatype_to_check == PORT_TYPE_NUMBER
 
+	//MONKESTATION EDIT - Better ANY port
+	if(datatype == PORT_TYPE_ANY || datatype_to_check == PORT_TYPE_ANY)
+		return TRUE
+	//MONKESTATION EDIT END
+
 	return FALSE
 
 /**

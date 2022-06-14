@@ -13,6 +13,10 @@
 	var/chargelevel = -1
 	var/charge_rate = 250
 
+/obj/machinery/cell_charger/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/shell, list(new /obj/item/circuit_component/cell_charger()), SHELL_CAPACITY_SMALL)
+
 /obj/machinery/cell_charger/update_icon()
 	cut_overlays()
 	if(charging)
@@ -129,3 +133,48 @@
 	charging.give(charge_rate * delta_time)	//this is 2558, efficient batteries exist
 
 	update_icon()
+
+
+//Monkestation: Added circuit component
+/obj/item/circuit_component/cell_charger
+	display_name = "Cell Charger"
+	display_desc = "Lets you interface with the cell charger. The 'trigger' port updates the info!"
+
+	var/datum/port/input/eject_battery
+	var/datum/port/input/trigger
+
+	var/datum/port/output/battery_charge
+	var/datum/port/output/triggered
+
+
+/obj/item/circuit_component/cell_charger/Initialize(mapload)
+	. = ..()
+	eject_battery = add_input_port("Eject Cell", PORT_TYPE_SIGNAL)
+	trigger = add_input_port("Trigger", PORT_TYPE_SIGNAL)
+
+	battery_charge = add_output_port("Cell Charge", PORT_TYPE_NUMBER)
+	triggered = add_output_port("Triggered", PORT_TYPE_SIGNAL)
+
+
+/obj/item/circuit_component/cell_charger/input_received(datum/port/input/port)
+	. = ..()
+	if(.)
+		return
+
+	var/obj/machinery/cell_charger/shell = parent.shell
+	if(!istype(shell))
+		return
+
+	if(COMPONENT_TRIGGERED_BY(trigger, port))
+		if(shell.charging)
+			battery_charge.set_output(shell.charging.percent())
+		else
+			battery_charge.set_output(-1)
+		triggered.set_output(COMPONENT_SIGNAL)
+	else if(COMPONENT_TRIGGERED_BY(eject_battery, port))
+		if(!shell.charging)
+			return
+
+		shell.charging.forceMove(shell.loc)
+
+		shell.removecell()

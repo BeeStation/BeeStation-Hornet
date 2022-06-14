@@ -386,7 +386,6 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			set_force_string()
 		. += "Force: [force_string]"
 
-
 	if(!user.research_scanner)
 		return
 

@@ -39,6 +39,7 @@
 
 /obj/item/pneumatic_cannon/Initialize(mapload)
 	. = ..()
+	AddComponent(/datum/component/shell, list(new /obj/item/circuit_component/pneumatic_cannon()), SHELL_CAPACITY_SMALL)
 	if(selfcharge)
 		init_charge()
 
@@ -339,3 +340,44 @@
 /obj/item/storage/backpack/magspear_quiver/PopulateContents()
 	for(var/i in 1 to 30)
 		new /obj/item/throwing_star/magspear(src)
+
+//Monkestation: Added circuit component
+/obj/item/circuit_component/pneumatic_cannon
+	display_name = "Pneumatic Cannon"
+	display_desc = "Lets you fire the pneumatic cannon. remember to load it first!"
+
+	var/datum/port/input/target_atom
+	var/datum/port/input/fire
+
+
+/obj/item/circuit_component/pneumatic_cannon/Initialize(mapload)
+	. = ..()
+	target_atom = add_input_port("Target", PORT_TYPE_ATOM)
+	fire = add_input_port("Fire", PORT_TYPE_SIGNAL)
+
+
+/obj/item/circuit_component/pneumatic_cannon/input_received(datum/port/input/port)
+	. = ..()
+	if(.)
+		return
+
+	var/obj/item/pneumatic_cannon/shell = parent.shell
+	if(!istype(shell))
+		return
+
+	//Code block taken from earlier and changed since I dont think there's a way to create a fake person firing the ppnC
+	if(COMPONENT_TRIGGERED_BY(fire, port))
+		//There might be a better way to format this, but I also dont want a really long if()
+		if(!target_atom.input_value)
+			return
+		if(!shell.loadedItems || !shell.loadedWeightClass)
+			return
+		if(!shell.tank && shell.checktank)
+			return
+		if(shell.tank && !shell.tank.air_contents.remove(shell.gasPerThrow * shell.pressureSetting))
+			return
+		shell.visible_message("<span class='danger'>\the [shell] fires!</span>")
+		log_combat(src, target_atom.input_value, "fired at (wiremod)", shell)
+		var/turf/returned_target = shell.get_target(target_atom.input_value, get_turf(shell))
+		playsound(shell, shell.fire_sound, 50, 1)
+		shell.fire_items(returned_target, src)
