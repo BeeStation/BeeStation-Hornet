@@ -445,7 +445,7 @@
 
 /obj/item/reagent_containers/food/snacks/lollipop/equipped(mob/user, slot)
 	. = ..()
-	chewing = (chewing-1)*-1
+	chewing = !chewing
 	if(chewing)
 		addtimer(CALLBACK(src, .proc/chew), bite_frequency)
 
