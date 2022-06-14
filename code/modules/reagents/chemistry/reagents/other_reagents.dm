@@ -1029,6 +1029,7 @@
 	glass_desc = "Unless you're an industrial tool, this is probably not safe for consumption."
 	process_flags = ORGANIC | SYNTHETIC
 	random_unrestricted = FALSE
+	addiction_types = list(/datum/addiction/alcohol = 4)
 	liquid_fire_power = 10 //MONKESTATION EDIT ADDITION
 	liquid_fire_burnrate = 1 //MONKESTATION EDIT ADDITION
 
@@ -1158,6 +1159,7 @@
 	description = "Impedrezene is a narcotic that impedes one's ability by slowing down the higher brain cell functions."
 	color = "#E07DDD" // pink = happy = dumb
 	taste_description = "numbness"
+	addiction_types = list(/datum/addiction/opiods = 10)
 
 /datum/reagent/impedrezene/on_mob_life(mob/living/carbon/M)
 	M.jitteriness = max(M.jitteriness-5,0)
@@ -1295,6 +1297,7 @@
 	metabolization_rate = REAGENTS_METABOLISM * 0.5 // Because stimulum/nitryl are handled through gas breathing, metabolism must be lower for breathcode to keep up
 	color = "E1A116"
 	taste_description = "sourness"
+	addiction_types = list(/datum/addiction/stimulants = 14)
 
 /datum/reagent/stimulum/on_mob_metabolize(mob/living/L)
 	..()

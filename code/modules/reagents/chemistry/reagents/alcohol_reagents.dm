@@ -37,6 +37,11 @@ All effects don't start immediately, but rather get worse over time; the rate is
 91-100: Dangerously toxic - swift death
 */
 
+/datum/reagent/consumable/ethanol/New()
+	///Ranges from -0.5 - 15 per tick on the addiction scale
+	addiction_types = list(/datum/addiction/alcohol = 0.05 * boozepwr)
+	return ..()
+
 /datum/reagent/consumable/ethanol/on_mob_life(mob/living/carbon/C)
 	if(C.drunkenness < volume * boozepwr * ALCOHOL_THRESHOLD_MODIFIER)
 		var/booze_power = boozepwr
@@ -176,7 +181,6 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	boozepwr = 80
 	quality = DRINK_GOOD
 	overdose_threshold = 60
-	addiction_threshold = 30
 	taste_description = "jitters and death"
 	glass_icon_state = "thirteen_loko_glass"
 	glass_name = "glass of Thirteen Loko"

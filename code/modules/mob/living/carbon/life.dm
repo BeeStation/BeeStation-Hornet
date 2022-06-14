@@ -46,6 +46,11 @@
 	if(stat == DEAD)
 		stop_sound_channel(CHANNEL_HEARTBEAT)
 
+	if(mind)
+		for(var/key in mind.addiction_points)
+			var/datum/addiction/addiction = SSaddiction.all_addictions[key]
+			addiction.process_addiction(src)
+
 	//Updates the number of stored chemicals for changeling powers
 	if(hud_used?.lingchemdisplay && !isalien(src) && mind)
 		var/datum/antagonist/changeling/changeling = mind.has_antag_datum(/datum/antagonist/changeling)
