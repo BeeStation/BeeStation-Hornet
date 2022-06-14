@@ -1,0 +1,5 @@
+author: dwasint
+delete-after: true
+changes:
+  - rscadd: Pod-People now have exotic blood determined by the chemicals in the seed
+      if none defaults to water
