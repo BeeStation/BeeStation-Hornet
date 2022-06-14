@@ -17,8 +17,8 @@
 
 /obj/machinery/aug_manipulator/Initialize(mapload)
 	if(!base_icon_state)
-    	base_icon_state = initial(icon_state)
-    return ..()
+		base_icon_state = initial(icon_state)
+	return ..()
 
 /obj/machinery/aug_manipulator/update_icon_state()
 	if(stat & BROKEN)

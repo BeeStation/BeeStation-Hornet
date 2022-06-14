@@ -100,13 +100,8 @@
 			if(!user.transferItemToLoc(W, src))
 				return
 			cell = W
-<<<<<<< HEAD
-			balloon_alert(user, "Cell installed")
-			update_appearance()
-=======
 			balloon_alert(user, "You insert the power cell.")
-			update_icon()
->>>>>>> master
+			update_appearance()
 
 	else if(W.tool_behaviour == TOOL_SCREWDRIVER)
 		if(cell)
