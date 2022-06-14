@@ -424,7 +424,8 @@
 	slot_flags = ITEM_SLOT_MASK
 	///Essentially IsEquipped
 	var/chewing = TRUE
-	var/tick = 0
+	///Time between bites
+	var/bite_frequency = 30 SECONDS
 
 /obj/item/reagent_containers/food/snacks/lollipop/Initialize(mapload)
 	. = ..()
@@ -444,23 +445,15 @@
 
 /obj/item/reagent_containers/food/snacks/lollipop/equipped(mob/user, slot)
 	. = ..()
-	if(!chewing)
-		chewing = TRUE
-		START_PROCESSING(SSobj, src)
-	else
-		chewing = FALSE
-		STOP_PROCESSING(SSobj, src)
+	chewing = (chewing-1)*-1
+	if(chewing)
+		addtimer(CALLBACK(src, .proc/chew), bite_frequency)
 
-/obj/item/reagent_containers/food/snacks/lollipop/process(delta_time)
-	tick++ //Trying to use delta_time as a reference didn't work too well here.
-	if(!(tick % 7) && iscarbon(loc))
-		tick = 0
+/obj/item/reagent_containers/food/snacks/lollipop/proc/chew()
+	if(iscarbon(loc) && chewing)
 		var/mob/living/carbon/M = loc
 		attack(M, M)
-
-/obj/item/reagent_containers/food/snacks/lollipop/Destroy()
-	. = ..()
-	STOP_PROCESSING(SSobj, src)
+		addtimer(CALLBACK(src, .proc/chew), bite_frequency)
 
 /obj/item/reagent_containers/food/snacks/lollipop/cyborg
 	var/spamchecking = TRUE
