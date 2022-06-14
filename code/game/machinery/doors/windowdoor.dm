@@ -56,11 +56,9 @@
 	electronics = null
 	return ..()
 
-/obj/machinery/door/window/update_appearance()
-	if(density)
-		icon_state = base_state
-	else
-		icon_state = "[base_state]open"
+/obj/machinery/door/window/update_icon_state()
+	. = ..()
+	icon_state = "[base_state][density ? null : "open"]"
 
 /obj/machinery/door/window/proc/open_and_close()
 	if(!open())

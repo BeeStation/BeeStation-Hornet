@@ -5,6 +5,7 @@
 	desc = "A wall-mounted flashbulb device."
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "mflash1"
+	base_icon_state = "mflash"
 	max_integrity = 250
 	integrity_failure = 100
 	light_color = LIGHT_COLOR_WHITE
@@ -15,15 +16,14 @@
 	var/range = 2 //this is roughly the size of brig cell
 	var/last_flash = 0 //Don't want it getting spammed like regular flashes
 	var/strength = 100 //How knocked down targets are when flashed.
-	var/base_state = "mflash"
 
 /obj/machinery/flasher/portable //Portable version of the flasher. Only flashes when anchored
 	name = "portable flasher"
 	desc = "A portable flashing device. Wrench to activate and deactivate. Cannot detect slow movements."
 	icon_state = "pflash1-p"
+	base_icon_state = "pflash"
 	strength = 80
 	anchored = FALSE
-	base_state = "pflash"
 	density = TRUE
 	light_system = MOVABLE_LIGHT //Used as a flash here.
 	light_range = FLASH_LIGHT_RANGE
@@ -47,14 +47,9 @@
 		return FALSE
 	return ..()
 
-/obj/machinery/flasher/update_appearance()
-	if (powered())
-		if(bulb.burnt_out)
-			icon_state = "[base_state]1-p"
-		else
-			icon_state = "[base_state]1"
-	else
-		icon_state = "[base_state]1-p"
+/obj/machinery/flasher/update_icon_state()
+	icon_state = "[base_icon_state]1[(bulb?.burn_out || !powered()) ? "-p" : null]"
+	return ..()
 
 //Don't want to render prison breaks impossible
 /obj/machinery/flasher/attackby(obj/item/W, mob/user, params)
@@ -118,7 +113,7 @@
 		return
 
 	playsound(src.loc, 'sound/weapons/flash.ogg', 100, 1)
-	flick("[base_state]_flash", src)
+	flick("[base_icon_state]_flash", src)
 	set_light_on(TRUE)
 	addtimer(CALLBACK(src, .proc/flash_end), FLASH_LIGHT_DURATION, TIMER_OVERRIDE|TIMER_UNIQUE)
 
@@ -183,7 +178,7 @@
 
 		if (!anchored && !isinspace())
 			to_chat(user, "<span class='notice'>[src] is now secured.</span>")
-			add_overlay("[base_state]-s")
+			add_overlay("[base_icon_state]-s")
 			setAnchored(TRUE)
 			power_change()
 			proximity_monitor.SetRange(range)

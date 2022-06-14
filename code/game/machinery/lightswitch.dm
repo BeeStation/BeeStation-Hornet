@@ -3,6 +3,7 @@
 	name = "light switch"
 	icon = 'icons/obj/power.dmi'
 	icon_state = "light1"
+	base_icon_state = "light"
 	desc = "Make dark."
 	power_channel = AREA_USAGE_LIGHT
 	layer = ABOVE_WINDOW_LAYER
@@ -24,14 +25,17 @@
 
 	update_appearance()
 
-/obj/machinery/light_switch/update_appearance()
+/obj/machinery/light_switch/update_appearance(updates=ALL)
+	. = ..()
+	luminosity = (stat & NOPOWER) ? 0 : 1
+
+/obj/machinery/light_switch/update_icon_state()
 	if(stat & NOPOWER)
-		icon_state = "light-p"
-	else
-		if(area.lightswitch)
-			icon_state = "light1"
-		else
-			icon_state = "light0"
+		icon_state = "[base_icon_state]-p"
+		return ..()
+
+	icon_state = "[base_icon_state][area.lightswitch ? 1 : 0]"
+	return ..()
 
 /obj/machinery/light_switch/examine(mob/user)
 	. = ..()

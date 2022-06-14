@@ -3,6 +3,7 @@
 	desc = "This device recharges cyborgs and resupplies their materials."
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "borgcharger0"
+	base_icon_state = "borgcharger"
 	density = FALSE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 5
@@ -87,14 +88,12 @@
 		use_power = ACTIVE_POWER_USE //It always tries to charge, even if it can't.
 		add_fingerprint(occupant)
 
-/obj/machinery/recharge_station/update_appearance()
-	if(is_operational())
-		if(state_open)
-			icon_state = "borgcharger0"
-		else
-			icon_state = (occupant ? "borgcharger1" : "borgcharger2")
-	else
-		icon_state = (state_open ? "borgcharger-u0" : "borgcharger-u1")
+/obj/machinery/recharge_station/update_icon_state()
+	if(!is_operational())
+		icon_state = "[base_icon_state]-[state_open ? "u0" : "u1"]"
+		return ..()
+	icon_state = "[base_icon_state][occupant ? 1 : 2]"
+	return ..()
 
 /obj/machinery/recharge_station/proc/process_occupant(delta_time)
 	if(!occupant)

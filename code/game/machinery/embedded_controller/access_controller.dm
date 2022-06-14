@@ -40,6 +40,7 @@
 /obj/machinery/doorButtons/access_button
 	icon = 'icons/obj/airlock_machines.dmi'
 	icon_state = "access_button_standby"
+	base_icon_state = "access_button"
 	name = "access button"
 	desc = "A button used for the explicit purpose of opening an airlock."
 	var/idDoor
@@ -82,14 +83,12 @@
 		busy = FALSE
 		update_appearance()
 
-/obj/machinery/doorButtons/access_button/update_appearance()
+/obj/machinery/doorButtons/access_button/update_icon_state()
 	if(stat & NOPOWER)
-		icon_state = "access_button_off"
-	else
-		if(busy)
-			icon_state = "access_button_cycle"
-		else
-			icon_state = "access_button_standby"
+		icon_state = "[base_icon_state]_off"
+		return ..()
+
+	icon_state = "[base_icon_state]_[busy ? "cycle" : "standby"]"
 
 /obj/machinery/doorButtons/access_button/removeMe(obj/O)
 	if(O == door)
@@ -100,6 +99,7 @@
 /obj/machinery/doorButtons/airlock_controller
 	icon = 'icons/obj/airlock_machines.dmi'
 	icon_state = "access_control_standby"
+	base_icon_state = "access_control"
 	name = "access console"
 	desc = "A small console that can cycle opening between two airlocks."
 	var/obj/machinery/door/airlock/interiorAirlock
@@ -242,14 +242,12 @@
 		else if(A.id_tag == idExterior)
 			exteriorAirlock = A
 
-/obj/machinery/doorButtons/airlock_controller/update_appearance()
+/obj/machinery/doorButtons/airlock_controller/update_icon_state()
 	if(stat & NOPOWER)
-		icon_state = "access_control_off"
-		return
-	if(busy || lostPower)
-		icon_state = "access_control_process"
-	else
-		icon_state = "access_control_standby"
+		icon_state = "[base_icon_state]_off"
+		return ..()
+
+	icon_state = "[base_icon_state]_[(busy || lostPower) ? "process" : "standby"]"
 
 /obj/machinery/doorButtons/airlock_controller/ui_interact(mob/user)
 	var/datum/browser/popup = new(user, "computer", name)

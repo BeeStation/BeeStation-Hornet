@@ -8,6 +8,7 @@
 	interaction_flags_machine = INTERACT_MACHINE_WIRES_IF_OPEN | INTERACT_MACHINE_ALLOW_SILICON | INTERACT_MACHINE_OPEN
 	icon = 'icons/obj/atmos.dmi'
 	icon_state = "sheater-off"
+	base_icon_state = "sheater"
 	name = "space heater"
 	desc = "Made by Space Amish using traditional space techniques, this heater/cooler is guaranteed not to set the station on fire. Warranty void if used in engines."
 	max_integrity = 250
@@ -57,14 +58,15 @@
 		. += "<span class='notice'>The status display reads: Temperature range at <b>[settableTemperatureRange]°C</b>.<br>Heating power at <b>[heatingPower*0.001]kJ</b>.<br>Power consumption at <b>[(efficiency*-0.0025)+150]%</b>.</span>" //100%, 75%, 50%, 25%
 
 /obj/machinery/space_heater/update_appearance()
-	if(on)
-		icon_state = "sheater-[mode]"
-	else
-		icon_state = "sheater-off"
+	icon_state = "[base_icon_state]-[on ? mode : "off"]"
 
-	cut_overlays()
 	if(panel_open)
 		add_overlay("sheater-open")
+
+/obj/machinery/space_heater/update_overlays()
+	. = ..()
+	if(panel_open)
+		. += "[base_icon_state]-open"
 
 /obj/machinery/space_heater/process_atmos() //TODO figure out delta_time
 	if(!on || !is_operational())

@@ -29,6 +29,7 @@ GLOBAL_LIST_EMPTY(req_console_ckey_departments)
 	desc = "A console intended to send requests to different departments on the station."
 	icon = 'icons/obj/terminals.dmi'
 	icon_state = "req_comp0"
+	base_icon_state = "req_comp"
 	layer = ABOVE_WINDOW_LAYER
 	var/department = "Unknown" //The list of all departments on the station (Determined from this variable on each unit) Set this to the same thing if you want several consoles in one department
 	var/list/messages = list() //List of all messages
@@ -74,28 +75,31 @@ GLOBAL_LIST_EMPTY(req_console_ckey_departments)
 	light_color = LIGHT_COLOR_GREEN
 	light_power = 1.5
 
-/obj/machinery/requests_console/update_appearance()
+/obj/machinery/requests_console/update_appearance(updates=ALL)
 	if(stat & NOPOWER)
 		set_light(0)
-	else
-		set_light(1)//green light
+		return
+	set_light(1)//red light green light
+
+/obj/machinery/requests_console/update_icon_state()
 	if(open)
-		if(!hackState)
-			icon_state="req_comp_open"
-		else
-			icon_state="req_comp_rewired"
-	else if(stat & NOPOWER)
-		if(icon_state != "req_comp_off")
-			icon_state = "req_comp_off"
-	else
-		if(emergency || (newmessagepriority == REQ_EXTREME_MESSAGE_PRIORITY))
-			icon_state = "req_comp3"
-		else if(newmessagepriority == REQ_HIGH_MESSAGE_PRIORITY)
-			icon_state = "req_comp2"
-		else if(newmessagepriority == REQ_NORMAL_MESSAGE_PRIORITY)
-			icon_state = "req_comp1"
-		else
-			icon_state = "req_comp0"
+		icon_state = "[base_icon_state]_[hackState ? "rewired" : "open"]"
+		return ..()
+	if(stat & NOPOWER)
+		icon_state = "[base_icon_state]_off"
+		return ..()
+
+	if(emergency || (newmessagepriority == REQ_EXTREME_MESSAGE_PRIORITY))
+		icon_state = "[base_icon_state]3"
+		return ..()
+	if(newmessagepriority == REQ_HIGH_MESSAGE_PRIORITY)
+		icon_state = "[base_icon_state]2"
+		return ..()
+	if(newmessagepriority == REQ_NORMAL_MESSAGE_PRIORITY)
+		icon_state = "[base_icon_state]1"
+		return ..()
+	icon_state = "[base_icon_state]0"
+	return ..()
 
 /obj/machinery/requests_console/Initialize(mapload)
 	. = ..()

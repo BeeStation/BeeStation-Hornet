@@ -70,31 +70,28 @@
 	LAZYREMOVE(myarea.firealarms, src)
 	return ..()
 
-/obj/machinery/firealarm/update_appearance()
-	cut_overlays()
-	SSvis_overlays.remove_vis_overlay(src, managed_vis_overlays)
+/obj/machinery/firealarm/update_icon_state()
+	if(stat & BROKEN)
+		icon_state = "firex"
+		return ..()
 
 	if(panel_open)
 		icon_state = "fire_b[buildstage]"
-		return
-
-	if(stat & BROKEN)
-		icon_state = "firex"
-		return
+		return ..()
 
 	icon_state = "fire0"
+	return ..()
 
-	if(stat & NOPOWER)
-		return
-
-	add_overlay("fire_overlay")
+/obj/machinery/firealarm/update_overlays()
+	. = ..()
+	. += "fire_overlay"
 
 	if(is_station_level(z))
-		add_overlay("fire_[GLOB.security_level]")
+		. += "fire_[GLOB.security_level]"
 		SSvis_overlays.add_vis_overlay(src, icon, "fire_[GLOB.security_level]", layer, plane, dir)
 		SSvis_overlays.add_vis_overlay(src, icon, "fire_[GLOB.security_level]", layer, EMISSIVE_PLANE, dir)
 	else
-		add_overlay("fire_[SEC_LEVEL_GREEN]")
+		. += "fire_[SEC_LEVEL_GREEN]"
 		SSvis_overlays.add_vis_overlay(src, icon, "fire_[SEC_LEVEL_GREEN]", layer, plane, dir)
 		SSvis_overlays.add_vis_overlay(src, icon, "fire_[SEC_LEVEL_GREEN]", layer, EMISSIVE_PLANE, dir)
 
@@ -102,15 +99,15 @@
 	A = A.loc
 
 	if(!detecting || !A.fire)
-		add_overlay("fire_off")
+		. += "fire_off"
 		SSvis_overlays.add_vis_overlay(src, icon, "fire_off", layer, plane, dir)
 		SSvis_overlays.add_vis_overlay(src, icon, "fire_off", layer, EMISSIVE_PLANE, dir)
 	else if(obj_flags & EMAGGED)
-		add_overlay("fire_emagged")
+		. += "fire_emagged"
 		SSvis_overlays.add_vis_overlay(src, icon, "fire_emagged", layer, plane, dir)
 		SSvis_overlays.add_vis_overlay(src, icon, "fire_emagged", layer, EMISSIVE_PLANE, dir)
 	else
-		add_overlay("fire_on")
+		. += "fire_on"
 		SSvis_overlays.add_vis_overlay(src, icon, "fire_on", layer, plane, dir)
 		SSvis_overlays.add_vis_overlay(src, icon, "fire_on", layer, EMISSIVE_PLANE, dir)
 

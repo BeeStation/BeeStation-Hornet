@@ -69,6 +69,7 @@
 	desc = "Used to seal minor hull breaches."
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "shieldoff"
+	base_icon_state = "shield"
 	density = TRUE
 	opacity = 0
 	anchored = FALSE
@@ -203,11 +204,9 @@
 	playsound(src, "sparks", 100, 1)
 	to_chat(user, "<span class='warning'>You short out the access controller.</span>")
 
-/obj/machinery/shieldgen/update_appearance()
-	if(active)
-		icon_state = (stat & BROKEN) ? "shieldonbr":"shieldon"
-	else
-		icon_state = (stat & BROKEN) ? "shieldoffbr":"shieldoff"
+/obj/machinery/shieldgen/update_icon_state()
+	icon_state = "[base_icon_state][active ? "on" : "off"][(stat & BROKEN) ? "br" : null]"
+	return ..()
 
 #define ACTIVE_SETUPFIELDS 1
 #define ACTIVE_HASFIELDS 2

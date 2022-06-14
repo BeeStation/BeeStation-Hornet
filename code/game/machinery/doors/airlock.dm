@@ -531,7 +531,8 @@
 	else
 		return FALSE
 
-/obj/machinery/door/airlock/update_icon(state=0, override=0)
+/obj/machinery/door/airlock/update_icon(updates=ALL, state=0, override=0)
+	. = ..()
 	cut_overlays() // Needed without it you get like 300 unres indicator overlayers over time
 	if(operating && !override)
 		return

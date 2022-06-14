@@ -11,6 +11,7 @@ The console is located at computer/gulag_teleporter.dm
 	desc = "A bluespace teleporter used for teleporting prisoners to the labor camp."
 	icon = 'icons/obj/machines/implantchair.dmi'
 	icon_state = "implantchair"
+	base_icon_state = "implantchair"
 	state_open = FALSE
 	density = TRUE
 	use_power = IDLE_POWER_USE
@@ -64,24 +65,24 @@ The console is located at computer/gulag_teleporter.dm
 
 	return ..()
 
-/obj/machinery/gulag_teleporter/update_appearance()
-	icon_state = initial(icon_state) + (state_open ? "_open" : "")
+/obj/machinery/gulag_teleporter/update_icon_state()
+	icon_state = "[base_icon_state][state_open ? "_open" : null]"
 	//no power or maintenance
 	if(stat & (NOPOWER|BROKEN))
 		icon_state += "_unpowered"
 		if((stat & MAINT) || panel_open)
 			icon_state += "_maintenance"
-		return
+		return ..()
 
 	if((stat & MAINT) || panel_open)
 		icon_state += "_maintenance"
-		return
+		return ..()
 
 	//running and someone in there
 	if(occupant)
 		icon_state += "_occupied"
-		return
 
+	return ..()
 
 /obj/machinery/gulag_teleporter/relaymove(mob/user)
 	if(user.stat != CONSCIOUS)

@@ -3,6 +3,7 @@
 	desc = "It opens and closes."
 	icon = 'icons/obj/doors/Doorint.dmi'
 	icon_state = "door1"
+	base_icon_state = "door"
 	opacity = 1
 	density = TRUE
 	move_resist = MOVE_FORCE_VERY_STRONG
@@ -263,11 +264,9 @@
 /obj/machinery/door/proc/unelectrify()
 	secondsElectrified = MACHINE_NOT_ELECTRIFIED
 
-/obj/machinery/door/update_appearance()
-	if(density)
-		icon_state = "door1"
-	else
-		icon_state = "door0"
+/obj/machinery/door/update_icon_state()
+	icon_state = "[base_icon_state][density]"
+	return ..()
 
 /obj/machinery/door/proc/do_animate(animation)
 	switch(animation)

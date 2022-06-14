@@ -3,6 +3,7 @@
 	desc = "It's useful for igniting plasma."
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "igniter0"
+	base_icon_state = "igniter"
 	plane = FLOOR_PLANE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 2
@@ -46,7 +47,7 @@
 
 /obj/machinery/igniter/Initialize(mapload)
 	. = ..()
-	icon_state = "igniter[on]"
+	icon_state = "[base_icon_state][on]"
 
 /obj/machinery/igniter/attackby(obj/item/I, mob/living/user, params)
 
@@ -58,11 +59,8 @@
 
 	return ..()
 
-/obj/machinery/igniter/update_appearance()
-	if(stat & NOPOWER)
-		icon_state = "igniter0"
-	else
-		icon_state = "igniter[on]"
+/obj/machinery/igniter/update_icon_state()
+	icon_state = "[base_icon_state][(stat & NOPOWER) ? 0 : on]"
 
 // Wall mounted remote-control igniter.
 
@@ -71,12 +69,12 @@
 	desc = "A wall-mounted ignition device."
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "migniter"
+	base_icon_state = "migniter"
 	resistance_flags = FIRE_PROOF
 	layer = ABOVE_WINDOW_LAYER
 	var/id = null
 	var/disable = 0
 	var/last_spark = 0
-	var/base_state = "migniter"
 	var/datum/effect_system/spark_spread/spark_system
 
 /obj/machinery/sparker/toxmix
@@ -92,13 +90,12 @@
 	QDEL_NULL(spark_system)
 	return ..()
 
-/obj/machinery/sparker/update_appearance()
+/obj/machinery/sparker/update_icon_state()
 	if(disable)
-		icon_state = "[initial(icon_state)]-d"
-	else if(powered())
-		icon_state = "[initial(icon_state)]"
-	else
-		icon_state = "[initial(icon_state)]-p"
+		icon_state = "[base_icon_state]-d"
+		return ..()
+	icon_state = "[base_icon_state][powered() ? null : "-p"]"
+	return ..()
 
 /obj/machinery/sparker/attackby(obj/item/W, mob/user, params)
 	if (W.tool_behaviour == TOOL_SCREWDRIVER)

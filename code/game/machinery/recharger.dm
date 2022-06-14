@@ -2,6 +2,7 @@
 	name = "recharger"
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "recharger0"
+	base_icon_state = "recharger"
 	desc = "A charging dock for energy based weaponry."
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 4
@@ -159,18 +160,16 @@
 
 /obj/machinery/recharger/update_icon_state(scan)
 	if(stat & (NOPOWER|BROKEN) || !anchored)
-		icon_state = "rechargeroff"
-		return
+		icon_state = "[base_icon_state]off"
+		return ..()
 	if(panel_open)
-		icon_state = "rechargeropen"
-		return
+		icon_state = "[base_icon_state]open"
+		return ..()
 	if(scan)
-		icon_state = "rechargeroff"
-		return
+		icon_state = "[base_icon_state]off"
+		return ..()
 	if(charging)
-		if(using_power)
-			icon_state = "recharger1"
-		else
-			icon_state = "recharger2"
-		return
-	icon_state = "recharger0"
+		icon_state = "[base_icon_state][using_power ? 1 : 2]"
+		return ..()
+	icon_state = "[base_icon_state]0"
+	return ..()

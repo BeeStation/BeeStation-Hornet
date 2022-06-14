@@ -183,6 +183,7 @@ GLOBAL_LIST_EMPTY(allCasters)
 	desc = "A standard Nanotrasen-licensed newsfeed handler for use in commercial space stations. All the news you absolutely have no use for, in one place!"
 	icon = 'icons/obj/terminals.dmi'
 	icon_state = "newscaster_normal"
+	base_icon_state = "newscaster"
 	verb_say = "beeps"
 	verb_ask = "beeps"
 	verb_exclaim = "beeps"
@@ -227,19 +228,21 @@ GLOBAL_LIST_EMPTY(allCasters)
 	picture = null
 	return ..()
 
-/obj/machinery/newscaster/update_appearance()
-	cut_overlays()
+/obj/machinery/newscaster/update_icon_state()
 	if(stat & (NOPOWER|BROKEN))
-		icon_state = "newscaster_off"
+		icon_state = "[base_icon_state]_off"
 		set_light(0)
-	else
-		if(GLOB.news_network.wanted_issue.active)
-			icon_state = "newscaster_wanted"
-		else
-			icon_state = "newscaster_normal"
-			if(alert)
-				add_overlay("newscaster_alert")
-		set_light(1)
+		return ..()
+
+	icon_state = "[base_icon_state]_[GLOB.news_network.wanted_issue.active ? "wanted" : "normal"]"
+	set_light(1)
+	return ..()
+
+/obj/machinery/newscaster/update_overlays()
+	. = ..()
+	if(alert)
+		. += "newscaster_alert"
+
 	var/hp_percent = obj_integrity * 100 /max_integrity
 	switch(hp_percent)
 		if(75 to 100)

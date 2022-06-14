@@ -5,13 +5,13 @@
 	desc = "A large crushing machine used to recycle small items inefficiently. There are lights on the side."
 	icon = 'icons/obj/recycling.dmi'
 	icon_state = "grinder-o0"
+	base_icon_state = "grinder-o"
 	layer = ABOVE_ALL_MOB_LAYER // Overhead
 	density = TRUE
 	circuit = /obj/item/circuitboard/machine/recycler
 	idle_power_usage = 50
 	active_power_usage = 200
 	var/safety_mode = FALSE // Temporarily stops machine if it detects a mob
-	var/icon_name = "grinder-o"
 	var/blood = 0
 	var/eat_dir = WEST
 	var/amount_produced = 50
@@ -72,15 +72,14 @@
 	playsound(src, "sparks", 75, 1, -1)
 	to_chat(user, "<span class='notice'>You use the cryptographic sequencer on [src].</span>")
 
-/obj/machinery/recycler/update_appearance()
-	..()
+/obj/machinery/recycler/update_icon_state()
 	var/is_powered = !(stat & (BROKEN|NOPOWER))
 	if(safety_mode)
 		is_powered = FALSE
-	icon_state = icon_name + "[is_powered]" + "[(blood ? "bld" : "")]" // add the blood tag at the end
+	icon_state = "[base_icon_state][is_powered][(blood ? "bld" : null)]" // add the blood tag at the end
+	return ..()
 
 /obj/machinery/recycler/Bumped(atom/movable/AM)
-
 	if(stat & (BROKEN|NOPOWER))
 		return
 	if(!anchored)

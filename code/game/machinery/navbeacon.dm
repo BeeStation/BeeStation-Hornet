@@ -5,6 +5,7 @@
 
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "navbeacon0-f"
+	base_icon_state = "navbeacon"
 	name = "navigation beacon"
 	desc = "A radio beacon used for bot navigation."
 	level = 1		// underfloor
@@ -75,14 +76,11 @@
 	update_appearance()
 
 // update the icon_state
-/obj/machinery/navbeacon/update_appearance()
-	var/state="navbeacon[open]"
-
-	if(invisibility)
-		icon_state = "[state]-f"	// if invisible, set icon to faded version
-									// in case revealed by T-scanner
-	else
-		icon_state = "[state]"
+/obj/machinery/navbeacon/update_icon_state()
+	icon_state = "[base_icon_state][open][invisibility ? "-f" : null]"
+		// if invisible, set icon to faded version
+		// in case revealed by T-scanner
+	return ..()
 
 /obj/machinery/navbeacon/attackby(obj/item/I, mob/user, params)
 	var/turf/T = loc

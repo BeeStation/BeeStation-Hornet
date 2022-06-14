@@ -119,25 +119,25 @@
 		if (on && anchored && !(stat & BROKEN) && powered())
 			begin_processing()
 
-/obj/machinery/porta_turret/update_appearance()
-	cut_overlays()
+/obj/machinery/porta_turret/update_icon_state()
 	if(!anchored)
 		icon_state = "turretCover"
-		return
+		return ..()
 	if(stat & BROKEN)
 		icon_state = "[base_icon_state]_broken"
-	else
-		if(powered())
-			if(on && raised)
-				switch(mode)
-					if(TURRET_STUN)
-						icon_state = "[base_icon_state]_stun"
-					if(TURRET_LETHAL)
-						icon_state = "[base_icon_state]_lethal"
-			else
-				icon_state = "[base_icon_state]_off"
-		else
-			icon_state = "[base_icon_state]_unpowered"
+		return ..()
+	if(!powered())
+		icon_state = "[base_icon_state]_unpowered"
+		return ..()
+	if(!on || !raised)
+		icon_state = "[base_icon_state]_off"
+		return ..()
+
+	switch(mode)
+		if(TURRET_STUN)
+			icon_state = "[base_icon_state]_stun"
+		if(TURRET_LETHAL)
+			icon_state = "[base_icon_state]_lethal"
 
 
 /obj/machinery/porta_turret/proc/setup(obj/item/gun/turret_gun)
@@ -280,10 +280,11 @@
 				else
 					to_chat(user, "<span class='notice'>You remove the turret but did not manage to salvage anything.</span>")
 				qdel(src)
+		return ..()
 
-	else if((I.tool_behaviour == TOOL_WRENCH) && (!on))
+	if((I.tool_behaviour == TOOL_WRENCH) && (!on))
 		if(raised)
-			return
+			return ..()
 
 		//This code handles moving the turret around. After all, it's a portable turret!
 		if(!anchored && !isinspace())
@@ -300,22 +301,25 @@
 			power_change()
 			invisibility = 0
 			qdel(cover) //deletes the cover, and the turret instance itself becomes its own cover.
+		return ..()
 
-	else if(I.GetID())
+	if(I.GetID())
 		//Behavior lock/unlock mangement
 		if(allowed(user))
 			locked = !locked
 			to_chat(user, "<span class='notice'>Controls are now [locked ? "locked" : "unlocked"].</span>")
 		else
 			to_chat(user, "<span class='notice'>Access denied.</span>")
-	else if(I.tool_behaviour == TOOL_MULTITOOL && !locked)
+		return ..()
+
+	if(I.tool_behaviour == TOOL_MULTITOOL && !locked)
 		if(!multitool_check_buffer(user, I))
 			return
 		var/obj/item/multitool/M = I
 		M.buffer = src
 		to_chat(user, "<span class='notice'>You add [src] to multitool buffer.</span>")
-	else
-		return ..()
+
+	return ..()
 
 /obj/machinery/porta_turret/emag_act(mob/user)
 	if(obj_flags & EMAGGED)
@@ -781,7 +785,7 @@
 	max_integrity = 260
 	always_up = TRUE
 	use_power = NO_POWER_USE
-	has_cover = 0
+	has_cover = FALSE
 	scan_range = 9
 	stun_projectile = /obj/item/projectile/beam/laser
 	lethal_projectile = /obj/item/projectile/beam/laser
@@ -820,6 +824,7 @@
 	desc = "Used to control a room's automated defenses."
 	icon = 'icons/obj/machines/turret_control.dmi'
 	icon_state = "control_standby"
+	base_icon_state = "control"
 	density = FALSE
 	req_access = list(ACCESS_AI_UPLOAD)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
@@ -998,17 +1003,15 @@
 	..()
 	update_appearance()
 
-/obj/machinery/turretid/update_appearance()
-	..()
+/obj/machinery/turretid/update_icon_state()
 	if(stat & NOPOWER)
-		icon_state = "control_off"
-	else if (enabled)
-		if (lethal)
-			icon_state = "control_kill"
-		else
-			icon_state = "control_stun"
-	else
-		icon_state = "control_standby"
+		icon_state = "[base_icon_state]_off"
+		return ..()
+	if(enabled)
+		icon_state = "[base_icon_state]_[lethal ? "kill" : "stun"]"
+		return ..()
+	icon_state = "[base_icon_state]_standby"
+	..()
 
 /obj/item/wallframe/turret_control
 	name = "turret control frame"

@@ -257,21 +257,23 @@
 		if("closing")
 			flick("door_closing", src)
 
-/obj/machinery/door/firedoor/update_appearance()
-	cut_overlays()
-	if(density)
-		icon_state = "door_closed"
-		if(welded)
-			add_overlay("welded")
-		switch(check_safety()) //TODO: Check Global Override here. Find some way to update the icon without making firedoors process?
-			if(FALSE) //Unsafe, Atmos.
-				add_overlay("overlay_pressure")
-			if(FIRE_ALARM) //Unsafe, Alarm.
-				add_overlay("overlay_alarm")
-	else
-		icon_state = "door_open"
-		if(welded)
-			add_overlay("welded_open")
+/obj/machinery/door/firedoor/update_icon_state()
+	. = ..()
+	icon_state = "[base_icon_state]_[density ? "closed" : "open"]"
+
+/obj/machinery/door/firedoor/update_overlays()
+	. = ..()
+
+	if(!welded)
+		return
+
+	. += density ? "welded" : "welded_open"
+
+	switch(check_safety()) //TODO: Check Global Override here. Find some way to update the icon without making firedoors process?
+		if(FALSE) //Unsafe, Atmos.
+			. += "overlay_pressure"
+		if(FIRE_ALARM) //Unsafe, Alarm.
+			. += "overlay_alarm"
 
 /obj/machinery/door/firedoor/open()
 	if(density && !operating) //This is hacky but gets the sound to play on time.
@@ -510,6 +512,7 @@
 	desc = "A partially completed firelock."
 	icon = 'icons/obj/doors/doorfire.dmi'
 	icon_state = "frame1"
+	base_icon_state = "frame1"
 	anchored = FALSE
 	density = TRUE
 	var/constructionStep = CONSTRUCTION_NOCIRCUIT
@@ -530,9 +533,9 @@
 		if(CONSTRUCTION_NOCIRCUIT)
 			. += "<span class='notice'>There are no <i>firelock electronics</i> in the frame. The frame could be <b>cut</b> apart.</span>"
 
-/obj/structure/firelock_frame/update_appearance()
-	..()
-	icon_state = "frame[constructionStep]"
+/obj/structure/firelock_frame/update_icon_state()
+	icon_state = "[base_icon_state][constructionStep]"
+	return ..()
 
 /obj/structure/firelock_frame/attackby(obj/item/C, mob/user)
 	switch(constructionStep)

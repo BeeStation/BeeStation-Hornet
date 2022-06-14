@@ -26,8 +26,6 @@
 	open_machine()
 	update_appearance()
 
-
-
 /obj/machinery/implantchair/ui_state(mob/user)
 	return GLOB.notcontained_state
 
