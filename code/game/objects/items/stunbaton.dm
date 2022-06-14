@@ -122,17 +122,10 @@
 	else
 		turned_on = FALSE
 		if(!cell)
-<<<<<<< HEAD
-			balloon_alert(user, "No power source")
-		else
-			balloon_alert(user, "Out of charge")
-	update_appearance()
-=======
 			balloon_alert(user, "It has no power source!")
 		else if(obj_flags & OBJ_EMPED)
 			balloon_alert(user, "It's not responding!")
-	update_icon()
->>>>>>> master
+	update_appearance()
 	add_fingerprint(user)
 
 /obj/item/melee/baton/attack(mob/M, mob/living/carbon/human/user)
