@@ -113,20 +113,10 @@ GLOBAL_VAR_INIT(security_level, SEC_LEVEL_GREEN)
 
 	stop_alert_siren() //stop any sirens playing right now
 
-	var/sound/alert_siren_sound = new()
-	alert_siren_sound.file = filename
-	alert_siren_sound.priority = 250
-	alert_siren_sound.channel = CHANNEL_STATION_ALERT_SIREN
-	alert_siren_sound.frequency = 1
-	alert_siren_sound.wait = TRUE
-	alert_siren_sound.repeat = FALSE
-	alert_siren_sound.status = SOUND_STREAM
-	alert_siren_sound.volume = volume
-
 	do	// play the alert sound as long as the security level is the same as on proc invoke
 		for(var/mob/M in GLOB.player_list)
 			if(M.client.prefs.toggles & SOUND_MIDI && is_station_level(M.z)) // play only on station and if you have admin midis on
-				SEND_SOUND(M, alert_siren_sound)
+				M.playsound_local(turf_source = M, soundin = filename, vol = volume, vary = FALSE, frequency = 1, )
 		sleep(interval)
 	while(GLOB.security_level == level)
 
