@@ -486,10 +486,6 @@
 	user.adjustBruteLoss(50)
 	user.adjustOxyLoss(50)
 
-/obj/item/reagent_containers/food/snacks/lollipop/long/Destroy()
-	UnregisterSignal(user, COMSIG_LIVING_STATUS_KNOCKDOWN)
-	..()
-
 /obj/item/reagent_containers/food/snacks/lollipop/cyborg
 	var/spamchecking = TRUE
 
