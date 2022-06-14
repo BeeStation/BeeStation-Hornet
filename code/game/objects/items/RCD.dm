@@ -664,8 +664,8 @@ RLD
 		..()
 
 /obj/item/construction/rld/update_icon_state()
-	. = ..()
 	icon_state = "rld-[round(matter/35)]"
+	return ..()
 
 /obj/item/construction/rld/attack_self(mob/user)
 	..()
@@ -680,14 +680,12 @@ RLD
 			mode = REMOVE_MODE
 			to_chat(user, "<span class='notice'>You change RLD's mode to 'Deconstruct'.</span>")
 
-
 /obj/item/construction/rld/proc/checkdupes(var/target)
 	. = list()
 	var/turf/checking = get_turf(target)
 	for(var/obj/machinery/light/dupe in checking)
 		if(istype(dupe, /obj/machinery/light))
 			. |= dupe
-
 
 /obj/item/construction/rld/afterattack(atom/A, mob/user)
 	. = ..()
