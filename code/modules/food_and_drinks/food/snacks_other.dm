@@ -445,6 +445,11 @@
 	throw_speed = 1
 	throwforce = 0
 
+/obj/item/reagent_containers/food/snacks/lollipop/Destroy()
+	if(timer_id)
+		deltimer(timer_id)
+	..()
+
 /obj/item/reagent_containers/food/snacks/lollipop/equipped(mob/user, slot)
 	. = ..()
 	if(timer_id)
@@ -452,7 +457,8 @@
 		timer_id = null
 	chewing = (slot == ITEM_SLOT_MASK ? TRUE : FALSE)
 	if(chewing) //Set a timer to chew(), instead of calling chew for the convenience of being able to equip/unequip our pop
-		timer_id = addtimer(CALLBACK(src, .proc/chew), bite_frequency, TIMER_STOPPABLE)		
+		timer_id = addtimer(CALLBACK(src, .proc/chew), bite_frequency, TIMER_STOPPABLE)	
+			
 
 /obj/item/reagent_containers/food/snacks/lollipop/proc/chew()
 	if(iscarbon(loc) && chewing)
@@ -479,6 +485,10 @@
 	visible_message("<span class='danger'>[user] is impailed by the [src]!</span>", "<span class='danger'>You are impaled by the [src]!</span>")
 	user.adjustBruteLoss(50)
 	user.adjustOxyLoss(50)
+
+/obj/item/reagent_containers/food/snacks/lollipop/long/Destroy()
+	UnregisterSignal(user, COMSIG_LIVING_STATUS_KNOCKDOWN)
+	..()
 
 /obj/item/reagent_containers/food/snacks/lollipop/cyborg
 	var/spamchecking = TRUE
