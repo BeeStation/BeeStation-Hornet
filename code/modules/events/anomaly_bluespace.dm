@@ -1,13 +1,12 @@
 /datum/round_event_control/anomaly/anomaly_bluespace
 	name = "Anomaly: Bluespace"
 	typepath = /datum/round_event/anomaly/anomaly_bluespace
-
+	min_players = 15
 	max_occurrences = 1
 	weight = 5
 
 /datum/round_event/anomaly/anomaly_bluespace
 	startWhen = 3
-	announceWhen = 10
 	anomaly_path = /obj/effect/anomaly/bluespace
 
 /datum/round_event/anomaly/anomaly_bluespace/announce(fake)
