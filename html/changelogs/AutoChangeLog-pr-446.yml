@@ -1,0 +1,9 @@
+author: Oricana-16
+delete-after: true
+changes:
+  - rscadd: Added Circuit Goggles Shell
+  - rscadd: Added Security Records, Send/Receive Data, Viewer, Find Entity By Name,
+      and Pinpointer Components
+  - rscadd: Turned Cell Chargers, Bluespace Launchpad Controllers, and Pneumatic Cannons
+      into Circuit Shells
+  - tweak: Removed the range limit on the To String component
