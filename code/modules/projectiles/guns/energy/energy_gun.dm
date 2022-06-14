@@ -43,14 +43,6 @@
 	set_gun_light(new /obj/item/flashlight/seclite(src))
 	return ..()
 
-<<<<<<< HEAD
-/obj/item/gun/energy/e_gun/mini/update_overlays()
-	. = ..()
-	if(gun_light?.on)
-		. += "mini-light"
-
-=======
->>>>>>> master
 /obj/item/gun/energy/e_gun/stun
 	name = "tactical energy gun"
 	desc = "Military issue energy gun, is able to fire stun rounds."

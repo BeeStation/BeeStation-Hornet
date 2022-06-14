@@ -163,43 +163,38 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 		movedir = backwards
 	update()
 
-<<<<<<< HEAD:code/modules/recycling/conveyor2.dm
-/obj/machinery/conveyor/update_appearance()
-	if(stat & BROKEN)
-		icon_state = "conveyor-broken"
-	else
-		icon_state = "conveyor[operating * verted]"
+/obj/machinery/conveyor/update_icon_state()
+	icon_state = "conveyor-[(stat & BROKEN) ? "broken" : operating * verted]"
+	return ..()
 
 /obj/machinery/conveyor/proc/update()
 	if(stat & BROKEN || !operable || stat & NOPOWER)
 		operating = FALSE
 		return FALSE
 	return TRUE
-=======
+
 /obj/machinery/conveyor/proc/set_operating(new_value)
 	if(operating == new_value)
 		return
 	operating = new_value
-	update_icon_state()
+	update_appearance()
 	update_move_direction()
 	if(!operating) //If we ever turn off, disable moveloops
 		for(var/atom/movable/movable in get_turf(src))
 			stop_conveying(movable)
 
 /obj/machinery/conveyor/proc/update()
+	update_appearance()
 	if(stat & BROKEN)
-		icon_state = "conveyor-broken"
 		set_operating(FALSE)
 		return
 	if(!operable)
 		set_operating(FALSE)
 	if(stat & NOPOWER)
 		set_operating(FALSE)
-	icon_state = "conveyor[operating * verted]"
 	if(operating)
 		for(var/atom/movable/movable in get_turf(src))
 			start_conveying(movable)
->>>>>>> master:code/modules/recycling/conveyor.dm
 
 /obj/machinery/conveyor/proc/conveyable_enter(datum/source, atom/convayable)
 	SIGNAL_HANDLER
@@ -358,17 +353,7 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 /// Updates all conveyor belts that are linked to this switch, and tells them to start processing.
 /obj/machinery/conveyor_switch/proc/update_linked_conveyors()
 	for(var/obj/machinery/conveyor/C in GLOB.conveyors_by_id[id])
-<<<<<<< HEAD:code/modules/recycling/conveyor2.dm
-		C.operating = position
-		C.update_move_direction()
-		C.update_appearance()
-		if(C.operating)
-			C.begin_processing()
-		else
-			C.end_processing()
-=======
 		C.set_operating(position)
->>>>>>> master:code/modules/recycling/conveyor.dm
 		CHECK_TICK
 
 /// Finds any switches with same `id` as this one, and set their position and icon to match us.

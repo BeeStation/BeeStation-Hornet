@@ -339,27 +339,7 @@ field_generator power level display
 			FG.cleanup()
 		connected_gens -= FG
 	clean_up = 0
-<<<<<<< HEAD
 	update_appearance()
-
-	//This is here to help fight the "hurr durr, release singulo cos nobody will notice before the
-	//singulo eats the evidence". It's not fool-proof but better than nothing.
-	//I want to avoid using global variables.
-	spawn(1)
-		var/temp = 1 //stops spam
-		for(var/obj/singularity/O in GLOB.singularities)
-			if(O.last_warning && temp && O.is_real)
-				if((world.time - O.last_warning) > 50) //to stop message-spam
-					temp = 0
-					var/turf/T = get_turf(src)
-					message_admins("A singulo exists and a containment field has failed at [ADMIN_VERBOSEJMP(T)].")
-					investigate_log("has <font color='red'>failed</font> whilst a singulo exists at [AREACOORD(T)].", INVESTIGATE_ENGINES)
-					notify_ghosts("IT'S LOOSE", source = src, action = NOTIFY_ORBIT, flashwindow = FALSE, ghost_sound = 'sound/machines/warning-buzzer.ogg', header = "IT'S LOOSE", notify_volume = 75)
-			O.last_warning = world.time
-
-=======
-	update_icon()
->>>>>>> master
 	move_resist = initial(move_resist)
 	loose_message(dist) //we forward the distance of the furtest away generator
 

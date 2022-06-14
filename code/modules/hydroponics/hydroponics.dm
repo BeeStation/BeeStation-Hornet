@@ -887,12 +887,7 @@
 		to_chat(user, "<span class='notice'>You remove the dead plant from [src].</span>")
 		qdel(myseed)
 		myseed = null
-<<<<<<< HEAD
-		update_name()
 		update_appearance()
-=======
-		update_icon()
->>>>>>> master
 	else
 		if(user)
 			examine(user)

@@ -33,24 +33,17 @@
 /obj/item/gun/energy/emp_act(severity)
 	. = ..()
 	if(!(. & EMP_PROTECT_CONTENTS))
-<<<<<<< HEAD
-		cell.use(round(cell.charge / severity))
-		chambered = null //we empty the chamber
-		recharge_newshot() //and try to charge a new shot
-		update_appearance()
-=======
 		obj_flags |= OBJ_EMPED
-		update_icon()
+		update_appearance()
 		addtimer(CALLBACK(src, .proc/emp_reset), rand(600 / severity, 300 / severity))
 		playsound(src, 'sound/machines/capacitor_discharge.ogg', 60, TRUE)
 
 /obj/item/gun/energy/proc/emp_reset()
 	obj_flags &= ~OBJ_EMPED
 	//Update the icon
-	update_icon()
+	update_appearance()
 	//Play a sound to indicate re-activation
 	playsound(src, 'sound/machines/capacitor_charge.ogg', 90, TRUE)
->>>>>>> master
 
 /obj/item/gun/energy/get_cell()
 	return cell
