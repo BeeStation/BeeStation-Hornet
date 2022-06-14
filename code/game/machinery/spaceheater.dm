@@ -59,9 +59,7 @@
 
 /obj/machinery/space_heater/update_appearance()
 	icon_state = "[base_icon_state]-[on ? mode : "off"]"
-
-	if(panel_open)
-		add_overlay("sheater-open")
+	return ..()
 
 /obj/machinery/space_heater/update_overlays()
 	. = ..()

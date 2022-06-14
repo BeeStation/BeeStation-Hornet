@@ -8,7 +8,7 @@
 
 /obj/machinery/telecomms/relay
 	name = "telecommunication relay"
-	icon_state = "relay"
+	base_icon_state = "relay"
 	desc = "A mighty piece of hardware used to send massive amounts of data far away."
 	density = TRUE
 	use_power = IDLE_POWER_USE
@@ -77,7 +77,7 @@
 	hide = 1
 	autolinkers = list("h_relay")
 	icon = 'icons/obj/clockwork_objects.dmi'
-	icon_state = "relay"
+	base_icon_state = "relay"
 	broadcasting = FALSE	//It only receives
 
 /obj/machinery/telecomms/relay/preset/reebe/attackby(obj/item/P, mob/user, params)

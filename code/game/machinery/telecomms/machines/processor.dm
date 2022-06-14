@@ -8,7 +8,7 @@
 
 /obj/machinery/telecomms/processor
 	name = "processor unit"
-	icon_state = "processor"
+	base_icon_state = "processor"
 	desc = "This machine is used to process large quantities of information."
 	density = TRUE
 	use_power = IDLE_POWER_USE
@@ -20,7 +20,7 @@
 	if(!is_freq_listening(signal))
 		return
 
-	if (!process_mode)
+	if(!process_mode)
 		signal.data["compression"] = 100 // even more compressed signal
 	else if (signal.data["compression"])
 		signal.data["compression"] = 0 // uncompress subspace signal

@@ -7,7 +7,7 @@
 
 /obj/machinery/telecomms/server
 	name = "telecommunication server"
-	icon_state = "comm_server"
+	base_icon_state = "comm_server"
 	desc = "A machine used to store data and network statistics."
 	density = TRUE
 	use_power = IDLE_POWER_USE

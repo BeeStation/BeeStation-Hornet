@@ -11,11 +11,11 @@
 
 /obj/machinery/telecomms/attackby(obj/item/P, mob/user, params)
 
-	var/icon_closed = initial(icon_state)
-	var/icon_open = "[initial(icon_state)]_o"
+	var/icon_closed = base_icon_state
+	var/icon_open = "[base_icon_state]_o"
 	if(!on)
-		icon_closed = "[initial(icon_state)]_off"
-		icon_open = "[initial(icon_state)]_o_off"
+		icon_closed = "[base_icon_state]_off"
+		icon_open = "[base_icon_state]_o_off"
 
 	if(default_deconstruction_screwdriver(user, icon_open, icon_closed, P))
 		return

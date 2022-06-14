@@ -159,29 +159,31 @@
 	dump_contents()
 	return ..()
 
-/obj/machinery/suit_storage_unit/update_appearance()
-	cut_overlays()
+/obj/machinery/suit_storage_unit/update_overlays()
+	. = ..()
 
 	if(uv)
 		if(uv_super || (obj_flags & EMAGGED))
-			add_overlay("super")
+			. += "super"
 		else if(occupant)
-			add_overlay("uvhuman")
+			. += "uvhuman"
 		else
-			add_overlay("uv")
-	else if(state_open)
+			. += "uv"
+		return
+	if(state_open)
 		if(stat & BROKEN)
-			add_overlay("broken")
-		else
-			add_overlay("open")
-			if(suit)
-				add_overlay("suit")
-			if(helmet)
-				add_overlay("helm")
-			if(storage)
-				add_overlay("storage")
-	else if(occupant)
-		add_overlay("human")
+			. += "broken"
+			return
+		. += "open"
+		if(suit)
+			. += "suit"
+		if(helmet)
+			. += "helm"
+		if(storage)
+			. += "storage"
+	if(occupant)
+		. += "human"
+		return
 
 /obj/machinery/suit_storage_unit/power_change()
 	. = ..()

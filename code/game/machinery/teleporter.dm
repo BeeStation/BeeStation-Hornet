@@ -7,6 +7,7 @@
 	name = "teleporter hub"
 	desc = "It's the hub of a teleporting machine."
 	icon_state = "tele0"
+	base_icon_state = "tele"
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 10
 	active_power_usage = 3000
@@ -91,12 +92,8 @@
 	return
 
 /obj/machinery/teleport/hub/update_appearance()
-	if(panel_open)
-		icon_state = "tele-o"
-	else if(is_ready())
-		icon_state = "tele1"
-	else
-		icon_state = "tele0"
+	icon_state = "[base_icon_state][panel_open ? "-o" : (is_ready() ? 1 : 0)]"
+	return ..()
 
 /obj/machinery/teleport/hub/proc/is_ready()
 	. = !panel_open && !(stat & (BROKEN|NOPOWER)) && power_station && power_station.engaged && !(power_station.stat & (BROKEN|NOPOWER))
@@ -111,6 +108,7 @@
 	name = "teleporter station"
 	desc = "The power control station for a bluespace teleporter. Used for toggling power, and can activate a test-fire to prevent malfunctions."
 	icon_state = "controller"
+	base_icon_state = "controller"
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 10
 	active_power_usage = 2000
@@ -223,12 +221,16 @@
 	if(teleporter_hub)
 		teleporter_hub.update_appearance()
 
-/obj/machinery/teleport/station/update_appearance()
+/obj/machinery/teleport/station/update_icon_state()
 	if(panel_open)
-		icon_state = "controller-o"
-	else if(stat & (BROKEN|NOPOWER))
-		icon_state = "controller-p"
-	else if(teleporter_console && teleporter_console.calibrating)
-		icon_state = "controller-c"
-	else
-		icon_state = "controller"
+		icon_state = "[base_icon_state]-o"
+		return ..()
+	if(stat & (BROKEN|NOPOWER))
+		icon_state = "[base_icon_state]-p"
+		return ..()
+	if(teleporter_console && teleporter_console.calibrating)
+		icon_state = "[base_icon_state]-c"
+		return ..()
+
+	icon_state = base_icon_state
+	return ..()

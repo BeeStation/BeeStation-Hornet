@@ -5,6 +5,7 @@
 	icon = 'icons/obj/assemblies.dmi'
 	name = "syndicate bomb"
 	icon_state = "syndicate-bomb"
+	base_icon_state = "syndicate-bomb"
 	desc = "A large and menacing device. Can be bolted down with a wrench."
 
 	anchored = FALSE
@@ -106,8 +107,9 @@
 	. = ..()
 	. += {"A digital display on it reads "[seconds_remaining()]"."}
 
-/obj/machinery/syndicatebomb/update_appearance()
-	icon_state = "[initial(icon_state)][active ? "-active" : "-inactive"][open_panel ? "-wires" : ""]"
+/obj/machinery/syndicatebomb/update_icon_state()
+	icon_state = "[base_icon_state][active ? "-active" : "-inactive"][open_panel ? "-wires" : ""]"
+	return ..()
 
 /obj/machinery/syndicatebomb/proc/seconds_remaining()
 	if(active)

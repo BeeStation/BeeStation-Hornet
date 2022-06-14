@@ -115,17 +115,9 @@ GLOBAL_LIST_EMPTY(telecomms_list)
 					T.links |= src
 
 
-/obj/machinery/telecomms/update_appearance()
-	if(on)
-		if(panel_open)
-			icon_state = "[initial(icon_state)]_o"
-		else
-			icon_state = initial(icon_state)
-	else
-		if(panel_open)
-			icon_state = "[initial(icon_state)]_o_off"
-		else
-			icon_state = "[initial(icon_state)]_off"
+/obj/machinery/telecomms/update_icon_state()
+	icon_state = "[base_icon_state][panel_open ? "_o" : null][on ? null : "_off"]"
+	return ..()
 
 /obj/machinery/telecomms/proc/update_power()
 	var/newState = on
