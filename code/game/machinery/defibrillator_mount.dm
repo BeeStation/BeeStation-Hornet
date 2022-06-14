@@ -42,17 +42,17 @@
 		defib.cell.give(180) //90% efficiency, a bit worse than the cell charger's 100%
 		update_appearance()
 
-/obj/machinery/defibrillator_mount/update_appearance()
-	cut_overlays()
+/obj/machinery/defibrillator_mount/update_overlays()
+	. = ..()
 	if(defib)
-		add_overlay("defib")
+		. += "defib"
 		if(defib.powered)
-			add_overlay(defib.safety ? "online" : "emagged")
+			. += defib.safety ? "online" : "emagged"
 			var/ratio = defib.cell.charge / defib.cell.maxcharge
 			ratio = CEILING(ratio * 4, 1) * 25
-			add_overlay("charge[ratio]")
+			. += "charge[ratio]"
 		if(clamps_locked)
-			add_overlay("clamps")
+			. += "clamps"
 
 /obj/machinery/defibrillator_mount/get_cell()
 	if(defib)

@@ -533,6 +533,7 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 /area/space/update_icon_state()
 	SHOULD_CALL_PARENT(TRUE)
 	icon_state = null
+	return ..()
 
 
 /**

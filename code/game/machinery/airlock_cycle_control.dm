@@ -46,6 +46,7 @@
 	desc = "A machine designed to control the operation of cycling airlocks"
 	icon = 'icons/obj/monitors.dmi'
 	icon_state = "aac"
+	base_icon_state = "aac"
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 4
 	active_power_usage = 8
@@ -138,7 +139,21 @@
 			if(airlock.density && (cyclestate == AIRLOCK_CYCLESTATE_CLOSED || (airlocks[A] && cyclestate == AIRLOCK_CYCLESTATE_INOPEN) || (!airlocks[A] && cyclestate == AIRLOCK_CYCLESTATE_OUTOPEN)))
 				airlock.bolt()
 
-/obj/machinery/advanced_airlock_controller/update_icon(use_hash = FALSE)
+/obj/machinery/advanced_airlock_controller/update_icon_state(use_hash = FALSE)
+	if(panel_open)
+		switch(buildstage)
+			if(2)
+				icon_state = "[base_icon_state]_b3"
+			if(1)
+				icon_state = "[base_icon_state]_b2"
+			if(0)
+				icon_state = "[base_icon_state]_b1"
+		return ..()
+	icon_state = base_icon_state
+	return ..()
+
+/obj/machinery/advanced_airlock_controller/update_overlays(use_hash = FALSE)
+	. = ..()
 	var/turf/location = get_turf(src)
 	if(!location)
 		return
@@ -155,29 +170,19 @@
 		return
 	overlays_hash = new_overlays_hash
 
-	cut_overlays()
 	if(panel_open)
-		switch(buildstage)
-			if(2)
-				icon_state = "aac_b3"
-			if(1)
-				icon_state = "aac_b2"
-			if(0)
-				icon_state = "aac_b1"
 		return
-
-	icon_state = "aac"
 
 	if((stat & (NOPOWER|BROKEN)) || shorted)
 		return
 
 	var/is_exterior_pressure = (cyclestate == AIRLOCK_CYCLESTATE_OUTCLOSING || cyclestate == AIRLOCK_CYCLESTATE_OUTOPENING || cyclestate == AIRLOCK_CYCLESTATE_OUTOPEN)
-	add_overlay("aac_[is_exterior_pressure ? "ext" : "int"]p_[pressure_bars]")
-	add_overlay("aac_cyclestate_[cyclestate]")
+	. += "[base_icon_state]_[is_exterior_pressure ? "ext" : "int"]p_[pressure_bars]"
+	. += "[base_icon_state]_cyclestate_[cyclestate]"
 	if(obj_flags & EMAGGED)
-		add_overlay("aac_emagged")
+		. += "[base_icon_state]_emagged"
 	else if(!locked)
-		add_overlay("aac_unlocked")
+		. += "[base_icon_state]_unlocked"
 
 	if(vis_target)
 		var/f_dx = ((vis_target.pixel_x - pixel_x) / world.icon_size) + (vis_target.x - x)
@@ -190,7 +195,7 @@
 		TR.Multiply(new /matrix(s_dx, f_dx, 0, s_dy, f_dy, 0))
 		var/mutable_appearance/M = mutable_appearance(icon, "hologram-line", ABOVE_LIGHTING_LAYER, ABOVE_LIGHTING_PLANE)
 		M.transform = TR
-		add_overlay(M)
+		. += M
 
 /obj/machinery/advanced_airlock_controller/proc/reset(wire)
 	switch(wire)

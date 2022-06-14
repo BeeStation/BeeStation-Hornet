@@ -189,14 +189,14 @@
 		return
 	new /obj/effect/temp_visual/telekinesis(get_turf(focus))
 
-/obj/item/tk_grab/update_appearance()
-	cut_overlays()
+/obj/item/tk_grab/update_overlays()
+	. = ..()
 	if(focus)
 		var/old_layer = focus.layer
 		var/old_plane = focus.plane
 		focus.layer = layer+0.01
 		focus.plane = ABOVE_HUD_PLANE
-		add_overlay(focus) //this is kind of ick, but it's better than using icon()
+		. += focus //this is kind of ick, but it's better than using icon()
 		focus.layer = old_layer
 		focus.plane = old_plane
 

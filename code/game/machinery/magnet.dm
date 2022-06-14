@@ -7,6 +7,7 @@
 /obj/machinery/magnetic_module
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "floor_magnet-f"
+	base_icon_state = "floor_magnet"
 	name = "electromagnetic generator"
 	desc = "A device that uses station power to create points of magnetic energy."
 	level = 1		// underfloor
@@ -49,17 +50,11 @@
 	update_appearance()
 
 // update the icon_state
-/obj/machinery/magnetic_module/update_appearance()
-	var/state="floor_magnet"
-	var/onstate=""
-	if(!on)
-		onstate="0"
-
-	if(invisibility)
-		icon_state = "[state][onstate]-f"	// if invisible, set icon to faded version
-											// in case of being revealed by T-scanner
-	else
-		icon_state = "[state][onstate]"
+/obj/machinery/magnetic_module/update_icon_state()
+	icon_state = "[base_icon_state][on ? null : 0][invisibility ? "-f" : null]"
+		// if invisible, set icon to faded version
+		// in case of being revealed by T-scanner
+	return ..()
 
 /obj/machinery/magnetic_module/receive_signal(datum/signal/signal)
 

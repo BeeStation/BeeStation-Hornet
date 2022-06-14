@@ -754,17 +754,11 @@
 		return FALSE
 	return TRUE
 
-/obj/structure/firelock_frame/border/update_appearance()
-	return
-
 /obj/structure/firelock_frame/window
 	name = "window firelock frame"
 	icon = 'icons/obj/doors/doorfirewindow.dmi'
 	icon_state = "door_frame"
 	firelock_type = /obj/machinery/door/firedoor/window
-
-/obj/structure/firelock_frame/window/update_appearance()
-	return
 
 #undef CONSTRUCTION_COMPLETE
 #undef CONSTRUCTION_PANEL_OPEN

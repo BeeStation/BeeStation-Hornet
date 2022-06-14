@@ -56,6 +56,7 @@
 	return ..()
 
 /obj/machinery/dna_scannernew/update_overlays()
+	. = ..()
 	if((stat & MAINT) || panel_open)
 		. += "maintenance"
 	if(locked)

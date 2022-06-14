@@ -75,11 +75,12 @@ GLOBAL_LIST_EMPTY(req_console_ckey_departments)
 	light_color = LIGHT_COLOR_GREEN
 	light_power = 1.5
 
-/obj/machinery/requests_console/update_appearance(updates=ALL)
+/obj/machinery/requests_console/update_icon_state()
 	if(stat & NOPOWER)
 		set_light(0)
-		return
+		return ..()
 	set_light(1)//red light green light
+	return ..()
 
 /obj/machinery/requests_console/update_icon_state()
 	if(open)

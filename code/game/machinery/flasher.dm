@@ -48,7 +48,7 @@
 	return ..()
 
 /obj/machinery/flasher/update_icon_state()
-	icon_state = "[base_icon_state]1[(bulb?.burn_out || !powered()) ? "-p" : null]"
+	icon_state = "[base_icon_state]1[(bulb?.burnt_out || !powered()) ? "-p" : null]"
 	return ..()
 
 //Don't want to render prison breaks impossible

@@ -61,6 +61,7 @@
 
 /obj/machinery/igniter/update_icon_state()
 	icon_state = "[base_icon_state][(stat & NOPOWER) ? 0 : on]"
+	return ..()
 
 // Wall mounted remote-control igniter.
 

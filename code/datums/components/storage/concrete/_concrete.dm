@@ -195,13 +195,13 @@
 			parent.add_fingerprint(M)
 			if(!prevent_warning)
 				mob_item_insertion_feedback(usr, M, I)
-	update_appearance()
+	update_icon()
 	return TRUE
 
-/datum/component/storage/concrete/update_appearance()
+/datum/component/storage/concrete/update_icon()
 	if(isobj(parent))
 		var/obj/O = parent
 		O.update_appearance()
 	for(var/i in slaves)
 		var/datum/component/storage/slave = i
-		slave.update_appearance()
+		slave.update_icon()

@@ -60,7 +60,7 @@
 		. = ..()
 
 
-/obj/item/reagent_containers/food/snacks/customizable/proc/update_name(obj/item/reagent_containers/food/snacks/S)
+/obj/item/reagent_containers/food/snacks/customizable/update_name(obj/item/reagent_containers/food/snacks/S)
 	for(var/obj/item/I in ingredients)
 		if(!istype(S, I.type))
 			customname = "custom"
@@ -77,6 +77,7 @@
 		else
 			customname = S.name
 	name = "[customname] [initial(name)]"
+	return ..()
 
 /obj/item/reagent_containers/food/snacks/customizable/proc/initialize_custom_food(obj/item/BASE, obj/item/I, mob/user)
 	if(istype(BASE, /obj/item/reagent_containers))
@@ -316,14 +317,12 @@
 	..()
 	update_appearance()
 
-/obj/item/reagent_containers/glass/bowl/update_appearance()
-	cut_overlays()
+/obj/item/reagent_containers/glass/bowl/update_overlays()
+	. = ..()
 	if(reagents?.total_volume)
 		var/mutable_appearance/filling = mutable_appearance('icons/obj/food/soupsalad.dmi', "fullbowl")
 		filling.color = mix_color_from_reagents(reagents.reagent_list)
-		add_overlay(filling)
-	else
-		icon_state = "bowl"
+		. += filling
 
 #undef INGREDIENTS_FILL
 #undef INGREDIENTS_SCATTER
