@@ -34,3 +34,10 @@
 			if(prob(1))
 				affected_mob.vomit(95)
 				affected_mob.adjustOrganLoss(ORGAN_SLOT_APPENDIX, 15)
+
+/datum/disease/appendicitis/cure(add_resistance)
+	var/obj/item/organ/appendix/A = affected_mob.getorgan(/obj/item/organ/appendix)
+	if(A)
+		A.inflamed = FALSE
+		A.update_icon()
+	return ..()

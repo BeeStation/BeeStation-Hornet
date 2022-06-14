@@ -46,7 +46,7 @@
 		if(WIRE_OPEN) // Pulse to open door (only works not emagged and ID wire is cut or no access is required).
 			if(A.obj_flags & EMAGGED)
 				return
-			if(!A.requiresID() || A.check_access(null))
+			if(A.id_scan_hacked() || A.check_access(null))
 				if(A.density)
 					INVOKE_ASYNC(A, /obj/machinery/door/airlock.proc/open)
 				else

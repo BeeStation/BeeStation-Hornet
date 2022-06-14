@@ -3,12 +3,12 @@
 /turf/closed/wall,
 /area/template_noop)
 "c" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/bamboo,
 /area/template_noop)
 "d" = (
 /obj/structure/chair/stool/bamboo,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/bamboo,
 /area/template_noop)
 "e" = (
@@ -16,15 +16,15 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "h" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer1{
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
 	},
 /obj/item/kirbyplants/random,
 /turf/open/floor/wood,
 /area/template_noop)
 "i" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 10
 	},
 /turf/open/floor/wood,
@@ -38,7 +38,7 @@
 /turf/open/floor/bamboo,
 /area/template_noop)
 "m" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 6
 	},
 /turf/open/floor/wood,
@@ -58,7 +58,7 @@
 /turf/open/floor/wood,
 /area/template_noop)
 "s" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 8
 	},
 /turf/open/floor/wood,
@@ -114,7 +114,7 @@
 /turf/open/floor/bamboo,
 /area/template_noop)
 "I" = (
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
 	},
 /obj/item/kirbyplants/random,
@@ -124,8 +124,8 @@
 /obj/machinery/door/airlock/maintenance{
 	name = "Zen Room Maintenance"
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/template_noop,
 /area/template_noop)
 "K" = (

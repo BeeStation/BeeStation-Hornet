@@ -807,14 +807,14 @@
 		if(!check_rights(R_SPAWN))
 			return
 
-		var/mob/living/carbon/human/H = locate(href_list["corgione"])
-		if(!istype(H))
-			to_chat(usr, "This can only be used on instances of type /mob/living/carbon/human.")
+		var/mob/living/carbon/C = locate(href_list["corgione"])
+		if(!istype(C))
+			to_chat(usr, "This can only be used on instances of type /mob/living/carbon.")
 			return
 
-		log_admin("[key_name(usr)] attempting to corgize [key_name(H)].")
-		message_admins("<span class='adminnotice'>[key_name_admin(usr)] attempting to corgize [key_name_admin(H)].</span>")
-		H.corgize()
+		log_admin("[key_name(usr)] attempting to corgize [key_name(C)].")
+		message_admins("<span class='adminnotice'>[key_name_admin(usr)] attempting to corgize [key_name_admin(C)].</span>")
+		C.corgize()
 
 
 	else if(href_list["forcespeech"])
@@ -1797,7 +1797,7 @@
 	else if(href_list["set_selfdestruct_code"])
 		if(!check_rights(R_ADMIN))
 			return
-		var/code = random_nukecode()
+		var/code = random_code(5)
 		for(var/obj/machinery/nuclearbomb/selfdestruct/SD in GLOB.nuke_list)
 			SD.r_code = code
 		message_admins("[key_name_admin(usr)] has set the self-destruct \
@@ -2060,7 +2060,7 @@
 
 
 	else if(href_list["retrieveboh"])
-		var/obj/singularity/boh_tear/tear = locate(href_list["retrieveboh"])
+		var/obj/boh_tear/tear = locate(href_list["retrieveboh"])
 		if(!tear)
 			to_chat(usr, "Either items were already retrieved or 10 minutes have passed and they were deleted.")
 			return

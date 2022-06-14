@@ -71,6 +71,7 @@
 /obj/item/gun/energy/kinetic_accelerator/cyborg
 	holds_charge = TRUE
 	unique_frequency = TRUE
+	requires_wielding = FALSE
 	max_mod_capacity = 80
 
 /obj/item/gun/energy/kinetic_accelerator/minebot
@@ -130,9 +131,6 @@
 
 	deltimer(recharge_timerid)
 	recharge_timerid = addtimer(CALLBACK(src, .proc/reload), recharge_time * carried, TIMER_STOPPABLE)
-
-/obj/item/gun/energy/kinetic_accelerator/emp_act(severity)
-	return
 
 /obj/item/gun/energy/kinetic_accelerator/proc/reload()
 	cell.give(cell.maxcharge)

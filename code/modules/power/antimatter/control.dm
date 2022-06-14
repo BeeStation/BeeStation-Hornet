@@ -114,11 +114,11 @@
 				toggle_power()
 			stability -= rand(10,20)
 
-/obj/machinery/power/am_control_unit/blob_act()
+/obj/machinery/power/am_control_unit/blob_act(obj/structure/blob/B)
 	stability -= 20
 	if(prob(100-stability))//Might infect the rest of the machine
 		for(var/obj/machinery/am_shielding/AMS in linked_shielding)
-			AMS.blob_act()
+			AMS.blob_act(B)
 		qdel(src)
 		return
 	check_stability()

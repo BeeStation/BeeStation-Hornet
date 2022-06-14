@@ -94,7 +94,7 @@
 					"name" = A.area.name,
 					"charge" = A.integration_cog ? 100 : A.cell ? A.cell.percent() : 0,
 					"load" = DisplayPower(A.lastused_total),
-					"charging" = A.charging,
+					"charging" = A.integration_cog ? 2 : A.charging,
 					"eqp" = A.equipment,
 					"lgt" = A.lighting,
 					"env" = A.environ

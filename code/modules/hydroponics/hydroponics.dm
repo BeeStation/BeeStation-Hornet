@@ -286,7 +286,7 @@
 			set_light(G.glow_range(myseed), G.glow_power(myseed), G.glow_color)
 		else
 			set_light(0)
-
+	update_name()
 	return
 
 /obj/machinery/hydroponics/proc/update_icon_hoses()
@@ -389,7 +389,6 @@
 	pestlevel = 0 // Reset
 	update_appearance()
 	visible_message("<span class='warning'>The [oldPlantName] is overtaken by some [myseed.plantname]!</span>")
-	update_name()
 
 
 /obj/machinery/hydroponics/proc/mutate(lifemut = 2, endmut = 5, productmut = 1, yieldmut = 2, potmut = 25, wrmut = 2, wcmut = 5, traitmut = 0) // Mutates the current seed
@@ -787,7 +786,6 @@
 			to_chat(user, "<span class='notice'>You plant [O].</span>")
 			dead = 0
 			myseed = O
-			update_name()
 			age = 1
 			lastproduce = 1
 			plant_health = myseed.endurance
@@ -855,7 +853,6 @@
 					harvest = FALSE //To make sure they can't just put in another seed and insta-harvest it
 				qdel(myseed)
 				myseed = null
-				update_name()
 			weedlevel = 0 //Has a side effect of cleaning up those nasty weeds
 			update_appearance()
 
@@ -890,8 +887,12 @@
 		to_chat(user, "<span class='notice'>You remove the dead plant from [src].</span>")
 		qdel(myseed)
 		myseed = null
+<<<<<<< HEAD
 		update_name()
 		update_appearance()
+=======
+		update_icon()
+>>>>>>> master
 	else
 		if(user)
 			examine(user)
@@ -908,7 +909,6 @@
 	if(!myseed.get_gene(/datum/plant_gene/trait/repeated_harvest))
 		qdel(myseed)
 		myseed = null
-		update_name()
 		dead = 0
 		age = 0
 		lastproduce = 0
@@ -949,6 +949,8 @@
 	update_appearance()
 
 /obj/machinery/hydroponics/proc/update_name()
+	if(renamedByPlayer)
+		return
 	if(myseed)
 		name = "[initial(name)] ([myseed.plantname])"
 	else

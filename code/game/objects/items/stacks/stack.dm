@@ -35,10 +35,12 @@
 		return
 	return TRUE
 
-/obj/item/stack/Initialize(mapload, new_amount, merge = TRUE)
+/obj/item/stack/Initialize(mapload, new_amount, merge = TRUE, mob/user = null)
 	. = ..()
 	if(new_amount != null)
 		amount = new_amount
+	if(user)
+		add_fingerprint(user)
 	check_max_amount()
 	if(!merge_type)
 		merge_type = type
@@ -299,7 +301,7 @@
 					return FALSE
 	return TRUE
 
-/obj/item/stack/use(used, transfer = FALSE, check = TRUE) // return 0 = borked; return 1 = had enough
+/obj/item/stack/use(used, transfer = FALSE, check = TRUE) // return FALSE = borked; return TRUE = had enough
 	if(check && zero_amount())
 		return FALSE
 	if (is_cyborg)

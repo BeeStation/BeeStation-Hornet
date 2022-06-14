@@ -60,7 +60,7 @@
 		var/mob/living/carbon/human/tar = target
 		if(tar.check_shields(src,10, "the [tar.name]"))
 			return ..()
-		if(tar.anti_magic_check(holy = TRUE))
+		if(tar.anti_magic_check(magic=FALSE,holy=TRUE))
 			tar.visible_message("<span class='danger'>Spell bounces off of [target]!</span>","<span class='danger'>The spell bounces off of you!</span>")
 			return ..()
 	var/datum/mind/M = user.mind
@@ -155,7 +155,7 @@
 	playsound(user, 'sound/magic/demon_attack1.ogg', 75, TRUE)
 	if(ishuman(target))
 		var/mob/living/carbon/human/tar = target
-		if(tar.anti_magic_check(holy = TRUE))
+		if(tar.anti_magic_check(magic=FALSE,holy=TRUE))
 			tar.visible_message("<span class='danger'>Spell bounces off of [target]!</span>","<span class='danger'>The spell bounces off of you!</span>")
 			return ..()
 	var/mob/living/carbon/human/C2 = user
@@ -252,7 +252,7 @@
 		var/mob/living/carbon/human/target = X
 		if(target == user)
 			continue
-		if(target.anti_magic_check(holy = TRUE))
+		if(target.anti_magic_check(magic=FALSE,holy=TRUE))
 			to_chat(user, "<span class='warning'>The spell had no effect!</span>")
 			target.visible_message("<span class='danger'>[target]'s veins flash with fire, but their magic protection repulses the blaze!</span>", \
 							"<span class='danger'>Your veins flash with fire, but your magic protection repels the blaze!</span>")
@@ -324,7 +324,7 @@
 			break
 
 		for(var/mob/living/L in T.contents)
-			if(L.anti_magic_check(holy = TRUE))
+			if(L.anti_magic_check(magic=FALSE,holy=TRUE))
 				L.visible_message("<span class='danger'>Spell bounces off of [L]!</span>","<span class='danger'>The spell bounces off of you!</span>")
 				continue
 			if(L in hit_list || L == source)

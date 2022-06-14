@@ -133,6 +133,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 
 
 	var/matter_power = 0
+	var/last_rads = 0
 
 	//Temporary values so that we can optimize this
 	//How much the bullets damage should be multiplied by when it is added to the internal variables
@@ -172,6 +173,8 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	var/power_changes = TRUE
 	///Disables the sm's proccessing totally.
 	var/processes = TRUE
+	///Timer id for the disengage_field proc timer
+	var/disengage_field_timer = null
 
 /obj/machinery/power/supermatter_crystal/Initialize(mapload)
 	. = ..()
@@ -307,7 +310,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	if(combined_gas > MOLE_PENALTY_THRESHOLD)
 		investigate_log("has collapsed into a singularity.", INVESTIGATE_ENGINES)
 		if(T)
-			var/obj/singularity/S = new(T)
+			var/obj/anomaly/singularity/S = new(T)
 			S.energy = 800
 			S.consume(src)
 	else
@@ -315,7 +318,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 		explosion(get_turf(T), explosion_power * max(gasmix_power_ratio, 0.205) * 0.5 , explosion_power * max(gasmix_power_ratio, 0.205) + 2, explosion_power * max(gasmix_power_ratio, 0.205) + 4 , explosion_power * max(gasmix_power_ratio, 0.205) + 6, 1, 1)
 		if(power > POWER_PENALTY_THRESHOLD)
 			investigate_log("has spawned additional energy balls.", INVESTIGATE_ENGINES)
-			new /obj/singularity/energy_ball(T, power)
+			new /obj/anomaly/energy_ball(T, power)
 		qdel(src)
 
 //this is here to eat arguments
@@ -440,7 +443,8 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 			power = clamp((removed.return_temperature() * temp_factor / T0C) * gasmix_power_ratio + power, 0, SUPERMATTER_MAXIMUM_ENERGY) //Total laser power plus an overload
 
 		if(prob(50))
-			radiation_pulse(src, power * (1 + (tritiumcomp * TRITIUM_RADIOACTIVITY_MODIFIER) + ((pluoxiumcomp * PLUOXIUM_RADIOACTIVITY_MODIFIER) * pluoxiumbonus) * (power_transmission_bonus/(10-(bzcomp * BZ_RADIOACTIVITY_MODIFIER))))) // Rad Modifiers BZ(500%), Tritium(300%), and Pluoxium(-200%)
+			last_rads = power * (1 + (tritiumcomp * TRITIUM_RADIOACTIVITY_MODIFIER) + ((pluoxiumcomp * PLUOXIUM_RADIOACTIVITY_MODIFIER) * pluoxiumbonus) * (power_transmission_bonus/(10-(bzcomp * BZ_RADIOACTIVITY_MODIFIER)))) // Rad Modifiers BZ(500%), Tritium(300%), and Pluoxium(-200%)
+			radiation_pulse(src, last_rads)
 		if(bzcomp >= 0.4 && prob(30 * bzcomp))
 			src.fire_nuclear_particle()		// Start to emit radballs at a maximum of 30% chance per tick
 
@@ -723,15 +727,16 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 		user.dust(force = TRUE)
 		if(power_changes)
 			matter_power += 200
-	else if(istype(AM, /obj/singularity))
+	else if(AM.flags_1 & SUPERMATTER_IGNORES_1)
 		return
 	else if(isobj(AM))
 		var/obj/O = AM
 		if(O.resistance_flags & INDESTRUCTIBLE)
-			var/image/causality_field = image(icon, null, "causality_field")
-			add_overlay(causality_field, TRUE)
-			radio.talk_into(src, "Anomalous object has breached containment, emergency causality field enganged to prevent reality destabilization.", engineering_channel)
-			addtimer(CALLBACK(src, .proc/disengage_field, causality_field), 5 SECONDS)
+			if(!disengage_field_timer) //we really don't want to have more than 1 timer and causality field overlayer at once
+				var/image/causality_field = image(icon, null, "causality_field")
+				add_overlay(causality_field, TRUE)
+				radio.talk_into(src, "Anomalous object has breached containment, emergency causality field enganged to prevent reality destabilization.", engineering_channel)
+				disengage_field_timer = addtimer(CALLBACK(src, .proc/disengage_field, causality_field), 5 SECONDS)
 			return
 		if(!iseffect(AM))
 			var/suspicion = ""
@@ -757,6 +762,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	if(QDELETED(src) || !causality_field)
 		return
 	cut_overlay(causality_field, TRUE)
+	disengage_field_timer = null
 
 //Do not blow up our internal radio
 /obj/machinery/power/supermatter_crystal/contents_explosion(severity, target)

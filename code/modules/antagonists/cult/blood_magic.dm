@@ -162,7 +162,7 @@
 	owner.whisper(invocation, language = /datum/language/common)
 	owner.visible_message("<span class='warning'>[owner]'s hand flashes a bright blue!</span>", \
 						 "<span class='cultitalic'>You speak the cursed words, emitting an EMP blast from your hand.</span>")
-	empulse(owner, 2, 5)
+	empulse(owner, 2, 5, holy=TRUE)
 	charges--
 	if(charges<=0)
 		qdel(src)

@@ -62,26 +62,6 @@
 	},
 /turf/open/floor/plating/airless,
 /area/shuttle/caravan/syndicate3)
-"gl" = (
-/obj/machinery/door/airlock/hatch{
-	id_tag = "caravansyndicate3_bolt_port";
-	name = "External Airlock";
-	normalspeed = 0;
-	req_access_txt = "150"
-	},
-/obj/docking_port/mobile{
-	dir = 2;
-	dwidth = 6;
-	height = 7;
-	id = "caravansyndicate3";
-	name = "Syndicate Drop Ship";
-	port_direction = 8;
-	preferred_direction = 4;
-	width = 15
-	},
-/obj/effect/mapping_helpers/airlock/cyclelink_helper,
-/turf/open/floor/plating,
-/area/shuttle/caravan/syndicate3)
 "ha" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
@@ -105,7 +85,7 @@
 /obj/machinery/power/apc/syndicate{
 	dir = 8;
 	name = "Syndicate Drop Ship APC";
-	pixel_x = -25
+	pixel_x = -24
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/pod/dark,
@@ -154,6 +134,27 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/shuttle/caravan/syndicate3)
+"oS" = (
+/obj/machinery/door/airlock/hatch{
+	id_tag = "caravansyndicate3_bolt_port";
+	name = "External Airlock";
+	normalspeed = 0;
+	req_access_txt = "150"
+	},
+/obj/docking_port/mobile{
+	dir = 2;
+	dwidth = 6;
+	dynamic_id = 1;
+	height = 7;
+	id = "caravansyndicate3";
+	name = "Syndicate Drop Ship";
+	port_direction = 8;
+	preferred_direction = 4;
+	width = 15
+	},
+/obj/effect/mapping_helpers/airlock/cyclelink_helper,
+/turf/open/floor/plating,
+/area/shuttle/caravan/syndicate3)
 "qE" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
@@ -192,17 +193,6 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/pod/dark,
-/area/shuttle/caravan/syndicate3)
-"sb" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tile/red{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/red,
-/obj/effect/turf_decal/tile/red{
-	dir = 8
-	},
-/turf/open/floor/plasteel/dark,
 /area/shuttle/caravan/syndicate3)
 "sn" = (
 /obj/structure/chair/comfy/shuttle,
@@ -448,6 +438,21 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/item/clothing/shoes/sneakers/black,
 /turf/open/floor/mineral/plastitanium,
+/area/shuttle/caravan/syndicate3)
+"Ma" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/red,
+/obj/effect/turf_decal/tile/red{
+	dir = 8
+	},
+/obj/structure/frame/computer{
+	anchored = 1;
+	dir = 8
+	},
+/turf/open/floor/plasteel/dark,
 /area/shuttle/caravan/syndicate3)
 "NH" = (
 /obj/effect/turf_decal/stripes/line{
@@ -701,7 +706,7 @@ Tn
 PL
 "}
 (9,1,1) = {"
-gl
+oS
 xC
 al
 cB
@@ -748,7 +753,7 @@ rU
 (14,1,1) = {"
 rU
 rU
-sb
+Ma
 rz
 ZK
 rU
