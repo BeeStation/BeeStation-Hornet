@@ -1,0 +1,6 @@
+author: nednaZ
+delete-after: true
+changes:
+  - rscadd: Adds 7 new anomalies
+  - balance: Anomalies now have minimum pop requirements
+  - balance: Anomalies now announce themselves instantly.
