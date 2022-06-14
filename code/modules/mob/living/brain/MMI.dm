@@ -1,7 +1,7 @@
 /obj/item/mmi
 	name = "\improper Man-Machine Interface"
 	desc = "The Warrior's bland acronym, MMI, obscures the true horror of this monstrosity, that nevertheless has become standard-issue on Nanotrasen stations."
-	icon = 'icons/obj/assemblies.dmi'
+	icon = 'monkestation/icons/obj/assemblies.dmi'
 	icon_state = "mmi_off"
 	w_class = WEIGHT_CLASS_NORMAL
 	var/braintype = "Cyborg"
@@ -21,6 +21,9 @@
 	if(istype(brain, /obj/item/organ/brain/alien))
 		icon_state = "mmi_brain_alien"
 		braintype = "Xenoborg" //HISS....Beep.
+	if(istype(brain, /obj/item/organ/brain/positron))
+		icon_state = "posibrain-ipc"
+		braintype = "IPC"
 	else
 		icon_state = "mmi_brain"
 		braintype = "Cyborg"
