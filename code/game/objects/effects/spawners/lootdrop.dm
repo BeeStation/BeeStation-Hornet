@@ -30,20 +30,6 @@
 			loot_spawned++
 	return INITIALIZE_HINT_QDEL
 
-/obj/effect/spawner/lootdrop/donkpocket_solo
-	name = "random donk pocket spawner"
-	//it's alone!
-	lootdoubles = FALSE
-
-	loot = list(
-			/obj/item/reagent_containers/food/snacks/donkpocket = 1,
-			/obj/item/reagent_containers/food/snacks/donkpocket/teriyaki = 1,
-			/obj/item/reagent_containers/food/snacks/donkpocket/spicy = 1,
-			/obj/item/reagent_containers/food/snacks/donkpocket/pizza = 1,
-			/obj/item/reagent_containers/food/snacks/donkpocket/berry = 1,
-			/obj/item/reagent_containers/food/snacks/donkpocket/honk = 1
-		)
-
 /obj/effect/spawner/lootdrop/donkpockets
 	icon_state = "random_donk"
 	name = "donk pocket box spawner"
@@ -550,62 +536,4 @@
 		/obj/item/stack/ore/titanium = 2,
 		/obj/item/stack/ore/uranium = 2,
 		/obj/item/stack/ore/diamond = 2)
-
-//------------------------------------------------------//
-//MAIL DEDICATED - DO NOT PUT IN GAME UNLESS YOU WANT IT//
-//------------------------------------------------------//
-
-// Mail loot spawner. Drop pool of advanced medical tools typically from research. Not endgame content.
-/obj/effect/spawner/lootdrop/surgery_tool_advanced
-	name = "Advanced surgery tool spawner"
-	loot = list(
-		/obj/item/scalpel/advanced,
-		/obj/item/retractor/advanced,
-		/obj/item/surgicaldrill/advanced
-	)
-
-// Mail loot spawner. Some sort of random and rare surgical tool. Alien tech found here.
-/obj/effect/spawner/lootdrop/surgery_tool_alien
-	name = "Rare surgery tool spawner"
-	loot = list(
-		/obj/item/scalpel/alien,
-		/obj/item/hemostat/alien,
-		/obj/item/retractor/alien,
-		/obj/item/circular_saw/alien,
-		/obj/item/surgicaldrill/alien,
-		/obj/item/cautery/alien,
-	)
-
-// Mail loot spawner. The donut that should be more common, but no chef ever cook.
-/obj/effect/spawner/lootdrop/donut
-	name = "common donut spawner"
-	loot = list(
-		/obj/item/reagent_containers/food/snacks/donut/berry,
-		/obj/item/reagent_containers/food/snacks/donut/apple,
-		/obj/item/reagent_containers/food/snacks/donut/caramel,
-		/obj/item/reagent_containers/food/snacks/donut/choco,
-		/obj/item/reagent_containers/food/snacks/donut/matcha,
-	)
-
-// Mail loot spawner. The donut that should be rareley cooked, but no chef WILL ever cook.
-/obj/effect/spawner/lootdrop/donut_rare
-	name = "rare donut spawner"
-	loot = list(
-		/obj/item/reagent_containers/food/snacks/donut/meat,
-		/obj/item/reagent_containers/food/snacks/donut/trumpet,
-		/obj/item/reagent_containers/food/snacks/donut/blumpkin,
-		/obj/item/reagent_containers/food/snacks/donut/bungo,
-		/obj/item/reagent_containers/food/snacks/donut/chaos
-	)
-
-// Mail loot spawner. free genetic material.
-/obj/effect/spawner/lootdrop/chromosome
-	name = "Chromosome spawner"
-	loot = list(
-		/obj/item/chromosome/energy,
-		/obj/item/chromosome/power,
-		/obj/item/chromosome/reinforcer,
-		/obj/item/chromosome/stabilizer,
-		/obj/item/chromosome/synchronizer
-	)
 

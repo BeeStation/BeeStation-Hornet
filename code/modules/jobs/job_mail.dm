@@ -4,7 +4,7 @@
 //ASSISTANT
 /datum/job/assistant
 	mail_goodies = list(
-		/obj/effect/spawner/lootdrop/donkpocket_solo = 10,
+		/obj/item/reagent_containers/food/snacks/donkpocket/random = 10,
 		/obj/item/clothing/mask/gas/old = 10,
 		/obj/item/clothing/gloves/color/fyellow = 7,
 		/obj/item/choice_beacon/music = 5,
@@ -18,7 +18,7 @@
 		/obj/item/book/manual/wiki/atmospherics = 12,
 		/obj/item/tank/internals/emergency_oxygen/engi = 10,
 		/obj/item/clothing/mask/gas = 10,
-		/obj/effect/spawner/lootdrop/maintenance = 7,
+		/obj/effect/spawner/mail/maintloot= 7,
 		/obj/item/tank/internals/plasma/empty = 5,
 		/obj/item/crowbar/large = 3
 	)
@@ -74,7 +74,7 @@
 //CARGO TECH
 /datum/job/cargo_technician
 	mail_goodies = list(
-		/obj/effect/spawner/lootdrop/maintenance = 15,
+		/obj/effect/spawner/mail/maintloot= 15,
 		/obj/item/pizzabox = 10,
 		/obj/item/ammo_box/a762 = 3,
 		//URAAAAHH
@@ -122,11 +122,11 @@
 	mail_goodies = list(
 		//it's just a memo, just sayin'...
 		/obj/item/paper/fluff/jobs/medical/hippocratic = 15,
-		/obj/effect/spawner/lootdrop/teratoma/minor = 12,
-		/obj/effect/spawner/lootdrop/teratoma/major = 8,
+		/obj/effect/spawner/mail/organminor = 12,
+		/obj/effect/spawner/mail/organmajor = 8,
 		/obj/item/sensor_device = 5,
-		/obj/effect/spawner/lootdrop/surgery_tool_advanced = 4,
-		/obj/effect/spawner/lootdrop/surgery_tool_alien = 1
+		/obj/effect/spawner/mail/advmedtool = 4,
+		/obj/effect/spawner/mail/ayymedtool = 1
 	)
 
 //CLOWN
@@ -197,8 +197,8 @@
 //DEPUTY...IS THIS JOB EVEN ACTIVE? I DON'T THINK IT IS
 /datum/job/deputy
 	mail_goodies = list(
-		/obj/effect/spawner/lootdrop/donut = 20,
-		/obj/effect/spawner/lootdrop/donut_rare = 15,
+		/obj/effect/spawner/mail/donut = 20,
+		/obj/effect/spawner/mail/rdonut = 15,
 		/obj/item/melee/baton = 1
 	)
 
@@ -248,7 +248,7 @@
 		/obj/item/reagent_containers/pill/mutadone = 15,
 		/obj/item/storage/pill_bottle/mannitol = 10,
 		/obj/item/reagent_containers/food/snacks/monkeycube = 10,
-		/obj/effect/spawner/lootdrop/chromosome = 5
+		/obj/effect/spawner/mail/genes = 5
 	)
 
 //HEAD OF PERSONNEL
@@ -265,8 +265,8 @@
 //HEAD OF SECURITY
 /datum/job/hos
 	mail_goodies = list(
-		/obj/effect/spawner/lootdrop/donut = 20,
-		/obj/effect/spawner/lootdrop/donut_rare = 15,
+		/obj/effect/spawner/mail/donut = 20,
+		/obj/effect/spawner/mail/rdonut= 15,
 		/obj/item/firing_pin = 10,
 		/obj/item/implantcase/mindshield = 7,
 		//Vile, vile person...
@@ -320,9 +320,9 @@
 		/obj/item/healthanalyzer/advanced = 10,
 		/obj/item/storage/pill_bottle/epinephrine = 8,
 		/obj/item/reagent_containers/glass/bottle/formaldehyde = 6,
-		/obj/effect/spawner/lootdrop/surgery_tool_advanced = 4,
-		/obj/effect/spawner/lootdrop/teratoma/minor = 5,
-		/obj/effect/spawner/lootdrop/teratoma/major = 1
+		/obj/effect/spawner/mail/advmedtool = 4,
+		/obj/effect/spawner/mail/organminor = 5,
+		/obj/effect/spawner/mail/organmajor = 1
 	)
 
 //MIME
@@ -346,7 +346,7 @@
 
 //QUARTERMASTER
 	mail_goodies = list(
-		/obj/effect/spawner/lootdrop/donkpockets = 10,
+		/obj/item/reagent_containers/food/snacks/donkpocket/random = 10,
 		//the beginning of your department's independence
 		/obj/item/banner/cargo = 5,
 		//if you want to watch the world burn, this is it.
@@ -386,17 +386,17 @@
 		/obj/item/anomaly_neutralizer = 10,
 		/obj/item/disk/tech_disk = 7,
 		//STUFF
-		/obj/effect/spawner/lootdrop/ruinloot/science = 4
+		/obj/effect/spawner/mail/science = 4
 	)
 
 //SECURITY OFFICER
 /datum/job/officer
 	mail_goodies = list(
 		/obj/item/reagent_containers/food/snacks/donut/plain = 15,
-		/obj/effect/spawner/lootdrop/donut = 10,
+		/obj/effect/spawner/mail/donut = 10,
 		//just in case...
 		/obj/item/assembly/flash/handheld = 7,
-		/obj/effect/spawner/lootdrop/donut_rare = 5,
+		/obj/effect/spawner/mail/rdonut = 5,
 		//we don't have boomerangs here, ask ausstation
 		/obj/item/melee/classic_baton/police/telescopic = 1
 	)
@@ -459,8 +459,8 @@
 /datum/job/warden
 	mail_goodies = list(
 		/obj/item/storage/fancy/donut_box = 15,
-		/obj/effect/spawner/lootdrop/donut = 15,
-		/obj/effect/spawner/lootdrop/donut_rare = 10,
+		/obj/effect/spawner/mail/donut = 15,
+		/obj/effect/spawner/mail/rdonut= 10,
 		/obj/item/storage/box/teargas = 10,
 		/obj/item/storage/box/rubbershot = 10,
 		/obj/item/storage/box/lethalshot = 5,

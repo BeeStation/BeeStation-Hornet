@@ -325,12 +325,19 @@
 	. = ..()
 	// 1 in 1000 chance of getting 2 random nuke code characters.
 	if(!prob(nuclear_option_odds))
-		info = "<i>You need to escape the simulation. Don't forget the numbers, they help you remember:</i> '[rand(0,9)][rand(0,9)][rand(0,9)][rand(0,9)]...'"
+		info = "<i>You need to escape the simulation. Don't forget the numbers, they help you remember:</i> '[random_code(4)]...'"
 		return
 	var/code = random_code(5)
-	for(var/obj/machinery/nuclearbomb/selfdestruct/self_destruct in GLOB.nuke_list)
-		self_destruct.r_code = code
-	message_admins("Through junkmail, the self-destruct code was set to \"[code]\".")
+	for(var/obj/machinery/nuclearbomb/selfdestruct/nuke in GLOB.nuke_list)
+		if(nuke)
+			if(nuke.r_code == "ADMIN")
+				nuke.r_code = code
+				message_admins("Through junkmail, the self-destruct code was set to \"[code]\".")
+			else //Already set by admins/something else?
+				code = nuke.r_code
+		else
+			stack_trace("Station self-destruct not found during lone op team creation.")
+			code = null
 	info = "<i>You need to escape the simulation. Don't forget the numbers, they help you remember:</i> '[code[rand(1,5)]][code[rand(1,5)]][code[rand(1,5)]][code[rand(1,5)]]...'"
 
 //admin letter enabling players to brute force their way through the nuke code if they're so inclined.
@@ -346,3 +353,26 @@
 /obj/item/paper/fluff/junkmail_generic/Initialize()
 	. = ..()
 	info = pick(GLOB.junkmail_messages)
+
+/*
+
+		var/obj/machinery/nuclearbomb/selfdestruct/nuke = locate() in GLOB.nuke_list
+		if(nuke)
+			nuke_team.tracked_nuke = nuke
+			if(nuke.r_code == "ADMIN")
+				nuke.r_code = nuke_team.memorized_code
+			else //Already set by admins/something else?
+				nuke_team.memorized_code = nuke.r_code
+		else
+			stack_trace("Station self-destruct not found during lone op team creation.")
+			nuke_team.memorized_code = null
+
+	for(var/obj/machinery/nuclearbomb/selfdestruct/self_destruct in GLOB.nuke_list)
+		if(self_destruct.r_code == "ADMIN")
+			self_destruct.r_code = code
+			message_admins("Through junkmail, the self-destruct code was set to \"[code]\".")
+		else //Already set by admins/something else?
+			self_destruct.r_code = nuke.random_code
+
+
+			*/
