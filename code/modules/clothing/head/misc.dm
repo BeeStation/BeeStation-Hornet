@@ -364,38 +364,6 @@
 	icon_state = "beret"
 	dynamic_hair_suffix = ""
 
-/obj/item/clothing/head/frenchberet/equipped(mob/M, slot)
-	. = ..()
-	if(slot == ITEM_SLOT_HEAD)
-		RegisterSignal(M, COMSIG_MOB_SAY, .proc/handle_speech)
-	else
-		UnregisterSignal(M, COMSIG_MOB_SAY)
-
-/obj/item/clothing/head/frenchberet/dropped(mob/M)
-	. = ..()
-	UnregisterSignal(M, COMSIG_MOB_SAY)
-
-/obj/item/clothing/head/frenchberet/proc/handle_speech(datum/source, mob/speech_args)
-	SIGNAL_HANDLER
-
-	var/message = speech_args[SPEECH_MESSAGE]
-	if(message[1] != "*")
-		message = " [message]"
-		var/list/french_words = strings(FRENCH_TALK_FILE, "french")
-
-		for(var/key in french_words)
-			var/value = french_words[key]
-			if(islist(value))
-				value = pick(value)
-
-			message = replacetextEx(message, " [uppertext(key)]", " [uppertext(value)]")
-			message = replacetextEx(message, " [capitalize(key)]", " [capitalize(value)]")
-			message = replacetextEx(message, " [key]", " [value]")
-
-		if(prob(3))
-			message += pick(" Honh honh honh!"," Honh!"," Zut Alors!")
-	speech_args[SPEECH_MESSAGE] = trim(message)
-
 /obj/item/clothing/head/clownmitre
 	name = "Hat of the Honkmother"
 	desc = "It's hard for parishoners to see a banana peel on the floor when they're looking up at your glorious chapeau."
