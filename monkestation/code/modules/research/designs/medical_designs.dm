@@ -19,3 +19,13 @@
 	build_path = /obj/item/organ/cyberimp/arm/lighter
 	category = list("Misc", "Medical Designs")
 	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL | DEPARTMENTAL_FLAG_SCIENCE
+
+/datum/design/metasyringe
+	name = "Metamaterial Syringe"
+	desc = "A large syringe reinforced with titanium and designed for swift injections. It can hold up to 50 units."
+	id = "metasyringe"
+	build_type = PROTOLATHE
+	materials = list(/datum/material/glass = 2000, /datum/material/plastic = 1000, /datum/material/gold = 1000, /datum/material/titanium = 1000)
+	build_path = /obj/item/reagent_containers/syringe/meta
+	category = list("Medical Designs")
+	departmental_flags = DEPARTMENTAL_FLAG_SECURITY

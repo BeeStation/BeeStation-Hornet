@@ -611,8 +611,8 @@
 /area/tcommsat/oldaisat)
 "cb" = (
 /obj/structure/table,
-/obj/item/reagent_containers/syringe/lethal/choral,
-/obj/item/reagent_containers/syringe/lethal{
+/obj/item/reagent_containers/syringe/meta/choral,
+/obj/item/reagent_containers/syringe/meta{
 	pixel_y = 4
 	},
 /turf/open/floor/plasteel/airless/dark,
