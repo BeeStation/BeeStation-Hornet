@@ -1,0 +1,6 @@
+author: KoboldCommando
+delete-after: true
+changes:
+  - rscadd: Lethal injection syringes can now be researched, and are printed at the
+      security lathe
+  - rscdel: Syringe guns can no longer load lethal injection or bluespace syringes
