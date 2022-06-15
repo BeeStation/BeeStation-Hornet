@@ -1,0 +1,7 @@
+author: DoctorSquishy
+delete-after: true
+changes:
+  - rscadd: Added IPC Part Printing expansion and IPCs can be built now from Roboticist
+      MechFabricator
+  - tweak: IPC Parts is now tech tier 4
+  - refactor: Refactored MechFabricator for better organization in code
