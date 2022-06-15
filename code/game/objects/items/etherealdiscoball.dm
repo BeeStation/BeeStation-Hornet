@@ -15,6 +15,7 @@
 	desc = "The ethics of this discoball are questionable."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "ethdisco_head_0"
+	base_icon_state = "ethdisco_head"
 	anchored = TRUE
 	density = TRUE
 	var/TurnedOn = FALSE
@@ -65,7 +66,8 @@
 	TimerID = addtimer(CALLBACK(src, .proc/DiscoFever), 5, TIMER_STOPPABLE)  //Call ourselves every 0.5 seconds to change colors
 
 /obj/structure/etherealball/update_icon_state()
-	icon_state = "ethdisco_head_[TurnedOn]"
+	icon_state = "[base_icon_state]_[TurnedOn]"
+	return ..()
 
 /obj/structure/etherealball/update_overlays()
 	. = ..()

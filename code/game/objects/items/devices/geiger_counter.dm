@@ -9,6 +9,7 @@
 	desc = "A handheld device used for detecting and measuring radiation pulses."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "geiger_off"
+	base_icon_state = "gieger"
 	item_state = "multitool"
 	lefthand_file = 'icons/mob/inhands/equipment/tools_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
@@ -81,25 +82,26 @@
 
 /obj/item/geiger_counter/update_icon_state()
 	if(!scanning)
-		icon_state = "geiger_off"
-		return
+		icon_state = "[base_icon_state]_off"
+		return ..()
 	if(obj_flags & EMAGGED)
-		icon_state = "geiger_on_emag"
-		return
+		icon_state = "[base_icon_state]_on_emag"
+		return ..()
 
 	switch(radiation_count)
 		if(-INFINITY to RAD_LEVEL_NORMAL)
-			icon_state = "geiger_on_1"
+			icon_state = "[base_icon_state]_on_1"
 		if(RAD_LEVEL_NORMAL + 1 to RAD_LEVEL_MODERATE)
-			icon_state = "geiger_on_2"
+			icon_state = "[base_icon_state]_on_2"
 		if(RAD_LEVEL_MODERATE + 1 to RAD_LEVEL_HIGH)
-			icon_state = "geiger_on_3"
+			icon_state = "[base_icon_state]_on_3"
 		if(RAD_LEVEL_HIGH + 1 to RAD_LEVEL_VERY_HIGH)
-			icon_state = "geiger_on_4"
+			icon_state = "[base_icon_state]_on_4"
 		if(RAD_LEVEL_VERY_HIGH + 1 to RAD_LEVEL_CRITICAL)
-			icon_state = "geiger_on_4"
+			icon_state = "[base_icon_state]_on_4"
 		if(RAD_LEVEL_CRITICAL + 1 to INFINITY)
-			icon_state = "geiger_on_5"
+			icon_state = "[base_icon_state]_on_5"
+	return ..()
 
 /obj/item/geiger_counter/proc/update_sound()
 	var/datum/looping_sound/geiger/loop = soundloop

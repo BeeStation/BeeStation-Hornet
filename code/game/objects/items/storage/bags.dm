@@ -65,6 +65,7 @@
 			icon_state = "[initial(icon_state)]2"
 		else
 			icon_state = "[initial(icon_state)]3"
+	return ..()
 
 /obj/item/storage/bag/trash/cyborg
 	insertable = FALSE
@@ -105,10 +106,8 @@
 	STR.max_w_class = WEIGHT_CLASS_GIGANTIC
 
 /obj/item/storage/bag/trash/bluespace/hammerspace/update_icon_state()
-	if(contents.len == 0)
-		icon_state = "[initial(icon_state)]"
-	else
-		icon_state = "[initial(icon_state)]"
+	icon_state = initial(icon_state)
+	return ..()
 
 /obj/item/storage/bag/trash/bluespace/cyborg
 	insertable = FALSE

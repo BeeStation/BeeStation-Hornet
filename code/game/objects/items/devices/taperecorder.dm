@@ -3,6 +3,7 @@
 	desc = "A device that can record to cassette tapes, and play them. It automatically translates the content in playback."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "taperecorder_empty"
+	base_icon_state = "taperecorder"
 	item_state = "analyzer"
 	lefthand_file = 'icons/mob/inhands/equipment/tools_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
@@ -88,13 +89,17 @@
 
 /obj/item/taperecorder/update_icon_state()
 	if(!mytape)
-		icon_state = "taperecorder_empty"
-	else if(recording)
-		icon_state = "taperecorder_recording"
-	else if(playing)
-		icon_state = "taperecorder_playing"
-	else
-		icon_state = "taperecorder_idle"
+		icon_state = "[base_icon_state]_empty"
+		return ..()
+	if(recording)
+		icon_state = "[base_icon_state]_recording"
+		return ..()
+	if(playing)
+		icon_state = "[base_icon_state]_playing"
+		return ..()
+
+	icon_state = "[base_icon_state]_idle"
+	return ..()
 
 
 /obj/item/taperecorder/Hear(message, atom/movable/speaker, message_langs, raw_message, radio_freq, spans, list/message_mods = list())

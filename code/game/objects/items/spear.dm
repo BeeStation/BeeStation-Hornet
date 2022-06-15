@@ -1,6 +1,7 @@
 //spears
 /obj/item/spear
 	icon_state = "spearglass0"
+	base_icon_state = "spearglass"
 	lefthand_file = 'icons/mob/inhands/weapons/polearms_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/polearms_righthand.dmi'
 	name = "spear"
@@ -20,17 +21,16 @@
 	max_integrity = 200
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 30, "stamina" = 0)
 	var/war_cry = "AAAAARGH!!!"
-	var/icon_prefix = "spearglass"
 
 /obj/item/spear/ComponentInitialize()
 	. = ..()
 	AddComponent(/datum/component/butchering, 100, 70) //decent in a pinch, but pretty bad.
 	AddComponent(/datum/component/jousting)
-	AddComponent(/datum/component/two_handed, force_unwielded=10, force_wielded=18, block_power_wielded=25, icon_wielded="[icon_prefix]1")
+	AddComponent(/datum/component/two_handed, force_unwielded=10, force_wielded=18, block_power_wielded=25, icon_wielded="[base_icon_state]1")
 
-/obj/item/spear/update_appearance()
-	icon_state = "[icon_prefix]0"
-	..()
+/obj/item/spear/update_icon_state()
+	icon_state = "[base_icon_state]0"
+	return ..()
 
 /obj/item/spear/suicide_act(mob/living/carbon/user)
 	user.visible_message("<span class='suicide'>[user] begins to sword-swallow \the [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
@@ -41,7 +41,7 @@
 	if(tip)
 		if (istype(tip, /obj/item/shard/plasma))
 			throwforce = 21
-			icon_prefix = "spearplasma"
+			base_icon_state = "spearplasma"
 			AddComponent(/datum/component/two_handed, force_unwielded=11, force_wielded=19, icon_wielded="[icon_prefix]1")
 		update_appearance()
 		parts_list -= tip
@@ -51,15 +51,15 @@
 		var/obj/item/spear/explosive/lance = new /obj/item/spear/explosive(src.loc, G)
 		lance.TakeComponent(GetComponent(/datum/component/two_handed))
 		lance.throwforce = throwforce
-		lance.icon_prefix = icon_prefix
+		lance.base_icon_state = base_icon_state
 		parts_list -= G
 		qdel(src)
 	return ..()
 
 /obj/item/spear/explosive
 	name = "explosive lance"
-	icon_prefix = "spearbomb"
 	icon_state = "spearbomb0"
+	base_icon_state = "spearbomb"
 	var/obj/item/grenade/explosive = null
 
 /obj/item/spear/explosive/Initialize(mapload, obj/item/grenade/G)
@@ -93,7 +93,7 @@
 			var/lance_unwielded = comp_twohand.force_unwielded
 			AddComponent(/datum/component/two_handed, force_unwielded=lance_unwielded, force_wielded=lance_wielded)
 		throwforce = lancePart.throwforce
-		icon_prefix = lancePart.icon_prefix
+		base_icon_state = lancePart.base_icon_state
 		parts_list -= G
 		parts_list -= lancePart
 		set_explosive(G)
@@ -140,7 +140,7 @@
 
 /obj/item/spear/grey_tide/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/two_handed, force_unwielded=15, force_wielded=25, block_power_wielded=25, icon_wielded="[icon_prefix]1")
+	AddComponent(/datum/component/two_handed, force_unwielded=15, force_wielded=25, block_power_wielded=25, icon_wielded="[base_icon_state]1")
 
 /obj/item/spear/grey_tide/afterattack(atom/movable/AM, mob/living/user, proximity)
 	. = ..()
@@ -161,8 +161,8 @@
  * Bone Spear
  */
 /obj/item/spear/bonespear	//Blatant imitation of spear, but made out of bone. Not valid for explosive modification.
-	icon_prefix = "bone_spear"
 	icon_state = "bone_spear0"
+	base_icon_state = "bone_spear"
 	name = "bone spear"
 	desc = "A haphazardly-constructed yet still deadly weapon. The pinnacle of modern technology."
 	force = 12
@@ -171,11 +171,11 @@
 
 /obj/item/spear/bonespear/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/two_handed, force_unwielded=12, force_wielded=20, block_power_wielded=25, icon_wielded="[icon_prefix]1")
+	AddComponent(/datum/component/two_handed, force_unwielded=12, force_wielded=20, block_power_wielded=25, icon_wielded="[base_icon_state]1")
 
 /obj/item/spear/bamboospear
-	icon_prefix = "bamboo_spear"
 	icon_state = "bamboo_spear0"
+	base_icon_state = "bamboo_spear"
 	lefthand_file = 'icons/mob/inhands/weapons/polearms_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/polearms_righthand.dmi'
 	name = "bamboo spear"
@@ -195,4 +195,4 @@
 /obj/item/spear/bamboospear/ComponentInitialize()
 	. = ..()
 	AddComponent(/datum/component/two_handed, force_unwielded=10, force_wielded=18, \
-				block_power_wielded=25, icon_wielded="[icon_prefix]1")
+				block_power_wielded=25, icon_wielded="[base_icon_state]1")

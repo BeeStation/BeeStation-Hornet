@@ -157,6 +157,7 @@
 
 /obj/item/borg/charger/update_icon_state()
 	icon_state = "charger_[mode]"
+	return ..()
 
 /obj/item/borg/charger/attack_self(mob/user)
 	if(mode == "draw")
@@ -561,6 +562,7 @@
 	desc = "A device that projects a dampening field that weakens kinetic energy above a certain threshold. <span class='boldnotice'>Projects a field that drains power per second while active, that will weaken and slow damaging projectiles inside its field.</span> Still being a prototype, it tends to induce a charge on ungrounded metallic surfaces."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "shield"
+	base_icon_state = "shield"
 	var/maxenergy = 1500
 	var/energy = 1500
 	/// Recharging rate in energy per second
@@ -613,7 +615,8 @@
 	to_chat(user, "<span class='boldnotice'>You [active? "activate":"deactivate"] [src].</span>")
 
 /obj/item/borg/projectile_dampen/update_icon_state()
-	icon_state = "[initial(icon_state)][active]"
+	icon_state = "[base_icon_state][active]"
+	return ..()
 
 /obj/item/borg/projectile_dampen/proc/activate_field()
 	if(istype(dampening_field))
@@ -828,7 +831,7 @@
 			var/obj/item/O = A
 			O.forceMove(src)
 			stored = O
-			RegisterSignal(stored, COMSIG_ATOM_UPDATE_ICON, /atom/.proc/update_icon)
+			RegisterSignal(stored, COMSIG_ATOM_UPDATE_ICON, .proc/update_icon)
 			update_appearance()
 			return
 	else
@@ -841,6 +844,11 @@
 		W.melee_attack_chain(user, stored, params)
 		return
 	. = ..()
+
+/// Exists to eat signal args
+/obj/item/borg/apparatus/proc/on_update_icon(datum/source, updates)
+	SIGNAL_HANDLER
+	return on_update_icon(updates)
 
 /////////////////
 //beaker holder//
@@ -856,7 +864,7 @@
 /obj/item/borg/apparatus/beaker/Initialize(mapload)
 	. = ..()
 	stored = new /obj/item/reagent_containers/glass/beaker/large(src)
-	RegisterSignal(stored, COMSIG_ATOM_UPDATE_ICON, /atom/.proc/update_icon)
+	RegisterSignal(stored, COMSIG_ATOM_UPDATE_ICON, .proc/on_update_icon)
 	update_appearance()
 
 /obj/item/borg/apparatus/beaker/Destroy()

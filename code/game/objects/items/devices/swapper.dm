@@ -3,6 +3,7 @@
 	desc = "An experimental device that is able to swap the locations of two entities by switching their particles' spin values. Must be linked to another device to function."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "swapper"
+	base_icon_state = "swapper"
 	item_state = "electronic"
 	w_class = WEIGHT_CLASS_SMALL
 	item_flags = NOBLUDGEON
@@ -21,10 +22,8 @@
 	return ..()
 
 /obj/item/swapper/update_icon_state()
-	if(linked_swapper)
-		icon_state = "swapper-linked"
-	else
-		icon_state = "swapper"
+	icon_state = "[base_icon_state][linked_swapper ? "-linked" : null]"
+	return ..()
 
 /obj/item/swapper/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/swapper))

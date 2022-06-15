@@ -39,10 +39,8 @@ GLOBAL_LIST_INIT(rod_recipes, list ( \
 
 /obj/item/stack/rods/update_icon_state()
 	var/amount = get_amount()
-	if(amount <= 5)
-		icon_state = "rods-[amount]"
-	else
-		icon_state = "rods"
+	icon_state = "rods[(amount <= 5) ? "-[amount]" : null]"
+	return ..()
 
 /obj/item/stack/rods/attackby(obj/item/W, mob/user, params)
 	if(W.tool_behaviour == TOOL_WELDER)

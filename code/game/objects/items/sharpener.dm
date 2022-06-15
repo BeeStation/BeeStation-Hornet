@@ -47,6 +47,10 @@
 	used = 1
 	update_appearance()
 
+/obj/item/sharpener/update_name()
+	name = "[!uses ? "worn out " : null][initial(name)]"
+	return ..()
+
 /obj/item/sharpener/super
 	name = "super whetstone"
 	desc = "A block that will make your weapon sharper than Einstein on adderall."

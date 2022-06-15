@@ -45,6 +45,7 @@
 
 	icon = 'icons/obj/janitor.dmi'
 	icon_state = "lightreplacer0"
+	base_icon_state = "lightreplacer"
 	item_state = "electronic"
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
@@ -152,7 +153,8 @@
 	to_chat(user, status_string())
 
 /obj/item/lightreplacer/update_icon_state()
-	icon_state = "lightreplacer[(obj_flags & EMAGGED ? 1 : 0)]"
+	icon_state = "[base_icon_state][(obj_flags & EMAGGED ? 1 : 0)]"
+	return ..()
 
 /obj/item/lightreplacer/proc/status_string()
 	return "It has [uses] light\s remaining (plus [bulb_shards] fragment\s)."

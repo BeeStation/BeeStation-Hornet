@@ -3,6 +3,7 @@
 	desc = "A keycard able to link to a quantum pad's particle signature, allowing other quantum pads to travel there instead of their linked pad."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "quantum_keycard"
+	base_icon_state = "quantum_keycard"
 	item_state = "card-id"
 	lefthand_file = 'icons/mob/inhands/equipment/idcards_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/idcards_righthand.dmi'
@@ -26,7 +27,5 @@
 		qpad = null
 
 /obj/item/quantum_keycard/update_icon_state()
-	if(qpad)
-		icon_state = "quantum_keycard_on"
-	else
-		icon_state = initial(icon_state)
+	icon_state = "[base_icon_state][qpad ? "_on" : null]"
+	return ..()

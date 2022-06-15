@@ -3,6 +3,7 @@
 	desc = "You are a firestarter!"
 	icon = 'icons/obj/flamethrower.dmi'
 	icon_state = "flamethrowerbase"
+	base_icon_state = "flamethrower"
 	item_state = "flamethrower_0"
 	lefthand_file = 'icons/mob/inhands/weapons/flamethrower_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/flamethrower_righthand.dmi'
@@ -59,7 +60,8 @@
 
 
 /obj/item/flamethrower/update_icon_state()
-	item_state = "flamethrower_[lit]"
+	item_state = "[base_icon_state]_[lit]"
+	return ..()
 
 /obj/item/flamethrower/update_overlays()
 	. = ..()

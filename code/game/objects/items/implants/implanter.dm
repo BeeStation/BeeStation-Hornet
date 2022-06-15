@@ -3,6 +3,7 @@
 	desc = "A sterile automatic implant injector."
 	icon = 'icons/obj/syringe.dmi'
 	icon_state = "implanter0"
+	base_icon_state = "implanter"
 	item_state = "syringe_0"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
@@ -13,13 +14,9 @@
 	var/obj/item/implant/imp = null
 	var/imp_type = null
 
-
 /obj/item/implanter/update_icon_state()
-	if(imp)
-		icon_state = "implanter1"
-	else
-		icon_state = "implanter0"
-
+	icon_state = "[base_icon_state][imp ? 1 : 0]"
+	return ..()
 
 /obj/item/implanter/attack(mob/living/M, mob/user)
 	if(!istype(M))

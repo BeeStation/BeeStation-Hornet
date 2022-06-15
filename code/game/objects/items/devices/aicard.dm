@@ -3,6 +3,7 @@
 	desc = "A storage device for AIs. Patent pending."
 	icon = 'icons/obj/aicards.dmi'
 	icon_state = "aicard" // aicard-full
+	base_icon_state = "aicard" // aicard-full
 	item_state = "electronic"
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
@@ -16,11 +17,13 @@
 	name = "intelliTater"
 	desc = "A stylish upgrade (?) to the intelliCard."
 	icon_state = "aitater"
+	base_icon_state = "aitater"
 
 /obj/item/aicard/aispook
 	name = "intelliLantern"
 	desc = "A spoOoOoky upgrade to the intelliCard."
 	icon_state = "aispook"
+	base_icon_state = "aispook"
 
 /obj/item/aicard/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] is trying to upload [user.p_them()]self into [src]! That's not going to work out well!</span>")
@@ -39,21 +42,27 @@
 			log_combat(user, AI, "carded", src)
 	update_appearance() //Whatever happened, update the card's state (icon, name) to match.
 
-/obj/item/aicard/update_appearance()
-	cut_overlays()
-	if(AI)
-		name = "[initial(name)] - [AI.name]"
-		if(AI.stat == DEAD)
-			icon_state = "[initial(icon_state)]-404"
-		else
-			icon_state = "[initial(icon_state)]-full"
-		if(!AI.control_disabled)
-			add_overlay("[initial(icon_state)]-on")
-		AI.cancel_camera()
-	else
+/obj/item/aicard/update_name()
+	if(!AI)
 		name = initial(name)
-		icon_state = initial(icon_state)
+		return ..()
+	name = "[initial(name)] - [AI.name]"
+	return ..()
 
+/obj/item/aicard/update_icon_state()
+	if(!AI)
+		icon_state = base_icon_state
+		return ..()
+
+	icon_state = "[base_icon_state]-[(AI.stat == DEAD) ? "404" : "full"]"
+	AI.cancel_camera()
+	return ..()
+
+/obj/item/aicard/update_overlays()
+	. = ..()
+	if(!AI?.control_disabled)
+		return
+	. += "[initial(icon_state)]-on"
 
 /obj/item/aicard/ui_state(mob/user)
 	return GLOB.hands_state

@@ -591,14 +591,11 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 
 /obj/item/lighter/update_overlays()
 	. = ..()
-	. += create_lighter_overlay()
+	. += mutable_appearance(icon,"lighter_overlay_[overlay_state][lit ? "-on" : ""]")
 
 /obj/item/lighter/update_icon_state()
 	icon_state = "[initial(icon_state)][lit ? "-on" : ""]"
 	return ..()
-
-/obj/item/lighter/proc/create_lighter_overlay()
-	return mutable_appearance(icon,"lighter_overlay_[overlay_state][lit ? "-on" : ""]")
 
 /obj/item/lighter/ignition_effect(atom/A, mob/user)
 	if(is_hot())
@@ -725,12 +722,12 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 		lighter_color = pick(color_list)
 	update_appearance()
 
-/obj/item/lighter/greyscale/update_appearance()
-	cut_overlays()
+/obj/item/lighter/greyscale/update_overlays()
+	. = ..()
 	var/mutable_appearance/lighter_overlay = mutable_appearance(icon,"lighter_overlay_[overlay_state][lit ? "-on" : ""]")
 	icon_state = "[initial(icon_state)][lit ? "-on" : ""]"
 	lighter_overlay.color = lighter_color
-	add_overlay(lighter_overlay)
+	. += lighter_overlay
 
 /obj/item/lighter/greyscale/ignition_effect(atom/A, mob/user)
 	if(is_hot())

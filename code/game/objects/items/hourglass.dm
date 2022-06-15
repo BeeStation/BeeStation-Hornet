@@ -10,6 +10,7 @@
 	var/hand_activated = TRUE
 	icon = 'icons/obj/hourglass.dmi'
 	icon_state = "hourglass_idle"
+	base_icon_state = "hourglass"
 
 /obj/item/hourglass/Initialize(mapload)
 	. = ..()
@@ -30,10 +31,8 @@
 		stop()
 
 /obj/item/hourglass/update_icon_state()
-	if(timing_id)
-		icon_state = "hourglass_active"
-	else
-		icon_state = "hourglass_idle"
+	icon_state = "[base_icon_state]_[timing_id ? "active" : "idle"]"
+	return ..()
 
 /obj/item/hourglass/proc/start()
 	finish_time = world.time + time

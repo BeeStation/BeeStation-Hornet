@@ -9,6 +9,7 @@
 	desc = "A nulling power sink which drains energy from electrical systems."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "powersink0"
+	base_icon_state = "powersink"
 	item_state = "electronic"
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
@@ -27,7 +28,8 @@
 	var/obj/structure/cable/attached		// the attached cable
 
 /obj/item/powersink/update_icon_state()
-	icon_state = "powersink[mode == OPERATING]"
+	icon_state = "[base_icon_state][mode == OPERATING]"
+	return ..()
 
 /obj/item/powersink/proc/set_mode(value)
 	if(value == mode)

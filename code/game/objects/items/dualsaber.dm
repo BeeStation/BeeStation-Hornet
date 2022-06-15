@@ -4,6 +4,7 @@
 /obj/item/dualsaber
 	icon = 'icons/obj/transforming_energy.dmi'
 	icon_state = "dualsaber0"
+	base_icon_state = "dualsaber0"
 	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
 	name = "double-bladed energy sword"
@@ -86,10 +87,11 @@
 	STOP_PROCESSING(SSobj, src)
 	set_light_on(FALSE)
 
-/obj/item/dualsaber/update_appearance()
-	icon_state = "dualsaber0"
+/obj/item/dualsaber/update_icon_state()
+	var/wielded = ISWIELDED(src)
+	icon_state = wielded ? "[base_icon_state][saber_color][wielded]" : "[base_icon_state]0"
 	SEND_SIGNAL(src, COMSIG_COMPONENT_CLEAN_ACT, CLEAN_STRENGTH_BLOOD)
-	..()
+	return ..()
 
 /obj/item/dualsaber/suicide_act(mob/living/carbon/user)
 	if(ISWIELDED(src))

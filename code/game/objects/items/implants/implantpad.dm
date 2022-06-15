@@ -3,6 +3,7 @@
 	desc = "Used to modify implants."
 	icon = 'icons/obj/items_and_weapons.dmi'
 	icon_state = "implantpad-0"
+	base_icon_state = "implantpad"
 	item_state = "electronic"
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
@@ -12,7 +13,8 @@
 	var/obj/item/implantcase/case = null
 
 /obj/item/implantpad/update_icon_state()
-	icon_state = "implantpad-[!QDELETED(case)]"
+	icon_state = "[base_icon_state]-[!QDELETED(case)]"
+	return ..()
 
 /obj/item/implantpad/examine(mob/user)
 	. = ..()

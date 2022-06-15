@@ -165,10 +165,7 @@
 /obj/item/inducer/update_overlays()
 	. = ..()
 	if(opened)
-		if(!cell)
-			. += "inducer-nobat"
-		else
-			. += "inducer-bat"
+		. += "inducer-[cell ? "bat" : "nobat"]"
 
 ///Starts empty for engineering protolathe
 /obj/item/inducer/eng

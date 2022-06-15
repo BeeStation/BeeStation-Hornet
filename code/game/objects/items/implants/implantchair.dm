@@ -3,6 +3,7 @@
 	desc = "Used to implant occupants with mindshield implants."
 	icon = 'icons/obj/machines/implantchair.dmi'
 	icon_state = "implantchair"
+	base_icon_state = "implantchair"
 	density = TRUE
 	opacity = 0
 
@@ -97,13 +98,11 @@
 		P.Insert(M, FALSE, FALSE)
 		visible_message("<span class='warning'>[M] has been implanted by [src].</span>")
 		return TRUE
+	return ..()
 
 /obj/machinery/implantchair/update_icon_state()
-	icon_state = initial(icon_state)
-	if(state_open)
-		icon_state += "_open"
-	if(occupant)
-		icon_state += "_occupied"
+	icon_state = "[base_icon_state][state_open ? "_open" : null][occupant ? "_occupied" : null]"
+	return ..()
 
 /obj/machinery/implantchair/update_overlays()
 	. = ..()

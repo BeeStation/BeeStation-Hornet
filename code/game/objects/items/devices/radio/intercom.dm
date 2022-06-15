@@ -2,6 +2,7 @@
 	name = "station intercom"
 	desc = "Talk through this."
 	icon_state = "intercom"
+	base_icon_state = "intercom"
 	anchored = TRUE
 	w_class = WEIGHT_CLASS_BULKY
 	canhear_range = 2
@@ -109,12 +110,9 @@
 	. = ..()
 	AreaPowerCheck() // Make sure the area/local APC is powered first before we actually turn back on.
 
-/obj/item/radio/intercom/update_appearance()
-	. = ..()
-	if(on)
-		icon_state = initial(icon_state)
-	else
-		icon_state = "intercom-p"
+/obj/item/radio/intercom/update_icon_state()
+	icon_state = "[base_icon_state][on ? null : "-p"]"
+	return ..()
 
 /**
  * Proc called whenever the intercom's area loses or gains power. Responsible for setting the `on` variable and calling `update_appearance()`.

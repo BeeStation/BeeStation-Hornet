@@ -1,5 +1,6 @@
 /obj/item/pitchfork
 	icon_state = "pitchfork0"
+	base_icon_state = "pitchfork"
 	lefthand_file = 'icons/mob/inhands/weapons/polearms_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/polearms_righthand.dmi'
 	name = "pitchfork"
@@ -18,11 +19,11 @@
 
 /obj/item/pitchfork/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/two_handed, force_unwielded=7, force_wielded=15, block_power_wielded=25, icon_wielded="pitchfork1")
+	AddComponent(/datum/component/two_handed, force_unwielded=7, force_wielded=15, block_power_wielded=25, icon_wielded="[base_icon_state]1")
 
-/obj/item/pitchfork/update_appearance()
-	icon_state = "pitchfork0"
-	..()
+/obj/item/pitchfork/update_icon_state()
+	icon_state = "[base_icon_state]0"
+	return ..()
 
 /obj/item/pitchfork/demonic
 	name = "demonic pitchfork"

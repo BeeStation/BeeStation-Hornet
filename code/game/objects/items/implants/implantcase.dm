@@ -3,6 +3,7 @@
 	desc = "A glass case containing an implant."
 	icon = 'icons/obj/syringe.dmi'
 	icon_state = "implantcase-0"
+	base_icon_state = "implantcase"
 	item_state = "implantcase"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
@@ -13,13 +14,9 @@
 	var/obj/item/implant/imp = null
 	var/imp_type
 
-
 /obj/item/implantcase/update_icon_state()
-	if(imp)
-		icon_state = "implantcase-[imp.implant_color]"
-	else
-		icon_state = "implantcase-0"
-
+	icon_state = "[base_icon_state]-[imp ? imp.implant_color : 0]"
+	return ..()
 
 /obj/item/implantcase/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/pen))
