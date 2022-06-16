@@ -206,6 +206,7 @@
 	id = "barShutters";
 	name = "privacy shutters"
 	},
+/obj/structure/grille/ratvar,
 /turf/open/floor/bronze,
 /area/crew_quarters/bar)
 "KH" = (
