@@ -1,0 +1,8 @@
+author: DoctorSquishy, PowerfulBacon, PestoVerde322
+delete-after: true
+changes:
+  - bugfix: Blobs can no longer destroy indestructible items.
+  - bugfix: Taking the minimum amount of stamina damage will now properly heal.
+  - bugfix: Fixes a few miscalculations of minimum damage, meaning that 0.1 damage
+      should properly update the health hud and display on examine.
+  - bugfix: Fixes clockcult pressure sensors not working
