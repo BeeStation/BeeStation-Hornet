@@ -2,7 +2,7 @@
 	name = "Toggle Mask"
 
 /datum/action/item_action/use_circuit_goggles
-	name = "Toggle Circuit Goggles"
+	name = "Activate Circuit Goggles"
 	icon_icon = 'monkestation/icons/mob/actions/actions_items.dmi'
 	//icon_icon = 'monkestation/icons/obj/wiremod.dmi'
 	button_icon_state = "goggle_toggle"
