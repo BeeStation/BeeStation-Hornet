@@ -1,6 +1,0 @@
-author: wraith-54321
-delete-after: true
-changes:
-  - rscadd: New admin only Ratvarian escape shuttle
-  - bugfix: Added grills to the clockwork bar windows
-  - bugfix: Removed duplicate chairs in the magical bar
