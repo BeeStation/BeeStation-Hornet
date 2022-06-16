@@ -239,9 +239,10 @@
 	if(!embedded_flash || embedded_flash.burnt_out)
 		icon_state = "riot"
 		item_state = "riot"
-	else
-		icon_state = "flashshield"
-		item_state = "flashshield"
+		return ..()
+	icon_state = "flashshield"
+	item_state = "flashshield"
+	return ..()
 
 /obj/item/shield/riot/flash/examine(mob/user)
 	. = ..()

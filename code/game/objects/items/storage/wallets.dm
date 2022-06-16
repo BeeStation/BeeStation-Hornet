@@ -2,6 +2,7 @@
 	name = "wallet"
 	desc = "It can hold a few small and personal things."
 	icon_state = "wallet"
+	base_icon_state = "wallet"
 	w_class = WEIGHT_CLASS_SMALL
 	resistance_flags = FLAMMABLE
 	slot_flags = ITEM_SLOT_ID
@@ -60,15 +61,12 @@
 	. = ..()
 	refreshID()
 
-/obj/item/storage/wallet/update_appearance()
-	var/new_state = "wallet"
-	if(front_id)
-		if("wallet_[front_id.icon_state]" in icon_states(src.icon)) //fixes the bug that would make your wallet disappear with the new ids
-			new_state = "wallet_[front_id.icon_state]"
-		else
-			new_state = "wallet_id"
-	if(new_state != icon_state)		//avoid so many icon state changes.
-		icon_state = new_state
+/obj/item/storage/wallet/update_icon_state()
+	if(!front_id)
+		icon_state = "wallet_id"
+		return ..()
+	icon_state = "[base_icon_state]_[("wallet_[front_id.icon_state]" in icon_states(src.icon)) ? front_id.icon_state : "id"]" // what the fuck
+	return ..()
 
 /obj/item/storage/wallet/GetID()
 	return front_id

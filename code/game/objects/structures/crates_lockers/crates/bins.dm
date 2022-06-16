@@ -2,6 +2,7 @@
 	desc = "A trash bin, place your trash here for the janitor to collect."
 	name = "trash bin"
 	icon_state = "largebins"
+	base_icon_state = "largebins"
 	open_sound = 'sound/effects/bin_open.ogg'
 	close_sound = 'sound/effects/bin_close.ogg'
 	anchored = TRUE
@@ -11,20 +12,24 @@
 
 /obj/structure/closet/crate/bin/Initialize(mapload)
 	. = ..()
-	if(icon_state == "[initial(icon_state)]open")
+	if(icon_state == "[base_icon_state]open")
 		opened = TRUE
 	update_appearance()
 
-/obj/structure/closet/crate/bin/update_appearance()
-	icon_state = "[initial(icon_state)][opened ? "open" : ""]"
+/obj/structure/closet/crate/bin/update_icon_state()
+	icon_state = "[base_icon_state][opened ? "open" : null]"
+	return ..()
 
-	cut_overlays()
+/obj/structure/closet/crate/bin/update_overlays()
+	. = ..()
+
 	if(contents.len == 0)
-		add_overlay("largebing")
-	else if(contents.len >= storage_capacity)
-		add_overlay("largebinr")
-	else
-		add_overlay("largebino")
+		. += "largebing"
+		return
+	if(contents.len >= storage_capacity)
+		. += "largebinr"
+		return
+	. += "largebino"
 
 /obj/structure/closet/crate/bin/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/storage/bag/trash))

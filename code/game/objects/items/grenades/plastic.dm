@@ -2,6 +2,7 @@
 	name = "plastic explosive"
 	desc = "Used to put holes in specific areas without too much extra hole."
 	icon_state = "plastic-explosive0"
+	base_icon_state = "plastic-explosive"
 	item_state = "plastic-explosive"
 	lefthand_file = 'icons/mob/inhands/weapons/bombs_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/bombs_righthand.dmi'
@@ -173,11 +174,9 @@
 	user.gib(1, 1)
 	qdel(src)
 
-/obj/item/grenade/plastic/update_appearance()
-	if(nadeassembly)
-		icon_state = "[item_state]1"
-	else
-		icon_state = "[item_state]0"
+/obj/item/grenade/plastic/update_icon_state()
+	icon_state = "[base_icon_state][nadeassembly]"
+	return ..()
 
 //////////////////////////
 ///// The Explosives /////

@@ -47,22 +47,15 @@
 			if(!locatedcrate.opened) //otherwise, if the located crate is closed, allow entering
 				return TRUE
 
-/obj/structure/closet/crate/update_appearance()
-	cut_overlays()
+/obj/structure/closet/crate/update_overlays()
+	. += ..()
+	layer = opened ? BELOW_OBJ_LAYER : OBJ_LAYER
+	if(is_animating_door)
+		return
 	if(!opened)
-		layer = OBJ_LAYER
-		if(!is_animating_door)
-			if(icon_door)
-				add_overlay("[icon_door]_door")
-			else
-				add_overlay("[icon_state]_door")
+		. += "[icon_door ? icon_door : icon_state]_door"
 	else
-		layer = BELOW_OBJ_LAYER
-		if(!is_animating_door)
-			if(icon_door_override)
-				add_overlay("[icon_door]_open")
-			else
-				add_overlay("[icon_state]_open")
+		. += "[icon_door_override ? icon_door : icon_state]_open"
 
 /obj/structure/closet/crate/animate_door(var/closing = FALSE)
 	if(!door_anim_time)

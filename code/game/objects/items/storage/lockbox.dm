@@ -118,19 +118,15 @@
 	for(var/i in 1 to 3)
 		new /obj/item/clothing/accessory/medal/conduct(src)
 
-/obj/item/storage/lockbox/medal/update_appearance()
+/obj/item/storage/lockbox/medal/update_icon_state()
 	var/locked = SEND_SIGNAL(src, COMSIG_IS_STORAGE_LOCKED)
 	if(locked)
 		icon_state = "[base_icon_state]+l"
 		item_state = "[base_icon_state]+l"
-	else
-		icon_state = "[base_icon_state]"
-		item_state = "[base_icon_state]"
-		if(open)
-			icon_state += "open"
-		if(broken)
-			icon_state += "+b"
-			item_state = "[base_icon_state]+b"
+		return ..()
+	icon_state = "[base_icon_state][open ? "open" : null][broken ? "+b" : null]"
+	item_state = "[base_icon_state][broken ? "+b" : null]"
+	return ..()
 
 /obj/item/storage/lockbox/medal/update_overlays()
 	. = ..()

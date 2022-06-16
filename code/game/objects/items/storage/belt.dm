@@ -760,6 +760,7 @@
 	name = "sabre sheath"
 	desc = "An ornate sheath designed to hold an officer's blade."
 	icon_state = "sheath"
+	base_icon_state = "sheath"
 	item_state = "sheath"
 	worn_icon_state = "sheath"
 	w_class = WEIGHT_CLASS_BULKY
@@ -792,13 +793,15 @@
 		to_chat(user, "[src] is empty.")
 
 /obj/item/storage/belt/sabre/update_icon_state()
-	icon_state = initial(icon_state)
-	item_state = initial(item_state)
-	worn_icon_state = initial(worn_icon_state)
-	if(contents.len)
-		icon_state += "-sabre"
-		item_state += "-sabre"
-		worn_icon_state += "-sabre"
+	icon_state = base_icon_state
+	item_state = base_icon_state
+	worn_icon_state = base_icon_state
+	if(!contents.len)
+		return ..()
+	icon_state = "[base_icon_state]-sabre"
+	item_state = "[base_icon_state]-sabre"
+	worn_icon_state = "[base_icon_state]-sabre"
+	return ..()
 
 /obj/item/storage/belt/sabre/PopulateContents()
 	new /obj/item/melee/sabre(src)
@@ -814,7 +817,8 @@
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = ITEM_SLOT_BACK|ITEM_SLOT_BELT
 
-/obj/item/storage/belt/sabre/mime/update_appearance()
+/obj/item/storage/belt/sabre/mime/update_icon_state()
+	. = ..()
 	icon_state = "baguette"
 	item_state = "baguette"
 

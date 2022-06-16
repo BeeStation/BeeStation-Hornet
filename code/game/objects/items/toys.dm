@@ -110,9 +110,10 @@
 	if(src.reagents.total_volume >= 1)
 		icon_state = "waterballoon"
 		item_state = "balloon"
-	else
-		icon_state = "waterballoon-e"
-		item_state = "balloon-empty"
+		return ..()
+	icon_state = "waterballoon-e"
+	item_state = "balloon-empty"
+	return ..()
 
 /obj/item/toy/syndicateballoon
 	name = "syndicate balloon"
@@ -228,6 +229,7 @@
 
 /obj/item/toy/ammo/gun/update_icon_state()
 	icon_state = "357OLD-[amount_left]"
+	return ..()
 
 /obj/item/toy/ammo/gun/examine(mob/user)
 	. = ..()
@@ -753,6 +755,7 @@
 		icon_state = "deck_[deckstyle]_low"
 	else if(!LAZYLEN(cards))
 		icon_state = "deck_[deckstyle]_empty"
+	return ..()
 
 /obj/item/toy/cards/deck/attack_self(mob/user)
 	if(cooldown < world.time - 50)
@@ -1493,8 +1496,9 @@
 	open = !open
 	update_appearance()
 
-/obj/item/toy/eldrich_book/update_appearance()
-	icon_state = open ? "book_open" : "book"
+/obj/item/toy/eldrich_book/update_icon_state()
+	icon_state = "book[open ? "_open" : null]"
+	return ..()
 
 /*
  * Fake tear
@@ -1524,8 +1528,9 @@
 	name = "dealer module"
 	desc = "A module for handling, fabricating cards and tricking suckers into gambling awaya their money. Ctrl Click to fabricate a new set of cards."
 
-/obj/item/toy/cards/deck/cyborg/update_appearance()
+/obj/item/toy/cards/deck/cyborg/update_icon_state()
 	icon_state = "deck_[deckstyle]_full"
+	return ..()
 
 /obj/item/toy/cards/deck/cyborg/CtrlClick(mob/user)
 	..()

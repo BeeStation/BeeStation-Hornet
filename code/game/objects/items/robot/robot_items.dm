@@ -831,7 +831,7 @@
 			var/obj/item/O = A
 			O.forceMove(src)
 			stored = O
-			RegisterSignal(stored, COMSIG_ATOM_UPDATE_ICON, .proc/update_icon)
+			RegisterSignal(stored, COMSIG_ATOM_UPDATE_ICON, .proc/on_update_icon)
 			update_appearance()
 			return
 	else
@@ -930,8 +930,8 @@
 	. = ..()
 	update_appearance()
 
-/obj/item/borg/apparatus/circuit/update_appearance()
-	cut_overlays()
+/obj/item/borg/apparatus/circuit/update_overlays()
+	. = ..()
 	if(stored)
 		COMPILE_OVERLAYS(stored)
 		stored.pixel_x = -3
@@ -943,11 +943,11 @@
 			arm = image("icon"="borg_hardware_apparatus_arm2", "layer"=FLOAT_LAYER)
 		var/image/img = image("icon"=stored, "layer"=FLOAT_LAYER)
 		img.plane = FLOAT_PLANE
-		add_overlay(arm)
-		add_overlay(img)
+		. += arm
+		. += img
 	else
 		var/image/arm = image("icon"="borg_hardware_apparatus_arm1", "layer"=FLOAT_LAYER)
-		add_overlay(arm)
+		. += arm
 
 /obj/item/borg/apparatus/circuit/examine()
 	. = ..()

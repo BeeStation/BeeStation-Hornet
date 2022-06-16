@@ -5,6 +5,7 @@
 	desc = "A standard edition welder provided by Nanotrasen."
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "welder"
+	base_icon_state = "welder"
 	item_state = "welder"
 	lefthand_file = 'icons/mob/inhands/equipment/tools_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
@@ -52,11 +53,8 @@
 	AddElement(/datum/element/update_icon_updates_onmob)
 
 /obj/item/weldingtool/update_icon_state()
-	if(welding)
-		item_state = "[initial(item_state)]1"
-	else
-		item_state = "[initial(item_state)]"
-
+	item_state = "[base_icon_state][welding ? 1 : null]"
+	return ..()
 
 /obj/item/weldingtool/update_overlays()
 	. = ..()
@@ -358,6 +356,7 @@
 	name = "upgraded industrial welding tool"
 	desc = "An upgraded welder based of the industrial welder."
 	icon_state = "upindwelder"
+	base_icon_state = "upindwelder"
 	item_state = "upindwelder"
 	max_fuel = 80
 	materials = list(/datum/material/iron=70, /datum/material/glass=120)
@@ -366,6 +365,7 @@
 	name = "experimental welding tool"
 	desc = "An experimental welder capable of self-fuel generation and less harmful to the eyes."
 	icon_state = "exwelder"
+	base_icon_state = "exwelder"
 	item_state = "exwelder"
 	max_fuel = 40
 	materials = list(/datum/material/iron=70, /datum/material/glass=120)
@@ -381,6 +381,7 @@
 	desc = "A brass welder that seems to constantly refuel itself. It is faintly warm to the touch."
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	icon_state = "brasswelder"
+	base_icon_state = "brasswelder"
 	item_state = "brasswelder"
 	light_intensity = 1
 

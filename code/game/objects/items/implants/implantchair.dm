@@ -98,7 +98,7 @@
 		P.Insert(M, FALSE, FALSE)
 		visible_message("<span class='warning'>[M] has been implanted by [src].</span>")
 		return TRUE
-	return ..()
+	return FALSE
 
 /obj/machinery/implantchair/update_icon_state()
 	icon_state = "[base_icon_state][state_open ? "_open" : null][occupant ? "_occupied" : null]"

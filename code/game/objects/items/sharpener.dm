@@ -4,12 +4,11 @@
 	icon_state = "sharpener"
 	desc = "A block that makes things sharp."
 	force = 5
-	var/used = 0
+	var/used = FALSE
 	var/increment = 4
 	var/max = 30
 	var/prefix = "sharpened"
 	var/requires_sharpness = 1
-
 
 /obj/item/sharpener/attackby(obj/item/I, mob/user, params)
 	if(used)
@@ -44,11 +43,11 @@
 	I.name = "[prefix] [I.name]"
 	name = "worn out [name]"
 	desc = "[desc] At least, it used to."
-	used = 1
+	used = TRUE
 	update_appearance()
 
 /obj/item/sharpener/update_name()
-	name = "[!uses ? "worn out " : null][initial(name)]"
+	name = "[used ? "worn out " : null][initial(name)]"
 	return ..()
 
 /obj/item/sharpener/super

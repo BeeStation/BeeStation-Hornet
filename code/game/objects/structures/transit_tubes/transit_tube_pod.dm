@@ -22,11 +22,9 @@
 	empty_pod()
 	return ..()
 
-/obj/structure/transit_tube_pod/update_appearance()
-	if(contents.len)
-		icon_state = "pod_occupied"
-	else
-		icon_state = "pod"
+/obj/structure/transit_tube_pod/update_icon_state()
+	icon_state = "pod[contents.len ? "_occupied" : null]"
+	return ..()
 
 /obj/structure/transit_tube_pod/attackby(obj/item/I, mob/user, params)
 	if(I.tool_behaviour == TOOL_CROWBAR)

@@ -217,6 +217,7 @@
 	throw_speed = 1
 	throw_range = 1
 	icon_state = "beartrap"
+	base_icon_state = "beartrap"
 	desc = "A trap used to catch bears and other legged creatures."
 	var/armed = 0
 	var/trap_damage = 20
@@ -230,7 +231,8 @@
 	AddElement(/datum/element/connect_loc, loc_connections)
 
 /obj/item/restraints/legcuffs/beartrap/update_icon_state()
-	icon_state = "[initial(icon_state)][armed]"
+	icon_state = "[base_icon_state][armed]"
+	return ..()
 
 /obj/item/restraints/legcuffs/beartrap/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is sticking [user.p_their()] head in the [src.name]! It looks like [user.p_theyre()] trying to commit suicide!</span>")

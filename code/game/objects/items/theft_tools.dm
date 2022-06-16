@@ -228,10 +228,8 @@
 	return ..()
 
 /obj/item/hemostat/supermatter/update_icon_state()
-	if(sliver)
-		icon_state = "supermatter_tongs_loaded"
-	else
-		icon_state = "supermatter_tongs"
+	icon_state = "supermatter_tongs[sliver ? "_loaded" : null]"
+	return ..()
 
 /obj/item/hemostat/supermatter/afterattack(atom/O, mob/user, proximity)
 	. = ..()

@@ -42,7 +42,7 @@
 		if (istype(tip, /obj/item/shard/plasma))
 			throwforce = 21
 			base_icon_state = "spearplasma"
-			AddComponent(/datum/component/two_handed, force_unwielded=11, force_wielded=19, icon_wielded="[icon_prefix]1")
+			AddComponent(/datum/component/two_handed, force_unwielded=11, force_wielded=19, icon_wielded="[base_icon_state]1")
 		update_appearance()
 		parts_list -= tip
 		qdel(tip)

@@ -15,6 +15,7 @@
 	desc = "Used for pulsing wires to test which to cut. Not recommended by doctors."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "multitool"
+	base_icon_state = "multitool"
 	item_state = "multitool"
 	lefthand_file = 'icons/mob/inhands/equipment/tools_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
@@ -85,8 +86,9 @@
 	if(hud_on)
 		remove_hud(user)
 
-/obj/item/multitool/ai_detect/update_appearance()
-	icon_state = "[initial(icon_state)][detect_state]"
+/obj/item/multitool/ai_detect/update_icon_state()
+	icon_state = "[base_icon_state][detect_state]"
+	return ..()
 
 /obj/item/multitool/ai_detect/process()
 	var/old_detect_state = detect_state
