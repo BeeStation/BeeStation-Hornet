@@ -83279,7 +83279,7 @@
 /turf/open/floor/plasteel,
 /area/crew_quarters/dorms)
 "wOE" = (
-/obj/machinery/droneDispenser/snowflake,
+/obj/machinery/droneDispenser/preloaded,
 /turf/open/floor/plating,
 /area/maintenance/aft/secondary)
 "wOT" = (

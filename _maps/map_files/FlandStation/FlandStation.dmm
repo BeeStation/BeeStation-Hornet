@@ -98197,7 +98197,7 @@
 /area/maintenance/aft)
 "xbR" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/droneDispenser/snowflake,
+/obj/machinery/droneDispenser/preloaded,
 /turf/open/floor/plating,
 /area/maintenance/aft)
 "xbW" = (

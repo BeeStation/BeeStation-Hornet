@@ -108051,6 +108051,17 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/fore)
+"liQ" = (
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/machinery/droneDispenser/preloaded,
+/turf/open/floor/plasteel,
+/area/maintenance/port/aft)
 "ljk" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow{
@@ -113253,11 +113264,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/medical/chemistry)
-"ruq" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/droneDispenser/snowflake,
-/turf/open/floor/plating,
-/area/maintenance/port/aft)
 "ruD" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/delivery,
@@ -150314,7 +150320,7 @@ dYu
 anS
 dLW
 anS
-ruq
+dLW
 dOM
 dLS
 dLS
@@ -152625,7 +152631,7 @@ dMa
 dMa
 rzc
 dOT
-dLX
+liQ
 dQG
 jQo
 dLW

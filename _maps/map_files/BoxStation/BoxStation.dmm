@@ -44288,7 +44288,7 @@
 /turf/open/floor/plating,
 /area/maintenance/port)
 "elD" = (
-/obj/machinery/droneDispenser/snowflake,
+/obj/machinery/droneDispenser/preloaded,
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
 "elL" = (

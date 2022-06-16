@@ -48617,10 +48617,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/science/shuttledock)
-"evl" = (
-/obj/machinery/droneDispenser/snowflake,
-/turf/open/floor/plating,
-/area/maintenance/department/cargo)
 "evv" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 1
@@ -49957,6 +49953,10 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/grass,
 /area/hydroponics)
+"gbP" = (
+/obj/machinery/droneDispenser/preloaded,
+/turf/open/floor/plating,
+/area/maintenance/department/science)
 "gcl" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
@@ -106049,7 +106049,7 @@ aaa
 aaa
 aEj
 qgh
-evl
+aFi
 bjw
 nJI
 bky
@@ -108117,7 +108117,7 @@ ofN
 ugC
 gdJ
 bkF
-lWy
+gbP
 qDX
 kDP
 uze

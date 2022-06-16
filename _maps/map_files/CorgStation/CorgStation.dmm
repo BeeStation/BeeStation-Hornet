@@ -29337,7 +29337,7 @@
 /turf/open/floor/plating,
 /area/science/shuttledock)
 "gKK" = (
-/obj/machinery/droneDispenser/snowflake,
+/obj/machinery/droneDispenser/preloaded,
 /turf/open/floor/plating,
 /area/maintenance/port/central)
 "gKM" = (
