@@ -19,7 +19,7 @@
 	paycheck_department = ACCOUNT_CIV
 
 	display_order = JOB_DISPLAY_ORDER_CHAPLAIN
-	departments = DEPARTMENT_SERVICE
+	departments = DEPARTMENT_BITFLAG_SERVICE
 	rpg_title = "Paladin"
 
 	species_outfits = list(

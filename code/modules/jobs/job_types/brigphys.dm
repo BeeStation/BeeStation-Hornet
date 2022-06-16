@@ -21,7 +21,7 @@
 	paycheck_department = ACCOUNT_MED
 
 	display_order = JOB_DISPLAY_ORDER_BRIG_PHYS
-	departments = DEPARTMENT_MEDICAL | DEPARTMENT_SECURITY
+	departments = DEPARTMENT_BITFLAG_MEDICAL | DEPARTMENT_BITFLAG_SECURITY
 	rpg_title = "Battle Cleric"
 
 	species_outfits = list(

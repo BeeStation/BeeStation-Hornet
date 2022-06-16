@@ -22,7 +22,7 @@
 	paycheck_department = ACCOUNT_SCI
 
 	display_order = JOB_DISPLAY_ORDER_ROBOTICIST
-	departments = DEPARTMENT_SCIENCE
+	departments = DEPARTMENT_BITFLAG_SCIENCE
 	rpg_title = "Golemancer"
 
 	species_outfits = list(

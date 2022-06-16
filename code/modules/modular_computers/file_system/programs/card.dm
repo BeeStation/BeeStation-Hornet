@@ -1,10 +1,10 @@
 #define CARDCON_DEPARTMENT_CIVILIAN "Civilian"
-#define CARDCON_DEPARTMENT_SECURITY "Security"
-#define CARDCON_DEPARTMENT_MEDICAL "Medical"
+#define CARDCON_DEPARTMENT_BITFLAG_SECURITY "Security"
+#define CARDCON_DEPARTMENT_BITFLAG_MEDICAL "Medical"
 #define CARDCON_DEPARTMENT_SUPPLY "Supply"
-#define CARDCON_DEPARTMENT_SCIENCE "Science"
-#define CARDCON_DEPARTMENT_ENGINEERING "Engineering"
-#define CARDCON_DEPARTMENT_COMMAND "Command"
+#define CARDCON_DEPARTMENT_BITFLAG_SCIENCE "Science"
+#define CARDCON_DEPARTMENT_BITFLAG_ENGINEERING "Engineering"
+#define CARDCON_DEPARTMENT_BITFLAG_COMMAND "Command"
 
 /datum/computer_file/program/card_mod
 	filename = "cardmod"
@@ -33,27 +33,27 @@
 	. = ..()
 	sub_managers = list(
 		"[ACCESS_HOP]" = list(
-			"department" = list(CARDCON_DEPARTMENT_SUPPLY, CARDCON_DEPARTMENT_COMMAND),
+			"department" = list(CARDCON_DEPARTMENT_SUPPLY, CARDCON_DEPARTMENT_BITFLAG_COMMAND),
 			"region" = 1,
 			"head" = "Head of Personnel"
 		),
 		"[ACCESS_HOS]" = list(
-			"department" = CARDCON_DEPARTMENT_SECURITY,
+			"department" = CARDCON_DEPARTMENT_BITFLAG_SECURITY,
 			"region" = 2,
 			"head" = "Head of Security"
 		),
 		"[ACCESS_CMO]" = list(
-			"department" = CARDCON_DEPARTMENT_MEDICAL,
+			"department" = CARDCON_DEPARTMENT_BITFLAG_MEDICAL,
 			"region" = 3,
 			"head" = "Chief Medical Officer"
 		),
 		"[ACCESS_RD]" = list(
-			"department" = CARDCON_DEPARTMENT_SCIENCE,
+			"department" = CARDCON_DEPARTMENT_BITFLAG_SCIENCE,
 			"region" = 4,
 			"head" = "Research Director"
 		),
 		"[ACCESS_CE]" = list(
-			"department" = CARDCON_DEPARTMENT_ENGINEERING,
+			"department" = CARDCON_DEPARTMENT_BITFLAG_ENGINEERING,
 			"region" = 5,
 			"head" = "Chief Engineer"
 		)
@@ -286,11 +286,11 @@
 		departments = list("CentCom" = get_all_centcom_jobs())
 	else if(isnull(departments))
 		departments = list(
-			CARDCON_DEPARTMENT_COMMAND = list("Captain"),//lol
-			CARDCON_DEPARTMENT_ENGINEERING = GLOB.engineering_positions,
-			CARDCON_DEPARTMENT_MEDICAL = GLOB.medical_positions,
-			CARDCON_DEPARTMENT_SCIENCE = GLOB.science_positions,
-			CARDCON_DEPARTMENT_SECURITY = GLOB.security_positions,
+			CARDCON_DEPARTMENT_BITFLAG_COMMAND = list("Captain"),//lol
+			CARDCON_DEPARTMENT_BITFLAG_ENGINEERING = GLOB.engineering_positions,
+			CARDCON_DEPARTMENT_BITFLAG_MEDICAL = GLOB.medical_positions,
+			CARDCON_DEPARTMENT_BITFLAG_SCIENCE = GLOB.science_positions,
+			CARDCON_DEPARTMENT_BITFLAG_SECURITY = GLOB.security_positions,
 			CARDCON_DEPARTMENT_SUPPLY = GLOB.supply_positions,
 			CARDCON_DEPARTMENT_CIVILIAN = GLOB.civilian_positions | GLOB.gimmick_positions
 		)
@@ -366,9 +366,9 @@
 
 
 #undef CARDCON_DEPARTMENT_CIVILIAN
-#undef CARDCON_DEPARTMENT_SECURITY
-#undef CARDCON_DEPARTMENT_MEDICAL
-#undef CARDCON_DEPARTMENT_SCIENCE
+#undef CARDCON_DEPARTMENT_BITFLAG_SECURITY
+#undef CARDCON_DEPARTMENT_BITFLAG_MEDICAL
+#undef CARDCON_DEPARTMENT_BITFLAG_SCIENCE
 #undef CARDCON_DEPARTMENT_SUPPLY
-#undef CARDCON_DEPARTMENT_ENGINEERING
-#undef CARDCON_DEPARTMENT_COMMAND
+#undef CARDCON_DEPARTMENT_BITFLAG_ENGINEERING
+#undef CARDCON_DEPARTMENT_BITFLAG_COMMAND

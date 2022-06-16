@@ -20,7 +20,7 @@
 	paycheck_department = ACCOUNT_MED
 
 	display_order = JOB_DISPLAY_ORDER_MEDICAL_DOCTOR
-	departments = DEPARTMENT_MEDICAL
+	departments = DEPARTMENT_BITFLAG_MEDICAL
 	rpg_title = "Cleric"
 
 	species_outfits = list(

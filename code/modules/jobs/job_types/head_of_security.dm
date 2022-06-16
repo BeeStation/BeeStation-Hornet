@@ -32,7 +32,7 @@
 	paycheck_department = ACCOUNT_SEC
 
 	display_order = JOB_DISPLAY_ORDER_HEAD_OF_SECURITY
-	departments = DEPARTMENT_SECURITY | DEPARTMENT_COMMAND
+	departments = DEPARTMENT_BITFLAG_SECURITY | DEPARTMENT_BITFLAG_COMMAND
 	rpg_title = "Guard Leader"
 
 	species_outfits = list(

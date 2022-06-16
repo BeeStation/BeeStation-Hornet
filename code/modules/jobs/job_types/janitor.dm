@@ -18,7 +18,7 @@
 	paycheck_department = ACCOUNT_SRV
 
 	display_order = JOB_DISPLAY_ORDER_JANITOR
-	departments = DEPARTMENT_SERVICE
+	departments = DEPARTMENT_BITFLAG_SERVICE
 	rpg_title = "Groundskeeper"
 	biohazard = 20//cleaning up hazardous messes puts janitors at extra risk
 

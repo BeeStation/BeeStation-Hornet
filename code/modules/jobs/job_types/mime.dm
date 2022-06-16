@@ -18,7 +18,7 @@
 	paycheck_department = ACCOUNT_SRV
 
 	display_order = JOB_DISPLAY_ORDER_MIME
-	departments = DEPARTMENT_SERVICE
+	departments = DEPARTMENT_BITFLAG_SERVICE
 	rpg_title = "Fool"
 
 	species_outfits = list(

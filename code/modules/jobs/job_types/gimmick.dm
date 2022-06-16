@@ -17,7 +17,7 @@
 	paycheck_department = ACCOUNT_CIV
 
 	display_order = JOB_DISPLAY_ORDER_ASSISTANT
-	departments = DEPARTMENT_SERVICE
+	departments = DEPARTMENT_BITFLAG_SERVICE
 	rpg_title = "Peasant"
 
 	allow_bureaucratic_error = FALSE
@@ -90,7 +90,7 @@
 	paycheck = PAYCHECK_EASY
 	gimmick = TRUE
 	chat_color = "#a2dfdc"
-	departments = DEPARTMENT_MEDICAL
+	departments = DEPARTMENT_BITFLAG_MEDICAL
 
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman

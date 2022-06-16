@@ -18,7 +18,7 @@
 	paycheck_department = ACCOUNT_CAR
 
 	display_order = JOB_DISPLAY_ORDER_CARGO_TECHNICIAN
-	departments = DEPARTMENT_CARGO
+	departments = DEPARTMENT_BITFLAG_CARGO
 	rpg_title = "Merchantman"
 
 	species_outfits = list(

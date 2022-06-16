@@ -21,7 +21,7 @@
 	paycheck_department = ACCOUNT_MED
 
 	display_order = JOB_DISPLAY_ORDER_VIROLOGIST
-	departments = DEPARTMENT_MEDICAL
+	departments = DEPARTMENT_BITFLAG_MEDICAL
 	rpg_title = "Plague Doctor"
 
 	species_outfits = list(

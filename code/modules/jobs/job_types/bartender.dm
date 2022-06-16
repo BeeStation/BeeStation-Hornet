@@ -18,7 +18,7 @@
 	paycheck = PAYCHECK_EASY
 	paycheck_department = ACCOUNT_SRV
 	display_order = JOB_DISPLAY_ORDER_BARTENDER
-	departments = DEPARTMENT_SERVICE
+	departments = DEPARTMENT_BITFLAG_SERVICE
 	rpg_title = "Tavernkeeper"
 
 	species_outfits = list(

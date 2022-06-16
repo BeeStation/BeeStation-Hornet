@@ -23,7 +23,7 @@
 	paycheck_department = ACCOUNT_ENG
 
 	display_order = JOB_DISPLAY_ORDER_STATION_ENGINEER
-	departments = DEPARTMENT_ENGINEERING
+	departments = DEPARTMENT_BITFLAG_ENGINEERING
 	rpg_title = "Crystallomancer"
 
 	species_outfits = list(

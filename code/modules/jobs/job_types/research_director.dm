@@ -33,7 +33,7 @@
 	paycheck_department = ACCOUNT_SCI
 
 	display_order = JOB_DISPLAY_ORDER_RESEARCH_DIRECTOR
-	departments = DEPARTMENT_SCIENCE | DEPARTMENT_COMMAND
+	departments = DEPARTMENT_BITFLAG_SCIENCE | DEPARTMENT_BITFLAG_COMMAND
 	rpg_title = "Archmagister"
 
 	species_outfits = list(

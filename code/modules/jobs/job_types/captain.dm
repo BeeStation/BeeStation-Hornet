@@ -26,7 +26,7 @@
 	mind_traits = list(TRAIT_DISK_VERIFIER)
 
 	display_order = JOB_DISPLAY_ORDER_CAPTAIN
-	departments = DEPARTMENT_COMMAND
+	departments = DEPARTMENT_BITFLAG_COMMAND
 	rpg_title = "Star Duke"
 
 	species_outfits = list(

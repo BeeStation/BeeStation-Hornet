@@ -21,7 +21,7 @@
 	paycheck_department = ACCOUNT_SCI
 
 	display_order = JOB_DISPLAY_ORDER_EXPLORATION
-	departments = DEPARTMENT_SCIENCE
+	departments = DEPARTMENT_BITFLAG_SCIENCE
 	rpg_title = "Sailor"
 
 	species_outfits = list(
