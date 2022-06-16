@@ -18,7 +18,7 @@
 	///For how long does it stop bleeding?
 	var/stop_bleeding = 0
 	///How long does it take to apply on yourself?
-	var/self_delay = 50
+	var/self_delay = 20
 
 /obj/item/stack/medical/attack(mob/living/M, mob/user)
 	if(!M || !user || (isliving(M) && !M.can_inject(user, TRUE))) //If no mob, user and if we can't inject the mob just return
@@ -35,21 +35,25 @@
 	if(isanimal(M))
 		var/mob/living/simple_animal/critter = M
 		if(!(critter.healable) || stop_bleeding)
-			to_chat(user, "<span class='notice'> You cannot use [src] on [M]!</span>")
+			to_chat(user, "<span class='notice'>You cannot use [src] on [M]!</span>")
 			return
 		if(critter.health == critter.maxHealth)
-			to_chat(user, "<span class='notice'> [M] is at full health.</span>")
+			to_chat(user, "<span class='notice'>[M] is at full health.</span>")
 			return
 		if(heal_brute < 1)
-			to_chat(user, "<span class='notice'> [src] won't help [M] at all.</span>")
+			to_chat(user, "<span class='notice'>[src] won't help [M] at all.</span>")
 			return
-		if(M.heal_bodypart_damage((heal_brute * 0.5), (heal_burn * 0.5))) //simplemobs get healed for half
-			user.visible_message("<span class='green'>[user] applies [src] on [M].</span>", "<span class='green'>You apply [src] on [M].</span>")
+		M.heal_bodypart_damage((heal_brute * 0.5), (heal_burn * 0.5)) //half as effective on animals
+		user.visible_message("<span class='green'>[user] applies [src] on [M].</span>", "<span class='green'>You apply [src] on [M].</span>")
+		use(1)
 		return
 
 	var/obj/item/bodypart/affecting
 	var/mob/living/carbon/C = M
 	affecting = C.get_bodypart(check_zone(user.zone_selected))
+
+	if(M in user.do_afters) //One at a time, please.
+		return
 
 	if(!affecting) //Missing limb?
 		to_chat(user, "<span class='warning'>[C] doesn't have \a [parse_zone(user.zone_selected)]!</span>")
@@ -67,7 +71,11 @@
 			H.suppress_bloodloss(stop_bleeding)
 
 	if(!IS_ORGANIC_LIMB(affecting))
-		to_chat(user, "<span class='notice'>Medicine won't work on a robotic limb!</span>")
+		to_chat(user, "<span class='warning'>Medicine won't work on a robotic limb!</span>")
+		return
+
+	if(!(affecting.brute_dam || affecting.burn_dam))
+		to_chat(user, "<span class='warning'>[M]'s [parse_zone(user.zone_selected)] isn't hurt!")
 		return
 
 	if(C == user)
@@ -77,10 +85,9 @@
 
 	user.visible_message("<span class='green'>[user] applies [src] on [M].</span>", "<span class='green'>You apply [src] on [M].</span>")
 
-	if(affecting.heal_damage(heal_brute, heal_burn))
+	if(affecting.heal_damage(heal_brute, heal_burn) || stop_bleeding)
 		C.update_damage_overlays()
-
-	use(1)
+		use(1)
 
 /obj/item/stack/medical/bruise_pack
 	name = "bruise pack"
@@ -90,7 +97,6 @@
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 	heal_brute = 40
-	self_delay = 20
 	grind_results = list(/datum/reagent/medicine/styptic_powder = 10)
 
 /obj/item/stack/medical/bruise_pack/one
@@ -107,7 +113,6 @@
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 	heal_burn = 40
-	self_delay = 20
 	grind_results = list(/datum/reagent/medicine/silver_sulfadiazine = 10)
 
 /obj/item/stack/medical/ointment/one
@@ -123,7 +128,6 @@
 	icon_state = "gauze"
 	stop_bleeding = 1800
 	heal_brute = 5 //Reminder that you can not stack healing thus you wait out the 1800 timer.
-	self_delay = 20
 	max_amount = 12
 
 /obj/item/stack/medical/gauze/attackby(obj/item/I, mob/user, params)
