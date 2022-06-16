@@ -7,7 +7,6 @@
 	w_class = WEIGHT_CLASS_TINY
 	full_w_class = WEIGHT_CLASS_TINY
 	throw_speed = 3
-	throw_range = 7
 	resistance_flags = FLAMMABLE
 	max_integrity = 40
 	novariants = FALSE
@@ -43,7 +42,7 @@
 		if(heal_brute < 1)
 			to_chat(user, "<span class='notice'>[src] won't help [M] at all.</span>")
 			return
-		M.heal_bodypart_damage((heal_brute * 0.5), (heal_burn * 0.5)) //half as effective on animals
+		M.heal_bodypart_damage((heal_brute * 0.5), (heal_burn * 0.5)) //half as effective on animals, since it's not made for them
 		user.visible_message("<span class='green'>[user] applies [src] on [M].</span>", "<span class='green'>You apply [src] on [M].</span>")
 		use(1)
 		return
