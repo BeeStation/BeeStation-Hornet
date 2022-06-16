@@ -29336,6 +29336,10 @@
 	},
 /turf/open/floor/plating,
 /area/science/shuttledock)
+"gKK" = (
+/obj/machinery/droneDispenser/snowflake,
+/turf/open/floor/plating,
+/area/maintenance/port/central)
 "gKM" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/bag/tray,
@@ -63682,7 +63686,7 @@
 	moveable = 1
 	},
 /obj/machinery/mass_driver{
-	armor = list("melee" = 10, "bullet" = 10, "laser" = 10, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 70);
+	armor = list("melee"=10,"bullet"=10,"laser"=10,"energy"=0,"bomb"=0,"bio"=0,"rad"=0,"fire"=100,"acid"=70);
 	critical_machine = 1;
 	dir = 8;
 	id = "smeject";
@@ -134314,7 +134318,7 @@ teG
 teG
 mUm
 uZk
-eCT
+gKK
 hns
 hns
 uZk

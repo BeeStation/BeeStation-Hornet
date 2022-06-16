@@ -36,6 +36,8 @@
 	var/datum/component/uplink/hidden_uplink = internal_storage.GetComponent(/datum/component/uplink)
 	hidden_uplink.telecrystals = 10
 
+	REMOVE_TRAIT(src, TRAIT_PACIFISM, "drone_pacifism")
+
 /mob/living/simple_animal/drone/syndrone/Login()
 	..()
 	to_chat(src, "<span class='notice'>You can kill and eat other drones to increase your health!</span>" )
@@ -51,6 +53,8 @@
 	hidden_uplink.telecrystals = 30
 	var/obj/item/implant/weapons_auth/W = new/obj/item/implant/weapons_auth(src)
 	W.implant(src, force = TRUE)
+
+	REMOVE_TRAIT(src, TRAIT_PACIFISM, "drone_pacifism")
 
 /mob/living/simple_animal/drone/snowflake
 	default_hatmask = /obj/item/clothing/head/chameleon/drone

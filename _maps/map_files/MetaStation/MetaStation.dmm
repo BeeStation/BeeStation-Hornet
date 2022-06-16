@@ -82312,7 +82312,7 @@
 /obj/machinery/camera{
 	c_tag = "Incinerator";
 	dir = 8;
-	network = list("ss13", "turbine")
+	network = list("ss13","turbine")
 	},
 /obj/machinery/atmospherics/pipe/simple/dark/visible{
 	dir = 10
@@ -83279,6 +83279,7 @@
 /turf/open/floor/plasteel,
 /area/crew_quarters/dorms)
 "wOE" = (
+/obj/machinery/droneDispenser/snowflake,
 /turf/open/floor/plating,
 /area/maintenance/aft/secondary)
 "wOT" = (

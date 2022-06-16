@@ -34,6 +34,8 @@ GLOBAL_LIST_INIT(cogscarabs, list())
 	GLOB.cogscarabs += src
 	add_actionspeed_modifier(/datum/actionspeed_modifier/cogscarab)
 
+	REMOVE_TRAIT(src, TRAIT_PACIFISM, "drone_pacifism")
+
 /mob/living/simple_animal/drone/cogscarab/death(gibbed)
 	GLOB.cogscarabs -= src
 	. = ..()

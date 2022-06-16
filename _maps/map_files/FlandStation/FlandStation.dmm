@@ -98195,6 +98195,11 @@
 /obj/structure/lattice/catwalk/over,
 /turf/open/floor/plating,
 /area/maintenance/aft)
+"xbR" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/droneDispenser/snowflake,
+/turf/open/floor/plating,
+/area/maintenance/aft)
 "xbW" = (
 /obj/structure/table/reinforced,
 /obj/machinery/door/window/eastright,
@@ -144837,7 +144842,7 @@ crO
 hde
 ylJ
 gJY
-hde
+xbR
 vXB
 ylJ
 ylJ

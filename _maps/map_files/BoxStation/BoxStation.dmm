@@ -43462,7 +43462,7 @@
 /obj/effect/turf_decal/bot,
 /obj/machinery/camera{
 	c_tag = "Incinerator";
-	network = list("ss13", "turbine")
+	network = list("ss13","turbine")
 	},
 /turf/open/floor/plasteel,
 /area/maintenance/disposal/incinerator)
@@ -44287,6 +44287,10 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/port)
+"elD" = (
+/obj/machinery/droneDispenser/snowflake,
+/turf/open/floor/plating,
+/area/maintenance/starboard/aft)
 "elL" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -111162,7 +111166,7 @@ bKc
 cNW
 bMB
 bNA
-cOe
+elD
 bEC
 bJZ
 flc

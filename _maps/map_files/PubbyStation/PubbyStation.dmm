@@ -48617,6 +48617,10 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/science/shuttledock)
+"evl" = (
+/obj/machinery/droneDispenser/snowflake,
+/turf/open/floor/plating,
+/area/maintenance/department/cargo)
 "evv" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 1
@@ -106045,7 +106049,7 @@ aaa
 aaa
 aEj
 qgh
-aFi
+evl
 bjw
 nJI
 bky
