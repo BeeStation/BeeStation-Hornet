@@ -9,7 +9,7 @@
 		/obj/item/clothing/gloves/color/fyellow = 7,
 		/obj/item/choice_beacon/music = 5,
 		/obj/item/toy/crayon/spraycan = 3,
-		/obj/item/crowbar/large = 2
+		/obj/item/crowbar/large = 2,
 	)
 
 //ATMOSPHERIC TECHNICIAN
@@ -18,9 +18,9 @@
 		/obj/item/book/manual/wiki/atmospherics = 12,
 		/obj/item/tank/internals/emergency_oxygen/engi = 10,
 		/obj/item/clothing/mask/gas = 10,
-		/obj/effect/spawner/mail/maintloot= 7,
+		/obj/effect/spawner/mail/maintloot = 7,
 		/obj/item/tank/internals/plasma/empty = 5,
-		/obj/item/crowbar/large = 3
+		/obj/item/crowbar/large = 3,
 	)
 
 //BART ENDER
@@ -32,7 +32,7 @@
 		/obj/item/stack/sheet/mineral/uranium = 5,
 		/obj/item/reagent_containers/food/drinks/bottle/fernet = 3,
 		/obj/item/reagent_containers/food/drinks/bottle/champagne = 3,
-		/obj/item/reagent_containers/food/drinks/bottle/trappist = 3
+		/obj/item/reagent_containers/food/drinks/bottle/trappist = 3,
 	)
 
 //BOTANIST
@@ -44,7 +44,7 @@
 		/obj/item/grenade/chem_grenade/antiweed = 10,
 		/obj/item/gun/energy/floragun = 5,
 		// These are strong, rare seeds, so use sparingly.
-		/obj/item/seeds/random = 2
+		/obj/item/seeds/random = 2,
 	)
 
 //BRIG PHYSICIAN
@@ -56,7 +56,7 @@
 		/obj/item/reagent_containers/hypospray/medipen/survival = 5,
 		//The ultimate validhunter tool
 		/obj/item/clothing/glasses/hud/medsec = 2,
-		/obj/item/healthanalyzer/advanced = 2
+		/obj/item/healthanalyzer/advanced = 2,
 	)
 
 //CAPTAIN
@@ -68,17 +68,17 @@
 		/obj/item/storage/fancy/cigarettes/cigars/havana = 5,
 		/obj/item/reagent_containers/food/drinks/bottle/champagne = 5,
 		/obj/item/ammo_box/n762 = 2,
-		/obj/item/gun/ballistic/revolver/nagant = 1
+		/obj/item/gun/ballistic/revolver/nagant = 1,
 	)
 
 //CARGO TECH
 /datum/job/cargo_technician
 	mail_goodies = list(
-		/obj/effect/spawner/mail/maintloot= 15,
+		/obj/effect/spawner/mail/maintloot = 15,
 		/obj/item/pizzabox = 10,
 		/obj/item/ammo_box/a762 = 3,
 		//URAAAAHH
-		/obj/item/gun/ballistic/rifle/boltaction = 1
+		/obj/item/gun/ballistic/rifle/boltaction = 1,
 	)
 
 //CHAPLAIN
@@ -89,7 +89,7 @@
 		/obj/item/grenade/chem_grenade/holy = 5,
 		/obj/item/toy/plush/awakenedplushie = 3,
 		/obj/item/toy/plush/narplush = 2,
-		/obj/item/toy/plush/plushvar = 2
+		/obj/item/toy/plush/plushvar = 2,
 	)
 
 //CHEMIST
@@ -99,7 +99,7 @@
 		/obj/item/reagent_containers/dropper = 10,
 		/obj/item/reagent_containers/glass/beaker/large = 10,
 		/obj/item/reagent_containers/glass/beaker/plastic = 10,
-		/obj/item/reagent_containers/glass/bottle/ketamine = 5
+		/obj/item/reagent_containers/glass/bottle/ketamine = 5,
 	)
 
 //CHIEF ENGINEER
@@ -114,7 +114,7 @@
 		/obj/item/screwdriver/caravan = 3,
 		/obj/item/crowbar/red/caravan = 3,
 		//if you got this, you hit the lottery
-		/obj/item/construction/rcd/arcd = 1
+		/obj/item/construction/rcd/arcd = 1,
 	)
 
 //CHIEF MEDICAL OFFICER
@@ -126,7 +126,7 @@
 		/obj/effect/spawner/mail/organmajor = 8,
 		/obj/item/sensor_device = 5,
 		/obj/effect/spawner/mail/advmedtool = 4,
-		/obj/effect/spawner/mail/ayymedtool = 1
+		/obj/effect/spawner/mail/ayymedtool = 1,
 	)
 
 //CLOWN
@@ -140,7 +140,7 @@
 		// Superlube, good lord.
 		/obj/item/reagent_containers/spray/waterflower/superlube = 2,
 		//An entire fucking clown, an aggressive one, why? The station is a circus anyway...
-		/mob/living/simple_animal/hostile/retaliate/clown = 1
+		/mob/living/simple_animal/hostile/retaliate/clown = 1,
 	)
 
 //COOK
@@ -159,7 +159,7 @@
 		/obj/item/storage/box/monkeycubes = 5,
 		/obj/item/kitchen/knife = 4,
 		/obj/item/storage/box/ingredients/exotic = 3,
-		/obj/item/kitchen/knife/butcher = 2
+		/obj/item/kitchen/knife/butcher = 2,
 	)
 
 //CURATOR
@@ -175,7 +175,7 @@
 		//maybe better than a lame PAi after all
 		/obj/item/toy/plush/flushed = 5,
 		//rare, but not that much...
-		/obj/item/paicard = 2
+		/obj/item/paicard = 2,
 	)
 
 //DEBTOR
@@ -191,7 +191,7 @@
 		/obj/item/gps = 5,
 		/obj/item/melee/skateboard = 5,
 		/obj/item/melee/baseball_bat = 5,
-		/mob/living/simple_animal/mouse = 5
+		/mob/living/simple_animal/mouse = 5,
 	)
 
 //DEPUTY...IS THIS JOB EVEN ACTIVE? I DON'T THINK IT IS
@@ -199,7 +199,7 @@
 	mail_goodies = list(
 		/obj/effect/spawner/mail/donut = 20,
 		/obj/effect/spawner/mail/rdonut = 15,
-		/obj/item/melee/baton = 1
+		/obj/item/melee/baton = 1,
 	)
 
 //DETECTIVE
@@ -214,7 +214,7 @@
 		/obj/item/ammo_box/c38/match = 5,
 		/obj/item/ammo_box/c38/trac = 5,
 		//you'll get this inevitably when you don't need it.
-		/obj/item/clothing/accessory/holster/detective = 1
+		/obj/item/clothing/accessory/holster/detective = 1,
 	)
 
 //PARAMEDIC
@@ -226,7 +226,7 @@
 		/obj/item/sensor_device = 7,
 		/obj/item/pinpointer/crew = 7,
 		/obj/item/reagent_containers/hypospray/medipen/survival = 5,
-		/obj/item/reagent_containers/hypospray/medipen/pumpup = 1
+		/obj/item/reagent_containers/hypospray/medipen/pumpup = 1,
 	)
 
 //EXPLORATION CREW
@@ -239,7 +239,7 @@
 		/obj/item/reagent_containers/hypospray/medipen/survival = 10,
 		/obj/item/stack/marker_beacon/thirty = 5,
 		/obj/item/extraction_pack = 5,
-		/obj/item/gps/mining/exploration = 5
+		/obj/item/gps/mining/exploration = 5,
 	)
 
 //GENETICIST
@@ -248,7 +248,7 @@
 		/obj/item/reagent_containers/pill/mutadone = 15,
 		/obj/item/storage/pill_bottle/mannitol = 10,
 		/obj/item/reagent_containers/food/snacks/monkeycube = 10,
-		/obj/effect/spawner/mail/genes = 5
+		/obj/effect/spawner/mail/genes = 5,
 	)
 
 //HEAD OF PERSONNEL
@@ -259,20 +259,20 @@
 		/obj/item/mining_voucher = 5,
 		/obj/item/stack/sheet/bone = 5,
 		//a slim chance for reviving ian... how exicting
-		/obj/item/lazarus_injector = 1
+		/obj/item/lazarus_injector = 1,
 	)
 
 //HEAD OF SECURITY
 /datum/job/hos
 	mail_goodies = list(
 		/obj/effect/spawner/mail/donut = 20,
-		/obj/effect/spawner/mail/rdonut= 15,
+		/obj/effect/spawner/mail/rdonut = 15,
 		/obj/item/firing_pin = 10,
 		/obj/item/implantcase/mindshield = 7,
 		//Vile, vile person...
 		/obj/item/clothing/head/kitty = 5,
 		//hey, always come in handy!
-		/obj/item/storage/lockbox/loyalty = 2
+		/obj/item/storage/lockbox/loyalty = 2,
 	)
 
 //JANITOR
@@ -283,7 +283,7 @@
 		/obj/item/lightreplacer = 10,
 		//ha!
 		/obj/item/clothing/under/rank/civilian/janitor/maid = 5,
-		/obj/item/grenade/clusterbuster/cleaner = 2
+		/obj/item/grenade/clusterbuster/cleaner = 2,
 	)
 
 //LAWYER
@@ -301,7 +301,7 @@
 		/obj/item/clothing/glasses/sunglasses/advanced/big = 5,
 		/obj/item/book/manual/wiki/security_space_law = 5,
 		//Harrassing security has never been this fun
-		/obj/item/megaphone = 3
+		/obj/item/megaphone = 3,
 	)
 
 //MAGICIAN GIMMICK
@@ -311,7 +311,7 @@
 		/mob/living/simple_animal/chicken/rabbit/normal = 40,
 		/obj/item/gun/magic/wand = 10,
 		/obj/item/clothing/head/collectable/tophat = 10,
-		/obj/item/clothing/head/bowler = 5
+		/obj/item/clothing/head/bowler = 5,
 	)
 
 //MEDICAL DOCTOR
@@ -322,7 +322,7 @@
 		/obj/item/reagent_containers/glass/bottle/formaldehyde = 6,
 		/obj/effect/spawner/mail/advmedtool = 4,
 		/obj/effect/spawner/mail/organminor = 5,
-		/obj/effect/spawner/mail/organmajor = 1
+		/obj/effect/spawner/mail/organmajor = 1,
 	)
 
 //MIME
@@ -333,7 +333,7 @@
 		/obj/item/reagent_containers/food/drinks/bottle/bottleofnothing = 10,
 		/obj/item/book/mimery = 2,
 		//when you thought it could get worse...
-		/obj/item/book/granter/spell/mimery_blockade = 1
+		/obj/item/book/granter/spell/mimery_blockade = 1,
 	)
 
 //PSYCHOLOGIST / SHRINK GIMMICK
@@ -341,7 +341,7 @@
 	mail_goodies =  list(
 		/obj/item/storage/pill_bottle/mannitol = 30,
 		/obj/item/storage/pill_bottle/happy = 5,
-		/obj/item/gun/syringe = 1
+		/obj/item/gun/syringe = 1,
 	)
 
 //QUARTERMASTER
@@ -353,7 +353,7 @@
 		/obj/item/circuitboard/machine/emitter = 3,
 		/obj/item/ammo_box/a762 = 3,
 		//URAAAAHH
-		/obj/item/gun/ballistic/rifle/boltaction = 1
+		/obj/item/gun/ballistic/rifle/boltaction = 1,
 	)
 
 //RESEARCH DIRECTOR
@@ -364,7 +364,7 @@
 		/obj/item/clothing/glasses/science/sciencesun = 10,
 		/obj/item/taperecorder = 7,
 		/obj/item/disk/tech_disk/research/random  = 4,
-		/obj/item/borg/upgrade/ai = 2
+		/obj/item/borg/upgrade/ai = 2,
 	)
 
 //ROBOTICIST
@@ -377,7 +377,7 @@
 		/obj/item/clothing/glasses/hud/diagnostic/sunglasses = 7,
 		/obj/item/borg/upgrade/rename = 5,
 		//do anyone ever use this???
-		/obj/item/modular_computer/tablet/preset/advanced = 5
+		/obj/item/modular_computer/tablet/preset/advanced = 5,
 	)
 
 //SCIENTIST
@@ -386,7 +386,7 @@
 		/obj/item/anomaly_neutralizer = 10,
 		/obj/item/disk/tech_disk = 7,
 		//STUFF
-		/obj/effect/spawner/mail/science = 4
+		/obj/effect/spawner/mail/science = 4,
 	)
 
 //SECURITY OFFICER
@@ -398,7 +398,7 @@
 		/obj/item/assembly/flash/handheld = 7,
 		/obj/effect/spawner/mail/rdonut = 5,
 		//we don't have boomerangs here, ask ausstation
-		/obj/item/melee/classic_baton/police/telescopic = 1
+		/obj/item/melee/classic_baton/police/telescopic = 1,
 	)
 
 //SHAFT MINER
@@ -409,7 +409,7 @@
 		/obj/item/storage/pill_bottle/mining = 5,
 		/obj/item/storage/belt/mining/alt = 5,
 		//THE DRIP!!!
-		/obj/item/clothing/glasses/material/mining/gar = 1
+		/obj/item/clothing/glasses/material/mining/gar = 1,
 	)
 
 //ENGINEER
@@ -420,7 +420,7 @@
 		/obj/item/lightreplacer = 10,
 		/obj/item/holosign_creator/engineering = 8,
 		//An assistant can only dream of those...
-		/obj/item/clothing/gloves/color/yellow = 4
+		/obj/item/clothing/gloves/color/yellow = 4,
 	)
 
 //VIROLOGIST
@@ -435,7 +435,7 @@
 		/obj/item/reagent_containers/glass/bottle/random_virus = 5,
 		/obj/item/stock_parts/scanning_module/phasic = 5,
 		//hampter.
-		/obj/item/choice_beacon/pet/hamster = 5
+		/obj/item/choice_beacon/pet/hamster = 5,
 
 	)
 
@@ -452,7 +452,7 @@
 		/obj/item/coin/gold = 5,
 		/obj/item/coin/silver = 5,
 		//Tiny chance to harass the entire crew
-		/obj/item/encryptionkey/heads/captain = 1
+		/obj/item/encryptionkey/heads/captain = 1,
 	)
 
 //WARDEN
@@ -465,5 +465,5 @@
 		/obj/item/storage/box/rubbershot = 10,
 		/obj/item/storage/box/lethalshot = 5,
 		/obj/item/storage/box/handcuffs = 5,
-		/obj/item/melee/classic_baton/police/telescopic = 1
+		/obj/item/melee/classic_baton/police/telescopic = 1,
 		)
