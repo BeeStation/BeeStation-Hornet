@@ -888,7 +888,7 @@
 
 /obj/item/light/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/caltrop, force)
+	AddComponent(/datum/component/caltrop, min_damage = force)
 
 /obj/item/light/proc/on_entered(datum/source, atom/movable/L)
 	SIGNAL_HANDLER
