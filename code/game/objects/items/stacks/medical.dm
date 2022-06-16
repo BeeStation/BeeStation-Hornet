@@ -100,6 +100,23 @@
 	user.visible_message("<span class='suicide'>[user] is bludgeoning [user.p_them()]self with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	return (BRUTELOSS)
 
+/obj/item/stack/medical/ointment
+	name = "ointment"
+	desc = "Used to treat those nasty burn wounds."
+	icon_state = "ointment"
+	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
+	heal_burn = 40
+	self_delay = 20
+	grind_results = list(/datum/reagent/medicine/silver_sulfadiazine = 10)
+
+/obj/item/stack/medical/ointment/one
+	amount = 1
+
+/obj/item/stack/medical/ointment/suicide_act(mob/living/user)
+	user.visible_message("<span class='suicide'>[user] is squeezing \the [src] into [user.p_their()] mouth! [user.p_do(TRUE)]n't [user.p_they()] know that stuff is toxic?</span>")
+	return TOXLOSS
+
 /obj/item/stack/medical/gauze
 	name = "medical gauze"
 	desc = "A roll of elastic cloth that is extremely effective at stopping bleeding, heals minor bruising."
@@ -144,22 +161,5 @@
 
 /obj/item/stack/medical/gauze/cyborg
 	materials = list()
-	is_cyborg = 1
+	is_cyborg = TRUE
 	cost = 250
-
-/obj/item/stack/medical/ointment
-	name = "ointment"
-	desc = "Used to treat those nasty burn wounds."
-	icon_state = "ointment"
-	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
-	heal_burn = 40
-	self_delay = 20
-	grind_results = list(/datum/reagent/medicine/silver_sulfadiazine = 10)
-
-/obj/item/stack/medical/ointment/one
-	amount = 1
-
-/obj/item/stack/medical/ointment/suicide_act(mob/living/user)
-	user.visible_message("<span class='suicide'>[user] is squeezing \the [src] into [user.p_their()] mouth! [user.p_do(TRUE)]n't [user.p_they()] know that stuff is toxic?</span>")
-	return TOXLOSS

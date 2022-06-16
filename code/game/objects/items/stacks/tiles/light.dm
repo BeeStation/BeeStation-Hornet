@@ -31,7 +31,7 @@
 
 /obj/item/stack/tile/light/cyborg
 	materials = list() 
-	is_cyborg = 1
+	is_cyborg = TRUE
 	cost = 125
 
 /obj/item/stack/tile/light/cyborg/attackby(obj/item/O, mob/user, params)

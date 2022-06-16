@@ -122,7 +122,7 @@
 
 		if(S?.source)
 			S.materials = list()
-			S.is_cyborg = 1
+			S.is_cyborg = TRUE
 
 	if(I.loc != src)
 		I.forceMove(src)

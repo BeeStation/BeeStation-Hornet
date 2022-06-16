@@ -142,7 +142,7 @@ GLOBAL_LIST_INIT(metal_recipes, list ( \
 
 /obj/item/stack/sheet/iron/cyborg
 	materials = list()
-	is_cyborg = 1
+	is_cyborg = TRUE
 	cost = 500
 
 /obj/item/stack/sheet/iron/Initialize(mapload, new_amount, merge = TRUE)
@@ -633,7 +633,7 @@ GLOBAL_LIST_INIT(brass_recipes, list ( \
 
 /obj/item/stack/tile/brass/cyborg
 	materials = list()
-	is_cyborg = 1
+	is_cyborg = TRUE
 	cost = 500
 
 /*
