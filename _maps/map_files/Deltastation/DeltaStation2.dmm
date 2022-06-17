@@ -1235,15 +1235,16 @@
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
 "adU" = (
-/obj/effect/spawner/room/fivexfour,
-/obj/structure/cable/yellow{
-	icon_state = "2-4"
-	},
 /obj/structure/disposalpipe/segment{
-	dir = 6
+	dir = 9
 	},
-/turf/open/floor/plating,
-/area/maintenance/starboard/aft)
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
+/turf/open/floor/plasteel{
+	heat_capacity = 1e+006
+	},
+/area/maintenance/aft)
 "adV" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -1346,10 +1347,12 @@
 /area/maintenance/aft)
 "aeh" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
+/obj/structure/disposalpipe/segment{
+	dir = 6
 	},
-/obj/structure/disposalpipe/segment,
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
 /turf/open/floor/plasteel{
 	heat_capacity = 1e+006
 	},
@@ -1424,8 +1427,8 @@
 /turf/open/floor/plating,
 /area/maintenance/aft)
 "aes" = (
-/obj/effect/spawner/room/threexfive,
-/turf/open/floor/plating,
+/obj/structure/lattice,
+/turf/open/space/basic,
 /area/maintenance/aft)
 "aet" = (
 /obj/item/reagent_containers/glass/bottle/bromine{
@@ -48481,7 +48484,7 @@
 	name = "Replica CentCom officer's jumpsuit"
 	},
 /obj/item/clothing/head/centhat{
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "stamina" = 0);
+	armor = list("melee"=0,"bullet"=0,"laser"=0,"energy"=0,"bomb"=0,"bio"=0,"rad"=0,"stamina"=0);
 	desc = "A replica hat of a Central Commander's attire. It has a small tag on it saying, 'It's good to be emperor.'";
 	name = "Replica CentCom hat"
 	},
@@ -48557,7 +48560,7 @@
 /obj/item/folder/red,
 /obj/item/toy/gun,
 /obj/item/clothing/head/beret/sec{
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "stamina" = 0);
+	armor = list("melee"=0,"bullet"=0,"laser"=0,"energy"=0,"bomb"=0,"bio"=0,"rad"=0,"stamina"=0);
 	desc = "A replica beret resembling that of a special operations officer under Nanotrasen.";
 	name = "replica officer's beret"
 	},
@@ -48783,7 +48786,7 @@
 /obj/item/reagent_containers/food/drinks/beer{
 	desc = "Whatever it is, it reeks of foul, putrid froth.";
 	icon_state = "beer";
-	list_reagents = list(/datum/reagent/consumable/ethanol/bacchus_blessing = 15);
+	list_reagents = list(/datum/reagent/consumable/ethanol/bacchus_blessing=15);
 	name = "Delta-Down";
 	pixel_x = 5;
 	pixel_y = 5
@@ -68270,11 +68273,7 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
 "dWy" = (
-/obj/machinery/door/airlock/maintenance_hatch{
-	name = "Maintenance Hatch";
-	req_access_txt = "12"
-	},
-/turf/open/floor/plating,
+/turf/open/space/basic,
 /area/maintenance/aft)
 "dWz" = (
 /obj/structure/disposalpipe/segment{
@@ -68693,20 +68692,14 @@
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
 "dYb" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/open/floor/plating,
-/area/maintenance/starboard/aft)
-"dYe" = (
 /obj/effect/decal/cleanable/dirt,
+/turf/closed/wall,
+/area/maintenance/aft)
+"dYe" = (
+/obj/structure/disposalpipe/segment,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/structure/disposalpipe/segment,
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
 "dYg" = (
@@ -69061,12 +69054,9 @@
 /turf/open/floor/plasteel,
 /area/medical/virology)
 "dZC" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel{
-	heat_capacity = 1e+006
-	},
-/area/maintenance/aft)
+/obj/structure/lattice,
+/turf/open/space/basic,
+/area/space)
 "dZD" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -69355,7 +69345,13 @@
 /turf/open/floor/plasteel,
 /area/maintenance/starboard/aft)
 "eaN" = (
-/obj/structure/barricade/wooden,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/machinery/door/airlock/maintenance_hatch{
+	name = "Maintenance Hatch";
+	req_access_txt = "12"
+	},
 /turf/open/floor/plating,
 /area/maintenance/aft)
 "eaO" = (
@@ -96851,6 +96847,20 @@
 /obj/machinery/firealarm/directional/south,
 /turf/open/floor/plating,
 /area/maintenance/solars/port/fore)
+"oVM" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/structure/disposalpipe/segment,
+/obj/machinery/door/airlock/maintenance_hatch{
+	name = "Maintenance Hatch";
+	req_access_txt = "12"
+	},
+/turf/open/floor/plasteel{
+	heat_capacity = 1e+006
+	},
+/area/maintenance/aft)
 "oWp" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -97027,18 +97037,16 @@
 /turf/open/floor/wood,
 /area/crew_quarters/heads/captain)
 "oZV" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "Maintenance Hatch";
 	req_access_txt = "12"
 	},
+/obj/structure/disposalpipe/segment,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /turf/open/floor/plating,
-/area/maintenance/aft)
+/area/maintenance/starboard/aft)
 "pac" = (
 /obj/effect/landmark/event_spawn,
 /obj/effect/turf_decal/tile/blue{
@@ -105374,6 +105382,15 @@
 "sBW" = (
 /turf/closed/wall/r_wall,
 /area/hallway/secondary/exit/departure_lounge)
+"sCi" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel{
+	heat_capacity = 1e+006
+	},
+/area/maintenance/aft)
 "sCs" = (
 /obj/structure/disposalpipe/segment{
 	dir = 9
@@ -108764,6 +108781,18 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
+"ujE" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/open/floor/plasteel{
+	heat_capacity = 1e+006
+	},
+/area/maintenance/aft)
 "ukr" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
@@ -112812,6 +112841,11 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/port)
+"vQJ" = (
+/obj/structure/lattice,
+/obj/structure/grille,
+/turf/closed/wall/r_wall,
+/area/space/nearstation)
 "vQX" = (
 /obj/machinery/holopad,
 /obj/effect/landmark/start/medical_doctor,
@@ -113391,8 +113425,7 @@
 /obj/item/flashlight/pen,
 /obj/item/clothing/neck/stethoscope,
 /obj/machinery/light/small{
-	dir = 4;
-	pixel_y = -5
+	dir = 4
 	},
 /obj/structure/mirror{
 	pixel_x = 28
@@ -166900,8 +166933,8 @@ dUP
 dPq
 rDi
 rDi
-rDi
-maQ
+aeo
+dZe
 rDi
 dNS
 aaa
@@ -167155,10 +167188,10 @@ dXg
 dWq
 dUQ
 dPq
-dUN
-aeI
+dYb
 dNS
-oZV
+aep
+dNS
 dNS
 dNS
 aaa
@@ -167414,10 +167447,10 @@ dPq
 dPq
 dNS
 dPs
-dNS
-maQ
+sCi
 aeI
-dNT
+dNS
+aes
 aaa
 qYo
 aaa
@@ -167670,11 +167703,11 @@ rDi
 rDi
 dVD
 dNS
-rDi
 dNS
-tww
-dZC
-dNT
+eaN
+dNS
+dNS
+aes
 qYo
 qYo
 qYo
@@ -167926,12 +167959,12 @@ rDi
 rDi
 rDi
 rDi
-dWy
-dPs
 dNS
+rDi
 maQ
-aeI
+iIm
 dNT
+aes
 aaa
 qYo
 aaa
@@ -168180,15 +168213,15 @@ adV
 dGI
 dPq
 rDi
-rDi
-rDi
-rDi
-dNS
-dNS
-dNS
-maQ
+aeo
+dVH
+dVH
+dVH
+dVH
+dZe
 rDi
 dNT
+aes
 aaa
 qYo
 aaa
@@ -168437,15 +168470,15 @@ adW
 dPr
 dPq
 rDi
-rDi
-rDi
-rDi
-rDi
-dNS
-rDi
 maQ
-iIm
+rDi
+rDi
 dNS
+rDi
+rDi
+rDi
+dNT
+aes
 qYo
 qYo
 qYo
@@ -168694,15 +168727,15 @@ dWp
 dPr
 dPq
 rDi
-aeo
-dVH
-dVH
-dVH
-dVv
-dVH
-dZe
+maQ
+rDi
 rDi
 dNS
+dNS
+dNS
+dNS
+dNS
+aes
 aaa
 ajr
 aaa
@@ -168954,12 +168987,12 @@ dNS
 aep
 dNS
 dNS
-eaN
 dNS
-rDi
-rDi
-rDi
-dNS
+dWy
+aes
+aes
+aes
+aes
 qYo
 ajr
 qYo
@@ -169209,14 +169242,14 @@ dPq
 dPq
 rDi
 maQ
-rDi
-rDi
+iIm
+dNS
 aes
-dNS
-dNS
-dNS
-dNS
-dNS
+aes
+aes
+dWy
+aes
+dWy
 aaa
 qYo
 aaa
@@ -169457,22 +169490,22 @@ cHU
 cIW
 cIW
 cIW
-adU
-dYe
+dNf
+cHU
 aeh
 aef
 eaK
 aef
-aeh
+oVM
 ael
 aer
 rDi
-rDi
-rDi
 dNS
+dWy
+dWy
+dZC
 aaa
-aaa
-qYo
+vQJ
 qYo
 qYo
 qYo
@@ -169714,22 +169747,22 @@ cHU
 cIW
 cIW
 cIW
-dYb
-diV
-dPs
+cIW
+cHU
+ujE
 dPs
 aeI
 dPs
-rDi
+dNS
 rDi
 dZD
 rDi
-rDi
-rDi
 dNS
+aes
+aes
 qYo
-qYo
-qYo
+vQJ
+vQJ
 aaa
 aaa
 qYo
@@ -169971,19 +170004,19 @@ dVt
 dWx
 dWx
 dWx
-ecI
-cHU
+dYe
+oZV
+adU
 dNS
 dNS
 dNS
 dNS
-dNS
-dNS
+dNT
 dXf
 dNT
-dNT
 dNS
-dNS
+dWy
+dWy
 qYo
 aaa
 qYo
@@ -170230,8 +170263,8 @@ cIW
 cIW
 cIW
 cHU
-qYo
-qYo
+aJD
+aJD
 qYo
 qYo
 sav
