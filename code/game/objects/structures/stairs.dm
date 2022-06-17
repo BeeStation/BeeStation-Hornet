@@ -67,11 +67,9 @@
 		return FALSE
 	return ..()
 
-/obj/structure/stairs/update_appearance()
-	if(isTerminator())
-		icon_state = "stairs_t"
-	else
-		icon_state = "stairs"
+/obj/structure/stairs/update_icon_state()
+	icon_state = "stairs[isTerminator() ? "_t" : null]"
+	return ..()
 
 /obj/structure/stairs/proc/stair_ascend(atom/movable/AM)
 	var/turf/checking = get_step_multiz(get_turf(src), UP)

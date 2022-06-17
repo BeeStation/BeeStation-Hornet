@@ -20,7 +20,7 @@
 /turf/open/floor/circuit
 	icon = 'icons/turf/floors.dmi'
 	icon_state = "bcircuit"
-	var/icon_normal = "bcircuit"
+	base_icon_state = "bcircuit"
 	light_color = LIGHT_COLOR_CYAN
 	floor_tile = /obj/item/stack/tile/circuit
 	var/on = TRUE
@@ -34,18 +34,19 @@
 	SSmapping.nuke_tiles -= src
 	return ..()
 
-/turf/open/floor/circuit/update_appearance()
-	if(on)
-		if(LAZYLEN(SSmapping.nuke_threats))
-			icon_state = "rcircuitanim"
-			light_color = LIGHT_COLOR_FLARE
-		else
-			icon_state = icon_normal
-			light_color = initial(light_color)
-		set_light(1.4, 0.5)
-	else
-		icon_state = "[icon_normal]off"
+/turf/open/floor/circuit/update_icon_state()
+	if(!on)
+		icon_state = "[base_icon_state]off"
 		set_light(0)
+		return ..()
+	if(LAZYLEN(SSmapping.nuke_threats))
+		icon_state = "rcircuitanim"
+		light_color = LIGHT_COLOR_FLARE
+	else
+		icon_state = base_icon_state
+		light_color = initial(light_color)
+	set_light(1.4, 0.5)
+	return ..()
 
 /turf/open/floor/circuit/off
 	icon_state = "bcircuitoff"
@@ -65,7 +66,7 @@
 
 /turf/open/floor/circuit/green
 	icon_state = "gcircuit"
-	icon_normal = "gcircuit"
+	base_icon_state = "gcircuit"
 	light_color = LIGHT_COLOR_GREEN
 	floor_tile = /obj/item/stack/tile/circuit/green
 
@@ -75,7 +76,7 @@
 
 /turf/open/floor/circuit/green/anim
 	icon_state = "gcircuitanim"
-	icon_normal = "gcircuitanim"
+	base_icon_state = "gcircuitanim"
 	floor_tile = /obj/item/stack/tile/circuit/green/anim
 
 /turf/open/floor/circuit/green/airless
@@ -89,7 +90,7 @@
 
 /turf/open/floor/circuit/red
 	icon_state = "rcircuit"
-	icon_normal = "rcircuit"
+	base_icon_state = "rcircuit"
 	light_color = LIGHT_COLOR_FLARE
 	floor_tile = /obj/item/stack/tile/circuit/red
 
@@ -99,7 +100,7 @@
 
 /turf/open/floor/circuit/red/anim
 	icon_state = "rcircuitanim"
-	icon_normal = "rcircuitanim"
+	base_icon_state = "rcircuitanim"
 	floor_tile = /obj/item/stack/tile/circuit/red/anim
 
 /turf/open/floor/circuit/red/airless

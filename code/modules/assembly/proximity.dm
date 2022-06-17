@@ -93,18 +93,17 @@
 	if(scanning && proximity_monitor.SetRange(sense))
 		sense()
 
-/obj/item/assembly/prox_sensor/update_appearance()
-	cut_overlays()
+/obj/item/assembly/prox_sensor/update_overlays()
+	. = ..()
 	attached_overlays = list()
 	if(timing)
-		add_overlay("prox_timing")
+		. += "prox_timing"
 		attached_overlays += "prox_timing"
 	if(scanning)
-		add_overlay("prox_scanning")
+		. += "prox_scanning"
 		attached_overlays += "prox_scanning"
 	if(holder)
 		holder.update_appearance()
-	return
 
 
 /obj/item/assembly/prox_sensor/ui_requires_update(mob/user, datum/tgui/ui)

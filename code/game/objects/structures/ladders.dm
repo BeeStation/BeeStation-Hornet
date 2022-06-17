@@ -57,18 +57,18 @@
 		down.update_appearance()
 	up = down = null
 
-/obj/structure/ladder/update_appearance()
+/obj/structure/ladder/update_icon_state()
 	if(up && down)
 		icon_state = "ladder11"
-
-	else if(up)
+		return ..()
+	if(up)
 		icon_state = "ladder10"
-
-	else if(down)
+		return ..()
+	if(down)
 		icon_state = "ladder01"
-
-	else	//wtf make your ladders properly assholes
-		icon_state = "ladder00"
+		return ..()
+	icon_state = "ladder00"//wtf make your ladders properly assholes
+	return ..()
 
 /obj/structure/ladder/singularity_pull()
 	if (!(resistance_flags & INDESTRUCTIBLE))

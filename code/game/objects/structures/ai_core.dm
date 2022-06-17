@@ -266,7 +266,7 @@
 					return
 	return ..()
 
-/obj/structure/AIcore/update_appearance()
+/obj/structure/AIcore/update_icon_state()
 	switch(state)
 		if(EMPTY_CORE)
 			icon_state = "0"
@@ -283,6 +283,7 @@
 			icon_state = "4"
 		if(AI_READY_CORE)
 			icon_state = "ai-empty"
+	return ..()
 
 /obj/structure/AIcore/deconstruct(disassembled = TRUE)
 	if(state == GLASS_CORE)

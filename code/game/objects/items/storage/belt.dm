@@ -793,10 +793,10 @@
 		to_chat(user, "[src] is empty.")
 
 /obj/item/storage/belt/sabre/update_icon_state()
-	icon_state = base_icon_state
-	item_state = base_icon_state
-	worn_icon_state = base_icon_state
 	if(!contents.len)
+		icon_state = base_icon_state
+		item_state = base_icon_state
+		worn_icon_state = base_icon_state
 		return ..()
 	icon_state = "[base_icon_state]-sabre"
 	item_state = "[base_icon_state]-sabre"

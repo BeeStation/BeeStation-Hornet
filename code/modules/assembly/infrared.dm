@@ -56,19 +56,17 @@
 	update_appearance()
 	return secured
 
-/obj/item/assembly/infra/update_appearance()
-	cut_overlays()
+/obj/item/assembly/infra/update_overlays()
+	. = ..()
 	attached_overlays = list()
 	if(on)
-		add_overlay("infrared_on")
+		. += "infrared_on"
 		attached_overlays += "infrared_on"
 		if(visible && secured)
-			add_overlay("infrared_visible")
+			. += "infrared_visible"
 			attached_overlays += "infrared_visible"
-
 	if(holder)
 		holder.update_appearance()
-	return
 
 /obj/item/assembly/infra/dropped()
 	..()

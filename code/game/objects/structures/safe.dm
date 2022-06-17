@@ -10,6 +10,7 @@ FLOOR SAFES
 	desc = "A huge chunk of metal with a dial embedded in it. Fine print on the dial reads \"Scarborough Arms - 2 tumbler safe, guaranteed thermite resistant, explosion resistant, and assistant resistant.\""
 	icon = 'icons/obj/structures.dmi'
 	icon_state = "safe"
+	base_icon_state = "safe"
 	anchored = TRUE
 	density = TRUE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
@@ -73,11 +74,9 @@ FLOOR SAFES
 		num = 0
 	return num
 
-/obj/structure/safe/update_appearance()
-	if(open)
-		icon_state = "[initial(icon_state)]-open"
-	else
-		icon_state = initial(icon_state)
+/obj/structure/safe/update_icon_state()
+	icon_state = "[base_icon_state][open ? "-open" : null]"
+	return ..()
 
 /obj/structure/safe/ui_interact(mob/user)
 	user.set_machine(src)

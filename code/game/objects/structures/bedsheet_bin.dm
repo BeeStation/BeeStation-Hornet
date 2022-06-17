@@ -315,7 +315,7 @@ LINEN BINS
 		. += "There are [amount] bed sheets in the bin."
 
 
-/obj/structure/bedsheetbin/update_appearance()
+/obj/structure/bedsheetbin/update_icon_state()
 	switch(amount)
 		if(0)
 			icon_state = "linenbin-empty"
@@ -323,6 +323,7 @@ LINEN BINS
 			icon_state = "linenbin-half"
 		else
 			icon_state = "linenbin-full"
+	return ..()
 
 /obj/structure/bedsheetbin/fire_act(exposed_temperature, exposed_volume)
 	if(amount)

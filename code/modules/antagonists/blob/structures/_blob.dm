@@ -71,7 +71,9 @@
 /obj/structure/blob/CanAtmosPass(turf/T)
 	return !atmosblock
 
-/obj/structure/blob/update_appearance() //Updates color based on overmind color if we have an overmind.
+/obj/structure/blob/update_overlays()
+	. = ..()
+	//Updates color based on overmind color if we have an overmind.
 	if(overmind)
 		add_atom_colour(overmind.blobstrain.color, FIXED_COLOUR_PRIORITY)
 	else

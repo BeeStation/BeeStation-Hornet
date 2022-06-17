@@ -121,17 +121,15 @@
 		opened = !opened
 		update_appearance()
 
-/obj/structure/extinguisher_cabinet/update_appearance()
+/obj/structure/extinguisher_cabinet/update_icon_state()
 	if(!opened)
 		icon_state = "extinguisher_closed"
-		return
-	if(stored_extinguisher)
-		if(istype(stored_extinguisher, /obj/item/extinguisher/mini))
-			icon_state = "extinguisher_mini"
-		else
-			icon_state = "extinguisher_full"
-	else
+		return ..()
+	if(!stored_extinguisher)
 		icon_state = "extinguisher_empty"
+		return ..()
+	icon_state = "extinguisher_[(istype(stored_extinguisher, /obj/item/extinguisher/mini)) ? "mini" : "full"]"
+	return ..()
 
 /obj/structure/extinguisher_cabinet/obj_break(damage_flag)
 	if(!broken && !(flags_1 & NODECONSTRUCT_1))

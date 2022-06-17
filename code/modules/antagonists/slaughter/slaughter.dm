@@ -78,8 +78,9 @@
 	icon_state = "demon_heart-on"
 	decay_factor = 0
 
-/obj/item/organ/heart/demon/update_appearance()
-	return //always beating visually
+/obj/item/organ/heart/demon/update_icon_state()
+	icon_state = "demon_heart-on" //always beating visually
+	return ..()
 
 /obj/item/organ/heart/demon/attack(mob/M, mob/living/carbon/user, obj/target)
 	if(M != user)

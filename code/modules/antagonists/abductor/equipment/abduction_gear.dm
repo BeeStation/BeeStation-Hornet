@@ -416,9 +416,6 @@
 <br>
 Congratulations! You are now trained for invasive xenobiology research!"}
 
-/obj/item/paper/guides/antag/abductor/update_appearance()
-	return
-
 /obj/item/paper/guides/antag/abductor/AltClick()
 	return //otherwise it would fold into a paperplane.
 
@@ -455,7 +452,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	to_chat(usr, "<span class='notice'>You switch the baton to [txt] mode.</span>")
 	update_appearance()
 
-/obj/item/abductor/baton/update_appearance()
+/obj/item/abductor/baton/update_icon_state()
 	switch(mode)
 		if(BATON_STUN)
 			icon_state = "wonderprodStun"
@@ -469,6 +466,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 		if(BATON_PROBE)
 			icon_state = "wonderprodProbe"
 			item_state = "wonderprodProbe"
+	return ..()
 
 /obj/item/abductor/baton/attack(mob/target, mob/living/user)
 	if(!AbductorCheck(user))

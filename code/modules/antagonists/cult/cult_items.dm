@@ -371,8 +371,9 @@
 	max = 40
 	prefix = "darkened"
 
-/obj/item/sharpener/cult/update_appearance()
+/obj/item/sharpener/cult/update_icon_state()
 	icon_state = "cult_sharpener[used ? "_used" : ""]"
+	return ..()
 
 /obj/item/clothing/suit/hooded/cultrobes/cult_shield
 	name = "empowered cultist armor"

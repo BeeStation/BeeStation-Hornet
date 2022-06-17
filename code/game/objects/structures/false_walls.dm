@@ -65,21 +65,19 @@
 		update_appearance()
 		air_update_turf(TRUE)
 
-/obj/structure/falsewall/update_appearance()//Calling icon_update will refresh the smoothwalls if it's closed, otherwise it will make sure the icon is correct if it's open
+/obj/structure/falsewall/update_icon_state()//Calling icon_update will refresh the smoothwalls if it's closed, otherwise it will make sure the icon is correct if it's open
+	if(!density)
+		icon_state = "fwall_[opening ? "closing" : "open"]"
+		return ..()
 	if(opening)
-		if(density)
-			icon_state = "fwall_opening"
-			smooth = SMOOTH_FALSE
-			clear_smooth_overlays()
-		else
-			icon_state = "fwall_closing"
+		icon_state = "fwall_opening"
+		smooth = SMOOTH_FALSE
+		clear_smooth_overlays()
 	else
-		if(density)
-			icon_state = initial(icon_state)
-			smooth = SMOOTH_TRUE
-			queue_smooth(src)
-		else
-			icon_state = "fwall_open"
+		icon_state = initial(icon_state)
+		smooth = SMOOTH_TRUE
+		queue_smooth(src)
+	return ..()
 
 /obj/structure/falsewall/proc/ChangeToWall(delete = 1)
 	var/turf/T = get_turf(src)

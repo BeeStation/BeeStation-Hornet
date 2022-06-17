@@ -57,10 +57,10 @@
 	signal()
 	return TRUE
 
-/obj/item/assembly/signaler/update_appearance()
+/obj/item/assembly/signaler/update_overlays()
+	. = ..()
 	if(holder)
 		holder.update_appearance()
-	return
 
 /obj/item/assembly/signaler/ui_status(mob/user)
 	if(is_secured(user))

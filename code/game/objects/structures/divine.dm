@@ -44,8 +44,6 @@
 	addtimer(CALLBACK(src, /atom/.proc/update_icon), time_between_uses)
 
 
-/obj/structure/healingfountain/update_appearance()
-	if(last_process + time_between_uses > world.time)
-		icon_state = "fountain"
-	else
-		icon_state = "fountain-red"
+/obj/structure/healingfountain/update_icon_state()
+	icon_state = "fountain[(last_process + time_between_uses > world.time) ? null : "-red"]"
+	return ..()

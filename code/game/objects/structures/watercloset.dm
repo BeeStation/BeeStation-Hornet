@@ -70,9 +70,10 @@
 		update_appearance()
 
 
-/obj/structure/toilet/update_appearance()
+/obj/structure/toilet/update_icon_state()
+	. = ..()
 	icon_state = "toilet[open][cistern]"
-
+	return ..()
 
 /obj/structure/toilet/attackby(obj/item/I, mob/living/user, params)
 	if(I.tool_behaviour == TOOL_CROWBAR)
@@ -392,6 +393,7 @@
 	desc = "Contains less than 1% mercury."
 	icon = 'icons/obj/watercloset.dmi'
 	icon_state = "bathroom-open"
+	base_icon_state = "bathroom"
 	var/icon_type = "bathroom"//used in making the icon state
 	color = "#ACD1E9" //Default color, didn't bother hardcoding other colors, mappers can and should easily change it.
 	alpha = 200 //Mappers can also just set this to 255 if they want curtains that can't be seen through
@@ -405,15 +407,15 @@
 	open = !open
 	update_appearance()
 
-/obj/structure/curtain/update_appearance()
+/obj/structure/curtain/update_icon_state()
+	. = ..()
 	if(!open)
-		icon_state = "[icon_type]-closed"
+		icon_state = "[base_icon_state]-closed"
 		layer = WALL_OBJ_LAYER
 		density = TRUE
 		open = FALSE
-
 	else
-		icon_state = "[icon_type]-open"
+		icon_state = "[base_icon_state]-open"
 		layer = SIGN_LAYER
 		density = FALSE
 		open = TRUE
@@ -465,7 +467,7 @@
 			playsound(loc, 'sound/items/welder.ogg', 80, 1)
 
 /obj/structure/curtain/bounty
-	icon_type = "bounty"
 	icon_state = "bounty-open"
+	base_icon_state = "bounty"
 	color = null
 	alpha = 255

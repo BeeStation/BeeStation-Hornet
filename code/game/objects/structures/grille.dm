@@ -26,9 +26,9 @@
 	. = ..()
 	update_appearance()
 
-/obj/structure/grille/update_appearance()
+/obj/structure/grille/update_icon_state()
 	if(QDELETED(src) || broken)
-		return
+		return ..()
 
 	var/ratio = obj_integrity / max_integrity
 	ratio = CEILING(ratio*4, 1) * 25
@@ -37,8 +37,9 @@
 		queue_smooth(src)
 
 	if(ratio > 50)
-		return
+		return ..()
 	icon_state = "grille50_[rand(0,3)]"
+	return ..()
 
 /obj/structure/grille/examine(mob/user)
 	. = ..()

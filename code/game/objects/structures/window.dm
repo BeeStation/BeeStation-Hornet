@@ -346,22 +346,23 @@
 		queue_smooth_neighbors(src)
 
 //merges adjacent full-tile windows into one
-/obj/structure/window/update_appearance()
-	if(!QDELETED(src))
-		if(!fulltile)
-			return
+/obj/structure/window/update_overlays()
+	. = ..()
+	if(QDELETED(src))
+		return
+	if(!fulltile)
+		return
 
-		var/ratio = obj_integrity / max_integrity
-		ratio = CEILING(ratio*4, 1) * 25
+	var/ratio = obj_integrity / max_integrity
+	ratio = CEILING(ratio*4, 1) * 25
 
-		if(smooth)
-			queue_smooth(src)
+	if(smooth)
+		queue_smooth(src)
 
-		cut_overlay(crack_overlay)
-		if(ratio > 75)
-			return
-		crack_overlay = mutable_appearance('icons/obj/structures.dmi', "damage[ratio]", -(layer+0.1))
-		add_overlay(crack_overlay)
+	if(ratio > 75)
+		return
+	crack_overlay = mutable_appearance('icons/obj/structures.dmi', "damage[ratio]", -(layer+0.1))
+	. += crack_overlay
 
 /obj/structure/window/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 
@@ -667,17 +668,15 @@
 			user.visible_message("<span class='danger'>[user] tears a hole in [src].</span>")
 			update_appearance()
 
-/obj/structure/window/paperframe/update_appearance()
+/obj/structure/window/paperframe/update_overlays()
+	. = ..()
 	if(obj_integrity < max_integrity)
-		cut_overlay(paper)
-		add_overlay(torn)
+		. += torn
 		set_opacity(FALSE)
 	else
-		cut_overlay(torn)
-		add_overlay(paper)
+		. += paper
 		set_opacity(TRUE)
 	queue_smooth(src)
-
 
 /obj/structure/window/paperframe/attackby(obj/item/W, mob/user)
 	if(W.is_hot())

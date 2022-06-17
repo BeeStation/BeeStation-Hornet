@@ -141,30 +141,27 @@
 		update_appearance()
 		return
 
-/obj/structure/fireaxecabinet/update_appearance()
-	cut_overlays()
+/obj/structure/fireaxecabinet/update_overlays()
+	. = ..()
 	if(fireaxe)
-		add_overlay("axe")
-	if(!open)
-		var/hp_percent = obj_integrity/max_integrity * 100
-		if(broken)
-			add_overlay("glass4")
-		else
-			switch(hp_percent)
-				if(-INFINITY to 40)
-					add_overlay("glass3")
-				if(40 to 60)
-					add_overlay("glass2")
-				if(60 to 80)
-					add_overlay("glass1")
-				if(80 to INFINITY)
-					add_overlay("glass")
-		if(locked)
-			add_overlay("locked")
-		else
-			add_overlay("unlocked")
+		. += "axe"
+	if(open)
+		. += "glass_raised"
+		return
+	var/hp_percent = obj_integrity/max_integrity * 100
+	if(broken)
+		. += "glass4"
 	else
-		add_overlay("glass_raised")
+		switch(hp_percent)
+			if(-INFINITY to 40)
+				. += "glass3"
+			if(40 to 60)
+				. += "glass2"
+			if(60 to 80)
+				. += "glass1"
+			if(80 to INFINITY)
+				. += "glass"
+	. += locked ? "locked" : "unlocked"
 
 /obj/structure/fireaxecabinet/proc/toggle_lock(mob/user)
 	to_chat(user, "<span class = 'caution'> Resetting circuitry...</span>")

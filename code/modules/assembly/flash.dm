@@ -16,11 +16,9 @@
 	throw_range = 7
 	var/charges_left = 10
 
-/obj/item/flashbulb/update_appearance()
-	if(charges_left <= 0)
-		icon_state = "flashbulbburnt"
-	else
-		icon_state = "flashbulb"
+/obj/item/flashbulb/update_icon_state()
+	icon_state = "flashbulb[(charges_left <= 0) ? "burnt" : null]"
+	return ..()
 
 /obj/item/flashbulb/examine(mob/user)
 	. = ..()
@@ -89,6 +87,7 @@
 	light_power = FLASH_LIGHT_POWER
 	light_on = FALSE
 	var/flashing_overlay = "flash-f"
+	var/flashed = FALSE //hacky method
 	var/last_used = 0 //last world.time it was used.
 	var/cooldown = 20
 	var/last_trigger = 0 //Last time it was successfully triggered.
@@ -124,19 +123,20 @@
 	attack(user,user)
 	return FIRELOSS
 
-/obj/item/assembly/flash/update_icon(flash = FALSE)
-	cut_overlays()
+/obj/item/assembly/flash/update_overlays()
+	. = ..()
 	attached_overlays = list()
 	if(!bulb)
-		add_overlay("flashempty")
+		. += "flashempty"
 		attached_overlays += "flashempty"
 	else if(burnt_out)
-		add_overlay("flashburnt")
+		. += "flashburnt"
 		attached_overlays += "flashburnt"
-	if(flash)
-		add_overlay(flashing_overlay)
+	if(flashed)
+		flashed = FALSE
+		. += flashing_overlay
 		attached_overlays += flashing_overlay
-		addtimer(CALLBACK(src, /atom/.proc/update_icon), 5)
+		addtimer(CALLBACK(src, .proc/update_appearance), 5)
 	if(holder)
 		holder.update_appearance()
 
@@ -223,7 +223,8 @@
 	playsound(src, 'sound/weapons/flash.ogg', 100, TRUE)
 	set_light_on(TRUE)
 	addtimer(CALLBACK(src, .proc/flash_end), FLASH_LIGHT_DURATION, TIMER_OVERRIDE|TIMER_UNIQUE)
-	update_icon(TRUE)
+	flashed = TRUE
+	update_appearance()
 	if(user && !clown_check(user))
 		return FALSE
 	return TRUE
@@ -271,7 +272,8 @@
 	else if(issilicon(M))
 		var/mob/living/silicon/robot/R = M
 		log_combat(user, R, "flashed", src)
-		update_icon(1)
+		flashed = TRUE
+		update_appearance()
 		R.Paralyze(70)
 		R.flash_act(affect_silicon = 1, type = /atom/movable/screen/fullscreen/flash/static)
 		user.visible_message("<span class='disarm'>[user] overloads [R]'s sensors with the flash!</span>", "<span class='danger'>You overload [R]'s sensors with the flash!</span>")
@@ -370,9 +372,9 @@
 	overheat = TRUE
 	addtimer(CALLBACK(src, .proc/cooldown), flashcd)
 	playsound(src, 'sound/weapons/flash.ogg', 100, TRUE)
-	update_icon(1)
+	flashed = TRUE
+	update_icon()
 	return TRUE
-
 
 /obj/item/assembly/flash/armimplant/proc/cooldown()
 	overheat = FALSE

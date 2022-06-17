@@ -5,6 +5,7 @@
 	desc = "You probably shouldn't stick around to see if this is armed."
 	icon = 'icons/obj/machines/nuke.dmi'
 	icon_state = "nuclearbomb_base"
+	base_icon_state = "nuclearbomb"
 	anchored = FALSE
 	density = TRUE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
@@ -195,23 +196,22 @@
 	else
 		return NUKE_OFF_UNLOCKED
 
-/obj/machinery/nuclearbomb/update_appearance()
-	if(deconstruction_state == NUKESTATE_INTACT)
-		switch(get_nuke_state())
-			if(NUKE_OFF_LOCKED, NUKE_OFF_UNLOCKED)
-				icon_state = "nuclearbomb_base"
-				update_icon_interior()
-				update_icon_lights()
-			if(NUKE_ON_TIMING)
-				cut_overlays()
-				icon_state = "nuclearbomb_timing"
-			if(NUKE_ON_EXPLODING)
-				cut_overlays()
-				icon_state = "nuclearbomb_exploding"
-	else
-		icon_state = "nuclearbomb_base"
+/obj/machinery/nuclearbomb/update_icon_state()
+	if(deconstruction_state != NUKESTATE_INTACT)
+		icon_state = "[base_icon_state]_base"
 		update_icon_interior()
 		update_icon_lights()
+		return ..()
+	switch(get_nuke_state())
+		if(NUKE_OFF_LOCKED, NUKE_OFF_UNLOCKED)
+			icon_state = "[base_icon_state]_base"
+			update_icon_interior()
+			update_icon_lights()
+		if(NUKE_ON_TIMING)
+			icon_state = "[base_icon_state]_timing"
+		if(NUKE_ON_EXPLODING)
+			icon_state = "[base_icon_state]_exploding"
+	return ..()
 
 /obj/machinery/nuclearbomb/proc/update_icon_interior()
 	cut_overlay(interior)

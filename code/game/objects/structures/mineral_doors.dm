@@ -9,6 +9,7 @@
 
 	icon = 'icons/obj/doors/mineral_doors.dmi'
 	icon_state = "metal"
+	base_icon_state = "metal"
 	max_integrity = 200
 	armor = list("melee" = 10, "bullet" = 0, "laser" = 0, "energy" = 100, "bomb" = 10, "bio" = 100, "rad" = 100, "fire" = 50, "acid" = 50, "stamina" = 0)
 	CanAtmosPass = ATMOS_PASS_DENSITY
@@ -87,7 +88,7 @@
 	isSwitchingStates = TRUE
 	playsound(src, openSound, 100, 1)
 	set_opacity(FALSE)
-	flick("[initial(icon_state)]opening",src)
+	flick("[base_icon_state]opening",src)
 	sleep(10)
 	density = FALSE
 	door_opened = TRUE
@@ -106,7 +107,7 @@
 		return
 	isSwitchingStates = TRUE
 	playsound(src, closeSound, 100, 1)
-	flick("[initial(icon_state)]closing",src)
+	flick("[base_icon_state]closing",src)
 	sleep(10)
 	density = TRUE
 	set_opacity(TRUE)
@@ -115,8 +116,9 @@
 	update_appearance()
 	isSwitchingStates = FALSE
 
-/obj/structure/mineral_door/update_appearance()
-	icon_state = "[initial(icon_state)][door_opened ? "open":""]"
+/obj/structure/mineral_door/update_icon_state()
+	icon_state = "[base_icon_state][door_opened ? "open" : null]"
+	return ..()
 
 /obj/structure/mineral_door/attackby(obj/item/I, mob/user)
 	if(pickaxe_door(user, I))
@@ -198,6 +200,7 @@
 /obj/structure/mineral_door/copper
 	name = "copper door"
 	icon_state = "copper"
+	base_icon_state = "copper"
 	sheetType = /obj/item/stack/sheet/mineral/copper
 	max_integrity = 300
 	rad_insulation = RAD_HEAVY_INSULATION
@@ -205,6 +208,7 @@
 /obj/structure/mineral_door/silver
 	name = "silver door"
 	icon_state = "silver"
+	base_icon_state = "silver"
 	sheetType = /obj/item/stack/sheet/mineral/silver
 	max_integrity = 300
 	rad_insulation = RAD_HEAVY_INSULATION
@@ -212,12 +216,14 @@
 /obj/structure/mineral_door/gold
 	name = "gold door"
 	icon_state = "gold"
+	base_icon_state = "gold"
 	sheetType = /obj/item/stack/sheet/mineral/gold
 	rad_insulation = RAD_HEAVY_INSULATION
 
 /obj/structure/mineral_door/uranium
 	name = "uranium door"
 	icon_state = "uranium"
+	base_icon_state = "uranium"
 	sheetType = /obj/item/stack/sheet/mineral/uranium
 	max_integrity = 300
 	light_range = 2
@@ -228,6 +234,7 @@
 /obj/structure/mineral_door/sandstone
 	name = "sandstone door"
 	icon_state = "sandstone"
+	base_icon_state = "sandstone"
 	sheetType = /obj/item/stack/sheet/mineral/sandstone
 	max_integrity = 100
 
@@ -242,6 +249,7 @@
 /obj/structure/mineral_door/transparent/plasma
 	name = "plasma door"
 	icon_state = "plasma"
+	base_icon_state = "plasma"
 	sheetType = /obj/item/stack/sheet/mineral/plasma
 
 /obj/structure/mineral_door/transparent/plasma/ComponentInitialize()
@@ -270,6 +278,7 @@
 /obj/structure/mineral_door/transparent/diamond
 	name = "diamond door"
 	icon_state = "diamond"
+	base_icon_state = "diamond"
 	sheetType = /obj/item/stack/sheet/mineral/diamond
 	max_integrity = 1000
 	rad_insulation = RAD_EXTREME_INSULATION
@@ -277,6 +286,7 @@
 /obj/structure/mineral_door/wood
 	name = "wood door"
 	icon_state = "wood"
+	base_icon_state = "wood"
 	openSound = 'sound/effects/doorcreaky.ogg'
 	closeSound = 'sound/effects/doorcreaky.ogg'
 	sheetType = /obj/item/stack/sheet/mineral/wood
@@ -303,6 +313,7 @@
 /obj/structure/mineral_door/paperframe
 	name = "paper frame door"
 	icon_state = "paperframe"
+	base_icon_state = "paperframe"
 	openSound = 'sound/effects/doorcreaky.ogg'
 	closeSound = 'sound/effects/doorcreaky.ogg'
 	sheetType = /obj/item/stack/sheet/paperframes

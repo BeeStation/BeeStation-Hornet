@@ -22,17 +22,14 @@
 				break
 	update_appearance()
 
-/obj/structure/guncase/update_appearance()
-	cut_overlays()
+/obj/structure/guncase/update_overlays()
+	. = ..()
 	if(case_type && LAZYLEN(contents))
 		var/mutable_appearance/gun_overlay = mutable_appearance(icon, case_type)
 		for(var/i in 1 to contents.len)
 			gun_overlay.pixel_x = 3 * (i - 1)
-			add_overlay(gun_overlay)
-	if(open)
-		add_overlay("[icon_state]_open")
-	else
-		add_overlay("[icon_state]_door")
+			. += gun_overlay
+	. += "[icon_state]_[open ? "open" : "door"]"
 
 /obj/structure/guncase/attackby(obj/item/I, mob/user, params)
 	if(iscyborg(user) || isalien(user))

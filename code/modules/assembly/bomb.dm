@@ -19,15 +19,18 @@
 /obj/item/onetankbomb/examine(mob/user)
 	return bombtank.examine(user)
 
-/obj/item/onetankbomb/update_appearance()
-	cut_overlays()
+/obj/item/onetankbomb/update_icon_state()
 	if(bombtank)
 		icon = bombtank.icon
 		icon_state = bombtank.icon_state
+	return ..()
+
+/obj/item/onetankbomb/update_overlays()
+	. = ..()
 	if(bombassembly)
-		add_overlay(bombassembly.icon_state)
+		. += bombassembly.icon_state
 		copy_overlays(bombassembly)
-		add_overlay("bomb_assembly")
+		. += "bomb_assembly"
 
 /obj/item/onetankbomb/wrench_act(mob/living/user, obj/item/I)
 	to_chat(user, "<span class='notice'>You disassemble [src]!</span>")

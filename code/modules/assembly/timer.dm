@@ -72,11 +72,11 @@
 		timer_end()
 		time = saved_time
 
-/obj/item/assembly/timer/update_appearance()
-	cut_overlays()
+/obj/item/assembly/timer/update_overlays()
+	. = ..()
 	attached_overlays = list()
 	if(timing)
-		add_overlay("timer_timing")
+		. += "timer_timing"
 		attached_overlays += "timer_timing"
 	if(holder)
 		holder.update_appearance()
