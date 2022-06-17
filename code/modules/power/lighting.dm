@@ -285,7 +285,16 @@
 	status = LIGHT_EMPTY
 	update(0)
 
+/obj/machinery/light/proc/store_cell(new_cell)
+	if(cell)
+		UnregisterSignal(cell, COMSIG_PARENT_QDELETING)
+	cell = new_cell
+	if(cell)
+		RegisterSignal(cell, COMSIG_PARENT_QDELETING, .proc/cell_deleted)
 
+/obj/machinery/light/proc/cell_deleted()
+	SIGNAL_HANDLER
+	cell = null
 
 // create a new lighting fixture
 /obj/machinery/light/Initialize(mapload)
@@ -310,7 +319,7 @@
 		nightshift_enabled = temp_apc?.nightshift_lights
 
 	if(start_with_cell && !no_emergency)
-		cell = new/obj/item/stock_parts/cell/emergency_light(src)
+		store_cell(new/obj/item/stock_parts/cell/emergency_light(src))
 	spawn(2)
 		switch(fitting)
 			if("tube")
@@ -553,6 +562,7 @@
 			new /obj/item/stack/cable_coil(loc, 1, "red")
 		transfer_fingerprints_to(newlight)
 		if(!QDELETED(cell))
+			UnregisterSignal(cell, COMSIG_PARENT_QDELETING)
 			newlight.cell = cell
 			cell.forceMove(newlight)
 			cell = null
