@@ -52,10 +52,7 @@
 				to_chat(H, "<span class='warning'><b>[pick("You feel a grinding pain in your abdomen.", "You exhale a jet of steam.")]</span>")
 		if(5)
 			if(replaceorgans || replacebody)
-				if(Replace(H))
-					return
-				if(replacebody)
-					H.adjustCloneLoss(-20) //repair mechanical integrity
+				Replace(H)
 			ADD_TRAIT(H, TRAIT_NANITECOMPATIBLE, DISEASE_TRAIT)
 	return
 

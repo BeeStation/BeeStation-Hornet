@@ -28,6 +28,7 @@ export const NtosSupermatterMonitorContent = (props, context) => {
     SM_power,
     SM_ambienttemp,
     SM_ambientpressure,
+    SM_radiation,
   } = data;
   if (!active) {
     return (
@@ -64,6 +65,23 @@ export const NtosSupermatterMonitorContent = (props, context) => {
                   bad: [7000, Infinity],
                 }}>
                 {toFixed(SM_power) + ' MeV/cm3'}
+              </ProgressBar>
+            </LabeledList.Item>
+            <LabeledList.Item label="Radiation">
+              <ProgressBar
+                value={SM_radiation}
+                minValue={0}
+                maxValue={7000}
+                ranges={{
+                  // The threshold where enough radiation gets to the
+                  // collectors to start generating power. Experimentally
+                  // determined, because radiation waves are inscrutable.
+                  grey: [-Infinity, 320],
+                  good: [320, 5000],
+                  average: [5000, 7000],
+                  bad: [7000, Infinity],
+                }}>
+                {toFixed(SM_radiation) + ' Sv/h'}
               </ProgressBar>
             </LabeledList.Item>
             <LabeledList.Item label="Temperature">

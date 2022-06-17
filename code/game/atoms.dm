@@ -803,7 +803,11 @@
   * Called when lighteater is called on this.
   */
 /atom/proc/lighteater_act(obj/item/light_eater/light_eater)
-	return
+	SHOULD_CALL_PARENT(TRUE)
+	SEND_SIGNAL(src,COMSIG_ATOM_LIGHTEATER_ACT)
+	for(var/datum/light_source/light_source in light_sources)
+		if(light_source.source_atom != src)
+			light_source.source_atom.lighteater_act(light_eater)
 
 /**
   * Respond to the eminence clicking on our atom
@@ -879,6 +883,7 @@
 	if(user.active_storage) //refresh the HUD to show the transfered contents
 		user.active_storage.close(user)
 		user.active_storage.show_to(user)
+	src_object.update_icon()
 	return TRUE
 
 ///Get the best place to dump the items contained in the source storage item?
@@ -928,6 +933,11 @@
 /atom/proc/setDir(newdir)
 	SEND_SIGNAL(src, COMSIG_ATOM_DIR_CHANGE, dir, newdir)
 	dir = newdir
+
+/// Attempts to turn to the given direction. May fail if anchored/unconscious/etc.
+/atom/proc/try_face(newdir)
+	setDir(newdir)
+	return TRUE
 
 ///Handle melee attack by a mech
 /atom/proc/mech_melee_attack(obj/mecha/M)

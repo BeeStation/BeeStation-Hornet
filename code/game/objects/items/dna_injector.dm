@@ -1,7 +1,7 @@
 /obj/item/dnainjector
 	name = "\improper DNA injector"
-	desc = "This injects the person with DNA."
-	icon = 'icons/obj/items_and_weapons.dmi'
+	desc = "A cheap single use autoinjector that injects the user with DNA."
+	icon = 'icons/obj/syringe.dmi'
 	icon_state = "dnainjector"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
@@ -75,7 +75,7 @@
 
 	used = TRUE
 	icon_state = "dnainjector0"
-	desc += " This one is used up."
+	desc += " This one is spent, you better recycle it!"
 
 
 /obj/item/dnainjector/antihulk

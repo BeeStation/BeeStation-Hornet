@@ -99,7 +99,7 @@
 	item.forceMove(drop_location())
 	if(user)
 		user.put_in_hands(item)
-		balloon_alert(user, "removed from board")
+		balloon_alert(user, "You remove [item] from the board.")
 	notices--
 	icon_state = "nboard0[notices]"
 

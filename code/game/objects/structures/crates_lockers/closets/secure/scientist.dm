@@ -5,6 +5,7 @@
 
 /obj/structure/closet/secure_closet/RD/PopulateContents()
 	..()
+	new /obj/item/gun/energy/e_gun/mini/heads(src)
 	new /obj/item/clothing/head/beret/sci(src)
 	new /obj/item/clothing/neck/cloak/rd(src)
 	new /obj/item/clothing/suit/bio_suit/scientist(src)
