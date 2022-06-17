@@ -87,6 +87,8 @@
 
 /mob/living/carbon/RangedAttack(atom/A, mouseparams)
 	. = ..()
+	if(!dna)
+		return
 	for(var/datum/mutation/HM as() in dna.mutations)
 		HM.on_ranged_attack(A, mouseparams)
 

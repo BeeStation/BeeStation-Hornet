@@ -292,7 +292,7 @@
 	minbodytemp = 0
 	mob_size = MOB_SIZE_TINY
 	movement_type = FLYING
-	limb_destroyer = 1
+	limb_destroyer = TRUE
 	speak_emote = list("states")
 	bubble_icon = "syndibot"
 	gold_core_spawnable = HOSTILE_SPAWN
