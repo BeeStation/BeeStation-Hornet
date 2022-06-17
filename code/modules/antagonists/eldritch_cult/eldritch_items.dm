@@ -69,6 +69,12 @@
 	to_chat(holder,"<span class='warning'>You feel a gust of energy flow through your body... the Rusted Hills heard your call...</span>")
 	qdel(sword)
 
+/datum/action/innate/heretic_shatter/Destroy()
+	if(sword)
+		sword.linked_action = null
+		sword = null
+	holder = null
+	return ..()
 
 /obj/item/melee/sickly_blade
 	name = "Sickly blade"

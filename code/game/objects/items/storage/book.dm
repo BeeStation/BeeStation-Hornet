@@ -75,9 +75,10 @@ GLOBAL_LIST_INIT(bibleitemstates, list("bible", "koran", "scrapbook", "burning",
 		item_state = GLOB.bibleitemstates[iconi]
 
 		if(icon_state == "honk1" || icon_state == "honk2")
-			var/mob/living/carbon/human/H = usr
-			H.dna.add_mutation(CLOWNMUT)
-			H.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/clown_hat(H), ITEM_SLOT_MASK)
+			var/mob/living/carbon/C = usr
+			if(C.has_dna())
+				C.dna.add_mutation(CLOWNMUT)
+			C.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/clown_hat(C), ITEM_SLOT_MASK)
 		GLOB.bible_icon_state = icon_state
 		GLOB.bible_item_state = item_state
 

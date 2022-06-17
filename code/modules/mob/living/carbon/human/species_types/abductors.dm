@@ -1,7 +1,6 @@
 /datum/species/abductor
 	name = "\improper Abductor"
 	id = SPECIES_ABDUCTOR
-	say_mod = "gibbers"
 	sexes = FALSE
 	species_traits = list(NOBLOOD,NOEYESPRITES,NOMOUTH)
 	inherent_traits = list(TRAIT_VIRUSIMMUNE,TRAIT_NOGUNS,TRAIT_NOHUNGER,TRAIT_NOBREATH)

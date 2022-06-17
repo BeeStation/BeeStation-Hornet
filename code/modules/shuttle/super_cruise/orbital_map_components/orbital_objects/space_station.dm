@@ -2,6 +2,7 @@
 	name = "Space Station 13"
 	mass = 0
 	radius = 30
+	priority = 50
 	//The station maintains its orbit around lavaland by adjustment thrusters.
 	maintain_orbit = TRUE
 	//Sure, why not?
