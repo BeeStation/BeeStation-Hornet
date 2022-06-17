@@ -204,8 +204,10 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	GLOB.clients += src
 	GLOB.directory[ckey] = src
 
-		// Instantiate tgui panel
+	// Instantiate tgui panel
 	tgui_panel = new(src)
+
+	tgui_say = new(src, "tgui_say")
 
 	GLOB.ahelp_tickets.ClientLogin(src)
 	GLOB.mhelp_tickets.ClientLogin(src)
@@ -317,6 +319,8 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 
 	// Initialize tgui panel
 	tgui_panel.Initialize()
+
+	tgui_say.initialize()
 
 	if(alert_mob_dupe_login)
 		spawn()

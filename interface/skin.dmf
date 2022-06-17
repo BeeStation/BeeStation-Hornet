@@ -1,8 +1,5 @@
 macro "default"
 
-macro "input_box_macro"
-
-
 menu "menu"
 	elem
 		name = "&File"
@@ -315,50 +312,22 @@ window "preferences_window"
 		right-click = true
 		saved-params = "zoom;letterbox;zoom-mode"
 
-window "input_box"
-	elem "input_box"
+window "tgui_say"
+	elem "tgui_say"
 		type = MAIN
-		pos = 759,487
-		size = 302x86
+		pos = 848,500
+		size = 231x30
 		anchor1 = 50,50
 		anchor2 = 50,50
-		background-color = none
 		is-visible = false
 		saved-params = ""
 		statusbar = false
 		can-minimize = false
-		can-resize = false
-		outer-size = 308x114
-		inner-size = 302x86
-	elem "input"
-		type = INPUT
-		pos = 11,17
-		size = 281x23
-		anchor1 = 4,20
-		anchor2 = 96,47
-		font-size = 7
-		border = sunken
+	elem "browser"
+		type = BROWSER
+		pos = 0,0
+		size = 231x30
+		anchor1 = 0,0
+		anchor2 = 0,0
 		saved-params = ""
-	elem "accept"
-		type = BUTTON
-		pos = 52,52
-		size = 75x23
-		anchor1 = 17,60
-		anchor2 = 42,87
-		font-size = 7
-		background-color = none
-		saved-params = ""
-		text = "OK"
-		command = ""
-	elem "cancel"
-		type = BUTTON
-		pos = 179,52
-		size = 75x23
-		anchor1 = 59,60
-		anchor2 = 84,87
-		font-size = 7
-		background-color = none
-		saved-params = ""
-		text = "Cancel"
-		command = ""
 

@@ -37,6 +37,8 @@
 	erase_all_macros()
 
 	var/list/macro_sets = SSinput.macro_sets
+	var/say = tgui_say_create_open_command(SAY_CHANNEL)
+	var/me = tgui_say_create_open_command(ME_CHANNEL)
 	for(var/i in 1 to macro_sets.len)
 		var/setname = macro_sets[i]
 		if(setname != "default")
@@ -46,6 +48,9 @@
 			var/key = macro_set[k]
 			var/command = macro_set[key]
 			winset(src, "[setname]-[REF(key)]", "parent=[setname];name=[key];command=[command]")
+		winset(src, "[setname]-say", "parent=[setname];name=T;command=[say]")
+		winset(src, "[setname]-me", "parent=[setname];name=M;command=[me]")
+
 
 	if(prefs.toggles2 & PREFTOGGLE_2_HOTKEYS)
 		winset(src, null, "input.focus=true input.background-color=[COLOR_INPUT_ENABLED] mainwindow.macro=default")

@@ -222,3 +222,7 @@
 
 	///Currently possesses a typing indicator icon
 	var/typing_indicator = FALSE
+	/// Thinking indicator - mob has input window open
+	var/thinking_indicator = FALSE
+	/// User is thinking in character. Used to revert to thinking state after stop_typing
+	var/thinking_IC = FALSE
