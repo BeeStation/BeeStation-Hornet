@@ -136,7 +136,7 @@
 		flashed = FALSE
 		. += flashing_overlay
 		attached_overlays += flashing_overlay
-		addtimer(CALLBACK(src, .proc/update_appearance), 5)
+		addtimer(CALLBACK(src, /atom/.proc/update_appearance), 5)
 	if(holder)
 		holder.update_appearance()
 
