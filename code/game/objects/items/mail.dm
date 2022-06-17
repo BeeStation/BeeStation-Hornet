@@ -353,26 +353,3 @@
 /obj/item/paper/fluff/junkmail_generic/Initialize()
 	. = ..()
 	info = pick(GLOB.junkmail_messages)
-
-/*
-
-		var/obj/machinery/nuclearbomb/selfdestruct/nuke = locate() in GLOB.nuke_list
-		if(nuke)
-			nuke_team.tracked_nuke = nuke
-			if(nuke.r_code == "ADMIN")
-				nuke.r_code = nuke_team.memorized_code
-			else //Already set by admins/something else?
-				nuke_team.memorized_code = nuke.r_code
-		else
-			stack_trace("Station self-destruct not found during lone op team creation.")
-			nuke_team.memorized_code = null
-
-	for(var/obj/machinery/nuclearbomb/selfdestruct/self_destruct in GLOB.nuke_list)
-		if(self_destruct.r_code == "ADMIN")
-			self_destruct.r_code = code
-			message_admins("Through junkmail, the self-destruct code was set to \"[code]\".")
-		else //Already set by admins/something else?
-			self_destruct.r_code = nuke.random_code
-
-
-			*/

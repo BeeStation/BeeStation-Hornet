@@ -178,22 +178,6 @@
 		/obj/item/paicard = 2,
 	)
 
-//DEBTOR
-/datum/job/gimmick/hobo
-	mail_goodies = list(
-		/obj/item/reagent_containers/food/snacks/deadmouse = 30,
-		/obj/item/reagent_containers/food/drinks/bottle/hooch = 10,
-		/obj/item/radio = 10,
-		/obj/item/storage/pill_bottle/floorpill = 10,
-		/obj/item/storage/pill_bottle/lsd = 5,
-		/obj/item/storage/pill_bottle/happiness = 5,
-		/obj/item/clothing/head/foilhat = 5,
-		/obj/item/gps = 5,
-		/obj/item/melee/skateboard = 5,
-		/obj/item/melee/baseball_bat = 5,
-		/mob/living/simple_animal/mouse = 5,
-	)
-
 //DEPUTY...IS THIS JOB EVEN ACTIVE? I DON'T THINK IT IS
 /datum/job/deputy
 	mail_goodies = list(
