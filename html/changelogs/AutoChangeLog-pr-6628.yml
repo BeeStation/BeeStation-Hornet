@@ -1,0 +1,5 @@
+author: zeskorion
+delete-after: true
+changes:
+  - tweak: remaps viro on delta, pubby, meta, and box
+  - imageadd: changes PANDEMIC and virus food dispenser icons
