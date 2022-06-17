@@ -158,7 +158,7 @@
 			to_chat(user, "<span class='notice'>You can't open somebody else's mail! That's <em>immoral</em>!</span>")
 			return
 
-	user.visible_message("[user] start to unwrap the package...", \
+	user.visible_message("[user] start to unwrap a package...", \
 			"<span class='notice'>You start to unwrap the package...</span>", \
 			"<span class='italics'>You hear paper ripping.</span>")
 	if(!do_after(user, 1.5 SECONDS, target = user))
@@ -192,7 +192,8 @@
 		if(this_job.paycheck_department && department_colors[this_job.paycheck_department])
 			color = department_colors[this_job.paycheck_department]
 
-	for(var/i in 1 to goodie_count)
+	//for(var/i in 1 to goodie_count) //checking if with the old FOR this will work, if it does this line will get removed when merge
+	for(var/iterator = 0, iterator < goodie_count, iterator++)
 		var/target_good = pickweight(goodies)
 		var/atom/movable/target_atom = new target_good(src)
 		body.log_message("[key_name(body)] received [target_atom.name] in the mail ([target_good])", LOG_GAME)
