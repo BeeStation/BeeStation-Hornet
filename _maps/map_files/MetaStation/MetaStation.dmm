@@ -12578,10 +12578,7 @@
 /turf/open/floor/plasteel,
 /area/engine/engineering)
 "aRk" = (
-/obj/effect/spawner/room/threexfive,
-/obj/structure/disposalpipe/segment{
-	dir = 9
-	},
+/obj/structure/grille,
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
 "aRl" = (
@@ -37042,11 +37039,8 @@
 /turf/open/floor/plasteel,
 /area/medical/virology)
 "cul" = (
-/obj/effect/spawner/room/threexthree,
-/obj/structure/disposalpipe/segment{
-	dir = 6
-	},
-/turf/open/floor/plating,
+/obj/structure/lattice,
+/turf/open/space/basic,
 /area/maintenance/port/aft)
 "cum" = (
 /obj/structure/chair/office/light{
@@ -41222,11 +41216,11 @@
 /turf/open/floor/plasteel/freezer,
 /area/medical/virology)
 "cGG" = (
-/turf/open/space,
-/area/space/nearstation)
+/turf/open/space/basic,
+/area/maintenance/port/aft)
 "cGH" = (
-/obj/item/toy/figure/virologist,
-/obj/structure/closet/l3closet/virology,
+/obj/structure/closet/crate,
+/obj/effect/spawner/lootdrop/maintenance/eight,
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
 "cGI" = (
@@ -42131,10 +42125,8 @@
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
 "cKg" = (
-/obj/effect/spawner/room/threexthree,
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
+/obj/structure/rack,
+/obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
 "cKi" = (
@@ -42296,21 +42288,16 @@
 /turf/open/floor/plasteel/freezer,
 /area/medical/virology)
 "cKW" = (
-/obj/effect/spawner/lootdrop/maintenance,
-/obj/effect/spawner/lootdrop/maintenance,
-/obj/effect/spawner/lootdrop/maintenance,
-/obj/effect/spawner/lootdrop/maintenance,
-/obj/structure/closet/crate,
+/obj/structure/closet/l3closet/virology,
+/obj/item/toy/figure/virologist,
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
 "cKX" = (
-/obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance,
-/obj/effect/spawner/lootdrop/maintenance,
-/obj/effect/spawner/lootdrop/maintenance,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /turf/open/floor/plating,
-/area/maintenance/port/aft)
+/area/space/nearstation)
 "cKZ" = (
 /obj/item/radio/intercom{
 	frequency = 1485;
@@ -42697,7 +42684,7 @@
 /area/medical/virology)
 "cMA" = (
 /obj/effect/decal/cleanable/blood/old,
-/obj/structure/reagent_dispensers/watertank,
+/obj/effect/spawner/room/threexthree,
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
 "cMB" = (
@@ -51741,6 +51728,10 @@
 	dir = 5
 	},
 /area/science/research)
+"fgS" = (
+/obj/structure/reagent_dispensers/fueltank,
+/turf/open/floor/plating,
+/area/maintenance/port/aft)
 "fhv" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -66694,9 +66685,6 @@
 /turf/open/floor/plasteel,
 /area/construction/mining/aux_base)
 "ojF" = (
-/obj/structure/disposalpipe/segment{
-	dir = 5
-	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
@@ -67281,6 +67269,11 @@
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/plating,
 /area/maintenance/starboard)
+"oyf" = (
+/obj/structure/rack,
+/obj/effect/spawner/lootdrop/maintenance/four,
+/turf/open/floor/plating,
+/area/maintenance/port/aft)
 "oyl" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -74146,7 +74139,7 @@
 /obj/machinery/camera{
 	c_tag = "Incinerator";
 	dir = 8;
-	network = list("ss13", "turbine")
+	network = list("ss13","turbine")
 	},
 /obj/machinery/atmospherics/pipe/simple/dark/visible{
 	dir = 10
@@ -78020,6 +78013,13 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
+"vaN" = (
+/obj/structure/disposalpipe/segment{
+	dir = 6
+	},
+/obj/structure/closet/emcloset,
+/turf/open/floor/plating,
+/area/space)
 "vaS" = (
 /obj/machinery/door/airlock{
 	id_tag = "Cabin5";
@@ -80262,6 +80262,16 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
+"wpT" = (
+/obj/structure/closet/crate,
+/obj/effect/spawner/lootdrop/maintenance/four,
+/turf/open/floor/plating,
+/area/maintenance/port/aft)
+"wpU" = (
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/structure/closet/crate,
+/turf/open/floor/plating,
+/area/maintenance/port/aft)
 "wqe" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -81858,6 +81868,11 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
+"xmF" = (
+/obj/structure/rack,
+/obj/effect/spawner/lootdrop/maintenance/three,
+/turf/open/floor/plating,
+/area/maintenance/port/aft)
 "xmM" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 27
@@ -99608,11 +99623,11 @@ aaa
 aaf
 aaa
 aaa
-aaf
+auv
 aaa
-aaf
+auv
 aaa
-aaf
+auv
 aaa
 aaa
 aaf
@@ -99865,8 +99880,8 @@ aaa
 aaf
 aaa
 aaa
+cGG
 dux
-cJh
 cJh
 cJh
 cJh
@@ -100120,13 +100135,13 @@ auv
 cwf
 ack
 aaf
-aaa
-aaa
+cGw
+cGw
+dux
 dux
 bXE
 bXE
-bXE
-arA
+ast
 dux
 bXE
 bXE
@@ -100134,7 +100149,7 @@ bXE
 bXE
 cKS
 dux
-cKX
+bXE
 bXE
 cGK
 cEA
@@ -100377,10 +100392,10 @@ ack
 cwg
 ack
 ack
-aaa
-aaa
-dux
-cGI
+cGw
+vaN
+cHt
+cGr
 cHt
 cHt
 cHt
@@ -100634,10 +100649,10 @@ dux
 cfA
 dux
 dux
-cGG
-auv
+blx
+cKX
+bXE
 dux
-dBO
 bXE
 bXE
 bXE
@@ -100891,13 +100906,13 @@ ioR
 fGY
 cxb
 dux
-dux
-dux
-dux
+cKg
 dBO
-bXE
-bXE
-bXE
+dux
+dux
+cJh
+cJh
+cJh
 dux
 dux
 cJh
@@ -101148,14 +101163,14 @@ dux
 hjW
 dux
 dux
-bXE
-bXE
-cul
-cDM
-bXE
-bXE
-bXE
+xmF
+dBO
 dux
+cGG
+cGG
+cGG
+cGG
+cGG
 auv
 auv
 auv
@@ -101405,9 +101420,9 @@ bXE
 vIS
 ast
 dux
-bXE
-bXE
+oyf
 dBO
+dux
 cBR
 cBR
 cBR
@@ -101663,8 +101678,8 @@ mzC
 cHt
 cGr
 cHt
-cHt
 cDM
+fgS
 cBR
 cDF
 cEI
@@ -102446,10 +102461,10 @@ cKe
 cBR
 ePg
 dux
-bXE
-dBO
-bXE
-bXE
+dux
+cMB
+dux
+dux
 dux
 aai
 aaa
@@ -102703,12 +102718,12 @@ cBR
 cBR
 ivQ
 dux
-dux
-cMB
-dux
-bXE
-dux
-aai
+cKW
+dBO
+wpT
+cJh
+cul
+lMJ
 aag
 aag
 aag
@@ -102955,17 +102970,17 @@ cKe
 cDA
 cBR
 bXE
-cGH
-cMA
-cKW
-dBO
-dBU
 bXE
-cKg
+cMA
 dux
-dux
-dux
-aai
+dBO
+bXE
+bXE
+dBO
+cGH
+cJh
+cul
+lMJ
 aaa
 aaa
 aaa
@@ -103211,18 +103226,18 @@ cHn
 cKe
 cDA
 cBR
+bXE
+bXE
 cGI
 cHt
-cHt
-cHt
-aRk
-bXE
+cDM
+dBU
 bXE
 dBO
-dux
-aaa
-aaa
-auv
+aRk
+cKT
+vLD
+lMJ
 aaa
 aaa
 aaa
@@ -103468,17 +103483,17 @@ cMv
 cKe
 cDA
 cBR
-dBO
 bXE
-bXE
-bXE
+cGI
+cDM
+dux
 cGI
 cHt
 cHt
 cDM
-dux
-aaa
-aaa
+wpU
+cKT
+vLD
 cMI
 cPA
 cPA
@@ -103725,10 +103740,10 @@ xOG
 cBR
 cBR
 cBR
+dux
 dBO
-bXE
-bXE
-bXE
+dux
+dux
 dBO
 cLa
 cLa
@@ -103982,9 +103997,9 @@ dvq
 cBR
 cBS
 cGI
+cHt
 cDM
-bXE
-bTs
+cdm
 bTs
 cKm
 cLa
@@ -104242,7 +104257,7 @@ rrP
 cxU
 cxU
 bTs
-cdm
+bTs
 rjC
 pGp
 sJe
