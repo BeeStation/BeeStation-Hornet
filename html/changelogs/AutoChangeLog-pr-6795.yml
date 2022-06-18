@@ -1,0 +1,9 @@
+author: Penwin0
+delete-after: true
+changes:
+  - rscadd: A code acquired from the robotics management console is now needed for
+      law changes.
+  - rscadd: Silicon Uploads are now trackable by the Robotics Management Console.
+  - tweak: Cyborg uploads are now Capitalized.
+  - balance: RD access is now required for the robotics management console.
+  - balance: Hacked law module cost reduced to 3 TC to account for added difficulty
