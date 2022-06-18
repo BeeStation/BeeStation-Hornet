@@ -3,11 +3,33 @@
 	desc = "Used to remotely lockdown or detonate linked Cyborgs and Drones."
 	icon_screen = "robot"
 	icon_keyboard = "rd_key"
-	req_access = list(ACCESS_ROBOTICS)
+	req_access = list(ACCESS_RD)
 	circuit = /obj/item/circuitboard/computer/robotics
 	light_color = LIGHT_COLOR_PINK
+	var/extracting = FALSE
+	var/obj/item/radio/radio
+	var/radio_channel = RADIO_CHANNEL_COMMAND
+	var/timerid
 
+/obj/machinery/computer/robotics/Initialize(mapload)
+	. = ..()
+	radio = new(src)
+	radio.subspace_transmission = TRUE
+	radio.canhear_range = 0
+	radio.recalculateChannels()
 
+/obj/machinery/computer/robotics/Destroy()
+	QDEL_NULL(radio)
+	if(timerid)
+		deltimer(timerid)
+	return ..()
+
+/obj/machinery/computer/robotics/proc/extraction(mob/user)
+	var/obj/item/paper/P = new /obj/item/paper(loc)
+	P.name = "Silicon Upload key"
+	P.info = "Current Upload key is: [GLOB.upload_code]"
+	extracting = FALSE
+	ui_update()
 
 /obj/machinery/computer/robotics/proc/can_control(mob/user, mob/living/silicon/robot/R)
 	. = FALSE
@@ -23,7 +45,6 @@
 		return
 	return TRUE
 
-
 /obj/machinery/computer/robotics/ui_state(mob/user)
 	return GLOB.default_state
 
@@ -38,10 +59,13 @@
 	var/list/data = list()
 
 	data["can_hack"] = FALSE
+	data["is_silicon"] = FALSE
+	data["extracting"] = extracting
 	if(issilicon(user))
 		var/mob/living/silicon/S = user
 		if(S.hack_software)
 			data["can_hack"] = TRUE
+		data["is_silicon"] = TRUE
 	else if(IsAdminGhost(user))
 		data["can_hack"] = TRUE
 
@@ -76,10 +100,29 @@
 		)
 		data["drones"] += list(drone_data)
 
+
+	data["uploads"] = list()
+	for(var/obj/machinery/computer/upload/U as() in GLOB.uploads_list)
+		if(stat & (NOPOWER|BROKEN))
+			continue
+		if(!(is_station_level(src.z) && is_station_level(U.z)))
+			continue
+		var/turf/loc = get_turf(U)
+		var/list/upload_data = list(
+			name = U.name,
+			area = "[get_area_name(loc, TRUE)]",
+			coords = "[loc.x], [loc.y], [loc.get_virtual_z_level()]",
+			ref = REF(U)
+		)
+		data["uploads"] += list(upload_data)
+
 	return data
 
 /obj/machinery/computer/robotics/ui_act(action, params)
 	if(..())
+		return
+	if(extracting)
+		say("The machine is busy!")
 		return
 
 	switch(action)
@@ -132,3 +175,21 @@
 					s.start()
 					D.visible_message("<span class='danger'>\the [D] self-destructs!</span>")
 					D.gib()
+		if("extract")
+			if(!GLOB.upload_code)
+				GLOB.upload_code = random_code(4)
+
+			message_admins("[ADMIN_LOOKUPFLW(usr)] is extracting the upload key!")
+			extracting = TRUE
+			ui_update()
+			if(allowed(usr))
+				say("Credentials successfully verified, commencing extraction.")
+				src.timerid = addtimer(CALLBACK(src, .proc/extraction,usr), 300, TIMER_STOPPABLE)
+			else
+				var/message = "ALERT: UNAUTHORIZED UPLOAD KEY EXTRACTION AT [get_area_name(loc, TRUE)]"
+				radio.talk_into(src, message, radio_channel)
+				src.timerid = addtimer(CALLBACK(src, .proc/extraction,usr), 600, TIMER_STOPPABLE)
+
+
+
+
