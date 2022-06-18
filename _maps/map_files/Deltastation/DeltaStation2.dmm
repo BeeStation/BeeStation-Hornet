@@ -1427,8 +1427,8 @@
 /turf/open/floor/plating,
 /area/maintenance/aft)
 "aes" = (
+/obj/effect/decal/cleanable/dirt,
 /obj/structure/closet/l3closet/virology,
-/obj/effect/spawner/lootdrop/teratoma/minor,
 /turf/open/floor/plasteel{
 	heat_capacity = 1e+006
 	},
@@ -1932,6 +1932,13 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/plasteel,
 /area/quartermaster/warehouse)
+"age" = (
+/obj/structure/closet/l3closet/virology,
+/obj/effect/spawner/lootdrop/teratoma/minor,
+/turf/open/floor/plasteel{
+	heat_capacity = 1e+006
+	},
+/area/maintenance/aft)
 "agj" = (
 /obj/structure/closet/firecloset,
 /obj/effect/decal/cleanable/dirt,
@@ -21119,15 +21126,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/hydroponics)
-"blj" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/closet,
-/obj/effect/spawner/lootdrop/teratoma/robot,
-/obj/effect/spawner/lootdrop/maintenance/two,
-/turf/open/floor/plasteel{
-	heat_capacity = 1e+006
-	},
-/area/maintenance/aft)
 "blk" = (
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel,
@@ -27337,6 +27335,15 @@
 	},
 /turf/open/floor/plasteel,
 /area/security/brig)
+"bCe" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet,
+/obj/effect/spawner/lootdrop/teratoma/robot,
+/obj/effect/spawner/lootdrop/maintenance/two,
+/turf/open/floor/plasteel{
+	heat_capacity = 1e+006
+	},
+/area/maintenance/aft)
 "bCf" = (
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
@@ -54528,6 +54535,14 @@
 	},
 /turf/open/floor/plasteel,
 /area/medical/medbay/central)
+"dad" = (
+/obj/machinery/door/airlock/maintenance_hatch{
+	name = "Maintenance Hatch";
+	req_access_txt = "12"
+	},
+/obj/effect/mapping_helpers/airlock/abandoned,
+/turf/open/floor/plating,
+/area/maintenance/aft)
 "dae" = (
 /obj/structure/table,
 /obj/item/clothing/under/suit/black_really,
@@ -62654,14 +62669,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
-"dBz" = (
-/obj/machinery/door/airlock/maintenance_hatch{
-	name = "Maintenance Hatch";
-	req_access_txt = "12"
-	},
-/obj/effect/mapping_helpers/airlock/abandoned,
-/turf/open/floor/plating,
-/area/maintenance/aft)
 "dBM" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -63910,19 +63917,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/science/misc_lab)
-"dFF" = (
-/obj/structure/table,
-/obj/item/hemostat,
-/obj/item/hatchet,
-/obj/item/kitchen/knife,
-/obj/machinery/light/small{
-	dir = 4
-	},
-/obj/item/wirecutters,
-/turf/open/floor/plasteel{
-	heat_capacity = 1e+006
-	},
-/area/maintenance/aft)
 "dFI" = (
 /obj/item/assembly/signaler{
 	pixel_y = 8
@@ -67975,13 +67969,12 @@
 /turf/open/floor/plasteel/freezer,
 /area/medical/virology)
 "dVv" = (
-/obj/machinery/door/airlock/maintenance_hatch{
-	name = "Maintenance Hatch";
-	req_access_txt = "12"
+/obj/structure/closet,
+/obj/effect/spawner/lootdrop/maintenance/two,
+/turf/open/floor/plasteel{
+	heat_capacity = 1e+006
 	},
-/obj/effect/mapping_helpers/airlock/abandoned,
-/turf/open/floor/plasteel,
-/area/maintenance/starboard/aft)
+/area/maintenance/aft)
 "dVw" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -69085,12 +69078,13 @@
 /turf/open/floor/plasteel,
 /area/medical/virology)
 "dZC" = (
-/obj/structure/closet,
-/obj/effect/spawner/lootdrop/maintenance/two,
-/turf/open/floor/plasteel{
-	heat_capacity = 1e+006
+/obj/machinery/door/airlock/maintenance_hatch{
+	name = "Maintenance Hatch";
+	req_access_txt = "12"
 	},
-/area/maintenance/aft)
+/obj/effect/mapping_helpers/airlock/abandoned,
+/turf/open/floor/plasteel,
+/area/maintenance/starboard/aft)
 "dZD" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -71340,6 +71334,19 @@
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
+"ema" = (
+/obj/structure/table,
+/obj/item/hemostat,
+/obj/item/hatchet,
+/obj/item/kitchen/knife,
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/item/wirecutters,
+/turf/open/floor/plasteel{
+	heat_capacity = 1e+006
+	},
+/area/maintenance/aft)
 "emt" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
@@ -72640,13 +72647,6 @@
 	},
 /turf/open/floor/plating,
 /area/quartermaster/warehouse)
-"eNy" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
-/obj/effect/turf_decal/delivery,
-/turf/open/floor/plating,
-/area/maintenance/aft)
 "eNJ" = (
 /obj/item/radio/intercom{
 	pixel_x = -28;
@@ -73996,6 +73996,13 @@
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/exploration_prep)
+"ftz" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/maintenance/aft)
 "fub" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -76553,17 +76560,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/security/brig)
-"gzP" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/effect/mapping_helpers/airlock/abandoned,
-/obj/machinery/door/airlock/maintenance_hatch{
-	name = "Maintenance Hatch";
-	req_access_txt = "12"
-	},
-/turf/open/floor/plating,
-/area/maintenance/aft)
 "gAb" = (
 /obj/structure/sign/departments/minsky/medical/medical2,
 /turf/closed/wall,
@@ -79559,14 +79555,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/engine/gravity_generator)
-"hLH" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/closet,
-/obj/effect/spawner/lootdrop/maintenance/two,
-/turf/open/floor/plasteel{
-	heat_capacity = 1e+006
-	},
-/area/maintenance/aft)
 "hLJ" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -80439,6 +80427,17 @@
 	dir = 1
 	},
 /area/hallway/secondary/entry)
+"iee" = (
+/obj/machinery/door/airlock/maintenance_hatch{
+	name = "Maintenance Hatch";
+	req_access_txt = "12"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/effect/mapping_helpers/airlock/abandoned,
+/turf/open/floor/plating,
+/area/maintenance/aft)
 "iei" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -82404,6 +82403,15 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/science/mixing)
+"iTY" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/structure/girder,
+/turf/open/floor/plasteel,
+/area/maintenance/starboard/aft)
 "iUh" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/neutral{
@@ -87191,6 +87199,12 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/main)
+"kZn" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/blobstart,
+/turf/open/floor/plating,
+/area/maintenance/starboard/aft)
 "kZw" = (
 /obj/effect/turf_decal/tile/red{
 	dir = 1
@@ -89901,6 +89915,13 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
+"mbr" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/plating,
+/area/maintenance/aft)
 "mby" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -91345,6 +91366,14 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/engine/transit_tube)
+"mLH" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/bed,
+/obj/item/bedsheet/medical,
+/obj/effect/decal/cleanable/blood/old,
+/obj/effect/trap/nexus/trickyspawner/catbutcher,
+/turf/open/floor/plating,
+/area/maintenance/aft)
 "mLJ" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -93073,13 +93102,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/entry)
-"ntd" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/closet/l3closet/virology,
-/turf/open/floor/plasteel{
-	heat_capacity = 1e+006
-	},
-/area/maintenance/aft)
 "ntu" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow{
@@ -94030,6 +94052,15 @@
 	},
 /turf/open/floor/circuit/green,
 /area/ai_monitored/turret_protected/ai)
+"nSn" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel{
+	heat_capacity = 1e+006
+	},
+/area/maintenance/aft)
 "nSr" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -95842,13 +95873,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
-"oye" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/reagent_dispensers/watertank,
-/turf/open/floor/plasteel{
-	heat_capacity = 1e+006
-	},
-/area/maintenance/aft)
 "oyz" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow{
@@ -97656,11 +97680,6 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plasteel,
 /area/crew_quarters/fitness/recreation)
-"pjh" = (
-/obj/structure/grille,
-/obj/structure/lattice,
-/turf/closed/wall/r_wall,
-/area/space)
 "pjw" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable/yellow{
@@ -99420,15 +99439,6 @@
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2,
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
-"pVL" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel{
-	heat_capacity = 1e+006
-	},
-/area/maintenance/aft)
 "pWv" = (
 /obj/machinery/atmospherics/pipe/simple/cyan/visible,
 /obj/effect/decal/cleanable/dirt,
@@ -102345,6 +102355,13 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
 /turf/open/floor/plasteel,
 /area/crew_quarters/kitchen)
+"rmd" = (
+/obj/machinery/door/airlock/maintenance_hatch{
+	name = "Maintenance Hatch";
+	req_access_txt = "12"
+	},
+/turf/open/floor/plating,
+/area/maintenance/aft)
 "rmk" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -102584,6 +102601,11 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/plasteel/grimy,
 /area/chapel/main)
+"rsY" = (
+/obj/structure/grille,
+/obj/structure/lattice,
+/turf/closed/wall/r_wall,
+/area/space)
 "rtR" = (
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
@@ -104500,6 +104522,13 @@
 /obj/effect/decal/remains/xeno,
 /turf/open/floor/engine/vacuum,
 /area/science/mixing/chamber)
+"sfI" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/reagent_dispensers/watertank,
+/turf/open/floor/plasteel{
+	heat_capacity = 1e+006
+	},
+/area/maintenance/aft)
 "sfP" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -105471,11 +105500,16 @@
 /turf/closed/wall/r_wall,
 /area/hallway/secondary/exit/departure_lounge)
 "sCi" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/blobstart,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/effect/mapping_helpers/airlock/abandoned,
+/obj/machinery/door/airlock/maintenance_hatch{
+	name = "Maintenance Hatch";
+	req_access_txt = "12"
+	},
 /turf/open/floor/plating,
-/area/maintenance/starboard/aft)
+/area/maintenance/aft)
 "sCs" = (
 /obj/structure/disposalpipe/segment{
 	dir = 9
@@ -111895,17 +111929,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/science/research)
-"vsO" = (
-/obj/machinery/door/airlock/maintenance_hatch{
-	name = "Maintenance Hatch";
-	req_access_txt = "12"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/effect/mapping_helpers/airlock/abandoned,
-/turf/open/floor/plating,
-/area/maintenance/aft)
 "vtk" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable/yellow{
@@ -113289,13 +113312,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/maintenance/disposal/incinerator)
-"vXP" = (
-/obj/machinery/door/airlock/maintenance_hatch{
-	name = "Maintenance Hatch";
-	req_access_txt = "12"
-	},
-/turf/open/floor/plating,
-/area/maintenance/aft)
 "vXR" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 2
@@ -115104,13 +115120,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/hydroponics)
-"wKO" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plating,
-/area/maintenance/aft)
 "wKY" = (
 /obj/machinery/holopad,
 /obj/effect/decal/cleanable/dirt,
@@ -115728,15 +115737,6 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plasteel,
 /area/hallway/secondary/service)
-"wWy" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/structure/girder,
-/turf/open/floor/plasteel,
-/area/maintenance/starboard/aft)
 "wWG" = (
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
@@ -116852,14 +116852,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/engine/engineering)
-"xuQ" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/bed,
-/obj/item/bedsheet/medical,
-/obj/effect/decal/cleanable/blood/old,
-/obj/effect/trap/nexus/trickyspawner/catbutcher,
-/turf/open/floor/plating,
-/area/maintenance/aft)
 "xvc" = (
 /obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/delivery,
@@ -118119,6 +118111,14 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/plasteel,
 /area/maintenance/starboard/fore)
+"xWk" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet,
+/obj/effect/spawner/lootdrop/maintenance/two,
+/turf/open/floor/plasteel{
+	heat_capacity = 1e+006
+	},
+/area/maintenance/aft)
 "xWA" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -164744,10 +164744,10 @@ dRZ
 dPq
 tww
 lxw
-pVL
-wKO
-pVL
-eNy
+nSn
+ftz
+nSn
+mbr
 dNS
 aaa
 qYo
@@ -165000,7 +165000,7 @@ xYo
 dSa
 dPq
 dNS
-dBz
+dad
 dNS
 dYb
 dYb
@@ -165513,8 +165513,8 @@ dXY
 dXY
 eaQ
 dPq
-dFF
-xuQ
+ema
+mLH
 dNS
 rDi
 rDi
@@ -168343,7 +168343,7 @@ rDi
 aeo
 dVH
 dVH
-gzP
+sCi
 dVH
 dZe
 rDi
@@ -168859,7 +168859,7 @@ rDi
 rDi
 dNS
 dNS
-vXP
+rmd
 dNS
 dNS
 qYo
@@ -169111,11 +169111,11 @@ dLm
 dPr
 dPq
 dNS
-vsO
+iee
 dNS
 dNS
 dNS
-oye
+sfI
 dUN
 dNS
 qYo
@@ -169371,8 +169371,8 @@ rDi
 maQ
 iIm
 dNS
-ntd
 aes
+age
 dUN
 dNS
 qYo
@@ -169612,7 +169612,7 @@ hWJ
 dCX
 cHU
 dFq
-wWy
+iTY
 cHU
 cIW
 cIW
@@ -169627,7 +169627,7 @@ oVM
 ael
 aer
 rDi
-vXP
+rmd
 rDi
 dPs
 aeI
@@ -169869,7 +169869,7 @@ eRy
 dCY
 cHU
 dFr
-sCi
+kZn
 cHU
 cIW
 cIW
@@ -169877,9 +169877,9 @@ cIW
 cIW
 cHU
 ujE
-hLH
-dZC
-blj
+xWk
+dVv
+bCe
 dNS
 rDi
 dZD
@@ -169890,7 +169890,7 @@ dNS
 dNS
 dNS
 qYo
-pjh
+rsY
 aaa
 qYo
 aaa
@@ -170390,8 +170390,8 @@ cIW
 cIW
 cIW
 cHU
-aJD
-aJD
+dNS
+dNS
 qYo
 qYo
 sav
@@ -171411,7 +171411,7 @@ oDO
 cIW
 cHU
 cIW
-dVv
+dZC
 cIW
 cIW
 cIW
