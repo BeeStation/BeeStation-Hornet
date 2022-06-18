@@ -6782,13 +6782,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/security/brig)
-"awp" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/disposalpipe/segment{
-	dir = 6
-	},
-/turf/open/space/basic,
-/area/space/nearstation)
 "awq" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -31730,9 +31723,12 @@
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
 "cdm" = (
-/obj/structure/reagent_dispensers/watertank,
+/obj/effect/mapping_helpers/airlock/abandoned,
+/obj/machinery/door/airlock/maintenance{
+	req_one_access_txt = "12;27;37"
+	},
 /turf/open/floor/plating,
-/area/maintenance/aft)
+/area/maintenance/port/aft)
 "cdp" = (
 /obj/machinery/light_switch{
 	pixel_x = -26
@@ -40544,9 +40540,6 @@
 	},
 /turf/open/floor/plasteel/freezer,
 /area/medical/virology)
-"cEG" = (
-/turf/open/floor/plating,
-/area/space)
 "cEI" = (
 /obj/structure/rack,
 /obj/item/restraints/handcuffs{
@@ -41148,9 +41141,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/medical/virology)
-"cGw" = (
-/turf/closed/wall,
-/area/space)
 "cGz" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -41216,16 +41206,6 @@
 /obj/structure/bed/roller,
 /turf/open/floor/plasteel/freezer,
 /area/medical/virology)
-"cGG" = (
-/obj/structure/lattice,
-/turf/open/space/basic,
-/area/maintenance/port/aft)
-"cGH" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/open/floor/plating,
-/area/space/nearstation)
 "cGI" = (
 /obj/structure/disposalpipe/segment{
 	dir = 6
@@ -41233,9 +41213,12 @@
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
 "cGK" = (
-/obj/effect/spawner/room/threexthree,
+/obj/structure/disposalpipe/segment{
+	dir = 9
+	},
+/obj/structure/reagent_dispensers/watertank,
 /turf/open/floor/plating,
-/area/space/nearstation)
+/area/maintenance/port/aft)
 "cGO" = (
 /turf/open/floor/plasteel/white/side{
 	dir = 8
@@ -42181,15 +42164,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
-"cKm" = (
-/obj/machinery/door/airlock/maintenance{
-	req_one_access_txt = "12;27;37"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/open/floor/plating,
-/area/maintenance/aft)
 "cKs" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -42277,10 +42251,6 @@
 /obj/effect/spawner/room/threexfive,
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
-"cKT" = (
-/obj/effect/spawner/structure/window/reinforced,
-/turf/open/floor/plating,
-/area/space)
 "cKV" = (
 /mob/living/carbon/monkey,
 /obj/machinery/light{
@@ -42295,9 +42265,6 @@
 	},
 /obj/structure/closet/emcloset,
 /turf/open/floor/plating,
-/area/space)
-"cKX" = (
-/turf/open/space/basic,
 /area/maintenance/port/aft)
 "cKZ" = (
 /obj/item/radio/intercom{
@@ -51221,12 +51188,13 @@
 /turf/open/floor/wood,
 /area/crew_quarters/bar)
 "ePg" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/disposalpipe/segment{
-	dir = 4
+/obj/structure/disposalpipe/segment,
+/obj/machinery/door/airlock/maintenance{
+	req_one_access_txt = "12;27;37"
 	},
-/turf/open/space/basic,
-/area/space/nearstation)
+/obj/effect/mapping_helpers/airlock/abandoned,
+/turf/open/floor/plating,
+/area/maintenance/port/aft)
 "ePr" = (
 /obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/tile/neutral{
@@ -57183,13 +57151,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/genetics)
-"ivQ" = (
-/obj/effect/spawner/structure/window/reinforced,
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/open/floor/plating,
-/area/maintenance/port/aft)
 "ivY" = (
 /obj/machinery/light{
 	dir = 4
@@ -81530,6 +81491,7 @@
 /obj/machinery/door/airlock/maintenance{
 	req_one_access_txt = "12;27;37"
 	},
+/obj/effect/mapping_helpers/airlock/abandoned,
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
 "xdC" = (
@@ -99623,11 +99585,11 @@ aaa
 aaf
 aaa
 aaa
-auv
 aaa
-auv
 aaa
-auv
+aaa
+aaa
+aaa
 aaa
 aaa
 aaf
@@ -99880,7 +99842,7 @@ aaa
 aaf
 aaa
 aaa
-cKX
+aaa
 dux
 cJh
 cJh
@@ -99894,8 +99856,8 @@ dux
 dux
 dux
 dux
-blx
-cGw
+dux
+dux
 aaa
 aaa
 aaa
@@ -100135,8 +100097,8 @@ auv
 cwf
 ack
 aaf
-cGw
-cGw
+dux
+dux
 dux
 dux
 bXE
@@ -100151,8 +100113,8 @@ cKS
 dux
 bXE
 bXE
-cGK
-cEA
+ast
+cJh
 aag
 aaa
 aaa
@@ -100392,24 +100354,24 @@ ack
 cwg
 ack
 ack
-cGw
+dux
 cKW
 cHt
-cGr
+ePg
 cHt
 cHt
 cHt
-cGr
+ePg
 cHt
 cHt
 cHt
 cHt
 cHt
-cGr
+ePg
 cDJ
 bXE
-cEG
-cKT
+bXE
+cJh
 aai
 aaa
 aaa
@@ -100649,8 +100611,8 @@ dux
 cfA
 dux
 dux
-blx
-cGH
+dux
+dBO
 bXE
 dux
 bXE
@@ -100665,8 +100627,8 @@ bXE
 dux
 dBO
 bXE
-cEG
-cKT
+bXE
+cJh
 aaa
 aaa
 aaa
@@ -100910,14 +100872,14 @@ rxo
 dBO
 dux
 dux
-cJh
-cJh
-cJh
+dux
+cdm
 dux
 dux
-cJh
-cJh
-cJh
+dux
+dux
+dux
+dux
 dux
 cJh
 xdp
@@ -101165,16 +101127,16 @@ dux
 dux
 cul
 dBO
-dux
-cKX
-cKX
-cKX
-cKX
-cKX
-auv
-auv
-auv
-auv
+bXE
+bXE
+bXE
+bXE
+bXE
+bXE
+bXE
+bXE
+bXE
+bXE
 dux
 bXE
 eLI
@@ -101431,8 +101393,8 @@ cBR
 cBR
 cBR
 cBR
-auv
-cJh
+bXE
+dux
 bXE
 dBO
 bXE
@@ -101688,12 +101650,12 @@ cKe
 cCK
 cKe
 cBR
-auv
-cJh
-bXE
-dBO
-bXE
 cGI
+cGr
+cHt
+kbI
+cHt
+cHt
 lOk
 hxW
 aaa
@@ -101945,12 +101907,12 @@ qwa
 cKe
 cIu
 cBR
-auv
-cJh
+dBO
+dux
 bXE
 dBO
 bXE
-dBO
+bXE
 cJh
 aai
 aaa
@@ -102202,12 +102164,12 @@ ykx
 cCK
 cKe
 cBR
-awp
-lOk
-cHt
-kbI
-cHt
-cDM
+dBO
+dux
+bXE
+dBO
+bXE
+bXE
 cJh
 aag
 aaa
@@ -102459,7 +102421,7 @@ vcv
 cKV
 cKe
 cBR
-ePg
+dBO
 dux
 dux
 cMB
@@ -102716,13 +102678,13 @@ cBR
 cBR
 cBR
 cBR
-ivQ
+cMB
 dux
 egA
 dBO
 iYo
 cJh
-cGG
+lMJ
 lMJ
 aag
 aag
@@ -102975,11 +102937,11 @@ cMA
 dux
 dBO
 bXE
-bXE
+dBU
 dBO
 oGp
 cJh
-cGG
+lMJ
 lMJ
 aaa
 aaa
@@ -103229,14 +103191,14 @@ cBR
 bXE
 bXE
 cGI
-cHt
+cGr
 cDM
 dBU
 bXE
 dBO
 cKg
-cKT
-vLD
+cJh
+lMJ
 lMJ
 aaa
 aaa
@@ -103490,10 +103452,10 @@ dux
 cGI
 cHt
 cHt
-cDM
+cGK
 xWX
-cKT
-vLD
+cJh
+lMJ
 cMI
 cPA
 cPA
@@ -103741,7 +103703,7 @@ cBR
 cBR
 cBR
 dux
-dBO
+cMB
 dux
 dux
 dBO
@@ -103999,9 +103961,9 @@ cBS
 cGI
 cHt
 cDM
-cdm
-bTs
-cKm
+avr
+avr
+cKs
 cLa
 cLT
 cMC

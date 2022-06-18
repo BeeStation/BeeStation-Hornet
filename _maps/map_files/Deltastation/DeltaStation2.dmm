@@ -1427,8 +1427,11 @@
 /turf/open/floor/plating,
 /area/maintenance/aft)
 "aes" = (
-/obj/structure/lattice,
-/turf/open/space/basic,
+/obj/structure/closet/l3closet/virology,
+/obj/effect/spawner/lootdrop/teratoma/minor,
+/turf/open/floor/plasteel{
+	heat_capacity = 1e+006
+	},
 /area/maintenance/aft)
 "aet" = (
 /obj/item/reagent_containers/glass/bottle/bromine{
@@ -21116,6 +21119,15 @@
 	},
 /turf/open/floor/plasteel,
 /area/hydroponics)
+"blj" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet,
+/obj/effect/spawner/lootdrop/teratoma/robot,
+/obj/effect/spawner/lootdrop/maintenance/two,
+/turf/open/floor/plasteel{
+	heat_capacity = 1e+006
+	},
+/area/maintenance/aft)
 "blk" = (
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel,
@@ -62642,6 +62654,14 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
+"dBz" = (
+/obj/machinery/door/airlock/maintenance_hatch{
+	name = "Maintenance Hatch";
+	req_access_txt = "12"
+	},
+/obj/effect/mapping_helpers/airlock/abandoned,
+/turf/open/floor/plating,
+/area/maintenance/aft)
 "dBM" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -63773,6 +63793,8 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
 	},
+/obj/structure/rack,
+/obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/plasteel{
 	heat_capacity = 1e+006
 	},
@@ -63888,6 +63910,19 @@
 	},
 /turf/open/floor/plasteel,
 /area/science/misc_lab)
+"dFF" = (
+/obj/structure/table,
+/obj/item/hemostat,
+/obj/item/hatchet,
+/obj/item/kitchen/knife,
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/item/wirecutters,
+/turf/open/floor/plasteel{
+	heat_capacity = 1e+006
+	},
+/area/maintenance/aft)
 "dFI" = (
 /obj/item/assembly/signaler{
 	pixel_y = 8
@@ -67778,10 +67813,8 @@
 /turf/open/space/basic,
 /area/space/nearstation)
 "dUM" = (
-/obj/effect/turf_decal/delivery,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
+/obj/effect/decal/cleanable/blood/old,
+/obj/effect/spawner/lootdrop/trap/reusable,
 /turf/open/floor/plasteel{
 	heat_capacity = 1e+006
 	},
@@ -67946,11 +67979,9 @@
 	name = "Maintenance Hatch";
 	req_access_txt = "12"
 	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/turf/open/floor/plating,
-/area/maintenance/aft)
+/obj/effect/mapping_helpers/airlock/abandoned,
+/turf/open/floor/plasteel,
+/area/maintenance/starboard/aft)
 "dVw" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -68453,9 +68484,9 @@
 /area/medical/virology)
 "dXe" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
+/obj/structure/table,
+/obj/item/surgical_drapes,
+/obj/item/organ/ears/cat,
 /turf/open/floor/plating,
 /area/maintenance/aft)
 "dXf" = (
@@ -69054,9 +69085,12 @@
 /turf/open/floor/plasteel,
 /area/medical/virology)
 "dZC" = (
-/obj/structure/lattice,
-/turf/open/space/basic,
-/area/space)
+/obj/structure/closet,
+/obj/effect/spawner/lootdrop/maintenance/two,
+/turf/open/floor/plasteel{
+	heat_capacity = 1e+006
+	},
+/area/maintenance/aft)
 "dZD" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -72606,6 +72640,13 @@
 	},
 /turf/open/floor/plating,
 /area/quartermaster/warehouse)
+"eNy" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/plating,
+/area/maintenance/aft)
 "eNJ" = (
 /obj/item/radio/intercom{
 	pixel_x = -28;
@@ -76512,6 +76553,17 @@
 	},
 /turf/open/floor/plasteel,
 /area/security/brig)
+"gzP" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/effect/mapping_helpers/airlock/abandoned,
+/obj/machinery/door/airlock/maintenance_hatch{
+	name = "Maintenance Hatch";
+	req_access_txt = "12"
+	},
+/turf/open/floor/plating,
+/area/maintenance/aft)
 "gAb" = (
 /obj/structure/sign/departments/minsky/medical/medical2,
 /turf/closed/wall,
@@ -79507,6 +79559,14 @@
 	},
 /turf/open/floor/plasteel,
 /area/engine/gravity_generator)
+"hLH" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet,
+/obj/effect/spawner/lootdrop/maintenance/two,
+/turf/open/floor/plasteel{
+	heat_capacity = 1e+006
+	},
+/area/maintenance/aft)
 "hLJ" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -93013,6 +93073,13 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/entry)
+"ntd" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/l3closet/virology,
+/turf/open/floor/plasteel{
+	heat_capacity = 1e+006
+	},
+/area/maintenance/aft)
 "ntu" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow{
@@ -95775,6 +95842,13 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
+"oye" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/reagent_dispensers/watertank,
+/turf/open/floor/plasteel{
+	heat_capacity = 1e+006
+	},
+/area/maintenance/aft)
 "oyz" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow{
@@ -97582,6 +97656,11 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plasteel,
 /area/crew_quarters/fitness/recreation)
+"pjh" = (
+/obj/structure/grille,
+/obj/structure/lattice,
+/turf/closed/wall/r_wall,
+/area/space)
 "pjw" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable/yellow{
@@ -99341,6 +99420,15 @@
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2,
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
+"pVL" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel{
+	heat_capacity = 1e+006
+	},
+/area/maintenance/aft)
 "pWv" = (
 /obj/machinery/atmospherics/pipe/simple/cyan/visible,
 /obj/effect/decal/cleanable/dirt,
@@ -105383,14 +105471,11 @@
 /turf/closed/wall/r_wall,
 /area/hallway/secondary/exit/departure_lounge)
 "sCi" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel{
-	heat_capacity = 1e+006
-	},
-/area/maintenance/aft)
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/blobstart,
+/turf/open/floor/plating,
+/area/maintenance/starboard/aft)
 "sCs" = (
 /obj/structure/disposalpipe/segment{
 	dir = 9
@@ -107047,7 +107132,7 @@
 "tww" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow{
-	icon_state = "4-8"
+	icon_state = "2-8"
 	},
 /turf/open/floor/plasteel{
 	heat_capacity = 1e+006
@@ -111810,6 +111895,17 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/science/research)
+"vsO" = (
+/obj/machinery/door/airlock/maintenance_hatch{
+	name = "Maintenance Hatch";
+	req_access_txt = "12"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/effect/mapping_helpers/airlock/abandoned,
+/turf/open/floor/plating,
+/area/maintenance/aft)
 "vtk" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable/yellow{
@@ -113193,6 +113289,13 @@
 	},
 /turf/open/floor/plasteel,
 /area/maintenance/disposal/incinerator)
+"vXP" = (
+/obj/machinery/door/airlock/maintenance_hatch{
+	name = "Maintenance Hatch";
+	req_access_txt = "12"
+	},
+/turf/open/floor/plating,
+/area/maintenance/aft)
 "vXR" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 2
@@ -115001,6 +115104,13 @@
 	},
 /turf/open/floor/plasteel,
 /area/hydroponics)
+"wKO" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/maintenance/aft)
 "wKY" = (
 /obj/machinery/holopad,
 /obj/effect/decal/cleanable/dirt,
@@ -115618,6 +115728,15 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plasteel,
 /area/hallway/secondary/service)
+"wWy" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/structure/girder,
+/turf/open/floor/plasteel,
+/area/maintenance/starboard/aft)
 "wWG" = (
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
@@ -116733,6 +116852,14 @@
 	},
 /turf/open/floor/plasteel,
 /area/engine/engineering)
+"xuQ" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/bed,
+/obj/item/bedsheet/medical,
+/obj/effect/decal/cleanable/blood/old,
+/obj/effect/trap/nexus/trickyspawner/catbutcher,
+/turf/open/floor/plating,
+/area/maintenance/aft)
 "xvc" = (
 /obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/delivery,
@@ -164363,10 +164490,10 @@ dNS
 dNS
 dNS
 dNS
-dNT
 dNS
 dNS
-dNS
+qYo
+qYo
 qYo
 qYo
 qYo
@@ -164616,14 +164743,14 @@ uPU
 dRZ
 dPq
 tww
-dPs
+lxw
+pVL
+wKO
+pVL
+eNy
 dNS
-rDi
-rDi
-rDi
-rDi
-dZx
-dNS
+aaa
+qYo
 aaa
 aaa
 aaa
@@ -164872,14 +164999,14 @@ wbs
 xYo
 dSa
 dPq
-dZy
-aeI
 dNS
-rDi
-rDi
-rDi
-rDi
-rDi
+dBz
+dNS
+dYb
+dYb
+eaN
+dNS
+dNS
 dNS
 aaa
 qYo
@@ -165131,12 +165258,12 @@ dSb
 dPq
 dXe
 dUM
-dVv
-dVH
-dVH
-dVH
-dYR
+dNS
 rDi
+rDi
+maQ
+rDi
+dZx
 dNS
 qYo
 ajr
@@ -165386,13 +165513,13 @@ dXY
 dXY
 eaQ
 dPq
-aeI
-dUN
+dFF
+xuQ
 dNS
 rDi
 rDi
-rDi
 maQ
+rDi
 rDi
 dNS
 aaa
@@ -165648,10 +165775,10 @@ dPq
 dPq
 rDi
 rDi
+dXn
+dYR
 rDi
-maQ
-rDi
-dNT
+dNS
 aaa
 qYo
 aaa
@@ -165908,7 +166035,7 @@ rDi
 rDi
 maQ
 rDi
-dNT
+dNS
 aaa
 qYo
 aaa
@@ -166165,7 +166292,7 @@ rDi
 rDi
 maQ
 rDi
-dNS
+dNT
 qYo
 ajr
 qYo
@@ -166422,7 +166549,7 @@ rDi
 rDi
 maQ
 rDi
-dNS
+dNT
 aaa
 ajr
 qYo
@@ -166933,8 +167060,8 @@ dUP
 dPq
 rDi
 rDi
-aeo
-dZe
+rDi
+maQ
 rDi
 dNS
 aaa
@@ -167188,11 +167315,11 @@ dXg
 dWq
 dUQ
 dPq
-dYb
-dNS
-aep
-dNS
-dNS
+rDi
+rDi
+rDi
+maQ
+rDi
 dNS
 aaa
 qYo
@@ -167445,12 +167572,12 @@ dPq
 dPq
 dPq
 dPq
+rDi
+rDi
+aeo
+dZe
+rDi
 dNS
-dPs
-sCi
-aeI
-dNS
-aes
 aaa
 qYo
 aaa
@@ -167702,12 +167829,12 @@ rDi
 rDi
 rDi
 dVD
+dYb
+dNS
+aep
 dNS
 dNS
-eaN
 dNS
-dNS
-aes
 qYo
 qYo
 qYo
@@ -167964,7 +168091,7 @@ rDi
 maQ
 iIm
 dNT
-aes
+qYo
 aaa
 qYo
 aaa
@@ -168216,12 +168343,12 @@ rDi
 aeo
 dVH
 dVH
-dVH
+gzP
 dVH
 dZe
 rDi
 dNT
-aes
+qYo
 aaa
 qYo
 aaa
@@ -168478,7 +168605,7 @@ rDi
 rDi
 rDi
 dNT
-aes
+qYo
 qYo
 qYo
 qYo
@@ -168732,10 +168859,10 @@ rDi
 rDi
 dNS
 dNS
+vXP
 dNS
 dNS
-dNS
-aes
+qYo
 aaa
 ajr
 aaa
@@ -168984,15 +169111,15 @@ dLm
 dPr
 dPq
 dNS
-aep
+vsO
 dNS
 dNS
 dNS
-dWy
-aes
-aes
-aes
-aes
+oye
+dUN
+dNS
+qYo
+qYo
 qYo
 ajr
 qYo
@@ -169244,12 +169371,12 @@ rDi
 maQ
 iIm
 dNS
+ntd
 aes
-aes
-aes
-dWy
-aes
-dWy
+dUN
+dNS
+qYo
+aaa
 aaa
 qYo
 aaa
@@ -169485,7 +169612,7 @@ hWJ
 dCX
 cHU
 dFq
-cPC
+wWy
 cHU
 cIW
 cIW
@@ -169500,13 +169627,13 @@ oVM
 ael
 aer
 rDi
+vXP
+rDi
+dPs
+aeI
 dNS
-dWy
-dWy
-dZC
-aaa
-vQJ
 qYo
+vQJ
 qYo
 qYo
 qYo
@@ -169742,7 +169869,7 @@ eRy
 dCY
 cHU
 dFr
-dGL
+sCi
 cHU
 cIW
 cIW
@@ -169750,20 +169877,20 @@ cIW
 cIW
 cHU
 ujE
-dPs
-aeI
-dPs
+hLH
+dZC
+blj
 dNS
 rDi
 dZD
 rDi
 dNS
-aes
-aes
+dNS
+dNS
+dNS
+dNS
 qYo
-vQJ
-vQJ
-aaa
+pjh
 aaa
 qYo
 aaa
@@ -171284,7 +171411,7 @@ oDO
 cIW
 cHU
 cIW
-dIc
+dVv
 cIW
 cIW
 cIW
