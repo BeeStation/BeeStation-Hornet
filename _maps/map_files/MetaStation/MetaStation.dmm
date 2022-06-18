@@ -31723,10 +31723,10 @@
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
 "cdm" = (
-/obj/effect/mapping_helpers/airlock/abandoned,
-/obj/machinery/door/airlock/maintenance{
-	req_one_access_txt = "12;27;37"
+/obj/structure/disposalpipe/segment{
+	dir = 9
 	},
+/obj/structure/reagent_dispensers/watertank,
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
 "cdp" = (
@@ -41141,6 +41141,9 @@
 	},
 /turf/open/floor/plasteel,
 /area/medical/virology)
+"cGw" = (
+/turf/closed/wall,
+/area/space)
 "cGz" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -41206,6 +41209,14 @@
 /obj/structure/bed/roller,
 /turf/open/floor/plasteel/freezer,
 /area/medical/virology)
+"cGG" = (
+/obj/structure/disposalpipe/segment,
+/obj/machinery/door/airlock/maintenance{
+	req_one_access_txt = "12;27;37"
+	},
+/obj/effect/mapping_helpers/airlock/abandoned,
+/turf/open/floor/plating,
+/area/maintenance/port/aft)
 "cGI" = (
 /obj/structure/disposalpipe/segment{
 	dir = 6
@@ -41213,10 +41224,10 @@
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
 "cGK" = (
-/obj/structure/disposalpipe/segment{
-	dir = 9
+/obj/effect/mapping_helpers/airlock/abandoned,
+/obj/machinery/door/airlock/maintenance{
+	req_one_access_txt = "12;27;37"
 	},
-/obj/structure/reagent_dispensers/watertank,
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
 "cGO" = (
@@ -42251,6 +42262,10 @@
 /obj/effect/spawner/room/threexfive,
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
+"cKT" = (
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plating,
+/area/space)
 "cKV" = (
 /mob/living/carbon/monkey,
 /obj/machinery/light{
@@ -51187,14 +51202,6 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/wood,
 /area/crew_quarters/bar)
-"ePg" = (
-/obj/structure/disposalpipe/segment,
-/obj/machinery/door/airlock/maintenance{
-	req_one_access_txt = "12;27;37"
-	},
-/obj/effect/mapping_helpers/airlock/abandoned,
-/turf/open/floor/plating,
-/area/maintenance/port/aft)
 "ePr" = (
 /obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/tile/neutral{
@@ -57151,6 +57158,12 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/genetics)
+"ivQ" = (
+/obj/machinery/door/airlock/maintenance{
+	req_one_access_txt = "12;27;37"
+	},
+/turf/open/floor/plating,
+/area/maintenance/port/aft)
 "ivY" = (
 /obj/machinery/light{
 	dir = 4
@@ -99844,10 +99857,10 @@ aaa
 aaa
 aaa
 dux
-cJh
-cJh
-cJh
-dux
+cKT
+cKT
+cKT
+cGw
 dux
 cJh
 cJh
@@ -100357,17 +100370,17 @@ ack
 dux
 cKW
 cHt
-ePg
+cGG
 cHt
 cHt
 cHt
-ePg
+cGG
 cHt
 cHt
 cHt
 cHt
 cHt
-ePg
+cGG
 cDJ
 bXE
 bXE
@@ -100873,7 +100886,7 @@ dBO
 dux
 dux
 dux
-cdm
+cGK
 dux
 dux
 dux
@@ -103452,7 +103465,7 @@ dux
 cGI
 cHt
 cHt
-cGK
+cdm
 xWX
 cJh
 lMJ
@@ -103706,7 +103719,7 @@ dux
 cMB
 dux
 dux
-dBO
+cMB
 cLa
 cLa
 cLa
@@ -103961,8 +103974,8 @@ cBS
 cGI
 cHt
 cDM
-avr
-avr
+bXE
+ivQ
 cKs
 cLa
 cLT
