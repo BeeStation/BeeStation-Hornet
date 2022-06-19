@@ -156,6 +156,7 @@
 	update_icon()
 
 /obj/machinery/suit_storage_unit/Destroy()
+	QDEL_NULL(wires)
 	dump_contents()
 	return ..()
 

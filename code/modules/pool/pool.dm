@@ -212,6 +212,11 @@ GLOBAL_LIST_EMPTY(pool_filters)
 		pool += water
 	GLOB.pool_filters += src
 
+/obj/machinery/pool_filter/Destroy()
+	GLOB.pool_filters -= src
+	reagents = null
+	return ..()
+
 //Brick can set the pool to low temperatures remotely. This will probably be hell on malf!
 
 /obj/machinery/pool_filter/attack_robot(mob/user)
