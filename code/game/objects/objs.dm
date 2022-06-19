@@ -379,6 +379,8 @@
 	return
 
 /obj/proc/log_item(mob/user, actverb="(unknown verb)", additional_info="")
+	if(x == 0 && y == 0 && z == 0)
+		actverb = "possessed"
 	if(investigate_flags & ADMIN_INVESTIGATE_TARGET)
 		investigate_log("[src] was [actverb] by [key_name(user)] at [AREACOORD(user)]. [additional_info]", INVESTIGATE_ITEMS)
 	return

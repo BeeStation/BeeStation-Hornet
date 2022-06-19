@@ -830,7 +830,6 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	thrownby = WEAKREF(thrower)
 	callback = CALLBACK(src, .proc/after_throw, callback) //replace their callback with our own
 	. = ..(target, range, speed, thrower, spin, diagonals_first, callback, force, quickstart = quickstart)
-	log_item(thrownby, INVESTIGATE_VERB_THROWN)
 
 /obj/item/proc/after_throw(datum/callback/callback)
 	if (callback) //call the original callback
