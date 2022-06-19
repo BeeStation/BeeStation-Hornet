@@ -9,6 +9,7 @@
 	var/enabled = TRUE
 	var/renamed = FALSE
 	var/nettingportal = FALSE
+	investigate_flags = ADMIN_INVESTIGATE_TARGET
 
 /obj/item/beacon/Initialize(mapload)
 	. = ..()
@@ -31,21 +32,6 @@
 		GLOB.teleportbeacons -= src
 	to_chat(user, "<span class='notice'>You [enabled ? "enable" : "disable"] the beacon.</span>")
 	return
-
-/obj/item/beacon/pickup(mob/living/user)
-	. = ..()
-	if(!iscarbon(user))
-		return FALSE
-	log_item(user, INVESTIGATE_VERB_PICKEDUP, TRUE)
-
-
-/obj/item/beacon/dropped(mob/living/user)
-	. = ..()
-	if(!iscarbon(user))
-		return FALSE
-	log_item(user, INVESTIGATE_VERB_DROPPED, TRUE)
-
-
 
 /obj/item/beacon/attackby(obj/item/W, mob/user)
 	if(istype(W, /obj/item/pen)) // needed for things that use custom names like the locator

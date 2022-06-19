@@ -505,24 +505,12 @@ update_label("John Doe", "Clowny")
 	righthand_file = 'icons/mob/inhands/equipment/idcards_righthand.dmi'
 	registered_name = "Captain"
 	assignment = "Captain"
+	investigate_flags = ADMIN_INVESTIGATE_TARGET
 
 /obj/item/card/id/captains_spare/Initialize(mapload)
 	var/datum/job/captain/J = new/datum/job/captain
 	access = J.get_access()
 	. = ..()
-
-// log track
-/obj/item/card/id/captains_spare/pickup(mob/living/user)
-	. = ..()
-	if(!iscarbon(user))
-		return FALSE
-	log_item(user, INVESTIGATE_VERB_PICKEDUP, TRUE)
-
-/obj/item/card/id/captains_spare/dropped(mob/living/user)
-	. = ..()
-	if(!iscarbon(user))
-		return FALSE
-	log_item(user, INVESTIGATE_VERB_DROPPED, TRUE)
 
 /obj/item/card/id/centcom
 	name = "\improper CentCom ID"
@@ -708,6 +696,7 @@ update_label("John Doe", "Clowny")
 	var/department_ID = ACCOUNT_CIV
 	var/department_name = ACCOUNT_CIV_NAME
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+	investigate_flags = ADMIN_INVESTIGATE_TARGET
 
 /obj/item/card/id/departmental_budget/Initialize(mapload)
 	. = ..()
@@ -758,20 +747,6 @@ update_label("John Doe", "Clowny")
 	department_ID = ACCOUNT_SEC
 	department_name = ACCOUNT_SEC_NAME
 	icon_state = "budget_sec"
-
-// Log track
-/obj/item/card/id/departmental_budget/pickup(mob/living/user)
-	. = ..()
-	if(!iscarbon(user))
-		return FALSE
-	log_item(user, "picked up")
-
-/obj/item/card/id/departmental_budget/dropped(mob/living/user)
-	. = ..()
-	if(!iscarbon(user))
-		return FALSE
-	log_item(user, "dropped")
-
 
 ///Job Specific ID Cards///
 /obj/item/card/id/job/captain

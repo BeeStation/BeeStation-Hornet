@@ -1075,6 +1075,7 @@
 	name = "cerulean prints"
 	desc = "A one use yet of blueprints made of jelly like organic material. Extends the reach of the management console."
 	color = "#2956B2"
+	investigate_flags = NONE
 
 /obj/item/areaeditor/blueprints/slime/edit_area()
 	..()
