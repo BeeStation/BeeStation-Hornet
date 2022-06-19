@@ -3,8 +3,6 @@ Assistant
 */
 /datum/job/assistant
 	title = JOB_ASSISTANT
-	title_alt = list(JOB_ASSISTANT, "Greytider", "Tourist")
-	description = "Get your space legs, assist people, ask the HoP to give you a job."
 	flag = ASSISTANT
 	department_flag = CIVILIAN
 	faction = "Station"
