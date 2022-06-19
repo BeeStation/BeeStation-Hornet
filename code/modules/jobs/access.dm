@@ -90,7 +90,7 @@
 	switch(job)
 		if("VIP Guest")
 			return list(ACCESS_CENT_GENERAL)
-		if("Custodian")
+		if(JOB_CENTCOM_CUSTODIAN)
 			return list(ACCESS_CENT_GENERAL, ACCESS_CENT_LIVING, ACCESS_CENT_STORAGE)
 		if("Thunderdome Overseer")
 			return list(ACCESS_CENT_GENERAL, ACCESS_CENT_THUNDER)
@@ -100,25 +100,25 @@
 			return list(ACCESS_CENT_GENERAL, ACCESS_CENT_LIVING)
 		if("CentCom Head Intern")
 			return list(ACCESS_CENT_GENERAL, ACCESS_CENT_LIVING)
-		if("Medical Officer")
+		if(JOB_CENTCOM_MEDICAL_DOCTOR)
 			return list(ACCESS_CENT_GENERAL, ACCESS_CENT_LIVING, ACCESS_CENT_MEDICAL)
 		if("Death Commando")
 			return list(ACCESS_CENT_GENERAL, ACCESS_CENT_SPECOPS, ACCESS_CENT_LIVING, ACCESS_CENT_STORAGE)
-		if("Research Officer")
+		if(JOB_CENTCOM_RESEARCH_OFFICER)
 			return list(ACCESS_CENT_GENERAL, ACCESS_CENT_SPECOPS, ACCESS_CENT_MEDICAL, ACCESS_CENT_TELEPORTER, ACCESS_CENT_STORAGE)
 		if("Special Ops Officer")
 			return list(ACCESS_CENT_GENERAL, ACCESS_CENT_THUNDER, ACCESS_CENT_SPECOPS, ACCESS_CENT_LIVING, ACCESS_CENT_STORAGE)
-		if("Admiral")
+		if(JOB_CENTCOM_ADMIRAL)
 			return get_all_centcom_access()
-		if("CentCom Commander")
+		if(JOB_CENTCOM_COMMANDER)
 			return get_all_centcom_access()
-		if("Emergency Response Team Commander")
+		if(JOB_ERT_COMMANDER)
 			return get_ert_access("commander")
-		if("Security Response Officer")
+		if(JOB_ERT_OFFICER )
 			return get_ert_access("sec")
-		if("Engineer Response Officer")
+		if(JOB_ERT_ENGINEER)
 			return get_ert_access("eng")
-		if("Medical Response Officer")
+		if(JOB_ERT_MEDICAL_DOCTOR)
 			return get_ert_access("med")
 		if("CentCom Bartender")
 			return list(ACCESS_CENT_GENERAL, ACCESS_CENT_LIVING, ACCESS_CENT_BAR)
@@ -367,27 +367,27 @@
 			return "Code Scotch"
 
 /proc/get_all_jobs()
-	return list("Captain",
+	return list(JOB_CAPTAIN,
 				// Service
-				"Assistant", "Head of Personnel", "Bartender", "Cook", "Botanist", "Janitor", "Curator",
-				"Chaplain", "Lawyer", "Clown", "Mime", "Barber", "Stage Magician",
+				JOB_ASSISTANT, JOB_HEAD_OF_PERSONNEL, JOB_BARTENDER, JOB_COOK, JOB_BOTANIST, JOB_JANITOR, JOB_CURATOR,
+				JOB_CHAPLAIN, JOB_LAWYER, JOB_CLOWN, JOB_MIME, JOB_BARBER, JOB_STAGE_MAGICIAN,
 				// Cargo
-				"Quartermaster", "Cargo Technician","Shaft Miner",
+				JOB_QUARTERMASTER, JOB_CARGO_TECHNICIAN,JOB_SHAFT_MINER,
 				// Engineering
-				"Chief Engineer", "Station Engineer", "Atmospheric Technician",
+				JOB_CHIEF_ENGINEER, JOB_STATION_ENGINEER, JOB_ATMOSPHERIC_TECHNICIAN,
 				// R&D
-				"Research Director", "Scientist", "Roboticist", "Exploration Crew",
+				JOB_RESEARCH_DIRECTOR, JOB_SCIENTIST, JOB_ROBOTICIST, JOB_EXPLORATIONCREW,
 				// Medical
-				"Chief Medical Officer", "Medical Doctor", "Chemist", "Geneticist", "Virologist", "Paramedic", "Psychiatrist",
+				JOB_CHIEF_MEDICAL_OFFICER, JOB_MEDICAL_DOCTOR, JOB_CHEMIST, JOB_GENETICIST, JOB_VIROLOGIST, JOB_PARAMEDIC, JOB_PSYCHIATRIST,
 				// Security
-				"Head of Security", "Warden", "Detective", "Security Officer", "Brig Physician", "Deputy")
+				JOB_HEAD_OF_SECURITY, JOB_WARDEN, JOB_DETECTIVE, JOB_SECURITY_OFFICER, JOB_BRIGPHYSICIAN, JOB_DEPUTY)
 				// Each job is supposed to be in their department due to the HoP console.
 
 /proc/get_all_job_icons() //We need their HUD icons, but we don't want to give these jobs to people from the job list of HoP console.
-	return get_all_jobs() + list("Prisoner", "King", "VIP", "Acting Captain")
+	return get_all_jobs() + list(JOB_PRISONER, "King", JOB_VIP, "Acting Captain")
 
 /proc/get_all_centcom_jobs()
-	return list("VIP Guest","Custodian","Thunderdome Overseer","CentCom Official","Medical Officer","Death Commando","Research Officer","Special Ops Officer","Admiral","CentCom Commander","Emergency Response Team Commander","Security Response Officer","Engineer Response Officer", "Medical Response Officer","CentCom Bartender","Comedy Response Officer", "HONK Squad Trooper")
+	return list("VIP Guest",JOB_CENTCOM_CUSTODIAN,"Thunderdome Overseer","CentCom Official",JOB_CENTCOM_MEDICAL_DOCTOR,"Death Commando",JOB_CENTCOM_RESEARCH_OFFICER,"Special Ops Officer",JOB_CENTCOM_ADMIRAL,JOB_CENTCOM_COMMANDER,JOB_ERT_COMMANDER,JOB_ERT_OFFICER ,JOB_ERT_ENGINEER, JOB_ERT_MEDICAL_DOCTOR,"CentCom Bartender","Comedy Response Officer", "HONK Squad Trooper")
 
 /obj/item/proc/GetJobName() //Used in secHUD icon generation
 	var/obj/item/card/id/I = GetID()

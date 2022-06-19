@@ -1,7 +1,7 @@
-/datum/job/hydro
-	title = "Botanist"
+/datum/job/botanist
+	title = JOB_BOTANIST
 	flag = BOTANIST
-	department_head = list("Head of Personnel")
+	department_head = list(JOB_HEAD_OF_PERSONNEL)
 	department_flag = CIVILIAN
 	faction = "Station"
 	total_positions = 3
@@ -24,8 +24,8 @@
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/botany
 	)
 /datum/outfit/job/botanist
-	name = "Botanist"
-	jobtype = /datum/job/hydro
+	name = JOB_BOTANIST
+	jobtype = /datum/job/botanist
 
 	id = /obj/item/card/id/job/serv
 	belt = /obj/item/pda/service

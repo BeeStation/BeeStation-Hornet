@@ -1,8 +1,8 @@
-/datum/job/hop
-	title = "Head of Personnel"
+/datum/job/head_of_personnel
+	title = JOB_HEAD_OF_PERSONNEL
 	flag = HOP
 	auto_deadmin_role_flags = DEADMIN_POSITION_HEAD
-	department_head = list("Captain")
+	department_head = list(JOB_CAPTAIN)
 	department_flag = CIVILIAN
 	head_announce = list(RADIO_CHANNEL_SUPPLY, RADIO_CHANNEL_SERVICE)
 	faction = "Station"
@@ -17,7 +17,7 @@
 	exp_type = EXP_TYPE_COMMAND
 	exp_type_department = EXP_TYPE_COMMAND
 
-	outfit = /datum/outfit/job/hop
+	outfit = /datum/outfit/job/head_of_personnel
 
 	access = list(ACCESS_SEC_DOORS, ACCESS_COURT, ACCESS_WEAPONS,
 			            ACCESS_MEDICAL, ACCESS_ENGINE, ACCESS_CHANGE_IDS, ACCESS_AI_UPLOAD, ACCESS_EVA, ACCESS_HEADS,
@@ -44,11 +44,11 @@
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/hop
 	)
 
-/datum/outfit/job/hop
-	name = "Head of Personnel"
-	jobtype = /datum/job/hop
+/datum/outfit/job/head_of_personnel
+	name = JOB_HEAD_OF_PERSONNEL
+	jobtype = /datum/job/head_of_personnel
 
-	id = /obj/item/card/id/job/hop
+	id = /obj/item/card/id/job/head_of_personnel
 	belt = /obj/item/pda/heads/hop
 	ears = /obj/item/radio/headset/heads/hop
 	uniform = /obj/item/clothing/under/rank/civilian/head_of_personnel

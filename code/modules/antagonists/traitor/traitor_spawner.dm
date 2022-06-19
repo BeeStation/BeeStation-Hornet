@@ -12,7 +12,7 @@
 	max_amount = 5
 	allowAntagTargets = TRUE
 	latejoin_allowed = TRUE
-	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain")
+	protected_jobs = list(JOB_SECURITY_OFFICER, JOB_WARDEN, JOB_DETECTIVE, JOB_HEAD_OF_SECURITY, JOB_CAPTAIN)
 
 	special_role_flag = ROLE_TRAITOR
 	role_name = ROLE_TRAITOR

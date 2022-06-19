@@ -2,7 +2,9 @@
 Assistant
 */
 /datum/job/assistant
-	title = "Assistant"
+	title = JOB_ASSISTANT
+	title_alt = list(JOB_ASSISTANT, "Greytider", "Tourist")
+	description = "Get your space legs, assist people, ask the HoP to give you a job."
 	flag = ASSISTANT
 	department_flag = CIVILIAN
 	faction = "Station"
@@ -18,7 +20,7 @@ Assistant
 	paycheck = PAYCHECK_ASSISTANT // Get a job. Job reassignment changes your paycheck now. Get over it.
 	paycheck_department = ACCOUNT_CIV
 	display_order = JOB_DISPLAY_ORDER_ASSISTANT
-	departments = DEPARTMENT_SERVICE
+	departments = DEPARTMENT_BITFLAG_COMMAND
 	rpg_title = "Lout"
 
 	species_outfits = list(
@@ -32,7 +34,7 @@ Assistant
 		return ..()
 
 /datum/outfit/job/assistant
-	name = "Assistant"
+	name = JOB_ASSISTANT
 	jobtype = /datum/job/assistant
 	belt = /obj/item/pda/assistant
 

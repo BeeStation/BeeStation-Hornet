@@ -1,5 +1,5 @@
 /datum/job/gimmick //gimmick var must be set to true for all gimmick jobs BUT the parent
-	title = "Gimmick"
+	title = JOB_GIMMICK
 	flag = GIMMICK
 	department_flag = CIVILIAN
 	faction = "Station"
@@ -27,7 +27,7 @@
 	can_be_admin_equipped = FALSE // we want just the parent outfit to be unequippable since this leads to problems
 
 /datum/job/gimmick/barber
-	title = "Barber"
+	title = JOB_BARBER
 	flag = BARBER
 	outfit = /datum/outfit/job/gimmick/barber
 	access = list(ACCESS_MORGUE, ACCESS_MAINT_TUNNELS)
@@ -40,7 +40,7 @@
 	)
 
 /datum/outfit/job/gimmick/barber
-	name = "Barber"
+	name = JOB_BARBER
 	jobtype = /datum/job/gimmick/barber
 
 	id = /obj/item/card/id/job/serv
@@ -53,7 +53,7 @@
 	can_be_admin_equipped = TRUE
 
 /datum/job/gimmick/magician
-	title = "Stage Magician"
+	title = JOB_STAGE_MAGICIAN
 	flag = MAGICIAN
 	outfit = /datum/outfit/job/gimmick/magician
 	access = list(ACCESS_THEATRE, ACCESS_MAINT_TUNNELS)
@@ -66,7 +66,7 @@
 	)
 
 /datum/outfit/job/gimmick/magician
-	name = "Stage Magician"
+	name = JOB_STAGE_MAGICIAN
 	jobtype = /datum/job/gimmick/magician
 
 	id = /obj/item/card/id/job/serv
@@ -82,7 +82,7 @@
 	can_be_admin_equipped = TRUE
 
 /datum/job/gimmick/shrink
-	title = "Psychiatrist"
+	title = JOB_PSYCHIATRIST
 	flag = SHRINK
 	outfit = /datum/outfit/job/gimmick/shrink
 	access = list(ACCESS_MAINT_TUNNELS, ACCESS_MEDICAL)
@@ -97,7 +97,7 @@
 	)
 
 /datum/outfit/job/gimmick/shrink //psychiatrist doesnt get much shit, but he has more access and a cushier paycheck
-	name = "Psychiatrist"
+	name = JOB_PSYCHIATRIST
 	jobtype = /datum/job/gimmick/shrink
 
 	id = /obj/item/card/id/job/med
@@ -109,7 +109,7 @@
 	can_be_admin_equipped = TRUE
 
 /datum/job/gimmick/celebrity
-	title = "VIP"
+	title = JOB_VIP
 	flag = CELEBRITY
 	outfit = /datum/outfit/job/gimmick/celebrity
 	access = list(ACCESS_MAINT_TUNNELS) //Assistants with shitloads of money, what could go wrong?
@@ -123,7 +123,7 @@
 	)
 
 /datum/outfit/job/gimmick/celebrity
-	name = "VIP"
+	name = JOB_VIP
 	jobtype = /datum/job/gimmick/celebrity
 
 	id = /obj/item/card/id/gold

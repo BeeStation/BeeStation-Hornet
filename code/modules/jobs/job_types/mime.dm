@@ -1,7 +1,7 @@
 /datum/job/mime
-	title = "Mime"
+	title = JOB_MIME
 	flag = MIME
-	department_head = list("Head of Personnel")
+	department_head = list(JOB_HEAD_OF_PERSONNEL)
 	department_flag = CIVILIAN
 	faction = "Station"
 	total_positions = 1
@@ -30,7 +30,7 @@
 	H.apply_pref_name("mime", M.client)
 
 /datum/outfit/job/mime
-	name = "Mime"
+	name = JOB_MIME
 	jobtype = /datum/job/mime
 
 	id = /obj/item/card/id/job/mime

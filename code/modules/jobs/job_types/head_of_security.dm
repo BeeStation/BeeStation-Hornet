@@ -1,8 +1,8 @@
-/datum/job/hos
-	title = "Head of Security"
+/datum/job/head_of_security
+	title = JOB_HEAD_OF_SECURITY
 	flag = HOS
 	auto_deadmin_role_flags = DEADMIN_POSITION_HEAD|DEADMIN_POSITION_SECURITY
-	department_head = list("Captain")
+	department_head = list(JOB_CAPTAIN)
 	department_flag = ENGSEC
 	head_announce = list(RADIO_CHANNEL_SECURITY)
 	faction = "Station"
@@ -17,7 +17,7 @@
 	exp_type = EXP_TYPE_SECURITY
 	exp_type_department = EXP_TYPE_SECURITY
 
-	outfit = /datum/outfit/job/hos
+	outfit = /datum/outfit/job/head_of_security
 	mind_traits = list(TRAIT_LAW_ENFORCEMENT_METABOLISM)
 
 	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_SEC_RECORDS, ACCESS_BRIG, ACCESS_BRIGPHYS, ACCESS_ARMORY, ACCESS_COURT, ACCESS_WEAPONS, ACCESS_MECH_SECURITY,
@@ -39,11 +39,11 @@
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/hos
 	)
 
-/datum/outfit/job/hos
-	name = "Head of Security"
-	jobtype = /datum/job/hos
+/datum/outfit/job/head_of_security
+	name = JOB_HEAD_OF_SECURITY
+	jobtype = /datum/job/head_of_security
 
-	id = /obj/item/card/id/job/hos
+	id = /obj/item/card/id/job/head_of_security
 	belt = /obj/item/pda/heads/hos
 	ears = /obj/item/radio/headset/heads/hos/alt
 	uniform = /obj/item/clothing/under/rank/security/head_of_security
@@ -67,7 +67,7 @@
 
 	chameleon_extras = list(/obj/item/gun/energy/e_gun/hos, /obj/item/stamp/hos)
 
-/datum/outfit/job/hos/hardsuit
+/datum/outfit/job/head_of_security/hardsuit
 	name = "Head of Security (Hardsuit)"
 
 	mask = /obj/item/clothing/mask/gas/sechailer

@@ -2944,7 +2944,7 @@
 /datum/supply_pack/misc/bicycle/generate(atom/A, datum/bank_account/paying_account)
 	. = ..()
 	for(var/client/C as() in GLOB.clients)
-		if(C?.mob.mind.assigned_role == "Quartermaster" || C?.mob.mind.assigned_role == "Cargo Technician")
+		if(C?.mob.mind.assigned_role == JOB_QUARTERMASTER || C?.mob.mind.assigned_role == JOB_CARGO_TECHNICIAN)
 			C?.give_award(/datum/award/achievement/misc/bike, C?.mob)
 
 /datum/supply_pack/misc/bigband

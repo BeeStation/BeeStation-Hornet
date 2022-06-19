@@ -13,8 +13,8 @@
 	report_type = "revolution"
 	antag_flag = ROLE_REV
 	false_report_weight = 10
-	restricted_jobs = list("Security Officer", "Warden", "Detective", "AI", "Cyborg","Captain", "Head of Personnel", "Head of Security", "Chief Engineer", "Research Director", "Chief Medical Officer")
-	required_jobs = list(list("Captain"=1),list("Head of Personnel"=1),list("Head of Security"=1),list("Chief Engineer"=1),list("Research Director"=1),list("Chief Medical Officer"=1)) //Any head present
+	restricted_jobs = list(JOB_SECURITY_OFFICER, JOB_WARDEN, JOB_DETECTIVE, JOB_AI, JOB_CYBORG,JOB_CAPTAIN, JOB_HEAD_OF_PERSONNEL, JOB_HEAD_OF_SECURITY, JOB_CHIEF_ENGINEER, JOB_RESEARCH_DIRECTOR, JOB_CHIEF_MEDICAL_OFFICER)
+	required_jobs = list(list(JOB_CAPTAIN=1),list(JOB_HEAD_OF_PERSONNEL=1),list(JOB_HEAD_OF_SECURITY=1),list(JOB_CHIEF_ENGINEER=1),list(JOB_RESEARCH_DIRECTOR=1),list(JOB_CHIEF_MEDICAL_OFFICER=1)) //Any head present
 	required_players = 30
 	required_enemies = 2
 	recommended_enemies = 3
@@ -50,7 +50,7 @@
 		restricted_jobs += protected_jobs
 
 	if(CONFIG_GET(flag/protect_assistant_from_antagonist))
-		restricted_jobs += "Assistant"
+		restricted_jobs += JOB_ASSISTANT
 
 	for (var/i=1 to max_headrevs)
 		if (antag_candidates.len==0)

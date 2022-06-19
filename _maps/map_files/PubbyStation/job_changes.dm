@@ -1,6 +1,6 @@
 #define JOB_MODIFICATION_MAP_NAME "PubbyStation"
 
-/datum/job/hos/New()
+/datum/job/head_of_security/New()
 	..()
 	MAP_JOB_CHECK
 	access += ACCESS_CREMATORIUM

@@ -1,8 +1,8 @@
 /datum/job/detective
-	title = "Detective"
+	title = JOB_DETECTIVE
 	flag = DETECTIVE
 	auto_deadmin_role_flags = DEADMIN_POSITION_SECURITY
-	department_head = list("Head of Security")
+	department_head = list(JOB_HEAD_OF_SECURITY)
 	department_flag = ENGSEC
 	faction = "Station"
 	total_positions = 1
@@ -31,7 +31,7 @@
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/detective
 	)
 /datum/outfit/job/detective
-	name = "Detective"
+	name = JOB_DETECTIVE
 	jobtype = /datum/job/detective
 
 	id = /obj/item/card/id/job/detective

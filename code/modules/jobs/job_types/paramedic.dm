@@ -1,7 +1,7 @@
-/datum/job/emt
-	title = "Paramedic"
+/datum/job/paramedic
+	title = JOB_PARAMEDIC
 	flag = EMT
-	department_head = list("Chief Medical Officer")
+	department_head = list(JOB_CHIEF_MEDICAL_OFFICER)
 	department_flag = MEDSCI
 	faction = "Station"
 	total_positions = 2
@@ -12,7 +12,7 @@
 	exp_requirements = 120
 	exp_type = EXP_TYPE_CREW
 
-	outfit = /datum/outfit/job/emt
+	outfit = /datum/outfit/job/paramedic
 
 	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CLONING, ACCESS_MECH_MEDICAL, ACCESS_MINERAL_STOREROOM,
 					ACCESS_MAINT_TUNNELS, ACCESS_EVA, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_AUX_BASE)
@@ -30,9 +30,9 @@
 	)
 	biohazard = 25//deal with sick like MDS, but also muck around in maint and get into the thick of it
 
-/datum/outfit/job/emt
-	name = "Paramedic"
-	jobtype = /datum/job/emt
+/datum/outfit/job/paramedic
+	name = JOB_PARAMEDIC
+	jobtype = /datum/job/paramedic
 
 	id = /obj/item/card/id/job/paramed
 	belt = /obj/item/pda/paramedic

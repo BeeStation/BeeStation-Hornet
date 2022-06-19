@@ -1,7 +1,7 @@
-/datum/job/cmo
-	title = "Chief Medical Officer"
+/datum/job/chief_medical_officer
+	title = JOB_CHIEF_MEDICAL_OFFICER
 	flag = CMO_JF
-	department_head = list("Captain")
+	department_head = list(JOB_CAPTAIN)
 	department_flag = MEDSCI
 	auto_deadmin_role_flags = DEADMIN_POSITION_HEAD
 	head_announce = list(RADIO_CHANNEL_MEDICAL)
@@ -17,7 +17,7 @@
 	exp_type = EXP_TYPE_MEDICAL
 	exp_type_department = EXP_TYPE_MEDICAL
 
-	outfit = /datum/outfit/job/cmo
+	outfit = /datum/outfit/job/chief_medical_officer
 
 	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_GENETICS, ACCESS_CLONING, ACCESS_HEADS, ACCESS_MINERAL_STOREROOM,
 			ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_CMO, ACCESS_SURGERY, ACCESS_RC_ANNOUNCE, ACCESS_MECH_MEDICAL,
@@ -37,11 +37,11 @@
 	)
 	biohazard = 20
 
-/datum/outfit/job/cmo
-	name = "Chief Medical Officer"
-	jobtype = /datum/job/cmo
+/datum/outfit/job/chief_medical_officer
+	name = JOB_CHIEF_MEDICAL_OFFICER
+	jobtype = /datum/job/chief_medical_officer
 
-	id = /obj/item/card/id/job/cmo
+	id = /obj/item/card/id/job/chief_medical_officer
 	belt = /obj/item/pda/heads/cmo
 	l_pocket = /obj/item/pinpointer/crew
 	ears = /obj/item/radio/headset/heads/cmo
@@ -59,7 +59,7 @@
 
 	chameleon_extras = list(/obj/item/gun/syringe, /obj/item/stamp/cmo)
 
-/datum/outfit/job/cmo/hardsuit
+/datum/outfit/job/chief_medical_officer/hardsuit
 	name = "Chief Medical Officer (Hardsuit)"
 
 	mask = /obj/item/clothing/mask/breath

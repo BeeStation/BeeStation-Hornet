@@ -1,5 +1,5 @@
 /datum/job/ai
-	title = "AI"
+	title = JOB_AI
 	flag = AI_JF
 	auto_deadmin_role_flags = DEADMIN_POSITION_SILICON
 	department_flag = ENGSEC

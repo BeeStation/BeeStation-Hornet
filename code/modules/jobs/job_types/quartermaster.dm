@@ -1,7 +1,7 @@
-/datum/job/qm
-	title = "Quartermaster"
+/datum/job/quartermaster
+	title = JOB_QUARTERMASTER
 	flag = QUARTERMASTER
-	department_head = list("Head of Personnel")
+	department_head = list(JOB_HEAD_OF_PERSONNEL)
 	department_flag = CIVILIAN
 	faction = "Station"
 	total_positions = 1
@@ -29,10 +29,10 @@
 	)
 
 /datum/outfit/job/quartermaster
-	name = "Quartermaster"
-	jobtype = /datum/job/qm
+	name = JOB_QUARTERMASTER
+	jobtype = /datum/job/quartermaster
 
-	id = /obj/item/card/id/job/qm
+	id = /obj/item/card/id/job/quartermaster
 	belt = /obj/item/pda/quartermaster
 	ears = /obj/item/radio/headset/headset_quartermaster
 	uniform = /obj/item/clothing/under/rank/cargo/qm

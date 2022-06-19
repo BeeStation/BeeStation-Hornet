@@ -161,13 +161,13 @@
 
 	if(user.mind)
 		//Chaplains are very good at speaking with the voice of god
-		if(user.mind.assigned_role == "Chaplain")
+		if(user.mind.assigned_role == JOB_CHAPLAIN)
 			power_multiplier *= 2
 		//Command staff has authority
 		if(user.mind.assigned_role in GLOB.command_positions)
 			power_multiplier *= 1.4
 		//Why are you speaking
-		if(user.mind.assigned_role == "Mime")
+		if(user.mind.assigned_role == JOB_MIME)
 			power_multiplier *= 0.5
 
 	//Cultists are closer to their gods and are more powerful, but they'll give themselves away
@@ -286,7 +286,7 @@
 	else if((findtext(message, silence_words)))
 		cooldown = COOLDOWN_STUN
 		for(var/mob/living/carbon/C in listeners)
-			if(user.mind && (user.mind.assigned_role == "Curator" || user.mind.assigned_role == "Mime"))
+			if(user.mind && (user.mind.assigned_role == JOB_CURATOR || user.mind.assigned_role == JOB_MIME))
 				power_multiplier *= 3
 			C.silent += (10 * power_multiplier)
 
@@ -553,7 +553,7 @@
 	else if((findtext(message, honk_words)))
 		cooldown = COOLDOWN_MEME
 		addtimer(CALLBACK(GLOBAL_PROC, .proc/playsound, get_turf(user), 'sound/items/bikehorn.ogg', 300, 1), 25)
-		if(user.mind?.assigned_role == "Clown")
+		if(user.mind?.assigned_role == JOB_CLOWN)
 			for(var/mob/living/carbon/C in listeners)
 				C.slip(140 * power_multiplier)
 			cooldown = COOLDOWN_MEME

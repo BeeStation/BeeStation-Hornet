@@ -1,7 +1,7 @@
-/datum/job/cargo_tech
-	title = "Cargo Technician"
+/datum/job/cargo_technician
+	title = JOB_CARGO_TECHNICIAN
 	flag = CARGOTECH
-	department_head = list("Head of Personnel")
+	department_head = list(JOB_HEAD_OF_PERSONNEL)
 	department_flag = CIVILIAN
 	faction = "Station"
 	total_positions = 3
@@ -10,7 +10,7 @@
 	selection_color = "#dcba97"
 	chat_color = "#D3A372"
 
-	outfit = /datum/outfit/job/cargo_tech
+	outfit = /datum/outfit/job/cargo_technician
 
 	access = list(ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_QM, ACCESS_MINING, ACCESS_MECH_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_MAINT_TUNNELS, ACCESS_CARGO, ACCESS_MAILSORTING, ACCESS_MINERAL_STOREROOM)
@@ -26,9 +26,9 @@
 	)
 	biohazard = 15
 
-/datum/outfit/job/cargo_tech
-	name = "Cargo Technician"
-	jobtype = /datum/job/cargo_tech
+/datum/outfit/job/cargo_technician
+	name = JOB_CARGO_TECHNICIAN
+	jobtype = /datum/job/cargo_technician
 
 	id = /obj/item/card/id/job/cargo
 	belt = /obj/item/pda/cargo

@@ -1,7 +1,7 @@
 /datum/job/engineer
-	title = "Station Engineer"
+	title = JOB_STATION_ENGINEER
 	flag = ENGINEER
-	department_head = list("Chief Engineer")
+	department_head = list(JOB_CHIEF_ENGINEER)
 	department_flag = ENGSEC
 	faction = "Station"
 	total_positions = 5
@@ -31,7 +31,7 @@
 	)
 
 /datum/outfit/job/engineer
-	name = "Station Engineer"
+	name = JOB_STATION_ENGINEER
 	jobtype = /datum/job/engineer
 
 	id = /obj/item/card/id/job/engi

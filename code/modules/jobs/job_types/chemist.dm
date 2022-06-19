@@ -1,7 +1,7 @@
 /datum/job/chemist
-	title = "Chemist"
+	title = JOB_CHEMIST
 	flag = CHEMIST
-	department_head = list("Chief Medical Officer")
+	department_head = list(JOB_CHIEF_MEDICAL_OFFICER)
 	department_flag = MEDSCI
 	faction = "Station"
 	total_positions = 2
@@ -29,7 +29,7 @@
 	biohazard = 15
 
 /datum/outfit/job/chemist
-	name = "Chemist"
+	name = JOB_CHEMIST
 	jobtype = /datum/job/chemist
 
 	id = /obj/item/card/id/job/chemist

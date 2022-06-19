@@ -232,13 +232,13 @@
 				src.active1 = null
 				src.active2 = null
 				src.authenticated = 1
-				src.rank = "AI"
+				src.rank = JOB_AI
 				src.screen = 1
 			else if(IsAdminGhost(usr))
 				src.active1 = null
 				src.active2 = null
 				src.authenticated = 1
-				src.rank = "Central Command"
+				src.rank = JOB_CENTCOM
 				src.screen = 1
 			else if(istype(src.scan, /obj/item/card/id))
 				src.active1 = null

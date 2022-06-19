@@ -4,7 +4,7 @@
 	report_type = "devil"
 	antag_flag = ROLE_DEVIL
 	false_report_weight = 1
-	protected_jobs = list("Lawyer", "Curator", "Chaplain", "Head of Security", "Captain", "AI", "Cyborg", "Security Officer", "Warden", "Detective")
+	protected_jobs = list(JOB_LAWYER, JOB_CURATOR, JOB_CHAPLAIN, JOB_HEAD_OF_SECURITY, JOB_CAPTAIN, JOB_AI, JOB_CYBORG, JOB_SECURITY_OFFICER, JOB_WARDEN, JOB_DETECTIVE)
 	required_players = 0
 	required_enemies = 1
 	recommended_enemies = 4
@@ -27,7 +27,7 @@
 	if(CONFIG_GET(flag/protect_roles_from_antagonist))
 		restricted_jobs += protected_jobs
 	if(CONFIG_GET(flag/protect_assistant_from_antagonist))
-		restricted_jobs += "Assistant"
+		restricted_jobs += JOB_ASSISTANT
 	if(CONFIG_GET(flag/protect_heads_from_antagonist))
 		restricted_jobs += GLOB.command_positions
 

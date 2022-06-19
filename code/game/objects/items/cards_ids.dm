@@ -427,7 +427,7 @@ update_label("John Doe", "Clowny")
 				else
 					input_name = "[pick(GLOB.first_names)] [pick(GLOB.last_names)]"
 
-			var/target_occupation = stripped_input(user, "What occupation would you like to put on this card?\nNote: This will not grant any access levels other than Maintenance.", "Agent card job assignment", assignment ? assignment : "Assistant", MAX_MESSAGE_LEN)
+			var/target_occupation = stripped_input(user, "What occupation would you like to put on this card?\nNote: This will not grant any access levels other than Maintenance.", "Agent card job assignment", assignment ? assignment : JOB_ASSISTANT, MAX_MESSAGE_LEN)
 			if(!target_occupation)
 				return
 			log_id("[key_name(user)] forged agent ID [src] name to [input_name] and occupation to [target_occupation] at [AREACOORD(user)].")
@@ -487,8 +487,8 @@ update_label("John Doe", "Clowny")
 	name = "\improper Debug ID"
 	desc = "A shimmering ID card with the ability to open anything."
 	icon_state = "centcom"
-	registered_name = "Central Command"
-	assignment = "Admiral"
+	registered_name = JOB_CENTCOM
+	assignment = JOB_CENTCOM_ADMIRAL
 	anyone = TRUE
 
 /obj/item/card/id/syndicate/debug/Initialize(mapload)
@@ -503,8 +503,8 @@ update_label("John Doe", "Clowny")
 	item_state = "gold_id"
 	lefthand_file = 'icons/mob/inhands/equipment/idcards_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/idcards_righthand.dmi'
-	registered_name = "Captain"
-	assignment = "Captain"
+	registered_name = JOB_CAPTAIN
+	assignment = JOB_CAPTAIN
 
 /obj/item/card/id/captains_spare/Initialize(mapload)
 	var/datum/job/captain/J = new/datum/job/captain
@@ -515,7 +515,7 @@ update_label("John Doe", "Clowny")
 	name = "\improper CentCom ID"
 	desc = "A shimmering Central Command ID card. Simply seeing this is illegal for the majority of the crew."
 	icon_state = "centcom"
-	registered_name = "Central Command"
+	registered_name = JOB_CENTCOM
 	assignment = "General"
 
 /obj/item/card/id/centcom/Initialize(mapload)
@@ -526,16 +526,16 @@ update_label("John Doe", "Clowny")
 	name = "\improper CentCom ID"
 	desc = "A shimmering Emergency Response Team ID card. All access with style."
 	icon_state = "ert"
-	registered_name = "Emergency Response Team Commander"
-	assignment = "Emergency Response Team Commander"
+	registered_name = JOB_ERT_COMMANDER
+	assignment = JOB_ERT_COMMANDER
 
 /obj/item/card/id/ert/Initialize(mapload)
 	access = get_all_accesses()+get_ert_access("commander")-ACCESS_CHANGE_IDS
 	. = ..()
 
 /obj/item/card/id/ert/Security
-	registered_name = "Security Response Officer"
-	assignment = "Security Response Officer"
+	registered_name = JOB_ERT_OFFICER
+	assignment = JOB_ERT_OFFICER
 	icon_state = "ert"
 
 /obj/item/card/id/ert/Security/Initialize(mapload)
@@ -543,8 +543,8 @@ update_label("John Doe", "Clowny")
 	. = ..()
 
 /obj/item/card/id/ert/Engineer
-	registered_name = "Engineer Response Officer"
-	assignment = "Engineer Response Officer"
+	registered_name = JOB_ERT_ENGINEER
+	assignment = JOB_ERT_ENGINEER
 	icon_state = "ert"
 
 /obj/item/card/id/ert/Engineer/Initialize(mapload)
@@ -552,8 +552,8 @@ update_label("John Doe", "Clowny")
 	. = ..()
 
 /obj/item/card/id/ert/Medical
-	registered_name = "Medical Response Officer"
-	assignment = "Medical Response Officer"
+	registered_name = JOB_ERT_MEDICAL_DOCTOR
+	assignment = JOB_ERT_MEDICAL_DOCTOR
 	icon_state = "ert"
 
 /obj/item/card/id/ert/Medical/Initialize(mapload)
@@ -594,8 +594,8 @@ update_label("John Doe", "Clowny")
 	item_state = "orange-id"
 	lefthand_file = 'icons/mob/inhands/equipment/idcards_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/idcards_righthand.dmi'
-	assignment = "Prisoner"
-	registered_name = "Prisoner"
+	assignment = "CentCom"
+	registered_name = "CentCom"
 	var/goal = 0 //How far from freedom?
 	var/points = 0
 	var/permanent = FALSE
@@ -751,7 +751,7 @@ update_label("John Doe", "Clowny")
 /obj/item/card/id/job/captain
 	icon_state = "captain"
 
-/obj/item/card/id/job/hop
+/obj/item/card/id/job/head_of_personnel
 	icon_state = "hop"
 
 /obj/item/card/id/job/ce
@@ -760,10 +760,10 @@ update_label("John Doe", "Clowny")
 /obj/item/card/id/job/engi
 	icon_state = "engi"
 
-/obj/item/card/id/job/atmos
+/obj/item/card/id/job/atmospheric_technician
 	icon_state = "atmos"
 
-/obj/item/card/id/job/cmo
+/obj/item/card/id/job/chief_medical_officer
 	icon_state = "cmo"
 
 /obj/item/card/id/job/med
@@ -781,7 +781,7 @@ update_label("John Doe", "Clowny")
 /obj/item/card/id/job/gene
 	icon_state = "gene"
 
-/obj/item/card/id/job/hos
+/obj/item/card/id/job/head_of_security
 	icon_state = "hos"
 
 /obj/item/card/id/job/sec
@@ -799,7 +799,7 @@ update_label("John Doe", "Clowny")
 /obj/item/card/id/job/warden
 	icon_state = "warden"
 
-/obj/item/card/id/job/rd
+/obj/item/card/id/job/research_director
 	icon_state = "rd"
 
 /obj/item/card/id/job/roboticist
@@ -817,7 +817,7 @@ update_label("John Doe", "Clowny")
 /obj/item/card/id/job/janitor
 	icon_state = "janitor"
 
-/obj/item/card/id/job/qm
+/obj/item/card/id/job/quartermaster
 	icon_state = "qm"
 
 /obj/item/card/id/job/miner

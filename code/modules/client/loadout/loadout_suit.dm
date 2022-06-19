@@ -12,17 +12,17 @@
 /datum/gear/suit/labcoat/brig_doc_hazard
 	display_name = "brig physician's hazard vest"
 	path = /obj/item/clothing/suit/hazardvest/brig_phys
-	allowed_roles = list("Brig Physician")
+	allowed_roles = list(JOB_BRIGPHYSICIAN)
 
 /datum/gear/suit/labcoat/brig_doc
 	display_name = "brig physician's labcoat"
 	path = /obj/item/clothing/suit/toggle/labcoat/brig_phys
-	allowed_roles = list("Brig Physician")
+	allowed_roles = list(JOB_BRIGPHYSICIAN)
 
 /datum/gear/suit/labcoat/emt
 	display_name = "EMT labcoat"
 	path = /obj/item/clothing/suit/toggle/labcoat/emt
-	allowed_roles = list("Medical Doctor", "Chief Medical Officer", "Chemist", "Geneticist")
+	allowed_roles = list(JOB_MEDICAL_DOCTOR, JOB_CHIEF_MEDICAL_OFFICER, JOB_CHEMIST, JOB_GENETICIST)
 
 //WINTER COATS
 /datum/gear/suit/wintercoat
@@ -37,47 +37,47 @@
 /datum/gear/suit/wintercoat/captain
 	display_name = "captain's winter coat"
 	path = /obj/item/clothing/suit/hooded/wintercoat/captain
-	allowed_roles = list("Captain")
+	allowed_roles = list(JOB_CAPTAIN)
 
 /datum/gear/suit/wintercoat/security
 	display_name = "security winter coat"
 	path = /obj/item/clothing/suit/hooded/wintercoat/security
-	allowed_roles = list("Security Officer", "Brig Physician", "Head of Security")
+	allowed_roles = list(JOB_SECURITY_OFFICER, JOB_BRIGPHYSICIAN, JOB_HEAD_OF_SECURITY)
 
 /datum/gear/suit/wintercoat/medical
 	display_name = "medical winter coat"
 	path = /obj/item/clothing/suit/hooded/wintercoat/medical
-	allowed_roles = list("Paramedic", "Medical Doctor", "Chief Medical Officer", "Chemist", "Geneticist")
+	allowed_roles = list(JOB_PARAMEDIC, JOB_MEDICAL_DOCTOR, JOB_CHIEF_MEDICAL_OFFICER, JOB_CHEMIST, JOB_GENETICIST)
 
 /datum/gear/suit/wintercoat/science
 	display_name = "science winter coat"
 	path = /obj/item/clothing/suit/hooded/wintercoat/science
-	allowed_roles = list("Scientist", "Roboticist", "Research Director")
+	allowed_roles = list(JOB_SCIENTIST, JOB_ROBOTICIST, JOB_RESEARCH_DIRECTOR)
 
 /datum/gear/suit/wintercoat/engineering
 	display_name = "engineering winter coat"
 	path = /obj/item/clothing/suit/hooded/wintercoat/engineering
-	allowed_roles = list("Chief Engineer", "Station Engineer", "Atmospheric Technician")
+	allowed_roles = list(JOB_CHIEF_ENGINEER, JOB_STATION_ENGINEER, JOB_ATMOSPHERIC_TECHNICIAN)
 
 /datum/gear/suit/wintercoat/hydro
 	display_name = "hydroponics winter coat"
 	path = /obj/item/clothing/suit/hooded/wintercoat/hydro
-	allowed_roles = list("Botanist")
+	allowed_roles = list(JOB_BOTANIST)
 
 /datum/gear/suit/wintercoat/hydro
 	display_name = "hydroponics winter coat"
 	path = /obj/item/clothing/suit/hooded/wintercoat/hydro
-	allowed_roles = list("Botanist")
+	allowed_roles = list(JOB_BOTANIST)
 
 /datum/gear/suit/wintercoat/cargo
 	display_name = "cargo winter coat"
 	path = /obj/item/clothing/suit/hooded/wintercoat/cargo
-	allowed_roles = list("Cargo Technician", "Quartermaster")
+	allowed_roles = list(JOB_CARGO_TECHNICIAN, JOB_QUARTERMASTER)
 
 /datum/gear/suit/wintercoat/miner
 	display_name = "mining winter coat"
 	path = /obj/item/clothing/suit/hooded/wintercoat/miner
-	allowed_roles = list("Shaft Miner")
+	allowed_roles = list(JOB_SHAFT_MINER)
 
 //JACKETS
 
@@ -128,23 +128,23 @@
 	display_name = "comedian's coat"
 	path = /obj/item/clothing/suit/joker
 	description = "You get what you deserve."
-	allowed_roles = list("Clown")
+	allowed_roles = list(JOB_CLOWN)
 	cost = 8000
 
 /datum/gear/suit/jacket/lawyer
 	display_name = "blue suit jacket"
 	path = /obj/item/clothing/suit/toggle/lawyer
-	allowed_roles = list("Lawyer")
+	allowed_roles = list(JOB_LAWYER)
 
 /datum/gear/suit/jacket/lawyer/purple
 	display_name = "purple suit jacket"
 	path = /obj/item/clothing/suit/toggle/lawyer/purple
-	allowed_roles = list("Lawyer")
+	allowed_roles = list(JOB_LAWYER)
 
 /datum/gear/suit/jacket/lawyer/black
 	display_name = "black suit jacket"
 	path = /obj/item/clothing/suit/toggle/lawyer/black
-	allowed_roles = list("Lawyer")
+	allowed_roles = list(JOB_LAWYER)
 
 //PONCHOS
 
@@ -172,4 +172,4 @@
 /datum/gear/suit/robe/blackbishop
 	display_name = "black bishop's robes"
 	path = /obj/item/clothing/suit/chaplainsuit/bishoprobe/black
-	allowed_roles = list("Chaplain")
+	allowed_roles = list(JOB_CHAPLAIN)

@@ -35,27 +35,27 @@
 		"[ACCESS_HOP]" = list(
 			"department" = list(CARDCON_DEPARTMENT_SUPPLY, CARDCON_DEPARTMENT_BITFLAG_COMMAND),
 			"region" = 1,
-			"head" = "Head of Personnel"
+			"head" = JOB_HEAD_OF_PERSONNEL
 		),
 		"[ACCESS_HOS]" = list(
 			"department" = CARDCON_DEPARTMENT_BITFLAG_SECURITY,
 			"region" = 2,
-			"head" = "Head of Security"
+			"head" = JOB_HEAD_OF_SECURITY
 		),
 		"[ACCESS_CMO]" = list(
 			"department" = CARDCON_DEPARTMENT_BITFLAG_MEDICAL,
 			"region" = 3,
-			"head" = "Chief Medical Officer"
+			"head" = JOB_CHIEF_MEDICAL_OFFICER
 		),
 		"[ACCESS_RD]" = list(
 			"department" = CARDCON_DEPARTMENT_BITFLAG_SCIENCE,
 			"region" = 4,
-			"head" = "Research Director"
+			"head" = JOB_RESEARCH_DIRECTOR
 		),
 		"[ACCESS_CE]" = list(
 			"department" = CARDCON_DEPARTMENT_BITFLAG_ENGINEERING,
 			"region" = 5,
-			"head" = "Chief Engineer"
+			"head" = JOB_CHIEF_ENGINEER
 		)
 	)
 
@@ -167,7 +167,7 @@
 			if(!computer || !authenticated)
 				return
 			if(minor)
-				if(!(id_card.assignment in head_subordinates) && id_card.assignment != "Assistant")
+				if(!(id_card.assignment in head_subordinates) && id_card.assignment != JOB_ASSISTANT)
 					return
 
 			id_card.access -= get_all_centcom_access() + get_all_accesses()
@@ -286,7 +286,7 @@
 		departments = list("CentCom" = get_all_centcom_jobs())
 	else if(isnull(departments))
 		departments = list(
-			CARDCON_DEPARTMENT_BITFLAG_COMMAND = list("Captain"),//lol
+			CARDCON_DEPARTMENT_BITFLAG_COMMAND = list(JOB_CAPTAIN),//lol
 			CARDCON_DEPARTMENT_BITFLAG_ENGINEERING = GLOB.engineering_positions,
 			CARDCON_DEPARTMENT_BITFLAG_MEDICAL = GLOB.medical_positions,
 			CARDCON_DEPARTMENT_BITFLAG_SCIENCE = GLOB.science_positions,

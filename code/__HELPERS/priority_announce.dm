@@ -15,7 +15,7 @@
 		announcement += "<h1 class='alert'>Priority Announcement</h1>"
 		if (title && length(title) > 0)
 			announcement += "<br><h2 class='alert'>[html_encode(title)]</h2>"
-	else if(type == "Captain")
+	else if(type == JOB_CAPTAIN)
 		announcement += "<h1 class='alert'>Captain Announces</h1>"
 		GLOB.news_network.SubmitArticle(html_encode(text), "Captain's Announcement", "Station Announcements", null)
 

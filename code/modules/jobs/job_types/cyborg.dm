@@ -1,5 +1,5 @@
 /datum/job/cyborg
-	title = "Cyborg"
+	title = JOB_CYBORG
 	flag = CYBORG
 	auto_deadmin_role_flags = DEADMIN_POSITION_SILICON
 	department_flag = ENGSEC

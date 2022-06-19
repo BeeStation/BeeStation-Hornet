@@ -1,7 +1,7 @@
 /datum/job/janitor
-	title = "Janitor"
+	title = JOB_JANITOR
 	flag = JANITOR
-	department_head = list("Head of Personnel")
+	department_head = list(JOB_HEAD_OF_PERSONNEL)
 	department_flag = CIVILIAN
 	faction = "Station"
 	total_positions = 2
@@ -27,7 +27,7 @@
 	)
 
 /datum/outfit/job/janitor
-	name = "Janitor"
+	name = JOB_JANITOR
 	jobtype = /datum/job/janitor
 
 	id = /obj/item/card/id/job/janitor

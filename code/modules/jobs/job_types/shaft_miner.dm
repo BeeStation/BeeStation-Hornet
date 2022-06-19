@@ -1,7 +1,7 @@
-/datum/job/mining
-	title = "Shaft Miner"
+/datum/job/shaft_miner
+	title = JOB_SHAFT_MINER
 	flag = MINER
-	department_head = list("Head of Personnel")
+	department_head = list(JOB_HEAD_OF_PERSONNEL)
 	department_flag = CIVILIAN
 	faction = "Station"
 	total_positions = 3
@@ -28,8 +28,8 @@
 	)
 
 /datum/outfit/job/miner
-	name = "Shaft Miner"
-	jobtype = /datum/job/mining
+	name = JOB_SHAFT_MINER
+	jobtype = /datum/job/shaft_miner
 
 	id = /obj/item/card/id/job/miner
 	belt = /obj/item/pda/shaftminer

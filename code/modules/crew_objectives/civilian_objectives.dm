@@ -276,7 +276,7 @@
 		var/mob/living/carbon/human/H = owner.current
 		var/obj/item/card/id/theID = H.get_idcard()
 		if(istype(theID))
-			if(!(H.get_assignment() == "Assistant") && !(H.get_assignment() == "No id") && !(H.get_assignment() == "No job"))
+			if(!(H.get_assignment() == JOB_ASSISTANT) && !(H.get_assignment() == "No id") && !(H.get_assignment() == "No job"))
 				return TRUE
 	return ..()
 
@@ -288,6 +288,6 @@
 	if(owner?.current)
 		for(var/datum/mind/M in SSticker.minds)
 			if(M.current && isliving(M.current))
-				if(!M.special_role && !(M.assigned_role == "Security Officer") && !(M.assigned_role == "Detective") && !(M.assigned_role == "Head of Security") && !(M.assigned_role == "Internal Affairs Agent") && !(M.assigned_role == "Warden") && get_area(M.current) != typesof(/area/security/prison))
+				if(!M.special_role && !(M.assigned_role == JOB_SECURITY_OFFICER) && !(M.assigned_role == JOB_DETECTIVE) && !(M.assigned_role == JOB_HEAD_OF_SECURITY) && !(M.assigned_role == "Internal Affairs Agent") && !(M.assigned_role == JOB_WARDEN) && get_area(M.current) != typesof(/area/security/prison))
 					return ..()
 		return TRUE

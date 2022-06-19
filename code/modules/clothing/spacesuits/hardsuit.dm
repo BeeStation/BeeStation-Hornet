@@ -767,7 +767,7 @@
 	if(!..() || !ishuman(M))
 		return FALSE
 	var/mob/living/carbon/human/H = M
-	if(H.mind.assigned_role == "Clown")
+	if(H.mind.assigned_role == JOB_CLOWN)
 		return TRUE
 	else
 		return FALSE

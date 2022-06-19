@@ -1,7 +1,7 @@
-/datum/job/brig_phys
-	title = "Brig Physician"
+/datum/job/brig_physician
+	title = JOB_BRIGPHYSICIAN
 	flag = BRIG_PHYS
-	department_head = list("Chief Medical Officer")
+	department_head = list(JOB_CHIEF_MEDICAL_OFFICER)
 	department_flag = ENGSEC
 	faction = "Station"
 	total_positions = 1
@@ -13,7 +13,7 @@
 	exp_requirements = 120
 	exp_type = EXP_TYPE_CREW
 
-	outfit = /datum/outfit/job/brig_phys
+	outfit = /datum/outfit/job/brig_physician
 
 	access = list(ACCESS_SEC_DOORS, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_MORGUE, ACCESS_MEDICAL, ACCESS_BRIGPHYS)
 	minimal_access = list(ACCESS_SEC_DOORS, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_MORGUE, ACCESS_MEDICAL, ACCESS_BRIGPHYS)
@@ -29,9 +29,9 @@
 	)
 	biohazard = 15 //still deals with the sick and injured, just less than a medical doctor
 
-/datum/outfit/job/brig_phys
-	name = "Brig Physician"
-	jobtype = /datum/job/brig_phys
+/datum/outfit/job/brig_physician
+	name = JOB_BRIGPHYSICIAN
+	jobtype = /datum/job/brig_physician
 
 	id = /obj/item/card/id/job/brigphys
 	belt = /obj/item/pda/brigphys

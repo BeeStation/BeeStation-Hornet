@@ -1,82 +1,82 @@
 GLOBAL_LIST_INIT(command_positions, list(
-	"Captain",
-	"Head of Personnel",
-	"Head of Security",
-	"Chief Engineer",
-	"Research Director",
-	"Chief Medical Officer"))
+	JOB_CAPTAIN,
+	JOB_HEAD_OF_PERSONNEL,
+	JOB_HEAD_OF_SECURITY,
+	JOB_CHIEF_ENGINEER,
+	JOB_RESEARCH_DIRECTOR,
+	JOB_CHIEF_MEDICAL_OFFICER))
 
 
 GLOBAL_LIST_INIT(engineering_positions, list(
-	"Chief Engineer",
-	"Station Engineer",
-	"Atmospheric Technician"))
+	JOB_CHIEF_ENGINEER,
+	JOB_STATION_ENGINEER,
+	JOB_ATMOSPHERIC_TECHNICIAN))
 
 
 GLOBAL_LIST_INIT(medical_positions, list(
-	"Chief Medical Officer",
-	"Medical Doctor",
-	"Geneticist",
-	"Virologist",
-	"Paramedic",
-	"Chemist",
-	"Brig Physician"))
+	JOB_CHIEF_MEDICAL_OFFICER,
+	JOB_MEDICAL_DOCTOR,
+	JOB_GENETICIST,
+	JOB_VIROLOGIST,
+	JOB_PARAMEDIC,
+	JOB_CHEMIST,
+	JOB_BRIGPHYSICIAN))
 
 
 GLOBAL_LIST_INIT(science_positions, list(
-	"Research Director",
-	"Scientist",
-	"Exploration Crew",
-	"Roboticist"))
+	JOB_RESEARCH_DIRECTOR,
+	JOB_SCIENTIST,
+	JOB_EXPLORATIONCREW,
+	JOB_ROBOTICIST))
 
 
 GLOBAL_LIST_INIT(supply_positions, list(
-	"Quartermaster",
-	"Cargo Technician",
-	"Shaft Miner"))
+	JOB_QUARTERMASTER,
+	JOB_CARGO_TECHNICIAN,
+	JOB_SHAFT_MINER))
 
 
 GLOBAL_LIST_INIT(civilian_positions, list(
-	"Bartender",
-	"Botanist",
-	"Cook",
-	"Janitor",
-	"Curator",
-	"Lawyer",
-	"Chaplain",
-	"Clown",
-	"Mime",
-	"Assistant"))
+	JOB_BARTENDER,
+	JOB_BOTANIST,
+	JOB_COOK,
+	JOB_JANITOR,
+	JOB_CURATOR,
+	JOB_LAWYER,
+	JOB_CHAPLAIN,
+	JOB_CLOWN,
+	JOB_MIME,
+	JOB_ASSISTANT))
 
 GLOBAL_LIST_INIT(gimmick_positions, list(
-	"Gimmick",
-	"Barber",
-	"Stage Magician",
-	"Psychiatrist",
-	"VIP"))
+	JOB_GIMMICK,
+	JOB_BARBER,
+	JOB_STAGE_MAGICIAN,
+	JOB_PSYCHIATRIST,
+	JOB_VIP))
 
 GLOBAL_LIST_INIT(security_positions, list(
-	"Head of Security",
-	"Warden",
-	"Detective",
-	"Security Officer",
-	"Deputy"))
+	JOB_HEAD_OF_SECURITY,
+	JOB_WARDEN,
+	JOB_DETECTIVE,
+	JOB_SECURITY_OFFICER,
+	JOB_DEPUTY))
 
 
 GLOBAL_LIST_INIT(nonhuman_positions, list(
-	"AI",
-	"Cyborg",
+	JOB_CYBORG,
+	JOB_CYBORG,
 	ROLE_PAI))
 
 GLOBAL_LIST_INIT(exp_jobsmap, list(
-	EXP_TYPE_CREW = list("titles" = command_positions | engineering_positions | medical_positions | science_positions | supply_positions | security_positions | civilian_positions | gimmick_positions | list("AI","Cyborg")), // crew positions
+	EXP_TYPE_CREW = list("titles" = command_positions | engineering_positions | medical_positions | science_positions | supply_positions | security_positions | civilian_positions | gimmick_positions | list(JOB_CYBORG,JOB_CYBORG)), // crew positions
 	EXP_TYPE_COMMAND = list("titles" = command_positions),
 	EXP_TYPE_ENGINEERING = list("titles" = engineering_positions),
 	EXP_TYPE_MEDICAL = list("titles" = medical_positions),
 	EXP_TYPE_SCIENCE = list("titles" = science_positions),
 	EXP_TYPE_SUPPLY = list("titles" = supply_positions),
 	EXP_TYPE_SECURITY = list("titles" = security_positions),
-	EXP_TYPE_SILICON = list("titles" = list("AI","Cyborg")),
+	EXP_TYPE_SILICON = list("titles" = list(JOB_CYBORG,JOB_CYBORG)),
 	EXP_TYPE_SERVICE = list("titles" = civilian_positions | gimmick_positions),
 	EXP_TYPE_GIMMICK = list("titles" = gimmick_positions)
 ))
@@ -84,7 +84,7 @@ GLOBAL_LIST_INIT(exp_jobsmap, list(
 GLOBAL_LIST_INIT(exp_specialmap, list(
 	EXP_TYPE_LIVING = list(), // all living mobs
 	EXP_TYPE_ANTAG = list(),
-	EXP_TYPE_SPECIAL = list("Lifebringer","Ash Walker","Exile","Servant Golem","Free Golem","Hermit","Translocated Vet","Escaped Prisoner","Hotel Staff","SuperFriend","Space Syndicate","Ancient Crew","Space Doctor","Space Bartender","Beach Bum","Skeleton","Zombie","Space Bar Patron","Lavaland Syndicate","Personal AI","Ghost Role"), // Ghost roles
+	EXP_TYPE_SPECIAL = list("Lifebringer","Ash Walker","Exile","Servant Golem","Free Golem","Hermit","Translocated Vet","Escaped Prisoner","Hotel Staff","SuperFriend","Space Syndicate","Ancient Crew","Space Doctor","Space Bartender","Beach Bum","Skeleton","Zombie","Space Bar Patron","Lavaland Syndicate",JOB_PERSONAL_AI,"Ghost Role"), // Ghost roles
 	EXP_TYPE_GHOST = list() // dead people, observers
 ))
 GLOBAL_PROTECT(exp_jobsmap)

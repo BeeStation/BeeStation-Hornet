@@ -1,7 +1,7 @@
 /datum/job/scientist
-	title = "Scientist"
+	title = JOB_SCIENTIST
 	flag = SCIENTIST
-	department_head = list("Research Director")
+	department_head = list(JOB_RESEARCH_DIRECTOR)
 	department_flag = MEDSCI
 	faction = "Station"
 	total_positions = 5
@@ -31,7 +31,7 @@
 	biohazard = 15
 
 /datum/outfit/job/scientist
-	name = "Scientist"
+	name = JOB_SCIENTIST
 	jobtype = /datum/job/scientist
 
 	id = /obj/item/card/id/job/sci

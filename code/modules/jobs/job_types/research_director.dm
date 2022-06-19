@@ -1,8 +1,8 @@
-/datum/job/rd
-	title = "Research Director"
+/datum/job/research_director
+	title = JOB_RESEARCH_DIRECTOR
 	flag = RD_JF
 	auto_deadmin_role_flags = DEADMIN_POSITION_HEAD
-	department_head = list("Captain")
+	department_head = list(JOB_CAPTAIN)
 	department_flag = MEDSCI
 	head_announce = list("Science")
 	faction = "Station"
@@ -17,7 +17,7 @@
 	exp_type = EXP_TYPE_SCIENCE
 	exp_type_department = EXP_TYPE_SCIENCE
 
-	outfit = /datum/outfit/job/rd
+	outfit = /datum/outfit/job/research_director
 
 	access = list(ACCESS_RD, ACCESS_HEADS, ACCESS_TOX, ACCESS_GENETICS, ACCESS_MORGUE, ACCESS_EXPLORATION,
 			            ACCESS_TOX_STORAGE, ACCESS_TELEPORTER, ACCESS_SEC_DOORS, ACCESS_MECH_SCIENCE,
@@ -41,11 +41,11 @@
 	)
 	biohazard = 20
 
-/datum/outfit/job/rd
-	name = "Research Director"
-	jobtype = /datum/job/rd
+/datum/outfit/job/research_director
+	name = JOB_RESEARCH_DIRECTOR
+	jobtype = /datum/job/research_director
 
-	id = /obj/item/card/id/job/rd
+	id = /obj/item/card/id/job/research_director
 	belt = /obj/item/pda/heads/rd
 	ears = /obj/item/radio/headset/heads/rd
 	uniform = /obj/item/clothing/under/rank/rnd/research_director
@@ -61,7 +61,7 @@
 
 	chameleon_extras = /obj/item/stamp/rd
 
-/datum/outfit/job/rd/rig
+/datum/outfit/job/research_director/rig
 	name = "Research Director (Hardsuit)"
 
 	l_hand = null

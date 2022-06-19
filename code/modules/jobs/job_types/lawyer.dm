@@ -1,7 +1,7 @@
 /datum/job/lawyer
-	title = "Lawyer"
+	title = JOB_LAWYER
 	flag = LAWYER
-	department_head = list("Head of Personnel")
+	department_head = list(JOB_HEAD_OF_PERSONNEL)
 	department_flag = CIVILIAN
 	faction = "Station"
 	total_positions = 2
@@ -28,7 +28,7 @@
 	)
 
 /datum/outfit/job/lawyer
-	name = "Lawyer"
+	name = JOB_LAWYER
 	jobtype = /datum/job/lawyer
 
 	id = /obj/item/card/id/job/lawyer

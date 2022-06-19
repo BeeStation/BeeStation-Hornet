@@ -1,7 +1,7 @@
 /datum/job/cook
-	title = "Cook"
+	title = JOB_COOK
 	flag = COOK
-	department_head = list("Head of Personnel")
+	department_head = list(JOB_HEAD_OF_PERSONNEL)
 	department_flag = CIVILIAN
 	faction = "Station"
 	total_positions = 2
@@ -26,7 +26,7 @@
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/chef
 	)
 /datum/outfit/job/cook
-	name = "Cook"
+	name = JOB_COOK
 	jobtype = /datum/job/cook
 
 	id = /obj/item/card/id/job/serv
