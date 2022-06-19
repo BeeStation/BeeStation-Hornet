@@ -41141,9 +41141,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/medical/virology)
-"cGw" = (
-/turf/closed/wall,
-/area/space)
 "cGz" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -42263,9 +42260,10 @@
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
 "cKT" = (
-/obj/effect/spawner/structure/window/reinforced,
+/obj/structure/girder,
+/obj/structure/barricade/wooden,
 /turf/open/floor/plating,
-/area/space)
+/area/maintenance/port/aft)
 "cKV" = (
 /mob/living/carbon/monkey,
 /obj/machinery/light{
@@ -81501,10 +81499,8 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/machinery/door/airlock/maintenance{
-	req_one_access_txt = "12;27;37"
-	},
-/obj/effect/mapping_helpers/airlock/abandoned,
+/obj/structure/girder,
+/obj/structure/barricade/wooden,
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
 "xdC" = (
@@ -99857,10 +99853,10 @@ aaa
 aaa
 aaa
 dux
-cKT
-cKT
-cKT
-cGw
+cJh
+cJh
+cJh
+dux
 dux
 cJh
 cJh
@@ -100894,9 +100890,9 @@ dux
 dux
 dux
 dux
-cJh
-xdp
 dux
+xdp
+cKT
 dux
 dux
 aaa

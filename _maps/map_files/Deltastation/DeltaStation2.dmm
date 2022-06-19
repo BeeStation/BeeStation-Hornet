@@ -1418,11 +1418,11 @@
 /turf/open/floor/plating,
 /area/maintenance/aft)
 "aer" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 5
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
 	},
 /turf/open/floor/plating,
 /area/maintenance/aft)
@@ -1634,6 +1634,9 @@
 /turf/open/floor/plating,
 /area/medical/virology)
 "aeI" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
 /turf/open/floor/plasteel{
 	heat_capacity = 1e+006
 	},
@@ -67815,6 +67818,10 @@
 /area/maintenance/aft)
 "dUN" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/structure/girder/displaced,
 /turf/open/floor/plating,
 /area/maintenance/aft)
 "dUO" = (
@@ -68003,10 +68010,6 @@
 /obj/effect/landmark/start/virologist,
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
-"dVD" = (
-/obj/effect/spawner/room/fivexfour,
-/turf/open/floor/plating,
-/area/maintenance/aft)
 "dVE" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -68296,9 +68299,6 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
-"dWy" = (
-/turf/open/space/basic,
-/area/maintenance/aft)
 "dWz" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -80428,14 +80428,7 @@
 	},
 /area/hallway/secondary/entry)
 "iee" = (
-/obj/machinery/door/airlock/maintenance_hatch{
-	name = "Maintenance Hatch";
-	req_access_txt = "12"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/effect/mapping_helpers/airlock/abandoned,
+/obj/effect/spawner/room/fivexthree,
 /turf/open/floor/plating,
 /area/maintenance/aft)
 "iei" = (
@@ -102360,6 +102353,9 @@
 	name = "Maintenance Hatch";
 	req_access_txt = "12"
 	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /turf/open/floor/plating,
 /area/maintenance/aft)
 "rmk" = (
@@ -105499,17 +105495,6 @@
 "sBW" = (
 /turf/closed/wall/r_wall,
 /area/hallway/secondary/exit/departure_lounge)
-"sCi" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/effect/mapping_helpers/airlock/abandoned,
-/obj/machinery/door/airlock/maintenance_hatch{
-	name = "Maintenance Hatch";
-	req_access_txt = "12"
-	},
-/turf/open/floor/plating,
-/area/maintenance/aft)
 "sCs" = (
 /obj/structure/disposalpipe/segment{
 	dir = 9
@@ -167827,8 +167812,8 @@ adX
 dPq
 rDi
 rDi
-rDi
-dVD
+iee
+dYb
 dYb
 dNS
 aep
@@ -168085,13 +168070,13 @@ dPq
 rDi
 rDi
 rDi
-rDi
 dNS
+rDi
 rDi
 maQ
 iIm
+rDi
 dNT
-qYo
 aaa
 qYo
 aaa
@@ -168340,15 +168325,15 @@ adV
 dGI
 dPq
 rDi
-aeo
-dVH
-dVH
-sCi
-dVH
-dZe
+rDi
+rDi
+dad
+rDi
+rDi
+maQ
+rDi
 rDi
 dNT
-qYo
 aaa
 qYo
 aaa
@@ -168597,15 +168582,15 @@ adW
 dPr
 dPq
 rDi
-maQ
 rDi
 rDi
 dNS
 rDi
 rDi
+maQ
+rDi
 rDi
 dNT
-qYo
 qYo
 qYo
 qYo
@@ -168854,15 +168839,15 @@ dWp
 dPr
 dPq
 rDi
-maQ
 rDi
 rDi
+dYb
 dNS
 dNS
-rmd
+aep
 dNS
 dNS
-qYo
+dNS
 aaa
 ajr
 aaa
@@ -169111,10 +169096,10 @@ dLm
 dPr
 dPq
 dNS
-iee
+dad
 dNS
 dNS
-dNS
+age
 sfI
 dUN
 dNS
@@ -169368,12 +169353,12 @@ dPq
 dPq
 dPq
 rDi
-maQ
+rDi
 iIm
 dNS
 aes
-age
-dUN
+dPs
+dZy
 dNS
 qYo
 aaa
@@ -169626,10 +169611,10 @@ aef
 oVM
 ael
 aer
-rDi
+dVH
 rmd
-rDi
-dPs
+dVH
+lxw
 aeI
 dNS
 qYo
@@ -170142,8 +170127,8 @@ dNT
 dXf
 dNT
 dNS
-dWy
-dWy
+aaa
+aaa
 qYo
 aaa
 qYo
