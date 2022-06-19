@@ -822,7 +822,6 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		if(w_class < 4)
 			itempush = 0 //too light to push anything
 		return hit_atom.hitby(src, 0, itempush, throwingdatum=throwingdatum)
-	log_item(user, INVESTIGATE_VERB_THROWN)
 
 
 /obj/item/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback, force, quickstart = TRUE)
@@ -831,6 +830,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	thrownby = WEAKREF(thrower)
 	callback = CALLBACK(src, .proc/after_throw, callback) //replace their callback with our own
 	. = ..(target, range, speed, thrower, spin, diagonals_first, callback, force, quickstart = quickstart)
+	log_item(thrownby, INVESTIGATE_VERB_THROWN)
 
 /obj/item/proc/after_throw(datum/callback/callback)
 	if (callback) //call the original callback
