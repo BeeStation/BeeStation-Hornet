@@ -249,10 +249,10 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 
 /obj/effect/landmark/start/depsec/Initialize(mapload)
 	. = ..()
-	GLOB.DEPARTMENT_BITFLAG_SECURITY_spawns += src
+	GLOB.department_security_spawns += src
 
 /obj/effect/landmark/start/depsec/Destroy()
-	GLOB.DEPARTMENT_BITFLAG_SECURITY_spawns -= src
+	GLOB.department_security_spawns -= src
 	return ..()
 
 /obj/effect/landmark/start/depsec/supply
