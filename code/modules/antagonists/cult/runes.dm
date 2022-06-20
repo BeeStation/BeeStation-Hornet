@@ -751,6 +751,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 		qdel(src)
 	else
 		visible_message("<span class='warning'>The air displaces atop [src], however nothing appears.</span>")
+
 //Rite of Spectral Manifestation: Summons a ghost on top of the rune as a cultist human with no items. User must stand on the rune at all times, and takes damage for each summoned ghost.
 /obj/effect/rune/manifest
 	cultist_name = "Spirit Realm"
