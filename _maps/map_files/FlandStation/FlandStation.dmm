@@ -48284,7 +48284,7 @@
 	id = "hydroshutter";
 	name = "Hydroponic Shutters";
 	pixel_y = -24;
-	req_access_txt = "28"
+	req_access_txt = "35"
 	},
 /turf/open/floor/plasteel,
 /area/hydroponics)
