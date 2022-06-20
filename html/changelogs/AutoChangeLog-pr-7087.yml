@@ -1,4 +1,0 @@
-author: zeskorion
-delete-after: true
-changes:
-  - tweak: maint under viro is now traversable on meta and delta again
