@@ -1,11 +1,10 @@
 /**********************Mining drone**********************/
 
-#define MODE_COMBAT "Combat" /// Combat mode for AI, PKA usage mode for players
-#define MODE_MINING "Mining" /// Ore collection/mining mode for AI, plasma cutter usage mode for players
-#define MINEBOT_DAMAGE_PROB 30 /// The probability that an upgrade applied to the minebot is destroyed on death
+#define MODE_COMBAT "combat" /// Combat mode for AI, PKA usage mode for players
+#define MODE_MINING "mining" /// Ore collection/mining mode for AI, plasma cutter usage mode for players
 
 /mob/living/simple_animal/hostile/mining_drone
-	name = "\improper Nanotrasen minebot"
+	name = "minebot"
 	desc = "A small robot used to support miners. It can be set to search and collect loose ore, mine any ore it detects, or help fend off wildlife. It is equipped with a mining drill and PKA, with mounting points for a plasma cutter."
 	gender = NEUTER
 	icon = 'icons/mob/aibots.dmi'
@@ -97,20 +96,6 @@
 	QDEL_NULL(stored_scanner)
 	return ..()
 
-/// If the minebot dies, they have a chance of losing upgrades, determined by MINEBOT_DAMAGE_PROB
-/mob/living/simple_animal/hostile/mining_drone/death()
-	for(var/obj/item/borg/upgrade/modkit/pka_modkit as anything in stored_pka.modkits)
-		if(prob(MINEBOT_DAMAGE_PROB))
-			pka_modkit.uninstall(stored_pka)
-			qdel(pka_modkit)
-	if(stored_cutter && prob(MINEBOT_DAMAGE_PROB))
-		QDEL_NULL(stored_cutter)
-	if(LAZYLEN(installed_upgrades))
-		for(var/upgrade in installed_upgrades)
-			if(prob(MINEBOT_DAMAGE_PROB))
-				qdel(upgrade)
-	..()
-
 /mob/living/simple_animal/hostile/mining_drone/update_health_hud()
 	if(!client || !hud_used)
 		return
@@ -132,31 +117,27 @@
 // Shows basic data about equipment and sentience status
 /mob/living/simple_animal/hostile/mining_drone/examine(mob/user)
 	. = ..()
-	var/t_He = p_they(TRUE)
-	var/t_him = p_them()
-	var/t_s = p_s()
-	var/t_their = p_their()
 	if(health < maxHealth)
 		if(health >= maxHealth * 0.5)
-			. += "<span class='warning'>[t_He] look[t_s] slightly dented.</span>"
+			. += "<span class='warning'>It looks slightly dented.</span>"
+		else if(health < maxHealth * 0.5 && health > 0)
+			. += "<span class='boldwarning'>It looks severely dented!</span>"
 		else
-			. += "<span class='boldwarning'>[t_He] look[t_s] severely dented!</span>"
-		if(health <= 0)
-			. += "<span class='warning'>[t_He] is disabled and requires a reset.</span>"
-	. += "<span class='notice'>Using a mining scanner on or alt-clicking [t_him] will instruct [t_him] to drop any stored ore.</span>"
-	. += "<span class='notice'>Field repairs can be done with a welder.</span>"
+			. += "<span class='warning'>It is disabled and requires repairs.</span>"
+	. += "<span class='notice'>Using a mining scanner on or alt-clicking it will instruct it to drop any stored ore.</span>"
+	. += "<span class='notice'>Field repairs can be performed with a welder.</span>"
 	if(stored_pka && stored_pka.max_mod_capacity)
 		. += "<span class='notice'>\The [stored_pka] has <b>[stored_pka.get_remaining_mod_capacity()]%</b> mod capacity remaining.</span>"
 		for(var/A as anything in stored_pka.get_modkits())
 			var/obj/item/borg/upgrade/modkit/M = A
 			. += "<span class='notice'>There is \a [M] installed, using <b>[M.cost]%</b> capacity.</span>"
 	if(stored_cutter)
-		. += "<span class='notice'>There is \a [stored_cutter] installed on [t_their] plasma cutter mount. The charge meter reads [round(stored_cutter.cell.percent())]%.</span>"
+		. += "<span class='notice'>There is \a [stored_cutter] installed on its plasma cutter mount. The charge meter reads [round(stored_cutter.cell.percent())]%.</span>"
 	else
-		. += "<span class='notice'>There is nothing on [t_their] plasma cutter mount.</span>"
-	. += "<span class='notice'>There is \a [stored_drill] installed on [t_their] drill mount.</span>"
+		. += "<span class='notice'>There is nothing on its plasma cutter mount.</span>"
+	. += "<span class='notice'>There is \a [stored_drill] installed on its drill mount.</span>"
 	if(client)
-		. += "<span class='notice'>[t_He]s AI light is on.</span>"
+		. += "<span class='notice'>Its AI light is on.</span>"
 
 /// Generates the stat tab for player-controlled minebots
 /mob/living/simple_animal/hostile/mining_drone/get_stat_tab_status()
@@ -202,24 +183,29 @@
 /mob/living/simple_animal/hostile/mining_drone/attackby(obj/item/item, mob/user, params)
 	if(user == src)
 		return TRUE // Returning true in most cases prevents afterattacks from going off and whacking/shooting the minebot
-	if(user.a_intent == INTENT_HARM)
+	if(user.a_intent != INTENT_HELP)
 		return ..() // For smacking
 	if(istype(item, /obj/item/minebot_upgrade))
 		var/obj/item/minebot_upgrade/M = item
-		M.upgrade_bot(src, user)
+		if(M.upgrade_bot(src, user))
+			to_chat(user, "<span class='info'>You install [item].</span>")
+			return TRUE
+		to_chat(user, "<span class='warning'>You couldn't fit [item] into [src]!</span>")
 		return TRUE
 	if(istype(item, /obj/item/mining_scanner) || istype(item, /obj/item/t_scanner/adv_mining_scanner))
 		if(!do_after(user, 20, TRUE, src))
-			return TRUE
+			return
 		stored_scanner.forceMove(get_turf(src))
 		item.forceMove(src)
 		stored_scanner = item
 		to_chat(user, "<span class='info'>You install [item].</span>")
 		return TRUE
-	if(item.tool_behaviour == TOOL_CROWBAR || istype(item, /obj/item/borg/upgrade/modkit))
+	if(istype(item, /obj/item/borg/upgrade/modkit))
 		if(!do_after(user, 20, TRUE, src))
-			return TRUE
-		item.melee_attack_chain(user, stored_pka, params)
+			return
+		item.melee_attack_chain(user, stored_pka, params) // This handles any install messages
+		return TRUE
+	if(item.tool_behaviour == TOOL_CROWBAR)
 		uninstall_upgrades()
 		to_chat(user, "<span class='info'>You uninstall [src]'s upgrades.</span>")
 		return TRUE
@@ -227,7 +213,7 @@
 		if(health != maxHealth)
 			return // For repairs
 		if(!do_after(user, 20, TRUE, src))
-			return TRUE
+			return
 		if(stored_cutter)
 			stored_cutter.forceMove(get_turf(src))
 		item.forceMove(src)
@@ -245,14 +231,17 @@
 		return TRUE
 	..()
 
-/// EMPs act similar to how they do on borgs
+/// EMPs stun and do some damage
 /mob/living/simple_animal/hostile/mining_drone/emp_act(severity)
 	. = ..()
 	switch(severity)
 		if(1)
-			Stun(160)
+			Stun(100)
+			take_bodypart_damage(25) // 20% of HP
 		if(2)
-			Stun(60)
+			Stun(50)
+			take_bodypart_damage(10) // Bit less than 10% of HP
+	to_chat(src, "<span class='userdanger'>*BZZZT*</span>")
 
 /// Handles humans toggling minebot modes
 /mob/living/simple_animal/hostile/mining_drone/attack_hand(mob/living/carbon/human/user)
@@ -303,6 +292,7 @@
 		return TRUE
 
 /**********************Minebot Attack Handling**********************/
+
 /// Melee attack handling
 /mob/living/simple_animal/hostile/mining_drone/AttackingTarget()
 	if(stored_cutter && (istype(target, /obj/item/stack/ore/plasma) || istype(target, /obj/item/stack/sheet/mineral/plasma)) && mode == MODE_MINING) //Charging the on-board plasma cutter
@@ -709,4 +699,3 @@
 
 #undef MODE_COMBAT
 #undef MODE_MINING
-#undef MINEBOT_DAMAGE_PROB
