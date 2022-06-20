@@ -751,67 +751,6 @@ structure_check() searches for nearby cultist structures required for the invoca
 		qdel(src)
 	else
 		visible_message("<span class='warning'>The air displaces atop [src], however nothing appears.</span>")
-
-//Rite of Boiling Blood: Deals extremely high amounts of damage to non-cultists nearby
-/obj/effect/rune/blood_boil
-	cultist_name = "Boil Blood"
-	cultist_desc = "boils the blood of non-believers who can see the rune, rapidly dealing extreme amounts of damage. Requires 3 invokers."
-	invocation = "Dedo ol'btoh!"
-	icon_state = "4"
-	color = RUNE_COLOR_BURNTORANGE
-	light_color = LIGHT_COLOR_LAVA
-	req_cultists = 3
-	invoke_damage = 10
-	construct_invoke = FALSE
-	var/tick_damage = 25
-	rune_in_use = FALSE
-
-/obj/effect/rune/blood_boil/do_invoke_glow()
-	return
-
-/obj/effect/rune/blood_boil/invoke(var/list/invokers)
-	if(rune_in_use)
-		return
-	..()
-	rune_in_use = TRUE
-	var/turf/T = get_turf(src)
-	visible_message("<span class='warning'>[src] turns a bright, glowing orange!</span>")
-	color = "#FC9B54"
-	set_light(6, 1, color)
-	for(var/mob/living/L in viewers(T))
-		if(!iscultist(L) && L.blood_volume)
-			var/atom/I = L.anti_magic_check(magic=FALSE,holy=TRUE,major = FALSE)
-			if(I)
-				if(isitem(I))
-					to_chat(L, "<span class='userdanger'>[I] suddenly burns hotly before returning to normal!</span>")
-				continue
-			to_chat(L, "<span class='cultlarge'>Your blood boils in your veins!</span>")
-	animate(src, color = "#FCB56D", time = 4)
-	sleep(4)
-	if(QDELETED(src))
-		return
-	do_area_burn(T, 0.5)
-	animate(src, color = "#FFDF80", time = 5)
-	sleep(5)
-	if(QDELETED(src))
-		return
-	do_area_burn(T, 1)
-	animate(src, color = "#FFFDF4", time = 6)
-	sleep(6)
-	if(QDELETED(src))
-		return
-	do_area_burn(T, 1.5)
-	new /obj/effect/hotspot(T)
-	qdel(src)
-
-/obj/effect/rune/blood_boil/proc/do_area_burn(turf/T, multiplier)
-	set_light(6, 1, color)
-	for(var/mob/living/L in viewers(T))
-		if(!iscultist(L) && L.blood_volume)
-			if(L.anti_magic_check(magic=FALSE,holy=TRUE,major = FALSE))
-				continue
-			L.take_overall_damage(tick_damage*multiplier, tick_damage*multiplier)
-
 //Rite of Spectral Manifestation: Summons a ghost on top of the rune as a cultist human with no items. User must stand on the rune at all times, and takes damage for each summoned ghost.
 /obj/effect/rune/manifest
 	cultist_name = "Spirit Realm"
