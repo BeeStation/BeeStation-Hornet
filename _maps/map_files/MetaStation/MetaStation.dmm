@@ -6782,13 +6782,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/security/brig)
-"awp" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/disposalpipe/segment{
-	dir = 6
-	},
-/turf/open/space/basic,
-/area/space/nearstation)
 "awq" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -12578,10 +12571,7 @@
 /turf/open/floor/plasteel,
 /area/engine/engineering)
 "aRk" = (
-/obj/effect/spawner/room/threexfive,
-/obj/structure/disposalpipe/segment{
-	dir = 9
-	},
+/obj/structure/reagent_dispensers/fueltank,
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
 "aRl" = (
@@ -31733,9 +31723,12 @@
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
 "cdm" = (
+/obj/structure/disposalpipe/segment{
+	dir = 9
+	},
 /obj/structure/reagent_dispensers/watertank,
 /turf/open/floor/plating,
-/area/maintenance/aft)
+/area/maintenance/port/aft)
 "cdp" = (
 /obj/machinery/light_switch{
 	pixel_x = -26
@@ -37042,10 +37035,8 @@
 /turf/open/floor/plasteel,
 /area/medical/virology)
 "cul" = (
-/obj/effect/spawner/room/threexthree,
-/obj/structure/disposalpipe/segment{
-	dir = 6
-	},
+/obj/structure/rack,
+/obj/effect/spawner/lootdrop/maintenance/three,
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
 "cum" = (
@@ -40549,9 +40540,6 @@
 	},
 /turf/open/floor/plasteel/freezer,
 /area/medical/virology)
-"cEG" = (
-/turf/open/floor/plating,
-/area/space)
 "cEI" = (
 /obj/structure/rack,
 /obj/item/restraints/handcuffs{
@@ -41153,9 +41141,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/medical/virology)
-"cGw" = (
-/turf/closed/wall,
-/area/space)
 "cGz" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -41222,11 +41207,11 @@
 /turf/open/floor/plasteel/freezer,
 /area/medical/virology)
 "cGG" = (
-/turf/open/space,
-/area/space/nearstation)
-"cGH" = (
-/obj/item/toy/figure/virologist,
-/obj/structure/closet/l3closet/virology,
+/obj/structure/disposalpipe/segment,
+/obj/machinery/door/airlock/maintenance{
+	req_one_access_txt = "12;27;37"
+	},
+/obj/effect/mapping_helpers/airlock/abandoned,
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
 "cGI" = (
@@ -41236,9 +41221,12 @@
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
 "cGK" = (
-/obj/effect/spawner/room/threexthree,
+/obj/effect/mapping_helpers/airlock/abandoned,
+/obj/machinery/door/airlock/maintenance{
+	req_one_access_txt = "12;27;37"
+	},
 /turf/open/floor/plating,
-/area/space/nearstation)
+/area/maintenance/port/aft)
 "cGO" = (
 /turf/open/floor/plasteel/white/side{
 	dir = 8
@@ -42131,10 +42119,7 @@
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
 "cKg" = (
-/obj/effect/spawner/room/threexthree,
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
+/obj/structure/grille,
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
 "cKi" = (
@@ -42187,15 +42172,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
-"cKm" = (
-/obj/machinery/door/airlock/maintenance{
-	req_one_access_txt = "12;27;37"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/open/floor/plating,
-/area/maintenance/aft)
 "cKs" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -42284,9 +42260,10 @@
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
 "cKT" = (
-/obj/effect/spawner/structure/window/reinforced,
+/obj/structure/girder,
+/obj/structure/barricade/wooden,
 /turf/open/floor/plating,
-/area/space)
+/area/maintenance/port/aft)
 "cKV" = (
 /mob/living/carbon/monkey,
 /obj/machinery/light{
@@ -42296,19 +42273,10 @@
 /turf/open/floor/plasteel/freezer,
 /area/medical/virology)
 "cKW" = (
-/obj/effect/spawner/lootdrop/maintenance,
-/obj/effect/spawner/lootdrop/maintenance,
-/obj/effect/spawner/lootdrop/maintenance,
-/obj/effect/spawner/lootdrop/maintenance,
-/obj/structure/closet/crate,
-/turf/open/floor/plating,
-/area/maintenance/port/aft)
-"cKX" = (
-/obj/structure/closet/crate,
-/obj/effect/spawner/lootdrop/maintenance,
-/obj/effect/spawner/lootdrop/maintenance,
-/obj/effect/spawner/lootdrop/maintenance,
-/obj/effect/spawner/lootdrop/maintenance,
+/obj/structure/disposalpipe/segment{
+	dir = 6
+	},
+/obj/structure/closet/emcloset,
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
 "cKZ" = (
@@ -42697,7 +42665,7 @@
 /area/medical/virology)
 "cMA" = (
 /obj/effect/decal/cleanable/blood/old,
-/obj/structure/reagent_dispensers/watertank,
+/obj/effect/spawner/room/threexthree,
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
 "cMB" = (
@@ -50232,6 +50200,11 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/captain/private)
+"egA" = (
+/obj/structure/closet/l3closet/virology,
+/obj/item/toy/figure/virologist,
+/turf/open/floor/plating,
+/area/maintenance/port/aft)
 "ehb" = (
 /obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/tile/red{
@@ -51227,13 +51200,6 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/wood,
 /area/crew_quarters/bar)
-"ePg" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/open/space/basic,
-/area/space/nearstation)
 "ePr" = (
 /obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/tile/neutral{
@@ -57191,9 +57157,8 @@
 /turf/open/floor/plasteel/white,
 /area/medical/genetics)
 "ivQ" = (
-/obj/effect/spawner/structure/window/reinforced,
-/obj/structure/disposalpipe/segment{
-	dir = 4
+/obj/machinery/door/airlock/maintenance{
+	req_one_access_txt = "12;27;37"
 	},
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
@@ -58319,6 +58284,11 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/security/armory)
+"iYo" = (
+/obj/structure/closet/crate,
+/obj/effect/spawner/lootdrop/maintenance/four,
+/turf/open/floor/plating,
+/area/maintenance/port/aft)
 "iYJ" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -66694,9 +66664,6 @@
 /turf/open/floor/plasteel,
 /area/construction/mining/aux_base)
 "ojF" = (
-/obj/structure/disposalpipe/segment{
-	dir = 5
-	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
@@ -67413,6 +67380,11 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/plating,
 /area/security/prison)
+"oGp" = (
+/obj/structure/closet/crate,
+/obj/effect/spawner/lootdrop/maintenance/eight,
+/turf/open/floor/plating,
+/area/maintenance/port/aft)
 "oGF" = (
 /obj/effect/turf_decal/tile/red{
 	dir = 1
@@ -72118,6 +72090,11 @@
 /obj/structure/cable/yellow,
 /turf/open/floor/plasteel,
 /area/engine/break_room)
+"rxo" = (
+/obj/structure/rack,
+/obj/effect/spawner/lootdrop/maintenance,
+/turf/open/floor/plating,
+/area/maintenance/port/aft)
 "rxy" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Departure Lounge Security Post";
@@ -74146,7 +74123,7 @@
 /obj/machinery/camera{
 	c_tag = "Incinerator";
 	dir = 8;
-	network = list("ss13", "turbine")
+	network = list("ss13","turbine")
 	},
 /obj/machinery/atmospherics/pipe/simple/dark/visible{
 	dir = 10
@@ -79454,6 +79431,11 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
+"vQl" = (
+/obj/structure/rack,
+/obj/effect/spawner/lootdrop/maintenance/four,
+/turf/open/floor/plating,
+/area/maintenance/port/aft)
 "vQJ" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
@@ -81517,9 +81499,8 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/machinery/door/airlock/maintenance{
-	req_one_access_txt = "12;27;37"
-	},
+/obj/structure/girder,
+/obj/structure/barricade/wooden,
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
 "xdC" = (
@@ -83150,6 +83131,11 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/aft)
+"xWX" = (
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/structure/closet/crate,
+/turf/open/floor/plating,
+/area/maintenance/port/aft)
 "xXx" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable/cyan{
@@ -99608,11 +99594,11 @@ aaa
 aaf
 aaa
 aaa
-aaf
 aaa
-aaf
 aaa
-aaf
+aaa
+aaa
+aaa
 aaa
 aaa
 aaf
@@ -99865,22 +99851,22 @@ aaa
 aaf
 aaa
 aaa
-dux
-cJh
-cJh
-cJh
-cJh
-dux
+aaa
 dux
 cJh
 cJh
 cJh
 dux
 dux
+cJh
+cJh
+cJh
 dux
 dux
-blx
-cGw
+dux
+dux
+dux
+dux
 aaa
 aaa
 aaa
@@ -100120,13 +100106,13 @@ auv
 cwf
 ack
 aaf
-aaa
-aaa
+dux
+dux
+dux
 dux
 bXE
 bXE
-bXE
-arA
+ast
 dux
 bXE
 bXE
@@ -100134,10 +100120,10 @@ bXE
 bXE
 cKS
 dux
-cKX
 bXE
-cGK
-cEA
+bXE
+ast
+cJh
 aag
 aaa
 aaa
@@ -100377,24 +100363,24 @@ ack
 cwg
 ack
 ack
-aaa
-aaa
 dux
-cGI
+cKW
+cHt
+cGG
 cHt
 cHt
 cHt
-cGr
+cGG
 cHt
 cHt
 cHt
 cHt
 cHt
-cGr
+cGG
 cDJ
 bXE
-cEG
-cKT
+bXE
+cJh
 aai
 aaa
 aaa
@@ -100634,24 +100620,24 @@ dux
 cfA
 dux
 dux
-cGG
-auv
+dux
+dBO
+bXE
+dux
+bXE
+bXE
+bXE
+dux
+bXE
+bXE
+bXE
+bXE
+bXE
 dux
 dBO
 bXE
 bXE
-bXE
-dux
-bXE
-bXE
-bXE
-bXE
-bXE
-dux
-dBO
-bXE
-cEG
-cKT
+cJh
 aaa
 aaa
 aaa
@@ -100891,22 +100877,22 @@ ioR
 fGY
 cxb
 dux
-dux
-dux
-dux
+rxo
 dBO
-bXE
-bXE
-bXE
 dux
 dux
-cJh
-cJh
-cJh
 dux
-cJh
+cGK
+dux
+dux
+dux
+dux
+dux
+dux
+dux
+dux
 xdp
-dux
+cKT
 dux
 dux
 aaa
@@ -101148,18 +101134,18 @@ dux
 hjW
 dux
 dux
-bXE
-bXE
 cul
-cDM
+dBO
 bXE
 bXE
 bXE
-dux
-auv
-auv
-auv
-auv
+bXE
+bXE
+bXE
+bXE
+bXE
+bXE
+bXE
 dux
 bXE
 eLI
@@ -101405,9 +101391,9 @@ bXE
 vIS
 ast
 dux
-bXE
-bXE
+vQl
 dBO
+dux
 cBR
 cBR
 cBR
@@ -101416,8 +101402,8 @@ cBR
 cBR
 cBR
 cBR
-auv
-cJh
+bXE
+dux
 bXE
 dBO
 bXE
@@ -101663,8 +101649,8 @@ mzC
 cHt
 cGr
 cHt
-cHt
 cDM
+aRk
 cBR
 cDF
 cEI
@@ -101673,12 +101659,12 @@ cKe
 cCK
 cKe
 cBR
-auv
-cJh
-bXE
-dBO
-bXE
 cGI
+cGr
+cHt
+kbI
+cHt
+cHt
 lOk
 hxW
 aaa
@@ -101930,12 +101916,12 @@ qwa
 cKe
 cIu
 cBR
-auv
-cJh
+dBO
+dux
 bXE
 dBO
 bXE
-dBO
+bXE
 cJh
 aai
 aaa
@@ -102187,12 +102173,12 @@ ykx
 cCK
 cKe
 cBR
-awp
-lOk
-cHt
-kbI
-cHt
-cDM
+dBO
+dux
+bXE
+dBO
+bXE
+bXE
 cJh
 aag
 aaa
@@ -102444,12 +102430,12 @@ vcv
 cKV
 cKe
 cBR
-ePg
-dux
-bXE
 dBO
-bXE
-bXE
+dux
+dux
+cMB
+dux
+dux
 dux
 aai
 aaa
@@ -102701,14 +102687,14 @@ cBR
 cBR
 cBR
 cBR
-ivQ
-dux
-dux
 cMB
 dux
-bXE
-dux
-aai
+egA
+dBO
+iYo
+cJh
+lMJ
+lMJ
 aag
 aag
 aag
@@ -102955,17 +102941,17 @@ cKe
 cDA
 cBR
 bXE
-cGH
-cMA
-cKW
-dBO
-dBU
 bXE
-cKg
+cMA
 dux
-dux
-dux
-aai
+dBO
+bXE
+dBU
+dBO
+oGp
+cJh
+lMJ
+lMJ
 aaa
 aaa
 aaa
@@ -103211,18 +103197,18 @@ cHn
 cKe
 cDA
 cBR
-cGI
-cHt
-cHt
-cHt
-aRk
 bXE
+bXE
+cGI
+cGr
+cDM
+dBU
 bXE
 dBO
-dux
-aaa
-aaa
-auv
+cKg
+cJh
+lMJ
+lMJ
 aaa
 aaa
 aaa
@@ -103468,17 +103454,17 @@ cMv
 cKe
 cDA
 cBR
-dBO
 bXE
-bXE
-bXE
+cGI
+cDM
+dux
 cGI
 cHt
 cHt
-cDM
-dux
-aaa
-aaa
+cdm
+xWX
+cJh
+lMJ
 cMI
 cPA
 cPA
@@ -103725,11 +103711,11 @@ xOG
 cBR
 cBR
 cBR
-dBO
-bXE
-bXE
-bXE
-dBO
+dux
+cMB
+dux
+dux
+cMB
 cLa
 cLa
 cLa
@@ -103982,11 +103968,11 @@ dvq
 cBR
 cBS
 cGI
+cHt
 cDM
 bXE
-bTs
-bTs
-cKm
+ivQ
+cKs
 cLa
 cLT
 cMC
@@ -104242,7 +104228,7 @@ rrP
 cxU
 cxU
 bTs
-cdm
+bTs
 rjC
 pGp
 sJe
