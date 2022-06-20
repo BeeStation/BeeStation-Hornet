@@ -1,0 +1,4 @@
+author: Kryyto
+delete-after: true
+changes:
+  - bugfix: fixed hydroponics shutters on Fland Station
