@@ -3,6 +3,11 @@
 /// It tries to spawn a heavy midround if possible, otherwise it will trigger a "bad" random event after a short period.
 /// Calling this function will not use up any threat.
 /datum/game_mode/dynamic/proc/unfavorable_situation()
+	SHOULD_NOT_SLEEP(TRUE)
+
+	INVOKE_ASYNC(src, .proc/_unfavorable_situation)
+
+/datum/game_mode/dynamic/proc/_unfavorable_situation()
 	var/static/list/unfavorable_random_events = list(
 		/datum/round_event_control/immovable_rod,
 		/datum/round_event_control/meteor_wave,
@@ -22,7 +27,7 @@
 		if (ruleset.cost > max_threat_level)
 			continue
 
-		if (!ruleset.acceptable(GLOB.alive_player_list.len, threat_level))
+		if (!ruleset.acceptable(SSticker.mode.current_players[CURRENT_LIVING_PLAYERS].len, threat_level))
 			continue
 
 		if (ruleset.minimum_round_time > world.time - SSticker.round_start_time)
@@ -47,6 +52,6 @@
 		var/datum/round_event_control/round_event_control = new round_event_control_type
 		addtimer(CALLBACK(round_event_control, /datum/round_event_control.proc/runEvent), delay)
 	else
-		var/datum/dynamic_ruleset/midround/heavy_ruleset = pick_weight(possible_heavies)
+		var/datum/dynamic_ruleset/midround/heavy_ruleset = pickweightAllowZero(possible_heavies)
 		dynamic_log("An unfavorable situation was requested, spawning [initial(heavy_ruleset.name)]")
 		picking_specific_rule(heavy_ruleset, forced = TRUE, ignore_cost = TRUE)
