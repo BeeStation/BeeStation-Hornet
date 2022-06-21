@@ -13,6 +13,9 @@
 	var/buildstackamount = 1
 	var/item_chair = /obj/item/chair // if null it can't be picked up
 	layer = OBJ_LAYER
+	/// Used to handle rotation properly, should only be 1, 4, or 8
+	var/possible_dirs = 4
+	var/colorable = FALSE
 
 /obj/structure/chair/examine(mob/user)
 	. = ..()
@@ -102,6 +105,9 @@
 			buckled_mob.setDir(direction)
 
 /obj/structure/chair/proc/handle_layer()
+	if(possible_dirs == 8) // We don't want chairs with corner dirs to sit over mobs, it is handled by armrests
+		layer = OBJ_LAYER
+		return
 	if(has_buckled_mobs() && dir == NORTH)
 		layer = ABOVE_MOB_LAYER
 	else
@@ -183,40 +189,35 @@
 	item_chair = null
 
 /obj/structure/chair/fancy/comfy/brown
-	name = "brown comfy chair"
-	color = rgb(136, 76, 26)
+	color = rgb(141, 70, 0)
 
 /obj/structure/chair/fancy/comfy/beige
-	name = "beige comfy chair"
 	color = rgb(150, 126, 96)
 
 /obj/structure/chair/fancy/comfy/red
-	name = "red comfy chair"
 	color = rgb(130, 50, 46)
 
 /obj/structure/chair/fancy/comfy/grey
-	name = "grey comfy chair"
 	color = rgb(128, 128, 128)
 
 /obj/structure/chair/fancy/comfy/black
-	name = "black comfy chair"
 	color = rgb(48, 48, 48)
 
 /obj/structure/chair/fancy/comfy/yellow
-	name = "yellow comfy chair"
 	color = rgb(186, 150, 20)
 
 /obj/structure/chair/fancy/comfy/lime
-	name = "lime comfy chair"
 	color = rgb(180, 220, 10)
 
 /obj/structure/chair/fancy/comfy/teal
-	name = "teal comfy chair"
 	color = rgb(16, 176, 176)
 
 /obj/structure/chair/fancy/comfy/blue
-	name = "blue comfy chair"
 	color = rgb(42, 132, 190)
+
+/obj/structure/chair/fancy/corp
+	color = null
+	icon_state = "comfychair_corp"
 
 /obj/structure/chair/fancy/shuttle
 	name = "shuttle seat"

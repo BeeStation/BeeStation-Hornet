@@ -3702,12 +3702,6 @@
 /obj/item/storage/fancy/donut_box,
 /turf/open/floor/plasteel/grimy,
 /area/centcom/ferry)
-"oE" = (
-/obj/structure/chair/fancy/comfy/black{
-	dir = 8
-	},
-/turf/open/floor/plasteel/grimy,
-/area/centcom/ferry)
 "oF" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /turf/open/floor/wood,
@@ -3937,10 +3931,10 @@
 /turf/open/floor/wood,
 /area/centcom/ferry)
 "oZ" = (
-/obj/structure/chair/fancy/comfy/black{
+/obj/machinery/atmospherics/pipe/simple/supply/hidden{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden{
+/obj/structure/chair/fancy/comfy/brown{
 	dir = 4
 	},
 /turf/open/floor/plasteel/grimy,
@@ -13811,8 +13805,7 @@
 /obj/effect/turf_decal/tile/green{
 	dir = 4
 	},
-/obj/structure/chair/fancy/comfy/brown{
-	color = "#66b266";
+/obj/structure/chair/fancy/comfy/lime{
 	dir = 1
 	},
 /turf/open/floor/plasteel/dark,
@@ -54346,7 +54339,7 @@ ni
 nA
 mD
 oj
-oE
+pb
 pb
 pJ
 qe
