@@ -724,23 +724,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						type_blacklist += G.subtype_path
 					else
 						equipped_gear.Cut(i,i+1)
-			if(path)
-				var/savefile/S = new /savefile(path)
-				if(S)
-					dat += "<center>"
-					var/name
-					var/unspaced_slots = 0
-					for(var/i in 1 to max_save_slots)
-						unspaced_slots++
-						if(unspaced_slots > 4)
-							dat += "<br>"
-							unspaced_slots = 0
-						S.cd = "/character[i]"
-						S["real_name"] >> name
-						if(!name)
-							name = "Character[i]"
-						dat += "<a style='white-space:nowrap;' href='?_src_=prefs;preference=changeslot;num=[i];' [i == default_slot ? "class='linkOn'" : ""]>[name]</a> "
-					dat += "</center>"
 
 			var/fcolor =  "#3366CC"
 			var/metabalance = user.client.get_metabalance()
@@ -1325,13 +1308,13 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						to_chat(user, "<span class='warning'>Can't equip [TG.display_name]. It conflicts with an already-equipped item.</span>")
 				else
 					log_href_exploit(user)
-			save_character()
+			save_preferences()
 
 		else if(href_list["select_category"])
 			gear_tab = href_list["select_category"]
 		else if(href_list["clear_loadout"])
 			equipped_gear.Cut()
-			save_character()
+			save_preferences()
 
 		ShowChoices(user)
 		return
