@@ -1,0 +1,4 @@
+author: athena413
+delete-after: true
+changes:
+  - tweak: AI & borgs don't get less beecoins based on escaped/stranded status
