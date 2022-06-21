@@ -72,6 +72,7 @@
 			mydrink += "[initial(chempath.name)]"
 	for(var/i in 1 to length(mydrink)-1)
 		chemnames += "[mydrink[i]], "
+	// chems may reaction, but there's no reactionable recipe from CHEMICAL_GOAL_BARTENDER_SERVING. Just don't put basic chems there.
 	chemnames += "and [mydrink[length(mydrink)]]"
 	qdel(mydrink)
 	chemsize = 4+(5-length(targetchems))
@@ -85,14 +86,14 @@
 	var/count = length(targetchems)
 	if(owner.current)
 		if(owner.current.contents)
+			// check every bottle in your bag.
 			for(var/obj/item/reagent_containers/B in owner.current.get_contents())
+				count = length(targetchems) // a bottle should have the all desired chems. reset the count for every try.
 				for(var/each in targetchems)
 					if(B.reagents.has_reagent(each, chemsize))
 						count--
-				if(count > 0)
-					count = length(targetchems)
-				else
-					break
+						if(count==0) // if it is legit, it completes.
+							break
 	if(count <= 0)
 		return TRUE
 	else
