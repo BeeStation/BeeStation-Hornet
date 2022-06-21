@@ -1,0 +1,6 @@
+author: Rukofamicom
+delete-after: true
+changes:
+  - balance: Door hacking now requires insulation to be performed safely.
+  - tweak: Doors no longer share wiring patterns and must have their wires learned/memorized
+      individually.
