@@ -88,7 +88,7 @@
 		user.visible_message("[user] removes [cell] from [src]!","<span class='notice'>You remove [cell].</span>")
 		user.put_in_hands(cell)
 		cell.update_icon()
-		cell = null
+		remove_cell()
 		add_fingerprint(user)
 
 /obj/structure/light_construct/attack_tk(mob/user)
@@ -96,7 +96,7 @@
 		to_chat(user, "<span class='notice'>You telekinetically remove [cell].</span>")
 		cell.forceMove(drop_location())
 		cell.attack_tk(user)
-		cell = null
+		remove_cell()
 
 /obj/structure/light_construct/attackby(obj/item/W, mob/user, params)
 	add_fingerprint(user)
@@ -114,7 +114,7 @@
 			"<span class='notice'>You add [W] to [src].</span>")
 			playsound(src, 'sound/machines/click.ogg', 50, TRUE)
 			W.forceMove(src)
-			cell = W
+			store_cell(W)
 			add_fingerprint(user)
 		return
 	switch(stage)
@@ -169,9 +169,9 @@
 				newlight.setDir(dir)
 				transfer_fingerprints_to(newlight)
 				if(cell)
-					newlight.cell = cell
+					newlight.store_cell(cell)
 					cell.forceMove(newlight)
-					cell = null
+					remove_cell()
 				qdel(src)
 				return
 	return ..()
@@ -185,6 +185,19 @@
 	if(!(flags_1 & NODECONSTRUCT_1))
 		new /obj/item/stack/sheet/iron(loc, sheets_refunded)
 	qdel(src)
+
+/obj/structure/light_construct/proc/store_cell(new_cell)
+	if(cell)
+		UnregisterSignal(cell, COMSIG_PARENT_QDELETING)
+	cell = new_cell
+	if(cell)
+		RegisterSignal(cell, COMSIG_PARENT_QDELETING, .proc/remove_cell)
+
+/obj/structure/light_construct/proc/remove_cell()
+	SIGNAL_HANDLER
+	if(cell)
+		UnregisterSignal(cell, COMSIG_PARENT_QDELETING)
+		cell = null
 
 /obj/structure/light_construct/small
 	name = "small light fixture frame"
@@ -285,7 +298,18 @@
 	status = LIGHT_EMPTY
 	update(0)
 
+/obj/machinery/light/proc/store_cell(new_cell)
+	if(cell)
+		UnregisterSignal(cell, COMSIG_PARENT_QDELETING)
+	cell = new_cell
+	if(cell)
+		RegisterSignal(cell, COMSIG_PARENT_QDELETING, .proc/remove_cell)
 
+/obj/machinery/light/proc/remove_cell()
+	SIGNAL_HANDLER
+	if(cell)
+		UnregisterSignal(cell, COMSIG_PARENT_QDELETING)
+		cell = null
 
 // create a new lighting fixture
 /obj/machinery/light/Initialize(mapload)
@@ -310,7 +334,7 @@
 		nightshift_enabled = temp_apc?.nightshift_lights
 
 	if(start_with_cell && !no_emergency)
-		cell = new/obj/item/stock_parts/cell/emergency_light(src)
+		store_cell(new/obj/item/stock_parts/cell/emergency_light(src))
 	spawn(2)
 		switch(fitting)
 			if("tube")
@@ -553,9 +577,9 @@
 			new /obj/item/stack/cable_coil(loc, 1, "red")
 		transfer_fingerprints_to(newlight)
 		if(!QDELETED(cell))
-			newlight.cell = cell
+			newlight.store_cell(cell)
 			cell.forceMove(newlight)
-			cell = null
+			remove_cell()
 	qdel(src)
 
 /obj/machinery/light/attacked_by(obj/item/I, mob/living/user)
