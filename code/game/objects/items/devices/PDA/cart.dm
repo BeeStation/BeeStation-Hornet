@@ -206,6 +206,8 @@
 		if("message")
 			status_signal.data["msg1"] = data1
 			status_signal.data["msg2"] = data2
+			message_admins("[ADMIN_LOOKUPFLW(usr)] changed the Status Message to - [data1], [data2] - From a PDA.")
+			log_game("[key_name(usr)] changed the Status Message to - [data1], [data2] - From a PDA.")
 		if("alert")
 			status_signal.data["picture_state"] = data1
 
