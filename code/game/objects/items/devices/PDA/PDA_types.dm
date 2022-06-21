@@ -252,16 +252,6 @@
 	default_cartridge = /obj/item/cartridge/medical
 	icon_state = "pda-genetics"
 
-/obj/item/pda/unlicensed
-	name = "unlicensed PDA"
-	desc = "A shitty knockoff of a portable microcomputer by Thinktronic Systems, LTD. Complete with a cracked operating system."
-	note = "Error: Unlicensed OS. Please contact your supervisor."
-	icon_state = "pda-knockoff"
-	icon_alert = "pda-r-wide"
-	icon_pai = "pai-overlay-wide"
-	icon_inactive_pai = "pai-off-overlay-wide"
-	inserted_item = /obj/item/pen/charcoal
-
 /obj/item/pda/celebrity
 	name = "fancy PDA"
 	default_cartridge = /obj/item/cartridge/annoyance //so they can send messages to everyone and be generally obnoxious
@@ -270,3 +260,14 @@
 	note = "Congratulations, you have chosen the Thinktronic 5230 LRP Series Personal Data Assistant Golden Edition!"
 	icon_state = "pda-gold"
 	ttone = "ch-CHING"
+
+/obj/item/pda/unlicensed
+	name = "unlicensed PDA"
+	default_cartridge = /obj/item/cartridge/annoyance/lesser
+	desc = "A shitty knockoff of a portable microcomputer by Thinktronic Systems, LTD. Complete with a cracked operating system."
+	note = "Error: Unlicensed OS. Please contact your supervisor."
+	icon_state = "pda-knockoff"
+	icon_alert = "pda-r-wide"
+	icon_pai = "pai-overlay-wide"
+	icon_inactive_pai = "pai-off-overlay-wide"
+	inserted_item = /obj/item/pen/charcoal
