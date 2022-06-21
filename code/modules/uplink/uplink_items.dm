@@ -2236,7 +2236,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/role_restricted/esaw
 	name = "Energy Saw"
-	desc = "A deadly energy saw inside your arm. Comes in a slick black finish."
+	desc = "A deadly energy saw. Comes in a slick black finish."
 	cost = 5
 	item = /obj/item/melee/transforming/energy/sword/esaw
 	restricted_roles = list("Medical Doctor", "Chief Medical Officer", "Paramedic", "Brig Physician")
