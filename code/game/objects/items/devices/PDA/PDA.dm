@@ -676,7 +676,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 		t = Gibberish(t, TRUE)
 	return t
 
-/obj/item/pda/proc/send_pda_message(mob/living/user, list/obj/item/pda/targets, everyone, var/multi_delay=0)
+/obj/item/pda/proc/send_pda_message(mob/living/user, list/obj/item/pda/targets, everyone, multi_delay=0)
 	var/message = msg_input(user)
 	if(!message || !targets.len)
 		return
@@ -783,11 +783,12 @@ GLOBAL_LIST_EMPTY(PDAs)
 	update_icon()
 	add_overlay(icon_alert)
 
-/obj/item/pda/proc/send_to_all(mob/living/U, var/multi_delay)
+/obj/item/pda/proc/send_to_all(mob/living/U, multi_delay)
 	if (last_everyone && world.time < (last_everyone + PDA_SPAM_DELAY*multi_delay))
 		to_chat(U,"<span class='warning'>Send To All function is still on cooldown. Enabled in [(last_everyone + PDA_SPAM_DELAY*multi_delay - world.time)/10] seconds.")
 		return
-	send_pda_message(U,get_viewable_pdas(), TRUE, multi_delay=multi_delay)
+	if(multi_delay)
+		send_pda_message(U,get_viewable_pdas(), TRUE, multi_delay=multi_delay)
 
 /obj/item/pda/proc/create_message(mob/living/U, obj/item/pda/P)
 	send_pda_message(U,list(P))
