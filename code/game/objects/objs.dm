@@ -45,7 +45,6 @@
 
 	var/investigate_flags = NONE
 	// ADMIN_INVESTIGATE_TARGET: investigate_log on pickup/drop
-	// ADMIN_INVESTIGATE_SHOWCHAT: validify message_admins
 
 /obj/vv_edit_var(vname, vval)
 	switch(vname)
