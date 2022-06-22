@@ -112,7 +112,7 @@
 	trash = /obj/item/trash/plate
 	bonus_reagents = list(/datum/reagent/consumable/nutriment = 8, /datum/reagent/consumable/nutriment/vitamin = 4)
 	cooked_type = null
-	tastes = list("noodle" = 1, "cheese" = 1, "egg" = 1)
+	tastes = list("pasta" = 1, "cheese" = 1, "egg" = 1)
 	foodtype = GRAIN | DAIRY
 
 /obj/item/reagent_containers/food/snacks/spaghetti/spaghettinapolitan
@@ -122,7 +122,7 @@
 	trash = /obj/item/trash/plate
 	list_reagents = list(/datum/reagent/consumable/nutriment = 8, /datum/reagent/consumable/nutriment/vitamin = 6)
 	cooked_type = null
-	tastes = list("noodle" = 1, "ketchup" = 1, "sausage" = 1)
+	tastes = list("pasta" = 1, "ketchup" = 1, "sausage" = 1)
 	foodtype = GRAIN | MEAT | VEGETABLES
 
 /obj/item/reagent_containers/food/snacks/spaghetti/lasagna
