@@ -148,7 +148,7 @@
 	return ..()
 
 /obj/machinery/door/firedoor/try_to_activate_door(obj/item/I, mob/user)
-	if(!density)
+	if(!density || welded)
 		return
 
 	if(isidcard(I))
@@ -197,7 +197,7 @@
 /obj/machinery/door/firedoor/try_to_crowbar(obj/item/I, mob/user)
 	if(welded || operating)
 		return
-
+	
 	if(density)
 		if(!(stat & NOPOWER))
 			LAZYADD(access_log, "MOTOR_ERR:|MOTOR CONTROLLER REPORTED BACKDRIVE|T_OFFSET:[DisplayTimeText(world.time - SSticker.round_start_time)]")

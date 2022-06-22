@@ -395,6 +395,8 @@
 		var/obj_count = 1
 		for(var/datum/objective/objective in antag_objectives)
 			output += "<br><B>Objective #[obj_count++]</B>: [objective.explanation_text]"
+			if (objective.name == "gimmick")
+				output += " - This objective is optional and not tracked, so just have fun with it!"
 			var/list/datum/mind/other_owners = objective.get_owners() - src
 			if(other_owners.len)
 				output += "<ul>"

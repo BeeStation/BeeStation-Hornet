@@ -1,6 +1,6 @@
 /obj/machinery/atmospherics/pipe/heat_exchanging
 	level = 2
-	var/minimum_temperature_difference = 20
+	var/minimum_temperature_difference = 1
 	var/thermal_conductivity = WINDOW_HEAT_TRANSFER_COEFFICIENT
 	color = "#404040"
 	buckle_lying = -1

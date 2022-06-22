@@ -35,7 +35,7 @@
 	for(var/collision_zone in collision_zone_bodies)
 		for(var/datum/orbital_object/body as() in collision_zone_bodies[collision_zone])
 			//Distance check last for optimisations
-			if(body != source && body.relevant_gravity_range && source.position.Distance(body.position) <= body.relevant_gravity_range)
+			if(body != source && body.relevant_gravity_range && source.position.DistanceTo(body.position) <= body.relevant_gravity_range)
 				. += body
 
 //Post setup function that runs after SSorbit init.

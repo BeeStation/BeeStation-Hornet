@@ -221,13 +221,13 @@
 
 	var/message = speech_args[SPEECH_MESSAGE]
 	if(message[1] != "*")
-		switch (mode)
+		switch(mode)
 			if(DRILL_SHOUTING)
-				message += "!"
+				message = replacetextEx(message, ".", "!", length(message))
 			if(DRILL_YELLING)
-				message += "!!"
+				message = replacetextEx(message, ".", "!!", length(message))
 			if(DRILL_CANADIAN)
-				message = " [message]"
+				message = "[message]"
 				var/list/canadian_words = strings(CANADIAN_TALK_FILE, "canadian")
 
 				for(var/key in canadian_words)
@@ -240,7 +240,7 @@
 					message = replacetextEx(message, " [key]", " [value]")
 
 				if(prob(30))
-					message += pick(", eh?", ", EH?")
+					message = replacetextEx(message, ".", pick(", eh?", ", EH?"), length(message))
 		speech_args[SPEECH_MESSAGE] = message
 
 /obj/item/clothing/head/beret/corpwarden

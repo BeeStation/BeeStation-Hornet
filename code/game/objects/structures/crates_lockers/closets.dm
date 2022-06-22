@@ -203,7 +203,9 @@
 		return FALSE
 
 /obj/structure/closet/proc/insertion_allowed(atom/movable/AM)
-	if(ismob(AM))
+	if(iseffect(AM))
+		return FALSE
+	else if(ismob(AM))
 		if(!isliving(AM)) //let's not put ghosts or camera mobs inside closets...
 			return FALSE
 		var/mob/living/L = AM

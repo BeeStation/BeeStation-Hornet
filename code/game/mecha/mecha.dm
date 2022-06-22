@@ -440,9 +440,6 @@
 			occupant.fire_stacks += 1
 		occupant.IgniteMob()
 
-/obj/mecha/proc/drop_item()//Derpfix, but may be useful in future for engineering exosuits.
-	return
-
 /obj/mecha/Hear(message, atom/movable/speaker, message_language, raw_message, radio_freq, list/spans, list/message_mods = list())
 	. = ..()
 	if(speaker == occupant)
@@ -545,7 +542,7 @@
 	if(.)
 		return
 
-	var/atom/backup = get_spacemove_backup()
+	var/atom/backup = get_spacemove_backup(movement_dir)
 	if(backup && movement_dir)
 		if(isturf(backup)) //get_spacemove_backup() already checks if a returned turf is solid, so we can just go
 			return TRUE
@@ -1170,10 +1167,11 @@ GLOBAL_VAR_INIT(year_integer, text2num(year)) // = 2013???
 	take_damage(500,  BRUTE)
 
 /obj/mecha/lighteater_act(obj/item/light_eater/light_eater)
+	..()
 	if(!lights_power)
 		return
 	lights = FALSE
 	lights_power = 0
-	set_light(0)
+	set_light_on(FALSE)
 	visible_message(src, "<span class='danger'>The lights on [src] short out!</span>")
 	playsound(src, 'sound/items/welder.ogg', 50, 1)

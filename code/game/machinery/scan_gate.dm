@@ -115,7 +115,7 @@
 				if(!R || (R.fields["criminal"] == "*Arrest*"))
 					beep = TRUE
 		if(SCANGATE_MINDSHIELD)
-			if(HAS_TRAIT(M, TRAIT_MINDSHIELD))
+			if(M.has_mindshield_hud_icon())
 				beep = TRUE
 		if(SCANGATE_NANITES)
 			if(SEND_SIGNAL(M, COMSIG_HAS_NANITES))

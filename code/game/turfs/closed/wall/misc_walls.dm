@@ -76,11 +76,11 @@
 	//and should be removed on initialize
 	color = COLOR_ORANGE
 
-/turf/closed/wall/r_wall/Initialize(mapload)
+/turf/closed/wall/r_wall/rust/Initialize(mapload)
 	. = ..()
 	color = null
 
-/turf/closed/wall/r_wall/ComponentInitialize()
+/turf/closed/wall/r_wall/rust/ComponentInitialize()
 	. = ..()
 	AddElement(/datum/element/rust)
 

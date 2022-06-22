@@ -454,7 +454,7 @@
 		P.say(pick("Nooooo...", "Not die. To y-", "Die. Ratv-", "Sas tyen re-"))
 		playsound(src, 'sound/magic/clockwork/anima_fragment_attack.ogg', 50, TRUE, frequency = 2)
 		playsound(P, 'sound/magic/demon_dies.ogg', 50, TRUE, frequency = 2)
-		explosion(P, 0, 0, 1)
+		explosion(P, 0, 0, 1, holy = TRUE)
 		qdel(P)
 		clash_target = null
 	else
@@ -462,7 +462,7 @@
 		P.say(pick("Ha.", "Ra'sha fonn dest.", "You fool. To come here."))
 		playsound(src, 'sound/magic/clockwork/anima_fragment_death.ogg', 62, TRUE, frequency = 2)
 		playsound(P, 'sound/magic/demon_attack1.ogg', 50, TRUE, frequency = 2)
-		explosion(src, 0, 0, 1)
+		explosion(src, 0, 0, 1, holy = TRUE)
 		qdel(src)
 		P.clashing = FALSE
 
@@ -564,6 +564,106 @@
 		forceMove(random_open_spot)
 	user.dust(just_ash = FALSE, drop_items = TRUE)
 	return MANUAL_SUICIDE
+
+/obj/item/toy/plush/moth/random
+	name = "\improper Random Mothplush"
+	icon_state = "moffplush_random"
+	desc = "An undefined mothperson plushy. It's a debuggable bug! (if you see this, contact an upper beign as soon as possible)."
+
+/obj/item/toy/plush/moth/random/Initialize()
+	var moff_type = pick(subtypesof(/obj/item/toy/plush/moth) - /obj/item/toy/plush/moth/random/)
+	new moff_type(loc)
+	return INITIALIZE_HINT_QDEL
+
+/obj/item/toy/plush/moth/monarch
+	name = "monarch moth plushie"
+	desc = "An adorable mothperson plushy. It's an important bug!"
+	icon_state = "moffplush_monarch"
+
+/obj/item/toy/plush/moth/luna
+	name = "luna moth plushie"
+	desc = "An adorable mothperson plushy. It's a lunar bug!"
+	icon_state = "moffplush_luna"
+
+/obj/item/toy/plush/moth/atlas
+	name = "atlas moth plushie"
+	desc = "An adorable mothperson plushy. It's a wide bug!"
+	icon_state = "moffplush_atlas"
+
+/obj/item/toy/plush/moth/redish
+	name = "redish moth plushie"
+	desc = "An adorable mothperson plushy. It's a red bug!"
+	icon_state = "moffplush_redish"
+
+/obj/item/toy/plush/moth/royal
+	name = "royal moth plushie"
+	desc = "An adorable mothperson plushy. It's a royal bug!"
+	icon_state = "moffplush_royal"
+
+/obj/item/toy/plush/moth/gothic
+	name = "gothic moth plushie"
+	desc = "An adorable mothperson plushy. It's a dark bug!"
+	icon_state = "moffplush_gothic"
+
+/obj/item/toy/plush/moth/lovers
+	name = "lovers moth plushie"
+	desc = "An adorable mothperson plushy. It's a loveley bug!"
+	icon_state = "moffplush_lovers"
+
+/obj/item/toy/plush/moth/whitefly
+	name = "whitefly moth plushie"
+	desc = "An adorable mothperson plushy. It's a shy bug!"
+	icon_state = "moffplush_whitefly"
+
+/obj/item/toy/plush/moth/punished
+	name = "punished moth plushie"
+	desc = "An adorable mothperson plushy. It's a sad bug... that's quite sad actualy."
+	icon_state = "moffplush_punished"
+
+/obj/item/toy/plush/moth/firewatch
+	name = "firewatch moth plushie"
+	desc = "An adorable mothperson plushy. It's a firey bug!"
+	icon_state = "moffplush_firewatch"
+
+/obj/item/toy/plush/moth/deadhead
+	name = "deadhead moth plushie"
+	desc = "An adorable mothperson plushy. It's a silent bug!"
+	icon_state = "moffplush_deadhead"
+
+/obj/item/toy/plush/moth/poison
+	name = "poison moth plushie"
+	desc = "An adorable mothperson plushy. It's a toxic bug!"
+	icon_state = "moffplush_poison"
+
+/obj/item/toy/plush/moth/ragged
+	name = "ragged moth plushie"
+	desc = "An adorable mothperson plushy. It's a robust bug!"
+	icon_state = "moffplush_ragged"
+
+/obj/item/toy/plush/moth/snow
+	name = "snow moth plushie"
+	desc = "An adorable mothperson plushy. It's a cool bug!"
+	icon_state = "moffplush_snow"
+
+/obj/item/toy/plush/moth/clockwork
+	name = "clockwork moth plushie"
+	desc = "An adorable mothperson plushy. It's a precise bug!"
+	icon_state = "moffplush_clockwork"
+
+/obj/item/toy/plush/moth/moonfly
+	name = "moonfly moth plushie"
+	desc = "An adorable mothperson plushy. It's a nightly bug!"
+	icon_state = "moffplush_moonfly"
+
+/obj/item/toy/plush/moth/error
+	name = "error moth plushie"
+	desc = "An adorable mothperson plushy. It's a debuggable bug!"
+	icon_state = "moffplush_random"
+
+/obj/item/toy/plush/moth/rainbow
+	name = "rainbow moth plushie"
+	desc = "An adorable mothperson plushy. It's a colorfull bug!"
+	icon_state = "moffplush_rainbow"
 
 /obj/item/toy/plush/crossed
 	name = "ghost plushie"

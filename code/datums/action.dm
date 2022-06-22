@@ -176,11 +176,11 @@
 
 /datum/action/item_action/Trigger()
 	if(!..())
-		return 0
+		return FALSE
 	if(target)
 		var/obj/item/I = target
 		I.ui_action_click(owner, src)
-	return 1
+	return TRUE
 
 /datum/action/item_action/ApplyIcon(atom/movable/screen/movable/action_button/current_button, force)
 	if(button_icon && button_icon_state)

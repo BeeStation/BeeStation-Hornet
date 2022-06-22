@@ -193,10 +193,10 @@
 /area/lavaland/surface/outdoors)
 "aN" = (
 /obj/machinery/door/airlock,
-/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1{
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3{
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
 	dir = 1
 	},
 /turf/open/floor/plasteel/freezer,
@@ -239,8 +239,8 @@
 /turf/open/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
 "bV" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer1{
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 1
 	},
 /obj/machinery/light{
@@ -249,16 +249,16 @@
 /turf/open/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
 "gE" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 1
 	},
 /turf/open/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
 "hG" = (
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer1{
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 1
 	},
 /turf/open/floor/plasteel/freezer,
@@ -272,28 +272,28 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 8
 	},
 /turf/open/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
 "md" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 10
 	},
 /turf/closed/wall/r_wall,
 /area/ruin/powered/seedvault)
 "mK" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
 /turf/closed/wall/r_wall,
 /area/ruin/powered/seedvault)
 "nH" = (
-/obj/machinery/atmospherics/components/unary/outlet_injector/on/layer3{
+/obj/machinery/atmospherics/components/unary/outlet_injector/on/layer4{
 	dir = 4
 	},
 /turf/template_noop/open,
@@ -306,7 +306,7 @@
 /obj/item/storage/fancy/rollingpapers,
 /obj/item/storage/fancy/rollingpapers,
 /obj/item/storage/fancy/rollingpapers,
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer1{
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
 	},
 /turf/open/floor/plasteel/freezer,
@@ -314,10 +314,10 @@
 "tE" = (
 /obj/structure/table/wood,
 /obj/item/storage/box/disks_plantgene,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 6
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 10
 	},
 /turf/open/floor/plasteel/freezer,
@@ -326,8 +326,8 @@
 /turf/closed/mineral/volcanic/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "vY" = (
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3,
-/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1,
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2,
 /turf/open/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
 "xu" = (
@@ -343,10 +343,10 @@
 /area/ruin/powered/seedvault)
 "yV" = (
 /obj/machinery/door/airlock,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 1
 	},
 /turf/open/floor/plasteel/freezer,
@@ -356,22 +356,22 @@
 /obj/machinery/smartfridge/disks{
 	pixel_y = 2
 	},
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3/lavaland{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4/lavaland{
 	dir = 8
 	},
 /turf/open/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
 "zC" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 1
 	},
 /turf/open/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
 "Ag" = (
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3/lavaland{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4/lavaland{
 	dir = 1
 	},
 /obj/machinery/light{
@@ -380,30 +380,30 @@
 /turf/open/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
 "BK" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
 "Cw" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 10
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 10
 	},
 /turf/open/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
 "EB" = (
-/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer3{
+/obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
 	dir = 1
 	},
-/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer1{
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
 	dir = 1
 	},
 /turf/open/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
 "Fi" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer1{
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 1
 	},
 /turf/open/floor/plasteel/freezer,
@@ -412,7 +412,7 @@
 /turf/template_noop/closed,
 /area/lavaland/surface/outdoors)
 "Gr" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
 "GC" = (
@@ -426,7 +426,7 @@
 	pixel_y = 6
 	},
 /obj/structure/table/wood,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
 /turf/open/floor/plasteel/freezer,
@@ -439,38 +439,38 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
 /turf/open/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
 "Jy" = (
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3/lavaland{
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4/lavaland{
 	dir = 1
 	},
 /turf/open/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
 "LR" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 5
 	},
 /turf/closed/wall/r_wall,
 /area/ruin/powered/seedvault)
 "Oy" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3{
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1{
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
 /turf/open/floor/plasteel/freezer,
 /area/ruin/powered/seedvault)
 "Se" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer3/lavaland{
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4/lavaland{
 	dir = 1
 	},
 /turf/open/floor/plasteel/freezer,

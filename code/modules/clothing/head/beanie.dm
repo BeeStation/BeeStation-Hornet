@@ -3,6 +3,17 @@
 
 //Plus a bobble hat, lets be inclusive!!
 
+/*
+	Contents: 
+
+		White, black, red, green, dark blue, purple, yellow, orange and cyan beanies.
+
+		Christmas, striped, red striped, blue striped, green striped, durathread beanies.
+
+		Red striped bobble hat (waldo hat), rastacap.
+
+*/
+
 /obj/item/clothing/head/beanie //Default is white, this is meant to be seen
 	name = "white beanie"
 	desc = "A stylish beanie. The perfect winter accessory for those with a keen fashion sense, and those who just can't handle a cold breeze on their heads."

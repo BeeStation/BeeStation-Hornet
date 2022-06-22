@@ -1,6 +1,0 @@
-author: DingleFlop
-delete-after: true
-changes:
-  - tweak: Toxins Storage and Turbine area walls moved to allow tank access
-  - tweak: Atmosia main no longer needlessly uses layered pipes
-  - bugfix: Atmosia burn chamber no longer lacks a vent pump, and can be entered again
