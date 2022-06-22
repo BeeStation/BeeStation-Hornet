@@ -379,8 +379,7 @@
 
 /obj/proc/log_item(mob/user, actverb="(unknown verb)", additional_info="")
 	if(investigate_flags & ADMIN_INVESTIGATE_TARGET)
-		var/turf/item_turf = get_turf(src)
-		if(!item_turf)
+		if(x == 0 && y == 0 && z = 0)
 			actverb = "possessed"
 		investigate_log("[src] was [actverb] by [key_name(user)] at [AREACOORD(user)]. [additional_info]", INVESTIGATE_ITEMS)
 
