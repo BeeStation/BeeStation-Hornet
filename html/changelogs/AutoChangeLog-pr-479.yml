@@ -1,0 +1,10 @@
+author: DoctorSquishy, AnturK
+delete-after: true
+changes:
+  - tweak: Renamed Pill Press to Chemical Press and added bottles
+  - rscadd: Added patch icon choosing in the chemical press
+  - balance: The Chemical Press now requires a Chemical Smart Fridge within range
+      to deposit items, no more floor bottle mess machines.
+  - refactor: Refactored Pill Sprite Sheets and Added Patch Sprite Sheets
+  - imageadd: Improved Chemical Press icons, as well as new idle, on, and off states
+  - imageadd: New thinner beam type similar to RPED one
