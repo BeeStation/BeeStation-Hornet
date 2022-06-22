@@ -35,7 +35,7 @@
 	//Supervisors, who this person answers to directly
 	var/supervisors = ""
 
-	//Sellection screen color
+	//Selection screen color
 	var/selection_color = "#ffffff"
 
 	//Overhead chat message colour

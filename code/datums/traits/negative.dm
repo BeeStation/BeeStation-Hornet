@@ -67,17 +67,18 @@
 	var/mob/living/carbon/human/H = quirk_holder
 	var/obj/item/storage/pill_bottle/mannitol/braintumor/P = new(get_turf(H))
 
-	var/slot = H.equip_in_one_of_slots(P, list(ITEM_SLOT_LPOCKET, ITEM_SLOT_RPOCKET, ITEM_SLOT_BACKPACK), FALSE)
-	if(slot)
-		var/list/slots = list(
-		ITEM_SLOT_LPOCKET = "in your left pocket",
-		ITEM_SLOT_RPOCKET = "in your right pocket",
-		ITEM_SLOT_BACKPACK = "in your backpack"
-		)
-		where = slots[slot]
+	var/list/slots = list(
+		"in your left pocket" = ITEM_SLOT_LPOCKET,
+		"in your right pocket" = ITEM_SLOT_RPOCKET,
+		"in your backpack" = ITEM_SLOT_BACKPACK
+	)
+	where = H.equip_in_one_of_slots(P, slots, FALSE)
 
 /datum/quirk/brainproblems/post_add()
-	to_chat(quirk_holder, "<span class='boldnotice'>There is a bottle of mannitol [where]. You're going to need it.</span>")
+	if(where)
+		to_chat(quirk_holder, "<span class='boldnotice'>There is a bottle of mannitol [where]. You're going to need it.</span>")
+	else
+		to_chat(quirk_holder, "<span class='boldnotice'>You dropped your bottle of mannitol on the floor. Better pick it up, you are going to need it.</span>")
 
 /datum/quirk/deafness
 	name = "Deaf"
