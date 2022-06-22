@@ -6,7 +6,7 @@
 	amount = 10
 	resistance_flags = INDESTRUCTIBLE | FIRE_PROOF | ACID_PROOF | LAVA_PROOF
 	flags_1 = NODECONSTRUCT_1
-	use_power = NO_POWER_USE
+	use_power = IDLE_POWER_USE
 
 
 
