@@ -61,7 +61,7 @@
 	..()
 	playsound(src, 'sound/machines/click.ogg', 50)
 	if(occupant)
-		if(!iscarbon(occupant) || HAS_TRAIT(L, TRAIT_POWERHUNGRY))
+		if(!iscarbon(occupant) || HAS_TRAIT(occupant, TRAIT_POWERHUNGRY))
 			occupant.forceMove(drop_location())
 			occupant = null
 			return
