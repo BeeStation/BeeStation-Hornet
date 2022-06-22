@@ -182,6 +182,10 @@
 	P.attackby(T, user, params)
 
 /turf/open/floor/proc/pry_tile(obj/item/I, mob/user, silent = FALSE)
+	if(src.liquids)
+		if(src.liquids.liquid_state != LIQUID_STATE_PUDDLE)
+			to_chat(user, "<span class ='warning'>The weight of the water stops you from removing the [src].</span>")
+			return
 	I.play_tool_sound(src, 80)
 	return remove_tile(user, silent)
 

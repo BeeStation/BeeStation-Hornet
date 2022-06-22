@@ -235,8 +235,8 @@
 "D" = (
 /obj/structure/table/reinforced,
 /obj/item/clothing/suit/straight_jacket,
-/obj/item/reagent_containers/syringe/lethal,
-/obj/item/reagent_containers/syringe/lethal/choral,
+/obj/item/reagent_containers/syringe/meta,
+/obj/item/reagent_containers/syringe/meta/choral,
 /turf/open/floor/plasteel/airless/dark,
 /area/ruin/space/has_grav/gasthelizard)
 "E" = (

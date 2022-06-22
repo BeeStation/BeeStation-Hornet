@@ -243,7 +243,7 @@
 /obj/structure/closet/secure_closet/injection/PopulateContents()
 	..()
 	for(var/i in 1 to 5)
-		new /obj/item/reagent_containers/syringe/lethal/execution(src)
+		new /obj/item/reagent_containers/syringe/meta/execution(src) //monkestation edit
 
 /obj/structure/closet/secure_closet/brig
 	name = "brig locker"

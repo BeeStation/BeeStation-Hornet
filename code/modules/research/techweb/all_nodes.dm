@@ -673,11 +673,24 @@
 
 /datum/techweb_node/ipc_organs
 	id = "ipc_organs"
-	tech_tier = 3
+	tech_tier = 4
 	display_name = "IPC Parts"
 	description = "We have the technology to replace him."
 	prereq_ids = list("cyber_organs","robotics")
-	design_ids = list("robotic_liver", "robotic_eyes", "robotic_tongue", "robotic_stomach", "robotic_ears", "power_cord")
+	design_ids = list("robotic_liver",
+						"robotic_eyes",
+						"robotic_tongue",
+						"robotic_stomach",
+						"robotic_ears",
+						"power_cord",
+						"ipc_chest",
+						"ipc_head",
+						"ipc_left_arm",
+						"ipc_right_arm",
+						"ipc_left_leg",
+						"ipc_right_leg",
+						"ipc_rear_cover"
+						)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 1500)
 	export_price = 5000
 
@@ -896,7 +909,7 @@
 	display_name = "Medical Weaponry"
 	description = "Weapons using medical technology."
 	prereq_ids = list("adv_biotech", "weaponry")
-	design_ids = list("rapidsyringe")
+	design_ids = list("rapidsyringe", "metasyringe") //monkestation edit
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 	export_price = 5000
 

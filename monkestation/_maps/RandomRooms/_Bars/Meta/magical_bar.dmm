@@ -79,21 +79,6 @@
 "i" = (
 /turf/open/floor/plasteel/cult,
 /area/crew_quarters/bar)
-"j" = (
-/obj/structure/chair/wood/wings{
-	dir = 1
-	},
-/obj/structure/chair/wood/wings{
-	dir = 1
-	},
-/obj/structure/chair/wood/wings{
-	dir = 1
-	},
-/obj/structure/chair/wood/wings{
-	dir = 1
-	},
-/turf/open/floor/plasteel/cult,
-/area/crew_quarters/bar)
 "k" = (
 /obj/structure/table/wood/poker,
 /obj/item/reagent_containers/food/snacks/burger/spell,
@@ -186,7 +171,6 @@
 /turf/open/floor/plasteel/cult,
 /area/crew_quarters/bar)
 "D" = (
-/obj/structure/chair/wood/wings,
 /obj/structure/chair/wood/wings,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /turf/open/floor/plasteel/cult,
@@ -343,7 +327,7 @@ s
 S
 i
 r
-j
+P
 i
 Q
 i

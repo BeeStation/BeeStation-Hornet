@@ -54,11 +54,6 @@ GLOBAL_LIST_INIT(metal_recipes, list ( \
 	null, \
 	new/datum/stack_recipe("floor tile", /obj/item/stack/tile/plasteel, 1, 4, 20), \
 	new/datum/stack_recipe("iron rod", /obj/item/stack/rods, 1, 2, 60), \
-	//MONKESTATION EDIT ADDITION
-	new/datum/stack_recipe("pool floor tile", /obj/item/stack/tile/lowered/iron/pool, 1, 1, 4), \
-	new/datum/stack_recipe("lowered floor tile", /obj/item/stack/tile/lowered, 1, 1, 4), \
-	new/datum/stack_recipe("elevated floor tile", /obj/item/stack/tile/elevated, 1, 1, 4), \
-	//MONKESTATION EDIT END
 	null, \
 	new/datum/stack_recipe("wall girders", /obj/structure/girder, 2, time = 40, one_per_turf = TRUE, on_floor = TRUE), \
 	null, \
@@ -739,7 +734,6 @@ GLOBAL_LIST_INIT(plastic_recipes, list(
 	new /datum/stack_recipe("water bottle", /obj/item/reagent_containers/glass/waterbottle/empty), \
 	new /datum/stack_recipe("large water bottle", /obj/item/reagent_containers/glass/waterbottle/large/empty,3), \
 	new /datum/stack_recipe("wet floor sign", /obj/item/clothing/suit/caution, 2)))
-
 /obj/item/stack/sheet/plastic
 	name = "plastic"
 	desc = "Compress dinosaur over millions of years, then refine, split and mold, and voila! You have plastic."

@@ -16,6 +16,7 @@
 	var/mode = SYRINGE_DRAW
 	var/busy = FALSE		// needed for delayed drawing of blood
 	var/proj_piercing = 0 //does it pierce through thick clothes when shot with syringe gun
+	var/shootable = TRUE //can it be used as ammo in syringe guns? //monkestation edit
 	materials = list(/datum/material/iron=10, /datum/material/glass=20)
 	reagent_flags = TRANSPARENT
 	var/list/syringediseases = list()
@@ -281,16 +282,17 @@
 	desc = "Contains plasma."
 	list_reagents = list(/datum/reagent/toxin/plasma = 15)
 
-/obj/item/reagent_containers/syringe/lethal
-	name = "lethal injection syringe"
-	desc = "A syringe used for lethal injections. It can hold up to 50 units."
+/obj/item/reagent_containers/syringe/meta //monkestation edit
+	name = "metamaterial syringe" //monkestation edit
+	desc = "A large syringe reinforced with titanium and designed for swift injections. It can hold up to 50 units." //monkestation edit
+	shootable = FALSE //monkestation edit
 	amount_per_transfer_from_this = 50
 	volume = 50
 
-/obj/item/reagent_containers/syringe/lethal/choral
+/obj/item/reagent_containers/syringe/meta/choral //monkestation edit
 	list_reagents = list(/datum/reagent/toxin/chloralhydrate = 50)
 
-/obj/item/reagent_containers/syringe/lethal/execution
+/obj/item/reagent_containers/syringe/meta/execution //monkestation edit
 	list_reagents = list(/datum/reagent/toxin/plasma = 15, /datum/reagent/toxin/formaldehyde = 15, /datum/reagent/toxin/cyanide = 10, /datum/reagent/toxin/acid/fluacid = 10)
 
 /obj/item/reagent_containers/syringe/mulligan
@@ -310,6 +312,7 @@
 /obj/item/reagent_containers/syringe/bluespace
 	name = "bluespace syringe"
 	desc = "An advanced syringe that can hold 60 units of chemicals."
+	shootable = FALSE //monkestation edit
 	amount_per_transfer_from_this = 20
 	icon_state = "bluespace_0"
 	base_icon_state = "bluespace"

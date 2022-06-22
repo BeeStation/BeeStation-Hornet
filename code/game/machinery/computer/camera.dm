@@ -8,6 +8,8 @@
 	circuit = /obj/item/circuitboard/computer/security
 	light_color = LIGHT_COLOR_RED
 
+
+
 	var/list/network = list("ss13")
 	var/obj/machinery/camera/active_camera
 	/// The turf where the camera was last updated.
@@ -18,10 +20,9 @@
 	// Stuff needed to render the map
 	var/map_name
 	var/atom/movable/screen/map_view/cam_screen
-	/// All the plane masters that need to be applied.
-	var/list/cam_plane_masters
+	var/atom/movable/screen/plane_master/lighting/cam_plane_master
+	var/atom/movable/screen/plane_master/o_light_visual/visual_plane_master
 	var/atom/movable/screen/background/cam_background
-
 
 /obj/machinery/computer/security/Initialize(mapload)
 	. = ..()
@@ -39,21 +40,25 @@
 	cam_screen.assigned_map = map_name
 	cam_screen.del_on_map_removal = FALSE
 	cam_screen.screen_loc = "[map_name]:1,1"
-	cam_plane_masters = list()
-	for(var/plane in subtypesof(/atom/movable/screen/plane_master))
-		var/atom/movable/screen/plane_master/instance= new plane()
-		instance.assigned_map = map_name
-		instance.del_on_map_removal = FALSE
-		instance.screen_loc = "[map_name]:CENTER"
-		cam_plane_masters += instance
+	cam_plane_master = new
+	cam_plane_master.name = "plane_master"
+	cam_plane_master.assigned_map = map_name
+	cam_plane_master.del_on_map_removal = FALSE
+	cam_plane_master.screen_loc = "[map_name]:CENTER"
+	visual_plane_master = new
+	visual_plane_master.name = "plane_master"
+	visual_plane_master.assigned_map = map_name
+	visual_plane_master.del_on_map_removal = FALSE
+	visual_plane_master.screen_loc = "[map_name]:CENTER"
 	cam_background = new
 	cam_background.assigned_map = map_name
 	cam_background.del_on_map_removal = FALSE
 
 /obj/machinery/computer/security/Destroy()
-	QDEL_NULL(cam_screen)
-	QDEL_LIST(cam_plane_masters)
-	QDEL_NULL(cam_background)
+	qdel(cam_screen)
+	qdel(cam_plane_master)
+	qdel(visual_plane_master)
+	qdel(cam_background)
 	return ..()
 
 /obj/machinery/computer/security/connect_to_shuttle(obj/docking_port/mobile/port, obj/docking_port/stationary/dock, idnum, override=FALSE)
@@ -66,7 +71,6 @@
 	return GLOB.default_state
 
 /obj/machinery/computer/security/ui_interact(mob/user, datum/tgui/ui)
-	. = ..()
 	// Update UI
 	ui = SStgui.try_update_ui(user, src, ui)
 
@@ -86,19 +90,13 @@
 			use_power(active_power_usage)
 		// Register map objects
 		user.client.register_map_obj(cam_screen)
-		for(var/plane in cam_plane_masters)
-			user.client.register_map_obj(plane)
+		user.client.register_map_obj(cam_plane_master)
+		user.client.register_map_obj(visual_plane_master)
 		user.client.register_map_obj(cam_background)
 		// Open UI
 		ui = new(user, src, "CameraConsole")
 		ui.open()
 		ui.set_autoupdate(FALSE)
-
-/obj/machinery/computer/security/ui_status(mob/user)
-	. = ..()
-	if(. == UI_DISABLED)
-		return UI_CLOSE
-	return .
 
 /obj/machinery/computer/security/ui_data()
 	var/list/data = list()

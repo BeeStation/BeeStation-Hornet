@@ -89,9 +89,9 @@
 
 /obj/item/bodypart/examine(mob/user)
 	. = ..()
-	if(brute_dam > DAMAGE_PRECISION)
+	if(brute_dam >= DAMAGE_PRECISION)
 		. += "<span class='warning'>This limb has [brute_dam > 30 ? "severe" : "minor"] bruising.</span>"
-	if(burn_dam > DAMAGE_PRECISION)
+	if(burn_dam >= DAMAGE_PRECISION)
 		. += "<span class='warning'>This limb has [burn_dam > 30 ? "severe" : "minor"] burns.</span>"
 	if(limb_id)
 		. += "<span class='notice'>It is a [limb_id] [parse_zone(body_zone)].</span>"
@@ -151,7 +151,7 @@
 		I.forceMove(T)
 
 /obj/item/bodypart/proc/consider_processing()
-	if(stamina_dam > DAMAGE_PRECISION)
+	if(stamina_dam >= DAMAGE_PRECISION)
 		. = TRUE
 	//else if.. else if.. so on.
 	else
@@ -160,7 +160,7 @@
 
 //Return TRUE to get whatever mob this is in to update health.
 /obj/item/bodypart/proc/on_life(stam_regen)
-	if(stamina_dam > DAMAGE_PRECISION && stam_regen)					//DO NOT update health here, it'll be done in the carbon's life.
+	if(stamina_dam >= DAMAGE_PRECISION && stam_regen)					//DO NOT update health here, it'll be done in the carbon's life.
 		heal_damage(0, 0, stam_regen, null, FALSE)
 		. |= BODYPART_LIFE_UPDATE_HEALTH
 
@@ -213,7 +213,7 @@
 
 	if(owner && updating_health)
 		owner.updatehealth()
-		if(stamina > DAMAGE_PRECISION)
+		if(stamina >= DAMAGE_PRECISION)
 			owner.update_stamina(TRUE)
 			owner.stam_regen_start_time = max(owner.stam_regen_start_time, world.time + STAMINA_REGEN_BLOCK_TIME)
 	consider_processing()
