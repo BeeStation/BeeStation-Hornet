@@ -16,11 +16,14 @@
 	var/savepath = GLOB.config["savefile_dir"] // Cache this to prevent a ton of list lookups
 
 	for(var/outerpath in flist(savepath))
-		for(var/ckey_path in flist("[savepath][outerpath]"))
+		var/list/innerlist = flist("[savepath][outerpath]")
+		for(var/ckey_path in innerlist)
 			var/real_ckey = ckey(ckey_path)
 			var/sf_path = "[savepath][outerpath][ckey_path]preferences.sav"
 			var/savefile/S = new /savefile(sf_path)
 			parse_savefile(real_ckey, S)
+		log_info("Finished processing [outerpath]")
+		sleep(1)
 
 /proc/log_info(txt)
 	world.log << "[txt]"
