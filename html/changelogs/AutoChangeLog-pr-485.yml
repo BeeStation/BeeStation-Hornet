@@ -1,0 +1,4 @@
+author: DoctorSquishy
+delete-after: true
+changes:
+  - bugfix: Fixed vent-in icon potential rotation issues
