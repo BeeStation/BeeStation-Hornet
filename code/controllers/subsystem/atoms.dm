@@ -78,8 +78,8 @@ SUBSYSTEM_DEF(atoms)
 	var/list/mapload_arg = list(TRUE)
 	if(atoms)
 		count = atoms.len
-		for(var/I in atoms)
-			var/atom/A = I
+		for(var/I in 1 to count)
+			var/atom/A = atoms[I]
 			if(!(A.flags_1 & INITIALIZED_1))
 				CHECK_TICK
 				PROFILE_INIT_ATOM_BEGIN()

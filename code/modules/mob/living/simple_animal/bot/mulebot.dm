@@ -54,6 +54,7 @@
 	var/obj/item/stock_parts/cell/cell /// Internal Powercell
 	var/bloodiness = 0 ///If we've run over a mob, how many tiles will we leave tracks on while moving
 	var/num_steps = 0 ///The amount of steps we should take until we rest for a time.
+	var/network_id = NETWORK_BOTS_CARGO
 
 /mob/living/simple_animal/bot/mulebot/Initialize(mapload)
 	. = ..()
@@ -74,10 +75,8 @@
 	D.set_vehicle_dir_layer(NORTH, layer)
 	D.set_vehicle_dir_layer(EAST, layer)
 	D.set_vehicle_dir_layer(WEST, layer)
-
-/mob/living/simple_animal/bot/mulebot/ComponentInitialize()
-	. = ..()
-	AddComponent(/datum/component/ntnet_interface)
+	if(network_id)
+		AddComponent(/datum/component/ntnet_interface, network_id)
 
 /mob/living/simple_animal/bot/mulebot/handle_atom_del(atom/A)
 	if(A == load)
