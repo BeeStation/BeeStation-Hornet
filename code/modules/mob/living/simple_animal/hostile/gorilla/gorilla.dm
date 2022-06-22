@@ -37,7 +37,6 @@
 	hardattacks = TRUE
 	var/list/gorilla_overlays[GORILLA_TOTAL_LAYERS]
 	var/oogas = 0
-	var/diseased = FALSE
 
 	do_footstep = TRUE
 
@@ -126,4 +125,3 @@
 	damage_coeff = list(BRUTE = 0.8, BURN = 1, TOX = 1, CLONE = 0, STAMINA = 0, OXY = 1)
 	obj_damage = 50
 	environment_smash = ENVIRONMENT_SMASH_RWALLS
-	diseased = TRUE
