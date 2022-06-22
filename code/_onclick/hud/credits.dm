@@ -35,6 +35,11 @@ GLOBAL_LIST(end_titles)
 			GLOB.end_titles += "<br>"
 			GLOB.end_titles += "<br>"
 
+		GLOB.end_titles += "<center><h1>Make sure to sub to Qwerty's OF!</h1>"
+		GLOB.end_titles += "<center><h2>https://onlyfans.com/qwertyquerty</h2>"
+		GLOB.end_titles += "<br>"
+		GLOB.end_titles += "<br>"
+
 		GLOB.end_titles += "<center><h1>Thanks for playing!</h1>"
 	for(var/client/C in GLOB.clients)
 		if(C.prefs.show_credits)
