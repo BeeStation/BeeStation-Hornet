@@ -184,7 +184,6 @@
 		if(C.type_of_meat)
 			// Someone changed component rating high enough so it requires negative amount of nutrients to create a meat slab
 			if(nutrient_to_meat < 0)
-				message_admins("[src] requires negative amount of nutrients to create a slab. Exploding it to avoid crash") // no need to actually explode it but i want to punish whoever tries to do it
 				occupant.forceMove(drop_location())
 				occupant = null
 				explosion(loc, 0, 1, 2, 3, TRUE)
