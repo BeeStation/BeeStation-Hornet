@@ -267,7 +267,7 @@
 			// Command
 			"Command (Custom)" = "rawcommand",
 			"Captain" = "captain",
-			"Acting Captain" = "actingcaptain",
+			"Acting Captain" = "captain",
 			// Service
 			"Service (Custom)" = "rawservice",
 			"Head of Personnel" = "hop",
@@ -339,8 +339,8 @@
 		var/static/id_to_hud = list(
 			// Command
 			"Command (Custom)" = "rawcommand",
-			"ACting Captain" = "actingcaptain",
 			"Captain" = "captain",
+			"Acting Captain" = "actingcaptain",
 
 			// Service
 			"Service (Custom)" = "rawservice",

@@ -221,9 +221,7 @@
 	UpdateButtonIcon()
 
 /datum/action/item_action/chameleon/change/proc/update_item(obj/item/picked_item)
-	target.name = initial(picked_item.name)
-	target.desc = initial(picked_item.desc)
-	target.icon_state = initial(picked_item.icon_state)
+	var/keepname = FALSE
 	if(isitem(target))
 		var/obj/item/clothing/I = target
 		I.worn_icon = initial(picked_item.worn_icon)
@@ -243,14 +241,20 @@
 			var/obj/item/clothing/CL = I
 			var/obj/item/clothing/PCL = picked_item
 			CL.flags_cover = initial(PCL.flags_cover)
-		if(isidcard(I) && ispath(picked_item, /obj/item/card/id))
-			var/obj/item/card/id/ID = target
-			var/obj/item/card/id/ID_from = picked_item
-			ID.hud_state = initial(ID_from.hud_state)
 		if(initial(picked_item.greyscale_config) && initial(picked_item.greyscale_colors))
 			target.icon = SSgreyscale.GetColoredIconByType(initial(picked_item.greyscale_config), initial(picked_item.greyscale_colors))
 		else
 			target.icon = initial(picked_item.icon)
+		if(isidcard(I) && ispath(picked_item, /obj/item/card/id))
+			var/obj/item/card/id/ID = target
+			var/obj/item/card/id/ID_from = picked_item
+			ID.hud_state = initial(ID_from.hud_state)
+			if(!ispath(picked_item, /obj/item/card/id/departmental_budget) && !ispath(picked_item, /obj/item/card/id/pass))
+				keepname = TRUE
+	if(!keepname)
+		target.name = initial(picked_item.name)
+	target.desc = initial(picked_item.desc)
+	target.icon_state = initial(picked_item.icon_state)
 
 /datum/action/item_action/chameleon/change/Trigger()
 	if(!IsAvailable())

@@ -38,63 +38,71 @@ GLOBAL_DATUM_INIT(crewmonitor, /datum/crewmonitor, new)
 	/// Map of job to ID for sorting purposes
 	var/list/jobs = list(
 		// Note that jobs divisible by 10 are considered heads of staff, and bolded
-		// 00: Captain
-		"Captain" = 00,
+		// Job names are based on `hud_state` from id card.
+		// 0: Captain
+		"captain" = 0,
+		"actingcaptain" = 1,
+		"rawcommand" = 9,
 		// 10-19: Security
-		"Head of Security" = 10,
-		"Warden" = 11,
-		"Security Officer" = 12,
-		"Detective" = 13,
-		"Brig Physician" = 14,
-		"Deputy" = 15,
+		"headofsecurity" = 10,
+		"warden" = 11,
+		"securityofficer" = 12,
+		"detective" = 13,
+		"brigphysician" = 14,
+		"deputy" = 15,
+		"rawsecurity" = 19,
 		// 20-29: Medbay
-		"Chief Medical Officer" = 20,
-		"Chemist" = 21,
-		"Geneticist" = 22,
-		"Virologist" = 23,
-		"Medical Doctor" = 24,
-		"Paramedic" = 25,
-		"Psychiatrist" = 26,
+		"chiefmedicalofficer" = 20,
+		"chemist" = 21,
+		"geneticist" = 22,
+		"virologist" = 23,
+		"medicaldoctor" = 24,
+		"paramedic" = 25,
+		"psychiatrist" = 26,
+		"rawmedical" = 29,
 		// 30-39: Science
-		"Research Director" = 30,
-		"Scientist" = 31,
-		"Roboticist" = 32,
-		"Exploration Crew" = 33,
+		"researchdirector" = 30,
+		"scientist" = 31,
+		"roboticist" = 32,
+		"explorationcrew" = 33,
+		"rawscience" = 39,
 		// 40-49: Engineering
-		"Chief Engineer" = 40,
-		"Station Engineer" = 41,
-		"Atmospheric Technician" = 42,
+		"chiefengineer" = 40,
+		"stationengineer" = 41,
+		"atmospherictechnician" = 42,
+		"rawengineering" = 49,
 		// 50-59: Cargo
-		"Head of Personnel" = 50,
-		"Quartermaster" = 51,
-		"Shaft Miner" = 52,
-		"Cargo Technician" = 53,
+		"headofpersonnel" = 50,
+		"quartermaster" = 51,
+		"shaftminer" = 52,
+		"cargotechnician" = 53,
+		"rawcargo" = 59,
 		// 60+: Civilian/other
-		"Bartender" = 61,
-		"Cook" = 62,
-		"Botanist" = 63,
-		"Curator" = 64,
-		"Chaplain" = 65,
-		"Clown" = 66,
-		"Mime" = 67,
-		"Janitor" = 68,
-		"Lawyer" = 69,
-		"Barber" = 71,
-		"Stage Magician" = 72,
-		"VIP" = 73,
+		"bartender" = 61,
+		"cook" = 62,
+		"botanist" = 63,
+		"curator" = 64,
+		"chaplain" = 65,
+		"clown" = 66,
+		"mime" = 67,
+		"janitor" = 68,
+		"lawyer" = 69,
+		"barber" = 71,
+		"stagemagician" = 72,
+		"vip" = 73,
+		"rawservice" = 99,
 		// ANYTHING ELSE = UNKNOWN_JOB_ID, Unknowns/custom jobs will appear after civilians, and before assistants
 		"Assistant" = 999,
 
 		// 200-229: Centcom
-		"Admiral" = 200,
-		"CentCom Commander" = 210,
-		"Custodian" = 211,
-		"Medical Officer" = 212,
-		"Research Officer" = 213,
-		"Emergency Response Team Commander" = 220,
-		"Security Response Officer" = 221,
-		"Engineer Response Officer" = 222,
-		"Medical Response Officer" = 223
+		"centcom" = 200,
+		"rawcentcom" = 229,
+
+
+		// 300-309: misc
+		"king" = 300,
+		"syndicate" = 301,
+		"prisoner" = 302
 	)
 
 
@@ -190,10 +198,10 @@ GLOBAL_DATUM_INIT(crewmonitor, /datum/crewmonitor, new)
 		var/obj/item/card/id/I = tracked_human.wear_id ? tracked_human.wear_id.GetID() : null
 
 		if (I)
-			entry["name"] = I.registered_name
-			entry["assignment"] = I.assignment
-			if(jobs[I.assignment] != null)
-				entry["ijob"] = jobs[I.assignment]
+			entry["name"] = I.registered_name ? I.registered_name : "Unknown"
+			entry["assignment"] = I.assignment ? I.assignment : "Unknown"
+			if(jobs[I.hud_state] != null)
+				entry["ijob"] = jobs[I.hud_state]
 
 		// Binary living/dead status
 		if (nanite_sensors || uniform.sensor_mode >= SENSOR_LIVING)
