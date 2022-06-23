@@ -219,7 +219,9 @@
 			if(storedid)
 				var/newidskin
 				newidskin = input(user, "Select an ID skin!", "ID  Painting") as null|anything in valid_jobs
-				if(!newidskin || newidskin[1] == "-")
+				if(!newidskin)
+					return
+				if(newidskin[1] == "-")
 					return
 				if(!in_range(src, user))
 					return
