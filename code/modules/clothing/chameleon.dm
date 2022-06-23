@@ -189,17 +189,21 @@
 
 /datum/action/item_action/chameleon/change/proc/random_look(mob/user)
 	var/picked_name = pick(chameleon_list)
+	var/obj/item/picked_item = chameleon_list[picked_name]
 	// If a user is provided, then this item is in use, and we
 	// need to update our icons and stuff
 
 	if(user)
-		update_look(user, chameleon_list[picked_name])
+		update_look(user, picked_item)
 
 	// Otherwise, it's likely a random initialisation, so we
 	// don't have to worry
 
 	else
-		update_item(chameleon_list[picked_name])
+		update_item(picked_item)
+		if(ispath(picked_item, /obj/item/card/id))
+			var/mob/living/carbon/human/H = user
+			H?.sec_hud_set_ID()
 
 /datum/action/item_action/chameleon/change/proc/update_look(mob/user, obj/item/picked_item)
 	if(isliving(user))
@@ -208,6 +212,10 @@
 			return
 
 		update_item(picked_item)
+		if(ispath(picked_item, /obj/item/card/id))
+			var/mob/living/carbon/human/H = user
+			H?.sec_hud_set_ID()
+
 		var/obj/item/thing = target
 		thing.update_slot_icon()
 	UpdateButtonIcon()
@@ -235,6 +243,10 @@
 			var/obj/item/clothing/CL = I
 			var/obj/item/clothing/PCL = picked_item
 			CL.flags_cover = initial(PCL.flags_cover)
+		if(isidcard(I) && ispath(picked_item, /obj/item/card/id))
+			var/obj/item/card/id/ID = target
+			var/obj/item/card/id/ID_from = picked_item
+			ID.hud_state = initial(ID_from.hud_state)
 		if(initial(picked_item.greyscale_config) && initial(picked_item.greyscale_colors))
 			target.icon = SSgreyscale.GetColoredIconByType(initial(picked_item.greyscale_config), initial(picked_item.greyscale_colors))
 		else

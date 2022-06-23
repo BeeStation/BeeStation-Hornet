@@ -43,38 +43,25 @@
 		"Warden" = "pda-warden",
 		"Exploration Crew" = "pda-exploration"
 		)
-	var/id_icons = list(
-		"Assistant" = "id",
-		"Atmospheric Technician" = "atmos",
-		"Cargo" = "cargo",
-		"Chaplain" = "chap",
-		"Captain" = "captain",
-		"Chief Engineer" = "ce",
-		"Chief Medical Officer" = "cmo",
-		"Clown" = "clown",
-		"Detective" = "detective",
-		"Engineering" = "engi",
-		"Head of Personnel" = "hop",
-		"Head of Security" = "hos",
-		"Lawyer" = "lawyer",
-		"Medical" = "med",
-		"Mime" = "mime",
-		"Quartermaster" = "qm",
-		"Research Director" = "rd",
-		"Science" = "sci",
-		"Security" = "sec",
-		"Service" = "serv",
-		"Shaft Miner" = "miner",
-		"Warden" = "warden",
-		"Paramedic" = "paramed",
-		"Virologist" = "viro",
-		"Chemist" = "chemist",
-		"Geneticist" = "gene",
-		"Brig Physician" = "brigphys",
-		"Deputy" = "deputy",
-		"Roboticist" = "roboticist",
-		"Janitor" = "janitor",
-		"Exploration Crew" = "exploration"
+
+	var/valid_jobs = list(
+		// Command
+		"----Command----","Command (Custom)", "Captain", "Acting Captain",
+		// Service
+		"----Service----","Service (Custom)", "Assistant", "Head of Personnel", "Bartender", "Cook", "Botanist", "Janitor", "Curator",
+		"Chaplain", "Lawyer", "Clown", "Mime", "Barber", "Stage Magician",
+		// Cargo
+		"----Cargo----","Cargo (Custom)","Quartermaster", "Cargo Technician","Shaft Miner",
+		// Engineering
+		"----Engineering----","Engineering (Custom)","Chief Engineer", "Station Engineer", "Atmospheric Technician",
+		// R&D
+		"----Science----","Science (Custom)","Research Director", "Scientist", "Roboticist", "Exploration Crew",
+		// Medical
+		"----Medical----","Medical (Custom)","Chief Medical Officer", "Medical Doctor", "Chemist", "Geneticist", "Virologist", "Paramedic", "Psychiatrist",
+		// Security
+		"----Security----","Security (Custom)","Head of Security", "Warden", "Detective", "Security Officer", "Brig Physician", "Deputy",
+		// ETC
+		"----MISC----","Prisoner"
 		)
 	max_integrity = 200
 	var/list/colorlist = list()
@@ -86,11 +73,15 @@
 		"Transparent" = "pda-clear",
 		"Syndicate" = "pda-syndi"
 		)
-	id_icons += list(
-		"CentCom" = "centcom",
-		"ERT" = "ert",
-		"Syndicate" = "syndicate",
-		"Clown Operative" = "clown_op",
+	valid_jobs += list(
+		"CentCom (Custom)",
+		"CentCom",
+		"ERT",
+		"VIP",
+		"KING",
+		"Syndicate",
+		"Clown Operative",
+		"Unknown",
 		)
 	to_chat(user, "<span class='warning'>You short out the design locking circuitry, allowing contraband and special designs.</span>")
 	obj_flags |= EMAGGED
@@ -227,14 +218,15 @@
 				ejectpda()
 			if(storedid)
 				var/newidskin
-				newidskin = input(user, "Select an ID skin!", "ID  Painting") as null|anything in id_icons
-				if(!newidskin)
+				newidskin = input(user, "Select an ID skin!", "ID  Painting") as null|anything in valid_jobs
+				if(!newidskin || newidskin[1] == "-")
 					return
 				if(!in_range(src, user))
 					return
 				if(!storedid)//is the ID still there?
 					return
-				storedid.icon_state = id_icons[newidskin]
+				storedid.icon_state = get_cardstyle_by_jobname(newidskin)
+				storedid.hud_state = get_hud_by_jobname(newidskin)
 				ejectid()
 		else
 			to_chat(user, "<span class='notice'>[src] is empty.</span>")
@@ -267,3 +259,155 @@
 /obj/machinery/pdapainter/power_change()
 	..()
 	update_icon()
+
+
+/proc/get_cardstyle_by_jobname(jobname)
+	if(jobname)
+		var/static/id_style = list(
+			// Command
+			"Command (Custom)" = "rawcommand",
+			"Captain" = "captain",
+			"Acting Captain" = "actingcaptain",
+			// Service
+			"Service (Custom)" = "rawservice",
+			"Head of Personnel" = "hop",
+			"Assistant" = "id",
+			"Botanist" = "serv",
+			"Bartender" = "serv",
+			"Cook" = "serv",
+			"Janitor" = "janitor",
+			"Curator" = "chap",
+			"Chaplain" = "chap",
+			"Lawyer" = "lawyer",
+			"Clown" = "clown",
+			"Mime" = "mime",
+			"Stage Magician" = "serv",
+			"Barber" = "serv",
+			// Cargo
+			"Cargo (Custom)" = "rawcargo",
+			"Quartermaster" = "qm",
+			"Cargo Technician" = "cargo",
+			"Shaft Miner" = "miner",
+			// R&D
+			"Science (Custom)" = "rawscience",
+			"Research Director" = "rd",
+			"Science" = "sci",
+			"Roboticist" = "roboticist",
+			"Exploration Crew" = "exploration",
+			// Engineering
+			"Engineering (Custom)" = "rawengineering",
+			"Chief Engineer" = "ce",
+			"Station Engineer" = "engi",
+			"Atmospheric Technician" = "atmos",
+			// Medical
+			"Medical (Custom)" = "rawmedical",
+			"Chief Medical Officer" = "cmo",
+			"Medical Doctor" = "med",
+			"Paramedic" = "paramed",
+			"Virologist" = "viro",
+			"Geneticist" = "gene",
+			"Chemist" = "chemist",
+			"Psychiatrist" = "med",
+			// Security
+			"Security (Custom)" = "rawsecurity",
+			"Head of Security" = "hos",
+			"Security Officer" = "sec",
+			"Warden" = "warden",
+			"Detective" = "detective",
+			"Brig Physician" = "brigphys",
+			"Deputy" = "deputy",
+			// ETC
+			"Prisoner" = "orange",
+			// EMAG
+			"CentCom (Custom)" = "centcom",
+			"CentCom" = "centcom",
+			"ERT" = "ert",
+			"VIP" = "gold",
+			"King" = "gold",
+			"Syndicate" = "syndicate",
+			"Clown Operative" = "clown_op",
+			"Unknown" = "unknown",
+			// ETC2
+			"Ratvar" = "ratvar"
+			)
+		if(jobname in id_style)
+			return id_style[jobname]
+	return "noname"
+
+/proc/get_hud_by_jobname(jobname)
+	if(jobname)
+		var/static/id_to_hud = list(
+			// Command
+			"Command (Custom)" = "rawcommand",
+			"ACting Captain" = "actingcaptain",
+			"Captain" = "captain",
+
+			// Service
+			"Service (Custom)" = "rawservice",
+			"Head of Personnel" = "headofpersonnel",
+			"Assistant" = "assistant",
+			"Bartender" = "bartender",
+			"Cook" = "cook",
+			"Botanist" = "botanist",
+			"Curator" = "curator",
+			"Chaplain" = "chaplain",
+			"Janitor" = "janitor",
+			"Lawyer" = "lawyer",
+			"Mime" = "mime",
+			"Clown" = "clown",
+			"Barber" = "barber",
+			"Stage Magician" = "stagemagician",
+
+			// Cargo
+			"Cargo (Custom)" = "rawcargo",
+			"Quartermaster" = "quartermaster",
+			"Cargo Technician" = "cargotechnician",
+			"Shaft Miner" = "shaftminer",
+
+			// R&D
+			"Science (Custom)" = "rawscience",
+			"Research Director" = "researchdirector",
+			"Scientist" = "scientist",
+			"Roboticist" = "roboticist",
+			"Exploration Crew" = "explorationcrew",
+
+			// Engineering
+			"Engineering (Custom)" = "rawengineering",
+			"Chief Engineer" = "chiefengineer",
+			"Station Engineer" = "stationengineer",
+			"Atmospheric Technician" = "atmospherictechnician",
+
+			// Medical
+			"Medical (Custom)" = "rawmedical",
+			"Chief Medical Officer" = "chiefmedicalofficer",
+			"Medical Doctor" = "medicaldoctor",
+			"Paramedic" = "paramedic",
+			"Virologist" = "virologist",
+			"Chemist" = "chemist",
+			"Geneticist" = "geneticist",
+			"Psychiatrist" = "psychiatrist",
+
+			// Security
+			"Security (Custom)" = "rawsecurity",
+			"Head of Security" = "headofsecurity",
+			"Security Officer" = "securityofficer",
+			"Warden" = "warden",
+			"Detective" = "detective",
+			"Brig Physician" = "brigphysician",
+			"Deputy" = "deputy",
+
+			// CentCom
+			"CentCom (Custom)" = "rawcentcom",
+			"CentCom" = "centcom",
+			"ERT" = "centcom",
+
+			// ETC
+			"VIP" = "vip",
+			"King" = "king",
+			"Syndicate" = "syndicate",
+			"Clown Operative" = "syndicate",
+			"Prisoner" = "prisoner"
+			)
+		if(jobname in id_to_hud)
+			return id_to_hud[jobname]
+	return "unknown"
