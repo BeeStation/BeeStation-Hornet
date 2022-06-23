@@ -170,7 +170,6 @@ MIDROUND_ANTAG INTERNAL_AFFAIRS
 MIDROUND_ANTAG CULT
 MIDROUND_ANTAG CHANGELING
 MIDROUND_ANTAG WIZARD
-#MIDROUND_ANTAG  MONKEY
 
 ## Uncomment these for overrides of the minimum / maximum number of players in a round type.
 ## If you set any of these occasionally check to see if you still need them as the modes
@@ -204,9 +203,6 @@ MAX_POP CHANGELING -1
 
 MIN_POP WIZARD 20
 MAX_POP WIZARD -1
-
-MIN_POP MONKEY 20
-MAX_POP MONKEY -1
 
 MIN_POP METEOR 0
 MAX_POP METEOR -1
