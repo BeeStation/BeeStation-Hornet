@@ -217,6 +217,7 @@
 
 /atom/movable/proc/stop_pulling()
 	if(pulling)
+		SEND_SIGNAL(pulling, COMSIG_ATOM_NO_LONGER_PULLED, src) //Monkestation edit: signal for haul gloves
 		pulling.pulledby = null
 		var/mob/living/ex_pulled = pulling
 		pulling = null
@@ -1011,6 +1012,8 @@
 
 /atom/movable/proc/can_be_pulled(user, grab_state, force)
 	if(src == user || !isturf(loc))
+		return FALSE
+	if(SEND_SIGNAL(src, COMSIG_ATOM_CAN_BE_PULLED, user) & COMSIG_ATOM_CANT_PULL)
 		return FALSE
 	if(anchored || throwing)
 		return FALSE

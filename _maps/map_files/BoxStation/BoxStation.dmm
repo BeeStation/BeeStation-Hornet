@@ -49921,6 +49921,10 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
+"oVp" = (
+/obj/machinery/piratepad/civilian,
+/turf/open/floor/plasteel,
+/area/quartermaster/office)
 "oVq" = (
 /obj/structure/table/glass,
 /obj/item/stock_parts/manipulator,
@@ -50034,6 +50038,12 @@
 /obj/machinery/door/firedoor,
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
+"peq" = (
+/obj/machinery/computer/piratepad_control/civilian{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/quartermaster/office)
 "pfr" = (
 /obj/structure/table/wood,
 /obj/item/paper_bin{
@@ -81097,7 +81107,7 @@ bqs
 wDF
 bbR
 bbR
-bbR
+peq
 bwd
 bvL
 byI
@@ -81354,7 +81364,7 @@ hKl
 vaL
 btu
 bbR
-bbR
+oVp
 bwd
 ccR
 byK

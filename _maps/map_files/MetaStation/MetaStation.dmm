@@ -14925,17 +14925,15 @@
 /obj/machinery/airalarm{
 	pixel_y = 23
 	},
-/obj/structure/table,
-/obj/item/paper_bin{
-	pixel_x = -3;
-	pixel_y = 7
-	},
 /obj/effect/turf_decal/tile/brown{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/brown,
 /obj/effect/turf_decal/tile/brown{
 	dir = 4
+	},
+/obj/machinery/computer/piratepad_control/civilian{
+	dir = 8
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/port)
@@ -15454,9 +15452,6 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/port)
 "bca" = (
-/obj/structure/chair{
-	dir = 8
-	},
 /obj/machinery/light{
 	dir = 4
 	},
@@ -15468,6 +15463,7 @@
 /obj/effect/turf_decal/tile/brown{
 	dir = 4
 	},
+/obj/machinery/piratepad/civilian,
 /turf/open/floor/plasteel,
 /area/hallway/primary/port)
 "bcd" = (
@@ -72275,7 +72271,7 @@
 /obj/machinery/camera{
 	c_tag = "Incinerator";
 	dir = 8;
-	network = list("ss13", "turbine")
+	network = list("ss13","turbine")
 	},
 /obj/machinery/atmospherics/pipe/simple/dark/visible{
 	dir = 10

@@ -53617,17 +53617,14 @@
 /turf/open/floor/plasteel/techmaint,
 /area/hallway/primary/fore)
 "mpv" = (
-/obj/structure/table,
-/obj/item/paper_bin{
-	pixel_x = -3;
-	pixel_y = 7
-	},
-/obj/item/folder/yellow,
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -26
 	},
 /obj/machinery/light{
 	dir = 8
+	},
+/obj/machinery/computer/piratepad_control/civilian{
+	dir = 4
 	},
 /turf/open/floor/plasteel/dark,
 /area/quartermaster/office)
@@ -61551,6 +61548,7 @@
 	dir = 4;
 	name = "cargo camera"
 	},
+/obj/machinery/piratepad/civilian,
 /turf/open/floor/plasteel/dark,
 /area/quartermaster/office)
 "onI" = (

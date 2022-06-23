@@ -45385,14 +45385,14 @@
 /turf/open/floor/plasteel,
 /area/quartermaster/office)
 "bRI" = (
-/obj/structure/chair{
-	dir = 4
-	},
 /obj/effect/turf_decal/tile/brown{
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/brown,
 /obj/effect/turf_decal/tile/brown{
+	dir = 1
+	},
+/obj/machinery/computer/piratepad_control/civilian{
 	dir = 1
 	},
 /turf/open/floor/plasteel,
@@ -45579,6 +45579,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/brown,
+/obj/machinery/piratepad/civilian,
 /turf/open/floor/plasteel,
 /area/quartermaster/office)
 "bSl" = (

@@ -147,6 +147,7 @@
 	display_name = "Data Theory"
 	description = "Big Data, in space!"
 	prereq_ids = list("base")
+	design_ids = list("bounty_pad", "bounty_pad_control") //Monkestation edit
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 	export_price = 5000
 
@@ -755,7 +756,7 @@
 	display_name = "Mining Technology"
 	description = "Better than Efficiency V."
 	prereq_ids = list("engineering", "basic_plasma")
-	design_ids = list("drill", "superresonator", "triggermod", "damagemod", "cooldownmod", "rangemod", "ore_redemption", "mining_equipment_vendor", "exploration_equipment_vendor", "cargoexpress", "plasmacutter")//e a r l y    g a  m e)
+	design_ids = list("drill", "superresonator", "triggermod", "damagemod", "cooldownmod", "rangemod", "ore_redemption", "mining_equipment_vendor", "exploration_equipment_vendor", "cargoexpress", "haul_gauntlet", "plasmacutter")//e a r l y    g a  m e) //Monkestation edit
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 	export_price = 5000
 

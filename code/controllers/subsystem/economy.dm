@@ -21,7 +21,9 @@ SUBSYSTEM_DEF(economy)
 	///Multiplied as they go to all department accounts rather than just cargo.
 	var/bounty_modifier = 3
 
-	//MonkeStation Edit: /tg/ Mail Port
+	//Monkestation edit begin
+	/// How many civilain bounties have been completed so far this shift? Affects civilian budget payout values.
+	var/civ_bounty_tracker = 0
 	/// Total value of exported materials.
 	var/export_total = 0
 	/// Total value of imported goods.

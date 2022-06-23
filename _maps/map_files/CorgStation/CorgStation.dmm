@@ -17039,6 +17039,9 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/neutral,
+/obj/machinery/computer/piratepad_control/civilian{
+	dir = 1
+	},
 /turf/open/floor/plasteel/dark,
 /area/hallway/primary/starboard)
 "eda" = (
@@ -32363,7 +32366,7 @@
 	moveable = 1
 	},
 /obj/machinery/mass_driver{
-	armor = list("melee" = 10, "bullet" = 10, "laser" = 10, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 70);
+	armor = list("melee"=10,"bullet"=10,"laser"=10,"energy"=0,"bomb"=0,"bio"=0,"rad"=0,"fire"=100,"acid"=70);
 	critical_machine = 1;
 	dir = 8;
 	id = "smeject";
@@ -62437,7 +62440,7 @@
 	dir = 1
 	},
 /obj/machinery/computer/cargo/request{
-	dir = 4
+	dir = 1
 	},
 /turf/open/floor/plasteel/dark,
 /area/hallway/primary/starboard)
@@ -73355,6 +73358,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 5
 	},
+/obj/machinery/piratepad/civilian,
 /turf/open/floor/plasteel/dark,
 /area/hallway/primary/starboard)
 "rlL" = (

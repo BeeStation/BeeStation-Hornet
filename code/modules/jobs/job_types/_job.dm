@@ -65,6 +65,8 @@
 
 	var/display_order = JOB_DISPLAY_ORDER_DEFAULT
 
+	var/bounty_types = CIV_JOB_BASIC //Monkestation edit
+
 	var/gimmick = FALSE //least hacky way i could think of for this
 
 	///Bitfield of departments this job belongs wit

@@ -1705,8 +1705,10 @@
 /obj/effect/turf_decal/monke/siding/brown{
 	dir = 1
 	},
-/obj/structure/chair/stool,
 /obj/effect/turf_decal/tile/brown,
+/obj/machinery/computer/piratepad_control/civilian{
+	dir = 8
+	},
 /turf/open/floor/plasteel/tech/grid,
 /area/quartermaster/storage)
 "ahd" = (
@@ -20161,6 +20163,10 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/plasteel/dark,
 /area/bridge)
+"tfH" = (
+/obj/machinery/piratepad/civilian,
+/turf/open/floor/plasteel/techmaint,
+/area/quartermaster/storage)
 "tgf" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-6"
@@ -55223,7 +55229,7 @@ aZK
 aDc
 aTZ
 jCI
-aVl
+tfH
 ahb
 aZK
 acb

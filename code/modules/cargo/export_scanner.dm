@@ -9,37 +9,47 @@
 	item_flags = NOBLUDGEON
 	w_class = WEIGHT_CLASS_SMALL
 	siemens_coefficient = 1
-	var/obj/machinery/computer/cargo/cargo_console = null
+//Monkestation edit begin: removes need for cargo console, adds compatibility with bounty cubes
 
 /obj/item/export_scanner/examine(user)
 	. = ..()
-	if(!cargo_console)
-		. += "<span class='notice'>[src] is not currently linked to a cargo console.</span>"
 
 /obj/item/export_scanner/afterattack(obj/O, mob/user, proximity)
 	. = ..()
 	if(!istype(O) || !proximity)
 		return
 
-	if(istype(O, /obj/machinery/computer/cargo))
-		var/obj/machinery/computer/cargo/C = O
-		if(!C.requestonly)
-			cargo_console = C
-			to_chat(user, "<span class='notice'>Scanner linked to [C].</span>")
-	else if(!istype(cargo_console))
-		to_chat(user, "<span class='warning'>You must link [src] to a cargo console first!</span>")
+	// Before you fix it:
+	// yes, checking manifests is a part of intended functionality.
+	var/datum/export_report/report = export_item_and_contents(O, dry_run=TRUE)
+	var/price = 0
+	for(var/x in report.total_amount)
+		price += report.total_value[x]
+	if(price)
+		to_chat(user, "<span class='notice'>Scanned [O], value: <b>[price]</b> credits[O.contents.len ? " (contents included)" : ""].")
 	else
-		// Before you fix it:
-		// yes, checking manifests is a part of intended functionality.
+		to_chat(user, "<span class='warning'>Scanned [O], no export value.")
 
-		var/datum/export_report/ex = export_item_and_contents(O, cargo_console.get_export_categories(), dry_run=TRUE)
-		var/price = 0
-		for(var/x in ex.total_amount)
-			price += ex.total_value[x]
+	if(ishuman(user))
+		var/mob/living/carbon/human/scanning_user = user
+		if(istype(O, /obj/item/bounty_cube))
+			var/obj/item/bounty_cube/cube = O
+			var/datum/bank_account/scanner_account = scanning_user.get_bank_account()
 
-		if(price)
-			to_chat(user, "<span class='notice'>Scanned [O], value: <b>[price]</b> credits[O.contents.len ? " (contents included)" : ""].</span>")
-		else
-			to_chat(user, "<span class='warning'>Scanned [O], no export value.</span>")
-		if(bounty_ship_item_and_contents(O, dry_run=TRUE))
-			to_chat(user, "<span class='notice'>Scanned item is eligible for one or more bounties.</span>")
+			if(!istype(get_area(cube), /area/shuttle/supply))
+				to_chat(user, "<span class='warning'>Shuttle placement not detected. Handling tip not registered.")
+
+			else if(cube.bounty_handler_account)
+				to_chat(user, "<span class='warning'>Bank account for handling tip already registered!")
+
+			else if(scanner_account)
+				cube.AddComponent(/datum/component/pricetag, scanner_account, cube.handler_tip, FALSE)
+
+				cube.bounty_handler_account = scanner_account
+				cube.bounty_handler_account.bank_card_talk("Bank account for [price ? "<b>[price * cube.handler_tip]</b> credit " : ""]handling tip successfully registered.")
+
+				if(cube.bounty_holder_account != cube.bounty_handler_account) //No need to send a tracking update to the person scanning it
+					cube.bounty_holder_account.bank_card_talk("<b>[cube]</b> was scanned in \the <b>[get_area(cube)]</b> by <b>[scanning_user] ([scanning_user.job])</b>.")
+
+			else
+				to_chat(user, "<span class='warning'>Bank account not detected. Handling tip not registered.")
