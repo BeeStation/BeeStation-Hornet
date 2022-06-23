@@ -945,7 +945,7 @@ update_label("John Doe", "Clowny")
 	name = "important gold identification card"
 	hud_state = "vip"
 
-// For chamelons
+// For chameleons
 /obj/item/card/id/job/rawcommand
 	name = "Job card (Com) - Custom"
 	icon_state = "rawcommand"
