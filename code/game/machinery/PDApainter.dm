@@ -45,23 +45,15 @@
 		)
 
 	var/valid_jobs = list(
-		// Command
 		"----Command----","Command (Custom)", "Captain", "Acting Captain",
-		// Service
 		"----Service----","Service (Custom)", "Assistant", "Head of Personnel", "Bartender", "Cook", "Botanist", "Janitor", "Curator",
 		"Chaplain", "Lawyer", "Clown", "Mime", "Barber", "Stage Magician",
-		// Cargo
 		"----Cargo----","Cargo (Custom)","Quartermaster", "Cargo Technician","Shaft Miner",
-		// Engineering
 		"----Engineering----","Engineering (Custom)","Chief Engineer", "Station Engineer", "Atmospheric Technician",
-		// R&D
 		"----Science----","Science (Custom)","Research Director", "Scientist", "Roboticist", "Exploration Crew",
-		// Medical
 		"----Medical----","Medical (Custom)","Chief Medical Officer", "Medical Doctor", "Chemist", "Geneticist", "Virologist", "Paramedic", "Psychiatrist",
-		// Security
 		"----Security----","Security (Custom)","Head of Security", "Warden", "Detective", "Security Officer", "Brig Physician", "Deputy",
-		// ETC
-		"----MISC----","Prisoner"
+		"----MISC----","Unassigned","Prisoner"
 		)
 	max_integrity = 200
 	var/list/colorlist = list()
@@ -80,8 +72,7 @@
 		"VIP",
 		"KING",
 		"Syndicate",
-		"Clown Operative",
-		"Unknown",
+		"Clown Operative"
 		)
 	to_chat(user, "<span class='warning'>You short out the design locking circuitry, allowing contraband and special designs.</span>")
 	obj_flags |= EMAGGED
@@ -319,6 +310,7 @@
 			"Brig Physician" = "brigphys",
 			"Deputy" = "deputy",
 			// ETC
+			"Unassigned" = "id",
 			"Prisoner" = "orange",
 			// EMAG
 			"CentCom (Custom)" = "centcom",
@@ -408,6 +400,7 @@
 			"King" = "king",
 			"Syndicate" = "syndicate",
 			"Clown Operative" = "syndicate",
+			"Unassigned" = "unknown",
 			"Prisoner" = "prisoner"
 			)
 		if(jobname in id_to_hud)
