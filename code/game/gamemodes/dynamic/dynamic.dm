@@ -41,8 +41,6 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 
 	/// Running information about the threat. Can store text or datum entries.
 	var/list/threat_log = list()
-	/// List of roundstart rules used for selecting the rules.
-	var/list/roundstart_rules
 	/// List of latejoin rules used for selecting the rules.
 	var/list/latejoin_rules
 	/// List of midround rules used for selecting the rules.
@@ -375,6 +373,10 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 	setup_hijacking()
 	setup_rulesets()
 
+	//We do this here instead of with the midround rulesets and such because these rules can hang refs
+	//To new_player and such, and we want the datums to just free when the roundstart work is done
+	var/list/roundstart_rules = init_rulesets(/datum/dynamic_ruleset/roundstart)
+
 	for(var/i in GLOB.new_player_list)
 		var/mob/dead/new_player/player = i
 		if(player.ready == PLAYER_READY_TO_PLAY && player.mind)
@@ -388,7 +390,7 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 	if(GLOB.dynamic_forced_roundstart_ruleset.len > 0)
 		rigged_roundstart()
 	else
-		roundstart()
+		roundstart(roundstart_rules)
 
 	dynamic_log("[round_start_budget] round start budget was left, donating it to midrounds.")
 	threat_log += "[worldtime2text()]: [round_start_budget] round start budget was left, donating it to midrounds."
@@ -409,7 +411,6 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 
 /// Initializes the internal ruleset variables
 /datum/game_mode/dynamic/proc/setup_rulesets()
-	roundstart_rules = init_rulesets(/datum/dynamic_ruleset/roundstart)
 	midround_rules = init_rulesets(/datum/dynamic_ruleset/midround)
 	latejoin_rules = init_rulesets(/datum/dynamic_ruleset/latejoin)
 
@@ -452,7 +453,7 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 
 			spend_roundstart_budget(picking_roundstart_rule(rule, scaled_times, forced = TRUE))
 
-/datum/game_mode/dynamic/proc/roundstart()
+/datum/game_mode/dynamic/proc/roundstart(list/roundstart_rules)
 	if (GLOB.dynamic_forced_extended)
 		log_game("DYNAMIC: Starting a round of forced extended.")
 		return TRUE
