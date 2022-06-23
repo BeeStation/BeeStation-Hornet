@@ -784,7 +784,7 @@ update_label("John Doe", "Clowny")
 /obj/item/card/id/job/atmos
 	name = "Job card (Eng) - Atmos"
 	icon_state = "atmos"
-	hud_state = "stationengineer"
+	hud_state = "atmospherictechnician"
 
 /obj/item/card/id/job/cmo
 	name = "Job card (Med) - CMO"
@@ -829,7 +829,7 @@ update_label("John Doe", "Clowny")
 /obj/item/card/id/job/sec
 	name = "Job card (Sec) - Security Officer"
 	icon_state = "sec"
-	hud_state = "security"
+	hud_state = "securityofficer"
 
 /obj/item/card/id/job/brigphys
 	name = "Job card (Sec) - Brig Phys"
