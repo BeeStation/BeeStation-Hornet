@@ -69,6 +69,7 @@
 		return ..()
 
 /obj/machinery/ecto_sniffer/Destroy()
+	QDEL_NULL(wires)
 	ectoplasmic_residues = null
 	. = ..()
 

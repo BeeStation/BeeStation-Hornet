@@ -361,7 +361,7 @@ MINIMAL_ACCESS_THRESHOLD 20
 ## Uncomment to give assistants maint access.
 #ASSISTANTS_HAVE_MAINT_ACCESS
 
-## Uncoment to give security maint access. Note that if you dectivate JOBS_HAVE_MINIMAL_ACCESS security already gets maint from that.
+## Uncomment to give security maint access. Note that if you dectivate JOBS_HAVE_MINIMAL_ACCESS security already gets maint from that.
 SECURITY_HAS_MAINT_ACCESS
 
 ## Uncomment to give everyone maint access.
@@ -634,5 +634,5 @@ DONATOR_ITEMS
 ## Do we want all the heads to get codes to spare safe, or just one highest in CoC?
 SPARE_ENFORCE_COC
 
-## Uncoment to disable local bans, effectively enforcing only global bans
+## Uncomment to disable local bans, effectively enforcing only global bans
 DISABLE_LOCAL_BANS
