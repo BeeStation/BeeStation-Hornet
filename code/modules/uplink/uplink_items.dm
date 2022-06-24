@@ -2130,6 +2130,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	To activate His Grace, simply unlatch Him."
 	item = /obj/item/his_grace
 	cost = 20
+	restricted_roles = list("Chaplain")
 	murderbone_type = TRUE
 	surplus = 0
 
