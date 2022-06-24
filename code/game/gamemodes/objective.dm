@@ -419,6 +419,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 
 /datum/objective/hijack/on_obj_given()
 	owner.murderbone_types |= MIND_MURDERBONE_GENERAL | MIND_MURDERBONE_HIJACK
+	message_admins("[key_name(owner)] has acquired murderbone pass.")
 
 /datum/objective/hijack/check_completion() // Requires all owners to escape.
 	if(SSshuttle.emergency.mode != SHUTTLE_ENDGAME)
@@ -626,6 +627,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 
 /datum/objective/martyr/on_obj_given()
 	owner.murderbone_types |= MIND_MURDERBONE_GENERAL | MIND_MURDERBONE_MAATYR
+	message_admins("[key_name(owner)] has acquired murderbone pass.")
 
 /datum/objective/martyr/check_completion()
 	for(var/datum/mind/M as() in get_owners())
