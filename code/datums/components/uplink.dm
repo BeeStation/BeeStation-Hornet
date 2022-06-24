@@ -176,7 +176,7 @@
 			var/datum/uplink_item/I = uplink_items[category][item]
 			if(I.limited_stock == 0)
 				continue
-			if(I.murderbone_type && !(user.mind.murderbone_types & I.murderbone_type))
+			if(I.murderbone_type && !user.mind.is_murderbone())
 				continue
 			if(I.restricted_roles.len && I.discounted == FALSE)
 				var/is_inaccessible = TRUE

@@ -803,7 +803,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/storage/box/syndie_kit/romerol
 	cost = 20
 	cant_discount = TRUE
-	murderbone_type = MIND_MURDERBONE_GENERAL
+	murderbone_type = TRUE
 	surplus = 0
 
 /datum/uplink_item/stealthy_weapons/sleepy_pen
@@ -2130,7 +2130,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	To activate His Grace, simply unlatch Him."
 	item = /obj/item/his_grace
 	cost = 20
-	murderbone_type = MIND_MURDERBONE_GENERAL
+	murderbone_type = TRUE
 	surplus = 0
 
 /datum/uplink_item/role_restricted/cultconstructkit

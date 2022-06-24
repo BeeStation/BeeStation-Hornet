@@ -3,6 +3,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 /datum/objective
 	var/datum/mind/owner				//The primary owner of the objective. !!SOMEWHAT DEPRECATED!! Prefer using 'team' for new code.
 	var/datum/team/team					//An alternative to 'owner': a team. Use this when writing new code.
+	var/datum/antagonist/obj_antag      //Used to track which antag gave an objective to you
 	var/name = "generic objective" 		//Name for admin prompts
 	var/explanation_text = "Nothing"	//What that person is supposed to do.
 	var/team_explanation_text			//For when there are multiple owners.
@@ -11,7 +12,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 	var/completed = 0					//currently only used for custom objectives.
 	var/martyr_compatible = 0			//If the objective is compatible with martyr objective, i.e. if you can still do it while dead.
 	var/optional = FALSE				//Whether the objective should show up as optional in the roundend screen
-	var/murderbone_type = NONE
+	var/murderbone_flag = FALSE			//Used to check if obj owner can buy murderbone stuff
 
 /datum/objective/New(var/text)
 	if(text)
@@ -34,17 +35,6 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 		. += owner
 
 /datum/objective/proc/admin_edit(mob/admin)
-	return
-
-/datum/objective/proc/on_obj_given()
-	if(ismurderbone)
-		owner.murderbone_types += 1
-		message_admins("[key_name(owner)] has acquired murderbone pass.")
-	return
-
-/datum/objective/proc/on_obj_removal()
-	if(ismurderbone)
-		owner.murderbone_types -= 1
 	return
 
 //Shared by few objective types
@@ -425,7 +415,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 	martyr_compatible = FALSE //Technically you won't get both anyway.
 	/// Overrides the hijack speed of any antagonist datum it is on ONLY, no other datums are impacted.
 	var/hijack_speed_override = 1
-	ismurderbone = TRUE
+	murderbone_flag = TRUE
 
 /datum/objective/hijack/check_completion() // Requires all owners to escape.
 	if(SSshuttle.emergency.mode != SHUTTLE_ENDGAME)
@@ -630,7 +620,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 /datum/objective/martyr
 	name = "martyr"
 	explanation_text = "Die a glorious death."
-	ismurderbone = TRUE
+	murderbone_flag = TRUE
 
 /datum/objective/martyr/check_completion()
 	for(var/datum/mind/M as() in get_owners())
