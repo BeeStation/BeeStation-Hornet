@@ -117,7 +117,7 @@
 	if(X.process_type != PROCESS_TYPE_LIT && thing.ignition_effect(X, user))
 		X.visible_message("<span class='danger'>The [X.name] sparks on.</span>")
 		X.process_type = PROCESS_TYPE_LIT
-		sleep(5) //Give them a chance to escape
+		sleep(3 SECONDS) //Give them a chance to escape
 		START_PROCESSING(SSobj, X)
 		log_game("[user]:[isliving(user) ? user?.ckey : "no ckey"] lit [X] at [world.time] using [thing]. [X] located at [X.x] [X.y] [X.z].")
 
@@ -292,7 +292,7 @@
 /datum/xenoartifact_trait/minor/cooler/activate(obj/item/xenoartifact/X)
 	X.charge -= 10
 
-/datum/xenoartifact_trait/minor/sentient //One-ring type sentience
+/datum/xenoartifact_trait/minor/sentient
 	label_name = "Sentient"
 	label_desc = "Sentient: The Artifact seems to be alive, influencing events around it. The Artifact wants to return to its master..."
 	///he who lives inside
@@ -358,13 +358,15 @@
 /datum/xenoartifact_trait/minor/sentient/Destroy(force, ...)
 	. = ..()
 	if(man)
+		qdel(man) //Kill the inner person. Otherwise invisible runs around
+		man = null
+	if(S)
 		qdel(S)
-		qdel(man) //Kill the inner person. Otherwise invisible 'animal' runs around
+		S = null
 
 /obj/effect/mob_spawn/sentient_artifact
 	death = FALSE
-	roundstart = FALSE
-	random = TRUE
+	roundstart = TRUE
 	name = "Sentient Xenoartifact"
 	short_desc = "You're a maleviolent sentience, possesing an ancient alien artifact."
 	flavour_text = "Return to your master..."
@@ -373,15 +375,16 @@
 	var/obj/item/xenoartifact/X
 
 /obj/effect/mob_spawn/sentient_artifact/Initialize(mapload, var/obj/item/xenoartifact/Z)
-	. = ..()
 	if(!Z)
 		qdel(src)
 		return FALSE
 	X = Z
+	..()
 
 /obj/effect/mob_spawn/sentient_artifact/create(ckey, name)
 	var/datum/xenoartifact_trait/minor/sentient/S = X.get_trait(/datum/xenoartifact_trait/minor/sentient)
 	S.setup_sentience(X, ckey)
+	..()
 
 /datum/xenoartifact_trait/minor/delicate //Limited uses.
 	desc = "Fragile"

@@ -149,10 +149,16 @@
 
 /obj/item/xenoartifact/attack_hand(mob/user) //tweedle dum, density feature
 	if(get_trait(/datum/xenoartifact_trait/minor/dense))
+		if(process_type == PROCESS_TYPE_LIT) //Snuff out candle
+			to_chat(user, "<span class='notice'>You snuff out [name]</span>")
+			process_type = null
+			return FALSE
+		SEND_SIGNAL(src, XENOA_INTERACT, null, user, user)
+
 		if(user.a_intent != INTENT_GRAB)
 			SEND_SIGNAL(src, XENOA_INTERACT, null, user, user) //Calling the regular attack_hand signal causes feature issues, like picking up the artifact.
-		else
-			touch_desc?.on_touch(src, user)
+		else if(touch_desc?.on_touch(src, user) && user.can_see_reagents())
+			balloon_alert(user, (initial(touch_desc.desc) ? initial(touch_desc.desc) : initial(touch_desc.label_name)), material)
 		return FALSE
 	..()
 
@@ -350,7 +356,7 @@
 	switch(process_type)
 		if(PROCESS_TYPE_LIT) //Burning
 			true_target = list(get_target_in_proximity(min(max_range, 5)))
-			if(!isnull(true_target))
+			if(isliving(true_target[1]))
 				visible_message("<span class='danger'>The [name] flicks out.</span>")
 				default_activate(25, null, null)
 				process_type = null
