@@ -95,7 +95,7 @@ GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 204
 #define FLYING			(1<<1)
 #define VENTCRAWLING	(1<<2)
 #define FLOATING		(1<<3)
-#define PHASING		(1<<4)			//! When moving, will Bump()/Cross() everything, but won't be stopped.
+#define PHASING			(1<<4)			//! When moving, will Bump()/Cross() everything, but won't be stopped.
 #define THROWN			(1<<5) //! while an atom is being thrown
 
 //! ## Fire and Acid stuff, for resistance_flags
@@ -144,9 +144,6 @@ GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 204
 //alternate appearance flags
 #define AA_TARGET_SEE_APPEARANCE (1<<0)
 #define AA_MATCH_TARGET_OVERLAYS (1<<1)
-
-/// Integer precision in 32 bit single-precision floating point numbers is lost beyond 24 bits
-#define MAX_BITFLAG_DIGITS 24
 
 //religious_tool flags
 #define RELIGION_TOOL_INVOKE (1<<0)
