@@ -259,7 +259,7 @@
 		parent_item.force /= force_multiplier
 	else if(force_unwielded)
 		parent_item.force = force_unwielded
-	if(!isnull(block_power_unwielded))
+	if(block_power_unwielded)
 		parent_item.block_power = block_power_unwielded
 
 	// update the items name to remove the wielded status
