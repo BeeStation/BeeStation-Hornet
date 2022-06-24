@@ -239,6 +239,7 @@
 
 	//"radiomod" is inserted before a hardcoded message to change if and how it is handled by an internal radio.
 	say("[radiomod] Current Active Laws:")
+	S.client.silicon_spam_grace()
 	//laws_sanity_check()
 	//laws.show_laws(world)
 	var/number = 1
