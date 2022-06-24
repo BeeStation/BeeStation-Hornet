@@ -3707,6 +3707,7 @@
 #include "monkestation\code\modules\events\anomaly_petsplosion.dm"
 #include "monkestation\code\modules\events\anomaly_radioactive.dm"
 #include "monkestation\code\modules\events\anomaly_storm.dm"
+#include "monkestation\code\modules\events\new_space_law.dm"
 #include "monkestation\code\modules\food_and_drinks\drinks\drinks.dm"
 #include "monkestation\code\modules\food_and_drinks\food\snacks_meat.dm"
 #include "monkestation\code\modules\food_and_drinks\recipes\drinks_recipes.dm"
