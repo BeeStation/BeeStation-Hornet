@@ -79,7 +79,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 			return
 
 	//Logs all hrefs, except chat pings
-	if(!(href_list["_src_"] == "chat" && href_list["proc"] == "ping" && LAZYLEN(href_list) == 2))
+	if(!(href_list["window_id"] == "browseroutput" && href_list["type"] == "ping" && LAZYLEN(href_list) == 4))
 		log_href("[src] (usr:[usr]\[[COORD(usr)]\]) : [hsrc ? "[hsrc] " : ""][href]")
 
 	//byond bug ID:2256651
@@ -141,15 +141,12 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 /*
  * Call back proc that should be checked in all paths where a client can send messages
  *
- * Handles checking for duplicate messages and people sending messages too fast
+ * Handles checking for people sending messages too fast.
  *
- * The first checks are if you're sending too fast, this is defined as sending
- * SPAM_TRIGGER_AUTOMUTE messages in
- * 5 seconds, this will start supressing your messages,
- * if you send 2* that limit, you also get muted
+ * This is defined as sending SPAM_TRIGGER_AUTOMUTE (10) messages within 5 seconds, which gets you auto-muted.
  *
- * The second checks for the same duplicate message too many times and mutes
- * you for it
+ * You will be warned if you send SPAM_TRIGGER_WARNING(5) messages withing 5 seconds to hopefully prevent false positives.
+ *
  */
 /client/proc/handle_spam_prevention(message, mute_type)
 	if(!(CONFIG_GET(flag/automute_on)))
@@ -179,7 +176,6 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		total_laws_count = 2
 	total_message_count += total_laws_count
 	// Stating laws isn't spam, but doing so much is spam.
-
 
 //This stops files larger than UPLOAD_LIMIT being sent from client to server via input(), client.Import() etc.
 /client/AllowUpload(filename, filelength)
@@ -555,7 +551,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	return QDEL_HINT_HARDDEL_NOW
 
 /client/proc/set_client_age_from_db(connectiontopic)
-	if (IS_GUEST_KEY(src.key))
+	if(IS_GUEST_KEY(key))
 		return
 	if(!SSdbcore.Connect())
 		return
@@ -578,14 +574,14 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		qdel(query_get_related_cid)
 		return
 	related_accounts_cid = ""
-	while (query_get_related_cid.NextRow())
+	while(query_get_related_cid.NextRow())
 		related_accounts_cid += "[query_get_related_cid.item[1]], "
 	qdel(query_get_related_cid)
 	var/admin_rank = "Player"
-	if (src.holder?.rank)
-		admin_rank = src.holder.rank.name
+	if(holder?.rank)
+		admin_rank = holder.rank.name
 	else
-		if (!GLOB.deadmins[ckey] && check_randomizer(connectiontopic))
+		if(!GLOB.deadmins[ckey] && check_randomizer(connectiontopic))
 			return
 	var/new_player
 	var/datum/DBQuery/query_client_in_db = SSdbcore.NewQuery(
@@ -709,7 +705,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		if(R.Find(F))
 			. = R.group[1]
 		else
-			CRASH("Age check regex failed for [src.ckey]")
+			CRASH("Age check regex failed for [ckey]")
 
 /client/proc/validate_key_in_db()
 	var/sql_key
