@@ -11,6 +11,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 	var/completed = 0					//currently only used for custom objectives.
 	var/martyr_compatible = 0			//If the objective is compatible with martyr objective, i.e. if you can still do it while dead.
 	var/optional = FALSE				//Whether the objective should show up as optional in the roundend screen
+	var/murderbone_type = NONE
 
 /datum/objective/New(var/text)
 	if(text)
@@ -36,6 +37,14 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 	return
 
 /datum/objective/proc/on_obj_given()
+	if(ismurderbone)
+		owner.murderbone_types += 1
+		message_admins("[key_name(owner)] has acquired murderbone pass.")
+	return
+
+/datum/objective/proc/on_obj_removal()
+	if(ismurderbone)
+		owner.murderbone_types -= 1
 	return
 
 //Shared by few objective types
@@ -416,10 +425,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 	martyr_compatible = FALSE //Technically you won't get both anyway.
 	/// Overrides the hijack speed of any antagonist datum it is on ONLY, no other datums are impacted.
 	var/hijack_speed_override = 1
-
-/datum/objective/hijack/on_obj_given()
-	owner.murderbone_types |= MIND_MURDERBONE_GENERAL | MIND_MURDERBONE_HIJACK
-	message_admins("[key_name(owner)] has acquired murderbone pass.")
+	ismurderbone = TRUE
 
 /datum/objective/hijack/check_completion() // Requires all owners to escape.
 	if(SSshuttle.emergency.mode != SHUTTLE_ENDGAME)
@@ -624,10 +630,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 /datum/objective/martyr
 	name = "martyr"
 	explanation_text = "Die a glorious death."
-
-/datum/objective/martyr/on_obj_given()
-	owner.murderbone_types |= MIND_MURDERBONE_GENERAL | MIND_MURDERBONE_MAATYR
-	message_admins("[key_name(owner)] has acquired murderbone pass.")
+	ismurderbone = TRUE
 
 /datum/objective/martyr/check_completion()
 	for(var/datum/mind/M as() in get_owners())

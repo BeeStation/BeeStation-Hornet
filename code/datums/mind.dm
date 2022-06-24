@@ -29,9 +29,16 @@
 
 */
 
-#define MIND_MURDERBONE_GENERAL (1<<0)
-#define MIND_MURDERBONE_HIJACK (1<<1)
-#define MIND_MURDERBONE_MAATYR (1<<2)
+#define MIND_MURDERBONE_GENERAL     (1<<0)
+#define MIND_MURDERBONE_SYNDICATE   (1<<1) // counts incursion/nukeops too
+#define MIND_MURDERBONE_CHANGELING  (1<<2)
+#define MIND_MURDERBONE_REVOLUTION  (1<<3)
+#define MIND_MURDERBONE_WIZARD      (1<<4)
+#define MIND_MURDERBONE_XENOMORPH   (1<<5)
+#define MIND_MURDERBONE_PIRATES     (1<<6)
+#define MIND_MURDERBONE_NIGHTMARE   (1<<7)
+#define MIND_MURDERBONE_ASHWALKER   (1<<8)
+
 
 /datum/mind
 	var/key
