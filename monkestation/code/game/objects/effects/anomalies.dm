@@ -346,3 +346,41 @@
 
 
 #undef MONKEY_SOUNDS
+
+//Walter Anomaly (The Walterverse Opens...)
+
+/obj/effect/anomaly/walterverse
+	name = "Walter Anomaly"
+	desc = "An anomaly that summons Walters from all throughout the walterverse"
+	icon_state = "bhole3"
+	lifespan = 20 SECONDS //about maybe 5 walters
+	var/active = TRUE
+	var/static/list/walter_spawns = list(
+		/mob/living/simple_animal/pet/dog/bullterrier/walter/saulter = 5,
+		/mob/living/simple_animal/pet/dog/bullterrier/walter/negative = 5,
+		/mob/living/simple_animal/pet/dog/bullterrier/walter/syndicate = 5,
+		/mob/living/simple_animal/pet/dog/bullterrier/walter/doom = 5,
+		/mob/living/simple_animal/pet/dog/bullterrier/walter/space = 5,
+		/mob/living/simple_animal/pet/dog/bullterrier/walter/clown = 5,
+		/mob/living/simple_animal/pet/dog/bullterrier/walter/french = 5,
+		/mob/living/simple_animal/pet/dog/bullterrier/walter/british = 5,
+		/mob/living/simple_animal/pet/dog/bullterrier/walter/wizard = 5,
+		/mob/living/simple_animal/pet/dog/bullterrier/walter/sus = 1, //:(
+		)
+
+/obj/effect/anomaly/walterverse/anomalyEffect(delta_time)
+	..()
+
+	if(isinspace(src) || !isopenturf(get_turf(src)))
+		return
+
+	if(active)
+		active = FALSE
+		var/selected_spawn = pickweight(walter_spawns)
+		new selected_spawn(src.loc)
+		return
+	active = TRUE
+
+/obj/effect/anomaly/walterverse/detonate()
+	if(prob(10))
+		new /mob/living/simple_animal/pet/dog/bullterrier/walter(src.loc)
