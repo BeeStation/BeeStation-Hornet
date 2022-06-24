@@ -168,7 +168,7 @@
 	return TRUE
 
 /obj/item/clothing/suit/armor/reactive/fire/emp_activation(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
-	owner.visible_message("<span class='danger'>[src] just makes [attack_text] worse by spewing molten death on [owner]!</span>")
+	owner.visible_message("<span class='danger'>[src] just makes [attack_text] worse by spewing fire on [owner]!</span>")
 	playsound(get_turf(owner),'sound/magic/fireball.ogg', 100, 1)
 	owner.fire_stacks += 12
 	owner.IgniteMob()
@@ -313,26 +313,18 @@
 	owner.visible_message("<font color='red' size='3'>[owner] GOES ON THE TABLE!!!</font>")
 	owner.Paralyze(40)
 	SEND_SIGNAL(owner, COMSIG_ADD_MOOD_EVENT, "table", /datum/mood_event/table)
-	var/list/turfs = new/list()
-	for(var/turf/T as() in (RANGE_TURFS(tele_range, owner) - get_turf(owner)))
-		if(T.density)
-			continue
-		if(T.x>world.maxx-tele_range || T.x<tele_range)
-			continue
-		if(T.y>world.maxy-tele_range || T.y<tele_range)
-			continue
-		turfs += T
-	if(!turfs.len)
-		turfs += pick(RANGE_TURFS(tele_range, owner) - get_turf(owner))
-	var/turf/picked = pick(turfs)
-	if(!isturf(picked))
-		return
-	do_teleport(owner, picked, no_effects = TRUE)
+	do_teleport(teleatom = owner, destination = get_turf(owner), no_effects = TRUE, precision = tele_range, channel = TELEPORT_CHANNEL_BLUESPACE)
 	new /obj/structure/table(get_turf(owner))
 	return TRUE
 
 /obj/item/clothing/suit/armor/reactive/table/emp_activation(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", damage = 0, attack_type = MELEE_ATTACK)
-	return reactive_activation(owner, hitby, attack_text, damage, attack_type) // Same effect
+	owner.visible_message("<span class='danger'>The reactive teleport system flings [owner] clear of [attack_text] and slams [owner.p_them()] into a fabricated glass table!</span>")
+	owner.visible_message("<font color='red' size='3'>[owner] GOES ON THE TABLE!!!</font>")
+	SEND_SIGNAL(owner, COMSIG_ADD_MOOD_EVENT, "table", /datum/mood_event/table)
+	do_teleport(teleatom = owner, destination = get_turf(owner), no_effects = TRUE, precision = tele_range, channel = TELEPORT_CHANNEL_BLUESPACE)
+	var/obj/structure/table/glass/table = new(get_turf(owner))
+	table.check_break(owner)
+	return TRUE
 
 //Hallucinating
 
@@ -417,10 +409,10 @@
 
 /obj/item/clothing/suit/armor/reactive/delimbering/reactive_activation(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	owner.visible_message("<span class='danger'>[src] blocks [attack_text], biohazard body scramble released!</span>")
-	delimber_pulse(owner, range, FALSE)
+	delimber_pulse(owner, range, FALSE, TRUE)
 	return TRUE
 
 /obj/item/clothing/suit/armor/reactive/delimbering/emp_activation(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	owner.visible_message("<span class='danger'>[src] blocks [attack_text], but pulls a massive charge of biohazard material into [owner] from the surrounding environment!</span>")
-	delimber_pulse(owner, range, TRUE)
+	delimber_pulse(owner, range, TRUE, TRUE)
 	return TRUE

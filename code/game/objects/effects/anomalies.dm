@@ -473,12 +473,16 @@
 
 	delimber_pulse(src, range)
 
-/proc/delimber_pulse(atom/owner, range = 5, ignore_owner = FALSE)
+/proc/delimber_pulse(atom/owner, range = 5, ignore_owner = FALSE, message_admins = FALSE)
+	var/list/mob/living/carbon/affected = list()
 	for(var/mob/living/carbon/target in range(range, owner))
 		if(!ignore_owner && target == owner)
 			continue
 		if(target.run_armor_check(attack_flag = "bio", absorb_text = "Your armor protects you from [owner]!") >= 100)
 			continue //We are protected
+
+		// Add target
+		affected += target
 
 		// Insert a random organ
 		var/obj/item/organ/picked_organ = pick(ANOMALY_DELIMBER_ZONE_ORGANS)
@@ -511,6 +515,10 @@
 		qdel(picked_user_part)
 		target.update_body(TRUE)
 		target.balloon_alert(target, "something has changed about you")
+
+	if(message_admins)
+		message_admins("[ADMIN_LOOKUPFLW(owner)] has caused a delimber pulse affecting [english_list(affected)].")
+		log_game("[key_name(owner)] has caused a delimber pulse affecting [english_list(affected)].")
 
 #undef ANOMALY_MOVECHANCE
 #undef ANOMALY_DELIMBER_ZONES
