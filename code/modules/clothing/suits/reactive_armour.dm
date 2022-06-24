@@ -323,7 +323,7 @@
 	SEND_SIGNAL(owner, COMSIG_ADD_MOOD_EVENT, "table", /datum/mood_event/table)
 	do_teleport(teleatom = owner, destination = get_turf(owner), no_effects = TRUE, precision = tele_range, channel = TELEPORT_CHANNEL_BLUESPACE)
 	var/obj/structure/table/glass/table = new(get_turf(owner))
-	table.check_break(owner)
+	table.table_shatter(owner)
 	return TRUE
 
 //Hallucinating
