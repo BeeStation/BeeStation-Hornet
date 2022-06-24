@@ -463,6 +463,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 	explanation_text = "Slaughter all loyalist crew aboard the shuttle. You, and any likeminded individuals, must be the only remaining people on the shuttle."
 	team_explanation_text = "Slaughter all loyalist crew aboard the shuttle. You, and any likeminded individuals, must be the only remaining people on the shuttle. Leave no team member behind."
 	martyr_compatible = FALSE
+	murderbone_flag = TRUE
 
 /datum/objective/elimination/check_completion()
 	if(SSshuttle.emergency.mode != SHUTTLE_ENDGAME)
@@ -488,6 +489,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 	name = "no organics on shuttle"
 	explanation_text = "Do not allow any organic lifeforms to escape on the shuttle alive."
 	martyr_compatible = 1
+	murderbone_flag = TRUE
 
 /datum/objective/block/check_completion()
 	if(SSshuttle.emergency.mode != SHUTTLE_ENDGAME)
@@ -633,6 +635,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 	name = "nuclear"
 	explanation_text = "Destroy the station with a nuclear device."
 	martyr_compatible = 1
+	murderbone_flag = TRUE
 
 /datum/objective/nuclear/check_completion()
 	if(SSticker && SSticker.mode && SSticker.mode.station_was_nuked)
@@ -1037,6 +1040,11 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 /datum/objective/custom
 	name = "custom"
 
+//Created by admin tools
+/datum/objective/custom/plus_murderbone
+	name = "custom (+murderbone pass)"
+	murderbone_flag = TRUE
+
 /datum/objective/custom/admin_edit(mob/admin)
 	var/expl = stripped_input(admin, "Custom objective:", "Objective", explanation_text)
 	if(expl)
@@ -1062,7 +1070,8 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 		/datum/objective/nuclear,
 		/datum/objective/capture,
 		/datum/objective/absorb,
-		/datum/objective/custom
+		/datum/objective/custom,
+		/datum/objective/custom/plus_murderbone
 	),/proc/cmp_typepaths_asc)
 
 	for(var/datum/objective/X as() in allowed_types)
