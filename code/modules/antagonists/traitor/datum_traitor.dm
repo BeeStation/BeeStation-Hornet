@@ -45,6 +45,9 @@
 	if(!silent && owner.current)
 		to_chat(owner.current,"<span class='userdanger'> You are no longer the [special_role]! </span>")
 	owner.special_role = null
+	owner.murderbone_types &= ~MIND_MURDERBONE_GENERAL
+	owner.murderbone_types &= ~MIND_MURDERBONE_HIJACK
+	owner.murderbone_types &= ~MIND_MURDERBONE_MAATYR
 	..()
 
 /datum/antagonist/traitor/proc/handle_hearing(datum/source, list/hearing_args)
@@ -97,6 +100,7 @@
 		if (!(locate(/datum/objective/hijack) in objectives))
 			var/datum/objective/hijack/hijack_objective = new
 			hijack_objective.owner = owner
+			hijack_objective.on_obj_given()
 			add_objective(hijack_objective)
 			return
 
@@ -110,6 +114,7 @@
 	if(martyr_compatibility && martyr_chance)
 		var/datum/objective/martyr/martyr_objective = new
 		martyr_objective.owner = owner
+		martyr_objective.on_obj_given()
 		add_objective(martyr_objective)
 		return
 

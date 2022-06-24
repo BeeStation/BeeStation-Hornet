@@ -29,6 +29,10 @@
 
 */
 
+#define MIND_MURDERBONE_GENERAL (1<<0)
+#define MIND_MURDERBONE_HIJACK (1<<1)
+#define MIND_MURDERBONE_MAATYR (1<<2)
+
 /datum/mind
 	var/key
 	var/name				//replaces mob/var/original_name
@@ -41,7 +45,7 @@
 	var/assigned_role
 	var/special_role
 	var/list/restricted_roles = list()
-
+	var/murderbone_types = NONE
 	var/list/spell_list = list() // Wizard mode & "Give Spell" badmin button.
 
 	var/linglink
@@ -494,6 +498,7 @@
 			new_objective = new selected_type
 			new_objective.owner = src
 			new_objective.admin_edit(usr)
+			new_objective.on_obj_given()
 			target_antag.objectives += new_objective
 			message_admins("[key_name_admin(usr)] added a new objective for [current]: [new_objective.explanation_text]")
 			log_admin("[key_name(usr)] added a new objective for [current]: [new_objective.explanation_text]")
@@ -503,11 +508,13 @@
 				//Edit the old
 				old_objective.admin_edit(usr)
 				new_objective = old_objective
+				new_objective.on_obj_given()
 			else
 				//Replace the old
 				new_objective = new selected_type
 				new_objective.owner = src
 				new_objective.admin_edit(usr)
+				new_objective.on_obj_given()
 				target_antag.objectives -= old_objective
 				target_antag.objectives.Insert(objective_pos, new_objective)
 			message_admins("[key_name_admin(usr)] edited [current]'s objective to [new_objective.explanation_text]")

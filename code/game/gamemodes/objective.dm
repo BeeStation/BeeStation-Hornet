@@ -35,6 +35,9 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 /datum/objective/proc/admin_edit(mob/admin)
 	return
 
+/datum/objective/proc/on_obj_given()
+	return
+
 //Shared by few objective types
 /datum/objective/proc/admin_simple_target_pick(mob/admin)
 	var/list/possible_targets = list()
@@ -414,6 +417,9 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 	/// Overrides the hijack speed of any antagonist datum it is on ONLY, no other datums are impacted.
 	var/hijack_speed_override = 1
 
+/datum/objective/hijack/on_obj_given()
+	owner.murderbone_types |= MIND_MURDERBONE_GENERAL | MIND_MURDERBONE_HIJACK
+
 /datum/objective/hijack/check_completion() // Requires all owners to escape.
 	if(SSshuttle.emergency.mode != SHUTTLE_ENDGAME)
 		return ..()
@@ -617,6 +623,9 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 /datum/objective/martyr
 	name = "martyr"
 	explanation_text = "Die a glorious death."
+
+/datum/objective/martyr/on_obj_given()
+	owner.murderbone_types |= MIND_MURDERBONE_GENERAL | MIND_MURDERBONE_MAATYR
 
 /datum/objective/martyr/check_completion()
 	for(var/datum/mind/M as() in get_owners())
