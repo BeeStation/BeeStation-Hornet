@@ -194,6 +194,7 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	src.last_message_count = max(src.last_message_count--, 0)
 	// Stating laws isn't spam at all.
 
+
 /client/proc/silicon_spam_grace_done(total_laws_count)
 	if(total_laws_count>2)
 		total_laws_count = 2
