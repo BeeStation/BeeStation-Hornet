@@ -257,7 +257,7 @@
 		parent_item.force -= sharpened_increase
 	if(force_multiplier)
 		parent_item.force /= force_multiplier
-	else if(!isnull(force_unwielded))
+	else if(force_unwielded)
 		parent_item.force = force_unwielded
 	if(!isnull(block_power_unwielded))
 		parent_item.block_power = block_power_unwielded
