@@ -1,0 +1,4 @@
+author: wraith-54321
+delete-after: true
+changes:
+  - rscadd: Added a new minor random event to make something illegal.
