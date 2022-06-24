@@ -55,13 +55,19 @@
 		return FALSE
 	if(wingsound)
 		playsound(H, wingsound, 100, 7)
-	if(basewings == "wings")
+	if(basewings == "wings" || basewings == "moth_wings")
 		if("wings" in H.dna.species.mutant_bodyparts)
 			H.dna.species.mutant_bodyparts -= "wings"
 			H.dna.species.mutant_bodyparts |= "wingsopen"
 		else if("wingsopen" in H.dna.species.mutant_bodyparts)
 			H.dna.species.mutant_bodyparts -= "wingsopen"
 			H.dna.species.mutant_bodyparts |= "wings"
+		else if("moth_wings" in H.dna.species.mutant_bodyparts)
+			H.dna.species.mutant_bodyparts |= "moth_wingsopen"
+			H.dna.species.mutant_bodyparts -= "moth_wings"
+		else if("moth_wingsopen" in H.dna.species.mutant_bodyparts)
+			H.dna.species.mutant_bodyparts -= "moth_wingsopen"
+			H.dna.species.mutant_bodyparts |= "moth_wings"
 		else //it appears we don't actually have wing icons. apply them!!
 			Refresh(H)
 		H.update_body()
@@ -114,8 +120,8 @@
 	icon_state = "mothwings"
 	flight_level = WINGS_FLIGHTLESS
 	basewings = "moth_wings"
-	wing_type = "Plain" //MonkeStation Edit: Moth Wing Bugfix
-	canopen = FALSE
+	wing_type = "plain"
+	canopen = TRUE
 
 /obj/item/organ/wings/moth/Remove(mob/living/carbon/human/H, special)
 	flight_level = initial(flight_level)
