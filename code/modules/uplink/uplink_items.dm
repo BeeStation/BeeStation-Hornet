@@ -116,7 +116,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	var/refundable = FALSE
 	var/surplus = 100 // Chance of being included in the surplus crate.
 	var/cant_discount = FALSE
-	var/murderbone_type = NONE
+	var/murderbone_type = FALSE
 	var/limited_stock = -1 //Setting this above zero limits how many times this item can be bought by the same traitor in a round, -1 is unlimited
 	var/purchasable_from = ALL
 	var/list/restricted_roles = list() //If this uplink item is only available to certain roles. Roles are dependent on the frequency chip or stored ID.

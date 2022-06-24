@@ -41,7 +41,6 @@
 	var/assigned_role
 	var/special_role
 	var/list/restricted_roles = list()
-	var/murderbone_severity = NONE
 	var/list/spell_list = list() // Wizard mode & "Give Spell" badmin button.
 
 	var/linglink
