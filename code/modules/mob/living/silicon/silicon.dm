@@ -50,6 +50,7 @@
 	//The internal ID card inside the AI.
 	var/list/default_access_list = list()
 	var/obj/item/card/id/internal_id_card
+	var/currently_stating_laws = FALSE
 
 	mobchatspan = "centcom"
 
@@ -222,7 +223,7 @@
 		checklaws()
 
 
-	if (href_list["laws"]) // With how my law selection code works, I changed statelaws from a verb to a proc, and call it through my law selection panel. --NeoFite
+	if (href_list["laws"] && !currently_stating_laws) // With how my law selection code works, I changed statelaws from a verb to a proc, and call it through my law selection panel. --NeoFite
 		statelaws()
 
 	if (href_list["printlawtext"]) // this is kinda backwards
@@ -232,6 +233,9 @@
 
 
 /mob/living/silicon/proc/statelaws(force = 0)
+	var/mob/living/silicon/S = usr
+	var/total_laws_count = 0
+	currently_stating_laws = TRUE
 
 	//"radiomod" is inserted before a hardcoded message to change if and how it is handled by an internal radio.
 	say("[radiomod] Current Active Laws:")
@@ -244,12 +248,16 @@
 		for(var/index = 1, index <= laws.devillaws.len, index++)
 			if (force || devillawcheck[index] == "Yes")
 				say("[radiomod] 666. [laws.devillaws[index]]")
+				S.client.silicon_spam_grace()
+				total_laws_count++
 				sleep(10)
 
 
 	if (laws.zeroth)
 		if (force || lawcheck[1] == "Yes")
 			say("[radiomod] 0. [laws.zeroth]")
+			S.client.silicon_spam_grace()
+			total_laws_count++
 			sleep(10)
 
 	for (var/index = 1, index <= laws.hacked.len, index++)
@@ -258,6 +266,8 @@
 		if (length(law) > 0)
 			if (force || hackedcheck[index] == "Yes")
 				say("[radiomod] [num]. [law]")
+				S.client.silicon_spam_grace()
+				total_laws_count++
 				sleep(10)
 
 	for (var/index = 1, index <= laws.ion.len, index++)
@@ -266,6 +276,8 @@
 		if (length(law) > 0)
 			if (force || ioncheck[index] == "Yes")
 				say("[radiomod] [num]. [law]")
+				S.client.silicon_spam_grace()
+				total_laws_count++
 				sleep(10)
 
 	for (var/index = 1, index <= laws.inherent.len, index++)
@@ -274,6 +286,8 @@
 		if (length(law) > 0)
 			if (force || lawcheck[index+1] == "Yes")
 				say("[radiomod] [number]. [law]")
+				S.client.silicon_spam_grace()
+				total_laws_count++
 				number++
 				sleep(10)
 
@@ -284,9 +298,13 @@
 			if(lawcheck.len >= number+1)
 				if (force || lawcheck[number+1] == "Yes")
 					say("[radiomod] [number]. [law]")
+					S.client.silicon_spam_grace()
+					total_laws_count++
 					number++
 					sleep(10)
 
+	S.client.silicon_spam_grace_done(total_laws_count)
+	currently_stating_laws = FALSE
 
 /mob/living/silicon/proc/checklaws() //Gives you a link-driven interface for deciding what laws the statelaws() proc will share with the crew. --NeoFite
 
