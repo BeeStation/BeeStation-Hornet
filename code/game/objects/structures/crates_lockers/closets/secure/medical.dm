@@ -80,6 +80,7 @@
 
 /obj/structure/closet/secure_closet/CMO/PopulateContents()
 	..()
+	new /obj/item/gun/energy/e_gun/mini/heads(src)
 	new /obj/item/clothing/head/beret/cmo(src)
 	new /obj/item/clothing/neck/cloak/cmo(src)
 	new /obj/item/storage/backpack/duffelbag/med(src)
