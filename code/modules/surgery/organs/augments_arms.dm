@@ -315,9 +315,9 @@
 /obj/item/organ/cyberimp/arm/esaw
 	name = "arm-mounted energy saw"
 	desc = "An illegal and highly dangerous implanted carbon-fiber blade with a toggleable hard-light edge."
-	icon_state = "esaw_0"
+	icon_state = "implant-esaw_0"
 	syndicate_implant = TRUE
-	items_to_create = list(/obj/item/melee/transforming/energy/sword/esaw)
+	items_to_create = list(/obj/item/melee/transforming/energy/sword/esaw/implant)
 
 /obj/item/organ/cyberimp/arm/hydraulic_blade
 	name = "arm-mounted hydraulic blade"

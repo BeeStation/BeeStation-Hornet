@@ -2234,6 +2234,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	limited_stock = 2 //you can't use more than two!
 	restricted_roles = list("Shaft Miner")
 
+/datum/uplink_item/role_restricted/esaw
+	name = "Energy Saw"
+	desc = "A deadly energy saw. Comes in a slick black finish."
+	cost = 5
+	item = /obj/item/melee/transforming/energy/sword/esaw
+	restricted_roles = list("Medical Doctor", "Chief Medical Officer", "Paramedic", "Brig Physician")
+
 /datum/uplink_item/role_restricted/esaw_arm
 	name = "Energy Saw Arm Implant"
 	desc = "An implant that grants you a deadly energy saw inside your arm. Comes with a syndicate autosurgeon for immediate self-application."
