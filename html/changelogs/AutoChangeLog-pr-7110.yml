@@ -1,4 +1,0 @@
-author: Dejaku51
-delete-after: true
-changes:
-  - bugfix: Fixed morph sending everyone near message "X bites you!"
