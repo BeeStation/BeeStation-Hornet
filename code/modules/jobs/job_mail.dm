@@ -202,6 +202,7 @@
 	)
 
 //PARAMEDIC
+/datum/job/emt
 	mail_goodies = list(
 		/obj/item/reagent_containers/hypospray/medipen = 20,
 		/obj/item/reagent_containers/medspray/silver_sulf = 10,
@@ -272,7 +273,6 @@
 
 //LAWYER
 /datum/job/lawyer
-
 	mail_goodies = list(
 		//Can never have enough LAW
 		/obj/item/book/manual/wiki/security_space_law = 15,
@@ -329,6 +329,7 @@
 	)
 
 //QUARTERMASTER
+/datum/job/qm
 	mail_goodies = list(
 		/obj/item/reagent_containers/food/snacks/donkpocket/random = 10,
 		//the beginning of your department's independence

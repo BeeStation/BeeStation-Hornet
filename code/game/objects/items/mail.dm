@@ -181,7 +181,7 @@
 	//Recipients
 	var/mob/living/body = recipient.current
 	//Load the generic list of goodies
-	var/list/goodies = generic_goodies
+	var/list/goodies = generic_goodies.Copy()
 	//Load the List of Dangerous goodies
 	var/list/danger_goodies = hazard_goodies
 
@@ -192,8 +192,7 @@
 		if(this_job.paycheck_department && department_colors[this_job.paycheck_department])
 			color = department_colors[this_job.paycheck_department]
 
-	//for(var/i in 1 to goodie_count) //checking if with the old FOR this will work, if it does this line will get removed when merge
-	for(var/iterator = 0, iterator < goodie_count, iterator++)
+	for(var/i in 1 to goodie_count)
 		var/target_good = pickweight(goodies)
 		var/atom/movable/target_atom = new target_good(src)
 		body.log_message("[key_name(body)] received [target_atom.name] in the mail ([target_good])", LOG_GAME)
