@@ -37,7 +37,6 @@
 	hardattacks = TRUE
 	var/list/gorilla_overlays[GORILLA_TOTAL_LAYERS]
 	var/oogas = 0
-	var/diseased = FALSE
 
 	do_footstep = TRUE
 
@@ -71,10 +70,6 @@
 		if(prob(80))
 			var/atom/throw_target = get_edge_target_turf(L, dir)
 			L.throw_at(throw_target, rand(1,2), 7, src)
-			if(diseased)
-				var/flesh_wound = ran_zone(CHEST, 40)
-				if(prob(100-L.getarmor(flesh_wound, "melee")))
-					L.ForceContractDisease(new /datum/disease/transformation/jungle_fever())
 		else
 			L.Unconscious(20)
 			visible_message("<span class='danger'>[src] knocks [L] out!</span>")
@@ -130,4 +125,3 @@
 	damage_coeff = list(BRUTE = 0.8, BURN = 1, TOX = 1, CLONE = 0, STAMINA = 0, OXY = 1)
 	obj_damage = 50
 	environment_smash = ENVIRONMENT_SMASH_RWALLS
-	diseased = TRUE
