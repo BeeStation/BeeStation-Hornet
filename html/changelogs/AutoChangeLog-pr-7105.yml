@@ -1,0 +1,4 @@
+author: Miliviu
+delete-after: true
+changes:
+  - rscdel: Removed Monkey Antagonist, gamemode and Disease
