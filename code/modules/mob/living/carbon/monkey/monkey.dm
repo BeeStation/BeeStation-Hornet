@@ -110,12 +110,6 @@ GLOBAL_LIST_INIT(strippable_monkey_items, create_strippable_list(list(
 	internal = null
 	return
 
-
-/mob/living/carbon/monkey/IsAdvancedToolUser()//Unless its monkey mode monkeys cant use advanced tools
-	if(mind && is_monkey(mind))
-		return TRUE
-	return FALSE
-
 /mob/living/carbon/monkey/reagent_check(datum/reagent/R) //can metabolize all reagents
 	return FALSE
 
