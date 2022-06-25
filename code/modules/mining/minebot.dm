@@ -28,7 +28,6 @@
 	environment_smash = ENVIRONMENT_SMASH_NONE
 	healable = 0
 	loot = list(/obj/effect/decal/cleanable/robot_debris)
-	del_on_death = FALSE
 	deathmessage = "'s lights flicker, then go dark"
 	// AI stuff
 	check_friendly_fire = TRUE
@@ -47,7 +46,7 @@
 	light_system = MOVABLE_LIGHT
 	light_range = 6
 	light_on = FALSE
-	// Minebot-specific verbs
+	// Minebot-specific vars
 	var/mode = MODE_MINING /// What mode the minebot is in
 	var/mining_enabled = FALSE /// Whether or not the minebot will mine new ores while in mining mode.
 	var/list/installed_upgrades /// A list of all the minebot's installed upgrades
@@ -186,13 +185,10 @@
 	if(user.a_intent != INTENT_HELP)
 		return ..() // For smacking
 	if(istype(item, /obj/item/minebot_upgrade))
-		var/obj/item/minebot_upgrade/M = item
-		if(M.upgrade_bot(src, user))
-			to_chat(user, "<span class='info'>You install [item].</span>")
-			return TRUE
-		to_chat(user, "<span class='warning'>You couldn't fit [item] into [src]!</span>")
+		var/obj/item/minebot_upgrade/upgrade = item
+		upgrade.upgrade_bot(src, user)
 		return TRUE
-	if(istype(item, /obj/item/mining_scanner) || istype(item, /obj/item/t_scanner/adv_mining_scanner))
+	if(istype(item, /obj/item/t_scanner/adv_mining_scanner))
 		if(!do_after(user, 20, TRUE, src))
 			return
 		stored_scanner.forceMove(get_turf(src))
