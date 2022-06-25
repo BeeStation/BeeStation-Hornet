@@ -1,0 +1,4 @@
+author: Dejaku51
+delete-after: true
+changes:
+  - admin: Locked getserverlogs behind the +SERVER permission
