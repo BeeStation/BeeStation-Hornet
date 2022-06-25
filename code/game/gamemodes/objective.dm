@@ -1040,7 +1040,6 @@ GLOBAL_LIST_EMPTY(possible_items_special)
 /datum/objective/custom
 	name = "custom"
 
-//Created by admin tools
 /datum/objective/custom/plus_murderbone
 	name = "custom (+murderbone pass)"
 	murderbone_flag = TRUE
