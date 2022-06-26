@@ -2,22 +2,24 @@ GLOBAL_LIST_EMPTY(active_bluespace_anchors)
 
 /obj/machinery/bluespace_anchor
 	name = "deployed bluespace anchor"
-	desc = "A deployed bluespace anchor, it consumes a large amount of energy in order to stablise nearby bluespace anomalies."
+	desc = "A deployed bluespace anchor, it consumes a large amount of energy in order to stablise bluespace instabilities and prevent teleporation."
 
-	icon = 'icons/obj/objects.dmi'
-	icon_state = "floor_beaconf"
+	icon = 'icons/obj/device.dmi'
+	icon_state = "memorizer2"
 
 	var/obj/item/stock_parts/cell/power_cell
 	var/range = 8
-	var/power_usage_per_teleport = 8000
+	var/power_usage_per_teleport = 3500
 
 /obj/machinery/bluespace_anchor/Initialize(mapload, obj/item/stock_parts/cell/cell)
 	. = ..()
 	//Move the cell
 	insert_cell(cell)
+	GLOB.active_bluespace_anchors += src
 
 /obj/machinery/bluespace_anchor/Destroy()
 	. = ..()
+	GLOB.active_bluespace_anchors -= src
 	//Delete the power cell
 	if(power_cell)
 		QDEL_NULL(power_cell)
@@ -34,6 +36,8 @@ GLOBAL_LIST_EMPTY(active_bluespace_anchors)
 	//Deactivate it
 	var/obj/item/created = new /obj/item/bluespace_anchor(get_turf(src), power_cell)
 	user.put_in_active_hand(created)
+	UnregisterSignal(power_cell, COMSIG_PARENT_QDELETING)
+	power_cell = null
 	qdel(src)
 
 /obj/machinery/bluespace_anchor/proc/try_activate(atom/teleatom)
@@ -43,7 +47,10 @@ GLOBAL_LIST_EMPTY(active_bluespace_anchors)
 	if(!power_cell.use(power_usage_per_teleport))
 		return FALSE
 	//Spark and shock people adjacent
-	tesla_zap(src, 1, 8000, TESLA_MOB_STUN | TESLA_MOB_DAMAGE)
+	for (var/mob/living/L in view(1, src))
+		src.Beam(L, icon_state="lightning[rand(1,12)]", time=5, maxdistance = INFINITY)
+		var/shock_damage = min(round(power_usage_per_teleport/600), 90) + rand(-5, 5)
+		L.electrocute_act(shock_damage, src)
 	return TRUE
 
 /obj/machinery/bluespace_anchor/proc/insert_cell(cell)

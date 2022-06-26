@@ -139,7 +139,8 @@
 	l_hand = /obj/item/storage/firstaid/regular
 	backpack_contents = list(/obj/item/storage/box/engineer=1,
 		/obj/item/melee/baton/loaded=1,
-		/obj/item/construction/rcd/loaded=1)
+		/obj/item/construction/rcd/loaded=1,
+		/obj/item/bluespace_anchor=1)
 
 /datum/outfit/ert/engineer/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
@@ -158,7 +159,8 @@
 	backpack_contents = list(/obj/item/storage/box/engineer=1,
 		/obj/item/melee/baton/loaded=1,
 		/obj/item/gun/energy/pulse/pistol/loyalpin=1,
-		/obj/item/construction/rcd/combat=1)
+		/obj/item/construction/rcd/combat=1,
+		/obj/item/bluespace_anchor=1)
 
 
 /datum/outfit/centcom_official

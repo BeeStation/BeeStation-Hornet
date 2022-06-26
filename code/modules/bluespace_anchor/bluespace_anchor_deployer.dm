@@ -1,6 +1,6 @@
 /obj/item/bluespace_anchor
 	name = "bluespace anchor"
-	desc = "A portable device that, once deployed, will stablise the volatile bluespace instabilities around it, preventing bluespace teleportation. Consumes a large amount of power."
+	desc = "A portable device that, once deployed, will stablise the volatile bluespace instabilities around it, preventing teleportation. Consumes a large amount of power."
 
 	icon = 'icons/obj/device.dmi'
 	icon_state = "memorizer2"
@@ -44,11 +44,13 @@
 	if(!do_after(user, 4 SECONDS, target = src))
 		return
 	new /obj/machinery/bluespace_anchor(get_turf(user), power_cell)
+	UnregisterSignal(power_cell, COMSIG_PARENT_QDELETING)
+	power_cell = null
 	qdel(src)
 
 /obj/item/bluespace_anchor/attackby(obj/item/I, mob/living/user, params)
 	var/obj/item/stock_parts/cell/cell = I
-	if(!istype(I))
+	if(!istype(cell))
 		return ..()
 	if(power_cell)
 		to_chat(user, "<span class='notice'>Remove the power cell inside [src] first!</span>")
