@@ -1,6 +1,6 @@
 /obj/effect/proc_holder/spell/targeted/hive_hack
 	name = "Network Invasion"
-	desc = "We attack any foreign presences in the target mind keeping them only for ourselves. Takes longer if the target is not in our hive."
+	desc = "We attack any foreign presences in the target mind keeping them only for ourselves. Takes longer if the target is not in our hive. Will grant us a tracking charge if successful."
 	panel = "Hivemind Abilities"
 	charge_max = 600
 	range = 1
@@ -25,7 +25,7 @@
 	if(do_after(user,50,0,target))
 		if(!in_hive)
 			to_chat(user, "<span class='notice'>Their mind slowly opens up to us.</span>")
-			if(!do_after(user,200,0,target))
+			if(!do_after(user,75,0,target))
 				to_chat(user, "<span class='notice'>Our concentration has been broken!</span>")
 				revert_cast()
 				return

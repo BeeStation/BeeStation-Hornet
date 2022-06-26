@@ -20,6 +20,8 @@
 		if((!HAS_TRAIT(target, TRAIT_MINDSHIELD)) && !istype(target.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat))
 			if(!is_hivehost(target) && !target.is_wokevessel())
 				target.hive_weak_awaken(directive)
+				to_chat(user, "<span class='warning'>We successfully overpower their weak psyche!.</span>")
+				success = TRUE
 			else
 				to_chat(user, "<span class='warning'>Complex mental barriers protect [target.name]'s mind.</span>")
 		else

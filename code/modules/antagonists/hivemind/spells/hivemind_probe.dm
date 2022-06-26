@@ -22,19 +22,13 @@
 
 
 	to_chat(user, "<span class='notice'>We begin probing [target.name]'s mind!</span>")
-	if(do_after(user,20,0,target))
+	if(do_after(user,15,0,target))
 		for(var/datum/antagonist/hivemind/enemy as() in GLOB.hivehosts)
 			var/datum/mind/M = enemy.owner
 			if(!M?.current)
 				continue
 			if(M.current == user)
 				continue
-			if(enemy.is_carbon_member(target))
-				to_chat(user, "<span class='userdanger'>We have found the vile stain of [enemy.hiveID] within this mind!</span>")
-				detected = TRUE
-				if(target.mind.has_antag_datum(/datum/antagonist/brainwashed) || target.is_wokevessel())
-					to_chat(user, "<span class='assimilator'>Tendrils of control spread through our target's mind their actions are not their own!.</span>")
-					return
 			if(enemy.owner == M && target.is_real_hivehost())
 				detected = TRUE
 				var/atom/throwtarget
@@ -46,6 +40,12 @@
 				user.throw_at(throwtarget, 5, 1,src)
 				to_chat(user, "<span class='userdanger'>A sudden surge of psionic energy, a recognizable presence, this is the host of [hivetarget.hiveID]!</span>")
 				return
+			if(enemy.is_carbon_member(target))
+				to_chat(user, "<span class='userdanger'>We have found the vile stain of [enemy.hiveID] within this mind!</span>")
+				detected = TRUE
+				if(target.mind.has_antag_datum(/datum/antagonist/brainwashed) || target.is_wokevessel())
+					to_chat(user, "<span class='assimilator'>Tendrils of control spread through our target's mind their actions are not their own!.</span>")
+					return
 		if(!detected)
 			to_chat(user, "<span class='notice'>Untroubled waters meet our tentative search, there is nothing out of the ordinary here.</span>")
 	else

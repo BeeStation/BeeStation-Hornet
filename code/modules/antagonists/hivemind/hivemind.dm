@@ -3,7 +3,7 @@
 	roundend_category = "hiveminds"
 	antagpanel_category = "Hivemind Host"
 	job_rank = ROLE_HIVE
-	antag_moodlet = /datum/mood_event/focused
+	antag_moodlet = /datum/mood_event/hivehost
 	var/special_role = ROLE_HIVE
 	var/list/hivemembers = list()
 	var/list/avessels = list()
