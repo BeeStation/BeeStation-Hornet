@@ -611,10 +611,6 @@
 /obj/machinery/door/firedoor,
 /turf/open/floor/plasteel/freezer,
 /area/shuttle/escape)
-"CM" = (
-/obj/effect/spawner/structure/window/shuttle,
-/turf/open/floor/plating,
-/area/shuttle/escape)
 "FR" = (
 /obj/machinery/door/airlock/medical/glass{
 	name = "Medbay"
@@ -698,9 +694,9 @@ LQ
 ab
 PE
 ab
-CM
-CM
-CM
+ac
+ac
+ac
 ab
 pT
 ab
@@ -759,7 +755,7 @@ bC
 bE
 "}
 (4,1,1) = {"
-CM
+ac
 af
 am
 ar
@@ -783,7 +779,7 @@ bC
 bE
 "}
 (5,1,1) = {"
-CM
+ac
 ag
 an
 as
@@ -807,7 +803,7 @@ bC
 bE
 "}
 (6,1,1) = {"
-CM
+ac
 ah
 an
 at
@@ -831,7 +827,7 @@ bC
 bE
 "}
 (7,1,1) = {"
-CM
+ac
 ag
 an
 an
@@ -855,7 +851,7 @@ bC
 bE
 "}
 (8,1,1) = {"
-CM
+ac
 ai
 ao
 ao
@@ -932,21 +928,21 @@ aa
 aa
 aa
 ab
-CM
+ac
 ab
-CM
-ab
-ab
-ab
-CM
-CM
-CM
+ac
 ab
 ab
 ab
-CM
+ac
+ac
+ac
 ab
-CM
+ab
+ab
+ac
+ab
+ac
 ab
 aa
 "}

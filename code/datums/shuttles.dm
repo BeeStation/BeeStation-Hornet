@@ -109,62 +109,77 @@
 		M.movement_force = movement_force.Copy()
 
 /datum/map_template/shuttle/emergency
+	prefix = "_maps/shuttles/emergency/"
 	port_id = "emergency"
 	name = "Base Shuttle Template (Emergency)"
 
 /datum/map_template/shuttle/cargo
+	prefix = "_maps/shuttles/cargo/"
 	port_id = "cargo"
 	name = "Base Shuttle Template (Cargo)"
 	can_be_bought = FALSE
 
 /datum/map_template/shuttle/ferry
+	prefix = "_maps/shuttles/ferry/"
 	port_id = "ferry"
 	name = "Base Shuttle Template (Ferry)"
 
 /datum/map_template/shuttle/whiteship
+	prefix = "_maps/shuttles/whiteship/"
 	port_id = "whiteship"
 
 /datum/map_template/shuttle/labour
+	prefix = "_maps/shuttles/labour/"
 	port_id = "labour"
 	can_be_bought = FALSE
 
 /datum/map_template/shuttle/mining
+	prefix = "_maps/shuttles/mining/"
 	port_id = "mining"
 	can_be_bought = FALSE
 
 /datum/map_template/shuttle/arrival
+	prefix = "_maps/shuttles/arrival/"
 	port_id = "arrival"
 	can_be_bought = FALSE
 
 /datum/map_template/shuttle/infiltrator
+	prefix = "_maps/shuttles/infiltrator/"
 	port_id = "infiltrator"
 	can_be_bought = FALSE
 
 /datum/map_template/shuttle/aux_base
+	prefix = "_maps/shuttles/aux_base/"
 	port_id = "aux_base"
 	can_be_bought = FALSE
 
 /datum/map_template/shuttle/escape_pod
+	prefix = "_maps/shuttles/escape_pod/"
 	port_id = "escape_pod"
 	can_be_bought = FALSE
 
 /datum/map_template/shuttle/assault_pod
+	prefix = "_maps/shuttles/assault_pod/"
 	port_id = "assault_pod"
 	can_be_bought = FALSE
 
 /datum/map_template/shuttle/pirate
+	prefix = "_maps/shuttles/pirate/"
 	port_id = "pirate"
 	can_be_bought = FALSE
 
 /datum/map_template/shuttle/hunter
+	prefix = "_maps/shuttles/hunter/"
 	port_id = "hunter"
 	can_be_bought = FALSE
 
 /datum/map_template/shuttle/ruin //For random shuttles in ruins
+	prefix = "_maps/shuttles/ruin/"
 	port_id = "ruin"
 	can_be_bought = FALSE
 
 /datum/map_template/shuttle/snowdin
+	prefix = "_maps/shuttles/snowdin/"
 	port_id = "snowdin"
 	can_be_bought = FALSE
 
@@ -564,6 +579,7 @@
 	can_be_bought = FALSE
 
 /datum/map_template/shuttle/exploration
+	prefix = "_maps/shuttles/exploration/"
 	port_id = "exploration"
 	suffix = "shuttle"
 	name = "exploration shuttle"
