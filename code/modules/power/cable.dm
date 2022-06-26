@@ -104,11 +104,11 @@ By design, d1 is the smallest direction and d2 is the highest
 		cable_color = cable_colors[cable_color]
 	update_icon()
 
-/obj/structure/cable/Destroy()					// called when a cable is deleted
+/obj/structure/cable/Destroy() // called when a cable is deleted
 	if(powernet)
-		cut_cable_from_powernet()				// update the powernets
-	GLOB.cable_list -= src							//remove it from global cable list
-	return ..()									// then go ahead and delete the cable
+		cut_cable_from_powernet() // update the powernets
+	GLOB.cable_list -= src //remove it from global cable list
+	return ..() // then go ahead and delete the cable
 
 /obj/structure/cable/deconstruct(disassembled = TRUE)
 	if(!(flags_1 & NODECONSTRUCT_1))
@@ -428,23 +428,26 @@ By design, d1 is the smallest direction and d2 is the highest
 		if(PN.is_empty()) //can happen with machines made nodeless when smoothing cables
 			qdel(PN)
 
-/obj/structure/cable/proc/auto_propogate_cut_cable(obj/O)
+/obj/structure/cable/proc/auto_propagate_cut_cable(obj/O)
 	if(O && !QDELETED(O))
 		var/datum/powernet/newPN = new()// creates a new powernet...
 		propagate_network(O, newPN)//... and propagates it to the other side of the cable
 
 // cut the cable's powernet at this cable and updates the powergrid
 /obj/structure/cable/proc/cut_cable_from_powernet(remove=TRUE)
+	if(!powernet)
+		return
+
 	var/turf/T1 = loc
-	var/list/P_list
 	if(!T1)
 		return
+
+	var/list/P_list
 	if(d1)
 		T1 = get_step_multiz(T1, d1)
-		P_list = power_list(T1, src, dir_inverse_multiz(d1),0,cable_only = 1)	// what adjacently joins on to cut cable...
+		P_list = power_list(T1, src, dir_inverse_multiz(d1),0,cable_only = 1) // what adjacently joins on to cut cable...
 
 	P_list += power_list(loc, src, d1, 0, cable_only = 1)//... and on turf
-
 
 	if(P_list.len == 0)//if nothing in both list, then the cable was a lone cable, just delete it and its powernet
 		powernet.remove_cable(src)
@@ -454,13 +457,17 @@ By design, d1 is the smallest direction and d2 is the highest
 				P.disconnect_from_network() //remove from current network (and delete powernet)
 		return
 
-	var/obj/O = P_list[1]
-	// remove the cut cable from its turf and powernet, so that it doesn't get count in propagate_network worklist
+	//remove the cut cable from its turf and powernet, so that it doesn't get count in propagate_network worklist
 	if(remove)
 		moveToNullspace()
 	powernet.remove_cable(src) //remove the cut cable from its powernet
 
-	addtimer(CALLBACK(O, .proc/auto_propogate_cut_cable, O), 0) //so we don't rebuild the network X times when singulo/explosion destroys a line of X cables
+	var/first = TRUE
+	for(var/obj/O in P_list)
+		if(first)
+			first = FALSE
+			continue
+		addtimer(CALLBACK(O, .proc/auto_propagate_cut_cable, O), 0) //so we don't rebuild the network X times when singulo/explosion destroys a line of X cables
 
 	// Disconnect machines connected to nodes
 	if(d1 == 0) // if we cut a node (O-X) cable
