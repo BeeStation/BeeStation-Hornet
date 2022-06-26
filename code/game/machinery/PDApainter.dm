@@ -220,6 +220,7 @@
 					return
 				storedid.icon_state = get_cardstyle_by_jobname(newidskin)
 				storedid.hud_state = get_hud_by_jobname(newidskin)
+				GLOB.data_core.manifest_modify(storedid.registered_name, storedid.assignment, storedid.hud_state)
 				ejectid()
 		else
 			to_chat(user, "<span class='notice'>[src] is empty.</span>")
@@ -258,7 +259,7 @@
 	if(jobname)
 		var/static/id_style = list(
 			// Command
-			"Command (Custom)" = "rawcommand",
+			"Command (Custom)" = "captain",
 			"Captain" = "captain",
 			"Acting Captain" = "captain",
 			// Service
@@ -332,77 +333,77 @@
 	if(jobname)
 		var/static/id_to_hud = list(
 			// Command
-			"Command (Custom)" = "rawcommand",
-			"Captain" = "captain",
-			"Acting Captain" = "actingcaptain",
+			"Command (Custom)" = HUD_RAWCOMMAND,
+			"Captain" = HUD_CAPTAIN,
+			"Acting Captain" = HUD_ACTINGCAPTAIN ,
 
 			// Service
-			"Service (Custom)" = "rawservice",
-			"Head of Personnel" = "headofpersonnel",
-			"Assistant" = "assistant",
-			"Bartender" = "bartender",
-			"Cook" = "cook",
-			"Botanist" = "botanist",
-			"Curator" = "curator",
-			"Chaplain" = "chaplain",
-			"Janitor" = "janitor",
-			"Lawyer" = "lawyer",
-			"Mime" = "mime",
-			"Clown" = "clown",
-			"Barber" = "barber",
-			"Stage Magician" = "stagemagician",
+			"Service (Custom)" = HUD_RAWSERVICE,
+			"Head of Personnel" = HUD_HEADOFPERSONNEL,
+			"Assistant" = HUD_ASSISTANT,
+			"Bartender" = HUD_BARTENDER,
+			"Cook" = HUD_COOK,
+			"Botanist" = HUD_BOTANIST,
+			"Curator" = HUD_CURATOR,
+			"Chaplain" = HUD_CHAPLAIN,
+			"Janitor" = HUD_JANITOR,
+			"Lawyer" = HUD_LAWYER,
+			"Mime" = HUD_MIME,
+			"Clown" = HUD_CLOWN,
+			"Stage Magician" = HUD_STAGEMAGICIAN,
+			"Barber" = HUD_BARBER,
 
 			// Cargo
-			"Cargo (Custom)" = "rawcargo",
-			"Quartermaster" = "quartermaster",
-			"Cargo Technician" = "cargotechnician",
-			"Shaft Miner" = "shaftminer",
+			"Cargo (Custom)" = HUD_RAWCARGO,
+			"Quartermaster" = HUD_QUARTERMASTER,
+			"Cargo Technician" = HUD_CARGOTECHNICIAN,
+			"Shaft Miner" = HUD_SHAFTMINER,
 
 			// R&D
-			"Science (Custom)" = "rawscience",
-			"Research Director" = "researchdirector",
-			"Scientist" = "scientist",
-			"Roboticist" = "roboticist",
-			"Exploration Crew" = "explorationcrew",
+			"Science (Custom)" = HUD_RAWSCIENCE,
+			"Research Director" = HUD_RESEARCHDIRECTOR,
+			"Scientist" = HUD_SCIENTIST,
+			"Roboticist" = HUD_ROBOTICIST,
+			"Exploration Crew" = HUD_EXPLORATIONCREW,
 
 			// Engineering
-			"Engineering (Custom)" = "rawengineering",
-			"Chief Engineer" = "chiefengineer",
-			"Station Engineer" = "stationengineer",
-			"Atmospheric Technician" = "atmospherictechnician",
+			"Engineering (Custom)" = HUD_RAWENGINEERING,
+			"Chief Engineer" = HUD_CHIEFENGINEER,
+			"Station Engineer" = HUD_STATIONENGINEER,
+			"Atmospheric Technician" = HUD_ATMOSPHERICTECHNICIAN,
 
 			// Medical
-			"Medical (Custom)" = "rawmedical",
-			"Chief Medical Officer" = "chiefmedicalofficer",
-			"Medical Doctor" = "medicaldoctor",
-			"Paramedic" = "paramedic",
-			"Virologist" = "virologist",
-			"Chemist" = "chemist",
-			"Geneticist" = "geneticist",
-			"Psychiatrist" = "psychiatrist",
+			"Medical (Custom)" = HUD_RAWMEDICAL,
+			"Chief Medical Officer" = HUD_CHEIFMEDICALOFFICIER,
+			"Medical Doctor" = HUD_MEDICALDOCTOR,
+			"Paramedic" = HUD_PARAMEDIC,
+			"Virologist" = HUD_VIROLOGIST,
+			"Chemist" = HUD_CHEMIST,
+			"Geneticist" = HUD_GENETICIST,
+			"Psychiatrist" = HUD_PSYCHIATRIST,
 
 			// Security
-			"Security (Custom)" = "rawsecurity",
-			"Head of Security" = "headofsecurity",
-			"Security Officer" = "securityofficer",
-			"Warden" = "warden",
-			"Detective" = "detective",
-			"Brig Physician" = "brigphysician",
-			"Deputy" = "deputy",
+			"Security (Custom)" = HUD_RAWSECURITY,
+			"Head of Security" = HUD_HEADOFSECURITY,
+			"Security Officer" = HUD_SECURITYOFFICER,
+			"Warden" = HUD_WARDEN,
+			"Detective" = HUD_DETECTIVE,
+			"Brig Physician" = HUD_BRIGPHYSICIAN,
+			"Deputy" = HUD_DEPUTY,
 
 			// CentCom
-			"CentCom (Custom)" = "rawcentcom",
-			"CentCom" = "centcom",
-			"ERT" = "centcom",
+			"CentCom (Custom)" = HUD_RAWCENTCOM,
+			"CentCom" = HUD_CENTCOM,
+			"ERT" = HUD_CENTCOM,
 
 			// ETC
-			"VIP" = "vip",
-			"King" = "king",
-			"Syndicate" = "syndicate",
-			"Clown Operative" = "syndicate",
-			"Unassigned" = "unknown",
-			"Prisoner" = "prisoner"
+			"VIP" = HUD_VIP,
+			"King" = HUD_KING,
+			"Syndicate" = HUD_SYNDICATE,
+			"Clown Operative" = HUD_SYNDICATE,
+			"Unassigned" = HUD_UNKNOWN,
+			"Prisoner" = HUD_PRISONER
 			)
 		if(jobname in id_to_hud)
 			return id_to_hud[jobname]
-	return "unknown"
+	return HUD_UNKNOWN

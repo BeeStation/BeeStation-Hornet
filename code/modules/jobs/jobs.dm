@@ -37,6 +37,7 @@ GLOBAL_LIST_INIT(supply_positions, list(
 
 
 GLOBAL_LIST_INIT(civilian_positions, list(
+	"Head of Personnel",
 	"Bartender",
 	"Botanist",
 	"Cook",
@@ -67,6 +68,82 @@ GLOBAL_LIST_INIT(nonhuman_positions, list(
 	"AI",
 	"Cyborg",
 	ROLE_PAI))
+
+
+// they are for hud_icon-based crew manifest
+// we don't use 'gimmick' here. use common sense here.
+GLOBAL_LIST_INIT(command_positions_hud, list(
+	HUD_CAPTAIN,
+	HUD_ACTINGCAPTAIN ,
+	HUD_HEADOFPERSONNEL,
+	HUD_HEADOFSECURITY,
+	HUD_CHIEFENGINEER,
+	HUD_RESEARCHDIRECTOR,
+	HUD_CHEIFMEDICALOFFICIER,
+	HUD_RAWCOMMAND))
+
+GLOBAL_LIST_INIT(important_positions_hud, list(
+	HUD_VIP,
+	HUD_KING))
+
+GLOBAL_LIST_INIT(engineering_positions_hud, list(
+	HUD_CHIEFENGINEER,
+	HUD_STATIONENGINEER,
+	HUD_ATMOSPHERICTECHNICIAN,
+	HUD_RAWENGINEERING))
+
+GLOBAL_LIST_INIT(medical_positions_hud, list(
+	HUD_CHEIFMEDICALOFFICIER,
+	HUD_MEDICALDOCTOR,
+	HUD_GENETICIST,
+	HUD_VIROLOGIST,
+	HUD_PARAMEDIC,
+	HUD_CHEMIST,
+	HUD_BRIGPHYSICIAN,
+	HUD_PSYCHIATRIST,
+	HUD_RAWMEDICAL))
+
+GLOBAL_LIST_INIT(science_positions_hud, list(
+	HUD_RESEARCHDIRECTOR,
+	HUD_SCIENTIST,
+	HUD_EXPLORATIONCREW,
+	HUD_ROBOTICIST,
+	HUD_RAWSCIENCE))
+
+GLOBAL_LIST_INIT(supply_positions_hud, list(
+	HUD_QUARTERMASTER,
+	HUD_CARGOTECHNICIAN,
+	HUD_SHAFTMINER,
+	HUD_RAWCARGO))
+
+GLOBAL_LIST_INIT(civilian_positions_hud, list(
+	HUD_HEADOFPERSONNEL,
+	HUD_BARTENDER,
+	HUD_BOTANIST,
+	HUD_COOK,
+	HUD_JANITOR,
+	HUD_CURATOR,
+	HUD_LAWYER,
+	HUD_CHAPLAIN,
+	HUD_CLOWN,
+	HUD_MIME,
+	HUD_BARBER,
+	HUD_STAGEMAGICIAN,
+	HUD_ASSISTANT,
+	HUD_RAWSERVICE))
+
+//GLOBAL_LIST_INIT(gimmick_positions_hud, list()
+// NO. don't use this.
+
+GLOBAL_LIST_INIT(security_positions_hud, list(
+	HUD_HEADOFSECURITY,
+	HUD_WARDEN,
+	HUD_DETECTIVE,
+	HUD_SECURITYOFFICER,
+	HUD_DEPUTY,
+	HUD_RAWSECURITY))
+
+
 
 GLOBAL_LIST_INIT(exp_jobsmap, list(
 	EXP_TYPE_CREW = list("titles" = command_positions | engineering_positions | medical_positions | science_positions | supply_positions | security_positions | civilian_positions | gimmick_positions | list("AI","Cyborg")), // crew positions

@@ -726,7 +726,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 
 /obj/machinery/computer/card/proc/eject_id_modify(mob/user)
 	if(modify)
-		GLOB.data_core.manifest_modify(modify.registered_name, modify.assignment)
+		GLOB.data_core.manifest_modify(modify.registered_name, modify.assignment, modify.hud_state)
 		modify.update_label()
 		modify.forceMove(drop_location())
 		if(!issilicon(user) && Adjacent(user))

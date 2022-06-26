@@ -107,3 +107,76 @@
 #define DEPARTMENT_SCIENCE (1<<5)
 #define DEPARTMENT_MEDICAL (1<<6)
 #define DEPARTMENT_SILICON (1<<7)
+
+
+
+// Job names based on hud icon names
+// Command
+#define HUD_RAWCOMMAND "rawcommand"
+#define HUD_CAPTAIN  "captain"
+#define HUD_ACTINGCAPTAIN  "actingcaptain"
+
+// Service
+#define HUD_RAWSERVICE "rawservice"
+#define HUD_HEADOFPERSONNEL "headofpersonnel"
+#define HUD_ASSISTANT "assistant"
+#define HUD_BARTENDER "bartender"
+#define HUD_COOK "cook"
+#define HUD_BOTANIST "botanist"
+#define HUD_CHAPLAIN "chaplain"
+#define HUD_CURATOR "curator"
+#define HUD_JANITOR "janitor"
+#define HUD_LAWYER "lawyer"
+#define HUD_MIME "mime"
+#define HUD_CLOWN "clown"
+#define HUD_STAGEMAGICIAN "stagemagician"
+#define HUD_BARBER "barber"
+
+// Cargo
+#define HUD_RAWCARGO "rawcargo"
+#define HUD_QUARTERMASTER "quartermaster"
+#define HUD_CARGOTECHNICIAN "cargotechnician"
+#define HUD_SHAFTMINER "shaftminer"
+
+// R&D
+#define HUD_RAWSCIENCE "rawscience"
+#define HUD_RESEARCHDIRECTOR "researchdirector"
+#define HUD_SCIENTIST "scientist"
+#define HUD_ROBOTICIST "roboticist"
+#define HUD_EXPLORATIONCREW "explorationcrew"
+
+// Engineering
+#define HUD_RAWENGINEERING "rawengineering"
+#define HUD_CHIEFENGINEER "chiefengineer"
+#define HUD_STATIONENGINEER "stationengineer"
+#define HUD_ATMOSPHERICTECHNICIAN "atmospherictechnician"
+
+// Medical
+#define HUD_RAWMEDICAL "rawmedical"
+#define HUD_CHEIFMEDICALOFFICIER "chiefmedicalofficer"
+#define HUD_MEDICALDOCTOR "medicaldoctor"
+#define HUD_PARAMEDIC "paramedic"
+#define HUD_VIROLOGIST "virologist"
+#define HUD_CHEMIST "chemist"
+#define HUD_GENETICIST "geneticist"
+#define HUD_PSYCHIATRIST "psychiatrist"
+
+// Security
+#define HUD_RAWSECURITY "rawsecurity"
+#define HUD_HEADOFSECURITY "headofsecurity"
+#define HUD_SECURITYOFFICER "securityofficer"
+#define HUD_WARDEN "warden"
+#define HUD_DETECTIVE "detective"
+#define HUD_BRIGPHYSICIAN "brigphysician"
+#define HUD_DEPUTY "deputy"
+
+// CentCom
+#define HUD_RAWCENTCOM "rawcentcom"
+#define HUD_CENTCOM "centcom"
+
+// MISC
+#define HUD_VIP "vip"
+#define HUD_KING "king"
+#define HUD_SYNDICATE "syndicate"
+#define HUD_PRISONER "prisoner"
+#define HUD_UNKNOWN "unknown"
