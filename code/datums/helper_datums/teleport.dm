@@ -28,6 +28,21 @@
 		precision = 0
 	switch(channel)
 		if(TELEPORT_CHANNEL_BLUESPACE)
+			//Check bluespace anchors
+			for (var/obj/machinery/bluespace_anchor/anchor as() in GLOB.active_bluespace_anchors)
+				//Not nearby
+				if (anchor.get_virtual_z_level() != teleatom.get_virtual_z_level() || get_dist(teleatom, anchor) > anchor.range)
+					continue
+				//Check it
+				if(!anchor.try_activate())
+					continue
+				do_sparks(5, FALSE, teleatom)
+				playsound(anchor, 'sound/magic/repulse.ogg', 80, TRUE)
+				if(ismob(teleatom))
+					to_chat(teleatom, "<span class='warning'>You feel like you are being held in place.</span>")
+				//Anchored...
+				return FALSE
+
 			if(istype(teleatom, /obj/item/storage/backpack/holding))
 				precision = rand(1,100)
 
