@@ -1,0 +1,7 @@
+author: covertcorvid
+delete-after: true
+changes:
+  - bugfix: Incorporeal mobs can traverse Z levels through the floor/ceiling
+  - tweak: Warnings about being unable to Z travel in gravity will only appear on
+      space or openspace
+  - tweak: Reverses animation direction for Z travel
