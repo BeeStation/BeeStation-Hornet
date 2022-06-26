@@ -2324,38 +2324,44 @@
 	limbs_id = "mcgipc"
 	color_src = MUTCOLORS
 
-/datum/sprite_accessory/ipc_chassis/bishopcyberkinetics
+/datum/sprite_accessory/ipc_chassis/bishop_cyberkinetics
 	name = "Bishop Cyberkinetics"
 	limbs_id = "bshipc"
 
-/datum/sprite_accessory/ipc_chassis/bishopcyberkinetics2
+/datum/sprite_accessory/ipc_chassis/bishop_cyberkinetics_2
 	name = "Bishop Cyberkinetics 2.0"
 	limbs_id = "bs2ipc"
 
-/datum/sprite_accessory/ipc_chassis/hephaestussindustries
+/datum/sprite_accessory/ipc_chassis/hephaestuss_industries
 	name = "Hephaestus Industries"
 	limbs_id = "hsiipc"
 
-/datum/sprite_accessory/ipc_chassis/hephaestussindustries2
+/datum/sprite_accessory/ipc_chassis/hephaestuss_industries_2
 	name = "Hephaestus Industries 2.0"
 	limbs_id = "hi2ipc"
 
-/datum/sprite_accessory/ipc_chassis/shellguardmunitions
+/datum/sprite_accessory/ipc_chassis/shellguard_munitions
 	name = "Shellguard Munitions Standard Series"
 	limbs_id = "sgmipc"
 
-/datum/sprite_accessory/ipc_chassis/wardtakahashimanufacturing
+/datum/sprite_accessory/ipc_chassis/ward_takahashi_manufacturing
 	name = "Ward-Takahashi Manufacturing"
 	limbs_id = "wtmipc"
 
-/datum/sprite_accessory/ipc_chassis/xionmanufacturinggroup
+/datum/sprite_accessory/ipc_chassis/xion_manufacturing_group
 	name = "Xion Manufacturing Group"
 	limbs_id = "xmgipc"
 
-/datum/sprite_accessory/ipc_chassis/xionmanufacturinggroup2
+/datum/sprite_accessory/ipc_chassis/xion_manufacturing_group_2
 	name = "Xion Manufacturing Group 2.0"
 	limbs_id = "xm2ipc"
 
-/datum/sprite_accessory/ipc_chassis/zenghupharmaceuticals
+/datum/sprite_accessory/ipc_chassis/zeng_hu_pharmaceuticals
 	name = "Zeng-Hu Pharmaceuticals"
 	limbs_id = "zhpipc"
+
+// MONKESTATION CHANGE: Adds staripc chassis by MilkForever
+/datum/sprite_accessory/ipc_chassis/star_industrial
+	name = "Star Industrial"
+	limbs_id = "staripc"
+// MONKESTATION CHANGE END
