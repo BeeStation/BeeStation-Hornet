@@ -67,7 +67,6 @@
 /obj/item/clothing/mask/joy
 	name = "emotion mask"
 	desc = "Express your happiness or hide your sorrows with this cultured cutout."
-	clothing_flags = MASKINTERNALS
 	icon_state = "joy"
 	item_state = "joy"
 	flags_cover = MASKCOVERSEYES
