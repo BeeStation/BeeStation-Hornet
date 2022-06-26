@@ -351,7 +351,7 @@
 		wait_time = 1 SECONDS
 		if (territory_claimed(get_area(target), user))
 			wait_time = 20 SECONDS
-	if(!instant)
+	if(!instant || paint_mode == PAINT_LARGE_HORIZONTAL)
 		to_chat(user, "<span class='notice'>You start drawing a [temp] on the [target.name]...</span>") // hippie -- removed a weird tab that had no reason to be here
 		if(!do_after(user, wait_time, target = target))
 			return
