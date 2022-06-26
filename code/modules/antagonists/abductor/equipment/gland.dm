@@ -4,6 +4,7 @@
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "gland"
 	status = ORGAN_ROBOTIC
+	organ_flags = NONE
 	beating = TRUE
 	var/true_name = "baseline placebo referencer"
 	var/cooldown_low = 300
@@ -288,7 +289,7 @@
 /obj/item/organ/heart/gland/egg/activate()
 	owner.visible_message("<span class='alertalien'>[owner] [pick(EGG_LAYING_MESSAGES)]</span>")
 	var/turf/T = owner.drop_location()
-	new /obj/item/reagent_containers/food/snacks/egg/gland(T)
+	new /obj/item/food/egg/gland(T)
 
 /obj/item/organ/heart/gland/electric
 	true_name = "electron accumulator/discharger"

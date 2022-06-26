@@ -115,10 +115,10 @@
 
 /datum/reagent/consumable/cooking_oil/reaction_obj(obj/O, reac_volume)
 	if(holder && holder.chem_temp >= fry_temperature)
-		if(isitem(O) && !istype(O, /obj/item/reagent_containers/food/snacks/deepfryholder))
+		if(isitem(O) && !istype(O, /obj/item/food/deepfryholder))
 			log_game("[O.name] ([O.type]) has been deep fried by a reaction with cooking oil reagent at [AREACOORD(O)].")
 			O.loc.visible_message("<span class='warning'>[O] rapidly fries as it's splashed with hot oil! Somehow.</span>")
-			var/obj/item/reagent_containers/food/snacks/deepfryholder/F = new(O.drop_location(), O)
+			var/obj/item/food/deepfryholder/F = new(O.drop_location(), O)
 			F.fry(volume)
 			F.reagents.add_reagent(/datum/reagent/consumable/cooking_oil, reac_volume)
 
@@ -197,6 +197,21 @@
 	color = "#731008" // rgb: 115, 16, 8
 	taste_description = "ketchup"
 
+/datum/reagent/consumable/whipped_cream
+	name = "Whipped Cream"
+	description = "A perfect topping for icecream and pancakes"
+	taste_description = "sugary"
+
+/datum/reagent/consumable/cloth
+	name = "Shredded Cloth"
+	description = "Moths love this stuff"
+	taste_description = "lint"
+
+/datum/reagent/consumable/cloth/on_mob_life(mob/living/carbon/Consumer)
+	if(ismoth(Consumer))
+		Consumer.heal_bodypart_damage(1,1, 0)
+		.= 1
+	..()
 
 /datum/reagent/consumable/capsaicin
 	name = "Capsaicin Oil"
@@ -763,3 +778,54 @@
 	if(prob(10))
 		M.say(pick("I hate my wife.", "I just want to grill for God's sake.", "I wish I could just go on my lawnmower and cut the grass.", "Yep, Quake. That was a good game...", "Yeah, my PDA has wi-fi. A wife I hate."), forced = /datum/reagent/consumable/char)
 	..()
+
+/datum/reagent/consumable/korta_flour
+	name = "Korta Flour"
+	description = "A coarsely ground, peppery flour made from korta nut shells."
+	taste_description = "earthy heat"
+	color = "#EEC39A"
+
+
+/datum/reagent/consumable/korta_milk
+	name = "Korta Milk"
+	description = "A milky liquid made by crushing the centre of a korta nut."
+	taste_description = "sugary milk"
+	color = "#FFFFFF"
+
+
+/datum/reagent/consumable/korta_nectar
+	name = "Korta Nectar"
+	description = "A sweet, sugary syrup made from crushed sweet korta nuts."
+	color = "#d3a308"
+	nutriment_factor = 5 * REAGENTS_METABOLISM
+	metabolization_rate = 1 * REAGENTS_METABOLISM
+	taste_description = "peppery sweetness"
+
+
+/datum/reagent/consumable/peanut_butter
+	name = "Peanut Butter"
+	description = "A rich, creamy spread produced by grinding peanuts."
+	taste_description = "peanuts"
+	color = "#D9A066"
+
+
+/datum/reagent/consumable/peanut_butter/on_mob_life(mob/living/carbon/M, delta_time, times_fired) //ET loves peanut butter
+	if(isabductor(M))
+		SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "ET_pieces", /datum/mood_event/et_pieces, name)
+		M.set_drugginess(15 * REM * delta_time)
+	..()
+
+/datum/reagent/consumable/vinegar
+	name = "Vinegar"
+	description = "Useful for pickling, or putting on chips."
+	taste_description = "acid"
+	color = "#661F1E"
+
+
+//A better oil, representing choices like olive oil, argan oil, avocado oil, etc.
+/datum/reagent/consumable/quality_oil
+	name = "Quality Oil"
+	description = "A high quality oil, suitable for dishes where the oil is a key flavour."
+	taste_description = "olive oil"
+	color = "#DBCF5C"
+

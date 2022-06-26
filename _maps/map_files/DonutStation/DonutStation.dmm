@@ -1431,12 +1431,12 @@
 /obj/structure/sign/plaques/kiddie/badger{
 	pixel_x = -32
 	},
-/obj/item/reagent_containers/food/snacks/grown/poppy,
-/obj/item/reagent_containers/food/snacks/grown/poppy{
+/obj/item/food/grown/poppy,
+/obj/item/food/grown/poppy{
 	pixel_x = 3;
 	pixel_y = 4
 	},
-/obj/item/reagent_containers/food/snacks/grown/poppy{
+/obj/item/food/grown/poppy{
 	pixel_x = -1;
 	pixel_y = 3
 	},
@@ -6313,7 +6313,7 @@
 	pixel_x = -22
 	},
 /obj/item/toy/dummy,
-/obj/item/reagent_containers/food/snacks/baguette,
+/obj/item/food/baguette,
 /turf/open/floor/wood,
 /area/crew_quarters/theatre)
 "apE" = (
@@ -6472,8 +6472,7 @@
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
 "aqb" = (
-/obj/structure/table,
-/obj/item/reagent_containers/food/snacks/mint,
+/obj/machinery/griddle,
 /turf/open/floor/plasteel/cafeteria{
 	dir = 5
 	},
@@ -12570,7 +12569,7 @@
 /obj/structure/closet/crate,
 /obj/item/kitchen/fork,
 /obj/item/kitchen/fork,
-/obj/item/trash/plate,
+/obj/item/plate,
 /obj/item/clothing/head/bowler,
 /turf/open/floor/plating,
 /area/maintenance/port)
@@ -25894,7 +25893,7 @@
 /turf/open/floor/plasteel/white,
 /area/medical/genetics)
 "bfR" = (
-/obj/machinery/food_cart,
+/obj/machinery/oven,
 /turf/open/floor/plasteel/cafeteria{
 	dir = 5
 	},
@@ -32505,12 +32504,12 @@
 /area/hydroponics/garden)
 "bsv" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/snacks/grown/poppy,
-/obj/item/reagent_containers/food/snacks/grown/poppy{
+/obj/item/food/grown/poppy,
+/obj/item/food/grown/poppy{
 	pixel_x = 2;
 	pixel_y = 2
 	},
-/obj/item/reagent_containers/food/snacks/grown/poppy{
+/obj/item/food/grown/poppy{
 	pixel_x = -1
 	},
 /turf/open/floor/plasteel/dark,
@@ -55575,7 +55574,7 @@
 /turf/open/floor/plasteel,
 /area/quartermaster/exploration_prep)
 "oAn" = (
-/obj/item/reagent_containers/food/snacks/salad/validsalad,
+/obj/item/food/salad/validsalad,
 /turf/open/floor/plating,
 /area/engine/engine_room)
 "oAP" = (
@@ -55648,6 +55647,10 @@
 /obj/machinery/meter,
 /turf/open/floor/plasteel,
 /area/engine/engine_room)
+"oFz" = (
+/obj/machinery/food_cart,
+/turf/open/floor/plasteel/freezer,
+/area/crew_quarters/kitchen/coldroom)
 "oGu" = (
 /obj/machinery/power/apc{
 	areastring = "/area/ai_monitored/turret_protected/aisat/service";
@@ -58334,6 +58337,12 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/plasteel,
 /area/engine/engineering)
+"vSt" = (
+/obj/machinery/computer/chef_order{
+	dir = 1
+	},
+/turf/open/floor/plasteel/freezer,
+/area/crew_quarters/kitchen/coldroom)
 "vSP" = (
 /obj/structure/sign/warning/nosmoking/circle{
 	pixel_x = -32
@@ -91280,7 +91289,7 @@ xhI
 xhI
 xhI
 xhI
-pBI
+oFz
 dwg
 xhI
 bba
@@ -91795,7 +91804,7 @@ xhI
 pBI
 nuq
 xyz
-pBI
+vSt
 xhI
 hYj
 bYW

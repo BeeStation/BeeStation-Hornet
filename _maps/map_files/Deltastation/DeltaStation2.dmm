@@ -6635,7 +6635,7 @@
 /area/security/checkpoint/customs)
 "aqm" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/chips,
+/obj/item/food/chips,
 /turf/open/floor/plasteel/grimy,
 /area/hallway/secondary/entry)
 "aqn" = (
@@ -13232,7 +13232,7 @@
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/bar)
 "aEP" = (
-/obj/machinery/food_cart/coffee,
+/obj/machinery/food_cart,
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -18591,13 +18591,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/security/prison)
-"aPl" = (
-/obj/structure/table,
-/obj/item/reagent_containers/food/snacks/deadmouse{
-	pixel_y = 5
-	},
-/turf/open/floor/plating,
-/area/security/prison)
 "aPm" = (
 /obj/structure/table,
 /obj/structure/cable/yellow{
@@ -19171,7 +19164,7 @@
 /area/crew_quarters/bar/atrium)
 "aQt" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/cheesiehonkers,
+/obj/item/food/cheesiehonkers,
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
@@ -21865,7 +21858,7 @@
 /area/crew_quarters/theatre)
 "aVi" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/baguette,
+/obj/item/food/baguette,
 /obj/item/toy/crayon/spraycan/mimecan{
 	charges = 5
 	},
@@ -21962,7 +21955,7 @@
 /area/crew_quarters/bar/atrium)
 "aVr" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/chips,
+/obj/item/food/chips,
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
@@ -25165,8 +25158,8 @@
 /turf/open/floor/plasteel,
 /area/hallway/secondary/service)
 "bay" = (
-/obj/structure/kitchenspike,
 /obj/effect/turf_decal/bot,
+/obj/machinery/computer/chef_order,
 /turf/open/floor/plasteel,
 /area/crew_quarters/kitchen)
 "baz" = (
@@ -28199,12 +28192,31 @@
 /obj/item/storage/bag/tray,
 /obj/effect/turf_decal/bot,
 /obj/item/reagent_containers/food/condiment/flour,
+/obj/item/book/manual/wiki/cooking_to_serve_man,
 /turf/open/floor/plasteel,
 /area/crew_quarters/kitchen)
 "bgu" = (
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/bot,
 /obj/machinery/dish_drive,
+/obj/item/storage/box/papersack{
+	icon_state = "paperbag_NanotrasenStandard_closed"
+	},
+/obj/item/storage/box/papersack{
+	icon_state = "paperbag_NanotrasenStandard_closed"
+	},
+/obj/item/storage/box/papersack{
+	icon_state = "paperbag_NanotrasenStandard_closed"
+	},
+/obj/item/storage/box/papersack{
+	icon_state = "paperbag_NanotrasenStandard_closed"
+	},
+/obj/item/storage/box/papersack{
+	icon_state = "paperbag_NanotrasenStandard_closed"
+	},
+/obj/item/storage/box/papersack{
+	icon_state = "paperbag_NanotrasenStandard_closed"
+	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/kitchen)
 "bgv" = (
@@ -28916,35 +28928,13 @@
 /turf/open/floor/plasteel,
 /area/crew_quarters/kitchen)
 "bhQ" = (
-/obj/structure/table/reinforced,
-/obj/item/reagent_containers/food/snacks/dough,
 /obj/effect/turf_decal/bot,
+/obj/machinery/griddle,
 /turf/open/floor/plasteel,
 /area/crew_quarters/kitchen)
 "bhR" = (
-/obj/structure/table/reinforced,
 /obj/effect/turf_decal/bot,
-/obj/item/book/manual/wiki/cooking_to_serve_man,
-/turf/open/floor/plasteel,
-/area/crew_quarters/kitchen)
-"bhS" = (
-/obj/structure/table/reinforced,
-/obj/item/storage/box/papersack{
-	icon_state = "paperbag_NanotrasenStandard_closed"
-	},
-/obj/item/storage/box/papersack{
-	icon_state = "paperbag_NanotrasenStandard_closed"
-	},
-/obj/item/storage/box/papersack{
-	icon_state = "paperbag_NanotrasenStandard_closed"
-	},
-/obj/item/storage/box/papersack{
-	icon_state = "paperbag_NanotrasenStandard_closed"
-	},
-/obj/item/storage/box/papersack{
-	icon_state = "paperbag_NanotrasenStandard_closed"
-	},
-/obj/effect/turf_decal/bot,
+/obj/machinery/oven,
 /turf/open/floor/plasteel,
 /area/crew_quarters/kitchen)
 "bhT" = (
@@ -30693,7 +30683,7 @@
 /area/crew_quarters/kitchen)
 "blv" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/food/snacks/mint,
+/obj/item/food/mint,
 /obj/item/reagent_containers/food/condiment/enzyme{
 	pixel_y = 5
 	},
@@ -32532,7 +32522,7 @@
 "bpp" = (
 /obj/structure/table/reinforced,
 /obj/item/clipboard,
-/obj/item/reagent_containers/food/snacks/donut/jelly/choco,
+/obj/item/food/donut/jelly/choco,
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
@@ -33464,7 +33454,7 @@
 	name = "Hydroponics Desk";
 	req_access_txt = "35"
 	},
-/obj/item/reagent_containers/food/snacks/grown/apple,
+/obj/item/food/grown/apple,
 /obj/effect/turf_decal/delivery,
 /obj/machinery/door/firedoor,
 /turf/open/floor/plasteel,
@@ -34341,9 +34331,9 @@
 /obj/item/seeds/grape{
 	pixel_x = -6
 	},
-/obj/item/reagent_containers/food/snacks/grown/wheat,
-/obj/item/reagent_containers/food/snacks/grown/watermelon,
-/obj/item/reagent_containers/food/snacks/grown/banana,
+/obj/item/food/grown/wheat,
+/obj/item/food/grown/watermelon,
+/obj/item/food/grown/banana,
 /obj/effect/turf_decal/delivery,
 /obj/machinery/door/firedoor,
 /turf/open/floor/plasteel,
@@ -36530,10 +36520,10 @@
 /obj/item/seeds/pumpkin{
 	pixel_x = -6
 	},
-/obj/item/reagent_containers/food/snacks/grown/wheat,
-/obj/item/reagent_containers/food/snacks/grown/watermelon,
-/obj/item/reagent_containers/food/snacks/grown/grapes,
-/obj/item/reagent_containers/food/snacks/grown/tomato,
+/obj/item/food/grown/wheat,
+/obj/item/food/grown/watermelon,
+/obj/item/food/grown/grapes,
+/obj/item/food/grown/tomato,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel,
 /area/hydroponics)
@@ -73982,9 +73972,9 @@
 /area/crew_quarters/dorms)
 "cVb" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/grown/poppy/lily,
-/obj/item/reagent_containers/food/snacks/grown/poppy/lily,
-/obj/item/reagent_containers/food/snacks/grown/poppy/lily,
+/obj/item/food/grown/poppy/lily,
+/obj/item/food/grown/poppy/lily,
+/obj/item/food/grown/poppy/lily,
 /obj/machinery/airalarm{
 	dir = 1;
 	pixel_y = -22
@@ -95468,15 +95458,15 @@
 /area/chapel/main)
 "dUn" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/grown/poppy{
+/obj/item/food/grown/poppy{
 	pixel_x = 3;
 	pixel_y = 3
 	},
-/obj/item/reagent_containers/food/snacks/grown/poppy{
+/obj/item/food/grown/poppy{
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/reagent_containers/food/snacks/grown/poppy,
+/obj/item/food/grown/poppy,
 /obj/machinery/status_display/evac{
 	pixel_y = 32
 	},
@@ -95523,15 +95513,15 @@
 /area/chapel/main)
 "dUr" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/grown/harebell{
+/obj/item/food/grown/harebell{
 	pixel_x = 3;
 	pixel_y = 3
 	},
-/obj/item/reagent_containers/food/snacks/grown/harebell{
+/obj/item/food/grown/harebell{
 	pixel_x = -3;
 	pixel_y = 3
 	},
-/obj/item/reagent_containers/food/snacks/grown/harebell,
+/obj/item/food/grown/harebell,
 /obj/machinery/status_display/evac{
 	pixel_y = 32
 	},
@@ -99889,11 +99879,11 @@
 /area/chapel/office)
 "efX" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/grown/poppy/geranium{
+/obj/item/food/grown/poppy/geranium{
 	pixel_x = 6;
 	pixel_y = 6
 	},
-/obj/item/reagent_containers/food/snacks/grown/poppy/lily,
+/obj/item/food/grown/poppy/lily,
 /turf/open/floor/plasteel/grimy,
 /area/chapel/office)
 "efY" = (
@@ -109385,6 +109375,7 @@
 "nZF" = (
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/bot,
+/obj/item/food/dough,
 /turf/open/floor/plasteel,
 /area/crew_quarters/kitchen)
 "oaD" = (
@@ -156278,7 +156269,7 @@ bcj
 bdJ
 bfg
 bgu
-bhS
+bhQ
 bjF
 blA
 bnq
@@ -171686,7 +171677,7 @@ aJz
 aKW
 aMh
 aND
-aPl
+xtU
 aRd
 aKV
 aUy

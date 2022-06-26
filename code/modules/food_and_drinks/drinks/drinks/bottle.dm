@@ -491,6 +491,14 @@
 	icon_state = "moonshinebottle"
 	list_reagents = list(/datum/reagent/consumable/ethanol/moonshine = 100)
 
+/obj/item/reagent_containers/food/drinks/bottle/mushi_kombucha
+	name = "Solzara Brewing Company Mushi Kombucha"
+	desc = "Best drunk over ice to savour the mushroomy flavour."
+	icon_state = "shroomy_bottle"
+	volume = 30
+	list_reagents = list(/datum/reagent/consumable/ethanol/mushi_kombucha = 30)
+	isGlass = FALSE
+
 /obj/item/reagent_containers/food/drinks/bottle/blank //Don't let players print these from a lathe, bottles should be obtained in mass from the bar only.
 	name = "glass bottle"
 	desc = "This blank bottle is unyieldingly anonymous, offering no clues to it's contents."

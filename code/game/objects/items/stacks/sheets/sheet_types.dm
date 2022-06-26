@@ -317,6 +317,7 @@ GLOBAL_LIST_INIT(cloth_recipes, list ( \
 	merge_type = /obj/item/stack/sheet/cotton/cloth
 	pull_effort = 50
 	loom_result = /obj/item/stack/sheet/silk
+	grind_results = list(/datum/reagent/consumable/cloth = 20)
 
 /obj/item/stack/sheet/cotton/cloth/Initialize(mapload, new_amount, merge = TRUE)
 	recipes = GLOB.cloth_recipes

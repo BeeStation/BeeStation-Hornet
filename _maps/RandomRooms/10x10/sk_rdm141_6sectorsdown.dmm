@@ -9,7 +9,7 @@
 /area/template_noop)
 "bY" = (
 /obj/structure/closet,
-/obj/item/reagent_containers/food/snacks/popcorn,
+/obj/item/food/popcorn,
 /obj/machinery/light{
 	dir = 1
 	},

@@ -314,3 +314,8 @@
 		M.adjust_fire_stacks(-reac_volume)
 		M.ExtinguishMob()
 	..()
+
+/datum/chemical_reaction/reagent_explosion/patriotism_overload
+	required_reagents = list(/datum/reagent/consumable/ethanol/planet_cracker = 1, /datum/reagent/consumable/ethanol/triumphal_arch = 1)
+	strengthdiv = 20
+	mix_message = "<span class='boldannounce'>The two patriotic drinks instantly reject each other!</span>"

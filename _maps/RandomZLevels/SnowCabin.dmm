@@ -925,10 +925,10 @@
 /area/awaymission/cabin)
 "cG" = (
 /obj/structure/closet/secure_closet/freezer/meat/open,
-/obj/item/reagent_containers/food/snacks/meat/slab/synthmeat,
-/obj/item/reagent_containers/food/snacks/meat/slab/synthmeat,
-/obj/item/reagent_containers/food/snacks/meat/slab/synthmeat,
-/obj/item/reagent_containers/food/snacks/meat/slab/synthmeat,
+/obj/item/food/meat/slab/synthmeat,
+/obj/item/food/meat/slab/synthmeat,
+/obj/item/food/meat/slab/synthmeat,
+/obj/item/food/meat/slab/synthmeat,
 /turf/open/floor/plasteel/freezer,
 /area/awaymission/cabin)
 "cH" = (
@@ -1368,8 +1368,8 @@
 /turf/open/floor/plating/snowed/temperatre,
 /area/awaymission/cabin/snowforest/sovietsurface)
 "ea" = (
-/obj/item/reagent_containers/food/snacks/carpmeat,
-/obj/item/reagent_containers/food/snacks/carpmeat,
+/obj/item/food/carpmeat,
+/obj/item/food/carpmeat,
 /turf/open/floor/plating/ice/smooth,
 /area/awaymission/cabin/snowforest)
 "eb" = (
@@ -1826,7 +1826,7 @@
 /turf/open/floor/wood,
 /area/awaymission/cabin/caves/mountain)
 "fk" = (
-/obj/item/reagent_containers/food/snacks/burger/ghost{
+/obj/item/food/burger/ghost{
 	desc = "I killed a burger for you. Hope you're grateful, bastards.";
 	pixel_x = -2;
 	pixel_y = 4
@@ -2455,7 +2455,7 @@
 "gt" = (
 /obj/structure/sign/poster/contraband/pwr_game{
 	pixel_x = 32;
-	
+
 	},
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/engine,
@@ -2584,7 +2584,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/blue,
-/obj/item/reagent_containers/food/snacks/egg/rainbow{
+/obj/item/food/egg/rainbow{
 	anchored = 0;
 	desc = "Was an egg really worth this much effort?";
 	name = "easter egg"
@@ -3276,7 +3276,7 @@
 "io" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -24;
-	
+
 	},
 /turf/open/floor/wood,
 /area/awaymission/cabin)

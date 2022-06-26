@@ -397,10 +397,6 @@
 		failed = FALSE
 	return
 
-/obj/item/organ/lungs/prepare_eat()
-	var/obj/S = ..()
-	S.reagents.add_reagent(/datum/reagent/medicine/salbutamol, 5)
-	return S
 
 /obj/item/organ/lungs/plasmaman
 	name = "plasma filter"

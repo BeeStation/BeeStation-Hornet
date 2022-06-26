@@ -14,7 +14,7 @@
 	default_features = list("tail_monkey" = "Chimp")
 	skin_tone_list = "simian"
 	changesource_flags = MIRROR_BADMIN | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN
-	meat = /obj/item/reagent_containers/food/snacks/meat/slab/monkey
+	meat = /obj/item/food/meat/slab/monkey
 	skinned_type = /obj/item/stack/sheet/animalhide/monkey
 	disliked_food = GROSS
 	liked_food = FRUIT | MEAT

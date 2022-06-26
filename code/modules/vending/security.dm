@@ -11,7 +11,7 @@
 					/obj/item/grenade/flashbang = 4,
 					/obj/item/assembly/flash/handheld = 5,
 					/obj/item/book/manual/wiki/security_space_law = 3,
-					/obj/item/reagent_containers/food/snacks/donut = 4, //MonkeStation Edit: Reduction of free food
+					/obj/item/food/donut = 4, //MonkeStation Edit: Reduction of free food
 					/obj/item/storage/box/evidence = 6,
 					/obj/item/flashlight/seclite = 4,
 					/obj/item/holosign_creator/security = 3,

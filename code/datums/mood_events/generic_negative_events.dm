@@ -233,3 +233,4 @@
 	description = "<span class='warning'>All the fish are dead...</span>\n"
 	mood_change = -3
 	timeout = 1.5 MINUTES
+

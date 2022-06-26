@@ -24,10 +24,7 @@
 		M.RemoveAbility(P)
 	..()
 
-/obj/item/organ/alien/prepare_eat()
-	var/obj/S = ..()
-	S.reagents.add_reagent(/datum/reagent/toxin/acid, 10)
-	return S
+
 
 
 /obj/item/organ/alien/plasmavessel
@@ -43,10 +40,6 @@
 	var/heal_rate = 5
 	var/plasma_rate = 10
 
-/obj/item/organ/alien/plasmavessel/prepare_eat()
-	var/obj/S = ..()
-	S.reagents.add_reagent(/datum/reagent/toxin/plasma, storedPlasma/10)
-	return S
 
 /obj/item/organ/alien/plasmavessel/large
 	name = "large plasma vessel"

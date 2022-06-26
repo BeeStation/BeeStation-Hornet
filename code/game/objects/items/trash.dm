@@ -48,11 +48,6 @@
 	name = "waffles tray"
 	icon_state = "waffles"
 
-/obj/item/trash/plate
-	name = "plate"
-	icon_state = "plate"
-	resistance_flags = NONE
-
 /obj/item/trash/pistachios
 	name = "pistachios pack"
 	icon_state = "pistachios_pack"
@@ -108,7 +103,7 @@
 		return
 	var/mob/living/carbon/human/H = M
 	if(user.a_intent != INTENT_HARM && HAS_TRAIT(H, TRAIT_TRASH_EATER)) //Added via the goat.dm disease symptom
-		var/obj/item/reagent_containers/food/snacks/clothing/clothing_as_food = new
+		var/obj/item/food/clothing/clothing_as_food = new
 		clothing_as_food.name = name
 		if(clothing_as_food.attack(M, user, def_zone))
 			take_damage(15, sound_effect=FALSE)
@@ -129,3 +124,12 @@
 	visible_message("[src] fuses into a diamond! Someone wasn't so naughty after all...")
 	new /obj/item/stack/ore/diamond(loc)
 	qdel(src)
+
+/obj/item/trash/peanuts
+	name = "\improper Gallery peanuts packet"
+	desc = "This thread is trash!"
+	icon_state = "peanuts"
+
+/obj/item/trash/cnds
+	name = "\improper C&Ds packet"
+	icon_state = "cnds"

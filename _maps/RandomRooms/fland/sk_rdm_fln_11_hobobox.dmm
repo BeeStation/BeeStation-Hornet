@@ -139,7 +139,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "C" = (
-/obj/item/trash/plate,
+/obj/item/plate,
 /turf/open/floor/plasteel,
 /area/template_noop)
 "D" = (

@@ -5,7 +5,7 @@
 	icon = 'monkestation/icons/mob/pets.dmi'
 	icon_state = "australianshepherd"
 	icon_living = "australianshepherd"
-	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab/corgi = 1) //theres no generic dog meat type
+	butcher_results = list(/obj/item/food/meat/slab/corgi = 1) //theres no generic dog meat type
 	gold_core_spawnable = FRIENDLY_SPAWN
 	worn_slot_flags = ITEM_SLOT_HEAD
 	head_icon = 'monkestation/icons/mob/pets_held.dmi'

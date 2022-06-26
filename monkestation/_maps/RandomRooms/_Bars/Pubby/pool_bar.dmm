@@ -225,7 +225,7 @@
 	dir = 5
 	},
 /obj/structure/table/glass,
-/obj/item/trash/plate,
+/obj/item/plate,
 /obj/item/kitchen/fork{
 	pixel_y = 2
 	},
@@ -1208,7 +1208,7 @@
 /area/crew_quarters/bar)
 "QG" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/snacks/donut,
+/obj/item/food/donut,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},

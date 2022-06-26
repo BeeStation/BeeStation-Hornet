@@ -59,6 +59,8 @@
 	var/list/armor_list = list()
 	///These are armor values that protect the clothing, taken from its armor datum. List updates on examine because it's currently only used to print armor ratings to chat in Topic().
 	var/list/durability_list = list()
+	/// A lazily initiated "food" version of the clothing for moths
+	var/obj/item/food/clothing/moth_snack
 
 /obj/item/clothing/Initialize(mapload)
 	if(CHECK_BITFIELD(clothing_flags, VOICEBOX_TOGGLABLE))
@@ -89,22 +91,49 @@
 	..()
 
 
-/obj/item/reagent_containers/food/snacks/clothing
+//This code is cursed, moths are cursed, and someday I will destroy it. but today is not that day.
+/obj/item/food/clothing
 	name = "temporary moth clothing snack item"
-	desc = "If you're reading this it means I messed up. This is related to moths eating clothes and I didn't know a better way to do it than making a new food object."
-	list_reagents = list(/datum/reagent/consumable/nutriment = 1)
+	desc = "If you're reading this it means I messed up. This is related to moths eating clothes and I didn't know a better way to do it than making a new food object. <--- stinky idiot wrote this"
+	bite_consumption = 1
+	// sigh, ok, so it's not ACTUALLY infinite nutrition. this is so you can eat clothes more than...once.
+	// bite_consumption limits how much you actually get, and the take_damage in after eat makes sure you can't abuse this.
+	// ...maybe this was a mistake after all.
+	food_reagents = list(/datum/reagent/consumable/nutriment = INFINITY)
 	tastes = list("dust" = 1, "lint" = 1)
-	foodtype = CLOTH
+	foodtypes = CLOTH
 
-/obj/item/clothing/attack(mob/M, mob/user, def_zone)
-	if(user.a_intent != INTENT_HARM && ismoth(M) && !(clothing_flags & NOTCONSUMABLE) && !(resistance_flags & INDESTRUCTIBLE) && (armor.getRating("melee") == 0))
-		var/obj/item/reagent_containers/food/snacks/clothing/clothing_as_food = new
-		clothing_as_food.name = name
-		if(clothing_as_food.attack(M, user, def_zone))
-			take_damage(15, sound_effect=FALSE)
-		qdel(clothing_as_food)
+	/// A weak reference to the clothing that created us
+	var/datum/weakref/clothing
+
+/obj/item/food/clothing/MakeEdible()
+	AddComponent(/datum/component/edible,\
+		initial_reagents = food_reagents,\
+		food_flags = food_flags,\
+		foodtypes = foodtypes,\
+		volume = max_volume,\
+		eat_time = eat_time,\
+		tastes = tastes,\
+		eatverbs = eatverbs,\
+		bite_consumption = bite_consumption,\
+		microwaved_type = microwaved_type,\
+		junkiness = junkiness,\
+		after_eat = CALLBACK(src, .proc/after_eat))
+
+/obj/item/food/clothing/proc/after_eat(mob/eater)
+	var/obj/item/clothing/resolved_clothing = clothing.resolve()
+	if (resolved_clothing)
+		resolved_clothing.take_damage(15, sound_effect = FALSE, damage_flag = CONSUME)
 	else
-		return ..()
+		qdel(src)
+
+/obj/item/clothing/attack(mob/M, mob/user, params)
+	if(user.a_intent != INTENT_HARM && ismoth(M) && !(clothing_flags & NOTCONSUMABLE) && !(resistance_flags & INDESTRUCTIBLE) && (armor.getRating("melee") == 0))
+		if(isnull(moth_snack))
+			moth_snack = new
+			moth_snack.name = name
+			moth_snack.clothing = WEAKREF(src)
+	moth_snack.attack(M, user, params)
 
 /obj/item/clothing/attackby(obj/item/W, mob/user, params)
 	if(damaged_clothes && istype(W, /obj/item/stack/sheet/cotton/cloth))
@@ -117,6 +146,7 @@
 	return ..()
 
 /obj/item/clothing/Destroy()
+	QDEL_NULL(moth_snack)
 	user_vars_remembered = null //Oh god somebody put REFERENCES in here? not to worry, we'll clean it up
 	return ..()
 
@@ -482,6 +512,13 @@ BLIND     // can't see anything
 		spawn(1) //so the shred survives potential turf change from the explosion.
 			var/obj/effect/decal/cleanable/shreds/Shreds = new(T)
 			Shreds.desc = "The sad remains of what used to be [name]."
+		deconstruct(FALSE)
+	if(damage_flag == CONSUME) //This allows for moths to fully consume clothing, rather than damaging it like other sources like brute
+		var/turf/current_position = get_turf(src)
+		new /obj/effect/decal/cleanable/shreds(current_position, name)
+		if(isliving(loc))
+			var/mob/living/possessing_mob = loc
+			possessing_mob.visible_message(span_danger("[src] is consumed until naught but shreds remains!"), span_boldwarning("[src] falls apart into little bits!"))
 		deconstruct(FALSE)
 	else
 		..()

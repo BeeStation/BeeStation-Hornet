@@ -478,7 +478,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
-/obj/item/reagent_containers/food/snacks/donut/plain,
+/obj/item/food/donut/plain,
 /obj/item/reagent_containers/food/drinks/coffee{
 	pixel_x = 9;
 	pixel_y = -1

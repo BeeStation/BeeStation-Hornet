@@ -3647,7 +3647,7 @@
 /turf/open/floor/plasteel,
 /area/security/main)
 "ajr" = (
-/obj/item/reagent_containers/food/snacks/donut/chaos,
+/obj/item/food/donut/chaos,
 /turf/open/floor/plating,
 /area/crew_quarters/heads/hos)
 "ajs" = (
@@ -9386,7 +9386,7 @@
 	name = "Brig Desk";
 	req_access_txt = "1"
 	},
-/obj/item/reagent_containers/food/snacks/donut{
+/obj/item/food/donut{
 	layer = 3
 	},
 /obj/machinery/door/poddoor/preopen{
@@ -14836,7 +14836,7 @@
 /area/storage/art)
 "aLA" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/snacks/friedegg,
+/obj/item/food/friedegg,
 /obj/item/kitchen/fork,
 /turf/open/floor/plasteel/cafeteria,
 /area/crew_quarters/cafeteria)
@@ -16931,7 +16931,7 @@
 	},
 /area/crew_quarters/bar)
 "aQU" = (
-/obj/machinery/food_cart/coffee,
+/obj/machinery/food_cart,
 /obj/machinery/camera{
 	c_tag = "Bar Backroom";
 	dir = 2
@@ -17092,10 +17092,10 @@
 /area/quartermaster/sorting)
 "aRm" = (
 /obj/structure/closet/crate,
-/obj/item/reagent_containers/food/snacks/donut,
-/obj/item/reagent_containers/food/snacks/donut,
-/obj/item/reagent_containers/food/snacks/donut,
-/obj/item/reagent_containers/food/snacks/donut,
+/obj/item/food/donut,
+/obj/item/food/donut,
+/obj/item/food/donut,
+/obj/item/food/donut,
 /turf/open/floor/plating,
 /area/quartermaster/sorting)
 "aRn" = (
@@ -18068,7 +18068,6 @@
 "aTX" = (
 /obj/structure/kitchenspike,
 /obj/item/assembly/mousetrap,
-/obj/item/reagent_containers/food/snacks/deadmouse,
 /turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen)
 "aTZ" = (
@@ -18740,8 +18739,8 @@
 /area/crew_quarters/kitchen)
 "aVZ" = (
 /obj/structure/closet/secure_closet/freezer/kitchen,
-/obj/item/reagent_containers/food/snacks/grown/potato,
-/obj/item/reagent_containers/food/snacks/grown/potato,
+/obj/item/food/grown/potato,
+/obj/item/food/grown/potato,
 /turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen)
 "aWb" = (
@@ -20529,22 +20528,18 @@
 	name = "Hydroponics Desk";
 	req_access_txt = "35"
 	},
-/obj/item/reagent_containers/food/snacks/monkeycube,
+/obj/item/food/monkeycube,
 /obj/machinery/door/firedoor,
 /turf/open/floor/plasteel/dark,
 /area/hydroponics)
 "bce" = (
-/obj/structure/table,
-/obj/machinery/microwave{
-	pixel_x = -3;
-	pixel_y = 6
-	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 10
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 10
 	},
+/obj/machinery/oven,
 /turf/open/floor/plasteel/cafeteria,
 /area/crew_quarters/kitchen)
 "bcg" = (
@@ -20957,17 +20952,16 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
 "bdp" = (
-/obj/structure/table,
-/obj/item/reagent_containers/glass/beaker/large,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
 	dir = 4
 	},
+/obj/machinery/griddle,
 /turf/open/floor/plasteel/cafeteria,
 /area/crew_quarters/kitchen)
 "bdq" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/snacks/grown/tomato,
+/obj/item/food/grown/tomato,
 /turf/open/floor/plasteel/cafeteria,
 /area/crew_quarters/kitchen)
 "bdr" = (
@@ -21579,15 +21573,15 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
 "bfp" = (
-/obj/item/kirbyplants{
-	icon_state = "plant-21"
-	},
 /obj/machinery/button/door{
 	id = "kitchenwindowshutters";
 	name = "Kitchen Window Shutters Control";
 	pixel_x = -26;
 	pixel_y = 5;
 	req_access_txt = "28"
+	},
+/obj/machinery/computer/chef_order{
+	dir = 1
 	},
 /turf/open/floor/plasteel/cafeteria,
 /area/crew_quarters/kitchen)
@@ -21874,7 +21868,7 @@
 /area/hallway/primary/central)
 "bgo" = (
 /obj/structure/table,
-/obj/item/trash/plate,
+/obj/item/plate,
 /obj/item/storage/fancy/rollingpapers,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -24956,7 +24950,7 @@
 /area/medical/genetics)
 "bpw" = (
 /obj/structure/flora/grass/jungle,
-/obj/item/reagent_containers/food/snacks/grown/banana,
+/obj/item/food/grown/banana,
 /turf/open/floor/grass,
 /area/medical/genetics)
 "bpx" = (
@@ -25615,7 +25609,7 @@
 "bqT" = (
 /obj/structure/flora/grass/jungle/b,
 /obj/structure/flora/ausbushes/ppflowers,
-/obj/item/reagent_containers/food/snacks/grown/banana,
+/obj/item/food/grown/banana,
 /obj/machinery/camera{
 	c_tag = "Genetics Monkey Pen Fore";
 	dir = 4;
@@ -26880,7 +26874,7 @@
 "btT" = (
 /obj/structure/flora/junglebush,
 /obj/structure/flora/ausbushes/sunnybush,
-/obj/item/reagent_containers/food/snacks/grown/banana,
+/obj/item/food/grown/banana,
 /mob/living/carbon/monkey,
 /turf/open/floor/grass,
 /area/medical/genetics)
@@ -29225,7 +29219,7 @@
 	name = "Monkey Pen";
 	req_one_access_txt = "9"
 	},
-/obj/item/reagent_containers/food/snacks/grown/banana,
+/obj/item/food/grown/banana,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 8
 	},
@@ -40775,7 +40769,7 @@
 /area/chapel/main/monastery)
 "cdD" = (
 /obj/structure/table,
-/obj/item/trash/plate,
+/obj/item/plate,
 /obj/item/kitchen/fork,
 /turf/open/floor/plating/asteroid,
 /area/chapel/asteroid/monastery)
@@ -43293,14 +43287,13 @@
 /area/crew_quarters/kitchen)
 "cpm" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/snacks/pie/cream,
+/obj/item/food/pie/cream,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/plasteel/cafeteria,
 /area/crew_quarters/kitchen)
 "cpn" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/snacks/spaghetti,
 /turf/open/floor/plasteel/cafeteria,
 /area/crew_quarters/kitchen)
 "cpq" = (
@@ -43348,7 +43341,7 @@
 /area/crew_quarters/kitchen)
 "cpA" = (
 /obj/structure/rack,
-/obj/item/reagent_containers/food/snacks/mint,
+/obj/item/food/mint,
 /obj/item/storage/box/drinkingglasses,
 /turf/open/floor/plasteel/cafeteria,
 /area/crew_quarters/kitchen)
@@ -43765,7 +43758,7 @@
 /area/chapel/office)
 "crx" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/grown/harebell,
+/obj/item/food/grown/harebell,
 /turf/open/floor/plasteel/dark,
 /area/chapel/main/monastery)
 "cry" = (
@@ -43845,7 +43838,7 @@
 /area/chapel/office)
 "crH" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/grown/poppy,
+/obj/item/food/grown/poppy,
 /turf/open/floor/plasteel/dark,
 /area/chapel/main/monastery)
 "crK" = (
@@ -43903,11 +43896,11 @@
 /area/chapel/office)
 "crY" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/breadslice/plain,
-/obj/item/reagent_containers/food/snacks/breadslice/plain{
+/obj/item/food/breadslice/plain,
+/obj/item/food/breadslice/plain{
 	pixel_y = 4
 	},
-/obj/item/reagent_containers/food/snacks/breadslice/plain{
+/obj/item/food/breadslice/plain{
 	pixel_y = 8
 	},
 /turf/open/floor/plasteel/dark,
@@ -44441,7 +44434,7 @@
 /area/chapel/main/monastery)
 "cuw" = (
 /obj/structure/table/wood,
-/obj/item/trash/plate,
+/obj/item/plate,
 /obj/item/kitchen/fork,
 /turf/open/floor/plasteel/dark,
 /area/chapel/main/monastery)
@@ -45088,8 +45081,8 @@
 /area/library/lounge)
 "cww" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/grown/poppy,
-/obj/item/reagent_containers/food/snacks/grown/harebell,
+/obj/item/food/grown/poppy,
+/obj/item/food/grown/harebell,
 /turf/open/floor/plasteel/dark,
 /area/chapel/main/monastery)
 "cwx" = (
@@ -53878,7 +53871,7 @@
 /area/maintenance/department/security/brig)
 "niy" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/snacks/cookie,
+/obj/item/food/cookie,
 /obj/machinery/airalarm{
 	pixel_y = 22
 	},
@@ -57532,7 +57525,7 @@
 /area/maintenance/department/crew_quarters/bar)
 "rFq" = (
 /obj/structure/chair,
-/obj/item/reagent_containers/food/snacks/donkpocket,
+/obj/item/food/donkpocket,
 /turf/open/floor/plating{
 	icon_state = "platingdmg3"
 	},
@@ -58565,7 +58558,7 @@
 /turf/open/floor/plasteel,
 /area/construction/mining/aux_base)
 "tpb" = (
-/obj/item/reagent_containers/food/snacks/donut,
+/obj/item/food/donut,
 /turf/open/floor/plating{
 	icon_state = "panelscorched"
 	},

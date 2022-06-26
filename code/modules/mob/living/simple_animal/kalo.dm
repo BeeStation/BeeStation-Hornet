@@ -30,7 +30,7 @@
 	minbodytemp = 50
 	maxbodytemp = 800
 	var/turns_since_scan = 0
-	var/obj/item/reagent_containers/food/snacks/movement_target
+	var/obj/item/food/movement_target
 	mobchatspan = "centcom"
 
 /mob/living/simple_animal/kalo/Destroy()
@@ -49,7 +49,7 @@
 				stop_automated_movement = 0
 			if(!movement_target || !(src in viewers(5, movement_target.loc)))
 				stop_automated_movement = 0
-				movement_target = locate(/obj/item/reagent_containers/food/snacks) in oview(5, src) //can smell things up to 5 blocks radius
+				movement_target = locate(/obj/item/food) in oview(5, src) //can smell things up to 5 blocks radius
 
 			if(movement_target)
 				stop_automated_movement = 1
@@ -66,19 +66,6 @@
 
 					if(!Adjacent(movement_target)) //can't reach food through windows.
 						return
-
-					if(isturf(movement_target.loc) )
-						if(movement_target.bitecount == 0 || prob(50))
-							INVOKE_ASYNC(src, /mob.proc/emote, "me", 1, "nibbles on \the [movement_target]")
-						movement_target.bitecount++
-						taste(movement_target.reagents)
-						turns_since_scan = 2
-						if(movement_target.bitecount >= 4)
-							if(prob(60))
-								INVOKE_ASYNC(src, /mob.proc/emote, "me", 1, "burps")
-							fully_heal()
-							qdel(movement_target)
-							turns_since_scan = 0
 
 			else //if we don't see a better snack, lick up nearby blood
 				var/obj/effect/decal/cleanable/blood/B

@@ -617,7 +617,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 	timer_overlay.alpha = 180
 
 	if(!text_overlay)
-		text_overlay = image(loc = action.button, layer=ABOVE_HUD_LAYER)
+		text_overlay = image(loc = action.button)
 		text_overlay.maptext_width = 64
 		text_overlay.maptext_height = 64
 		text_overlay.maptext_x = -8

@@ -94,7 +94,7 @@ GLOBAL_LIST_INIT(maintenance_loot, list(
 	/obj/item/clothing/head/cone = 2,
 	/obj/item/grenade/smokebomb = 2,
 	/obj/item/geiger_counter = 3,
-	/obj/item/reagent_containers/food/snacks/grown/citrus/orange = 1,
+	/obj/item/food/grown/citrus/orange = 1,
 	/obj/item/radio/headset = 1,
 	/obj/item/assembly/infra = 1,
 	/obj/item/assembly/igniter = 2,
@@ -107,12 +107,29 @@ GLOBAL_LIST_INIT(maintenance_loot, list(
 	/obj/item/storage/toolbox/artistic = 2,
 	/obj/item/toy/eightball = 1,
 	/obj/item/reagent_containers/pill/floorpill = 4,
-	/obj/item/reagent_containers/food/snacks/canned/peaches/maint = 1,
+	/obj/item/food/canned/peaches/maint = 1,
 	/obj/item/reagent_containers/food/drinks/bottle/homemaderum = 1,
-	/obj/item/reagent_containers/food/snacks/grown/poppy = 10,
+	/obj/item/food/grown/poppy = 10,
 	/obj/item/throwing_star = 1,
 	//monkestation edit begin
 	/mob/living/simple_animal/hostile/poison/bees/friendly = 1,
 	//monkestation edit end
 	"" = 3
 	))
+
+GLOBAL_LIST_INIT(ratking_trash, list(//Garbage: used by the regal rat mob when spawning garbage.
+			/obj/item/cigbutt,
+			/obj/item/trash/cheesie,
+			/obj/item/trash/candy,
+			/obj/item/trash/chips,
+			/obj/item/trash/pistachios,
+			/obj/item/trash/popcorn,
+			/obj/item/trash/raisins,
+			/obj/item/trash/sosjerky,
+			/obj/item/trash/syndi_cakes))
+
+GLOBAL_LIST_INIT(ratking_coins, list(//Coins: Used by the regal rat mob when spawning coins.
+			/obj/item/coin/iron,
+			/obj/item/coin/silver,
+			/obj/item/coin/plasma,
+			/obj/item/coin/gold))

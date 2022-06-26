@@ -16,7 +16,7 @@ Consuming extracts:
 	var/cookietype = /obj/item/slime_cookie
 
 /obj/item/slimecross/consuming/attackby(obj/item/O, mob/user)
-	if(istype(O,/obj/item/reagent_containers/food/snacks))
+	if(istype(O,/obj/item/food))
 		if(last_produced + cooldown > world.time)
 			to_chat(user, "<span class='warning'>[src] is still digesting after its last meal!</span>")
 			return

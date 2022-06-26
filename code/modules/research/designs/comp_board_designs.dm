@@ -224,6 +224,11 @@
 	category = list("Computer Boards")
 	departmental_flags = DEPARTMENTAL_FLAG_CARGO
 
+/obj/item/circuitboard/computer/chef_order
+	name = "Produce Orders Console (Computer Board)"
+	icon_state = "supply"
+	build_path = /obj/machinery/computer/chef_order
+
 /datum/design/board/objective
 	name = "Computer Design (Objective Console)"
 	desc = "Allows for the construction of circuit boards used to build a Objective Console."

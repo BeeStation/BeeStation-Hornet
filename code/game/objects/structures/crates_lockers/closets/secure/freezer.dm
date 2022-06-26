@@ -40,8 +40,8 @@
 		new /obj/item/reagent_containers/food/condiment/flour(src)
 		new /obj/item/reagent_containers/food/condiment/rice(src)
 	for(var/i = 0, i < 3, i++)
-		new /obj/item/reagent_containers/food/snacks/grown/potato(src)
-		new /obj/item/reagent_containers/food/snacks/grown/tomato(src)
+		new /obj/item/food/grown/potato(src)
+		new /obj/item/food/grown/tomato(src)
 	new /obj/item/reagent_containers/food/condiment/sugar(src)
 	new /obj/item/storage/box/ingredients/wildcard(src)
 	//MonkeStation Edit End
@@ -65,7 +65,7 @@
 /obj/structure/closet/secure_closet/freezer/meat/PopulateContents()
 	..()
 	for(var/i = 0, i < 8, i++) //MonkeStation Edit: Doubled Meat
-		new /obj/item/reagent_containers/food/snacks/meat/slab/monkey(src)
+		new /obj/item/food/meat/slab/monkey(src)
 
 /obj/structure/closet/secure_closet/freezer/meat/open
 	req_access = null
@@ -109,4 +109,4 @@
 
 /obj/structure/closet/secure_closet/freezer/cream_pie/PopulateContents()
 	..()
-	new /obj/item/reagent_containers/food/snacks/pie/cream(src)
+	new /obj/item/food/pie/cream(src)

@@ -196,7 +196,7 @@
 /obj/structure/closet/crate/trashcart,
 /obj/item/trash/energybar,
 /obj/item/trash/popcorn,
-/obj/item/trash/plate,
+/obj/item/plate,
 /obj/item/trash/semki,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/confetti,

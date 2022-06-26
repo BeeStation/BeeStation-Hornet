@@ -14,6 +14,7 @@
 	equip_delay_other = 10
 	dynamic_hair_suffix = ""
 	dog_fashion = /datum/dog_fashion/head/chef
+	pocket_storage_component_path = /datum/component/storage/concrete/pockets/chefhat
 
 /obj/item/clothing/head/chefhat/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is donning [src]! It looks like [user.p_theyre()] trying to become a chef.</span>")
@@ -23,6 +24,12 @@
 	user.say("BOOORK!", forced = "chef hat suicide")
 	playsound(user, 'sound/machines/ding.ogg', 50, 1)
 	return(FIRELOSS)
+
+/obj/item/clothing/head/chefhat/relaymove(mob/user, direction)
+	if(!istype(user, /mob/living/simple_animal/mouse) || !isliving(loc) || !prob(20))
+		return
+	var/mob/living/L = loc
+	step_towards(L, get_step(L, direction))
 
 //Captain
 /obj/item/clothing/head/caphat
@@ -89,7 +96,7 @@
 /obj/item/clothing/head/fedora/det_hat/AltClick(mob/user)
 	if(user.canUseTopic(src, BE_CLOSE, ismonkey(user)) && loc == user)
 		if(candy_cooldown < world.time)
-			var/obj/item/reagent_containers/food/snacks/candy_corn/CC = new /obj/item/reagent_containers/food/snacks/candy_corn(src)
+			var/obj/item/food/candy_corn/CC = new /obj/item/food/candy_corn(src)
 			user.put_in_hands(CC)
 			to_chat(user, "You slip a candy corn from your hat.")
 			candy_cooldown = world.time+1200

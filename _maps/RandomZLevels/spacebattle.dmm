@@ -537,7 +537,7 @@
 /area/awaymission/spacebattle/cruiser)
 "cC" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/food/snacks/sausage,
+/obj/item/food/sausage,
 /turf/open/floor/plasteel/cafeteria{
 	dir = 2
 	},
@@ -632,14 +632,14 @@
 /area/awaymission/spacebattle/cruiser)
 "cU" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/food/snacks/fries,
+/obj/item/food/fries,
 /turf/open/floor/plasteel/cafeteria{
 	dir = 2
 	},
 /area/awaymission/spacebattle/cruiser)
 "cV" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/food/snacks/soup/stew,
+/obj/item/food/soup/stew,
 /turf/open/floor/plasteel/cafeteria{
 	dir = 2
 	},

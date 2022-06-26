@@ -6931,8 +6931,8 @@
 /area/maintenance/port/fore)
 "arO" = (
 /obj/machinery/monkey_recycler,
-/obj/item/reagent_containers/food/snacks/monkeycube,
-/obj/item/reagent_containers/food/snacks/monkeycube,
+/obj/item/food/monkeycube,
+/obj/item/food/monkeycube,
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
 "arP" = (
@@ -9882,7 +9882,7 @@
 	name = "theatre RC";
 	pixel_x = -32
 	},
-/obj/item/reagent_containers/food/snacks/baguette,
+/obj/item/food/baguette,
 /obj/item/toy/dummy,
 /turf/open/floor/plasteel/white/side{
 	dir = 4
@@ -10647,13 +10647,13 @@
 /area/security/checkpoint/auxiliary)
 "aEF" = (
 /obj/structure/table/glass,
-/obj/item/reagent_containers/food/snacks/grown/wheat,
-/obj/item/reagent_containers/food/snacks/grown/watermelon,
-/obj/item/reagent_containers/food/snacks/grown/watermelon,
-/obj/item/reagent_containers/food/snacks/grown/watermelon,
-/obj/item/reagent_containers/food/snacks/grown/citrus/orange,
-/obj/item/reagent_containers/food/snacks/grown/grapes,
-/obj/item/reagent_containers/food/snacks/grown/cocoapod,
+/obj/item/food/grown/wheat,
+/obj/item/food/grown/watermelon,
+/obj/item/food/grown/watermelon,
+/obj/item/food/grown/watermelon,
+/obj/item/food/grown/citrus/orange,
+/obj/item/food/grown/grapes,
+/obj/item/food/grown/cocoapod,
 /obj/effect/turf_decal/tile/green,
 /obj/effect/turf_decal/tile/green{
 	dir = 4
@@ -11694,8 +11694,8 @@
 /area/maintenance/starboard/fore)
 "aHo" = (
 /obj/structure/table/glass,
-/obj/item/reagent_containers/food/snacks/grown/poppy,
-/obj/item/reagent_containers/food/snacks/grown/harebell,
+/obj/item/food/grown/poppy,
+/obj/item/food/grown/harebell,
 /turf/open/floor/plasteel/chapel{
 	dir = 4
 	},
@@ -13564,7 +13564,7 @@
 /turf/open/floor/plasteel,
 /area/hydroponics)
 "aMB" = (
-/obj/machinery/food_cart/coffee,
+/obj/machinery/food_cart,
 /turf/open/floor/wood,
 /area/crew_quarters/bar)
 "aMC" = (
@@ -13633,7 +13633,7 @@
 /area/hydroponics)
 "aMO" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/chips,
+/obj/item/food/chips,
 /obj/item/reagent_containers/food/drinks/soda_cans/cola,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 5
@@ -14187,7 +14187,9 @@
 /turf/open/floor/wood,
 /area/crew_quarters/theatre)
 "aOI" = (
-/obj/structure/kitchenspike,
+/obj/machinery/computer/chef_order{
+	dir = 4
+	},
 /turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen)
 "aOJ" = (
@@ -15466,7 +15468,11 @@
 /area/janitor)
 "aTM" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/snacks/mint,
+/obj/item/food/mint,
+/obj/item/stack/packageWrap,
+/obj/item/reagent_containers/food/condiment/enzyme{
+	layer = 5
+	},
 /turf/open/floor/plasteel/cafeteria,
 /area/crew_quarters/kitchen)
 "aTN" = (
@@ -16025,11 +16031,7 @@
 /turf/open/floor/plasteel/cafeteria,
 /area/crew_quarters/kitchen)
 "aVB" = (
-/obj/structure/table,
-/obj/item/reagent_containers/food/condiment/enzyme{
-	layer = 5
-	},
-/obj/item/stack/packageWrap,
+/obj/machinery/oven,
 /turf/open/floor/plasteel/cafeteria,
 /area/crew_quarters/kitchen)
 "aVD" = (
@@ -49341,6 +49343,10 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
+"ofp" = (
+/obj/machinery/griddle,
+/turf/open/floor/plasteel/cafeteria,
+/area/crew_quarters/kitchen)
 "ofA" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -96507,7 +96513,7 @@ aJI
 aRB
 aSL
 aTN
-cCq
+ofp
 aVz
 cAg
 kVI

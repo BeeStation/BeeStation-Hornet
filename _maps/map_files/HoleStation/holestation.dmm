@@ -1052,7 +1052,7 @@
 /turf/open/floor/plating,
 /area/engine/engineering)
 "aej" = (
-/obj/item/reagent_containers/food/snacks/cracker,
+/obj/item/food/cracker,
 /obj/structure/cable/yellow{
 	icon_state = "1-10"
 	},
@@ -2451,11 +2451,13 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
 "ajH" = (
-/obj/structure/closet/secure_closet/freezer/kitchen,
 /obj/structure/cable/yellow{
 	icon_state = "0-1"
 	},
 /obj/machinery/power/apc/auto_name/south,
+/obj/machinery/computer/chef_order{
+	dir = 1
+	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/crew_quarters/kitchen/coldroom)
 "ajJ" = (
@@ -7703,7 +7705,6 @@
 "aDK" = (
 /obj/machinery/firealarm/directional/east,
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/baguette/mime,
 /turf/open/floor/plasteel,
 /area/crew_quarters/theatre)
 "aDM" = (
@@ -9394,10 +9395,10 @@
 /turf/open/floor/plasteel,
 /area/engine/storage)
 "aJM" = (
-/obj/structure/closet/secure_closet/freezer/fridge,
 /obj/structure/sign/poster/official/cleanliness{
 	pixel_y = -32
 	},
+/obj/structure/closet/secure_closet/freezer/kitchen,
 /turf/open/floor/plasteel/showroomfloor,
 /area/crew_quarters/kitchen/coldroom)
 "aJO" = (
@@ -18166,6 +18167,10 @@
 	},
 /turf/closed/wall,
 /area/hallway/secondary/exit)
+"nEl" = (
+/obj/machinery/griddle,
+/turf/open/floor/plasteel/cafeteria,
+/area/crew_quarters/kitchen)
 "nEZ" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -22136,11 +22141,8 @@
 /turf/open/floor/plasteel,
 /area/science/lab)
 "ybW" = (
-/obj/structure/table,
-/obj/machinery/microwave{
-	pixel_y = 5
-	},
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
+/obj/machinery/oven,
 /turf/open/floor/plasteel/cafeteria,
 /area/crew_quarters/kitchen)
 "yco" = (
@@ -49562,7 +49564,7 @@ ask
 ybW
 vhY
 axT
-axT
+nEl
 rRN
 aCR
 amH

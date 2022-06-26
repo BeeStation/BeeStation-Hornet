@@ -45,7 +45,7 @@
 		/obj/item/reagent_containers/glass/bottle/diethylamine = 20,
 		/obj/item/gun/energy/floragun = 10,
 		/obj/item/seeds/random = 5,
-		/obj/item/reagent_containers/food/snacks/monkeycube/bee = 2
+		/obj/item/food/monkeycube/bee = 2
 	)
 
 //BRIG PHYSICIAN
@@ -53,8 +53,8 @@
 	mail_goodies = list(
 		/obj/item/reagent_containers/hypospray/medipen = 20,
 		/obj/item/storage/fancy/cigarettes = 15,
-		/obj/item/reagent_containers/food/snacks/donut = 10,
-		/obj/item/reagent_containers/food/snacks/donut/caramel = 10,
+		/obj/item/food/donut = 10,
+		/obj/item/food/donut/caramel = 10,
 		/obj/item/reagent_containers/hypospray/medipen/survival = 5
 	)
 
@@ -97,7 +97,7 @@
 //CHIEF ENGINEER
 /datum/job/chief_engineer
 	mail_goodies = list(
-		/obj/item/reagent_containers/food/snacks/cracker = 25, //you know. for poly
+		/obj/item/food/cracker = 25, //you know. for poly
 		/obj/item/stack/sheet/mineral/diamond = 15,
 		/obj/item/stack/sheet/mineral/uranium/five = 15,
 		/obj/item/stack/sheet/mineral/plasma/five = 15,
@@ -138,8 +138,8 @@
 //CLOWN
 /datum/job/clown
 	mail_goodies = list(
-		/obj/item/reagent_containers/food/snacks/grown/banana = 100,
-		/obj/item/reagent_containers/food/snacks/pie/cream = 50,
+		/obj/item/food/grown/banana = 100,
+		/obj/item/food/pie/cream = 50,
 		/obj/item/storage/box/donkpockets/donkpockethonk = 10,
 		/obj/item/clothing/shoes/clown_shoes/combat = 10,
 		/obj/item/reagent_containers/spray/waterflower/lube = 20, 		// lube
@@ -185,7 +185,7 @@
 //DEBTOR
 /datum/job/gimmick/hobo
 	mail_goodies = list(
-		/obj/item/reagent_containers/food/snacks/deadmouse = 30,
+		/obj/item/food/deadmouse = 30,
 		/obj/item/reagent_containers/food/drinks/bottle/hooch = 10,
 		/obj/item/radio = 10,
 		/obj/item/storage/pill_bottle/floorpill = 10,
@@ -216,9 +216,9 @@
 //DEPUTY...IS THIS JOB EVEN ACTIVE? I DON'T THINK IT IS
 /datum/job/deputy //Copy of the sec officer, since this one may not even be active.
 	mail_goodies = list(
-		/obj/item/reagent_containers/food/snacks/donut = 10,
-		/obj/item/reagent_containers/food/snacks/donut/caramel = 10,
-		/obj/item/reagent_containers/food/snacks/donut/chaos = 5,
+		/obj/item/food/donut = 10,
+		/obj/item/food/donut/caramel = 10,
+		/obj/item/food/donut/chaos = 5,
 		/obj/item/melee/baton = 1
 	)
 //EXPLORATION CREW
@@ -255,9 +255,9 @@
 /datum/job/hos
 	mail_goodies = list(
 		/obj/item/reagent_containers/food/drinks/coffee = 20,
-		/obj/item/reagent_containers/food/snacks/donut = 10,
-		/obj/item/reagent_containers/food/snacks/donut/caramel = 10,
-		/obj/item/reagent_containers/food/snacks/donut/chaos = 5,
+		/obj/item/food/donut = 10,
+		/obj/item/food/donut/caramel = 10,
+		/obj/item/food/donut/chaos = 5,
 		/obj/item/shield/riot/tele = 5,
 		/obj/item/melee/baton = 1
 	)
@@ -316,8 +316,8 @@
 //MIME
 /datum/job/mime
 	mail_goodies = list(
-		/obj/item/reagent_containers/food/snacks/baguette = 15,
-		/obj/item/reagent_containers/food/snacks/cheesewedge = 10,
+		/obj/item/food/baguette = 15,
+		/obj/item/food/cheesewedge = 10,
 		/obj/item/reagent_containers/food/drinks/bottle/bottleofnothing = 10,
 		/obj/item/book/mimery = 1,
 	)
@@ -375,9 +375,9 @@
 //SECURITY OFFICER
 /datum/job/officer
 	mail_goodies = list(
-		/obj/item/reagent_containers/food/snacks/donut = 10,
-		/obj/item/reagent_containers/food/snacks/donut/caramel = 10,
-		/obj/item/reagent_containers/food/snacks/donut/chaos = 5,
+		/obj/item/food/donut = 10,
+		/obj/item/food/donut/caramel = 10,
+		/obj/item/food/donut/chaos = 5,
 		/obj/item/melee/baton = 1
 	)
 

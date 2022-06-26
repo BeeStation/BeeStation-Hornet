@@ -13,9 +13,52 @@
 #define PINEAPPLE	(1<<12)
 #define BREAKFAST	(1<<13)
 #define CLOTH 		(1<<14)
+#define NUTS 		(1<<15)
 
 #define DRINK_BAD   1
 #define DRINK_NICE	2
 #define DRINK_GOOD	3
 #define DRINK_VERYGOOD	4
 #define DRINK_FANTASTIC	5
+
+#define FOOD_IN_CONTAINER (1<<0)
+#define FOOD_FINGER_FOOD (1<<1)
+
+#define STOP_SERVING_BREAKFAST (15 MINUTES)
+
+///Amount of reagents you start with on crafted food excluding the used parts
+#define CRAFTED_FOOD_BASE_REAGENT_MODIFIER 0.7
+///Modifier of reagents you get when crafting food from the parts used
+#define CRAFTED_FOOD_INGREDIENT_REAGENT_MODIFIER  0.5
+
+#define IS_EDIBLE(O) (O.GetComponent(/datum/component/edible))
+
+///Food trash flags
+#define FOOD_TRASH_POPABLE (1<<0)
+#define FOOD_TRASH_OPENABLE (1<<1)
+
+///Food preference enums
+#define FOOD_LIKED 1
+#define FOOD_DISLIKED 2
+#define FOOD_TOXIC 3
+
+/// Flavour defines (also names) for GLOB.ice_cream_flavours list access. Safer from mispelling than plain text.
+#define ICE_CREAM_VANILLA "vanilla"
+#define ICE_CREAM_CHOCOLATE "chocolate"
+#define ICE_CREAM_STRAWBERRY "strawberry"
+#define ICE_CREAM_BLUE "blue"
+#define ICE_CREAM_MOB "mob"
+#define ICE_CREAM_CUSTOM "custom"
+#define ICE_CREAM_BLAND "bland"
+
+#define DEFAULT_MAX_ICE_CREAM_SCOOPS 100000 //basically unlimited
+
+GLOBAL_LIST_INIT(generic_recipes, list(
+	/datum/crafting_recipe/food/headcheese,
+	/datum/crafting_recipe/food/breadcat,
+	/datum/crafting_recipe/food/cak,
+	/datum/crafting_recipe/food/butterbear,
+))
+
+/// Involves being eaten
+#define CONSUME "consume"

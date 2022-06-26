@@ -83,7 +83,7 @@
 /area/template_noop)
 "D" = (
 /obj/effect/landmark/start/randommaint/mailman,
-/obj/item/reagent_containers/food/snacks/pizzaslice/meat{
+/obj/item/food/pizzaslice/meat{
 	pixel_x = 11;
 	pixel_y = 14;
 	desc = "Magically cures light wounds when eaten""Magically cures light wounds when eaten""Magically cures light wounds when eaten"

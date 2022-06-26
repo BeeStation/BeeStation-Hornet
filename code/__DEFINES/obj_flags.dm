@@ -57,7 +57,7 @@
 #define ORGAN_FAILING			(1<<2)	//Failing organs perform damaging effects until replaced or fixed
 #define ORGAN_EXTERNAL			(1<<3)	//Was this organ implanted/inserted/etc, if true will not be removed during species change.
 #define ORGAN_VITAL				(1<<4)	//Currently only the brain
-
+#define ORGAN_EDIBLE (1<<5)				//is a snack? :D
 /// Flags for the pod_flags var on /obj/structure/closet/supplypod
 
 #define FIRST_SOUNDS (1<<0) // If it shouldn't play sounds the first time it lands, used for reverse mode

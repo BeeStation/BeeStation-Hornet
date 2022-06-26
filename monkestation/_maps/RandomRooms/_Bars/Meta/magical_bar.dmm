@@ -81,7 +81,7 @@
 /area/crew_quarters/bar)
 "k" = (
 /obj/structure/table/wood/poker,
-/obj/item/reagent_containers/food/snacks/burger/spell,
+/obj/item/food/burger/spell,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},

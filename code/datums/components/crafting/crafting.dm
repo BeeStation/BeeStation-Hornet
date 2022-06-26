@@ -27,6 +27,7 @@
 					CAT_BURGER,
 					CAT_CAKE,
 					CAT_EGG,
+					CAT_LIZARD,
 					CAT_ICE,
 					CAT_MEAT,
 					CAT_MISCFOOD,
@@ -167,27 +168,55 @@
 			return FALSE
 	return TRUE
 
-/datum/component/personal_crafting/proc/construct_item(atom/a, datum/crafting_recipe/R)
+/datum/component/personal_crafting/proc/construct_item(atom/a, datum/crafting_recipe/R, time_override = null)
 	var/list/contents = get_surroundings(a,R.blacklist)
 	var/send_feedback = 1
 	if(check_contents(a, R, contents))
 		if(check_tools(a, R, contents))
 			//If we're a mob we'll try a do_after; non mobs will instead instantly construct the item
-			if(ismob(a) && !do_after(a, R.time, target = a))
-				return "."
+			if(ismob(a) && !do_after(a, time_override || R.time, target = a))
+				return ", interrupted!"
 			contents = get_surroundings(a,R.blacklist)
 			if(!check_contents(a, R, contents))
-				return ", missing component."
+				return ", missing component!"
 			if(!check_tools(a, R, contents))
-				return ", missing tool."
+				return ", missing tool!"
 			var/list/parts = del_reqs(R, a)
 			var/atom/movable/I = new R.result (get_turf(a.loc))
 			I.CheckParts(parts, R)
 			if(send_feedback)
 				SSblackbox.record_feedback("tally", "object_crafted", 1, I.type)
 			return I //Send the item back to whatever called this proc so it can handle whatever it wants to do with the new item
-		return ", missing tool."
-	return ", missing component."
+		return ", missing tool!"
+	return ", missing component!"
+
+/datum/component/personal_crafting/proc/craft_until_cant(datum/crafting_recipe/recipe_to_use, mob/chef, turf/craft_location, craft_time)
+	if(!craft_time)
+		craft_time = recipe_to_use.time
+	while(TRUE)
+		// attempt_craft_loop sleeps, so this won't freeze the server while we craft
+		if(!attempt_craft_loop(recipe_to_use, chef, craft_location, craft_time))
+			break
+		craft_time = max(5, craft_time * 0.75) // speed up the more you craft in a batch
+
+/// Attempts a crafting loop. Returns true if it succeeds, false otherwise
+/datum/component/personal_crafting/proc/attempt_craft_loop(datum/crafting_recipe/recipe_to_use, mob/chef, turf/craft_location, craft_time)
+	var/list/surroundings = get_surroundings(chef)
+	if(!check_contents(chef, recipe_to_use, surroundings))
+		chef.balloon_alert_to_viewers("failed to craft, missing ingredients!")
+		return FALSE
+
+	var/atom/movable/result = construct_item(chef, recipe_to_use, craft_time)
+	if(istext(result))
+		chef.balloon_alert_to_viewers("failed to craft[result]")
+		return FALSE
+    //We made an item and didn't get a fail message
+	result.forceMove(craft_location)
+	result.pixel_x = rand(-10, 10)
+	result.pixel_y = rand(-10, 10)
+	chef.investigate_log("[key_name(chef)] crafted [recipe_to_use]")
+	return TRUE
+
 
 /datum/component/personal_crafting/proc/construct_item_ui(mob/user, datum/crafting_recipe/TR)
 	var/atom/movable/result = construct_item(user, TR)

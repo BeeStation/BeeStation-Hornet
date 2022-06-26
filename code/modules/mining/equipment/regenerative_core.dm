@@ -121,8 +121,6 @@
 		go_inert()
 	return ..()
 
-/obj/item/organ/regenerative_core/prepare_eat()
-	return null
 
 /*************************Legion core********************/
 /obj/item/organ/regenerative_core/legion

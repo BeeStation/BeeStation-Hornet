@@ -2582,11 +2582,11 @@
 /area/engine/engine_room)
 "aIl" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/grown/poppy/lily,
-/obj/item/reagent_containers/food/snacks/grown/poppy/lily,
-/obj/item/reagent_containers/food/snacks/grown/poppy/lily,
-/obj/item/reagent_containers/food/snacks/grown/harebell,
-/obj/item/reagent_containers/food/snacks/grown/harebell,
+/obj/item/food/grown/poppy/lily,
+/obj/item/food/grown/poppy/lily,
+/obj/item/food/grown/poppy/lily,
+/obj/item/food/grown/harebell,
+/obj/item/food/grown/harebell,
 /obj/effect/landmark/blobstart,
 /turf/open/floor/plasteel/grimy,
 /area/chapel/office)
@@ -11933,25 +11933,13 @@
 /turf/open/floor/plasteel/white,
 /area/medical/chemistry/upper)
 "cSf" = (
-/obj/machinery/deepfryer,
-/obj/effect/turf_decal/tile/red{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/red{
-	dir = 4
-	},
 /obj/effect/turf_decal/tile/red{
 	dir = 2
 	},
 /obj/effect/turf_decal/tile/red{
-	dir = 1
+	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 4
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
+/obj/effect/landmark/event_spawn,
 /turf/open/floor/plasteel/white,
 /area/crew_quarters/kitchen)
 "cSr" = (
@@ -13084,9 +13072,9 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
-/obj/item/reagent_containers/food/snacks/grown/poppy,
-/obj/item/reagent_containers/food/snacks/grown/poppy,
-/obj/item/reagent_containers/food/snacks/grown/poppy,
+/obj/item/food/grown/poppy,
+/obj/item/food/grown/poppy,
+/obj/item/food/grown/poppy,
 /turf/open/floor/plasteel/dark,
 /area/chapel/main/monastery)
 "dgF" = (
@@ -14564,7 +14552,7 @@
 	pixel_x = -3;
 	pixel_y = -1
 	},
-/obj/item/reagent_containers/food/snacks/pizzaslice/pineapple{
+/obj/item/food/pizzaslice/pineapple{
 	pixel_x = -2;
 	pixel_y = 9
 	},
@@ -16406,7 +16394,7 @@
 "dTN" = (
 /obj/structure/table/reinforced,
 /obj/item/kitchen/knife,
-/obj/item/reagent_containers/food/snacks/chocolatebar,
+/obj/item/food/chocolatebar,
 /obj/effect/turf_decal/tile/red{
 	dir = 8
 	},
@@ -29251,8 +29239,6 @@
 /turf/open/floor/plating,
 /area/science/shuttledock)
 "gKM" = (
-/obj/structure/table/reinforced,
-/obj/item/storage/bag/tray,
 /obj/effect/turf_decal/tile/red{
 	dir = 8
 	},
@@ -29271,6 +29257,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/machinery/griddle,
 /turf/open/floor/plasteel/white,
 /area/crew_quarters/kitchen)
 "gKS" = (
@@ -35805,7 +35792,7 @@
 /area/chapel/main/monastery)
 "inA" = (
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/food/snacks/dough,
+/obj/item/food/dough,
 /obj/item/kitchen/rollingpin,
 /obj/effect/turf_decal/tile/red{
 	dir = 8
@@ -46999,6 +46986,9 @@
 	dir = 2
 	},
 /obj/machinery/light,
+/obj/machinery/computer/chef_order{
+	dir = 1
+	},
 /turf/open/floor/plasteel/white,
 /area/crew_quarters/kitchen)
 "laQ" = (
@@ -51446,7 +51436,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
-/obj/effect/landmark/event_spawn,
+/obj/machinery/oven,
 /turf/open/floor/plasteel/white,
 /area/crew_quarters/kitchen)
 "maa" = (
@@ -53793,8 +53783,8 @@
 "mDT" = (
 /obj/structure/table/wood,
 /obj/item/pneumatic_cannon/pie,
-/obj/item/reagent_containers/food/snacks/pie/cream,
-/obj/item/reagent_containers/food/snacks/pie/cream,
+/obj/item/food/pie/cream,
+/obj/item/food/pie/cream,
 /turf/open/floor/carpet/purple,
 /area/crew_quarters/theatre)
 "mEb" = (
@@ -55529,7 +55519,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
-/obj/item/reagent_containers/food/snacks/mint,
+/obj/item/food/mint,
 /obj/item/kitchen/rollingpin,
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
 	dir = 1
@@ -60768,8 +60758,6 @@
 /turf/open/floor/plasteel/dark/telecomms,
 /area/tcommsat/server)
 "opb" = (
-/obj/structure/table/reinforced,
-/obj/item/storage/bag/tray,
 /obj/effect/turf_decal/tile/red{
 	dir = 8
 	},
@@ -60786,6 +60774,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 5
 	},
+/obj/machinery/deepfryer,
 /turf/open/floor/plasteel/white,
 /area/crew_quarters/kitchen)
 "oph" = (
@@ -62318,11 +62307,11 @@
 /area/medical/medbay/central)
 "oIs" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/grown/poppy,
-/obj/item/reagent_containers/food/snacks/grown/poppy,
-/obj/item/reagent_containers/food/snacks/grown/poppy,
-/obj/item/reagent_containers/food/snacks/grown/harebell,
-/obj/item/reagent_containers/food/snacks/grown/harebell,
+/obj/item/food/grown/poppy,
+/obj/item/food/grown/poppy,
+/obj/item/food/grown/poppy,
+/obj/item/food/grown/harebell,
+/obj/item/food/grown/harebell,
 /obj/effect/landmark/event_spawn,
 /turf/open/floor/plasteel/grimy,
 /area/chapel/office)
@@ -66311,7 +66300,7 @@
 /obj/effect/turf_decal/tile/brown{
 	dir = 1
 	},
-/obj/item/reagent_containers/food/snacks/grown/poppy,
+/obj/item/food/grown/poppy,
 /obj/item/nullrod,
 /turf/open/floor/plasteel/dark,
 /area/chapel/office)
@@ -80724,7 +80713,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
-/obj/item/reagent_containers/food/snacks/mint,
+/obj/item/food/mint,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
@@ -82734,9 +82723,9 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/red,
-/obj/item/reagent_containers/food/snacks/grown/poppy,
-/obj/item/reagent_containers/food/snacks/grown/poppy,
-/obj/item/reagent_containers/food/snacks/grown/poppy,
+/obj/item/food/grown/poppy,
+/obj/item/food/grown/poppy,
+/obj/item/food/grown/poppy,
 /turf/open/floor/plasteel/dark,
 /area/maintenance/department/chapel/monastery)
 "tBX" = (
@@ -93029,8 +93018,8 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
-/obj/item/reagent_containers/food/snacks/grown/harebell,
-/obj/item/reagent_containers/food/snacks/grown/harebell,
+/obj/item/food/grown/harebell,
+/obj/item/food/grown/harebell,
 /turf/open/floor/plasteel/dark,
 /area/chapel/main/monastery)
 "vXk" = (
@@ -138734,7 +138723,7 @@ kfa
 qqf
 oOR
 tez
-cSf
+gKM
 sMl
 lio
 kfa
@@ -138989,7 +138978,7 @@ qag
 oBZ
 kfa
 eIs
-oOR
+cSf
 lZV
 udp
 wLH

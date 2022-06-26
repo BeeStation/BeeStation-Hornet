@@ -8,16 +8,16 @@
 /datum/recipe/sugarcookie/spookyskull
 	reagents = list(/datum/reagent/consumable/flour = 5, /datum/reagent/consumable/sugar = 5, /datum/reagent/consumable/milk = 5)
 	items = list(
-		/obj/item/reagent_containers/food/snacks/egg,
+		/obj/item/food/egg,
 	)
-	result = /obj/item/reagent_containers/food/snacks/sugarcookie/spookyskull
+	result = /obj/item/food/cookie/sugare/spookyskull
 
 /datum/recipe/sugarcookie/spookycoffin
 	reagents = list(/datum/reagent/consumable/flour = 5, /datum/reagent/consumable/sugar = 5, /datum/reagent/consumable/coffee = 5)
 	items = list(
-		/obj/item/reagent_containers/food/snacks/egg,
+		/obj/item/food/egg,
 	)
-	result = /obj/item/reagent_containers/food/snacks/sugarcookie/spookycoffin
+	result = /obj/item/food/cookie/sugare/spookycoffin
 
 //////////////////////////////
 //Spookoween trapped closets//

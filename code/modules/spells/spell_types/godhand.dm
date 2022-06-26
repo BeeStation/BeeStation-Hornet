@@ -173,7 +173,7 @@
 	user.visible_message("<span class='warning'>[user] is trying to stuff [M]\s body into \the [src]!</span>")
 	if(do_mob(user, M, 250))
 		var/name = M.real_name
-		var/obj/item/reagent_containers/food/snacks/pie/cream/body/pie = new(get_turf(M))
+		var/obj/item/food/pie/cream/body/pie = new(get_turf(M))
 		pie.name = "\improper [name] [pie.name]"
 
 		. = ..()

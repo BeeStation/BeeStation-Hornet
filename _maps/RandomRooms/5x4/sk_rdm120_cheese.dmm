@@ -62,7 +62,7 @@
 /turf/open/floor/plasteel/white,
 /area/template_noop)
 "h" = (
-/obj/item/reagent_containers/food/snacks/store/cheesewheel,
+/obj/item/food/canned/peaches/maint/cheesewheel,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/white,
 /area/template_noop)
@@ -84,7 +84,7 @@
 /turf/open/floor/plasteel,
 /area/template_noop)
 "j" = (
-/obj/item/reagent_containers/food/snacks/cheesewedge,
+/obj/item/food/cheesewedge,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/white,
 /area/template_noop)

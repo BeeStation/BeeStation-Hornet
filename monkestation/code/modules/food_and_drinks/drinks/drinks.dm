@@ -6,6 +6,7 @@
 
 /obj/item/reagent_containers/food/drinks/proc/open_drink(mob/user, burstopen = FALSE)
 	ENABLE_BITFIELD(reagents.flags, OPENCONTAINER)
+	ENABLE_BITFIELD(reagents.flags, DUNKABLE)
 	playsound(src, "can_open", 50, 1)
 	spillable = TRUE
 	canopened = TRUE
@@ -43,6 +44,7 @@
 		possible_transfer_amounts = list()
 		times_shaken = 0
 		DISABLE_BITFIELD(reagents.flags, OPENCONTAINER)
+		DISABLE_BITFIELD(reagents.flags, DUNKABLE)
 		return ..()
 	else
 		can_shake = FALSE

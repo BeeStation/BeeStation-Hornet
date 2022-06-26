@@ -1756,10 +1756,10 @@
 	},
 /area/awaymission/undergroundoutpost45/central)
 "dM" = (
-/obj/item/reagent_containers/food/snacks/meat/slab/monkey,
-/obj/item/reagent_containers/food/snacks/meat/slab/monkey,
-/obj/item/reagent_containers/food/snacks/meat/slab/monkey,
-/obj/item/reagent_containers/food/snacks/meat/slab/monkey,
+/obj/item/food/meat/slab/monkey,
+/obj/item/food/meat/slab/monkey,
+/obj/item/food/meat/slab/monkey,
+/obj/item/food/meat/slab/monkey,
 /obj/structure/closet/secure_closet/freezer{
 	locked = 0;
 	name = "meat fridge";
@@ -3919,7 +3919,7 @@
 /area/awaymission/undergroundoutpost45/crew_quarters)
 "hS" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/snacks/mint,
+/obj/item/food/mint,
 /turf/open/floor/plasteel/cafeteria{
 	dir = 5;
 	heat_capacity = 1e+006
@@ -4109,7 +4109,7 @@
 /area/awaymission/undergroundoutpost45/research)
 "il" = (
 /obj/structure/table,
-/obj/item/trash/plate,
+/obj/item/plate,
 /obj/effect/turf_decal/tile/bar,
 /obj/effect/turf_decal/tile/bar{
 	dir = 1

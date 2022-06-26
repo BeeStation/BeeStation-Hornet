@@ -5829,7 +5829,7 @@
 /obj/structure/flora/junglebush,
 /obj/structure/flora/ausbushes/brflowers,
 /obj/structure/flora/ausbushes/sunnybush,
-/obj/item/reagent_containers/food/snacks/grown/banana,
+/obj/item/food/grown/banana,
 /obj/machinery/light{
 	dir = 8
 	},
@@ -11798,7 +11798,7 @@
 "ato" = (
 /obj/structure/table,
 /obj/item/storage/bag/tray,
-/obj/item/reagent_containers/food/snacks/fishfingers,
+/obj/item/food/fishfingers,
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/bar/atrium)
 "atp" = (
@@ -13647,7 +13647,7 @@
 	},
 /area/maintenance/port/fore)
 "awc" = (
-/obj/item/reagent_containers/food/snacks/grown/banana,
+/obj/item/food/grown/banana,
 /obj/structure/disposalpipe/segment{
 	dir = 5
 	},
@@ -35979,7 +35979,7 @@
 	name = "kitchen closet"
 	},
 /obj/item/clothing/suit/toggle/chef,
-/obj/item/reagent_containers/food/snacks/chococoin,
+/obj/item/food/chococoin,
 /turf/open/floor/plating,
 /area/maintenance/starboard)
 "bdG" = (
@@ -39529,7 +39529,7 @@
 "biD" = (
 /obj/structure/flora/junglebush,
 /obj/structure/flora/ausbushes/sunnybush,
-/obj/item/reagent_containers/food/snacks/grown/banana,
+/obj/item/food/grown/banana,
 /obj/structure/flora/ausbushes/ywflowers,
 /mob/living/carbon/monkey,
 /turf/open/floor/grass,
@@ -42534,8 +42534,8 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
-/obj/item/reagent_containers/food/snacks/dough,
-/obj/item/reagent_containers/food/snacks/dough,
+/obj/item/food/dough,
+/obj/item/food/dough,
 /obj/item/kitchen/rollingpin,
 /obj/item/kitchen/rollingpin,
 /turf/open/floor/plasteel/dark,
@@ -42585,7 +42585,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
-/obj/item/reagent_containers/food/snacks/mint,
+/obj/item/food/mint,
 /obj/item/reagent_containers/food/condiment/enzyme{
 	pixel_x = -2;
 	pixel_y = 6
@@ -42627,6 +42627,12 @@
 	dir = 4
 	},
 /obj/item/storage/bag/tray,
+/obj/item/book/manual/chef_recipes{
+	pixel_y = 2
+	},
+/obj/item/book/manual/chef_recipes{
+	pixel_y = 2
+	},
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/kitchen)
 "bmU" = (
@@ -42723,14 +42729,14 @@
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/delivery,
 /obj/machinery/door/firedoor,
-/obj/item/reagent_containers/food/snacks/grown/corn{
+/obj/item/food/grown/corn{
 	pixel_y = 6
 	},
-/obj/item/reagent_containers/food/snacks/grown/pumpkin{
+/obj/item/food/grown/pumpkin{
 	pixel_y = 6
 	},
-/obj/item/reagent_containers/food/snacks/grown/carrot,
-/obj/item/reagent_containers/food/snacks/grown/tomato,
+/obj/item/food/grown/carrot,
+/obj/item/food/grown/tomato,
 /obj/machinery/door/window/eastleft{
 	dir = 8;
 	name = "Hydroponics Desk";
@@ -42902,7 +42908,7 @@
 	},
 /obj/effect/turf_decal/tile/neutral,
 /obj/item/storage/bag/tray,
-/obj/item/reagent_containers/food/snacks/sausage,
+/obj/item/food/sausage,
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/bar/atrium)
 "bnp" = (
@@ -43722,7 +43728,7 @@
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/delivery,
 /obj/machinery/door/firedoor,
-/obj/item/reagent_containers/food/snacks/pie/cream,
+/obj/item/food/pie/cream,
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "kitchen";
 	name = "Serving Hatch"
@@ -43766,7 +43772,6 @@
 /turf/open/floor/plasteel/dark,
 /area/hydroponics)
 "boA" = (
-/obj/structure/table,
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
@@ -43774,16 +43779,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
-/obj/item/reagent_containers/food/condiment/peppermill{
-	desc = "Often used to flavor food or make people sneeze. Fashionably moved to the left side of the table.";
-	pixel_x = -8;
-	pixel_y = 2
-	},
-/obj/item/reagent_containers/food/condiment/saltshaker{
-	desc = "Salt. From space oceans, presumably. A staple of modern medicine.";
-	pixel_x = -8;
-	pixel_y = 12
-	},
+/obj/machinery/oven,
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/kitchen)
 "boB" = (
@@ -43801,7 +43797,6 @@
 /turf/closed/wall,
 /area/hallway/primary/port)
 "boD" = (
-/obj/structure/table,
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
@@ -43809,13 +43804,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
 	},
-/obj/item/book/manual/chef_recipes{
-	pixel_x = -4;
-	pixel_y = 6
-	},
-/obj/item/book/manual/chef_recipes{
-	pixel_y = 2
-	},
+/obj/machinery/griddle,
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/kitchen)
 "boE" = (
@@ -44892,13 +44881,15 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/red,
-/obj/structure/closet/secure_closet/freezer/fridge,
 /obj/machinery/button/door{
 	id = "coldroom";
 	name = "Coldroom Shutter Toggle";
 	pixel_x = -24;
 	pixel_y = 6;
 	req_access_txt = "28"
+	},
+/obj/machinery/computer/chef_order{
+	dir = 4
 	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/crew_quarters/kitchen)
@@ -44959,7 +44950,7 @@
 /obj/structure/mirror{
 	pixel_x = -26
 	},
-/obj/item/reagent_containers/food/snacks/pie/cream,
+/obj/item/food/pie/cream,
 /obj/item/clothing/head/lobsterhat,
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
@@ -45689,11 +45680,11 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
 	},
-/obj/item/reagent_containers/food/snacks/cheesiehonkers{
+/obj/item/food/cheesiehonkers{
 	pixel_x = -4;
 	pixel_y = 4
 	},
-/obj/item/reagent_containers/food/snacks/chips,
+/obj/item/food/chips,
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/bar/atrium)
 "brl" = (
@@ -46564,7 +46555,7 @@
 /turf/open/floor/plasteel/dark,
 /area/maintenance/port/aft)
 "bsE" = (
-/obj/item/reagent_containers/food/snacks/grown/banana,
+/obj/item/food/grown/banana,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -49371,15 +49362,15 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
-/obj/item/reagent_containers/food/snacks/grown/poppy/lily{
+/obj/item/food/grown/poppy/lily{
 	pixel_x = 4;
 	pixel_y = 4
 	},
-/obj/item/reagent_containers/food/snacks/grown/poppy/geranium{
+/obj/item/food/grown/poppy/geranium{
 	pixel_x = -4;
 	pixel_y = 4
 	},
-/obj/item/reagent_containers/food/snacks/grown/poppy,
+/obj/item/food/grown/poppy,
 /turf/open/floor/plasteel/dark,
 /area/chapel/main)
 "bxv" = (
@@ -60970,7 +60961,7 @@
 	pixel_x = 6;
 	pixel_y = 6
 	},
-/obj/item/reagent_containers/food/snacks/spaghetti/copypasta{
+/obj/item/food/spaghetti/copypasta{
 	pixel_y = 5
 	},
 /obj/item/kitchen/fork,
@@ -88644,10 +88635,10 @@
 /obj/effect/turf_decal/delivery,
 /obj/machinery/door/firedoor,
 /obj/item/clipboard,
-/obj/item/reagent_containers/food/snacks/grown/wheat,
-/obj/item/reagent_containers/food/snacks/grown/watermelon,
-/obj/item/reagent_containers/food/snacks/grown/citrus/orange,
-/obj/item/reagent_containers/food/snacks/grown/grapes,
+/obj/item/food/grown/wheat,
+/obj/item/food/grown/watermelon,
+/obj/item/food/grown/citrus/orange,
+/obj/item/food/grown/grapes,
 /obj/machinery/door/window/eastright{
 	dir = 8;
 	name = "Hydroponics Desk";
@@ -100349,7 +100340,7 @@
 "sHM" = (
 /obj/effect/decal/cleanable/blood/old,
 /obj/structure/table,
-/obj/item/reagent_containers/food/snacks/spaghetti/copypasta{
+/obj/item/food/spaghetti/copypasta{
 	name = "rotten copypasta";
 	pixel_y = 4
 	},

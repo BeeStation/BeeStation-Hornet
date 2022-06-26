@@ -46,7 +46,7 @@
 	id = "donk_pocket"
 	build_type = BIOGENERATOR
 	materials = list(/datum/material/biomass= 200)
-	build_path = /obj/item/reagent_containers/food/snacks/donkpocket
+	build_path = /obj/item/food/donkpocket
 	category = list("tier_two","Food")
 
 /datum/design/monkey_cube

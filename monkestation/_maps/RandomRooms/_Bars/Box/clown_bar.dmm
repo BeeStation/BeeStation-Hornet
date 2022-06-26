@@ -392,7 +392,7 @@
 /area/crew_quarters/bar)
 "MA" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/pie/cream{
+/obj/item/food/pie/cream{
 	pixel_x = 1;
 	pixel_y = 7
 	},

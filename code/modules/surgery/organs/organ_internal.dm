@@ -8,7 +8,7 @@
 	var/zone = BODY_ZONE_CHEST
 	var/slot
 	// DO NOT add slots with matching names to different zones - it will break internal_organs_slot list!
-	var/organ_flags = 0
+	var/organ_flags = ORGAN_EDIBLE
 	var/maxHealth = STANDARD_ORGAN_THRESHOLD
 	var/damage = 0		//total damage this organ has sustained
 	///Healing factor and decay factor function on % of maxhealth, and do not work by applying a static number per tick
@@ -16,7 +16,9 @@
 	var/decay_factor 	= 0										//same as above but when without a living owner, set to 0 for generic organs
 	var/high_threshold	= STANDARD_ORGAN_THRESHOLD * 0.45		//when severe organ damage occurs
 	var/low_threshold	= STANDARD_ORGAN_THRESHOLD * 0.1		//when minor organ damage occurs
-
+	///When you take a bite you cant jam it in for surgery anymore.
+	var/useable = TRUE
+	var/reagent_vol = 10
 	///Organ variables for determining what we alert the owner with when they pass/clear the damage thresholds
 	var/prev_damage = 0
 	var/low_threshold_passed
@@ -25,6 +27,16 @@
 	var/now_fixed
 	var/high_threshold_cleared
 	var/low_threshold_cleared
+	var/list/food_reagents = list(/datum/reagent/consumable/nutriment = 5)
+
+/obj/item/organ/Initialize()
+	. = ..()
+	if(organ_flags & ORGAN_EDIBLE)
+		AddComponent(/datum/component/edible,\
+			initial_reagents = food_reagents,\
+			foodtypes = RAW | MEAT | GROSS,\
+			volume = reagent_vol,\
+			after_eat = CALLBACK(src, .proc/OnEatFrom))
 
 /obj/item/organ/proc/Insert(mob/living/carbon/M, special = 0, drop_if_replaced = TRUE)
 	if(!iscarbon(M) || owner == M)
@@ -100,23 +112,6 @@
 		. += "<span class='warning'>[src] is starting to look discolored.</span>"
 
 
-/obj/item/organ/proc/prepare_eat()
-	var/obj/item/reagent_containers/food/snacks/organ/S = new
-	S.name = name
-	S.desc = desc
-	S.icon = icon
-	S.icon_state = icon_state
-	S.w_class = w_class
-
-	return S
-
-/obj/item/reagent_containers/food/snacks/organ
-	name = "appendix"
-	icon_state = "appendix"
-	icon = 'icons/obj/surgery.dmi'
-	list_reagents = list(/datum/reagent/consumable/nutriment = 5)
-	foodtype = RAW | MEAT | GROSS
-
 /obj/item/organ/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSobj, src)
@@ -130,18 +125,8 @@
 		STOP_PROCESSING(SSobj, src)
 	return ..()
 
-/obj/item/organ/attack(mob/living/carbon/M, mob/user)
-	if(M == user && ishuman(user))
-		var/mob/living/carbon/human/H = user
-		if(status == ORGAN_ORGANIC)
-			if(!check_for_surgery(H))
-				var/obj/item/reagent_containers/food/snacks/S = prepare_eat(H)
-				if(S)
-					qdel(src)
-					if(H.put_in_active_hand(S))
-						S.attack(H, H)
-	else
-		..()
+/obj/item/organ/proc/OnEatFrom(eater, feeder)
+	useable = FALSE //You can't use it anymore after eating it you spaztic
 
 /obj/item/organ/proc/check_for_surgery(mob/living/carbon/human/H)
 	for(var/datum/surgery/S in H.surgeries)

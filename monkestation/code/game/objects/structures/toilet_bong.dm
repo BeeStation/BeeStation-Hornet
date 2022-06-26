@@ -17,7 +17,7 @@
 	. = ..()
 	var/datum/component/storage/STR = AddComponent(/datum/component/storage/concrete)
 	STR.attack_hand_interact = FALSE
-	STR.set_holdable(list(/obj/item/reagent_containers/food/snacks/grown)) //FUCK YEAH SMOKE ANYTHING AT ALL
+	STR.set_holdable(list(/obj/item/food/grown)) //FUCK YEAH SMOKE ANYTHING AT ALL
 	STR.max_w_class = WEIGHT_CLASS_SMALL
 	STR.max_combined_w_class = WEIGHT_CLASS_SMALL * 24
 	STR.max_items = 24

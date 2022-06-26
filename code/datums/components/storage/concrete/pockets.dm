@@ -108,3 +108,22 @@
 					  /obj/item/reagent_containers/food/drinks/bottle/molotov,
 					  /obj/item/reagent_containers/food/drinks/drinkingglass,
 					  /obj/item/ammo_box/a762))
+
+/datum/component/storage/concrete/pockets/chefhat
+	attack_hand_interact = TRUE
+	max_items = 25
+	max_w_class = WEIGHT_CLASS_NORMAL
+
+/datum/component/storage/concrete/pockets/chefhat/Initialize()
+	. = ..()
+	set_holdable(list(
+		/obj/item/clothing/head/mob_holder
+	))
+
+/datum/component/storage/concrete/pockets/chefhat/can_be_inserted(obj/item/I, stop_messages, mob/M)
+	. = ..()
+	if(istype(I,/obj/item/clothing/head/mob_holder))
+		var/obj/item/clothing/head/mob_holder/mausholder = I
+		if(locate(/mob/living/simple_animal/mouse) in mausholder.contents)
+			return
+		return FALSE

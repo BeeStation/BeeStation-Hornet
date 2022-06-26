@@ -12,7 +12,7 @@
 	attack_verb = "slash"
 	attack_sound = 'sound/weapons/slash.ogg'
 	miss_sound = 'sound/weapons/slashmiss.ogg'
-	meat = /obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/apid
+	meat = /obj/item/food/meat/slab/human/mutant/apid
 	liked_food = VEGETABLES | FRUIT
 	disliked_food = GROSS | DAIRY
 	toxic_food = MEAT | RAW

@@ -457,3 +457,7 @@
 /datum/config_entry/flag/spare_enforce_coc
 
 /datum/config_entry/flag/station_traits
+
+/datum/config_entry/number/ratcap
+	config_entry_value = 64
+	min_val = 0

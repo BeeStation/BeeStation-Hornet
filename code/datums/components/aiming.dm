@@ -144,6 +144,6 @@ Methods to alert the aimer about events (Surrendering/equipping an item/dropping
 	layer = ABOVE_MOB_LAYER
 
 // Initializes aiming component in bananas
-/obj/item/reagent_containers/food/snacks/grown/banana/ComponentInitialize()
+/obj/item/food/grown/banana/ComponentInitialize()
 	. = ..()
 	AddComponent(/datum/component/aiming)

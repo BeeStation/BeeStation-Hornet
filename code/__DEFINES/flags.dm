@@ -34,8 +34,9 @@ GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 204
 #define ADMIN_SPAWNED_1				(1<<15) 		//! was this spawned by an admin? used for stat tracking stuff.
 #define PREVENT_CONTENTS_EXPLOSION_1 (1<<16)
 #define UNPAINTABLE_1 				(1<<17)
+#define IS_ONTOP_1 (1 << 18)
 /// Does the supermatter skip over this atom?
-#define SUPERMATTER_IGNORES_1 (1 << 18) //set this to 18 because tg has some other flags appearantly too if that gets ever ported fix this !!!!
+#define SUPERMATTER_IGNORES_1 (1 << 19)
 
 /// If the thing can reflect light (lasers/energy)
 #define RICOCHET_SHINY			(1<<0)

@@ -37,7 +37,7 @@
 
 /mob/living/simple_animal/bot/secbot/pizzky/explode()
 	var/atom/Tsec = drop_location()
-	new /obj/item/reagent_containers/food/snacks/pizzaslice/meat(Tsec)
+	new /obj/item/food/pizzaslice/meat(Tsec)
 	var/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/S = new(Tsec)
 	S.reagents.add_reagent(/datum/reagent/consumable/ethanol/moonshine, 15)
 	S.on_reagent_change(ADD_REAGENT)

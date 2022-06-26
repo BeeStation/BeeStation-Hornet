@@ -4929,7 +4929,7 @@
 	dir = 10
 	},
 /obj/structure/table/reinforced,
-/obj/item/reagent_containers/food/snacks/popcorn,
+/obj/item/food/popcorn,
 /obj/item/reagent_containers/food/drinks/bottle/vodka{
 	pixel_x = 4;
 	pixel_y = 6
@@ -5982,7 +5982,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/item/reagent_containers/food/snacks/chips,
+/obj/item/food/chips,
 /turf/open/floor/carpet/grimy,
 /area/hallway/primary/port)
 "bxb" = (
@@ -9534,7 +9534,7 @@
 /area/crew_quarters/bar/atrium)
 "chx" = (
 /obj/machinery/light,
-/obj/item/reagent_containers/food/snacks/grown/harebell,
+/obj/item/food/grown/harebell,
 /obj/structure/table/wood,
 /obj/effect/turf_decal/tile/neutral/tile_side{
 	dir = 8
@@ -20183,7 +20183,7 @@
 	dir = 8;
 	pixel_x = 26
 	},
-/obj/item/reagent_containers/food/snacks/mint{
+/obj/item/food/mint{
 	pixel_y = 9
 	},
 /obj/item/reagent_containers/food/condiment/peppermill{
@@ -22969,11 +22969,11 @@
 /area/medical/medbay/central)
 "fiq" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/grown/poppy/geranium{
+/obj/item/food/grown/poppy/geranium{
 	pixel_x = 6;
 	pixel_y = 6
 	},
-/obj/item/reagent_containers/food/snacks/grown/poppy/lily,
+/obj/item/food/grown/poppy/lily,
 /obj/effect/turf_decal/tile/neutral/tile_side{
 	dir = 5
 	},
@@ -34609,7 +34609,7 @@
 	},
 /obj/structure/closet/secure_closet/freezer/kitchen/maintenance,
 /obj/item/reagent_containers/food/condiment/sugar,
-/obj/item/reagent_containers/food/snacks/tofu/prison,
+/obj/item/food/tofu/prison,
 /turf/open/floor/plasteel/dark,
 /area/vacant_room/commissary/commissaryFood)
 "hSB" = (
@@ -41044,13 +41044,13 @@
 /obj/item/seeds/pumpkin{
 	pixel_x = -6
 	},
-/obj/item/reagent_containers/food/snacks/grown/wheat,
-/obj/item/reagent_containers/food/snacks/grown/watermelon,
-/obj/item/reagent_containers/food/snacks/grown/grapes,
-/obj/item/reagent_containers/food/snacks/grown/tomato,
+/obj/item/food/grown/wheat,
+/obj/item/food/grown/watermelon,
+/obj/item/food/grown/grapes,
+/obj/item/food/grown/tomato,
 /obj/effect/turf_decal/bot,
 /obj/structure/table,
-/obj/item/reagent_containers/food/snacks/grown/pumpkin{
+/obj/item/food/grown/pumpkin{
 	pixel_y = 5
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -41594,7 +41594,7 @@
 /area/medical/medbay/central)
 "jxX" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/snacks/chips,
+/obj/item/food/chips,
 /turf/open/floor/plasteel/dark,
 /area/hallway/secondary/asteroid)
 "jyb" = (
@@ -43613,7 +43613,7 @@
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/lobby)
 "jYv" = (
-/obj/item/reagent_containers/food/snacks/grown/poppy{
+/obj/item/food/grown/poppy{
 	pixel_y = 2
 	},
 /obj/machinery/camera{
@@ -45152,8 +45152,8 @@
 /area/engine/atmos)
 "ksa" = (
 /obj/structure/table/wood/fancy,
-/obj/item/reagent_containers/food/snacks/hotcrossbun,
-/obj/item/reagent_containers/food/snacks/hotcrossbun{
+/obj/item/food/hotcrossbun,
+/obj/item/food/hotcrossbun{
 	pixel_y = 5
 	},
 /turf/open/floor/carpet/grimy,
@@ -46795,7 +46795,7 @@
 	pixel_y = 4
 	},
 /obj/item/pen,
-/obj/item/reagent_containers/food/snacks/cookie,
+/obj/item/food/cookie,
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
@@ -52271,11 +52271,11 @@
 /area/science/xenobiology)
 "lYF" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/snacks/no_raisin{
+/obj/item/food/no_raisin{
 	pixel_x = 7;
 	pixel_y = 8
 	},
-/obj/item/reagent_containers/food/snacks/chips,
+/obj/item/food/chips,
 /turf/open/floor/plasteel/grid/steel,
 /area/science/xenobiology)
 "lYG" = (
@@ -65803,7 +65803,9 @@
 /area/hallway/primary/starboard)
 "pvh" = (
 /obj/effect/decal/cleanable/blood/old,
-/obj/structure/kitchenspike,
+/obj/machinery/computer/chef_order{
+	dir = 1
+	},
 /turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen/coldroom)
 "pvl" = (
@@ -66189,7 +66191,7 @@
 "pzz" = (
 /obj/structure/table,
 /obj/item/storage/box/ingredients/wildcard,
-/obj/item/reagent_containers/food/snacks/mint,
+/obj/item/food/mint,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/effect/turf_decal/bot,
@@ -68449,7 +68451,7 @@
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/aft)
 "qdq" = (
-/obj/item/reagent_containers/food/snacks/donut,
+/obj/item/food/donut,
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -69052,7 +69054,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/item/reagent_containers/glass/bowl,
-/obj/item/reagent_containers/food/snacks/grown/tomato,
+/obj/item/food/grown/tomato,
 /turf/open/floor/plasteel/cafeteria,
 /area/crew_quarters/kitchen)
 "qjG" = (
@@ -70665,7 +70667,7 @@
 /area/maintenance/disposal)
 "qBY" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/snacks/spaghetti,
+/obj/item/food/spaghetti,
 /obj/item/reagent_containers/food/condiment/saltshaker{
 	pixel_x = 4;
 	pixel_y = 4
@@ -78649,10 +78651,10 @@
 /area/ai_monitored/turret_protected/ai)
 "sut" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/snacks/canned/beefbroth{
+/obj/item/food/canned/beefbroth{
 	pixel_x = -4
 	},
-/obj/item/reagent_containers/food/snacks/canned/peaches{
+/obj/item/food/canned/peaches{
 	pixel_x = 4
 	},
 /turf/open/floor/plasteel/techmaint,
@@ -79677,7 +79679,7 @@
 /area/science/explab)
 "sGH" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/snacks/pie/cream,
+/obj/item/food/pie/cream,
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/tile/bar/tile_marquee{
 	dir = 1
@@ -79696,7 +79698,7 @@
 	},
 /obj/structure/table/reinforced,
 /obj/item/clipboard,
-/obj/item/reagent_containers/food/snacks/donut/jelly/choco,
+/obj/item/food/donut/jelly/choco,
 /obj/item/lighter,
 /obj/effect/turf_decal/bot,
 /obj/structure/disposalpipe/segment{
@@ -85485,7 +85487,7 @@
 /area/hallway/primary/port)
 "tWp" = (
 /obj/structure/closet/crate/bin,
-/obj/item/reagent_containers/food/snacks/donut/chaos,
+/obj/item/food/donut/chaos,
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},
@@ -92580,7 +92582,7 @@
 /obj/effect/turf_decal/tile/bar/tile_marquee{
 	dir = 1
 	},
-/obj/item/reagent_containers/food/snacks/hotdog,
+/obj/item/food/hotdog,
 /turf/open/floor/plasteel/cafeteria,
 /area/crew_quarters/kitchen)
 "vFU" = (
@@ -93294,7 +93296,7 @@
 "vOX" = (
 /obj/structure/rack,
 /obj/item/cane,
-/obj/item/reagent_containers/food/snacks/grown/mushroom/glowshroom,
+/obj/item/food/grown/mushroom/glowshroom,
 /turf/open/floor/plating,
 /area/asteroid/nearstation)
 "vPl" = (
@@ -94718,7 +94720,7 @@
 /area/maintenance/starboard/aft)
 "wkz" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/snacks/pie/cream,
+/obj/item/food/pie/cream,
 /obj/item/clothing/head/lobsterhat,
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -26

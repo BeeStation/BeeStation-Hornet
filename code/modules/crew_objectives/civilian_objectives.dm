@@ -25,7 +25,7 @@
 	var/pillcount = target_amount
 	if(owner?.current)
 		if(owner.current.contents)
-			for(var/obj/item/reagent_containers/food/snacks/grown/P in owner.current.get_contents())
+			for(var/obj/item/food/grown/P in owner.current.get_contents())
 				if(P.reagents.has_reagent(targetchem))
 					pillcount--
 	if(pillcount <= 0)

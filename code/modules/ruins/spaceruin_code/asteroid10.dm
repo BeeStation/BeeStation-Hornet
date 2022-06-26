@@ -4,9 +4,9 @@
 	name = "Welcome to Dog Heaven!"
 	info = "The ambassador of Dog Heaven welcomes you to our humble retreat!"
 
-/obj/item/reagent_containers/food/snacks/nugget/dog
+/obj/item/food/nugget/dog
 	name = "dog treat"
-	list_reagents = list(/datum/reagent/consumable/nutriment = 1,/datum/reagent/corgium = 10)
+	food_reagents = list(/datum/reagent/consumable/nutriment = 1,/datum/reagent/corgium = 10)
 
 /mob/living/simple_animal/pet/dog/corgi/chef/Initialize(mapload)
 	..()
