@@ -165,7 +165,7 @@
 				manifest_out[department] += list(list(
 					"name" = name,
 					"rank" = rank
-					// note: `"hud" = hud` is not ndded. that is used to sort, not used to display. check `if(hud in jobs_hud)`
+					// note: `"hud" = hud` is not needed. that is used to sort, not used to display. check `if(hud in jobs_hud)`
 				))
 				has_department = TRUE
 				if(department != "Command") //List heads in both command and their own department.
