@@ -9877,9 +9877,6 @@
 "csS" = (
 /obj/machinery/portable_atmospherics/canister/toxins,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/visible,
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
 /turf/open/floor/plasteel/dark,
 /area/engine/atmospherics_engine)
 "csV" = (
@@ -23243,6 +23240,15 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/chemistry)
+"guz" = (
+/obj/effect/turf_decal/tile/red,
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/turf/open/floor/plasteel,
+/area/security/brig)
 "guG" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -53527,6 +53533,9 @@
 	},
 /obj/effect/turf_decal/tile/green{
 	dir = 1
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
@@ -124531,7 +124540,7 @@ vjU
 fjd
 crC
 xLu
-sGR
+guz
 vPX
 oRA
 oRA
