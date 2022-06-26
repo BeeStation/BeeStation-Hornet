@@ -709,5 +709,5 @@
 
 /obj/item/toy/plush/opa
 	name = "metal upa"
-	desc = "You feel like this could have prevented World War 3 in a pararel timeline."
+	desc = "You feel like this could have prevented World War 3 in a parallel timeline."
 	icon_state = "upaplush"
