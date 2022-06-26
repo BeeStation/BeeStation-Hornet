@@ -376,6 +376,13 @@ update_label("John Doe", "Clowny")
 	var/datum/action/item_action/chameleon/change/chameleon_action = new(src)
 	chameleon_action.chameleon_type = /obj/item/card/id
 	chameleon_action.chameleon_name = "ID Card"
+	chameleon_action.chameleon_blacklist = list(
+		subtypesof(/obj/item/card/id/prisoner),
+		subtypesof(/obj/item/card/id/ert),
+		/obj/item/card/id,
+		/obj/item/card/id/departmental_budget,
+		/obj/item/card/id/syndicate/debug,
+		/obj/item/card/id/pass)
 	chameleon_action.initialize_disguises()
 
 /obj/item/card/id/syndicate/afterattack(obj/item/O, mob/user, proximity)
@@ -944,6 +951,10 @@ update_label("John Doe", "Clowny")
 /obj/item/card/id/gold/vip
 	name = "important gold identification card"
 	hud_state = "vip"
+
+/obj/item/card/id/gold/king
+	name = "their majesty's gold identification card"
+	hud_state = "king"
 
 // For chameleons
 /obj/item/card/id/job/rawcommand
