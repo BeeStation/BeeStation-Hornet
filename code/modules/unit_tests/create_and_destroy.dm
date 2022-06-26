@@ -82,6 +82,8 @@
 	ignore += typesof(/obj/structure/alien/resin/flower_bud_enemy)
 	//Expects a mob to holderize, we have nothing to give
 	ignore += typesof(/obj/item/clothing/head/mob_holder)
+	//Expects a hud, generally created for player occupied mobs. There won't be any and this causes issues for us.
+	ignore += typesof(/atom/movable/plane_master_controller)
 
 	var/list/cached_contents = spawn_at.contents.Copy()
 	var/baseturf_count = length(spawn_at.baseturfs)
