@@ -7365,14 +7365,11 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
 "bHM" = (
-/obj/machinery/door/window/northright{
-	base_state = "left";
-	dir = 2;
-	icon_state = "left";
-	name = "Library Desk Door";
-	req_access_txt = "37"
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 4
 	},
-/turf/open/floor/carpet/green,
+/obj/machinery/holopad,
+/turf/open/floor/wood,
 /area/library)
 "bHS" = (
 /obj/effect/turf_decal/stripes/line{
@@ -21289,26 +21286,8 @@
 /turf/open/floor/plasteel,
 /area/hydroponics)
 "fPs" = (
-/obj/structure/table/wood,
-/obj/item/stack/spacecash/c50{
-	pixel_x = 2;
-	pixel_y = 7
-	},
-/obj/item/stack/spacecash/c10{
-	pixel_x = 4;
-	pixel_y = 3
-	},
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/machinery/door/window/northright{
-	base_state = "left";
-	icon_state = "left";
-	name = "Library Desk Door";
-	pixel_x = 3;
-	req_access_txt = "37"
-	},
-/turf/open/floor/wood,
+/obj/machinery/libraryscanner,
+/turf/open/floor/carpet/green,
 /area/library)
 "fPz" = (
 /obj/structure/window/reinforced/spawner{
@@ -30093,6 +30072,25 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
+"inp" = (
+/obj/structure/table/wood,
+/obj/item/paper_bin{
+	pixel_x = 4;
+	pixel_y = 3
+	},
+/obj/item/pen/fountain{
+	pixel_x = 3;
+	pixel_y = 3
+	},
+/obj/machinery/door/window/northright{
+	name = "Library Desk Door";
+	req_access_txt = "37"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/open/floor/wood,
+/area/library)
 "inJ" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -50836,7 +50834,6 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard/central)
 "omb" = (
-/obj/machinery/libraryscanner,
 /obj/machinery/requests_console{
 	department = "Library";
 	departmentType = 1;
@@ -52198,6 +52195,16 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plating,
 /area/maintenance/department/crew_quarters/dorms)
+"oHN" = (
+/obj/machinery/paystand,
+/obj/structure/window/reinforced{
+	dir = 1
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/open/floor/wood,
+/area/library)
 "oIe" = (
 /obj/machinery/telecomms/server/presets/service,
 /turf/open/floor/circuit/telecomms/server,
@@ -62056,6 +62063,10 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 30
 	},
+/obj/machinery/door/window/northright{
+	name = "Library Desk Door";
+	req_access_txt = "37"
+	},
 /turf/open/floor/wood,
 /area/library)
 "rFH" = (
@@ -62446,18 +62457,22 @@
 /area/security/checkpoint/engineering)
 "rLU" = (
 /obj/structure/table/wood,
-/obj/item/paper_bin{
+/obj/item/stack/spacecash/c50{
+	pixel_x = 2;
+	pixel_y = 7
+	},
+/obj/item/stack/spacecash/c10{
 	pixel_x = 4;
 	pixel_y = 3
 	},
-/obj/item/pen/fountain{
-	pixel_x = 3;
-	pixel_y = 3
-	},
 /obj/machinery/door/window/northright{
+	base_state = "left";
+	icon_state = "left";
 	name = "Library Desk Door";
-	pixel_x = 3;
 	req_access_txt = "37"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
 	},
 /turf/open/floor/wood,
 /area/library)
@@ -79889,14 +79904,8 @@
 /turf/open/floor/plasteel,
 /area/crew_quarters/heads/cmo)
 "wSU" = (
-/obj/machinery/paystand,
-/obj/structure/window/reinforced{
-	dir = 4
-	},
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/turf/open/floor/wood,
+/obj/machinery/bookbinder,
+/turf/open/floor/carpet/green,
 /area/library)
 "wSV" = (
 /obj/effect/turf_decal/tile/purple,
@@ -118998,7 +119007,7 @@ xXa
 xXa
 pAa
 ewj
-xuQ
+bHM
 ewj
 ffz
 xXa
@@ -119253,7 +119262,7 @@ stR
 lyG
 omb
 fPs
-eed
+rLU
 ewj
 xuQ
 pJt
@@ -119508,9 +119517,9 @@ xXa
 xXa
 mPT
 lmv
+lmv
 bAp
-rLU
-eed
+inp
 ewj
 xuQ
 ewj
@@ -119767,7 +119776,7 @@ xXa
 uNz
 lmv
 wSU
-eed
+oHN
 ewj
 ecs
 ewj
@@ -120023,7 +120032,7 @@ fiS
 lHx
 uru
 hqE
-bHM
+lmv
 rFj
 ujs
 bzg
