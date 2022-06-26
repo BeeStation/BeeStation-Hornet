@@ -1,0 +1,27 @@
+author: dwasint
+delete-after: true
+changes:
+  - imageadd: Cooks have become better at baking breads.
+  - bugfix: Spiderbread slice is now visually distinct from the Xenobread one.
+  - bugfix: deepfryed items de-frying after a bite
+  - rscadd: Adds the griddle, a panless stove/grill for you to bake your meat products
+      on. Nanotrasen has decided to move away from microwaving everything
+  - tweak: Burgers are now made from patties, patties are grilled on the griddle,
+      raw patties are made by using a rolling pin on a raw meatball
+  - tweak: Most meat is grilled on the griddle now instead of microwaved
+  - tweak: More meatballs are gained from meat
+  - rscadd: radial crafting to cooking, use alt click on items to use it if you have
+      the required items
+  - rscadd: chef cargo console to the game allowing chefs to order produce to cargo
+      for when their is no botanist
+  - rscadd: You can now put food on plates, and plate no longer materialize out of
+      nowhere as you cook
+  - code_imp: Items no longer appear on a different layer when they're in your inventory,
+      just a different plane.
+  - rscadd: chef produce console for when the botanist isn't around, allows you to
+      order some cooking supplies using your own money.
+  - rscadd: Food Cart has been completely remade to work as a mobile kitchen
+  - bugfix: Food trays may deposit old and new foods into the microwave and food processor
+      again.
+  - bugfix: Food trays give you the switch gathering mode button when bought from
+      a vending machine again.
