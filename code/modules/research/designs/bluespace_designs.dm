@@ -90,6 +90,6 @@
 	id = "bsanchor"
 	build_type = PROTOLATHE
 	materials = list(/datum/material/silver = 12000, /datum/material/bluespace = 2000)
-	build_path = /obj/item/bluespace_anchor_deployer
+	build_path = /obj/item/bluespace_anchor
 	category = list("Bluespace Designs")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
