@@ -591,6 +591,7 @@
 /datum/xenoartifact_trait/minor/slippery
 	desc = "Slippery"
 	label_desc = "Slippery: The Artifact's surface is perpetually slippery."
+	blacklist_traits = list(/datum/xenoartifact_trait/minor/dense)
 	var/datum/component/slippery/slipper
 
 /datum/xenoartifact_trait/minor/slippery/on_init(obj/item/xenoartifact/X)
@@ -878,11 +879,11 @@
 		X.cooldownmod = ((X.charge*0.4)+1) SECONDS
 
 /datum/xenoartifact_trait/major/invisible/proc/hide(mob/living/target)
-	animate(target, ,target.invisibility = 101, time = 5)
+	animate(target, ,invisibility = 101, time = 5)
 
 /datum/xenoartifact_trait/major/invisible/proc/reveal(mob/living/target)
 	if(target)
-		animate(target, , target.invisibility = 0, time = 10)
+		animate(target, ,invisibility = 0, time = 10)
 		target = null
 
 /datum/xenoartifact_trait/major/invisible/Destroy(force, ...)

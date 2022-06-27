@@ -151,8 +151,7 @@
 			to_chat(user, "<span class='notice'>You snuff out [name]</span>")
 			process_type = null
 			return FALSE
-		SEND_SIGNAL(src, XENOA_INTERACT, null, user, user)
-
+			
 		if(user.a_intent != INTENT_GRAB)
 			SEND_SIGNAL(src, XENOA_INTERACT, null, user, user) //Calling the regular attack_hand signal causes feature issues, like picking up the artifact.
 		else if(touch_desc?.on_touch(src, user) && user.can_see_reagents())
