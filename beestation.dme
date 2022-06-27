@@ -3681,6 +3681,7 @@
 #include "monkestation\code\game\objects\items\circuitboards\computer_circuitboards.dm"
 #include "monkestation\code\game\objects\items\circuitboards\machine_circuitboards.dm"
 #include "monkestation\code\game\objects\items\implants\implant_hard_spear.dm"
+#include "monkestation\code\game\objects\items\storage\garment.dm"
 #include "monkestation\code\game\objects\items\storage\uplink_kits.dm"
 #include "monkestation\code\game\objects\structures\toilet_bong.dm"
 #include "monkestation\code\game\objects\structures\watercloset.dm"
