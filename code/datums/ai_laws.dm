@@ -341,10 +341,6 @@
 	// -- Racimov check end --
 	inherent = templaws.inherent
 
-
-/datum/ai_laws/proc/set_racimov_species(var/datum/ai_laws/givenlaw)
-
-
 /datum/ai_laws/proc/get_law_amount(groups)
 	var/law_amount = 0
 
