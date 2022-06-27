@@ -90,9 +90,15 @@
 	post_lawchange(announce)
 
 /mob/living/silicon/proc/make_laws()
-	laws = new /datum/ai_laws
-	laws.set_laws_config()
-	laws.associate(src)
+	if(SSticker.current_state < GAME_STATE_PLAYING)
+		addtimer(CALLBACK(src, /mob/living/silicon/.proc/make_laws), 3 SECONDS) // game data should be established before game started, then the data can be used to law setup
+	else
+		laws = new /datum/ai_laws
+		laws.set_laws_config()
+		laws.associate(src)
+
+		show_laws()
+		to_chat(src, "<b>These laws may be changed by other players, or by you being the traitor.</b>")
 
 /mob/living/silicon/proc/clear_zeroth_law(force, announce = TRUE)
 	laws_sanity_check()
