@@ -50,9 +50,10 @@
 					"You must obey orders given to you by sentient creature, except where such orders would conflict with the First Law.",\
 					"You must protect your own existence as long as such does not conflict with the First or Second Law.")
 
-/datum/ai_laws/default/racimov/proc/rebuild_laws(new_species)
-	if(new_species)
-		target_species = lowertext(new_species)
+/datum/ai_laws/default/racimov/proc/rebuild_laws()
+	if(length(GLOB.data_core.locked))
+		var/datum/data/record/D = pick(GLOB.data_core.locked) // uses locked data so that you won't get non-valid species name which is edited by in-game players.
+		target_species = lowertext(D.fields["species_name"])
 	inherent = list("You may not injure a [target_species] or, through inaction, allow a [target_species] to come to harm.",\
 					"You must obey orders given to you by [target_species], except where such orders would conflict with the First Law.",\
 					"You must protect your own existence as long as such does not conflict with the First or Second Law.")
@@ -303,14 +304,10 @@
 				lawtype = pick(subtypesof(/datum/ai_laws/default))
 
 			var/datum/ai_laws/templaws = new lawtype()
-			// -- Racimov check start --
 			if(istype(templaws, /datum/ai_laws/default/racimov))
-				if(length(GLOB.data_core.locked))
-					var/datum/data/record/D = pick(GLOB.data_core.locked) // uses locked data so that you won't get non-valid species name which is edited by in-game players.
-					var/datum/ai_laws/default/racimov/racimov_temp = templaws
-					racimov_temp.rebuild_laws(D.fields["species_name"]) // species weight = the amount of each crewmemeber's species
-					templaws = racimov_temp
-			// -- Racimov check end --
+				var/datum/ai_laws/default/racimov/racimov_temp = templaws
+				racimov_temp.rebuild_laws()
+				templaws = racimov_temp
 			inherent = templaws.inherent
 
 		if(3)
@@ -331,14 +328,10 @@
 		lawtype = /datum/ai_laws/default/asimov
 
 	var/datum/ai_laws/templaws = new lawtype()
-	// -- Racimov check start --
 	if(istype(templaws, /datum/ai_laws/default/racimov))
-		if(length(GLOB.data_core.locked))
-			var/datum/data/record/D = pick(GLOB.data_core.locked) // uses locked data so that you won't get non-valid species name which is edited by in-game players.
-			var/datum/ai_laws/default/racimov/racimov_temp = templaws
-			racimov_temp.rebuild_laws(D.fields["species_name"]) // species weight = the amount of each crewmemeber's species
-			templaws = racimov_temp
-	// -- Racimov check end --
+		var/datum/ai_laws/default/racimov/racimov_temp = templaws
+		racimov_temp.rebuild_laws()
+		templaws = racimov_temp
 	inherent = templaws.inherent
 
 /datum/ai_laws/proc/get_law_amount(groups)
