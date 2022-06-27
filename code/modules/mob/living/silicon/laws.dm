@@ -95,13 +95,9 @@
 		if(SSticker.current_state < GAME_STATE_PLAYING)
 			addtimer(CALLBACK(src, /mob/living/silicon/.proc/make_laws), 3 SECONDS) // game data should be established before game started, then the data can be used to law setup
 		else
-			laws = new /datum/ai_laws
-			laws.set_laws_config()
-			laws.associate(src)
+			make_laws_force()
 	else if(laws && SSticker.current_state >= GAME_STATE_PLAYING)
-		laws = new /datum/ai_laws
-		laws.set_laws_config()
-		laws.associate(src)
+		make_laws_force()
 
 /mob/living/silicon/proc/make_laws_force() // admin feature for giving laws during roundpreparation
 	laws = new /datum/ai_laws
