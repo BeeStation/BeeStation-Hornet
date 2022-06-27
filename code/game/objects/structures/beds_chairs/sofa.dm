@@ -116,11 +116,3 @@
 
 /obj/structure/chair/sofa/bench/handle_layer()
 	return
-
-/obj/structure/chair/sofa/bench/attacked_by(obj/item/I, mob/living/user)
-	. = ..()
-	if(istype(I, /obj/item/toy/crayon))
-		var/obj/item/toy/crayon/C = I
-		cover_color = C.paint_color
-	if(cover_color)
-		GetCover()
