@@ -70,8 +70,7 @@
 			name = "bluespace [name]"
 			generate_traits(list(/datum/xenoartifact_trait/minor/sharp, /datum/xenoartifact_trait/minor/radioactive,
 							/datum/xenoartifact_trait/minor/sentient, /datum/xenoartifact_trait/major/sing, 
-							/datum/xenoartifact_trait/major/laser, /datum/xenoartifact_trait/major/bomb,
-							/datum/xenoartifact_trait/major/handmore, /datum/xenoartifact_trait/major/emp))
+							/datum/xenoartifact_trait/major/laser, /datum/xenoartifact_trait/major/emp))
 			if(!xenop.price)
 				xenop.price = pick(100, 200, 300)
 
@@ -80,12 +79,11 @@
 			generate_traits(list(/datum/xenoartifact_trait/major/sing, /datum/xenoartifact_trait/activator/burn,
 							/datum/xenoartifact_trait/minor/dense, /datum/xenoartifact_trait/minor/sentient, 
 							/datum/xenoartifact_trait/major/capture, /datum/xenoartifact_trait/major/timestop,
-							/datum/xenoartifact_trait/major/bomb, /datum/xenoartifact_trait/major/mirrored,
+							/datum/xenoartifact_trait/major/mirrored,
 							/datum/xenoartifact_trait/major/corginator,/datum/xenoartifact_trait/activator/clock,
-							/datum/xenoartifact_trait/major/invisible,/datum/xenoartifact_trait/major/handmore,
-							/datum/xenoartifact_trait/major/lamp, /datum/xenoartifact_trait/major/forcefield,
-							/datum/xenoartifact_trait/activator/signal,/datum/xenoartifact_trait/major/heal, 
-							/datum/xenoartifact_trait/activator/batteryneed))
+							/datum/xenoartifact_trait/major/invisible,/datum/xenoartifact_trait/major/lamp, 
+							/datum/xenoartifact_trait/major/forcefield,/datum/xenoartifact_trait/activator/signal,
+							/datum/xenoartifact_trait/major/heal,/datum/xenoartifact_trait/activator/batteryneed))
 			if(!xenop.price)
 				xenop.price = pick(200, 300, 500)
 			malfunction_mod = 0.5
@@ -95,7 +93,7 @@
 			generate_traits(list(/datum/xenoartifact_trait/major/sing, /datum/xenoartifact_trait/minor/sharp,
 							/datum/xenoartifact_trait/major/laser, /datum/xenoartifact_trait/major/corginator,
 							/datum/xenoartifact_trait/minor/sentient, /datum/xenoartifact_trait/minor/wearable,
-							/datum/xenoartifact_trait/major/handmore, /datum/xenoartifact_trait/major/invisible,
+							/datum/xenoartifact_trait/major/invisible,
 							/datum/xenoartifact_trait/major/heal), TRUE) 
 			if(!xenop.price)
 				xenop.price = pick(300, 500, 800) 
@@ -357,12 +355,13 @@
 		if(PROCESS_TYPE_LIT) //Burning
 			true_target = list(get_target_in_proximity(min(max_range, 5)))
 			if(isliving(true_target[1]))
-				visible_message("<span class='danger'>The [name] flicks out.</span>")
+				visible_message("<span class='danger' size='4'>The [name] flicks out.</span>")
 				default_activate(25, null, null)
 				process_type = null
 				return PROCESS_KILL
 		if(PROCESS_TYPE_TICK) //Clock-ing
-			visible_message("<span class='notice'>The [name] ticks.</span>")
+			playsound(get_turf(src), 'sound/effects/clock_tick.ogg', 50, TRUE) 
+			visible_message("<span class='danger' size='10'>The [name] ticks.</span>")
 			true_target = list(get_target_in_proximity(min(max_range, 5)))
 			default_activate(25, null, null)
 			if(prob(23) && COOLDOWN_FINISHED(src, xenoa_cooldown))

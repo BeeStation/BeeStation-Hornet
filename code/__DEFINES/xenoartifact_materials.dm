@@ -21,7 +21,7 @@
 #define PROCESS_TYPE_TICK "is_tick"
 
 ///Discovery point reward
-#define XENOA_DP 120
+#define XENOA_DP 200
 
 ///Max vendors / buyers in each catergory
 #define XENOA_MAX_VENDORS 8
@@ -33,4 +33,4 @@
 
 //some trait defines
 ///Bear limit
-#define XENOA_MAX_BEARS 7
+#define XENOA_MAX_BEARS 3
