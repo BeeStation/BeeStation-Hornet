@@ -140,11 +140,11 @@
 	protected_roles = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain")
 	restricted_roles = list("AI", "Cyborg")
 	required_candidates = 1
-	weight = 3
-	cost = 15
+	weight = 0
+	cost = 101
 	scaling_cost = 15 //15(15), 30(45), 45(80)
 	minimum_players = 15
-	requirements = list(50,45,45,40,35,20,20,15,10,10)
+	requirements = list(101,101,101,101,101,101,101,101,101,101)
 	antag_cap = 1
 
 

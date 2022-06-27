@@ -160,8 +160,8 @@
 	protected_roles = list("Security Officer", "Warden", "Head of Personnel", "Detective", "Head of Security", "Captain")
 	restricted_roles = list("AI","Cyborg")
 	required_candidates = 1
-	weight = 4
-	cost = 10
+	weight = 0
+	cost = 101
 	minimum_players = 15
-	requirements = list(101,101,20,20,10,10,10,10,10,10)
+	requirements = list(101,101,101,101,101,101,101,101,101,101)
 	repeatable = TRUE
