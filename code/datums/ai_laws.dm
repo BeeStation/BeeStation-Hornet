@@ -305,7 +305,6 @@
 			var/datum/ai_laws/templaws = new lawtype()
 			// -- Racimov check start --
 			if(istype(templaws, /datum/ai_laws/default/racimov))
-				world.log << "size: [length(GLOB.data_core.locked)]"
 				if(length(GLOB.data_core.locked))
 					var/datum/data/record/D = pick(GLOB.data_core.locked) // uses locked data so that you won't get non-valid species name which is edited by in-game players.
 					var/datum/ai_laws/default/racimov/racimov_temp = templaws
@@ -334,7 +333,6 @@
 	var/datum/ai_laws/templaws = new lawtype()
 	// -- Racimov check start --
 	if(istype(templaws, /datum/ai_laws/default/racimov))
-		world.log << "size: [length(GLOB.data_core.locked)]"
 		if(length(GLOB.data_core.locked))
 			var/datum/data/record/D = pick(GLOB.data_core.locked) // uses locked data so that you won't get non-valid species name which is edited by in-game players.
 			var/datum/ai_laws/default/racimov/racimov_temp = templaws
