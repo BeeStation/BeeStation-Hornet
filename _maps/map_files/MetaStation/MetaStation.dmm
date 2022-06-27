@@ -48356,7 +48356,6 @@
 	name = "Port Quarter Maintenance APC";
 	pixel_y = 24
 	},
-/obj/structure/closet/radiation,
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
 "eEy" = (
@@ -49725,7 +49724,6 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 8
 	},
-/obj/structure/closet/radiation,
 /turf/open/floor/plasteel,
 /area/security/main)
 "fvE" = (
@@ -50976,7 +50974,6 @@
 /obj/effect/turf_decal/tile/brown{
 	dir = 4
 	},
-/obj/structure/closet/radiation,
 /turf/open/floor/plasteel,
 /area/storage/primary)
 "gds" = (
@@ -63931,7 +63928,6 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 8
 	},
-/obj/structure/closet/radiation,
 /turf/open/floor/plasteel,
 /area/security/main)
 "nAE" = (
@@ -67433,11 +67429,6 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/effect/turf_decal/tile/neutral/tile_full,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plasteel/dark,
 /area/hallway/primary/starboard)
 "pGn" = (
@@ -70982,6 +70973,10 @@
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4,
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
+"rPg" = (
+/obj/structure/closet/emcloset,
+/turf/open/floor/plating,
+/area/maintenance/port/aft)
 "rPA" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -80336,20 +80331,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
-"xCZ" = (
-/obj/effect/turf_decal/tile/purple{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/purple,
-/obj/effect/turf_decal/tile/purple{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/purple{
-	dir = 8
-	},
-/obj/structure/closet/radiation,
-/turf/open/floor/plasteel,
-/area/hallway/primary/aft)
 "xDa" = (
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
@@ -80781,7 +80762,6 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 8
 	},
-/obj/structure/closet/radiation,
 /turf/open/floor/plasteel,
 /area/security/main)
 "xOy" = (
@@ -102094,7 +102074,7 @@ bXE
 fGy
 arL
 dux
-xgL
+rPg
 rrR
 cia
 cjD
@@ -109553,7 +109533,7 @@ cgd
 cge
 cgd
 cgd
-xCZ
+cpb
 cpb
 cqv
 cgd
