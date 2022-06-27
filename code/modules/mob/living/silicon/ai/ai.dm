@@ -170,7 +170,7 @@
 
 /mob/living/silicon/ai/proc/show_laws_roundstart()
 	if (!laws) // laws are given after roundstart, and this proc is waiting for laws to be created.
-		addtimer(CALLBACK(src, /mob/living/silicon/.proc/show_laws_roundstart), 3 SECONDS)
+		addtimer(CALLBACK(src, /mob/living/silicon/ai/.proc/show_laws_roundstart), 3 SECONDS)
 	else
 		to_chat(src, "<b>Roundstart laws are established.</b>")
 		show_laws()
