@@ -405,12 +405,12 @@ DEFAULT_LAWS 2
 ## See datums\ai_laws.dm for the full law lists
 
 ## standard-ish laws. These are fairly ok to run
-#RANDOM_LAWS asimov
-#RANDOM_LAWS asimovpp
-#RANDOM_LAWS crewsimov
+RANDOM_LAWS asimov
+RANDOM_LAWS asimovpp
+RANDOM_LAWS crewsimov
 RANDOM_LAWS racimov
-#RANDOM_LAWS corporate
-#RANDOM_LAWS maintain
+RANDOM_LAWS corporate
+RANDOM_LAWS maintain
 
 ## Quirky laws. Shouldn't cause too much harm
 #RANDOM_LAWS hippocratic
