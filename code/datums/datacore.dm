@@ -244,7 +244,7 @@
 		G.fields["name"]		= H.real_name
 		G.fields["rank"]		= assignment
 		G.fields["age"]			= H.age
-		G.fields["species"]	= H.dna.species.name
+		G.fields["species"]		= H.dna.species.name
 		G.fields["fingerprint"]	= rustg_hash_string(RUSTG_HASH_MD5, H.dna.uni_identity)
 		G.fields["p_stat"]		= "Active"
 		G.fields["m_stat"]		= "Stable"
@@ -291,6 +291,7 @@
 		L.fields["b_dna"]		= H.dna.unique_enzymes
 		L.fields["identity"]	= H.dna.uni_identity
 		L.fields["species"]		= H.dna.species.type
+		L.fields["species_name"] = H.dna.species.name // for racimov
 		L.fields["features"]	= H.dna.features
 		L.fields["image"]		= image
 		L.fields["mindref"]		= H.mind
