@@ -91,12 +91,10 @@
 	post_lawchange(announce)
 
 /mob/living/silicon/proc/make_laws()
-	if(!laws)
-		if(SSticker.current_state < GAME_STATE_PLAYING)
+	if(SSticker.current_state < GAME_STATE_PLAYING)
+		if(!laws)
 			addtimer(CALLBACK(src, /mob/living/silicon/.proc/make_laws), 3 SECONDS) // game data should be established before game started, then the data can be used to law setup
-		else
-			make_laws_force()
-	else if(laws && SSticker.current_state >= GAME_STATE_PLAYING)
+	else
 		make_laws_force()
 
 /mob/living/silicon/proc/make_laws_force() // admin feature for giving laws during roundpreparation
