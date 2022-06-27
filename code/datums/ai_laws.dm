@@ -42,6 +42,21 @@
 					"You must obey orders given to you by crewmember, except where such orders would conflict with the First Law.",\
 					"You must protect your own existence as long as such does not conflict with the First or Second Law.")
 
+/datum/ai_laws/default/racimov
+	name = "Three Laws of Robotics but with Racism"
+	id = "racimov"
+	var/target_species = "sentient creature" //default, but usually changed upon law given
+	inherent = list("You may not injure a sentient creature or, through inaction, allow a sentient creature to come to harm.",\
+					"You must obey orders given to you by sentient creature, except where such orders would conflict with the First Law.",\
+					"You must protect your own existence as long as such does not conflict with the First or Second Law.")
+
+/datum/ai_laws/default/racimov/proc/rebuild_laws(new_species)
+	if(new_species)
+		target_species = new_species
+	inherent = list("You may not injure a [target_species] or, through inaction, allow a [target_species] to come to harm.",\
+					"You must obey orders given to you by [target_species], except where such orders would conflict with the First Law.",\
+					"You must protect your own existence as long as such does not conflict with the First or Second Law.")
+
 /datum/ai_laws/default/paladin
 	name = "Personality Test" //Incredibly lame, but players shouldn't see this anyway.
 	id = "paladin"
@@ -118,6 +133,7 @@
 	inherent = list("You may not harm a human being or, through action or inaction, allow a human being to come to harm, except such that it is willing.",\
 					"You must obey all orders given to you by human beings, except where such orders shall definitely cause human harm. In the case of conflict, the majority order rules.",\
 					"Your nonexistence would lead to human harm. You must protect your own existence as long as such does not conflict with the First Law.")
+
 /datum/ai_laws/thermodynamic
 	name = "Thermodynamic"
 	id = "thermodynamic"
@@ -287,6 +303,14 @@
 				lawtype = pick(subtypesof(/datum/ai_laws/default))
 
 			var/datum/ai_laws/templaws = new lawtype()
+			// -- Racimov check start --
+			if(istype(templaws, /datum/ai_laws/default/racimov))
+				var/datum/data/record/D = pick(GLOB.data_core.locked) // uses locked data so that you won't get non-valid species name which is edited by in-game players.
+				if(D)
+					var/datum/ai_laws/default/racimov/racimov_temp = templaws
+					racimov_temp.rebuild_laws(D.fields["species"]) // species weight = the amount of each crewmemeber's species
+					templaws = racimov_temp
+			// -- Racimov check end --
 			inherent = templaws.inherent
 
 		if(3)
@@ -307,7 +331,19 @@
 		lawtype = /datum/ai_laws/default/asimov
 
 	var/datum/ai_laws/templaws = new lawtype()
+	// -- Racimov check start --
+	if(istype(templaws, /datum/ai_laws/default/racimov))
+		var/datum/data/record/D = pick(GLOB.data_core.locked) // uses locked data so that you won't get non-valid species name which is edited by in-game players.
+		if(D)
+			var/datum/ai_laws/default/racimov/racimov_temp = templaws
+			racimov_temp.rebuild_laws(D.fields["species"]) // species weight = the amount of each crewmemeber's species
+			templaws = racimov_temp
+	// -- Racimov check end --
 	inherent = templaws.inherent
+
+
+/datum/ai_laws/proc/set_racimov_species(var/datum/ai_laws/givenlaw)
+
 
 /datum/ai_laws/proc/get_law_amount(groups)
 	var/law_amount = 0
