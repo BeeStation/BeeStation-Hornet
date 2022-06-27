@@ -125,8 +125,8 @@
 	to_chat(src, "Use say :b to speak to your cyborgs through binary.")
 	to_chat(src, "For department channels, use the following say commands:")
 	to_chat(src, ":o - AI Private, :c - Command, :s - Security, :e - Engineering, :u - Supply, :v - Service, :m - Medical, :n - Science.")
-	show_laws()
-	to_chat(src, "<b>These laws may be changed by other players, or by you being the traitor.</b>")
+
+	show_laws_roundstart()
 
 	job = "AI"
 
@@ -167,6 +167,14 @@
 
 	builtInCamera = new (src)
 	builtInCamera.network = list("ss13")
+
+/mob/living/silicon/ai/proc/show_laws_roundstart()
+	if (!laws) // laws are given after roundstart, and this proc is waiting for laws to be created.
+		addtimer(CALLBACK(src, /mob/living/silicon/.proc/show_laws_roundstart), 3 SECONDS)
+	else
+		to_chat(src, "<b>Roundstart laws are established.</b>")
+		show_laws()
+		to_chat(src, "<b>These laws may be changed by other players, or by you being the traitor.</b>")
 
 /mob/living/silicon/ai/key_down(_key, client/user)
 	if(findtext(_key, "numpad")) //if it's a numpad number, we can convert it to just the number
