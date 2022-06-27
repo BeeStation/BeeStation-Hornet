@@ -1,12 +1,6 @@
 /mob/living/silicon/proc/show_laws() //Redefined in ai/laws.dm and robot/laws.dm
 	return
 
-/mob/living/silicon/proc/show_laws_roundstart()
-	if (!laws)
-		addtimer(CALLBACK(src, /mob/living/silicon/.proc/show_laws_roundstart), 3 SECONDS)
-	else
-		show_laws()
-		to_chat(src, "<b>These laws may be changed by other players, or by you being the traitor.</b>")
 
 /mob/living/silicon/proc/laws_sanity_check()
 	if (!laws)
