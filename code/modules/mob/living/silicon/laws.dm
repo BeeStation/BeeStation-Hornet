@@ -4,7 +4,7 @@
 
 /mob/living/silicon/proc/laws_sanity_check()
 	if (!laws)
-		make_laws()
+		make_laws_force()
 
 /mob/living/silicon/proc/deadchat_lawchange()
 	var/list/the_laws = laws.get_law_list(include_zeroth = TRUE)
