@@ -98,6 +98,10 @@
 			laws = new /datum/ai_laws
 			laws.set_laws_config()
 			laws.associate(src)
+	else if(laws && SSticker.current_state >= GAME_STATE_PLAYING)
+		laws = new /datum/ai_laws
+		laws.set_laws_config()
+		laws.associate(src)
 
 /mob/living/silicon/proc/make_laws_force() // admin feature for giving laws during roundpreparation
 	laws = new /datum/ai_laws
