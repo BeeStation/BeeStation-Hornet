@@ -1,10 +1,12 @@
 /mob/living/silicon/proc/show_laws() //Redefined in ai/laws.dm and robot/laws.dm
 	return
 
+/mob/living/silicon/proc/show_laws_roundstart()
+	return
 
 /mob/living/silicon/proc/laws_sanity_check()
 	if (!laws)
-		make_laws_force()
+		prepare_laws()
 
 /mob/living/silicon/proc/deadchat_lawchange()
 	var/list/the_laws = laws.get_law_list(include_zeroth = TRUE)
@@ -91,16 +93,23 @@
 	post_lawchange(announce)
 
 /mob/living/silicon/proc/make_laws()
+	if(!laws)
+		prepare_laws()
 	if(SSticker.current_state < GAME_STATE_PLAYING)
-		if(!laws)
+		if(laws.id == DEFAULT_AI_LAWID)
 			addtimer(CALLBACK(src, /mob/living/silicon/.proc/make_laws), 3 SECONDS) // game data should be established before game started, then the data can be used to law setup
 	else
-		make_laws_force()
+		establish_laws()
 
-/mob/living/silicon/proc/make_laws_force() // admin feature for giving laws during roundpreparation
+/mob/living/silicon/proc/prepare_laws()
 	laws = new /datum/ai_laws
+
+/mob/living/silicon/proc/establish_laws()
+	if(!laws)
+		prepare_laws()
 	laws.set_laws_config()
 	laws.associate(src)
+	show_laws_roundstart()
 
 /mob/living/silicon/proc/clear_zeroth_law(force, announce = TRUE)
 	laws_sanity_check()

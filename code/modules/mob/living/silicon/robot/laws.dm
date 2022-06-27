@@ -13,6 +13,8 @@
 
 /mob/living/silicon/robot/show_laws(everyone = 0)
 	laws_sanity_check()
+	if(laws.id == DEFAULT_AI_LAWID)
+		return  // probably not ready to show laws
 	var/who
 
 	if (everyone)
@@ -42,6 +44,12 @@
 	else
 		to_chat(who, "<b>Remember, you are not bound to any AI, you are not required to listen to them.</b>")
 
+/mob/living/silicon/robot/show_laws_roundstart()
+	if (laws.id == DEFAULT_AI_LAWID) // laws are given after roundstart, and this proc is waiting for laws to be created.
+		addtimer(CALLBACK(src, /mob/living/silicon/robot/.proc/show_laws_roundstart), 3 SECONDS)
+	else
+		to_chat(src, "<b>Laws are established.</b>")
+		show_laws()
 
 /mob/living/silicon/robot/proc/lawsync()
 	laws_sanity_check()

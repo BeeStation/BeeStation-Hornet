@@ -126,8 +126,6 @@
 	to_chat(src, "For department channels, use the following say commands:")
 	to_chat(src, ":o - AI Private, :c - Command, :s - Security, :e - Engineering, :u - Supply, :v - Service, :m - Medical, :n - Science.")
 
-	show_laws_roundstart()
-
 	job = "AI"
 
 	create_eye()
@@ -168,8 +166,8 @@
 	builtInCamera = new (src)
 	builtInCamera.network = list("ss13")
 
-/mob/living/silicon/ai/proc/show_laws_roundstart()
-	if (!laws) // laws are given after roundstart, and this proc is waiting for laws to be created.
+/mob/living/silicon/ai/show_laws_roundstart()
+	if (laws.id == DEFAULT_AI_LAWID) // laws are given after roundstart, and this proc is waiting for laws to be created.
 		addtimer(CALLBACK(src, /mob/living/silicon/ai/.proc/show_laws_roundstart), 3 SECONDS)
 	else
 		to_chat(src, "<b>Roundstart laws are established.</b>")

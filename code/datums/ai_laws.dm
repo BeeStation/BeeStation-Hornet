@@ -291,6 +291,7 @@
 		if(1)
 			var/datum/ai_laws/templaws = new /datum/ai_laws/custom()
 			inherent = templaws.inherent
+			id = templaws.id
 		if(2)
 			var/list/randlaws = list()
 			for(var/lpath in subtypesof(/datum/ai_laws))
@@ -309,6 +310,7 @@
 				racimov_temp.rebuild_laws()
 				templaws = racimov_temp
 			inherent = templaws.inherent
+			id = templaws.id
 
 		if(3)
 			pick_weighted_lawset()
@@ -333,6 +335,7 @@
 		racimov_temp.rebuild_laws()
 		templaws = racimov_temp
 	inherent = templaws.inherent
+	id = templaws.id
 
 /datum/ai_laws/proc/get_law_amount(groups)
 	var/law_amount = 0
