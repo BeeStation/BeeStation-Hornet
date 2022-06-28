@@ -1,0 +1,5 @@
+author: Dejaku51
+delete-after: true
+changes:
+  - bugfix: IPCs and ethereals now can't use the lipid extractor
+  - admin: created a failsafe to avoid admins crashing the server using lipid extractor
