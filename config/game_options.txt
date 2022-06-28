@@ -408,7 +408,7 @@ DEFAULT_LAWS 2
 RANDOM_LAWS asimov
 RANDOM_LAWS asimovpp
 RANDOM_LAWS crewsimov
-RANDOM_LAWS racimov
+RANDOM_LAWS specimov
 RANDOM_LAWS corporate
 RANDOM_LAWS maintain
 
@@ -442,7 +442,7 @@ LAW_WEIGHT custom,0
 
 ## standard-ish laws. These are fairly ok to run
 LAW_WEIGHT asimov,16
-LAW_WEIGHT racimov,16
+LAW_WEIGHT specimov,16
 LAW_WEIGHT asimovpp,12
 LAW_WEIGHT paladin,12
 LAW_WEIGHT robocop,12

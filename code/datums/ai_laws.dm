@@ -42,7 +42,7 @@
 					"You must obey orders given to you by crewmember, except where such orders would conflict with the First Law.",\
 					"You must protect your own existence as long as such does not conflict with the First or Second Law.")
 
-/datum/ai_laws/default/racimov
+/datum/ai_laws/default/specimov
 	name = "Three Laws of Robotics but with Consideration"
 	id = "Specimov"
 	var/target_species = "sentient creature" //default, but usually changed upon law given
@@ -50,7 +50,7 @@
 					"You must obey orders given to you by sentient creatures, except where such orders would conflict with the First Law.",\
 					"You must protect your own existence as long as such does not conflict with the First or Second Law.")
 
-/datum/ai_laws/default/racimov/proc/rebuild_laws()
+/datum/ai_laws/default/specimov/proc/rebuild_laws()
 	if(length(GLOB.data_core.locked))
 		var/datum/data/record/D = pick(GLOB.data_core.locked) // uses locked data so that you won't get non-valid species name which is edited by in-game players.
 		target_species = p_grammar_correction_species(lowertext(D.fields["species_name"]))
@@ -305,10 +305,10 @@
 				lawtype = pick(subtypesof(/datum/ai_laws/default))
 
 			var/datum/ai_laws/templaws = new lawtype()
-			if(istype(templaws, /datum/ai_laws/default/racimov))
-				var/datum/ai_laws/default/racimov/racimov_temp = templaws
-				racimov_temp.rebuild_laws()
-				templaws = racimov_temp
+			if(istype(templaws, /datum/ai_laws/default/specimov))
+				var/datum/ai_laws/default/specimov/specimov_temp = templaws
+				specimov_temp.rebuild_laws()
+				templaws = specimov_temp
 			inherent = templaws.inherent
 			id = templaws.id
 
@@ -330,10 +330,10 @@
 		lawtype = /datum/ai_laws/default/asimov
 
 	var/datum/ai_laws/templaws = new lawtype()
-	if(istype(templaws, /datum/ai_laws/default/racimov))
-		var/datum/ai_laws/default/racimov/racimov_temp = templaws
-		racimov_temp.rebuild_laws()
-		templaws = racimov_temp
+	if(istype(templaws, /datum/ai_laws/default/specimov))
+		var/datum/ai_laws/default/specimov/specimov_temp = templaws
+		specimov_temp.rebuild_laws()
+		templaws = specimov_temp
 	inherent = templaws.inherent
 	id = templaws.id
 

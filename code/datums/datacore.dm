@@ -291,7 +291,7 @@
 		L.fields["b_dna"]		= H.dna.unique_enzymes
 		L.fields["identity"]	= H.dna.uni_identity
 		L.fields["species"]		= H.dna.species.type
-		L.fields["species_name"] = H.dna.species.name // for racimov
+		L.fields["species_name"] = H.dna.species.name // for specimov
 		L.fields["features"]	= H.dna.features
 		L.fields["image"]		= image
 		L.fields["mindref"]		= H.mind

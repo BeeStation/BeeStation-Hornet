@@ -61,7 +61,7 @@
 		var/static/species_plural = list(
 			"human" = "\improper Humans",
 			"human being" = "\improper Human beings",
-			"sentient creature" = "\improper Sentient creatures", // racimov default
+			"sentient creature" = "\improper Sentient creatures", // specimov default
 			"integrated positronic chassis" = "\improper Integrated Positronic Chassis", // Chassis's plural is Chassis
 			"ipc" = "\improper Integrated Positronic Chassis", // grammar correction
 			"ethereal" = "\improper Ethreals",
