@@ -47,6 +47,7 @@
 		temp_species = replacetext(temp_species, "\proper", "")
 		var/static/grammar_correction = list(
 			"human" = "human being"
+			"ipc" = "\improper integrated positronic chassis"
 		)
 		if(temp_species in grammar_correction)
 			return lower ? lowertext(grammar_correction[temp_species]) : grammar_correction[temp_species]
@@ -84,7 +85,7 @@
 			"zombie" = "\improper Zombies",
 			"vampire" = "\improper Vampires",
 			"snailperson" = "\improper Snailpeople",
-			"spooky scary skeleton" = "\improper Spooky Ccary Skeletons",
+			"spooky scary skeleton" = "\improper Spooky Scary Skeletons",
 			"dullahan" = "\improper Dullahans",
 			"android" = "\improper Androids",
 			"xenomorph" = "\improper Xenomorphs",
