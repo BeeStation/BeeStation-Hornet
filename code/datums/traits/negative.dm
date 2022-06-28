@@ -174,7 +174,7 @@
 			if("Paramedic")
 				heirloom_type = pick(/obj/item/bodybag)
 			if("Chemist")
-				heirloom_type = /obj/item/book/manual/wiki/chemistry
+				heirloom_type = /obj/item/reagent_containers/glass/chem_heirloom
 			if("Virologist")
 				heirloom_type = /obj/item/reagent_containers/dropper
 			if("Geneticist")
@@ -218,6 +218,9 @@
 	var/family_name = names[names.len]
 
 	heirloom.AddComponent(/datum/component/heirloom, quirk_holder.mind, family_name)
+	if(istype(heirloom, /obj/item/reagent_containers/glass/chem_heirloom)) //Edge case for chem_heirloom. Solution to component not being present on init.
+		var/obj/item/reagent_containers/glass/chem_heirloom/H = heirloom
+		H.update_name()
 
 /datum/quirk/family_heirloom/on_process()
 	if(heirloom in quirk_holder.GetAllContents())
