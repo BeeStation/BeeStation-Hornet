@@ -18,7 +18,7 @@
 	/// Detection radius (Debug)
 	var/detection_range = 1000
 	/// Interidction range
-	var/interdiction_range
+	var/interdiction_range = 150
 
 /datum/shuttle_data/New(port_id)
 	. = ..()
