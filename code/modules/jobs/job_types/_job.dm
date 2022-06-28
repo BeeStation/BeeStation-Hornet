@@ -99,11 +99,14 @@
 
 	//Give head hud
 	if(departments & DEPARTMENT_COMMAND)
+		var/datum/atom_hud/antag/revhud = GLOB.huds[ANTAG_HUD_REV]
+		revhud.join_hud(H, TRUE)
 		set_antag_hud(H, "head_staff", null)
 
 	if(!ishuman(H))
 		return
 	var/mob/living/carbon/human/human = H
+
 	var/list/gear_leftovers = list()
 	if(M.client && LAZYLEN(M.client.prefs.equipped_gear))
 		for(var/gear in M.client.prefs.equipped_gear)
