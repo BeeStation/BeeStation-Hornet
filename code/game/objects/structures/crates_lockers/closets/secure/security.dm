@@ -68,6 +68,7 @@
 	new /obj/item/circuitboard/machine/techfab/department/service(src)
 	new /obj/item/storage/photo_album/HoP(src)
 	new /obj/item/card/id/departmental_budget/srv(src)
+	new /obj/item/storage/box/command_keys(src)
 
 /obj/structure/closet/secure_closet/brig_phys
 	name = "\proper brig physician's locker"

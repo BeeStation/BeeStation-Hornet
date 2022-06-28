@@ -7,6 +7,7 @@
 	var/translate_binary = FALSE
 	var/syndie = FALSE
 	var/independent = FALSE
+	var/amplification = FALSE
 	var/list/channels = list()
 
 /obj/item/encryptionkey/Initialize(mapload)
@@ -33,6 +34,10 @@
 	name = "binary translator key"
 	icon_state = "bin_cypherkey"
 	translate_binary = TRUE
+
+/obj/item/encryptionkey/amplification
+	name = "amplification module key"
+	amplification = TRUE
 
 /obj/item/encryptionkey/headset_sec
 	name = "security radio encryption key"
@@ -145,8 +150,29 @@
 	independent = TRUE
 	channels = list(RADIO_CHANNEL_CENTCOM = 1)
 
+/obj/item/encryptionkey/debug
+	name = "\improper omni radio encryption key"
+	icon_state = "cent_cypherkey"
+	translate_binary = TRUE
+	syndie = TRUE
+	independent = TRUE
+	loud = TRUE
+
+	channels = list(RADIO_CHANNEL_COMMAND = 1, RADIO_CHANNEL_SECURITY = 1, RADIO_CHANNEL_ENGINEERING = 1, RADIO_CHANNEL_SCIENCE = 1, RADIO_CHANNEL_MEDICAL = 1, RADIO_CHANNEL_SUPPLY = 1, RADIO_CHANNEL_SERVICE = 1, RADIO_CHANNEL_EXPLORATION = 1, RADIO_CHANNEL_AI_PRIVATE=1, RADIO_CHANNEL_CENTCOM = 1, RADIO_CHANNEL_SYNDICATE = 1)
+
 /obj/item/encryptionkey/ai //ported from NT, this goes 'inside' the AI.
 	channels = list(RADIO_CHANNEL_COMMAND = 1, RADIO_CHANNEL_SECURITY = 1, RADIO_CHANNEL_ENGINEERING = 1, RADIO_CHANNEL_SCIENCE = 1, RADIO_CHANNEL_MEDICAL = 1, RADIO_CHANNEL_SUPPLY = 1, RADIO_CHANNEL_SERVICE = 1, RADIO_CHANNEL_EXPLORATION = 1, RADIO_CHANNEL_AI_PRIVATE = 1)
 
 /obj/item/encryptionkey/secbot
 	channels = list(RADIO_CHANNEL_AI_PRIVATE = 1, RADIO_CHANNEL_SECURITY = 1)
+
+
+/obj/item/storage/box/command_keys // HoP toys
+	name = "box of high responsible keys"
+
+/obj/item/storage/box/command_keys/PopulateContents()
+	new /obj/item/encryptionkey/amplification(src)
+	new /obj/item/encryptionkey/amplification(src)
+	new /obj/item/encryptionkey/amplification(src)
+	new /obj/item/encryptionkey/headset_com(src)
+	new /obj/item/encryptionkey/headset_com(src)
