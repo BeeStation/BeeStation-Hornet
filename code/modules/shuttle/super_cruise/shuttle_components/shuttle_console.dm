@@ -201,12 +201,8 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 	data["shuttleAngle"] = shuttleObject.angle
 	data["shuttleThrust"] = shuttleObject.thrust
 	data["autopilot_enabled"] = shuttleObject.ai_pilot?.is_active()
-	if(shuttleObject?.shuttleTarget)
-		data["shuttleVelX"] = shuttleObject.velocity.x - shuttleObject.shuttleTarget.velocity.x
-		data["shuttleVelY"] = shuttleObject.velocity.y - shuttleObject.shuttleTarget.velocity.y
-	else
-		data["shuttleVelX"] = shuttleObject.velocity.x
-		data["shuttleVelY"] = shuttleObject.velocity.y
+	data["shuttleVelX"] = shuttleObject.velocity.x
+	data["shuttleVelY"] = shuttleObject.velocity.y
 	//Docking data
 	data["canDock"] = shuttleObject.can_dock_with != null && !shuttleObject.docking_frozen
 	data["isDocking"] = shuttleObject.docking_target != null && !shuttleObject.docking_frozen && !shuttleObject.docking_target.is_generating

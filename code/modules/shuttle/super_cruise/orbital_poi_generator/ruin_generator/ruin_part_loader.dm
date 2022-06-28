@@ -1,4 +1,5 @@
 GLOBAL_LIST_EMPTY(loaded_ruin_parts)
+GLOBAL_LIST_EMPTY(ruin_part_lookup)
 
 //Reads all ruin parts from the ruin generation file and processes them.
 /proc/load_ruin_parts()
@@ -6,5 +7,6 @@ GLOBAL_LIST_EMPTY(loaded_ruin_parts)
 	for(var/subtype in subtypesof(/datum/map_template/ruin_part))
 		var/datum/map_template/ruin_part/ruin_st = new subtype()
 		GLOB.loaded_ruin_parts += ruin_st
+		GLOB.ruin_part_lookup[subtype] = ruin_st
 	message_admins("Loaded ruin parts")
 	log_mapping("Ruin parts loaded.")

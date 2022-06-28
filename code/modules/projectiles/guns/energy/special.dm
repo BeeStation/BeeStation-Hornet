@@ -11,6 +11,7 @@
 	ammo_x_offset = 3
 	flight_x_offset = 17
 	flight_y_offset = 9
+	randomise_crystal = FALSE
 
 /obj/item/gun/energy/ionrifle/carbine
 	name = "ion carbine"
@@ -24,6 +25,9 @@
 	flight_x_offset = 18
 	flight_y_offset = 11
 
+/obj/item/gun/energy/ionrifle/carbine/no_crystal
+	no_crystal = TRUE
+
 /obj/item/gun/energy/ionrifle/carbine/pin
 	pin = /obj/item/firing_pin
 
@@ -34,10 +38,11 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/declone)
 	pin = null
 	ammo_x_offset = 1
+	randomise_crystal = FALSE
 
 /obj/item/gun/energy/decloner/update_icon()
 	..()
-	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
+	var/obj/item/ammo_casing/energy/shot = ammo_casings[select]
 	if(!QDELETED(cell) && (cell.charge > shot.e_cost))
 		add_overlay("decloner_spin")
 
@@ -54,6 +59,7 @@
 	modifystate = 1
 	ammo_x_offset = 1
 	selfcharge = 1
+	randomise_crystal = FALSE
 
 /obj/item/gun/energy/meteorgun
 	name = "meteor gun"
@@ -65,6 +71,7 @@
 	cell_type = "/obj/item/stock_parts/cell/potato"
 	clumsy_check = 0 //Admin spawn only, might as well let clowns use it.
 	selfcharge = 1
+	randomise_crystal = FALSE
 
 /obj/item/gun/energy/meteorgun/pen
 	name = "meteor pen"
@@ -83,6 +90,7 @@
 	item_state = null
 	ammo_type = list(/obj/item/ammo_casing/energy/mindflayer)
 	ammo_x_offset = 2
+	randomise_crystal = FALSE
 
 /obj/item/gun/energy/kinetic_accelerator/crossbow
 	name = "mini energy crossbow"
@@ -100,6 +108,7 @@
 	unique_frequency = TRUE
 	can_flashlight = FALSE
 	max_mod_capacity = 0
+	randomise_crystal = FALSE
 
 /obj/item/gun/energy/kinetic_accelerator/crossbow/halloween
 	name = "candy corn crossbow"
@@ -143,6 +152,7 @@
 	usesound = list('sound/items/welder.ogg', 'sound/items/welder2.ogg')
 	tool_behaviour = TOOL_WELDER
 	toolspeed = 0.7 //plasmacutters can be used as welders, and are faster than standard welders
+	randomise_crystal = FALSE
 	var/progress_flash_divisor = 10  //copypasta is best pasta
 	var/light_intensity = 1
 	var/charge_weld = 25 //amount of charge used up to start action (multiplied by amount) and per progress_flash_divisor ticks of welding
@@ -245,6 +255,7 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/wormhole, /obj/item/ammo_casing/energy/wormhole/orange)
 	item_state = null
 	icon_state = "wormhole_projector"
+	randomise_crystal = FALSE
 	var/obj/effect/portal/p_blue
 	var/obj/effect/portal/p_orange
 	var/atmos_link = FALSE
@@ -320,6 +331,7 @@
 	automatic = 1
 	fire_rate = 6
 	requires_wielding = FALSE
+	randomise_crystal = FALSE
 
 /obj/item/gun/energy/printer/update_icon()
 	return
@@ -336,6 +348,9 @@
 	automatic = 1
 	fire_rate = 4
 	pin = null
+
+/obj/item/gun/energy/temperature/no_crystal
+	no_crystal = TRUE
 
 /obj/item/gun/energy/temperature/pin
 	pin = /obj/item/firing_pin
@@ -375,4 +390,5 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/gravity/repulse, /obj/item/ammo_casing/energy/gravity/attract, /obj/item/ammo_casing/energy/gravity/chaos)
 	item_state = "gravity_gun"
 	icon_state = "gravity_gun"
+	randomise_crystal = FALSE
 	var/power = 4

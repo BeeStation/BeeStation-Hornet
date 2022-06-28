@@ -240,15 +240,6 @@
 	category = list("Tool Designs")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
 
-/datum/design/researchdisklocator
-	name = "Research Disk Locator"
-	id = "researchdisk_locator"
-	build_type = PROTOLATHE
-	materials = list(/datum/material/iron = 250, /datum/material/glass = 25)
-	build_path = /obj/item/research_disk_pinpointer
-	category = list("Tool Designs")
-	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
-
 /datum/design/wirebrush
 	name = "Wirebrush"
 	desc = "A tool to remove rust from walls."

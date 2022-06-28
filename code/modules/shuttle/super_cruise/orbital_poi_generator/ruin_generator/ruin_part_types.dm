@@ -499,3 +499,8 @@
 	file_name = "13x17_chapel"
 	weight = 3
 	max_occurances = 1 //Multiple Nar'sie worshipping chaplain incidents would be wacky on one station.
+
+/datum/map_template/ruin_part/archive
+	file_name = "13x13_archive_room"
+	weight = 3
+	max_occurances = 1

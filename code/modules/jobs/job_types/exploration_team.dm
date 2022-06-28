@@ -102,7 +102,6 @@
 		/obj/item/stack/marker_beacon/thirty=1,
 		/obj/item/discovery_scanner=1,
 		/obj/item/sbeacondrop/exploration=1,			//Spawns in a bluespace beacon
-		/obj/item/research_disk_pinpointer=1			//Locates research disks
 	)
 
 	backpack = /obj/item/storage/backpack/science

@@ -176,7 +176,7 @@
 	id = "nuclear_gun"
 	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 10000, /datum/material/glass = 2000, /datum/material/uranium = 3000, /datum/material/titanium = 1000)
-	build_path = /obj/item/gun/energy/e_gun/nuclear
+	build_path = /obj/item/gun/energy/e_gun/nuclear/no_crystal
 	category = list("Weapons")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
@@ -227,7 +227,7 @@
 	id = "temp_gun"
 	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 5000, /datum/material/glass = 500, /datum/material/silver = 3000)
-	build_path = /obj/item/gun/energy/temperature
+	build_path = /obj/item/gun/energy/temperature/no_crystal
 	category = list("Weapons")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
@@ -282,13 +282,23 @@
 	category = list("Weapons")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY | DEPARTMENTAL_FLAG_MEDICAL
 
+/datum/design/e_gun
+	name = "Energy Gun"
+	desc = "A standard issue energy gun. Requires a focusing crystal to be installed in order to use."
+	id = "energy_gun"
+	build_type = PROTOLATHE
+	materials = list(/datum/material/iron = MINERAL_MATERIAL_AMOUNT * 5, /datum/material/uranium = MINERAL_MATERIAL_AMOUNT * 2, /datum/material/plastic = MINERAL_MATERIAL_AMOUNT * 10)
+	build_path = /obj/item/gun/energy/e_gun/printed
+	category = list("Weapons")
+	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
+
 /datum/design/xray
 	name = "X-ray Laser Gun"
 	desc = "Not quite as menacing as it sounds"
 	id = "xray_laser"
 	build_type = PROTOLATHE
 	materials = list(/datum/material/gold = 5000, /datum/material/uranium = 4000, /datum/material/iron = 5000, /datum/material/titanium = 2000, /datum/material/bluespace = 2000)
-	build_path = /obj/item/gun/energy/xray
+	build_path = /obj/item/gun/energy/xray/no_crystal
 	category = list("Weapons")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 
@@ -298,7 +308,7 @@
 	id = "ioncarbine"
 	build_type = PROTOLATHE
 	materials = list(/datum/material/silver = 6000, /datum/material/iron = 8000, /datum/material/uranium = 2000)
-	build_path = /obj/item/gun/energy/ionrifle/carbine
+	build_path = /obj/item/gun/energy/ionrifle/carbine/no_crystal
 	category = list("Weapons")
 	departmental_flags = DEPARTMENTAL_FLAG_SECURITY
 

@@ -137,6 +137,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	ammo_type = list(/obj/item/ammo_casing/energy/duel)
 	automatic_charge_overlays = FALSE
+	randomise_crystal = FALSE
 	var/unlocked = FALSE
 	var/setting = DUEL_SETTING_A
 	var/datum/duel/duel

@@ -5,6 +5,7 @@
 	item_state = null	//so the human update icon uses the icon_state instead.
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode)
 	ammo_x_offset = 3
+	randomise_crystal = FALSE
 
 /obj/item/gun/energy/tesla_revolver
 	name = "tesla gun"
@@ -16,6 +17,7 @@
 	pin = null
 	shaded_charge = 1
 	fire_rate = 1.5
+	randomise_crystal = FALSE
 
 /obj/item/gun/energy/e_gun/advtaser
 	name = "hybrid taser"

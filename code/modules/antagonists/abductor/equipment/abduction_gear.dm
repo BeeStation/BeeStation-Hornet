@@ -392,6 +392,7 @@
 	icon_state = "alienpistol"
 	item_state = "alienpistol"
 	trigger_guard = TRIGGER_GUARD_ALLOW_ALL
+	randomise_crystal = FALSE
 
 /obj/item/paper/guides/antag/abductor
 	name = "Dissection Guide"

@@ -1,0 +1,403 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/closed/wall/r_wall,
+/area/ruin/unpowered)
+"b" = (
+/obj/structure/table/reinforced,
+/obj/effect/spawner/lootdrop/ruinloot/medical,
+/turf/open/floor/circuit,
+/area/ruin/unpowered)
+"c" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"d" = (
+/obj/structure/table/reinforced,
+/obj/item/storage/toolbox/mechanical,
+/turf/open/floor/circuit,
+/area/ruin/unpowered)
+"e" = (
+/turf/open/floor/plasteel/dark,
+/area/ruin/unpowered)
+"f" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"g" = (
+/obj/effect/abstract/doorway_marker{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"h" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"j" = (
+/obj/machinery/door/airlock/vault{
+	name = "Vault Door"
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/corner,
+/turf/open/floor/plasteel/dark,
+/area/ruin/unpowered)
+"k" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"l" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
+/turf/open/floor/plasteel/dark,
+/area/ruin/unpowered)
+"n" = (
+/obj/structure/window/reinforced/spawner/west,
+/turf/open/floor/circuit/green,
+/area/ruin/unpowered)
+"p" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
+/turf/open/floor/plasteel/dark,
+/area/ruin/unpowered)
+"r" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"s" = (
+/obj/structure/table/reinforced,
+/obj/effect/spawner/lootdrop/ruinloot/science,
+/obj/effect/spawner/lootdrop/ruinloot/science,
+/turf/open/floor/circuit,
+/area/ruin/unpowered)
+"t" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
+/turf/open/floor/plasteel/dark,
+/area/ruin/unpowered)
+"v" = (
+/obj/effect/spawner/lootdrop/glowstick/lit,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/open/floor/plasteel/dark,
+/area/ruin/unpowered)
+"w" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/turf/open/floor/plasteel/dark,
+/area/ruin/unpowered)
+"x" = (
+/obj/structure/filingcabinet,
+/obj/structure/sign/warning/nosmoking{
+	pixel_x = -32
+	},
+/turf/open/floor/circuit,
+/area/ruin/unpowered)
+"y" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/open/floor/plasteel/dark,
+/area/ruin/unpowered)
+"z" = (
+/obj/effect/abstract/doorway_marker{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"A" = (
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"D" = (
+/obj/structure/window/reinforced/spawner/east,
+/turf/open/floor/circuit/green,
+/area/ruin/unpowered)
+"F" = (
+/obj/effect/abstract/doorway_marker{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"H" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 10
+	},
+/turf/open/floor/plasteel/dark,
+/area/ruin/unpowered)
+"I" = (
+/obj/structure/table/reinforced,
+/obj/item/screwdriver,
+/turf/open/floor/circuit,
+/area/ruin/unpowered)
+"J" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"L" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 9
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"M" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"N" = (
+/turf/closed/wall,
+/area/ruin/unpowered)
+"O" = (
+/obj/effect/turf_decal/stripes/corner,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"P" = (
+/obj/structure/closet/crate/silvercrate,
+/obj/effect/spawner/lootdrop/ruinloot/armory,
+/obj/effect/spawner/lootdrop/ruinloot/security,
+/turf/open/floor/circuit,
+/area/ruin/unpowered)
+"Q" = (
+/obj/effect/abstract/doorway_marker,
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"T" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 6
+	},
+/turf/open/floor/plasteel/dark,
+/area/ruin/unpowered)
+"V" = (
+/obj/machinery/computer/archive{
+	dir = 1
+	},
+/turf/open/floor/circuit/green,
+/area/ruin/unpowered)
+"X" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
+/turf/open/floor/plasteel,
+/area/ruin/unpowered)
+"Z" = (
+/obj/effect/turf_decal/stripes/line,
+/turf/open/floor/plasteel/dark,
+/area/ruin/unpowered)
+
+(1,1,1) = {"
+N
+N
+N
+N
+N
+N
+g
+N
+N
+N
+N
+N
+N
+"}
+(2,1,1) = {"
+N
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+N
+"}
+(3,1,1) = {"
+N
+A
+A
+O
+r
+r
+r
+r
+r
+k
+A
+A
+N
+"}
+(4,1,1) = {"
+N
+A
+O
+M
+a
+a
+a
+a
+a
+X
+k
+A
+N
+"}
+(5,1,1) = {"
+N
+A
+f
+a
+a
+x
+b
+d
+a
+a
+J
+A
+N
+"}
+(6,1,1) = {"
+N
+A
+A
+a
+t
+w
+v
+H
+n
+a
+A
+A
+N
+"}
+(7,1,1) = {"
+F
+A
+A
+j
+l
+e
+e
+Z
+V
+a
+A
+A
+Q
+"}
+(8,1,1) = {"
+N
+A
+A
+a
+p
+y
+y
+T
+D
+a
+A
+A
+N
+"}
+(9,1,1) = {"
+N
+A
+O
+a
+a
+P
+I
+s
+a
+a
+k
+A
+N
+"}
+(10,1,1) = {"
+N
+A
+f
+c
+a
+a
+a
+a
+a
+L
+J
+A
+N
+"}
+(11,1,1) = {"
+N
+A
+A
+f
+h
+h
+h
+h
+h
+J
+A
+A
+N
+"}
+(12,1,1) = {"
+N
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+N
+"}
+(13,1,1) = {"
+N
+N
+N
+N
+N
+N
+z
+N
+N
+N
+N
+N
+N
+"}

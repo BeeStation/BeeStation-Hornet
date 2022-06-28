@@ -742,7 +742,7 @@
 	display_name = "Mining Technology"
 	description = "Better than Efficiency V."
 	prereq_ids = list("engineering", "basic_plasma")
-	design_ids = list("drill", "superresonator", "triggermod", "damagemod", "cooldownmod", "rangemod", "ore_redemption", "mining_equipment_vendor", "exploration_equipment_vendor", "cargoexpress", "plasmacutter")//e a r l y    g a  m e)
+	design_ids = list("drill", "superresonator", "triggermod", "damagemod", "cooldownmod", "rangemod", "ore_redemption", "mining_equipment_vendor", "cargoexpress", "plasmacutter")//e a r l y    g a  m e)
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 	export_price = 5000
 
@@ -869,14 +869,24 @@
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 	export_price = 5000
 
+/datum/techweb_node/energy_weapons
+	id = "energy_weapons"
+	tech_tier = 4
+	display_name = "Energy Weapons"
+	description = "Standard issue energy weapons."
+	prereq_ids = list("weaponry", "adv_power", "emp_basic")
+	design_ids = list("energy_gun")
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 10000)
+	export_price = 5000
+
 /datum/techweb_node/electric_weapons
 	id = "electronic_weapons"
 	tech_tier = 4
 	display_name = "Electric Weapons"
 	description = "Weapons using electric technology"
-	prereq_ids = list("weaponry", "adv_power"  , "emp_basic")
+	prereq_ids = list("energy_weapons")
 	design_ids = list("stunrevolver", "ioncarbine")
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
 	export_price = 5000
 
 /datum/techweb_node/radioactive_weapons
@@ -884,9 +894,9 @@
 	tech_tier = 5
 	display_name = "Radioactive Weaponry"
 	description = "Weapons using radioactive technology."
-	prereq_ids = list("adv_engi", "adv_weaponry")
+	prereq_ids = list("adv_engi", "adv_weaponry", "energy_weapons")
 	design_ids = list("nuclear_gun")
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
 	export_price = 5000
 	hidden = TRUE
 

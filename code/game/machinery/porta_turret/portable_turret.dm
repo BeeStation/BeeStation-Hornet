@@ -1028,13 +1028,13 @@
 /obj/item/gun/energy/get_turret_properties()
 	. = ..()
 
-	var/obj/item/ammo_casing/primary_ammo = ammo_type[1]
+	var/obj/item/ammo_casing/primary_ammo = ammo_casings[1]
 
 	.["stun_projectile"] = initial(primary_ammo.projectile_type)
 	.["stun_projectile_sound"] = initial(primary_ammo.fire_sound)
 
-	if(ammo_type.len > 1)
-		var/obj/item/ammo_casing/secondary_ammo = ammo_type[2]
+	if(ammo_casings.len > 1)
+		var/obj/item/ammo_casing/secondary_ammo = ammo_casings[2]
 		.["lethal_projectile"] = initial(secondary_ammo.projectile_type)
 		.["lethal_projectile_sound"] = initial(secondary_ammo.fire_sound)
 	else

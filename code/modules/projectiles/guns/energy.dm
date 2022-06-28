@@ -10,6 +10,7 @@
 	var/gun_charge
 	var/modifystate = 0
 	var/list/ammo_type = list(/obj/item/ammo_casing/energy)
+	var/list/ammo_casings
 	///The state of the select fire switch. Determines from the ammo_type list what kind of shot is fired next.
 	var/select = 1
 	///Can it be charged in a recharger?
@@ -29,6 +30,46 @@
 	var/use_cyborg_cell = FALSE
 	///set to true so the gun is given an empty cell
 	var/dead_cell = FALSE
+	///The focusing lens
+	var/obj/item/focusing_crystal/focusing_lens
+	///Do we randomise the crystal if we don't have one?
+	///Crystal will never be randomised on mapload, map generated crystals will always be the standard
+	var/randomise_crystal = TRUE
+	///Standard crystal if mapload or inside someone
+	var/standard_if_spawned = TRUE
+	///If set to true, will not be installed with a crystal
+	var/no_crystal = FALSE
+
+/obj/item/gun/energy/Initialize(mapload)
+	. = ..()
+	if(cell_type)
+		cell = new cell_type(src)
+		if(gun_charge) //But we only use this if it is defined instead of overwriting every cell to 1000 by default like a dumbass
+			cell.maxcharge = gun_charge
+			cell.charge = gun_charge
+	else
+		cell = new(src)
+	if(dead_cell)	//this makes much more sense.
+		cell.use(cell.maxcharge)
+	if(selfcharge)
+		START_PROCESSING(SSobj, src)
+	//setup the focusing lens
+	if (!no_crystal)
+		if(ispath(focusing_lens))
+			focusing_lens = new focusing_lens(src)
+		else if(randomise_crystal && (!standard_if_spawned || !(ismob(loc) || !mapload)))
+			var/selected_type = pick(typesof(/obj/item/focusing_crystal))
+			focusing_lens = new selected_type(src)
+		else
+			focusing_lens = new /obj/item/focusing_crystal(src)
+	update_ammo_types()
+	recharge_newshot(TRUE)
+	update_icon()
+
+/obj/item/gun/energy/examine(mob/user)
+	. = ..()
+	if(focusing_lens)
+		. += "[icon2html(focusing_lens, user)] It has a [focusing_lens.quality_text] [focusing_lens] installed in its core."
 
 /obj/item/gun/energy/emp_act(severity)
 	. = ..()
@@ -48,30 +89,17 @@
 /obj/item/gun/energy/get_cell()
 	return cell
 
-/obj/item/gun/energy/Initialize(mapload)
-	. = ..()
-	if(cell_type)
-		cell = new cell_type(src)
-		if(gun_charge) //But we only use this if it is defined instead of overwriting every cell to 1000 by default like a dumbass
-			cell.maxcharge = gun_charge
-			cell.charge = gun_charge
-	else
-		cell = new(src)
-	if(dead_cell)	//this makes much more sense.
-		cell.use(cell.maxcharge)
-	update_ammo_types()
-	recharge_newshot(TRUE)
-	if(selfcharge)
-		START_PROCESSING(SSobj, src)
-	update_icon()
-
 /obj/item/gun/energy/proc/update_ammo_types()
 	var/obj/item/ammo_casing/energy/shot
+	//Reset back to the initial state
+	ammo_casings = new(length(ammo_type))
 	for (var/i = 1, i <= ammo_type.len, i++)
 		var/shottype = ammo_type[i]
 		shot = new shottype(src)
-		ammo_type[i] = shot
-	shot = ammo_type[select]
+		if(focusing_lens)
+			focusing_lens.update_casing(shot)
+		ammo_casings[i] = shot
+	shot = ammo_casings[select]
 	fire_sound = shot.fire_sound
 	fire_delay = shot.delay
 
@@ -99,7 +127,7 @@
 		update_icon()
 
 /obj/item/gun/energy/attack_self(mob/living/user as mob)
-	if(ammo_type.len > 1)
+	if(ammo_casings.len > 1)
 		select_fire(user)
 		update_icon()
 
@@ -107,25 +135,29 @@
 	//Cannot shoot while EMPed
 	if(obj_flags & OBJ_EMPED)
 		return FALSE
-	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
+	if(!focusing_lens)
+		return FALSE
+	var/obj/item/ammo_casing/energy/shot = ammo_casings[select]
 	return !QDELETED(cell) ? (cell.charge >= shot.e_cost) : FALSE
 
 /obj/item/gun/energy/recharge_newshot(no_cyborg_drain)
-	if (!ammo_type || !cell)
+	if (!ammo_casings || !cell || !focusing_lens)
 		return
 	if(use_cyborg_cell && !no_cyborg_drain)
 		if(iscyborg(loc))
 			var/mob/living/silicon/robot/R = loc
 			if(R.cell)
-				var/obj/item/ammo_casing/energy/shot = ammo_type[select] //Necessary to find cost of shot
+				var/obj/item/ammo_casing/energy/shot = ammo_casings[select] //Necessary to find cost of shot
 				if(R.cell.use(shot.e_cost)) 		//Take power from the borg...
 					cell.give(shot.e_cost)	//... to recharge the shot
 	if(!chambered)
-		var/obj/item/ammo_casing/energy/AC = ammo_type[select]
+		var/obj/item/ammo_casing/energy/AC = ammo_casings[select]
 		if(cell.charge >= AC.e_cost) //if there's enough power in the cell cell...
 			chambered = AC //...prepare a new shot based on the current ammo type selected
 			if(!chambered.BB)
 				chambered.newshot()
+				//Modify the bullet
+				focusing_lens?.update_bullet(chambered.BB)
 
 /obj/item/gun/energy/process_chamber()
 	if(chambered && !chambered.BB) //if BB is null, i.e the shot has been fired...
@@ -145,10 +177,13 @@
 	return ..()
 
 /obj/item/gun/energy/proc/select_fire(mob/living/user)
+	if(!focusing_lens)
+		balloon_alert(user, "[src] does not have a focusing crystal installed!")
+		return
 	select++
-	if (select > ammo_type.len)
+	if (select > ammo_casings.len)
 		select = 1
-	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
+	var/obj/item/ammo_casing/energy/shot = ammo_casings[select]
 	fire_sound = shot.fire_sound
 	fire_delay = shot.delay
 	if (shot.select_name)
@@ -172,7 +207,7 @@
 		return
 	old_ratio = ratio
 	cut_overlays()
-	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
+	var/obj/item/ammo_casing/energy/shot = ammo_casings[select]
 	var/iconState = "[icon_state]_charge"
 	var/itemState = null
 	if(!initial(item_state))
@@ -204,7 +239,7 @@
 		if(user.is_holding(src))
 			user.visible_message("<span class='suicide'>[user] melts [user.p_their()] face off with [src]!</span>")
 			playsound(loc, fire_sound, 50, 1, -1)
-			var/obj/item/ammo_casing/energy/shot = ammo_type[select]
+			var/obj/item/ammo_casing/energy/shot = ammo_casings[select]
 			cell.use(shot.e_cost)
 			update_icon()
 			return(FIRELOSS)
@@ -228,11 +263,11 @@
 
 
 /obj/item/gun/energy/ignition_effect(atom/A, mob/living/user)
-	if(!can_shoot() || !ammo_type[select])
+	if(!can_shoot() || !ammo_casings[select])
 		shoot_with_empty_chamber()
 		. = ""
 	else
-		var/obj/item/ammo_casing/energy/E = ammo_type[select]
+		var/obj/item/ammo_casing/energy/E = ammo_casings[select]
 		var/obj/item/projectile/energy/BB = E.BB
 		if(!BB)
 			. = ""
@@ -254,3 +289,16 @@
 			playsound(user, BB.hitsound, 50, 1)
 			cell.use(E.e_cost)
 			. = "<span class='danger'>[user] casually lights [A.loc == user ? "[user.p_their()] [A.name]" : A] with [src]. Damn.</span>"
+
+/obj/item/gun/energy/proc/insert_crystal(mob/user, obj/item/focusing_crystal/crystal)
+	if(focusing_lens)
+		if(user)
+			to_chat(user, "<span class='notice'>[src] already contains a focusing lens!</span>")
+		return
+	to_chat(user, "<span class='notice'>You insert [crystal] inside of [src].</span>")
+	crystal.forceMove(src)
+	focusing_lens = crystal
+	update_ammo_types()
+	recharge_newshot(TRUE)
+	update_icon()
+	playsound(src, 'sound/effects/light_flicker.ogg', 40, TRUE)

@@ -284,6 +284,27 @@
 	armor = list("melee" = 35, "bullet" = 15, "laser" = 20, "energy" = 10, "bomb" = 50, "bio" = 100, "rad" = 50, "fire" = 50, "acid" = 75, "stamina" = 20)
 	light_range = 6
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/resonator, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/gun/energy/kinetic_accelerator)
+	actions_types = list(/datum/action/item_action/toggle_beacon_hud)
+
+/obj/item/clothing/head/helmet/space/hardsuit/exploration/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/team_monitor, "exp", null)
+
+/obj/item/clothing/head/helmet/space/hardsuit/exploration/ui_action_click(mob/user, datum/action)
+	switch(action.type)
+		if(/datum/action/item_action/toggle_beacon_hud)
+			toggle_hud(user)
+
+/obj/item/clothing/head/helmet/space/hardsuit/exploration/proc/toggle_hud(mob/user)
+	var/datum/component/team_monitor/monitor = GetComponent(/datum/component/team_monitor)
+	if(!monitor)
+		to_chat(user, "<span class='notice'>The suit is not fitted with a tracking beacon.</span>")
+		return
+	monitor.toggle_hud(!monitor.hud_visible, user)
+	if(monitor.hud_visible)
+		to_chat(user, "<span class='notice'>You toggle the heads up display of your suit.</span>")
+	else
+		to_chat(user, "<span class='warning'>You disable the heads up display of your suit.</span>")
 
 /obj/item/clothing/suit/space/hardsuit/exploration
 	icon_state = "hardsuit-exploration"

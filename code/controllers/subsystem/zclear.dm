@@ -263,7 +263,7 @@ SUBSYSTEM_DEF(zclear)
 						//Store them for later
 						M.ghostize(TRUE)
 						M.forceMove(null)
-						nullspaced_mobs += M
+						nullspaced_mobs |= M
 					else
 						//If the mob has a key (but is DC) then teleport them to a safe z-level where they can potentially be retrieved.
 						//Since the wiping takes 90 seconds they could potentially still be on the z-level as it is wiping if they reconnect in time

@@ -34,9 +34,30 @@
 	var/pod_dropped = TRUE
 	var/completed = FALSE
 
+/obj/machinery/computer/archive/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/tracking_beacon, "exp", null, null, TRUE, "#7affcc", TRUE, TRUE)
+
+/obj/machinery/computer/archive/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "ArchiveComputer")
+		ui.set_autoupdate(TRUE) // Pressure display, mode changes as part of the cycle process
+		ui.open()
+
 /obj/machinery/computer/archive/ui_data(mob/user)
 	var/list/data = list()
+	data["active"] = activated
+	data["completed"] = completed
+	data["timeleft"] = completion_world_time - world.time
 	return data
+
+/obj/machinery/computer/archive/ui_act(action, params)
+	. = ..()
+	if (!.)
+		return
+	if (action == "activate")
+		activate()
 
 /obj/machinery/computer/archive/process()
 	. = ..()
@@ -101,6 +122,8 @@
 
 /obj/machinery/computer/archive/proc/complete()
 	completed = TRUE
+	visible_message("<span class='notice'>[src] spits out a disk!</span>")
+	new /obj/item/disk/archive(get_turf(src))
 
 /obj/machinery/computer/archive/proc/can_process()
 	//Check if we are disabled

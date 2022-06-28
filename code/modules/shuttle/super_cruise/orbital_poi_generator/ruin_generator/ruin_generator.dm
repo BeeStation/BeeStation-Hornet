@@ -64,6 +64,7 @@
 	var/sanity = 1000
 
 	var/list/valid_ruin_parts = generator_settings.get_valid_rooms()
+	var/list/required_ruin_parts = generator_settings.get_required_rooms()
 
 	ruin_event?.pre_spawn(center_z)
 
@@ -146,6 +147,8 @@
 						if(blocked_turfs[world_point])
 							valid = FALSE
 							break
+				if(!valid)
+					continue
 				//=======================================================
 				//VALIDATE THAT EXISTING PORTS LINK TO THIS ROOM.
 				//=======================================================
@@ -156,6 +159,8 @@
 						if((room_connections[world_point] || hallway_connections[world_point]) && !ruin_part.connection_points["[x - ruin_offset_x]_[y - ruin_offset_y]"])
 							valid = FALSE
 							break
+				if(!valid)
+					continue
 				//Something is disconnected or blocked.
 				if(!valid)
 					continue
@@ -165,12 +170,16 @@
 					"port_offset_x" = connection_x,
 					"port_offset_y" = connection_y,
 				))
+		//There are no more valid ruin rooms to place
 		if(!length(valid_ruins))
-			log_mapping("Fuck. Ruin generation failed (No valid ruins). Continuing as if everything is actually ok.")
+			log_mapping("Ruin generator had no valid rooms to place.")
 			ishallway ? hallway_connections.len-- : room_connections.len--
 			continue
 		//Pick a ruin and spawn it.
 		var/list/selected_ruin = pickweight_ruin(valid_ruins)
+
+		//Check that placing the ruin would make it so we can no longer place a required room at any point
+
 		//Spawn the ruin
 		//Get the port offset position
 		var/port_offset_x = selected_ruin["port_offset_x"]
@@ -364,12 +373,6 @@
 			var/split_loc = splittext(objective_turf, "_")
 			var/turf/T = locate(text2num(split_loc[1]), text2num(split_loc[2]), center_z)
 			linked_objective.generate_objective_stuff(T)
-
-	//Generate research disks
-	for(var/i in 1 to rand(1, 5))
-		var/objective_turf = pick(floor_turfs)
-		var/split_loc = splittext(objective_turf, "_")
-		new /obj/effect/spawner/lootdrop/ruinloot/important(locate(text2num(split_loc[1]), text2num(split_loc[2]), center_z))
 
 	//Spawn dead mosb
 	for(var/mob/M as() in SSzclear.nullspaced_mobs)

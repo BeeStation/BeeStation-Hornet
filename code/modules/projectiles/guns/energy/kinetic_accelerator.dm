@@ -19,6 +19,7 @@
 	can_bayonet = TRUE
 	knife_x_offset = 20
 	knife_y_offset = 12
+	randomise_crystal = FALSE
 
 	var/max_mod_capacity = 100
 	var/list/modkits = list()

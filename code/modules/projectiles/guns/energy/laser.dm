@@ -62,6 +62,7 @@
 /obj/item/gun/energy/laser/scatter
 	name = "scatter laser gun"
 	desc = "A laser gun equipped with a refraction kit that spreads bolts."
+	randomise_crystal = FALSE
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/scatter, /obj/item/ammo_casing/energy/laser)
 
 /obj/item/gun/energy/laser/scatter/shotty
@@ -114,6 +115,9 @@
 	pin = null
 	ammo_x_offset = 3
 	w_class = WEIGHT_CLASS_BULKY
+
+/obj/item/gun/energy/xray/no_crystal
+	no_crystal = TRUE
 
 ////////Laser Tag////////////////////
 
