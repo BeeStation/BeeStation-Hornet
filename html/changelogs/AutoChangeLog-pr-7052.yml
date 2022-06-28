@@ -1,0 +1,8 @@
+author: Rukofamicom
+delete-after: true
+changes:
+  - balance: Voice of God stuns have been reduced substantially.
+  - tweak: Due to language proficiency, the curator now gets a bonus when using the
+      voice of God, but it is weaker than the one the chaplain already got.
+  - tweak: Command staff and mimes no longer receive any positive bonus multipliers
+      when utilizing the voice of god.
