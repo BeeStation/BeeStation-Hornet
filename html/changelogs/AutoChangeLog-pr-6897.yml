@@ -1,0 +1,6 @@
+author: DrDuckedGoose
+delete-after: true
+changes:
+  - rscadd: chem_heirloom.dm
+  - tweak: change chemist's heirloom to hard locked bottle
+  - tweak: negative.dm calls chem_heirloom edgecase proc for naming.
