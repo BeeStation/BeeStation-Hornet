@@ -1,0 +1,4 @@
+author: Absolutely-Steph
+delete-after: true
+changes:
+  - bugfix: fixed a forgotten equip-delay bypass on a hud element.
