@@ -18,10 +18,10 @@
 	insert_cell(cell)
 
 /obj/item/bluespace_anchor/Destroy()
-	. = ..()
 	//Delete the power cell
 	if(power_cell)
 		QDEL_NULL(power_cell)
+	. = ..()
 
 /obj/item/bluespace_anchor/proc/insert_cell(cell)
 	if(power_cell)
