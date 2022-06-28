@@ -1,0 +1,5 @@
+author: ivanmixo
+delete-after: true
+changes:
+  - tweak: moved taste behaviour onto tongues instead of species
+  - code_imp: touched up stomach code a little
