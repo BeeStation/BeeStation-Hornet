@@ -84,15 +84,16 @@
 
 /datum/objective/crew/cocktail/check_completion()
 	var/count = length(targetchems)
-	if(owner?.current?.contents)
-		// check every bottle in your bag.
-		for(var/obj/item/reagent_containers/B in owner.current.get_contents())
-			count = length(targetchems) // a bottle should have the all desired chems. reset the count for every try.
-			for(var/each in targetchems)
-				if(B.reagents.has_reagent(each, chemsize))
-					count--
-					if(!count) // if it is legit, it completes.
-						return TRUE
+	if(owner?.current)
+		if(owner.current.contents)
+			// check every bottle in your bag.
+			for(var/obj/item/reagent_containers/B in owner.current.get_contents())
+				count = length(targetchems) // a bottle should have the all desired chems. reset the count for every try.
+				for(var/each in targetchems)
+					if(B.reagents.has_reagent(each, chemsize))
+						count--
+						if(!count) // if it is legit, it completes.
+							return TRUE
 	return ..()
 
 /datum/objective/crew/clean //ported from old Hippie
