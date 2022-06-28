@@ -29,7 +29,7 @@
 		return
 	switch(task)
 		if("Write")
-			var/datum/DBQuery/query_memocheck = SSdbcore.NewQuery(
+			var/datum/db_query/query_memocheck = SSdbcore.NewQuery(
 				"SELECT ckey FROM [format_table_name("mentor_memo")] WHERE ckey = :ckey",
 				list("ckey" = ckey)
 			)
@@ -47,7 +47,7 @@
 				qdel(query_memocheck)
 				return
 			var/timestamp = SQLtime()
-			var/datum/DBQuery/query_memoadd = SSdbcore.NewQuery(
+			var/datum/db_query/query_memoadd = SSdbcore.NewQuery(
 				"INSERT INTO [format_table_name("mentor_memo")] (ckey, memotext, timestamp) VALUES (:ckey, :memotext, :timestamp)",
 				list("ckey" = ckey, "memotext" = memotext, "timestamp" = timestamp)
 			)
@@ -62,7 +62,7 @@
 			qdel(query_memocheck)
 			qdel(query_memoadd)
 		if("Edit")
-			var/datum/DBQuery/query_memolist = SSdbcore.NewQuery("SELECT ckey FROM [format_table_name("mentor_memo")]")
+			var/datum/db_query/query_memolist = SSdbcore.NewQuery("SELECT ckey FROM [format_table_name("mentor_memo")]")
 			if(!query_memolist.Execute())
 				var/err = query_memolist.ErrorMsg()
 				log_game("SQL ERROR obtaining ckey from memo table. Error : \[[err]\]\n")
@@ -80,9 +80,9 @@
 			if(!target_ckey)
 				qdel(query_memolist)
 				return
-			var/datum/DBQuery/query_memofind = SSdbcore.NewQuery(
+			var/datum/db_query/query_memofind = SSdbcore.NewQuery(
 				"SELECT memotext FROM [format_table_name("mentor_memo")] WHERE ckey = :target_ckey",
-				list("target_ckey" = target_ckey)	
+				list("target_ckey" = target_ckey)
 			)
 			if(!query_memofind.Execute())
 				var/err = query_memofind.ErrorMsg()
@@ -98,7 +98,7 @@
 					qdel(query_memofind)
 					return
 				var/edit_text = "Edited by [ckey] on [SQLtime()] from<br>[old_memo]<br>to<br>[new_memo]<hr>"
-				var/datum/DBQuery/update_query = SSdbcore.NewQuery(
+				var/datum/db_query/update_query = SSdbcore.NewQuery(
 					"UPDATE [format_table_name("mentor_memo")] SET memotext = :new_memo, last_editor = :ckey, edits = CONCAT(IFNULL(edits,''),:edit_text) WHERE ckey = :target_ckey",
 					list("new_memo" = new_memo, "ckey" = ckey, "edit_text" = edit_text, "target_ckey" = target_ckey)
 				)
@@ -119,7 +119,7 @@
 			qdel(query_memolist)
 			qdel(query_memofind)
 		if("Show")
-			var/datum/DBQuery/query_memoshow = SSdbcore.NewQuery("SELECT ckey, memotext, timestamp, last_editor FROM [format_table_name("mentor_memo")] ORDER BY timestamp ASC")
+			var/datum/db_query/query_memoshow = SSdbcore.NewQuery("SELECT ckey, memotext, timestamp, last_editor FROM [format_table_name("mentor_memo")] ORDER BY timestamp ASC")
 			if(!query_memoshow.Execute())
 				var/err = query_memoshow.ErrorMsg()
 				log_game("SQL ERROR obtaining ckey, memotext, timestamp, last_editor from memo table. Error : \[[err]\]\n")
@@ -142,7 +142,7 @@
 			to_chat(src, output)
 			qdel(query_memoshow)
 		if("Remove")
-			var/datum/DBQuery/query_memodellist = SSdbcore.NewQuery("SELECT ckey FROM [format_table_name("mentor_memo")]")
+			var/datum/db_query/query_memodellist = SSdbcore.NewQuery("SELECT ckey FROM [format_table_name("mentor_memo")]")
 			if(!query_memodellist.Execute())
 				var/err = query_memodellist.ErrorMsg()
 				log_game("SQL ERROR obtaining ckey from memo table. Error : \[[err]\]\n")
@@ -160,9 +160,9 @@
 			if(!target_ckey)
 				qdel(query_memodellist)
 				return
-			var/datum/DBQuery/query_memodel = SSdbcore.NewQuery(
+			var/datum/db_query/query_memodel = SSdbcore.NewQuery(
 				"DELETE FROM [format_table_name("mentor_memo")] WHERE ckey = :target_ckey",
-				list("target_ckey" = target_ckey)	
+				list("target_ckey" = target_ckey)
 			)
 			if(!query_memodel.Execute())
 				var/err = query_memodel.ErrorMsg()

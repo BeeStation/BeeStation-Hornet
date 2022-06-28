@@ -1,7 +1,6 @@
 SUBSYSTEM_DEF(blackbox)
 	name = "Blackbox"
 	wait = 6000
-	flags = SS_NO_TICK_CHECK
 	runlevels = RUNLEVEL_GAME | RUNLEVEL_POSTGAME
 	init_order = INIT_ORDER_BLACKBOX
 
@@ -19,8 +18,6 @@ SUBSYSTEM_DEF(blackbox)
 
 /datum/controller/subsystem/blackbox/Initialize()
 	triggertime = world.time
-	if(CONFIG_GET(flag/limited_feedback))
-		return ..()
 	record_feedback("amount", "random_seed", Master.random_seed)
 	record_feedback("amount", "dm_version", DM_VERSION)
 	record_feedback("amount", "dm_build", DM_BUILD)
@@ -50,7 +47,7 @@ SUBSYSTEM_DEF(blackbox)
 	var/admincount = GLOB.admins.len
 
 
-	var/datum/DBQuery/query_record_playercount = SSdbcore.NewQuery({"
+	var/datum/db_query/query_record_playercount = SSdbcore.NewQuery({"
 		INSERT INTO [format_table_name("legacy_population")] (playercount, admincount, time, server_name, server_ip, server_port, round_id)
 		VALUES (:playercount, :admincount, :time, :server_name, INET_ATON(:server_ip), :server_port, :round_id)
 	"}, list(
@@ -100,12 +97,10 @@ SUBSYSTEM_DEF(blackbox)
 
 /datum/controller/subsystem/blackbox/Shutdown()
 	sealed = FALSE
-
-	if (CONFIG_GET(flag/limited_feedback) || !SSdbcore.Connect())
-		return
-
 	FinalFeedback()
 
+	if (!SSdbcore.Connect())
+		return
 
 	var/list/special_columns = list(
 		"datetime" = "NOW()"
@@ -123,6 +118,7 @@ SUBSYSTEM_DEF(blackbox)
 
 	if (!length(sqlrowlist))
 		return
+
 	SSdbcore.MassInsert(format_table_name("feedback"), sqlrowlist, ignore_errors = TRUE, delayed = TRUE, special_columns = special_columns)
 
 /datum/controller/subsystem/blackbox/proc/Seal()
@@ -135,7 +131,7 @@ SUBSYSTEM_DEF(blackbox)
 	return TRUE
 
 /datum/controller/subsystem/blackbox/proc/LogBroadcast(freq)
-	if(sealed || CONFIG_GET(flag/limited_feedback))
+	if(sealed)
 		return
 	switch(freq)
 		if(FREQ_COMMON)
@@ -234,7 +230,7 @@ Versioning
 						"gun_fired" = 2)
 */
 /datum/controller/subsystem/blackbox/proc/record_feedback(key_type, key, increment, data, overwrite)
-	if(sealed || !key_type || !istext(key) || !isnum_safe(increment || !data) || CONFIG_GET(flag/limited_feedback))
+	if(sealed || !key_type || !istext(key) || !isnum(increment || !data))
 		return
 	var/datum/feedback_variable/FV = find_feedback_datum(key, key_type)
 	switch(key_type)
@@ -302,7 +298,7 @@ Versioning
 	if(!SSdbcore.Connect())
 		return
 
-	var/datum/DBQuery/query_log_ahelp = SSdbcore.NewQuery({"
+	var/datum/db_query/query_log_ahelp = SSdbcore.NewQuery({"
 		INSERT INTO [format_table_name("ticket")] (ticket, action, message, recipient, sender, server_ip, server_port, round_id, timestamp)
 		VALUES (:ticket, :action, :message, :recipient, :sender, INET_ATON(:server_ip), :server_port, :round_id, :time)
 	"}, list("ticket" = ticket, "action" = action, "message" = message, "recipient" = recipient, "sender" = sender, "server_ip" = world.internet_address || "0", "server_port" = world.port, "round_id" = GLOB.round_id, "time" = SQLtime()))
@@ -328,7 +324,7 @@ Versioning
 	if(!SSdbcore.Connect())
 		return
 
-	var/datum/DBQuery/query_report_death = SSdbcore.NewQuery({"
+	var/datum/db_query/query_report_death = SSdbcore.NewQuery({"
 		INSERT INTO [format_table_name("death")] (pod, x_coord, y_coord, z_coord, mapname, server_name, server_ip, server_port, round_id, tod, job, special, name, byondkey, laname, lakey, bruteloss, fireloss, brainloss, oxyloss, toxloss, cloneloss, staminaloss, last_words, suicide)
 		VALUES (:pod, :x_coord, :y_coord, :z_coord, :map, :server_name, INET_ATON(:internet_address), :port, :round_id, :time, :job, :special, :name, :key, :laname, :lakey, :brute, :fire, :brain, :oxy, :tox, :clone, :stamina, :last_words, :suicide)
 	"}, list(

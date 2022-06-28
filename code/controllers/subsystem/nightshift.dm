@@ -1,7 +1,6 @@
 SUBSYSTEM_DEF(nightshift)
 	name = "Night Shift"
 	wait = 600
-	flags = SS_NO_TICK_CHECK
 
 	var/nightshift_active = FALSE
 	var/nightshift_start_time = 702000		//7:30 PM, station time
