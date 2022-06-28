@@ -40,7 +40,7 @@
 	. = "es"
 
 // species grammar correction and pluralisation
-/proc/p_grammar_correction_species(taken_species)
+/proc/p_grammar_correction_species(taken_species, lower=TRUE)
 	if(taken_species)
 		var/temp_species = lowertext(taken_species)
 		temp_species = replacetext(temp_species, "\improper", "")
@@ -49,10 +49,10 @@
 			"human" = "human being"
 		)
 		if(temp_species in grammar_correction)
-			return grammar_correction[temp_species]
+			return lower ? lowertext(grammar_correction[temp_species]) : grammar_correction[temp_species]
 		return taken_species
 
-/proc/p_pluralize_species(taken_species)
+/proc/p_pluralize_species(taken_species, lower=TRUE)
 	if(taken_species)
 		var/temp_species = lowertext(taken_species)
 		temp_species = replacetext(temp_species, "\improper", "")
@@ -94,7 +94,7 @@
 			"child" = "children"
 			)
 		if(temp_species in species_plural)
-			return species_plural[temp_species]
+			return lower ? lowertext(species_plural[temp_species]) : species_plural[temp_species]
 		return "[taken_species]s"
 
 //like clients, which do have gender.
