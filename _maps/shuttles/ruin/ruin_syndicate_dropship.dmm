@@ -164,7 +164,7 @@
 	anchored = 1
 	},
 /obj/item/clothing/under/syndicate,
-/obj/item/clothing/shoes/sneakers/black,
+/obj/item/clothing/shoes/combat,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/caravan/syndicate3)
 "rz" = (
@@ -371,7 +371,6 @@
 "Ij" = (
 /obj/machinery/turretid{
 	ailock = 1;
-	control_area = null;
 	desc = "A specially designed set of turret controls. Looks to be covered in protective casing to prevent AI interfacing.";
 	icon_state = "control_kill";
 	lethal = 1;
@@ -436,7 +435,7 @@
 	pixel_y = 32
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/item/clothing/shoes/sneakers/black,
+/obj/item/clothing/shoes/combat,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/caravan/syndicate3)
 "Ma" = (
@@ -494,18 +493,12 @@
 /turf/open/floor/plating,
 /area/shuttle/caravan/syndicate3)
 "PL" = (
-/obj/machinery/porta_turret/syndicate/energy{
-	dir = 2;
-	icon_state = "standard_lethal";
-	mode = 1
-	},
+/obj/machinery/porta_turret/syndicate/energy,
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
 /area/shuttle/caravan/syndicate3)
 "Rj" = (
 /obj/machinery/porta_turret/syndicate/energy{
-	dir = 1;
-	icon_state = "standard_lethal";
-	mode = 1
+	dir = 1
 	},
 /turf/closed/wall/mineral/plastitanium/nodiagonal,
 /area/shuttle/caravan/syndicate3)
