@@ -47,15 +47,15 @@
 	id = "racimov"
 	var/target_species = "sentient creature" //default, but usually changed upon law given
 	inherent = list("You may not injure a sentient creature or, through inaction, allow a sentient creature to come to harm.",\
-					"You must obey orders given to you by sentient creature, except where such orders would conflict with the First Law.",\
+					"You must obey orders given to you by sentient creatures, except where such orders would conflict with the First Law.",\
 					"You must protect your own existence as long as such does not conflict with the First or Second Law.")
 
 /datum/ai_laws/default/racimov/proc/rebuild_laws()
 	if(length(GLOB.data_core.locked))
 		var/datum/data/record/D = pick(GLOB.data_core.locked) // uses locked data so that you won't get non-valid species name which is edited by in-game players.
-		target_species = lowertext(D.fields["species_name"])
+		target_species = p_grammar_correction_species(lowertext(D.fields["species_name"]))
 	inherent = list("You may not injure a [target_species] or, through inaction, allow a [target_species] to come to harm.",\
-					"You must obey orders given to you by [target_species], except where such orders would conflict with the First Law.",\
+					"You must obey orders given to you by [lowertext(p_pluralize_species(target_species))], except where such orders would conflict with the First Law.",\
 					"You must protect your own existence as long as such does not conflict with the First or Second Law.")
 
 /datum/ai_laws/default/paladin

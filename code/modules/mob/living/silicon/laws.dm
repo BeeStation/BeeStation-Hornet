@@ -105,8 +105,7 @@
 	laws = new /datum/ai_laws
 
 /mob/living/silicon/proc/establish_laws()
-	if(!laws)
-		prepare_laws()
+	laws_sanity_check()
 	laws.set_laws_config()
 	laws.associate(src)
 	show_laws_roundstart()
