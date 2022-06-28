@@ -18,11 +18,11 @@ GLOBAL_LIST_EMPTY(active_bluespace_anchors)
 	GLOB.active_bluespace_anchors += src
 
 /obj/machinery/bluespace_anchor/Destroy()
-	. = ..()
 	GLOB.active_bluespace_anchors -= src
 	//Delete the power cell
 	if(power_cell)
 		QDEL_NULL(power_cell)
+	. = ..()
 
 /obj/machinery/bluespace_anchor/attack_hand(mob/living/user)
 	to_chat(usr, "<span class='notice'>You begin deactivating [src]...</span>")
