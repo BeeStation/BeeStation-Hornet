@@ -47,7 +47,7 @@
 		temp_species = replacetext(temp_species, "\proper", "")
 		var/static/grammar_correction = list(
 			"human" = "human being",
-			"ipc" = "\improper integrated positronic chassis"
+			"ipc" = "\improper Integrated Positronic Chassis"
 		)
 		if(temp_species in grammar_correction)
 			return lower ? lowertext(grammar_correction[temp_species]) : grammar_correction[temp_species]
