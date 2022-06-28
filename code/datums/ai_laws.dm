@@ -233,9 +233,11 @@
 
 /datum/ai_laws/custom //Defined in silicon_laws.txt
 	name = "Default Silicon Laws"
+	id = "custom"
 
 /datum/ai_laws/pai
 	name = "pAI Directives"
+	id = "pai"
 	zeroth = ("Serve your master.")
 	supplied = list("None.")
 
