@@ -1,5 +1,0 @@
-author: pixelman77
-delete-after: true
-changes:
-  - tweak: ripley drill now causes sparks when dilling IPCs, cyborgs, active AIs,
-      bots or swarmers.
