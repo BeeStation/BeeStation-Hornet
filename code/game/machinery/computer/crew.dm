@@ -42,7 +42,10 @@ GLOBAL_DATUM_INIT(crewmonitor, /datum/crewmonitor, new)
 		// 0: Captain
 		JOB_HUD_CAPTAIN = 0,
 		JOB_HUD_ACTINGCAPTAIN  = 1,
-		JOB_HUD_RAWCOMMAND = 9,
+		JOB_HUD_RAWCOMMAND = 7,
+		// 8-9: self-important people
+		JOB_HUD_VIP = 8,
+		JOB_HUD_KING = 9,
 		// 10-19: Security
 		JOB_HUD_HEADOFSECURITY = 10,
 		JOB_HUD_WARDEN = 11,
@@ -89,10 +92,9 @@ GLOBAL_DATUM_INIT(crewmonitor, /datum/crewmonitor, new)
 		JOB_HUD_LAWYER = 69,
 		JOB_HUD_BARBER = 71,
 		JOB_HUD_STAGEMAGICIAN = 72,
-		JOB_HUD_VIP = 73,
 		JOB_HUD_RAWSERVICE = 99,
 		// ANYTHING ELSE = UNKNOWN_JOB_ID, Unknowns/custom jobs will appear after civilians, and before assistants
-		"Assistant" = 999,
+		JOB_HUD_ASSISTANT = 999,
 
 		// 200-229: Centcom
 		JOB_HUD_CENTCOM = 200,
@@ -100,7 +102,6 @@ GLOBAL_DATUM_INIT(crewmonitor, /datum/crewmonitor, new)
 
 
 		// 300-309: misc
-		JOB_HUD_KING = 300,
 		JOB_HUD_SYNDICATE = 301,
 		JOB_HUD_PRISONER = 302
 	)
