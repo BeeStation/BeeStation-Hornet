@@ -54,7 +54,7 @@ export class TextArea extends Component {
     };
     this.handleKeyDown = e => {
       const { editing } = this.state;
-      const { onChange, onInput, onEnter, onKeyDown } = this.props;
+      const { onChange, onInput, onEnter, onKey } = this.props;
       if (e.keyCode === KEY_ENTER) {
         this.setEditing(false);
         if (onChange) {
@@ -89,8 +89,9 @@ export class TextArea extends Component {
       if (!editing) {
         this.setEditing(true);
       }
-      if (onKeyDown) {
-        onKeyDown(e, e.target.value);
+      // Custom key handler
+      if (onKey) {
+        onKey(e, e.target.value);
       }
       if (!dontUseTabForIndent) {
         const keyCode = e.keyCode || e.which;
