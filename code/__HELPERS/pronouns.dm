@@ -46,7 +46,7 @@
 		temp_species = replacetext(temp_species, "\improper", "")
 		temp_species = replacetext(temp_species, "\proper", "")
 		var/static/grammar_correction = list(
-			"human" = "human being"
+			"human" = "human being",
 			"ipc" = "\improper integrated positronic chassis"
 		)
 		if(temp_species in grammar_correction)
