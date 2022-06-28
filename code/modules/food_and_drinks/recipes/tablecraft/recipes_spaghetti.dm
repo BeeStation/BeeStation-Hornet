@@ -68,3 +68,46 @@
 	)
 	result = /obj/item/reagent_containers/food/snacks/spaghetti/butternoodles
 	subcategory = CAT_SPAGHETTI
+
+/datum/crafting_recipe/food/kasespatzle
+	name = "Käsespätzle"
+	reqs = list(
+		/obj/item/reagent_containers/food/snacks/spaghetti/boiledspaghetti = 1,
+		/datum/reagent/consumable/eggyolk = 10,
+		/obj/item/reagent_containers/food/snacks/cheesewedge = 1
+	)
+	result = /obj/item/reagent_containers/food/snacks/spaghetti/kasespatzle
+	subcategory = CAT_SPAGHETTI
+
+/datum/crafting_recipe/food/spaghettinapolitan
+	name = "Spaghetti Napolitan"
+	reqs = list(
+		/obj/item/reagent_containers/food/snacks/spaghetti/boiledspaghetti = 1,
+		/datum/reagent/consumable/ketchup = 10,
+		/obj/item/reagent_containers/food/snacks/sausage = 1,
+		/obj/item/reagent_containers/food/snacks/grown/chili = 1
+	)
+	result = /obj/item/reagent_containers/food/snacks/spaghetti/spaghettinapolitan
+	subcategory = CAT_SPAGHETTI
+
+/datum/crafting_recipe/food/lasagna
+	name = "Lasagna"
+	reqs = list(
+		/obj/item/reagent_containers/food/snacks/spaghetti = 1,
+		/obj/item/reagent_containers/food/snacks/meatball = 1,
+		/obj/item/reagent_containers/food/snacks/grown/tomato = 1,
+		/obj/item/reagent_containers/food/snacks/cheesewedge = 1
+	)
+	result = /obj/item/reagent_containers/food/snacks/spaghetti/lasagna
+	subcategory = CAT_SPAGHETTI
+
+/datum/crafting_recipe/food/glassnoodles
+	name = "Glass Noodles"
+	reqs = list(
+		/obj/item/reagent_containers/food/snacks/spaghetti/boiledspaghetti = 1,
+		/obj/item/reagent_containers/food/snacks/grown/carrot = 1,
+		/obj/item/reagent_containers/food/snacks/tofu = 1,
+		/obj/item/stack/sheet/glass = 1
+	)
+	result = /obj/item/reagent_containers/food/snacks/spaghetti/glassnoodles
+	subcategory = CAT_SPAGHETTI
