@@ -1,5 +1,0 @@
-author: MilkForever
-delete-after: true
-changes:
-  - tweak: The Star Industrial torso should now look better when seen from the back
-  - bugfix: Fixes a color inconsistency in the Star Industrial leg sprites.
