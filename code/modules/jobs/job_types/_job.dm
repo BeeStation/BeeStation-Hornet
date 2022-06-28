@@ -97,6 +97,10 @@
 		for(var/t in mind_traits)
 			ADD_TRAIT(H.mind, t, JOB_TRAIT)
 
+	//Give head hud
+	if(departments & DEPARTMENT_COMMAND)
+		set_antag_hud(H, "head_staff", null)
+
 	if(!ishuman(H))
 		return
 	var/mob/living/carbon/human/human = H
