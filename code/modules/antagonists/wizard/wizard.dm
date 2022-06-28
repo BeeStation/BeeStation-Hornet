@@ -24,7 +24,7 @@
 	. = ..()
 	if(allow_rename)
 		rename_wizard()
-	owner.current.remove_quirk(/datum/quirk/nonviolent)
+	owner.current.remove_all_quirks()
 
 /datum/antagonist/wizard/proc/register()
 	SSticker.mode.wizards |= owner
