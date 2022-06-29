@@ -1,10 +1,10 @@
 /obj/item/xenoartifact
-	name = "xenoartifact"
+	name = "artifact"
 	icon = 'icons/obj/xenoarchaeology/xenoartifact.dmi'
 	icon_state = "map_editor"
 	w_class = WEIGHT_CLASS_NORMAL
 	light_color = LIGHT_COLOR_FIRE
-	desc = "A strange alien artifact. What could it possibly do?"
+	desc = "A strange alien device. What could it possibly do?"
 	throw_range = 3
 
 	///How much input the artifact is getting from activator traits
@@ -23,7 +23,7 @@
 	///Touch hint
 	var/datum/xenoartifact_trait/touch_desc
 	///used for special examine circumstance, science goggles & ghosts
-	var/special_desc = "The Xenoartifact is made from a"
+	var/special_desc = "The artifact is made from a"
 	///Description used for label, used because directly adding shit to desc isn't a good idea
 	var/label_desc
 	///How far the artifact can reach
@@ -83,7 +83,8 @@
 							/datum/xenoartifact_trait/major/corginator,/datum/xenoartifact_trait/activator/clock,
 							/datum/xenoartifact_trait/major/invisible,/datum/xenoartifact_trait/major/lamp, 
 							/datum/xenoartifact_trait/major/forcefield,/datum/xenoartifact_trait/activator/signal,
-							/datum/xenoartifact_trait/major/heal,/datum/xenoartifact_trait/activator/batteryneed))
+							/datum/xenoartifact_trait/major/heal,/datum/xenoartifact_trait/activator/batteryneed,
+							/datum/xenoartifact_trait/activator/weighted))
 			if(!xenop.price)
 				xenop.price = pick(200, 300, 500)
 			malfunction_mod = 0.5
@@ -94,7 +95,7 @@
 							/datum/xenoartifact_trait/major/laser, /datum/xenoartifact_trait/major/corginator,
 							/datum/xenoartifact_trait/minor/sentient, /datum/xenoartifact_trait/minor/wearable,
 							/datum/xenoartifact_trait/major/invisible,
-							/datum/xenoartifact_trait/major/heal), TRUE) 
+							/datum/xenoartifact_trait/major/heal, /datum/xenoartifact_trait/minor/slippery), TRUE) 
 			if(!xenop.price)
 				xenop.price = pick(300, 500, 800) 
 			malfunction_mod = 1
@@ -283,16 +284,6 @@
 /obj/item/xenoartifact/proc/get_trait(typepath)
 	return (locate(typepath) in traits)
 
-///Add extra icon overlays. Ghetto GAGS.
-/obj/item/xenoartifact/proc/generate_icon(var/icn, var/icnst = "", colour)
-	icon_overlay = mutable_appearance(icn, icnst)
-	icon_overlay.layer = FLOAT_LAYER //Not doing this fucks the object icons when you're holding it
-	icon_overlay.appearance_flags = RESET_ALPHA// Not doing this fucks the alpha?
-	icon_overlay.alpha = alpha
-	if(colour)
-		icon_overlay.color = colour
-	add_overlay(icon_overlay)
-
 ///Used for hand-holding secret technique. Pulling entities swaps them for you in the target list.
 /obj/item/xenoartifact/proc/process_target(atom/target)
 	if(isliving(target))
@@ -311,7 +302,7 @@
 
 ///Helps show how the artifact is working. Hint stuff. Draws a beam between artifact and target
 /obj/item/xenoartifact/proc/create_beam(atom/target)
-	if((locate(src) in target) || !get_turf(target))
+	if((locate(src) in target?.contents) || !get_turf(target))
 		return
 	var/datum/beam/xenoa_beam/B = new(src.loc, target, time=1.5 SECONDS, beam_icon='icons/obj/xenoarchaeology/xenoartifact.dmi', beam_icon_state="xenoa_beam", btype=/obj/effect/ebeam/xenoa_ebeam)
 	B.set_color(material)
@@ -325,6 +316,17 @@
 	true_target |= process_target(target)
 	check_charge(user)
 	return TRUE
+
+///Add extra icon overlays. Ghetto GAGS.
+/obj/item/xenoartifact/proc/generate_icon(var/icn, var/icnst = "", colour)
+	icon_overlay = mutable_appearance(icn, icnst)
+	icon_overlay.layer = FLOAT_LAYER //Not doing this fucks the object icons when you're holding it
+	icon_overlay.appearance_flags = RESET_ALPHA// Not doing this fucks the alpha?
+	icon_overlay.alpha = alpha
+	if(colour)
+		icon_overlay.color = colour
+	add_overlay(icon_overlay)
+
 
 ///Signaler traits. Sets listening freq
 /obj/item/xenoartifact/proc/set_frequency(new_frequency)
@@ -405,7 +407,7 @@
 	AddComponent(/datum/component/gps, "[scramble_message_replace_chars("#########", 100)]", TRUE)
 
 /obj/effect/ebeam/xenoa_ebeam //Beam code. This isn't mine. See beam.dm for better documentation.
-	name = "xenoartifact beam"
+	name = "artifact beam"
 
 /datum/beam/xenoa_beam
 	var/color

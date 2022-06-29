@@ -92,9 +92,9 @@
 	X.AddComponent(/datum/component/gps, "[scramble_message_replace_chars("#########", 100)]", TRUE)
 
 //Activation traits - only used to generate charge
-//=====
+//============
 // Default acvitavor, on-use / interact
-//=====
+//============
 /datum/xenoartifact_trait/activator/impact
 	desc = "Sturdy"
 	label_desc = "Sturdy: The material is sturdy. The amount of force applied seems to directly correlate to the size of the reaction."
@@ -106,9 +106,9 @@
 	charge = charge*(thing?.force*0.1)
 	X.default_activate(charge, user, target)
 
-//=====
+//============
 // Burn activator, responds to fire
-//=====
+//============
 /datum/xenoartifact_trait/activator/burn
 	desc = "Flammable"
 	label_desc = "Flammable: The material is flammable, and seems to react when ignited."
@@ -128,9 +128,9 @@
 		START_PROCESSING(SSobj, X)
 		log_game("[user]:[isliving(user) ? user?.ckey : "no ckey"] lit [X] at [world.time] using [thing]. [X] located at [X.x] [X.y] [X.z].")
 
-//=====
+//============
 // Timed activator, activates on a timer. Timer is turned on when used, has a chance to turn off.
-//=====
+//============
 /datum/xenoartifact_trait/activator/clock
 	label_name = "Tuned"
 	label_desc = "Tuned: The material produces a resonance pattern similar to quartz, causing it to produce a reaction every so often."
@@ -155,9 +155,9 @@
 	START_PROCESSING(SSobj, X)
 	log_game("[user]:[isliving(user) ? user?.ckey : "no ckey"] set clock on [X] at [world.time] using [thing]. [X] located at [X.x] [X.y] [X.z].")
 
-//=====
+//============
 // Signal activator, responds to respective signals sent through signallers
-//=====
+//============
 /datum/xenoartifact_trait/activator/signal
 	label_name = "Signal"
 	label_desc = "Signal: The material recieves radio frequencies and reacts when a matching code is delivered."
@@ -182,9 +182,9 @@
 	X.default_activate(charge, user, target)
 	log_game("[user]:[isliving(user) ? user?.ckey : "no ckey"] signalled [X] at [world.time]. [X] located at [X.x] [X.y] [X.z].")
 
-//=====
+//============
 // Battery activator, needs a cell to activate
-//=====
+//============
 /datum/xenoartifact_trait/activator/batteryneed
 	desc = "Charged"
 	label_desc = "Charged: The material has a natural power draw. Supplying any current to this will cause a reaction."
@@ -204,9 +204,9 @@
 		if(C.use(X.charge_req*10))
 			X.default_activate(charge, user, user)
 
-//=====
+//============
 // Weighted activator, picking up activates
-//=====
+//============
 /datum/xenoartifact_trait/activator/weighted
 	desc = "Weighted"
 	label_desc = "Weighted: The material is weighted and produces a reaction when picked up."
@@ -219,9 +219,9 @@
 	X.default_activate(charge, user, target)
 
 //Minor traits - Use the to define aspects of the artifact without any immediate interaction
-//=====
+//============
 // Looped, increases charge towards 100
-//=====
+//============
 /datum/xenoartifact_trait/minor/looped
 	desc = "Looped"
 	label_desc = "Looped: The Artifact feeds into itself and amplifies its own charge."
@@ -235,9 +235,9 @@
 /datum/xenoartifact_trait/minor/looped/activate(obj/item/xenoartifact/X)
 	X.charge = ((100-X.charge)*0.2)+X.charge //This should generally cut off around 100
 
-//=====
+//============
 // Capacitive, gives the artifact extra uses before it starts cooldown
-//=====
+//============
 /datum/xenoartifact_trait/minor/capacitive
 	desc = "Capacitive"
 	label_desc = "Capacitive: The Artifact's structure allows it to hold extra charges."
@@ -268,9 +268,9 @@
 		return TRUE
 	..()
 
-//=====
+//============
 // Dense, makes the artifact mimic a structure
-//=====
+//============
 /datum/xenoartifact_trait/minor/dense //Rather large, quite gigantic, particularly big
 	desc = "Dense"
 	label_desc = "Dense: The Artifact is dense and cannot be easily lifted but, the design has a slightly higher reaction rate."
@@ -281,9 +281,9 @@
 	X.interaction_flags_atom = INTERACT_ATOM_ATTACK_HAND
 	X.interaction_flags_item = INTERACT_ATOM_ATTACK_HAND
 
-//=====
+//============
 // Sharp, makes the artifact do extra damage and slice type
-//=====
+//============
 /datum/xenoartifact_trait/minor/sharp
 	desc = "Sharp"
 	label_desc = "Sharp: The Artifact is shaped into a fine point. Perfect for popping balloons."
@@ -300,9 +300,9 @@
 	X.attack_weight = 2
 	X.armour_penetration = 5
 
-//=====
+//============
 // Radioactive, makes the artifact more radioactive with use
-//=====
+//============
 /datum/xenoartifact_trait/minor/radioactive
 	label_name = "Radioactive"
 	label_desc = "Radioactive: The Artifact Emmits harmful particles when a reaction takes place."
@@ -323,9 +323,9 @@
 /datum/xenoartifact_trait/minor/radioactive/activate(obj/item/xenoartifact/X)
 	X.AddComponent(/datum/component/radioactive, 25)
 
-//=====
+//============
 // Cooler, reduces cooldown times
-//=====
+//============
 /datum/xenoartifact_trait/minor/cooler
 	desc = "Frosted"
 	label_desc = "Frosted: The Artifact has the unique property of actively cooling itself. This also seems to reduce time between uses."
@@ -340,9 +340,9 @@
 /datum/xenoartifact_trait/minor/cooler/activate(obj/item/xenoartifact/X)
 	X.charge -= 10
 
-//=====
+//============
 // Sentient, allows a ghost to control the artifact
-//=====
+//============
 /datum/xenoartifact_trait/minor/sentient
 	label_name = "Sentient"
 	label_desc = "Sentient: The Artifact seems to be alive, influencing events around it. The Artifact wants to return to its master..."
@@ -437,9 +437,9 @@
 	S.setup_sentience(X, ckey)
 	..()
 
-//=====
+//============
 // Delicate, makes the artifact have limited uses
-//=====
+//============
 /datum/xenoartifact_trait/minor/delicate
 	desc = "Fragile"
 	label_desc = "Fragile: The Artifact is poorly made. Continuous use will destroy it."
@@ -458,9 +458,9 @@
 		A.color = X.material
 		qdel(X)
 
-//=====
+//============
 // Aura, adds everything in the vicinity to the target list
-//=====
+//============
 /datum/xenoartifact_trait/minor/aura
 	desc = "Expansive"
 	label_desc = "Expansive: The Artifact's surface reaches towards every creature in the room. Even the empty space behind you..."
@@ -478,9 +478,9 @@
 		else if(istype(I) && !(I.anchored))
 			X.true_target |= I
 
-//=====
+//============
 // Long, makes the artifact ranged, allows effects to select targets from afar
-//=====
+//============
 /datum/xenoartifact_trait/minor/long
 	desc = "Scoped"
 	label_desc = "Scoped: The Artifact has an almost magnifying effect to it. You could probably hit someone from really far away with it."
@@ -489,9 +489,9 @@
 /datum/xenoartifact_trait/minor/long/on_init(obj/item/xenoartifact/X)
 	X.max_range += 18
 
-//=====
+//============
 // Wearable, allows artifact to be worn like a glove.
-//=====
+//============
 /datum/xenoartifact_trait/minor/wearable
 	desc = "Shaped"
 	label_desc = "Shaped: The Artifact is small and shaped. It looks as if it'd fit on someone's finger."
@@ -503,9 +503,9 @@
 /datum/xenoartifact_trait/minor/wearable/activate(obj/item/xenoartifact/X, atom/user)
 	X.true_target += list(user)
 
-//=====
+//============
 // Allows artifact to act like a shield
-//=====
+//============
 /datum/xenoartifact_trait/minor/blocking
 	desc = "Shielded"
 	label_desc = "Shielded: The Artifact's composistion lends itself well to blocking attacks. It would do you good to bring this to a rage cage."
@@ -516,9 +516,9 @@
 	X.block_upgrade_walk = 1
 	X.block_power = 25 * pick(0.8, 1, 1.3, 1.5)
 
-//=====
+//============
 // Light, allows artifact to be thrown far
-//=====
+//============
 /datum/xenoartifact_trait/minor/light
 	desc = "Light"
 	label_desc = "Light: The Artifact is made from a light material. You can pitch it pretty far."
@@ -527,9 +527,9 @@
 /datum/xenoartifact_trait/minor/light/on_init(obj/item/xenoartifact/X)
 	X.throw_range = 8
 
-//=====
+//============
 // Heavy, artifact cannot be throwwn far
-//=====
+//============
 /datum/xenoartifact_trait/minor/heavy
 	desc = "Heavy"
 	label_desc = "Heavy: The Artifact is made from a heavy material. You can't pitch it very far."
@@ -538,9 +538,9 @@
 /datum/xenoartifact_trait/minor/heavy/on_init(obj/item/xenoartifact/X)
 	X.throw_range = 1
 
-//=====
+//============
 // Signalsend, activating the artifact sends a set signal
-//=====
+//============
 /datum/xenoartifact_trait/minor/signalsend
 	label_name = "Signaler"
 	label_desc = "Signaler: The Artifact sends out a signal everytime it's activated."
@@ -561,9 +561,9 @@
 	X.send_signal(signal)
 	log_game("[X] sent signal code [X.code] on frequency [X.frequency] at [world.time]. [X] located at [X.x] [X.y] [X.z]")
 
-//=====
+//============
 // Anchor, the artifact can be anchored, anchors when activated
-//=====
+//============
 /datum/xenoartifact_trait/minor/anchor
 	desc = "Anchored"
 	label_desc = "Anchored: The Artifact sends out a signal everytime it's activated."
@@ -585,9 +585,9 @@
 		if(!X.get_trait(/datum/xenoartifact_trait/minor/dense))
 			X.density = !X.density
 
-//=====
-// Slippery, the artifact is slippery
-//=====
+//============
+// Slippery, the artifact is slippery. Honk
+//============
 /datum/xenoartifact_trait/minor/slippery
 	desc = "Slippery"
 	label_desc = "Slippery: The Artifact's surface is perpetually slippery."
@@ -604,9 +604,9 @@
 	
 //Major traits - The artifact's main gimmick, how it interacts with the world
 
-//=====
+//============
 // Simple debug trait, keep this in
-//=====
+//============
 /datum/xenoartifact_trait/major/sing
 	desc = "Bugged"
 	label_desc = "Bugged: The shape resembles nothing. You are Godless."
@@ -616,9 +616,9 @@
 	X.say(X.charge)
 	X.say(target)
 
-//=====
+//============
 // Capture, moves target inside the artifact
-//=====
+//============
 /datum/xenoartifact_trait/major/capture
 	desc = "Hollow"
 	label_desc = "Hollow: The shape is hollow, however the inside is deceptively large."
@@ -656,15 +656,12 @@
 		log_game("[X] spawned (/mob/living/simple_animal/hostile/russian) at [world.time]. [X] located at [X.x] [X.y] [X.z]")
 		fren = FALSE
 
-//=====
+//============
 // Shock, the artifact electrocutes the target
-//=====
+//============
 /datum/xenoartifact_trait/major/shock
 	desc = "Conductive"
 	label_desc = "Conductive: The shape resembles two lighting forks. Subtle arcs seem to leaps across them."
-
-/datum/xenoartifact_trait/major/shock/on_init(obj/item/xenoartifact/X)
-	X.icon_slots[1] = "901"
 
 /datum/xenoartifact_trait/major/shock/on_touch(obj/item/xenoartifact/X, mob/user)
 	to_chat(user, "<span class='notice'>You feel a slight static after touching the [X.name].</span>")
@@ -682,9 +679,9 @@
 		victim.electrocute_act(damage, X, 1, 1)
 	X.cooldownmod = (X.charge*0.1) SECONDS
 
-//=====
+//============
 // Timestop, spawns time-stop effect
-//=====
+//============
 /datum/xenoartifact_trait/major/timestop
 	desc = "Melted"
 	label_desc = "Melted: The shape is drooling and sluggish. Additionally, light around it seems to invert."
@@ -700,9 +697,9 @@
 	new /obj/effect/timestop(T, 2, (X.charge*0.2) SECONDS)
 	X.cooldownmod = (X.charge*0.35) SECONDS
 
-//=====
+//============
 // Laser, shoots varying laser based on charge
-//=====
+//============
 /datum/xenoartifact_trait/major/laser
 	desc = "Barreled"
 	label_desc = "Barreled: The shape resembles the barrel of a gun. It's possible that it might dispense candy."
@@ -725,9 +722,9 @@
 		A.preparePixelProjectile(get_turf(target), X)
 		A.fire()
 
-//=====
+//============
 // Corginator, turns the target into a corgi for a short time
-//=====
+//============
 /datum/xenoartifact_trait/major/corginator //All of this is stolen from corgium. 
 	desc = "Fuzzy" //Weirdchamp
 	label_desc = "Fuzzy: The shape is hard to discern under all the hair sprouting out from the surface. You swear you've heard it bark before."
@@ -800,9 +797,9 @@
 		if(!istype(H, /mob/living/simple_animal/pet/dog/corgi))
 			transform_back(xenoa, H, C)
 
-//=====
+//============
 // Mirrored, temporarily swaps last two target's minds
-//=====
+//============
 /datum/xenoartifact_trait/major/mirrored
 	desc = "Mirrored"
 	label_desc = "Mirrored: The shape is perfectly symetrical. Perhaps you could interest the Captain?"
@@ -821,7 +818,7 @@
 			return
 	swap(victims[1], victims[2])
 	log_game("[X] swapped the identities of [victims[1]] & [victims[2]] at [world.time]. [X] located at [X.x] [X.y] [X.z]")
-	addtimer(CALLBACK(src, .proc/undo_swap), (X.charge*0.15) SECONDS)
+	addtimer(CALLBACK(src, .proc/undo_swap), (X.charge*0.20) SECONDS)
 	X.cooldownmod = (X.charge*0.3) SECONDS
 	victims = list()
 
@@ -845,9 +842,9 @@
 		if(L.len > 1)
 			swap(L[1], L[2])
 
-//=====
+//============
 // EMP, produces an empulse
-//=====
+//============
 /datum/xenoartifact_trait/major/emp
 	label_name = "EMP"
 	label_desc = "EMP: The shape of the Artifact doesn't resemble anything particularly interesting. Technology around the Artifact seems to malfunction."
@@ -855,9 +852,9 @@
 /datum/xenoartifact_trait/major/emp/activate(obj/item/xenoartifact/X)
 	empulse(get_turf(X.loc), max(1, X.charge*0.03), max(1, X.charge*0.07, 1)) //This might be too big
 
-//=====
+//============
 // Invisible, makes the target invisible for a short time
-//=====
+//============
 /datum/xenoartifact_trait/major/invisible //One step closer to the one ring
 	label_name = "Transparent"
 	label_desc = "Transparent: The shape of the Artifact is difficult to percieve. You feel the need to call it, precious..."
@@ -891,21 +888,12 @@
 	for(var/mob/living/M in victims)
 		reveal(M)
 
-//=====
+//============
 // Teleports the target to a random nearby location
-//=====
+//============
 /datum/xenoartifact_trait/major/teleporting
 	desc = "Displaced"
 	label_desc = "Displaced: The shape's state is unstable, causing it to shift through planes at a localized axis. Just ask someone from science..."
-
-/datum/xenoartifact_trait/major/teleporting/on_init(obj/item/xenoartifact/X)
-	if(prob(0.1))
-		X.icon_state = "IB902"
-		X.generate_icon(X.icon, "IBL902", X.material)
-		X.icon_slots[1] = ""
-		X.icon_slots[2] = ""
-		X.icon_slots[3] = ""
-		X.icon_slots[4] = ""
 
 /datum/xenoartifact_trait/major/teleporting/activate(obj/item/xenoartifact/X, atom/target, atom/user)
 	if(istype(target, /atom/movable))
@@ -913,9 +901,9 @@
 		if(!victim.anchored)
 			do_teleport(victim, get_turf(victim), (X.charge*0.3)+1, channel = TELEPORT_CHANNEL_BLUESPACE)
 
-//=====
+//============
 // Lamp, creates a light with random color for a short time
-//=====
+//============
 /datum/xenoartifact_trait/major/lamp
 	label_name = "Lamp"
 	label_desc = "Lamp: The Artifact emits light. Nothing in its shape suggests this."
@@ -924,13 +912,6 @@
 /datum/xenoartifact_trait/major/lamp/on_init(obj/item/xenoartifact/X)
 	X.light_system = MOVABLE_LIGHT
 	X.light_color = pick(LIGHT_COLOR_FIRE, LIGHT_COLOR_BLUE, LIGHT_COLOR_GREEN, LIGHT_COLOR_RED, LIGHT_COLOR_ORANGE, LIGHT_COLOR_PINK, LIGHT_COLOR_WHITE)
-	if(prob(0.1))
-		X.icon_state = "IB902"
-		X.generate_icon(X.icon, "IBL902", X.material)
-		X.icon_slots[1] = ""
-		X.icon_slots[2] = ""
-		X.icon_slots[3] = ""
-		X.icon_slots[4] = ""
 
 /datum/xenoartifact_trait/major/lamp/activate(obj/item/xenoartifact/X, atom/target, atom/user)
 	X.AddComponent(/datum/component/overlay_lighting, 1.4+(X.charge*0.5), max(X.charge*0.05, 0.1), X.light_color)
@@ -942,9 +923,9 @@
 	if(L)
 		qdel(L)
 
-//=====
+//============
 // Dark, opposite of lamp, creates darkness
-//=====
+//============
 /datum/xenoartifact_trait/major/lamp/dark
 	label_name = "Shade"
 	label_desc = "Shade: The Artifact retracts light. Nothing in its shape suggests this."
@@ -973,9 +954,9 @@
 /datum/component/overlay_lighting/dupable //Lighting component for shade
 	dupe_mode = COMPONENT_DUPE_ALLOWED
 
-//=====
+//============
 // Forcefield, creates a random shape wizard wall
-//=====
+//============
 /datum/xenoartifact_trait/major/forcefield
 	label_name = "Wall"
 	label_desc = "Wall: The Artifact produces a resonance that forms impenetrable walls. Here's one you'll never crawl!"
@@ -999,9 +980,9 @@
 /obj/effect/forcefield/xenoartifact_type //Special wall type for artifact
 	desc = "An impenetrable artifact wall."
 
-//=====
+//============
 // Heal, heals a random damage type
-//=====
+//============
 /datum/xenoartifact_trait/major/heal
 	label_name = "Healing"
 	label_desc = "Healing: The Artifact repeairs any damaged organic tissue the targat may contain. Widely considered the Holy Grail of Artifact traits."
@@ -1024,9 +1005,9 @@
 			if(4)
 				victim.adjustOxyLoss((X.charge*0.2)*-1)
 
-//=====
+//============
 // Chem, injects a random safe chem into target
-//=====
+//============
 /datum/xenoartifact_trait/major/chem
 	desc = "Tubed"
 	label_desc = "Tubed: The Artifact's shape is comprised of many twisting tubes and vials, it seems a liquid may be inside."
@@ -1044,9 +1025,9 @@
 		R.add_reagent(formula, amount)
 		log_game("[X] injected [target] with [amount]u of [formula] at [world.time]. [X] located at [X.x] [X.y] [X.z]")
 
-//=====
+//============
 // Push, pushes target away from artifact
-//=====
+//============
 /datum/xenoartifact_trait/major/push
 	label_name = "Push"
 	label_desc = "Push: The Artifact pushes anything not bolted down. The shape doesn't suggest this."
@@ -1057,9 +1038,9 @@
 		var/atom/trg = get_edge_target_turf(X.loc, get_dir(X.loc, target.loc))
 		victim.throw_at(get_turf(trg), (X.charge*0.07)+1, 8)
 
-//=====
+//============
 // Pull, pulls target towards artifact
-//=====
+//============
 /datum/xenoartifact_trait/major/pull
 	label_name = "Pull"
 	label_desc = "Pull: The Artifact pulls anything not bolted down. The shape doesn't suggest this."
@@ -1072,9 +1053,9 @@
 		var/atom/movable/victim = target
 		victim.throw_at(get_turf(X), X.charge*0.08, 8)
 
-//=====
+//============
 // Horn, produces a random noise
-//=====
+//============
 /datum/xenoartifact_trait/major/horn
 	desc = "Horned"
 	label_name = "Horn"
@@ -1091,9 +1072,9 @@
 /datum/xenoartifact_trait/major/horn/activate(obj/item/xenoartifact/X, atom/target, atom/user)
 	playsound(get_turf(target), sound, 50, FALSE)
 
-//=====
+//============
 // Gas, replaces a random gas with another random gas
-//=====
+//============
 /datum/xenoartifact_trait/major/gas
 	desc = "Porous"
 	label_desc = "Porous: The Artifact absorbs a specific nearby gas and replaces it with an undeterminable one."
@@ -1135,9 +1116,9 @@
 
 //Malfunctions
 
-//=====
+//============
 // Bear, produces a bear until it reaches its upper limit
-//=====
+//============
 /datum/xenoartifact_trait/malfunction/bear
 	label_name = "P.B.R" 
 	label_desc = "Parallel Bearspace Retrieval: A strange malfunction causes the Artifact to open a gateway to deep bearspace."
@@ -1157,9 +1138,9 @@
 		qdel(X)
 	X.cooldown += 20 SECONDS
 
-//=====
+//============
 // Badtarget, changes target to user
-//=====
+//============
 /datum/xenoartifact_trait/malfunction/badtarget
 	label_name = "Maltargeting"
 	label_desc = "Maltargeting: A strange malfunction that causes the Artifact to always target the original user."
@@ -1175,9 +1156,9 @@
 	X.true_target = list(M)
 	X.cooldown += 5 SECONDS
 
-//=====
+//============
 // Strip, moves any clothing on target to floor
-//=====
+//============
 /datum/xenoartifact_trait/malfunction/strip
 	label_name = "B.A.D"
 	label_desc = "Bluespace Axis Desync: A strange malfunction inside the Artifact causes it to shift the target's realspace position with its bluespace mass in an offset manner. This results in the target dropping all they're wearing. This is probably the plot to a very educational movie."
@@ -1189,29 +1170,9 @@
 			victim.dropItemToGround(I)
 		X.cooldown += 10 SECONDS
 
-//=====
-// Limbdenier, removes a random limb. :troll:
-//=====
-/datum/xenoartifact_trait/malfunction/limbdenier
-	label_name = "O.E.E"
-	label_desc = "Organic Extrusion Exclusion: A strange malfunction that causes the Artifact to sever any extruding organic matter on a given user."
-
-/datum/xenoartifact_trait/malfunction/limbdenier/activate(obj/item/xenoartifact/X, atom/target, atom/user) //Borrowed from self_amputation
-	if(istype(target, /mob/living/carbon))
-		var/list/parts = list()
-		var/mob/living/carbon/victim = target
-		for(var/obj/item/bodypart/BP as() in victim.bodyparts)
-			if(BP.body_part != HEAD && BP.body_part != CHEST && BP.dismemberable)
-				parts += BP
-		if(parts.len > 1)
-			var/obj/item/bodypart/BP = pick(parts)
-			BP.dismember()
-			X.cooldownmod += 30 SECONDS //This is fine, it wont be additive
-		playsound(get_turf(X), pick('sound/voice/human/womanlaugh.ogg', 'sound/voice/human/manlaugh1.ogg'), 40)
-
-//=====
+//============
 // Trauma, gives target trauma, amazing
-//=====
+//============
 /datum/xenoartifact_trait/malfunction/trauma
 	label_name = "C.D.E"
 	label_desc = "Cerebral Dysfunction Emergence: A strange malfunction that causes the Artifact to force brain traumas to develop in a given target."

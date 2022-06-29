@@ -257,7 +257,7 @@
 	departmental_flags = DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SCIENCE
 
 /datum/design/xenoartifact_labeler
-	name = "Xenoartifact Labeler"
+	name = "Artifact Labeler"
 	desc = "A scientific labeler used to warn others of the dangers of an alien artifact."
 	id = "xenoa_labeler"
 	build_type = PROTOLATHE
