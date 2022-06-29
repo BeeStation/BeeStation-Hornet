@@ -194,24 +194,24 @@
 	// need to update our icons and stuff
 
 	if(user)
-		update_look(user, picked_item)
+		update_look(user, picked_item, emp=TRUE)
 
 	// Otherwise, it's likely a random initialisation, so we
 	// don't have to worry
 
 	else
-		update_item(picked_item)
+		update_item(picked_item, emp=TRUE)
 		if(ispath(picked_item, /obj/item/card/id))
 			var/mob/living/carbon/human/H = user
 			H?.sec_hud_set_ID()
 
-/datum/action/item_action/chameleon/change/proc/update_look(mob/user, obj/item/picked_item)
+/datum/action/item_action/chameleon/change/proc/update_look(mob/user, obj/item/picked_item, emp=FALSE)
 	if(isliving(user))
 		var/mob/living/C = user
 		if(C.stat != CONSCIOUS)
 			return
 
-		update_item(picked_item)
+		update_item(picked_item, emp)
 		if(ispath(picked_item, /obj/item/card/id))
 			var/mob/living/carbon/human/H = user
 			H?.sec_hud_set_ID()
@@ -220,7 +220,7 @@
 		thing.update_slot_icon()
 	UpdateButtonIcon()
 
-/datum/action/item_action/chameleon/change/proc/update_item(obj/item/picked_item)
+/datum/action/item_action/chameleon/change/proc/update_item(obj/item/picked_item, emp=FALSE)
 	var/keepname = FALSE
 	if(isitem(target))
 		var/obj/item/clothing/I = target
@@ -249,8 +249,19 @@
 			var/obj/item/card/id/ID = target
 			var/obj/item/card/id/ID_from = picked_item
 			ID.hud_state = initial(ID_from.hud_state)
-			if(!ispath(picked_item, /obj/item/card/id/departmental_budget) && !ispath(picked_item, /obj/item/card/id/pass))
+			if(!emp)
+				if(!ispath(picked_item, /obj/item/card/id/departmental_budget) && !ispath(picked_item, /obj/item/card/id/pass))
+					keepname = TRUE
+					var/mob/M = usr
+					if(initial(ID_from.assignment))
+						var/popup_input = alert(M, "Do you want to reforge the job title as the default one of the chosen chameleon card?", "Agent ID job name", "Yes", "No (Keep the current job title)")
+						if(popup_input == "Yes")
+							ID.assignment = initial(ID_from.assignment)
+							ID.update_label()
+			else
 				keepname = TRUE
+				ID.assignment = initial(ID_from.assignment) ? initial(ID_from.assignment) : "Unknown"
+				ID.update_label()
 	if(!keepname)
 		target.name = initial(picked_item.name)
 	target.desc = initial(picked_item.desc)

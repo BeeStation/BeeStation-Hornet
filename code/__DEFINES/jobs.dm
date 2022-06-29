@@ -173,6 +173,7 @@
 // CentCom
 #define JOB_HUD_RAWCENTCOM "rawcentcom"
 #define JOB_HUD_CENTCOM "centcom"
+#define JOB_HUD_NOTCENTCOM "notcentcom" // used for police or something like
 
 // MISC
 #define JOB_HUD_VIP "vip"
