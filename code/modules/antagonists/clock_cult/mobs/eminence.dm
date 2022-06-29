@@ -69,6 +69,9 @@
 /mob/living/simple_animal/eminence/start_pulling(atom/movable/AM, state, force = move_force, supress_message = FALSE)
 	return FALSE
 
+/mob/living/simple_animal/eminence/rad_act(amount)
+	return
+
 /mob/living/simple_animal/eminence/Initialize(mapload)
 	. = ..()
 	GLOB.clockcult_eminence = src
@@ -136,6 +139,9 @@
 	return tab_data
 
 /mob/living/simple_animal/eminence/update_health_hud()
+	return
+
+/mob/living/simple_animal/eminence/flash_act(intensity, override_blindness_check, affect_silicon, visual, type)
 	return
 
 //Eminence abilities

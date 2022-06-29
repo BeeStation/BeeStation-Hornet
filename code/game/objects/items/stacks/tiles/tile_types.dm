@@ -15,7 +15,7 @@
 	var/mineralType = null
 	novariants = TRUE
 
-/obj/item/stack/tile/Initialize(mapload, amount)
+/obj/item/stack/tile/Initialize(mapload, new_amount, merge = TRUE, mob/user = null)
 	. = ..()
 	pixel_x = rand(-3, 3)
 	pixel_y = rand(-3, 3) //randomize a little

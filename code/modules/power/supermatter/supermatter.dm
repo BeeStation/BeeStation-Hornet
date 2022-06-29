@@ -14,7 +14,6 @@
 
 #define OXYGEN_TRANSMIT_MODIFIER 1.5   //Higher == Bigger bonus to power generation.
 #define PLASMA_TRANSMIT_MODIFIER 4
-#define BZ_TRANSMIT_MODIFIER -2
 
 #define N2O_HEAT_RESISTANCE 6          //Higher == Gas makes the crystal more resistant against heat damage.
 
@@ -33,7 +32,7 @@
 #define TRITIUM_RADIOACTIVITY_MODIFIER 3  //Higher == Crystal spews out more radiation
 #define BZ_RADIOACTIVITY_MODIFIER 5
 #define PLUOXIUM_RADIOACTIVITY_MODIFIER -2
-#define PLUOXIUM_HEAT_RESISTANCE 3
+#define PLUOXIUM_HEAT_RESISTANCE 1.5
 
 #define THERMAL_RELEASE_MODIFIER 5         //Higher == less heat released during reaction, not to be confused with the above values
 #define PLASMA_RELEASE_MODIFIER 750        //Higher == less plasma released by reaction
@@ -120,8 +119,6 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	var/bzcomp = 0
 	var/n2ocomp = 0
 
-	var/pluoxiumbonus = 0
-
 	var/combined_gas = 0
 	var/gasmix_power_ratio = 0
 	var/dynamic_heat_modifier = 1
@@ -133,6 +130,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 
 
 	var/matter_power = 0
+	var/last_rads = 0
 
 	//Temporary values so that we can optimize this
 	//How much the bullets damage should be multiplied by when it is added to the internal variables
@@ -172,6 +170,8 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	var/power_changes = TRUE
 	///Disables the sm's proccessing totally.
 	var/processes = TRUE
+	///Timer id for the disengage_field proc timer
+	var/disengage_field_timer = null
 
 /obj/machinery/power/supermatter_crystal/Initialize(mapload)
 	. = ..()
@@ -307,7 +307,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	if(combined_gas > MOLE_PENALTY_THRESHOLD)
 		investigate_log("has collapsed into a singularity.", INVESTIGATE_ENGINES)
 		if(T)
-			var/obj/singularity/S = new(T)
+			var/obj/anomaly/singularity/S = new(T)
 			S.energy = 800
 			S.consume(src)
 	else
@@ -315,7 +315,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 		explosion(get_turf(T), explosion_power * max(gasmix_power_ratio, 0.205) * 0.5 , explosion_power * max(gasmix_power_ratio, 0.205) + 2, explosion_power * max(gasmix_power_ratio, 0.205) + 4 , explosion_power * max(gasmix_power_ratio, 0.205) + 6, 1, 1)
 		if(power > POWER_PENALTY_THRESHOLD)
 			investigate_log("has spawned additional energy balls.", INVESTIGATE_ENGINES)
-			new /obj/singularity/energy_ball(T, power)
+			new /obj/anomaly/energy_ball(T, power)
 		qdel(src)
 
 //this is here to eat arguments
@@ -400,17 +400,12 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 		n2ocomp = max(removed.get_moles(GAS_NITROUS)/combined_gas, 0)
 		n2comp = max(removed.get_moles(GAS_N2)/combined_gas, 0)
 
-		if(pluoxiumcomp >= 15)
-			pluoxiumbonus = 1	//Just to be safe I don't want to remove pluoxium
-		else
-			pluoxiumbonus = 0
-
 		gasmix_power_ratio = min(max(plasmacomp + o2comp + co2comp + tritiumcomp + bzcomp - pluoxiumcomp - n2comp, 0), 1)
 
-		dynamic_heat_modifier = max((plasmacomp * PLASMA_HEAT_PENALTY) + (o2comp * OXYGEN_HEAT_PENALTY) + (co2comp * CO2_HEAT_PENALTY) + (tritiumcomp * TRITIUM_HEAT_PENALTY) + ((pluoxiumcomp * PLUOXIUM_HEAT_PENALTY) * pluoxiumbonus) + (n2comp * NITROGEN_HEAT_PENALTY) + (bzcomp * BZ_HEAT_PENALTY), 0.5)
-		dynamic_heat_resistance = max((n2ocomp * N2O_HEAT_RESISTANCE) + ((pluoxiumcomp * PLUOXIUM_HEAT_RESISTANCE) * pluoxiumbonus), 1)
+		dynamic_heat_modifier = max((plasmacomp * PLASMA_HEAT_PENALTY) + (o2comp * OXYGEN_HEAT_PENALTY) + (co2comp * CO2_HEAT_PENALTY) + (tritiumcomp * TRITIUM_HEAT_PENALTY) + (pluoxiumcomp * PLUOXIUM_HEAT_PENALTY) + (n2comp * NITROGEN_HEAT_PENALTY) + (bzcomp * BZ_HEAT_PENALTY), 0.5)
+		dynamic_heat_resistance = max((n2ocomp * N2O_HEAT_RESISTANCE) + (pluoxiumcomp * PLUOXIUM_HEAT_RESISTANCE), 1)
 
-		power_transmission_bonus = max((plasmacomp * PLASMA_TRANSMIT_MODIFIER) + (o2comp * OXYGEN_TRANSMIT_MODIFIER), 0)
+		power_transmission_bonus = 1 + max((plasmacomp * PLASMA_TRANSMIT_MODIFIER) + (o2comp * OXYGEN_TRANSMIT_MODIFIER), 0)
 
 		//more moles of gases are harder to heat than fewer, so let's scale heat damage around them
 		mole_heat_penalty = max(combined_gas / MOLE_HEAT_PENALTY, 0.25)
@@ -440,7 +435,8 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 			power = clamp((removed.return_temperature() * temp_factor / T0C) * gasmix_power_ratio + power, 0, SUPERMATTER_MAXIMUM_ENERGY) //Total laser power plus an overload
 
 		if(prob(50))
-			radiation_pulse(src, power * (1 + (tritiumcomp * TRITIUM_RADIOACTIVITY_MODIFIER) + ((pluoxiumcomp * PLUOXIUM_RADIOACTIVITY_MODIFIER) * pluoxiumbonus) * (power_transmission_bonus/(10-(bzcomp * BZ_RADIOACTIVITY_MODIFIER))))) // Rad Modifiers BZ(500%), Tritium(300%), and Pluoxium(-200%)
+			last_rads = power * max(0, power_transmission_bonus * (1 + (tritiumcomp * TRITIUM_RADIOACTIVITY_MODIFIER) + (pluoxiumcomp * PLUOXIUM_RADIOACTIVITY_MODIFIER) + (bzcomp * BZ_RADIOACTIVITY_MODIFIER))) // Rad Modifiers BZ(500%), Tritium(300%), and Pluoxium(-200%)
+			radiation_pulse(src, last_rads)
 		if(bzcomp >= 0.4 && prob(30 * bzcomp))
 			src.fire_nuclear_particle()		// Start to emit radballs at a maximum of 30% chance per tick
 
@@ -472,10 +468,6 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 			var/D = sqrt(1 / max(1, get_dist(l, src)))
 			l.hallucination += power * config_hallucination_power * D
 			l.hallucination = CLAMP(0, 200, l.hallucination)
-
-	for(var/mob/living/l in range(round((power / 100) ** 0.25), src))
-		var/rads = (power / 10) * sqrt( 1 / max(get_dist(l, src),1) )
-		l.rad_act(rads)
 
 	//Transitions between one function and another, one we use for the fast inital startup, the other is used to prevent errors with fusion temperatures.
 	//Use of the second function improves the power gain imparted by using co2
@@ -723,15 +715,16 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 		user.dust(force = TRUE)
 		if(power_changes)
 			matter_power += 200
-	else if(istype(AM, /obj/singularity))
+	else if(AM.flags_1 & SUPERMATTER_IGNORES_1)
 		return
 	else if(isobj(AM))
 		var/obj/O = AM
 		if(O.resistance_flags & INDESTRUCTIBLE)
-			var/image/causality_field = image(icon, null, "causality_field")
-			add_overlay(causality_field, TRUE)
-			radio.talk_into(src, "Anomalous object has breached containment, emergency causality field enganged to prevent reality destabilization.", engineering_channel)
-			addtimer(CALLBACK(src, .proc/disengage_field, causality_field), 5 SECONDS)
+			if(!disengage_field_timer) //we really don't want to have more than 1 timer and causality field overlayer at once
+				var/image/causality_field = image(icon, null, "causality_field")
+				add_overlay(causality_field, TRUE)
+				radio.talk_into(src, "Anomalous object has breached containment, emergency causality field enganged to prevent reality destabilization.", engineering_channel)
+				disengage_field_timer = addtimer(CALLBACK(src, .proc/disengage_field, causality_field), 5 SECONDS)
 			return
 		if(!iseffect(AM))
 			var/suspicion = ""
@@ -757,6 +750,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	if(QDELETED(src) || !causality_field)
 		return
 	cut_overlay(causality_field, TRUE)
+	disengage_field_timer = null
 
 //Do not blow up our internal radio
 /obj/machinery/power/supermatter_crystal/contents_explosion(severity, target)

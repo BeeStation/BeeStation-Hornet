@@ -131,9 +131,9 @@ GLOBAL_VAR_INIT(floor_cluwnes, 0)
 /mob/living/simple_animal/hostile/floor_cluwne/Goto(target, delay, minimum_distance)
 	var/area/A = get_area(current_victim.loc)
 	if(!manifested && !is_type_in_typecache(A, invalid_area_typecache) && is_station_level(current_victim.z))
-		walk_to(src, target, minimum_distance, delay)
+		SSmove_manager.move_to(src, target, minimum_distance, delay)
 	else
-		walk_to(src,0)
+		SSmove_manager.stop_looping(src)
 
 
 /mob/living/simple_animal/hostile/floor_cluwne/FindTarget()

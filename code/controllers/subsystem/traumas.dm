@@ -110,7 +110,7 @@ SUBSYSTEM_DEF(traumas)
 						/obj/item/melee/cultblade, /obj/item/cult_bastard, /obj/item/restraints/legcuffs/bola/cult,
 						/obj/item/clothing/suit/cultrobes, /obj/item/clothing/suit/space/hardsuit/cult,
 						/obj/item/clothing/suit/hooded/cultrobes, /obj/item/clothing/head/hooded/cult_hoodie, /obj/effect/rune,
-						/obj/item/stack/sheet/runed_metal, /obj/machinery/door/airlock/cult, /obj/singularity/narsie,
+						/obj/item/stack/sheet/runed_metal, /obj/machinery/door/airlock/cult, /obj/eldritch/narsie,
 						/obj/item/soulstone, /obj/item/clockwork,
 						/obj/item/stack/tile/brass,
 						/obj/machinery/door/airlock/clockwork,

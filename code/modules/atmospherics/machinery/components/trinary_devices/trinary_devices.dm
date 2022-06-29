@@ -46,3 +46,10 @@ Housekeeping and pipe network stuff
 		node3_connect = turn(node3_connect, 180)
 
 	return list(node1_connect, node2_connect, node3_connect)
+
+/obj/machinery/atmospherics/components/trinary/proc/set_overlay_offset(var/pipe_layer)
+	switch(pipe_layer)
+		if(1, 5)
+			return pipe_layer
+		else
+			return 0

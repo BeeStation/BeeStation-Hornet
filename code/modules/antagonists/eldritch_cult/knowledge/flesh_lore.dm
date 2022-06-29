@@ -191,7 +191,7 @@
 /datum/eldritch_knowledge/summon/stalker
 	name = "Lonely Ritual"
 	gain_text = "I was able to combine my greed and desires to summon an eldritch beast I had never seen before. An ever shapeshifting mass of flesh, it knew well my goals."
-	desc = "You can now summon a Stalker by transmutating a pair of eyes, a candle, a pen and a piece of paper. Stalkers can shapeshift into harmless animals to get close to the victim."
+	desc = "You can now summon a Stalker by transmutating a knife, a flower, a pen and a piece of paper. Stalkers can shapeshift into harmless animals to get close to the victim."
 	cost = 1
 	required_atoms = list(/obj/item/kitchen/knife,/obj/item/reagent_containers/food/snacks/grown/poppy,/obj/item/pen,/obj/item/paper)
 	mob_to_summon = /mob/living/simple_animal/hostile/eldritch/stalker

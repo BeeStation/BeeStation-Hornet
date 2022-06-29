@@ -97,3 +97,9 @@
 	if(!force && occupant_amount() >= max_occupants)
 		return FALSE
 	return ..()
+
+/obj/vehicle/ridden/onZImpact(turf/newloc, levels)
+	if(levels > 1)
+		for(var/mob/M in occupants)
+			unbuckle_mob(M) // Even though unbuckle_all_mobs exists we may as well only iterate once
+			M.onZImpact(newloc, levels)

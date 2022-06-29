@@ -46,7 +46,9 @@
 		playsound(loc, 'sound/items/welder.ogg', 100, 1)
 
 	for(var/obj/O in target)
-		if(prob(20) && !(resistance_flags & UNACIDABLE))
+		if(O.resistance_flags & (UNACIDABLE | INDESTRUCTIBLE))
+			continue
+		if(prob(20))
 			if(O.acid_level < acid_level*0.3)
 				var/acid_used = min(acid_level*0.05, 20)
 				O.acid_act(10, acid_used)

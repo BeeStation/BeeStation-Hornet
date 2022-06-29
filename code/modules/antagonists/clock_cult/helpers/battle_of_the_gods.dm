@@ -14,7 +14,7 @@ GLOBAL_VAR(narsie_arrival)
 	//Oh dear god what have you done.
 	//The only way this is actually possible in game is on dynamic (with restrictions turned off) and cult summon nar'sie after the ark activates.
 	to_chat(world, "<span class='userdanger'>You feel a wave of dread wash over you.</span>")
-	var/obj/singularity/ratvar/R = GLOB.cult_ratvar
-	var/obj/singularity/narsie/N = GLOB.cult_narsie
+	var/obj/eldritch/ratvar/R = GLOB.cult_ratvar
+	var/obj/eldritch/narsie/N = GLOB.cult_narsie
 	R.ratvar_target = N
 	N.clashing = R

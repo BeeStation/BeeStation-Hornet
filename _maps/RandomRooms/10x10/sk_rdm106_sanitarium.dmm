@@ -369,12 +369,12 @@
 "KV" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/drinks/sillycup{
-	pixel_y = 6;
-	pixel_x = -4
+	pixel_x = -4;
+	pixel_y = 6
 	},
 /obj/item/reagent_containers/food/drinks/sillycup{
-	pixel_y = -2;
-	pixel_x = 9
+	pixel_x = 9;
+	pixel_y = -2
 	},
 /obj/item/reagent_containers/food/drinks/sillycup,
 /obj/item/reagent_containers/food/drinks/sillycup,
@@ -555,7 +555,7 @@ lL
 yb
 ni
 lF
-bI
+KL
 Cz
 zX
 ni
@@ -567,11 +567,11 @@ fJ
 yb
 uS
 Eu
-KL
+bI
 Cz
 Jd
 lF
-bI
+KL
 "}
 (10,1,1) = {"
 gK
