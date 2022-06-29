@@ -347,6 +347,8 @@
 		chosen_sacrifice = null
 		return FALSE
 	var/favor_gained = 200 + round(chosen_sacrifice.health)
+	if(chosen_sacrifice.mind)
+		favor_gained = 900 + round(chosen_sacrifice.health)
 	GLOB.religious_sect?.adjust_favor(favor_gained, user)
 	to_chat(user, "<span class='notice'>[GLOB.deity] absorbs [chosen_sacrifice] leaving no trace behind. [GLOB.deity] rewards you with [favor_gained] favor.</span>")
 	chosen_sacrifice.dust(force = TRUE)
