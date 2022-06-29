@@ -167,7 +167,7 @@
 	A.fingerprintslast = M.ckey
 	return TRUE
 
-/datum/component/forensics/proc/add_blood_DNA(list/dna, mob/living/carbon/human/H)		//list(dna_enzymes = type)
+/datum/component/forensics/proc/add_blood_DNA(list/dna)		//list(dna_enzymes = type)
 	if(!length(dna))
 		return
 	LAZYINITLIST(blood_DNA)
