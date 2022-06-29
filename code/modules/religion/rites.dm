@@ -218,3 +218,156 @@
 		new /obj/item/candle/infinite(altar_turf)
 	playsound(altar_turf, 'sound/magic/fireball.ogg', 50, TRUE)
 	return ..()
+
+
+// Necro Rites
+
+/datum/religion_rites/raise_undead
+	name = "Raise Undead"
+	desc = "Creates an undead creature if a soul is willing to take it."
+	ritual_length = 90 SECONDS
+	ritual_invocations = list("Come forth from the pool of souls ...",
+	"... enter our realm ...",
+	"... become one with our world ...",
+	"... rise ...",
+	"... RISE! ...")
+	invoke_msg = "... RISE!!!"
+	favor_cost = 1500
+
+/datum/religion_rites/raise_dead/perform_rite(mob/living/user, atom/religious_tool)
+	var/deadMobs = 0
+	for(var/mob/M in GLOB.dead_mob_list)
+		deadMobs++
+	if(deadMobs < 3)
+		to_chat(user, "<span class='warning'>The soul pool is not stable enough!</span>")
+		return FALSE
+
+
+/datum/religion_rites/raise_undead/invoke_effect(mob/living/user, atom/movable/religious_tool)
+	var/altar_turf = get_turf(religious_tool)
+	var/mob/living/carbon/human/species/zombie/zombie = new(altar_turf)
+	var/question = "Would you like to be a summoned undead?"
+	var/jobbans = list(ROLE_BRAINWASHED, ROLE_DEATHSQUAD, ROLE_DRONE, ROLE_LAVALAND, ROLE_MIND_TRANSFER, ROLE_POSIBRAIN, ROLE_SENTIENCE)
+	var/list/candidates = pollCandidatesForMobs(question, jobbans, null, FALSE,)
+	var/mob/dead/observer/selected = pick_n_take(candidates)
+	var/datum/mind/Mind = new /datum/mind(selected.key)
+	Mind.active = 1
+	Mind.transfer_to(zombie)
+	playsound(altar_turf, pick('sound/hallucinations/growl1.ogg','sound/hallucinations/growl2.ogg','sound/hallucinations/growl3.ogg',), 50, TRUE)
+	return ..()
+
+/datum/religion_rites/raise_dead
+	name = "Raise Dead"
+	desc = "Revives a dead creature or person."
+	ritual_length = 120 SECONDS
+	ritual_invocations = list("Rejoin our world ...",
+	"... come forth from the beyond ...",
+	"... fresh life awaits you ...",
+	"... return to us ...",
+	"... by the power granted by the gods ...",
+	"... you shall rise again ...")
+	invoke_msg = "Welcome back to the mortal plain."
+	favor_cost = 2500
+
+///the target
+	var/mob/living/carbon/human/raise_target
+/datum/religion_rites/raise_dead/perform_rite(mob/living/user, atom/religious_tool)
+	if(!ismovable(religious_tool))
+		to_chat(user, "<span class='warning'>This rite requires a religious device that individuals can be buckled to.</span>")
+		return FALSE
+	var/atom/movable/movable_reltool = religious_tool
+	if(!movable_reltool)
+		return FALSE
+	if(!LAZYLEN(movable_reltool.buckled_mobs))
+		to_chat(user, "<span class='warning'>Nothing is buckled to the altar!</span>")
+		return FALSE
+	for(var/r_target in movable_reltool.buckled_mobs)
+		if(!iscarbon(r_target))// only works with carbon corpse since most normal mobs can't be set on fire.
+			to_chat(user, "<span class='warning'>Only carbon lifeforms can be properly resurrected!</span>")
+			return FALSE
+		raise_target = r_target
+		if(raise_target.stat != DEAD)
+			to_chat(user, "<span class='warning'>You can only resurrect dead bodies, this one is still alive!</span>")
+			raise_target = null
+			return FALSE
+		var/deadMobs = 0
+		for(var/mob/M in GLOB.dead_mob_list)
+			deadMobs++
+		if(deadMobs < 3)
+			to_chat(user, "<span class='warning'>The soul pool is not stable enough!</span>")
+			return FALSE
+		if(!raise_target.mind)
+			to_chat(user, "<span class='warning'>This creature has no connected soul...")
+			raise_target = null
+			return FALSE
+		else
+			raise_target.notify_ghost_cloning("Your soul is being summoned back to your body by mystical power!", source = src)
+		return ..()
+
+/datum/religion_rites/raise_dead/invoke_effect(mob/living/user, atom/movable/religious_tool)
+	var/altar_turf = get_turf(religious_tool)
+	if(!(raise_target in religious_tool.buckled_mobs)) //checks one last time if the right corpse is still buckled
+		to_chat(user, "<span class='warning'>The body is no longer on the altar!</span>")
+		raise_target = null
+		return FALSE
+	if(!raise_target.mind)
+		to_chat(user, "<span class='warning'>This creature's soul has left the pool...")
+		raise_target = null
+		return FALSE
+	if(raise_target.stat != DEAD)
+		to_chat(user, "<span class='warning'>The target has to stay dead for the rite to work! If they came back without your spiritual guidence... Who knows what could happen!?</span>")
+		raise_target = null
+		return FALSE
+	raise_target.grab_ghost() // Shove them back in their body.
+	raise_target.revive(full_heal = 1, admin_revive = 1)
+	playsound(altar_turf, 'sound/magic/staff_healing.ogg', 50, TRUE)
+	raise_target = null
+	return ..()
+
+/datum/religion_rites/living_sacrifice
+	name = "Living Sacrifice"
+	desc = "Sacrifice a living buckled creature for favor."
+	ritual_length = 60 SECONDS
+	ritual_invocations = list("To offer this being unto the gods ...",
+	"... to feed them with its soul ...",
+	"... so that they may consume all within their path ...",
+	"... release their binding on this mortal plane ...",
+	"... I offer you this living being ...")
+	invoke_msg = "... may it join the horde of undead, and become one with the souls of the damned. "
+///the living creature chosen for the sacrifice of the rite
+	var/mob/living/chosen_sacrifice
+/datum/religion_rites/living_sacrifice/perform_rite(mob/living/user, atom/religious_tool)
+	if(!ismovable(religious_tool))
+		to_chat(user, "<span class='warning'>This rite requires a religious device that individuals can be buckled to.</span>")
+		return FALSE
+	var/atom/movable/movable_reltool = religious_tool
+	if(!movable_reltool)
+		return FALSE
+	if(!LAZYLEN(movable_reltool.buckled_mobs))
+		to_chat(user, "<span class='warning'>Nothing is buckled to the altar!</span>")
+		return FALSE
+	for(var/creature in movable_reltool.buckled_mobs)
+		chosen_sacrifice = creature
+		if(chosen_sacrifice.stat == DEAD)
+			to_chat(user, "<span class='warning'>You can only sacrifice living creatures, this one is dead!</span>")
+			chosen_sacrifice = null
+			return FALSE
+		return ..()
+
+/datum/religion_rites/living_sacrifice/invoke_effect(mob/living/user, atom/movable/religious_tool)
+	if(!(chosen_sacrifice in religious_tool.buckled_mobs)) //checks one last time if the right creature is still buckled
+		to_chat(user, "<span class='warning'>The right sacrifice is no longer on the altar!</span>")
+		chosen_sacrifice = null
+		return FALSE
+	if(chosen_sacrifice.stat == DEAD)
+		to_chat(user, "<span class='warning'>The sacrifice is no longer alive, it needs to be alive until the end of the rite!</span>")
+		chosen_sacrifice = null
+		return FALSE
+	var/favor_gained = 200 + round(chosen_sacrifice.health)
+	GLOB.religious_sect?.adjust_favor(favor_gained, user)
+	to_chat(user, "<span class='notice'>[GLOB.deity] absorbs [chosen_sacrifice] leaving no trace behind. [GLOB.deity] rewards you with [favor_gained] favor.</span>")
+	chosen_sacrifice.dust(force = TRUE)
+	playsound(get_turf(religious_tool), 'sound/effects/supermatter.ogg', 50, TRUE)
+	chosen_sacrifice = null
+	return ..()
+

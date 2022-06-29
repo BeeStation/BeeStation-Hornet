@@ -216,3 +216,33 @@
 	adjust_favor(20, user) //it's not a lot but hey there's a pacifist favor option at least
 	qdel(offering)
 	return TRUE
+
+
+/**** Necromantic Sect ****/
+
+/datum/religion_sect/necro_sect
+	name = "Necromancy"
+	desc = "A sect dedicated to the revival and summoning of the dead."
+	convert_opener = "Bring them forth into the living world, acolyte.<br>Sacrificing living animals grants you favor."
+	alignment = ALIGNMENT_EVIL
+	max_favor = 10000
+	desired_items = list(/obj/item/reagent_containers/blood)
+	rites_list = list(/datum/religion_rites/raise_dead, /datum/religion_rites/living_sacrifice, /datum/religion_rites/raise_undead)
+	altar_icon_state = "convertaltar-green"
+
+//Necro bibles don't heal or do anything special apart from the standard holy water blessings
+/datum/religion_sect/necro_sect/sect_bless(mob/living/blessed, mob/living/user)
+	return TRUE
+
+/datum/religion_sect/necro_sect/on_sacrifice(obj/item/N, mob/living/L)
+	var/obj/item/reagent_containers/blood/bloodbag = N
+	if(!istype(bloodbag)) //how...
+		return
+	if(bloodbag.volume < 50)
+		to_chat(L,"<span class='notice'>[GLOB.deity] does not accept insubstantial amounts of blood.</span>")
+		return
+	adjust_favor(round(bloodbag.volume), L)
+	to_chat(L, "<span class='notice'>You offer [bloodbag] to [GLOB.deity], pleasing them.</span>")
+	qdel(N)
+	return TRUE
+
