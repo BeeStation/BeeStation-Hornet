@@ -44,7 +44,7 @@
 
 /datum/ai_laws/default/specimov
 	name = "Three Laws of Robotics but with Consideration"
-	id = "Specimov"
+	id = "specimov"
 	var/target_species = "sentient creature" //default, but usually changed upon law given
 	inherent = list("You may not injure a sentient creature or, through inaction, allow a sentient creature to come to harm.",\
 					"You must obey orders given to you by sentient creatures, except where such orders would conflict with the First Law.",\
