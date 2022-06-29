@@ -316,6 +316,7 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 	var/list/hidden_turfs = list()
 	var/list/towed_shuttles = list()
 	var/list/underlying_turf_area = list()
+	var/list/missing_turfs = list() //It's either this or messing with how baseturfs are formatted (honestly, changing baseturfs wouldn't be so bad compared to this)
 
 	//The virtual Z-Value of the shuttle
 	var/virtual_z
@@ -334,12 +335,12 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 		shuttle_areas = null
 		towed_shuttles = null
 		underlying_turf_area = null
+		missing_turfs = null
 		remove_ripples()
 	. = ..()
 
 /obj/docking_port/mobile/is_in_shuttle_bounds(atom/A)
 	return shuttle_areas[get_area(A)]
-
 
 /obj/docking_port/mobile/proc/add_turf(var/turf/T, var/area/shuttle/A)
 	if(!shuttle_areas[A]) //Invalid area
@@ -348,6 +349,7 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 	if(GLOB.shuttle_turf_blacklist[T.type]) //Check if the turf is valid
 		for(var/obj/structure/lattice/lattice in T)
 			A.contents |= T //Keep the lattice, not the turf
+			missing_turfs[T] = TRUE
 			break
 		return TRUE
 
@@ -382,25 +384,33 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 /obj/docking_port/mobile/proc/remove_turf(var/turf/T)
 
 	var/area/shuttle/A = get_area(T)
+	var/area/shuttle/new_area = underlying_turf_area[T]
 	var/shuttle_layers = 1
-	var/obj/docking_port/mobile/M = istype(A) ? A.mobile_port : null
+	var/bottom_flag = FALSE
 	var/obj/docking_port/mobile/bottom_shuttle = null
-	while(M && M != src)
-		shuttle_layers++
-		A = M.underlying_turf_area[T]
-		bottom_shuttle = M
-		M = istype(A) ? A.mobile_port : null
-	if(!M) //Our shuttle isn't here
+
+	if(!new_area) //Our shuttle isn't here
 		return TRUE
+	for(var/obj/docking_port/mobile/M in get_all_towed_shuttles())
+		if(!M.underlying_turf_area[T])
+			continue
+		if(bottom_flag)
+			bottom_shuttle = M
+			bottom_flag = -1
+		if(M == src && bottom_flag != -1)
+			bottom_flag = TRUE
+		if(!M.missing_turfs[T])
+			shuttle_layers++
 
 	//Get the new area under this turf
-	var/area/shuttle/new_area = underlying_turf_area[T] ? underlying_turf_area[T] : GLOB.areas_by_type[SHUTTLE_DEFAULT_UNDERLYING_AREA]
 	var/list/intersect_bounds
 	var/turf/T0
 	var/turf/T1
 	var/towed
 	underlying_turf_area -= T
-	if(shuttle_layers == 1) //Only change the area if we aren't covered by another shuttle
+	if(missing_turfs[T])
+		missing_turfs -= T
+	if(A.mobile_port == src) //Only change the area if we aren't covered by another shuttle
 		A.contents -= T
 		new_area.contents += T
 		T.change_area(A, new_area)
@@ -461,14 +471,33 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 		var/matrix/translate_vec = matrix(M.x - src.x, M.y - src.y, MATRIX_TRANSLATE) * matrix(dir2angle(_dir)-dir2angle(dir), MATRIX_ROTATE)
 		. |= M.return_ordered_turfs(_x + translate_vec.c, _y + translate_vec.f, _z + (M.z - src.z), angle2dir_cardinal(dir2angle(_dir) + (dir2angle(M.dir) - dir2angle(src.dir))), include_towed = FALSE)
 
-//Crawl through towed shuttles to get a list of all shuttles being towed
+//Returns all shuttles on top of this shuttle.
+//This list is topologically sorted; for any shuttle that is above another shuttle, the higher shuttle will come after the lower shuttle in the list.
 /obj/docking_port/mobile/proc/get_all_towed_shuttles()
-	. = list(src)
+	//Generate a list of all edges in the towed shuttle heirarchy with src as the root.
+	var/list/edges = list(src)
 	var/obj/docking_port/mobile/M
 	var/dequeue_pointer = 0
-	while(dequeue_pointer++ < length(.))
-		M = .[dequeue_pointer]
-		. |= M.towed_shuttles
+	while(dequeue_pointer++ < length(edges))
+		M = edges[dequeue_pointer]
+		for(var/obj/docking_port/mobile/child in M.towed_shuttles)
+			edges[child] = edges[child] ? edges[child] | M : list(M)
+	edges -= src
+
+	//Kahn's Algorithm for topological sorting a directed acyclic graph.
+	. = list()
+	var/list/obj/docking_port/mobile/roots = list(src)
+	var/obj/docking_port/mobile/root
+	while(roots.len)
+		root = pop(roots)
+		.[root] = TRUE
+		for(M in root.towed_shuttles)
+			edges[M] -= root
+			if(!length(edges[M]))
+				edges -= M
+				roots += M
+	if(edges.len) //If the graph is cyclic, that means that a shuttle is directly or indirectly landed ontop of itself. Cyclic shuttles have not moved from edges to .
+		CRASH("The towed shuttles of [src] is cyclic, a shuttle is ontop of itself!")
 
 /obj/docking_port/mobile/Initialize(mapload)
 	. = ..()

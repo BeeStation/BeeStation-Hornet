@@ -397,22 +397,31 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 	//Check to see if it's a valid shuttle
 	for(var/i in 1 to turfs.len)
 		var/turf/t = turfs[i]
-		var/area/place = get_area(t)
+		var/area/shuttle/place = get_area(t)
 		//If any of the turfs are on station / not in space, a shuttle cannot be forced there
 		if(!place)
 			to_chat(usr, "<span class='warning'>You can't seem to overpower the bluespace harmonics in this location, try somewhere else.</span>")
 			return FALSE
-		if( (istype(t,/turf/open/floor/dock/drydock) || (/turf/open/floor/dock/drydock in t.baseturfs)) && !(/turf/baseturf_skipover/shuttle in t.baseturfs)) //TODO: Find a better, non-disgusting way to do this
-			overwritten_area = place.type
-		else if(istype(place, /area/space))
-			overwritten_area = /area/space
-		else if(istype(place, /area/lavaland/surface/outdoors))
-			overwritten_area = /area/lavaland/surface/outdoors
-		else if(istype(place, /area/asteroid/generated))
-			overwritten_area = /area/asteroid/generated
-		else if(place != recorded_shuttle_area)
-			to_chat(usr, "<span class='warning'>Caution, shuttle must not use any material connected to the station. Your shuttle is currenly overlapping with [place.name].</span>")
+		var/bypass_area_check = FALSE
+		var/obj/docking_port/mobile/linked_shuttle = linkedShuttleId ? SSshuttle.getShuttle(linkedShuttleId) : null
+		var/list/obj/docking_port/mobile/towed_shuttles = linked_shuttle ? linked_shuttle.get_all_towed_shuttles() - linked_shuttle : null
+		if(towed_shuttles && istype(place) && towed_shuttles[place.mobile_port]) //prevent recursive stacking
+			to_chat(usr, "<span class='warning'>Warning, shuttle must not use any material connected to a docked shuttle. Your shuttle is currenly overlapping with [place.mobile_port.name].</span>")
 			return FALSE
+		if(!istype(t,/turf/open/floor/dock/drydock)) //Drydocks bypass the area check, but not the recursion check
+			var/static/list/drydock_types = typesof(/turf/open/floor/dock/drydock)
+			var/static/list/valid_area_types = typecacheof(list(/area/space, /area/lavaland/surface/outdoors, /area/asteroid/generated))
+			if(islist(t.baseturfs))
+				for(var/j in 0 to t.baseturfs.len - 1) //See if there's a drydock here that isn't being used by another shuttle
+					var/path = t.baseturfs[t.baseturfs.len-j]
+					if(path in drydock_types)
+						bypass_area_check = TRUE
+						break
+					else if(path == /turf/baseturf_skipover/shuttle)
+						break
+			if(!bypass_area_check && !valid_area_types[place.type])
+				to_chat(usr, "<span class='warning'>Caution, shuttle must not use any material connected to the station. Your shuttle is currenly overlapping with [place.name].</span>")
+				return FALSE
 	//Finally, check to see if the area is actually attached
 	if(!LAZYLEN(loggedTurfs))
 		return TRUE

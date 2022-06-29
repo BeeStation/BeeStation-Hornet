@@ -70,14 +70,16 @@
 			remove_ripples()
 			return DOCKING_IMMOBILIZED
 
+	var/list/obj/docking_port/mobile/all_towed_shuttles = get_all_towed_shuttles()
+
 	// Moving to the new location will trample the ripples there at the exact
 	// same time any mobs there are trampled, to avoid any discrepancy where
 	// the ripples go away before it is safe.
-	takeoff(new_dock, old_turfs, new_turfs, moved_atoms, rotation, movement_direction, old_dock, underlying_old_area)
+	takeoff(new_dock, old_turfs, new_turfs, moved_atoms, rotation, movement_direction, old_dock, underlying_old_area, all_towed_shuttles)
 
 	CHECK_TICK
 
-	cleanup_runway(new_dock, old_turfs, new_turfs, areas_to_move, moved_atoms, rotation, movement_direction, underlying_old_area)
+	cleanup_runway(new_dock, old_turfs, new_turfs, areas_to_move, moved_atoms, rotation, movement_direction, underlying_old_area, all_towed_shuttles)
 
 	CHECK_TICK
 
@@ -127,8 +129,7 @@
 
 		old_turfs[oldT] = move_mode
 
-/obj/docking_port/mobile/proc/takeoff(obj/docking_port/stationary/new_dock, list/old_turfs, list/new_turfs, list/moved_atoms, rotation, movement_direction, old_dock, list/area/underlying_old_area)
-	var/obj/docking_port/mobile/all_towed_shuttles = get_all_towed_shuttles()
+/obj/docking_port/mobile/proc/takeoff(obj/docking_port/stationary/new_dock, list/old_turfs, list/new_turfs, list/moved_atoms, rotation, movement_direction, old_dock, list/underlying_old_area, list/all_towed_shuttles)
 	var/list/parent_shuttles = list() //Keep track of what shuttles we're landing on in case we're relanding on a shuttle we were on.
 	for(var/i in 1 to old_turfs.len)
 		var/turf/oldT = old_turfs[i]
@@ -145,33 +146,46 @@
 		if(move_mode & MOVE_TURF)
 			var/shuttle_layers = 0
 			var/area/shuttle/A = oldT.loc
+			var/obj/docking_port/mobile/top_shuttle = A?.mobile_port
 			var/obj/docking_port/mobile/M = A.mobile_port
-			while(M in all_towed_shuttles) //Keep going until we find nothing or a shuttle that's not us
-				shuttle_layers++
-				A = M.underlying_turf_area[oldT]
-				M = istype(A) ? A.mobile_port : null
+
+			for(var/index in 1 to all_towed_shuttles.len)
+				M = all_towed_shuttles[index]
+				if(!M.underlying_turf_area[oldT])
+					continue
+				if(!M.missing_turfs[oldT])
+					shuttle_layers++
+				if(M == top_shuttle)
+					break
+
 			oldT.onShuttleMove(newT, movement_force, movement_direction, shuttle_layers)																	//turfs
 
 		if(move_mode & MOVE_AREA)
-			//Behold: The brick of var declaration
 			var/area/shuttle/shuttle_area = oldT.loc //The area on the shuttle, typecasted for the checks further down
 			var/area/shuttle/target_area = newT.loc //The area we're landing on
 			var/area/shuttle/new_area //The area that we leave behind
-			var/obj/docking_port/mobile/M = istype(shuttle_area) ? shuttle_area?.mobile_port : null
-			var/obj/docking_port/mobile/bottom_shuttle = src //I'm just going to swallow my pride and make this its own var
 
-			while(M in all_towed_shuttles) //Shift all towed shuttles on this to the new turf
-				new_area = M.underlying_turf_area[oldT] ? M.underlying_turf_area[oldT] : GLOB.areas_by_type[SHUTTLE_DEFAULT_UNDERLYING_AREA] //Grab before we make changes
-				M.underlying_turf_area[newT] = new_area
+			var/obj/docking_port/mobile/M
+			for(var/index in 0 to all_towed_shuttles.len-1)
+				M = all_towed_shuttles[all_towed_shuttles.len-index]
+				if(!M.underlying_turf_area[oldT])
+					continue
+				new_area = M.underlying_turf_area[oldT]
 				M.underlying_turf_area -= oldT
-				bottom_shuttle = M // ):
-				M = istype(new_area) ? new_area?.mobile_port : null //Next shuttle
-			bottom_shuttle.underlying_turf_area[newT] = target_area //Place the target area under our shuttle
+				if(M.missing_turfs[oldT])
+					M.missing_turfs[newT] = TRUE
+					M.missing_turfs -= oldT
+				if(!istype(new_area) || !all_towed_shuttles[new_area.mobile_port])
+					M.underlying_turf_area[newT] = target_area
+					break
+				M.underlying_turf_area[newT] = new_area
 
-			if(istype(new_area) && new_area.mobile_port && !(new_area.mobile_port in parent_shuttles) && (bottom_shuttle in new_area.mobile_port.towed_shuttles)) //Remove bottom shuttle from old parent shuttle's towed_shuttles
-				new_area.mobile_port.towed_shuttles -= bottom_shuttle
+			if(!new_area)
+				new_area = GLOB.areas_by_type[SHUTTLE_DEFAULT_UNDERLYING_AREA]
+			if(istype(new_area) && new_area.mobile_port && !(new_area.mobile_port in parent_shuttles) && (M in new_area.mobile_port.towed_shuttles)) //Remove bottom shuttle from old parent shuttle's towed_shuttles
+				new_area.mobile_port.towed_shuttles -= M
 			if(istype(target_area) && target_area.mobile_port) //Add bottom shuttle to new parent shuttle's towed_shuttles
-				target_area.mobile_port.towed_shuttles |= bottom_shuttle
+				target_area.mobile_port.towed_shuttles |= M
 				parent_shuttles |= target_area.mobile_port
 
 			underlying_old_area |= new_area
@@ -179,7 +193,7 @@
 
 
 
-/obj/docking_port/mobile/proc/cleanup_runway(obj/docking_port/stationary/new_dock, list/old_turfs, list/new_turfs, list/areas_to_move, list/moved_atoms, rotation, movement_direction, list/area/underlying_old_area)
+/obj/docking_port/mobile/proc/cleanup_runway(obj/docking_port/stationary/new_dock, list/old_turfs, list/new_turfs, list/areas_to_move, list/moved_atoms, rotation, movement_direction, list/area/underlying_old_area, list/all_towed_shuttles)
 	for(var/area/A in underlying_old_area)
 		CHECK_TICK
 		A.afterShuttleMove()
@@ -200,7 +214,7 @@
 			continue
 		var/turf/oldT = old_turfs[i]
 		var/turf/newT = new_turfs[i]
-		newT.afterShuttleMove(oldT, rotation)																//turfs
+		newT.afterShuttleMove(oldT, rotation, all_towed_shuttles)																//turfs
 
 	for(var/i in 1 to moved_atoms.len)
 		CHECK_TICK

@@ -77,14 +77,25 @@ All ShuttleMove procs go here
 	return TRUE
 
 // Called on the new turf after everything has been moved
-/turf/proc/afterShuttleMove(turf/oldT, rotation)
+/turf/proc/afterShuttleMove(turf/oldT, rotation, list/all_towed_shuttles)
 	//Dealing with the turf we left behind
 	oldT.TransferComponents(src)
 	SSexplosions.wipe_turf(src)
 	SEND_SIGNAL(oldT, COMSIG_TURF_AFTER_SHUTTLE_MOVE, src) //Mostly for decals
-	var/shuttle_boundary = baseturfs.Find(/turf/baseturf_skipover/shuttle)
-	if(shuttle_boundary)
-		oldT.ScrapeAway(baseturfs.len - shuttle_boundary + 1, flags = CHANGETURF_FORCEOP)
+	var/skipover_count = 0
+	var/BT_index = length(baseturfs)
+	var/BT
+	for(var/i in 0 to all_towed_shuttles.len - 1) //For each shuttle on the turf, look for another skipover
+		var/obj/docking_port/mobile/M = all_towed_shuttles[all_towed_shuttles.len - i]
+		if(M.underlying_turf_area[src] && !M.missing_turfs[src])
+			while(BT_index)
+				BT = baseturfs[BT_index--]
+				if(BT == /turf/baseturf_skipover/shuttle)
+					skipover_count++
+					break
+
+	if(skipover_count)
+		oldT.ScrapeAway(baseturfs.len - (BT_index - skipover_count), flags = CHANGETURF_FORCEOP)
 
 	if(rotation)
 		shuttleRotate(rotation) //see shuttle_rotate.dm
