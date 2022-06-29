@@ -1,0 +1,5 @@
+author: The-Moon-Itself
+delete-after: true
+changes:
+  - bugfix: Rapid shuttle designators can be used to link shuttles to flight consoles
+      again.
