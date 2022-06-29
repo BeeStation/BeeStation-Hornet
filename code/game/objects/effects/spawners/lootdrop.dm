@@ -1,5 +1,5 @@
 /obj/effect/spawner/lootdrop
-	icon = 'icons/effects/landmarks_static.dmi'
+	icon = 'icons/effects/landmarks_spawners.dmi'
 	icon_state = "random_loot"
 	layer = OBJ_LAYER
 	var/lootcount = 1		//how many items will be spawned
@@ -31,6 +31,7 @@
 	return INITIALIZE_HINT_QDEL
 
 /obj/effect/spawner/lootdrop/donkpockets
+	icon_state = "random_donk"
 	name = "donk pocket box spawner"
 	lootdoubles = FALSE
 
@@ -44,6 +45,7 @@
 		)
 
 /obj/effect/spawner/lootdrop/donkpocketsfinlandia
+	icon_state = "random_donk"
 	name = "5% gondola pocket spawner"
 	lootdoubles = FALSE
 
@@ -53,6 +55,7 @@
 		)
 
 /obj/effect/spawner/lootdrop/armory_contraband
+	icon_state = "random_contrabband"
 	name = "armory contraband gun spawner"
 	lootdoubles = FALSE
 
@@ -66,6 +69,7 @@
 				)
 
 /obj/effect/spawner/lootdrop/gambling
+	icon_state = "random_gambling"
 	name = "gambling valuables spawner"
 	loot = list(
 				/obj/item/gun/ballistic/revolver/russian = 5,
@@ -74,6 +78,7 @@
 				)
 
 /obj/effect/spawner/lootdrop/grille_or_trash
+	icon_state = "random_grille"
 	name = "maint grille or trash spawner"
 	loot = list(/obj/structure/grille = 5,
 			/obj/item/cigbutt = 1,
@@ -277,6 +282,7 @@
 
 /obj/effect/spawner/lootdrop/two_percent_xeno_egg_spawner
 	name = "2% chance xeno egg spawner"
+	icon_state = "random_xenoegg"
 	loot = list(
 		/obj/effect/decal/remains/xeno = 49,
 		/obj/effect/spawner/xeno_egg_delivery = 1)
@@ -310,6 +316,7 @@
 		/mob/living/simple_animal/hostile/retaliate/frog = 2)
 
 /obj/effect/spawner/lootdrop/costume
+	icon_state = "random_costume"
 	name = "random costume spawner"
 
 /obj/effect/spawner/lootdrop/costume/Initialize(mapload)
@@ -351,6 +358,7 @@
 		"" = 75)
 
 /obj/effect/spawner/lootdrop/aimodule_harmless // These shouldn't allow the AI to start butchering people
+	icon_state = "random_board"
 	name = "harmless AI module spawner"
 	loot = list(
 				/obj/item/aiModule/core/full/asimov,
@@ -361,6 +369,7 @@
 				)
 
 /obj/effect/spawner/lootdrop/aimodule_neutral // These shouldn't allow the AI to start butchering people without reason
+	icon_state = "random_board"
 	name = "neutral AI module spawner"
 	loot = list(
 				/obj/item/aiModule/core/full/corp,
@@ -374,6 +383,7 @@
 				)
 
 /obj/effect/spawner/lootdrop/aimodule_harmful // These will get the shuttle called
+	icon_state = "random_board"
 	name = "harmful AI module spawner"
 	loot = list(
 				/obj/item/aiModule/core/full/antimov,
@@ -386,7 +396,9 @@
 // Tech storage circuit board spawners
 
 /obj/effect/spawner/lootdrop/techstorage
+
 	name = "generic circuit board spawner"
+	icon_state = "random_board"
 	lootdoubles = FALSE
 	fan_out_items = TRUE
 	lootcount = INFINITY

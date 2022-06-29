@@ -35,7 +35,8 @@
 	UnregisterSignal(source, COMSIG_MOUSEDROP_ONTO)
 
 	if(!isnull(strip_menus))
-		QDEL_NULL(strip_menus[source])
+		qdel(strip_menus[source])
+		strip_menus -= source
 
 /datum/element/strippable/proc/mouse_drop_onto(datum/source, atom/over, mob/user)
 	SIGNAL_HANDLER
@@ -145,14 +146,14 @@
 		return FALSE
 
 	source.visible_message(
-		"<span class='warning'>[user] tries to remove [source]'s [item].</span>",
-		"<span class='userdanger'>[user] tries to remove your [item].</span>",
+		"<span class='warning'>[user] tries to remove [source]'s [item.name].</span>",
+		"<span class='userdanger'>[user] tries to remove your [item.name].</span>",
 		ignored_mobs = user,
 	)
 
-	to_chat(user, "<span class='danger'>You try to remove [source]'s [item]...</span>")
-	source.log_message("[key_name(source)] is being stripped of [item] by [key_name(user)]", LOG_ATTACK, color="red")
-	user.log_message("[key_name(source)] is being stripped of [item] by [key_name(user)]", LOG_ATTACK, color="red", log_globally=FALSE)
+	to_chat(user, "<span class='danger'>You try to remove [source]'s [item.name]...</span>")
+	source.log_message("[key_name(source)] is being stripped of [item.name] by [key_name(user)]", LOG_ATTACK, color="red")
+	user.log_message("[key_name(source)] is being stripped of [item.name] by [key_name(user)]", LOG_ATTACK, color="red", log_globally=FALSE)
 	item.add_fingerprint(src)
 
 	return TRUE
@@ -180,7 +181,7 @@
 	return TRUE
 
 /// Returns TRUE if the item is present for the mob, but not available.
-/// This is used, for example, for pockets when a jumpsuit is not worn. 
+/// This is used, for example, for pockets when a jumpsuit is not worn.
 /datum/strippable_item/proc/is_unavailable(atom/source)
 
 /// A preset for equipping items onto mob slots

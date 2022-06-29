@@ -131,56 +131,15 @@
 		if(!findname(.))
 			break
 
-/proc/random_unique_lizard_name(gender, attempts_to_find_unique_name=10)
-	for(var/i in 1 to attempts_to_find_unique_name)
-		. = capitalize(lizard_name(gender))
+/proc/random_lizard_name(gender, attempts)
+	if(gender == MALE)
+		. = "[pick(GLOB.lizard_names_male)]-[pick(GLOB.lizard_names_male)]"
+	else
+		. = "[pick(GLOB.lizard_names_female)]-[pick(GLOB.lizard_names_female)]"
 
-		if(!findname(.))
-			break
-
-/proc/random_unique_apid_name(gender, attempts_to_find_unique_name=10)
-	for(var/i in 1 to attempts_to_find_unique_name)
-		. = capitalize(apid_name(gender))
-
-		if(!findname(.))
-			break
-
-/proc/random_unique_plasmaman_name(attempts_to_find_unique_name=10)
-	for(var/i in 1 to attempts_to_find_unique_name)
-		. = capitalize(plasmaman_name())
-
-		if(!findname(.))
-			break
-
-/proc/random_unique_ipc_name(attempts_to_find_unique_name=10)
-	for(var/i in 1 to attempts_to_find_unique_name)
-		. = capitalize(ipc_name())
-
-		if(!findname(.))
-			break
-
-
-/proc/random_unique_ethereal_name(attempts_to_find_unique_name=10)
-	for(var/i in 1 to attempts_to_find_unique_name)
-		. = capitalize(ethereal_name())
-
-		if(!findname(.))
-			break
-
-/proc/random_unique_moth_name(attempts_to_find_unique_name=10)
-	for(var/i in 1 to attempts_to_find_unique_name)
-		. = capitalize(pick(GLOB.moth_first)) + " " + capitalize(pick(GLOB.moth_last))
-
-		if(!findname(.))
-			break
-
-/proc/random_unique_ooze_name(attempts_to_find_unique_name=10)
-	for(var/i in 1 to attempts_to_find_unique_name)
-		. = capitalize(pick(GLOB.oozeling_first_names)) + " " + capitalize(pick(GLOB.oozeling_last_names))
-
-		if(!findname(.))
-			break
-
+	if(attempts < 10)
+		if(findname(.))
+			. = .(gender, ++attempts)
 
 /proc/random_skin_tone()
 	return pick(GLOB.skin_tones)
@@ -230,8 +189,8 @@ GLOBAL_LIST_EMPTY(species_list)
 		return 0
 	var/user_loc = user.loc
 
-	var/drifting = 0
-	if(!user.Process_Spacemove(0) && user.inertia_dir)
+	var/drifting = FALSE
+	if(SSmove_manager.processing_on(user, SSspacedrift))
 		drifting = 1
 
 	var/target_loc = target.loc
@@ -254,7 +213,7 @@ GLOBAL_LIST_EMPTY(species_list)
 		if(uninterruptible)
 			continue
 
-		if(drifting && !user.inertia_dir)
+		if(drifting && SSmove_manager.processing_on(user, SSspacedrift))
 			drifting = 0
 			user_loc = user.loc
 
@@ -293,7 +252,7 @@ GLOBAL_LIST_EMPTY(species_list)
 	var/atom/Uloc = user.loc
 
 	var/drifting = 0
-	if(!user.Process_Spacemove(0) && user.inertia_dir)
+	if(SSmove_manager.processing_on(user, SSspacedrift))
 		drifting = 1
 
 	var/holding = user.get_active_held_item()
@@ -316,7 +275,7 @@ GLOBAL_LIST_EMPTY(species_list)
 		if (progress)
 			progbar.update(world.time - starttime)
 
-		if(drifting && !user.inertia_dir)
+		if(drifting && SSmove_manager.processing_on(user, SSspacedrift))
 			drifting = 0
 			Uloc = user.loc
 
@@ -367,7 +326,7 @@ GLOBAL_LIST_EMPTY(species_list)
 	time *= user.cached_multiplicative_actions_slowdown
 
 	var/drifting = FALSE
-	if(!user.Process_Spacemove(0) && user.inertia_dir)
+	if(SSmove_manager.processing_on(user, SSspacedrift))
 		drifting = 1
 
 	var/list/originalloc = list()
@@ -396,7 +355,7 @@ GLOBAL_LIST_EMPTY(species_list)
 			if(uninterruptible)
 				continue
 
-			if(drifting && !user.inertia_dir)
+			if(drifting && SSmove_manager.processing_on(user, SSspacedrift))
 				drifting = 0
 				user_loc = user.loc
 

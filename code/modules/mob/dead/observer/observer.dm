@@ -104,12 +104,18 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 
 		if(ishuman(body))
 			var/mob/living/carbon/human/body_human = body
+			if(!body_human.real_name)
+				name = body_human.dna.species.random_name(body.gender, TRUE)
+
 			if(HAIR in body_human.dna.species.species_traits)
 				hair_style = body_human.hair_style
 				hair_color = brighten_color(body_human.hair_color)
 			if(FACEHAIR in body_human.dna.species.species_traits)
 				facial_hair_style = body_human.facial_hair_style
 				facial_hair_color = brighten_color(body_human.facial_hair_color)
+
+	name ||= random_unique_name(gender)//To prevent nameless ghosts
+	real_name = name
 
 	update_icon()
 
@@ -121,10 +127,6 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 			T = SSmapping.get_station_center()
 
 	abstract_move(T)
-
-	if(!name)							//To prevent nameless ghosts
-		name = random_unique_name(gender)
-	real_name = name
 
 	if(!fun_verbs)
 		remove_verb(/mob/dead/observer/verb/boo)

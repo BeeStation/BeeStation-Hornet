@@ -7,7 +7,7 @@
 	icon_state = "autoimplanter"
 	item_state = "nothing"
 	w_class = WEIGHT_CLASS_SMALL
-	var/list/obj/item/organ/storedorgan = list()
+	var/list/obj/item/organ/storedorgan
 	var/organ_type = /obj/item/organ
 	var/uses = INFINITE
 	var/list/starting_organ
@@ -19,6 +19,7 @@
 /obj/item/autosurgeon/Initialize(mapload)
 	. = ..()
 	if(starting_organ)
+		storedorgan = list()
 		for(var/each in starting_organ)
 			insert_organ(new each(src))
 
@@ -57,7 +58,7 @@
 			return
 		if(!user.transferItemToLoc(I, src))
 			return
-		storedorgan = I
+		storedorgan = list(I)
 		to_chat(user, "<span class='notice'>You insert the [I] into [src].</span>")
 	else
 		return ..()
@@ -86,32 +87,32 @@
 	name = "nanotrasen medical autosurgeon"
 	desc = "A single use autosurgeon that contains a medical heads-up display augment. A screwdriver can be used to remove it, but implants can't be placed back in."
 	uses = 1
-	starting_organ = /obj/item/organ/cyberimp/eyes/hud/medical
+	starting_organ = list(/obj/item/organ/cyberimp/eyes/hud/medical)
 
 /obj/item/autosurgeon/syndicate/laser_arm
 	name = "suspicious autosurgeon (arm-mounted laser implant)"
 	desc = "A single use autosurgeon that contains a combat arms-up laser augment. A screwdriver can be used to remove it, but implants can't be placed back in."
 	uses = 1
-	starting_organ = /obj/item/organ/cyberimp/arm/gun/laser
+	starting_organ = list(/obj/item/organ/cyberimp/arm/gun/laser)
 
 /obj/item/autosurgeon/syndicate/thermal_eyes
 	name = "suspicious autosurgeon (Thermal eyes)"
-	starting_organ = /obj/item/organ/eyes/robotic/thermals
+	starting_organ = list(/obj/item/organ/eyes/robotic/thermals)
 
 /obj/item/autosurgeon/syndicate/xray_eyes
 	name = "suspicious autosurgeon (X-ray eyes)"
-	starting_organ = /obj/item/organ/eyes/robotic/xray/syndicate
+	starting_organ = list(/obj/item/organ/eyes/robotic/xray/syndicate)
 
 /obj/item/autosurgeon/syndicate/anti_stun
 	name = "suspicious autosurgeon (CNS Rebooter implant)"
-	starting_organ = /obj/item/organ/cyberimp/brain/anti_stun/syndicate
+	starting_organ = list(/obj/item/organ/cyberimp/brain/anti_stun/syndicate)
 
 /obj/item/autosurgeon/syndicate/reviver
 	name = "suspicious autosurgeon (Reviver implant)"
-	starting_organ = /obj/item/organ/cyberimp/chest/reviver/syndicate
+	starting_organ = list(/obj/item/organ/cyberimp/chest/reviver/syndicate)
 
 /obj/item/autosurgeon/syndicate/esaw_arm
 	name = "suspicious autosurgeon (arm-mounted energy saw)"
 	desc = "A single use autosurgeon that contains an energy saw arm implant."
 	uses = 1
-	starting_organ = /obj/item/organ/cyberimp/arm/esaw
+	starting_organ = list(/obj/item/organ/cyberimp/arm/esaw)

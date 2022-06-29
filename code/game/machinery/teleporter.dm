@@ -23,7 +23,7 @@
 	if (power_station)
 		if(power_station.teleporter_console)
 			power_station.teleporter_console.ui_update()
-		power_station.teleporter_hub = null
+		power_station?.teleporter_hub = null
 		power_station = null
 	return ..()
 
@@ -208,13 +208,13 @@
 /obj/machinery/teleport/station/proc/toggle(mob/user)
 	if(stat & (BROKEN|NOPOWER) || !teleporter_hub || !teleporter_console )
 		return
-	if (teleporter_console.target_ref.resolve())
-		if(teleporter_hub.panel_open || teleporter_hub.stat & (BROKEN|NOPOWER))
-			to_chat(user, "<span class='alert'>The teleporter hub isn't responding.</span>")
-		else
-			engaged = !engaged
-			use_power(5000)
-			to_chat(user, "<span class='notice'>Teleporter [engaged ? "" : "dis"]engaged!</span>")
+	if(teleporter_hub.panel_open || teleporter_hub.stat & (BROKEN|NOPOWER))
+		to_chat(user, "<span class='alert'>The teleporter hub isn't responding.</span>")
+		return
+	if (teleporter_console.target_ref?.resolve())
+		engaged = !engaged
+		use_power(5000)
+		to_chat(user, "<span class='notice'>Teleporter [engaged ? "" : "dis"]engaged!</span>")
 	else
 		teleporter_console.target_ref = null
 		to_chat(user, "<span class='alert'>No target detected.</span>")

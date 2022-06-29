@@ -36,20 +36,20 @@
 	var/list/possible_colors = list("red", "blue", "green", "purple")
 
 /obj/item/dualsaber/Initialize(mapload)
-	. = ..()
-	RegisterSignal(src, COMSIG_TWOHANDED_WIELD, .proc/on_wield)
-	RegisterSignal(src, COMSIG_TWOHANDED_UNWIELD, .proc/on_unwield)
 	if(LAZYLEN(possible_colors))
 		saber_color = pick(possible_colors)
 		switch(saber_color)
 			if("red")
-				light_color = LIGHT_COLOR_RED
+				set_light_color(LIGHT_COLOR_RED)
 			if("green")
-				light_color = LIGHT_COLOR_GREEN
+				set_light_color(LIGHT_COLOR_GREEN)
 			if("blue")
-				light_color = LIGHT_COLOR_LIGHT_CYAN
+				set_light_color(LIGHT_COLOR_CYAN)
 			if("purple")
-				light_color = LIGHT_COLOR_LAVENDER
+				set_light_color(LIGHT_COLOR_LAVENDER)
+	. = ..()
+	RegisterSignal(src, COMSIG_TWOHANDED_WIELD, .proc/on_wield)
+	RegisterSignal(src, COMSIG_TWOHANDED_UNWIELD, .proc/on_unwield)
 
 /obj/item/dualsaber/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -115,7 +115,7 @@
 		user.visible_message("<span class='suicide'>[user] begins beating [user.p_them()]self to death with \the [src]'s handle! It probably would've been cooler if [user.p_they()] turned it on first!</span>")
 	return BRUTELOSS
 
-/obj/item/dualsaber/attack(mob/target, mob/living/carbon/human/user)
+/obj/item/dualsaber/attack(mob/target, mob/living/carbon/user)
 	var/wielded = ISWIELDED(src)
 	if(user.has_dna())
 		if(user.dna.check_mutation(HULK))

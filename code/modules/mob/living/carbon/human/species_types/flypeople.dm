@@ -2,7 +2,6 @@
 	name = "\improper Flyperson"
 	id = SPECIES_FLY
 	bodyflag = FLAG_FLY
-	say_mod = "buzzes"
 	species_traits = list(NOEYESPRITES, NO_UNDERWEAR, TRAIT_BEEFRIEND)
 	inherent_biotypes = list(MOB_ORGANIC, MOB_HUMANOID, MOB_BUG)
 	mutanttongue = /obj/item/organ/tongue/fly
@@ -14,8 +13,6 @@
 	burnmod = 1.4
 	brutemod = 1.4
 	speedmod = 0.7
-	disliked_food = null
-	liked_food = GROSS | MEAT | RAW | FRUIT
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT
 	species_language_holder = /datum/language_holder/fly
 

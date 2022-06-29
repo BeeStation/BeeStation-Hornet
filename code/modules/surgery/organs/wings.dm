@@ -23,6 +23,7 @@
 		Refresh(H)
 
 /obj/item/organ/wings/proc/Refresh(mob/living/carbon/human/H)
+	H.dna.species.mutant_bodyparts -= "[basewings]open"
 	if(!(basewings in H.dna.species.mutant_bodyparts))
 		H.dna.species.mutant_bodyparts |= basewings
 		H.dna.features[basewings] = wing_type
@@ -40,6 +41,7 @@
 	..()
 	if(istype(H))
 		H.dna.species.mutant_bodyparts -= basewings
+		H.dna.species.mutant_bodyparts -= "[basewings]open"
 		wing_type = H.dna.features[basewings]
 		H.update_body()
 	if(flight_level >= WINGS_FLYING)
@@ -53,13 +55,19 @@
 		return FALSE
 	if(wingsound)
 		playsound(H, wingsound, 100, 7)
-	if(basewings == "wings")
+	if(basewings == "wings" || basewings == "moth_wings")
 		if("wings" in H.dna.species.mutant_bodyparts)
 			H.dna.species.mutant_bodyparts -= "wings"
 			H.dna.species.mutant_bodyparts |= "wingsopen"
 		else if("wingsopen" in H.dna.species.mutant_bodyparts)
 			H.dna.species.mutant_bodyparts -= "wingsopen"
 			H.dna.species.mutant_bodyparts |= "wings"
+		else if("moth_wings" in H.dna.species.mutant_bodyparts)
+			H.dna.species.mutant_bodyparts |= "moth_wingsopen"
+			H.dna.species.mutant_bodyparts -= "moth_wings"
+		else if("moth_wingsopen" in H.dna.species.mutant_bodyparts)
+			H.dna.species.mutant_bodyparts -= "moth_wingsopen"
+			H.dna.species.mutant_bodyparts |= "moth_wings"
 		else //it appears we don't actually have wing icons. apply them!!
 			Refresh(H)
 		H.update_body()
@@ -113,7 +121,7 @@
 	flight_level = WINGS_FLIGHTLESS
 	basewings = "moth_wings"
 	wing_type = "plain"
-	canopen = FALSE
+	canopen = TRUE
 
 /obj/item/organ/wings/moth/Remove(mob/living/carbon/human/H, special)
 	flight_level = initial(flight_level)

@@ -222,11 +222,11 @@
 			Location
 			<br>
 			<label class='inputlabel radio'>Local
-			<input class='redact_incompatible' type='radio' id='servban' name='radioservban' value='local'[isnull(global_ban) ? " checked" : ""]>
+			<input class='redact_incompatible' type='radio' id='servban' name='radioservban' value='local'[isnull(global_ban) ? " checked" : ""] disabled='[CONFIG_GET(flag/disable_local_bans) ? "true" : "false"]'>
 			<div class='inputbox'></div></label>
 			<br>
 			<label class='inputlabel radio'>Global
-			<input class='redact_force_checked' type='radio' id='servban' name='radioservban' value='global'[(global_ban) ? " checked" : ""]>
+			<input class='redact_force_checked' type='radio' id='servban' name='radioservban' value='global'[(global_ban) ? " checked" : "" ] disabled='[CONFIG_GET(flag/disable_local_bans) ? "true" : "false"]'>
 			<div class='inputbox'></div></label>
 		</div>
 		<div class='column'>
@@ -330,7 +330,7 @@
 									"Antagonist Positions" = list(ROLE_ABDUCTOR, ROLE_ALIEN, ROLE_BLOB,
 									ROLE_BROTHER, ROLE_CHANGELING, ROLE_CULTIST, ROLE_HERETIC,
 									ROLE_DEVIL, ROLE_INTERNAL_AFFAIRS, ROLE_MALF,
-									ROLE_MONKEY, ROLE_NINJA, ROLE_OPERATIVE,
+									ROLE_NINJA, ROLE_OPERATIVE,
 									ROLE_SERVANT_OF_RATVAR,
 									ROLE_OVERTHROW, ROLE_REV, ROLE_REVENANT,
 									ROLE_REV_HEAD, ROLE_SYNDICATE,
@@ -422,9 +422,12 @@
 		applies_to_admins = TRUE
 	switch(href_list["radioservban"])
 		if("local")
-			global_ban = FALSE
-			if(redact)
-				error_state += "Suppressed bans must be global."
+			if(CONFIG_GET(flag/disable_local_bans))
+				global_ban = TRUE
+			else
+				global_ban = FALSE
+				if(redact)
+					error_state += "Suppressed bans must be global."
 		if("global")
 			global_ban = TRUE
 	switch(href_list["radioduration"])

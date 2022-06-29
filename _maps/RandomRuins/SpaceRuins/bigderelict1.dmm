@@ -144,7 +144,7 @@
 /area/ruin/space/has_grav/derelictoutpost/dockedship)
 "az" = (
 /obj/structure/table,
-/obj/item/clothing/head/soft,
+/obj/item/clothing/head/soft/cargo,
 /turf/open/floor/plasteel,
 /area/ruin/space/has_grav/derelictoutpost/cargobay)
 "aA" = (

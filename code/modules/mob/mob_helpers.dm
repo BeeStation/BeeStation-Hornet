@@ -283,11 +283,10 @@
 /proc/findname(msg)
 	if(!istext(msg))
 		msg = "[msg]"
-	for(var/i in GLOB.mob_list)
-		var/mob/M = i
-		if(M.real_name == msg)
+	for(var/mob/M as anything in GLOB.mob_list)
+		if(lowertext(M.real_name) == lowertext(msg))
 			return M
-	return 0
+	return FALSE
 
 ///Find the first name of a mob from the real name with regex
 /mob/proc/first_name()
@@ -385,11 +384,6 @@
 			if("apprentice")
 				if(M.mind in SSticker.mode.apprentices)
 					return 2
-			if("monkey")
-				if(isliving(M))
-					var/mob/living/L = M
-					if(L.diseases && (locate(/datum/disease/transformation/jungle_fever) in L.diseases))
-						return 2
 		return TRUE
 	if(M.mind && LAZYLEN(M.mind.antag_datums)) //they have an antag datum!
 		return TRUE
@@ -397,7 +391,7 @@
 
 
 /mob/proc/reagent_check(datum/reagent/R) // utilized in the species code
-	return 1
+	return TRUE
 
 
 /**

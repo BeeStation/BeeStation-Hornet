@@ -91,10 +91,11 @@ Everything else should be handled for you. Good luck soldier.
 		next_process = world.time + melee_attack_delay
 		if(isobj(autofire_target))
 			G.attack_obj(autofire_target, L)
-		else
+			return
+		else if(isliving(autofire_target) && L.a_intent == INTENT_HARM) // Prevents trying to attack turfs next to the shooter
 			G.attack(autofire_target, L)
-	else
-		G.afterattack(autofire_target,L)
+			return
+	G.afterattack(autofire_target,L)
 
 /datum/component/full_auto/RemoveComponent()
 	. = ..()
@@ -106,6 +107,11 @@ Everything else should be handled for you. Good luck soldier.
 
 /obj/item/gun/onMouseDown(object, location, params)
 	. = ..()
+	if(istype(object, /atom/movable/screen) && !istype(object, /atom/movable/screen/click_catcher))
+		return
+	var/modifiers = params2list(params)
+	if(modifiers["middle"] || modifiers["shift"]) // No firing on middle or shift click, since we might be trying to aim at someone or examine something
+		return FALSE
 	if(burst_size <= 1) //Don't let them autofire with bursts. That would just be awful.
 		autofire_component?.set_target(object)
 
