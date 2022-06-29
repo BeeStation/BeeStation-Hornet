@@ -577,10 +577,10 @@
 	X.density = TRUE
 
 /datum/xenoartifact_trait/minor/anchor/on_item(obj/item/xenoartifact/X, atom/user, obj/item/item)
-	if(isliving(X.loc))
-		var/mob/living/holder = X.loc
-		holder.dropItemToGround(X)
 	if(istype(item) && item.tool_behaviour == TOOL_WRENCH)
+		if(isliving(X.loc))
+			var/mob/living/holder = X.loc
+			holder.dropItemToGround(X)
 		X.setAnchored(!X.anchored)
 		if(!X.get_trait(/datum/xenoartifact_trait/minor/dense))
 			X.density = !X.density
@@ -1101,7 +1101,7 @@
 
 /datum/xenoartifact_trait/major/gas/on_item(obj/item/xenoartifact/X, atom/user, atom/item)
 	if(istype(item, /obj/item/analyzer))
-		to_chat(user, "<span class='info'>The [item] detects trace amounts of [output] exchanging with [input].\n</span>")
+		to_chat(user, "<span class='info'>The [item] detects trace amounts of [output.name] exchanging with [input.name].\n</span>")
 	..()
 
 /datum/xenoartifact_trait/major/gas/activate(obj/item/xenoartifact/X, atom/target, atom/user)
