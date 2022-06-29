@@ -39,7 +39,7 @@ Then the player gets the profit from selling his own wasted time.
 
 	// We go backwards, so it'll be innermost objects sold first. We also make sure nothing is accidentally delete before everything is sold.
 	var/list/to_delete = list()
-	for(var/atom/movable/thing as anything in reverse_range(contents))
+	for(var/atom/movable/thing as anything in reverseRange(contents))
 		var/sold = FALSE
 		for(var/datum/export/export as anything in GLOB.exports_list)
 			if(export.applies_to(thing, apply_elastic))
@@ -70,7 +70,7 @@ Then the player gets the profit from selling his own wasted time.
 		report = new
 
 	// We go backwards, so it'll be innermost objects sold first
-	for(var/i in reverse_range(contents))
+	for(var/i in reverseRange(contents))
 		var/atom/movable/thing = i
 		var/sold = FALSE
 		for(var/datum/export/E in GLOB.exports_list)

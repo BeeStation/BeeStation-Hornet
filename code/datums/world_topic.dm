@@ -291,7 +291,7 @@
 		data = null
 		return
 
-	var/datum/db_query/query_ckey_lookup = SSdbcore.NewQuery(
+	var/datum/DBQuery/query_ckey_lookup = SSdbcore.NewQuery(
 		"SELECT ckey FROM [format_table_name("player")] WHERE uuid = :uuid",
 		list("uuid" = uuid)
 	)
@@ -342,7 +342,7 @@
 		data = null
 		return
 
-	var/datum/db_query/query_get_metacoins = SSdbcore.NewQuery(
+	var/datum/DBQuery/query_get_metacoins = SSdbcore.NewQuery(
 		"SELECT metacoins FROM [format_table_name("player")] WHERE ckey = :ckey",
 		list("ckey" = ckey)
 	)
@@ -379,7 +379,7 @@
 		data = null
 		return
 
-	var/datum/db_query/query_metacoins = SSdbcore.NewQuery(
+	var/datum/DBQuery/query_metacoins = SSdbcore.NewQuery(
 		"UPDATE [format_table_name("player")] SET metacoins = metacoins + :amount WHERE ckey = :ckey",
 		list("amount" = amount, "ckey" = ckey)
 	)

@@ -1,12 +1,8 @@
 SUBSYSTEM_DEF(dbcore)
 	name = "Database"
-	flags = SS_TICKER
-	wait = 10 // Not seconds because we're running on SS_TICKER
-	runlevels = RUNLEVEL_INIT|RUNLEVEL_LOBBY|RUNLEVELS_DEFAULT
+	flags = SS_BACKGROUND
+	wait = 1 MINUTES
 	init_order = INIT_ORDER_DBCORE
-	priority = FIRE_PRIORITY_DATABASE
-
-	var/failed_connection_timeout = 0
 
 	var/schema_mismatch = 0
 	var/db_minor = 0
@@ -14,29 +10,7 @@ SUBSYSTEM_DEF(dbcore)
 	var/failed_connections = 0
 
 	var/last_error
-
-	var/max_concurrent_queries = 25
-
-	/// Number of all queries, reset to 0 when logged in SStime_track. Used by SStime_track
-	var/all_queries_num = 0
-	/// Number of active queries, reset to 0 when logged in SStime_track. Used by SStime_track
-	var/queries_active_num = 0
-	/// Number of standby queries, reset to 0 when logged in SStime_track. Used by SStime_track
-	var/queries_standby_num = 0
-
-	/// All the current queries that exist.
-	var/list/all_queries = list()
-	/// Queries being checked for timeouts.
-	var/list/processing_queries
-
-	/// Queries currently being handled by database driver
-	var/list/datum/db_query/queries_active = list()
-	/// Queries pending execution that will be handled this controller firing
-	var/list/datum/db_query/queries_new
-	/// Queries pending execution, mapped to complete arguments
-	var/list/datum/db_query/queries_standby = list()
-	/// Queries left to handle during controller firing
-	var/list/datum/db_query/queries_current
+	var/list/active_queries = list()
 
 	var/connection  // Arbitrary handle returned from rust_g.
 
@@ -51,99 +25,14 @@ SUBSYSTEM_DEF(dbcore)
 
 	return ..()
 
-/datum/controller/subsystem/dbcore/stat_entry(msg)
-	msg = "P:[length(all_queries)]|Active:[length(queries_active)]|Standby:[length(queries_standby)]"
-	return ..()
-
-/// Resets the tracking numbers on the subsystem. Used by SStime_track.
-/datum/controller/subsystem/dbcore/proc/reset_tracking()
-	all_queries_num = 0
-	queries_active_num = 0
-	queries_standby_num = 0
-
-/datum/controller/subsystem/dbcore/fire(resumed = FALSE)
-	if(!IsConnected())
-		return
-
-	if(!resumed)
-		queries_new = null
-		if(!length(queries_active) && !length(queries_standby) && !length(all_queries))
-			processing_queries = null
-			queries_current = null
-			return
-		queries_current = queries_active.Copy()
-		processing_queries = all_queries.Copy()
-
-	while(length(processing_queries))
-		var/datum/db_query/query = popleft(processing_queries)
-		if(world.time - query.last_activity_time > (5 MINUTES))
-			message_admins("Found undeleted query, please check the server logs and notify coders.")
-			log_sql("Undeleted query: \"[query.sql]\" LA: [query.last_activity] LAT: [query.last_activity_time]")
-			qdel(query)
+/datum/controller/subsystem/dbcore/fire()
+	for(var/I in active_queries)
+		var/datum/DBQuery/Q = I
+		if(world.time - Q.last_activity_time > (5 MINUTES))
+			log_sql("Undeleted query: \"[Q.sql]\" ARGS: \"[list2params(Q.arguments)]\" LA: [Q.last_activity] LAT: [Q.last_activity_time]")
+			qdel(Q)
 		if(MC_TICK_CHECK)
 			return
-
-	// First handle the already running queries
-	while(length(queries_current))
-		var/datum/db_query/query = popleft(queries_current)
-		if(!process_query(query))
-			queries_active -= query
-		if(MC_TICK_CHECK)
-			return
-
-	// Then strap on extra new queries as possible
-	if(isnull(queries_new))
-		if(!length(queries_standby))
-			return
-		queries_new = queries_standby.Copy(1, min(length(queries_standby), max_concurrent_queries) + 1)
-
-	while(length(queries_new) && length(queries_active) < max_concurrent_queries)
-		var/datum/db_query/query = popleft(queries_new)
-		queries_standby.Remove(query)
-		create_active_query(query)
-		if(MC_TICK_CHECK)
-			return
-
-/// Helper proc for handling queued new queries
-/datum/controller/subsystem/dbcore/proc/create_active_query(datum/db_query/query)
-	PRIVATE_PROC(TRUE)
-	SHOULD_NOT_SLEEP(TRUE)
-	if(IsAdminAdvancedProcCall())
-		return FALSE
-	run_query(query)
-	queries_active_num++
-	queries_active += query
-	return query
-
-/datum/controller/subsystem/dbcore/proc/process_query(datum/db_query/query)
-	PRIVATE_PROC(TRUE)
-	SHOULD_NOT_SLEEP(TRUE)
-	if(IsAdminAdvancedProcCall())
-		return FALSE
-	if(QDELETED(query))
-		return FALSE
-	if(query.process(wait))
-		queries_active -= query
-		return FALSE
-	return TRUE
-
-/datum/controller/subsystem/dbcore/proc/run_query_sync(datum/db_query/query)
-	if(IsAdminAdvancedProcCall())
-		return
-	run_query(query)
-	UNTIL(query.process())
-	return query
-
-/datum/controller/subsystem/dbcore/proc/run_query(datum/db_query/query)
-	if(IsAdminAdvancedProcCall())
-		return
-	query.job_id = rustg_sql_query_async(connection, query.sql, json_encode(query.arguments))
-
-/datum/controller/subsystem/dbcore/proc/queue_query(datum/db_query/query)
-	if(IsAdminAdvancedProcCall())
-		return
-	queries_standby_num++
-	queries_standby |= query
 
 /datum/controller/subsystem/dbcore/Recover()
 	connection = SSdbcore.connection
@@ -151,10 +40,7 @@ SUBSYSTEM_DEF(dbcore)
 /datum/controller/subsystem/dbcore/Shutdown()
 	//This is as close as we can get to the true round end before Disconnect() without changing where it's called, defeating the reason this is a subsystem
 	if(SSdbcore.Connect())
-		for(var/datum/db_query/query in queries_current)
-			run_query(query)
-
-		var/datum/db_query/query_round_shutdown = SSdbcore.NewQuery(
+		var/datum/DBQuery/query_round_shutdown = SSdbcore.NewQuery(
 			"UPDATE [format_table_name("round")] SET shutdown_datetime = Now(), end_state = :end_state WHERE id = :round_id",
 			list("end_state" = SSticker.end_state, "round_id" = GLOB.round_id)
 		)
@@ -165,33 +51,10 @@ SUBSYSTEM_DEF(dbcore)
 
 //nu
 /datum/controller/subsystem/dbcore/can_vv_get(var_name)
-	if(var_name == NAMEOF(src, connection))
-		return FALSE
-	if(var_name == NAMEOF(src, all_queries))
-		return FALSE
-	if(var_name == NAMEOF(src, queries_active))
-		return FALSE
-	if(var_name == NAMEOF(src, queries_new))
-		return FALSE
-	if(var_name == NAMEOF(src, queries_standby))
-		return FALSE
-	if(var_name == NAMEOF(src, queries_active))
-		return FALSE
-
-	return ..()
+	return var_name != NAMEOF(src, connection) && var_name != NAMEOF(src, active_queries) && ..()
 
 /datum/controller/subsystem/dbcore/vv_edit_var(var_name, var_value)
 	if(var_name == NAMEOF(src, connection))
-		return FALSE
-	if(var_name == NAMEOF(src, all_queries))
-		return FALSE
-	if(var_name == NAMEOF(src, queries_active))
-		return FALSE
-	if(var_name == NAMEOF(src, queries_new))
-		return FALSE
-	if(var_name == NAMEOF(src, queries_standby))
-		return FALSE
-	if(var_name == NAMEOF(src, queries_active))
 		return FALSE
 	return ..()
 
@@ -199,11 +62,7 @@ SUBSYSTEM_DEF(dbcore)
 	if(IsConnected())
 		return TRUE
 
-	if(failed_connection_timeout <= world.time) //it's been more than 5 seconds since we failed to connect, reset the counter
-		failed_connections = 0
-
-	if(failed_connections > 5) //If it failed to establish a connection more than 5 times in a row, don't bother attempting to connect for 5 seconds.
-		failed_connection_timeout = world.time + 50
+	if(failed_connections > 5)	//If it failed to establish a connection more than 5 times in a row, don't bother attempting to connect anymore.
 		return FALSE
 
 	if(!CONFIG_GET(flag/sql_enabled))
@@ -217,14 +76,13 @@ SUBSYSTEM_DEF(dbcore)
 	var/timeout = max(CONFIG_GET(number/async_query_timeout), CONFIG_GET(number/blocking_query_timeout))
 	var/thread_limit = CONFIG_GET(number/bsql_thread_limit)
 
-	max_concurrent_queries = CONFIG_GET(number/max_concurrent_queries)
-
 	var/result = json_decode(rustg_sql_connect_pool(json_encode(list(
 		"host" = address,
 		"port" = port,
 		"user" = user,
 		"pass" = pass,
 		"db_name" = db,
+		"max_threads" = 5,
 		"read_timeout" = timeout,
 		"write_timeout" = timeout,
 		"max_threads" = thread_limit,
@@ -242,7 +100,7 @@ SUBSYSTEM_DEF(dbcore)
 	if(CONFIG_GET(flag/sql_enabled))
 		if(Connect())
 			log_world("Database connection established.")
-			var/datum/db_query/query_db_version = NewQuery("SELECT major, minor FROM [format_table_name("schema_revision")] ORDER BY date DESC LIMIT 1")
+			var/datum/DBQuery/query_db_version = NewQuery("SELECT major, minor FROM [format_table_name("schema_revision")] ORDER BY date DESC LIMIT 1")
 			query_db_version.Execute()
 			if(query_db_version.NextRow())
 				db_major = text2num(query_db_version.item[1])
@@ -262,18 +120,30 @@ SUBSYSTEM_DEF(dbcore)
 /datum/controller/subsystem/dbcore/proc/SetRoundID()
 	if(!Connect())
 		return
-	var/datum/db_query/query_round_initialize = SSdbcore.NewQuery(
-		"INSERT INTO [format_table_name("round")] (initialize_datetime, server_ip, server_port) VALUES (Now(), INET_ATON(:internet_address), :port)",
-		list("internet_address" = world.internet_address || "0", "port" = "[world.port]")
+	var/datum/DBQuery/query_round_initialize = SSdbcore.NewQuery(
+		"INSERT INTO [format_table_name("round")] (initialize_datetime, server_name, server_ip, server_port) VALUES (Now(), :server_name, INET_ATON(:internet_address), :port)",
+		list(
+			"server_name" = CONFIG_GET(string/serversqlname),
+			"internet_address" = world.internet_address || "0",
+			"port" = "[world.port]"
+		)
 	)
 	query_round_initialize.Execute(async = FALSE)
 	GLOB.round_id = "[query_round_initialize.last_insert_id]"
 	qdel(query_round_initialize)
+	var/tries = 0
+	while (tries < 5 && !GLOB.round_id)
+		var/datum/DBQuery/query_round_last_id = SSdbcore.NewQuery("SELECT MAX(id) FROM [format_table_name("round")] WHERE initialize_datetime > date_sub(Now(), interval 15 second) LIMIT 1") // I'm ashamed of it but it fixes the problem. -qwerty
+		query_round_last_id.Execute(async = FALSE)
+		if(query_round_last_id.NextRow(async = FALSE))
+			GLOB.round_id = query_round_last_id.item[1]
+		qdel(query_round_last_id)
+		tries++
 
 /datum/controller/subsystem/dbcore/proc/SetRoundStart()
 	if(!Connect())
 		return
-	var/datum/db_query/query_round_start = SSdbcore.NewQuery(
+	var/datum/DBQuery/query_round_start = SSdbcore.NewQuery(
 		"UPDATE [format_table_name("round")] SET start_datetime = Now() WHERE id = :round_id",
 		list("round_id" = GLOB.round_id)
 	)
@@ -283,7 +153,7 @@ SUBSYSTEM_DEF(dbcore)
 /datum/controller/subsystem/dbcore/proc/SetRoundEnd()
 	if(!Connect())
 		return
-	var/datum/db_query/query_round_end = SSdbcore.NewQuery(
+	var/datum/DBQuery/query_round_end = SSdbcore.NewQuery(
 		"UPDATE [format_table_name("round")] SET end_datetime = Now(), game_mode_result = :game_mode_result, station_name = :station_name WHERE id = :round_id",
 		list("game_mode_result" = SSticker.mode_result, "station_name" = station_name(), "round_id" = GLOB.round_id)
 	)
@@ -316,24 +186,24 @@ SUBSYSTEM_DEF(dbcore)
 		log_admin_private("ERROR: Advanced admin proc call led to sql query: [sql_query]. Query has been blocked")
 		message_admins("ERROR: Advanced admin proc call led to sql query. Query has been blocked")
 		return FALSE
-	return new /datum/db_query(connection, sql_query, arguments)
+	return new /datum/DBQuery(connection, sql_query, arguments)
 
 /datum/controller/subsystem/dbcore/proc/QuerySelect(list/querys, warn = FALSE, qdel = FALSE)
 	if (!islist(querys))
-		if (!istype(querys, /datum/db_query))
+		if (!istype(querys, /datum/DBQuery))
 			CRASH("Invalid query passed to QuerySelect: [querys]")
 		querys = list(querys)
 
 	for (var/thing in querys)
-		var/datum/db_query/query = thing
+		var/datum/DBQuery/query = thing
 		if (warn)
-			INVOKE_ASYNC(query, /datum/db_query.proc/warn_execute)
+			INVOKE_ASYNC(query, /datum/DBQuery.proc/warn_execute)
 		else
-			INVOKE_ASYNC(query, /datum/db_query.proc/Execute)
+			INVOKE_ASYNC(query, /datum/DBQuery.proc/Execute)
 
 	for (var/thing in querys)
-		var/datum/db_query/query = thing
-		query.sync()
+		var/datum/DBQuery/query = thing
+		UNTIL(!query.in_progress)
 		if (qdel)
 			qdel(query)
 
@@ -346,7 +216,7 @@ You are expected to do your own escaping of the data, and expected to provide yo
 The duplicate_key arg can be true to automatically generate this part of the query
 	or set to a string that is appended to the end of the query
 Ignore_errors instructes mysql to continue inserting rows if some of them have errors.
-	the erroneous row(s) aren't inserted and there isn't really any way to know why or why errored
+	 the erroneous row(s) aren't inserted and there isn't really any way to know why or why errored
 Delayed insert mode was removed in mysql 7 and only works with MyISAM type tables,
 	It was included because it is still supported in mariadb.
 	It does not work with duplicate_key and the mysql server ignores it in those cases
@@ -404,27 +274,21 @@ Delayed insert mode was removed in mysql 7 and only works with MyISAM type table
 	else if (duplicate_key != FALSE)
 		query_parts += duplicate_key
 
-	var/datum/db_query/Query = NewQuery(query_parts.Join(), arguments)
+	var/datum/DBQuery/Query = NewQuery(query_parts.Join(), arguments)
 	if (warn)
 		. = Query.warn_execute(async)
 	else
 		. = Query.Execute(async)
 	qdel(Query)
 
-/datum/db_query
+/datum/DBQuery
 	// Inputs
 	var/connection
 	var/sql
 	var/arguments
 
-	var/datum/callback/success_callback
-	var/datum/callback/fail_callback
-
 	// Status information
-	/// Current status of the query.
-	var/status
-	/// Job ID of the query passed by rustg.
-	var/job_id
+	var/in_progress
 	var/last_error
 	var/last_activity
 	var/last_activity_time
@@ -437,9 +301,8 @@ Delayed insert mode was removed in mysql 7 and only works with MyISAM type table
 
 	var/list/item  //list of data values populated by NextRow()
 
-/datum/db_query/New(connection, sql, arguments)
-	SSdbcore.all_queries += src
-	SSdbcore.all_queries_num++
+/datum/DBQuery/New(connection, sql, arguments)
+	SSdbcore.active_queries[src] = TRUE
 	Activity("Created")
 	item = list()
 
@@ -447,29 +310,27 @@ Delayed insert mode was removed in mysql 7 and only works with MyISAM type table
 	src.sql = sql
 	src.arguments = arguments
 
-/datum/db_query/Destroy()
+/datum/DBQuery/Destroy()
 	Close()
-	SSdbcore.all_queries -= src
-	SSdbcore.queries_standby -= src
-	SSdbcore.queries_active -= src
+	SSdbcore.active_queries -= src
 	return ..()
 
-/datum/db_query/CanProcCall(proc_name)
+/datum/DBQuery/CanProcCall(proc_name)
 	//fuck off kevinz
 	return FALSE
 
-/datum/db_query/proc/Activity(activity)
+/datum/DBQuery/proc/Activity(activity)
 	last_activity = activity
 	last_activity_time = world.time
 
-/datum/db_query/proc/warn_execute(async = TRUE)
+/datum/DBQuery/proc/warn_execute(async = TRUE)
 	. = Execute(async)
 	if(!.)
-		to_chat(usr, span_danger("A SQL error occurred during this operation, check the server logs."))
+		to_chat(usr, "<span class='danger'>A SQL error occurred during this operation, check the server logs.</span>")
 
-/datum/db_query/proc/Execute(async = TRUE, log_error = TRUE)
+/datum/DBQuery/proc/Execute(async = TRUE, log_error = TRUE)
 	Activity("Execute")
-	if(status == DB_QUERY_STARTED)
+	if(in_progress)
 		CRASH("Attempted to start a new query while waiting on the old one")
 
 	if(!SSdbcore.IsConnected())
@@ -480,67 +341,51 @@ Delayed insert mode was removed in mysql 7 and only works with MyISAM type table
 	if(!async)
 		start_time = REALTIMEOFDAY
 	Close()
-	status = DB_QUERY_STARTED
-	if(async)
-		if(!MC_RUNNING(SSdbcore.init_stage))
-			SSdbcore.run_query_sync(src)
-		else
-			SSdbcore.queue_query(src)
-		sync()
-	else
-		var/job_result_str = rustg_sql_query_blocking(connection, sql, json_encode(arguments))
-		store_data(json_decode(job_result_str))
-
-	. = (status != DB_QUERY_BROKEN)
+	. = run_query(async)
 	var/timed_out = !. && findtext(last_error, "Operation timed out")
 	if(!. && log_error)
-		log_sql("[last_error] | Query used: [sql] | Arguments: [json_encode(arguments)]")
+		log_sql("[last_error] | Query used: [sql] | Arguments: [list2params(arguments)]")
 	if(!async && timed_out)
 		log_query_debug("Query execution started at [start_time]")
 		log_query_debug("Query execution ended at [REALTIMEOFDAY]")
 		log_query_debug("Slow query timeout detected.")
 		log_query_debug("Query used: [sql]")
+		log_query_debug("Arguments: [list2params(arguments)]")
 		slow_query_check()
 
-/// Sleeps until execution of the query has finished.
-/datum/db_query/proc/sync()
-	while(status < DB_QUERY_FINISHED)
-		stoplag()
+/datum/DBQuery/proc/run_query(async)
+	var/job_result_str
 
-/datum/db_query/process(delta_time)
-	if(status >= DB_QUERY_FINISHED)
-		return
+	if (async)
+		var/job_id = rustg_sql_query_async(connection, sql, json_encode(arguments))
+		in_progress = TRUE
+		UNTIL((job_result_str = rustg_sql_check_query(job_id)) != RUSTG_JOB_NO_RESULTS_YET)
+		in_progress = FALSE
 
-	status = DB_QUERY_STARTED
-	var/job_result = rustg_sql_check_query(job_id)
-	if(job_result == RUSTG_JOB_NO_RESULTS_YET)
-		return
+		if (job_result_str == RUSTG_JOB_ERROR)
+			last_error = job_result_str
+			return FALSE
+	else
+		job_result_str = rustg_sql_query_blocking(connection, sql, json_encode(arguments))
 
-	store_data(json_decode(job_result))
-	return TRUE
-
-/datum/db_query/proc/store_data(result)
-	switch(result["status"])
-		if("ok")
+	var/result = json_decode(job_result_str)
+	switch (result["status"])
+		if ("ok")
 			rows = result["rows"]
 			affected = result["affected"]
 			last_insert_id = result["last_insert_id"]
-			status = DB_QUERY_FINISHED
-			return
-		if("err")
+			return TRUE
+		if ("err")
 			last_error = result["data"]
-			status = DB_QUERY_BROKEN
-			return
-		if("offline")
-			last_error = "CONNECTION OFFLINE"
-			status = DB_QUERY_BROKEN
-			return
+			return FALSE
+		if ("offline")
+			last_error = "offline"
+			return FALSE
 
-
-/datum/db_query/proc/slow_query_check()
+/datum/DBQuery/proc/slow_query_check()
 	message_admins("HEY! A database query timed out. Did the server just hang? <a href='?_src_=holder;[HrefToken()];slowquery=yes'>\[YES\]</a>|<a href='?_src_=holder;[HrefToken()];slowquery=no'>\[NO\]</a>")
 
-/datum/db_query/proc/NextRow(async = TRUE)
+/datum/DBQuery/proc/NextRow(async = TRUE)
 	Activity("NextRow")
 
 	if (rows && next_row_to_take <= rows.len)
@@ -550,9 +395,9 @@ Delayed insert mode was removed in mysql 7 and only works with MyISAM type table
 	else
 		return FALSE
 
-/datum/db_query/proc/ErrorMsg()
+/datum/DBQuery/proc/ErrorMsg()
 	return last_error
 
-/datum/db_query/proc/Close()
+/datum/DBQuery/proc/Close()
 	rows = null
 	item = null

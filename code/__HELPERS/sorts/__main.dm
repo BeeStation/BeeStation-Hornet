@@ -150,7 +150,7 @@ GLOBAL_DATUM_INIT(sortInstance, /datum/sortInstance, new())
 			if(call(cmp)(current, last) >= 0)
 				break
 			++runHi
-		reverse_range(L, lo, runHi)
+		reverseRange(L, lo, runHi)
 	else
 		while(runHi < hi)
 			last = current

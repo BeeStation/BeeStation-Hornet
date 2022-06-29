@@ -51,34 +51,20 @@
 #define REFERENCE_TRACKING_DEBUG
 #endif
 
-/// If this is uncommented, force our verb processing into just the 2% of a tick
-/// We normally reserve for it
-/// NEVER run this on live, it's for simulating highpop only
-// #define VERB_STRESS_TEST
-
-#ifdef VERB_STRESS_TEST
-/// Uncomment this to force all verbs to run into overtime all of the time
-/// Essentially negating the reserve 2%
-
-// #define FORCE_VERB_OVERTIME
-#warn Hey brother, you're running in LAG MODE.
-#warn IF YOU PUT THIS ON LIVE I WILL FIND YOU AND MAKE YOU WISH YOU WERE NEVE-
-#endif
-
-#ifndef PRELOAD_RSC	//set to:
-#define PRELOAD_RSC	0 // 0 to allow using external resources or on-demand behaviour;
-#endif				// 1 to use the default behaviour;
-					// 2 for preloading absolutely everything;
+#ifndef PRELOAD_RSC				//set to:
+#define PRELOAD_RSC	0			//	0 to allow using external resources or on-demand behaviour;
+#endif							//	1 to use the default behaviour;
+								//	2 for preloading absolutely everything;
 
 #ifdef LOWMEMORYMODE
 #define FORCE_MAP "runtimestation"
 #endif
 
-
 //Update this whenever you need to take advantage of more recent byond features
 #define MIN_COMPILER_VERSION 514
 #define MIN_COMPILER_BUILD 1583
-#if (DM_VERSION < MIN_COMPILER_VERSION || DM_BUILD < MIN_COMPILER_BUILD) && !defined(SPACEMAN_DMM)
+//TODO Remove the SDMM check when it supports 1568
+#if !defined(SPACEMAN_DMM) && (DM_VERSION < MIN_COMPILER_VERSION || DM_BUILD < MIN_COMPILER_BUILD)
 //Don't forget to update this part
 #error Your version of BYOND is too out-of-date to compile this project. Go to https://secure.byond.com/download and update.
 #error You need version 514.1583 or higher.
@@ -86,9 +72,13 @@
 
 //Update this whenever the byond version is stable so people stop updating to hilariously broken versions
 #define MAX_COMPILER_VERSION 514
-#define MAX_COMPILER_BUILD 1584
+#define MAX_COMPILER_BUILD 1583
 #if DM_VERSION > MAX_COMPILER_VERSION || DM_BUILD > MAX_COMPILER_BUILD
-#warn WARNING: Your BYOND version is over the recommended version (514.1584)! Stability is not guaranteed.
+#warn WARNING: Your BYOND version is over the recommended version (514.1583)! Stability is not guaranteed.
+#endif
+//Log the full sendmaps profile on 514.1556+, any earlier and we get bugs or it not existing
+#if DM_VERSION >= 514 && DM_BUILD >= 1556
+#define SENDMAPS_PROFILE
 #endif
 
 

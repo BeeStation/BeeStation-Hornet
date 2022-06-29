@@ -177,7 +177,6 @@ GLOBAL_PROTECT(admin_verbs_debug)
 	/client/proc/jump_to_ruin,
 	/client/proc/generate_ruin,
 	/client/proc/clear_dynamic_transit,
-	/client/proc/run_empty_query,
 	/client/proc/fucky_wucky,
 	/client/proc/toggle_medal_disable,
 	/client/proc/view_runtimes,
@@ -192,7 +191,9 @@ GLOBAL_PROTECT(admin_verbs_debug)
 	/client/proc/export_dynamic_json,
 	/client/proc/run_dynamic_simulations,
 	#endif
+	#ifdef SENDMAPS_PROFILE
 	/client/proc/display_sendmaps,
+	#endif
 	/client/proc/toggle_cdn,
 	/client/proc/check_timer_sources,
 	/client/proc/test_dview_to_lum_changes
@@ -818,7 +819,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 	if(!bookid)
 		return
 
-	var/datum/db_query/query_library_print = SSdbcore.NewQuery(
+	var/datum/DBQuery/query_library_print = SSdbcore.NewQuery(
 		"SELECT * FROM [format_table_name("library")] WHERE id=:id AND isnull(deleted)",
 		list("id" = bookid)
 	)
@@ -830,7 +831,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 	var/title = query_library_print.item[3]
 	var/confirmation = alert(src,"Are you sure you want to delete the book with author [author] and title [title]?","Guy Montag Incarnate","Yes","No")
 	if(confirmation == "Yes")
-		var/datum/db_query/query_burn_book = SSdbcore.NewQuery(
+		var/datum/DBQuery/query_burn_book = SSdbcore.NewQuery(
 			"UPDATE [format_table_name("library")] SET deleted = 1 WHERE id=:id",
 			list("id" = bookid)
 		)
@@ -842,8 +843,10 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 		qdel(query_burn_book)
 		qdel(query_library_print)
 
+#ifdef SENDMAPS_PROFILE
 /client/proc/display_sendmaps()
 	set name = "Send Maps Profile"
 	set category = "Debug"
 
 	src << link("?debug=profile&type=sendmaps&window=test")
+#endif

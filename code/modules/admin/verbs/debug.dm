@@ -818,25 +818,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	message_admins("<span class='adminnotice'>[key_name_admin(src)] cleared dynamic transit space.</span>")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Clear Dynamic Transit") // If...
 	log_admin("[key_name(src)] cleared dynamic transit space.")
-	SSmapping.wipe_reservations() //this goes after it's logged, incase something horrible happens.
-
-/client/proc/run_empty_query(val as num)
-	set category = "Debug"
-	set name = "Run empty query"
-	set desc = "Amount of queries to run"
-
-	var/list/queries = list()
-	for(var/i in 1 to val)
-		var/datum/db_query/query = SSdbcore.NewQuery("NULL")
-		INVOKE_ASYNC(query, /datum/db_query.proc/Execute)
-		queries += query
-
-	for(var/datum/db_query/query as anything in queries)
-		query.sync()
-		qdel(query)
-	queries.Cut()
-
-	message_admins("[key_name_admin(src)] ran [val] empty queries.")
+	SSmapping.wipe_reservations()				//this goes after it's logged, incase something horrible happens.
 
 /client/proc/fucky_wucky()
 	set category = "Debug"

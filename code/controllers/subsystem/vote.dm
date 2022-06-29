@@ -181,11 +181,6 @@ SUBSYSTEM_DEF(vote)
 	return vote
 
 /datum/controller/subsystem/vote/proc/initiate_vote(vote_type, initiator_key, forced=FALSE, popup=FALSE)
-	//Server is still intializing.
-	if(!MC_RUNNING(init_stage))
-		to_chat(usr, span_warning("Cannot start vote, server is not done initializing."))
-		return FALSE
-
 	var/datum/votesounds/votesound = new() //monkestation edit
 	if(!mode)
 		if(started_time)
@@ -274,7 +269,7 @@ SUBSYSTEM_DEF(vote)
 /mob/verb/vote()
 	set category = "OOC"
 	set name = "Vote"
-	SSvote.ui_interact(src)
+	SSvote.ui_interact(usr)
 
 /datum/controller/subsystem/vote/ui_state()
 	return GLOB.always_state

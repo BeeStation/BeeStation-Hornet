@@ -23,7 +23,7 @@
 	inc_metabalance(METACOIN_TENMINUTELIVING_REWARD, FALSE)
 
 /client/proc/get_metabalance()
-	var/datum/db_query/query_get_metacoins = SSdbcore.NewQuery(
+	var/datum/DBQuery/query_get_metacoins = SSdbcore.NewQuery(
 		"SELECT metacoins FROM [format_table_name("player")] WHERE ckey = :ckey",
 		list("ckey" = ckey)
 	)
@@ -36,7 +36,7 @@
 	return text2num(mc_count)
 
 /client/proc/set_metacoin_count(mc_count, ann=TRUE)
-	var/datum/db_query/query_set_metacoins = SSdbcore.NewQuery(
+	var/datum/DBQuery/query_set_metacoins = SSdbcore.NewQuery(
 		"UPDATE [format_table_name("player")] SET metacoins = :mc_count WHERE ckey = :ckey",
 		list("mc_count" = mc_count, "ckey" = ckey)
 	)
@@ -48,7 +48,7 @@
 /client/proc/inc_metabalance(mc_count, ann=TRUE, reason=null)
 	if(mc_count >= 0 && !CONFIG_GET(flag/grant_metacurrency))
 		return
-	var/datum/db_query/query_inc_metacoins = SSdbcore.NewQuery(
+	var/datum/DBQuery/query_inc_metacoins = SSdbcore.NewQuery(
 		"UPDATE [format_table_name("player")] SET metacoins = metacoins + :mc_count WHERE ckey = :ckey",
 		list("mc_count" = mc_count, "ckey" = ckey)
 	)

@@ -1,7 +1,7 @@
 /client/proc/get_antag_token_count()
-	var/datum/db_query/query_get_antag_tokens = SSdbcore.NewQuery(
+	var/datum/DBQuery/query_get_antag_tokens = SSdbcore.NewQuery(
 		"SELECT antag_tokens FROM [format_table_name("player")] WHERE ckey = :ckey",
-		list("ckey" = ckey)
+		list("ckey" = ckey)	
 	)
 	var/token_count = 0
 	if(!query_get_antag_tokens.warn_execute())
@@ -16,7 +16,7 @@
 	return text2num(token_count)
 
 /client/proc/set_antag_token_count(token_count)
-	var/datum/db_query/query_set_antag_tokens = SSdbcore.NewQuery(
+	var/datum/DBQuery/query_set_antag_tokens = SSdbcore.NewQuery(
 		"UPDATE [format_table_name("player")] SET antag_tokens = :token_count WHERE ckey = :ckey",
 		list("token_count" = token_count, "ckey" = ckey)
 	)
@@ -26,9 +26,9 @@
 	qdel(query_set_antag_tokens)
 
 /client/proc/inc_antag_token_count(token_count)
-	var/datum/db_query/query_inc_antag_tokens = SSdbcore.NewQuery(
+	var/datum/DBQuery/query_inc_antag_tokens = SSdbcore.NewQuery(
 		"UPDATE [format_table_name("player")] SET antag_tokens = antag_tokens + :token_count WHERE ckey = :ckey",
-		list("token_count" = token_count, "ckey" = ckey)
+		list("token_count" = token_count, "ckey" = ckey)	
 	)
 	if(!query_inc_antag_tokens.warn_execute())
 		qdel(query_inc_antag_tokens)

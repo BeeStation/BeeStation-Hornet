@@ -23,7 +23,7 @@
 ///Sets a list to null
 #define LAZYNULL(L) L = null
 #define SANITIZE_LIST(L) ( islist(L) ? L : list() )
-#define reverseList(L) reverse_range(L.Copy())
+#define reverseList(L) reverseRange(L.Copy())
 #define LAZYADDASSOC(L, K, V) if(!L) { L = list(); } L[K] += V;
 ///This is used to add onto lazy assoc list when the value you're adding is a /list/. This one has extra safety over lazyaddassoc because the value could be null (and thus cant be used to += objects)
 #define LAZYADDASSOCLIST(L, K, V) if(!L) { L = list(); } L[K] += list(V);
@@ -550,21 +550,21 @@
 		for(var/i=0, i<len, ++i)
 			L.Swap(fromIndex++, toIndex++)
 
-///replaces reverseList ~Carnie
-/proc/reverse_range(list/inserted_list, start = 1, end = 0)
-	if(inserted_list.len)
-		start = start % inserted_list.len
-		end = end % (inserted_list.len + 1)
+/// reverseList, but a range of the list specified
+/proc/reverseRange(list/L, start=1, end=0)
+	if(L.len)
+		start = start % L.len
+		end = end % (L.len+1)
 		if(start <= 0)
-			start += inserted_list.len
+			start += L.len
 		if(end <= 0)
-			end += inserted_list.len + 1
+			end += L.len + 1
 
 		--end
 		while(start < end)
-			inserted_list.Swap(start++, end--)
+			L.Swap(start++,end--)
 
-	return inserted_list
+	return L
 
 
 /**

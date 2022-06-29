@@ -382,7 +382,7 @@
 	if(!SSdbcore.Connect())
 		to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>")
 		return
-	var/datum/db_query/query_delete_poll = SSdbcore.NewQuery(
+	var/datum/DBQuery/query_delete_poll = SSdbcore.NewQuery(
 		"CALL set_poll_deleted(:poll_id)",
 		list("poll_id" = poll_id)
 	)
@@ -423,7 +423,7 @@
 		end_datetime_sql = ":duration"
 	var/kn = key_name(usr)
 	var/kna = key_name_admin(usr)
-	var/datum/db_query/query_save_poll = SSdbcore.NewQuery({"
+	var/datum/DBQuery/query_save_poll = SSdbcore.NewQuery({"
 		INSERT INTO [format_table_name("poll_question")] (id, polltype, created_datetime, starttime, endtime, question, subtitle, adminonly, multiplechoiceoptions, createdby_ckey, createdby_ip, dontshow, allow_revoting, minimumplaytime)
 		VALUES (:poll_id, :poll_type, NOW(), COALESCE(:start_datetime, NOW()), [end_datetime_sql], :question, :subtitle, :admin_only, :options_allowed, :admin_ckey, INET_ATON(:admin_ip), :dont_show, :allow_revoting, :minimumplaytime)
 		ON DUPLICATE KEY UPDATE starttime = :start_datetime, endtime = [end_datetime_sql], question = :question, subtitle = :subtitle, adminonly = :admin_only, multiplechoiceoptions = :options_allowed, dontshow = :dont_show, allow_revoting = :allow_revoting, minimumplaytime = :minimumplaytime
@@ -439,7 +439,7 @@
 	if (!poll_id)
 		poll_id = query_save_poll.last_insert_id
 	qdel(query_save_poll)
-	var/datum/db_query/query_get_poll_id_start_endtime = SSdbcore.NewQuery(
+	var/datum/DBQuery/query_get_poll_id_start_endtime = SSdbcore.NewQuery(
 		"SELECT starttime, endtime, IF(starttime > NOW(), 1, 0) FROM [format_table_name("poll_question")] WHERE id = :poll_id",
 		list("poll_id" = poll_id)
 	)
@@ -490,7 +490,7 @@
 	var/table = "poll_vote"
 	if(poll_type == POLLTYPE_TEXT)
 		table = "poll_textreply"
-	var/datum/db_query/query_clear_poll_votes = SSdbcore.NewQuery(
+	var/datum/DBQuery/query_clear_poll_votes = SSdbcore.NewQuery(
 		"UPDATE [format_table_name(table)] SET deleted = 1 WHERE pollid = :poll_id",
 		list("poll_id" = poll_id)
 	)
@@ -681,7 +681,7 @@
 	for (var/k in values)
 		update_data += "[k] = VALUES([k])"
 
-	var/datum/db_query/query_update_poll_option = SSdbcore.NewQuery(
+	var/datum/DBQuery/query_update_poll_option = SSdbcore.NewQuery(
 		"INSERT INTO [format_table_name("poll_option")] ([jointext(values, ",")]) VALUES (:[jointext(values, ",:")]) ON DUPLICATE KEY UPDATE [jointext(update_data, ", ")]",
 		values
 	)
@@ -704,7 +704,7 @@
 		if(!SSdbcore.Connect())
 			to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>")
 			return
-		var/datum/db_query/query_delete_poll_option = SSdbcore.NewQuery(
+		var/datum/DBQuery/query_delete_poll_option = SSdbcore.NewQuery(
 			"UPDATE [format_table_name("poll_option")] AS o INNER JOIN [format_table_name("poll_vote")] AS v ON o.id = v.optionid SET o.deleted = 1, v.deleted = 1 WHERE o.id = :option_id",
 			list("option_id" = option_id)
 		)
@@ -722,7 +722,7 @@
 	if(!SSdbcore.Connect())
 		to_chat(usr, "<span class='danger'>Failed to establish database connection.</span>")
 		return
-	var/datum/db_query/query_load_polls = SSdbcore.NewQuery("SELECT id, polltype, starttime, endtime, question, subtitle, adminonly, multiplechoiceoptions, dontshow, allow_revoting, IF(polltype='TEXT',(SELECT COUNT(ckey) FROM [format_table_name("poll_textreply")] AS t WHERE t.pollid = q.id AND deleted = 0), (SELECT COUNT(DISTINCT ckey) FROM [format_table_name("poll_vote")] AS v WHERE v.pollid = q.id AND deleted = 0)), IFNULL((SELECT byond_key FROM [format_table_name("player")] AS p WHERE p.ckey = q.createdby_ckey), createdby_ckey), IF(starttime > NOW(), 1, 0), minimumplaytime FROM [format_table_name("poll_question")] AS q WHERE NOW() < endtime AND deleted = 0")
+	var/datum/DBQuery/query_load_polls = SSdbcore.NewQuery("SELECT id, polltype, starttime, endtime, question, subtitle, adminonly, multiplechoiceoptions, dontshow, allow_revoting, IF(polltype='TEXT',(SELECT COUNT(ckey) FROM [format_table_name("poll_textreply")] AS t WHERE t.pollid = q.id AND deleted = 0), (SELECT COUNT(DISTINCT ckey) FROM [format_table_name("poll_vote")] AS v WHERE v.pollid = q.id AND deleted = 0)), IFNULL((SELECT byond_key FROM [format_table_name("player")] AS p WHERE p.ckey = q.createdby_ckey), createdby_ckey), IF(starttime > NOW(), 1, 0), minimumplaytime FROM [format_table_name("poll_question")] AS q WHERE NOW() < endtime AND deleted = 0")
 	if(!query_load_polls.Execute())
 		qdel(query_load_polls)
 		return
@@ -732,7 +732,7 @@
 		poll_ids += query_load_polls.item[1]
 	qdel(query_load_polls)
 	if(length(poll_ids))
-		var/datum/db_query/query_load_poll_options = SSdbcore.NewQuery("SELECT id, text, minval, maxval, descmin, descmid, descmax, default_percentage_calc, pollid FROM [format_table_name("poll_option")] WHERE pollid IN ([jointext(poll_ids, ",")])")
+		var/datum/DBQuery/query_load_poll_options = SSdbcore.NewQuery("SELECT id, text, minval, maxval, descmin, descmid, descmax, default_percentage_calc, pollid FROM [format_table_name("poll_option")] WHERE pollid IN ([jointext(poll_ids, ",")])")
 		if(!query_load_poll_options.Execute())
 			qdel(query_load_poll_options)
 			return
