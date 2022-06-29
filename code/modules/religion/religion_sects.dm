@@ -217,7 +217,6 @@
 	qdel(offering)
 	return TRUE
 
-
 /**** Necromantic Sect ****/
 
 /datum/religion_sect/necro_sect
@@ -245,4 +244,3 @@
 	to_chat(L, "<span class='notice'>You offer [bloodbag] to [GLOB.deity], pleasing them.</span>")
 	qdel(N)
 	return TRUE
-

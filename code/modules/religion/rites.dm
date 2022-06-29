@@ -145,7 +145,6 @@
 	to_chat(user, "<span class='warning'>The clothing that was chosen for the rite is no longer on the altar!</span>")
 	return FALSE
 
-
 /datum/religion_rites/burning_sacrifice
 	name = "Candle Fuel"
 	desc = "Sacrifice a buckled burning corpse for favor, the more burn damage the corpse has, the more favor you will receive."
@@ -204,7 +203,6 @@
 	chosen_sacrifice = null
 	return ..()
 
-
 /datum/religion_rites/infinite_candle
 	name = "Immortal Candles"
 	desc = "Creates 5 candles that never run out of wax."
@@ -218,7 +216,6 @@
 		new /obj/item/candle/infinite(altar_turf)
 	playsound(altar_turf, 'sound/magic/fireball.ogg', 50, TRUE)
 	return ..()
-
 
 // Necro Rites
 
@@ -319,7 +316,8 @@
 	"... release their binding on this mortal plane ...",
 	"... I offer you this living being ...")
 	invoke_msg = "... may it join the horde of undead, and become one with the souls of the damned. "
-///the living creature chosen for the sacrifice of the rite
+
+//the living creature chosen for the sacrifice of the rite
 	var/mob/living/chosen_sacrifice
 /datum/religion_rites/living_sacrifice/perform_rite(mob/living/user, atom/religious_tool)
 	if(!ismovable(religious_tool))
@@ -355,4 +353,3 @@
 	playsound(get_turf(religious_tool), 'sound/effects/supermatter.ogg', 50, TRUE)
 	chosen_sacrifice = null
 	return ..()
-
