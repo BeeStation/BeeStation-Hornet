@@ -234,15 +234,6 @@
 	invoke_msg = "... RISE!!!"
 	favor_cost = 1500
 
-/datum/religion_rites/raise_dead/perform_rite(mob/living/user, atom/religious_tool)
-	var/deadMobs = 0
-	for(var/mob/M in GLOB.dead_mob_list)
-		deadMobs++
-	if(deadMobs < 3)
-		to_chat(user, "<span class='warning'>The soul pool is not stable enough!</span>")
-		return FALSE
-
-
 /datum/religion_rites/raise_undead/invoke_effect(mob/living/user, atom/movable/religious_tool)
 	var/altar_turf = get_turf(religious_tool)
 	var/mob/living/carbon/human/species/zombie/zombie = new(altar_turf)
@@ -289,12 +280,6 @@
 		if(raise_target.stat != DEAD)
 			to_chat(user, "<span class='warning'>You can only resurrect dead bodies, this one is still alive!</span>")
 			raise_target = null
-			return FALSE
-		var/deadMobs = 0
-		for(var/mob/M in GLOB.dead_mob_list)
-			deadMobs++
-		if(deadMobs < 3)
-			to_chat(user, "<span class='warning'>The soul pool is not stable enough!</span>")
 			return FALSE
 		if(!raise_target.mind)
 			to_chat(user, "<span class='warning'>This creature has no connected soul...")
