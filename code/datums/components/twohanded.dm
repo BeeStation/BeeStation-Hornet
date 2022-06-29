@@ -12,7 +12,7 @@
 	var/force_wielded 	 						    /// The force of the item when wielded
 	var/force_unwielded		 					    /// The force of the item when unwielded
 	var/block_power_wielded					     	/// The block power of the item when wielded
-	var/block_power_unwielded 				        /// The block power of the item when unwielded
+	var/block_power_unwielded = 0 				    /// The block power of the item when unwielded
 	var/wieldsound = FALSE 							/// Play sound when wielded
 	var/unwieldsound = FALSE 						/// Play sound when unwielded
 	var/attacksound = FALSE							/// Play sound on attack when wielded
