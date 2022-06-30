@@ -445,7 +445,8 @@
 		return candidates
 
 	for(var/mob/dead/observer/G in GLOB.player_list)
-		if(G.creation_time + 3000  < world.time) // Prevents people who have just died from becoming Antagonists
+		var/cooldown_time = (CONFIG_GET(number/cooldown_antag_time) * 60) * 10
+		if(G.creation_time + cooldown_time < world.time) // Prevents people who have just died from becoming Antagonists
 			candidates += G
 	return pollCandidates(Question, jobbanType, gametypeCheck, be_special_flag, poll_time, ignore_category, flashwindow, candidates, req_hours)
 
