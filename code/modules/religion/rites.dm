@@ -222,7 +222,7 @@
 /datum/religion_rites/raise_undead
 	name = "Raise Undead"
 	desc = "Creates an undead creature if a soul is willing to take it."
-	ritual_length = 90 SECONDS
+	ritual_length = 10 SECONDS
 	ritual_invocations = list("Come forth from the pool of souls ...",
 	"... enter our realm ...",
 	"... become one with our world ...",
@@ -233,14 +233,35 @@
 
 /datum/religion_rites/raise_undead/invoke_effect(mob/living/user, atom/movable/religious_tool)
 	var/altar_turf = get_turf(religious_tool)
-	var/mob/living/carbon/human/species/zombie/zombie = new(altar_turf)
-	var/question = "Would you like to be a summoned undead?"
+	new /obj/effect/temp_visual/cult/blood/long(altar_turf)
+	new /obj/effect/temp_visual/dir_setting/curse/long(altar_turf)
 	var/jobbans = list(ROLE_BRAINWASHED, ROLE_DEATHSQUAD, ROLE_DRONE, ROLE_LAVALAND, ROLE_MIND_TRANSFER, ROLE_POSIBRAIN, ROLE_SENTIENCE)
-	var/list/candidates = pollCandidatesForMobs(question, jobbans, null, FALSE,)
+	var/list/candidates = pollGhostCandidates("Do you wish to be resurrected as a Holy Summoned Undead?", jobbans, null, FALSE,)
+	if(!candidates.len)
+		to_chat(user, "<span class='warning'>The soul pool is empty...")
+		new /obj/effect/gibspawner/human/bodypartless(altar_turf)
+		user.visible_message("<span class='warning'>The soul pool was not strong enough to bring forth the undead.")
+
+		return NOT_ENOUGH_PLAYERS
 	var/mob/dead/observer/selected = pick_n_take(candidates)
 	var/datum/mind/Mind = new /datum/mind(selected.key)
+	var/mob/living/carbon/human/species/zombie/zombie = new(altar_turf)
 	Mind.active = 1
 	Mind.transfer_to(zombie)
+	zombie.equip_to_slot_or_del(new /obj/item/storage/backpack/cultpack(zombie), ITEM_SLOT_BACK)
+	zombie.equip_to_slot_or_del(new /obj/item/clothing/under/costume/skeleton(zombie), ITEM_SLOT_ICLOTHING)
+	zombie.equip_to_slot_or_del(new /obj/item/clothing/suit/hooded/chaplain_hoodie(zombie), ITEM_SLOT_OCLOTHING)
+	zombie.equip_to_slot_or_del(new /obj/item/clothing/shoes/sneakers/black(zombie), ITEM_SLOT_FEET)
+	if(GLOB.religion)
+		var/obj/item/storage/book/bible/booze/B = new
+		zombie.mind?.holy_role = HOLY_ROLE_PRIEST
+		B.deity_name = GLOB.deity
+		B.name = GLOB.bible_name
+		B.icon_state = GLOB.bible_icon_state
+		B.item_state = GLOB.bible_item_state
+		to_chat(zombie, "There is already an established religion onboard the station. You are an acolyte of [GLOB.deity]. Defer to the Chaplain.")
+		zombie.equip_to_slot_or_del(B, ITEM_SLOT_BACKPACK)
+		GLOB.religious_sect?.on_conversion(zombie)
 	playsound(altar_turf, pick('sound/hallucinations/growl1.ogg','sound/hallucinations/growl2.ogg','sound/hallucinations/growl3.ogg',), 50, TRUE)
 	return ..()
 
@@ -338,6 +359,7 @@
 		return ..()
 
 /datum/religion_rites/living_sacrifice/invoke_effect(mob/living/user, atom/movable/religious_tool)
+	var/altar_turf = get_turf(religious_tool)
 	if(!(chosen_sacrifice in religious_tool.buckled_mobs)) //checks one last time if the right creature is still buckled
 		to_chat(user, "<span class='warning'>The right sacrifice is no longer on the altar!</span>")
 		chosen_sacrifice = null
@@ -350,6 +372,7 @@
 	if(chosen_sacrifice.mind)
 		favor_gained = 900 + round(chosen_sacrifice.health)
 	GLOB.religious_sect?.adjust_favor(favor_gained, user)
+	new /obj/effect/temp_visual/cult/blood/out(altar_turf)
 	to_chat(user, "<span class='notice'>[GLOB.deity] absorbs [chosen_sacrifice] leaving no trace behind. [GLOB.deity] rewards you with [favor_gained] favor.</span>")
 	chosen_sacrifice.dust(force = TRUE)
 	playsound(get_turf(religious_tool), 'sound/effects/supermatter.ogg', 50, TRUE)
