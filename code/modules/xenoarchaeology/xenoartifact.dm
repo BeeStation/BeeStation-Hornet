@@ -59,6 +59,7 @@
 
 /obj/item/xenoartifact/Initialize(mapload, difficulty)
 	. = ..()
+
 	material = difficulty //Difficulty is set, in most cases
 	if(!material)
 		material = pick(XENOA_BLUESPACE, XENOA_PLASMA, XENOA_URANIUM, XENOA_BANANIUM) //Maint artifacts and similar situations
@@ -68,7 +69,7 @@
 	switch(material)
 		if(XENOA_BLUESPACE) //Check xenoartifact_materials.dm for info on artifact materials/types/traits
 			name = "bluespace [name]"
-			generate_traits(list(/datum/xenoartifact_trait/minor/sharp, /datum/xenoartifact_trait/minor/radioactive,
+			generate_traits(list(/datum/xenoartifact_trait/minor/sharp,
 							/datum/xenoartifact_trait/minor/sentient, /datum/xenoartifact_trait/major/sing, 
 							/datum/xenoartifact_trait/major/laser, /datum/xenoartifact_trait/major/emp))
 			if(!xenop.price)
@@ -84,7 +85,7 @@
 							/datum/xenoartifact_trait/major/invisible,/datum/xenoartifact_trait/major/lamp, 
 							/datum/xenoartifact_trait/major/forcefield,/datum/xenoartifact_trait/activator/signal,
 							/datum/xenoartifact_trait/major/heal,/datum/xenoartifact_trait/activator/batteryneed,
-							/datum/xenoartifact_trait/activator/weighted))
+							/datum/xenoartifact_trait/activator/weighted,/datum/xenoartifact_trait/major/gas))
 			if(!xenop.price)
 				xenop.price = pick(200, 300, 500)
 			malfunction_mod = 0.5
@@ -265,7 +266,7 @@
 	if(selection.len < 1)
 		log_game("An almost impossible event has occured. [src] has failed to generate any traits with [trait_list]!")
 		return
-	new_trait = pick(selection)
+	new_trait = pickweight(selection)
 	blacklist_traits += new_trait //Add chosen trait to blacklist
 	traits += new new_trait
 	new_trait = new new_trait //type converting doesn't work too well here but this should be fine.
@@ -286,7 +287,17 @@
 
 ///Used for hand-holding secret technique. Pulling entities swaps them for you in the target list.
 /obj/item/xenoartifact/proc/process_target(atom/target)
-	if(isliving(target))
+	if(iscarbon(target)) //early return if deflect chance
+		var/mob/living/carbon/human/H = target
+		if(H.wear_suit && H.head && isclothing(H.wear_suit) && isclothing(H.head))
+			var/obj/item/clothing/CS = H.wear_suit
+			var/obj/item/clothing/CH = H.head
+			if(((CS.clothing_flags & BLOCK_ARTIFACT)||(CH.clothing_flags & BLOCK_ARTIFACT)) && prob(XENOA_DEFLECT_CHANCE))
+				to_chat(target, "<span class='warning'>The [name] was unable to target you!.</span>")
+				playsound(get_turf(target), 'sound/weapons/deflect.ogg', 35, TRUE) 
+				return
+
+	if(isliving(target)) //handle pulling
 		var/mob/living/M = target
 		. = M?.pulling ? M.pulling : M
 	else
@@ -365,7 +376,7 @@
 			visible_message("<span class='danger' size='10'>The [name] ticks.</span>")
 			true_target = list(get_target_in_proximity(min(max_range, 5)))
 			default_activate(25, null, null)
-			if(prob(23) && COOLDOWN_FINISHED(src, xenoa_cooldown))
+			if(prob(XENOA_TICK_CANCEL_PROB) && COOLDOWN_FINISHED(src, xenoa_cooldown))
 				process_type = null
 				return PROCESS_KILL
 		else    

@@ -26,11 +26,19 @@
 ///Max vendors / buyers in each catergory
 #define XENOA_MAX_VENDORS 8
 
-#define XENOA_ACTIVATORS subtypesof(/datum/xenoartifact_trait/activator) //traits types, referenced for generation
-#define XENOA_MINORS subtypesof(/datum/xenoartifact_trait/minor)
-#define XENOA_MAJORS subtypesof(/datum/xenoartifact_trait/major)
-#define XENOA_MALFS subtypesof(/datum/xenoartifact_trait/malfunction)
+///traits types, referenced for generation
+#define XENOA_ACTIVATORS compile_artifact_weights(/datum/xenoartifact_trait/activator)
+#define XENOA_MINORS compile_artifact_weights(/datum/xenoartifact_trait/minor)
+#define XENOA_MAJORS compile_artifact_weights(/datum/xenoartifact_trait/major)
+#define XENOA_MALFS compile_artifact_weights(/datum/xenoartifact_trait/malfunction)
 
-//some trait defines
+//Specific trait defines
 ///Bear limit
 #define XENOA_MAX_BEARS 3
+///Max targets on expansive
+#define XENOA_MAX_TARGETS 10
+///Tick chance to untick
+#define XENOA_TICK_CANCEL_PROB 13
+
+///Chance to avoid target if wearing bomb suit
+#define XENOA_DEFLECT_CHANCE 45

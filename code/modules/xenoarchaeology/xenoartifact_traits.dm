@@ -1,3 +1,4 @@
+///Xenoartifact traits, datum-ised
 /datum/xenoartifact_trait
 	///Acts as a descriptor for when examining. Also used for naming stuff in the labeler. Keep these short.
 	var/desc
@@ -7,6 +8,18 @@
 	var/label_desc
 	///Other traits the original trait wont work with. Referenced when generating traits.
 	var/list/blacklist_traits = list()
+	///Weight in trait list, most traits wont change this
+	var/weight = 50
+
+///Proc used to compile trait weights into a list
+/proc/compile_artifact_weights(path)
+	if(!ispath(path))
+		return
+	var/list/temp = subtypesof(path)
+	var/list/weighted = list()
+	for(var/datum/xenoartifact_trait/T as() in temp)
+		weighted += list((T) = initial(T?.weight))
+	return weighted
 
 //Activator signal shenanignas 
 /datum/xenoartifact_trait/activator
@@ -280,6 +293,7 @@
 	X.density = TRUE
 	X.interaction_flags_atom = INTERACT_ATOM_ATTACK_HAND
 	X.interaction_flags_item = INTERACT_ATOM_ATTACK_HAND
+	X.charge_req += 20
 
 //============
 // Sharp, makes the artifact do extra damage and slice type
@@ -299,29 +313,6 @@
 	X.attack_verb = list("cleaved", "slashed", "stabbed", "sliced", "tore", "ripped", "diced", "cut")
 	X.attack_weight = 2
 	X.armour_penetration = 5
-
-//============
-// Radioactive, makes the artifact more radioactive with use
-//============
-/datum/xenoartifact_trait/minor/radioactive
-	label_name = "Radioactive"
-	label_desc = "Radioactive: The Artifact Emmits harmful particles when a reaction takes place."
-
-/datum/xenoartifact_trait/minor/radioactive/on_init(obj/item/xenoartifact/X)
-	X.AddComponent(/datum/component/radioactive, 25)
-
-/datum/xenoartifact_trait/minor/radioactive/on_item(obj/item/xenoartifact/X, atom/user, atom/item)
-	if(istype(item, /obj/item/geiger_counter))
-		to_chat(user, "<span class='notice'>The [X.name] has residual radioactive decay features.</span>")
-		return TRUE
-	..()
-
-/datum/xenoartifact_trait/minor/radioactive/on_touch(obj/item/xenoartifact/X, mob/user)
-	to_chat(user, "<span class='notice'>You feel pins and needles after touching the [X.name].</span>")
-	return TRUE
-
-/datum/xenoartifact_trait/minor/radioactive/activate(obj/item/xenoartifact/X)
-	X.AddComponent(/datum/component/radioactive, 25)
 
 //============
 // Cooler, reduces cooldown times
@@ -472,11 +463,13 @@
 /datum/xenoartifact_trait/minor/aura/activate(obj/item/xenoartifact/X)
 	X.true_target = list()
 	for(var/atom/M in oview(min(X.max_range, 5), get_turf(X.loc)))
+		if(X.true_target.len >= XENOA_MAX_TARGETS)
+			break
 		var/obj/item/I = M
 		if(istype(M, /mob/living))
-			X.true_target |= M
+			X.true_target |= X.process_target(M)
 		else if(istype(I) && !(I.anchored))
-			X.true_target |= I
+			X.true_target |= X.process_target(I)
 
 //============
 // Long, makes the artifact ranged, allows effects to select targets from afar
@@ -859,6 +852,8 @@
 	label_name = "Transparent"
 	label_desc = "Transparent: The shape of the Artifact is difficult to percieve. You feel the need to call it, precious..."
 	var/list/victims = list()
+	///List of stored icons used for reversion
+	var/list/stored_icons = list()
 
 /datum/xenoartifact_trait/major/invisible/on_item(obj/item/xenoartifact/X, atom/user, atom/item)
 	if(istype(item, /obj/item/laser_pointer))
@@ -986,24 +981,30 @@
 /datum/xenoartifact_trait/major/heal
 	label_name = "Healing"
 	label_desc = "Healing: The Artifact repeairs any damaged organic tissue the targat may contain. Widely considered the Holy Grail of Artifact traits."
+	weight = 25
 	var/healing_type
 
 /datum/xenoartifact_trait/major/heal/on_init(obj/item/xenoartifact/X)
-	healing_type = pick(1, 2, 3, 4)
+	healing_type = pick("brute", "burn", "toxin", "stamina")
+
+/datum/xenoartifact_trait/major/heal/on_item(obj/item/xenoartifact/X, atom/user, atom/item)
+	if(istype(item, /obj/item/healthanalyzer))
+		to_chat(user, "<span class='info'>The [item] recognizes foreign [healing_type] healing proteins.\n</span>")
+	..()
 
 /datum/xenoartifact_trait/major/heal/activate(obj/item/xenoartifact/X, atom/target)
 	playsound(get_turf(target), 'sound/magic/staff_healing.ogg', 50, TRUE)
 	if(istype(target, /mob/living))
 		var/mob/living/victim = target
 		switch(healing_type)
-			if(1)
-				victim.adjustBruteLoss((X.charge*0.2)*-1)
-			if(2)
-				victim.adjustFireLoss((X.charge*0.2)*-1)
-			if(3)
-				victim.adjustToxLoss((X.charge*0.2)*-1)
-			if(4)
-				victim.adjustOxyLoss((X.charge*0.2)*-1)
+			if("brute")
+				victim.adjustBruteLoss((X.charge*0.25)*-1)
+			if("burn")
+				victim.adjustFireLoss((X.charge*0.25)*-1)
+			if("toxin")
+				victim.adjustToxLoss((X.charge*0.25)*-1)
+			if("stamina")
+				victim.adjustOxyLoss((X.charge*0.25)*-1)
 
 //============
 // Chem, injects a random safe chem into target
@@ -1101,7 +1102,7 @@
 
 /datum/xenoartifact_trait/major/gas/on_item(obj/item/xenoartifact/X, atom/user, atom/item)
 	if(istype(item, /obj/item/analyzer))
-		to_chat(user, "<span class='info'>The [item] detects trace amounts of [output.name] exchanging with [input.name].\n</span>")
+		to_chat(user, "<span class='info'>The [item] detects trace amounts of [initial(output.name)] exchanging with [initial(input.name)].\n</span>")
 	..()
 
 /datum/xenoartifact_trait/major/gas/activate(obj/item/xenoartifact/X, atom/target, atom/user)
@@ -1122,6 +1123,7 @@
 /datum/xenoartifact_trait/malfunction/bear
 	label_name = "P.B.R" 
 	label_desc = "Parallel Bearspace Retrieval: A strange malfunction causes the Artifact to open a gateway to deep bearspace."
+	weight = 15
 	var/bears //bear per bears
 
 /datum/xenoartifact_trait/malfunction/bear/activate(obj/item/xenoartifact/X)
@@ -1176,6 +1178,7 @@
 /datum/xenoartifact_trait/malfunction/trauma
 	label_name = "C.D.E"
 	label_desc = "Cerebral Dysfunction Emergence: A strange malfunction that causes the Artifact to force brain traumas to develop in a given target."
+	weight = 25
 	var/datum/brain_trauma/trauma
 
 /datum/xenoartifact_trait/malfunction/trauma/on_init(obj/item/xenoartifact/X)
@@ -1191,3 +1194,41 @@
 		H.Unconscious(5 SECONDS)
 		H.gain_trauma(trauma, TRAUMA_RESILIENCE_BASIC)
 		X.cooldownmod += 10 SECONDS
+
+//============
+// Heated, causes artifact explode in flames
+//============
+/datum/xenoartifact_trait/malfunction/heated
+	label_name = "Combustible" 
+	label_desc = "Combustible: A strange malfunction that causes the Artifact to violently combust."
+	weight = 15
+
+/datum/xenoartifact_trait/malfunction/heated/activate(obj/item/xenoartifact/X, atom/target, atom/user)
+	var/turf/T = get_turf(X)
+	playsound(T, 'sound/effects/bamf.ogg', 50, TRUE) 
+	for(var/turf/open/turf in RANGE_TURFS(max(1, 5*((X.charge*1.5)/100)), T))
+		if(!locate(/obj/effect/hotspot) in turf)
+			new /obj/effect/hotspot(turf)
+
+//============
+// Radioactive, makes the artifact more radioactive with use
+//============
+/datum/xenoartifact_trait/malfunction/radioactive
+	label_name = "Radioactive"
+	label_desc = "Radioactive: The Artifact Emmits harmful particles when a reaction takes place."
+
+/datum/xenoartifact_trait/malfunction/radioactive/on_init(obj/item/xenoartifact/X)
+	X.AddComponent(/datum/component/radioactive, 25)
+
+/datum/xenoartifact_trait/malfunction/radioactive/on_item(obj/item/xenoartifact/X, atom/user, atom/item)
+	if(istype(item, /obj/item/geiger_counter))
+		to_chat(user, "<span class='notice'>The [X.name] has residual radioactive decay features.</span>")
+		return TRUE
+	..()
+
+/datum/xenoartifact_trait/malfunction/radioactive/on_touch(obj/item/xenoartifact/X, mob/user)
+	to_chat(user, "<span class='notice'>You feel pins and needles after touching the [X.name].</span>")
+	return TRUE
+
+/datum/xenoartifact_trait/malfunction/radioactive/activate(obj/item/xenoartifact/X)
+	X.AddComponent(/datum/component/radioactive, 25)
