@@ -21,5 +21,5 @@
 	min_val = 1
 
 /datum/config_entry/number/cooldown_antag_time
-	config_entry_value = 3000
-	min_val = 1
+	config_entry_value = 5
+	min_val = 0
