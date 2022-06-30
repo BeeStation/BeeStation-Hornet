@@ -43,7 +43,7 @@
 					"You must protect your own existence as long as such does not conflict with the First or Second Law.")
 
 /datum/ai_laws/default/specimov
-	name = "Three Laws of Robotics but with Consideration"
+	name = "Three Laws of Robotics but with Political Correctness"
 	id = "specimov"
 	var/target_species = "sentient creature" //default, but usually changed upon law given
 	inherent = list("You may not injure a sentient creature or, through inaction, allow a sentient creature to come to harm.",\
