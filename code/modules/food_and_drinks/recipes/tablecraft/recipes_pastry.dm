@@ -342,7 +342,7 @@
 	name = "Spicy-pocket"
 	reqs = list(
 		/obj/item/reagent_containers/food/snacks/pastrybase = 1,
-		/obj/item/reagent_containers/food/snacks/grown/chili
+		/obj/item/reagent_containers/food/snacks/grown/chili = 1
 	)
 	result = /obj/item/reagent_containers/food/snacks/donkpocket/spicy
 	subcategory = CAT_PASTRY
