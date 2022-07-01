@@ -113,7 +113,7 @@
 	for(var/turf/T in get_area_turfs(thearea.type))
 		if(T.get_virtual_z_level() != A.affected_mob.get_virtual_z_level())
 			continue
-		if(T.name == "space")
+		if(isgroundlessturf(T))
 			continue
 		if(!T.density)
 			var/clear = 1
