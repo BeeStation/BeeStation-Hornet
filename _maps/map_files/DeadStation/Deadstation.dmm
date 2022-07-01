@@ -552,7 +552,7 @@
 /turf/open/floor/plasteel,
 /area/engine/gravity_generator)
 "aDp" = (
-/obj/effect/spawner/room/threexthree,
+/obj/machinery/space_heater,
 /turf/open/floor/plating,
 /area/maintenance/department/medical)
 "aDx" = (
@@ -2774,9 +2774,7 @@
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
 	dir = 8
 	},
-/obj/structure/chair{
-	dir = 4
-	},
+/obj/machinery/door/firedoor/border_only,
 /turf/open/floor/plasteel,
 /area/hallway/secondary/exit/departure_lounge)
 "cDe" = (
@@ -3896,6 +3894,9 @@
 /obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/structure/chair{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/exit/departure_lounge)
 "dPf" = (
@@ -5463,6 +5464,7 @@
 	pixel_x = -25;
 	specialfunctions = 4
 	},
+/obj/machinery/washing_machine,
 /turf/open/floor/wood,
 /area/crew_quarters/dorms)
 "frh" = (
@@ -5633,9 +5635,7 @@
 "fvF" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/structure/chair{
-	dir = 4
-	},
+/obj/structure/stairs,
 /turf/open/floor/plasteel,
 /area/hallway/secondary/exit/departure_lounge)
 "fvI" = (
@@ -6596,6 +6596,7 @@
 	pixel_y = -2
 	},
 /obj/machinery/light,
+/obj/item/mecha_parts/mecha_equipment/cable_layer,
 /turf/open/floor/plasteel,
 /area/engine/engine_smes)
 "gFx" = (
@@ -6615,6 +6616,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/structure/chair{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/exit/departure_lounge)
 "gGc" = (
@@ -9915,6 +9919,15 @@
 	},
 /turf/open/floor/plasteel,
 /area/engine/atmos)
+"keO" = (
+/obj/machinery/door/firedoor/border_only{
+	dir = 8
+	},
+/obj/structure/railing{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/hallway/secondary/exit/departure_lounge)
 "kfK" = (
 /turf/closed/wall/r_wall,
 /area/ai_monitored/security/armory)
@@ -12707,6 +12720,7 @@
 	pixel_x = -25;
 	specialfunctions = 4
 	},
+/obj/machinery/washing_machine,
 /turf/open/floor/wood,
 /area/crew_quarters/dorms)
 "ndD" = (
@@ -13219,9 +13233,9 @@
 /turf/open/floor/plasteel/white,
 /area/medical/medbay)
 "nAm" = (
-/obj/structure/closet/secure_closet/engineering_electrical,
-/turf/open/floor/plasteel,
-/area/engine/break_room)
+/obj/structure/closet/firecloset/full,
+/turf/open/floor/plating,
+/area/maintenance/department/medical)
 "nAS" = (
 /obj/effect/landmark/start/station_engineer,
 /obj/structure/disposalpipe/segment,
@@ -16112,6 +16126,9 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
+/obj/machinery/atmospherics/pipe/manifold/general/visible{
+	dir = 4
+	},
 /turf/open/floor/plasteel/white,
 /area/medical/genetics/cloning)
 "qvb" = (
@@ -16564,6 +16581,9 @@
 	},
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/general/visible{
+	dir = 10
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/genetics/cloning)
@@ -17888,9 +17908,9 @@
 /turf/open/floor/plasteel,
 /area/hallway/secondary/command)
 "sbN" = (
-/obj/structure/closet/secure_closet/engineering_welding,
-/turf/open/floor/plasteel,
-/area/engine/break_room)
+/obj/structure/closet/emcloset/anchored,
+/turf/open/floor/plating,
+/area/maintenance/department/medical)
 "scn" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Central Access"
@@ -18030,9 +18050,6 @@
 /obj/machinery/atmospherics/pipe/simple/orange/visible{
 	dir = 9
 	},
-/obj/machinery/atmospherics/components/unary/portables_connector/layer2{
-	dir = 4
-	},
 /obj/machinery/portable_atmospherics/canister/toxins,
 /obj/effect/turf_decal/tile/yellow{
 	dir = 1
@@ -18041,6 +18058,9 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/yellow,
+/obj/machinery/atmospherics/components/unary/portables_connector/visible/layer2{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/engine/engineering)
 "sig" = (
@@ -18808,9 +18828,11 @@
 /turf/closed/wall/r_wall,
 /area/crew_quarters/heads/hop)
 "sXh" = (
-/obj/structure/closet/secure_closet/personal/patient,
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
+	},
+/obj/machinery/atmospherics/components/unary/portables_connector/visible{
+	dir = 4
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/genetics/cloning)
@@ -19006,6 +19028,13 @@
 /obj/structure/sign/departments/minsky/research/genetics,
 /turf/closed/wall,
 /area/medical/genetics)
+"tjo" = (
+/obj/effect/turf_decal/tile/yellow{
+	dir = 1
+	},
+/obj/structure/closet/secure_closet/engineering_welding,
+/turf/open/floor/plasteel,
+/area/engine/break_room)
 "tjA" = (
 /obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/maintenance/three,
@@ -19248,8 +19277,10 @@
 /turf/open/floor/plasteel,
 /area/security/prison)
 "twA" = (
-/obj/structure/closet/secure_closet/personal/patient,
 /obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/machinery/atmospherics/components/unary/cryo_cell{
 	dir = 4
 	},
 /turf/open/floor/plasteel/white,
@@ -19428,6 +19459,9 @@
 	departmentType = 5;
 	name = "Cloning RC";
 	pixel_y = -32
+	},
+/obj/machinery/atmospherics/pipe/simple/general/visible{
+	dir = 9
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/genetics/cloning)
@@ -19775,6 +19809,7 @@
 	departmentType = 5;
 	name = "EVA RC"
 	},
+/obj/structure/closet/crate/rcd,
 /turf/open/floor/plasteel,
 /area/ai_monitored/storage/eva)
 "tYY" = (
@@ -20607,6 +20642,9 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
+/obj/structure/railing/corner{
+	dir = 8
+	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/exit/departure_lounge)
 "uHp" = (
@@ -20698,6 +20736,7 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 1
 	},
+/obj/structure/closet/secure_closet/engineering_electrical,
 /turf/open/floor/plasteel,
 /area/engine/break_room)
 "uLv" = (
@@ -21964,6 +22003,7 @@
 /obj/machinery/camera/autoname{
 	dir = 10
 	},
+/obj/structure/stairs,
 /turf/open/floor/plasteel,
 /area/hallway/secondary/exit/departure_lounge)
 "wpT" = (
@@ -22456,12 +22496,14 @@
 /turf/open/floor/plating,
 /area/maintenance/disposal)
 "wNq" = (
-/obj/structure/closet/secure_closet/personal/patient,
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
 /obj/machinery/light{
 	dir = 8
+	},
+/obj/machinery/atmospherics/components/unary/thermomachine/freezer/on{
+	dir = 4
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/genetics/cloning)
@@ -23043,15 +23085,15 @@
 /area/crew_quarters/heads/hop)
 "xtj" = (
 /obj/machinery/atmospherics/pipe/simple/orange/visible,
-/obj/machinery/atmospherics/components/unary/portables_connector/layer2{
-	dir = 4
-	},
 /obj/machinery/portable_atmospherics/canister/toxins,
 /obj/effect/turf_decal/tile/yellow{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
+	},
+/obj/machinery/atmospherics/components/unary/portables_connector/visible/layer2{
+	dir = 4
 	},
 /turf/open/floor/plasteel,
 /area/engine/engineering)
@@ -23441,6 +23483,12 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
 	dir = 1
+	},
+/obj/machinery/door/firedoor/border_only{
+	dir = 8
+	},
+/obj/structure/railing{
+	dir = 8
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/exit/departure_lounge)
@@ -51863,9 +51911,9 @@ eQc
 tlN
 kUO
 nSm
-sbN
+aJj
 qEQ
-fyc
+tjo
 ueU
 kUi
 lPK
@@ -52120,7 +52168,7 @@ eQc
 tlN
 uqG
 wOf
-nAm
+aJj
 qEQ
 uLm
 hfB
@@ -64995,7 +65043,7 @@ fMU
 fMU
 adc
 uHj
-fMU
+keO
 xLB
 bRz
 ceC
@@ -65479,8 +65527,8 @@ qwj
 qwj
 qwj
 qwj
-avo
-avo
+sbN
+aDp
 aDp
 wjy
 dgq
@@ -65993,9 +66041,9 @@ wjy
 wjy
 wjy
 jAG
-avo
-avo
-avo
+sbN
+nAm
+nAm
 jAG
 jAG
 jAG
