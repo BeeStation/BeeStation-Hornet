@@ -27,6 +27,7 @@
 	AddComponent(/datum/component/butchering, 100, 70) //decent in a pinch, but pretty bad.
 	AddComponent(/datum/component/jousting)
 	AddComponent(/datum/component/two_handed, force_unwielded=10, force_wielded=18, block_power_wielded=25, icon_wielded="[icon_prefix]1")
+	update_icon()
 
 /obj/item/spear/update_icon()
 	icon_state = "[icon_prefix]0"
@@ -123,13 +124,30 @@
 
 /obj/item/spear/explosive/afterattack(atom/movable/AM, mob/user, proximity)
 	. = ..()
-	if(!proximity)
+	if(!proximity || !istype(AM))
 		return
-	if(ISWIELDED(src))
-		user.say("[war_cry]", forced="spear warcry")
-		explosive.forceMove(AM)
+
+///Keep this addition in mind when updating resistance flags to atom level
+//	if(AM.resistance_flags & INDESTRUCTIBLE) //due to the lich incident of 2021, embedding grenades inside of indestructible structures is forbidden
+//		return
+
+	if(ismob(AM))
+		var/mob/mob_target = AM
+		if(mob_target.status_flags & GODMODE) //no embedding grenade phylacteries inside of ghost poly either
+			return
+	if(iseffect(AM)) //and no accidentally wasting your moment of glory on graffiti
+		return
+	user.say("[war_cry]", forced="spear warcry")
+	if(isliving(user))
+		var/mob/living/living_user = user
+		living_user.set_resting(TRUE)
+		living_user.Move(get_turf(AM))
+		explosive.forceMove(get_turf(living_user))
 		explosive.prime(lanced_by=user)
-		qdel(src)
+		if(!QDELETED(living_user))
+			living_user.set_resting(TRUE)
+	qdel(src)
+
 
 //GREY TIDE
 /obj/item/spear/grey_tide
