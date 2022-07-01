@@ -71,7 +71,8 @@
 			name = "bluespace [name]"
 			generate_traits(list(/datum/xenoartifact_trait/minor/sharp,
 							/datum/xenoartifact_trait/minor/sentient, /datum/xenoartifact_trait/major/sing, 
-							/datum/xenoartifact_trait/major/laser, /datum/xenoartifact_trait/major/emp))
+							/datum/xenoartifact_trait/major/laser, /datum/xenoartifact_trait/major/emp,
+							/datum/xenoartifact_trait/major/distablizer))
 			if(!xenop.price)
 				xenop.price = pick(100, 200, 300)
 
@@ -85,7 +86,8 @@
 							/datum/xenoartifact_trait/major/invisible,/datum/xenoartifact_trait/major/lamp, 
 							/datum/xenoartifact_trait/major/forcefield,/datum/xenoartifact_trait/activator/signal,
 							/datum/xenoartifact_trait/major/heal,/datum/xenoartifact_trait/activator/batteryneed,
-							/datum/xenoartifact_trait/activator/weighted,/datum/xenoartifact_trait/major/gas))
+							/datum/xenoartifact_trait/activator/weighted,/datum/xenoartifact_trait/major/gas,
+							/datum/xenoartifact_trait/major/distablizer))
 			if(!xenop.price)
 				xenop.price = pick(200, 300, 500)
 			malfunction_mod = 0.5
@@ -287,7 +289,7 @@
 
 ///Used for hand-holding secret technique. Pulling entities swaps them for you in the target list.
 /obj/item/xenoartifact/proc/process_target(atom/target)
-	if(iscarbon(target)) //early return if deflect chance
+	if(ishuman(target)) //early return if deflect chance
 		var/mob/living/carbon/human/H = target
 		if(H.wear_suit && H.head && isclothing(H.wear_suit) && isclothing(H.head))
 			var/obj/item/clothing/CS = H.wear_suit

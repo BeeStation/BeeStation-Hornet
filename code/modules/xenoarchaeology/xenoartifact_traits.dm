@@ -95,6 +95,7 @@
 /datum/xenoartifact_trait/proc/on_item(obj/item/xenoartifact/X, atom/user, atom/item) //Item hint responses
 	return FALSE
 
+///This is better than initialize just for our specific control purposes, definitely not becuase I forgot to use it somehow.
 /datum/xenoartifact_trait/proc/on_init(obj/item/xenoartifact/X)
 	return
 
@@ -225,7 +226,7 @@
 	label_desc = "Weighted: The material is weighted and produces a reaction when picked up."
 	charge = 25
 	signals = list(COMSIG_ITEM_PICKUP)
-	blacklist_traits = list(/datum/xenoartifact_trait/minor/dense, /datum/xenoartifact_trait/minor/anchor)
+	blacklist_traits = list(/datum/xenoartifact_trait/minor/dense, /datum/xenoartifact_trait/minor/anchor, /datum/xenoartifact_trait/major/distablizer)
 
 /datum/xenoartifact_trait/activator/weighted/calculate_charge(datum/source, obj/item/thing, mob/user, atom/target)
 	var/obj/item/xenoartifact/X = source
@@ -287,7 +288,7 @@
 /datum/xenoartifact_trait/minor/dense //Rather large, quite gigantic, particularly big
 	desc = "Dense"
 	label_desc = "Dense: The Artifact is dense and cannot be easily lifted but, the design has a slightly higher reaction rate."
-	blacklist_traits = list(/datum/xenoartifact_trait/minor/wearable, /datum/xenoartifact_trait/minor/sharp, /datum/xenoartifact_trait/minor/light, /datum/xenoartifact_trait/minor/heavy, /datum/xenoartifact_trait/minor/blocking)
+	blacklist_traits = list(/datum/xenoartifact_trait/minor/wearable, /datum/xenoartifact_trait/minor/sharp, /datum/xenoartifact_trait/minor/light, /datum/xenoartifact_trait/minor/heavy, /datum/xenoartifact_trait/minor/blocking, /datum/xenoartifact_trait/minor/anchor)
 
 /datum/xenoartifact_trait/minor/dense/on_init(obj/item/xenoartifact/X)
 	X.density = TRUE
@@ -571,6 +572,7 @@
 
 /datum/xenoartifact_trait/minor/anchor/on_item(obj/item/xenoartifact/X, atom/user, obj/item/item)
 	if(istype(item) && item.tool_behaviour == TOOL_WRENCH)
+		to_chat(user, "<span class='info'>You [X.anchored ? "anchor" : "unanchor"] the [X.name].</span>")
 		if(isliving(X.loc))
 			var/mob/living/holder = X.loc
 			holder.dropItemToGround(X)
@@ -593,6 +595,32 @@
 /datum/xenoartifact_trait/minor/slippery/Destroy(force, ...)
 	qdel(slipper)
 	slipper = null
+	..()
+
+//============
+// haunted, the artifact can be controlled by deadchat, works well with sentient
+//============
+/datum/xenoartifact_trait/minor/haunted
+	label_name = "Haunted"
+	label_desc = "Haunted: The Artifact's appears to interact with bluespace spatial regression, causing the item to appear haunted."
+	blacklist_traits = list(/datum/xenoartifact_trait/minor/dense)
+	weight = 23
+	var/datum/component/deadchat_control/controller
+
+/datum/xenoartifact_trait/minor/haunted/on_init(obj/item/xenoartifact/X)
+	controller = X._AddComponent(list(/datum/component/deadchat_control, "democracy", list(
+			 "up" = CALLBACK(GLOBAL_PROC, .proc/_step, X, NORTH),
+			 "down" = CALLBACK(GLOBAL_PROC, .proc/_step, X, SOUTH),
+			 "left" = CALLBACK(GLOBAL_PROC, .proc/_step, X, WEST),
+			 "right" = CALLBACK(GLOBAL_PROC, .proc/_step, X, EAST)), 120))
+
+/datum/xenoartifact_trait/minor/haunted/on_item(obj/item/xenoartifact/X, atom/user, atom/item)
+	if(istype(item, /obj/item/storage/book/bible))
+		to_chat(user, "<span class='warning'>The [X.name] rumbles on contact with the [item].</span>")
+
+/datum/xenoartifact_trait/minor/haunted/Destroy(force, ...)
+	qdel(controller)
+	controller = null
 	..()
 	
 //Major traits - The artifact's main gimmick, how it interacts with the world
@@ -1098,6 +1126,7 @@
 
 /datum/xenoartifact_trait/major/gas/on_init(obj/item/xenoartifact/X)
 	input = pickweight(valid_inputs)
+	valid_outputs -= input //in the rare case the artifact wants to exhcange plasma for more plasma.
 	output = pickweight(valid_outputs)
 
 /datum/xenoartifact_trait/major/gas/on_item(obj/item/xenoartifact/X, atom/user, atom/item)
@@ -1114,6 +1143,46 @@
 	if(moles)
 		air.adjust_moles(input_id, -moles)
 		air.adjust_moles(output_id, moles)
+
+//============
+// Destabilizing, teleports the victim to that weird place from the exploration meme.
+//============
+/datum/xenoartifact_trait/major/distablizer
+	label_name = "Destabilizing"
+	label_desc = "Destabilizing: The Artifact collapses an improper bluespace matrix on the target, sending them to an unknown location."
+	weight = 23
+	var/obj/item/xenoartifact/exit
+
+/datum/xenoartifact_trait/major/distablizer/on_init(obj/item/xenoartifact/X)
+	exit = X
+	GLOB.destabliization_exits += X
+
+/datum/xenoartifact_trait/major/distablizer/on_item(obj/item/xenoartifact/X, atom/user, atom/item)
+	if(do_banish(item))
+		to_chat(user, "<span class='warning'>The [item] dissapears!</span>")
+
+
+/datum/xenoartifact_trait/major/distablizer/activate(obj/item/xenoartifact/X, atom/target, atom/user)
+	if(do_banish(target))
+		X.cooldownmod = X.charge*0.2 SECONDS
+
+/datum/xenoartifact_trait/major/distablizer/proc/do_banish(atom/target)
+	. = FALSE
+	if(isliving(exit.loc))
+		var/mob/living/holder = exit.loc
+		holder.dropItemToGround(exit)
+	if(istype(target, /obj/item/xenoartifact))
+		return
+	if(ismovable(target))
+		var/atom/movable/AM = target
+		if(AM.anchored)
+			return
+		if(AM.forceMove(pick(GLOB.destabilization_spawns)))
+			return TRUE
+
+/datum/xenoartifact_trait/major/distablizer/Destroy(force, ...)
+	GLOB.destabliization_exits -= exit
+	..()
 
 //Malfunctions
 
