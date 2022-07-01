@@ -809,13 +809,21 @@ update_label("John Doe", "Clowny")
 	hud_state = JOB_HUD_RAWSECURITY
 
 
-///Job Specific ID Cards///
+/// Job Specific ID Cards///
+// These should have default job name and hud state, etc, because chameleon card needs such information
+// ---- Command ----
 /obj/item/card/id/job/captain
 	name = "Job card (Com) - Captain"
 	assignment = "Captain"
 	icon_state = "captain"
 	hud_state = JOB_HUD_CAPTAIN
 
+/obj/item/card/id/job/rawcommand
+	name = "Job card (Com) - Custom"
+	icon_state = JOB_HUD_RAWCOMMAND
+	hud_state = JOB_HUD_RAWCOMMAND
+
+// ---- Service ----
 /obj/item/card/id/job/assistant
 	name = "Job card (Serv) - Assistant"
 	assignment = "Assistant"
@@ -827,121 +835,6 @@ update_label("John Doe", "Clowny")
 	assignment = "Head of Personnel"
 	icon_state = "hop"
 	hud_state = JOB_HUD_HEADOFPERSONNEL
-
-/obj/item/card/id/job/ce
-	name = "Job card (Eng) - CE"
-	assignment = "Chief Engineer"
-	icon_state = "ce"
-	hud_state = JOB_HUD_CHIEFENGINEER
-
-/obj/item/card/id/job/engi
-	name = "Job card (Eng) - Station Engi"
-	assignment = "Station Engineer"
-	icon_state = "engi"
-	hud_state = JOB_HUD_STATIONENGINEER
-
-/obj/item/card/id/job/atmos
-	name = "Job card (Eng) - Atmos"
-	assignment = "Atmospheric Technician"
-	icon_state = "atmos"
-	hud_state = JOB_HUD_ATMOSPHERICTECHNICIAN
-
-/obj/item/card/id/job/cmo
-	name = "Job card (Med) - CMO"
-	assignment = "Chief Medical Officer"
-	icon_state = "cmo"
-	hud_state = JOB_HUD_CHEIFMEDICALOFFICIER
-
-/obj/item/card/id/job/med
-	name = "Job card (Med) - Medical Doctor"
-	assignment = "Medical Doctor"
-	icon_state = "med"
-	hud_state = JOB_HUD_MEDICALDOCTOR
-
-/obj/item/card/id/job/paramed
-	name = "Job card (Med) - Paramedic"
-	assignment = "Paramedic"
-	icon_state = "paramed"
-	hud_state = JOB_HUD_PARAMEDIC
-
-/obj/item/card/id/job/viro
-	name = "Job card (Med) - Virologist"
-	assignment = "Virologist"
-	icon_state = "viro"
-	hud_state = JOB_HUD_VIROLOGIST
-
-/obj/item/card/id/job/chemist
-	name = "Job card (Med) - Chemist"
-	assignment = "Chemist"
-	icon_state = "chemist"
-	hud_state = JOB_HUD_CHEMIST
-
-/obj/item/card/id/job/gene
-	name = "Job card (Med) - Geneticist"
-	assignment = "Geneticist"
-	icon_state = "gene"
-	hud_state = JOB_HUD_GENETICIST
-
-/obj/item/card/id/job/psychi
-	name = "Job card (Med) - Psychiatrist"
-	assignment = "Psychiatrist"
-	icon_state = "med"
-	hud_state = JOB_HUD_PSYCHIATRIST
-
-/obj/item/card/id/job/hos
-	name = "Job card (Sec) - HoS"
-	assignment = "Head of Security"
-	icon_state = "hos"
-	hud_state = JOB_HUD_HEADOFSECURITY
-
-/obj/item/card/id/job/sec
-	name = "Job card (Sec) - Security Officer"
-	assignment = "Security Officier"
-	icon_state = "sec"
-	hud_state = JOB_HUD_SECURITYOFFICER
-
-/obj/item/card/id/job/brigphys
-	name = "Job card (Sec) - Brig Phys"
-	assignment = "Brig Physician"
-	icon_state = "brigphys"
-	hud_state = JOB_HUD_BRIGPHYSICIAN
-
-/obj/item/card/id/job/deputy
-	name = "Job card (Sec) - Deputy"
-	assignment = "Deputy"
-	icon_state = "deputy"
-	hud_state = JOB_HUD_DEPUTY
-
-/obj/item/card/id/job/detective
-	name = "Job card (Sec) - Detective"
-	assignment = "Detective"
-	icon_state = "detective"
-	hud_state = JOB_HUD_DETECTIVE
-
-/obj/item/card/id/job/warden
-	name = "Job card (Sec) - Warden"
-	assignment = "Warden"
-	icon_state = "warden"
-	hud_state = JOB_HUD_WARDEN
-
-/obj/item/card/id/job/rd
-	name = "Job card (RND) - RD"
-	assignment = "Research Director"
-	icon_state = "rd"
-	hud_state = JOB_HUD_RESEARCHDIRECTOR
-
-/obj/item/card/id/job/roboticist
-	name = "Job card (RND) - Roboticist"
-	assignment = "Roboticist"
-	icon_state = "roboticist"
-	hud_state = JOB_HUD_ROBOTICIST
-
-/obj/item/card/id/job/sci
-	name = "Job card (RND) - Scientist"
-	assignment = "Scientist"
-	icon_state = "sci"
-	hud_state = JOB_HUD_SCIENTIST
-
 /obj/item/card/id/job/botanist
 	name = "Job card (Serv) - Botanist"
 	assignment = "Botanist"
@@ -990,30 +883,6 @@ update_label("John Doe", "Clowny")
 	icon_state = "janitor"
 	hud_state = JOB_HUD_JANITOR
 
-/obj/item/card/id/job/qm
-	name = "Job card (Cargo) - QM"
-	assignment = "Quartermaster"
-	icon_state = "qm"
-	hud_state = JOB_HUD_QUARTERMASTER
-
-/obj/item/card/id/job/miner
-	name = "Job card (Cargo) - Shaft Miner"
-	assignment = "Shaft Miner"
-	icon_state = "miner"
-	hud_state = JOB_HUD_SHAFTMINER
-
-/obj/item/card/id/job/cargo
-	name = "Job card (Cargo) - Cargo Tech"
-	assignment = "Cargo Technician"
-	icon_state = "cargo"
-	hud_state = JOB_HUD_CARGOTECHNICIAN
-
-/obj/item/card/id/job/exploration
-	name = "Job card (RND) - Explo Crew"
-	assignment = "Exploration Crew"
-	icon_state = "exploration"
-	hud_state = JOB_HUD_EXPLORATIONCREW
-
 /obj/item/card/id/job/clown
 	name = "Job card (Serv) - Clown"
 	assignment = "Clown"
@@ -1032,6 +901,186 @@ update_label("John Doe", "Clowny")
 	icon_state = "lawyer"
 	hud_state = JOB_HUD_LAWYER
 
+/obj/item/card/id/job/rawservice
+	name = "Job card (Serv) - Custom"
+	icon_state = JOB_HUD_RAWSERVICE
+	hud_state = JOB_HUD_RAWSERVICE
+
+// ---- Cargo ----
+/obj/item/card/id/job/qm
+	name = "Job card (Cargo) - QM"
+	assignment = "Quartermaster"
+	icon_state = "qm"
+	hud_state = JOB_HUD_QUARTERMASTER
+
+/obj/item/card/id/job/miner
+	name = "Job card (Cargo) - Shaft Miner"
+	assignment = "Shaft Miner"
+	icon_state = "miner"
+	hud_state = JOB_HUD_SHAFTMINER
+
+/obj/item/card/id/job/cargo
+	name = "Job card (Cargo) - Cargo Tech"
+	assignment = "Cargo Technician"
+	icon_state = "cargo"
+	hud_state = JOB_HUD_CARGOTECHNICIAN
+
+/obj/item/card/id/job/rawcargo
+	name = "Job card (Cargo) - Custom"
+	icon_state = "rawcargo"
+	hud_state = JOB_HUD_RAWCARGO
+
+// ---- Engineering ----
+/obj/item/card/id/job/ce
+	name = "Job card (Eng) - CE"
+	assignment = "Chief Engineer"
+	icon_state = "ce"
+	hud_state = JOB_HUD_CHIEFENGINEER
+
+/obj/item/card/id/job/engi
+	name = "Job card (Eng) - Station Engi"
+	assignment = "Station Engineer"
+	icon_state = "engi"
+	hud_state = JOB_HUD_STATIONENGINEER
+
+/obj/item/card/id/job/atmos
+	name = "Job card (Eng) - Atmos"
+	assignment = "Atmospheric Technician"
+	icon_state = "atmos"
+	hud_state = JOB_HUD_ATMOSPHERICTECHNICIAN
+
+/obj/item/card/id/job/rawengineering
+	name = "Job card (Eng) - Custom"
+	icon_state = "rawengineering"
+	hud_state = JOB_HUD_RAWENGINEERING
+
+// ---- Science -----
+/obj/item/card/id/job/rd
+	name = "Job card (RND) - RD"
+	assignment = "Research Director"
+	icon_state = "rd"
+	hud_state = JOB_HUD_RESEARCHDIRECTOR
+
+/obj/item/card/id/job/roboticist
+	name = "Job card (RND) - Roboticist"
+	assignment = "Roboticist"
+	icon_state = "roboticist"
+	hud_state = JOB_HUD_ROBOTICIST
+
+/obj/item/card/id/job/sci
+	name = "Job card (RND) - Scientist"
+	assignment = "Scientist"
+	icon_state = "sci"
+	hud_state = JOB_HUD_SCIENTIST
+
+/obj/item/card/id/job/exploration
+	name = "Job card (RND) - Explo Crew"
+	assignment = "Exploration Crew"
+	icon_state = "exploration"
+	hud_state = JOB_HUD_EXPLORATIONCREW
+
+/obj/item/card/id/job/rawscience
+	name = "Job card (RND) - Custom"
+	icon_state = "rawscience"
+	hud_state = JOB_HUD_RAWSCIENCE
+
+// ---- Medical ----
+/obj/item/card/id/job/cmo
+	name = "Job card (Med) - CMO"
+	assignment = "Chief Medical Officer"
+	icon_state = "cmo"
+	hud_state = JOB_HUD_CHEIFMEDICALOFFICIER
+
+/obj/item/card/id/job/med
+	name = "Job card (Med) - Medical Doctor"
+	assignment = "Medical Doctor"
+	icon_state = "med"
+	hud_state = JOB_HUD_MEDICALDOCTOR
+
+/obj/item/card/id/job/paramed
+	name = "Job card (Med) - Paramedic"
+	assignment = "Paramedic"
+	icon_state = "paramed"
+	hud_state = JOB_HUD_PARAMEDIC
+
+/obj/item/card/id/job/viro
+	name = "Job card (Med) - Virologist"
+	assignment = "Virologist"
+	icon_state = "viro"
+	hud_state = JOB_HUD_VIROLOGIST
+
+/obj/item/card/id/job/chemist
+	name = "Job card (Med) - Chemist"
+	assignment = "Chemist"
+	icon_state = "chemist"
+	hud_state = JOB_HUD_CHEMIST
+
+/obj/item/card/id/job/gene
+	name = "Job card (Med) - Geneticist"
+	assignment = "Geneticist"
+	icon_state = "gene"
+	hud_state = JOB_HUD_GENETICIST
+
+/obj/item/card/id/job/psychi
+	name = "Job card (Med) - Psychiatrist"
+	assignment = "Psychiatrist"
+	icon_state = "med"
+	hud_state = JOB_HUD_PSYCHIATRIST
+
+/obj/item/card/id/job/rawmedical
+	name = "Job card (Med) - Custom"
+	icon_state = "rawmedical"
+	hud_state = JOB_HUD_RAWMEDICAL
+
+
+// ---- Security ----
+/obj/item/card/id/job/hos
+	name = "Job card (Sec) - HoS"
+	assignment = "Head of Security"
+	icon_state = "hos"
+	hud_state = JOB_HUD_HEADOFSECURITY
+
+/obj/item/card/id/job/sec
+	name = "Job card (Sec) - Security Officer"
+	assignment = "Security Officier"
+	icon_state = "sec"
+	hud_state = JOB_HUD_SECURITYOFFICER
+
+/obj/item/card/id/job/brigphys
+	name = "Job card (Sec) - Brig Phys"
+	assignment = "Brig Physician"
+	icon_state = "brigphys"
+	hud_state = JOB_HUD_BRIGPHYSICIAN
+
+/obj/item/card/id/job/deputy
+	name = "Job card (Sec) - Deputy"
+	assignment = "Deputy"
+	icon_state = "deputy"
+	hud_state = JOB_HUD_DEPUTY
+
+/obj/item/card/id/job/detective
+	name = "Job card (Sec) - Detective"
+	assignment = "Detective"
+	icon_state = "detective"
+	hud_state = JOB_HUD_DETECTIVE
+
+/obj/item/card/id/job/warden
+	name = "Job card (Sec) - Warden"
+	assignment = "Warden"
+	icon_state = "warden"
+	hud_state = JOB_HUD_WARDEN
+
+/obj/item/card/id/job/rawsecurity
+	name = "Job card (Sec) - Custom"
+	icon_state = "rawsecurity"
+	hud_state = JOB_HUD_RAWSECURITY
+
+ // ---- ???? ----
+/obj/item/card/id/job/unknown
+	name = "Job card - unassigned"
+	icon_state = "id"
+	hud_state = JOB_HUD_UNKNOWN
+
 /obj/item/card/id/gold/vip
 	name = "important gold identification card"
 	assignment = "VIP"
@@ -1042,46 +1091,6 @@ update_label("John Doe", "Clowny")
 	assignment = "King"
 	hud_state = JOB_HUD_KING
 
-// For chameleons
-/obj/item/card/id/job/rawcommand
-	name = "Job card (Com) - Custom"
-	icon_state = JOB_HUD_RAWCOMMAND
-	hud_state = JOB_HUD_RAWCOMMAND
-
-/obj/item/card/id/job/rawservice
-	name = "Job card (Serv) - Custom"
-	icon_state = JOB_HUD_RAWSERVICE
-	hud_state = JOB_HUD_RAWSERVICE
-
-/obj/item/card/id/job/rawcargo
-	name = "Job card (Cargo) - Custom"
-	icon_state = "rawcargo"
-	hud_state = JOB_HUD_RAWCARGO
-
-/obj/item/card/id/job/rawscience
-	name = "Job card (RND) - Custom"
-	icon_state = "rawscience"
-	hud_state = JOB_HUD_RAWSCIENCE
-
-/obj/item/card/id/job/rawengineering
-	name = "Job card (Eng) - Custom"
-	icon_state = "rawengineering"
-	hud_state = JOB_HUD_RAWENGINEERING
-
-/obj/item/card/id/job/rawmedical
-	name = "Job card (Med) - Custom"
-	icon_state = "rawmedical"
-	hud_state = JOB_HUD_RAWMEDICAL
-
-/obj/item/card/id/job/rawsecurity
-	name = "Job card (Sec) - Custom"
-	icon_state = "rawsecurity"
-	hud_state = JOB_HUD_RAWSECURITY
-
-/obj/item/card/id/job/unknown
-	name = "Job card - unassigned"
-	icon_state = "id"
-	hud_state = JOB_HUD_UNKNOWN
 
 /obj/item/card/id/pass
 	name = "promotion pass"
