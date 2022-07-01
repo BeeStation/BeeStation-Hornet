@@ -100,10 +100,37 @@
 
 
 /datum/symptom/wizarditis/proc/teleport(datum/disease/advance/A)
-	var/turf/L = get_safe_random_station_turfs()
-	A.affected_mob.say("SCYAR NILA!")
-	do_teleport(A.affected_mob, L, channel = TELEPORT_CHANNEL_MAGIC)
-	playsound(get_turf(A.affected_mob), 'sound/weapons/zapbang.ogg', 50,1)
+	var/list/theareas = get_areas_in_range(80, A.affected_mob)
+	for(var/area/space/S in theareas)
+		theareas -= S
+
+	if(!theareas||!theareas.len)
+		return
+
+	var/area/thearea = pick(theareas)
+
+	var/list/L = list()
+	for(var/turf/T in get_area_turfs(thearea.type))
+		if(T.get_virtual_z_level() != A.affected_mob.get_virtual_z_level())
+			continue
+		if(T.name == "space")
+			continue
+		if(!T.density)
+			var/clear = 1
+			for(var/obj/O in T)
+				if(O.density)
+					clear = 0
+					break
+			if(clear)
+				L+=T
+
+	if(!L)
+		return
+
+	if(do_teleport(A.affected_mob, pick(L), channel = TELEPORT_CHANNEL_MAGIC, no_effects = TRUE))
+		A.affected_mob.say("SCYAR NILA [uppertext(thearea.name)]!", forced = "wizarditis teleport")
+		playsound(get_turf(A.affected_mob), 'sound/weapons/zapbang.ogg', 50,1)
+	return
 
 /datum/symptom/wizarditis/End(datum/disease/advance/A)
 	if(ishuman(A.affected_mob))
