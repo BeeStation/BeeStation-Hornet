@@ -19,7 +19,6 @@
 	// Atmos
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
-	move_to_delay = 10
 	// Health/damage
 	health = 125
 	maxHealth = 125
@@ -28,9 +27,10 @@
 	environment_smash = ENVIRONMENT_SMASH_NONE
 	healable = 0
 	loot = list(/obj/effect/decal/cleanable/robot_debris)
-	deathmessage = "'s lights flicker, then go dark"
+	deathmessage = "stops moving"
 	// AI stuff
 	check_friendly_fire = TRUE
+	move_to_delay = 10
 	ranged = TRUE
 	sentience_type = SENTIENCE_MINEBOT
 	stop_automated_movement_when_pulled = TRUE
@@ -117,12 +117,14 @@
 /mob/living/simple_animal/hostile/mining_drone/examine(mob/user)
 	. = ..()
 	if(health < maxHealth)
-		if(health >= maxHealth * 0.5)
+		if(health >= maxHealth * 0.75)
 			. += "<span class='warning'>It looks slightly dented.</span>"
-		else if(health < maxHealth * 0.5 && health > 0)
+		else if(health >= maxHealth * 0.25)
+			. += "<span class='warning'>It looks moderately dented.</span>"
+		else if(health > 0)
 			. += "<span class='boldwarning'>It looks severely dented!</span>"
 		else
-			. += "<span class='warning'>It is disabled and requires repairs.</span>"
+			. += "<span class='boldwarning'>It is disabled and requires repairs.</span>"
 	. += "<span class='notice'>Using a mining scanner on or alt-clicking it will instruct it to drop any stored ore.</span>"
 	. += "<span class='notice'>Field repairs can be performed with a welder.</span>"
 	if(stored_pka && stored_pka.max_mod_capacity)
@@ -185,12 +187,14 @@
 	if(user.a_intent != INTENT_HELP)
 		return ..() // For smacking
 	if(istype(item, /obj/item/minebot_upgrade))
+		if(!do_after(user, 20, TRUE, src))
+			return TRUE
 		var/obj/item/minebot_upgrade/upgrade = item
 		upgrade.upgrade_bot(src, user)
 		return TRUE
 	if(istype(item, /obj/item/t_scanner/adv_mining_scanner))
 		if(!do_after(user, 20, TRUE, src))
-			return
+			return TRUE
 		stored_scanner.forceMove(get_turf(src))
 		item.forceMove(src)
 		stored_scanner = item
@@ -198,7 +202,7 @@
 		return TRUE
 	if(istype(item, /obj/item/borg/upgrade/modkit))
 		if(!do_after(user, 20, TRUE, src))
-			return
+			return TRUE
 		item.melee_attack_chain(user, stored_pka, params) // This handles any install messages
 		return TRUE
 	if(item.tool_behaviour == TOOL_CROWBAR)
@@ -209,11 +213,13 @@
 		if(health != maxHealth)
 			return // For repairs
 		if(!do_after(user, 20, TRUE, src))
-			return
+			return TRUE
 		if(stored_cutter)
 			stored_cutter.forceMove(get_turf(src))
+			stored_cutter.requires_wielding = initial(stored_cutter.requires_wielding)
 		item.forceMove(src)
 		stored_cutter = item
+		stored_cutter.requires_wielding = FALSE // Prevents inaccuracy when firing for the minebot.
 		to_chat(user, "<span class='info'>You install [item].</span>")
 		return TRUE
 	if(istype(item, /obj/item/pickaxe/drill))
@@ -264,7 +270,7 @@
 /mob/living/simple_animal/hostile/mining_drone/AltClick(mob/user)
 	. = ..()
 	to_chat(user, "<span class='info'>You instruct [src] to drop any collected ore.</span>")
-	DropOre()
+	drop_ore()
 
 /// Handles activating installed minebot mods
 /mob/living/simple_animal/hostile/mining_drone/AltClickOn(atom/target)
@@ -294,13 +300,13 @@
 	if(stored_cutter && (istype(target, /obj/item/stack/ore/plasma) || istype(target, /obj/item/stack/sheet/mineral/plasma)) && mode == MODE_MINING) //Charging the on-board plasma cutter
 		stored_cutter.attackby(target, src)
 		if(stored_cutter.cell.charge == stored_cutter.cell.maxcharge) // Either charge the cutter or pick up the plasma if the cutter's full
-			CollectOre()
+			collect_ore()
 		return
 	if(istype(target, /obj/item/stack/ore)) // Collecting ore
-		CollectOre()
+		collect_ore()
 		return
 	if(!client && isliving(target)) // Switching to offense mode if we've got a target
-		SetOffenseBehavior()
+		set_offense_behavior()
 	if(stored_drill)
 		stored_drill.melee_attack_chain(src, target) // Use the drill if the target's adjacent
 
@@ -319,7 +325,7 @@
 /// Handles reacting to attacks, getting the minebot in combat mode if it was mining.
 /mob/living/simple_animal/hostile/mining_drone/adjustHealth(amount, updating_health = TRUE, forced = FALSE)
 	if(!client && mode != MODE_COMBAT && amount > 0) // We don't want to automatically switch it if a player's in control
-		SetOffenseBehavior()
+		set_offense_behavior()
 	update_health_hud()
 	. = ..()
 
@@ -377,20 +383,13 @@
 		return
 	. = ..()
 
-/// Prevents the minebot from dodging while mining, since otherwise it looks really silly and slows the bot down a bunch.
-/mob/living/simple_animal/hostile/mining_drone/dodge(moving_to,move_direction)
-	if(mode == MODE_MINING)
-		return
-	. = ..()
-
 /**********************Minebot Procs**********************/
 
 /// Sets the minebot's simplemob AI to focus on collecting ore.
-/mob/living/simple_animal/hostile/mining_drone/proc/SetCollectBehavior()
+/mob/living/simple_animal/hostile/mining_drone/proc/set_collect_behavior()
 	mode = MODE_MINING
 	vision_range = 9
 	search_objects = 2
-	wander = TRUE
 	minimum_distance = 1
 	retreat_distance = null
 	icon_state = "mining_drone"
@@ -402,11 +401,10 @@
 	to_chat(src, "<span class='info'>You are set to mining mode. No plasma cutter detected.</span>")
 
 /// Sets the minebot's simplemob AI to focus on attacking targets. Also makes sure the minebot keeps its distance.
-/mob/living/simple_animal/hostile/mining_drone/proc/SetOffenseBehavior()
+/mob/living/simple_animal/hostile/mining_drone/proc/set_offense_behavior()
 	mode = MODE_COMBAT
 	vision_range = 7
 	search_objects = 0
-	wander = FALSE
 	retreat_distance = 2
 	minimum_distance = 1
 	icon_state = "mining_drone_offense"
@@ -415,12 +413,12 @@
 	to_chat(src, "<span class='info'>You are set to attack mode. You will now fire your proto-kinetic accelerator at targets.</span>")
 
 /// Collects the ore in collect_range radius around the minebot.
-/mob/living/simple_animal/hostile/mining_drone/proc/CollectOre(collect_range = 1)
+/mob/living/simple_animal/hostile/mining_drone/proc/collect_ore(collect_range = 1)
 	for(var/obj/item/stack/ore/orestack in range(collect_range, src))
 		orestack.forceMove(src)
 
 /// Drops the minebot's stored ore.
-/mob/living/simple_animal/hostile/mining_drone/proc/DropOre()
+/mob/living/simple_animal/hostile/mining_drone/proc/drop_ore()
 	var/dumped_ore = FALSE
 	for(var/obj/item/stack/ore/orestack in contents)
 		orestack.forceMove(drop_location())
@@ -436,9 +434,9 @@
 /// Toggles between collect/combat behavior.
 /mob/living/simple_animal/hostile/mining_drone/proc/toggle_mode()
 	if(mode == MODE_COMBAT)
-		SetCollectBehavior()
+		set_collect_behavior()
 		return
-	SetOffenseBehavior()
+	set_offense_behavior()
 
 /// Uninstalls the upgrades in a minebot.
 /mob/living/simple_animal/hostile/mining_drone/proc/uninstall_upgrades()
@@ -469,11 +467,13 @@
 	var/mob/living/simple_animal/hostile/mining_drone/user = owner
 	if(user.sight & SEE_TURFS)
 		user.sight &= ~SEE_TURFS
+		user.sight |= SEE_BLACKNESS
 		user.lighting_alpha = initial(user.lighting_alpha)
 		button_icon_state = "trayson-"
 	else
 		user.sight |= SEE_TURFS
-		user.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
+		user.sight &= ~SEE_BLACKNESS
+		user.lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 		button_icon_state = "trayson-meson"
 	user.sync_lighting_plane_alpha()
 	to_chat(user, "<span class='notice'>You toggle your meson vision [(user.sight & SEE_TURFS) ? "on" : "off"].</span>")
@@ -509,7 +509,7 @@
 
 /datum/action/innate/minedrone/dump_ore/Activate()
 	var/mob/living/simple_animal/hostile/mining_drone/user = owner
-	user.DropOre()
+	user.drop_ore()
 
 /// Toggles a minebot's mining scanner on and off.
 /datum/action/innate/minedrone/toggle_scanner
@@ -602,7 +602,7 @@
 /// This proc handles the actual collecting of ore on movement.
 /obj/item/minebot_upgrade/ore_pickup/proc/automatic_pickup()
 	SIGNAL_HANDLER
-	linked_bot.CollectOre(0) // No automatically picking up adjacent ore, otherwise the bot will infinitely pick up any ore that they drop when they try to move away.
+	linked_bot.collect_ore(0) // No automatically picking up adjacent ore, otherwise the bot will infinitely pick up any ore that they drop when they try to move away.
 
 // Medical
 /// This allows a minebot to carry medipens and use them on other mobs (ideally dying miners).
@@ -669,7 +669,7 @@
 		to_chat(linked_bot, "<span class='notice'>Loaded \a [new_medipen] to onboard medical module.</span>")
 
 // Anti-Weather
-// This allows a minebot to survive lava and ash storms, when it otherwise wouldn't be able to.
+// This allows a minebot to survive lava and ash storms
 /obj/item/minebot_upgrade/antiweather
 	name = "minebot weatherproof chassis"
 	desc = "A chassis reinforcement kit that allows a minebot to withstand exposure to high winds and molten rock."

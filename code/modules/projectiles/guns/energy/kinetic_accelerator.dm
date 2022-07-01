@@ -78,6 +78,7 @@
 	trigger_guard = TRIGGER_GUARD_ALLOW_ALL
 	overheat_time = 20
 	holds_charge = TRUE
+	requires_wielding = FALSE
 	unique_frequency = TRUE
 
 /obj/item/gun/energy/kinetic_accelerator/Initialize(mapload)
