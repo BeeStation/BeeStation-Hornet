@@ -82,7 +82,6 @@ All ShuttleMove procs go here
 	oldT.TransferComponents(src)
 	SSexplosions.wipe_turf(src)
 	SEND_SIGNAL(oldT, COMSIG_TURF_AFTER_SHUTTLE_MOVE, src) //Mostly for decals
-	var/skipover_count = 0
 	var/BT_index = length(baseturfs)
 	var/BT
 	for(var/i in 0 to all_towed_shuttles.len - 1) //For each shuttle on the turf, look for another skipover
@@ -91,11 +90,10 @@ All ShuttleMove procs go here
 			while(BT_index)
 				BT = baseturfs[BT_index--]
 				if(BT == /turf/baseturf_skipover/shuttle)
-					skipover_count++
 					break
 
-	if(skipover_count)
-		oldT.ScrapeAway(baseturfs.len - (BT_index - skipover_count), flags = CHANGETURF_FORCEOP)
+	if(BT_index != length(baseturfs))
+		oldT.ScrapeAway(baseturfs.len - BT_index, flags = CHANGETURF_FORCEOP)
 
 	if(rotation)
 		shuttleRotate(rotation) //see shuttle_rotate.dm

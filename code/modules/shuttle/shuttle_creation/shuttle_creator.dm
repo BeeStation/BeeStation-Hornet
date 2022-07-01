@@ -405,6 +405,8 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 		var/bypass_area_check = FALSE
 		var/obj/docking_port/mobile/linked_shuttle = linkedShuttleId ? SSshuttle.getShuttle(linkedShuttleId) : null
 		var/list/obj/docking_port/mobile/towed_shuttles = linked_shuttle ? linked_shuttle.get_all_towed_shuttles() - linked_shuttle : null
+		if(linked_shuttle && linked_shuttle.underlying_turf_area[t]) //This turf is already part of our shuttle, it is always valid.
+			continue
 		if(towed_shuttles && istype(place) && towed_shuttles[place.mobile_port]) //prevent recursive stacking
 			to_chat(usr, "<span class='warning'>Warning, shuttle must not use any material connected to a docked shuttle. Your shuttle is currenly overlapping with [place.mobile_port.name].</span>")
 			return FALSE
