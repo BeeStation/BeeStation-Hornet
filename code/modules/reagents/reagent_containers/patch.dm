@@ -20,12 +20,12 @@
 		if(!IS_ORGANIC_LIMB(affecting))
 			balloon_alert(user, "[src] doesn't work on robotic limbs.")
 			return
-	..()
+	return ..()
 
 /obj/item/reagent_containers/pill/patch/canconsume(mob/eater, mob/user)
 	if(!iscarbon(eater))
-		return 0
-	return 1 // Masks were stopping people from "eating" patches. Thanks, inheritance.
+		return FALSE
+	return TRUE // Masks were stopping people from "eating" patches. Thanks, inheritance.
 
 /obj/item/reagent_containers/pill/patch/styptic
 	name = "brute patch"
