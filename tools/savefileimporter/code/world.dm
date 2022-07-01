@@ -8,12 +8,21 @@
 	// Connect to DB
 	establish_db_connection()
 
+	log_info("ALL EXISTING ENTRIES IN THE PREFERENCES AND CHARACTERS TABLE WILL BE WIPED")
+	log_info("EXIT THIS PROGRAM NOW IF YOU DO NOT WANT THIS")
 	log_info("Savefile import will start in 10 seconds")
-	log_info("This WILL lock up DD, but rest assured, it is working")
+	log_info("The process WILL lock up DD, but rest assured, it is working")
 	sleep(100)
+
+	// Remove old entries
+	var/DBQuery/q1 = GLOB.dbcon.NewQuery("DELETE FROM SS13_preferences")
+	var/DBQuery/q2 = GLOB.dbcon.NewQuery("DELETE FROM SS13_characters")
+	q1.Execute()
+	q2.Execute()
 
 	// Begin the import
 	var/savepath = GLOB.config["savefile_dir"] // Cache this to prevent a ton of list lookups
+
 
 	for(var/outerpath in flist(savepath))
 		var/list/innerlist = flist("[savepath][outerpath]")

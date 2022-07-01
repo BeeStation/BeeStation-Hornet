@@ -217,3 +217,6 @@
 		var/em = query.ErrorMsg()
 		if(em)
 			log_info("Query error when processing [owning_ckey] | [em]")
+
+	// Now do characters
+	parse_characters(owning_ckey, S, character_dirs)
