@@ -427,7 +427,6 @@
 /obj/effect/mob_spawn/sentient_artifact/create(ckey, name)
 	var/datum/xenoartifact_trait/minor/sentient/S = X.get_trait(/datum/xenoartifact_trait/minor/sentient)
 	S.setup_sentience(X, ckey)
-	..()
 
 //============
 // Delicate, makes the artifact have limited uses
