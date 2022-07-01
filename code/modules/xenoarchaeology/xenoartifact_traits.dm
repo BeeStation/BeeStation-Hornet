@@ -409,7 +409,6 @@
 
 /obj/effect/mob_spawn/sentient_artifact
 	death = FALSE
-	roundstart = TRUE
 	name = "Sentient Xenoartifact"
 	short_desc = "You're a maleviolent sentience, possesing an ancient alien artifact."
 	flavour_text = "Return to your master..."
@@ -571,13 +570,15 @@
 
 /datum/xenoartifact_trait/minor/anchor/on_item(obj/item/xenoartifact/X, atom/user, obj/item/item)
 	if(istype(item) && item.tool_behaviour == TOOL_WRENCH)
-		to_chat(user, "<span class='info'>You [X.anchored ? "anchor" : "unanchor"] the [X.name].</span>")
+		to_chat(user, "<span class='info'>You [X.anchored ? "unanchor" : "anchor"] the [X.name] to the [get_turf(X)].</span>")
 		if(isliving(X.loc))
 			var/mob/living/holder = X.loc
 			holder.dropItemToGround(X)
 		X.setAnchored(!X.anchored)
 		if(!X.get_trait(/datum/xenoartifact_trait/minor/dense))
 			X.density = !X.density
+		return TRUE
+	..()
 
 //============
 // Slippery, the artifact is slippery. Honk
@@ -603,7 +604,7 @@
 	label_name = "Haunted"
 	label_desc = "Haunted: The Artifact's appears to interact with bluespace spatial regression, causing the item to appear haunted."
 	blacklist_traits = list(/datum/xenoartifact_trait/minor/dense)
-	weight = 23
+	weight = 5
 	var/datum/component/deadchat_control/controller
 
 /datum/xenoartifact_trait/minor/haunted/on_init(obj/item/xenoartifact/X)
@@ -616,6 +617,8 @@
 /datum/xenoartifact_trait/minor/haunted/on_item(obj/item/xenoartifact/X, atom/user, atom/item)
 	if(istype(item, /obj/item/storage/book/bible))
 		to_chat(user, "<span class='warning'>The [X.name] rumbles on contact with the [item].</span>")
+		return TRUE
+	..()
 
 /datum/xenoartifact_trait/minor/haunted/Destroy(force, ...)
 	qdel(controller)
@@ -898,11 +901,15 @@
 		X.cooldownmod = ((X.charge*0.4)+1) SECONDS
 
 /datum/xenoartifact_trait/major/invisible/proc/hide(mob/living/target)
-	animate(target, ,invisibility = 101, time = 5)
+	animate(target, ,alpha = 0, time = 5)
+	sleep(10)
+	target.invisibility = 101
 
 /datum/xenoartifact_trait/major/invisible/proc/reveal(mob/living/target)
 	if(target)
-		animate(target, ,invisibility = 0, time = 10)
+		animate(target, ,alpha = 255, time = 5)
+		sleep(10)
+		target.invisibility = 0
 		target = null
 
 /datum/xenoartifact_trait/major/invisible/Destroy(force, ...)
@@ -1017,6 +1024,7 @@
 /datum/xenoartifact_trait/major/heal/on_item(obj/item/xenoartifact/X, atom/user, atom/item)
 	if(istype(item, /obj/item/healthanalyzer))
 		to_chat(user, "<span class='info'>The [item] recognizes foreign [healing_type] healing proteins.\n</span>")
+		return TRUE
 	..()
 
 /datum/xenoartifact_trait/major/heal/activate(obj/item/xenoartifact/X, atom/target)
@@ -1131,6 +1139,7 @@
 /datum/xenoartifact_trait/major/gas/on_item(obj/item/xenoartifact/X, atom/user, atom/item)
 	if(istype(item, /obj/item/analyzer))
 		to_chat(user, "<span class='info'>The [item] detects trace amounts of [initial(output.name)] exchanging with [initial(input.name)].\n</span>")
+		return TRUE
 	..()
 
 /datum/xenoartifact_trait/major/gas/activate(obj/item/xenoartifact/X, atom/target, atom/user)
@@ -1159,7 +1168,8 @@
 /datum/xenoartifact_trait/major/distablizer/on_item(obj/item/xenoartifact/X, atom/user, atom/item)
 	if(do_banish(item))
 		to_chat(user, "<span class='warning'>The [item] dissapears!</span>")
-
+		return TRUE
+	..()
 
 /datum/xenoartifact_trait/major/distablizer/activate(obj/item/xenoartifact/X, atom/target, atom/user)
 	if(do_banish(target))
