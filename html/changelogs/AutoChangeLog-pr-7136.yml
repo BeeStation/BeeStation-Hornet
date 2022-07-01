@@ -1,0 +1,4 @@
+author: PatienceStPim
+delete-after: true
+changes:
+  - rscadd: Miners will now start with a discovery scanner in their bag
