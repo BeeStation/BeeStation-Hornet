@@ -1,6 +1,6 @@
 //Severe traumas, when your brain gets abused way too much.
 //These range from very annoying to completely debilitating.
-//They cannot be cured with chemicals, and require brain surgery to solve.
+//They cannot be cured with chemicals, and require brain recalibration to solve.
 
 /datum/brain_trauma/severe
 	resilience = TRAUMA_RESILIENCE_SURGERY
