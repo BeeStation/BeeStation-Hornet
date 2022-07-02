@@ -120,21 +120,35 @@
 				update_icon()
 				update_button_icons(user)
 		return
-	if(istype(item, /obj/item/clothing/head) && !istype(item, /obj/item/clothing/head/helmet/space/plasmaman)) // i know someone is gonna do it after i thought about it
+	if(istype(item, /obj/item/clothing/head) \
+		// i know someone is gonna do it after i thought about it
+		&& !istype(item, /obj/item/clothing/head/helmet/space/plasmaman) \
+		// messy and icon can't be seen before putting on
+		&& !istype(item, /obj/item/clothing/head/foilhat))
 		var/obj/item/clothing/head/hat = item
 		if(attached_hat)
 			to_chat(user, "<span class='notice'>There's already a hat on the helmet!</span>")
 			return
 		attached_hat = hat
 		hat.forceMove(src)
+		if (user.get_item_by_slot(ITEM_SLOT_HEAD) == src)
+			hat.equipped(user, ITEM_SLOT_HEAD)
 		update_icon()
 		update_button_icons(user)
 		add_verb(/obj/item/clothing/head/helmet/space/plasmaman/verb/unattach_hat)
 
+/obj/item/clothing/head/helmet/space/plasmaman/equipped(mob/user, slot)
+	. = ..()
+	attached_hat?.equipped(user, slot)
+
+/obj/item/clothing/head/helmet/space/plasmaman/dropped(mob/user)
+	. = ..()
+	attached_hat?.dropped(user)
+
 /obj/item/clothing/head/helmet/space/plasmaman/proc/update_button_icons(mob/user)
 	if(!user)
 		return
-	
+
 	//The icon's may look differently due to overlays being applied asynchronously
 	for(var/X in actions)
 		var/datum/action/A=X
@@ -160,6 +174,8 @@
 	set src in usr
 
 	usr.put_in_hands(attached_hat)
+	if (usr.get_item_by_slot(ITEM_SLOT_HEAD) == src)
+		attached_hat.dropped(usr)
 	attached_hat = null
 	update_icon()
 	remove_verb(/obj/item/clothing/head/helmet/space/plasmaman/verb/unattach_hat)
@@ -193,7 +209,7 @@
 	update_icon()
 	user.update_inv_head() //So the mob overlay updates
 	update_button_icons(user)
-	
+
 /obj/item/clothing/head/helmet/space/plasmaman/update_overlays()
 	cut_overlays()
 
@@ -201,7 +217,7 @@
 		add_overlay(mutable_appearance('icons/obj/clothing/hats.dmi', visor_state + "_weld"))
 	else if(helmet_on)
 		add_overlay(mutable_appearance('icons/obj/clothing/hats.dmi', visor_state + "_light"))
-	
+
 	return ..()
 
 /obj/item/clothing/head/helmet/space/plasmaman/security
