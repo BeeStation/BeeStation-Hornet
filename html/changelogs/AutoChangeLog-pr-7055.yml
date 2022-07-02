@@ -1,6 +1,0 @@
-author: DrDuckedGoose
-delete-after: true
-changes:
-  - tweak: Lollipops can be inserted into the mask slot
-  - tweak: Lollipops processes when equipped
-  - rscadd: Adds longpop
