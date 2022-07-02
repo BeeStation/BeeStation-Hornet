@@ -65,6 +65,8 @@
 /datum/quirk/brainproblems/on_process(delta_time)
 	if(!quirk_holder.reagents.has_reagent(/datum/reagent/medicine/mannitol) && prob(80))
 		quirk_holder.adjustOrganLoss(ORGAN_SLOT_BRAIN, 0.1 * delta_time)
+	else
+		SEND_SIGNAL(quirk_holder, COMSIG_ADD_MOOD_EVENT, "brain_tumor", /datum/mood_event/brain_tumor_mannitol)
 	var/obj/item/organ/brain/B = quirk_holder.getorgan(/obj/item/organ/brain)
 	if(B)
 		if(B.damage>BRAIN_DAMAGE_MILD-1 && !notified)
