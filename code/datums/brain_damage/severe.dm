@@ -256,7 +256,7 @@
 	gain_text = "<span class='warning'>You feel somewhat dazed.</span>"
 	lose_text = "<span class='notice'>You feel like a fog was lifted from your mind.</span>"
 
-/datum/brain_trauma/severe/hypnotic_stupor/on_lose() //hypnosis must be cleared separately, but brain surgery should get rid of both anyway
+/datum/brain_trauma/severe/hypnotic_stupor/on_lose() //hypnosis must be cleared separately, but brain recalibration should get rid of both anyway
 	..()
 	owner.remove_status_effect(/datum/status_effect/trance)
 
