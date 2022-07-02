@@ -530,7 +530,6 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 
 	if (LAZYLEN(message_loc.balloon_alerts))
 		for(var/datum/chatmessage/balloon_alert/m as() in message_loc.balloon_alerts)  //We get rid of old alerts so it doesn't clutter up the screen
-
 			if (!m.isFading)
 				var/sched_remaining = timeleft(m.fadertimer, SSrunechat)
 				if (sched_remaining)
