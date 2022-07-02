@@ -2370,3 +2370,9 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 4
 	surplus = 0
 	purchasable_from = UPLINK_NUKE_OPS
+
+/datum/uplink_item/role_restricted/carp_lasso
+	name = "Carp Lasso"
+	desc = "A state of the art carp taming device.\n Carps can be lassoed and untied to be befriended.\n Tamed carps can be rode!"
+	item = /obj/item/carp_lasso
+	cost = 5

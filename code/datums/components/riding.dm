@@ -376,3 +376,20 @@
 		if(rider in AM.buckled_mobs)
 			AM.unbuckle_mob(rider)
 	. = ..()
+
+/datum/component/riding/carp
+	override_allow_spacemove = TRUE
+
+/datum/component/riding/carp/vehicle_mob_buckle(datum/source, mob/living/M, force = FALSE)
+	M.spacewalk = TRUE
+	if(istype(parent, /mob/living/simple_animal/hostile/carp))
+		var/mob/living/simple_animal/hostile/carp/C = parent
+		C.toggle_ai(AI_OFF)
+	..()
+
+/datum/component/riding/carp/vehicle_mob_unbuckle(datum/source, mob/living/M, force = FALSE)
+	M.spacewalk = FALSE
+	if(istype(parent, /mob/living/simple_animal/hostile/carp))
+		var/mob/living/simple_animal/hostile/carp/C = parent
+		C.toggle_ai(AI_ON)
+	..()

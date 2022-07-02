@@ -1041,6 +1041,7 @@
 #include "code\game\objects\items\candle.dm"
 #include "code\game\objects\items\cardboard_cutouts.dm"
 #include "code\game\objects\items\cards_ids.dm"
+#include "code\game\objects\items\carp_lasso.dm"
 #include "code\game\objects\items\chainsaw.dm"
 #include "code\game\objects\items\charter.dm"
 #include "code\game\objects\items\chromosome.dm"
