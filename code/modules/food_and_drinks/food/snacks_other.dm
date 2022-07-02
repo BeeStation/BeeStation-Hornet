@@ -421,6 +421,13 @@
 	var/headcolor = rgb(0, 0, 0)
 	tastes = list("candy" = 1)
 	foodtype = JUNKFOOD | SUGAR
+	slot_flags = ITEM_SLOT_MASK
+	///Essentially IsEquipped
+	var/chewing = TRUE
+	///Time between bites
+	var/bite_frequency = 30 SECONDS
+	///ID for timer
+	var/timer_id
 
 /obj/item/reagent_containers/food/snacks/lollipop/Initialize(mapload)
 	. = ..()
@@ -437,6 +444,52 @@
 	..(hit_atom)
 	throw_speed = 1
 	throwforce = 0
+
+/obj/item/reagent_containers/food/snacks/lollipop/Destroy()
+	if(timer_id)
+		deltimer(timer_id)
+	..()
+
+/obj/item/reagent_containers/food/snacks/lollipop/equipped(mob/user, slot)
+	. = ..()
+	if(timer_id)
+		deltimer(timer_id)
+		timer_id = null
+	chewing = (slot == ITEM_SLOT_MASK ? TRUE : FALSE)
+	if(chewing) //Set a timer to chew(), instead of calling chew for the convenience of being able to equip/unequip our pop
+		timer_id = addtimer(CALLBACK(src, .proc/chew), bite_frequency, TIMER_STOPPABLE)	
+
+/obj/item/reagent_containers/food/snacks/lollipop/dropped(mob/user)
+	. = ..()
+	if(timer_id)
+		deltimer(timer_id)
+		timer_id = null		
+
+/obj/item/reagent_containers/food/snacks/lollipop/proc/chew()
+	if(iscarbon(loc) && chewing)
+		var/mob/living/carbon/M = loc
+		if(M.health <= 0)
+			return
+		attack(M, M)
+		timer_id = addtimer(CALLBACK(src, .proc/chew), bite_frequency, TIMER_STOPPABLE)
+
+/obj/item/reagent_containers/food/snacks/lollipop/long
+	name = "longpop"
+	desc = "Twice the size, half the flavour!"
+	icon = 'icons/obj/lollipop.dmi'
+	icon_state = "lollipop_stick_long"
+
+/obj/item/reagent_containers/food/snacks/lollipop/long/equipped(mob/user, slot)
+	..()
+	if(chewing)
+		RegisterSignal(user, COMSIG_LIVING_STATUS_KNOCKDOWN, .proc/on_trip, user)
+	else
+		UnregisterSignal(user, COMSIG_LIVING_STATUS_KNOCKDOWN)
+
+/obj/item/reagent_containers/food/snacks/lollipop/long/proc/on_trip(mob/living/carbon/user)
+	visible_message("<span class='danger'>[user] is impailed by the [src]!</span>", "<span class='danger'>You are impaled by the [src]!</span>")
+	user.adjustBruteLoss(50)
+	user.adjustOxyLoss(50)
 
 /obj/item/reagent_containers/food/snacks/lollipop/cyborg
 	var/spamchecking = TRUE
