@@ -41,7 +41,7 @@
 	user.balloon_alert_to_viewers("[user] points a gun at [target]!", ignored_mobs = list(user, target))
 	user.balloon_alert(target, "[user] points a gun at you!")
 	playsound(target, 'sound/weapons/autoguninsert.ogg', 100, TRUE)
-	new /obj/effect/temp_visual/aiming(target)
+	new /obj/effect/temp_visual/aiming(get_turf(target))
 
 	// Register signals to alert our user if the target does something shifty.
 	RegisterSignal(target, COMSIG_MOB_EQUIPPED_ITEM, .proc/on_equip)
