@@ -964,7 +964,17 @@
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_CHEMIST_BLOODSTREAM | CHEMICAL_GOAL_BOTANIST_HARVEST
 
 /datum/reagent/medicine/mannitol/on_mob_life(mob/living/carbon/C)
-	C.adjustOrganLoss(ORGAN_SLOT_BRAIN, -2*REM)
+	if(HAS_TRAIT(src, TRAIT_BRAIN_TUMOR))
+		C.adjustOrganLoss(ORGAN_SLOT_BRAIN, -1*REM)
+		overdose_threshold = 35
+	else
+		C.adjustOrganLoss(ORGAN_SLOT_BRAIN, -2*REM)
+	..()
+
+
+/datum/reagent/medicine/mannitol/overdose_process(mob/living/M)
+	if(HAS_TRAIT(src, TRAIT_BRAIN_TUMOR))
+		C.adjustOrganLoss(ORGAN_SLOT_BRAIN, 1.01*REM) // intentional
 	..()
 
 /datum/reagent/medicine/neurine
