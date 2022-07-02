@@ -257,9 +257,9 @@ GLOBAL_LIST_EMPTY(species_list)
 
 	var/atom/Uloc = user.loc
 
-	var/drifting = TRUE
+	var/drifting = FALSE
 	if(SSmove_manager.processing_on(user, SSspacedrift))
-		drifting = FALSE
+		drifting = TRUE
 
 	var/holding = user.get_active_held_item()
 
