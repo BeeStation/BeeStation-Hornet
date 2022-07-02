@@ -1,5 +1,0 @@
-author: ro5490
-delete-after: true
-changes:
-  - tweak: Observers can now see the AI Detection HUD by using the Toggle AI HUD verb
-      in the ghost tab.
