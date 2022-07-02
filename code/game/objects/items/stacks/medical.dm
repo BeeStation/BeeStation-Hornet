@@ -96,7 +96,7 @@
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 	heal_brute = 40
-	grind_results = list(/datum/reagent/medicine/styptic_powder = 10)
+	grind_results = list(/datum/reagent/medicine/styptic_powder = 40)
 
 /obj/item/stack/medical/bruise_pack/one
 	amount = 1
@@ -112,7 +112,7 @@
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/medical_righthand.dmi'
 	heal_burn = 40
-	grind_results = list(/datum/reagent/medicine/silver_sulfadiazine = 10)
+	grind_results = list(/datum/reagent/medicine/silver_sulfadiazine = 40)
 
 /obj/item/stack/medical/ointment/one
 	amount = 1

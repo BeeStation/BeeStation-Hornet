@@ -4,7 +4,6 @@
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bandaid"
 	item_state = "bandaid"
-	possible_transfer_amounts = list()
 	volume = 40
 	apply_type = PATCH
 	apply_method = "apply"
@@ -12,15 +11,16 @@
 	dissolvable = FALSE
 
 /obj/item/reagent_containers/pill/patch/attack(mob/living/L, mob/user)
-	if(ishuman(L))
-		var/obj/item/bodypart/affecting = L.get_bodypart(check_zone(user.zone_selected))
-		if(!affecting)
-			balloon_alert(user, "The limb is missing.")
-			return
-		if(!IS_ORGANIC_LIMB(affecting))
-			balloon_alert(user, "[src] doesn't work on robotic limbs.")
-			return
-	return ..()
+	if(!ishuman(L))
+		return ..()
+	var/obj/item/bodypart/affecting = L.get_bodypart(check_zone(user.zone_selected))
+	if(!affecting)
+		balloon_alert(user, "The limb is missing.")
+		return
+	if(!IS_ORGANIC_LIMB(affecting))
+		balloon_alert(user, "[src] doesn't work on robotic limbs.")
+		return
+	return ..(L, user, affecting)
 
 /obj/item/reagent_containers/pill/patch/canconsume(mob/eater, mob/user)
 	if(!iscarbon(eater))
