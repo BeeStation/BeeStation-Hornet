@@ -13,8 +13,6 @@
 	burnmod = 1.4
 	brutemod = 1.4
 	speedmod = 0.7
-	disliked_food = null
-	liked_food = GROSS | MEAT | RAW | FRUIT
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT
 	species_language_holder = /datum/language_holder/fly
 
