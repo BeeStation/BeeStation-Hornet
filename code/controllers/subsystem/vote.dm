@@ -117,7 +117,7 @@ SUBSYSTEM_DEF(vote)
 			var/votes = choices[choices[i]]
 			if(!votes)
 				votes = 0
-			text += "\n<b>[choices[i]]:</b> [votes] ([round((votes/total_votes), 0.01)*100]%"
+			text += "\n<b>[choices[i]]:</b> [votes] ([total_votes ? (round((votes/total_votes), 0.01)*100) : "0"]%"
 			if(mode == "map")
 				text += " chance)"
 			else
