@@ -68,9 +68,8 @@
 	SSticker.mode.update_incursion_icons_removed(owner)
 
 /datum/antagonist/incursion/proc/finalize_incursion()
-	owner.equip_traitor("The Syndicate", FALSE, src, 15)
+	equip()
 	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/tatoralert.ogg', 100, FALSE, pressure_affected = FALSE)
-
 
 /datum/antagonist/incursion/admin_add(datum/mind/new_owner,mob/admin)
 	//show list of possible brothers
@@ -90,6 +89,11 @@
 		message_admins("New incursion team created by [key_name_admin(admin)]")
 	message_admins("[key_name_admin(admin)] made [key_name_admin(new_owner)] and [key_name_admin(new_owner.current)] into blood brothers.")
 	log_admin("[key_name(admin)] made [key_name(new_owner)] and [key_name(new_owner.current)] into incursion traitor team.")
+
+/datum/antagonist/incursion/proc/equip(var/silent = FALSE)
+	owner.equip_traitor("The Syndicate", FALSE, src, 15)
+	var/obj/item/implant/radio/syndicate/selfdestruct/syndio = new
+	syndio.implant(owner.current)
 
 /datum/team/incursion
 	name = "syndicate incursion force"
