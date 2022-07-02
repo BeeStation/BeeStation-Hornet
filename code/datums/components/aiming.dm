@@ -38,10 +38,10 @@
 	user.visible_message("<span class='warning'>[user] points [parent] at [target]!</span>")
 	to_chat(target, "<span class='userdanger'>[user] is pointing [parent] at you! If you equip or drop anything they will be notified! \n<b>You can use *surrender to give yourself up</b>.</span>")
 	to_chat(user, "<span class='notice'>You're now aiming at [target]. If they attempt to equip anything you'll be notified by a loud sound.</span>")
-	user.balloon_alert_to_viewers("[user] points [parent] at [target]!", ignored_mobs = list(user, target))
-	user.balloon_alert(target, "[user] points [parent] at you!")
+	user.balloon_alert_to_viewers("[user] points a gun at [target]!", ignored_mobs = list(user, target))
+	user.balloon_alert(target, "[user] points a gun at you!")
 	playsound(target, 'sound/weapons/autoguninsert.ogg', 100, TRUE)
-	new /obj/effect/temp_visual/aiming(get_turf(target))
+	new /obj/effect/temp_visual/aiming(target)
 
 	// Register signals to alert our user if the target does something shifty.
 	RegisterSignal(target, COMSIG_MOB_EQUIPPED_ITEM, .proc/on_equip)
@@ -182,8 +182,6 @@ AIMING_DROP_WEAPON means they selected the "drop your weapon" command
 			show_ui(user, target, choice)
 			COOLDOWN_START(src, voiceline_cooldown, 2 SECONDS)
 			return
-	var/alert_message
-	var/alert_message_3p
 	switch(choice)
 		if(CANCEL) //first off, are they telling us to stop aiming?
 			stop_aiming()
@@ -192,16 +190,11 @@ AIMING_DROP_WEAPON means they selected the "drop your weapon" command
 			fire()
 			return
 		if(RAISE_HANDS)
-			alert_message = "raise your hands!"
-			alert_message_3p = "raise their hands!"
+			user.say(pick(list("Put your hands above your head!", "Hands! Now!", "Hands up!")), forced = "Weapon aiming")
 		if(DROP_WEAPON)
-			alert_message = "drop your weapon!"
-			alert_message_3p = "drop their weapon!"
+			user.say(pick(list("Drop your weapon!", "Weapon down! Now!", "Drop it!")), forced = "Weapon aiming")
 		if(DROP_TO_FLOOR)
-			alert_message = "lie down!"
-			alert_message_3p = "lie down!"
-	user.balloon_alert(target, "[user] orders you to [alert_message]")
-	user.balloon_alert_to_viewers("[user] orders [target] to [alert_message_3p]!", "You order [target] to [alert_message_3p]", ignored_mobs = target)
+			user.say(pick(list("On the ground! Now!", "Lie down and place your hands behind your head!", "Get down on the ground!")), forced = "Weapon aiming")
 	aim_react(target)
 	COOLDOWN_START(src, voiceline_cooldown, 2 SECONDS)
 	show_ui(user, target, choice)
