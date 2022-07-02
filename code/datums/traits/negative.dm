@@ -60,9 +60,21 @@
 	medical_record_text = "Patient has a tumor in their brain that is slowly driving them to brain death."
 	process = TRUE
 	var/where = "at your feet"
+	var/notified = FALSE
 
 /datum/quirk/brainproblems/on_process(delta_time)
-	quirk_holder.adjustOrganLoss(ORGAN_SLOT_BRAIN, 0.2 * delta_time)
+	if(!quirk_holder.reagents.has_reagent(/datum/reagent/medicine/mannitol) && prob(80))
+		quirk_holder.adjustOrganLoss(ORGAN_SLOT_BRAIN, 0.1 * delta_time)
+	var/obj/item/organ/brain/B = quirk_holder.getorgan(/obj/item/organ/brain)
+	if(B)
+		if(B.damage>BRAIN_DAMAGE_MILD-1 && !notified)
+			to_chat(quirk_holder, "<span class='danger'>You sense your brain is getting beyond your control...</span>")
+			notified = TRUE
+		if(B.damage<1 && notified)
+			to_chat(quirk_holder, "<span class='notice'>You feel your brain is quite well.</span>")
+			notified = FALSE
+
+
 
 /datum/quirk/brainproblems/on_spawn()
 	var/mob/living/carbon/human/H = quirk_holder
