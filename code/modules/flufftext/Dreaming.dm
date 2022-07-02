@@ -1,8 +1,6 @@
 /mob/living/carbon/proc/handle_dreams()
 	if(prob(10) && !dreaming)
 		dream()
-	if(HAS_TRAIT(src, TRAIT_BRAIN_TUMOR))
-		adjustOrganLoss(ORGAN_SLOT_BRAIN, -0.3)
 
 /mob/living/carbon/proc/dream()
 	set waitfor = FALSE

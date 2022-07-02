@@ -965,6 +965,7 @@
 
 /datum/reagent/medicine/mannitol/on_mob_life(mob/living/carbon/C)
 	if(HAS_TRAIT(C, TRAIT_BRAIN_TUMOR)) // to brain tumor quirker
+		SEND_SIGNAL(C, COMSIG_ADD_MOOD_EVENT, "brain_tumor", /datum/mood_event/brain_tumor_mannitol)
 		if(!overdosed) // don't merge this condition into the `if` above.
 			C.adjustOrganLoss(ORGAN_SLOT_BRAIN, -0.5*REM)
 			overdose_threshold = 35
