@@ -6,6 +6,8 @@
 	var/label_name
 	///Something briefly explaining it in IG terms or a pun.
 	var/label_desc
+	///Asscoiated flags for artifact typing
+	var/flags = NONE
 	///Other traits the original trait wont work with. Referenced when generating traits.
 	var/list/blacklist_traits = list()
 	///Weight in trait list, most traits wont change this
@@ -20,6 +22,14 @@
 	for(var/datum/xenoartifact_trait/T as() in temp)
 		weighted += list((T) = initial(T?.weight))
 	return weighted
+
+///Compile a blacklist of traits from a given flag/s
+/proc/compile_artifact_blacklist(var/flags)
+	var/list/output = list()
+	for(var/datum/xenoartifact_trait/T as() in XENOA_ALL_TRAITS)
+		if(!(initial(T.flags) & flags))
+			output += T
+	return output
 
 //Activator signal shenanignas 
 /datum/xenoartifact_trait/activator
@@ -102,6 +112,9 @@
 /datum/xenoartifact_trait/proc/on_touch(obj/item/xenoartifact/X, atom/user) //Touch hint
 	return FALSE
 
+/datum/xenoartifact_trait/special/objective
+	blacklist_traits = list(/datum/xenoartifact_trait/minor/delicate)
+
 /datum/xenoartifact_trait/special/objective/on_init(obj/item/xenoartifact/X) //Exploration mission GPS trait
 	X.AddComponent(/datum/component/gps, "[scramble_message_replace_chars("#########", 100)]", TRUE)
 
@@ -114,6 +127,7 @@
 	label_desc = "Sturdy: The material is sturdy. The amount of force applied seems to directly correlate to the size of the reaction."
 	charge = 25
 	signals = list(COMSIG_PARENT_ATTACKBY, COMSIG_MOVABLE_IMPACT, XENOA_INTERACT, COMSIG_ITEM_AFTERATTACK)
+	flags = BLUESPACE_TRAIT | PLASMA_TRAIT | URANIUM_TRAIT
 
 /datum/xenoartifact_trait/activator/impact/calculate_charge(datum/source, obj/item/thing, mob/user, atom/target)
 	var/obj/item/xenoartifact/X = source
@@ -128,6 +142,7 @@
 	label_desc = "Flammable: The material is flammable, and seems to react when ignited."
 	charge = 25
 	signals = list(COMSIG_PARENT_ATTACKBY)
+	flags = BLUESPACE_TRAIT | URANIUM_TRAIT
 
 /datum/xenoartifact_trait/activator/burn/on_init(obj/item/xenoartifact/X)
 	..()
@@ -151,6 +166,7 @@
 	charge = 25
 	blacklist_traits = list(/datum/xenoartifact_trait/minor/capacitive)
 	signals = list(COMSIG_PARENT_ATTACKBY, COMSIG_MOVABLE_IMPACT, XENOA_INTERACT, COMSIG_ITEM_AFTERATTACK)
+	flags = BLUESPACE_TRAIT | URANIUM_TRAIT
 
 /datum/xenoartifact_trait/activator/clock/on_init(obj/item/xenoartifact/X)
 	..()
@@ -177,6 +193,7 @@
 	label_desc = "Signal: The material recieves radio frequencies and reacts when a matching code is delivered."
 	charge = 25
 	signals = list(XENOA_SIGNAL)
+	flags = BLUESPACE_TRAIT | URANIUM_TRAIT
 
 /datum/xenoartifact_trait/activator/signal/on_init(obj/item/xenoartifact/X)
 	..()
@@ -204,6 +221,7 @@
 	label_desc = "Charged: The material has a natural power draw. Supplying any current to this will cause a reaction."
 	charge = 25
 	signals = list(COMSIG_PARENT_ATTACKBY)
+	flags = BLUESPACE_TRAIT | URANIUM_TRAIT
 
 /datum/xenoartifact_trait/activator/batteryneed/on_item(obj/item/xenoartifact/X, atom/user, atom/item)
 	if(istype(item, /obj/item/multitool))
@@ -227,6 +245,7 @@
 	charge = 25
 	signals = list(COMSIG_ITEM_PICKUP)
 	blacklist_traits = list(/datum/xenoartifact_trait/minor/dense, /datum/xenoartifact_trait/minor/anchor, /datum/xenoartifact_trait/major/distablizer)
+	flags = BLUESPACE_TRAIT | URANIUM_TRAIT
 
 /datum/xenoartifact_trait/activator/weighted/calculate_charge(datum/source, obj/item/thing, mob/user, atom/target)
 	var/obj/item/xenoartifact/X = source
@@ -239,6 +258,7 @@
 /datum/xenoartifact_trait/minor/looped
 	desc = "Looped"
 	label_desc = "Looped: The Artifact feeds into itself and amplifies its own charge."
+	flags = BLUESPACE_TRAIT | PLASMA_TRAIT | URANIUM_TRAIT
 
 /datum/xenoartifact_trait/minor/looped/on_item(obj/item/xenoartifact/X, atom/user, atom/item)
 	if(istype(item, /obj/item/multitool))
@@ -255,6 +275,7 @@
 /datum/xenoartifact_trait/minor/capacitive
 	desc = "Capacitive"
 	label_desc = "Capacitive: The Artifact's structure allows it to hold extra charges."
+	flags = BLUESPACE_TRAIT | PLASMA_TRAIT | URANIUM_TRAIT
 	var/charges //Extra uses, not total
 	var/saved_cooldown //This may be considered messy but it's a more practical approach that avoids making an edgecase
 
@@ -289,6 +310,7 @@
 	desc = "Dense"
 	label_desc = "Dense: The Artifact is dense and cannot be easily lifted but, the design has a slightly higher reaction rate."
 	blacklist_traits = list(/datum/xenoartifact_trait/minor/wearable, /datum/xenoartifact_trait/minor/sharp, /datum/xenoartifact_trait/minor/light, /datum/xenoartifact_trait/minor/heavy, /datum/xenoartifact_trait/minor/blocking, /datum/xenoartifact_trait/minor/anchor)
+	flags = BLUESPACE_TRAIT | URANIUM_TRAIT
 
 /datum/xenoartifact_trait/minor/dense/on_init(obj/item/xenoartifact/X)
 	X.density = TRUE
@@ -303,6 +325,7 @@
 	desc = "Sharp"
 	label_desc = "Sharp: The Artifact is shaped into a fine point. Perfect for popping balloons."
 	blacklist_traits = list(/datum/xenoartifact_trait/minor/dense)
+	flags = PLASMA_TRAIT | URANIUM_TRAIT
 
 /datum/xenoartifact_trait/minor/sharp/on_touch(obj/item/xenoartifact/X, mob/user)
 	to_chat(user, "<span class='notice'>The [X.name] feels sharp.</span>")
@@ -321,6 +344,7 @@
 /datum/xenoartifact_trait/minor/cooler
 	desc = "Frosted"
 	label_desc = "Frosted: The Artifact has the unique property of actively cooling itself. This also seems to reduce time between uses."
+	flags = BLUESPACE_TRAIT | PLASMA_TRAIT | URANIUM_TRAIT
 
 /datum/xenoartifact_trait/minor/cooler/on_touch(obj/item/xenoartifact/X, mob/user)
 	to_chat(user, "<span class='notice'>The [X.name] feels cold.</span>")
@@ -433,6 +457,7 @@
 /datum/xenoartifact_trait/minor/delicate
 	desc = "Fragile"
 	label_desc = "Fragile: The Artifact is poorly made. Continuous use will destroy it."
+	flags = BLUESPACE_TRAIT | PLASMA_TRAIT | URANIUM_TRAIT
 
 /datum/xenoartifact_trait/minor/delicate/on_init(obj/item/xenoartifact/X)
 	X.max_integrity = pick(200, 300, 500, 800, 1000)
@@ -455,6 +480,7 @@
 	desc = "Expansive"
 	label_desc = "Expansive: The Artifact's surface reaches towards every creature in the room. Even the empty space behind you..."
 	blacklist_traits = list(/datum/xenoartifact_trait/major/timestop, /datum/xenoartifact_trait/minor/long)
+	flags = BLUESPACE_TRAIT | PLASMA_TRAIT | URANIUM_TRAIT
 
 /datum/xenoartifact_trait/minor/aura/on_init(obj/item/xenoartifact/X)
 	X.max_range += 2
@@ -477,6 +503,7 @@
 	desc = "Scoped"
 	label_desc = "Scoped: The Artifact has an almost magnifying effect to it. You could probably hit someone from really far away with it."
 	blacklist_traits = list(/datum/xenoartifact_trait/minor/aura)
+	flags = BLUESPACE_TRAIT | PLASMA_TRAIT | URANIUM_TRAIT
 
 /datum/xenoartifact_trait/minor/long/on_init(obj/item/xenoartifact/X)
 	X.max_range += 18
@@ -488,6 +515,7 @@
 	desc = "Shaped"
 	label_desc = "Shaped: The Artifact is small and shaped. It looks as if it'd fit on someone's finger."
 	blacklist_traits = list(/datum/xenoartifact_trait/minor/dense)
+	flags = BLUESPACE_TRAIT | PLASMA_TRAIT
 
 /datum/xenoartifact_trait/minor/wearable/on_init(obj/item/xenoartifact/X)
 	X.slot_flags = ITEM_SLOT_GLOVES
@@ -502,6 +530,7 @@
 	desc = "Shielded"
 	label_desc = "Shielded: The Artifact's composistion lends itself well to blocking attacks. It would do you good to bring this to a rage cage."
 	blacklist_traits = list(/datum/xenoartifact_trait/minor/dense)
+	flags = BLUESPACE_TRAIT | PLASMA_TRAIT | URANIUM_TRAIT
 
 /datum/xenoartifact_trait/minor/blocking/on_init(obj/item/xenoartifact/X)
 	X.block_level = pick(1, 2, 3, 4)
@@ -515,6 +544,7 @@
 	desc = "Light"
 	label_desc = "Light: The Artifact is made from a light material. You can pitch it pretty far."
 	blacklist_traits = list(/datum/xenoartifact_trait/minor/dense, /datum/xenoartifact_trait/minor/heavy)
+	flags = BLUESPACE_TRAIT | PLASMA_TRAIT | URANIUM_TRAIT
 
 /datum/xenoartifact_trait/minor/light/on_init(obj/item/xenoartifact/X)
 	X.throw_range = 8
@@ -526,6 +556,7 @@
 	desc = "Heavy"
 	label_desc = "Heavy: The Artifact is made from a heavy material. You can't pitch it very far."
 	blacklist_traits = list(/datum/xenoartifact_trait/minor/dense, /datum/xenoartifact_trait/minor/light)
+	flags = BLUESPACE_TRAIT | PLASMA_TRAIT | URANIUM_TRAIT
 
 /datum/xenoartifact_trait/minor/heavy/on_init(obj/item/xenoartifact/X)
 	X.throw_range = 1
@@ -536,6 +567,7 @@
 /datum/xenoartifact_trait/minor/signalsend
 	label_name = "Signaler"
 	label_desc = "Signaler: The Artifact sends out a signal everytime it's activated."
+	flags = BLUESPACE_TRAIT | PLASMA_TRAIT | URANIUM_TRAIT
 
 /datum/xenoartifact_trait/minor/signalsend/on_item(obj/item/xenoartifact/X, atom/user, atom/item)
 	if(istype(item, /obj/item/analyzer))
@@ -559,6 +591,7 @@
 /datum/xenoartifact_trait/minor/anchor
 	desc = "Anchored"
 	label_desc = "Anchored: The Artifact sends out a signal everytime it's activated."
+	flags = BLUESPACE_TRAIT | URANIUM_TRAIT
 
 /datum/xenoartifact_trait/minor/anchor/activate(obj/item/xenoartifact/X, atom/target, atom/user)
 	if(isliving(X.loc))
@@ -587,6 +620,7 @@
 	desc = "Slippery"
 	label_desc = "Slippery: The Artifact's surface is perpetually slippery."
 	blacklist_traits = list(/datum/xenoartifact_trait/minor/dense)
+	flags = BLUESPACE_TRAIT | PLASMA_TRAIT | URANIUM_TRAIT
 	var/datum/component/slippery/slipper
 
 /datum/xenoartifact_trait/minor/slippery/on_init(obj/item/xenoartifact/X)
@@ -604,7 +638,8 @@
 	label_name = "Haunted"
 	label_desc = "Haunted: The Artifact's appears to interact with bluespace spatial regression, causing the item to appear haunted."
 	blacklist_traits = list(/datum/xenoartifact_trait/minor/dense)
-	weight = 5
+	flags = BLUESPACE_TRAIT
+	weight = 15
 	var/datum/component/deadchat_control/controller
 
 /datum/xenoartifact_trait/minor/haunted/on_init(obj/item/xenoartifact/X)
@@ -645,6 +680,7 @@
 /datum/xenoartifact_trait/major/capture
 	desc = "Hollow"
 	label_desc = "Hollow: The shape is hollow, however the inside is deceptively large."
+	flags = BLUESPACE_TRAIT | PLASMA_TRAIT | URANIUM_TRAIT
 	var/fren
 
 /datum/xenoartifact_trait/major/capture/on_init(obj/item/xenoartifact/X)
@@ -685,6 +721,7 @@
 /datum/xenoartifact_trait/major/shock
 	desc = "Conductive"
 	label_desc = "Conductive: The shape resembles two lighting forks. Subtle arcs seem to leaps across them."
+	flags = PLASMA_TRAIT | URANIUM_TRAIT
 
 /datum/xenoartifact_trait/major/shock/on_touch(obj/item/xenoartifact/X, mob/user)
 	to_chat(user, "<span class='notice'>You feel a slight static after touching the [X.name].</span>")
@@ -708,6 +745,7 @@
 /datum/xenoartifact_trait/major/timestop
 	desc = "Melted"
 	label_desc = "Melted: The shape is drooling and sluggish. Additionally, light around it seems to invert."
+	flags = BLUESPACE_TRAIT | URANIUM_TRAIT
 
 /datum/xenoartifact_trait/major/timestop/on_touch(obj/item/xenoartifact/X, mob/user)
 	to_chat(user, "<span class='notice'>Your hand feels slow while stroking the [X.name].</span>")
@@ -726,6 +764,7 @@
 /datum/xenoartifact_trait/major/laser
 	desc = "Barreled"
 	label_desc = "Barreled: The shape resembles the barrel of a gun. It's possible that it might dispense candy."
+	flags = PLASMA_TRAIT | URANIUM_TRAIT
 
 /datum/xenoartifact_trait/major/laser/activate(obj/item/xenoartifact/X, atom/target, mob/living/user)
 	if(isliving(target))
@@ -751,6 +790,7 @@
 /datum/xenoartifact_trait/major/corginator //All of this is stolen from corgium. 
 	desc = "Fuzzy" //Weirdchamp
 	label_desc = "Fuzzy: The shape is hard to discern under all the hair sprouting out from the surface. You swear you've heard it bark before."
+	flags = BLUESPACE_TRAIT
 	var/list/victims = list() //List of all affected targets, used for early qdel
 	var/obj/item/xenoartifact/xenoa //Used for early qdel
 
@@ -826,6 +866,7 @@
 /datum/xenoartifact_trait/major/mirrored
 	desc = "Mirrored"
 	label_desc = "Mirrored: The shape is perfectly symetrical. Perhaps you could interest the Captain?"
+	flags = BLUESPACE_TRAIT | URANIUM_TRAIT
 	///List generally used for initial swap, contains the swapping mobs
 	var/list/victims = list()
 	///List used to hold lists that contain swapped mobs
@@ -837,27 +878,31 @@
 			playsound(get_turf(X), 'sound/machines/buzz-sigh.ogg', 50, TRUE)
 		else
 			victims += target
-		if(victims.len < 2) //one last check before hand, after adding new target
+		if(victims.len < 2) //one last check before hand
 			return
 	swap(victims[1], victims[2])
 	log_game("[X] swapped the identities of [victims[1]] & [victims[2]] at [world.time]. [X] located at [X.x] [X.y] [X.z]")
-	addtimer(CALLBACK(src, .proc/undo_swap), (X.charge*0.20) SECONDS)
-	X.cooldownmod = (X.charge*0.3) SECONDS
+	addtimer(CALLBACK(src, .proc/undo_swap), ((X.charge*0.20) SECONDS)+ 6 SECONDS) //6 extra seconds while targets are asleep
+	X.cooldownmod = ((X.charge*0.3)SECONDS)+ 6 SECONDS
 	victims = list()
 
 /datum/xenoartifact_trait/major/mirrored/proc/swap(var/atom/victim_a, var/atom/victim_b)
 	var/mob/living/caster = victim_a
 	var/mob/living/victim = victim_b
 
-	var/mob/dead/observer/ghost = victim.ghostize(0)
-	ghost?.mind.transfer_to(caster)
-	caster?.mind.transfer_to(victim)
-	if(ghost?.key)
-		caster?.key = ghost?.key
-	qdel(ghost)
+	var/mob/dead/observer/ghost_v = victim.ghostize(0)
+	var/mob/dead/observer/ghost_c = caster.ghostize(0)
+	ghost_v?.mind.transfer_to(caster)
+	ghost_c?.mind.transfer_to(victim)
+	if(ghost_v?.key)
+		caster?.key = ghost_v?.key
+	if(ghost_c?.key)
+		victim?.key = ghost_c?.key
+	qdel(ghost_v)
+	qdel(ghost_c)
 
-	caster.Unconscious(7 SECONDS)
-	victim.Unconscious(7 SECONDS)
+	caster.Unconscious(6 SECONDS)
+	victim.Unconscious(6 SECONDS)
 	reverse_victims += list(list(caster, victim))
 
 /datum/xenoartifact_trait/major/mirrored/proc/undo_swap()
@@ -871,6 +916,7 @@
 /datum/xenoartifact_trait/major/emp
 	label_name = "EMP"
 	label_desc = "EMP: The shape of the Artifact doesn't resemble anything particularly interesting. Technology around the Artifact seems to malfunction."
+	flags = URANIUM_TRAIT
 
 /datum/xenoartifact_trait/major/emp/activate(obj/item/xenoartifact/X)
 	empulse(get_turf(X.loc), max(1, X.charge*0.03), max(1, X.charge*0.07, 1)) //This might be too big
@@ -881,6 +927,7 @@
 /datum/xenoartifact_trait/major/invisible //One step closer to the one ring
 	label_name = "Transparent"
 	label_desc = "Transparent: The shape of the Artifact is difficult to percieve. You feel the need to call it, precious..."
+	flags = BLUESPACE_TRAIT | URANIUM_TRAIT
 	var/list/victims = list()
 	///List of stored icons used for reversion
 	var/list/stored_icons = list()
@@ -902,14 +949,10 @@
 
 /datum/xenoartifact_trait/major/invisible/proc/hide(mob/living/target)
 	animate(target, ,alpha = 0, time = 5)
-	sleep(10)
-	target.invisibility = 101
 
 /datum/xenoartifact_trait/major/invisible/proc/reveal(mob/living/target)
 	if(target)
 		animate(target, ,alpha = 255, time = 5)
-		sleep(10)
-		target.invisibility = 0
 		target = null
 
 /datum/xenoartifact_trait/major/invisible/Destroy(force, ...)
@@ -923,6 +966,7 @@
 /datum/xenoartifact_trait/major/teleporting
 	desc = "Displaced"
 	label_desc = "Displaced: The shape's state is unstable, causing it to shift through planes at a localized axis. Just ask someone from science..."
+	flags = BLUESPACE_TRAIT | PLASMA_TRAIT | URANIUM_TRAIT
 
 /datum/xenoartifact_trait/major/teleporting/activate(obj/item/xenoartifact/X, atom/target, atom/user)
 	if(istype(target, /atom/movable))
@@ -936,6 +980,7 @@
 /datum/xenoartifact_trait/major/lamp
 	label_name = "Lamp"
 	label_desc = "Lamp: The Artifact emits light. Nothing in its shape suggests this."
+	flags = BLUESPACE_TRAIT | URANIUM_TRAIT
 	var/light_mod
 
 /datum/xenoartifact_trait/major/lamp/on_init(obj/item/xenoartifact/X)
@@ -958,6 +1003,7 @@
 /datum/xenoartifact_trait/major/lamp/dark
 	label_name = "Shade"
 	label_desc = "Shade: The Artifact retracts light. Nothing in its shape suggests this."
+	flags = BLUESPACE_TRAIT | PLASMA_TRAIT | URANIUM_TRAIT
 
 /datum/xenoartifact_trait/major/lamp/dark/on_init(obj/item/xenoartifact/X)
 	X.light_system = MOVABLE_LIGHT
@@ -989,6 +1035,7 @@
 /datum/xenoartifact_trait/major/forcefield
 	label_name = "Wall"
 	label_desc = "Wall: The Artifact produces a resonance that forms impenetrable walls. Here's one you'll never crawl!"
+	flags = BLUESPACE_TRAIT | URANIUM_TRAIT
 	var/size
 
 /datum/xenoartifact_trait/major/forcefield/on_init(obj/item/xenoartifact/X)
@@ -1015,6 +1062,7 @@
 /datum/xenoartifact_trait/major/heal
 	label_name = "Healing"
 	label_desc = "Healing: The Artifact repeairs any damaged organic tissue the targat may contain. Widely considered the Holy Grail of Artifact traits."
+	flags = BLUESPACE_TRAIT
 	weight = 25
 	var/healing_type
 
@@ -1047,6 +1095,7 @@
 /datum/xenoartifact_trait/major/chem
 	desc = "Tubed"
 	label_desc = "Tubed: The Artifact's shape is comprised of many twisting tubes and vials, it seems a liquid may be inside."
+	flags = BLUESPACE_TRAIT | PLASMA_TRAIT | URANIUM_TRAIT
 	var/datum/reagent/formula
 	var/amount
 
@@ -1067,6 +1116,7 @@
 /datum/xenoartifact_trait/major/push
 	label_name = "Push"
 	label_desc = "Push: The Artifact pushes anything not bolted down. The shape doesn't suggest this."
+	flags = BLUESPACE_TRAIT | PLASMA_TRAIT | URANIUM_TRAIT
 
 /datum/xenoartifact_trait/major/push/activate(obj/item/xenoartifact/X, atom/target)
 	if(istype(target, /mob/living)||istype(target, /obj/item))
@@ -1080,6 +1130,7 @@
 /datum/xenoartifact_trait/major/pull
 	label_name = "Pull"
 	label_desc = "Pull: The Artifact pulls anything not bolted down. The shape doesn't suggest this."
+	flags = BLUESPACE_TRAIT | PLASMA_TRAIT | URANIUM_TRAIT
 
 /datum/xenoartifact_trait/major/pull/on_init(obj/item/xenoartifact/X)
 	X.max_range += 1
@@ -1096,6 +1147,7 @@
 	desc = "Horned"
 	label_name = "Horn"
 	label_desc = "Horn: The Artifact's shape resembles a horn. These Artifacts are widely deployed by the most clever clowns."
+	flags = BLUESPACE_TRAIT | PLASMA_TRAIT | URANIUM_TRAIT
 	var/sound
 
 /datum/xenoartifact_trait/major/horn/on_init(obj/item/xenoartifact/X)
@@ -1114,6 +1166,7 @@
 /datum/xenoartifact_trait/major/gas
 	desc = "Porous"
 	label_desc = "Porous: The Artifact absorbs a specific nearby gas and replaces it with an undeterminable one."
+	flags = BLUESPACE_TRAIT | URANIUM_TRAIT
 	var/static/list/valid_inputs = list(
 		/datum/gas/oxygen = 6,
 		/datum/gas/nitrogen = 3,
@@ -1158,7 +1211,8 @@
 /datum/xenoartifact_trait/major/distablizer
 	label_name = "Destabilizing"
 	label_desc = "Destabilizing: The Artifact collapses an improper bluespace matrix on the target, sending them to an unknown location."
-	weight = 23
+	weight = 25
+	flags = URANIUM_TRAIT
 	var/obj/item/xenoartifact/exit
 
 /datum/xenoartifact_trait/major/distablizer/on_init(obj/item/xenoartifact/X)

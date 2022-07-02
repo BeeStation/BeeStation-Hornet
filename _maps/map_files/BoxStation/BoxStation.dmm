@@ -30706,6 +30706,9 @@
 /area/tcommsat/computer)
 "bQO" = (
 /obj/structure/closet/bombcloset,
+/obj/machinery/light{
+	dir = 8
+	},
 /turf/open/floor/plasteel,
 /area/science/misc_lab)
 "bQT" = (
@@ -44056,6 +44059,7 @@
 /obj/effect/turf_decal/delivery,
 /obj/machinery/xenoartifact_inbox,
 /obj/effect/landmark/xeno_spawn,
+/obj/item/xenoartifact,
 /turf/open/floor/engine,
 /area/science/misc_lab)
 "ezu" = (
@@ -44314,8 +44318,8 @@
 "ePs" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/light_switch{
-	pixel_y = 1;
-	pixel_x = -22
+	pixel_x = -22;
+	pixel_y = 1
 	},
 /obj/effect/turf_decal/loading_area,
 /obj/machinery/airalarm/directional/west{
@@ -45445,6 +45449,7 @@
 /obj/item/folder/white,
 /obj/item/folder/white,
 /obj/item/pen,
+/obj/item/book/manual/wiki/xenoarchaeology,
 /turf/open/floor/plasteel,
 /area/science/misc_lab)
 "fZA" = (
@@ -46834,9 +46839,9 @@
 	pixel_y = 2
 	},
 /obj/machinery/door/window/eastleft{
+	dir = 8;
 	name = "Quarantine Pen C";
-	req_one_access_txt = "39";
-	dir = 8
+	req_one_access_txt = "39"
 	},
 /turf/open/floor/plasteel/freezer,
 /area/medical/virology)
@@ -47556,12 +47561,6 @@
 /area/crew_quarters/cryopods)
 "iuS" = (
 /obj/structure/table,
-/obj/item/storage/box/beakers{
-	pixel_x = 2;
-	pixel_y = 2
-	},
-/obj/item/grenade/chem_grenade,
-/obj/item/grenade/chem_grenade,
 /obj/machinery/requests_console{
 	department = "Science";
 	departmentType = 2;
@@ -47573,6 +47572,14 @@
 	dir = 6
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/item/clothing/glasses/science,
+/obj/item/clothing/glasses/science{
+	pixel_y = 8
+	},
+/obj/item/xenoartifact_labeler,
+/obj/item/xenoartifact_labeler{
+	pixel_x = -9
+	},
 /turf/open/floor/plasteel,
 /area/science/misc_lab)
 "ivk" = (
@@ -48282,18 +48289,18 @@
 	name = "Quarantine Bolts B";
 	normaldoorcontrol = 1;
 	pixel_x = 8;
-	specialfunctions = 4;
+	pixel_y = -21;
 	req_one_access_txt = "39;40;45";
-	pixel_y = -21
+	specialfunctions = 4
 	},
 /obj/machinery/button/door{
 	id = "QuarantineA";
 	name = "Quarantine Bolts A";
 	normaldoorcontrol = 1;
 	pixel_x = -8;
-	specialfunctions = 4;
+	pixel_y = -21;
 	req_one_access_txt = "39;40;45";
-	pixel_y = -21
+	specialfunctions = 4
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -48303,18 +48310,18 @@
 	name = "Quarantine Bolts B";
 	normaldoorcontrol = 1;
 	pixel_x = 8;
-	specialfunctions = 4;
+	pixel_y = -21;
 	req_one_access_txt = "39;40;45";
-	pixel_y = -21
+	specialfunctions = 4
 	},
 /obj/machinery/button/door{
 	id = "QuarantineA";
 	name = "Quarantine Bolts A";
 	normaldoorcontrol = 1;
 	pixel_x = -8;
-	specialfunctions = 4;
+	pixel_y = -21;
 	req_one_access_txt = "39;40;45";
-	pixel_y = -21
+	specialfunctions = 4
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
@@ -48382,8 +48389,8 @@
 	pixel_y = 4
 	},
 /obj/item/restraints/handcuffs{
-	pixel_y = -2;
-	pixel_x = -2
+	pixel_x = -2;
+	pixel_y = -2
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
@@ -48704,35 +48711,35 @@
 "jLl" = (
 /obj/structure/table/glass,
 /obj/item/reagent_containers/syringe/antiviral{
-	pixel_y = 13;
-	pixel_x = 7
+	pixel_x = 7;
+	pixel_y = 13
 	},
 /obj/item/reagent_containers/syringe/antiviral{
-	pixel_y = 10;
-	pixel_x = 5
+	pixel_x = 5;
+	pixel_y = 10
 	},
 /obj/item/reagent_containers/syringe/antiviral{
-	pixel_y = 8;
-	pixel_x = 1
+	pixel_x = 1;
+	pixel_y = 8
 	},
 /obj/item/reagent_containers/syringe/antiviral{
 	pixel_y = 5
 	},
 /obj/item/reagent_containers/syringe/antiviral{
-	pixel_y = 1;
-	pixel_x = -1
+	pixel_x = -1;
+	pixel_y = 1
 	},
 /obj/item/reagent_containers/syringe/antiviral{
-	pixel_y = -1;
-	pixel_x = -2
+	pixel_x = -2;
+	pixel_y = -1
 	},
 /obj/item/storage/box/syringes{
-	pixel_y = 11;
-	pixel_x = 6
+	pixel_x = 6;
+	pixel_y = 11
 	},
 /obj/item/storage/box/syringes{
-	pixel_y = 2;
-	pixel_x = -3
+	pixel_x = -3;
+	pixel_y = 2
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 9
@@ -49274,8 +49281,8 @@
 /obj/structure/table,
 /obj/item/storage/box/monkeycubes{
 	layer = 3.1;
-	pixel_y = 8;
-	pixel_x = -4
+	pixel_x = -4;
+	pixel_y = 8
 	},
 /obj/item/storage/box/monkeycubes{
 	layer = 3.1;
@@ -49283,8 +49290,8 @@
 	},
 /obj/machinery/button/flasher{
 	id = "monkeypen";
-	pixel_y = 3;
-	pixel_x = 29
+	pixel_x = 29;
+	pixel_y = 3
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
@@ -50843,8 +50850,8 @@
 /obj/machinery/button/door{
 	id = "quarantineshutters";
 	name = "Quarantine Lockdown";
-	req_access_txt = "39";
-	pixel_x = -23
+	pixel_x = -23;
+	req_access_txt = "39"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -51305,9 +51312,9 @@
 	pixel_y = 2
 	},
 /obj/machinery/door/window/eastleft{
+	dir = 8;
 	name = "Quarantine Pen B";
-	req_one_access_txt = "39";
-	dir = 8
+	req_one_access_txt = "39"
 	},
 /turf/open/floor/plasteel/freezer,
 /area/medical/virology)
@@ -51442,6 +51449,10 @@
 	dir = 8
 	},
 /obj/item/book/manual/wiki/experimentor,
+/obj/item/storage/box/beakers{
+	pixel_x = 2;
+	pixel_y = 2
+	},
 /turf/open/floor/plasteel,
 /area/science/misc_lab)
 "mjr" = (
@@ -53093,8 +53104,8 @@
 /obj/machinery/button/door{
 	id = "quarantineshutters";
 	name = "Quarantine Lockdown";
-	req_access_txt = "39";
-	pixel_x = 24
+	pixel_x = 24;
+	req_access_txt = "39"
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
@@ -53612,6 +53623,9 @@
 "oHU" = (
 /obj/machinery/atmospherics/pipe/simple/general/visible{
 	dir = 10
+	},
+/obj/machinery/light{
+	dir = 1
 	},
 /turf/open/floor/engine,
 /area/science/misc_lab)
@@ -54237,8 +54251,8 @@
 	department = "Medbay";
 	departmentType = 1;
 	name = "Medbay RC";
-	pixel_y = 1;
-	pixel_x = 30
+	pixel_x = 30;
+	pixel_y = 1
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
@@ -54672,9 +54686,9 @@
 	pixel_y = 2
 	},
 /obj/machinery/door/window/eastleft{
+	dir = 8;
 	name = "Quarantine Pen A";
-	req_one_access_txt = "39";
-	dir = 8
+	req_one_access_txt = "39"
 	},
 /turf/open/floor/plasteel/freezer,
 /area/medical/virology)
@@ -54765,8 +54779,8 @@
 /obj/machinery/button/door{
 	id = "quarantineshutters";
 	name = "Quarantine Lockdown";
-	req_access_txt = "39";
-	pixel_x = 24
+	pixel_x = 24;
+	req_access_txt = "39"
 	},
 /obj/structure/closet/l3closet/virology,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
@@ -55965,8 +55979,8 @@
 	name = "Quarantine Bolts A";
 	normaldoorcontrol = 1;
 	pixel_x = 24;
-	specialfunctions = 4;
-	req_one_access_txt = "39;40;45"
+	req_one_access_txt = "39;40;45";
+	specialfunctions = 4
 	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
@@ -56760,8 +56774,8 @@
 /obj/item/radio/intercom{
 	frequency = 1485;
 	name = "Station Intercom (Medbay)";
-	pixel_y = 1;
-	pixel_x = 29
+	pixel_x = 29;
+	pixel_y = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plasteel/white,
@@ -57999,9 +58013,9 @@
 /area/maintenance/aft)
 "tSU" = (
 /obj/machinery/door/airlock/virology/glass{
+	id_tag = "ViroB";
 	name = "Quarantine Cell B";
-	req_access_txt = "39";
-	id_tag = "ViroB"
+	req_access_txt = "39"
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "quarantineshutters";
@@ -58752,8 +58766,8 @@
 	name = "Quarantine Bolts B";
 	normaldoorcontrol = 1;
 	pixel_x = -24;
-	specialfunctions = 4;
-	req_one_access_txt = "39;40;45"
+	req_one_access_txt = "39;40;45";
+	specialfunctions = 4
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -59866,8 +59880,8 @@
 /area/engine/atmos)
 "vXu" = (
 /obj/machinery/door/airlock/medical{
-	name = "Quarantine Cell B";
-	id_tag = "QuarantineB"
+	id_tag = "QuarantineB";
+	name = "Quarantine Cell B"
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "quarantineshutters";
@@ -60482,8 +60496,8 @@
 /area/maintenance/port/fore)
 "wGw" = (
 /obj/machinery/door/airlock/medical{
-	name = "Quarantine Cell A";
-	id_tag = "QuarantineA"
+	id_tag = "QuarantineA";
+	name = "Quarantine Cell A"
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "quarantineshutters";
@@ -61502,9 +61516,9 @@
 /obj/machinery/button/door{
 	id = "quarantineshutters";
 	name = "Quarantine Lockdown";
+	pixel_x = 24;
 	pixel_y = -10;
-	req_access_txt = "39";
-	pixel_x = 24
+	req_access_txt = "39"
 	},
 /turf/open/floor/plasteel/cafeteria,
 /area/crew_quarters/heads/cmo)
@@ -61694,12 +61708,12 @@
 	},
 /obj/item/storage/box/masks,
 /obj/item/reagent_containers/syringe/antiviral{
-	pixel_y = -1;
-	pixel_x = -2
+	pixel_x = -2;
+	pixel_y = -1
 	},
 /obj/item/reagent_containers/syringe/antiviral{
-	pixel_y = -1;
-	pixel_x = -2
+	pixel_x = -2;
+	pixel_y = -1
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
@@ -61799,24 +61813,24 @@
 "xUj" = (
 /obj/structure/table/glass,
 /obj/item/reagent_containers/food/drinks/bottle/virusfood{
-	pixel_y = 12;
-	pixel_x = 2
+	pixel_x = 2;
+	pixel_y = 12
 	},
 /obj/item/reagent_containers/food/drinks/bottle/virusfood{
-	pixel_y = 8;
-	pixel_x = -6
+	pixel_x = -6;
+	pixel_y = 8
 	},
 /obj/item/reagent_containers/glass/bottle/spaceacillin{
-	pixel_y = 12;
-	pixel_x = 9
+	pixel_x = 9;
+	pixel_y = 12
 	},
 /obj/item/reagent_containers/glass/bottle/spaceacillin{
-	pixel_y = 5;
-	pixel_x = 5
+	pixel_x = 5;
+	pixel_y = 5
 	},
 /obj/item/reagent_containers/glass/bottle/spaceacillin{
-	pixel_y = -1;
-	pixel_x = 2
+	pixel_x = 2;
+	pixel_y = -1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4

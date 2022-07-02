@@ -42522,6 +42522,7 @@
 	},
 /obj/item/hand_labeler,
 /obj/item/book/manual/wiki/experimentor,
+/obj/item/book/manual/wiki/xenoarchaeology,
 /turf/open/floor/plasteel/dark,
 /area/science/explab)
 "jUY" = (

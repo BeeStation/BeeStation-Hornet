@@ -409,6 +409,13 @@
 	title = "Toxins or: How I Learned to Stop Worrying and Love the Maxcap"
 	page_link = "Guide_to_toxins"
 
+/obj/item/book/manual/wiki/xenoarchaeology
+	name = "Xenoarchaeology Fieldguide"
+	icon_state ="xenoarchaeology"
+	author = "Phillippe French"
+	title = "Xenoarchaeology Fieldguide"
+	page_link = "Guide_to_Artifacts"
+
 /obj/item/book/manual/wiki/toxins/suicide_act(mob/user)
 	var/mob/living/carbon/human/H = user
 	user.visible_message("<span class='suicide'>[user] starts dancing to the Rhumba Beat! It looks like [user.p_theyre()] trying to commit suicide!</span>")

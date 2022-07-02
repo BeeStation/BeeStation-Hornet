@@ -8,7 +8,13 @@
 #define XENOA_URANIUM "#00ff0d"
 ///Wildcard, may god have mercy
 #define XENOA_BANANIUM "#ffd900"
+///The gods are about to do something stupid
 #define XENOA_DEBUGIUM "#ff4800"
+
+///trait flags
+#define BLUESPACE_TRAIT			(1<<0)
+#define PLASMA_TRAIT			(1<<1)
+#define URANIUM_TRAIT			(1<<2)
 
 //Technically not materials, still used for xenoartifact related content
 #define XENOA_SELLER_NAMES list("Borov", "Ivantsov", "Petrenko", "Voronin", "Kitsenko", "Plichko", "Sergei", "Kruglov", "Sakharov", "Kalugin", "Semenov", "Vasiliev", "Pavlik", "Tolik", "Kuznetsov", "Sidorovich", "Strelok")
@@ -31,6 +37,14 @@
 #define XENOA_MINORS compile_artifact_weights(/datum/xenoartifact_trait/minor)
 #define XENOA_MAJORS compile_artifact_weights(/datum/xenoartifact_trait/major)
 #define XENOA_MALFS compile_artifact_weights(/datum/xenoartifact_trait/malfunction)
+#define XENOA_ALL_TRAITS typesof(/datum/xenoartifact_trait)
+
+///Blacklist for bluespace traits
+#define XENOA_BLUESPACE_BLACKLIST compile_artifact_blacklist(BLUESPACE_TRAIT)
+///Blacklist for plasma traits
+#define XENOA_PLASMA_BLACKLIST compile_artifact_blacklist(PLASMA_TRAIT)
+///Blacklist for uranium traits
+#define XENOA_URANIUM_BLACKLIST compile_artifact_blacklist(URANIUM_TRAIT)
 
 //Specific trait defines
 ///Bear limit

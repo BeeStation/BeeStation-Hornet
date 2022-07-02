@@ -69,36 +69,20 @@
 	switch(material)
 		if(XENOA_BLUESPACE) //Check xenoartifact_materials.dm for info on artifact materials/types/traits
 			name = "bluespace [name]"
-			generate_traits(list(/datum/xenoartifact_trait/minor/sharp,
-							/datum/xenoartifact_trait/minor/sentient, /datum/xenoartifact_trait/major/sing, 
-							/datum/xenoartifact_trait/major/laser, /datum/xenoartifact_trait/major/emp,
-							/datum/xenoartifact_trait/major/distablizer))
+			generate_traits(XENOA_BLUESPACE_BLACKLIST)
 			if(!xenop.price)
 				xenop.price = pick(100, 200, 300)
 
 		if(XENOA_PLASMA)
 			name = "plasma [name]"
-			generate_traits(list(/datum/xenoartifact_trait/major/sing, /datum/xenoartifact_trait/activator/burn,
-							/datum/xenoartifact_trait/minor/dense, /datum/xenoartifact_trait/minor/sentient, 
-							/datum/xenoartifact_trait/major/capture, /datum/xenoartifact_trait/major/timestop,
-							/datum/xenoartifact_trait/major/mirrored,
-							/datum/xenoartifact_trait/major/corginator,/datum/xenoartifact_trait/activator/clock,
-							/datum/xenoartifact_trait/major/invisible,/datum/xenoartifact_trait/major/lamp, 
-							/datum/xenoartifact_trait/major/forcefield,/datum/xenoartifact_trait/activator/signal,
-							/datum/xenoartifact_trait/major/heal,/datum/xenoartifact_trait/activator/batteryneed,
-							/datum/xenoartifact_trait/activator/weighted,/datum/xenoartifact_trait/major/gas,
-							/datum/xenoartifact_trait/major/distablizer))
+			generate_traits(XENOA_PLASMA_BLACKLIST)
 			if(!xenop.price)
 				xenop.price = pick(200, 300, 500)
 			malfunction_mod = 0.5
 
 		if(XENOA_URANIUM)
 			name = "uranium [name]"
-			generate_traits(list(/datum/xenoartifact_trait/major/sing, /datum/xenoartifact_trait/minor/sharp,
-							/datum/xenoartifact_trait/major/laser, /datum/xenoartifact_trait/major/corginator,
-							/datum/xenoartifact_trait/minor/sentient, /datum/xenoartifact_trait/minor/wearable,
-							/datum/xenoartifact_trait/major/invisible,
-							/datum/xenoartifact_trait/major/heal, /datum/xenoartifact_trait/minor/slippery), TRUE) 
+			generate_traits(XENOA_URANIUM_BLACKLIST, TRUE) 
 			if(!xenop.price)
 				xenop.price = pick(300, 500, 800) 
 			malfunction_mod = 1
@@ -412,12 +396,12 @@
 	var/price
 
 /obj/item/xenoartifact/objective/Initialize(mapload, difficulty) //Objective version for exploration
-	. = ..()
 	traits += new /datum/xenoartifact_trait/special/objective
+	..()
 
 /obj/item/xenoartifact/objective/ComponentInitialize()
-	. = ..()
 	AddComponent(/datum/component/gps, "[scramble_message_replace_chars("#########", 100)]", TRUE)
+	..()
 
 /obj/effect/ebeam/xenoa_ebeam //Beam code. This isn't mine. See beam.dm for better documentation.
 	name = "artifact beam"

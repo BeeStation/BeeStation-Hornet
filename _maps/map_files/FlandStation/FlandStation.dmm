@@ -33323,6 +33323,7 @@
 /obj/structure/rack,
 /obj/item/clothing/mask/gas,
 /obj/item/tank/internals/oxygen,
+/obj/item/book/manual/wiki/xenoarchaeology,
 /turf/open/floor/plasteel/grid/steel,
 /area/science/explab)
 "hBZ" = (

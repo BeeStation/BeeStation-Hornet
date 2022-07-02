@@ -25682,6 +25682,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
+/obj/item/book/manual/wiki/xenoarchaeology,
 /turf/open/floor/plasteel/dark,
 /area/science/explab)
 "bph" = (
@@ -44267,9 +44268,9 @@
 /area/space/nearstation)
 "ctV" = (
 /obj/machinery/door/window/eastleft{
+	dir = 1;
 	name = "Testing Pen";
-	req_one_access_txt = "39";
-	dir = 1
+	req_one_access_txt = "39"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
@@ -46305,12 +46306,12 @@
 	name = "Quarantine Bolts A";
 	normaldoorcontrol = 1;
 	pixel_x = -24;
-	specialfunctions = 4;
-	req_one_access_txt = "39;40;45"
+	req_one_access_txt = "39;40;45";
+	specialfunctions = 4
 	},
 /obj/effect/turf_decal/caution/red{
-	pixel_y = -5;
-	dir = 1
+	dir = 1;
+	pixel_y = -5
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
@@ -48283,8 +48284,8 @@
 "fsb" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/door/airlock/medical{
-	name = "Quarantine Cell B";
-	id_tag = "QuarantineB"
+	id_tag = "QuarantineB";
+	name = "Quarantine Cell B"
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -52762,12 +52763,12 @@
 "kDr" = (
 /obj/structure/table/glass,
 /obj/item/storage/box/syringes{
-	pixel_y = 11;
-	pixel_x = 6
+	pixel_x = 6;
+	pixel_y = 11
 	},
 /obj/item/storage/box/syringes{
-	pixel_y = 2;
-	pixel_x = -3
+	pixel_x = -3;
+	pixel_y = 2
 	},
 /obj/effect/turf_decal/tile/green{
 	dir = 8
@@ -54395,8 +54396,8 @@
 	pixel_y = 4
 	},
 /obj/item/restraints/handcuffs{
-	pixel_y = -2;
-	pixel_x = -2
+	pixel_x = -2;
+	pixel_y = -2
 	},
 /obj/effect/turf_decal/tile/green{
 	dir = 4
@@ -54475,25 +54476,25 @@
 /area/maintenance/department/engine)
 "mBW" = (
 /obj/item/reagent_containers/food/drinks/bottle/virusfood{
-	pixel_y = 12;
-	pixel_x = 2
+	pixel_x = 2;
+	pixel_y = 12
 	},
 /obj/structure/table/glass,
 /obj/item/reagent_containers/glass/bottle/spaceacillin{
-	pixel_y = 12;
-	pixel_x = 9
+	pixel_x = 9;
+	pixel_y = 12
 	},
 /obj/item/reagent_containers/glass/bottle/spaceacillin{
-	pixel_y = 5;
-	pixel_x = 5
+	pixel_x = 5;
+	pixel_y = 5
 	},
 /obj/item/reagent_containers/glass/bottle/spaceacillin{
-	pixel_y = -1;
-	pixel_x = 2
+	pixel_x = 2;
+	pixel_y = -1
 	},
 /obj/item/reagent_containers/food/drinks/bottle/virusfood{
-	pixel_y = 8;
-	pixel_x = -6
+	pixel_x = -6;
+	pixel_y = 8
 	},
 /obj/effect/turf_decal/tile/green{
 	dir = 8
@@ -55139,8 +55140,8 @@
 /area/engine/engineering)
 "nsT" = (
 /obj/machinery/door/airlock/medical{
-	name = "Quarantine Cell A";
-	id_tag = "QuarantineA"
+	id_tag = "QuarantineA";
+	name = "Quarantine Cell A"
 	},
 /obj/machinery/door/firedoor,
 /obj/effect/turf_decal/stripes/line{
@@ -56868,8 +56869,8 @@
 	name = "Quarantine Bolts B";
 	normaldoorcontrol = 1;
 	pixel_x = -24;
-	specialfunctions = 4;
-	req_one_access_txt = "39;40;45"
+	req_one_access_txt = "39;40;45";
+	specialfunctions = 4
 	},
 /obj/machinery/camera{
 	c_tag = "Patient Room";
@@ -59085,27 +59086,27 @@
 "rDg" = (
 /obj/structure/table/glass,
 /obj/item/reagent_containers/syringe/antiviral{
-	pixel_y = 13;
-	pixel_x = 7
+	pixel_x = 7;
+	pixel_y = 13
 	},
 /obj/item/reagent_containers/syringe/antiviral{
-	pixel_y = 10;
-	pixel_x = 5
+	pixel_x = 5;
+	pixel_y = 10
 	},
 /obj/item/reagent_containers/syringe/antiviral{
-	pixel_y = 8;
-	pixel_x = 1
+	pixel_x = 1;
+	pixel_y = 8
 	},
 /obj/item/reagent_containers/syringe/antiviral{
 	pixel_y = 5
 	},
 /obj/item/reagent_containers/syringe/antiviral{
-	pixel_y = 1;
-	pixel_x = -1
+	pixel_x = -1;
+	pixel_y = 1
 	},
 /obj/item/reagent_containers/syringe/antiviral{
-	pixel_y = -1;
-	pixel_x = -2
+	pixel_x = -2;
+	pixel_y = -1
 	},
 /obj/effect/turf_decal/tile/green{
 	dir = 8
@@ -60925,15 +60926,15 @@
 	name = "Quarantine Bolts B";
 	normaldoorcontrol = 1;
 	pixel_x = 24;
-	specialfunctions = 4;
-	req_one_access_txt = "39;40;45"
+	req_one_access_txt = "39;40;45";
+	specialfunctions = 4
 	},
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
 	},
 /obj/effect/turf_decal/caution/red{
-	pixel_y = -5;
-	dir = 1
+	dir = 1;
+	pixel_y = -5
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plasteel/white,
@@ -62024,8 +62025,8 @@
 	name = "Quarantine Bolts A";
 	normaldoorcontrol = 1;
 	pixel_x = 24;
-	specialfunctions = 4;
-	req_one_access_txt = "39;40;45"
+	req_one_access_txt = "39;40;45";
+	specialfunctions = 4
 	},
 /obj/machinery/camera{
 	c_tag = "Patient Room";
@@ -62090,8 +62091,8 @@
 	specialfunctions = 4
 	},
 /obj/effect/turf_decal/caution/red{
-	pixel_y = -5;
-	dir = 1
+	dir = 1;
+	pixel_y = -5
 	},
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 1
@@ -63513,8 +63514,8 @@
 /area/lawoffice)
 "xfZ" = (
 /obj/item/folder/blue{
-	pixel_y = 2;
-	pixel_x = -11
+	pixel_x = -11;
+	pixel_y = 2
 	},
 /obj/item/stamp/cmo{
 	pixel_x = -10
@@ -64287,8 +64288,8 @@
 	icon_state = "1-2"
 	},
 /obj/effect/turf_decal/caution/red{
-	pixel_y = -5;
-	dir = 1
+	dir = 1;
+	pixel_y = -5
 	},
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 1
