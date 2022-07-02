@@ -174,7 +174,7 @@
 	for(var/datum/symptom/S in symptoms)
 		name_symptoms += S.name
 		
-	return "[name], last modified by: [last_modified_by] symptoms:[english_list(name_symptoms)] resistance:[resistance] stealth:[stealth] speed:[stage_rate] transmission:[transmission] faltered:[faltered]"
+	return "[name], last modified by: [last_modified_by] symptoms:[english_list(name_symptoms)] resistance:[resistance] stealth:[stealth] speed:[stage_rate] transmission:[transmission] faltered:[faltered ? "Yes" : "No"]"
 
 /*
 
