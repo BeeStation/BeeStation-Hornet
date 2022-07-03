@@ -160,7 +160,10 @@
 	independent = TRUE
 	amplification = TRUE
 
-	channels = list(RADIO_CHANNEL_COMMAND = 1, RADIO_CHANNEL_SECURITY = 1, RADIO_CHANNEL_ENGINEERING = 1, RADIO_CHANNEL_SCIENCE = 1, RADIO_CHANNEL_MEDICAL = 1, RADIO_CHANNEL_SUPPLY = 1, RADIO_CHANNEL_SERVICE = 1, RADIO_CHANNEL_EXPLORATION = 1, RADIO_CHANNEL_AI_PRIVATE=1, RADIO_CHANNEL_CENTCOM = 1, RADIO_CHANNEL_SYNDICATE = 1)
+/obj/item/encryptionkey/debug/Initialize(mapload)
+	. = ..()
+	for(var/each in GLOB.radiochannels)
+		channels |= list("[each]" = 1)
 
 /obj/item/encryptionkey/ai //ported from NT, this goes 'inside' the AI.
 	channels = list(RADIO_CHANNEL_COMMAND = 1, RADIO_CHANNEL_SECURITY = 1, RADIO_CHANNEL_ENGINEERING = 1, RADIO_CHANNEL_SCIENCE = 1, RADIO_CHANNEL_MEDICAL = 1, RADIO_CHANNEL_SUPPLY = 1, RADIO_CHANNEL_SERVICE = 1, RADIO_CHANNEL_EXPLORATION = 1, RADIO_CHANNEL_AI_PRIVATE = 1)
@@ -173,5 +176,5 @@
 	name = "box of high responsible keys"
 
 /obj/item/storage/box/command_keys/PopulateContents()
-	for(var/i in 1 to 5)
+	for(var/i in 1 to 2)
 		new /obj/item/encryptionkey/amplification(src)
