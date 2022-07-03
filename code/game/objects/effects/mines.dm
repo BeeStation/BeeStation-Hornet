@@ -141,7 +141,7 @@
 		else
 			triggered = 1
 			triggermine(target)
-					
+
 
 /obj/effect/mine/proc/triggermine(mob/living/victim)
 	visible_message("<span class='danger'>[victim] sets off [icon2html(src, viewers(src))] [src]!</span>")
@@ -224,7 +224,7 @@
 	var/shrapnel_magnitude = 3
 
 /obj/effect/mine/shrapnel/mineEffect(mob/victim)
-	AddComponent(/datum/component/pellet_cloud, projectile_type=shrapnel_type, magnitude=shrapnel_magnitude)
+	AddComponent(/datum/component/pellet_cloud, new shrapnel_type(), magnitude=shrapnel_magnitude)
 
 /obj/effect/mine/shrapnel/sting
 	name = "stinger mine"

@@ -18,7 +18,7 @@
 
 /datum/component/pellet_cloud
 	/// What's the projectile path of the shrapnel we're shooting?
-	var/projectile_type
+	var/obj/item/projectile/projectile
 
 	/// How many shrapnel projectiles are we responsible for tracking? May be reduced for grenades if someone dives on top of it. Defined by ammo casing for casings, derived from magnitude otherwise
 	var/num_pellets
@@ -45,7 +45,10 @@
 	var/mob/living/shooter
 
 
-/datum/component/pellet_cloud/Initialize(projectile_type=/obj/item/shrapnel, magnitude=5)
+/datum/component/pellet_cloud/Initialize(projectile, magnitude=5)
+	if(!projectile)
+		return COMPONENT_INCOMPATIBLE
+
 	if(!isammocasing(parent) && !isgrenade(parent) && !islandmine(parent))
 		return COMPONENT_INCOMPATIBLE
 
@@ -53,7 +56,8 @@
 		stack_trace("Invalid magnitude [magnitude] < 1 on pellet_cloud, parent: [parent]")
 		magnitude = 1
 
-	src.projectile_type = projectile_type
+	src.projectile = projectile
+	RegisterSignal(projectile, COMSIG_PARENT_QDELETING, .proc/on_projectiled_deleted)
 
 	if(isammocasing(parent))
 		num_pellets = magnitude
@@ -78,6 +82,10 @@
 
 /datum/component/pellet_cloud/UnregisterFromParent()
 	UnregisterSignal(parent, list(COMSIG_PARENT_PREQDELETED, COMSIG_PELLET_CLOUD_INIT, COMSIG_GRENADE_PRIME, COMSIG_GRENADE_ARMED, COMSIG_MOVABLE_MOVED, COMSIG_MINE_TRIGGERED, COMSIG_ITEM_DROPPED))
+
+/datum/component/pellet_cloud/proc/on_projectiled_deleted(datum/source, force = FALSE)
+	UnregisterSignal(projectile, COMSIG_PARENT_QDELETING)
+	projectile = null
 
 /**
   * create_casing_pellets() is for directed pellet clouds for ammo casings that have multiple pellets (buckshot and scatter lasers for instance)
@@ -214,7 +222,11 @@
 
 /// Minor convenience function for creating each shrapnel piece with circle explosions, mostly stolen from the MIRV component
 /datum/component/pellet_cloud/proc/pew(atom/target, spread=0)
+	if (!projectile)
+		return
+	var/projectile_type = projectile.type
 	var/obj/item/projectile/P = new projectile_type(get_turf(parent))
+	P.copy_from(projectile)
 
 	//Shooting Code:
 	P.spread = spread
@@ -231,8 +243,9 @@
 
 ///All of our pellets are accounted for, time to go target by target and tell them how many things they got hit by.
 /datum/component/pellet_cloud/proc/finalize()
-	var/obj/item/projectile/P = projectile_type
-	var/proj_name = initial(P.name)
+	if (!projectile)
+		return
+	var/proj_name = initial(projectile.name)
 
 	for(var/atom/target in targets_hit)
 		var/num_hits = targets_hit[target]

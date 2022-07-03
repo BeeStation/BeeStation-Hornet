@@ -913,3 +913,67 @@
 
 /obj/item/projectile/experience_pressure_difference()
 	return
+
+/// Copy relevant variables from another projectile.
+/obj/item/projectile/proc/copy_from(obj/item/projectile/source)
+	pass_flags = source.pass_flags
+	phasing_ignore_direct_target = source.phasing_ignore_direct_target
+	projectile_phasing = source.projectile_phasing
+	projectile_piercing = source.projectile_piercing
+	pierces = source.pierces
+	speed = source.speed
+	nondirectional_sprite = source.nondirectional_sprite
+	spread = source.spread
+	ricochets_max = source.ricochets_max
+	ricochet_chance = source.ricochet_chance
+	ricochet_decay_chance = source.ricochet_decay_chance
+	ricochet_decay_damage = source.ricochet_decay_damage
+	ricochet_auto_aim_range = source.ricochet_auto_aim_range
+	ricochet_auto_aim_angle = source.ricochet_auto_aim_angle
+	ricochet_incidence_leeway = source.ricochet_incidence_leeway
+	force_hit = source.force_hit
+	hitscan = source.hitscan
+	tracer_type = source.tracer_type
+	muzzle_type = source.muzzle_type
+	impact_type = source.impact_type
+	hitscan_light_intensity = source.hitscan_light_intensity
+	hitscan_light_range = source.hitscan_light_range
+	hitscan_light_color_override = source.hitscan_light_color_override
+	muzzle_flash_intensity = source.muzzle_flash_intensity
+	muzzle_flash_range = source.muzzle_flash_range
+	muzzle_flash_color_override = source.muzzle_flash_color_override
+	impact_light_intensity = source.impact_light_intensity
+	impact_light_range = source.impact_light_range
+	impact_light_color_override = source.impact_light_color_override
+	homing = source.homing
+	homing_turn_speed = source.homing_turn_speed
+	homing_target = source.homing_target
+	homing_inaccuracy_min = source.homing_inaccuracy_min
+	homing_inaccuracy_max = source.homing_inaccuracy_max
+	homing_offset_x = source.homing_offset_x
+	homing_offset_y = source.homing_offset_y
+	damage = source.damage
+	damage_type = source.damage_type
+	nodamage = source.nodamage
+	flag = source.flag
+	range = source.range
+	reflect_range_decrease = source.reflect_range_decrease
+	reflectable = source.reflectable
+	stun = source.stun
+	knockdown = source.knockdown
+	paralyze = source.paralyze
+	immobilize = source.immobilize
+	unconscious = source.unconscious
+	irradiate = source.irradiate
+	stutter = source.stutter
+	slur = source.slur
+	eyeblur = source.eyeblur
+	drowsy = source.drowsy
+	stamina = source.stamina
+	jitter = source.jitter
+	dismemberment = source.dismemberment
+	impact_effect_type = source.impact_effect_type
+	martial_arts_no_deflect = source.martial_arts_no_deflect
+	log_override = source.log_override
+	shrapnel_type = source.shrapnel_type
+	hit_stunned_targets = source.hit_stunned_targets
