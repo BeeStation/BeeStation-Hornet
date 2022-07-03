@@ -121,6 +121,9 @@ Bonus
 					  <b>Stealth 5:</b> The symptom remains hidden until active."
 
 
+/datum/symptom/flesh_death/severityset(datum/disease/advance/A)
+	. = ..()
+
 /datum/symptom/flesh_death/Start(datum/disease/advance/A)
 	if(!..())
 		return
