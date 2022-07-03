@@ -218,7 +218,7 @@
 	return ..()
 
 // Necro Rites
-//edit
+
 /datum/religion_rites/raise_undead
 	name = "Raise Undead"
 	desc = "Creates an undead creature if a soul is willing to take it."
@@ -241,7 +241,6 @@
 		to_chat(user, "<span class='warning'>The soul pool is empty...")
 		new /obj/effect/gibspawner/human/bodypartless(altar_turf)
 		user.visible_message("<span class='warning'>The soul pool was not strong enough to bring forth the undead.")
-
 		return NOT_ENOUGH_PLAYERS
 	var/mob/dead/observer/selected = pick_n_take(candidates)
 	var/datum/mind/Mind = new /datum/mind(selected.key)
@@ -294,7 +293,7 @@
 		to_chat(user, "<span class='warning'>Nothing is buckled to the altar!</span>")
 		return FALSE
 	for(var/r_target in movable_reltool.buckled_mobs)
-		if(!iscarbon(r_target))// only works with carbon corpse since most normal mobs can't be set on fire.
+		if(!iscarbon(r_target))
 			to_chat(user, "<span class='warning'>Only carbon lifeforms can be properly resurrected!</span>")
 			return FALSE
 		raise_target = r_target
@@ -312,7 +311,7 @@
 
 /datum/religion_rites/raise_dead/invoke_effect(mob/living/user, atom/movable/religious_tool)
 	var/altar_turf = get_turf(religious_tool)
-	if(!(raise_target in religious_tool.buckled_mobs)) //checks one last time if the right corpse is still buckled
+	if(!(raise_target in religious_tool.buckled_mobs))
 		to_chat(user, "<span class='warning'>The body is no longer on the altar!</span>")
 		raise_target = null
 		return FALSE
