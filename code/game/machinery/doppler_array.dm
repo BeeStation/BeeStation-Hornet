@@ -7,6 +7,7 @@
 	icon_state = "tdoppler"
 	density = TRUE
 	verb_say = "states coldly"
+	flags_1 = SAVE_SAFE_1
 	var/cooldown = 10
 	var/next_announce = 0
 	var/integrated = FALSE

@@ -114,7 +114,7 @@
 	if(gangtool?.free_pen)
 		return "(GET ONE FREE)"
 	return ..()
-	
+
 /datum/gang_item/essentials/reinforce
 	name = "Call Reinforcments"
 	id = "reinforce"

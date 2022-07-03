@@ -5,6 +5,7 @@
 	icon_state = "dresser"
 	density = TRUE
 	anchored = TRUE
+	flags_1 = SAVE_SAFE_1
 
 /obj/structure/dresser/attackby(obj/item/I, mob/user, params)
 	if(I.tool_behaviour == TOOL_WRENCH)

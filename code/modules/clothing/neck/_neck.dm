@@ -23,6 +23,7 @@
 	item_state = ""	//no inhands
 	w_class = WEIGHT_CLASS_SMALL
 	custom_price = 15
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/neck/tie/blue
 	name = "blue tie"
@@ -99,6 +100,7 @@
 	desc = "A stylish scarf. The perfect winter accessory for those with a keen fashion sense, and those who just can't handle a cold breeze on their necks."
 	dog_fashion = /datum/dog_fashion/head
 	custom_price = 10
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/neck/scarf/black
 	name = "black scarf"
@@ -163,16 +165,19 @@
 	name = "striped red scarf"
 	icon_state = "stripedredscarf"
 	custom_price = 10
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/neck/stripedgreenscarf
 	name = "striped green scarf"
 	icon_state = "stripedgreenscarf"
 	custom_price = 10
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/neck/stripedbluescarf
 	name = "striped blue scarf"
 	icon_state = "stripedbluescarf"
 	custom_price = 10
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/neck/petcollar  // adding an OOC restriction to an IC action, like wearing a collar, is gay.
 	name = "pet collar"
@@ -193,11 +198,13 @@
 	desc = "Damn, it feels good to be a gangster."
 	icon = 'icons/obj/clothing/neck.dmi'
 	icon_state = "bling"
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/neck/neckerchief
 	icon = 'icons/obj/clothing/masks.dmi' //In order to reuse the bandana sprite
 	w_class = WEIGHT_CLASS_TINY
 	var/sourceBandanaType
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/neck/neckerchief/worn_overlays(mutable_appearance/standing, isinhands)
 	. = ..()
@@ -230,8 +237,10 @@
 	name = "bizzare scarf"
 	desc = "Your next line is-"
 	icon_state = "bizzare"
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/neck/conductivescarf
 	name = "conductive scarf"
 	desc = "Made out of 30,000 scarabs. Use with caution."
 	icon_state = "conductive"
+	flags_1 = SAVE_SAFE_1

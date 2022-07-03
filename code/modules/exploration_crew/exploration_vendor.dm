@@ -7,6 +7,7 @@ GLOBAL_VAR_INIT(exploration_points, 0)
 	icon_state = "mining"
 	density = TRUE
 	circuit = /obj/item/circuitboard/machine/exploration_equipment_vendor
+	flags_1 = SAVE_SAFE_1
 
 	icon_deny = "mining-deny"
 	prize_list = list(

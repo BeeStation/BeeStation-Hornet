@@ -42,6 +42,7 @@
 	can_flashlight = TRUE
 	flight_x_offset = 15
 	flight_y_offset = 10
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/gun/energy/disabler/cyborg
 	name = "cyborg disabler"

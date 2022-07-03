@@ -452,6 +452,7 @@
 
 /obj/item/storage/belt/champion/wrestling
 	name = "Wrestling Belt"
+	flags_1 = NONE
 	var/datum/martial_art/wrestling/style = new
 
 /obj/item/storage/belt/champion/wrestling/equipped(mob/user, slot)

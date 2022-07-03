@@ -3,6 +3,7 @@
 /obj/item/paper/contract
 	throw_range = 3
 	throw_speed = 3
+	flags_1 = NONE
 	var/signed = FALSE
 	var/datum/mind/target
 	item_flags = NOBLUDGEON

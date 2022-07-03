@@ -5,7 +5,7 @@
 	icon_state = "grille"
 	density = TRUE
 	anchored = TRUE
-	flags_1 = CONDUCT_1
+	flags_1 = CONDUCT_1 | SAVE_SAFE_1
 	pass_flags_self = PASSGRILLE
 	pressure_resistance = 5*ONE_ATMOSPHERE
 	layer = BELOW_OBJ_LAYER

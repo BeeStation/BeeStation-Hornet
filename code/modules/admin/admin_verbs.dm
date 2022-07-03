@@ -79,6 +79,9 @@ GLOBAL_PROTECT(admin_verbs_admin)
 	/client/proc/fix_say,
 	/client/proc/stabilize_atmos,
 	/client/proc/openTicketManager,
+	/client/proc/download_shuttle_files,
+	/client/proc/delete_shuttle_file,
+	/client/proc/spawn_saved_shuttle,
 	/client/proc/battle_royale,
 	/client/proc/delete_book
 	)

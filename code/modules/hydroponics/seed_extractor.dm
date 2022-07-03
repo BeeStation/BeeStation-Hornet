@@ -61,6 +61,7 @@
 	icon_state = "sextractor"
 	density = TRUE
 	circuit = /obj/item/circuitboard/machine/seed_extractor
+	flags_1 = SAVE_SAFE_1
 	var/seed_multiplier = 1
 	var/max_seeds = 1000
 	/// Associated list of seeds, they are all weak refs.  We check the len to see how many refs we have for each

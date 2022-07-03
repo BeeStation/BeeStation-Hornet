@@ -7,6 +7,7 @@
 	anchored = FALSE
 	pressure_resistance = 2*ONE_ATMOSPHERE
 	max_integrity = 300
+	flags_1 = SAVE_SAFE_1
 	var/tank_volume = 1000 //In units, how much the dispenser can hold
 	var/reagent_id = /datum/reagent/water //The ID of the reagent that the dispenser uses
 

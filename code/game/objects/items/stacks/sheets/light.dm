@@ -9,7 +9,7 @@
 	throwforce = 5
 	throw_speed = 3
 	throw_range = 7
-	flags_1 = CONDUCT_1
+	flags_1 = CONDUCT_1 | SAVE_SAFE_1
 	max_amount = 60
 	grind_results = list(/datum/reagent/silicon = 20, /datum/reagent/copper = 5)
 

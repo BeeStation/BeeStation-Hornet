@@ -23,6 +23,8 @@
 	pass_flags_self = PASSTABLE | LETPASSTHROW
 	layer = TABLE_LAYER
 	climbable = TRUE
+	flags_1 = SAVE_SAFE_1
+	pass_flags = LETPASSTHROW //You can throw objects over this, despite it's density.")
 	var/frame = /obj/structure/table_frame
 	var/framestack = /obj/item/stack/rods
 	var/buildstack = /obj/item/stack/sheet/iron
@@ -604,6 +606,7 @@
 	anchored = TRUE
 	pass_flags_self = LETPASSTHROW //You can throw objects over this, despite it's density.
 	max_integrity = 20
+	flags_1 = SAVE_SAFE_1
 
 /obj/structure/rack/examine(mob/user)
 	. = ..()
@@ -681,7 +684,7 @@
 	desc = "Parts of a rack."
 	icon = 'icons/obj/items_and_weapons.dmi'
 	icon_state = "rack_parts"
-	flags_1 = CONDUCT_1
+	flags_1 = CONDUCT_1 | SAVE_SAFE_1
 	materials = list(/datum/material/iron=2000)
 	var/building = FALSE
 

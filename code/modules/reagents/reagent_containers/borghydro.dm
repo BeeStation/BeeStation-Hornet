@@ -19,6 +19,7 @@ Borg Hypospray
 	amount_per_transfer_from_this = 5
 	volume = 30
 	possible_transfer_amounts = list()
+	flags_1 = NONE
 	var/mode = 1
 	var/charge_cost = 50
 	var/charge_timer = 0

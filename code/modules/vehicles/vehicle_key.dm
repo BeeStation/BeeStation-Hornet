@@ -4,6 +4,7 @@
 	icon = 'icons/obj/vehicles.dmi'
 	icon_state = "key"
 	w_class = WEIGHT_CLASS_TINY
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/key/security
 	desc = "A keyring with a small steel key, and a rubber stun baton accessory."

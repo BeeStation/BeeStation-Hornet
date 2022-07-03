@@ -44,6 +44,7 @@
 	anchored = TRUE
 	layer = WALL_OBJ_LAYER
 	max_integrity = 200
+	flags_1 = SAVE_SAFE_1
 	armor = list("melee" = 50, "bullet" = 10, "laser" = 10, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 50, "stamina" = 0)
 
 	var/stage = 1
@@ -221,6 +222,7 @@
 	idle_power_usage = 2
 	active_power_usage = 20
 	power_channel = AREA_USAGE_LIGHT //Lights are calc'd via area so they dont need to be in the machine list
+	flags_1 = SAVE_SAFE_1
 	var/on = FALSE					// 1 if on, 0 if off
 	var/on_gs = FALSE
 	var/static_power_used = 0
@@ -843,6 +845,7 @@
 	force = 2
 	throwforce = 5
 	w_class = WEIGHT_CLASS_TINY
+	flags_1 = SAVE_SAFE_1
 	var/status = LIGHT_OK		// LIGHT_OK, LIGHT_BURNED or LIGHT_BROKEN
 	var/base_state
 	var/switchcount = 0	// number of times switched

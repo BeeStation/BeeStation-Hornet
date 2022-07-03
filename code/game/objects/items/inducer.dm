@@ -7,6 +7,7 @@
 	lefthand_file = 'icons/mob/inhands/equipment/tools_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
 	force = 7
+	flags_1 = SAVE_SAFE_1
 	var/powertransfer = 1000
 	var/opened = FALSE
 	var/cell_type = /obj/item/stock_parts/cell/high

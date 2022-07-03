@@ -3,6 +3,7 @@
 	desc = "A small switch attatched to the wall."
 	icon_state = "lever"
 	result_path = /obj/structure/destructible/clockwork/trap/lever
+	flags_1 = NONE
 
 /obj/structure/destructible/clockwork/trap/lever
 	name = "switch"

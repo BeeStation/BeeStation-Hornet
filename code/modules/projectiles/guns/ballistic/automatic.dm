@@ -21,6 +21,7 @@
 	bolt_type = BOLT_TYPE_LOCKING
 	mag_display = TRUE
 	weapon_weight = WEAPON_LIGHT
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/gun/ballistic/automatic/proto/unrestricted
 	pin = /obj/item/firing_pin
@@ -99,6 +100,7 @@
 	fire_rate = 3
 	w_class = WEIGHT_CLASS_BULKY
 	full_auto = TRUE
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/gun/ballistic/automatic/wt550/rubber_loaded/Initialize(mapload)
 	magazine = new /obj/item/ammo_box/magazine/wt550m9/rubber(src)
@@ -211,6 +213,7 @@
 	fire_sound = 'sound/weapons/gunshot_smg.ogg'
 	can_suppress = FALSE
 	fire_rate = 4
+	flags_1 = SAVE_SAFE_1
 
 
 // L6 SAW //
@@ -352,4 +355,9 @@
 	fire_sound = 'sound/weapons/laser.ogg'
 	casing_ejector = FALSE
 	fire_rate = 2
+<<<<<<< HEAD
+=======
+	block_upgrade_walk = 1
+	flags_1 = SAVE_SAFE_1
+>>>>>>> Shuttle-Ruins
 

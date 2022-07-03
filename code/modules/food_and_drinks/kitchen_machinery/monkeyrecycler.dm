@@ -11,6 +11,7 @@ GLOBAL_LIST_EMPTY(monkey_recyclers)
 	idle_power_usage = 5
 	active_power_usage = 50
 	circuit = /obj/item/circuitboard/machine/monkey_recycler
+	flags_1 = SAVE_SAFE_1
 	var/stored_matter = 0
 	var/cube_production = 0.2
 	var/list/connected = list()			//Keeps track of connected xenobio consoles, for deletion in /Destroy()

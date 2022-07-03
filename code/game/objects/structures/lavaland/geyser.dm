@@ -55,6 +55,7 @@
 	desc = "It's a plunger for plunging."
 	icon = 'icons/obj/watercloset.dmi'
 	icon_state = "plunger"
+	flags_1 = SAVE_SAFE_1
 
 	var/plunge_mod = 1 //time*plunge_mod = total time we take to plunge an object
 	var/reinforced = FALSE //whether we do heavy duty stuff like geysers

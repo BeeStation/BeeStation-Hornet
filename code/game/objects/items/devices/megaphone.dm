@@ -8,6 +8,7 @@
 	righthand_file = 'icons/mob/inhands/misc/megaphone_righthand.dmi'
 	w_class = WEIGHT_CLASS_SMALL
 	siemens_coefficient = 1
+	flags_1 = SAVE_SAFE_1
 	var/spamcheck = 0
 	var/list/voicespan = list(SPAN_MEGAPHONE)
 

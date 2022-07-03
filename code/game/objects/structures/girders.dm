@@ -5,6 +5,7 @@
 	anchored = TRUE
 	density = TRUE
 	layer = BELOW_OBJ_LAYER
+	flags_1 = SAVE_SAFE_1
 	var/state = GIRDER_NORMAL
 	var/girderpasschance = 20 // percentage chance that a projectile passes through the girder.
 	var/can_displace = TRUE //If the girder can be moved around by wrenching it

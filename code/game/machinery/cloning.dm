@@ -17,6 +17,7 @@
 	req_access = list(ACCESS_CLONING) //FOR PREMATURE UNLOCKING.
 	verb_say = "states"
 	circuit = /obj/item/circuitboard/machine/clonepod
+	flags_1 = SAVE_SAFE_1
 
 	var/heal_level //The clone is released once its health reaches this level.
 	var/obj/machinery/computer/cloning/connected //So we remember the connected clone machine.
@@ -121,6 +122,7 @@
 /obj/item/disk/data
 	name = "cloning data disk"
 	icon_state = "datadisk0" //Gosh I hope syndies don't mistake them for the nuke disk.
+	flags_1 = SAVE_SAFE_1
 	var/list/genetic_makeup_buffer = list()
 	var/list/fields = list()
 	var/list/mutations = list()

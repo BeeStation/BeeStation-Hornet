@@ -42,6 +42,7 @@
 	desc = "A set of recognizable pre-recorded messages for cyborgs to use when apprehending criminals."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "taperecorder_idle"
+	flags_1 = NONE
 	aggressiveness = 1 //Borgs are nicecurity!
 	actions_types = list(/datum/action/item_action/halt)
 

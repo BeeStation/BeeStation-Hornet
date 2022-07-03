@@ -197,6 +197,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	materials = list(/datum/material/bananium=MINERAL_MATERIAL_AMOUNT)
 	refined_type = /obj/item/stack/sheet/mineral/bananium
 	scan_state = "rock_Bananium"
+	flags_1 = NONE
 
 /obj/item/stack/ore/titanium
 	name = "titanium ore"
@@ -222,6 +223,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "Gibtonite ore"
 	item_state = "Gibtonite ore"
+	flags_1 = SAVE_SAFE_1
 	w_class = WEIGHT_CLASS_BULKY
 	throw_range = 0
 	var/primed = FALSE
@@ -334,7 +336,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	icon = 'icons/obj/economy.dmi'
 	name = "coin"
 	icon_state = "coin__heads"
-	flags_1 = CONDUCT_1
+	flags_1 = CONDUCT_1 | SAVE_SAFE_1
 	force = 1
 	throwforce = 2
 	w_class = WEIGHT_CLASS_TINY

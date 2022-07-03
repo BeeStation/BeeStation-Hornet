@@ -10,6 +10,7 @@
 	density = TRUE
 	anchored = FALSE
 	opacity = 0
+	flags_1 = SAVE_SAFE_1
 	var/list/welder_salvage = list(/obj/item/stack/sheet/plasteel, /obj/item/stack/sheet/iron, /obj/item/stack/rods)
 	var/list/wirecutters_salvage = list(/obj/item/stack/cable_coil)
 	var/list/crowbar_salvage = list()

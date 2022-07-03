@@ -16,6 +16,7 @@ Slimecrossing Armor
 	permeability_coefficient = 0.5
 	flags_cover = MASKCOVERSMOUTH
 	resistance_flags = NONE
+	flags_1 = NONE
 
 /obj/item/clothing/mask/nobreath/equipped(mob/living/carbon/human/user, slot)
 	. = ..()
@@ -37,6 +38,7 @@ Slimecrossing Armor
 	icon_state = "prismglasses"
 	actions_types = list(/datum/action/item_action/change_prism_colour, /datum/action/item_action/place_light_prism)
 	var/glasses_color = "#FFFFFF"
+	flags_1 = NONE
 
 /obj/item/clothing/glasses/prism_glasses/item_action_slot_check(slot)
 	if(slot == ITEM_SLOT_EYES)
@@ -100,6 +102,7 @@ Slimecrossing Armor
 	icon = 'icons/obj/slimecrossing.dmi'
 	icon_state = "peaceflower"
 	item_state = "peaceflower"
+	flags_1 = NONE
 	slot_flags = ITEM_SLOT_HEAD
 	clothing_flags = EFFECT_HAT | SNUG_FIT
 	body_parts_covered = NONE
@@ -134,6 +137,7 @@ Slimecrossing Armor
 	item_state = "adamsuit"
 	flags_inv = NONE
 	slowdown = 0 //slowdown is handled in the equipped proc
+	flags_1 = NONE
 	var/hit_reflect_chance = 40
 
 /obj/item/clothing/suit/armor/heavy/adamantine/equipped(mob/user, slot)

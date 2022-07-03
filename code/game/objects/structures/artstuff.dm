@@ -11,6 +11,7 @@
 	density = TRUE
 	resistance_flags = FLAMMABLE
 	max_integrity = 60
+	flags_1 = SAVE_SAFE_1
 	var/obj/item/canvas/painting = null
 
 //Adding canvases
@@ -54,6 +55,8 @@
 	var/icon/generated_icon
 	///boolean that blocks persistence from saving it. enabled from printing copies, because we do not want to save copies.
 	var/no_save = FALSE
+	flags_1 = SAVE_SAFE_1
+	var/whichGlobalBackup = 1 //List index
 
 	// Painting overlay offset when framed
 	var/framed_offset_x = 11

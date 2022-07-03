@@ -12,3 +12,4 @@
 	w_class = WEIGHT_CLASS_TINY
 	resistance_flags = FLAMMABLE
 	materials = list(/datum/material/iron = 10, /datum/material/glass = 10)
+	flags_1 = SAVE_SAFE_1

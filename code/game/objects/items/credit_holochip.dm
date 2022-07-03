@@ -10,7 +10,8 @@
 
 /obj/item/holochip/Initialize(mapload, amount)
 	. = ..()
-	credits = amount
+	if(amount)
+		credits = amount
 	update_icon()
 
 /obj/item/holochip/examine(mob/user)
@@ -105,3 +106,7 @@
 	if(prob(wipe_chance))
 		visible_message("<span class='warning'>[src] fizzles and disappears!</span>")
 		qdel(src) //rip cash
+
+/obj/item/holochip/get_save_vars(save_flag)
+	. = list()
+	.["credits"] = credits

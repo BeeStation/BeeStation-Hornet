@@ -15,7 +15,7 @@
 	light_power = FLASH_LIGHT_POWER
 	light_on = FALSE
 	w_class = WEIGHT_CLASS_SMALL
-	flags_1 = CONDUCT_1
+	flags_1 = CONDUCT_1 | SAVE_SAFE_1
 	slot_flags = ITEM_SLOT_NECK
 	materials = list(/datum/material/iron = 50, /datum/material/glass = 150)
 	var/flash_enabled = TRUE

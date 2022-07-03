@@ -21,6 +21,7 @@
 	desc = "A colourful crayon. Looks tasty. Mmmm..."
 	icon = 'icons/obj/crayons.dmi'
 	icon_state = "crayonred"
+	flags_1 = SAVE_SAFE_1
 
 	var/icon_capped
 	var/icon_uncapped

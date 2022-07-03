@@ -10,3 +10,4 @@
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	blockTracking = TRUE//Roughly the only unique thing about this helmet.
 	flags_inv = HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
+	flags_1 = NONE

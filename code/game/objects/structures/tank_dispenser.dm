@@ -8,6 +8,7 @@
 	density = TRUE
 	anchored = TRUE
 	max_integrity = 300
+	flags_1 = SAVE_SAFE_1
 	var/oxygentanks = TANK_DISPENSER_CAPACITY
 	var/plasmatanks = TANK_DISPENSER_CAPACITY
 

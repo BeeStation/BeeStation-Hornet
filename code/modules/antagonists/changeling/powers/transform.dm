@@ -9,6 +9,7 @@
 
 /obj/item/clothing/glasses/changeling
 	name = "flesh"
+	flags_1 = NONE
 
 //ATTACK HAND IGNORING PARENT RETURN VALUE
 /obj/item/clothing/glasses/changeling/attack_hand(mob/user)
@@ -20,6 +21,7 @@
 
 /obj/item/clothing/under/changeling
 	name = "flesh"
+	flags_1 = NONE
 
 //ATTACK HAND IGNORING PARENT RETURN VALUE
 /obj/item/clothing/under/changeling/attack_hand(mob/user)
@@ -32,6 +34,7 @@
 /obj/item/clothing/suit/changeling
 	name = "flesh"
 	allowed = list(/obj/item/changeling)
+	flags_1 = NONE
 
 //ATTACK HAND IGNORING PARENT RETURN VALUE
 /obj/item/clothing/suit/changeling/attack_hand(mob/user)
@@ -43,6 +46,7 @@
 
 /obj/item/clothing/head/changeling
 	name = "flesh"
+	flags_1 = NONE
 
 //ATTACK HAND IGNORING PARENT RETURN VALUE
 /obj/item/clothing/head/changeling/attack_hand(mob/user)
@@ -54,6 +58,7 @@
 
 /obj/item/clothing/shoes/changeling
 	name = "flesh"
+	flags_1 = NONE
 
 //ATTACK HAND IGNORING PARENT RETURN VALUE
 /obj/item/clothing/shoes/changeling/attack_hand(mob/user)
@@ -65,6 +70,7 @@
 
 /obj/item/clothing/gloves/changeling
 	name = "flesh"
+	flags_1 = NONE
 
 //ATTACK HAND IGNORING PARENT RETURN VALUE
 /obj/item/clothing/gloves/changeling/attack_hand(mob/user)
@@ -76,6 +82,7 @@
 
 /obj/item/clothing/mask/changeling
 	name = "flesh"
+	flags_1 = NONE
 
 //ATTACK HAND IGNORING PARENT RETURN VALUE
 /obj/item/clothing/mask/changeling/attack_hand(mob/user)

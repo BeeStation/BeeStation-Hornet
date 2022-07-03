@@ -4,6 +4,7 @@
 	desc = "A scaffold for bees to build honeycomb on."
 	icon = 'icons/obj/hydroponics/equipment.dmi'
 	icon_state = "honey_frame"
+	flags_1 = SAVE_SAFE_1
 	var/honeycomb_capacity = 10 //10 Honeycomb per frame by default, researchable frames perhaps?
 
 

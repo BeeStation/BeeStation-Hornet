@@ -4,6 +4,7 @@
 	icon = 'icons/obj/wiremod_fab.dmi'
 	icon_state = "fab-idle"
 	circuit = /obj/item/circuitboard/machine/component_printer
+	flags_1 = SAVE_SAFE_1
 
 	remote_materials = TRUE
 	auto_link = TRUE

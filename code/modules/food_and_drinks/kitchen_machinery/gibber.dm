@@ -8,6 +8,7 @@
 	idle_power_usage = 2
 	active_power_usage = 500
 	circuit = /obj/item/circuitboard/machine/gibber
+	flags_1 = SAVE_SAFE_1
 
 	var/operating = FALSE //Is it on?
 	var/dirty = FALSE // Does it need cleaning?
@@ -225,6 +226,7 @@
 
 //auto-gibs anything that bumps into it
 /obj/machinery/gibber/autogibber
+	flags_1 = NONE
 	var/input_dir = NORTH
 
 /obj/machinery/gibber/autogibber/Bumped(atom/movable/AM)

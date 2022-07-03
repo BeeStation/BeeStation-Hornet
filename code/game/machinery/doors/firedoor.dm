@@ -29,6 +29,7 @@
 	open_speed = 2
 	req_one_access = list(ACCESS_ENGINE, ACCESS_ATMOSPHERICS)
 	processing_flags = START_PROCESSING_MANUALLY
+	flags_1 = SAVE_SAFE_1 | PREVENT_CLICK_UNDER_1
 	var/emergency_close_timer = 0
 	var/nextstate = null
 	var/boltslocked = TRUE
@@ -197,7 +198,7 @@
 /obj/machinery/door/firedoor/try_to_crowbar(obj/item/I, mob/user)
 	if(welded || operating)
 		return
-	
+
 	if(density)
 		if(!(stat & NOPOWER))
 			LAZYADD(access_log, "MOTOR_ERR:|MOTOR CONTROLLER REPORTED BACKDRIVE|T_OFFSET:[DisplayTimeText(world.time - SSticker.round_start_time)]")
@@ -383,7 +384,7 @@
 
 /obj/machinery/door/firedoor/border_only
 	icon = 'icons/obj/doors/edge_Doorfire.dmi'
-	flags_1 = ON_BORDER_1
+	flags_1 = ON_BORDER_1 | SAVE_SAFE_1
 	CanAtmosPass = ATMOS_PASS_PROC
 	assemblytype = /obj/structure/firelock_frame/border
 
@@ -515,6 +516,7 @@
 	icon_state = "frame1"
 	anchored = FALSE
 	density = TRUE
+	flags_1 = SAVE_SAFE_1
 	var/constructionStep = CONSTRUCTION_NOCIRCUIT
 	var/reinforced = 0
 	var/firelock_type = /obj/machinery/door/firedoor

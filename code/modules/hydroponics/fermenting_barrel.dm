@@ -7,6 +7,7 @@
 	anchored = FALSE
 	pressure_resistance = 2 * ONE_ATMOSPHERE
 	max_integrity = 300
+	flags_1 = SAVE_SAFE_1
 	var/open = FALSE
 	var/speed_multiplier = 1 //How fast it distills. Defaults to 100% (1.0). Lower is better.
 

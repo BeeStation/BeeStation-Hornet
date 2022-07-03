@@ -9,8 +9,7 @@
 	icon_state = "bus"
 	density = TRUE
 	circuit = /obj/item/circuitboard/machine/ntnet_relay
-
-
+	flags_1 = SAVE_SAFE_1
 
 	var/datum/ntnet/NTNet = null // This is mostly for backwards reference and to allow varedit modifications from ingame.
 	var/enabled = 1				// Set to 0 if the relay was turned off

@@ -10,6 +10,7 @@
 	density = TRUE
 	use_power = NO_POWER_USE
 	idle_power_usage = 0
+	flags_1 = NONE
 	var/intercept = FALSE  // If true, only works on the Syndicate frequency.
 
 /obj/machinery/telecomms/allinone/indestructable

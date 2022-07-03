@@ -56,6 +56,7 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 	circuit = /obj/item/circuitboard/machine/vendor
 	clicksound = 'sound/machines/pda_button1.ogg'
 	payment_department = ACCOUNT_SRV
+	flags_1 = SAVE_SAFE_1
 
 	light_color = LIGHT_COLOR_BLUE
 
@@ -1093,6 +1094,7 @@ GLOBAL_LIST_EMPTY(vending_products)
 	icon = 'icons/obj/device.dmi'
 	icon_state = "pricetagger"
 	custom_premium_price = 25
+	flags_1 = SAVE_SAFE_1
 	///the price of the item
 	var/price = 1
 

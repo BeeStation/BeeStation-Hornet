@@ -8,6 +8,7 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/lasergun)
 	ammo_x_offset = 1
 	shaded_charge = 1
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/gun/energy/laser/practice
 	name = "practice laser gun"
@@ -43,6 +44,7 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	weapon_weight = WEAPON_LIGHT
 	investigate_flags = ADMIN_INVESTIGATE_TARGET
+	flags_1 = NONE
 
 /obj/item/gun/energy/laser/captain/scattershot
 	name = "scatter shot laser rifle"

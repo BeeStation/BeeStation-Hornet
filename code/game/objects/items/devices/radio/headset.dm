@@ -24,6 +24,7 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	subspace_transmission = TRUE
 	headset = TRUE
 	canhear_range = 0 // can't hear headsets from very far away
+	flags_1 = SAVE_SAFE_1
 	var/bang_protect = 0 //this isn't technically clothing so it needs its own bang_protect var
 
 	slot_flags = ITEM_SLOT_EARS
@@ -82,6 +83,7 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	.["headset"] = TRUE
 
 /obj/item/radio/headset/syndicate //disguised to look like a normal headset for stealth ops
+	flags_1 = NONE
 
 /obj/item/radio/headset/syndicate/alt //undisguised bowman with flash protection
 	name = "syndicate headset"
@@ -280,12 +282,14 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 /obj/item/radio/headset/silicon/pai
 	name = "\proper mini Integrated Subspace Transceiver "
 	subspace_transmission = FALSE
+	flags_1 = NONE
 
 
 /obj/item/radio/headset/silicon/ai
 	name = "\proper Integrated Subspace Transceiver "
 	keyslot2 = new /obj/item/encryptionkey/ai
 	command = TRUE
+	flags_1 = NONE
 
 /obj/item/radio/headset/silicon/can_receive(freq, level)
 	return ..(freq, level, TRUE)

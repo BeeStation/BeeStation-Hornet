@@ -9,6 +9,7 @@
 	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
 	w_class = WEIGHT_CLASS_TINY
 	slot_flags = ITEM_SLOT_BELT
+	flags_1 = SAVE_SAFE_1
 	materials = list(/datum/material/iron=30, /datum/material/glass=20)
 
 // *************************************
@@ -53,7 +54,7 @@
 	item_state = "cultivator"
 	lefthand_file = 'icons/mob/inhands/equipment/hydroponics_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/hydroponics_righthand.dmi'
-	flags_1 = CONDUCT_1
+	flags_1 = CONDUCT_1 | SAVE_SAFE_1
 	force = 5
 	throwforce = 7
 	w_class = WEIGHT_CLASS_SMALL
@@ -73,7 +74,7 @@
 	item_state = "hatchet"
 	lefthand_file = 'icons/mob/inhands/equipment/hydroponics_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/hydroponics_righthand.dmi'
-	flags_1 = CONDUCT_1
+	flags_1 = CONDUCT_1 | SAVE_SAFE_1
 	force = 12
 	w_class = WEIGHT_CLASS_SMALL
 	throwforce = 15
@@ -104,7 +105,7 @@
 	throw_speed = 2
 	throw_range = 3
 	w_class = WEIGHT_CLASS_BULKY
-	flags_1 = CONDUCT_1
+	flags_1 = CONDUCT_1 | SAVE_SAFE_1
 	armour_penetration = 20
 	slot_flags = ITEM_SLOT_BACK
 	attack_verb = list("chopped", "sliced", "cut", "reaped")

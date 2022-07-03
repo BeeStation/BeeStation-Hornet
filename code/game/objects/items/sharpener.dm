@@ -4,6 +4,7 @@
 	icon_state = "sharpener"
 	desc = "A block that makes things sharp."
 	force = 5
+	flags_1 = SAVE_SAFE_1
 	var/used = 0
 	var/increment = 4
 	var/max = 30
@@ -54,3 +55,4 @@
 	max = 200
 	prefix = "super-sharpened"
 	requires_sharpness = 0
+	flags_1 = NONE

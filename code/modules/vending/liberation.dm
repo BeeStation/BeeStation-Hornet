@@ -32,3 +32,4 @@
 	default_price = 300
 	extra_price = 500
 	payment_department = ACCOUNT_SEC
+	flags_1 = NONE

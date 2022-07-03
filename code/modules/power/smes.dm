@@ -21,8 +21,7 @@
 	density = TRUE
 	use_power = NO_POWER_USE
 	circuit = /obj/item/circuitboard/machine/smes
-
-
+	flags_1 = SAVE_SAFE_1
 
 	var/capacity = 5e6 // maximum charge
 	var/charge = 0 // actual charge
@@ -429,6 +428,10 @@
 		charge = 0
 	update_icon()
 	log_smes()
+
+//No saving special mapped subtypes
+/obj/machinery/power/smes/get_saved_type()
+	return /obj/machinery/power/smes
 
 /obj/machinery/power/smes/engineering
 	charge = 1.5e6 // Engineering starts with some charge for singulo

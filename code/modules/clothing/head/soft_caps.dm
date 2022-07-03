@@ -2,6 +2,7 @@
 	name = "white cap"
 	desc = "It's a baseball hat in a tasteless white colour."
 	icon_state = "mimesoft"
+	flags_1 = SAVE_SAFE_1
 
 	///Is the hat flipped?
 	var/flipped = FALSE

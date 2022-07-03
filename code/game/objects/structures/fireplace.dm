@@ -11,6 +11,7 @@
 	anchored = TRUE
 	pixel_x = -16
 	resistance_flags = FIRE_PROOF
+	flags_1 = SAVE_SAFE_1
 	var/lit = FALSE
 
 	var/fuel_added = 0

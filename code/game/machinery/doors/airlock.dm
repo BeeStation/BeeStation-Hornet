@@ -52,6 +52,7 @@
 	normalspeed = 1
 	explosion_block = 1
 	hud_possible = list(DIAG_AIRLOCK_HUD)
+	flags_1 = SAVE_SAFE_1 | PREVENT_CLICK_UNDER_1
 	var/allow_repaint = TRUE //Set to FALSE if the airlock should not be allowed to be repainted.
 
 	FASTDMM_PROP(\

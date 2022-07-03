@@ -18,6 +18,7 @@
 	anchored = FALSE
 	layer = PROJECTILE_HIT_THRESHHOLD_LAYER
 	max_integrity = 100
+	flags_1 = SAVE_SAFE_1
 	var/framestack = /obj/item/stack/rods
 	var/framestackamount = 2
 

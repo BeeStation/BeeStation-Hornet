@@ -80,7 +80,7 @@
 				return
 			if(!user.transferItemToLoc(S, src))
 				return
-			
+
 			to_chat(user, "<span class='notice'>You click [S] into place on [src].</span>")
 			set_attached_light(S)
 			update_icon()
@@ -139,6 +139,7 @@
 /obj/item/clothing/head/helmet/sec
 	can_flashlight = TRUE
 	dog_fashion = /datum/dog_fashion/head/helmet
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/head/helmet/sec/attackby(obj/item/I, mob/user, params)
 	if(issignaler(I))
@@ -163,11 +164,14 @@
 	item_state = "helmetalt"
 	armor = list("melee" = 15, "bullet" = 60, "laser" = 10, "energy" = 15, "bomb" = 40, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50, "stamina" = 30)
 	can_flashlight = TRUE
+	dog_fashion = null
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/head/helmet/old
 	name = "degrading helmet"
 	desc = "Standard issue security helmet. Due to degradation the helmet's visor obstructs the users ability to see long distances."
 	tint = 2
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/head/helmet/blueshirt
 	name = "blue helmet"
@@ -175,6 +179,7 @@
 	icon_state = "blueshift"
 	item_state = "blueshift"
 	custom_premium_price = 450
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/head/helmet/riot
 	name = "riot helmet"
@@ -191,6 +196,8 @@
 	visor_flags_inv = HIDEFACE
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	visor_flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
+	dog_fashion = null
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/head/helmet/riot/update_icon()
 	icon_state = "[initial(icon_state)][up ? "up" : ""]"
@@ -254,6 +261,8 @@
 		START_PROCESSING(SSobj, src)
 	else
 		STOP_PROCESSING(SSobj, src)
+	dog_fashion = null
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/head/helmet/justice/escape
 	name = "alarm helmet"
@@ -261,6 +270,7 @@
 	icon_state = "justice2"
 	toggle_message = "You turn off the light on"
 	alt_toggle_message = "You turn on the light on"
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/head/helmet/swat
 	name = "\improper SWAT helmet"
@@ -274,18 +284,22 @@
 	max_heat_protection_temperature = SPACE_HELM_MAX_TEMP_PROTECT
 	clothing_flags = STOPSPRESSUREDAMAGE | SNUG_FIT
 	strip_delay = 80
+	dog_fashion = null
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/head/helmet/police
 	name = "police officer's hat"
 	desc = "A police officer's Hat. This hat emphasizes that you are THE LAW."
 	icon_state = "policehelm"
 	dynamic_hair_suffix = ""
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/head/helmet/swat/nanotrasen
 	name = "\improper SWAT helmet"
 	desc = "An extremely robust, space-worthy helmet with the Nanotrasen logo emblazoned on the top."
 	icon_state = "swat"
 	item_state = "swat"
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/head/helmet/thunderdome
 	name = "\improper Thunderdome helmet"
@@ -315,6 +329,8 @@
 	icon_state = "roman"
 	item_state = "roman"
 	strip_delay = 100
+	dog_fashion = null
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/head/helmet/roman/fake
 	desc = "An ancient helmet made of plastic and leather."
@@ -337,6 +353,8 @@
 	item_state = "gladiator"
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEHAIR
 	flags_cover = HEADCOVERSEYES
+	dog_fashion = null
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/head/helmet/redtaghelm
 	name = "red laser tag helmet"
@@ -345,6 +363,9 @@
 	flags_cover = HEADCOVERSEYES
 	item_state = "redtaghelm"
 	armor = list("melee" = 15, "bullet" = 10, "laser" = 20,"energy" = 30, "bomb" = 20, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 50, "stamina" = 10)
+	// Offer about the same protection as a hardhat.
+	dog_fashion = null
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/head/helmet/bluetaghelm
 	name = "blue laser tag helmet"
@@ -353,6 +374,9 @@
 	flags_cover = HEADCOVERSEYES
 	item_state = "bluetaghelm"
 	armor = list("melee" = 15, "bullet" = 10, "laser" = 20,"energy" = 30, "bomb" = 20, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 50, "stamina" = 10)
+	// Offer about the same protection as a hardhat.
+	dog_fashion = null
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/head/helmet/knight
 	name = "medieval helmet"
@@ -386,6 +410,7 @@
 	icon_state = "skull"
 	item_state = "skull"
 	strip_delay = 100
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/head/helmet/durathread
 	name = "durathread helmet"
@@ -395,6 +420,7 @@
 	resistance_flags = FLAMMABLE
 	armor = list("melee" = 20, "bullet" = 10, "laser" = 30, "energy" = 5, "bomb" = 15, "bio" = 0, "rad" = 0, "fire" = 40, "acid" = 50, "stamina" = 30)
 	strip_delay = 60
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/head/helmet/rus_helmet
 	name = "russian helmet"
@@ -403,6 +429,7 @@
 	item_state = "rus_helmet"
 	armor = list("melee" = 25, "bullet" = 30, "laser" = 0, "energy" = 15, "bomb" = 10, "bio" = 0, "rad" = 20, "fire" = 20, "acid" = 50, "stamina" = 20)
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/helmet
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/head/helmet/rus_ushanka
 	name = "battle ushanka"
@@ -412,4 +439,5 @@
 	body_parts_covered = HEAD
 	cold_protection = HEAD
 	min_cold_protection_temperature = SPACE_SUIT_MIN_TEMP_PROTECT
+	flags_1 = SAVE_SAFE_1
 	armor = list("melee" = 25, "bullet" = 20, "laser" = 20, "energy" = 10, "bomb" = 20, "bio" = 50, "rad" = 20, "fire" = -10, "acid" = 50, "stamina" = 20)

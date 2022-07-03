@@ -7,6 +7,7 @@
 	anchored = FALSE
 	density = TRUE
 	opacity = 0
+	flags_1 = SAVE_SAFE_1
 	var/case_type = ""
 	var/gun_category = /obj/item/gun
 	var/open = TRUE

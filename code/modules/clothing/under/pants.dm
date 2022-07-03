@@ -4,6 +4,7 @@
 	fitted = NO_FEMALE_UNIFORM
 	can_adjust = FALSE
 	custom_price = 20
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/under/pants/classicjeans
 	name = "classic jeans"

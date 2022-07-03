@@ -8,6 +8,7 @@
 	max_integrity = 200
 	integrity_failure = 50
 	layer = ABOVE_WINDOW_LAYER
+	flags_1 = SAVE_SAFE_1
 	var/obj/item/extinguisher/stored_extinguisher
 	var/opened = FALSE
 

@@ -1076,6 +1076,7 @@
 	flags_1 = CONDUCT_1
 	max_amount = 60
 	turf_type = /turf/open/floor/bluespace
+	flags_1 = NONE
 
 
 /obj/item/stack/tile/sepia
@@ -1094,6 +1095,7 @@
 	flags_1 = CONDUCT_1
 	max_amount = 60
 	turf_type = /turf/open/floor/sepia
+	flags_1 = NONE
 
 
 /obj/item/areaeditor/blueprints/slime

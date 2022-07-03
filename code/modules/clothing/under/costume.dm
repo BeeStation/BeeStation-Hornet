@@ -1,3 +1,6 @@
+/obj/item/clothing/under/costume
+	flags_1 = SAVE_SAFE_1
+
 /obj/item/clothing/under/costume/roman
 	name = "\improper Roman armor"
 	desc = "Ancient Roman armor. Made of metallic and leather straps."

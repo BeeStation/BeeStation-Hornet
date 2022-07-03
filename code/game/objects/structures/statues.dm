@@ -6,6 +6,7 @@
 	density = TRUE
 	anchored = FALSE
 	max_integrity = 100
+	flags_1 = SAVE_SAFE_1
 	var/oreAmount = 5
 	var/material_drop_type = /obj/item/stack/sheet/iron
 	CanAtmosPass = ATMOS_PASS_DENSITY

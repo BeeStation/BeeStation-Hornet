@@ -15,6 +15,7 @@
 	use_power = NO_POWER_USE
 	layer = BELOW_OBJ_LAYER
 	max_integrity = 300
+	flags_1 = SAVE_SAFE_1
 	var/list/product_types = list()
 	var/dispense_flavour = ICECREAM_VANILLA
 	var/flavour_name = "vanilla"

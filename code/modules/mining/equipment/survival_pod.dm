@@ -14,6 +14,7 @@
 	icon_state = "capsule"
 	icon = 'icons/obj/mining.dmi'
 	w_class = WEIGHT_CLASS_TINY
+	flags_1 = SAVE_SAFE_1
 	var/template_id = "shelter_alpha"
 	var/datum/map_template/shelter/template
 	var/used = FALSE
@@ -209,6 +210,7 @@
 	anchored = TRUE
 	density = TRUE
 	pixel_y = -32
+	flags_1 = NONE
 
 /obj/item/gps/computer/wrench_act(mob/living/user, obj/item/I)
 	if(flags_1 & NODECONSTRUCT_1)
@@ -343,6 +345,7 @@
 	name = "expensive forgery"
 	icon = 'icons/mob/screen_gen.dmi'
 	icon_state = "x2"
+	flags_1 = SAVE_SAFE_1
 	var/possible = list(/obj/item/ship_in_a_bottle,
 						/obj/item/gun/energy/pulse,
 						/obj/item/book/granter/martial/carp,

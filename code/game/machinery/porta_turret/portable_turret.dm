@@ -17,6 +17,7 @@
 	active_power_usage = 600	//when active, this turret takes up constant 300 Equipment power
 	req_access = list(ACCESS_SECURITY)
 	power_channel = AREA_USAGE_EQUIP	//drains power from the EQUIPMENT channel
+	flags_1 = SAVE_SAFE_1
 
 	var/uses_stored = TRUE	//if TRUE this will cause the turret to stop working if the stored_gun var is null in process()
 

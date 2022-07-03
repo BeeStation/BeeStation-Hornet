@@ -2,6 +2,7 @@
 	name = "technology fabricator"
 	desc = "Makes researched and prototype items with materials and energy."
 	layer = BELOW_OBJ_LAYER
+	flags_1 = SAVE_SAFE_1
 	var/consoleless_interface = FALSE			//Whether it can be used without a console.
 	var/efficiency_coeff = 1				//Materials needed / coeff = actual.
 	var/list/categories = list()

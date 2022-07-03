@@ -1,6 +1,6 @@
 /*
 
-	Contents: 
+	Contents:
 
 		Hard hat
 		Orange hard hat
@@ -19,6 +19,10 @@
 	desc = "A piece of headgear used in dangerous working conditions to protect the head. Comes with a built-in flashlight."
 	icon_state = "hardhat0_yellow"
 	item_state = "hardhat0_yellow"
+	flags_1 = SAVE_SAFE_1
+	var/brightness_on = 4 //luminosity when on
+	var/on = FALSE
+	item_color = "yellow" //Determines used sprites: hardhat[on]_[item_color] and hardhat[on]_[item_color]2 (lying down sprite)
 	armor = list("melee" = 15, "bullet" = 5, "laser" = 20, "energy" = 10, "bomb" = 20, "bio" = 10, "rad" = 20, "fire" = 100, "acid" = 50, "stamina" = 20)
 	flags_inv = NONE
 	actions_types = list(/datum/action/item_action/toggle_helmet_light)

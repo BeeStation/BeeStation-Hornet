@@ -6,6 +6,7 @@
 	icon = 'icons/obj/lighting.dmi'
 	icon_state = "floodlight_c1"
 	density = TRUE
+	flags_1 = SAVE_SAFE_1
 	var/state = FLOODLIGHT_NEEDS_WRENCHING
 
 /obj/structure/floodlight_frame/attackby(obj/item/O, mob/user, params)
@@ -46,6 +47,7 @@
 	integrity_failure = 80
 	idle_power_usage = 100
 	active_power_usage = 1000
+	flags_1 = SAVE_SAFE_1
 	var/list/light_setting_list = list(0, 5, 10, 15)
 	var/light_power_coefficient = 300
 	var/setting = 1

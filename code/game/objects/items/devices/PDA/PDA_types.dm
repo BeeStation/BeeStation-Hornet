@@ -192,6 +192,7 @@
 	owner = "John Doe"
 	detonatable = FALSE
 	hidden = 1
+	flags_1 = NONE
 
 /obj/item/pda/chaplain
 	name = "chaplain PDA"

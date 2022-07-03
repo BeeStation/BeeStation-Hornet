@@ -16,6 +16,7 @@
 	author = "Forces beyond your comprehension"
 	unique = 1
 	title = "the Codex Gigas"
+	flags_1 = NONE
 	var/inUse = 0
 	var/currentName = ""
 	var/currentSection = PRE_TITLE

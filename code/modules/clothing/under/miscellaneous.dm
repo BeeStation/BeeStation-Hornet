@@ -1,6 +1,7 @@
 /obj/item/clothing/under/misc/pj
 	name = "\improper PJs"
 	desc = "A comfy set of sleepwear, for taking naps or being lazy instead of working."
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/under/misc/pj/red
 	icon_state = "red_pyjamas"
@@ -18,6 +19,7 @@
 	icon_state = "ek"
 	item_state = "ek"
 	can_adjust = FALSE
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/under/misc/vice_officer
 	name = "vice officer's jumpsuit"
@@ -25,6 +27,7 @@
 	icon_state = "vice"
 	item_state = "gy_suit"
 	can_adjust = FALSE
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/under/misc/adminsuit
 	name = "administrative cybernetic jumpsuit"
@@ -42,6 +45,7 @@
 	can_adjust = FALSE
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	blocks_shove_knockdown = TRUE
+	flags_1 = NONE	//To be safe
 
 /obj/item/clothing/under/misc/burial
 	name = "burial garments"
@@ -50,6 +54,7 @@
 	item_state = "burial"
 	can_adjust = FALSE
 	has_sensor = NO_SENSORS
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/under/misc/overalls
 	name = "laborer's overalls"
@@ -58,6 +63,7 @@
 	item_state = "lb_suit"
 	can_adjust = FALSE
 	custom_price = 20
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/under/misc/assistantformal
 	name = "assistant's formal uniform"
@@ -65,6 +71,7 @@
 	icon_state = "assistant_formal"
 	item_state = "gy_suit"
 	can_adjust = FALSE
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/under/plasmaman
 	name = "plasma envirosuit"
@@ -80,6 +87,7 @@
 	var/extinguish_cooldown = 100
 	var/extinguishes_left = 5
 	envirosealed = TRUE
+	flags_1 = SAVE_SAFE_1
 
 
 /obj/item/clothing/under/plasmaman/examine(mob/user)
@@ -118,7 +126,21 @@
 	desc = "A cartridge loaded with a compressed extinguisher mix, used to refill the automatic extinguisher on plasma envirosuits."
 	icon_state = "plasmarefill"
 	icon = 'icons/obj/device.dmi'
+	flags_1 = SAVE_SAFE_1
 
+<<<<<<< HEAD
+=======
+/obj/item/clothing/under/misc/durathread
+	name = "durathread jumpsuit"
+	desc = "A jumpsuit made from durathread, its resilient fibres provide some protection to the wearer."
+	icon_state = "durathread"
+	item_state = "durathread"
+	item_color = "durathread"
+	can_adjust = FALSE
+	armor = list("melee" = 10, "laser" = 10, "fire" = 40, "acid" = 10, "bomb" = 5, "stamina" = 30)
+	flags_1 = SAVE_SAFE_1
+
+>>>>>>> Shuttle-Ruins
 /////////////////
 //DONATOR ITEMS//
 /////////////////
@@ -128,6 +150,7 @@
 	desc = "Those who carry on the will of those who passed must keep moving forward."
 	icon_state = "gangster"
 	can_adjust = FALSE
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/under/gangster/purple
 	desc = "I have a dream."

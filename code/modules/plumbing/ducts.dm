@@ -8,6 +8,7 @@ All the important duct code:
 	icon = 'icons/obj/plumbing/fluid_ducts.dmi'
 	icon_state = "nduct"
 	level = 1
+	flags_1 = SAVE_SAFE_1
 	///bitfield with the directions we're connected in
 	var/connects
 	///set to TRUE to disable smart duct behaviour
@@ -416,6 +417,11 @@ All the important duct code:
 		var/turf/open/OT = A
 		new /obj/machinery/duct(OT, FALSE, GLOB.pipe_paint_colors[duct_color], layers[duct_layer])
 		playsound(get_turf(src), 'sound/machines/click.ogg', 50, TRUE)
+
+/obj/machinery/duct/get_save_vars(save_flag)
+	. = list()
+	.["duct_color"] = "\"duct_color\""
+	.["duct_layer"] = duct_layer
 
 /obj/item/stack/ducts/fifty
 	amount = 50

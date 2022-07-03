@@ -3,6 +3,7 @@
 	can_adjust = FALSE
 	body_parts_covered = CHEST|GROIN
 	supports_variations = DIGITIGRADE_VARIATION_NO_NEW_ICON
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/under/dress/sundress
 	name = "sundress"

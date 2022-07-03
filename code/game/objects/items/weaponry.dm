@@ -13,6 +13,7 @@
 	max_integrity = 200
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 70, "stamina" = 0)
 	resistance_flags = FIRE_PROOF
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/banhammer/suicide_act(mob/user)
 		user.visible_message("<span class='suicide'>[user] is hitting [user.p_them()]self with [src]! It looks like [user.p_theyre()] trying to ban [user.p_them()]self from life.</span>")
@@ -43,6 +44,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	throwforce = 1
 	block_upgrade_walk = 1
 	w_class = WEIGHT_CLASS_NORMAL
+	flags_1 = SAVE_SAFE_1
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "tore", "ripped", "diced", "cut")
 
@@ -233,6 +235,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "tore", "ripped", "diced", "cut")
 	block_level = 0
 	block_power = 30
+	flags_1 = SAVE_SAFE_1
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 50, "stamina" = 0)
 
 /obj/item/katana
@@ -271,7 +274,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	desc = "A rod with some wire wrapped around the top. It'd be easy to attach something to the top bit."
 	icon_state = "wiredrod"
 	item_state = "rods"
-	flags_1 = CONDUCT_1
+	flags_1 = CONDUCT_1 | SAVE_SAFE_1
 	force = 9
 	throwforce = 10
 	w_class = WEIGHT_CLASS_NORMAL
@@ -323,6 +326,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	sharpness = IS_SHARP
 	materials = list(/datum/material/iron=500, /datum/material/glass=500)
 	resistance_flags = FIRE_PROOF
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/throwing_star/stamina
 	name = "shock throwing star"
@@ -357,7 +361,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
 	desc = "A sharp, concealable, spring-loaded knife with a long blade."
-	flags_1 = CONDUCT_1
+	flags_1 = CONDUCT_1 | SAVE_SAFE_1
 	force = 3
 	w_class = WEIGHT_CLASS_SMALL
 	throwforce = 5
@@ -428,6 +432,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	w_class = WEIGHT_CLASS_SMALL
 	attack_verb = list("called", "rang")
 	hitsound = 'sound/weapons/ring.ogg'
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/phone/suicide_act(mob/user)
 	if(locate(/obj/structure/chair/stool) in user.loc)
@@ -450,6 +455,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	w_class = WEIGHT_CLASS_SMALL
 	materials = list(/datum/material/iron=50)
 	attack_verb = list("bludgeoned", "whacked", "disciplined", "thrashed")
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/staff
 	name = "wizard staff"
@@ -467,6 +473,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	armour_penetration = 100
 	attack_verb = list("bludgeoned", "whacked", "disciplined")
 	resistance_flags = FLAMMABLE
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/staff/broom
 	name = "broom"
@@ -495,6 +502,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	gender = PLURAL
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "ectoplasm"
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/ectoplasm/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is inhaling [src]! It looks like [user.p_theyre()] trying to visit the astral plane!</span>")
@@ -599,6 +607,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	throw_speed = 5
 	throw_range = 2
 	attack_verb = list("busted")
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/statuebust/hippocratic
 	name = "hippocrates bust"
@@ -626,6 +635,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	throwforce = 4
 	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb = list("smacked", "whacked", "slammed", "smashed")
+	flags_1 = SAVE_SAFE_1
 	///The vehicle counterpart for the board
 	var/board_item_type = /obj/vehicle/ridden/scooter/skateboard
 
@@ -851,6 +861,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	force = 0
 	throwforce = 5
 	reach = 2
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/extendohand/acme
 	name = "\improper ACME Extendo-Hand"
@@ -900,6 +911,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	force = 10
 	throwforce = 5
 	attack_verb = list("clubbed", "bludgeoned")
+	flags_1 = SAVE_SAFE_1
 	var/breakforce = 30
 	var/stamforce = 15
 
@@ -962,6 +974,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = ITEM_SLOT_BACK
 	hitsound = 'sound/weapons/bladeslice.ogg'
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/vibro_weapon/ComponentInitialize()
 	. = ..()

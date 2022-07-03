@@ -14,6 +14,8 @@
 	flags_1 = ON_BORDER_1
 	opacity = FALSE
 	pass_flags_self = PASSGLASS
+	flags_1 = ON_BORDER_1 | SAVE_SAFE_1
+	opacity = 0
 	CanAtmosPass = ATMOS_PASS_PROC
 	interaction_flags_machine = INTERACT_MACHINE_WIRES_IF_OPEN | INTERACT_MACHINE_ALLOW_SILICON | INTERACT_MACHINE_OPEN_SILICON | INTERACT_MACHINE_REQUIRES_SILICON | INTERACT_MACHINE_OPEN
 	var/obj/item/electronics/airlock/electronics = null
@@ -356,6 +358,7 @@
 	name = "secure door"
 	icon_state = "leftsecure"
 	base_state = "leftsecure"
+	flags_1 = ON_BORDER_1
 	var/id = null
 	max_integrity = 300 //Stronger doors for prison (regular window door health is 200)
 	reinf = 1
@@ -380,6 +383,7 @@
 	max_integrity = 50
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 10, "bio" = 100, "rad" = 100, "fire" = 70, "acid" = 100, "stamina" = 0)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
+	flags_1 = ON_BORDER_1
 	var/made_glow = FALSE
 
 /obj/machinery/door/window/clockwork/Initialize(mapload, set_dir)

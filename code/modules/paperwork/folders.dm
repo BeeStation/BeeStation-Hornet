@@ -6,6 +6,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	pressure_resistance = 2
 	resistance_flags = FLAMMABLE
+	flags_1 = SAVE_SAFE_1
 	/// The background color for tgui in hex (with a `#`)
 	var/bg_color = "#7f7f7f"
 

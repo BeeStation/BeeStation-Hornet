@@ -12,6 +12,7 @@
 	body_parts_covered = CHEST|GROIN
 	allowed = list(/obj/item/reagent_containers/spray/plantbgone, /obj/item/plant_analyzer, /obj/item/seeds, /obj/item/reagent_containers/glass/bottle, /obj/item/reagent_containers/glass/beaker, /obj/item/cultivator, /obj/item/reagent_containers/spray/pestspray, /obj/item/hatchet, /obj/item/storage/bag/plants)
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/exo/large
+	flags_1 = SAVE_SAFE_1
 
 //Captain
 /obj/item/clothing/suit/captunic
@@ -19,6 +20,7 @@
 	desc = "Worn by a Captain to show their class."
 	icon_state = "captunic"
 	item_state = "bio_suit"
+	flags_1 = SAVE_SAFE_1
 	body_parts_covered = CHEST|GROIN|LEGS|ARMS
 	flags_inv = HIDEJUMPSUIT
 	allowed = list(/obj/item/disk, /obj/item/stamp, /obj/item/reagent_containers/food/drinks/flask, /obj/item/melee, /obj/item/storage/lockbox/medal, /obj/item/assembly/flash/handheld, /obj/item/storage/box/matches, /obj/item/lighter, /obj/item/clothing/mask/cigarette, /obj/item/storage/fancy/cigarettes, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/plasmaman)
@@ -29,6 +31,7 @@
 	desc = "An apron-jacket used by a high class chef."
 	icon_state = "chef"
 	item_state = "chef"
+	flags_1 = SAVE_SAFE_1
 	gas_transfer_coefficient = 0.9
 	permeability_coefficient = 0.5
 	body_parts_covered = CHEST|GROIN|ARMS
@@ -52,6 +55,7 @@
 	icon_state = "detective"
 	item_state = "det_suit"
 	blood_overlay_type = "coat"
+	flags_1 = SAVE_SAFE_1
 	body_parts_covered = CHEST|GROIN|LEGS|ARMS
 	armor = list("melee" = 25, "bullet" = 10, "laser" = 25, "energy" = 10, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 45, "stamina" = 40)
 	cold_protection = CHEST|GROIN|LEGS|ARMS
@@ -88,6 +92,7 @@
 	desc = "A high-visibility vest used in work zones."
 	icon_state = "hazard"
 	item_state = "hazard"
+	flags_1 = SAVE_SAFE_1
 	blood_overlay_type = "armor"
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/plasmaman, /obj/item/t_scanner, /obj/item/radio)
 	resistance_flags = NONE
@@ -102,6 +107,7 @@
 	blood_overlay_type = "coat"
 	body_parts_covered = CHEST|ARMS
 	togglename = "buttons"
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/suit/toggle/lawyer/purple
 	name = "purple suit jacket"
@@ -123,6 +129,7 @@
 	icon = 'icons/obj/clothing/belts.dmi'
 	icon_state = "suspenders"
 	blood_overlay_type = "armor" //it's the less thing that I can put here
+	flags_1 = SAVE_SAFE_1
 
 //Security
 /obj/item/clothing/suit/security/officer
@@ -131,6 +138,7 @@
 	icon_state = "officerbluejacket"
 	item_state = "officerbluejacket"
 	body_parts_covered = CHEST|ARMS
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/suit/security/warden
 	name = "warden's jacket"
@@ -138,6 +146,7 @@
 	icon_state = "wardenbluejacket"
 	item_state = "wardenbluejacket"
 	body_parts_covered = CHEST|ARMS
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/suit/security/hos
 	name = "head of security's jacket"
@@ -145,6 +154,7 @@
 	icon_state = "hosbluejacket"
 	item_state = "hosbluejacket"
 	body_parts_covered = CHEST|ARMS
+	flags_1 = SAVE_SAFE_1
 
 //Surgeon
 /obj/item/clothing/suit/apron/surgical
@@ -165,6 +175,7 @@
 	armor = list("melee" = 25, "bullet" = 10, "laser" = 25, "energy" = 10, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 45, "stamina" = 30)
 	cold_protection = CHEST|ARMS
 	heat_protection = CHEST|ARMS
+	flags_1 = SAVE_SAFE_1
 
 //Roboticist
 
@@ -175,6 +186,7 @@
 	item_state = "techpriest"
 	body_parts_covered = CHEST|GROIN|LEGS|ARMS
 	hoodtype = /obj/item/clothing/head/hooded/techpriest
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/head/hooded/techpriest
 	name = "techpriest's hood"
@@ -183,3 +195,4 @@
 	item_state = "techpriesthood"
 	body_parts_covered = HEAD
 	flags_inv = HIDEHAIR|HIDEEARS
+	flags_1 = SAVE_SAFE_1

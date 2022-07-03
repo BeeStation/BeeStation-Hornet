@@ -8,6 +8,7 @@
 	density = TRUE
 	input_dir = EAST
 	needs_item_input = TRUE
+	flags_1 = SAVE_SAFE_1
 
 
 	var/obj/item/storage/bag/money/bag_to_use

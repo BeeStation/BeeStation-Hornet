@@ -5,6 +5,7 @@
 	icon_state = "bottle19"
 	desc = "Inject certain types of monster organs with this stabilizer to preserve their healing powers indefinitely."
 	w_class = WEIGHT_CLASS_TINY
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/hivelordstabilizer/afterattack(obj/item/organ/M, mob/user)
 	. = ..()

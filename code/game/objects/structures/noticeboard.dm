@@ -10,6 +10,7 @@
 	anchored = TRUE
 	max_integrity = 150
 	// Current number of a pinned notices
+	flags_1 = SAVE_SAFE_1
 	var/notices = 0
 
 /obj/structure/noticeboard/Initialize(mapload)

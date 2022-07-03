@@ -222,6 +222,7 @@
 	flags_cover = MASKCOVERSEYES
 	resistance_flags = FLAMMABLE
 	flags_inv = HIDEFACE|HIDEFACIALHAIR
+	flags_1 = NONE
 	///Who is wearing this
 	var/mob/living/carbon/human/local_user
 

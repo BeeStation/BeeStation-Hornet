@@ -3,6 +3,7 @@
 	desc = "The default antivirus for all nanotrasen systems. Just plug it in and watch it fail to work."
 	var/resistcap = 6 //one higher than what it can cure
 	icon_state = "antivirus4"
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/disk/antivirus/attack(mob/M, mob/user, def_zone)
 	if(ishuman(M))

@@ -1,4 +1,5 @@
 /obj/item/clothing/neck/necklace/dope/cursed
+    flags_1 = NONE
     var/linked_ckey
     var/hostage_ckey
     var/mob/current_body = null

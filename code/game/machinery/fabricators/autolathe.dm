@@ -7,6 +7,7 @@
 	idle_power_usage = 10
 	active_power_usage = 100
 	circuit = /obj/item/circuitboard/machine/autolathe
+	flags_1 = SAVE_SAFE_1
 
 	var/shocked = FALSE
 	var/hack_wire

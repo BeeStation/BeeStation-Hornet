@@ -13,6 +13,7 @@
 	casing_ejector = FALSE
 	fire_rate = 3
 	weapon_weight = WEAPON_LIGHT
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/gun/ballistic/automatic/toy/update_icon()
 	. = ..()

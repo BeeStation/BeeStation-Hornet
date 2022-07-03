@@ -6,7 +6,7 @@
 	layer = ABOVE_OBJ_LAYER //Just above doors
 	pressure_resistance = 4*ONE_ATMOSPHERE
 	anchored = TRUE //initially is 0 for tile smoothing
-	flags_1 = ON_BORDER_1
+	flags_1 = ON_BORDER_1 | SAVE_SAFE_1
 	max_integrity = 50
 	can_be_unanchored = TRUE
 	resistance_flags = ACID_PROOF
@@ -491,7 +491,7 @@
 	dir = FULLTILE_WINDOW_DIR
 	max_integrity = 100
 	fulltile = TRUE
-	flags_1 = PREVENT_CLICK_UNDER_1
+	flags_1 = PREVENT_CLICK_UNDER_1 | SAVE_SAFE_1
 	smooth = SMOOTH_TRUE
 	canSmoothWith = list(/obj/structure/window/fulltile, /obj/structure/window/reinforced/fulltile, /obj/structure/window/reinforced/tinted/fulltile, /obj/structure/window/plasma/fulltile, /obj/structure/window/plasma/reinforced/fulltile)
 	glass_amount = 2
@@ -505,7 +505,7 @@
 	dir = FULLTILE_WINDOW_DIR
 	max_integrity = 600
 	fulltile = TRUE
-	flags_1 = PREVENT_CLICK_UNDER_1
+	flags_1 = PREVENT_CLICK_UNDER_1 | SAVE_SAFE_1
 	smooth = SMOOTH_TRUE
 	canSmoothWith = list(/obj/structure/window/fulltile, /obj/structure/window/reinforced/fulltile, /obj/structure/window/reinforced/tinted/fulltile, /obj/structure/window/plasma/fulltile, /obj/structure/window/plasma/reinforced/fulltile)
 	glass_amount = 2
@@ -519,7 +519,7 @@
 	dir = FULLTILE_WINDOW_DIR
 	max_integrity = 4000
 	fulltile = TRUE
-	flags_1 = PREVENT_CLICK_UNDER_1
+	flags_1 = PREVENT_CLICK_UNDER_1 | SAVE_SAFE_1
 	smooth = SMOOTH_TRUE
 	glass_amount = 2
 
@@ -532,7 +532,7 @@
 	dir = FULLTILE_WINDOW_DIR
 	max_integrity = 200
 	fulltile = TRUE
-	flags_1 = PREVENT_CLICK_UNDER_1
+	flags_1 = PREVENT_CLICK_UNDER_1 | SAVE_SAFE_1
 	smooth = SMOOTH_TRUE
 	canSmoothWith = list(/obj/structure/window/fulltile, /obj/structure/window/reinforced/fulltile, /obj/structure/window/reinforced/tinted/fulltile, /obj/structure/window/plasma/fulltile, /obj/structure/window/plasma/reinforced/fulltile)
 	level = 3
@@ -546,7 +546,7 @@
 	icon_state = "tinted_window"
 	dir = FULLTILE_WINDOW_DIR
 	fulltile = TRUE
-	flags_1 = PREVENT_CLICK_UNDER_1
+	flags_1 = PREVENT_CLICK_UNDER_1 | SAVE_SAFE_1
 	smooth = SMOOTH_TRUE
 	canSmoothWith = list(/obj/structure/window/fulltile, /obj/structure/window/reinforced/fulltile, /obj/structure/window/reinforced/tinted/fulltile, /obj/structure/window/plasma/fulltile, /obj/structure/window/plasma/reinforced/fulltile)
 	level = 3
@@ -569,7 +569,7 @@
 	max_integrity = 500
 	wtype = "shuttle"
 	fulltile = TRUE
-	flags_1 = PREVENT_CLICK_UNDER_1
+	flags_1 = PREVENT_CLICK_UNDER_1 | SAVE_SAFE_1
 	reinf = TRUE
 	heat_resistance = 1600
 	armor = list("melee" = 50, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 50, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 100, "stamina" = 0)
@@ -599,7 +599,7 @@
 	max_integrity = 200
 	wtype = "shuttle"
 	fulltile = TRUE
-	flags_1 = PREVENT_CLICK_UNDER_1
+	flags_1 = PREVENT_CLICK_UNDER_1 | SAVE_SAFE_1
 	reinf = TRUE
 	heat_resistance = 1600
 	armor = list("melee" = 50, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 50, "bio" = 100, "rad" = 100, "fire" = 80, "acid" = 100, "stamina" = 0)
@@ -622,7 +622,7 @@
 	opacity = TRUE
 	max_integrity = 15
 	fulltile = TRUE
-	flags_1 = PREVENT_CLICK_UNDER_1
+	flags_1 = PREVENT_CLICK_UNDER_1 | SAVE_SAFE_1
 	smooth = SMOOTH_TRUE
 	canSmoothWith = list(/obj/structure/window/paperframe, /obj/structure/mineral_door/paperframe)
 	glass_amount = 2
@@ -712,7 +712,7 @@
 	smooth = SMOOTH_TRUE
 	canSmoothWith = null
 	fulltile = TRUE
-	flags_1 = PREVENT_CLICK_UNDER_1
+	flags_1 = PREVENT_CLICK_UNDER_1 | SAVE_SAFE_1
 	dir = FULLTILE_WINDOW_DIR
 	max_integrity = 50
 	glass_amount = 2

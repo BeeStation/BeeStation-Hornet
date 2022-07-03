@@ -129,3 +129,4 @@
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 3
 	throw_range = 5
+	flags_1 = SAVE_SAFE_1

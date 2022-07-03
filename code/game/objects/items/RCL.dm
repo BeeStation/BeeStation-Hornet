@@ -4,6 +4,7 @@
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "rcl-0"
 	item_state = "rcl-0"
+	flags_1 = SAVE_SAFE_1
 	var/obj/structure/cable/last
 	var/obj/item/stack/cable_coil/loaded
 	opacity = FALSE

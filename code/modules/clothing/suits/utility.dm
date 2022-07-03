@@ -17,6 +17,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	gas_transfer_coefficient = 0.9
 	permeability_coefficient = 0.5
+	flags_1 = SAVE_SAFE_1
 	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS|HANDS
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals/emergency_oxygen, /obj/item/tank/internals/plasmaman, /obj/item/extinguisher, /obj/item/crowbar, /obj/item/powertool/jaws_of_life)
 	slowdown = 1
@@ -71,6 +72,7 @@
 	equip_delay_other = 70
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	resistance_flags = NONE
+	flags_1 = SAVE_SAFE_1
 
 
 /obj/item/clothing/suit/bomb_suit
@@ -93,6 +95,7 @@
 	strip_delay = 70
 	equip_delay_other = 70
 	resistance_flags = NONE
+	flags_1 = SAVE_SAFE_1
 
 
 /obj/item/clothing/head/bomb_hood/security
@@ -129,6 +132,7 @@
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	resistance_flags = NONE
 	rad_flags = RAD_PROTECT_CONTENTS
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/suit/radiation
 	name = "radiation suit"
@@ -148,3 +152,4 @@
 	flags_inv = HIDEJUMPSUIT
 	resistance_flags = NONE
 	rad_flags = RAD_PROTECT_CONTENTS
+	flags_1 = SAVE_SAFE_1

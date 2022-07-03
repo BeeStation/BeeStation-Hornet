@@ -81,6 +81,7 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 	icon = 'icons/obj/items_and_weapons.dmi'
 	icon_state = "sandbag"
 	w_class = WEIGHT_CLASS_TINY
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/emptysandbag/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/stack/ore/glass))
@@ -340,6 +341,7 @@ GLOBAL_LIST_INIT(copper_recipes, list ( \
 	grind_results = list(/datum/reagent/consumable/banana = 20)
 	point_value = 50
 	merge_type = /obj/item/stack/sheet/mineral/bananium
+	flags_1 = NONE
 
 GLOBAL_LIST_INIT(bananium_recipes, list ( \
 	new/datum/stack_recipe("bananium tile", /obj/item/stack/tile/mineral/bananium, 1, 4, 20), \
@@ -471,6 +473,7 @@ GLOBAL_LIST_INIT(adamantine_recipes, list(
 	singular_name = "mythril sheet"
 	novariants = TRUE
 	merge_type = /obj/item/stack/sheet/mineral/mythril
+	flags_1 = NONE
 
 /*
  * Alien Alloy
@@ -483,6 +486,7 @@ GLOBAL_LIST_INIT(adamantine_recipes, list(
 	singular_name = "alien alloy sheet"
 	sheettype = "abductor"
 	merge_type = /obj/item/stack/sheet/mineral/abductor
+	flags_1 = NONE
 
 GLOBAL_LIST_INIT(abductor_recipes, list ( \
 	new/datum/stack_recipe("alien bed", /obj/structure/bed/abductor, 2, one_per_turf = 1, on_floor = 1), \

@@ -38,6 +38,7 @@
 	light_color = LIGHT_COLOR_BLUE
 	req_access = list(ACCESS_GENETICS)
 	clicksound = null
+	flags_1 = SAVE_SAFE_1
 
 	var/datum/techweb/stored_research
 	var/max_storage = 6

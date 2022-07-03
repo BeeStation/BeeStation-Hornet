@@ -8,7 +8,7 @@
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
 	w_class = WEIGHT_CLASS_SMALL
-	flags_1 = CONDUCT_1
+	flags_1 = CONDUCT_1 | SAVE_SAFE_1
 	slot_flags = ITEM_SLOT_BELT
 	materials = list(/datum/material/iron=50, /datum/material/glass=20)
 	actions_types = list(/datum/action/item_action/toggle_light)

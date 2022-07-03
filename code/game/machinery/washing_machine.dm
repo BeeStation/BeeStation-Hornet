@@ -113,6 +113,7 @@ GLOBAL_LIST_INIT(dye_registry, list(
 	icon_state = "wm_1_0"
 	density = TRUE
 	state_open = TRUE
+	flags_1 = SAVE_SAFE_1
 	var/busy = FALSE
 	var/bloody_mess = 0
 	var/obj/item/color_source

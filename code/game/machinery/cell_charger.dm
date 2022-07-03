@@ -9,6 +9,7 @@
 	power_channel = AREA_USAGE_EQUIP
 	circuit = /obj/item/circuitboard/machine/cell_charger
 	pass_flags = PASSTABLE
+	flags_1 = SAVE_SAFE_1
 	var/obj/item/stock_parts/cell/charging = null
 	var/chargelevel = -1
 	var/charge_rate = 250

@@ -2,6 +2,7 @@
 /obj/item/clothing/glasses/sunglasses/spy
 	desc = "Made by Nerd. Co's infiltration and surveillance department. Upon closer inspection, there's a small screen in each lens."
 	actions_types = list(/datum/action/item_action/activate_remote_view)
+	flags_1 = NONE
 	var/obj/item/clothing/accessory/spy_bug/linked_bug
 
 /obj/item/clothing/glasses/sunglasses/spy/proc/show_to_user(mob/user)//this is the meat of it. most of the map_popup usage is in this.

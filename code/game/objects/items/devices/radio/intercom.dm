@@ -8,6 +8,7 @@
 	dog_fashion = null
 	unscrewed = FALSE
 	layer = ABOVE_WINDOW_LAYER
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/radio/intercom/unscrewed
 	unscrewed = TRUE

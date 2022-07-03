@@ -188,6 +188,7 @@
 	heat_protection = HANDS
 	max_heat_protection_temperature = GLOVES_MAX_TEMP_PROTECT
 	resistance_flags = NONE
+	flags_1 = NONE
 	var/datum/martial_art/krav_maga/style = new
 
 /obj/item/clothing/gloves/krav_maga/equipped(mob/user, slot)

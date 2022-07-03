@@ -2,6 +2,9 @@
 
 // PARTS //
 
+/obj/item/weaponcrafting
+	flags_1 = SAVE_SAFE_1
+
 /obj/item/weaponcrafting/receiver
 	name = "modular receiver"
 	desc = "A prototype modular receiver and trigger assembly for a firearm."

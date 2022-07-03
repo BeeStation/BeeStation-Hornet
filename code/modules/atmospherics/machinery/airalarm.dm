@@ -73,7 +73,7 @@
 	resistance_flags = FIRE_PROOF
 	clicksound = 'sound/machines/terminal_select.ogg'
 	layer = ABOVE_WINDOW_LAYER
-
+	flags_1 = SAVE_SAFE_1
 
 	var/danger_level = 0
 	var/mode = AALARM_MODE_SCRUBBING

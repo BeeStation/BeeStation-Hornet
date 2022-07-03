@@ -3,6 +3,7 @@
 	desc = "A spring loaded rifle designed to fit syringes, used to incapacitate unruly patients from a distance."
 	icon_state = "syringegun"
 	item_state = "syringegun"
+	flags_1 = SAVE_SAFE_1
 	w_class = WEIGHT_CLASS_NORMAL
 	throw_speed = 3
 	throw_range = 7
@@ -98,10 +99,12 @@
 	force = 2 //Also very weak because it's smaller
 	suppressed = TRUE //Softer fire sound
 	can_unsuppress = FALSE //Permanently silenced
+	flags_1 = NONE
 
 /obj/item/gun/syringe/dna
 	name = "modified syringe gun"
 	desc = "A syringe gun that has been modified to fit DNA injectors instead of normal syringes."
+	flags_1 = NONE
 
 /obj/item/gun/syringe/dna/Initialize(mapload)
 	. = ..()

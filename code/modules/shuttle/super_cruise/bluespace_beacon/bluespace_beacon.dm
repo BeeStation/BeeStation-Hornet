@@ -2,6 +2,7 @@
 	name = "bluespace beacon"
 	desc = "A label on it reads: <i>Warning: Activating this device will send a bluespace gigabeacon to your location, which will allow you to return to promising stations.</i>."
 	droptype = /obj/structure/bluespace_beacon
+	flags_1 = SAVE_SAFE_1
 
 //Beacon structure
 

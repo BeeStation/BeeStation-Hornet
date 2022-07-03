@@ -10,6 +10,7 @@
 	permeability_coefficient = 0.01
 	flags_cover = MASKCOVERSEYES | MASKCOVERSMOUTH
 	resistance_flags = NONE
+	flags_1 = SAVE_SAFE_1
 
 // **** Welding gas mask ****
 

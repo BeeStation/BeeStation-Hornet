@@ -26,6 +26,7 @@
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 50
 	circuit = /obj/item/circuitboard/machine/scanner_gate
+	flags_1 = SAVE_SAFE_1
 
 
 

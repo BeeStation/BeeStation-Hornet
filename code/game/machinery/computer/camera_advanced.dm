@@ -3,6 +3,7 @@
 	desc = "Used to access the various cameras on the station."
 	icon_screen = "cameras"
 	icon_keyboard = "security_key"
+	flags_1 = SAVE_SAFE_1
 	var/list/z_lock = list() // Lock use to these z levels
 	var/lock_override = NONE
 	var/mob/camera/ai_eye/remote/eyeobj

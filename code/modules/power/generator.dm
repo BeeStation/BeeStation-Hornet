@@ -4,6 +4,7 @@
 	icon_state = "teg"
 	density = TRUE
 	use_power = NO_POWER_USE
+	flags_1 = SAVE_SAFE_1
 
 	var/obj/machinery/atmospherics/components/binary/circulator/cold_circ
 	var/obj/machinery/atmospherics/components/binary/circulator/hot_circ

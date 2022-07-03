@@ -31,6 +31,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 	light_power = 0.6
 	light_color = "#FFCC66"
 	light_on = FALSE
+	flags_1 = SAVE_SAFE_1
 
 	//Main variables
 	var/owner = null // String name of owner

@@ -18,6 +18,7 @@
 	anchored = FALSE
 	density = FALSE
 	dir = NORTH
+	flags_1 = SAVE_SAFE_1
 
 	var/ini_dir
 	var/obj/item/electronics/airlock/electronics = null

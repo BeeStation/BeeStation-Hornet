@@ -6,6 +6,7 @@
 	worn_icon_state = "boxing"
 	equip_delay_other = 60
 	species_exception = list(/datum/species/golem) // now you too can be a golem boxing champion
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/gloves/boxing/green
 	icon_state = "boxinggreen"

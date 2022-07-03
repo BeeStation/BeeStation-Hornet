@@ -7,6 +7,7 @@
 	icon_state = "robotics"
 	layer = 2.9
 	density = TRUE
+	flags_1 = SAVE_SAFE_1
 
 	// The actual laptop/tablet
 	var/obj/item/modular_computer/laptop/fabricated_laptop = null

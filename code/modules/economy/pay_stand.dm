@@ -5,6 +5,7 @@
 	icon_state = "card_scanner"
 	density = TRUE
 	anchored = TRUE
+	flags_1 = SAVE_SAFE_1
 	var/locked = FALSE
 	var/obj/item/card/id/my_card
 	var/obj/item/assembly/signaler/signaler //attached signaler, let people attach signalers that get activated if the user's transaction limit is achieved.

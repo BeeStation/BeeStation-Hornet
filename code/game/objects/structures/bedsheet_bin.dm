@@ -20,6 +20,7 @@ LINEN BINS
 	w_class = WEIGHT_CLASS_TINY
 	dying_key = DYE_REGISTRY_BEDSHEET
 	resistance_flags = FLAMMABLE
+	flags_1 = SAVE_SAFE_1
 
 	dog_fashion = /datum/dog_fashion/head/ghost
 	var/list/dream_messages = list("white")
@@ -295,6 +296,7 @@ LINEN BINS
 	anchored = TRUE
 	resistance_flags = FLAMMABLE
 	max_integrity = 70
+	flags_1 = SAVE_SAFE_1
 	var/amount = 10
 	var/list/sheets = list()
 	var/obj/item/hidden = null

@@ -26,6 +26,7 @@
 	visor_flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	resistance_flags = FIRE_PROOF
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/head/welding/attack_self(mob/user)
 	weldingvisortoggle(user)
@@ -96,6 +97,7 @@
 	force_on = 18 //same as epen (but much more obvious)
 	light_range = 3 //ditto
 	heat = 0
+	flags_1 = NONE
 
 /obj/item/clothing/head/hardhat/cakehat/energycake/turn_on(mob/living/user)
 	playsound(user, 'sound/weapons/saberon.ogg', 5, TRUE)
@@ -114,6 +116,7 @@
 	desc = "Perfect for winter in Siberia, da?"
 	icon_state = "ushankadown"
 	item_state = "ushankadown"
+	flags_1 = SAVE_SAFE_1
 	flags_inv = HIDEEARS|HIDEHAIR
 	cold_protection = HEAD
 	min_cold_protection_temperature = FIRE_HELM_MIN_TEMP_PROTECT
@@ -158,6 +161,7 @@
 	clothing_flags = SNUG_FIT
 	color = "#999999"
 	dynamic_hair_suffix = ""
+	flags_1 = SAVE_SAFE_1
 
 	dog_fashion = /datum/dog_fashion/head/kitty
 
@@ -175,6 +179,7 @@
 	icon_state = "hardhat0_reindeer"
 	item_state = "hardhat0_reindeer"
 	hat_type = "reindeer"
+	flags_1 = SAVE_SAFE_1
 	flags_inv = 0
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0, "stamina" = 0)
 	light_range = 1 //luminosity when on
@@ -192,6 +197,7 @@
 	icon_state = "bunny"
 	clothing_flags = SNUG_FIT
 	dynamic_hair_suffix = ""
+	flags_1 = SAVE_SAFE_1
 
 	dog_fashion = /datum/dog_fashion/head/rabbit
 
@@ -204,6 +210,7 @@
 	desc = "A helmet made out of a box."
 	icon_state = "cardborg_h"
 	item_state = "cardborg_h"
+	flags_1 = SAVE_SAFE_1
 	clothing_flags = SNUG_FIT
 	flags_cover = HEADCOVERSEYES
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
@@ -229,6 +236,7 @@
 	icon_state = "hair_vlong"
 	item_state = "pwig"
 	flags_inv = HIDEHAIR
+	flags_1 = SAVE_SAFE_1
 	var/hair_style = "Very Long Hair"
 	var/hair_color = "#000"
 	var/adjustablecolor = TRUE //can color be changed manually?
@@ -297,6 +305,7 @@
 	name = "bronze hat"
 	desc = "A crude helmet made out of bronze plates. It offers very little in the way of protection."
 	icon = 'icons/obj/clothing/clockwork_garb.dmi'
+	flags_1 = SAVE_SAFE_1
 	icon_state = "clockwork_helmet_old"
 	flags_inv = HIDEEARS|HIDEHAIR
 	armor = list("melee" = 5, "bullet" = 0, "laser" = -5, "energy" = 0, "bomb" = 10, "bio" = 0, "rad" = 0, "fire" = 20, "acid" = 20, "stamina" = 30)
@@ -306,6 +315,7 @@
 	desc = "Thought control rays, psychotronic scanning. Don't mind that, I'm protected cause I made this hat."
 	icon_state = "foilhat"
 	item_state = "foilhat"
+	flags_1 = SAVE_SAFE_1
 	clothing_flags = EFFECT_HAT | SNUG_FIT
 	armor = list("melee" = 0, "bullet" = 0, "laser" = -5,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = -5, "fire" = 0, "acid" = 0, "stamina" = 50)
 	equip_delay_other = 140
@@ -407,3 +417,4 @@
 	desc = "You feel ashamed about what you had to do to get this hat"
 	icon_state = "cowboy"
 	item_state = "cowboy"
+	flags_1 = SAVE_SAFE_1

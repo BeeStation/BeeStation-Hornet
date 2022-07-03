@@ -190,3 +190,4 @@
 	slot = "eggsac"
 	w_class = WEIGHT_CLASS_BULKY
 	alien_powers = list(/obj/effect/proc_holder/alien/lay_egg)
+	flags_1 = NONE

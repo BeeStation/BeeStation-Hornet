@@ -9,6 +9,7 @@
 	anchored = TRUE
 	climbable = TRUE
 	pass_flags_self = PASSGLASS
+	flags_1 = SAVE_SAFE_1
 	var/tube_construction = /obj/structure/c_transit_tube
 	var/list/tube_dirs //list of directions this tube section can connect to.
 	var/exit_delay = 1

@@ -12,6 +12,7 @@
 	flight_y_offset = 10
 	weapon_weight = WEAPON_MEDIUM
 	dual_wield_spread = 60
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/gun/energy/e_gun/mini
 	name = "miniature energy gun"
@@ -28,10 +29,10 @@
 /obj/item/gun/energy/e_gun/mini/heads
 	name = "Personal Tiny Self Defense Gun"
 	desc = "The PTSD gun has a built-in flashlight and the ability to recharge itself in two minutes. PTSD is standard issue for leadership within Nanotrasen. It has two settings: disable and kill."
-	ammo_type = list(/obj/item/ammo_casing/energy/disabler/hos, /obj/item/ammo_casing/energy/laser) ///uses the hos disabler rounds to slightly weaken the disabler count and also to avoid encountering a visual bug where the gun is out of charge but displays that it has one enough for another shot. 
+	ammo_type = list(/obj/item/ammo_casing/energy/disabler/hos, /obj/item/ammo_casing/energy/laser) ///uses the hos disabler rounds to slightly weaken the disabler count and also to avoid encountering a visual bug where the gun is out of charge but displays that it has one enough for another shot.
 	selfcharge = 1
 	charge_delay = 20
-	can_charge = FALSE 			///Not compatible with fast charging stations, must recharge slowly. 
+	can_charge = FALSE 			///Not compatible with fast charging stations, must recharge slowly.
 	icon_state = "personal"
 	item_state = "gun"
 	ammo_x_offset = 2
@@ -76,7 +77,11 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode/hos, /obj/item/ammo_casing/energy/laser/hos, /obj/item/ammo_casing/energy/disabler/hos)
 	ammo_x_offset = 4
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+<<<<<<< HEAD
 	investigate_flags = ADMIN_INVESTIGATE_TARGET
+=======
+	flags_1 = NONE
+>>>>>>> Shuttle-Ruins
 
 /obj/item/gun/energy/e_gun/dragnet
 	name = "\improper DRAGnet"
@@ -111,6 +116,7 @@
 	ammo_x_offset = 2
 	automatic = 1
 	fire_rate = 5
+	flags_1 = NONE
 
 /obj/item/gun/energy/e_gun/nuclear
 	name = "advanced energy gun"

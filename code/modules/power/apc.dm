@@ -58,8 +58,7 @@
 	interaction_flags_machine = INTERACT_MACHINE_WIRES_IF_OPEN | INTERACT_MACHINE_ALLOW_SILICON | INTERACT_MACHINE_OPEN_SILICON
 	clicksound = 'sound/machines/terminal_select.ogg'
 	layer = ABOVE_WINDOW_LAYER
-
-
+	flags_1 = SAVE_SAFE_1
 
 	FASTDMM_PROP(\
 		set_instance_vars(\
@@ -1553,6 +1552,17 @@
 			L.nightshift_enabled = nightshift_lights
 			L.update(FALSE)
 		CHECK_TICK
+
+/obj/machinery/power/apc/get_save_vars(save_flag)
+	. = list()
+	if(pixel_x == 24)
+		.["dir"] = EAST
+	else if(pixel_x == -25)
+		.["dir"] = WEST
+	else if(pixel_y == 23)
+		.["dir"] = NORTH
+	else if(pixel_y == -23)
+		.["dir"] = SOUTH
 
 #undef UPSTATE_CELL_IN
 #undef UPSTATE_OPENED1

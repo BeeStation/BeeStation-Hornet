@@ -7,6 +7,7 @@
 	lefthand_file = 'icons/mob/inhands/equipment/idcards_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/idcards_righthand.dmi'
 	w_class = WEIGHT_CLASS_TINY
+	flags_1 = SAVE_SAFE_1
 	var/obj/machinery/quantumpad/qpad
 
 /obj/item/quantum_keycard/examine(mob/user)

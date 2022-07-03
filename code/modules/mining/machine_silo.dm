@@ -8,6 +8,7 @@ GLOBAL_LIST_EMPTY(silo_access_logs)
 	icon_state = "silo"
 	density = TRUE
 	circuit = /obj/item/circuitboard/machine/ore_silo
+	flags_1 = SAVE_SAFE_1
 
 	var/list/holds = list()
 	var/list/datum/component/remote_materials/connected = list()
@@ -207,20 +208,6 @@ GLOBAL_LIST_EMPTY(silo_access_logs)
 /obj/machinery/ore_silo/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'>[src] can be linked to techfabs, circuit printers and protolathes with a multitool.</span>"
-
-/obj/machinery/ore_silo/on_object_saved(var/depth = 0)
-	if(depth >= 10)
-		return ""
-	var/dat
-	var/datum/component/material_container/material_holder = GetComponent(/datum/component/material_container)
-	for(var/each in material_holder.materials)
-		var/amount = material_holder.materials[each] / MINERAL_MATERIAL_AMOUNT
-		var/datum/material/material_datum = each
-		while(amount > 0)
-			var/amount_in_stack = max(1, min(50, amount))
-			amount -= amount_in_stack
-			dat += "[dat ? ",\n" : ""][material_datum.sheet_type]{\n\tamount = [amount_in_stack]\n\t}"
-	return dat
 
 /datum/ore_silo_log
 	var/name  // for VV

@@ -2,6 +2,7 @@
 	name = "organ"
 	icon = 'icons/obj/surgery.dmi'
 	var/mob/living/carbon/owner = null
+	flags_1 = SAVE_SAFE_1
 	var/status = ORGAN_ORGANIC
 	w_class = WEIGHT_CLASS_SMALL
 	throwforce = 0

@@ -16,6 +16,7 @@
 	throw_speed = 2
 	throw_range = 3
 	materials = list(/datum/material/iron = 7500, /datum/material/glass = 100)
+	flags_1 = SAVE_SAFE_1
 	var/open = TRUE
 	var/locked = FALSE
 	var/list/occupants = list()

@@ -6,6 +6,7 @@
 	name = "pneumatic cannon"
 	desc = "A gas-powered cannon that can fire any object loaded into it."
 	w_class = WEIGHT_CLASS_BULKY
+	flags_1 = SAVE_SAFE_1
 	force = 8 //Very heavy
 	attack_verb = list("bludgeoned", "smashed", "beaten")
 	icon = 'icons/obj/pneumaticCannon.dmi'
@@ -287,6 +288,7 @@
 	selfcharge = TRUE
 	charge_type = /obj/item/reagent_containers/food/snacks/pie/cream
 	maxWeightClass = 60	//20 pies.
+	flags_1 = NONE
 
 /obj/item/pneumatic_cannon/pie/selfcharge/compact
 	name = "honkinator-4 compact pie cannon"
@@ -307,6 +309,7 @@
 	icon_state = "speargun"
 	item_state = "speargun"
 	w_class = WEIGHT_CLASS_BULKY
+	flags_1 = NONE
 	force = 10
 	fire_sound = 'sound/weapons/grenadelaunch.ogg'
 	gasPerThrow = 0

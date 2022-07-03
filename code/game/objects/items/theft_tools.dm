@@ -94,6 +94,7 @@
 	random_color = FALSE
 	greyscale_config_inhand_left = null
 	greyscale_config_inhand_right = null
+	flags_1 = NONE
 
 /obj/item/paper/guides/antag/nuke_instructions
 	info = "How to break into a Nanotrasen self-destruct terminal and remove its plutonium core:<br>\
@@ -208,6 +209,7 @@
 	toolspeed = 0.5
 	damtype = "fire"
 	usesound = 'sound/weapons/bladeslice.ogg'
+	flags_1 = NONE
 	var/usesLeft
 
 /obj/item/scalpel/supermatter/Initialize(mapload)
@@ -221,6 +223,7 @@
 	icon_state = "supermatter_tongs"
 	toolspeed = 0.75
 	damtype = "fire"
+	flags_1 = NONE
 	var/obj/item/nuke_core/supermatter_sliver/sliver
 
 /obj/item/hemostat/supermatter/Destroy()

@@ -14,6 +14,7 @@
 	idle_power_usage = 10
 	active_power_usage = 100
 	circuit = /obj/item/circuitboard/machine/limbgrower
+	flags_1 = SAVE_SAFE_1
 
 	var/operating = FALSE
 	var/disabled = FALSE

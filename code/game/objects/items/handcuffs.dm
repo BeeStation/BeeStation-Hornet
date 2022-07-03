@@ -1,5 +1,6 @@
 /obj/item/restraints
 	breakouttime = 600
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/restraints/suicide_act(mob/living/carbon/user)
 	user.visible_message("<span class='suicide'>[user] is strangling [user.p_them()]self with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")

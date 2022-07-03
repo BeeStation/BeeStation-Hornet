@@ -10,6 +10,7 @@
 	var/obj/item/radio/radio
 	var/radio_channel = RADIO_CHANNEL_COMMAND
 	var/timerid
+	flags_1 = SAVE_SAFE_1
 
 /obj/machinery/computer/robotics/Initialize(mapload)
 	. = ..()

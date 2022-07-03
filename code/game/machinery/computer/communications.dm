@@ -16,6 +16,7 @@
 	light_color = LIGHT_COLOR_BLUE
 
 	/// Authentication level
+	flags_1 = SAVE_SAFE_1
 	var/authenticated = 0
 
 	/// Cooldown for important actions, such as messaging CentCom or other sectors

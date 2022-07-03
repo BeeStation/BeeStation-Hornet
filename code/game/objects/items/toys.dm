@@ -31,6 +31,7 @@
 	throw_speed = 3
 	throw_range = 7
 	force = 0
+	flags_1 = SAVE_SAFE_1
 
 
 /*

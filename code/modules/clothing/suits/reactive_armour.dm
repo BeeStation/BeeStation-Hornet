@@ -3,6 +3,7 @@
 	desc = "An experimental suit of armour, awaiting installation of an anomaly core."
 	icon_state = "reactiveoff"
 	icon = 'icons/obj/clothing/suits.dmi'
+	flags_1 = SAVE_SAFE_1
 	w_class = WEIGHT_CLASS_BULKY
 
 /obj/item/reactive_armour_shell/attackby(obj/item/I, mob/user, params)

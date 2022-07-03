@@ -21,6 +21,7 @@ GLOBAL_LIST_EMPTY(bodycontainers) //Let them act as spawnpoints for revenants an
 	density = TRUE
 	anchored = TRUE
 	max_integrity = 400
+	flags_1 = SAVE_SAFE_1
 
 	var/obj/structure/tray/connected = null
 	var/locked = FALSE
@@ -211,6 +212,7 @@ GLOBAL_LIST_EMPTY(crematoriums)
 	desc = "A human incinerator. Works well on barbecue nights."
 	icon_state = "crema1"
 	dir = SOUTH
+	flags_1 = NONE
 	var/id = 1
 
 /obj/structure/bodycontainer/crematorium/attack_robot(mob/user) //Borgs can't use crematoriums without help

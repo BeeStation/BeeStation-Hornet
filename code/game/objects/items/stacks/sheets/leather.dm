@@ -214,6 +214,7 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 	item_flags = NOBLUDGEON
 	w_class = WEIGHT_CLASS_NORMAL
 	layer = MOB_LAYER
+	flags_1 = NONE
 
 
 //Step one - dehairing.

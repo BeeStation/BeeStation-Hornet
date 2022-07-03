@@ -13,7 +13,7 @@ GLOBAL_LIST_INIT(rod_recipes, list ( \
 	singular_name = "iron rod"
 	icon_state = "rods"
 	item_state = "rods"
-	flags_1 = CONDUCT_1
+	flags_1 = CONDUCT_1 | SAVE_SAFE_1
 	w_class = WEIGHT_CLASS_NORMAL
 	force = 9
 	throwforce = 10

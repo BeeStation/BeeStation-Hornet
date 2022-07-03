@@ -6,6 +6,7 @@
 	throw_speed = 3
 	throw_range = 5
 	w_class = WEIGHT_CLASS_TINY
+	flags_1 = SAVE_SAFE_1
 	var/tool_speed = 50
 	var/remaining_uses = 3
 

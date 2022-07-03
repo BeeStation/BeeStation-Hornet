@@ -6,6 +6,7 @@
 	icon_screen = "bounty"
 	circuit = /obj/item/circuitboard/computer/bounty
 	light_color = "#E2853D"//orange
+	flags_1 = SAVE_SAFE_1
 	var/printer_ready = 0 //cooldown var
 	var/static/datum/bank_account/cargocash
 

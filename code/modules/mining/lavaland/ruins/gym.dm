@@ -5,6 +5,7 @@
 	icon_state = "punchingbag"
 	anchored = TRUE
 	layer = WALL_OBJ_LAYER
+	flags_1 = SAVE_SAFE_1
 	var/list/hit_sounds = list('sound/weapons/genhit1.ogg', 'sound/weapons/genhit2.ogg', 'sound/weapons/genhit3.ogg',\
 	'sound/weapons/punch1.ogg', 'sound/weapons/punch2.ogg', 'sound/weapons/punch3.ogg', 'sound/weapons/punch4.ogg')
 
@@ -24,6 +25,7 @@
 	desc = "Just looking at this thing makes you feel tired."
 	density = TRUE
 	anchored = TRUE
+	flags_1 = SAVE_SAFE_1
 	var/icon_state_inuse
 
 /obj/structure/weightmachine/proc/AnimateMachine(mob/living/user)

@@ -3,6 +3,7 @@
 	desc = "Press the button for a deployment of slightly-unethical PARTY!"
 	icon = 'icons/obj/device.dmi'
 	icon_state = "ethdisco"
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/etherealballdeployer/attack_self(mob/living/carbon/user)
 	.=..()
@@ -17,6 +18,7 @@
 	icon_state = "ethdisco_head_0"
 	anchored = TRUE
 	density = TRUE
+	flags_1 = SAVE_SAFE_1
 	var/TurnedOn = FALSE
 	var/current_color
 	var/TimerID

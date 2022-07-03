@@ -18,6 +18,7 @@
 	resistance_flags = FLAMMABLE
 	max_integrity = 100
 	integrity_failure = 30
+	flags_1 = SAVE_SAFE_1
 	var/buildstacktype = /obj/item/stack/sheet/iron
 	var/buildstackamount = 2
 	var/bolts = TRUE
@@ -109,6 +110,7 @@
 	icon = 'icons/obj/rollerbed.dmi'
 	icon_state = "folded"
 	w_class = WEIGHT_CLASS_NORMAL // No more excuses, stop getting blood everywhere
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/roller/attackby(obj/item/I, mob/living/user, params)
 	if(istype(I, /obj/item/roller/robo))

@@ -23,6 +23,7 @@
 	anchored = TRUE
 	density = TRUE
 	resistance_flags = INDESTRUCTIBLE | FIRE_PROOF | ACID_PROOF
+	flags_1 = NONE
 
 	use_power = NO_POWER_USE
 	idle_power_usage = 0

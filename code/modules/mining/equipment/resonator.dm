@@ -10,6 +10,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	force = 15
 	throwforce = 10
+	flags_1 = SAVE_SAFE_1
 	var/burst_time = 30
 	var/fieldlimit = 4
 	var/list/fields = list()

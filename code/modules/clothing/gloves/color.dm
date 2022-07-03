@@ -1,5 +1,6 @@
 /obj/item/clothing/gloves/color
 	dying_key = DYE_REGISTRY_GLOVES
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/gloves/color/yellow
 	desc = "These gloves provide protection against electric shock."
@@ -68,6 +69,7 @@
 	item_state = "ygloves"
 	worn_icon_state = "ygloves"
 	transfer_prints = TRUE
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/gloves/cut/heirloom
 	desc = "The old gloves your great grandfather stole from Engineering, many moons ago. They've seen some tough times recently."

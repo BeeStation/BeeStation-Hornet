@@ -8,6 +8,7 @@
 	density = TRUE
 	req_access = list(ACCESS_KITCHEN)
 	circuit = /obj/item/circuitboard/machine/fat_sucker
+	flags_1 = SAVE_SAFE_1
 	var/processing = FALSE
 	var/start_at = NUTRITION_LEVEL_WELL_FED
 	var/stop_at = NUTRITION_LEVEL_STARVING

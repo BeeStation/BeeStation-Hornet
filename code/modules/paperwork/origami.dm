@@ -9,6 +9,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	resistance_flags = FLAMMABLE
 	max_integrity = 50
+	flags_1 = SAVE_SAFE_1
 	var/obj/item/paper/internalPaper
 
 /obj/item/origami/Initialize(mapload, obj/item/paper/newPaper)

@@ -6,6 +6,7 @@
 	density = TRUE
 	anchored = TRUE
 	climbable = TRUE
+	flags_1 = SAVE_SAFE_1
 	///Initial direction of the railing.
 	var/ini_dir
 

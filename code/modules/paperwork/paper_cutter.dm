@@ -6,6 +6,7 @@
 	force = 5
 	throwforce = 5
 	w_class = WEIGHT_CLASS_NORMAL
+	flags_1 = SAVE_SAFE_1
 	var/obj/item/paper/storedpaper = null
 	var/obj/item/hatchet/cutterblade/storedcutter = null
 	var/cuttersecured = TRUE
@@ -111,6 +112,7 @@
 	icon = 'icons/obj/bureaucracy.dmi'
 	resistance_flags = FLAMMABLE
 	max_integrity = 50
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/paperslip/attackby(obj/item/I, mob/living/user, params)
 	if(burn_paper_product_attackby_check(I, user))

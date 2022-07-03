@@ -5,6 +5,7 @@
 	desc = "A tube holding chromosomic data."
 	force = 0
 	w_class = WEIGHT_CLASS_SMALL
+	flags_1 = SAVE_SAFE_1
 
 	var/stabilizer_coeff = 1 //lower is better, affects genetic stability
 	var/synchronizer_coeff = 1 //lower is better, affects chance to backfire

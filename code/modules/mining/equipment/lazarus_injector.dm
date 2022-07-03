@@ -11,6 +11,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
 	throw_range = 5
+	flags_1 = SAVE_SAFE_1
 	var/loaded = 1
 	var/malfunctioning = 0
 	var/revive_type = SENTIENCE_ORGANIC //So you can't revive boss monsters or robots with it

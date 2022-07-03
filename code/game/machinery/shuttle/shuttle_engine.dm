@@ -15,6 +15,7 @@
 	icon_state = "burst_plasma"
 	idle_power_usage = 150
 	circuit = /obj/item/circuitboard/machine/shuttle/engine
+	flags_1 = SAVE_SAFE_1
 	var/thrust = 0
 	var/fuel_use = 0
 	var/bluespace_capable = TRUE

@@ -178,6 +178,7 @@
 	icon = 'icons/obj/lavaland/elite_trophies.dmi'
 	icon_state = "hope"
 	resistance_flags = FIRE_PROOF
+	flags_1 = NONE
 
 /obj/item/clothing/accessory/pandora_hope/on_uniform_equip(obj/item/clothing/under/U, user)
 	var/mob/living/L = user

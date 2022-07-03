@@ -14,7 +14,7 @@
 	load_sound = "sound/weapons/shotguninsert.ogg"
 	w_class = WEIGHT_CLASS_BULKY
 	force = 10
-	flags_1 =  CONDUCT_1
+	flags_1 =  CONDUCT_1 | SAVE_SAFE_1
 	slot_flags = ITEM_SLOT_BACK
 	mag_type = /obj/item/ammo_box/magazine/internal/shot
 	weapon_weight = WEAPON_MEDIUM

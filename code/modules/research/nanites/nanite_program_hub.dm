@@ -7,8 +7,7 @@
 	anchored = TRUE
 	density = TRUE
 	circuit = /obj/item/circuitboard/machine/nanite_program_hub
-
-
+	flags_1 = SAVE_SAFE_1
 
 	var/obj/item/disk/nanite_program/disk
 	var/datum/techweb/linked_techweb

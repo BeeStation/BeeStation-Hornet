@@ -35,6 +35,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	mag_type = /obj/item/ammo_box/magazine/m45
 	can_suppress = FALSE
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/gun/ballistic/automatic/pistol/m1911/no_mag
 	spawnwithmagazine = FALSE

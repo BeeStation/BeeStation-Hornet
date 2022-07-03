@@ -57,6 +57,8 @@
 	resistance_flags = FIRE_PROOF
 	layer = ABOVE_WINDOW_LAYER
 
+	flags_1 = SAVE_SAFE_1
+
 	var/cyclestate = AIRLOCK_CYCLESTATE_INOPEN
 	var/interior_pressure = ONE_ATMOSPHERE
 	var/exterior_pressure = 0

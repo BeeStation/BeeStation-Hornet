@@ -21,6 +21,7 @@
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	resistance_flags = NONE
 	dog_fashion = null
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/suit/space
 	name = "space suit"
@@ -43,3 +44,4 @@
 	strip_delay = 80
 	equip_delay_other = 80
 	resistance_flags = NONE
+	flags_1 = SAVE_SAFE_1

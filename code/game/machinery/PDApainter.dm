@@ -6,6 +6,7 @@
 	max_integrity = 200
 	density = TRUE
 	anchored = TRUE
+	flags_1 = SAVE_SAFE_1
 	var/obj/item/pda/storedpda = null
 	var/obj/item/card/id/storedid = null
 	var/pda_icons = list(

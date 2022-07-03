@@ -4,6 +4,7 @@
 	icon = 'icons/obj/sofa.dmi'
 	buildstackamount = 1
 	item_chair = null
+	flags_1 = SAVE_SAFE_1
 	var/mutable_appearance/armrest
 
 /obj/structure/chair/sofa/Initialize(mapload)

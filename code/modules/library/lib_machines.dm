@@ -21,6 +21,7 @@
 	icon_keyboard = null
 	circuit = /obj/item/circuitboard/computer/libraryconsole
 	desc = "Checked out books MUST be returned on time."
+	flags_1 = SAVE_SAFE_1
 	var/screenstate = 0
 	var/title
 	var/category = "Any"
@@ -553,6 +554,7 @@ GLOBAL_LIST(cachedbooks) // List of our cached book datums
 	icon_state = "bigscanner"
 	desc = "It servers the purpose of scanning stuff."
 	density = TRUE
+	flags_1 = SAVE_SAFE_1
 	var/obj/item/book/cache		// Last scanned book
 
 /obj/machinery/libraryscanner/attackby(obj/O, mob/user, params)
@@ -610,6 +612,7 @@ GLOBAL_LIST(cachedbooks) // List of our cached book datums
 	icon_state = "binder"
 	desc = "Only intended for binding paper products."
 	density = TRUE
+	flags_1 = SAVE_SAFE_1
 	var/busy = FALSE
 
 /obj/machinery/bookbinder/attackby(obj/O, mob/user, params)

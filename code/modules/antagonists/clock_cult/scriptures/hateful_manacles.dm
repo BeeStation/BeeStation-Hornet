@@ -41,3 +41,4 @@
 	desc = "Heavy manacles made out of freezing-cold metal. It looks like brass, but feels much more solid."
 	icon_state = "brass_manacles"
 	item_flags = DROPDEL
+	flags_1 = NONE

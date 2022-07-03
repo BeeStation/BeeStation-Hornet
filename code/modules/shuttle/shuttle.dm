@@ -40,9 +40,6 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 	///Delete this port after ship fly off.
 	var/delete_after = FALSE
 
-/obj/docking_port/get_save_vars()
-	return list("pixel_x", "pixel_y", "dir", "name", "req_access", "req_access_txt", "piping_layer", "color", "icon_state", "pipe_color", "amount", "width", "height", "dwidth", "dheight")
-
 	//these objects are indestructible
 /obj/docking_port/Destroy(force)
 	// unless you assert that you know what you're doing. Horrible things
@@ -263,6 +260,7 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 	icon_state = "pinonclose"
 
 	area_type = SHUTTLE_DEFAULT_SHUTTLE_AREA_TYPE
+	flags_1 = SAVE_SAFE_1
 
 	var/list/shuttle_areas
 

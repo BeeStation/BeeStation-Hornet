@@ -4,7 +4,6 @@
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "target_stake"
 	density = FALSE
-	flags_1 = CONDUCT_1
 	can_buckle = TRUE
 	max_buckled_mobs = 1
 	buckle_lying = FALSE

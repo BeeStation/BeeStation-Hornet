@@ -24,6 +24,7 @@
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
 	w_class = WEIGHT_CLASS_TINY
+	flags_1 = SAVE_SAFE_1
 
 	var/obj/item/integrated_signaler/radio = null
 

@@ -54,6 +54,7 @@
 	icon = 'icons/obj/dice.dmi'
 	icon_state = "d6"
 	w_class = WEIGHT_CLASS_TINY
+	flags_1 = SAVE_SAFE_1
 	var/sides = 6
 	var/result = null
 	var/list/special_faces = list() //entries should match up to sides var if used

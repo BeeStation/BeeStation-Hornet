@@ -302,6 +302,9 @@
 		if((world.time - SSticker.round_start_time) >= (CONFIG_GET(number/automapvote_threshold) MINUTES))
 			SSvote.initiate_vote("map", "BeeBot", forced=TRUE, popup=TRUE) //automatic map voting
 
+	//Save shuttles
+	INVOKE_ASYNC(SSorbits, /datum/controller/subsystem/processing/orbits.proc/save_custom_shuttles)
+
 	sleep(50)
 	ready_for_reboot = TRUE
 	standard_reboot()

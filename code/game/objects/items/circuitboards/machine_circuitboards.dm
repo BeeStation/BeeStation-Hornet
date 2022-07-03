@@ -1,5 +1,6 @@
 //Command
-
+/obj/item/circuitboard/machine/bsa
+	flags_1 = NONE
 
 /obj/item/circuitboard/machine/bsa/back
 	name = "bluespace artillery generator (Machine Board)"
@@ -33,6 +34,7 @@
 		/obj/item/stock_parts/capacitor/super = 5,
 		/obj/item/stock_parts/manipulator/pico = 5,
 		/obj/item/stack/cable_coil = 2)
+	flags_1 = NONE
 
 
 //Engineering
@@ -1253,6 +1255,7 @@
 /obj/item/circuitboard/machine/abductor
 	name = "alien board (Report This)"
 	icon_state = "abductor_mod"
+	flags_1 = NONE
 
 /obj/item/circuitboard/machine/abductor/core
 	name = "alien board (Void Core)"
@@ -1271,6 +1274,7 @@
 	build_path = /obj/machinery/chem_dispenser/abductor
 	def_components = list(/obj/item/stock_parts/cell = /obj/item/stock_parts/cell/high)
 	needs_anchored = FALSE
+	flags_1 = NONE
 
 /obj/item/circuitboard/machine/plantgenes/vault
 	name = "Plant DNA manipulator (Abductor Machine Board)"
@@ -1280,7 +1284,9 @@
 		/obj/item/stock_parts/manipulator = /obj/item/stock_parts/manipulator/femto,
 		/obj/item/stock_parts/micro_laser = /obj/item/stock_parts/micro_laser/quadultra,
 		/obj/item/stock_parts/scanning_module = /obj/item/stock_parts/scanning_module/triphasic)
+	flags_1 = NONE
 
 /obj/item/circuitboard/machine/clockwork
 	name = "clockwork board (Report This)"
 	icon_state = "clock_mod"
+	flags_1 = NONE

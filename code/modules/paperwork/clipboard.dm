@@ -20,6 +20,7 @@
 	 * (As you can't organise contents directly in BYOND)
 	 */
 	var/datum/weakref/toppaper_ref
+	flags_1 = SAVE_SAFE_1
 	slot_flags = ITEM_SLOT_BELT
 	resistance_flags = FLAMMABLE
 

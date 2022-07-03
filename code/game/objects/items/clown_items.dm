@@ -24,6 +24,7 @@
 	throw_speed = 3
 	throw_range = 7
 	grind_results = list(/datum/reagent/lye = 10)
+	flags_1 = SAVE_SAFE_1
 	var/cleanspeed = 35 //slower than mop
 	force_string = "robust... against germs"
 	var/uses = 100
@@ -155,6 +156,7 @@
 	attack_verb = list("HONKED")
 	///sound file given to the squeaky component we make in Initialize() so sub-types can specify their own sound
 	var/sound_file = 'sound/items/bikehorn.ogg'
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/bikehorn/Initialize(mapload)
 	. = ..()
