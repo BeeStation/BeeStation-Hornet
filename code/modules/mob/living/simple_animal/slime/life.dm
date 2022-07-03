@@ -551,17 +551,17 @@
 	if(transformeffects & SLIME_EFFECT_SEPIA)
 		. *= 0.7
 
-//carps commands
+//carps
+/mob/living/simple_animal/hostile/carp/proc/ghetto_processing()
+	process()
+	addtimer(CALLBACK(src, .proc/ghetto_processing), 0.3 SECONDS, TIMER_STOPPABLE)
+
 /mob/living/simple_animal/hostile/carp/process()
 	if(!carp_command_comp)
 		return
 	var/mob/living/target = carp_command_comp.target
-	switch(carp_command_comp.command)
-		if(CARP_COMMAND_FOLLOW)
-			if(target.get_virtual_z_level() == src.get_virtual_z_level() && get_dist(target, src) > 1)
-				step_towards(src, target)
-		if(CARP_COMMAND_ATTACK)
-			if(target.get_virtual_z_level() == src.get_virtual_z_level() && get_dist(target, src) > 1)
-				step_towards(src, target)
-			else if(get_dist(target, src) <= 1)
-				attack_hand(target)
+	if(carp_command_comp.command != "carp_command_stop")
+		if(target?.get_virtual_z_level() == src?.get_virtual_z_level() && get_dist(target, src) > 1)
+			step_towards(src, target)
+		else if(get_dist(target, src) <= 1 && carp_command_comp.command == "carp_command_attack")
+			attack_animal(target)

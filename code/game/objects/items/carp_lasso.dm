@@ -15,11 +15,15 @@
 			to_chat(user, "<span class='notice'>You begin to untie the [C]</span>")
 			if(proximity_flag && do_after(user, 2 SECONDS, FALSE, target))
 				user.faction |= "carpboy_[user]"
-				C.faction |= list("carpboy_[user]", user.faction)
+				C.faction |= "carpboy_[user]"
+				C.faction |= user.faction
 				C.transform = transform.Turn(0)
 				C.tame = TRUE
 				C.toggle_ai(AI_ON)
 				C.carp_command_comp = C.AddComponent(/datum/component/carp_command)
+				C.carp_command_comp.cares_about_ally |= user
+				C.carp_command_comp.update_ally()
+				C.ghetto_processing()
 				to_chat(user, "<span class='notice'>The [C] nuzzles you.</span>")
 				UnregisterSignal(carp_target, COMSIG_PARENT_QDELETING)
 				carp_target = null

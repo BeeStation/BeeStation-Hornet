@@ -89,7 +89,8 @@
 //Carp lasso feature, possibly fucking gross
 /mob/living/simple_animal/hostile/carp/user_buckle_mob(mob/living/buckled_mob, force, check_loc)
 	for(var/i in buckled_mob.faction)
-		if(i in faction)
+		if(i in faction && carp_command_comp)
+			carp_command_comp.command = null
 			..()
 			return //could also use break, doesn't really matter
 

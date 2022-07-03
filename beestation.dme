@@ -39,6 +39,7 @@
 #include "code\__DEFINES\bodyparts.dm"
 #include "code\__DEFINES\callbacks.dm"
 #include "code\__DEFINES\cargo.dm"
+#include "code\__DEFINES\carp_command.dm"
 #include "code\__DEFINES\chat.dm"
 #include "code\__DEFINES\cinematics.dm"
 #include "code\__DEFINES\cleaning.dm"
