@@ -37,21 +37,21 @@
 	var/mob/living/M = A.affected_mob
 	switch(A.stage)
 		if(2)
-			if(prob(30) && prob(50))
+			if(prob(30) && prob(50) && M.stat != DEAD)
 				M.say(pick("You shall not pass!", "Expeliarmus!", "By Merlins beard!", "Feel the power of the Dark Side!"))
 			if(prob(30) && prob(50))
 				to_chat(M, "<span class='danger'>You feel [pick("that you don't have enough mana", "that the winds of magic are gone", "an urge to summon familiar")].</span>")
 
 
 		if(3)
-			if(prob(30) && prob(50))
+			if(prob(30) && prob(50) && M.stat != DEAD)
 				M.say(pick("NEC CANTIO!","AULIE OXIN FIERA!", "STI KALY!", "TARCOL MINTI ZHERI!"))
 			if(prob(30) && prob(50))
 				to_chat(M, "<span class='danger'>You feel [pick("the magic bubbling in your veins","that this location gives you a +1 to INT","an urge to summon familiar")].</span>")
 
 		if(4, 5)
 
-			if(prob(50))
+			if(prob(50) && M.stat != DEAD)
 				M.say(pick("NEC CANTIO!","AULIE OXIN FIERA!","STI KALY!","EI NATH!"))
 				return
 			if(robes)
