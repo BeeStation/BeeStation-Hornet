@@ -538,3 +538,4 @@
 		/obj/item/stack/ore/titanium = 2,
 		/obj/item/stack/ore/uranium = 2,
 		/obj/item/stack/ore/diamond = 2)
+
