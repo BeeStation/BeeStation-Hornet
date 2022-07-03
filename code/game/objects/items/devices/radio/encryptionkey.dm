@@ -172,7 +172,7 @@
 	channels = list(RADIO_CHANNEL_AI_PRIVATE = 1, RADIO_CHANNEL_SECURITY = 1)
 
 
-/obj/item/storage/box/command_keys // HoP toys
+/obj/item/storage/box/command_keys // heads toys
 	name = "box of high responsible keys"
 
 /obj/item/storage/box/command_keys/PopulateContents()
