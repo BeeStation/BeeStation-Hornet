@@ -1451,6 +1451,7 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	glass_desc = "A new hit cocktail inspired by THE ARM Breweries will have you shouting Fuu ma'jin in no time!"
 	random_unrestricted = TRUE
 	liquid_fire_power = 2 //MONKESTATION EDIT ADDITION
+	evaporation_rate = 1
 
 /datum/reagent/consumable/ethanol/narsour/on_mob_life(mob/living/carbon/M)
 	M.cultslurring = min(M.cultslurring + 3, 3)

@@ -31,6 +31,8 @@
 	RemoveElement(/datum/element/liquids_interaction, on_interaction_callback = /obj/item/mop/.proc/attack_on_liquids_turf)
 
 /obj/item/mop/proc/attack_on_liquids_turf(obj/item/mop/the_mop, turf/T, mob/user, obj/effect/abstract/liquid_turf/liquids)
+	if(!user.Adjacent(T))
+		return FALSE
 	var/free_space = the_mop.reagents.maximum_volume - the_mop.reagents.total_volume
 	if(free_space <= 0)
 		to_chat(user, "<span class='warning'>Your mop can't absorb any more!</span>")
@@ -39,11 +41,20 @@
 	for(var/turf/temp in view(5, T))
 		if(temp.liquids)
 			range_random += temp
-	var/turf/choice_turf = get_turf(pick(range_random))
-	var/datum/reagents/tempr = choice_turf.liquids.take_reagents_flat(free_space)
-	tempr.trans_to(the_mop.reagents, tempr.total_volume)
-	to_chat(user, "<span class='notice'>You soak the mop with some liquids.</span>")
-	qdel(tempr)
+	for(var/turf in range_random)
+		if(do_after(user, src.mopspeed, target = T))
+			if(the_mop.reagents.total_volume == the_mop.mopcap)
+				to_chat(user, "<span class='warning'>Your mop can't absorb any more!</span>")
+				return TRUE
+			var/turf/choice_turf = get_turf(pick(range_random))
+			if(choice_turf.liquids)
+				var/datum/reagents/tempr = choice_turf.liquids.take_reagents_flat(free_space)
+				tempr.trans_to(the_mop.reagents, tempr.total_volume)
+				range_random -= choice_turf
+				to_chat(user, "<span class='notice'>You soak the mop with some liquids.</span>")
+				qdel(tempr)
+		else
+			return FALSE
 	user.changeNext_move(CLICK_CD_MELEE)
 	return TRUE
 	//MONKESTATION EDIT END

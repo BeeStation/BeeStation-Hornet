@@ -8,6 +8,7 @@
 	process_flags = ORGANIC | SYNTHETIC
 	liquid_fire_power = 20 //MONKESTATION EDIT ADDITION
 	liquid_fire_burnrate = 1 //MONKESTATION EDIT ADDITION
+	evaporation_rate = 0.1
 
 /datum/reagent/thermite/reaction_turf(turf/T, reac_volume)
 	if(reac_volume >= 1)
@@ -23,6 +24,7 @@
 	description = "Nitroglycerin is a heavy, colorless, oily, explosive liquid obtained by nitrating glycerol."
 	color = "#808080" // rgb: 128, 128, 128
 	taste_description = "oil"
+	evaporation_rate = 2
 
 /datum/reagent/stabilizing_agent
 	name = "Stabilizing Agent"
@@ -42,6 +44,8 @@
 	process_flags = ORGANIC | SYNTHETIC
 	liquid_fire_power = 30 //MONKESTATION EDIT ADDITION
 	liquid_fire_burnrate = 1 //MONKESTATION EDIT ADDITION
+	evaporation_rate = 2
+
 /datum/reagent/clf3/on_mob_life(mob/living/carbon/M)
 	M.adjust_fire_stacks(2)
 	var/burndmg = max(0.3*M.fire_stacks, 0.3)
@@ -142,6 +146,8 @@
 	process_flags = ORGANIC | SYNTHETIC
 	liquid_fire_power = 20 //MONKESTATION EDIT ADDITION
 	liquid_fire_burnrate = 1 //MONKESTATION EDIT ADDITION
+	evaporation_rate = 1.2
+
 /datum/reagent/phlogiston/reaction_mob(mob/living/M, method=TOUCH, reac_volume)
 	M.adjust_fire_stacks(1)
 	var/burndmg = max(0.3*M.fire_stacks, 0.3)
@@ -166,6 +172,7 @@
 	process_flags = ORGANIC | SYNTHETIC
 	liquid_fire_power = 30 //MONKESTATION EDIT ADDITION
 	liquid_fire_burnrate = 1 //MONKESTATION EDIT ADDITION
+	evaporation_rate = 0.1 //should evaporate real slow
 
 /datum/reagent/napalm/on_mob_life(mob/living/carbon/M)
 	M.adjust_fire_stacks(1)
@@ -185,7 +192,6 @@
 	self_consuming = TRUE
 	process_flags = ORGANIC | SYNTHETIC
 	random_unrestricted = FALSE
-
 
 /datum/reagent/cryostylane/on_mob_life(mob/living/carbon/M) //TODO: code freezing into an ice cube
 	if(M.reagents.has_reagent(/datum/reagent/oxygen))
@@ -230,6 +236,7 @@
 	self_consuming = TRUE
 	var/shock_timer = 0
 	process_flags = ORGANIC | SYNTHETIC
+	evaporation_rate = 3 //unstable disapates quickly
 
 /datum/reagent/teslium/on_mob_life(mob/living/carbon/M)
 	shock_timer++

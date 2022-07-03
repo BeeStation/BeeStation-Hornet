@@ -219,7 +219,7 @@ GLOBAL_VAR_INIT(liquid_debug_colors, FALSE)
 			var/datum/reagent/R = r
 			T.liquids.reagent_list[R.type] = R.volume
 			T.liquids.total_reagents += R.volume
-			alpha_setting += R.opacity * R.volume
+			alpha_setting += max(R.opacity * R.volume, 0.0001)
 			alpha_divisor += max(1 * R.volume, 0.0001)
 		T.liquids.alpha = min(round(alpha_setting / alpha_divisor), 255)
 		qdel(T.reagents)

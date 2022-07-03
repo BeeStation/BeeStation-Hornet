@@ -44,7 +44,7 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 
 	//MONKESTATION EDIT ADDITION
 	///Whether it will evaporate if left untouched on a liquids simulated puddle
-	var/evaporates = FALSE
+	var/evaporates = TRUE
 	///How much fire power does the liquid have, for burning on simulated liquids. Not enough fire power/unit of entire mixture may result in no fire
 	var/liquid_fire_power = 0
 	///How fast does the liquid burn on simulated turfs, if it does
@@ -53,6 +53,8 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 	var/fire_needs_oxygen = TRUE
 	///The opacity of the chems used to determine the alpha of liquid turfs
 	var/opacity = 175
+	///The rate of evaporation in units per call
+	var/evaporation_rate = 0.5
 	//MONKESTATION EDIT END
 /datum/reagent/Destroy() // This should only be called by the holder, so it's already handled clearing its references
 	. = ..()
@@ -70,6 +72,9 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 	return 1
 
 /datum/reagent/proc/reaction_obj(obj/O, volume)
+	return
+
+/datum/reagent/proc/reaction_evaporation(turf/T, volume)
 	return
 
 /datum/reagent/proc/reaction_turf(turf/T, volume)
