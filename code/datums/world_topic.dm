@@ -82,6 +82,7 @@
 	var/list/servers = CONFIG_GET(keyed_list/cross_server)
 	var/fmt_addr = "byond://[input["addr"]]"
 	var/token = servers[fmt_addr]
+	log_topic("Performing API handshake with [fmt_addr]. Functions located: [length(functions)], servers located: [length(servers)]")
 	if(!token || !functions) // Handshake requires both servers to have each other's deets
 		statuscode = 401
 		response = "Unauthorized - Handshake Failed"
