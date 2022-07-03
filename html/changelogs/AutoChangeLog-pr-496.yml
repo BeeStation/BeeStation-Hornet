@@ -1,5 +1,0 @@
-author: dwasint
-delete-after: true
-changes:
-  - refactor: evaporation
-  - rscadd: new mopping system
