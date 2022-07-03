@@ -1,0 +1,4 @@
+author: The-Moon-Itself
+delete-after: true
+changes:
+  - bugfix: shuttles can now land in the same custom location multiple times.
