@@ -225,7 +225,7 @@
 	convert_opener = "Bring them forth into the living world, acolyte.<br>Sacrificing living animals grants you favor."
 	alignment = ALIGNMENT_EVIL
 	max_favor = 10000
-	desired_items = list(/obj/item/reagent_containers/blood)
+	desired_items = list(/obj/item/organ/)
 	rites_list = list(/datum/religion_rites/raise_dead, /datum/religion_rites/living_sacrifice, /datum/religion_rites/raise_undead)
 	altar_icon_state = "convertaltar-green"
 
@@ -233,14 +233,11 @@
 /datum/religion_sect/necro_sect/sect_bless(mob/living/blessed, mob/living/user)
 	return TRUE
 
-/datum/religion_sect/necro_sect/on_sacrifice(obj/item/N, mob/living/L)
-	var/obj/item/reagent_containers/blood/bloodbag = N
-	if(!istype(bloodbag)) //how...
+/datum/religion_sect/necro_sect/on_sacrifice(obj/item/N, mob/living/L) //and this
+	var/obj/item/organ/organ = N
+	if(!istype(organ)) //how...
 		return
-	if(bloodbag.volume < 50)
-		to_chat(L,"<span class='notice'>[GLOB.deity] does not accept insubstantial amounts of blood.</span>")
-		return
-	adjust_favor(round(bloodbag.volume), L)
-	to_chat(L, "<span class='notice'>You offer [bloodbag] to [GLOB.deity], pleasing them.</span>")
+	adjust_favor(10, L)
+	to_chat(L, "<span class='notice'>You offer [organ] to [GLOB.deity], pleasing them and gaining 10 favor in the process.</span>")
 	qdel(N)
 	return TRUE

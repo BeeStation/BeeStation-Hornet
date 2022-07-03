@@ -218,11 +218,11 @@
 	return ..()
 
 // Necro Rites
-
+//edit
 /datum/religion_rites/raise_undead
 	name = "Raise Undead"
 	desc = "Creates an undead creature if a soul is willing to take it."
-	ritual_length = 10 SECONDS
+	ritual_length = 90 SECONDS
 	ritual_invocations = list("Come forth from the pool of souls ...",
 	"... enter our realm ...",
 	"... become one with our world ...",
@@ -245,23 +245,26 @@
 		return NOT_ENOUGH_PLAYERS
 	var/mob/dead/observer/selected = pick_n_take(candidates)
 	var/datum/mind/Mind = new /datum/mind(selected.key)
-	var/mob/living/carbon/human/species/zombie/zombie = new(altar_turf)
+	var/undead_species
+	undead_species = pick(/mob/living/carbon/human/species/zombie, /mob/living/carbon/human/species/skeleton)
+	var/mob/living/carbon/human/species/undead = new undead_species(altar_turf)
+	undead.real_name = "Holy Undead ([rand(1,999)])"
 	Mind.active = 1
-	Mind.transfer_to(zombie)
-	zombie.equip_to_slot_or_del(new /obj/item/storage/backpack/cultpack(zombie), ITEM_SLOT_BACK)
-	zombie.equip_to_slot_or_del(new /obj/item/clothing/under/costume/skeleton(zombie), ITEM_SLOT_ICLOTHING)
-	zombie.equip_to_slot_or_del(new /obj/item/clothing/suit/hooded/chaplain_hoodie(zombie), ITEM_SLOT_OCLOTHING)
-	zombie.equip_to_slot_or_del(new /obj/item/clothing/shoes/sneakers/black(zombie), ITEM_SLOT_FEET)
+	Mind.transfer_to(undead)
+	undead.equip_to_slot_or_del(new /obj/item/storage/backpack/cultpack(undead), ITEM_SLOT_BACK)
+	undead.equip_to_slot_or_del(new /obj/item/clothing/under/costume/skeleton(undead), ITEM_SLOT_ICLOTHING)
+	undead.equip_to_slot_or_del(new /obj/item/clothing/suit/hooded/chaplain_hoodie(undead), ITEM_SLOT_OCLOTHING)
+	undead.equip_to_slot_or_del(new /obj/item/clothing/shoes/sneakers/black(undead), ITEM_SLOT_FEET)
 	if(GLOB.religion)
 		var/obj/item/storage/book/bible/booze/B = new
-		zombie.mind?.holy_role = HOLY_ROLE_PRIEST
+		undead.mind?.holy_role = HOLY_ROLE_PRIEST
 		B.deity_name = GLOB.deity
 		B.name = GLOB.bible_name
 		B.icon_state = GLOB.bible_icon_state
 		B.item_state = GLOB.bible_item_state
-		to_chat(zombie, "There is already an established religion onboard the station. You are an acolyte of [GLOB.deity]. Defer to the Chaplain.")
-		zombie.equip_to_slot_or_del(B, ITEM_SLOT_BACKPACK)
-		GLOB.religious_sect?.on_conversion(zombie)
+		to_chat(undead, "There is already an established religion onboard the station. You are an acolyte of [GLOB.deity]. Defer to the Chaplain.")
+		undead.equip_to_slot_or_del(B, ITEM_SLOT_BACKPACK)
+		GLOB.religious_sect?.on_conversion(undead)
 	playsound(altar_turf, pick('sound/hallucinations/growl1.ogg','sound/hallucinations/growl2.ogg','sound/hallucinations/growl3.ogg',), 50, TRUE)
 	return ..()
 
@@ -329,7 +332,7 @@
 
 /datum/religion_rites/living_sacrifice
 	name = "Living Sacrifice"
-	desc = "Sacrifice a living buckled creature for favor."
+	desc = "Sacrifice a non-sentient living buckled creature for favor."
 	ritual_length = 60 SECONDS
 	ritual_invocations = list("To offer this being unto the gods ...",
 	"... to feed them with its soul ...",
@@ -356,6 +359,10 @@
 			to_chat(user, "<span class='warning'>You can only sacrifice living creatures, this one is dead!</span>")
 			chosen_sacrifice = null
 			return FALSE
+		if(chosen_sacrifice.mind)
+			to_chat(user, "<span class='warning'>This sacrifice is sentient! [GLOB.deity] will not accept this offering.</span>")
+			chosen_sacrifice = null
+			return FALSE
 		return ..()
 
 /datum/religion_rites/living_sacrifice/invoke_effect(mob/living/user, atom/movable/religious_tool)
@@ -369,12 +376,10 @@
 		chosen_sacrifice = null
 		return FALSE
 	var/favor_gained = 200 + round(chosen_sacrifice.health)
-	if(chosen_sacrifice.mind)
-		favor_gained = 900 + round(chosen_sacrifice.health)
 	GLOB.religious_sect?.adjust_favor(favor_gained, user)
 	new /obj/effect/temp_visual/cult/blood/out(altar_turf)
-	to_chat(user, "<span class='notice'>[GLOB.deity] absorbs [chosen_sacrifice] leaving no trace behind. [GLOB.deity] rewards you with [favor_gained] favor.</span>")
-	chosen_sacrifice.dust(force = TRUE)
-	playsound(get_turf(religious_tool), 'sound/effects/supermatter.ogg', 50, TRUE)
+	to_chat(user, "<span class='notice'>[GLOB.deity] absorbs [chosen_sacrifice], leaving blood and gore in its place. [GLOB.deity] rewards you with [favor_gained] favor.</span>")
+	chosen_sacrifice.gib(TRUE, FALSE, TRUE)
+	playsound(get_turf(religious_tool), 'sound/effects/bamf.ogg', 50, TRUE)
 	chosen_sacrifice = null
 	return ..()
