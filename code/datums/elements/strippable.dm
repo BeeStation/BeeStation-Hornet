@@ -47,6 +47,9 @@
 	if(over != user)
 		return
 
+	if(isrevenant(user))
+		return
+
 	// Cyborgs buckle people by dragging them onto them, unless in combat mode.
 	if(iscyborg(user))
 		var/mob/living/silicon/robot/cyborg_user = user
