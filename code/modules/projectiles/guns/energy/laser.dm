@@ -42,6 +42,7 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/lasergun/captain)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	weapon_weight = WEAPON_LIGHT
+	investigate_flags = ADMIN_INVESTIGATE_TARGET
 
 /obj/item/gun/energy/laser/captain/scattershot
 	name = "scatter shot laser rifle"

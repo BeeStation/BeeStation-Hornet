@@ -24,8 +24,9 @@
 	//two variables necessary for calculating whether we get a brain trauma or not
 	var/damage_delta = 0
 
-
 	var/list/datum/brain_trauma/traumas = list()
+
+	investigate_flags = ADMIN_INVESTIGATE_TARGET
 
 /obj/item/organ/brain/Insert(mob/living/carbon/C, special = 0,no_id_transfer = FALSE)
 	..()

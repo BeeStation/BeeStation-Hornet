@@ -124,6 +124,7 @@ GLOBAL_VAR(posibrain_notify_cooldown)
 
 	brainmob.mind.remove_all_antag()
 	brainmob.mind.wipe_memory()
+	investigate_flags = ADMIN_INVESTIGATE_TARGET
 	update_icon()
 
 /obj/item/mmi/posibrain/proc/transfer_personality(mob/candidate)
@@ -145,6 +146,7 @@ GLOBAL_VAR(posibrain_notify_cooldown)
 
 	visible_message(new_mob_message)
 	check_success()
+	investigate_flags = ADMIN_INVESTIGATE_TARGET
 	return TRUE
 
 

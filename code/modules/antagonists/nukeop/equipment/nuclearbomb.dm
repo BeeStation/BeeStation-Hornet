@@ -656,6 +656,7 @@ This is here to make the tiles around the station mininuke change when it's arme
 	var/turf/lastlocation
 	var/last_disk_move
 	var/process_tick = 0
+	investigate_flags = ADMIN_INVESTIGATE_TARGET
 	COOLDOWN_DECLARE(weight_increase_cooldown)
 
 /obj/item/disk/nuclear/Initialize(mapload)
