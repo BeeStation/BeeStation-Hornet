@@ -9,3 +9,6 @@ BRIG_TIMER_MAX 20
 BRIG_TIMER_PRESET_SHORT 5
 BRIG_TIMER_PRESET_MED 10
 BRIG_TIMER_PRESET_LONG 15
+
+# Time to wait after becoming a Ghost to qualify for antagonist, In minutes.
+COOLDOWN_ANTAG_TIME 5
