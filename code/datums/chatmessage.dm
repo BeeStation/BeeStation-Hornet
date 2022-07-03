@@ -30,9 +30,9 @@
 
 #define BUCKET_LIMIT (world.time + TICKS2DS(min(BUCKET_LEN - (SSrunechat.practical_offset - DS2TICKS(world.time - SSrunechat.head_offset)) - 1, BUCKET_LEN - 1)))
 #define BALLOON_TEXT_WIDTH 200
-#define BALLOON_TEXT_SPAWN_TIME (0.1 SECONDS)
-#define BALLOON_TEXT_FADE_TIME (0.1 SECONDS)
-#define BALLOON_TEXT_FULLY_VISIBLE_TIME (1.5 SECONDS)
+#define BALLOON_TEXT_SPAWN_TIME (0.3 SECONDS)
+#define BALLOON_TEXT_FADE_TIME (0.4 SECONDS)
+#define BALLOON_TEXT_FULLY_VISIBLE_TIME (0.9 SECONDS)
 #define BALLOON_TEXT_TOTAL_LIFETIME(mult) (BALLOON_TEXT_SPAWN_TIME + BALLOON_TEXT_FULLY_VISIBLE_TIME*mult + BALLOON_TEXT_FADE_TIME)
 /// The increase in duration per character in seconds
 #define BALLOON_TEXT_CHAR_LIFETIME_INCREASE_MULT (0.05)
@@ -503,6 +503,16 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 		return
 	INVOKE_ASYNC(src, .proc/generate_image, text, target, owner)
 
+/datum/chatmessage/balloon_alert/Destroy()
+	if(!QDELETED(message_loc))
+		LAZYREMOVE(message_loc.balloon_alerts, src)
+	return ..()
+
+/datum/chatmessage/balloon_alert/end_of_life(fadetime = BALLOON_TEXT_FADE_TIME)
+	isFading = TRUE
+	animate(message, alpha = 0, pixel_y = message.pixel_y + MESSAGE_FADE_PIXEL_Y, time = fadetime, flags = ANIMATION_PARALLEL)
+	addtimer(CALLBACK(GLOBAL_PROC, /proc/qdel, src), fadetime, TIMER_DELETE_ME, SSrunechat)
+
 /datum/chatmessage/balloon_alert/generate_image(text, atom/target, mob/owner)
 	// Register client who owns this message
 	var/client/owned_by = owner.client
@@ -517,6 +527,14 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 		message_loc = target
 	else
 		message_loc = get_atom_on_turf(target)
+
+	if(LAZYLEN(message_loc.balloon_alerts))
+		for(var/datum/chatmessage/balloon_alert/m as() in message_loc.balloon_alerts)  //We get rid of old alerts so it doesn't clutter up the screen
+			if (!m.isFading)
+				var/sched_remaining = timeleft(m.fadertimer, SSrunechat)
+				if (sched_remaining)
+					deltimer(m.fadertimer, SSrunechat)
+				m.end_of_life()
 
 	// Build message image
 	message = image(loc = message_loc, layer = CHAT_LAYER)
@@ -538,25 +556,9 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 		duration_mult += duration_length * BALLOON_TEXT_CHAR_LIFETIME_INCREASE_MULT
 
 	// Animate the message
-	animate(
-		message,
-		pixel_y = world.icon_size * 1.2,
-		time = BALLOON_TEXT_TOTAL_LIFETIME(1),
-		easing = SINE_EASING | EASE_OUT,
-	)
+	animate(message, alpha = 255, pixel_y = world.icon_size * 1.1, time = BALLOON_TEXT_SPAWN_TIME)
 
-	animate(
-		alpha = 255,
-		time = BALLOON_TEXT_SPAWN_TIME,
-		easing = CUBIC_EASING | EASE_OUT,
-		flags = ANIMATION_PARALLEL,
-	)
-
-	animate(
-		alpha = 0,
-		time = BALLOON_TEXT_FULLY_VISIBLE_TIME * duration_mult,
-		easing = CUBIC_EASING | EASE_IN,
-	)
+	LAZYADD(message_loc.balloon_alerts, src)
 
 	// Register with the runechat SS to handle EOL and destruction
 	var/duration = BALLOON_TEXT_TOTAL_LIFETIME(duration_mult)

@@ -112,6 +112,9 @@
 	/// Lazylist of all messages currently on this atom
 	var/list/chat_messages
 
+	///LazyList of all balloon alerts currently on this atom
+	var/list/balloon_alerts
+
 /**
   * Called when an atom is created in byond (built in engine proc)
   *
