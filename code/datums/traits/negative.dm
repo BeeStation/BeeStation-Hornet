@@ -67,17 +67,18 @@
 	var/mob/living/carbon/human/H = quirk_holder
 	var/obj/item/storage/pill_bottle/mannitol/braintumor/P = new(get_turf(H))
 
-	var/slot = H.equip_in_one_of_slots(P, list(ITEM_SLOT_LPOCKET, ITEM_SLOT_RPOCKET, ITEM_SLOT_BACKPACK), FALSE)
-	if(slot)
-		var/list/slots = list(
-		ITEM_SLOT_LPOCKET = "in your left pocket",
-		ITEM_SLOT_RPOCKET = "in your right pocket",
-		ITEM_SLOT_BACKPACK = "in your backpack"
-		)
-		where = slots[slot]
+	var/list/slots = list(
+		"in your left pocket" = ITEM_SLOT_LPOCKET,
+		"in your right pocket" = ITEM_SLOT_RPOCKET,
+		"in your backpack" = ITEM_SLOT_BACKPACK
+	)
+	where = H.equip_in_one_of_slots(P, slots, FALSE)
 
 /datum/quirk/brainproblems/post_add()
-	to_chat(quirk_holder, "<span class='boldnotice'>There is a bottle of mannitol [where]. You're going to need it.</span>")
+	if(where)
+		to_chat(quirk_holder, "<span class='boldnotice'>There is a bottle of mannitol [where]. You're going to need it.</span>")
+	else
+		to_chat(quirk_holder, "<span class='boldnotice'>You dropped your bottle of mannitol on the floor. Better pick it up, you are going to need it.</span>")
 
 /datum/quirk/deafness
 	name = "Deaf"
@@ -173,7 +174,7 @@
 			if("Paramedic")
 				heirloom_type = pick(/obj/item/bodybag)
 			if("Chemist")
-				heirloom_type = /obj/item/book/manual/wiki/chemistry
+				heirloom_type = /obj/item/reagent_containers/glass/chem_heirloom
 			if("Virologist")
 				heirloom_type = /obj/item/reagent_containers/dropper
 			if("Geneticist")
@@ -217,6 +218,9 @@
 	var/family_name = names[names.len]
 
 	heirloom.AddComponent(/datum/component/heirloom, quirk_holder.mind, family_name)
+	if(istype(heirloom, /obj/item/reagent_containers/glass/chem_heirloom)) //Edge case for chem_heirloom. Solution to component not being present on init.
+		var/obj/item/reagent_containers/glass/chem_heirloom/H = heirloom
+		H.update_name()
 
 /datum/quirk/family_heirloom/on_process()
 	if(heirloom in quirk_holder.GetAllContents())

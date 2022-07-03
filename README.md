@@ -104,12 +104,13 @@ https://github.com/tgstation/tgstation-server
 
 BeeStation currently comes equipped with these maps.
 
-* [DeltaStation (default)](https://wiki.beestation13.com/view/DeltaStation)
 * [BoxStation](https://wiki.beestation13.com/view/Boxstation)
-* [MetaStation](https://wiki.beestation13.com/view/MetaStation)
-* [PubbyStation](https://wiki.beestation13.com/view/PubbyStation)
-* [KiloStation](https://wiki.beestation13.com/view/KiloStation)
+* [CorgStation](https://wiki.beestation13.com/view/CorgsStation)
+* [DeltaStation](https://wiki.beestation13.com/view/DeltaStation)
 * [FlandStation](https://wiki.beestation13.com/view/FlandStation)
+* [KiloStation](https://wiki.beestation13.com/view/KiloStation)
+* [MetaStation (default)](https://wiki.beestation13.com/view/MetaStation)
+* [PubbyStation](https://wiki.beestation13.com/view/PubbyStation)
 * [RuntimeStation (used for debugging)](https://wiki.beestation13.com/view/RuntimeStation)
 
 All maps have their own code file that is in the base of the _maps directory. Maps are loaded dynamically when the game starts. Follow this guideline when adding your own map, to your fork, for easy compatibility.

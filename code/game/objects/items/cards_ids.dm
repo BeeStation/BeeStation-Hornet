@@ -547,6 +547,7 @@ update_label("John Doe", "Clowny")
 	righthand_file = 'icons/mob/inhands/equipment/idcards_righthand.dmi'
 	registered_name = "Captain"
 	assignment = "Captain"
+	investigate_flags = ADMIN_INVESTIGATE_TARGET
 	hud_state = JOB_HUD_ACTINGCAPTAIN
 
 /obj/item/card/id/captains_spare/Initialize(mapload)
@@ -750,6 +751,7 @@ update_label("John Doe", "Clowny")
 	var/department_ID = ACCOUNT_CIV
 	var/department_name = ACCOUNT_CIV_NAME
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+	investigate_flags = ADMIN_INVESTIGATE_TARGET
 
 /obj/item/card/id/departmental_budget/Initialize(mapload)
 	. = ..()
@@ -807,7 +809,6 @@ update_label("John Doe", "Clowny")
 	department_name = ACCOUNT_SEC_NAME
 	icon_state = "budget_sec"
 	hud_state = JOB_HUD_RAWSECURITY
-
 
 /// Job Specific ID Cards///
 // These should have default job name and hud state, etc, because chameleon card needs such information

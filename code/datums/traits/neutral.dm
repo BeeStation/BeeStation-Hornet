@@ -19,17 +19,18 @@
 
 /datum/quirk/vegetarian/add()
 	var/mob/living/carbon/human/H = quirk_holder
-	H.dna.species.liked_food &= ~MEAT
-	H.dna.species.disliked_food |= MEAT
+	var/obj/item/organ/tongue/T = H.getorganslot(ORGAN_SLOT_TONGUE)
+	T?.liked_food &= ~MEAT
+	T?.disliked_food |= MEAT
 
 /datum/quirk/vegetarian/remove()
 	var/mob/living/carbon/human/H = quirk_holder
+	var/obj/item/organ/tongue/T = H.getorganslot(ORGAN_SLOT_TONGUE)
 	if(H)
-		var/datum/species/species = H.dna.species
-		if(initial(species.liked_food) & MEAT)
-			species.liked_food |= MEAT
-		if(!(initial(species.disliked_food) & MEAT))
-			species.disliked_food &= ~MEAT
+		if(initial(T.liked_food) & MEAT)
+			T?.liked_food |= MEAT
+		if(!(initial(T.disliked_food) & MEAT))
+			T?.disliked_food &= ~MEAT
 
 /datum/quirk/pineapple_liker
 	name = "Ananas Affinity"
@@ -40,11 +41,13 @@
 
 /datum/quirk/pineapple_liker/add()
 	var/mob/living/carbon/human/H = quirk_holder
-	H.dna.species.liked_food |= PINEAPPLE
+	var/obj/item/organ/tongue/T = H.getorganslot(ORGAN_SLOT_TONGUE)
+	T?.liked_food |= PINEAPPLE
 
 /datum/quirk/pineapple_liker/remove()
 	var/mob/living/carbon/human/H = quirk_holder
-	H.dna.species.liked_food &= ~PINEAPPLE
+	var/obj/item/organ/tongue/T = H.getorganslot(ORGAN_SLOT_TONGUE)
+	T?.liked_food &= ~PINEAPPLE
 
 /datum/quirk/pineapple_hater
 	name = "Ananas Aversion"
@@ -55,11 +58,13 @@
 
 /datum/quirk/pineapple_hater/add()
 	var/mob/living/carbon/human/H = quirk_holder
-	H.dna.species.disliked_food |= PINEAPPLE
+	var/obj/item/organ/tongue/T = H.getorganslot(ORGAN_SLOT_TONGUE)
+	T?.disliked_food |= PINEAPPLE
 
 /datum/quirk/pineapple_hater/remove()
 	var/mob/living/carbon/human/H = quirk_holder
-	H.dna.species.disliked_food &= ~PINEAPPLE
+	var/obj/item/organ/tongue/T = H.getorganslot(ORGAN_SLOT_TONGUE)
+	T?.disliked_food &= ~PINEAPPLE
 
 /datum/quirk/deviant_tastes
 	name = "Deviant Tastes"
@@ -70,16 +75,16 @@
 
 /datum/quirk/deviant_tastes/add()
 	var/mob/living/carbon/human/H = quirk_holder
-	var/datum/species/species = H.dna.species
-	var/liked = species.liked_food
-	species.liked_food = species.disliked_food
-	species.disliked_food = liked
+	var/obj/item/organ/tongue/T = H.getorganslot(ORGAN_SLOT_TONGUE)
+	var/liked = T?.liked_food
+	T?.liked_food = T?.disliked_food
+	T?.disliked_food = liked
 
 /datum/quirk/deviant_tastes/remove()
 	var/mob/living/carbon/human/H = quirk_holder
-	var/datum/species/species = H.dna.species
-	species.liked_food = initial(species.liked_food)
-	species.disliked_food = initial(species.disliked_food)
+	var/obj/item/organ/tongue/T = H.getorganslot(ORGAN_SLOT_TONGUE)
+	T?.liked_food = initial(T?.liked_food)
+	T?.disliked_food = initial(T?.disliked_food)
 
 /datum/quirk/monochromatic
 	name = "Monochromacy"
