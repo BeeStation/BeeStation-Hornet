@@ -47,8 +47,11 @@
 	if(over != user)
 		return
 
-	if(isrevenant(user))
-		return
+	// Mobs that can walk through walls cannot strip.
+	if(isliving(user))
+		var/mob/living/L = user
+		if(L.incorporeal_move)
+			return
 
 	// Cyborgs buckle people by dragging them onto them, unless in combat mode.
 	if(iscyborg(user))
