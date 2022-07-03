@@ -225,3 +225,31 @@
 	adjust_favor(20, user) //it's not a lot but hey there's a pacifist favor option at least
 	qdel(offering)
 	return TRUE
+
+/**** Carp Sect ****/
+
+/datum/religion_sect/carp_sect
+	name = "Followers of the Great Carp"
+	desc = "A sect dedicated to the space carp and carp'sie."
+	convert_opener = "Drown the station in fish and water.<br>Sacrificing meat grants you favor."
+	alignment = ALIGNMENT_NEUT
+	max_favor = 10000
+	desired_items = list(/obj/item/reagent_containers/food/snacks/meat)
+	rites_list = list(/datum/religion_rites/summon_carp, /datum/religion_rites/flood_area, /datum/religion_rites/summon_carpsuit)
+	altar_icon_state = "convertaltar-blue"
+
+//Carp bibles give people the carp faction!
+/datum/religion_sect/carp_sect/sect_bless(mob/living/blessed, mob/living/user)
+	if(isliving(blessed))
+		blessed.faction |= "carp"
+		to_chat(blessed, "<span class='notice>You are now protected from Space Carps! Although they will still fight back if you attack them.</span>")
+	return TRUE
+
+/datum/religion_sect/carp_sect/on_sacrifice(obj/item/N, mob/living/L) //and this
+	var/obj/item/reagent_containers/food/snacks/meat/meat = N
+	if(!istype(meat)) //how...
+		return
+	adjust_favor(20, L)
+	to_chat(L, "<span class='notice'>You offer [meat] to [GLOB.deity], pleasing them and gaining 10 favor in the process.</span>")
+	qdel(N)
+	return TRUE
