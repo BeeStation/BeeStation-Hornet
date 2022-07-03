@@ -9,39 +9,48 @@
 	var/obj/item/pda/storedpda = null
 	var/obj/item/card/id/storedid = null
 	var/pda_icons = list(
-		"neutral" = "pda",
-		"Assistant" = "pda-assistant",
-		"Atmospheric Technician" = "pda-atmos",
-		"Bartender" = "pda-bartender",
-		"Service" = "pda-service",
-		"Captain" = "pda-captain",
-		"Cargo Technician" = "pda-cargo",
-		"Chaplain" = "pda-chaplain",
-		"Chemist" = "pda-chemistry",
-		"Chief Medical Officer" = "pda-cmo",
-		"Chief Engineer" = "pda-ce",
-		"Clown" = "pda-clown",
-		"Cook" = "pda-cook",
-		"Curator" = "pda-library",
-		"Detective" = "pda-detective",
-		"Engineer" = "pda-engineer",
-		"Geneticist" = "pda-genetics",
-		"Head of Personnel" = "pda-hop",
-		"Head of Security" = "pda-hos",
-		"Lawyer" = "pda-lawyer",
-		"Janitor" = "pda-janitor",
-		"Medical Doctor" = "pda-medical",
-		"Paramedic" = "pda-paramedical",
-		"Mime" = "pda-mime",
-		"Quartermaster" = "pda-qm",
-		"Research Director" = "pda-rd",
-		"Roboticist" = "pda-roboticist",
-		"Scienctist" = "pda-science",
-		"Security Officer" = "pda-security",
-		"Shaft Miner" = "pda-miner",
-		"Virologist" = "pda-virology",
-		"Warden" = "pda-warden",
-		"Exploration Crew" = "pda-exploration"
+		"Misc: Neutral" = "pda",
+		"Misc: Assistant" = "pda-assistant",
+		"Command (Standard)" = "pda-heads",
+		"Command: Captain" = "pda-captain",
+		"Service (Standard)" = "pda-service",
+		"Service: Head of Personnel" = "pda-hop",
+		"Service: Bartender" = "pda-bartender",
+		"Service: Chaplain" = "pda-chaplain",
+		"Service: Clown" = "pda-clown",
+		"Service: Cook" = "pda-cook",
+		"Service: Curator" = "pda-library",
+		"Service: Janitor" = "pda-janitor",
+		"Service: Lawyer" = "pda-lawyer",
+		"Service: Mime" = "pda-mime",
+		"Cargo (Standard)" = "pda-cargo",
+		"Cargo: Quartermaster" = "pda-qm",
+		"Cargo: Cargo Technician" = "pda-cargo",
+		"Cargo: Shaft Miner" = "pda-miner",
+		"Engineering (Standard)" = "pda-engineer",
+		"Engineering: Chief Engineer" = "pda-ce",
+		"Engineering: Station Engineer" = "pda-engineer",
+		"Engineering: Atmospheric Technician" = "pda-atmos",
+		"Science (Standard)" = "pda-science",
+		"Science: Research Director" = "pda-rd",
+		"Science: Roboticist" = "pda-roboticist",
+		"Science: Scienctist" = "pda-science",
+		"Science: Exploration Crew" = "pda-exploration",
+		"Medical (Standard)" = "pda-medical",
+		"Medical: Chief Medical Officer" = "pda-cmo",
+		"Medical: Medical Doctor" = "pda-medical",
+		"Medical: Chemist" = "pda-chemistry",
+		"Medical: Paramedic" = "pda-paramedical",
+		"Medical: Geneticist" = "pda-genetics",
+		"Medical: Virologist" = "pda-virology",
+		"Security (Standard)" = "pda-security",
+		"Security: Head of Security" = "pda-hos",
+		"Security: Warden" = "pda-warden",
+		"Security: Security Officier" = "pda-security",
+		"Security: Detective" = "pda-detective",
+		"Security: Brig Physician" = "pda-brigphys",
+		"Security: Deputy" = "pda-deputy",
+		"Misc: Prisoner" = "pda-prisoner"
 		)
 
 	var/valid_jobs = list(
@@ -255,7 +264,7 @@
 	update_icon()
 
 
-/proc/get_cardstyle_by_jobname(jobname)
+/obj/machinery/pdapainter/proc/get_cardstyle_by_jobname(jobname)
 	if(jobname)
 		var/static/id_style = list(
 			// Command
