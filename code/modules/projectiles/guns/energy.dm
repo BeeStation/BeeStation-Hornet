@@ -57,7 +57,7 @@
 	if (!no_crystal)
 		if(ispath(focusing_lens))
 			focusing_lens = new focusing_lens(src)
-		else if(randomise_crystal && (!standard_if_spawned || !(ismob(loc) || !mapload)))
+		else if(randomise_crystal && (!standard_if_spawned || !(ismob(loc) || mapload)))
 			var/selected_type = pick(typesof(/obj/item/focusing_crystal))
 			focusing_lens = new selected_type(src)
 		else
@@ -98,6 +98,8 @@
 		shot = new shottype(src)
 		if(focusing_lens)
 			focusing_lens.update_casing(shot)
+		if(shot.BB)
+			focusing_lens.update_bullet(shot.BB)
 		ammo_casings[i] = shot
 	shot = ammo_casings[select]
 	fire_sound = shot.fire_sound
@@ -302,3 +304,9 @@
 	recharge_newshot(TRUE)
 	update_icon()
 	playsound(src, 'sound/effects/light_flicker.ogg', 40, TRUE)
+
+/obj/item/gun/energy/attackby(obj/item/I, mob/user, params)
+	if (istype(I, /obj/item/focusing_crystal))
+		insert_crystal(user, I)
+		return
+	. = ..()

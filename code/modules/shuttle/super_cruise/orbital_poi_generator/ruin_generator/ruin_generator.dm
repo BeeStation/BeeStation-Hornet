@@ -64,7 +64,6 @@
 	var/sanity = 1000
 
 	var/list/valid_ruin_parts = generator_settings.get_valid_rooms()
-	var/list/required_ruin_parts = generator_settings.get_required_rooms()
 
 	ruin_event?.pre_spawn(center_z)
 

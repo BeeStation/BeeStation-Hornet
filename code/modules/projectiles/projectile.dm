@@ -72,6 +72,8 @@
 	var/spread = 0			//amount (in degrees) of projectile spread
 	animate_movement = NO_STEPS	//Use SLIDE_STEPS in conjunction with legacy
 	var/ricochets = 0 // how many times we've ricochet'd so far (instance variable, not a stat)
+	/// Force ricochet
+	var/force_ricochet = FALSE
 	/// how many times we can ricochet max
 	var/ricochets_max = 0
 	/// 0-100, the base chance of ricocheting, before being modified by the atom we shoot and our chance decay
@@ -577,6 +579,9 @@
 	return FALSE
 
 /obj/item/projectile/proc/check_ricochet_flag(atom/A)
+	if(force_ricochet)
+		return TRUE
+
 	if((flag in list("energy", "laser")) && (A.flags_ricochet & RICOCHET_SHINY))
 		return TRUE
 
@@ -977,3 +982,4 @@
 	log_override = source.log_override
 	shrapnel_type = source.shrapnel_type
 	hit_stunned_targets = source.hit_stunned_targets
+	force_ricochet = source.force_ricochet

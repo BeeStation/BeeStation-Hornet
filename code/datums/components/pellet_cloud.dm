@@ -118,6 +118,9 @@
 		INVOKE_ASYNC(shell, /obj/item/ammo_casing.proc/throw_proj, target, targloc, shooter, params, spread)
 		if(i != num_pellets)
 			shell.newshot()
+			if (istype(fired_from, /obj/item/gun/energy))
+				var/obj/item/gun/energy/egun = fired_from
+				egun.focusing_lens?.update_bullet(shell.BB)
 
 /**
   * create_blast_pellets() is for when we have a central point we want to shred the surroundings of with a ring of shrapnel, namely frag grenades and landmines.
