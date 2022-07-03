@@ -19,7 +19,7 @@
 	can_adjust = FALSE
 	fitted = FEMALE_UNIFORM_TOP
 	icon_state = "jumpskirt"
-=======
+
 /obj/item/clothing/under/color/random
 	icon_state = "random_jumpsuit"
 	can_adjust = FALSE

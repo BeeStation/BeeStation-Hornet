@@ -243,16 +243,12 @@
 	desc = "A specialized pair of combat boots with a built-in propulsion system for rapid foward movement."
 	icon_state = "jetboots"
 	item_state = "jetboots"
-<<<<<<< HEAD
-=======
-	item_color = "hosred"
-	flags_1 = SAVE_SAFE_1
->>>>>>> Shuttle-Ruins
 	resistance_flags = FIRE_PROOF
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/shoes
 	actions_types = list(/datum/action/item_action/bhop)
 	permeability_coefficient = 0.05
 	strip_delay = 30
+	flags_1 = SAVE_SAFE_1
 	var/jumpdistance = 5 //-1 from to see the actual distance, e.g 4 goes over 3 tiles
 	var/jumpspeed = 3
 	var/recharging_rate = 60 //default 6 seconds between each dash

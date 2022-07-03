@@ -6,7 +6,6 @@
 	item_state = "fingerless"
 	worn_icon_state = "fingerless"
 	flags_1 = SAVE_SAFE_1
-	item_color = null	//So they don't wash.
 	transfer_prints = TRUE
 	strip_delay = 40
 	equip_delay_other = 20
@@ -54,7 +53,6 @@
 	item_state = "bracers"
 	worn_icon_state = "bracers"
 	flags_1 = SAVE_SAFE_1
-	item_color = null	//So they don't wash.
 	transfer_prints = TRUE
 	strip_delay = 40
 	equip_delay_other = 20
@@ -105,7 +103,6 @@
 	desc = "These look pretty fancy."
 	icon_state = "white"
 	item_state = "wgloves"
-	item_color="white"
 	flags_1 = NONE
 	var/range = 3
 

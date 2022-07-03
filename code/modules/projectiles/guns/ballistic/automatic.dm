@@ -355,9 +355,4 @@
 	fire_sound = 'sound/weapons/laser.ogg'
 	casing_ejector = FALSE
 	fire_rate = 2
-<<<<<<< HEAD
-=======
-	block_upgrade_walk = 1
 	flags_1 = SAVE_SAFE_1
->>>>>>> Shuttle-Ruins
-

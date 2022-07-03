@@ -128,19 +128,6 @@
 	icon = 'icons/obj/device.dmi'
 	flags_1 = SAVE_SAFE_1
 
-<<<<<<< HEAD
-=======
-/obj/item/clothing/under/misc/durathread
-	name = "durathread jumpsuit"
-	desc = "A jumpsuit made from durathread, its resilient fibres provide some protection to the wearer."
-	icon_state = "durathread"
-	item_state = "durathread"
-	item_color = "durathread"
-	can_adjust = FALSE
-	armor = list("melee" = 10, "laser" = 10, "fire" = 40, "acid" = 10, "bomb" = 5, "stamina" = 30)
-	flags_1 = SAVE_SAFE_1
-
->>>>>>> Shuttle-Ruins
 /////////////////
 //DONATOR ITEMS//
 /////////////////

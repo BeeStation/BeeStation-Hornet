@@ -77,11 +77,8 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/electrode/hos, /obj/item/ammo_casing/energy/laser/hos, /obj/item/ammo_casing/energy/disabler/hos)
 	ammo_x_offset = 4
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
-<<<<<<< HEAD
 	investigate_flags = ADMIN_INVESTIGATE_TARGET
-=======
 	flags_1 = NONE
->>>>>>> Shuttle-Ruins
 
 /obj/item/gun/energy/e_gun/dragnet
 	name = "\improper DRAGnet"

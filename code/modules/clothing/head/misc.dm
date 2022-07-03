@@ -546,12 +546,10 @@
 	desc = "Looks just like a real one."
 	icon_state = "chicken"
 	flags_inv = HIDEHAIR
-<<<<<<< HEAD
+	flags_1 = SAVE_SAFE_1
 
 /obj/item/clothing/head/maidheadband
 	name = "maid headband"
 	desc = "Just like from one of those chinese cartoons!"
 	icon_state = "maid_headband"
-=======
 	flags_1 = SAVE_SAFE_1
->>>>>>> Shuttle-Ruins
