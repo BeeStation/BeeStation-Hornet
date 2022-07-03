@@ -3,3 +3,7 @@
 #define CARP_COMMAND_WANDER "carp_command_wander"
 #define CARP_COMMAND_FOLLOW "carp_command_follow"
 #define CARP_COMMAND_ATTACK "carp_command_attack"
+
+///max carp agro / follow range for tamed carps
+#define CARP_AGRO_RANGE 11
+#define CARP_FOLLOW_RANGE 19

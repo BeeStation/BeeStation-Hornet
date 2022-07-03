@@ -95,6 +95,15 @@
 		return //could also use break, doesn't really matter
 	else
 		visible_message("couldnt ride")
+ 
+ //cleanup command component
+/mob/living/simple_animal/hostile/carp/death(gibbed)
+	if(carp_command_comp)
+		carp_command_comp.command = null
+		carp_command_comp.target = null
+		qdel(carp_command_comp)
+		carp_command_comp = null
+	..()
 
 /**
  * Randomly assigns a color to a carp from either a common or rare color variant lists

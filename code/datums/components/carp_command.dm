@@ -16,10 +16,14 @@
 	carp_parent = parent
 	
 	RegisterSignal(carp_parent, COMSIG_CLICK_ALT, .proc/give_command)
+	RegisterSignal(carp_parent, COMSIG_MOB_HAND_ATTACKED, .proc/append_enemy)
+	RegisterSignal(carp_parent, COMSIG_PARENT_ATTACKBY, .proc/append_enemy_defend)
+	RegisterSignal(carp_parent, COMSIG_MOB_ATTACK_HAND, .proc/append_enemy)
 
 ///Register signals to allies
 /datum/component/carp_command/proc/update_ally()
 	for(var/mob/living/M as() in cares_about_ally)
+		RegisterSignal(M, COMSIG_PARENT_QDELETING, .proc/handle_hard_del, M)
 		RegisterSignal(M, COMSIG_PARENT_ATTACKBY, .proc/append_enemy_defend)
 		RegisterSignal(M, COMSIG_MOB_HAND_ATTACKED, .proc/append_enemy)
 		RegisterSignal(M, COMSIG_MOB_ATTACK_HAND, .proc/append_enemy)
@@ -40,24 +44,29 @@
 			target = null
 			carp_parent.toggle_ai(AI_ON)
 		if(CARP_COMMAND_FOLLOW)
-			target = (func_target ? func_target : (isliving(clicker.pulling) ? clicker.pulling : clicker))
+			target = (func_target ? func_target : target)
 			carp_parent.toggle_ai(AI_OFF)
 		if(CARP_COMMAND_ATTACK)
+			if(!(target in cares_about_ally))
+				cares_about_enemy |= target
 			get_closest_enemy()
 			target = (func_target ? func_target : target)
 			carp_parent.toggle_ai(AI_OFF)
 	to_chat(clicker, "[command]")
 
-///Translates ATTACKBY - from outside
+///Translates ATTACKBY
 /datum/component/carp_command/proc/append_enemy_defend(datum/source, var/obj/item, var/mob/living/M, params)
-	cares_about_enemy |= M
-	give_command(null, CARP_COMMAND_ATTACK, M)
+	if(!(M in cares_about_ally))
+		cares_about_enemy |= M
+		target = M
+		give_command(source, null, CARP_COMMAND_ATTACK, M)
 
-///Translate ATTACKHAND - from outside
+///Translate ATTACKHAND
 /datum/component/carp_command/proc/append_enemy(datum/source, var/mob/user, var/mob/attacker, params)
-	if(attacker.a_intent == INTENT_HARM)
+	if(attacker.a_intent == INTENT_HARM && !(attacker in cares_about_ally))
 		cares_about_enemy |= attacker
-		give_command(user, CARP_COMMAND_ATTACK, attacker)
+		target = attacker
+		give_command(source, user, CARP_COMMAND_ATTACK, attacker)
 
 ///Set target to closest entry in enemy list
 /datum/component/carp_command/proc/get_closest_enemy()
@@ -68,10 +77,10 @@
 /datum/component/carp_command/proc/handle_point(datum/source, var/atom/A)
 	target = A
 	if(command == CARP_COMMAND_ATTACK && isliving(A))
-		if(!(locate(A) in cares_about_ally))
+		if((A in cares_about_ally))
 			cares_about_ally -= A
 		else
-			cares_about_enemy += A
+			cares_about_enemy |= A
 
 /datum/component/carp_command/proc/handle_speech(mob/speaker, speech_args)
 	var/spoken_text = speech_args[SPEECH_MESSAGE] // probably should check for full words
@@ -84,8 +93,23 @@
 	else if(findtext(spoken_text, "go") || findtext(spoken_text, "wander") || findtext(spoken_text, "search"))
 		command = CARP_COMMAND_WANDER
 	var/mob/living/speech_target = (command == CARP_COMMAND_FOLLOW ? speaker : target)
-	give_command(speaker, command, speech_target)
+	give_command(null, speaker, command, speech_target)
+
+/datum/component/carp_command/proc/handle_hard_del(var/atom/M)
+	UnregisterSignal(M, COMSIG_PARENT_QDELETING)
+	UnregisterSignal(M, COMSIG_PARENT_ATTACKBY)
+	UnregisterSignal(M, COMSIG_MOB_HAND_ATTACKED)
+	UnregisterSignal(M, COMSIG_MOB_ATTACK_HAND)
+	UnregisterSignal(M, COMSIG_MOB_POINTED)
+	UnregisterSignal(M, COMSIG_MOB_SAY)
 
 /datum/component/carp_command/Destroy(force, silent)
-	UnregisterSignal(carp_parent, )
+	UnregisterSignal(carp_parent, COMSIG_CLICK_ALT)
+	UnregisterSignal(carp_parent, COMSIG_MOB_HAND_ATTACKED)
+	UnregisterSignal(carp_parent, COMSIG_PARENT_ATTACKBY)
+	UnregisterSignal(carp_parent, COMSIG_MOB_ATTACK_HAND)
+	for(var/atom/M in cares_about_ally)
+		handle_hard_del(M)
+	cares_about_enemy = null
+	target = null
 	..()

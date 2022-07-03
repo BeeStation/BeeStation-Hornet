@@ -551,7 +551,7 @@
 	if(transformeffects & SLIME_EFFECT_SEPIA)
 		. *= 0.7
 
-//carps
+//carps - occurs when tamed with lasso
 /mob/living/simple_animal/hostile/carp
 	COOLDOWN_DECLARE(carp_attack_cooldown)
 
@@ -563,9 +563,13 @@
 	if(!carp_command_comp)
 		return
 	var/mob/living/target = carp_command_comp.target
-	if(carp_command_comp.command != "carp_command_stop")
+	if(carp_command_comp.command != CARP_COMMAND_STOP)
+		if(get_dist(target, src) > CARP_AGRO_RANGE && carp_command_comp.command == CARP_COMMAND_ATTACK || get_dist(target, src) > CARP_FOLLOW_RANGE && carp_command_comp.command == CARP_COMMAND_FOLLOW)
+			carp_command_comp.target = (carp_command_comp.command == CARP_COMMAND_FOLLOW ? null : carp_command_comp.cares_about_ally[1])
+			carp_command_comp.command = (carp_command_comp.command == CARP_COMMAND_FOLLOW ? null : CARP_COMMAND_FOLLOW)
+			return
 		if(target?.get_virtual_z_level() == src?.get_virtual_z_level() && get_dist(target, src) > 1)
 			step_towards(src, target)
-		else if(get_dist(target, src) <= 1 && carp_command_comp.command == "carp_command_attack" && !(locate(target) in carp_command_comp.cares_about_enemy) && COOLDOWN_FINISHED(src, carp_attack_cooldown))
+		else if(get_dist(target, src) <= 1 && carp_command_comp.command == CARP_COMMAND_ATTACK && (target in carp_command_comp.cares_about_enemy) && COOLDOWN_FINISHED(src, carp_attack_cooldown))
 			target.attack_animal(src)
 			COOLDOWN_START(src, carp_attack_cooldown, 1.5 SECONDS)
