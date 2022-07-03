@@ -347,7 +347,7 @@ proc name: get fuel (/obj/item/weapon/weldingtool/proc/get_fuel)
 
 /obj/machinery/suit_storage_unit/ce - 1 time(s).
 
-/obj/machinery/power/grounding_rod - 1 time(s).
+/obj/machinery/power/energy_accumulator/grounding_rod - 1 time(s).
 
 /mob/camera/aiEye - 1 time(s).
 

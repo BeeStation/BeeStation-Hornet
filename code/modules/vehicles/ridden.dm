@@ -103,3 +103,7 @@
 		for(var/mob/M in occupants)
 			unbuckle_mob(M) // Even though unbuckle_all_mobs exists we may as well only iterate once
 			M.onZImpact(newloc, levels)
+
+/obj/vehicle/ridden/zap_act(power, zap_flags)
+	zap_buckle_check(power)
+	return ..()

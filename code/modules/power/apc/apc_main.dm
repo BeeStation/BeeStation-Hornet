@@ -180,10 +180,10 @@
 		area.apc = null
 	if(occupier)
 		malfvacate(TRUE)
-	qdel(wires)
-	wires = null
+	if(wires)
+		QDEL_NULL(wires)
 	if(cell)
-		qdel(cell)
+		QDEL_NULL(cell)
 	if(terminal)
 		disconnect_terminal()
 	. = ..()

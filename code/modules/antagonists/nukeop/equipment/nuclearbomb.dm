@@ -481,12 +481,19 @@
 		return
 	qdel(src)
 
-/obj/machinery/nuclearbomb/tesla_act(power, tesla_flags)
-	..()
-	if(tesla_flags & TESLA_MACHINE_EXPLOSIVE)
+/obj/machinery/nuclearbomb/zap_act(power, zap_flags)
+	. = ..()
+	if(zap_flags & ZAP_MACHINE_EXPLOSIVE)
 		qdel(src)//like the singulo, tesla deletes it. stops it from exploding over and over
 
 #define NUKERANGE 127
+
+/**
+ * Begins the process of exploding the nuke.
+ * [proc/explode] -> [proc/actually_explode] -> [proc/really_actually_explode]
+ *
+ * Goes through a few timers and plays a cinematic.
+ */
 /obj/machinery/nuclearbomb/proc/explode()
 	if(safety)
 		timing = FALSE

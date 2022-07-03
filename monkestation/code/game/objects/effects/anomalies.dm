@@ -120,7 +120,7 @@
 	if(active && iscarbon(atom_movable))
 		var/mob/living/carbon/target = atom_movable
 		active = FALSE
-		target.electrocute_act(10, "[name]", safety=1)
+		target.electrocute_act(10, "[name]", flags = SHOCK_NOGLOVES)
 		target.adjustFireLoss(10)
 
 /obj/effect/anomaly/storm/anomalyEffect(delta_time)

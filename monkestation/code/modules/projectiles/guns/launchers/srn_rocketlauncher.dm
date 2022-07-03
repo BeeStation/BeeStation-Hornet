@@ -12,7 +12,6 @@
 	w_class = WEIGHT_CLASS_BULKY
 	can_suppress = FALSE
 	pin = /obj/item/firing_pin
-	flags_1 = TESLA_IGNORE_1
 	fire_delay = 0
 	fire_rate = 1.5
 	recoil = 1

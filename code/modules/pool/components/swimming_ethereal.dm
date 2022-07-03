@@ -7,5 +7,5 @@
 	var/mob/living/L = parent
 	if(prob(2) && L.nutrition > NUTRITION_LEVEL_FED)
 		L.adjust_nutrition(-50)
-		tesla_zap(L, 7, 2000, TESLA_MOB_STUN)
+		tesla_zap(L, 7, 2000, ZAP_MOB_STUN )
 		playsound(L, 'sound/machines/defib_zap.ogg', 50, TRUE)

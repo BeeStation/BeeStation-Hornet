@@ -972,7 +972,7 @@
 /turf/open/floor/plating/airless,
 /area/engine/engineering)
 "cp" = (
-/obj/machinery/power/tesla_coil/power,
+/obj/machinery/power/energy_accumulator/tesla_coil/power,
 /turf/open/floor/plasteel/dark,
 /area/engine/engineering)
 "cq" = (
@@ -1172,7 +1172,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/machinery/power/grounding_rod,
+/obj/machinery/power/energy_accumulator/grounding_rod,
 /obj/effect/turf_decal/stripes/end,
 /obj/effect/turf_decal/stripes/end{
 	dir = 1
@@ -1442,7 +1442,7 @@
 /turf/closed/wall/r_wall,
 /area/engine/engineering)
 "dF" = (
-/obj/machinery/power/grounding_rod,
+/obj/machinery/power/energy_accumulator/grounding_rod,
 /turf/open/floor/plasteel/dark,
 /area/engine/engineering)
 "dG" = (
@@ -1735,7 +1735,7 @@
 /turf/open/floor/plating/airless,
 /area/space/nearstation)
 "yy" = (
-/obj/machinery/power/tesla_coil/power,
+/obj/machinery/power/energy_accumulator/tesla_coil/power,
 /obj/machinery/light/small{
 	dir = 8
 	},
