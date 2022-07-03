@@ -2,13 +2,16 @@
 // This file is quadruple wrapped for your pleasure
 // (
 
-#define NUM_E 2.71828183
+#define NUM_E 2.718282
 
 #define PI						3.1416
 #define INFINITY				1e31	//closer then enough
 #define SYSTEM_TYPE_INFINITY					1.#INF //only for isinf check
 
 #define SHORT_REAL_LIMIT 16777216
+
+/// A 32 bit single-precision floating point number's mantissa gives us 7 significant digits
+#define SIGNIFICANT_PRECISION 7
 
 //"fancy" math for calculating time in ms from tick_usage percentage and the length of ticks
 //percent_of_tick_used * (ticklag * 100(to convert to ms)) / 100(percent ratio)
