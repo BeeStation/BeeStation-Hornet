@@ -37,22 +37,22 @@
 	var/mob/living/M = A.affected_mob
 	switch(A.stage)
 		if(2)
-			if(prob(30) && prob(50) && M.stat != DEAD)
-				M.say(pick("You shall not pass!", "Expeliarmus!", "By Merlins beard!", "Feel the power of the Dark Side!"))
-			if(prob(30) && prob(50))
+			if(prob(15) && M.stat != DEAD)
+				M.say(pick("You shall not pass!", "Expeliarmus!", "By Merlins beard!", "Feel the power of the Dark Side!"), forced = "wizarditis")
+			if(prob(15))
 				to_chat(M, "<span class='danger'>You feel [pick("that you don't have enough mana", "that the winds of magic are gone", "an urge to summon familiar")].</span>")
 
 
 		if(3)
-			if(prob(30) && prob(50) && M.stat != DEAD)
-				M.say(pick("NEC CANTIO!","AULIE OXIN FIERA!", "STI KALY!", "TARCOL MINTI ZHERI!"))
-			if(prob(30) && prob(50))
+			if(prob(15) && M.stat != DEAD)
+				M.say(pick("NEC CANTIO!","AULIE OXIN FIERA!", "STI KALY!", "TARCOL MINTI ZHERI!"), forced = "wizarditis")
+			if(prob(15))
 				to_chat(M, "<span class='danger'>You feel [pick("the magic bubbling in your veins","that this location gives you a +1 to INT","an urge to summon familiar")].</span>")
 
 		if(4, 5)
 
 			if(prob(50) && M.stat != DEAD)
-				M.say(pick("NEC CANTIO!","AULIE OXIN FIERA!","STI KALY!","EI NATH!"))
+				M.say(pick("NEC CANTIO!","AULIE OXIN FIERA!","STI KALY!","EI NATH!"), forced = "wizarditis")
 				return
 			if(robes)
 				to_chat(M, "<span class='danger'>You feel [pick("the tidal wave of raw power building inside","that this location gives you a +2 to INT and +1 to WIS","an urge to teleport")].</span>")
@@ -100,10 +100,38 @@
 
 
 /datum/symptom/wizarditis/proc/teleport(datum/disease/advance/A)
-	var/turf/L = get_safe_random_station_turfs()
-	A.affected_mob.say("SCYAR NILA!")
-	do_teleport(A.affected_mob, L, channel = TELEPORT_CHANNEL_MAGIC)
-	playsound(get_turf(A.affected_mob), 'sound/weapons/zapbang.ogg', 50,1)
+	var/list/theareas = get_areas_in_range(80, A.affected_mob)
+	for(var/area/space/S in theareas)
+		theareas -= S
+
+	if(!theareas||!theareas.len)
+		return
+
+	var/area/thearea = pick(theareas)
+
+	var/list/L = list()
+	for(var/turf/T in get_area_turfs(thearea.type))
+		if(T.get_virtual_z_level() != A.affected_mob.get_virtual_z_level())
+			continue
+		if(isgroundlessturf(T))
+			continue
+		if(!T.density)
+			var/clear = 1
+			for(var/obj/O in T)
+				if(O.density)
+					clear = 0
+					break
+			if(clear)
+				L+=T
+
+	if(!L)
+		return
+
+	if(do_teleport(A.affected_mob, pick(L), channel = TELEPORT_CHANNEL_MAGIC, no_effects = TRUE))
+		if(A.affected_mob.stat != DEAD)
+			A.affected_mob.say("SCYAR NILA [uppertext(thearea.name)]!", forced = "wizarditis")
+		playsound(get_turf(A.affected_mob), 'sound/weapons/zapbang.ogg', 50,1)
+	return
 
 /datum/symptom/wizarditis/End(datum/disease/advance/A)
 	if(ishuman(A.affected_mob))

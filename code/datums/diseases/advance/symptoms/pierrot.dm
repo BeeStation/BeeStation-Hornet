@@ -56,7 +56,7 @@
 					to_chat(M, "<span class='notice'>You feel dumber.</span>")
 					ADD_TRAIT(M, TRAIT_CLUMSY, DISEASE_TRAIT)
 			if(prob(30) && M.stat != DEAD)
-				M.say( pick( list("HONK!", "Honk!", "Honk.", "Honk?", "Honk!!", "Honk?!", "Honk...") ), forced = A)
+				M.say( pick( list("HONK!", "Honk!", "Honk.", "Honk?", "Honk!!", "Honk?!", "Honk...") ), forced = "Pierrot's Throat")
 			if(A.stage == 5)
 				if(clownmask)
 					give_clown_mask(A)
