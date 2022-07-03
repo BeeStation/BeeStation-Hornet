@@ -11,9 +11,9 @@
 	var/can_approve_requests = TRUE
 	var/contraband = FALSE
 	var/self_paid = FALSE
-	var/safety_warning = "For safety reasons, the automated supply shuttle \
+	var/safety_warning = "For safety and ethical reasons, the automated supply shuttle \
 		cannot transport live organisms, human remains, classified nuclear weaponry, \
-		homing beacons or machinery housing any form of artificial intelligence."
+		homing beacons, mail, or machinery housing any form of artificial intelligence."
 	var/blockade_warning = "Bluespace instability detected. Shuttle movement impossible."
 	/// radio used by the console to send messages on supply channel
 	var/obj/item/radio/headset/radio

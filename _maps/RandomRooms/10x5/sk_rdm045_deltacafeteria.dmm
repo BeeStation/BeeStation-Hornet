@@ -303,7 +303,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/item/storage/box/donkpockets,
 /obj/item/kitchen/knife/butcher,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel,
 /area/template_noop)

@@ -1071,8 +1071,7 @@
 "acZ" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/preopen{
-	id = "executionfireblast";
-	name = "blast door"
+	id = "executionfireblast"
 	},
 /obj/machinery/door/firedoor,
 /turf/open/floor/plating,
@@ -1526,9 +1525,7 @@
 /obj/machinery/firealarm{
 	pixel_y = 24
 	},
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/auto_name/east,
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
@@ -1599,7 +1596,7 @@
 /area/security/main)
 "aeB" = (
 /obj/structure/table,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/item/pen,
 /turf/open/floor/plasteel,
 /area/security/main)
@@ -2008,8 +2005,7 @@
 "afO" = (
 /obj/machinery/door/airlock/command{
 	name = "Command Tool Storage";
-	req_access_txt = "19";
-	security_level = 6
+	req_access_txt = "19"
 	},
 /turf/open/floor/plasteel,
 /area/ai_monitored/storage/eva)
@@ -2017,8 +2013,7 @@
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /obj/machinery/door/airlock/command{
 	name = "Command Tool Storage";
-	req_access_txt = "19";
-	security_level = 6
+	req_access_txt = "19"
 	},
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/storage/eva)
@@ -4005,9 +4000,9 @@
 /area/storage/tools)
 "amJ" = (
 /obj/machinery/door/airlock/virology/glass{
+	id_tag = "ViroB";
 	name = "Quarantine Cell B";
-	req_access_txt = "39";
-	id_tag = "ViroB"
+	req_access_txt = "39"
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "quarantineshutters";
@@ -6917,9 +6912,7 @@
 	dir = 8
 	},
 /obj/structure/cable/yellow,
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/auto_name/east,
 /turf/open/floor/plasteel,
 /area/crew_quarters/theatre)
 "aFl" = (
@@ -7560,10 +7553,10 @@
 /obj/structure/table,
 /obj/item/weldingtool,
 /obj/item/crowbar,
-/obj/item/stack/packageWrap,
-/obj/item/stack/packageWrap,
-/obj/item/stack/packageWrap,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
+/obj/item/stack/package_wrap,
+/obj/item/stack/package_wrap,
+/obj/item/stack/package_wrap,
 /turf/open/floor/plasteel,
 /area/storage/primary)
 "aHF" = (
@@ -8178,8 +8171,7 @@
 "aKc" = (
 /obj/machinery/door/airlock/command{
 	name = "Gateway Access";
-	req_access_txt = "62";
-	security_level = 6
+	req_access_txt = "62"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -10401,9 +10393,9 @@
 	pixel_y = 2
 	},
 /obj/machinery/door/window/eastleft{
+	dir = 8;
 	name = "Quarantine Pen A";
-	req_one_access_txt = "39";
-	dir = 8
+	req_one_access_txt = "39"
 	},
 /turf/open/floor/plasteel/freezer,
 /area/medical/virology)
@@ -10636,7 +10628,7 @@
 /obj/item/reagent_containers/food/condiment/enzyme{
 	layer = 5
 	},
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /turf/open/floor/plasteel/cafeteria,
 /area/crew_quarters/kitchen)
 "aVC" = (
@@ -10857,8 +10849,7 @@
 	},
 /obj/machinery/door/airlock/command/glass{
 	name = "Bridge";
-	req_access_txt = "19";
-	security_level = 6
+	req_access_txt = "19"
 	},
 /turf/open/floor/plasteel,
 /area/bridge)
@@ -10877,8 +10868,7 @@
 	},
 /obj/machinery/door/airlock/command/glass{
 	name = "Bridge";
-	req_access_txt = "19";
-	security_level = 6
+	req_access_txt = "19"
 	},
 /turf/open/floor/plasteel,
 /area/bridge)
@@ -11007,8 +10997,7 @@
 	},
 /obj/machinery/door/airlock/command/glass{
 	name = "Bridge";
-	req_access_txt = "19";
-	security_level = 6
+	req_access_txt = "19"
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -11031,8 +11020,7 @@
 	},
 /obj/machinery/door/airlock/command/glass{
 	name = "Bridge";
-	req_access_txt = "19";
-	security_level = 6
+	req_access_txt = "19"
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -12666,7 +12654,7 @@
 	pixel_x = 3;
 	pixel_y = 4
 	},
-/obj/item/stack/packageWrap{
+/obj/item/stack/package_wrap{
 	pixel_x = -1;
 	pixel_y = -1
 	},
@@ -15265,8 +15253,8 @@
 	layer = 2.9
 	},
 /obj/structure/table/reinforced,
-/obj/item/destTagger,
-/obj/item/destTagger,
+/obj/item/dest_tagger,
+/obj/item/dest_tagger,
 /obj/effect/turf_decal/tile/brown{
 	dir = 1
 	},
@@ -15428,9 +15416,7 @@
 /area/medical/chemistry)
 "brg" = (
 /obj/structure/closet/secure_closet/security/med,
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/auto_name/east,
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
@@ -15989,7 +15975,7 @@
 "buO" = (
 /obj/structure/table,
 /obj/item/folder/blue,
-/obj/item/stack/packageWrap{
+/obj/item/stack/package_wrap{
 	pixel_x = -1;
 	pixel_y = -1
 	},
@@ -18355,9 +18341,7 @@
 /turf/open/floor/plasteel,
 /area/science/mixing)
 "bFX" = (
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/auto_name/east,
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
@@ -20156,9 +20140,7 @@
 /obj/item/paper_bin{
 	pixel_y = 6
 	},
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/auto_name/east,
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
@@ -22372,8 +22354,8 @@
 	name = "Quarantine Bolts A";
 	normaldoorcontrol = 1;
 	pixel_x = 24;
-	specialfunctions = 4;
-	req_one_access_txt = "39;40;45"
+	req_one_access_txt = "39;40;45";
+	specialfunctions = 4
 	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
@@ -23653,8 +23635,8 @@
 /area/medical/chemistry)
 "cdH" = (
 /obj/machinery/door/airlock/medical{
-	name = "Quarantine Cell A";
-	id_tag = "QuarantineA"
+	id_tag = "QuarantineA";
+	name = "Quarantine Cell A"
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "quarantineshutters";
@@ -24815,9 +24797,7 @@
 /turf/open/space,
 /area/solar/port/aft)
 "ciR" = (
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/auto_name/east,
 /obj/structure/cable/yellow,
 /obj/machinery/camera/autoname{
 	dir = 1
@@ -25897,9 +25877,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/auto_name/east,
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
@@ -27310,8 +27288,7 @@
 "cuP" = (
 /obj/machinery/door/airlock/command/glass{
 	name = "Head of Security";
-	req_access_txt = "58";
-	security_level = 6
+	req_access_txt = "58"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -27324,9 +27301,7 @@
 /turf/open/floor/carpet/red,
 /area/crew_quarters/heads/hos)
 "cuQ" = (
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/auto_name/east,
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
@@ -27681,9 +27656,9 @@
 /obj/machinery/button/door{
 	id = "quarantineshutters";
 	name = "Quarantine Lockdown";
+	pixel_x = 24;
 	pixel_y = -10;
-	req_access_txt = "39";
-	pixel_x = 24
+	req_access_txt = "39"
 	},
 /turf/open/floor/plasteel/cafeteria,
 /area/crew_quarters/heads/cmo)
@@ -27837,8 +27812,7 @@
 	},
 /obj/machinery/door/airlock/command{
 	name = "Command Tool Storage";
-	req_access_txt = "19";
-	security_level = 6
+	req_access_txt = "19"
 	},
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/storage/eva)
@@ -28087,9 +28061,7 @@
 /area/maintenance/disposal)
 "cAJ" = (
 /obj/structure/closet,
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/auto_name/east,
 /obj/structure/cable/yellow,
 /obj/machinery/airalarm/directional/south,
 /turf/open/floor/plating,
@@ -28155,9 +28127,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/auto_name/east,
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
@@ -30451,8 +30421,7 @@
 "cYE" = (
 /obj/machinery/door/airlock/command/glass{
 	name = "Chief Medical Officer";
-	req_access_txt = "40";
-	security_level = 6
+	req_access_txt = "40"
 	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
@@ -30515,8 +30484,7 @@
 "dbg" = (
 /obj/machinery/door/airlock/command{
 	name = "Head of Personnel";
-	req_access_txt = "57";
-	security_level = 6
+	req_access_txt = "57"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -30713,8 +30681,8 @@
 /obj/machinery/button/door{
 	id = "quarantineshutters";
 	name = "Quarantine Lockdown";
-	req_access_txt = "39";
-	pixel_x = -23
+	pixel_x = -23;
+	req_access_txt = "39"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -31046,35 +31014,35 @@
 "dqA" = (
 /obj/structure/table/glass,
 /obj/item/reagent_containers/syringe/antiviral{
-	pixel_y = 13;
-	pixel_x = 7
+	pixel_x = 7;
+	pixel_y = 13
 	},
 /obj/item/reagent_containers/syringe/antiviral{
-	pixel_y = 10;
-	pixel_x = 5
+	pixel_x = 5;
+	pixel_y = 10
 	},
 /obj/item/reagent_containers/syringe/antiviral{
-	pixel_y = 8;
-	pixel_x = 1
+	pixel_x = 1;
+	pixel_y = 8
 	},
 /obj/item/reagent_containers/syringe/antiviral{
 	pixel_y = 5
 	},
 /obj/item/reagent_containers/syringe/antiviral{
-	pixel_y = 1;
-	pixel_x = -1
+	pixel_x = -1;
+	pixel_y = 1
 	},
 /obj/item/reagent_containers/syringe/antiviral{
-	pixel_y = -1;
-	pixel_x = -2
+	pixel_x = -2;
+	pixel_y = -1
 	},
 /obj/item/storage/box/syringes{
-	pixel_y = 11;
-	pixel_x = 6
+	pixel_x = 6;
+	pixel_y = 11
 	},
 /obj/item/storage/box/syringes{
-	pixel_y = 2;
-	pixel_x = -3
+	pixel_x = -3;
+	pixel_y = 2
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 9
@@ -32236,8 +32204,8 @@
 /obj/machinery/button/door{
 	id = "quarantineshutters";
 	name = "Quarantine Lockdown";
-	req_access_txt = "39";
-	pixel_x = 24
+	pixel_x = 24;
+	req_access_txt = "39"
 	},
 /obj/structure/closet/l3closet/virology,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
@@ -32823,7 +32791,7 @@
 	pixel_y = 6
 	},
 /obj/structure/table,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/item/hand_labeler,
 /obj/effect/turf_decal/tile/brown{
 	dir = 8
@@ -32873,9 +32841,7 @@
 /area/hydroponics/garden)
 "eCO" = (
 /obj/structure/cable,
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/auto_name/east,
 /turf/open/floor/circuit,
 /area/ai_monitored/turret_protected/aisat/hallway)
 "eDj" = (
@@ -33150,8 +33116,7 @@
 "ePo" = (
 /obj/machinery/door/airlock/command{
 	name = "Conference Room";
-	req_access_txt = "19";
-	security_level = 6
+	req_access_txt = "19"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -35372,8 +35337,8 @@
 	pixel_y = 4
 	},
 /obj/item/restraints/handcuffs{
-	pixel_y = -2;
-	pixel_x = -2
+	pixel_x = -2;
+	pixel_y = -2
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
@@ -35564,9 +35529,7 @@
 	dir = 4
 	},
 /obj/item/kirbyplants/random,
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/auto_name/east,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 1
 	},
@@ -36080,8 +36043,7 @@
 "gRK" = (
 /obj/machinery/door/airlock/command/glass{
 	name = "EVA Storage";
-	req_access_txt = "18";
-	security_level = 6
+	req_access_txt = "18"
 	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 1
@@ -36270,9 +36232,7 @@
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/turret_protected/aisat_interior)
 "gWF" = (
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/auto_name/east,
 /obj/structure/cable,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 9
@@ -36734,8 +36694,8 @@
 	name = "Quarantine Bolts B";
 	normaldoorcontrol = 1;
 	pixel_x = -24;
-	specialfunctions = 4;
-	req_one_access_txt = "39;40;45"
+	req_one_access_txt = "39;40;45";
+	specialfunctions = 4
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -36827,8 +36787,7 @@
 "hlB" = (
 /obj/machinery/door/airlock/command/glass{
 	name = "EVA Storage";
-	req_access_txt = "18";
-	security_level = 6
+	req_access_txt = "18"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
@@ -37801,8 +37760,7 @@
 /area/crew_quarters/heads/cmo)
 "hVm" = (
 /obj/machinery/door/poddoor/preopen{
-	id = "executionfireblast";
-	name = "blast door"
+	id = "executionfireblast"
 	},
 /obj/machinery/atmospherics/pipe/simple/general/hidden,
 /obj/machinery/door/window/westright{
@@ -38382,8 +38340,7 @@
 "inc" = (
 /obj/machinery/door/airlock/command/glass{
 	name = "EVA Storage";
-	req_access_txt = "18";
-	security_level = 6
+	req_access_txt = "18"
 	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
@@ -39140,9 +39097,9 @@
 	pixel_y = 2
 	},
 /obj/machinery/door/window/eastleft{
+	dir = 8;
 	name = "Quarantine Pen C";
-	req_one_access_txt = "39";
-	dir = 8
+	req_one_access_txt = "39"
 	},
 /turf/open/floor/plasteel/freezer,
 /area/medical/virology)
@@ -39811,12 +39768,12 @@
 	},
 /obj/item/storage/box/masks,
 /obj/item/reagent_containers/syringe/antiviral{
-	pixel_y = -1;
-	pixel_x = -2
+	pixel_x = -2;
+	pixel_y = -1
 	},
 /obj/item/reagent_containers/syringe/antiviral{
-	pixel_y = -1;
-	pixel_x = -2
+	pixel_x = -2;
+	pixel_y = -1
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
@@ -40475,9 +40432,7 @@
 	dir = 1
 	},
 /obj/structure/cable/yellow,
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/auto_name/east,
 /turf/open/floor/plasteel/freezer,
 /area/crew_quarters/toilet/locker)
 "jJK" = (
@@ -41519,12 +41474,11 @@
 /obj/machinery/reagentgrinder,
 /obj/item/stack/sheet/mineral/plasma/five,
 /obj/machinery/requests_console{
-	announcementConsole = 0;
 	department = "Medbay";
 	departmentType = 1;
 	name = "Medbay RC";
-	pixel_y = 1;
-	pixel_x = 30
+	pixel_x = 30;
+	pixel_y = 1
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
@@ -41941,8 +41895,8 @@
 /obj/structure/table,
 /obj/item/storage/box/monkeycubes{
 	layer = 3.1;
-	pixel_y = 8;
-	pixel_x = -4
+	pixel_x = -4;
+	pixel_y = 8
 	},
 /obj/item/storage/box/monkeycubes{
 	layer = 3.1;
@@ -41950,8 +41904,8 @@
 	},
 /obj/machinery/button/flasher{
 	id = "monkeypen";
-	pixel_y = 3;
-	pixel_x = 29
+	pixel_x = 29;
+	pixel_y = 3
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
@@ -42724,8 +42678,11 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
 	},
+/obj/item/stack/package_wrap,
+/obj/structure/sign/painting/library{
+	pixel_y = 32
+	},
 /obj/machinery/atmospherics/components/unary/vent_pump/siphon/on{
-	dir = 2;
 	external_pressure_bound = 120;
 	name = "server vent"
 	},
@@ -42769,9 +42726,7 @@
 /turf/open/floor/plating,
 /area/maintenance/aft)
 "lff" = (
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/auto_name/east,
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
@@ -43031,8 +42986,7 @@
 "loQ" = (
 /obj/machinery/door/airlock/command/glass{
 	name = "Chief Engineer";
-	req_access_txt = "56";
-	security_level = 6
+	req_access_txt = "56"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -43182,8 +43136,8 @@
 /obj/machinery/button/door{
 	id = "quarantineshutters";
 	name = "Quarantine Lockdown";
-	req_access_txt = "39";
-	pixel_x = 24
+	pixel_x = 24;
+	req_access_txt = "39"
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
@@ -45679,9 +45633,7 @@
 /obj/structure/chair{
 	dir = 1
 	},
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/auto_name/east,
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
@@ -46216,8 +46168,8 @@
 "noD" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/light_switch{
-	pixel_y = 1;
-	pixel_x = -22
+	pixel_x = -22;
+	pixel_y = 1
 	},
 /obj/effect/turf_decal/loading_area,
 /obj/machinery/airalarm/directional/west{
@@ -47689,9 +47641,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 1
 	},
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/auto_name/east,
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
@@ -47766,9 +47716,7 @@
 	pixel_y = 3
 	},
 /obj/item/stock_parts/scanning_module,
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/auto_name/east,
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
@@ -48389,12 +48337,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/chemistry)
-"oJY" = (
-/obj/effect/turf_decal/delivery,
-/turf/open/floor/plasteel{
-	name = "floor"
-	},
-/area/engine/engineering)
 "oKo" = (
 /obj/machinery/conveyor{
 	dir = 4;
@@ -48563,9 +48505,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 9
 	},
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/auto_name/east,
 /obj/structure/cable/yellow,
 /turf/open/floor/plasteel,
 /area/security/checkpoint/auxiliary)
@@ -48619,8 +48559,7 @@
 "oTp" = (
 /obj/machinery/door/airlock/command{
 	name = "Captain's Office";
-	req_access_txt = "20";
-	security_level = 6
+	req_access_txt = "20"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -48648,8 +48587,8 @@
 /area/quartermaster/miningdock)
 "oVg" = (
 /obj/machinery/door/airlock/medical{
-	name = "Quarantine Cell B";
-	id_tag = "QuarantineB"
+	id_tag = "QuarantineB";
+	name = "Quarantine Cell B"
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "quarantineshutters";
@@ -48915,7 +48854,7 @@
 	pixel_x = 1;
 	pixel_y = 9
 	},
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/structure/sign/painting/library{
 	pixel_y = 32
 	},
@@ -50210,8 +50149,7 @@
 "pWz" = (
 /obj/machinery/door/airlock/command{
 	name = "Captain's Quarters";
-	req_access_txt = "20";
-	security_level = 6
+	req_access_txt = "20"
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
@@ -50308,9 +50246,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/auto_name/east,
 /turf/open/floor/plasteel,
 /area/crew_quarters/locker)
 "qbL" = (
@@ -51119,9 +51055,7 @@
 /turf/open/floor/carpet/red,
 /area/security/detectives_office)
 "qIf" = (
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/auto_name/east,
 /obj/structure/cable,
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
@@ -52112,9 +52046,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/auto_name/east,
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
@@ -52784,8 +52716,7 @@
 "rLT" = (
 /obj/machinery/door/airlock/command/glass{
 	name = "Research Director";
-	req_access_txt = "30";
-	security_level = 6
+	req_access_txt = "30"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -53525,18 +53456,18 @@
 	name = "Quarantine Bolts B";
 	normaldoorcontrol = 1;
 	pixel_x = 8;
-	specialfunctions = 4;
+	pixel_y = -21;
 	req_one_access_txt = "39;40;45";
-	pixel_y = -21
+	specialfunctions = 4
 	},
 /obj/machinery/button/door{
 	id = "QuarantineA";
 	name = "Quarantine Bolts A";
 	normaldoorcontrol = 1;
 	pixel_x = -8;
-	specialfunctions = 4;
+	pixel_y = -21;
 	req_one_access_txt = "39;40;45";
-	pixel_y = -21
+	specialfunctions = 4
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -53546,18 +53477,18 @@
 	name = "Quarantine Bolts B";
 	normaldoorcontrol = 1;
 	pixel_x = 8;
-	specialfunctions = 4;
+	pixel_y = -21;
 	req_one_access_txt = "39;40;45";
-	pixel_y = -21
+	specialfunctions = 4
 	},
 /obj/machinery/button/door{
 	id = "QuarantineA";
 	name = "Quarantine Bolts A";
 	normaldoorcontrol = 1;
 	pixel_x = -8;
-	specialfunctions = 4;
+	pixel_y = -21;
 	req_one_access_txt = "39;40;45";
-	pixel_y = -21
+	specialfunctions = 4
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
@@ -53870,8 +53801,7 @@
 "sxb" = (
 /obj/machinery/door/airlock/command{
 	name = "Teleport Access";
-	req_access_txt = "17";
-	security_level = 6
+	req_access_txt = "17"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -55495,8 +55425,8 @@
 /obj/item/radio/intercom{
 	frequency = 1485;
 	name = "Station Intercom (Medbay)";
-	pixel_y = 1;
-	pixel_x = 29
+	pixel_x = 29;
+	pixel_y = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plasteel/white,
@@ -58081,8 +58011,7 @@
 "vvi" = (
 /obj/machinery/door/airlock/command{
 	name = "Head of Personnel";
-	req_access_txt = "57";
-	security_level = 6
+	req_access_txt = "57"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -58935,9 +58864,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/auto_name/east,
 /obj/structure/chair,
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/turret_protected/aisat_interior)
@@ -59818,8 +59745,7 @@
 	},
 /obj/machinery/door/airlock/command/glass{
 	name = "EVA Storage Maintenance";
-	req_access_txt = "18";
-	security_level = 6
+	req_access_txt = "18"
 	},
 /turf/open/floor/plasteel,
 /area/maintenance/fore)
@@ -60114,9 +60040,7 @@
 /area/security/brig)
 "wWK" = (
 /obj/machinery/telecomms/receiver/preset_exploration,
-/obj/machinery/power/apc/auto_name/east{
-	pixel_x = 24
-	},
+/obj/machinery/power/apc/auto_name/east,
 /obj/structure/cable/yellow,
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/quartermaster/exploration_dock)
@@ -60297,9 +60221,9 @@
 	pixel_y = 2
 	},
 /obj/machinery/door/window/eastleft{
+	dir = 8;
 	name = "Quarantine Pen B";
-	req_one_access_txt = "39";
-	dir = 8
+	req_one_access_txt = "39"
 	},
 /turf/open/floor/plasteel/freezer,
 /area/medical/virology)
@@ -60534,24 +60458,24 @@
 "xnm" = (
 /obj/structure/table/glass,
 /obj/item/reagent_containers/food/drinks/bottle/virusfood{
-	pixel_y = 12;
-	pixel_x = 2
+	pixel_x = 2;
+	pixel_y = 12
 	},
 /obj/item/reagent_containers/food/drinks/bottle/virusfood{
-	pixel_y = 8;
-	pixel_x = -6
+	pixel_x = -6;
+	pixel_y = 8
 	},
 /obj/item/reagent_containers/glass/bottle/spaceacillin{
-	pixel_y = 12;
-	pixel_x = 9
+	pixel_x = 9;
+	pixel_y = 12
 	},
 /obj/item/reagent_containers/glass/bottle/spaceacillin{
-	pixel_y = 5;
-	pixel_x = 5
+	pixel_x = 5;
+	pixel_y = 5
 	},
 /obj/item/reagent_containers/glass/bottle/spaceacillin{
-	pixel_y = -1;
-	pixel_x = 2
+	pixel_x = 2;
+	pixel_y = -1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
@@ -88815,8 +88739,8 @@ bVJ
 cay
 ccw
 cig
-oJY
-oJY
+cSV
+cSV
 cig
 cig
 cmG

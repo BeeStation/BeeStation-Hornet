@@ -3581,7 +3581,7 @@
 /area/awaymission/undergroundoutpost45/crew_quarters)
 "hn" = (
 /obj/structure/table,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/item/reagent_containers/glass/rag,
 /obj/effect/turf_decal/tile/bar,
 /obj/effect/turf_decal/tile/bar{
@@ -3615,7 +3615,7 @@
 /area/awaymission/undergroundoutpost45/crew_quarters)
 "hq" = (
 /obj/structure/table,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/item/reagent_containers/food/condiment/enzyme{
 	layer = 5
 	},

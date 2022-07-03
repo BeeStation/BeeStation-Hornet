@@ -23,6 +23,7 @@
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/botany
 	)
+
 /datum/outfit/job/botanist
 	name = "Botanist"
 	jobtype = /datum/job/hydro

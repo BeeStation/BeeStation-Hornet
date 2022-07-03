@@ -26,3 +26,8 @@
 #define ACCOUNT_SEC_NAME "Defense Budget"
 
 #define NO_FREEBIES "commies go home"
+
+/// How much mail the Economy SS will create per minute, regardless of firing time.
+#define MAX_MAIL_PER_MINUTE 3
+/// Probability of using letters of envelope sprites on all letters.
+#define FULL_CRATE_LETTER_ODDS 70

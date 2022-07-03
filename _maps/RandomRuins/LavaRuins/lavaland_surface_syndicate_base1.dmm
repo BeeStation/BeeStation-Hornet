@@ -1675,7 +1675,7 @@
 /obj/item/stack/wrapping_paper{
 	pixel_y = 5
 	},
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/item/hand_labeler,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,

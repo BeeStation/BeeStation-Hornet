@@ -19,12 +19,6 @@
 	item_state = "ek"
 	can_adjust = FALSE
 
-/obj/item/clothing/under/misc/mailman
-	name = "mailman's jumpsuit"
-	desc = "<i>'Special delivery!'</i>"
-	icon_state = "mailman"
-	item_state = "b_suit"
-
 /obj/item/clothing/under/misc/vice_officer
 	name = "vice officer's jumpsuit"
 	desc = "It's the standard issue pretty-boy outfit, as seen on Holo-Vision."

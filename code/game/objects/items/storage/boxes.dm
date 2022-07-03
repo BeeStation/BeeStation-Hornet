@@ -70,7 +70,7 @@
 	user.put_in_hands(I)
 
 /obj/item/storage/box/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/stack/packageWrap))
+	if(istype(W, /obj/item/stack/package_wrap))
 		return 0
 	return ..()
 

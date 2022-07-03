@@ -4,7 +4,7 @@
 /obj/item/reagent_containers/food/condiment/enzyme{
 	layer = 5
 	},
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /turf/open/floor/plasteel/cafeteria,
 /area/ruin/unpowered)
 "c" = (
