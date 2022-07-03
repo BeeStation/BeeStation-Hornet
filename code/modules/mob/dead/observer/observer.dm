@@ -60,6 +60,9 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	// of the mob
 	var/deadchat_name
 	var/datum/orbit_menu/orbit_menu
+	var/static/cooldown_time
+	COOLDOWN_DECLARE(creation_time)
+
 
 /mob/dead/observer/Initialize(mapload)
 	set_invisibility(GLOB.observer_default_invisibility)
@@ -148,6 +151,10 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	grant_all_languages()
 	show_data_huds()
 	data_huds_on = 1
+
+	if(!cooldown_time) //so we only need to grab the config for this once.
+		cooldown_time = CONFIG_GET(number/cooldown_antag_time) MINUTES
+	COOLDOWN_START(src, creation_time , cooldown_time)
 
 	AddComponent(/datum/component/tracking_beacon, "ghost", null, null, TRUE, "#9e4d91", TRUE, TRUE)
 
