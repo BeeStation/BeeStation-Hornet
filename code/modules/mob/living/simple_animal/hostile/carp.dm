@@ -68,6 +68,9 @@
 		"silver" = "#fdfbf3"
 	)
 
+	///command component
+	var/datum/component/carp_command/carp_command_comp
+
 /mob/living/simple_animal/hostile/carp/ComponentInitialize()
 	. = ..()
 	var/datum/component/riding/D = LoadComponent(/datum/component/riding/carp)

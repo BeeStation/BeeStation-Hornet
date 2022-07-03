@@ -457,6 +457,7 @@
 #include "code\datums\components\beetlejuice.dm"
 #include "code\datums\components\butchering.dm"
 #include "code\datums\components\caltrop.dm"
+#include "code\datums\components\carp_command.dm"
 #include "code\datums\components\chasm.dm"
 #include "code\datums\components\connect_loc_behalf.dm"
 #include "code\datums\components\construction.dm"
