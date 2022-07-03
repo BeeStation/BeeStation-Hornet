@@ -14,8 +14,8 @@
 /datum/component/carp_command/Initialize(...)
 	..()
 	carp_parent = parent
-	carp_parent.special_process = TRUE
-	//if(istype(carp_parent)) //setup signals & listens
+	
+	RegisterSignal(carp_parent, COMSIG_CLICK_ALT, .proc/give_command)
 
 ///Register signals to allies
 /datum/component/carp_command/proc/update_ally()
@@ -23,13 +23,10 @@
 		RegisterSignal(M, COMSIG_PARENT_ATTACKBY, .proc/append_enemy_defend)
 		RegisterSignal(M, COMSIG_MOB_HAND_ATTACKED, .proc/append_enemy)
 		RegisterSignal(M, COMSIG_MOB_ATTACK_HAND, .proc/append_enemy)
-		RegisterSignal(M, COMSIG_CLICK_ALT, .proc/give_command)
 		RegisterSignal(M, COMSIG_MOB_POINTED, .proc/handle_point)
 		RegisterSignal(M, COMSIG_MOB_SAY, .proc/handle_speech)
 
-/datum/component/carp_command/proc/give_command(var/mob/clicker, func_command, func_target)
-	to_chat(clicker, "[func_command]")
-	to_chat(clicker, "test")
+/datum/component/carp_command/proc/give_command(datum/source, mob/living/clicker, func_command, func_target)
 	var/list/possible_commands = list(CARP_COMMAND_STOP = image(icon = 'icons/obj/carp_lasso.dmi', icon_state = "carp_stop"),
 									CARP_COMMAND_WANDER = image(icon = 'icons/obj/carp_lasso.dmi', icon_state = "carp_wander"),
 									CARP_COMMAND_FOLLOW = image(icon = 'icons/obj/carp_lasso.dmi', icon_state = "carp_follow"),
@@ -70,10 +67,14 @@
 
 /datum/component/carp_command/proc/handle_point(datum/source, var/atom/A)
 	target = A
+	if(command == CARP_COMMAND_ATTACK && isliving(A))
+		if(!(locate(A) in cares_about_ally))
+			cares_about_ally -= A
+		else
+			cares_about_enemy += A
 
 /datum/component/carp_command/proc/handle_speech(mob/speaker, speech_args)
 	var/spoken_text = speech_args[SPEECH_MESSAGE] // probably should check for full words
-	var/command
 	if(findtext(spoken_text, "follow") || findtext(spoken_text, "come") || findtext(spoken_text, "here"))
 		command = CARP_COMMAND_FOLLOW
 	else if(findtext(spoken_text, "stop") || findtext(spoken_text, "stay") || findtext(spoken_text, "sit"))
@@ -82,7 +83,8 @@
 		command = CARP_COMMAND_ATTACK
 	else if(findtext(spoken_text, "go") || findtext(spoken_text, "wander") || findtext(spoken_text, "search"))
 		command = CARP_COMMAND_WANDER
-	give_command(null, speaker)
+	var/mob/living/speech_target = (command == CARP_COMMAND_FOLLOW ? speaker : target)
+	give_command(speaker, command, speech_target)
 
 /datum/component/carp_command/Destroy(force, silent)
 	UnregisterSignal(carp_parent, )

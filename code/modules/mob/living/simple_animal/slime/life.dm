@@ -552,6 +552,9 @@
 		. *= 0.7
 
 //carps
+/mob/living/simple_animal/hostile/carp
+	COOLDOWN_DECLARE(carp_attack_cooldown)
+
 /mob/living/simple_animal/hostile/carp/proc/ghetto_processing()
 	process()
 	addtimer(CALLBACK(src, .proc/ghetto_processing), 0.3 SECONDS, TIMER_STOPPABLE)
@@ -563,5 +566,6 @@
 	if(carp_command_comp.command != "carp_command_stop")
 		if(target?.get_virtual_z_level() == src?.get_virtual_z_level() && get_dist(target, src) > 1)
 			step_towards(src, target)
-		else if(get_dist(target, src) <= 1 && carp_command_comp.command == "carp_command_attack")
-			attack_animal(target)
+		else if(get_dist(target, src) <= 1 && carp_command_comp.command == "carp_command_attack" && !(locate(target) in carp_command_comp.cares_about_enemy) && COOLDOWN_FINISHED(src, carp_attack_cooldown))
+			target.attack_animal(src)
+			COOLDOWN_START(src, carp_attack_cooldown, 1.5 SECONDS)

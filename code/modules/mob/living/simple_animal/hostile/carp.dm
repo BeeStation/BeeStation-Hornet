@@ -88,11 +88,13 @@
 
 //Carp lasso feature, possibly fucking gross
 /mob/living/simple_animal/hostile/carp/user_buckle_mob(mob/living/buckled_mob, force, check_loc)
-	for(var/i in buckled_mob.faction)
-		if(i in faction && carp_command_comp)
-			carp_command_comp.command = null
-			..()
-			return //could also use break, doesn't really matter
+	if(locate(buckled_mob) in carp_command_comp?.cares_about_ally)
+		carp_command_comp.command = null
+		carp_command_comp.target = null
+		..()
+		return //could also use break, doesn't really matter
+	else
+		visible_message("couldnt ride")
 
 /**
  * Randomly assigns a color to a carp from either a common or rare color variant lists
