@@ -72,7 +72,7 @@
 			syndie = TRUE
 		if(keyslot.independent)
 			independent = TRUE
-		if(keyslot.loud)
+		if(keyslot.amplification)
 			command = TRUE
 
 	if(!command)

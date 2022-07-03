@@ -37,6 +37,7 @@
 
 /obj/item/encryptionkey/amplification
 	name = "amplification module key"
+	desc = "An amplification module key for a radio headset. It will allow the key applied radioset talk loudly."
 	amplification = TRUE
 
 /obj/item/encryptionkey/headset_sec
@@ -152,11 +153,12 @@
 
 /obj/item/encryptionkey/debug
 	name = "\improper omni radio encryption key"
+	desc = "a god-like key of omni-presence to eavesdrop anything they would want to hear."
 	icon_state = "cent_cypherkey"
 	translate_binary = TRUE
 	syndie = TRUE
 	independent = TRUE
-	loud = TRUE
+	amplification = TRUE
 
 	channels = list(RADIO_CHANNEL_COMMAND = 1, RADIO_CHANNEL_SECURITY = 1, RADIO_CHANNEL_ENGINEERING = 1, RADIO_CHANNEL_SCIENCE = 1, RADIO_CHANNEL_MEDICAL = 1, RADIO_CHANNEL_SUPPLY = 1, RADIO_CHANNEL_SERVICE = 1, RADIO_CHANNEL_EXPLORATION = 1, RADIO_CHANNEL_AI_PRIVATE=1, RADIO_CHANNEL_CENTCOM = 1, RADIO_CHANNEL_SYNDICATE = 1)
 
@@ -171,8 +173,5 @@
 	name = "box of high responsible keys"
 
 /obj/item/storage/box/command_keys/PopulateContents()
-	new /obj/item/encryptionkey/amplification(src)
-	new /obj/item/encryptionkey/amplification(src)
-	new /obj/item/encryptionkey/amplification(src)
-	new /obj/item/encryptionkey/headset_com(src)
-	new /obj/item/encryptionkey/headset_com(src)
+	for(var/i in 1 to 5)
+		new /obj/item/encryptionkey/amplification(src)

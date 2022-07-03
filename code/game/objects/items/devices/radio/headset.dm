@@ -348,7 +348,7 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 			syndie = TRUE
 		if (keyslot2.independent)
 			independent = TRUE
-		if (keyslot2.loud)
+		if (keyslot2.amplification)
 			command = TRUE
 
 	for(var/ch_name in channels)
