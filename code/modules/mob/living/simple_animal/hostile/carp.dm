@@ -96,13 +96,20 @@
 	else
 		visible_message("couldnt ride")
  
- //cleanup command component
-/mob/living/simple_animal/hostile/carp/death(gibbed)
+//cleanup command component
+/mob/living/simple_animal/hostile/carp/proc/handle_command_comp()
 	if(carp_command_comp)
 		carp_command_comp.command = null
 		carp_command_comp.target = null
 		qdel(carp_command_comp)
 		carp_command_comp = null
+	
+/mob/living/simple_animal/hostile/carp/death(gibbed)
+	handle_command_comp()
+	..()
+
+/mob/living/simple_animal/hostile/carp/Destroy()
+	handle_command_comp()
 	..()
 
 /**
@@ -152,6 +159,11 @@
 	melee_damage = 20
 
 	var/regen_cooldown = 0
+
+/mob/living/simple_animal/hostile/carp/megacarp/ComponentInitialize()
+	. = ..()
+	var/datum/component/riding/D = LoadComponent(/datum/component/riding/carp)
+	D.set_riding_offsets(RIDING_OFFSET_ALL, list(TEXT_NORTH = list(16, 8), TEXT_SOUTH = list(16, 8), TEXT_EAST = list(16, 8), TEXT_WEST = list(16, 8)))
 
 /mob/living/simple_animal/hostile/carp/megacarp/Initialize(mapload)
 	. = ..()

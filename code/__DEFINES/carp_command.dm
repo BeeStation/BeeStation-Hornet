@@ -7,3 +7,6 @@
 ///max carp agro / follow range for tamed carps
 #define CARP_AGRO_RANGE 11
 #define CARP_FOLLOW_RANGE 19
+
+///update intervals
+#define CARP_UPDATE_TIME 0.3 SECONDS
