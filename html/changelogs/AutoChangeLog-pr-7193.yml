@@ -1,4 +1,0 @@
-author: PestoVerde322
-delete-after: true
-changes:
-  - rscdel: Removed an unused variable I kept in the Mail PR by accident.
