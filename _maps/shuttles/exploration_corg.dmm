@@ -231,10 +231,6 @@
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
-"ka" = (
-/obj/effect/turf_decal/stripes/line,
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/exploration)
 "kx" = (
 /obj/machinery/computer/security,
 /obj/effect/turf_decal/delivery,
@@ -384,12 +380,6 @@
 /obj/structure/table,
 /obj/item/toy/cards/deck/unum,
 /turf/open/floor/mineral/titanium/blue,
-/area/shuttle/exploration)
-"pT" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "qJ" = (
 /obj/machinery/atmospherics/pipe/simple/purple/visible{
@@ -742,6 +732,9 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden{
 	dir = 10
 	},
+/obj/machinery/light{
+	dir = 8
+	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "LR" = (
@@ -752,6 +745,9 @@
 /area/shuttle/exploration)
 "My" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
+/obj/machinery/light{
+	dir = 8
+	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "MF" = (
@@ -1073,7 +1069,7 @@ gJ
 gJ
 "}
 (6,1,1) = {"
-ka
+ZM
 jB
 pi
 jO
@@ -1087,10 +1083,10 @@ vb
 dq
 jt
 jB
-pT
+ZM
 "}
 (7,1,1) = {"
-ka
+ZM
 jB
 Dn
 Dn
@@ -1104,10 +1100,10 @@ jt
 lY
 kH
 jB
-pT
+ZM
 "}
 (8,1,1) = {"
-ka
+ZM
 jB
 ml
 Dn
@@ -1121,7 +1117,7 @@ kH
 jR
 VV
 jB
-pT
+ZM
 "}
 (9,1,1) = {"
 gJ
@@ -1175,7 +1171,7 @@ gJ
 gJ
 "}
 (12,1,1) = {"
-ka
+ZM
 jB
 Hm
 sY
@@ -1189,10 +1185,10 @@ Tz
 pR
 LR
 jB
-pT
+ZM
 "}
 (13,1,1) = {"
-ka
+ZM
 jB
 aP
 nF
@@ -1206,7 +1202,7 @@ PF
 JP
 LR
 jB
-pT
+ZM
 "}
 (14,1,1) = {"
 yM
@@ -1223,7 +1219,7 @@ fy
 xl
 fO
 jB
-pT
+ZM
 "}
 (15,1,1) = {"
 gJ
