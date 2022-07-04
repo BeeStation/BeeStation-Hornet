@@ -357,10 +357,10 @@ GLOBAL_VAR(restart_counter)
 	if (features)
 		s += ": [jointext(features, ", ")]"
 
-	s += "<br>Round time: <b>[gameTimestamp("hh:mm")]</b>"
+	s += "<br>Time: <b>[gameTimestamp("hh:mm")]</b>"
 	if(SSmapping.config)
 		s += "<br>Map: <b>[SSmapping.config.map_name]</b>"
-	s += "<br>Alert level: <b>[capitalize(get_security_level())]</b>"
+	s += "<br>Alert: <b>[capitalize(get_security_level())]</b>"
 
 	status = s
 
