@@ -233,7 +233,7 @@
 /datum/religion_sect/necro_sect/sect_bless(mob/living/blessed, mob/living/user)
 	return TRUE
 
-/datum/religion_sect/necro_sect/on_sacrifice(obj/item/N, mob/living/L) //and this
+/datum/religion_sect/necro_sect/on_sacrifice(obj/item/organ/N, mob/living/L) // I think I fixed the issue?
 	var/obj/item/organ/organ = N
 	if(!istype(organ)) //how...
 		return
