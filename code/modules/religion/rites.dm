@@ -260,7 +260,7 @@
 	name = "Summon Carp"
 	desc = "Creates a Sentient Space Carp, if a soul is willing to take it."
 	ritual_length = 90 SECONDS
-	ritual_invocations = list("Carp'sie grant us a new follower ...",
+	ritual_invocations = list("Grant us a new follower ...",
 	"... let them enter our realm ...",
 	"... become one with our world ...",
 	"... to swim in our space ...",
@@ -269,26 +269,25 @@
 	favor_cost = 500
 
 /datum/religion_rites/summon_carp/invoke_effect(mob/living/user, atom/movable/religious_tool)
-	var/altar_turf = get_turf(religious_tool)
+	var/turf/altar_turf = get_turf(religious_tool)
 	new /obj/effect/temp_visual/bluespace_fissure/long(altar_turf)
-	var/jobbans = list(ROLE_BRAINWASHED, ROLE_DEATHSQUAD, ROLE_DRONE, ROLE_LAVALAND, ROLE_MIND_TRANSFER, ROLE_POSIBRAIN, ROLE_SENTIENCE)
+	user.visible_message("<span class'notice'>A tear in reality appears above the altar!</span>")
+	var/list/jobbans = list(ROLE_BRAINWASHED, ROLE_DEATHSQUAD, ROLE_DRONE, ROLE_LAVALAND, ROLE_MIND_TRANSFER, ROLE_POSIBRAIN, ROLE_SENTIENCE)
 	var/list/candidates = pollGhostCandidates("Do you wish to be summoned as a Holy Carp?", jobbans, null, FALSE,)
-	if(!candidates.len)
-		to_chat(user, "<span class='warning'>The carp pool is empty...")
+	if(!length(candidates))
 		new /obj/effect/gibspawner/generic(altar_turf)
 		user.visible_message("<span class='warning'>The carp pool was not strong enough to bring forth a space carp.")
 		GLOB.religious_sect?.adjust_favor(400, user)
 		return NOT_ENOUGH_PLAYERS
 	var/mob/dead/observer/selected = pick_n_take(candidates)
 	var/datum/mind/M = new /datum/mind(selected.key)
-	var/carp_species
-	carp_species = pick(/mob/living/simple_animal/hostile/carp/megacarp, /mob/living/simple_animal/hostile/carp)
+	var/carp_species = pick(/mob/living/simple_animal/hostile/carp/megacarp, /mob/living/simple_animal/hostile/carp)
 	var/mob/living/simple_animal/hostile/carp = new carp_species(altar_turf)
-	var/carpname = "Holy Space-Carp ([rand(1,999)])"
-	carp.name = carpname
+	carp.name = "Holy Space-Carp ([rand(1,999)])"
 	carp.key = selected.key
 	carp.sentience_act()
 	carp.maxHealth += 100
+	carp.health += 100
 	M.transfer_to(carp)
 	if(GLOB.religion)
 		carp.mind?.holy_role = HOLY_ROLE_PRIEST
@@ -307,12 +306,30 @@
 	"... grant us new clothing ...")
 	invoke_msg = "So we can swim."
 	favor_cost = 300
+	var/obj/item/clothing/suit/chosen_clothing
 
-/datum/religion_rites/summon_carpsuit/invoke_effect(mob/living/user, atom/movable/religious_tool)
-	var/altar_turf = get_turf(religious_tool)
-	new /obj/item/clothing/suit/space/hardsuit/carp/old(altar_turf)
-	playsound(altar_turf, 'sound/effects/slosh.ogg', 50, TRUE)
-	return ..()
+/datum/religion_rites/summon_carpsuit/perform_rite(mob/living/user, atom/religious_tool)
+	var/turf/T = get_turf(religious_tool)
+	var/list/L = T.contents
+	if(!locate(/obj/item/clothing/suit) in L)
+		to_chat(user, "<span class='warning'>There is no suit clothing on the altar!</span>")
+		return FALSE
+	for(var/obj/item/clothing/suit/apparel in L)
+		chosen_clothing = apparel //the apparel has been chosen by our lord and savior
+		return ..()
+	return FALSE
+
+/datum/religion_rites/summon_carpsuit/invoke_effect(mob/living/user, atom/religious_tool)
+	if(!QDELETED(chosen_clothing) && get_turf(religious_tool) == chosen_clothing.loc) //check if the same clothing is still there
+		user.visible_message("<span class'notice'>The [chosen_clothing] transforms!</span>")
+		qdel(chosen_clothing)
+		new /obj/item/clothing/suit/space/hardsuit/carp/old(get_turf(religious_tool))
+		playsound(get_turf(religious_tool), 'sound/effects/slosh.ogg', 50, TRUE)
+		chosen_clothing = null //our lord and savior no longer cares about this apparel
+		return ..()
+	chosen_clothing = null
+	to_chat(user, "<span class='warning'>The clothing that was chosen for the rite is no longer on the altar!</span>")
+	return FALSE
 
 /datum/religion_rites/flood_area
 	name = "Flood Area"

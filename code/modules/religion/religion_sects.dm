@@ -239,10 +239,11 @@
 	altar_icon_state = "convertaltar-blue"
 
 //Carp bibles give people the carp faction!
-/datum/religion_sect/carp_sect/sect_bless(mob/living/blessed, mob/living/user)
-	if(isliving(blessed))
-		blessed.faction |= "carp"
-		to_chat(blessed, "<span class='notice>You are now protected from Space Carps! Although they will still fight back if you attack them.</span>")
+/datum/religion_sect/carp_sect/sect_bless(mob/living/L, mob/living/user)
+	if(isliving(L))
+		L.faction |= "carp"
+		user.visible_message("<span class='notice'>[user] blessed [L] with the power of [GLOB.deity]! They are now protected from Space Carps, Although carps will still fight back if attacked.</span>")
+		SEND_SIGNAL(L, COMSIG_ADD_MOOD_EVENT, "blessing", /datum/mood_event/blessing)
 	return TRUE
 
 /datum/religion_sect/carp_sect/on_sacrifice(obj/item/N, mob/living/L) //and this
@@ -250,6 +251,6 @@
 	if(!istype(meat)) //how...
 		return
 	adjust_favor(20, L)
-	to_chat(L, "<span class='notice'>You offer [meat] to [GLOB.deity], pleasing them and gaining 10 favor in the process.</span>")
+	to_chat(L, "<span class='notice'>You offer [meat] to [GLOB.deity], pleasing them and gaining 20 favor in the process.</span>")
 	qdel(N)
 	return TRUE
