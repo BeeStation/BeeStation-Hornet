@@ -1,0 +1,7 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - balance: Light EMPs will disable energy weapons and batons for 0-10 seconds as
+      opposed to 30-60 seconds.
+  - balance: Heavy EMPs will disable energy weapons and batons for 0-20 seconds as
+      opposed to 60-120 seconds.
