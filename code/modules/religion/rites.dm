@@ -305,7 +305,7 @@
 
 /datum/religion_rites/raise_dead
 	name = "Raise Dead"
-	desc = "Revives a dead creature or person."
+	desc = "Revives a buckled dead creature or person."
 	ritual_length = 120 SECONDS
 	ritual_invocations = list("Rejoin our world ...",
 	"... come forth from the beyond ...",

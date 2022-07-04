@@ -230,8 +230,8 @@
 
 /datum/religion_sect/necro_sect
 	name = "Necromancy"
-	desc = "A sect dedicated to the revival and summoning of the dead."
-	quote = "Bring them forth into the living world, acolyte.<br>Sacrificing living animals grants you favor."
+	desc = "A sect dedicated to the revival and summoning of the dead. Sacrificing living animals grants you favor."
+	quote = "An undead army is a must have!"
 	tgui_icon = "skull"
 	alignment = ALIGNMENT_EVIL
 	max_favor = 10000
