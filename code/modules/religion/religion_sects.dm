@@ -231,7 +231,8 @@
 /datum/religion_sect/necro_sect
 	name = "Necromancy"
 	desc = "A sect dedicated to the revival and summoning of the dead."
-	convert_opener = "Bring them forth into the living world, acolyte.<br>Sacrificing living animals grants you favor."
+	quote = "Bring them forth into the living world, acolyte.<br>Sacrificing living animals grants you favor."
+	tgui_icon = "convertaltar-green"
 	alignment = ALIGNMENT_EVIL
 	max_favor = 10000
 	desired_items = list(/obj/item/organ/)
