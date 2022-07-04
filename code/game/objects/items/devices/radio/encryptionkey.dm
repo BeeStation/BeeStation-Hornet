@@ -153,7 +153,7 @@
 
 /obj/item/encryptionkey/debug
 	name = "\improper omni radio encryption key"
-	desc = "a god-like key of omni-presence to eavesdrop anything they would want to hear."
+	desc = "A god-like key of omni-presence to eavesdrop anything you would want to hear."
 	icon_state = "cent_cypherkey"
 	translate_binary = TRUE
 	syndie = TRUE
