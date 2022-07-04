@@ -283,12 +283,10 @@
 	var/mob/living/carbon/human/raise_target
 
 /datum/religion_rites/raise_dead/perform_rite(mob/living/user, atom/religious_tool)
-	if(!ismovable(religious_tool))
+	if(!religious_tool || !ismovable(religious_tool))
 		to_chat(user, "<span class='warning'>This rite requires a religious device that individuals can be buckled to.</span>")
 		return FALSE
 	var/atom/movable/movable_reltool = religious_tool
-	if(!movable_reltool)
-		return FALSE
 	if(!length(movable_reltool.buckled_mobs))
 		to_chat(user, "<span class='warning'>Nothing is buckled to the altar!</span>")
 		return FALSE
