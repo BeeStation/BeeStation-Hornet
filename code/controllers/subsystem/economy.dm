@@ -37,7 +37,6 @@ SUBSYSTEM_DEF(economy)
 	dep_cards = SSeconomy.dep_cards
 
 /datum/controller/subsystem/economy/fire(resumed = 0)
-	var/delta_time = wait / (5 MINUTES)
 	for(var/A in bank_accounts)
 		var/datum/bank_account/B = A
 		B.payday(1)
