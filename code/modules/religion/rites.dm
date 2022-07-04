@@ -290,21 +290,18 @@
 	if(!length(movable_reltool.buckled_mobs))
 		to_chat(user, "<span class='warning'>Nothing is buckled to the altar!</span>")
 		return FALSE
-	for(var/r_target in movable_reltool.buckled_mobs)
+	for(var/mob/living/carbon/r_target in movable_reltool.buckled_mobs)
 		if(!iscarbon(r_target))
 			to_chat(user, "<span class='warning'>Only carbon lifeforms can be properly resurrected!</span>")
 			return FALSE
-		raise_target = r_target
-		if(raise_target.stat != DEAD)
+		if(r_target.stat != DEAD)
 			to_chat(user, "<span class='warning'>You can only resurrect dead bodies, this one is still alive!</span>")
-			raise_target = null
 			return FALSE
-		if(!raise_target.mind)
+		if(!r_target.mind)
 			to_chat(user, "<span class='warning'>This creature has no connected soul...")
-			raise_target = null
 			return FALSE
-		else
-			raise_target.notify_ghost_cloning("Your soul is being summoned back to your body by mystical power!", source = src)
+		raise_target = r_target
+		raise_target.notify_ghost_cloning("Your soul is being summoned back to your body by mystical power!", source = src)
 		return ..()
 
 /datum/religion_rites/raise_dead/invoke_effect(mob/living/user, atom/movable/religious_tool)
