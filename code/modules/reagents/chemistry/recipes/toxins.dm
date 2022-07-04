@@ -119,3 +119,10 @@
 	results = list(/datum/reagent/toxin/bonehurtingjuice = 5)
 	required_reagents = list(/datum/reagent/toxin/mutagen = 1, /datum/reagent/toxin/itching_powder = 3, /datum/reagent/consumable/milk = 1)
 	mix_message = "<span class='danger'>The mixture suddenly becomes clear and looks a lot like water. You feel a strong urge to drink it.</span>"
+
+/datum/chemical_reaction/toxin
+	name = "Toxin"
+	id = /datum/reagent/toxin
+	results = list(/datum/reagent/toxin = 2)
+	required_reagents = list(/datum/reagent/drug/methamphetamine = 1, /datum/reagent/medicine/mannitol = 1)
+	mix_message = "<span class='danger'>The mixture suddenly turns a blood-red. It smells putrid.</span>"
