@@ -148,6 +148,7 @@
 		/datum/reagent/drug/aranesp,\
 		/datum/reagent/drug/krokodil,\
 		/datum/reagent/drug/methamphetamine,\
+		/datum/chemical_reaction/methnitol,\
 		/datum/reagent/teslium,\
 		/datum/reagent/toxin/anacea,\
 		/datum/reagent/pax)

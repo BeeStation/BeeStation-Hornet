@@ -28,6 +28,12 @@
 	required_reagents = list(/datum/reagent/medicine/ephedrine = 1, /datum/reagent/iodine = 1, /datum/reagent/phosphorus = 1, /datum/reagent/hydrogen = 1)
 	required_temp = 374
 
+/datum/chemical_reaction/methnitol
+	name = /datum/reagent/drug/methnitol
+	id = /datum/reagent/drug/methnitol
+	results = list(/datum/reagent/drug/methnitol = 2)
+	required_reagents = list(/datum/reagent/drug/methamphetamine = 1, /datum/reagent/medicine/mannitol = 1)
+
 /datum/chemical_reaction/bath_salts
 	name = /datum/reagent/drug/bath_salts
 	id = /datum/reagent/drug/bath_salts

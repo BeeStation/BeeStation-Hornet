@@ -570,3 +570,118 @@
 		M.Jitter(4)
 		M.Dizzy(4)
 	..()
+
+
+/datum/reagent/drug/methnitol
+	name = "methnitol"
+	description = "All the ups of mixing meth and mannitol, at a steep cost of a Soul crushing addiction. If overdosed the subject will move randomly, laugh randomly, drop items and suffer from Toxin and severe Brain damage. If addicted the subject will constantly jitter and drool, before becoming dizzy and losing motor control and eventually suffer heavy toxin damage, assuming their brain isn't mush potatoes or completeley senile at this point..."
+	reagent_state = LIQUID
+	color = "#c5adf2"
+	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_CHEMIST_DRUG | CHEMICAL_GOAL_CHEMIST_BLOODSTREAM
+	overdose_threshold = 15
+	addiction_threshold = 5.1 //more than 5 units, and you'll descend hell.
+	metabolization_rate = 0.7 * REAGENTS_METABOLISM
+
+/datum/reagent/drug/methnitol/on_mob_metabolize(mob/living/L)
+	L.add_movespeed_modifier(type, update=TRUE, priority=100, multiplicative_slowdown=-0.5, blacklisted_movetypes=(FLYING|FLOATING))
+	ADD_TRAIT(L, TRAIT_SLEEPIMMUNE, type)
+	ADD_TRAIT(L, TRAIT_NOBLOCK, type)
+
+/datum/reagent/drug/methnitol/on_mob_end_metabolize(mob/living/L)
+	REMOVE_TRAIT(L, TRAIT_NOBLOCK, type)
+	REMOVE_TRAIT(L, TRAIT_SLEEPIMMUNE, type)
+	L.remove_movespeed_modifier(type)
+	..()
+
+/datum/reagent/drug/methnitol/on_mob_life(mob/living/carbon/M)
+	var/high_message = pick("You feel hyper, yet focused.", "You feel like you need to go faster, yet concentrated.", "You feel like you can run the world, yet be knowledgable.")
+	if(prob(5))
+		to_chat(M, "<span class='notice'>[high_message]</span>")
+	M.AdjustStun(-40, FALSE)
+	M.AdjustKnockdown(-40, FALSE)
+	M.AdjustUnconscious(-40, FALSE)
+	M.AdjustParalyzed(-40, FALSE)
+	M.AdjustImmobilized(-40, FALSE)
+	M.adjustStaminaLoss(-40, 0)
+	M.drowsyness = max(0,M.drowsyness-30)
+	M.Jitter(2)
+	//M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 1)
+	if(prob(5))
+		M.emote(pick("twitch", "shiver"))
+	..()
+	. = 1
+
+/datum/reagent/drug/methnitol/overdose_start(mob/living/M)
+	to_chat(M, "<span class='userdanger'>You feel like you're losing neurons by the second!</span>")
+	SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "[type]_overdose", /datum/mood_event/overdose, name)
+
+/datum/reagent/drug/methnitol/overdose_process(mob/living/M)
+	if((M.mobility_flags & MOBILITY_MOVE) && !ismovableatom(M.loc))
+		for(var/i in 1 to 4)
+			step(M, pick(GLOB.cardinals))
+	if(prob(11))
+		M.visible_message("<span class='danger'>[M] stumbles around in a panic.</span>", \
+									"<span class='userdanger'>You have a panic attack!</span>")
+		M.confused += (rand(6,8))
+		M.jitteriness += (rand(6,8))
+	if(prob(22))
+		M.emote("laugh")
+	if(prob(33))
+		M.visible_message("<span class='danger'>[M]'s hands flip out and flail everywhere!</span>")
+		M.drop_all_held_items()
+
+	..()
+	M.adjustToxLoss(1, 0)
+	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, pick(1, 1.2, 1.4, 1.6, 1.8, 2)) //oh, do you think you're safe?
+	M.confused = (2)
+	. = 1
+
+/datum/reagent/drug/methnitol/addiction_act_stage1(mob/living/M)
+	M.Jitter(5)
+	if(prob(20))
+		M.emote(pick("twitch","drool","moan"))
+	if(prob(1))
+		M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 0.2)
+	..()
+
+/datum/reagent/drug/methnitol/addiction_act_stage2(mob/living/M)
+	M.Jitter(10)
+	M.Dizzy(10)
+	if(prob(30))
+		M.emote(pick("twitch","drool","moan"))
+	if(prob(5))
+		M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 0.4)
+	..()
+
+/datum/reagent/drug/methnitol/addiction_act_stage3(mob/living/M)
+	if((M.mobility_flags & MOBILITY_MOVE) && !ismovableatom(M.loc))
+		for(var/i = 0, i < 4, i++)
+			step(M, pick(GLOB.cardinals))
+	M.Jitter(15)
+	M.Dizzy(15)
+	M.adjustToxLoss(2, 0)
+	if(prob(40))
+		M.emote(pick("twitch","drool","moan"))
+	if(prob(10))
+		M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 0.8)
+	..()
+
+/datum/reagent/drug/methnitol/addiction_act_stage4(mob/living/carbon/human/M)
+	if((M.mobility_flags & MOBILITY_MOVE) && !ismovableatom(M.loc))
+		for(var/i = 0, i < 8, i++)
+			step(M, pick(GLOB.cardinals))
+	M.Jitter(20)
+	M.Dizzy(20)
+	M.adjustToxLoss(5, 0)
+	M.hallucination = min(max(0, M.hallucination + 5), 60)
+	if(prob(50))
+		M.emote(pick("twitch","drool","moan","laugh","frown"))
+	if(prob(15))
+		M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 2)
+	if(prob(5))
+		to_chat(M, "<span class='notice'>You forget for a moment what you were doing.</span>")
+		M.Stun(20)
+	..()
+	. = 1
+
+
