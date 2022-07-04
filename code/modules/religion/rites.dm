@@ -239,8 +239,6 @@
 	chosen_sacrifice = null
 	return TRUE
 
-
-
 /datum/religion_rites/infinite_candle
 	name = "Immortal Candles"
 	desc = "Creates 5 candles that never run out of wax."
