@@ -221,8 +221,9 @@
 
 /datum/religion_sect/carp_sect
 	name = "Followers of the Great Carp"
-	desc = "A sect dedicated to the space carp and carp'sie."
-	convert_opener = "Drown the station in fish and water.<br>Sacrificing meat grants you favor."
+	desc = "A sect dedicated to the space carp and carp'sie, Offer the gods meat for favor."
+	quote = "Drown the station in fish and water."
+	tgui_icon = "fish-fins"
 	alignment = ALIGNMENT_NEUT
 	max_favor = 10000
 	desired_items = list(/obj/item/reagent_containers/food/snacks/meat)
