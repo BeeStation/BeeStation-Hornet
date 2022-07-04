@@ -232,7 +232,7 @@
 	name = "Necromancy"
 	desc = "A sect dedicated to the revival and summoning of the dead."
 	quote = "Bring them forth into the living world, acolyte.<br>Sacrificing living animals grants you favor."
-	tgui_icon = "convertaltar-green"
+	tgui_icon = "skull"
 	alignment = ALIGNMENT_EVIL
 	max_favor = 10000
 	desired_items = list(/obj/item/organ/)
@@ -243,11 +243,10 @@
 /datum/religion_sect/necro_sect/sect_bless(mob/living/blessed, mob/living/user)
 	return TRUE
 
-/datum/religion_sect/necro_sect/on_sacrifice(obj/item/organ/N, mob/living/L) // I think I fixed the issue?
-	var/obj/item/organ/organ = N
-	if(!istype(organ)) //how...
+/datum/religion_sect/necro_sect/on_sacrifice(obj/item/N, mob/living/L)
+	if(!istype(N, /obj/item/organ))
 		return
 	adjust_favor(10, L)
-	to_chat(L, "<span class='notice'>You offer [organ] to [GLOB.deity], pleasing them and gaining 10 favor in the process.</span>")
+	to_chat(L, "<span class='notice'>You offer [N] to [GLOB.deity], pleasing them and gaining 10 favor in the process.</span>")
 	qdel(N)
 	return TRUE
