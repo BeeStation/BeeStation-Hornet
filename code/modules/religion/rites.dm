@@ -273,7 +273,7 @@
 	new /obj/effect/temp_visual/bluespace_fissure/long(altar_turf)
 	user.visible_message("<span class'notice'>A tear in reality appears above the altar!</span>")
 	var/list/jobbans = list(ROLE_BRAINWASHED, ROLE_DEATHSQUAD, ROLE_DRONE, ROLE_LAVALAND, ROLE_MIND_TRANSFER, ROLE_POSIBRAIN, ROLE_SENTIENCE)
-	var/list/candidates = pollGhostCandidates("Do you wish to be summoned as a Holy Carp?", jobbans, null, FALSE,)
+	var/list/candidates = pollGhostCandidates("Do you wish to be summoned as a Holy Carp?", jobbans, null, FALSE)
 	if(!length(candidates))
 		new /obj/effect/gibspawner/generic(altar_turf)
 		user.visible_message("<span class='warning'>The carp pool was not strong enough to bring forth a space carp.")
