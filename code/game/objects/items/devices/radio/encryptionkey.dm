@@ -37,7 +37,7 @@
 
 /obj/item/encryptionkey/amplification
 	name = "amplification module key"
-	desc = "An amplification module key for a radio headset. It will allow the key applied radioset talk loudly."
+	desc = "An amplification module key for a radio headset. It will enable the \"Loud mode\" ability on any headset it is inserted into."
 	amplification = TRUE
 
 /obj/item/encryptionkey/headset_sec
