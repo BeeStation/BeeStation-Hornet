@@ -233,11 +233,10 @@
 /datum/religion_sect/necro_sect/sect_bless(mob/living/blessed, mob/living/user)
 	return TRUE
 
-/datum/religion_sect/necro_sect/on_sacrifice(obj/item/organ/N, mob/living/L) // I think I fixed the issue?
-	var/obj/item/organ/organ = N
-	if(!istype(organ)) //how...
+/datum/religion_sect/necro_sect/on_sacrifice(obj/item/N, mob/living/L)
+	if(!istype(N, /obj/item/organ))
 		return
 	adjust_favor(10, L)
-	to_chat(L, "<span class='notice'>You offer [organ] to [GLOB.deity], pleasing them and gaining 10 favor in the process.</span>")
+	to_chat(L, "<span class='notice'>You offer [N] to [GLOB.deity], pleasing them and gaining 10 favor in the process.</span>")
 	qdel(N)
 	return TRUE
