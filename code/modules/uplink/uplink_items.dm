@@ -2307,8 +2307,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 
 /datum/uplink_item/badass/costumes
 	surplus = 0
-	purchasable_from = (UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
-	cost = 4
+	cost = 2
 	cant_discount = TRUE
 
 /datum/uplink_item/badass/costumes/centcom_official
