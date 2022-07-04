@@ -232,20 +232,19 @@
 	favor_cost = 1500
 
 /datum/religion_rites/raise_undead/invoke_effect(mob/living/user, atom/movable/religious_tool)
-	var/altar_turf = get_turf(religious_tool)
+	var/turf/altar_turf = get_turf(religious_tool)
 	new /obj/effect/temp_visual/cult/blood/long(altar_turf)
 	new /obj/effect/temp_visual/dir_setting/curse/long(altar_turf)
-	var/jobbans = list(ROLE_BRAINWASHED, ROLE_DEATHSQUAD, ROLE_DRONE, ROLE_LAVALAND, ROLE_MIND_TRANSFER, ROLE_POSIBRAIN, ROLE_SENTIENCE)
+	var/list/jobbans = list(ROLE_BRAINWASHED, ROLE_DEATHSQUAD, ROLE_DRONE, ROLE_LAVALAND, ROLE_MIND_TRANSFER, ROLE_POSIBRAIN, ROLE_SENTIENCE)
 	var/list/candidates = pollGhostCandidates("Do you wish to be resurrected as a Holy Summoned Undead?", jobbans, null, FALSE,)
-	if(!candidates.len)
+	if(!length(candidates))
 		to_chat(user, "<span class='warning'>The soul pool is empty...")
 		new /obj/effect/gibspawner/human/bodypartless(altar_turf)
 		user.visible_message("<span class='warning'>The soul pool was not strong enough to bring forth the undead.")
 		return NOT_ENOUGH_PLAYERS
 	var/mob/dead/observer/selected = pick_n_take(candidates)
 	var/datum/mind/Mind = new /datum/mind(selected.key)
-	var/undead_species
-	undead_species = pick(/mob/living/carbon/human/species/zombie, /mob/living/carbon/human/species/skeleton)
+	var/undead_species = pick(/mob/living/carbon/human/species/zombie, /mob/living/carbon/human/species/skeleton)
 	var/mob/living/carbon/human/species/undead = new undead_species(altar_turf)
 	undead.real_name = "Holy Undead ([rand(1,999)])"
 	Mind.active = 1
@@ -310,7 +309,7 @@
 		return ..()
 
 /datum/religion_rites/raise_dead/invoke_effect(mob/living/user, atom/movable/religious_tool)
-	var/altar_turf = get_turf(religious_tool)
+	var/turf/altar_turf = get_turf(religious_tool)
 	if(!(raise_target in religious_tool.buckled_mobs))
 		to_chat(user, "<span class='warning'>The body is no longer on the altar!</span>")
 		raise_target = null
@@ -365,7 +364,7 @@
 		return ..()
 
 /datum/religion_rites/living_sacrifice/invoke_effect(mob/living/user, atom/movable/religious_tool)
-	var/altar_turf = get_turf(religious_tool)
+	var/turf/altar_turf = get_turf(religious_tool)
 	if(!(chosen_sacrifice in religious_tool.buckled_mobs)) //checks one last time if the right creature is still buckled
 		to_chat(user, "<span class='warning'>The right sacrifice is no longer on the altar!</span>")
 		chosen_sacrifice = null
