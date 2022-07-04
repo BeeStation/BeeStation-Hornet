@@ -115,8 +115,7 @@ const SectSelectTab = (props, context) => {
                   onClick={() =>
                     act('sect_select', {
                       path: sect.path,
-                    })
-                  }>
+                    })}>
                   Select {sect.name}
                 </Button>
               </Stack.Item>
@@ -167,8 +166,7 @@ const RiteTab = (props, context) => {
                   onClick={() =>
                     act('perform_rite', {
                       path: rite.path,
-                    })
-                  }>
+                    })}>
                   Invoke
                 </Button>
               }>
