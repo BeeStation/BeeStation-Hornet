@@ -963,11 +963,16 @@
 	color = "#A0A0A0" //mannitol is light grey, neurine is lighter grey"
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_CHEMIST_BLOODSTREAM | CHEMICAL_GOAL_BOTANIST_HARVEST
 
+/datum/reagent/medicine/mannitol/on_mob_add(mob/living/carbon/C)
+	if(HAS_TRAIT(C, TRAIT_BRAIN_TUMOR))
+		overdose_threshold = 35 // special overdose to brain tumor quirker
+	..()
+
+
 /datum/reagent/medicine/mannitol/on_mob_life(mob/living/carbon/C)
 	if(HAS_TRAIT(C, TRAIT_BRAIN_TUMOR)) // to brain tumor quirker
 		if(!overdosed) // don't merge this condition into the `if` above.
 			C.adjustOrganLoss(ORGAN_SLOT_BRAIN, -0.5*REM)
-			overdose_threshold = 35 // Brain tumor people have special overdose
 	else // to ordinary people
 		C.adjustOrganLoss(ORGAN_SLOT_BRAIN, -2*REM)
 	..()
