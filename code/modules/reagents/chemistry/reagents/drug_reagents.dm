@@ -579,7 +579,7 @@
 	color = "#c5adf2"
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_CHEMIST_DRUG | CHEMICAL_GOAL_CHEMIST_BLOODSTREAM
 	overdose_threshold = 15
-	addiction_threshold = 5.1 //more than 5 units, and you'll descend hell.
+	addiction_threshold = 5 //more than 5 units, and you'll descend hell.
 	metabolization_rate = 0.7 * REAGENTS_METABOLISM
 
 /datum/reagent/drug/methnitol/on_mob_metabolize(mob/living/L)
