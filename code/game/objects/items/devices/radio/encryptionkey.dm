@@ -173,7 +173,7 @@
 
 
 /obj/item/storage/box/command_keys // heads toys
-	name = "box of high responsible keys"
+	name = "box of amplification keys"
 
 /obj/item/storage/box/command_keys/PopulateContents()
 	for(var/i in 1 to 2)
