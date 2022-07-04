@@ -288,7 +288,7 @@
 	var/atom/movable/movable_reltool = religious_tool
 	if(!movable_reltool)
 		return FALSE
-	if(!LAZYLEN(movable_reltool.buckled_mobs))
+	if(!length(movable_reltool.buckled_mobs))
 		to_chat(user, "<span class='warning'>Nothing is buckled to the altar!</span>")
 		return FALSE
 	for(var/r_target in movable_reltool.buckled_mobs)
