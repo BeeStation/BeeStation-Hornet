@@ -90,8 +90,11 @@ SUBSYSTEM_DEF(vote)
 					else
 						factor = 1.4
 				choices["Initiate Crew Transfer"] += round(non_voters.len * factor)
-	//get all options with that many votes and return them in a list
 	. = list()
+	if(mode == "map")
+		. += pickweight(choices) //map is chosen by drawing votes from a hat, instead of automatically going to map with the most votes. 
+		return .
+	//get all options with that many votes and return them in a list
 	if(greatest_votes)
 		for(var/option in choices)
 			if(choices[option] == greatest_votes)
@@ -208,7 +211,7 @@ SUBSYSTEM_DEF(vote)
 				var/list/maps = list()
 				for(var/map in global.config.maplist)
 					var/datum/map_config/VM = config.maplist[map]
-					if(!VM.is_votable())
+					if(!VM.is_votable() || SSmapping.config.map_name == VM.map_name) //Always rotate away from current map
 						continue
 					maps += VM.map_name
 					shuffle_inplace(maps)
@@ -263,7 +266,7 @@ SUBSYSTEM_DEF(vote)
 /mob/verb/vote()
 	set category = "OOC"
 	set name = "Vote"
-	SSvote.ui_interact(usr)
+	SSvote.ui_interact(src)
 
 /datum/controller/subsystem/vote/ui_state()
 	return GLOB.always_state

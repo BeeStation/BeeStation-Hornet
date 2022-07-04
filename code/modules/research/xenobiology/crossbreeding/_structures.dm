@@ -497,23 +497,23 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 
 /obj/structure/slime_crystal/green/attack_hand(mob/user)
 	. = ..()
-	if(!ishuman(user))
+	if(!iscarbon(user) || !user.has_dna())
 		return
-	var/mob/living/carbon/human/human_user = user
-	var/list/mutation_list = human_user.dna.mutations
+	var/mob/living/carbon/carbon_user = user
+	var/list/mutation_list = carbon_user.dna.mutations
 	stored_mutation = pick(mutation_list)
 	stored_mutation = stored_mutation.type
 
 /obj/structure/slime_crystal/green/on_mob_effect(mob/living/affected_mob)
-	if(!ishuman(affected_mob) || !stored_mutation || HAS_TRAIT(affected_mob,TRAIT_BADDNA))
+	if(!iscarbon(affected_mob) || !affected_mob.has_dna() || !stored_mutation || HAS_TRAIT(affected_mob,TRAIT_BADDNA))
 		return
-	var/mob/living/carbon/human/human_mob = affected_mob
-	human_mob.dna.add_mutation(stored_mutation)
+	var/mob/living/carbon/carbon_mob = affected_mob
+	carbon_mob.dna.add_mutation(stored_mutation)
 
 	if(affected_mobs[affected_mob] % 60 != 0)
 		return
 
-	var/list/mut_list = human_mob.dna.mutations
+	var/list/mut_list = carbon_mob.dna.mutations
 	var/list/secondary_list = list()
 
 	for(var/X in mut_list)
@@ -523,13 +523,13 @@ GLOBAL_LIST_EMPTY(bluespace_slime_crystals)
 		secondary_list += t_mutation.type
 
 	var/datum/mutation/mutation = pick(secondary_list)
-	human_mob.dna.remove_mutation(mutation)
+	carbon_mob.dna.remove_mutation(mutation)
 
 /obj/structure/slime_crystal/green/on_mob_leave(mob/living/affected_mob)
-	if(!ishuman(affected_mob))
+	if(!iscarbon(affected_mob) || !affected_mob.has_dna())
 		return
-	var/mob/living/carbon/human/human_mob = affected_mob
-	human_mob.dna.remove_mutation(stored_mutation)
+	var/mob/living/carbon/carbon_mob = affected_mob
+	carbon_mob.dna.remove_mutation(stored_mutation)
 
 /obj/structure/slime_crystal/pink
 	colour = "pink"

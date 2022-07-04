@@ -3,7 +3,7 @@
 	k_elasticity = 0
 	unit_name = "crate"
 	export_types = list(/obj/structure/closet/crate)
-	exclude_types = list(/obj/structure/closet/crate/large, /obj/structure/closet/crate/wooden)
+	exclude_types = list(/obj/structure/closet/crate/large, /obj/structure/closet/crate/wooden, /obj/structure/closet/crate/mail)
 
 /datum/export/large/crate/total_printout(datum/export_report/ex, notes = TRUE) // That's why a goddamn metal crate costs that much.
 	. = ..()
@@ -144,7 +144,6 @@
 	worth += C.air_contents.get_moles(GAS_BZ)*4
 	worth += C.air_contents.get_moles(GAS_STIMULUM)*100
 	worth += C.air_contents.get_moles(GAS_HYPERNOB)*1000
-	worth += C.air_contents.get_moles(GAS_MIASMA)*10
 	worth += C.air_contents.get_moles(GAS_TRITIUM)*5
 	worth += C.air_contents.get_moles(GAS_PLUOXIUM)*5
 	return worth

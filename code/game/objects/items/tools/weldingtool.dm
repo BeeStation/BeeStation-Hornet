@@ -131,7 +131,7 @@
 		return
 	if(!status && O.is_refillable())
 		reagents.trans_to(O, reagents.total_volume, transfered_by = user)
-		balloon_alert(user, "Fuel tank emptied")
+		balloon_alert(user, "You empty the fuel tank.")
 		update_icon()
 	if(isOn())
 		use(1)
@@ -203,12 +203,12 @@
 //Switches the welder on
 /obj/item/weldingtool/proc/switched_on(mob/user)
 	if(!status)
-		balloon_alert(user, "It can't be turned on while unsecured")
+		balloon_alert(user, "You try to turn [src] on, but it's unsecured!")
 		return
 	set_welding(!welding)
 	if(welding)
 		if(get_fuel() >= 1)
-			balloon_alert(user, "[src] turned on")
+			balloon_alert(user, "You turn [src] on.")
 			playsound(loc, acti_sound, 50, 1)
 			force = 15
 			damtype = "fire"
@@ -216,10 +216,10 @@
 			update_icon()
 			START_PROCESSING(SSobj, src)
 		else
-			balloon_alert(user, "No fuel")
+			balloon_alert(user, "The [src] is empty!")
 			switched_off(user)
 	else
-		balloon_alert(user, "[src] turned off")
+		balloon_alert(user, "You turn [src] off.")
 		playsound(loc, deac_sound, 50, 1)
 		switched_off(user)
 
@@ -263,26 +263,26 @@
 // If welding tool ran out of fuel during a construction task, construction fails.
 /obj/item/weldingtool/tool_use_check(mob/living/user, amount)
 	if(!isOn() || !check_fuel())
-		balloon_alert(user, "[src] has to be on")
+		balloon_alert(user, "You need to turn [src] on to do that.")
 		return FALSE
 
 	if(get_fuel() >= amount)
 		return TRUE
 	else
-		balloon_alert(user, "Not enough fuel to complete this task")
+		balloon_alert(user, "The [src] doesn't have enough fuel to complete this task.")
 		return FALSE
 
 
 /obj/item/weldingtool/proc/flamethrower_screwdriver(obj/item/I, mob/user)
 	if(welding)
-		balloon_alert(user, "[src] should be turned off")
+		balloon_alert(user, "You should turn [src] off before doing this...")
 		return
 	status = !status
 	if(status)
-		balloon_alert(user, "[src] secured and fuel tank closed")
+		balloon_alert(user, "You close the fuel tank.")
 		DISABLE_BITFIELD(reagents.flags, OPENCONTAINER)
 	else
-		balloon_alert(user, "[src] can now be attached, modified, and refuelled")
+		balloon_alert(user, "You can now attach, modify and refuel [src].")
 		ENABLE_BITFIELD(reagents.flags, OPENCONTAINER)
 	add_fingerprint(user)
 
@@ -295,10 +295,10 @@
 				user.transferItemToLoc(src, F, TRUE)
 			F.weldtool = src
 			add_fingerprint(user)
-			balloon_alert(user, "You start bulding flamethrower")
+			balloon_alert(user, "You start bulding a flamethrower...")
 			user.put_in_hands(F)
 		else
-			balloon_alert(user, "You need one rod to build flamethrower")
+			balloon_alert(user, "You need one rod to build a flamethrower!")
 
 /obj/item/weldingtool/ignition_effect(atom/A, mob/user)
 	if(use_tool(A, user, 0, amount=1))

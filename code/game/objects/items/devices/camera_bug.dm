@@ -159,7 +159,7 @@
 	var/list/seen = get_seens()
 	if(seen && seen.len >= 1)
 		var/list/names = list()
-		for(var/obj/singularity/S in seen) // god help you if you see more than one
+		for(var/obj/anomaly/singularity/S in seen) // god help you if you see more than one
 			if(S.name in names)
 				names[S.name]++
 				dat += "[S.name] ([names[S.name]])"

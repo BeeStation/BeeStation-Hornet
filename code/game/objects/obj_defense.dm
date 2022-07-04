@@ -9,7 +9,7 @@
 	if((resistance_flags & INDESTRUCTIBLE) || obj_integrity <= 0)
 		return
 	damage_amount = run_obj_armor(damage_amount, damage_type, damage_flag, attack_dir, armour_penetration)
-	if(damage_amount <= DAMAGE_PRECISION)
+	if(damage_amount < DAMAGE_PRECISION)
 		return
 	. = damage_amount
 	var/old_integ = obj_integrity
@@ -93,6 +93,8 @@
 	return 0
 
 /obj/blob_act(obj/structure/blob/B)
+	if (!..())
+		return
 	if(isturf(loc))
 		var/turf/T = loc
 		if(T.intact && level == 1) //the blob doesn't destroy thing below the floor

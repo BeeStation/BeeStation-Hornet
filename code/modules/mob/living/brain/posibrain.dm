@@ -21,7 +21,7 @@ GLOBAL_VAR(posibrain_notify_cooldown)
 	var/welcome_message = "<span class='warning'>ALL PAST LIVES ARE FORGOTTEN.</span>\n\
 	<b>You are a positronic brain, brought into existence aboard Space Station 13.\n\
 	As a synthetic intelligence, you answer to all crewmembers and the AI.\n\
-	Remember, the purpose of your existence is to serve the crew and the station. Above all else, do no harm.</b>"
+	Remember, the purpose of your existence is to serve the crew and the station. Above all else, do no harm to crewmembers and the AI.</b>"
 	var/new_mob_message = "<span class='notice'>The positronic brain chimes quietly.</span>"
 	var/dead_message = "<span class='deadsay'>It appears to be completely inactive. The reset light is blinking.</span>"
 	var/recharge_message = "<span class='warning'>The positronic brain isn't ready to activate again yet! Give it some time to recharge.</span>"
@@ -90,6 +90,9 @@ GLOBAL_VAR(posibrain_notify_cooldown)
 		return
 	if(is_occupied() || is_banned_from(user.ckey, ROLE_POSIBRAIN) || QDELETED(brainmob) || QDELETED(src) || QDELETED(user))
 		return
+	if(user.ckey in GLOB.posi_key_list)
+		to_chat(user, "<span class='warning'>Positronic brain spawns limited to 1 per round.</span>")
+		return
 	if(!(GLOB.ghost_role_flags & GHOSTROLE_SILICONS))
 		to_chat(user, "<span class='warning'>Central Command has temporarily outlawed posibrain sentience in this sector...</span>")
 		return
@@ -101,6 +104,7 @@ GLOBAL_VAR(posibrain_notify_cooldown)
 		return
 	if(brainmob.suiciding) //clear suicide status if the old occupant suicided.
 		brainmob.set_suicide(FALSE)
+	GLOB.posi_key_list += user.ckey
 	transfer_personality(user)
 
 /obj/item/mmi/posibrain/transfer_identity(mob/living/carbon/C)
@@ -120,6 +124,7 @@ GLOBAL_VAR(posibrain_notify_cooldown)
 
 	brainmob.mind.remove_all_antag()
 	brainmob.mind.wipe_memory()
+	investigate_flags = ADMIN_INVESTIGATE_TARGET
 	update_icon()
 
 /obj/item/mmi/posibrain/proc/transfer_personality(mob/candidate)
@@ -141,6 +146,7 @@ GLOBAL_VAR(posibrain_notify_cooldown)
 
 	visible_message(new_mob_message)
 	check_success()
+	investigate_flags = ADMIN_INVESTIGATE_TARGET
 	return TRUE
 
 

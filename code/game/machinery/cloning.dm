@@ -148,7 +148,7 @@
 
 /obj/item/disk/data/debug/Initialize(mapload)
 	. = ..()
-	for(var/datum/mutation/human/HM as() in GLOB.all_mutations)
+	for(var/datum/mutation/HM as() in GLOB.all_mutations)
 		mutations += new HM
 
 //Clonepod

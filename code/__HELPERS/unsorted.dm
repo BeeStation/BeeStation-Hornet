@@ -1120,7 +1120,7 @@ eg2: `center_image(I, 96,96)`
 					clear = FALSE
 					break
 			if(clear)
-				picked_turfs |= checked_turf 
+				picked_turfs |= checked_turf
 			turf_list.Cut(I,I+1)
 		CHECK_TICK
 	if(!picked_turfs.len)
@@ -1227,12 +1227,18 @@ Increases delay as the server gets more overloaded, as sleeps aren't cheap and s
 
 #define RANDOM_COLOUR (rgb(rand(0,255),rand(0,255),rand(0,255)))
 
-/proc/random_nukecode()
-	var/val = rand(0, 99999)
-	var/str = "[val]"
-	while(length(str) < 5)
-		str = "0" + str
-	. = str
+/**
+ * random code generator (only numbers)
+ * This returns a string
+ * Arguments
+ * n_length - length of the random code
+ *
+**/
+/proc/random_code(n_length = 0)
+	if(!n_length) //incase someone forgets to say how long they want the code to be
+		stack_trace("No code length forwarded as argument")
+	while(length(.) < n_length)
+		. += "[rand(0, 9)]" // we directly write into the return value (.) here
 
 /atom/proc/Shake(pixelshiftx = 15, pixelshifty = 15, duration = 250)
 	var/initialpixelx = pixel_x
@@ -1360,11 +1366,11 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	var/user_loc = user.loc
 
 	var/drifting = FALSE
-	if(!user.Process_Spacemove(0) && user.inertia_dir)
+	if(SSmove_manager.processing_on(user, SSspacedrift))
 		drifting = TRUE
 
 	var/target_drifting = FALSE
-	if(!target.Process_Spacemove(0) && target.inertia_dir)
+	if(SSmove_manager.processing_on(user, SSspacedrift))
 		target_drifting = TRUE
 
 	var/target_loc = target.loc
@@ -1379,11 +1385,11 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 		if(uninterruptible)
 			continue
 
-		if(drifting && !user.inertia_dir)
+		if(drifting && SSmove_manager.processing_on(user, SSspacedrift))
 			drifting = FALSE
 			user_loc = user.loc
 
-		if(target_drifting && !target.inertia_dir)
+		if(target_drifting && SSmove_manager.processing_on(user, SSspacedrift))
 			target_drifting = FALSE
 			target_loc = target.loc
 
@@ -1471,7 +1477,9 @@ If it ever becomes necesary to get a more performant REF(), this lies here in wa
 		/obj/item/reagent_containers/food/snacks/clothing,
 		/obj/item/reagent_containers/food/snacks/grown/shell, //base types
 		/obj/item/reagent_containers/food/snacks/store/bread,
-		/obj/item/reagent_containers/food/snacks/grown/nettle
+		/obj/item/reagent_containers/food/snacks/grown/nettle,
+		/obj/item/reagent_containers/food/snacks/burger/roburger,
+		/obj/item/reagent_containers/food/snacks/grown/shell/gatfruit
 		)
 	blocked |= typesof(/obj/item/reagent_containers/food/snacks/customizable)
 

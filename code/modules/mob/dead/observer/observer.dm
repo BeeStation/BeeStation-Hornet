@@ -35,6 +35,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	var/mob/observetarget = null	//The target mob that the ghost is observing. Used as a reference in logout()
 	var/ghost_hud_enabled = 1 //did this ghost disable the on-screen HUD?
 	var/data_huds_on = 0 //Are data HUDs currently enabled?
+	var/ai_hud_on = FALSE //Is the AI Viewrange HUD currently enabled?
 	var/health_scan = FALSE //Are health scans currently enabled?
 	var/gas_scan = FALSE //Are gas scans currently enabled?
 	var/list/datahuds = list(DATA_HUD_SECURITY_ADVANCED, DATA_HUD_MEDICAL_ADVANCED, DATA_HUD_DIAGNOSTIC_ADVANCED) //list of data HUDs shown to ghosts.
@@ -59,6 +60,9 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	// of the mob
 	var/deadchat_name
 	var/datum/orbit_menu/orbit_menu
+	var/static/cooldown_time
+	COOLDOWN_DECLARE(creation_time)
+
 
 /mob/dead/observer/Initialize(mapload)
 	set_invisibility(GLOB.observer_default_invisibility)
@@ -148,6 +152,10 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	show_data_huds()
 	data_huds_on = 1
 
+	if(!cooldown_time) //so we only need to grab the config for this once.
+		cooldown_time = CONFIG_GET(number/cooldown_antag_time) MINUTES
+	COOLDOWN_START(src, creation_time , cooldown_time)
+
 	AddComponent(/datum/component/tracking_beacon, "ghost", null, null, TRUE, "#9e4d91", TRUE, TRUE)
 
 /mob/dead/observer/get_photo_description(obj/item/camera/camera)
@@ -163,6 +171,8 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 /mob/dead/observer/Destroy()
 	if(data_huds_on)
 		remove_data_huds()
+	if(ai_hud_on)
+		remove_ai_hud()
 
 	GLOB.ghost_images_default -= ghostimage_default
 	QDEL_NULL(ghostimage_default)
@@ -704,6 +714,28 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 //But we will still carry a mind.
 /mob/dead/observer/mind_initialize()
 	return
+
+/mob/dead/observer/proc/show_ai_hud()
+	var/datum/atom_hud/H = GLOB.huds[DATA_HUD_AI_DETECT]
+	H.add_hud_to(src)
+
+/mob/dead/observer/proc/remove_ai_hud()
+	var/datum/atom_hud/H = GLOB.huds[DATA_HUD_AI_DETECT]
+	H.remove_hud_from(src)
+
+/mob/dead/observer/verb/toggle_ai_hud()
+	set name = "Toggle AI HUD"
+	set desc = "Toggles whether you see the AI's view range"
+	set category = "Ghost"
+
+	if(ai_hud_on) //remove old huds
+		remove_ai_hud()
+		to_chat(src, "<span class='notice'>AI HUD disabled.</span>")
+		ai_hud_on = FALSE
+	else
+		show_ai_hud()
+		to_chat(src, "<span class='notice'>AI HUD enabled.</span>")
+		ai_hud_on = TRUE
 
 /mob/dead/observer/proc/show_data_huds()
 	for(var/hudtype in datahuds)

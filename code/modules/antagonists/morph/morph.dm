@@ -38,7 +38,8 @@
 	var/morph_time = 0
 	var/static/list/blacklist_typecache = typecacheof(list(
 	/atom/movable/screen,
-	/obj/singularity,
+	/obj/anomaly,
+	/obj/eldritch/narsie,
 	/mob/living/simple_animal/hostile/morph,
 	/obj/effect,
 	/mob/camera
@@ -326,7 +327,7 @@
 	if(morphed)
 		M.Knockdown(40)
 		M.reagents.add_reagent(/datum/reagent/toxin/morphvenom, 7)
-		M.visible_message("<span class='userdanger'>[src] bites you!</span>")
+		to_chat(M, "<span class='userdanger'>[src] bites you!</span>")
 		visible_message("<span class='danger'>[src] violently bites [M]!</span>",\
 				"<span class='userdanger'>You ambush [M]!</span>", null, COMBAT_MESSAGE_RANGE)
 		restore()

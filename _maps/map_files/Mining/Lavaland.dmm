@@ -1017,8 +1017,17 @@
 	pixel_y = 6
 	},
 /obj/structure/table,
+<<<<<<< HEAD
 /obj/machinery/light{
 	dir = 4
+=======
+/obj/item/stack/package_wrap,
+/obj/item/stack/package_wrap,
+/obj/item/stack/package_wrap,
+/obj/item/hand_labeler,
+/obj/effect/turf_decal/tile/purple{
+	dir = 8
+>>>>>>> c82275c4465a0f7d7b800e69b8cd2991cce3d58f
 	},
 /turf/open/floor/plasteel/checker,
 /area/mine/living_quarters)
