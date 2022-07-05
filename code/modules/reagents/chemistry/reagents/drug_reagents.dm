@@ -605,6 +605,7 @@
 	M.adjustStaminaLoss(-40, 0)
 	M.drowsyness = max(0,M.drowsyness-30)
 	M.Jitter(2)
+	overdose_threshold = overdose_threshold + rand(-10,10)/5 // this is where the anti metagaming fun begins
 	//M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 1)
 	if(prob(5))
 		M.emote(pick("twitch", "shiver"))
@@ -631,9 +632,9 @@
 		M.drop_all_held_items()
 
 	..()
-	M.adjustToxLoss(1, 0)
+	M.adjustToxLoss(1, 0, TRUE) //not even oozelings are safe
 	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, pick(1, 1.2, 1.4, 1.6, 1.8, 2)) //oh, do you think you're safe?
-	M.confused = (2)
+	M.confused = (1)
 	. = 1
 
 /datum/reagent/drug/methnitol/addiction_act_stage1(mob/living/M)
