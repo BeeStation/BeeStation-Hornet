@@ -6,6 +6,7 @@
 	layer = SHUTTER_LAYER
 	closingLayer = SHUTTER_LAYER
 	damage_deflection = 20
+	recipe_type = /datum/crafting_recipe/shutters
 
 /obj/machinery/door/poddoor/shutters/preopen
 	icon_state = "open"

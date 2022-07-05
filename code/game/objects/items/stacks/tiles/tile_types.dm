@@ -484,6 +484,7 @@
 	mineralType = "iron"
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 70, "stamina" = 0)
 	resistance_flags = FIRE_PROOF
+	matter_amount = 1
 
 /obj/item/stack/tile/plasteel/cyborg
 	desc = "The ground you walk on." //Not the usual floor tile desc as that refers to throwing, Cyborgs can't do that - RR

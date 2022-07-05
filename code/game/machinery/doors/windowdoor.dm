@@ -23,7 +23,7 @@
 	var/cable = 1
 	var/list/debris = list()
 
-/obj/machinery/door/window/Initialize(mapload, set_dir)
+/obj/machinery/door/window/Initialize(mapload, set_dir, unres_sides)
 	. = ..()
 	if(set_dir)
 		setDir(set_dir)
@@ -36,6 +36,19 @@
 		debris += new /obj/item/stack/rods(src, rods)
 	if(cable)
 		debris += new /obj/item/stack/cable_coil(src, cable)
+
+	if(unres_sides)
+		//remove unres_sides from directions it can't be bumped from
+		switch(dir)
+			if(NORTH,SOUTH)
+				unres_sides &= ~EAST
+				unres_sides &= ~WEST
+			if(EAST,WEST)
+				unres_sides &= ~NORTH
+				unres_sides &= ~SOUTH
+
+	src.unres_sides = unres_sides
+	update_icon()
 
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_EXIT = .proc/on_exit,
@@ -301,6 +314,11 @@
 	if (..())
 		autoclose = FALSE
 
+/obj/machinery/door/window/unrestricted_side(mob/opener)
+	if(get_turf(opener) == loc)
+		return turn(dir,180) & unres_sides
+	return ..()
+
 /obj/machinery/door/window/try_to_crowbar(obj/item/I, mob/user)
 	if(!hasPower())
 		if(density)
@@ -352,6 +370,20 @@
 				INVOKE_ASYNC(src, .proc/close)
 		if("touch")
 			INVOKE_ASYNC(src, .proc/open_and_close)
+
+/obj/machinery/door/window/rcd_vals(mob/user, obj/item/construction/rcd/the_rcd)
+	switch(the_rcd.mode)
+		if(RCD_DECONSTRUCT)
+			return list("mode" = RCD_DECONSTRUCT, "delay" = 50, "cost" = 32)
+	return FALSE
+
+/obj/machinery/door/window/rcd_act(mob/user, obj/item/construction/rcd/the_rcd, passed_mode)
+	switch(passed_mode)
+		if(RCD_DECONSTRUCT)
+			to_chat(user, "<span class='notice'>You deconstruct the windoor.</span>")
+			qdel(src)
+			return TRUE
+	return FALSE
 
 /obj/machinery/door/window/brigdoor
 	name = "secure door"
