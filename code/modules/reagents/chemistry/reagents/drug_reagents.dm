@@ -634,7 +634,7 @@
 	..()
 	M.adjustToxLoss(1, 0, TRUE) //not even oozelings are safe
 	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, pick(1, 1.2, 1.4, 1.6, 1.8, 2)) //oh, do you think you're safe?
-	M.confused = (1)
+	M.confused = 1
 	. = 1
 
 /datum/reagent/drug/methnitol/addiction_act_stage1(mob/living/M)
@@ -660,7 +660,7 @@
 			step(M, pick(GLOB.cardinals))
 	M.Jitter(15)
 	M.Dizzy(15)
-	M.adjustToxLoss(2, 0)
+	M.adjustToxLoss(2, 0, TRUE)
 	if(prob(40))
 		M.emote(pick("twitch","drool","moan"))
 	if(prob(10))
@@ -673,7 +673,7 @@
 			step(M, pick(GLOB.cardinals))
 	M.Jitter(20)
 	M.Dizzy(20)
-	M.adjustToxLoss(5, 0)
+	M.adjustToxLoss(5, 0, TRUE)
 	M.hallucination = min(max(0, M.hallucination + 5), 60)
 	if(prob(50))
 		M.emote(pick("twitch","drool","moan","laugh","frown"))
