@@ -315,7 +315,7 @@
  */
  /obj/item/toy/batong
 	name = "batong"
-	desc = "Maybe the real charger was the friends we made along the way."
+	desc = "Despite it being a cheap plastic imitation of a baton, it can still be charged."
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "baton"
 	item_state = "classic_baton"
