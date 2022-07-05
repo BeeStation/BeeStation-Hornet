@@ -131,8 +131,6 @@
 			index+=1
 		if(part_up && part_low)
 			H.bodyparts.Swap(part_up, part_low)
-	H.update_body_parts()
-	H.hud_used.build_hand_slots()
 	H.update_hud_handcuffed()
 	if(G)
 		H.equip_to_slot_if_possible(G, ITEM_SLOT_GLOVES) //Hacky? Yes. Works? Yes. Do I want to touch bodypart code? No.
