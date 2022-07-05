@@ -5,7 +5,7 @@
 
 /mob/living/simple_animal/hostile/mining_drone
 	name = "minebot"
-	desc = "A small robot used to support miners. It can be set to search and collect loose ore, mine any ore it detects, or help fend off wildlife. It is equipped with a mining drill and PKA, with mounting points for a plasma cutter."
+	desc = "A small robot used to support miners. It can be set to search and collect loose ore, mine any ore it detects, or help fend off wildlife. It is equipped with a mining drill and kinetic accelerator, with mounting points for a plasma cutter."
 	gender = NEUTER
 	icon = 'icons/mob/aibots.dmi'
 	icon_state = "mining_drone"
@@ -26,7 +26,6 @@
 	obj_damage = 10
 	environment_smash = ENVIRONMENT_SMASH_NONE
 	healable = 0
-	loot = list(/obj/effect/decal/cleanable/robot_debris)
 	deathmessage = "stops moving"
 	// AI stuff
 	check_friendly_fire = TRUE
@@ -335,13 +334,6 @@
 
 /// Allows the minebot to find ore through rocks, limited by the installed scanner's maximum range.
 /mob/living/simple_animal/hostile/mining_drone/ListTargets()
-	if(mode == MODE_MINING)
-		. = orange(stored_scanner.range, GET_TARGETS_FROM(src))
-	else
-		. = ..()
-
-/// We only look for ore if we're in lazy mode, as opposed to looking through everything in a given orange of the target.
-/mob/living/simple_animal/hostile/mining_drone/ListTargetsLazy(var/_Z)
 	var/search_objects = orange(stored_scanner.range, GET_TARGETS_FROM(src))
 	if(mode == MODE_MINING)
 		. = list()
@@ -350,8 +342,14 @@
 				LAZYADD(., object)
 			if(mining_enabled && istype(object, /turf/closed/mineral))
 				LAZYADD(., object)
-	else
-		. = ..()
+		return
+	. = ..()
+
+/// Effectively the same as standard target listing
+/mob/living/simple_animal/hostile/mining_drone/ListTargetsLazy(var/_Z)
+	if(mode == MODE_MINING)
+		return ListTargets()
+	. = ..()
 
 // We always attack the nearest target if we're in mining mode, so we don't go wandering off or leave ore on the ground.
 /mob/living/simple_animal/hostile/mining_drone/PickTarget(list/Targets)
