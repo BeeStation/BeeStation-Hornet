@@ -4287,6 +4287,7 @@
 /obj/machinery/airalarm{
 	pixel_y = 23
 	},
+/obj/structure/closet/secure_closet/personal,
 /turf/open/floor/carpet/red,
 /area/mine/living_quarters)
 "yX" = (
@@ -5241,6 +5242,7 @@
 /area/mine/living_quarters)
 "HD" = (
 /obj/structure/table,
+/obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/carpet/purple,
 /area/mine/living_quarters)
 "HE" = (
@@ -5269,6 +5271,7 @@
 /area/mine/living_quarters)
 "HX" = (
 /obj/structure/table,
+/obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/carpet/red,
 /area/mine/living_quarters)
 "HY" = (
@@ -5566,6 +5569,7 @@
 /obj/machinery/airalarm{
 	pixel_y = 23
 	},
+/obj/structure/closet/secure_closet/personal,
 /turf/open/floor/carpet/purple,
 /area/mine/living_quarters)
 "KM" = (
@@ -5675,6 +5679,7 @@
 /obj/machinery/airalarm{
 	pixel_y = 23
 	},
+/obj/structure/closet/secure_closet/personal,
 /turf/open/floor/carpet/blue,
 /area/mine/living_quarters)
 "Mg" = (
@@ -6285,6 +6290,7 @@
 /area/lavaland/surface/outdoors/explored)
 "SV" = (
 /obj/structure/table,
+/obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/carpet/blue,
 /area/mine/living_quarters)
 "SX" = (
