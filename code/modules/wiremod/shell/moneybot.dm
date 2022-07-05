@@ -21,7 +21,7 @@
 	stored_money += to_add
 	SEND_SIGNAL(src, COMSIG_MONEYBOT_ADD_MONEY, to_add)
 
-/obj/structure/money_bot/Initialize()
+/obj/structure/money_bot/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/shell, list(
 		new /obj/item/circuit_component/money_bot(),
@@ -31,7 +31,7 @@
 /obj/structure/money_bot/wrench_act(mob/living/user, obj/item/tool)
 	anchored = !anchored
 	tool.play_tool_sound(src)
-	balloon_alert(user, "You [anchored?"secure":"unsecure"] [src].")
+	balloon_alert(user, "You [anchored ? "secure" : "unsecure"] [src].")
 	return TRUE
 
 
@@ -48,7 +48,7 @@
 
 	var/obj/structure/money_bot/attached_bot
 
-/obj/item/circuit_component/money_dispenser/Initialize()
+/obj/item/circuit_component/money_dispenser/Initialize(mapload)
 	. = ..()
 	dispense_amount = add_input_port("Amount", PORT_TYPE_NUMBER)
 	on_fail = add_output_port("On Failed", PORT_TYPE_SIGNAL)
@@ -96,7 +96,7 @@
 	/// Trigger for when money is inputted into the shell
 	var/datum/port/output/money_trigger
 
-/obj/item/circuit_component/money_bot/Initialize()
+/obj/item/circuit_component/money_bot/Initialize(mapload)
 	. = ..()
 	total_money = add_output_port("Total Money", PORT_TYPE_NUMBER)
 	money_input = add_output_port("Last Input Money", PORT_TYPE_NUMBER)
@@ -135,11 +135,11 @@
 
 	var/amount_to_insert = item.get_item_credit_value()
 	if(!amount_to_insert)
-		balloon_alert(attacker, "this has no value!")
+		balloon_alert(attacker, "This has no value!")
 		return
 
 	attached_bot.add_money(amount_to_insert)
-	balloon_alert(attacker, "inserted [amount_to_insert] credits.")
+	balloon_alert(attacker, "Inserted [amount_to_insert] credits.")
 	money_input.set_output(amount_to_insert)
 	payer.set_output(attacker)
 	money_trigger.set_output(COMPONENT_SIGNAL)

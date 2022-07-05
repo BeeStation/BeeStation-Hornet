@@ -152,7 +152,7 @@
 	duration = 18
 	randomdir = FALSE
 
-/obj/effect/temp_visual/paperwiz_dying/Initialize()
+/obj/effect/temp_visual/paperwiz_dying/Initialize(mapload)
 	. = ..()
 	visible_message("<span class='boldannounce'>The wizard cries out in pain as a gate appears behind him, sucking him in!</span>")
 	playsound(get_turf(src),'sound/magic/mandswap.ogg', 50, 1, 1)

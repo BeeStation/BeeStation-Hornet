@@ -34,14 +34,6 @@
 	hidden_uplink.name = "debug uplink"
 	hidden_uplink.debug = TRUE
 
-/obj/item/uplink/incursion
-	uplink_flag = UPLINK_INCURSION
-
-/obj/item/uplink/incursion/Initialize(mapload, owner, tc_amount = 20)
-	. = ..()
-	var/datum/component/uplink/hidden_uplink = GetComponent(/datum/component/uplink)
-	hidden_uplink.non_traitor_allowed = FALSE
-
 /obj/item/uplink/nuclear
 	uplink_flag = UPLINK_NUKE_OPS
 
@@ -58,7 +50,7 @@
 /obj/item/uplink/nuclear_restricted
 	uplink_flag = UPLINK_NUKE_OPS
 
-/obj/item/uplink/nuclear_restricted/Initialize()
+/obj/item/uplink/nuclear_restricted/Initialize(mapload)
 	. = ..()
 	var/datum/component/uplink/hidden_uplink = GetComponent(/datum/component/uplink)
 	hidden_uplink.allow_restricted = FALSE

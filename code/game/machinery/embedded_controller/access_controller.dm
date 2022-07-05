@@ -18,7 +18,7 @@
 /obj/machinery/doorButtons/proc/findObjsByTag()
 	return
 
-/obj/machinery/doorButtons/Initialize()
+/obj/machinery/doorButtons/Initialize(mapload)
 	..()
 	return INITIALIZE_HINT_LATELOAD
 

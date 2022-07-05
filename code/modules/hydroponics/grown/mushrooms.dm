@@ -292,7 +292,6 @@
 	desc = "This mycelium -powers- into mushrooms!"
 	icon_state = "mycelium-glowcap"
 	species = "glowcap"
-	icon_harvest = "glowcap-harvest"
 	plantname = "Glowcaps"
 	product = /obj/item/reagent_containers/food/snacks/grown/mushroom/glowshroom/glowcap
 	genes = list(/datum/plant_gene/trait/glow/red, /datum/plant_gene/trait/cell_charge, /datum/plant_gene/trait/plant_type/fungal_metabolism)
@@ -316,8 +315,6 @@
 	desc = "This mycelium will grow into something shadowy."
 	icon_state = "mycelium-shadowshroom"
 	species = "shadowshroom"
-	icon_grow = "shadowshroom-grow"
-	icon_dead = "shadowshroom-dead"
 	plantname = "Shadowshrooms"
 	product = /obj/item/reagent_containers/food/snacks/grown/mushroom/glowshroom/shadowshroom
 	genes = list(/datum/plant_gene/trait/glow/shadow, /datum/plant_gene/trait/plant_type/fungal_metabolism)

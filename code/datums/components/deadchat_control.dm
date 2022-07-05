@@ -33,7 +33,7 @@
 /datum/component/deadchat_control/proc/deadchat_react(mob/source, message)
 	message = lowertext(message)
 	if(!inputs[message])
-		return 
+		return
 	if(deadchat_mode == ANARCHY_MODE)
 		var/cooldown = ckey_to_cooldown[source.ckey]
 		if(cooldown)
@@ -47,7 +47,7 @@
 
 /datum/component/deadchat_control/proc/remove_cooldown(ckey)
 	ckey_to_cooldown.Remove(ckey)
-	
+
 /datum/component/deadchat_control/proc/democracy_loop()
 	if(QDELETED(parent) || deadchat_mode != DEMOCRACY_MODE)
 		deltimer(timerid)
@@ -62,7 +62,7 @@
 		var/message = "<span class='deadsay italics bold'>No votes were cast this cycle.</span>"
 		for(var/M in orbiters)
 			to_chat(M, message)
-			
+
 /datum/component/deadchat_control/proc/count_democracy_votes()
 	if(!length(ckey_to_cooldown))
 		return
@@ -72,7 +72,7 @@
 	for(var/vote in ckey_to_cooldown)
 		votes[ckey_to_cooldown[vote]]++
 		ckey_to_cooldown.Remove(vote)
-	
+
 	// Solve which had most votes.
 	var/prev_value = 0
 	var/result
@@ -80,7 +80,7 @@
 		if(votes[vote] > prev_value)
 			prev_value = votes[vote]
 			result = vote
-	
+
 	if(result in inputs)
 		return result
 

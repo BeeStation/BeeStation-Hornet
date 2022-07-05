@@ -90,7 +90,7 @@ GLOBAL_LIST_EMPTY(station_turfs)
 
 	if(color)
 		add_atom_colour(color, FIXED_COLOUR_PRIORITY)
-		
+
 	if (light_power && light_range)
 		update_light()
 
@@ -162,11 +162,11 @@ GLOBAL_LIST_EMPTY(station_turfs)
 
 /turf/attack_hand(mob/user)
 	//Must have no gravity.
-	if(allow_z_travel && get_turf(user) == src)
+	if(get_turf(user) == src)
 		if(!user.has_gravity(src) || (user.movement_type & FLYING))
 			check_z_travel(user)
 			return
-		else
+		else if(allow_z_travel)
 			to_chat(user, "<span class='warning'>You can't float up and down when there is gravity!</span>")
 	. = ..()
 	if(SEND_SIGNAL(user, COMSIG_MOB_ATTACK_HAND_TURF, src) & COMPONENT_NO_ATTACK_HAND)
@@ -174,6 +174,12 @@ GLOBAL_LIST_EMPTY(station_turfs)
 	if(.)
 		return
 	user.Move_Pulled(src)
+
+/turf/eminence_act(mob/living/simple_animal/eminence/eminence)
+	if(get_turf(eminence) == src)
+		check_z_travel(eminence)
+		return
+	return ..()
 
 /turf/proc/check_z_travel(mob/user)
 	if(get_turf(user) != src)
@@ -201,17 +207,27 @@ GLOBAL_LIST_EMPTY(station_turfs)
 			travel_z(user, below, FALSE)
 
 /turf/proc/travel_z(mob/user, turf/target, upwards = TRUE)
-	user.visible_message("<span class='notice'>[user] begins floating upwards!</span>", "<span class='notice'>You begin floating upwards.</span>")
+	if(!target)
+		to_chat(user, "<span class='warning'>There is nothing in that direction!</span>")
+		return
+	//Check if we can travel in that direction
+	var/mob/living/L = user
+	var/jaunting = isliving(user) && L.incorporeal_move
+
+	if(!jaunting && ((upwards && !target.allow_z_travel) || (!upwards && !allow_z_travel)))
+		to_chat(user, "<span class='warning'>Something is blocking you!</span>")
+		return
+	user.visible_message("<span class='notice'>[user] begins floating [upwards ? "upwards" : "downwards"]!</span>", "<span class='notice'>You begin floating [upwards ? "upwards" : "downwards"].")
 	var/matrix/M = user.transform
 	//Animation is inverted due to immediately resetting user vars.
-	animate(user, 30, pixel_y = upwards ? -64 : 64, transform = matrix() * (upwards ? 0.7 : 1.3))
+	animate(user, 30, pixel_y = upwards ? 32 : -32, transform = matrix() * (upwards ? 1.3 : 0.7))
 	user.pixel_y = 0
 	user.transform = M
 	if(!do_after(user, 30, FALSE, get_turf(user)))
 		animate(user, 0, flags = ANIMATION_END_NOW)
 		return
-	if(!istype(target, /turf/open/space) && !istype(target, /turf/open/openspace))
-		to_chat(user, "<span class='warning'>Something is blocking you!</span>")
+	if(jaunting) // Allow most jaunting
+		user.client?.Process_Incorpmove(upwards ? UP : DOWN)
 		return
 	var/atom/movable/AM
 	if(user.pulling)
@@ -263,25 +279,23 @@ GLOBAL_LIST_EMPTY(station_turfs)
 /turf/proc/can_zFall(atom/movable/A, levels = 1, turf/target)
 	return zPassOut(A, DOWN, target) && target.zPassIn(A, DOWN, src)
 
-/turf/proc/zFall(atom/movable/A, levels = 1, force = FALSE)
+/turf/proc/zFall(atom/movable/A, levels = 1, force = FALSE, old_loc = null)
 	var/turf/target = get_step_multiz(src, DOWN)
 	if(!target || (!isobj(A) && !ismob(A)))
 		return FALSE
 	if(!force && (!can_zFall(A, levels, target) || !A.can_zFall(src, levels, target, DOWN)))
 		return FALSE
-	A.zfalling = TRUE
-	var/atom/movable/pulling = A.pulling
-	A.forceMove(target)
-	A.zfalling = FALSE
-	if(pulling)
-		//Things you are pulling fall with you
-		pulling.zfalling = TRUE
-		pulling.forceMove(target)
-		A.start_pulling(pulling)
-		pulling.zfalling = FALSE
-		target.zImpact(pulling, levels, src)
-	target.zImpact(A, levels, src)
-	return TRUE
+	. = TRUE
+	if(!A.zfalling)
+		A.zfalling = TRUE
+		if(A.pulling && old_loc) // Moves whatever we're pulling to where we were before so we're still adjacent
+			A.pulling.moving_from_pull = A
+			A.pulling.Move(old_loc)
+			A.pulling.moving_from_pull = null
+		if(!A.Move(target))
+			A.doMove(target)
+		. = target.zImpact(A, levels, src)
+		A.zfalling = FALSE
 
 /turf/proc/handleRCL(obj/item/rcl/C, mob/user)
 	if(C.loaded)
@@ -359,7 +373,7 @@ GLOBAL_LIST_EMPTY(station_turfs)
 		if(O.obj_flags & FROZEN)
 			O.make_unfrozen()
 	if(!arrived.zfalling)
-		zFall(arrived)
+		zFall(arrived, old_loc = old_loc)
 
 /turf/proc/is_plasteel_floor()
 	return FALSE
@@ -447,7 +461,7 @@ GLOBAL_LIST_EMPTY(station_turfs)
 	if(.)
 		return
 	if(length(src_object.contents()))
-		balloon_alert(usr, "You dump out the contents")
+		balloon_alert(usr, "You dump out the contents.")
 		if(!do_after(usr,20,target=src_object.parent))
 			return FALSE
 
@@ -495,18 +509,12 @@ GLOBAL_LIST_EMPTY(station_turfs)
 
 /turf/proc/visibilityChanged()
 	GLOB.cameranet.updateVisibility(src)
-	// The cameranet usually handles this for us, but if we've just been
-	// recreated we should make sure we have the cameranet vis_contents.
-	var/datum/camerachunk/C = GLOB.cameranet.chunkGenerated(x, y, z)
-	if(C)
-		if(C.obscuredTurfs[src])
-			vis_contents += GLOB.cameranet.vis_contents_objects
-		else
-			vis_contents -= GLOB.cameranet.vis_contents_objects
 
 /turf/proc/burn_tile()
+	return
 
 /turf/proc/is_shielded()
+	return
 
 /turf/contents_explosion(severity, target)
 	var/affecting_level
@@ -596,6 +604,12 @@ GLOBAL_LIST_EMPTY(station_turfs)
 
 /turf/proc/acid_melt()
 	return
+
+/turf/rust_heretic_act()
+	if(HAS_TRAIT(src, TRAIT_RUSTY))
+		return
+
+	AddElement(/datum/element/rust)
 
 /turf/handle_fall(mob/faller, forced)
 	if(!forced)

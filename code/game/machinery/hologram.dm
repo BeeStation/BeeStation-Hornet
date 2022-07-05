@@ -60,7 +60,7 @@ Possible to do for anyone motivated enough:
 	var/offset = FALSE
 	var/on_network = TRUE
 
-/obj/machinery/holopad/Initialize()
+/obj/machinery/holopad/Initialize(mapload)
 	. = ..()
 	become_hearing_sensitive()
 
@@ -96,7 +96,7 @@ Possible to do for anyone motivated enough:
 	if(!replay_mode && (disk && disk.record))
 		replay_start()
 
-/obj/machinery/holopad/Initialize()
+/obj/machinery/holopad/Initialize(mapload)
 	. = ..()
 	if(on_network)
 		holopads += src

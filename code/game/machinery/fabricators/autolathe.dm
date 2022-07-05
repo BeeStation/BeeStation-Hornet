@@ -35,7 +35,7 @@
 
 	stored_research_type = /datum/techweb/specialized/autounlocking/autolathe
 
-/obj/machinery/modular_fabricator/autolathe/Initialize()
+/obj/machinery/modular_fabricator/autolathe/Initialize(mapload)
 	. = ..()
 	wires = new /datum/wires/autolathe(src)
 
@@ -165,7 +165,7 @@
 	playsound(src, "sparks", 100, 1)
 	obj_flags |= EMAGGED
 
-/obj/machinery/modular_fabricator/autolathe/hacked/Initialize()
+/obj/machinery/modular_fabricator/autolathe/hacked/Initialize(mapload)
 	. = ..()
 	adjust_hacked(TRUE)
 

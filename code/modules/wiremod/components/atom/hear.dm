@@ -16,7 +16,7 @@
 	/// The trigger sent when this event occurs
 	var/datum/port/output/trigger_port
 
-/obj/item/circuit_component/hear/Initialize()
+/obj/item/circuit_component/hear/Initialize(mapload)
 	. = ..()
 	message_port = add_output_port("Message", PORT_TYPE_STRING)
 	language_port = add_output_port("Language", PORT_TYPE_STRING)

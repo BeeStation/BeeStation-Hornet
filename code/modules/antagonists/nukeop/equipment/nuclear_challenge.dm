@@ -66,6 +66,7 @@
 	for (var/datum/mind/M in get_antag_minds(/datum/antagonist/nukeop))
 		if (iscyborg(M.current))
 			continue
+		M.current.client?.give_award(/datum/award/achievement/misc/warops, M.current)
 		var/datum/component/uplink/uplink = M.find_syndicate_uplink()
 		if (!uplink)
 			orphans += M.current

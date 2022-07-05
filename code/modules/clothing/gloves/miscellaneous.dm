@@ -4,13 +4,14 @@
 	desc = "Plain black gloves without fingertips for the hard working."
 	icon_state = "fingerless"
 	item_state = "fingerless"
-	item_color = null	//So they don't wash.
+	worn_icon_state = "fingerless"
 	transfer_prints = TRUE
 	strip_delay = 40
 	equip_delay_other = 20
 	cold_protection = HANDS
 	min_cold_protection_temperature = GLOVES_MIN_TEMP_PROTECT
 	custom_price = 10
+	undyeable = TRUE
 
 /obj/item/clothing/gloves/botanic_leather
 	name = "botanist's leather gloves"
@@ -47,7 +48,7 @@
 	desc = "For when you're expecting to get slapped on the wrist. Offers modest protection to your arms."
 	icon_state = "bracers"
 	item_state = "bracers"
-	item_color = null	//So they don't wash.
+	worn_icon_state = "bracers"
 	transfer_prints = TRUE
 	strip_delay = 40
 	equip_delay_other = 20
@@ -63,6 +64,7 @@
 	desc = "Just looking at these fills you with an urge to beat the shit out of people."
 	icon_state = "rapid"
 	item_state = "rapid"
+	worn_icon_state = "rapid"
 	transfer_prints = TRUE
 	var/warcry = "AT"
 
@@ -97,7 +99,6 @@
 	desc = "These look pretty fancy."
 	icon_state = "white"
 	item_state = "wgloves"
-	item_color="white"
 	var/range = 3
 
 /obj/item/clothing/gloves/color/white/magic/attackby(obj/item/W, mob/user, params)

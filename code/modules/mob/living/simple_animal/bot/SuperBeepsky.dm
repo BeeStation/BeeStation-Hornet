@@ -42,7 +42,7 @@
 		playsound(src,'sound/effects/beepskyspinsabre.ogg',100,TRUE,-1)
 		INVOKE_ASYNC(src, .proc/stun_attack, AM)
 
-/mob/living/simple_animal/bot/secbot/grievous/Initialize()
+/mob/living/simple_animal/bot/secbot/grievous/Initialize(mapload)
 	. = ..()
 	weapon = new baton_type(src)
 	weapon.attack_self(src)
@@ -73,7 +73,7 @@
 	switch(mode)
 		if(BOT_IDLE)		// idle
 			update_icon()
-			walk_to(src,0)
+			SSmove_manager.stop_looping(src)
 			look_for_perp()	// see if any criminals are in range
 			if(!mode && auto_patrol)	// still idle, and set to patrol
 				mode = BOT_START_PATROL	// switch to patrol mode
@@ -82,7 +82,7 @@
 			playsound(src,'sound/effects/beepskyspinsabre.ogg',100,TRUE,-1)
 			// general beepsky doesn't give up so easily, jedi scum
 			if(frustration >= 20)
-				walk_to(src,0)
+				SSmove_manager.stop_looping(src)
 				back_to_idle()
 				return
 			if(target)		// make sure target exists
@@ -93,7 +93,7 @@
 					return
 				else								// not next to perp
 					var/turf/olddist = get_dist(src, target)
-					walk_to(src, target,1,4)
+					SSmove_manager.move_to(src, target, 1, 4)
 					if((get_dist(src, target)) >= (olddist))
 						frustration++
 					else
@@ -142,7 +142,6 @@
 
 /mob/living/simple_animal/bot/secbot/grievous/explode()
 
-	walk_to(src,0)
 	visible_message("<span class='boldannounce'>[src] lets out a huge cough as it blows apart!</span>")
 	var/atom/Tsec = drop_location()
 

@@ -20,7 +20,7 @@
 	var/static/list/buyable_items = list()
 	var/list/tags = list()
 
-/obj/item/device/gangtool/Initialize()
+/obj/item/device/gangtool/Initialize(mapload)
 	..()
 	update_icon()
 	for(var/i in subtypesof(/datum/gang_item))

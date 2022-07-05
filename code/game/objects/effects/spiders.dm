@@ -30,7 +30,7 @@
 /obj/structure/spider/stickyweb
 	icon_state = "stickyweb1"
 
-/obj/structure/spider/stickyweb/Initialize()
+/obj/structure/spider/stickyweb/Initialize(mapload)
 	if(prob(50))
 		icon_state = "stickyweb2"
 	. = ..()
@@ -59,7 +59,7 @@
 	var/poison_per_bite = 5
 	var/list/faction = list("spiders")
 
-/obj/structure/spider/eggcluster/Initialize()
+/obj/structure/spider/eggcluster/Initialize(mapload)
 	pixel_x = rand(3,-3)
 	pixel_y = rand(3,-3)
 	START_PROCESSING(SSobj, src)
@@ -96,7 +96,7 @@
 	new/obj/item/reagent_containers/food/snacks/spiderling(get_turf(src))
 	. = ..()
 
-/obj/structure/spider/spiderling/Initialize()
+/obj/structure/spider/spiderling/Initialize(mapload)
 	. = ..()
 	pixel_x = rand(6,-6)
 	pixel_y = rand(6,-6)
@@ -171,7 +171,7 @@
 	else if(prob(33))
 		var/target_atom = pick(oview(10, src))
 		if(target_atom)
-			walk_to(src, target_atom)
+			SSmove_manager.move_to(src, target_atom)
 			if(prob(40))
 				src.visible_message("<span class='notice'>\The [src] skitters[pick(" away"," around","")].</span>")
 	else if(prob(10))
@@ -179,7 +179,7 @@
 		for(var/obj/machinery/atmospherics/components/unary/vent_pump/v in view(7,src))
 			if(!v.welded)
 				entry_vent = v
-				walk_to(src, entry_vent, 1)
+				SSmove_manager.move_to(src, entry_vent, 1)
 				break
 	if(isturf(loc))
 		amount_grown += rand(0,2)
@@ -205,7 +205,7 @@
 	icon_state = "cocoon1"
 	max_integrity = 60
 
-/obj/structure/spider/cocoon/Initialize()
+/obj/structure/spider/cocoon/Initialize(mapload)
 	icon_state = pick("cocoon1","cocoon2","cocoon3")
 	. = ..()
 

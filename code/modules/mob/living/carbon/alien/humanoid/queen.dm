@@ -41,7 +41,7 @@
 	icon_state = "alienq"
 	var/datum/action/small_sprite/smallsprite = new/datum/action/small_sprite/queen()
 
-/mob/living/carbon/alien/humanoid/royal/queen/Initialize()
+/mob/living/carbon/alien/humanoid/royal/queen/Initialize(mapload)
 	RegisterSignal(src, COMSIG_MOVABLE_Z_CHANGED, .proc/check_hostile)
 	check_hostile() //still need to call this
 	//there should only be one queen
@@ -135,7 +135,7 @@
 
 /obj/effect/proc_holder/alien/royal/queen/promote/fire(mob/living/carbon/alien/user)
 	var/obj/item/queenpromote/prom
-	if(get_alien_type(/mob/living/carbon/alien/humanoid/royal/praetorian/))
+	if(get_alien_type_in_hive(/mob/living/carbon/alien/humanoid/royal/praetorian/))
 		to_chat(user, "<span class='noticealien'>You already have a Praetorian!</span>")
 		return 0
 	else
@@ -159,7 +159,7 @@
 	item_flags = ABSTRACT | DROPDEL
 	icon = 'icons/mob/alien.dmi'
 
-/obj/item/queenpromote/Initialize()
+/obj/item/queenpromote/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT)
 
@@ -167,7 +167,7 @@
 	if(!isalienadult(M) || isalienroyal(M))
 		to_chat(user, "<span class='noticealien'>You may only use this with your adult, non-royal children!</span>")
 		return
-	if(get_alien_type(/mob/living/carbon/alien/humanoid/royal/praetorian/))
+	if(get_alien_type_in_hive(/mob/living/carbon/alien/humanoid/royal/praetorian/))
 		to_chat(user, "<span class='noticealien'>You already have a Praetorian!</span>")
 		return
 

@@ -64,6 +64,7 @@
 
 
 	if(bodytemperature > BODYTEMP_HEAT_DAMAGE_LIMIT && !HAS_TRAIT(src, TRAIT_RESISTHEAT))
+		remove_movespeed_modifier(MOVESPEED_ID_MONKEY_TEMPERATURE_SPEEDMOD)
 		switch(bodytemperature)
 			if(360 to 400)
 				throw_alert("temp", /atom/movable/screen/alert/hot, 1)
@@ -80,8 +81,9 @@
 
 	else if(bodytemperature < BODYTEMP_COLD_DAMAGE_LIMIT && !HAS_TRAIT(src, TRAIT_RESISTCOLD))
 		if(!istype(loc, /obj/machinery/atmospherics/components/unary/cryo_cell))
+			add_movespeed_modifier(MOVESPEED_ID_MONKEY_TEMPERATURE_SPEEDMOD, TRUE, 100, override = TRUE, multiplicative_slowdown = ((BODYTEMP_COLD_DAMAGE_LIMIT - bodytemperature) / COLD_SLOWDOWN_FACTOR))
 			switch(bodytemperature)
-				if(200 to 260)
+				if(200 to BODYTEMP_COLD_DAMAGE_LIMIT)
 					throw_alert("temp", /atom/movable/screen/alert/cold, 1)
 					apply_damage(COLD_DAMAGE_LEVEL_1, BURN)
 				if(120 to 200)
@@ -94,6 +96,7 @@
 			clear_alert("temp")
 
 	else
+		remove_movespeed_modifier(MOVESPEED_ID_MONKEY_TEMPERATURE_SPEEDMOD)
 		clear_alert("temp")
 
 	//Account for massive pressure differences
@@ -111,8 +114,11 @@
 		if(HAZARD_LOW_PRESSURE to WARNING_LOW_PRESSURE)
 			throw_alert("pressure", /atom/movable/screen/alert/lowpressure, 1)
 		else
-			adjustBruteLoss( LOW_PRESSURE_DAMAGE )
-			throw_alert("pressure", /atom/movable/screen/alert/lowpressure, 2)
+			if(HAS_TRAIT(src, TRAIT_RESISTLOWPRESSURE))
+				clear_alert("pressure")
+			else
+				adjustBruteLoss( LOW_PRESSURE_DAMAGE )
+				throw_alert("pressure", /atom/movable/screen/alert/lowpressure, 2)
 
 	return
 

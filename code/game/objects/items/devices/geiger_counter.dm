@@ -26,7 +26,7 @@
 	var/fail_to_receive = 0
 	var/current_warning = 1
 
-/obj/item/geiger_counter/Initialize()
+/obj/item/geiger_counter/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSobj, src)
 
@@ -219,7 +219,7 @@
 	rad_act(amount)
 
 /obj/item/geiger_counter/cyborg/dropped()
-	. = ..()
+	..()
 	if(listeningTo)
 		UnregisterSignal(listeningTo, COMSIG_ATOM_RAD_ACT)
 

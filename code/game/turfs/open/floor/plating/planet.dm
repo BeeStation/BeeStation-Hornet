@@ -35,7 +35,7 @@
 	slowdown = 1
 	var/floor_variance = 15
 
-/turf/open/floor/plating/dirt/jungle/wasteland/Initialize()
+/turf/open/floor/plating/dirt/jungle/wasteland/Initialize(mapload)
 	.=..()
 	if(prob(floor_variance))
 		icon_state = "[initial(icon_state)][rand(0,12)]"
@@ -48,7 +48,7 @@
 	icon = 'icons/turf/floors.dmi'
 	icon_state = "junglegrass"
 
-/turf/open/floor/plating/grass/jungle/Initialize()
+/turf/open/floor/plating/grass/jungle/Initialize(mapload)
 	.=..()
 	icon_state = "[initial(icon_state)][rand(1,3)]"
 

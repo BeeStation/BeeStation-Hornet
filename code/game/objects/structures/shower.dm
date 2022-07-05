@@ -24,17 +24,17 @@
 
 /obj/structure/showerframe/attackby(obj/item/I, mob/living/user, params)
 	if(istype(I, /obj/item/stack/sheet/plastic))
-		balloon_alert(user, "You start constructing the shower")
+		balloon_alert(user, "You start constructing a shower...")
 		if(do_after(user, 4 SECONDS, target = src))
 			I.use(1)
-			balloon_alert(user, "Shower created")
+			balloon_alert(user, "You create a shower.")
 			var/obj/machinery/shower/new_shower = new /obj/machinery/shower(loc)
 			new_shower.setDir(dir)
 			qdel(src)
 			return
 	return ..()
 
-/obj/structure/showerframe/Initialize()
+/obj/structure/showerframe/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/simple_rotation, ROTATION_ALTCLICK | ROTATION_CLOCKWISE | ROTATION_COUNTERCLOCKWISE | ROTATION_VERBS, null, CALLBACK(src, .proc/can_be_rotated))
 
@@ -43,7 +43,7 @@
 		to_chat(user, "<span class='warning'>It is fastened to the floor!</span>")
 	return !anchored
 
-/obj/machinery/shower/Initialize()
+/obj/machinery/shower/Initialize(mapload)
 	. = ..()
 	create_reagents(reaction_volume)
 	reagents.add_reagent(reagent_id, reaction_volume)

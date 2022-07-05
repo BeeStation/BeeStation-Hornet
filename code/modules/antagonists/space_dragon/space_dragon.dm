@@ -24,7 +24,7 @@
 	var/datum/objective/assassinate/killchosen = new
 	killchosen.owner = owner
 	var/datum/mind/selected = pick(current_heads)
-	killchosen.target = selected
+	killchosen.set_target(selected)
 	killchosen.update_explanation_text()
 	objectives += killchosen
 	log_objective(owner, killchosen.explanation_text)

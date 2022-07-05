@@ -22,7 +22,7 @@
         current_body = user
 
 /obj/item/clothing/neck/necklace/dope/cursed/dropped(mob/user)
-    . = ..()
+    ..()
     if(hostage_ckey)
         if(user.ckey)
             user.ghostize(FALSE,SENTIENCE_ERASE)

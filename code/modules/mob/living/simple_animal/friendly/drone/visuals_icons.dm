@@ -82,7 +82,7 @@
 		if(client && hud_used && hud_used.hud_shown)
 			head.screen_loc = ui_drone_head
 			client.screen += head
-		var/used_head_icon = 'icons/mob/head.dmi'
+		var/used_head_icon = 'icons/mob/clothing/head.dmi'
 		if(istype(head, /obj/item/clothing/mask))
 			used_head_icon = 'icons/mob/mask.dmi'
 

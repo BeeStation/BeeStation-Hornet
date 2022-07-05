@@ -46,7 +46,7 @@
 	erupting_state = null
 	var/list/options = list(/datum/reagent/oil = 2, /datum/reagent/clf3 = 1) //fucking add more
 
-/obj/structure/geyser/random/Initialize()
+/obj/structure/geyser/random/Initialize(mapload)
 	. = ..()
 	reagent_id = pickweight(options)
 
@@ -65,7 +65,7 @@
 
 /obj/item/plunger/reinforced
 	name = "reinforced plunger"
-	desc = " It's an M. 7 Reinforced Plunger© for heavy duty plunging."
+	desc = " It's an M. 7 Reinforced Plungerï¿½ for heavy duty plunging."
 	icon_state = "reinforced_plunger"
 
 	reinforced = TRUE

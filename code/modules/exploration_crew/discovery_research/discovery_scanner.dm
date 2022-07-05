@@ -9,7 +9,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	var/datum/techweb/linked_techweb
 
-/obj/item/discovery_scanner/Initialize()
+/obj/item/discovery_scanner/Initialize(mapload)
 	. = ..()
 	if(!linked_techweb)
 		linked_techweb = SSresearch.science_tech

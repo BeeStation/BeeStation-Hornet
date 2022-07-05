@@ -84,12 +84,12 @@ GLOBAL_LIST_INIT(available_ui_styles, sortList(list(
 		instance.backdrop(mymob)
 
 	for(var/mytype in subtypesof(/atom/movable/plane_master_controller))
-		var/atom/movable/plane_master_controller/controller_instance = new mytype(src)
+		var/atom/movable/plane_master_controller/controller_instance = new mytype(null, src)
 		plane_master_controllers[controller_instance.name] = controller_instance
 
 
 /datum/hud/Destroy()
-	if(mymob.hud_used == src)
+	if(mymob?.hud_used == src)
 		mymob.hud_used = null
 
 	QDEL_NULL(hide_actions_toggle)

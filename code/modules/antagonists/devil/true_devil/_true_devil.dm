@@ -27,7 +27,7 @@
 	var/list/devil_overlays[DEVIL_TOTAL_LAYERS]
 	mobchatspan = "cultmobsay"
 
-/mob/living/carbon/true_devil/Initialize()
+/mob/living/carbon/true_devil/Initialize(mapload)
 	create_bodyparts() //initialize bodyparts
 	create_internal_organs()
 	grant_all_languages()

@@ -20,7 +20,7 @@
 	resistance_flags = FIRE_PROOF
 	var/icon_prefix = "fireaxe"
 
-/obj/item/fireaxe/Initialize()
+/obj/item/fireaxe/Initialize(mapload)
 	. = ..()
 
 /obj/item/fireaxe/ComponentInitialize()

@@ -60,8 +60,8 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 		A.category = category_name
 		I.refundable = FALSE //THIS MAN USES ONE WEIRD TRICK TO GAIN FREE TC, CODERS HATES HIM!
 		A.refundable = FALSE
-		switch(rand(1, 5))
-			if(1 to 3 || A.cost == 1)
+		switch(A.cost == 1 ? 1 : rand(1, 5))
+			if(1 to 3)
 				if(A.cost <= 3)
 					//Bulk discount
 					var/count = rand(3,7)
@@ -1663,7 +1663,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "When used with an upload console, this module allows you to upload priority laws to an artificial intelligence. \
 			Be careful with wording, as artificial intelligences may look for loopholes to exploit."
 	item = /obj/item/aiModule/syndicate
-	cost = 9
+	cost = 3
 
 /datum/uplink_item/device_tools/hypnotic_flash
 	name = "Hypnotic Flash"
@@ -2008,7 +2008,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	name = "Bottle of Mystery Pills"
 	desc = "We found these lying around Warehouse R1O-GN, which was decommissioned years ago. We were going to throw them out but we heard you might be interested in them."
 	item = /obj/item/storage/pill_bottle/floorpill/full
-	restricted_roles = list("Assistant", "Debtor")
+	restricted_roles = list("Assistant")
 	cost = 2
 
 /datum/uplink_item/role_restricted/clown_bomb
@@ -2233,6 +2233,13 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 5 //you need two for full damage, so total of 10 for maximum damage
 	limited_stock = 2 //you can't use more than two!
 	restricted_roles = list("Shaft Miner")
+
+/datum/uplink_item/role_restricted/esaw
+	name = "Energy Saw"
+	desc = "A deadly energy saw. Comes in a slick black finish."
+	cost = 5
+	item = /obj/item/melee/transforming/energy/sword/esaw
+	restricted_roles = list("Medical Doctor", "Chief Medical Officer", "Paramedic", "Brig Physician")
 
 /datum/uplink_item/role_restricted/esaw_arm
 	name = "Energy Saw Arm Implant"

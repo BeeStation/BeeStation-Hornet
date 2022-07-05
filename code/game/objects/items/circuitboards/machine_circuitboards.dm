@@ -151,7 +151,7 @@
 #define PATH_POWERCOIL /obj/machinery/power/tesla_coil/power
 #define PATH_RPCOIL /obj/machinery/power/tesla_coil/research
 
-/obj/item/circuitboard/machine/tesla_coil/Initialize()
+/obj/item/circuitboard/machine/tesla_coil/Initialize(mapload)
 	. = ..()
 	if(build_path)
 		build_path = PATH_POWERCOIL
@@ -961,7 +961,11 @@
 	icon_state = "science"
 	build_path = /obj/machinery/rnd/production/techfab/department/science
 
-
+/obj/item/circuitboard/machine/ecto_sniffer
+	name = "Ectoscopic Sniffer (Machine Board)"
+	build_path = /obj/machinery/ecto_sniffer
+	req_components = list(
+		/obj/item/stock_parts/scanning_module = 1)
 //Security
 
 

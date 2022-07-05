@@ -24,7 +24,7 @@
 	icon_state = "datadisk1"
 	max_blueprints = 1
 
-/obj/item/disk/design_disk/golem_shell/Initialize()
+/obj/item/disk/design_disk/golem_shell/Initialize(mapload)
 	. = ..()
 	var/datum/design/golem_shell/G = new
 	blueprints[1] = G
@@ -65,7 +65,7 @@
 		/obj/item/stack/sheet/mineral/plastitanium	= /datum/species/golem/plastitanium,
 		/obj/item/stack/sheet/mineral/abductor	    = /datum/species/golem/alloy,
 		/obj/item/stack/sheet/mineral/wood	        = /datum/species/golem/wood,
-		/obj/item/stack/sheet/bluespace_crystal	    = /datum/species/golem/bluespace,
+		/obj/item/stack/ore/bluespace_crystal	    = /datum/species/golem/bluespace,
 		/obj/item/stack/sheet/runed_metal	        = /datum/species/golem/runic,
 		/obj/item/stack/medical/gauze	            = /datum/species/golem/cloth,
 		/obj/item/stack/sheet/cotton/cloth			= /datum/species/golem/cloth,
@@ -147,7 +147,7 @@
 	flavour_text = "Monitor enemy activity as best you can, and try to keep a low profile. Monitor enemy activity as best you can, and try to keep a low profile. Use the communication equipment to provide support to any field agents, and sow disinformation to throw Nanotrasen off your trail. Do not let the base fall into enemy hands!"
 	important_info = "DO NOT abandon the base."
 
-/obj/effect/mob_spawn/human/lavaland_syndicate/comms/space/Initialize()
+/obj/effect/mob_spawn/human/lavaland_syndicate/comms/space/Initialize(mapload)
 	. = ..()
 	if(prob(90)) //only has a 10% chance of existing, otherwise it'll just be a NPC syndie.
 		new /mob/living/simple_animal/hostile/syndicate/ranged(get_turf(src))
@@ -159,6 +159,6 @@
 	mask = /obj/item/clothing/mask/chameleon/gps
 	suit = /obj/item/clothing/suit/armor/vest
 
-/obj/item/clothing/mask/chameleon/gps/Initialize()
+/obj/item/clothing/mask/chameleon/gps/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/gps, "Encrypted Signal")

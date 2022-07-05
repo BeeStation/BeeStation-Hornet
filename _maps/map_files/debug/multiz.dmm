@@ -550,27 +550,27 @@
 /turf/open/floor/plasteel{
 	dir = 8
 	},
-/area/bridge)
+/area/crew_quarters/heads/captain)
 "bH" = (
 /obj/structure/table,
 /obj/item/ammo_box/c10mm,
 /obj/item/gun/ballistic,
 /turf/open/floor/plasteel,
-/area/bridge)
+/area/crew_quarters/heads/captain)
 "bI" = (
 /obj/structure/table,
 /turf/open/floor/plasteel,
-/area/bridge)
+/area/crew_quarters/heads/captain)
 "bJ" = (
 /obj/structure/table,
 /obj/item/card/id/captains_spare,
 /turf/open/floor/plasteel,
-/area/bridge)
+/area/crew_quarters/heads/captain)
 "bK" = (
 /obj/structure/table,
 /obj/item/storage/backpack/holding,
 /turf/open/floor/plasteel,
-/area/bridge)
+/area/crew_quarters/heads/captain)
 "bL" = (
 /obj/structure/table,
 /obj/item/rcd_ammo/large,
@@ -578,13 +578,13 @@
 /obj/item/rcd_ammo/large,
 /obj/item/construction/rcd,
 /turf/open/floor/plasteel,
-/area/bridge)
+/area/crew_quarters/heads/captain)
 "bM" = (
 /obj/structure/closet/secure_closet/hop,
 /turf/open/floor/plasteel{
 	dir = 4
 	},
-/area/bridge)
+/area/crew_quarters/heads/captain)
 "bN" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /turf/open/floor/plasteel,
@@ -690,7 +690,7 @@
 	icon_state = "4-8"
 	},
 /turf/open/floor/plating,
-/area/bridge)
+/area/crew_quarters/heads/captain)
 "ce" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -701,13 +701,13 @@
 /turf/open/floor/plasteel{
 	dir = 8
 	},
-/area/bridge)
+/area/crew_quarters/heads/captain)
 "cf" = (
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
 /turf/open/floor/plasteel,
-/area/bridge)
+/area/crew_quarters/heads/captain)
 "cg" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -715,7 +715,7 @@
 /turf/open/floor/plasteel{
 	dir = 4
 	},
-/area/bridge)
+/area/crew_quarters/heads/captain)
 "ch" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable{
@@ -725,7 +725,7 @@
 	icon_state = "2-4"
 	},
 /turf/open/floor/plating,
-/area/bridge)
+/area/crew_quarters/heads/captain)
 "ci" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/structure/cable{
@@ -752,6 +752,9 @@
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
 /turf/open/floor/plasteel{
 	dir = 8
 	},
@@ -772,19 +775,19 @@
 /turf/open/floor/plasteel{
 	dir = 10
 	},
-/area/bridge)
+/area/crew_quarters/heads/captain)
 "cr" = (
 /obj/machinery/light,
 /turf/open/floor/plasteel{
 	dir = 6
 	},
-/area/bridge)
+/area/crew_quarters/heads/captain)
 "cs" = (
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
 /turf/closed/wall/r_wall,
-/area/bridge)
+/area/crew_quarters/heads/captain)
 "ct" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /obj/machinery/light{
@@ -795,11 +798,11 @@
 "cv" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden,
 /turf/closed/wall/r_wall,
-/area/bridge)
+/area/crew_quarters/heads/captain)
 "cw" = (
 /obj/machinery/door/airlock,
 /turf/open/floor/plasteel,
-/area/bridge)
+/area/crew_quarters/heads/captain)
 "cx" = (
 /obj/machinery/door/airlock/glass,
 /turf/open/floor/plasteel,
@@ -1270,6 +1273,10 @@
 /turf/open/floor/plasteel,
 /area/bridge)
 "ec" = (
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/obj/machinery/power/apc/auto_name/north,
 /turf/open/floor/plasteel{
 	dir = 4
 	},
@@ -1282,15 +1289,19 @@
 /turf/open/floor/plasteel,
 /area/engine/atmos)
 "ee" = (
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/obj/machinery/power/apc/auto_name/north,
 /turf/open/floor/plasteel{
 	dir = 9
 	},
-/area/hallway/secondary/entry)
+/area/crew_quarters/dorms)
 "ef" = (
 /turf/open/floor/plasteel{
 	dir = 1
 	},
-/area/hallway/secondary/entry)
+/area/crew_quarters/dorms)
 "eg" = (
 /turf/open/floor/plating,
 /area/hallway/primary/central)
@@ -1330,7 +1341,7 @@
 /turf/open/floor/plasteel{
 	dir = 10
 	},
-/area/hallway/secondary/entry)
+/area/crew_quarters/dorms)
 "eo" = (
 /turf/open/floor/plasteel,
 /area/hallway/secondary/entry)
@@ -1388,7 +1399,7 @@
 /turf/open/floor/plasteel{
 	dir = 8
 	},
-/area/hallway/secondary/entry)
+/area/crew_quarters/dorms)
 "eC" = (
 /turf/open/openspace,
 /area/maintenance/department/bridge)
@@ -1528,6 +1539,26 @@
 /obj/structure/fans/tiny,
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
+"ho" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/open/floor/plasteel,
+/area/hallway/secondary/entry)
+"ik" = (
+/obj/structure/disposalpipe/trunk{
+	dir = 1
+	},
+/obj/machinery/disposal/deliveryChute,
+/turf/open/floor/plating,
+/area/storage/primary)
+"ne" = (
+/obj/structure/disposalpipe/trunk{
+	dir = 1
+	},
+/obj/structure/disposaloutlet,
+/turf/open/floor/plating,
+/area/storage/primary)
 "og" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/ladder,
@@ -1559,9 +1590,20 @@
 /obj/effect/turf_decal/stripes/asteroid/line,
 /turf/open/floor/plating,
 /area/maintenance/department/bridge)
+"pR" = (
+/turf/closed/wall/r_wall,
+/area/crew_quarters/heads/captain)
 "qS" = (
 /turf/open/openspace,
 /area/shuttle/turbolift/shaft)
+"rr" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/open/floor/plasteel{
+	dir = 4
+	},
+/area/bridge)
 "rS" = (
 /obj/machinery/turbolift_button{
 	pixel_y = -23;
@@ -1573,6 +1615,19 @@
 /obj/machinery/door/airlock/turbolift,
 /turf/open/floor/plasteel,
 /area/construction)
+"ty" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/structure/railing{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/construction)
+"tY" = (
+/obj/structure/disposalpipe/trunk/multiz,
+/turf/open/floor/plating,
+/area/storage/primary)
 "ux" = (
 /obj/structure/ladder,
 /turf/open/floor/plasteel,
@@ -1583,6 +1638,13 @@
 	},
 /turf/open/floor/plasteel,
 /area/construction)
+"xK" = (
+/obj/machinery/door/airlock,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/open/floor/plating,
+/area/hallway/secondary/entry)
 "yl" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -1592,6 +1654,16 @@
 "yz" = (
 /turf/closed/wall/r_wall,
 /area/security)
+"yG" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/open/floor/plating,
+/area/crew_quarters/dorms)
+"zq" = (
+/obj/structure/disposalpipe/segment,
+/turf/open/floor/plasteel,
+/area/storage/primary)
 "Ao" = (
 /obj/docking_port/stationary/turbolift{
 	dwidth = 2;
@@ -1610,6 +1682,12 @@
 	},
 /turf/open/floor/plasteel,
 /area/storage/primary)
+"Bo" = (
+/obj/structure/railing{
+	dir = 4
+	},
+/turf/open/floor/plating,
+/area/construction)
 "CA" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -1632,6 +1710,10 @@
 "Ed" = (
 /turf/open/openspace,
 /area/construction)
+"Ej" = (
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plating,
+/area/crew_quarters/heads/captain)
 "Eq" = (
 /obj/machinery/door/airlock/turbolift,
 /turf/open/floor/plating,
@@ -1643,6 +1725,9 @@
 /obj/effect/turf_decal/stripes/asteroid/line,
 /turf/open/floor/plasteel,
 /area/security)
+"Hg" = (
+/turf/open/floor/plasteel,
+/area/crew_quarters/dorms)
 "Hn" = (
 /obj/effect/turf_decal/stripes/asteroid/line,
 /obj/structure/ladder,
@@ -1654,6 +1739,20 @@
 	},
 /turf/open/floor/plasteel,
 /area/construction)
+"HR" = (
+/obj/structure/railing{
+	dir = 1
+	},
+/turf/open/floor/plating,
+/area/construction)
+"IX" = (
+/turf/open/floor/plating,
+/area/crew_quarters/dorms)
+"Jm" = (
+/turf/open/floor/plasteel{
+	dir = 8
+	},
+/area/crew_quarters/dorms)
 "Jz" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 1
@@ -1667,6 +1766,12 @@
 	},
 /turf/open/floor/plating,
 /area/hallway/secondary/entry)
+"Kl" = (
+/obj/structure/cable{
+	icon_state = "8-16"
+	},
+/turf/open/floor/plating,
+/area/maintenance/department/bridge)
 "Kq" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 8
@@ -1694,6 +1799,16 @@
 "KR" = (
 /turf/open/floor/plasteel,
 /area/security)
+"LN" = (
+/obj/structure/disposalpipe/trunk{
+	dir = 1
+	},
+/obj/machinery/disposal/deliveryChute,
+/turf/open/floor/plasteel,
+/area/storage/primary)
+"LO" = (
+/turf/closed/wall/r_wall,
+/area/crew_quarters/dorms)
 "LW" = (
 /obj/structure/fans/tiny,
 /turf/open/floor/plating,
@@ -1709,6 +1824,12 @@
 	},
 /turf/open/floor/plasteel,
 /area/security)
+"Pb" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/open/floor/plasteel,
+/area/crew_quarters/dorms)
 "Pl" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 4
@@ -1722,10 +1843,33 @@
 	},
 /turf/open/openspace,
 /area/shuttle/turbolift/shaft)
+"PD" = (
+/obj/structure/disposalpipe/segment,
+/turf/open/floor/plating,
+/area/storage/primary)
+"QZ" = (
+/obj/structure/disposalpipe/trunk{
+	dir = 1
+	},
+/obj/structure/disposaloutlet,
+/turf/open/floor/plasteel,
+/area/storage/primary)
 "RP" = (
 /obj/machinery/door/airlock/turbolift,
 /turf/open/floor/plasteel,
 /area/security)
+"RU" = (
+/obj/structure/stairs,
+/turf/open/floor/plating,
+/area/construction)
+"Sb" = (
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/turf/open/floor/plasteel{
+	dir = 8
+	},
+/area/crew_quarters/dorms)
 "SE" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 1
@@ -1766,6 +1910,13 @@
 	},
 /turf/closed/wall/r_wall,
 /area/construction)
+"Wf" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/landmark/observer_start,
+/turf/open/floor/plasteel,
+/area/storage/primary)
 "WC" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 4
@@ -1776,12 +1927,25 @@
 /obj/machinery/light,
 /turf/open/floor/plating,
 /area/construction)
+"Xm" = (
+/turf/open/floor/plasteel,
+/area/crew_quarters/heads/captain)
+"Ye" = (
+/obj/structure/cable{
+	icon_state = "8-32"
+	},
+/turf/open/floor/plating,
+/area/maintenance/department/bridge)
 "YD" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 8
 	},
 /turf/open/floor/plasteel,
 /area/security)
+"YL" = (
+/obj/structure/disposalpipe/trunk/multiz/down,
+/turf/open/floor/plasteel,
+/area/storage/primary)
 
 (1,1,1) = {"
 aa
@@ -2774,11 +2938,11 @@ ah
 ah
 ah
 ah
-bu
-bu
+pR
+pR
 cd
-bu
-bu
+pR
+pR
 cB
 bE
 bE
@@ -2828,7 +2992,7 @@ ag
 ag
 ag
 ag
-bu
+pR
 bG
 ce
 cp
@@ -2882,11 +3046,11 @@ ai
 aQ
 ai
 ag
-bv
+Ej
 bH
 cf
-eb
-bv
+Xm
+Ej
 cD
 bE
 bE
@@ -2936,11 +3100,11 @@ aA
 aR
 ai
 ag
-bv
+Ej
 bI
 cf
-eb
-bu
+Xm
+pR
 cD
 bE
 bE
@@ -2990,10 +3154,10 @@ aB
 ag
 ag
 ag
-bv
+Ej
 bJ
 cf
-eb
+Xm
 cw
 cD
 bE
@@ -3003,8 +3167,8 @@ cY
 dn
 dn
 dn
-dn
-dn
+Bo
+Bo
 dn
 dn
 dn
@@ -3044,11 +3208,11 @@ aB
 ag
 ac
 ac
-bv
+Ej
 bK
 cf
-eb
-bu
+Xm
+pR
 cD
 bE
 bE
@@ -3057,9 +3221,9 @@ cY
 dn
 dn
 dn
-dn
-dn
-dn
+RU
+RU
+HR
 dn
 dn
 dn
@@ -3098,11 +3262,11 @@ dZ
 aj
 ac
 ac
-bv
+Ej
 bL
 cf
-eb
-bv
+Xm
+Ej
 cD
 bE
 bE
@@ -3111,8 +3275,8 @@ cZ
 do
 dz
 dz
-dz
-dz
+ty
+ty
 dz
 dz
 dz
@@ -3152,11 +3316,11 @@ aD
 aj
 ac
 ac
-bu
+pR
 bM
 cg
 cr
-bu
+pR
 cD
 bE
 bE
@@ -3206,8 +3370,8 @@ CA
 aj
 aj
 aj
-bu
-bu
+pR
+pR
 ch
 cs
 cs
@@ -3219,9 +3383,9 @@ da
 on
 dA
 dl
-dl
-dl
-dl
+tY
+PD
+ik
 dl
 dl
 dl
@@ -3273,9 +3437,9 @@ db
 dJ
 dB
 dl
-dl
-dl
-dl
+tY
+PD
+ne
 dl
 dl
 dl
@@ -3543,7 +3707,7 @@ dJ
 dJ
 dB
 dl
-dE
+Wf
 dH
 dI
 dB
@@ -3748,7 +3912,7 @@ bi
 dV
 by
 bV
-eo
+ho
 eo
 eo
 eo
@@ -3802,7 +3966,7 @@ aJ
 dV
 by
 bW
-eo
+ho
 eo
 eo
 eo
@@ -3856,7 +4020,7 @@ dV
 dV
 by
 bX
-eo
+ho
 eo
 cy
 eo
@@ -3910,7 +4074,7 @@ ak
 ak
 by
 by
-cn
+xK
 by
 oh
 by
@@ -3964,7 +4128,7 @@ af
 oA
 af
 af
-af
+Kl
 by
 LW
 by
@@ -5963,7 +6127,7 @@ au
 au
 bu
 ec
-ec
+rr
 ei
 bu
 em
@@ -6028,9 +6192,9 @@ dJ
 dJ
 dJ
 dJ
-dJ
-dJ
-dJ
+YL
+zq
+QZ
 dJ
 dJ
 dJ
@@ -6082,9 +6246,9 @@ dJ
 dJ
 dJ
 dJ
-dJ
-dJ
-dJ
+YL
+zq
+LN
 dJ
 dJ
 dJ
@@ -6447,15 +6611,15 @@ dV
 dV
 dV
 dV
-by
-by
-by
-by
-eo
-by
-by
-by
-by
+LO
+LO
+LO
+LO
+Hg
+LO
+LO
+LO
+LO
 er
 dv
 dJ
@@ -6501,15 +6665,15 @@ aJ
 aK
 aL
 dV
-by
+LO
 ee
-cy
+Sb
 ez
-cy
-cy
-cy
+Jm
+Jm
+Jm
 en
-by
+LO
 dj
 dw
 dJ
@@ -6555,15 +6719,15 @@ aK
 dV
 aK
 dV
-by
+LO
 ef
-eo
-eo
-eo
-eo
-eo
-eo
-by
+Pb
+Hg
+Hg
+Hg
+Hg
+Hg
+LO
 dJ
 dJ
 dJ
@@ -6609,15 +6773,15 @@ aL
 aK
 aJ
 dV
-by
+LO
 ef
-eo
-eo
-eo
-eo
-eo
-eo
-by
+Pb
+Hg
+Hg
+Hg
+Hg
+Hg
+LO
 dJ
 dJ
 dJ
@@ -6663,15 +6827,15 @@ dV
 aY
 dV
 dV
-by
+LO
 ef
-eo
-eo
-cy
-eo
-eo
-eo
-by
+Pb
+Hg
+Jm
+Hg
+Hg
+Hg
+LO
 dJ
 ew
 dJ
@@ -6717,15 +6881,15 @@ ak
 ak
 ak
 ak
-by
-by
-cz
-by
-by
-by
-cz
-by
-by
+LO
+LO
+yG
+LO
+LO
+LO
+IX
+LO
+LO
 cS
 cS
 cS
@@ -6773,7 +6937,7 @@ af
 oA
 af
 af
-af
+Ye
 by
 cz
 by

@@ -109,7 +109,7 @@
 						)
 	embedding = list("embed_chance" = 75, "armour_block" = 40)
 
-/obj/item/pen/fountain/captain/Initialize()
+/obj/item/pen/fountain/captain/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/butchering, 200, 115) //the pen is mightier than the sword
 
@@ -181,7 +181,7 @@
 				reagents.trans_to(M, reagents.total_volume, transfered_by = user, method = INJECT)
 
 
-/obj/item/pen/sleepy/Initialize()
+/obj/item/pen/sleepy/Initialize(mapload)
 	. = ..()
 	create_reagents(45, OPENCONTAINER)
 	reagents.add_reagent(/datum/reagent/toxin/chloralhydrate, 20)
@@ -195,7 +195,7 @@
 	attack_verb = list("slashed", "stabbed", "sliced", "tore", "ripped", "diced", "cut") //these wont show up if the pen is off
 	var/on = FALSE
 
-/obj/item/pen/edagger/Initialize()
+/obj/item/pen/edagger/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/butchering, 60, 100, 0, 'sound/weapons/blade1.ogg', TRUE)
 

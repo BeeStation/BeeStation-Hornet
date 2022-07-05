@@ -12,7 +12,7 @@
 	var/static/recycleable_circuits = typecacheof(list(/obj/item/electronics/firelock, /obj/item/electronics/airalarm, /obj/item/electronics/firealarm, \
 	/obj/item/electronics/apc, /obj/item/electronics/advanced_airlock_controller, /obj/item/electronics/airlock))//A typecache of circuits consumable for material
 
-/obj/item/electroadaptive_pseudocircuit/Initialize()
+/obj/item/electroadaptive_pseudocircuit/Initialize(mapload)
 	. = ..()
 	maptext = MAPTEXT("[circuits]")
 	electronics = new/obj/item/electronics/airlock(src)

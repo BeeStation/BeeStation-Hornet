@@ -22,11 +22,11 @@
 	var/aisync = 1
 	var/panel_locked = TRUE
 
-/obj/item/robot_suit/Initialize()
+/obj/item/robot_suit/Initialize(mapload)
 	. = ..()
 	update_icon()
 
-/obj/item/robot_suit/prebuilt/Initialize()
+/obj/item/robot_suit/prebuilt/Initialize(mapload)
 	. = ..()
 	l_arm = new(src)
 	r_arm = new(src)

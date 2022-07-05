@@ -26,7 +26,7 @@
 	. = ..()
 	. += create_ui_notice("Maximum Brightness: [max_power]", "orange", "lightbulb")
 
-/obj/item/circuit_component/light/Initialize()
+/obj/item/circuit_component/light/Initialize(mapload)
 	. = ..()
 	red = add_input_port("Red", PORT_TYPE_NUMBER)
 	green = add_input_port("Green", PORT_TYPE_NUMBER)

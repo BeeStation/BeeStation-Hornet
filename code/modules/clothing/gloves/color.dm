@@ -1,3 +1,6 @@
+/obj/item/clothing/gloves/color
+	dying_key = DYE_REGISTRY_GLOVES
+
 /obj/item/clothing/gloves/color/yellow
 	desc = "These gloves provide protection against electric shock."
 	name = "insulated gloves"
@@ -6,7 +9,6 @@
 	worn_icon_state = "ygloves"
 	siemens_coefficient = 0
 	permeability_coefficient = 0.05
-	item_color="yellow"
 	resistance_flags = NONE
 	cut_type = /obj/item/clothing/gloves/cut
 
@@ -16,15 +18,9 @@
 		SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "sec_black_gloves", /datum/mood_event/sec_black_gloves)
 
 /obj/item/clothing/gloves/color/black/dropped(mob/user)
-	. = ..()
+	..()
 	if(user.mind?.assigned_role in GLOB.security_positions)
 		SEND_SIGNAL(user, COMSIG_CLEAR_MOOD_EVENT, "sec_black_gloves")
-
-/obj/item/clothing/gloves/color/black/hos
-	item_color = "hosred"	//Exists for washing machines. Is not different from black gloves in any way.
-
-/obj/item/clothing/gloves/color/black/ce
-	item_color = "chief"		//Exists for washing machines. Is not different from black gloves in any way.
 
 /obj/item/clothing/gloves/color/yellow/equipped(mob/user, slot)
 	. = ..()
@@ -35,7 +31,7 @@
 			SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "sec_insulated_gloves", /datum/mood_event/sec_insulated_gloves)
 
 /obj/item/clothing/gloves/color/yellow/dropped(mob/user)
-	. = ..()
+	..()
 	if(user.mind?.assigned_role == "Assistant")
 		SEND_SIGNAL(user, COMSIG_CLEAR_MOOD_EVENT, "assistant_insulated_gloves")
 	if(user.mind?.assigned_role in GLOB.security_positions)
@@ -50,30 +46,18 @@
 	worn_icon_state = "ygloves"
 	siemens_coefficient = 1			//Set to a default of 1, gets overridden in Initialize()
 	permeability_coefficient = 0.05
-	item_color = "yellow"
 	resistance_flags = NONE
 	cut_type = /obj/item/clothing/gloves/cut
 
-/obj/item/clothing/gloves/color/fyellow/Initialize()
+/obj/item/clothing/gloves/color/fyellow/Initialize(mapload)
 	. = ..()
 	siemens_coefficient = pick(0,0.5,0.5,0.5,0.5,0.75,1.5)
-
-/obj/item/clothing/gloves/color/fyellow/examine(mob/user)
-	. = ..()
-	var/protectionpercentage = ((1 - siemens_coefficient) * 100)
-	if(HAS_TRAIT(user, TRAIT_APPRAISAL))
-		if(siemens_coefficient <= 0)
-			. += "[src] will fully protect from electric shocks."
-		if(siemens_coefficient > 1)
-			. += "[src] will only make shocks worse."
-		else
-			. += "[src] will provide [protectionpercentage] percent protection from electric shocks."
 
 /obj/item/clothing/gloves/color/fyellow/old
 	desc = "Old and worn out insulated gloves, hopefully they still work."
 	name = "worn out insulated gloves"
 
-/obj/item/clothing/gloves/color/fyellow/old/Initialize()
+/obj/item/clothing/gloves/color/fyellow/old/Initialize(mapload)
 	. = ..()
 	siemens_coefficient = pick(0,0,0,0.5,0.5,0.5,0.75)
 
@@ -82,6 +66,7 @@
 	name = "fingerless insulated gloves"
 	icon_state = "yellowcut"
 	item_state = "ygloves"
+	worn_icon_state = "ygloves"
 	transfer_prints = TRUE
 
 /obj/item/clothing/gloves/cut/heirloom
@@ -106,7 +91,6 @@
 	icon_state = "orange"
 	item_state = "orangegloves"
 	worn_icon_state = "orangegloves"
-	item_color="orange"
 
 /obj/item/clothing/gloves/color/red
 	name = "red gloves"
@@ -128,9 +112,6 @@
 	icon_state = "rainbow"
 	item_state = "rainbowgloves"
 	worn_icon_state = "rainbowgloves"
-
-/obj/item/clothing/gloves/color/rainbow/clown
-	item_color = "clown"
 
 /obj/item/clothing/gloves/color/blue
 	name = "blue gloves"
@@ -160,12 +141,6 @@
 	item_state = "graygloves"
 	worn_icon_state = "graygloves"
 
-/obj/item/clothing/gloves/color/grey/rd
-	item_color = "director"			//Exists for washing machines. Is not different from gray gloves in any way.
-
-/obj/item/clothing/gloves/color/grey/hop
-	item_color = "hop"				//Exists for washing machines. Is not different from gray gloves in any way.
-
 /obj/item/clothing/gloves/color/light_brown
 	name = "light brown gloves"
 	desc = "A pair of gloves, they don't look special in any way."
@@ -179,9 +154,6 @@
 	icon_state = "brown"
 	item_state = "browngloves"
 	worn_icon_state = "browngloves"
-
-/obj/item/clothing/gloves/color/brown/cargo
-	item_color = "cargo"					//Exists for washing machines. Is not different from brown gloves in any way.
 
 /obj/item/clothing/gloves/color/captain
 	desc = "Regal blue gloves, with a nice gold trim, a diamond anti-shock coating, and an integrated thermal barrier. Swanky."
@@ -240,9 +212,6 @@
 	item_state = "wgloves"
 	worn_icon_state = "wgloves"
 
-/obj/item/clothing/gloves/color/white/redcoat
-	item_color = "redcoat"		//Exists for washing machines. Is not different from white gloves in any way.
-
 /obj/effect/spawner/lootdrop/gloves
 	name = "random gloves"
 	desc = "These gloves are supposed to be a random color..."
@@ -259,3 +228,10 @@
 		/obj/item/clothing/gloves/color/brown = 1,
 		/obj/item/clothing/gloves/color/white = 1,
 		/obj/item/clothing/gloves/color/rainbow = 1)
+
+/obj/item/clothing/gloves/maid
+	name = "maid arm covers"
+	desc = "Cylindrical looking tubes that go over your arm, weird."
+	icon_state = "maid_arms"
+	item_state = "maid_arms"
+	worn_icon_state = "maid_arms"

@@ -24,10 +24,16 @@
 /obj/machinery/power/tesla_coil/power
 	circuit = /obj/item/circuitboard/machine/tesla_coil/power
 
-/obj/machinery/power/tesla_coil/Initialize()
+/obj/machinery/power/tesla_coil/Initialize(mapload)
 	. = ..()
 	wires = new /datum/wires/tesla_coil(src)
 	linked_techweb = SSresearch.science_tech
+
+/obj/machinery/power/tesla_coil/Destroy()
+	QDEL_NULL(wires)
+	linked_techweb = null //This shouldn't harddel even if not nulled but let's be tidy
+	return ..()
+
 
 /obj/machinery/power/tesla_coil/RefreshParts()
 	var/power_multiplier = 0

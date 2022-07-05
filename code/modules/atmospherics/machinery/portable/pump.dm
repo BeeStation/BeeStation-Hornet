@@ -18,7 +18,7 @@
 
 	volume = 1000
 
-/obj/machinery/portable_atmospherics/pump/Initialize()
+/obj/machinery/portable_atmospherics/pump/Initialize(mapload)
 	. = ..()
 	pump = new(src, FALSE)
 	pump.on = TRUE

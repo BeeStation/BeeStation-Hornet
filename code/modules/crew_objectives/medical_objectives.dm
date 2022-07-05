@@ -11,7 +11,7 @@
 	for(var/mob/living/carbon/human/H in GLOB.mob_living_list)
 		var/area/A = get_area(H)
 		if(H.stat == DEAD && is_station_level(H.z) && is_type_in_typecache(A, medical_areas)) // If person is dead and corpse is in one of these areas
-			return FALSE
+			return ..()
 	return TRUE
 
 /datum/objective/crew/emtmorgue
@@ -25,7 +25,7 @@
 	for(var/mob/living/carbon/human/H in GLOB.mob_living_list)
 		var/area/A = get_area(H)
 		if(H.stat == DEAD && is_station_level(H.z) && !is_type_in_typecache(A, medical_areas_morgue)) // If person is dead and corpse is NOT in one of these areas
-			return FALSE
+			return ..()
 	return TRUE
 
 /datum/objective/crew/chems //Ported from old Hippie
@@ -36,11 +36,7 @@
 
 /datum/objective/crew/chems/New()
 	. = ..()
-	var/list/blacklist = list(/datum/reagent/drug, /datum/reagent/drug/nicotine, /datum/reagent/medicine, /datum/reagent/medicine/adminordrazine, /datum/reagent/medicine/mine_salve, /datum/reagent/medicine/omnizine, /datum/reagent/medicine/syndicate_nanites, /datum/reagent/medicine/earthsblood, /datum/reagent/medicine/strange_reagent, /datum/reagent/medicine/changelingadrenaline)
-	var/list/drugs = typesof(/datum/reagent/drug) - blacklist
-	var/list/meds = typesof(/datum/reagent/medicine) - blacklist
-	var/list/chemlist = drugs + meds
-	chempath = pick(chemlist)
+	chempath = get_random_reagent_id(CHEMICAL_GOAL_CHEMIST_BLOODSTREAM)
 	targetchem = chempath
 	update_explanation_text()
 
@@ -53,8 +49,7 @@
 		if(!owner.current.stat == DEAD && owner.current.reagents)
 			if(owner.current.reagents.has_reagent(targetchem))
 				return TRUE
-	else
-		return FALSE
+	return ..()
 
 /datum/objective/crew/druglordchem //ported from old Hippie with adjustments
 	var/targetchem = "none"
@@ -67,10 +62,7 @@
 	. = ..()
 	target_amount = rand(5,50)
 	chemamount = rand(1,20)
-	var/list/blacklist = list(/datum/reagent/drug, /datum/reagent/drug/nicotine, /datum/reagent/medicine, /datum/reagent/medicine/adminordrazine, /datum/reagent/medicine/mine_salve, /datum/reagent/medicine/omnizine, /datum/reagent/medicine/syndicate_nanites, /datum/reagent/medicine/earthsblood, /datum/reagent/medicine/strange_reagent, /datum/reagent/medicine/changelingadrenaline)
-	var/list/drugs = typesof(/datum/reagent/drug) - blacklist
-	var/list/chemlist = drugs
-	chempath = pick(chemlist)
+	chempath = get_random_reagent_id(CHEMICAL_GOAL_CHEMIST_DRUG)
 	targetchem = chempath
 	update_explanation_text()
 
@@ -88,7 +80,7 @@
 	if(pillcount <= 0)
 		return TRUE
 	else
-		return FALSE
+		return ..()
 
 /datum/objective/crew/noinfections
 	explanation_text = "Make sure there are no crew members with harmful diseases at the end of the shift."
@@ -99,5 +91,5 @@
 		if(!H.stat == DEAD)
 			if((H.z in SSmapping.levels_by_trait(ZTRAIT_STATION)) || SSshuttle.emergency.shuttle_areas[get_area(H)])
 				if(H.check_virus() == 2) //Harmful viruses only
-					return FALSE
+					return ..()
 	return TRUE

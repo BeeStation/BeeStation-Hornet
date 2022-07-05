@@ -70,7 +70,7 @@
 	user.put_in_hands(I)
 
 /obj/item/storage/box/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/stack/packageWrap))
+	if(istype(W, /obj/item/stack/package_wrap))
 		return 0
 	return ..()
 
@@ -977,7 +977,7 @@
 	illustration = "fruit"
 	var/theme_name
 
-/obj/item/storage/box/ingredients/Initialize()
+/obj/item/storage/box/ingredients/Initialize(mapload)
 	. = ..()
 	if(theme_name)
 		name = "[name] ([theme_name])"
@@ -1230,7 +1230,7 @@
 		/obj/item/stack/sheet/mineral/uranium=50,\
 		/obj/item/stack/sheet/mineral/plasma=50,\
 		/obj/item/stack/sheet/mineral/diamond=50,\
-		/obj/item/stack/sheet/bluespace_crystal=50,\
+		/obj/item/stack/ore/bluespace_crystal/refined=50,\
 		/obj/item/stack/sheet/mineral/bananium=50,\
 		/obj/item/stack/sheet/plastic/fifty=1,\
 		/obj/item/stack/sheet/runed_metal/fifty=1,\

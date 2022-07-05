@@ -30,7 +30,7 @@
 		return
 
 	switch(stage)
-		if(2 || 3) //Pretend to be a cold and give time to spread.
+		if(2, 3) //Pretend to be a cold and give time to spread.
 			if(prob(8))
 				affected_mob.emote("sneeze")
 			if(prob(8))

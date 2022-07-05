@@ -6,7 +6,7 @@
 	var/last_time = 1
 	item_chair = null
 
-/obj/structure/chair/e_chair/Initialize()
+/obj/structure/chair/e_chair/Initialize(mapload)
 	. = ..()
 	add_overlay(mutable_appearance('icons/obj/chairs.dmi', "echair_over", MOB_LAYER + 1))
 

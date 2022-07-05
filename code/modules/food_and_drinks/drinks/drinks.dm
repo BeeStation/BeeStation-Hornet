@@ -283,7 +283,7 @@
 	var/amount
 	list_reagents = null
 
-/obj/item/reagent_containers/food/drinks/beer/almost_empty/Initialize()
+/obj/item/reagent_containers/food/drinks/beer/almost_empty/Initialize(mapload)
 	. = ..()
 	amount = rand(1,4)
 	reagents.add_reagent(/datum/reagent/consumable/ethanol/beer, amount)
@@ -544,7 +544,7 @@
 	list_reagents = list(/datum/reagent/consumable/lemon_lime = 30)
 	foodtype = FRUIT
 
-/obj/item/reagent_containers/food/drinks/soda_cans/lemon_lime/Initialize()
+/obj/item/reagent_containers/food/drinks/soda_cans/lemon_lime/Initialize(mapload)
 	. = ..()
 	name = "lemon-lime soda"
 

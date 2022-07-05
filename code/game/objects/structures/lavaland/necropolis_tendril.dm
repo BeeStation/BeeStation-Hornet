@@ -26,7 +26,7 @@
 	mob_types = list(/mob/living/simple_animal/hostile/asteroid/hivelord/legion/tendril)
 
 GLOBAL_LIST_INIT(tendrils, list())
-/obj/structure/spawner/lavaland/Initialize()
+/obj/structure/spawner/lavaland/Initialize(mapload)
 	. = ..()
 	emitted_light = new(loc)
 	for(var/turf/closed/mineral/M in RANGE_TURFS(1, src))
@@ -72,7 +72,7 @@ GLOBAL_LIST_INIT(tendrils, list())
 	density = TRUE
 	var/obj/effect/light_emitter/tendril/emitted_light
 
-/obj/effect/collapse/Initialize()
+/obj/effect/collapse/Initialize(mapload)
 	. = ..()
 	emitted_light = new(loc)
 	visible_message("<span class='boldannounce'>The tendril writhes in fury as the earth around it begins to crack and break apart! Get back!</span>")

@@ -105,7 +105,7 @@
 		addtimer(CALLBACK(src, .proc/refresh), 20) //Wait a bit so we can find the one below, then get powering
 	return TRUE
 
-/obj/machinery/power/deck_relay/Initialize()
+/obj/machinery/power/deck_relay/Initialize(mapload)
 	. = ..()
 	return INITIALIZE_HINT_LATELOAD
 

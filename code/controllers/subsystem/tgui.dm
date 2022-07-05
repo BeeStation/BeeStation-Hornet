@@ -89,6 +89,8 @@ SUBSYSTEM_DEF(tgui)
 			window_found = TRUE
 			break
 	if(!window_found)
+		if(issilicon(user)) // Tell gamer cyborgs and AIs that they've got too many windows open so they don't think it's broken
+			to_chat(user, "<span class='warning'>Warning: Processor limit reached. Close some windows before opening more.</span>")
 		log_tgui(user, "Error: Pool exhausted")
 		return null
 	return window

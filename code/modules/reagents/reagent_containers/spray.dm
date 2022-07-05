@@ -74,42 +74,13 @@
 	do_spray(A, wait_step, D, range, puff_reagent_left, user)
 
 /obj/item/reagent_containers/spray/proc/do_spray(atom/A, wait_step, obj/effect/decal/chempuff/D, range, puff_reagent_left, mob/user)
-	set waitfor = FALSE
-	var/range_left = range
-	for(var/i=0, i<range, i++)
-		range_left--
-		step_towards(D,A)
-		sleep(wait_step)
-
-		for(var/atom/T in get_turf(D))
-			if(T == D || T.invisibility) //we ignore the puff itself and stuff below the floor
-				continue
-			if(puff_reagent_left <= 0)
-				break
-
-			if(stream_mode)
-				if(isliving(T))
-					var/mob/living/M = T
-					if((M.mobility_flags & MOBILITY_STAND) || !range_left)
-						D.reagents.reaction(M, VAPOR)
-						puff_reagent_left -= 1
-						var/contained = D.reagents.log_list() // looks like more copypasta but now the reagents are in a different place fuck you old coder
-						log_combat(user, M,  "sprayed with", src, addition="which had [contained]")
-				else if(!range_left)
-					D.reagents.reaction(T, VAPOR)
-			else
-				D.reagents.reaction(T, VAPOR)
-				if(ismob(T))
-					puff_reagent_left -= 1
-
-		if(puff_reagent_left > 0 && (!stream_mode || !range_left))
-			D.reagents.reaction(get_turf(D), VAPOR)
-			puff_reagent_left -= 1
-
-		if(puff_reagent_left <= 0) // we used all the puff so we delete it.
-			qdel(D)
-			return
-	qdel(D)
+	var/datum/move_loop/our_loop = SSmove_manager.move_towards_legacy(D, A, wait_step, timeout = range * wait_step, flags = MOVEMENT_LOOP_START_FAST, priority = MOVEMENT_ABOVE_SPACE_PRIORITY)
+	D.user = user
+	D.sprayer = src
+	D.lifetime = puff_reagent_left
+	D.stream = stream_mode
+	D.RegisterSignal(our_loop, COMSIG_PARENT_QDELETING, /obj/effect/decal/chempuff/proc/loop_ended)
+	D.RegisterSignal(our_loop, COMSIG_MOVELOOP_POSTPROCESS, /obj/effect/decal/chempuff/proc/check_move)
 
 /obj/item/reagent_containers/spray/attack_self(mob/user)
 	stream_mode = !stream_mode
@@ -255,7 +226,7 @@
 	generate_amount = 1
 	generate_delay = 40		//deciseconds
 
-/obj/item/reagent_containers/spray/waterflower/cyborg/Initialize()
+/obj/item/reagent_containers/spray/waterflower/cyborg/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSfastprocess, src)
 
@@ -332,7 +303,7 @@
 	var/last_generate = 0
 	var/generate_delay = 10	//deciseconds
 
-/obj/item/reagent_containers/spray/chemsprayer/janitor/Initialize()
+/obj/item/reagent_containers/spray/chemsprayer/janitor/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSfastprocess, src)
 
@@ -372,7 +343,7 @@
 	var/recharge_time = 2 //Time it takes for 5u to recharge (in seconds)
 	var/datum/reagent/set_reagent
 
-/obj/item/reagent_containers/spray/cyborg/Initialize()
+/obj/item/reagent_containers/spray/cyborg/Initialize(mapload)
 	. = ..()
 	reagents.add_reagent(set_reagent, volume)
 	START_PROCESSING(SSobj, src)

@@ -16,7 +16,7 @@
 
 	var/static/regex/standard_station_regex
 
-/obj/item/station_charter/Initialize()
+/obj/item/station_charter/Initialize(mapload)
 	. = ..()
 	if(!standard_station_regex)
 		var/prefixes = jointext(GLOB.station_prefixes, "|")

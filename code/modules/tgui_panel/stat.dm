@@ -31,6 +31,7 @@
  * Sends TGUI the data of every single verb accessable to client.
  */
 /datum/tgui_panel/proc/set_verb_infomation(client/C)
+	
 	var/list/tab_names = C?.mob?.get_all_verbs()
 	if(!tab_names)
 		return

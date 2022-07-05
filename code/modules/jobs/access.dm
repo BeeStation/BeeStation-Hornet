@@ -1,5 +1,6 @@
 
-//returns TRUE if this mob has sufficient access to use this object
+///returns TRUE if this mob has sufficient access to use this object.
+///Note that this will return FALSE when passed null, unless the door doesn't require any access.
 /obj/proc/allowed(mob/M)
 	//check if it doesn't require any access at all
 	if(src.check_access(null))
@@ -384,7 +385,7 @@
 				// Each job is supposed to be in their department due to the HoP console.
 
 /proc/get_all_job_icons() //We need their HUD icons, but we don't want to give these jobs to people from the job list of HoP console.
-	return get_all_jobs() + list("Prisoner", "King", "VIP", "Debtor", "Acting Captain")
+	return get_all_jobs() + list("Prisoner", "King", "VIP", "Acting Captain")
 
 /proc/get_all_centcom_jobs()
 	return list("VIP Guest","Custodian","Thunderdome Overseer","CentCom Official","Medical Officer","Death Commando","Research Officer","Special Ops Officer","Admiral","CentCom Commander","Emergency Response Team Commander","Security Response Officer","Engineer Response Officer", "Medical Response Officer","CentCom Bartender","Comedy Response Officer", "HONK Squad Trooper")

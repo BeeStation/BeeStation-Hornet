@@ -15,7 +15,7 @@
 	var/obj/machinery/teleport/station/power_station
 	var/calibrated //Calibration prevents mutation
 
-/obj/machinery/teleport/hub/Initialize()
+/obj/machinery/teleport/hub/Initialize(mapload)
 	. = ..()
 	link_power_station()
 
@@ -23,7 +23,7 @@
 	if (power_station)
 		if(power_station.teleporter_console)
 			power_station.teleporter_console.ui_update()
-		power_station.teleporter_hub = null
+		power_station?.teleporter_hub = null
 		power_station = null
 	return ..()
 
@@ -105,7 +105,7 @@
 /obj/machinery/teleport/hub/proc/is_ready()
 	. = !panel_open && !(stat & (BROKEN|NOPOWER)) && power_station && power_station.engaged && !(power_station.stat & (BROKEN|NOPOWER))
 
-/obj/machinery/teleport/hub/syndicate/Initialize()
+/obj/machinery/teleport/hub/syndicate/Initialize(mapload)
 	. = ..()
 	component_parts += new /obj/item/stock_parts/matter_bin/super(null)
 	RefreshParts()
@@ -125,7 +125,7 @@
 	var/list/linked_stations = list()
 	var/efficiency = 0
 
-/obj/machinery/teleport/station/Initialize()
+/obj/machinery/teleport/station/Initialize(mapload)
 	. = ..()
 	link_console_and_hub()
 
@@ -208,13 +208,13 @@
 /obj/machinery/teleport/station/proc/toggle(mob/user)
 	if(stat & (BROKEN|NOPOWER) || !teleporter_hub || !teleporter_console )
 		return
-	if (teleporter_console.target_ref.resolve())
-		if(teleporter_hub.panel_open || teleporter_hub.stat & (BROKEN|NOPOWER))
-			to_chat(user, "<span class='alert'>The teleporter hub isn't responding.</span>")
-		else
-			engaged = !engaged
-			use_power(5000)
-			to_chat(user, "<span class='notice'>Teleporter [engaged ? "" : "dis"]engaged!</span>")
+	if(teleporter_hub.panel_open || teleporter_hub.stat & (BROKEN|NOPOWER))
+		to_chat(user, "<span class='alert'>The teleporter hub isn't responding.</span>")
+		return
+	if (teleporter_console.target_ref?.resolve())
+		engaged = !engaged
+		use_power(5000)
+		to_chat(user, "<span class='notice'>Teleporter [engaged ? "" : "dis"]engaged!</span>")
 	else
 		teleporter_console.target_ref = null
 		to_chat(user, "<span class='alert'>No target detected.</span>")

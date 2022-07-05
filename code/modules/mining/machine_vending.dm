@@ -10,7 +10,7 @@
 	var/obj/item/card/id/inserted_id
 	var/list/prize_list = list()
 
-/obj/machinery/vendor/Initialize()
+/obj/machinery/vendor/Initialize(mapload)
 	. = ..()
 	build_inventory()
 
@@ -239,7 +239,7 @@
 	name = "golem ship equipment vendor"
 	circuit = /obj/item/circuitboard/machine/mining_equipment_vendor/golem
 
-/obj/machinery/vendor/mining/golem/Initialize()
+/obj/machinery/vendor/mining/golem/Initialize(mapload)
 	. = ..()
 	desc += "\nIt seems a few selections have been added."
 	prize_list += list(

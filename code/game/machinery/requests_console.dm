@@ -101,7 +101,7 @@ GLOBAL_LIST_EMPTY(req_console_ckey_departments)
 		else
 			icon_state = "req_comp0"
 
-/obj/machinery/requests_console/Initialize()
+/obj/machinery/requests_console/Initialize(mapload)
 	. = ..()
 	if(department == "Unknown")
 		var/area/AR = get_area(src)
@@ -315,7 +315,7 @@ GLOBAL_LIST_EMPTY(req_console_ckey_departments)
 				radio_freq = FREQ_ENGINEERING
 			if("security")
 				radio_freq = FREQ_SECURITY
-			if("cargobay" || "mining")
+			if("cargobay", "mining")
 				radio_freq = FREQ_SUPPLY
 
 		var/datum/signal/subspace/messaging/rc/signal = new(src, list(

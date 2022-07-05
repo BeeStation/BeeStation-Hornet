@@ -24,7 +24,7 @@
 		COMP_ROUND_CEIL,
 	)
 
-/obj/item/circuit_component/round/Initialize()
+/obj/item/circuit_component/round/Initialize(mapload)
 	. = ..()
 
 	input = add_input_port("Input", PORT_TYPE_NUMBER)
