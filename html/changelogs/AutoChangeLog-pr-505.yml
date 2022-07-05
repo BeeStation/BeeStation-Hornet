@@ -1,0 +1,4 @@
+author: dwasint
+delete-after: true
+changes:
+  - rscadd: screentips, lets you see what you are hovering over
