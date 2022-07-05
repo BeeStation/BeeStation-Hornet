@@ -23,6 +23,7 @@
  *		Clockwork Watches
  *		Toy Daggers
  *		Eldrich stuff
+ *		Batong
  */
 
 
@@ -308,6 +309,20 @@
 	attack_verb = list("pricked", "absorbed", "gored")
 	w_class = WEIGHT_CLASS_SMALL
 	resistance_flags = FLAMMABLE
+	
+/*
+ * Batong
+ */
+ /obj/item/toy/batong
+	name = "batong"
+	desc = "Despite it being a cheap plastic imitation of a baton, it can still be charged."
+	icon = 'icons/obj/toy.dmi'
+	icon_state = "baton"
+	item_state = "classic_baton"
+	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
+	attack_verb = list("batonged", "stunned", "hit")
+	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/toy/windupToolbox
 	name = "windup toolbox"
