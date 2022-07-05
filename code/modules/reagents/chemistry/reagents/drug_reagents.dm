@@ -605,7 +605,7 @@
 	M.adjustStaminaLoss(-40, 0)
 	M.drowsyness = max(0,M.drowsyness-30)
 	M.Jitter(2)
-	overdose_threshold = overdose_threshold + rand(-10,10)/5 // this is where the anti metagaming fun begins
+	overdose_threshold = overdose_threshold + rand(-20, 20)/10 // this is where the anti metagaming fun begins
 	//M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 1)
 	if(prob(5))
 		M.emote(pick("twitch", "shiver"))
