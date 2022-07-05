@@ -27,6 +27,7 @@
 	species_r_arm = /obj/item/bodypart/r_arm/grod_upper
 	species_l_leg = /obj/item/bodypart/l_leg/grod
 	species_r_leg = /obj/item/bodypart/r_leg/grod
+	mutanttongue = /obj/item/organ/tongue/grod
 	mutant_bodyparts = list("grod_crown", "grod_marks", "grod_hair", "grod_tail")
 	default_features = list("grod_crown" = "Crown", "grod_marks" = "None", "grod_marks_color" = "9c3030", "grod_tail" = "Regular")
 	mutant_brain = /obj/item/organ/brain/grod
@@ -37,10 +38,6 @@
 	toxmod = GROD_TOXMOD
 	speedmod = GROD_SPEEDMOD
 	staminamod = GROD_STAMMOD
-	liked_food = VEGETABLES | GRAIN | FRUIT
-	disliked_food = DAIRY
-	toxic_food = TOXIC | MEAT | RAW
-	say_mod = "decrees"
 	species_language_holder = /datum/language_holder/grod
 	offset_features = list(OFFSET_LEFT_HAND = list(-1,-4), OFFSET_RIGHT_HAND = list(2,-4))
 	changesource_flags = MIRROR_BADMIN | MIRROR_MAGIC | RACE_SWAP

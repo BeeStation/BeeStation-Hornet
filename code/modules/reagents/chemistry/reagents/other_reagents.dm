@@ -2147,7 +2147,6 @@
 	description = "An advanced corruptive toxin produced by Grod Crowns."
 	color = "#ddff00"
 	taste_description = "royalty"
-	can_synth = FALSE
 	metabolization_rate = 5
 
 /datum/reagent/crowntoxin/on_mob_metabolize(mob/living/L)

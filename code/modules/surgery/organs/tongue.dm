@@ -344,3 +344,12 @@
 	desc = "It's an odd tongue, seemingly made of plant matter."
 	disliked_food = MEAT | DAIRY
 	liked_food = VEGETABLES | FRUIT | GRAIN //cannibals apparently
+
+/obj/item/organ/tongue/grod
+	name = "grod tongue"
+	desc = "Words from the Grod."
+	icon_state = "tonguefly"
+	say_mod = "decrees"
+	liked_food = VEGETABLES | GRAIN | FRUIT
+	disliked_food = DAIRY
+	toxic_food = TOXIC | MEAT | RAW
