@@ -634,7 +634,7 @@
 	..()
 	M.adjustToxLoss(1, 0, TRUE) //not even oozelings are safe
 	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, pick(1, 1.2, 1.4, 1.6, 1.8, 2)) //oh, do you think you're safe?
-	M.confused = 1
+	M.confused += 1
 	. = 1
 
 /datum/reagent/drug/methnitol/addiction_act_stage1(mob/living/M)
