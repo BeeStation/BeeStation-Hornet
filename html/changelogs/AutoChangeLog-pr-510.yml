@@ -1,9 +1,0 @@
-author: dwasint
-delete-after: true
-changes:
-  - rscadd: Added blast doors and shutters to the crafting menu and blast door controllers
-      to autolathes. As well as deconstruction
-  - rscadd: The RCD's functionality for directional windows has been enabled.
-  - rscadd: Cyborgs can now install RCD upgrades.
-  - rscadd: The RCD's functionality for windowed doors has been enabled.
-  - rscadd: The RCD furnishing upgrade may now be installed
