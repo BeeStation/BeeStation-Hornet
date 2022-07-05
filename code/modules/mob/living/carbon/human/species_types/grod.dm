@@ -56,12 +56,8 @@
 		var/mob/living/carbon/human/H = C
 		H.update_hands_on_rotate()
 
-		H.change_number_of_hands(4, /obj/item/bodypart/l_arm/grod_lower, /obj/item/bodypart/r_arm/grod_lower) //Add extra grod limbs
-		for(var/i in 3 to 4) //disable new limbs
-			if(H?.hand_bodyparts[i])
-				var/obj/item/bodypart/L = H?.hand_bodyparts[i]
-				L?.disabled = TRUE
-		H.update_hud_handcuffed()
+		H.hair_color = (H.hair_color != "000" && H.hair_color ? H.hair_color : pick(RANDOM_COLOUR)) //otherwise markings are black when spawned outside roundstart characters
+		H.update_hair()
 
 		if(!swap_stance)
 			swap_stance = new
@@ -69,6 +65,13 @@
 		if(!crownspider)
 			crownspider = new
 			crownspider.Grant(C)
+
+		H.change_number_of_hands(4, /obj/item/bodypart/l_arm/grod_lower, /obj/item/bodypart/r_arm/grod_lower) //Add extra grod limbs
+		for(var/i in 3 to 4) //disable new limbs
+			if(H?.hand_bodyparts[i])
+				var/obj/item/bodypart/L = H?.hand_bodyparts[i]
+				L?.disabled = TRUE
+		H.update_hud_handcuffed()
 
 /datum/species/grod/on_species_loss(mob/living/carbon/human/H, datum/species/new_species, pref_load)
 	. = ..()
@@ -97,55 +100,68 @@
 	if(H.get_item_by_slot(ITEM_SLOT_HANDCUFFED))
 		return
 
-	if(!H.dna.species.stance)
-		var/obj/item/G = H.gloves
-		if(G)
-			H.doUnEquip(H.gloves)
-		for(var/i in 3 to 4)
-			if(H?.hand_bodyparts[i])
-				var/obj/item/bodypart/L = H?.hand_bodyparts[i]
-				L?.disabled = FALSE
-		if(H?.hand_bodyparts.len > 2)
-			H?.hand_bodyparts.Swap(3, 1) //This means if the grod activates its extra hands, people can operate on them
-			if(H?.hand_bodyparts.len > 3)
-				H?.hand_bodyparts.Swap(4, 2)
-		H.update_hud_handcuffed()
-		if(G)
-			H.equip_to_slot_if_possible(G, ITEM_SLOT_GLOVES) //Hacky? Yes. Works? Yes. Do I want to touch bodypart code? No.
-		to_chat(H,"<span class ='warning'>You focus your energy into your additional hands.</span>")
-		to_chat(H,"<span class ='warning'>You feel weak and slow.</span>")
-		H.dna.species.inherent_traits += TRAIT_NOBLOCK
-		H.dna.species.stance = STANCE_INTERACT
-		H.dna.species.staminamod = GROD_STAMMOD + 0.3
-		H.add_movespeed_modifier(MOVESPEED_ID_GROD_INTERACT, update=TRUE, priority=100, multiplicative_slowdown=0.8) //Undocumented movespeed system. I tried.
-		H.nutrition -= 20
-	else
+	H.dna.species.stance = !H.dna.species.stance
 
-		var/obj/item/G = H.gloves
-		if(G)
-			H.doUnEquip(H.gloves)
-		if(H?.hand_bodyparts.len > 2)
-			H?.hand_bodyparts.Swap(1, 3) //This means if the grod activates its extra hands, people can operate on them
-		if(H?.hand_bodyparts.len > 3)
-			H?.hand_bodyparts.Swap(2, 4)
-		for(var/i in 3 to 4)
-			if(H?.hand_bodyparts[i])
-				var/obj/item/bodypart/L = H?.hand_bodyparts[i]
-				L?.disabled = TRUE
-				if(H.held_items.len > 2)
-					H.dropItemToGround(H.held_items[3])
-					if(H.held_items.len > 3)
-						H.dropItemToGround(H.held_items[4])
-		H.update_hud_handcuffed()
-		if(G)
-			H.equip_to_slot_if_possible(G, ITEM_SLOT_GLOVES)
-		to_chat(H,"<span class ='warning'>You focus your energy back into your legs.</span>")
-		to_chat(H,"<span class ='warning'>The feeling dissipates.</span>")
-		H.dna.species.inherent_traits -= TRAIT_NOBLOCK
-		H.dna.species.stance = STANCE_MOBILE
-		H.dna.species.staminamod = GROD_STAMMOD
-		H.remove_movespeed_modifier(MOVESPEED_ID_GROD_INTERACT, TRUE)
-		H.nutrition -= 20
+	var/obj/item/G = H.gloves
+	if(G)
+		H.doUnEquip(H.gloves)
+	for(var/i in 1 to 4) //enable / disable extra hands
+		if(H.hand_bodyparts[i])
+			var/obj/item/bodypart/L = H.hand_bodyparts[i]
+			if(istype(L, /obj/item/bodypart/l_arm/grod_lower) || istype(L, /obj/item/bodypart/r_arm/grod_lower))
+				L?.disabled = !L.disabled
+	if(H.hand_bodyparts.len > 2 && H.hand_bodyparts[1]) //swap old & new hands LEFT
+		H.hand_bodyparts.Swap(1, 3)
+		//Unfortunately bodyparts work weird and we have to commit some tom foolerly
+		var/part_up
+		var/part_low
+		var/index = 1
+		for(var/obj/item/bodypart/i as() in H.bodyparts)
+			if(istype(i, /obj/item/bodypart/l_arm/grod_upper) && !part_up)
+				part_up=index
+			if(istype(i, /obj/item/bodypart/l_arm/grod_lower) && !part_low)
+				part_low=index
+			index+=1
+		if(part_up && part_low)
+			H.bodyparts.Swap(part_up, part_low)
+	if(H.hand_bodyparts.len > 3 && H.hand_bodyparts[2]) //swap old & new hands RIGHT
+		H.hand_bodyparts.Swap(2, 4)
+		var/part_up
+		var/part_low
+		var/index = 1
+		for(var/obj/item/bodypart/i as() in H.bodyparts)
+			if(istype(i, /obj/item/bodypart/r_arm/grod_upper) && !part_up)
+				part_up=index
+			if(istype(i, /obj/item/bodypart/r_arm/grod_lower) && !part_low)
+				part_low=index
+			index+=1
+		if(part_up && part_low)
+			H.bodyparts.Swap(part_up, part_low)
+	H.update_body_parts()
+	H.hud_used.build_hand_slots()
+	H.update_hud_handcuffed()
+	if(G)
+		H.equip_to_slot_if_possible(G, ITEM_SLOT_GLOVES) //Hacky? Yes. Works? Yes. Do I want to touch bodypart code? No.
+
+	switch(H.dna.species.stance)
+		if(STANCE_INTERACT)
+			H.dna.species.inherent_traits += TRAIT_NOBLOCK
+			H.dna.species.staminamod = GROD_STAMMOD + 0.3
+			H.add_movespeed_modifier(MOVESPEED_ID_GROD_INTERACT, update=TRUE, priority=100, multiplicative_slowdown=0.8) //Undocumented movespeed system. I tried.
+			H.nutrition -= 20
+			to_chat(H,"<span class ='warning'>You focus your energy into your additional hands.</span>")
+			to_chat(H,"<span class ='warning'>You feel weak and slow.</span>")
+		if(STANCE_MOBILE)
+			H.dna.species.inherent_traits -= TRAIT_NOBLOCK
+			H.dna.species.staminamod = GROD_STAMMOD
+			H.remove_movespeed_modifier(MOVESPEED_ID_GROD_INTERACT, TRUE)
+			H.nutrition -= 10
+			to_chat(H,"<span class ='warning'>You focus your energy back into your legs.</span>")
+			to_chat(H,"<span class ='warning'>The feeling dissipates.</span>")
+			if(H.held_items.len > 2)
+				H.dropItemToGround(H.held_items[3])
+			if(H.held_items.len > 3)
+				H.dropItemToGround(H.held_items[4])
 
 /datum/action/innate/grod/crownspider
 	name = "Detach Crown"
