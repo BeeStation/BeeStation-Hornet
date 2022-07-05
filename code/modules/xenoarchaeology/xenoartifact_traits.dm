@@ -97,7 +97,7 @@
 /datum/xenoartifact_trait/major
 
 /datum/xenoartifact_trait/malfunction
-
+	flags = BLUESPACE_TRAIT | PLASMA_TRAIT | URANIUM_TRAIT
 
 /datum/xenoartifact_trait/proc/activate(obj/item/xenoartifact/X, atom/target, atom/user) //Typical behaviour
 	return

@@ -77713,22 +77713,6 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/plasteel,
 /area/science/research)
-"uVI" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj{
-	name = "---Merge conflict marker---"
-	},
-/obj/structure/table/reinforced,
-/obj/item/hand_labeler,
-/obj/item/stack/package_wrap,
-/obj/item/stack/package_wrap,
-/obj/item/stack/package_wrap,
-/obj/item/taperecorder,
-/obj/effect/turf_decal/stripes/line,
-/turf/open/floor/plasteel,
-/area/science/explab)
 "uWQ" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -118384,7 +118368,7 @@ iNa
 iNa
 vkj
 mzJ
-uVI
+gaU
 vJC
 aYG
 cqS
