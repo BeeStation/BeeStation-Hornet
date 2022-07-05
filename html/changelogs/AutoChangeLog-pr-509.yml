@@ -1,0 +1,24 @@
+author: Dejaku51, Mothblocks, LemonInTheDark, Penwin0, EvilDragonfiend, covertcorvid,
+  Miliviu, Rukofamicom
+delete-after: true
+changes:
+  - bugfix: Fixes /mob/dead/new_player harddels
+  - bugfix: fixes some harddels
+  - rscadd: silicons no longer can state laws while they're stating laws.
+  - bugfix: stating laws counts to the spam filter less than before. But do not spam
+      stating laws, it still counts, but less.
+  - bugfix: Incorporeal mobs can traverse Z levels through the floor/ceiling
+  - tweak: Warnings about being unable to Z travel in gravity will only appear on
+      space or openspace
+  - tweak: Reverses animation direction for Z travel
+  - spellcheck: Corrected a typo in the description of the Metal Upa plush
+  - tweak: spraying big decals has delay
+  - bugfix: fixed Zombie Powder spamming the Death Gasp emote
+  - tweak: Chief Engineers, Chief Medical Officers and Research Directors will no
+      longer be accosted by security bots for owning their officially assigned sidearms.
+  - balance: Voice of God stuns have been reduced substantially.
+  - tweak: Due to language proficiency, the curator now gets a bonus when using the
+      voice of God, but it is weaker than the one the chaplain already got.
+  - tweak: Command staff and mimes no longer receive any positive bonus multipliers
+      when utilizing the voice of god.
+  - bugfix: fixed a forgotten equip-delay bypass on a hud element.
