@@ -18,6 +18,7 @@ GLOBAL_DATUM_INIT(openspace_backdrop_one_for_all, /atom/movable/openspace_backdr
 	baseturfs = /turf/open/openspace
 	CanAtmosPassVertical = ATMOS_PASS_YES
 	allow_z_travel = TRUE
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 
 	FASTDMM_PROP(\
 		pipe_astar_cost = 100\
