@@ -125,7 +125,7 @@
 			. += "<span class='boldwarning'>It looks severely dented!</span>"
 		else
 			. += "<span class='boldwarning'>It is disabled and requires repairs.</span>"
-	. += "<span class='notice'>Using a mining scanner on or alt-clicking it will instruct it to drop any stored ore.</span>"
+	. += "<span class='notice'>Alt-clicking it will instruct it to drop any stored ore.</span>"
 	. += "<span class='notice'>Field repairs can be performed with a welder.</span>"
 	if(stored_pka && stored_pka.max_mod_capacity)
 		. += "<span class='notice'>\The [stored_pka] has <b>[stored_pka.get_remaining_mod_capacity()]%</b> mod capacity remaining.</span>"
