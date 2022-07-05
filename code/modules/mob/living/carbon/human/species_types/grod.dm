@@ -47,6 +47,20 @@
 	var/datum/action/innate/grod/swap_stance/swap_stance
 	var/datum/action/innate/grod/crownspider/crownspider
 
+/datum/species/grod/random_name(gender, unique, lastname, attempts)
+	. = "[pick(GLOB.grod_first)]"
+
+	. += pick(" the", " of the")
+
+	if(lastname)
+		. += " [lastname]"
+	else
+		. += " [pick(GLOB.grod_last)]"
+
+	if(unique && attempts < 10)
+		if(findname(.))
+			. = .(gender, TRUE, lastname, ++attempts)
+
 /datum/species/grod/on_species_gain(mob/living/carbon/C)
 	. = ..()
 	if(ishuman(C))
