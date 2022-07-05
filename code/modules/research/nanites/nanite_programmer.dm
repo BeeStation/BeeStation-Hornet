@@ -10,7 +10,7 @@
 	density = TRUE
 	circuit = /obj/item/circuitboard/machine/nanite_programmer
 
-/obj/machinery/nanite_programmer/Initialize()
+/obj/machinery/nanite_programmer/Initialize(mapload)
 	. = ..()
 	become_hearing_sensitive(trait_source = ROUNDSTART_TRAIT)
 

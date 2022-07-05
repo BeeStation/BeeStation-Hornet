@@ -905,7 +905,7 @@
 		return
 	var/mob/living/boss = user.get_real_hivehost()
 	var/datum/objective/protect/new_objective = new /datum/objective/protect
-	new_objective.target = user.mind
+	new_objective.set_target(user.mind)
 	new_objective.explanation_text = "Ensure the One Mind survives under the leadership of [boss.real_name]."
 	var/datum/team/hivemind/one_mind_team = new /datum/team/hivemind(user.mind)
 	hive.active_one_mind = one_mind_team

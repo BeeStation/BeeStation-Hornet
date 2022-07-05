@@ -7,7 +7,7 @@
 
 	light_color = LIGHT_COLOR_CYAN
 
-/obj/machinery/computer/station_alert/Initialize()
+/obj/machinery/computer/station_alert/Initialize(mapload)
 	. = ..()
 	GLOB.alert_consoles += src
 

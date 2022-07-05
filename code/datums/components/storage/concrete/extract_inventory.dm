@@ -24,12 +24,13 @@
 
 	if(length(parent_slime_extract.contents) >= max_items)
 		QDEL_LIST(parent_slime_extract.contents)
+		if(GLOB.total_slimes >= CONFIG_GET(number/max_slimes))
+			to_chat(user, "<span class='warning'>The extract jiggles, and fails to produce a slime...</span>")
+			return
 		create_extracts(parent_slime_extract,user)
 
 /datum/component/storage/concrete/extract_inventory/proc/create_extracts(obj/item/slimecross/reproductive/parent_slime_extract, mob/user)
-	var/cores = rand(1,4)
 	playsound(parent_slime_extract, 'sound/effects/splat.ogg', 40, TRUE)
 	parent_slime_extract.last_produce = world.time
-	to_chat(user, "<span class='notice'>[parent_slime_extract] briefly swells to a massive size, and expels [cores] extract[cores > 1 ? "s":""]!</span>")
-	for(var/i in 1 to cores)
-		new parent_slime_extract.extract_type(parent_slime_extract.drop_location())
+	to_chat(user, "<span class='notice'>[parent_slime_extract] briefly swells to a massive size, and expels a baby slime!</span>")
+	new /mob/living/simple_animal/slime(parent_slime_extract.drop_location(), parent_slime_extract.colour)

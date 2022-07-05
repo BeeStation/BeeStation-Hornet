@@ -19,7 +19,7 @@
 	var/last_synth = 0
 	var/casing = /obj/item/ammo_casing/chemgun
 
-/obj/item/gun/chem/Initialize()
+/obj/item/gun/chem/Initialize(mapload)
 	. = ..()
 	chambered = new casing(src)
 	START_PROCESSING(SSobj, src)
@@ -47,7 +47,7 @@
 		chambered.newshot()
 	last_synth = world.time
 
-/obj/item/gun/chem/bee 
+/obj/item/gun/chem/bee
 	name = "bee gun"
 	desc = "An odd piece of BLF tech, which fires bees filled with whatever reagents may be in the gun's reservoir, or venom if there are none."
 	icon_state = "beegun"

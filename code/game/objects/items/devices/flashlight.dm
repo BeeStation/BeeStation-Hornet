@@ -19,7 +19,7 @@
 	var/on = FALSE
 
 
-/obj/item/flashlight/Initialize()
+/obj/item/flashlight/Initialize(mapload)
 	. = ..()
 	if(icon_state == "[initial(icon_state)]-on")
 		on = TRUE
@@ -92,7 +92,7 @@
 										 "<span class='danger'>You direct [src] to [M]'s eyes.</span>")
 					if(M.stat == DEAD || (HAS_TRAIT(M, TRAIT_BLIND)) || !M.flash_act(visual = 1)) //mob is dead or fully blind
 						to_chat(user, "<span class='warning'>[M]'s pupils don't react to the light!</span>")
-					else if(M.dna && M.dna.check_mutation(XRAY))	//mob has X-ray vision
+					else if(M.has_dna() && M.dna.check_mutation(XRAY))	//mob has X-ray vision
 						to_chat(user, "<span class='danger'>[M]'s pupils give an eerie glow!</span>")
 					else //they're okay!
 						to_chat(user, "<span class='notice'>[M]'s pupils narrow.</span>")
@@ -267,7 +267,7 @@
 	light_color = LIGHT_COLOR_FLARE
 	grind_results = list(/datum/reagent/sulfur = 15)
 
-/obj/item/flashlight/flare/Initialize()
+/obj/item/flashlight/flare/Initialize(mapload)
 	. = ..()
 	fuel = rand(1600, 2000)
 
@@ -378,8 +378,8 @@
 	/// How many seconds between each recharge
 	var/charge_delay = 20
 
-/obj/item/flashlight/emp/New()
-	..()
+/obj/item/flashlight/emp/Initialize(mapload)
+	. = ..()
 	START_PROCESSING(SSobj, src)
 
 /obj/item/flashlight/emp/Destroy()
@@ -441,7 +441,7 @@
 	var/fuel = 0 // How many seconds of fuel we have left
 
 
-/obj/item/flashlight/glowstick/Initialize()
+/obj/item/flashlight/glowstick/Initialize(mapload)
 	fuel = rand(3200, 4000)
 	set_light_color(color)
 	. = ..()
@@ -480,7 +480,7 @@
 		cut_overlays()
 
 /obj/item/flashlight/glowstick/pickup(mob/user)
-	. = ..()
+	..()
 	if(burn_pickup && on)
 		burn_pickup = FALSE
 		START_PROCESSING(SSobj, src)
@@ -540,11 +540,11 @@
 	icon = 'icons/obj/lighting.dmi'
 	icon_state = "random_glowstick"
 
-/obj/effect/spawner/lootdrop/glowstick/Initialize()
+/obj/effect/spawner/lootdrop/glowstick/Initialize(mapload)
 	loot = typesof(/obj/item/flashlight/glowstick)
 	. = ..()
 
-/obj/effect/spawner/lootdrop/glowstick/lit/Initialize()
+/obj/effect/spawner/lootdrop/glowstick/lit/Initialize(mapload)
 	. = ..()
 	var/obj/item/flashlight/glowstick/found = locate() in get_turf(src)
 	if(!found)

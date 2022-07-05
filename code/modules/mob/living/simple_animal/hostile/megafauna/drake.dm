@@ -522,7 +522,7 @@ Difficulty: Medium
 	duration = 9
 	pixel_z = 270
 
-/obj/effect/temp_visual/fireball/Initialize()
+/obj/effect/temp_visual/fireball/Initialize(mapload)
 	. = ..()
 	animate(src, pixel_z = 0, time = duration)
 
@@ -615,7 +615,7 @@ Difficulty: Medium
 /mob/living/simple_animal/hostile/megafauna/dragon/space_dragon/grant_achievement(medaltype,scoretype)
 	return
 
-/mob/living/simple_animal/hostile/megafauna/dragon/space_dragon/Initialize()
+/mob/living/simple_animal/hostile/megafauna/dragon/space_dragon/Initialize(mapload)
 	var/obj/effect/proc_holder/spell/aoe_turf/repulse/spacedragon/repulse_action = new /obj/effect/proc_holder/spell/aoe_turf/repulse/spacedragon(src)
 	repulse_action.action.Grant(src)
 	mob_spell_list += repulse_action

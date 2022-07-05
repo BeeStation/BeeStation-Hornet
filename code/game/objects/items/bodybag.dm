@@ -48,7 +48,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	item_flags = NO_MAT_REDEMPTION
 
-/obj/item/bodybag/bluespace/Initialize()
+/obj/item/bodybag/bluespace/Initialize(mapload)
 	. = ..()
 	RegisterSignal(src, COMSIG_ATOM_CANREACH, .proc/CanReachReact)
 

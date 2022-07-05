@@ -16,7 +16,7 @@
 	//The mobile port attached to this area
 	var/obj/docking_port/mobile/mobile_port
 
-/area/shuttle/Initialize()
+/area/shuttle/Initialize(mapload)
 	if(!canSmoothWithAreas)
 		canSmoothWithAreas = type
 	. = ..()

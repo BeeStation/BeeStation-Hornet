@@ -28,6 +28,7 @@
 	name = "Deputy"
 	jobtype = /datum/job/deputy
 
+	id = /obj/item/card/id/job/deputy
 	belt = /obj/item/storage/belt/security/deputy
 	ears = /obj/item/radio/headset/headset_sec
 	uniform = /obj/item/clothing/under/rank/security/officer/mallcop/deputy
@@ -35,7 +36,7 @@
 	shoes = /obj/item/clothing/shoes/sneakers/black
 	glasses = /obj/item/clothing/glasses/hud/security/deputy
 	head = /obj/item/clothing/head/soft/sec
-	l_pocket = /obj/item/pda/security
+	l_pocket = /obj/item/pda/deputy
 
 	backpack = /obj/item/storage/backpack/security
 	satchel = /obj/item/storage/backpack/satchel/sec

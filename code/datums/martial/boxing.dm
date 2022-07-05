@@ -60,6 +60,7 @@
 	return
 
 /obj/item/clothing/gloves/boxing/dropped(mob/user)
+	..()
 	if(!ishuman(user))
 		return
 	var/mob/living/carbon/human/H = user

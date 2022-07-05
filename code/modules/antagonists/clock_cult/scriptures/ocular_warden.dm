@@ -57,7 +57,7 @@
 	playsound(get_turf(target), 'sound/machines/clockcult/ocularwarden-dot1.ogg', 60, TRUE)
 	cooldown = world.time + 20
 
-/obj/structure/destructible/clockwork/ocular_warden/Initialize()
+/obj/structure/destructible/clockwork/ocular_warden/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSobj, src)
 

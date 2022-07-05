@@ -10,7 +10,7 @@
 	density = TRUE //This will prevent hostile mobs from pathing into chasms, while the canpass override will still let it function like an open turf
 	bullet_bounce_sound = null //abandon all hope ye who enter
 
-/turf/open/chasm/Initialize()
+/turf/open/chasm/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/chasm, SSmapping.get_turf_below(src))
 
@@ -27,6 +27,9 @@
 
 /turf/open/chasm/MakeDry()
 	return
+
+/turf/open/chasm/rust_heretic_act()
+	return FALSE
 
 /turf/open/chasm/rcd_vals(mob/user, obj/item/construction/rcd/the_rcd)
 	switch(the_rcd.mode)

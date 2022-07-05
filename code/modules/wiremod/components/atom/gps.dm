@@ -14,7 +14,7 @@
 
 	circuit_flags = CIRCUIT_FLAG_INPUT_SIGNAL|CIRCUIT_FLAG_OUTPUT_SIGNAL
 
-/obj/item/circuit_component/gps/Initialize()
+/obj/item/circuit_component/gps/Initialize(mapload)
 	. = ..()
 
 	x_pos = add_output_port("X", PORT_TYPE_NUMBER)

@@ -51,7 +51,7 @@
 	needs_heater = FALSE
 	cooldown = 90
 
-/obj/machinery/shuttle/engine/Initialize()
+/obj/machinery/shuttle/engine/Initialize(mapload)
 	. = ..()
 	check_setup()
 

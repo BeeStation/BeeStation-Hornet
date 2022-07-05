@@ -107,7 +107,6 @@
 	//Equip them with a slab
 	var/obj/item/clockwork/clockwork_slab/slab = new(get_turf(H))
 	H.put_in_hands(slab)
-	slab.pickup(H)
 	//Remove cuffs
 	H.uncuff()
 	return FALSE

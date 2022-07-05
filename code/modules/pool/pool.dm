@@ -200,7 +200,7 @@ GLOBAL_LIST_EMPTY(pool_filters)
 	. = ..()
 	. += "<span class='boldnotice'>The thermostat on it reads [current_temperature].</span>"
 
-/obj/machinery/pool_filter/Initialize()
+/obj/machinery/pool_filter/Initialize(mapload)
 	. = ..()
 	create_reagents(100, OPENCONTAINER) //If you're a terrible terrible clown and want to dump reagents into the pool.
 	if(preset_reagent_type)
@@ -211,6 +211,11 @@ GLOBAL_LIST_EMPTY(pool_filters)
 			continue //Not the same id. Fine. Ignore that one then!
 		pool += water
 	GLOB.pool_filters += src
+
+/obj/machinery/pool_filter/Destroy()
+	GLOB.pool_filters -= src
+	reagents = null
+	return ..()
 
 //Brick can set the pool to low temperatures remotely. This will probably be hell on malf!
 

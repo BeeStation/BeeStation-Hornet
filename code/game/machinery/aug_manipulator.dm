@@ -15,7 +15,7 @@
 	if(storedpart)
 		. += "<span class='notice'>Alt-click to eject the limb.</span>"
 
-/obj/machinery/aug_manipulator/Initialize()
+/obj/machinery/aug_manipulator/Initialize(mapload)
     initial_icon_state = initial(icon_state)
     return ..()
 
@@ -114,7 +114,7 @@
 			return
 		if(!storedpart)
 			return
-		storedpart.icon = style_list_icons[augstyle]
+		storedpart.static_icon = style_list_icons[augstyle]
 		eject_part(user)
 
 	else

@@ -20,7 +20,7 @@
 	if(!SSticker.mode.station_was_nuked && station_integrity >= target_amount)
 		return TRUE
 	else
-		return FALSE
+		return ..()
 
 /datum/objective/crew/poly
 	explanation_text = "Make sure Poly keeps his headset, and stays alive until the end of the shift."
@@ -31,4 +31,4 @@
 		if(!(dumbbird.stat == DEAD) && dumbbird.ears)
 			if(istype(dumbbird.ears, /obj/item/radio/headset))
 				return TRUE
-	return FALSE
+	return ..()

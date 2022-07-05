@@ -153,7 +153,7 @@
 			desc = "A cardboard cutout of a swarmer."
 			icon_state = "cutout_swarmer"
 		if("Ash Walker")
-			name = lizard_name(pick(MALE, FEMALE))
+			name = random_lizard_name(pick(MALE, FEMALE))
 			desc = "A cardboard cutout of an ash walker."
 			icon_state = "cutout_free_antag"
 		if("Deathsquad Officer")

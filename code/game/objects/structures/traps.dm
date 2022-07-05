@@ -54,7 +54,7 @@
 	// Makes the trap visible, and starts the cooldown until it's
 	// able to be triggered again.
 	visible_message(flare_message)
-	if(sparks)
+	if(sparks && Master.current_runlevel)
 		spark_system.start()
 	alpha = 200
 	last_trigger = world.time
@@ -231,6 +231,6 @@
 	density = TRUE
 	time_between_triggers = 1200 //Exists for 2 minutes
 
-/obj/structure/trap/ward/Initialize()
+/obj/structure/trap/ward/Initialize(mapload)
 	. = ..()
 	QDEL_IN(src, time_between_triggers)

@@ -17,7 +17,7 @@
 	name = "species hypnosis chamber"
 	brainwash = TRUE
 
-/obj/machinery/species_converter/Initialize()
+/obj/machinery/species_converter/Initialize(mapload)
 	. = ..()
 	soundloop = new(list(src),  FALSE)
 	update_icon()

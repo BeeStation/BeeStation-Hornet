@@ -33,6 +33,10 @@
 			client.stat_update_mode = STAT_MEDIUM_UPDATE
 			requires_holder = TRUE
 			tab_data = GLOB.ahelp_tickets.stat_entry()				//  ~ 0 CPU Time [1 CALL]
+		if("Interviews")
+			client.stat_update_mode = STAT_MEDIUM_UPDATE
+			requires_holder = TRUE
+			tab_data = GLOB.interviews.stat_entry()
 		// ===== SDQL2 =====
 		if("SDQL2")
 			client.stat_update_mode = STAT_MEDIUM_UPDATE
@@ -106,6 +110,13 @@
 
 /mob/proc/get_all_verbs()
 	var/list/all_verbs = new
+
+	if(!client)
+		return all_verbs
+
+	if(client.interviewee)
+		return list("Interview" = list(/mob/dead/new_player/proc/open_interview))
+
 	if(sorted_verbs)
 		all_verbs = deepCopyList(sorted_verbs)
 	//An annoying thing to mention:
@@ -215,8 +226,13 @@
 	if(client.holder)
 		tabs |= "MC"
 		tabs |= "Tickets"
+		if(CONFIG_GET(flag/panic_bunker_interview))
+			tabs |= "Interviews"
 		if(length(GLOB.sdql2_queries))
 			tabs |= "SDQL2"
+	else if(client.interviewee)
+		tabs |= "Interview"
+
 	var/list/additional_tabs = list()
 	//Performance increase from only adding keys is better than adding values too.
 	for(var/i in get_all_verbs())
@@ -237,6 +253,12 @@
 	switch(button_pressed)
 		if("browsetickets")
 			GLOB.ahelp_tickets.BrowseTickets(src)
+		if("browseinterviews")
+			GLOB.interviews.BrowseInterviews(src)
+		if("open_interview")
+			var/datum/interview/I = GLOB.interviews.interview_by_id(text2num(params["id"]))
+			if (I && client.holder)
+				I.ui_interact(src)
 		if("open_ticket")
 			var/ticket_id = text2num(params["id"])
 			var/datum/admin_help/AH = GLOB.ahelp_tickets.TicketByID(ticket_id)

@@ -443,7 +443,7 @@
 	var/read_only = 0 //Well, it's still a floppy disk
 	obj_flags = UNIQUE_RENAME
 
-/obj/item/disk/plantgene/Initialize()
+/obj/item/disk/plantgene/Initialize(mapload)
 	. = ..()
 	add_overlay("datadisk_gene")
 	src.pixel_x = rand(-5, 5)

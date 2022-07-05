@@ -39,7 +39,7 @@
 	var/reverse = FALSE //If true, signals if the scan returns false
 	var/detect_nutrition = NUTRITION_LEVEL_FAT
 
-/obj/machinery/scanner_gate/Initialize()
+/obj/machinery/scanner_gate/Initialize(mapload)
 	. = ..()
 	set_scanline("passive")
 	var/static/list/loc_connections = list(
@@ -115,7 +115,7 @@
 				if(!R || (R.fields["criminal"] == "*Arrest*"))
 					beep = TRUE
 		if(SCANGATE_MINDSHIELD)
-			if(HAS_TRAIT(M, TRAIT_MINDSHIELD))
+			if(M.has_mindshield_hud_icon())
 				beep = TRUE
 		if(SCANGATE_NANITES)
 			if(SEND_SIGNAL(M, COMSIG_HAS_NANITES))

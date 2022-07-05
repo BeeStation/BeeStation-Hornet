@@ -43,6 +43,7 @@
 	name = "Barber"
 	jobtype = /datum/job/gimmick/barber
 
+	id = /obj/item/card/id/job/serv
 	belt = /obj/item/pda/unlicensed
 	ears = /obj/item/radio/headset
 	uniform = /obj/item/clothing/under/suit/sl
@@ -68,6 +69,7 @@
 	name = "Stage Magician"
 	jobtype = /datum/job/gimmick/magician
 
+	id = /obj/item/card/id/job/serv
 	belt = /obj/item/pda/unlicensed
 	head = /obj/item/clothing/head/that
 	ears = /obj/item/radio/headset
@@ -78,45 +80,6 @@
 	l_hand = /obj/item/cane
 	backpack_contents = list(/obj/item/choice_beacon/magic=1)
 	can_be_admin_equipped = TRUE
-
-/datum/job/gimmick/hobo
-	title = "Debtor"
-	flag = HOBO
-	outfit = /datum/outfit/job/gimmick/hobo
-	access = list(ACCESS_MAINT_TUNNELS)
-	minimal_access = list(ACCESS_MAINT_TUNNELS)
-	gimmick = TRUE
-	chat_color = "#929292"
-	departments = NONE		//being hobo is not a real job
-	biohazard = 50 //hobos are very likely to have diseases 
-
-	species_outfits = list(
-		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/hobo
-	)
-
-/datum/outfit/job/gimmick/hobo
-	name = "Debtor"
-	jobtype = /datum/job/gimmick/hobo
-	belt = /obj/item/pda/unlicensed
-	head = /obj/item/clothing/head/foilhat
-	ears = null //hobos dont start with a headset
-	uniform = /obj/item/clothing/under/pants/jeans
-	suit = /obj/item/clothing/suit/jacket
-	can_be_admin_equipped = TRUE
-
-/datum/outfit/job/gimmick/hobo/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	..()
-	if(visualsOnly)
-		return
-	to_chat(H, "<span class='userdanger'>Although you're down on your luck, you're still a nanotrasen employee, and you are held to the same legal standards.</span>")
-	var/list/possible_drugs = list(/obj/item/storage/pill_bottle/happy, /obj/item/storage/pill_bottle/zoom, /obj/item/storage/pill_bottle/stimulant, /obj/item/storage/pill_bottle/lsd, /obj/item/storage/pill_bottle/aranesp, /obj/item/storage/pill_bottle/floorpill/full)
-	var/chosen_drugs = pick(possible_drugs)
-	var/obj/item/storage/pill_bottle/I = new chosen_drugs(src)
-	H.equip_to_slot_or_del(I,ITEM_SLOT_BACKPACK)
-	var/datum/martial_art/psychotic_brawling/junkie = new //this fits well, but i'm unsure about it, cuz this martial art is so fucking rng dependent i swear...
-	junkie.teach(H)
-	ADD_TRAIT(H, TRAIT_APPRAISAL, JOB_TRAIT)
-
 
 /datum/job/gimmick/shrink
 	title = "Psychiatrist"
@@ -137,6 +100,7 @@
 	name = "Psychiatrist"
 	jobtype = /datum/job/gimmick/shrink
 
+	id = /obj/item/card/id/job/med
 	belt = /obj/item/pda/medical
 	ears = /obj/item/radio/headset/headset_med
 	uniform = /obj/item/clothing/under/suit/black
@@ -162,6 +126,7 @@
 	name = "VIP"
 	jobtype = /datum/job/gimmick/celebrity
 
+	id = /obj/item/card/id/gold
 	belt = /obj/item/pda/celebrity
 	glasses = /obj/item/clothing/glasses/sunglasses/advanced
 	ears = /obj/item/radio/headset/heads //VIP can talk loud for no reason

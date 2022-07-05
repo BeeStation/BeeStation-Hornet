@@ -1,33 +1,3 @@
-/proc/apid_name(gender)
-	if(gender == MALE)
-		return "[pick(GLOB.apid_names_male)] [pick(GLOB.apid_names_last)]"
-	else
-		return "[pick(GLOB.apid_names_female)] [pick(GLOB.apid_names_last)]"
-
-/proc/lizard_name(gender)
-	if(gender == MALE)
-		return "[pick(GLOB.lizard_names_male)]-[pick(GLOB.lizard_names_male)]"
-	else
-		return "[pick(GLOB.lizard_names_female)]-[pick(GLOB.lizard_names_female)]"
-
-/proc/ethereal_name()
-	var/tempname = "[pick(GLOB.ethereal_names)] [random_capital_letter()]"
-	if(prob(65))
-		tempname += random_capital_letter()
-	return tempname
-
-/proc/plasmaman_name()
-	return "[pick(GLOB.plasmaman_names)] \Roman[rand(1,99)]"
-
-/proc/ipc_name()
-	return "[pick(GLOB.posibrain_names)]-[rand(100, 999)]"
-
-/proc/moth_name()
-	return "[pick(GLOB.moth_first)] [pick(GLOB.moth_last)]"
-
-/proc/ooze_name()
-	return "[pick(GLOB.oozeling_first_names)] [pick(GLOB.oozeling_last_names)]"
-
 GLOBAL_VAR(command_name)
 /proc/command_name()
 	if (GLOB.command_name)
@@ -207,7 +177,7 @@ GLOBAL_DATUM(syndicate_code_response_regex, /regex)
 							. += pick(names)
 						else
 							if(prob(10))
-								. += pick(lizard_name(MALE),lizard_name(FEMALE))
+								. += pick(random_lizard_name(MALE),random_lizard_name(FEMALE))
 							else
 								var/new_name = pick(pick(GLOB.first_names_male,GLOB.first_names_female))
 								new_name += " "

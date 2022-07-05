@@ -43,6 +43,9 @@
 
 	vis_flags = VIS_INHERIT_PLANE //when this be added to vis_contents of something it inherit something.plane, important for visualisation of obj in openspace.
 
+	var/investigate_flags = NONE
+	// ADMIN_INVESTIGATE_TARGET: investigate_log on pickup/drop
+
 /obj/vv_edit_var(vname, vval)
 	switch(vname)
 		if("anchored")
@@ -53,7 +56,7 @@
 				return FALSE
 	return ..()
 
-/obj/Initialize()
+/obj/Initialize(mapload)
 	. = ..()
 	if (islist(armor))
 		armor = getArmor(arglist(armor))
@@ -171,11 +174,11 @@
 
 		// check for TK users
 
-		if(ishuman(usr))
-			var/mob/living/carbon/human/H = usr
+		if(usr.has_dna())
+			var/mob/living/carbon/C = usr
 			if(!(usr in nearby))
 				if(usr.client && usr.machine==src)
-					if(H.dna.check_mutation(TK))
+					if(C.dna.check_mutation(TK))
 						is_in_use = TRUE
 						ui_interact(usr)
 		if (is_in_use)
@@ -373,6 +376,12 @@
 
 /obj/proc/plunger_act(obj/item/plunger/P, mob/living/user, reinforced)
 	return
+
+/obj/proc/log_item(mob/user, actverb="(unknown verb)", additional_info="")
+	if(investigate_flags & ADMIN_INVESTIGATE_TARGET)
+		if(x == 0 && y == 0 && z == 0)
+			actverb = "possessed"
+		investigate_log("[src] was [actverb] by [key_name(user)] at [AREACOORD(user)]. [additional_info]", INVESTIGATE_ITEMS)
 
 //For returning special data when the object is saved
 //For example, or silos will return a list of their materials which will be dumped on top of them

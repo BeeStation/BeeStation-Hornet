@@ -14,7 +14,7 @@
 	force = 21 // Just enough to break airlocks with melee attacks
 	damtype = "brute"
 
-/obj/item/zombie_hand/Initialize()
+/obj/item/zombie_hand/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, HAND_REPLACEMENT_TRAIT)
 

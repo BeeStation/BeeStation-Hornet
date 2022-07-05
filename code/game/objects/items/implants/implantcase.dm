@@ -1,7 +1,7 @@
 /obj/item/implantcase
 	name = "implant case"
 	desc = "A glass case containing an implant."
-	icon = 'icons/obj/items_and_weapons.dmi'
+	icon = 'icons/obj/syringe.dmi'
 	icon_state = "implantcase-0"
 	item_state = "implantcase"
 	lefthand_file = 'icons/mob/inhands/equipment/medical_lefthand.dmi'
@@ -16,7 +16,7 @@
 
 /obj/item/implantcase/update_icon()
 	if(imp)
-		icon_state = "implantcase-[imp.item_color]"
+		icon_state = "implantcase-[imp.implant_color]"
 		reagents = imp.reagents
 	else
 		icon_state = "implantcase-0"

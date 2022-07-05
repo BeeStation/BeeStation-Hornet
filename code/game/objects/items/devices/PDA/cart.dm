@@ -32,7 +32,7 @@
 	var/remote_door_id = ""
 
 	var/bot_access_flags = 0 //Bit flags. Selection: SEC_BOT | MULE_BOT | FLOOR_BOT | CLEAN_BOT | MED_BOT | FIRE_BOT
-	var/spam_enabled = 0 //Enables "Send to All" Option
+	var/spam_delay = 0 //Enables "Send to All" Option. 1=1 min, 2=2mins, 2.5=2 min 30 seconds
 
 	var/obj/item/pda/host_pda = null
 	var/menu
@@ -49,7 +49,7 @@
 	var/mob/living/simple_animal/bot/active_bot
 	var/list/botlist = list()
 
-/obj/item/cartridge/Initialize()
+/obj/item/cartridge/Initialize(mapload)
 	. = ..()
 	var/obj/item/pda/pda = loc
 	if(istype(pda))
@@ -57,19 +57,19 @@
 
 /obj/item/cartridge/engineering
 	name = "\improper Power-ON cartridge"
-	icon_state = "cart-e"
+	icon_state = "cart-engie"
 	access = CART_ENGINE | CART_DRONEPHONE
 	bot_access_flags = FLOOR_BOT
 
 /obj/item/cartridge/atmos
 	name = "\improper BreatheDeep cartridge"
-	icon_state = "cart-a"
+	icon_state = "cart-atmos"
 	access = CART_ATMOS | CART_DRONEPHONE
 	bot_access_flags = FLOOR_BOT | FIRE_BOT
 
 /obj/item/cartridge/medical
 	name = "\improper Med-U cartridge"
-	icon_state = "cart-m"
+	icon_state = "cart-med"
 	access = CART_MEDICAL
 	bot_access_flags = MED_BOT
 
@@ -81,42 +81,45 @@
 
 /obj/item/cartridge/security
 	name = "\improper R.O.B.U.S.T. cartridge"
-	icon_state = "cart-s"
+	icon_state = "cart-sec"
 	access = CART_SECURITY | CART_MANIFEST
 	bot_access_flags = SEC_BOT
 
 /obj/item/cartridge/detective
 	name = "\improper D.E.T.E.C.T. cartridge"
-	icon_state = "cart-s"
+	icon_state = "cart-det"
 	access = CART_SECURITY | CART_MEDICAL | CART_MANIFEST
 	bot_access_flags = SEC_BOT
 
 /obj/item/cartridge/janitor
 	name = "\improper CustodiPRO cartridge"
 	desc = "The ultimate in clean-room design."
-	icon_state = "cart-j"
+	icon_state = "cart-jan"
 	access = CART_DRONEPHONE
 	bot_access_flags = CLEAN_BOT
 
 /obj/item/cartridge/lawyer
 	name = "\improper P.R.O.V.E. cartridge"
-	icon_state = "cart-s"
+	icon_state = "cart-prove"
 	access = CART_SECURITY
-	spam_enabled = 1
+	spam_delay = 2.5
 
 /obj/item/cartridge/curator
 	name = "\improper Lib-Tweet cartridge"
-	icon_state = "cart-s"
+	icon_state = "cart-cur"
 	access = CART_NEWSCASTER
+	spam_delay = 3.5
 
 /obj/item/cartridge/roboticist
 	name = "\improper B.O.O.P. Remote Control cartridge"
 	desc = "Packed with heavy duty quad-bot interlink!"
+	icon_state = "cart-robo"
 	bot_access_flags = FLOOR_BOT | CLEAN_BOT | MED_BOT | FIRE_BOT
 	access = CART_DRONEPHONE
 
 /obj/item/cartridge/signal
 	name = "generic signaler cartridge"
+	icon_state = "cart-signal"
 	desc = "A data cartridge with an integrated radio signaler module."
 
 /obj/item/cartridge/signal/toxins
@@ -125,27 +128,25 @@
 	icon_state = "cart-tox"
 	access = CART_REAGENT_SCANNER | CART_ATMOS
 
-/obj/item/cartridge/signal/Initialize()
+/obj/item/cartridge/signal/Initialize(mapload)
 	. = ..()
 	radio = new(src)
-
-
 
 /obj/item/cartridge/quartermaster
 	name = "space parts & space vendors cartridge"
 	desc = "Perfect for the Quartermaster on the go!"
-	icon_state = "cart-q"
+	icon_state = "cart-qm"
 	access = CART_QUARTERMASTER
 	bot_access_flags = MULE_BOT
 
 /obj/item/cartridge/head
 	name = "\improper Easy-Record DELUXE cartridge"
-	icon_state = "cart-h"
+	icon_state = "cart-val"
 	access = CART_MANIFEST | CART_STATUS_DISPLAY
 
 /obj/item/cartridge/hop
 	name = "\improper HumanResources9001 cartridge"
-	icon_state = "cart-h"
+	icon_state = "cart-hop"
 	access = CART_MANIFEST | CART_STATUS_DISPLAY | CART_SECURITY | CART_NEWSCASTER | CART_QUARTERMASTER | CART_DRONEPHONE
 	bot_access_flags = MULE_BOT | CLEAN_BOT
 
@@ -154,7 +155,6 @@
 	icon_state = "cart-hos"
 	access = CART_MANIFEST | CART_STATUS_DISPLAY | CART_SECURITY
 	bot_access_flags = SEC_BOT
-
 
 /obj/item/cartridge/ce
 	name = "\improper Power-On DELUXE cartridge"
@@ -174,26 +174,31 @@
 	access = CART_MANIFEST | CART_STATUS_DISPLAY | CART_REAGENT_SCANNER | CART_ATMOS | CART_DRONEPHONE
 	bot_access_flags = FLOOR_BOT | CLEAN_BOT | MED_BOT | FIRE_BOT
 
-/obj/item/cartridge/rd/Initialize()
+/obj/item/cartridge/rd/Initialize(mapload)
 	. = ..()
 	radio = new(src)
 
 /obj/item/cartridge/captain
 	name = "\improper Value-PAK cartridge"
 	desc = "Now with 350% more value!" //Give the Captain...EVERYTHING! (Except Mime, Clown, and Syndie)
-	icon_state = "cart-c"
+	icon_state = "cart-cap"
 	access = ~(CART_CLOWN | CART_MIME | CART_REMOTE_DOOR)
 	bot_access_flags = SEC_BOT | MULE_BOT | FLOOR_BOT | CLEAN_BOT | MED_BOT | FIRE_BOT
-	spam_enabled = 1
+	spam_delay = 2
 
-/obj/item/cartridge/captain/Initialize()
+/obj/item/cartridge/captain/Initialize(mapload)
 	. = ..()
 	radio = new(src)
 
 /obj/item/cartridge/annoyance //the only purpose of this cartridge is to allow the VIP to be annoying
 	name = "\improper TWIT cartridge"
-	icon_state = "cart-c"
-	spam_enabled = 1
+	icon_state = "cart-twit"
+	spam_delay = 1.5
+
+/obj/item/cartridge/annoyance/lesser //HoP can give you this
+	name = "\improper FACEBUCKS cartridge"
+	icon_state = "cart-signal" // might need a new sprite
+	spam_delay = 5
 
 /obj/item/cartridge/proc/post_status(command, data1, data2)
 
@@ -207,6 +212,8 @@
 		if("message")
 			status_signal.data["msg1"] = data1
 			status_signal.data["msg2"] = data2
+			message_admins("[ADMIN_LOOKUPFLW(usr)] changed the Status Message to - [data1], [data2] - From a PDA.")
+			log_game("[key_name(usr)] changed the Status Message to - [data1], [data2] - From a PDA.")
 		if("alert")
 			status_signal.data["picture_state"] = data1
 

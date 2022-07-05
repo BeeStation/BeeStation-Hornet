@@ -825,7 +825,7 @@
 /obj/machinery/door/airlock
 	var/obj/machinery/advanced_airlock_controller/aac
 
-/obj/machinery/door/airlock/Initialize()
+/obj/machinery/door/airlock/Initialize(mapload)
 	. = ..()
 	update_aac_docked()
 /obj/machinery/door/airlock/Destroy()

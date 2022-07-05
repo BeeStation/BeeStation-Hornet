@@ -142,7 +142,7 @@
 	state_open = TRUE
 	density = FALSE
 
-/obj/machinery/suit_storage_unit/Initialize()
+/obj/machinery/suit_storage_unit/Initialize(mapload)
 	. = ..()
 	wires = new /datum/wires/suit_storage_unit(src)
 	if(suit_type)
@@ -156,6 +156,7 @@
 	update_icon()
 
 /obj/machinery/suit_storage_unit/Destroy()
+	QDEL_NULL(wires)
 	dump_contents()
 	return ..()
 

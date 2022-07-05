@@ -650,7 +650,7 @@
 	GLOB.poll_options += src
 
 /datum/poll_option/Destroy()
-	parent_poll.options -= src
+	parent_poll?.options -= src
 	parent_poll = null
 	GLOB.poll_options -= src
 	return ..()

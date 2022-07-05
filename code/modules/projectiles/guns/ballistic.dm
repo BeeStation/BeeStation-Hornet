@@ -55,7 +55,7 @@
 	var/recent_rack = 0
 	var/tac_reloads = TRUE //Snowflake mechanic no more.
 
-/obj/item/gun/ballistic/Initialize()
+/obj/item/gun/ballistic/Initialize(mapload)
 	. = ..()
 	if (!spawnwithmagazine)
 		bolt_locked = TRUE
@@ -109,11 +109,14 @@
 /obj/item/gun/ballistic/process_chamber(empty_chamber = TRUE, from_firing = TRUE, chamber_next_round = TRUE)
 	if(!semi_auto && from_firing)
 		return
-	var/obj/item/ammo_casing/AC = chambered //Find chambered round
-	if(istype(AC)) //there's a chambered round
-		if(casing_ejector || !from_firing)
-			AC.forceMove(drop_location()) //Eject casing onto ground.
-			AC.bounce_away(TRUE)
+	var/obj/item/ammo_casing/casing = chambered //Find chambered round
+	if(istype(casing)) //there's a chambered round
+		if(QDELING(casing))
+			stack_trace("Trying to move a qdeleted casing of type [casing.type]!")
+			chambered = null
+		else if(casing_ejector || !from_firing)
+			casing.forceMove(drop_location()) //Eject casing onto ground.
+			casing.bounce_away(TRUE)
 			chambered = null
 		else if(empty_chamber)
 			chambered = null
@@ -139,7 +142,7 @@
 				return
 			bolt_locked = FALSE
 		if(BOLT_TYPE_PUMP)
-			if(user?.get_inactive_held_item())
+			if(!is_wielded)
 				to_chat(user, "<span class='warning'>You require your other hand to be free to rack the [bolt_wording] of \the [src]!</span>")
 				return
 	if(user)

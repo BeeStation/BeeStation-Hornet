@@ -53,7 +53,7 @@
 	// Whether the component is removable or not. Only affects user UI
 	var/removable = TRUE
 
-/obj/item/circuit_component/Initialize()
+/obj/item/circuit_component/Initialize(mapload)
 	. = ..()
 	if(name == COMPONENT_DEFAULT_NAME)
 		name = "[lowertext(display_name)] [COMPONENT_DEFAULT_NAME]"

@@ -30,7 +30,7 @@
 	var/next_activate = 0 //When we're next allowed to activate - for spam control
 	var/activate_delay = 30
 
-/obj/item/assembly/Initialize()
+/obj/item/assembly/Initialize(mapload)
 	. = ..()
 	secured &&= securable
 

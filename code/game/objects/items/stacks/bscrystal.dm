@@ -9,7 +9,7 @@
 	materials = list(/datum/material/bluespace=MINERAL_MATERIAL_AMOUNT)
 	points = 50
 	var/blink_range = 8 // The teleport range when crushed/thrown at someone.
-	refined_type = /obj/item/stack/sheet/bluespace_crystal
+	refined_type = /obj/item/stack/ore/bluespace_crystal/refined
 	grind_results = list(/datum/reagent/bluespace = 20)
 	scan_state = "rock_BScrystal"
 
@@ -18,7 +18,7 @@
 	points = 0
 	refined_type = null
 
-/obj/item/stack/ore/bluespace_crystal/Initialize()
+/obj/item/stack/ore/bluespace_crystal/Initialize(mapload)
 	. = ..()
 	pixel_x = rand(-5, 5)
 	pixel_y = rand(-5, 5)
@@ -56,45 +56,11 @@
 	refined_type = null
 	grind_results = list(/datum/reagent/bluespace = 10, /datum/reagent/silicon = 20)
 
-//Polycrystals, aka stacks
-/obj/item/stack/sheet/bluespace_crystal
-	name = "bluespace polycrystal"
-	icon = 'icons/obj/telescience.dmi'
-	icon_state = "polycrystal"
-	item_state = "sheet-polycrystal"
-	singular_name = "bluespace polycrystal"
-	desc = "A stable polycrystal, made of fused-together bluespace crystals. You could probably break one off."
-	materials = list(/datum/material/bluespace=MINERAL_MATERIAL_AMOUNT)
-	attack_verb = list("bluespace polybashed", "bluespace polybattered", "bluespace polybludgeoned", "bluespace polythrashed", "bluespace polysmashed")
-	novariants = TRUE
-	grind_results = list(/datum/reagent/bluespace = 20)
-	point_value = 30
-	merge_type = /obj/item/stack/sheet/bluespace_crystal
-	var/crystal_type = /obj/item/stack/ore/bluespace_crystal/refined
-
-/obj/item/stack/sheet/bluespace_crystal/fifty
+/obj/item/stack/ore/bluespace_crystal/refined/fifty
 	amount = 50
 
-/obj/item/stack/sheet/bluespace_crystal/twenty
+/obj/item/stack/ore/bluespace_crystal/refined/twenty
 	amount = 20
 
-/obj/item/stack/sheet/bluespace_crystal/five
+/obj/item/stack/ore/bluespace_crystal/refined/five
 	amount = 5
-
-/obj/item/stack/sheet/bluespace_crystal/attack_self(mob/user)// to prevent the construction menu from ever happening
-	to_chat(user, "<span class='warning'>You cannot crush the polycrystal in-hand, try breaking one off.</span>")
-
-//ATTACK HAND IGNORING PARENT RETURN VALUE
-/obj/item/stack/sheet/bluespace_crystal/attack_hand(mob/user)
-	if(user.get_inactive_held_item() == src)
-		if(zero_amount())
-			return
-		var/BC = new crystal_type(src)
-		user.put_in_hands(BC)
-		use(1)
-		if(!amount)
-			to_chat(user, "<span class='notice'>You break the final crystal off.</span>")
-		else
-			to_chat(user, "<span class='notice'>You break off a crystal.</span>")
-	else
-		..()

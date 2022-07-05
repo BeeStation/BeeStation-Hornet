@@ -31,7 +31,7 @@
 /datum/objective/overthrow
 
 /datum/objective/overthrow/check_completion()
-	return get_points() ? TRUE : FALSE
+	return (get_points() ? TRUE : FALSE) || ..()
 
 /datum/objective/overthrow/proc/get_points()
 	return 0 // int, not bool
@@ -138,7 +138,7 @@
 	else
 		explanation_text = "Nothing."
 
-/datum/objective/overthrow/target/is_unique_objective(datum/mind/possible_target,dupe_search_range) 
+/datum/objective/overthrow/target/is_unique_objective(datum/mind/possible_target, list/dupe_search_range)
 	if(possible_target.assigned_role in GLOB.command_positions)
 		return FALSE
 	return TRUE

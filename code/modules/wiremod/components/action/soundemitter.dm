@@ -26,7 +26,7 @@
 	. += create_ui_notice("Sound Cooldown: [DisplayTimeText(sound_cooldown)]", "orange", "stopwatch")
 
 
-/obj/item/circuit_component/soundemitter/Initialize()
+/obj/item/circuit_component/soundemitter/Initialize(mapload)
 	. = ..()
 	volume = add_input_port("Volume", PORT_TYPE_NUMBER, default = 35)
 	frequency = add_input_port("Frequency", PORT_TYPE_NUMBER, default = 0)

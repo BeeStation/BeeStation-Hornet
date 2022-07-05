@@ -9,7 +9,7 @@
 		return
 	if(!linked_bug)
 		user.audible_message("<span class='warning'>[src] lets off a shrill beep!</span>")
-	if("spypopup_map" in user.client.screen_maps) //alright, the popup this object uses is already IN use, so the window is open. no point in doing any other work here, so we're good.
+	if(user.client.screen_maps["spypopup_map"]) //alright, the popup this object uses is already IN use, so the window is open. no point in doing any other work here, so we're good.
 		return
 	user.client.setup_popup("spypopup", 3, 3, 2)
 	user.client.register_map_obj(linked_bug.cam_screen)
@@ -23,7 +23,7 @@
 		user.client.close_popup("spypopup")
 
 /obj/item/clothing/glasses/sunglasses/spy/dropped(mob/user)
-	. = ..()
+	..()
 	user.client.close_popup("spypopup")
 
 /obj/item/clothing/glasses/sunglasses/spy/ui_action_click(mob/user)
@@ -50,7 +50,7 @@
 	var/cam_range = 1
 	var/datum/movement_detector/tracker
 
-/obj/item/clothing/accessory/spy_bug/Initialize()
+/obj/item/clothing/accessory/spy_bug/Initialize(mapload)
 	. = ..()
 	tracker = new /datum/movement_detector(src, CALLBACK(src, .proc/update_view))
 
@@ -75,9 +75,9 @@
 /obj/item/clothing/accessory/spy_bug/Destroy()
 	if(linked_glasses)
 		linked_glasses.linked_bug = null
-	qdel(cam_screen)
+	QDEL_NULL(cam_screen)
 	QDEL_LIST(cam_plane_masters)
-	qdel(tracker)
+	QDEL_NULL(tracker)
 	return ..()
 
 /obj/item/clothing/accessory/spy_bug/proc/update_view()//this doesn't do anything too crazy, just updates the vis_contents of its screen obj

@@ -23,7 +23,7 @@
 	var/list/bullet_cost
 	var/list/base_cost// override this one as well if you override bullet_cost
 
-/obj/item/ammo_box/Initialize()
+/obj/item/ammo_box/Initialize(mapload)
 	. = ..()
 	if (!bullet_cost)
 		for (var/material in materials)

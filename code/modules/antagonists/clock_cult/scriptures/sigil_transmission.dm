@@ -31,7 +31,7 @@
 	living_only = FALSE	//This can affect mechs too!
 	var/list/linked_structures
 
-/obj/structure/destructible/clockwork/sigil/transmission/Initialize()
+/obj/structure/destructible/clockwork/sigil/transmission/Initialize(mapload)
 	. = ..()
 	linked_structures = list()
 	for(var/obj/structure/destructible/clockwork/gear_base/GB in range(src, SIGIL_TRANSMISSION_RANGE))

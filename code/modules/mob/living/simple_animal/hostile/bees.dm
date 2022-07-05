@@ -56,7 +56,7 @@
 	var/static/beehometypecache = typecacheof(/obj/structure/beebox)
 	var/static/hydroponicstypecache = typecacheof(/obj/machinery/hydroponics)
 
-/mob/living/simple_animal/hostile/poison/bees/Initialize()
+/mob/living/simple_animal/hostile/poison/bees/Initialize(mapload)
 	. = ..()
 	generate_bee_visuals()
 	AddComponent(/datum/component/swarming)
@@ -217,7 +217,7 @@
 			beehome = BB
 			break // End loop after the first compatible find.
 
-/mob/living/simple_animal/hostile/poison/bees/toxin/Initialize()
+/mob/living/simple_animal/hostile/poison/bees/toxin/Initialize(mapload)
 	. = ..()
 	var/datum/reagent/R = pick(typesof(/datum/reagent/toxin))
 	assign_reagent(GLOB.chemical_reagents_list[R])
@@ -291,7 +291,7 @@
 	..()
 
 
-/obj/item/queen_bee/bought/Initialize()
+/obj/item/queen_bee/bought/Initialize(mapload)
 	. = ..()
 	queen = new(src)
 
@@ -312,7 +312,7 @@
 /mob/living/simple_animal/hostile/poison/bees/short
 	desc = "These bees seem unstable and won't survive for long."
 
-/mob/living/simple_animal/hostile/poison/bees/short/Initialize()
+/mob/living/simple_animal/hostile/poison/bees/short/Initialize(mapload)
 	. = ..()
 	addtimer(CALLBACK(src, .proc/death), 50 SECONDS)
 

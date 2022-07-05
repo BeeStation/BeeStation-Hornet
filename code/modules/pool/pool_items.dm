@@ -9,7 +9,7 @@
 	attack_verb = list("wacked")
 
 
-/obj/item/pool/Initialize()
+/obj/item/pool/Initialize(mapload)
 	. = ..()
 	//Pick a random color
 	add_atom_colour(pick(COLOR_YELLOW, COLOR_LIME, COLOR_RED, COLOR_BLUE_LIGHT, COLOR_CYAN, COLOR_MAGENTA), FIXED_COLOUR_PRIORITY)

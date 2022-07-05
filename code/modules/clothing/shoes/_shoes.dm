@@ -71,9 +71,9 @@
 	worn_y_dimension = world.icon_size
 
 /obj/item/clothing/shoes/dropped(mob/user)
+	..()
 	if(offset && equipped_before_drop)
 		restore_offsets(user)
-	. = ..()
 
 /obj/item/clothing/shoes/update_clothes_damaged_state(damaging = TRUE)
 	..()

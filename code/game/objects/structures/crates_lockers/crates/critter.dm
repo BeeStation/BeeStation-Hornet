@@ -17,7 +17,7 @@
 	door_anim_angle = 90
 	azimuth_angle_2 = 0.35
 
-/obj/structure/closet/crate/critter/Initialize()
+/obj/structure/closet/crate/critter/Initialize(mapload)
 	. = ..()
 	tank = new
 

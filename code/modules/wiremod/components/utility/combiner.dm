@@ -25,7 +25,7 @@
 	)
 	options = component_options
 
-/obj/item/circuit_component/combiner/Initialize()
+/obj/item/circuit_component/combiner/Initialize(mapload)
 	. = ..()
 	current_option = COMP_TYPE_ANY
 	current_type = COMP_TYPE_ANY

@@ -19,7 +19,7 @@
 	/// The current set value
 	var/datum/port/output/output
 
-/obj/item/circuit_component/ram/Initialize()
+/obj/item/circuit_component/ram/Initialize(mapload)
 	. = ..()
 	input_port = add_input_port("Input", PORT_TYPE_ANY)
 	trigger = add_input_port("Store", PORT_TYPE_SIGNAL)

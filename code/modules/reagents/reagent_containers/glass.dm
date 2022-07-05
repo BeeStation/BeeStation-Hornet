@@ -120,7 +120,7 @@
 	custom_materials = list(/datum/material/glass=500)
 	fill_icon_thresholds = list(0, 10, 25, 50, 75, 80, 90)
 
-/obj/item/reagent_containers/glass/beaker/Initialize()
+/obj/item/reagent_containers/glass/beaker/Initialize(mapload)
 	. = ..()
 	update_icon()
 
@@ -268,7 +268,7 @@
 		reagents.flags = NONE
 
 /obj/item/reagent_containers/glass/bucket/dropped(mob/user)
-	. = ..()
+	..()
 	reagents.flags = initial(reagent_flags)
 
 /obj/item/reagent_containers/glass/bucket/equip_to_best_slot(var/mob/M)
@@ -299,7 +299,7 @@
 	var/mutable_appearance/cap_overlay
 	var/flip_chance = 10
 
-/obj/item/reagent_containers/glass/waterbottle/Initialize()
+/obj/item/reagent_containers/glass/waterbottle/Initialize(mapload)
 	. = ..()
 	cap_overlay = mutable_appearance(icon, cap_icon_state)
 	if(cap_on)
@@ -376,7 +376,7 @@
 			animate(src, transform = matrix(prob(50)? 90 : -90, MATRIX_ROTATE), time = 3, loop = 0)
 
 /obj/item/reagent_containers/glass/waterbottle/pickup(mob/user)
-	. = ..()
+	..()
 	animate(src, transform = null, time = 1, loop = 0)
 
 /obj/item/reagent_containers/glass/waterbottle/empty

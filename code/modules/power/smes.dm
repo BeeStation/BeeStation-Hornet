@@ -47,7 +47,7 @@
 	if(!terminal)
 		. += "<span class='warning'>This SMES has no power terminal!</span>"
 
-/obj/machinery/power/smes/Initialize()
+/obj/machinery/power/smes/Initialize(mapload)
 	. = ..()
 	dir_loop:
 		for(var/d in GLOB.cardinals)
@@ -441,6 +441,10 @@
 	capacity = INFINITY
 	charge = INFINITY
 	..()
+
+//don't divide by infinity or zero, just display max
+/obj/machinery/power/smes/magical/chargedisplay()
+	return 5
 
 
 #undef SMESRATE

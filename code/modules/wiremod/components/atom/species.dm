@@ -15,7 +15,7 @@
 
 	circuit_flags = CIRCUIT_FLAG_INPUT_SIGNAL|CIRCUIT_FLAG_OUTPUT_SIGNAL
 
-/obj/item/circuit_component/species/Initialize()
+/obj/item/circuit_component/species/Initialize(mapload)
 	. = ..()
 	input_port = add_input_port("Organism", PORT_TYPE_ATOM)
 

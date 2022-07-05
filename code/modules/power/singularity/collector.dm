@@ -29,7 +29,7 @@
 	var/bitcoinmining = FALSE
 	var/obj/item/radio/radio
 
-/obj/machinery/power/rad_collector/Initialize()
+/obj/machinery/power/rad_collector/Initialize(mapload)
 	. = ..()
 
 	radio = new(src)

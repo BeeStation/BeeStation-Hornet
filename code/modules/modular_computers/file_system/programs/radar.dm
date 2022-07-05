@@ -244,7 +244,7 @@
 	if(!humanoid || !istype(humanoid))
 		return FALSE
 	if(..())
-		if(humanoid in SSnanites.nanite_monitored_mobs)
+		if(HAS_TRAIT(humanoid, TRAIT_NANITE_SENSORS))
 			if(humanoid.is_jammed())
 				return FALSE
 			return TRUE

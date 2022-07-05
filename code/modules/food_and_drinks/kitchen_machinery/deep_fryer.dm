@@ -50,11 +50,11 @@ God bless America.
 		/obj/item/reagent_containers/syringe,
 		/obj/item/reagent_containers/food/condiment,
 		/obj/item/storage,
-		/obj/item/smallDelivery,
+		/obj/item/small_delivery,
 		/obj/item/his_grace))
 	var/datum/looping_sound/deep_fryer/fry_loop
 
-/obj/machinery/deepfryer/Initialize()
+/obj/machinery/deepfryer/Initialize(mapload)
 	. = ..()
 	create_reagents(50, OPENCONTAINER)
 	reagents.add_reagent(/datum/reagent/consumable/cooking_oil, 25)
