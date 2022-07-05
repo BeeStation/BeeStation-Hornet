@@ -917,7 +917,7 @@ world
 	var/icon/overlayIcon = new /icon()
 	var/isEmpty = TRUE	//So the overlay icon isn't empty.
 	//==== OVERLAYS ====
-	//Do sorting :( // I am putting a ) here so the colouriser doesnt cry -aa07
+	//Do sorting :( // I am putting a :) here so the colouriser doesnt cry -aa07
 	var/list/layers = list()
 
 	var/direction = directionless ? SOUTH : A.dir

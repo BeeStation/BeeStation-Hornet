@@ -4,6 +4,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	var/client/parent
 
 	var/default_slot = 1				//Holder so it doesn't default to slot 1, rather the last one used
+	// TREAT THIS VAR AS PRIVATE. USE set_max_character_slots() PLEASE
 	var/max_usable_slots = 3
 
 	//non-preference stuff
@@ -75,6 +76,10 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 	var/action_buttons_screen_locs = list()
 
+/datum/preferences/proc/set_max_character_slots(newmax)
+	max_usable_slots = min(TRUE_MAX_SAVE_SLOTS, newmax) // Make sure they dont go over
+	check_usable_slots()
+
 /datum/preferences/New(client/C)
 	parent = C
 
@@ -89,13 +94,13 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		if(!IS_GUEST_KEY(C.key))
 			unlock_content = C.IsByondMember()
 			if(unlock_content)
-				max_usable_slots = 8
+				set_max_character_slots(8)
 		else if(!length(key_bindings)) // Guests need default keybinds
 			key_bindings = deepCopyList(GLOB.keybinding_list_by_key)
 	var/loaded_preferences_successfully = load_from_database()
 	if(loaded_preferences_successfully)
 		if("6030fe461e610e2be3a2c3e75c06067e" in purchased_gear) //MD5 hash of, "extra character slot"
-			max_usable_slots += 1
+			set_max_character_slots(max_usable_slots + 1)
 		if(load_characters()) // inside this proc is a disgusting SQL query
 			var/datum/character_save/target_save = character_saves[default_slot]
 			if(target_save && !target_save.slot_locked)
@@ -137,7 +142,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			dat += "<center>"
 			var/name
 			var/unspaced_slots = 0
-			for(var/datum/character_save/CS in character_saves)
+			for(var/datum/character_save/CS as anything in character_saves)
 				unspaced_slots++
 				if(unspaced_slots > 4)
 					dat += "<br>"
@@ -643,7 +648,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		if(2) //Loadout
 			var/list/type_blacklist = list()
 			if(length(active_character.equipped_gear))
-				for(var/i = 1, i <= length(active_character.equipped_gear), i++)
+				for(var/i in 1 to length(active_character.equipped_gear))
 					var/datum/gear/G = GLOB.gear_datums[active_character.equipped_gear[i]]
 					if(G)
 						if(G.subtype_path in type_blacklist)
@@ -655,7 +660,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			dat += "<center>"
 			var/name
 			var/unspaced_slots = 0
-			for(var/datum/character_save/CS in character_saves)
+			for(var/datum/character_save/CS as anything in character_saves)
 				unspaced_slots++
 				if(unspaced_slots > 4)
 					dat += "<br>"

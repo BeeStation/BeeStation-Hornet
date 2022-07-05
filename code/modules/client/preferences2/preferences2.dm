@@ -114,6 +114,9 @@
 
 	return TRUE
 
+#undef READPREF_RAW
+#undef READPREF_INT
+#undef READPREF_JSONDEC
 
 // OH BOY MORE MACRO ABUSE
 #define PREP_WRITEPREF_RAW(value, tag) write_queries += SSdbcore.NewQuery("INSERT INTO [format_table_name("preferences")] (ckey, preference_tag, preference_value) VALUES (:ckey, :ptag, :pvalue) ON DUPLICATE KEY UPDATE preference_value=:pvalue2", list("ckey" = parent.ckey, "ptag" = tag, "pvalue" = value, "pvalue2" = value))
@@ -161,6 +164,9 @@
 
 	// QuerySelect can execute many queries at once. That name is dumb but w/e
 	SSdbcore.QuerySelect(write_queries, TRUE, TRUE)
+
+#undef PREP_WRITEPREF_RAW
+#undef PREP_WRITEPREF_JSONENC
 
 
 // Get ready for a disgusting SQL query
@@ -220,5 +226,5 @@
 
 
 /datum/preferences/proc/check_usable_slots()
-	for(var/datum/character_save/CS in character_saves)
+	for(var/datum/character_save/CS as anything in character_saves)
 		CS.slot_locked = (CS.slot_number > max_usable_slots)

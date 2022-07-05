@@ -167,3 +167,6 @@ var/global/list/custom_name_types = list(
 			log_info("RAW QUERY: [querytext]")
 			log_info("Sleeping for 10 seconds")
 			sleep(100)
+
+#undef READ_FILE
+#undef READ_FILE_EXVAR

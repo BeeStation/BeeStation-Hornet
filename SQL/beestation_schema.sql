@@ -81,9 +81,8 @@ CREATE TABLE IF NOT EXISTS `SS13_ban` (
 
 -- Dumping structure for table ss13tgdb.SS13_characters
 DROP TABLE IF EXISTS `SS13_characters`;
-CREATE TABLE `SS13_characters` (
-	`id` INT(11) NOT NULL AUTO_INCREMENT,
-	`slot` INT(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `SS13_characters` (
+	`slot` INT(11) UNSIGNED NOT NULL,
 	`ckey` VARCHAR(64) NOT NULL COLLATE 'utf8mb4_general_ci',
 	`species` VARCHAR(32) NOT NULL COLLATE 'utf8mb4_general_ci',
 	`real_name` VARCHAR(64) NOT NULL COLLATE 'utf8mb4_general_ci',
@@ -111,12 +110,11 @@ CREATE TABLE `SS13_characters` (
 	`helmet_style` VARCHAR(64) NOT NULL COLLATE 'utf8mb4_general_ci',
 	`preferred_ai_core_display` VARCHAR(64) NOT NULL COLLATE 'utf8mb4_general_ci',
 	`preferred_security_department` VARCHAR(32) NOT NULL COLLATE 'utf8mb4_general_ci',
-	`joblessrole` TINYINT(4) NOT NULL,
+	`joblessrole` TINYINT(4) UNSIGNED NOT NULL,
 	`job_preferences` MEDIUMTEXT NOT NULL COLLATE 'utf8mb4_general_ci',
 	`all_quirks` MEDIUMTEXT NOT NULL COLLATE 'utf8mb4_general_ci',
 	`equipped_gear` MEDIUMTEXT NOT NULL COLLATE 'utf8mb4_general_ci',
-	PRIMARY KEY (`id`) USING BTREE,
-	UNIQUE INDEX `slotckey` (`slot`, `ckey`) USING BTREE
+	PRIMARY KEY (`slot`, `ckey`) USING BTREE
 ) COLLATE='utf8mb4_general_ci' ENGINE=InnoDB;
 
 

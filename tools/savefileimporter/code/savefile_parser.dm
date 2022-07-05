@@ -220,3 +220,6 @@
 
 	// Now do characters
 	parse_characters(owning_ckey, S, character_dirs)
+
+#undef READ_FILE
+#undef NEW_QUERY

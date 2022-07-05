@@ -68,7 +68,6 @@
 
 
 /datum/character_save/New()
-	..()
 	real_name = get_default_name()
 	for(var/custom_name_id in GLOB.preferences_custom_names)
 		custom_names[custom_name_id] = get_default_name(custom_name_id)
@@ -227,6 +226,7 @@
 
 	return TRUE
 
+#undef SAFE_READ_QUERY
 
 /datum/character_save/proc/randomise(gender_override)
 	if(gender_override)
@@ -288,86 +288,9 @@
 	if(IS_GUEST_KEY(C.ckey))
 		return
 
-	if(from_db)
-		// We exist in the DB. Prepare for a gargantuan update query
-		var/datum/DBQuery/update_query = SSdbcore.NewQuery({"
-			UPDATE [format_table_name("characters")] SET
-				species=:species,
-				real_name=:real_name,
-				name_is_always_random=:name_is_always_random,
-				body_is_always_random=:body_is_always_random,
-				gender=:gender,
-				age=:age,
-				hair_color=:hair_color,
-				gradient_color=:gradient_color,
-				facial_hair_color=:facial_hair_color,
-				skin_tone=:skin_tone,
-				hair_style_name=:hair_style_name,
-				gradient_style=:gradient_style,
-				facial_style_name=:facial_hair_style,
-				underwear=:underwear,
-				underwear_color=:underwear_color,
-				undershirt=:undershirt,
-				socks=:socks,
-				backbag=:backbag,
-				jumpsuit_style=:jumpsuit_style,
-				uplink_loc=:uplink_loc,
-				features=:features,
-				custom_names=:custom_names,
-				helmet_style=:helmet_style,
-				preferred_ai_core_display=:preferred_ai_core_display,
-				preferred_security_department=:preferred_security_department,
-				joblessrole=:joblessrole,
-				job_preferences=:job_preferences,
-				all_quirks=:all_quirks,
-				equipped_gear=:equipped_gear
-			WHERE
-				ckey=:ckey AND slot=:slot
-		"}, list(
-			// Now for the above but in a fucking monsterous list
-			"species" = pref_species.id,
-			"real_name" = real_name,
-			"name_is_always_random" = be_random_name,
-			"body_is_always_random" = be_random_body,
-			"gender" = gender,
-			"age" = age,
-			"hair_color" = hair_color,
-			"gradient_color" = gradient_color,
-			"facial_hair_color" = facial_hair_color,
-			"skin_tone" = skin_tone,
-			"hair_style_name" = hair_style,
-			"gradient_style" = gradient_style,
-			"facial_hair_style" = facial_hair_style,
-			"underwear" = underwear,
-			"underwear_color" = underwear_color,
-			"undershirt" = undershirt,
-			"socks" = socks,
-			"backbag" = backbag,
-			"jumpsuit_style" = jumpsuit_style,
-			"uplink_loc" = uplink_spawn_loc,
-			"features" = json_encode(features),
-			"custom_names" = json_encode(custom_names),
-			"helmet_style" = helmet_style,
-			"preferred_ai_core_display" = preferred_ai_core_display,
-			"preferred_security_department" = preferred_security_department,
-			"joblessrole" = joblessrole,
-			"job_preferences" = json_encode(job_preferences),
-			"all_quirks" = json_encode(all_quirks),
-			"equipped_gear" = json_encode(equipped_gear),
-			"ckey" = C.ckey,
-			"slot" = slot_number
-		))
-
-		if(!update_query.warn_execute())
-			to_chat(usr, "<span class='boldannounce'>Failed to save your character. Please inform the server operator.</span>")
-
-		qdel(update_query)
-		return
-
-	// If we are here, we dont exist in the DB, which means its insert time.
-	// GET READY FOR SOMETHING HORRIFYING. ITS MUCH WORSE THAN BEFORE
+	// Get ready for a disgusting query
 	var/datum/DBQuery/insert_query = SSdbcore.NewQuery({"
-		INSERT INTO [format_table_name("characters")] (
+		REPLACE INTO [format_table_name("characters")] (
 			slot,
 			ckey,
 			species,
@@ -379,6 +302,7 @@
 			hair_color,
 			gradient_color,
 			facial_hair_color,
+			eye_color,
 			skin_tone,
 			hair_style_name,
 			gradient_style,
@@ -411,6 +335,7 @@
 			:hair_color,
 			:gradient_color,
 			:facial_hair_color,
+			:eye_color,
 			:skin_tone,
 			:hair_style_name,
 			:gradient_style,
@@ -445,6 +370,7 @@
 		"hair_color" = hair_color,
 		"gradient_color" = gradient_color,
 		"facial_hair_color" = facial_hair_color,
+		"eye_color" = eye_color,
 		"skin_tone" = skin_tone,
 		"hair_style_name" = hair_style,
 		"gradient_style" = gradient_style,
@@ -476,7 +402,6 @@
 
 	// We defo exist in the DB now
 	from_db = TRUE
-	return TRUE
 
 /datum/character_save/proc/copy_to(mob/living/carbon/human/character, icon_updates = 1, roundstart_checks = TRUE)
 	if(be_random_name)
