@@ -346,7 +346,7 @@
 	icon_state = "door_electronics"
 	icon = 'icons/obj/module.dmi'
 	denied_type = /obj/item/borg/upgrade/modkit/cooldown/minebot
-	modifier = 10
+	modifier = 5
 	cost = 0
 	minebot_upgrade = TRUE
 	minebot_exclusive = TRUE
