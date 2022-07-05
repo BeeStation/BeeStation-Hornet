@@ -189,6 +189,16 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 		src.last_message_count = 0
 		return 0
 
+/client/proc/silicon_spam_grace()
+	total_message_count = max(total_message_count--, 0)
+	// Stating laws isn't spam at all.
+
+/client/proc/silicon_spam_grace_done(total_laws_count)
+	if(total_laws_count>2)
+		total_laws_count = 2
+	total_message_count += total_laws_count
+	// Stating laws isn't spam, but doing so much is spam.
+
 //This stops files larger than UPLOAD_LIMIT being sent from client to server via input(), client.Import() etc.
 /client/AllowUpload(filename, filelength)
 	if(filelength > UPLOAD_LIMIT)
