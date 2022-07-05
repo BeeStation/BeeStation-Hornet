@@ -100,11 +100,11 @@
 		"ipc_antenna" = pick(GLOB.ipc_antennas_list),
 		"ipc_chassis" = pick(GLOB.ipc_chassis_list),
 		"insect_type" = pick(GLOB.insect_type_list),
-		"grod_crown" = pick(GLOB.grod_crowns_list), 
-		"grod_marks" = pick(GLOB.grod_marks_list), 
+		"grod_crown" = pick(GLOB.grod_crowns_list),
+		"grod_marks" = pick(GLOB.grod_marks_list),
 		"grod_tail" = pick(GLOB.grod_tails_list)
 		)
-	)
+		)
 
 /proc/random_hair_style(gender)
 	switch(gender)

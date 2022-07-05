@@ -158,7 +158,6 @@
 					/obj/item/clothing/head/grodhat/cargo = 3
 					/obj/item/clothing/head/beret/supply = 3
 					)
-
 	premium = list(	/obj/item/clothing/under/rank/cargo/miner = 3,
 					/obj/item/clothing/head/mailman = 2,
 					/obj/item/clothing/under/misc/mailman/skirt = 2,
@@ -167,7 +166,6 @@
 					/obj/item/clothing/under/plasmaman/mailman = 2,
 					/obj/item/clothing/head/helmet/space/plasmaman/mailman = 2
 					)
-
 	contraband = list(/obj/item/radio/headset/headset_quartermaster = 1)
 	refill_canister = /obj/item/vending_refill/wardrobe/cargo_wardrobe
 	payment_department = ACCOUNT_CAR
@@ -281,7 +279,7 @@
 					/obj/item/clothing/glasses/regular/jamjar = 1,
 					/obj/item/storage/bag/books = 1,
 					/obj/item/clothing/under/plasmaman/curator = 1,
-					/obj/item/clothing/head/grodhat/curator = 1
+					/obj/item/clothing/head/grodhat/curator = 1,
 					/obj/item/clothing/head/helmet/space/plasmaman/curator = 1)
 	refill_canister = /obj/item/vending_refill/wardrobe/curator_wardrobe
 	payment_department = ACCOUNT_CIV
