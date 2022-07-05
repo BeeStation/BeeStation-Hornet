@@ -56,9 +56,6 @@
 		var/mob/living/carbon/human/H = C
 		H.update_hands_on_rotate()
 
-		H.hair_color = (H.hair_color != "000" && H.hair_color ? H.hair_color : pick(RANDOM_COLOUR)) //otherwise markings are black when spawned outside roundstart characters
-		H.update_hair()
-
 		if(!swap_stance)
 			swap_stance = new
 			swap_stance.Grant(C)
