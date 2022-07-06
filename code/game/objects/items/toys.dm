@@ -315,10 +315,10 @@
  */
  /obj/item/toy/batong
 	name = "batong"
-	desc = "Despite it being a cheap plastic imitation of a baton, it can still be charged."
+	desc = "Despite being a cheap plastic imitation of a stunbaton, it can still be charged."
 	icon = 'icons/obj/toy.dmi'
-	icon_state = "baton"
-	item_state = "classic_baton"
+	icon_state = "stunbaton"
+	item_state = "baton"
 	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
 	attack_verb = list("batonged", "stunned", "hit")
