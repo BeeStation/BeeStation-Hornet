@@ -11,7 +11,7 @@
 
 /obj/item/mob_lasso/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
-	if(check_allowed(target))
+	if(isliving(target) && check_allowed(target))
 		var/mob/living/simple_animal/C = target
 		if(user.a_intent == INTENT_HELP && C == mob_target) //if trying to tie up previous target
 			to_chat(user, "<span class='notice'>You begin to untie the [C]</span>")
@@ -44,6 +44,8 @@
 		RegisterSignal(C, COMSIG_PARENT_QDELETING, .proc/handle_hard_del)
 		to_chat(user, "<span class='notice'>You lasso the [C]!</span>")
 		timer = addtimer(CALLBACK(src, .proc/fail_ally), 6 SECONDS, TIMER_STOPPABLE) //after 6 seconds set the carp back
+	else
+		to_chat(user, "<span class='notice'>[target] seems a bit big for this...</span>")
 
 /obj/item/mob_lasso/proc/check_allowed(atom/target)
 	return (locate(target) in whitelist_mobs)
@@ -64,9 +66,13 @@
 	name = "bluespace lasso"
 	desc = "Comes standard with every evil space-cowboy!\nCan be used to tame almost anything."
 	///blacklist of disallowed mobs
-	var/list/blacklist_mobs = list()
+	var/list/blacklist_mobs = list(/mob/living/simple_animal/hostile/megafauna)
 
 /obj/item/mob_lasso/antag/check_allowed(atom/target)
+	//do type checking becuase I didn't think this through
+	for(var/atom/type as () in blacklist_mobs)
+		if(istype(target, type))
+			return FALSE
 	return(!locate(target) in blacklist_mobs)
 
 /obj/item/mob_lasso/antag/debug

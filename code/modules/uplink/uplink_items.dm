@@ -2381,5 +2381,5 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/role_restricted/carp_lasso
 	name = "Mindslave Lasso"
 	desc = "A state of the art taming device.\n Use this device to tame almost any animal by lassoing and untying them.\n Tamed animals can be rode & commanded!"
-	item = /obj/item/mob_lasso
+	item = /obj/item/mob_lasso/antag
 	cost = 5

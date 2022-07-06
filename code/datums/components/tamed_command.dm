@@ -31,10 +31,13 @@
 	if(istype(P))
 		var/datum/ai_controller/tamed/T = P.ai_controller
 		var/icon/mob_mask = new(P.icon, P.icon_state)
-		var/icon/mob_base = new(P.icon, P.icon_state)
-		mob_base.Blend("#FFF", ICON_OVERLAY)
-		mob_base.AddAlphaMask(mob_mask)
-		
+		var/icon/mob_texture = new(P.icon, P.icon_state)
+		var/icon/mob_base = new('icons/obj/carp_lasso.dmi', "cutter") //keeps the icons at 32x32
+		mob_texture.Blend("#FFF", ICON_OVERLAY)
+		mob_texture.AddAlphaMask(mob_mask)
+		mob_base.Blend(mob_texture, ICON_OVERLAY)
+
+		//Some of this is janky, it's just all the icons generating
 		var/icon/holder = new('icons/obj/carp_lasso.dmi', "carp_follow") //follow icon
 		var/icon/other_holder = new(mob_base)
 		holder.Blend(other_holder, ICON_OVERLAY)

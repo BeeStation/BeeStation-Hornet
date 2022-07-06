@@ -28,6 +28,8 @@
 		finish_action(controller, TRUE)
 	else if(get_dist(pawn, controller.blackboard[BB_ATTACK_TARGET]) <= 1 && COOLDOWN_FINISHED(src, attack_cooldown))
 		var/mob/living/target = controller.blackboard[BB_ATTACK_TARGET]
+		if(istype(target) && IS_DEAD_OR_INCAP(target))
+			finish_action(controller, TRUE)
 		target.attack_animal(pawn)
 		COOLDOWN_START(src, attack_cooldown, 1.3 SECONDS)
 	..()

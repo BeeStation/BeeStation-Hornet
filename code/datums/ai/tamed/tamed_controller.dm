@@ -3,12 +3,16 @@
 #define TAMED_COMMAND_WANDER "tamed_command_wander"
 #define TAMED_COMMAND_ATTACK "tamed_command_attack"
 
+///default jps fails pathfinding too often, this work better
+/datum/ai_movement/jps/expensive
+	max_pathing_attempts = 12
+
 //Frakensteins some dog code
 /datum/ai_controller/tamed
 	blackboard = list(\
 		BB_DOG_FRIENDS = list(),\
 		BB_DOG_ORDER_MODE = DOG_COMMAND_NONE)
-	ai_movement = /datum/ai_movement/jps
+	ai_movement = /datum/ai_movement/jps/expensive
 	COOLDOWN_DECLARE(command_cooldown)
 	//Icons for radial menu
 	///Icon for follow
@@ -32,11 +36,6 @@
 	return ..()
 
 /datum/ai_controller/tamed/UnpossessPawn(destroy)
-	var/obj/item/carried_item = blackboard[BB_SIMPLE_CARRY_ITEM]
-	if(carried_item)
-		pawn.visible_message("<span='danger'>[pawn] drops [carried_item].</span>")
-		carried_item.forceMove(pawn.drop_location())
-		blackboard[BB_SIMPLE_CARRY_ITEM] = null
 	UnregisterSignal(pawn, list(COMSIG_ATOM_ATTACK_HAND, COMSIG_PARENT_EXAMINE, COMSIG_CLICK_ALT, COMSIG_MOB_DEATH, COMSIG_GLOB_CARBON_THROW_THING, COMSIG_PARENT_QDELETING))
 	return ..()
 
@@ -59,8 +58,6 @@
 /datum/ai_controller/tamed/proc/check_altclicked(datum/source, mob/living/clicker)
 	SIGNAL_HANDLER
 
-	pawn.visible_message("check_alt_clicked")
-	pawn.visible_message("[clicker]")
 	if(!istype(clicker) || !blackboard[BB_DOG_FRIENDS][WEAKREF(clicker)])
 		return
 	INVOKE_ASYNC(src, .proc/command_radial, clicker)
@@ -88,6 +85,9 @@
 
 /datum/ai_controller/tamed/proc/set_command_mode(mob/commander, command)
 	COOLDOWN_START(src, command_cooldown, AI_DOG_COMMAND_COOLDOWN)
+	//typecast to stop the nerd from walking away
+	var/mob/living/simple_animal/living_pawn = pawn
+	living_pawn.wander = FALSE
 
 	switch(command)
 		if(TAMED_COMMAND_STOP)
@@ -125,7 +125,8 @@
 			queue_behavior(/datum/ai_behavior/tamed_follow/attack)
 
 		if(TAMED_COMMAND_WANDER)
-			blackboard[BB_DOG_ORDER_MODE] = TAMED_COMMAND_WANDER
+			blackboard[BB_DOG_ORDER_MODE] = null
+			living_pawn.wander = TRUE
 			CancelActions()
 
 /// === Enemy / Ally stuff ===
@@ -133,8 +134,9 @@
 /datum/ai_controller/tamed/proc/on_attack_hand(datum/source, mob/living/user)
 	SIGNAL_HANDLER
 
-	if(user.a_intent == INTENT_HARM)
-		unfriend(user)
+	if(user.a_intent == INTENT_HARM && !blackboard[BB_DOG_FRIENDS][WEAKREF(user)])
+		blackboard[BB_ATTACK_TARGET] = user
+		set_command_mode(null, TAMED_COMMAND_ATTACK)
 
 /// Someone is being nice to us, let's make them a friend!
 /datum/ai_controller/tamed/proc/befriend(mob/living/new_friend)
@@ -145,6 +147,7 @@
 	friends[friend_ref] = TRUE
 	RegisterSignal(new_friend, COMSIG_MOB_POINTED, .proc/check_point)
 	RegisterSignal(new_friend, COMSIG_MOB_SAY, .proc/check_verbal_command)
+	RegisterSignal(new_friend, COMSIG_ATOM_ATTACK_HAND, .proc/on_attack_hand)
 
 /// Someone is being mean to us, take them off our friends (add actual enemies behavior later)
 /datum/ai_controller/tamed/proc/unfriend(mob/living/ex_friend)
