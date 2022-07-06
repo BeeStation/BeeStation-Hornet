@@ -24,7 +24,9 @@
 	max_stages = 5
 	spread_text = "Unknown"
 	viable_mobtypes = list(/mob/living/carbon/human, /mob/living/carbon/monkey, /mob/living/carbon/monkey/tumor)
-
+	
+	/// last player to modify the disease. 
+	var/last_modified_by = "no CKEY"
 	var/resistance
 	var/stealth
 	var/stage_rate
@@ -171,7 +173,8 @@
 	var/list/name_symptoms = list()
 	for(var/datum/symptom/S in symptoms)
 		name_symptoms += S.name
-	return "[name] sym:[english_list(name_symptoms)] r:[resistance] s:[stealth] ss:[stage_rate] t:[transmission]"
+		
+	return "[name], last modified by: [last_modified_by] symptoms:[english_list(name_symptoms)] resistance:[resistance] stealth:[stealth] speed:[stage_rate] transmission:[transmission] faltered:[faltered ? "Yes" : "No"]"
 
 /*
 
@@ -669,3 +672,13 @@
 			return "[pick(prefixes)][pick(bodies)][pick(suffixes)]"
 		if(3)
 			return "[pick(bodies)][pick(suffixes)]"
+
+/datum/disease/advance/proc/logchanges(datum/reagents/holder, var/modification_type)
+	if(holder?.my_atom?.fingerprintslast)
+		last_modified_by = holder.my_atom.fingerprintslast
+	else
+		message_admins("[name], a disease, has been modified ([modification_type]) without logging a CKEY. Please report this to coders")
+		log_virus("[name], a disease, has been modified ([modification_type]) without logging a CKEY. Please report this to coders")
+		// if someone finds a way to avoid being logged while modifiying a virus, admins should be notified so coders can be notified.
+		return FALSE
+	log_virus("[modification_type]: [admin_details()]")
