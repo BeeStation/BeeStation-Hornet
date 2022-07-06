@@ -102,6 +102,10 @@ SUBSYSTEM_DEF(vote)
 	return .
 
 /datum/controller/subsystem/vote/proc/announce_result()
+	var/total_votes = 0
+	for(var/option in choices)
+		var/votes = choices[option]
+		total_votes += votes
 	var/list/winners = get_result()
 	var/text
 	if(winners.len > 0)
@@ -113,7 +117,11 @@ SUBSYSTEM_DEF(vote)
 			var/votes = choices[choices[i]]
 			if(!votes)
 				votes = 0
-			text += "\n<b>[choices[i]]:</b> [votes]"
+			text += "\n<b>[choices[i]]:</b> [votes] ([total_votes ? (round((votes/total_votes), 0.01)*100) : "0"]%"
+			if(mode == "map")
+				text += " chance)"
+			else
+				text += ")"
 		if(mode != "custom")
 			if(winners.len > 1)
 				text = "\n<b>Vote Tied Between:</b>"
