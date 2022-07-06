@@ -1,0 +1,6 @@
+author: EvilDragonfiend
+delete-after: true
+changes:
+  - tweak: Broken Chameleon kit is available to all types of syndicate agents. traitors
+      and incursionists can buy the kit.
+  - balance: Broken Chameleon kit now costs 2 TC.
