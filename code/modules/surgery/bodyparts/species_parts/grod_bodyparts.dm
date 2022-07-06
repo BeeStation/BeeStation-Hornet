@@ -27,13 +27,13 @@
 /obj/item/bodypart/l_arm/grod_lower //lower left arm
 	static_icon = 'icons/mob/species/grod/bodyparts.dmi'
 	icon = 'icons/mob/species/grod/bodyparts.dmi'
-	limb_id = "grod_low"
+	limb_id = "grod lower"
 	should_draw_greyscale = TRUE
 
 /obj/item/bodypart/r_arm/grod_lower //lower right arm
 	static_icon = 'icons/mob/species/grod/bodyparts.dmi'
 	icon = 'icons/mob/species/grod/bodyparts.dmi'
-	limb_id = "grod_low"
+	limb_id = "grod lower"
 	should_draw_greyscale = TRUE
 
 /obj/item/bodypart/l_leg/grod

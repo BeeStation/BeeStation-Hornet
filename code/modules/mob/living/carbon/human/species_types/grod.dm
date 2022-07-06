@@ -28,6 +28,7 @@
 	species_l_leg = /obj/item/bodypart/l_leg/grod
 	species_r_leg = /obj/item/bodypart/r_leg/grod
 	mutanttongue = /obj/item/organ/tongue/grod
+	meat = /obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/plant
 	mutant_bodyparts = list("grod_crown", "grod_marks", "grod_hair", "grod_tail")
 	default_features = list("grod_crown" = "Crown", "grod_marks" = "None", "grod_marks_color" = "9c3030", "grod_tail" = "Regular")
 	mutant_brain = /obj/item/organ/brain/grod
@@ -48,11 +49,12 @@
 	var/datum/action/innate/grod/crownspider/crownspider
 
 /datum/species/grod/random_name(gender, unique, lastname, attempts)
-	. = "[pick(GLOB.grod_first)]"
+	. = "[pick(GLOB.grod_first)]" //Alpha
+	. += "[pick(GLOB.grod_middle)]" //Thra
 
-	. += pick(" the", " of the")
+	. += pick(" the", " of the") //Of the
 
-	if(lastname)
+	if(lastname) //Divine
 		. += " [lastname]"
 	else
 		. += " [pick(GLOB.grod_last)]"
@@ -94,6 +96,12 @@
 		QDEL_NULL(crownspider)
 	H.stop_updating_hands()
 
+/datum/species/grod/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H)
+	if(chem.type == /datum/reagent/toxin/pestkiller || chem.type == /datum/reagent/toxin/plantbgone)
+		H.adjustToxLoss(3)
+		H.reagents.remove_reagent(chem.type, chem.metabolization_rate)
+		return FALSE
+	return ..()
 
 /datum/action/innate/grod/swap_stance
 	name = "Swap Stance"

@@ -347,7 +347,7 @@
 
 /obj/item/organ/tongue/grod
 	name = "grod tongue"
-	desc = "Words from the Grod."
+	desc = "An oddly forked insectoid tongue."
 	icon_state = "tonguefly"
 	say_mod = "decrees"
 	liked_food = VEGETABLES | GRAIN | FRUIT
