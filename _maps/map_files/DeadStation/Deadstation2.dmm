@@ -131,12 +131,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/turret_protected/ai_upload)
-"ay" = (
-/obj/machinery/door/window{
-	dir = 1
-	},
-/turf/open/floor/plasteel/grimy,
-/area/space)
 "aA" = (
 /obj/machinery/cryopod,
 /turf/open/floor/plasteel,
@@ -195,10 +189,6 @@
 /obj/machinery/power/apc/auto_name/east,
 /turf/open/floor/plasteel,
 /area/science/storage)
-"aO" = (
-/obj/machinery/vending/wardrobe/det_wardrobe,
-/turf/open/floor/plasteel/grimy,
-/area/space)
 "aP" = (
 /obj/structure/table/reinforced,
 /obj/item/phone,
@@ -749,7 +739,7 @@
 	dir = 9
 	},
 /obj/structure/cable/yellow{
-	icon_state = "32-8"
+	icon_state = "16-8"
 	},
 /turf/open/floor/plasteel,
 /area/maintenance/department/security)
@@ -997,18 +987,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/science/nanite)
-"et" = (
-/obj/machinery/power/apc{
-	areastring = "/area/security/detectives_office";
-	dir = 8;
-	name = "Detective APC";
-	pixel_x = -24
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
-	},
-/turf/open/floor/plasteel/grimy,
-/area/space)
 "eu" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
@@ -1317,7 +1295,7 @@
 /area/ai_monitored/turret_protected/ai_upload)
 "gh" = (
 /obj/structure/cable/yellow{
-	icon_state = "32-4"
+	icon_state = "16-4"
 	},
 /turf/open/floor/plasteel/grimy,
 /area/tcommsat/computer)
@@ -1431,13 +1409,6 @@
 	},
 /turf/open/floor/plating/airless,
 /area/science/test_area)
-"gX" = (
-/obj/effect/spawner/structure/window/reinforced,
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
-/turf/open/floor/plating,
-/area/space)
 "gY" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
@@ -2126,15 +2097,6 @@
 /obj/machinery/firealarm/directional/south,
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/turret_protected/ai_upload)
-"kn" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/open/floor/plasteel/grimy,
-/area/space)
 "kp" = (
 /obj/structure/railing/corner,
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
@@ -2506,17 +2468,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/science/robotics)
-"ms" = (
-/obj/machinery/door/airlock/maintenance{
-	name = "Detective Maintenance";
-	req_access_txt = "4"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/structure/disposalpipe/segment,
-/turf/open/floor/plating,
-/area/space)
 "mt" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -3083,9 +3034,6 @@
 /obj/structure/cable/yellow,
 /turf/open/floor/plating,
 /area/storage/tech)
-"oI" = (
-/turf/closed/wall/r_wall,
-/area/space)
 "oJ" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
@@ -3175,7 +3123,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 9
 	},
-/turf/open/openspace,
+/turf/open/space/basic,
 /area/space/nearstation)
 "pe" = (
 /obj/structure/cable/yellow{
@@ -3530,13 +3478,6 @@
 	},
 /turf/open/space/basic,
 /area/space/nearstation)
-"qG" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
-/obj/item/kirbyplants/random,
-/turf/open/floor/plasteel/grimy,
-/area/space)
 "qH" = (
 /obj/structure/railing/corner{
 	dir = 8
@@ -3637,15 +3578,6 @@
 "rh" = (
 /turf/open/floor/plasteel/white,
 /area/security/prison)
-"ri" = (
-/obj/machinery/computer/med_data{
-	dir = 8
-	},
-/obj/machinery/newscaster{
-	pixel_x = 28
-	},
-/turf/open/floor/carpet/red,
-/area/space)
 "rj" = (
 /obj/machinery/atmospherics/components/unary/portables_connector/visible{
 	dir = 4
@@ -3876,21 +3808,6 @@
 "rU" = (
 /turf/closed/wall/r_wall,
 /area/science/storage)
-"rV" = (
-/obj/machinery/requests_console{
-	department = "Detective's office";
-	pixel_x = -30;
-	name = "Detective's RC"
-	},
-/obj/machinery/light/small{
-	dir = 8
-	},
-/obj/structure/disposalpipe/trunk{
-	dir = 4
-	},
-/obj/machinery/disposal/bin,
-/turf/open/floor/plasteel/grimy,
-/area/space)
 "rW" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 5
@@ -4100,7 +4017,7 @@
 /turf/open/floor/plating,
 /area/maintenance/department/security)
 "sU" = (
-/turf/open/openspace/airless,
+/turf/open/space/basic,
 /area/maintenance/department/security)
 "sV" = (
 /turf/closed/wall/r_wall,
@@ -4378,13 +4295,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/upper/starboard/central)
-"uq" = (
-/obj/effect/landmark/start/detective,
-/obj/structure/chair/office{
-	dir = 8
-	},
-/turf/open/floor/carpet/red,
-/area/space)
 "uu" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
@@ -4552,7 +4462,7 @@
 "ve" = (
 /obj/structure/cable/yellow,
 /obj/structure/cable/yellow{
-	icon_state = "32-1"
+	icon_state = "16-1"
 	},
 /turf/open/floor/plasteel,
 /area/maintenance/upper/starboard/aft)
@@ -4693,7 +4603,7 @@
 /obj/structure/lattice,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/turf/open/openspace,
+/turf/open/space/basic,
 /area/space/nearstation)
 "wf" = (
 /turf/open/floor/plasteel/dark,
@@ -4711,14 +4621,6 @@
 /obj/effect/spawner/room/tenxten,
 /turf/open/floor/plating,
 /area/maintenance/upper/port/central)
-"wA" = (
-/obj/structure/table/wood,
-/obj/item/storage/fancy/cigarettes,
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
-	},
-/turf/open/floor/carpet/red,
-/area/space)
 "wB" = (
 /obj/structure/table,
 /obj/item/nanite_scanner,
@@ -4800,16 +4702,6 @@
 /obj/item/nanite_remote,
 /turf/open/floor/plasteel/dark,
 /area/science/nanite)
-"xc" = (
-/obj/structure/lattice,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 4
-	},
-/turf/open/openspace/airless,
-/area/space/nearstation)
 "xh" = (
 /obj/machinery/atmospherics/components/binary/pump/on{
 	dir = 8;
@@ -4825,19 +4717,6 @@
 /obj/structure/closet/bombcloset,
 /turf/open/floor/plasteel,
 /area/science/storage)
-"xj" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "2-4"
-	},
-/obj/effect/turf_decal/stripes/line,
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/open/floor/plating,
-/area/space)
 "xk" = (
 /obj/structure/chair/comfy/beige{
 	dir = 1
@@ -5006,9 +4885,6 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel,
 /area/science/storage)
-"yb" = (
-/turf/open/floor/plasteel/grimy,
-/area/space)
 "yc" = (
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/techstorage/RnD_secure,
@@ -5131,7 +5007,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/cable/yellow{
-	icon_state = "32-2"
+	icon_state = "16-2"
 	},
 /turf/open/floor/plating,
 /area/maintenance/upper/port/central)
@@ -5307,10 +5183,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/upper/port/central)
-"zt" = (
-/obj/structure/lattice,
-/turf/open/openspace,
-/area/space/nearstation)
 "zu" = (
 /obj/machinery/door/firedoor/border_only{
 	dir = 1
@@ -5621,16 +5493,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/bridge/meeting_room/council)
-"BA" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
-	dir = 1
-	},
-/turf/open/floor/carpet/red,
-/area/space)
 "BG" = (
 /obj/machinery/airalarm/directional/west,
 /turf/open/floor/plasteel,
@@ -5682,7 +5544,7 @@
 /turf/open/floor/plasteel,
 /area/science/mixing)
 "BR" = (
-/turf/open/openspace/airless,
+/turf/open/space/basic,
 /area/maintenance/upper/central)
 "BT" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
@@ -5735,7 +5597,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
-/turf/open/openspace,
+/turf/open/space/basic,
 /area/space/nearstation)
 "Cn" = (
 /obj/machinery/airalarm/directional/north,
@@ -5857,14 +5719,6 @@
 /obj/machinery/vending/wardrobe/det_wardrobe,
 /turf/open/floor/plasteel/grimy,
 /area/security/detectives_office)
-"CR" = (
-/obj/structure/table/wood,
-/obj/machinery/computer/security/wooden_tv{
-	pixel_x = 3;
-	pixel_y = 2
-	},
-/turf/open/floor/carpet/red,
-/area/space)
 "CS" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
@@ -6087,7 +5941,7 @@
 /area/bridge/meeting_room/council)
 "El" = (
 /obj/structure/cable/yellow{
-	icon_state = "32-8"
+	icon_state = "16-8"
 	},
 /turf/open/floor/plating,
 /area/bridge/meeting_room/council)
@@ -6248,18 +6102,6 @@
 "FJ" = (
 /turf/open/floor/plasteel,
 /area/science/mixing)
-"FL" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
-	dir = 1
-	},
-/turf/open/floor/carpet/red,
-/area/space)
 "FP" = (
 /obj/machinery/atmospherics/components/binary/pump{
 	dir = 1
@@ -6366,7 +6208,10 @@
 /turf/open/floor/plasteel/white,
 /area/science/mixing)
 "Gp" = (
-/turf/open/openspace/airless,
+/obj/structure/stairs{
+	dir = 1
+	},
+/turf/open/floor/plating,
 /area/maintenance/upper/starboard/aft)
 "Gq" = (
 /obj/machinery/telecomms/server/presets/service,
@@ -6394,9 +6239,6 @@
 	},
 /turf/open/floor/wood,
 /area/maintenance/upper/starboard/central)
-"Gy" = (
-/turf/closed/wall,
-/area/space)
 "Gz" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
@@ -6727,7 +6569,7 @@
 /area/bridge/meeting_room/council)
 "Ik" = (
 /obj/structure/cable/yellow{
-	icon_state = "32-4"
+	icon_state = "16-4"
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/medical)
@@ -6820,9 +6662,6 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/plasteel/white,
 /area/science/mixing)
-"IP" = (
-/turf/open/openspace,
-/area/maintenance/upper/central)
 "IQ" = (
 /obj/machinery/modular_fabricator/exosuit_fab,
 /obj/machinery/light/small{
@@ -7470,12 +7309,6 @@
 /obj/structure/bodycontainer/morgue,
 /turf/open/floor/plasteel,
 /area/science/robotics)
-"LG" = (
-/obj/structure/window/reinforced{
-	dir = 1
-	},
-/turf/open/floor/plasteel/grimy,
-/area/space)
 "LI" = (
 /turf/closed/wall/r_wall,
 /area/tcommsat/server)
@@ -7678,9 +7511,6 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /turf/open/floor/wood,
 /area/maintenance/upper/starboard/central)
-"ML" = (
-/turf/open/openspace/airless,
-/area/space/nearstation)
 "MQ" = (
 /obj/structure/table/reinforced,
 /obj/item/book/manual/wiki/toxins,
@@ -7758,7 +7588,7 @@
 /turf/open/floor/plasteel,
 /area/crew_quarters/cryopods)
 "Ng" = (
-/turf/open/openspace,
+/turf/open/space/basic,
 /area/space/nearstation)
 "Nh" = (
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -7767,12 +7597,6 @@
 	},
 /turf/open/floor/circuit,
 /area/ai_monitored/turret_protected/ai)
-"Nj" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/open/floor/plasteel/grimy,
-/area/space)
 "Nk" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 6
@@ -7834,9 +7658,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/upper/starboard/aft)
-"Ny" = (
-/turf/open/floor/engine/airless,
-/area/space/nearstation)
 "NA" = (
 /obj/structure/railing,
 /obj/machinery/light{
@@ -7886,23 +7707,6 @@
 "NJ" = (
 /turf/closed/wall/r_wall,
 /area/science/robotics/mechbay)
-"NK" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/machinery/door/airlock/security{
-	name = "Detective's Office";
-	req_access_txt = "4"
-	},
-/obj/effect/turf_decal/stripes/line,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/machinery/door/firedoor,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/turf/open/floor/plasteel,
-/area/space)
 "NL" = (
 /obj/structure/railing/corner{
 	dir = 8
@@ -7928,28 +7732,6 @@
 /obj/machinery/firealarm/directional/north,
 /turf/open/floor/plating,
 /area/maintenance/upper/starboard/central)
-"NU" = (
-/obj/machinery/firealarm{
-	dir = 4;
-	pixel_x = -24
-	},
-/obj/machinery/light/small{
-	dir = 1
-	},
-/obj/machinery/light_switch{
-	pixel_y = 25
-	},
-/obj/structure/rack,
-/obj/item/storage/secure/briefcase{
-	pixel_x = 2;
-	pixel_y = -2
-	},
-/obj/item/storage/briefcase{
-	pixel_x = -3;
-	pixel_y = 2
-	},
-/turf/open/floor/plasteel/grimy,
-/area/space)
 "NV" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
@@ -8329,7 +8111,7 @@
 /obj/machinery/camera/autoname{
 	dir = 5
 	},
-/turf/open/floor/engine/airless,
+/turf/open/space/basic,
 /area/space/nearstation)
 "Qd" = (
 /obj/machinery/telecomms/bus/preset_three,
@@ -8352,21 +8134,6 @@
 /obj/structure/table,
 /turf/open/floor/plasteel/dark,
 /area/storage/tech)
-"Ql" = (
-/turf/open/floor/carpet/red,
-/area/space)
-"Qm" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 5
-	},
-/turf/open/floor/plating,
-/area/space)
 "Qt" = (
 /obj/effect/turf_decal/tile/purple{
 	dir = 8
@@ -8574,16 +8341,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/turret_protected/aisat_interior)
-"RH" = (
-/obj/machinery/airalarm{
-	dir = 8;
-	pixel_x = 24
-	},
-/obj/machinery/computer/secure_data{
-	dir = 8
-	},
-/turf/open/floor/carpet/red,
-/area/space)
 "RJ" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Maintenance Access";
@@ -8658,10 +8415,6 @@
 	network = list("aisat")
 	},
 /turf/open/space/basic,
-/area/space)
-"RZ" = (
-/obj/structure/table/wood,
-/turf/open/floor/carpet/red,
 /area/space)
 "Sf" = (
 /obj/structure/railing{
@@ -8852,18 +8605,6 @@
 	},
 /turf/open/floor/plating,
 /area/science/xenobiology)
-"Tl" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/effect/landmark/event_spawn,
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/open/floor/plating{
-	icon_state = "platingdmg2"
-	},
-/area/space)
 "Tn" = (
 /obj/structure/table/reinforced,
 /obj/structure/window/reinforced,
@@ -8987,10 +8728,6 @@
 /obj/structure/ladder,
 /turf/open/floor/plating,
 /area/maintenance/department/engine)
-"TJ" = (
-/obj/machinery/light/small,
-/turf/open/floor/plasteel/grimy,
-/area/space)
 "TN" = (
 /obj/structure/railing/corner,
 /obj/machinery/atmospherics/pipe/simple/brown/visible{
@@ -9228,19 +8965,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/science/xenobiology)
-"Vm" = (
-/obj/machinery/light/small,
-/obj/item/radio/intercom{
-	pixel_y = -26
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/open/floor/plasteel/grimy,
-/area/space)
 "Vo" = (
 /obj/structure/chair,
 /obj/effect/turf_decal/stripes/line{
@@ -9523,10 +9247,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/science/xenobiology)
-"WS" = (
-/obj/machinery/holopad,
-/turf/open/floor/plasteel/grimy,
-/area/space)
 "WT" = (
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
@@ -9548,9 +9268,6 @@
 /obj/machinery/telecomms/processor/preset_exploration,
 /turf/open/floor/circuit/telecomms/mainframe,
 /area/tcommsat/server)
-"WZ" = (
-/turf/open/openspace,
-/area/maintenance/department/security)
 "Xd" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -9571,12 +9288,6 @@
 	},
 /turf/open/floor/wood,
 /area/maintenance/upper/starboard/central)
-"Xj" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/turf/open/floor/plasteel/grimy,
-/area/space)
 "Xk" = (
 /obj/machinery/shower{
 	dir = 8
@@ -9826,14 +9537,6 @@
 /obj/machinery/vending/cola/random,
 /turf/open/floor/plasteel,
 /area/hallway/upper/primary/central)
-"YH" = (
-/obj/structure/closet/secure_closet/detective,
-/obj/machinery/camera{
-	c_tag = "Detective's Office";
-	dir = 4
-	},
-/turf/open/floor/plasteel/grimy,
-/area/space)
 "YJ" = (
 /obj/machinery/telecomms/broadcaster/preset_right,
 /turf/open/floor/circuit/telecomms/mainframe,
@@ -9891,20 +9594,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/science/xenobiology)
-"YZ" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/turf/open/floor/carpet/red,
-/area/space)
 "Zb" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
@@ -9947,7 +9636,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/cable/yellow{
-	icon_state = "32-2"
+	icon_state = "16-2"
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/engine)
@@ -10052,15 +9741,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/storage/tech)
-"ZD" = (
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 10
-	},
-/turf/open/floor/plasteel/grimy,
-/area/space)
 "ZE" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Maintenance Access";
@@ -28524,20 +28204,20 @@ QI
 QI
 QI
 QI
-ds
-ds
-ds
-ds
-ds
-ds
-ds
-ds
-ds
-ds
-ds
-ds
-ds
-ds
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
 QI
 QI
 QI
@@ -28781,20 +28461,20 @@ QI
 QI
 QI
 QI
-ds
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-ds
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
 QI
 QI
 QI
@@ -29038,20 +28718,20 @@ QI
 QI
 QI
 QI
-ds
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-ds
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
 QI
 QI
 QI
@@ -29295,23 +28975,23 @@ QI
 QI
 QI
 QI
-ds
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-ds
-ds
-ds
-ds
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
 QI
 QI
 QI
@@ -29552,23 +29232,23 @@ QI
 QI
 QI
 QI
-ds
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-ds
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
 QI
 QI
 QI
@@ -29809,23 +29489,23 @@ QI
 QI
 QI
 QI
-ds
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-ds
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
 QI
 QI
 QI
@@ -30066,23 +29746,23 @@ QI
 QI
 QI
 QI
-ds
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-ds
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
 QI
 QI
 QI
@@ -30323,23 +30003,23 @@ QI
 QI
 QI
 QI
-ds
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-ds
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
 QI
 QI
 QI
@@ -30581,22 +30261,22 @@ ds
 ds
 ds
 ds
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-ds
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
 QI
 QI
 QI
@@ -30839,21 +30519,21 @@ SH
 SH
 SH
 SH
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-ds
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
 QI
 QI
 QI
@@ -31096,21 +30776,21 @@ SH
 SH
 gh
 SH
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-ds
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
 QI
 QI
 QI
@@ -31353,27 +31033,27 @@ fH
 Xz
 EL
 SH
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-ds
-ds
-ds
-ds
-ds
-ds
-ds
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
 QI
 QI
 QI
@@ -31610,27 +31290,27 @@ fg
 HJ
 fS
 SH
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-ds
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
 QI
 QI
 QI
@@ -31867,27 +31547,27 @@ KS
 HP
 SH
 SH
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-ds
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
 QI
 QI
 QI
@@ -32124,27 +31804,27 @@ vO
 vO
 SH
 SH
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-ds
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
 QI
 QI
 QI
@@ -32391,17 +32071,17 @@ mZ
 ZK
 ZK
 mZ
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-ds
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
 QI
 QI
 QI
@@ -32641,24 +32321,24 @@ LI
 LI
 LI
 LI
-ML
-ML
-ML
-ML
-ML
-ML
+Ng
+Ng
+Ng
+Ng
+Ng
+Ng
 mZ
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-ds
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
 QI
 QI
 QI
@@ -32898,24 +32578,24 @@ UM
 XI
 Hb
 Mc
-ML
-ML
-ML
-ML
-ML
-ML
+Ng
+Ng
+Ng
+Ng
+Ng
+Ng
 ZK
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-ds
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
 QI
 QI
 QI
@@ -33155,24 +32835,24 @@ lx
 OC
 rc
 Mc
-ML
-ML
-ML
-ML
-ML
-ML
+Ng
+Ng
+Ng
+Ng
+Ng
+Ng
 ZK
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-ds
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
 QI
 QI
 QI
@@ -33412,24 +33092,24 @@ jr
 OC
 hi
 LI
-ML
-ML
-ML
-ML
-ML
-ML
+Ng
+Ng
+Ng
+Ng
+Ng
+Ng
 mZ
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-ds
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
 QI
 QI
 QI
@@ -33669,24 +33349,24 @@ OC
 OC
 KA
 LI
-ML
-ML
-ML
-ML
-ML
-ML
+Ng
+Ng
+Ng
+Ng
+Ng
+Ng
 mZ
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-ds
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
 QI
 QI
 QI
@@ -33926,24 +33606,24 @@ OC
 OC
 ub
 LI
-ML
-ML
-ML
-ML
-ML
-ML
+Ng
+Ng
+Ng
+Ng
+Ng
+Ng
 mZ
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-ds
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
 QI
 QI
 QI
@@ -34183,24 +33863,24 @@ eK
 OC
 Gq
 Mc
-ML
-ML
-ML
-ML
-ML
-ML
+Ng
+Ng
+Ng
+Ng
+Ng
+Ng
 ZK
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-ds
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
 QI
 QI
 QI
@@ -34440,24 +34120,24 @@ Xu
 OC
 WK
 Mc
-ML
-ML
-ML
-ML
-ML
-ML
+Ng
+Ng
+Ng
+Ng
+Ng
+Ng
 ZK
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-ds
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
 QI
 QI
 QI
@@ -34697,24 +34377,24 @@ WX
 cF
 YJ
 LI
-ML
-ML
-ML
-ML
-ML
-ML
+Ng
+Ng
+Ng
+Ng
+Ng
+Ng
 mZ
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-ds
-ds
-ds
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
 QI
 QI
 QI
@@ -34961,15 +34641,15 @@ mZ
 mZ
 mZ
 mZ
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-ds
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
 QI
 QI
 QI
@@ -35219,14 +34899,14 @@ mZ
 mZ
 mZ
 mZ
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-ds
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
 QI
 QI
 QI
@@ -35476,14 +35156,14 @@ RK
 RK
 RK
 mZ
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-ds
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
 QI
 QI
 QI
@@ -35733,14 +35413,14 @@ KG
 KG
 SI
 mZ
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-ds
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
 QI
 QI
 QI
@@ -35990,14 +35670,14 @@ RK
 RK
 RK
 mZ
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-ds
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
 QI
 QI
 QI
@@ -36247,14 +35927,14 @@ TX
 jA
 PT
 mZ
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-ds
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
 QI
 QI
 QI
@@ -36504,14 +36184,14 @@ lN
 Jq
 KF
 mZ
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-ds
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
 QI
 QI
 QI
@@ -36763,12 +36443,12 @@ pe
 mZ
 mZ
 mZ
-Ny
-Ny
-Ny
-Ny
-Ny
-ds
+QI
+QI
+QI
+QI
+QI
+QI
 QI
 QI
 QI
@@ -36964,13 +36644,13 @@ QI
 ds
 qC
 ds
-oI
-oI
-oI
-oI
-Gy
-Gy
-Gy
+QI
+QI
+QI
+QI
+QI
+QI
+QI
 QI
 UZ
 pm
@@ -37020,12 +36700,12 @@ uc
 Vy
 Dg
 mZ
-Ny
-Ny
-Ny
-Ny
-Ny
-ds
+QI
+QI
+QI
+QI
+QI
+QI
 QI
 QI
 QI
@@ -37221,13 +36901,13 @@ QI
 ds
 qC
 ds
-oI
-NU
-YH
-et
-rV
-LG
-yb
+QI
+QI
+QI
+QI
+QI
+QI
+QI
 QI
 UZ
 pm
@@ -37280,9 +36960,9 @@ mZ
 KO
 QI
 QI
-ds
-KO
-ds
+QI
+QI
+QI
 QI
 QI
 QI
@@ -37478,13 +37158,13 @@ QI
 ds
 qC
 ds
-gX
-qG
-WS
-Xj
-Nj
-ay
-TJ
+QI
+QI
+QI
+QI
+QI
+QI
+QI
 QI
 UZ
 pm
@@ -37537,9 +37217,9 @@ mZ
 KO
 QI
 QI
-ds
-ds
-ds
+QI
+QI
+QI
 QI
 QI
 QI
@@ -37735,13 +37415,13 @@ QI
 ds
 qC
 ds
-NK
-YZ
-BA
-FL
-kn
-LG
-yb
+QI
+QI
+QI
+QI
+QI
+QI
+QI
 QI
 UZ
 pm
@@ -37992,13 +37672,13 @@ QI
 ds
 qC
 ds
-gX
-wA
-RZ
-Ql
-Vm
-Gy
-Gy
+QI
+QI
+QI
+QI
+QI
+QI
+QI
 QI
 UZ
 uh
@@ -38249,13 +37929,13 @@ QI
 ds
 qC
 ds
-oI
-Ql
-uq
-Ql
-ZD
-ms
-Qm
+QI
+QI
+QI
+QI
+QI
+QI
+QI
 QI
 UZ
 xq
@@ -38506,13 +38186,13 @@ QI
 ds
 qC
 ds
-oI
-CR
-RH
-ri
-aO
-Gy
-xj
+QI
+QI
+QI
+QI
+QI
+QI
+QI
 QI
 QI
 fL
@@ -38763,13 +38443,13 @@ QI
 ds
 qC
 ds
-Gy
-Gy
-Gy
-Gy
-Gy
-Gy
-Tl
+QI
+QI
+QI
+QI
+QI
+QI
+QI
 QI
 QI
 QI
@@ -38826,23 +38506,23 @@ ds
 QI
 QI
 QI
-ds
-ds
-ds
-ds
-ds
-ds
-ds
-ds
-ds
-ds
-ds
-ds
-ds
-ds
-ds
-ds
-ds
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
 QI
 QI
 QI
@@ -39083,23 +38763,23 @@ ds
 ds
 ds
 ds
-ds
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-ds
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
 QI
 QI
 QI
@@ -39342,21 +39022,21 @@ rU
 rU
 rU
 rU
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-ds
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
 QI
 QI
 QI
@@ -39599,21 +39279,21 @@ xV
 rn
 rn
 rU
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-ds
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
 QI
 QI
 QI
@@ -39856,21 +39536,21 @@ xV
 rn
 rn
 rU
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-ds
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
 QI
 QI
 QI
@@ -40055,9 +39735,9 @@ ds
 QI
 QI
 UQ
-ML
-ML
-ML
+Ng
+Ng
+Ng
 UQ
 nA
 nA
@@ -40113,21 +39793,21 @@ xV
 rn
 rn
 rU
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-ds
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
 QI
 QI
 QI
@@ -40370,21 +40050,21 @@ is
 GF
 yW
 rU
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-ds
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
 QI
 QI
 QI
@@ -40636,12 +40316,12 @@ QI
 QI
 QI
 QI
-Ny
-ds
-ds
-ds
-ds
-ds
+QI
+QI
+QI
+QI
+QI
+QI
 QI
 QI
 QI
@@ -40893,8 +40573,8 @@ QI
 QI
 QI
 QI
-Ny
-ds
+QI
+QI
 QI
 QI
 QI
@@ -41104,9 +40784,9 @@ qo
 BR
 BR
 Og
-IP
-IP
-IP
+BR
+BR
+BR
 Og
 BR
 BR
@@ -41150,8 +40830,8 @@ QI
 QI
 QI
 QI
-Ny
-ds
+QI
+QI
 QI
 QI
 QI
@@ -41361,9 +41041,9 @@ qo
 BR
 Og
 Og
-IP
-IP
-IP
+BR
+BR
+BR
 Og
 Og
 Og
@@ -41407,8 +41087,8 @@ QI
 QI
 QI
 QI
-Ny
-ds
+QI
+QI
 QI
 QI
 QI
@@ -41605,9 +41285,9 @@ OU
 nA
 OU
 UQ
-WZ
-WZ
-WZ
+kH
+kH
+kH
 ph
 sU
 ks
@@ -41617,10 +41297,10 @@ yG
 qo
 BR
 Og
-IP
-IP
-IP
-IP
+BR
+BR
+BR
+BR
 Og
 Sm
 Sm
@@ -41664,8 +41344,8 @@ QI
 QI
 QI
 QI
-Ny
-ds
+QI
+QI
 QI
 QI
 QI
@@ -41862,9 +41542,9 @@ nA
 nA
 lH
 UQ
-WZ
-WZ
-WZ
+kH
+kH
+kH
 ph
 sU
 ks
@@ -41874,10 +41554,10 @@ yG
 qo
 BR
 Og
-IP
-IP
-IP
-IP
+BR
+BR
+BR
+BR
 Og
 Sm
 Sm
@@ -41921,8 +41601,8 @@ QI
 QI
 QI
 QI
-Ny
-ds
+QI
+QI
 QI
 QI
 QI
@@ -42119,9 +41799,9 @@ ZZ
 Mh
 ZZ
 ZZ
-WZ
-WZ
-WZ
+kH
+kH
+kH
 ph
 sU
 ks
@@ -42131,10 +41811,10 @@ aG
 qo
 BR
 Og
-IP
-IP
-IP
-IP
+BR
+BR
+BR
+BR
 Og
 Sm
 Sm
@@ -42178,8 +41858,8 @@ QI
 QI
 QI
 QI
-Ny
-ds
+QI
+QI
 QI
 QI
 QI
@@ -42388,10 +42068,10 @@ aQ
 qo
 Og
 Og
-IP
-IP
-IP
-IP
+BR
+BR
+BR
+BR
 Og
 QB
 Sm
@@ -42435,8 +42115,8 @@ QI
 QI
 QI
 QI
-Ny
-ds
+QI
+QI
 QI
 QI
 QI
@@ -42633,9 +42313,9 @@ WV
 WV
 tA
 ZZ
-WZ
-WZ
-WZ
+kH
+kH
+kH
 ph
 sU
 ks
@@ -42643,12 +42323,12 @@ iq
 iq
 yG
 Tv
-IP
-IP
-IP
-IP
-IP
-IP
+BR
+BR
+BR
+BR
+BR
+BR
 Og
 Sm
 Sm
@@ -42692,8 +42372,8 @@ QI
 QI
 QI
 QI
-Ny
-ds
+QI
+QI
 QI
 QI
 QI
@@ -42890,9 +42570,9 @@ WV
 Pd
 Qa
 yA
-WZ
-WZ
-WZ
+kH
+kH
+kH
 ph
 sU
 ks
@@ -42900,12 +42580,12 @@ iq
 aJ
 dc
 Tv
-IP
-IP
-IP
-IP
-IP
-IP
+BR
+BR
+BR
+BR
+BR
+BR
 Og
 Sm
 ou
@@ -42949,8 +42629,8 @@ QI
 QI
 QI
 QI
-Ny
-ds
+QI
+QI
 QI
 QI
 QI
@@ -43147,9 +42827,9 @@ Ea
 Iq
 Ve
 ZZ
-WZ
-WZ
-WZ
+kH
+kH
+kH
 ph
 sU
 ks
@@ -43157,12 +42837,12 @@ iq
 iq
 yG
 Tv
-IP
-IP
-IP
-IP
-IP
-IP
+BR
+BR
+BR
+BR
+BR
+BR
 Og
 Sm
 sc
@@ -43206,7 +42886,7 @@ ds
 ds
 ds
 ds
-Ny
+ds
 ds
 ds
 ds
@@ -43416,10 +43096,10 @@ aQ
 qo
 Og
 Og
-IP
-IP
-IP
-IP
+BR
+BR
+BR
+BR
 Og
 QB
 sc
@@ -43661,9 +43341,9 @@ OL
 JE
 OL
 UQ
-WZ
-WZ
-WZ
+kH
+kH
+kH
 ph
 sU
 ks
@@ -43673,10 +43353,10 @@ yG
 qo
 BR
 Og
-IP
-IP
-IP
-IP
+BR
+BR
+BR
+BR
 Og
 Sm
 sc
@@ -43918,9 +43598,9 @@ mt
 JB
 OL
 UQ
-WZ
-WZ
-WZ
+kH
+kH
+kH
 ph
 sU
 ks
@@ -43930,10 +43610,10 @@ yG
 qo
 BR
 Og
-IP
-IP
-IP
-IP
+BR
+BR
+BR
+BR
 Og
 Sm
 iF
@@ -44175,9 +43855,9 @@ OL
 OL
 OL
 UQ
-WZ
-WZ
-WZ
+kH
+kH
+kH
 ph
 sU
 ks
@@ -44187,10 +43867,10 @@ yG
 qo
 BR
 Og
-IP
-IP
-IP
-IP
+BR
+BR
+BR
+BR
 Og
 Sm
 Sm
@@ -44445,9 +44125,9 @@ qo
 BR
 Og
 Og
-IP
-IP
-IP
+BR
+BR
+BR
 Og
 Og
 Og
@@ -44702,9 +44382,9 @@ qo
 BR
 BR
 Og
-IP
-IP
-IP
+BR
+BR
+BR
 Og
 BR
 BR
@@ -46237,12 +45917,12 @@ zD
 gg
 zD
 zD
-ML
-ML
-xc
-ML
-ML
-ML
+Ng
+Ng
+Cm
+Ng
+Ng
+Ng
 Og
 Og
 Gd
@@ -46500,8 +46180,8 @@ iy
 ZK
 ZK
 mZ
-ML
-ML
+Ng
+Ng
 Gd
 Ol
 Ol
@@ -46758,7 +46438,7 @@ Ng
 Ng
 mZ
 mZ
-ML
+Ng
 Gd
 Ol
 Ol
@@ -47015,7 +46695,7 @@ Ng
 Ng
 Ng
 ZK
-ML
+Ng
 Gd
 Ol
 Ol
@@ -47272,7 +46952,7 @@ Ng
 Ng
 Ng
 ZK
-ML
+Ng
 Gd
 Ol
 Ol
@@ -47529,7 +47209,7 @@ Ng
 Ng
 Ng
 ZK
-ML
+Ng
 Gd
 Ol
 Ol
@@ -47782,11 +47462,11 @@ dI
 we
 we
 pa
-zt
-zt
-zt
+ds
+ds
+ds
 mZ
-ML
+Ng
 Gd
 mJ
 ia
@@ -48038,12 +47718,12 @@ sK
 bf
 Ng
 Ng
-zt
+ds
 Ng
 Ng
 Ng
 ZK
-ML
+Ng
 Gd
 oT
 Mb
@@ -48295,12 +47975,12 @@ bu
 Lj
 Ng
 Ng
-zt
+ds
 Ng
 Ng
 Ng
 ZK
-ML
+Ng
 Gd
 Ol
 Mb
@@ -48552,12 +48232,12 @@ GW
 Lj
 Ng
 Ng
-zt
+ds
 Ng
 Ng
 Ng
 ZK
-ML
+Ng
 Gd
 Ol
 KK
@@ -48809,12 +48489,12 @@ jC
 Lj
 Ng
 Ng
-zt
+ds
 Ng
 Ng
 mZ
 mZ
-ML
+Ng
 Gd
 Ol
 Mb
@@ -49070,8 +48750,8 @@ ZK
 ZK
 ZK
 mZ
-ML
-ML
+Ng
+Ng
 Gd
 Ol
 CX
@@ -49560,24 +49240,24 @@ QI
 QI
 QI
 ds
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
+ds
+ds
+ds
+ds
+ds
+ds
 Qb
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
+ds
+ds
+ds
+QI
+ds
+ds
+ds
 Lj
 El
 Lj
-Ny
+Ng
 ds
 QI
 QI
@@ -49816,29 +49496,29 @@ QI
 QI
 QI
 QI
+QI
+QI
+QI
+QI
+QI
+QI
 ds
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Lj
-Lj
-Lj
-Ny
 ds
-Ny
-Ny
-Ny
+ds
+QI
+ds
+ds
+ds
+QI
+ds
+Lj
+Lj
+Lj
+Ng
+ds
+QI
+QI
+QI
 AX
 zc
 gq
@@ -50073,6 +49753,20 @@ QI
 QI
 QI
 QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
 ds
 ds
 ds
@@ -50082,20 +49776,6 @@ ds
 ds
 ds
 ds
-ds
-Ny
-Ny
-Ny
-Ny
-Ny
-ds
-ds
-ds
-ds
-ds
-Ny
-Ny
-Ny
 AX
 zc
 JQ
@@ -50339,20 +50019,20 @@ QI
 QI
 QI
 QI
-ds
-Ny
-ds
-ds
-ds
-Ny
-ds
 QI
 QI
 QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
 ds
-Ny
-Ny
-Ny
 AX
 AX
 AX
@@ -50396,8 +50076,8 @@ QI
 QI
 ds
 ds
-ds
-ds
+QI
+QI
 QI
 QI
 QI
@@ -50596,20 +50276,20 @@ QI
 QI
 QI
 QI
-ds
-ds
-ds
-QI
-ds
-ds
-ds
 QI
 QI
 QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
 ds
-Ny
-Ny
-Ny
 cv
 dl
 Pv
@@ -50652,9 +50332,9 @@ ra
 ra
 ra
 ra
-Ny
-Ny
 ds
+QI
+QI
 QI
 QI
 QI
@@ -50863,10 +50543,10 @@ QI
 QI
 QI
 QI
+QI
+QI
+QI
 ds
-Ny
-Ny
-Ny
 cv
 Pe
 na
@@ -50909,9 +50589,9 @@ OJ
 OJ
 zu
 ra
-Ny
-Ny
 ds
+QI
+QI
 QI
 QI
 QI
@@ -51120,10 +50800,10 @@ QI
 QI
 QI
 QI
+QI
+QI
+QI
 ds
-Ny
-Ny
-Ny
 cv
 ZO
 na
@@ -51166,9 +50846,9 @@ Gt
 Gt
 PI
 ra
-Ny
-Ny
 ds
+QI
+QI
 QI
 QI
 QI
@@ -51377,10 +51057,10 @@ QI
 QI
 QI
 QI
+QI
+QI
+QI
 ds
-Ny
-Ny
-Ny
 cv
 uU
 Mv
@@ -51423,9 +51103,9 @@ aq
 tT
 EM
 ra
-Ny
-Ny
 ds
+QI
+QI
 QI
 QI
 QI
@@ -51634,10 +51314,10 @@ QI
 QI
 QI
 QI
+QI
+QI
+QI
 ds
-Ny
-Ny
-Ny
 cv
 Yo
 Pv
@@ -51680,9 +51360,9 @@ Kc
 Tq
 ra
 ra
-Ny
-Ny
 ds
+QI
+QI
 QI
 QI
 QI
@@ -51890,11 +51570,11 @@ QI
 QI
 QI
 QI
+QI
+QI
+QI
+QI
 ds
-ds
-Ny
-Ny
-Ny
 cv
 Yo
 Pv
@@ -51938,8 +51618,8 @@ tT
 wE
 ds
 ds
-ds
-ds
+QI
+QI
 QI
 QI
 QI
@@ -52147,11 +51827,11 @@ QI
 QI
 QI
 QI
+QI
+QI
+QI
+QI
 ds
-Ny
-Ny
-Ny
-Ny
 cv
 UF
 Pv
@@ -52404,11 +52084,11 @@ QI
 QI
 QI
 QI
+QI
+QI
+QI
+QI
 ds
-Ny
-Ny
-Ny
-Ny
 cv
 cv
 cv
@@ -52661,22 +52341,22 @@ QI
 QI
 QI
 QI
+QI
+QI
+QI
+QI
 ds
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
+ds
+ds
+ds
+ds
+ds
+ds
+ds
+ds
+ds
+ds
+ds
 cv
 NP
 oS
@@ -52918,22 +52598,22 @@ QI
 QI
 QI
 QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
 ds
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
 cv
 yC
 SN
@@ -53175,22 +52855,22 @@ QI
 QI
 QI
 QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
 ds
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
 cv
 TN
 RS
@@ -53432,22 +53112,22 @@ QI
 QI
 QI
 QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
 ds
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
 cv
 iW
 zy
@@ -53689,22 +53369,22 @@ QI
 QI
 QI
 QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
 ds
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
 cv
 qH
 Le
@@ -53946,22 +53626,22 @@ QI
 QI
 QI
 QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
 ds
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
 cv
 jP
 LM
@@ -54203,22 +53883,22 @@ QI
 QI
 QI
 QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
 ds
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
 cv
 kp
 PX
@@ -54460,22 +54140,22 @@ QI
 QI
 QI
 QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
 ds
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
 cv
 bl
 zy
@@ -54717,22 +54397,22 @@ QI
 QI
 QI
 QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
 ds
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
 cv
 Xg
 rz
@@ -54974,22 +54654,22 @@ QI
 QI
 QI
 QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
 ds
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
-Ny
 cv
 fh
 fh
@@ -55231,21 +54911,21 @@ QI
 QI
 QI
 QI
-ds
-ds
-ds
-ds
-ds
-ds
-ds
-ds
-ds
-ds
-ds
-ds
-ds
-ds
-ds
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
+QI
 ds
 ds
 ds
