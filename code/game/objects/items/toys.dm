@@ -313,16 +313,16 @@
 /*
  * Batong
  */
- /obj/item/toy/batong
-	name = "batong"
-	desc = "Despite being a cheap plastic imitation of a stunbaton, it can still be charged."
-	icon = 'icons/obj/items_and_weapons.dmi'
-	icon_state = "stunbaton"
-	item_state = "baton"
-	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
-	attack_verb = list("batonged", "stunned", "hit")
-	w_class = WEIGHT_CLASS_SMALL
+/obj/item/toy/batong
+    name = "batong"
+    desc = "Despite being a cheap plastic imitation of a stunbaton, it can still be charged."
+    icon = 'icons/obj/items_and_weapons.dmi'
+    icon_state = "stunbaton"
+    item_state = "baton"
+    lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
+    righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
+    attack_verb = list("batonged", "stunned", "hit")
+    w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/toy/windupToolbox
 	name = "windup toolbox"
