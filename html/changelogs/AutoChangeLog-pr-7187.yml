@@ -1,0 +1,4 @@
+author: Miliviu
+delete-after: true
+changes:
+  - bugfix: Blood Bolt Barrage can now be fired
