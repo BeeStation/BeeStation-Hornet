@@ -2299,17 +2299,21 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/badass
 	category = "(Pointless) Badassery"
 	surplus = 0
+
+
+/datum/uplink_item/badass/costumes
+	surplus = 0
+	cost = 4
+	cant_discount = TRUE
+	purchasable_from = (UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
+
 /datum/uplink_item/badass/costumes/obvious_chameleon
 	name = "Broken Chameleon Kit"
 	desc = "A set of items that contain chameleon technology allowing you to disguise as pretty much anything on the station, and more! \
 			Please note that this kit did NOT pass quality control."
 	item = /obj/item/storage/box/syndie_kit/chameleon/broken
-
-/datum/uplink_item/badass/costumes
-	surplus = 0
-	purchasable_from = (UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
-	cost = 4
-	cant_discount = TRUE
+	cost = 2
+	purchasable_from = ALL
 
 /datum/uplink_item/badass/costumes/centcom_official
 	name = "CentCom Official Costume"
