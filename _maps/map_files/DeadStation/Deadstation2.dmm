@@ -2353,22 +2353,6 @@
 	},
 /turf/open/floor/plating,
 /area/science/xenobiology)
-"lO" = (
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 4
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/machinery/power/apc/auto_name/south,
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
-/turf/open/floor/plating,
-/area/maintenance/upper/port/central)
 "lP" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -3220,7 +3204,6 @@
 /turf/open/floor/plasteel,
 /area/science/storage)
 "px" = (
-/obj/effect/spawner/room/threexfive,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
@@ -4885,6 +4868,20 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel,
 /area/science/storage)
+"yb" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 5
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 5
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
+/obj/machinery/power/apc/auto_name/south,
+/obj/structure/cable/yellow,
+/turf/open/floor/plating,
+/area/maintenance/upper/port/central)
 "yc" = (
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/techstorage/RnD_secure,
@@ -6244,10 +6241,6 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/plasteel,
 /area/maintenance/upper/starboard/central)
-"GB" = (
-/obj/effect/spawner/room/threexfive,
-/turf/open/floor/plating,
-/area/maintenance/upper/port/central)
 "GD" = (
 /obj/structure/railing/corner{
 	dir = 1
@@ -33834,7 +33827,7 @@ pm
 pm
 pm
 pm
-GB
+pm
 uh
 Rt
 Pq
@@ -34091,7 +34084,7 @@ tG
 tG
 tG
 tG
-Ws
+yb
 uh
 Rt
 SF
@@ -34348,8 +34341,8 @@ pm
 pm
 pm
 pm
-lO
-uh
+xR
+Ws
 Rt
 Rt
 Pq
@@ -34597,7 +34590,8 @@ UZ
 UZ
 UZ
 UZ
-mX
+uh
+dh
 uh
 uh
 uh
@@ -34606,7 +34600,6 @@ uh
 uh
 uh
 xR
-tG
 Ws
 Rt
 Pq
@@ -41307,8 +41300,8 @@ Sm
 cK
 QB
 QB
-iF
-pK
+sc
+Sm
 Sm
 QB
 Sm
@@ -41564,8 +41557,8 @@ Sm
 Sm
 QB
 QB
-Sm
 sc
+Sm
 Sm
 QB
 QB
@@ -41821,8 +41814,8 @@ Sm
 Sm
 QB
 QB
-Sm
 sc
+Sm
 Sm
 QB
 Sm
@@ -42074,12 +42067,12 @@ BR
 BR
 Og
 QB
-Sm
-QB
+FA
 QB
 QB
 QB
 Ch
+QB
 QB
 QB
 Sm
@@ -42335,8 +42328,8 @@ Sm
 QB
 Sm
 Sm
-Sm
 sc
+Sm
 tF
 QB
 Sm
@@ -42592,8 +42585,8 @@ ou
 Um
 on
 on
-on
 TC
+Sm
 Sm
 QB
 QB
@@ -43105,8 +43098,8 @@ QB
 sc
 QB
 QB
-FA
 QB
+FA
 QB
 QB
 QB
