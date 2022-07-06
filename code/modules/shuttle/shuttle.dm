@@ -321,8 +321,10 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 	var/list/underlying_turf_area = list()
 	var/list/missing_turfs = list() //It's either this or messing with how baseturfs are formatted (honestly, changing baseturfs wouldn't be so bad compared to this)
 
-	//The virtual Z-Value of the shuttle
+	//The designated virtual Z-Value of this shuttle
 	var/virtual_z
+	//The virtual Z-value this shuttle is at
+	var/current_z
 
 	var/sound_played = 0 //If the launch sound has been sent to all players on the shuttle itself
 
@@ -535,6 +537,7 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 	current_engines = initial_engines
 
 	virtual_z = get_new_virtual_z()
+	current_z = virtual_z
 
 	#ifdef DOCKING_PORT_HIGHLIGHT
 	highlight("#0f0")

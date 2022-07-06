@@ -67,7 +67,7 @@
 
 /area/shuttle/get_virtual_z(turf/T)
 	if(mobile_port && is_reserved_level(mobile_port.z))
-		return mobile_port.virtual_z
+		return mobile_port.current_z
 	return ..(T)
 
 ////////////////////////////Multi-area shuttles////////////////////////////

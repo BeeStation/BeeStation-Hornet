@@ -9,6 +9,7 @@
 	clawfootstep = FOOTSTEP_HARD_CLAW
 	heavyfootstep = FOOTSTEP_GENERIC_HEAVY
 	tiled_dirt = FALSE
+	intact = FALSE //Makes it clearer to players that pipes/wires are destroyed when a shuttle lands on them
 
 /turf/open/floor/dock/drydock
 	name = "dry dock floor"
