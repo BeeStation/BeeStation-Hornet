@@ -238,5 +238,14 @@
 			playsound(src, 'sound/machines/terminal_eject.ogg', 50, TRUE)
 	..()
 
+/turf/open/floor/light/lighteater_act(obj/item/light_eater/light_eater)
+	. = ..()
+	if(!light_range || !light_power || !light_on)
+		return
+	if(light_eater)
+		visible_message("<span class='danger'>The light bulb of [src] is disintegrated by [light_eater]!</span>")
+	break_tile()
+	playsound(src, 'sound/items/welder.ogg', 50, 1)
+
 #undef HEART_SPECIAL_SHADOWIFY
 #undef HEART_RESPAWN_THRESHHOLD
