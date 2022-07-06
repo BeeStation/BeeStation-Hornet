@@ -21,8 +21,6 @@
 	maxHealth = 25
 	health = 25
 	spacewalk = TRUE
-	can_buckle = TRUE
-	buckle_lying = FALSE
 
 	obj_damage = 50
 	melee_damage = 20
@@ -68,49 +66,11 @@
 		"silver" = "#fdfbf3"
 	)
 
-	///command component
-	var/datum/component/carp_command/carp_command_comp
-
-/mob/living/simple_animal/hostile/carp/ComponentInitialize()
-	. = ..()
-	var/datum/component/riding/D = LoadComponent(/datum/component/riding/carp)
-	D.set_riding_offsets(RIDING_OFFSET_ALL, list(TEXT_NORTH = list(0, 8), TEXT_SOUTH = list(0, 8), TEXT_EAST = list(0, 8), TEXT_WEST = list( 0, 8)))
-	D.set_vehicle_dir_layer(NORTH, layer)
-	D.set_vehicle_dir_layer(EAST, layer-0.1)
-	D.set_vehicle_dir_layer(WEST, layer-0.1)
-	D.set_vehicle_dir_layer(SOUTH, layer+0.1)
-
 /mob/living/simple_animal/hostile/carp/Initialize(mapload)
 	if(random_color)
 		set_greyscale(new_config=/datum/greyscale_config/carp)
 		carp_randomify(rarechance)
 	. = ..()
-
-//Carp lasso feature, possibly fucking gross
-/mob/living/simple_animal/hostile/carp/user_buckle_mob(mob/living/buckled_mob, force, check_loc)
-	if(locate(buckled_mob) in carp_command_comp?.cares_about_ally)
-		carp_command_comp.command = null
-		carp_command_comp.target = null
-		..()
-		return //could also use break, doesn't really matter
-	else
-		visible_message("couldnt ride")
- 
-//cleanup command component
-/mob/living/simple_animal/hostile/carp/proc/handle_command_comp()
-	if(carp_command_comp)
-		carp_command_comp.command = null
-		carp_command_comp.target = null
-		qdel(carp_command_comp)
-		carp_command_comp = null
-	
-/mob/living/simple_animal/hostile/carp/death(gibbed)
-	handle_command_comp()
-	..()
-
-/mob/living/simple_animal/hostile/carp/Destroy()
-	handle_command_comp()
-	..()
 
 /**
  * Randomly assigns a color to a carp from either a common or rare color variant lists
@@ -159,11 +119,6 @@
 	melee_damage = 20
 
 	var/regen_cooldown = 0
-
-/mob/living/simple_animal/hostile/carp/megacarp/ComponentInitialize()
-	. = ..()
-	var/datum/component/riding/D = LoadComponent(/datum/component/riding/carp)
-	D.set_riding_offsets(RIDING_OFFSET_ALL, list(TEXT_NORTH = list(16, 8), TEXT_SOUTH = list(16, 8), TEXT_EAST = list(16, 8), TEXT_WEST = list(16, 8)))
 
 /mob/living/simple_animal/hostile/carp/megacarp/Initialize(mapload)
 	. = ..()

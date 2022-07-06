@@ -1,32 +1,31 @@
-/obj/item/carp_lasso
-	name = "carp lasso"
-	desc = "Comes standard with every space-cowboy."
+/obj/item/mob_lasso
+	name = "space lasso"
+	desc = "Comes standard with every space-cowboy.\nCan be used to tame space carp."
 	icon = 'icons/obj/carp_lasso.dmi'
 	///Ref to timer
 	var/timer
 	///Ref to lasso'd carp
-	var/mob/living/simple_animal/hostile/carp/carp_target
+	var/mob/living/simple_animal/mob_target
+	///Whitelist of allowed animals
+	var/list/whitelist_mobs = list(/mob/living/simple_animal/hostile/carp, /mob/living/simple_animal/cow)
 
-/obj/item/carp_lasso/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+/obj/item/mob_lasso/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
-	if(istype(target, /mob/living/simple_animal/hostile/carp))
-		var/mob/living/simple_animal/hostile/carp/C = target
-		if(user.a_intent == INTENT_HELP && C == carp_target) //if trying to tie up previous target
+	if(check_allowed(target))
+		var/mob/living/simple_animal/C = target
+		if(user.a_intent == INTENT_HELP && C == mob_target) //if trying to tie up previous target
 			to_chat(user, "<span class='notice'>You begin to untie the [C]</span>")
 			if(proximity_flag && do_after(user, 2 SECONDS, FALSE, target))
 				user.faction |= "carpboy_[user]"
 				C.faction |= "carpboy_[user]"
 				C.faction |= user.faction
 				C.transform = transform.Turn(0)
-				C.tame = TRUE
 				C.toggle_ai(AI_ON)
-				C.carp_command_comp = C.AddComponent(/datum/component/carp_command)
-				C.carp_command_comp.cares_about_ally |= user
-				C.carp_command_comp.update_ally()
-				C.ghetto_processing()
+				var/datum/component/tamed_command/T = C.AddComponent(/datum/component/tamed_command)
+				T.add_ally(user)
 				to_chat(user, "<span class='notice'>The [C] nuzzles you.</span>")
-				UnregisterSignal(carp_target, COMSIG_PARENT_QDELETING)
-				carp_target = null
+				UnregisterSignal(mob_target, COMSIG_PARENT_QDELETING)
+				mob_target = null
 				if(timer)
 					deltimer(timer)
 					timer = null
@@ -38,7 +37,7 @@
 		var/datum/beam/B = new(loc, C, time=1 SECONDS, beam_icon='icons/effects/beam.dmi', beam_icon_state="carp_lasso", btype=/obj/effect/ebeam)
 		INVOKE_ASYNC(B, /datum/beam/.proc/Start)
 		C.unbuckle_all_mobs()
-		carp_target = C
+		mob_target = C
 		C.throw_at(get_turf(src), 9, 2, user, FALSE, force = 0)
 		C.transform = transform.Turn(180)
 		C.toggle_ai(AI_OFF)
@@ -46,13 +45,32 @@
 		to_chat(user, "<span class='notice'>You lasso the [C]!</span>")
 		timer = addtimer(CALLBACK(src, .proc/fail_ally), 6 SECONDS, TIMER_STOPPABLE) //after 6 seconds set the carp back
 
-/obj/item/carp_lasso/proc/fail_ally()
-	visible_message("<span class='warning'>The [carp_target] breaks free!</span>")
-	carp_target?.transform = transform.Turn(0)
-	carp_target.toggle_ai(AI_ON)
-	UnregisterSignal(carp_target, COMSIG_PARENT_QDELETING)
-	carp_target = null
+/obj/item/mob_lasso/proc/check_allowed(atom/target)
+	return (locate(target) in whitelist_mobs)
+
+
+/obj/item/mob_lasso/proc/fail_ally()
+	visible_message("<span class='warning'>The [mob_target] breaks free!</span>")
+	mob_target?.transform = transform.Turn(0)
+	mob_target.toggle_ai(AI_ON)
+	UnregisterSignal(mob_target, COMSIG_PARENT_QDELETING)
+	mob_target = null
 	timer = null
 
-/obj/item/carp_lasso/proc/handle_hard_del()
-	carp_target = null
+/obj/item/mob_lasso/proc/handle_hard_del()
+	mob_target = null
+
+/obj/item/mob_lasso/antag
+	name = "bluespace lasso"
+	desc = "Comes standard with every evil space-cowboy!\nCan be used to tame almost anything."
+	///blacklist of disallowed mobs
+	var/list/blacklist_mobs = list()
+
+/obj/item/mob_lasso/antag/check_allowed(atom/target)
+	return(!locate(target) in blacklist_mobs)
+
+/obj/item/mob_lasso/antag/debug
+	name = "debug lasso"
+	desc = "Comes standard with every administrator space-cowboy!\nCan be used to tame anything."
+	blacklist_mobs = list() //anything goes
+

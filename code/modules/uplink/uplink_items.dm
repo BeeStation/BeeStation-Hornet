@@ -2379,7 +2379,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	purchasable_from = UPLINK_NUKE_OPS
 
 /datum/uplink_item/role_restricted/carp_lasso
-	name = "Carp Lasso"
-	desc = "A state of the art carp taming device.\n Carps can be lassoed and untied to be befriended.\n Tamed carps can be rode!"
-	item = /obj/item/carp_lasso
+	name = "Mindslave Lasso"
+	desc = "A state of the art taming device.\n Use this device to tame almost any animal by lassoing and untying them.\n Tamed animals can be rode & commanded!"
+	item = /obj/item/mob_lasso
 	cost = 5

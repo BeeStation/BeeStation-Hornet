@@ -550,36 +550,3 @@
 	. = ..()
 	if(transformeffects & SLIME_EFFECT_SEPIA)
 		. *= 0.7
-
-//carps
-/mob/living/simple_animal/hostile/carp
-	COOLDOWN_DECLARE(carp_attack_cooldown)
-	///Ref to ghetto process timer
-	var/npc_timer
-
-/mob/living/simple_animal/hostile/carp/Destroy()
-	if(npc_timer)
-		deltimer(npc_timer)
-	..()
-
-///Calls process more often than NPC subsystem, otherwise it's too slow, please don't raise your voice at me
-/mob/living/simple_animal/hostile/carp/proc/ghetto_processing()
-	process()
-	addtimer(CALLBACK(src, .proc/ghetto_processing), CARP_UPDATE_TIME, TIMER_STOPPABLE)
-
-/mob/living/simple_animal/hostile/carp/process()
-	if(!carp_command_comp)
-		return
-	var/mob/living/target = carp_command_comp.target
-	if(carp_command_comp.command && carp_command_comp.command != CARP_COMMAND_STOP)
-		if(get_dist(target, src) > CARP_AGRO_RANGE && carp_command_comp.command == CARP_COMMAND_ATTACK || get_dist(target, src) > CARP_FOLLOW_RANGE && carp_command_comp.command == CARP_COMMAND_FOLLOW)
-			carp_command_comp.target = (carp_command_comp.command == CARP_COMMAND_FOLLOW ? null : carp_command_comp.cares_about_ally[1])
-			carp_command_comp.command = (carp_command_comp.command == CARP_COMMAND_FOLLOW ? null : CARP_COMMAND_FOLLOW)
-			return
-		if(target?.get_virtual_z_level() == src?.get_virtual_z_level() && get_dist(target, src) > 1)
-			var/mob/living/M = (locate(/mob) in get_step(src, get_dir(get_turf(src), get_turf(target))))
-			if(!M || M?.pass_flags == PASSMOB)
-				step_towards(src, target)
-		else if(get_dist(target, src) <= 1 && carp_command_comp.command == CARP_COMMAND_ATTACK && (target in carp_command_comp.cares_about_enemy) && COOLDOWN_FINISHED(src, carp_attack_cooldown))
-			target.attack_animal(src)
-			COOLDOWN_START(src, carp_attack_cooldown, 1.5 SECONDS)
