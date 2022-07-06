@@ -21,6 +21,7 @@
 		to_chat(user, "<span class='warning'>You need one iron sheet to finish the light tile!</span>")
 		return
 	new /obj/item/stack/tile/light(user.drop_location(), null, TRUE, user)
+	qdel(src)
 	to_chat(user, "<span class='notice'>You make a light tile.</span>")
 	use(1)
 
