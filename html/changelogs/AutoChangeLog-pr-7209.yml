@@ -1,6 +1,0 @@
-author: Sarchutar
-delete-after: true
-changes:
-  - rscadd: Nightmares can now break light floor/tiles with their lighteater
-  - rscadd: small description for when the tiles are broken
-  - bugfix: said light floor/tiles can't be turned back on anymore after being broken
