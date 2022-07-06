@@ -35,6 +35,11 @@
 	desc = "A small bottle of anti-toxin. Used to treat toxin damage."
 	list_reagents = list(/datum/reagent/medicine/antitoxin = 30)
 
+/obj/item/reagent_containers/glass/bottle/toxin/mutagen
+	name = "mutagen toxin bottle"
+	desc = "A small bottle of mutagen toxins. Do not drink, Might cause unpredictable mutations."
+	list_reagents = list(/datum/reagent/toxin/mutagen = 30)
+
 /obj/item/reagent_containers/glass/bottle/toxin
 	name = "toxin bottle"
 	desc = "A small bottle of toxins. Do not drink, it is poisonous."
@@ -230,6 +235,11 @@
 	desc = "A small bottle of Romerol. The REAL zombie powder."
 	list_reagents = list(/datum/reagent/romerol = 30)
 
+/obj/item/reagent_containers/glass/bottle/random_virus/minor //for mail only...yet
+	name = "Minor experimental disease culture bottle"
+	desc = "A small bottle. Contains a weak version of an untested viral culture in synthblood medium."
+	spawned_disease = /datum/disease/advance/random/minor
+
 /obj/item/reagent_containers/glass/bottle/random_virus
 	name = "Experimental disease culture bottle"
 	desc = "A small bottle. Contains an untested viral culture in synthblood medium."
@@ -424,3 +434,30 @@
 /obj/item/reagent_containers/glass/bottle/bromine
 	name = "bromine bottle"
 	list_reagents = list(/datum/reagent/bromine = 30)
+
+// Bottles for mail goodies.
+
+/obj/item/reagent_containers/glass/bottle/clownstears
+	name = "bottle of distilled clown misery"
+	desc = "A small bottle. Contains a mythical liquid used by sublime bartenders; made from the unhappiness of clowns."
+	list_reagents = list(/datum/reagent/consumable/clownstears = 30)
+
+/obj/item/reagent_containers/glass/bottle/saltpetre
+	name = "saltpetre bottle"
+	desc = "A small bottle. Contains saltpetre."
+	list_reagents = list(/datum/reagent/saltpetre = 30)
+
+/obj/item/reagent_containers/glass/bottle/flash_powder
+	name = "flash powder bottle"
+	desc = "A small bottle. Contains flash powder."
+	list_reagents = list(/datum/reagent/flash_powder = 30)
+
+/obj/item/reagent_containers/glass/bottle/caramel
+	name = "bottle of caramel"
+	desc = "A bottle containing caramalized sugar, also known as caramel. Do not lick."
+	list_reagents = list(/datum/reagent/consumable/caramel = 30)
+
+/obj/item/reagent_containers/glass/bottle/ketamine
+	name = "ketamine bottle"
+	desc = "A small bottle. Contains ketamine, why?"
+	list_reagents = list(/datum/reagent/drug/ketamine = 30)

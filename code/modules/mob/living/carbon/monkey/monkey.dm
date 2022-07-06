@@ -110,12 +110,6 @@ GLOBAL_LIST_INIT(strippable_monkey_items, create_strippable_list(list(
 	internal = null
 	return
 
-
-/mob/living/carbon/monkey/IsAdvancedToolUser()//Unless its monkey mode monkeys cant use advanced tools
-	if(mind && is_monkey(mind))
-		return TRUE
-	return FALSE
-
 /mob/living/carbon/monkey/reagent_check(datum/reagent/R) //can metabolize all reagents
 	return FALSE
 
@@ -224,7 +218,6 @@ GLOBAL_LIST_INIT(strippable_monkey_items, create_strippable_list(list(
 	default_features = list("mcolor" = "FFF", "wings" = "None")
 	use_skintones = FALSE
 	skinned_type = /obj/item/stack/sheet/animalhide/monkey
-	liked_food = JUNKFOOD | FRIED | GROSS | RAW
 	changesource_flags = MIRROR_BADMIN
 	mutant_brain = /obj/item/organ/brain/tumor
 	mutanttongue = /obj/item/organ/tongue/teratoma

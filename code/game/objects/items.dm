@@ -670,6 +670,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	remove_outline()
 	if(verbs && user?.client)
 		user.client.remove_verbs(verbs)
+	log_item(user, INVESTIGATE_VERB_DROPPED)
 
 // called just as an item is picked up (loc is not yet changed)
 /obj/item/proc/pickup(mob/user)
@@ -678,6 +679,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	item_flags |= PICKED_UP
 	if(verbs && user.client)
 		user.client.add_verbs(verbs)
+	log_item(user, INVESTIGATE_VERB_PICKEDUP)
 
 // called when "found" in pockets and storage items. Returns 1 if the search should end.
 /obj/item/proc/on_found(mob/finder)
@@ -697,6 +699,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			A.Grant(user)
 	if(item_flags & SLOWS_WHILE_IN_HAND || slowdown)
 		user.update_equipment_speed_mods()
+	log_item(user, INVESTIGATE_VERB_EQUIPPED)
 
 //sometimes we only want to grant the item's action if it's equipped in a specific slot.
 /obj/item/proc/item_action_slot_check(slot, mob/user)
@@ -819,6 +822,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		if(w_class < 4)
 			itempush = 0 //too light to push anything
 		return hit_atom.hitby(src, 0, itempush, throwingdatum=throwingdatum)
+
 
 /obj/item/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback, force, quickstart = TRUE)
 	if(HAS_TRAIT(src, TRAIT_NODROP))
