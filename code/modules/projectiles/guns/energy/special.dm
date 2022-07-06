@@ -213,7 +213,9 @@
 
 /obj/item/gun/energy/plasmacutter/use_tool(atom/target, mob/living/user, delay, amount=1, volume=0, datum/callback/extra_checks)
 	if(amount)
+		target.add_overlay(GLOB.welding_sparks)
 		. = ..()
+		target.cut_overlay(GLOB.welding_sparks)
 	else
 		. = ..(amount=1)
 
