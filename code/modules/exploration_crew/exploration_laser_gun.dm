@@ -1,6 +1,6 @@
 /obj/item/gun/energy/e_gun/mini/exploration
 	name = "handheld multi-purpose energy gun"
-	desc = "A pistol-sized energy gun with a built-in flashlight designed for exploration crews. It serves a duel purpose and has modes for anti-creature lasers and cutting lasers."
+	desc = "A pistol-sized energy gun with a built-in flashlight designed for exploration crews. It serves a dual purpose and has modes for anti-creature lasers and cutting lasers."
 	pin = /obj/item/firing_pin/off_station
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/anti_creature, /obj/item/ammo_casing/energy/laser/cutting)
 
