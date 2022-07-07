@@ -34,7 +34,7 @@
 		var/obj/item/computer_hardware/card_slot/card_slot = computer.all_components[MC_CARD]
 		id = card_slot?.GetID()
 	return id ? id : FALSE
-	
+
 /datum/computer_file/program/budgetorders/proc/is_visible_pack(mob/user, var/contraband)
 	if(issilicon(user)) //Borgs can't buy things.
 		return FALSE
@@ -54,7 +54,7 @@
 	if(get_buyer_id(user))
 		if((ACCESS_HEADS in id_card.access) || (ACCESS_QM in id_card.access))
 			requestonly = FALSE
-			buyer = SSeconomy.get_dep_account(id_card.registered_account.account_job.paycheck_department)
+			buyer = SSeconomy.get_dep_account(id_card.registered_account.account_department)
 			can_approve_requests = TRUE
 		else
 			requestonly = TRUE
@@ -213,7 +213,7 @@
 					computer.say("The application rejects [id_card].")
 					return
 				else
-					account = SSeconomy.get_dep_account(id_card?.registered_account?.account_job.paycheck_department)
+					account = SSeconomy.get_dep_account(id_card?.registered_account?.account_department)
 
 			var/turf/T = get_turf(src)
 			var/datum/supply_order/SO = new(pack, name, rank, ckey, reason, account)
@@ -241,7 +241,7 @@
 				if(SO.id == id)
 					var/obj/item/card/id/id_card = get_buyer_id(usr)
 					if(id_card && id_card?.registered_account)
-						SO.paying_account = SSeconomy.get_dep_account(id_card?.registered_account?.account_job.paycheck_department)
+						SO.paying_account = SSeconomy.get_dep_account(id_card?.registered_account?.account_department)
 					SSshuttle.requestlist -= SO
 					SSshuttle.shoppinglist += SO
 					. = TRUE

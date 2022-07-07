@@ -258,7 +258,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 
 		for(var/A in SSeconomy.bank_accounts)
 			var/datum/bank_account/B = A
-			if(!(B.account_job.paycheck_department in paycheck_departments))
+			if(!(B.account_department in paycheck_departments))
 				continue
 			dat += "<tr>"
 			dat += "<td>[B.account_holder]</td>"
@@ -484,6 +484,9 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 						t1 = newJob
 						log_id("[key_name(usr)] changed [modify] assignment to [newJob] using [scan] at [AREACOORD(usr)].")
 
+						//Assigning a custom job changes your bank account department into a department that matches to the hud state of your card.
+						modify.registered_account.account_department = get_department_by_hud(modify.hud_state)
+
 				else if(t1 == "Unassigned")
 					modify.access -= get_all_accesses()
 					log_id("[key_name(usr)] unassigned and stripped all access from [modify] using [scan] at [AREACOORD(usr)].")
@@ -503,7 +506,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 						return
 
 					if(modify.registered_account)
-						modify.registered_account.account_job = jobdatum // this is a terrible idea and people will grief but sure whatever
+						modify.registered_account.account_department = get_department_by_hud(modify.hud_state) // your true department by your hud icon color
 
 					modify.access = ( istype(src, /obj/machinery/computer/card/centcom) ? get_centcom_access(t1) : jobdatum.get_access() )
 					log_id("[key_name(usr)] assigned [jobdatum] job to [modify], overriding all previous access using [scan] at [AREACOORD(usr)].")
@@ -609,7 +612,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			if(isnull(account))
 				updateUsrDialog()
 				return
-			switch(account.account_job.paycheck_department) //Checking if the user has access to change pay.
+			switch(account.account_department) //Checking if the user has access to change pay.
 				if(ACCOUNT_SRV,ACCOUNT_CIV,ACCOUNT_CAR)
 					if(!(ACCESS_HOP in scan.access))
 						updateUsrDialog()
@@ -654,7 +657,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			if(isnull(account))
 				updateUsrDialog()
 				return
-			switch(account.account_job.paycheck_department) //Checking if the user has access to change pay.
+			switch(account.account_department) //Checking if the user has access to change pay.
 				if(ACCOUNT_SRV,ACCOUNT_CIV,ACCOUNT_CAR)
 					if(!(ACCESS_HOP in scan.access))
 						updateUsrDialog()

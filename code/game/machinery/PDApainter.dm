@@ -229,7 +229,11 @@
 					return
 				storedid.icon_state = get_cardstyle_by_jobname(newidskin)
 				storedid.hud_state = get_hud_by_jobname(newidskin)
-				GLOB.data_core.manifest_modify(storedid.registered_name, storedid.assignment, storedid.hud_state)
+
+				// QoL to correct the system behavior
+				storedid.registered_account.account_department = get_department_by_hud(storedid.hud_state) // your true department by your hud icon color
+				GLOB.data_core.manifest_modify(storedid.registered_name, storedid.assignment, storedid.hud_state) // update crew manifest
+
 				ejectid()
 		else
 			to_chat(user, "<span class='notice'>[src] is empty.</span>")

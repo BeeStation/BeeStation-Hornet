@@ -60,6 +60,7 @@
 	minimal_access = list(ACCESS_THEATRE, ACCESS_MAINT_TUNNELS)
 	gimmick = TRUE
 	chat_color = "#b898b3"
+	paycheck_department = ACCOUNT_SRV
 
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/magic
@@ -91,6 +92,7 @@
 	gimmick = TRUE
 	chat_color = "#a2dfdc"
 	departments = DEPARTMENT_MEDICAL
+	paycheck_department = ACCOUNT_MED
 
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman
