@@ -202,6 +202,7 @@
 	if(L.client)
 		L.client.give_award(/datum/award/achievement/misc/meth, L)
 	ADD_TRAIT(L, TRAIT_NOBLOCK, type)
+	M.add_movespeed_modifier(type, update=TRUE, priority=100, multiplicative_slowdown=0, blacklisted_movetypes=(FLYING|FLOATING)) //Yes, this does not actually change movespeed. Required to pass github checks because I remove movespeed modifiers in on_mob_end_metabolize()
 	addiction_threshold = rand(0, 10) //Highly addictive substances are risky. You never know exactly when you'll be addicted
 	overdose_threshold = rand(10, 20)
 
@@ -218,6 +219,7 @@
 	switch(current_cycle) //These all add together multiplicatively producing a gradually higher speed bonus
 		if(8)
 			to_chat(M, "<span class='notice'>You feel hyper.</span>")
+			M.remove_movespeed_modifier(type)
 			M.add_movespeed_modifier(type, update=TRUE, priority=100, multiplicative_slowdown=-0.15, blacklisted_movetypes=(FLYING|FLOATING))
 		if(16)
 			to_chat(M, "<span class='notice'>You feel like you need to go faster.</span>")
