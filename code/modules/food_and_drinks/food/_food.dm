@@ -34,8 +34,18 @@
 	var/burns_on_grill = FALSE
 	///Will this food turn into badrecipe in an oven? Don't use this for everything; preferably mostly for food that is made in an oven to begin with so it burns after some time
 	var/burns_in_oven = FALSE
+	///Food that's immune to decomposition.
+	var/preserved_food = FALSE
+	///Does our food normally attract ants?
+	var/ant_attracting = FALSE
+	///What our food decomposes into.
+	var/decomp_type = /obj/item/food/badrecipe/moldy
+	///Food that needs to be picked up in order to decompose.
+	var/decomp_req_handle = FALSE
+	///Used to set custom decomposition times for food. Set to 0 to have it automatically set via the food's flags.
+	var/decomposition_time = 0
 
-/obj/item/food/Initialize()
+/obj/item/food/Initialize(mapload)
 	. = ..()
 	if(food_reagents)
 		food_reagents = string_assoc_list(food_reagents)
@@ -48,6 +58,7 @@
 	MakeLeaveTrash()
 	MakeGrillable()
 	MakeBakeable()
+	MakeDecompose(mapload)
 
 ///This proc adds the edible component, overwrite this if you for some reason want to change some specific args like callbacks.
 /obj/item/food/proc/MakeEdible()
@@ -67,6 +78,11 @@
 
 /obj/item/food/proc/MakeProcessable()
 	return
+
+///This proc makes things decompose. Set preserved_food to TRUE to make it never decompose.
+/obj/item/food/proc/MakeDecompose(mapload)
+	if(!preserved_food)
+		AddComponent(/datum/component/decomposition, mapload, decomp_req_handle, decomp_flags = foodtypes, decomp_result = decomp_type, ant_attracting = ant_attracting, custom_time = decomposition_time)
 
 ///This proc handles trash components, overwrite this if you want the object to spawn trash
 /obj/item/food/proc/MakeLeaveTrash()

@@ -29,7 +29,6 @@
 	maxHealth = 15
 	minbodytemp = 50
 	maxbodytemp = 800
-	var/turns_since_scan = 0
 	var/obj/item/food/movement_target
 	mobchatspan = "centcom"
 

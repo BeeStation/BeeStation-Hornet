@@ -25,6 +25,8 @@
 	verb_exclaim = "chitters loudly"
 	verb_yell = "chitters loudly"
 	var/squish_chance = 50
+	// Randomizes hunting intervals, minumum 5 turns
+	var/time_to_hunt = 5
 	del_on_death = TRUE
 	chat_color = "#BC7658"
 
@@ -34,11 +36,23 @@
 		COMSIG_ATOM_ENTERED = .proc/on_entered,
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
+	time_to_hunt = rand(5,10)
 
 /mob/living/simple_animal/cockroach/death(gibbed)
 	if(SSticker.mode && SSticker.mode.station_was_nuked) //If the nuke is going off, then cockroaches are invincible. Keeps the nuke from killing them, cause cockroaches are immune to nukes.
 		return
 	..()
+
+/mob/living/simple_animal/cockroach/cockroach/Life(delta_time = SSMOBS_DT, times_fired) // Cockroaches are predators to space ants
+	. = ..()
+	turns_since_scan++
+	if(turns_since_scan > time_to_hunt)
+		turns_since_scan = 0
+		var/list/target_types = list(/obj/effect/decal/cleanable/ants)
+		for(var/obj/effect/decal/cleanable/ants/potential_target in view(2, get_turf(src)))
+			if(potential_target.type in target_types)
+				hunt(potential_target)
+				return
 
 /mob/living/simple_animal/cockroach/proc/on_entered(datum/source ,var/atom/movable/AM)
 	SIGNAL_HANDLER

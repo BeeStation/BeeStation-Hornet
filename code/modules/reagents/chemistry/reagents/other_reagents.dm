@@ -2049,3 +2049,78 @@
 
 	..()
 
+
+/datum/reagent/ants
+	name = "Ants"
+	description = "A sample of a lost breed of Space Ants (formicidae bastardium tyrannus), they are well-known for ravaging the living shit out of pretty much anything."
+	reagent_state = SOLID
+	color = "#993333"
+	taste_mult = 1.3
+	taste_description = "tiny legs scuttling down the back of your throat."
+	metabolization_rate = 5 * REAGENTS_METABOLISM //1u per second
+	glass_name = "glass of ants"
+	glass_desc = "Bottoms up...?"
+	evaporation_rate = 10
+	/// How much damage the ants are going to be doing (rises with each tick the ants are in someone's body)
+	var/ant_damage = 0
+	/// Tells the debuff how many ants we are being covered with.
+	var/amount_left = 0
+
+/datum/reagent/ants/on_mob_life(mob/living/carbon/victim, delta_time)
+	victim.adjustBruteLoss(max(0.1, round((ant_damage * 0.025),0.1))) //Scales with time. Roughly 32 brute with 100u.
+	ant_damage++
+	if(ant_damage < 5) // Makes ant food a little more appetizing, since you won't be screaming as much.
+		return ..()
+	if(DT_PROB(5, delta_time))
+		if(DT_PROB(5, delta_time)) //Super rare statement
+			victim.say("AUGH NO NOT THE ANTS! NOT THE ANTS! AAAAUUGH THEY'RE IN MY EYES! MY EYES! AUUGH!!", forced = /datum/reagent/ants)
+		else
+			victim.say(pick("THEY'RE UNDER MY SKIN!!", "GET THEM OUT OF ME!!", "HOLY HELL THEY BURN!!", "MY GOD THEY'RE INSIDE ME!!", "GET THEM OUT!!"), forced = /datum/reagent/ants)
+	if(DT_PROB(15, delta_time))
+		victim.emote("scream")
+	if(DT_PROB(2, delta_time)) // Stuns, but purges ants.
+		victim.vomit(rand(5,10), FALSE, TRUE, 1, TRUE, FALSE)
+	ant_damage++
+	return ..()
+
+/datum/reagent/ants/on_mob_end_metabolize(mob/living/living_anthill)
+	ant_damage = 0
+	to_chat(living_anthill, "<span class='notice'>You feel like the last of the ants are out of your system.</span>")
+	return ..()
+
+/datum/reagent/ants/reaction_obj(obj/exposed_obj, reac_volume)
+	. = ..()
+	var/turf/open/my_turf = exposed_obj.loc // No dumping ants on an object in a storage slot
+	if(!istype(my_turf)) //Are we actually in an open turf?
+		return
+	var/static/list/accepted_types = typecacheof(list(/obj/machinery/atmospherics, /obj/structure/cable, /obj/structure/disposalpipe))
+	if(!accepted_types[exposed_obj.type]) // Bypasses pipes, vents, and cables to let people create ant mounds on top easily.
+		return
+	reaction_turf(my_turf, reac_volume)
+
+/datum/reagent/ants/reaction_evaporation(turf/exposed_turf, reac_volume)
+	. = ..()
+	if(!istype(exposed_turf) || isspaceturf(exposed_turf)) // Is the turf valid
+		return
+	var/turf/pest_turf
+	for(var/turf/open/floor/temp in view(3, exposed_turf))
+		var/obj/effect/decal/cleanable/ants/temp_pests = locate() in temp.contents
+		if(temp_pests)
+			pest_turf = temp
+			exposed_turf = pest_turf
+			break
+
+	var/obj/effect/decal/cleanable/ants/pests = locate() in exposed_turf.contents
+	if(!pests)
+		pests = new(exposed_turf)
+	var/spilled_ants = (round(reac_volume,1) - 5) // To account for ant decals giving 3-5 ants on initialize.
+	pests.reagents.add_reagent(/datum/reagent/ants, spilled_ants)
+	pests.update_ant_damage()
+
+/datum/reagent/ants/reaction_mob(mob/living/exposed_mob, method=TOUCH, reac_volume, show_message = 1)
+	. = ..()
+	if(!iscarbon(exposed_mob) || (method in list(INGEST,INJECT)))
+		return
+	if(method in list(PATCH,TOUCH,VAPOR))
+		amount_left = round(reac_volume,0.1)
+		exposed_mob.apply_status_effect(STATUS_EFFECT_ANTS, amount_left)

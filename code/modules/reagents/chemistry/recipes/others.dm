@@ -823,3 +823,18 @@
 	id = /datum/reagent/mutationtoxin/plasma
 	results = list(/datum/reagent/mutationtoxin/plasma = 5)
 	required_reagents  = list(/datum/reagent/aslimetoxin = 5, /datum/reagent/toxin/plasma = 60, /datum/reagent/uranium = 20)
+
+/datum/chemical_reaction/ants
+	results = list(/datum/reagent/ants = 3)
+	required_reagents = list(/datum/reagent/ants = 2, /datum/reagent/consumable/sugar = 6)
+
+/datum/chemical_reaction/ant_slurry // We're basically glueing ants together with synthflesh & maint sludge to make a bigger ant.
+	required_reagents = list(/datum/reagent/ants = 40, /datum/reagent/medicine/synthflesh = 20, /datum/reagent/drug/methamphetamine = 5) //replace with maint sludge when maint drugs are added in future pr
+	required_temp = 480
+	reaction_tags = REACTION_TAG_EASY | REACTION_TAG_UNIQUE
+
+/datum/chemical_reaction/ant_slurry/on_reaction(datum/reagents/holder, created_volume)
+	var/location = get_turf(holder.my_atom)
+	for(var/i in rand(1, created_volume) to created_volume)
+		new /mob/living/simple_animal/hostile/ant(location)
+	..()

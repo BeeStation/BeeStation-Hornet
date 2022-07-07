@@ -31,6 +31,7 @@
 	food_reagents = list(/datum/reagent/consumable/nutriment = 5)
 	foodtypes = GRAIN | DAIRY | VEGETABLES
 	w_class = WEIGHT_CLASS_SMALL
+	decomp_type = /obj/item/food/pizzaslice/moldy
 
 /obj/item/food/pizza/margherita
 	name = "pizza margherita"
@@ -319,4 +320,25 @@
 	food_reagents = list(/datum/reagent/consumable/nutriment = 4, /datum/reagent/consumable/tomatojuice = 1, /datum/reagent/toxin/amatoxin = 2)
 	tastes = list("stale crust" = 1, "rancid cheese" = 2, "mushroom" = 1)
 	foodtypes = GRAIN | VEGETABLES | DAIRY | GROSS
+	preserved_food = FALSE
+	ant_attracting = TRUE
+	decomp_type = null
+	decomposition_time = 30 SECONDS
 
+// Ant Pizza, now with more ants.
+/obj/item/food/pizza/ants
+	name = "\improper Ant Party pizza"
+	desc = "/// Filled with bugs, remember to fix"
+	icon_state = "antpizza"
+	food_reagents = list(/datum/reagent/consumable/nutriment = 20, /datum/reagent/ants = 25, /datum/reagent/consumable/tomatojuice = 10, /datum/reagent/consumable/nutriment/vitamin = 4)
+	tastes = list("crust" = 1, "tomato" = 1, "cheese" = 1, "insects" = 1)
+	foodtypes = GRAIN | VEGETABLES | DAIRY | GROSS
+	slice_type = /obj/item/food/pizzaslice/ants
+	boxtag = "Anthill Deluxe"
+
+/obj/item/food/pizzaslice/ants
+	name = "\improper Ant Party pizza slice"
+	desc = "The key to a perfect slice of pizza is not to overdo it with the ants."
+	icon_state = "antpizzaslice"
+	tastes = list("crust" = 1, "tomato" = 1, "cheese" = 1, "insects" = 1)
+	foodtypes = GRAIN | VEGETABLES | DAIRY | GROSS

@@ -141,6 +141,7 @@
 	icon_state = "badrecipe"
 	food_reagents = list(/datum/reagent/toxin/bad_food = 30)
 	foodtypes = GROSS
+	preserved_food = TRUE //Can't decompose any more than this
 
 /obj/item/food/badrecipe/Initialize()
 	. = ..()
@@ -149,6 +150,15 @@
 ///Prevents grilling burnt shit from well, burning.
 /obj/item/food/badrecipe/proc/OnGrill()
 	return COMPONENT_HANDLED_GRILLING
+
+/obj/item/food/badrecipe/moldy
+	name = "moldy mess"
+	desc = "A rancid, disgusting culture of mold and ants. Somewhere under there, at <i>some point,</i> there was food."
+	food_reagents = list(/datum/reagent/toxin/bad_food = 30)
+	preserved_food = FALSE
+	ant_attracting = TRUE
+	decomp_type = null
+	decomposition_time = 30 SECONDS
 
 /obj/item/food/carrotfries
 	name = "carrot fries"
@@ -541,11 +551,14 @@
 	icon_state = "peachcan"
 	w_class = WEIGHT_CLASS_NORMAL
 	max_volume = 30
+	preserved_food = TRUE
 
 /obj/item/food/canned/proc/open_can(mob/user)
 	to_chat(user, "You pull back the tab of \the [src].")
 	playsound(user.loc, 'sound/items/foodcanopen.ogg', 50)
 	ENABLE_BITFIELD(reagents.flags, OPENCONTAINER)
+	preserved_food = FALSE
+	MakeDecompose()
 
 /obj/item/food/canned/attack_self(mob/user)
 	if(!is_drainable())
@@ -644,3 +657,13 @@
 	food_reagents = list(/datum/reagent/consumable/beefbroth = 50)
 	tastes = list("disgust" = 7, "tin" = 1)
 	foodtypes = MEAT | GROSS | JUNKFOOD
+
+/obj/item/food/ant_candy
+	name = "ant candy"
+	desc = "A colony of ants suspended in hardened sugar. Those things are dead, right?"
+	icon_state = "ant_pop"
+	food_reagents = list(/datum/reagent/consumable/nutriment = 1, /datum/reagent/consumable/nutriment/vitamin = 1, /datum/reagent/consumable/sugar = 5, /datum/reagent/ants = 3)
+	tastes = list("candy" = 1, "insects" = 1)
+	foodtypes = JUNKFOOD | SUGAR | GROSS
+	food_flags = FOOD_FINGER_FOOD
+	w_class = WEIGHT_CLASS_TINY

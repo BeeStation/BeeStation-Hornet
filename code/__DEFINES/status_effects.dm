@@ -118,6 +118,8 @@
 #define STATUS_EFFECT_SEIZURE /datum/status_effect/seizure
 
 
+//Deals with covering the target in ants.
+#define STATUS_EFFECT_ANTS /datum/status_effect/ants
 
 //---------//
 // NEUTRAL //

@@ -65,7 +65,7 @@
 	owner = null
 	qdel(src)
 
-/datum/status_effect/proc/refresh()
+/datum/status_effect/proc/refresh(effect, ...)
 	var/original_duration = initial(duration)
 	if(original_duration == -1)
 		return
@@ -99,17 +99,17 @@
 	. = FALSE
 	var/datum/status_effect/S1 = effect
 	LAZYINITLIST(status_effects)
+	var/list/arguments = args.Copy()
+	arguments[1] = src
 	for(var/datum/status_effect/S in status_effects)
 		if(S.id == initial(S1.id) && S.status_type)
 			if(S.status_type == STATUS_EFFECT_REPLACE)
 				S.be_replaced()
 			else if(S.status_type == STATUS_EFFECT_REFRESH)
-				S.refresh()
+				S.refresh(arglist(arguments))
 				return
 			else
 				return
-	var/list/arguments = args.Copy()
-	arguments[1] = src
 	S1 = new effect(arguments)
 	. = S1
 
