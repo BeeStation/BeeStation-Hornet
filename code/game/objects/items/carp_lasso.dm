@@ -62,11 +62,17 @@
 /obj/item/mob_lasso/proc/handle_hard_del()
 	mob_target = null
 
+///Primal version, allows lavaland goobers to tame goliaths
+/obj/item/mob_lasso/primal
+	name = "primal lasso"
+	desc = "Found amongst Ash Walker tools.\nCan be used to tame goliaths."
+	whitelist_mobs = list(/mob/living/simple_animal/hostile/asteroid/goliath/beast, /mob/living/simple_animal/hostile/asteroid/goliath, /mob/living/simple_animal/hostile/asteroid/goldgrub)
+
 /obj/item/mob_lasso/antag
 	name = "bluespace lasso"
 	desc = "Comes standard with every evil space-cowboy!\nCan be used to tame almost anything."
 	///blacklist of disallowed mobs
-	var/list/blacklist_mobs = list(/mob/living/simple_animal/hostile/megafauna)
+	var/list/blacklist_mobs = list(/mob/living/simple_animal/hostile/megafauna, /mob/living/simple_animal/hostile/alien, /mob/living/simple_animal/hostile/syndicate)
 
 /obj/item/mob_lasso/antag/check_allowed(atom/target)
 	//do type checking becuase I didn't think this through
