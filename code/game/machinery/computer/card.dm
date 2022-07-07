@@ -723,9 +723,11 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 
 /obj/machinery/computer/card/proc/eject_id_modify(mob/user)
 	if(modify)
-		GLOB.data_core.manifest_modify(modify.registered_name, modify.assignment, modify.hud_state)
+		// Update crew manifest and card bank account
 		if(modify.registered_account)
 			modify.registered_account.account_department = get_department_by_hud(modify.hud_state) // your true department by your hud icon color
+		GLOB.data_core.manifest_modify(modify.registered_name, modify.assignment, modify.hud_state)
+		// There are the same code lines in `PDApainter.dm`
 		modify.update_label()
 		modify.forceMove(drop_location())
 		if(!issilicon(user) && Adjacent(user))
