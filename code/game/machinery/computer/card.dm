@@ -484,9 +484,6 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 						t1 = newJob
 						log_id("[key_name(usr)] changed [modify] assignment to [newJob] using [scan] at [AREACOORD(usr)].")
 
-						//Assigning a custom job changes your bank account department into a department that matches to the hud state of your card.
-						modify.registered_account.account_department = get_department_by_hud(modify.hud_state)
-
 				else if(t1 == "Unassigned")
 					modify.access -= get_all_accesses()
 					log_id("[key_name(usr)] unassigned and stripped all access from [modify] using [scan] at [AREACOORD(usr)].")
@@ -504,9 +501,6 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 						to_chat(usr, "<span class='error'>No log exists for this job.</span>")
 						updateUsrDialog()
 						return
-
-					if(modify.registered_account)
-						modify.registered_account.account_department = get_department_by_hud(modify.hud_state) // your true department by your hud icon color
 
 					modify.access = ( istype(src, /obj/machinery/computer/card/centcom) ? get_centcom_access(t1) : jobdatum.get_access() )
 					log_id("[key_name(usr)] assigned [jobdatum] job to [modify], overriding all previous access using [scan] at [AREACOORD(usr)].")
@@ -730,6 +724,8 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 /obj/machinery/computer/card/proc/eject_id_modify(mob/user)
 	if(modify)
 		GLOB.data_core.manifest_modify(modify.registered_name, modify.assignment, modify.hud_state)
+		if(modify.registered_account)
+			modify.registered_account.account_department = get_department_by_hud(modify.hud_state) // your true department by your hud icon color
 		modify.update_label()
 		modify.forceMove(drop_location())
 		if(!issilicon(user) && Adjacent(user))
