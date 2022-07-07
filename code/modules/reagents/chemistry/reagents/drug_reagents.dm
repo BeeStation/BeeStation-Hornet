@@ -202,8 +202,8 @@
 	if(L.client)
 		L.client.give_award(/datum/award/achievement/misc/meth, L)
 	ADD_TRAIT(L, TRAIT_NOBLOCK, type)
-//	addiction_threshold = rand(0, 10) //Highly addictive substances are risky. You never know exactly when you'll be addicted
-//	overdose_threshold = rand(10, 20)
+	addiction_threshold = rand(0, 10) //Highly addictive substances are risky. You never know exactly when you'll be addicted
+	overdose_threshold = rand(10, 20)
 
 /datum/reagent/drug/methamphetamine/on_mob_end_metabolize(mob/living/L)
 	REMOVE_TRAIT(L, TRAIT_NOBLOCK, type)
@@ -213,8 +213,8 @@
 /datum/reagent/drug/methamphetamine/on_mob_life(mob/living/carbon/M)
 	if(prob(5))
 		M.emote(pick("twitch", "shiver"))
-//	overdose_threshold -= metabolization_rate * 0.5 //Prevents indefinite microdosing
-//	addiction_threshold -= metabolization_rate * 0.5
+	overdose_threshold -= metabolization_rate * 0.5 //Prevents indefinite microdosing
+	addiction_threshold -= metabolization_rate * 0.5
 	switch(current_cycle) //These all add together multiplicatively producing a gradually higher speed bonus
 		if(8)
 			to_chat(M, "<span class='notice'>You feel hyper.</span>")
