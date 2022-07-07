@@ -15,10 +15,10 @@
 	access = list(ACCESS_HYDROPONICS, ACCESS_BAR, ACCESS_KITCHEN, ACCESS_MORGUE, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_HYDROPONICS, ACCESS_MORGUE, ACCESS_MINERAL_STOREROOM, ACCESS_RESEARCH)
 	paycheck = PAYCHECK_MEDIUM
-	paycheck_department = ACCOUNT_SRV
+	paycheck_department = ACCOUNT_SCI
 	display_order = JOB_DISPLAY_ORDER_BOTANIST
-	departments = DEPARTMENT_SERVICE
-	rpg_title = "Gardener"
+	departments = DEPARTMENT_SCIENCE
+	rpg_title = "Druid"
 
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/botany
@@ -30,7 +30,7 @@
 
 	id = /obj/item/card/id/job/serv
 	belt = /obj/item/pda/service
-	ears = /obj/item/radio/headset/headset_srv
+	ears = /obj/item/radio/headset/headset_srvsci
 	uniform = /obj/item/clothing/under/rank/civilian/hydroponics
 	suit = /obj/item/clothing/suit/apron
 	gloves = /obj/item/clothing/gloves/botanic_leather

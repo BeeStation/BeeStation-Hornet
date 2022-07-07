@@ -17599,11 +17599,9 @@
 	dir = 4
 	},
 /obj/structure/table,
-/obj/machinery/smartfridge/disks,
 /obj/structure/extinguisher_cabinet{
 	pixel_y = -30
 	},
-/obj/item/storage/box/disks_plantgene,
 /turf/open/floor/plasteel,
 /area/hydroponics)
 "eJK" = (

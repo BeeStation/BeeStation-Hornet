@@ -134,6 +134,11 @@
 	icon_state = "srv_cypherkey"
 	channels = list(RADIO_CHANNEL_SERVICE = 1)
 
+/obj/item/encryptionkey/headset_srvsci
+	name = "service radio encryption key"
+	icon_state = "srv_cypherkey" // need to have its own image
+	channels = list(RADIO_CHANNEL_SERVICE = 1, RADIO_CHANNEL_SCIENCE = 1)
+
 /obj/item/encryptionkey/headset_curator
 	name = "curator radio encryption key"
 	icon_state = "srv_cypherkey"
