@@ -13,6 +13,61 @@
 	M.reagents.remove_reagent(/datum/reagent/medicine/mannitol,3) //Mannitol doesn't mix well with drugs
 	..()
 
+/datum/reagent/drug/badminordrazine
+	name = "Badminordrazine"
+	color = "#A02020" //Hellish red for the underworld
+	description = "It's magic. We don't have to explain it."
+	chem_flags = CHEMICAL_NOT_SYNTH | CHEMICAL_RNG_FUN
+	taste_description = "badmins"
+
+/datum/reagent/drug/badminordrazine/on_mob_metabolize(mob/living/L)
+	L.add_movespeed_modifier(type, update=TRUE, priority=100, multiplicative_slowdown=0.5, blacklisted_movetypes=(FLYING|FLOATING))
+	..()
+
+/datum/reagent/drug/badminordrazine/on_mob_end_metabolize(mob/living/L)
+	L.remove_movespeed_modifier(type)
+	..()
+	
+/datum/reagent/drug/badminordrazine/on_mob_life(mob/living/carbon/M)
+	var/effect_choice = rand(1,100)
+	if(!(current_cycle % 3)) //effect once every three ticks, since some of these are somewhat extreme. One effect for every 1.2u consumed
+		switch(effect_choice)
+			if(1 to 10)
+				M.confused = max(M.confused, 20)
+			if(11 to 20)
+				M.nutrition = pick(NUTRITION_LEVEL_STARVING, NUTRITION_LEVEL_FAT + 50)
+			if(21 to 30)
+				M.adjust_fire_stacks(5)
+				M.IgniteMob()
+			if(31 to 40)
+				M.Sleeping(60, 0) //lasts until next random effect
+			if(41 to 50)
+				M.bluespace_shuffle()
+			if(51 to 60)
+				var/turf/open/OT = get_turf(M)
+				OT.MakeSlippery(TURF_WET_LUBE, min_wet_time = 20 SECONDS, wet_time_to_add = 10 SECONDS)
+				M.slip(60)
+			if(61 to 70)
+				if(!M.getorgan(/obj/item/organ/ears/cat) && !M.getorgan(/obj/item/organ/tail/cat))
+					var/obj/item/organ/ears/cat/newears = new
+					var/obj/item/organ/tail/cat/newtail = new
+					newears.Insert(M)
+					newtail.Insert(M)
+					playsound(get_turf(M), 'sound/effects/meow1.ogg', 50, 1, -1)
+					to_chat(M, "<span class='userdanger'>You feel a bit feline.</span>")
+			if(71 to 80)
+				to_chat(M, "<span class='userdanger'>You feel that you have incurred the wrath of a god.</span>") //doesn't actually do anything, just ominous
+			if(81 to 90)
+				M.electrocute_act(rand(5,20), "Badminordrazine in their body", 1, 1)
+			if(91 to 95)
+				M.vomit()
+			if(96 to 100) // 50% chance of vomitting up an organ. High chance of being lethal
+				M.spew_organ()
+				M.vomit()
+				to_chat(M, "<span class='userdanger'>You feel something lumpy come up as you vomit.</span>")
+	..()
+	
+
 /datum/reagent/drug/space_drugs
 	name = "Space drugs"
 	description = "An illegal chemical compound used as drug."
