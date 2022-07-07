@@ -9,6 +9,10 @@
 	if(trippy)
 		SEND_SIGNAL(M, COMSIG_CLEAR_MOOD_EVENT, "[type]_high")
 
+/datum/reagent/drug/on_mob_life(mob/living/carbon/M)
+	M.reagents.remove_reagent(/datum/reagent/medicine/mannitol,3) //Mannitol doesn't mix well with drugs
+	..()
+
 /datum/reagent/drug/space_drugs
 	name = "Space drugs"
 	description = "An illegal chemical compound used as drug."
@@ -191,40 +195,48 @@
 	reagent_state = LIQUID
 	color = "#FAFAFA"
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_CHEMIST_DRUG | CHEMICAL_GOAL_CHEMIST_BLOODSTREAM | CHEMICAL_GOAL_BOTANIST_HARVEST
-	overdose_threshold = 20
-	addiction_threshold = 10
-	metabolization_rate = 0.75 * REAGENTS_METABOLISM
+	metabolization_rate = REAGENTS_METABOLISM * 0.5
 
 /datum/reagent/drug/methamphetamine/on_mob_metabolize(mob/living/L)
 	..()
 	if(L.client)
 		L.client.give_award(/datum/award/achievement/misc/meth, L)
-
-	L.add_movespeed_modifier(type, update=TRUE, priority=100, multiplicative_slowdown=-0.5, blacklisted_movetypes=(FLYING|FLOATING))
-	ADD_TRAIT(L, TRAIT_SLEEPIMMUNE, type)
 	ADD_TRAIT(L, TRAIT_NOBLOCK, type)
+//	addiction_threshold = rand(0, 10) //Highly addictive substances are risky. You never know exactly when you'll be addicted
+//	overdose_threshold = rand(10, 20)
 
 /datum/reagent/drug/methamphetamine/on_mob_end_metabolize(mob/living/L)
 	REMOVE_TRAIT(L, TRAIT_NOBLOCK, type)
-	REMOVE_TRAIT(L, TRAIT_SLEEPIMMUNE, type)
 	L.remove_movespeed_modifier(type)
 	..()
 
 /datum/reagent/drug/methamphetamine/on_mob_life(mob/living/carbon/M)
-	var/high_message = pick("You feel hyper.", "You feel like you need to go faster.", "You feel like you can run the world.")
-	if(prob(5))
-		to_chat(M, "<span class='notice'>[high_message]</span>")
-	M.AdjustStun(-40, FALSE)
-	M.AdjustKnockdown(-40, FALSE)
-	M.AdjustUnconscious(-40, FALSE)
-	M.AdjustParalyzed(-40, FALSE)
-	M.AdjustImmobilized(-40, FALSE)
-	M.adjustStaminaLoss(-40, 0)
-	M.drowsyness = max(0,M.drowsyness-30)
-	M.Jitter(2)
-	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 1)
 	if(prob(5))
 		M.emote(pick("twitch", "shiver"))
+//	overdose_threshold -= metabolization_rate * 0.5 //Prevents indefinite microdosing
+//	addiction_threshold -= metabolization_rate * 0.5
+	switch(current_cycle) //These all add together multiplicatively producing a gradually higher speed bonus
+		if(8)
+			to_chat(M, "<span class='notice'>You feel hyper.</span>")
+			M.add_movespeed_modifier(type, update=TRUE, priority=100, multiplicative_slowdown=-0.15, blacklisted_movetypes=(FLYING|FLOATING))
+		if(16)
+			to_chat(M, "<span class='notice'>You feel like you need to go faster.</span>")
+			M.remove_movespeed_modifier(type)
+			M.add_movespeed_modifier(type, update=TRUE, priority=100, multiplicative_slowdown=-0.3, blacklisted_movetypes=(FLYING|FLOATING))
+		if(24)
+			to_chat(M, "<span class='notice'>You feel like you can run the world.</span>")
+			M.remove_movespeed_modifier(type)
+			M.add_movespeed_modifier(type, update=TRUE, priority=100, multiplicative_slowdown=-0.45, blacklisted_movetypes=(FLYING|FLOATING))
+
+	M.AdjustStun(-current_cycle, FALSE)
+	M.AdjustKnockdown(-current_cycle, FALSE)
+	M.AdjustUnconscious(-current_cycle, FALSE)
+	M.AdjustParalyzed(-current_cycle, FALSE)
+	M.AdjustImmobilized(-current_cycle, FALSE)
+	M.adjustStaminaLoss(-current_cycle, FALSE)
+	M.drowsyness = max(0,M.drowsyness-current_cycle)
+	M.Jitter(2)
+	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, min(1, current_cycle*0.05))
 	..()
 	. = 1
 
@@ -244,14 +256,14 @@
 
 /datum/reagent/drug/methamphetamine/addiction_act_stage1(mob/living/M)
 	M.Jitter(5)
-	if(prob(20))
+	if(prob(10))
 		M.emote(pick("twitch","drool","moan"))
 	..()
 
 /datum/reagent/drug/methamphetamine/addiction_act_stage2(mob/living/M)
 	M.Jitter(10)
 	M.Dizzy(10)
-	if(prob(30))
+	if(prob(15))
 		M.emote(pick("twitch","drool","moan"))
 	..()
 
@@ -261,7 +273,7 @@
 			step(M, pick(GLOB.cardinals))
 	M.Jitter(15)
 	M.Dizzy(15)
-	if(prob(40))
+	if(prob(15))
 		M.emote(pick("twitch","drool","moan"))
 	..()
 
@@ -271,8 +283,7 @@
 			step(M, pick(GLOB.cardinals))
 	M.Jitter(20)
 	M.Dizzy(20)
-	M.adjustToxLoss(5, 0)
-	if(prob(50))
+	if(prob(20))
 		M.emote(pick("twitch","drool","moan"))
 	..()
 	. = 1

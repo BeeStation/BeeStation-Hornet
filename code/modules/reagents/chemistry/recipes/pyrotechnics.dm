@@ -167,7 +167,7 @@
 	id = "methboom1"
 	required_temp = 380 //slightly above the meth mix time.
 	required_reagents = list(/datum/reagent/drug/methamphetamine = 1)
-	strengthdiv = 6
+	strengthdiv = 10
 	modifier = 1
 	mob_react = FALSE
 
