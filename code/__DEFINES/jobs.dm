@@ -181,3 +181,161 @@
 #define JOB_HUD_SYNDICATE "syndicate"
 #define JOB_HUD_PRISONER "prisoner"
 #define JOB_HUD_UNKNOWN "unknown"
+
+
+// This proc is only used in `PDApainter.dm`, but for better readability, it's declared as global proc and stored here.
+// This returns a card icon style by given job name. Check `card.dmi` for the card list.
+/proc/get_cardstyle_by_jobname(jobname)
+	if(jobname)
+		var/static/id_style = list(
+			// Command
+			"Command (Custom)" = "captain",
+			"Captain" = "captain",
+			"Acting Captain" = "captain",
+			// Service
+			"Service (Custom)" = "rawservice",
+			"Head of Personnel" = "hop",
+			"Assistant" = "id",
+			"Botanist" = "serv",
+			"Bartender" = "serv",
+			"Cook" = "serv",
+			"Janitor" = "janitor",
+			"Curator" = "chap",
+			"Chaplain" = "chap",
+			"Lawyer" = "lawyer",
+			"Clown" = "clown",
+			"Mime" = "mime",
+			"Stage Magician" = "serv",
+			"Barber" = "serv",
+			// Cargo
+			"Cargo (Custom)" = "rawcargo",
+			"Quartermaster" = "qm",
+			"Cargo Technician" = "cargo",
+			"Shaft Miner" = "miner",
+			// R&D
+			"Science (Custom)" = "rawscience",
+			"Research Director" = "rd",
+			"Science" = "sci",
+			"Roboticist" = "roboticist",
+			"Exploration Crew" = "exploration",
+			// Engineering
+			"Engineering (Custom)" = "rawengineering",
+			"Chief Engineer" = "ce",
+			"Station Engineer" = "engi",
+			"Atmospheric Technician" = "atmos",
+			// Medical
+			"Medical (Custom)" = "rawmedical",
+			"Chief Medical Officer" = "cmo",
+			"Medical Doctor" = "med",
+			"Paramedic" = "paramed",
+			"Virologist" = "viro",
+			"Geneticist" = "gene",
+			"Chemist" = "chemist",
+			"Psychiatrist" = "med",
+			// Security
+			"Security (Custom)" = "rawsecurity",
+			"Head of Security" = "hos",
+			"Security Officer" = "sec",
+			"Warden" = "warden",
+			"Detective" = "detective",
+			"Brig Physician" = "brigphys",
+			"Deputy" = "deputy",
+			// ETC
+			"Unassigned" = "id",
+			"Prisoner" = "orange",
+			// EMAG
+			"CentCom (Custom)" = "centcom",
+			"CentCom" = "centcom",
+			"ERT" = "ert",
+			"VIP" = "gold",
+			"King" = "gold",
+			"Syndicate" = "syndicate",
+			"Clown Operative" = "clown_op",
+			"Unknown" = "unknown",
+			// ETC2
+			"Ratvar" = "ratvar"
+		)
+		if(jobname in id_style)
+			return id_style[jobname]
+	return "noname"
+
+// This returns a hud icon (from `hud.dmi`) by given job name.
+// Some custom title is from `PDApainter.dm`. You neec to check it if you're going to remove custom job.
+/proc/get_hud_by_jobname(jobname)
+	if(jobname)
+		var/static/id_to_hud = list(
+			// Command
+			"Command (Custom)" = JOB_HUD_RAWCOMMAND,
+			"Captain" = JOB_HUD_CAPTAIN,
+			"Acting Captain" = JOB_HUD_ACTINGCAPTAIN ,
+
+			// Service
+			"Service (Custom)" = JOB_HUD_RAWSERVICE,
+			"Head of Personnel" = JOB_HUD_HEADOFPERSONNEL,
+			"Assistant" = JOB_HUD_ASSISTANT,
+			"Bartender" = JOB_HUD_BARTENDER,
+			"Cook" = JOB_HUD_COOK,
+			"Botanist" = JOB_HUD_BOTANIST,
+			"Curator" = JOB_HUD_CURATOR,
+			"Chaplain" = JOB_HUD_CHAPLAIN,
+			"Janitor" = JOB_HUD_JANITOR,
+			"Lawyer" = JOB_HUD_LAWYER,
+			"Mime" = JOB_HUD_MIME,
+			"Clown" = JOB_HUD_CLOWN,
+			"Stage Magician" = JOB_HUD_STAGEMAGICIAN,
+			"Barber" = JOB_HUD_BARBER,
+
+			// Cargo
+			"Cargo (Custom)" = JOB_HUD_RAWCARGO,
+			"Quartermaster" = JOB_HUD_QUARTERMASTER,
+			"Cargo Technician" = JOB_HUD_CARGOTECHNICIAN,
+			"Shaft Miner" = JOB_HUD_SHAFTMINER,
+
+			// R&D
+			"Science (Custom)" = JOB_HUD_RAWSCIENCE,
+			"Research Director" = JOB_HUD_RESEARCHDIRECTOR,
+			"Scientist" = JOB_HUD_SCIENTIST,
+			"Roboticist" = JOB_HUD_ROBOTICIST,
+			"Exploration Crew" = JOB_HUD_EXPLORATIONCREW,
+
+			// Engineering
+			"Engineering (Custom)" = JOB_HUD_RAWENGINEERING,
+			"Chief Engineer" = JOB_HUD_CHIEFENGINEER,
+			"Station Engineer" = JOB_HUD_STATIONENGINEER,
+			"Atmospheric Technician" = JOB_HUD_ATMOSPHERICTECHNICIAN,
+
+			// Medical
+			"Medical (Custom)" = JOB_HUD_RAWMEDICAL,
+			"Chief Medical Officer" = JOB_HUD_CHEIFMEDICALOFFICIER,
+			"Medical Doctor" = JOB_HUD_MEDICALDOCTOR,
+			"Paramedic" = JOB_HUD_PARAMEDIC,
+			"Virologist" = JOB_HUD_VIROLOGIST,
+			"Chemist" = JOB_HUD_CHEMIST,
+			"Geneticist" = JOB_HUD_GENETICIST,
+			"Psychiatrist" = JOB_HUD_PSYCHIATRIST,
+
+			// Security
+			"Security (Custom)" = JOB_HUD_RAWSECURITY,
+			"Head of Security" = JOB_HUD_HEADOFSECURITY,
+			"Security Officer" = JOB_HUD_SECURITYOFFICER,
+			"Warden" = JOB_HUD_WARDEN,
+			"Detective" = JOB_HUD_DETECTIVE,
+			"Brig Physician" = JOB_HUD_BRIGPHYSICIAN,
+			"Deputy" = JOB_HUD_DEPUTY,
+
+			// CentCom
+			"CentCom (Custom)" = JOB_HUD_RAWCENTCOM,
+			"CentCom" = JOB_HUD_CENTCOM,
+			"ERT" = JOB_HUD_CENTCOM,
+
+			// ETC
+			"VIP" = JOB_HUD_VIP,
+			"King" = JOB_HUD_KING,
+			"Syndicate" = JOB_HUD_SYNDICATE,
+			"Clown Operative" = JOB_HUD_SYNDICATE,
+			"Unassigned" = JOB_HUD_UNKNOWN,
+			"Prisoner" = JOB_HUD_PRISONER
+		)
+		if(jobname in id_to_hud)
+			return id_to_hud[jobname]
+	return JOB_HUD_UNKNOWN
