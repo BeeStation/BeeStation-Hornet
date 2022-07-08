@@ -265,37 +265,38 @@
 	return tab_data
 
 /mob/living/silicon/ai/proc/update_ai_alerts()
-	if(alerts_popup && alerts_popup.resolve())
-		var/dat
-		for (var/cat in alarms)
-			dat += text("<B>[]</B><BR>\n", cat)
-			var/list/L = alarms[cat]
-			if (L.len)
-				for (var/alarm in L)
-					var/list/alm = L[alarm]
-					var/area/A = alm[1]
-					var/C = alm[2]
-					var/list/sources = alm[3]
-					dat += "<NOBR>"
-					if (C && istype(C, /list))
-						var/dat2 = ""
-						for (var/obj/machinery/camera/I in C)
-							dat2 += text("[]<A HREF=?src=[REF(src)];switchcamera=[REF(I)]>[]</A>", (dat2=="") ? "" : " | ", I.c_tag)
-						dat += text("-- [] ([])", A.name, (dat2!="") ? dat2 : "No Camera")
-					else if (C && istype(C, /obj/machinery/camera))
-						var/obj/machinery/camera/Ctmp = C
-						dat += text("-- [] (<A HREF=?src=[REF(src)];switchcamera=[REF(C)]>[]</A>)", A.name, Ctmp.c_tag)
-					else
-						dat += text("-- [] (No Camera)", A.name)
-					if (sources.len > 1)
-						dat += text("- [] sources", sources.len)
-					dat += "</NOBR><BR>\n"
-			else
-				dat += "-- All Systems Nominal<BR>\n"
-			dat += "<BR>\n"
-		var/datum/browser/popup = alerts_popup.resolve()
-		popup.set_content(dat)
-		popup.open()
+	if(!alerts_popup || !alerts_popup.resolve())
+		return
+	var/dat
+	for (var/cat in alarms)
+		dat += text("<B>[]</B><BR>\n", cat)
+		var/list/L = alarms[cat]
+		if (L.len)
+			for (var/alarm in L)
+				var/list/alm = L[alarm]
+				var/area/A = alm[1]
+				var/C = alm[2]
+				var/list/sources = alm[3]
+				dat += "<NOBR>"
+				if (C && istype(C, /list))
+					var/dat2 = ""
+					for (var/obj/machinery/camera/I in C)
+						dat2 += text("[]<A HREF=?src=[REF(src)];switchcamera=[REF(I)]>[]</A>", (dat2=="") ? "" : " | ", I.c_tag)
+					dat += text("-- [] ([])", A.name, (dat2!="") ? dat2 : "No Camera")
+				else if (C && istype(C, /obj/machinery/camera))
+					var/obj/machinery/camera/Ctmp = C
+					dat += text("-- [] (<A HREF=?src=[REF(src)];switchcamera=[REF(C)]>[]</A>)", A.name, Ctmp.c_tag)
+				else
+					dat += text("-- [] (No Camera)", A.name)
+				if (sources.len > 1)
+					dat += text("- [] sources", sources.len)
+				dat += "</NOBR><BR>\n"
+		else
+			dat += "-- All Systems Nominal<BR>\n"
+		dat += "<BR>\n"
+	var/datum/browser/popup = alerts_popup.resolve()
+	popup.set_content(dat)
+	popup.open()
 
 /mob/living/silicon/ai/proc/ai_alerts()
 	var/datum/browser/popup
