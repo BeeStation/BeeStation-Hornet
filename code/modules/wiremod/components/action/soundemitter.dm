@@ -19,7 +19,7 @@
 
 	var/list/options_map
 
-	COOLDOWN_DECLARE(next_sound)
+	var/next_sound
 
 /obj/item/circuit_component/soundemitter/get_ui_notices()
 	. = ..()
@@ -69,7 +69,7 @@
 	if(.)
 		return
 
-	if(!COOLDOWN_FINISHED(src, next_sound))
+	if(!IS_COOLDOWN_FINISHED(src, next_sound))
 		return
 
 	var/sound_to_play = options_map[current_option]

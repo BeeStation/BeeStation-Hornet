@@ -340,6 +340,7 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 /area/proc/ModifyFiredoors(opening)
 	if(firedoors)
 		firedoors_last_closed_on = world.time
+		COOLDOWN_START(firedoors_last_closed_on, 10 SECONDS)
 		for(var/FD in firedoors)
 			var/obj/machinery/door/firedoor/D = FD
 			var/cont = !D.welded
@@ -433,7 +434,7 @@ GLOBAL_LIST_EMPTY(teleportlocs)
   * If 100 ticks has elapsed, toggle all the firedoors closed again
   */
 /area/process()
-	if(firedoors_last_closed_on + 100 < world.time)	//every 10 seconds
+	if(IS_COOLDOWN_FINISHED(firedoors_last_closed_on))	//every 10 seconds
 		ModifyFiredoors(FALSE)
 
 /**

@@ -156,7 +156,7 @@
 
 
 		if("express_add")//Generate Supply Order first
-			if(!COOLDOWN_FINISHED(src, order_cooldown))
+			if(!IS_COOLDOWN_FINISHED(src, order_cooldown))
 				return
 			if(usingBeacon && !(beacon && (isturf(beacon.loc) || ismob(beacon.loc))))
 				return

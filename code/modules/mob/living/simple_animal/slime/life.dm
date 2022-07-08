@@ -41,7 +41,7 @@
 	if(Target.buckled_mobs?.len && (locate(/mob/living/simple_animal/slime) in Target.buckled_mobs))
 		slime_on_target = 1
 
-	if(Target.get_virtual_z_level() == src.get_virtual_z_level() && attack_cooldown < world.time && get_dist(Target, src) <= 1)
+	if(Target.get_virtual_z_level() == src.get_virtual_z_level() && IS_COOLDOWN_FINISHED(attack_cooldown)  && get_dist(Target, src) <= 1)
 		if(!slime_on_target && CanFeedon(Target))
 			if(!Target.client || prob(20))
 				Feedon(Target)
@@ -50,7 +50,7 @@
 				return
 		if((attacked || rabid) && Adjacent(Target))
 			Target.attack_slime(src)
-			attack_cooldown = world.time + attack_cooldown_time
+			COOLDOWN_START(attack_cooldown, attack_cooldown_time)
 	else if(src in viewers(7, Target))
 		if((transformeffects & SLIME_EFFECT_BLUESPACE) && powerlevel >= 5)
 			do_teleport(src, get_turf(Target), asoundin = 'sound/effects/phasein.ogg', channel = TELEPORT_CHANNEL_BLUESPACE)

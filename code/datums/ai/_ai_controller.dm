@@ -28,7 +28,7 @@ multiple modular subtrees with behaviors
 	///distance to give up on target
 	var/max_target_distance = 14
 	///Cooldown for new plans, to prevent AI from going nuts if it can't think of new plans and looping on end
-	COOLDOWN_DECLARE(failed_planning_cooldown)
+	var/failed_planning_cooldown
 	///All subtrees this AI has available, will run them in order, so make sure they're in the order you want them to run. On initialization of this type, it will start as a typepath(s) and get converted to references of ai_subtrees found in SSai_controllers when init_subtrees() is called
 	var/list/planning_subtrees
 
@@ -36,7 +36,7 @@ multiple modular subtrees with behaviors
 	///Reference to the movement datum we use. Is a type on initialize but becomes a ref afterwards.
 	var/datum/ai_movement/ai_movement = /datum/ai_movement/dumb
 	///Cooldown until next movement
-	COOLDOWN_DECLARE(movement_cooldown)
+	var/movement_cooldown
 	///Delay between movements. This is on the controller so we can keep the movement datum singleton
 	var/movement_delay = 0.1 SECONDS
 
@@ -179,7 +179,7 @@ multiple modular subtrees with behaviors
 ///This is where you decide what actions are taken by the AI.
 /datum/ai_controller/proc/SelectBehaviors(delta_time)
 	SHOULD_NOT_SLEEP(TRUE) //Fuck you don't sleep in procs like this.
-	if(!COOLDOWN_FINISHED(src, failed_planning_cooldown))
+	if(!IS_COOLDOWN_FINISHED(src, failed_planning_cooldown))
 		return FALSE
 
 	LAZYINITLIST(current_behaviors)

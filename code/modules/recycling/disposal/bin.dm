@@ -181,9 +181,9 @@
 	flushing = TRUE
 	flushAnimation()
 	sleep(10)
-	if(last_sound < world.time + 1)
+	if(IS_COOLDOWN_FINISHED(last_sound))
 		playsound(src, 'sound/machines/disposalflush.ogg', 50, FALSE, FALSE)
-		last_sound = world.time
+		COOLDOWN_START(last_sound, 1)
 	sleep(5)
 	if(QDELETED(src))
 		return

@@ -32,7 +32,7 @@
 	if((mobility_flags & (MOBILITY_MOVE | MOBILITY_STAND)) != (MOBILITY_MOVE | MOBILITY_STAND) || leaping)
 		return
 
-	if(!(COOLDOWN_FINISHED(src, pounce_cooldown)))
+	if(!(IS_COOLDOWN_FINISHED(src, pounce_cooldown)))
 		to_chat(src, "<span class='alertalien'>You are too fatigued to pounce right now!</span>")
 		return
 

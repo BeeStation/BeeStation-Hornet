@@ -114,10 +114,10 @@
 	armour_penetration = 12
 	attack_verb = list("attacked", "slashed", "cut", "torn", "gored")
 	clockwork_hint = "Targets will be struck with a powerful electromagnetic pulse while on Reebe."
-	COOLDOWN_DECLARE(emp_cooldown)
+	var/emp_cooldown
 
 /obj/item/clockwork/weapon/brass_sword/hit_effect(mob/living/target, mob/living/user, thrown)
-	if(!COOLDOWN_FINISHED(src, emp_cooldown))
+	if(!IS_COOLDOWN_FINISHED(src, emp_cooldown))
 		return
 	COOLDOWN_START(src, emp_cooldown, 30 SECONDS)
 
@@ -131,7 +131,7 @@
 	..()
 	if(!(istype(O, /obj/mecha) && is_reebe(user.z)))
 		return
-	if(!COOLDOWN_FINISHED(src, emp_cooldown))
+	if(!IS_COOLDOWN_FINISHED(src, emp_cooldown))
 		return
 	COOLDOWN_START(src, emp_cooldown, 20 SECONDS)
 

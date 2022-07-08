@@ -780,9 +780,9 @@ GLOBAL_LIST_EMPTY(vending_products)
 				var/datum/bank_account/D = SSeconomy.get_dep_account(payment_department)
 				if(D)
 					D.adjust_money(price_to_use)
-			if(last_shopper != REF(usr) || purchase_message_cooldown < world.time)
+			if(last_shopper != REF(usr) || IS_COOLDOWN_FINISHED(purchase_message_cooldown))
 				say("Thank you for shopping with [src]!")
-				purchase_message_cooldown = world.time + 5 SECONDS
+				COOLDOWN_START(purchase_message_cooldown, 5 SECONDS)
 				//This is not the best practice, but it's safe enough here since the chances of two people using a machine with the same ref in 5 seconds is fuck low
 				last_shopper = REF(usr)
 			use_power(5)
@@ -1035,9 +1035,9 @@ GLOBAL_LIST_EMPTY(vending_products)
 						S.forceMove(drop_location())
 						loaded_items--
 						use_power(5)
-						if(last_shopper != REF(usr) || purchase_message_cooldown < world.time)
+						if(last_shopper != REF(usr) || IS_COOLDOWN_FINISHED(purchase_message_cooldown))
 							say("Thank you for buying local and purchasing [S]!")
-							purchase_message_cooldown = world.time + 5 SECONDS
+							COOLDOWN_START(purchase_message_cooldown, 5 SECONDS)
 							last_shopper = REF(usr)
 						vend_ready = TRUE
 						return TRUE

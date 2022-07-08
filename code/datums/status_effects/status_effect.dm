@@ -26,7 +26,7 @@
 		LAZYADD(owner.status_effects, src)
 	if(duration != -1)
 		duration = world.time + duration
-	tick_interval = world.time + tick_interval
+	COOLDOWN_START(tick_interval, tick_interval)
 	if(alert_type)
 		var/atom/movable/screen/alert/status_effect/A = owner.throw_alert(id, alert_type)
 		A.attached_effect = src //so the alert can reference us, if it needs to
@@ -49,9 +49,9 @@
 	if(!owner)
 		qdel(src)
 		return
-	if(tick_interval < world.time)
+	if(IS_COOLDOWN_FINISHED(tick_interval))
 		tick()
-		tick_interval = world.time + initial(tick_interval)
+		START_COOLDOWN(tick_interval, initial(tick_interval))
 	if(duration != -1 && duration < world.time)
 		qdel(src)
 

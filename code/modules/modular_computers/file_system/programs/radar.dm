@@ -24,7 +24,7 @@
 	var/arrowstyle = "ntosradarpointer.png"
 	///Used by the tgui interface, themed for NT or Syndicate colors.
 	var/pointercolor = "green"
-	COOLDOWN_DECLARE(last_scan)
+	var/last_scan
 
 /datum/computer_file/program/radar/run_program(mob/living/user)
 	. = ..()
@@ -221,7 +221,7 @@
 	return locate(selected) in GLOB.carbon_list //currently we dont have a list of humanoids so this'll have to do
 
 /datum/computer_file/program/radar/lifeline/scan()
-	if(!COOLDOWN_FINISHED(src, last_scan))
+	if(!IS_COOLDOWN_FINISHED(src, last_scan))
 		return
 	COOLDOWN_START(src, last_scan, SCAN_COOLDOWN)
 	objects = list()
@@ -278,7 +278,7 @@
 	return locate(selected) in GLOB.poi_list
 
 /datum/computer_file/program/radar/fission360/scan()
-	if(!COOLDOWN_FINISHED(src, last_scan))
+	if(!IS_COOLDOWN_FINISHED(src, last_scan))
 		return
 	COOLDOWN_START(src, last_scan, SCAN_COOLDOWN)
 	objects = list()

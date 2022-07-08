@@ -42,7 +42,7 @@ field_generator power level display
 	var/list/obj/machinery/field/containment/fields
 	var/list/obj/machinery/field/generator/connected_gens
 	var/clean_up = 0
-	COOLDOWN_STATIC_DECLARE(loose_message_cooldown)
+	var/static/loose_message_cooldown
 
 /obj/machinery/field/generator/Initialize(mapload)
 	. = ..()
@@ -334,7 +334,7 @@ field_generator power level display
 	loose_message(dist) //we forward the distance of the furtest away generator
 
 /obj/machinery/field/generator/proc/loose_message(dist)
-	if(COOLDOWN_FINISHED(src, loose_message_cooldown))
+	if(IS_COOLDOWN_FINISHED(src, loose_message_cooldown))
 		COOLDOWN_START(src, loose_message_cooldown, 5 SECONDS) //this cooldown is shared between all field generators
 		var/obj/anomaly/a = locate(/obj/anomaly) in oview(dist, src)
 		var/turf/T = get_turf(src)

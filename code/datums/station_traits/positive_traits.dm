@@ -9,14 +9,14 @@
 	show_in_report = TRUE
 	report_message = "Your station has won the grand prize of the annual station charity event. Free snacks will be delivered to the bar every now and then."
 	trait_processes = TRUE
-	COOLDOWN_DECLARE(party_cooldown)
+	var/party_cooldown
 
 /datum/station_trait/lucky_winner/on_round_start()
 	. = ..()
 	COOLDOWN_START(src, party_cooldown, rand(PARTY_COOLDOWN_LENGTH_MIN, PARTY_COOLDOWN_LENGTH_MAX))
 
 /datum/station_trait/lucky_winner/process(delta_time)
-	if(!COOLDOWN_FINISHED(src, party_cooldown))
+	if(!IS_COOLDOWN_FINISHED(src, party_cooldown))
 		return
 
 	COOLDOWN_START(src, party_cooldown, rand(PARTY_COOLDOWN_LENGTH_MIN, PARTY_COOLDOWN_LENGTH_MAX))

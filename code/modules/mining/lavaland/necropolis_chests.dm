@@ -289,7 +289,7 @@
 		return
 
 	if(wisp.loc == src)
-		if(COOLDOWN_FINISHED(wisp,wisp_tired))
+		if(IS_COOLDOWN_FINISHED(wisp,wisp_tired))
 			to_chat(user, "<span class='notice'>You release the wisp. It begins to bob around your head.</span>")
 			icon_state = "lantern"
 			wisp.orbit(user, 20)
@@ -333,7 +333,7 @@
 	var/obj/item/wisp_lantern/home
 	var/sight_flags = SEE_MOBS
 	var/lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
-	COOLDOWN_DECLARE(wisp_tired)
+	var/wisp_tired
 	var/time
 
 /obj/effect/wisp/orbit(atom/thing, radius, clockwise, rotation_speed, rotation_segments, pre_rotation, lockinorbit)
@@ -1217,7 +1217,7 @@
 
 /obj/item/hierophant_club/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
-	if(user.mind.martial_art.no_guns) 
+	if(user.mind.martial_art.no_guns)
 		to_chat(user, "<span class='warning'>To use this weapon would bring dishonor to the clan.</span>")
 		return
 	var/turf/T = get_turf(target)

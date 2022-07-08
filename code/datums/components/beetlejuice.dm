@@ -45,8 +45,8 @@
 			occurrences++
 		R.next = 1
 
-		if(!first_heard[speaker] || (first_heard[speaker] + max_delay < world.time))
-			first_heard[speaker] = world.time
+		if(!first_heard[speaker] || IS_COOLDOWN_FINISHED(first_heard[speaker]))
+			COOLDOWN_START(first_heard[speaker], max_delay)
 			count[speaker] = 0
 		count[speaker] += occurrences
 		if(count[speaker] >= min_count)

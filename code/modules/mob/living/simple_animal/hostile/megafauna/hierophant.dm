@@ -163,7 +163,7 @@ Difficulty: Hard
 			possibilities += "cross_blast_spam"
 		if(get_dist(src, target) > 2)
 			possibilities += "blink_spam"
-		if(chaser_cooldown < world.time)
+		if(IS_COOLDOWN_FINISHED(chaser_cooldown))
 			if(prob(anger_modifier * 2))
 				possibilities = list("chaser_swarm")
 			else
@@ -178,9 +178,9 @@ Difficulty: Hard
 					chaser_swarm(blink_counter, target_slowness, cross_counter)
 			return
 
-	if(chaser_cooldown < world.time) //if chasers are off cooldown, fire some!
+	if(IS_COOLDOWN_FINISHED(chaser_cooldown)) //if chasers are off cooldown, fire some!
 		var/obj/effect/temp_visual/hierophant/chaser/C = new /obj/effect/temp_visual/hierophant/chaser(loc, src, target, chaser_speed, FALSE)
-		chaser_cooldown = world.time + initial(chaser_cooldown)
+		START_COOLDOWN(chaser_cooldown, initial(chaser_cooldown))
 		if((prob(anger_modifier) || target.Adjacent(src)) && target != src)
 			var/obj/effect/temp_visual/hierophant/chaser/OC = new(loc, src, target, chaser_speed * 1.5, FALSE)
 			OC.moving = 4
@@ -262,7 +262,7 @@ Difficulty: Hard
 		C.moving = 3
 		C.moving_dir = pick_n_take(cardinal_copy)
 		SLEEP_CHECK_DEATH(8 + target_slowness)
-	chaser_cooldown = world.time + initial(chaser_cooldown)
+	COOLDOWN_START(chaser_cooldown, initial(chaser_cooldown))
 	animate(src, color = oldcolor, time = 8)
 	addtimer(CALLBACK(src, /atom/proc/update_atom_colour), 8)
 	SLEEP_CHECK_DEATH(8)

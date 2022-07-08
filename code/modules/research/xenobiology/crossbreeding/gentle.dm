@@ -6,7 +6,7 @@
 	icon_state = "gentle"
 	var/extract_type
 	var/obj/item/slime_extract/extract
-	COOLDOWN_DECLARE(use_cooldown)
+	var/use_cooldown
 	var/cooldown = 5 //This is in seconds
 
 /obj/item/slimecross/gentle/Initialize(mapload)
@@ -23,14 +23,14 @@
 /obj/item/slimecross/gentle/attack_self(mob/living/carbon/user)
 	if(user.incapacitated() || !iscarbon(user))
 		return
-	if(!COOLDOWN_FINISHED(src, use_cooldown))
+	if(!IS_COOLDOWN_FINISHED(src, use_cooldown))
 		return
 	COOLDOWN_START(src, use_cooldown, extract.activate(user, user.dna.species, SLIME_ACTIVATE_MINOR))
 
 /obj/item/slimecross/gentle/AltClick(mob/living/carbon/user, obj/item/I)
 	if(user.incapacitated() || !iscarbon(user))
 		return
-	if(!COOLDOWN_FINISHED(src, use_cooldown))
+	if(!IS_COOLDOWN_FINISHED(src, use_cooldown))
 		return
 	COOLDOWN_START(src, use_cooldown, extract.activate(user, user.dna.species, SLIME_ACTIVATE_MAJOR))
 

@@ -35,10 +35,10 @@
 	var/datum/port/input/west
 
 	// Done like this so that travelling diagonally is more simple
-	COOLDOWN_DECLARE(north_delay)
-	COOLDOWN_DECLARE(east_delay)
-	COOLDOWN_DECLARE(south_delay)
-	COOLDOWN_DECLARE(west_delay)
+	var/north_delay
+	var/east_delay
+	var/south_delay
+	var/west_delay
 
 	/// Delay between each movement
 	var/move_delay = 0.2 SECONDS
@@ -61,16 +61,16 @@
 
 	var/direction
 
-	if(COMPONENT_TRIGGERED_BY(north, port) && COOLDOWN_FINISHED(src, north_delay))
+	if(COMPONENT_TRIGGERED_BY(north, port) && IS_COOLDOWN_FINISHED(src, north_delay))
 		direction = NORTH
 		COOLDOWN_START(src, north_delay, move_delay)
-	else if(COMPONENT_TRIGGERED_BY(east, port) && COOLDOWN_FINISHED(src, east_delay))
+	else if(COMPONENT_TRIGGERED_BY(east, port) && IS_COOLDOWN_FINISHED(src, east_delay))
 		direction = EAST
 		COOLDOWN_START(src, east_delay, move_delay)
-	else if(COMPONENT_TRIGGERED_BY(south, port) && COOLDOWN_FINISHED(src, south_delay))
+	else if(COMPONENT_TRIGGERED_BY(south, port) && IS_COOLDOWN_FINISHED(src, south_delay))
 		direction = SOUTH
 		COOLDOWN_START(src, south_delay, move_delay)
-	else if(COMPONENT_TRIGGERED_BY(west, port) && COOLDOWN_FINISHED(src, west_delay))
+	else if(COMPONENT_TRIGGERED_BY(west, port) && IS_COOLDOWN_FINISHED(src, west_delay))
 		direction = WEST
 		COOLDOWN_START(src, west_delay, move_delay)
 

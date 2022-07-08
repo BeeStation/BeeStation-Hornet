@@ -15,7 +15,7 @@
 	/// The cooldown for this component of how often it can send speech messages.
 	var/speech_cooldown = 1 SECONDS
 
-	COOLDOWN_DECLARE(next_speech)
+	var/next_speech
 
 /obj/item/circuit_component/speech/get_ui_notices()
 	. = ..()
@@ -41,7 +41,7 @@
 	if(!COMPONENT_TRIGGERED_BY(trigger, port))
 		return
 
-	if(!COOLDOWN_FINISHED(src, next_speech))
+	if(!IS_COOLDOWN_FINISHED(src, next_speech))
 		return
 
 	if(message.input_value)

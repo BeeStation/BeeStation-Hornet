@@ -229,13 +229,14 @@ Slimecrossing Items
 	list_reagents = list(/datum/reagent/consumable/nutriment/stabilized = 10, /datum/reagent/consumable/nutriment = 2) //Won't make you fat. Will make you question your sanity.
 
 /obj/item/reagent_containers/food/snacks/rationpack/checkLiked(fraction, mob/M)	//Nobody likes rationpacks. Nobody.
-	if(last_check_time + 50 < world.time)
+	if(IS_COOLDOWN_FINISHED(last_check_time))
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
 			if(H.mind && !HAS_TRAIT(H, TRAIT_AGEUSIA))
 				to_chat(H,"<span class='notice'>That didn't taste very good...</span>") //No disgust, though. It's just not good tasting.
 				SEND_SIGNAL(H, COMSIG_ADD_MOOD_EVENT, "gross_food", /datum/mood_event/gross_food)
 				last_check_time = world.time
+				COOLDOWN_START(last_check_time, 5 SECONDS)
 				return
 	..()
 

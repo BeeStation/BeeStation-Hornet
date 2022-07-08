@@ -77,7 +77,7 @@ and clear when youre done! if you dont i will use :newspaper2: on you
 	var/damaged = FALSE
 
 	//creates the timer that determines if another program can be manually loaded
-	COOLDOWN_DECLARE(holodeck_cooldown)
+	var/holodeck_cooldown
 
 /obj/machinery/computer/holodeck/Initialize(mapload)
 	..()
@@ -193,7 +193,7 @@ and clear when youre done! if you dont i will use :newspaper2: on you
 		map_id = offline_program
 		force = TRUE
 
-	if (!force && (!COOLDOWN_FINISHED(src, holodeck_cooldown) || spawning_simulation))
+	if (!force && (!IS_COOLDOWN_FINISHED(src, holodeck_cooldown) || spawning_simulation))
 		say("ERROR. Recalibrating projection apparatus.")
 		return
 

@@ -1,17 +1,17 @@
 /datum/ai_planning_subtree/dog
-	COOLDOWN_DECLARE(heel_cooldown)
-	COOLDOWN_DECLARE(reset_ignore_cooldown)
+	var/heel_cooldown
+	var/reset_ignore_cooldown
 
 /datum/ai_planning_subtree/dog/SelectBehaviors(datum/ai_controller/dog/controller, delta_time)
 	var/mob/living/living_pawn = controller.pawn
 
 	// occasionally reset our ignore list
-	if(COOLDOWN_FINISHED(src, reset_ignore_cooldown) && length(controller.blackboard[BB_FETCH_IGNORE_LIST]))
+	if(IS_COOLDOWN_FINISHED(src, reset_ignore_cooldown) && length(controller.blackboard[BB_FETCH_IGNORE_LIST]))
 		COOLDOWN_START(src, reset_ignore_cooldown, AI_FETCH_IGNORE_DURATION)
 		controller.blackboard[BB_FETCH_IGNORE_LIST] = list()
 
 	// if we were just ordered to heel, chill out for a bit
-	if(!COOLDOWN_FINISHED(src, heel_cooldown))
+	if(!IS_COOLDOWN_FINISHED(src, heel_cooldown))
 		return
 
 	// if we're not already carrying something and we have a fetch target (and we're not already doing something with it), see if we can eat/equip it

@@ -62,17 +62,14 @@
 
 /mob/living/simple_animal/hostile/wizard/handle_automated_action()
 	. = ..()
-	if(target && next_cast < world.time)
+	if(target && IS_COOLDOWN_FINISHED(next_cast))
 		if((get_dir(src,target) in list(SOUTH,EAST,WEST,NORTH)) && fireball.cast_check(0,src)) //Lined up for fireball
 			src.setDir(get_dir(src,target))
 			fireball.perform(list(target), user = src)
-			next_cast = world.time + 10 //One spell per second
-			return .
+			START_COOLDOWN(next_cast, 1 SECONDS) //One spell per second
 		if(mm.cast_check(0,src))
 			mm.choose_targets(src)
-			next_cast = world.time + 10
-			return .
+			START_COOLDOWN(next_cast, 1 SECONDS)
 		if(blink.cast_check(0,src)) //Spam Blink when you can
 			blink.choose_targets(src)
-			next_cast = world.time + 10
-			return .
+			START_COOLDOWN(next_cast, 1 SECONDS)

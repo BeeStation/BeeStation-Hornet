@@ -218,7 +218,7 @@
 	var/obj/item/watertank/tank
 	var/nozzle_mode = 0
 	var/metal_synthesis_cooldown = 0
-	COOLDOWN_DECLARE(resin_cooldown)
+	var/resin_cooldown
 
 /obj/item/extinguisher/mini/nozzle/Initialize(mapload)
 	. = ..()
@@ -273,7 +273,7 @@
 		if(R.total_volume < 100)
 			to_chat(user, "<span class='warning'>You need at least 100 units of water to use the resin launcher!</span>")
 			return
-		if(!COOLDOWN_FINISHED(src, resin_cooldown))
+		if(!IS_COOLDOWN_FINISHED(src, resin_cooldown))
 			to_chat(user, "<span class='warning'>Resin launcher is still recharging...</span>")
 			return
 		COOLDOWN_START(src, resin_cooldown, 10 SECONDS)

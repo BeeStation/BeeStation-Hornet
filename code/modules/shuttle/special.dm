@@ -301,9 +301,9 @@
 	else if (payees[AM] > 0)
 		for(var/obj/I in counted_money)
 			qdel(I)
-		if(!check_times[AM] || check_times[AM] < world.time) //Let's not spam the message
+		if(!check_times[AM] || IS_COOLDOWN_FINISHED(check_times[AM])) //Let's not spam the message
 			say("<span class='robot'>$[payees[AM]] received, [AM]. You need $[threshold-payees[AM]] more.</span>")
-			check_times[AM] = world.time + LUXURY_MESSAGE_COOLDOWN
+			START_COOLDOWN(check_times[AM], LUXURY_MESSAGE_COOLDOWN)
 		return ..()
 	else
 		return ..()

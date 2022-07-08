@@ -17,9 +17,9 @@
 	var/obj/item/target_held = null
 	var/datum/radial_menu/persistent/choice_menu // Radial menu for the user
 	var/datum/radial_menu/persistent/choice_menu_target // Radial menu for the target
-	COOLDOWN_DECLARE(aiming_cooldown) // 5 second cooldown so you can't spam aiming for faster bullets
-	COOLDOWN_DECLARE(voiceline_cooldown) // 2 seconds, prevents spamming commands
-	COOLDOWN_DECLARE(notification_cooldown) // 5 seconds, prevents spamming the equip notification/sound
+	var/aiming_cooldown // 5 second cooldown so you can't spam aiming for faster bullets
+	var/voiceline_cooldown // 2 seconds, prevents spamming commands
+	var/notification_cooldown // 5 seconds, prevents spamming the equip notification/sound
 
 /datum/component/aiming/Initialize(source)
 	if(!istype(parent, /obj/item))
@@ -30,7 +30,7 @@
 /datum/component/aiming/proc/aim(mob/user, mob/target)
 	if(QDELETED(user) || QDELETED(target)) // We lost the user or target somehow
 		return
-	if(!COOLDOWN_FINISHED(src, aiming_cooldown) || src.target || user == target) // No double-aiming
+	if(!IS_COOLDOWN_FINISHED(src, aiming_cooldown) || src.target || user == target) // No double-aiming
 		return
 	COOLDOWN_START(src, aiming_cooldown, 5 SECONDS)
 	src.user = user
@@ -97,7 +97,7 @@ Methods to alert the aimer about events (Surrendering/equipping an item/dropping
 // Called when the target mob equips something
 /datum/component/aiming/proc/on_equip(mob/M, obj/item/I, slot)
 	SIGNAL_HANDLER
-	if(I != target.get_active_held_item() || !COOLDOWN_FINISHED(src, notification_cooldown)) // Checks to make sure the item was actually equipped to the target's hands
+	if(I != target.get_active_held_item() || !IS_COOLDOWN_FINISHED(src, notification_cooldown)) // Checks to make sure the item was actually equipped to the target's hands
 		return
 	if(istype(I, /obj/item/gun))
 		target.balloon_alert(user, "[target] equipped a gun!")
@@ -173,7 +173,7 @@ AIMING_DROP_WEAPON means they selected the "drop your weapon" command
 		stop_aiming()
 		return
 	if(choice != CANCEL && choice != FIRE) // Handling voiceline cooldowns and mimes
-		if(!COOLDOWN_FINISHED(src, voiceline_cooldown))
+		if(!IS_COOLDOWN_FINISHED(src, voiceline_cooldown))
 			to_chat(user, "<span class = 'warning'>You've already given a command recently!</span>")
 			show_ui(user, target, choice)
 			return

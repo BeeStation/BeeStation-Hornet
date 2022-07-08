@@ -13,11 +13,11 @@
 	var/time_since_last_dissipiation = 0
 	/// How long until we start to dissipate/gain energy again after beeing hit by a /obj/item/projectile/energy/accelerated_particle/weak
 	var/conistant_energy_cooldown = 10 SECONDS
-	COOLDOWN_DECLARE(RESTART_DISSIPATE)
+	var/RESTART_DISSIPATE
 
 
 /obj/anomaly/proc/dissipate(delta_time)
-	if(!dissipate && !COOLDOWN_FINISHED(src, RESTART_DISSIPATE))
+	if(!dissipate && !IS_COOLDOWN_FINISHED(src, RESTART_DISSIPATE))
 		return
 	time_since_last_dissipiation += delta_time
 

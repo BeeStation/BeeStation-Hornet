@@ -98,8 +98,8 @@
 	. = ..()
 	if(!.) //Checks if they are dead as a rock.
 		return
-	if(health < maxHealth * 0.5 && rand_tent < world.time)
-		rand_tent = world.time + 30
+	if(health < maxHealth * 0.5 && IS_COOLDOWN_FINISHED(rand_tent))
+		COOLDOWN_START(rand_tent, 3 SECONDS)
 		var/tentacle_amount = 5
 		if(health < maxHealth * 0.25)
 			tentacle_amount = 10

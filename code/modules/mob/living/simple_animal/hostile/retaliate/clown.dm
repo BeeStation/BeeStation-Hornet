@@ -54,11 +54,11 @@
 
 /mob/living/simple_animal/hostile/retaliate/clown/Life()
 	. = ..()
-	if(banana_time && banana_time < world.time)
+	if(banana_time && IS_COOLDOWN_FINISHED(banana_time))
 		var/turf/T = get_turf(src)
 		var/list/adjacent =  T.GetAtmosAdjacentTurfs(1)
 		new banana_type(pick(adjacent))
-		banana_time = world.time + rand(30,60)
+		COOLDOWN_START(banana_time, rand(30, 60))
 
 /mob/living/simple_animal/hostile/retaliate/clown/AttackingTarget()
 	. = ..()

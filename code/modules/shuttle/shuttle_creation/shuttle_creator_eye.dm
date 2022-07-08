@@ -23,7 +23,7 @@
 	var/initial = initial(sprint)
 	var/max_sprint = 50
 
-	if(cooldown && cooldown < world.timeofday) // 3 seconds
+	if(cooldown && IS_COOLDOWN_FINISHED(cooldown)) // 3 seconds
 		sprint = initial
 
 	for(var/i = 0; i < max(sprint, initial); i += 20)
@@ -31,7 +31,7 @@
 		if(step && can_move_to(step))
 			setLoc(step)
 
-	cooldown = world.timeofday + 5
+	COOLDOWN_START(cooldown, 5)
 	if(acceleration)
 		sprint = min(sprint + 0.5, max_sprint)
 	else

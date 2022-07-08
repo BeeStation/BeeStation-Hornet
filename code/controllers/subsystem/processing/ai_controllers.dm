@@ -24,7 +24,7 @@ SUBSYSTEM_DEF(ai_controllers)
 
 /datum/controller/subsystem/ai_controllers/fire(resumed)
 	for(var/datum/ai_controller/ai_controller as anything in active_ai_controllers)
-		if(!COOLDOWN_FINISHED(ai_controller, failed_planning_cooldown))
+		if(!IS_COOLDOWN_FINISHED(ai_controller, failed_planning_cooldown))
 			continue
 
 		if(!LAZYLEN(ai_controller.current_behaviors))

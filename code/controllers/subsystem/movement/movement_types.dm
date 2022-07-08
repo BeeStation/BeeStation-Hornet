@@ -332,7 +332,7 @@
 	///TRUE if a repath proc is currently running to ensure that only one can be called and finishes at a time
 	var/repath_active
 	///Cooldown for repathing, prevents spam
-	COOLDOWN_DECLARE(repath_cooldown)
+	var/repath_cooldown
 
 /datum/move_loop/has_target/jps/setup(delay, timeout, atom/chasing, repath_delay, max_path_length, minimum_distance, obj/item/card/id/id, simulated_only, turf/avoid, skip_first)
 	. = ..()
@@ -367,7 +367,7 @@
 
 //Returns FALSE if the recalculation failed, TRUE otherwise
 /datum/move_loop/has_target/jps/proc/recalculate_path()
-	if(!COOLDOWN_FINISHED(src, repath_cooldown) || repath_active)
+	if(!IS_COOLDOWN_FINISHED(src, repath_cooldown) || repath_active)
 		return
 	repath_active = TRUE
 	COOLDOWN_START(src, repath_cooldown, repath_delay)
@@ -457,7 +457,7 @@
 	var/target_turf
 
 /datum/move_loop/has_target/jps/hostile/recalculate_path()
-	if(!COOLDOWN_FINISHED(src, repath_cooldown) || repath_active || QDELETED(src))
+	if(!IS_COOLDOWN_FINISHED(src, repath_cooldown) || repath_active || QDELETED(src))
 		return
 	repath_active = TRUE
 	COOLDOWN_START(src, repath_cooldown, repath_delay)

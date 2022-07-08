@@ -3,7 +3,7 @@
 	var/max_damage
 	var/probability
 	var/flags
-	COOLDOWN_DECLARE(caltrop_cooldown)
+	var/caltrop_cooldown
 	///given to connect_loc to listen for something moving over target
 	var/static/list/crossed_connections = list(
 		COMSIG_ATOM_ENTERED = .proc/on_entered,
@@ -64,7 +64,7 @@
 
 		H.apply_damage(damage, BRUTE, picked_def_zone)
 
-		if(COOLDOWN_FINISHED(src, caltrop_cooldown))
+		if(IS_COOLDOWN_FINISHED(src, caltrop_cooldown))
 			COOLDOWN_START(src, caltrop_cooldown, 1 SECONDS) //cooldown to avoid message spam.
 			if(!H.incapacitated(ignore_restraints = TRUE))
 				H.visible_message("<span class='danger'>[H] steps on [A].</span>", \

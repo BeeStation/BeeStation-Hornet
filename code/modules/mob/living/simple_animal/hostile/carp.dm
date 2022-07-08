@@ -130,11 +130,11 @@
 /mob/living/simple_animal/hostile/carp/megacarp/adjustHealth(amount, updating_health = TRUE, forced = FALSE)
 	. = ..()
 	if(.)
-		regen_cooldown = world.time + REGENERATION_DELAY
+		COOLDOWN_START(regen_cooldown, REGENERATION_DELAY)
 
 /mob/living/simple_animal/hostile/carp/megacarp/Life()
 	. = ..()
-	if(regen_cooldown < world.time)
+	if(IS_COOLDOWN_FINISHED(regen_cooldown))
 		heal_overall_damage(4)
 
 /mob/living/simple_animal/hostile/carp/cayenne

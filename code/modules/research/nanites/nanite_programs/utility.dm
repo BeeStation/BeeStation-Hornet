@@ -248,9 +248,9 @@
 	var/spread_cooldown = 0
 
 /datum/nanite_program/spreading/active_effect()
-	if(spread_cooldown < world.time)
+	if(IS_COOLDOWN_FINISHED(spread_cooldown))
 		return
-	spread_cooldown = world.time + 50
+	START_COOLDOWN(spread_cooldown, 5 SECONDS)
 	var/list/mob/living/target_hosts = list()
 	for(var/mob/living/L in ohearers(5, host_mob))
 		if(!prob(25))

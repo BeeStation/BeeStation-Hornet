@@ -114,9 +114,9 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 		for(var/datum/tgui/tgui as() in open_orbital_maps)
 			tgui.send_update()
 	//Check creating objectives / missions.
-	if(next_objective_time < world.time && length(possible_objectives) < 6)
+	if(IS_COOLDOWN_FINISHED(next_objective_time) && length(possible_objectives) < 6)
 		create_objective()
-		next_objective_time = world.time + rand(30 SECONDS, 5 MINUTES)
+		COOLDOWN_START(next_objective_time, rand(30 SECONDS, 5 MINUTES))
 	//Check space ruin count
 	if(ruin_levels < 2 && prob(5))
 		new /datum/orbital_object/z_linked/beacon/ruin/spaceruin()

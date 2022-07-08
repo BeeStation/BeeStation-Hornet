@@ -525,7 +525,7 @@
 	button_icon_state = "deploy_box"
 	///The type of closet this action spawns.
 	var/boxtype = /obj/structure/closet/cardboard/agent
-	COOLDOWN_DECLARE(box_cooldown)
+	var/box_cooldown
 
 ///Handles opening and closing the box.
 /datum/action/item_action/agent_box/Trigger()
@@ -541,7 +541,7 @@
 	if(!isturf(owner.loc)) //Don't let the player use this to escape mechs/welded closets.
 		to_chat(owner, "<span class = 'notice'>You need more space to activate this implant.</span>")
 		return
-	if(!COOLDOWN_FINISHED(src, box_cooldown))
+	if(!IS_COOLDOWN_FINISHED(src, box_cooldown))
 		return
 	COOLDOWN_START(src, box_cooldown, 10 SECONDS)
 	var/box = new boxtype(owner.drop_location())

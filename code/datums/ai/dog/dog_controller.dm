@@ -11,8 +11,8 @@
 	ai_movement = /datum/ai_movement/jps
 	planning_subtrees = list(/datum/ai_planning_subtree/dog)
 
-	COOLDOWN_DECLARE(heel_cooldown)
-	COOLDOWN_DECLARE(command_cooldown)
+	var/heel_cooldown
+	var/command_cooldown
 
 
 /datum/ai_controller/dog/process(delta_time)
@@ -61,7 +61,7 @@
 		return
 
 	// if we were just ordered to heel, chill out for a bit
-	if(!COOLDOWN_FINISHED(src, heel_cooldown))
+	if(!IS_COOLDOWN_FINISHED(src, heel_cooldown))
 		return
 
 	// if we're just ditzing around carrying something, occasionally print a message so people know we have something
@@ -84,7 +84,7 @@
 	SIGNAL_HANDLER
 	if(blackboard[BB_FETCH_TARGET] || blackboard[BB_FETCH_DELIVER_TO] || blackboard[BB_DOG_PLAYING_DEAD]) // we're already busy
 		return
-	if(!COOLDOWN_FINISHED(src, heel_cooldown))
+	if(!IS_COOLDOWN_FINISHED(src, heel_cooldown))
 		return
 	if(!can_see(pawn, carbon_thrower, length=AI_DOG_VISION_RANGE))
 		return
@@ -175,7 +175,7 @@
 /datum/ai_controller/dog/proc/check_altclicked(datum/source, mob/living/clicker)
 	SIGNAL_HANDLER
 
-	if(!COOLDOWN_FINISHED(src, command_cooldown))
+	if(!IS_COOLDOWN_FINISHED(src, command_cooldown))
 		return
 	if(!istype(clicker) || !blackboard[BB_DOG_FRIENDS][WEAKREF(clicker)])
 		return
@@ -209,7 +209,7 @@
 	if(!blackboard[BB_DOG_FRIENDS][WEAKREF(speaker)])
 		return
 
-	if(!COOLDOWN_FINISHED(src, command_cooldown))
+	if(!IS_COOLDOWN_FINISHED(src, command_cooldown))
 		return
 
 	var/mob/living/living_pawn = pawn
@@ -265,7 +265,7 @@
 	if(IS_DEAD_OR_INCAP(living_pawn))
 		return
 
-	if(!COOLDOWN_FINISHED(src, command_cooldown))
+	if(!IS_COOLDOWN_FINISHED(src, command_cooldown))
 		return
 	if(pointed_movable == pawn || blackboard[BB_FETCH_TARGET] || !istype(pointed_movable) || blackboard[BB_DOG_ORDER_MODE] == DOG_COMMAND_NONE) // busy or no command
 		return

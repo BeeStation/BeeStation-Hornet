@@ -165,7 +165,7 @@
 		if ("messageAssociates")
 			if (!authenticated_as_non_silicon_captain(usr))
 				return
-			if (!COOLDOWN_FINISHED(src, important_action_cooldown))
+			if (!IS_COOLDOWN_FINISHED(src, important_action_cooldown))
 				return
 
 			playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
@@ -221,7 +221,7 @@
 		if ("requestNukeCodes")
 			if (!authenticated_as_non_silicon_captain(usr))
 				return
-			if (!COOLDOWN_FINISHED(src, important_action_cooldown))
+			if (!IS_COOLDOWN_FINISHED(src, important_action_cooldown))
 				return
 			var/reason = trim(html_encode(params["reason"]), MAX_MESSAGE_LEN)
 			nuke_request(reason, usr)
@@ -245,7 +245,7 @@
 				return
 			if (!can_send_messages_to_other_sectors(usr))
 				return
-			if (!COOLDOWN_FINISHED(src, important_action_cooldown))
+			if (!IS_COOLDOWN_FINISHED(src, important_action_cooldown))
 				return
 
 			var/message = trim(html_encode(params["message"]), MAX_MESSAGE_LEN)
@@ -360,7 +360,7 @@
 		data["canSendToSectors"] = FALSE
 		data["canSetAlertLevel"] = FALSE
 		data["canToggleEmergencyAccess"] = FALSE
-		data["importantActionReady"] = COOLDOWN_FINISHED(src, important_action_cooldown)
+		data["importantActionReady"] = IS_COOLDOWN_FINISHED(src, important_action_cooldown)
 		data["shuttleCalled"] = FALSE
 		data["shuttleLastCalled"] = FALSE
 
