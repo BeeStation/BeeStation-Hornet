@@ -142,26 +142,13 @@
 	update_health_hud()
 
 /mob/living/simple_animal/update_health_hud()
-	if(hud_used)
-		var/severity = 0
-		var/healthpercent = (health / maxHealth) * 100
-		switch(healthpercent)
-			if(80 to 99)
-				severity = 1
-			if(60 to 80)
-				severity = 2
-			if(40 to 60)
-				severity = 3
-			if(20 to 40)
-				severity = 4
-			if(1 to 20)
-				severity = 5
-			else
-				severity = 0
-		if(severity > 0)
-			overlay_fullscreen("brute", /atom/movable/screen/fullscreen/brute, severity)
-		else
-			clear_fullscreen("brute")
+	if(!hud_used)
+		return
+	var/severity = 6 - (CLAMP(FLOOR((health / maxHealth) * 5, 1), 0, 5) + 1)
+	if(severity > 0)
+		overlay_fullscreen("brute", /atom/movable/screen/fullscreen/brute, severity)
+	else
+		clear_fullscreen("brute")
 
 /mob/living/simple_animal/update_stat()
 	if(status_flags & GODMODE)
