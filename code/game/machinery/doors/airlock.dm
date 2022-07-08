@@ -519,14 +519,14 @@
 /obj/machinery/door/airlock/proc/shock(mob/user, prb)
 	if(!hasPower())		// unpowered, no shock
 		return FALSE
-	if(!IS_COOLDOWN_FINISHED(src, shockCooldown))
+	if(!IS_COOLDOWN_FINISHED(shockCooldown))
 		return FALSE	//Already shocked someone recently?
 	if(!prob(prb))
 		return FALSE //you lucked out, no shock for you
 	do_sparks(5, TRUE, src)
 	var/check_range = TRUE
 	if(electrocute_mob(user, get_area(src), src, 1, check_range))
-		COOLDOWN_START(src, shockCooldown, 1 SECONDS)
+		COOLDOWN_START(shockCooldown, 1 SECONDS)
 		return TRUE
 	else
 		return FALSE

@@ -541,9 +541,9 @@
 	if(!isturf(owner.loc)) //Don't let the player use this to escape mechs/welded closets.
 		to_chat(owner, "<span class = 'notice'>You need more space to activate this implant.</span>")
 		return
-	if(!IS_COOLDOWN_FINISHED(src, box_cooldown))
+	if(!IS_COOLDOWN_FINISHED(box_cooldown))
 		return
-	COOLDOWN_START(src, box_cooldown, 10 SECONDS)
+	COOLDOWN_START(box_cooldown, 10 SECONDS)
 	var/box = new boxtype(owner.drop_location())
 	owner.forceMove(box)
 	owner.playsound_local(box, 'sound/misc/box_deploy.ogg', 50, TRUE)

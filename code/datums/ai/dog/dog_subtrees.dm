@@ -6,12 +6,12 @@
 	var/mob/living/living_pawn = controller.pawn
 
 	// occasionally reset our ignore list
-	if(IS_COOLDOWN_FINISHED(src, reset_ignore_cooldown) && length(controller.blackboard[BB_FETCH_IGNORE_LIST]))
-		COOLDOWN_START(src, reset_ignore_cooldown, AI_FETCH_IGNORE_DURATION)
+	if(IS_COOLDOWN_FINISHED(reset_ignore_cooldown) && length(controller.blackboard[BB_FETCH_IGNORE_LIST]))
+		COOLDOWN_START(reset_ignore_cooldown, AI_FETCH_IGNORE_DURATION)
 		controller.blackboard[BB_FETCH_IGNORE_LIST] = list()
 
 	// if we were just ordered to heel, chill out for a bit
-	if(!IS_COOLDOWN_FINISHED(src, heel_cooldown))
+	if(!IS_COOLDOWN_FINISHED(heel_cooldown))
 		return
 
 	// if we're not already carrying something and we have a fetch target (and we're not already doing something with it), see if we can eat/equip it

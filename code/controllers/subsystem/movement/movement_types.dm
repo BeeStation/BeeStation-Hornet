@@ -367,10 +367,10 @@
 
 //Returns FALSE if the recalculation failed, TRUE otherwise
 /datum/move_loop/has_target/jps/proc/recalculate_path()
-	if(!IS_COOLDOWN_FINISHED(src, repath_cooldown) || repath_active)
+	if(!IS_COOLDOWN_FINISHED(repath_cooldown) || repath_active)
 		return
 	repath_active = TRUE
-	COOLDOWN_START(src, repath_cooldown, repath_delay)
+	COOLDOWN_START(repath_cooldown, repath_delay)
 	SEND_SIGNAL(src, COMSIG_MOVELOOP_JPS_REPATH)
 	movement_path = get_path_to(moving, target, max_path_length, minimum_distance, id, simulated_only, avoid, skip_first)
 	repath_active = FALSE
@@ -457,10 +457,10 @@
 	var/target_turf
 
 /datum/move_loop/has_target/jps/hostile/recalculate_path()
-	if(!IS_COOLDOWN_FINISHED(src, repath_cooldown) || repath_active || QDELETED(src))
+	if(!IS_COOLDOWN_FINISHED(repath_cooldown) || repath_active || QDELETED(src))
 		return
 	repath_active = TRUE
-	COOLDOWN_START(src, repath_cooldown, repath_delay)
+	COOLDOWN_START(repath_cooldown, repath_delay)
 	SEND_SIGNAL(src, COMSIG_MOVELOOP_JPS_REPATH)
 	movement_path = get_path_to(moving, target, max_path_length, minimum_distance, id, simulated_only, avoid, skip_first)
 	// Implementing pathfinding fallback solution

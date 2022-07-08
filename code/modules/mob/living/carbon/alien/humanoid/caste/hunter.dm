@@ -32,7 +32,7 @@
 	if((mobility_flags & (MOBILITY_MOVE | MOBILITY_STAND)) != (MOBILITY_MOVE | MOBILITY_STAND) || leaping)
 		return
 
-	if(!(IS_COOLDOWN_FINISHED(src, pounce_cooldown)))
+	if(!(IS_COOLDOWN_FINISHED(pounce_cooldown)))
 		to_chat(src, "<span class='alertalien'>You are too fatigued to pounce right now!</span>")
 		return
 
@@ -57,7 +57,7 @@
 	if(!leaping)
 		return ..()
 
-	COOLDOWN_START(src, pounce_cooldown, 30)
+	COOLDOWN_START(pounce_cooldown, 30)
 	if(hit_atom)
 		if(isliving(hit_atom))
 			var/mob/living/L = hit_atom

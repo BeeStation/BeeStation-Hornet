@@ -41,7 +41,7 @@
 	if(!COMPONENT_TRIGGERED_BY(trigger, port))
 		return
 
-	if(!IS_COOLDOWN_FINISHED(src, next_speech))
+	if(!IS_COOLDOWN_FINISHED(next_speech))
 		return
 
 	if(message.input_value)
@@ -51,4 +51,4 @@
 			shell.say(message.input_value)
 		else
 			say(message.input_value)
-		COOLDOWN_START(src, next_speech, speech_cooldown)
+		COOLDOWN_START(next_speech, speech_cooldown)

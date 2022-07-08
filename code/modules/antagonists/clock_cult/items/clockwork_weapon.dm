@@ -117,9 +117,9 @@
 	var/emp_cooldown
 
 /obj/item/clockwork/weapon/brass_sword/hit_effect(mob/living/target, mob/living/user, thrown)
-	if(!IS_COOLDOWN_FINISHED(src, emp_cooldown))
+	if(!IS_COOLDOWN_FINISHED(emp_cooldown))
 		return
-	COOLDOWN_START(src, emp_cooldown, 30 SECONDS)
+	COOLDOWN_START(emp_cooldown, 30 SECONDS)
 
 	target.emp_act(EMP_LIGHT)
 	new /obj/effect/temp_visual/emp/pulse(target.loc)
@@ -131,9 +131,9 @@
 	..()
 	if(!(istype(O, /obj/mecha) && is_reebe(user.z)))
 		return
-	if(!IS_COOLDOWN_FINISHED(src, emp_cooldown))
+	if(!IS_COOLDOWN_FINISHED(emp_cooldown))
 		return
-	COOLDOWN_START(src, emp_cooldown, 20 SECONDS)
+	COOLDOWN_START(emp_cooldown, 20 SECONDS)
 
 	var/obj/mecha/target = O
 	target.emp_act(EMP_HEAVY)

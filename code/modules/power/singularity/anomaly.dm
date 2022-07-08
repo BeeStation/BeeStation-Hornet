@@ -17,7 +17,7 @@
 
 
 /obj/anomaly/proc/dissipate(delta_time)
-	if(!dissipate && !IS_COOLDOWN_FINISHED(src, RESTART_DISSIPATE))
+	if(!dissipate && !IS_COOLDOWN_FINISHED(RESTART_DISSIPATE))
 		return
 	time_since_last_dissipiation += delta_time
 
@@ -30,9 +30,9 @@
 /obj/anomaly/bullet_act(obj/item/projectile/energy/accelerated_particle/P, def_zone, piercing_hit = FALSE)
 	if(istype(P))
 		if(P.stop_dissipate) //if we get hit by the weak version we won't dissipate nor gain energy
-			COOLDOWN_START(src, RESTART_DISSIPATE, conistant_energy_cooldown)
+			COOLDOWN_START(RESTART_DISSIPATE, conistant_energy_cooldown)
 		else
-			COOLDOWN_RESET(src, RESTART_DISSIPATE) //if we get hit by another type of particle we start the normal process again immidiatly
+			COOLDOWN_RESET(RESTART_DISSIPATE) //if we get hit by another type of particle we start the normal process again immidiatly
 			energy += P.energy
 	else
 		return ..() //highly doubt that anything else could hit this but just in case

@@ -24,7 +24,7 @@
 
 /datum/dynamic_ruleset/roundstart/traitor/pre_execute(population)
 	. = ..()
-	COOLDOWN_START(src, autotraitor_cooldown_check, autotraitor_cooldown)
+	COOLDOWN_START(autotraitor_cooldown_check, autotraitor_cooldown)
 	var/num_traitors = get_antag_cap(population) * (scaled_times + 1)
 	for (var/i = 1 to num_traitors)
 		var/mob/M = pick_n_take(candidates)
@@ -34,8 +34,8 @@
 	return TRUE
 
 /datum/dynamic_ruleset/roundstart/traitor/rule_process()
-	if (IS_COOLDOWN_FINISHED(src, autotraitor_cooldown_check))
-		COOLDOWN_START(src, autotraitor_cooldown_check, autotraitor_cooldown)
+	if (IS_COOLDOWN_FINISHED(autotraitor_cooldown_check))
+		COOLDOWN_START(autotraitor_cooldown_check, autotraitor_cooldown)
 		log_game("DYNAMIC: Checking if we can turn someone into a traitor.")
 		mode.picking_specific_rule(/datum/dynamic_ruleset/midround/autotraitor)
 

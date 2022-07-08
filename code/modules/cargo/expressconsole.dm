@@ -156,7 +156,7 @@
 
 
 		if("express_add")//Generate Supply Order first
-			if(!IS_COOLDOWN_FINISHED(src, order_cooldown))
+			if(!IS_COOLDOWN_FINISHED(order_cooldown))
 				return
 			if(usingBeacon && !(beacon && (isturf(beacon.loc) || ismob(beacon.loc))))
 				return
@@ -201,7 +201,7 @@
 							LZ = pick(empty_turfs)
 					if (SO.pack.get_cost() <= points_to_check && LZ)//we need to call the cost check again because of the CHECK_TICK call
 						new /obj/effect/pod_landingzone(LZ, podType, SO)
-						COOLDOWN_START(src, order_cooldown, ORDER_COOLDOWN)
+						COOLDOWN_START(order_cooldown, ORDER_COOLDOWN)
 						D.adjust_money(-SO.pack.get_cost())
 						. = TRUE
 						update_icon()
@@ -221,7 +221,7 @@
 							var/LZ = pick(empty_turfs)
 							LAZYREMOVE(empty_turfs, LZ)
 							new /obj/effect/pod_landingzone(LZ, podType, SO)
-							COOLDOWN_START(src, order_cooldown, ORDER_COOLDOWN/2)
+							COOLDOWN_START(order_cooldown, ORDER_COOLDOWN/2)
 							. = TRUE
 							update_icon()
 							CHECK_TICK

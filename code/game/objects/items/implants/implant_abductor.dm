@@ -9,12 +9,12 @@
 
 /obj/item/implant/abductor/activate()
 	. = ..()
-	if(!IS_COOLDOWN_FINISHED(src, abductor_implant_cooldown))
-		to_chat(imp_in, "<span class='warning'>You must wait [COOLDOWN_TIMELEFT(src, abductor_implant_cooldown)*0.1] seconds to use [src] again!</span>")
+	if(!IS_COOLDOWN_FINISHED(abductor_implant_cooldown))
+		to_chat(imp_in, "<span class='warning'>You must wait [COOLDOWN_TIMELEFT(abductor_implant_cooldown)*0.1] seconds to use [src] again!</span>")
 		return
 
 	home.Retrieve(imp_in,1)
-	COOLDOWN_START(src, abductor_implant_cooldown, 60 SECONDS)
+	COOLDOWN_START(abductor_implant_cooldown, 60 SECONDS)
 
 /obj/item/implant/abductor/implant(mob/living/target, mob/user, silent = FALSE, force = FALSE)
 	if(..())

@@ -303,7 +303,7 @@
 			qdel(I)
 		if(!check_times[AM] || IS_COOLDOWN_FINISHED(check_times[AM])) //Let's not spam the message
 			say("<span class='robot'>$[payees[AM]] received, [AM]. You need $[threshold-payees[AM]] more.</span>")
-			START_COOLDOWN(check_times[AM], LUXURY_MESSAGE_COOLDOWN)
+			COOLDOWN_START(check_times[AM], LUXURY_MESSAGE_COOLDOWN)
 		return ..()
 	else
 		return ..()

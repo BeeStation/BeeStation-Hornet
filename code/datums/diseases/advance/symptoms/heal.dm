@@ -442,14 +442,14 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 			if(burnheal)
 				M.heal_overall_damage(0, 1.5 * power) //no required_status checks here, this does all bodyparts equally
 
-			if(IS_COOLDOWN_FINISHED(src, teleport_cooldown) && (M.bodytemperature < BODYTEMP_HEAT_DAMAGE_LIMIT || M.bodytemperature > BODYTEMP_COLD_DAMAGE_LIMIT))
+			if(IS_COOLDOWN_FINISHED(teleport_cooldown) && (M.bodytemperature < BODYTEMP_HEAT_DAMAGE_LIMIT || M.bodytemperature > BODYTEMP_COLD_DAMAGE_LIMIT))
 				location_return = get_turf(M)	//sets up return point
 				to_chat(M, "<span class='warning'>The lukewarm temperature makes you feel strange!</span>")
-				COOLDOWN_START(src, teleport_cooldown, (TELEPORT_COOLDOWN * 5) + (rand(1, 300) * 10))
+				COOLDOWN_START(teleport_cooldown, (TELEPORT_COOLDOWN * 5) + (rand(1, 300) * 10))
 			if(location_return)
 				if(location_return.z != M.loc.z)
 					location_return = null
-					COOLDOWN_RESET(src, teleport_cooldown)
+					COOLDOWN_RESET(teleport_cooldown)
 				else if(((M.bodytemperature > BODYTEMP_HEAT_DAMAGE_LIMIT + telethreshold  && !HAS_TRAIT(M, TRAIT_RESISTHEAT)) || (M.bodytemperature < BODYTEMP_COLD_DAMAGE_LIMIT - telethreshold  && !HAS_TRAIT(M, TRAIT_RESISTCOLD)) || (burnheal && M.getFireLoss() > 60 + telethreshold)))
 					do_sparks(5, FALSE, M)
 					to_chat(M, "<span class='userdanger'>The change in temperature shocks you back to a previous spatial state!</span>")
@@ -458,8 +458,8 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 					if(burnheal)
 						M.adjust_fire_stacks(-10)
 					location_return = null
-					COOLDOWN_START(src, teleport_cooldown, TELEPORT_COOLDOWN)
-			if(IS_COOLDOWN_FINISHED(src, teleport_cooldown))
+					COOLDOWN_START(teleport_cooldown, TELEPORT_COOLDOWN)
+			if(IS_COOLDOWN_FINISHED(teleport_cooldown))
 				location_return = null
 		else
 			if(prob(7))

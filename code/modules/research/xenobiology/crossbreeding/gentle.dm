@@ -23,16 +23,16 @@
 /obj/item/slimecross/gentle/attack_self(mob/living/carbon/user)
 	if(user.incapacitated() || !iscarbon(user))
 		return
-	if(!IS_COOLDOWN_FINISHED(src, use_cooldown))
+	if(!IS_COOLDOWN_FINISHED(use_cooldown))
 		return
-	COOLDOWN_START(src, use_cooldown, extract.activate(user, user.dna.species, SLIME_ACTIVATE_MINOR))
+	COOLDOWN_START(use_cooldown, extract.activate(user, user.dna.species, SLIME_ACTIVATE_MINOR))
 
 /obj/item/slimecross/gentle/AltClick(mob/living/carbon/user, obj/item/I)
 	if(user.incapacitated() || !iscarbon(user))
 		return
-	if(!IS_COOLDOWN_FINISHED(src, use_cooldown))
+	if(!IS_COOLDOWN_FINISHED(use_cooldown))
 		return
-	COOLDOWN_START(src, use_cooldown, extract.activate(user, user.dna.species, SLIME_ACTIVATE_MAJOR))
+	COOLDOWN_START(use_cooldown, extract.activate(user, user.dna.species, SLIME_ACTIVATE_MAJOR))
 
 /obj/item/slimecross/gentle/grey
 	extract_type = /obj/item/slime_extract/grey

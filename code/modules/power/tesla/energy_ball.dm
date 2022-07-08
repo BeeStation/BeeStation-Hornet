@@ -96,7 +96,7 @@
 
 
 /obj/anomaly/energy_ball/proc/handle_energy(delta_time)
-	if(!IS_COOLDOWN_FINISHED(src, RESTART_DISSIPATE))
+	if(!IS_COOLDOWN_FINISHED(RESTART_DISSIPATE))
 		return
 	if(energy >= energy_to_raise)
 		energy_to_lower = energy_to_raise - 20

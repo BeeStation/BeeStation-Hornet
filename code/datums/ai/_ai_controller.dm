@@ -179,7 +179,7 @@ multiple modular subtrees with behaviors
 ///This is where you decide what actions are taken by the AI.
 /datum/ai_controller/proc/SelectBehaviors(delta_time)
 	SHOULD_NOT_SLEEP(TRUE) //Fuck you don't sleep in procs like this.
-	if(!IS_COOLDOWN_FINISHED(src, failed_planning_cooldown))
+	if(!IS_COOLDOWN_FINISHED(failed_planning_cooldown))
 		return FALSE
 
 	LAZYINITLIST(current_behaviors)

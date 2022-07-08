@@ -51,7 +51,7 @@
 		return
 	if(IS_COOLDOWN_FINISHED(tick_interval))
 		tick()
-		START_COOLDOWN(tick_interval, initial(tick_interval))
+		COOLDOWN_START(tick_interval, initial(tick_interval))
 	if(duration != -1 && duration < world.time)
 		qdel(src)
 

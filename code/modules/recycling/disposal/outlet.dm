@@ -38,7 +38,7 @@
 	flick("outlet-open", src)
 	if(IS_COOLDOWN_FINISHED(start_eject))
 		start_eject = world.time
-		START_COOLDOWN(start_eject, 3 SECONDS)
+		COOLDOWN_START(start_eject, 3 SECONDS)
 		playsound(src, 'sound/machines/warning-buzzer.ogg', 50, 0, 0)
 		addtimer(CALLBACK(src, .proc/expel_holder, H, TRUE), 20)
 	else

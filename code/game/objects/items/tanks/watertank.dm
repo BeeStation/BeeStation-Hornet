@@ -273,10 +273,10 @@
 		if(R.total_volume < 100)
 			to_chat(user, "<span class='warning'>You need at least 100 units of water to use the resin launcher!</span>")
 			return
-		if(!IS_COOLDOWN_FINISHED(src, resin_cooldown))
+		if(!IS_COOLDOWN_FINISHED(resin_cooldown))
 			to_chat(user, "<span class='warning'>Resin launcher is still recharging...</span>")
 			return
-		COOLDOWN_START(src, resin_cooldown, 10 SECONDS)
+		COOLDOWN_START(resin_cooldown, 10 SECONDS)
 		R.remove_any(100)
 		var/obj/effect/resin_container/resin = new (get_turf(src))
 		log_game("[key_name(user)] used Resin Launcher at [AREACOORD(user)].")

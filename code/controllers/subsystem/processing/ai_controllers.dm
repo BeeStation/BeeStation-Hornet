@@ -24,10 +24,10 @@ SUBSYSTEM_DEF(ai_controllers)
 
 /datum/controller/subsystem/ai_controllers/fire(resumed)
 	for(var/datum/ai_controller/ai_controller as anything in active_ai_controllers)
-		if(!IS_COOLDOWN_FINISHED(ai_controller, failed_planning_cooldown))
+		if(!IS_COOLDOWN_FINISHED(ai_controller.failed_planning_cooldown))
 			continue
 
 		if(!LAZYLEN(ai_controller.current_behaviors))
 			ai_controller.SelectBehaviors(wait * 0.1)
 			if(!LAZYLEN(ai_controller.current_behaviors)) //Still no plan
-				COOLDOWN_START(ai_controller, failed_planning_cooldown, AI_FAILED_PLANNING_COOLDOWN)
+				COOLDOWN_START(ai_controller.failed_planning_cooldown, AI_FAILED_PLANNING_COOLDOWN)

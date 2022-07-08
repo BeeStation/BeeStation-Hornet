@@ -30,9 +30,9 @@
 /datum/component/aiming/proc/aim(mob/user, mob/target)
 	if(QDELETED(user) || QDELETED(target)) // We lost the user or target somehow
 		return
-	if(!IS_COOLDOWN_FINISHED(src, aiming_cooldown) || src.target || user == target) // No double-aiming
+	if(!IS_COOLDOWN_FINISHED(aiming_cooldown) || src.target || user == target) // No double-aiming
 		return
-	COOLDOWN_START(src, aiming_cooldown, 5 SECONDS)
+	COOLDOWN_START(aiming_cooldown, 5 SECONDS)
 	src.user = user
 	src.target = target
 	user.visible_message("<span class='warning'>[user] points [parent] at [target]!</span>")
@@ -97,7 +97,7 @@ Methods to alert the aimer about events (Surrendering/equipping an item/dropping
 // Called when the target mob equips something
 /datum/component/aiming/proc/on_equip(mob/M, obj/item/I, slot)
 	SIGNAL_HANDLER
-	if(I != target.get_active_held_item() || !IS_COOLDOWN_FINISHED(src, notification_cooldown)) // Checks to make sure the item was actually equipped to the target's hands
+	if(I != target.get_active_held_item() || !IS_COOLDOWN_FINISHED(notification_cooldown)) // Checks to make sure the item was actually equipped to the target's hands
 		return
 	if(istype(I, /obj/item/gun))
 		target.balloon_alert(user, "[target] equipped a gun!")
@@ -105,7 +105,7 @@ Methods to alert the aimer about events (Surrendering/equipping an item/dropping
 		target.balloon_alert(user, "[target] equipped something!")
 	SEND_SOUND(user, 'sound/machines/chime.ogg')
 	new /obj/effect/temp_visual/aiming/suspect_alert(get_turf(target))
-	COOLDOWN_START(src, notification_cooldown, 5 SECONDS)
+	COOLDOWN_START(notification_cooldown, 5 SECONDS)
 
 // Called when the target mob drops something
 /datum/component/aiming/proc/on_drop(mob/M, obj/item/I, loc)
@@ -173,14 +173,14 @@ AIMING_DROP_WEAPON means they selected the "drop your weapon" command
 		stop_aiming()
 		return
 	if(choice != CANCEL && choice != FIRE) // Handling voiceline cooldowns and mimes
-		if(!IS_COOLDOWN_FINISHED(src, voiceline_cooldown))
+		if(!IS_COOLDOWN_FINISHED(voiceline_cooldown))
 			to_chat(user, "<span class = 'warning'>You've already given a command recently!</span>")
 			show_ui(user, target, choice)
 			return
 		if(user.mind.assigned_role == "Mime")
 			user.visible_message("<span class='warning'>[user] waves [parent] around menacingly!</span>")
 			show_ui(user, target, choice)
-			COOLDOWN_START(src, voiceline_cooldown, 2 SECONDS)
+			COOLDOWN_START(voiceline_cooldown, 2 SECONDS)
 			return
 	switch(choice)
 		if(CANCEL) //first off, are they telling us to stop aiming?
@@ -196,7 +196,7 @@ AIMING_DROP_WEAPON means they selected the "drop your weapon" command
 		if(DROP_TO_FLOOR)
 			user.say(pick("On the ground! Now!", "Lie down and place your hands behind your head!", "Get down on the ground!"), forced = "Weapon aiming")
 	aim_react(target)
-	COOLDOWN_START(src, voiceline_cooldown, 2 SECONDS)
+	COOLDOWN_START(voiceline_cooldown, 2 SECONDS)
 	show_ui(user, target, choice)
 
 /datum/component/aiming/proc/fire()

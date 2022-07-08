@@ -66,10 +66,10 @@
 		if((get_dir(src,target) in list(SOUTH,EAST,WEST,NORTH)) && fireball.cast_check(0,src)) //Lined up for fireball
 			src.setDir(get_dir(src,target))
 			fireball.perform(list(target), user = src)
-			START_COOLDOWN(next_cast, 1 SECONDS) //One spell per second
+			COOLDOWN_START(next_cast, 1 SECONDS) //One spell per second
 		if(mm.cast_check(0,src))
 			mm.choose_targets(src)
-			START_COOLDOWN(next_cast, 1 SECONDS)
+			COOLDOWN_START(next_cast, 1 SECONDS)
 		if(blink.cast_check(0,src)) //Spam Blink when you can
 			blink.choose_targets(src)
-			START_COOLDOWN(next_cast, 1 SECONDS)
+			COOLDOWN_START(next_cast, 1 SECONDS)

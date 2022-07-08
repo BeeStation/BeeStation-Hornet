@@ -334,8 +334,8 @@ field_generator power level display
 	loose_message(dist) //we forward the distance of the furtest away generator
 
 /obj/machinery/field/generator/proc/loose_message(dist)
-	if(IS_COOLDOWN_FINISHED(src, loose_message_cooldown))
-		COOLDOWN_START(src, loose_message_cooldown, 5 SECONDS) //this cooldown is shared between all field generators
+	if(IS_COOLDOWN_FINISHED(loose_message_cooldown))
+		COOLDOWN_START(loose_message_cooldown, 5 SECONDS) //this cooldown is shared between all field generators
 		var/obj/anomaly/a = locate(/obj/anomaly) in oview(dist, src)
 		var/turf/T = get_turf(src)
 		if(a)

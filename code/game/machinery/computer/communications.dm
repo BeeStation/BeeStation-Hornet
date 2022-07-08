@@ -19,7 +19,7 @@
 	var/authenticated = 0
 
 	/// Cooldown for important actions, such as messaging CentCom or other sectors
-	COOLDOWN_DECLARE(static/important_action_cooldown)
+	var/static/important_action_cooldown
 
 	/// The current state of the UI
 	var/state = STATE_MESSAGES
@@ -165,7 +165,7 @@
 		if ("messageAssociates")
 			if (!authenticated_as_non_silicon_captain(usr))
 				return
-			if (!IS_COOLDOWN_FINISHED(src, important_action_cooldown))
+			if (!IS_COOLDOWN_FINISHED(important_action_cooldown))
 				return
 
 			playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
@@ -182,7 +182,7 @@
 			var/associates = emagged ? "the Syndicate": "CentCom"
 			usr.log_talk(message, LOG_SAY, tag = "message to [associates]")
 			deadchat_broadcast("<span class='deadsay'><span class='name'>[usr.real_name]</span> has messaged [associates], \"[message]\" at <span class='name'>[get_area_name(usr, TRUE)]</span>.</span>", usr)
-			COOLDOWN_START(src, important_action_cooldown, IMPORTANT_ACTION_COOLDOWN)
+			COOLDOWN_START(important_action_cooldown, IMPORTANT_ACTION_COOLDOWN)
 			. = TRUE
 		if ("purchaseShuttle")
 			var/can_buy_shuttles_or_fail_reason = can_buy_shuttles(usr)
@@ -221,7 +221,7 @@
 		if ("requestNukeCodes")
 			if (!authenticated_as_non_silicon_captain(usr))
 				return
-			if (!IS_COOLDOWN_FINISHED(src, important_action_cooldown))
+			if (!IS_COOLDOWN_FINISHED(important_action_cooldown))
 				return
 			var/reason = trim(html_encode(params["reason"]), MAX_MESSAGE_LEN)
 			nuke_request(reason, usr)
@@ -229,7 +229,7 @@
 			usr.log_message("has requested the nuclear codes from CentCom with reason \"[reason]\"", LOG_SAY)
 			priority_announce("The codes for the on-station nuclear self-destruct have been requested by [usr]. Confirmation or denial of this request will be sent shortly.", "Nuclear Self-Destruct Codes Requested", SSstation.announcer.get_rand_report_sound())
 			playsound(src, 'sound/machines/terminal_prompt.ogg', 50, FALSE)
-			COOLDOWN_START(src, important_action_cooldown, IMPORTANT_ACTION_COOLDOWN)
+			COOLDOWN_START(important_action_cooldown, IMPORTANT_ACTION_COOLDOWN)
 			. = TRUE
 		if ("restoreBackupRoutingData")
 			if (!authenticated_as_non_silicon_captain(usr))
@@ -245,7 +245,7 @@
 				return
 			if (!can_send_messages_to_other_sectors(usr))
 				return
-			if (!IS_COOLDOWN_FINISHED(src, important_action_cooldown))
+			if (!IS_COOLDOWN_FINISHED(important_action_cooldown))
 				return
 
 			var/message = trim(html_encode(params["message"]), MAX_MESSAGE_LEN)
@@ -260,7 +260,7 @@
 			message_admins("[ADMIN_LOOKUPFLW(usr)] has sent a message to the other server.")
 			deadchat_broadcast("<span class='deadsay bold'>[usr.real_name] has sent an outgoing message to the other station(s).</span>", usr)
 
-			COOLDOWN_START(src, important_action_cooldown, IMPORTANT_ACTION_COOLDOWN)
+			COOLDOWN_START(important_action_cooldown, IMPORTANT_ACTION_COOLDOWN)
 			. = TRUE
 		if ("setState")
 			if (!authenticated(usr))
@@ -360,7 +360,7 @@
 		data["canSendToSectors"] = FALSE
 		data["canSetAlertLevel"] = FALSE
 		data["canToggleEmergencyAccess"] = FALSE
-		data["importantActionReady"] = IS_COOLDOWN_FINISHED(src, important_action_cooldown)
+		data["importantActionReady"] = IS_COOLDOWN_FINISHED(important_action_cooldown)
 		data["shuttleCalled"] = FALSE
 		data["shuttleLastCalled"] = FALSE
 
@@ -530,7 +530,7 @@
 /// Override the cooldown for special actions
 /// Used in places such as CentCom messaging back so that the crew can answer right away
 /obj/machinery/computer/communications/proc/override_cooldown()
-	COOLDOWN_RESET(src, important_action_cooldown)
+	COOLDOWN_RESET(important_action_cooldown)
 
 /obj/machinery/computer/communications/proc/add_message(datum/comm_message/new_message)
 	LAZYADD(messages, new_message)

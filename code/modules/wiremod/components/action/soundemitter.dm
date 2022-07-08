@@ -69,7 +69,7 @@
 	if(.)
 		return
 
-	if(!IS_COOLDOWN_FINISHED(src, next_sound))
+	if(!IS_COOLDOWN_FINISHED(next_sound))
 		return
 
 	var/sound_to_play = options_map[current_option]
@@ -78,4 +78,4 @@
 
 	playsound(src, sound_to_play, volume.input_value, FALSE, frequency = frequency.input_value)
 
-	COOLDOWN_START(src, next_sound, sound_cooldown)
+	COOLDOWN_START(next_sound, sound_cooldown)

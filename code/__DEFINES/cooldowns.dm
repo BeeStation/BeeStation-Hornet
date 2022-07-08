@@ -69,11 +69,14 @@
  *
 */
 
+//Takes in a variable and the cooldown length, stores the world time that the cooldown will be completed
 #define COOLDOWN_START(cd_var, cd_time) (cd_var = world.time + (cd_time))
 
 //Returns true if the cooldown has run its course, false otherwise
 #define IS_COOLDOWN_FINISHED(cd_var) (cd_var < world.time)
 
+//Resets a cooldown's completion time to 0, instantly finishing it
 #define COOLDOWN_RESET(cd_var) cd_var = 0
 
+//Returns the amount of time left on the cooldown in seconds
 #define COOLDOWN_TIMELEFT(cd_var) (max(0, cd_var - world.time))

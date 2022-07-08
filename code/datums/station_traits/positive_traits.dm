@@ -13,13 +13,13 @@
 
 /datum/station_trait/lucky_winner/on_round_start()
 	. = ..()
-	COOLDOWN_START(src, party_cooldown, rand(PARTY_COOLDOWN_LENGTH_MIN, PARTY_COOLDOWN_LENGTH_MAX))
+	COOLDOWN_START(party_cooldown, rand(PARTY_COOLDOWN_LENGTH_MIN, PARTY_COOLDOWN_LENGTH_MAX))
 
 /datum/station_trait/lucky_winner/process(delta_time)
-	if(!IS_COOLDOWN_FINISHED(src, party_cooldown))
+	if(!IS_COOLDOWN_FINISHED(party_cooldown))
 		return
 
-	COOLDOWN_START(src, party_cooldown, rand(PARTY_COOLDOWN_LENGTH_MIN, PARTY_COOLDOWN_LENGTH_MAX))
+	COOLDOWN_START(party_cooldown, rand(PARTY_COOLDOWN_LENGTH_MIN, PARTY_COOLDOWN_LENGTH_MAX))
 
 	var/area/area_to_spawn_in = pick(GLOB.bar_areas)
 	var/turf/T = get_safe_random_station_turfs(area_to_spawn_in)

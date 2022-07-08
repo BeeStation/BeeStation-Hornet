@@ -111,7 +111,7 @@ and clear when youre done! if you dont i will use :newspaper2: on you
 		else
 			linked.power_usage = list(AREA_USAGE_LEN)
 
-	COOLDOWN_START(src, holodeck_cooldown, HOLODECK_CD)
+	COOLDOWN_START(holodeck_cooldown, HOLODECK_CD)
 	generate_program_list()
 	load_program(offline_program,TRUE)
 
@@ -193,7 +193,7 @@ and clear when youre done! if you dont i will use :newspaper2: on you
 		map_id = offline_program
 		force = TRUE
 
-	if (!force && (!IS_COOLDOWN_FINISHED(src, holodeck_cooldown) || spawning_simulation))
+	if (!force && (!IS_COOLDOWN_FINISHED(holodeck_cooldown) || spawning_simulation))
 		say("ERROR. Recalibrating projection apparatus.")
 		return
 
@@ -201,7 +201,7 @@ and clear when youre done! if you dont i will use :newspaper2: on you
 		return
 
 	if (add_delay)
-		COOLDOWN_START(src, holodeck_cooldown, (damaged ? HOLODECK_CD + HOLODECK_DMG_CD : HOLODECK_CD))
+		COOLDOWN_START(holodeck_cooldown, (damaged ? HOLODECK_CD + HOLODECK_DMG_CD : HOLODECK_CD))
 		if (damaged && floorcheck())
 			damaged = FALSE
 

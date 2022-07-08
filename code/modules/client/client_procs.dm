@@ -152,9 +152,9 @@ GLOBAL_LIST_INIT(blacklisted_builds, list(
 	if(!(CONFIG_GET(flag/automute_on)))
 		return FALSE
 
-	if(IS_COOLDOWN_FINISHED(src, total_count_reset))
+	if(IS_COOLDOWN_FINISHED(total_count_reset))
 		total_message_count = 0 //reset the count if it's been more than 5 seconds since the first message
-		COOLDOWN_START(src, total_count_reset, 5 SECONDS) //inside this if so we don't reset it every single message
+		COOLDOWN_START(total_count_reset, 5 SECONDS) //inside this if so we don't reset it every single message
 
 	total_message_count++
 

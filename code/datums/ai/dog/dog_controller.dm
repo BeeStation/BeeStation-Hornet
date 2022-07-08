@@ -61,7 +61,7 @@
 		return
 
 	// if we were just ordered to heel, chill out for a bit
-	if(!IS_COOLDOWN_FINISHED(src, heel_cooldown))
+	if(!IS_COOLDOWN_FINISHED(heel_cooldown))
 		return
 
 	// if we're just ditzing around carrying something, occasionally print a message so people know we have something
@@ -84,7 +84,7 @@
 	SIGNAL_HANDLER
 	if(blackboard[BB_FETCH_TARGET] || blackboard[BB_FETCH_DELIVER_TO] || blackboard[BB_DOG_PLAYING_DEAD]) // we're already busy
 		return
-	if(!IS_COOLDOWN_FINISHED(src, heel_cooldown))
+	if(!IS_COOLDOWN_FINISHED(heel_cooldown))
 		return
 	if(!can_see(pawn, carbon_thrower, length=AI_DOG_VISION_RANGE))
 		return
@@ -175,7 +175,7 @@
 /datum/ai_controller/dog/proc/check_altclicked(datum/source, mob/living/clicker)
 	SIGNAL_HANDLER
 
-	if(!IS_COOLDOWN_FINISHED(src, command_cooldown))
+	if(!IS_COOLDOWN_FINISHED(command_cooldown))
 		return
 	if(!istype(clicker) || !blackboard[BB_DOG_FRIENDS][WEAKREF(clicker)])
 		return
@@ -209,7 +209,7 @@
 	if(!blackboard[BB_DOG_FRIENDS][WEAKREF(speaker)])
 		return
 
-	if(!IS_COOLDOWN_FINISHED(src, command_cooldown))
+	if(!IS_COOLDOWN_FINISHED(command_cooldown))
 		return
 
 	var/mob/living/living_pawn = pawn
@@ -235,14 +235,14 @@
 
 /// Whether we got here via radial menu or a verbal command, this is where we actually process what our new command will be
 /datum/ai_controller/dog/proc/set_command_mode(mob/commander, command)
-	COOLDOWN_START(src, command_cooldown, AI_DOG_COMMAND_COOLDOWN)
+	COOLDOWN_START(command_cooldown, AI_DOG_COMMAND_COOLDOWN)
 
 	switch(command)
 		// heel: stop what you're doing, relax and try not to do anything for a little bit
 		if(COMMAND_HEEL)
 			pawn.visible_message("<span class='notice'>[pawn]'s ears prick up at [commander]'s command, and [pawn.p_they()] sit[pawn.p_s()] down obediently, awaiting further orders.</span>")
 			blackboard[BB_DOG_ORDER_MODE] = DOG_COMMAND_NONE
-			COOLDOWN_START(src, heel_cooldown, AI_DOG_HEEL_DURATION)
+			COOLDOWN_START(heel_cooldown, AI_DOG_HEEL_DURATION)
 			CancelActions()
 		// fetch: whatever the commander points to, try and bring it back
 		if(COMMAND_FETCH)
@@ -265,14 +265,14 @@
 	if(IS_DEAD_OR_INCAP(living_pawn))
 		return
 
-	if(!IS_COOLDOWN_FINISHED(src, command_cooldown))
+	if(!IS_COOLDOWN_FINISHED(command_cooldown))
 		return
 	if(pointed_movable == pawn || blackboard[BB_FETCH_TARGET] || !istype(pointed_movable) || blackboard[BB_DOG_ORDER_MODE] == DOG_COMMAND_NONE) // busy or no command
 		return
 	if(!can_see(pawn, pointing_friend, length=AI_DOG_VISION_RANGE) || !can_see(pawn, pointed_movable, length=AI_DOG_VISION_RANGE))
 		return
 
-	COOLDOWN_START(src, command_cooldown, AI_DOG_COMMAND_COOLDOWN)
+	COOLDOWN_START(command_cooldown, AI_DOG_COMMAND_COOLDOWN)
 
 	switch(blackboard[BB_DOG_ORDER_MODE])
 		if(DOG_COMMAND_FETCH)

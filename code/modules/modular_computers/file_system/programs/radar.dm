@@ -221,9 +221,9 @@
 	return locate(selected) in GLOB.carbon_list //currently we dont have a list of humanoids so this'll have to do
 
 /datum/computer_file/program/radar/lifeline/scan()
-	if(!IS_COOLDOWN_FINISHED(src, last_scan))
+	if(!IS_COOLDOWN_FINISHED(last_scan))
 		return
-	COOLDOWN_START(src, last_scan, SCAN_COOLDOWN)
+	COOLDOWN_START(last_scan, SCAN_COOLDOWN)
 	objects = list()
 	for(var/i in GLOB.carbon_list)
 		var/mob/living/carbon/human/humanoid = i
@@ -278,9 +278,9 @@
 	return locate(selected) in GLOB.poi_list
 
 /datum/computer_file/program/radar/fission360/scan()
-	if(!IS_COOLDOWN_FINISHED(src, last_scan))
+	if(!IS_COOLDOWN_FINISHED(last_scan))
 		return
-	COOLDOWN_START(src, last_scan, SCAN_COOLDOWN)
+	COOLDOWN_START(last_scan, SCAN_COOLDOWN)
 	objects = list()
 	for(var/i in GLOB.nuke_list)
 		var/obj/machinery/nuclearbomb/nuke = i

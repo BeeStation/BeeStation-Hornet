@@ -289,7 +289,7 @@
 		return
 
 	if(wisp.loc == src)
-		if(IS_COOLDOWN_FINISHED(wisp,wisp_tired))
+		if(IS_COOLDOWN_FINISHED(wisp.wisp_tired))
 			to_chat(user, "<span class='notice'>You release the wisp. It begins to bob around your head.</span>")
 			icon_state = "lantern"
 			wisp.orbit(user, 20)
@@ -367,7 +367,7 @@
 	. = ..()
 	if(home)
 		src.forceMove(home)
-		COOLDOWN_START(src,wisp_tired, 5 MINUTES)
+		COOLDOWN_START(wisp_tired, 5 MINUTES)
 		home.icon_state = "lantern-blue"
 		set_light_on(FALSE)
 	else

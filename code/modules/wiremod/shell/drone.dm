@@ -61,18 +61,18 @@
 
 	var/direction
 
-	if(COMPONENT_TRIGGERED_BY(north, port) && IS_COOLDOWN_FINISHED(src, north_delay))
+	if(COMPONENT_TRIGGERED_BY(north, port) && IS_COOLDOWN_FINISHED(north_delay))
 		direction = NORTH
-		COOLDOWN_START(src, north_delay, move_delay)
-	else if(COMPONENT_TRIGGERED_BY(east, port) && IS_COOLDOWN_FINISHED(src, east_delay))
+		COOLDOWN_START(north_delay, move_delay)
+	else if(COMPONENT_TRIGGERED_BY(east, port) && IS_COOLDOWN_FINISHED(east_delay))
 		direction = EAST
-		COOLDOWN_START(src, east_delay, move_delay)
-	else if(COMPONENT_TRIGGERED_BY(south, port) && IS_COOLDOWN_FINISHED(src, south_delay))
+		COOLDOWN_START(east_delay, move_delay)
+	else if(COMPONENT_TRIGGERED_BY(south, port) && IS_COOLDOWN_FINISHED(south_delay))
 		direction = SOUTH
-		COOLDOWN_START(src, south_delay, move_delay)
-	else if(COMPONENT_TRIGGERED_BY(west, port) && IS_COOLDOWN_FINISHED(src, west_delay))
+		COOLDOWN_START(south_delay, move_delay)
+	else if(COMPONENT_TRIGGERED_BY(west, port) && IS_COOLDOWN_FINISHED(west_delay))
 		direction = WEST
-		COOLDOWN_START(src, west_delay, move_delay)
+		COOLDOWN_START(west_delay, move_delay)
 
 	if(!direction)
 		return
