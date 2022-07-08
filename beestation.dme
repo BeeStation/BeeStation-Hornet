@@ -3836,4 +3836,7 @@
 #include "monkestation\code\modules\wiremod\components\atom\viewer.dm"
 #include "monkestation\code\modules\wiremod\components\list\find_name.dm"
 #include "monkestation\code\modules\wiremod\shell\goggles.dm"
+#include "monkestation\code\modules\wiremod\shell\scout_drone.dm"
+#include "monkestation\code\modules\wiremod\shell\shell_items.dm"
+#include "monkestation\code\modules\wiremod\shell\terminal.dm"
 // END_INCLUDE

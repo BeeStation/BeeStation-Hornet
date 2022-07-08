@@ -378,7 +378,7 @@
 	display_name = "Advanced Shell Research"
 	description = "Grants access to more complicated shell designs."
 	prereq_ids = list("basic_circuitry", "engineering")
-	design_ids = list("controller_shell", "scanner_shell", "bot_shell", "door_shell", "money_bot_shell", "assembly_shell", "circuit_goggles_shell")
+	design_ids = list("controller_shell", "scanner_shell", "bot_shell", "terminal_shell", "door_shell", "money_bot_shell", "assembly_shell", "circuit_goggles_shell") //Monkestation Edit: Added "circuit_goggles_shell", "terminal_shell"
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 
 /datum/techweb_node/movable_shells_tech
@@ -387,7 +387,7 @@
 	display_name = "Movable Shell Research"
 	description = "Grants access to movable shells."
 	prereq_ids = list("adv_shells", "robotics")
-	design_ids = list("comp_pull", "drone_shell")
+	design_ids = list("comp_pull", "drone_shell","scout_shell") //Monkestation edit: Added "scout_drone_shell"
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 3000)
 
 /datum/techweb_node/server_shell_tech

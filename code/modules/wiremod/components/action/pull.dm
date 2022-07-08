@@ -26,9 +26,10 @@
 
 	var/atom/target_atom = target.input_value
 	if(!target_atom)
+		debug_world_log("clickednontarget!")
 		return
 
-	var/mob/shell = parent.shell
+	var/mob/living/circuit_drone/shell = parent.shell
 	if(!istype(shell) || get_dist(shell, target_atom) > 1 || shell.z != target_atom.z)
 		return
 

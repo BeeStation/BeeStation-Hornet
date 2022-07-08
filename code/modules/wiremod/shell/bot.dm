@@ -24,11 +24,14 @@
 	display_name = "Bot"
 	display_desc = "Triggers when someone interacts with the bot."
 
+	/// returns who activated the shell
+	var/datum/port/output/shell_user
 	/// Called when attack_hand is called on the shell.
 	var/datum/port/output/signal
 
 /obj/item/circuit_component/bot/Initialize(mapload)
 	. = ..()
+	shell_user = add_output_port("User", PORT_TYPE_ATOM)
 	signal = add_output_port("Signal", PORT_TYPE_SIGNAL)
 
 /obj/item/circuit_component/bot/Destroy()
@@ -45,4 +48,5 @@
 	SIGNAL_HANDLER
 	source.balloon_alert(user, "pushed button")
 	playsound(source, get_sfx("terminal_type"), 25, FALSE)
+	shell_user.set_output(user)
 	signal.set_output(COMPONENT_SIGNAL)

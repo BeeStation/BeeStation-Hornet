@@ -45,3 +45,25 @@
 	materials = list(/datum/material/glass = 3000, /datum/material/iron = 5000, /datum/material/copper = 1000)
 	build_type = PROTOLATHE | COMPONENT_PRINTER
 	category = list(WIREMOD_CIRCUITRY, WIREMOD_SHELLS)
+
+/datum/design/terminal_shell
+	name = "Terminal"
+	desc = "A shell that allows a user to input text."
+	id = "terminal_shell"
+	build_path = /obj/item/shell/terminal
+	build_type = PROTOLATHE | COMPONENT_PRINTER
+	materials = list(/datum/material/glass = 2000, /datum/material/iron = 11000, /datum/material/gold = 50)
+	category = list(WIREMOD_CIRCUITRY, WIREMOD_SHELLS)
+
+/datum/design/scout_shell
+	name = "Scout Shell"
+	desc = "A drone with that can move fast, but can't use the pull component."
+	id = "scout_shell"
+	build_path = /obj/item/shell/scout
+	build_type = PROTOLATHE | COMPONENT_PRINTER
+	materials = list(
+		/datum/material/glass = 2250,
+		/datum/material/iron = 10000,
+		/datum/material/gold = 250,
+	)
+	category = list(WIREMOD_CIRCUITRY, WIREMOD_SHELLS)
