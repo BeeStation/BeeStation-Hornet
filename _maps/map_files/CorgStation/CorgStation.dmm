@@ -16551,13 +16551,9 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
-/obj/item/paper_bin{
-	pixel_x = -1;
-	pixel_y = 2
-	},
-/obj/item/pen{
-	pixel_x = 1;
-	pixel_y = 1
+/obj/item/xenoartifact_labeler,
+/obj/item/xenoartifact_labeler{
+	pixel_x = -10
 	},
 /turf/open/floor/plasteel/dark,
 /area/science/explab)
@@ -28568,7 +28564,11 @@
 	dir = 8
 	},
 /obj/structure/table/reinforced,
-/obj/item/paicard,
+/obj/item/healthanalyzer,
+/obj/item/storage/firstaid/regular{
+	pixel_x = -3;
+	pixel_y = -3
+	},
 /turf/open/floor/plasteel/dark,
 /area/science/explab)
 "hUm" = (
@@ -36655,10 +36655,8 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/structure/chair/office/light{
-	dir = 1
-	},
 /obj/effect/turf_decal/stripes/line,
+/obj/machinery/computer/xenoartifact_console,
 /turf/open/floor/plasteel/dark,
 /area/science/explab)
 "kiV" = (
@@ -41070,6 +41068,12 @@
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/plasteel,
 /area/maintenance/starboard/central)
+"ltF" = (
+/obj/machinery/xenoartifact_inbox,
+/obj/effect/turf_decal/delivery,
+/obj/item/xenoartifact,
+/turf/open/floor/engine,
+/area/science/explab)
 "ltH" = (
 /obj/effect/turf_decal/loading_area,
 /obj/structure/cable/yellow{
@@ -44611,13 +44615,14 @@
 /area/quartermaster/storage)
 "mwy" = (
 /obj/structure/table/reinforced,
-/obj/item/storage/toolbox/mechanical,
 /obj/item/radio/intercom{
 	pixel_y = -28
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
+/obj/item/nanite_scanner,
+/obj/item/nanite_remote,
 /turf/open/floor/plasteel/dark,
 /area/science/nanite)
 "mwV" = (
@@ -50744,6 +50749,8 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
+/obj/item/paicard,
+/obj/item/book/manual/wiki/xenoarchaeology,
 /turf/open/floor/plasteel/dark,
 /area/science/explab)
 "oph" = (
@@ -51069,10 +51076,15 @@
 /area/space/nearstation)
 "ouB" = (
 /obj/structure/table/reinforced,
-/obj/item/folder/red,
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
+/obj/item/assembly/signaler,
+/obj/item/assembly/igniter{
+	pixel_x = 2;
+	pixel_y = 1
+	},
+/obj/item/stock_parts/cell,
 /turf/open/floor/plasteel/dark,
 /area/science/explab)
 "ouN" = (
@@ -54087,6 +54099,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
+/obj/item/xenoartifact/maint,
 /turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/hor)
 "plr" = (
@@ -60728,11 +60741,10 @@
 /area/security/brig)
 "rlI" = (
 /obj/structure/table/reinforced,
-/obj/item/nanite_remote,
-/obj/item/nanite_scanner,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
+/obj/item/storage/toolbox/mechanical,
 /turf/open/floor/plasteel/dark,
 /area/science/explab)
 "rlJ" = (
@@ -81466,6 +81478,9 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 6
 	},
+/obj/structure/chair/office/light{
+	dir = 1
+	},
 /turf/open/floor/plasteel/white,
 /area/science/explab)
 "xyq" = (
@@ -83887,13 +83902,15 @@
 /area/hallway/secondary/exit/departure_lounge)
 "yiI" = (
 /obj/structure/table/reinforced,
-/obj/item/pipe_painter,
 /obj/machinery/light{
 	dir = 4
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
+/obj/item/analyzer,
+/obj/item/multitool,
+/obj/item/geiger_counter,
 /turf/open/floor/plasteel/dark,
 /area/science/explab)
 "yiS" = (
@@ -112244,7 +112261,7 @@ mHr
 kIy
 lWn
 ejA
-ejA
+ltF
 ejA
 hSX
 kiK
