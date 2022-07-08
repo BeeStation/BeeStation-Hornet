@@ -1,0 +1,5 @@
+author: ro5490
+delete-after: true
+changes:
+  - tweak: Sentient Minebot AI Upgrade now has a cooldown - No more dreaded minebot
+      observer spam
