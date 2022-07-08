@@ -400,7 +400,7 @@
 				playsound(src, 'sound/machines/nuke/angry_beep.ogg', 50, FALSE)
 		if("arm")
 			if(auth && yes_code && !safety && !exploded)
-				if(!COOLDOWN_FINISHED(arm_cooldown))
+				if(!IS_COOLDOWN_FINISHED(arm_cooldown))
 					return
 				playsound(src, 'sound/machines/nuke/confirm_beep.ogg', 50, FALSE)
 				set_active()
@@ -689,7 +689,7 @@ This is here to make the tiles around the station mininuke change when it's arme
 			if(istype(comfort_item, /obj/item/bedsheet) || istype(comfort_item, /obj/structure/bed))
 				disk_comfort_level++
 
-		if(COOLDOWN_FINISHED(weight_increase_cooldown) && last_disk_move < world.time - (5 MINUTES) && world.time > (30 MINUTES))
+		if(IS_COOLDOWN_FINISHED(weight_increase_cooldown) && last_disk_move < world.time - (5 MINUTES) && world.time > (30 MINUTES))
 			var/datum/round_event_control/operative/loneop = locate(/datum/round_event_control/operative) in SSevents.control
 			if(istype(loneop) && loneop.occurrences < loneop.max_occurrences)
 				loneop.weight += 5

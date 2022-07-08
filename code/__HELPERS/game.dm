@@ -445,7 +445,7 @@
 		return candidates
 
 	for(var/mob/dead/observer/G in GLOB.player_list)
-		if(COOLDOWN_FINISHED(G, creation_time) || G.started_as_observer) // Prevents people who have just died from becoming Antagonists
+		if(IS_COOLDOWN_FINISHED(G.creation_time) || G.started_as_observer) // Prevents people who have just died from becoming Antagonists
 			candidates += G
 	return pollCandidates(Question, jobbanType, gametypeCheck, be_special_flag, poll_time, ignore_category, flashwindow, candidates, req_hours)
 

@@ -61,7 +61,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	var/deadchat_name
 	var/datum/orbit_menu/orbit_menu
 	var/static/cooldown_time
-	COOLDOWN_DECLARE(creation_time)
+	var/creation_time
 
 
 /mob/dead/observer/Initialize(mapload)
@@ -154,7 +154,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 
 	if(!cooldown_time) //so we only need to grab the config for this once.
 		cooldown_time = CONFIG_GET(number/cooldown_antag_time) MINUTES
-	COOLDOWN_START(src, creation_time , cooldown_time)
+	COOLDOWN_START(creation_time, cooldown_time)
 
 	AddComponent(/datum/component/tracking_beacon, "ghost", null, null, TRUE, "#9e4d91", TRUE, TRUE)
 
