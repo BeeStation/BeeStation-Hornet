@@ -306,6 +306,15 @@
 	var/base_damage_add = 1 //this thus disables other minebot upgrades
 	var/base_speed_add = 1
 	var/base_cooldown_add = 10 //base cooldown isn't reset to normal, it's just added on, since it's not practical to disable the cooldown module
+	var/timer
+	var/cooldown_time = 600
+
+/obj/item/slimepotion/slime/sentience/mining/attack(mob/living/M, mob/user)
+	if(timer > world.time)
+		to_chat(user, "<span class='warning'>Please wait [(timer - world.time)/10] seconds before trying again.</span>")
+		return
+	timer = world.time + cooldown_time
+	..()
 
 /obj/item/slimepotion/slime/sentience/mining/after_success(mob/living/user, mob/living/simple_animal/SM)
 	if(istype(SM, /mob/living/simple_animal/hostile/mining_drone))
