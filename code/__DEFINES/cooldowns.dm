@@ -58,6 +58,15 @@
 /*
  * Cooldown system based on storing world.time on a variable, plus the cooldown time.
  * Better performance over timer cooldowns, lower control. Same functionality.
+ *
+ * var/cooldown_timer
+ *
+ * 	/proc/activate()
+ * 		if(!IS_COOLDOWN_FINISHED(cooldown_timer))
+ * 			return "Thing is on cooldown!"
+ * 		COOLDOWN_START(cooldown_timer, 5 SECONDS)
+ * 		return "Thing was activated, you can use again in 5 seconds!"
+ *
 */
 
 #define COOLDOWN_START(cd_var, cd_time) (cd_var = world.time + (cd_time))
