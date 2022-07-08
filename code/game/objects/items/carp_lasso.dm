@@ -14,7 +14,7 @@
 	if(isliving(target) && check_allowed(target))
 		var/mob/living/simple_animal/C = target
 		if(user.a_intent == INTENT_HELP && C == mob_target) //if trying to tie up previous target
-			to_chat(user, "<span class='notice'>You begin to untie the [C]</span>")
+			to_chat(user, "<span class='notice'>You begin to untie [C]</span>")
 			if(proximity_flag && do_after(user, 2 SECONDS, FALSE, target))
 				user.faction |= "carpboy_[user]"
 				C.faction |= "carpboy_[user]"
@@ -23,7 +23,7 @@
 				C.toggle_ai(AI_ON)
 				var/datum/component/tamed_command/T = C.AddComponent(/datum/component/tamed_command)
 				T.add_ally(user)
-				to_chat(user, "<span class='notice'>The [C] nuzzles you.</span>")
+				to_chat(user, "<span class='notice'>[C] nuzzles you.</span>")
 				UnregisterSignal(mob_target, COMSIG_PARENT_QDELETING)
 				mob_target = null
 				if(timer)
@@ -42,7 +42,7 @@
 		C.transform = transform.Turn(180)
 		C.toggle_ai(AI_OFF)
 		RegisterSignal(C, COMSIG_PARENT_QDELETING, .proc/handle_hard_del)
-		to_chat(user, "<span class='notice'>You lasso the [C]!</span>")
+		to_chat(user, "<span class='notice'>You lasso [C]!</span>")
 		timer = addtimer(CALLBACK(src, .proc/fail_ally), 6 SECONDS, TIMER_STOPPABLE) //after 6 seconds set the carp back
 	else
 		to_chat(user, "<span class='notice'>[target] seems a bit big for this...</span>")
@@ -52,7 +52,7 @@
 
 
 /obj/item/mob_lasso/proc/fail_ally()
-	visible_message("<span class='warning'>The [mob_target] breaks free!</span>")
+	visible_message("<span class='warning'>[mob_target] breaks free!</span>")
 	mob_target?.transform = transform.Turn(0)
 	mob_target.toggle_ai(AI_ON)
 	UnregisterSignal(mob_target, COMSIG_PARENT_QDELETING)
