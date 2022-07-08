@@ -692,6 +692,7 @@
 	icon_state = "door_electronics"
 	icon = 'icons/obj/module.dmi'
 	sentience_type = SENTIENCE_MINEBOT
+	var/cooldown_time = 600
 	var/timer
 
 /obj/item/slimepotion/slime/sentience/mining/attack(mob/living/M, mob/user)
