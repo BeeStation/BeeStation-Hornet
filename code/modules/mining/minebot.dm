@@ -693,5 +693,12 @@
 	icon = 'icons/obj/module.dmi'
 	sentience_type = SENTIENCE_MINEBOT
 
+/obj/item/slimepotion/slime/sentience/mining/attack(mob/living/M, mob/user)
+	if(timer > world.time)
+		to_chat(user, "<span class='warning'>Please wait [(timer - world.time)/10] seconds before trying again.</span>")
+		return
+	timer = world.time + cooldown_time
+	..()
+
 #undef MODE_COMBAT
 #undef MODE_MINING
