@@ -37,7 +37,7 @@
 	var/requires_power = POWER_REQ_ALL
 	var/can_be_carded = TRUE
 	var/alarms = list("Motion"=list(), "Fire"=list(), "Atmosphere"=list(), "Power"=list(), "Camera"=list(), "Burglar"=list())
-	var/viewalerts = 0
+	var/datum/weakref/alerts_popup = null
 	var/icon/holo_icon//Default is assigned when AI is created.
 	var/obj/mecha/controlled_mech //For controlled_mech a mech, to determine whether to relaymove or use the AI eye.
 	var/radio_enabled = TRUE //Determins if a carded AI can speak with its built in radio or not.
@@ -264,38 +264,47 @@
 		tab_data["Systems"] = GENERATE_STAT_TEXT("nonfunctional")
 	return tab_data
 
-/mob/living/silicon/ai/proc/ai_alerts()
-	var/dat = "<HEAD><TITLE>Current Station Alerts</TITLE><META HTTP-EQUIV='Refresh' CONTENT='10'></HEAD><BODY>\n"
-	dat += "<A HREF='?src=[REF(src)];mach_close=aialerts'>Close</A><BR><BR>"
-	for (var/cat in alarms)
-		dat += text("<B>[]</B><BR>\n", cat)
-		var/list/L = alarms[cat]
-		if (L.len)
-			for (var/alarm in L)
-				var/list/alm = L[alarm]
-				var/area/A = alm[1]
-				var/C = alm[2]
-				var/list/sources = alm[3]
-				dat += "<NOBR>"
-				if (C && istype(C, /list))
-					var/dat2 = ""
-					for (var/obj/machinery/camera/I in C)
-						dat2 += text("[]<A HREF=?src=[REF(src)];switchcamera=[REF(I)]>[]</A>", (dat2=="") ? "" : " | ", I.c_tag)
-					dat += text("-- [] ([])", A.name, (dat2!="") ? dat2 : "No Camera")
-				else if (C && istype(C, /obj/machinery/camera))
-					var/obj/machinery/camera/Ctmp = C
-					dat += text("-- [] (<A HREF=?src=[REF(src)];switchcamera=[REF(C)]>[]</A>)", A.name, Ctmp.c_tag)
-				else
-					dat += text("-- [] (No Camera)", A.name)
-				if (sources.len > 1)
-					dat += text("- [] sources", sources.len)
-				dat += "</NOBR><BR>\n"
-		else
-			dat += "-- All Systems Nominal<BR>\n"
-		dat += "<BR>\n"
+/mob/living/silicon/ai/proc/update_ai_alerts()
+	if(alerts_popup && alerts_popup.resolve())
+		var/dat
+		for (var/cat in alarms)
+			dat += text("<B>[]</B><BR>\n", cat)
+			var/list/L = alarms[cat]
+			if (L.len)
+				for (var/alarm in L)
+					var/list/alm = L[alarm]
+					var/area/A = alm[1]
+					var/C = alm[2]
+					var/list/sources = alm[3]
+					dat += "<NOBR>"
+					if (C && istype(C, /list))
+						var/dat2 = ""
+						for (var/obj/machinery/camera/I in C)
+							dat2 += text("[]<A HREF=?src=[REF(src)];switchcamera=[REF(I)]>[]</A>", (dat2=="") ? "" : " | ", I.c_tag)
+						dat += text("-- [] ([])", A.name, (dat2!="") ? dat2 : "No Camera")
+					else if (C && istype(C, /obj/machinery/camera))
+						var/obj/machinery/camera/Ctmp = C
+						dat += text("-- [] (<A HREF=?src=[REF(src)];switchcamera=[REF(C)]>[]</A>)", A.name, Ctmp.c_tag)
+					else
+						dat += text("-- [] (No Camera)", A.name)
+					if (sources.len > 1)
+						dat += text("- [] sources", sources.len)
+					dat += "</NOBR><BR>\n"
+			else
+				dat += "-- All Systems Nominal<BR>\n"
+			dat += "<BR>\n"
+		var/datum/browser/popup = alerts_popup.resolve()
+		popup.set_content(dat)
+		popup.open()
 
-	viewalerts = 1
-	src << browse(dat, "window=aialerts&can_close=0")
+/mob/living/silicon/ai/proc/ai_alerts()
+	var/datum/browser/popup
+	if(!alerts_popup || !alerts_popup.resolve())
+		popup = new(src, "aialerts", "Current Station Alerts", 387, 420, src) // additional src argument allows calls to our Topic() proc via onclose - is wrapped internally as weakref
+		alerts_popup = WEAKREF(popup) // wrap to prevent harddel
+	update_ai_alerts()
+	popup = alerts_popup.resolve()
+	popup.open()
 
 /mob/living/silicon/ai/proc/ai_call_shuttle()
 	if(control_disabled)
@@ -425,11 +434,13 @@
 
 /mob/living/silicon/ai/Topic(href, href_list)
 	..()
-	if(usr != src || incapacitated())
+	if(usr != src)
+		return
+	if (href_list["close"])
+		alerts_popup = null
+	if (incapacitated())
 		return
 	if (href_list["mach_close"])
-		if (href_list["mach_close"] == "aialerts")
-			viewalerts = 0
 		var/t1 = text("window=[]", href_list["mach_close"])
 		unset_machine()
 		src << browse(null, t1)
@@ -622,8 +633,7 @@
 			queueAlarm(text("--- [] alarm detected in []! (No Camera)", class, home.name), class)
 	else
 		queueAlarm(text("--- [] alarm detected in []! (No Camera)", class, home.name), class)
-	if (viewalerts)
-		ai_alerts()
+	update_ai_alerts()
 	return 1
 
 /mob/living/silicon/ai/freeCamera(area/home, obj/machinery/camera/cam)
@@ -655,7 +665,7 @@
 				L -= I
 	if (cleared)
 		queueAlarm("--- [class] alarm in [A.name] has been cleared.", class, 0)
-		if (viewalerts) ai_alerts()
+		update_ai_alerts()
 	return !cleared
 
 //Replaces /mob/living/silicon/ai/verb/change_network() in ai.dm & camera.dm
