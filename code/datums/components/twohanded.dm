@@ -8,18 +8,18 @@
 	dupe_mode = COMPONENT_DUPE_UNIQUE_PASSARGS 		// Only one of the component can exist on an item
 	var/mob/wielder							/// The mob that is wielding us
 	var/wielded = FALSE 							/// Are we holding the two handed item properly
-	var/force_multiplier = 0						/// The multiplier applied to force when wielded, does not work with force_wielded, and force_unwielded
-	var/force_wielded = 0	 						/// The force of the item when wielded
-	var/force_unwielded = 0		 					/// The force of the item when unwielded
-	var/block_power_wielded = 0						/// The block power of the item when wielded
-	var/block_power_unwielded = 0					/// The block power of the item when unwielded
+	var/force_multiplier						    /// The multiplier applied to force when wielded, does not work with force_wielded, and force_unwielded
+	var/force_wielded 	 						    /// The force of the item when wielded
+	var/force_unwielded		 					    /// The force of the item when unwielded
+	var/block_power_wielded					     	/// The block power of the item when wielded
+	var/block_power_unwielded = 0 				    /// The block power of the item when unwielded
 	var/wieldsound = FALSE 							/// Play sound when wielded
 	var/unwieldsound = FALSE 						/// Play sound when unwielded
 	var/attacksound = FALSE							/// Play sound on attack when wielded
 	var/require_twohands = FALSE					/// Does it have to be held in both hands
 	var/icon_wielded = FALSE						/// The icon that will be used when wielded
 	var/obj/item/offhand/offhand_item		/// Reference to the offhand created for the item
-	var/sharpened_increase = 0						/// The amount of increase recived from sharpening the item
+	var/sharpened_increase					/// The amount of increase recived from sharpening the item
 	var/unwield_on_swap								/// Allow swapping, unwield on swap
 	var/auto_wield									/// If true wielding will be performed when picked up
 	var/ignore_attack_self							/// If true will not unwield when attacking self.
@@ -199,13 +199,13 @@
 
 	// update item stats and name
 	var/obj/item/parent_item = parent
-	if(force_multiplier)
+	if(!isnull(force_multiplier))
 		parent_item.force *= force_multiplier
-	else if(force_wielded)
+	else if(!isnull(force_wielded))
 		parent_item.force = force_wielded
-	if(block_power_wielded)
+	if(!isnull(block_power_wielded))
 		parent_item.block_power = block_power_wielded
-	if(sharpened_increase)
+	if(!isnull(sharpened_increase))
 		parent_item.force += sharpened_increase
 	parent_item.name = "[parent_item.name] (Wielded)"
 	parent_item.update_icon()
@@ -253,9 +253,9 @@
 
 	// update item stats
 	var/obj/item/parent_item = parent
-	if(sharpened_increase)
+	if(!isnull(sharpened_increase))
 		parent_item.force -= sharpened_increase
-	if(force_multiplier)
+	if(!isnull(force_multiplier))
 		parent_item.force /= force_multiplier
 	else if(!isnull(force_unwielded))
 		parent_item.force = force_unwielded
