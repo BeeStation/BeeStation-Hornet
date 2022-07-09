@@ -1,4 +1,0 @@
-author: EvilDragonfiend
-delete-after: true
-changes:
-  - refactor: rename/repath 'brain_surgery.dm' and brain_surgery path into 'brain_recalibration.dm'
