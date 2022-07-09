@@ -874,6 +874,9 @@
 /area/engine/gravity_generator)
 "aVz" = (
 /obj/structure/chair/comfy/brown,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
 /turf/open/floor/wood,
 /area/crew_quarters/heads/hop)
 "aWo" = (
@@ -911,9 +914,8 @@
 /turf/open/floor/plasteel,
 /area/engine/gravity_generator)
 "aWC" = (
-/obj/structure/table/wood,
-/obj/item/storage/book/bible,
 /obj/machinery/newscaster/directional/east,
+/obj/structure/ladder,
 /turf/open/floor/plasteel/dark,
 /area/chapel/main)
 "aXl" = (
@@ -4839,12 +4841,6 @@
 	},
 /turf/open/floor/plating,
 /area/crew_quarters/heads/chief)
-"eGv" = (
-/obj/item/radio/intercom{
-	pixel_x = -29
-	},
-/turf/open/floor/plasteel,
-/area/science/shuttledock)
 "eHX" = (
 /obj/machinery/door/airlock/virology{
 	autoclose = 0;
@@ -9287,6 +9283,12 @@
 	},
 /obj/item/storage/box/ids,
 /obj/item/folder/blue,
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
 /turf/open/floor/wood,
 /area/crew_quarters/heads/hop)
 "jeg" = (
@@ -11585,14 +11587,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/fore)
-"lEz" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/turf/open/floor/plasteel,
-/area/science/shuttledock)
 "lEG" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
@@ -12064,6 +12058,7 @@
 "mdz" = (
 /obj/structure/table/wood,
 /obj/machinery/airalarm/directional/east,
+/obj/item/storage/book/bible,
 /turf/open/floor/plasteel/dark,
 /area/chapel/main)
 "mdK" = (
@@ -12735,6 +12730,9 @@
 	icon_state = "1-2"
 	},
 /obj/machinery/light_switch/directional/west,
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
 /turf/open/floor/wood,
 /area/crew_quarters/heads/hop)
 "mQa" = (
@@ -14236,10 +14234,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/genetics/cloning)
-"oiv" = (
-/obj/machinery/advanced_airlock_controller/directional/north,
-/turf/open/floor/plasteel,
-/area/science/shuttledock)
 "oiU" = (
 /obj/effect/landmark/start/cargo_technician,
 /turf/open/floor/plasteel,
@@ -15691,6 +15685,7 @@
 	id = "hop";
 	name = "HOP privacy shutters"
 	},
+/obj/structure/cable/yellow,
 /turf/open/floor/plating,
 /area/crew_quarters/heads/hop)
 "pAy" = (
@@ -18713,6 +18708,9 @@
 "spK" = (
 /obj/machinery/photocopier,
 /obj/machinery/firealarm/directional/south,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
 /turf/open/floor/wood,
 /area/crew_quarters/heads/hop)
 "sqb" = (
@@ -23044,6 +23042,9 @@
 	departmentType = 5;
 	name = "Head of Personnel RC";
 	pixel_x = 30
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
 	},
 /turf/open/floor/wood,
 /area/crew_quarters/heads/hop)
@@ -53645,8 +53646,8 @@ exq
 exq
 uzV
 exq
-exq
 ygc
+dss
 dss
 dss
 dss
@@ -53899,11 +53900,11 @@ tSe
 ikc
 ikc
 adH
-qBT
 cws
-eGv
+qBT
 exq
 ygc
+dss
 dss
 dss
 dss
@@ -54156,11 +54157,11 @@ ikc
 ikc
 itk
 adH
-oiv
 cAO
 vXU
 exq
 ygc
+dss
 dss
 dss
 dss
@@ -54413,11 +54414,11 @@ jWx
 jWx
 oCP
 sgU
-lEz
 alX
 pRN
 exq
 ygc
+dss
 dss
 dss
 dss
@@ -54670,11 +54671,11 @@ ikc
 rdu
 tjA
 adH
-qBT
 bOT
 qBT
 exq
 ygc
+dss
 dss
 dss
 dss
@@ -54930,8 +54931,8 @@ exq
 exq
 exq
 exq
-exq
 ygc
+dss
 dss
 dss
 dss
@@ -55188,7 +55189,7 @@ ygc
 ygc
 ygc
 ygc
-ygc
+dss
 dss
 dss
 dss
