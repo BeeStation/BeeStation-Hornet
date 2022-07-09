@@ -9540,6 +9540,10 @@
 "jql" = (
 /turf/closed/wall/r_wall,
 /area/hallway/primary/aft)
+"jqm" = (
+/obj/structure/lattice,
+/turf/open/openspace,
+/area/space)
 "jqA" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 4
@@ -14124,6 +14128,9 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/entry)
+"nZC" = (
+/turf/open/floor/engine,
+/area/space)
 "oba" = (
 /obj/structure/tank_dispenser,
 /obj/machinery/light_switch/directional/south,
@@ -56157,7 +56164,7 @@ nXk
 kHf
 ari
 dDx
-rFJ
+jqm
 kna
 sQd
 yaI
@@ -56414,7 +56421,7 @@ wud
 bco
 aeR
 gSs
-rFJ
+jqm
 kna
 sQd
 yaI
@@ -56671,7 +56678,7 @@ uSH
 pFL
 eRD
 asp
-rFJ
+jqm
 kna
 sQd
 oZN
@@ -56928,7 +56935,7 @@ fvt
 fvt
 fvt
 xQF
-rFJ
+jqm
 fmG
 roS
 xsH
@@ -57185,7 +57192,7 @@ fui
 xzw
 ari
 dDx
-rFJ
+nZC
 kna
 sQd
 uYc
@@ -57442,7 +57449,7 @@ jhR
 bco
 aeR
 gSs
-rFJ
+nZC
 kna
 sQd
 srn
@@ -57699,7 +57706,7 @@ uSH
 pFL
 eRD
 asp
-rFJ
+nZC
 kna
 sQd
 kOw
@@ -57956,7 +57963,7 @@ fvt
 fvt
 fvt
 xQF
-rFJ
+jqm
 fmG
 gxF
 kGU
@@ -58213,7 +58220,7 @@ dUn
 uyw
 ari
 dDx
-rFJ
+jqm
 kna
 sQd
 skq
@@ -58470,7 +58477,7 @@ wGX
 bco
 aeR
 gSs
-rFJ
+jqm
 kna
 sQd
 yaI
@@ -58727,7 +58734,7 @@ uSH
 pFL
 eRD
 asp
-rFJ
+jqm
 kna
 sQd
 yaI
