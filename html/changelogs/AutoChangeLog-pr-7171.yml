@@ -1,0 +1,10 @@
+author: PestoVerde322
+delete-after: true
+changes:
+  - rscadd: Expanded the southern maint in Deltastation, now no longer broken by the
+      random maintenance room, but with a fancy corridor
+  - rscadd: Added cameras in Boxstation's virologyt
+  - bugfix: All the wrong camera address and names in Meta, Delta and Pubby virologies.
+  - bugfix: Broken access on some windoors within some virologies
+  - tweak: Tweaked some maintenance and virology zones, now they should match their
+      corresponding areas well.
