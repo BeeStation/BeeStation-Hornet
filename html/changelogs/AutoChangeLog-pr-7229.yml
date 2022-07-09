@@ -1,0 +1,5 @@
+author: itsmeow
+delete-after: true
+changes:
+  - bugfix: Vending machines showing wrong stock if there is an item with the same
+      name but different type path
