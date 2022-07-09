@@ -1,0 +1,10 @@
+author: EvilDragonfiend
+delete-after: true
+changes:
+  - refactor: Amplification module key feature(that allows loud mode) to radio code.
+  - rscadd: 'New key: Amplification module key. It allows you to talk in loud mode
+      through your radio. Useful to Cyborgs and pAIs.'
+  - rscadd: 'New key: Omni radio encryption key. a debug key for admins. Allows you
+      to do everything that related to radio feature.'
+  - rscadd: Box of amplification keys to heads' locker. (contains 2 amplification
+      module keys) Give a key to your trustful crew, and make them after you.
