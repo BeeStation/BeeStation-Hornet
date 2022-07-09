@@ -619,8 +619,7 @@
 
 /obj/machinery/computer/shuttle_flight/pod/proc/handle_alert(datum/source, new_alert)
 	SIGNAL_HANDLER
-	admin_controlled = (new_alert > SEC_LEVEL_RED)
-
+	admin_controlled = (new_alert <= SEC_LEVEL_RED) // admin_controlled is FALSE is its red or delta
 
 /obj/machinery/computer/shuttle_flight/pod/update_icon()
 	return

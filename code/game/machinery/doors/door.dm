@@ -73,7 +73,7 @@
 
 /obj/machinery/door/proc/handle_alert(datum/source, new_alert)
 	SIGNAL_HANDLER
-	if(new_alert <= SEC_LEVEL_RED )
+	if(new_alert >= SEC_LEVEL_RED)
 		visible_message("<span class='notice'>[src] whirs as it automatically lifts access requirements!</span>")
 		playsound(src, 'sound/machines/boltsup.ogg', 50, TRUE)
 
