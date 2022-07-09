@@ -59,6 +59,7 @@
 	translate_binary = FALSE
 	syndie = FALSE
 	independent = FALSE
+	command = initial(command)
 
 	if(keyslot)
 		for(var/ch_name in keyslot.channels)
@@ -71,6 +72,11 @@
 			syndie = TRUE
 		if(keyslot.independent)
 			independent = TRUE
+		if(keyslot.amplification)
+			command = TRUE
+
+	if(!command)
+		use_command = FALSE
 
 	for(var/ch_name in channels)
 		secure_radio_connections[ch_name] = add_radio(src, GLOB.radiochannels[ch_name])
