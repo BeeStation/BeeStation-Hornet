@@ -144,7 +144,7 @@
 /mob/living/simple_animal/update_health_hud()
 	if(!hud_used)
 		return
-	var/severity = 6 - (CLAMP(FLOOR((health / maxHealth) * 5, 1), 0, 5) + 1)
+	var/severity = 7 - CLAMP(FLOOR((health / maxHealth) * 5, 1), 0, 5)
 	if(severity > 0)
 		overlay_fullscreen("brute", /atom/movable/screen/fullscreen/brute, severity)
 	else
