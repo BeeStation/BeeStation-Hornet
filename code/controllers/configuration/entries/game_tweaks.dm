@@ -19,7 +19,3 @@
 /datum/config_entry/number/brig_timer_preset_long
 	config_entry_value = 5
 	min_val = 1
-
-/datum/config_entry/number/cooldown_antag_time
-	config_entry_value = 0
-	min_val = 0
