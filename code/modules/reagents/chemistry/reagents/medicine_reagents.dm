@@ -984,13 +984,6 @@
 			C.adjustOrganLoss(ORGAN_SLOT_BRAIN, -0.1*REM)
 	..()
 
-/datum/reagent/medicine/mannitol/on_mob_end_metabolize(mob/living/carbon/C)
-	if(HAS_TRAIT(C, TRAIT_BRAIN_TUMOR))
-		// re-send the mood signal. to make the time measure unreliable but within an estimation.
-		SEND_SIGNAL(C, COMSIG_CLEAR_MOOD_EVENT, "brain_tumor")
-		SEND_SIGNAL(C, COMSIG_ADD_MOOD_EVENT, "brain_tumor", /datum/mood_event/brain_tumor_mannitol)
-		// this is not a fail removal. it's re-applying, because the mood timeout is random.
-	..()
 
 /datum/reagent/medicine/neurine
 	name = "Neurine"
