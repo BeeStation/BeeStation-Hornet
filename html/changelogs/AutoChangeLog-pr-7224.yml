@@ -1,0 +1,7 @@
+author: itsmeow
+delete-after: true
+changes:
+  - tweak: AI alerts menu looks better and is more consistent with other AI menus
+  - bugfix: AI alerts menu will no longer unfocus the game when updating
+  - bugfix: AI alerts menu can now be closed as expected when unconscious or no longer
+      in AI control
