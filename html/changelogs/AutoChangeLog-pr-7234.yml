@@ -1,4 +1,0 @@
-author: Dejaku51
-delete-after: true
-changes:
-  - code_imp: set_security_level() now uses signals instead of multiple loops
