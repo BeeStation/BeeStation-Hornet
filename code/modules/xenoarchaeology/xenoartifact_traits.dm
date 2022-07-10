@@ -60,8 +60,8 @@
 				RegisterSignal(xenoa, COMSIG_ITEM_AFTERATTACK, .proc/translate_afterattack)
 			if(COMSIG_ITEM_PICKUP)
 				RegisterSignal(xenoa, COMSIG_ITEM_PICKUP, .proc/translate_pickup)
-			if(XENOA_INTERACT)
-				RegisterSignal(xenoa, XENOA_INTERACT, .proc/translate_attackby)
+			if(COMSIG_ITEM_ATTACK_SELF)
+				RegisterSignal(xenoa, COMSIG_ITEM_ATTACK_SELF, .proc/translate_attack_self)
 			if(XENOA_SIGNAL)
 				RegisterSignal(xenoa, XENOA_SIGNAL, .proc/translate_attackby)
 	RegisterSignal(xenoa, XENOA_DEFAULT_SIGNAL, .proc/calculate_charge) //Signal sent by handles
@@ -77,6 +77,9 @@
 
 /datum/xenoartifact_trait/activator/proc/translate_attackby(datum/source, obj/item/thing, mob/user, params)
 	SEND_SIGNAL(xenoa, XENOA_DEFAULT_SIGNAL, thing, user, user)
+
+/datum/xenoartifact_trait/activator/proc/translate_attack_self(datum/source, mob/user, params)
+	SEND_SIGNAL(xenoa, XENOA_DEFAULT_SIGNAL, xenoa, user, user)
 
 /datum/xenoartifact_trait/activator/proc/translate_attack(mob/living/target, mob/living/user)
 	SEND_SIGNAL(xenoa, XENOA_DEFAULT_SIGNAL, xenoa, user, target)
@@ -99,7 +102,7 @@
 /datum/xenoartifact_trait/malfunction
 	flags = BLUESPACE_TRAIT | PLASMA_TRAIT | URANIUM_TRAIT
 
-/datum/xenoartifact_trait/proc/activate(obj/item/xenoartifact/X, atom/target, atom/user) //Typical behaviour
+/datum/xenoartifact_trait/proc/activate(obj/item/xenoartifact/X, atom/target, atom/user, setup = TRUE) //Typical behaviour
 	return
 
 /datum/xenoartifact_trait/proc/on_item(obj/item/xenoartifact/X, atom/user, atom/item) //Item hint responses
@@ -126,7 +129,7 @@
 	desc = "Sturdy"
 	label_desc = "Sturdy: The material is sturdy. The amount of force applied seems to directly correlate to the size of the reaction."
 	charge = 25
-	signals = list(COMSIG_PARENT_ATTACKBY, COMSIG_MOVABLE_IMPACT, XENOA_INTERACT, COMSIG_ITEM_AFTERATTACK)
+	signals = list(COMSIG_PARENT_ATTACKBY, COMSIG_MOVABLE_IMPACT, COMSIG_ITEM_ATTACK_SELF, COMSIG_ITEM_AFTERATTACK)
 	flags = BLUESPACE_TRAIT | PLASMA_TRAIT | URANIUM_TRAIT
 
 /datum/xenoartifact_trait/activator/impact/calculate_charge(datum/source, obj/item/thing, mob/user, atom/target)
@@ -165,7 +168,7 @@
 	label_desc = "Tuned: The material produces a resonance pattern similar to quartz, causing it to produce a reaction every so often."
 	charge = 25
 	blacklist_traits = list(/datum/xenoartifact_trait/minor/capacitive)
-	signals = list(COMSIG_PARENT_ATTACKBY, COMSIG_MOVABLE_IMPACT, XENOA_INTERACT, COMSIG_ITEM_AFTERATTACK)
+	signals = list(COMSIG_PARENT_ATTACKBY, COMSIG_MOVABLE_IMPACT, COMSIG_ITEM_ATTACK_SELF, COMSIG_ITEM_AFTERATTACK)
 	flags = BLUESPACE_TRAIT | URANIUM_TRAIT
 
 /datum/xenoartifact_trait/activator/clock/on_init(obj/item/xenoartifact/X)

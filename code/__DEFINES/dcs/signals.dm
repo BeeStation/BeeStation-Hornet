@@ -603,8 +603,3 @@
 #define COMSIG_MOVELOOP_POSTPROCESS "moveloop_postprocess"
 //from [/datum/move_loop/has_target/jps/recalculate_path] ():
 #define COMSIG_MOVELOOP_JPS_REPATH "moveloop_jps_repath"
-
-//Xenoartifact signals. These all have the same format in Xenoartifact.DM. It's for a good reason, don't lynch them.
-#define XENOA_DEFAULT_SIGNAL "xenoa_default_signal" //Used for xenoartifact signal handlers
-#define XENOA_INTERACT "xenoa_interact" //I don't believe there is currently a signal associated with item/interact() 29-4-22
-#define XENOA_SIGNAL "xenoa_signal"

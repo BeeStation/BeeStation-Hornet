@@ -1,3 +1,8 @@
+//Xenoartifact signals.
+#define XENOA_DEFAULT_SIGNAL "xenoa_default_signal" //Used for xenoartifact signal handlers
+#define XENOA_SIGNAL "xenoa_signal"
+#define XENOA_CHANGE_PRICE "xenoa_change_price" //Bacon requested it
+
 /obj/item/xenoartifact
 	name = "artifact"
 	icon = 'icons/obj/xenoarchaeology/xenoartifact.dmi'
@@ -62,37 +67,37 @@
 
 	material = difficulty //Difficulty is set, in most cases
 	if(!material)
-		material = pick(XENOA_BLUESPACE, XENOA_PLASMA, XENOA_URANIUM, XENOA_BANANIUM) //Maint artifacts and similar situations
+		material = pickweight(list(XENOA_BLUESPACE = 8, XENOA_PLASMA = 5, XENOA_URANIUM = 3, XENOA_BANANIUM = 1)) //Maint artifacts and similar situations
 
-	var/datum/component/xenoartifact_pricing/xenop = GetComponent(/datum/component/xenoartifact_pricing)
-
+	var/price
 	switch(material)
 		if(XENOA_BLUESPACE) //Check xenoartifact_materials.dm for info on artifact materials/types/traits
 			name = "bluespace [name]"
 			generate_traits(XENOA_BLUESPACE_BLACKLIST)
-			if(!xenop.price)
-				xenop.price = pick(100, 200, 300)
+			if(!price)
+				price = pick(100, 200, 300)
 
 		if(XENOA_PLASMA)
 			name = "plasma [name]"
 			generate_traits(XENOA_PLASMA_BLACKLIST)
-			if(!xenop.price)
-				xenop.price = pick(200, 300, 500)
+			if(!price)
+				price = pick(200, 300, 500)
 			malfunction_mod = 0.5
 
 		if(XENOA_URANIUM)
 			name = "uranium [name]"
 			generate_traits(XENOA_URANIUM_BLACKLIST, TRUE) 
-			if(!xenop.price)
-				xenop.price = pick(300, 500, 800) 
+			if(!price)
+				price = pick(300, 500, 800) 
 			malfunction_mod = 1
 
 		if(XENOA_BANANIUM)
 			name = "bananium [name]"
 			generate_traits(list(/datum/xenoartifact_trait/major/sing))
-			if(!xenop.price)
-				xenop.price = pick(500, 800, 1000) 
+			if(!price)
+				price = pick(500, 800, 1000) 
 			malfunction_mod = 0.25
+	SEND_SIGNAL(src, XENOA_CHANGE_PRICE, price)
 
 	//Initialize traits that require that.
 	for(var/datum/xenoartifact_trait/t as() in traits)
@@ -103,30 +108,43 @@
 	if(!(icon_state))
 		var/holdthisplease = rand(1, 3)
 		icon_state = "IB[holdthisplease]"//base
-		generate_icon(icon, "IBL[holdthisplease]", material)
+		generate_icon(icon, "IBL[holdthisplease]", material, FALSE)
 	if(prob(50) || icon_slots[1])//Top
 		if(!(icon_slots[1])) //Some traits can set this too, it will be set to a code that looks like 901, 908, 905 ect.
 			icon_slots[1] = rand(1, 2)
 		generate_icon(icon, "ITP[icon_slots[1]]")
-		generate_icon(icon, "ITPL[icon_slots[1]]", material)
+		generate_icon(icon, "ITPL[icon_slots[1]]", material, FALSE)
 
 	if(prob(30) || icon_slots[3])//Left
 		if(!(icon_slots[3]))
 			icon_slots[3] = rand(1, 2)
 		generate_icon(icon, "IL[icon_slots[3]]")
-		generate_icon(icon, "ILL[icon_slots[3]]", material)
+		generate_icon(icon, "ILL[icon_slots[3]]", material, FALSE)
 
 	if(prob(50)  || icon_slots[4])//Right
 		if(!(icon_slots[4]))
 			icon_slots[4] = rand(1, 2)
 		generate_icon(icon, "IR[icon_slots[4]]")
-		generate_icon(icon, "IRL[icon_slots[4]]", material)
+		generate_icon(icon, "IRL[icon_slots[4]]", material, FALSE)
 
 	if(prob(30) || icon_slots[2])//Bottom
 		if(!(icon_slots[2]))
 			icon_slots[2] = rand(1, 2)
 		generate_icon(icon, "IBTM[icon_slots[2]]")
-		generate_icon(icon, "IBTML[icon_slots[2]]", material)
+		generate_icon(icon, "IBTML[icon_slots[2]]", material, FALSE)
+
+/obj/item/xenoartifact/Destroy()
+	. = ..()
+	SSradio.remove_object(src, frequency)
+	for(var/datum/xenoartifact_trait/T as() in traits)
+		qdel(T) //deleting the traits individually ensures they properly destroy, deleting the list bunks it
+	traits = null
+	qdel(touch_desc)
+	for(var/atom/movable/AM in contents)
+		if(istype(AM, /obj/item/xenoartifact_label)) //Delete stickers
+			qdel(AM)
+		else
+			AM.forceMove(loc)
 
 /obj/item/xenoartifact/CanAllowThrough(atom/movable/mover, turf/target) //tweedle dee, density feature
 	if(get_trait(/datum/xenoartifact_trait/minor/dense))
@@ -149,14 +167,12 @@
 
 /obj/item/xenoartifact/examine(mob/living/carbon/user)
 	. = ..()	
+	if(user.can_see_reagents()) //Not checking carbon throws a runtime concerning observers
+		. += "<span class='notice'>[special_desc]</span>"
 	if(isobserver(user))
-		to_chat(user, "<span class='notice'>[special_desc]</span>")
 		for(var/datum/xenoartifact_trait/t as() in traits)
-			to_chat(user, "<span class='notice'>[t?.desc ? t.desc : t.label_name]</span>")
-			to_chat("test")
-	else if(iscarbon(user) && user.can_see_reagents()) //Not checking carbon throws a runtime concerning observers
-		to_chat(user, "<span class='notice'>[special_desc]</span>")
-	return (label_desc ? . + label_desc : .)
+			. += (t?.desc ? "<span class='notice'>[t.desc]</span>" : "<span class='notice'>[t.label_name]</span>")
+	. += label_desc
 
 /obj/item/xenoartifact/interact(mob/user)
 	. = ..()
@@ -168,24 +184,29 @@
 		if(touch_desc?.on_touch(src, user) && user.can_see_reagents())
 			balloon_alert(user, (initial(touch_desc.desc) ? initial(touch_desc.desc) : initial(touch_desc.label_name)), material)
 		return
-	SEND_SIGNAL(src, XENOA_INTERACT, null, user, user)
 
 /obj/item/xenoartifact/attackby(obj/item/I, mob/living/user, params)
-	var/tool_text
+	var/list/tool_text
 	for(var/datum/xenoartifact_trait/t as() in traits) //chat & bubble hints & helpers
 		if(t?.on_item(src, user, I) && user.can_see_reagents())
-			tool_text = "[tool_text][t.desc ? t.desc : t.label_name]\n"
+			tool_text += "[tool_text][t.desc ? t.desc : t.label_name]"
 	if(tool_text)
-		balloon_alert(user, tool_text, material)
+		balloon_alert(user, tool_text.Join("\n"), material)
 
 	//abort if grab intent
-	if(!(COOLDOWN_FINISHED(src, xenoa_cooldown))||user?.a_intent == INTENT_GRAB||istype(I, /obj/item/xenoartifact_label)||istype(I, /obj/item/xenoartifact_labeler))
-		if(user?.a_intent == INTENT_GRAB)
-			to_chat(user, "<span class='notice'>You preform a safe operation on [src] with [I].</span>")
+	if(user?.a_intent == INTENT_GRAB)
+		to_chat(user, "<span class='notice'>You perform a safe operation on [src] with [I].</span>")
 		return
-	else if(istype(I, /obj/item/wirecutters) && (locate(/obj/item/xenoartifact_label) in contents)) //allow people to remove stickers
+
+	//allow people to remove stickers
+	if(I.tool_behaviour == TOOL_WIRECUTTER && (locate(/obj/item/xenoartifact_label) in contents))
 		label_desc = null
+		I.use_tool()
 		qdel(locate(/obj/item/xenoartifact_label) in contents)
+
+	//Let people label in peace
+	if(istype(I, /obj/item/xenoartifact_label) || istype(I, /obj/item/xenoartifact_labeler))
+		return
 	..()
 
 ///Run traits. Used to activate all minor, major, and malfunctioning traits in the artifact's trait list. Sets cooldown when properly finished.
@@ -197,24 +218,24 @@
 			generate_trait_unique(XENOA_MALFS)
 			malfunction_chance = 0 //Lower chance after contracting 
 		else //otherwise increase chance.
-			//Ramps malf_mod down if it's going to create a value > 100
-			malfunction_chance += (malfunction_chance+malfunction_mod < 100 ? malfunction_mod : malfunction_mod-((malfunction_chance+malfunction_mod)-100))
+			malfunction_chance = min(malfunction_chance + malfunction_mod, 100)
 
 		charge += charge_mod
-		for(var/datum/xenoartifact_trait/minor/t in traits)//Minor traits aren't apart of the target loop
+		charge = (charge+charge_req)/1.9 //Not quite an average. Generally produces better results.
+
+		for(var/datum/xenoartifact_trait/minor/t in traits)//Minor traits aren't apart of the target loop, specifically becuase they pass data into it
 			t?.activate(src, user, user)
 			log_game("[src] activated minor trait [t] at [world.time]. Located at [x] [y] [z]")
-		charge = (charge+charge_req)/1.9 //Not quite an average. Generally produces better results.   
-		for(var/atom/M in true_target) //target loop
+   
+		for(var/atom/M in true_target) //target loop, majors & malfunctions
 			if(get_dist(get_turf(src), get_turf(M)) <= max_range) 
 				create_beam(M) //Indicator beam, points to target, M
 				for(var/datum/xenoartifact_trait/t as() in traits) //Major traits
-					if(istype(t, /datum/xenoartifact_trait/major) || istype(t, /datum/xenoartifact_trait/malfunction))
-						log_game("[src] activated major trait [t] at [world.time]. Located at [x] [y] [z]")
+					if(!istype(t, /datum/xenoartifact_trait/minor))
+						log_game("[src] activated trait [t] at [world.time]. Located at [x] [y] [z]")
 						t.activate(src, M, user)
-				if(!(get_trait(/datum/xenoartifact_trait/minor/aura))) //Quick fix for bug that selects multiple targets for noraisin
-					break
 		COOLDOWN_START(src, xenoa_cooldown, cooldown+cooldownmod)
+
 	charge = 0
 	true_target = list()
 
@@ -278,7 +299,7 @@
 		if(H.wear_suit && H.head && isclothing(H.wear_suit) && isclothing(H.head))
 			var/obj/item/clothing/CS = H.wear_suit
 			var/obj/item/clothing/CH = H.head
-			if(((CS.clothing_flags & BLOCK_ARTIFACT)||(CH.clothing_flags & BLOCK_ARTIFACT)) && prob(XENOA_DEFLECT_CHANCE))
+			if(((CS.clothing_flags & BLOCK_ARTIFACT_EFFECTS)||(CH.clothing_flags & BLOCK_ARTIFACT_EFFECTS)) && prob(XENOA_DEFLECT_CHANCE))
 				to_chat(target, "<span class='warning'>The [name] was unable to target you!.</span>")
 				playsound(get_turf(target), 'sound/weapons/deflect.ogg', 35, TRUE) 
 				return
@@ -295,7 +316,6 @@
 /obj/item/xenoartifact/proc/on_target_del(atom/target)
 	UnregisterSignal(target, COMSIG_PARENT_QDELETING)
 	true_target -= target
-	target = null
 
 ///Helps show how the artifact is working. Hint stuff. Draws a beam between artifact and target
 /obj/item/xenoartifact/proc/create_beam(atom/target)
@@ -315,11 +335,12 @@
 	return TRUE
 
 ///Add extra icon overlays. Ghetto GAGS.
-/obj/item/xenoartifact/proc/generate_icon(var/icn, var/icnst = "", colour)
+/obj/item/xenoartifact/proc/generate_icon(var/icn, var/icnst = "", colour, inherit_alpha = TRUE)
 	icon_overlay = mutable_appearance(icn, icnst)
 	icon_overlay.layer = FLOAT_LAYER //Not doing this fucks the object icons when you're holding it
-	icon_overlay.appearance_flags = RESET_ALPHA// Not doing this fucks the alpha?
-	icon_overlay.alpha = alpha
+	icon_overlay.alpha = 255 //Dont try to reset this with flags
+	if(inherit_alpha)
+		icon_overlay.alpha = alpha
 	if(colour)
 		icon_overlay.color = colour
 	add_overlay(icon_overlay)
@@ -332,7 +353,7 @@
 	radio_connection = SSradio.add_object(src, frequency, RADIO_XENOA)
 
 ///Signaler traits. Sends signal
-/obj/item/xenoartifact/proc/send_signal(var/datum/signal/signal)
+/obj/item/xenoartifact/proc/send_signal(datum/signal/signal)
 	if(!radio_connection||!signal)
 		return
 	radio_connection.post_signal(src, signal)
@@ -362,23 +383,11 @@
 			visible_message("<span class='danger' size='10'>The [name] ticks.</span>")
 			true_target = list(get_target_in_proximity(min(max_range, 5)))
 			default_activate(25, null, null)
-			if(prob(XENOA_TICK_CANCEL_PROB) && COOLDOWN_FINISHED(src, xenoa_cooldown))
+			if(DT_PROB(XENOA_TICK_CANCEL_PROB, delta_time) && COOLDOWN_FINISHED(src, xenoa_cooldown))
 				process_type = null
 				return PROCESS_KILL
-		else    
-			return PROCESS_KILL
-
-/obj/item/xenoartifact/Destroy()
-	SSradio.remove_object(src, frequency)
-	for(var/datum/xenoartifact_trait/T as() in traits)
-		qdel(T) //deleting the traits individually ensures they properly destroy, deleting the list bunks it
-	qdel(touch_desc)
-	for(var/atom/movable/AM in contents)
-		if(istype(AM, /obj/item/xenoartifact_label)) //Delete stickers
-			qdel(AM)
 		else
-			AM.forceMove(get_turf(loc))
-	..()
+			return PROCESS_KILL
 
 /obj/item/xenoartifact/maint //Semi-toddler-safe version, for maint loot table.
 	material = XENOA_BLUESPACE
@@ -394,6 +403,18 @@
 	var/modifier = 0.65
 	///default price gets generated if it isn't set by console. This only happens if the artifact spawns outside of that process
 	var/price
+
+/datum/component/xenoartifact_pricing/Initialize(...)
+	RegisterSignal(parent, XENOA_CHANGE_PRICE, .proc/update_price)
+	..()
+
+/datum/component/xenoartifact_pricing/Destroy(force, silent)
+	UnregisterSignal(parent, XENOA_CHANGE_PRICE)
+	..()
+
+///Typically used to change internally, Bacon requested?
+/datum/component/xenoartifact_pricing/proc/update_price(datum/source, f_price)
+	price = f_price
 
 /obj/item/xenoartifact/objective/Initialize(mapload, difficulty) //Objective version for exploration
 	traits += new /datum/xenoartifact_trait/special/objective
