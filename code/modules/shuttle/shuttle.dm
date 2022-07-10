@@ -510,6 +510,8 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 	if(mode == SHUTTLE_IGNITING && destination == S)
 		return TRUE
 
+	log_shuttle_movement("Shuttle [S.name] ([S.id]) was requested to move from [S] at [COORD(S)] to [destination] at [COORD(destination)]. Usr: [key_name_admin(usr)]")
+
 	switch(mode)
 		if(SHUTTLE_CALL)
 			if(S == destination)

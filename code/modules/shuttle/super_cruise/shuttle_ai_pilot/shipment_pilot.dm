@@ -8,8 +8,6 @@
 
 ///Called every shuttle tick, handles the action of the shuttle
 /datum/shuttle_ai_pilot/shipment/handle_ai_action(datum/orbital_object/shuttle/shuttle)
-	if(!activated)
-		return
 	//Check if there are hostiles nearby, if so fly away and request backup
 	//Drive to the target location
 	if(!shuttle.shuttleTargetPos)

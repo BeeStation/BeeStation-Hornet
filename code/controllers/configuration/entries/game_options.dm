@@ -457,3 +457,8 @@
 /datum/config_entry/flag/spare_enforce_coc
 
 /datum/config_entry/flag/station_traits
+
+//====Supercruise====
+
+//Decides weather or not weapons can be created and used
+/datum/config_entry/flag/disable_shuttle_weapons

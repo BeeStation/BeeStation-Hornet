@@ -478,7 +478,13 @@
 
 //Shuttles
 
+/obj/item/circuitboard/computer/shuttle/weapons
+	name = "Shuttle Weapons Control (Computer Board)"
+	icon_state = "security"
+	build_path = /obj/machinery/computer/weapons
+
 /obj/item/circuitboard/computer/shuttle
+	icon_state = "science"
 	var/hacked = FALSE
 
 /obj/item/circuitboard/computer/shuttle/attackby(obj/item/I, mob/user, params)

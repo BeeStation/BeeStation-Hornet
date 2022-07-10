@@ -1,4 +1,6 @@
 /datum/shuttle_data
+	/// The name of the shuttle
+	var/shuttle_name
 	/// Port ID of the shuttle
 	var/port_id
 	/// List of attached shield generators
@@ -19,10 +21,37 @@
 	var/detection_range = 1000
 	/// Interidction range
 	var/interdiction_range = 150
+	///The maximum value of the ship integrity. This goes up as the ship is expanded/built upon and will not go down.
+	var/max_ship_integrity
+	///The current ship integrity value. If this gets too low, then the ship will explode.
+	var/current_ship_integrity
+	///The amount of integrity currently remaining before the ship explodes
+	var/integrity_remaining
+	///Is the shuttle doomed to explode?
+	var/reactor_critical = FALSE
+	///How much damage can the ship sustain before exploding?
+	var/critical_proportion = SHIP_INTEGRITY_FACTOR
+	///The faction of this shuttle
+	var/datum/faction/faction
+	///Fired upon these factions despite being allied with them. Any ships in that faction will fire upon this ship.
+	///FACTIONS THAT WE ARE ROGUE TO, NOT FACTIONS THAT ARE ROGUE TO US. ADDING TO LIST LIST DECLARES THIS SHIP AS HOSTILE TO THAT FACTION
+	///Note: This will have a butterfly effect and end in an all out war between ships which is pretty funny.
+	///Example:
+	/// - Player ship A fires on NPC trading ship
+	/// - Player ship A declared rogue to NPC trading ships
+	/// - Another NPC trading faction ship comes across player ship and fires upon it
+	/// - That NPC trading ship is now declared hostile to the player ships faction.
+	/// - The cycle continues.
+	///Note: Doesn't take into account subtypes.
+	var/list/rogue_factions = list()
 
 /datum/shuttle_data/New(port_id)
 	. = ..()
+	//Setup the port ID
 	src.port_id = port_id
+	//Get the docking port
+	var/obj/docking_port/mobile/attached_port = SSshuttle.getShuttle(port_id)
+	shuttle_name = attached_port.name
 	calculate_initial_stats()
 
 /// Private
@@ -40,6 +69,148 @@
 		//Handle shuttle shields
 		for(var/obj/machinery/power/shuttle_shield_generator/shield_generator in shuttle_area)
 			register_shield_generator(shield_generator)
+
+//====================
+// Integrity / Damage
+//====================
+
+/// Perform a full recalculation of ship integrity
+/datum/shuttle_data/proc/recalculate_integrity()
+	//Reset ship integrity to 0
+	max_ship_integrity = 0
+	//Get the docking port
+	var/obj/docking_port/mobile/M = SSshuttle.getShuttle(port_id)
+	//Perform calculations
+	for(var/turf/T in M.return_turfs())
+		//Ignore non-shuttle turfs
+		if (!islist(T.baseturfs) || !locate(/turf/baseturf_skipover/shuttle) in T.baseturfs)
+			continue
+		if(!iswallturf(T) && !isfloorturf(T))
+			continue
+		RegisterSignal(T, COMSIG_TURF_CHANGE, .proc/shuttle_turf_changed)
+		RegisterSignal(T, COMSIG_TURF_AFTER_SHUTTLE_MOVE, .proc/shuttle_turf_moved)
+		//Check the type
+		if (iswallturf(T))
+			if(istype(T, /turf/closed/wall/r_wall))
+				max_ship_integrity += 7
+			else
+				max_ship_integrity += 5
+			continue
+		//If floor turf
+		//1 point for floors
+		max_ship_integrity += 1
+		//1 point if the floor is not broken
+		var/turf/open/floor/floor_turf = T
+		if(!floor_turf.broken && !floor_turf.burnt)
+			max_ship_integrity += 1
+		//2 points if the floor isn't raw plating
+		if (!isplatingturf(T))
+			max_ship_integrity += 2
+	//Finished calculating
+	log_shuttle("Recalculated shuttle health for [shuttle_name] ([port_id]). Shuttle now has an integrity rating of [max_ship_integrity]")
+	//Integrity remaining will always be max health, as this is our reference point
+	integrity_remaining = max_ship_integrity
+	current_ship_integrity = max_ship_integrity
+
+///Call after updating the value of integrity_remaining
+/datum/shuttle_data/proc/update_integrity()
+	if(reactor_critical)
+		current_ship_integrity = 0
+		integrity_remaining = 0
+		return
+	max_ship_integrity = max(current_ship_integrity, max_ship_integrity)
+	integrity_remaining = current_ship_integrity - (max_ship_integrity * critical_proportion)
+	log_shuttle("Shuttle [shuttle_name] ([port_id]) now has [current_ship_integrity]/[max_ship_integrity] integrity ([integrity_remaining] until destruction.)")
+	//Calculate destruction
+	if(integrity_remaining <= 0)
+		var/obj/docking_port/mobile/M = SSshuttle.getShuttle(port_id)
+		message_admins("Shuttle [shuttle_name] ([port_id]) has been destroyed at [ADMIN_FLW(M)]")
+		log_shuttle_attack("Shuttle [shuttle_name] ([port_id]) has been destroyed at [COORD(M)]")
+		//You are dead
+		reactor_critical = TRUE
+		current_ship_integrity = 0
+		integrity_remaining = 0
+		//Unregister all turfs
+		for(var/turf/T in M.return_turfs())
+			//Ignore non-shuttle turfs
+			if (!islist(T.baseturfs) || !locate(/turf/baseturf_skipover/shuttle) in T.baseturfs)
+				continue
+			if(!iswallturf(T) && !isfloorturf(T))
+				continue
+			UnregisterSignal(T, COMSIG_TURF_CHANGE)
+			UnregisterSignal(T, COMSIG_TURF_AFTER_SHUTTLE_MOVE)
+			var/obj/machinery/light/L = locate() in T
+			if(L)
+				L.force_emergency_mode = TRUE
+				L.update()
+		//Play an alarm to anyone / any observers on the shuttle
+		for(var/client/C as() in GLOB.clients)
+			var/mob/client_mob = C.mob
+			var/area/shuttle/A = get_area(client_mob)
+			if(istype(A) && A.mobile_port == M)
+				SEND_SOUND(C, 'sound/machines/alarm.ogg')
+				to_chat(C, "<span class='danger'>You hear a rumbling from the ship's reactor, it sounds like it's about to implode...</span>")
+		//Cause the big boom
+		addtimer(CALLBACK(src, .proc/destroy_ship, M), 140)
+
+/datum/shuttle_data/proc/destroy_ship(obj/docking_port/mobile/M)
+	set waitfor = FALSE
+	var/exploded = FALSE
+	var/area/shuttle/area = get_area(M)
+	var/obj/machinery/power/apc/apc = area.get_apc()
+	if(apc)
+		//No more power
+		apc.set_broken()
+	//No explosion, explode anyway
+	//Prevents an exploit where you can make a tiny ship to maxcap the station
+	var/turf/any_turf = pick(M.return_turfs())
+	if(max_ship_integrity > 20 && !SSmapping.level_has_any_trait(any_turf.z, list(ZTRAIT_STATION)))
+		if(!exploded)
+			explosion(any_turf, 12, 15, 18, -1, FALSE)
+	//Force delete the docking port
+	//We totally know what we are doing
+	qdel(M, TRUE)
+
+///Called when a shuttle turf is changed, for better or for worse
+/datum/shuttle_data/proc/shuttle_turf_changed(datum/source, path, list/new_baseturfs, flags, list/transferring_comps)
+	//Subtract the old integrity
+	if (iswallturf(source))
+		if(istype(source, /turf/closed/wall/r_wall))
+			current_ship_integrity -= 7
+		else
+			current_ship_integrity -= 5
+	else
+		current_ship_integrity -= 1
+		//1 point if the floor is not broken
+		var/turf/open/floor/floor_turf = source
+		if(!floor_turf.broken && !floor_turf.burnt)
+			current_ship_integrity -= 1
+		//2 points if the floor isn't raw plating
+		if (!isplatingturf(source))
+			current_ship_integrity -= 2
+	//Add the new integrity
+	if (ispath(path, /turf/closed/wall))
+		if(istype(path, /turf/closed/wall/r_wall))
+			current_ship_integrity += 7
+		else
+			current_ship_integrity += 5
+	else
+		current_ship_integrity += 1
+		var/turf/open/floor/F = path
+		if(!initial(F.broken) && !initial(F.burnt))
+			current_ship_integrity += 1
+		//2 points if the floor isn't raw plating
+		if (!istype(path, /turf/open/floor/plating))
+			current_ship_integrity += 2
+
+///Called when a shuttle turf is changed, for better or for worse
+/datum/shuttle_data/proc/shuttle_turf_moved(datum/source, turf/newturf)
+	///We are no longer caring about this turf, find out where we went to
+	UnregisterSignal(source, COMSIG_TURF_CHANGE, .proc/shuttle_turf_changed)
+	UnregisterSignal(source, COMSIG_TURF_AFTER_SHUTTLE_MOVE, .proc/shuttle_turf_moved)
+	///Relocate
+	RegisterSignal(newturf, COMSIG_TURF_CHANGE, .proc/shuttle_turf_changed)
+	RegisterSignal(newturf, COMSIG_TURF_AFTER_SHUTTLE_MOVE, .proc/shuttle_turf_moved)
 
 //====================
 // Shield Damage

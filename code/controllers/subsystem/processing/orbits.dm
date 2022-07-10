@@ -50,7 +50,7 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 	//Assoc shuttle data
 	//Key: port_id
 	//Value: The shuttle data
-	VAR_PRIVATE/list/assoc_shuttle_data = list()
+	var/list/assoc_shuttle_data = list()
 
 	//List of distress beacons by Z-Level
 	var/list/assoc_distress_beacons = list()
@@ -58,11 +58,21 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 	//Ruin level count
 	var/ruin_levels = 0
 
+	//shuttle weapons
+	var/list/shuttle_weapons = list()
+
+	//=====Factions=====
+	// factions[datum] = new datum
+	var/list/factions
+
 /datum/controller/subsystem/processing/orbits/Initialize(start_timeofday)
 	. = ..()
 	setup_event_list()
 	//Create the main orbital map.
 	orbital_maps[PRIMARY_ORBITAL_MAP] = new /datum/orbital_map()
+	//Create factions (These ones are static, although each ship has its own)
+	for(var/faction_datum in subtypesof(/datum/faction))
+		factions[faction_datum] = new faction_datum
 
 /datum/controller/subsystem/processing/orbits/Recover()
 	orbital_maps |= SSorbits.orbital_maps
@@ -89,18 +99,6 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 	for(var/datum/thing in SSorbits.processing)
 		STOP_PROCESSING(SSorbits, thing)
 		START_PROCESSING(src, thing)
-
-
-/datum/controller/subsystem/processing/orbits/proc/setup_event_list()
-	runnable_events = list()
-	for(var/ruin_event in subtypesof(/datum/ruin_event))
-		var/datum/ruin_event/instanced = new ruin_event()
-		runnable_events[instanced] = instanced.probability
-
-/datum/controller/subsystem/processing/orbits/proc/get_event()
-	if(!event_probability)
-		return null
-	return pickweight(runnable_events)
 
 /datum/controller/subsystem/processing/orbits/proc/post_load_init()
 	for(var/map_key in orbital_maps)
@@ -151,6 +149,25 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 		for(var/datum/tgui/tgui as() in open_orbital_maps)
 			tgui.send_update()
 
+//====================================
+// Events
+//====================================
+
+/datum/controller/subsystem/processing/orbits/proc/setup_event_list()
+	runnable_events = list()
+	for(var/ruin_event in subtypesof(/datum/ruin_event))
+		var/datum/ruin_event/instanced = new ruin_event()
+		runnable_events[instanced] = instanced.probability
+
+/datum/controller/subsystem/processing/orbits/proc/get_event()
+	if(!event_probability)
+		return null
+	return pickweight(runnable_events)
+
+//====================================
+// Hazards
+//====================================
+
 /datum/controller/subsystem/processing/orbits/proc/process_hazards()
 	var/hazard_removal_chance = length(active_hazards) * 0.2
 	var/hazard_spawn_chance = 2 / (length(active_hazards) + 1)
@@ -175,10 +192,9 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 	created.velocity.x = 0
 	created.velocity.y = 0
 
-/mob/dead/observer/verb/open_orbit_ui()
-	set name = "View Orbits"
-	set category = "Ghost"
-	SSorbits.orbital_map_tgui.ui_interact(src)
+//====================================
+// Objectives
+//====================================
 
 /datum/controller/subsystem/processing/orbits/proc/create_objective()
 	var/static/list/valid_objectives = list(
@@ -212,10 +228,19 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 	update_objective_computers()
 	return "Objective selected, good luck."
 
+//====================================
+// User Interfaces
+//====================================
+
 /datum/controller/subsystem/processing/orbits/proc/update_objective_computers()
 	for(var/obj/machinery/computer/objective/computer as() in GLOB.objective_computers)
 		for(var/M in computer.viewing_mobs)
 			computer.update_static_data(M)
+
+/mob/dead/observer/verb/open_orbit_ui()
+	set name = "View Orbits"
+	set category = "Ghost"
+	SSorbits.orbital_map_tgui.ui_interact(src)
 
 /*
  * Returns the base data of what is required for
@@ -283,6 +308,16 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 		))
 	return data
 
+//====================================
+// Shuttle Data
+//====================================
+
+/datum/controller/subsystem/processing/orbits/proc/update_shuttle_name(port_id, name)
+	var/obj/docking_port/mobile/port = SSshuttle.getShuttle(port_id)
+	port.name = name
+	var/datum/shuttle_data/shuttle_data = get_shuttle_data(port_id)
+	shuttle_data.shuttle_name = name
+
 /datum/controller/subsystem/processing/orbits/proc/get_shuttle_data(port_id)
 	RETURN_TYPE(/datum/shuttle_data)
 	return assoc_shuttle_data[port_id]
@@ -295,3 +330,18 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 	var/datum/shuttle_data/shuttle = get_shuttle_data(port_id)
 	assoc_shuttle_data -= port_id
 	qdel(shuttle)
+
+//====================================
+// Factions
+//====================================
+
+/datum/controller/subsystem/processing/orbits/proc/get_faction(faction_datum)
+	return factions[faction_datum]
+
+/datum/controller/subsystem/processing/orbits/proc/after_ship_attacked(datum/shuttle_data/attacker, datum/shuttle_data/victim)
+	var/datum/faction/attacker_faction = attacker.faction
+	var/datum/faction/victim_faction = victim.faction
+	//If the victime doesn't consider the attacker to be hostile, then the attacker ship will be marked as hostile to the victim's faction
+	if(check_faction_alignment(victim_faction, attacker_faction) != FACTION_STATUS_HOSTILE)
+		attacker.rogue_factions |= victim_faction.type
+		log_shuttle("[attacker.shuttle_name] ([attacker_faction.name]) fired upon neutral/friendly ship [victim.shuttle_name] ([victim_faction.name]), and was declared hostile to that faction")

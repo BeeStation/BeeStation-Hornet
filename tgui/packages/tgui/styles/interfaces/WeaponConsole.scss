@@ -1,0 +1,70 @@
+@use 'sass:color';
+@use '../base.scss';
+
+$color-background: rgba(0, 0, 0, 0.33) !default;
+
+.WeaponConsole__left {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 220px;
+}
+
+.WeaponConsole__right {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 220px;
+  right: 0;
+  background-color: $color-background;
+}
+
+.WeaponConsole__map {
+  position: absolute;
+  top: 0px;
+  bottom: 142px;
+  left: 0;
+  right: 0;
+  // background-color: #00a;
+  margin: 6px;
+  text-align: center;
+
+  .NoticeBox {
+    margin-bottom: calc(50% - 140px);
+  }
+}
+
+.WeaponConsole__weaponpane {
+  position: absolute;
+  bottom: 4px;
+  left: 0;
+  right: 0;
+  height: 140px;
+  line-height: 24px;
+  margin: 4px 6px 0;
+  overflow-x: scroll;
+
+  // Fancy scrollbar
+  scrollbar-base-color: color.scale(
+    base.$color-bg,
+    $lightness: -25%);
+  scrollbar-face-color: color.scale(
+    base.$color-bg,
+    $lightness: 10%);
+  scrollbar-3dlight-color: color.scale(
+    base.$color-bg,
+    $lightness: 0%);
+  scrollbar-highlight-color: color.scale(
+    base.$color-bg,
+    $lightness: 0%);
+  scrollbar-track-color: color.scale(
+    base.$color-bg,
+    $lightness: -25%);
+  scrollbar-arrow-color: color.scale(
+    base.$color-bg,
+    $lightness: 50%);
+  scrollbar-shadow-color: color.scale(
+    base.$color-bg,
+    $lightness: 10%);
+}
