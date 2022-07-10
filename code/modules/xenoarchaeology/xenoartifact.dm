@@ -52,7 +52,7 @@
 	///Everytime the artifact is used this increases. When this is successfully proc'd the artifact gains a malfunction and this is lowered.
 	var/malfunction_chance = 0
 	///How much the chance can change in a sinlge itteration
-	var/malfunction_mod = 0.1
+	var/malfunction_mod = 0.3
 
 	//snowflake variable for shaped
 	var/transfer_prints = FALSE
@@ -96,7 +96,6 @@
 			generate_traits(list(/datum/xenoartifact_trait/major/sing))
 			if(!price)
 				price = pick(500, 800, 1000) 
-			malfunction_mod = 0.25
 	SEND_SIGNAL(src, XENOA_CHANGE_PRICE, price)
 
 	//Initialize traits that require that.
@@ -152,19 +151,18 @@
 	return ..()
 
 /obj/item/xenoartifact/attack_hand(mob/user) //tweedle dum, density feature
+	. = ..()
+	var/obj/item/clothing/gloves/artifact_pinchers/P = locate(/obj/item/clothing/gloves/artifact_pinchers) in user.contents
+	if(P?.safety && isliving(loc))
+		if(touch_desc?.on_touch(src, user) && user.can_see_reagents())
+			balloon_alert(user, (initial(touch_desc.desc) ? initial(touch_desc.desc) : initial(touch_desc.label_name)), material)
+		return
+
 	if(get_trait(/datum/xenoartifact_trait/minor/dense))
 		if(process_type == PROCESS_TYPE_LIT) //Snuff out candle
 			to_chat(user, "<span class='notice'>You snuff out [name]</span>")
 			process_type = null
 			return FALSE
-		
-		var/obj/item/clothing/gloves/artifact_pinchers/P = locate(/obj/item/clothing/gloves/artifact_pinchers) in user.contents
-		if(P?.safety)
-			SEND_SIGNAL(src, COMSIG_ITEM_ATTACK_SELF, user) //Calling the regular attack_hand signal causes feature issues, like picking up the artifact.
-		else if(touch_desc?.on_touch(src, user) && user.can_see_reagents())
-			balloon_alert(user, (initial(touch_desc.desc) ? initial(touch_desc.desc) : initial(touch_desc.label_name)), material)
-		return FALSE
-	..()
 
 /obj/item/xenoartifact/examine(mob/living/carbon/user)
 	. = ..()	
@@ -188,7 +186,7 @@
 	..()
 
 /obj/item/xenoartifact/attackby(obj/item/I, mob/living/user, params)
-	var/list/tool_text
+	var/list/tool_text = list()
 	for(var/datum/xenoartifact_trait/t as() in traits) //chat & bubble hints & helpers
 		if(t?.on_item(src, user, I) && user.can_see_reagents())
 			tool_text += "[tool_text][t.desc ? t.desc : t.label_name]"
@@ -353,7 +351,7 @@
 /obj/item/xenoartifact/proc/set_frequency(new_frequency)
 	SSradio.remove_object(src, frequency)
 	frequency = new_frequency
-	radio_connection = SSradio.add_object(src, frequency, RADIO_XENOA)
+	radio_connection = SSradio.add_object(src, frequency, "[RADIO_XENOA]_[REF(src)]") //not doing the weird filter fucks with other artifacts
 
 ///Signaler traits. Sends signal
 /obj/item/xenoartifact/proc/send_signal(datum/signal/signal)

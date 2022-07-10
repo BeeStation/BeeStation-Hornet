@@ -251,6 +251,9 @@
 	flags = BLUESPACE_TRAIT | URANIUM_TRAIT
 
 /datum/xenoartifact_trait/activator/weighted/calculate_charge(datum/source, obj/item/thing, mob/user, atom/target)
+	var/obj/item/clothing/gloves/artifact_pinchers/P = locate(/obj/item/clothing/gloves/artifact_pinchers) in target.contents
+	if(P?.safety) //This trait is a special tism
+		return
 	var/obj/item/xenoartifact/X = source
 	X.default_activate(charge, user, target)
 
@@ -696,12 +699,12 @@
 		return
 	if(isliving(X.loc))
 		var/mob/living/holder = X.loc
-		holder.dropItemToGround(X)
+		holder.dropItemToGround(X, thrown = TRUE)
 	if(ismovable(target) && !(istype(target, /obj/structure)))
 		var/atom/movable/AM = target
 		addtimer(CALLBACK(src, .proc/release, X, AM), X.charge*0.5 SECONDS)
 		AM.forceMove(X)
-		AM.anchored = TRUE
+		X.buckle_mob(AM)
 		if(isliving(target)) //stop awful hobbit-sis from wriggling 
 			var/mob/living/victim = target
 			victim.Paralyze(X.charge*0.5 SECONDS, ignore_canstun = TRUE)
@@ -877,12 +880,19 @@
 
 /datum/xenoartifact_trait/major/mirrored/activate(obj/item/xenoartifact/X, mob/target, atom/user)
 	if(victims.len < 2)
-		if(!isliving(target))
+		if(!isliving(target) || IS_DEAD_OR_INCAP(target))
 			playsound(get_turf(X), 'sound/machines/buzz-sigh.ogg', 50, TRUE)
+			return
 		else
 			victims += target
-		if(victims.len < 2) //one last check before hand
-			return
+			if(victims.len < 2) //one last check before hand
+				return
+	//type cast to check qdel
+	var/atom/a = victims[1]
+	var/atom/b = victims[2]
+	if(QDELETED(a) || QDELETED(b))
+		victims = list()
+		return
 	swap(victims[1], victims[2])
 	log_game("[X] swapped the identities of [victims[1]] & [victims[2]] at [world.time]. [X] located at [X.x] [X.y] [X.z]")
 	addtimer(CALLBACK(src, .proc/undo_swap), ((X.charge*0.20) SECONDS)+ 6 SECONDS) //6 extra seconds while targets are asleep
@@ -890,6 +900,9 @@
 	victims = list()
 
 /datum/xenoartifact_trait/major/mirrored/proc/swap(var/atom/victim_a, var/atom/victim_b)
+	if(QDELETED(victim_a) || QDELETED(victim_b))
+		victims = list()
+		return
 	var/mob/living/caster = victim_a
 	var/mob/living/victim = victim_b
 
@@ -911,7 +924,13 @@
 /datum/xenoartifact_trait/major/mirrored/proc/undo_swap()
 	for(var/list/L as() in reverse_victims)
 		if(L.len > 1)
-			swap(L[1], L[2])
+			//convert to atoms to check qdel
+			var/atom/a = L[1]
+			var/atom/b = L[2]
+			if(!QDELETED(a) && !QDELETED(b))
+				swap(L[1], L[2])
+	reverse_victims = list()
+
 
 //============
 // EMP, produces an empulse
