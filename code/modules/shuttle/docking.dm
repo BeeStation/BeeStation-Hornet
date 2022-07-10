@@ -143,8 +143,8 @@
 				var/atom/movable/moving_atom = k
 				if(moving_atom.loc != oldT) //fix for multi-tile objects
 					continue
-				moving_atom.onShuttleMove(newT, oldT, movement_force, movement_direction, old_dock, src, all_towed_shuttles)								//atoms
-				moved_atoms[moving_atom] = oldT
+				if(moving_atom.onShuttleMove(newT, oldT, movement_force, movement_direction, old_dock, src, all_towed_shuttles))								//atoms
+					moved_atoms[moving_atom] = oldT
 
 		if(move_mode & MOVE_TURF)
 			var/shuttle_layers = 0

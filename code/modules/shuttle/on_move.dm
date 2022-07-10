@@ -118,10 +118,10 @@ All ShuttleMove procs go here
 // Called on atoms to move the atom to the new location
 /atom/movable/proc/onShuttleMove(turf/newT, turf/oldT, list/movement_force, move_dir, obj/docking_port/stationary/old_dock, obj/docking_port/mobile/moving_dock, list/obj/docking_port/mobile/towed_shuttles)
 	if(newT == oldT) // In case of in place shuttle rotation shenanigans.
-		return
+		return FALSE
 
 	if(loc != oldT) // This is for multi tile objects
-		return
+		return FALSE
 
 	abstract_move(newT)
 
@@ -320,7 +320,7 @@ All ShuttleMove procs go here
 
 /mob/onShuttleMove(turf/newT, turf/oldT, list/movement_force, move_dir, obj/docking_port/stationary/old_dock, obj/docking_port/mobile/moving_dock, list/obj/docking_port/mobile/towed_shuttles)
 	if(!move_on_shuttle)
-		return
+		return FALSE
 	. = ..()
 
 /mob/afterShuttleMove(turf/oldT, list/movement_force, shuttle_dir, shuttle_preferred_direction, move_dir, rotation)
@@ -408,6 +408,8 @@ All ShuttleMove procs go here
 		. |= MOVE_CONTENTS
 
 /obj/docking_port/mobile/onShuttleMove(turf/newT, turf/oldT, list/movement_force, move_dir, obj/docking_port/stationary/old_dock, obj/docking_port/mobile/moving_dock, list/obj/docking_port/mobile/towed_shuttles)
+	if(!towed_shuttles[src] && !moving_dock.can_move_docking_ports)
+		return FALSE
 	. = ..()
 	current_z = moving_dock.virtual_z
 
@@ -415,13 +417,15 @@ All ShuttleMove procs go here
 	if(old_dock == src) //Never take our old port
 		return FALSE
 	var/obj/docking_port/mobile/docked = get_docked()
-	if(!(docked in towed_shuttles) && !moving_dock.can_move_docking_ports)
+	if(!towed_shuttles[docked] && !moving_dock.can_move_docking_ports)
 		return FALSE
 	. = ..()
 
 /obj/docking_port/stationary/public_mining_dock/onShuttleMove(turf/newT, turf/oldT, list/movement_force, move_dir, obj/docking_port/stationary/old_dock, obj/docking_port/mobile/moving_dock, list/obj/docking_port/mobile/towed_shuttles)
 	id = "mining_public" //It will not move with the base, but will become enabled as a docking point.
+	return FALSE
 
 /obj/effect/abstract/proximity_checker/onShuttleMove(turf/newT, turf/oldT, list/movement_force, move_dir, obj/docking_port/stationary/old_dock, obj/docking_port/mobile/moving_dock, list/obj/docking_port/mobile/towed_shuttles)
 	//timer so it only happens once
 	addtimer(CALLBACK(monitor, /datum/proximity_monitor/proc/SetRange, monitor.current_range, TRUE), 0, TIMER_UNIQUE)
+	return FALSE

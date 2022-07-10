@@ -394,8 +394,6 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 
 	var/area/shuttle/A = get_area(T)
 	var/area/shuttle/new_area = underlying_turf_area[T]
-	var/shuttle_layers = 1
-	var/bottom_flag = FALSE
 	var/obj/docking_port/mobile/bottom_shuttle = null
 
 	if(!new_area) //Our shuttle isn't here
