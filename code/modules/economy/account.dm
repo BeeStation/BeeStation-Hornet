@@ -8,6 +8,7 @@
 	//Bonus amount for a single payday
 	var/paycheck_bonus = 0
 	var/datum/job/account_job
+	var/account_department
 	var/list/bank_cards = list()
 	var/add_to_accounts = TRUE
 	var/account_id
@@ -22,6 +23,7 @@
 	account_job = job
 	account_id = rand(111111,999999)
 	paycheck_amount = account_job.paycheck
+	account_department = account_job.paycheck_department
 
 /datum/bank_account/Destroy()
 	if(add_to_accounts)
@@ -67,7 +69,7 @@
 		if(paycheck_bonus > 0) //Get rid of bonus if we have one
 			paycheck_bonus = 0
 	else
-		var/datum/bank_account/D = SSeconomy.get_dep_account(account_job.paycheck_department)
+		var/datum/bank_account/D = SSeconomy.get_dep_account(account_department)
 		if(D)
 			if(!transfer_money(D, money_to_transfer))
 				bank_card_talk("ERROR: Payday aborted, departmental funds insufficient.")

@@ -239,7 +239,7 @@
 	holder.pixel_y = I.Height() - world.icon_size
 	holder.icon_state = "hudno_id"
 	if(wear_id?.GetID())
-		holder.icon_state = "hud[ckey(wear_id.GetJobName())]"
+		holder.icon_state = "hud[ckey(wear_id.GetJobIcon())]"
 	sec_hud_set_security_status()
 
 /mob/living/proc/sec_hud_set_implants()
