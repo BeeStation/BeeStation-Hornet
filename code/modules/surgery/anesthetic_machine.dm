@@ -98,7 +98,7 @@
 /obj/machinery/anesthetic_machine/Destroy()
 	if(mask_out)
 		retract_mask()
-	qdel(attached_mask)
+	QDEL_NULL(attached_mask)
 	new /obj/item/clothing/mask/breath(src)
 	. = ..()
 
@@ -109,6 +109,10 @@
 /obj/item/clothing/mask/breath/machine/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT)
+
+/obj/item/clothing/mask/breath/machine/Destroy()
+	machine_attached = null
+	return ..()
 
 /obj/item/clothing/mask/breath/machine/dropped(mob/user)
 	..()
