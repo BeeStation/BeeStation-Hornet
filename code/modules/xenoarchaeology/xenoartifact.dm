@@ -174,8 +174,7 @@
 			. += (t?.desc ? "<span class='notice'>[t.desc]</span>" : "<span class='notice'>[t.label_name]</span>")
 	. += label_desc
 
-/obj/item/xenoartifact/interact(mob/user)
-	. = ..()
+/obj/item/xenoartifact/attack_self(mob/user)
 	if(process_type == PROCESS_TYPE_LIT) //Snuff out candle
 		to_chat(user, "<span class='notice'>You snuff out [name]</span>")
 		process_type = null
@@ -184,6 +183,7 @@
 		if(touch_desc?.on_touch(src, user) && user.can_see_reagents())
 			balloon_alert(user, (initial(touch_desc.desc) ? initial(touch_desc.desc) : initial(touch_desc.label_name)), material)
 		return
+	..()
 
 /obj/item/xenoartifact/attackby(obj/item/I, mob/living/user, params)
 	var/list/tool_text
