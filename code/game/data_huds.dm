@@ -192,13 +192,15 @@
 		holder.pixel_y = I.Height() - world.icon_size
 		if(HAS_TRAIT(src, TRAIT_XENO_HOST))
 			holder.icon_state = "hudxeno"
-		else if(stat == DEAD || (HAS_TRAIT(src, TRAIT_FAKEDEATH)))
+		else if(stat == DEAD)
 			if(tod)
 				var/tdelta = round(world.time - timeofdeath)
 				if(tdelta < (DEFIB_TIME_LIMIT * 10))
 					holder.icon_state = "huddefib"
 					return
 			holder.icon_state = "huddead"
+		else if(HAS_TRAIT(src, TRAIT_FAKEDEATH))
+			holder.icon_state = "huddefib"
 		else
 			switch(virus_threat)
 				if(DISEASE_PANDEMIC)
