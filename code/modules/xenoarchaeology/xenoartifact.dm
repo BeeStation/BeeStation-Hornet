@@ -285,7 +285,7 @@
 	for(var/mob/living/M in oview(range, get_turf(src)))
 		. = process_target(M)
 	if(isliving(loc) && !.)
-		. = loc
+		. = process_target(loc)
 	return
 
 ///Returns the desired trait and it's values if it's in the artifact's list
