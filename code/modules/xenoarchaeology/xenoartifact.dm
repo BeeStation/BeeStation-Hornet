@@ -159,7 +159,7 @@
 			return FALSE
 			
 		if(user.a_intent != INTENT_GRAB)
-			SEND_SIGNAL(src, XENOA_INTERACT, null, user, user) //Calling the regular attack_hand signal causes feature issues, like picking up the artifact.
+			SEND_SIGNAL(src, COMSIG_ITEM_ATTACK_SELF, user) //Calling the regular attack_hand signal causes feature issues, like picking up the artifact.
 		else if(touch_desc?.on_touch(src, user) && user.can_see_reagents())
 			balloon_alert(user, (initial(touch_desc.desc) ? initial(touch_desc.desc) : initial(touch_desc.label_name)), material)
 		return FALSE
