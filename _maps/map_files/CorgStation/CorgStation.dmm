@@ -16555,6 +16555,9 @@
 /obj/item/xenoartifact_labeler{
 	pixel_x = -10
 	},
+/obj/item/clothing/gloves/artifact_pinchers,
+/obj/item/clothing/glasses/science,
+/obj/item/clothing/glasses/science,
 /turf/open/floor/plasteel/dark,
 /area/science/explab)
 "etY" = (

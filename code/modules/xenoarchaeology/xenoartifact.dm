@@ -157,8 +157,9 @@
 			to_chat(user, "<span class='notice'>You snuff out [name]</span>")
 			process_type = null
 			return FALSE
-			
-		if(user.a_intent != INTENT_GRAB)
+		
+		var/obj/item/clothing/gloves/artifact_pinchers/P = locate(/obj/item/clothing/gloves/artifact_pinchers) in user.contents
+		if(P?.safety)
 			SEND_SIGNAL(src, COMSIG_ITEM_ATTACK_SELF, user) //Calling the regular attack_hand signal causes feature issues, like picking up the artifact.
 		else if(touch_desc?.on_touch(src, user) && user.can_see_reagents())
 			balloon_alert(user, (initial(touch_desc.desc) ? initial(touch_desc.desc) : initial(touch_desc.label_name)), material)
@@ -179,7 +180,8 @@
 		to_chat(user, "<span class='notice'>You snuff out [name]</span>")
 		process_type = null
 		return
-	if(user.a_intent == INTENT_GRAB)
+	var/obj/item/clothing/gloves/artifact_pinchers/P = locate(/obj/item/clothing/gloves/artifact_pinchers) in user.contents
+	if(P?.safety)
 		if(touch_desc?.on_touch(src, user) && user.can_see_reagents())
 			balloon_alert(user, (initial(touch_desc.desc) ? initial(touch_desc.desc) : initial(touch_desc.label_name)), material)
 		return
@@ -193,8 +195,9 @@
 	if(tool_text)
 		balloon_alert(user, tool_text.Join("\n"), material)
 
-	//abort if grab intent
-	if(user?.a_intent == INTENT_GRAB)
+	//abort if safety
+	var/obj/item/clothing/gloves/artifact_pinchers/P = locate(/obj/item/clothing/gloves/artifact_pinchers) in user.contents
+	if(P?.safety)
 		to_chat(user, "<span class='notice'>You perform a safe operation on [src] with [I].</span>")
 		return
 

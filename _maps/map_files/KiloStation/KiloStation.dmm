@@ -95366,6 +95366,8 @@
 	pixel_x = -6
 	},
 /obj/item/xenoartifact_labeler,
+/obj/item/clothing/gloves/artifact_pinchers,
+/obj/item/clothing/gloves/artifact_pinchers,
 /turf/open/floor/plasteel/dark,
 /area/science/explab)
 "giw" = (

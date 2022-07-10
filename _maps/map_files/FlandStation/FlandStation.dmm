@@ -45500,6 +45500,16 @@
 	},
 /turf/open/floor/plasteel/techmaint,
 /area/quartermaster/sorting)
+"kuV" = (
+/obj/item/clothing/gloves/artifact_pinchers,
+/obj/item/clothing/gloves/artifact_pinchers,
+/obj/item/xenoartifact_labeler,
+/obj/item/xenoartifact_labeler,
+/obj/structure/table,
+/obj/item/clothing/glasses/science,
+/obj/item/clothing/glasses/science,
+/turf/open/floor/plasteel/grid/steel,
+/area/science/explab)
 "kuZ" = (
 /obj/structure/table/reinforced,
 /obj/item/nanite_scanner{
@@ -135811,7 +135821,7 @@ gPA
 oLP
 rHn
 xEm
-hBp
+kuV
 oLP
 sVo
 tCY

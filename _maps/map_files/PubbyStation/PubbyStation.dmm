@@ -51052,6 +51052,18 @@
 	dir = 8
 	},
 /obj/item/book/manual/wiki/xenoarchaeology,
+/obj/item/clothing/gloves/artifact_pinchers,
+/obj/item/clothing/gloves/artifact_pinchers,
+/obj/item/xenoartifact_labeler,
+/obj/item/xenoartifact_labeler,
+/obj/item/clothing/glasses/science{
+	pixel_x = 5;
+	pixel_y = 3
+	},
+/obj/item/clothing/glasses/science{
+	pixel_x = 5;
+	pixel_y = 3
+	},
 /turf/open/floor/plasteel/dark,
 /area/science/explab)
 "pfz" = (

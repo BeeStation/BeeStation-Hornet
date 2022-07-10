@@ -71082,7 +71082,6 @@
 	},
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/bot,
-/obj/item/clothing/gloves/color/latex,
 /obj/item/clothing/glasses/science,
 /obj/item/clothing/glasses/science,
 /obj/effect/turf_decal/tile/neutral{
@@ -71097,6 +71096,8 @@
 	},
 /obj/item/xenoartifact_labeler,
 /obj/item/xenoartifact_labeler,
+/obj/item/clothing/gloves/artifact_pinchers,
+/obj/item/clothing/gloves/artifact_pinchers,
 /turf/open/floor/plasteel/dark,
 /area/science/explab)
 "eCu" = (
