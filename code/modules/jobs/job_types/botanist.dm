@@ -28,7 +28,7 @@
 	name = "Botanist"
 	jobtype = /datum/job/hydro
 
-	id = /obj/item/card/id/job/serv
+	id = /obj/item/card/id/job/botanist
 	belt = /obj/item/pda/service
 	ears = /obj/item/radio/headset/headset_srv
 	uniform = /obj/item/clothing/under/rank/civilian/hydroponics
