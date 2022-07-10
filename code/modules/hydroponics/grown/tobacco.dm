@@ -61,6 +61,7 @@
 	mutatelist = list()
 	reagents_set = list(
 		/datum/reagent/consumable/nutriment = list(1, 5),
+		/datum/reagent/medicine/ashwalker_medicine = list(8, 20),
 		/datum/reagent/drug/nicotine = list(8, 55),
 		/datum/reagent/toxin/lipolicide = list(4, 25))
 	genes = list(/datum/plant_gene/family/fungal_metabolism)

@@ -245,3 +245,8 @@
 	description = "<span class='boldwarning'>I'm not safe! I can't trust anybody!</span>\n"
 	mood_change = -6
 	timeout = 30 SECONDS
+
+/datum/mood_event/ashenblood
+	description = "<span class='boldwarning'>AAHHHHHHHRRRGGG- TENDRILS!!!!</span>\n"
+	mood_change = -100
+	timeout = 30 SECONDS

@@ -226,7 +226,7 @@
 /datum/mood_event/eternalbloom
 	description = "<span class='nicegreen'>This plant is so gorgeous... Eternally blooming...</span>\n"
 	mood_change = 1
-	timeout = 3 MINUTES
+	timeout = 5 MINUTES
 
 /datum/mood_event/eternalbloom/add_effects(plant)
 	description = "<span class='nicegreen'>[plant] is so gorgeous... Eternally blooming...</span>\n"

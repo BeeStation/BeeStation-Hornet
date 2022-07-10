@@ -1695,3 +1695,65 @@
 		M.Jitter(5)
 	M.losebreath = 0
 	..()
+
+/datum/reagent/medicine/ashwalker_medicine // a botany medicine for ashwalkers
+	name = "Ashen Blood"
+	description = "a lavaland extract that heals every fissure you have. the power of necropolis even can fix inorganic creatures."
+	reagent_state = LIQUID
+	color = "#700909"
+	chem_flags = CHEMICAL_NOT_SYNTH | CHEMICAL_RNG_FUN
+	metabolization_rate = 0.125 * REAGENTS_METABOLISM
+	overdose_threshold = 10
+	taste_description = "ash-flavored iron with a hint of tendrils"
+
+	// copy-paste saline-glucose
+	var/last_added = 0
+	var/maximum_reachable = BLOOD_VOLUME_NORMAL - 10
+
+/datum/reagent/medicine/ashwalker_medicine/on_mob_life(mob/living/carbon/M)
+	..()
+	M.adjustBruteLoss(-0.2*REM, 0, TRUE)
+	M.adjustFireLoss(-0.2*REM, 0, TRUE)
+	M.adjustToxLoss(-0.2*REM, 0, TRUE)
+	M.adjustOxyLoss(-0.2*REM, 0, TRUE)
+	M.adjustCloneLoss(-0.1*REM, 0, TRUE)
+	M.adjustStaminaLoss(-0.2*REM, 0, TRUE)
+	for(var/organ in M.internal_organs)
+		var/obj/item/organ/O = organ
+		O.applyOrganDamage(-0.2*REM) // This is even a valid option for braintumor people.
+
+
+	if(isashlizard(M)) // real ashwalker medicine part
+		ADD_TRAIT(M, TRAIT_NOCRITDAMAGE, type)
+		if(M.losebreath >= 4)
+			M.losebreath -= 2
+		if(M.losebreath < 0)
+			M.losebreath = 0
+		// copy-paste saline-glucose - blood regen for only ashwalkers
+		if(last_added)
+			M.blood_volume -= last_added
+			last_added = 0
+		if(M.blood_volume < maximum_reachable)
+			var/amount_to_add = min(M.blood_volume, volume*5)
+			var/new_blood_level = min(M.blood_volume + amount_to_add, maximum_reachable)
+			last_added = new_blood_level - M.blood_volume
+			M.blood_volume = new_blood_level
+		// copy-paste done
+
+	if(prob(5))
+		// somehow braintumor people can ignore this.
+		if(!isashlizard(M)) // non-ash will difficult to utilise this at all.
+			to_chat("<span class='warning'>You feel the grasp of the necropolis tendrils occupying you!</span>")
+			M.jitteriness = min(max(0, M.jitteriness + 3), 30)
+			M.druggy = min(max(0, M.druggy + 10), 5)
+			if(prob(25))
+				SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "ashenblood", /datum/mood_event/ashenblood)
+
+/datum/reagent/medicine/ashwalker_medicine/overdose_process(mob/living/carbon/M)
+	holder.remove_reagent(/datum/reagent/medicine/ashwalker_medicine, 20)
+	SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "ashenblood", /datum/mood_event/ashenblood)
+	..()
+
+/datum/reagent/medicine/ashwalker_medicine/on_mob_end_metabolize(mob/living/carbon/M)
+	REMOVE_TRAIT(M, TRAIT_NOCRITDAMAGE, type)
+	..()
