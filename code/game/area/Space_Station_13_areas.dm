@@ -1520,3 +1520,115 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/tcommsat/relay
 	name = "Telecommunications Relay"
 	icon_state = "tcom_sat_cham"
+
+// Lower hallways
+
+/area/hallway/lower/primary/aft
+	name = "Lower Aft Primary Hallway"
+	icon_state = "hallA"
+
+/area/hallway/lower/primary/fore
+	name = "Lower Fore Primary Hallway"
+	icon_state = "hallF"
+
+/area/hallway/lower/primary/starboard
+	name = "Lower Starboard Primary Hallway"
+	icon_state = "hallS"
+
+/area/hallway/lower/primary/port
+	name = "Lower Port Primary Hallway"
+	icon_state = "hallP"
+
+/area/hallway/lower/primary/central
+	name = "Lower Central Primary Hallway"
+	icon_state = "hallC"
+
+/area/hallway/lower/secondary/command
+	name = "Lower Command Hallway"
+	icon_state = "bridge_hallway"
+
+/area/hallway/lower/secondary/construction
+	name = "Lower Construction Area"
+	icon_state = "construction"
+
+/area/hallway/lower/secondary/exit
+	name = "Lower Escape Shuttle Hallway"
+	icon_state = "escape"
+
+/area/hallway/lower/secondary/exit/departure_lounge
+	name = "Lower Departure Lounge"
+	icon_state = "escape_lounge"
+
+/area/hallway/lower/secondary/entry
+	name = "Lower Arrival Shuttle Hallway"
+	icon_state = "entry"
+
+/area/hallway/lower/secondary/service
+	name = "Lower Service Hallway"
+	icon_state = "hall_service"
+
+//Lower Maintenance
+
+/area/maintenance/lower/aft
+	name = "Lower Aft Maintenance"
+	icon_state = "aftmaint"
+
+/area/maintenance/lower/aft/secondary
+	name = "Lower Aft Maintenance"
+	icon_state = "aftmaint"
+
+/area/maintenance/lower/central
+	name = "Lower Central Maintenance"
+	icon_state = "centralmaint"
+
+/area/maintenance/lower/central/secondary
+	name = "Lower Central Maintenance"
+	icon_state = "centralmaint"
+
+/area/maintenance/lower/fore
+	name = "Lower Fore Maintenance"
+	icon_state = "foremaint"
+
+/area/maintenance/lower/fore/secondary
+	name = "Lower Fore Maintenance"
+	icon_state = "foremaint"
+
+/area/maintenance/lower/starboard
+	name = "Lower Starboard Maintenance"
+	icon_state = "starboardmaint"
+
+/area/maintenance/lower/starboard/central
+	name = "Lower Central Starboard Maintenance"
+	icon_state = "starboardmaint"
+
+/area/maintenance/lower/starboard/secondary
+	name = "Lower Secondary Starboard Maintenance"
+	icon_state = "starboardmaint"
+
+/area/maintenance/lower/starboard/aft
+	name = "Lower Starboard Quarter Maintenance"
+	icon_state = "asmaint"
+
+/area/maintenance/lower/starboard/aft/secondary
+	name = "Lower Secondary Starboard Quarter Maintenance"
+	icon_state = "asmaint"
+
+/area/maintenance/lower/starboard/fore
+	name = "Lower Starboard Bow Maintenance"
+	icon_state = "fsmaint"
+
+/area/maintenance/lower/port
+	name = "Lower Port Maintenance"
+	icon_state = "pmaint"
+
+/area/maintenance/lower/port/central
+	name = "Lower Central Port Maintenance"
+	icon_state = "centralmaint"
+
+/area/maintenance/lower/port/aft
+	name = "Lower Port Quarter Maintenance"
+	icon_state = "apmaint"
+
+/area/maintenance/lower/port/fore
+	name = "Lower Port Bow Maintenance"
+	icon_state = "fpmaint"
