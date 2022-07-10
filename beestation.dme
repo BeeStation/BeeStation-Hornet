@@ -3741,6 +3741,7 @@
 #include "monkestation\code\modules\clothing\suits\armor.dm"
 #include "monkestation\code\modules\clothing\suits\jobs.dm"
 #include "monkestation\code\modules\clothing\suits\labcoat.dm"
+#include "monkestation\code\modules\clothing\suits\reactive_armour.dm"
 #include "monkestation\code\modules\clothing\suits\toggles.dm"
 #include "monkestation\code\modules\clothing\under\costume.dm"
 #include "monkestation\code\modules\clothing\under\miscellaneous.dm"

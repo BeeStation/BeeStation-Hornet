@@ -120,3 +120,16 @@
 	gold_core_spawnable = FRIENDLY_SPAWN
 	unique_pet = TRUE
 	speak = list("ONI SOMA", "CLANG!", "UN'LTD P'WAH", "AULIE OXIN FIERA", "GIN'YU`CAPAN")
+
+/mob/living/simple_animal/pet/dog/bullterrier/walter/smallter
+	name = "Smallter"
+	real_name = "Smallter"
+	desc = "Nar'sie and rat'var are nothing compared to the might of this tiny dog."
+	gold_core_spawnable = FRIENDLY_SPAWN
+	unique_pet = TRUE
+	speak = list("barks", "woofs", "walter", "firetrucks", "monstertrucks")
+
+/mob/living/simple_animal/pet/dog/bullterrier/walter/smallter/Initialize(mapload)
+	. = ..()
+	resize = 0.5
+	update_transform()

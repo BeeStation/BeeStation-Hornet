@@ -365,6 +365,7 @@
 		/mob/living/simple_animal/pet/dog/bullterrier/walter/french = 5,
 		/mob/living/simple_animal/pet/dog/bullterrier/walter/british = 5,
 		/mob/living/simple_animal/pet/dog/bullterrier/walter/wizard = 5,
+		/mob/living/simple_animal/pet/dog/bullterrier/walter/smallter = 5,
 		/mob/living/simple_animal/pet/dog/bullterrier/walter/sus = 1, //:(
 		)
 
