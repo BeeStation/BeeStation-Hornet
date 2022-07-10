@@ -123,7 +123,8 @@
 	launch_status = 0;
 	name = "White Ship";
 	port_direction = 4;
-	width = 9
+	width = 9;
+	faction_type = /datum/faction/independant
 	},
 /turf/open/floor/plasteel/dark,
 /area/shuttle/abandoned)

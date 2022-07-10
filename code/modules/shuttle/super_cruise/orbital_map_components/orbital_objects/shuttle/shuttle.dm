@@ -38,9 +38,6 @@
 	//Semi-Autopilot controls
 	var/datum/orbital_vector/shuttleTargetPos
 
-	//AI Pilot
-	var/datum/shuttle_ai_pilot/ai_pilot = null
-
 	//AUTOPILOT CONTROLS.
 	//Cheating autopilots never fail
 	var/cheating_autopilot = FALSE
@@ -51,11 +48,16 @@
 /datum/orbital_object/shuttle/New(datum/orbital_vector/position, datum/orbital_vector/velocity, orbital_map_index, obj/docking_port/mobile/port)
 	if(port)
 		link_shuttle(port)
+	//Stop processin the AI pilot (Flight mode)
+	STOP_PROCESSING(SSorbits, shuttle_data.ai_pilot)
 	. = ..()
 
 /datum/orbital_object/shuttle/Destroy()
 	if(shuttle_data)
 		UnregisterSignal(shuttle_data, COMSIG_PARENT_QDELETING)
+	//Start processing the AI pilot (Combat mode)
+	if(shuttle_data)
+		START_PROCESSING(SSorbits, shuttle_data.ai_pilot)
 	. = ..()
 
 /datum/orbital_object/shuttle/is_distress()
@@ -95,8 +97,8 @@
 		return
 
 	//Process AI action
-	if(ai_pilot)
-		ai_pilot.handle_ai_action(src)
+	if(shuttle_data.ai_pilot)
+		shuttle_data.ai_pilot.handle_ai_flight_action(src)
 
 	if(!QDELETED(docking_target))
 		velocity.x = 0

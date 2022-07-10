@@ -71,6 +71,7 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 	//Create the main orbital map.
 	orbital_maps[PRIMARY_ORBITAL_MAP] = new /datum/orbital_map()
 	//Create factions (These ones are static, although each ship has its own)
+	factions = list()
 	for(var/faction_datum in subtypesof(/datum/faction))
 		factions[faction_datum] = new faction_datum
 
@@ -322,8 +323,8 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 	RETURN_TYPE(/datum/shuttle_data)
 	return assoc_shuttle_data[port_id]
 
-/datum/controller/subsystem/processing/orbits/proc/register_shuttle(port_id)
-	var/datum/shuttle_data/new_shuttle = new(port_id)
+/datum/controller/subsystem/processing/orbits/proc/register_shuttle(port_id, ship_faction)
+	var/datum/shuttle_data/new_shuttle = new(port_id, ship_faction)
 	assoc_shuttle_data[port_id] = new_shuttle
 
 /datum/controller/subsystem/processing/orbits/proc/remove_shuttle(port_id)
@@ -345,3 +346,5 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 	if(check_faction_alignment(victim_faction, attacker_faction) != FACTION_STATUS_HOSTILE)
 		attacker.rogue_factions |= victim_faction.type
 		log_shuttle("[attacker.shuttle_name] ([attacker_faction.name]) fired upon neutral/friendly ship [victim.shuttle_name] ([victim_faction.name]), and was declared hostile to that faction")
+	//If the victim is an NPC, trigger them to become hostile
+	

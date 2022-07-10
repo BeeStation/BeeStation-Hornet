@@ -232,7 +232,8 @@
 	id = "mining";
 	name = "mining shuttle";
 	port_direction = 8;
-	width = 7
+	width = 7;
+	faction_type = /datum/faction/station
 	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 4

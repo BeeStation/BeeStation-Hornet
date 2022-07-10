@@ -784,7 +784,8 @@
 	name = "Exploration Shuttle";
 	port_direction = 3;
 	shuttle_object_type = /datum/orbital_object/shuttle/custom_shuttle;
-	width = 19
+	width = 19;
+	faction_type = /datum/faction/station
 	},
 /obj/structure/fans/tiny,
 /turf/open/floor/plasteel,

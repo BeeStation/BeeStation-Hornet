@@ -2501,7 +2501,8 @@
 	name = "NT Frigate";
 	port_direction = 8;
 	preferred_direction = 4;
-	width = 27
+	width = 27;
+	faction_type = /datum/faction/independant
 	},
 /turf/open/floor/plating,
 /area/shuttle/abandoned/crew)

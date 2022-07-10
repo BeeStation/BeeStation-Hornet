@@ -99,7 +99,8 @@
 	id = "laborcamp";
 	name = "labor camp shuttle";
 	port_direction = 4;
-	width = 8
+	width = 8;
+	faction_type = /datum/faction/station
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/labor)

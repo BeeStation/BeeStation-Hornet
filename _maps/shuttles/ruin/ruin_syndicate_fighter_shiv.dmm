@@ -86,7 +86,8 @@
 	name = "Syndicate Fighter";
 	port_direction = 2;
 	preferred_direction = 4;
-	width = 9
+	width = 9;
+	faction_type = /datum/faction/syndicate/gorlex
 	},
 /turf/open/floor/plating,
 /area/shuttle/caravan/syndicate1)

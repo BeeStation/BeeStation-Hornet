@@ -150,7 +150,8 @@
 	name = "Syndicate Drop Ship";
 	port_direction = 8;
 	preferred_direction = 4;
-	width = 15
+	width = 15;
+	faction_type = /datum/faction/syndicate/gorlex
 	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /turf/open/floor/plating,

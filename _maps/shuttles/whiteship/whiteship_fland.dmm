@@ -664,7 +664,8 @@
 	movement_force = list("KNOCKDOWN" = 0, "THROW" = 0);
 	name = "Eden Whiteship";
 	preferred_direction = 4;
-	width = 18
+	width = 18;
+	faction_type = /datum/faction/independant
 	},
 /turf/open/floor/pod/dark,
 /area/shuttle/abandoned)

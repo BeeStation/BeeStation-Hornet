@@ -14,22 +14,22 @@ export const WeaponConsole = (props, context) => {
       width={870}
       height={708}
       resizable>
-      <div className="WeaponConsole__left">
-        <Window.Content scrollable>
+      <Window.Content>
+        <div className="WeaponConsole__left">
           <ShipSearchContent />
-        </Window.Content>
-      </div>
-      <div className="WeaponConsole__right">
-        <div className="WeaponConsole__weaponpane">
-          <WeaponSelection />
         </div>
-        <ByondUi
-          className="WeaponConsole__map"
-          params={{
-            id: mapRef,
-            type: 'map',
-          }} />
-      </div>
+        <div className="WeaponConsole__right">
+          <div className="WeaponConsole__weaponpane">
+            <WeaponSelection />
+          </div>
+          <ByondUi
+            className="WeaponConsole__map"
+            params={{
+              id: mapRef,
+              type: 'map',
+            }} />
+        </div>
+      </Window.Content>
     </Window>
   );
 };

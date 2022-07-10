@@ -56,7 +56,8 @@
 	id = "science";
 	name = "science shuttle";
 	port_direction = 4;
-	width = 9
+	width = 9;
+	faction_type = /datum/faction/station
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"

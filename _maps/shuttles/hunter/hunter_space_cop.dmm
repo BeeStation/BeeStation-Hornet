@@ -20,7 +20,8 @@
 	id = "huntership";
 	name = "hunter shuttle";
 	rechargeTime = 1800;
-	width = 7
+	width = 7;
+	faction_type = /datum/faction/independant
 	},
 /obj/machinery/door/poddoor/shutters{
 	id = "Interpolship"

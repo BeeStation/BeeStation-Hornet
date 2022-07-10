@@ -125,7 +125,8 @@
 	id = "laborcamp";
 	name = "labor camp shuttle";
 	port_direction = 4;
-	width = 10
+	width = 10;
+	faction_type = /datum/faction/station
 	},
 /obj/machinery/door/airlock/external{
 	name = "Mining Shuttle External Airlock"

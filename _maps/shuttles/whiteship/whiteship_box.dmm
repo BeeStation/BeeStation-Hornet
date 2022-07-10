@@ -2137,7 +2137,8 @@
 	name = "Hospital Ship";
 	port_direction = 8;
 	preferred_direction = 4;
-	width = 34
+	width = 34;
+	faction_type = /datum/faction/independant
 	},
 /turf/open/floor/plating,
 /area/shuttle/abandoned/crew)

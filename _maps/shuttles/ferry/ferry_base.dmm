@@ -58,7 +58,8 @@
 	id = "ferry";
 	name = "ferry shuttle";
 	port_direction = 2;
-	width = 5
+	width = 5;
+	faction_type = /datum/faction/nanotrasen/central_command
 	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/transport)

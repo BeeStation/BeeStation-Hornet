@@ -319,9 +319,12 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 	/// If True will cause an explosion upon landing
 	var/crash_landing = FALSE
 
+	/// What faction type should we use
+	var/faction_type = /datum/faction/independant
+
 /obj/docking_port/mobile/proc/register()
 	SSshuttle.mobile |= src
-	SSorbits.register_shuttle(id)
+	SSorbits.register_shuttle(id, faction_type)
 
 /obj/docking_port/mobile/Destroy(force)
 	if(force)

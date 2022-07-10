@@ -155,7 +155,8 @@
 	id = "ferry";
 	name = "The Lighthouse";
 	port_direction = 2;
-	width = 16
+	width = 16;
+	faction_type = /datum/faction/nanotrasen/central_command
 	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/transport)

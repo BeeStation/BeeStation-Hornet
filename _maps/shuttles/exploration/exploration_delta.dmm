@@ -268,7 +268,8 @@
 	name = "Exploration Shuttle";
 	port_direction = 4;
 	shuttle_object_type = /datum/orbital_object/shuttle/custom_shuttle;
-	width = 16
+	width = 16;
+	faction_type = /datum/faction/station
 	},
 /obj/machinery/door/airlock/external/glass,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden{

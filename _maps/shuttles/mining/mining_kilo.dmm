@@ -168,7 +168,8 @@
 	id = "mining";
 	name = "mining shuttle";
 	port_direction = 4;
-	width = 7
+	width = 7;
+	faction_type = /datum/faction/station
 	},
 /obj/machinery/atmospherics/pipe/simple/general/hidden{
 	dir = 8

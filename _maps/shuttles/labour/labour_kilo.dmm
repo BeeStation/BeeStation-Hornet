@@ -147,7 +147,8 @@
 	id = "laborcamp";
 	name = "labor camp shuttle";
 	port_direction = 4;
-	width = 9
+	width = 9;
+	faction_type = /datum/faction/station
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4

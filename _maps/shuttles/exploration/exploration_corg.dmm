@@ -591,7 +591,8 @@
 	name = "Exploration Shuttle";
 	port_direction = 4;
 	shuttle_object_type = /datum/orbital_object/shuttle/custom_shuttle;
-	width = 23
+	width = 23;
+	faction_type = /datum/faction/station
 	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 1

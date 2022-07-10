@@ -211,7 +211,8 @@
 	dwidth = 4;
 	height = 6;
 	shuttle_object_type = /datum/orbital_object/shuttle/custom_shuttle;
-	width = 10
+	width = 10;
+	faction_type = /datum/faction/independant
 	},
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/pod_shuttle)

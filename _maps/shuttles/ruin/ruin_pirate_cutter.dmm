@@ -128,7 +128,8 @@
 	name = "Pirate Cutter";
 	port_direction = 8;
 	preferred_direction = 4;
-	width = 22
+	width = 22;
+	faction_type = /datum/faction/pirates
 	},
 /turf/open/floor/plating,
 /area/shuttle/caravan/pirate)

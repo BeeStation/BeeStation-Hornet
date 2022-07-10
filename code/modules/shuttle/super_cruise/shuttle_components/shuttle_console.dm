@@ -196,11 +196,11 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 		data["linkedToShuttle"] = FALSE
 		return data
 	data["linkedToShuttle"] = TRUE
-	data["shuttleTarget"] = shuttleObject.ai_pilot?.get_target_name()
+	data["shuttleTarget"] = shuttleObject.shuttle_data.ai_pilot?.get_target_name()
 	data["shuttleName"] = shuttleObject.name
 	data["shuttleAngle"] = shuttleObject.angle
 	data["shuttleThrust"] = shuttleObject.thrust
-	data["autopilot_enabled"] = shuttleObject.ai_pilot?.is_active()
+	data["autopilot_enabled"] = shuttleObject.shuttle_data.ai_pilot?.is_active()
 	data["shuttleVelX"] = shuttleObject.velocity.x
 	data["shuttleVelY"] = shuttleObject.velocity.y
 	//Docking data
@@ -276,7 +276,7 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 							//Launch the shuttle
 							if(!launch_shuttle())
 								return
-						shuttleObject.set_pilot(new /datum/shuttle_ai_pilot/autopilot/request(
+						shuttleObject.shuttle_data.set_pilot(new /datum/shuttle_ai_pilot/autopilot/request(
 							z_linked, recall_docking_port_id
 						))
 						say("Shuttle requested.")
@@ -295,16 +295,16 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 			var/datum/orbital_map/showing_map = SSorbits.orbital_maps[orbital_map_index]
 			for(var/datum/orbital_object/object as() in showing_map.get_all_bodies())
 				if(object.name == desiredTarget)
-					var/is_autopilot_active = shuttleObject.ai_pilot?.is_active()
-					shuttleObject.set_pilot(new /datum/shuttle_ai_pilot/autopilot(object))
+					var/is_autopilot_active = shuttleObject.shuttle_data.ai_pilot?.is_active()
+					shuttleObject.shuttle_data.set_pilot(new /datum/shuttle_ai_pilot/autopilot(object))
 					if(is_autopilot_active)
-						shuttleObject.ai_pilot?.try_toggle()
+						shuttleObject.shuttle_data.ai_pilot?.try_toggle()
 					return
 		if("nautopilot")
 			if(QDELETED(shuttleObject))
 				return
-			if(!shuttleObject.ai_pilot?.try_toggle())
-				shuttleObject.try_override_pilot()
+			if(!shuttleObject.shuttle_data.ai_pilot?.try_toggle())
+				shuttleObject.shuttle_data.try_override_pilot()
 		//Launch the shuttle. Lets do this.
 		if("launch")
 			launch_shuttle()
@@ -321,8 +321,8 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 		if("setTargetCoords")
 			if(QDELETED(shuttleObject))
 				return
-			if(shuttleObject.ai_pilot?.is_active())
-				if(!shuttleObject.ai_pilot?.try_toggle() && !shuttleObject.try_override_pilot())
+			if(shuttleObject.shuttle_data.ai_pilot?.is_active())
+				if(!shuttleObject.shuttle_data.ai_pilot?.try_toggle() && !shuttleObject.shuttle_data.try_override_pilot())
 					say("Shuttle is controlled from an external location.")
 					return
 			var/x = text2num(params["x"])

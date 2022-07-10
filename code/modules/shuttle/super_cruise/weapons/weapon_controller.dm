@@ -100,6 +100,7 @@
 		user.client.register_map_obj(cam_background)
 		// Open UI
 		ui = new(user, src, "WeaponConsole")
+		ui.set_autoupdate(TRUE)
 		ui.open()
 
 /obj/machinery/computer/weapons/ui_data(mob/user)
@@ -112,7 +113,7 @@
 		log_shuttle("Weapons console linked to [shuttle_id] could not locate a connected port using SSshuttle system.")
 		return data
 	//Not attached to any shuttle
-	var/datum/shuttle_data/our_ship = SSorbits.get_shuttle_data(SHUTTLE_IDLE)
+	var/datum/shuttle_data/our_ship = SSorbits.get_shuttle_data(shuttle_id)
 	if(!our_ship)
 		return data
 	//Enemy Ships

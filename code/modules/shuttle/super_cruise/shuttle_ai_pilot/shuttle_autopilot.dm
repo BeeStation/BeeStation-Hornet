@@ -11,7 +11,7 @@
 	targetPortId = _targetPortId
 
 ///Called every shuttle tick, handles the action of the shuttle
-/datum/shuttle_ai_pilot/autopilot/handle_ai_action(datum/orbital_object/shuttle/shuttle)
+/datum/shuttle_ai_pilot/autopilot/handle_ai_flight_action(datum/orbital_object/shuttle/shuttle)
 	if(!activated)
 		return
 	//Drive to the target location

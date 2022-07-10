@@ -91,7 +91,8 @@
 	id = "ferry";
 	name = "ferry shuttle";
 	preferred_direction = 4;
-	width = 5
+	width = 5;
+	faction_type = /datum/faction/nanotrasen/central_command
 	},
 /turf/open/floor/pod/dark,
 /area/shuttle/transport)

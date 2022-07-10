@@ -211,7 +211,8 @@
 	name = "Small Freighter";
 	port_direction = 8;
 	preferred_direction = 4;
-	width = 21
+	width = 21;
+	faction_type = /datum/faction/independant
 	},
 /turf/open/floor/plating,
 /area/shuttle/caravan/freighter1)

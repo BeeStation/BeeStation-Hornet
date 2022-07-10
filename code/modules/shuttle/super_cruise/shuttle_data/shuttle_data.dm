@@ -3,6 +3,8 @@
 	var/shuttle_name
 	/// Port ID of the shuttle
 	var/port_id
+	///The AI Pilot flying this shuttle
+	var/datum/shuttle_ai_pilot/ai_pilot = null
 	/// List of attached shield generators
 	var/list/obj/machinery/power/shuttle_shield_generator/registered_shield_generators = list()
 	/// List of engine heaters
@@ -44,11 +46,15 @@
 	/// - The cycle continues.
 	///Note: Doesn't take into account subtypes.
 	var/list/rogue_factions = list()
+	///Weapon systems
+	var/list/obj/machinery/shuttle_weapon/shuttle_weapons = list()
 
-/datum/shuttle_data/New(port_id)
+/datum/shuttle_data/New(port_id, faction_type = /datum/faction/independant)
 	. = ..()
 	//Setup the port ID
 	src.port_id = port_id
+	//Set the faction
+	faction = new faction_type()
 	//Get the docking port
 	var/obj/docking_port/mobile/attached_port = SSshuttle.getShuttle(port_id)
 	shuttle_name = attached_port.name
@@ -316,3 +322,38 @@
 
 /datum/shuttle_data/proc/get_thrust_force()
 	return thrust / mass
+
+//====================
+// Shuttle Pilot
+//====================
+
+///public
+///Sets the AI pilot of the shuttle to an AI pilot datum, handling
+/datum/shuttle_data/proc/set_pilot(datum/shuttle_ai_pilot/pilot)
+	if(ai_pilot)
+		UnregisterSignal(ai_pilot, COMSIG_PARENT_QDELETING)
+	ai_pilot = pilot
+	ai_pilot.attach_to_shuttle(src)
+	if(ai_pilot)
+		RegisterSignal(ai_pilot, COMSIG_PARENT_QDELETING, .proc/on_pilot_deleted)
+
+///private
+///Signal handler that handles dereferencing the ai_pilot when it is deleted
+/datum/shuttle_data/proc/on_pilot_deleted(datum/source, force)
+	PRIVATE_PROC(TRUE)
+	UnregisterSignal(ai_pilot, COMSIG_PARENT_QDELETING)
+	ai_pilot = null
+
+///Public
+///Attempts to override the current AI pilot
+/datum/shuttle_data/proc/try_override_pilot(forced = FALSE)
+	if(!ai_pilot)
+		return TRUE
+	if(!ai_pilot.overridable)
+		return FALSE
+	qdel(ai_pilot)
+	var/datum/orbital_object/shuttle/shuttle_object = SSorbits.assoc_shuttles[port_id]
+	if(shuttle_object)
+		SEND_SIGNAL(shuttle_object, COMSIG_ORBITAL_BODY_MESSAGE, "Autopilot disengaged.")
+	return TRUE
+

@@ -29,7 +29,8 @@
 	launch_status = 0;
 	name = "transport shuttle";
 	preferred_direction = 2;
-	width = 5
+	width = 5;
+	faction_type = /datum/faction/station
 	},
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/pod_1)
