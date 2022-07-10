@@ -382,7 +382,7 @@
 */
 
 /mob/dead/new_player/proc/LateChoices()
-	var/static/list/department_order = list(
+	var/static/list/department_order = list( // department order and its dept color
 		"Command" = "#ddddff",
 		"Engineering" = "#ffeeaa",
 		"Supply"= "#d7b088",
@@ -411,7 +411,7 @@
 	dat += "<table><tr><td valign='top'>"
 	var/column_counter = 0
 	for(var/list/category in department_list)
-		var/cat_color = department_order[department_order[column_counter+1]] //use the color of the first job in the category (the department head) as the category color
+		var/cat_color = department_order[department_order[column_counter+1]] // color from `department_order`
 		dat += "<fieldset style='width: 185px; border: 2px solid [cat_color]; display: inline'>"
 		dat += "<legend align='center' style='color: [cat_color]'>[department_order[column_counter+1]]</legend>"
 		var/list/dept_dat = list()
