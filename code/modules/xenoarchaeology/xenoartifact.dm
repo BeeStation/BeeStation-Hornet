@@ -146,7 +146,7 @@
 			AM.forceMove(loc)
 
 /obj/item/xenoartifact/CanAllowThrough(atom/movable/mover, turf/target) //tweedle dee, density feature
-	if(get_trait(/datum/xenoartifact_trait/minor/dense))
+	if(get_trait(/datum/xenoartifact_trait/minor/dense) || anchored)
 		return FALSE
 	return ..()
 
@@ -154,7 +154,7 @@
 	if(isliving(loc) && touch_desc?.on_touch(src, user) && user.can_see_reagents())
 		balloon_alert(user, (initial(touch_desc.desc) ? initial(touch_desc.desc) : initial(touch_desc.label_name)), material)
 
-	if(get_trait(/datum/xenoartifact_trait/minor/dense))
+	if(get_trait(/datum/xenoartifact_trait/minor/dense) || anchored)
 		if(process_type == PROCESS_TYPE_LIT) //Snuff out candle
 			to_chat(user, "<span class='notice'>You snuff out [name]</span>")
 			process_type = null
@@ -175,7 +175,7 @@
 	. += label_desc
 
 /obj/item/xenoartifact/attack_self(mob/user)
-	if(!isliving(loc) && !get_trait(/datum/xenoartifact_trait/minor/dense))
+	if(!isliving(loc) && (!get_trait(/datum/xenoartifact_trait/minor/dense) || anchored))
 		return
 
 	if(process_type == PROCESS_TYPE_LIT) //Snuff out candle
@@ -192,10 +192,9 @@
 	..()
 
 /obj/item/xenoartifact/attackby(obj/item/I, mob/living/user, params)
-	if(isliving(loc))
-		for(var/datum/xenoartifact_trait/t as() in traits) //chat & bubble hints & helpers
-			if(t?.on_item(src, user, I) && user.can_see_reagents())
-				balloon_alert(user, "[t.desc ? t.desc : t.label_name]\n", material)
+	for(var/datum/xenoartifact_trait/t as() in traits) //chat & bubble hints & helpers
+		if(t?.on_item(src, user, I) && user.can_see_reagents())
+			balloon_alert(user, "[t.desc ? t.desc : t.label_name]\n", material)
 
 	//allow people to remove stickers
 	if(I.tool_behaviour == TOOL_WIRECUTTER && (locate(/obj/item/xenoartifact_label) in contents))

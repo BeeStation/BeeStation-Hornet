@@ -628,7 +628,7 @@
 	X.density = TRUE
 
 /datum/xenoartifact_trait/minor/anchor/on_item(obj/item/xenoartifact/X, atom/user, obj/item/item)
-	if(istype(item) && item.tool_behaviour == TOOL_WRENCH)
+	if(item.tool_behaviour == TOOL_WRENCH)
 		to_chat(user, "<span class='info'>You [X.anchored ? "unanchor" : "anchor"] the [X.name] to the [get_turf(X)].</span>")
 		if(isliving(X.loc))
 			var/mob/living/holder = X.loc
