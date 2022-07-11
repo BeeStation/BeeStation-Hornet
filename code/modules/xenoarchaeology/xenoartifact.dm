@@ -151,18 +151,19 @@
 	return ..()
 
 /obj/item/xenoartifact/attack_hand(mob/user) //tweedle dum, density feature
-	. = ..()
-	var/obj/item/clothing/gloves/artifact_pinchers/P = locate(/obj/item/clothing/gloves/artifact_pinchers) in user.contents
-	if(P?.safety && isliving(loc))
-		if(touch_desc?.on_touch(src, user) && user.can_see_reagents())
-			balloon_alert(user, (initial(touch_desc.desc) ? initial(touch_desc.desc) : initial(touch_desc.label_name)), material)
-		return
+	if(isliving(loc) && touch_desc?.on_touch(src, user) && user.can_see_reagents())
+		balloon_alert(user, (initial(touch_desc.desc) ? initial(touch_desc.desc) : initial(touch_desc.label_name)), material)
 
 	if(get_trait(/datum/xenoartifact_trait/minor/dense))
 		if(process_type == PROCESS_TYPE_LIT) //Snuff out candle
 			to_chat(user, "<span class='notice'>You snuff out [name]</span>")
 			process_type = null
 			return FALSE
+
+	var/obj/item/clothing/gloves/artifact_pinchers/P = locate(/obj/item/clothing/gloves/artifact_pinchers) in user.contents
+	if(P?.safety && isliving(loc))
+		return
+	..()
 
 /obj/item/xenoartifact/examine(mob/living/carbon/user)
 	. = ..()	
@@ -174,30 +175,27 @@
 	. += label_desc
 
 /obj/item/xenoartifact/attack_self(mob/user)
+	if(!isliving(loc) && !get_trait(/datum/xenoartifact_trait/minor/dense))
+		return
+
 	if(process_type == PROCESS_TYPE_LIT) //Snuff out candle
 		to_chat(user, "<span class='notice'>You snuff out [name]</span>")
 		process_type = null
 		return
+
+	if(isliving(loc) && touch_desc?.on_touch(src, user) && user.can_see_reagents())
+		balloon_alert(user, (initial(touch_desc.desc) ? initial(touch_desc.desc) : initial(touch_desc.label_name)), material)
+		
 	var/obj/item/clothing/gloves/artifact_pinchers/P = locate(/obj/item/clothing/gloves/artifact_pinchers) in user.contents
-	if(P?.safety)
-		if(touch_desc?.on_touch(src, user) && user.can_see_reagents())
-			balloon_alert(user, (initial(touch_desc.desc) ? initial(touch_desc.desc) : initial(touch_desc.label_name)), material)
+	if(P?.safety && isliving(loc))
 		return
 	..()
 
 /obj/item/xenoartifact/attackby(obj/item/I, mob/living/user, params)
-	var/list/tool_text = list()
-	for(var/datum/xenoartifact_trait/t as() in traits) //chat & bubble hints & helpers
-		if(t?.on_item(src, user, I) && user.can_see_reagents())
-			tool_text += "[tool_text][t.desc ? t.desc : t.label_name]"
-	if(tool_text)
-		balloon_alert(user, tool_text.Join("\n"), material)
-
-	//abort if safety
-	var/obj/item/clothing/gloves/artifact_pinchers/P = locate(/obj/item/clothing/gloves/artifact_pinchers) in user.contents
-	if(P?.safety)
-		to_chat(user, "<span class='notice'>You perform a safe operation on [src] with [I].</span>")
-		return
+	if(isliving(loc))
+		for(var/datum/xenoartifact_trait/t as() in traits) //chat & bubble hints & helpers
+			if(t?.on_item(src, user, I) && user.can_see_reagents())
+				balloon_alert(user, "[t.desc ? t.desc : t.label_name]\n", material)
 
 	//allow people to remove stickers
 	if(I.tool_behaviour == TOOL_WIRECUTTER && (locate(/obj/item/xenoartifact_label) in contents))
@@ -207,6 +205,20 @@
 
 	//Let people label in peace
 	if(istype(I, /obj/item/xenoartifact_label) || istype(I, /obj/item/xenoartifact_labeler))
+		return
+
+	//abort if safety
+	var/obj/item/clothing/gloves/artifact_pinchers/P = locate(/obj/item/clothing/gloves/artifact_pinchers) in user.contents
+	if(P?.safety)
+		to_chat(user, "<span class='notice'>You perform a safe operation on [src] with [I].</span>")
+		return
+	..()
+
+/obj/item/xenoartifact/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+	//abort if safety
+	var/obj/item/clothing/gloves/artifact_pinchers/P = locate(/obj/item/clothing/gloves/artifact_pinchers) in user.contents
+	if(P?.safety)
+		to_chat(user, "<span class='notice'>You perform a safe operation on [src].</span>")
 		return
 	..()
 
@@ -235,7 +247,10 @@
 					if(!istype(t, /datum/xenoartifact_trait/minor))
 						log_game("[src] activated trait [t] at [world.time]. Located at [x] [y] [z]")
 						t.activate(src, M, user)
+		playsound(get_turf(src), 'sound/magic/blink.ogg', 25, TRUE) 
 		COOLDOWN_START(src, xenoa_cooldown, cooldown+cooldownmod)
+	else
+		visible_message("<span class='notice'>[src] echos emptily.</span>")
 
 	charge = 0
 	true_target = list()

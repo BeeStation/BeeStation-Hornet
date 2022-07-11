@@ -149,14 +149,14 @@
 
 /datum/xenoartifact_trait/activator/burn/on_init(obj/item/xenoartifact/X)
 	..()
-	X.max_range += 2
+	X.max_range += 1
 
 /datum/xenoartifact_trait/activator/burn/calculate_charge(datum/source, obj/item/thing, mob/user, atom/target, params) //xenoa item handles this, see process proc there
 	var/obj/item/xenoartifact/X = source
 	if(X.process_type != PROCESS_TYPE_LIT && thing.ignition_effect(X, user))
 		X.visible_message("<span class='danger'>The [X.name] sparks on.</span>")
 		X.process_type = PROCESS_TYPE_LIT
-		sleep(3 SECONDS) //Give them a chance to escape
+		sleep(1.8 SECONDS) //Give them a chance to escape
 		START_PROCESSING(SSobj, X)
 		log_game("[user]:[isliving(user) ? user?.ckey : "no ckey"] lit [X] at [world.time] using [thing]. [X] located at [X.x] [X.y] [X.z].")
 
@@ -252,8 +252,23 @@
 
 /datum/xenoartifact_trait/activator/weighted/calculate_charge(datum/source, obj/item/thing, mob/user, atom/target)
 	var/obj/item/clothing/gloves/artifact_pinchers/P = locate(/obj/item/clothing/gloves/artifact_pinchers) in target.contents
+	P = (P ? P : locate(/obj/item/clothing/gloves/artifact_pinchers) in user.contents) //Signal black magic makes me need to check twice...
 	if(P?.safety) //This trait is a special tism
 		return
+	var/obj/item/xenoartifact/X = source
+	X.default_activate(charge, user, target)
+
+//============
+// Pitch activator, artifact activates when thrown
+//============
+/datum/xenoartifact_trait/activator/pitch
+	label_name = "Pitched"
+	label_desc = "Pitched: The material is aerodynamic and activates when thrown."
+	charge = 25
+	signals = list(COMSIG_MOVABLE_IMPACT)
+	flags = BLUESPACE_TRAIT | URANIUM_TRAIT
+
+/datum/xenoartifact_trait/activator/pitch/calculate_charge(datum/source, obj/item/thing, mob/user, atom/target)
 	var/obj/item/xenoartifact/X = source
 	X.default_activate(charge, user, target)
 
@@ -300,6 +315,7 @@
 		X.cooldown = -1000 SECONDS //This is better than making a unique interaction in xenoartifact.dm
 		return
 	charges = pick(0, 1, 2)
+	playsound(get_turf(X), 'sound/machines/capacitor_charge.ogg', 50, TRUE) 
 	X.cooldown = saved_cooldown
 	saved_cooldown = null
 
@@ -395,7 +411,7 @@
 		return	
 	man = new(get_turf(X))
 	man.name = "[pick("Calcifer", "Lucifer", "Ahpuch", "Ahriman")]"
-	man.real_name = "[man.name] - the [X]"
+	man.real_name = "[man.name] - [X]"
 	man.key = ckey
 	log_game("[man]:[man.ckey] took control of the sentient [X]. [X] located at [X.x] [X.y] [X.z]")
 	ADD_TRAIT(man, TRAIT_NOBREATH, TRAIT_NODEATH)
@@ -403,6 +419,8 @@
 	man.anchored = TRUE
 	var/obj/effect/proc_holder/spell/targeted/xeno_senitent_action/P = new /obj/effect/proc_holder/spell/targeted/xeno_senitent_action(,X)
 	man.AddSpell(P)
+	if(man.key)
+		playsound(get_turf(X), 'sound/items/haunted/ghostitemattack.ogg', 50, TRUE)
 
 /obj/effect/proc_holder/spell/targeted/xeno_senitent_action //Lets sentience target goober
 	name = "Activate"
@@ -477,6 +495,7 @@
 		X.visible_message("<span class='danger'>The [X.name] shatters!</span>", "<span class='danger'>The [X.name] shatters!</span>")
 		var/obj/effect/decal/cleanable/ash/A = new(get_turf(X))
 		A.color = X.material
+		playsound(get_turf(X), 'sound/effects/glassbr1.ogg', 50, TRUE) 
 		qdel(X)
 
 //============
@@ -665,6 +684,20 @@
 	qdel(controller)
 	controller = null
 	..()
+
+//============
+// Delay, delays the activation
+//============
+/datum/xenoartifact_trait/minor/delay
+	label_name = "Delayed"
+	label_desc = "Delayeed: The Artifact's composistion causes activations to be delayed."
+	blacklist_traits = list(/datum/xenoartifact_trait/minor/dense)
+	flags = BLUESPACE_TRAIT | PLASMA_TRAIT | URANIUM_TRAIT
+
+/datum/xenoartifact_trait/minor/delay/activate(obj/item/xenoartifact/X, atom/target, atom/user, setup)
+	X.visible_message("The [X] halts and begins to hum deeply.", "The [X] halts and begins to hum deeply.")
+	playsound(get_turf(X), 'sound/effects/seedling_chargeup.ogg', 50, TRUE)
+	sleep(3 SECONDS)
 	
 //Major traits - The artifact's main gimmick, how it interacts with the world
 
@@ -743,6 +776,7 @@
 		var/damage = X.charge*0.25
 		var/mob/living/carbon/victim = target
 		victim.electrocute_act(damage, X, 1, 1)
+		playsound(get_turf(X), 'sound/machines/defib_zap.ogg', 50, TRUE)
 	X.cooldownmod = (X.charge*0.1) SECONDS
 
 //============
@@ -776,19 +810,20 @@
 	if(isliving(target))
 		if(get_dist(target, user) <= 1)
 			var/mob/living/victim = target
-			victim.adjust_fire_stacks(1)
+			victim.adjust_fire_stacks(5*(X.charge/X.charge_req))
 			victim.IgniteMob()
 			return
-		var/obj/item/projectile/A
-		switch(X.charge)
-			if(0 to 24)
-				A = new /obj/item/projectile/beam/disabler
-			if(25 to 79)
-				A = new /obj/item/projectile/beam/laser
-			if(80 to 200)
-				A = new /obj/item/ammo_casing/energy/laser/heavy
-		A.preparePixelProjectile(get_turf(target), X)
-		A.fire()
+	var/obj/item/projectile/A
+	switch(X.charge)
+		if(0 to 24)
+			A = new /obj/item/projectile/beam/disabler
+		if(25 to 79)
+			A = new /obj/item/projectile/beam/laser
+		if(80 to 200)
+			A = new /obj/item/ammo_casing/energy/laser/heavy
+	A.preparePixelProjectile(get_turf(target), X)
+	A.fire()
+	playsound(get_turf(src), 'sound/mecha/mech_shield_deflect.ogg', 50, TRUE) 
 
 //============
 // Corginator, turns the target into a corgi for a short time
@@ -941,6 +976,7 @@
 	flags = URANIUM_TRAIT
 
 /datum/xenoartifact_trait/major/emp/activate(obj/item/xenoartifact/X)
+	playsound(get_turf(X), 'sound/magic/disable_tech.ogg', 50, TRUE)
 	empulse(get_turf(X.loc), max(1, X.charge*0.03), max(1, X.charge*0.07, 1)) //This might be too big
 
 //============

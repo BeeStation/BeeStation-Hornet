@@ -130,7 +130,7 @@
 	desc = "Used for the fine manipulation and examination of artifacts."
 	icon_state = "pincher"
 	item_state = "pincher"
-	worn_icon_state = "gloves_wire"
+	worn_icon_state = "pincher"
 	transfer_prints = FALSE
 	actions_types = list(/datum/action/item_action/artifact_pincher_mode)
 	var/safety = FALSE
