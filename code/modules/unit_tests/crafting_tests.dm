@@ -2,9 +2,9 @@
 	var/list/failing = list()
 	world.log << "testing crafting recipes"
 	for(var/datum/crafting_recipe/recipe as() in subtypesof(/datum/crafting_recipe))
-		world.log << "Checking [recipe.type]"
+		world.log << "Checking [recipe]"
 		if(recipe.category == CAT_NONE && recipe.subcategory != CAT_NONE)
-			failing += "[recipe.type]"
+			failing += "[recipe]"
 	if(!length(failing))
 		return
 	Fail("The following crafting recipes have set a subcategory without setting the category: [failing.Join(" \n")]")
