@@ -1099,7 +1099,6 @@
 	else
 		return ..()
 
-
 /obj/machinery/door/airlock/try_to_weld(obj/item/weldingtool/W, mob/user)
 	if(!operating && density)
 		if(user.a_intent != INTENT_HELP)
