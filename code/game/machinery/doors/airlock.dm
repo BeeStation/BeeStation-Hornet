@@ -1072,7 +1072,7 @@
 		user.visible_message("<span class='notice'>[user] pins [C] to [src].</span>", "<span class='notice'>You pin [C] to [src].</span>")
 		note = C
 		update_icon()
-	else if(HAS_TRAIT(C, TRAIT_DOOR_PRYER))
+	else if(HAS_TRAIT(C, TRAIT_DOOR_PRYER) && user.a_intent != INTENT_HARM)
 		if(isElectrified())
 			shock(user,100)
 
