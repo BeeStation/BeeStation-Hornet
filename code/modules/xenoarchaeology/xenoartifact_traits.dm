@@ -259,7 +259,7 @@
 	X.default_activate(charge, user, target)
 
 //============
-// Pitch activator, artifact activates when thrown
+// Pitch activator, artifact activates when thrown. Credit to EvilDragon#4532
 //============
 /datum/xenoartifact_trait/activator/pitch
 	label_name = "Pitched"
@@ -686,7 +686,7 @@
 	..()
 
 //============
-// Delay, delays the activation
+// Delay, delays the activation. Credit to EvilDragon#4532
 //============
 /datum/xenoartifact_trait/minor/delay
 	label_name = "Delayed"
