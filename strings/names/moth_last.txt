@@ -1,13 +1,10 @@
 Accurata
-Adultera
 Albipuncta
 Albostriata
 Albovenosa
 Argentea
 Bicolorata
 Bifasciata
-Cameroni
-Chiangmai
 Combinata
 Convecta
 Cuneilinea
@@ -19,7 +16,6 @@ Ferrilinea
 Fraterna
 Goniosigma
 Hamifera
-Hirashimai
 Hypophaea
 Ignita
 Impura
@@ -29,7 +25,6 @@ Intermediata
 Intolerabilis
 Laevusta
 Languida
-Liebherri
 Lineatipes
 Lucida
 Maxima
@@ -40,7 +35,6 @@ Naumanni
 Nepalina
 Obscura
 Osseogrisea
-Pastellina
 Phlebitis
 Pyrausta
 Radiata
@@ -50,8 +44,6 @@ Semicana
 Separata
 Siamensis
 Simplex
-Toumodi
 Undicilia
-Uruma
 Vittata
 Yuennana

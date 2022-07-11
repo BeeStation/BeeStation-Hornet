@@ -15,7 +15,6 @@ Anderson
 Andreev
 Ann
 Archibald
-Armstrong
 Ashbaugh
 Atkinson
 Atweeke
@@ -43,7 +42,6 @@ Bell
 Benford
 Bennett
 Berkheimer
-Best
 Bickerson
 Bicknell
 Biery
@@ -74,7 +72,6 @@ Burkett
 Burns
 Burris
 Butterfill
-Buttersworth
 Buzzard
 Byers
 Bynum
@@ -133,7 +130,6 @@ Easter
 Echard
 Eckhardstein
 Edwards
-Eggbert
 Ehret
 Elderson
 Eliza
@@ -173,7 +169,6 @@ Garrison
 Gettemy
 Gibson
 Glover
-Goebbles
 Goodman
 Graham
 Gray
@@ -252,7 +247,6 @@ Kanaga
 Kaur
 Keener
 Kelley
-Kellogg
 Kelly
 Kemble
 Kemerer
@@ -356,7 +350,6 @@ Northey
 Noton
 Olphert
 Oneal
-Oppenheimer
 Osteen
 Osterweis
 Osterwise
@@ -370,7 +363,6 @@ Parkinson
 Patel
 Patterson
 Paulson
-Pavlov
 Paynter
 Pearsall
 Pennington
@@ -381,15 +373,11 @@ Petrov
 Pfeifer
 Philips
 Phillips
-Picard
 Pinney
 Poehl
 Poley
 Polson
-Potter
 Powell
-Power
-Powers
 Pratt
 Prechtl
 Prescott
@@ -413,13 +401,11 @@ Reade
 Reichard
 Reid
 Reighner
-Rhinehart
 Richards
 Richardson
 Richter
 Rifler
 Riggle
-Riker
 Ringer
 Roadman
 Roberts
@@ -454,7 +440,6 @@ Shafer
 Shaffer
 Shaner
 Shaw
-Sheets
 Shick
 Shirey
 Sholl
@@ -470,7 +455,6 @@ Smirnov
 Smith
 Snyder
 Sommer
-Spock
 Stafford
 Stahl
 Stainforth
@@ -516,7 +500,6 @@ Turner
 Ulery
 Ullman
 Unk
-Vader
 Vanleer
 Vasilyev
 Waldron
@@ -528,7 +511,6 @@ Warren
 Watson
 Webb
 Weeter
-Weinstein
 Weisgarber
 Wells
 Welty

@@ -500,7 +500,6 @@ Garrett
 Gary
 Gavin
 Gaye
-Gaylord
 Genesis
 Genette
 Genevieve
@@ -687,7 +686,6 @@ Jerrie
 Jerry
 Jesse
 Jessica
-Jesus
 Jillian
 Jillie
 Jim
@@ -816,7 +814,6 @@ Kimberly
 Kimora
 Kingston
 Kira
-Kobe
 Kolton
 Kristen
 Kristina
@@ -957,7 +954,6 @@ Mariabella
 Mariah
 Mariana
 Marilene
-Mario
 Marion
 Marisol
 Marissa
@@ -1389,8 +1385,6 @@ Zander
 Zane
 Zayden
 Zeke
-Zelda
 Zion
 Zoe
 Zoey
-Zune

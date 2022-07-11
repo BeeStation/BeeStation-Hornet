@@ -16,7 +16,6 @@ Axylia
 Bombyx
 Callosamia
 Callhistia
-Capricornia
 Catocala
 Cheliosea
 Chloroclystis
@@ -67,7 +66,6 @@ Mecodina
 Megalonycta
 Metacrisia
 Mythimna
-Naenia
 Naenia
 Neuroxena
 Nodaria

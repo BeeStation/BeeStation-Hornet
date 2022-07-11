@@ -203,7 +203,6 @@ Denise
 Denys
 Desiree
 Destiny
-Diamond
 Diana
 Dina
 Dolores
@@ -237,7 +236,6 @@ Erica
 Erika
 Erin
 Ermintrude
-Esmeralda
 Esther
 Estrella
 Eugenia
@@ -692,7 +690,6 @@ Shana
 Shanika
 Shannah
 Shannon
-Shantae
 Sharalyn
 Sharla
 Shayla
@@ -703,7 +700,6 @@ Sherill
 Sherri
 Sienna
 Sierra
-Sissy
 Skylar
 Skyler
 Sofia
@@ -758,14 +754,11 @@ Vivyan
 Wendi
 Wendy
 Willow
-Wisdom
 Wynonna
 Wynter
 Ximena
 Yasmin
 Yolanda
 Ysabel
-Zelda
 Zoe
 Zoey
-Zune
