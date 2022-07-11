@@ -265,6 +265,7 @@
 	label_name = "Pitched"
 	label_desc = "Pitched: The material is aerodynamic and activates when thrown."
 	charge = 25
+	blacklist_traits = (/datum/xenoartifact_trait/minor/dense)
 	signals = list(COMSIG_MOVABLE_IMPACT)
 	flags = BLUESPACE_TRAIT | URANIUM_TRAIT
 
