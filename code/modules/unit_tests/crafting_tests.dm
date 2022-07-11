@@ -1,9 +1,7 @@
 /datum/unit_test/validate_crafting_categories/Run()
 	var/list/failing = list()
-	world.log << "testing crafting recipes"
 	for(var/datum/crafting_recipe/recipe as() in subtypesof(/datum/crafting_recipe))
-		world.log << "Checking [recipe]"
-		if(recipe.category == CAT_NONE && recipe.subcategory != CAT_NONE)
+		if(initial(recipe.category) == CAT_NONE && initial(recipe.subcategory) != CAT_NONE)
 			failing += "[recipe]"
 	if(!length(failing))
 		return
