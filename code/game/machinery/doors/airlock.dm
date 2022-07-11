@@ -1072,6 +1072,32 @@
 		user.visible_message("<span class='notice'>[user] pins [C] to [src].</span>", "<span class='notice'>You pin [C] to [src].</span>")
 		note = C
 		update_icon()
+	else if(istype(C, /obj/item/light_eater))
+		if(isElectrified())
+			shock(user,100)//it's like sticking a forck in a power socket
+			return
+
+		if(!density)//already open
+			return
+
+		if(locked)
+			to_chat(user, "<span class='warning'>The bolts are down, it won't budge!</span>")
+			return
+
+		if(welded)
+			to_chat(user, "<span class='warning'>It's welded, it won't budge!</span>")
+			return
+
+		var/time_to_open = 5
+		if(hasPower() && !prying_so_hard)
+			time_to_open = 50
+			playsound(src, 'sound/machines/airlock_alien_prying.ogg', 100, TRUE) //is it aliens or just the CE being a dick?
+			prying_so_hard = TRUE
+			if(do_after(user, time_to_open, TRUE, src))
+				open(2)
+				if(density && !open(2))
+					to_chat(user, "<span class='warning'>Despite your attempts, [src] refuses to open.</span>")
+			prying_so_hard = FALSE
 	else
 		return ..()
 
@@ -1136,7 +1162,7 @@
 		to_chat(user, "<span class='warning'>The airlock's motors resist your efforts to force it!</span>")
 	else if(locked)
 		to_chat(user, "<span class='warning'>The airlock's bolts prevent it from being forced!</span>")
-	else if( !welded && !operating)
+	else if(!welded && !operating)
 		if(istype(I, /obj/item/fireaxe)) //being fireaxe'd
 			var/obj/item/fireaxe/F = I
 			if(F && !ISWIELDED(F))

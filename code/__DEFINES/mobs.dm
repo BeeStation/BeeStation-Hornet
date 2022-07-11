@@ -335,8 +335,7 @@
 //ED209's ignore monkeys
 #define JUDGE_IGNOREMONKEYS	(1<<4)
 
-#define SHADOW_SPECIES_LIGHT_THRESHOLD 0.2
-
+#define SHADOW_SPECIES_LIGHT_THRESHOLD 0.25
 // Offsets defines
 
 #define OFFSET_UNIFORM "uniform"
