@@ -156,10 +156,10 @@
 				if(X)
 					final_price = max(X.modifier*X.price, 1)
 					budget.adjust_money(final_price)
-					linked_techweb.add_point_type(TECHWEB_POINT_TYPE_DEFAULT, (final_price*3) * (final_price >= X.price))
+					linked_techweb.add_point_type(TECHWEB_POINT_TYPE_DEFAULT, (final_price*2.3) * (final_price >= X.price))
 					linked_techweb.add_point_type(TECHWEB_POINT_TYPE_DISCOVERY, (XENOA_SOLD_DP*(final_price/X.price)) * (final_price >= X.price))
 					info = "[selling_item.name] sold at [station_time_timestamp()] for [final_price] credits, bought for [X.price]. \
-					Awarded [(final_price*3) * (final_price >= X.price)] Research Points & [XENOA_SOLD_DP*(final_price/X.price) * (final_price >= X.price)] Discovery Points."
+					Awarded [(final_price*2.3) * (final_price >= X.price)] Research Points & [XENOA_SOLD_DP*(final_price/X.price) * (final_price >= X.price)] Discovery Points."
 					sold_artifacts += info
 					qdel(selling_item)
 			else //Future feature, not currently in use. Placeholder
