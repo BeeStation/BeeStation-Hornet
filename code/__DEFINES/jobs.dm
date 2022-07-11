@@ -418,3 +418,84 @@
 		if(jobname in hud_to_department_acc)
 			return hud_to_department_acc[jobname]
 	return ACCOUNT_CIV
+
+// used to determine chat color by HUD in `chatmessage.dm`
+// Note: custom colors are what I really didn't put much attention into. feel free to change its color when you feel off.
+/datum/chatmessage/proc/get_chatcolor_by_hud(jobname)
+	if(jobname)
+		var/static/hud_to_chatcolor = list(
+			// Command
+			JOB_HUD_RAWCOMMAND = "#ffecca", // custom command color
+			JOB_HUD_CAPTAIN = "#FFDC9B",
+			JOB_HUD_ACTINGCAPTAIN  = "#FFDC9B",
+
+			// Service
+			JOB_HUD_RAWSERVICE = "#bfe4b0", // custom service color
+			JOB_HUD_HEADOFPERSONNEL = "#7979d3",
+			JOB_HUD_ASSISTANT = "#bdbdbd",
+			JOB_HUD_BARTENDER = "#B2CEB3",
+			JOB_HUD_COOK = "#A2FBB9",
+			JOB_HUD_BOTANIST = "#95DE85",
+			JOB_HUD_CURATOR = "#88c999",
+			JOB_HUD_CHAPLAIN = "#8AB48C",
+			JOB_HUD_JANITOR = "#97FBEA",
+			JOB_HUD_LAWYER = "#C07D7D",
+			JOB_HUD_MIME = "#BAD3BB",
+			JOB_HUD_CLOWN = "#FF83D7",
+			JOB_HUD_STAGEMAGICIAN = "#b898b3",
+			JOB_HUD_BARBER = "#bd9e86",
+
+			// Cargo
+			JOB_HUD_RAWCARGO = "#ecce9a", // custom cargo color
+			JOB_HUD_QUARTERMASTER = "#C79C52",
+			JOB_HUD_CARGOTECHNICIAN = "#D3A372",
+			JOB_HUD_SHAFTMINER = "#CE957E",
+
+			// R&D
+			JOB_HUD_RAWSCIENCE = "#f3bff3", // custom R&D color
+			JOB_HUD_RESEARCHDIRECTOR = "#974EA9",
+			JOB_HUD_SCIENTIST = "#C772C7",
+			JOB_HUD_ROBOTICIST = "#AC71BA",
+			JOB_HUD_EXPLORATIONCREW = "#85d8b8",
+
+			// Engineering
+			JOB_HUD_RAWENGINEERING = "#e9d1a8", // custom Engineering color
+			JOB_HUD_CHIEFENGINEER = "#CFBB72",
+			JOB_HUD_STATIONENGINEER = "#D9BC89",
+			JOB_HUD_ATMOSPHERICTECHNICIAN = "#D4A07D",
+
+			// Medical
+			JOB_HUD_RAWMEDICAL = "#b1e5ec", // custom medical color
+			JOB_HUD_CHEIFMEDICALOFFICIER = "#7A97DA",
+			JOB_HUD_MEDICALDOCTOR = "#6CB1C5",
+			JOB_HUD_PARAMEDIC = "#8FBEB4",
+			JOB_HUD_VIROLOGIST = "#75AEA3",
+			JOB_HUD_CHEMIST = "#82BDCE",
+			JOB_HUD_GENETICIST = "#83BBBF",
+			JOB_HUD_PSYCHIATRIST = "#a2dfdc",
+
+			// Security
+			JOB_HUD_RAWSECURITY = "#f3bdc0", // custom security color, has some color than deputy
+			JOB_HUD_HEADOFSECURITY = "#D33049",
+			JOB_HUD_SECURITYOFFICER = "#E6A3A3",
+			JOB_HUD_WARDEN = "#EA545E",
+			JOB_HUD_DETECTIVE = "#C78B8B",
+			JOB_HUD_BRIGPHYSICIAN = "#b16789",
+			JOB_HUD_DEPUTY = "#ffeeee",
+
+			// CentCom
+			JOB_HUD_RAWCENTCOM = "#a7f08f", // custom CC color
+			JOB_HUD_CENTCOM = "#90FD6D",
+
+			// ETC
+			JOB_HUD_VIP = "#ebc96b",
+			JOB_HUD_KING = "#dcec49", // somehow golden?
+			JOB_HUD_SYNDICATE = "#997272", // I really didn't care the color
+			JOB_HUD_NOTCENTCOM = "#6d6aec", // i.e. space police
+			JOB_HUD_PRISONER = "#d38a5c",
+			JOB_HUD_UNKNOWN = "#dda583" // grey hud icon get this
+		)
+		if(jobname in hud_to_chatcolor)
+			return hud_to_chatcolor[jobname]
+	return "#dda583"
+
