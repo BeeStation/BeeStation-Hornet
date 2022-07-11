@@ -1072,15 +1072,11 @@
 		user.visible_message("<span class='notice'>[user] pins [C] to [src].</span>", "<span class='notice'>You pin [C] to [src].</span>")
 		note = C
 		update_icon()
-	else if(istype(C, /obj/item/light_eater))
+	else if(HAS_TRAIT(C, TRAIT_DOOR_PRYER))
 		if(isElectrified())
-			shock(user,100)//it's like sticking a forck in a power socket
-			return
+			shock(user,100)
 
-		if(!density)//already open
-			return
-
-		if(locked)
+		if(locked) 
 			to_chat(user, "<span class='warning'>The bolts are down, it won't budge!</span>")
 			return
 
@@ -1089,15 +1085,17 @@
 			return
 
 		var/time_to_open = 5
-		if(hasPower() && !prying_so_hard)
+		if(hasPower() && !prying_so_hard && density)
 			time_to_open = 50
-			playsound(src, 'sound/machines/airlock_alien_prying.ogg', 100, TRUE) //is it aliens or just the CE being a dick?
+			playsound(src, 'sound/machines/airlock_alien_prying.ogg', 100, TRUE)
 			prying_so_hard = TRUE
+			to_chat(user, "<span class='warning'>You begin prying open the airlock...</span>")
 			if(do_after(user, time_to_open, TRUE, src))
-				open(2)
-				if(density && !open(2))
+				if(!open(2) && density)
 					to_chat(user, "<span class='warning'>Despite your attempts, [src] refuses to open.</span>")
 			prying_so_hard = FALSE
+		if(!hasPower())
+			INVOKE_ASYNC(src, (density ? .proc/open : .proc/close), 2)
 	else
 		return ..()
 
@@ -1169,33 +1167,6 @@
 				to_chat(user, "<span class='warning'>You need to be wielding the fire axe to do that!</span>")
 				return
 		INVOKE_ASYNC(src, (density ? .proc/open : .proc/close), 2)
-
-	if(HAS_TRAIT(I, TRAIT_DOOR_PRYER))
-		if(isElectrified())
-			shock(user,100)//it's like sticking a forck in a power socket
-			return
-
-		if(!density)//already open
-			return
-
-		if(locked)
-			to_chat(user, "<span class='warning'>The bolts are down, it won't budge!</span>")
-			return
-
-		if(welded)
-			to_chat(user, "<span class='warning'>It's welded, it won't budge!</span>")
-			return
-
-		var/time_to_open = 5
-		if(hasPower() && !prying_so_hard)
-			time_to_open = 50
-			playsound(src, 'sound/machines/airlock_alien_prying.ogg', 100, TRUE) //is it aliens or just the CE being a dick?
-			prying_so_hard = TRUE
-			if(do_after(user, time_to_open, TRUE, src))
-				open(2)
-				if(density && !open(2))
-					to_chat(user, "<span class='warning'>Despite your attempts, [src] refuses to open.</span>")
-			prying_so_hard = FALSE
 
 
 /obj/machinery/door/airlock/open(forced=0)
