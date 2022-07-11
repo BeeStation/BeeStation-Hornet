@@ -1,6 +1,8 @@
 GLOBAL_LIST_INIT(supercruise_debug_verbs, list(
 	/client/proc/give_ship_ai,
+	/client/proc/check_ship_thoughts,
 ))
+GLOBAL_PROTECT(supercruise_debug_verbs)
 
 /client/proc/enable_supercruise_verbs()
 	set category = "Debug"
@@ -37,3 +39,20 @@ GLOBAL_LIST_INIT(supercruise_debug_verbs, list(
 	//Awaken
 	var/datum/shuttle_data/selected_shuttle = SSorbits.assoc_shuttle_data[selected_ship]
 	selected_shuttle.set_pilot(new /datum/shuttle_ai_pilot/npc())
+
+/client/proc/check_ship_thoughts()
+	set category = "Exploration Debug"
+	set name = "Check Ship Thoughts"
+
+	if(!check_rights(R_DEBUG))
+		return
+
+	for(var/shuttle_id in SSorbits.assoc_shuttle_data)
+		var/datum/shuttle_data/shuttle = SSorbits.get_shuttle_data(shuttle_id)
+		if(!shuttle.ai_pilot)
+			to_chat(src, "[shuttle.port_id]: <color='red'><b>No AI pilot!</b></color>")
+		else if(!istype(shuttle.ai_pilot, /datum/shuttle_ai_pilot/npc))
+			to_chat(src, "[shuttle.port_id]: <color='yellow'><b>Not controlled by an NPC pilot.</b></color>")
+		else
+			var/datum/shuttle_ai_pilot/npc/npc_pilot = shuttle.ai_pilot
+			to_chat(src, "[shuttle.port_id]: <color='green'><b>[npc_pilot.last_thought]</b></color>")

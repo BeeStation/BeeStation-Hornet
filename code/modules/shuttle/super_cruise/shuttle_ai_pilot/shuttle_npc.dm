@@ -13,18 +13,29 @@
 	var/hostile = TRUE
 	/// The amount of mobs on the ship piloting it
 	var/pilot_mobs = 0
+	/// The last thought of this shuttle
+	var/last_thought
+
+/datum/shuttle_ai_pilot/npc/New()
+	. = ..()
+	//Check if we need to start processing
+	if (!SSorbits.assoc_shuttles[shuttle_data.port_id])
+		START_PROCESSING(SSorbits, src)
 
 /datum/shuttle_ai_pilot/npc/handle_ai_combat_action()
 	if(shuttle_data.reactor_critical || !pilot_mobs)
+		last_thought = "I am dead."
 		return
 	//If we have no weapons, flee
 	if(!length(shuttle_data.shuttle_weapons))
-		flee_combat(TRUE)
-		return
+		last_thought = "I have no weapons and wish to flee."
+		if(flee_combat(TRUE))
+			return
 	//If we are too damaged, flee
 	if(shuttle_data.current_ship_integrity <= shuttle_data.max_ship_integrity * integrity_flee_limit)
-		flee_combat(TRUE)
-		return
+		last_thought = "I need to get out of here, my ship is too damaged!"
+		if(flee_combat(TRUE))
+			return
 	var/obj/docking_port/mobile/M = SSshuttle.getShuttle(shuttle_data.port_id)
 	//If we don't have a target, find one
 	if (!target)
@@ -36,9 +47,11 @@
 			find_target()
 	//We still have no target, lets just leave this area and continue with our other mission
 	if(!target)
-		flee_combat(FALSE)
-		return
+		last_thought = "There is nobody here, I need to continue with my previous mission."
+		if(flee_combat(FALSE))
+			return
 	//If we have a target, fire at them
+	last_thought = "I need to destroy \the [target.shuttle_name]."
 	fire_on_target()
 
 ///Fire our weapons at the target
@@ -61,6 +74,26 @@
 ///Attempt to launch the shuttle and leave combat
 /datum/shuttle_ai_pilot/npc/proc/flee_combat(escape = FALSE)
 	//Simulate pressing launch shuttle
+	if(!shuttle_data.check_can_launch())
+		return FALSE
+	if(SSorbits.interdicted_shuttles.Find(shuttle_data.port_id))
+		if(world.time < SSorbits.interdicted_shuttles[shuttle_data.port_id])
+			return FALSE
+	var/obj/docking_port/mobile/mobile_port = SSshuttle.getShuttle(shuttle_data.port_id)
+	if(!mobile_port)
+		return FALSE
+	if(mobile_port.mode == SHUTTLE_RECHARGING)
+		return FALSE
+	if(mobile_port.mode != SHUTTLE_IDLE)
+		return TRUE
+	if(SSorbits.assoc_shuttles.Find(shuttle_data.port_id))
+		. = TRUE
+		CRASH("NPC is attempting to fly a shuttle that already has a shuttle object. [shuttle_data.port_id]")
+	var/shuttleObject = mobile_port.enter_supercruise()
+	if(!shuttleObject)
+		return FALSE
+	return TRUE
+
 
 ///Lose our current target
 /datum/shuttle_ai_pilot/npc/proc/lose_target()
@@ -96,14 +129,16 @@
 		return
 	//Don't drive places if we have no target, just try to stay at our current location
 	if (!shuttleTarget)
+		last_thought = "I have nowhere to go, I'll just fly around."
 		if(!shuttle.shuttleTargetPos)
 			shuttle.shuttleTargetPos = new(shuttle.position.x, shuttle.position.y)
 		else
 			//Change our position randomly
-			shuttle.shuttleTargetPos.x += rand(-10, 10)
-			shuttle.shuttleTargetPos.y += rand(-10, 10)
+			shuttle.shuttleTargetPos.x += rand(-100, 100)
+			shuttle.shuttleTargetPos.y += rand(-100, 100)
 		return
 	//Drive to the requested location
+	last_thought = "I am flying to my destination."
 	if(!shuttle.shuttleTargetPos)
 		shuttle.shuttleTargetPos = new(shuttleTarget.position.x, shuttleTarget.position.y)
 	else

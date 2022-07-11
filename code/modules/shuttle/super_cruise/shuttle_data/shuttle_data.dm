@@ -75,6 +75,9 @@
 		//Handle shuttle shields
 		for(var/obj/machinery/power/shuttle_shield_generator/shield_generator in shuttle_area)
 			register_shield_generator(shield_generator)
+		//Handle shuttle weapons
+		for(var/obj/machinery/shuttle_weapon in shuttle_area)
+			register_weapon_system(shuttle_weapon)
 
 //====================
 // Integrity / Damage
@@ -219,11 +222,29 @@
 	RegisterSignal(newturf, COMSIG_TURF_AFTER_SHUTTLE_MOVE, .proc/shuttle_turf_moved)
 
 //====================
+// Weapon Systems
+//====================
+
+/// Registers a shield generator
+/datum/shuttle_data/proc/register_weapon_system(obj/machinery/shuttle_weapon/weapon)
+	if(weapon in shuttle_weapon)
+		return
+	shuttle_weapons += weapon
+	RegisterSignal(weapon, COMSIG_PARENT_QDELETING, .proc/on_weapon_qdel)
+
+/// Called when a shield generator is deleted
+/datum/shuttle_data/proc/on_weapon_qdel(obj/machinery/shuttle_weapon/weapon, force)
+	shuttle_weapons -= weapon
+	UnregisterSignal(weapon, COMSIG_PARENT_QDELETING)
+
+//====================
 // Shield Damage
 //====================
 
 /// Registers a shield generator
 /datum/shuttle_data/proc/register_shield_generator(obj/machinery/power/shuttle_shield_generator/shield_generator)
+	if(shield_generator in registered_shield_generators)
+		return
 	shield_health += shield_generator.shield_health
 	registered_shield_generators += shield_generator
 	RegisterSignal(shield_generator, COMSIG_PARENT_QDELETING, .proc/on_shield_qdel)
@@ -291,6 +312,8 @@
 
 /// Called when a thruster is created on a shuttle
 /datum/shuttle_data/proc/register_thruster(obj/machinery/shuttle/engine/source)
+	if(source in registered_engines)
+		return
 	if(source.thruster_active)
 		thrust += source.thrust
 		fuel_consumption += source.fuel_use
