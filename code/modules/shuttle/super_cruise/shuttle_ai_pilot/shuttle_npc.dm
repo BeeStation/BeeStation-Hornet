@@ -15,12 +15,27 @@
 	var/pilot_mobs = 0
 	/// The last thought of this shuttle
 	var/last_thought
+	/// The world time to leave this location at
+	var/exit_world_time = 0
 
-/datum/shuttle_ai_pilot/npc/New()
+/// Locate mobs on the shuttle
+/datum/shuttle_ai_pilot/npc/attach_to_shuttle(datum/shuttle_data/shuttle_data)
 	. = ..()
 	//Check if we need to start processing
 	if (!SSorbits.assoc_shuttles[shuttle_data.port_id])
 		START_PROCESSING(SSorbits, src)
+	//Locate any pilot mobs
+	var/obj/docking_port/mobile/shuttle_port = SSshuttle.getShuttle(shuttle_data.port_id)
+	for (var/area/A in shuttle_port.shuttle_areas)
+		for (var/mob/living/L in A)
+			pilot_mobs ++
+			RegisterSignal(L, COMSIG_PARENT_QDELETING, .proc/on_mob_died_or_deleted)
+			RegisterSignal(L, COMSIG_MOB_DEATH, .proc/on_mob_died_or_deleted)
+
+/datum/shuttle_ai_pilot/npc/proc/on_mob_died_or_deleted(datum/source, ...)
+	pilot_mobs --
+	UnregisterSignal(source, COMSIG_PARENT_QDELETING)
+	UnregisterSignal(source, COMSIG_MOB_DEATH)
 
 /datum/shuttle_ai_pilot/npc/handle_ai_combat_action()
 	if(shuttle_data.reactor_critical || !pilot_mobs)
@@ -36,6 +51,11 @@
 		last_thought = "I need to get out of here, my ship is too damaged!"
 		if(flee_combat(TRUE))
 			return
+	//If we are not hostile, flee
+	if(!hostile)
+		last_thought = "I don't want to fight!"
+		flee_combat(TRUE)
+		return
 	var/obj/docking_port/mobile/M = SSshuttle.getShuttle(shuttle_data.port_id)
 	//If we don't have a target, find one
 	if (!target)
@@ -48,8 +68,15 @@
 	//We still have no target, lets just leave this area and continue with our other mission
 	if(!target)
 		last_thought = "There is nobody here, I need to continue with my previous mission."
-		if(flee_combat(FALSE))
-			return
+		if(!exit_world_time)
+			exit_world_time = world.time + 30 SECONDS
+		if(exit_world_time < world.time)
+			if(flee_combat(FALSE))
+				exit_world_time = 0
+				return
+	else
+		//We found a target, don't leave
+		exit_world_time = 0
 	//If we have a target, fire at them
 	last_thought = "I need to destroy \the [target.shuttle_name]."
 	fire_on_target()
@@ -108,7 +135,7 @@
 	var/obj/docking_port/mobile/our_port = SSshuttle.getShuttle(shuttle_data.port_id)
 	var/list/valid = list()
 	//Locate all ships on this z-level
-	for (var/shuttle_id in SSorbits.assoc_shuttles)
+	for (var/shuttle_id in SSorbits.assoc_shuttle_data)
 		var/obj/docking_port/mobile/target_port = SSshuttle.getShuttle(shuttle_id)
 		//Check z-level
 		if(target_port.get_virtual_z_level() != our_port.get_virtual_z_level())
@@ -126,6 +153,7 @@
 ///Called every shuttle tick, handles the action of the shuttle
 /datum/shuttle_ai_pilot/npc/handle_ai_flight_action(datum/orbital_object/shuttle/shuttle)
 	if(!pilot_mobs)
+		last_thought = "All of my crew has been incapacitated. Nobody is there to fly me."
 		return
 	//Don't drive places if we have no target, just try to stay at our current location
 	if (!shuttleTarget)

@@ -12,7 +12,6 @@
 	circuit = /obj/item/circuitboard/computer/shuttle/weapons
 	light_color = LIGHT_COLOR_RED
 
-	var/list/weapon_references = list()	//A list of strongrefs to the weapon systems
 	var/shuttle_id						//The shuttle we are connected to
 	var/selected_ship_id = null
 	var/list/concurrent_users = list()	//List of users in this console. Shouldn't cause hard deletes as UIs are closed upon mob deletion which calls ui_close.
@@ -61,7 +60,6 @@
 	qdel(cam_screen)
 	qdel(cam_plane_master)
 	qdel(cam_background)
-	weapon_references = null
 	concurrent_users = null
 	selected_weapon_system = null
 	return ..()
@@ -139,9 +137,9 @@
 		)
 		data["ships"] += list(other_ship)
 	//Weapons
-	for(var/obj/machinery/shuttle_weapon/weapon in weapon_references)
+	for(var/obj/machinery/shuttle_weapon/weapon in our_ship.shuttle_weapons)
 		var/list/active_weapon = list(
-			id = weapon.unique_id,
+			id = weapon.weapon_id,
 			name = weapon.name,
 			cooldownLeft = max(weapon.next_shot_world_time - world.time, 0),
 			cooldown = weapon.cooldown,

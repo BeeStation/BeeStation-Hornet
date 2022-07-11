@@ -76,8 +76,10 @@
 		for(var/obj/machinery/power/shuttle_shield_generator/shield_generator in shuttle_area)
 			register_shield_generator(shield_generator)
 		//Handle shuttle weapons
-		for(var/obj/machinery/shuttle_weapon in shuttle_area)
+		for(var/obj/machinery/shuttle_weapon/shuttle_weapon in shuttle_area)
 			register_weapon_system(shuttle_weapon)
+	//Calculate integrity
+	recalculate_integrity()
 
 //====================
 // Integrity / Damage
@@ -92,7 +94,7 @@
 	//Perform calculations
 	for(var/turf/T in M.return_turfs())
 		//Ignore non-shuttle turfs
-		if (!islist(T.baseturfs) || !locate(/turf/baseturf_skipover/shuttle) in T.baseturfs)
+		if (!islist(T.baseturfs) || !T.baseturfs.Find(/turf/baseturf_skipover/shuttle))
 			continue
 		if(!iswallturf(T) && !isfloorturf(T))
 			continue
@@ -107,11 +109,11 @@
 			continue
 		//If floor turf
 		//1 point for floors
-		max_ship_integrity += 1
+		//max_ship_integrity += 1
 		//1 point if the floor is not broken
 		var/turf/open/floor/floor_turf = T
-		if(!floor_turf.broken && !floor_turf.burnt)
-			max_ship_integrity += 1
+		/*if(!floor_turf.broken && !floor_turf.burnt)
+			max_ship_integrity += 1*/
 		//2 points if the floor isn't raw plating
 		if (!isplatingturf(T))
 			max_ship_integrity += 2
@@ -189,11 +191,11 @@
 		else
 			current_ship_integrity -= 5
 	else
-		current_ship_integrity -= 1
+		//current_ship_integrity -= 1
 		//1 point if the floor is not broken
 		var/turf/open/floor/floor_turf = source
-		if(!floor_turf.broken && !floor_turf.burnt)
-			current_ship_integrity -= 1
+		/*if(!floor_turf.broken && !floor_turf.burnt)
+			current_ship_integrity -= 1*/
 		//2 points if the floor isn't raw plating
 		if (!isplatingturf(source))
 			current_ship_integrity -= 2
@@ -203,11 +205,11 @@
 			current_ship_integrity += 7
 		else
 			current_ship_integrity += 5
-	else
-		current_ship_integrity += 1
+	else if(ispath(path, /turf/open/floor))
+		//current_ship_integrity += 1
 		var/turf/open/floor/F = path
-		if(!initial(F.broken) && !initial(F.burnt))
-			current_ship_integrity += 1
+		/*if(!initial(F.broken) && !initial(F.burnt))
+			current_ship_integrity += 1*/
 		//2 points if the floor isn't raw plating
 		if (!istype(path, /turf/open/floor/plating))
 			current_ship_integrity += 2
@@ -227,7 +229,7 @@
 
 /// Registers a shield generator
 /datum/shuttle_data/proc/register_weapon_system(obj/machinery/shuttle_weapon/weapon)
-	if(weapon in shuttle_weapon)
+	if(weapon in shuttle_weapons)
 		return
 	shuttle_weapons += weapon
 	RegisterSignal(weapon, COMSIG_PARENT_QDELETING, .proc/on_weapon_qdel)

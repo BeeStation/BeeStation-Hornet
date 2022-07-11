@@ -19,11 +19,22 @@
 	},
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/labor)
-"e" = (
-/obj/effect/turf_decal/stripes/corner{
-	dir = 4
+"f" = (
+/obj/machinery/flasher{
+	id = "gulagshuttleflasher";
+	pixel_x = -24
+	},
+/obj/effect/turf_decal/stripes/line,
+/obj/machinery/power/smes/engineering,
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
 	},
 /turf/open/floor/mineral/plastitanium/red,
+/area/shuttle/labor)
+"g" = (
+/obj/effect/turf_decal/bot,
+/obj/machinery/computer/weapons,
+/turf/open/floor/mineral/plastitanium,
 /area/shuttle/labor)
 "h" = (
 /obj/structure/reagent_dispensers/peppertank{
@@ -34,6 +45,20 @@
 	},
 /obj/effect/turf_decal/stripes/corner,
 /turf/open/floor/mineral/plastitanium/red,
+/area/shuttle/labor)
+"i" = (
+/obj/effect/spawner/structure/window/shuttle,
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
+/obj/structure/cable/yellow,
+/obj/machinery/power/engine_capacitor_bank{
+	dir = 1
+	},
+/turf/open/floor/plating/airless,
 /area/shuttle/labor)
 "p" = (
 /obj/effect/turf_decal/stripes/line{
@@ -95,12 +120,12 @@
 /obj/docking_port/mobile{
 	dir = 8;
 	dwidth = 2;
+	faction_type = /datum/faction/station;
 	height = 5;
 	id = "laborcamp";
 	name = "labor camp shuttle";
 	port_direction = 4;
-	width = 8;
-	faction_type = /datum/faction/station
+	width = 8
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/labor)
@@ -117,7 +142,23 @@
 "H" = (
 /turf/closed/wall/mineral/plastitanium,
 /area/shuttle/labor)
-"I" = (
+"J" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line,
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
+/turf/open/floor/mineral/plastitanium/red,
+/area/shuttle/labor)
+"O" = (
+/obj/machinery/shuttle/engine/ion/burst{
+	dir = 1
+	},
+/turf/open/floor/plating/airless,
+/area/shuttle/labor)
+"Q" = (
 /obj/machinery/button/flasher{
 	id = "gulagshuttleflasher";
 	name = "Flash Control";
@@ -129,55 +170,53 @@
 	},
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/light,
-/turf/open/floor/mineral/plastitanium/red,
-/area/shuttle/labor)
-"P" = (
-/obj/machinery/computer/shuttle_flight/labor{
-	dir = 4
-	},
-/obj/effect/turf_decal/delivery,
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/labor)
-"Q" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
 	},
-/obj/effect/turf_decal/bot,
-/turf/open/floor/mineral/plastitanium,
+/turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/labor)
 "R" = (
-/obj/structure/shuttle/engine/heater,
 /obj/effect/spawner/structure/window/shuttle,
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
+	},
+/obj/machinery/power/engine_capacitor_bank{
+	dir = 1
+	},
 /turf/open/floor/plating/airless,
 /area/shuttle/labor)
 "S" = (
-/obj/structure/shuttle/engine/propulsion,
-/turf/open/floor/plating/airless,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 4
+	},
+/obj/machinery/power/terminal,
+/turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/labor)
 "U" = (
 /turf/closed/wall/mineral/titanium/nodiagonal,
 /area/shuttle/labor)
 "V" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/effect/spawner/structure/window/shuttle,
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
+/obj/machinery/power/engine_capacitor_bank{
 	dir = 1
 	},
-/obj/machinery/flasher{
-	id = "gulagshuttleflasher";
-	pixel_x = -24
-	},
-/obj/effect/turf_decal/stripes/line,
-/turf/open/floor/mineral/plastitanium/red,
+/turf/open/floor/plating/airless,
 /area/shuttle/labor)
-"X" = (
-/obj/structure/chair/comfy/shuttle{
-	dir = 1
-	},
-/obj/effect/turf_decal/stripes/line,
-/turf/open/floor/mineral/plastitanium/red,
+"W" = (
+/obj/effect/turf_decal/delivery,
+/obj/machinery/computer/shuttle_flight/labor,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/labor)
+"Z" = (
+/obj/item/wallframe/shuttle_weapon/laser,
+/turf/closed/wall/mineral/titanium,
 /area/shuttle/labor)
 
 (1,1,1) = {"
-y
+Z
 B
 y
 y
@@ -188,23 +227,23 @@ H
 "}
 (2,1,1) = {"
 B
-P
+W
 h
 F
-e
-V
-R
 S
+f
+V
+O
 "}
 (3,1,1) = {"
 B
+g
 Q
-I
 y
 p
-X
-R
-S
+J
+i
+O
 "}
 (4,1,1) = {"
 B
@@ -214,10 +253,10 @@ a
 b
 D
 R
-S
+O
 "}
 (5,1,1) = {"
-y
+Z
 t
 y
 y

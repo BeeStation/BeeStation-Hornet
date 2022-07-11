@@ -8,7 +8,6 @@
 	icon = 'icons/obj/turrets.dmi'
 	icon_state = "syndie_lethal"
 	anchored = TRUE
-	var/unique_id
 	var/projectile_type = /obj/item/projectile/bullet/shuttle/beam/laser
 	var/flight_time = 10
 
@@ -45,6 +44,11 @@
 	weapon_id = "[LAZYLEN(SSorbits.shuttle_weapons)]"
 	SSorbits.shuttle_weapons[weapon_id] = src
 	set_directional_offset(ndir || dir, TRUE)
+	//Check our area
+	var/area/shuttle/current_area = get_area(src)
+	if(istype(current_area) && current_area.mobile_port)
+		var/datum/shuttle_data/shuttle_data = SSorbits.get_shuttle_data(current_area.mobile_port.id)
+		shuttle_data?.register_weapon_system(src)
 
 /obj/machinery/shuttle_weapon/Destroy()
 	SSorbits.shuttle_weapons.Remove(weapon_id)

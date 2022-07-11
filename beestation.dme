@@ -3278,6 +3278,7 @@
 #include "code\modules\shuttle\super_cruise\shuttle_ai_pilot\shuttle_ai_pilot.dm"
 #include "code\modules\shuttle\super_cruise\shuttle_ai_pilot\shuttle_autopilot.dm"
 #include "code\modules\shuttle\super_cruise\shuttle_ai_pilot\shuttle_npc.dm"
+#include "code\modules\shuttle\super_cruise\shuttle_ai_pilot\shuttle_npc_hostile.dm"
 #include "code\modules\shuttle\super_cruise\shuttle_components\plasma_refiner.dm"
 #include "code\modules\shuttle\super_cruise\shuttle_components\shuttle_console.dm"
 #include "code\modules\shuttle\super_cruise\shuttle_components\shuttle_docking.dm"

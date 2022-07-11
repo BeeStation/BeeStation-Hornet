@@ -347,4 +347,7 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 		attacker.rogue_factions |= victim_faction.type
 		log_shuttle("[attacker.shuttle_name] ([attacker_faction.name]) fired upon neutral/friendly ship [victim.shuttle_name] ([victim_faction.name]), and was declared hostile to that faction")
 	//If the victim is an NPC, trigger them to become hostile
-	
+	if (istype(victim.ai_pilot, /datum/shuttle_ai_pilot/npc))
+		//Kill...
+		var/datum/shuttle_ai_pilot/npc/npc_ship = victim.ai_pilot
+		npc_ship.hostile = TRUE
