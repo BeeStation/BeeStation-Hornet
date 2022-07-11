@@ -1,0 +1,5 @@
+author: itsmeow
+delete-after: true
+changes:
+  - bugfix: Duplicate pastries category in crafting menu
+  - bugfix: Dank-pockets are ordered correctly in the crafting menu
