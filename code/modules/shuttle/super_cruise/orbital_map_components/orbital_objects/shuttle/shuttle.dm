@@ -50,8 +50,6 @@
 /datum/orbital_object/shuttle/New(datum/orbital_vector/position, datum/orbital_vector/velocity, orbital_map_index, obj/docking_port/mobile/port)
 	if(port)
 		link_shuttle(port)
-	//Stop processin the AI pilot (Flight mode)
-	STOP_PROCESSING(SSorbits, shuttle_data.ai_pilot)
 	. = ..()
 
 /datum/orbital_object/shuttle/Destroy()
@@ -236,6 +234,8 @@
 	SSorbits.assoc_shuttles[shuttle_port_id] = src
 	shuttle_data = SSorbits.get_shuttle_data(dock.id)
 	RegisterSignal(shuttle_data, COMSIG_PARENT_QDELETING, .proc/handle_shuttle_data_deletion)
+	//Stop processin the AI pilot (Flight mode)
+	STOP_PROCESSING(SSorbits, shuttle_data.ai_pilot)
 
 /datum/orbital_object/shuttle/proc/handle_shuttle_data_deletion(datum/source, force)
 	UnregisterSignal(shuttle_data, COMSIG_PARENT_QDELETING)

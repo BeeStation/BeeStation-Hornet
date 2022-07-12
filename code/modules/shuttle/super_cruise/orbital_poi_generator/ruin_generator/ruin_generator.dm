@@ -16,13 +16,13 @@
  * however if a room attachment point is not past the border, the room it generates on that attachment point
  * can go past the border. No attachment points can be generated past the border.
  */
-/proc/generate_space_ruin(center_x, center_y, center_z, border_x, border_y, datum/orbital_objective/linked_objective, forced_decoration, datum/ruin_event/ruin_event)
+/proc/generate_space_ruin(center_x, center_y, center_z, border_x, border_y, datum/orbital_objective/ruin/linked_objective, forced_decoration, datum/ruin_event/ruin_event)
 	var/datum/space_level/space_level = SSmapping.get_level(center_z)
 	space_level.generating = TRUE
 	_generate_space_ruin(center_x, center_y, center_z, border_x, border_y, linked_objective, forced_decoration, ruin_event)
 	space_level.finish_generating()
 
-/proc/_generate_space_ruin(center_x, center_y, center_z, border_x, border_y, datum/orbital_objective/linked_objective, forced_decoration, datum/ruin_event/ruin_event)
+/proc/_generate_space_ruin(center_x, center_y, center_z, border_x, border_y, datum/orbital_objective/ruin/linked_objective, forced_decoration, datum/ruin_event/ruin_event)
 
 	SSair.pause_z(center_z)
 

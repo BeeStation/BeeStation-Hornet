@@ -1,24 +1,25 @@
-/datum/orbital_objective/recover_blackbox
+/datum/orbital_objective/ruin/recover_blackbox
 	name = "Blackbox Recovery"
 	var/generated = FALSE
 	//The blackbox required to recover.
 	var/obj/item/blackbox/objective/linked_blackbox
 	//Relatively easy mission.
-	min_payout = 5000
-	max_payout = 20000
+	min_payout = 2000
+	max_payout = 12000
+	weight = 4
 
-/datum/orbital_objective/recover_blackbox/generate_objective_stuff(turf/chosen_turf)
+/datum/orbital_objective/ruin/recover_blackbox/generate_objective_stuff(turf/chosen_turf)
 	generated = TRUE
 	linked_blackbox = new(chosen_turf)
 	linked_blackbox.setup_recover(src)
 
-/datum/orbital_objective/recover_blackbox/get_text()
+/datum/orbital_objective/ruin/recover_blackbox/get_text()
 	. = "Outpost [station_name] recently went dark and is no longer responding to our attempts \
 		to contact them. Send in a team and recover the station's blackbox for a payout of [payout] credits."
 	if(linked_beacon)
 		. += " The station is located at the beacon marked [linked_beacon.name]. Good luck."
 
-/datum/orbital_objective/recover_blackbox/check_failed()
+/datum/orbital_objective/ruin/recover_blackbox/check_failed()
 	if(!QDELETED(linked_blackbox) || !generated)
 		return FALSE
 	return TRUE
@@ -46,7 +47,7 @@
 
 /datum/component/recoverable
 	var/recovered = FALSE
-	var/datum/orbital_objective/recover_blackbox/linked_obj
+	var/datum/orbital_objective/ruin/recover_blackbox/linked_obj
 
 /datum/component/recoverable/Initialize(_linked_obj)
 	if(!ismovableatom(parent))

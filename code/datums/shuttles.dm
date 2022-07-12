@@ -66,6 +66,7 @@
 	. = ..()
 	if(!.)
 		return
+	var/obj/docking_port/mobile/M
 	var/list/turfs = block(	locate(.[MAP_MINX], .[MAP_MINY], .[MAP_MINZ]),
 							locate(.[MAP_MAXX], .[MAP_MAXY], .[MAP_MAXZ]))
 	for(var/i in 1 to turfs.len)
@@ -77,8 +78,9 @@
 		place.baseturfs.Insert(3, /turf/baseturf_skipover/shuttle)
 
 		for(var/obj/docking_port/mobile/port in place)
-			if(register)
-				port.register()
+			if(M)
+				message_admins("Map [mappath] has 2 docking ports for some reason.")
+			M = port
 			if(isnull(port_x_offset))
 				continue
 			switch(port.dir) // Yeah this looks a little ugly but mappers had to do this in their head before
@@ -102,6 +104,9 @@
 					port.height = width
 					port.dwidth = port_y_offset - 1
 					port.dheight = width - port_x_offset
+
+	if(register && M)
+		M.register()
 
 //Whatever special stuff you want
 /datum/map_template/shuttle/proc/post_load(obj/docking_port/mobile/M)

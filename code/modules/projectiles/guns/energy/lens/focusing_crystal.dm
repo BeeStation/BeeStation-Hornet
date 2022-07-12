@@ -41,6 +41,7 @@
 //This is called only once, affects the casings created inside the gun
 /obj/item/focusing_crystal/proc/update_casing(obj/item/ammo_casing/fired_casing)
 	fired_casing.variance += quality_effect(10, -10)
+	fired_casing.randomspread = TRUE
 
 //This is called every time a new projectile is created
 /obj/item/focusing_crystal/proc/update_bullet(obj/item/projectile/projectile)
@@ -79,6 +80,7 @@
 
 /obj/item/focusing_crystal/refractive/update_casing(obj/item/ammo_casing/fired_casing)
 	fired_casing.variance += CEILING(quality_effect(20, 0), 1)
+	fired_casing.randomspread = TRUE
 
 /obj/item/focusing_crystal/refractive/update_bullet(obj/item/projectile/projectile)
 	/// Directly set it since most energy weapons have a ton of bouncing already
@@ -98,6 +100,7 @@
 
 /obj/item/focusing_crystal/robust/update_casing(obj/item/ammo_casing/fired_casing)
 	fired_casing.variance += CEILING(quality_effect(10, 0), 1)
+	fired_casing.randomspread = TRUE
 
 /obj/item/focusing_crystal/robust/update_bullet(obj/item/projectile/projectile)
 	projectile.damage *= quality_effect(0.8, 1.4)

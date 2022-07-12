@@ -1,0 +1,1043 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"aI" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/blood/old,
+/turf/open/floor/plasteel,
+/area/shuttle{
+	name = "Rustbucket"
+	})
+"cK" = (
+/obj/machinery/atmospherics/components/unary/portables_connector/visible{
+	dir = 4
+	},
+/obj/effect/turf_decal/bot,
+/obj/machinery/portable_atmospherics/canister/toxins,
+/obj/effect/mapping_helpers/auto_wrench,
+/turf/open/floor/plating,
+/area/shuttle{
+	name = "Rustbucket"
+	})
+"dy" = (
+/obj/effect/spawner/structure/window/hollow/reinforced/end{
+	dir = 4
+	},
+/turf/open/floor/plating,
+/area/shuttle{
+	name = "Rustbucket"
+	})
+"dH" = (
+/turf/open/floor/plating{
+	icon_state = "platingdmg1"
+	},
+/area/shuttle{
+	name = "Rustbucket"
+	})
+"gM" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/shuttle{
+	name = "Rustbucket"
+	})
+"gV" = (
+/obj/effect/decal/cleanable/blood/old,
+/turf/open/floor/plasteel,
+/area/shuttle{
+	name = "Rustbucket"
+	})
+"ic" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/caution{
+	dir = 4;
+	icon_state = "caution"
+	},
+/turf/open/floor/plasteel,
+/area/shuttle{
+	name = "Rustbucket"
+	})
+"ih" = (
+/obj/structure/table,
+/obj/machinery/microwave{
+	pixel_y = 5
+	},
+/turf/open/floor/plating,
+/area/shuttle{
+	name = "Rustbucket"
+	})
+"jf" = (
+/obj/structure/table,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/item/gps/mining,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral,
+/turf/open/floor/plasteel/dark,
+/area/shuttle{
+	name = "Rustbucket"
+	})
+"jj" = (
+/turf/closed/wall/rust,
+/area/shuttle{
+	name = "Rustbucket"
+	})
+"kT" = (
+/turf/open/floor/plating{
+	icon_state = "platingdmg3"
+	},
+/area/shuttle{
+	name = "Rustbucket"
+	})
+"kY" = (
+/obj/machinery/door/airlock/external,
+/obj/structure/fans/tiny,
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 4
+	},
+/obj/docking_port/mobile{
+	dir = 4
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle{
+	name = "Rustbucket"
+	})
+"lE" = (
+/obj/machinery/suit_storage_unit/standard_unit{
+	desc = "An industrial suit storage device carrying retro space suits. Neat!";
+	helmet_type = /obj/item/clothing/head/helmet/space;
+	suit_type = /obj/item/clothing/suit/space
+	},
+/obj/effect/turf_decal/delivery,
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/structure/window/reinforced{
+	dir = 4;
+	pixel_x = 3
+	},
+/turf/open/floor/plasteel/dark,
+/area/shuttle{
+	name = "Rustbucket"
+	})
+"lK" = (
+/obj/machinery/atmospherics/pipe/simple/purple/visible,
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/shuttle{
+	name = "Rustbucket"
+	})
+"mm" = (
+/obj/structure/lattice/catwalk,
+/turf/template_noop,
+/area/shuttle{
+	name = "Rustbucket"
+	})
+"nu" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/table,
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue,
+/obj/item/assembly/flash/handheld,
+/obj/item/melee/classic_baton/police/telescopic,
+/turf/open/floor/plasteel,
+/area/shuttle{
+	name = "Rustbucket"
+	})
+"oB" = (
+/obj/machinery/atmospherics/pipe/simple/purple/visible{
+	dir = 4
+	},
+/turf/open/floor/plating,
+/area/shuttle{
+	name = "Rustbucket"
+	})
+"oP" = (
+/obj/machinery/door/airlock/external,
+/obj/structure/fans/tiny,
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 4
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle{
+	name = "Rustbucket"
+	})
+"oQ" = (
+/turf/closed/wall,
+/area/shuttle{
+	name = "Rustbucket"
+	})
+"pm" = (
+/obj/structure/tank_dispenser/oxygen,
+/turf/open/floor/plating{
+	icon_state = "platingdmg1"
+	},
+/area/shuttle{
+	name = "Rustbucket"
+	})
+"pp" = (
+/obj/machinery/atmospherics/pipe/simple/purple/visible{
+	dir = 9
+	},
+/turf/open/floor/plating,
+/area/shuttle{
+	name = "Rustbucket"
+	})
+"ql" = (
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/obj/machinery/computer/shuttle_flight,
+/turf/open/floor/plasteel,
+/area/shuttle{
+	name = "Rustbucket"
+	})
+"qE" = (
+/obj/effect/turf_decal/bot,
+/turf/open/floor/plasteel,
+/area/shuttle{
+	name = "Rustbucket"
+	})
+"qM" = (
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/shuttle{
+	name = "Rustbucket"
+	})
+"qY" = (
+/obj/effect/decal/cleanable/cobweb/cobweb2,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/structure/rack,
+/obj/item/radio/off{
+	pixel_x = 6;
+	pixel_y = 14
+	},
+/obj/item/weldingtool/largetank,
+/turf/open/floor/plasteel/dark,
+/area/shuttle{
+	name = "Rustbucket"
+	})
+"rl" = (
+/obj/structure/sign/warning/fire,
+/turf/closed/wall/rust,
+/area/shuttle{
+	name = "Rustbucket"
+	})
+"sb" = (
+/obj/structure/table,
+/obj/item/pickaxe,
+/turf/open/floor/plasteel,
+/area/shuttle{
+	name = "Rustbucket"
+	})
+"sq" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/caution{
+	dir = 4;
+	icon_state = "caution"
+	},
+/turf/open/floor/plating{
+	icon_state = "platingdmg1"
+	},
+/area/shuttle{
+	name = "Rustbucket"
+	})
+"sw" = (
+/obj/machinery/suit_storage_unit/standard_unit{
+	desc = "An industrial suit storage device carrying retro space suits. Neat!";
+	helmet_type = /obj/item/clothing/head/helmet/space;
+	suit_type = /obj/item/clothing/suit/space
+	},
+/obj/effect/turf_decal/delivery,
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/turf/open/floor/plasteel/dark,
+/area/shuttle{
+	name = "Rustbucket"
+	})
+"sE" = (
+/obj/effect/spawner/structure/window/hollow/reinforced/directional{
+	dir = 5
+	},
+/turf/open/floor/plating,
+/area/shuttle{
+	name = "Rustbucket"
+	})
+"sH" = (
+/obj/effect/decal/cleanable/cobweb/cobweb2,
+/obj/structure/ore_box,
+/turf/open/floor/plating{
+	icon_state = "platingdmg1"
+	},
+/area/shuttle{
+	name = "Rustbucket"
+	})
+"sU" = (
+/obj/structure/sign/poster/contraband/random{
+	pixel_x = 32
+	},
+/obj/structure/closet/secure_closet/freezer/fridge,
+/obj/item/reagent_containers/food/snacks/tofu,
+/obj/item/reagent_containers/food/snacks/muffin/berry{
+	pixel_x = 4;
+	pixel_y = 4
+	},
+/obj/item/reagent_containers/food/snacks/burrito,
+/turf/open/floor/plating,
+/area/shuttle{
+	name = "Rustbucket"
+	})
+"uN" = (
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle{
+	name = "Rustbucket"
+	})
+"vp" = (
+/obj/effect/decal/cleanable/cobweb,
+/turf/open/floor/plating,
+/area/shuttle{
+	name = "Rustbucket"
+	})
+"wC" = (
+/obj/effect/spawner/structure/window/hollow/reinforced/end,
+/turf/open/floor/plating,
+/area/shuttle{
+	name = "Rustbucket"
+	})
+"xE" = (
+/turf/open/floor/plasteel,
+/area/shuttle{
+	name = "Rustbucket"
+	})
+"yN" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/table,
+/obj/item/kirbyplants/dead{
+	name = "sad-looking potted plant";
+	pixel_y = 13
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/turf/open/floor/plasteel,
+/area/shuttle{
+	name = "Rustbucket"
+	})
+"zd" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/glass,
+/turf/open/floor/plasteel,
+/area/shuttle{
+	name = "Rustbucket"
+	})
+"zG" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/manifold/purple/visible{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/shuttle{
+	name = "Rustbucket"
+	})
+"Bo" = (
+/obj/effect/landmark/exploration_weapon_spawner{
+	dir = 4
+	},
+/turf/closed/wall/rust,
+/area/shuttle{
+	name = "Rustbucket"
+	})
+"Cs" = (
+/obj/machinery/door/airlock/external,
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 8
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle{
+	name = "Rustbucket"
+	})
+"CZ" = (
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
+	},
+/obj/effect/turf_decal/bot,
+/turf/open/floor/plating,
+/area/shuttle{
+	name = "Rustbucket"
+	})
+"Dp" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating{
+	luminosity = 2
+	},
+/area/shuttle{
+	name = "Rustbucket"
+	})
+"DP" = (
+/obj/machinery/power/port_gen/pacman,
+/obj/item/stack/sheet/mineral/plasma/fifty,
+/turf/open/floor/plating,
+/area/shuttle{
+	name = "Rustbucket"
+	})
+"Eb" = (
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
+/obj/structure/sign/warning/vacuum{
+	pixel_x = -32
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel,
+/area/shuttle{
+	name = "Rustbucket"
+	})
+"Em" = (
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/shuttle{
+	name = "Rustbucket"
+	})
+"EY" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/table,
+/obj/item/storage/toolbox/mechanical{
+	pixel_y = 4
+	},
+/turf/open/floor/plasteel,
+/area/shuttle{
+	name = "Rustbucket"
+	})
+"Gd" = (
+/obj/machinery/door/firedoor/closed,
+/turf/open/floor/plating,
+/area/shuttle{
+	name = "Rustbucket"
+	})
+"Gw" = (
+/obj/effect/landmark/exploration_weapon_spawner{
+	dir = 8
+	},
+/turf/closed/wall,
+/area/shuttle{
+	name = "Rustbucket"
+	})
+"GN" = (
+/obj/effect/spawner/structure/window/hollow/reinforced/directional{
+	dir = 9
+	},
+/turf/open/floor/plating,
+/area/shuttle{
+	name = "Rustbucket"
+	})
+"HZ" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
+	},
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle{
+	name = "Rustbucket"
+	})
+"Ji" = (
+/turf/template_noop,
+/area/template_noop)
+"JF" = (
+/obj/effect/spawner/structure/window/hollow/reinforced/end{
+	dir = 8
+	},
+/turf/open/floor/plating,
+/area/shuttle{
+	name = "Rustbucket"
+	})
+"Kz" = (
+/obj/machinery/atmospherics/pipe/simple/purple/visible{
+	dir = 10
+	},
+/turf/open/floor/plating{
+	icon_state = "platingdmg1"
+	},
+/area/shuttle{
+	name = "Rustbucket"
+	})
+"KH" = (
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/open/floor/plating{
+	icon_state = "platingdmg1"
+	},
+/area/shuttle{
+	name = "Rustbucket"
+	})
+"La" = (
+/obj/effect/spawner/structure/window/hollow/reinforced/middle{
+	dir = 4
+	},
+/turf/open/floor/plating,
+/area/shuttle{
+	name = "Rustbucket"
+	})
+"ME" = (
+/obj/item/wrench,
+/turf/open/floor/plating,
+/area/shuttle{
+	name = "Rustbucket"
+	})
+"Ny" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/cobweb/cobweb2,
+/obj/effect/turf_decal/tile/blue,
+/obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/blood/old,
+/turf/open/floor/plasteel,
+/area/shuttle{
+	name = "Rustbucket"
+	})
+"NH" = (
+/obj/effect/turf_decal/bot,
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/shuttle{
+	name = "Rustbucket"
+	})
+"NZ" = (
+/obj/effect/spawner/structure/window/hollow/reinforced/end{
+	dir = 1
+	},
+/turf/open/floor/plating,
+/area/shuttle{
+	name = "Rustbucket"
+	})
+"OE" = (
+/obj/machinery/atmospherics/pipe/simple/purple/visible{
+	dir = 6
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating{
+	icon_state = "platingdmg1"
+	},
+/area/shuttle{
+	name = "Rustbucket"
+	})
+"Ru" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/structure/sign/poster/contraband/random{
+	pixel_y = 32
+	},
+/obj/structure/closet/emcloset/anchored,
+/obj/effect/mob_spawn/human/corpse/assistant,
+/turf/open/floor/plating{
+	icon_state = "platingdmg1"
+	},
+/area/shuttle{
+	name = "Rustbucket"
+	})
+"Ry" = (
+/obj/machinery/atmospherics/pipe/manifold/purple/visible{
+	dir = 4
+	},
+/turf/open/floor/plating,
+/area/shuttle{
+	name = "Rustbucket"
+	})
+"RJ" = (
+/obj/structure/lattice,
+/turf/template_noop,
+/area/shuttle{
+	name = "Rustbucket"
+	})
+"Sr" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/item/shard,
+/obj/effect/decal/cleanable/glass,
+/turf/open/floor/plasteel,
+/area/shuttle{
+	name = "Rustbucket"
+	})
+"TX" = (
+/turf/open/floor/plating,
+/area/shuttle{
+	name = "Rustbucket"
+	})
+"Ut" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/corner,
+/turf/open/floor/plasteel,
+/area/shuttle{
+	name = "Rustbucket"
+	})
+"UN" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/shuttle{
+	name = "Rustbucket"
+	})
+"Vq" = (
+/obj/machinery/atmospherics/components/unary/shuttle/engine_heater{
+	dir = 1
+	},
+/turf/open/floor/plating,
+/area/shuttle{
+	name = "Rustbucket"
+	})
+"Vt" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/cobweb,
+/obj/structure/sign/poster/contraband/random{
+	pixel_x = -32
+	},
+/obj/structure/closet/emcloset/anchored,
+/obj/item/clothing/suit/space/hardsuit/skinsuit,
+/turf/open/floor/plating,
+/area/shuttle{
+	name = "Rustbucket"
+	})
+"VC" = (
+/obj/machinery/shuttle/engine/plasma{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line,
+/turf/open/floor/plating,
+/area/shuttle{
+	name = "Rustbucket"
+	})
+"WK" = (
+/obj/structure/table,
+/turf/open/floor/plating,
+/area/shuttle{
+	name = "Rustbucket"
+	})
+"XG" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel,
+/area/shuttle{
+	name = "Rustbucket"
+	})
+"XW" = (
+/obj/machinery/computer/weapons,
+/turf/open/floor/plating{
+	icon_state = "platingdmg1"
+	},
+/area/shuttle{
+	name = "Rustbucket"
+	})
+"YQ" = (
+/obj/machinery/power/apc/auto_name/west{
+	pixel_x = -24
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-2"
+	},
+/obj/effect/decal/cleanable/cobweb,
+/turf/open/floor/plating,
+/area/shuttle{
+	name = "Rustbucket"
+	})
+"Zk" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plating,
+/area/shuttle{
+	name = "Rustbucket"
+	})
+"ZC" = (
+/obj/effect/spawner/structure/window/hollow/reinforced/middle,
+/turf/open/floor/plating,
+/area/shuttle{
+	name = "Rustbucket"
+	})
+"ZW" = (
+/obj/machinery/atmospherics/components/unary/portables_connector/visible{
+	dir = 4
+	},
+/obj/effect/turf_decal/bot,
+/obj/machinery/portable_atmospherics/canister/toxins,
+/obj/effect/mapping_helpers/auto_wrench,
+/turf/open/floor/plasteel,
+/area/shuttle{
+	name = "Rustbucket"
+	})
+
+(1,1,1) = {"
+Ji
+Ji
+Ji
+Ji
+Ji
+Ji
+oQ
+oP
+kY
+oQ
+Ji
+Ji
+Ji
+Ji
+Ji
+Ji
+Ji
+"}
+(2,1,1) = {"
+Ji
+Ji
+mm
+RJ
+Ji
+Ji
+jj
+HZ
+uN
+oQ
+oQ
+jj
+oQ
+RJ
+mm
+Ji
+Ji
+"}
+(3,1,1) = {"
+mm
+RJ
+RJ
+RJ
+RJ
+Gw
+oQ
+Cs
+Cs
+jj
+YQ
+KH
+JF
+Ji
+RJ
+Ji
+Ji
+"}
+(4,1,1) = {"
+Ji
+Ji
+Ji
+Ji
+Ji
+jj
+Vt
+ic
+sq
+Eb
+aI
+CZ
+dy
+Ji
+RJ
+RJ
+RJ
+"}
+(5,1,1) = {"
+Ji
+Ji
+Ji
+GN
+wC
+yN
+Em
+xE
+Ut
+UN
+ME
+DP
+oQ
+dH
+RJ
+Ji
+Ji
+"}
+(6,1,1) = {"
+Ji
+Ji
+Ji
+ZC
+XW
+xE
+xE
+sU
+oQ
+Gd
+NZ
+wC
+jj
+oQ
+mm
+Ji
+Ji
+"}
+(7,1,1) = {"
+Ji
+Ji
+Ji
+ZC
+ql
+XG
+ih
+oQ
+jj
+vp
+cK
+ZW
+TX
+OE
+Vq
+VC
+Ji
+"}
+(8,1,1) = {"
+Ji
+Ji
+Ji
+ZC
+nu
+qM
+jj
+oQ
+Ru
+TX
+oB
+zG
+lK
+Ry
+Vq
+VC
+Ji
+"}
+(9,1,1) = {"
+Ji
+Ji
+Ji
+sE
+wC
+Ny
+oQ
+lE
+Sr
+XG
+Kz
+pp
+TX
+rl
+jj
+Ji
+Ji
+"}
+(10,1,1) = {"
+Ji
+Ji
+Ji
+Ji
+jj
+oQ
+oQ
+sw
+zd
+sb
+TX
+pm
+kT
+TX
+Ji
+Ji
+Ji
+"}
+(11,1,1) = {"
+Ji
+Ji
+Ji
+Ji
+RJ
+RJ
+jj
+jf
+Dp
+WK
+TX
+Zk
+RJ
+Ji
+Ji
+Ji
+Ji
+"}
+(12,1,1) = {"
+Ji
+mm
+RJ
+RJ
+RJ
+RJ
+oQ
+qY
+gM
+qE
+gV
+kT
+mm
+Ji
+Ji
+Ji
+Ji
+"}
+(13,1,1) = {"
+Ji
+Ji
+Ji
+Ji
+Ji
+mm
+Bo
+jj
+sH
+NH
+EY
+jj
+Ji
+Ji
+Ji
+Ji
+Ji
+"}
+(14,1,1) = {"
+Ji
+Ji
+Ji
+Ji
+Ji
+Ji
+Ji
+jj
+NZ
+La
+wC
+jj
+Ji
+Ji
+Ji
+Ji
+Ji
+"}
+(15,1,1) = {"
+Ji
+Ji
+Ji
+Ji
+Ji
+Ji
+Ji
+Ji
+RJ
+RJ
+Ji
+Ji
+Ji
+Ji
+Ji
+Ji
+Ji
+"}
+(16,1,1) = {"
+Ji
+Ji
+Ji
+Ji
+Ji
+Ji
+Ji
+Ji
+Ji
+RJ
+Ji
+Ji
+Ji
+Ji
+Ji
+Ji
+Ji
+"}
+(17,1,1) = {"
+Ji
+Ji
+Ji
+Ji
+Ji
+Ji
+Ji
+Ji
+mm
+RJ
+RJ
+Ji
+Ji
+Ji
+Ji
+Ji
+Ji
+"}

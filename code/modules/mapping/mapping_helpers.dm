@@ -180,6 +180,30 @@
 	C.charge = 0
 	C.update_icon()
 
+/obj/effect/mapping_helpers/auto_wrench
+	name = "auto wrencher"
+	icon_state = "auto_wrench"
+	late = TRUE
+	invisibility = INVISIBILITY_OBSERVER
+	var/ignore_atmos_pipes = TRUE
+
+/obj/effect/mapping_helpers/auto_wrench/LateInitialize()
+	//Perform our duty and then delete
+	function()
+	return INITIALIZE_HINT_QDEL
+
+/obj/effect/mapping_helpers/auto_wrench/proc/function()
+	//Scuffed
+	var/mob/temp = new(loc)
+	var/obj/item/wrench/magic_wrench = new(loc)
+	for(var/atom/A in loc)
+		if(ignore_atmos_pipes && istype(A, /obj/machinery/atmospherics))
+			continue
+		//For some reason not everything uses wrench_act
+		A.attackby(magic_wrench, temp)
+	qdel(magic_wrench, TRUE)
+	qdel(temp, TRUE)
+	qdel(src, TRUE)
 
 //needs to do its thing before spawn_rivers() is called
 INITIALIZE_IMMEDIATE(/obj/effect/mapping_helpers/no_lava)

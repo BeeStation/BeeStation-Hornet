@@ -1,31 +1,32 @@
-/datum/orbital_objective/nuclear_bomb
+/datum/orbital_objective/ruin/nuclear_bomb
 	name = "Nuclear Decomission"
 	var/generated = FALSE
 	//The blackbox required to recover.
 	var/obj/machinery/nuclearbomb/decomission/nuclear_bomb
 	var/obj/item/disk/nuclear/decommission/nuclear_disk
 	min_payout = 6000
-	max_payout = 25000
+	max_payout = 16000
+	weight = 1
 
-/datum/orbital_objective/nuclear_bomb/generate_objective_stuff(turf/chosen_turf)
+/datum/orbital_objective/ruin/nuclear_bomb/generate_objective_stuff(turf/chosen_turf)
 	generated = TRUE
 	nuclear_disk = new(chosen_turf)
 	nuclear_bomb.target_z = chosen_turf.z
 	nuclear_bomb.linked_objective = src
 
-/datum/orbital_objective/nuclear_bomb/get_text()
+/datum/orbital_objective/ruin/nuclear_bomb/get_text()
 	. = "Outpost [station_name] requires immediate decomissioning to prevent infomation from being \
 		leaked to the space press. Retrieve the nuclear authentication disk from the outpost and detonate it \
 		with the provided nuclear bomb which will be delivered to the bridge."
 	if(linked_beacon)
 		. += " The station is located at the beacon marked [linked_beacon.name]. Good luck."
 
-/datum/orbital_objective/nuclear_bomb/on_assign(obj/machinery/computer/objective/objective_computer)
+/datum/orbital_objective/ruin/nuclear_bomb/on_assign(obj/machinery/computer/objective/objective_computer)
 	var/area/A = GLOB.areas_by_type[/area/bridge]
 	var/turf/open/T = locate() in shuffle(A.contents)
 	nuclear_bomb = new /obj/machinery/nuclearbomb/decomission(T)
 
-/datum/orbital_objective/nuclear_bomb/check_failed()
+/datum/orbital_objective/ruin/nuclear_bomb/check_failed()
 	if((!QDELETED(nuclear_bomb) && !QDELETED(nuclear_disk) && !QDELETED(linked_beacon)) || !generated)
 		return FALSE
 	return TRUE
@@ -51,7 +52,7 @@ GLOBAL_LIST_EMPTY(decomission_bombs)
 /obj/machinery/nuclearbomb/decomission
 	desc = "A nuclear bomb for destroying stations. Uses an old version of the nuclear authentication disk."
 	proper_bomb = FALSE
-	var/datum/orbital_objective/nuclear_bomb/linked_objective
+	var/datum/orbital_objective/ruin/nuclear_bomb/linked_objective
 	var/target_z
 
 /obj/machinery/nuclearbomb/decomission/ComponentInitialize()

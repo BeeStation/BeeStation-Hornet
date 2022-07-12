@@ -87,7 +87,7 @@
 //====================
 /datum/orbital_object/z_linked/beacon/ruin
 	//The linked objective to the ruin, for generating extra stuff if required.
-	var/datum/orbital_objective/linked_objective
+	var/datum/orbital_objective/ruin/linked_objective
 
 /datum/orbital_object/z_linked/beacon/ruin/Destroy()
 	//Remove linked objective.

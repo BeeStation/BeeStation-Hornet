@@ -124,7 +124,12 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 		for(var/datum/tgui/tgui as() in open_orbital_maps)
 			tgui.send_update()
 	//Check creating objectives / missions.
-	if(next_objective_time < world.time && length(possible_objectives) < 6)
+	if(next_objective_time < world.time)
+		if(length(possible_objectives) >= 6)
+			//Take and delete the first objective
+			var/first = possible_objectives[1]
+			possible_objectives.Remove(first)
+			qdel(first)
 		create_objective()
 		next_objective_time = world.time + rand(30 SECONDS, 5 MINUTES)
 	//Check space ruin count
@@ -198,13 +203,13 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 //====================================
 
 /datum/controller/subsystem/processing/orbits/proc/create_objective()
-	var/static/list/valid_objectives = list(
-		/datum/orbital_objective/recover_blackbox = 3,
-		/datum/orbital_objective/nuclear_bomb = 1,
-		/datum/orbital_objective/assassination = 1,
-		/datum/orbital_objective/artifact = 2,
-		/datum/orbital_objective/vip_recovery = 1
-	)
+	var/static/list/valid_objectives
+	if(!islist(valid_objectives))
+		valid_objectives = list()
+		for(var/datum/orbital_objective/objective as() in subtypesof(/datum/orbital_objective))
+			if(!initial(objective.weight))
+				continue
+			valid_objectives[objective] = initial(objective.weight)
 	if(!length(possible_objectives))
 		priority_announce("Priority station objective received - Details transmitted to all available objective consoles. \
 			[GLOB.station_name] will have funds distributed upon objective completion.", "Central Command Report", SSstation.announcer.get_rand_report_sound())
@@ -222,7 +227,6 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 	if(current_objective)
 		return "An objective has already been selected and must be completed first."
 	objective.on_assign(objective_computer)
-	objective.generate_attached_beacon()
 	objective.announce()
 	current_objective = objective
 	possible_objectives.Remove(objective)
