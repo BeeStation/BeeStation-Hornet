@@ -51,7 +51,7 @@
 ///Bear limit
 #define XENOA_MAX_BEARS 3
 ///Max targets on expansive
-#define XENOA_MAX_TARGETS 10
+#define XENOA_MAX_TARGETS 6
 ///Tick chance to untick
 #define XENOA_TICK_CANCEL_PROB 13
 

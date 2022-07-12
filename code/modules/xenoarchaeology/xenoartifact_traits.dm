@@ -414,6 +414,7 @@
 	man.name = "[pick("Calcifer", "Lucifer", "Ahpuch", "Ahriman")]"
 	man.real_name = "[man.name] - [X]"
 	man.key = ckey
+	man.maxbodytemp = INFINITY
 	log_game("[man]:[man.ckey] took control of the sentient [X]. [X] located at [X.x] [X.y] [X.z]")
 	ADD_TRAIT(man, TRAIT_NOBREATH, TRAIT_NODEATH)
 	man.forceMove(X) //Better hope no greedy goblins took all the zlevels
@@ -422,6 +423,7 @@
 	man.AddSpell(P)
 	if(man.key)
 		playsound(get_turf(X), 'sound/items/haunted/ghostitemattack.ogg', 50, TRUE)
+	qdel(S)
 
 /obj/effect/proc_holder/spell/targeted/xeno_senitent_action //Lets sentience target goober
 	name = "Activate"
@@ -674,7 +676,7 @@
 			 "up" = CALLBACK(GLOBAL_PROC, .proc/_step, X, NORTH),
 			 "down" = CALLBACK(GLOBAL_PROC, .proc/_step, X, SOUTH),
 			 "left" = CALLBACK(GLOBAL_PROC, .proc/_step, X, WEST),
-			 "right" = CALLBACK(GLOBAL_PROC, .proc/_step, X, EAST)), 15))
+			 "right" = CALLBACK(GLOBAL_PROC, .proc/_step, X, EAST)), 10 SECONDS))
 
 /datum/xenoartifact_trait/minor/haunted/on_item(obj/item/xenoartifact/X, atom/user, atom/item)
 	if(istype(item, /obj/item/storage/book/bible))
@@ -698,7 +700,7 @@
 	weight = 25
 
 /datum/xenoartifact_trait/minor/delay/activate(obj/item/xenoartifact/X, atom/target, atom/user, setup)
-	X.visible_message("The [X] halts and begins to hum deeply.", "The [X] halts and begins to hum deeply.")
+	X.visible_message("<span class='danger'>The [X] halts and begins to hum deeply.", "The [X] halts and begins to hum deeply.</span>")
 	playsound(get_turf(X), 'sound/effects/seedling_chargeup.ogg', 50, TRUE)
 	sleep(3 SECONDS)
 	
@@ -730,7 +732,7 @@
 		fren = TRUE
 
 /datum/xenoartifact_trait/major/capture/activate(obj/item/xenoartifact/X, atom/target)
-	if(!(SSzclear.get_free_z_level())) //Sometimes we can get pressed on z-levels
+	if(!(SSzclear.get_free_z_level(FALSE))) //Sometimes we can get pressed on z-levels
 		playsound(get_turf(X), 'sound/machines/buzz-sigh.ogg', 50, TRUE) //this shouldn't happen too often but, exploration can eat a few zlevels.
 		return
 	if(isliving(X.loc))
@@ -844,7 +846,7 @@
 
 /datum/xenoartifact_trait/major/corginator/activate(obj/item/xenoartifact/X, mob/living/target)
 	X.say(pick("Woof!", "Bark!", "Yap!"))
-	if(!(SSzclear.get_free_z_level()))
+	if(!(SSzclear.get_free_z_level(FALSE)))
 		playsound(get_turf(X), 'sound/machines/buzz-sigh.ogg', 50, TRUE)
 		return
 	if(istype(target, /mob/living) && !(istype(target, /mob/living/simple_animal/pet/dog/corgi)))
@@ -1270,7 +1272,7 @@
 // Destabilizing, teleports the victim to that weird place from the exploration meme.
 //============
 /datum/xenoartifact_trait/major/distablizer
-	label_name = "Destabilizing"
+	desc = "Destabilizing"
 	label_desc = "Destabilizing: The Artifact collapses an improper bluespace matrix on the target, sending them to an unknown location."
 	weight = 25
 	flags = URANIUM_TRAIT
@@ -1281,7 +1283,8 @@
 	GLOB.destabliization_exits += X
 
 /datum/xenoartifact_trait/major/distablizer/on_item(obj/item/xenoartifact/X, atom/user, atom/item)
-	if(do_banish(item))
+	var/obj/item/clothing/gloves/artifact_pinchers/P = locate(/obj/item/clothing/gloves/artifact_pinchers) in user.contents
+	if(do_banish(item) && !P?.safety)
 		to_chat(user, "<span class='warning'>The [item] dissapears!</span>")
 		return TRUE
 	..()
