@@ -279,6 +279,7 @@
 		var/obj/item/card/id/I = H.wear_id
 		if(istype(I))
 			prof.id_job_name = I.assignment
+			prof.id_hud_state = I.hud_state
 
 	var/list/slots = list("head", "wear_mask", "back", "wear_suit", "w_uniform", "shoes", "belt", "gloves", "glasses", "ears", "wear_id", "s_store")
 	for(var/slot in slots)
@@ -516,6 +517,7 @@
 
 	/// ID HUD icon associated with the profile
 	var/id_job_name
+	var/id_hud_state
 
 /datum/changelingprofile/Destroy()
 	qdel(dna)
@@ -539,6 +541,7 @@
 	newprofile.undershirt = undershirt
 	newprofile.socks = socks
 	newprofile.id_job_name = id_job_name
+	newprofile.id_hud_state = id_hud_state
 
 /datum/antagonist/changeling/xenobio
 	name = "Xenobio Changeling"
