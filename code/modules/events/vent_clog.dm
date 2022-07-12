@@ -12,7 +12,10 @@
 	var/interval 	= 2
 	var/list/vents  = list()
 	var/randomProbability = 1
-	var/reagentsAmount = 500
+	var/reagentsAmount = 300
+	//MONKESTATION EDIT
+	var/vent_percentage = 0.25 //How many vents it should use (0.5 = 50%)
+	//MONKESTATION EDIT END
 	var/list/saferChems = list(/datum/reagent/water,/datum/reagent/carbon,/datum/reagent/consumable/flour,/datum/reagent/space_cleaner,/datum/reagent/consumable/nutriment,/datum/reagent/consumable/condensedcapsaicin,/datum/reagent/drug/mushroomhallucinogen,/datum/reagent/lube,/datum/reagent/glitter/pink,/datum/reagent/cryptobiolin,
 						 /datum/reagent/toxin/plantbgone,/datum/reagent/blood,/datum/reagent/medicine/charcoal,/datum/reagent/drug/space_drugs,/datum/reagent/medicine/morphine,/datum/reagent/water/holywater,/datum/reagent/consumable/ethanol,/datum/reagent/consumable/cocoa/hot_cocoa,/datum/reagent/toxin/acid,/datum/reagent/toxin/mindbreaker,/datum/reagent/toxin/rotatium,/datum/reagent/bluespace,
 						 /datum/reagent/pax,/datum/reagent/consumable/laughter,/datum/reagent/concentrated_barbers_aid,/datum/reagent/colorful_reagent,/datum/reagent/peaceborg/confuse,/datum/reagent/peaceborg/tire,/datum/reagent/consumable/sodiumchloride,/datum/reagent/consumable/ethanol/beer,/datum/reagent/hair_dye,/datum/reagent/consumable/sugar,/datum/reagent/glitter/white,/datum/reagent/growthserum)
@@ -23,12 +26,23 @@
 
 /datum/round_event/vent_clog/setup()
 	endWhen = rand(25, 100)
+	var/list/temp_vents = list()
 	for(var/obj/machinery/atmospherics/components/unary/vent_scrubber/temp_vent in GLOB.machines)
 		var/turf/T = get_turf(temp_vent)
 		if(T && is_station_level(T.z) && !temp_vent.welded)
-			vents += temp_vent
-	if(!vents.len)
+			temp_vents += temp_vent
+	if(!temp_vents.len)
 		return kill()
+	//MONKESTATION EDIT - also changed 'vents' to 'temp_vents' above
+	var/vents_counted = 0
+	var/max_vents = temp_vents.len*vent_percentage
+	shuffle_inplace(temp_vents)
+	for(var/obj/machinery/atmospherics/components/unary/vent_scrubber/vent in temp_vents)
+		vents += vent
+		vents_counted++
+		if(vents_counted > max_vents)
+			break
+	//MONKESTATION EDIT END
 
 /datum/round_event/vent_clog/start()
 	for(var/obj/machinery/atmospherics/components/unary/vent in vents)
@@ -59,9 +73,13 @@
 	max_occurrences = 1
 	earliest_start = 35 MINUTES
 
+
 /datum/round_event/vent_clog/threatening
 	randomProbability = 10
-	reagentsAmount = 1000
+	reagentsAmount = 500
+	//MONKESTATION EDIT
+	vent_percentage = 0.15
+	//MONKESTATION EDIT END
 
 /datum/round_event_control/vent_clog/catastrophic
 	name = "Clogged Vents: Catastrophic"
@@ -73,7 +91,10 @@
 
 /datum/round_event/vent_clog/catastrophic
 	randomProbability = 30
-	reagentsAmount = 1250
+	reagentsAmount = 700
+	//MONKESTATION EDIT
+	vent_percentage = 0.05
+	//MONKESTATION EDIT END
 
 /datum/round_event_control/vent_clog/beer
 	name = "Foamy beer stationwide"
