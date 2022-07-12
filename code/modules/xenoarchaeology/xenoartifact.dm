@@ -133,7 +133,6 @@
 		generate_icon(icon, "IBTML[icon_slots[2]]", material, FALSE)
 
 /obj/item/xenoartifact/Destroy()
-	. = ..()
 	SSradio.remove_object(src, frequency)
 	for(var/datum/xenoartifact_trait/T as() in traits)
 		qdel(T) //deleting the traits individually ensures they properly destroy, deleting the list bunks it
@@ -143,7 +142,8 @@
 		if(istype(AM, /obj/item/xenoartifact_label)) //Delete stickers
 			qdel(AM)
 		else
-			AM.forceMove(loc)
+			AM.forceMove((loc ? loc : get_turf(src)))
+	. = ..()
 
 /obj/item/xenoartifact/CanAllowThrough(atom/movable/mover, turf/target) //tweedle dee, density feature
 	if(get_trait(/datum/xenoartifact_trait/minor/dense) || anchored)
