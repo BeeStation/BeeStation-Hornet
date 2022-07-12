@@ -236,7 +236,7 @@
 	r_pocket = /obj/item/lighter
 	l_pocket = /obj/item/ammo_box/a357
 	back = /obj/item/storage/backpack/satchel/leather
-	id = /obj/item/card/id
+	id = /obj/item/card/id/centcom
 
 /datum/outfit/centcom/commander/plasmaman
 	name = "CentCom Commander Plasmaman"
@@ -274,7 +274,7 @@
 	belt = /obj/item/gun/energy/pulse/pistol/m1911
 	r_pocket = /obj/item/lighter
 	back = /obj/item/storage/backpack/satchel/leather
-	id = /obj/item/card/id
+	id = /obj/item/card/id/centcom
 	r_hand = /obj/item/megaphone/command
 
 /datum/outfit/admiral/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -356,13 +356,13 @@
 	back = /obj/item/storage/backpack/satchel/leather
 	belt = /obj/item/gun/ballistic/revolver/mateba
 
-	id = /obj/item/card/id
+	id = /obj/item/card/id/silver
 
 /datum/outfit/soviet/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	if(visualsOnly)
 		return
 
-	var/obj/item/card/id/W = H.wear_id
+	var/obj/item/card/id/silver/W = H.wear_id
 	W.icon_state = "centcom"
 	W.access = get_all_accesses()
 	W.access += get_centcom_access("Admiral")

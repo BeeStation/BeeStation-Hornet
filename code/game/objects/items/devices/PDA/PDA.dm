@@ -443,13 +443,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 			if ("Authenticate")//Checks for ID
 				id_check(U)
 			if("UpdateInfo")
-				ownjob = id.assignment
-				if(istype(id, /obj/item/card/id/syndicate))
-					owner = id.registered_name
-				update_label()
-				if(!silent)
-					playsound(src, 'sound/machines/terminal_processing.ogg', 15, TRUE)
-					addtimer(CALLBACK(GLOBAL_PROC, .proc/playsound, src, 'sound/machines/terminal_success.ogg', 15, TRUE), 1.3 SECONDS)
+				update_pda()
 			if("Eject")//Ejects the cart, only done from hub.
 				eject_cart(U)
 				if(!silent)
@@ -645,6 +639,15 @@ GLOBAL_LIST_EMPTY(PDAs)
 			var/mob/living/carbon/human/H = loc
 			if(H.wear_id == src)
 				H.sec_hud_set_ID()
+
+/obj/item/pda/proc/update_pda()
+	ownjob = id.assignment
+	if(istype(id, /obj/item/card/id/syndicate))
+		owner = id.registered_name
+	update_label()
+	if(!silent)
+		playsound(src, 'sound/machines/terminal_processing.ogg', 15, TRUE)
+		addtimer(CALLBACK(GLOBAL_PROC, .proc/playsound, src, 'sound/machines/terminal_success.ogg', 15, TRUE), 1.3 SECONDS)
 
 /obj/item/pda/proc/do_remove_id(mob/user)
 	if(!id)
@@ -971,9 +974,12 @@ GLOBAL_LIST_EMPTY(PDAs)
 			if(!id_check(user, idcard))
 				return
 			to_chat(user, "<span class='notice'>You put the ID into \the [src]'s slot.</span>")
+			if(ownjob != id.assignment && !istype(id, /obj/item/card/id/syndicate)) // auto-update by inserting your card
+				update_pda()
 			updateSelfDialog()//Update self dialog on success.
 
 			return	//Return in case of failed check or when successful.
+
 		updateSelfDialog()//For the non-input related code.
 	else if(istype(C, /obj/item/paicard) && !pai)
 		if(!user.transferItemToLoc(C, src))
