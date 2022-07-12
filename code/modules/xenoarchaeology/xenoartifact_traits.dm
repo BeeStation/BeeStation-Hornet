@@ -617,6 +617,7 @@
 /datum/xenoartifact_trait/minor/anchor
 	desc = "Anchored"
 	label_desc = "Anchored: The Artifact sends out a signal everytime it's activated."
+	blacklist_traits = list(/datum/xenoartifact_trait/minor/wearable)
 	flags = BLUESPACE_TRAIT | URANIUM_TRAIT
 
 /datum/xenoartifact_trait/minor/anchor/activate(obj/item/xenoartifact/X, atom/target, atom/user)
@@ -663,7 +664,7 @@
 /datum/xenoartifact_trait/minor/haunted
 	label_name = "Haunted"
 	label_desc = "Haunted: The Artifact's appears to interact with bluespace spatial regression, causing the item to appear haunted."
-	blacklist_traits = list(/datum/xenoartifact_trait/minor/dense)
+	blacklist_traits = list(/datum/xenoartifact_trait/minor/dense, /datum/xenoartifact_trait/minor/anchor, /datum/xenoartifact_trait/minor/wearable)
 	flags = BLUESPACE_TRAIT
 	weight = 15
 	var/datum/component/deadchat_control/controller
@@ -673,7 +674,7 @@
 			 "up" = CALLBACK(GLOBAL_PROC, .proc/_step, X, NORTH),
 			 "down" = CALLBACK(GLOBAL_PROC, .proc/_step, X, SOUTH),
 			 "left" = CALLBACK(GLOBAL_PROC, .proc/_step, X, WEST),
-			 "right" = CALLBACK(GLOBAL_PROC, .proc/_step, X, EAST)), 120))
+			 "right" = CALLBACK(GLOBAL_PROC, .proc/_step, X, EAST)), 15))
 
 /datum/xenoartifact_trait/minor/haunted/on_item(obj/item/xenoartifact/X, atom/user, atom/item)
 	if(istype(item, /obj/item/storage/book/bible))
@@ -694,6 +695,7 @@
 	label_desc = "Delayeed: The Artifact's composistion causes activations to be delayed."
 	blacklist_traits = list(/datum/xenoartifact_trait/minor/dense)
 	flags = BLUESPACE_TRAIT | PLASMA_TRAIT | URANIUM_TRAIT
+	weight = 25
 
 /datum/xenoartifact_trait/minor/delay/activate(obj/item/xenoartifact/X, atom/target, atom/user, setup)
 	X.visible_message("The [X] halts and begins to hum deeply.", "The [X] halts and begins to hum deeply.")
@@ -1044,7 +1046,7 @@
 
 /datum/xenoartifact_trait/major/lamp/on_init(obj/item/xenoartifact/X)
 	X.light_system = MOVABLE_LIGHT
-	X.light_color = pick(LIGHT_COLOR_FIRE, LIGHT_COLOR_BLUE, LIGHT_COLOR_GREEN, LIGHT_COLOR_RED, LIGHT_COLOR_ORANGE, LIGHT_COLOR_PINK, LIGHT_COLOR_WHITE)
+	X.light_color = pick(LIGHT_COLOR_FIRE, LIGHT_COLOR_BLUE, LIGHT_COLOR_GREEN, LIGHT_COLOR_RED, LIGHT_COLOR_ORANGE, LIGHT_COLOR_PINK)
 
 /datum/xenoartifact_trait/major/lamp/activate(obj/item/xenoartifact/X, atom/target, atom/user)
 	X.AddComponent(/datum/component/overlay_lighting, 1.4+(X.charge*0.5), max(X.charge*0.05, 0.1), X.light_color)

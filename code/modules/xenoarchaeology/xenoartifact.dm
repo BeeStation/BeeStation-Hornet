@@ -228,6 +228,7 @@
 	log_game("[user] attempted to activate [src] at [world.time]. Located at [x] [y] [z].")
 
 	if(COOLDOWN_FINISHED(src, xenoa_cooldown))
+		COOLDOWN_START(src, xenoa_cooldown, cooldown+cooldownmod)
 		if(prob(malfunction_chance) && traits.len < 6 + (material == XENOA_URANIUM ? 1 : 0)) //See if we pick up an malfunction
 			generate_trait_unique(XENOA_MALFS)
 			malfunction_chance = 0 //Lower chance after contracting 
@@ -248,8 +249,8 @@
 					if(!istype(t, /datum/xenoartifact_trait/minor))
 						log_game("[src] activated trait [t] at [world.time]. Located at [x] [y] [z]")
 						t.activate(src, M, user)
-		playsound(get_turf(src), 'sound/magic/blink.ogg', 25, TRUE) 
-		COOLDOWN_START(src, xenoa_cooldown, cooldown+cooldownmod)
+		if(!get_trait(/datum/xenoartifact_trait/major/horn))
+			playsound(get_turf(src), 'sound/magic/blink.ogg', 25, TRUE) 
 	else
 		visible_message("<span class='notice'>[src] echos emptily.</span>")
 
