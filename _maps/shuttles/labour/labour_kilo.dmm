@@ -6,22 +6,6 @@
 /obj/effect/spawner/structure/window/shuttle,
 /turf/open/floor/plating,
 /area/shuttle/labor)
-"c" = (
-/obj/machinery/computer/shuttle_flight/labor{
-	dir = 4
-	},
-/obj/structure/reagent_dispensers/peppertank{
-	pixel_x = -31
-	},
-/obj/effect/turf_decal/bot,
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/labor)
-"d" = (
-/obj/structure/chair/comfy/shuttle{
-	dir = 1
-	},
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/labor)
 "f" = (
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
@@ -31,24 +15,6 @@
 	dir = 9
 	},
 /obj/effect/turf_decal/stripes/corner,
-/turf/open/floor/mineral/plastitanium/red,
-/area/shuttle/labor)
-"g" = (
-/obj/machinery/button/flasher{
-	id = "gulagshuttleflasher";
-	name = "Flash Control";
-	pixel_y = -26;
-	req_access_txt = "1"
-	},
-/obj/machinery/light,
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/effect/turf_decal/stripes/line,
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/labor)
 "i" = (
@@ -74,6 +40,10 @@
 	dir = 1
 	},
 /turf/open/floor/mineral/plastitanium,
+/area/shuttle/labor)
+"k" = (
+/obj/machinery/shuttle_weapon/laser,
+/turf/closed/wall/mineral/titanium,
 /area/shuttle/labor)
 "l" = (
 /obj/effect/turf_decal/tile/neutral,
@@ -135,6 +105,32 @@
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/labor)
+"q" = (
+/obj/machinery/button/flasher{
+	id = "gulagshuttleflasher";
+	name = "Flash Control";
+	pixel_y = -26;
+	req_access_txt = "1"
+	},
+/obj/machinery/light,
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line,
+/obj/structure/chair/comfy/shuttle{
+	dir = 1
+	},
+/turf/open/floor/mineral/plastitanium/red,
+/area/shuttle/labor)
+"s" = (
+/obj/machinery/computer/weapons,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/labor)
 "u" = (
 /obj/machinery/door/airlock/titanium{
 	id_tag = "prisonshuttle";
@@ -163,10 +159,6 @@
 /area/shuttle/labor)
 "x" = (
 /turf/closed/wall/mineral/plastitanium,
-/area/shuttle/labor)
-"B" = (
-/obj/item/wallframe/shuttle_weapon/laser,
-/turf/closed/wall/mineral/titanium,
 /area/shuttle/labor)
 "E" = (
 /obj/machinery/shuttle/engine/plasma{
@@ -276,9 +268,17 @@
 /obj/item/wrench,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/labor)
+"Z" = (
+/obj/structure/reagent_dispensers/peppertank{
+	pixel_x = -31
+	},
+/obj/effect/turf_decal/bot,
+/obj/machinery/computer/shuttle_flight/labor,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/labor)
 
 (1,1,1) = {"
-B
+k
 a
 b
 a
@@ -290,7 +290,7 @@ x
 "}
 (2,1,1) = {"
 b
-c
+Z
 f
 j
 l
@@ -301,8 +301,8 @@ E
 "}
 (3,1,1) = {"
 b
-d
-g
+s
+q
 a
 m
 p
@@ -322,7 +322,7 @@ K
 E
 "}
 (5,1,1) = {"
-B
+k
 a
 i
 a

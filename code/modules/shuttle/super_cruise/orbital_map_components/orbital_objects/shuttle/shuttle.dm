@@ -1,3 +1,5 @@
+#define SHUTTLE_INTERDICTION_TIME 3 MINUTES
+
 /datum/orbital_object/shuttle
 	name = "Shuttle"
 	collision_type = COLLISION_SHUTTLES
@@ -238,3 +240,40 @@
 /datum/orbital_object/shuttle/proc/handle_shuttle_data_deletion(datum/source, force)
 	UnregisterSignal(shuttle_data, COMSIG_PARENT_QDELETING)
 	shuttle_data = null
+
+///Perform an interdiction
+/datum/orbital_object/shuttle/proc/perform_interdiction()
+	if(docking_target || can_dock_with)
+		SEND_SIGNAL(src, COMSIG_ORBITAL_BODY_MESSAGE, "Cannot use interdictor while docking.")
+		return FALSE
+	if(stealth)
+		SEND_SIGNAL(src, COMSIG_ORBITAL_BODY_MESSAGE, "Cannot use interdictor on stealthed shuttles.")
+		return FALSE
+	var/list/interdicted_shuttles = list()
+	for(var/shuttleportid in SSorbits.assoc_shuttles)
+		var/datum/orbital_object/shuttle/other_shuttle = SSorbits.assoc_shuttles[shuttleportid]
+		//Do this last
+		if(other_shuttle == src)
+			continue
+		if(other_shuttle?.position?.DistanceTo(position) <= shuttle_data.interdiction_range && !other_shuttle.stealth)
+			interdicted_shuttles += other_shuttle
+	if(!length(interdicted_shuttles))
+		SEND_SIGNAL(src, COMSIG_ORBITAL_BODY_MESSAGE, "No targets to interdict in range.")
+		return FALSE
+	SEND_SIGNAL(src, COMSIG_ORBITAL_BODY_MESSAGE, "Interdictor activated, shuttle throttling down...")
+	//Create the site of interdiction
+	var/datum/orbital_object/z_linked/beacon/z_linked = new /datum/orbital_object/z_linked/beacon/ruin/interdiction(
+		new /datum/orbital_vector(position.x, position.y)
+	)
+	z_linked.name = "Interdiction Site"
+	//Lets tell everyone about it
+	priority_announce("Supercruise interdiction detected, interdicted shuttles have been registered onto local GPS units. Source: [name]")
+	//Get all shuttle objects in range
+	for(var/datum/orbital_object/shuttle/other_shuttle in interdicted_shuttles)
+		other_shuttle.commence_docking(z_linked, TRUE, FALSE, TRUE)
+		other_shuttle.random_drop(z_linked.linked_z_level[1].z_value)
+		SSorbits.interdicted_shuttles[other_shuttle.shuttle_port_id] = world.time + SHUTTLE_INTERDICTION_TIME
+	commence_docking(z_linked, TRUE, FALSE, TRUE)
+	random_drop(z_linked.linked_z_level[1].z_value)
+	SSorbits.interdicted_shuttles[shuttle_port_id] = world.time + SHUTTLE_INTERDICTION_TIME
+	return TRUE

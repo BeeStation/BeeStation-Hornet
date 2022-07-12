@@ -9,8 +9,6 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 	req_access = list()
 	var/shuttleId
 
-	//Interdiction range
-	var/interdiction_range = 150
 	//Time it takes to recharge after interdiction
 	var/interdiction_time = 3 MINUTES
 
@@ -123,10 +121,12 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 		data["valid_dock"] += list(list(
 			"id" = dock,
 		))
+	//Get the shuttle data
+	var/datum/shuttle_data/shuttle_data = SSorbits.get_shuttle_data(shuttleId)
 	//If we are a recall console.
 	data["recall_docking_port_id"] = recall_docking_port_id
 	data["request_shuttle_message"] = request_shuttle_message
-	data["interdiction_range"] = interdiction_range
+	data["interdiction_range"] = shuttle_data.interdiction_range
 	return data
 
 /obj/machinery/computer/shuttle_flight/ui_data(mob/user)
@@ -337,39 +337,7 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 			if(QDELETED(shuttleObject))
 				say("Interdictor not ready.")
 				return
-			if(shuttleObject.docking_target || shuttleObject.can_dock_with)
-				say("Cannot use interdictor while docking.")
-				return
-			if(shuttleObject.stealth)
-				say("Cannot use interdictor on stealthed shuttles.")
-				return
-			var/list/interdicted_shuttles = list()
-			for(var/shuttleportid in SSorbits.assoc_shuttles)
-				var/datum/orbital_object/shuttle/other_shuttle = SSorbits.assoc_shuttles[shuttleportid]
-				//Do this last
-				if(other_shuttle == shuttleObject)
-					continue
-				if(other_shuttle?.position?.DistanceTo(shuttleObject.position) <= interdiction_range && !other_shuttle.stealth)
-					interdicted_shuttles += other_shuttle
-			if(!length(interdicted_shuttles))
-				say("No targets to interdict in range.")
-				return
-			say("Interdictor activated, shuttle throttling down...")
-			//Create the site of interdiction
-			var/datum/orbital_object/z_linked/beacon/z_linked = new /datum/orbital_object/z_linked/beacon/ruin/interdiction(
-				new /datum/orbital_vector(shuttleObject.position.x, shuttleObject.position.y)
-			)
-			z_linked.name = "Interdiction Site"
-			//Lets tell everyone about it
-			priority_announce("Supercruise interdiction detected, interdicted shuttles have been registered onto local GPS units. Source: [shuttleObject.name]")
-			//Get all shuttle objects in range
-			for(var/datum/orbital_object/shuttle/other_shuttle in interdicted_shuttles)
-				other_shuttle.commence_docking(z_linked, TRUE, FALSE, TRUE)
-				other_shuttle.random_drop(z_linked.linked_z_level[1].z_value)
-				SSorbits.interdicted_shuttles[other_shuttle.shuttle_port_id] = world.time + interdiction_time
-			shuttleObject.commence_docking(z_linked, TRUE, FALSE, TRUE)
-			shuttleObject.random_drop(z_linked.linked_z_level[1].z_value)
-			SSorbits.interdicted_shuttles[shuttleId] = world.time + interdiction_time
+			shuttleObject.perform_interdiction()
 		//Go to valid port
 		if("gotoPort")
 			if(!shuttleObject)

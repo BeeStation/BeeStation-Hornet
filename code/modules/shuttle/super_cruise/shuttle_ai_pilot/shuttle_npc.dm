@@ -73,7 +73,7 @@
 		if(exit_world_time < world.time)
 			if(flee_combat(FALSE))
 				exit_world_time = 0
-				return
+		return
 	else
 		//We found a target, don't leave
 		exit_world_time = 0
@@ -182,7 +182,7 @@
 	shuttleTarget = null
 
 /datum/shuttle_ai_pilot/npc/get_target_name()
-	return shuttleTarget.name
+	return shuttleTarget?.name || "None"
 
 /datum/shuttle_ai_pilot/npc/try_toggle()
 	return FALSE

@@ -6,21 +6,6 @@
 /obj/effect/spawner/structure/window/shuttle,
 /turf/open/floor/plating,
 /area/shuttle/labor)
-"c" = (
-/obj/machinery/computer/shuttle_flight/labor{
-	dir = 4
-	},
-/obj/structure/reagent_dispensers/peppertank{
-	pixel_x = -31
-	},
-/turf/open/floor/mineral/plastitanium/red,
-/area/shuttle/labor)
-"d" = (
-/obj/structure/chair/office{
-	dir = 1
-	},
-/turf/open/floor/mineral/plastitanium/red,
-/area/shuttle/labor)
 "e" = (
 /obj/structure/window/reinforced{
 	dir = 1;
@@ -43,15 +28,9 @@
 "g" = (
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/labor)
-"h" = (
-/obj/machinery/button/flasher{
-	id = "gulagshuttleflasher";
-	name = "Flash Control";
-	pixel_y = -26;
-	req_access_txt = "1"
-	},
-/obj/machinery/light,
-/turf/open/floor/mineral/plastitanium/red,
+"i" = (
+/obj/machinery/shuttle_weapon/laser,
+/turf/closed/wall/mineral/titanium,
 /area/shuttle/labor)
 "j" = (
 /obj/machinery/door/airlock/shuttle{
@@ -84,6 +63,13 @@
 	dir = 9
 	},
 /turf/open/floor/plasteel,
+/area/shuttle/labor)
+"o" = (
+/obj/structure/reagent_dispensers/peppertank{
+	pixel_x = -31
+	},
+/obj/machinery/computer/shuttle_flight/labor,
+/turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/labor)
 "p" = (
 /obj/machinery/mineral/stacking_unit_console{
@@ -130,12 +116,12 @@
 /obj/docking_port/mobile{
 	dir = 8;
 	dwidth = 2;
+	faction_type = /datum/faction/station;
 	height = 5;
 	id = "laborcamp";
 	name = "labor camp shuttle";
 	port_direction = 4;
-	width = 9;
-	faction_type = /datum/faction/station
+	width = 9
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -170,6 +156,19 @@
 	dir = 1
 	},
 /turf/closed/wall/mineral/titanium,
+/area/shuttle/labor)
+"F" = (
+/obj/machinery/button/flasher{
+	id = "gulagshuttleflasher";
+	name = "Flash Control";
+	pixel_y = -26;
+	req_access_txt = "1"
+	},
+/obj/machinery/light,
+/obj/structure/chair/office{
+	dir = 1
+	},
+/turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/labor)
 "I" = (
 /obj/machinery/mineral/labor_claim_console{
@@ -286,6 +285,10 @@
 	},
 /turf/open/floor/plasteel,
 /area/shuttle/labor)
+"R" = (
+/obj/machinery/computer/weapons,
+/turf/open/floor/mineral/plastitanium/red,
+/area/shuttle/labor)
 "W" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/atmospherics/pipe/simple/supplymain/hidden,
@@ -300,7 +303,7 @@
 /area/shuttle/labor)
 
 (1,1,1) = {"
-a
+i
 a
 f
 a
@@ -312,7 +315,7 @@ a
 "}
 (2,1,1) = {"
 b
-c
+o
 g
 k
 n
@@ -323,8 +326,8 @@ X
 "}
 (3,1,1) = {"
 b
-d
-h
+R
+F
 l
 y
 W
@@ -344,7 +347,7 @@ C
 X
 "}
 (5,1,1) = {"
-a
+i
 a
 j
 a

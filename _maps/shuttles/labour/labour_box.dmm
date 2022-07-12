@@ -21,6 +21,10 @@
 	},
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/labor)
+"e" = (
+/obj/machinery/shuttle_weapon/laser,
+/turf/closed/wall/mineral/titanium,
+/area/shuttle/labor)
 "f" = (
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/labor)
@@ -137,10 +141,6 @@
 /obj/structure/cable/yellow,
 /turf/open/floor/plating/airless,
 /area/shuttle/labor)
-"G" = (
-/obj/item/wallframe/shuttle_weapon/laser,
-/turf/closed/wall/mineral/titanium,
-/area/shuttle/labor)
 "K" = (
 /obj/machinery/door/airlock/titanium{
 	name = "Labor Shuttle Airlock";
@@ -187,7 +187,7 @@
 /area/shuttle/labor)
 
 (1,1,1) = {"
-G
+e
 a
 b
 a
@@ -231,7 +231,7 @@ F
 S
 "}
 (5,1,1) = {"
-G
+e
 a
 i
 a

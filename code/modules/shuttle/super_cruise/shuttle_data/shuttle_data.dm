@@ -1,3 +1,5 @@
+//#define DEBUG_SYNC_CHECK
+
 /datum/shuttle_data
 	/// The name of the shuttle
 	var/shuttle_name
@@ -48,6 +50,8 @@
 	var/list/rogue_factions = list()
 	///Weapon systems
 	var/list/obj/machinery/shuttle_weapon/shuttle_weapons = list()
+	///List of registered turfs, so we can unregister them if needed
+	var/list/turf/registered_turfs = list()
 
 /datum/shuttle_data/New(port_id, faction_type = /datum/faction/independant)
 	. = ..()
@@ -59,6 +63,11 @@
 	var/obj/docking_port/mobile/attached_port = SSshuttle.getShuttle(port_id)
 	shuttle_name = attached_port.name
 	calculate_initial_stats()
+
+/datum/shuttle_data/Destroy(force, ...)
+	unregister_turfs()
+	. = ..()
+	log_shuttle("Shuttle data [shuttle_name] ([port_id]) was deleted.")
 
 /// Private
 /// Calculates the initial stats of the shuttle
@@ -86,9 +95,9 @@
 //====================
 
 /// Perform a full recalculation of ship integrity
-/datum/shuttle_data/proc/recalculate_integrity()
+/datum/shuttle_data/proc/debug_integrity()
 	//Reset ship integrity to 0
-	max_ship_integrity = 0
+	. = 0
 	//Get the docking port
 	var/obj/docking_port/mobile/M = SSshuttle.getShuttle(port_id)
 	//Perform calculations
@@ -98,8 +107,36 @@
 			continue
 		if(!iswallturf(T) && !isfloorturf(T))
 			continue
+		//Check the type
+		if (iswallturf(T))
+			if(istype(T, /turf/closed/wall/r_wall))
+				. += 7
+			else
+				. += 5
+			continue
+		//2 points if the floor isn't raw plating
+		if (!isplatingturf(T))
+			. += 2
+
+/// Perform a full recalculation of ship integrity
+/datum/shuttle_data/proc/recalculate_integrity()
+	//Reset turfs
+	unregister_turfs()
+	//Reset ship integrity to 0
+	max_ship_integrity = 0
+	//Get the docking port
+	var/obj/docking_port/mobile/M = SSshuttle.getShuttle(port_id)
+	//Perform calculations
+	for(var/turf/T in M.return_turfs())
+		//Ignore non-shuttle turfs
+		if (!islist(T.baseturfs) || !T.baseturfs.Find(/turf/baseturf_skipover/shuttle))
+			continue
 		RegisterSignal(T, COMSIG_TURF_CHANGE, .proc/shuttle_turf_changed)
 		RegisterSignal(T, COMSIG_TURF_AFTER_SHUTTLE_MOVE, .proc/shuttle_turf_moved)
+		registered_turfs += T
+		//Register these turfs too!
+		if(!iswallturf(T) && !isfloorturf(T))
+			continue
 		//Check the type
 		if (iswallturf(T))
 			if(istype(T, /turf/closed/wall/r_wall))
@@ -108,12 +145,6 @@
 				max_ship_integrity += 5
 			continue
 		//If floor turf
-		//1 point for floors
-		//max_ship_integrity += 1
-		//1 point if the floor is not broken
-		var/turf/open/floor/floor_turf = T
-		/*if(!floor_turf.broken && !floor_turf.burnt)
-			max_ship_integrity += 1*/
 		//2 points if the floor isn't raw plating
 		if (!isplatingturf(T))
 			max_ship_integrity += 2
@@ -122,8 +153,15 @@
 	//Integrity remaining will always be max health, as this is our reference point
 	integrity_remaining = max_ship_integrity
 	current_ship_integrity = max_ship_integrity
+	update_integrity()
 
-///Call after updating the value of integrity_remaining
+/datum/shuttle_data/proc/unregister_turfs()
+	for(var/T in registered_turfs)
+		UnregisterSignal(T, COMSIG_TURF_CHANGE)
+		UnregisterSignal(T, COMSIG_TURF_AFTER_SHUTTLE_MOVE)
+	registered_turfs.Cut()
+
+///Call after updating the value of current_ship_integrity
 /datum/shuttle_data/proc/update_integrity()
 	if(reactor_critical)
 		current_ship_integrity = 0
@@ -141,17 +179,10 @@
 		reactor_critical = TRUE
 		current_ship_integrity = 0
 		integrity_remaining = 0
+		unregister_turfs()
 		//Unregister all turfs
-		for(var/turf/T in M.return_turfs())
-			//Ignore non-shuttle turfs
-			if (!islist(T.baseturfs) || !locate(/turf/baseturf_skipover/shuttle) in T.baseturfs)
-				continue
-			if(!iswallturf(T) && !isfloorturf(T))
-				continue
-			UnregisterSignal(T, COMSIG_TURF_CHANGE)
-			UnregisterSignal(T, COMSIG_TURF_AFTER_SHUTTLE_MOVE)
-			var/obj/machinery/light/L = locate() in T
-			if(L)
+		for(var/area/A in M.shuttle_areas)
+			for(var/obj/machinery/light/L in A)
 				L.force_emergency_mode = TRUE
 				L.update()
 		//Play an alarm to anyone / any observers on the shuttle
@@ -169,8 +200,8 @@
 	var/exploded = FALSE
 	var/area/shuttle/area = get_area(M)
 	var/obj/machinery/power/apc/apc = area.get_apc()
+	//No more power
 	if(apc)
-		//No more power
 		apc.set_broken()
 	//No explosion, explode anyway
 	//Prevents an exploit where you can make a tiny ship to maxcap the station
@@ -183,45 +214,54 @@
 	qdel(M, TRUE)
 
 ///Called when a shuttle turf is changed, for better or for worse
-/datum/shuttle_data/proc/shuttle_turf_changed(datum/source, path, list/new_baseturfs, flags, list/transferring_comps)
-	//Subtract the old integrity
-	if (iswallturf(source))
-		if(istype(source, /turf/closed/wall/r_wall))
-			current_ship_integrity -= 7
-		else
-			current_ship_integrity -= 5
-	else
-		//current_ship_integrity -= 1
-		//1 point if the floor is not broken
-		var/turf/open/floor/floor_turf = source
-		/*if(!floor_turf.broken && !floor_turf.burnt)
-			current_ship_integrity -= 1*/
-		//2 points if the floor isn't raw plating
-		if (!isplatingturf(source))
-			current_ship_integrity -= 2
-	//Add the new integrity
-	if (ispath(path, /turf/closed/wall))
-		if(istype(path, /turf/closed/wall/r_wall))
-			current_ship_integrity += 7
-		else
-			current_ship_integrity += 5
-	else if(ispath(path, /turf/open/floor))
-		//current_ship_integrity += 1
-		var/turf/open/floor/F = path
-		/*if(!initial(F.broken) && !initial(F.burnt))
-			current_ship_integrity += 1*/
-		//2 points if the floor isn't raw plating
-		if (!istype(path, /turf/open/floor/plating))
-			current_ship_integrity += 2
+/datum/shuttle_data/proc/shuttle_turf_changed(turf/source, path, list/new_baseturfs, flags, list/transferring_comps)
+	//Only update if there are shuttle baseturfs here
+	if (islist(source.baseturfs) && source.baseturfs.Find(/turf/baseturf_skipover/shuttle))
+		//Subtract the old integrity
+		if (iswallturf(source))
+			if(istype(source, /turf/closed/wall/r_wall))
+				current_ship_integrity -= 7
+			else
+				current_ship_integrity -= 5
+		else if(isfloorturf(source))
+			//2 points if the floor isn't raw plating
+			if (!isplatingturf(source))
+				current_ship_integrity -= 2
+	//Only update if there are still shuttle baseturfs here
+	if ((new_baseturfs && islist(new_baseturfs) && new_baseturfs.Find(/turf/baseturf_skipover/shuttle))
+		|| (!new_baseturfs && islist(source.baseturfs) && source.baseturfs.Find(/turf/baseturf_skipover/shuttle)))
+		//Add the new integrity
+		if (ispath(path, /turf/closed/wall))
+			if(ispath(path, /turf/closed/wall/r_wall))
+				current_ship_integrity += 7
+			else
+				current_ship_integrity += 5
+		else if(ispath(path, /turf/open/floor))
+			//2 points if the floor isn't raw plating
+			if (!ispath(path, /turf/open/floor/plating))
+				current_ship_integrity += 2
+	//Update the integrity
+	update_integrity()
+#ifdef DEBUG_SYNC_CHECK
+	//Spawn is awful, but this isn't on production code
+	spawn(1)
+		//Check
+		var/debug_integrity = debug_integrity()
+		if(debug_integrity != current_ship_integrity)
+			message_admins("SHUTTLE INTEGRITY BECAME UNSYNCED AS A RESULT OF [source.type] CHANGING TO [path]. [current_ship_integrity] should be [debug_integrity]. SHUTTLE BEFORE: [islist(source.baseturfs) && source.baseturfs.Find(/turf/baseturf_skipover/shuttle)] SHUTTLE AFTER: [islist(new_baseturfs) && new_baseturfs.Find(/turf/baseturf_skipover/shuttle)]")
+			current_ship_integrity = debug_integrity
+#endif
 
 ///Called when a shuttle turf is changed, for better or for worse
 /datum/shuttle_data/proc/shuttle_turf_moved(datum/source, turf/newturf)
 	///We are no longer caring about this turf, find out where we went to
 	UnregisterSignal(source, COMSIG_TURF_CHANGE, .proc/shuttle_turf_changed)
 	UnregisterSignal(source, COMSIG_TURF_AFTER_SHUTTLE_MOVE, .proc/shuttle_turf_moved)
+	registered_turfs -= source
 	///Relocate
 	RegisterSignal(newturf, COMSIG_TURF_CHANGE, .proc/shuttle_turf_changed)
 	RegisterSignal(newturf, COMSIG_TURF_AFTER_SHUTTLE_MOVE, .proc/shuttle_turf_moved)
+	registered_turfs += newturf
 
 //====================
 // Weapon Systems

@@ -130,7 +130,7 @@
 			name = ship.shuttle_name,
 			faction = their_faction,
 			health = ship.integrity_remaining,
-			maxHealth = ship.max_ship_integrity * SHIP_INTEGRITY_FACTOR,
+			maxHealth = ship.max_ship_integrity * ship.critical_proportion,
 			critical = ship.reactor_critical,
 			//If they consider us hostile (AI works on if we consider them hostile policy, but that is confusing for players to be shot at by 'friendly' ships).
 			hostile = check_faction_alignment(ship.faction, our_ship.faction) == FACTION_STATUS_HOSTILE || (their_faction.type in our_ship.rogue_factions),

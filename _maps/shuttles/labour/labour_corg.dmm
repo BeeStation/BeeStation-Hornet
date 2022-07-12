@@ -82,6 +82,10 @@
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/labor)
+"x" = (
+/obj/machinery/shuttle_weapon/laser,
+/turf/closed/wall/mineral/titanium,
+/area/shuttle/labor)
 "y" = (
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/labor)
@@ -210,13 +214,9 @@
 /obj/machinery/computer/shuttle_flight/labor,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/labor)
-"Z" = (
-/obj/item/wallframe/shuttle_weapon/laser,
-/turf/closed/wall/mineral/titanium,
-/area/shuttle/labor)
 
 (1,1,1) = {"
-Z
+x
 B
 y
 y
@@ -256,7 +256,7 @@ R
 O
 "}
 (5,1,1) = {"
-Z
+x
 t
 y
 y
