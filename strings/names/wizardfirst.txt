@@ -25,11 +25,13 @@ Radagast
 Raistlin
 Rasputin
 Rincewind
+Saruman
 Tenser
 Terefi
-Tushan
-Umorn
+Tzeentch
 Urza
 Vaarsuvius
+Veronica
+Yoda
 Zagyg
 Zul
