@@ -1,4 +1,6 @@
-//#define DEBUG_SYNC_CHECK
+//Do not less this comment exist during merge. If its still here review it.
+//If its in active code then the reviewers failed, I failed and you failed for not removing it sooner.
+#define DEBUG_SYNC_CHECK
 
 /datum/shuttle_data
 	/// The name of the shuttle
@@ -228,7 +230,7 @@
 			if (!isplatingturf(source))
 				current_ship_integrity -= 2
 	//Only update if there are still shuttle baseturfs here
-	if ((new_baseturfs && islist(new_baseturfs) && new_baseturfs.Find(/turf/baseturf_skipover/shuttle))
+	if ((new_baseturfs && islist(new_baseturfs) && new_baseturfs.Find(/turf/baseturf_skipover/shuttle))\
 		|| (!new_baseturfs && islist(source.baseturfs) && source.baseturfs.Find(/turf/baseturf_skipover/shuttle)))
 		//Add the new integrity
 		if (ispath(path, /turf/closed/wall))

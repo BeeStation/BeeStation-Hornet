@@ -40,6 +40,7 @@
 /datum/shuttle_ai_pilot/npc/handle_ai_combat_action()
 	if(shuttle_data.reactor_critical || !pilot_mobs)
 		last_thought = "I am dead."
+		overridable = TRUE
 		return
 	//If we have no weapons, flee
 	if(!length(shuttle_data.shuttle_weapons))
@@ -154,6 +155,7 @@
 /datum/shuttle_ai_pilot/npc/handle_ai_flight_action(datum/orbital_object/shuttle/shuttle)
 	if(!pilot_mobs)
 		last_thought = "All of my crew has been incapacitated. Nobody is there to fly me."
+		overridable = TRUE
 		return
 	//Don't drive places if we have no target, just try to stay at our current location
 	if (!shuttleTarget)

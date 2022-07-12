@@ -276,10 +276,13 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 							//Launch the shuttle
 							if(!launch_shuttle())
 								return
-						shuttleObject.shuttle_data.set_pilot(new /datum/shuttle_ai_pilot/autopilot/request(
-							z_linked, recall_docking_port_id
-						))
-						say("Shuttle requested.")
+						if(shuttleObject.shuttle_data.try_override_pilot())
+							shuttleObject.shuttle_data.set_pilot(new /datum/shuttle_ai_pilot/autopilot/request(
+								z_linked, recall_docking_port_id
+							))
+							say("Shuttle requested.")
+						else
+							say("Unable to command shuttle")
 						return
 				say("Docking port in invalid location. Please contact a Nanotrasen technician.")
 		return
@@ -296,9 +299,12 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 			for(var/datum/orbital_object/object as() in showing_map.get_all_bodies())
 				if(object.name == desiredTarget)
 					var/is_autopilot_active = shuttleObject.shuttle_data.ai_pilot?.is_active()
-					shuttleObject.shuttle_data.set_pilot(new /datum/shuttle_ai_pilot/autopilot(object))
-					if(is_autopilot_active)
-						shuttleObject.shuttle_data.ai_pilot?.try_toggle()
+					if(shuttleObject.shuttle_data.try_override_pilot())
+						shuttleObject.shuttle_data.set_pilot(new /datum/shuttle_ai_pilot/autopilot(object))
+						if(is_autopilot_active)
+							shuttleObject.shuttle_data.ai_pilot?.try_toggle()
+					else
+						say("Unable to command shuttle")
 					return
 		if("nautopilot")
 			if(QDELETED(shuttleObject))
