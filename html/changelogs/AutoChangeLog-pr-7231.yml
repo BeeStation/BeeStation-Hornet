@@ -1,0 +1,5 @@
+author: itsmeow
+delete-after: true
+changes:
+  - tweak: Monochromacy quirk and cursed heart blood-red client colors now apply to
+      inventory slots
