@@ -28,7 +28,7 @@
 	name = "Bartender"
 	jobtype = /datum/job/bartender
 
-	id = /obj/item/card/id/job/serv
+	id = /obj/item/card/id/job/bartender
 	glasses = /obj/item/clothing/glasses/sunglasses/advanced/reagent
 	belt = /obj/item/pda/bar
 	ears = /obj/item/radio/headset/headset_srv
