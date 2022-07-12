@@ -15,6 +15,7 @@ Anderson
 Andreev
 Ann
 Archibald
+Armstrong
 Ashbaugh
 Atkinson
 Atweeke
@@ -378,6 +379,8 @@ Poehl
 Poley
 Polson
 Powell
+Power
+Powers
 Pratt
 Prechtl
 Prescott

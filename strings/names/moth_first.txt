@@ -16,6 +16,7 @@ Axylia
 Bombyx
 Callosamia
 Callhistia
+Capricornia
 Catocala
 Cheliosea
 Chloroclystis
