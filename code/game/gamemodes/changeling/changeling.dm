@@ -101,6 +101,7 @@ GLOBAL_LIST_INIT(slot2type, list("head" = /obj/item/clothing/head/changeling, "w
 	user.undershirt = chosen_prof.undershirt
 	user.socks = chosen_prof.socks
 
+
 	chosen_dna.transfer_identity(user, 1)
 	user.updateappearance(mutcolor_update=1)
 
@@ -140,6 +141,7 @@ GLOBAL_LIST_INIT(slot2type, list("head" = /obj/item/clothing/head/changeling, "w
 
 		if(istype(C, /obj/item/card/id/changeling) && chosen_prof.id_job_name)
 			var/obj/item/card/id/changeling/flesh_id = C
+			flesh_id.hud_state = chosen_prof.id_hud_state
 			flesh_id.assignment = chosen_prof.id_job_name
 
 		if(equip)
