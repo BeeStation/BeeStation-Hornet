@@ -257,5 +257,5 @@
 	name = pick(XENOA_SELLER_NAMES)
 	buying = pick(/obj/item/xenoartifact)
 	if(buying == /obj/item/xenoartifact) //Don't bother trying to use istype here
-		dialogue = "[name] is requesting: artifact::item-class"
+		dialogue = "[name] is requesting: Anomoly : Class : Artifact"
 	addtimer(CALLBACK(src, .proc/change_item), (rand(1,3)*60) SECONDS)
