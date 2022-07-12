@@ -192,9 +192,11 @@
 	..()
 
 /obj/item/xenoartifact/attackby(obj/item/I, mob/living/user, params)
+	var/tool_text = ""
 	for(var/datum/xenoartifact_trait/t as() in traits) //chat & bubble hints & helpers
 		if(t?.on_item(src, user, I) && user.can_see_reagents())
-			balloon_alert(user, "[t.desc ? t.desc : t.label_name]\n", material)
+			tool_text = "[tool_text][t.desc ? t.desc : t.label_name]\n"
+	balloon_alert(user, tool_text, material)
 
 	//allow people to remove stickers
 	if(I.tool_behaviour == TOOL_WIRECUTTER && (locate(/obj/item/xenoartifact_label) in contents))
