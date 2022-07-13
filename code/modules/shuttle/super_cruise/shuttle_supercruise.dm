@@ -7,7 +7,7 @@
 	var/datum/orbital_object/orbital_body
 	var/datum/orbital_vector/spawn_position = new()
 	var/datum/orbital_vector/spawn_velocity = new()
-	if(!spawn_position)
+	if(!spawn_position_param)
 		if((!z_level || !z_level.orbital_body))
 			message_admins("Error: Shuttle is entering supercruise from a bad location. Shuttle: [name]")
 			log_runtime("Error: Shuttle is entering supercruise from a bad location. Shuttle: [name]")

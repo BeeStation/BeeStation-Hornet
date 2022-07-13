@@ -189,6 +189,8 @@
 
 /obj/effect/mapping_helpers/auto_wrench/LateInitialize()
 	//Perform our duty and then delete
+	//Give some time for pipenets to build
+	sleep(50)
 	function()
 	return INITIALIZE_HINT_QDEL
 
