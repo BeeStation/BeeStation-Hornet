@@ -10,6 +10,7 @@
 	//Major security flaw if server ops set this up wrong.
 	var/basepath = CONFIG_GET(string/shuttle_ruin_filepath)
 	if(!basepath)
+		to_chat(src, "<span class='warning'>The folder [basepath] containing the shuttle files is missing! Please contact your host.</span>")
 		return
 
 	var/regex/safe_path_regex = new("^data/\\w*/$", "g")
@@ -40,6 +41,7 @@
 
 	//Verify selected file
 	if(!file_to_download)
+		to_chat(src, "<span class='warning'>The folder [basepath] does not contain any shuttle to load! Please Add a new shuttle.</span>")
 		return
 
 	var/path = "[basepath][file_to_download]"
@@ -98,6 +100,7 @@
 
 	//Verify selected file
 	if(!file_to_delete)
+		to_chat(src, "<span class='warning'>The folder [basepath] does not contain any shuttle to delete!</span>")
 		return
 
 	//Get the path
@@ -117,6 +120,7 @@
 	//Major security flaw if server ops set this up wrong.
 	var/basepath = CONFIG_GET(string/shuttle_ruin_filepath)
 	if(!basepath)
+		to_chat(src, "<span class='warning'>The folder [basepath] containing the shuttle files is missing! Please contact your host.</span>")
 		return
 
 	var/regex/safe_path_regex = new("^data/\\w*/$", "g")
@@ -147,6 +151,7 @@
 
 	//Verify selected file
 	if(!file_to_delete)
+		to_chat(src, "<span class='warning'>The folder [basepath] containing the shuttle files is missing! Please contact your host.</span>")
 		return
 
 	//Get the path
