@@ -48,3 +48,18 @@
 		. += "It has a label on it that reads <b>'Caution: This missile is extremely underwhelming.'</b>"
 	else
 		. += "It has a small label on the side, but you are too far away to read it."
+
+/obj/item/projectile/bullet/shuttle/missile/black_hole
+	name = "black_hole missile"
+	desc = "A mixture of a highly reactive putty explosive and dense supermatter extracts. Upon impact, the reactive putty will detonate and compress the supermatter extract forming a blackhole."
+	light_r = 150
+
+/obj/item/projectile/bullet/shuttle/missile/black_hole/on_hit(atom/target, blocked)
+	//Locate our current z-level
+	var/turf/T = get_turf(target)
+	var/datum/space_level/space_level = SSmapping.get_level(T.z)
+	new /obj/anomaly/singularity(T)
+	if(!space_level || !space_level.orbital_body)
+		return
+	//Holy fuck
+	new /datum/orbital_object/hazard/black_hole(new /datum/orbital_vector(space_level.orbital_body.position.x, space_level.orbital_body.position.y))

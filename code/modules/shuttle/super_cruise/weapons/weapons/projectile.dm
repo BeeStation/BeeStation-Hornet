@@ -44,10 +44,13 @@
 
 /obj/machinery/shuttle_weapon/railgun
 	name = "Zeus MKI Railgun"
+	icon = 'icons/obj/supercruise/supercruise_weapons_long.dmi'
 	projectile_type = /obj/item/projectile/bullet/shuttle/ballistic/guass
 	cooldown = 160
 	innaccuracy = 1
 	strength_rating = 70
+	hit_chance = 80
+	miss_chance = 60
 
 /obj/item/wallframe/shuttle_weapon/railgun
 	name = "Zeus MKI Railgun"
@@ -63,6 +66,8 @@
 	cooldown = 180
 	innaccuracy = 2
 	strength_rating = 90
+	hit_chance = 60
+	miss_chance = 80
 
 /obj/item/wallframe/shuttle_weapon/railgun/anti_crew
 	name = "Zeus MKII Anti-Personnel Railgun Mount"

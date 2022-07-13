@@ -4,6 +4,7 @@ GLOBAL_LIST_INIT(supercruise_debug_verbs, list(
 	/client/proc/check_ship_status,
 	/client/proc/set_ship_faction,
 	/client/proc/highlight_registered_turfs,
+	/client/proc/create_npc_ship,
 ))
 GLOBAL_PROTECT(supercruise_debug_verbs)
 
@@ -47,6 +48,10 @@ GLOBAL_PROTECT(supercruise_debug_verbs)
 	//Awaken
 	var/datum/shuttle_data/selected_shuttle = SSorbits.assoc_shuttle_data[selected_ship]
 	selected_shuttle.set_pilot(new selected_ai())
+
+	message_admins("[key_name_admin(src)] enabled the AI of [selected_ship].")
+	log_shuttle("[key_name_admin(src)] enabled the AI of [selected_ship].")
+	log_admin("[key_name_admin(src)] enabled the AI of [selected_ship].")
 
 /client/proc/check_ship_status()
 	set category = "Exploration Debug"
@@ -102,6 +107,10 @@ GLOBAL_PROTECT(supercruise_debug_verbs)
 	var/datum/shuttle_data/selected_shuttle = SSorbits.assoc_shuttle_data[selected_ship]
 	selected_shuttle.faction = new selected_faction()
 
+	message_admins("[key_name_admin(src)] changed the faction of [selected_ship] to [selected_faction].")
+	log_shuttle("[key_name_admin(src)] changed the faction of [selected_ship] to [selected_faction].")
+	log_admin("[key_name_admin(src)] changed the faction of [selected_ship] to [selected_faction].")
+
 /client/proc/highlight_registered_turfs()
 	set category = "Exploration Debug"
 	set name = "Highlight Registered Turfs"
@@ -121,3 +130,49 @@ GLOBAL_PROTECT(supercruise_debug_verbs)
 			spawn(20 SECONDS)
 				images -= I
 				qdel(I)
+
+/client/proc/create_npc_ship()
+	set category = "Exploration Debug"
+	set name = "Spawn NPC Ship"
+
+	if(!check_rights(R_DEBUG))
+		return
+
+	var/list/valid_maps = list()
+
+	for(var/id in SSmapping.shuttle_templates)
+		var/datum/map_template/shuttle/supercruise/map = SSmapping.shuttle_templates[id]
+		if(!istype(map))
+			continue
+		valid_maps += map
+
+	var/datum/map_template/shuttle/supercruise/selected_ship = input(src, "Select the ship template to spawn", "Spawn NPC Ship", null) as null|anything in valid_maps
+	if(!selected_ship)
+		return
+
+	var/datum/faction/selected_faction = input(src, "Select a faction", "Spawn NPC Ship", null) as null|anything in SSorbits.factions
+	if(!selected_faction)
+		return
+
+	var/selected_ai = input(src, "Select an AI type to grant to this ship", "Spawn NPC Ship", null) as null|anything in typesof(/datum/shuttle_ai_pilot)
+	if(!selected_ai)
+		return
+
+	//Spawn it
+	//Spawn the ship
+	var/datum/turf_reservation/preview_reservation = SSmapping.RequestBlockReservation(selected_ship.width, selected_ship.height, SSmapping.transit.z_value, /datum/turf_reservation/transit)
+	if(!preview_reservation)
+		CRASH("failed to reserve an area for shuttle template loading")
+	var/turf/BL = TURF_FROM_COORDS_LIST(preview_reservation.bottom_left_coords)
+
+	//Setup the docking port
+	var/obj/docking_port/mobile/M = selected_ship.place_port(BL, FALSE, TRUE, rand(-6000, 6000), rand(-6000, 6000))
+
+	//Give the ship some AI
+	var/datum/shuttle_data/located_shuttle = SSorbits.get_shuttle_data(M.id)
+	located_shuttle.faction = new selected_faction()
+	located_shuttle.set_pilot(new selected_ai())
+
+	message_admins("[key_name_admin(src)] spawned an NPC ship.")
+	log_shuttle("[key_name_admin(src)] spawned an NPC ship.")
+	log_admin("[key_name_admin(src)] spawned an NPC ship.")

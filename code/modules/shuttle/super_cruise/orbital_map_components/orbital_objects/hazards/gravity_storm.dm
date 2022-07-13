@@ -1,7 +1,7 @@
 /datum/orbital_object/hazard/gravity_storm
 	name = "Gravitational Storm"
 
-/datum/orbital_object/hazard/ion_storm/effect(datum/shuttle_data/shuttle_data)
+/datum/orbital_object/hazard/gravity_storm/effect(datum/shuttle_data/shuttle_data)
 	if(prob(90))
 		return
 	//Locate the orbital object

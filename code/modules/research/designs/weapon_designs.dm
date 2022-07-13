@@ -519,14 +519,14 @@
 
 /datum/design/shuttle_weapon/railgun
 	name = "Zeus MKI Railgun Mount"
-	desc=  "A kinetic weapon capable of cutting through an entire ship in a single shot. Designed for use on shuttles."
+	desc=  "A kinetic weapon designed for long ranged precision shots. Designed for use on shuttles."
 	id = "shuttle_railgun"
 	materials = list(/datum/material/iron = 60000, /datum/material/glass = 20000, /datum/material/copper = 10000, /datum/material/diamond = 5000)
 	build_path = /obj/item/wallframe/shuttle_weapon/railgun
 
 /datum/design/shuttle_weapon/railgun_crew
 	name = "Zeus MKII Anti-Personnel Railgun Mount"
-	desc=  "A kinetic weapon that fired uranium coated magnetic rounds. Tears aparts ships and crews, however has a longer reload time and a lower accuracy. Designed for use on shuttles."
+	desc=  "A kinetic weapon that fired uranium coated magnetic rounds. Designed for long ranged precision shots. Designed for use on shuttles."
 	id = "shuttle_railgun_crew"
 	materials = list(/datum/material/iron = 60000, /datum/material/glass = 20000, /datum/material/copper = 10000, /datum/material/diamond = 5000, /datum/material/uranium = 5000)
 	build_path = /obj/item/wallframe/shuttle_weapon/railgun/anti_crew

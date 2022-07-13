@@ -3234,6 +3234,7 @@
 #include "code\modules\shuttle\super_cruise\orbital_map_components\orbital_objects\space_station.dm"
 #include "code\modules\shuttle\super_cruise\orbital_map_components\orbital_objects\star.dm"
 #include "code\modules\shuttle\super_cruise\orbital_map_components\orbital_objects\z_linked.dm"
+#include "code\modules\shuttle\super_cruise\orbital_map_components\orbital_objects\hazards\black_hole.dm"
 #include "code\modules\shuttle\super_cruise\orbital_map_components\orbital_objects\hazards\gravity_storm.dm"
 #include "code\modules\shuttle\super_cruise\orbital_map_components\orbital_objects\hazards\hazard.dm"
 #include "code\modules\shuttle\super_cruise\orbital_map_components\orbital_objects\hazards\ion_storm.dm"

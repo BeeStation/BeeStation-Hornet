@@ -25,6 +25,9 @@
 	meteor_types = null
 	. = ..()
 
+/datum/orbital_object/meteor/explode()
+	qdel(src)
+
 /datum/orbital_object/meteor/process()
 	. = ..()
 	if(!QDELETED(target))

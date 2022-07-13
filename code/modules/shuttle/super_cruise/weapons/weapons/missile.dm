@@ -50,3 +50,24 @@
 /obj/item/wallframe/shuttle_weapon/missile/fire
 	name = "Prometheus Mount"
 	result_path = /obj/machinery/shuttle_weapon/missile/fire
+
+//Devourer
+
+/*
+/obj/machinery/shuttle_weapon/missile/black_hole
+	name = "Devourer Missile Launcher"
+	projectile_type = /obj/item/projectile/bullet/shuttle/missile/black_hole
+	cooldown = 10000
+	hit_chance = 100
+	miss_chance = 0
+	innaccuracy = 0
+	//Please don't spawn me
+	strength_rating = 50000
+
+/obj/machinery/shuttle_weapon/missile/black_hole/Initialize(mapload, ndir)
+	. = ..()
+	priority_announce(
+		"A class-5 anomaly weapon has been detected in a local sector. This weapon is capable of producing a gravitational singularity that will dsetroy everything in this sector. Destroy that weapon at all costs.",
+		"Nanotrasen Superweapons Division")
+	next_shot_world_time = world.time + 2 MINUTES
+*/

@@ -18,7 +18,7 @@
 	var/turf/BL = TURF_FROM_COORDS_LIST(preview_reservation.bottom_left_coords)
 
 	//Setup the docking port
-	var/obj/docking_port/mobile/M = selected_ship.place_port(BL)
+	var/obj/docking_port/mobile/M = selected_ship.place_port(BL, FALSE, TRUE, rand(-6000, 6000), rand(-6000, 6000))
 
 	SSorbits.update_shuttle_name(M.id, "[M.name] (OBJECTIVE)")
 

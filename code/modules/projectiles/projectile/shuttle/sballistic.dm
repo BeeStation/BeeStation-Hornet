@@ -24,6 +24,7 @@
 	icon_state = "gaussradioactive"
 	name = "uranium-coated guass round"
 	irradiate = 200
+	damage = 80
 	slur = 50
 	knockdown = 80
 
@@ -35,7 +36,8 @@
 	if(istype(T))
 		if(impact_effect_type && !hitscan)
 			new impact_effect_type(T, target.pixel_x + rand(-8, 8), target.pixel_y + rand(-8, 8))
-		T.ex_act(EXPLODE_LIGHT)
+		//Boom
+		explosion(T, 0, 0, 1, 0, flame_range = 2)
 		return BULLET_ACT_HIT
 	return ..()
 

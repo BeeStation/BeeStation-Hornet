@@ -40,11 +40,15 @@
 	for(var/mob/living/L in GLOB.mob_living_list)
 		for(var/datum/space_level/level as() in linked_z_level)
 			if(L.z == level.z_value)
-				qdel(L)
+				L.gib()
 				break
+	//Kill the shuttles
+	for (var/obj/docking_port/mobile/M in SSshuttle.mobile)
+		M.intoTheSunset()
+	//Kill the z-level
+	for (var/datum/space_level/space_level in linked_z_level)
+		SSzclear.wipe_z_level(space_level.z_value)
 	//Prevent access to the z-level.
-	//Announcement
-	priority_announce("The orbital body [name] has been destroyed. Transit to this location is no longer possible.", "Nanotrasen Orbital Body Division")
 	qdel(src)
 
 /datum/orbital_object/z_linked/collision(datum/orbital_object/other)

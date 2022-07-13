@@ -7,7 +7,7 @@
 	var/weight = 0
 
 ///Place put returns the port
-/datum/map_template/shuttle/supercruise/proc/place_port(turf/T, centered, register=TRUE)
+/datum/map_template/shuttle/supercruise/proc/place_port(turf/T, centered, register=TRUE, positionX, positionY)
 	var/list/coords = load(T, centered, register)
 	if(!coords)
 		return
@@ -20,5 +20,5 @@
 		var/obj/docking_port/mobile/port = locate() in place
 		if(port)
 			. = port
-			port.enter_supercruise()
+			port.enter_supercruise(new /datum/orbital_vector(positionX, positionY))
 			break
