@@ -3,6 +3,8 @@
 	min_payout = 5000
 	max_payout = 25000
 	weight = 2
+	var/datum/registered_port
+	var/datum/registered_shuttle_data
 
 /datum/orbital_objective/destroy_ship/get_text()
 	. = "An unidentified vessel has been causing problems somewhere in this sector. We require a team to \
@@ -26,8 +28,21 @@
 	var/datum/shuttle_data/located_shuttle = SSorbits.get_shuttle_data(M.id)
 	located_shuttle.set_pilot(new /datum/shuttle_ai_pilot/npc/hostile())
 
+	registered_port = M
+	registered_shuttle_data = located_shuttle
+
 	//On destroy, complete the objective
 	RegisterSignal(M, COMSIG_PARENT_QDELETING, /datum/orbital_objective.proc/complete_objective)
+	RegisterSignal(located_shuttle, COMSIG_PARENT_QDELETING, /datum/orbital_objective.proc/complete_objective)
+	RegisterSignal(located_shuttle, COMSIG_SHUTTLE_NPC_INCAPACITATED, /datum/orbital_objective.proc/complete_objective)
+
+/datum/orbital_objective/destroy_ship/complete_objective()
+	UnregisterSignal(registered_port, COMSIG_PARENT_QDELETING)
+	UnregisterSignal(registered_shuttle_data, COMSIG_PARENT_QDELETING)
+	UnregisterSignal(registered_shuttle_data, COMSIG_SHUTTLE_NPC_INCAPACITATED)
+	registered_port = null
+	registered_shuttle_data = null
+	. = ..()
 
 /// You can't fail this objective
 /datum/orbital_objective/destroy_ship/check_failed()

@@ -621,3 +621,5 @@
 #define COMSIG_SHUTTLE_ENGINE_STATUS_CHANGE "shuttle_engine_status"
 /// Called when a shield generator changes its health amount: (old_amount, new_amount)
 #define COMSIG_SHUTTLE_SHIELD_HEALTH_CHANGE "shuttle_shield_health_change"
+/// Called when a shuttle has its NPC controller killed
+#define COMSIG_SHUTTLE_NPC_INCAPACITATED "shuttle_npc_incapacitated"

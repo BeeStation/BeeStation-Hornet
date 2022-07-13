@@ -14,6 +14,12 @@
 /datum/shuttle_ai_pilot/autopilot/handle_ai_flight_action(datum/orbital_object/shuttle/shuttle)
 	if(!activated)
 		return
+	//Delete if our target goes out of range
+	if (shuttleTarget.position.DistanceTo(shuttle.position) > shuttle_data.detection_range)
+		SEND_SIGNAL(shuttle, COMSIG_ORBITAL_BODY_MESSAGE, "Autopilot disabled, target has left detection range.")
+		shuttleTarget = null
+		qdel(src)
+		return
 	//Drive to the target location
 	if(!shuttle.shuttleTargetPos)
 		shuttle.shuttleTargetPos = new(shuttleTarget.position.x, shuttleTarget.position.y)
