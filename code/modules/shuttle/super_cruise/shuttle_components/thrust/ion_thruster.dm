@@ -8,7 +8,7 @@
 
 	idle_power_usage = 0
 	circuit = /obj/item/circuitboard/machine/shuttle/engine/plasma
-	thrust = 15
+	thrust = 40
 	fuel_use = 0
 	bluespace_capable = FALSE
 	cooldown = 45
@@ -200,7 +200,7 @@
 
 	circuit = /obj/item/circuitboard/machine/shuttle/engine/plasma
 	//Must faster
-	thrust = 75
+	thrust = 120
 	//Uses more than it can be charged with a basic capacitor, so cannot sustain long periods of flight
 	usage_rate = 5
 

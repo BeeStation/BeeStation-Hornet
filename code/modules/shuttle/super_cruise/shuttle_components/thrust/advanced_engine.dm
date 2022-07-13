@@ -5,7 +5,7 @@
 	icon_state_off = "propulsion"
 	icon_state_closed = "propulsion"
 	icon_state_open = "propulsion"
-	thrust = 40
+	thrust = 400
 	fuel_use = 0
 	obj_flags = INDESTRUCTIBLE
 	needs_heater = FALSE
@@ -14,7 +14,7 @@
 /obj/machinery/shuttle/engine/advanced/large
 	name = "large advanced shuttle thruster"
 	desc = "A very large bluespace engine used to propel very large ships."
-	thrust = 100
+	thrust = 1000
 	opacity = 1
 	icon = 'icons/obj/2x2.dmi'
 	icon_state = "large_engine"

@@ -4,7 +4,6 @@
 		return
 	//Inherit orbital velocity of the place we are leaving
 	var/datum/space_level/z_level = SSmapping.get_level(z)
-	var/datum/orbital_object/orbital_body
 	var/datum/orbital_vector/spawn_position = new()
 	var/datum/orbital_vector/spawn_velocity = new()
 	if(!spawn_position_param)
