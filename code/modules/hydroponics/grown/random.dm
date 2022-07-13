@@ -1,4 +1,3 @@
-#define SAFE_RAND_MAX 11000
 //Random seeds; stats, traits, and plant type are randomized for each seed.
 /obj/item/seeds/random
 	name = "pack of strange seeds"
@@ -42,43 +41,21 @@
 	name = "[initial(name)] [pickedpattern]"
 	plantname = "[initial(plantname)] [pickedpattern]"
 
-	var/list/chances = rand_LCM(given_identifier, maximum=101, flat=0, return_as_list=3)
+	if(prob(25))
+		genes += new /datum/plant_gene/reagent(/datum/reagent/consumable/nutriment, list(1, 1))
+	if(prob(25))
+		genes += new /datum/plant_gene/reagent(/datum/reagent/consumable/nutriment/vitamin, list(1, 1))
+	var/list/chances = rand_LCM(given_identifier, maximum=101, flat=0, numbers_of_return=3)
 	if(chances[1] <= BTNY_CFG_RNG_REAG_CHANCE_FIRST)
 		add_random_reagents(given_identifier)
 	if(chances[2] <= BTNY_CFG_RNG_REAG_CHANCE_SECOND)
 		add_random_reagents(rand_LCM(given_identifier, maximum=SAFE_RAND_MAX-7777))
 	if(chances[3] <= BTNY_CFG_RNG_TRAIT_CHANCE)
 		add_random_traits(given_identifier)
-	qdel(chances)
+	randomize_stats(given_identifier)
 	chances=null
 
 	research_identifier = "[given_identifier]"
-
-/proc/rand_LCM(var/my_rand_seed=0, var/maximum=1, var/numbers_of_return = 1, var/flat = 1)
-	// Pseudo random number generating - "Modified" Linear Congruential Method
-	// Since I didn't want to touch `rand_seed()` proc, I had to make this.
-	// This isn't real Linear Congruential Method.
-	/* Usage example:
-		rand_LCM([seed], 3): returns 1~3
-		rand_LCM([seed], 3, flat=0): returns 0~2
-		rand_LCM([seed], 3, numbers_of_return=2, flat=2): returns a list with two of 2~4
-	*/
-	. = numbers_of_return == 1 ? 0 : list()
-	var/static/incre = rand(1,SAFE_RAND_MAX)
-	var/static/multiplier = rand(1,SAFE_RAND_MAX) // This will make each round random
-	if(my_rand_seed>SAFE_RAND_MAX)
-		my_rand_seed %= SAFE_RAND_MAX
-		/* Calculation issue:
-			`SAFE_RAND_MAX*SAFE_RAND_MAX+SAFE_RAND_MAX=121,011,000`
-			if you try to calculate get a mod from a value more than 121,011,000,
-			this causes some overflow issue in DM.
-		*/
-	if(my_rand_seed == 0)
-		my_rand_seed = rand(1,SAFE_RAND_MAX)
-	for(var/i in 1 to numbers_of_return)
-		var/seed_result = (my_rand_seed*multiplier+incre) %maximum +flat
-		my_rand_seed = seed_result
-		. += seed_result
 
 /obj/item/reagent_containers/food/snacks/grown/random
 	seed = /obj/item/seeds/random

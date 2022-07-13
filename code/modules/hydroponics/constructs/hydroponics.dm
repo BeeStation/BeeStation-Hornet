@@ -1,11 +1,11 @@
-#define BOTANY_NUTRI_NOTHING "NUTRIMENT"
-#define BOTANY_NUTRI_EZNUTRI "EZ"
+#define BOTANY_NUTRI_NOTHING "Nutrient"
+#define BOTANY_NUTRI_EZNUTRI "EZ-nutriment"
 #define BOTANY_NUTRI_L4Z "L4Z"
-#define BOTANY_NUTRI_ROBHAR "RH"
-#define BOTANY_NUTRI_EARTHB "EARB"
-#define BOTANY_NUTRI_OMNIZ "OMNIZ"
-#define BOTANY_NUTRI_MUTAGEN "MUTAGEN"
-#define BOTANY_NUTRI_ASHBLOOD "ASHBLOOD"
+#define BOTANY_NUTRI_ROBHAR "Robust Harvest"
+#define BOTANY_NUTRI_EARTHB "Earthsblood"
+#define BOTANY_NUTRI_OMNIZ "Omnizine"
+#define BOTANY_NUTRI_MUTAGEN "Mutagen"
+#define BOTANY_NUTRI_ASHBLOOD "Ashen Blood"
 
 /obj/machinery/hydroponics
 	name = "hydroponics tray"
@@ -21,7 +21,7 @@
 	var/maxwater = 150		//The maximum amount of water in the tray
 	var/nutrilevel = 20		//The amount of nutrient in the tray (max 10)
 	var/list/nutris = list() // Existing nutriments inside a tray. This is default starting.
-	var/maxnutri = 20       //The maximum nutrient of water in the tray
+	var/maxnutri = 12       //The maximum nutrient of water in the tray
 	var/pestlevel = 0		//The amount of pests in the tray (max 10)
 	var/weedlevel = 0		//The amount of weeds in the tray (max 10)
 	var/toxic = 0			//Toxicity in the tray?
@@ -39,7 +39,6 @@
 	var/rating = 1
 	var/unwrenchable = 1
 	var/recent_bee_visit = FALSE //Have we been visited by a bee recently, so bees dont overpollinate one plant
-	var/using_irrigation = FALSE //If the tray is connected to other trays via irrigation hoses
 	var/self_sufficiency_req = 20 //Required total dose to make a self-sufficient hydro tray. 1:1 with earthsblood.
 	var/self_sufficiency_progress = 0
 	var/self_sustaining = FALSE //If the tray generates nutrients and water on its own
@@ -53,7 +52,7 @@
 	AddComponent(/datum/component/discoverable, 0)
 	fill_nutri()
 
-/obj/machinery/hydroponics/proc/fill_nutri(nutri_type=BOTANY_NUTRI_EZNUTRI)
+/obj/machinery/hydroponics/proc/fill_nutri(nutri_type=BOTANY_NUTRI_NOTHING)
 	nutrilevel = length(nutris)
 	for(var/i in 1 to maxnutri-nutrilevel)
 		nutris += nutri_type
@@ -70,16 +69,13 @@
 		tmp_capacity += M.rating
 	for (var/obj/item/stock_parts/manipulator/M in component_parts)
 		rating = M.rating
-	maxwater = tmp_capacity * 50 // Up to 300
-	maxnutri = tmp_capacity * 5 // Up to 30
+	// maxwater = tmp_capacity * 50 // Up to 300
+	// maxnutri = tmp_capacity * 5 // Up to 30
 
 /obj/machinery/hydroponics/constructable/examine(mob/user)
 	. = ..()
 	if(dont_warn_me && myseed.maturation+myseed.production <= age)
 		. += "<span class='notice'>[myseed.plantname] looks </span>"
-	for(var/each in nutris)
-		. += "\[each\] "
-
 
 /obj/machinery/hydroponics/Destroy()
 	if(myseed)
@@ -94,31 +90,10 @@
 		if(default_deconstruction_screwdriver(user, icon_state, icon_state, I))
 			return
 
-		// handle deconstructing the machine, if permissible
-		if(I.tool_behaviour == TOOL_CROWBAR && using_irrigation)
-			to_chat(user, "<span class='warning'>Disconnect the hoses first!</span>")
-			return
-		else if(default_deconstruction_crowbar(I))
+		if(default_deconstruction_crowbar(I))
 			return
 
 	return ..()
-
-/obj/machinery/hydroponics/proc/FindConnected()
-	var/list/connected = list()
-	var/list/processing_atoms = list(src)
-
-	while(processing_atoms.len)
-		var/atom/a = processing_atoms[1]
-		for(var/step_dir in GLOB.cardinals)
-			var/obj/machinery/hydroponics/h = locate() in get_step(a, step_dir)
-			// Soil plots aren't dense
-			if(h && h.using_irrigation && h.density && !(h in connected) && !(h in processing_atoms))
-				processing_atoms += h
-
-		processing_atoms -= a
-		connected += a
-
-	return connected
 
 
 /obj/machinery/hydroponics/process(delta_time)
@@ -133,7 +108,8 @@
 			//family gene initialisation
 			var/datum/plant_gene/family/F = myseed.family
 			var/eat
-			var/process_aging = 1 // 1=aging once, 2=aging twice
+			var/process_aging = 0 // 1=aging once, 2=aging twice
+			// aging is determined by nutriment
 
 			//Weed/Pest growing----------------------------------------------------------
 			// Sufficient water level and nutrient level = spawns weeds
@@ -253,10 +229,7 @@
 					adjustHealth(-F.nutri_damage)
 
 			if(eat)
-				if(nutrilevel < F.nutri_adjust)
-					process_aging = nutrimentProcess(nutrilevel)
-				else
-					process_aging = nutrimentProcess(F.nutri_adjust)
+				process_aging = nutrimentProcess(F.nutri_adjust)
 				if(prob(50))
 					adjustHealth(F.wellfed_heal)
 
@@ -369,7 +342,7 @@
 	return
 
 /obj/machinery/hydroponics/proc/nutrimentProcess(count)
-	if(length(nutris))
+	if(!length(nutris))
 		return 0 // no nutriment, no aging
 
 	. = 1 // return value = how much this plant will be aged
@@ -377,7 +350,7 @@
 	for(var/i in 1 to count)
 		var/chosen_nutriment
 		if(!random_nutriment) // this is an advantage of machine hydroponics
-			chosen_nutriment = chosen_nutriment[1]
+			chosen_nutriment = nutris[1]
 		else
 			chosen_nutriment = pick(nutris)
 		nutris -= chosen_nutriment
@@ -394,7 +367,7 @@
 					adjustHealth(2)
 			if(BOTANY_NUTRI_ROBHAR)
 				if(nutrilevel>=1)
-					chosen_nutriment = pick(nutris)
+					chosen_nutriment = nutris[1]
 					nutris -= chosen_nutriment
 					. += 1
 					nutrilevel = length(nutris)
@@ -443,38 +416,11 @@
 	//Refreshes the icon and sets the luminosity
 	cut_overlays()
 
-	if(self_sustaining)
-		if(istype(src, /obj/machinery/hydroponics/soil))
-			add_atom_colour(rgb(255, 175, 0), FIXED_COLOUR_PRIORITY)
-		else
-			add_overlay(mutable_appearance('icons/obj/hydroponics/equipment.dmi', "gaia_blessing"))
-		set_light(3)
-
-	update_icon_hoses()
-
 	if(myseed)
 		update_icon_plant()
 		if(!dont_warn_me)
 			update_icon_lights()
-
-	if(!self_sustaining)
-		if(myseed && myseed.get_gene(/datum/plant_gene/trait/glow))
-			var/datum/plant_gene/trait/glow/G = myseed.get_gene(/datum/plant_gene/trait/glow)
-			set_light(G.glow_range(myseed), G.glow_power(myseed), G.glow_color)
-		else
-			set_light(0)
-
 	return
-
-
-/obj/machinery/hydroponics/proc/update_icon_hoses()
-	var/n = 0
-	for(var/Dir in GLOB.cardinals)
-		var/obj/machinery/hydroponics/t = locate() in get_step(src,Dir)
-		if(t && t.using_irrigation && using_irrigation)
-			n += Dir
-
-	icon_state = "hoses-[n]"
 
 /obj/machinery/hydroponics/proc/update_icon_plant()
 	var/mutable_appearance/plant_overlay = mutable_appearance(myseed.growing_icon, layer = OBJ_LAYER + 0.01)
@@ -514,21 +460,24 @@
 		. += "<span class='info'>It has <span class='name'>[myseed.plantname]</span> planted.</span>"
 		if (dead)
 			. += "<span class='warning'>It's dead!</span>"
-		else if (harvest)
-			. += "<span class='info'>It's ready to harvest.</span>"
-		else if (plant_health <= (myseed.endurance / 2))
-			. += "<span class='warning'>It looks unhealthy.</span>"
+		else
+			if (harvest)
+				. += "<span class='info'>It's ready to harvest.</span>"
+			if (plant_health <= 0)
+				. += "<span class='warning'>It looks unhealthy.</span>"
+			if (age > myseed.lifespan)
+				. += "<span class='warning'>It looks too old.</span>"
 	else
 		. += "<span class='info'>It's empty.</span>"
 
-	if(!self_sustaining)
-		. += "<span class='info'>Water: [waterlevel]/[maxwater].</span>\n"+\
-		"<span class='info'>Nutrient: [nutrilevel]/[maxnutri].</span>"
-		if(self_sufficiency_progress > 0)
-			var/percent_progress = round(self_sufficiency_progress * 100 / self_sufficiency_req)
-			. += "<span class='info'>Treatment for self-sustenance are [percent_progress]% complete.</span>"
-	else
-		. += "<span class='info'>It doesn't require any water or nutrients.</span>"
+	. += "<span class='info'>Water: [waterlevel]/[maxwater].</span>\n"+\
+	"<span class='info'>Nutrient: [nutrilevel]/[maxnutri].</span>"
+	var/nutri_queue = "<span class='info'>Nutrient List: "
+	for(var/each in nutris)
+		nutri_queue += "\[[each]\] "
+	nutri_queue += "</span>"
+	. += nutri_queue
+
 
 	if(weedlevel >= 5)
 		to_chat(user, "<span class='warning'>It's filled with weeds!</span>")
@@ -681,7 +630,6 @@
 		var/list/trays = list(src)//makes the list just this in cases of syringes and compost etc
 		var/target = myseed ? myseed.plantname : src
 		var/visi_msg = ""
-		var/irrigate = 0	//How am I supposed to irrigate pill contents?
 		var/transfer_amount
 
 		if(istype(reagent_source, /obj/item/reagent_containers/food/snacks) || istype(reagent_source, /obj/item/reagent_containers/pill))
@@ -701,18 +649,11 @@
 			else if(istype(reagent_source, /obj/item/reagent_containers/spray/))
 				visi_msg="[user] sprays [target] with [reagent_source]"
 				playsound(loc, 'sound/effects/spray3.ogg', 50, 1, -6)
-				irrigate = 1
 			else if(transfer_amount) // Droppers, cans, beakers, what have you.
 				visi_msg="[user] uses [reagent_source] on [target]"
-				irrigate = 1
 			// Beakers, bottles, buckets, etc.
 			if(reagent_source.is_drainable())
 				playsound(loc, 'sound/effects/slosh.ogg', 25, 1)
-
-		if(irrigate && transfer_amount > 30 && reagent_source.reagents.total_volume >= 30 && using_irrigation)
-			trays = FindConnected()
-			if (trays.len > 1)
-				visi_msg += ", setting off the irrigation system"
 
 		if(visi_msg)
 			visible_message("<span class='notice'>[visi_msg].</span>")
@@ -823,11 +764,6 @@
 /obj/machinery/hydroponics/can_be_unfasten_wrench(mob/user, silent)
 	if (!unwrenchable)  // case also covered by NODECONSTRUCT checks in default_unfasten_wrench
 		return CANT_UNFASTEN
-
-	if (using_irrigation)
-		if (!silent)
-			to_chat(user, "<span class='warning'>Disconnect the hoses first!</span>")
-		return FAILED_UNFASTEN
 
 	return ..()
 
@@ -942,7 +878,7 @@
 		return
 	if(issilicon(user))
 		return
-	var/popup_input = alert(user, "Would you like to remove all nutriments?", "Nutriment removal", "Yes", "No")
+	var/popup_input = alert(user, "Would you like to remove all nutrieents?", "Nutrieent removal", "Yes", "No")
 	if(popup_input == "Yes")
 		nutris = list()
 		nutrilevel = 0
@@ -959,10 +895,7 @@
 	flags_1 = NODECONSTRUCT_1
 	unwrenchable = FALSE
 	random_nutriment = TRUE
-	maxnutri = 10
-
-/obj/machinery/hydroponics/soil/update_icon_hoses()
-	return // Has no hoses
+	maxnutri = 8
 
 /obj/machinery/hydroponics/soil/update_icon_lights()
 	return // Has no lights

@@ -7,7 +7,7 @@
 	examine_line = "<span class='info'>It emits a soft glow.</span>"
 	trait_id = "glow"
 	var/glow_color = "#C3E381"
-	plant_gene_flags = PLANT_GENE_COMMON_REMOVABLE // use `/datum/plant_gene/trait/glow/random` instead
+	plant_gene_flags = NONE // use `/datum/plant_gene/trait/glow/random` instead
 	research_needed = 1
 
 /* <Behavior table>
@@ -99,6 +99,7 @@
 	name = "random dummy Bioluminescence"
 	desc = "this shouldn't exist."
 	plant_gene_flags = PLANT_GENE_COMMON_REMOVABLE | PLANT_GENE_RANDOM_ALLOWED
+	var/static/trait_length // this value is needed to be refered
 
 /* <Behavior table>
 	 <C type>
@@ -111,12 +112,12 @@
 	var/static/list/newgenes
 	if(isnull(newgenes))
 		newgenes = subtypesof(/datum/plant_gene/trait/glow) - list(/datum/plant_gene/trait/glow/shadow, /datum/plant_gene/trait/glow/random)
+		trait_length = length(newgenes)
 	var/chosen = null
 	if(find_by_number)
-		if(length(newgenes) < find_by_number)
+		if(trait_length < find_by_number)
 			on_new_seed(S) // bad number. just returns random.
-			CRASH("random biolumi trait - Bad find_by_number value: [find_by_number] > [length(newgenes)]")
-			return
+			CRASH("random biolumi trait - Bad find_by_number value: [find_by_number] is issued, but maximum length is [trait_length].")
 		chosen = newgenes[find_by_number]
 	else
 		chosen = pick(newgenes)

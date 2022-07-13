@@ -12,12 +12,16 @@
 
 /datum/plant_gene/proc/get_name() // Used for manipulator display
 	var/formatted_name
-	if(!(plant_gene_flags & PLANT_GENE_REAGENT_ADJUSTABLE) && !(plant_gene_flags & PLANT_GENE_COMMON_REMOVABLE))
-		formatted_name = "Stubborn: "
-	else if(!plant_gene_flags & PLANT_GENE_REAGENT_ADJUSTABLE)
-		formatted_name = "Flexible: "
-	else if(!plant_gene_flags & PLANT_GENE_COMMON_REMOVABLE)
-		formatted_name = "Essential: "
+	if(istype(src, /datum/plant_gene/reagent))
+		if(!(plant_gene_flags & PLANT_GENE_REAGENT_ADJUSTABLE) && !(plant_gene_flags & PLANT_GENE_COMMON_REMOVABLE))
+			formatted_name = "Stubborn: "
+		else if(!(plant_gene_flags & PLANT_GENE_COMMON_REMOVABLE))
+			formatted_name = "Essential: "
+		else if(!(plant_gene_flags & PLANT_GENE_REAGENT_ADJUSTABLE) && istype(src, /datum/plant_gene/reagent))
+			formatted_name = "Wipable: "
+	else
+		if(!(plant_gene_flags & PLANT_GENE_COMMON_REMOVABLE))
+			formatted_name = "Essential: "
 	formatted_name += name
 	return formatted_name
 
@@ -62,7 +66,7 @@
 	research_needed = -1
 
 /datum/plant_gene/core/get_name()
-	return "[name] [value]"
+	return "[name]: [value]"
 
 /datum/plant_gene/core/proc/apply_stat(obj/item/seeds/S)
 	return

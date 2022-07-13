@@ -206,6 +206,7 @@
 	L["faction"] = D["faction"]
 	L["category"] = D["category"]
 	L["level"] = D["level"]
+	L["reqlevel"] = D["reqlevel"] ? D["reqlevel"] : 0
 
 	if(D["category"] == "reagent")
 		L["max_reagent"] = D["maxvolume"]
@@ -402,7 +403,7 @@
 				var/datum/plant_gene/G = find_gene_by_id(params["gene_id"])
 				if(!G)
 					return FALSE
-				if(!G.plant_gene_flags & PLANT_GENE_COMMON_REMOVABLE)
+				if(!(G.plant_gene_flags & PLANT_GENE_COMMON_REMOVABLE))
 					return FALSE
 				operation = action
 				target = G
@@ -413,7 +414,7 @@
 				var/datum/plant_gene/reagent/G = find_gene_by_id(params["gene_id"])
 				if(!G)
 					return FALSE
-				if(!G.plant_gene_flags & PLANT_GENE_REAGENT_ADJUSTABLE)
+				if(!(G.plant_gene_flags & PLANT_GENE_REAGENT_ADJUSTABLE))
 					return FALSE
 				reag_unit_max = G.reag_unit > G.reag_unit_max ? G.reag_unit : G.reag_unit_max
 				reag_target_value = clamp(params["value"], unit_guage, reag_unit_max) //save value
@@ -452,6 +453,8 @@
 					return
 				newgene = stored_research.researched_genes[params["data_id"]]
 				if(!newgene)
+					return
+				if(newgene["level"] < newgene["reqlevel"]) // lack of research level
 					return
 				if(newgene["faction"] & research_faction_type)
 					switch(newgene["category"])

@@ -9,7 +9,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	var/datum/techweb/linked_techweb
 	var/research_faction = BOTANY_RESEARCHED_NANOTRASEN
-	var/scanning_speed = 50
+	var/scanning_speed = 5 SECONDS
 
 /obj/item/discovery_scanner/Initialize(mapload)
 	. = ..()

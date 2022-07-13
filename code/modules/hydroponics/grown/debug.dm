@@ -41,4 +41,4 @@
 	for(var/each in subtypesof(/datum/plant_gene/trait))
 		var/datum/plant_gene/trait/T = new each
 		genes += T
-	research_identifier = rand(0, 9999999)
+	research_identifier = "[rand(0, 9999999)]"

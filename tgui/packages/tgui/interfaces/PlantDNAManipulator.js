@@ -293,10 +293,9 @@ const PlantDNAManipulatorGene = (props, context) => {
       </Table.Cell>
       <Table.Cell collapsing py={0.1}>
         {
-          gene.category === "reagent" && (
+          gene.category === "reagent" && gene.adjustable > 0 && (
             <NumberInput
               value={gene.reag_unit}
-              disabled={!gene.adjustable}
               unit="u"
               width="65px"
               minValue={unit_guage}
@@ -540,6 +539,9 @@ const PlantDNAManipulatorWindowTraitsContents = (props, context) => {
         <Table.Cell>
           Trait datas
         </Table.Cell>
+        <Table.Cell>
+          Research level
+        </Table.Cell>
         <Table.Cell collapsing textAlign="center">
           Insert
         </Table.Cell>
@@ -550,9 +552,13 @@ const PlantDNAManipulatorWindowTraitsContents = (props, context) => {
             <Table.Cell m={0.2}>
               {r_data.name}
             </Table.Cell>
+            <Table.Cell>
+              {r_data.level}/{r_data.reqlevel > 0 ? r_data.reqlevel : "free"}
+            </Table.Cell>
             <Table.Cell collapsing>
               <Button
                 content="Insert"
+                disabled={r_data.level < r_data.reqlevel}
                 onClick={() => {
                   act_data.data_id = r_data.id;
                   act("insert", act_data); }}

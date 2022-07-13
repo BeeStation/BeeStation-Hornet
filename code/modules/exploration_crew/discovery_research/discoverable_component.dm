@@ -163,6 +163,7 @@
 						linked_techweb.researched_genes[data_id]["path"] = T
 						linked_techweb.researched_genes[data_id]["category"] = "trait"
 						linked_techweb.researched_genes[data_id]["level"] = 0
+						linked_techweb.researched_genes[data_id]["reqlevel"] = 0
 					linked_techweb.researched_genes[data_id]["level"] += 1
 		//------------------------------------------------------------------------------------------------------------------
 
@@ -188,6 +189,7 @@
 						linked_techweb.researched_genes[data_id]["path"] = trait_gene.type
 						linked_techweb.researched_genes[data_id]["category"] = "trait"
 						linked_techweb.researched_genes[data_id]["level"] = 0
+						linked_techweb.researched_genes[data_id]["reqlevel"] = trait_gene.research_needed
 					linked_techweb.researched_genes[data_id]["level"] += 1
 
 				// Reagent
@@ -220,4 +222,5 @@
 				linked_techweb.researched_genes[data_id]["path"] = family_gene.type
 				linked_techweb.researched_genes[data_id]["category"] = "family"
 				linked_techweb.researched_genes[data_id]["level"] = 0
+				linked_techweb.researched_genes[data_id]["reqlevel"] = family_gene.research_needed
 			linked_techweb.researched_genes[data_id]["level"] += 1

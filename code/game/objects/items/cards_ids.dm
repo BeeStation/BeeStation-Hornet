@@ -836,11 +836,6 @@ update_label("John Doe", "Clowny")
 	assignment = "Head of Personnel"
 	icon_state = "hop"
 	hud_state = JOB_HUD_HEADOFPERSONNEL
-/obj/item/card/id/job/botanist
-	name = "Job card (Serv) - Botanist"
-	assignment = "Botanist"
-	icon_state = "serv"
-	hud_state = JOB_HUD_BOTANIST
 
 /obj/item/card/id/job/cook
 	name = "Job card (Serv) - Cook"
@@ -979,6 +974,12 @@ update_label("John Doe", "Clowny")
 	assignment = "Exploration Crew"
 	icon_state = "exploration"
 	hud_state = JOB_HUD_EXPLORATIONCREW
+
+/obj/item/card/id/job/botanist
+	name = "Job card (RND) - Botanist"
+	assignment = "Botanist"
+	icon_state = "sci"
+	hud_state = JOB_HUD_RAWSCIENCE
 
 /obj/item/card/id/job/rawscience
 	name = "Job card (RND) - Custom"

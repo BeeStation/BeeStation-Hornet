@@ -27,6 +27,7 @@ GLOBAL_LIST_INIT(science_positions, list(
 	"Research Director",
 	"Scientist",
 	"Exploration Crew",
+	"Botanist",
 	"Roboticist"))
 
 
@@ -39,7 +40,6 @@ GLOBAL_LIST_INIT(supply_positions, list(
 GLOBAL_LIST_INIT(civilian_positions, list(
 	"Head of Personnel",
 	"Bartender",
-	"Botanist",
 	"Cook",
 	"Janitor",
 	"Curator",
@@ -108,6 +108,7 @@ GLOBAL_LIST_INIT(science_positions_hud, list(
 	JOB_HUD_SCIENTIST,
 	JOB_HUD_EXPLORATIONCREW,
 	JOB_HUD_ROBOTICIST,
+	JOB_HUD_BOTANIST,
 	JOB_HUD_RAWSCIENCE))
 
 GLOBAL_LIST_INIT(supply_positions_hud, list(
@@ -119,7 +120,6 @@ GLOBAL_LIST_INIT(supply_positions_hud, list(
 GLOBAL_LIST_INIT(civilian_positions_hud, list(
 	JOB_HUD_HEADOFPERSONNEL,
 	JOB_HUD_BARTENDER,
-	JOB_HUD_BOTANIST,
 	JOB_HUD_COOK,
 	JOB_HUD_JANITOR,
 	JOB_HUD_CURATOR,

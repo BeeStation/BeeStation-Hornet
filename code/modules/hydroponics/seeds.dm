@@ -105,7 +105,7 @@
 		for(var/datum/plant_gene/C in genes)
 			if(C.get_plant_gene_flags() & PLANT_GENE_QDEL_TARGET)
 				qdel(C)
-		genes.Cut() // cut list() object.
+		genes = null
 	if(istype(family))
 		if(family.get_plant_gene_flags() & PLANT_GENE_QDEL_TARGET)
 			qdel(family)
@@ -191,10 +191,10 @@
 /obj/item/seeds/proc/set_reagent_genes()
 	for(var/reag_id in reagents_innate)
 		genes += new /datum/plant_gene/reagent/innate(reag_id, reagents_innate[reag_id])
-	reagents_innate.Cut()
+	reagents_innate = null
 	for(var/reag_id in reagents_set)
 		genes += new /datum/plant_gene/reagent/sandbox(reag_id, reagents_set[reag_id])
-	reagents_set.Cut()
+	reagents_set = null
 
 /obj/item/seeds/proc/get_gene(typepath)
 	return (locate(typepath) in genes)
@@ -307,6 +307,13 @@
 		product_name = t_prod.seed.plantname
 	if(getYield() >= 1)
 		SSblackbox.record_feedback("tally", "food_harvested", getYield(), product_name)
+
+	var/gene_list = ""
+	for(var/datum/plant_gene/reagent/each in genes)
+		gene_list += "\[[each.name] [each.reag_unit]\] "
+	for(var/datum/plant_gene/trait/each in genes)
+		gene_list += "\[[each.name]\] "
+	user.investigate_log("has harvested a plant that has traits: [gene_list]. Harvester's ckey: \"[user.ckey]\"")
 	parent.update_tray(user)
 
 	return result
@@ -335,6 +342,10 @@
 		product_name = t_prod.seed.plantname
 	if(getYield() >= 1)
 		SSblackbox.record_feedback("tally", "food_harvested", getYield(), product_name)
+	var/gene_list = ""
+	for(var/datum/plant_gene/trait/each in genes)
+		gene_list += "\[[each.name]\] "
+	user.investigate_log("has harvested a plant that has traits: [gene_list]. Harvester's ckey: \"[user.ckey]\"")
 	parent.update_tray(user)
 
 	return result
@@ -428,6 +439,8 @@
 			return
 		if("production")
 			return
+		if("maturation")
+			return
 		if("potency")
 			return
 		if("weed_rate")
@@ -467,6 +480,13 @@
 		var/datum/plant_gene/core/C = get_gene(/datum/plant_gene/core/production)
 		if(C)
 			C.value = production
+
+/obj/item/seeds/proc/set_maturation(adjustamt)
+	if(yield != -1)
+		maturation = CLAMP(adjustamt, 1, 100)
+		var/datum/plant_gene/core/C = get_gene(/datum/plant_gene/core/maturation)
+		if(C)
+			C.value = maturation
 
 /obj/item/seeds/proc/set_potency(adjustamt)
 	if(potency != -1)
@@ -579,23 +599,31 @@
 			if(!(seed.icon_harvest in states))
 				to_chat(world, "[seed.name] ([seed.type]) lacks the [seed.icon_harvest] icon!")
 
-/obj/item/seeds/proc/randomize_stats(var/stat_rand_seed = FALSE)
+/obj/item/seeds/proc/randomize_stats(given_identifier)
+	var/list/chances = rand_LCM(given_identifier, maximum=101, flat=0, numbers_of_return=4)
+	set_potency(chances[1])
+	set_lifespan(chances[2])
+	set_endurance(chances[3])
+	set_weed_chance(chances[4])
 
-	set_lifespan(rand(25, 60))
-	set_endurance(rand(15, 35))
-	set_production(rand(2, 10))
-	set_yield(rand(1, 10))
-	set_potency(rand(10, 35))
-	set_weed_rate(rand(1, 10))
-	set_weed_chance(rand(5, 100))
-	maturation = rand(6, 12)
+	chances = rand_LCM(given_identifier, maximum=11, flat=0, numbers_of_return=3)
+	set_yield(chances[1])
+	set_production(chances[2])
+	set_weed_rate(chances[3])
+
+	set_maturation(rand_LCM(given_identifier, maximum=21, flat=0))
+
+	chances = null
+
 
 /obj/item/seeds/proc/add_random_reagents(var/chem_rand_seed = FALSE)
 	var/static/botany_chem_len
 	if(!botany_chem_len)
 		botany_chem_len = length(get_random_reagent_id(CHEMICAL_RNG_BOTANY, return_as_list=TRUE))
 	var/chem_id = get_random_reagent_id(CHEMICAL_RNG_BOTANY, find_by_number=rand_LCM(chem_rand_seed, maximum=botany_chem_len))
-	var/random_amount = (rand_LCM(chem_rand_seed, maximum=4, flat=0)+2)*5 // 10u~30u
+	var/random_amount = (rand_LCM(chem_rand_seed, maximum=4, flat=1)+2)*5 // 10u~30u
+	if(!chem_id)
+		CRASH("Failed to pick a random chem from botany random reagent.")
 	var/datum/plant_gene/reagent/sandbox/R = new(chem_id, list(random_amount-5, random_amount))
 	if(R.can_add(src))
 		genes += R
@@ -616,10 +644,10 @@
 	var/datum/plant_gene/trait/T
 	if(ispath(trait_id, /datum/plant_gene/trait/glow/random))
 		T = get_trait_gene_from_static(trait_id)
-		T.on_new_seed(src, rand_LCM(trait_rand_seed, maximum=8)) // max=8 : current biolumi trait maximum
+		var/datum/plant_gene/trait/glow/random/temp = T
+		T.on_new_seed(src, rand_LCM(trait_rand_seed, maximum=length(temp.trait_length)))
 	if(isnull(trait_id))
 		CRASH("random trait [T] is called as null.")
-		return
 	T = get_trait_gene_from_static(trait_id)
 	if(!istype(T))
 		return
