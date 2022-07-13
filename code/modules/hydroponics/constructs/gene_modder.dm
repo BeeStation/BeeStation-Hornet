@@ -160,7 +160,7 @@
 
 	data["mutate_list"] = build_mutate_list(mutate_list)
 
-	data["machine_stats"] = build_machine_stats()
+	// data["machine_stats"] = build_machine_stats() // not used in Alpha
 	data["skip_confirmation"] = skip_confirmation
 
 	data["research_datas"] = build_gene_data_list()
@@ -210,6 +210,8 @@
 
 	if(D["category"] == "reagent")
 		L["max_reagent"] = D["maxvolume"]
+	else
+		L["desc"] = D["desc"] ? D["desc"] : FALSE
 
 
 

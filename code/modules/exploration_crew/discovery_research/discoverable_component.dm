@@ -161,6 +161,7 @@
 						linked_techweb.researched_genes[data_id] = list()
 						linked_techweb.researched_genes[data_id]["faction"] = all_factions
 						linked_techweb.researched_genes[data_id]["path"] = T
+						linked_techweb.researched_genes[data_id]["desc"] = T.desc
 						linked_techweb.researched_genes[data_id]["category"] = "trait"
 						linked_techweb.researched_genes[data_id]["level"] = 0
 						linked_techweb.researched_genes[data_id]["reqlevel"] = 0
@@ -187,6 +188,7 @@
 						linked_techweb.researched_genes[data_id] = list()
 						linked_techweb.researched_genes[data_id]["faction"] = research_faction_type
 						linked_techweb.researched_genes[data_id]["path"] = trait_gene.type
+						linked_techweb.researched_genes[data_id]["desc"] = trait.desc
 						linked_techweb.researched_genes[data_id]["category"] = "trait"
 						linked_techweb.researched_genes[data_id]["level"] = 0
 						linked_techweb.researched_genes[data_id]["reqlevel"] = trait_gene.research_needed
@@ -220,6 +222,7 @@
 				linked_techweb.researched_genes[data_id] = list()
 				linked_techweb.researched_genes[data_id]["faction"] = research_faction_type
 				linked_techweb.researched_genes[data_id]["path"] = family_gene.type
+				linked_techweb.researched_genes[data_id]["desc"] = trait.desc
 				linked_techweb.researched_genes[data_id]["category"] = "family"
 				linked_techweb.researched_genes[data_id]["level"] = 0
 				linked_techweb.researched_genes[data_id]["reqlevel"] = family_gene.research_needed

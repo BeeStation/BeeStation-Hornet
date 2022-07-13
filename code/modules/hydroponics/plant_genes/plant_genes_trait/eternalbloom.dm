@@ -30,4 +30,3 @@
 	H.weedlevel = 0
 	H.pestlevel = 0
 	H.dead = 0
-	H.dont_warn_me = TRUE // because we don't want to see warning icons

@@ -259,16 +259,6 @@
 
 	return S
 
-/obj/item/seeds/proc/mutate(lifemut = 2, endmut = 5, productmut = 1, yieldmut = 2, potmut = 25, wrmut = 2, wcmut = 5, traitmut = 0)
-	adjust_lifespan(rand(-lifemut,lifemut))
-	adjust_endurance(rand(-endmut,endmut))
-	adjust_production(rand(-productmut,productmut))
-	adjust_yield(rand(-yieldmut,yieldmut))
-	adjust_potency(rand(-potmut,potmut))
-	adjust_weed_rate(rand(-wrmut, wrmut))
-	adjust_weed_chance(rand(-wcmut, wcmut))
-
-
 // Harvest procs
 /obj/item/seeds/proc/getYield()
 	var/return_yield = yield
@@ -313,7 +303,7 @@
 		gene_list += "\[[each.name] [each.reag_unit]\] "
 	for(var/datum/plant_gene/trait/each in genes)
 		gene_list += "\[[each.name]\] "
-	user.investigate_log("has harvested a plant that has traits: [gene_list]. Harvester's ckey: \"[user.ckey]\"")
+	user.investigate_log("has harvested a plant that has traits: [gene_list]. Harvester's ckey: \"[user.ckey]\"", INVESTIGATE_BOTANY)
 	parent.update_tray(user)
 
 	return result
@@ -342,10 +332,11 @@
 		product_name = t_prod.seed.plantname
 	if(getYield() >= 1)
 		SSblackbox.record_feedback("tally", "food_harvested", getYield(), product_name)
+
 	var/gene_list = ""
 	for(var/datum/plant_gene/trait/each in genes)
 		gene_list += "\[[each.name]\] "
-	user.investigate_log("has harvested a plant that has traits: [gene_list]. Harvester's ckey: \"[user.ckey]\"")
+	user.investigate_log("has harvested a plant that has traits: [gene_list]. Harvester's ckey: \"[user.ckey]\"", INVESTIGATE_BOTANY)
 	parent.update_tray(user)
 
 	return result
@@ -424,34 +415,6 @@
 		C.value = weed_chance
 
 //Directly setting stats
-
-/obj/item/seed/proc/set_stats(adjustment, stat="NONE")
-	switch(stat)
-		if("NONE")
-			return
-		if("yield")
-			return
-		if("yield_max")
-			return
-		if("lifespan")
-			return
-		if("endurance")
-			return
-		if("production")
-			return
-		if("maturation")
-			return
-		if("potency")
-			return
-		if("weed_rate")
-			return
-		if("weed_chance")
-			return
-		if("reagent_size")
-			return
-		if("bitesize_mod")
-			return
-
 /obj/item/seeds/proc/set_yield(adjustamt)
 	if(yield != -1) // Unharvestable shouldn't suddenly turn harvestable
 		yield = CLAMP(adjustamt, 0, 10)

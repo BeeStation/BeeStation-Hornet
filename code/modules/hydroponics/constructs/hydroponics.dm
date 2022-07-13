@@ -16,43 +16,43 @@
 	obj_flags = CAN_BE_HIT | UNIQUE_RENAME
 	circuit = /obj/item/circuitboard/machine/hydroponics
 
+	var/obj/item/seeds/myseed = null	//The currently planted seed
+
 	// Water, nutri, pest, weed
-	var/waterlevel = 150	//The amount of water in the tray (max 100)
-	var/maxwater = 150		//The maximum amount of water in the tray
-	var/nutrilevel = 20		//The amount of nutrient in the tray (max 10)
-	var/list/nutris = list() // Existing nutriments inside a tray. This is default starting.
+	var/waterlevel = 120	//The amount of water in the tray
+	var/maxwater = 120		//The maximum amount of water in the tray
+	var/nutrilevel  		//The amount of nutrient in the tray
+	var/list/nutris = list() // Existing nutrients inside a tray. BOTANY_NUTRI_EZNUTRI is default
 	var/maxnutri = 12       //The maximum nutrient of water in the tray
 	var/pestlevel = 0		//The amount of pests in the tray (max 10)
 	var/weedlevel = 0		//The amount of weeds in the tray (max 10)
-	var/toxic = 0			//Toxicity in the tray?
+	var/toxic = 0			//Toxicity in the tray
 
 
-	var/yieldmod = 1		//Nutriment's effect on yield
 	var/age = 0				//Current age
 	var/dead = 0			//Is it dead?
-	var/plant_health		//Its health
+	var/harvest = 0			//Ready to harvest?
+	var/plant_health		//Its current health.
+	var/yieldmod = 1		//Nutriment's effect on yield. 1.3 means 30% more harvesting
 	var/lastproduce = 0		//Last time it was harvested
 	var/lastcycle = 0		//Used for timing of cycles.
-	var/cycledelay = 200	//About 10 seconds / cycle
-	var/harvest = 0			//Ready to harvest?
-	var/obj/item/seeds/myseed = null	//The currently planted seed
-	var/rating = 1
-	var/unwrenchable = 1
+	var/cycledelay = 200	//About 10 seconds / cycle. adjusted by some botanical factors.
+
 	var/recent_bee_visit = FALSE //Have we been visited by a bee recently, so bees dont overpollinate one plant
-	var/self_sufficiency_req = 20 //Required total dose to make a self-sufficient hydro tray. 1:1 with earthsblood.
-	var/self_sufficiency_progress = 0
-	var/self_sustaining = FALSE //If the tray generates nutrients and water on its own
 
 	var/random_nutriment = FALSE // FALSE: takes nutriments in an order / TRUE: random nutriments
 								 // dirt will chose random nutriment from the list.
-	var/dont_warn_me = FALSE // used in Eternal Blooming trait
+
+
+	var/rating = 1
+	var/unwrenchable = 1
 
 /obj/machinery/hydroponics/Initialize(mapload, obj/machinery/hydroponics)
 	. = ..()
 	AddComponent(/datum/component/discoverable, 0)
 	fill_nutri()
 
-/obj/machinery/hydroponics/proc/fill_nutri(nutri_type=BOTANY_NUTRI_NOTHING)
+/obj/machinery/hydroponics/proc/fill_nutri(nutri_type=BOTANY_NUTRI_EZNUTRI)
 	nutrilevel = length(nutris)
 	for(var/i in 1 to maxnutri-nutrilevel)
 		nutris += nutri_type
@@ -64,18 +64,21 @@
 	icon_state = "hydrotray3"
 
 /obj/machinery/hydroponics/constructable/RefreshParts()
+	/*
 	var/tmp_capacity = 0
 	for (var/obj/item/stock_parts/matter_bin/M in component_parts)
 		tmp_capacity += M.rating
 	for (var/obj/item/stock_parts/manipulator/M in component_parts)
 		rating = M.rating
-	// maxwater = tmp_capacity * 50 // Up to 300
-	// maxnutri = tmp_capacity * 5 // Up to 30
+	maxwater = tmp_capacity * 50 // Up to 300
+	maxnutri = tmp_capacity * 5 // Up to 30
+	*/
+	// better parts do nothing for now - Alpha
 
 /obj/machinery/hydroponics/constructable/examine(mob/user)
 	. = ..()
-	if(dont_warn_me && myseed.maturation+myseed.production <= age)
-		. += "<span class='notice'>[myseed.plantname] looks </span>"
+	if(S.get_gene(/datum/plant_gene/trait/eternalbloom) && myseed.maturation+myseed.production <= age)
+		. += "<span class='notice'>[myseed.plantname] looks eternally blooming...</span>"
 
 /obj/machinery/hydroponics/Destroy()
 	if(myseed)
@@ -248,15 +251,15 @@
 			else if(waterlevel >= F.water_adjust)
 				eat = TRUE //they eat water anyways
 
-
 			if(F.family_flags & PLANT_FAMILY_BADWATER)
 				if(waterlevel < F.water_danger_threshold) // default: < 10
 					adjustHealth(-F.water_damage)
 
-
 			if(eat)
 				eat = rand(-2, 2)
-				adjustWater(F.water_adjust+eat)
+				adjustWater(-F.water_adjust+eat)
+				if(!(F.family_flags & PLANT_FAMILY_NEEDTOXIN))
+					adjustToxic(-(F.water_adjust+eat)*3) // the only way to lower toxic for now
 				if(prob(50))
 					adjustHealth(F.wellfed_heal)
 
@@ -418,7 +421,7 @@
 
 	if(myseed)
 		update_icon_plant()
-		if(!dont_warn_me)
+		if(!S.get_gene(/datum/plant_gene/trait/eternalbloom))
 			update_icon_lights()
 	return
 
@@ -682,7 +685,7 @@
 	else if(istype(O, /obj/item/seeds) && !istype(O, /obj/item/seeds/sample))
 		if(!myseed)
 			if(istype(O, /obj/item/seeds/kudzu))
-				investigate_log("had Kudzu planted in it by [key_name(user)] at [AREACOORD(src)]","kudzu")
+				investigate_log("had Kudzu planted in it by [key_name(user)] at [AREACOORD(src)]", INVESTIGATE_BOTANY)
 			if(!user.transferItemToLoc(O, src))
 				return
 			to_chat(user, "<span class='notice'>You plant [O].</span>")
@@ -699,7 +702,7 @@
 				to_chat(user, text_string)
 		else
 			to_chat(user, "<B>No plant found.</B>")
-		to_chat(user, "- Weed level: <span class='notice'>[weedlevel] / 10]</span>")
+		to_chat(user, "- Weed level: <span class='notice'>[weedlevel] / 10</span>")
 		to_chat(user, "- Pest level: <span class='notice'>[pestlevel] / 10</span>")
 		to_chat(user, "- Toxicity level: <span class='notice'>[toxic] / 100</span>")
 		to_chat(user, "- Water level: <span class='notice'>[waterlevel] / [maxwater]</span>")
@@ -745,10 +748,9 @@
 	else
 		return ..()
 
-/obj/machinery/hydroponics/proc/plant_seed(obj/item/seeds/S, var/try_reset=FALSE)
+/obj/machinery/hydroponics/proc/plant_seed(obj/item/seeds/S, try_reset=FALSE)
 	dead = 0
 	myseed = S
-	dont_warn_me = FALSE
 	update_name()
 	age = 1
 	lastproduce = 1
@@ -758,6 +760,17 @@
 	if(try_reset)
 		weedlevel = 0
 		pestlevel = 0
+	var/datum/plant_gene/trait/perennial/T = S.get_gene(/datum/plant_gene/trait/perennial)
+	if(T)
+		cycledelay += initial(cycledelay)*T.rate
+
+	if(!try_reset) // try_reset TRUE is taken by invasive spreading trait
+		for(var/datum/plant_gene/reagent/each in genes)
+			gene_list += "\[[each.name] [each.reag_unit]\] "
+		for(var/datum/plant_gene/trait/each in genes)
+			gene_list += "\[[each.name]\] "
+		investigate_log("Someone has planted a seed that has traits: [gene_list]. Planter's ckey: \"[S.fingerprintslast]\"", INVESTIGATE_BOTANY)
+
 	update_icon()
 
 
@@ -778,17 +791,17 @@
 
 
 /obj/machinery/hydroponics/proc/harvest_plant(mob/user)
-	if(harvest && !dont_warn_me)
+	if(harvest && !seed.get_gene(/datum/plant_gene/trait/eternalbloom))
 		if(ispath(myseed.product, /obj/item/reagent_containers/food/snacks/grown))
 			return myseed.harvest(user)
 		else if(ispath(myseed.product, /obj/item/grown))
 			return myseed.harvest_inedible(user)
 		yieldmod = 1
-		cycledelay = 200
+		cycledelay = initial(cycledelay)
 		recent_bee_visit = FALSE
 		if(plant_health >= 0 && age > myseed.lifespan)
 			plantdies()
-	else if(dont_warn_me && myseed.maturation+myseed.production <= age)
+	else if(S.get_gene(/datum/plant_gene/trait/eternalbloom) && myseed.maturation+myseed.production <= age)
 		to_chat(user, "<span class='notice'>You touch [myseed.plantname]. It's eternally blooming...</span>")
 		SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "eternalbloom", /datum/mood_event/eternalbloom, myseed.plantname)
 	else if(dead)
@@ -814,7 +827,7 @@
 	toxic = 0
 	dont_warn_me = FALSE
 	yieldmod = 1
-	cycledelay = 200
+	cycledelay = initial(cycledelay)
 	recent_bee_visit = FALSE
 
 /obj/machinery/hydroponics/proc/update_tray(mob/user)
@@ -861,11 +874,6 @@
 	var/mob/living/simple_animal/hostile/C = new chosen
 	C.faction = list("plants")
 
-/obj/machinery/hydroponics/proc/become_self_sufficient() // Ambrosia Gaia effect
-	visible_message("<span class='boldnotice'>[src] begins to glow with a beautiful light!</span>")
-	self_sustaining = TRUE
-	update_icon()
-
 /obj/machinery/hydroponics/proc/update_name()
 	if(myseed)
 		name = "[initial(name)] ([myseed.plantname])"
@@ -895,6 +903,7 @@
 	flags_1 = NODECONSTRUCT_1
 	unwrenchable = FALSE
 	random_nutriment = TRUE
+	maxwater = 100
 	maxnutri = 8
 
 /obj/machinery/hydroponics/soil/update_icon_lights()

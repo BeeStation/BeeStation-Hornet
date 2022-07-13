@@ -1,10 +1,11 @@
 /datum/plant_gene/trait/perennial
 	name = "Perennial Growth"
-	desc = "Your plants will grow again even if it's harvested."
+	desc = "Your plants will grow again even if it's harvested. This will make the plant grow [rate*100]% slower than normal."
 	plusdesc = "WARNING: Not valid to Replica Pod."
 	trait_id = "perennial"
 	plant_gene_flags = PLANT_GENE_COMMON_REMOVABLE | PLANT_GENE_RANDOM_ALLOWED
 	research_needed = 6
+	rate = 0.2 // 20% slower
 
 /* <Behavior table>
 	 This does nothing, but do something in `hydroponics.dm`

@@ -41,11 +41,12 @@
 
 /datum/plant_gene/trait/slip/proc/handle_slip(obj/item/reagent_containers/food/snacks/grown/G, mob/M)
 	// squash must happen first. If it has no squash trait, It will do on_slip step by step.
-	if(G.squash(M, PLANT_ACTIVATED_SLIP))
-		for(var/datum/plant_gene/trait/T in G.seed.genes)
-			T.on_slip(G, M, PLANT_ACTIVATED_SLIP)
-	if(G.squash_destruct_check())
-		qdel(G)
+	if(istype(G, /obj/item/reagent_containers/food/snacks/grown)) // we don't want this to be compatible with trash
+		if(G.squash(M, PLANT_ACTIVATED_SLIP))
+			for(var/datum/plant_gene/trait/T in G.seed.genes)
+				T.on_slip(G, M, PLANT_ACTIVATED_SLIP)
+		if(G.squash_destruct_check())
+			qdel(G)
 
 
 // Squash -------------------------------------------------

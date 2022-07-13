@@ -127,7 +127,7 @@
 
 	visible_message("<span class='warning'>[src] has been squashed.</span>","<span class='italics'>You hear a smack.</span>")
 	if(seed)
-		for(var/datum/plant_gene/trait/teleport/trait in seed.genes) // trick
+		for(var/datum/plant_gene/trait/teleport/trait in seed.genes) // trick. get a certain trait through for loop.
 			trait.on_squash(src, target, p_method)
 			trait.qdel_after_squash(src)
 			visible_message("<span class='warning'>[src] has disappeared into bluespace.</span>")
