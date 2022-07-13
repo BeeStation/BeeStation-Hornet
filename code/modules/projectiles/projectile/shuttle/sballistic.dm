@@ -17,7 +17,6 @@
 	icon_state = "guassstrong"
 	name = "guass round"
 	damage = 50
-	movement_type = FLYING | PHASING
 	armour_penetration = 40
 
 /obj/item/projectile/bullet/shuttle/ballistic/guass/uranium

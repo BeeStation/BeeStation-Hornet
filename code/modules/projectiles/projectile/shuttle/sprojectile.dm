@@ -4,7 +4,8 @@
 	name = "shuttle projectile"
 	desc = "A projectile fired from someone else"
 	icon_state = "84mm-hedp"
-	movement_type = FLYING | PHASING
+	movement_type = FLYING
+	projectile_piercing = ALL
 	range = 120
 	reflectable = NONE
 
