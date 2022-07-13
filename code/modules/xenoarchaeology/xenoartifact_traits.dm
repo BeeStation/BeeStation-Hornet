@@ -673,10 +673,17 @@
 
 /datum/xenoartifact_trait/minor/haunted/on_init(obj/item/xenoartifact/X)
 	controller = X._AddComponent(list(/datum/component/deadchat_control, "democracy", list(
-			 "up" = CALLBACK(GLOBAL_PROC, .proc/_step, X, NORTH),
-			 "down" = CALLBACK(GLOBAL_PROC, .proc/_step, X, SOUTH),
-			 "left" = CALLBACK(GLOBAL_PROC, .proc/_step, X, WEST),
-			 "right" = CALLBACK(GLOBAL_PROC, .proc/_step, X, EAST)), 10 SECONDS))
+			 "up" = CALLBACK(src, .proc/haunted_step, X, NORTH),
+			 "down" = CALLBACK(src, .proc/haunted_step, X, SOUTH),
+			 "left" = CALLBACK(src, .proc/haunted_step, X, WEST),
+			 "right" = CALLBACK(src, .proc/haunted_step, X, EAST)), 10 SECONDS))
+
+/datum/xenoartifact_trait/minor/haunted/proc/haunted_step(obj/item/xenoartifact/ref, dir)
+	if(isliving(ref.loc)) //Make any mobs drop this before it moves
+		var/mob/living/M = ref.loc
+		M.dropItemToGround(ref)
+	playsound(get_turf(ref), 'sound/effects/magic.ogg', 50, TRUE)
+	step(ref, dir)
 
 /datum/xenoartifact_trait/minor/haunted/on_item(obj/item/xenoartifact/X, atom/user, atom/item)
 	if(istype(item, /obj/item/storage/book/bible))
@@ -732,7 +739,7 @@
 		fren = TRUE
 
 /datum/xenoartifact_trait/major/capture/activate(obj/item/xenoartifact/X, atom/target)
-	if(!(SSzclear.get_free_z_level(FALSE))) //Sometimes we can get pressed on z-levels
+	if(!(SSzclear.get_free_z_level())) //Sometimes we can get pressed on z-levels
 		playsound(get_turf(X), 'sound/machines/buzz-sigh.ogg', 50, TRUE) //this shouldn't happen too often but, exploration can eat a few zlevels.
 		return
 	if(isliving(X.loc))
@@ -838,6 +845,7 @@
 	label_desc = "Fuzzy: The shape is hard to discern under all the hair sprouting out from the surface. You swear you've heard it bark before."
 	flags = BLUESPACE_TRAIT
 	var/list/victims = list() //List of all affected targets, used for early qdel
+	var/list/keys = list() //list of keys, becuase simple animals throw away theirs often
 	var/obj/item/xenoartifact/xenoa //Used for early qdel
 
 /datum/xenoartifact_trait/major/corginator/on_init(obj/item/xenoartifact/X)
@@ -846,10 +854,11 @@
 
 /datum/xenoartifact_trait/major/corginator/activate(obj/item/xenoartifact/X, mob/living/target)
 	X.say(pick("Woof!", "Bark!", "Yap!"))
-	if(!(SSzclear.get_free_z_level(FALSE)))
+	if(!(SSzclear.get_free_z_level()))
 		playsound(get_turf(X), 'sound/machines/buzz-sigh.ogg', 50, TRUE)
 		return
 	if(istype(target, /mob/living) && !(istype(target, /mob/living/simple_animal/pet/dog/corgi)))
+		keys[target] = "[target.key ? target.key : target.ckey]"
 		var/mob/living/simple_animal/pet/dog/corgi/new_corgi = transform(X, target)
 		addtimer(CALLBACK(src, .proc/transform_back, X, target, new_corgi), (X.charge*0.7) SECONDS)
 		victims |= list(target, new_corgi)
@@ -866,7 +875,7 @@
 	var/mob/living/C = target
 	if(istype(C))
 		var/obj/item/hat = C.get_item_by_slot(ITEM_SLOT_HEAD)
-		if(hat)
+		if(hat?.dog_fashion)
 			new_corgi.place_on_head(hat,null,FALSE)
 	target.forceMove(new_corgi) //This is why we check for free z-levels
 	return new_corgi
@@ -879,7 +888,9 @@
 			if(!QDELETED(target))
 				qdel(target)
 			return
-		target.key = new_corgi.key
+		target.key = keys[target]//we could reference the corgis key here but if someone ghosts its set to null
+		target.ckey = keys[target]
+		keys -= target
 		if(new_corgi.health <= 0) //Corgi health is offset from human, dead corgis count as alive humans otherwise.
 			target.health = -1
 		target.adjustBruteLoss(new_corgi.getBruteLoss()*10)

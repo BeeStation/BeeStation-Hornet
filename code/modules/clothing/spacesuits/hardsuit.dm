@@ -624,7 +624,7 @@
 	desc = "A prototype helmet designed for research in a hazardous, low pressure environment. Scientific data flashes across the visor."
 	icon_state = "hardsuit0-rd"
 	hardsuit_type = "rd"
-	resistance_flags = ACID_PROOF | FIRE_PROOF
+	resistance_flags = ACID_PROOF | FIRE_PROOF | BLOCK_ARTIFACT_EFFECTS
 	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT
 	armor = list("melee" = 30, "bullet" = 5, "laser" = 10, "energy" = 15, "bomb" = 100, "bio" = 100, "rad" = 60, "fire" = 60, "acid" = 80, "stamina" = 30)
 	var/obj/machinery/doppler_array/integrated/bomb_radar
@@ -653,7 +653,7 @@
 	desc = "A prototype suit that protects against hazardous, low pressure environments. Fitted with extensive plating for handling explosives and dangerous research materials."
 	item_state = "hardsuit-rd"
 	supports_variations = DIGITIGRADE_VARIATION
-	resistance_flags = ACID_PROOF | FIRE_PROOF
+	resistance_flags = ACID_PROOF | FIRE_PROOF | BLOCK_ARTIFACT_EFFECTS
 	max_heat_protection_temperature = FIRE_SUIT_MAX_TEMP_PROTECT //Same as an emergency firesuit. Not ideal for extended exposure.
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/gun/energy/wormhole_projector,
 	/obj/item/hand_tele, /obj/item/aicard)
