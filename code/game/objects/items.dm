@@ -1107,7 +1107,6 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 				M.client.screen -= src
 			layer = initial(layer)
 			plane = initial(plane)
-			appearance_flags &= ~NO_CLIENT_COLOR
 			dropped(M)
 	return ..()
 

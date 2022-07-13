@@ -118,6 +118,7 @@
 	var/list/access = list()
 	var/registered_name// The name registered_name on the card
 	var/assignment
+	var/hud_state = JOB_HUD_UNKNOWN
 	var/access_txt // mapping aid
 	var/datum/bank_account/registered_account
 	var/obj/machinery/paystand/my_store
@@ -133,6 +134,13 @@
 	if (my_store && my_store.my_card == src)
 		my_store.my_card = null
 	return ..()
+
+/obj/item/card/id/proc/set_hud_icon_on_spawn(jobname)
+	if(jobname)
+		var/temp = get_hud_by_jobname(jobname)
+		if(temp != JOB_HUD_UNKNOWN)
+			hud_state = temp
+	// This is needed for some irregular jobs
 
 /obj/item/card/id/attack_self(mob/user)
 	if(Adjacent(user))
@@ -281,7 +289,7 @@
 	if(registered_account)
 		. += "The account linked to the ID belongs to '[registered_account.account_holder]' and reports a balance of $[registered_account.account_balance]."
 		if(registered_account.account_job)
-			var/datum/bank_account/D = SSeconomy.get_dep_account(registered_account.account_job.paycheck_department)
+			var/datum/bank_account/D = SSeconomy.get_dep_account(registered_account.account_department)
 			if(D)
 				. += "The [D.account_holder] reports a balance of $[D.account_balance]."
 		. += "<span class='info'>Alt-Click the ID to pull money from the linked account in the form of holochips.</span>"
@@ -319,12 +327,14 @@ update_label("John Doe", "Clowny")
 	item_state = "silver_id"
 	lefthand_file = 'icons/mob/inhands/equipment/idcards_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/idcards_righthand.dmi'
+	hud_state = JOB_HUD_RAWCENTCOM
 
 /obj/item/card/id/silver/reaper
 	name = "Thirteen's ID Card (Reaper)"
 	access = list(ACCESS_MAINT_TUNNELS)
 	assignment = "Reaper"
 	registered_name = "Thirteen"
+	hud_state = JOB_HUD_SYNDICATE
 
 /obj/item/card/id/gold
 	name = "gold identification card"
@@ -333,63 +343,73 @@ update_label("John Doe", "Clowny")
 	item_state = "gold_id"
 	lefthand_file = 'icons/mob/inhands/equipment/idcards_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/idcards_righthand.dmi'
+	hud_state = JOB_HUD_RAWCOMMAND
 
 /obj/item/card/id/silver/spacepol
 	name = "space police access card"
 	access = list(ACCESS_HUNTERS)
+	hud_state = JOB_HUD_NOTCENTCOM
 
 /obj/item/card/id/silver/spacepol/bounty
 	name = "bounty hunter access card"
 	access = list(ACCESS_HUNTERS)
+	hud_state = JOB_HUD_UNKNOWN
 
 /obj/item/card/id/space_russian
 	name = "space russian card"
 	access = list(ACCESS_HUNTERS)
+	hud_state = JOB_HUD_UNKNOWN
 
 /obj/item/card/id/pirate
 	name = "pirate ship card"
 	access = list(ACCESS_PIRATES)
+	hud_state = JOB_HUD_SYNDICATE
 
 /obj/item/card/id/syndicate
 	name = "agent card"
 	access = list(ACCESS_MAINT_TUNNELS, ACCESS_SYNDICATE)
+	icon_state = "syndicate"
+	hud_state = JOB_HUD_SYNDICATE
 	var/anyone = FALSE //Can anyone forge the ID or just syndicate?
 	var/forged = FALSE //have we set a custom name and job assignment, or will we use what we're given when we chameleon change?
-	var/static/list/available_icon_states = list(
-		"id",
-		"orange",
-		"serv",
-		"chap",
-		"lawyer",
-		"gold",
-		"silver",
-		"ce",
-		"engi",
-		"atmos",
-		"cmo",
-		"med",
-		"hos",
-		"warden",
-		"detective",
-		"sec",
-		"rd",
-		"sci",
-		"qm",
-		"cargo",
-		"miner",
-		"clown",
-		"mime",
-		"ert",
-		"centcom",
-		"syndicate",
-		"ratvar",
-	)
+
+	var/datum/action/item_action/chameleon/change/chameleon_action
 
 /obj/item/card/id/syndicate/Initialize(mapload)
 	. = ..()
-	var/datum/action/item_action/chameleon/change/chameleon_action = new(src)
+	chameleon_action = new(src)
 	chameleon_action.chameleon_type = /obj/item/card/id
 	chameleon_action.chameleon_name = "ID Card"
+	chameleon_action.chameleon_blacklist = typecacheof(list(
+		/obj/item/card,
+		/obj/item/card/data,
+		/obj/item/card/data/full_color,
+		/obj/item/card/data/disk,
+		/obj/item/card/emag,
+		/obj/item/card/emag/bluespace,
+		/obj/item/card/emag/halloween,
+		/obj/item/card/emagfake,
+		/obj/item/card/id/pass/deputy,
+		/obj/item/card/id/pass/mining_access_card,
+		/obj/item/card/mining_point_card,
+		/obj/item/card/id,
+		/obj/item/card/id/prisoner/one,
+		/obj/item/card/id/prisoner/two,
+		/obj/item/card/id/prisoner/three,
+		/obj/item/card/id/prisoner/four,
+		/obj/item/card/id/prisoner/five,
+		/obj/item/card/id/prisoner/six,
+		/obj/item/card/id/prisoner/seven,
+		/obj/item/card/id/departmental_budget,
+		/obj/item/card/id/syndicate/anyone,
+		/obj/item/card/id/syndicate/nuke_leader,
+		/obj/item/card/id/syndicate/debug,
+		/obj/item/card/id/syndicate/broken,
+		/obj/item/card/id/away/old/apc,
+		/obj/item/card/id/away/deep_storage,
+		/obj/item/card/id/changeling,
+		/obj/item/card/id/mining,
+		/obj/item/card/id/pass), only_root_path = TRUE)
 	chameleon_action.initialize_disguises()
 
 /obj/item/card/id/syndicate/afterattack(obj/item/O, mob/user, proximity)
@@ -463,6 +483,25 @@ update_label("John Doe", "Clowny")
 			set_new_account(user)
 			return
 	return ..()
+
+
+/obj/item/card/id/syndicate/emp_act(severity)
+	. = ..()
+	if(. & EMP_PROTECT_SELF)
+		return
+	chameleon_action.emp_randomise()
+
+// broken chameleon agent card
+/obj/item/card/id/syndicate/broken
+	access = list() // their access is even broken
+
+/obj/item/card/id/syndicate/broken/afterattack(obj/item/O, mob/user, proximity)
+	return
+
+/obj/item/card/id/syndicate/broken/Initialize(mapload)
+	. = ..()
+	chameleon_action.emp_randomise(INFINITY)
+
 /obj/item/card/id/syndicate/anyone
 	anyone = TRUE
 
@@ -474,6 +513,7 @@ update_label("John Doe", "Clowny")
 	name = "servant ID card"
 	icon_state = "ratvar"
 	access = list(ACCESS_CLOCKCULT, ACCESS_MAINT_TUNNELS)
+	hud_state = JOB_HUD_UNKNOWN
 
 /obj/item/card/id/syndicate_command
 	name = "syndicate ID card"
@@ -482,6 +522,7 @@ update_label("John Doe", "Clowny")
 	icon_state = "syndicate"
 	assignment = "Syndicate Officer"
 	access = list(ACCESS_SYNDICATE)
+	hud_state = JOB_HUD_SYNDICATE
 
 /obj/item/card/id/syndicate/debug
 	name = "\improper Debug ID"
@@ -490,6 +531,7 @@ update_label("John Doe", "Clowny")
 	registered_name = "Central Command"
 	assignment = "Admiral"
 	anyone = TRUE
+	hud_state = JOB_HUD_CENTCOM
 
 /obj/item/card/id/syndicate/debug/Initialize(mapload)
 	access = get_every_access()
@@ -506,6 +548,7 @@ update_label("John Doe", "Clowny")
 	registered_name = "Captain"
 	assignment = "Captain"
 	investigate_flags = ADMIN_INVESTIGATE_TARGET
+	hud_state = JOB_HUD_ACTINGCAPTAIN
 
 /obj/item/card/id/captains_spare/Initialize(mapload)
 	var/datum/job/captain/J = new/datum/job/captain
@@ -518,6 +561,7 @@ update_label("John Doe", "Clowny")
 	icon_state = "centcom"
 	registered_name = "Central Command"
 	assignment = "General"
+	hud_state = JOB_HUD_CENTCOM
 
 /obj/item/card/id/centcom/Initialize(mapload)
 	access = get_all_centcom_access()
@@ -529,6 +573,7 @@ update_label("John Doe", "Clowny")
 	icon_state = "ert"
 	registered_name = "Emergency Response Team Commander"
 	assignment = "Emergency Response Team Commander"
+	hud_state = JOB_HUD_CENTCOM
 
 /obj/item/card/id/ert/Initialize(mapload)
 	access = get_all_accesses()+get_ert_access("commander")-ACCESS_CHANGE_IDS
@@ -600,6 +645,7 @@ update_label("John Doe", "Clowny")
 	var/goal = 0 //How far from freedom?
 	var/points = 0
 	var/permanent = FALSE
+	hud_state = JOB_HUD_PRISONER
 
 /obj/item/card/id/prisoner/examine(mob/user)
 	. = ..()
@@ -640,48 +686,57 @@ update_label("John Doe", "Clowny")
 
 /obj/item/card/id/mining
 	name = "mining ID"
+	hud_state = JOB_HUD_RAWCARGO
 	access = list(ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MECH_MINING, ACCESS_MAILSORTING, ACCESS_MINERAL_STOREROOM)
 
 /obj/item/card/id/away
 	name = "\proper a perfectly generic identification card"
 	desc = "A perfectly generic identification card. Looks like it could use some flavor."
+	hud_state = JOB_HUD_UNKNOWN
 	access = list(ACCESS_AWAY_GENERAL)
 
 /obj/item/card/id/away/hotel
 	name = "Staff ID"
 	desc = "A staff ID used to access the hotel's doors."
+	hud_state = JOB_HUD_RAWSERVICE
 	access = list(ACCESS_AWAY_GENERAL, ACCESS_AWAY_MAINT)
 
 /obj/item/card/id/away/hotel/securty
 	name = "Officer ID"
+	hud_state = JOB_HUD_RAWSECURITY
 	access = list(ACCESS_AWAY_GENERAL, ACCESS_AWAY_MAINT, ACCESS_AWAY_SEC)
 
 /obj/item/card/id/away/old
 	name = "\proper a perfectly generic identification card"
 	desc = "A perfectly generic identification card. Looks like it could use some flavor."
 	icon_state = "centcom"
+	hud_state = JOB_HUD_RAWCENTCOM
 
 /obj/item/card/id/away/old/sec
 	name = "Charlie Station Security Officer's ID card"
 	desc = "A faded Charlie Station ID card. You can make out the rank \"Security Officer\"."
 	assignment = "Charlie Station Security Officer"
+	hud_state = JOB_HUD_RAWSECURITY
 	access = list(ACCESS_AWAY_GENERAL, ACCESS_AWAY_SEC)
 
 /obj/item/card/id/away/old/sci
 	name = "Charlie Station Scientist's ID card"
 	desc = "A faded Charlie Station ID card. You can make out the rank \"Scientist\"."
 	assignment = "Charlie Station Scientist"
+	hud_state = JOB_HUD_RAWSCIENCE
 	access = list(ACCESS_AWAY_GENERAL)
 
 /obj/item/card/id/away/old/eng
 	name = "Charlie Station Engineer's ID card"
 	desc = "A faded Charlie Station ID card. You can make out the rank \"Station Engineer\"."
 	assignment = "Charlie Station Engineer"
+	hud_state = JOB_HUD_RAWENGINEERING
 	access = list(ACCESS_AWAY_GENERAL, ACCESS_AWAY_ENGINE)
 
 /obj/item/card/id/away/old/apc
 	name = "APC Access ID"
 	desc = "A special ID card that allows access to APC terminals."
+	hud_state = JOB_HUD_UNKNOWN
 	access = list(ACCESS_ENGINE_EQUIP)
 
 /obj/item/card/id/away/deep_storage //deepstorage.dmm space ruin
@@ -717,127 +772,326 @@ update_label("John Doe", "Clowny")
 	department_ID = ACCOUNT_CIV
 	department_name = ACCOUNT_CIV_NAME
 	icon_state = "budget"
+	hud_state = JOB_HUD_RAWCOMMAND
 
 /obj/item/card/id/departmental_budget/eng
 	department_ID = ACCOUNT_ENG
 	department_name = ACCOUNT_ENG_NAME
 	icon_state = "budget_eng"
+	hud_state = JOB_HUD_RAWENGINEERING
 
 /obj/item/card/id/departmental_budget/sci
 	department_ID = ACCOUNT_SCI
 	department_name = ACCOUNT_SCI_NAME
 	icon_state = "budget_sci"
+	hud_state = JOB_HUD_RAWSCIENCE
 
 /obj/item/card/id/departmental_budget/med
 	department_ID = ACCOUNT_MED
 	department_name = ACCOUNT_MED_NAME
 	icon_state = "budget_med"
+	hud_state = JOB_HUD_RAWMEDICAL
 
 /obj/item/card/id/departmental_budget/srv
 	department_ID = ACCOUNT_SRV
 	department_name = ACCOUNT_SRV_NAME
 	icon_state = "budget_srv"
+	hud_state = JOB_HUD_RAWSERVICE
 
 /obj/item/card/id/departmental_budget/car
 	department_ID = ACCOUNT_CAR
 	department_name = ACCOUNT_CAR_NAME
 	icon_state = "budget_car"
+	hud_state = JOB_HUD_RAWCARGO
 
 /obj/item/card/id/departmental_budget/sec
 	department_ID = ACCOUNT_SEC
 	department_name = ACCOUNT_SEC_NAME
 	icon_state = "budget_sec"
+	hud_state = JOB_HUD_RAWSECURITY
 
-///Job Specific ID Cards///
+/// Job Specific ID Cards///
+// These should have default job name and hud state, etc, because chameleon card needs such information
+// ---- Command ----
 /obj/item/card/id/job/captain
+	name = "Job card (Com) - Captain"
+	assignment = "Captain"
 	icon_state = "captain"
+	hud_state = JOB_HUD_CAPTAIN
+
+/obj/item/card/id/job/rawcommand
+	name = "Job card (Com) - Custom"
+	icon_state = JOB_HUD_RAWCOMMAND
+	hud_state = JOB_HUD_RAWCOMMAND
+
+// ---- Service ----
+/obj/item/card/id/job/assistant
+	name = "Job card (Serv) - Assistant"
+	assignment = "Assistant"
+	icon_state = "id"
+	hud_state = JOB_HUD_ASSISTANT
 
 /obj/item/card/id/job/hop
+	name = "Job card (Serv) - HoP"
+	assignment = "Head of Personnel"
 	icon_state = "hop"
-
-/obj/item/card/id/job/ce
-	icon_state = "ce"
-
-/obj/item/card/id/job/engi
-	icon_state = "engi"
-
-/obj/item/card/id/job/atmos
-	icon_state = "atmos"
-
-/obj/item/card/id/job/cmo
-	icon_state = "cmo"
-
-/obj/item/card/id/job/med
-	icon_state = "med"
-
-/obj/item/card/id/job/paramed
-	icon_state = "paramed"
-
-/obj/item/card/id/job/viro
-	icon_state = "viro"
-
-/obj/item/card/id/job/chemist
-	icon_state = "chemist"
-
-/obj/item/card/id/job/gene
-	icon_state = "gene"
-
-/obj/item/card/id/job/hos
-	icon_state = "hos"
-
-/obj/item/card/id/job/sec
-	icon_state = "sec"
-
-/obj/item/card/id/job/brigphys
-	icon_state = "brigphys"
-
-/obj/item/card/id/job/deputy
-	icon_state = "deputy"
-
-/obj/item/card/id/job/detective
-	icon_state = "detective"
-
-/obj/item/card/id/job/warden
-	icon_state = "warden"
-
-/obj/item/card/id/job/rd
-	icon_state = "rd"
-
-/obj/item/card/id/job/roboticist
-	icon_state = "roboticist"
-
-/obj/item/card/id/job/sci
-	icon_state = "sci"
-
-/obj/item/card/id/job/serv //service jobs, botany, etc
+	hud_state = JOB_HUD_HEADOFPERSONNEL
+/obj/item/card/id/job/botanist
+	name = "Job card (Serv) - Botanist"
+	assignment = "Botanist"
 	icon_state = "serv"
+	hud_state = JOB_HUD_BOTANIST
+
+/obj/item/card/id/job/cook
+	name = "Job card (Serv) - Cook"
+	assignment = "Cook"
+	icon_state = "serv"
+	hud_state = JOB_HUD_COOK
+
+/obj/item/card/id/job/bartender
+	name = "Job card (Serv) - Bartender"
+	assignment = "Bartender"
+	icon_state = "serv"
+	hud_state = JOB_HUD_BARTENDER
+
+/obj/item/card/id/job/barber
+	name = "Job card (Serv) - Barber"
+	assignment = "Barber"
+	icon_state = "serv"
+	hud_state = JOB_HUD_BARBER
+
+/obj/item/card/id/job/magician
+	name = "Job card (Serv) - Magician"
+	assignment = "Magician"
+	icon_state = "serv"
+	hud_state = JOB_HUD_STAGEMAGICIAN
+
+/obj/item/card/id/job/curator
+	name = "Job card (Serv) - Curator"
+	assignment = "Curator"
+	icon_state = "chap"
+	hud_state = JOB_HUD_CURATOR
 
 /obj/item/card/id/job/chap
+	name = "Job card (Serv) - Chaplain"
+	assignment = "Chaplain"
 	icon_state = "chap"
+	hud_state = JOB_HUD_CHAPLAIN
 
 /obj/item/card/id/job/janitor
+	name = "Job card (Serv) - Janitor"
+	assignment = "Janitor"
 	icon_state = "janitor"
-
-/obj/item/card/id/job/qm
-	icon_state = "qm"
-
-/obj/item/card/id/job/miner
-	icon_state = "miner"
-
-/obj/item/card/id/job/exploration
-	icon_state = "exploration"
-
-/obj/item/card/id/job/cargo
-	icon_state = "cargo"
+	hud_state = JOB_HUD_JANITOR
 
 /obj/item/card/id/job/clown
+	name = "Job card (Serv) - Clown"
+	assignment = "Clown"
 	icon_state = "clown"
+	hud_state = JOB_HUD_CLOWN
 
 /obj/item/card/id/job/mime
+	name = "Job card (Serv) - Mime"
+	assignment = "Mime"
 	icon_state = "mime"
+	hud_state = JOB_HUD_MIME
 
 /obj/item/card/id/job/lawyer
+	name = "Job card (Serv) - Lawyer"
+	assignment = "Lawyer"
 	icon_state = "lawyer"
+	hud_state = JOB_HUD_LAWYER
+
+/obj/item/card/id/job/rawservice
+	name = "Job card (Serv) - Custom"
+	icon_state = JOB_HUD_RAWSERVICE
+	hud_state = JOB_HUD_RAWSERVICE
+
+// ---- Cargo ----
+/obj/item/card/id/job/qm
+	name = "Job card (Cargo) - QM"
+	assignment = "Quartermaster"
+	icon_state = "qm"
+	hud_state = JOB_HUD_QUARTERMASTER
+
+/obj/item/card/id/job/miner
+	name = "Job card (Cargo) - Shaft Miner"
+	assignment = "Shaft Miner"
+	icon_state = "miner"
+	hud_state = JOB_HUD_SHAFTMINER
+
+/obj/item/card/id/job/cargo
+	name = "Job card (Cargo) - Cargo Tech"
+	assignment = "Cargo Technician"
+	icon_state = "cargo"
+	hud_state = JOB_HUD_CARGOTECHNICIAN
+
+/obj/item/card/id/job/rawcargo
+	name = "Job card (Cargo) - Custom"
+	icon_state = "rawcargo"
+	hud_state = JOB_HUD_RAWCARGO
+
+// ---- Engineering ----
+/obj/item/card/id/job/ce
+	name = "Job card (Eng) - CE"
+	assignment = "Chief Engineer"
+	icon_state = "ce"
+	hud_state = JOB_HUD_CHIEFENGINEER
+
+/obj/item/card/id/job/engi
+	name = "Job card (Eng) - Station Engi"
+	assignment = "Station Engineer"
+	icon_state = "engi"
+	hud_state = JOB_HUD_STATIONENGINEER
+
+/obj/item/card/id/job/atmos
+	name = "Job card (Eng) - Atmos"
+	assignment = "Atmospheric Technician"
+	icon_state = "atmos"
+	hud_state = JOB_HUD_ATMOSPHERICTECHNICIAN
+
+/obj/item/card/id/job/rawengineering
+	name = "Job card (Eng) - Custom"
+	icon_state = "rawengineering"
+	hud_state = JOB_HUD_RAWENGINEERING
+
+// ---- Science -----
+/obj/item/card/id/job/rd
+	name = "Job card (RND) - RD"
+	assignment = "Research Director"
+	icon_state = "rd"
+	hud_state = JOB_HUD_RESEARCHDIRECTOR
+
+/obj/item/card/id/job/roboticist
+	name = "Job card (RND) - Roboticist"
+	assignment = "Roboticist"
+	icon_state = "roboticist"
+	hud_state = JOB_HUD_ROBOTICIST
+
+/obj/item/card/id/job/sci
+	name = "Job card (RND) - Scientist"
+	assignment = "Scientist"
+	icon_state = "sci"
+	hud_state = JOB_HUD_SCIENTIST
+
+/obj/item/card/id/job/exploration
+	name = "Job card (RND) - Explo Crew"
+	assignment = "Exploration Crew"
+	icon_state = "exploration"
+	hud_state = JOB_HUD_EXPLORATIONCREW
+
+/obj/item/card/id/job/rawscience
+	name = "Job card (RND) - Custom"
+	icon_state = "rawscience"
+	hud_state = JOB_HUD_RAWSCIENCE
+
+// ---- Medical ----
+/obj/item/card/id/job/cmo
+	name = "Job card (Med) - CMO"
+	assignment = "Chief Medical Officer"
+	icon_state = "cmo"
+	hud_state = JOB_HUD_CHEIFMEDICALOFFICIER
+
+/obj/item/card/id/job/med
+	name = "Job card (Med) - Medical Doctor"
+	assignment = "Medical Doctor"
+	icon_state = "med"
+	hud_state = JOB_HUD_MEDICALDOCTOR
+
+/obj/item/card/id/job/paramed
+	name = "Job card (Med) - Paramedic"
+	assignment = "Paramedic"
+	icon_state = "paramed"
+	hud_state = JOB_HUD_PARAMEDIC
+
+/obj/item/card/id/job/viro
+	name = "Job card (Med) - Virologist"
+	assignment = "Virologist"
+	icon_state = "viro"
+	hud_state = JOB_HUD_VIROLOGIST
+
+/obj/item/card/id/job/chemist
+	name = "Job card (Med) - Chemist"
+	assignment = "Chemist"
+	icon_state = "chemist"
+	hud_state = JOB_HUD_CHEMIST
+
+/obj/item/card/id/job/gene
+	name = "Job card (Med) - Geneticist"
+	assignment = "Geneticist"
+	icon_state = "gene"
+	hud_state = JOB_HUD_GENETICIST
+
+/obj/item/card/id/job/psychi
+	name = "Job card (Med) - Psychiatrist"
+	assignment = "Psychiatrist"
+	icon_state = "med"
+	hud_state = JOB_HUD_PSYCHIATRIST
+
+/obj/item/card/id/job/rawmedical
+	name = "Job card (Med) - Custom"
+	icon_state = "rawmedical"
+	hud_state = JOB_HUD_RAWMEDICAL
+
+
+// ---- Security ----
+/obj/item/card/id/job/hos
+	name = "Job card (Sec) - HoS"
+	assignment = "Head of Security"
+	icon_state = "hos"
+	hud_state = JOB_HUD_HEADOFSECURITY
+
+/obj/item/card/id/job/sec
+	name = "Job card (Sec) - Security Officer"
+	assignment = "Security Officier"
+	icon_state = "sec"
+	hud_state = JOB_HUD_SECURITYOFFICER
+
+/obj/item/card/id/job/brigphys
+	name = "Job card (Sec) - Brig Phys"
+	assignment = "Brig Physician"
+	icon_state = "brigphys"
+	hud_state = JOB_HUD_BRIGPHYSICIAN
+
+/obj/item/card/id/job/deputy
+	name = "Job card (Sec) - Deputy"
+	assignment = "Deputy"
+	icon_state = "deputy"
+	hud_state = JOB_HUD_DEPUTY
+
+/obj/item/card/id/job/detective
+	name = "Job card (Sec) - Detective"
+	assignment = "Detective"
+	icon_state = "detective"
+	hud_state = JOB_HUD_DETECTIVE
+
+/obj/item/card/id/job/warden
+	name = "Job card (Sec) - Warden"
+	assignment = "Warden"
+	icon_state = "warden"
+	hud_state = JOB_HUD_WARDEN
+
+/obj/item/card/id/job/rawsecurity
+	name = "Job card (Sec) - Custom"
+	icon_state = "rawsecurity"
+	hud_state = JOB_HUD_RAWSECURITY
+
+ // ---- ???? ----
+/obj/item/card/id/job/unknown
+	name = "Job card - unassigned"
+	icon_state = "id"
+	hud_state = JOB_HUD_UNKNOWN
+
+/obj/item/card/id/gold/vip
+	name = "important gold identification card"
+	assignment = "VIP"
+	hud_state = JOB_HUD_VIP
+
+/obj/item/card/id/gold/king
+	name = "their majesty's gold identification card"
+	assignment = "King"
+	hud_state = JOB_HUD_KING
+
 
 /obj/item/card/id/pass
 	name = "promotion pass"
@@ -845,6 +1099,7 @@ update_label("John Doe", "Clowny")
 	icon_state = "data_1"
 	registered_name = "Unregistered ID"
 	assignment = "Access Pass"
+	hud_state = JOB_HUD_UNKNOWN
 
 /obj/item/card/id/pass/afterattack(atom/target, mob/user, proximity)
 	. = ..()

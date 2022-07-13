@@ -261,10 +261,6 @@
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
 "aaH" = (
-/obj/machinery/camera{
-	c_tag = "Cargo Mailroom";
-	dir = 8
-	},
 /obj/machinery/light_switch{
 	pixel_x = 24
 	},
@@ -281,6 +277,10 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/machinery/camera{
+	c_tag = "Virology Lab";
+	dir = 8
+	},
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
 "aaI" = (
@@ -324,7 +324,6 @@
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
 "aaN" = (
-/obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "quarantineshutters";
 	name = "isolation shutters"
@@ -333,11 +332,9 @@
 	icon_state = "0-4"
 	},
 /obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
+/obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/medical/virology)
 "aaX" = (
@@ -15513,17 +15510,10 @@
 "bjL" = (
 /turf/closed/wall,
 /area/storage/emergency/port)
-"bjN" = (
-/obj/effect/spawner/structure/window,
-/turf/open/floor/plating,
-/area/storage/emergency/port)
 "bjP" = (
 /obj/machinery/space_heater,
 /turf/open/floor/plating,
 /area/storage/emergency/port)
-"bjQ" = (
-/turf/open/floor/plasteel/white,
-/area/medical/medbay/zone2)
 "bjR" = (
 /obj/structure/plasticflaps/opaque,
 /turf/open/floor/plating,
@@ -16604,7 +16594,7 @@
 	},
 /obj/item/storage/box/masks,
 /turf/open/floor/plasteel/white,
-/area/storage/emergency/port)
+/area/medical/sleeper)
 "bny" = (
 /obj/machinery/firealarm{
 	dir = 8;
@@ -16622,7 +16612,7 @@
 /obj/structure/disposalpipe/trunk,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel/white,
-/area/storage/emergency/port)
+/area/medical/sleeper)
 "bnz" = (
 /obj/structure/table,
 /obj/item/folder/white,
@@ -16910,7 +16900,7 @@
 	pixel_x = -24
 	},
 /turf/open/floor/plasteel/white,
-/area/medical/medbay/zone2)
+/area/medical/sleeper)
 "boB" = (
 /obj/effect/turf_decal/tile/blue,
 /obj/effect/turf_decal/tile/blue{
@@ -16921,7 +16911,7 @@
 	},
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plasteel/white,
-/area/medical/medbay/zone2)
+/area/medical/sleeper)
 "boD" = (
 /obj/item/ectoplasm,
 /turf/open/floor/plasteel/dark,
@@ -17327,13 +17317,13 @@
 	dir = 8
 	},
 /turf/open/floor/plasteel/white,
-/area/medical/medbay/zone2)
+/area/medical/sleeper)
 "bpE" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},
 /turf/open/floor/plasteel/white,
-/area/medical/medbay/zone2)
+/area/medical/sleeper)
 "bpI" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -18669,7 +18659,7 @@
 	dir = 1
 	},
 /turf/open/floor/plasteel/white,
-/area/medical/medbay/zone2)
+/area/medical/sleeper)
 "bui" = (
 /obj/machinery/light{
 	dir = 4
@@ -18848,7 +18838,7 @@
 	dir = 6
 	},
 /turf/open/floor/plasteel/white,
-/area/medical/medbay/zone2)
+/area/medical/sleeper)
 "bvg" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -18866,7 +18856,7 @@
 	dir = 4
 	},
 /turf/open/floor/plasteel/white,
-/area/medical/medbay/zone2)
+/area/medical/sleeper)
 "bvi" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -19293,13 +19283,13 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plasteel/white,
-/area/medical/medbay/zone2)
+/area/medical/sleeper)
 "bwC" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
 	},
 /turf/open/floor/plasteel/white,
-/area/medical/medbay/zone2)
+/area/medical/sleeper)
 "bwF" = (
 /obj/effect/turf_decal/tile/blue,
 /obj/effect/turf_decal/tile/blue{
@@ -19624,11 +19614,11 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plasteel/freezer,
-/area/medical/medbay/zone2)
+/area/medical/virology)
 "bym" = (
 /obj/structure/sign/warning/biohazard,
 /turf/closed/wall/r_wall,
-/area/medical/medbay/zone2)
+/area/medical/virology)
 "byo" = (
 /obj/effect/spawner/structure/window,
 /turf/open/floor/plating,
@@ -20066,7 +20056,7 @@
 	},
 /obj/item/bedsheet/medical,
 /turf/open/floor/plasteel/freezer,
-/area/medical/medbay/zone2)
+/area/medical/virology)
 "bzM" = (
 /obj/machinery/button/door{
 	id = "QuarantineA";
@@ -20076,17 +20066,12 @@
 	req_one_access_txt = "39;40;45";
 	specialfunctions = 4
 	},
-/obj/machinery/camera{
-	c_tag = "Patient Room";
-	dir = 8;
-	network = list("ss13","medbay")
-	},
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plasteel/freezer,
-/area/medical/medbay/zone2)
+/area/medical/virology)
 "bzN" = (
 /obj/machinery/smartfridge,
 /turf/closed/wall/r_wall,
@@ -20468,10 +20453,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plasteel/freezer,
-/area/medical/medbay/zone2)
-"bAX" = (
-/turf/closed/wall/r_wall,
-/area/medical/medbay/zone2)
+/area/medical/virology)
 "bAY" = (
 /obj/structure/chair/office/light{
 	dir = 4
@@ -20484,7 +20466,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plasteel/freezer,
-/area/medical/medbay/zone2)
+/area/medical/virology)
 "bBf" = (
 /obj/structure/disposalpipe/junction/flip{
 	dir = 1
@@ -21002,7 +20984,7 @@
 	specialfunctions = 4
 	},
 /turf/open/floor/plasteel/freezer,
-/area/medical/medbay/zone2)
+/area/medical/virology)
 "bCl" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
@@ -21348,7 +21330,7 @@
 /obj/structure/bed,
 /obj/item/bedsheet/medical,
 /turf/open/floor/plasteel/freezer,
-/area/medical/medbay/zone2)
+/area/medical/virology)
 "bDo" = (
 /obj/machinery/door/airlock/virology/glass{
 	id_tag = "ViroA";
@@ -21365,7 +21347,7 @@
 	name = "isolation shutters"
 	},
 /turf/open/floor/plasteel/freezer,
-/area/medical/medbay/zone2)
+/area/medical/virology)
 "bDp" = (
 /obj/machinery/camera{
 	c_tag = "Medbay Port Hallway";
@@ -21380,7 +21362,7 @@
 	dir = 1
 	},
 /turf/open/floor/plasteel/white,
-/area/medical/medbay/zone2)
+/area/medical/sleeper)
 "bDq" = (
 /obj/machinery/door/airlock/virology/glass{
 	id_tag = "ViroB";
@@ -21400,7 +21382,7 @@
 	icon_state = "1-2"
 	},
 /turf/open/floor/plasteel/freezer,
-/area/medical/medbay/zone2)
+/area/medical/virology)
 "bDr" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
@@ -21700,11 +21682,6 @@
 "bEr" = (
 /turf/closed/wall/r_wall,
 /area/medical/virology)
-"bEt" = (
-/obj/structure/bed/roller,
-/obj/structure/window/reinforced,
-/turf/open/floor/plasteel/freezer,
-/area/medical/virology)
 "bEu" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -21719,14 +21696,15 @@
 /obj/effect/turf_decal/caution/red{
 	pixel_y = 6
 	},
-/obj/machinery/camera{
-	c_tag = "Cargo Mailroom";
-	dir = 8
-	},
 /obj/item/radio/intercom{
 	frequency = 1485;
 	name = "Station Intercom (Medbay)";
 	pixel_x = 28
+	},
+/obj/machinery/camera{
+	c_tag = "Virology Quarantine yard";
+	dir = 9;
+	network = list("ss13","medbay")
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
@@ -22688,9 +22666,8 @@
 "bGP" = (
 /obj/machinery/door/window/eastleft{
 	name = "Monkey Pen";
-	req_one_access_txt = "39"
+	req_access_txt = "39"
 	},
-/mob/living/carbon/monkey,
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
 	},
@@ -23276,10 +23253,9 @@
 /turf/open/floor/plating,
 /area/maintenance/department/engine)
 "bJk" = (
-/obj/structure/window/reinforced,
 /obj/machinery/door/window/eastleft{
 	name = "Quarantine Pen A";
-	req_one_access_txt = "39"
+	req_access_txt = "39"
 	},
 /turf/open/floor/plasteel/freezer,
 /area/medical/virology)
@@ -23481,7 +23457,7 @@
 /obj/structure/window/reinforced,
 /obj/machinery/door/window/eastleft{
 	name = "Quarantine Pen B";
-	req_one_access_txt = "39"
+	req_access_txt = "39"
 	},
 /turf/open/floor/plasteel/freezer,
 /area/medical/virology)
@@ -23777,13 +23753,9 @@
 /turf/open/floor/plasteel/dark,
 /area/chapel/dock)
 "bLz" = (
-/obj/structure/window/reinforced{
-	dir = 1;
-	pixel_y = 1
-	},
 /obj/machinery/door/window/eastleft{
 	name = "Quarantine Pen C";
-	req_one_access_txt = "39"
+	req_access_txt = "39"
 	},
 /turf/open/floor/plasteel/freezer,
 /area/medical/virology)
@@ -25065,6 +25037,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
+/mob/living/carbon/monkey,
 /turf/open/floor/plasteel/freezer,
 /area/medical/virology)
 "bQY" = (
@@ -26389,7 +26362,7 @@
 	dir = 4
 	},
 /turf/open/floor/plasteel/white,
-/area/medical/medbay/zone2)
+/area/medical/sleeper)
 "bVC" = (
 /obj/structure/reagent_dispensers/watertank,
 /turf/open/floor/plating,
@@ -30301,7 +30274,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plasteel/white,
-/area/medical/medbay/zone2)
+/area/medical/sleeper)
 "cqS" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
@@ -30663,7 +30636,7 @@
 	dir = 4
 	},
 /turf/open/floor/plasteel/white,
-/area/medical/medbay/zone2)
+/area/medical/sleeper)
 "ctu" = (
 /obj/machinery/light/small,
 /obj/effect/turf_decal/tile/yellow{
@@ -31874,7 +31847,7 @@
 	dir = 1
 	},
 /turf/open/floor/plasteel/white,
-/area/medical/medbay/zone2)
+/area/medical/sleeper)
 "cER" = (
 /obj/effect/turf_decal/tile/purple{
 	dir = 1
@@ -33738,6 +33711,10 @@
 	},
 /obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/tile/green,
+/obj/machinery/firealarm{
+	dir = 4;
+	pixel_x = -26
+	},
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
 "dQI" = (
@@ -34648,7 +34625,7 @@
 	dir = 4
 	},
 /turf/open/floor/plasteel/white,
-/area/medical/medbay/zone2)
+/area/medical/sleeper)
 "evB" = (
 /obj/effect/spawner/structure/window/plasma/reinforced,
 /turf/open/floor/plating,
@@ -34677,11 +34654,6 @@
 	req_one_access_txt = "39;40;45";
 	specialfunctions = 4
 	},
-/obj/machinery/camera{
-	c_tag = "Patient Room";
-	dir = 5;
-	network = list("ss13","medbay")
-	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
@@ -34690,7 +34662,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plasteel/freezer,
-/area/medical/medbay/zone2)
+/area/medical/virology)
 "exN" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/chair/office{
@@ -36179,7 +36151,7 @@
 /obj/machinery/door/window/eastleft{
 	dir = 1;
 	name = "Testing Pen";
-	req_one_access_txt = "39"
+	req_access_txt = "39"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
@@ -40147,7 +40119,7 @@
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4,
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plasteel/white,
-/area/medical/medbay/zone2)
+/area/medical/sleeper)
 "hUc" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -40864,7 +40836,6 @@
 /turf/open/floor/plasteel,
 /area/engine/atmos)
 "ipZ" = (
-/obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "quarantineshutters";
 	name = "isolation shutters"
@@ -40872,10 +40843,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 10
 	},
@@ -40885,6 +40852,8 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
+/obj/structure/cable/yellow,
+/obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/medical/virology)
 "iqg" = (
@@ -41331,7 +41300,7 @@
 "iFX" = (
 /obj/structure/closet/secure_closet/personal/patient,
 /turf/open/floor/plasteel/freezer,
-/area/medical/medbay/zone2)
+/area/medical/virology)
 "iGd" = (
 /obj/effect/landmark/start/security_officer,
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
@@ -41354,9 +41323,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/bridge)
-"iGJ" = (
-/turf/open/floor/plasteel/white,
-/area/storage/emergency/port)
 "iHH" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
@@ -41507,10 +41473,6 @@
 /turf/open/floor/engine,
 /area/engine/engineering)
 "iLs" = (
-/obj/structure/window/reinforced{
-	dir = 1;
-	pixel_y = 1
-	},
 /obj/structure/bed/roller,
 /turf/open/floor/plasteel/freezer,
 /area/medical/virology)
@@ -42404,7 +42366,7 @@
 	},
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plasteel/white,
-/area/medical/medbay/zone2)
+/area/medical/sleeper)
 "jtf" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
@@ -45039,9 +45001,6 @@
 	},
 /turf/open/floor/plating/airless,
 /area/space/nearstation)
-"lca" = (
-/turf/closed/wall,
-/area/medical/medbay/zone2)
 "lcH" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /turf/open/floor/plasteel/dark,
@@ -47882,10 +47841,6 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/machinery/firealarm{
-	dir = 8;
-	pixel_x = 28
-	},
 /obj/item/bedsheet/medical,
 /obj/structure/curtain{
 	layer = 4.5
@@ -48609,11 +48564,12 @@
 /obj/effect/turf_decal/tile/green{
 	dir = 1
 	},
-/obj/machinery/camera{
-	c_tag = "Gravity Generator"
-	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
+	},
+/obj/machinery/camera{
+	c_tag = "Virology Testing and Treatment";
+	network = list("ss13","medbay")
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
@@ -51049,7 +51005,7 @@
 	dir = 4
 	},
 /turf/open/floor/plasteel/white,
-/area/medical/medbay/zone2)
+/area/medical/sleeper)
 "pdF" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/general/visible,
@@ -51329,8 +51285,13 @@
 /obj/structure/mirror{
 	pixel_x = -28
 	},
+/obj/machinery/camera{
+	c_tag = "Quarantine Cell A";
+	dir = 4;
+	network = list("ss13","medbay")
+	},
 /turf/open/floor/plasteel/freezer,
-/area/medical/medbay/zone2)
+/area/medical/virology)
 "poi" = (
 /obj/machinery/telecomms/broadcaster/preset_exploration,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
@@ -51600,7 +51561,7 @@
 	req_access_txt = "39"
 	},
 /turf/open/floor/plating,
-/area/medical/virology)
+/area/maintenance/department/engine)
 "puT" = (
 /obj/structure/sign/directions/science{
 	dir = 4;
@@ -52955,18 +52916,15 @@
 /turf/open/floor/carpet,
 /area/library/lounge)
 "qly" = (
-/obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "quarantineshutters";
 	name = "isolation shutters"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
 	},
 /obj/structure/cable/yellow,
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
+/obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/medical/virology)
 "qmy" = (
@@ -54546,7 +54504,7 @@
 	},
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plasteel/white,
-/area/medical/medbay/zone2)
+/area/medical/sleeper)
 "ruF" = (
 /obj/structure/cable/cyan,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
@@ -55159,7 +55117,6 @@
 /turf/open/floor/wood,
 /area/crew_quarters/bar)
 "rSz" = (
-/obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "quarantineshutters";
 	name = "isolation shutters"
@@ -55174,6 +55131,7 @@
 	dir = 5
 	},
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2,
+/obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/medical/virology)
 "rSD" = (
@@ -55531,7 +55489,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plasteel/freezer,
-/area/medical/medbay/zone2)
+/area/medical/virology)
 "sdk" = (
 /obj/structure/lattice,
 /obj/machinery/camera/motion{
@@ -55768,7 +55726,7 @@
 	},
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/noslip/white,
-/area/medical/medbay/zone2)
+/area/medical/sleeper)
 "skK" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
@@ -57447,7 +57405,7 @@
 	dir = 1
 	},
 /turf/open/floor/plasteel/freezer,
-/area/medical/medbay/zone2)
+/area/medical/virology)
 "tuy" = (
 /obj/machinery/camera{
 	c_tag = "Xenobiology Test Chamber";
@@ -58847,7 +58805,6 @@
 /turf/open/floor/plating/airless,
 /area/space/nearstation)
 "uBX" = (
-/obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "quarantineshutters";
 	name = "isolation shutters"
@@ -58856,6 +58813,7 @@
 	icon_state = "1-8"
 	},
 /obj/structure/cable/yellow,
+/obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/medical/virology)
 "uCv" = (
@@ -58913,14 +58871,8 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/box,
-/obj/machinery/camera{
-	c_tag = "Gravity Generator"
-	},
 /obj/structure/closet/l3closet/virology,
 /obj/item/storage/box/masks,
-/obj/machinery/camera{
-	c_tag = "Gravity Generator"
-	},
 /obj/structure/closet/l3closet/virology,
 /obj/item/storage/box/masks,
 /obj/item/storage/box/gloves,
@@ -59120,12 +59072,11 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
-	dir = 8;
-	level = 2
-	},
 /obj/effect/turf_decal/tile/green{
 	dir = 1
+	},
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
+	dir = 8
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
@@ -59404,7 +59355,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plasteel/freezer,
-/area/storage/emergency/port)
+/area/medical/genetics)
 "uSV" = (
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
@@ -61601,10 +61552,6 @@
 	name = "Privacy Shutters";
 	pixel_y = 25
 	},
-/obj/machinery/camera{
-	c_tag = "Patient Room";
-	network = list("ss13","medbay")
-	},
 /obj/structure/chair/office/light{
 	dir = 4
 	},
@@ -61623,17 +61570,16 @@
 /obj/structure/chair/office/light{
 	dir = 4
 	},
-/obj/item/radio/intercom{
-	frequency = 1485;
-	name = "Station Intercom (Medbay)";
-	pixel_y = 22
-	},
 /obj/effect/landmark/start/virologist,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
 	dir = 1
+	},
+/obj/machinery/camera{
+	chat_color_name = "Virology Reception";
+	network = list("ss13","medbay")
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
@@ -62527,15 +62473,20 @@
 /obj/item/clothing/neck/stethoscope{
 	layer = 3.2
 	},
-/obj/machinery/light/small{
-	dir = 4;
-	pixel_y = -5
-	},
 /obj/structure/mirror{
 	pixel_x = 28
 	},
+/obj/machinery/light/small{
+	dir = 4;
+	light_color = "#d8b1b1"
+	},
+/obj/machinery/camera{
+	c_tag = "Quarantine Cell B";
+	dir = 8;
+	network = list("ss13","medbay")
+	},
 /turf/open/floor/plasteel/freezer,
-/area/medical/medbay/zone2)
+/area/medical/virology)
 "wZD" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
@@ -63411,15 +63362,16 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/green,
-/obj/machinery/camera{
-	c_tag = "Cargo Mailroom";
-	dir = 8
-	},
 /obj/item/toy/figure/virologist,
 /obj/machinery/button/flasher{
 	id = "monkeypen";
 	pixel_x = 27;
 	pixel_y = 4
+	},
+/obj/machinery/camera{
+	c_tag = "Virology monkey pen";
+	dir = 8;
+	network = list("ss13","medbay")
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
@@ -88191,7 +88143,7 @@ biP
 bjL
 oRk
 gge
-bjL
+bnv
 bov
 bpy
 bqW
@@ -88208,7 +88160,7 @@ bFI
 mWS
 bFI
 wlo
-bEt
+iLs
 bGO
 iLs
 bEr
@@ -88448,7 +88400,7 @@ ncm
 iNT
 fdl
 lBN
-bjN
+bsw
 bow
 bpz
 sXb
@@ -88962,7 +88914,7 @@ biS
 bjL
 bla
 bmk
-bjN
+bsw
 boy
 iZB
 kyY
@@ -89219,7 +89171,7 @@ biT
 bjL
 kSO
 bjL
-bjL
+bnv
 boz
 bzH
 iLV
@@ -89227,11 +89179,11 @@ bsv
 btY
 bvc
 bwA
-bAX
-bAX
-bAX
-bAX
-bAX
+bEr
+bEr
+bEr
+bEr
+bEr
 bLG
 xCo
 ghA
@@ -89476,7 +89428,7 @@ bjL
 bjL
 blb
 bml
-bjL
+bnv
 bnv
 bsw
 ovn
@@ -89484,7 +89436,7 @@ bsw
 bnv
 bvc
 bvc
-bAX
+bEr
 iFX
 pns
 bzL
@@ -89990,8 +89942,8 @@ biW
 blb
 blb
 bmn
-iGJ
-bjQ
+bzR
+bzR
 bpE
 bVy
 ctt
@@ -89999,10 +89951,10 @@ eud
 bvg
 bwC
 bym
-lca
-lca
-lca
-bAX
+wlo
+wlo
+wlo
+bEr
 sSe
 bGW
 vBs
@@ -90512,7 +90464,7 @@ bsA
 cDl
 bvi
 bsA
-bAX
+bEr
 iFX
 wZC
 bDn
@@ -90769,11 +90721,11 @@ bsB
 kRt
 bvj
 bwF
-bAX
-bAX
-bAX
-bAX
-bAX
+bEr
+bEr
+bEr
+bEr
+bEr
 bEv
 bFP
 bGV
