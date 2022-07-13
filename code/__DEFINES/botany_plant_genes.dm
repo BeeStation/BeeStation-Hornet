@@ -63,6 +63,16 @@
 #define BOTANY_RESEARCHED_CENTCOM     (1<<2)
 
 
+// plant activation type flags
+#define PLANT_ACTIVATED_SQUASH    (1<<0)
+#define PLANT_ACTIVATED_SLIP      (1<<1)
+#define PLANT_ACTIVATED_ATTACK    (1<<2)
+#define PLANT_ACTIVATED_THROW     (1<<3)
+#define PLANT_ACTIVATED_ATTACKBY  (1<<4)
+#define PLANT_ACTIVATED_CONSUME    (1<<5)
+
+
+
 // how do they eat
 #define PLANT_BITE_TYPE_DYNAM   "Dynamic"
 #define PLANT_BITE_TYPE_CONST   "Constant"

@@ -27,44 +27,43 @@
 		[on_removal] ...
  */
 
-/datum/plant_gene/trait/teleport/on_squash(obj/item/reagent_containers/food/snacks/grown/G, atom/target, var/p_method="attack")
+/datum/plant_gene/trait/teleport/on_squash(obj/item/reagent_containers/food/snacks/grown/G, atom/target, p_method)
 	activate_effect(G, target, p_method)
 
-/datum/plant_gene/trait/teleport/on_slip(obj/item/reagent_containers/food/snacks/grown/G, mob/living/target)
-	activate_effect(G, target, "slip")
+/datum/plant_gene/trait/teleport/on_slip(obj/item/reagent_containers/food/snacks/grown/G, mob/living/target, p_method)
+	activate_effect(G, target, p_method)
 	return TRUE
 
-/datum/plant_gene/trait/teleport/on_consume(obj/item/reagent_containers/food/snacks/grown/G, mob/living/target)
-	activate_effect(G, target, "consume")
+/datum/plant_gene/trait/teleport/on_consume(obj/item/reagent_containers/food/snacks/grown/G, mob/living/target, p_method)
+	activate_effect(G, target, p_method)
 	return TRUE
 
-/datum/plant_gene/trait/teleport/proc/activate_effect(obj/item/reagent_containers/food/snacks/grown/G, atom/target, p_method="attack")
-	var/turf/T = get_turf(target)
+/datum/plant_gene/trait/teleport/proc/activate_effect(obj/item/reagent_containers/food/snacks/grown/G, atom/target, p_method)
 	if(!isliving(target))
 		return FALSE
+	var/turf/T = get_turf(target)
 	var/mob/living/L = target
 	if(plant_teleport(G, L, T))
 		ADD_TRAIT(L, TRAIT_BOTANY_IMMUNE_TELE, TRAIT_GENERIC) //self attack doesn't give you immune
-		addtimer(CALLBACK(src, /datum/plant_gene/trait/teleport.proc/handle_mob_trait, L), BTNY_CFG_TRAIT_TELE_IMMUME_TIME)
+		addtimer(CALLBACK(src, .proc/handle_mob_trait, L), BTNY_CFG_TRAIT_TELE_IMMUME_TIME)
+		to_chat(L, "<span class='warning'>You slip through spacetime!</span>")
 
-		switch(p_method)
-			if("slip")
-				if(L.ckey != G.fingerprintslast)
-					L.investigate_log("has slipped on a bluespace plant at [AREACOORD(T)] teleporting them to [AREACOORD(L)]. Last fingerprint: [G.fingerprintslast].", INVESTIGATE_BOTANY)
-					log_combat(L, G, "slipped on", null, "teleporting them from [AREACOORD(T)] to [AREACOORD(L)]. Last fingerprint: [G.fingerprintslast].")
-				to_chat(L, "<span class='warning'>You slip through spacetime!</span>")
-			if("attack")
-				if(L.ckey != G.fingerprintslast)
-					L.investigate_log("has been attacked by a bluespace plant at [AREACOORD(T)] teleporting them to [AREACOORD(L)]. Last fingerprint: [G.fingerprintslast].", INVESTIGATE_BOTANY)
-					log_combat(L, G, "has attacked by", null, "teleporting them from [AREACOORD(T)] to [AREACOORD(L)]. Last fingerprint: [G.fingerprintslast].")
-				to_chat(L, "<span class='warning'>You are squashed through spacetime!</span>")
-			if("throw")
-				if(L.ckey != G.fingerprintslast)
-					L.investigate_log("has been hit by a bluespace plant at [AREACOORD(T)] teleporting them to [AREACOORD(L)]. Last fingerprint: [G.fingerprintslast].", INVESTIGATE_BOTANY)
-					log_combat(G.thrownby, L, "hit", G, "at [AREACOORD(T)] teleporting them to [AREACOORD(L)]")
-				to_chat(L, "<span class='warning'>You are squashed through spacetime!</span>")
-			if("consume")
-				to_chat(L, "<span class='warning'>You are squashed through spacetime!</span>")
+		if(p_method & PLANT_ACTIVATED_SLIP)
+			if(L.ckey != G.fingerprintslast)
+				L.investigate_log("has been teleported to [AREACOORD(L)] from [AREACOORD(T)] from stepping on a SLIPPERY bluespace plant. Last fingerprint: [G.fingerprintslast].", INVESTIGATE_BOTANY)
+				log_combat(L, G, "slipped on", null, "teleporting them from [AREACOORD(T)] to [AREACOORD(L)]. Last fingerprint: [G.fingerprintslast].")
+		else if(p_method & PLANT_ACTIVATED_ATTACK)
+			if(L.ckey != G.fingerprintslast)
+				L.investigate_log("has been teleported to [AREACOORD(L)] from [AREACOORD(T)] from being ATTACKED BY a bluespace plant. Last fingerprint: [G.fingerprintslast].", INVESTIGATE_BOTANY)
+				log_combat(L, G, "has attacked by", null, "teleporting them from [AREACOORD(T)] to [AREACOORD(L)]. Last fingerprint: [G.fingerprintslast].")
+		else if(p_method & PLANT_ACTIVATED_THROW)
+			if(L.ckey != G.fingerprintslast)
+				var/mob/thrown_by = G.thrownby?.resolve()
+				L.investigate_log("has been teleported to [AREACOORD(L)] from [AREACOORD(T)] from being hit by a THROWN bluespace plant. Thrower: [thrown_by]. Last fingerprint: [G.fingerprintslast].", INVESTIGATE_BOTANY)
+				log_combat(thrown_by, L, "has thrown a bluespace plant to", G, "at [AREACOORD(T)] teleporting them to [AREACOORD(L)]")
+		else if(p_method & PLANT_ACTIVATED_CONSUME)
+			if(L.ckey != G.fingerprintslast)
+				L.investigate_log("has been teleported to [AREACOORD(L)] from [AREACOORD(T)] from being hit by a THROWN bluespace plant. Last fingerprint: [G.fingerprintslast].", INVESTIGATE_BOTANY)
 
 
 /datum/plant_gene/trait/teleport/proc/plant_teleport(obj/item/reagent_containers/food/snacks/grown/G, mob/living/L, turf/T)
@@ -72,7 +71,6 @@
 		if(HAS_TRAIT(L, TRAIT_BOTANY_IMMUNE_TELE))
 			to_chat(L, "<span class='warning'>Spacetime pushes you back!</span>")
 			return FALSE
-
 
 	var/obj/item/seeds/S = G.seed
 	var/teleport_radius = max(round(S.potency / 10), 1)

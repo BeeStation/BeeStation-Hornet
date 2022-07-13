@@ -53,27 +53,27 @@
 */
 
 // A types
-/datum/plant_gene/trait/proc/on_squash(obj/item/reagent_containers/food/snacks/grown/G, atom/target, var/p_method="attack")
+/datum/plant_gene/trait/proc/on_squash(obj/item/reagent_containers/food/snacks/grown/G, atom/target, p_method)
 	return FALSE // return does nothing
 
 /datum/plant_gene/trait/proc/on_aftersquash(obj/item/reagent_containers/food/snacks/grown/G, atom/target)
 	return FALSE // return does nothing
 
 // B types
-/datum/plant_gene/trait/proc/on_slip(obj/item/reagent_containers/food/snacks/grown/G, mob/living/carbon/target)
+/datum/plant_gene/trait/proc/on_slip(obj/item/reagent_containers/food/snacks/grown/G, mob/living/carbon/target, p_method)
 	return FALSE // return TRUE: qdel(plant)
 
-/datum/plant_gene/trait/proc/on_attack(obj/item/reagent_containers/food/snacks/grown/G, obj/item/I, mob/user)
+/datum/plant_gene/trait/proc/on_attack(obj/item/reagent_containers/food/snacks/grown/G, obj/item/I, mob/user, p_method)
 	return FALSE // return TRUE: qdel(plant)
 
-/datum/plant_gene/trait/proc/on_throw_impact(obj/item/reagent_containers/food/snacks/grown/G, atom/target)
+/datum/plant_gene/trait/proc/on_throw_impact(obj/item/reagent_containers/food/snacks/grown/G, atom/target, p_method)
 	return FALSE // return TRUE: qdel(plant)
 
 // C types
 /datum/plant_gene/trait/proc/on_attackby(obj/item/reagent_containers/food/snacks/grown/G, obj/item/I, mob/user)
 	return FALSE // return TRUE: qdel(plant)
 
-/datum/plant_gene/trait/proc/on_consume(obj/item/reagent_containers/food/snacks/grown/G, mob/living/carbon/target)
+/datum/plant_gene/trait/proc/on_consume(obj/item/reagent_containers/food/snacks/grown/G, mob/living/carbon/target, p_method)
 	return FALSE // return TRUE: qdel(plant)
 
 /datum/plant_gene/trait/proc/on_grow(obj/machinery/hydroponics/H)

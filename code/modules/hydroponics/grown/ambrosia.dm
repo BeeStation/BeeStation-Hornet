@@ -36,7 +36,9 @@
 	family = /datum/plant_gene/family/weed_hardy
 	genes = list(/datum/plant_gene/trait/perennial, /datum/plant_gene/trait/glow/random)
 	reagents_innate = list(
-		/datum/reagent/consumable/nutriment = list(2, 3, NONE))
+		/datum/reagent/consumable/nutriment = list(2, 3, NONE),
+		/datum/reagent/consumable/nutriment/vitamin = list(2, 3, PLANT_GENE_REAGENT_ADJUSTABLE),
+		/datum/reagent/medicine/bicaridine = list(2, 3, PLANT_GENE_COMMON_REMOVABLE))
 	reagents_set = list(
 		/datum/reagent/consumable/nutriment = list(3, 9),
 		/datum/reagent/consumable/nutriment/vitamin = list(2, 6),

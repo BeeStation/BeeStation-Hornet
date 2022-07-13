@@ -49,18 +49,19 @@
 	// Plant genes
 	var/list/genes = list()			// Plant genes are stored here, see plant_genes.dm for more info.
 	var/datum/plant_gene/family/family = /datum/plant_gene/family // Basic family that does nothing.
-	var/list/reagents_innate = list()
-	var/list/reagents_set = list()
+	var/list/reagents_innate = list() // a reagent gene that you can't play well
+	var/list/reagents_set = list()    // a reagent geen you can play with
 	/* ## Structure rule:
 		reagents_set = list(
 			[datum path: datum/reagent/something1] = list([number: default_reagent_size], [number: maximum_reagent_size])
 			[datum path: datum/reagent/another2] = list([number: default_reagent_size], [number: maximum_reagent_size])
 			innate needs FLAG additionally.
-		## Example:
-			reagents_innate = list(
-				/datum/reagent/consumable/nutriment = list(1, 2, NONE),
-				/datum/reagent/consumable/nutriment/vitamin = list(3, 4, PLANT_GENE_REAGENT_ADJUSTABLE),
-				/datum/reagent/consumable/banana = list(5, 7, PLANT_GENE_COMMON_REMOVABLE)) */
+
+		reagents_innate = list(
+			/datum/reagent/consumable/nutriment = list(1, 2, NONE), // FLAG: Can't remove, Can't adjust
+			/datum/reagent/consumable/nutriment/vitamin = list(3, 4, PLANT_GENE_REAGENT_ADJUSTABLE), // FLAG: can't remove
+			/datum/reagent/consumable/banana = list(5, 7, PLANT_GENE_COMMON_REMOVABLE)) // FLAG: Can't adjust
+	 */
 
 	var/research_identifier
 	// used to check if a plant was researched through checking its `product` path. strange seed needs customised identifier.
@@ -93,9 +94,9 @@
 		set_reagent_genes()
 
 /obj/item/seeds/Destroy()
-	qdel_genes() //qdel_genes should be used for seed re-initialization.
+	qdel_genes() //qdel_genes should be used for seed re-initialization too.
 	if(mutatelist)
-		qdel(mutatelist)
+		mutatelist.Cut()
 	return ..()
 
 /obj/item/seeds/proc/qdel_genes()
@@ -104,8 +105,7 @@
 		for(var/datum/plant_gene/C in genes)
 			if(C.get_plant_gene_flags() & PLANT_GENE_QDEL_TARGET)
 				qdel(C)
-		qdel(genes) // qdel list() object. don't do qdel_list() this.
-		genes = null
+		genes.Cut() // cut list() object.
 	if(istype(family))
 		if(family.get_plant_gene_flags() & PLANT_GENE_QDEL_TARGET)
 			qdel(family)
@@ -191,18 +191,10 @@
 /obj/item/seeds/proc/set_reagent_genes()
 	for(var/reag_id in reagents_innate)
 		genes += new /datum/plant_gene/reagent/innate(reag_id, reagents_innate[reag_id])
-		qdel(reagents_innate[reag_id]) //don't QDEL_LIST() here.
-	if(reagents_innate)
-		qdel(reagents_innate)
-	reagents_innate = null
-
+	reagents_innate.Cut()
 	for(var/reag_id in reagents_set)
 		genes += new /datum/plant_gene/reagent/sandbox(reag_id, reagents_set[reag_id])
-		qdel(reagents_set[reag_id])
-	if(reagents_set)
-		qdel(reagents_set)
-	reagents_set = null
-
+	reagents_set.Cut()
 
 /obj/item/seeds/proc/get_gene(typepath)
 	return (locate(typepath) in genes)

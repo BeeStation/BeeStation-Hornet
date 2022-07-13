@@ -1710,6 +1710,17 @@
 	var/last_added = 0
 	var/maximum_reachable = BLOOD_VOLUME_NORMAL - 10
 
+/* [chemical design document]
+	0.05u per metabolise. 10u = 200 ticks. good enough for ashies.
+	heals every damage including clone damage/organ damage, but very bad efficiency
+	1u can heal 4 damages for 20 ticks = 40 seconds. (note: omnizine heals even 0.5 damages at 0.1u)
+	For ash only, it works as if Epinephrine and Saline-glucose - at a 20% chance
+	Ashies can heal themselves with this awful medicine in long term treatment
+
+	at a 5% chacne, non-ash suddenly gets to know how to talk in Draconic
+	and gets a lot of pentalties - especially bad mood.
+*/
+
 /datum/reagent/medicine/ashwalker_medicine/on_mob_life(mob/living/carbon/M)
 	..()
 	M.adjustBruteLoss(-0.2*REM, 0, TRUE)
@@ -1723,12 +1734,10 @@
 		O.applyOrganDamage(-0.2*REM) // This is even a valid option for braintumor people.
 
 
-	if(isashlizard(M)) // real ashwalker medicine part
+	if(isashlizard(M) && prob(20)) // real ashwalker medicine part
+		self_consuming = TRUE
 		ADD_TRAIT(M, TRAIT_NOCRITDAMAGE, type)
-		if(M.losebreath >= 4)
-			M.losebreath -= 2
-		if(M.losebreath < 0)
-			M.losebreath = 0
+		M.losebreath = max(M.losebreath-0.5, 0)
 		// copy-paste saline-glucose - blood regen for only ashwalkers
 		if(last_added)
 			M.blood_volume -= last_added
@@ -1741,19 +1750,22 @@
 		// copy-paste done
 
 	if(prob(5))
-		// somehow braintumor people can ignore this.
+		// somehow braintumor people can ignore this. (not implmented yet)
 		if(!isashlizard(M)) // non-ash will difficult to utilise this at all.
 			to_chat("<span class='warning'>You feel the grasp of the necropolis tendrils occupying you!</span>")
-			M.jitteriness = min(max(0, M.jitteriness + 3), 30)
-			M.druggy = min(max(0, M.druggy + 10), 5)
+			M.jitteriness = clamp(M.jitteriness+10, 20, 50)
+			M.druggy = clamp(M.druggy+10, 15, 30)
+			M.grant_language(/datum/language/draconic, TRUE, TRUE, LANGUAGE_DRUGGY) // DRUGGY flag doesn't make lizard lose their draconic
 			if(prob(25))
 				SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "ashenblood", /datum/mood_event/ashenblood)
 
 /datum/reagent/medicine/ashwalker_medicine/overdose_process(mob/living/carbon/M)
 	holder.remove_reagent(/datum/reagent/medicine/ashwalker_medicine, 20)
 	SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "ashenblood", /datum/mood_event/ashenblood)
+	// don't overdose - even ashwalkers are not safe from OD
 	..()
 
 /datum/reagent/medicine/ashwalker_medicine/on_mob_end_metabolize(mob/living/carbon/M)
 	REMOVE_TRAIT(M, TRAIT_NOCRITDAMAGE, type)
+ 	M.remove_language(/datum/language/draconic, TRUE, TRUE, LANGUAGE_DRUGGY)// DRUGGY flag doesn't make lizard lose their draconic
 	..()

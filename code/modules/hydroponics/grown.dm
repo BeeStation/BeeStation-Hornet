@@ -106,10 +106,10 @@
 
 
 // custom Behaviour: squash ------------------------------------------------------
-/obj/item/reagent_containers/food/snacks/grown/proc/squash(atom/target, var/p_method="attack")
+/obj/item/reagent_containers/food/snacks/grown/proc/squash(atom/target, p_method)
 	if(!seed.get_gene(/datum/plant_gene/trait/squash))
 		return TRUE
-
+	p_method |= PLANT_ACTIVATED_SQUASH
 	. = TRUE
 	/* squash should always return FALSE or TRUE
 		TRUE: don't interrupt chain process
@@ -159,9 +159,9 @@
 	if(!..()) //was it caught by a mob?
 		if(seed)
 			var/selfdestruct = FALSE
-			if(squash(hit_atom, "throw"))
+			if(squash(hit_atom, PLANT_ACTIVATED_THROW))
 				for(var/datum/plant_gene/trait/T in seed.genes)
-					if(T.on_throw_impact(src, hit_atom))
+					if(T.on_throw_impact(src, hit_atom, PLANT_ACTIVATED_THROW))
 						selfdestruct = TRUE
 			if(squash_destruct_check() || selfdestruct)
 				generate_trash(get_turf(hit_atom))
@@ -173,9 +173,9 @@
 	if(user.a_intent == INTENT_HARM)
 		if(seed && iscarbon(user))
 			var/selfdestruct = FALSE
-			if(squash(user, "attack"))
+			if(squash(user, PLANT_ACTIVATED_ATTACK))
 				for(var/datum/plant_gene/trait/T in seed.genes)
-					if(T.on_attack(user))
+					if(T.on_attack(user, PLANT_ACTIVATED_ATTACK))
 						selfdestruct = TRUE
 			if(squash_destruct_check() || selfdestruct)
 				generate_trash(get_turf(user))
@@ -191,7 +191,7 @@
 		if(user.a_intent == INTENT_HARM)
 			if(seed && iscarbon(M))
 				var/selfdestruct = FALSE
-				if(squash(M, "attack"))
+				if(squash(M, PLANT_ACTIVATED_ATTACK))
 					for(var/datum/plant_gene/trait/T in seed.genes)
 						if(T.on_attack(M))
 							selfdestruct = TRUE
@@ -220,10 +220,10 @@
 						if(!do_mob(user, M, eat_delay))
 							visible_message(M, "<span class='notice'>[user] is interrupted to [eatverb] [src]!</span>")
 							if(prob(50))
-								squash(loc)
+								squash(loc, PLANT_ACTIVATED_ATTACK)
 								qdel(src)
 							else
-								squash(user)
+								squash(user, PLANT_ACTIVATED_ATTACK)
 								qdel(src)
 							return
 					to_chat(M, "<span class='notice'>You [eatverb] [src].</span>")
@@ -233,13 +233,13 @@
 					if(!do_mob(user, M, eat_delay))
 						to_chat(M, "<span class='notice'>You are interrupted to [eatverb] [src]!</span>")
 						if(prob(50))
-							squash(loc)
+							squash(loc, PLANT_ACTIVATED_ATTACK)
 							qdel(src)
 						else if(prob(50))
-							squash(user)
+							squash(user, PLANT_ACTIVATED_ATTACK)
 							qdel(src)
 						else
-							squash(M)
+							squash(M, PLANT_ACTIVATED_ATTACK)
 							qdel(src)
 						return
 					M.visible_message("<span class='danger'>[user] forces [M] to [eatverb] [src].</span>", \
@@ -286,7 +286,7 @@
 		if(seed)
 			var/selfdestruct = FALSE
 			for(var/datum/plant_gene/trait/T in seed.genes)
-				if(T.on_consume(src, eater))
+				if(T.on_consume(src, eater, PLANT_ACTIVATED_CONSUME))
 					selfdestruct = TRUE
 			if(selfdestruct)
 				generate_trash(get_turf(eater))

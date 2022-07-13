@@ -25,16 +25,16 @@
 		[on_removal] ...
  */
 
-/datum/plant_gene/trait/stinging/on_slip(obj/item/reagent_containers/food/snacks/grown/G, atom/target)
-	return activate_effect(G, target)
+/datum/plant_gene/trait/stinging/on_slip(obj/item/reagent_containers/food/snacks/grown/G, atom/target, p_method)
+	return activate_effect(G, target, p_method)
 
-/datum/plant_gene/trait/stinging/on_throw_impact(obj/item/reagent_containers/food/snacks/grown/G, atom/target)
-	return activate_effect(G, target)
+/datum/plant_gene/trait/stinging/on_throw_impact(obj/item/reagent_containers/food/snacks/grown/G, atom/target, p_method)
+	return activate_effect(G, target, p_method)
 
-/datum/plant_gene/trait/stinging/on_attack(obj/item/reagent_containers/food/snacks/grown/G, atom/target)
-	return activate_effect(G, target)
+/datum/plant_gene/trait/stinging/on_attack(obj/item/reagent_containers/food/snacks/grown/G, atom/target, p_method)
+	return activate_effect(G, target, p_method)
 
-/datum/plant_gene/trait/stinging/proc/activate_effect(obj/item/reagent_containers/food/snacks/grown/G, atom/target, slip=FALSE)
+/datum/plant_gene/trait/stinging/proc/activate_effect(obj/item/reagent_containers/food/snacks/grown/G, atom/target, p_method)
 	. = FALSE
 	if(!isliving(target))
 		return FALSE
@@ -45,7 +45,7 @@
 			addtimer(CALLBACK(src, /datum/plant_gene/trait/stinging.proc/handle_mob_trait, L), BTNY_CFG_TRAIT_INJECT_IMMUME_TIME)
 			//immume for inject for 30s
 			var/turf/T = get_turf(L)
-			if(slip)
+			if(p_method & PLANT_ACTIVATED_SLIP)
 				L.investigate_log("has slipped on plant at [AREACOORD(T)] injecting him with [G.reagents.log_list()]. Last fingerprint: [G.fingerprintslast].", INVESTIGATE_BOTANY)
 				log_combat(L, G, "slipped on the", null, "injecting him with [G.reagents.log_list()]. Last fingerprint: [G.fingerprintslast].")
 			else

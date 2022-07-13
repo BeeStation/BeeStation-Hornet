@@ -77,6 +77,8 @@
 	. = ..()
 	if(dont_warn_me && myseed.maturation+myseed.production <= age)
 		. += "<span class='notice'>[myseed.plantname] looks </span>"
+	for(var/each in nutris)
+		. += "\[each\] "
 
 
 /obj/machinery/hydroponics/Destroy()
@@ -370,7 +372,7 @@
 	if(length(nutris))
 		return 0 // no nutriment, no aging
 
-	. = 1 // return value = how much this plant will be anged
+	. = 1 // return value = how much this plant will be aged
 	var/earthsblood = FALSE
 	for(var/i in 1 to count)
 		var/chosen_nutriment
@@ -382,7 +384,7 @@
 		nutrilevel = length(nutris)
 		switch(chosen_nutriment)
 			if(BOTANY_NUTRI_NOTHING)
-				delay(1) // this does nothing
+				// this does nothing
 			if(BOTANY_NUTRI_EZNUTRI)
 				if(prob(66))
 					supplyNutriment(BOTANY_NUTRI_EZNUTRI)
@@ -635,7 +637,6 @@
 			else
 				to_chat(user, "<span class='notice'>Nothing happens...</span>")
 
-
 	// Nutriments
 	if(S.has_reagent(/datum/reagent/consumable/nutriment, 1))
 		supplyNutriment(BOTANY_NUTRI_NOTHING, round(S.get_reagent_amount(/datum/reagent/consumable/nutriment) * 1))
@@ -658,143 +659,9 @@
 	if(S.has_reagent(/datum/reagent/medicine/ashwalker_medicine, 1))
 		supplyNutriment(BOTANY_NUTRI_ASHBLOOD, round(S.get_reagent_amount(/datum/reagent/medicine/ashwalker_medicine) * 1))
 
-	if(S.has_reagent(/datum/reagent/medicine/toxin/mutagen, 1))
+	if(S.has_reagent(/datum/reagent/toxin/mutagen, 1))
 		supplyNutriment(BOTANY_NUTRI_MUTAGEN, round(S.get_reagent_amount(/datum/reagent/toxin/mutagen) * 1))
 
-
-
-
-	if(S.has_reagent(/datum/reagent/toxin, 1))
-		adjustToxic(round(S.get_reagent_amount(/datum/reagent/toxin) * 2))
-
-	// Milk is good for humans, but bad for plants. The sugars canot be used by plants, and the milk fat fucks up growth. Not shrooms though. I can't deal with this now...
-	if(S.has_reagent(/datum/reagent/consumable/milk, 1))
-		supplyNutriment(BOTANY_NUTRI_NOTHING, round(S.get_reagent_amount(/datum/reagent/consumable/milk) * 0.1))
-		adjustWater(round(S.get_reagent_amount(/datum/reagent/consumable/milk) * 0.9))
-
-	// Beer is a chemical composition of alcohol and various other things. It's a shitty nutrient but hey, it's still one. Also alcohol is bad, mmmkay?
-	if(S.has_reagent(/datum/reagent/consumable/ethanol/beer, 1))
-		adjustHealth(-round(S.get_reagent_amount(/datum/reagent/consumable/ethanol/beer) * 0.05))
-		supplyNutriment(BOTANY_NUTRI_NOTHING, round(S.get_reagent_amount(/datum/reagent/consumable/ethanol/beer) * 0.25))
-		adjustWater(round(S.get_reagent_amount(/datum/reagent/consumable/ethanol/beer) * 0.7))
-
-	// You're an idiot for thinking that one of the most corrosive and deadly gasses would be beneficial
-	if(S.has_reagent(/datum/reagent/fluorine, 1))
-		adjustHealth(-round(S.get_reagent_amount(/datum/reagent/fluorine) * 2))
-		adjustToxic(round(S.get_reagent_amount(/datum/reagent/fluorine) * 2.5))
-		adjustWater(-round(S.get_reagent_amount(/datum/reagent/fluorine) * 0.5))
-		adjustWeeds(-rand(1,4))
-
-	// You're an idiot for thinking that one of the most corrosive and deadly gasses would be beneficial
-	if(S.has_reagent(/datum/reagent/chlorine, 1))
-		adjustHealth(-round(S.get_reagent_amount(/datum/reagent/chlorine) * 1))
-		adjustToxic(round(S.get_reagent_amount(/datum/reagent/chlorine) * 1.5))
-		adjustWater(-round(S.get_reagent_amount(/datum/reagent/chlorine) * 0.5))
-		adjustWeeds(-rand(1,3))
-
-	// White Phosphorous + water -> phosphoric acid. That's not a good thing really.
-	// Phosphoric salts are beneficial though. And even if the plant suffers, in the long run the tray gets some nutrients. The benefit isn't worth that much.
-	if(S.has_reagent(/datum/reagent/phosphorus, 1))
-		adjustHealth(-round(S.get_reagent_amount(/datum/reagent/phosphorus) * 0.75))
-		supplyNutriment(BOTANY_NUTRI_NOTHING, round(S.get_reagent_amount(/datum/reagent/phosphorus) * 0.1))
-		adjustWater(-round(S.get_reagent_amount(/datum/reagent/phosphorus) * 0.5))
-		adjustWeeds(-rand(1,2))
-
-	// Plants should not have sugar, they can't use it and it prevents them getting water/ nutients, it is good for mold though...
-	if(S.has_reagent(/datum/reagent/consumable/sugar, 1))
-		adjustWeeds(rand(1,2))
-		adjustPests(rand(1,2))
-		supplyNutriment(BOTANY_NUTRI_NOTHING, round(S.get_reagent_amount(/datum/reagent/consumable/sugar) * 0.1))
-
-	// It is water!
-	if(S.has_reagent(/datum/reagent/water, 1))
-		adjustWater(round(S.get_reagent_amount(/datum/reagent/water) * 1))
-
-	// Holy water. Mostly the same as water, it also heals the plant a little with the power of the spirits~
-	if(S.has_reagent(/datum/reagent/water/holywater, 1))
-		adjustWater(round(S.get_reagent_amount(/datum/reagent/water/holywater) * 1))
-
-	// A variety of nutrients are dissolved in club soda, without sugar.
-	// These nutrients include carbon, oxygen, hydrogen, phosphorous, potassium, sulfur and sodium, all of which are needed for healthy plant growth.
-	if(S.has_reagent(/datum/reagent/consumable/sodawater, 1))
-		adjustWater(round(S.get_reagent_amount(/datum/reagent/consumable/sodawater) * 1))
-		supplyNutriment(BOTANY_NUTRI_NOTHING, round(S.get_reagent_amount(/datum/reagent/consumable/sodawater) * 0.1))
-
-	// Man, you guys are stupid
-	if(S.has_reagent(/datum/reagent/toxin/acid, 1))
-		adjustHealth(-round(S.get_reagent_amount(/datum/reagent/toxin/acid) * 1))
-		adjustToxic(round(S.get_reagent_amount(/datum/reagent/toxin/acid) * 1.5))
-		adjustWeeds(-rand(1,2))
-
-	// SERIOUSLY
-	if(S.has_reagent(/datum/reagent/toxin/acid/fluacid, 1))
-		adjustHealth(-round(S.get_reagent_amount(/datum/reagent/toxin/acid/fluacid) * 2))
-		adjustToxic(round(S.get_reagent_amount(/datum/reagent/toxin/acid/fluacid) * 3))
-		adjustWeeds(-rand(1,4))
-
-	// Plant-B-Gone is just as bad
-	if(S.has_reagent(/datum/reagent/toxin/plantbgone, 1))
-		adjustHealth(-round(S.get_reagent_amount(/datum/reagent/toxin/plantbgone) * 5))
-		adjustToxic(round(S.get_reagent_amount(/datum/reagent/toxin/plantbgone) * 6))
-		adjustWeeds(-rand(4,8))
-
-	// why, just why
-	if(S.has_reagent(/datum/reagent/napalm, 1))
-		if(!(myseed.resistance_flags & FIRE_PROOF))
-			adjustHealth(-round(S.get_reagent_amount(/datum/reagent/napalm) * 6))
-			adjustToxic(round(S.get_reagent_amount(/datum/reagent/napalm) * 7))
-		adjustWeeds(-rand(5,9)) //At least give them a small reward if they bother.
-
-	//Weed Spray
-	if(S.has_reagent(/datum/reagent/toxin/plantbgone/weedkiller, 1))
-		adjustToxic(round(S.get_reagent_amount(/datum/reagent/toxin/plantbgone/weedkiller) * 0.5))
-		//old toxicity was 4, each spray is default 10 (minimal of 5) so 5 and 2.5 are the new ammounts
-		adjustWeeds(-rand(1,2))
-
-	//Pest Spray
-	if(S.has_reagent(/datum/reagent/toxin/pestkiller, 1))
-		adjustToxic(round(S.get_reagent_amount(/datum/reagent/toxin/pestkiller) * 0.5))
-		adjustPests(-rand(1,2))
-
-	// Ash is also used IRL in gardening, as a fertilizer enhancer and weed killer
-	if(S.has_reagent(/datum/reagent/ash, 1))
-		supplyNutriment(BOTANY_NUTRI_NOTHING, round(S.get_reagent_amount(/datum/reagent/ash) * 0.5))
-		adjustWeeds(-1)
-
-	// This is more bad ass, and pests get hurt by the corrosive nature of it, not the plant.
-	if(S.has_reagent(/datum/reagent/diethylamine, 1))
-		supplyNutriment(BOTANY_NUTRI_NOTHING, round(S.get_reagent_amount(/datum/reagent/diethylamine) * 2))
-		adjustPests(-rand(1,2))
-
-	// Compost for EVERYTHING
-	if(S.has_reagent(/datum/reagent/consumable/virus_food, 1))
-		supplyNutriment(BOTANY_NUTRI_NOTHING, round(S.get_reagent_amount(/datum/reagent/consumable/virus_food) * 0.5))
-		adjustHealth(-round(S.get_reagent_amount(/datum/reagent/consumable/virus_food) * 0.5))
-
-	// FEED ME
-	if(S.has_reagent(/datum/reagent/blood, 1))
-		supplyNutriment(BOTANY_NUTRI_NOTHING, round(S.get_reagent_amount(/datum/reagent/blood) * 1))
-		adjustPests(rand(2,4))
-
-	// FEED ME SEYMOUR
-	if(S.has_reagent(/datum/reagent/medicine/strange_reagent, 1))
-		spawnplant()
-
-	// The best stuff there is. For testing/debugging.
-	if(S.has_reagent(/datum/reagent/medicine/adminordrazine, 1))
-		adjustWater(round(S.get_reagent_amount(/datum/reagent/medicine/adminordrazine) * 1))
-		adjustHealth(round(S.get_reagent_amount(/datum/reagent/medicine/adminordrazine) * 1))
-		supplyNutriment(BOTANY_NUTRI_NOTHING, round(S.get_reagent_amount(/datum/reagent/medicine/adminordrazine) * 1))
-		adjustPests(-rand(1,5))
-		adjustWeeds(-rand(1,5))
-	if(S.has_reagent(/datum/reagent/medicine/adminordrazine, 5))
-		switch(rand(100))
-			if(33	to 65)
-				mutateweed()
-			if(1   to 32)
-				mutatepest(user)
-			else
-				to_chat(user, "<span class='warning'>Nothing happens...</span>")
 
 /obj/machinery/hydroponics/attackby(obj/item/O, mob/user, params)
 	//Called when mob user "attacks" it with object O
@@ -913,17 +780,6 @@
 
 	else if(default_unfasten_wrench(user, O))
 		return
-
-	else if((O.tool_behaviour == TOOL_WIRECUTTER) && unwrenchable)
-		if (!anchored)
-			to_chat(user, "<span class='warning'>Anchor the tray first!</span>")
-			return
-		using_irrigation = !using_irrigation
-		O.play_tool_sound(src)
-		user.visible_message("<span class='notice'>[user] [using_irrigation ? "" : "dis"]connects [src]'s irrigation hoses.</span>", \
-		"<span class='notice'>You [using_irrigation ? "" : "dis"]connect [src]'s irrigation hoses.</span>")
-		for(var/obj/machinery/hydroponics/h in range(1,src))
-			h.update_icon()
 
 	else if(istype(O, /obj/item/shovel/spade))
 		if(!myseed && !weedlevel)
@@ -1080,6 +936,17 @@
 	else
 		name = initial(name)
 
+/obj/machinery/hydroponics/AltClick(mob/user)
+	. = ..()
+	if(.)
+		return
+	if(issilicon(user))
+		return
+	var/popup_input = alert(user, "Would you like to remove all nutriments?", "Nutriment removal", "Yes", "No")
+	if(popup_input == "Yes")
+		nutris = list()
+		nutrilevel = 0
+
 ///////////////////////////////////////////////////////////////////////////////
 /obj/machinery/hydroponics/soil //Not actually hydroponics at all! Honk!
 	name = "soil"
@@ -1092,6 +959,7 @@
 	flags_1 = NODECONSTRUCT_1
 	unwrenchable = FALSE
 	random_nutriment = TRUE
+	maxnutri = 10
 
 /obj/machinery/hydroponics/soil/update_icon_hoses()
 	return // Has no hoses

@@ -58,22 +58,8 @@
 		return
 
 	// Botany scan
-	if(istype(A, /obj/item/reagent_containers/food/snacks/grown))
+	if(istype(A, /obj/item/reagent_containers/food/snacks/grown) || istype(A, /obj/item/grown))
 		var/obj/item/reagent_containers/food/snacks/grown/P = A
-		var/obj/item/seeds/seed = P.seed
-		if(P.roundstart) //Roundstart crops are not valid to scan
-			to_chat(user, "<span class='warning'>[P.name] has to be manually researched by growing them.</span>")
-			return
-		if(seed.modified) //You shouldn't scan a modified plant
-			to_chat(user, "<span class='warning'>[P.name] has been modified. You need a pure sample.</span>")
-			return
-		if(discovery_scan_botany(linked_techweb, user, A, seed, P.research_identifier, research_faction_type=faction))
-			to_chat(user, "<span class='notice'>Plant research successful. Data has been added.</span>")
-			shows_effect = TRUE
-
-	// I hate this duplication, but need to do for another botany type item.
-	else if(istype(A, /obj/item/grown))
-		var/obj/item/grown/P = A
 		var/obj/item/seeds/seed = P.seed
 		if(P.roundstart) //Roundstart crops are not valid to scan
 			to_chat(user, "<span class='warning'>[P.name] has to be manually researched by growing them.</span>")

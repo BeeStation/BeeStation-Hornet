@@ -23,10 +23,10 @@
 		[on_removal] ...
  */
 
-/datum/plant_gene/trait/smoke/on_squash(obj/item/reagent_containers/food/snacks/grown/G, atom/target, var/p_method="attack")
+/datum/plant_gene/trait/smoke/on_squash(obj/item/reagent_containers/food/snacks/grown/G, atom/target, p_method)
 	activate_effect(G, target, p_method)
 
-/datum/plant_gene/trait/smoke/proc/activate_effect(obj/item/reagent_containers/food/snacks/grown/G, atom/target, p_method="attack")
+/datum/plant_gene/trait/smoke/proc/activate_effect(obj/item/reagent_containers/food/snacks/grown/G, atom/target, p_method)
 	var/datum/effect_system/smoke_spread/chem/S = new
 	var/splat_location = get_turf(target)
 	var/smoke_amount = round(sqrt(G.seed.potency * 0.1), 1)
