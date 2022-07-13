@@ -147,12 +147,9 @@
 	if(new_corgi.stat)
 		holder.remove_all_type(type)
 		M.health = -1 //If our corgi died, the taste-tester should be in hard crit
-		on_mob_end_metabolize(M) //Transform them back to whatever they were
 
 /datum/reagent/corgium/on_mob_end_metabolize(mob/living/L)
 	. = ..()
-	if(!istype(L, /mob/living/simple_animal/pet/dog/corgi)) //happens when someone dies & revives, otherwise deleted.
-		return
 	REMOVE_TRAIT(L, TRAIT_NOBREATH, CORGIUM_TRAIT)
 	//New corgi was deleted, goodbye cruel world.
 	if(QDELETED(new_corgi))
