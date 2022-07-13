@@ -122,9 +122,12 @@
 	chem_flags = CHEMICAL_NOT_SYNTH | CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	taste_description = "dog treats"
 	var/mob/living/simple_animal/pet/dog/corgi/new_corgi
+	///holder for key, stops wandering ghosts from going cata
+	var/key = ""
 
 /datum/reagent/corgium/on_mob_metabolize(mob/living/L)
 	. = ..()
+	key = "[L.key ? L.key : L.ckey]" //Making it a string should avoid reference issues?
 	new_corgi = new(get_turf(L))
 	new_corgi.key = L.key
 	new_corgi.name = L.real_name
@@ -132,9 +135,9 @@
 	ADD_TRAIT(L, TRAIT_NOBREATH, CORGIUM_TRAIT)
 	//hack - equipt current hat
 	var/mob/living/carbon/C = L
-	if (istype(C))
+	if(istype(C))
 		var/obj/item/hat = C.get_item_by_slot(ITEM_SLOT_HEAD)
-		if (hat)
+		if(hat?.dog_fashion)
 			new_corgi.place_on_head(hat,null,FALSE)
 	L.forceMove(new_corgi)
 
@@ -143,9 +146,13 @@
 	//If our corgi died :(
 	if(new_corgi.stat)
 		holder.remove_all_type(type)
+		M.health = -1 //If our corgi died, the taste-tester should be in hard crit
+		on_mob_end_metabolize(M) //Transform them back to whatever they were
 
 /datum/reagent/corgium/on_mob_end_metabolize(mob/living/L)
 	. = ..()
+	if(!istype(L, /mob/living/simple_animal/pet/dog/corgi)) //happens when someone dies & revives, otherwise deleted.
+		return
 	REMOVE_TRAIT(L, TRAIT_NOBREATH, CORGIUM_TRAIT)
 	//New corgi was deleted, goodbye cruel world.
 	if(QDELETED(new_corgi))
@@ -153,7 +160,8 @@
 			qdel(L)
 		return
 	//Leave the corgi
-	L.key = new_corgi.key
+	L.key = key
+	L.ckey = key
 	L.adjustBruteLoss(new_corgi.getBruteLoss())
 	L.adjustFireLoss(new_corgi.getFireLoss())
 	L.forceMove(get_turf(new_corgi))
