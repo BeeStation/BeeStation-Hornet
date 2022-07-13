@@ -1,0 +1,5 @@
+author: benbot16
+delete-after: true
+changes:
+  - bugfix: Failing to get put into a posibrain won't lock you out of other posibrains
+      anymore.
