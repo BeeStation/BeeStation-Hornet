@@ -124,6 +124,10 @@
 	else
 		return ..()
 
+/obj/item/weldingtool/use_tool(atom/target, mob/living/user, delay, amount, volume, datum/callback/extra_checks)
+	target.add_overlay(GLOB.welding_sparks)
+	. = ..()
+	target.cut_overlay(GLOB.welding_sparks)
 
 /obj/item/weldingtool/afterattack(atom/O, mob/user, proximity)
 	. = ..()

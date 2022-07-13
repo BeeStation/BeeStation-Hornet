@@ -51,7 +51,7 @@
 /area/template_noop)
 "h" = (
 /obj/structure/table,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/hand_labeler,
 /obj/item/reagent_containers/food/snacks/grown/tea,
