@@ -1,0 +1,5 @@
+author: itsmeow
+delete-after: true
+changes:
+  - bugfix: Fixes holopad AI message relay using job from crew manifest instead of
+      worn ID
