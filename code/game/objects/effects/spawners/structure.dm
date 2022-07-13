@@ -387,9 +387,6 @@ again.
 	icon_state = "shprwindow_spawner"
 	spawn_list = list(/obj/machinery/door/firedoor/window, /obj/structure/grille, /obj/structure/window/plasma/reinforced/fulltile)
 
-
-
-
 //Depleted Uranium Windows
 
 /obj/effect/spawner/structure/window/depleteduranium

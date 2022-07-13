@@ -507,8 +507,6 @@
 /obj/structure/window/depleteduranium/unanchored
 	anchored = FALSE
 
-
-
 /* Full Tile Windows (more obj_integrity) */
 
 /obj/structure/window/fulltile
