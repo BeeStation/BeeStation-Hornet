@@ -146,7 +146,6 @@
 	//If our corgi died :(
 	if(new_corgi.stat)
 		holder.remove_all_type(type)
-		M.health = -1 //If our corgi died, the taste-tester should be in hard crit
 
 /datum/reagent/corgium/on_mob_end_metabolize(mob/living/L)
 	. = ..()
