@@ -644,8 +644,7 @@
 	var/datum/plant_gene/trait/T
 	if(ispath(trait_id, /datum/plant_gene/trait/glow/random))
 		T = get_trait_gene_from_static(trait_id)
-		var/datum/plant_gene/trait/glow/random/temp = T
-		T.on_new_seed(src, rand_LCM(trait_rand_seed, maximum=length(temp.trait_length)))
+		T.on_new_seed(src, rand_LCM(trait_rand_seed, maximum=8)) // manual input is needed. current glow trait subtype length is 8.
 	if(isnull(trait_id))
 		CRASH("random trait [T] is called as null.")
 	T = get_trait_gene_from_static(trait_id)
