@@ -7141,7 +7141,7 @@
 /area/library)
 "bIu" = (
 /obj/structure/table,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/effect/turf_decal/bot,
 /obj/structure/railing{
 	dir = 8
@@ -7149,7 +7149,7 @@
 /obj/effect/turf_decal/tile/brown{
 	dir = 4
 	},
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/item/hand_labeler,
 /obj/item/folder,
 /turf/open/floor/plasteel/dark/side{
@@ -13650,7 +13650,7 @@
 /area/maintenance/starboard/central)
 "dbx" = (
 /obj/structure/rack,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/item/hand_labeler,
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/tile/bar/tile_marquee{
@@ -15157,7 +15157,7 @@
 /area/maintenance/port/central)
 "duZ" = (
 /obj/structure/table/reinforced,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/item/folder/yellow,
 /turf/open/floor/plasteel/sepia,
 /area/construction/mining/aux_base)
@@ -15453,7 +15453,7 @@
 "dxy" = (
 /obj/structure/table/reinforced,
 /obj/item/folder/yellow,
-/obj/item/destTagger,
+/obj/item/dest_tagger,
 /obj/structure/extinguisher_cabinet{
 	pixel_y = 30
 	},
@@ -16268,7 +16268,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/item/hand_labeler,
 /obj/structure/window/reinforced{
 	dir = 1
@@ -16975,7 +16975,7 @@
 /obj/structure/table/wood,
 /obj/item/folder/yellow,
 /obj/item/hand_labeler,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /turf/open/floor/carpet,
 /area/vacant_room/office)
 "dOi" = (
@@ -28690,7 +28690,7 @@
 "gAR" = (
 /obj/structure/table/reinforced,
 /obj/item/hand_labeler,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -35375,7 +35375,7 @@
 /area/hallway/secondary/exit/departure_lounge)
 "ibu" = (
 /obj/structure/table,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/item/hand_labeler,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/yellow/tile_full,
@@ -45075,7 +45075,7 @@
 	dir = 1
 	},
 /obj/structure/table/reinforced,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/item/stack/wrapping_paper{
 	pixel_y = 5
 	},
@@ -57288,7 +57288,7 @@
 	pixel_y = 7
 	},
 /obj/item/hand_labeler,
-/obj/item/stack/packageWrap{
+/obj/item/stack/package_wrap{
 	pixel_x = -1;
 	pixel_y = -1
 	},
@@ -60656,7 +60656,7 @@
 /obj/structure/table,
 /obj/item/paper_bin,
 /obj/item/pen,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/item/hand_labeler,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -62786,7 +62786,7 @@
 /turf/open/floor/plasteel/techmaint,
 /area/science/storage)
 "oFo" = (
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/item/book/manual/hydroponics_pod_people,
 /obj/item/hand_labeler,
 /obj/effect/turf_decal/bot,
@@ -64778,7 +64778,7 @@
 /area/engine/atmospherics_engine)
 "pgi" = (
 /obj/structure/table/reinforced,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/item/hand_labeler,
 /turf/open/floor/plasteel/dark/side{
 	dir = 8
@@ -72493,7 +72493,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/bot,
 /obj/structure/rack,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/item/storage/box,
 /turf/open/floor/plating,
 /area/maintenance/aft)
@@ -75432,8 +75432,8 @@
 /obj/item/stack/sheet/iron/fifty,
 /obj/item/stack/sheet/iron/fifty,
 /obj/item/stack/sheet/iron/fifty,
-/obj/item/stack/packageWrap,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
+/obj/item/stack/package_wrap,
 /obj/effect/turf_decal/delivery,
 /obj/machinery/airalarm{
 	dir = 4;
@@ -75981,7 +75981,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/item/crowbar,
 /obj/item/hand_labeler,
 /obj/effect/turf_decal/bot,
@@ -76540,7 +76540,7 @@
 /area/science/mixing)
 "rVF" = (
 /obj/structure/table,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/item/hand_labeler,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/sign/poster/official/safety_report{
@@ -77020,15 +77020,15 @@
 	},
 /obj/structure/table,
 /obj/item/hand_labeler,
-/obj/item/stack/packageWrap{
+/obj/item/stack/package_wrap{
 	pixel_x = 2;
 	pixel_y = -3
 	},
-/obj/item/stack/packageWrap{
+/obj/item/stack/package_wrap{
 	pixel_x = 2;
 	pixel_y = -3
 	},
-/obj/item/stack/packageWrap{
+/obj/item/stack/package_wrap{
 	pixel_x = 2;
 	pixel_y = -3
 	},
@@ -81999,7 +81999,7 @@
 	pixel_x = 4;
 	pixel_y = -4
 	},
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/item/hand_labeler,
 /obj/item/book/manual/wiki/grenades,
 /obj/item/book/manual/wiki/chemistry{
@@ -87145,7 +87145,7 @@
 "uqd" = (
 /obj/structure/table/wood,
 /obj/item/hand_labeler,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/item/stack/spacecash/c100,
 /obj/machinery/firealarm{
 	dir = 8;
@@ -95449,7 +95449,7 @@
 	pixel_x = 3
 	},
 /obj/effect/turf_decal/delivery,
-/obj/item/destTagger,
+/obj/item/dest_tagger,
 /turf/open/floor/plasteel,
 /area/science/robotics/lab)
 "wsC" = (
@@ -96835,7 +96835,7 @@
 	network = list("ss13","rd")
 	},
 /obj/item/hand_labeler,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/item/stack/sheet/glass/fifty,
 /obj/item/stack/sheet/mineral/plasma,
 /obj/item/stack/sheet/iron/fifty,
