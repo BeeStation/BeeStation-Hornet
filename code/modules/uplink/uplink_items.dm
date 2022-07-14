@@ -2372,7 +2372,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	illegal_tech = FALSE
 
 /datum/uplink_item/badass/toy_box
-	name = "Box of DonkCo. toys"
+	name = "Box of DonkCo. Toys"
 	desc = "A special package box for children who want to have awesome gifts from their parents, full of DonkCo. toys. \
 	Toys inside of the box are totally safe and not harmful, approved by Nanotrasen safety assurance even, that can be said as non-contraband stuff literally. \
 	This package will be special when you're going to present funny toys to your beloved child. Don't ask why the box is red."
