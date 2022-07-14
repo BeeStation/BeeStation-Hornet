@@ -1,7 +1,8 @@
 // This proc is only used in `PDApainter.dm`, but for better readability, it's declared as global proc and stored here.
 // This returns a card icon style by given job name. Check `card.dmi` for the card list.
 /proc/get_cardstyle_by_jobname(jobname)
-	. = "noname" // a card with no shape
+	if(!jobname)
+		CRASH("The proc has taken a null value")
 
 	var/static/id_style = list(
 		// Command
@@ -71,13 +72,13 @@
 		// ETC2
 		"Ratvar" = "ratvar"
 	)
-	if(id_style[jobname] != null)
-		return id_style[jobname]
+	return id_style[jobname] || "noname" // default: a card with no shape
 
 // This returns a hud icon (from `hud.dmi`) by given job name.
 // Some custom title is from `PDApainter.dm`. You neec to check it if you're going to remove custom job.
 /proc/get_hud_by_jobname(jobname)
-	. = JOB_HUD_UNKNOWN // a grey unknown hud
+	if(!jobname)
+		CRASH("The proc has taken a null value")
 
 	var/static/id_to_hud = list(
 		// Command
@@ -152,14 +153,13 @@
 		"Unassigned" = JOB_HUD_UNKNOWN,
 		"Prisoner" = JOB_HUD_PRISONER
 	)
-	if(id_to_hud[jobname] != null)
-		return id_to_hud[jobname]
-	return JOB_HUD_UNKNOWN
+	return id_to_hud[jobname] || JOB_HUD_UNKNOWN // default: a grey unknown hud
 
 // This returns a department for banking system by given hud icon.
 // currently used in `card.dm` and `PDApainter.dm` to set a card's paycheck department
 /proc/get_department_by_hud(jobname)
-	. = ACCOUNT_CIV
+	if(!jobname)
+		CRASH("The proc has taken a null value")
 
 	var/static/hud_to_department_acc = list(
 		// Command
@@ -232,13 +232,13 @@
 		JOB_HUD_UNKNOWN = ACCOUNT_CIV,
 		JOB_HUD_PRISONER = ACCOUNT_CIV
 	)
-	if(hud_to_department_acc[jobname] != null)
-		return hud_to_department_acc[jobname]
+	return hud_to_department_acc[jobname] || ACCOUNT_CIV // default: Civ budget department
 
 // used to determine chat color by HUD in `chatmessage.dm`
 // Note: custom colors are what I really didn't put much attention into. feel free to change its color when you feel off.
 /datum/chatmessage/proc/get_chatcolor_by_hud(jobname)
-	. = JOB_CHATCOLOR_UNKNOWN
+	if(!jobname)
+		CRASH("The proc has taken a null value")
 
 	var/static/hud_to_chatcolor = list(
 		// Command
@@ -312,6 +312,5 @@
 		JOB_HUD_PRISONER = JOB_CHATCOLOR_PRISONER,
 		JOB_HUD_UNKNOWN = JOB_CHATCOLOR_UNKNOWN
 	)
-	if(hud_to_chatcolor[jobname] != null)
-		return hud_to_chatcolor[jobname]
+	return hud_to_chatcolor[jobname] || JOB_CHATCOLOR_UNKNOWN
 
