@@ -2,8 +2,6 @@
 // This returns a card icon style by given job name. Check `card.dmi` for the card list.
 /proc/get_cardstyle_by_jobname(jobname)
 	. = "noname" // a card with no shape
-	if(!jobname)
-		CRASH("The proc has taken a null value")
 
 	var/static/id_style = list(
 		// Command
@@ -80,8 +78,6 @@
 // Some custom title is from `PDApainter.dm`. You neec to check it if you're going to remove custom job.
 /proc/get_hud_by_jobname(jobname)
 	. = JOB_HUD_UNKNOWN // a grey unknown hud
-	if(!jobname)
-		CRASH("The proc has taken a null value")
 
 	var/static/id_to_hud = list(
 		// Command
@@ -164,8 +160,6 @@
 // currently used in `card.dm` and `PDApainter.dm` to set a card's paycheck department
 /proc/get_department_by_hud(jobname)
 	. = ACCOUNT_CIV
-	if(!jobname)
-		CRASH("The proc has taken a null value")
 
 	var/static/hud_to_department_acc = list(
 		// Command
@@ -245,8 +239,6 @@
 // Note: custom colors are what I really didn't put much attention into. feel free to change its color when you feel off.
 /datum/chatmessage/proc/get_chatcolor_by_hud(jobname)
 	. = JOB_CHATCOLOR_UNKNOWN
-	if(!jobname)
-		CRASH("The proc has taken a null value")
 
 	var/static/hud_to_chatcolor = list(
 		// Command
