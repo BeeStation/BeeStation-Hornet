@@ -131,6 +131,12 @@
 		return
 	ADD_TRAIT(L, TRAIT_MUTE, CORGIUM_TRAIT)
 	new_corgi = new(L.loc)
+	//hat check
+	var/mob/living/carbon/C = L
+	if(istype(C))
+		var/obj/item/hat = C.get_item_by_slot(ITEM_SLOT_HEAD)
+		if(hat?.dog_fashion)
+			new_corgi.place_on_head(hat,null,FALSE)
 	H = new(new_corgi,src,L)
 
 /datum/reagent/corgium/on_mob_life(mob/living/carbon/M)
