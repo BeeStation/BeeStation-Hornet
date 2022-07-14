@@ -64,7 +64,7 @@ GLOBAL_LIST_INIT(freqtospan, list(
 		if(!radio_freq)
 			if(H.wear_id?.GetID())
 				var/obj/item/card/id/idcard = H.wear_id
-				if(idcard.hud_state == "unknown")
+				if(idcard.hud_state == JOB_HUD_UNKNOWN)
 					spanpart2 = "<span class='name unassigned'>"
 				else
 					spanpart2 = "<span class='name [idcard.hud_state]'>"
