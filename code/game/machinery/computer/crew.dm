@@ -38,63 +38,72 @@ GLOBAL_DATUM_INIT(crewmonitor, /datum/crewmonitor, new)
 	/// Map of job to ID for sorting purposes
 	var/list/jobs = list(
 		// Note that jobs divisible by 10 are considered heads of staff, and bolded
-		// 00: Captain
-		JOB_CAPTAIN = 00,
+		// Job names are based on `hud_state` from id card.
+		// 0: Captain
+		JOB_HUD_CAPTAIN = 0,
+		JOB_HUD_ACTINGCAPTAIN  = 1,
+		JOB_HUD_RAWCOMMAND = 7,
+		// 8-9: self-important people
+		JOB_HUD_VIP = 8,
+		JOB_HUD_KING = 9,
 		// 10-19: Security
-		JOB_HEAD_OF_SECURITY = 10,
-		JOB_WARDEN = 11,
-		JOB_SECURITY_OFFICER = 12,
-		JOB_DETECTIVE = 13,
-		JOB_BRIGPHYSICIAN = 14,
-		JOB_DEPUTY = 15,
+		JOB_HUD_HEADOFSECURITY = 10,
+		JOB_HUD_WARDEN = 11,
+		JOB_HUD_SECURITYOFFICER = 12,
+		JOB_HUD_DETECTIVE = 13,
+		JOB_HUD_BRIGPHYSICIAN = 14,
+		JOB_HUD_DEPUTY = 15,
+		JOB_HUD_RAWSECURITY = 19,
 		// 20-29: Medbay
-		JOB_CHIEF_MEDICAL_OFFICER = 20,
-		JOB_CHEMIST = 21,
-		JOB_GENETICIST = 22,
-		JOB_VIROLOGIST = 23,
-		JOB_MEDICAL_DOCTOR = 24,
-		JOB_PARAMEDIC = 25,
-		JOB_PSYCHIATRIST = 26,
+		JOB_HUD_CHEIFMEDICALOFFICIER = 20,
+		JOB_HUD_CHEMIST = 21,
+		JOB_HUD_GENETICIST = 22,
+		JOB_HUD_VIROLOGIST = 23,
+		JOB_HUD_MEDICALDOCTOR = 24,
+		JOB_HUD_PARAMEDIC = 25,
+		JOB_HUD_PSYCHIATRIST = 26,
+		JOB_HUD_RAWMEDICAL = 29,
 		// 30-39: Science
-		JOB_RESEARCH_DIRECTOR = 30,
-		JOB_SCIENTIST = 31,
-		JOB_ROBOTICIST = 32,
-		JOB_EXPLORATIONCREW = 33,
+		JOB_HUD_RESEARCHDIRECTOR = 30,
+		JOB_HUD_SCIENTIST = 31,
+		JOB_HUD_ROBOTICIST = 32,
+		JOB_HUD_EXPLORATIONCREW = 33,
+		JOB_HUD_RAWSCIENCE = 39,
 		// 40-49: Engineering
-		JOB_CHIEF_ENGINEER = 40,
-		JOB_STATION_ENGINEER = 41,
-		JOB_ATMOSPHERIC_TECHNICIAN = 42,
+		JOB_HUD_CHIEFENGINEER = 40,
+		JOB_HUD_STATIONENGINEER = 41,
+		JOB_HUD_ATMOSPHERICTECHNICIAN = 42,
+		JOB_HUD_RAWENGINEERING = 49,
 		// 50-59: Cargo
-		JOB_HEAD_OF_PERSONNEL = 50,
-		JOB_QUARTERMASTER = 51,
-		JOB_SHAFT_MINER = 52,
-		JOB_CARGO_TECHNICIAN = 53,
+		JOB_HUD_HEADOFPERSONNEL = 50,
+		JOB_HUD_QUARTERMASTER = 51,
+		JOB_HUD_SHAFTMINER = 52,
+		JOB_HUD_CARGOTECHNICIAN = 53,
+		JOB_HUD_RAWCARGO = 59,
 		// 60+: Civilian/other
-		JOB_BARTENDER = 61,
-		JOB_COOK = 62,
-		JOB_BOTANIST = 63,
-		JOB_CURATOR = 64,
-		JOB_CHAPLAIN = 65,
-		JOB_CLOWN = 66,
-		JOB_MIME = 67,
-		JOB_JANITOR = 68,
-		JOB_LAWYER = 69,
-		JOB_BARBER = 71,
-		JOB_STAGE_MAGICIAN = 72,
-		JOB_VIP = 73,
+		JOB_HUD_BARTENDER = 61,
+		JOB_HUD_COOK = 62,
+		JOB_HUD_BOTANIST = 63,
+		JOB_HUD_CURATOR = 64,
+		JOB_HUD_CHAPLAIN = 65,
+		JOB_HUD_CLOWN = 66,
+		JOB_HUD_MIME = 67,
+		JOB_HUD_JANITOR = 68,
+		JOB_HUD_LAWYER = 69,
+		JOB_HUD_BARBER = 71,
+		JOB_HUD_STAGEMAGICIAN = 72,
+		JOB_HUD_RAWSERVICE = 99,
 		// ANYTHING ELSE = UNKNOWN_JOB_ID, Unknowns/custom jobs will appear after civilians, and before assistants
-		JOB_ASSISTANT = 999,
+		JOB_HUD_ASSISTANT = 999,
 
 		// 200-229: Centcom
-		JOB_CENTCOM_ADMIRAL = 200,
-		JOB_CENTCOM_COMMANDER = 210,
-		JOB_CENTCOM_CUSTODIAN = 211,
-		JOB_CENTCOM_MEDICAL_DOCTOR = 212,
-		JOB_CENTCOM_RESEARCH_OFFICER = 213,
-		JOB_ERT_COMMANDER = 220,
-		JOB_ERT_OFFICER  = 221,
-		JOB_ERT_ENGINEER = 222,
-		JOB_ERT_MEDICAL_DOCTOR = 223
+		JOB_HUD_CENTCOM = 200,
+		JOB_HUD_RAWCENTCOM = 229,
+
+
+		// 300-309: misc
+		JOB_HUD_SYNDICATE = 301,
+		JOB_HUD_PRISONER = 302
 	)
 
 
@@ -190,10 +199,10 @@ GLOBAL_DATUM_INIT(crewmonitor, /datum/crewmonitor, new)
 		var/obj/item/card/id/I = tracked_human.wear_id ? tracked_human.wear_id.GetID() : null
 
 		if (I)
-			entry["name"] = I.registered_name
-			entry["assignment"] = I.assignment
-			if(jobs[I.assignment] != null)
-				entry["ijob"] = jobs[I.assignment]
+			entry["name"] = I.registered_name ? I.registered_name : "Unknown"
+			entry["assignment"] = I.assignment ? I.assignment : "Unknown"
+			if(jobs[I.hud_state] != null)
+				entry["ijob"] = jobs[I.hud_state]
 
 		// Binary living/dead status
 		if (nanite_sensors || uniform.sensor_mode >= SENSOR_LIVING)

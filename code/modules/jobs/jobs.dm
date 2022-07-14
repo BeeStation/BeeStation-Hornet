@@ -37,16 +37,17 @@ GLOBAL_LIST_INIT(supply_positions, list(
 
 
 GLOBAL_LIST_INIT(civilian_positions, list(
-	JOB_BARTENDER,
-	JOB_BOTANIST,
-	JOB_COOK,
-	JOB_JANITOR,
-	JOB_CURATOR,
-	JOB_LAWYER,
-	JOB_CHAPLAIN,
-	JOB_CLOWN,
-	JOB_MIME,
-	JOB_ASSISTANT))
+	"Head of Personnel",
+	"Bartender",
+	"Botanist",
+	"Cook",
+	"Janitor",
+	"Lawyer",
+	"Curator",
+	"Chaplain",
+	"Mime",
+	"Clown",
+	"Assistant"))
 
 GLOBAL_LIST_INIT(gimmick_positions, list(
 	JOB_GIMMICK,
@@ -67,6 +68,82 @@ GLOBAL_LIST_INIT(nonhuman_positions, list(
 	JOB_CYBORG,
 	JOB_CYBORG,
 	ROLE_PAI))
+
+
+// they are for hud_icon-based crew manifest
+// we don't use 'gimmick' here. use common sense here.
+GLOBAL_LIST_INIT(command_positions_hud, list(
+	JOB_HUD_CAPTAIN,
+	JOB_HUD_ACTINGCAPTAIN ,
+	JOB_HUD_HEADOFPERSONNEL,
+	JOB_HUD_HEADOFSECURITY,
+	JOB_HUD_CHIEFENGINEER,
+	JOB_HUD_RESEARCHDIRECTOR,
+	JOB_HUD_CHEIFMEDICALOFFICIER,
+	JOB_HUD_RAWCOMMAND))
+
+GLOBAL_LIST_INIT(important_positions_hud, list(
+	JOB_HUD_VIP,
+	JOB_HUD_KING))
+
+GLOBAL_LIST_INIT(engineering_positions_hud, list(
+	JOB_HUD_CHIEFENGINEER,
+	JOB_HUD_STATIONENGINEER,
+	JOB_HUD_ATMOSPHERICTECHNICIAN,
+	JOB_HUD_RAWENGINEERING))
+
+GLOBAL_LIST_INIT(medical_positions_hud, list(
+	JOB_HUD_CHEIFMEDICALOFFICIER,
+	JOB_HUD_MEDICALDOCTOR,
+	JOB_HUD_GENETICIST,
+	JOB_HUD_VIROLOGIST,
+	JOB_HUD_PARAMEDIC,
+	JOB_HUD_CHEMIST,
+	JOB_HUD_BRIGPHYSICIAN,
+	JOB_HUD_PSYCHIATRIST,
+	JOB_HUD_RAWMEDICAL))
+
+GLOBAL_LIST_INIT(science_positions_hud, list(
+	JOB_HUD_RESEARCHDIRECTOR,
+	JOB_HUD_SCIENTIST,
+	JOB_HUD_EXPLORATIONCREW,
+	JOB_HUD_ROBOTICIST,
+	JOB_HUD_RAWSCIENCE))
+
+GLOBAL_LIST_INIT(supply_positions_hud, list(
+	JOB_HUD_QUARTERMASTER,
+	JOB_HUD_CARGOTECHNICIAN,
+	JOB_HUD_SHAFTMINER,
+	JOB_HUD_RAWCARGO))
+
+GLOBAL_LIST_INIT(civilian_positions_hud, list(
+	JOB_HUD_HEADOFPERSONNEL,
+	JOB_HUD_BARTENDER,
+	JOB_HUD_BOTANIST,
+	JOB_HUD_COOK,
+	JOB_HUD_JANITOR,
+	JOB_HUD_CURATOR,
+	JOB_HUD_LAWYER,
+	JOB_HUD_CHAPLAIN,
+	JOB_HUD_CLOWN,
+	JOB_HUD_MIME,
+	JOB_HUD_BARBER,
+	JOB_HUD_STAGEMAGICIAN,
+	JOB_HUD_ASSISTANT,
+	JOB_HUD_RAWSERVICE))
+
+//GLOBAL_LIST_INIT(gimmick_positions_hud, list()
+// NO. don't use this.
+
+GLOBAL_LIST_INIT(security_positions_hud, list(
+	JOB_HUD_HEADOFSECURITY,
+	JOB_HUD_WARDEN,
+	JOB_HUD_DETECTIVE,
+	JOB_HUD_SECURITYOFFICER,
+	JOB_HUD_DEPUTY,
+	JOB_HUD_RAWSECURITY))
+
+
 
 GLOBAL_LIST_INIT(exp_jobsmap, list(
 	EXP_TYPE_CREW = list("titles" = command_positions | engineering_positions | medical_positions | science_positions | supply_positions | security_positions | civilian_positions | gimmick_positions | list(JOB_CYBORG,JOB_CYBORG)), // crew positions

@@ -48,3 +48,7 @@ Assistant
 			uniform = /obj/item/clothing/under/color/random
 		else
 			uniform = /obj/item/clothing/under/color/jumpskirt/random
+
+/datum/outfit/job/assistant
+	name = "Assistant"
+	id = /obj/item/card/id/job/assistant

@@ -278,6 +278,8 @@
 		if(istype(theID))
 			if(!(H.get_assignment() == JOB_ASSISTANT) && !(H.get_assignment() == "No id") && !(H.get_assignment() == "No job"))
 				return TRUE
+			if(theID.hud_state != JOB_HUD_ASSISTANT) // non-assistant HUD counts too
+				return TRUE
 	return ..()
 
 /datum/objective/crew/justicecrew

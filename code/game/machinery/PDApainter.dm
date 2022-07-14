@@ -9,72 +9,60 @@
 	var/obj/item/pda/storedpda = null
 	var/obj/item/card/id/storedid = null
 	var/pda_icons = list(
-		"neutral" = "pda",
-		JOB_ASSISTANT = "pda-assistant",
-		JOB_ATMOSPHERIC_TECHNICIAN = "pda-atmos",
-		JOB_BARTENDER = "pda-bartender",
-		"Service" = "pda-service",
-		JOB_CAPTAIN = "pda-captain",
-		JOB_CARGO_TECHNICIAN = "pda-cargo",
-		JOB_CHAPLAIN = "pda-chaplain",
-		JOB_CHEMIST = "pda-chemistry",
-		JOB_CHIEF_MEDICAL_OFFICER = "pda-cmo",
-		JOB_CHIEF_ENGINEER = "pda-ce",
-		JOB_CLOWN = "pda-clown",
-		JOB_COOK = "pda-cook",
-		JOB_CURATOR = "pda-library",
-		JOB_DETECTIVE = "pda-detective",
-		"Engineer & Atmos" = "pda-engineer",
-		JOB_GENETICIST = "pda-genetics",
-		JOB_HEAD_OF_PERSONNEL = "pda-hop",
-		JOB_HEAD_OF_SECURITY = "pda-hos",
-		JOB_LAWYER = "pda-lawyer",
-		JOB_JANITOR = "pda-janitor",
-		JOB_MEDICAL_DOCTOR = "pda-medical",
-		JOB_PARAMEDIC = "pda-paramedical",
-		JOB_MIME = "pda-mime",
-		JOB_QUARTERMASTER = "pda-qm",
-		JOB_RESEARCH_DIRECTOR = "pda-rd",
-		JOB_ROBOTICIST = "pda-roboticist",
-		JOB_SCIENTIST = "pda-science",
-		JOB_SECURITY_OFFICER = "pda-security",
-		JOB_SHAFT_MINER = "pda-miner",
-		JOB_VIROLOGIST = "pda-virology",
-		JOB_WARDEN = "pda-warden",
-		JOB_EXPLORATIONCREW = "pda-exploration"
+		"Misc: Neutral" = "pda",
+		"Misc: Assistant" = "pda-assistant",
+		"Command (Standard)" = "pda-heads",
+		"Command: Captain" = "pda-captain",
+		"Service (Standard)" = "pda-service",
+		"Service: Head of Personnel" = "pda-hop",
+		"Service: Bartender" = "pda-bartender",
+		"Service: Chaplain" = "pda-chaplain",
+		"Service: Clown" = "pda-clown",
+		"Service: Cook" = "pda-cook",
+		"Service: Curator" = "pda-library",
+		"Service: Janitor" = "pda-janitor",
+		"Service: Lawyer" = "pda-lawyer",
+		"Service: Mime" = "pda-mime",
+		"Cargo (Standard)" = "pda-cargo",
+		"Cargo: Quartermaster" = "pda-qm",
+		"Cargo: Cargo Technician" = "pda-cargo",
+		"Cargo: Shaft Miner" = "pda-miner",
+		"Engineering (Standard)" = "pda-engineer",
+		"Engineering: Chief Engineer" = "pda-ce",
+		"Engineering: Station Engineer" = "pda-engineer",
+		"Engineering: Atmospheric Technician" = "pda-atmos",
+		"Science (Standard)" = "pda-science",
+		"Science: Research Director" = "pda-rd",
+		"Science: Roboticist" = "pda-roboticist",
+		"Science: Scienctist" = "pda-science",
+		"Science: Exploration Crew" = "pda-exploration",
+		"Medical (Standard)" = "pda-medical",
+		"Medical: Chief Medical Officer" = "pda-cmo",
+		"Medical: Medical Doctor" = "pda-medical",
+		"Medical: Chemist" = "pda-chemistry",
+		"Medical: Paramedic" = "pda-paramedical",
+		"Medical: Geneticist" = "pda-genetics",
+		"Medical: Virologist" = "pda-virology",
+		"Security (Standard)" = "pda-security",
+		"Security: Head of Security" = "pda-hos",
+		"Security: Warden" = "pda-warden",
+		"Security: Security Officier" = "pda-security",
+		"Security: Detective" = "pda-detective",
+		"Security: Brig Physician" = "pda-brigphys",
+		"Security: Deputy" = "pda-deputy",
+		"Misc: Prisoner" = "pda-prisoner"
 		)
-	var/id_icons = list(
-		JOB_ASSISTANT = "id",
-		JOB_ATMOSPHERIC_TECHNICIAN = "atmos",
-		"Cargo" = "cargo",
-		JOB_CHAPLAIN = "chap",
-		JOB_CAPTAIN = "captain",
-		JOB_CHIEF_ENGINEER = "ce",
-		JOB_CHIEF_MEDICAL_OFFICER = "cmo",
-		JOB_CLOWN = "clown",
-		JOB_DETECTIVE = "detective",
-		"Engineering" = "engi",
-		JOB_HEAD_OF_PERSONNEL = "hop",
-		JOB_HEAD_OF_SECURITY = "hos",
-		JOB_LAWYER = "lawyer",
-		"Medical" = "med",
-		JOB_MIME = "mime",
-		JOB_QUARTERMASTER = "qm",
-		JOB_RESEARCH_DIRECTOR = "rd",
-		"Science" = "sci",
-		"Security" = "sec",
-		"Service" = "serv",
-		JOB_SHAFT_MINER = "miner",
-		JOB_WARDEN = "warden",
-		JOB_PARAMEDIC = "paramed",
-		JOB_VIROLOGIST = "viro",
-		JOB_CHEMIST = "chemist",
-		JOB_GENETICIST = "gene",
-		JOB_BRIGPHYSICIAN = "brigphys",
-		JOB_DEPUTY = "deputy",
-		JOB_ROBOTICIST = "roboticist",
-		JOB_JANITOR = "janitor",
-		JOB_EXPLORATIONCREW = "exploration"
+
+	var/valid_jobs = list(
+		"----Command----","Command (Custom)", "Captain", "Acting Captain",
+		"----Service----","Service (Custom)", "Assistant", "Head of Personnel", "Bartender", "Cook", "Botanist", "Janitor", "Curator",
+		"Chaplain", "Lawyer", "Clown", "Mime", "Barber", "Stage Magician",
+		"----Cargo----","Cargo (Custom)","Quartermaster", "Cargo Technician","Shaft Miner",
+		"----Engineering----","Engineering (Custom)","Chief Engineer", "Station Engineer", "Atmospheric Technician",
+		"----Science----","Science (Custom)","Research Director", "Scientist", "Roboticist", "Exploration Crew",
+		"----Medical----","Medical (Custom)","Chief Medical Officer", "Medical Doctor", "Chemist", "Geneticist", "Virologist", "Paramedic", "Psychiatrist",
+		"----Security----","Security (Custom)","Head of Security", "Warden", "Detective", "Security Officer", "Brig Physician", "Deputy",
+		"----MISC----","Unassigned","Prisoner"
 		)
 	max_integrity = 200
 	var/list/colorlist = list()
@@ -86,11 +74,14 @@
 		"Transparent" = "pda-clear",
 		"Syndicate" = "pda-syndi"
 		)
-	id_icons += list(
-		"CentCom" = "centcom",
-		"ERT" = "ert",
-		"Syndicate" = "syndicate",
-		"Clown Operative" = "clown_op",
+	valid_jobs += list(
+		"CentCom (Custom)",
+		"CentCom",
+		"ERT",
+		"VIP",
+		"KING",
+		"Syndicate",
+		"Clown Operative"
 		)
 	to_chat(user, "<span class='warning'>You short out the design locking circuitry, allowing contraband and special designs.</span>")
 	obj_flags |= EMAGGED
@@ -227,14 +218,23 @@
 				ejectpda()
 			if(storedid)
 				var/newidskin
-				newidskin = input(user, "Select an ID skin!", "ID  Painting") as null|anything in id_icons
+				newidskin = input(user, "Select an ID skin!", "ID  Painting") as null|anything in valid_jobs
 				if(!newidskin)
+					return
+				if(newidskin[1] == "-")
 					return
 				if(!in_range(src, user))
 					return
 				if(!storedid)//is the ID still there?
 					return
-				storedid.icon_state = id_icons[newidskin]
+				storedid.icon_state = get_cardstyle_by_jobname(newidskin)
+				storedid.hud_state = get_hud_by_jobname(newidskin)
+
+				// QoL to correct the system behavior
+				if(storedid.registered_account)
+					storedid.registered_account.account_department = get_department_by_hud(storedid.hud_state) // your true department by your hud icon color
+				GLOB.data_core.manifest_modify(storedid.registered_name, storedid.assignment, storedid.hud_state) // update crew manifest
+				// There are the same code lines in `card.dm`
 				ejectid()
 		else
 			to_chat(user, "<span class='notice'>[src] is empty.</span>")

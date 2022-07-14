@@ -23,11 +23,12 @@
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/botany
 	)
+
 /datum/outfit/job/botanist
 	name = JOB_BOTANIST
 	jobtype = /datum/job/botanist
 
-	id = /obj/item/card/id/job/serv
+	id = /obj/item/card/id/job/botanist
 	belt = /obj/item/pda/service
 	ears = /obj/item/radio/headset/headset_srv
 	uniform = /obj/item/clothing/under/rank/civilian/hydroponics

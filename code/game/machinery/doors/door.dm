@@ -68,6 +68,15 @@
 	//doors only block while dense though so we have to use the proc
 	real_explosion_block = explosion_block
 	explosion_block = EXPLOSION_BLOCK_PROC
+	if(red_alert_access)
+		RegisterSignal(SSdcs, COMSIG_GLOB_SECURITY_ALERT_CHANGE, .proc/handle_alert)
+
+/obj/machinery/door/proc/handle_alert(datum/source, new_alert)
+	SIGNAL_HANDLER
+	if(new_alert >= SEC_LEVEL_RED)
+		visible_message("<span class='notice'>[src] whirs as it automatically lifts access requirements!</span>")
+		playsound(src, 'sound/machines/boltsup.ogg', 50, TRUE)
+
 
 /obj/machinery/door/proc/set_init_door_layer()
 	if(density)
