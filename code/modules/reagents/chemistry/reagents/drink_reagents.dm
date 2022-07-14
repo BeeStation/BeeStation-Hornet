@@ -165,7 +165,7 @@
 	description = "Some say that this is the best medicine, but recent studies have proven that to be untrue."
 	metabolization_rate = INFINITY
 	color = "#FF4DD2"
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_GOAL_BOTANIST_HARVEST
+	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN
 	taste_description = "laughter"
 
 
