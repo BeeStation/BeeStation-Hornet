@@ -338,7 +338,7 @@
 // Some custom title is from `PDApainter.dm`. You neec to check it if you're going to remove custom job.
 /proc/get_hud_by_jobname(jobname)
 	. = JOB_HUD_UNKNOWN // a grey unknown hud
-	if(jobname)
+	if(!jobname)
 		CRASH("The proc has taken a null value")
 
 	var/static/id_to_hud = list(
