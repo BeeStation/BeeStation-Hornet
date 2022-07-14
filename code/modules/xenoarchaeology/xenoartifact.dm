@@ -70,12 +70,14 @@
 		material = pickweight(list(XENOA_BLUESPACE = 8, XENOA_PLASMA = 5, XENOA_URANIUM = 3, XENOA_BANANIUM = 1)) //Maint artifacts and similar situations
 
 	var/price
+	var/extra_masks
 	switch(material)
 		if(XENOA_BLUESPACE) //Check xenoartifact_materials.dm for info on artifact materials/types/traits
 			name = "bluespace [name]"
 			generate_traits(XENOA_BLUESPACE_BLACKLIST)
 			if(!price)
 				price = pick(100, 200, 300)
+			extra_masks = pick(1)
 
 		if(XENOA_PLASMA)
 			name = "plasma [name]"
@@ -83,6 +85,7 @@
 			if(!price)
 				price = pick(200, 300, 500)
 			malfunction_mod = 0.5
+			extra_masks = pick(1)
 
 		if(XENOA_URANIUM)
 			name = "uranium [name]"
@@ -90,47 +93,37 @@
 			if(!price)
 				price = pick(300, 500, 800) 
 			malfunction_mod = 1
+			extra_masks = pick(1)
 
 		if(XENOA_BANANIUM)
 			name = "bananium [name]"
 			generate_traits(list(/datum/xenoartifact_trait/major/sing))
 			if(!price)
-				price = pick(500, 800, 1000) 
-	SEND_SIGNAL(src, XENOA_CHANGE_PRICE, price)
+				price = pick(500, 800, 1000)
+			extra_masks = pick(0)
+	SEND_SIGNAL(src, XENOA_CHANGE_PRICE, price) //update price, bacon requested signals
 
 	//Initialize traits that require that.
 	for(var/datum/xenoartifact_trait/t as() in traits)
 		t.on_init(src)
 
-	//Random sprite process, I'd like to maybe revisit this, make it a function. probably don't
-	icon_state = null
-	if(!(icon_state))
-		var/holdthisplease = rand(1, 3)
-		icon_state = "IB[holdthisplease]"//base
-		generate_icon(icon, "IBL[holdthisplease]", material, FALSE)
-	if(prob(50) || icon_slots[1])//Top
-		if(!(icon_slots[1])) //Some traits can set this too, it will be set to a code that looks like 901, 908, 905 ect.
-			icon_slots[1] = rand(1, 2)
-		generate_icon(icon, "ITP[icon_slots[1]]")
-		generate_icon(icon, "ITPL[icon_slots[1]]", material, FALSE)
-
-	if(prob(30) || icon_slots[3])//Left
-		if(!(icon_slots[3]))
-			icon_slots[3] = rand(1, 2)
-		generate_icon(icon, "IL[icon_slots[3]]")
-		generate_icon(icon, "ILL[icon_slots[3]]", material, FALSE)
-
-	if(prob(50)  || icon_slots[4])//Right
-		if(!(icon_slots[4]))
-			icon_slots[4] = rand(1, 2)
-		generate_icon(icon, "IR[icon_slots[4]]")
-		generate_icon(icon, "IRL[icon_slots[4]]", material, FALSE)
-
-	if(prob(30) || icon_slots[2])//Bottom
-		if(!(icon_slots[2]))
-			icon_slots[2] = rand(1, 2)
-		generate_icon(icon, "IBTM[icon_slots[2]]")
-		generate_icon(icon, "IBTML[icon_slots[2]]", material, FALSE)
+	//Sprite process
+	//Base texture
+	var/icon/texture = new('icons/obj/xenoarchaeology/xenoartifact.dmi', "texture-[material]-[pick(1, 2, 3)]")
+	//Masking
+	var/list/indecies = list(1, 2, 3, 4, 5) //Indecies for masks
+	var/index = pick(indecies)
+	indecies -= index
+	var/icon/mask = new('icons/obj/xenoarchaeology/xenoartifact.dmi', "mask-[material]-[index]")
+	for(var/i in 1 to extra_masks)
+		index = pick(indecies)
+		indecies -= index
+		var/icon/extra_mask = new('icons/obj/xenoarchaeology/xenoartifact.dmi', "mask-[material]-[index]")
+		mask.Blend(extra_mask, ICON_UNDERLAY)
+	texture.AddAlphaMask(mask)
+	icon = texture
+	add_filter("inner_band", 1, list("type" = "outline", "color" = "#000", "size" = 1))
+	add_filter("outer_band", 1.1, list("type" = "outline", "color" = material, "size" = 1))
 
 /obj/item/xenoartifact/Destroy()
 	SSradio.remove_object(src, frequency)

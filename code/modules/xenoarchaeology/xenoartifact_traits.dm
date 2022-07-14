@@ -332,7 +332,7 @@
 /datum/xenoartifact_trait/minor/dense //Rather large, quite gigantic, particularly big
 	desc = "Dense"
 	label_desc = "Dense: The Artifact is dense and cannot be easily lifted but, the design has a slightly higher reaction rate."
-	blacklist_traits = list(/datum/xenoartifact_trait/minor/wearable, /datum/xenoartifact_trait/minor/sharp, /datum/xenoartifact_trait/minor/light, /datum/xenoartifact_trait/minor/heavy, /datum/xenoartifact_trait/minor/blocking, /datum/xenoartifact_trait/minor/anchor)
+	blacklist_traits = list(/datum/xenoartifact_trait/minor/wearable, /datum/xenoartifact_trait/minor/sharp, /datum/xenoartifact_trait/minor/light, /datum/xenoartifact_trait/minor/heavy, /datum/xenoartifact_trait/minor/blocking, /datum/xenoartifact_trait/minor/anchor, /datum/xenoartifact_trait/minor/slippery)
 	flags = BLUESPACE_TRAIT | URANIUM_TRAIT
 
 /datum/xenoartifact_trait/minor/dense/on_init(obj/item/xenoartifact/X)
@@ -517,7 +517,7 @@
 	X.true_target = list()
 	for(var/atom/M in oview(min(X.max_range, 5), get_turf(X.loc)))
 		if(X.true_target.len >= XENOA_MAX_TARGETS)
-			break
+			return
 		var/obj/item/I = M
 		if(istype(M, /mob/living))
 			X.true_target |= X.process_target(M)
@@ -618,7 +618,7 @@
 //============
 /datum/xenoartifact_trait/minor/anchor
 	desc = "Anchored"
-	label_desc = "Anchored: The Artifact sends out a signal everytime it's activated."
+	label_desc = "Anchored: The Artifact buckles to the floor with the weight of a sun every time it activates. Heavier than you, somehow."
 	blacklist_traits = list(/datum/xenoartifact_trait/minor/wearable)
 	flags = BLUESPACE_TRAIT | URANIUM_TRAIT
 
@@ -647,7 +647,7 @@
 //============
 /datum/xenoartifact_trait/minor/slippery
 	desc = "Slippery"
-	label_desc = "Slippery: The Artifact's surface is perpetually slippery."
+	label_desc = "Slippery: The Artifact's surface is perpetually slippery. Popular amongst scientific-clown groups."
 	blacklist_traits = list(/datum/xenoartifact_trait/minor/dense)
 	flags = BLUESPACE_TRAIT | PLASMA_TRAIT | URANIUM_TRAIT
 	var/datum/component/slippery/slipper
@@ -924,6 +924,7 @@
 	desc = "Mirrored"
 	label_desc = "Mirrored: The shape is perfectly symetrical. Perhaps you could interest the Captain?"
 	flags = BLUESPACE_TRAIT | URANIUM_TRAIT
+	weight = 25
 	///List generally used for initial swap, contains the swapping mobs
 	var/list/victims = list()
 	///List used to hold lists that contain swapped mobs
@@ -990,6 +991,7 @@
 	label_name = "EMP"
 	label_desc = "EMP: The shape of the Artifact doesn't resemble anything particularly interesting. Technology around the Artifact seems to malfunction."
 	flags = URANIUM_TRAIT
+	weight = 25 //annoying trait
 
 /datum/xenoartifact_trait/major/emp/activate(obj/item/xenoartifact/X)
 	playsound(get_turf(X), 'sound/magic/disable_tech.ogg', 50, TRUE)

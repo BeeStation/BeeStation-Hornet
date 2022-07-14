@@ -4553,33 +4553,6 @@
 /obj/effect/turf_decal/tile/neutral/tile_side,
 /turf/open/floor/plasteel/dark,
 /area/tcommsat/computer)
-"bfK" = (
-/obj/structure/table,
-/obj/machinery/camera{
-	c_tag = "Science - Experimentation Lab";
-	name = "science camera";
-	network = list("ss13","rd")
-	},
-/obj/item/xenoartifact_labeler,
-/obj/item/xenoartifact_labeler,
-/obj/item/clothing/glasses/science,
-/obj/item/clothing/glasses/science,
-/obj{
-	name = "---Merge conflict marker---"
-	},
-/obj/structure/table,
-/obj/machinery/camera{
-	c_tag = "Science - Experimentation Lab";
-	name = "science camera";
-	network = list("ss13","rd")
-	},
-/obj/item/hand_labeler,
-/obj/item/stack/package_wrap,
-/obj/item/stack/sheet/glass/fifty,
-/obj/item/stack/sheet/mineral/plasma,
-/obj/item/stack/sheet/iron/fifty,
-/turf/open/floor/plasteel/grid/steel,
-/area/science/explab)
 "bfN" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 1
@@ -75579,6 +75552,11 @@
 /obj/item/clothing/mask/gas,
 /obj/item/tank/internals/oxygen,
 /obj/item/book/manual/wiki/xenoarchaeology,
+/obj/machinery/camera{
+	c_tag = "Science - Experimentation Lab";
+	name = "science camera";
+	network = list("ss13","rd")
+	},
 /turf/open/floor/plasteel/grid/steel,
 /area/science/explab)
 "rHr" = (
@@ -136333,7 +136311,7 @@ pyL
 qfq
 qNH
 oLP
-bfK
+hBp
 klD
 cSF
 oLP

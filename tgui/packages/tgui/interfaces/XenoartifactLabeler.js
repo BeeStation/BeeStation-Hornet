@@ -118,6 +118,7 @@ const XenoartifactLabelerSticker = (props, context) => {
       <Input placeholder="Label Name..." onChange={(e, input) => 
         act('change_print_name', { name: input })} />
       <Button content="Print" onClick={() => act("print_traits")} />
+      <Button content="Clear" onClick={() => act("clear_traits")} />
     </Box>
   );
 };

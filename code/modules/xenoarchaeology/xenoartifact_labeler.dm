@@ -54,9 +54,13 @@
 /obj/item/xenoartifact_labeler/ui_act(action, params)
 	if(..())
 		return
-
+	//Switch function could work here but it'd be pointless for the 1-2 cases
 	if(action == "print_traits")
 		create_label(sticker_name)
+		return
+
+	if(action == "clear_traits")
+		clear_selection()
 		return
 
 	if(action == "change_print_name" && istext(params["name"]))
@@ -92,8 +96,9 @@
 	var/obj/item/xenoartifact_label/P = create_label(sticker_name)
 	if(!P.afterattack(target, user, TRUE)) //In the circumstance the sticker fails, usually means you're doing something you shouldn't be
 		qdel(P)
-		return
-	//reset all the options
+
+///reset all the options	
+/obj/item/xenoartifact_labeler/proc/clear_selection()
 	sticker_name = null
 	info_list = list()
 	sticker_traits = list()
@@ -109,7 +114,7 @@
 		P.name = new_name
 		P.set_name = TRUE
 	P.trait_list = sticker_traits
-	P.info = activator+minor_trait+major_trait
+	P.info = activator+minor_trait+major_trait+malfunction
 	return P
 
 /obj/item/xenoartifact_labeler/proc/trait_toggle(action, toggle_type, var/list/trait_list, var/list/active_trait_list)
