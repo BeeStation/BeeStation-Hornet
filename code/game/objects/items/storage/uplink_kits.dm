@@ -587,7 +587,7 @@
 
 /obj/item/storage/box/syndie_kit/toy_box
 	name = "Box of DonkCo. toys"
-	desc = "filled with safe toys that has pass, but contained in a suspicious red box \"for no reason.\""
+	desc = "filled with safe toys that has passed Nanotrasen saftey assurance, but contained in a suspicious red box \"for no reason.\""
 
 /obj/item/storage/box/syndie_kit/toy_box/PopulateContents()
 	new /obj/item/toy/spinningtoy(src)
