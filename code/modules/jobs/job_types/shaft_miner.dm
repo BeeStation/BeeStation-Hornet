@@ -1,7 +1,7 @@
 /datum/job/shaft_miner
-	title = JOB_SHAFT_MINER
+	title = JOB_NAME_SHAFTMINER
 	flag = MINER
-	department_head = list(JOB_HEAD_OF_PERSONNEL)
+	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	department_flag = CIVILIAN
 	faction = "Station"
 	total_positions = 3
@@ -28,7 +28,7 @@
 	)
 
 /datum/outfit/job/miner
-	name = JOB_SHAFT_MINER
+	name = JOB_NAME_SHAFTMINER
 	jobtype = /datum/job/shaft_miner
 
 	id = /obj/item/card/id/job/shaft_miner

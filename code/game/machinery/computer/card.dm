@@ -32,17 +32,17 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	var/change_position_cooldown = 30
 	//Jobs you cannot open new positions for
 	var/list/blacklisted = list(
-		JOB_AI,
-		JOB_ASSISTANT,
-		JOB_CYBORG,
-		JOB_CAPTAIN,
-		JOB_HEAD_OF_PERSONNEL,
-		JOB_HEAD_OF_SECURITY,
-		JOB_CHIEF_ENGINEER,
-		JOB_RESEARCH_DIRECTOR,
-		JOB_CHIEF_MEDICAL_OFFICER,
-		JOB_BRIGPHYSICIAN,
-		JOB_DEPUTY)
+		JOB_NAME_AI,
+		JOB_NAME_ASSISTANT,
+		JOB_NAME_CYBORG,
+		JOB_NAME_CAPTAIN,
+		JOB_NAME_HEADOFPERSONNEL,
+		JOB_NAME_HEADOFSECURITY,
+		JOB_NAME_CHIEFENGINEER,
+		JOB_NAME_RESEARCHDIRECTOR,
+		JOB_NAME_CHIEFMEDICALOFFICER,
+		JOB_NAME_BRIGPHYSICIAN,
+		JOB_NAME_DEPUTY)
 
 	//The scaling factor of max total positions in relation to the total amount of people on board the station in %
 	var/max_relative_positions = 30 //30%: Seems reasonable, limit of 6 @ 20 players
@@ -307,17 +307,17 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		var/list/alljobs = list("Unassigned")
 		alljobs += (istype(src, /obj/machinery/computer/card/centcom)? get_all_centcom_jobs() : get_all_jobs()) + "Custom"
 		for(var/job in alljobs)
-			if(job == JOB_ASSISTANT)
+			if(job == JOB_NAME_ASSISTANT)
 				jobs_all += "<br/>* Service: "
-			if(job == JOB_QUARTERMASTER)
+			if(job == JOB_NAME_QUARTERMASTER)
 				jobs_all += "<br/>* Cargo: "
-			if(job == JOB_CHIEF_ENGINEER)
+			if(job == JOB_NAME_CHIEFENGINEER)
 				jobs_all += "<br/>* Engineering: "
-			if(job == JOB_RESEARCH_DIRECTOR)
+			if(job == JOB_NAME_RESEARCHDIRECTOR)
 				jobs_all += "<br/>* R&D: "
-			if(job == JOB_CHIEF_MEDICAL_OFFICER)
+			if(job == JOB_NAME_CHIEFMEDICALOFFICER)
 				jobs_all += "<br/>* Medical: "
-			if(job == JOB_HEAD_OF_SECURITY)
+			if(job == JOB_NAME_HEADOFSECURITY)
 				jobs_all += "<br/>* Security: "
 			if(job == "Custom")
 				jobs_all += "<br/>"
@@ -440,19 +440,19 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 						if((ACCESS_HOP in scan.access) && ((target_dept==DEPT_GEN) || !target_dept))
 							region_access |= DEPT_GEN
 							region_access |= DEPT_SUP //Currently no seperation between service/civillian and supply
-							get_subordinates(JOB_HEAD_OF_PERSONNEL)
+							get_subordinates(JOB_NAME_HEADOFPERSONNEL)
 						if((ACCESS_HOS in scan.access) && ((target_dept==DEPT_SEC) || !target_dept))
 							region_access |= DEPT_SEC
-							get_subordinates(JOB_HEAD_OF_SECURITY)
+							get_subordinates(JOB_NAME_HEADOFSECURITY)
 						if((ACCESS_CMO in scan.access) && ((target_dept==DEPT_MED) || !target_dept))
 							region_access |= DEPT_MED
-							get_subordinates(JOB_CHIEF_MEDICAL_OFFICER)
+							get_subordinates(JOB_NAME_CHIEFMEDICALOFFICER)
 						if((ACCESS_RD in scan.access) && ((target_dept==DEPT_SCI) || !target_dept))
 							region_access |= DEPT_SCI
-							get_subordinates(JOB_RESEARCH_DIRECTOR)
+							get_subordinates(JOB_NAME_RESEARCHDIRECTOR)
 						if((ACCESS_CE in scan.access) && ((target_dept==DEPT_ENG) || !target_dept))
 							region_access |= DEPT_ENG
-							get_subordinates(JOB_CHIEF_ENGINEER)
+							get_subordinates(JOB_NAME_CHIEFENGINEER)
 						if(region_access)
 							authenticated = 1
 			else if ((!( authenticated ) && issilicon(usr)) && (!modify))
@@ -509,7 +509,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 					modify.assignment = t1
 					playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, 0)
 		if ("demote")
-			if(modify.assignment in head_subordinates || modify.assignment == JOB_ASSISTANT)
+			if(modify.assignment in head_subordinates || modify.assignment == JOB_NAME_ASSISTANT)
 				modify.assignment = "Unassigned"
 				log_id("[key_name(usr)] demoted [modify], unassigning the card without affecting access, using [scan] at [AREACOORD(usr)].")
 				playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, 0)

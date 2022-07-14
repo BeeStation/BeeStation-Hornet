@@ -656,9 +656,9 @@
 
 
 	if(mind)
-		if((mind.assigned_role == JOB_STATION_ENGINEER) || (mind.assigned_role == JOB_CHIEF_ENGINEER) )
+		if((mind.assigned_role == JOB_NAME_TATIONENGINEER) || (mind.assigned_role == JOB_NAME_CHIEFENGINEER) )
 			gain = 100
-		if(mind.assigned_role == JOB_CLOWN)
+		if(mind.assigned_role == JOB_NAME_CLOWN)
 			gain = rand(-1000, 1000)
 	investigate_log("([key_name(src)]) has been consumed by the singularity.", INVESTIGATE_ENGINES) //Oh that's where the clown ended up!
 	gib()

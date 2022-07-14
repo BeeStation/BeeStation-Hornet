@@ -2,7 +2,7 @@
 Assistant
 */
 /datum/job/assistant
-	title = JOB_ASSISTANT
+	title = JOB_NAME_ASSISTANT
 	flag = ASSISTANT
 	department_flag = CIVILIAN
 	faction = "Station"
@@ -32,7 +32,7 @@ Assistant
 		return ..()
 
 /datum/outfit/job/assistant
-	name = JOB_ASSISTANT
+	name = JOB_NAME_ASSISTANT
 	jobtype = /datum/job/assistant
 	belt = /obj/item/pda/assistant
 

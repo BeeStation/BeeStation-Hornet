@@ -1,8 +1,8 @@
 /datum/job/head_of_security
-	title = JOB_HEAD_OF_SECURITY
+	title = JOB_NAME_HEADOFSECURITY
 	flag = HOS
 	auto_deadmin_role_flags = DEADMIN_POSITION_HEAD|DEADMIN_POSITION_SECURITY
-	department_head = list(JOB_CAPTAIN)
+	department_head = list(JOB_NAME_CAPTAIN)
 	department_flag = ENGSEC
 	head_announce = list(RADIO_CHANNEL_SECURITY)
 	faction = "Station"
@@ -40,7 +40,7 @@
 	)
 
 /datum/outfit/job/head_of_security
-	name = JOB_HEAD_OF_SECURITY
+	name = JOB_NAME_HEADOFSECURITY
 	jobtype = /datum/job/head_of_security
 
 	id = /obj/item/card/id/job/head_of_security

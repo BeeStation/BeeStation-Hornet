@@ -428,10 +428,10 @@ SUBSYSTEM_DEF(ticker)
 	for(var/mob/dead/new_player/N in GLOB.player_list)
 		var/mob/living/carbon/human/player = N.new_character
 		if(istype(player) && player.mind && player.mind.assigned_role)
-			if(player.mind.assigned_role == JOB_CAPTAIN)
+			if(player.mind.assigned_role == JOB_NAME_CAPTAIN)
 				captainless = FALSE
 				spare_id_candidates += N
-			else if(captainless && (player.mind.assigned_role in GLOB.command_positions) && !(is_banned_from(N.ckey, JOB_CAPTAIN)))
+			else if(captainless && (player.mind.assigned_role in GLOB.command_positions) && !(is_banned_from(N.ckey, JOB_NAME_CAPTAIN)))
 				if(!enforce_coc)
 					spare_id_candidates += N
 				else

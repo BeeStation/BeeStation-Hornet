@@ -7,7 +7,7 @@
 	proportion = 0.05			//The prbability per person of rolling it (5% is (5 in 100) (1 in 20))
 	max_amount = 4				//The maximum amount
 	role_name = "Undercover Agent"
-	protected_jobs = list(JOB_SECURITY_OFFICER, JOB_WARDEN, JOB_DETECTIVE, JOB_HEAD_OF_SECURITY, JOB_HEAD_OF_PERSONNEL, JOB_CHIEF_MEDICAL_OFFICER, JOB_CHIEF_ENGINEER, JOB_RESEARCH_DIRECTOR, JOB_CAPTAIN, JOB_CLOWN)
+	protected_jobs = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE, JOB_NAME_HEADOFSECURITY, JOB_NAME_HEADOFPERSONNEL, JOB_NAME_CHIEFMEDICALOFFICER, JOB_NAME_CHIEFENGINEER, JOB_NAME_RESEARCHDIRECTOR, JOB_NAME_CAPTAIN, JOB_NAME_CLOWN)
 	attached_antag_datum = /datum/antagonist/special/undercover
 
 ////////////////////////////////

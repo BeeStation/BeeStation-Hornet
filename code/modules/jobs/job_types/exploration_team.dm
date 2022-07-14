@@ -1,7 +1,7 @@
 /datum/job/exploration_crew
-	title = JOB_EXPLORATIONCREW
+	title = JOB_NAME_EXPLORATIONCREW
 	flag = EXPLORATION_CREW
-	department_head = list(JOB_RESEARCH_DIRECTOR)
+	department_head = list(JOB_NAME_RESEARCHDIRECTOR)
 	department_flag = MEDSCI
 	faction = "Station"
 	total_positions = 3
@@ -53,7 +53,7 @@
 	. = ..(H, visualsOnly, announce, latejoin, outfit_override, preference_source)
 
 /datum/outfit/job/exploration_crew
-	name = JOB_EXPLORATIONCREW
+	name = JOB_NAME_EXPLORATIONCREW
 	jobtype = /datum/job/exploration_crew
 
 	id = /obj/item/card/id/job/exploration_crew

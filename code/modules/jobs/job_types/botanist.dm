@@ -1,7 +1,7 @@
 /datum/job/botanist
-	title = JOB_BOTANIST
+	title = JOB_NAME_BOTANIST
 	flag = BOTANIST
-	department_head = list(JOB_HEAD_OF_PERSONNEL)
+	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	department_flag = CIVILIAN
 	faction = "Station"
 	total_positions = 3
@@ -25,7 +25,7 @@
 	)
 
 /datum/outfit/job/botanist
-	name = JOB_BOTANIST
+	name = JOB_NAME_BOTANIST
 	jobtype = /datum/job/botanist
 
 	id = /obj/item/card/id/job/botanist

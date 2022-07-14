@@ -1,8 +1,8 @@
 /datum/job/head_of_personnel
-	title = JOB_HEAD_OF_PERSONNEL
+	title = JOB_NAME_HEADOFPERSONNEL
 	flag = HOP
 	auto_deadmin_role_flags = DEADMIN_POSITION_HEAD
-	department_head = list(JOB_CAPTAIN)
+	department_head = list(JOB_NAME_CAPTAIN)
 	department_flag = CIVILIAN
 	head_announce = list(RADIO_CHANNEL_SUPPLY, RADIO_CHANNEL_SERVICE)
 	faction = "Station"
@@ -45,7 +45,7 @@
 	)
 
 /datum/outfit/job/head_of_personnel
-	name = JOB_HEAD_OF_PERSONNEL
+	name = JOB_NAME_HEADOFPERSONNEL
 	jobtype = /datum/job/head_of_personnel
 
 	id = /obj/item/card/id/job/head_of_personnel

@@ -1,6 +1,6 @@
 /mob/living/silicon/robot
-	name = JOB_CYBORG
-	real_name = JOB_CYBORG
+	name = JOB_NAME_CYBORG
+	real_name = JOB_NAME_CYBORG
 	icon = 'icons/mob/robots.dmi'
 	icon_state = "robot"
 	maxHealth = 100

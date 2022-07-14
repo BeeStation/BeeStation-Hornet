@@ -1,7 +1,7 @@
 /datum/job/medical_doctor
-	title = JOB_MEDICAL_DOCTOR
+	title = JOB_NAME_MEDICALDOCTOR
 	flag = DOCTOR
-	department_head = list(JOB_CHIEF_MEDICAL_OFFICER)
+	department_head = list(JOB_NAME_CHIEFMEDICALOFFICER)
 	department_flag = MEDSCI
 	faction = "Station"
 	total_positions = 5
@@ -29,7 +29,7 @@
 	biohazard = 20
 
 /datum/outfit/job/medical_doctor
-	name = JOB_MEDICAL_DOCTOR
+	name = JOB_NAME_MEDICALDOCTOR
 	jobtype = /datum/job/medical_doctor
 
 	id = /obj/item/card/id/job/medical_doctor

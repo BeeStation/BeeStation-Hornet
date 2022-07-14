@@ -34,9 +34,9 @@
 /obj/item/paper/contract/employment/attack(mob/living/M, mob/living/carbon/human/user)
 	var/deconvert = FALSE
 	if(M.mind == target && !M.owns_soul())
-		if(user.mind && (user.mind.assigned_role == JOB_LAWYER))
+		if(user.mind && (user.mind.assigned_role == JOB_NAME_LAWYER))
 			deconvert = TRUE
-		else if (user.mind && (user.mind.assigned_role ==JOB_HEAD_OF_PERSONNEL) || (user.mind.assigned_role == JOB_CENTCOM_COMMANDER))
+		else if (user.mind && (user.mind.assigned_role ==JOB_NAME_HEADOFPERSONNEL) || (user.mind.assigned_role == JOB_CENTCOM_COMMANDER))
 			deconvert = prob (25) // the HoP doesn't have AS much legal training
 		else
 			deconvert = prob (5)
@@ -292,13 +292,13 @@
 	if(id)
 		id.icon_state = "gold"
 		id.access = get_all_accesses()+get_all_centcom_access()
-		id.assignment = JOB_CAPTAIN
+		id.assignment = JOB_NAME_CAPTAIN
 		id.update_label()
 	else
 		id = new /obj/item/card/id/gold(user.loc)
 		id.registered_name = user.real_name
 		id.access = get_all_accesses()+get_all_centcom_access()
-		id.assignment = JOB_CAPTAIN
+		id.assignment = JOB_NAME_CAPTAIN
 		id.update_label()
 		if(worn)
 			if(istype(worn, /obj/item/pda))

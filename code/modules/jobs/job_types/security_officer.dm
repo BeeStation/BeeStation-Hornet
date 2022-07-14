@@ -1,8 +1,8 @@
 /datum/job/security_officer
-	title = JOB_SECURITY_OFFICER
+	title = JOB_NAME_SECURITYOFFICER
 	flag = OFFICER
 	auto_deadmin_role_flags = DEADMIN_POSITION_SECURITY
-	department_head = list(JOB_HEAD_OF_SECURITY)
+	department_head = list(JOB_NAME_HEADOFSECURITY)
 	department_flag = ENGSEC
 	faction = "Station"
 	total_positions = 5 //Handled in /datum/controller/occupations/proc/setup_officer_positions()
@@ -121,7 +121,7 @@ GLOBAL_LIST_INIT(available_depts, list(SEC_DEPT_ENGINEERING, SEC_DEPT_MEDICAL, S
 
 
 /datum/outfit/job/security_officer
-	name = JOB_SECURITY_OFFICER
+	name = JOB_NAME_SECURITYOFFICER
 	jobtype = /datum/job/security_officer
 
 	id = /obj/item/card/id/job/security_officer

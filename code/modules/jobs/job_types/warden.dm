@@ -1,8 +1,8 @@
 /datum/job/warden
-	title = JOB_WARDEN
+	title = JOB_NAME_WARDEN
 	flag = WARDEN
 	auto_deadmin_role_flags = DEADMIN_POSITION_SECURITY
-	department_head = list(JOB_HEAD_OF_SECURITY)
+	department_head = list(JOB_NAME_HEADOFSECURITY)
 	department_flag = ENGSEC
 	faction = "Station"
 	total_positions = 1
@@ -37,7 +37,7 @@
 	return L
 
 /datum/outfit/job/warden
-	name = JOB_WARDEN
+	name = JOB_NAME_WARDEN
 	jobtype = /datum/job/warden
 
 	id = /obj/item/card/id/job/warden

@@ -1,5 +1,5 @@
 /datum/job/captain
-	title = JOB_CAPTAIN
+	title = JOB_NAME_CAPTAIN
 	flag = CAPTAIN
 	auto_deadmin_role_flags = DEADMIN_POSITION_HEAD|DEADMIN_POSITION_SECURITY
 	department_head = list("CentCom")
@@ -40,7 +40,7 @@
 	SSticker.OnRoundstart(CALLBACK(GLOBAL_PROC, .proc/minor_announce, "Captain [H.real_name] on deck!"))
 
 /datum/outfit/job/captain
-	name = JOB_CAPTAIN
+	name = JOB_NAME_CAPTAIN
 	jobtype = /datum/job/captain
 
 	id = /obj/item/card/id/job/captain

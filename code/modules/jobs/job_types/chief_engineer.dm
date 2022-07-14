@@ -1,8 +1,8 @@
 /datum/job/chief_engineer
-	title = JOB_CHIEF_ENGINEER
+	title = JOB_NAME_CHIEFENGINEER
 	flag = CHIEF
 	auto_deadmin_role_flags = DEADMIN_POSITION_HEAD
-	department_head = list(JOB_CAPTAIN)
+	department_head = list(JOB_NAME_CAPTAIN)
 	department_flag = ENGSEC
 	head_announce = list("Engineering")
 	faction = "Station"
@@ -39,7 +39,7 @@
 	)
 
 /datum/outfit/job/chief_engineer
-	name = JOB_CHIEF_ENGINEER
+	name = JOB_NAME_CHIEFENGINEER
 	jobtype = /datum/job/chief_engineer
 
 	id = /obj/item/card/id/job/chief_engineer

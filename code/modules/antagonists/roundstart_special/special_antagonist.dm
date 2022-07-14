@@ -16,8 +16,8 @@
 	//----Required for roundspawn----
 	var/allowAntagTargets = FALSE	//Not used in events
 	var/latejoin_allowed = TRUE		//Can latejoins be assigned to this? If you want this to be a midround spawn, put these in the round_event
-	var/list/restricted_jobs = list(JOB_CYBORG)
-	var/list/protected_jobs = list(JOB_SECURITY_OFFICER, JOB_WARDEN, JOB_DETECTIVE, JOB_HEAD_OF_SECURITY, JOB_HEAD_OF_PERSONNEL, JOB_CHIEF_MEDICAL_OFFICER, JOB_CHIEF_ENGINEER, JOB_RESEARCH_DIRECTOR, JOB_CAPTAIN)
+	var/list/restricted_jobs = list(JOB_NAME_CYBORG)
+	var/list/protected_jobs = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE, JOB_NAME_HEADOFSECURITY, JOB_NAME_HEADOFPERSONNEL, JOB_NAME_CHIEFMEDICALOFFICER, JOB_NAME_CHIEFENGINEER, JOB_NAME_RESEARCHDIRECTOR, JOB_NAME_CAPTAIN)
 	//----Required for midround----
 	var/weight = 10
 	var/earliest_start = 20 MINUTES
@@ -32,7 +32,7 @@
 		restricted_jobs += protected_jobs
 
 	if(CONFIG_GET(flag/protect_assistant_from_antagonist))
-		restricted_jobs += JOB_ASSISTANT
+		restricted_jobs += JOB_NAME_ASSISTANT
 
 	if(CONFIG_GET(flag/protect_heads_from_antagonist))
 		restricted_jobs += GLOB.command_positions

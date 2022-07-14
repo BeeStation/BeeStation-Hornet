@@ -1,7 +1,7 @@
 /datum/job/chaplain
-	title = JOB_CHAPLAIN
+	title = JOB_NAME_CHAPLAIN
 	flag = CHAPLAIN
-	department_head = list(JOB_HEAD_OF_PERSONNEL)
+	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	department_flag = CIVILIAN
 	faction = "Station"
 	total_positions = 1
@@ -111,7 +111,7 @@
 	SSblackbox.record_feedback("text", "religion_deity", 1, "[new_deity]", 1)
 
 /datum/outfit/job/chaplain
-	name = JOB_CHAPLAIN
+	name = JOB_NAME_CHAPLAIN
 	jobtype = /datum/job/chaplain
 
 	id = /obj/item/card/id/job/chaplain

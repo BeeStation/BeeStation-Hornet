@@ -81,7 +81,7 @@
 	item_state = "banner_security"
 	lefthand_file = 'icons/mob/inhands/equipment/banners_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/banners_righthand.dmi'
-	job_loyalties = list(JOB_SECURITY_OFFICER, JOB_WARDEN, JOB_DETECTIVE, JOB_HEAD_OF_SECURITY, JOB_BRIGPHYSICIAN, JOB_DEPUTY)
+	job_loyalties = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE, JOB_NAME_HEADOFSECURITY, JOB_NAME_BRIGPHYSICIAN, JOB_NAME_DEPUTY)
 	warcry = "EVERYONE DOWN ON THE GROUND!!"
 
 /obj/item/banner/security/mundane
@@ -102,7 +102,7 @@
 	item_state = "banner_medical"
 	lefthand_file = 'icons/mob/inhands/equipment/banners_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/banners_righthand.dmi'
-	job_loyalties = list(JOB_MEDICAL_DOCTOR, JOB_CHEMIST, JOB_GENETICIST, JOB_VIROLOGIST, JOB_PARAMEDIC, JOB_CHIEF_MEDICAL_OFFICER)
+	job_loyalties = list(JOB_NAME_MEDICALDOCTOR, JOB_NAME_CHEMIST, JOB_NAME_GENETICIST, JOB_NAME_VIROLOGIST, JOB_NAME_PARAMEDIC, JOB_NAME_CHIEFMEDICALOFFICER)
 	warcry = "No wounds cannot be healed!"
 
 /obj/item/banner/medical/mundane
@@ -131,7 +131,7 @@
 	item_state = "banner_science"
 	lefthand_file = 'icons/mob/inhands/equipment/banners_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/banners_righthand.dmi'
-	job_loyalties = list(JOB_SCIENTIST, JOB_ROBOTICIST, JOB_RESEARCH_DIRECTOR)
+	job_loyalties = list(JOB_NAME_SCIENTIST, JOB_NAME_ROBOTICIST, JOB_NAME_RESEARCHDIRECTOR)
 	warcry = "For Cuban Pete!"
 
 /obj/item/banner/science/mundane
@@ -155,7 +155,7 @@
 	item_state = "banner_cargo"
 	lefthand_file = 'icons/mob/inhands/equipment/banners_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/banners_righthand.dmi'
-	job_loyalties = list(JOB_CARGO_TECHNICIAN, JOB_SHAFT_MINER, JOB_QUARTERMASTER)
+	job_loyalties = list(JOB_NAME_CARGOTECHNICIAN, JOB_SHAFT_MINER, JOB_NAME_QUARTERMASTER)
 	warcry = "Hail Cargonia!"
 
 /obj/item/banner/cargo/mundane
@@ -176,7 +176,7 @@
 	item_state = "banner_engineering"
 	lefthand_file = 'icons/mob/inhands/equipment/banners_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/banners_righthand.dmi'
-	job_loyalties = list(JOB_STATION_ENGINEER, JOB_ATMOSPHERIC_TECHNICIAN, JOB_CHIEF_ENGINEER)
+	job_loyalties = list(JOB_NAME_TATIONENGINEER, JOB_NAME_ATMOSPHERICTECHNICIAN, JOB_NAME_CHIEFENGINEER)
 	warcry = "All hail lord Singuloth!!"
 
 /obj/item/banner/engineering/mundane
@@ -197,7 +197,7 @@
 	name = "command banner"
 	desc = "The banner of Command, a staunch and ancient line of bueraucratic kings and queens."
 	//No icon state here since the default one is the NT banner
-	job_loyalties = list(JOB_CAPTAIN, JOB_HEAD_OF_PERSONNEL, JOB_CHIEF_ENGINEER, JOB_HEAD_OF_SECURITY, JOB_RESEARCH_DIRECTOR, JOB_CHIEF_MEDICAL_OFFICER)
+	job_loyalties = list(JOB_NAME_CAPTAIN, JOB_NAME_HEADOFPERSONNEL, JOB_NAME_CHIEFENGINEER, JOB_NAME_HEADOFSECURITY, JOB_NAME_RESEARCHDIRECTOR, JOB_NAME_CHIEFMEDICALOFFICER)
 	warcry = "Hail Nanotrasen!"
 
 /obj/item/banner/command/mundane

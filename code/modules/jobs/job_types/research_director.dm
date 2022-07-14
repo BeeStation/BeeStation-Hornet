@@ -1,8 +1,8 @@
 /datum/job/research_director
-	title = JOB_RESEARCH_DIRECTOR
+	title = JOB_NAME_RESEARCHDIRECTOR
 	flag = RD_JF
 	auto_deadmin_role_flags = DEADMIN_POSITION_HEAD
-	department_head = list(JOB_CAPTAIN)
+	department_head = list(JOB_NAME_CAPTAIN)
 	department_flag = MEDSCI
 	head_announce = list("Science")
 	faction = "Station"
@@ -42,7 +42,7 @@
 	biohazard = 20
 
 /datum/outfit/job/research_director
-	name = JOB_RESEARCH_DIRECTOR
+	name = JOB_NAME_RESEARCHDIRECTOR
 	jobtype = /datum/job/research_director
 
 	id = /obj/item/card/id/job/research_director

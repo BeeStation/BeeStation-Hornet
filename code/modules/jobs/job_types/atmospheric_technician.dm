@@ -1,7 +1,7 @@
 /datum/job/atmospheric_technician
-	title = JOB_ATMOSPHERIC_TECHNICIAN
+	title = JOB_NAME_ATMOSPHERICTECHNICIAN
 	flag = ATMOSTECH
-	department_head = list(JOB_CHIEF_ENGINEER)
+	department_head = list(JOB_NAME_CHIEFENGINEER)
 	department_flag = ENGSEC
 	faction = "Station"
 	total_positions = 3
@@ -27,7 +27,7 @@
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/atmospherics
 	)
 	jobtype = /datum/job/atmospheric_technician
-	name = JOB_ATMOSPHERIC_TECHNICIAN
+	name = JOB_NAME_ATMOSPHERICTECHNICIAN
 /datum/outfit/job/atmospheric_technician
 
 	id = /obj/item/card/id/job/atmospheric_technicianpheric_technician

@@ -126,7 +126,7 @@
 	trait_type = STATION_TRAIT_NEGATIVE
 	weight = 5
 	show_in_report = TRUE
-	var/list/jobs_to_use = list(JOB_CLOWN, JOB_BARTENDER, JOB_COOK, JOB_BOTANIST, JOB_CARGO_TECHNICIAN, JOB_MIME, JOB_JANITOR)
+	var/list/jobs_to_use = list(JOB_NAME_CLOWN, JOB_NAME_BARTENDER, JOB_NAME_COOK, JOB_NAME_BOTANIST, JOB_NAME_CARGOTECHNICIAN, JOB_NAME_MIME, JOB_NAME_JANITOR)
 	var/chosen_job
 
 /datum/station_trait/overflow_job_bureacracy/New()

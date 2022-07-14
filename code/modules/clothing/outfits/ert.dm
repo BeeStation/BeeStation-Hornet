@@ -162,7 +162,7 @@
 
 
 /datum/outfit/centcom_official
-	name = "CentCom Official"
+	name = JOB_CENTCOM_OFFICIAL
 
 	uniform = /obj/item/clothing/under/rank/centcom/officer
 	shoes = /obj/item/clothing/shoes/sneakers/black
@@ -182,14 +182,14 @@
 
 	var/obj/item/pda/heads/pda = H.r_store
 	pda.owner = H.real_name
-	pda.ownjob = "CentCom Official"
+	pda.ownjob = JOB_CENTCOM_OFFICIAL
 	pda.update_label()
 
 	var/obj/item/card/id/W = H.wear_id
 	W.icon_state = "centcom"
-	W.access = get_centcom_access("CentCom Official")
+	W.access = get_centcom_access(JOB_CENTCOM_OFFICIAL)
 	W.access += ACCESS_WEAPONS
-	W.assignment = "CentCom Official"
+	W.assignment = JOB_CENTCOM_OFFICIAL
 	W.registered_name = H.real_name
 	W.update_label()
 
@@ -416,7 +416,7 @@
 		)
 
 /datum/outfit/death_commando
-	name = "Death Commando"
+	name = JOB_ERT_DEATHSQUAD
 
 	uniform = /obj/item/clothing/under/rank/centcom/commander
 	suit = /obj/item/clothing/suit/space/hardsuit/deathsquad
@@ -455,8 +455,8 @@
 	var/obj/item/card/id/W = H.wear_id
 	W.icon_state = "centcom"
 	W.access = get_all_accesses()//They get full station access.
-	W.access += get_centcom_access("Death Commando")//Let's add their alloted CentCom access.
-	W.assignment = "Death Commando"
+	W.access += get_centcom_access(JOB_ERT_DEATHSQUAD)//Let's add their alloted CentCom access.
+	W.assignment = JOB_ERT_DEATHSQUAD
 	W.registered_name = H.real_name
 	W.update_label(W.registered_name, W.assignment)
 

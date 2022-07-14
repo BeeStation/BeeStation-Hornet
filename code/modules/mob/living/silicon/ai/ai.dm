@@ -13,8 +13,8 @@
 
 
 /mob/living/silicon/ai
-	name = JOB_AI
-	real_name = JOB_AI
+	name = JOB_NAME_AI
+	real_name = JOB_NAME_AI
 	icon = 'icons/mob/ai.dmi'
 	icon_state = "ai"
 	move_resist = MOVE_FORCE_VERY_STRONG
@@ -128,7 +128,7 @@
 	show_laws()
 	to_chat(src, "<b>These laws may be changed by other players, or by you being the traitor.</b>")
 
-	job = JOB_AI
+	job = JOB_NAME_AI
 
 	create_eye()
 	if(client)
@@ -147,7 +147,7 @@
 
 	aiPDA = new/obj/item/pda/ai(src)
 	aiPDA.owner = real_name
-	aiPDA.ownjob = JOB_AI
+	aiPDA.ownjob = JOB_NAME_AI
 	aiPDA.name = real_name + " (" + aiPDA.ownjob + ")"
 
 	aiMulti = new(src)

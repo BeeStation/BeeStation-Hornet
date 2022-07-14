@@ -1,7 +1,7 @@
 /datum/job/geneticist
-	title = JOB_GENETICIST
+	title = JOB_NAME_GENETICIST
 	flag = GENETICIST
-	department_head = list(JOB_CHIEF_MEDICAL_OFFICER, JOB_RESEARCH_DIRECTOR)
+	department_head = list(JOB_NAME_CHIEFMEDICALOFFICER, JOB_NAME_RESEARCHDIRECTOR)
 	department_flag = MEDSCI
 	faction = "Station"
 	total_positions = 2
@@ -29,7 +29,7 @@
 	biohazard = 15
 
 /datum/outfit/job/geneticist
-	name = JOB_GENETICIST
+	name = JOB_NAME_GENETICIST
 	jobtype = /datum/job/geneticist
 
 	id = /obj/item/card/id/job/geneticist

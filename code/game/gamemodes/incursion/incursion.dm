@@ -5,8 +5,8 @@
 /datum/game_mode/incursion
 	name = "incursion"
 	config_tag = "incursion"
-	restricted_jobs = list(JOB_AI, JOB_CYBORG)
-	protected_jobs = list(JOB_SECURITY_OFFICER, JOB_WARDEN, JOB_DETECTIVE,JOB_CAPTAIN, JOB_HEAD_OF_PERSONNEL, JOB_HEAD_OF_SECURITY, JOB_CHIEF_ENGINEER, JOB_RESEARCH_DIRECTOR, JOB_CHIEF_MEDICAL_OFFICER)
+	restricted_jobs = list(JOB_NAME_AI, JOB_NAME_CYBORG)
+	protected_jobs = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE,JOB_NAME_CAPTAIN, JOB_NAME_HEADOFPERSONNEL, JOB_NAME_HEADOFSECURITY, JOB_NAME_CHIEFENGINEER, JOB_NAME_RESEARCHDIRECTOR, JOB_NAME_CHIEFMEDICALOFFICER)
 	antag_flag = ROLE_INCURSION
 	false_report_weight = 10
 	enemy_minimum_age = 0
@@ -28,7 +28,7 @@
 	if(CONFIG_GET(flag/protect_roles_from_antagonist))
 		restricted_jobs += protected_jobs
 	if(CONFIG_GET(flag/protect_assistant_from_antagonist))
-		restricted_jobs += JOB_ASSISTANT
+		restricted_jobs += JOB_NAME_ASSISTANT
 
 	var/list/datum/mind/possible_traitors = get_players_for_role(ROLE_INCURSION)
 

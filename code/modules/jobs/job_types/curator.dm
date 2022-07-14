@@ -1,7 +1,7 @@
 /datum/job/curator
-	title = JOB_CURATOR
+	title = JOB_NAME_CURATOR
 	flag = CURATOR
-	department_head = list(JOB_HEAD_OF_PERSONNEL)
+	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	department_flag = CIVILIAN
 	faction = "Station"
 	total_positions = 1
@@ -28,7 +28,7 @@
 	biohazard = 5
 
 /datum/outfit/job/curator
-	name = JOB_CURATOR
+	name = JOB_NAME_CURATOR
 	jobtype = /datum/job/curator
 
 	id = /obj/item/card/id/job/curator

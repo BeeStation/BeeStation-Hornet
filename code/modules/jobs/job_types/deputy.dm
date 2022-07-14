@@ -1,7 +1,7 @@
 /datum/job/deputy
-	title = JOB_DEPUTY
+	title = JOB_NAME_DEPUTY
 	flag = DEPUTY
-	department_head = list(JOB_HEAD_OF_SECURITY)
+	department_head = list(JOB_NAME_HEADOFSECURITY)
 	department_flag = ENGSEC
 	faction = "Station"
 	total_positions = 0
@@ -25,7 +25,7 @@
 	departments = DEPARTMENT_BITFLAG_SECURITY
 
 /datum/outfit/job/deputy
-	name = JOB_DEPUTY
+	name = JOB_NAME_DEPUTY
 	jobtype = /datum/job/deputy
 
 	id = /obj/item/card/id/job/deputy
@@ -46,5 +46,5 @@
 /obj/item/card/id/pass/deputy
 	name = "deputy promotion card"
 	desc = "A small card, that when used on an ID, will grant basic security access, and the job title of 'Deputy.'"
-	assignment = JOB_DEPUTY
+	assignment = JOB_NAME_DEPUTY
 	access = list(ACCESS_SEC_DOORS, ACCESS_MAINT_TUNNELS, ACCESS_COURT, ACCESS_BRIG, ACCESS_WEAPONS)

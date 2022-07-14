@@ -1,7 +1,7 @@
 /datum/job/chief_medical_officer
-	title = JOB_CHIEF_MEDICAL_OFFICER
+	title = JOB_NAME_CHIEFMEDICALOFFICER
 	flag = CMO_JF
-	department_head = list(JOB_CAPTAIN)
+	department_head = list(JOB_NAME_CAPTAIN)
 	department_flag = MEDSCI
 	auto_deadmin_role_flags = DEADMIN_POSITION_HEAD
 	head_announce = list(RADIO_CHANNEL_MEDICAL)
@@ -38,7 +38,7 @@
 	biohazard = 20
 
 /datum/outfit/job/chief_medical_officer
-	name = JOB_CHIEF_MEDICAL_OFFICER
+	name = JOB_NAME_CHIEFMEDICALOFFICER
 	jobtype = /datum/job/chief_medical_officer
 
 	id = /obj/item/card/id/job/chief_medical_officer

@@ -266,7 +266,7 @@
 
 /datum/gear/uniform/rank/assistant
 	subtype_path = /datum/gear/uniform/rank/assistant
-	allowed_roles = list(JOB_ASSISTANT)
+	allowed_roles = list(JOB_NAME_ASSISTANT)
 
 /datum/gear/uniform/rank/assistant/formal
 	display_name = "assistant's formal uniform"
@@ -281,7 +281,7 @@
 
 /datum/gear/uniform/rank/cook
 	subtype_path = /datum/gear/uniform/rank/cook
-	allowed_roles = list(JOB_COOK)
+	allowed_roles = list(JOB_NAME_COOK)
 
 /datum/gear/uniform/rank/cook/red
 	display_name = "cook's suit, red"
@@ -291,7 +291,7 @@
 
 /datum/gear/uniform/rank/cargo
 	subtype_path = /datum/gear/uniform/rank/cargo
-	allowed_roles = list(JOB_QUARTERMASTER, JOB_CARGO_TECHNICIAN, JOB_SHAFT_MINER)
+	allowed_roles = list(JOB_NAME_QUARTERMASTER, JOB_NAME_CARGOTECHNICIAN, JOB_SHAFT_MINER)
 
 /datum/gear/uniform/rank/cargo/overalls
 	display_name = "laborer's overalls, light blue"
@@ -307,7 +307,7 @@
 
 /datum/gear/uniform/rank/medical
 	subtype_path = /datum/gear/uniform/rank/medical
-	allowed_roles = list(JOB_PARAMEDIC, JOB_MEDICAL_DOCTOR, JOB_CHIEF_MEDICAL_OFFICER)
+	allowed_roles = list(JOB_NAME_PARAMEDIC, JOB_NAME_MEDICALDOCTOR, JOB_NAME_CHIEFMEDICALOFFICER)
 
 /datum/gear/uniform/rank/medical/nurse_dress
 	display_name = "medical, nurse's dress"
@@ -333,7 +333,7 @@
 
 /datum/gear/uniform/rank/engineering
 	subtype_path = /datum/gear/uniform/rank/engineering
-	allowed_roles = list(JOB_CHIEF_ENGINEER, JOB_STATION_ENGINEER, JOB_ATMOSPHERIC_TECHNICIAN)
+	allowed_roles = list(JOB_NAME_CHIEFENGINEER, JOB_NAME_TATIONENGINEER, JOB_NAME_ATMOSPHERICTECHNICIAN)
 
 /datum/gear/uniform/rank/engineering/hazard
 	display_name = "engineering jumpsuit, hazard"
@@ -343,7 +343,7 @@
 
 /datum/gear/uniform/rank/security
 	subtype_path = /datum/gear/uniform/rank/security
-	allowed_roles = list(JOB_SECURITY_OFFICER)
+	allowed_roles = list(JOB_NAME_SECURITYOFFICER)
 
 /datum/gear/uniform/rank/security/white
 	display_name = "security jumpsuit, white"

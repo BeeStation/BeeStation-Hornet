@@ -1,7 +1,7 @@
 /datum/job/paramedic
-	title = JOB_PARAMEDIC
+	title = JOB_NAME_PARAMEDIC
 	flag = PARAMEDIC
-	department_head = list(JOB_CHIEF_MEDICAL_OFFICER)
+	department_head = list(JOB_NAME_CHIEFMEDICALOFFICER)
 	department_flag = MEDSCI
 	faction = "Station"
 	total_positions = 2
@@ -31,7 +31,7 @@
 	biohazard = 25//deal with sick like MDS, but also muck around in maint and get into the thick of it
 
 /datum/outfit/job/paramedic
-	name = JOB_PARAMEDIC
+	name = JOB_NAME_PARAMEDIC
 	jobtype = /datum/job/paramedic
 
 	id = /obj/item/card/id/job/paramedic

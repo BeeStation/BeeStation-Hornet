@@ -1,7 +1,7 @@
 /datum/job/cargo_technician
-	title = JOB_CARGO_TECHNICIAN
+	title = JOB_NAME_CARGOTECHNICIAN
 	flag = CARGOTECH
-	department_head = list(JOB_HEAD_OF_PERSONNEL)
+	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	department_flag = CIVILIAN
 	faction = "Station"
 	total_positions = 3
@@ -27,7 +27,7 @@
 	biohazard = 15
 
 /datum/outfit/job/cargo_technician
-	name = JOB_CARGO_TECHNICIAN
+	name = JOB_NAME_CARGOTECHNICIAN
 	jobtype = /datum/job/cargo_technician
 
 	id = /obj/item/card/id/job/cargo_technician

@@ -522,7 +522,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 				playsound(get_turf(M), 'sound/effects/splat.ogg', 50, 1)
 				if(prob(60) && M.mind && ishuman(M))
 					if(tetsuo && prob(15))
-						if(A.affected_mob.job == JOB_CLOWN)
+						if(A.affected_mob.job == JOB_NAME_CLOWN)
 							new /obj/effect/spawner/lootdrop/teratoma/major/clown(M.loc)
 						if(MOB_ROBOTIC in A.infectable_biotypes)
 							new /obj/effect/decal/cleanable/robot_debris(M.loc)
@@ -690,7 +690,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 				bloodpoints += 1
 			else
 				bloodpoints += max(0, grabbedblood)
-			for(var/I in 1 to power)//power doesnt increase efficiency, just usage. 
+			for(var/I in 1 to power)//power doesnt increase efficiency, just usage.
 				if(bloodpoints > 0)
 					if(ishuman(M))
 						var/mob/living/carbon/human/H = M
@@ -772,8 +772,8 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 								bloodpoints -= 2
 								bloodbag.visible_message("<span class='warning'>A current of blood pushes [bloodbag.name] towards [H.name]'s corpse!</span>")
 								playsound(bloodbag.loc, 'sound/magic/exit_blood.ogg', 25, 1)
-								return 0 
-			else 
+								return 0
+			else
 				var/list/candidates = list()
 				for(var/mob/living/carbon/human/C in ohearers(min(bloodpoints/4, possibledist), H))
 					if(NOBLOOD in C.dna.species.species_traits)

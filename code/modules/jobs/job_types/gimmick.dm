@@ -1,5 +1,5 @@
 /datum/job/gimmick //gimmick var must be set to true for all gimmick jobs BUT the parent
-	title = JOB_GIMMICK
+	title = JOB_NAME_GIMMICK
 	flag = GIMMICK
 	department_flag = CIVILIAN
 	faction = "Station"
@@ -27,7 +27,7 @@
 	can_be_admin_equipped = FALSE // we want just the parent outfit to be unequippable since this leads to problems
 
 /datum/job/gimmick/barber
-	title = JOB_BARBER
+	title = JOB_NAME_BARBER
 	flag = BARBER
 	outfit = /datum/outfit/job/gimmick/barber
 	access = list(ACCESS_MORGUE, ACCESS_MAINT_TUNNELS)
@@ -40,7 +40,7 @@
 	)
 
 /datum/outfit/job/gimmick/barber
-	name = JOB_BARBER
+	name = JOB_NAME_BARBER
 	jobtype = /datum/job/gimmick/barber
 
 	id = /obj/item/card/id/job/barber
@@ -53,7 +53,7 @@
 	can_be_admin_equipped = TRUE
 
 /datum/job/gimmick/stage_magician
-	title = JOB_STAGE_MAGICIAN
+	title = JOB_NAME_STAGEMAGICIAN
 	flag = MAGICIAN
 	outfit = /datum/outfit/job/gimmick/stage_magician
 	access = list(ACCESS_THEATRE, ACCESS_MAINT_TUNNELS)
@@ -67,7 +67,7 @@
 	)
 
 /datum/outfit/job/gimmick/stage_magician
-	name = JOB_STAGE_MAGICIAN
+	name = JOB_NAME_STAGEMAGICIAN
 	jobtype = /datum/job/gimmick/stage_magician
 
 	id = /obj/item/card/id/job/stage_magician
@@ -83,7 +83,7 @@
 	can_be_admin_equipped = TRUE
 
 /datum/job/gimmick/psychiatrist
-	title = JOB_PSYCHIATRIST
+	title = JOB_NAME_PSYCHIATRIST
 	flag = SHRINK
 	outfit = /datum/outfit/job/gimmick/psychiatrist
 	access = list(ACCESS_MAINT_TUNNELS, ACCESS_MEDICAL)
@@ -99,7 +99,7 @@
 	)
 
 /datum/outfit/job/gimmick/psychiatrist //psychiatrist doesnt get much shit, but he has more access and a cushier paycheck
-	name = JOB_PSYCHIATRIST
+	name = JOB_NAME_PSYCHIATRIST
 	jobtype = /datum/job/gimmick/psychiatrist
 
 	id = /obj/item/card/id/job/psychiatrist
@@ -111,7 +111,7 @@
 	can_be_admin_equipped = TRUE
 
 /datum/job/gimmick/vip
-	title = JOB_VIP
+	title = JOB_NAME_VIP
 	flag = CELEBRITY
 	outfit = /datum/outfit/job/gimmick/vip
 	access = list(ACCESS_MAINT_TUNNELS) //Assistants with shitloads of money, what could go wrong?
@@ -125,7 +125,7 @@
 	)
 
 /datum/outfit/job/gimmick/vip
-	name = JOB_VIP
+	name = JOB_NAME_VIP
 	jobtype = /datum/job/gimmick/vip
 
 	id = /obj/item/card/id/gold/vip

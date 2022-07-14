@@ -286,7 +286,7 @@
 	message_admins("[key_name_admin(usr)] has [muteunmute] [key_name_admin(whom)] from [mute_string].")
 	if(C)
 		to_chat(C, "You have been [muteunmute] from [mute_string] by [key_name(usr, include_name = FALSE)].")
-	
+
 	SSblackbox.record_feedback("nested tally", "admin_toggle", 1, list("Mute [feedback_string]", "[P.muted & mute_type]")) //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 
@@ -444,7 +444,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	else
 		new_character.mind_initialize()
 	if(!new_character.mind.assigned_role)
-		new_character.mind.assigned_role = JOB_ASSISTANT//If they somehow got a null assigned role.
+		new_character.mind.assigned_role = JOB_NAME_ASSISTANT//If they somehow got a null assigned role.
 
 	new_character.key = G_found.key
 
@@ -485,9 +485,9 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 		else//They may also be a cyborg or AI.
 			switch(new_character.mind.assigned_role)
-				if(JOB_CYBORG)//More rigging to make em' work and check if they're traitor.
+				if(JOB_NAME_CYBORG)//More rigging to make em' work and check if they're traitor.
 					new_character = new_character.Robotize(TRUE)
-				if(JOB_AI)
+				if(JOB_NAME_AI)
 					new_character = new_character.AIize()
 				else
 					SSjob.EquipRank(new_character, new_character.mind.assigned_role, 1)//Or we simply equip them.

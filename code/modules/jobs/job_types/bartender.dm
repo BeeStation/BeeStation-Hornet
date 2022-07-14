@@ -1,7 +1,7 @@
 /datum/job/bartender
-	title = JOB_BARTENDER
+	title = JOB_NAME_BARTENDER
 	flag = BARTENDER
-	department_head = list(JOB_HEAD_OF_PERSONNEL)
+	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	department_flag = CIVILIAN
 	faction = "Station"
 	total_positions = 1
@@ -25,7 +25,7 @@
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/bartender
 	)
 /datum/outfit/job/bartender
-	name = JOB_BARTENDER
+	name = JOB_NAME_BARTENDER
 	jobtype = /datum/job/bartender
 
 	id = /obj/item/card/id/job/bartender

@@ -142,8 +142,8 @@
 	var/disable_pda = TRUE
 	var/disable_sensors = TRUE
 	//All of these only affect the ID that the outfit has placed in the ID slot
-	var/id_job = null			//Such as JOB_CLOWN or "Chef." This just determines what the ID reads as, not their access
-	var/id_access = null		//This is for access. See access.dm for which jobs give what access. Use JOB_CAPTAIN if you want it to be all access.
+	var/id_job = null			//Such as JOB_NAME_CLOWN or "Chef." This just determines what the ID reads as, not their access
+	var/id_access = null		//This is for access. See access.dm for which jobs give what access. Use JOB_NAME_CAPTAIN if you want it to be all access.
 	var/id_access_list = null	//Allows you to manually add access to an ID card.
 	assignedrole = "Ghost Role"
 
@@ -307,7 +307,7 @@
 ///////////Civilians//////////////////////
 
 /obj/effect/mob_spawn/human/corpse/assistant
-	name = JOB_ASSISTANT
+	name = JOB_NAME_ASSISTANT
 	outfit = /datum/outfit/job/assistant
 
 /obj/effect/mob_spawn/human/corpse/assistant/beesease_infection
@@ -324,7 +324,7 @@
 	outfit = /datum/outfit/job/cargo_technician
 
 /obj/effect/mob_spawn/human/cook
-	name = JOB_COOK
+	name = JOB_NAME_COOK
 	outfit = /datum/outfit/job/cook
 
 
@@ -360,11 +360,11 @@
 	outfit = /datum/outfit/job/engineer/gloved/rig
 
 /obj/effect/mob_spawn/human/clown
-	name = JOB_CLOWN
+	name = JOB_NAME_CLOWN
 	outfit = /datum/outfit/job/clown
 
 /obj/effect/mob_spawn/human/scientist
-	name = JOB_SCIENTIST
+	name = JOB_NAME_SCIENTIST
 	outfit = /datum/outfit/job/scientist
 
 /obj/effect/mob_spawn/human/miner
@@ -385,7 +385,7 @@
 
 /obj/effect/mob_spawn/human/bartender
 	name = "Space Bartender"
-	id_job = JOB_BARTENDER
+	id_job = JOB_NAME_BARTENDER
 	id_access_list = list(ACCESS_BAR)
 	outfit = /datum/outfit/spacebartender
 
@@ -399,7 +399,7 @@
 	short_desc = "You are a space bartender!"
 	flavour_text = "Time to mix drinks and change lives. Smoking space drugs makes it easier to understand your patrons' odd dialect."
 	assignedrole = "Space Bartender"
-	id_job = JOB_BARTENDER
+	id_job = JOB_NAME_BARTENDER
 	use_cooldown = TRUE
 
 /datum/outfit/spacebartender

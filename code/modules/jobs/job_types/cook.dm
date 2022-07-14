@@ -1,7 +1,7 @@
 /datum/job/cook
-	title = JOB_COOK
+	title = JOB_NAME_COOK
 	flag = COOK
-	department_head = list(JOB_HEAD_OF_PERSONNEL)
+	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	department_flag = CIVILIAN
 	faction = "Station"
 	total_positions = 2
@@ -27,7 +27,7 @@
 	)
 
 /datum/outfit/job/cook
-	name = JOB_COOK
+	name = JOB_NAME_COOK
 	jobtype = /datum/job/cook
 
 	id = /obj/item/card/id/job/cook

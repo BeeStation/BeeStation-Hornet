@@ -1,7 +1,7 @@
 /datum/job/clown
-	title = JOB_CLOWN
+	title = JOB_NAME_CLOWN
 	flag = CLOWN
-	department_head = list(JOB_HEAD_OF_PERSONNEL)
+	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	department_flag = CIVILIAN
 	faction = "Station"
 	total_positions = 1
@@ -30,7 +30,7 @@
 	H.apply_pref_name("clown", M.client)
 
 /datum/outfit/job/clown
-	name = JOB_CLOWN
+	name = JOB_NAME_CLOWN
 	jobtype = /datum/job/clown
 
 	id = /obj/item/card/id/job/clown

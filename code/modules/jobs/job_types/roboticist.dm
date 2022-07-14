@@ -1,7 +1,7 @@
 /datum/job/roboticist
-	title = JOB_ROBOTICIST
+	title = JOB_NAME_ROBOTICIST
 	flag = ROBOTICIST
-	department_head = list(JOB_RESEARCH_DIRECTOR)
+	department_head = list(JOB_NAME_RESEARCHDIRECTOR)
 	department_flag = MEDSCI
 	faction = "Station"
 	total_positions = 2
@@ -30,7 +30,7 @@
 	)
 
 /datum/outfit/job/roboticist
-	name = JOB_ROBOTICIST
+	name = JOB_NAME_ROBOTICIST
 	jobtype = /datum/job/roboticist
 
 	id = /obj/item/card/id/job/roboticist

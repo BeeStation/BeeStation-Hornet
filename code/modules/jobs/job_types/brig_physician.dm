@@ -1,7 +1,7 @@
 /datum/job/brig_physician
-	title = JOB_BRIGPHYSICIAN
+	title = JOB_NAME_BRIGPHYSICIAN
 	flag = BRIG_PHYS
-	department_head = list(JOB_CHIEF_MEDICAL_OFFICER)
+	department_head = list(JOB_NAME_CHIEFMEDICALOFFICER)
 	department_flag = ENGSEC
 	faction = "Station"
 	total_positions = 1
@@ -30,7 +30,7 @@
 	biohazard = 15 //still deals with the sick and injured, just less than a medical doctor
 
 /datum/outfit/job/brig_physician
-	name = JOB_BRIGPHYSICIAN
+	name = JOB_NAME_BRIGPHYSICIAN
 	jobtype = /datum/job/brig_physician
 
 	id = /obj/item/card/id/job/brig_physician

@@ -1,7 +1,7 @@
 /datum/job/virologist
-	title = JOB_VIROLOGIST
+	title = JOB_NAME_VIROLOGIST
 	flag = VIROLOGIST
-	department_head = list(JOB_CHIEF_MEDICAL_OFFICER)
+	department_head = list(JOB_NAME_CHIEFMEDICALOFFICER)
 	department_flag = MEDSCI
 	faction = "Station"
 	total_positions = 2
@@ -30,7 +30,7 @@
 	biohazard = 50 //duh
 
 /datum/outfit/job/virologist
-	name = JOB_VIROLOGIST
+	name = JOB_NAME_VIROLOGIST
 	jobtype = /datum/job/virologist
 
 	id = /obj/item/card/id/job/virologist

@@ -1,7 +1,7 @@
 /datum/job/quartermaster
-	title = JOB_QUARTERMASTER
+	title = JOB_NAME_QUARTERMASTER
 	flag = QUARTERMASTER
-	department_head = list(JOB_HEAD_OF_PERSONNEL)
+	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	department_flag = CIVILIAN
 	faction = "Station"
 	total_positions = 1
@@ -29,7 +29,7 @@
 	)
 
 /datum/outfit/job/quartermaster
-	name = JOB_QUARTERMASTER
+	name = JOB_NAME_QUARTERMASTER
 	jobtype = /datum/job/quartermaster
 
 	id = /obj/item/card/id/job/quartermaster
