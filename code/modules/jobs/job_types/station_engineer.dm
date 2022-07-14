@@ -1,4 +1,4 @@
-/datum/job/engineer
+/datum/job/station_engineer
 	title = JOB_STATION_ENGINEER
 	flag = ENGINEER
 	department_head = list(JOB_CHIEF_ENGINEER)
@@ -32,11 +32,11 @@
 
 /datum/outfit/job/engineer
 	name = JOB_STATION_ENGINEER
-	jobtype = /datum/job/engineer
+	jobtype = /datum/job/station_engineer
 
-	id = /obj/item/card/id/job/engi
+	id =  /obj/item/card/id/job/station_engineer
 	belt = /obj/item/storage/belt/utility/full/engi
-	l_pocket = /obj/item/pda/engineering
+	l_pocket = /obj/item/pda/station_engineer
 	ears = /obj/item/radio/headset/headset_eng
 	uniform = /obj/item/clothing/under/rank/engineering/engineer
 	shoes = /obj/item/clothing/shoes/workboots

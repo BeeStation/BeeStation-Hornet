@@ -12,13 +12,13 @@
 	access += ACCESS_CREMATORIUM
 	minimal_access += ACCESS_CREMATORIUM
 
-/datum/job/officer/New()
+/datum/job/security_officer/New()
 	..()
 	MAP_JOB_CHECK
 	access += ACCESS_CREMATORIUM
 	minimal_access += ACCESS_CREMATORIUM
 
-/datum/job/exploration/New()
+/datum/job/exploration_crew/New()
 	. = ..()
 	MAP_JOB_CHECK
 	access += ACCESS_MAINT_TUNNELS

@@ -22,7 +22,7 @@
 	rpg_title = "Merchantman"
 
 	species_outfits = list(
-		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/cargo
+		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/cargo_technician
 	)
 	biohazard = 15
 
@@ -30,8 +30,8 @@
 	name = JOB_CARGO_TECHNICIAN
 	jobtype = /datum/job/cargo_technician
 
-	id = /obj/item/card/id/job/cargo
-	belt = /obj/item/pda/cargo
+	id = /obj/item/card/id/job/cargo_technician
+	belt = /obj/item/pda/cargo_technician
 	ears = /obj/item/radio/headset/headset_cargo
 	uniform = /obj/item/clothing/under/rank/cargo/tech
 	l_hand = /obj/item/export_scanner

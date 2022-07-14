@@ -36,7 +36,7 @@
 	rpg_title = "Guard Leader"
 
 	species_outfits = list(
-		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/hos
+		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/head_of_security
 	)
 
 /datum/outfit/job/head_of_security
@@ -44,7 +44,7 @@
 	jobtype = /datum/job/head_of_security
 
 	id = /obj/item/card/id/job/head_of_security
-	belt = /obj/item/pda/heads/hos
+	belt = /obj/item/pda/heads/head_of_security
 	ears = /obj/item/radio/headset/heads/hos/alt
 	uniform = /obj/item/clothing/under/rank/security/head_of_security
 	shoes = /obj/item/clothing/shoes/jackboots
@@ -71,7 +71,7 @@
 	name = "Head of Security (Hardsuit)"
 
 	mask = /obj/item/clothing/mask/gas/sechailer
-	suit = /obj/item/clothing/suit/space/hardsuit/security/hos
+	suit = /obj/item/clothing/suit/space/hardsuit/security/head_of_security
 	suit_store = /obj/item/tank/internals/oxygen
 	backpack_contents = list(/obj/item/melee/baton/loaded=1)
 

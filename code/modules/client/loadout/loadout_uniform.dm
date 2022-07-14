@@ -313,9 +313,9 @@
 	display_name = "medical, nurse's dress"
 	path = /obj/item/clothing/under/rank/medical/doctor/nurse
 
-/datum/gear/uniform/rank/medical/emt
+/datum/gear/uniform/rank/medical/paramedic
 	display_name = "medical scrubs, EMT"
-	path = /obj/item/clothing/under/rank/medical/emt
+	path = /obj/item/clothing/under/rank/medical/paramedic
 
 /datum/gear/uniform/rank/medical/scrubs_blue
 	display_name = "medical scrubs, baby blue"

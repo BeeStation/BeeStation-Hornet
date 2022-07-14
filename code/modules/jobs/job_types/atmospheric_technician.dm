@@ -30,9 +30,9 @@
 	name = JOB_ATMOSPHERIC_TECHNICIAN
 /datum/outfit/job/atmospheric_technician
 
-	id = /obj/item/card/id/job/atmospheric_technician
+	id = /obj/item/card/id/job/atmospheric_technicianpheric_technician
 	belt = /obj/item/storage/belt/utility/atmostech
-	l_pocket = /obj/item/pda/atmos
+	l_pocket = /obj/item/pda/atmospheric_technician
 	ears = /obj/item/radio/headset/headset_eng
 	uniform = /obj/item/clothing/under/rank/engineering/atmospheric_technician
 	r_pocket = /obj/item/analyzer

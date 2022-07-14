@@ -11,17 +11,17 @@
 
 /datum/gear/suit/labcoat/brig_doc_hazard
 	display_name = "brig physician's hazard vest"
-	path = /obj/item/clothing/suit/hazardvest/brig_phys
+	path = /obj/item/clothing/suit/hazardvest/brig_physician
 	allowed_roles = list(JOB_BRIGPHYSICIAN)
 
 /datum/gear/suit/labcoat/brig_doc
 	display_name = "brig physician's labcoat"
-	path = /obj/item/clothing/suit/toggle/labcoat/brig_phys
+	path = /obj/item/clothing/suit/toggle/labcoat/brig_physician
 	allowed_roles = list(JOB_BRIGPHYSICIAN)
 
-/datum/gear/suit/labcoat/emt
+/datum/gear/suit/labcoat/paramedic
 	display_name = "EMT labcoat"
-	path = /obj/item/clothing/suit/toggle/labcoat/emt
+	path = /obj/item/clothing/suit/toggle/labcoat/paramedic
 	allowed_roles = list(JOB_MEDICAL_DOCTOR, JOB_CHIEF_MEDICAL_OFFICER, JOB_CHEMIST, JOB_GENETICIST)
 
 //WINTER COATS

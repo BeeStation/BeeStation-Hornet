@@ -24,16 +24,16 @@
 	rpg_title = "Adventurer"
 
 	species_outfits = list(
-		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/mining
+		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/shaft_miner
 	)
 
 /datum/outfit/job/miner
 	name = JOB_SHAFT_MINER
 	jobtype = /datum/job/shaft_miner
 
-	id = /obj/item/card/id/job/miner
-	belt = /obj/item/pda/shaftminer
-	ears = /obj/item/radio/headset/headset_cargo/mining
+	id = /obj/item/card/id/job/shaft_miner
+	belt = /obj/item/pda/shaft_miner
+	ears = /obj/item/radio/headset/headset_cargo/shaft_miner
 	shoes = /obj/item/clothing/shoes/workboots/mining
 	gloves = /obj/item/clothing/gloves/color/black
 	uniform = /obj/item/clothing/under/rank/cargo/miner/lavaland

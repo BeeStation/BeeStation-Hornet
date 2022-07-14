@@ -46,11 +46,11 @@
 	jobtype = /datum/job/research_director
 
 	id = /obj/item/card/id/job/research_director
-	belt = /obj/item/pda/heads/rd
-	ears = /obj/item/radio/headset/heads/rd
+	belt = /obj/item/pda/heads/research_director
+	ears = /obj/item/radio/headset/heads/research_director
 	uniform = /obj/item/clothing/under/rank/rnd/research_director
 	shoes = /obj/item/clothing/shoes/sneakers/brown
-	suit = /obj/item/clothing/suit/toggle/labcoat/rd
+	suit = /obj/item/clothing/suit/toggle/labcoat/research_director
 	l_hand = /obj/item/clipboard
 	l_pocket = /obj/item/laser_pointer
 	backpack_contents = list(/obj/item/melee/classic_baton/police/telescopic=1,
@@ -59,13 +59,13 @@
 	backpack = /obj/item/storage/backpack/science
 	satchel = /obj/item/storage/backpack/satchel/tox
 
-	chameleon_extras = /obj/item/stamp/rd
+	chameleon_extras = /obj/item/stamp/research_director
 
 /datum/outfit/job/research_director/rig
 	name = "Research Director (Hardsuit)"
 
 	l_hand = null
 	mask = /obj/item/clothing/mask/breath
-	suit = /obj/item/clothing/suit/space/hardsuit/rd
+	suit = /obj/item/clothing/suit/space/hardsuit/research_director
 	suit_store = /obj/item/tank/internals/oxygen
 	internals_slot = ITEM_SLOT_SUITSTORE

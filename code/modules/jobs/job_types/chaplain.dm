@@ -114,7 +114,7 @@
 	name = JOB_CHAPLAIN
 	jobtype = /datum/job/chaplain
 
-	id = /obj/item/card/id/job/chap
+	id = /obj/item/card/id/job/chaplain
 	belt = /obj/item/pda/chaplain
 	ears = /obj/item/radio/headset/headset_srv
 	uniform = /obj/item/clothing/under/rank/civilian/chaplain

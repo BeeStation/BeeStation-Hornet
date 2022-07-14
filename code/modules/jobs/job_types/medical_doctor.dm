@@ -1,4 +1,4 @@
-/datum/job/doctor
+/datum/job/medical_doctor
 	title = JOB_MEDICAL_DOCTOR
 	flag = DOCTOR
 	department_head = list(JOB_CHIEF_MEDICAL_OFFICER)
@@ -12,7 +12,7 @@
 	exp_requirements = 120
 	exp_type = EXP_TYPE_CREW
 
-	outfit = /datum/outfit/job/doctor
+	outfit = /datum/outfit/job/medical_doctor
 
 	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_GENETICS, ACCESS_CLONING, ACCESS_VIROLOGY, ACCESS_MECH_MEDICAL, ACCESS_MINERAL_STOREROOM, ACCESS_MAINT_TUNNELS)
 	minimal_access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CLONING, ACCESS_MECH_MEDICAL, ACCESS_MINERAL_STOREROOM, ACCESS_MAINT_TUNNELS)
@@ -28,11 +28,11 @@
 	)
 	biohazard = 20
 
-/datum/outfit/job/doctor
+/datum/outfit/job/medical_doctor
 	name = JOB_MEDICAL_DOCTOR
-	jobtype = /datum/job/doctor
+	jobtype = /datum/job/medical_doctor
 
-	id = /obj/item/card/id/job/med
+	id = /obj/item/card/id/job/medical_doctor
 	belt = /obj/item/pda/medical
 	ears = /obj/item/radio/headset/headset_med
 	uniform = /obj/item/clothing/under/rank/medical/doctor

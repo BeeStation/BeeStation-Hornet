@@ -22,7 +22,7 @@
 	rpg_title = "Tavernkeeper"
 
 	species_outfits = list(
-		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/bar
+		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/bartender
 	)
 /datum/outfit/job/bartender
 	name = JOB_BARTENDER
@@ -30,7 +30,7 @@
 
 	id = /obj/item/card/id/job/bartender
 	glasses = /obj/item/clothing/glasses/sunglasses/advanced/reagent
-	belt = /obj/item/pda/bar
+	belt = /obj/item/pda/bartender
 	ears = /obj/item/radio/headset/headset_srv
 	uniform = /obj/item/clothing/under/rank/civilian/bartender
 	suit = /obj/item/clothing/suit/armor/vest

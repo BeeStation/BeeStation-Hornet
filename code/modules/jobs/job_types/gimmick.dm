@@ -52,10 +52,10 @@
 	l_pocket = /obj/item/razor/straightrazor
 	can_be_admin_equipped = TRUE
 
-/datum/job/gimmick/magician
+/datum/job/gimmick/stage_magician
 	title = JOB_STAGE_MAGICIAN
 	flag = MAGICIAN
-	outfit = /datum/outfit/job/gimmick/magician
+	outfit = /datum/outfit/job/gimmick/stage_magician
 	access = list(ACCESS_THEATRE, ACCESS_MAINT_TUNNELS)
 	minimal_access = list(ACCESS_THEATRE, ACCESS_MAINT_TUNNELS)
 	gimmick = TRUE
@@ -66,11 +66,11 @@
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/magic
 	)
 
-/datum/outfit/job/gimmick/magician
+/datum/outfit/job/gimmick/stage_magician
 	name = JOB_STAGE_MAGICIAN
-	jobtype = /datum/job/gimmick/magician
+	jobtype = /datum/job/gimmick/stage_magician
 
-	id = /obj/item/card/id/job/magician
+	id = /obj/item/card/id/job/stage_magician
 	belt = /obj/item/pda/unlicensed
 	head = /obj/item/clothing/head/that
 	ears = /obj/item/radio/headset
@@ -82,10 +82,10 @@
 	backpack_contents = list(/obj/item/choice_beacon/magic=1)
 	can_be_admin_equipped = TRUE
 
-/datum/job/gimmick/shrink
+/datum/job/gimmick/psychiatrist
 	title = JOB_PSYCHIATRIST
 	flag = SHRINK
-	outfit = /datum/outfit/job/gimmick/shrink
+	outfit = /datum/outfit/job/gimmick/psychiatrist
 	access = list(ACCESS_MAINT_TUNNELS, ACCESS_MEDICAL)
 	minimal_access = list(ACCESS_MAINT_TUNNELS, ACCESS_MEDICAL)
 	paycheck = PAYCHECK_EASY
@@ -98,11 +98,11 @@
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman
 	)
 
-/datum/outfit/job/gimmick/shrink //psychiatrist doesnt get much shit, but he has more access and a cushier paycheck
+/datum/outfit/job/gimmick/psychiatrist //psychiatrist doesnt get much shit, but he has more access and a cushier paycheck
 	name = JOB_PSYCHIATRIST
-	jobtype = /datum/job/gimmick/shrink
+	jobtype = /datum/job/gimmick/psychiatrist
 
-	id = /obj/item/card/id/job/psychi
+	id = /obj/item/card/id/job/psychiatrist
 	belt = /obj/item/pda/medical
 	ears = /obj/item/radio/headset/headset_med
 	uniform = /obj/item/clothing/under/suit/black
@@ -110,10 +110,10 @@
 	backpack_contents = list(/obj/item/choice_beacon/pet/ems=1)
 	can_be_admin_equipped = TRUE
 
-/datum/job/gimmick/celebrity
+/datum/job/gimmick/vip
 	title = JOB_VIP
 	flag = CELEBRITY
-	outfit = /datum/outfit/job/gimmick/celebrity
+	outfit = /datum/outfit/job/gimmick/vip
 	access = list(ACCESS_MAINT_TUNNELS) //Assistants with shitloads of money, what could go wrong?
 	minimal_access = list(ACCESS_MAINT_TUNNELS)
 	gimmick = TRUE
@@ -124,12 +124,12 @@
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/vip
 	)
 
-/datum/outfit/job/gimmick/celebrity
+/datum/outfit/job/gimmick/vip
 	name = JOB_VIP
-	jobtype = /datum/job/gimmick/celebrity
+	jobtype = /datum/job/gimmick/vip
 
 	id = /obj/item/card/id/gold/vip
-	belt = /obj/item/pda/celebrity
+	belt = /obj/item/pda/vip
 	glasses = /obj/item/clothing/glasses/sunglasses/advanced
 	ears = /obj/item/radio/headset/heads //VIP can talk loud for no reason
 	uniform = /obj/item/clothing/under/suit/black_really

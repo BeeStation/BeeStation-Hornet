@@ -25,7 +25,7 @@
 	rpg_title = "Steward"
 
 	species_outfits = list(
-		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/cargo
+		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/cargo_technician
 	)
 
 /datum/outfit/job/quartermaster
@@ -35,10 +35,10 @@
 	id = /obj/item/card/id/job/quartermaster
 	belt = /obj/item/pda/quartermaster
 	ears = /obj/item/radio/headset/headset_quartermaster
-	uniform = /obj/item/clothing/under/rank/cargo/qm
+	uniform = /obj/item/clothing/under/rank/cargo/quartermaster
 	shoes = /obj/item/clothing/shoes/sneakers/brown
 	glasses = /obj/item/clothing/glasses/sunglasses/advanced
 	l_hand = /obj/item/clipboard
 
-	chameleon_extras = /obj/item/stamp/qm
+	chameleon_extras = /obj/item/stamp/quartermaster
 

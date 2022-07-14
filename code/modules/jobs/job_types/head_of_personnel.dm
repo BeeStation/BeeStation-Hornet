@@ -41,7 +41,7 @@
 	rpg_title = "Guild Questgiver"
 
 	species_outfits = list(
-		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/hop
+		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/head_of_personnel
 	)
 
 /datum/outfit/job/head_of_personnel
@@ -49,8 +49,8 @@
 	jobtype = /datum/job/head_of_personnel
 
 	id = /obj/item/card/id/job/head_of_personnel
-	belt = /obj/item/pda/heads/hop
-	ears = /obj/item/radio/headset/heads/hop
+	belt = /obj/item/pda/heads/head_of_personnel
+	ears = /obj/item/radio/headset/heads/head_of_personnel
 	uniform = /obj/item/clothing/under/rank/civilian/head_of_personnel
 	shoes = /obj/item/clothing/shoes/sneakers/brown
 	head = /obj/item/clothing/head/hopcap
@@ -58,4 +58,4 @@
 		/obj/item/melee/classic_baton/police/telescopic=1,
 		/obj/item/modular_computer/tablet/preset/advanced/command=1)
 
-	chameleon_extras = list(/obj/item/gun/energy/e_gun, /obj/item/stamp/hop)
+	chameleon_extras = list(/obj/item/gun/energy/e_gun, /obj/item/stamp/head_of_personnel)

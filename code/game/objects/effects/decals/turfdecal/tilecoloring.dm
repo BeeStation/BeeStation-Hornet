@@ -228,10 +228,10 @@
 /obj/effect/turf_decal/trimline/white/filled/warning
 	icon_state = "trimline_warn_fill"
 
-/obj/effect/turf_decal/trimline/white/filled/shrink_cw
+/obj/effect/turf_decal/trimline/white/filled/psychiatrist_cw
 	icon_state = "trimline_shrink_cw"
 
-/obj/effect/turf_decal/trimline/white/filled/shrink_ccw
+/obj/effect/turf_decal/trimline/white/filled/psychiatrist_ccw
 	icon_state = "trimline_shrink_ccw"
 
 /obj/effect/turf_decal/trimline/red
@@ -276,10 +276,10 @@
 /obj/effect/turf_decal/trimline/red/filled/warning
 	icon_state = "trimline_warn_fill"
 
-/obj/effect/turf_decal/trimline/red/filled/shrink_cw
+/obj/effect/turf_decal/trimline/red/filled/psychiatrist_cw
 	icon_state = "trimline_shrink_cw"
 
-/obj/effect/turf_decal/trimline/red/filled/shrink_ccw
+/obj/effect/turf_decal/trimline/red/filled/psychiatrist_ccw
 	icon_state = "trimline_shrink_ccw"
 
 /obj/effect/turf_decal/trimline/green
@@ -324,10 +324,10 @@
 /obj/effect/turf_decal/trimline/green/filled/warning
 	icon_state = "trimline_warn_fill"
 
-/obj/effect/turf_decal/trimline/green/filled/shrink_cw
+/obj/effect/turf_decal/trimline/green/filled/psychiatrist_cw
 	icon_state = "trimline_shrink_cw"
 
-/obj/effect/turf_decal/trimline/green/filled/shrink_ccw
+/obj/effect/turf_decal/trimline/green/filled/psychiatrist_ccw
 	icon_state = "trimline_shrink_ccw"
 
 /obj/effect/turf_decal/trimline/blue
@@ -372,10 +372,10 @@
 /obj/effect/turf_decal/trimline/blue/filled/warning
 	icon_state = "trimline_warn_fill"
 
-/obj/effect/turf_decal/trimline/blue/filled/shrink_cw
+/obj/effect/turf_decal/trimline/blue/filled/psychiatrist_cw
 	icon_state = "trimline_shrink_cw"
 
-/obj/effect/turf_decal/trimline/blue/filled/shrink_ccw
+/obj/effect/turf_decal/trimline/blue/filled/psychiatrist_ccw
 	icon_state = "trimline_shrink_ccw"
 
 /obj/effect/turf_decal/trimline/yellow
@@ -420,10 +420,10 @@
 /obj/effect/turf_decal/trimline/yellow/filled/warning
 	icon_state = "trimline_warn_fill"
 
-/obj/effect/turf_decal/trimline/yellow/filled/shrink_cw
+/obj/effect/turf_decal/trimline/yellow/filled/psychiatrist_cw
 	icon_state = "trimline_shrink_cw"
 
-/obj/effect/turf_decal/trimline/yellow/filled/shrink_ccw
+/obj/effect/turf_decal/trimline/yellow/filled/psychiatrist_ccw
 	icon_state = "trimline_shrink_ccw"
 
 /obj/effect/turf_decal/trimline/purple
@@ -468,10 +468,10 @@
 /obj/effect/turf_decal/trimline/purple/filled/warning
 	icon_state = "trimline_warn_fill"
 
-/obj/effect/turf_decal/trimline/purple/filled/shrink_cw
+/obj/effect/turf_decal/trimline/purple/filled/psychiatrist_cw
 	icon_state = "trimline_shrink_cw"
 
-/obj/effect/turf_decal/trimline/purple/filled/shrink_ccw
+/obj/effect/turf_decal/trimline/purple/filled/psychiatrist_ccw
 	icon_state = "trimline_shrink_ccw"
 
 /obj/effect/turf_decal/trimline/brown
@@ -516,10 +516,10 @@
 /obj/effect/turf_decal/trimline/brown/filled/warning
 	icon_state = "trimline_warn_fill"
 
-/obj/effect/turf_decal/trimline/brown/filled/shrink_cw
+/obj/effect/turf_decal/trimline/brown/filled/psychiatrist_cw
 	icon_state = "trimline_shrink_cw"
 
-/obj/effect/turf_decal/trimline/brown/filled/shrink_ccw
+/obj/effect/turf_decal/trimline/brown/filled/psychiatrist_ccw
 	icon_state = "trimline_shrink_ccw"
 
 /obj/effect/turf_decal/trimline/darkblue
@@ -565,10 +565,10 @@
 /obj/effect/turf_decal/trimline/darkblue/filled/warning
 	icon_state = "trimline_warn_fill"
 
-/obj/effect/turf_decal/trimline/darkblue/filled/shrink_cw
+/obj/effect/turf_decal/trimline/darkblue/filled/psychiatrist_cw
 	icon_state = "trimline_shrink_cw"
 
-/obj/effect/turf_decal/trimline/darkblue/filled/shrink_ccw
+/obj/effect/turf_decal/trimline/darkblue/filled/psychiatrist_ccw
 	icon_state = "trimline_shrink_ccw"
 
 /obj/effect/turf_decal/trimline/neutral
@@ -614,8 +614,8 @@
 /obj/effect/turf_decal/trimline/neutral/filled/warning
 	icon_state = "trimline_warn_fill"
 
-/obj/effect/turf_decal/trimline/neutral/filled/shrink_cw
+/obj/effect/turf_decal/trimline/neutral/filled/psychiatrist_cw
 	icon_state = "trimline_shrink_cw"
 
-/obj/effect/turf_decal/trimline/neutral/filled/shrink_ccw
+/obj/effect/turf_decal/trimline/neutral/filled/psychiatrist_ccw
 	icon_state = "trimline_shrink_ccw"

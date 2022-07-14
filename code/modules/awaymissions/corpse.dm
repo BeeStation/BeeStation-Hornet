@@ -330,7 +330,7 @@
 
 /obj/effect/mob_spawn/human/doctor
 	name = "Doctor"
-	outfit = /datum/outfit/job/doctor
+	outfit = /datum/outfit/job/medical_doctor
 
 
 /obj/effect/mob_spawn/human/doctor/alive
@@ -459,7 +459,7 @@
 
 /datum/outfit/nanotrasenbridgeofficercorpse
 	name = "Bridge Officer Corpse"
-	ears = /obj/item/radio/headset/heads/hop
+	ears = /obj/item/radio/headset/heads/head_of_personnel
 	uniform = /obj/item/clothing/under/rank/centcom/officer
 	suit = /obj/item/clothing/suit/armor/bulletproof
 	shoes = /obj/item/clothing/shoes/sneakers/black
@@ -502,7 +502,7 @@
 	mask = /obj/item/clothing/mask/gas/sechailer/swat
 	head = /obj/item/clothing/head/helmet/swat/nanotrasen
 	back = /obj/item/storage/backpack/security
-	id = /obj/item/card/id/job/sec
+	id = /obj/item/card/id/job/security_officer
 
 
 /obj/effect/mob_spawn/human/commander/alive

@@ -42,7 +42,7 @@
 	jobtype = /datum/job/chief_medical_officer
 
 	id = /obj/item/card/id/job/chief_medical_officer
-	belt = /obj/item/pda/heads/cmo
+	belt = /obj/item/pda/heads/chief_medical_officer
 	l_pocket = /obj/item/pinpointer/crew
 	ears = /obj/item/radio/headset/heads/cmo
 	uniform = /obj/item/clothing/under/rank/medical/chief_medical_officer
