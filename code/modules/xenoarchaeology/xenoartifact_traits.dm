@@ -1427,7 +1427,7 @@
 	label_desc = "Radioactive: The Artifact Emmits harmful particles when a reaction takes place."
 
 /datum/xenoartifact_trait/malfunction/radioactive/on_init(obj/item/xenoartifact/X)
-	X.AddComponent(/datum/component/radioactive, 25)
+	X.AddComponent(/datum/component/radioactive, 25, X)
 
 /datum/xenoartifact_trait/malfunction/radioactive/on_item(obj/item/xenoartifact/X, atom/user, atom/item)
 	if(istype(item, /obj/item/geiger_counter))
