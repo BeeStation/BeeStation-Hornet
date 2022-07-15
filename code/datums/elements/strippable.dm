@@ -47,10 +47,10 @@
 	if(over != user)
 		return
 
-	// Mobs that can walk through walls cannot strip.
+	// Mobs that can walk through walls cannot strip, except revenants which are handled later.
 	if(isliving(user))
 		var/mob/living/L = user
-		if(L.incorporeal_move)
+		if(L.incorporeal_move && !isrevenant(L))
 			return
 
 	// Cyborgs buckle people by dragging them onto them, unless in combat mode.
@@ -295,6 +295,9 @@
 
 /// A utility function for `/datum/strippable_item`s to start unequipping an item from a mob.
 /proc/start_unequip_mob(obj/item/item, mob/source, mob/user, strip_delay)
+	if(isrevenant(user))
+		var/mob/living/simple_animal/revenant/ghostie = user
+		ghostie.reveal(max(item.strip_delay, 25)) //This stacks if a rev attempts to strip multiple items at once
 	if(!do_mob(user, source, strip_delay || item.strip_delay))
 		return FALSE
 
