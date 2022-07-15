@@ -40,6 +40,7 @@
 	ears = /obj/item/radio/headset/headset_eng
 	uniform = /obj/item/clothing/under/rank/engineering/engineer
 	shoes = /obj/item/clothing/shoes/workboots
+	glasses = /obj/item/clothing/glasses/meson/engine
 	head = /obj/item/clothing/head/hardhat
 	r_pocket = /obj/item/t_scanner
 
