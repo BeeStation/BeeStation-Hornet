@@ -744,8 +744,10 @@
 	if(isliving(X.loc))
 		var/mob/living/holder = X.loc
 		holder.dropItemToGround(X, thrown = TRUE)
-	if(ismovable(target) && !(istype(target, /obj/structure)))
+	if(ismovable(target) && !(istype(target, /obj/structure)) || !(istype(target, /obj/machinery)))
 		var/atom/movable/AM = target
+		if(AM.anchored)
+			return
 		addtimer(CALLBACK(src, .proc/release, X, AM), X.charge*0.5 SECONDS)
 		AM.forceMove(X)
 		X.buckle_mob(AM)
