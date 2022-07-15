@@ -40,6 +40,7 @@ GLOBAL_LIST_INIT(bibleitemstates, list("bible", "koran", "scrapbook", "burning",
 	var/mob/affecting = null
 	var/deity_name = "Christ"
 	force_string = "holy"
+	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/storage/book/bible/ComponentInitialize()
 	. = ..()
