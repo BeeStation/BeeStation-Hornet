@@ -335,7 +335,7 @@
 /obj/item/xenoartifact/proc/create_beam(atom/target)
 	if((locate(src) in target?.contents) || !get_turf(target))
 		return
-	var/datum/beam/xenoa_beam/B = new(src.loc, target, time=1.5 SECONDS, beam_icon='icons/obj/xenoarchaeology/xenoartifact.dmi', beam_icon_state="xenoa_beam", btype=/obj/effect/ebeam/xenoa_ebeam)
+	var/datum/beam/xenoa_beam/B = new((!isturf(src.loc) ? src.loc : src), target, time=1.5 SECONDS, beam_icon='icons/obj/xenoarchaeology/xenoartifact.dmi', beam_icon_state="xenoa_beam", btype=/obj/effect/ebeam/xenoa_ebeam)
 	B.set_color(material)
 	INVOKE_ASYNC(B, /datum/beam/xenoa_beam.proc/Start)
 
