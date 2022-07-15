@@ -159,7 +159,7 @@ SUBSYSTEM_DEF(vote)
 					SSshuttle.emergencyNoRecall = TRUE //Prevent Recall.
 					var/obj/machinery/computer/communications/C = locate() in GLOB.machines
 					if(C)
-						INVOKE_ASYNC(C, /obj/machinery/computer/communications.post_status, "shuttle")
+						INVOKE_ASYNC(C, /obj/machinery/computer/communications.proc/post_status, "shuttle")
 	if(restart)
 		var/active_admins = FALSE
 		for(var/client/C in GLOB.admins+GLOB.deadmins)

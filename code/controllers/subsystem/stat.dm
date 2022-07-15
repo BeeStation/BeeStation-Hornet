@@ -22,7 +22,6 @@ SUBSYSTEM_DEF(stat)
 	//cache for sanic speed (lists are references anyways)
 	var/list/currentrun = src.currentrun
 	var/list/currentrun_listed = src.currentrun_listed
-	var/list/icon_requests = src.icon_requests
 	var/list/currentrun_aftericon = src.currentrun_aftericon
 
 	while(currentrun.len)

@@ -507,7 +507,7 @@ SUBSYSTEM_DEF(ticker)
 		for (var/mob/dead/new_player/NP in queued_players)
 			to_chat(NP, "<span class='userdanger'>The alive players limit has been released!<br><a href='?src=[REF(NP)];late_join=override'>[html_encode(">>Join Game<<")]</a></span>")
 			SEND_SOUND(NP, sound('sound/misc/notice1.ogg'))
-			INVOKE_ASYNC(NP, /mob/dead/new_player./LateChoices)
+			INVOKE_ASYNC(NP, /mob/dead/new_player.proc/LateChoices)
 		queued_players.len = 0
 		queue_delay = 0
 		return
@@ -522,7 +522,7 @@ SUBSYSTEM_DEF(ticker)
 				if(next_in_line && next_in_line.client)
 					to_chat(next_in_line, "<span class='userdanger'>A slot has opened! You have approximately 20 seconds to join. <a href='?src=[REF(next_in_line)];late_join=override'>\>\>Join Game\<\<</a></span>")
 					SEND_SOUND(next_in_line, sound('sound/misc/notice1.ogg'))
-					INVOKE_ASYNC(next_in_line, /mob/dead/new_player./LateChoices)
+					INVOKE_ASYNC(next_in_line, /mob/dead/new_player.proc/LateChoices)
 					return
 				queued_players -= next_in_line //Client disconnected, remove he
 			queue_delay = 0 //No vacancy: restart timer

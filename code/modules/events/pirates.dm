@@ -132,11 +132,11 @@
 
 /obj/machinery/shuttle_scrambler/interact(mob/user)
 	if(!active)
-		INVOKE_ASYNC(src, .proc/try_interaction)
+		INVOKE_ASYNC(src, .proc/try_interaction, user)
 	else
 		dump_loot(user)
 
-/obj/machinery/shuttle_scrambler/proc/try_interaction()
+/obj/machinery/shuttle_scrambler/proc/try_interaction(mob/user)
 	if(alert(user, "Turning the scrambler on will make the shuttle trackable by GPS. Are you sure you want to do it?", "Scrambler", "Yes", "Cancel") == "Cancel")
 		return
 	if(active || !user.canUseTopic(src, BE_CLOSE))

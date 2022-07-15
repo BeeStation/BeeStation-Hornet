@@ -213,9 +213,9 @@
 		else
 			visible_message("<span class='danger'>[user] disturbs the [name] to no effect!</span>")
 	else
-		INVOKE_ASYNC(src, .proc/perform_interaction)
+		INVOKE_ASYNC(src, .proc/perform_interaction, user)
 
-/obj/structure/beebox/proc/perform_interaction()
+/obj/structure/beebox/proc/perform_interaction(mob/user)
 	var/option = alert(user, "What action do you wish to perform?","Apiary","Remove a Honey Frame","Remove the Queen Bee", "Cancel")
 	if(!Adjacent(user))
 		return

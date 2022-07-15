@@ -87,9 +87,9 @@
 
 	else
 		insistinga = 0
-		INVOKE_ASYNC(src, .proc/grant_power)
+		INVOKE_ASYNC(src, .proc/grant_power, user)
 
-/obj/machinery/wish_granter_dark/proc/grant_power()
+/obj/machinery/wish_granter_dark/proc/grant_power(mob/living/carbon/human/user)
 	var/wish = input("You want...","Wish") as null|anything in sortList(list("Power","Wealth","Immortality","Peace"))
 
 	if(chargesa <= 0)
