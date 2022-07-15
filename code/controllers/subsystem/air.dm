@@ -464,6 +464,7 @@ SUBSYSTEM_DEF(air)
 
 /datum/controller/subsystem/air/proc/unpause_z(z_level)
 	var/list/turfs_to_reinit = block(locate(1, 1, z_level), locate(world.maxx, world.maxy, z_level))
+	SSair.can_fire = FALSE
 	for(var/turf/T as anything in turfs_to_reinit)
 		//We can skip enabling space turfs
 		if(!isspaceturf(T))
