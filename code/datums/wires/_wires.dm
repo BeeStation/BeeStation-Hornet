@@ -252,14 +252,14 @@
 	else if(user.is_holding_item_of_type(/obj/item/multitool/abductor))
 		reveal_wires = TRUE
 
-	// Station blueprints do that too, but only if the wires are not randomized.
-	else if(user.is_holding_item_of_type(/obj/item/areaeditor/blueprints) && (!randomize || holder_type == /obj/machinery/door/airlock))
-		reveal_wires = TRUE
-
-	else if(istype(user.get_item_by_slot(ITEM_SLOT_EYES), /obj/item/clothing/glasses/meson/engine))
-		var/obj/item/clothing/glasses/meson/engine/goggles = user.get_item_by_slot(ITEM_SLOT_EYES)
-		if(goggles.mode == "t-ray")
+	// Station blueprints and T-ray engineer goggles can do that too, but not with everything
+	else if(!randomize || holder_type == /obj/machinery/door/airlock)
+		if(user.is_holding_item_of_type(/obj/item/areaeditor/blueprints))
 			reveal_wires = TRUE
+		else if(istype(user.get_item_by_slot(ITEM_SLOT_EYES), /obj/item/clothing/glasses/meson/engine))
+			var/obj/item/clothing/glasses/meson/engine/goggles = user.get_item_by_slot(ITEM_SLOT_EYES)
+			if(goggles.mode == "t-ray")
+				reveal_wires = TRUE
 
 	for(var/color in colors)
 		payload.Add(list(list(
