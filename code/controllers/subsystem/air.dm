@@ -63,6 +63,8 @@ SUBSYSTEM_DEF(air)
 	var/excited_group_pressure_goal = 1
 
 	var/list/paused_z_levels	//Paused z-levels will not add turfs to active
+	var/list/unpausing_z_levels = list()
+	var/list/unpause_processing = list()
 
 /datum/controller/subsystem/air/stat_entry(msg)
 	msg += "C:{"
@@ -128,6 +130,24 @@ SUBSYSTEM_DEF(air)
 /datum/controller/subsystem/air/fire(resumed = 0)
 
 	var/timer = TICK_USAGE_REAL
+
+	//If we have unpausing z-level, process them first
+	if(length(unpausing_z_levels) && !length(unpause_processing))
+		var/z_value = unpausing_z_levels[1]
+		unpausing_z_levels.Remove(z_value)
+		unpause_processing = block(locate(1, 1, z_value), locate(world.maxx, world.maxy, z_value))
+
+	while(length(unpause_processing))
+		var/turf/T = unpause_processing[length(unpause_processing)]
+		if(!isspaceturf(T))	//Skip space turfs, since they won't have atmos
+			T.Initalize_Atmos()
+		//Goodbye
+		unpause_processing.len --
+		//We overran this tick, stop processing
+		//This may result in a very brief atmos freeze when running unpause_z at high loads
+		//but that is better than freezing the entire MC
+		if(MC_TICK_CHECK)
+			return
 
 	if(currentpart == SSAIR_REBUILD_PIPENETS)
 		timer = TICK_USAGE_REAL
@@ -463,18 +483,8 @@ SUBSYSTEM_DEF(air)
 		CHECK_TICK
 
 /datum/controller/subsystem/air/proc/unpause_z(z_level)
-	var/list/turfs_to_reinit = block(locate(1, 1, z_level), locate(world.maxx, world.maxy, z_level))
-	SSair.can_fire = FALSE
-	for(var/turf/T as anything in turfs_to_reinit)
-		//We can skip enabling space turfs
-		if(!isspaceturf(T))
-			T.Initalize_Atmos()
-		//High priority, as we don't want to freeze the server, but we also don't want this to take too long
-		//as it will freeze other subsystems during intense atmos hours
-		CHECK_TICK_HIGH_PRIORITY
+	unpausing_z_levels |= z_level
 	LAZYREMOVE(paused_z_levels, z_level)
-	if(!length(paused_z_levels))
-		SSair.can_fire = TRUE
 
 /datum/controller/subsystem/air/proc/setup_allturfs()
 	var/list/turfs_to_init = block(locate(1, 1, 1), locate(world.maxx, world.maxy, world.maxz))
