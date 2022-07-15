@@ -32,7 +32,7 @@
 	foodtype = VEGETABLES
 	grind_results = list(/datum/reagent/consumable/soymilk = 0)
 	tastes = list("soy" = 1)
-	roundstart = 0
+	roundstart = FALSE
 
 
 

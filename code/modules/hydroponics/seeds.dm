@@ -287,7 +287,7 @@
 		t_prod.seed.desc = parent.myseed.desc
 		t_prod.seed.plantname = parent.myseed.plantname
 		t_prod.seed.plantdesc = parent.myseed.plantdesc
-		t_prod.roundstart = 0 // make them researchable
+		t_prod.roundstart = FALSE // make them researchable
 		result.Add(t_prod) // User gets a consumable
 		if(!t_prod)
 			return
@@ -323,7 +323,7 @@
 		t_prod.seed.desc = parent.myseed.desc
 		t_prod.seed.plantname = parent.myseed.plantname
 		t_prod.seed.plantdesc = parent.myseed.plantdesc
-		t_prod.roundstart = 0 // make them researchable
+		t_prod.roundstart = FALSE // make them researchable
 		result.Add(t_prod) // User gets a consumable
 		if(!t_prod)
 			return
@@ -659,26 +659,3 @@
             else
                 qdel(T)
 */
-/obj/item/seeds/proc/setting_crops(var/list/given_seeds)
-	if(!length(given_seeds))
-		return list()
-
-	world.log << "SS: [given_seeds[1]]"
-	var/static/list/static_seeds
-	if(!static_seeds)
-		world.log << "STARTED"
-		static_seeds = list()
-		for(var/obj/item/seeds/seed as() in subtypesof(/obj/item/seeds)-/obj/item/seeds/sample)
-			var/obj/item/seeds/temp_seed = new seed
-			static_seeds += temp_seed
-			world.log << "1: [seed]"
-			world.log << "2: [temp_seed]"
-			world.log << "3: [static_seeds[1]]"
-
-	var/list/L = list()
-	. = L
-
-	for(var/given_seed in given_seeds)
-		if(given_seed in static_seeds)
-			world.log << "static seed given"
-			L += static_seeds[given_seed]

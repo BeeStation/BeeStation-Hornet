@@ -27,7 +27,7 @@
 	var/rarity = 0
 	// ------
 
-	var/roundstart = 0           //roundstart crops are not researchable. Grown crops will become 0, so that you can scan them.
+	var/roundstart = TRUE        //roundstart crops are not researchable. Grown crops will become 0, so that you can scan them.
 	var/discovery_points = 200   //Amount of discovery points given for scanning
 	var/research_identifier      //used to check if a plant was researched. strange seed needs customised identifier.
 	var/eat_delay = 30 // used for patch trait
@@ -130,8 +130,8 @@
 		gene_list += "\[[each.name] [each.reag_unit]\] "
 	for(var/datum/plant_gene/trait/each in seed.genes)
 		gene_list += "\[[each.name]\] "
-	investigate_log("has been squashed to [key_name(T)] with a botany plant. Plant specs: [gene_list]. Last pickup ckey: [fingerprintslast].", INVESTIGATE_BOTANY)
-	log_combat([key_name(T)], "got a crop squash", src,  "at [AREACOORD(G)]. Plant specs: [gene_list]. Last pickup ckey: [fingerprintslast].")
+	investigate_log("[key_name(target)] has taken a plant squash at [AREACOORD(src)]. Plant specs: [gene_list]. Last pickup ckey: [fingerprintslast].", INVESTIGATE_BOTANY)
+	log_game("#botany. [key_name(target)] has gotten a plant squash at [AREACOORD(src)]. Plant specs: [gene_list]. Last pickup ckey: [fingerprintslast].")
 
 	visible_message("<span class='warning'>[src] has been squashed.</span>","<span class='italics'>You hear a smack.</span>")
 	if(seed)
@@ -172,9 +172,8 @@
 			for(var/datum/plant_gene/trait/each in seed.genes)
 				gene_list += "\[[each.name]\] "
 			var/mob/thrown_by = thrownby?.resolve()
-			investigate_log("[src] has been thrown by [(thrown_by || "(unknown error)")]. Last pickup ckey: [fingerprintslast].", INVESTIGATE_BOTANY)
-			log_combat("[src] has been thrown by [(thrown_by || "(unknown error)")]. Last pickup ckey: [fingerprintslast].")
-
+			investigate_log("[(key_name(thrown_by) || "(unknown)")] has thrown [src] to [hit_atom] at [AREACOORD(src)]. Plant specs: [gene_list]. Last pickup ckey: [fingerprintslast].", INVESTIGATE_BOTANY)
+			log_game("#botany. [(key_name(thrown_by) || "(unknown)")] has thrown [src] to [hit_atom] at [AREACOORD(src)]. Plant specs: [gene_list]. Last pickup ckey: [fingerprintslast].")
 			var/selfdestruct = FALSE
 			if(squash(hit_atom, PLANT_ACTIVATED_THROW))
 				for(var/datum/plant_gene/trait/T in seed.genes)
@@ -208,8 +207,8 @@
 			gene_list += "\[[each.name] [each.reag_unit]\] "
 		for(var/datum/plant_gene/trait/each in seed.genes)
 			gene_list += "\[[each.name]\] "
-		user.investigate_log("has tried to feed/or attack [key_name(M)] with a botany plant. User intent: [user.a_intent]. Plant specs: [gene_list]. Last pickup ckey: [fingerprintslast].", INVESTIGATE_BOTANY)
-		log_combat("[key_name(user)] has tried to feed/or attack [key_name(M)] with a botany plant. User intent: [M.a_intent]. Plant specs: [gene_list]. Last pickup ckey: [fingerprintslast].")
+		user.investigate_log("has tried to feed/or attack [key_name(M)] with [src] at [AREACOORD(src)]. User intent: [user.a_intent]. Plant specs: [gene_list]. Last pickup ckey: [fingerprintslast].", INVESTIGATE_BOTANY)
+		log_game("#botany. [key_name(user)] has tried to feed/or attack [key_name(M)] with [src] at [AREACOORD(src)]. User intent: [M.a_intent]. Plant specs: [gene_list]. Last pickup ckey: [fingerprintslast].")
 	if(!seed)
 		. = ..()
 	else

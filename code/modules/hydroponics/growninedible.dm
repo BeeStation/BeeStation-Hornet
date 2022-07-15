@@ -8,7 +8,7 @@
 	resistance_flags = FLAMMABLE
 	var/obj/item/seeds/seed = null // type path, gets converted to item on New(). It's safe to assume it's always a seed item.
 
-	var/roundstart = 1           //roundstart crops are not researchable. Grown crops will become 0, so that you can scan them.
+	var/roundstart = TRUE        //roundstart crops are not researchable. Grown crops will become 0, so that you can scan them.
 	var/discovery_points = 200   //Amount of discovery points given for scanning
 	var/research_identifier      //used to check if a plant was researched. strange seed needs customised identifier.
 

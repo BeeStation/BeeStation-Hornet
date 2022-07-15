@@ -160,8 +160,8 @@
 					if(!linked_techweb.researched_genes[data_id])
 						linked_techweb.researched_genes[data_id] = list()
 						linked_techweb.researched_genes[data_id]["faction"] = all_factions
-						linked_techweb.researched_genes[data_id]["path"] = T.type
-						linked_techweb.researched_genes[data_id]["desc"] = T.desc
+						linked_techweb.researched_genes[data_id]["path"] = T
+						linked_techweb.researched_genes[data_id]["desc"] = initial(T.desc)
 						linked_techweb.researched_genes[data_id]["category"] = "trait"
 						linked_techweb.researched_genes[data_id]["level"] = 0
 						linked_techweb.researched_genes[data_id]["reqlevel"] = 0

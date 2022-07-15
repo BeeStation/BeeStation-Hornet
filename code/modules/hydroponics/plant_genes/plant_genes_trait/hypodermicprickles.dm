@@ -39,7 +39,7 @@
 	. = FALSE
 	if(!isliving(target))
 		return FALSE
-	var/turf/T = get_turf(L)
+	var/turf/T = get_turf(target)
 	var/mob/living/L = target
 	if(prick(G, L, p_method))
 		ADD_TRAIT(L, TRAIT_BOTANY_IMMUNE_INJECT, TRAIT_GENERIC)
@@ -49,21 +49,21 @@
 		if(L.ckey != G.fingerprintslast)
 			if(p_method & PLANT_ACTIVATED_SLIP)
 				L.investigate_log("been slipped on plant at [AREACOORD(T)], being injected him with [G.reagents.log_list()]. Last pickup ckey: [G.fingerprintslast].", INVESTIGATE_BOTANY)
-				log_combat(L, G, "slipped on the", G, ", being injected with [G.reagents.log_list()]. Last pickup ckey: [G.fingerprintslast].")
+				log_combat(L, G, "slipped on the", G, ", being injected with [G.reagents.log_list()]. Last pickup ckey: [G.fingerprintslast]. #botany.")
 			else if(p_method & PLANT_ACTIVATED_ATTACK)
 				L.investigate_log("been prickled by a plant at [AREACOORD(T)], being injected them with [G.reagents.log_list()]. Last pickup ckey: [G.fingerprintslast].", INVESTIGATE_BOTANY)
-				log_combat(G.thrownby, L, "hit", G, "at [AREACOORD(T)], being injected with [G.reagents.log_list()]. Last pickup ckey: [G.fingerprintslast].")
+				log_combat(G.thrownby, L, "hit", G, "at [AREACOORD(T)], being injected with [G.reagents.log_list()]. Last pickup ckey: [G.fingerprintslast]. #botany.")
 			else if(p_method & PLANT_ACTIVATED_THROW)
 				var/mob/thrown_by = G.thrownby?.resolve()
 				L.investigate_log("been prickled by a plant at [AREACOORD(T)], being injected with [G.reagents.log_list()] from being hit by a THROWN plant. Thrower: [(thrown_by || "(unknown error)")]. Last pickup ckey: [G.fingerprintslast].", INVESTIGATE_BOTANY)
-				log_combat((thrown_by || "(unknown error)"), L, "has thrown a plant to", G, "at [AREACOORD(T)], being injected with [G.reagents.log_list()]. Thrower: [(thrown_by || "(unknown error)")]. Last pickup ckey: [G.fingerprintslast].")
+				log_combat((thrown_by || "(unknown error)"), L, "has thrown a plant to", G, "at [AREACOORD(T)], being injected with [G.reagents.log_list()]. Thrower: [(thrown_by || "(unknown error)")]. Last pickup ckey: [G.fingerprintslast]. #botany.")
 
 	if(selfdesctruct)
 		selfdesctruct = FALSE
 		return TRUE
 
 
-/datum/plant_gene/trait/stinging/proc/prick(obj/item/reagent_containers/food/snacks/grown/G, mob/living/L)
+/datum/plant_gene/trait/stinging/proc/prick(obj/item/reagent_containers/food/snacks/grown/G, mob/living/L, p_method)
 	if(reagent_check(G, L))
 		return FALSE
 	if(!L.reagents && !L.can_inject(null, 0))

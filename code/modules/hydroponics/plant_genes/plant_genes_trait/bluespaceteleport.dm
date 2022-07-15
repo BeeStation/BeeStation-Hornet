@@ -52,15 +52,15 @@
 
 		if(L?.ckey != G.fingerprintslast)
 			if(p_method & PLANT_ACTIVATED_SLIP)
-				L.investigate_log("been teleported to [AREACOORD(L)] from [AREACOORD(T)] from stepping on a SLIPPERY bluespace plant. Last pickup ckey: [G.fingerprintslast].", INVESTIGATE_BOTANY)
-				log_combat(L, G, "slipped on", null, "teleporting them from [AREACOORD(T)] to [AREACOORD(L)]. Last pickup ckey: [G.fingerprintslast].")
+				L.investigate_log("has been teleported to [AREACOORD(L)] from [AREACOORD(T)] from stepping on a SLIPPERY bluespace plant. Last pickup ckey: [G.fingerprintslast].", INVESTIGATE_BOTANY)
+				log_combat(L, G, "slipped on", null, "teleporting them from [AREACOORD(T)] to [AREACOORD(L)]. Last pickup ckey: [G.fingerprintslast]. #botany.")
 			else if(p_method & PLANT_ACTIVATED_ATTACK)
 				L.investigate_log("been teleported to [AREACOORD(L)] from [AREACOORD(T)] from being ATTACKED BY a bluespace plant. Last pickup ckey: [G.fingerprintslast].", INVESTIGATE_BOTANY)
-				log_combat(L, G, "has attacked by", null, "teleporting them from [AREACOORD(T)] to [AREACOORD(L)]. Last pickup ckey: [G.fingerprintslast].")
+				log_combat(L, G, "has attacked by", null, "teleporting them from [AREACOORD(T)] to [AREACOORD(L)]. Last pickup ckey: [G.fingerprintslast]. #botany.")
 			else if(p_method & PLANT_ACTIVATED_THROW)
 				var/mob/thrown_by = G.thrownby?.resolve()
-				L.investigate_log("been teleported to [AREACOORD(L)] from [AREACOORD(T)] from being hit by a THROWN bluespace plant. Thrower: [(thrown_by || "(unknown error)")]. Last pickup ckey: [G.fingerprintslast].", INVESTIGATE_BOTANY)
-				log_combat((thrown_by || "(unknown error)"), L, "has thrown a bluespace plant to", G, "at [AREACOORD(T)] teleporting them to [AREACOORD(L)]. Thrower: [(thrown_by || "(unknown error)")]. Last pickup ckey: [G.fingerprintslast].")
+				L.investigate_log("has been teleported to [AREACOORD(L)] from [AREACOORD(T)] from being hit by a THROWN bluespace plant. Thrower: [(thrown_by || "(unknown)")]. Last pickup ckey: [G.fingerprintslast].", INVESTIGATE_BOTANY)
+				log_combat((thrown_by || "(unknown)"), L, "has thrown a bluespace plant to", G, "at [AREACOORD(T)] teleporting them to [AREACOORD(L)]. Thrower: [(thrown_by || "(unknown)")]. Last pickup ckey: [G.fingerprintslast]. #botany.")
 
 
 /datum/plant_gene/trait/teleport/proc/plant_teleport(obj/item/reagent_containers/food/snacks/grown/G, mob/living/L, turf/T)

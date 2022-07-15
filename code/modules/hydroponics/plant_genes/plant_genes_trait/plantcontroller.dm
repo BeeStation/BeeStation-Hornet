@@ -43,8 +43,8 @@
 	// squash must happen first. If it has no squash trait, It will do on_slip step by step.
 
 	if(M?.ckey != G.fingerprintslast)
-		log_combat(G.thrownby, C, "hit and electrocuted", G, "at [AREACOORD(G)] with power of [power]")
-		C.investigate_log("[C] has been hit by an electric plant at [AREACOORD(G)] with power of [power]. Last fingerprint: [G.fingerprintslast].", INVESTIGATE_BOTANY)
+		M.investigate_log("has slipped on a slippery plant at [AREACOORD(G)]. Last pickup ckey: [G.fingerprintslast].", INVESTIGATE_BOTANY)
+		log_game("#botany. [key_name(M)] has slipped on a slippery plant at [AREACOORD(G)]. Last pickup ckey: [G.fingerprintslast].")
 	if(istype(G, /obj/item/reagent_containers/food/snacks/grown)) // we don't want this to be compatible with trash
 		if(G.squash(M, PLANT_ACTIVATED_SLIP))
 			for(var/datum/plant_gene/trait/T in G.seed.genes)

@@ -34,8 +34,7 @@
 /datum/plant_gene/trait/fire_resistance/on_removal(obj/item/seeds/S)
 	if(initial(S.resistance_flags) & FIRE_PROOF)
 		return
-	if(S.resistance_flags & FIRE_PROOF)
-		S.resistance_flags -= FIRE_PROOF
+	S.resistance_flags &= ~FIRE_PROOF
 
 /datum/plant_gene/trait/acid_resistance
 	name = "Acid Resistance"
@@ -54,5 +53,4 @@
 /datum/plant_gene/trait/acid_resistance/on_removal(obj/item/seeds/S)
 	if(initial(S.resistance_flags) & ACID_PROOF)
 		return
-	if(S.resistance_flags & ACID_PROOF)
-		S.resistance_flags -= ACID_PROOF
+	S.resistance_flags &= ~ACID_PROOF
