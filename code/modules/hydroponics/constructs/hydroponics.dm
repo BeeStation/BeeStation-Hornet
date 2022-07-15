@@ -1,6 +1,6 @@
 #define BOTANY_NUTRI_NOTHING "Nutrient"
-#define BOTANY_NUTRI_EZNUTRI "EZ-nutriment"
-#define BOTANY_NUTRI_L4Z "L4Z"
+#define BOTANY_NUTRI_EZNUTRI "E-Z-Nutrient"
+#define BOTANY_NUTRI_L4Z "Left 4 Zed"
 #define BOTANY_NUTRI_ROBHAR "Robust Harvest"
 #define BOTANY_NUTRI_EARTHB "Earthsblood"
 #define BOTANY_NUTRI_OMNIZ "Omnizine"
