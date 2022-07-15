@@ -50,5 +50,6 @@ SUBSYSTEM_DEF(processing)
   * If you override this do not call parent, as it will return PROCESS_KILL. This is done to prevent objects that dont override process() from staying in the processing list
   */
 /datum/proc/process(delta_time)
+	SHOULD_NOT_SLEEP(TRUE)
 	set waitfor = FALSE
 	return PROCESS_KILL
