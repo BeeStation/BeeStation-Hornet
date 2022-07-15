@@ -63,7 +63,7 @@ GLOBAL_LIST_INIT(freqtospan, list(
 			namepart = "[H.get_face_name()]" //So "fake" speaking like in hallucinations does not give the speaker away if disguised
 		if(!radio_freq)
 			if(H.wear_id?.GetID())
-				var/obj/item/card/id/idcard = H.wear_id
+				var/obj/item/card/id/idcard = H.wear_id.GetID()
 				if(idcard.hud_state == JOB_HUD_UNKNOWN)
 					spanpart2 = "<span class='name unassigned'>"
 				else
