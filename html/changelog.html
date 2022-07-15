@@ -56,6 +56,44 @@
 		-->
 		<div class="commit sansserif">
 
+			<h2 class="date">15 July 2022</h2>
+			<h3 class="author">EvilDragonfiend updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="balance">People's mood is no longer changed/adjusted when they're dead.</li>
+				<li class="refactor">refactored job chat color system to make it following a hud state than a job title. as a result of this, some variables are removed. chat color is now stored in `_DEFINES/jobs.dm` rather than each job dm files.</li>
+				<li class="rscadd">custom jobs now have their own chat color (based on a hud their card has)</li>
+				<li class="tweak">adjusted horrible readability of revenant's dark blue chat color in dark theme chat mode</li>
+				<li class="refactor">some consistent coding in previous custom job title PR to reflect new ones</li>
+				<li class="refactor">procs in "_defines/jobs.dm" are moved to "_helpers/jobs.dm"</li>
+			</ul>
+
+			<h2 class="date">13 July 2022</h2>
+			<h3 class="author">benbot16 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Failing to get put into a posibrain won't lock you out of other posibrains anymore.</li>
+			</ul>
+			<h3 class="author">itsmeow updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fixes holopad AI message relay using job from crew manifest instead of worn ID</li>
+			</ul>
+
+			<h2 class="date">12 July 2022</h2>
+			<h3 class="author">EvilDragonfiend updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">ling's fake ID card no longer shows a grey hud icon</li>
+			</ul>
+			<h3 class="author">itsmeow updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">Monochromacy quirk and cursed heart blood-red client colors now apply to inventory slots</li>
+			</ul>
+
+			<h2 class="date">11 July 2022</h2>
+			<h3 class="author">itsmeow updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Duplicate pastries category in crafting menu</li>
+				<li class="bugfix">Dank-pockets are ordered correctly in the crafting menu</li>
+			</ul>
+
 			<h2 class="date">10 July 2022</h2>
 			<h3 class="author">Dejaku51 updated:</h3>
 			<ul class="changes bgimages16">
@@ -985,94 +1023,6 @@
 			<ul class="changes bgimages16">
 				<li class="rscadd">added a bunch of new tongues</li>
 				<li class="tweak">moved saymods off species datums and onto tongues</li>
-			</ul>
-
-			<h2 class="date">13 May 2022</h2>
-			<h3 class="author">Archemagus updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Cyrillic in radio prefixes</li>
-			</ul>
-			<h3 class="author">Chirynnn updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">This fixed the huge gaps between the first and last name of randomly generated apids.</li>
-			</ul>
-			<h3 class="author">Hardly, Gandalf2k15 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">Vended items now go straight into your hand.</li>
-			</ul>
-			<h3 class="author">Ivniinvi updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">Players are now limited to one positronic brain per round.</li>
-			</ul>
-			<h3 class="author">MNarath1 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="config">Changes default editor settings for dmi files to the new dmi editor extension</li>
-			</ul>
-			<h3 class="author">Penwin0 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscdel">Removes mentions of changeling hivemind chat</li>
-				<li class="bugfix">Headspidering no longer causes a runtime</li>
-				<li class="bugfix">You can no longer headspider in revival stasis for a free aheal later on</li>
-			</ul>
-			<h3 class="author">bluezorua updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscdel">Gondola Pockets from the cargo donkpocket variety crate</li>
-				<li class="tweak">cargo donkpocket variety crate's price has been decreased to 1.5K credits</li>
-			</ul>
-			<h3 class="author">d0sboots updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">batteries are removed properly when removing the power controller from tablets</li>
-			</ul>
-			<h3 class="author">ivanmixo updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">bubble alerts stay on screen longer</li>
-				<li class="spellcheck">fixed punctuation and grammar in bubble alerts</li>
-			</ul>
-
-			<h2 class="date">12 May 2022</h2>
-			<h3 class="author">covertcorvid updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Fixes doing wiring in space</li>
-			</ul>
-			<h3 class="author">d0sboots updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">suit_storage slot now shows the item it has equipped</li>
-			</ul>
-
-			<h2 class="date">11 May 2022</h2>
-			<h3 class="author">PestoVerde322 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="imageadd">Added new icons for the DNA injectors</li>
-				<li class="imageadd">Added new icons for the DNA implanters and their cases</li>
-				<li class="bugfix">The bluespace icon syringe is now more animated</li>
-			</ul>
-
-			<h2 class="date">10 May 2022</h2>
-			<h3 class="author">BetaCentari updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Added hissing, humming and clicking your tongue emotes</li>
-				<li class="rscadd">Added zap emote for ethereals</li>
-				<li class="code_imp">Added unique message option for insect-like mobs (moths, apids and flypeople)</li>
-				<li class="soundadd">Added a dialup sound for IPC players when they are revived</li>
-			</ul>
-			<h3 class="author">PestoVerde322 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="balance">Fireball no longer has a 3 tile wide hitbox (courtesy of GoblinBackwards over in /tg/).</li>
-			</ul>
-			<h3 class="author">ivanmixo updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscdel">removed unused TRAIT_APPRAISAL</li>
-			</ul>
-
-			<h2 class="date">09 May 2022</h2>
-			<h3 class="author">Rukofamicom updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="balance">Yellow slime cores are now cells that recharge over time instead of being effectively infinite.</li>
-				<li class="balance">EMPs now halt regeneration for 30 seconds on slime cores.</li>
-			</ul>
-			<h3 class="author">d0sboots updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Can keybind semicolon</li>
 			</ul>
 		</div>
 

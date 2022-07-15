@@ -944,12 +944,12 @@
 	var/hrefpart = "<a href='?src=[REF(src)];track=[html_encode(namepart)]'>"
 	var/jobpart = "Unknown"
 
-	if (iscarbon(speaker))
-		var/mob/living/carbon/S = speaker
-		if(S.job)
-			jobpart = "[S.job]"
-	else
-		jobpart = "Unknown"
+	if (ishuman(speaker))
+		var/mob/living/carbon/human/S = speaker
+		if(S.wear_id)
+			var/obj/item/card/id/I = S.wear_id.GetID()
+			if(I)
+				jobpart = "[I.assignment]"
 
 	var/rendered = "<i><span class='game say'>[start]<span class='name'>[hrefpart][namepart] ([jobpart])</a> </span><span class='message'>[treated_message]</span></span></i>"
 
