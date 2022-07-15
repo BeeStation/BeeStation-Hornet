@@ -1,0 +1,4 @@
+author: EvilDragonfiend
+delete-after: true
+changes:
+  - balance: People's mood is no longer changed/adjusted when they're dead.
