@@ -158,7 +158,7 @@
 		X.process_type = PROCESS_TYPE_LIT
 		sleep(1.8 SECONDS) //Give them a chance to escape
 		START_PROCESSING(SSobj, X)
-		log_game("[user]:[isliving(user) ? user?.ckey : "no ckey"] lit [X] at [world.time] using [thing]. [X] located at [X.x] [X.y] [X.z].")
+		log_game("[key_name_admin(user)] lit [X] at [world.time] using [thing]. [X] located at [X.x] [X.y] [X.z].")
 
 //============
 // Timed activator, activates on a timer. Timer is turned on when used, has a chance to turn off.
@@ -186,7 +186,7 @@
 	var/obj/item/xenoartifact/X = source
 	X.process_type = PROCESS_TYPE_TICK
 	START_PROCESSING(SSobj, X)
-	log_game("[user]:[isliving(user) ? user?.ckey : "no ckey"] set clock on [X] at [world.time] using [thing]. [X] located at [X.x] [X.y] [X.z].")
+	log_game("[key_name_admin(user)] set clock on [X] at [world.time] using [thing]. [X] located at [X.x] [X.y] [X.z].")
 
 //============
 // Signal activator, responds to respective signals sent through signallers
@@ -214,7 +214,7 @@
 /datum/xenoartifact_trait/activator/signal/calculate_charge(datum/source, obj/item/thing, mob/user, atom/target, params)
 	var/obj/item/xenoartifact/X = source
 	X.default_activate(charge, user, target)
-	log_game("[user]:[isliving(user) ? user?.ckey : "no ckey"] signalled [X] at [world.time]. [X] located at [X.x] [X.y] [X.z].")
+	log_game("[key_name_admin(user)] signalled [X] at [world.time]. [X] located at [X.x] [X.y] [X.z].")
 
 //============
 // Battery activator, needs a cell to activate
@@ -415,7 +415,7 @@
 	man.real_name = "[man.name] - [X]"
 	man.key = ckey
 	man.maxbodytemp = INFINITY
-	log_game("[man]:[man.ckey] took control of the sentient [X]. [X] located at [X.x] [X.y] [X.z]")
+	log_game("[key_name_admin(man)] took control of the sentient [X]. [X] located at [X.x] [X.y] [X.z]")
 	ADD_TRAIT(man, TRAIT_NOBREATH, TRAIT_NODEATH)
 	man.forceMove(X) //Better hope no greedy goblins took all the zlevels
 	man.anchored = TRUE
@@ -947,7 +947,7 @@
 		victims = list()
 		return
 	swap(victims[1], victims[2])
-	log_game("[X] swapped the identities of [victims[1]] & [victims[2]] at [world.time]. [X] located at [X.x] [X.y] [X.z]")
+	log_game("[X] swapped the identities of [key_name_admin(victims[1])] & [key_name_admin(victims[2])] at [world.time]. [X] located at [X.x] [X.y] [X.z]")
 	addtimer(CALLBACK(src, .proc/undo_swap), ((X.charge*0.20) SECONDS)+ 6 SECONDS) //6 extra seconds while targets are asleep
 	X.cooldownmod = ((X.charge*0.3)SECONDS)+ 6 SECONDS
 	victims = list()
@@ -1187,7 +1187,7 @@
 		playsound(get_turf(X), pick('sound/items/hypospray.ogg','sound/items/hypospray2.ogg'), 50, TRUE)
 		var/datum/reagents/R = target.reagents
 		R.add_reagent(formula, amount)
-		log_game("[X] injected [target] with [amount]u of [formula] at [world.time]. [X] located at [X.x] [X.y] [X.z]")
+		log_game("[X] injected [key_name_admin(target)] with [amount]u of [formula] at [world.time]. [X] located at [X.x] [X.y] [X.z]")
 
 //============
 // Push, pushes target away from artifact
