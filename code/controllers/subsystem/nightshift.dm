@@ -10,6 +10,8 @@ SUBSYSTEM_DEF(nightshift)
 
 	var/high_security_mode = FALSE
 
+	var/list/processing = list()
+
 /datum/controller/subsystem/nightshift/Initialize()
 	if(!CONFIG_GET(flag/enable_night_shifts))
 		can_fire = FALSE
@@ -31,7 +33,7 @@ SUBSYSTEM_DEF(nightshift)
 	if(!SSmapping.config.allow_night_lighting)
 		if(night_time)
 			night_time = FALSE
-			update_nightshift(night_time, FALSE)
+			INVOKE_ASYNC(src, .proc/update_nightshift, night_time, FALSE)
 		return
 	if(high_security_mode != emergency)
 		high_security_mode = emergency
@@ -44,7 +46,8 @@ SUBSYSTEM_DEF(nightshift)
 	if(emergency)
 		night_time = FALSE
 	if(nightshift_active != night_time)
-		update_nightshift(night_time, announcing)
+		//Would do it in fire() but it has an update rate of 60 seconds
+		INVOKE_ASYNC(src, .proc/update_nightshift, night_time, announcing)
 
 /datum/controller/subsystem/nightshift/proc/update_nightshift(active, announce = TRUE)
 	nightshift_active = active

@@ -62,7 +62,6 @@ SUBSYSTEM_DEF(profiler)
 	var/current_sendmaps_data = world.Profile(PROFILE_REFRESH, type = "sendmaps", format="json")
 #endif
 	fetch_cost = MC_AVERAGE(fetch_cost, TICK_DELTA_TO_MS(TICK_USAGE_REAL - timer))
-	CHECK_TICK
 
 	if(!length(current_profile_data)) //Would be nice to have explicit proc to check this
 		stack_trace("Warning, profiling stopped manually before dump.")

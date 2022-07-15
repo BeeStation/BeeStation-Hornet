@@ -213,46 +213,49 @@
 		else
 			visible_message("<span class='danger'>[user] disturbs the [name] to no effect!</span>")
 	else
-		var/option = alert(user, "What action do you wish to perform?","Apiary","Remove a Honey Frame","Remove the Queen Bee", "Cancel")
-		if(!Adjacent(user))
-			return
-		switch(option)
-			if("Remove a Honey Frame")
-				if(!honey_frames.len)
-					to_chat(user, "<span class='warning'>There are no honey frames to remove!</span>")
-					return
+		INVOKE_ASYNC(src, .proc/perform_interaction)
 
-				var/obj/item/honey_frame/HF = pick_n_take(honey_frames)
-				if(HF)
-					if(!user.put_in_active_hand(HF))
-						HF.forceMove(drop_location())
-					visible_message("<span class='notice'>[user] removes a frame from the apiary.</span>")
+/obj/structure/beebox/proc/perform_interaction()
+	var/option = alert(user, "What action do you wish to perform?","Apiary","Remove a Honey Frame","Remove the Queen Bee", "Cancel")
+	if(!Adjacent(user))
+		return
+	switch(option)
+		if("Remove a Honey Frame")
+			if(!honey_frames.len)
+				to_chat(user, "<span class='warning'>There are no honey frames to remove!</span>")
+				return
 
-					var/amtH = HF.honeycomb_capacity
-					var/fallen = 0
-					while(honeycombs.len && amtH) //let's pretend you always grab the frame with the most honeycomb on it
-						var/obj/item/reagent_containers/honeycomb/HC = pick_n_take(honeycombs)
-						if(HC)
-							HC.forceMove(drop_location())
-							amtH--
-							fallen++
-					if(fallen)
-						var/multiple = fallen > 1
-						visible_message("<span class='notice'>[user] scrapes [multiple ? "[fallen]" : "a"] honeycomb[multiple ? "s" : ""] off of the frame.</span>")
+			var/obj/item/honey_frame/HF = pick_n_take(honey_frames)
+			if(HF)
+				if(!user.put_in_active_hand(HF))
+					HF.forceMove(drop_location())
+				visible_message("<span class='notice'>[user] removes a frame from the apiary.</span>")
 
-			if("Remove the Queen Bee")
-				if(!queen_bee || queen_bee.loc != src)
-					to_chat(user, "<span class='warning'>There is no queen bee to remove!</span>")
-					return
-				var/obj/item/queen_bee/QB = new()
-				queen_bee.forceMove(QB)
-				bees -= queen_bee
-				QB.queen = queen_bee
-				QB.name = queen_bee.name
-				if(!user.put_in_active_hand(QB))
-					QB.forceMove(drop_location())
-				visible_message("<span class='notice'>[user] removes the queen from the apiary.</span>")
-				queen_bee = null
+				var/amtH = HF.honeycomb_capacity
+				var/fallen = 0
+				while(honeycombs.len && amtH) //let's pretend you always grab the frame with the most honeycomb on it
+					var/obj/item/reagent_containers/honeycomb/HC = pick_n_take(honeycombs)
+					if(HC)
+						HC.forceMove(drop_location())
+						amtH--
+						fallen++
+				if(fallen)
+					var/multiple = fallen > 1
+					visible_message("<span class='notice'>[user] scrapes [multiple ? "[fallen]" : "a"] honeycomb[multiple ? "s" : ""] off of the frame.</span>")
+
+		if("Remove the Queen Bee")
+			if(!queen_bee || queen_bee.loc != src)
+				to_chat(user, "<span class='warning'>There is no queen bee to remove!</span>")
+				return
+			var/obj/item/queen_bee/QB = new()
+			queen_bee.forceMove(QB)
+			bees -= queen_bee
+			QB.queen = queen_bee
+			QB.name = queen_bee.name
+			if(!user.put_in_active_hand(QB))
+				QB.forceMove(drop_location())
+			visible_message("<span class='notice'>[user] removes the queen from the apiary.</span>")
+			queen_bee = null
 
 /obj/structure/beebox/deconstruct(disassembled = TRUE)
 	new /obj/item/stack/sheet/mineral/wood (loc, 20)

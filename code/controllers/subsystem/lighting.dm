@@ -35,6 +35,7 @@ SUBSYSTEM_DEF(lighting)
 	return ..()
 
 /datum/controller/subsystem/lighting/fire(resumed, init_tick_checks)
+	SHOULD_NOT_SLEEP(FALSE)	//Can sleep from init
 	MC_SPLIT_TICK_INIT(3)
 	if(!init_tick_checks)
 		MC_SPLIT_TICK

@@ -66,6 +66,8 @@ SUBSYSTEM_DEF(ticker)
 	var/fail_counter
 	var/emergency_start = FALSE
 
+	var/setting_up = FALSE
+
 /datum/controller/subsystem/ticker/Initialize(timeofday)
 	load_mode()
 
@@ -208,10 +210,8 @@ SUBSYSTEM_DEF(ticker)
 					log_game("Pre-setup completed successfully, however was run late. Likely due to start-now or a bug.")
 					pre_setup_completed = TRUE
 			//Attempt normal setup
-			if(!setup())
-				fail_setup()
-			else
-				fail_counter = null
+			if(!setting_up)
+				INVOKE_ASYNC(src, .proc/safe_setup)
 
 		if(GAME_STATE_PLAYING)
 			mode.process(wait * 0.1)
@@ -285,6 +285,11 @@ SUBSYSTEM_DEF(ticker)
 
 	return mode.setup_maps()
 
+/datum/controller/subsystem/ticker/proc/safe_setup()
+	setting_up = TRUE
+	setup()
+	setting_up = FALSE
+
 /datum/controller/subsystem/ticker/proc/setup()
 	message_admins("Setting up game.")
 	var/init_start = world.timeofday
@@ -305,7 +310,8 @@ SUBSYSTEM_DEF(ticker)
 			QDEL_NULL(mode)
 			to_chat(world, "<B>Error setting up [GLOB.master_mode].</B> Reverting to pre-game lobby.")
 			SSjob.ResetOccupations()
-			return FALSE
+			fail_setup()
+			return
 	else
 		message_admins("<span class='notice'>DEBUG: Bypassing prestart checks...</span>")
 
@@ -360,7 +366,7 @@ SUBSYSTEM_DEF(ticker)
 	PostSetup()
 	SSstat.clear_global_alert()
 
-	return TRUE
+	fail_counter = null
 
 /datum/controller/subsystem/ticker/proc/PostSetup()
 	set waitfor = FALSE
@@ -501,7 +507,7 @@ SUBSYSTEM_DEF(ticker)
 		for (var/mob/dead/new_player/NP in queued_players)
 			to_chat(NP, "<span class='userdanger'>The alive players limit has been released!<br><a href='?src=[REF(NP)];late_join=override'>[html_encode(">>Join Game<<")]</a></span>")
 			SEND_SOUND(NP, sound('sound/misc/notice1.ogg'))
-			NP.LateChoices()
+			INVOKE_ASYNC(NP, /mob/dead/new_player./LateChoices)
 		queued_players.len = 0
 		queue_delay = 0
 		return
@@ -516,7 +522,7 @@ SUBSYSTEM_DEF(ticker)
 				if(next_in_line && next_in_line.client)
 					to_chat(next_in_line, "<span class='userdanger'>A slot has opened! You have approximately 20 seconds to join. <a href='?src=[REF(next_in_line)];late_join=override'>\>\>Join Game\<\<</a></span>")
 					SEND_SOUND(next_in_line, sound('sound/misc/notice1.ogg'))
-					next_in_line.LateChoices()
+					INVOKE_ASYNC(next_in_line, /mob/dead/new_player./LateChoices)
 					return
 				queued_players -= next_in_line //Client disconnected, remove he
 			queue_delay = 0 //No vacancy: restart timer

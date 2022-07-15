@@ -78,9 +78,11 @@
 					controller.cycleClose(door)
 		else
 			controller.onlyClose(door)
-		sleep(20)
-		busy = FALSE
-		update_icon()
+		addtimer(CALLBACK(src, .proc/clear_busy), 2 SECONDS)
+
+/obj/machinery/doorButtons/access_button/proc/clear_busy()
+	busy = FALSE
+	update_icon()
 
 /obj/machinery/doorButtons/access_button/update_icon()
 	if(stat & NOPOWER)

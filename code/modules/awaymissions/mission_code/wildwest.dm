@@ -86,33 +86,40 @@
 		insistinga++
 
 	else
-		chargesa--
 		insistinga = 0
-		var/wish = input("You want...","Wish") as null|anything in sortList(list("Power","Wealth","Immortality","Peace"))
-		switch(wish)
-			if("Power")
-				to_chat(user, "<B>Your wish is granted, but at a terrible cost...</B>")
-				to_chat(user, "The Wish Granter punishes you for your selfishness, claiming your soul and warping your body to match the darkness in your heart.")
-				user.dna.add_mutation(LASEREYES)
-				user.dna.add_mutation(SPACEMUT)
-				user.dna.add_mutation(XRAY)
-				user.set_species(/datum/species/shadow)
-			if("Wealth")
-				to_chat(user, "<B>Your wish is granted, but at a terrible cost...</B>")
-				to_chat(user, "The Wish Granter punishes you for your selfishness, claiming your soul and warping your body to match the darkness in your heart.")
-				new /obj/structure/closet/syndicate/resources/everything(loc)
-				user.set_species(/datum/species/shadow)
-			if("Immortality")
-				to_chat(user, "<B>Your wish is granted, but at a terrible cost...</B>")
-				to_chat(user, "The Wish Granter punishes you for your selfishness, claiming your soul and warping your body to match the darkness in your heart.")
-				user.add_verb(/mob/living/carbon/proc/immortality)
-				user.set_species(/datum/species/shadow)
-			if("Peace")
-				to_chat(user, "<B>Whatever alien sentience that the Wish Granter possesses is satisfied with your wish. There is a distant wailing as the last of the Faithless begin to die, then silence.</B>")
-				to_chat(user, "You feel as if you just narrowly avoided a terrible fate...")
-				for(var/mob/living/simple_animal/hostile/faithless/F in GLOB.mob_living_list)
-					F.death()
+		INVOKE_ASYNC(src, .proc/grant_power)
 
+/obj/machinery/wish_granter_dark/proc/grant_power()
+	var/wish = input("You want...","Wish") as null|anything in sortList(list("Power","Wealth","Immortality","Peace"))
+
+	if(chargesa <= 0)
+		to_chat(user, "The Wish Granter lies silent.")
+		return
+
+	chargesa--
+	switch(wish)
+		if("Power")
+			to_chat(user, "<B>Your wish is granted, but at a terrible cost...</B>")
+			to_chat(user, "The Wish Granter punishes you for your selfishness, claiming your soul and warping your body to match the darkness in your heart.")
+			user.dna.add_mutation(LASEREYES)
+			user.dna.add_mutation(SPACEMUT)
+			user.dna.add_mutation(XRAY)
+			user.set_species(/datum/species/shadow)
+		if("Wealth")
+			to_chat(user, "<B>Your wish is granted, but at a terrible cost...</B>")
+			to_chat(user, "The Wish Granter punishes you for your selfishness, claiming your soul and warping your body to match the darkness in your heart.")
+			new /obj/structure/closet/syndicate/resources/everything(loc)
+			user.set_species(/datum/species/shadow)
+		if("Immortality")
+			to_chat(user, "<B>Your wish is granted, but at a terrible cost...</B>")
+			to_chat(user, "The Wish Granter punishes you for your selfishness, claiming your soul and warping your body to match the darkness in your heart.")
+			user.add_verb(/mob/living/carbon/proc/immortality)
+			user.set_species(/datum/species/shadow)
+		if("Peace")
+			to_chat(user, "<B>Whatever alien sentience that the Wish Granter possesses is satisfied with your wish. There is a distant wailing as the last of the Faithless begin to die, then silence.</B>")
+			to_chat(user, "You feel as if you just narrowly avoided a terrible fate...")
+			for(var/mob/living/simple_animal/hostile/faithless/F in GLOB.mob_living_list)
+				F.death()
 
 ///////////////Meatgrinder//////////////
 

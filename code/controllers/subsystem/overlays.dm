@@ -30,7 +30,7 @@ SUBSYSTEM_DEF(overlays)
 	queue = SSoverlays.queue
 
 
-/datum/controller/subsystem/overlays/fire(resumed = FALSE, mc_check = TRUE)
+/datum/controller/subsystem/overlays/fire(resumed = FALSE)
 	var/list/queue = src.queue
 	var/static/count = 0
 	if (count)
@@ -46,11 +46,8 @@ SUBSYSTEM_DEF(overlays)
 			COMPILE_OVERLAYS(A)
 			STAT_STOP_STOPWATCH
 			STAT_LOG_ENTRY(stats, A.type)
-		if(mc_check)
-			if(MC_TICK_CHECK)
-				break
-		else
-			CHECK_TICK
+		if(MC_TICK_CHECK)
+			break
 
 	if (count)
 		queue.Cut(1,count+1)

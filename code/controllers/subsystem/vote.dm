@@ -92,7 +92,7 @@ SUBSYSTEM_DEF(vote)
 				choices["Initiate Crew Transfer"] += round(non_voters.len * factor)
 	. = list()
 	if(mode == "map")
-		. += pickweight(choices) //map is chosen by drawing votes from a hat, instead of automatically going to map with the most votes. 
+		. += pickweight(choices) //map is chosen by drawing votes from a hat, instead of automatically going to map with the most votes.
 		return .
 	//get all options with that many votes and return them in a list
 	if(greatest_votes)
@@ -155,11 +155,11 @@ SUBSYSTEM_DEF(vote)
 				SSmapping.map_voted = TRUE
 			if("transfer")
 				if(. == "Initiate Crew Transfer")
-					SSshuttle.requestEvac(null, "Crew Transfer Requested.")
+					INVOKE_ASYNC(SSshuttle, /datum/controller/subsystem/shuttle.proc/requestEvac, null, "Crew Transfer Requested.")
 					SSshuttle.emergencyNoRecall = TRUE //Prevent Recall.
 					var/obj/machinery/computer/communications/C = locate() in GLOB.machines
 					if(C)
-						C.post_status("shuttle")
+						INVOKE_ASYNC(C, /obj/machinery/computer/communications.post_status, "shuttle")
 	if(restart)
 		var/active_admins = FALSE
 		for(var/client/C in GLOB.admins+GLOB.deadmins)

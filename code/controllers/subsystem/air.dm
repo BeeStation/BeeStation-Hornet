@@ -66,6 +66,9 @@ SUBSYSTEM_DEF(air)
 	var/list/unpausing_z_levels = list()
 	var/list/unpause_processing = list()
 
+	var/list/pausing_z_levels = list()
+	var/list/pause_processing = list()
+
 /datum/controller/subsystem/air/stat_entry(msg)
 	msg += "C:{"
 	msg += "HP:[round(cost_highpressure,1)]|"
@@ -143,6 +146,23 @@ SUBSYSTEM_DEF(air)
 			T.Initalize_Atmos()
 		//Goodbye
 		unpause_processing.len --
+		//We overran this tick, stop processing
+		//This may result in a very brief atmos freeze when running unpause_z at high loads
+		//but that is better than freezing the entire MC
+		if(MC_TICK_CHECK)
+			return
+
+	//If we have unpausing z-level, process them first
+	if(length(pausing_z_levels) && !length(pause_processing))
+		var/z_value = pausing_z_levels[1]
+		pausing_z_levels.Remove(z_value)
+		pause_processing = block(locate(1, 1, z_value), locate(world.maxx, world.maxy, z_value))
+
+	while(length(pause_processing))
+		var/turf/T = pause_processing[length(pause_processing)]
+		T.ImmediateDisableAdjacency()
+		//Goodbye
+		pause_processing.len --
 		//We overran this tick, stop processing
 		//This may result in a very brief atmos freeze when running unpause_z at high loads
 		//but that is better than freezing the entire MC
@@ -477,12 +497,11 @@ SUBSYSTEM_DEF(air)
 
 /datum/controller/subsystem/air/proc/pause_z(z_level)
 	LAZYADD(paused_z_levels, z_level)
-	var/list/turfs_to_disable = block(locate(1, 1, z_level), locate(world.maxx, world.maxy, z_level))
-	for(var/turf/T as anything in turfs_to_disable)
-		T.ImmediateDisableAdjacency(FALSE)
-		CHECK_TICK
+	unpausing_z_levels -= z_level
+	pausing_z_levels |= z_level
 
 /datum/controller/subsystem/air/proc/unpause_z(z_level)
+	pausing_z_levels -= z_level
 	unpausing_z_levels |= z_level
 	LAZYREMOVE(paused_z_levels, z_level)
 

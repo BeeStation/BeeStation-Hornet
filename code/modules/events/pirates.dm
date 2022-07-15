@@ -132,15 +132,18 @@
 
 /obj/machinery/shuttle_scrambler/interact(mob/user)
 	if(!active)
-		if(alert(user, "Turning the scrambler on will make the shuttle trackable by GPS. Are you sure you want to do it?", "Scrambler", "Yes", "Cancel") == "Cancel")
-			return
-		if(active || !user.canUseTopic(src, BE_CLOSE))
-			return
-		toggle_on(user)
-		update_icon()
-		send_notification()
+		INVOKE_ASYNC(src, .proc/try_interaction)
 	else
 		dump_loot(user)
+
+/obj/machinery/shuttle_scrambler/proc/try_interaction()
+	if(alert(user, "Turning the scrambler on will make the shuttle trackable by GPS. Are you sure you want to do it?", "Scrambler", "Yes", "Cancel") == "Cancel")
+		return
+	if(active || !user.canUseTopic(src, BE_CLOSE))
+		return
+	toggle_on(user)
+	update_icon()
+	send_notification()
 
 //interrupt_research
 /obj/machinery/shuttle_scrambler/proc/interrupt_research()

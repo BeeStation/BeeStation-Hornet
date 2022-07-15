@@ -16,19 +16,22 @@
 	. = ..()
 	if(.)
 		return
-	if(alert(question,name,"Yes","No") == "Yes" && Adjacent(user))
-		var/turf/T = find_safe_turf(zlevels=zlevels)
+	INVOKE_ASYNC(src, .proc/perform_interaction)
 
-		if(T)
-			var/atom/movable/AM = user.pulling
-			if(AM)
-				AM.forceMove(T)
-			user.forceMove(T)
-			if(AM)
-				user.start_pulling(AM)
-			to_chat(user, "<span class='notice'>You blink and find yourself in [get_area_name(T)].</span>")
-		else
-			to_chat(user, "Nothing happens. You feel that this is a bad sign.")
+/obj/structure/signpost/proc/perform_interaction()
+	if(alert(question,name,"Yes","No") == "Yes" && Adjacent(user))
+	var/turf/T = find_safe_turf(zlevels=zlevels)
+
+	if(T)
+		var/atom/movable/AM = user.pulling
+		if(AM)
+			AM.forceMove(T)
+		user.forceMove(T)
+		if(AM)
+			user.start_pulling(AM)
+		to_chat(user, "<span class='notice'>You blink and find yourself in [get_area_name(T)].</span>")
+	else
+		to_chat(user, "Nothing happens. You feel that this is a bad sign.")
 
 /obj/structure/signpost/attackby(obj/item/W, mob/user, params)
 	return interact(user)

@@ -152,7 +152,7 @@ GLOBAL_PROTECT(exp_to_update)
 			var/rolefound = FALSE
 			play_records[EXP_TYPE_LIVING] += minutes
 
-			process_ten_minute_living()
+			INVOKE_ASYNC(src, .proc/process_ten_minute_living)
 
 			if(announce_changes)
 				to_chat(src,"<span class='notice'>You got: [minutes] Living EXP!</span>")
