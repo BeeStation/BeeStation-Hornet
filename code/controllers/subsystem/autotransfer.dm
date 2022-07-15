@@ -17,5 +17,5 @@ SUBSYSTEM_DEF(autotransfer)
 
 /datum/controller/subsystem/autotransfer/fire()
 	if(REALTIMEOFDAY > targettime)
-		SSvote.initiate_vote("transfer", null)
+		INVOKE_ASYNC(SSvote, /datum/controller/subsystem/vote.proc/initiate_vote, "transfer", null)
 		targettime = targettime + CONFIG_GET(number/vote_autotransfer_interval)

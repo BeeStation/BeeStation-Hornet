@@ -257,8 +257,8 @@ SUBSYSTEM_DEF(vote)
 			V.Grant(C.mob)
 			generated_actions += V
 
-			if(popup)
-				C?.mob?.vote() // automatically popup the vote
+			if(popup && C?.mob)
+				INVOKE_ASYNC(C.mob, /mob.verb/vote) // automatically popup the vote
 
 		return 1
 	return 0

@@ -99,7 +99,7 @@ SUBSYSTEM_DEF(shuttle)
 			mobile.Remove(thing)
 			continue
 		var/obj/docking_port/mobile/P = thing
-		P.check()
+		INVOKE_ASYNC(P, /obj/docking_port/mobile.proc/check)
 	for(var/thing in transit)
 		var/obj/docking_port/stationary/transit/T = thing
 		if(!T.owner)

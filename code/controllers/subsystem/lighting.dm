@@ -30,12 +30,13 @@ SUBSYSTEM_DEF(lighting)
 		create_all_lighting_objects()
 		initialized = TRUE
 
-	fire(FALSE, TRUE)
+	while(length(GLOB.lighting_update_lights) || length(GLOB.lighting_update_corners) || length(GLOB.lighting_update_objects))
+		fire(FALSE, TRUE)
+		CHECK_TICK
 
 	return ..()
 
 /datum/controller/subsystem/lighting/fire(resumed, init_tick_checks)
-	SHOULD_NOT_SLEEP(FALSE)	//Can sleep from init
 	MC_SPLIT_TICK_INIT(3)
 	if(!init_tick_checks)
 		MC_SPLIT_TICK
@@ -48,7 +49,8 @@ SUBSYSTEM_DEF(lighting)
 		L.needs_update = LIGHTING_NO_UPDATE
 
 		if(init_tick_checks)
-			CHECK_TICK
+			if(TICK_CHECK)
+				return
 		else if (MC_TICK_CHECK)
 			break
 	if (i)
@@ -64,7 +66,8 @@ SUBSYSTEM_DEF(lighting)
 		C.update_objects()
 		C.needs_update = FALSE
 		if(init_tick_checks)
-			CHECK_TICK
+			if(TICK_CHECK)
+				return
 		else if (MC_TICK_CHECK)
 			break
 	if (i)
@@ -84,7 +87,8 @@ SUBSYSTEM_DEF(lighting)
 		O.update()
 		O.needs_update = FALSE
 		if(init_tick_checks)
-			CHECK_TICK
+			if(TICK_CHECK)
+				return
 		else if (MC_TICK_CHECK)
 			break
 	if (i)

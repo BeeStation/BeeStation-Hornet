@@ -66,6 +66,7 @@ SUBSYSTEM_DEF(ticker)
 	var/fail_counter
 	var/emergency_start = FALSE
 
+	var/pre_setting_up = FALSE
 	var/setting_up = FALSE
 
 /datum/controller/subsystem/ticker/Initialize(timeofday)
@@ -188,11 +189,11 @@ SUBSYSTEM_DEF(ticker)
 				tipped = TRUE
 
 			if(timeLeft <= 300 && !pre_setup_completed)
-				//Setup gamemode maps 30 seconds before roundstart.
-				if(!pre_setup())
-					fail_setup()
-					return
-				pre_setup_completed = TRUE
+				if(!pre_setting_up)
+					pre_setting_up = TRUE
+					//Setup gamemode maps 30 seconds before roundstart.
+					INVOKE_ASYNC(src, .proc/try_pre_setup, CALLBACK(src, .proc/pass_setup), CALLBACK(src, .proc/fail_setup))
+				return
 
 			if(timeLeft <= 0)
 				current_state = GAME_STATE_SETTING_UP
@@ -202,13 +203,7 @@ SUBSYSTEM_DEF(ticker)
 
 		if(GAME_STATE_SETTING_UP)
 			if(!pre_setup_completed)
-				if(!pre_setup())
-					fail_setup()
-					return
-				else
-					message_admins("Pre-setup completed successfully, however was run late. Likely due to start-now or a bug.")
-					log_game("Pre-setup completed successfully, however was run late. Likely due to start-now or a bug.")
-					pre_setup_completed = TRUE
+				INVOKE_ASYNC(src, .proc/try_pre_setup, CALLBACK(src, .proc/pass_setup, TRUE), CALLBACK(src, .proc/fail_setup))
 			//Attempt normal setup
 			if(!setting_up)
 				INVOKE_ASYNC(src, .proc/safe_setup)
@@ -224,6 +219,12 @@ SUBSYSTEM_DEF(ticker)
 				toggle_dooc(TRUE)
 				declare_completion(force_ending)
 				Master.SetRunLevel(RUNLEVEL_POSTGAME)
+
+/datum/controller/subsystem/ticker/proc/pass_setup(late = FALSE)
+	if(late)
+		message_admins("Pre-setup completed successfully, however was run late. Likely due to start-now or a bug.")
+		log_game("Pre-setup completed successfully, however was run late. Likely due to start-now or a bug.")
+	pre_setup_completed = TRUE
 
 //Reverts the game to the lobby
 /datum/controller/subsystem/ticker/proc/fail_setup()
@@ -252,8 +253,13 @@ SUBSYSTEM_DEF(ticker)
 	pre_setup_completed = TRUE
 	mode = config.pick_mode("extended")
 
+/datum/controller/subsystem/ticker/proc/try_pre_setup(datum/callback/on_success, datum/callback/on_failure)
+	pre_setting_up = TRUE
+	pre_setup(on_success, on_failure)
+	pre_setting_up = FALSE
+
 //Select gamemode and load any maps associated with it
-/datum/controller/subsystem/ticker/proc/pre_setup()
+/datum/controller/subsystem/ticker/proc/pre_setup(datum/callback/on_success, datum/callback/on_failure)
 	if(GLOB.master_mode == "random" || GLOB.master_mode == "secret")
 		runnable_modes = config.get_runnable_modes()
 
@@ -269,6 +275,7 @@ SUBSYSTEM_DEF(ticker)
 		if(!mode)
 			if(!runnable_modes.len)
 				to_chat(world, "<B>Unable to choose playable game mode.</B> Reverting to pre-game lobby.")
+				on_failure?.Invoke()
 				return FALSE
 			mode = pickweight(runnable_modes)
 			if(!mode)	//too few roundtypes all run too recently
@@ -281,9 +288,14 @@ SUBSYSTEM_DEF(ticker)
 			qdel(mode)
 			mode = null
 			SSjob.ResetOccupations()
+			on_failure?.Invoke()
 			return FALSE
 
-	return mode.setup_maps()
+	. = mode.setup_maps()
+	if(.)
+		on_success?.Invoke()
+	else
+		on_failure?.Invoke()
 
 /datum/controller/subsystem/ticker/proc/safe_setup()
 	setting_up = TRUE
