@@ -144,6 +144,8 @@
 	return ..()
 
 /obj/item/xenoartifact/attack_hand(mob/user) //tweedle dum, density feature
+	var/obj/item/clothing/gloves/artifact_pinchers/P = locate(/obj/item/clothing/gloves/artifact_pinchers) in user.contents
+
 	if(isliving(loc) && touch_desc?.on_touch(src, user) && user.can_see_reagents())
 		balloon_alert(user, (initial(touch_desc.desc) ? initial(touch_desc.desc) : initial(touch_desc.label_name)), material)
 
@@ -152,8 +154,9 @@
 			to_chat(user, "<span class='notice'>You snuff out [name]</span>")
 			process_type = null
 			return FALSE
+		if(P?.safety && isliving(loc))
+			SEND_SIGNAL(src, COMSIG_PARENT_ATTACKBY, src, user, user) //we're in the ghetto now
 
-	var/obj/item/clothing/gloves/artifact_pinchers/P = locate(/obj/item/clothing/gloves/artifact_pinchers) in user.contents
 	if(P?.safety && isliving(loc))
 		return
 	..()
