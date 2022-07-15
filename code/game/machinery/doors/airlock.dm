@@ -902,7 +902,7 @@
 
 /obj/machinery/door/airlock/attackby(obj/item/C, mob/user, params)
 	if(!issilicon(user) && !IsAdminGhost(user))
-		if(isElectrified())
+		if(isElectrified() && C?.siemens_coefficient)
 			if(shock(user, 75))
 				return
 	add_fingerprint(user)
@@ -1073,7 +1073,7 @@
 		note = C
 		update_icon()
 	else if(HAS_TRAIT(C, TRAIT_DOOR_PRYER) && user.a_intent != INTENT_HARM)
-		if(isElectrified())
+		if(isElectrified() && C?.siemens_coefficient)
 			shock(user,100)
 
 		if(locked) 
