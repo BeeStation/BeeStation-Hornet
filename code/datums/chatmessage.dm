@@ -157,7 +157,7 @@
 			if(ishuman(target))
 				var/mob/living/carbon/human/H = target
 				if(H.wear_id?.GetID())
-					var/obj/item/card/id/idcard = H.wear_id
+					var/obj/item/card/id/idcard = H.wear_id.GetID()
 					if(idcard)
 						tgt_color = get_chatcolor_by_hud(idcard.hud_state)
 				else
