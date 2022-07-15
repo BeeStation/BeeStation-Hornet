@@ -517,12 +517,6 @@
 							/datum/reagent/napalm, /datum/reagent/hellwater, /datum/reagent/toxin/plasma, /datum/reagent/toxin/spore_burning)
 	var/active = 0
 
-/obj/item/reagent_containers/food/drinks/bottle/molotov/corgium
-	name = "molotov cocktail"
-	desc = "A throwing weapon used to ignite things, typically filled with an accelerant. Recommended highly by rioters and revolutionaries. Light and toss."
-	icon_state = "vodkabottle"
-	list_reagents = list(/datum/reagent/corgium = 100)
-
 /obj/item/reagent_containers/food/drinks/bottle/molotov/CheckParts(list/parts_list)
 	..()
 	var/obj/item/reagent_containers/food/drinks/bottle/B = locate() in contents
