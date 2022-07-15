@@ -933,7 +933,7 @@
 
 /datum/xenoartifact_trait/major/mirrored/activate(obj/item/xenoartifact/X, mob/target, atom/user)
 	if(victims.len < 2)
-		if(!isliving(target) || IS_DEAD_OR_INCAP(target))
+		if(!isliving(target) || IS_DEAD_OR_INCAP(target) || HAS_TRAIT(target, TRAIT_MINDSWAPPED))
 			playsound(get_turf(X), 'sound/machines/buzz-sigh.ogg', 50, TRUE)
 			return
 		else
@@ -958,6 +958,12 @@
 		return
 	var/mob/living/caster = victim_a
 	var/mob/living/victim = victim_b
+	if(HAS_TRAIT(caster, TRAIT_MINDSWAPPED)) //doesn't really matter which we check
+		REMOVE_TRAIT(caster, TRAIT_MINDSWAPPED, type)
+		REMOVE_TRAIT(victim, TRAIT_MINDSWAPPED, type)
+	else
+		ADD_TRAIT(caster, TRAIT_MINDSWAPPED, type)
+		ADD_TRAIT(victim, TRAIT_MINDSWAPPED, type)
 
 	var/mob/dead/observer/ghost_v = victim.ghostize(0)
 	var/mob/dead/observer/ghost_c = caster.ghostize(0)
@@ -978,8 +984,8 @@
 	for(var/list/L as() in reverse_victims)
 		if(L.len > 1)
 			//convert to atoms to check qdel
-			var/atom/a = L[1]
-			var/atom/b = L[2]
+			var/mob/living/a = L[1]
+			var/mob/living/b = L[2]
 			if(!QDELETED(a) && !QDELETED(b))
 				swap(L[1], L[2])
 	reverse_victims = list()
