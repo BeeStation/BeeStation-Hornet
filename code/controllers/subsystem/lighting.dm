@@ -50,7 +50,7 @@ SUBSYSTEM_DEF(lighting)
 
 		if(init_tick_checks)
 			if(TICK_CHECK)
-				return
+				break
 		else if (MC_TICK_CHECK)
 			break
 	if (i)
@@ -67,7 +67,7 @@ SUBSYSTEM_DEF(lighting)
 		C.needs_update = FALSE
 		if(init_tick_checks)
 			if(TICK_CHECK)
-				return
+				break
 		else if (MC_TICK_CHECK)
 			break
 	if (i)
@@ -88,7 +88,7 @@ SUBSYSTEM_DEF(lighting)
 		O.needs_update = FALSE
 		if(init_tick_checks)
 			if(TICK_CHECK)
-				return
+				break
 		else if (MC_TICK_CHECK)
 			break
 	if (i)
