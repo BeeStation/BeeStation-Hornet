@@ -256,6 +256,11 @@
 	else if(user.is_holding_item_of_type(/obj/item/areaeditor/blueprints) && (!randomize || holder_type == /obj/machinery/door/airlock))
 		reveal_wires = TRUE
 
+	else if(istype(user.get_item_by_slot(ITEM_SLOT_EYES), /obj/item/clothing/glasses/meson/engine))
+		var/obj/item/clothing/glasses/meson/engine/goggles = user.get_item_by_slot(ITEM_SLOT_EYES)
+		if(goggles.mode == "t-ray")
+			reveal_wires = TRUE
+
 	for(var/color in colors)
 		payload.Add(list(list(
 			"color" = color,
