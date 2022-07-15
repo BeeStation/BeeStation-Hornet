@@ -25715,6 +25715,7 @@
 	department = "Tech storage";
 	pixel_y = -32
 	},
+/obj/item/clothing/glasses/meson/engine,
 /obj/effect/turf_decal/tile/green{
 	dir = 1
 	},
@@ -26429,6 +26430,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
+/obj/item/clothing/glasses/meson/engine,
 /obj/effect/turf_decal/tile/yellow,
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
@@ -27151,6 +27153,8 @@
 /obj/item/clothing/suit/hazardvest,
 /obj/item/clothing/head/hardhat/orange,
 /obj/item/clothing/head/hardhat/orange,
+/obj/item/clothing/glasses/meson/engine,
+/obj/item/clothing/glasses/meson/engine,
 /obj/effect/turf_decal/tile/yellow{
 	dir = 1
 	},
