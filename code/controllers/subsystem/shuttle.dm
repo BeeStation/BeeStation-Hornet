@@ -118,17 +118,21 @@ SUBSYSTEM_DEF(shuttle)
 
 	if(!SSmapping.clearing_reserved_turfs)
 		while(transit_requesters.len)
+			//Pop requester here for asynchonous safety
 			var/requester = popleft(transit_requesters)
-			var/success = generate_transit_dock(requester)
-			if(!success) // BACK OF THE QUEUE
-				transit_request_failures[requester]++
-				if(transit_request_failures[requester] < MAX_TRANSIT_REQUEST_RETRIES)
-					transit_requesters += requester
-				else
-					var/obj/docking_port/mobile/M = requester
-					M.transit_failure()
+			INVOKE_ASYNC(src, .proc/handle_request, requester)
 			if(MC_TICK_CHECK)
 				break
+
+/datum/controller/subsystem/shuttle/proc/handle_request(requester)
+	var/success = generate_transit_dock(requester)
+	if(!success) // BACK OF THE QUEUE
+		transit_request_failures[requester]++
+		if(transit_request_failures[requester] < MAX_TRANSIT_REQUEST_RETRIES)
+			transit_requesters += requester
+		else
+			var/obj/docking_port/mobile/M = requester
+			M.transit_failure()
 
 /datum/controller/subsystem/shuttle/proc/CheckAutoEvac()
 	if(emergencyNoEscape || emergencyNoRecall || !emergency || !SSticker.HasRoundStarted())

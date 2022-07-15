@@ -28,9 +28,9 @@ SUBSYSTEM_DEF(ambience)
 		var/ambi_fx = pick(current_area.ambientsounds)
 		var/ambi_music = pick(current_area.ambientmusic)
 
-		play_ambience_music(client_iterator.mob, ambi_music, current_area)
+		INVOKE_ASYNC(src, .proc/play_ambience_music, client_iterator.mob, ambi_music, current_area)
 
-		play_ambience_effects(client_iterator.mob, ambi_fx, current_area)
+		INVOKE_ASYNC(src, .proc/play_ambience_effects, client_iterator.mob, ambi_fx, current_area)
 
 		ambience_listening_clients[client_iterator] = world.time + rand(current_area.min_ambience_cooldown, current_area.max_ambience_cooldown)
 
