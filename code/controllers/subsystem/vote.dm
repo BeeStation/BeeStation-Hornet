@@ -155,11 +155,11 @@ SUBSYSTEM_DEF(vote)
 				SSmapping.map_voted = TRUE
 			if("transfer")
 				if(. == "Initiate Crew Transfer")
-					INVOKE_ASYNC(SSshuttle, /datum/controller/subsystem/shuttle.proc/requestEvac, null, "Crew Transfer Requested.")
+					INVOKE_ASYNC(SSshuttle, /datum/controller/subsystem/shuttle/proc/requestEvac, null, "Crew Transfer Requested.")
 					SSshuttle.emergencyNoRecall = TRUE //Prevent Recall.
 					var/obj/machinery/computer/communications/C = locate() in GLOB.machines
 					if(C)
-						INVOKE_ASYNC(C, /obj/machinery/computer/communications.proc/post_status, "shuttle")
+						INVOKE_ASYNC(C, /obj/machinery/computer/communications/proc/post_status, "shuttle")
 	if(restart)
 		var/active_admins = FALSE
 		for(var/client/C in GLOB.admins+GLOB.deadmins)

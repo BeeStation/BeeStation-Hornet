@@ -16,7 +16,7 @@ SUBSYSTEM_DEF(adjacent_air)
 
 /datum/controller/subsystem/adjacent_air/Initialize()
 	while(length(queue) || length(disable_queue))
-		fire(mc_check = FALSE)
+		fire()
 		CHECK_TICK
 	return ..()
 
