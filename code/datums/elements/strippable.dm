@@ -296,8 +296,10 @@
 /// A utility function for `/datum/strippable_item`s to start unequipping an item from a mob.
 /proc/start_unequip_mob(obj/item/item, mob/source, mob/user, strip_delay)
 	if(isrevenant(user))
+		if(length(user.progressbars)) //Revenants can only strip one item at a time
+			return FALSE
 		var/mob/living/simple_animal/revenant/ghostie = user
-		ghostie.reveal(max(item.strip_delay, 25)) //This stacks if a rev attempts to strip multiple items at once
+		ghostie.reveal(max(item.strip_delay, 25))
 	if(!do_mob(user, source, strip_delay || item.strip_delay))
 		return FALSE
 
