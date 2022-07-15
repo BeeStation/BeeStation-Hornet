@@ -8,7 +8,6 @@
 	spawn_positions = 3
 	supervisors = "the research director"
 	selection_color = "#ffeeff"
-	chat_color = "#C772C7"
 	exp_requirements = 120
 	exp_type = EXP_TYPE_CREW
 

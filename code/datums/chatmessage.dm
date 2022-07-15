@@ -39,16 +39,9 @@
 /// The amount of characters needed before this increase takes into effect
 #define BALLOON_TEXT_CHAR_LIFETIME_INCREASE_MIN 10
 
-#define COLOR_JOB_UNKNOWN "#dda583"
 #define COLOR_PERSON_UNKNOWN "#999999"
 #define COLOR_CHAT_EMOTE "#727272"
 
-//For jobs that aren't roundstart but still need colours
-GLOBAL_LIST_INIT(job_colors_pastel, list(
-	"Prisoner" = 		"#d38a5c",
-	"CentCom" = 		"#90FD6D",
-	"Unknown"=			COLOR_JOB_UNKNOWN,
-))
 
 /**
   * # Chat Message Overlay
@@ -165,11 +158,8 @@ GLOBAL_LIST_INIT(job_colors_pastel, list(
 				var/mob/living/carbon/human/H = target
 				if(H.wear_id?.GetID())
 					var/obj/item/card/id/idcard = H.wear_id
-					var/datum/job/wearer_job = SSjob.GetJob(idcard.GetJobName())
-					if(wearer_job)
-						tgt_color = wearer_job.chat_color
-					else
-						tgt_color = GLOB.job_colors_pastel[idcard.GetJobName()]
+					if(idcard)
+						tgt_color = get_chatcolor_by_hud(idcard.hud_state)
 				else
 					tgt_color = COLOR_PERSON_UNKNOWN
 			else

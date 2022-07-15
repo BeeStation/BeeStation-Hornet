@@ -8,7 +8,6 @@
 	spawn_positions = 1
 	supervisors = "the head of personnel"
 	selection_color = "#dddddd"
-	chat_color = "#FF83D7"
 
 	outfit = /datum/outfit/job/clown
 

@@ -8,7 +8,6 @@
 	spawn_positions = 2
 	supervisors = "the quartermaster and the head of personnel"
 	selection_color = "#dcba97"
-	chat_color = "#D3A372"
 
 	outfit = /datum/outfit/job/cargo_tech
 
