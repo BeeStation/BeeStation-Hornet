@@ -151,6 +151,8 @@
 	var/mutable_appearance/sticker_overlay
 	var/list/trait_list = list() //List of traits used to compare and generate modifier.
 	var/obj/item/xenoartifact/xenoa_target
+	///reference for timer
+	var/fall_timer
 
 /obj/item/xenoartifact_label/Initialize()
 	icon_state = "sticker_[pick("star", "box", "tri", "round")]"
@@ -171,7 +173,7 @@
 		else
 			return
 		add_sticker(target)
-		addtimer(CALLBACK(src, .proc/remove_sticker, target), 15 SECONDS)
+		fall_timer = addtimer(CALLBACK(src, .proc/remove_sticker, target), 15 SECONDS, TIMER_STOPPABLE)
 		return TRUE
 	else if(istype(target, /obj/item/xenoartifact))
 		xenoa_target = target
@@ -218,6 +220,7 @@
 
 /obj/item/xenoartifact_label/Destroy()
 	. = ..()
+	deltimer(fall_timer)
 	xenoa_target?.cut_overlay(sticker_overlay)
 	xenoa_target = null
 

@@ -514,7 +514,6 @@
 	X.max_range += 2
 
 /datum/xenoartifact_trait/minor/aura/activate(obj/item/xenoartifact/X)
-	X.true_target = list()
 	for(var/atom/M in oview(min(X.max_range, 5), get_turf(X.loc)))
 		if(X.true_target.len >= XENOA_MAX_TARGETS)
 			return
@@ -701,7 +700,7 @@
 //============
 /datum/xenoartifact_trait/minor/delay
 	label_name = "Delayed"
-	label_desc = "Delayeed: The Artifact's composistion causes activations to be delayed."
+	label_desc = "Delayed: The Artifact's composistion causes activations to be delayed."
 	blacklist_traits = list(/datum/xenoartifact_trait/minor/dense)
 	flags = BLUESPACE_TRAIT | PLASMA_TRAIT | URANIUM_TRAIT
 	weight = 25
@@ -1003,7 +1002,7 @@
 /datum/xenoartifact_trait/major/invisible //One step closer to the one ring
 	label_name = "Transparent"
 	label_desc = "Transparent: The shape of the Artifact is difficult to percieve. You feel the need to call it, precious..."
-	flags = BLUESPACE_TRAIT | URANIUM_TRAIT
+	weight = 25
 	var/list/victims = list()
 	///List of stored icons used for reversion
 	var/list/stored_icons = list()
@@ -1024,10 +1023,12 @@
 		X.cooldownmod = ((X.charge*0.4)+1) SECONDS
 
 /datum/xenoartifact_trait/major/invisible/proc/hide(mob/living/target)
+	ADD_TRAIT(target, TRAIT_PACIFISM, type)
 	animate(target, ,alpha = 0, time = 5)
 
 /datum/xenoartifact_trait/major/invisible/proc/reveal(mob/living/target)
 	if(target)
+		REMOVE_TRAIT(target, TRAIT_PACIFISM, type)
 		animate(target, ,alpha = 255, time = 5)
 		target = null
 
@@ -1195,9 +1196,9 @@
 	flags = BLUESPACE_TRAIT | PLASMA_TRAIT | URANIUM_TRAIT
 
 /datum/xenoartifact_trait/major/push/activate(obj/item/xenoartifact/X, atom/target)
-	if(istype(target, /mob/living)||istype(target, /obj/item))
+	if(ismovable(target))
 		var/atom/movable/victim = target
-		var/atom/trg = get_edge_target_turf(X.loc, get_dir(X.loc, target.loc))
+		var/atom/trg = get_edge_target_turf(X.loc, get_dir(X.loc, target.loc) || pick(NORTH, EAST, SOUTH, WEST))
 		victim.throw_at(get_turf(trg), (X.charge*0.07)+1, 8)
 
 //============
@@ -1212,8 +1213,11 @@
 	X.max_range += 1
 
 /datum/xenoartifact_trait/major/pull/activate(obj/item/xenoartifact/X, atom/target)
-	if(istype(target, /mob/living)||istype(target, /obj/item))
+	if(ismovable(target))
 		var/atom/movable/victim = target
+		if(get_dist(X, target) <= 1 && isliving(target))
+			var/mob/living/living_victim = target
+			living_victim.Knockdown(SHOVE_KNOCKDOWN_SOLID)
 		victim.throw_at(get_turf(X), X.charge*0.08, 8)
 
 //============

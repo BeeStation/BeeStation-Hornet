@@ -345,18 +345,6 @@
 	check_charge(user)
 	return TRUE
 
-///Add extra icon overlays. Ghetto GAGS.
-/obj/item/xenoartifact/proc/generate_icon(var/icn, var/icnst = "", colour, inherit_alpha = TRUE)
-	icon_overlay = mutable_appearance(icn, icnst)
-	icon_overlay.layer = FLOAT_LAYER //Not doing this fucks the object icons when you're holding it
-	icon_overlay.alpha = 255 //Dont try to reset this with flags
-	if(inherit_alpha)
-		icon_overlay.alpha = alpha
-	if(colour)
-		icon_overlay.color = colour
-	add_overlay(icon_overlay)
-
-
 ///Signaler traits. Sets listening freq
 /obj/item/xenoartifact/proc/set_frequency(new_frequency)
 	SSradio.remove_object(src, frequency)
