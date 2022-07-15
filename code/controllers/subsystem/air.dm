@@ -465,9 +465,15 @@ SUBSYSTEM_DEF(air)
 /datum/controller/subsystem/air/proc/unpause_z(z_level)
 	var/list/turfs_to_reinit = block(locate(1, 1, z_level), locate(world.maxx, world.maxy, z_level))
 	for(var/turf/T as anything in turfs_to_reinit)
-		T.Initalize_Atmos()
-		CHECK_TICK
+		//We can skip enabling space turfs
+		if(!isspaceturf(T))
+			T.Initalize_Atmos()
+		//High priority, as we don't want to freeze the server, but we also don't want this to take too long
+		//as it will freeze other subsystems during intense atmos hours
+		CHECK_TICK_HIGH_PRIORITY
 	LAZYREMOVE(paused_z_levels, z_level)
+	if(!length(paused_z_levels))
+		SSair.can_fire = TRUE
 
 /datum/controller/subsystem/air/proc/setup_allturfs()
 	var/list/turfs_to_init = block(locate(1, 1, 1), locate(world.maxx, world.maxy, world.maxz))
