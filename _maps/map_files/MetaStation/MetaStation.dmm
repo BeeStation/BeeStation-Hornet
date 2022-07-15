@@ -14544,7 +14544,6 @@
 	},
 /obj/structure/closet/radiation,
 /obj/effect/turf_decal/delivery,
-/obj/item/clothing/glasses/meson/engine,
 /turf/open/floor/plasteel,
 /area/engine/engineering)
 "aYt" = (
@@ -14553,7 +14552,6 @@
 	},
 /obj/effect/turf_decal/delivery,
 /obj/structure/closet/firecloset,
-/obj/item/clothing/glasses/meson/engine,
 /turf/open/floor/plasteel,
 /area/engine/engineering)
 "aYu" = (
@@ -47067,7 +47065,7 @@
 "dgz" = (
 /obj/structure/closet/toolcloset,
 /obj/effect/turf_decal/delivery,
-/obj/item/clothing/glasses/meson/engine,
+
 /turf/open/floor/plasteel,
 /area/engine/engineering)
 "dgA" = (

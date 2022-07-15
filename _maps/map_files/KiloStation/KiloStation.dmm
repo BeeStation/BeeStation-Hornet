@@ -70872,7 +70872,6 @@
 	},
 /obj/item/clothing/glasses/meson/engine,
 /obj/item/clothing/glasses/meson/engine,
-/obj/item/clothing/glasses/meson/engine,
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
