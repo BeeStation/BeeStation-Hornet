@@ -32,14 +32,12 @@
 	var/maturation = 6     // Used to determine which sprite to switch to when growing.
 	var/production = 6     // Changes the amount of time needed for a plant to become harvestable.
 	var/yield = 3          // Amount of growns created per harvest. If is -1, the plant/shroom/weed is never meant to be harvested.
-	var/maxyield = 10      // r
 	var/weed_rate = 1      //If the chance below passes, then this many weeds sprout during growth
 	var/weed_chance = 5    //Percentage chance per tray update to grow weeds
-	var/max_stat = 16
 
 	// Plant stats
 	var/bitesize_mod = 5      //How much do you eat - default 5u
-	var/bite_type = PLANT_BITE_TYPE_DYNAM  // bitesize_mod 5, CONST = 5u / size 5, RATIO = 5%
+	var/bite_type = PLANT_BITE_TYPE_DYNAMIC  // bitesize_mod 5, CONST = 5u / size 5, RATIO = 5%
 	var/volume_mod = 50    //How big this plant is
 	var/can_distill = TRUE //If FALSE, this object cannot be distilled into an alcohol.
 	var/distill_reagent    //If NULL and this object can be distilled, it uses a generic fruit_wine reagent and adjusts its variables.
@@ -303,7 +301,8 @@
 		gene_list += "\[[each.name] [each.reag_unit]\] "
 	for(var/datum/plant_gene/trait/each in genes)
 		gene_list += "\[[each.name]\] "
-	user.investigate_log("has harvested a plant that has traits: [gene_list]. Harvester's ckey: \"[user.ckey]\"", INVESTIGATE_BOTANY)
+	user.investigate_log("has harvested a plant that has traits: [gene_list]. Harvester's ckey: \"[key_name(user)]\"", INVESTIGATE_BOTANY)
+	log_game("[user]([key_name(user)]) has harvested a plant that has traits: [gene_list].")
 	parent.update_tray(user)
 
 	return result

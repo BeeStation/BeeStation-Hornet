@@ -32,9 +32,9 @@
 	if(S.bite_type == PLANT_BITE_TYPE_PATCH)
 		return
 	S.bitesize_mod = initial(S.bitesize_mod)
-	if(S.bite_type == PLANT_BITE_TYPE_DYNAM)
+	if(S.bite_type == PLANT_BITE_TYPE_DYNAMIC)
 		S.bitesize_mod = round(S.bitesize_mod/rate)
-	if(S.bite_type == PLANT_BITE_TYPE_CONST)
+	if(S.bite_type == PLANT_BITE_TYPE_CONSTANT)
 		S.bitesize_mod = round(S.bitesize_mod*rate)
 
 	S.gene_update_from_seed(PLANT_GENEPATH_BITESI)

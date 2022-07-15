@@ -77,7 +77,7 @@
 
 /obj/machinery/hydroponics/constructable/examine(mob/user)
 	. = ..()
-	if(S.get_gene(/datum/plant_gene/trait/eternalbloom) && myseed.maturation+myseed.production <= age)
+	if(myseed.get_gene(/datum/plant_gene/trait/eternalbloom) && myseed.maturation+myseed.production <= age)
 		. += "<span class='notice'>[myseed.plantname] looks eternally blooming...</span>"
 
 /obj/machinery/hydroponics/Destroy()
@@ -421,7 +421,7 @@
 
 	if(myseed)
 		update_icon_plant()
-		if(!S.get_gene(/datum/plant_gene/trait/eternalbloom))
+		if(!myseed.get_gene(/datum/plant_gene/trait/eternalbloom))
 			update_icon_lights()
 	return
 
@@ -764,10 +764,11 @@
 	if(T)
 		cycledelay += initial(cycledelay)*T.rate
 
+	var/gene_list = ""
 	if(!try_reset) // try_reset TRUE is taken by invasive spreading trait
-		for(var/datum/plant_gene/reagent/each in genes)
+		for(var/datum/plant_gene/reagent/each in S.genes)
 			gene_list += "\[[each.name] [each.reag_unit]\] "
-		for(var/datum/plant_gene/trait/each in genes)
+		for(var/datum/plant_gene/trait/each in S.genes)
 			gene_list += "\[[each.name]\] "
 		investigate_log("Someone has planted a seed that has traits: [gene_list]. Planter's ckey: \"[S.fingerprintslast]\"", INVESTIGATE_BOTANY)
 
@@ -791,7 +792,7 @@
 
 
 /obj/machinery/hydroponics/proc/harvest_plant(mob/user)
-	if(harvest && !seed.get_gene(/datum/plant_gene/trait/eternalbloom))
+	if(harvest && !myseed.get_gene(/datum/plant_gene/trait/eternalbloom))
 		if(ispath(myseed.product, /obj/item/reagent_containers/food/snacks/grown))
 			return myseed.harvest(user)
 		else if(ispath(myseed.product, /obj/item/grown))
@@ -801,7 +802,7 @@
 		recent_bee_visit = FALSE
 		if(plant_health >= 0 && age > myseed.lifespan)
 			plantdies()
-	else if(S.get_gene(/datum/plant_gene/trait/eternalbloom) && myseed.maturation+myseed.production <= age)
+	else if(myseed.get_gene(/datum/plant_gene/trait/eternalbloom) && myseed.maturation+myseed.production <= age)
 		to_chat(user, "<span class='notice'>You touch [myseed.plantname]. It's eternally blooming...</span>")
 		SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "eternalbloom", /datum/mood_event/eternalbloom, myseed.plantname)
 	else if(dead)
@@ -825,7 +826,6 @@
 	weedlevel = 0
 	pestlevel = 0
 	toxic = 0
-	dont_warn_me = FALSE
 	yieldmod = 1
 	cycledelay = initial(cycledelay)
 	recent_bee_visit = FALSE

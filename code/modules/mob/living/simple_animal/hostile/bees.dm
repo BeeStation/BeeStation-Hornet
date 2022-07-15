@@ -193,7 +193,7 @@
 	if(prob(BEE_POLLINATE_YIELD_CHANCE))
 		Hydro.yieldmod = 1.3
 	if(prob(BEE_POLLINATE_CYCLE_CHANCE))
-		Hydro.cycledelay *= 0.9
+		Hydro.cycledelay -= initial(Hydro.cycledelay)*0.9
 
 	if(beehome)
 		beehome.bee_resources = min(beehome.bee_resources + growth, 100)

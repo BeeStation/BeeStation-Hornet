@@ -33,6 +33,8 @@
 /datum/plant_gene/trait/teleport/on_slip(obj/item/reagent_containers/food/snacks/grown/G, mob/living/target, p_method)
 	activate_effect(G, target, p_method)
 	return TRUE
+	// return value determines if the plant should be destroyed.
+	// bluespace teleport crops must be destroyed once it's activated.
 
 /datum/plant_gene/trait/teleport/on_consume(obj/item/reagent_containers/food/snacks/grown/G, mob/living/target, p_method)
 	activate_effect(G, target, p_method)
@@ -48,22 +50,17 @@
 		addtimer(CALLBACK(src, .proc/handle_mob_trait, L), BTNY_CFG_TRAIT_TELE_IMMUME_TIME)
 		to_chat(L, "<span class='warning'>You slip through spacetime!</span>")
 
-		if(p_method & PLANT_ACTIVATED_SLIP)
-			if(L.ckey != G.fingerprintslast)
-				L.investigate_log("has been teleported to [AREACOORD(L)] from [AREACOORD(T)] from stepping on a SLIPPERY bluespace plant. Last pickup ckey: [G.fingerprintslast].", INVESTIGATE_BOTANY)
+		if(L?.ckey != G.fingerprintslast)
+			if(p_method & PLANT_ACTIVATED_SLIP)
+				L.investigate_log("been teleported to [AREACOORD(L)] from [AREACOORD(T)] from stepping on a SLIPPERY bluespace plant. Last pickup ckey: [G.fingerprintslast].", INVESTIGATE_BOTANY)
 				log_combat(L, G, "slipped on", null, "teleporting them from [AREACOORD(T)] to [AREACOORD(L)]. Last pickup ckey: [G.fingerprintslast].")
-		else if(p_method & PLANT_ACTIVATED_ATTACK)
-			if(L.ckey != G.fingerprintslast)
-				L.investigate_log("has been teleported to [AREACOORD(L)] from [AREACOORD(T)] from being ATTACKED BY a bluespace plant. Last pickup ckey: [G.fingerprintslast].", INVESTIGATE_BOTANY)
+			else if(p_method & PLANT_ACTIVATED_ATTACK)
+				L.investigate_log("been teleported to [AREACOORD(L)] from [AREACOORD(T)] from being ATTACKED BY a bluespace plant. Last pickup ckey: [G.fingerprintslast].", INVESTIGATE_BOTANY)
 				log_combat(L, G, "has attacked by", null, "teleporting them from [AREACOORD(T)] to [AREACOORD(L)]. Last pickup ckey: [G.fingerprintslast].")
-		else if(p_method & PLANT_ACTIVATED_THROW)
-			if(L.ckey != G.fingerprintslast)
+			else if(p_method & PLANT_ACTIVATED_THROW)
 				var/mob/thrown_by = G.thrownby?.resolve()
-				L.investigate_log("has been teleported to [AREACOORD(L)] from [AREACOORD(T)] from being hit by a THROWN bluespace plant. Thrower: [thrown_by]. Last pickup ckey: [G.fingerprintslast].", INVESTIGATE_BOTANY)
-				log_combat(thrown_by, L, "has thrown a bluespace plant to", G, "at [AREACOORD(T)] teleporting them to [AREACOORD(L)]")
-		else if(p_method & PLANT_ACTIVATED_CONSUME)
-			if(L.ckey != G.fingerprintslast)
-				L.investigate_log("has been teleported to [AREACOORD(L)] from [AREACOORD(T)] from being hit by a THROWN bluespace plant. Last pickup ckey: [G.fingerprintslast].", INVESTIGATE_BOTANY)
+				L.investigate_log("been teleported to [AREACOORD(L)] from [AREACOORD(T)] from being hit by a THROWN bluespace plant. Thrower: [(thrown_by || "(unknown error)")]. Last pickup ckey: [G.fingerprintslast].", INVESTIGATE_BOTANY)
+				log_combat((thrown_by || "(unknown error)"), L, "has thrown a bluespace plant to", G, "at [AREACOORD(T)] teleporting them to [AREACOORD(L)]. Thrower: [(thrown_by || "(unknown error)")]. Last pickup ckey: [G.fingerprintslast].")
 
 
 /datum/plant_gene/trait/teleport/proc/plant_teleport(obj/item/reagent_containers/food/snacks/grown/G, mob/living/L, turf/T)

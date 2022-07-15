@@ -46,7 +46,7 @@
 
 	volume_mod = 125
 	bitesize_mod = 2
-	bite_type = PLANT_BITE_TYPE_CONST
+	bite_type = PLANT_BITE_TYPE_CONSTANT
 	rarity = 60
 	wine_power = 80
 

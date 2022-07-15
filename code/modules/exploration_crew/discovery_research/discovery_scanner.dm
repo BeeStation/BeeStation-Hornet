@@ -34,7 +34,7 @@
 		return
 	. = ..()
 
-/obj/item/discovery_scanner/proc/begin_scanning(mob/user, datum/component/discoverable/discoverable, scanning_speed)
+/obj/item/discovery_scanner/proc/begin_scanning(mob/user, datum/component/discoverable/discoverable)
 	to_chat(user, "<span class='notice'>You begin scanning [discoverable.parent]...</span>")
 	if(do_after(user, scanning_speed, target=get_turf(user)))
 		discoverable.discovery_scan(linked_techweb, user, faction=research_faction)

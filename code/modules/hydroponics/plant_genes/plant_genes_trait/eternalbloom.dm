@@ -25,7 +25,7 @@
  */
 
 /datum/plant_gene/trait/eternalbloom/on_grow(obj/machinery/hydroponics/H)
-	if(H.plant_health <= 0)
+	if(H.plant_health <= 10)
 		H.plant_health += 30
 	H.weedlevel = 0
 	H.pestlevel = 0

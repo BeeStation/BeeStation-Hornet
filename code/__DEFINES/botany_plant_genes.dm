@@ -74,9 +74,9 @@
 
 
 // how do they eat
-#define PLANT_BITE_TYPE_DYNAM   "Dynamic"
-#define PLANT_BITE_TYPE_CONST   "Constant"
-#define PLANT_BITE_TYPE_PATCH   "Patch"
+#define PLANT_BITE_TYPE_DYNAMIC   "Dynamic"
+#define PLANT_BITE_TYPE_CONSTANT  "Constant"
+#define PLANT_BITE_TYPE_PATCH     "Patch"
 
 
 // path defines

@@ -14,7 +14,7 @@
 	endurance = 35
 	yield = 5
 	volume_mod = 25
-	bite_type = PLANT_BITE_TYPE_CONST
+	bite_type = PLANT_BITE_TYPE_CONSTANT
 	bitesize_mod = 100
 	distill_reagent = /datum/reagent/consumable/ethanol/hcider
 

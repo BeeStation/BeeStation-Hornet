@@ -12,7 +12,7 @@
 	lifespan = 50
 	endurance = 30
 	bitesize_mod = 5
-	bite_type = PLANT_BITE_TYPE_DYNAM
+	bite_type = PLANT_BITE_TYPE_DYNAMIC
 	distill_reagent = /datum/reagent/consumable/ethanol/bananahonk
 
 	mutatelist = list(/obj/item/seeds/banana/mime, /obj/item/seeds/banana/bluespace)

@@ -27,6 +27,7 @@
 
 /datum/plant_gene/trait/stinging/on_slip(obj/item/reagent_containers/food/snacks/grown/G, atom/target, p_method)
 	return activate_effect(G, target, p_method)
+	// return value determines if the plant should be destroyed
 
 /datum/plant_gene/trait/stinging/on_throw_impact(obj/item/reagent_containers/food/snacks/grown/G, atom/target, p_method)
 	return activate_effect(G, target, p_method)
@@ -38,19 +39,25 @@
 	. = FALSE
 	if(!isliving(target))
 		return FALSE
+	var/turf/T = get_turf(L)
 	var/mob/living/L = target
-	if(prick(G, L))
-		if(L.ckey != G.fingerprintslast) //what's the point of logging someone attacking himself
-			ADD_TRAIT(L, TRAIT_BOTANY_IMMUNE_INJECT, TRAIT_GENERIC)
-			addtimer(CALLBACK(src, /datum/plant_gene/trait/stinging.proc/handle_mob_trait, L), BTNY_CFG_TRAIT_INJECT_IMMUME_TIME)
-			//immume for inject for 30s
-			var/turf/T = get_turf(L)
+	if(prick(G, L, p_method))
+		ADD_TRAIT(L, TRAIT_BOTANY_IMMUNE_INJECT, TRAIT_GENERIC)
+		addtimer(CALLBACK(src, /datum/plant_gene/trait/stinging.proc/handle_mob_trait, L), BTNY_CFG_TRAIT_INJECT_IMMUME_TIME)
+		//immume for inject for 30s
+
+		if(L.ckey != G.fingerprintslast)
 			if(p_method & PLANT_ACTIVATED_SLIP)
-				L.investigate_log("has slipped on plant at [AREACOORD(T)] injecting him with [G.reagents.log_list()]. Last fingerprint: [G.fingerprintslast].", INVESTIGATE_BOTANY)
-				log_combat(L, G, "slipped on the", null, "injecting him with [G.reagents.log_list()]. Last fingerprint: [G.fingerprintslast].")
-			else
-				L.investigate_log("[L] has been prickled by a plant at [AREACOORD(T)] injecting them with [G.reagents.log_list()]. Last fingerprint: [G.fingerprintslast].", INVESTIGATE_BOTANY)
-				log_combat(G.thrownby, L, "hit", G, "at [AREACOORD(T)] injecting them with [G.reagents.log_list()]")
+				L.investigate_log("been slipped on plant at [AREACOORD(T)], being injected him with [G.reagents.log_list()]. Last pickup ckey: [G.fingerprintslast].", INVESTIGATE_BOTANY)
+				log_combat(L, G, "slipped on the", G, ", being injected with [G.reagents.log_list()]. Last pickup ckey: [G.fingerprintslast].")
+			else if(p_method & PLANT_ACTIVATED_ATTACK)
+				L.investigate_log("been prickled by a plant at [AREACOORD(T)], being injected them with [G.reagents.log_list()]. Last pickup ckey: [G.fingerprintslast].", INVESTIGATE_BOTANY)
+				log_combat(G.thrownby, L, "hit", G, "at [AREACOORD(T)], being injected with [G.reagents.log_list()]. Last pickup ckey: [G.fingerprintslast].")
+			else if(p_method & PLANT_ACTIVATED_THROW)
+				var/mob/thrown_by = G.thrownby?.resolve()
+				L.investigate_log("been prickled by a plant at [AREACOORD(T)], being injected with [G.reagents.log_list()] from being hit by a THROWN plant. Thrower: [(thrown_by || "(unknown error)")]. Last pickup ckey: [G.fingerprintslast].", INVESTIGATE_BOTANY)
+				log_combat((thrown_by || "(unknown error)"), L, "has thrown a plant to", G, "at [AREACOORD(T)], being injected with [G.reagents.log_list()]. Thrower: [(thrown_by || "(unknown error)")]. Last pickup ckey: [G.fingerprintslast].")
+
 	if(selfdesctruct)
 		selfdesctruct = FALSE
 		return TRUE
@@ -63,7 +70,10 @@
 		return FALSE
 	if(HAS_TRAIT(L, TRAIT_BOTANY_IMMUNE_INJECT))
 		return FALSE
+
 	var/potentpower = max(round(G.seed.potency/10),1)
+	if(!(p_method & PLANT_ACTIVATED_SQUASH)) // if not squash trait, not effective.
+		potentpower = round(potentpower/2)
 	for(var/datum/reagent/R in G.reagents.reagent_list)
 		var/amt = R.volume > R.metabolization_rate*potentpower ? R.metabolization_rate*potentpower : R.volume
 		if(R.metabolization_rate > 100)

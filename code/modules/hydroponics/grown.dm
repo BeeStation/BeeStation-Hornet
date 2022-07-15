@@ -20,7 +20,7 @@
 	// -----
 	// Plant stats from seed - Check the detail in the seeds code
 	var/bitesize_mod = 5
-	var/bite_type = PLANT_BITE_TYPE_DYNAM
+	var/bite_type = PLANT_BITE_TYPE_DYNAMIC
 	var/can_distill = TRUE
 	var/distill_reagent
 	var/wine_power = 10
@@ -72,11 +72,11 @@
 /obj/item/reagent_containers/food/snacks/grown/proc/add_juice()
 	if(reagents && bitesize_mod > 0)
 		switch(bite_type)
-			if(PLANT_BITE_TYPE_DYNAM)
+			if(PLANT_BITE_TYPE_DYNAMIC)
 				var/calcuation = reagents.total_volume % bitesize_mod
 				bitesize = (reagents.total_volume-calcuation) / bitesize_mod
 				// This makes 5~5.999 bites to 5 bites
-			if(PLANT_BITE_TYPE_CONST)
+			if(PLANT_BITE_TYPE_CONSTANT)
 				bitesize = round(bitesize_mod)
 				// Always the constant value
 			if(PLANT_BITE_TYPE_PATCH)
@@ -125,6 +125,14 @@
 	else if(splat_type)
 		new splat_type(T)
 
+	var/gene_list = ""
+	for(var/datum/plant_gene/reagent/each in seed.genes)
+		gene_list += "\[[each.name] [each.reag_unit]\] "
+	for(var/datum/plant_gene/trait/each in seed.genes)
+		gene_list += "\[[each.name]\] "
+	investigate_log("has been squashed to [key_name(T)] with a botany plant. Plant specs: [gene_list]. Last pickup ckey: [fingerprintslast].", INVESTIGATE_BOTANY)
+	log_combat([key_name(T)], "got a crop squash", src,  "at [AREACOORD(G)]. Plant specs: [gene_list]. Last pickup ckey: [fingerprintslast].")
+
 	visible_message("<span class='warning'>[src] has been squashed.</span>","<span class='italics'>You hear a smack.</span>")
 	if(seed)
 		for(var/datum/plant_gene/trait/teleport/trait in seed.genes) // trick. get a certain trait through for loop.
@@ -158,6 +166,15 @@
 /obj/item/reagent_containers/food/snacks/grown/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	if(!..()) //was it caught by a mob?
 		if(seed)
+			var/gene_list = ""
+			for(var/datum/plant_gene/reagent/each in seed.genes)
+				gene_list += "\[[each.name] [each.reag_unit]\] "
+			for(var/datum/plant_gene/trait/each in seed.genes)
+				gene_list += "\[[each.name]\] "
+			var/mob/thrown_by = thrownby?.resolve()
+			investigate_log("[src] has been thrown by [(thrown_by || "(unknown error)")]. Last pickup ckey: [fingerprintslast].", INVESTIGATE_BOTANY)
+			log_combat("[src] has been thrown by [(thrown_by || "(unknown error)")]. Last pickup ckey: [fingerprintslast].")
+
 			var/selfdestruct = FALSE
 			if(squash(hit_atom, PLANT_ACTIVATED_THROW))
 				for(var/datum/plant_gene/trait/T in seed.genes)
@@ -185,6 +202,14 @@
 
 // Behaviour: attack ------------------------------------------------------
 /obj/item/reagent_containers/food/snacks/grown/attack(mob/M, mob/user, def_zone)
+	if(M?.ckey != user?.ckey)
+		var/gene_list = ""
+		for(var/datum/plant_gene/reagent/each in seed.genes)
+			gene_list += "\[[each.name] [each.reag_unit]\] "
+		for(var/datum/plant_gene/trait/each in seed.genes)
+			gene_list += "\[[each.name]\] "
+		user.investigate_log("has tried to feed/or attack [key_name(M)] with a botany plant. User intent: [user.a_intent]. Plant specs: [gene_list]. Last pickup ckey: [fingerprintslast].", INVESTIGATE_BOTANY)
+		log_combat("[key_name(user)] has tried to feed/or attack [key_name(M)] with a botany plant. User intent: [M.a_intent]. Plant specs: [gene_list]. Last pickup ckey: [fingerprintslast].")
 	if(!seed)
 		. = ..()
 	else

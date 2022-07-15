@@ -30,7 +30,7 @@
 
 	// plant stats
 	bitesize_mod = 4
-	bite_type = PLANT_BITE_TYPE_CONST
+	bite_type = PLANT_BITE_TYPE_CONSTANT
 
 	mutatelist = list(/obj/item/seeds/ambrosia/deus)
 	family = /datum/plant_gene/family/weed_hardy

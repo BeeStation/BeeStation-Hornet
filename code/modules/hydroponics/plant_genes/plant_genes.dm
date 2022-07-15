@@ -217,7 +217,7 @@
 //Bite type - a method to eat //i.e. ratio(5% from 100u) or constant(5u from 100u)
 /datum/plant_gene/core/bite_type
 	name = "Bite type"
-	value = PLANT_BITE_TYPE_DYNAM
+	value = PLANT_BITE_TYPE_DYNAMIC
 
 /datum/plant_gene/core/bite_type/apply_stat(obj/item/seeds/S)
 	S.bite_type = value

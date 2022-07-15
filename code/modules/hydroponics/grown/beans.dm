@@ -15,7 +15,7 @@
 	maturation = 4
 	production = 4
 	bitesize_mod = 2
-	bite_type = PLANT_BITE_TYPE_CONST
+	bite_type = PLANT_BITE_TYPE_CONSTANT
 
 	mutatelist = list(/obj/item/seeds/soya/koi)
 	genes = list(/datum/plant_gene/trait/perennial)

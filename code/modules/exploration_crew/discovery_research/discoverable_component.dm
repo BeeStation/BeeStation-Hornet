@@ -152,7 +152,7 @@
 		if(roundstart)
 			roundstart = FALSE
 			var/all_factions = BOTANY_RESEARCHED_NANOTRASEN | BOTANY_RESEARCHED_LIFEBRINGER | BOTANY_RESEARCHED_CENTCOM
-			for(var/each in subtypesof(/datum/plant_gene/trait))
+			for(var/each as() in subtypesof(/datum/plant_gene/trait))
 				var/datum/plant_gene/trait/T = each
 				var/data_id
 				if(initial(T.research_needed) == 0) // if a research_needed is `0`, this will be roundstarting.
@@ -160,7 +160,7 @@
 					if(!linked_techweb.researched_genes[data_id])
 						linked_techweb.researched_genes[data_id] = list()
 						linked_techweb.researched_genes[data_id]["faction"] = all_factions
-						linked_techweb.researched_genes[data_id]["path"] = T
+						linked_techweb.researched_genes[data_id]["path"] = T.type
 						linked_techweb.researched_genes[data_id]["desc"] = T.desc
 						linked_techweb.researched_genes[data_id]["category"] = "trait"
 						linked_techweb.researched_genes[data_id]["level"] = 0
@@ -188,7 +188,7 @@
 						linked_techweb.researched_genes[data_id] = list()
 						linked_techweb.researched_genes[data_id]["faction"] = research_faction_type
 						linked_techweb.researched_genes[data_id]["path"] = trait_gene.type
-						linked_techweb.researched_genes[data_id]["desc"] = trait.desc
+						linked_techweb.researched_genes[data_id]["desc"] = trait_gene.desc
 						linked_techweb.researched_genes[data_id]["category"] = "trait"
 						linked_techweb.researched_genes[data_id]["level"] = 0
 						linked_techweb.researched_genes[data_id]["reqlevel"] = trait_gene.research_needed
@@ -222,7 +222,7 @@
 				linked_techweb.researched_genes[data_id] = list()
 				linked_techweb.researched_genes[data_id]["faction"] = research_faction_type
 				linked_techweb.researched_genes[data_id]["path"] = family_gene.type
-				linked_techweb.researched_genes[data_id]["desc"] = trait.desc
+				linked_techweb.researched_genes[data_id]["desc"] = family_gene.desc
 				linked_techweb.researched_genes[data_id]["category"] = "family"
 				linked_techweb.researched_genes[data_id]["level"] = 0
 				linked_techweb.researched_genes[data_id]["reqlevel"] = family_gene.research_needed
