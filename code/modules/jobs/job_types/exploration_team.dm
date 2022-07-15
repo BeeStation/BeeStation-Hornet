@@ -11,6 +11,7 @@
 	exp_requirements = 900
 	exp_type = EXP_TYPE_CREW
 	selection_color = "#ffeeff"
+	chat_color = "#85d8b8"
 
 	outfit = /datum/outfit/job/exploration
 

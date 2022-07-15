@@ -8,6 +8,7 @@
 	spawn_positions = 1
 	supervisors = "the head of personnel"
 	selection_color = "#bbe291"
+	chat_color = "#A2FBB9"
 	var/cooks = 0 //Counts cooks amount
 
 	outfit = /datum/outfit/job/cook
