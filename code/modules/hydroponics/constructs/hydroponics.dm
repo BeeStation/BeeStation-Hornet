@@ -232,7 +232,7 @@
 					adjustHealth(-F.nutri_damage)
 
 			if(eat)
-				process_aging = nutrimentProcess(F.nutri_adjust)
+				process_aging = processNutrient(F.nutri_adjust)
 				if(prob(50))
 					adjustHealth(F.wellfed_heal)
 
@@ -344,7 +344,7 @@
 
 	return
 
-/obj/machinery/hydroponics/proc/nutrimentProcess(count)
+/obj/machinery/hydroponics/proc/processNutrient(count)
 	if(!length(nutris))
 		return 0 // no nutriment, no aging
 
