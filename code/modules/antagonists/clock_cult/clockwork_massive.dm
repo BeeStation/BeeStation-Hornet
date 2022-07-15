@@ -33,6 +33,12 @@ GLOBAL_LIST_INIT(clockwork_portals, list())
 		return
 	destroyed = TRUE
 	hierophant_message("The Ark has been destroyed, Reebe is becomming unstable!", null, "<span class='large_brass'>")
+	INVOKE_ASYNC(src, .proc/attackers_escape)
+	STOP_PROCESSING(SSobj, src)
+	. = ..()
+	INVOKE_ASYNC(src, .proc/explode_reebe)
+
+/obj/structure/destructible/clockwork/massive/celestial_gateway/proc/attackers_escape()
 	for(var/mob/living/M in GLOB.player_list)
 		if(!is_reebe(M.z))
 			continue
@@ -44,9 +50,6 @@ GLOBAL_LIST_INIT(clockwork_portals, list())
 		to_chat(M, "<span class='reallybig hypnophrase'>Your mind is distorted by the distant sound of a thousand screams before suddenly everything falls silent.</span>")
 		to_chat(M, "<span class='hypnophrase'>The only thing you remember is suddenly feeling warm and safe.</span>")
 		M.forceMove(safe_place)
-	STOP_PROCESSING(SSobj, src)
-	. = ..()
-	INVOKE_ASYNC(src, .proc/explode_reebe)
 
 /obj/structure/destructible/clockwork/massive/celestial_gateway/proc/explode_reebe()
 	for(var/i in 1 to 30)
@@ -66,6 +69,9 @@ GLOBAL_LIST_INIT(clockwork_portals, list())
 		to_chat(world, pick(phase_messages))
 
 /obj/structure/destructible/clockwork/massive/celestial_gateway/deconstruct(disassembled = TRUE)
+	INVOKE_ASYNC(src, .proc/async_destruction, disassembled)
+
+/obj/structure/destructible/clockwork/massive/celestial_gateway/proc/async_destruction(disassembled)
 	if(!(flags_1 & NODECONSTRUCT_1))
 		if(!disassembled)
 			resistance_flags |= INDESTRUCTIBLE
@@ -80,11 +86,11 @@ GLOBAL_LIST_INIT(clockwork_portals, list())
 			sound_to_playing_players('sound/effects/explosion_distant.ogg', volume = 50)
 			for(var/obj/effect/portal/wormhole/clockcult/CC in GLOB.all_wormholes)
 				qdel(CC)
+			qdel(src)
 			SSshuttle.clearHostileEnvironment(src)
 			set_security_level(SEC_LEVEL_RED)
 			sleep(300)
 			SSticker.force_ending = TRUE
-	qdel(src)
 
 /obj/structure/destructible/clockwork/massive/celestial_gateway/take_damage(damage_amount, damage_type, damage_flag, sound_effect, attack_dir, armour_penetration)
 	. = ..()
