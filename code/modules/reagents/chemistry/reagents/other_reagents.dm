@@ -125,47 +125,37 @@
 
 /datum/reagent/corgium/on_mob_metabolize(mob/living/L)
 	. = ..()
-	new_corgi = new(get_turf(L))
-	new_corgi.key = L.key
-	new_corgi.name = L.real_name
-	new_corgi.real_name = L.real_name
-	ADD_TRAIT(L, TRAIT_NOBREATH, CORGIUM_TRAIT)
-	//hack - equipt current hat
+	var/obj/shapeshift_holder/H = locate() in L
+	if(H)
+		to_chat(L, "<span class='warning'>You're already corgified!</span>")
+		return
+	ADD_TRAIT(L, TRAIT_MUTE, CORGIUM_TRAIT)
+	new_corgi = new(L.loc)
+	//hat check
 	var/mob/living/carbon/C = L
-	if (istype(C))
+	if(istype(C))
 		var/obj/item/hat = C.get_item_by_slot(ITEM_SLOT_HEAD)
-		if (hat)
+		if(hat?.dog_fashion)
 			new_corgi.place_on_head(hat,null,FALSE)
-	L.forceMove(new_corgi)
+	H = new(new_corgi,src,L)
 
 /datum/reagent/corgium/on_mob_life(mob/living/carbon/M)
 	. = ..()
 	//If our corgi died :(
 	if(new_corgi.stat)
 		holder.remove_all_type(type)
+		addtimer(CALLBACK(src, .proc/restore, M), 2 SECONDS)
 
 /datum/reagent/corgium/on_mob_end_metabolize(mob/living/L)
 	. = ..()
-	REMOVE_TRAIT(L, TRAIT_NOBREATH, CORGIUM_TRAIT)
-	//New corgi was deleted, goodbye cruel world.
-	if(QDELETED(new_corgi))
-		if(!QDELETED(L))
-			qdel(L)
+	restore(L)
+
+/datum/reagent/corgium/proc/restore(mob/living/L)
+	ADD_TRAIT(L, TRAIT_MUTE, CORGIUM_TRAIT)
+	var/obj/shapeshift_holder/H = locate() in L
+	if(!H)
 		return
-	//Leave the corgi
-	L.key = new_corgi.key
-	L.adjustBruteLoss(new_corgi.getBruteLoss())
-	L.adjustFireLoss(new_corgi.getFireLoss())
-	L.forceMove(get_turf(new_corgi))
-	// HACK - drop all corgi inventory
-	var/turf/T = get_turf(new_corgi)
-	if (new_corgi.inventory_head)
-		if(!L.equip_to_slot_if_possible(new_corgi.inventory_head, ITEM_SLOT_HEAD,disable_warning = TRUE, bypass_equip_delay_self=TRUE))
-			new_corgi.inventory_head.forceMove(T)
-	new_corgi.inventory_back?.forceMove(T)
-	new_corgi.inventory_head = null
-	new_corgi.inventory_back = null
-	qdel(new_corgi)
+	H.restore(convert_damage = TRUE)
 
 /datum/reagent/water
 	name = "Water"
