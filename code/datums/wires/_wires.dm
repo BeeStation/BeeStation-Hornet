@@ -258,7 +258,7 @@
 			reveal_wires = TRUE
 		else if(istype(user.get_item_by_slot(ITEM_SLOT_EYES), /obj/item/clothing/glasses/meson/engine))
 			var/obj/item/clothing/glasses/meson/engine/goggles = user.get_item_by_slot(ITEM_SLOT_EYES)
-			if(goggles.mode == "t-ray")
+			if(goggles.mode == MODE_TRAY)
 				reveal_wires = TRUE
 
 	for(var/color in colors)

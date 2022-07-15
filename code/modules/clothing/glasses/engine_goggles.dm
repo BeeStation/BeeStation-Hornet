@@ -1,11 +1,5 @@
 //Engineering Mesons
 
-#define MODE_NONE ""
-#define MODE_MESON "meson"
-#define MODE_TRAY "t-ray"
-#define MODE_RAD "radiation"
-#define MODE_SHUTTLE "shuttle"
-
 /obj/item/clothing/glasses/meson/engine
 	name = "engineering scanner goggles"
 	desc = "Goggles used by engineers. The Meson Scanner mode lets you see basic structural and terrain layouts through walls, the T-ray Scanner mode lets you see underfloor objects such as cables and pipes, and the Radiation Scanner mode let's you see objects contaminated by radiation."
@@ -144,9 +138,3 @@
 	desc = "Used to see the boundaries of shuttle regions."
 
 	modes = list(MODE_NONE = MODE_SHUTTLE, MODE_SHUTTLE = MODE_NONE)
-
-#undef MODE_NONE
-#undef MODE_MESON
-#undef MODE_TRAY
-#undef MODE_RAD
-#undef MODE_SHUTTLE
