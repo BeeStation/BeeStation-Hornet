@@ -1,0 +1,4 @@
+author: ike709
+delete-after: true
+changes:
+  - code_imp: Added a unit test for crafting categories
