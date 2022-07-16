@@ -8,7 +8,6 @@
 	spawn_positions = 2
 	supervisors = "the head of personnel and research director"
 	selection_color = "#ffeeff"
-	chat_color = "#b382c7"
 
 	outfit = /datum/outfit/job/botanist
 
