@@ -87,7 +87,8 @@
 			amt = R.volume < 5 ? R.volume : 5
 		G.reagents.reaction(L, INJECT)
 		G.reagents.trans_id_to(L, R, amt)
-		if(!avaiable_chem_size)
+		avaiable_chem_size--
+		if(!(--avaiable_chem_size))
 			break
 
 	to_chat(L, "<span class='danger'>You are pricked by [G]!</span>")
