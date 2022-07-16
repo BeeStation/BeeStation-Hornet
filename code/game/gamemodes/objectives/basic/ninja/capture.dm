@@ -1,5 +1,6 @@
 /datum/objective/capture
 	name = "capture"
+	var/captured_amount = 0
 
 /datum/objective/capture/proc/gen_amount_goal()
 	target_amount = rand(5,10)
@@ -11,7 +12,7 @@
 	explanation_text = "Capture [target_amount] lifeform\s with an energy net. Live, rare specimens are worth more."
 
 /datum/objective/capture/check_completion()//Basically runs through all the mobs in the area to determine how much they are worth.
-	var/captured_amount = 0
+	captured_amount = 0
 	var/area/centcom/holding/A = GLOB.areas_by_type[/area/centcom/holding]
 	for(var/mob/living/carbon/human/M in A)//Humans.
 		if(M.stat == DEAD)//Dead folks are worth less.
@@ -43,3 +44,7 @@
 	if(count)
 		target_amount = count
 	update_explanation_text()
+
+/datum/objective/capture/get_completion_message()
+	var/span = check_completion() ? "grentext" : "redtext"
+	return "[explanation_text] <span class='[span]'>[captured_amount] lifeform\s captured!</span>"

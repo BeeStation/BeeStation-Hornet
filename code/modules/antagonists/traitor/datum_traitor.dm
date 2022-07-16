@@ -139,7 +139,12 @@
 
 /datum/antagonist/traitor/proc/forge_single_human_objective() //Returns how many objectives are added
 	.=1
-	if(prob(50))
+	if(prob(30))
+		var/created_type = pick(subtypesof(/datum/objective/open))
+		var/datum/objective/obj = new created_type
+		obj.owner = owner
+		add_objective(obj)
+	else if(prob(50))
 		var/list/active_ais = active_ais()
 		if(active_ais.len && prob(100/GLOB.joined_player_list.len))
 			var/datum/objective/destroy/destroy_objective = new

@@ -18,7 +18,6 @@
 		/datum/objective/protect,
 		/datum/objective/destroy,
 		/datum/objective/hijack,
-		/datum/objective/gimmick,
 		/datum/objective/escape,
 		/datum/objective/survive,
 		/datum/objective/martyr,

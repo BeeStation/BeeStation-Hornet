@@ -2,6 +2,7 @@
 
 /datum/objective/absorb
 	name = "absorb"
+	var/absorbedcount = 0
 
 /datum/objective/absorb/proc/gen_amount_goal(lowbound = 4, highbound = 6)
 	target_amount = rand (lowbound,highbound)
@@ -31,7 +32,7 @@
 	update_explanation_text()
 
 /datum/objective/absorb/check_completion()
-	var/absorbedcount = 0
+	absorbedcount = 0
 	for(var/datum/mind/M as() in get_owners())
 		if(!M)
 			continue
@@ -40,6 +41,10 @@
 			continue
 		absorbedcount += changeling.absorbedcount
 	return (absorbedcount >= target_amount) || ..()
+
+/datum/objective/absorb/get_completion_message()
+	var/span = check_completion() ? "grentext" : "redtext"
+	return "[explanation_text] <span class='[span]'>[absorbedcount] lifeform\s absorbed!</span>"
 
 /datum/objective/absorb_most
 	name = "absorb most"

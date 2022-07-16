@@ -421,10 +421,7 @@
 		if(CONFIG_GET(flag/allow_crew_objectives))
 			if(M.mind.current && LAZYLEN(M.mind.crew_objectives))
 				for(var/datum/objective/crew/CO as() in M.mind.crew_objectives)
-					if(CO.check_completion())
-						parts += "<br><br><B>Your optional objective</B>: [CO.explanation_text] <span class='greentext'><B>Success!</B></span><br>"
-					else
-						parts += "<br><br><B>Your optional objective</B>: [CO.explanation_text] <span class='redtext'><B>Failed.</B></span><br>"
+					parts += CO.get_completion_message()
 
 	else
 		parts += "<div class='panel stationborder'>"
@@ -616,11 +613,7 @@
 	var/list/objective_parts = list()
 	var/count = 1
 	for(var/datum/objective/objective as() in objectives)
-		if(objective.check_completion())
-			objective_parts += "<b>Objective #[count]</b>: [objective.explanation_text] <span class='greentext'>Success!</span>"
-		else
-			objective_parts += "<b>Objective #[count]</b>: [objective.explanation_text] <span class='redtext'>Fail.</span>"
-		count++
+		objective_parts += "<b>Objective #[count++]</b>: [objective.get_completion_message()]"
 	return objective_parts.Join("<br>")
 
 /datum/controller/subsystem/ticker/proc/save_admin_data()

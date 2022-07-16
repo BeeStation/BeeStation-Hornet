@@ -77,6 +77,9 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 /datum/objective/proc/check_completion()
 	return completed
 
+/datum/objective/proc/get_completion_message()
+	return check_completion() ? "[explanation_text] <span class='greentext'>Success!</span>" : "[explanation_text] <span class='redtext'>Fail.</span>"
+
 /datum/objective/proc/is_unique_objective(datum/mind/possible_target, list/dupe_search_range)
 	if(!islist(dupe_search_range))
 		stack_trace("Non-list passed as duplicate objective search range")
@@ -209,19 +212,57 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 	if(team_explanation_text && LAZYLEN(get_owners()) > 1)
 		explanation_text = team_explanation_text
 
-/datum/objective/proc/give_special_equipment(list/special_equipment)
+/datum/objective/proc/generate_stash(list/special_equipment)
 	var/datum/mind/receiver = pick(get_owners())
-	if(receiver && receiver.current)
-		if(ishuman(receiver.current))
-			var/mob/living/carbon/human/H = receiver.current
-			var/static/list/slots = list(
-				"backpack" = ITEM_SLOT_BACKPACK,
-				"left pocket" = ITEM_SLOT_LPOCKET,
-				"right pocket" = ITEM_SLOT_RPOCKET,
-				"hands" = ITEM_SLOT_HANDS)
-			for(var/eq_path in special_equipment)
-				var/obj/O = new eq_path(get_turf(receiver.current))
-				H.equip_in_one_of_slots(O, slots)
+	var/obj/item/storage/backpack/satchel/flat/empty/secret_bag = receiver.antag_stash
+	//Find and generate the stash
+	if(!secret_bag)
+		secret_bag = new()
+		var/atom_text = ""
+		switch (pickweight(list("airlock" = 3)))
+			if("airlock")
+				atom_text = "An airlock"
+				//Valid areas
+				var/static/list/valid_areas = list(
+					/area/medical,
+					/area/commons,
+					/area/crew_quarters,
+					/area/service,
+					/area/library,
+					/area/maintenance,
+					/area/hallway,
+					/area/chapel,
+					/area/hydroponics,
+					/area/holodeck,
+					/area/lawoffice,
+				)
+				//Pick a valid airlock
+				for(var/obj/machinery/door/airlock/A in GLOB.machines)
+					if (!is_station_level(A.z))
+						continue
+					//Make sure its publicly accessible
+					var/area/area = get_area(A)
+					var/valid = FALSE
+					for(var/area_type in valid_areas)
+						if(istype(area, area_type))
+							valid = TRUE
+							break
+					if(!valid)
+						continue
+					//This airlock is good for us
+					A.AddComponent(/datum/component/stash, receiver, secret_bag)
+					break
+		//Failsafe
+		if(!secret_bag.loc)
+			atom_text = "You"
+			message_admins("Could not find a location to put [ADMIN_FLW(receiver.current)]'s stash.")
+			secret_bag.forceMove(get_turf(receiver.current))
+			receiver.current.equip_to_appropriate_slot(secret_bag)
+		//Update the mind
+		receiver.store_memory("You have a secret stash of items hidden on the station required for your objectives. It is hidden inside of [secret_bag.loc] ([atom_text]) located at [get_area(secret_bag.loc)], you may have to search around for it. (Use alt click on the object the stash is inside to access it).")
+	//Create the objects in the bag
+	for(var/eq_path in special_equipment)
+		new eq_path(secret_bag)
 
 /datum/objective/proc/on_target_cryo()
 	SIGNAL_HANDLER

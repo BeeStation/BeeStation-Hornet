@@ -1,5 +1,6 @@
 /datum/objective/download
 	name = "download"
+	var/amount = 0
 
 /datum/objective/download/proc/gen_amount_goal()
 	target_amount = rand(20,40)
@@ -23,10 +24,15 @@
 			var/list/otherwise = M.GetAllContents()
 			for(var/obj/item/disk/tech_disk/TD in otherwise)
 				TD.stored_research.copy_research_to(checking)
-	return (checking.researched_nodes.len >= target_amount) || ..()
+	amount = checking.researched_nodes.len
+	return (amount >= target_amount) || ..()
 
 /datum/objective/download/admin_edit(mob/admin)
 	var/count = input(admin,"How many nodes ?","Nodes",target_amount) as num|null
 	if(count)
 		target_amount = count
 	update_explanation_text()
+
+/datum/objective/download/get_completion_message()
+	var/span = check_completion() ? "grentext" : "redtext"
+	return "[explanation_text] <span class='[span]'>[amount] research node\s downloaded!</span>"

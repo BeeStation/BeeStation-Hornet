@@ -74,6 +74,9 @@
 	/// A lazy list of statuses to add next to this mind in the traitor panel
 	var/list/special_statuses
 
+	//The atom of our antag stash
+	var/atom/antag_stash = null
+
 /datum/mind/New(var/key)
 	src.key = key
 	soulOwner = src

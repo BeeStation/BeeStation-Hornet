@@ -33,7 +33,7 @@ GLOBAL_LIST_EMPTY(possible_items)
 		targetinfo = item
 		steal_target = targetinfo.targetitem
 		explanation_text = "Steal [targetinfo.name]"
-		give_special_equipment(targetinfo.special_equipment)
+		generate_stash(targetinfo.special_equipment)
 		return steal_target
 	else
 		explanation_text = "Free objective"
