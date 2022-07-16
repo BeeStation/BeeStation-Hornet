@@ -80,12 +80,15 @@
 	var/potentpower = max(round(G.seed.potency/10),1)
 	if(!(p_method & PLANT_ACTIVATED_SQUASH)) // if not squash trait, not effective.
 		potentpower = round(potentpower/2)
+	var/avaiable_chem_size = 8
 	for(var/datum/reagent/R in G.reagents.reagent_list)
 		var/amt = R.volume > R.metabolization_rate*potentpower ? R.metabolization_rate*potentpower : R.volume
 		if(R.metabolization_rate >= 5)
 			amt = R.volume < 5 ? R.volume : 5
 		G.reagents.reaction(L, INJECT)
 		G.reagents.trans_id_to(L, R, amt)
+		if(!avaiable_chem_size)
+			break
 
 	to_chat(L, "<span class='danger'>You are pricked by [G]!</span>")
 	reagent_check(G, L)
