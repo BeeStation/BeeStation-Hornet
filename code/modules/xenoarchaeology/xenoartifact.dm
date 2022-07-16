@@ -313,7 +313,7 @@
 		if(H.wear_suit && H.head && isclothing(H.wear_suit) && isclothing(H.head))
 			var/obj/item/clothing/CS = H.wear_suit
 			var/obj/item/clothing/CH = H.head
-			if(((CS.clothing_flags & BLOCK_ARTIFACT_EFFECTS)||(CH.clothing_flags & BLOCK_ARTIFACT_EFFECTS)) && prob(min(XENOA_DEFLECT_CHANCE + (CS.armor["rad"]/3), 80)))
+			if(((CS.resistance_flags & ARTIFACT_PROOF)||(CH.resistance_flags & ARTIFACT_PROOF)) && prob(min(XENOA_DEFLECT_CHANCE + (CS.armor["rad"]/3), 80)) || ((CS.resistance_flags & ARTIFACT_PROOF_EXTREME)||(CH.resistance_flags & ARTIFACT_PROOF_EXTREME)))
 				to_chat(target, "<span class='warning'>The [name] was unable to target you!</span>")
 				playsound(get_turf(target), 'sound/weapons/deflect.ogg', 25, TRUE) 
 				return

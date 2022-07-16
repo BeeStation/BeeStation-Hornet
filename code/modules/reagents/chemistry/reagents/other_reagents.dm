@@ -151,11 +151,11 @@
 	restore(L)
 
 /datum/reagent/corgium/proc/restore(mob/living/L)
-	ADD_TRAIT(L, TRAIT_MUTE, CORGIUM_TRAIT)
+	REMOVE_TRAIT(L, TRAIT_MUTE, CORGIUM_TRAIT)
 	var/obj/shapeshift_holder/H = locate() in L
 	if(!H)
 		return
-	H.restore(convert_damage = TRUE)
+	H.restore()
 
 /datum/reagent/water
 	name = "Water"

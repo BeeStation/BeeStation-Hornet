@@ -846,12 +846,9 @@
 	label_desc = "Fuzzy: The shape is hard to discern under all the hair sprouting out from the surface. You swear you've heard it bark before."
 	flags = BLUESPACE_TRAIT
 	var/list/victims = list() //List of all affected targets, used for early qdel
-	var/list/keys = list() //list of keys, becuase simple animals throw away theirs often
-	var/obj/item/xenoartifact/xenoa //Used for early qdel
+	var/list/target_keys = list() //list of targets by corgi
+	var/list/timers = list() //list of timers for transform back
 
-/datum/xenoartifact_trait/major/corginator/on_init(obj/item/xenoartifact/X)
-	. = ..()
-	xenoa = X
 
 /datum/xenoartifact_trait/major/corginator/activate(obj/item/xenoartifact/X, mob/living/target)
 	X.say(pick("Woof!", "Bark!", "Yap!"))
@@ -859,64 +856,56 @@
 		playsound(get_turf(X), 'sound/machines/buzz-sigh.ogg', 50, TRUE)
 		return
 	if(istype(target, /mob/living) && !(istype(target, /mob/living/simple_animal/pet/dog/corgi)))
-		keys[target] = "[target.key ? target.key : target.ckey]"
-		var/mob/living/simple_animal/pet/dog/corgi/new_corgi = transform(X, target)
-		addtimer(CALLBACK(src, .proc/transform_back, X, target, new_corgi), (X.charge*0.7) SECONDS)
-		victims |= list(target, new_corgi)
+		var/mob/living/simple_animal/pet/dog/corgi/new_corgi = transform(target)
+		timers[new_corgi] = addtimer(CALLBACK(src, .proc/transform_back, new_corgi), (X.charge*0.6) SECONDS, TIMER_STOPPABLE)
+		victims |= new_corgi
+		target_keys[new_corgi] = target
 		X.cooldownmod = (X.charge*0.8) SECONDS
 
-/datum/xenoartifact_trait/major/corginator/proc/transform(obj/item/xenoartifact/X, mob/living/target)
-	var/mob/living/simple_animal/pet/dog/corgi/new_corgi
-	new_corgi = new(get_turf(target))
-	new_corgi.key = target.key
-	new_corgi.name = target.real_name
-	new_corgi.health = target.health
-	new_corgi.real_name = target.real_name
+/datum/xenoartifact_trait/major/corginator/proc/transform(mob/living/target)
+	if(!istype(target))
+		return
+	var/obj/shapeshift_holder/H = locate() in target
+	if(H)
+		to_chat(target, "<span class='warning'>You're already corgified!</span>")
+		playsound(get_turf(target), 'sound/machines/buzz-sigh.ogg', 50, TRUE)
+		return
 	ADD_TRAIT(target, TRAIT_NOBREATH, CORGIUM_TRAIT)
-	var/mob/living/C = target
+	var/mob/living/simple_animal/pet/dog/corgi/new_corgi = new(target.loc)
+	H = new(new_corgi,src,target)
+	//hat check
+	var/mob/living/carbon/C = target
 	if(istype(C))
 		var/obj/item/hat = C.get_item_by_slot(ITEM_SLOT_HEAD)
 		if(hat?.dog_fashion)
 			new_corgi.place_on_head(hat,null,FALSE)
-	target.forceMove(new_corgi) //This is why we check for free z-levels
+	RegisterSignal(new_corgi, COMSIG_MOB_DEATH, .proc/transform_back)
 	return new_corgi
 
-/datum/xenoartifact_trait/major/corginator/proc/transform_back(obj/item/xenoartifact/X, mob/living/target, mob/living/simple_animal/pet/dog/corgi/new_corgi)
-	if(target)
-		victims -= target
-		REMOVE_TRAIT(target, TRAIT_NOBREATH, CORGIUM_TRAIT)
-		if(QDELETED(new_corgi))
-			if(!QDELETED(target))
-				qdel(target)
-			return
-		target.key = keys[target]//we could reference the corgis key here but if someone ghosts its set to null
-		target.ckey = keys[target]
-		keys -= target
-		if(new_corgi.health <= 0) //Corgi health is offset from human, dead corgis count as alive humans otherwise.
-			target.health = -1
-		target.adjustBruteLoss(new_corgi.getBruteLoss()*10)
-		target.adjustFireLoss(new_corgi.getFireLoss()*10)
-		target.forceMove(get_turf(new_corgi))
-		var/turf/T = get_turf(new_corgi)
-		if (new_corgi.inventory_head)
-			if(!target.equip_to_slot_if_possible(new_corgi.inventory_head, ITEM_SLOT_HEAD,disable_warning = TRUE, bypass_equip_delay_self=TRUE))
-				new_corgi.inventory_head.forceMove(T)
-		new_corgi.inventory_back?.forceMove(T)
-		new_corgi.inventory_head = null
-		new_corgi.inventory_back = null
-		qdel(new_corgi)
+/datum/xenoartifact_trait/major/corginator/proc/transform_back(mob/living/simple_animal/pet/dog/corgi/new_corgi)
+	var/mob/living/target = (target_keys[new_corgi])
+	UnregisterSignal(new_corgi, COMSIG_MOB_DEATH)
+	REMOVE_TRAIT(target, TRAIT_MUTE, CORGIUM_TRAIT)
+	victims -= new_corgi
+	target_keys[new_corgi] = null
+	var/turf/T = get_turf(new_corgi)
+	if(new_corgi.inventory_head && !target.equip_to_slot_if_possible(new_corgi.inventory_head, ITEM_SLOT_HEAD,disable_warning = TRUE, bypass_equip_delay_self=TRUE))
+		new_corgi.inventory_head.forceMove(T)
+	new_corgi.inventory_back?.forceMove(T)
+	new_corgi.inventory_head = null
+	new_corgi.inventory_back = null
+	var/obj/shapeshift_holder/H = locate() in new_corgi
+	if(!H)
+		return
+	H.restore(FALSE, FALSE)
+	target.Knockdown(SHOVE_KNOCKDOWN_SOLID)
 
 /datum/xenoartifact_trait/major/corginator/Destroy(force, ...) //Transform goobers back if artifact is deleted.
 	. = ..()
-	if(victims.len < 1)
-		return
-	var/mob/living/H
-	var/mob/living/simple_animal/pet/dog/corgi/C
-	for(var/M in 1 to victims.len-1)
-		H = victims[M]
-		C = victims[M+1]
-		if(!istype(H, /mob/living/simple_animal/pet/dog/corgi))
-			transform_back(xenoa, H, C)
+	if(victims.len)
+		for(var/mob/living/simple_animal/pet/dog/corgi/H as() in victims)
+			transform_back(H)
+		target_keys = list()
 
 //============
 // Mirrored, temporarily swaps last two target's minds
@@ -1012,8 +1001,6 @@
 	label_desc = "Transparent: The shape of the Artifact is difficult to percieve. You feel the need to call it, precious..."
 	weight = 25
 	var/list/victims = list()
-	///List of stored icons used for reversion
-	var/list/stored_icons = list()
 
 /datum/xenoartifact_trait/major/invisible/on_item(obj/item/xenoartifact/X, atom/user, atom/item)
 	if(istype(item, /obj/item/laser_pointer))

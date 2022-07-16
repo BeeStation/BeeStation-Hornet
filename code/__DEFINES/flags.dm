@@ -107,6 +107,8 @@ GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 204
 #define ACID_PROOF		(1<<5) //! acid stuck on it doesn't melt it.
 #define INDESTRUCTIBLE	(1<<6) //! doesn't take damage
 #define FREEZE_PROOF	(1<<7) //! can't be frozen
+#define ARTIFACT_PROOF	(1<<8) //! Artifacts have difficulty targetting clothing with this flag
+#define ARTIFACT_PROOF_EXTREME	(1<<9) //! Artifacts cannot target clothing with this flag
 
 //tesla_zap
 #define TESLA_MACHINE_EXPLOSIVE		(1<<0)
