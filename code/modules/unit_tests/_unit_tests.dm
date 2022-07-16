@@ -48,6 +48,7 @@
 #include "check_adjustable_clothing.dm"
 #include "component_tests.dm"
 #include "connect_loc.dm"
+#include "crafting_tests.dm"
 
 // Del the World.
 // This unit test creates and qdels almost every atom in the code, checking for errors with initialization and harddels on deletion.
