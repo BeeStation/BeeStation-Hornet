@@ -142,6 +142,7 @@
 						linked_techweb.researched_genes[data_id] = list()
 						linked_techweb.researched_genes[data_id]["faction"] = all_factions
 						linked_techweb.researched_genes[data_id]["path"] = T
+						linked_techweb.researched_genes[data_id]["name"] = initial(T.name)
 						linked_techweb.researched_genes[data_id]["desc"] = initial(T.desc)
 						linked_techweb.researched_genes[data_id]["category"] = "trait"
 						linked_techweb.researched_genes[data_id]["level"] = 0
@@ -169,6 +170,7 @@
 						linked_techweb.researched_genes[data_id] = list()
 						linked_techweb.researched_genes[data_id]["faction"] = research_faction_type
 						linked_techweb.researched_genes[data_id]["path"] = trait_gene.type
+						linked_techweb.researched_genes[data_id]["name"] = trait_gene.name
 						linked_techweb.researched_genes[data_id]["desc"] = trait_gene.desc
 						linked_techweb.researched_genes[data_id]["category"] = "trait"
 						linked_techweb.researched_genes[data_id]["level"] = 0
@@ -183,6 +185,7 @@
 						linked_techweb.researched_genes[data_id] = list()
 						linked_techweb.researched_genes[data_id]["faction"] = research_faction_type
 						linked_techweb.researched_genes[data_id]["path"] = reagent_gene.reagent_id
+						linked_techweb.researched_genes[data_id]["name"] = reagent_gene.name
 						linked_techweb.researched_genes[data_id]["category"] = "reagent"
 						linked_techweb.researched_genes[data_id]["level"] = 0
 						linked_techweb.researched_genes[data_id]["maxvolume"] = 0
@@ -203,6 +206,7 @@
 				linked_techweb.researched_genes[data_id] = list()
 				linked_techweb.researched_genes[data_id]["faction"] = research_faction_type
 				linked_techweb.researched_genes[data_id]["path"] = family_gene.type
+				linked_techweb.researched_genes[data_id]["name"] = family_gene.name
 				linked_techweb.researched_genes[data_id]["desc"] = family_gene.desc
 				linked_techweb.researched_genes[data_id]["category"] = "family"
 				linked_techweb.researched_genes[data_id]["level"] = 0

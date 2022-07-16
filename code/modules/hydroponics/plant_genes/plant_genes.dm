@@ -53,7 +53,7 @@
 	return plant_gene_flags
 
 /datum/plant_gene/Destroy()
-	if(!plant_gene_flags & PLANT_GENE_QDEL_TARGET)
+	if(!(plant_gene_flags & PLANT_GENE_QDEL_TARGET))
 		CRASH("[src] has been qdel'ed, but it shouldn't. Botany system will have runtime issue from now.")
 	return ..()
 

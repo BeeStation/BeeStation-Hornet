@@ -202,7 +202,8 @@
 	. = L
 
 	L["id"] = DI //I don't know how to get a key only from `var/D`.
-	L["name"] = initial(D["path"].name)
+
+	L["name"] = D["path"]
 	L["faction"] = D["faction"]
 	L["category"] = D["category"]
 	L["level"] = D["level"]

@@ -986,8 +986,8 @@
 			if(each_define == flag_check)
 				if(find_by_number)
 					if(length(random_reagents_list[j]) < find_by_number)
+						. = get_random_reagent_id(flag_check, blacklist_flag, union, return_as_list) // prevents runtime breaking
 						CRASH("random chem: [flag_check] - Bad find_by_number value: [find_by_number] > [length(random_reagents_list[j])]")
-						return get_random_reagent_id(flag_check, blacklist_flag, union, return_as_list) // prevents runtime error
 					return random_reagents_list[j][find_by_number]
 				else if(return_as_list)
 					return random_reagents_list[j]
@@ -1015,8 +1015,8 @@
 	// now we return from a possible list
 	if(find_by_number)
 		if(length(possible) < find_by_number)
+			. = get_random_reagent_id(flag_check, blacklist_flag, union, return_as_list) // prevents runtime breaking
 			CRASH("random chem: [flag_check] - Bad find_by_number value: [find_by_number] > [length(possible)]")
-			return get_random_reagent_id(flag_check, blacklist_flag, union, return_as_list) // prevents runtime error
 		return possible[find_by_number]
 	else if(return_as_list)
 		return possible
