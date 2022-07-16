@@ -32,7 +32,7 @@
 
 	mutatelist = list(/obj/item/seeds/ambrosia/deus)
 	family = /datum/plant_gene/family/weed_hardy
-	genes = list(/datum/plant_gene/trait/perennial, /datum/plant_gene/trait/glow/random)
+	genes = list(/datum/plant_gene/trait/perennial)
 	reagents_set = list(
 		/datum/reagent/consumable/nutriment = list(3, 9),
 		/datum/reagent/consumable/nutriment/vitamin = list(2, 6),
