@@ -1766,5 +1766,5 @@
 
 /datum/reagent/medicine/ashwalker_medicine/on_mob_end_metabolize(mob/living/carbon/M)
 	REMOVE_TRAIT(M, TRAIT_NOCRITDAMAGE, type)
- 	M.remove_language(/datum/language/draconic, TRUE, TRUE, LANGUAGE_DRUGGY)// DRUGGY flag doesn't make lizard lose their draconic
+	M.remove_language(/datum/language/draconic, TRUE, TRUE, LANGUAGE_DRUGGY)// DRUGGY flag doesn't make lizard lose their draconic
 	..()
