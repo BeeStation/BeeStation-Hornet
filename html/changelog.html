@@ -56,6 +56,85 @@
 		-->
 		<div class="commit sansserif">
 
+			<h2 class="date">15 July 2022</h2>
+			<h3 class="author">EvilDragonfiend updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="balance">People's mood is no longer changed/adjusted when they're dead.</li>
+				<li class="refactor">refactored job chat color system to make it following a hud state than a job title. as a result of this, some variables are removed. chat color is now stored in `_DEFINES/jobs.dm` rather than each job dm files.</li>
+				<li class="rscadd">custom jobs now have their own chat color (based on a hud their card has)</li>
+				<li class="tweak">adjusted horrible readability of revenant's dark blue chat color in dark theme chat mode</li>
+				<li class="refactor">some consistent coding in previous custom job title PR to reflect new ones</li>
+				<li class="refactor">procs in "_defines/jobs.dm" are moved to "_helpers/jobs.dm"</li>
+				<li class="bugfix">hotfix for the chat issue</li>
+			</ul>
+
+			<h2 class="date">13 July 2022</h2>
+			<h3 class="author">benbot16 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Failing to get put into a posibrain won't lock you out of other posibrains anymore.</li>
+			</ul>
+			<h3 class="author">itsmeow updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fixes holopad AI message relay using job from crew manifest instead of worn ID</li>
+			</ul>
+
+			<h2 class="date">12 July 2022</h2>
+			<h3 class="author">EvilDragonfiend updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">ling's fake ID card no longer shows a grey hud icon</li>
+			</ul>
+			<h3 class="author">itsmeow updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">Monochromacy quirk and cursed heart blood-red client colors now apply to inventory slots</li>
+			</ul>
+
+			<h2 class="date">11 July 2022</h2>
+			<h3 class="author">itsmeow updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Duplicate pastries category in crafting menu</li>
+				<li class="bugfix">Dank-pockets are ordered correctly in the crafting menu</li>
+			</ul>
+
+			<h2 class="date">10 July 2022</h2>
+			<h3 class="author">Dejaku51 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="code_imp">set_security_level() now uses signals instead of multiple loops</li>
+			</ul>
+			<h3 class="author">EvilDragonfiend, PestoVerde322 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Hud is now tracked based on your card appearance. HoP is now supposed to repaint crews' card in order to give them correct hud icons, or securities(+ghosts) will blame you.</li>
+				<li class="rscadd">every card now has default hud icons. (i.e. Captain's Spare card has a blank command HUD, budget cards have blank department color HUD)</li>
+				<li class="rscadd">added more PDA style options to PDA painter. (deputy, prisoner, heads, unassigned, etc)</li>
+				<li class="refactor">PDA painter is now easy to recognise colourising style easier.</li>
+				<li class="tweak">Some job HUDs are now only available through emaged ID card repainter.</li>
+				<li class="tweak">crew monitor now tracks crew job color based on hud state.</li>
+				<li class="tweak">Assistant id card crew objective is now greentextable when your card is painted even if the job name is still assistant.</li>
+				<li class="rscadd">hud image based defines</li>
+				<li class="refactor">crew manifest is based on hud state.</li>
+				<li class="refactor">PDA painter machine now updates the crew manifest upon ID repainting</li>
+				<li class="refactor">changes to chameleon code and agent card, to make Hud icon update working. Chameleon agent card has earned QoL. They'll get a default job name of a card type you chose once changed.</li>
+				<li class="rscadd">agent card will be randomised upon EMP. (random hud icon, random job name, random icon)</li>
+				<li class="rscadd">broken chameleon agent card (with all wiped access, and unable to copy accesses from another card)</li>
+				<li class="rscadd">broken chameleon kit will have broken chameleon agent card.</li>
+				<li class="rscadd">new hud icons, new card images (blank symbol department color hud icons, new hudking icon)</li>
+				<li class="rscdel">9x9 pixel size 'hudking' hud icon</li>
+				<li class="rscadd">New card types for the purpose of chameleon agent card. (i.e. "their majesty's gold identification card")</li>
+				<li class="tweak">Some card types are now blacklisted from chameleon agent card - because they don't make sense. (i.e changeling fake ones)</li>
+				<li class="tweak">your card paycheck department is now re-assigned based on your hud icon state. if your hud icon is red with job name 'not real security', you are paid by the security budget. the process happens when you repaint a card or give a new job name to a card.</li>
+				<li class="tweak">not all gimmicks are in civilian department anymore. Psychiatrist is medical, and Stage Magician is service like their mime/clown fellows. (VIP and barber are still service)</li>
+			</ul>
+			<h3 class="author">itsmeow updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">All fakedeaths show a defib icon on medhuds instead of a skull</li>
+				<li class="tweak">AI alerts menu looks better and is more consistent with other AI menus</li>
+				<li class="bugfix">AI alerts menu will no longer unfocus the game when updating</li>
+				<li class="bugfix">AI alerts menu can now be closed as expected when unconscious or no longer in AI control</li>
+			</ul>
+			<h3 class="author">ivanmixo updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">attack animations work again</li>
+			</ul>
+
 			<h2 class="date">09 July 2022</h2>
 			<h3 class="author">EvilDragonfiend updated:</h3>
 			<ul class="changes bgimages16">
@@ -64,6 +143,7 @@
 				<li class="rscadd">New key: Amplification module key. It allows you to talk in loud mode through your radio. Useful to Cyborgs and pAIs.</li>
 				<li class="rscadd">New key: Omni radio encryption key. a debug key for admins. Allows you to do everything that related to radio feature.</li>
 				<li class="rscadd">Box of amplification keys to heads' locker. (contains 2 amplification module keys) Give a key to your trustful crew, and make them after you.</li>
+				<li class="tweak">The operation "Brain Surgery" has been reworded to "Brain Recalibration."</li>
 			</ul>
 			<h3 class="author">LodedDiper69 updated:</h3>
 			<ul class="changes bgimages16">
@@ -72,6 +152,7 @@
 			<h3 class="author">Miliviu updated:</h3>
 			<ul class="changes bgimages16">
 				<li class="tweak">Mobs with jaunt type movement can't strip anymore</li>
+				<li class="rscdel">Temporarily reverts the cooldown to become an antagonist after ghosting</li>
 			</ul>
 			<h3 class="author">Penwin0 updated:</h3>
 			<ul class="changes bgimages16">
@@ -88,6 +169,7 @@
 			<h3 class="author">itsmeow updated:</h3>
 			<ul class="changes bgimages16">
 				<li class="rscadd">Brute damage HUD overlay (red vignette) for all simplemobs</li>
+				<li class="bugfix">Vending machines showing wrong stock if there is an item with the same name but different type path</li>
 			</ul>
 
 			<h2 class="date">08 July 2022</h2>
@@ -907,150 +989,6 @@
 			<h3 class="author">d0sboots updated:</h3>
 			<ul class="changes bgimages16">
 				<li class="rscdel">Removed dead drop_item code</li>
-			</ul>
-
-			<h2 class="date">14 May 2022</h2>
-			<h3 class="author">Chirynnn updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Fixed wrong ritual information in the heretic's flesh path.</li>
-			</ul>
-			<h3 class="author">PestoVerde322 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="imageadd">Added new floor borders for normal steel floor and wooden floor</li>
-				<li class="imageadd">Added a new icon for the broken glass light floor</li>
-			</ul>
-			<h3 class="author">PowerfulBacon updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">EMPs no longer drain the charge of energy weapons</li>
-				<li class="tweak">Energy weapons are now temporarilly disabled by EMPs</li>
-				<li class="tweak">Stun batons no longer lose charge when EMPed.</li>
-				<li class="tweak">Stun batons are now temporarilly disabled by EMPs</li>
-				<li class="tweak">Data HUDs will now glitch out when affected by EMPs or emagged</li>
-				<li class="tweak">Machines will now temporarilly not function when EMPed</li>
-				<li class="balance">The icon rifle, pulse rifle and KA are now affeceted by EMPs.</li>
-			</ul>
-			<h3 class="author">Rukofamicom updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="balance">Heirloom toolboxes are now rusted shut and may no longer be used as extra storage space.</li>
-				<li class="bugfix">Fixed fingerless insulated gloves equipment sprite, they are now appropriately yellow instead of white.</li>
-			</ul>
-			<h3 class="author">Salex08 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">heals contracted mobs more properly</li>
-			</ul>
-			<h3 class="author">ivanmixo updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">added a bunch of new tongues</li>
-				<li class="tweak">moved saymods off species datums and onto tongues</li>
-			</ul>
-
-			<h2 class="date">13 May 2022</h2>
-			<h3 class="author">Archemagus updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Cyrillic in radio prefixes</li>
-			</ul>
-			<h3 class="author">Chirynnn updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">This fixed the huge gaps between the first and last name of randomly generated apids.</li>
-			</ul>
-			<h3 class="author">Hardly, Gandalf2k15 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">Vended items now go straight into your hand.</li>
-			</ul>
-			<h3 class="author">Ivniinvi updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">Players are now limited to one positronic brain per round.</li>
-			</ul>
-			<h3 class="author">MNarath1 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="config">Changes default editor settings for dmi files to the new dmi editor extension</li>
-			</ul>
-			<h3 class="author">Penwin0 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscdel">Removes mentions of changeling hivemind chat</li>
-				<li class="bugfix">Headspidering no longer causes a runtime</li>
-				<li class="bugfix">You can no longer headspider in revival stasis for a free aheal later on</li>
-			</ul>
-			<h3 class="author">bluezorua updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscdel">Gondola Pockets from the cargo donkpocket variety crate</li>
-				<li class="tweak">cargo donkpocket variety crate's price has been decreased to 1.5K credits</li>
-			</ul>
-			<h3 class="author">d0sboots updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">batteries are removed properly when removing the power controller from tablets</li>
-			</ul>
-			<h3 class="author">ivanmixo updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">bubble alerts stay on screen longer</li>
-				<li class="spellcheck">fixed punctuation and grammar in bubble alerts</li>
-			</ul>
-
-			<h2 class="date">12 May 2022</h2>
-			<h3 class="author">covertcorvid updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Fixes doing wiring in space</li>
-			</ul>
-			<h3 class="author">d0sboots updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">suit_storage slot now shows the item it has equipped</li>
-			</ul>
-
-			<h2 class="date">11 May 2022</h2>
-			<h3 class="author">PestoVerde322 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="imageadd">Added new icons for the DNA injectors</li>
-				<li class="imageadd">Added new icons for the DNA implanters and their cases</li>
-				<li class="bugfix">The bluespace icon syringe is now more animated</li>
-			</ul>
-
-			<h2 class="date">10 May 2022</h2>
-			<h3 class="author">BetaCentari updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Added hissing, humming and clicking your tongue emotes</li>
-				<li class="rscadd">Added zap emote for ethereals</li>
-				<li class="code_imp">Added unique message option for insect-like mobs (moths, apids and flypeople)</li>
-				<li class="soundadd">Added a dialup sound for IPC players when they are revived</li>
-			</ul>
-			<h3 class="author">PestoVerde322 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="balance">Fireball no longer has a 3 tile wide hitbox (courtesy of GoblinBackwards over in /tg/).</li>
-			</ul>
-			<h3 class="author">ivanmixo updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscdel">removed unused TRAIT_APPRAISAL</li>
-			</ul>
-
-			<h2 class="date">09 May 2022</h2>
-			<h3 class="author">Rukofamicom updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="balance">Yellow slime cores are now cells that recharge over time instead of being effectively infinite.</li>
-				<li class="balance">EMPs now halt regeneration for 30 seconds on slime cores.</li>
-			</ul>
-			<h3 class="author">d0sboots updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Can keybind semicolon</li>
-			</ul>
-
-			<h2 class="date">08 May 2022</h2>
-			<h3 class="author">Penwin0 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Getting Implanted now alerts you about it</li>
-				<li class="bugfix">Headspidering no longer teleports you and you can't headspider after cremation</li>
-			</ul>
-			<h3 class="author">PestoVerde322 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Added a random medkit for Battle royale and Hope reasons.</li>
-				<li class="rscadd">Added a doctor's bag as a dedicated alternative item for the medical aid kit in the future.</li>
-				<li class="imageadd">Brand new sprites for all the medkits and their In-hand icons.</li>
-			</ul>
-			<h3 class="author">PowerfulBacon updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Client disconnect messages will now be immediate, so you will see the message before being disconnected.</li>
-			</ul>
-			<h3 class="author">Rukofamicom updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">Ketamine overdose is now a random severe brain trauma.</li>
 			</ul>
 		</div>
 

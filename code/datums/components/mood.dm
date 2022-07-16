@@ -198,6 +198,9 @@
 /datum/component/mood/proc/setSanity(amount, minimum=SANITY_INSANE, maximum=SANITY_GREAT)
 	var/mob/living/owner = parent
 
+	if(owner.stat == DEAD) // deadman can't feel mood
+		return
+
 	if(amount == sanity)
 		return
 	// If we're out of the acceptable minimum-maximum range move back towards it in steps of 0.5
