@@ -21881,6 +21881,7 @@
 /obj/machinery/plantgenes{
 	pixel_y = 6
 	},
+/obj/item/seeds/random,
 /obj/machinery/camera{
 	c_tag = "Hydroponics";
 	dir = 8;

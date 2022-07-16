@@ -49,9 +49,7 @@
 					/obj/item/seeds/plump = 2,
 					/obj/item/seeds/reishi = 2,
 					/obj/item/seeds/cannabis = 3,
-					/obj/item/seeds/starthistle = 2,)
-	contraband = list(
-					  /obj/item/seeds/random = 2)
+					/obj/item/seeds/starthistle = 2)
 	premium = list(/obj/item/reagent_containers/spray/waterflower = 1)
 	refill_canister = /obj/item/vending_refill/hydroseeds
 	default_price = 10

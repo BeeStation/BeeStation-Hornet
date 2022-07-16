@@ -252,7 +252,7 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 /obj/item/radio/headset/headset_srvsci
 	name = "Botani-science radio headset"
 	desc = "A headset that is a result of the mating between service and science."
-	icon_state = "srv_headset" // need to have its own image
+	icon_state = "sci_headset" // need to have its own image
 	keyslot = new /obj/item/encryptionkey/headset_srvsci
 
 /obj/item/radio/headset/headset_curator

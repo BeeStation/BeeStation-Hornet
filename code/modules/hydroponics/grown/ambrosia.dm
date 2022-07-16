@@ -24,8 +24,6 @@
 	lifespan = 60
 	endurance = 25
 	yield = 6
-	maturation = 1 //temp
-	production = 1 //temp
 	wine_power = 30
 
 	// plant stats
@@ -35,10 +33,6 @@
 	mutatelist = list(/obj/item/seeds/ambrosia/deus)
 	family = /datum/plant_gene/family/weed_hardy
 	genes = list(/datum/plant_gene/trait/perennial, /datum/plant_gene/trait/glow/random)
-	reagents_innate = list(
-		/datum/reagent/consumable/nutriment = list(2, 3, NONE),
-		/datum/reagent/consumable/nutriment/vitamin = list(2, 3, PLANT_GENE_REAGENT_ADJUSTABLE),
-		/datum/reagent/medicine/bicaridine = list(2, 3, PLANT_GENE_COMMON_REMOVABLE))
 	reagents_set = list(
 		/datum/reagent/consumable/nutriment = list(3, 9),
 		/datum/reagent/consumable/nutriment/vitamin = list(2, 6),

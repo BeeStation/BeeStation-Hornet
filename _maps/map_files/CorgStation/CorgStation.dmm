@@ -17093,6 +17093,7 @@
 	pixel_x = 1;
 	pixel_y = 7
 	},
+/obj/item/seeds/random,
 /obj/structure/cable/yellow,
 /turf/open/floor/plasteel,
 /area/hydroponics)

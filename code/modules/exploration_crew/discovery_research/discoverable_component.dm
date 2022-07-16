@@ -33,30 +33,11 @@
 
 /datum/component/discoverable/proc/discovery_scan(datum/techweb/linked_techweb, mob/user, faction)
 	//Already scanned our atom.
-	var/shows_effect = FALSE
+	var/shows_effect = FALSE // This makes effects and sounds even if you only do plant search without getting points.
 	var/atom/A = parent
 
 	//------------------------------------------------------------------------------------
 	//-------------------------------------- BOTANY --------------------------------------
-	// Need to do this for hydroponics tray plants
-	if(istype(A, /obj/machinery/hydroponics))
-		var/obj/machinery/hydroponics/M = A
-		if(isnull(M.myseed))
-			to_chat(user, "<span class='warning'>There's no growing plant in [M].</span>")
-			return
-		if(!M.harvest)
-			to_chat(user, "<span class='warning'>[M.myseed.plantname] isn't ready for harvest.</span>")
-			return
-		if(M.dead)
-			to_chat(user, "<span class='warning'>[M.myseed.plantname] is dead...</span>")
-			return
-		var/obj/item/seeds/S = M.myseed
-		var/obj/item/reagent_containers/food/snacks/grown/SP = new S.product
-		if(!isnull(SP))
-			tryScan(SP)
-			qdel(SP)
-		return
-
 	// Botany scan
 	if(istype(A, /obj/item/reagent_containers/food/snacks/grown) || istype(A, /obj/item/grown))
 		var/obj/item/reagent_containers/food/snacks/grown/P = A
@@ -75,7 +56,7 @@
 	//-----------------------------------------------------------------------------------------
 
 	// Standard scan check
-	if(faction & BOTANY_RESEARCHED_NANOTRASEN)
+	if(faction & BOTANY_RESEARCHED_NANOTRASEN) // only Nanotrasen discovery scanner will get points
 		if(scanned)
 			to_chat(user, "<span class='warning'>[A] has already been analysed.</span>")
 			return

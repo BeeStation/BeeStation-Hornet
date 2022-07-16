@@ -426,6 +426,12 @@
 /obj/machinery/plantgenes/seedvault{
 	pixel_y = 6
 	},
+/obj/item/seeds/random,
+/obj/item/seeds/random,
+/obj/item/seeds/random,
+/obj/item/discovery_scanner/lifebringer,
+/obj/item/discovery_scanner/lifebringer,
+/obj/item/discovery_scanner/lifebringer,
 /obj/structure/table/wood,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4

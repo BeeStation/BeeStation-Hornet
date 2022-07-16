@@ -2107,7 +2107,7 @@
 /datum/supply_pack/organic/exoticseeds
 	name = "Exotic Seeds Crate"
 	desc = "Any entrepreneuring botanist's dream. Contains fourteen different seeds, including three replica-pod seeds and two mystery seeds!"
-	cost = 1000
+	cost = 10000
 	access_budget = ACCESS_HYDROPONICS
 	contains = list(/obj/item/seeds/nettle,
 					/obj/item/seeds/replicapod,

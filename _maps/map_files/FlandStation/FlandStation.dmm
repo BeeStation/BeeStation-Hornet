@@ -43051,6 +43051,7 @@
 /obj/machinery/plantgenes{
 	pixel_y = 6
 	},
+/obj/item/seeds/random,
 /obj/effect/turf_decal/delivery,
 /obj/structure/table,
 /obj/machinery/light_switch{

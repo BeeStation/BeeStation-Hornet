@@ -58,16 +58,20 @@
 		if(prob(power))
 			C.electrocute_act(round(power), G, 1, 1)
 			if(C?.ckey != G.fingerprintslast)
-				else if(p_method & PLANT_ACTIVATED_SLIP)
-					C.investigate_log("has been slipped, and electrocuted by an electric plant at [AREACOORD(G)] with power of [power]. Last fingerprint: [G.fingerprintslast].", INVESTIGATE_BOTANY)
-					log_game("[key_name(C)] has been slipped, and electrocute by an electric plant at [AREACOORD(G)] with power of [power]. Last fingerprint: [G.fingerprintslast]. #botany.")
+				if(p_method & PLANT_ACTIVATED_SLIP)
+					C.investigate_log("has been slipped, and electrocuted by an electric plant([G]) at [AREACOORD(G)] with power of [power]. Last pickup ckey: [G.fingerprintslast].", INVESTIGATE_BOTANY)
+					log_game("#botany. [key_name(C)] has been slipped, and electrocute by an electric plant([G]) at [AREACOORD(G)] with power of [power]. Last pickup ckey: [G.fingerprintslast].")
 				else if(p_method & PLANT_ACTIVATED_ATTACK)
-					C.investigate_log("has been attacked, and electrocuted by an electric plant at [AREACOORD(G)] with power of [power]. Last fingerprint: [G.fingerprintslast].", INVESTIGATE_BOTANY)
-					log_game("[key_name(C)] has been attacked and electrocute by an electric plant at [AREACOORD(G)] with power of [power]. Last fingerprint: [G.fingerprintslast]. #botany.")
+					C.investigate_log("has been attacked, and electrocuted by an electric plant([G]) at [AREACOORD(G)] with power of [power]. Last pickup ckey: [G.fingerprintslast].", INVESTIGATE_BOTANY)
+					log_game("#botany. [key_name(C)] has been attacked and electrocute by an electric plant([G]) at [AREACOORD(G)] with power of [power]. Last pickup ckey: [G.fingerprintslast].")
 				else if(p_method & PLANT_ACTIVATED_THROW)
 					var/mob/thrown_by = G.thrownby?.resolve()
-					C.investigate_log("has been hit by a thrown electric plant at [AREACOORD(G)] with power of [power]. Thrower: [(thrown_by || "(unknown)")]. Last fingerprint: [G.fingerprintslast].", INVESTIGATE_BOTANY)
-					log_combat((thrown_by || "(unknown)"), C, "hit and electrocuted", G, "at [AREACOORD(G)] with power of [power]. #botany.")
+					C.investigate_log("has been hit by a thrown electric plant([G]) at [AREACOORD(G)] with power of [power]. Thrower: [(thrown_by || "(unknown)")]. Last pickup ckey: [G.fingerprintslast].", INVESTIGATE_BOTANY)
+					log_game("#botany. [(thrown_by || "(unknown)")] has thrown an electric plant([G]) to [key_name(target)], resulting them to be electrocuted with power of [power], at [AREACOORD(G)]. Last pickup ckey: [G.fingerprintslast].")
+				else
+					C.investigate_log("has been electrocuted by an electric plant([G]) at [AREACOORD(G)] with power of [power], but the attack method is unknown. Last pickup ckey: [G.fingerprintslast].", INVESTIGATE_BOTANY)
+					log_game("#botany. [key_name(C)] has been electrocute by an electric plant([G]) at [AREACOORD(G)] with power of [power], but the attack method is unknown. Last pickup ckey: [G.fingerprintslast].")
+					CRASH("Plant trait is activated by unknown method. Method: [p_method]")
 
 
 	/**

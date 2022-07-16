@@ -33,7 +33,7 @@
 	var/production = 6     // Changes the amount of time needed for a plant to become harvestable.
 	var/yield = 3          // Amount of growns created per harvest. If is -1, the plant/shroom/weed is never meant to be harvested.
 	var/weed_rate = 1      //If the chance below passes, then this many weeds sprout during growth
-	var/weed_chance = 5    //Percentage chance per tray update to grow weeds
+	var/weed_chance = 20    //Percentage chance per tray update to grow weeds
 
 	// Plant stats
 	var/bitesize_mod = 5      //How much do you eat - default 5u
@@ -57,8 +57,8 @@
 
 		reagents_innate = list(
 			/datum/reagent/consumable/nutriment = list(1, 2, NONE), // FLAG: Can't remove, Can't adjust
-			/datum/reagent/consumable/nutriment/vitamin = list(3, 4, PLANT_GENE_REAGENT_ADJUSTABLE), // FLAG: can't remove
-			/datum/reagent/consumable/banana = list(5, 7, PLANT_GENE_COMMON_REMOVABLE)) // FLAG: Can't adjust
+			/datum/reagent/consumable/nutriment/vitamin = list(3, 4, PLANT_GENE_REAGENT_ADJUSTABLE), // FLAG: only can adjust, not removable
+			/datum/reagent/consumable/banana = list(5, 7, PLANT_GENE_COMMON_REMOVABLE)) // FLAG: only can remove, not adjustable
 	 */
 
 	var/research_identifier

@@ -48,18 +48,24 @@
 
 		if(L.ckey != G.fingerprintslast)
 			if(p_method & PLANT_ACTIVATED_SLIP)
-				L.investigate_log("been slipped on plant at [AREACOORD(T)], being injected him with [G.reagents.log_list()]. Last pickup ckey: [G.fingerprintslast].", INVESTIGATE_BOTANY)
+				L.investigate_log("been slipped on plant([G]) at [AREACOORD(T)], being injected him with [G.reagents.log_list()]. Last pickup ckey: [G.fingerprintslast].", INVESTIGATE_BOTANY)
+				log_game("#botany. [key_name(L)] has slipped on a plant([G]) at [AREACOORD(T)], being injected with [G.reagents.log_list()]. Last pickup ckey: [G.fingerprintslast].")
 				log_combat(L, G, "slipped on the", G, ", being injected with [G.reagents.log_list()]. Last pickup ckey: [G.fingerprintslast]. #botany.")
 			else if(p_method & PLANT_ACTIVATED_ATTACK)
-				L.investigate_log("been prickled by a plant at [AREACOORD(T)], being injected them with [G.reagents.log_list()]. Last pickup ckey: [G.fingerprintslast].", INVESTIGATE_BOTANY)
-				log_combat(G.thrownby, L, "hit", G, "at [AREACOORD(T)], being injected with [G.reagents.log_list()]. Last pickup ckey: [G.fingerprintslast]. #botany.")
+				L.investigate_log("been attacked by a plant at [AREACOORD(T)], being injected them with [G.reagents.log_list()]. Last pickup ckey: [G.fingerprintslast].", INVESTIGATE_BOTANY)
+				log_game("#botany. [key_name(L)] has been attacked by a plant([G]) at [AREACOORD(T)], being injected with [G.reagents.log_list()]. Last pickup ckey: [G.fingerprintslast].")
 			else if(p_method & PLANT_ACTIVATED_THROW)
 				var/mob/thrown_by = G.thrownby?.resolve()
 				L.investigate_log("been prickled by a plant at [AREACOORD(T)], being injected with [G.reagents.log_list()] from being hit by a THROWN plant. Thrower: [(thrown_by || "(unknown error)")]. Last pickup ckey: [G.fingerprintslast].", INVESTIGATE_BOTANY)
-				log_combat((thrown_by || "(unknown error)"), L, "has thrown a plant to", G, "at [AREACOORD(T)], being injected with [G.reagents.log_list()]. Thrower: [(thrown_by || "(unknown error)")]. Last pickup ckey: [G.fingerprintslast]. #botany.")
+				log_game("#botany. [(thrown_by || "(unknown error)")] has thrown to [key_name(L)] by a plant([G]) at [AREACOORD(T)], injecting them with [G.reagents.log_list()]. Last pickup ckey: [G.fingerprintslast].")
+			else
+				L.investigate_log("been prickled by a plant at [AREACOORD(T)], being injected with [G.reagents.log_list()], but the attack method is unknown. Last pickup ckey: [G.fingerprintslast].", INVESTIGATE_BOTANY)
+				log_game("#botany. [key_name(L)] has been prickled by a plant([G]) at [AREACOORD(T)], being injected with [G.reagents.log_list()], but the attack method is unknown. Last pickup ckey: [G.fingerprintslast].")
+				CRASH("Plant trait is activated by unknown method. Method: [p_method]")
+
 
 	if(selfdesctruct)
-		selfdesctruct = FALSE
+		selfdesctruct = FALSE //This datum exists to every plant. You need to turn off.
 		return TRUE
 
 
@@ -76,7 +82,7 @@
 		potentpower = round(potentpower/2)
 	for(var/datum/reagent/R in G.reagents.reagent_list)
 		var/amt = R.volume > R.metabolization_rate*potentpower ? R.metabolization_rate*potentpower : R.volume
-		if(R.metabolization_rate > 100)
+		if(R.metabolization_rate >= 5)
 			amt = R.volume < 5 ? R.volume : 5
 		G.reagents.reaction(L, INJECT)
 		G.reagents.trans_id_to(L, R, amt)

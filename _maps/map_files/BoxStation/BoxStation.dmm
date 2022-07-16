@@ -47438,6 +47438,7 @@
 /obj/machinery/plantgenes{
 	pixel_y = 6
 	},
+/obj/item/seeds/random,
 /turf/open/floor/plasteel,
 /area/hydroponics)
 "oeU" = (

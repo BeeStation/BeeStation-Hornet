@@ -49,7 +49,6 @@
 
 /obj/machinery/hydroponics/Initialize(mapload, obj/machinery/hydroponics)
 	. = ..()
-	AddComponent(/datum/component/discoverable, 0)
 	fill_nutri()
 
 /obj/machinery/hydroponics/proc/fill_nutri(nutri_type=BOTANY_NUTRI_EZNUTRI)
@@ -146,10 +145,6 @@
 			else
 				if(F.family_flags & PLANT_FAMILY_NEEDWEED)
 					adjustHealth(-F.weed_damage)
-
-			if(weedlevel >= 10 && prob(50)) // At this point the plant is kind of fucked. Weeds can overtake the plant spot.yseed)
-				if(F.family_flags & PLANT_FAMILY_WEEDINVASIONIMMUNE) // If a normal plant
-					weedinvasion()
 			//---------------------------------------------------------------------
 			//Pest-----------------------------------------------------------------
 			eat = FALSE
@@ -331,7 +326,7 @@
 
 		// Weeed invasion
 		// it should be here to work for dead plants
-		if(weedlevel >= 10 && prob(50)) // At this point the plant is kind of fucked. Weeds can overtake the plant spot.
+		if(weedlevel >= 5 && prob(weedlevel*5))
 			weedinvasion() // Weed invasion into empty tray
 			needs_update = 1
 		if (needs_update)
@@ -711,9 +706,10 @@
 
 	else if(istype(O, /obj/item/cultivator))
 		if(weedlevel > 0)
-			user.visible_message("[user] uproots the weeds.", "<span class='notice'>You remove the weeds from [src].</span>")
-			weedlevel = 0
-			update_icon()
+			if(O.use_tool(src, user, 20, volume=50))
+				user.visible_message("[user] uproots the weeds.", "<span class='notice'>You remove the weeds from [src].</span>")
+				weedlevel = 0
+				update_icon()
 		else
 			to_chat(user, "<span class='warning'>This plot is completely devoid of weeds! It doesn't need uprooting.</span>")
 

@@ -12410,6 +12410,7 @@
 /obj/machinery/plantgenes{
 	pixel_y = 6
 	},
+/obj/item/seeds/random,
 /obj/structure/table/wood,
 /turf/open/floor/grass,
 /area/hydroponics)

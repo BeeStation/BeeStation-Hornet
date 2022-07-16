@@ -45475,6 +45475,7 @@
 /obj/machinery/plantgenes{
 	pixel_y = 6
 	},
+/obj/item/seeds/random,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},

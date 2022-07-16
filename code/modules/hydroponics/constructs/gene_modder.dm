@@ -36,7 +36,7 @@
 
 
 
-	var/unit_guage = 0.01
+	var/unit_guage = 0.1
 	var/stat_used = 0
 	var/bonus_stat = 0
 
@@ -620,7 +620,7 @@
 			/datum/plant_gene/core/volume_mod,
 			/datum/plant_gene/core/bitesize_mod,
 			/datum/plant_gene/core/bite_type,
-			/datum/plant_gene/core/distill_reagent,
+			///datum/plant_gene/core/distill_reagent, //temporary disable
 			/datum/plant_gene/core/wine_power,
 			/datum/plant_gene/core/rarity)
 		for(var/a in gene_paths)

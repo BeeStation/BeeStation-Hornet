@@ -4353,6 +4353,9 @@
 "pE" = (
 /obj/item/discovery_scanner/centcom,
 /obj/item/discovery_scanner/centcom,
+/obj/item/seeds/random,
+/obj/item/seeds/random,
+/obj/item/seeds/random,
 /obj/machinery/plantgenes/centcom,
 /obj/effect/turf_decal/tile/green{
 	dir = 1
