@@ -1,5 +1,0 @@
-author: itsmeow
-delete-after: true
-changes:
-  - bugfix: Invisible mobs can now hear speech (includes revenant, AI eye with surveillance
-      upgrade)
