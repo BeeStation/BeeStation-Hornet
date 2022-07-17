@@ -186,7 +186,7 @@
 	for(var/area/space/S in theareas)
 		theareas -= S
 
-	if(!theareas||!theareas.len)
+	if(!length(theareas))
 		return
 
 	var/area/thearea = pick(theareas)
