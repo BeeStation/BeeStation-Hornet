@@ -92,7 +92,7 @@ SUBSYSTEM_DEF(parallax)
 		return
 	//If we haven't updated yet, instantly update
 	if (updater?.last_parallax_update_tick < times_fired)
-		if ((throttle_ghosts && isobserver(C.mob)) || (throttle_all))
+		if ((throttle_ghosts && isobserver(updater.mob)) || (throttle_all))
 			updater?.mob?.hud_used?.freeze_parallax()
 		else
 			updater?.mob?.hud_used?.update_parallax()
