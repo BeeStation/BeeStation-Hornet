@@ -205,8 +205,8 @@
 			if(O.density)
 				clear = 0
 				break
-			if(clear)
-				L+=T
+		if(clear)
+			L+=T
 
 	if(!L)
 		return
