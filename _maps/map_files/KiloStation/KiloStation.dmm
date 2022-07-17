@@ -42609,8 +42609,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
-/obj/machinery/smartfridge/disks{
-	pixel_x = 4;
+/obj/machinery/plantgenes{
 	pixel_y = 6
 	},
 /turf/open/floor/plasteel/dark,

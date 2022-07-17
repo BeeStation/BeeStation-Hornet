@@ -44265,8 +44265,8 @@
 /turf/open/floor/plasteel/white,
 /area/medical/surgery)
 "kEW" = (
-/obj/machinery/smartfridge/disks{
-	pixel_y = 2
+/obj/machinery/plantgenes{
+	pixel_y = 6
 	},
 /obj/structure/table/wood,
 /turf/open/floor/grass,

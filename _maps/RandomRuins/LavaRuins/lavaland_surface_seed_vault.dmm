@@ -354,8 +354,8 @@
 /area/ruin/powered/seedvault)
 "zi" = (
 /obj/structure/table/wood,
-/obj/machinery/smartfridge/disks{
-	pixel_y = 2
+/obj/machinery/plantgenes{
+	pixel_y = 6
 	},
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4/lavaland{
 	dir = 8

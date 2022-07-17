@@ -31569,8 +31569,8 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/machinery/smartfridge/disks{
-	pixel_y = 2
+/obj/machinery/plantgenes{
+	pixel_y = 6
 	},
 /obj/structure/table,
 /turf/open/floor/plasteel,

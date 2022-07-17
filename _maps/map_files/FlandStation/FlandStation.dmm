@@ -45052,8 +45052,8 @@
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/tile/neutral/tile_full,
 /obj/structure/table,
-/obj/machinery/smartfridge/disks{
-	pixel_y = 2
+/obj/machinery/plantgenes{
+	pixel_y = 6
 	},
 /turf/open/floor/plasteel,
 /area/hydroponics)
