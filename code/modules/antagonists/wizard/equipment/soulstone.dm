@@ -88,7 +88,7 @@
 		return
 	if(M.mind && M.mind.hasSoul)
 		var/mob/dead/observer/O = M.mind.get_ghost(TRUE)
-		if(O.can_reenter_corpse)
+		if(O && !O.can_reenter_corpse)
 			to_chat(user, "<span class='warning> Otherworldly forces have already claimed the soul of this body.</span>")
 			return
 	if(spent)
