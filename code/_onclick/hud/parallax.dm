@@ -6,6 +6,7 @@
 	var/parallax_movedir = 0
 	var/parallax_layers_max = 4
 	var/parallax_animate_timer
+	var/frozen_parallax
 
 /datum/hud/proc/create_parallax(mob/viewmob)
 	var/mob/screenmob = viewmob || mymob
@@ -161,6 +162,25 @@
 		animate(L, transform = matrix(), time = T, loop = -1)
 		animate(transform = newtransform, time = 0, loop = -1)
 
+/datum/hud/proc/freeze_parallax()
+	var/client/C = mymob.client
+	var/turf/posobj = get_turf(C.eye)
+	if(!posobj)
+		return
+	var/area/areaobj = posobj.loc
+
+	// Update the movement direction of the parallax if necessary (for shuttles)
+	set_parallax_movedir(areaobj.parallax_movedir, FALSE)
+
+	for(var/thing in C.parallax_layers)
+		var/atom/movable/screen/parallax_layer/L = thing
+		if (L.view_sized != C.view)
+			L.update_o(C.view)
+		if(!C.frozen_parallax)
+			L.update_status(mymob)
+			L.screen_loc = "CENTER-7:0,CENTER-7:0"
+			C.frozen_parallax = TRUE
+
 /datum/hud/proc/update_parallax()
 	var/client/C = mymob.client
 	var/turf/posobj = get_turf(C.eye)
@@ -286,7 +306,7 @@
 
 /atom/movable/screen/parallax_layer/random
 	blend_mode = BLEND_OVERLAY
-	speed = 3
+	speed = 2.6
 	layer = 3
 
 /atom/movable/screen/parallax_layer/random/space_gas

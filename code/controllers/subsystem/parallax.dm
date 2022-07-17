@@ -14,6 +14,12 @@ SUBSYSTEM_DEF(parallax)
 	//Amount of ticks between the parallax being allowed to freely fire without going into the queue
 	var/parallax_free_fire_delay_ticks = 10
 
+	//Check pop limits
+	var/throttle_ghosts = FALSE
+	var/throttle_all = FALSE
+	var/throttle_ghost_pop = 0
+	var/throttle_all_pop = 0
+
 //These are cached per client so needs to be done asap so people joining at roundstart do not miss these.
 /datum/controller/subsystem/parallax/PreInit()
 	. = ..()
@@ -22,6 +28,8 @@ SUBSYSTEM_DEF(parallax)
 		random_parallax_color = pick(COLOR_TEAL, COLOR_GREEN, COLOR_SILVER, COLOR_YELLOW, COLOR_CYAN, COLOR_ORANGE, COLOR_PURPLE)//Special color for random_layer1. Has to be done here so everyone sees the same color.
 	planet_y_offset = rand(100, 160)
 	planet_x_offset = rand(100, 160)
+	throttle_ghost_pop = CONFIG_GET(number/parallax_ghost_disable_pop)
+	throttle_all_pop = CONFIG_GET(number/parallax_disable_pop)
 
 /datum/controller/subsystem/parallax/Initialize(start_timeofday)
 	. = ..()
@@ -37,6 +45,9 @@ SUBSYSTEM_DEF(parallax)
 		currentrun = queued
 		queued = temp
 		current_run_pointer = 1
+		//Check client count
+		throttle_ghosts = throttle_ghost_pop && length(GLOB.clients) > throttle_ghost_pop
+		throttle_all = throttle_all_pop && length(GLOB.clients) > throttle_all_pop
 	//Begin processing the processing queue
 	while(current_run_pointer <= length(currentrun))
 		//Use a pointer, less wasted processing than removing from the list
@@ -48,7 +59,10 @@ SUBSYSTEM_DEF(parallax)
 			continue
 		C?.parallax_update_queued = FALSE
 		//Do the parallax update (Move it to the correct location)
-		C?.mob?.hud_used?.update_parallax()
+		if ((throttle_ghosts && isobserver(C.mob)) || (throttle_all))
+			C?.mob?.hud_used?.freeze_parallax()
+		else
+			C?.mob?.hud_used?.update_parallax()
 		//Tick check to prevent overrunning
 		if(MC_TICK_CHECK)
 			return
