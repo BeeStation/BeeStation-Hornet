@@ -200,10 +200,10 @@
 		if(T.density)
 			continue
 
-		var/clear = 1
+		var/clear = TRUE
 		for(var/obj/O in T)
 			if(O.density)
-				clear = 0
+				clear = FALSE
 				break
 		if(clear)
 			L+=T
