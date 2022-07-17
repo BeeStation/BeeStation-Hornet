@@ -5,6 +5,7 @@
 	icon_state = "seed-starthistle"
 	species = "starthistle"
 	plantname = "Starthistle"
+	product = /obj/item/reagent_containers/food/snacks/grown/starthistle
 	lifespan = 70
 	endurance = 50 // damm pesky weeds
 	maturation = 5
@@ -16,6 +17,7 @@
 	genes = list(/datum/plant_gene/family/weed_hardy)
 	mutatelist = list(/obj/item/seeds/galaxythistle)
 
+/*
 /obj/item/seeds/starthistle/harvest(mob/user)
 	var/obj/machinery/hydroponics/parent = loc
 	var/seed_count = yield
@@ -26,7 +28,18 @@
 			var/obj/item/seeds/starthistle/harvestseeds = Copy()
 			harvestseeds.forceMove(output_loc)
 
-	parent.update_tray()
+	parent.update_tray()*/
+
+/obj/item/reagent_containers/food/snacks/grown/starthistle
+	seed = /obj/item/seeds/starthistle
+	name = "starthistle flower"
+	desc = "starthistle flower."
+	icon_state = "starthistle"
+	filling_color = "#2d7e2d"
+	bitesize_mod = 3
+	foodtype = VEGETABLES
+	wine_power = 35
+	tastes = list("thistle" = 2, "starthistle" = 1)
 
 //Galaxy Thistle
 /obj/item/seeds/galaxythistle
