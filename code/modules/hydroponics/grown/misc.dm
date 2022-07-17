@@ -17,7 +17,7 @@
 	genes = list(/datum/plant_gene/family/weed_hardy)
 	mutatelist = list(/obj/item/seeds/galaxythistle)
 
-/*
+/**
 /obj/item/seeds/starthistle/harvest(mob/user)
 	var/obj/machinery/hydroponics/parent = loc
 	var/seed_count = yield
