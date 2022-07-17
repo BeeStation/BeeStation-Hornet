@@ -616,6 +616,13 @@
 	if(S.has_reagent(/datum/reagent/toxin/mutagen, 1))
 		supplyNutriment(BOTANY_NUTRI_MUTAGEN, round(S.get_reagent_amount(/datum/reagent/toxin/mutagen) * 1))
 
+	// It is water!
+	if(S.has_reagent(/datum/reagent/water, 1))
+		adjustWater(round(S.get_reagent_amount(/datum/reagent/water) * 1))
+
+	if(S.has_reagent(/datum/reagent/water/holywater, 1))
+		adjustWater(round(S.get_reagent_amount(/datum/reagent/water/holywater) * 1))
+
 
 /obj/machinery/hydroponics/attackby(obj/item/O, mob/user, params)
 	//Called when mob user "attacks" it with object O
