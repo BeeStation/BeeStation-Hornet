@@ -195,14 +195,16 @@
 	for(var/turf/T in get_area_turfs(thearea.type))
 		if(T.get_virtual_z_level() != affected_mob.get_virtual_z_level())
 			continue
-		if(T.name == "space")
+		if(isspaceturf(T))
 			continue
-		if(!T.density)
-			var/clear = 1
-			for(var/obj/O in T)
-				if(O.density)
-					clear = 0
-					break
+		if(T.density)
+			continue
+
+		var/clear = 1
+		for(var/obj/O in T)
+			if(O.density)
+				clear = 0
+				break
 			if(clear)
 				L+=T
 
@@ -211,5 +213,3 @@
 
 	if(do_teleport(affected_mob, pick(L), channel = TELEPORT_CHANNEL_MAGIC, no_effects = TRUE))
 		affected_mob.say("SCYAR NILA [uppertext(thearea.name)]!", forced = "wizarditis teleport")
-
-	return
