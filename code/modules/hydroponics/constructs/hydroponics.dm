@@ -116,8 +116,8 @@
 			//Weed/Pest growing----------------------------------------------------------
 			// Sufficient water level and nutrient level = spawns weeds
 			if(waterlevel >10 && nutrilevel >0)
-				if(myseed && prob(seed.weed_chance))
-					adjustWeeds(seed.weed_rate)
+				if(myseed && prob(myseed.weed_chance))
+					adjustWeeds(myseed.weed_rate)
 			// On each tick, there's a 5 percent chance the pest population will increase
 			if(prob(5))
 				adjustPests(F.pest_adjust)
