@@ -13,7 +13,6 @@
 		"Service (Custom)" = "rawservice",
 		"Head of Personnel" = "hop",
 		"Assistant" = "id",
-		"Botanist" = "serv",
 		"Bartender" = "serv",
 		"Cook" = "serv",
 		"Janitor" = "janitor",
@@ -32,6 +31,7 @@
 		// R&D
 		"Science (Custom)" = "rawscience",
 		"Research Director" = "rd",
+		"Botanist" = "sci",
 		"Science" = "sci",
 		"Roboticist" = "roboticist",
 		"Exploration Crew" = "exploration",
@@ -92,7 +92,6 @@
 		"Assistant" = JOB_HUD_ASSISTANT,
 		"Bartender" = JOB_HUD_BARTENDER,
 		"Cook" = JOB_HUD_COOK,
-		"Botanist" = JOB_HUD_BOTANIST,
 		"Curator" = JOB_HUD_CURATOR,
 		"Chaplain" = JOB_HUD_CHAPLAIN,
 		"Janitor" = JOB_HUD_JANITOR,
@@ -113,6 +112,7 @@
 		"Research Director" = JOB_HUD_RESEARCHDIRECTOR,
 		"Scientist" = JOB_HUD_SCIENTIST,
 		"Roboticist" = JOB_HUD_ROBOTICIST,
+		"Botanist" = JOB_HUD_BOTANIST,
 		"Exploration Crew" = JOB_HUD_EXPLORATIONCREW,
 
 		// Engineering

@@ -326,7 +326,7 @@
 
 		// Weeed invasion
 		// it should be here to work for dead plants
-		if(weedlevel >= 5 && prob(weedlevel*5))
+		if(weedlevel >= 8 && prob(weedlevel*5))
 			weedinvasion() // Weed invasion into empty tray
 			needs_update = 1
 		if (needs_update)
