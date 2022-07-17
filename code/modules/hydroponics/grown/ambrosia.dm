@@ -38,7 +38,7 @@
 		/datum/reagent/consumable/nutriment/vitamin = list(2, 6),
 		/datum/reagent/toxin = list(5, 15),
 		/datum/reagent/medicine/bicaridine = list(5, 15),
-		/datum/reagent/medicine/kelotane = list(5, 5),
+		/datum/reagent/medicine/kelotane = list(5, 15),
 		/datum/reagent/drug/space_drugs = list(5, 1))
 
 /obj/item/reagent_containers/food/snacks/grown/ambrosia/vulgaris
