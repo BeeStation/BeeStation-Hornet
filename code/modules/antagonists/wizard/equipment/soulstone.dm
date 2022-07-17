@@ -86,6 +86,11 @@
 		user.Unconscious(100)
 		to_chat(user, "<span class='userdanger'>Your body is wracked with debilitating pain!</span>")
 		return
+	if(M.mind && M.mind.hasSoul)
+		var/mob/dead/observer/O = M.mind.get_ghost(TRUE)
+		if(O.can_reenter_corpse)
+			to_chat(user, "<span class='warning> Otherworldly forces have already claimed the soul of this body.</span>")
+			return
 	if(spent)
 		to_chat(user, "<span class='warning'>There is no power left in the shard.</span>")
 		return
