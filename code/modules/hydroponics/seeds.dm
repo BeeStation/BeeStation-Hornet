@@ -562,13 +562,13 @@
 				to_chat(world, "[seed.name] ([seed.type]) lacks the [seed.icon_harvest] icon!")
 
 /obj/item/seeds/proc/randomize_stats(given_identifier)
-	var/list/chances = rand_LCM(given_identifier, maximum=101, flat=0, numbers_of_return=4)
+	var/list/chances = rand_LCM(given_identifier, maximum=101, flat=1, numbers_of_return=4)
 	set_potency(chances[1])
 	set_lifespan(chances[2])
 	set_endurance(chances[3])
 	set_weed_chance(chances[4])
 
-	chances = rand_LCM(given_identifier, maximum=11, flat=0, numbers_of_return=3)
+	chances = rand_LCM(given_identifier, maximum=11, flat=1, numbers_of_return=3)
 	set_yield(chances[1])
 	set_production(chances[2])
 	set_weed_rate(chances[3])
