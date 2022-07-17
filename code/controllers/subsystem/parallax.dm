@@ -28,12 +28,12 @@ SUBSYSTEM_DEF(parallax)
 		random_parallax_color = pick(COLOR_TEAL, COLOR_GREEN, COLOR_SILVER, COLOR_YELLOW, COLOR_CYAN, COLOR_ORANGE, COLOR_PURPLE)//Special color for random_layer1. Has to be done here so everyone sees the same color.
 	planet_y_offset = rand(100, 160)
 	planet_x_offset = rand(100, 160)
-	throttle_ghost_pop = CONFIG_GET(number/parallax_ghost_disable_pop)
-	throttle_all_pop = CONFIG_GET(number/parallax_disable_pop)
 
 /datum/controller/subsystem/parallax/Initialize(start_timeofday)
 	. = ..()
 	RegisterSignal(SSdcs, COMSIG_GLOB_MOB_LOGGED_IN, .proc/on_mob_login)
+	throttle_ghost_pop = CONFIG_GET(number/parallax_ghost_disable_pop)
+	throttle_all_pop = CONFIG_GET(number/parallax_disable_pop)
 
 /datum/controller/subsystem/parallax/fire(resumed = 0)
 	//Swap the 2 lists
