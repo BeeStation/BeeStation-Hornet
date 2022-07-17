@@ -46,8 +46,8 @@ SUBSYSTEM_DEF(parallax)
 		queued = temp
 		current_run_pointer = 1
 		//Check client count
-		throttle_ghosts = throttle_ghost_pop && length(GLOB.clients) > throttle_ghost_pop
-		throttle_all = throttle_all_pop && length(GLOB.clients) > throttle_all_pop
+		throttle_ghosts = throttle_ghost_pop && length(GLOB.clients) >= throttle_ghost_pop
+		throttle_all = throttle_all_pop && length(GLOB.clients) >= throttle_all_pop
 	//Begin processing the processing queue
 	while(current_run_pointer <= length(currentrun))
 		//Use a pointer, less wasted processing than removing from the list
@@ -92,7 +92,10 @@ SUBSYSTEM_DEF(parallax)
 		return
 	//If we haven't updated yet, instantly update
 	if (updater?.last_parallax_update_tick < times_fired)
-		updater?.mob?.hud_used?.update_parallax()
+		if ((throttle_ghosts && isobserver(C.mob)) || (throttle_all))
+			updater?.mob?.hud_used?.freeze_parallax()
+		else
+			updater?.mob?.hud_used?.update_parallax()
 		//Don't allow an instant update on the next fire, to maintain parallax_free_fire_delay_ticks fire per tick max
 		updater?.last_parallax_update_tick = times_fired + parallax_free_fire_delay_ticks
 		return
