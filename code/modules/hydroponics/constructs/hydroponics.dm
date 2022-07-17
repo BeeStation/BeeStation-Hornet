@@ -1,4 +1,4 @@
-#define BOTANY_NUTRI_NOTHING "Nutrient"
+#define BOTANY_NUTRI_NOTHING "Nutriment"
 #define BOTANY_NUTRI_EZNUTRI "E-Z-Nutrient"
 #define BOTANY_NUTRI_L4Z "Left 4 Zed"
 #define BOTANY_NUTRI_ROBHAR "Robust Harvest"
@@ -326,9 +326,9 @@
 
 		// Weeed invasion
 		// it should be here to work for dead plants
-		if(weedlevel >= 8 && prob(weedlevel*5))
+		/*if(weedlevel >= 8 && prob(weedlevel*5))
 			weedinvasion() // Weed invasion into empty tray
-			needs_update = 1
+			needs_update = 1*/
 		if (needs_update)
 			update_icon()
 
