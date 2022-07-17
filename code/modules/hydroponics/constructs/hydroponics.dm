@@ -319,22 +319,23 @@
 
 
 		// from `if(myseed && !dead)`
-		else
+		else // when there's no seed
 			if(waterlevel > 10 && nutrilevel > 0 && prob(10))  // If there's no plant, the percentage chance is 10%
 				adjustWeeds(1)
 
 
 		// Weeed invasion
 		// it should be here to work for dead plants
-		/*if(weedlevel >= 8 && prob(weedlevel*5))
-			weedinvasion() // Weed invasion into empty tray
-			needs_update = 1*/
+		if(!myseed || dead) // need to clean code here
+			if(weedlevel >= 8 && prob(weedlevel*5))
+				weedinvasion() // Weed invasion into empty tray
+				needs_update = 1
 		if (needs_update)
 			update_icon()
 
 		if(dead)
 			dead++
-			if(dead > 25)
+			if(prob(dead))
 				wipe_tray()
 
 	return
