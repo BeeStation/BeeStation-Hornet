@@ -351,7 +351,7 @@
 			chosen_nutriment = nutris[1]
 		else
 			chosen_nutriment = pick(nutris)
-		nutris -= chosen_nutriment
+		removeNutriment(chosen_nutriment)
 		nutrilevel = length(nutris)
 		switch(chosen_nutriment)
 			if(BOTANY_NUTRI_NOTHING)
@@ -366,7 +366,7 @@
 			if(BOTANY_NUTRI_ROBHAR)
 				if(nutrilevel>=1)
 					chosen_nutriment = nutris[1]
-					nutris -= chosen_nutriment
+					nutris.Cut(nutris.Find(chosen_nutriment), nutris.Find(chosen_nutriment)+1) // nutrient removal
 					. += 1
 					nutrilevel = length(nutris)
 			if(BOTANY_NUTRI_EARTHB)
@@ -406,7 +406,14 @@
 		else
 			break
 
+/obj/machinery/hydroponics/proc/removeNutriment(nutritype)
+	if(!nutritype)
+		CRASH("The proc has been called without a target nutrient to remove")
+	nutris.Cut(nutris.Find(nutritype), nutris.Find(nutritype)+1) // nutrient removal
+
 /obj/machinery/hydroponics/proc/addNutriment(nutritype)
+	if(!nutritype)
+		nutritype = BOTANY_NUTRI_NOTHING
 	nutris += nutritype
 	nutrilevel += 1
 
