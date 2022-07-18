@@ -10,7 +10,11 @@
 	if(modifiers["alt"])
 		AltClickNoInteract(src, A)
 		return
-
+	
+	if(modifiers["ctrl"])
+		CtrlClickOn(A)
+		return
+	
 	if(ishuman(A))
 		if(A in drained_mobs)
 			to_chat(src, "<span class='revenwarning'>[A]'s soul is dead and empty.</span>" )
