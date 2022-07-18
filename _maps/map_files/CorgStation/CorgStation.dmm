@@ -31029,6 +31029,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
+/obj/machinery/droneDispenser/preloaded,
 /turf/open/floor/plasteel/white,
 /area/science/lab)
 "iCu" = (

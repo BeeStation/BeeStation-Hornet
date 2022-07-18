@@ -1554,7 +1554,6 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/door/airlock/virology/glass{
-	id_tag = null;
 	name = "Testing Pen";
 	req_access_txt = "39"
 	},
@@ -68555,7 +68554,6 @@
 /area/medical/virology)
 "dYU" = (
 /obj/machinery/door/airlock/virology/glass{
-	id_tag = null;
 	name = "Virology Ward";
 	req_access_txt = "39"
 	},
@@ -75113,6 +75111,20 @@
 /obj/machinery/atmospherics/pipe/manifold4w/supply/hidden/layer2,
 /turf/open/floor/plasteel,
 /area/engine/storage_shared)
+"gcT" = (
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/machinery/droneDispenser/preloaded,
+/turf/open/floor/plasteel,
+/area/science/lab)
 "gdd" = (
 /obj/machinery/holopad,
 /obj/effect/turf_decal/bot,
@@ -155857,7 +155869,7 @@ daU
 dcI
 deh
 dcH
-dgO
+gcT
 dcH
 dkc
 dlN

@@ -35805,7 +35805,6 @@
 "cqz" = (
 /obj/item/stack/package_wrap,
 /obj/item/stack/package_wrap,
-/obj/item/hand_labeler,
 /obj/machinery/requests_console{
 	department = "Science";
 	departmentType = 2;
@@ -35817,6 +35816,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
+/obj/item/hand_labeler,
 /turf/open/floor/plasteel,
 /area/science/lab)
 "cqA" = (
@@ -56196,6 +56196,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 5
 	},
+/obj/machinery/droneDispenser/preloaded,
 /turf/open/floor/plasteel/white,
 /area/science/lab)
 "hUx" = (
@@ -59088,6 +59089,11 @@
 /obj/item/stock_parts/manipulator,
 /obj/item/stock_parts/manipulator,
 /obj/item/stock_parts/capacitor,
+/obj/item/stock_parts/micro_laser,
+/obj/item/stock_parts/micro_laser,
+/obj/item/stock_parts/capacitor,
+/obj/item/stock_parts/scanning_module,
+/obj/item/stock_parts/scanning_module,
 /turf/open/floor/plasteel,
 /area/science/lab)
 "jCA" = (
@@ -69854,18 +69860,13 @@
 /turf/open/floor/wood,
 /area/library)
 "qeY" = (
-/obj/structure/table,
-/obj/item/stock_parts/scanning_module,
-/obj/item/stock_parts/scanning_module,
 /obj/machinery/light{
 	dir = 4
 	},
 /obj/structure/sign/warning/nosmoking{
 	pixel_x = 30
 	},
-/obj/item/stock_parts/capacitor,
-/obj/item/stock_parts/micro_laser,
-/obj/item/stock_parts/micro_laser,
+/obj/machinery/droneDispenser/preloaded,
 /turf/open/floor/plasteel,
 /area/science/lab)
 "qft" = (
@@ -78609,7 +78610,6 @@
 	dir = 4
 	},
 /obj/machinery/door/airlock/virology/glass{
-	id_tag = null;
 	name = "Virology Reception";
 	req_access_txt = "39"
 	},

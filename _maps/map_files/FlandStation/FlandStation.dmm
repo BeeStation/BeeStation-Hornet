@@ -5710,7 +5710,6 @@
 "bsT" = (
 /obj/machinery/door/window/southleft{
 	name = "Auxiliary Medbay Desk";
-	req_access = null;
 	req_access_txt = "5"
 	},
 /obj/effect/turf_decal/tile/green{
@@ -28888,7 +28887,6 @@
 "gCY" = (
 /obj/machinery/door/airlock/medical/glass{
 	name = "Apothecary";
-	req_access = null;
 	req_access_txt = "5;33"
 	},
 /obj/structure/cable/yellow{
@@ -40954,7 +40952,6 @@
 /area/science/misc_lab/range)
 "jpl" = (
 /obj/machinery/door/airlock/security/glass{
-	id_tag = null;
 	name = "Visitation"
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
@@ -47705,7 +47702,6 @@
 /obj/effect/turf_decal/delivery,
 /obj/machinery/door/window/brigdoor/northright{
 	dir = 2;
-	id = null;
 	name = "Holding Cell";
 	req_access_txt = "1"
 	},
@@ -66987,6 +66983,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
+/obj/machinery/droneDispenser/preloaded,
 /turf/open/floor/plasteel,
 /area/science/lab)
 "pKd" = (
@@ -86992,7 +86989,6 @@
 	},
 /obj/effect/turf_decal/stripes/closeup,
 /obj/machinery/door/airlock/security/glass{
-	id_tag = null;
 	name = "Brig";
 	req_access_txt = "63"
 	},
@@ -90840,7 +90836,6 @@
 /area/crew_quarters/bar)
 "vkk" = (
 /obj/machinery/door/airlock/security/glass{
-	id_tag = null;
 	name = "Anti Radiation shielded room"
 	},
 /obj/structure/cable/yellow{
@@ -93793,7 +93788,6 @@
 	},
 /obj/effect/turf_decal/stripes/closeup,
 /obj/machinery/door/airlock/security/glass{
-	id_tag = null;
 	name = "Brig";
 	req_access_txt = "63"
 	},

@@ -19757,6 +19757,10 @@
 /obj/effect/turf_decal/tile/purple{
 	dir = 8
 	},
+/obj/item/paper_bin,
+/obj/item/pen{
+	layer = 3.1
+	},
 /turf/open/floor/plasteel/white,
 /area/science/lab)
 "byO" = (
@@ -46550,15 +46554,11 @@
 /turf/open/floor/plasteel/grimy,
 /area/chapel/main/monastery)
 "mdL" = (
-/obj/structure/table,
-/obj/item/paper_bin,
-/obj/item/pen{
-	layer = 3.1
-	},
 /obj/effect/turf_decal/tile/purple,
 /obj/effect/turf_decal/tile/purple{
 	dir = 8
 	},
+/obj/machinery/droneDispenser/preloaded,
 /turf/open/floor/plasteel/white,
 /area/science/lab)
 "mec" = (
