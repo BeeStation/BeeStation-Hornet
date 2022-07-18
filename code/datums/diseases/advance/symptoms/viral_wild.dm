@@ -6,6 +6,12 @@
 	prefixes = list("Wild ")
 	naturally_occuring = FALSE
 
+/datum/symptom/wild/OnAdd(datum/disease/advance/A)
+	if(A.remove_wild_symptom)
+		A.RemoveSymptom(src)
+		return FALSE
+	return TRUE
+
 // the real ones
 // high resistance
 /datum/symptom/wild/wildresistance
@@ -48,4 +54,6 @@
 	transmission = 15 // this is not transmitible. no worries.
 
 /datum/symptom/wild/wildbrutality/OnAdd(datum/disease/advance/A)
+	if(!..())
+		return
 	A.faltered = TRUE

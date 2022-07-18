@@ -40,6 +40,7 @@
 	var/faltered = FALSE //used if a disease has been made non-contagious
 	// The order goes from easy to cure to hard to cure.
 	var/mutability = 1
+	var/remove_wild_symptom = TRUE // if TRUE, removes wild_symptom at refresh()
 	var/dormant = FALSE //this prevents a disease from having any effects or spreading
 	var/keepid = FALSE
 	var/archivecure
@@ -162,6 +163,7 @@
 	A.transmission = transmission
 	A.severity = severity
 	A.speed = speed
+	A.remove_wild_symptom = remove_wild_symptom
 	A.keepid = keepid
 	A.id = id
 	//this is a new disease starting over at stage 1, so processing is not copied
@@ -223,6 +225,8 @@
 	return generated
 
 /datum/disease/advance/proc/Refresh(new_name = FALSE)
+	if(remove_wild_symptom)
+		RemoveWildSymptom()
 	GenerateProperties()
 	AssignProperties()
 	if(!keepid)
@@ -446,7 +450,7 @@
 				break
 			if(count == 150)
 				return
-		// I know this is not a pretty way to pick a symptom, but I have no idea how to pick a symptom which isn't a wild virus from a list.
+		// I know this is not a pretty way to pick a symptom, but I have no idea how to pick a symptom which isn't a wild symptom from a list.
 		RemoveSymptom(target, remove_wild)
 	symptoms += S
 	S.OnAdd(src)
@@ -472,18 +476,19 @@
 /datum/disease/advance/proc/AddWildSymptom(datum/symptom/S=null)
 	if(!symptoms.len)
 		return //bug proof
-	// unless a parameter is given, it makes a random symptom
+	// unless a parameter is given, it makes a random wild symptom
 	if(!istype(S, /datum/symptom/wild) || !S)
 		if(resistance >= 5)
 			S = /datum/symptom/wild/wildresistance
 		else if(stage_rate >= 2)
 			S = /datum/symptom/wild/wildspeed
-		//else if(stealth >= 0)
-		//	S = /datum/symptom/wild/wildstealth // to be changed
+		else if(stealth >= 0)
+			S = /datum/symptom/wild/wildstealth
 		else if(transmission >= 0)
 			S = /datum/symptom/wild/wildtransmission
 		else
 			S = /datum/symptom/wild/wildbrutality
+	remove_wild_symptom = FALSE
 	S = new S
 	symptoms += S
 	S.OnAdd(src)
@@ -491,6 +496,7 @@
 	log_virus("A virus with a wild symptom, [name], has bee created. Symptom list: [english_list(symptoms)]/Resistance:[resistance]/Speed:[stage_rate]/Stealth:[stealth]/Transmission:[transmission]")
 
 /datum/disease/advance/proc/RemoveWildSymptom()
+	remove_wild_symptom = TRUE
 	for(var/datum/symptom/S in symptoms)
 		if(istype(S, /datum/symptom/wild))
 			symptoms -= S
