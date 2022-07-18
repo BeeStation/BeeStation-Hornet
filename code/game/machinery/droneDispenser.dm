@@ -121,53 +121,53 @@
 
 /obj/machinery/droneDispenser/attack_ghost(mob/user)
 	//don't do anything if not ready
-	if(!mode == DRONE_READY)
-		return
-
-	//check if they're banned from it
-	if(is_banned_from(user.ckey, ROLE_DRONE) || QDELETED(src) || QDELETED(user))
-		return
-
-	//job age restriction checks
-	if(CONFIG_GET(flag/use_age_restriction_for_jobs))
-		if(!isnum_safe(user.client.player_age))
-			return
-		if(user.client.player_age < DRONE_MINIMUM_AGE)
-			to_chat(user, "<span class='danger'>You're too new to play as a drone! Please try again in [DRONE_MINIMUM_AGE - user.client.player_age] days.</span>")
+	if(mode == DRONE_READY)
+		//check if they're banned from it
+		if(is_banned_from(user.ckey, ROLE_DRONE) || QDELETED(src) || QDELETED(user))
 			return
 
-	//making sure you can't do it before roundstart
-	if(!SSticker.mode)
-		to_chat(user, "<span class='danger'>Can't become a drone before the game has started.</span>")
+		//job age restriction checks
+		if(CONFIG_GET(flag/use_age_restriction_for_jobs))
+			if(!isnum_safe(user.client.player_age))
+				return
+			if(user.client.player_age < DRONE_MINIMUM_AGE)
+				to_chat(user, "<span class='danger'>You're too new to play as a drone! Please try again in [DRONE_MINIMUM_AGE - user.client.player_age] days.</span>")
+				return
+
+		//making sure you can't do it before roundstart
+		if(!SSticker.mode)
+			to_chat(user, "<span class='danger'>Can't become a drone before the game has started.</span>")
+			return
+
+		//if you're already applied, don't allow it again
+		if(response_timer_id)
+			to_chat(user, "<span class='danger'>You can't apply for a drone spawn while someone is already waiting.</span>")
+			return
+
+		//no admins, no drones.
+		var/list/admin_list = get_admin_counts(R_BAN)
+		if(!length(admin_list["present"]))
+			to_chat(user, "<span class='danger'>Can't become a drone without administrators online.</span>")
+			return
+
+		//here's the real meat
+		var/be_drone = alert("Apply to become a drone? (Warning, You can no longer be cloned!)",,"Yes","No")
+		if(be_drone == "No" || QDELETED(src) || !isobserver(user))
+			return
+		applicant = user
+
+		//Start timer and ask the admins for their highly valued opinion
+		response_timer_id = addtimer(CALLBACK(src, .proc/produce_drone), approval_time, TIMER_STOPPABLE)
+		to_chat(GLOB.admins, "<span class='adminnotice'><b><font color=orange>DRONE BODY REQUEST:</font></b>[ADMIN_LOOKUPFLW(user)] intends to inhabit a drone body printed from [src] in [AREACOORD(src)] (will autoapprove in [DisplayTimeText(approval_time)]). (<A HREF='?_src_=holder;[HrefToken(TRUE)];reject_drone_application=[REF(src)]'>REJECT</A>) </span>")
+		to_chat(user, "<span class='danger'>Your application has been sent to the administrators.</span>")
+		log_admin("[user] has applied for drone body printed from [src] in [AREACOORD(src)]")	
+
+		//move it to production state
+		mode = DRONE_PRODUCTION
+		audible_message("<span class='warning'>[src] whirs to life!</span>")
+		playsound(src, work_sound, 50, 1)
+	else
 		return
-
-	//if you're already applied, don't allow it again
-	if(response_timer_id)
-		to_chat(user, "<span class='danger'>You can't apply for a drone spawn while someone is already waiting.</span>")
-		return
-
-	//no admins, no drones.
-	var/list/admin_list = get_admin_counts(R_BAN)
-	if(!length(admin_list["present"]))
-		to_chat(user, "<span class='danger'>Can't become a drone without administrators online.</span>")
-		return
-
-	//here's the real meat
-	var/be_drone = alert("Apply to become a drone? (Warning, You can no longer be cloned!)",,"Yes","No")
-	if(be_drone == "No" || QDELETED(src) || !isobserver(user))
-		return
-	applicant = user
-
-	//Start timer and ask the admins for their highly valued opinion
-	response_timer_id = addtimer(CALLBACK(src, .proc/produce_drone), approval_time, TIMER_STOPPABLE)
-	to_chat(GLOB.admins, "<span class='adminnotice'><b><font color=orange>DRONE BODY REQUEST:</font></b>[ADMIN_LOOKUPFLW(user)] intends to inhabit a drone body printed from [src] in [AREACOORD(src)] (will autoapprove in [DisplayTimeText(approval_time)]). (<A HREF='?_src_=holder;[HrefToken(TRUE)];reject_drone_application=[REF(src)]'>REJECT</A>) </span>")
-	to_chat(user, "<span class='danger'>Your application has been sent to the administrators.</span>")
-	log_admin("[user] has applied for drone body printed from [src] in [AREACOORD(src)]")	
-
-	//move it to production state
-	mode = DRONE_PRODUCTION
-	audible_message("<span class='warning'>[src] whirs to life!</span>")
-	playsound(src, work_sound, 50, 1)
 
 /obj/machinery/droneDispenser/proc/reject(user)
 	//if no user or timer, ignore.
