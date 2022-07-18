@@ -421,3 +421,11 @@
 	ears = /obj/item/radio/headset/headset_srv
 
 
+/datum/outfit/joker/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	if(visualsOnly)
+		return
+
+	var/obj/item/card/id/I = H.wear_id
+	I.assignment = "Joker"
+	I.registered_name = H.real_name
+	I.update_label()
