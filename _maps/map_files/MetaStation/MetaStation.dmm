@@ -56196,7 +56196,6 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 5
 	},
-/obj/machinery/droneDispenser/preloaded,
 /turf/open/floor/plasteel/white,
 /area/science/lab)
 "hUx" = (

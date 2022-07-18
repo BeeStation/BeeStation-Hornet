@@ -19,7 +19,7 @@
 	var/icon_recharging = "recharge"
 	var/icon_creating = "make"
 	var/response_timer_id = null
-	var/approval_time = 60 //1 minute 600
+	var/approval_time = 600 //1 minute
 
 	// Mats and how much we are using
 	var/list/using_materials
@@ -30,10 +30,9 @@
 
 	var/mode = DRONE_READY
 	var/timer
-	var/cooldownTime = 100 //5 minutes 3000
+	var/cooldownTime = 3000 //5 minutes
 
-	//The item the dispenser will create
-	var/dispense_type = /obj/effect/mob_spawn/drone
+	var/mob/applicant = null
 
 	var/work_sound = 'sound/items/rped.ogg'
 	var/create_sound = 'sound/items/deconstruct.ogg'
@@ -139,26 +138,28 @@
 
 	//making sure you can't do it before roundstart
 	if(!SSticker.mode)
-		to_chat(user, "Can't become a drone before the game has started.")
+		to_chat(user, "<span class='danger'>Can't become a drone before the game has started.</span>")
 		return
 
 	//if you're already applied, don't allow it again
 	if(response_timer_id)
-		to_chat(user, "You can't apply for a drone spawn while someone else is doing the same.")
+		to_chat(user, "<span class='danger'>You can't apply for a drone spawn while someone is already waiting.</span>")
 		return
 
-	//no admins, no drones. THIS DOES NOT WORK, WIP: MAKE IT WORK
-	if(!GLOB.admins)
-		to_chat(user, "Can't become a drone without administrators online.")
+	//no admins, no drones.
+	var/list/admin_list = get_admin_counts(R_BAN)
+	if(!length(admin_list["present"]))
+		to_chat(user, "<span class='danger'>Can't become a drone without administrators online.</span>")
 		return
 
 	//here's the real meat
 	var/be_drone = alert("Apply to become a drone? (Warning, You can no longer be cloned!)",,"Yes","No")
 	if(be_drone == "No" || QDELETED(src) || !isobserver(user))
 		return
+	applicant = user
 
 	//Start timer and ask the admins for their highly valued opinion
-	response_timer_id = addtimer(CALLBACK(src, .proc/produce_drone, user), approval_time, TIMER_STOPPABLE)
+	response_timer_id = addtimer(CALLBACK(src, .proc/produce_drone), approval_time, TIMER_STOPPABLE)
 	to_chat(GLOB.admins, "<span class='adminnotice'><b><font color=orange>DRONE BODY REQUEST:</font></b>[ADMIN_LOOKUPFLW(user)] intends to inhabit a drone body printed from [src] in [AREACOORD(src)] (will autoapprove in [DisplayTimeText(approval_time)]). (<A HREF='?_src_=holder;[HrefToken(TRUE)];reject_drone_application=[REF(src)]'>REJECT</A>) </span>")
 	to_chat(user, "<span class='danger'>Your application has been sent to the administrators.</span>")
 	log_admin("[user] has applied for drone body printed from [src] in [AREACOORD(src)]")	
@@ -184,14 +185,19 @@
 	deltimer(response_timer_id)
 	response_timer_id = null
 
+	//tell the poor sod we don't want him
+	to_chat(applicant, "<span class='danger'>Your application has been denied by an administrator.</span>")
+
+	applicant = null
+
 	//move it to ready state
 	mode = DRONE_READY
 	audible_message("<span class='warning'>[src] buzzes.</span>")
 	playsound(src, reject_sound, 50, 1)
 
-/obj/machinery/droneDispenser/proc/produce_drone(mob/user)
+/obj/machinery/droneDispenser/proc/produce_drone()
 	//if no user, ignore
-	if(!user)
+	if(!applicant)
 		return
 
 	//reset timer
@@ -206,16 +212,18 @@
 		playsound(src, reject_sound, 50, 1)
 		return // We require more minerals
 
-	//use the mats, make the mob and move the ghost into it THIS DOES NOT WORK, WIP
+	//use the mats, make the mob and move the ghost into it
 	materials.use_materials(using_materials)
 	use_power(power_used)
 	var/mob/living/simple_animal/drone/D = new /mob/living/simple_animal/drone(get_turf(loc))
 	D.flags_1 |= (flags_1 & ADMIN_SPAWNED_1)
-	D.ckey = user.ckey
+	D.ckey = applicant.ckey
 
 	//logging!
-	message_admins("[key_name(user)] has taken ownership of a drone body printed from [src] in [AREACOORD(src)]")
-	log_admin("[key_name(user)] has taken ownership of a drone body printed from [src] in [AREACOORD(src)]")
+	message_admins("[applicant] has taken ownership of a drone body printed from [src] in [AREACOORD(src)]")
+	log_admin("[applicant] has taken ownership of a drone body printed from [src] in [AREACOORD(src)]")
+
+	applicant = null
 
 	//move it to recharge state and start timer
 	mode = DRONE_RECHARGING
