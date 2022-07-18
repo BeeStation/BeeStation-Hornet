@@ -57,7 +57,7 @@
 	if(specialsymptom)
 		max_symptoms -= 1
 	var/list/datum/symptom/possible_symptoms = list()
-	for(var/symptom in subtypesof(/datum/symptom))
+	for(var/symptom in STANDARD_SYMPTOM_LIST)
 		var/datum/symptom/S = symptom
 		if(S == specialsymptom)
 			continue
@@ -80,7 +80,6 @@
 		var/randname = random_disease_name(infected)
 		AssignName(randname)
 		name = randname
-
 
 /datum/disease/advance/random/macrophage
 	name = "Unknown Disease"

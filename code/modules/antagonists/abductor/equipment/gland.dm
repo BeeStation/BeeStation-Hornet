@@ -224,7 +224,7 @@
 		max_symptoms = VIRUS_SYMPTOM_LIMIT
 	var/datum/disease/advance/A = new /datum/disease/advance()
 	var/list/datum/symptom/possible_symptoms = list()
-	for(var/symptom in subtypesof(/datum/symptom))
+	for(var/symptom in STANDARD_SYMPTOM_LIST)
 		var/datum/symptom/S = symptom
 		if(initial(S.level) > max_level)
 			continue

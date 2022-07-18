@@ -1,3 +1,5 @@
+#define PARENT_TYPE_VIRUS /datum/symptom/wild
+
 SUBSYSTEM_DEF(disease)
 	name = "Disease"
 	flags = SS_NO_FIRE
@@ -6,7 +8,7 @@ SUBSYSTEM_DEF(disease)
 	var/list/diseases
 	var/list/archive_diseases = list()
 
-	var/static/list/list_symptoms = subtypesof(/datum/symptom)
+	var/static/list/list_symptoms = subtypesof(/datum/symptom)-PARENT_TYPE_VIRUS
 
 /datum/controller/subsystem/disease/PreInit()
 	if(!diseases)
@@ -28,3 +30,5 @@ SUBSYSTEM_DEF(disease)
 		return A.name
 	else
 		return "Unknown"
+
+#undef PARENT_TYPE_VIRUS

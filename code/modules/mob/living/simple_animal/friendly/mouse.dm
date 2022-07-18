@@ -40,9 +40,14 @@
 	icon_living = "mouse_[body_color]"
 	icon_dead = "mouse_[body_color]_dead"
 	held_state = "mouse_[body_color]"
-	if(prob(75))
+	if(prob(100))
 		var/datum/disease/advance/R = new /datum/disease/advance/random(rand(1, 6), 9, 1, infected = src)
-		ratdisease += R
+		if(prob(100)) // 15% chance to be more lethal
+			R.AddWildSymptom()
+		if(!length(R.symptoms)) // fail-proof
+			qdel(R)
+		else
+			ratdisease += R
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = .proc/on_entered,
 	)

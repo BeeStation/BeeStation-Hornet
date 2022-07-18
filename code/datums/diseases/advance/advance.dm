@@ -24,8 +24,8 @@
 	max_stages = 5
 	spread_text = "Unknown"
 	viable_mobtypes = list(/mob/living/carbon/human, /mob/living/carbon/monkey, /mob/living/carbon/monkey/tumor)
-	
-	/// last player to modify the disease. 
+
+	/// last player to modify the disease.
 	var/last_modified_by = "no CKEY"
 	var/resistance
 	var/stealth
@@ -46,15 +46,15 @@
 	var/archivecure
 	var/static/list/advance_cures = list(
 		list(/datum/reagent/water, /datum/reagent/consumable/nutriment, /datum/reagent/ash, /datum/reagent/iron),
-		list(/datum/reagent/consumable/ethanol, /datum/reagent/uranium/radium, /datum/reagent/oil, /datum/reagent/potassium, /datum/reagent/lithium), 
+		list(/datum/reagent/consumable/ethanol, /datum/reagent/uranium/radium, /datum/reagent/oil, /datum/reagent/potassium, /datum/reagent/lithium),
 		list(/datum/reagent/consumable/sodiumchloride, /datum/reagent/drug/nicotine, /datum/reagent/drug/space_drugs),
-		list(/datum/reagent/medicine/salglu_solution, /datum/reagent/medicine/antihol, /datum/reagent/fuel, /datum/reagent/space_cleaner), 
-		list(/datum/reagent/medicine/spaceacillin, /datum/reagent/toxin/mindbreaker, /datum/reagent/toxin/itching_powder, /datum/reagent/medicine/cryoxadone, /datum/reagent/medicine/epinephrine), 
-		list(/datum/reagent/medicine/mine_salve, /datum/reagent/medicine/oxandrolone, /datum/reagent/medicine/atropine), 
-		list(/datum/reagent/medicine/leporazine, /datum/reagent/water/holywater, /datum/reagent/medicine/neurine), 
-		list(/datum/reagent/concentrated_barbers_aid, /datum/reagent/drug/happiness, /datum/reagent/medicine/pen_acid), 
+		list(/datum/reagent/medicine/salglu_solution, /datum/reagent/medicine/antihol, /datum/reagent/fuel, /datum/reagent/space_cleaner),
+		list(/datum/reagent/medicine/spaceacillin, /datum/reagent/toxin/mindbreaker, /datum/reagent/toxin/itching_powder, /datum/reagent/medicine/cryoxadone, /datum/reagent/medicine/epinephrine),
+		list(/datum/reagent/medicine/mine_salve, /datum/reagent/medicine/oxandrolone, /datum/reagent/medicine/atropine),
+		list(/datum/reagent/medicine/leporazine, /datum/reagent/water/holywater, /datum/reagent/medicine/neurine),
+		list(/datum/reagent/concentrated_barbers_aid, /datum/reagent/drug/happiness, /datum/reagent/medicine/pen_acid),
 		list(/datum/reagent/medicine/haloperidol, /datum/reagent/pax, /datum/reagent/blackpowder, /datum/reagent/medicine/diphenhydramine),
-		list(/datum/reagent/toxin/lipolicide, /datum/reagent/drug/ketamine, /datum/reagent/drug/methamphetamine), 
+		list(/datum/reagent/toxin/lipolicide, /datum/reagent/drug/ketamine, /datum/reagent/drug/methamphetamine),
 		list(/datum/reagent/drug/krokodil, /datum/reagent/hair_dye, /datum/reagent/medicine/modafinil)
 		)
 /*
@@ -173,7 +173,7 @@
 	var/list/name_symptoms = list()
 	for(var/datum/symptom/S in symptoms)
 		name_symptoms += S.name
-		
+
 	return "[name], last modified by: [last_modified_by] symptoms:[english_list(name_symptoms)] resistance:[resistance] stealth:[stealth] speed:[stage_rate] transmission:[transmission] faltered:[faltered ? "Yes" : "No"]"
 
 /*
@@ -245,12 +245,12 @@
 	var/c1sev
 	var/c2sev
 	var/c3sev
-	for(var/datum/symptom/S as() in symptoms) 
+	for(var/datum/symptom/S as() in symptoms)
 		resistance += S.resistance
 		stealth += S.stealth
 		stage_rate += S.stage_speed
 		transmission += S.transmission
-	for(var/datum/symptom/S as() in symptoms) 
+	for(var/datum/symptom/S as() in symptoms)
 		S.severityset(src)
 		if(S.neutered)
 			continue
@@ -264,7 +264,7 @@
 			if(5 to INFINITY)
 				if(c3sev >= 5)
 					c3sev += (S.severity -3)//diminishing returns
-				else 
+				else
 					c3sev += S.severity
 	severity += (max(c2sev, c3sev) + c1sev)
 
@@ -426,32 +426,78 @@
 
 //This proc is used when creating diseases, to call OnAdd for each symptom to make sure the symptoms work as they should
 /datum/disease/advance/proc/Finalize()
+	RemoveWildSymptom()
 	for(var/datum/symptom/S in symptoms)
 		S.OnAdd(src)
 
 
 // Add a symptom, if it is over the limit we take a random symptom away and add the new one.
-/datum/disease/advance/proc/AddSymptom(datum/symptom/S)
+/datum/disease/advance/proc/AddSymptom(datum/symptom/S, remove_wild=TRUE)
+	if(remove_wild)
+		RemoveWildSymptom()
 
 	if(HasSymptom(S))
 		return
 
 	if(symptoms.len >= VIRUS_SYMPTOM_LIMIT)
-		RemoveSymptom(pick(symptoms))
+		var/list/real_symptoms = symptoms
+		for(var/datum/symptom/each in symptoms)
+			if(istype(each, /datum/symptom/wild))
+				real_symptoms -= each
+				world.log << "remove success?"
+		for(var/datum/symptom/each in real_symptoms)
+			world.log << "ss [each.name]"
+		RemoveSymptom(pick(real_symptoms), remove_wild)
 	symptoms += S
 	S.OnAdd(src)
 
 // Simply removes the symptom.
-/datum/disease/advance/proc/RemoveSymptom(datum/symptom/S)
+/datum/disease/advance/proc/RemoveSymptom(datum/symptom/S, remove_wild=TRUE)
+	if(remove_wild)
+		RemoveWildSymptom()
+	if(istype(S, /datum/symptom/wild))
+		return
 	symptoms -= S
 	S.OnRemove(src)
 
 // Neuter a symptom, so it will only affect stats
 /datum/disease/advance/proc/NeuterSymptom(datum/symptom/S)
+	RemoveWildSymptom()
 	if(!S.neutered)
 		S.neutered = TRUE
 		S.name += " (neutered)"
 		S.OnRemove(src)
+
+
+/datum/disease/advance/proc/AddWildSymptom(datum/symptom/S=null)
+	if(length(symptoms))
+		return //bug proof
+	// unless a parameter is given, it makes a random symptom
+	if(!istype(S, /datum/symptom/wild) || !S)
+		if(resistance >= 5)
+			S = /datum/symptom/wild/wildresistance
+		else if(stage_rate >= 2)
+			S = /datum/symptom/wild/wildspeed
+		//else if(stealth >= 0)
+		//	S = /datum/symptom/wild/wildstealth // to be changed
+		else if(transmission >= 0)
+			S = /datum/symptom/wild/wildtransmission
+		else
+			S = /datum/symptom/wild/wildbrutality
+	S = new S
+	symptoms += S
+	S.OnAdd(src)
+	Refresh(TRUE)
+	var/sname = ""
+	for(var/datum/symptom/each in symptoms)
+		sname += "\[[each.name]\] "
+	log_virus("A virus with a wild symptom, [name], has bee created. Symptom list: [sname]/Resistance:[resistance]/Speed:[stage_rate]/Stealth:[stealth]/Transmission:[transmission]")
+
+/datum/disease/advance/proc/RemoveWildSymptom()
+	for(var/datum/symptom/S in symptoms)
+		if(istype(S, /datum/symptom/wild))
+			symptoms -= S
+			S.OnRemove(src)
 
 /*
 
@@ -562,11 +608,11 @@
 			A.Evolve(minimum, CLAMP(A.severity + 4, minimum, 9))
 			A.id = GetDiseaseID()
 			A.keepid = TRUE//this is really janky, but basically mutated diseases count as the original disease
-				//if you want to evolve a higher level symptom you need to test and spread a deadly virus among test subjects. 
+				//if you want to evolve a higher level symptom you need to test and spread a deadly virus among test subjects.
 				//this is to give monkey testing a use, and add a bit more of a roleplay element to virology- testing deadly diseases on and curing/vaccinating monkeys
 				//this also adds the risk of disease escape if strict biohazard protocol is not followed, however
 				//the immutability of resistant diseases discourages this with hard-to-cure diseases.
-				//if players intentionally grief/cant seem to get biohazard protocol down, this can be changed to not use severity. 
+				//if players intentionally grief/cant seem to get biohazard protocol down, this can be changed to not use severity.
 	else
 		A.initial = FALSE //diseases *only* mutate when spreading. they wont mutate from any other kind of injection
 	infectee.diseases += A
@@ -640,20 +686,20 @@
 			prefixes += pick("[H.first_name()]'s", "[H.name]'s", "[H.job]'s", "[H.dna.species]'s")
 			bodies += pick("[H.first_name()]", "[H.job]", "[H.dna.species]")
 			if(islizard(H) || iscatperson(H))//add rat-origin prefixes to races that eat rats
-				prefixes += list("Vermin ", "Zoo", "Maintenance ") 
+				prefixes += list("Vermin ", "Zoo", "Maintenance ")
 				bodies += list("Rat", "Maint")
 		else switch(diseasesource.type)
 			if(/mob/living/simple_animal/pet/hamster/vector)
 				prefixes += list("Vector's ", "Hamster ")
 				bodies += list("Freebie")
 			if(/obj/effect/decal/cleanable)
-				prefixes += list("Bloody ", "Maintenance ") 
+				prefixes += list("Bloody ", "Maintenance ")
 				bodies += list("Maint")
 			if(/mob/living/simple_animal/mouse)
-				prefixes += list("Vermin ", "Zoo", "Maintenance ") 
+				prefixes += list("Vermin ", "Zoo", "Maintenance ")
 				bodies += list("Rat", "Maint")
 			if(/obj/item/reagent_containers/syringe)
-				prefixes += list("Junkie ", "Maintenance ") 
+				prefixes += list("Junkie ", "Maintenance ")
 				bodies += list("Needle", "Maint")
 			if(/obj/item/fugu_gland)
 				prefixes += "Wumbo"

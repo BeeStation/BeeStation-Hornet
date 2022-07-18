@@ -976,7 +976,8 @@ GENE SCANNER
 				to_chat(user, "<span class='info'><font color='green'><b>[A.name]</b>, stage [A.stage]/5</font></span>")
 				to_chat(user, "<span class='info'><b>[A] has the following symptoms:</b></span>")
 				for(var/datum/symptom/S in A.symptoms)
-					to_chat(user, "<span class='info'>[S.name]</span>")
+					if(!istype(S, /datum/symptom/wild))
+						to_chat(user, "<span class='info'>[S.name]</span>")
 		else
 			to_chat(user, "<span class='info'><font color='green'><b>[D.name]</b>, stage [D.stage]/[D.max_stages].</font></span>")
 
@@ -1014,10 +1015,10 @@ GENE SCANNER
 		to_chat(user, "<span class='warning'>you begin isolating [chosen].</span>")
 		if(do_after(user, (600 / (scanner.rating + 1)), target = AM))
 			create_culture(symptomholder, user, AM)
-	else 
+	else
 		using = TRUE
 		if(do_after(user, (timer / (scanner.rating + 1)), target = AM))
-			create_culture(A, user, AM)	
+			create_culture(A, user, AM)
 	using = FALSE
 
 /obj/item/extrapolator/proc/create_culture(var/datum/disease/advance/A, mob/user)

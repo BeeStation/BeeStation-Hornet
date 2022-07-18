@@ -65,6 +65,9 @@
 				DS.strain_data["SE"] = H.dna.mutation_index
 		else
 			D = new /datum/disease/advance/random(max_severity, max_severity)
+			var/datum/disease/advance/AD = D
+			AD.AddWildSymptom() // level 7 virus is dangerous, and it can even have 7 symptoms
+
 		D.carrier = TRUE
 		H.ForceContractDisease(D, FALSE, TRUE)
 
