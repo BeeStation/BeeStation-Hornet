@@ -1,5 +1,3 @@
-#define MAXIMUM_STAT 18
-
 // ignore this
 /datum/symptom/wild
 	name = "Wild virus"
@@ -51,10 +49,3 @@
 
 /datum/symptom/wild/wildbrutality/OnAdd(datum/disease/advance/A)
 	A.faltered = TRUE
-
-// --unused ideas--
-// need more 2/3 cures
-// patient zero
-// species only virus
-
-#undef MAXIMUM_STAT
