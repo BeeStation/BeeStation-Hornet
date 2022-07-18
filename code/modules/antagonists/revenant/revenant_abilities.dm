@@ -124,6 +124,22 @@
 	boldnotice = "revenboldnotice"
 	holy_check = TRUE
 
+/obj/effect/proc_holder/spell/self/revenant_phase_shift
+	name = "Phase Shift"
+	desc = "Shift in and out of your corporeal form"
+	panel = "Revenant Abilities"
+	action_icon = 'icons/mob/actions/actions_revenant.dmi'
+	action_icon_state = "r_phase"
+	action_background_icon_state = "bg_revenant"
+	clothes_req = FALSE
+	charge_max = 0
+
+/obj/effect/proc_holder/spell/self/revenant_phase_shift/cast(mob/user = usr)
+	if(!isrevenant(user))
+		return FALSE
+	var/mob/living/simple_animal/revenant/revenant = user
+	revenant.phase_shift()
+
 /obj/effect/proc_holder/spell/aoe_turf/revenant
 	clothes_req = 0
 	action_icon = 'icons/mob/actions/actions_revenant.dmi'
