@@ -1,3 +1,4 @@
+#define VIRUS_WILD_COUNT (1-remove_wild)
 /*
 
 	Advance Disease is a system for Virologist to Engineer their own disease with symptoms that have effects and properties
@@ -6,8 +7,6 @@
 	If you need help with creating new symptoms or expanding the advance disease, ask for Giacom on #coderbus.
 
 */
-
-
 
 
 /*
@@ -373,12 +372,12 @@
 
 
 // Randomly generate a symptom, has a chance to lose or gain a symptom.
-/datum/disease/advance/proc/Evolve(min_level, max_level, ignore_mutable = FALSE)
+/datum/disease/advance/proc/Evolve(min_level, max_level, ignore_mutable = FALSE, remove_wild=TRUE)
 	if(!mutable && !ignore_mutable)
 		return
 	var/s = safepick(GenerateSymptoms(min_level, max_level, 1))
 	if(s)
-		AddSymptom(s)
+		AddSymptom(s, remove_wild)
 		Refresh(TRUE)
 	return
 
@@ -439,15 +438,15 @@
 	if(HasSymptom(S))
 		return
 
-	if(symptoms.len >= VIRUS_SYMPTOM_LIMIT)
-		var/list/real_symptoms = symptoms
-		for(var/datum/symptom/each in symptoms)
-			if(istype(each, /datum/symptom/wild))
-				real_symptoms -= each
-				world.log << "remove success?"
-		for(var/datum/symptom/each in real_symptoms)
-			world.log << "ss [each.name]"
-		RemoveSymptom(pick(real_symptoms), remove_wild)
+	if(symptoms.len >= VIRUS_SYMPTOM_LIMIT+VIRUS_WILD_COUNT)
+		var/datum/symptom/target
+		for(var/count in 1 to 150)
+			target = pick(symptoms)
+			if(!istype(target, /datum/symptom/wild))
+				break
+			if(count == 150)
+				return
+		RemoveSymptom(target, remove_wild)
 	symptoms += S
 	S.OnAdd(src)
 
@@ -470,7 +469,7 @@
 
 
 /datum/disease/advance/proc/AddWildSymptom(datum/symptom/S=null)
-	if(length(symptoms))
+	if(!symptoms.len)
 		return //bug proof
 	// unless a parameter is given, it makes a random symptom
 	if(!istype(S, /datum/symptom/wild) || !S)
@@ -488,10 +487,7 @@
 	symptoms += S
 	S.OnAdd(src)
 	Refresh(TRUE)
-	var/sname = ""
-	for(var/datum/symptom/each in symptoms)
-		sname += "\[[each.name]\] "
-	log_virus("A virus with a wild symptom, [name], has bee created. Symptom list: [sname]/Resistance:[resistance]/Speed:[stage_rate]/Stealth:[stealth]/Transmission:[transmission]")
+	log_virus("A virus with a wild symptom, [name], has bee created. Symptom list: [english_list(symptoms)]/Resistance:[resistance]/Speed:[stage_rate]/Stealth:[stealth]/Transmission:[transmission]")
 
 /datum/disease/advance/proc/RemoveWildSymptom()
 	for(var/datum/symptom/S in symptoms)
@@ -605,7 +601,7 @@
 				minimum = 0
 			else
 				minimum = CLAMP(A.severity - 1, 1, 7)
-			A.Evolve(minimum, CLAMP(A.severity + 4, minimum, 9))
+			A.Evolve(minimum, CLAMP(A.severity + 4, minimum, 9), remove_wild=FALSE)
 			A.id = GetDiseaseID()
 			A.keepid = TRUE//this is really janky, but basically mutated diseases count as the original disease
 				//if you want to evolve a higher level symptom you need to test and spread a deadly virus among test subjects.
@@ -728,3 +724,5 @@
 		// if someone finds a way to avoid being logged while modifiying a virus, admins should be notified so coders can be notified.
 		return FALSE
 	log_virus("[modification_type]: [admin_details()]")
+
+#undef VIRUS_WILD_COUNT

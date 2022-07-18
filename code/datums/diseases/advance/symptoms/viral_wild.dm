@@ -8,15 +8,6 @@
 	prefixes = list("Wild ")
 	naturally_occuring = FALSE
 
-
-/datum/symptom/wild/OnAdd(datum/disease/advance/A)
-	A.GenerateProperties()
-	if(A.resistance > MAXIMUM_STAT)
-		resistance -= MAXIMUM_STAT-A.resistance
-	if(A.stage_rate > MAXIMUM_STAT)
-		stage_speed -= MAXIMUM_STAT-A.stage_rate
-	// Stat lock. It would never allow a disease go above 18 stat point.
-
 // the real ones
 // high resistance
 /datum/symptom/wild/wildresistance
@@ -53,11 +44,13 @@
 // when it failed to get any good stat from random code
 /datum/symptom/wild/wildbrutality
 	name = "Viral Wild-Brutality Adaption"
-	stealth = -15
-	resistance = 30
-	stage_speed = 30
-	transmission = 0
-	// You are fucked
+	stealth = -20
+	resistance = 15
+	stage_speed = 15
+	transmission = 15 // this is not transmitible. no worries.
+
+/datum/symptom/wild/wildbrutality/OnAdd(datum/disease/advance/A)
+	A.faltered = TRUE
 
 // --unused ideas--
 // need more 2/3 cures

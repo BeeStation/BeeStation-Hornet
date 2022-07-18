@@ -40,11 +40,11 @@
 	icon_living = "mouse_[body_color]"
 	icon_dead = "mouse_[body_color]_dead"
 	held_state = "mouse_[body_color]"
-	if(prob(100))
+	if(prob(75))
 		var/datum/disease/advance/R = new /datum/disease/advance/random(rand(1, 6), 9, 1, infected = src)
-		if(prob(100)) // 15% chance to be more lethal
+		if(prob(20)) // 15% chance to be more lethal
 			R.AddWildSymptom()
-		if(!length(R.symptoms)) // fail-proof
+		if(!R.symptoms.len) // fail-proof
 			qdel(R)
 		else
 			ratdisease += R
