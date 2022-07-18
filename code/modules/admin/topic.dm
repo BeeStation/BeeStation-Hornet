@@ -1257,6 +1257,12 @@
 		var/obj/item/station_charter/charter = locate(href_list["reject_custom_name"])
 		if(istype(charter))
 			charter.reject_proposed(usr)
+	else if(href_list["reject_drone_application"])
+		if(!check_rights(R_ADMIN))
+			return
+		var/obj/machinery/droneDispenser/application = locate(href_list["reject_drone_application"])
+		if(istype(application))
+			application.reject(usr)	
 	else if(href_list["jumpto"])
 		if(!isobserver(usr) && !check_rights(R_ADMIN))
 			return

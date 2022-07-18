@@ -1,4 +1,3 @@
-#define DRONE_MINIMUM_AGE 14
 
 ///////////////////
 //DRONES AS ITEMS//

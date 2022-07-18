@@ -84,8 +84,7 @@
 	. = ..()
 	GLOB.drones_list += src
 	access_card = new /obj/item/card/id(src)
-	var/datum/job/captain/C = new /datum/job/captain
-	access_card.access = C.get_access()
+	access_card.access = list(ACCESS_ENGINE_EQUIP, ACCESS_MAINT_TUNNELS, ACCESS_EXTERNAL_AIRLOCKS)
 
 	if(default_storage)
 		var/obj/item/I = new default_storage(src)
@@ -95,6 +94,8 @@
 		equip_to_slot_or_del(I, ITEM_SLOT_HEAD)
 
 	ADD_TRAIT(access_card, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT)
+
+	ADD_TRAIT(src, TRAIT_PACIFISM, "drone_pacifism")
 
 	alert_drones(DRONE_NET_CONNECT)
 
