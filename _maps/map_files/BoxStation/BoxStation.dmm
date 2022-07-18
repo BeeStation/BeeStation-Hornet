@@ -8687,8 +8687,8 @@
 /area/chapel/main)
 "aMN" = (
 /obj/structure/table,
-/obj/machinery/smartfridge/disks{
-	pixel_y = 2
+/obj/machinery/plantgenes{
+	pixel_y = 6
 	},
 /turf/open/floor/plasteel,
 /area/hydroponics)

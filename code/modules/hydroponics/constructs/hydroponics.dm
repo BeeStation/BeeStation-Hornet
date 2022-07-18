@@ -624,6 +624,11 @@
 	if(S.has_reagent(/datum/reagent/water/holywater, 1))
 		adjustWater(round(S.get_reagent_amount(/datum/reagent/water/holywater) * 1))
 
+	//Pest Spray
+	if(S.has_reagent(/datum/reagent/toxin/pestkiller, 1))
+		adjustToxic(round(S.get_reagent_amount(/datum/reagent/toxin/pestkiller) * 0.5))
+		adjustPests(-rand(1,3))
+
 
 /obj/machinery/hydroponics/attackby(obj/item/O, mob/user, params)
 	//Called when mob user "attacks" it with object O
