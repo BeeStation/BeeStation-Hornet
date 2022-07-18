@@ -31,7 +31,7 @@
 		if(istype(computer))
 			computer.update_icon()
 
-/datum/computer_file/program/supermatter_monitor/run_program(mob/living/user)
+/datum/computer_file/program/supermatter_monitor/on_start(mob/living/user)
 	. = ..(user)
 	if(!(active in GLOB.machines))
 		active = null

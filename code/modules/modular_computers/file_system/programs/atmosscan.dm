@@ -9,7 +9,7 @@
 	tgui_id = "NtosAtmos"
 	program_icon = "thermometer-half"
 
-/datum/computer_file/program/atmosscan/run_program(mob/living/user)
+/datum/computer_file/program/atmosscan/on_start(mob/living/user)
 	. = ..()
 	if (!.)
 		return

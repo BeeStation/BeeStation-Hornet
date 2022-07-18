@@ -357,10 +357,18 @@
 	if (ringer_status)
 		computer.ring(ringtone)
 
+/// topic call that answers to people pressing "(Reply)" in chat
 /datum/computer_file/program/messenger/Topic(href, href_list)
 	..()
 	if(QDELETED(src))
 		return
+	// Open messenger in the background
+	if(!computer.enabled)
+		if(!computer.turn_on(usr, open_ui = FALSE))
+			return
+	if(computer.active_program != src)
+		if(!computer.open_program(usr, src, in_background = TRUE))
+			return
 	if(!href_list["close"] && usr.canUseTopic(computer, BE_CLOSE, FALSE, NO_TK))
 		switch(href_list["choice"])
 			if("Message")

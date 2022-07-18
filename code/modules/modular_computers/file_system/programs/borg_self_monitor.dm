@@ -18,7 +18,7 @@
 	tablet = null
 	return ..()
 
-/datum/computer_file/program/borg_self_monitor/run_program(mob/living/user)
+/datum/computer_file/program/borg_self_monitor/on_start(mob/living/user)
 	if(!istype(computer, /obj/item/modular_computer/tablet/integrated))
 		to_chat(user, "<span class='warning'>A warning flashes across \the [computer]: Device Incompatible.</span>")
 		return FALSE

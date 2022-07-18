@@ -157,49 +157,20 @@
 			return TRUE
 
 		if("PC_runprogram")
-			var/prog = params["name"]
 			var/is_disk = params["is_disk"]
-			var/datum/computer_file/program/P = null
+			var/datum/computer_file/program/program
 			var/obj/item/computer_hardware/hard_drive/role/ssd = all_components[MC_HDD_JOB]
-			var/mob/user = usr
 
 			if(hard_drive && !is_disk)
-				P = hard_drive.find_file_by_name(prog)
+				program = hard_drive.find_file_by_name(params["name"])
 			if(ssd && is_disk)
-				P = ssd.find_file_by_name(prog)
+				program = ssd.find_file_by_name(params["name"])
 
-			if(!P || !istype(P)) // Program not found or it's not executable program.
-				to_chat(user, "<span class='danger'>\The [src]'s screen shows \"I/O ERROR - Unable to run program\" warning.</span>")
+			if(!program || !istype(program)) // Program not found or it's not executable program.
+				to_chat(usr, "<span class='danger'>\The [src]'s screen shows \"I/O ERROR - Unable to run program\" warning.</span>")
 				return
-
-			P.computer = src
-
-			if(!P.is_supported_by_hardware(hardware_flag, 1, user))
-				return
-
-			// The program is already running. Resume it.
-			if(P in idle_threads)
-				P.program_state = PROGRAM_STATE_ACTIVE
-				active_program = P
-				P.alert_pending = FALSE
-				idle_threads.Remove(P)
-				update_icon()
-				return
-
-			var/obj/item/computer_hardware/processor_unit/PU = all_components[MC_CPU]
-
-			if(idle_threads.len > PU.max_idle_programs)
-				to_chat(user, "<span class='danger'>\The [src] displays a \"Maximal CPU load reached. Unable to run another program.\" error.</span>")
-				return
-
-			if(P.requires_ntnet && !get_ntnet_status(P.requires_ntnet_feature)) // The program requires NTNet connection, but we are not connected to NTNet.
-				to_chat(user, "<span class='danger'>\The [src]'s screen shows \"Unable to connect to NTNet. Please retry. If problem persists contact your system administrator.\" warning.</span>")
-				return
-			if(P.run_program(user))
-				active_program = P
-				P.alert_pending = FALSE
-				update_icon()
-			return TRUE
+			program.computer = src
+			open_program(usr, program)
 
 		if("PC_toggle_light")
 			return toggle_flashlight()
