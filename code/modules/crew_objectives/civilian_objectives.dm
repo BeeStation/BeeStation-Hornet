@@ -83,12 +83,11 @@
 	explanation_text = "Have a bottle(any type) that contains '[chemnames]' when the shift ends. Each of them must be at least [chemsize]u."
 
 /datum/objective/crew/cocktail/check_completion()
-	var/count = length(targetchems)
 	if(owner?.current)
 		if(owner.current.contents)
 			// check every bottle in your bag.
 			for(var/obj/item/reagent_containers/B in owner.current.get_contents())
-				count = length(targetchems) // a bottle should have the all desired chems. reset the count for every try.
+				var/count = length(targetchems) // a bottle should have the all desired chems. reset the count for every try.
 				for(var/each in targetchems)
 					if(B.reagents.has_reagent(each, chemsize))
 						count--
