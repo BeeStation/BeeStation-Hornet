@@ -19,7 +19,7 @@
 	var/icon_recharging = "recharge"
 	var/icon_creating = "make"
 	var/response_timer_id = null
-	var/approval_time = 600 //1 minute
+	var/approval_time = 60 SECONDS
 
 	// Mats and how much we are using
 	var/list/using_materials
