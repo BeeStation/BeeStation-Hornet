@@ -440,12 +440,13 @@
 
 	if(symptoms.len >= VIRUS_SYMPTOM_LIMIT+VIRUS_WILD_COUNT)
 		var/datum/symptom/target
-		for(var/count in 1 to 150)
+		for(var/count in 1 to 150) // pick a symptom to remove as long as it's not wild symptom.
 			target = pick(symptoms)
 			if(!istype(target, /datum/symptom/wild))
 				break
 			if(count == 150)
 				return
+		// I know this is not a pretty way to pick a symptom, but I have no idea how to pick a symptom which isn't a wild virus from a list.
 		RemoveSymptom(target, remove_wild)
 	symptoms += S
 	S.OnAdd(src)
