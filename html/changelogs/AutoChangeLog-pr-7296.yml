@@ -1,0 +1,5 @@
+author: EvilDragonfiend
+delete-after: true
+changes:
+  - bugfix: Changeling no longer shows a grey hud icon when they copied the appearance
+      of a creature wearing a PDA instead of an ID card
