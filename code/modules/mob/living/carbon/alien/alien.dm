@@ -112,6 +112,7 @@ Des: Removes all infected images from the alien.
 			var/searchfor = "infected"
 			if(findtext(I.icon_state, searchfor, 1, length(searchfor) + 1))
 				qdel(I)
+				client.images -= I
 	return
 
 /mob/living/carbon/alien/canBeHandcuffed()
