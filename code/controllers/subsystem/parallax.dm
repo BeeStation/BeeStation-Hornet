@@ -67,7 +67,7 @@ SUBSYSTEM_DEF(parallax)
 		if(MC_TICK_CHECK)
 			return
 	//Processing is completed, clear the list
-	currentrun.Cut()
+	currentrun.len = 0
 
 /datum/controller/subsystem/parallax/proc/on_mob_login(datum/source, mob/new_login)
 	//Register the required signals
