@@ -174,7 +174,7 @@
 	back = /obj/item/storage/backpack/satchel
 	r_pocket = /obj/item/pda/heads
 	l_hand = /obj/item/clipboard
-	id = /obj/item/card/id
+	id = /obj/item/card/id/centcom
 
 /datum/outfit/centcom_official/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	if(visualsOnly)
@@ -187,6 +187,7 @@
 
 	var/obj/item/card/id/W = H.wear_id
 	W.icon_state = "centcom"
+	W.access = list() // wipe access - they shouldn't get all centcom access.
 	W.access = get_centcom_access("CentCom Official")
 	W.access += ACCESS_WEAPONS
 	W.assignment = "CentCom Official"
@@ -343,6 +344,7 @@
 		return
 
 	var/obj/item/card/id/W = H.wear_id
+	W.access = list() //wipe access - they shouldn't get all centcom access.
 	W.access = get_centcom_access(name)
 	W.access += ACCESS_WEAPONS
 	W.assignment = name
@@ -430,7 +432,7 @@
 	suit_store = /obj/item/tank/internals/emergency_oxygen/double
 	belt = /obj/item/gun/ballistic/revolver/mateba
 	l_hand = /obj/item/gun/energy/pulse/loyalpin
-	id = /obj/item/card/id
+	id = /obj/item/card/id/centcom
 	ears = /obj/item/radio/headset/headset_cent/alt
 
 	backpack_contents = list(/obj/item/storage/box=1,\
@@ -454,6 +456,7 @@
 
 	var/obj/item/card/id/W = H.wear_id
 	W.icon_state = "centcom"
+	W.access = list() //wipe access first
 	W.access = get_all_accesses()//They get full station access.
 	W.access += get_centcom_access("Death Commando")//Let's add their alloted CentCom access.
 	W.assignment = "Death Commando"

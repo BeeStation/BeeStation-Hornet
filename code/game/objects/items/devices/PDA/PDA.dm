@@ -10,6 +10,8 @@ GLOBAL_LIST_EMPTY(PDAs)
 #define PDA_SCANNER_HALOGEN		4
 #define PDA_SCANNER_GAS			5
 #define PDA_SPAM_DELAY		    1 MINUTES
+#define PDA_TOGGLE_ON		    "On"
+#define PDA_TOGGLE_OFF		    "Off"
 
 /obj/item/pda
 	name = "\improper PDA"
@@ -74,6 +76,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 	var/equipped = FALSE  //used here to determine if this is the first time its been picked up
 	var/allow_emojis = FALSE //if the pda can send emojis and actually have them parsed as such
 	var/sort_by_job = FALSE // If this is TRUE, will sort PDA list by job.
+	var/toggle_auto_update = PDA_TOGGLE_ON // If this is "On", automatically update PDA when taken a card, if no, it doesn't.
 
 	var/obj/item/card/id/id = null //Making it possible to slot an ID card into the PDA so it can function as both.
 	var/ownjob = null //related to above
@@ -233,7 +236,8 @@ GLOBAL_LIST_EMPTY(PDAs)
 				dat += "<h2>PERSONAL DATA ASSISTANT v.1.2</h2>"
 				dat += "Owner: [owner], [ownjob]<br>"
 				dat += text("ID: <a href='?src=[REF(src)];choice=Authenticate'>[id ? "[id.registered_name], [id.assignment]" : "----------"]")
-				dat += text("<br><a href='?src=[REF(src)];choice=UpdateInfo'>[id ? "Update PDA Info" : ""]</A><br><br>")
+				dat += text("<br><a href='?src=[REF(src)];choice=UpdateInfo'>[id ? "Update PDA Info" : ""]</A><br>")
+				dat += text("<br><a href='?src=[REF(src)];choice=ToggleAutoUpdate'>Toggle auto-updating: \[[toggle_auto_update]\]</A><br><br>")
 
 				dat += "[station_time_timestamp()]<br>" //:[world.time / 100 % 6][world.time / 100 % 10]"
 				dat += "[time2text(world.realtime, "MMM DD")] [GLOB.year_integer+540]"
@@ -443,13 +447,14 @@ GLOBAL_LIST_EMPTY(PDAs)
 			if ("Authenticate")//Checks for ID
 				id_check(U)
 			if("UpdateInfo")
-				ownjob = id.assignment
-				if(istype(id, /obj/item/card/id/syndicate))
-					owner = id.registered_name
-				update_label()
-				if(!silent)
-					playsound(src, 'sound/machines/terminal_processing.ogg', 15, TRUE)
-					addtimer(CALLBACK(GLOBAL_PROC, .proc/playsound, src, 'sound/machines/terminal_success.ogg', 15, TRUE), 1.3 SECONDS)
+				update_pda()
+			if("ToggleAutoUpdate")
+				switch(toggle_auto_update)
+					if(PDA_TOGGLE_ON)
+						toggle_auto_update = PDA_TOGGLE_OFF
+					if(PDA_TOGGLE_OFF)
+						toggle_auto_update = PDA_TOGGLE_ON
+						update_pda()
 			if("Eject")//Ejects the cart, only done from hub.
 				eject_cart(U)
 				if(!silent)
@@ -645,6 +650,15 @@ GLOBAL_LIST_EMPTY(PDAs)
 			var/mob/living/carbon/human/H = loc
 			if(H.wear_id == src)
 				H.sec_hud_set_ID()
+
+/obj/item/pda/proc/update_pda()
+	ownjob = id.assignment
+	if(istype(id, /obj/item/card/id/syndicate))
+		owner = id.registered_name
+	update_label()
+	if(!silent)
+		playsound(src, 'sound/machines/terminal_processing.ogg', 15, TRUE)
+		addtimer(CALLBACK(GLOBAL_PROC, .proc/playsound, src, 'sound/machines/terminal_success.ogg', 15, TRUE), 1.3 SECONDS)
 
 /obj/item/pda/proc/do_remove_id(mob/user)
 	if(!id)
@@ -971,9 +985,12 @@ GLOBAL_LIST_EMPTY(PDAs)
 			if(!id_check(user, idcard))
 				return
 			to_chat(user, "<span class='notice'>You put the ID into \the [src]'s slot.</span>")
+			if(((owner != id.registered_name) || (ownjob != id.assignment)) && (toggle_auto_update == PDA_TOGGLE_ON)) // auto-update by inserting your card
+				update_pda()
 			updateSelfDialog()//Update self dialog on success.
 
 			return	//Return in case of failed check or when successful.
+
 		updateSelfDialog()//For the non-input related code.
 	else if(istype(C, /obj/item/paicard) && !pai)
 		if(!user.transferItemToLoc(C, src))
@@ -1192,3 +1209,5 @@ GLOBAL_LIST_EMPTY(PDAs)
 #undef PDA_SCANNER_HALOGEN
 #undef PDA_SCANNER_GAS
 #undef PDA_SPAM_DELAY
+#undef PDA_TOGGLE_ON
+#undef PDA_TOGGLE_OFF

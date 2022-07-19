@@ -87,6 +87,17 @@
 	back = /obj/item/storage/backpack
 	r_hand = /obj/item/gps
 
+/datum/outfit/vip_target/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	if(visualsOnly)
+		return
+
+	if(H.wear_id?.GetID())
+		var/obj/item/card/id/I = H.wear_id.GetID()
+		if(I)
+			I.registered_name = H.real_name
+			I.update_label()
+
+
 //=====================
 // Centcom Official (VIP)
 //=====================
