@@ -1,0 +1,4 @@
+author: wixoa, ported by ike709
+delete-after: true
+changes:
+  - bugfix: Fixed subsystem priority sorting
