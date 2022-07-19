@@ -27,7 +27,7 @@
 		UnregisterSignal(A, COMSIG_PARENT_QDELETING)
 		UnregisterSignal(A, COMSIG_MOVABLE_MOVED)
 	ordered_parents = null
-	. = ..()
+	return ..()
 
 /datum/component/moved_relay/proc/register_parent(atom/A)
 	RegisterSignal(A, COMSIG_PARENT_QDELETING, .proc/parent_deleted)

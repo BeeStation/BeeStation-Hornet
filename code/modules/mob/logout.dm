@@ -14,7 +14,6 @@
 			var/datum/callback/CB = foo
 			CB.Invoke()
 
-	var/datum/component/move_relay = GetComponent(/datum/component/moved_relay)
-	qdel(move_relay)
+	qdel(GetComponent(/datum/component/moved_relay))
 
 	return TRUE
