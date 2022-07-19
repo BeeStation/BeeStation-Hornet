@@ -30,6 +30,7 @@
 
 	var/efficiency_multiplier = 1
 	var/gas_capacity = 0
+	var/fuel_state = FALSE
 
 /obj/machinery/atmospherics/components/unary/shuttle/engine_heater/New()
 	. = ..()
@@ -42,6 +43,15 @@
 	GLOB.custom_shuttle_machines -= src
 	. = ..()
 	update_adjacent_engines()
+
+/obj/machinery/atmospherics/components/unary/shuttle/engine_heater/process(delta_time)
+	if(hasFuel(1))
+		if(!fuel_state)
+			fuel_state = TRUE
+			update_adjacent_engines()
+	else if(fuel_state)
+		fuel_state = FALSE
+		update_adjacent_engines()
 
 /obj/machinery/atmospherics/components/unary/shuttle/engine_heater/on_construction()
 	..(dir, dir)

@@ -23,8 +23,8 @@
 	/// The mass of the shuttle
 	/// Updated when the shuttle size is changed
 	var/mass
-	/// Detection radius (Debug)
-	var/detection_range = 1000
+	/// Detection radius
+	var/detection_range = 1500
 	/// Interidction range
 	var/interdiction_range = 150
 	///The maximum value of the ship integrity. This goes up as the ship is expanded/built upon and will not go down.
@@ -76,13 +76,16 @@
 /datum/shuttle_data/proc/calculate_initial_stats()
 	PRIVATE_PROC(TRUE)
 	var/obj/docking_port/mobile/mobile_port = SSshuttle.getShuttle(port_id)
+	mass = 5
 	for(var/area/shuttle_area as() in mobile_port.shuttle_areas)
 		//Check turfs
 		for(var/turf/T in shuttle_area)
-			mass += 1
+			if(!isspaceturf(T))
+				mass ++
 		//Handle shuttle engines
 		for(var/obj/machinery/shuttle/engine/shuttle_engine in shuttle_area)
 			register_thruster(shuttle_engine)
+			message_admins("Shuttle init thruster")
 		//Handle shuttle shields
 		for(var/obj/machinery/power/shuttle_shield_generator/shield_generator in shuttle_area)
 			register_shield_generator(shield_generator)
@@ -126,6 +129,7 @@
 	unregister_turfs()
 	//Reset ship integrity to 0
 	max_ship_integrity = 0
+	mass = 5
 	//Get the docking port
 	var/obj/docking_port/mobile/M = SSshuttle.getShuttle(port_id)
 	//Perform calculations
@@ -133,6 +137,8 @@
 		//Ignore non-shuttle turfs
 		if (!islist(T.baseturfs) || !T.baseturfs.Find(/turf/baseturf_skipover/shuttle))
 			continue
+		if(!isspaceturf(T))
+			mass ++
 		RegisterSignal(T, COMSIG_TURF_CHANGE, .proc/shuttle_turf_changed)
 		RegisterSignal(T, COMSIG_TURF_AFTER_SHUTTLE_MOVE, .proc/shuttle_turf_moved)
 		registered_turfs += T
@@ -161,6 +167,7 @@
 	for(var/T in registered_turfs)
 		UnregisterSignal(T, COMSIG_TURF_CHANGE)
 		UnregisterSignal(T, COMSIG_TURF_AFTER_SHUTTLE_MOVE)
+	mass = 5
 	registered_turfs.Cut()
 
 ///Call after updating the value of current_ship_integrity
@@ -219,6 +226,8 @@
 /datum/shuttle_data/proc/shuttle_turf_changed(turf/source, path, list/new_baseturfs, flags, list/transferring_comps)
 	//Only update if there are shuttle baseturfs here
 	if (islist(source.baseturfs) && source.baseturfs.Find(/turf/baseturf_skipover/shuttle))
+		if(!isspaceturf(source))
+			mass --
 		//Subtract the old integrity
 		if (iswallturf(source))
 			if(istype(source, /turf/closed/wall/r_wall))
@@ -232,6 +241,8 @@
 	//Only update if there are still shuttle baseturfs here
 	if ((new_baseturfs && islist(new_baseturfs) && new_baseturfs.Find(/turf/baseturf_skipover/shuttle))\
 		|| (!new_baseturfs && islist(source.baseturfs) && source.baseturfs.Find(/turf/baseturf_skipover/shuttle)))
+		if(!ispath(source, /turf/open/space))
+			mass ++
 		//Add the new integrity
 		if (ispath(path, /turf/closed/wall))
 			if(ispath(path, /turf/closed/wall/r_wall))
@@ -337,7 +348,6 @@
 			continue
 		shuttle_engine.fireEngine()
 		shuttle_engine.consume_fuel(fuel_usage)
-		shuttle_engine.update_engine()
 
 //Return true if shuttle can no longer fly
 /datum/shuttle_data/proc/is_stranded()
@@ -362,6 +372,7 @@
 		thrust += source.thrust
 		fuel_consumption += source.fuel_use
 	registered_engines += source
+	message_admins("Registered thruster")
 	RegisterSignal(source, COMSIG_PARENT_QDELETING, .proc/on_thruster_qdel)
 	RegisterSignal(source, COMSIG_SHUTTLE_ENGINE_STATUS_CHANGE, .proc/on_thruster_state_change)
 
@@ -376,6 +387,7 @@
 
 /// Called when a shuttle thruster changes state
 /datum/shuttle_data/proc/on_thruster_state_change(obj/machinery/shuttle/engine/source, old_state, new_state)
+	message_admins("Thruster state update: [old_state] to [new_state]")
 	if(old_state == new_state)
 		return
 	if(new_state)

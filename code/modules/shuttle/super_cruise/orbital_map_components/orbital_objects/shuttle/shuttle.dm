@@ -44,12 +44,16 @@
 	//Cheating autopilots never fail
 	var/cheating_autopilot = FALSE
 
+	//Time of the world when launch immunity wears off (Cannot lose fuel for 10 seconds afterwards)
+	var/immunity_time
+
 	//The timer to stop docking
 	var/timer_id
 
 /datum/orbital_object/shuttle/New(datum/orbital_vector/position, datum/orbital_vector/velocity, orbital_map_index, obj/docking_port/mobile/port)
 	if(port)
 		link_shuttle(port)
+	immunity_time = world.time + 10 SECONDS
 	. = ..()
 
 /datum/orbital_object/shuttle/Destroy()
@@ -122,7 +126,8 @@
 	if(shuttle_data && !cheating_autopilot)
 		shuttle_data.process_flight(thrust)
 		if(shuttle_data.is_stranded())
-			strand_shuttle()
+			if(world.time > immunity_time)
+				strand_shuttle()
 			return
 	//AUTOPILOT
 	handle_autopilot()
