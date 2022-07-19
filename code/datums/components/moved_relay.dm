@@ -19,7 +19,7 @@
 	RegisterSignal(A, COMSIG_MOVABLE_MOVED, .proc/parent_moved)
 	ordered_parents += A
 	//Recursively register parents
-	if(!isturf(A.loc))
+	if(A.loc && !isturf(A.loc))
 		register_parent(A.loc)
 
 /datum/component/moved_relay/Destroy(force, silent)
@@ -34,18 +34,18 @@
 	RegisterSignal(A, COMSIG_MOVABLE_MOVED, .proc/parent_moved)
 	ordered_parents += A
 	//Recursively register parents
-	if(!isturf(A.loc))
+	if(A.loc && !isturf(A.loc))
 		register_parent(A.loc)
 
 /datum/component/moved_relay/proc/parent_moved(atom/source, atom/oldLoc)
 	//If old location wasn't a turf, then it was tracked by us
 	//Stop tracking old atoms
-	if(!isturf(oldLoc))
+	if(oldLoc && !isturf(oldLoc))
 		unregister_parent(oldLoc)
 	//Relay the movement signal to the parent
 	SEND_SIGNAL(parent, COMSIG_PARENT_MOVED_RELAY, source, oldLoc)
 	//Start tarcking new ones
-	if(!isturf(source.loc))
+	if(source.loc && !isturf(source.loc))
 		register_parent(source.loc)
 
 /datum/component/moved_relay/proc/parent_deleted(datum/source, force)
@@ -56,5 +56,5 @@
 	UnregisterSignal(A, COMSIG_MOVABLE_MOVED)
 	ordered_parents -= A
 	//Recursively unregister parents
-	if(!isturf(A.loc))
+	if(A.loc && !isturf(A.loc))
 		unregister_parent(A.loc)
