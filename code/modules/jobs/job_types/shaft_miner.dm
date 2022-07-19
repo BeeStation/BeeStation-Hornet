@@ -8,7 +8,6 @@
 	spawn_positions = 3
 	supervisors = "the quartermaster"
 	selection_color = "#dcba97"
-	chat_color = "#CE957E"
 
 	outfit = /datum/outfit/job/miner
 
