@@ -85,7 +85,6 @@
 		//Handle shuttle engines
 		for(var/obj/machinery/shuttle/engine/shuttle_engine in shuttle_area)
 			register_thruster(shuttle_engine)
-			message_admins("Shuttle init thruster")
 		//Handle shuttle shields
 		for(var/obj/machinery/power/shuttle_shield_generator/shield_generator in shuttle_area)
 			register_shield_generator(shield_generator)
@@ -372,7 +371,6 @@
 		thrust += source.thrust
 		fuel_consumption += source.fuel_use
 	registered_engines += source
-	message_admins("Registered thruster")
 	RegisterSignal(source, COMSIG_PARENT_QDELETING, .proc/on_thruster_qdel)
 	RegisterSignal(source, COMSIG_SHUTTLE_ENGINE_STATUS_CHANGE, .proc/on_thruster_state_change)
 
@@ -387,7 +385,6 @@
 
 /// Called when a shuttle thruster changes state
 /datum/shuttle_data/proc/on_thruster_state_change(obj/machinery/shuttle/engine/source, old_state, new_state)
-	message_admins("Thruster state update: [old_state] to [new_state]")
 	if(old_state == new_state)
 		return
 	if(new_state)

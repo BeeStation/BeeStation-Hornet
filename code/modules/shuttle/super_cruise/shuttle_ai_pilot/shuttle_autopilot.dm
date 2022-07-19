@@ -32,7 +32,7 @@
 		var/obj/docking_port/stationary/target_port = SSshuttle.getDock(targetPortId)
 		if(target_port && shuttle.docking_target.z_in_contents(target_port.z))
 			shuttle.goto_port(targetPortId)
-		else
+		else if(target_port)
 			//Otherwise undock and relocate target port ID
 			shuttle.undock()
 			//Locate new target

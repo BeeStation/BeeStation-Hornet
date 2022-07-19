@@ -6,3 +6,7 @@ hit_punch.ogg and hit_kick.ogg are made by Taira Komori
 
 cartoon_pop.ogg by Tobiasz 'unfa' Karoń
 (https://freesound.org/people/unfa/sounds/245645/)
+
+Collision_alert is a modified version of collision_alert.wav by Pyro13djt
+https://freesound.org/people/pyro13djt/sounds/333819/
+It is licensed under CC BY 3.0. It was modified to have a pitch change, cropped, reverb and the defib sound was added at the start.

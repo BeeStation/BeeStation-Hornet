@@ -34,6 +34,9 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 
 	//Looping sound
 	var/datum/looping_sound/shuttle_crash/emergency_alarm
+	var/datum/looping_sound/shuttle_collision_alarm/collision_warning
+
+	var/collision_warning_system_active = FALSE
 
 /obj/machinery/computer/shuttle_flight/Initialize(mapload, obj/item/circuitboard/C)
 	. = ..()
@@ -47,10 +50,12 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 	register_shuttle_object(null, SSorbits.assoc_shuttles[shuttleId])
 	//Setup the looping sound
 	emergency_alarm = new(list(src))
+	collision_warning = new(list(src))
 
 /obj/machinery/computer/shuttle_flight/Destroy()
 	. = ..()
 	QDEL_NULL(emergency_alarm)
+	QDEL_NULL(collision_warning)
 	SSorbits.open_orbital_maps -= SStgui.get_all_open_uis(src)
 	unregister_shuttle_object(shuttleObject, FALSE)
 	UnregisterSignal(SSorbits, COMSIG_ORBITAL_BODY_CREATED)
@@ -80,13 +85,23 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 	shuttleObject = body
 	RegisterSignal(shuttleObject, COMSIG_PARENT_QDELETING, .proc/unregister_shuttle_object)
 	RegisterSignal(shuttleObject, COMSIG_ORBITAL_BODY_MESSAGE, .proc/on_shuttle_messaged)
+	RegisterSignal(shuttleObject, COMSIG_SHUTTLE_TOGGLE_COLLISION_ALERT, .proc/set_collision_warning_system)
 
 /obj/machinery/computer/shuttle_flight/proc/unregister_shuttle_object(datum/source, force)
 	UnregisterSignal(shuttleObject, COMSIG_PARENT_QDELETING)
 	UnregisterSignal(shuttleObject, COMSIG_ORBITAL_BODY_MESSAGE)
+	UnregisterSignal(shuttleObject, COMSIG_SHUTTLE_TOGGLE_COLLISION_ALERT)
 	shuttleObject = null
 	if(current_user)
 		remove_eye_control(current_user)
+
+/obj/machinery/computer/shuttle_flight/proc/set_collision_warning_system(datum/source, new_status)
+	if(new_status)
+		if(!collision_warning_system_active)
+			collision_warning?.start()
+	else if(collision_warning_system_active)
+		collision_warning?.stop()
+	collision_warning_system_active = new_status
 
 /obj/machinery/computer/shuttle_flight/proc/on_shuttle_messaged(datum/source, message)
 	say(message)

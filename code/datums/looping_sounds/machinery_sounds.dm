@@ -59,3 +59,9 @@
 	mid_length = 30
 	volume = 70
 	extra_range = 4
+
+/datum/looping_sound/shuttle_collision_alarm
+	mid_sounds = list('sound/effects/collision_alert.ogg'=1)
+	mid_length = 30
+	volume = 70
+	extra_range = 4

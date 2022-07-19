@@ -60,6 +60,9 @@
 	//Add to this when you want THIS objects collision proc to be called.
 	var/collision_flags = NONE
 
+	//The color of the locator
+	var/locator_colour
+
 /datum/orbital_object/New(datum/orbital_vector/position, datum/orbital_vector/velocity, orbital_map_index)
 	if(orbital_map_index)
 		src.orbital_map_index = orbital_map_index
@@ -83,6 +86,8 @@
 	//If orbits has already setup, then post map setup
 	if(SSorbits.orbits_setup)
 		post_map_setup()
+	var/validFirstColours = list("8", "9", "A", "B", "C", "D", "E", "F")
+	locator_colour = "[pick(validFirstColours)][pick(GLOB.hex_characters)][pick(validFirstColours)][pick(GLOB.hex_characters)][pick(validFirstColours)][pick(GLOB.hex_characters)]"
 
 /datum/orbital_object/Destroy()
 	STOP_PROCESSING(SSorbits, src)
@@ -336,3 +341,6 @@
 
 /datum/orbital_object/proc/post_map_setup()
 	return
+
+/datum/orbital_object/proc/get_locator_name()
+	return name

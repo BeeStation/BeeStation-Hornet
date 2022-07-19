@@ -31,7 +31,6 @@
 	if(istype(current_area) && current_area.mobile_port)
 		var/datum/shuttle_data/shuttle_data = SSorbits.get_shuttle_data(current_area.mobile_port.id)
 		shuttle_data?.register_thruster(src)
-		message_admins("Thruster init from thruster")
 
 /obj/machinery/shuttle/engine/proc/consume_fuel(amount)
 	return

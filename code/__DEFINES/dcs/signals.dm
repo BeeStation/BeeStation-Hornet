@@ -623,3 +623,5 @@
 #define COMSIG_SHUTTLE_SHIELD_HEALTH_CHANGE "shuttle_shield_health_change"
 /// Called when a shuttle has its NPC controller killed
 #define COMSIG_SHUTTLE_NPC_INCAPACITATED "shuttle_npc_incapacitated"
+/// Called when a collision alert for shuttles is toggled (new_status)
+#define COMSIG_SHUTTLE_TOGGLE_COLLISION_ALERT "shuttle_collision_alert_toggle"

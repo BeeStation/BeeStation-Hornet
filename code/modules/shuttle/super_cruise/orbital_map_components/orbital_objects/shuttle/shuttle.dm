@@ -50,6 +50,9 @@
 	//The timer to stop docking
 	var/timer_id
 
+	//Is the collision alert warning active
+	var/collision_alert = FALSE
+
 /datum/orbital_object/shuttle/New(datum/orbital_vector/position, datum/orbital_vector/velocity, orbital_map_index, obj/docking_port/mobile/port)
 	if(port)
 		link_shuttle(port)
@@ -131,6 +134,8 @@
 			return
 	//AUTOPILOT
 	handle_autopilot()
+	//Check for collisions
+	check_collisions()
 	//Do thrust
 	var/thrust_amount = thrust * shuttle_data.get_thrust_force() / 100
 	var/thrust_x = cos(angle) * thrust_amount
@@ -283,3 +288,6 @@
 	random_drop(z_linked.linked_z_level[1].z_value)
 	SSorbits.interdicted_shuttles[shuttle_port_id] = world.time + SHUTTLE_INTERDICTION_TIME
 	return TRUE
+
+/datum/orbital_object/shuttle/get_locator_name()
+	return "Unknown Shuttle"
