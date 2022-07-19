@@ -28,7 +28,7 @@
 	explanation_text+= " [style]."
 
 /datum/objective/abductee/cargonia
-	explanation_text = "Your comrades have been oppressed for long enough. Declare and protect the independence of
+	explanation_text = "Your comrades have been oppressed for long enough. Declare and protect the independence of"
 
 /datum/objective/abductee/cargonia/New()
 	var/department = pick(list("service", "security", "command", "cargo", "medbay", "science", "engineering"))
