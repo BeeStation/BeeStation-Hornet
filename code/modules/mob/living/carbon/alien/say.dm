@@ -1,5 +1,5 @@
 /mob/living/proc/alien_talk(message, shown_name = real_name)
-	src.log_talk(message, LOG_SAY)
+	log_talk(message, LOG_SAY)
 	message = trim(message)
 	if(!message)
 		return
@@ -15,7 +15,7 @@
 
 /mob/living/carbon/alien/humanoid/royal/queen/alien_talk(message, shown_name = name)
 	shown_name = "<FONT size = 3>[shown_name]</FONT>"
-	..(message, shown_name)
+	return ..(message, shown_name)
 
 /mob/living/carbon/hivecheck()
 	var/obj/item/organ/alien/hivenode/N = getorgan(/obj/item/organ/alien/hivenode)
