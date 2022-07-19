@@ -35,7 +35,7 @@
 	explanation_text+= " [department]!"
 
 /datum/objective/abductee/gangstalkers
-	explanation_text = "You are a targeted individual. There are gangstalkers out to get you, and all of them are from
+	explanation_text = "You are a targeted individual. There are gangstalkers out to get you, and all of them are from"
 
 /datum/objective/abductee/gangstalkers/New()
 	var/skinwalker = pick(list("lavaland", "security", "clown planet", "the syndicate", "maintenance"))
