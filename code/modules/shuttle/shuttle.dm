@@ -735,8 +735,8 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 		shuttle_area.parallax_movedir = FALSE
 	if(assigned_transit && assigned_transit.assigned_area)
 		assigned_transit.assigned_area.parallax_movedir = FALSE
-	for (var/client/C in SSmobs.clients_by_zlevel[z])
-		var/area/A = get_area(C?.eye)
+	for (var/mob/M as() in SSmobs.clients_by_zlevel[z])
+		var/area/A = get_area(M)
 		if(!A)
 			continue
 		if(A in shuttle_areas)
