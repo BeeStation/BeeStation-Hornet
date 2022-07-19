@@ -27,6 +27,27 @@
 	var/style = pick(list("pantomime", "rhyme", "haiku", "extended metaphors", "riddles", "extremely literal terms", "sound effects", "military jargon", "three word sentences"))
 	explanation_text+= " [style]."
 
+/datum/objective/abductee/cargonia
+	explanation_text = "Your comrades have been oppressed for long enough. Declare and protect the independence of
+
+/datum/objective/abductee/cargonia/New()
+	var/department = pick(list("service", "security", "command", "cargo", "medbay", "science", "engineering"))
+	explanation_text+= " [department]!"
+
+/datum/objective/abductee/gangstalkers
+	explanation_text = "You are a targeted individual. There are gangstalkers out to get you, and all of them are from
+
+/datum/objective/abductee/gangstalkers/New()
+	var/skinwalker = pick(list("lavaland", "security", "clown planet", "the syndicate", "maintenance"))
+	explanation_text+= " [skinwalker]."
+
+/datum/objective/abductee/cure
+	explanation_text = "There is a cure for every ailment know to man. You must bring"
+
+/datum/objective/abductee/cure/New()
+	var/heal = pick(list("cannabis", "corgis", "the beautiful sound of bikehorns", "weapons", "holy water"))
+	explanation_text+= " [heal] to all sick and injured people!"
+
 /datum/objective/abductee/capture
 	explanation_text = "Capture"
 
