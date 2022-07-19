@@ -127,7 +127,7 @@
 		return
 	if(ISWIELDED(src))
 		user.say("[war_cry]", forced="spear warcry")
-		explosive.forceMove(AM)
+		explosive.forceMove(user)
 		explosive.prime(lanced_by=user)
 		qdel(src)
 
