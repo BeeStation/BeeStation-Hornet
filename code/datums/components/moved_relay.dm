@@ -26,7 +26,7 @@
 /datum/component/moved_relay/Destroy(force, silent)
 	while(length(ordered_parents))
 		unregister_parent(ordered_parents[1])
-	. = ..()
+	return ..()
 
 /datum/component/moved_relay/proc/register_parent(atom/A)
 	RegisterSignal(A, COMSIG_PARENT_QDELETING, .proc/parent_deleted)
