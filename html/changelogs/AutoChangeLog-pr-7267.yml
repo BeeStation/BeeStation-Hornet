@@ -1,5 +1,0 @@
-author: St0rmC4st3r
-delete-after: true
-changes:
-  - bugfix: Camera consoles can no longer be used to metagame a malf AI installing
-      x-ray upgrades.
