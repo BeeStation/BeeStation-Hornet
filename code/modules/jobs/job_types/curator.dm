@@ -8,7 +8,6 @@
 	spawn_positions = 1
 	supervisors = "the head of personnel"
 	selection_color = "#dddddd"
-	chat_color = "#88c999"
 
 	outfit = /datum/outfit/job/curator
 
@@ -31,7 +30,7 @@
 	name = "Curator"
 	jobtype = /datum/job/curator
 
-	id = /obj/item/card/id/job/chap
+	id = /obj/item/card/id/job/curator
 	shoes = /obj/item/clothing/shoes/laceup
 	belt = /obj/item/pda/curator
 	ears = /obj/item/radio/headset/headset_curator
