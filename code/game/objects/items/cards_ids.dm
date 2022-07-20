@@ -693,7 +693,7 @@ update_label("John Doe", "Clowny")
 
 /obj/item/card/id/paper
 	name = "paper slip identifier"
-	desc = "Some spare papers taped into a vauge card shape. There seems to be a name scribbled on it. Seems trustworthy."
+	desc = "Some spare papers taped into a vauge card shape, and a name scribbled on it. Seems trustworthy."
 	noaccount = 1
 
 /obj/item/card/id/paper/Initialize(mapload)
@@ -722,7 +722,7 @@ update_label("John Doe", "Clowny")
 
 /obj/item/card/id/paper/update_label(newname, newjob)
 	if(newname || newjob)
-		name = "[(!newname)	? "paper slip identifier"	: "[newname]'s paper slip (presumably)"]"
+		name = "[(!newname)	? "paper slip identifier": "[newname]'s paper slip (presumably)"]""
 		return
 
 	name = "[(!newname)	? "paper slip identifier"	: "[newname]'s paper slip (presumably)"]"
