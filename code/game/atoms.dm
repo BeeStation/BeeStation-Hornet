@@ -570,8 +570,58 @@
 				. += "<span class='notice'>It has [reagents.total_volume] unit\s left.</span>"
 			else
 				. += "<span class='danger'>It's empty.</span>"
+		if(user.can_see_boozepower())
+			var/total_boozepower = 0
+			var/total_volume = 0
+			if(length(reagents.reagent_list))
+				for(var/datum/reagent/consumable/ethanol/B in reagents.reagent_list)
+					var/real_boozepower = B.boozepwr
+					if(real_boozepower<0) // minus booze power is reversed to light drinkers, but is actually 0 to normal drinkers.
+						real_boozepower = 0
+					total_boozepower += B.volume*real_boozepower
+				for(var/datum/reagent/R in reagents.reagent_list)
+					total_volume += R.volume
+			if(total_volume)
+				. += "<span class='notice'>Total Booze Power: [calculate_boozepower(total_boozepower/total_volume)].</span>"
 
 	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE, user, .)
+
+/atom/proc/calculate_boozepower(booze_power)
+	if(isnull(booze_power))
+		return
+	// because of float values, you need to write like `0 to 10`, `10 to 20`
+	switch(booze_power)
+		if(-INFINITY to 1)
+			. += "for children"
+		if(300 to INFINITY)
+			. += "300 or above"
+		if(101 to 300)
+			. += "over 100"
+		if(100 to 101)
+			. += "exact 100"
+		if(90 to 100)
+			. += "90 - 99"
+		if(80 to 90)
+			. += "80 - 89"
+		if(70 to 80)
+			. += "70 - 79"
+		if(60 to 70)
+			. += "60 - 69"
+		if(50 to 60)
+			. += "50 - 59"
+		if(40 to 50)
+			. += "40 - 49"
+		if(30 to 40)
+			. += "30 - 39"
+		if(20 to 30)
+			. += "20 - 29"
+		if(10 to 20)
+			. += "10 - 19"
+		if(1 to 10)
+			. += "1 - 10"
+		else
+			. += "not measurable. Ask the space god for what's wrong with this drink."
+			CRASH("not valid booze power value is detected: [booze_power]")
 
 /// Updates the icon of the atom
 /atom/proc/update_icon()

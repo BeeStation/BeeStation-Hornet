@@ -593,3 +593,6 @@
 //Can the mob see reagents inside of containers?
 /mob/proc/can_see_reagents()
 	return stat == DEAD || has_unlimited_silicon_privilege //Dead guys and silicons can always see reagents
+
+/mob/proc/can_see_boozepower()
+	return stat == DEAD || has_unlimited_silicon_privilege //Dead guys and silicons can always see reagents
