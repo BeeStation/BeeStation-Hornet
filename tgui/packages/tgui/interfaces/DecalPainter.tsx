@@ -30,6 +30,15 @@ type DecalPainterData = {
   current_custom_color: string;
 };
 
+const filterBoxColor = (color: string) => {
+  if (!color.startsWith('#')) {
+    return color;
+  }
+
+  // cut alpha
+  return color.substring(0, 7);
+};
+
 export const DecalPainter = (props, context) => {
   const { act, data } = useBackend<DecalPainterData>(context);
 
@@ -54,7 +63,7 @@ export const DecalPainter = (props, context) => {
                   act('select color', {
                     color: color.color,
                   })}>
-                <ColorBox color={color.color} mr={0.5} />
+                <ColorBox color={filterBoxColor(color.color)} mr={0.5} />
                 {color.name}
               </Button>
             );
