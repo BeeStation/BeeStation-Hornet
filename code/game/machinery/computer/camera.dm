@@ -162,7 +162,7 @@
 	// Cameras that get here are moving, and are likely attached to some moving atom such as cyborgs.
 	last_camera_turf = get_turf(cam_location)
 
-	if(active_camera.isXRay())
+	if(active_camera.isXRay(TRUE))	//ignore_malf_upgrades = TRUE
 		visible_turfs += RANGE_TURFS(active_camera.view_range, cam_location)
 	else
 		for(var/turf/T in view(active_camera.view_range, cam_location))
