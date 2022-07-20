@@ -23,7 +23,7 @@ GLOBAL_LIST_EMPTY(objective_computers)
 
 /obj/machinery/computer/objective/ui_interact(mob/user, datum/tgui/ui)
 	if(CONFIG_GET(flag/exploration_disable))
-		to_chat(user, "<span class='warning'>Objectives has been temporarilly disabled for debugging purposes. They will be returned soon. We apologise for any inconvenience caused.</span>")
+		to_chat(usr, "<span class='warning'>Nanotrasen is not offering objectives in this sector. We apologise for the inconvenience and they will return soon.</span>")
 		return
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
@@ -60,7 +60,7 @@ GLOBAL_LIST_EMPTY(objective_computers)
 		return
 
 	if(CONFIG_GET(flag/exploration_disable))
-		to_chat(usr, "<span class='warning'>Objectives has been temporarilly disabled for debugging purposes. They will be returned soon. We apologise for any inconvenience caused.</span>")
+		to_chat(usr, "<span class='warning'>Nanotrasen is not offering objectives in this sector. We apologise for the inconvenience and they will return soon.</span>")
 		return
 
 	if(action != "assign")
