@@ -566,14 +566,21 @@
 				//-------- Beer goggles ---------
 				if(user.can_see_boozepower())
 					var/total_boozepower = 0
+					var/list/taste_list = list()
 					if(length(reagents.reagent_list))
 						for(var/datum/reagent/consumable/ethanol/B in reagents.reagent_list)
 							var/real_boozepower = B.boozepwr
 							if(real_boozepower<0) // minus booze power is reversed to light drinkers, but is actually 0 to normal drinkers.
 								real_boozepower = 0
 							total_boozepower += B.volume*real_boozepower
+						for(var/datum/reagent/R in reagents.reagent_list)
+							if(istype(R, /datum/reagent/consumable/ethanol/fruit_wine) && !(user.stat == DEAD)) // taste of fruit wine is mysterious, but can be known by ghosts
+								taste_list += "unexplored taste of the new world"
+							else
+								taste_list += R.taste_description
 					if(reagents.total_volume)
 						. += "<span class='notice'>Total Booze Power: [calculate_boozepower(total_boozepower/reagents.total_volume)].</span>"
+						. += "<span class='notice'>It would taste [english_list(taste_list)].</span>"
 				//-------------------------------
 			else
 				. += "Nothing."
