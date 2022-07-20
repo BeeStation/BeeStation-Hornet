@@ -46,6 +46,8 @@
 /datum/config_entry/number/minimal_access_threshold	//If the number of players is larger than this threshold, minimal access will be turned on.
 	min_val = 0
 
+/datum/config_entry/flag/exploration_disable		//Debugging flag to disable exploration. This flag is a quick and dirty removal and shouldn't be used permanently.
+
 /datum/config_entry/flag/jobs_have_minimal_access	//determines whether jobs use minimal access or expanded access.
 
 /datum/config_entry/flag/assistants_have_maint_access

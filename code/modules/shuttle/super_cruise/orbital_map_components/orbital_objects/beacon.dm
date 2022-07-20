@@ -112,6 +112,12 @@
 	var/datum/space_level/assigned_space_level = SSzclear.get_free_z_level()
 	linked_z_level = list(assigned_space_level)
 	assigned_space_level.orbital_body = src
+	//Quick and dirty way to disable asteroid & ruin generation.
+	if(CONFIG_GET(flag/exploration_disable))
+		//Place plasma randomly lol
+		for(var/i in 1 to 30)
+			new /obj/item/stack/ore/plasma(locate(rand(1, world.maxx), rand(1, world.maxy), assigned_space_level.z_value), rand(1, 10))
+		return
 	generate_asteroids(world.maxx / 2, world.maxy / 2, assigned_space_level.z_value, 120, -0.4, 40)
 
 /datum/orbital_object/z_linked/beacon/ruin/stranded_shuttle/post_map_setup()

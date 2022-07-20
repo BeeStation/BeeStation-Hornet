@@ -99,6 +99,9 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 	//Create initial ruins
 	for(var/i in 1 to initial_space_ruins)
 		new /datum/orbital_object/z_linked/beacon/ruin/spaceruin()
+	//Quick and dirty way to disable asteroid & ruin generation.
+	if(CONFIG_GET(flag/exploration_disable))
+		return
 	for(var/i in 1 to initial_objective_beacons)
 		new /datum/orbital_object/z_linked/beacon/ruin()
 	//Create asteroid belt

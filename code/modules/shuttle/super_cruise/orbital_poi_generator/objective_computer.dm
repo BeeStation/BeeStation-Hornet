@@ -22,6 +22,9 @@ GLOBAL_LIST_EMPTY(objective_computers)
 	return GLOB.default_state
 
 /obj/machinery/computer/objective/ui_interact(mob/user, datum/tgui/ui)
+	if(CONFIG_GET(flag/exploration_disable))
+		to_chat(user, "<span class='warning'>Objectives has been temporarilly disabled for debugging purposes. They will be returned soon. We apologise for any inconvenience caused.</span>")
+		return
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "Objective")
@@ -55,6 +58,11 @@ GLOBAL_LIST_EMPTY(objective_computers)
 	. = ..()
 	if(.)
 		return
+
+	if(CONFIG_GET(flag/exploration_disable))
+		to_chat(usr, "<span class='warning'>Objectives has been temporarilly disabled for debugging purposes. They will be returned soon. We apologise for any inconvenience caused.</span>")
+		return
+
 	if(action != "assign")
 		return
 	var/obj_id = params["id"]

@@ -1,4 +1,7 @@
 /proc/generate_exoplanet(center_z)
+	if(CONFIG_GET(flag/exploration_disable))
+		message_admins("Unable to generate ruin: Exploration has been disabled on this server.")
+		return
 	var/datum/space_level/space_level = SSmapping.get_level(center_z)
 	space_level.generating = TRUE
 	_generate_exoplanet(center_z, new /datum/exoplanet_biome/lavaland)

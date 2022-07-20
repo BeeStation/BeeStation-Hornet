@@ -3,6 +3,9 @@
 //if this number is negative, asteroids will be smaller.
 //if this number is positive asteroids will be larger and more likely
 /proc/generate_asteroids(center_x, center_y, center_z, max_radius, weight_offset = 0, scale = 65)
+	if(CONFIG_GET(flag/exploration_disable))
+		message_admins("Unable to generate ruin: Exploration has been disabled on this server.")
+		return
 	var/datum/space_level/space_level = SSmapping.get_level(center_z)
 	space_level.generating = TRUE
 	_generate_asteroids(center_x, center_y, center_z, max_radius, weight_offset, scale)

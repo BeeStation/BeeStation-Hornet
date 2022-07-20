@@ -28,6 +28,12 @@
 	)
 	biohazard = 20//who knows what you'll find out there that could have nasties on it...
 
+/datum/job/exploration/New()
+	. = ..()
+	if(CONFIG_GET(flag/exploration_disable))
+		total_positions = 0
+		spawn_positions = 0
+
 /datum/job/exploration/equip(mob/living/carbon/human/H, visualsOnly, announce, latejoin, datum/outfit/outfit_override, client/preference_source)
 	if(outfit_override)
 		return ..()
