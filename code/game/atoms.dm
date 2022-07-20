@@ -566,17 +566,14 @@
 				//-------- Beer goggles ---------
 				if(user.can_see_boozepower())
 					var/total_boozepower = 0
-					var/total_volume = 0
 					if(length(reagents.reagent_list))
 						for(var/datum/reagent/consumable/ethanol/B in reagents.reagent_list)
 							var/real_boozepower = B.boozepwr
 							if(real_boozepower<0) // minus booze power is reversed to light drinkers, but is actually 0 to normal drinkers.
 								real_boozepower = 0
 							total_boozepower += B.volume*real_boozepower
-						for(var/datum/reagent/R in reagents.reagent_list)
-							total_volume += R.volume
-					if(total_volume)
-						. += "<span class='notice'>Total Booze Power: [calculate_boozepower(total_boozepower/total_volume)].</span>"
+					if(reagents.total_volume)
+						. += "<span class='notice'>Total Booze Power: [calculate_boozepower(total_boozepower/reagents.total_volume)].</span>"
 				//-------------------------------
 			else
 				. += "Nothing."
