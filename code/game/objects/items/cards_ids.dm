@@ -122,6 +122,7 @@
 	var/access_txt // mapping aid
 	var/datum/bank_account/registered_account
 	var/obj/machinery/paystand/my_store
+	var/noaccount
 
 /obj/item/card/id/Initialize(mapload)
 	. = ..()
@@ -283,21 +284,22 @@
 
 /obj/item/card/id/examine(mob/user)
 	..()
-	if(mining_points)
-		. += "There's [mining_points] mining equipment redemption point\s loaded onto this card."
-	. = ..()
-	if(registered_account)
-		. += "The account linked to the ID belongs to '[registered_account.account_holder]' and reports a balance of $[registered_account.account_balance]."
-		if(registered_account.account_job)
-			var/datum/bank_account/D = SSeconomy.get_dep_account(registered_account.account_department)
-			if(D)
-				. += "The [D.account_holder] reports a balance of $[D.account_balance]."
-		. += "<span class='info'>Alt-Click the ID to pull money from the linked account in the form of holochips.</span>"
-		. += "<span class='info'>You can insert credits into the linked account by pressing holochips, cash, or coins against the ID.</span>"
-		if(registered_account.account_holder == user.real_name)
-			. += "<span class='boldnotice'>If you lose this ID card, you can reclaim your account by Alt-Clicking a blank ID card while holding it and entering your account ID number.</span>"
-	else
-		. += "<span class='info'>There is no registered account linked to this card. Alt-Click to add one.</span>"
+	if(!noaccount)
+		if(mining_points)
+			. += "There's [mining_points] mining equipment redemption point\s loaded onto this card."
+		. = ..()
+		if(registered_account)
+			. += "The account linked to the ID belongs to '[registered_account.account_holder]' and reports a balance of $[registered_account.account_balance]."
+			if(registered_account.account_job)
+				var/datum/bank_account/D = SSeconomy.get_dep_account(registered_account.account_department)
+				if(D)
+					. += "The [D.account_holder] reports a balance of $[D.account_balance]."
+			. += "<span class='info'>Alt-Click the ID to pull money from the linked account in the form of holochips.</span>"
+			. += "<span class='info'>You can insert credits into the linked account by pressing holochips, cash, or coins against the ID.</span>"
+			if(registered_account.account_holder == user.real_name)
+				. += "<span class='boldnotice'>If you lose this ID card, you can reclaim your account by Alt-Clicking a blank ID card while holding it and entering your account ID number.</span>"
+		else
+			. += "<span class='info'>There is no registered account linked to this card. Alt-Click to add one.</span>"
 
 /obj/item/card/id/GetAccess()
 	return access
@@ -688,6 +690,46 @@ update_label("John Doe", "Clowny")
 	name = "mining ID"
 	hud_state = JOB_HUD_RAWCARGO
 	access = list(ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MECH_MINING, ACCESS_MAILSORTING, ACCESS_MINERAL_STOREROOM)
+
+/obj/item/card/id/paper
+	name = "paper slip identifier"
+	desc = "Some spare papers taped into a vauge card shape. There seems to be a name scribbled on it. Seems trustworthy."
+	noaccount = 1
+
+/obj/item/card/id/paper/Initialize(mapload)
+	. = ..()
+	access = list()
+	assignment = "Unverified"
+
+/obj/item/card/id/paper/attackby(obj/item/W, mob/user, params)
+	if(istype(W, /obj/item/pen))
+		var/target_name = stripped_input(user, "What name would you like to write onto the card?", "Written name:", registered_name ? registered_name : "John Doe", MAX_MESSAGE_LEN)
+		registered_name = target_name ? target_name : registered_name  // in case they hit cancel
+		assignment = "Unverified"
+		to_chat(user, "You scribble the name [target_name] onto the slip.")
+		update_label()
+
+/obj/item/card/id/paper/alt_click_can_use_id(mob/living/user)
+	to_chat(user, "Theres no money circutry in here!")
+	return
+
+/obj/item/card/id/paper/insert_money(obj/item/I, mob/user, physical_currency)
+	to_chat(user, "You cant insert money into a slip!")  // not sure if this is triggerable but just as a safeclip
+	return
+
+/obj/item/card/id/paper/GetAccess()
+	return list()
+
+/obj/item/card/id/paper/update_label(newname, newjob)
+	if(newname || newjob)
+		name = "[(!newname)	? "paper slip identifier"	: "[newname]'s paper slip (presumably)"]"
+		return
+
+	name = "[(!newname)	? "paper slip identifier"	: "[newname]'s paper slip (presumably)"]"
+
+/obj/item/card/id/paper/examine(mob/user)
+	. = ..()
+	. += "There is no accounts linked, as it is a piece of paper."
 
 /obj/item/card/id/away
 	name = "\proper a perfectly generic identification card"
