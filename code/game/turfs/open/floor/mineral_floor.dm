@@ -119,7 +119,7 @@
 /turf/open/floor/mineral/titanium/purple/airless
 	initial_gas_mix = AIRLESS_ATMOS
 
-// OLD TITANIUM (titanium floor tiles before PR #50454)
+// OLD TITANIUM (titanium floor tiles before PR #7318)
 /turf/open/floor/mineral/titanium/tiled
 	name = "titanium tile"
 	icon_state = "titanium_old"
