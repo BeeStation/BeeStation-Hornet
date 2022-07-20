@@ -693,7 +693,7 @@ update_label("John Doe", "Clowny")
 
 /obj/item/card/id/paper
 	name = "paper slip identifier"
-	desc = "Some spare papers taped into a vauge card shape, and a name scribbled on it. Seems trustworthy."
+	desc = "Some spare papers taped into a vague card shape, and a name scribbled on it. Seems trustworthy."
 	noaccount = 1
 	icon_state = "paper"
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0, "stamina" = 0)
