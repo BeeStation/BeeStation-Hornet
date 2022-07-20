@@ -595,10 +595,12 @@
 			. += "for children"
 		if(300 to INFINITY)
 			. += "300 or above"
-		if(101 to 300)
-			. += "over 100"
-		if(100 to 101)
+		if(100 to 100)
 			. += "exact 100"
+		// these values must be detected first.
+
+		if(100 to 300)
+			. += "over 100"
 		if(90 to 100)
 			. += "90 - 99"
 		if(80 to 90)
