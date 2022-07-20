@@ -563,6 +563,21 @@
 					for(var/datum/reagent/R in reagents.reagent_list)
 						total_volume += R.volume
 					. += "[total_volume] units of various reagents"
+				//-------- Beer goggles ---------
+				if(user.can_see_boozepower())
+					var/total_boozepower = 0
+					var/total_volume = 0
+					if(length(reagents.reagent_list))
+						for(var/datum/reagent/consumable/ethanol/B in reagents.reagent_list)
+							var/real_boozepower = B.boozepwr
+							if(real_boozepower<0) // minus booze power is reversed to light drinkers, but is actually 0 to normal drinkers.
+								real_boozepower = 0
+							total_boozepower += B.volume*real_boozepower
+						for(var/datum/reagent/R in reagents.reagent_list)
+							total_volume += R.volume
+					if(total_volume)
+						. += "<span class='notice'>Total Booze Power: [calculate_boozepower(total_boozepower/total_volume)].</span>"
+				//-------------------------------
 			else
 				. += "Nothing."
 		else if(reagents.flags & AMOUNT_VISIBLE)
@@ -570,19 +585,6 @@
 				. += "<span class='notice'>It has [reagents.total_volume] unit\s left.</span>"
 			else
 				. += "<span class='danger'>It's empty.</span>"
-		if(user.can_see_boozepower())
-			var/total_boozepower = 0
-			var/total_volume = 0
-			if(length(reagents.reagent_list))
-				for(var/datum/reagent/consumable/ethanol/B in reagents.reagent_list)
-					var/real_boozepower = B.boozepwr
-					if(real_boozepower<0) // minus booze power is reversed to light drinkers, but is actually 0 to normal drinkers.
-						real_boozepower = 0
-					total_boozepower += B.volume*real_boozepower
-				for(var/datum/reagent/R in reagents.reagent_list)
-					total_volume += R.volume
-			if(total_volume)
-				. += "<span class='notice'>Total Booze Power: [calculate_boozepower(total_boozepower/total_volume)].</span>"
 
 	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE, user, .)
 
