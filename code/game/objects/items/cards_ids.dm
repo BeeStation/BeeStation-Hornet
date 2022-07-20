@@ -284,10 +284,10 @@
 
 /obj/item/card/id/examine(mob/user)
 	..()
+	if(mining_points)
+		. += "There's [mining_points] mining equipment redemption point\s loaded onto this card."
+	. = ..()
 	if(!noaccount)
-		if(mining_points)
-			. += "There's [mining_points] mining equipment redemption point\s loaded onto this card."
-		. = ..()
 		if(registered_account)
 			. += "The account linked to the ID belongs to '[registered_account.account_holder]' and reports a balance of $[registered_account.account_balance]."
 			if(registered_account.account_job)
@@ -722,10 +722,10 @@ update_label("John Doe", "Clowny")
 
 /obj/item/card/id/paper/update_label(newname, newjob)
 	if(newname || newjob)
-		name = "[(!newname)	? "paper slip identifier": "[newname]'s paper slip (presumably)"]""
+		name = "[(!newname)	? "paper slip identifier": "[newname]'s paper slip (presumably)"]"
 		return
 
-	name = "[(!newname)	? "paper slip identifier"	: "[newname]'s paper slip (presumably)"]"
+	name = "[(!registered_name)	? "paper slip identifier": "[registered_name]'s paper slip (presumably)"]"
 
 /obj/item/card/id/paper/examine(mob/user)
 	. = ..()
