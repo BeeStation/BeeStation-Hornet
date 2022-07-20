@@ -114,13 +114,8 @@
 	rite_target.set_species(/datum/species/android)
 	rite_target.visible_message("<span class='notice'>[rite_target] has been converted by the rite of [name]!</span>")
 	return TRUE
-<<<<<<< HEAD
 
 
-=======
-
-
->>>>>>> 9eee8118c4320b910b49cae9be1f2e1be2845b7e
 /datum/religion_rites/machine_blessing
 	name = "Receive Blessing"
 	desc = "Receive a blessing from the machine god to further your ascension."
