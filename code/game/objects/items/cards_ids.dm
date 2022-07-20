@@ -286,18 +286,19 @@
 	if(mining_points)
 		. += "There's [mining_points] mining equipment redemption point\s loaded onto this card."
 	. = ..()
-	if(registered_account)
-		. += "The account linked to the ID belongs to '[registered_account.account_holder]' and reports a balance of $[registered_account.account_balance]."
-		if(registered_account.account_job)
-			var/datum/bank_account/D = SSeconomy.get_dep_account(registered_account.account_department)
-			if(D)
-				. += "The [D.account_holder] reports a balance of $[D.account_balance]."
-		. += "<span class='info'>Alt-Click the ID to pull money from the linked account in the form of holochips.</span>"
-		. += "<span class='info'>You can insert credits into the linked account by pressing holochips, cash, or coins against the ID.</span>"
-		if(registered_account.account_holder == user.real_name)
-			. += "<span class='boldnotice'>If you lose this ID card, you can reclaim your account by Alt-Clicking a blank ID card while holding it and entering your account ID number.</span>"
-	else
-		. += "<span class='info'>There is no registered account linked to this card. Alt-Click to add one.</span>"
+	if(!istype(src, /obj/item/card/id/paper))  // forces off bank info for paper slip
+		if(registered_account)
+			. += "The account linked to the ID belongs to '[registered_account.account_holder]' and reports a balance of $[registered_account.account_balance]."
+			if(registered_account.account_job)
+				var/datum/bank_account/D = SSeconomy.get_dep_account(registered_account.account_department)
+				if(D)
+					. += "The [D.account_holder] reports a balance of $[D.account_balance]."
+			. += "<span class='info'>Alt-Click the ID to pull money from the linked account in the form of holochips.</span>"
+			. += "<span class='info'>You can insert credits into the linked account by pressing holochips, cash, or coins against the ID.</span>"
+			if(registered_account.account_holder == user.real_name)
+				. += "<span class='boldnotice'>If you lose this ID card, you can reclaim your account by Alt-Clicking a blank ID card while holding it and entering your account ID number.</span>"
+		else
+			. += "<span class='info'>There is no registered account linked to this card. Alt-Click to add one.</span>"
 
 /obj/item/card/id/GetAccess()
 	return access
