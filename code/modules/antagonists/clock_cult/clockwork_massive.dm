@@ -46,6 +46,9 @@ GLOBAL_LIST_INIT(clockwork_portals, list())
 		M.forceMove(safe_place)
 	STOP_PROCESSING(SSobj, src)
 	. = ..()
+	//Summon nar'sie
+	if(GLOB.narsie_breaching)
+		new /obj/eldritch/narsie(GLOB.narsie_arrival)
 	INVOKE_ASYNC(src, .proc/explode_reebe)
 
 /obj/structure/destructible/clockwork/massive/celestial_gateway/proc/explode_reebe()
