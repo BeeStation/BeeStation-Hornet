@@ -8,7 +8,6 @@
 	spawn_positions = 2
 	supervisors = "the head of personnel"
 	selection_color = "#bbe291"
-	chat_color = "#95DE85"
 
 	outfit = /datum/outfit/job/botanist
 
@@ -28,7 +27,7 @@
 	name = "Botanist"
 	jobtype = /datum/job/hydro
 
-	id = /obj/item/card/id/job/serv
+	id = /obj/item/card/id/job/botanist
 	belt = /obj/item/pda/service
 	ears = /obj/item/radio/headset/headset_srv
 	uniform = /obj/item/clothing/under/rank/civilian/hydroponics
