@@ -1153,6 +1153,9 @@ update_label("John Doe", "Clowny")
 		return .
 	var/obj/item/card/id/idcard = target
 	if(istype(idcard))
+		if(istype(idcard, /obj/item/card/id/paper))
+			to_chat(user, to_chat(user, "<span class='warning'>The pass beeps a warning about this not being a proper id."))
+			return
 		for(var/give_access in access)
 			idcard.access |= give_access
 		if(assignment!=initial(assignment))
