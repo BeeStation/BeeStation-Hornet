@@ -170,7 +170,7 @@
 		if(istype(O, /obj/item/card/id/paper))
 			to_chat(user, "<span class='warning'>Theres no circutry to change!")
 			return
-		elif(storedid)
+		if(storedid)
 			to_chat(user, "<span class='warning'>There is already an ID card inside!</span>")
 			return
 		else if(!user.transferItemToLoc(O, src))
