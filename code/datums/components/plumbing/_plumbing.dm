@@ -42,7 +42,7 @@
 		return FALSE
 	else
 		process_count = 0
-	//plumbing machine will only work for every 5 ticks
+	//plumbing machine will only work for every MACHINE_PROCESS_COUNT_MAX counts
 	return TRUE
 
 /datum/component/plumbing/process()
@@ -231,3 +231,8 @@
 /datum/component/plumbing/tank
 	demand_connects = WEST
 	supply_connects = EAST
+
+/datum/component/plumbing/tank/process_delay_check()
+	//tank processes 2x faster
+	process_count++
+	. = ..()
