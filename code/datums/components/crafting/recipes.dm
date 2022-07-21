@@ -1007,7 +1007,7 @@
 /datum/crafting_recipe/paperslip
 	name = "Paper Slip"
 	result = /obj/item/card/id/paper
-	time = 10
+	time = 1 SECONDS
 	reqs = list(/obj/item/paper = 5)
 	category = CAT_MISC
 	tools = list(TOOL_WIRECUTTER)

@@ -694,11 +694,8 @@ update_label("John Doe", "Clowny")
 	name = "paper slip identifier"
 	desc = "Some spare papers taped into a vague card shape, and a name scribbled on it. Seems trustworthy."
 	icon_state = "paper"
-	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0, "stamina" = 0)
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 50, "stamina" = 0)
 	resistance_flags = null  // removes all resistance because its a piece of paper
-
-/obj/item/card/id/paper/Initialize(mapload)
-	. = ..()
 	access = list()
 	assignment = "Unverified"
 
@@ -712,11 +709,9 @@ update_label("John Doe", "Clowny")
 
 /obj/item/card/id/paper/alt_click_can_use_id(mob/living/user)
 	to_chat(user, "Theres no money circutry in here!")
-	return
 
 /obj/item/card/id/paper/insert_money(obj/item/I, mob/user, physical_currency)
 	to_chat(user, "You cant insert money into a slip!")  // not sure if this is triggerable but just as a safeclip
-	return
 
 /obj/item/card/id/paper/GetAccess()
 	return list()
