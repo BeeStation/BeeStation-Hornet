@@ -575,11 +575,11 @@
 							total_boozepower += B.volume*real_boozepower
 						for(var/datum/reagent/R in reagents.reagent_list)
 							if(istype(R, /datum/reagent/consumable/ethanol/fruit_wine) && !(user.stat == DEAD)) // taste of fruit wine is mysterious, but can be known by ghosts
-								taste_list += "unexplored taste of the new world"
+								taste_list += "unexplored taste of the winery"
 							else
 								taste_list += R.taste_description
 					if(reagents.total_volume)
-						. += "<span class='notice'>Total Booze Power: [calculate_boozepower(total_boozepower/reagents.total_volume)].</span>"
+						. += "<span class='notice'>Total Booze Power: [round(total_boozepower/reagents.total_volume, 0.1)] ([get_boozepower_text(total_boozepower/reagents.total_volume, length(reagents.reagent_list))])</span>"
 						. += "<span class='notice'>It would taste [english_list(taste_list)].</span>"
 				//-------------------------------
 			else
@@ -592,43 +592,44 @@
 
 	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE, user, .)
 
-/atom/proc/calculate_boozepower(booze_power)
+/atom/proc/get_boozepower_text(booze_power)
 	if(isnull(booze_power))
 		return
+
 	// because of float values, you need to write like `0 to 10`, `10 to 20`
 	switch(booze_power)
 		if(-INFINITY to 1)
-			. += "for children"
+			return "for children"
 		if(300 to INFINITY)
-			. += "300 or above"
+			return "deadly"
 		if(100 to 100)
-			. += "exact 100"
+			return "for a real man"
 		// these values must be detected first.
 
 		if(100 to 300)
-			. += "over 100"
+			return "lethal"
 		if(90 to 100)
-			. += "90 - 99"
+			return "dangerous"
 		if(80 to 90)
-			. += "80 - 89"
+			return "extreme"
 		if(70 to 80)
-			. += "70 - 79"
+			return "challanging"
 		if(60 to 70)
-			. += "60 - 69"
+			return "stronger"
 		if(50 to 60)
-			. += "50 - 59"
+			return "strong"
 		if(40 to 50)
-			. += "40 - 49"
+			return "average"
 		if(30 to 40)
-			. += "30 - 39"
+			return "less than average"
 		if(20 to 30)
-			. += "20 - 29"
+			return "light"
 		if(10 to 20)
-			. += "10 - 19"
+			return "mild"
 		if(1 to 10)
-			. += "1 - 10"
+			return "delightfully mild"
 		else
-			. += "not measurable. Ask the space god for what's wrong with this drink."
+			return "not measurable. Ask the space god for what's wrong with this drink."
 			CRASH("not valid booze power value is detected: [booze_power]")
 
 /// Updates the icon of the atom
