@@ -68,7 +68,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 /obj/machinery/computer/card/attackby(obj/O, mob/user, params)//TODO:SANITY
 	if(istype(O, /obj/item/card/id))
 		if(istype(O, /obj/item/card/id/paper))
-			to_chat(user, to_chat(user, "<span class='warning'>Theres no circutry to change!"))
+			to_chat(user, to_chat(user, "<span class='warning'>There's no circuitry to change!"))
 			return
 		var/obj/item/card/id/idcard = O
 		if(check_access(idcard))
