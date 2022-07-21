@@ -1,8 +1,0 @@
-author: EvilDragonfiend
-delete-after: true
-changes:
-  - bugfix: Latejoin now shows Head of Personnel job to Civilian and Cargo categories
-      both along with Command category.
-  - bugfix: When HoP job is in a non-command category, it showed the category as Command.
-      (i.e. Supply as Command) now they're consistently showing proper categories
-      even if HoP is there.
