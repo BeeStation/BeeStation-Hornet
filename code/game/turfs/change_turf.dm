@@ -175,8 +175,6 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 /turf/proc/ScrapeAway(amount=1, flags)
 	if(!amount)
 		return
-	//var/area/place = loc
-	//flags = place.ScrapeAwayReact(src, amount, flags) //Figure out how to tell if this is called from turf.afterShuttleMove() before implementing
 	if(length(baseturfs))
 		var/list/new_baseturfs = baseturfs.Copy()
 		var/turf_type = new_baseturfs[max(1, new_baseturfs.len - amount + 1)]

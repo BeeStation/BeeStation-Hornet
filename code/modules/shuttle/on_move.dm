@@ -62,7 +62,12 @@ All ShuttleMove procs go here
 	if(!depth)
 		CRASH("A turf queued to move via shuttle somehow had no skipover in baseturfs. [src]([type]):[loc]")
 
+	var/inject_index = islist(newT.baseturfs) ? newT.baseturfs.len + 2 : 3
 	newT.CopyOnTop(src, 1, depth, TRUE)
+	var/area/shuttle/new_loc = get_area(newT)
+	if(istype(new_loc) && new_loc.mobile_port)
+		for(var/i in 0 to new_loc.get_missing_shuttles(newT)) //Start at 0 because get_missing_shuttles() will report 1 less missing shuttle because of the CopyOnTop()
+			newT.baseturfs.Insert(inject_index, /turf/baseturf_skipover/shuttle)
 
 	if(isopenturf(src))
 		var/turf/open/after_src_terf = src
@@ -82,6 +87,7 @@ All ShuttleMove procs go here
 	oldT.TransferComponents(src)
 	SSexplosions.wipe_turf(src)
 	SEND_SIGNAL(oldT, COMSIG_TURF_AFTER_SHUTTLE_MOVE, src) //Mostly for decals
+	/*
 	var/BT_index = length(baseturfs)
 	var/BT
 	for(var/i in 0 to all_towed_shuttles.len - 1) //For each shuttle on the turf, look for another skipover
@@ -91,6 +97,27 @@ All ShuttleMove procs go here
 				BT = baseturfs[BT_index--]
 				if(BT == /turf/baseturf_skipover/shuttle)
 					break
+	*/
+
+	var/area/shuttle/A = loc
+	var/obj/docking_port/mobile/top_shuttle = A?.mobile_port
+	var/shuttle_layers = -1*A.get_missing_shuttles(src) //It's assumed all hull breached shuttles are above all non-breached shuttles. If this is no longer the case, this needs to be overhauled.
+	for(var/index in 1 to all_towed_shuttles.len)
+		var/obj/docking_port/mobile/M = all_towed_shuttles[index]
+		if(!M.underlying_turf_area[src])
+			continue
+		shuttle_layers++
+		if(M == top_shuttle)
+			break
+	var/BT_index = length(baseturfs)
+	var/BT
+	for(var/i in 1 to shuttle_layers)
+		while(BT_index)
+			BT = baseturfs[BT_index--]
+			if(BT == /turf/baseturf_skipover/shuttle)
+				break
+	if(!BT_index)
+		CRASH("A turf queued to clean up after a shuttle dock somehow didn't have enough skipovers in baseturfs. [oldT]([oldT.type]):[oldT.loc]")
 
 	if(BT_index != length(baseturfs))
 		oldT.ScrapeAway(baseturfs.len - BT_index, flags = CHANGETURF_FORCEOP)

@@ -25,42 +25,30 @@
 	mobile_port = null
 	. = ..()
 
+//Returns how many shuttles are missing a skipovers on a given turf, this usually represents how many shuttles have hull breaches on this turf. This only works if this is the actual area of T when called.
+//TODO: optimize this somehow
+/area/shuttle/proc/get_missing_shuttles(turf/T)
+	var/i = 0
+	var/BT_index = length(T.baseturfs)
+	var/area/shuttle/A
+	var/obj/docking_port/mobile/S
+	var/list/shuttle_stack = list(mobile_port) //Indexing through a list helps prevent looped directed graph errors.
+	while(i++ < shuttle_stack.len)
+		S = shuttle_stack[i]
+		A = S.underlying_turf_area[T]
+		if(istype(A) && A.mobile_port)
+			shuttle_stack |= A.mobile_port
+		.++
+	for(BT_index in 1 to length(T.baseturfs))
+		if(ispath(T.baseturfs[BT_index], /turf/baseturf_skipover/shuttle))
+			.--
+
 /area/shuttle/PlaceOnTopReact(turf/T, list/new_baseturfs, turf/fake_turf_type, flags)
 	. = ..()
-	if(length(new_baseturfs) > 1 || fake_turf_type)
-		return // More complicated larger changes indicate this isn't a player
-	if(ispath(new_baseturfs[1], /turf/open/floor/plating) && mobile_port.missing_turfs[T])
-		new_baseturfs.Insert(1, /turf/baseturf_skipover/shuttle)
-		mobile_port.missing_turfs -= T
-
-/area/shuttle/ScrapeAwayReact(turf/T, depth, flags)
-	. = ..()
-	//if() //Check if the shuttle is taking off
-	//	return
-	//Update the missing_turf list of shuttles on this turf (only set to TRUE here, FALSE is set in PlaceOnTopReact)
-	if(!mobile_port)
-		return
-	//Calculate how many skipovers are being removed
-	var/skipover_count = 0
-	var/i = length(T.baseturfs)
-	var/BT
-	while(depth && i > 1)
-		BT = T.baseturfs[i--]
-		if(BT == /turf/baseturf_skipover/shuttle)
-			skipover_count++
-			continue
-		depth--
-	if(!skipover_count)
-		return
-
-	var/list/obj/docking_port/mobile/towed_shuttles = mobile_port.get_all_towed_shuttles()
-	var/obj/docking_port/mobile/M
-	for(i in 0 to towed_shuttles.len)
-		M = towed_shuttles[towed_shuttles.len - i]
-		if(M.underlying_turf_area[T])
-			M.missing_turfs[T] = TRUE
-			if(--skipover_count)
-				return
+	if(!ispath(new_baseturfs[1], /turf/baseturf_skipover/shuttle) && (!ispath(new_baseturfs[1], /turf/open/floor/plating) || length(new_baseturfs) > 1 || fake_turf_type))
+		return //Only add missing baseturfs if a shuttle is landing or player made plating is being added (player made is infered to be a new_baseturf list of 1 and no fake_turf_type)
+	for(var/i in 1 to get_missing_shuttles(T))
+		new_baseturfs.Insert(1,/turf/baseturf_skipover/shuttle)
 
 /area/shuttle/proc/link_to_shuttle(obj/docking_port/mobile/M)
 	mobile_port = M

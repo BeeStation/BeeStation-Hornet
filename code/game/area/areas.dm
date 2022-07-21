@@ -714,9 +714,6 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 /area/proc/PlaceOnTopReact(turf/T, list/new_baseturfs, turf/fake_turf_type, flags)
 	return flags
 
-/area/proc/ScrapeAwayReact(turf/T, amount, flags)
-	return flags
-
 /// Gets an areas virtual z value. For having multiple areas on the same z-level treated mechanically as different z-levels
 /area/proc/get_virtual_z(turf/T)
 	return T.z

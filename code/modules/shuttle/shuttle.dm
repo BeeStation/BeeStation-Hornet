@@ -319,7 +319,6 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 	var/list/hidden_turfs = list()
 	var/list/towed_shuttles = list()
 	var/list/underlying_turf_area = list()
-	var/list/missing_turfs = list() //It's either this or messing with how baseturfs are formatted (honestly, changing baseturfs wouldn't be so bad compared to this)
 
 	//The designated virtual Z-Value of this shuttle
 	var/virtual_z
@@ -344,7 +343,6 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 		shuttle_areas = null
 		towed_shuttles = null
 		underlying_turf_area = null
-		missing_turfs = null
 		remove_ripples()
 	. = ..()
 
@@ -358,7 +356,6 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 	if(GLOB.shuttle_turf_blacklist[T.type]) //Check if the turf is valid
 		for(var/obj/structure/lattice/lattice in T)
 			A.contents |= T //Keep the lattice, not the turf
-			missing_turfs[T] = TRUE
 			break
 		return TRUE
 
@@ -394,27 +391,39 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 
 	var/area/shuttle/A = get_area(T)
 	var/area/shuttle/new_area = underlying_turf_area[T]
-	var/obj/docking_port/mobile/bottom_shuttle = null
 
 	if(!new_area) //Our shuttle isn't here
 		return TRUE
+
+	var/shuttle_layers = -1*A.get_missing_shuttles(T)
+	var/obj/docking_port/mobile/top_shuttle = A?.mobile_port
 	var/list/all_towed_shuttles = get_all_towed_shuttles()
-	var/BT_index = length(T.baseturfs)
-	var/BT
-	for(var/i in 0 to all_towed_shuttles.len - 1) //For each shuttle on the turf, look for another skipover
-		var/obj/docking_port/mobile/M = all_towed_shuttles[all_towed_shuttles.len - i]
+	var/obj/docking_port/mobile/bottom_shuttle = null
+
+	//Find how many skipover deep out shuttle is and find the shuttle above ours on this turf
+	for(var/index in 0 to all_towed_shuttles.len - 1)
+		var/obj/docking_port/mobile/M = all_towed_shuttles[all_towed_shuttles.len - index]
 		if(!M.underlying_turf_area[T])
 			continue
 		if(M != src)
 			bottom_shuttle = M
-		if(!M.missing_turfs[T])
+		shuttle_layers++
+		if(M == top_shuttle)
+			break
+
+	if(shuttle_layers > 0)
+		var/BT_index = length(T.baseturfs)
+		var/BT
+		for(var/i in 1 to shuttle_layers)
 			while(BT_index)
 				BT = T.baseturfs[BT_index--]
 				if(BT == /turf/baseturf_skipover/shuttle)
 					break
-	T.baseturfs.Cut(BT_index+1,BT_index+2)
-	if(T.baseturfs.len == 1) //Make the list not a list if length is 1
-		T.baseturfs = T.baseturfs[1]
+		if(!BT_index)
+			CRASH("A turf being removed from a shuttle has too few skipover in its baseturfs. [T]([T.type]):[T.loc]")
+		T.baseturfs.Cut(BT_index+1,BT_index+2)
+		if(T.baseturfs.len == 1) //Make the list not a list if length is 1
+			T.baseturfs = T.baseturfs[1]
 
 	//Get the new area under this turf
 	var/list/intersect_bounds
@@ -422,8 +431,6 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 	var/turf/T1
 	var/towed
 	underlying_turf_area -= T
-	if(missing_turfs[T])
-		missing_turfs -= T
 	if(A.mobile_port == src) //Only change the area if we aren't covered by another shuttle
 		A.contents -= T
 		new_area.contents += T

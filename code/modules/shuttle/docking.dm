@@ -143,25 +143,25 @@
 				var/atom/movable/moving_atom = k
 				if(moving_atom.loc != oldT) //fix for multi-tile objects
 					continue
-				if(moving_atom.onShuttleMove(newT, oldT, movement_force, movement_direction, old_dock, src, all_towed_shuttles))								//atoms
+				if(moving_atom.onShuttleMove(newT, oldT, movement_force, movement_direction, old_dock, src, all_towed_shuttles))	//atoms
 					moved_atoms[moving_atom] = oldT
 
 		if(move_mode & MOVE_TURF)
-			var/shuttle_layers = 0
 			var/area/shuttle/A = oldT.loc
 			var/obj/docking_port/mobile/top_shuttle = A?.mobile_port
 			var/obj/docking_port/mobile/M = A.mobile_port
+			var/shuttle_layers = -1*A.get_missing_shuttles(oldT) //It's assumed all hull breached shuttles are above all non-breached shuttles. If this is no longer the case, this needs to be overhauled.
 
 			for(var/index in 1 to all_towed_shuttles.len)
 				M = all_towed_shuttles[index]
 				if(!M.underlying_turf_area[oldT])
 					continue
-				if(!M.missing_turfs[oldT])
-					shuttle_layers++
+				shuttle_layers++
 				if(M == top_shuttle)
 					break
 
-			oldT.onShuttleMove(newT, movement_force, movement_direction, shuttle_layers)																	//turfs
+			if(shuttle_layers > 0)
+				oldT.onShuttleMove(newT, movement_force, movement_direction, shuttle_layers)	//turfs
 
 		if(move_mode & MOVE_AREA)
 			var/area/shuttle/shuttle_area = oldT.loc //The area on the shuttle, typecasted for the checks further down
@@ -175,9 +175,6 @@
 					continue
 				new_area = M.underlying_turf_area[oldT]
 				M.underlying_turf_area -= oldT
-				if(M.missing_turfs[oldT])
-					M.missing_turfs[newT] = TRUE
-					M.missing_turfs -= oldT
 				if(!istype(new_area) || !all_towed_shuttles[new_area.mobile_port])
 					M.underlying_turf_area[newT] = target_area
 					break
@@ -192,7 +189,7 @@
 				parent_shuttles |= target_area.mobile_port
 
 			underlying_old_area |= new_area
-			shuttle_area.onShuttleMove(oldT, newT, new_area)																								//areas
+			shuttle_area.onShuttleMove(oldT, newT, new_area)	//areas
 
 
 

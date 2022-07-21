@@ -18,10 +18,12 @@
 	floor_tile = /obj/item/stack/tile/drydock //This is subject to change
 
 /turf/open/floor/dock/drydock/proc/CanBuildHere()
-	var/static/list/dock_typecache = typecacheof(/turf/open/floor/dock)
-	for(var/t in baseturfs)
-		if(t in dock_typecache)
+	for(var/i in 0 to length(baseturfs) - 1)
+		var/BT = baseturfs[baseturfs.len - i]
+		if(ispath(BT, /turf/open/floor/dock))
 			return FALSE
+		if(ispath(BT, /turf/baseturf_skipover/shuttle))
+			return TRUE
 	return TRUE
 
 /turf/open/floor/dock/drydock/attackby(obj/item/C, mob/user, params)
