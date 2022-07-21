@@ -599,37 +599,37 @@
 	// because of float values, you need to write like `0 to 10`, `10 to 20`
 	switch(booze_power)
 		if(-INFINITY to 1)
-			return "for children"
+			. = "for children"
 		if(300 to INFINITY)
-			return "lethal"
+			. = "lethal"
 		if(100 to 100)
-			return "for a real man"
+			. = "for a real man"
 		// these values must be detected first.
 
 		if(100 to 300)
-			return "deadly"
+			. = "deadly"
 		if(90 to 100)
-			return "dangerous"
+			. = "dangerous"
 		if(80 to 90)
-			return "extreme"
+			. = "extreme"
 		if(70 to 80)
-			return "challanging"
+			. = "challanging"
 		if(60 to 70)
-			return "stronger"
+			. = "stronger"
 		if(50 to 60)
-			return "strong"
+			. = "strong"
 		if(40 to 50)
-			return "average"
+			. = "average"
 		if(30 to 40)
-			return "less than average"
+			. = "less than average"
 		if(20 to 30)
-			return "light"
+			. = "light"
 		if(10 to 20)
-			return "mild"
+			. = "mild"
 		if(1 to 10)
-			return "delightfully mild"
+			. = "delightfully mild"
 		else
-			return "not measurable. Ask the space god for what's wrong with this drink."
+			. = "not measurable. Ask the space god for what's wrong with this drink."
 			CRASH("not valid booze power value is detected: [booze_power]")
 
 /// Updates the icon of the atom
