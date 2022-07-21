@@ -601,13 +601,13 @@
 		if(-INFINITY to 1)
 			return "for children"
 		if(300 to INFINITY)
-			return "deadly"
+			return "lethal"
 		if(100 to 100)
 			return "for a real man"
 		// these values must be detected first.
 
 		if(100 to 300)
-			return "lethal"
+			return "deadly"
 		if(90 to 100)
 			return "dangerous"
 		if(80 to 90)
