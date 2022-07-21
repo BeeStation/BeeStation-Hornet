@@ -15,6 +15,8 @@
 	var/active = FALSE
 	///if TRUE connects will spin with the parent object visually and codually, so you can have it work in any direction. FALSE if you want it to be static
 	var/turn_connects = TRUE
+	///
+	var/process_count = 0
 
 /datum/component/plumbing/Initialize(start=TRUE, _turn_connects=TRUE) //turn_connects for wheter or not we spin with the object to change our pipes
 	if(parent && !ismovableatom(parent))
@@ -34,13 +36,23 @@
 	if(use_overlays)
 		create_overlays()
 
+/datum/component/plumbing/process_delay_check()
+	if(process_count < MACHINE_PROCESS_COUNT_MAX)
+		process_count++
+		return FALSE
+	else
+		process_count = 0
+	//plumbing machine will only work for every 5 ticks
+	return TRUE
+
 /datum/component/plumbing/process()
-	if(!demand_connects || !reagents)		// This actually shouldn't happen, but better safe than sorry
-		return PROCESS_KILL
-	if(reagents.total_volume < reagents.maximum_volume)
-		for(var/D in GLOB.cardinals)
-			if(D & demand_connects)
-				send_request(D)
+	if(process_delay_check())
+		if(!demand_connects || !reagents)		// This actually shouldn't happen, but better safe than sorry
+			return PROCESS_KILL
+		if(reagents.total_volume < reagents.maximum_volume)
+			for(var/D in GLOB.cardinals)
+				if(D & demand_connects)
+					send_request(D)
 ///Can we be added to the ductnet?
 /datum/component/plumbing/proc/can_add(datum/ductnet/D, dir)
 	if(!active)
@@ -54,6 +66,7 @@
 ///called from in process(). only calls process_request(), but can be overwritten for children with special behaviour
 /datum/component/plumbing/proc/send_request(dir)
 	process_request(amount = MACHINE_REAGENT_TRANSFER, reagent = null, dir = dir)
+
 ///check who can give us what we want, and how many each of them will give us
 /datum/component/plumbing/proc/process_request(amount, reagent, dir)
 	var/list/valid_suppliers = list()

@@ -18,8 +18,7 @@
 		/obj/item/storage/box/rxglasses = 1,
 		/obj/item/stack/ducts/fifty = 4,
 		/obj/item/construction/plumbing = 2,
-		/obj/item/plunger = 2,
-		/obj/item/rcd_ammo = 4)
+		/obj/item/plunger = 2)
 	generate_items_inside(items_inside,src)
 
 /obj/structure/closet/secure_closet/medical2
