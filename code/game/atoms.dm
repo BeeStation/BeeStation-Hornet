@@ -579,7 +579,7 @@
 							else
 								taste_list += R.taste_description
 					if(reagents.total_volume)
-						. += "<span class='notice'>Total Booze Power: [round(total_boozepower/reagents.total_volume, 0.1)] ([get_boozepower_text(total_boozepower/reagents.total_volume, length(reagents.reagent_list))])</span>"
+						. += "<span class='notice'>Booze Power: total [total_boozepower], average [round(total_boozepower/reagents.total_volume, 0.1)] ([get_boozepower_text(total_boozepower/reagents.total_volume, user.mind.assigned_role)])</span>"
 						. += "<span class='notice'>It would taste [english_list(taste_list)].</span>"
 				//-------------------------------
 			else
@@ -592,45 +592,81 @@
 
 	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE, user, .)
 
-/atom/proc/get_boozepower_text(booze_power)
+/atom/proc/get_boozepower_text(booze_power, role)
 	if(isnull(booze_power))
 		return
 
-	// because of float values, you need to write like `0 to 10`, `10 to 20`
-	switch(booze_power)
-		if(-INFINITY to 1)
-			. = "for children"
-		if(300 to INFINITY)
-			. = "lethal"
-		if(100 to 100)
-			. = "for a real man"
-		// these values must be detected first.
+	if(role == "Bartender")
+		// because of float values, you need to write like `0 to 10`, `10 to 20`
+		switch(booze_power)
+			if(-INFINITY to 1)
+				. = "For children"
+			if(300 to INFINITY)
+				. = pick("Shift wrecking hammering",
+						"Get new liver after consumtion",
+						"Post consumption support groups exist",
+						"place in Molotov instead",
+						"To stumble and slur, the will of Bacchus")
+			if(100 to 100)
+				. = "For a real man"
+			// these values must be detected first.
 
-		if(100 to 300)
-			. = "deadly"
-		if(90 to 100)
-			. = "dangerous"
-		if(80 to 90)
-			. = "extreme"
-		if(70 to 80)
-			. = "challanging"
-		if(60 to 70)
-			. = "stronger"
-		if(50 to 60)
-			. = "strong"
-		if(40 to 50)
-			. = "average"
-		if(30 to 40)
-			. = "less than average"
-		if(20 to 30)
-			. = "light"
-		if(10 to 20)
-			. = "mild"
-		if(1 to 10)
-			. = "delightfully mild"
-		else
-			. = "not measurable. Ask the space god for what's wrong with this drink."
-			CRASH("not valid booze power value is detected: [booze_power]")
+			if(100 to 300)
+				. = "Cheated the blessing"
+			if(90 to 100)
+				. = "Get to drunk tank"
+			if(80 to 90)
+				. = "Liver pickler"
+			if(70 to 80)
+				. = "Drunkard’s Challenge"
+			if(60 to 70)
+				. = "Have Shotgun ready"
+			if(50 to 60)
+				. = "3 rounds till down"
+			if(40 to 50)
+				. = "Drunkard’s fixers"
+			if(30 to 40)
+				. = "Stick arounds"
+			if(20 to 30)
+				. = "Flask fillers"
+			if(10 to 20)
+				. = "Tipsy stuff"
+			if(1 to 10)
+				. = "Lightweight’s dream"
+			else
+				. = "not measurable. Ask the space god for what's wrong with this drink."
+				CRASH("not valid booze power value is detected: [booze_power]")
+	else
+		switch(booze_power)
+			if(-INFINITY to 1)
+				. = "Safe for work"
+			if(300 to INFINITY)
+				. = "Lethal"
+			if(100 to 300)
+				. = "Deadly"
+			if(90 to 100)
+				. = "Dangerous"
+			if(80 to 90)
+				. = "Extreme"
+			if(70 to 80)
+				. = "Challanging"
+			if(60 to 70)
+				. = "Stronger"
+			if(50 to 60)
+				. = "Strong"
+			if(40 to 50)
+				. = "Average"
+			if(30 to 40)
+				. = "Less than average"
+			if(20 to 30)
+				. = "Light"
+			if(10 to 20)
+				. = "Mild"
+			if(1 to 10)
+				. = "Delightfully mild"
+			else
+				. = "not measurable. Ask the space god for what's wrong with this drink."
+				CRASH("not valid booze power value is detected: [booze_power]")
 
 /// Updates the icon of the atom
 /atom/proc/update_icon()
