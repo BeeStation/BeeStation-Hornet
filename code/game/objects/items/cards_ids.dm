@@ -711,7 +711,7 @@ update_label("John Doe", "Clowny")
 	to_chat(user, "Theres no money circutry in here!")
 
 /obj/item/card/id/paper/insert_money(obj/item/I, mob/user, physical_currency)
-	to_chat(user, "You cant insert money into a slip!")  // not sure if this is triggerable but just as a safeclip
+	to_chat(user, "You can't insert money into a slip!")  // not sure if this is triggerable but just as a safeclip
 
 /obj/item/card/id/paper/GetAccess()
 	return list()
