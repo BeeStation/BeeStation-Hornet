@@ -708,7 +708,7 @@ update_label("John Doe", "Clowny")
 		update_label()
 
 /obj/item/card/id/paper/alt_click_can_use_id(mob/living/user)
-	to_chat(user, "Theres no money circutry in here!")
+	to_chat(user, "There's no money circuitry in here!")
 
 /obj/item/card/id/paper/insert_money(obj/item/I, mob/user, physical_currency)
 	to_chat(user, "You can't insert money into a slip!")  // not sure if this is triggerable but just as a safeclip
