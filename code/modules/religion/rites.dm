@@ -118,7 +118,7 @@
 
 /datum/religion_rites/machine_blessing
 	name = "Receive Blessing"
-	desc = "Receive a blessing from the machine god to further your ascension."
+	desc = "Receive a random blessing from the machine god to further your ascension."
 	ritual_length = 5 SECONDS
 	ritual_invocations =list( "Let your will power our forges.",
 							"... Help us in our great conquest!")
