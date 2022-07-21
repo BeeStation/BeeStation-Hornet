@@ -36,7 +36,7 @@
 	if(use_overlays)
 		create_overlays()
 
-/datum/component/plumbing/process_delay_check()
+/datum/component/plumbing/proc/process_delay_check()
 	if(process_count < MACHINE_PROCESS_COUNT_MAX)
 		process_count++
 		return FALSE
