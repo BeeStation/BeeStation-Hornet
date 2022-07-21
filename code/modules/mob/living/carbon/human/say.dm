@@ -12,7 +12,7 @@
 		var/obj/item/clothing/mask/chameleon/V = wear_mask
 		if(V.vchange && wear_id)
 			var/obj/item/card/id/idcard = wear_id.GetID()
-			if(istype(idcard))
+			if(istype(idcard) && !istype(idcard, /obj/item/card/id/paper))
 				return idcard.registered_name
 			else
 				return real_name
