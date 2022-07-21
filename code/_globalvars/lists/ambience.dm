@@ -64,7 +64,7 @@ GLOBAL_LIST_INIT(ambience_assoc,list(
 	AMBIENCE_NONE = list()))
 
 
-GLOBAL_LIST_INIT(space_ambient_music,list('sound/ambience/ambispace.ogg', 'sound/ambience/ambispace2.ogg', 'sound/ambience/qwerty/constellations.ogg', 'sound/ambience/qwerty/starlight.ogg'))
+GLOBAL_LIST_INIT(space_ambient_music,list('sound/ambience/ambispace.ogg', 'sound/ambience/ambispace2.ogg', 'sound/ambience/qwerty/constellations.ogg', 'sound/ambience/qwerty/starlight.ogg', 'sound/ambience/qwerty/drifting.ogg'))
 
 GLOBAL_LIST_INIT(ambient_music_assoc, list(
 	AMBIENCE_SPACE = GLOB.space_ambient_music
