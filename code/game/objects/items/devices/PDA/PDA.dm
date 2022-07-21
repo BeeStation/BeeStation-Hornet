@@ -974,6 +974,9 @@ GLOBAL_LIST_EMPTY(PDAs)
 			if(!silent)
 				playsound(src, 'sound/machines/terminal_error.ogg', 50, TRUE)
 			return
+		if(istype(idcard, /obj/item/card/id/paper))
+			to_chat(user, "<span class='warning'>Your PDA can't read this!</span>")
+			return
 		if(!owner)
 			owner = idcard.registered_name
 			ownjob = idcard.assignment
