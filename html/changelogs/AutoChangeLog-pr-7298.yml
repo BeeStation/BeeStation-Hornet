@@ -1,0 +1,5 @@
+author: benbot16
+delete-after: true
+changes:
+  - bugfix: Fixes xeno infection images sticking around after a larva's been removed
+      from a person.
