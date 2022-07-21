@@ -67,6 +67,12 @@
 			stored_pills -= AM
 			AM.forceMove(drop_location())
 
+			var/list/chem_names = list()
+			for(var/datum/reagent/R in AM.reagents.reagent_list)
+				chem_names += "[R.name] [R.volume]u"
+			investigate_log("a factory medicine [pill_name] has been created. chem list: [english_list(chem_names)]", INVESTIGATE_ITEMS)
+			log_game("a factory medicine [pill_name] has been created. chem list: [english_list(chem_names)]")
+
 /obj/machinery/plumbing/pill_press/ui_assets(mob/user)
 	return list(
 		get_asset_datum(/datum/asset/spritesheet/simple/pills),

@@ -41,6 +41,11 @@
 			stored_bottles -= AM
 			AM.forceMove(drop_location())
 
+			var/list/chem_names = list()
+			for(var/datum/reagent/R in AM.reagents.reagent_list)
+				chem_names += "[R.name] [R.volume]u"
+			investigate_log("a factory medicine [bottle_name] has been created. chem list: [english_list(chem_names)]", INVESTIGATE_ITEMS)
+			log_game("a factory medicine [bottle_name] has been created. chem list: [english_list(chem_names)]")
 
 /obj/machinery/plumbing/bottle_dispenser/ui_state(mob/user)
 	return GLOB.default_state
