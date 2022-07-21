@@ -15,7 +15,7 @@
 	var/active = FALSE
 	///if TRUE connects will spin with the parent object visually and codually, so you can have it work in any direction. FALSE if you want it to be static
 	var/turn_connects = TRUE
-	///
+	///if it reaches MACHINE_PROCESS_COUNT_MAX in `process_delay_check()` proc, processes the chemical transfer.
 	var/process_count = 0
 
 /datum/component/plumbing/Initialize(start=TRUE, _turn_connects=TRUE) //turn_connects for wheter or not we spin with the object to change our pipes
