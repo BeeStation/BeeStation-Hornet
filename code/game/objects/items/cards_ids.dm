@@ -702,8 +702,8 @@ update_label("John Doe", "Clowny")
 
 /obj/item/card/id/paper/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/pen))
-		var/target_name = stripped_input(user, "What name would you like to write onto the card?", "Written name:", registered_name ? registered_name : "John Doe", MAX_MESSAGE_LEN)
-		registered_name = target_name ? target_name : registered_name  // in case they hit cancel
+		var/target_name = stripped_input(user, "What name would you like to write onto the card?", "Written name:", registered_name || "John Doe", MAX_MESSAGE_LEN)
+		registered_name = target_name || registered_name  // in case they hit cancel
 		assignment = "Unverified"
 		to_chat(user, "You scribble the name [target_name] onto the slip.")
 		update_label()
