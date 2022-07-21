@@ -6,5 +6,5 @@
 
 #define DUCT_LAYER_DEFAULT THIRD_DUCT_LAYER
 
-#define MACHINE_REAGENT_TRANSFER 1 //the default max plumbing machinery transfers
-#define MACHINE_PROCESS_COUNT_MAX 4 //if count reaches 4, process chem.
+#define MACHINE_REAGENT_TRANSFER  1 //the default max plumbing machinery transfers
+#define MACHINE_PROCESS_COUNT_MAX 2 //if count reaches 4, process chem.

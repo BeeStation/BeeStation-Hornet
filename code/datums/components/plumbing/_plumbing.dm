@@ -234,5 +234,5 @@
 
 /datum/component/plumbing/tank/process_delay_check()
 	//tank processes 2x faster
-	process_count++
-	. = ..()
+	. = ..()+..()
+	// FALSE+TRUE will become TRUE
