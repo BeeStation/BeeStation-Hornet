@@ -61,7 +61,9 @@
 			can_approve_requests = FALSE
 	else
 		requestonly = TRUE
-	if(buyer.is_out_station_budget() || isnull(buyer))
+	if(isnull(buyer))
+		buyer = SSeconomy.get_dep_account(ACCOUNT_CAR)
+	if(buyer.is_out_station_budget())
 		buyer = SSeconomy.get_dep_account(ACCOUNT_CAR)
 	if(buyer)
 		data["points"] = buyer.account_balance
