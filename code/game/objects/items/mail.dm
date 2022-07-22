@@ -192,8 +192,6 @@
 		goodies += this_job.mail_goodies
 		if(this_job.paycheck_department && department_colors[this_job.paycheck_department])
 			color = department_colors[this_job.paycheck_department]
-			if(!color)
-				color = COLOR_WHITE
 
 	for(var/i in 1 to goodie_count)
 		var/target_good = pickweight(goodies)
