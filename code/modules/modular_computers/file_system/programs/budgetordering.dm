@@ -63,7 +63,7 @@
 		requestonly = TRUE
 	if(isnull(buyer))
 		buyer = SSeconomy.get_dep_account(ACCOUNT_CAR)
-	if(buyer.is_out_station_budget())
+	else if(buyer.is_out_station_budget())
 		buyer = SSeconomy.get_dep_account(ACCOUNT_CAR)
 	if(buyer)
 		data["points"] = buyer.account_balance
@@ -218,7 +218,10 @@
 					return
 				else
 					account = SSeconomy.get_dep_account(id_card?.registered_account?.account_department)
-					if(account.is_out_station_budget())
+					if(isnull(account))
+						computer.say("The application failed to identify [id_card].")
+						return
+					else if(account.is_out_station_budget())
 						computer.say("The application rejects [id_card].")
 						return
 
