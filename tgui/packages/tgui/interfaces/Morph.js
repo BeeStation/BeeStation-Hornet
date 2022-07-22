@@ -35,10 +35,12 @@ const MorphContents = (props, context) => {
       </Tabs>
       <LabeledList>
         {tab === 'favorites' ? (
-          favorites.map((A) => <MorphItem throw_ref={data.throw_ref} {...A} />)
+          favorites.map((A) => (
+            <MorphItem key={A.id} throw_ref={data.throw_ref} {...A} />
+          ))
         ) : data.contents[tab] ? (
           Object.values(data.contents[tab]).map((A) => (
-            <MorphItem throw_ref={data.throw_ref} {...A} />
+            <MorphItem key={A.id} throw_ref={data.throw_ref} {...A} />
           ))
         ) : (
           <span>
