@@ -318,9 +318,6 @@ GLOBAL_VAR(restart_counter)
 
 	var/list/features = list()
 
-	if(GLOB.master_mode)
-		features += GLOB.master_mode
-
 	if (!GLOB.enter_allowed)
 		features += "closed"
 
@@ -335,19 +332,9 @@ GLOBAL_VAR(restart_counter)
 
 	s += "<b>[station_name()]</b>";
 	var/discordurl = CONFIG_GET(string/discordurl)
-	s += "(<a href='[discordurl]'>Discord</a>|<a href='http://beestation13.com'>Website</a>))"
+	s += " (<a href='[discordurl]'>Discord</a>|<a href='http://beestation13.com'>Website</a>))"
 
 	var/players = GLOB.clients.len
-
-	var/popcaptext = ""
-	var/popcap = max(CONFIG_GET(number/extreme_popcap), CONFIG_GET(number/hard_popcap), CONFIG_GET(number/soft_popcap))
-	if (popcap)
-		popcaptext = "/[popcap]"
-
-	if (players > 1)
-		features += "[players][popcaptext] players"
-	else if (players > 0)
-		features += "[players][popcaptext] player"
 
 	game_state = (CONFIG_GET(number/extreme_popcap) && players >= CONFIG_GET(number/extreme_popcap)) //tells the hub if we are full
 
@@ -358,9 +345,8 @@ GLOBAL_VAR(restart_counter)
 		s += ": [jointext(features, ", ")]"
 
 	s += "<br>Time: <b>[gameTimestamp("hh:mm")]</b>"
-	if(SSmapping.config)
-		s += "<br>Map: <b>[SSmapping.config.map_name]</b>"
 	s += "<br>Alert: <b>[capitalize(get_security_level())]</b>"
+	s += "<br>Roleplay: <b>Medium</b>
 
 	status = s
 
