@@ -174,30 +174,30 @@ export const OrbitalMap = (props, context) => {
                       </NoticeBox>
                     ))}
               </Section>
+              {
+                !!designatorInserted
+                && (designatorId ? !shuttleId : shuttleId) && (
+                  <>
+                    <Divider />
+                    <Section title="Designator Linking" >
+                      {
+                        designatorId
+                          ? (
+                            <Button
+                              content="Download shuttle link from designator"
+                              onClick={() => act('updateLinkedId')} />
+                          )
+                          : (
+                            <Button
+                              content="Upload shuttle link to designator"
+                              onClick={() => act('updateDesignatorId')} />
+                          )
+                      }
+                    </Section>
+                  </>
+                )
+              }
             </Section>
-            {
-              !!designatorInserted
-              && (designatorId ? !shuttleId : shuttleId) && (
-                <>
-                  <Divider />
-                  <Section title="Designator Linking" >
-                    {
-                      designatorId
-                        ? (
-                          <Button
-                            content="Download shuttle link from designator"
-                            onClick={() => act('updateLinkedId')} />
-                        )
-                        : (
-                          <Button
-                            content="Upload shuttle link to designator"
-                            onClick={() => act('updateDesignatorId')} />
-                        )
-                    }
-                  </Section>
-                </>
-              )
-            }
           </Flex.Item>
         </Flex>
       </Window.Content>

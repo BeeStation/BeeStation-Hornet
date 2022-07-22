@@ -107,3 +107,150 @@
 #define DEPARTMENT_SCIENCE (1<<5)
 #define DEPARTMENT_MEDICAL (1<<6)
 #define DEPARTMENT_SILICON (1<<7)
+
+
+
+////////// Job names based on hud icon names
+// Command
+#define JOB_HUD_RAWCOMMAND "rawcommand"
+#define JOB_HUD_CAPTAIN  "captain"
+#define JOB_HUD_ACTINGCAPTAIN  "actingcaptain"
+
+// Service
+#define JOB_HUD_RAWSERVICE "rawservice"
+#define JOB_HUD_HEADOFPERSONNEL "headofpersonnel"
+#define JOB_HUD_ASSISTANT "assistant"
+#define JOB_HUD_BARTENDER "bartender"
+#define JOB_HUD_COOK "cook"
+#define JOB_HUD_BOTANIST "botanist"
+#define JOB_HUD_CHAPLAIN "chaplain"
+#define JOB_HUD_CURATOR "curator"
+#define JOB_HUD_JANITOR "janitor"
+#define JOB_HUD_LAWYER "lawyer"
+#define JOB_HUD_MIME "mime"
+#define JOB_HUD_CLOWN "clown"
+#define JOB_HUD_STAGEMAGICIAN "stagemagician"
+#define JOB_HUD_BARBER "barber"
+
+// Cargo
+#define JOB_HUD_RAWCARGO "rawcargo"
+#define JOB_HUD_QUARTERMASTER "quartermaster"
+#define JOB_HUD_CARGOTECHNICIAN "cargotechnician"
+#define JOB_HUD_SHAFTMINER "shaftminer"
+
+// R&D
+#define JOB_HUD_RAWSCIENCE "rawscience"
+#define JOB_HUD_RESEARCHDIRECTOR "researchdirector"
+#define JOB_HUD_SCIENTIST "scientist"
+#define JOB_HUD_ROBOTICIST "roboticist"
+#define JOB_HUD_EXPLORATIONCREW "explorationcrew"
+
+// Engineering
+#define JOB_HUD_RAWENGINEERING "rawengineering"
+#define JOB_HUD_CHIEFENGINEER "chiefengineer"
+#define JOB_HUD_STATIONENGINEER "stationengineer"
+#define JOB_HUD_ATMOSPHERICTECHNICIAN "atmospherictechnician"
+
+// Medical
+#define JOB_HUD_RAWMEDICAL "rawmedical"
+#define JOB_HUD_CHEIFMEDICALOFFICIER "chiefmedicalofficer"
+#define JOB_HUD_MEDICALDOCTOR "medicaldoctor"
+#define JOB_HUD_PARAMEDIC "paramedic"
+#define JOB_HUD_VIROLOGIST "virologist"
+#define JOB_HUD_CHEMIST "chemist"
+#define JOB_HUD_GENETICIST "geneticist"
+#define JOB_HUD_PSYCHIATRIST "psychiatrist"
+
+// Security
+#define JOB_HUD_RAWSECURITY "rawsecurity"
+#define JOB_HUD_HEADOFSECURITY "headofsecurity"
+#define JOB_HUD_SECURITYOFFICER "securityofficer"
+#define JOB_HUD_WARDEN "warden"
+#define JOB_HUD_DETECTIVE "detective"
+#define JOB_HUD_BRIGPHYSICIAN "brigphysician"
+#define JOB_HUD_DEPUTY "deputy"
+
+// CentCom
+#define JOB_HUD_RAWCENTCOM "rawcentcom"
+#define JOB_HUD_CENTCOM "centcom"
+#define JOB_HUD_NOTCENTCOM "notcentcom" // used for police or something like
+
+// MISC
+#define JOB_HUD_VIP "vip"
+#define JOB_HUD_KING "king"
+#define JOB_HUD_SYNDICATE "syndicate"
+#define JOB_HUD_PRISONER "prisoner"
+#define JOB_HUD_UNKNOWN "unknown"
+
+
+//////////// Color defines
+// Command
+#define JOB_CHATCOLOR_RAWCOMMAND    "#FFECCA" // custom command color
+#define JOB_CHATCOLOR_CAPTAIN       "#FFDC9B"
+#define JOB_CHATCOLOR_ACTINGCAPTAIN "#FFDC9B"
+
+// Service
+#define JOB_CHATCOLOR_RAWSERVICE      "#BFE4B0" // custom service color
+#define JOB_CHATCOLOR_HEADOFPERSONNEL "#7979D3"
+#define JOB_CHATCOLOR_ASSISTANT "#BDBDBD"
+#define JOB_CHATCOLOR_BARTENDER "#B2CEB3"
+#define JOB_CHATCOLOR_COOK      "#A2FBB9"
+#define JOB_CHATCOLOR_BOTANIST  "#95DE85"
+#define JOB_CHATCOLOR_CURATOR   "#88C999"
+#define JOB_CHATCOLOR_CHAPLAIN  "#8AB48C"
+#define JOB_CHATCOLOR_JANITOR   "#97FBEA"
+#define JOB_CHATCOLOR_LAWYER    "#C07D7D"
+#define JOB_CHATCOLOR_MIME      "#BAD3BB"
+#define JOB_CHATCOLOR_CLOWN     "#FF83D7"
+#define JOB_CHATCOLOR_STAGEMAGICIAN  "#B898B3"
+#define JOB_CHATCOLOR_BARBER    "#BD9E86"
+
+// Cargo
+#define JOB_CHATCOLOR_RAWCARGO        "#ECCE9A" // custom cargo color
+#define JOB_CHATCOLOR_QUARTERMASTER   "#C79C52"
+#define JOB_CHATCOLOR_CARGOTECHNICIAN "#D3A372"
+#define JOB_CHATCOLOR_SHAFTMINER      "#CE957E"
+
+// R&D
+#define JOB_CHATCOLOR_RAWSCIENCE       "#F3BFF3" // custom R&D color
+#define JOB_CHATCOLOR_RESEARCHDIRECTOR "#974EA9"
+#define JOB_CHATCOLOR_SCIENTIST        "#C772C7"
+#define JOB_CHATCOLOR_ROBOTICIST       "#AC71BA"
+#define JOB_CHATCOLOR_EXPLORATIONCREW  "#85D8B8"
+
+// Engineering
+#define JOB_CHATCOLOR_RAWENGINEERING        "#E9D1A8" // custom engineering color
+#define JOB_CHATCOLOR_CHIEFENGINEER         "#CFBB72"
+#define JOB_CHATCOLOR_STATIONENGINEER       "#D9BC89"
+#define JOB_CHATCOLOR_ATMOSPHERICTECHNICIAN "#D4A07D"
+
+// Medical
+#define JOB_CHATCOLOR_RAWMEDICAL           "#B1E5EC" // custom medical color
+#define JOB_CHATCOLOR_CHEIFMEDICALOFFICIER "#7A97DA"
+#define JOB_CHATCOLOR_MEDICALDOCTOR "#6CB1C5"
+#define JOB_CHATCOLOR_PARAMEDIC     "#8FBEB4"
+#define JOB_CHATCOLOR_VIROLOGIST    "#75AEA3"
+#define JOB_CHATCOLOR_CHEMIST       "#82BDCE"
+#define JOB_CHATCOLOR_GENETICIST    "#83BBBF"
+#define JOB_CHATCOLOR_PSYCHIATRIST  "#A2DFDC"
+
+// Security
+#define JOB_CHATCOLOR_RAWSECURITY     "#F3BDC0" // custom security color, has some color than deputy
+#define JOB_CHATCOLOR_HEADOFSECURITY  "#D33049"
+#define JOB_CHATCOLOR_WARDEN          "#EA545E"
+#define JOB_CHATCOLOR_SECURITYOFFICER "#E6A3A3"
+#define JOB_CHATCOLOR_DETECTIVE       "#C78B8B"
+#define JOB_CHATCOLOR_BRIGPHYSICIAN   "#B16789"
+#define JOB_CHATCOLOR_DEPUTY          "#FFEEEE"
+
+// CentCom
+#define JOB_CHATCOLOR_RAWCENTCOM "#A7F08F" // custom CC Color
+#define JOB_CHATCOLOR_CENTCOM    "#90FD6D"
+
+// ETC
+#define JOB_CHATCOLOR_VIP        "#EBC96B"
+#define JOB_CHATCOLOR_KING       "#DCEC49" // somehow golden?
+#define JOB_CHATCOLOR_SYNDICATE  "#997272" // I really didn't care the color
+#define JOB_CHATCOLOR_NOTCENTCOM "#6D6AEC" // i.e. space police
+#define JOB_CHATCOLOR_PRISONER   "#D38A5C"
+#define JOB_CHATCOLOR_UNKNOWN    "#DDA583" // grey hud icon gets this
