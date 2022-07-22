@@ -135,4 +135,4 @@
 	return FALSE
 
 #undef DUMPTIME
-#undef department_locked_jobs
+#undef DEPARTMENT_LOCKED_JOBS
