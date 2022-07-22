@@ -1,0 +1,6 @@
+author: EvilDragonfiend
+delete-after: true
+changes:
+  - bugfix: TGUI chat 'Colored names' option no longer shows colored names when it's
+      disabled.
+  - bugfix: Scientist selection in PDA painter no longer gives a non-painted ID card
