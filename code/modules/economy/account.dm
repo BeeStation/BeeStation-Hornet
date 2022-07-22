@@ -127,4 +127,10 @@
 
 	SSeconomy.generated_accounts += src
 
+/datum/bank_account/proc/is_out_station_budget() // returns TRUE if the budget account isn't from the station. (like VIP one)
+	for(var/each in SSeconomy.nonstation_accounts)
+		if(account_holder == SSeconomy.nonstation_accounts[each])
+			return TRUE
+	return FALSE
+
 #undef DUMPTIME
