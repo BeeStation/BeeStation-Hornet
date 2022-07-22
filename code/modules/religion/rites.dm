@@ -154,8 +154,7 @@
 	var/obj/item/organ/chosen_implant
 
 /datum/religion_rites/machine_implantation/perform_rite(mob/living/user, atom/religious_tool)
-	for(var/obj/item/organ/organ in get_turf(religious_tool))
-		chosen_implant = organ
+	chosen_implant = locate() in get_turf(religious_tool)
 	if(!chosen_implant)
 		to_chat(user, "<span class='warning'>This rite requires cybernetics for implantation.</span>")
 		return FALSE
