@@ -187,9 +187,11 @@
 				rite_target = buckled
 				break
 	if(!rite_target)
+		chosen_implant = null
 		return FALSE
 	chosen_implant.Insert(rite_target)
 	rite_target.visible_message("<span class='notice'>[chosen_implant] has been merged into [rite_target] by the rite of [name]!</span>")
+	chosen_implant = null
 	return TRUE
 
 
