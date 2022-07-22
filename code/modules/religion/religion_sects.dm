@@ -232,10 +232,10 @@
 	name = "Followers of the Great Carp"
 	desc = "A sect dedicated to the space carp and carp'sie, Offer the gods meat for favor."
 	quote = "Drown the station in fish and water."
-	tgui_icon = "fish-fins"
+	tgui_icon = "fish"
 	alignment = ALIGNMENT_NEUT
 	max_favor = 10000
-	desired_items = list(/obj/item/reagent_containers/food/snacks/meat)
+	desired_items = list(/obj/item/reagent_containers/food/snacks/meat, "of the meat variety")
 	rites_list = list(/datum/religion_rites/summon_carp, /datum/religion_rites/flood_area, /datum/religion_rites/summon_carpsuit)
 	altar_icon_state = "convertaltar-blue"
 
