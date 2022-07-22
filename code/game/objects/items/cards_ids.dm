@@ -699,6 +699,7 @@ update_label("John Doe", "Clowny")
 	resistance_flags = null  // removes all resistance because its a piece of paper
 	access = list()
 	assignment = "Unverified"
+	hud_state = JOB_HUD_PAPER
 
 /obj/item/card/id/paper/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/pen))
