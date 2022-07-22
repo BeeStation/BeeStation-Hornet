@@ -27,7 +27,7 @@
 	exclude_types = list()
 
 /datum/export/large/crate/coffin
-	cost = 200 //50 wood costs 2000, makes 10 coffins, makes 2000 back. No free money allowed, considering they can be easlily stacked with disposal loops
+	cost = 100 //50 wood costs 2000, makes 10 coffins, makes 1000 back. No free money allowed, considering they can be easlily stacked with disposal loops. Additionally you still get 600 credits from the box + manifest either way, for a total of 1600 back.
 	unit_name = "coffin"
 	export_types = list(/obj/structure/closet/crate/coffin)
 
