@@ -627,6 +627,9 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 					if(!(ACCESS_CE in scan.access))
 						updateUsrDialog()
 						return
+				if(ACCOUNT_VIP) // never to VIP
+					updateUsrDialog()
+					return
 			var/new_pay = FLOOR(input(usr, "Input the new paycheck amount.", "Set new paycheck amount.", account.paycheck_amount) as num|null, 1)
 			if(isnull(new_pay))
 				updateUsrDialog()
@@ -725,7 +728,8 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	if(modify)
 		// Update crew manifest and card bank account
 		if(modify.registered_account)
-			modify.registered_account.account_department = get_department_by_hud(modify.hud_state) // your true department by your hud icon color
+			if(!modify.registered_account.department_locked)
+				modify.registered_account.account_department = get_department_by_hud(modify.hud_state) // your true department by your hud icon color
 		GLOB.data_core.manifest_modify(modify.registered_name, modify.assignment, modify.hud_state)
 		// There are the same code lines in `PDApainter.dm`
 		modify.update_label()

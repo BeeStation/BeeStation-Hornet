@@ -15,6 +15,7 @@
 	var/welfare = FALSE
 	var/being_dumped = FALSE //pink levels are rising
 	var/withdrawDelay = 0
+	var/department_locked = FALSE //TRUE allows changing `account_department` into something else. used for VIP
 
 /datum/bank_account/New(newname, job)
 	if(add_to_accounts)
@@ -24,6 +25,8 @@
 	account_id = rand(111111,999999)
 	paycheck_amount = account_job.paycheck
 	account_department = account_job.paycheck_department
+	if(job == "VIP")
+		department_locked = TRUE
 
 /datum/bank_account/Destroy()
 	if(add_to_accounts)
