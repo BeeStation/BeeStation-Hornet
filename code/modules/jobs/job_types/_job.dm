@@ -335,8 +335,6 @@
 				C.registered_account = B
 				B.bank_cards += C
 				break
-			if(J.paycheck_department == ACCOUNT_VIP)
-				B.department_locked = TRUE
 		H.sec_hud_set_ID()
 
 	var/obj/item/pda/PDA = H.get_item_by_slot(pda_slot)
