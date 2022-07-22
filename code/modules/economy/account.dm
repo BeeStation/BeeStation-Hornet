@@ -1,3 +1,4 @@
+#define department_locked_jobs list("VIP", "Captain", "Head of Security")
 #define DUMPTIME 3000
 
 /datum/bank_account
@@ -15,7 +16,7 @@
 	var/welfare = FALSE
 	var/being_dumped = FALSE //pink levels are rising
 	var/withdrawDelay = 0
-	var/department_locked = FALSE //TRUE allows changing `account_department` into something else. used for VIP
+	var/department_locked = FALSE //TRUE allows changing `account_department` into something else. used for VIP, Captain, and HoS
 
 /datum/bank_account/New(newname, job)
 	if(add_to_accounts)
@@ -25,7 +26,7 @@
 	account_id = rand(111111,999999)
 	paycheck_amount = account_job.paycheck
 	account_department = account_job.paycheck_department
-	if(account_job.paycheck_department == ACCOUNT_VIP)
+	if(account_job.title in department_locked_jobs)
 		department_locked = TRUE
 
 /datum/bank_account/Destroy()
@@ -134,3 +135,4 @@
 	return FALSE
 
 #undef DUMPTIME
+#undef department_locked_jobs
