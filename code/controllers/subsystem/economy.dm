@@ -34,7 +34,7 @@ SUBSYSTEM_DEF(economy)
 	for(var/A in department_accounts)
 		new /datum/bank_account/department(A, budget_to_hand_out)
 	for(var/A in nonstation_accounts)
-		new /datum/bank_account/department(A, 1000000)
+		new /datum/bank_account/department(A, VIP_BUDGET_BASE)
 	return ..()
 
 /datum/controller/subsystem/economy/Recover()
