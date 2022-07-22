@@ -1,4 +1,4 @@
-#define VIP_BUDGET_BASE 1000000
+#define VIP_BUDGET_BASE rand(8888888, 11111111)
 
 SUBSYSTEM_DEF(economy)
 	name = "Economy"
