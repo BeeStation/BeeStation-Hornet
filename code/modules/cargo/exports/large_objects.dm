@@ -27,7 +27,7 @@
 	exclude_types = list()
 
 /datum/export/large/crate/coffin
-	cost = 250//50 wooden crates cost 2000 points, and you can make 10 coffins in seconds with those planks. Each coffin selling for 250 means you can make a net gain of 500 points for wasting your time making coffins.
+	cost = 200 //50 wood costs 2000, makes 10 coffins, makes 2000 back. No free money allowed, considering they can be easlily stacked with disposal loops
 	unit_name = "coffin"
 	export_types = list(/obj/structure/closet/crate/coffin)
 
