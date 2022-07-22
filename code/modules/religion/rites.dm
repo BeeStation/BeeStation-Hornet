@@ -144,7 +144,7 @@
 
 /datum/religion_rites/machine_implantation
 	name = "Machine Implantation"
-	desc = "Apply a provided upgrade to your body. Place a cybernetic item on the altar, then buckle a someone to implant them, otherwise it will implant you."
+	desc = "Apply a provided upgrade to your body. Place a cybernetic item on the altar, then buckle someone to implant them, otherwise it will implant you."
 	ritual_length = 30 SECONDS
 	ritual_invocations = list("Lend us your power ...",
 						"... We call upon you, grant us this upgrade ...",
