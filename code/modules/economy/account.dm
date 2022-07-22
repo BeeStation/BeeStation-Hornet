@@ -25,6 +25,8 @@
 	account_id = rand(111111,999999)
 	paycheck_amount = account_job.paycheck
 	account_department = account_job.paycheck_department
+	if(account_job.paycheck_department == ACCOUNT_VIP)
+		department_locked = TRUE
 
 /datum/bank_account/Destroy()
 	if(add_to_accounts)
