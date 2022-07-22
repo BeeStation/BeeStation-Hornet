@@ -1,4 +1,4 @@
-#define department_locked_jobs list("VIP", "Captain", "Head of Security")
+#define DEPARTMENT_LOCKED_JOBS list("VIP", "Captain", "Head of Security")
 #define DUMPTIME 3000
 
 /datum/bank_account
@@ -26,7 +26,7 @@
 	account_id = rand(111111,999999)
 	paycheck_amount = account_job.paycheck
 	account_department = account_job.paycheck_department
-	if(account_job.title in department_locked_jobs)
+	if(account_job.title in DEPARTMENT_LOCKED_JOBS)
 		department_locked = TRUE
 
 /datum/bank_account/Destroy()
