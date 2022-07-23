@@ -1,5 +1,0 @@
-author: benbot16
-delete-after: true
-changes:
-  - tweak: Xeno chestbursters no longer gib their hosts.
-  - tweak: Tweaks alien embryo growth logic
