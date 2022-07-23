@@ -296,4 +296,8 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 	set category = "OOC"
 	set desc = "Open the runtime error viewer, with reduced information"
 
+	if(!isobserver(mob) && SSticker.current_state != GAME_STATE_FINISHED)
+		to_chat(src, "<span class='warning'>You cannot currently do that at this time, please wait until the round end or while you are observing.</span>")
+		return
+
 	GLOB.error_cache.show_to_minimal(src)
