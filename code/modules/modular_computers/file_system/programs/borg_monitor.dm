@@ -57,12 +57,17 @@
 				return
 			var/sender_name = get_id_name()
 			if(!sender_name)
+				// This can only happen if the action somehow gets called as UI blocks this action with no ID
+				computer.visible_message("<span class='notice'>Insert an ID to send messages.</span>")
+				playsound(usr, 'sound/machines/terminal_error.ogg', 15, TRUE)
 				return
 			if(R.stat == DEAD) //Dead borgs will listen to you no longer
 				to_chat(usr, "<span class='warn'>Error -- Could not open a connection to unit:[R]</span>")
 			var/message = stripped_input(usr, message = "Enter message to be sent to remote cyborg.", title = "Send Message")
 			if(!message)
 				return
+			to_chat(usr, "<br><br><span class='notice'>Message to [R] (as [sender_name]) -- \"[message]\"</span><br>")
+			playsound(usr, 'sound/machines/terminal_success.ogg', 15, TRUE)
 			to_chat(R, "<br><br><span class='notice'>Message from [sender_name] -- \"[message]\"</span><br>")
 			SEND_SOUND(R, 'sound/machines/twobeep_high.ogg')
 			if(R.connected_ai)
