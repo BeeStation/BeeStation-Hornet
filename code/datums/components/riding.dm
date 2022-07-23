@@ -385,15 +385,8 @@
 		override_allow_spacemove = S.spacewalk
 		RegisterSignal(parent, COMSIG_MOB_DEATH, .proc/handle_mortality)
 
-/datum/component/riding/tamed/Destroy(force, silent)
-	UnregisterSignal(parent, COMSIG_MOB_DEATH) //Calling this after . = ..() causes issues, somehow
-	return ..()
-
 /datum/component/riding/tamed/proc/handle_mortality()
-	if(istype(parent, /mob/living/simple_animal))
-		var/mob/living/simple_animal/S = parent
-		S.unbuckle_all_mobs()
-		S.can_buckle = FALSE
+	qdel(src)
 
 /datum/component/riding/tamed/vehicle_mob_buckle(datum/source, mob/living/M, force = FALSE)
 	if(istype(parent, /mob/living/simple_animal))
