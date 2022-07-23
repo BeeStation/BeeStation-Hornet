@@ -1,0 +1,8 @@
+author: DrDuckedGoose
+delete-after: true
+changes:
+  - rscadd: Adds lasso items
+  - rscadd: Adds tamed riding component subtype, toggles AI & sometimes spacewalking
+  - rscadd: Adds antag lasso to syndicate uplink
+  - rscadd: Add new AI for tamed animals
+  - rscadd: Add tamed component
