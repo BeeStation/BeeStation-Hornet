@@ -12,6 +12,7 @@
 	icon_living = "mining_drone"
 	icon_dead = "mining_drone_disabled"
 	status_flags = CANSTUN|CANKNOCKDOWN|CANPUSH
+	flags_1 = PREVENT_CONTENTS_EXPLOSION_1 // So our equipment doesn't go poof
 	mouse_opacity = MOUSE_OPACITY_ICON
 	faction = list("neutral")
 	a_intent = INTENT_HARM
@@ -61,6 +62,11 @@
 	stored_pka = new(src)
 	stored_drill = new(src)
 	stored_scanner = new /obj/item/t_scanner/adv_mining_scanner/lesser(src) // No full-power scanner right off the bat
+
+	// Keep track of our equipment
+	RegisterSignal(stored_pka, COMSIG_PARENT_QDELETING, .proc/on_pka_qdel)
+	RegisterSignal(stored_drill, COMSIG_PARENT_QDELETING, .proc/on_drill_qdel)
+	RegisterSignal(stored_scanner, COMSIG_PARENT_QDELETING, .proc/on_scanner_qdel)
 
 	// Setup actions
 	var/datum/action/innate/minedrone/toggle_light/toggle_light_action = new()
@@ -166,9 +172,8 @@
 		to_chat(user, "<span class='info'>[src] is at full integrity.</span>")
 		return
 	if(welder.use_tool(src, user, 0, volume = 40))
-		if(stat == DEAD)
-			adjustBruteLoss(-25)
-			to_chat(user, "<span class='info'>You repair and restart [src].</span>")
+		if(stat == DEAD && health > 0)
+			to_chat(user, "<span class='info'>You restart [src].</span>")
 			revive()
 			return TRUE
 		adjustBruteLoss(-15)
@@ -196,8 +201,10 @@
 		if(!do_after(user, 20, TRUE, src))
 			return TRUE
 		stored_scanner.forceMove(get_turf(src))
+		UnregisterSignal(stored_scanner, COMSIG_PARENT_QDELETING)
 		item.forceMove(src)
 		stored_scanner = item
+		RegisterSignal(stored_scanner, COMSIG_PARENT_QDELETING, .proc/on_scanner_qdel)
 		to_chat(user, "<span class='info'>You install [item].</span>")
 		return TRUE
 	if(istype(item, /obj/item/borg/upgrade/modkit))
@@ -217,8 +224,10 @@
 		if(stored_cutter)
 			stored_cutter.forceMove(get_turf(src))
 			stored_cutter.requires_wielding = initial(stored_cutter.requires_wielding)
+			UnregisterSignal(stored_cutter, COMSIG_PARENT_QDELETING)
 		item.forceMove(src)
 		stored_cutter = item
+		RegisterSignal(stored_cutter, COMSIG_PARENT_QDELETING, .proc/on_cutter_qdel)
 		stored_cutter.requires_wielding = FALSE // Prevents inaccuracy when firing for the minebot.
 		to_chat(user, "<span class='info'>You install [item].</span>")
 		return TRUE
@@ -227,22 +236,45 @@
 			return TRUE
 		if(stored_drill)
 			stored_drill.forceMove(get_turf(src))
+			UnregisterSignal(stored_drill, COMSIG_PARENT_QDELETING)
 		item.forceMove(src)
 		stored_drill = item
+		RegisterSignal(stored_drill, COMSIG_PARENT_QDELETING, .proc/on_drill_qdel)
 		to_chat(user, "<span class='info'>You install [item].</span>")
 		return TRUE
 	..()
 	check_friendly_fire = FALSE
+
+// Procs handling deletion of items
+/mob/living/simple_animal/hostile/mining_drone/proc/on_scanner_qdel()
+	SIGNAL_HANDLER
+	UnregisterSignal(stored_scanner, COMSIG_PARENT_QDELETING)
+	stored_scanner = null
+
+/mob/living/simple_animal/hostile/mining_drone/proc/on_drill_qdel()
+	SIGNAL_HANDLER
+	UnregisterSignal(stored_drill, COMSIG_PARENT_QDELETING)
+	stored_drill = null
+
+/mob/living/simple_animal/hostile/mining_drone/proc/on_pka_qdel(datum/source, forced)
+	SIGNAL_HANDLER
+	UnregisterSignal(stored_pka, COMSIG_PARENT_QDELETING)
+	stored_pka = null
+
+/mob/living/simple_animal/hostile/mining_drone/proc/on_cutter_qdel()
+	SIGNAL_HANDLER
+	UnregisterSignal(stored_cutter, COMSIG_PARENT_QDELETING)
+	stored_cutter = null
 
 /// EMPs stun and do some damage
 /mob/living/simple_animal/hostile/mining_drone/emp_act(severity)
 	. = ..()
 	switch(severity)
 		if(1)
-			Stun(100)
+			Stun(10 SECONDS)
 			take_bodypart_damage(25) // 20% of HP
 		if(2)
-			Stun(50)
+			Stun(5 SECONDS)
 			take_bodypart_damage(10) // Bit less than 10% of HP
 	to_chat(src, "<span class='userdanger'>*BZZZT*</span>")
 
