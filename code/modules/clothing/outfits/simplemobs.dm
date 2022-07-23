@@ -79,7 +79,7 @@
 	back = /obj/item/tank/jetpack/carbondioxide
 
 /datum/outfit/simplemob/syndicate/melee
-	name = "Simplemob - Syndicate Knife"
+	name = "Simplemob - Syndicate (Knife)"
 	r_hand = /obj/item/kitchen/knife
 
 /datum/outfit/simplemob/syndicate/melee/space
@@ -95,6 +95,11 @@
 	suit = /obj/item/clothing/suit/space/hardsuit/syndi/elite
 	back = /obj/item/tank/jetpack/carbondioxide
 
+/datum/outfit/simplemob/syndicate/melee/sword
+	name = "Simplemob - Syndicate (Sword)"
+	r_hand = /obj/item/melee/transforming/energy/sword/saber/red
+	l_hand = /obj/item/shield/energy
+
 /datum/outfit/simplemob/syndicate/melee/sword/space
 	name = "Simplemob - Syndicate Hardsuit (Sword)"
 	suit = /obj/item/clothing/suit/space/hardsuit/syndi
@@ -102,8 +107,6 @@
 	internals_slot = ITEM_SLOT_SUITSTORE
 	back = /obj/item/tank/jetpack/oxygen
 	mask = /obj/item/clothing/mask/gas/syndicate
-	r_hand = /obj/item/melee/transforming/energy/sword/saber/red
-	l_hand = /obj/item/shield/energy
 
 /datum/outfit/simplemob/syndicate/melee/sword/space/stormtrooper
 	name = "Simplemob - Syndicate Stormtrooper (Sword)"

@@ -51,6 +51,8 @@
 		var/datum/outfit/replacement_outfit = new human_outfit_replacement()
 		replacement_outfit.equip(H)
 		H.key = user.key
+		//Delete this mob
+		qdel(src)
 		return TRUE
 	key = user.key
 	return TRUE

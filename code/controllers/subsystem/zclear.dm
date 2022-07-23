@@ -30,9 +30,6 @@ SUBSYSTEM_DEF(zclear)
 	//List of z-levels being docked with
 	var/list/docking_levels = list()
 
-	//Announced zombie levels
-	var/list/announced_zombie_levels = list()
-
 /datum/controller/subsystem/zclear/New()
 	. = ..()
 	ignored_atoms = typecacheof(list(/mob/dead, /mob/camera, /mob/dview, /atom/movable/lighting_object, /obj/effect/abstract/mirage_holder))
@@ -48,7 +45,6 @@ SUBSYSTEM_DEF(zclear)
 	ignored_atoms |= SSzclear.ignored_atoms
 	nullspaced_mobs |= SSzclear.nullspaced_mobs
 	docking_levels |= SSzclear.docking_levels
-	announced_zombie_levels |= SSzclear.announced_zombie_levels
 
 /datum/controller/subsystem/zclear/fire(resumed)
 	if(times_fired % CHECK_ZLEVEL_TICKS == 0)
@@ -109,9 +105,7 @@ SUBSYSTEM_DEF(zclear)
 
 		//Check if free
 		if(active_levels["[level.z_value]"])
-			if(!living_levels["[level.z_value]"] && mob_levels["[level.z_value]"] && !announced_zombie_levels["[level.z_value]"])
-				//Zombie level detected.
-				announced_zombie_levels["[level.z_value]"] = TRUE
+			if(!living_levels["[level.z_value]"] && mob_levels["[level.z_value]"])
 				//Yoink all mobs
 				for(var/mob/living/L as() in GLOB.mob_living_list)
 					if(L.z != level.z_value || !L.mind)
@@ -213,9 +207,6 @@ SUBSYSTEM_DEF(zclear)
 	for(var/atom/A in GLOB.zclear_atoms)
 		if(A.z == z_level)
 			qdel(A, TRUE)
-
-	//Unannounce zombie level
-	announced_zombie_levels["[z_level]"] = FALSE
 
 /*
  * Continues the process of wiping a z-level.

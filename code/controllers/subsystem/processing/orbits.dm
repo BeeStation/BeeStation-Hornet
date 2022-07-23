@@ -393,7 +393,7 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 		var/datum/map_template/shuttle/supercruise/shuttle_template = SSmapping.shuttle_templates["encounter_syndicate_prisoner_transport"]
 		var/obj/docking_port/mobile/created_ship = spawn_ship(shuttle_template, new /datum/faction/pirates(), new /datum/shuttle_ai_pilot/npc/hostile())
 		//Grant sentience to the ship's crew
-		for(var/area/A in created_ship)
+		for(var/area/A in created_ship.shuttle_areas)
 			for(var/mob/living/simple_animal/ship_mob in A)
 				ship_mob.set_playable()
 	//Oof
