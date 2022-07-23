@@ -276,7 +276,7 @@
 	prof.socks = H.socks
 
 	if(H.wear_id?.GetID())
-		var/obj/item/card/id/I = H.wear_id
+		var/obj/item/card/id/I = H.wear_id.GetID()
 		if(istype(I))
 			prof.id_job_name = I.assignment
 			prof.id_hud_state = I.hud_state

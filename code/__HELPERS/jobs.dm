@@ -32,7 +32,7 @@
 		// R&D
 		"Science (Custom)" = "rawscience",
 		"Research Director" = "rd",
-		"Science" = "sci",
+		"Scientist" = "sci",
 		"Roboticist" = "roboticist",
 		"Exploration Crew" = "exploration",
 		// Engineering

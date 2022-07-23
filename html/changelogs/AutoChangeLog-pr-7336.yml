@@ -1,0 +1,6 @@
+author: EvilDragonfiend
+delete-after: true
+changes:
+  - refactor: better gimmick codes
+  - tweak: gimmick jobs now do have a supervisor. (except for VIP)
+  - tweak: gimmick jobs now have a title from RPG title wizard event.
