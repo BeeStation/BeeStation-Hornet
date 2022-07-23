@@ -277,7 +277,7 @@
 		to_chat(user, "<span class='warning'>The soul pool is empty...")
 		new /obj/effect/gibspawner/human/bodypartless(altar_turf)
 		user.visible_message("<span class='warning'>The soul pool was not strong enough to bring forth the undead.")
-		GLOB.religious_sect?.adjust_favor(1500, user) //refund if nobody takes the role
+		GLOB.religious_sect?.adjust_favor(favor_cost, user) //refund if nobody takes the role
 		return NOT_ENOUGH_PLAYERS
 	var/mob/dead/observer/selected = pick_n_take(candidates)
 	var/datum/mind/Mind = new /datum/mind(selected.key)
