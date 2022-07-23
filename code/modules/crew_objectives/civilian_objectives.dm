@@ -75,7 +75,7 @@
 
 /datum/objective/crew/cocktail/update_explanation_text()
 	. = ..()
-	explanation_text = "Have a bottle(any type) that contains '[english_list(chemnames)]' when the shift ends. Each of them must be at least [chemsize]u."
+	explanation_text = "Have a bottle(any type) that contains '[english_list(chemnames, and_text = ", and ")]' when the shift ends. Each of them must be at least [chemsize]u."
 
 /datum/objective/crew/cocktail/check_completion()
 	if(owner?.current)
