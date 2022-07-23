@@ -346,7 +346,6 @@ GLOBAL_VAR(restart_counter)
 
 	s += "<br>Time: <b>[gameTimestamp("hh:mm")]</b>"
 	s += "<br>Alert: <b>[capitalize(get_security_level())]</b>"
-	s += "<br>Roleplay: <b>Medium</b>
 
 	status = s
 
