@@ -336,6 +336,11 @@ GLOBAL_VAR(restart_counter)
 
 	var/players = GLOB.clients.len
 
+	var/popcaptext = ""
+	var/popcap = max(CONFIG_GET(number/extreme_popcap), CONFIG_GET(number/hard_popcap), CONFIG_GET(number/soft_popcap))
+	if (popcap)
+		popcaptext = "/[popcap]"
+
 	game_state = (CONFIG_GET(number/extreme_popcap) && players >= CONFIG_GET(number/extreme_popcap)) //tells the hub if we are full
 
 	if (!host && hostedby)
@@ -346,6 +351,7 @@ GLOBAL_VAR(restart_counter)
 
 	s += "<br>Time: <b>[gameTimestamp("hh:mm")]</b>"
 	s += "<br>Alert: <b>[capitalize(get_security_level())]</b>"
+	s += "<br>Players: <b>[players][popcaptext]</b>"
 
 	status = s
 
