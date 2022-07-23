@@ -53,15 +53,29 @@
 /datum/quirk/brainproblems
 	name = "Brain Tumor"
 	desc = "You have a little friend in your brain that is slowly destroying it. Thankfully, you start with a bottle of mannitol pills."
+	mob_trait = TRAIT_BRAIN_TUMOR
 	value = -3
 	gain_text = "<span class='danger'>You feel smooth.</span>"
 	lose_text = "<span class='notice'>You feel wrinkled again.</span>"
 	medical_record_text = "Patient has a tumor in their brain that is slowly driving them to brain death."
 	process = TRUE
 	var/where = "at your feet"
+	var/notified = FALSE
 
 /datum/quirk/brainproblems/on_process(delta_time)
-	quirk_holder.adjustOrganLoss(ORGAN_SLOT_BRAIN, 0.2 * delta_time)
+	if(!quirk_holder.reagents.has_reagent(/datum/reagent/medicine/mannitol))
+		if(prob(80))
+			quirk_holder.adjustOrganLoss(ORGAN_SLOT_BRAIN, 0.1 * delta_time)
+	var/obj/item/organ/brain/B = quirk_holder.getorgan(/obj/item/organ/brain)
+	if(B)
+		if(B.damage>BRAIN_DAMAGE_MILD-1 && !notified)
+			to_chat(quirk_holder, "<span class='danger'>You sense your brain is getting beyond your control...</span>")
+			notified = TRUE
+		if(B.damage<1 && notified)
+			to_chat(quirk_holder, "<span class='notice'>You feel your brain is quite well.</span>")
+			notified = FALSE
+
+
 
 /datum/quirk/brainproblems/on_spawn()
 	var/mob/living/carbon/human/H = quirk_holder
@@ -174,7 +188,7 @@
 			if("Paramedic")
 				heirloom_type = pick(/obj/item/bodybag)
 			if("Chemist")
-				heirloom_type = /obj/item/book/manual/wiki/chemistry
+				heirloom_type = /obj/item/reagent_containers/glass/chem_heirloom
 			if("Virologist")
 				heirloom_type = /obj/item/reagent_containers/dropper
 			if("Geneticist")
@@ -218,6 +232,9 @@
 	var/family_name = names[names.len]
 
 	heirloom.AddComponent(/datum/component/heirloom, quirk_holder.mind, family_name)
+	if(istype(heirloom, /obj/item/reagent_containers/glass/chem_heirloom)) //Edge case for chem_heirloom. Solution to component not being present on init.
+		var/obj/item/reagent_containers/glass/chem_heirloom/H = heirloom
+		H.update_name()
 
 /datum/quirk/family_heirloom/on_process()
 	if(heirloom in quirk_holder.GetAllContents())

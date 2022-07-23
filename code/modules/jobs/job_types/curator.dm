@@ -8,7 +8,6 @@
 	spawn_positions = 1
 	supervisors = "the head of personnel"
 	selection_color = "#dddddd"
-	chat_color = "#88c999"
 
 	outfit = /datum/outfit/job/curator
 
@@ -24,13 +23,14 @@
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/curator
 	)
-	biohazard = 5 //he doesnt get out much
+	//they doesnt get out that much
+	biohazard = 5
 
 /datum/outfit/job/curator
 	name = "Curator"
 	jobtype = /datum/job/curator
 
-	id = /obj/item/card/id/job/chap
+	id = /obj/item/card/id/job/curator
 	shoes = /obj/item/clothing/shoes/laceup
 	belt = /obj/item/pda/curator
 	ears = /obj/item/radio/headset/headset_curator
