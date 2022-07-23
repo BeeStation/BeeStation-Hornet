@@ -1,6 +1,6 @@
 SUBSYSTEM_DEF(lag)
 	name = "Lag"
-	flags = SS_BACKGROUND | SS_NO_INIT
+	flags = SS_NO_INIT
 	wait = 1
 	can_fire = FALSE
 

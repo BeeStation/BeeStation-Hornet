@@ -36,6 +36,8 @@
 
 	var/static/list/failure_strikes //How many times we suspect a subsystem type has crashed the MC, 3 strikes and you're out!
 
+	var/is_firing = FALSE
+
 //Do not override
 ///datum/controller/subsystem/New()
 
@@ -49,7 +51,11 @@
 /datum/controller/subsystem/proc/ignite(resumed = 0)
 	set waitfor = 0
 	. = SS_SLEEPING
+	if(is_firing)
+		message_admins("Subsystem [name] ignited while already firing. Could be worth investigating")
+	is_firing = TRUE
 	fire(resumed)
+	is_firing = FALSE
 	. = state
 	if (state == SS_SLEEPING)
 		state = SS_IDLE
