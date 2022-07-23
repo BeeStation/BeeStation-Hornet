@@ -23,6 +23,7 @@ GLOBAL_DATUM(error_cache, /datum/error_viewer/error_cache)
 // Common vars and procs are kept at the error_viewer level
 /datum/error_viewer
 	var/name = ""
+	var/min_name = ""
 
 /datum/error_viewer/proc/browse_to(client/user, html)
 	var/datum/browser/browser = new(user.mob, "error_viewer", null, 600, 400)
@@ -77,6 +78,16 @@ GLOBAL_DATUM(error_cache, /datum/error_viewer/error_cache)
 	var/list/errors = list()
 	var/list/error_sources = list()
 	var/list/errors_silenced = list()
+
+/datum/error_viewer/error_cache/proc/show_to_minimal(user, datum/error_viewer/back_to, linear)
+	var/html = "<b>[GLOB.total_runtimes]</b> runtimes, <b>[GLOB.total_runtimes_skipped]</b> skipped<br><br>"
+	for (var/datum/error_viewer/error_entry/error_entry in errors)
+		var/datum/error_viewer/error_source/error_source
+		for (var/erroruid in error_sources)
+			error_source = error_sources[erroruid]
+			html += "[error_source.min_name]<br>"
+
+	browse_to(user, html)
 
 /datum/error_viewer/error_cache/show_to(user, datum/error_viewer/back_to, linear)
 	var/html = build_header()
@@ -134,7 +145,8 @@ GLOBAL_DATUM(error_cache, /datum/error_viewer/error_cache)
 		name = "\[[time_stamp()]] Uncaught exceptions"
 		return
 
-	name = "<b>\[[time_stamp()]]</b> Runtime in <b>[e.file]</b>, line <b>[e.line]</b>: <b>[html_encode(e.name)]</b>"
+	min_name = "<b>\[[time_stamp()]]</b> Runtime in <b>[e.file]</b>, line <b>[e.line]</b>"
+	name = min_name + ": <b>[html_encode(e.name)]</b>"
 
 /datum/error_viewer/error_source/show_to(user, datum/error_viewer/back_to, linear)
 	if (!istype(back_to))
@@ -164,7 +176,8 @@ GLOBAL_DATUM(error_cache, /datum/error_viewer/error_cache)
 		is_skip_count = TRUE
 		return
 
-	name = "<b>\[[time_stamp()]]</b> Runtime in <b>[e.file]</b>, line <b>[e.line]</b>: <b>[html_encode(e.name)]</b>"
+	min_name = "<b>\[[time_stamp()]]</b> Runtime in <b>[e.file]</b>, line <b>[e.line]</b>"
+	name = min_name + ": <b>[html_encode(e.name)]</b>"
 	exc = e
 	if (istype(desclines))
 		for (var/line in desclines)
