@@ -10,7 +10,7 @@
 	announceWhen = 2
 
 /datum/round_event/infcola/announce(fake)
-	priority_announce("Our long-range anomaly scanners have detected leakage from a soda filled dimension. Nanotrasen is not responsible for any damages caused by these anomalous canisters.", "General Alert", SSstation.announcer.get_rand_alert_sound())
+	priority_announce("Our long-range anomaly scanners have detected leakage from a soda filled dimension. Nanotrasen is [fake ? "very" : "not"] responsible for any damages caused by these anomalous canisters.", "General Alert", SSstation.announcer.get_rand_alert_sound())
 
 /obj/item/reagent_containers/food/drinks/soda_cans/inf
 	name = "Space Cola INFINITE"
@@ -22,7 +22,9 @@
 	var/reagents = volume
 	while(reagents)
 		var/newreagent = rand(1, min(reagents, 30))
-		list_reagents += list((get_random_reagent_id() = newreagent))  // proc gives reagents from a whitelist
+
+		var/id = get_random_reagent_id()
+		list_reagents.add_reagent(id, newreagent)
 		reagents -= newreagent
 
 	. = ..()
