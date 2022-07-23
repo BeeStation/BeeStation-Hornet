@@ -12,7 +12,7 @@
 	set category = "Debug"
 	set name = "Mark Object"
 
-	if(check_rights(R_VAREDIT))
+	if(!check_rights(R_VAREDIT))
 		return
 	mark_datum(D)
 
