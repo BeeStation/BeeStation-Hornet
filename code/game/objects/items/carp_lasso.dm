@@ -2,6 +2,7 @@
 	name = "space lasso"
 	desc = "Comes standard with every space-cowboy.\nCan be used to tame space carp."
 	icon = 'icons/obj/carp_lasso.dmi'
+	icon_state = "lasso"
 	///Ref to timer
 	var/timer
 	///Ref to lasso'd carp
