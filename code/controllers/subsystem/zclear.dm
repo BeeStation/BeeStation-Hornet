@@ -112,8 +112,12 @@ SUBSYSTEM_DEF(zclear)
 			if(!living_levels["[level.z_value]"] && mob_levels["[level.z_value]"] && !announced_zombie_levels["[level.z_value]"])
 				//Zombie level detected.
 				announced_zombie_levels["[level.z_value]"] = TRUE
-				if(level.orbital_body)
-					priority_announce("Nanotrasen long ranged sensors have indicated that all sentient life forms at priority waypoint [level.orbital_body.name] have ceased life functions. Command is recommended to establish a rescue operation to recover the bodies. Due to the nature of the threat at this location, security personnel armed with lethal weaponry is recommended to accompany the rescue team.", "Nanotrasen Long Range Sensors")
+				//Yoink all mobs
+				for(var/mob/living/L as() in GLOB.mob_living_list)
+					if(L.z != level.z_value)
+						continue
+					nullspaced_mobs |= L
+					L.moveToNullspace()
 			continue
 		//Level is free, do the wiping thing.
 		LAZYREMOVE(autowipe, level)
@@ -121,6 +125,14 @@ SUBSYSTEM_DEF(zclear)
 		QDEL_NULL(level.orbital_body)
 		//Continue tracking after
 		wipe_z_level(level.z_value, TRUE)
+	if(length(nullspaced_mobs))
+		kidnap_mobs()
+
+/datum/controller/subsystem/zclear/proc/kidnap_mobs()
+	//Handle nullspaced mobs
+	if(length(nullspaced_mobs))
+		SSorbits.create_hostage_ship(nullspaced_mobs)
+		nullspaced_mobs.Cut()
 
 //Temporarily stops a z from being wiped for 30 seconds.
 /datum/controller/subsystem/zclear/proc/temp_keep_z(z_level)
@@ -229,14 +241,8 @@ SUBSYSTEM_DEF(zclear)
 			if(cleardata.tracking)
 				LAZYADD(free_levels, SSmapping.z_list[cleardata.zvalue])
 			if(length(nullspaced_mobs))
-				var/nullspaced_mob_names = ""
-				var/valid = FALSE
-				for(var/mob/M as() in nullspaced_mobs)
-					if(M.key || M.get_ghost(FALSE, TRUE))
-						nullspaced_mob_names += " - [M.name]\n"
-						valid = TRUE
-				if(valid)
-					priority_announce("Sensors indicate that multiple crewmembers have been lost at an abandoned station. They can potentially be recovered by flying to the nearest derelict station and locating their bodies.\n[nullspaced_mob_names]")
+				SSorbits.create_hostage_ship(nullspaced_mobs)
+				nullspaced_mobs.Cut()
 	cleardata.process_num ++
 
 /*

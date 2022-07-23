@@ -65,6 +65,9 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 	// factions[datum] = new datum
 	var/list/factions
 
+	//List of hostage spawn points
+	var/list/obj/effect/hostage_spawns = list()
+
 /datum/controller/subsystem/processing/orbits/Initialize(start_timeofday)
 	. = ..()
 	setup_event_list()
@@ -355,3 +358,63 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 		//Kill...
 		var/datum/shuttle_ai_pilot/npc/npc_ship = victim.ai_pilot
 		npc_ship.hostile = TRUE
+
+//====================================
+// Ship Spawning
+//====================================
+
+/datum/controller/subsystem/processing/orbits/proc/spawn_ship(datum/map_template/shuttle/supercruise/selected_ship, ship_faction, ship_ai)
+	var/datum/turf_reservation/preview_reservation = SSmapping.RequestBlockReservation(selected_ship.width, selected_ship.height, SSmapping.transit.z_value, /datum/turf_reservation/transit)
+	if(!preview_reservation)
+		CRASH("failed to reserve an area for shuttle template loading")
+	var/turf/BL = TURF_FROM_COORDS_LIST(preview_reservation.bottom_left_coords)
+
+	//Setup the docking port
+	var/obj/docking_port/mobile/M = selected_ship.place_port(BL, FALSE, TRUE, rand(-6000, 6000), rand(-6000, 6000))
+
+	//Give the ship some AI
+	var/datum/shuttle_data/located_shuttle = SSorbits.get_shuttle_data(M.id)
+	located_shuttle.faction = ship_faction
+	located_shuttle.set_pilot(ship_ai)
+
+//====================================
+// Captured Crew
+//====================================
+
+///Creates a hostage ship with the killed mobs as hostages
+///Will chase after crewed ships in the sector
+/datum/controller/subsystem/processing/orbits/proc/create_hostage_ship(list/hostages, iteration = 0)
+	var/to_respawn = hostages.Copy()
+	//Locate any existing spawns
+	if(!length(hostage_spawns))
+		//Spawn a hostage shuttle
+		var/datum/map_template/shuttle/supercruise/shuttle_template = SSmapping.shuttle_templates["encounter_syndicate_prisoner_transport"]
+		spawn_ship(shuttle_template, new /datum/faction/pirates(), new /datum/shuttle_ai_pilot/npc/hostile())
+	//Oof
+	if(!length(hostage_spawns))
+		return
+	//Spawn the hostages
+	while(length(to_respawn) && length(hostage_spawns))
+		var/mob/living/L = pick_n_take(to_respawn)
+		var/obj/effect/picked_spawn = pick(hostage_spawns)
+		//Move the mob
+		L.forceMove(picked_spawn.loc)
+		//Transfer all of their items to a nearby simple mob's location
+		var/area/A = get_area(picked_spawn)
+		var/obj/effect/hostage_loot_point/item_point = locate() in A
+		if(item_point)
+			for(var/obj/item/I in L)
+				if(L.dropItemToGround(I, TRUE))
+					I.forceMove(item_point.loc)
+		//Equip prisoner outfit
+		var/datum/outfit/hostage/hostage_outfit = new()
+		hostage_outfit.equip(L)
+		//Revive the mob
+		L.revive(TRUE)
+		//Grab the ghost
+		L.grab_ghost()
+		//Delete the spawn
+		qdel(picked_spawn)
+	//If we still have hostages left
+	if(length(to_respawn) && iteration < 4)
+		create_hostage_ship(to_respawn, iteration + 1)

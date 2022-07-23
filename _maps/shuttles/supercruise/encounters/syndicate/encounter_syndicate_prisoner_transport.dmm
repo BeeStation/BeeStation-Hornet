@@ -143,24 +143,6 @@
 "ma" = (
 /turf/template_noop,
 /area/template_noop)
-"mj" = (
-/obj/structure/bed/pod,
-/obj/machinery/shower{
-	pixel_y = 15
-	},
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/item/toy/plush/rouny{
-	dir = 4;
-	pixel_x = -2;
-	pixel_y = 8
-	},
-/obj/effect/decal/cleanable/blood/old,
-/obj/effect/decal/cleanable/blood/splatter{
-	pixel_x = 13;
-	pixel_y = 3
-	},
-/turf/open/floor/pod,
-/area/shuttle/syndicate_scout)
 "mY" = (
 /obj/effect/turf_decal/trimline/neutral/filled/line{
 	dir = 8
@@ -510,14 +492,6 @@
 	},
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate_scout)
-"BF" = (
-/obj/structure/bed/pod,
-/obj/machinery/shower{
-	pixel_y = 15
-	},
-/obj/effect/decal/cleanable/vomit,
-/turf/open/floor/pod,
-/area/shuttle/syndicate_scout)
 "BG" = (
 /obj/effect/turf_decal/stripes/closeup,
 /obj/effect/decal/cleanable/dirt,
@@ -559,15 +533,6 @@
 /obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/syndicate_scout)
-"Dq" = (
-/obj/effect/turf_decal/tile/neutral/tile_full,
-/obj/structure/chair/comfy/shuttle{
-	dir = 8
-	},
-/obj/machinery/light,
-/obj/effect/decal/cleanable/vomit/old,
-/turf/open/floor/pod/dark,
-/area/shuttle/syndicate_scout)
 "DJ" = (
 /obj/effect/turf_decal/tile/neutral/tile_full,
 /obj/structure/bed/pod,
@@ -586,12 +551,46 @@
 	},
 /turf/closed/wall/r_wall/syndicate/nodiagonal,
 /area/shuttle/syndicate_scout)
+"EC" = (
+/obj/effect/turf_decal/tile/neutral/tile_full,
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
+	},
+/obj/machinery/light,
+/obj/effect/decal/cleanable/vomit/old,
+/mob/living/simple_animal/hostile/syndicate/ranged/shotgun,
+/turf/open/floor/pod/dark,
+/area/shuttle/syndicate_scout)
+"EM" = (
+/obj/structure/bed/pod,
+/obj/machinery/shower{
+	pixel_y = 15
+	},
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/hostage_spawn,
+/turf/open/floor/pod,
+/area/shuttle/syndicate_scout)
 "Fy" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/bot_white,
 /obj/structure/closet/syndicate/nuclear,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/cobweb,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/syndicate_scout)
+"Gl" = (
+/obj/structure/table/reinforced,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
+/obj/item/storage/firstaid/tactical{
+	pixel_x = 8;
+	pixel_y = -5
+	},
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/hostage_loot_point,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/syndicate_scout)
 "GA" = (
@@ -621,6 +620,16 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plasteel/showroomfloor,
 /area/shuttle/syndicate_scout)
+"HN" = (
+/obj/structure/bed/pod,
+/obj/machinery/shower{
+	pixel_y = 15
+	},
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/item/toy/plush/moth,
+/obj/effect/hostage_spawn,
+/turf/open/floor/pod,
+/area/shuttle/syndicate_scout)
 "HV" = (
 /obj/effect/decal/cleanable/cobweb/cobweb2,
 /obj/machinery/atmospherics/components/unary/portables_connector/visible{
@@ -629,22 +638,6 @@
 /obj/item/wrench,
 /obj/machinery/portable_atmospherics/canister/tritium,
 /obj/effect/mapping_helpers/auto_wrench,
-/turf/open/floor/plasteel/techmaint,
-/area/shuttle/syndicate_scout)
-"If" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/machinery/power/apc/auto_name/north{
-	pixel_y = 24
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
-/obj/machinery/atmospherics/pipe/simple/purple/visible{
-	dir = 4
-	},
 /turf/open/floor/plasteel/techmaint,
 /area/shuttle/syndicate_scout)
 "Io" = (
@@ -693,15 +686,6 @@
 	dir = 6
 	},
 /turf/open/floor/plasteel/techmaint,
-/area/shuttle/syndicate_scout)
-"Mz" = (
-/obj/structure/bed/pod,
-/obj/machinery/shower{
-	pixel_y = 15
-	},
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/pod,
 /area/shuttle/syndicate_scout)
 "MY" = (
 /obj/effect/turf_decal/stripes/closeup,
@@ -860,13 +844,23 @@
 	},
 /turf/open/floor/plasteel/techmaint,
 /area/shuttle/syndicate_scout)
-"SK" = (
+"Sw" = (
 /obj/structure/bed/pod,
 /obj/machinery/shower{
 	pixel_y = 15
 	},
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/item/toy/plush/moth,
+/obj/item/toy/plush/rouny{
+	dir = 4;
+	pixel_x = -2;
+	pixel_y = 8
+	},
+/obj/effect/decal/cleanable/blood/old,
+/obj/effect/decal/cleanable/blood/splatter{
+	pixel_x = 13;
+	pixel_y = 3
+	},
+/obj/effect/hostage_spawn,
 /turf/open/floor/pod,
 /area/shuttle/syndicate_scout)
 "SU" = (
@@ -959,23 +953,6 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/syndicate_scout)
-"VB" = (
-/obj/structure/table/reinforced,
-/obj/effect/turf_decal/stripes/corner{
-	dir = 1
-	},
-/obj/item/storage/firstaid/tactical{
-	pixel_x = 8;
-	pixel_y = -5
-	},
-/obj/item/melee/powerfist{
-	pixel_x = 6;
-	pixel_y = 10
-	},
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/syndicate_scout)
 "Wz" = (
 /obj/machinery/atmospherics/pipe/simple/purple/visible{
 	dir = 6
@@ -1028,6 +1005,32 @@
 	pixel_y = 32
 	},
 /turf/open/floor/pod/dark,
+/area/shuttle/syndicate_scout)
+"Yx" = (
+/obj/structure/bed/pod,
+/obj/machinery/shower{
+	pixel_y = 15
+	},
+/obj/effect/decal/cleanable/vomit,
+/obj/effect/hostage_spawn,
+/turf/open/floor/pod,
+/area/shuttle/syndicate_scout)
+"ZT" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/power/apc/auto_name/north{
+	pixel_y = 24
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/obj/machinery/atmospherics/pipe/simple/purple/visible{
+	dir = 4
+	},
+/mob/living/simple_animal/hostile/syndicate/melee/sword,
+/turf/open/floor/plasteel/techmaint,
 /area/shuttle/syndicate_scout)
 
 (1,1,1) = {"
@@ -1085,11 +1088,11 @@ UW
 yQ
 rp
 fX
-Dq
+EC
 CZ
-SK
+HN
 CZ
-mj
+Sw
 CZ
 Qu
 UI
@@ -1209,7 +1212,7 @@ CZ
 hH
 CZ
 CZ
-If
+ZT
 Rw
 rd
 Ro
@@ -1225,9 +1228,9 @@ CZ
 CZ
 oR
 CZ
-BF
+Yx
 CZ
-Mz
+EM
 CZ
 de
 ob
@@ -1243,7 +1246,7 @@ bS
 DM
 CZ
 rE
-VB
+Gl
 CZ
 CN
 Ho

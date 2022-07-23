@@ -144,9 +144,10 @@ GLOBAL_PROTECT(supercruise_debug_verbs)
 		var/datum/map_template/shuttle/supercruise/map = SSmapping.shuttle_templates[id]
 		if(!istype(map))
 			continue
-		valid_maps += map
+		valid_maps[id] = map
 
-	var/datum/map_template/shuttle/supercruise/selected_ship = input(src, "Select the ship template to spawn", "Spawn NPC Ship", null) as null|anything in valid_maps
+	var/selected = input(src, "Select the ship template to spawn", "Spawn NPC Ship", null) as null|anything in valid_maps
+	var/datum/map_template/shuttle/supercruise/selected_ship = valid_maps[selected]
 	if(!selected_ship)
 		return
 
@@ -158,20 +159,7 @@ GLOBAL_PROTECT(supercruise_debug_verbs)
 	if(!selected_ai)
 		return
 
-	//Spawn it
-	//Spawn the ship
-	var/datum/turf_reservation/preview_reservation = SSmapping.RequestBlockReservation(selected_ship.width, selected_ship.height, SSmapping.transit.z_value, /datum/turf_reservation/transit)
-	if(!preview_reservation)
-		CRASH("failed to reserve an area for shuttle template loading")
-	var/turf/BL = TURF_FROM_COORDS_LIST(preview_reservation.bottom_left_coords)
-
-	//Setup the docking port
-	var/obj/docking_port/mobile/M = selected_ship.place_port(BL, FALSE, TRUE, rand(-6000, 6000), rand(-6000, 6000))
-
-	//Give the ship some AI
-	var/datum/shuttle_data/located_shuttle = SSorbits.get_shuttle_data(M.id)
-	located_shuttle.faction = new selected_faction()
-	located_shuttle.set_pilot(new selected_ai())
+	SSorbits.spawn_ship(selected_ship, new selected_faction(), new selected_ai())
 
 	message_admins("[key_name_admin(src)] spawned an NPC ship.")
 	log_shuttle("[key_name_admin(src)] spawned an NPC ship.")
