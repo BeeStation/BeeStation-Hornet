@@ -947,7 +947,7 @@
 
 /mob/living/silicon/robot/updatehealth()
 	..()
-	var/missingHealth = 200 - (health + 100)
+	var/missingHealth = maxHealth - health
 	///Ranges from moving 
 	var/speedPenalty = min(missingHealth / maxHealth, 1.5)
 	if(health < maxHealth * 0.5) //Gradual breakdown of modules and movement speed as more damage is sustained

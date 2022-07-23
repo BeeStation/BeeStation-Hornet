@@ -312,7 +312,7 @@
 
 /obj/item/weldingtool/cyborg
 	name = "integrated welding tool"
-	desc = "An advanced welder designed to be used in robotic systems"
+	desc = "A welder designed to be used in robotic systems."
 	icon = 'icons/obj/items_cyborg.dmi'
 	icon_state = "indwelder_cyborg"
 
@@ -328,7 +328,7 @@
 
 /obj/item/weldingtool/largetank/cyborg
 	name = "integrated welding tool"
-	desc = "An advanced welder designed to be used in robotic systems"
+	desc = "An advanced welder designed to be used in robotic systems."
 	icon = 'icons/obj/items_cyborg.dmi'
 	icon_state = "indwelder_cyborg"
 
