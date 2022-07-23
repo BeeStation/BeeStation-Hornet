@@ -378,13 +378,19 @@
 	. = ..()
 
 //tamed riding
-/datum/component/riding/tamed
-	override_allow_spacemove = TRUE
-
-/datum/component/riding/tamed/vehicle_mob_buckle(datum/source, mob/living/M, force = FALSE)
-	M.spacewalk = TRUE
+/datum/component/riding/tamed/Initialize()
+	. = ..()
 	if(istype(parent, /mob/living/simple_animal))
 		var/mob/living/simple_animal/S = parent
+		override_allow_spacemove = S.spacewalk
+
+/datum/component/riding/tamed/vehicle_mob_buckle(datum/source, mob/living/M, force = FALSE)
+	if(istype(parent, /mob/living/simple_animal))
+		var/mob/living/simple_animal/S = parent
+		M.spacewalk = S.spacewalk
+		if(IS_DEAD_OR_INCAP(S))
+			to_chat(M, "<span class='warning'>That's just rude!</span>")
+			return
 		S.toggle_ai(AI_OFF)
 	..()
 
