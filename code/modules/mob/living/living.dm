@@ -1380,6 +1380,6 @@
 		to_chat(eminence, "<span class='brass'>You select [src].</span>")
 
 /mob/living/can_buckle()
-	. = ..()
 	if(IS_DEAD_OR_INCAP(src))
 		return FALSE
+	return TRUE
