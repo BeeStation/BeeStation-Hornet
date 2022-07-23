@@ -386,8 +386,8 @@
 		RegisterSignal(parent, COMSIG_MOB_DEATH, .proc/handle_mortality)
 
 /datum/component/riding/tamed/Destroy(force, silent)
-	. = ..()
-	UnregisterSignal(parent, COMSIG_MOB_DEATH)
+	UnregisterSignal(parent, COMSIG_MOB_DEATH) //Calling this after . = ..() causes issues, somehow
+	return ..()
 
 /datum/component/riding/tamed/proc/handle_mortality()
 	if(istype(parent, /mob/living/simple_animal))
