@@ -375,7 +375,7 @@
 
 /datum/xenoartifact_trait/major/lamp/dark/activate(obj/item/xenoartifact/X)
 	for(var/C in 1 to 3)
-		X.AddComponent(/datum/component/overlay_lighting/dupable, 1.4+(X.charge*0.7), max(X.charge*0.05, 0.1), X.light_color)
+		X.AddComponent(/datum/component/overlay_lighting/dupable, 1.4+(X.charge*0.5), max(X.charge*0.05, 0.1), X.light_color)
 		addtimer(CALLBACK(src, .proc/unlight, X), (X.charge*0.6) SECONDS)
 		X.cooldownmod = (X.charge*0.6) SECONDS
 		
