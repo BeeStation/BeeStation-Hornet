@@ -11,8 +11,11 @@
 
 /obj/item/mob_lasso/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
-	if(isliving(target) && check_allowed(target) && !iscarbon(target) && !issilicon(target) && !IS_DEAD_OR_INCAP(target))
+	if(isliving(target) && check_allowed(target) && !iscarbon(target) && !issilicon(target))
 		var/mob/living/simple_animal/C = target
+		if(IS_DEAD_OR_INCAP(target))
+			to_chat(user, "<span class='warning'>it seems rude.</span>")
+			return
 		if(user.a_intent == INTENT_HELP && C == mob_target) //if trying to tie up previous target
 			to_chat(user, "<span class='notice'>You begin to untie [C]</span>")
 			if(proximity_flag && do_after(user, 2 SECONDS, FALSE, target))
