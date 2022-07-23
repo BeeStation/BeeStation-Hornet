@@ -143,9 +143,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/hunter)
-"E" = (
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/hunter)
 "F" = (
 /obj/effect/turf_decal/bot,
 /obj/effect/decal/cleanable/dirt,
@@ -480,7 +477,7 @@ s
 w
 A
 C
-E
+q
 G
 b
 b
