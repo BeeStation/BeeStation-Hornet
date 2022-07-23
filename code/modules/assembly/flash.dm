@@ -39,9 +39,9 @@
 		return FLASH_USE_BURNOUT
 	return FLASH_USE
 
-/obj/item/flashbulb/weak
+/obj/item/flashbulb/cyborg
 	name = "cyborg flashlight bulb"
-	desc = "a lamp intended for use within a cyborg eye."
+	desc = "A lamp intended for use within a cyborg eye."
 
 	charges_left = 1
 
@@ -98,8 +98,8 @@
 	var/burnt_out = FALSE
 	var/obj/item/flashbulb/bulb = /obj/item/flashbulb	//Store reference to object and run new when initialised.
 
-/obj/item/assembly/flash/handheld/weak
-	bulb = /obj/item/flashbulb/weak
+/obj/item/assembly/flash/handheld/cyborg
+	bulb = /obj/item/flashbulb/cyborg
 	name = "cyborg eye"
 	desc = "A small but powerful light with a shielded camera lens embedded in the center. Cyborgs need these to see what they're doing. The camera is non-functional until it is attached to a cyborg head"
 	icon = 'icons/obj/machines/camera.dmi'

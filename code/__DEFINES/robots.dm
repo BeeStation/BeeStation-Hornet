@@ -26,7 +26,7 @@
 #define BOT_BLOCKED			14	//!  blocked
 #define BOT_NAV				15	//!  computing navigation
 #define BOT_WAIT_FOR_NAV	16	//!  waiting for nav computation
-#define BOT_NO_ROUTE		17	//! no destination beacon found (or no route)
+#define BOT_NO_ROUTE		17	//!  no destination beacon found (or no route)
 
 //Bot types
 #define SEC_BOT				(1<<0)	//!  Secutritrons (Beepsky) and ED-209s

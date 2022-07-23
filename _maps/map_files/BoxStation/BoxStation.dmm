@@ -14550,12 +14550,12 @@
 	amount = 10
 	},
 /obj/item/stack/cable_coil,
-/obj/item/assembly/flash/handheld/weak,
-/obj/item/assembly/flash/handheld/weak,
-/obj/item/assembly/flash/handheld/weak,
-/obj/item/assembly/flash/handheld/weak,
-/obj/item/assembly/flash/handheld/weak,
-/obj/item/assembly/flash/handheld/weak,
+/obj/item/assembly/flash/handheld/cyborg,
+/obj/item/assembly/flash/handheld/cyborg,
+/obj/item/assembly/flash/handheld/cyborg,
+/obj/item/assembly/flash/handheld/cyborg,
+/obj/item/assembly/flash/handheld/cyborg,
+/obj/item/assembly/flash/handheld/cyborg,
 /obj/machinery/firealarm{
 	dir = 8;
 	pixel_x = 24

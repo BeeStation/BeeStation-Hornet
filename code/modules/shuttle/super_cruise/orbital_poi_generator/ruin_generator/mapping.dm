@@ -82,7 +82,7 @@
 		/obj/item/disk/tech_disk = 5,
 		/obj/item/assembly/prox_sensor = 6,
 		/obj/item/bodypart/r_arm/robot = 4,
-		/obj/item/assembly/flash/handheld/weak = 2,
+		/obj/item/assembly/flash/handheld/cyborg = 2,
 		/obj/item/stock_parts/cell/high = 1,
 		/obj/item/stock_parts/manipulator/nano = 1,
 		/obj/item/stock_parts/manipulator = 1,

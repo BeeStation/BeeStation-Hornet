@@ -34356,12 +34356,12 @@
 /obj/item/stack/sheet/plasteel{
 	amount = 10
 	},
-/obj/item/assembly/flash/handheld/weak,
-/obj/item/assembly/flash/handheld/weak,
-/obj/item/assembly/flash/handheld/weak,
-/obj/item/assembly/flash/handheld/weak,
-/obj/item/assembly/flash/handheld/weak,
-/obj/item/assembly/flash/handheld/weak,
+/obj/item/assembly/flash/handheld/cyborg,
+/obj/item/assembly/flash/handheld/cyborg,
+/obj/item/assembly/flash/handheld/cyborg,
+/obj/item/assembly/flash/handheld/cyborg,
+/obj/item/assembly/flash/handheld/cyborg,
+/obj/item/assembly/flash/handheld/cyborg,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},

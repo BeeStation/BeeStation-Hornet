@@ -21098,7 +21098,7 @@
 	dir = 4
 	},
 /obj/structure/table,
-/obj/item/assembly/flash/handheld/weak,
+/obj/item/assembly/flash/handheld/cyborg,
 /obj/item/clothing/glasses/science,
 /obj/effect/turf_decal/tile/purple/tile_full,
 /turf/open/floor/plasteel/white,
@@ -84081,13 +84081,13 @@
 /obj/item/stack/sheet/plasteel{
 	amount = 15
 	},
-/obj/item/assembly/flash/handheld/weak,
-/obj/item/assembly/flash/handheld/weak,
-/obj/item/assembly/flash/handheld/weak,
-/obj/item/assembly/flash/handheld/weak,
-/obj/item/assembly/flash/handheld/weak,
-/obj/item/assembly/flash/handheld/weak,
-/obj/item/assembly/flash/handheld/weak,
+/obj/item/assembly/flash/handheld/cyborg,
+/obj/item/assembly/flash/handheld/cyborg,
+/obj/item/assembly/flash/handheld/cyborg,
+/obj/item/assembly/flash/handheld/cyborg,
+/obj/item/assembly/flash/handheld/cyborg,
+/obj/item/assembly/flash/handheld/cyborg,
+/obj/item/assembly/flash/handheld/cyborg,
 /turf/open/floor/plasteel,
 /area/science/robotics/lab)
 "tIH" = (

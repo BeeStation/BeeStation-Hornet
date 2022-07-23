@@ -53519,7 +53519,7 @@
 "cXw" = (
 /obj/structure/table,
 /obj/item/gps,
-/obj/item/assembly/flash/handheld/weak,
+/obj/item/assembly/flash/handheld/cyborg,
 /obj/machinery/status_display/evac{
 	pixel_y = -32
 	},
@@ -62536,17 +62536,17 @@
 /obj/item/bodypart/l_arm/robot{
 	pixel_x = -3
 	},
-/obj/item/assembly/flash/handheld/weak,
-/obj/item/assembly/flash/handheld/weak,
+/obj/item/assembly/flash/handheld/cyborg,
+/obj/item/assembly/flash/handheld/cyborg,
 /obj/structure/table/reinforced,
 /obj/machinery/light_switch{
 	pixel_x = -38;
 	pixel_y = 26
 	},
-/obj/item/assembly/flash/handheld/weak,
-/obj/item/assembly/flash/handheld/weak,
-/obj/item/assembly/flash/handheld/weak,
-/obj/item/assembly/flash/handheld/weak,
+/obj/item/assembly/flash/handheld/cyborg,
+/obj/item/assembly/flash/handheld/cyborg,
+/obj/item/assembly/flash/handheld/cyborg,
+/obj/item/assembly/flash/handheld/cyborg,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel,
 /area/science/robotics/lab)

@@ -949,8 +949,8 @@
 	..()
 	var/missingHealth = 200 - (health + 100)
 	///Ranges from moving 
-	var/speedPenalty = min(missingHealth / (maxHealth), 1.5)
-	if(health < maxHealth*0.5) //Gradual breakdown of modules and movement speed as more damage is sustained
+	var/speedPenalty = min(missingHealth / maxHealth, 1.5)
+	if(health < maxHealth * 0.5) //Gradual breakdown of modules and movement speed as more damage is sustained
 		add_movespeed_modifier(MOVESPEED_ID_DAMAGE_SLOWDOWN, override = TRUE, multiplicative_slowdown = speedPenalty, blacklisted_movetypes = FLOATING)  //same speed bonus when flying/vs walking makes them faster than humanoids in space when low on HP
 		if(uneq_module(held_items[3]))
 			playsound(loc, 'sound/machines/warning-buzzer.ogg', 50, 1, 1)
@@ -961,7 +961,7 @@
 				audible_message("<span class='warning'>[src] sounds an alarm! \"SYSTEM ERROR: Module 2 OFFLINE.\"</span>")
 				to_chat(src, "<span class='userdanger'>SYSTEM ERROR: Module 2 OFFLINE.</span>")
 				playsound(loc, 'sound/machines/warning-buzzer.ogg', 60, 1, 1)
-			if(health < -maxHealth*0.5)
+			if(health < -maxHealth * 0.5)
 				if(uneq_module(held_items[1]))
 					audible_message("<span class='warning'>[src] sounds an alarm! \"CRITICAL ERROR: All modules OFFLINE.\"</span>")
 					to_chat(src, "<span class='userdanger'>CRITICAL ERROR: All modules OFFLINE.</span>")

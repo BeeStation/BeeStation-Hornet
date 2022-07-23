@@ -1,3 +1,5 @@
+#define NO_POWERCELL "no_powercell"
+
 /mob/living/silicon/robot/Life()
 	set invisibility = 0
 	if (src.notransform)
@@ -17,7 +19,7 @@
 		if(low_power_mode)
 			if(cell?.charge)
 				low_power_mode = 0
-				remove_movespeed_modifier("NO_POWERCELL") //Cyborg speed restored when cell is replaced
+				remove_movespeed_modifier(NO_POWERCELL) //Cyborg speed restored when cell is replaced
 				update_headlamp()
 		else if(stat == CONSCIOUS)
 			use_power()
@@ -31,7 +33,7 @@
 	else
 		uneq_all()
 		low_power_mode = 1
-		add_movespeed_modifier("NO_POWERCELL", override = TRUE, multiplicative_slowdown = 1.5, blacklisted_movetypes = FLOATING) //Cyborg is greatly slowed with no cell charge
+		add_movespeed_modifier(NO_POWERCELL, override = TRUE, multiplicative_slowdown = 1.5, blacklisted_movetypes = FLOATING) //Cyborg is greatly slowed with no cell charge
 		update_headlamp()
 	diag_hud_set_borgcell()
 
@@ -107,3 +109,4 @@
 	update_transform()
 	update_action_buttons_icon()
 
+#undef NO_POWERCELL
