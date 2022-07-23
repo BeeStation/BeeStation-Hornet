@@ -253,6 +253,9 @@
 			if(object.static_object)
 				object.collision(src)
 			colliding = TRUE
+		//TODO:
+		//Refactor me to use the intersection of 2 lines with a set width.
+		//Please....
 		else if(!object.static_object)
 			//Vector collision.
 			//Note: We detect collisions that occursed in the current move rather than in the next.
@@ -282,8 +285,8 @@
 			var/py2 = other_y
 			var/vx2 = other_delta_x
 			var/vy2 = other_delta_y
-			//Both must be moving
-			if((vx || vy) && (vx2 || vy2))
+			//Both must be moving for this to work
+			if(vx && (vx2 || vy2))
 				//Collision between 2 vectors using simultaneous equations.
 				var/mu = (vx * py2 + vy * px - py * vx - vy * px2) / (vy * vx2 - vx * vy2)
 				var/lambda = (px2 + vx2 * mu - px) / vx
