@@ -1022,6 +1022,16 @@
 	contains = list(/obj/item/circuitboard/computer/sat_control)
 	crate_name= "shield control board crate"
 
+/datum/supply_pack/engineering/bluespace_tap
+	name = "Bluespace Harvester Parts"
+	cost = 15000
+	special = TRUE
+	contains = list(
+					/obj/item/circuitboard/machine/bluespace_tap,
+					/obj/item/paper/bluespace_tap
+					)
+	crate_name = "bluespace harvester parts crate"
+
 /datum/supply_pack/engineering/shuttle_construction
 	name = "Shuttle Construction Kit"
 	desc = "A DIY kit for building your own shuttle! Comes with all the parts you need to get your people to the stars!"
