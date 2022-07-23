@@ -8,7 +8,6 @@
 	spawn_positions = 1
 	supervisors = "the head of personnel"
 	selection_color = "#bbe291"
-	chat_color = "#B2CEB3"
 	exp_type_department = EXP_TYPE_SERVICE // This is so the jobs menu can work properly
 
 	outfit = /datum/outfit/job/bartender
@@ -28,7 +27,7 @@
 	name = "Bartender"
 	jobtype = /datum/job/bartender
 
-	id = /obj/item/card/id/job/serv
+	id = /obj/item/card/id/job/bartender
 	glasses = /obj/item/clothing/glasses/sunglasses/advanced/reagent
 	belt = /obj/item/pda/bar
 	ears = /obj/item/radio/headset/headset_srv

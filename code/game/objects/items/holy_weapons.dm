@@ -649,6 +649,7 @@
 /obj/item/nullrod/armblade/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, HAND_REPLACEMENT_TRAIT)
+//	ADD_TRAIT(src, TRAIT_DOOR_PRYER, INNATE_TRAIT)	//uncomment if you want chaplains to have AA as a null rod option. The armblade will behave even more like a changeling one then!
 	AddComponent(/datum/component/butchering, 80, 70)
 
 /obj/item/nullrod/armblade/tentacle
