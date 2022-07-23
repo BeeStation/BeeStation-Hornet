@@ -258,7 +258,7 @@
 /datum/religion_rites/raise_undead
 	name = "Raise Undead"
 	desc = "Creates an undead creature if a soul is willing to take it."
-	ritual_length = 90 SECONDS
+	ritual_length = 70 SECONDS
 	ritual_invocations = list("Come forth from the pool of souls ...",
 	"... enter our realm ...",
 	"... become one with our world ...",
@@ -277,6 +277,7 @@
 		to_chat(user, "<span class='warning'>The soul pool is empty...")
 		new /obj/effect/gibspawner/human/bodypartless(altar_turf)
 		user.visible_message("<span class='warning'>The soul pool was not strong enough to bring forth the undead.")
+		GLOB.religious_sect?.adjust_favor(1500, user) //refund if nobody takes the role
 		return NOT_ENOUGH_PLAYERS
 	var/mob/dead/observer/selected = pick_n_take(candidates)
 	var/datum/mind/Mind = new /datum/mind(selected.key)
@@ -289,6 +290,7 @@
 	undead.equip_to_slot_or_del(new /obj/item/clothing/under/costume/skeleton(undead), ITEM_SLOT_ICLOTHING)
 	undead.equip_to_slot_or_del(new /obj/item/clothing/suit/hooded/chaplain_hoodie(undead), ITEM_SLOT_OCLOTHING)
 	undead.equip_to_slot_or_del(new /obj/item/clothing/shoes/sneakers/black(undead), ITEM_SLOT_FEET)
+	undead.AddSpell(new /obj/effect/proc_holder/spell/targeted/smoke(null))
 	if(GLOB.religion)
 		var/obj/item/storage/book/bible/booze/B = new
 		undead.mind?.holy_role = HOLY_ROLE_PRIEST
@@ -305,7 +307,7 @@
 /datum/religion_rites/raise_dead
 	name = "Raise Dead"
 	desc = "Revives a buckled dead creature or person."
-	ritual_length = 120 SECONDS
+	ritual_length = 100 SECONDS
 	ritual_invocations = list("Rejoin our world ...",
 	"... come forth from the beyond ...",
 	"... fresh life awaits you ...",
@@ -363,7 +365,7 @@
 /datum/religion_rites/living_sacrifice
 	name = "Living Sacrifice"
 	desc = "Sacrifice a non-sentient living buckled creature for favor."
-	ritual_length = 60 SECONDS
+	ritual_length = 40 SECONDS
 	ritual_invocations = list("To offer this being unto the gods ...",
 	"... to feed them with its soul ...",
 	"... so that they may consume all within their path ...",
