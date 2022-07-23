@@ -122,7 +122,7 @@ const Program = (props, context) => {
     downloading,
     downloadname,
     downloadcompletion,
-    emagged
+    emagged,
   } = data;
   const disk_free = disk_size - disk_used;
   return (

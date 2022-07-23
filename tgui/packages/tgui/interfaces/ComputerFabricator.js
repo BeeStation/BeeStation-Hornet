@@ -252,8 +252,7 @@ const CfStep2 = (props, context) => {
                 allow the device to read your identification, but one
                 is included in the base price.
               `}
-              position="right">
-            </Tooltip>
+              position="right" />
           </Table.Cell>
           <Table.Cell>
             <Button
