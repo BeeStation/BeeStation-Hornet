@@ -131,10 +131,12 @@
 	taste_description = "smoke"
 
 /datum/reagent/smoke_powder/ez
+	name = "EZ Smoke Powder"
+	description = "A special variant of smoke powder that only activates when mixed with smoke powder activator."
 
 /datum/reagent/smoke_powder_activator
-	name = "Smoke Activator"
-	description = "Activates smoke powder"
+	name = "EZ Smoke Activator"
+	description = "Activates EZ smoke powder."
 	reagent_state = LIQUID
 	color = "#C8C8C8"
 
