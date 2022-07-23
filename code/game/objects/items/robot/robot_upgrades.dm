@@ -319,8 +319,7 @@
 
 /obj/item/borg/upgrade/selfrepair
 	name = "Self-repair module"
-	desc = "This module will provide rapid repairs, provided it has had time to charge since its last use"
-	icon_state = "cyborg_upgrade5"
+	desc = "This module will provide rapid repairs, provided it has had time to synthesise the materials required."
 	require_module = 1
 	icon_state = "selfrepair_off"
 
@@ -375,9 +374,6 @@
 
 /obj/item/borg/upgrade/selfrepair/update_icon()
 	. = ..()
-	if(!cyborg)
-		icon_state = "cyborg_upgrade5"
-		return
 	icon_state = working ? "selfrepair_on" : "selfrepair_off"
 	if(action)
 		action.UpdateButtonIcon()
