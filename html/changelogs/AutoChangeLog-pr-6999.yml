@@ -1,0 +1,8 @@
+author: EvilDragonfiend
+delete-after: true
+changes:
+  - rscdel: bartender responsibility crew objective
+  - rscadd: bartender new crew objective "cocktail" - you get 5 random 'drinks', and
+      you need to have 4u for each of them in any kind of chemical container
+  - tweak: adjusted some random chem flags (peach juice is now available from botany
+      RNG)
