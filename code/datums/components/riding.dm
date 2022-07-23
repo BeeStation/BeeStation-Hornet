@@ -383,14 +383,22 @@
 	if(istype(parent, /mob/living/simple_animal))
 		var/mob/living/simple_animal/S = parent
 		override_allow_spacemove = S.spacewalk
+		RegisterSignal(parent, COMSIG_MOB_DEATH, .proc/handle_mortality)
+
+/datum/component/riding/tamed/Destroy(force, silent)
+	. = ..()
+	UnregisterSignal(parent, COMSIG_MOB_DEATH)
+
+/datum/component/riding/tamed/proc/handle_mortality()
+	if(istype(parent, /mob/living/simple_animal))
+		var/mob/living/simple_animal/S = parent
+		S.unbuckle_all_mobs()
+		S.can_buckle = FALSE
 
 /datum/component/riding/tamed/vehicle_mob_buckle(datum/source, mob/living/M, force = FALSE)
 	if(istype(parent, /mob/living/simple_animal))
 		var/mob/living/simple_animal/S = parent
 		M.spacewalk = S.spacewalk
-		if(IS_DEAD_OR_INCAP(S))
-			to_chat(M, "<span class='warning'>That's just rude!</span>")
-			return
 		S.toggle_ai(AI_OFF)
 	..()
 

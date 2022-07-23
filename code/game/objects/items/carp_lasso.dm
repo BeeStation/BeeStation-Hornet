@@ -13,7 +13,7 @@
 	. = ..()
 	if(isliving(target) && check_allowed(target) && !iscarbon(target) && !issilicon(target))
 		var/mob/living/simple_animal/C = target
-		if(IS_DEAD_OR_INCAP(target))
+		if(IS_DEAD_OR_INCAP(C))
 			to_chat(user, "<span class='warning'>it seems rude.</span>")
 			return
 		if(user.a_intent == INTENT_HELP && C == mob_target) //if trying to tie up previous target
