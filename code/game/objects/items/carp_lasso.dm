@@ -11,7 +11,7 @@
 
 /obj/item/mob_lasso/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
-	if(isliving(target) && check_allowed(target) && !iscarbon(target) && !issilicon(target))
+	if(isliving(target) && check_allowed(target) && !iscarbon(target) && !issilicon(target) && locate(target) in oview(9, get_turf(src)))
 		var/mob/living/simple_animal/C = target
 		if(IS_DEAD_OR_INCAP(C))
 			to_chat(user, "<span class='warning'>it seems rude.</span>")
