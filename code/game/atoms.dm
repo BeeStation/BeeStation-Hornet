@@ -580,7 +580,7 @@
 								taste_list += R.taste_description
 					if(reagents.total_volume)
 						. += "<span class='notice'>Booze Power: total [total_boozepower], average [round(total_boozepower/reagents.total_volume, 0.1)] ([get_boozepower_text(total_boozepower/reagents.total_volume, user.mind.assigned_role)])</span>"
-						. += "<span class='notice'>It would taste [english_list(taste_list)].</span>"
+						. += "<span class='notice'>It would taste like: [english_list(taste_list, comma_text="; ", and_text="; ")].</span>"
 				//-------------------------------
 			else
 				. += "Nothing."
