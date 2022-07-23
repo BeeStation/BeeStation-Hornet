@@ -6,6 +6,14 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate_scout)
+"am" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/door/airlock/hatch{
+	req_access_txt = "180"
+	},
+/turf/open/floor/plasteel/showroomfloor,
+/area/shuttle/syndicate_scout)
 "bS" = (
 /turf/closed/wall/r_wall/syndicate,
 /area/shuttle/syndicate_scout)
@@ -41,6 +49,12 @@
 /obj/effect/turf_decal/tile/brown/tile_marquee,
 /turf/open/floor/plasteel/dark,
 /area/shuttle/syndicate_scout)
+"cK" = (
+/obj/machinery/door/airlock/security/glass{
+	req_access_txt = "180"
+	},
+/turf/open/floor/pod,
+/area/shuttle/syndicate_scout)
 "dd" = (
 /obj/effect/turf_decal/trimline/neutral/filled/line{
 	dir = 8
@@ -55,21 +69,6 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plasteel/dark,
 /area/shuttle/syndicate_scout)
-"dn" = (
-/obj/structure/table/reinforced,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/item/ammo_box/magazine/smgm45{
-	pixel_x = 3;
-	pixel_y = 4
-	},
-/obj/item/ammo_box/magazine/smgm45,
-/obj/item/gun/ballistic/automatic/c20r,
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/light/small,
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/syndicate_scout)
 "dL" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 5
@@ -78,6 +77,19 @@
 	dir = 8
 	},
 /turf/open/floor/mineral/plastitanium/red,
+/area/shuttle/syndicate_scout)
+"eZ" = (
+/obj/effect/turf_decal/tile/neutral/tile_full,
+/obj/structure/chair/comfy/shuttle{
+	dir = 1;
+	name = "tactical chair"
+	},
+/obj/effect/turf_decal/stripes/corner{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt/dust,
+/mob/living/simple_animal/hostile/pirate/melee,
+/turf/open/floor/mineral/plastitanium,
 /area/shuttle/syndicate_scout)
 "fk" = (
 /obj/effect/turf_decal/stripes/closeup{
@@ -98,6 +110,16 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate_scout)
+"gv" = (
+/obj/effect/turf_decal/stripes/closeup,
+/obj/machinery/atmospherics/pipe/simple/purple/visible{
+	dir = 4
+	},
+/obj/machinery/door/airlock/hatch{
+	req_access_txt = "180"
+	},
+/turf/open/floor/mineral/plastitanium/red,
+/area/shuttle/syndicate_scout)
 "gT" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/atmospherics/pipe/manifold/purple/visible{
@@ -114,22 +136,15 @@
 /obj/structure/window/plastitanium,
 /turf/open/floor/plating,
 /area/shuttle/syndicate_scout)
-"hH" = (
-/obj/effect/turf_decal/stripes/closeup,
-/obj/machinery/door/airlock/hatch{
-	req_access_txt = "150"
+"hF" = (
+/obj/effect/turf_decal/tile/neutral/tile_full,
+/obj/structure/chair/comfy/shuttle{
+	dir = 8
 	},
-/turf/open/floor/mineral/plastitanium/red,
-/area/shuttle/syndicate_scout)
-"iY" = (
-/obj/effect/turf_decal/stripes/closeup,
-/obj/machinery/atmospherics/pipe/simple/purple/visible{
-	dir = 4
-	},
-/obj/machinery/door/airlock/hatch{
-	req_access_txt = "150"
-	},
-/turf/open/floor/mineral/plastitanium/red,
+/obj/machinery/light,
+/obj/effect/decal/cleanable/vomit/old,
+/mob/living/simple_animal/hostile/pirate/ranged,
+/turf/open/floor/pod/dark,
 /area/shuttle/syndicate_scout)
 "kK" = (
 /obj/effect/turf_decal/trimline/brown/filled/warning{
@@ -143,6 +158,13 @@
 "ma" = (
 /turf/template_noop,
 /area/template_noop)
+"mJ" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/machinery/door/airlock/security/glass{
+	req_access_txt = "180"
+	},
+/turf/open/floor/pod,
+/area/shuttle/syndicate_scout)
 "mY" = (
 /obj/effect/turf_decal/trimline/neutral/filled/line{
 	dir = 8
@@ -187,14 +209,6 @@
 	pixel_y = 12
 	},
 /turf/open/floor/pod/dark,
-/area/shuttle/syndicate_scout)
-"oR" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/door/airlock/hatch{
-	req_access_txt = "150"
-	},
-/turf/open/floor/plasteel/showroomfloor,
 /area/shuttle/syndicate_scout)
 "ps" = (
 /obj/effect/turf_decal/stripes/line{
@@ -252,23 +266,6 @@
 	},
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/mineral/plastitanium/red,
-/area/shuttle/syndicate_scout)
-"rs" = (
-/obj/machinery/door/airlock/security/glass{
-	req_access_txt = "150"
-	},
-/obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/pod,
-/area/shuttle/syndicate_scout)
-"rE" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
-/obj/machinery/suit_storage_unit/syndicate,
-/obj/effect/turf_decal/bot,
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/mineral/plastitanium,
 /area/shuttle/syndicate_scout)
 "rT" = (
 /obj/effect/turf_decal/stripes/closeup{
@@ -368,6 +365,14 @@
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/syndicate_scout)
+"wg" = (
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/bot_white,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/cobweb,
+/obj/structure/closet,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/syndicate_scout)
 "wr" = (
 /obj/machinery/vending/sovietsoda,
 /obj/effect/turf_decal/bot,
@@ -379,16 +384,26 @@
 	},
 /turf/closed/wall/r_wall/syndicate,
 /area/shuttle/syndicate_scout)
-"xf" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/door/airlock/security/glass{
-	req_access_txt = "150"
-	},
-/turf/open/floor/pod,
-/area/shuttle/syndicate_scout)
 "xD" = (
 /obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/mineral/plastitanium/red,
+/area/shuttle/syndicate_scout)
+"yo" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/power/apc/auto_name/north{
+	pixel_y = 24
+	},
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/obj/machinery/atmospherics/pipe/simple/purple/visible{
+	dir = 4
+	},
+/mob/living/simple_animal/hostile/pirate/ranged,
+/turf/open/floor/plasteel/techmaint,
 /area/shuttle/syndicate_scout)
 "yv" = (
 /obj/effect/turf_decal/stripes/line{
@@ -421,15 +436,6 @@
 	},
 /obj/machinery/computer/weapons,
 /turf/open/floor/mineral/plastitanium,
-/area/shuttle/syndicate_scout)
-"yQ" = (
-/obj/effect/turf_decal/stripes/closeup{
-	dir = 1
-	},
-/obj/machinery/door/airlock/hatch{
-	req_access_txt = "150"
-	},
-/turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate_scout)
 "yY" = (
 /obj/effect/turf_decal/trimline/neutral/filled/line{
@@ -506,12 +512,6 @@
 	},
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate_scout)
-"Cl" = (
-/obj/machinery/door/airlock/security/glass{
-	req_access_txt = "150"
-	},
-/turf/open/floor/pod,
-/area/shuttle/syndicate_scout)
 "CN" = (
 /obj/structure/toilet{
 	pixel_y = 13
@@ -551,16 +551,6 @@
 	},
 /turf/closed/wall/r_wall/syndicate/nodiagonal,
 /area/shuttle/syndicate_scout)
-"EC" = (
-/obj/effect/turf_decal/tile/neutral/tile_full,
-/obj/structure/chair/comfy/shuttle{
-	dir = 8
-	},
-/obj/machinery/light,
-/obj/effect/decal/cleanable/vomit/old,
-/mob/living/simple_animal/hostile/syndicate/ranged/shotgun,
-/turf/open/floor/pod/dark,
-/area/shuttle/syndicate_scout)
 "EM" = (
 /obj/structure/bed/pod,
 /obj/machinery/shower{
@@ -571,40 +561,31 @@
 /obj/effect/hostage_spawn,
 /turf/open/floor/pod,
 /area/shuttle/syndicate_scout)
-"Fy" = (
-/obj/effect/turf_decal/stripes/line,
-/obj/effect/turf_decal/bot_white,
-/obj/structure/closet/syndicate/nuclear,
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/decal/cleanable/cobweb,
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/syndicate_scout)
-"Gl" = (
-/obj/structure/table/reinforced,
-/obj/effect/turf_decal/stripes/corner{
-	dir = 1
-	},
-/obj/item/storage/firstaid/tactical{
-	pixel_x = 8;
-	pixel_y = -5
-	},
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/hostage_loot_point,
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/syndicate_scout)
-"GA" = (
-/obj/effect/turf_decal/tile/neutral/tile_full,
-/obj/structure/chair/comfy/shuttle{
-	dir = 1;
-	name = "tactical chair"
-	},
-/obj/effect/turf_decal/stripes/corner{
+"Fe" = (
+/obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
+/obj/effect/turf_decal/bot,
 /obj/effect/decal/cleanable/dirt/dust,
-/mob/living/simple_animal/hostile/syndicate/melee,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/suit_storage_unit/pirate,
 /turf/open/floor/mineral/plastitanium,
+/area/shuttle/syndicate_scout)
+"FA" = (
+/obj/structure/table/reinforced,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/machinery/light/small,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/syndicate_scout)
+"Gy" = (
+/obj/effect/turf_decal/stripes/closeup,
+/obj/machinery/door/airlock/hatch{
+	req_access_txt = "180"
+	},
+/turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate_scout)
 "Ho" = (
 /obj/structure/sink{
@@ -698,6 +679,20 @@
 /obj/effect/turf_decal/stripes/closeup,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/mineral/plastitanium/red,
+/area/shuttle/syndicate_scout)
+"OW" = (
+/obj/structure/table/reinforced,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
+/obj/item/storage/firstaid/tactical{
+	pixel_x = 8;
+	pixel_y = -5
+	},
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/hostage_loot_point,
+/turf/open/floor/mineral/plastitanium,
 /area/shuttle/syndicate_scout)
 "Pc" = (
 /obj/effect/turf_decal/box,
@@ -1015,22 +1010,14 @@
 /obj/effect/hostage_spawn,
 /turf/open/floor/pod,
 /area/shuttle/syndicate_scout)
-"ZT" = (
-/obj/effect/turf_decal/stripes/line{
+"YM" = (
+/obj/effect/turf_decal/stripes/closeup{
 	dir = 1
 	},
-/obj/machinery/power/apc/auto_name/north{
-	pixel_y = 24
+/obj/machinery/door/airlock/hatch{
+	req_access_txt = "180"
 	},
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
-/obj/machinery/atmospherics/pipe/simple/purple/visible{
-	dir = 4
-	},
-/mob/living/simple_animal/hostile/syndicate/melee/sword,
-/turf/open/floor/plasteel/techmaint,
+/turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate_scout)
 
 (1,1,1) = {"
@@ -1085,10 +1072,10 @@ DM
 CZ
 DJ
 UW
-yQ
+YM
 rp
 fX
-EC
+hF
 CZ
 HN
 CZ
@@ -1113,13 +1100,13 @@ qh
 Nn
 IL
 CZ
-rs
+mJ
 CZ
-Cl
+cK
 CZ
 CZ
 CZ
-iY
+gv
 CZ
 Wz
 rd
@@ -1153,18 +1140,18 @@ ma
 ma
 hj
 vW
-GA
+eZ
 SU
-yQ
+YM
 BR
 dL
-yQ
+YM
 AW
 AW
 AW
 ah
 dL
-yQ
+YM
 rT
 gT
 tz
@@ -1199,20 +1186,20 @@ ma
 ma
 CZ
 CZ
-hH
+Gy
 CZ
 CZ
 yD
 BG
 CZ
-xf
+mJ
 CZ
-Cl
+cK
 CZ
-hH
+Gy
 CZ
 CZ
-ZT
+yo
 Rw
 rd
 Ro
@@ -1221,12 +1208,12 @@ Ro
 CZ
 vi
 CZ
-Fy
+wg
 Vt
-dn
+FA
 CZ
 CZ
-oR
+am
 CZ
 Yx
 CZ
@@ -1245,8 +1232,8 @@ ma
 bS
 DM
 CZ
-rE
-Gl
+Fe
+OW
 CZ
 CN
 Ho

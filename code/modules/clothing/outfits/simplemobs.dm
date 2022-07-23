@@ -1,3 +1,18 @@
+/datum/outfit/simplemob/pirate
+	name = "Simplemob - Pirate"
+	uniform = /obj/item/clothing/under/costume/pirate
+	shoes = /obj/item/clothing/shoes/jackboots
+	glasses = /obj/item/clothing/glasses/eyepatch
+	head = /obj/item/clothing/head/bandana
+	id = /obj/item/card/id/pirate
+	r_hand = /obj/item/melee/transforming/energy/sword/pirate
+
+/datum/outfit/simplemob/pirate/ranged
+	name = "Simplemob - Pirate (Laser)"
+	suit = /obj/item/clothing/suit/pirate
+	head = /obj/item/clothing/head/pirate
+	r_hand = /obj/item/gun/energy/laser
+
 /datum/outfit/simplemob/syndicate
 	name = "Simplemob - Syndicate"
 	uniform = /obj/item/clothing/under/syndicate
