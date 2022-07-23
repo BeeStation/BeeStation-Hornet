@@ -47,11 +47,13 @@
 	var/delta_y = other.y - y
 	return sqrt(delta_x * delta_x + delta_y * delta_y)
 
+///Returns the angle from B to A
+//90 is right, -90 is left, 0 is up
 /datum/orbital_vector/proc/AngleFrom(datum/orbital_vector/other)
 	var/delta_x = other.x - x
 	var/delta_y = other.y - y
 	//This is between -90 and 90
-	var/rawAngle = arctan(delta_y / delta_x)
+	var/rawAngle = delta_x ? arctan(delta_y / delta_x) : 90
 	//Allow for it to be -180 to 180
 	if(delta_y < 0)
 		return -rawAngle

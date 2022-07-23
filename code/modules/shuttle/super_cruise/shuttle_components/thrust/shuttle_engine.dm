@@ -2,8 +2,7 @@
 //-------------Engine Thrusters------------------
 //-----------------------------------------------
 
-#define ENGINE_HEAT_TARGET 600
-#define ENGINE_HEATING_POWER 5000000
+#define ENGINE_HEAT_TARGET 900
 
 /obj/machinery/shuttle/engine
 	name = "shuttle thruster"
@@ -71,16 +70,11 @@
 	if(!heatTurf)
 		return
 	var/datum/gas_mixture/env = heatTurf.return_air()
-	var/heat_cap = env.heat_capacity()
-	//Shuttle is in space
-	if(!heat_cap)
-		return
-	var/req_power = abs(env.return_temperature() - ENGINE_HEAT_TARGET) * heat_cap
-	req_power = min(req_power, ENGINE_HEATING_POWER)
-	var/deltaTemperature = req_power / heat_cap
-	if(deltaTemperature < 0)
-		return
-	env.set_temperature(env.return_temperature() + deltaTemperature)
+	//Heat up the turf to a hot temperature.
+	//Do it in a more sensible manner than calculating ENGINE_HEAT_TARGET with
+	//a bunch of pointless logic
+	if(env.return_temperature() < ENGINE_HEAT_TARGET)
+		env.set_temperature(ENGINE_HEAT_TARGET)
 	air_update_turf()
 
 /obj/machinery/shuttle/engine/attackby(obj/item/I, mob/living/user, params)
