@@ -207,11 +207,11 @@
 						else
 							++turfsSkipped
 						#endif
-						CHECK_TICK
+						CHECK_TICK_LOW_PRIORITY
 					++xcrd
 			--ycrd
 
-		CHECK_TICK
+		CHECK_TICK_LOW_PRIORITY
 
 	if(!no_changeturf)
 		for(var/t in block(locate(bounds[MAP_MINX], bounds[MAP_MINY], bounds[MAP_MINZ]), locate(bounds[MAP_MAXX], bounds[MAP_MAXY], bounds[MAP_MAXZ])))

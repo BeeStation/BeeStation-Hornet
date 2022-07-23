@@ -197,9 +197,9 @@
 
 		//Actual spawn
 		SSmapping.loading_ruins = TRUE
-		CHECK_TICK
+		CHECK_TICK_LOW_PRIORITY
 		ruin_part.load(locate(ruin_offset_x + 1, ruin_offset_y + 1, center_z), FALSE, FALSE)
-		CHECK_TICK
+		CHECK_TICK_LOW_PRIORITY
 		SSmapping.loading_ruins = FALSE
 		//Simulate spawning
 		//Remove filled connection points
