@@ -1,0 +1,5 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - tweak: You can now only view runtimes as a player if you are a ghost, or the round
+      has ended.
