@@ -1,0 +1,6 @@
+author: Dejaku51
+delete-after: true
+changes:
+  - code_imp: moved the shuttles to individual folders
+  - config: changed shuttles_illegal.txt and shuttles_unbuyable.txt to point to new
+      shuttles location
