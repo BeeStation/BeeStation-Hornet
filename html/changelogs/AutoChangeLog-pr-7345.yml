@@ -1,0 +1,8 @@
+author: DrDuckedGoose
+delete-after: true
+changes:
+  - bugfix: Fix Carp lassos lassoing people
+  - bugfix: Fix Carp lassos lassoing dead thing
+  - bugfix: Fix riding dead things
+  - bugfix: Fix lassoing unseeable things
+  - bugfix: Fix lasso icon on round end
