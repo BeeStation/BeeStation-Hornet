@@ -139,6 +139,10 @@
 	if(!can_buckle && !force)
 		return FALSE
 
+	// Check if this atom can buckle, proc wise.
+	if(!target.can_buckle() && !force)
+		return FALSE
+
 	// If we're checking the loc, make sure the target is on the thing we're bucking them to.
 	if(check_loc && target.loc != loc)
 		return FALSE
