@@ -1,4 +1,0 @@
-author: itsmeow
-delete-after: true
-changes:
-  - admin: Added View Minimal Runtimes verb to OOC tab for non-admins with less details
