@@ -575,12 +575,12 @@
 							total_boozepower += B.volume*real_boozepower
 						for(var/datum/reagent/R in reagents.reagent_list)
 							if(istype(R, /datum/reagent/consumable/ethanol/fruit_wine) && !(user.stat == DEAD)) // taste of fruit wine is mysterious, but can be known by ghosts
-								taste_list += "unexplored taste of the winery"
+								taste_list += "<br/>   - unexplored taste of the winery (from [R.name])"
 							else
-								taste_list += R.taste_description
+								taste_list += "<br/>   - [R.taste_description] (from [R.name])"
 					if(reagents.total_volume)
 						. += "<span class='notice'>Booze Power: total [total_boozepower], average [round(total_boozepower/reagents.total_volume, 0.1)] ([get_boozepower_text(total_boozepower/reagents.total_volume, user.mind.assigned_role)])</span>"
-						. += "<span class='notice'>It would taste like: [english_list(taste_list, comma_text="; ", and_text="; ")].</span>"
+						. += "<span class='notice'>It would taste like: [english_list(taste_list, comma_text="", and_text="")].</span>"
 				//-------------------------------
 			else
 				. += "Nothing."
