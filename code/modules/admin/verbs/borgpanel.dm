@@ -152,14 +152,14 @@
 			var/upgradepath = text2path(params["upgrade"])
 			var/obj/item/borg/upgrade/installedupgrade = locate(upgradepath) in borg
 			if (installedupgrade)
-				installedupgrade.deactivate(borg, user)
+				installedupgrade.remove_upgrade(borg, user)
 				borg.upgrades -= installedupgrade
 				message_admins("[key_name_admin(user)] removed the [installedupgrade] upgrade from [ADMIN_LOOKUPFLW(borg)].")
 				log_admin("[key_name(user)] removed the [installedupgrade] upgrade from [key_name(borg)].")
 				qdel(installedupgrade)
 			else
 				var/obj/item/borg/upgrade/upgrade = new upgradepath(borg)
-				upgrade.action(borg, user)
+				upgrade.apply_upgrade(borg, user)
 				borg.upgrades += upgrade
 				message_admins("[key_name_admin(user)] added the [upgrade] borg upgrade to [ADMIN_LOOKUPFLW(borg)].")
 				log_admin("[key_name(user)] added the [upgrade] borg upgrade to [key_name(borg)].")

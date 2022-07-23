@@ -16,7 +16,7 @@
 	// if module is reset
 	var/one_use = FALSE
 
-/obj/item/borg/upgrade/proc/action(mob/living/silicon/robot/R, user = usr)
+/obj/item/borg/upgrade/proc/apply_upgrade(mob/living/silicon/robot/R, user = usr)
 	if(R.stat == DEAD)
 		to_chat(user, "<span class='notice'>[src] will not function on a deceased cyborg.</span>")
 		return FALSE
@@ -26,7 +26,7 @@
 		return FALSE
 	return TRUE
 
-/obj/item/borg/upgrade/proc/deactivate(mob/living/silicon/robot/R, user = usr)
+/obj/item/borg/upgrade/proc/remove_upgrade(mob/living/silicon/robot/R, user = usr)
 	if (!(src in R.upgrades))
 		return FALSE
 	return TRUE
@@ -42,7 +42,7 @@
 	heldname = sanitize_name(stripped_input(user, "Enter new robot name", "Cyborg Reclassification", heldname, MAX_NAME_LEN))
 	log_game("[key_name(user)] have set \"[heldname]\" as a name in a cyborg reclassification board at [loc_name(user)]")
 
-/obj/item/borg/upgrade/rename/action(mob/living/silicon/robot/R, user = usr)
+/obj/item/borg/upgrade/rename/apply_upgrade(mob/living/silicon/robot/R, user = usr)
 	. = ..()
 	if(.)
 		var/oldname = R.real_name
@@ -59,7 +59,7 @@
 	icon_state = "cyborg_upgrade1"
 	one_use = TRUE
 
-/obj/item/borg/upgrade/restart/action(mob/living/silicon/robot/R, user = usr)
+/obj/item/borg/upgrade/restart/apply_upgrade(mob/living/silicon/robot/R, user = usr)
 	if(R.health < 0)
 		to_chat(user, "<span class='warning'>You have to repair the cyborg before using this module!</span>")
 		return FALSE
@@ -76,7 +76,7 @@
 	icon_state = "cyborg_upgrade2"
 	require_module = 1
 
-/obj/item/borg/upgrade/vtec/action(mob/living/silicon/robot/R, user = usr)
+/obj/item/borg/upgrade/vtec/apply_upgrade(mob/living/silicon/robot/R, user = usr)
 	. = ..()
 	if(.)
 		if(R.speed < 0)
@@ -86,7 +86,7 @@
 
 		R.speed = -2 // Gotta go fast.
 
-/obj/item/borg/upgrade/vtec/deactivate(mob/living/silicon/robot/R, user = usr)
+/obj/item/borg/upgrade/vtec/remove_upgrade(mob/living/silicon/robot/R, user = usr)
 	. = ..()
 	if (.)
 		R.speed = initial(R.speed)
@@ -99,7 +99,7 @@
 	module_type = list(/obj/item/robot_module/security)
 	module_flags = BORG_MODULE_SECURITY
 
-/obj/item/borg/upgrade/disablercooler/action(mob/living/silicon/robot/R, user = usr)
+/obj/item/borg/upgrade/disablercooler/apply_upgrade(mob/living/silicon/robot/R, user = usr)
 	. = ..()
 	if(.)
 		var/obj/item/gun/energy/disabler/cyborg/T = locate() in R.module.modules
@@ -113,7 +113,7 @@
 
 		T.charge_delay = max(2 , T.charge_delay - 4)
 
-/obj/item/borg/upgrade/disablercooler/deactivate(mob/living/silicon/robot/R, user = usr)
+/obj/item/borg/upgrade/disablercooler/remove_upgrade(mob/living/silicon/robot/R, user = usr)
 	. = ..()
 	if (.)
 		var/obj/item/gun/energy/disabler/cyborg/T = locate() in R.module.modules
@@ -126,7 +126,7 @@
 	desc = "An energy-operated thruster system for cyborgs."
 	icon_state = "cyborg_upgrade3"
 
-/obj/item/borg/upgrade/thrusters/action(mob/living/silicon/robot/R, user = usr)
+/obj/item/borg/upgrade/thrusters/apply_upgrade(mob/living/silicon/robot/R, user = usr)
 	. = ..()
 	if(.)
 		if(R.ionpulse)
@@ -135,7 +135,7 @@
 
 		R.ionpulse = TRUE
 
-/obj/item/borg/upgrade/thrusters/deactivate(mob/living/silicon/robot/R, user = usr)
+/obj/item/borg/upgrade/thrusters/remove_upgrade(mob/living/silicon/robot/R, user = usr)
 	. = ..()
 	if (.)
 		R.ionpulse = FALSE
@@ -148,7 +148,7 @@
 	module_type = list(/obj/item/robot_module/miner)
 	module_flags = BORG_MODULE_MINER
 
-/obj/item/borg/upgrade/ddrill/action(mob/living/silicon/robot/R, user = usr)
+/obj/item/borg/upgrade/ddrill/apply_upgrade(mob/living/silicon/robot/R, user = usr)
 	. = ..()
 	if(.)
 		for(var/obj/item/pickaxe/drill/cyborg/D in R.module)
@@ -160,7 +160,7 @@
 		R.module.basic_modules += DD
 		R.module.add_module(DD, FALSE, TRUE)
 
-/obj/item/borg/upgrade/ddrill/deactivate(mob/living/silicon/robot/R, user = usr)
+/obj/item/borg/upgrade/ddrill/remove_upgrade(mob/living/silicon/robot/R, user = usr)
 	. = ..()
 	if (.)
 		for(var/obj/item/pickaxe/drill/cyborg/diamond/DD in R.module)
@@ -181,7 +181,7 @@
 	module_type = list(/obj/item/robot_module/miner)
 	module_flags = BORG_MODULE_MINER
 
-/obj/item/borg/upgrade/soh/action(mob/living/silicon/robot/R)
+/obj/item/borg/upgrade/soh/apply_upgrade(mob/living/silicon/robot/R)
 	. = ..()
 	if(.)
 		for(var/obj/item/storage/bag/ore/cyborg/S in R.module)
@@ -191,7 +191,7 @@
 		R.module.basic_modules += H
 		R.module.add_module(H, FALSE, TRUE)
 
-/obj/item/borg/upgrade/soh/deactivate(mob/living/silicon/robot/R, user = usr)
+/obj/item/borg/upgrade/soh/remove_upgrade(mob/living/silicon/robot/R, user = usr)
 	. = ..()
 	if (.)
 		for(var/obj/item/storage/bag/ore/holding/H in R.module)
@@ -208,14 +208,14 @@
 	require_module = 1
 	module_type = list(/obj/item/robot_module/miner)
 
-/obj/item/borg/upgrade/cutter/action(mob/living/silicon/robot/R, user = usr)
+/obj/item/borg/upgrade/cutter/apply_upgrade(mob/living/silicon/robot/R, user = usr)
 	. = ..()
 	if(.)
 		var/obj/item/gun/energy/plasmacutter/cyborg/P = new(R.module)
 		R.module.basic_modules += P
 		R.module.add_module(P, FALSE, TRUE)
 
-/obj/item/borg/upgrade/cutter/deactivate(mob/living/silicon/robot/R, user = usr)
+/obj/item/borg/upgrade/cutter/remove_upgrade(mob/living/silicon/robot/R, user = usr)
 	. = ..()
 	if (.)
 		var/obj/item/gun/energy/plasmacutter/cyborg/P = locate() in R.module
@@ -229,7 +229,7 @@
 	module_type = list(/obj/item/robot_module/janitor)
 	module_flags = BORG_MODULE_JANITOR
 
-/obj/item/borg/upgrade/tboh/action(mob/living/silicon/robot/R)
+/obj/item/borg/upgrade/tboh/apply_upgrade(mob/living/silicon/robot/R)
 	. = ..()
 	if(.)
 		for(var/obj/item/storage/bag/trash/cyborg/TB in R.module.modules)
@@ -239,7 +239,7 @@
 		R.module.basic_modules += B
 		R.module.add_module(B, FALSE, TRUE)
 
-/obj/item/borg/upgrade/tboh/deactivate(mob/living/silicon/robot/R, user = usr)
+/obj/item/borg/upgrade/tboh/remove_upgrade(mob/living/silicon/robot/R, user = usr)
 	. = ..()
 	if(.)
 		for(var/obj/item/storage/bag/trash/bluespace/cyborg/B in R.module.modules)
@@ -257,7 +257,7 @@
 	module_type = list(/obj/item/robot_module/janitor)
 	module_flags = BORG_MODULE_JANITOR
 
-/obj/item/borg/upgrade/amop/action(mob/living/silicon/robot/R)
+/obj/item/borg/upgrade/amop/apply_upgrade(mob/living/silicon/robot/R)
 	. = ..()
 	if(.)
 		for(var/obj/item/mop/cyborg/M in R.module.modules)
@@ -267,7 +267,7 @@
 		R.module.basic_modules += A
 		R.module.add_module(A, FALSE, TRUE)
 
-/obj/item/borg/upgrade/amop/deactivate(mob/living/silicon/robot/R, user = usr)
+/obj/item/borg/upgrade/amop/remove_upgrade(mob/living/silicon/robot/R, user = usr)
 	. = ..()
 	if(.)
 		for(var/obj/item/mop/advanced/cyborg/A in R.module.modules)
@@ -283,7 +283,7 @@
 	icon_state = "cyborg_upgrade3"
 	require_module = 1
 
-/obj/item/borg/upgrade/syndicate/action(mob/living/silicon/robot/R, user = usr)
+/obj/item/borg/upgrade/syndicate/apply_upgrade(mob/living/silicon/robot/R, user = usr)
 	. = ..()
 	if(.)
 		if(R.emagged)
@@ -293,7 +293,7 @@
 
 		return TRUE
 
-/obj/item/borg/upgrade/syndicate/deactivate(mob/living/silicon/robot/R, user = usr)
+/obj/item/borg/upgrade/syndicate/remove_upgrade(mob/living/silicon/robot/R, user = usr)
 	. = ..()
 	if (.)
 		R.SetEmagged(FALSE)
@@ -307,12 +307,12 @@
 	module_type = list(/obj/item/robot_module/miner)
 	module_flags = BORG_MODULE_MINER
 
-/obj/item/borg/upgrade/lavaproof/action(mob/living/silicon/robot/R, user = usr)
+/obj/item/borg/upgrade/lavaproof/apply_upgrade(mob/living/silicon/robot/R, user = usr)
 	. = ..()
 	if(.)
 		R.weather_immunities += "lava"
 
-/obj/item/borg/upgrade/lavaproof/deactivate(mob/living/silicon/robot/R, user = usr)
+/obj/item/borg/upgrade/lavaproof/remove_upgrade(mob/living/silicon/robot/R, user = usr)
 	. = ..()
 	if (.)
 		R.weather_immunities -= "lava"
@@ -322,6 +322,7 @@
 	desc = "This module will provide rapid repairs, provided it has had time to charge since its last use"
 	icon_state = "cyborg_upgrade5"
 	require_module = 1
+	icon_state = "selfrepair_off"
 
 	var/mutable_appearance/timer_overlay  // This entire block is used for the cooldown overlay
 	var/mutable_appearance/text_overlay
@@ -330,16 +331,20 @@
 	var/timer_icon_state_active = "second"
 	COOLDOWN_DECLARE(recharging_repmod)
 
-	/// how many times the repair tries to tick.
-	var/repair_ticks = 10
-	/// amount repaired per tick
+	///How many repair ticks we have left.
+	var/repairs_used = 0
+	///Amount of damage repaired per tick.
 	var/repair_amount = -5
-	/// Power cell cost per tick. Repair aborts early if there is not at least 10x this much remaining at the start of a tick in order to preserve some power.
-	var/powercost = 50		
+	///Power cell cost per tick. Repair aborts early if there is not at least 10x this much remaining at the start of a tick in order to preserve some power.
+	var/powercost = 50
+	///The cyborg which we're attached to
 	var/mob/living/silicon/robot/cyborg
-	var/datum/action/action
+	///The action we're going to be using to activate/deactivate
+	var/datum/action/item_action/action
+	///Are we currently repairing?
+	var/working = FALSE
 	var/activation_sound = 'sound/machines/terminal_processing.ogg'
-	var/running_sounds = list('sound/machines/generator/generator_mid1.ogg', 'sound/machines/generator/generator_mid2.ogg', 'sound/machines/generator/generator_mid3.ogg')
+	var/working_sounds = list('sound/machines/generator/generator_mid1.ogg', 'sound/machines/generator/generator_mid2.ogg', 'sound/machines/generator/generator_mid3.ogg')
 	var/deactivation_sound = 'sound/effects/turbolift/turbolift-close.ogg'
 
 /obj/item/borg/upgrade/selfrepair/proc/begin_timer_animation()
@@ -387,58 +392,75 @@
 
 /obj/item/borg/upgrade/selfrepair/Destroy()
 	end_timer_animation()
-	qdel(action)
+	QDEL_NULL(action)
+	cyborg = null
 	return ..()
 
-
-
-/obj/item/borg/upgrade/selfrepair/action(mob/living/silicon/robot/R, user = usr)
+/obj/item/borg/upgrade/selfrepair/apply_upgrade(mob/living/silicon/robot/R, user = usr)
 	. = ..()
-	if(.)
-		var/obj/item/borg/upgrade/selfrepair/U = locate() in R
-		if(U)
-			to_chat(user, "<span class='warning'>This unit is already equipped with a self-repair module.</span>")
-			return FALSE
+	if(!.)
+		return
+	var/obj/item/borg/upgrade/selfrepair/U = locate() in R
+	if(U)
+		to_chat(user, "<span class='warning'>This unit is already equipped with a self-repair module.</span>")
+		return FALSE
 
-		cyborg = R
-		icon_state = "selfrepair_off"
-		action = new /datum/action/item_action(src)
-		action.name = name
-		action.Grant(R)
+	cyborg = R
+	action = new /datum/action/item_action(src)
+	action.name = name
+	action.Grant(R)
 
 /obj/item/borg/upgrade/selfrepair/ui_action_click()
-	if(COOLDOWN_FINISHED(src, recharging_repmod) && icon_state == "selfrepair_off")
-		icon_state = "selfrepair_on"
+	if(COOLDOWN_FINISHED(src, recharging_repmod) && !working)
 		to_chat(cyborg, "<span class='notice'>You activate the self-repair module.</span>")
+		working = TRUE
+		START_PROCESSING(SSobj, src)
 		playsound(cyborg.loc, activation_sound, 30)
 		update_icon()
-		process()
-		startrepair()
 	else
 		to_chat(cyborg, "<span class='notice'>Your self-repair module is not ready to be activated again yet.</span>")
 
 /obj/item/borg/upgrade/selfrepair/update_icon()
 	. = ..()
-	if(cyborg)
-		if(timer_overlay_active && COOLDOWN_FINISHED(src, recharging_repmod))
-			end_timer_animation()
-		if(action)
-			action.UpdateButtonIcon()
-	else
+	if(!cyborg)
 		icon_state = "cyborg_upgrade5"
+		return
+	icon_state = working ? "selfrepair_on" : "selfrepair_off"
+	if(timer_overlay_active && COOLDOWN_FINISHED(src, recharging_repmod))
+		end_timer_animation()
+	if(action)
+		action.UpdateButtonIcon()
 
+/obj/item/borg/upgrade/selfrepair/process(delta_time)
+	. = ..()
+	if(!cyborg)
+		STOP_PROCESSING(SSobj, src)
+		CRASH("[src] somehow processed without a cyborg attached.")
+	if(!cyborg.cell || cyborg.cell.charge < powercost * 10)
+		to_chat(cyborg, "<span class='notice'>Power level critically low! Your self-repair module has been deactivated early.</span>")
+		working = FALSE
+		update_icon()
+		STOP_PROCESSING(SSobj, src)
+		return
+	if(cyborg.getBruteLoss() || cyborg.getBruteLoss())
+		playsound(cyborg.loc, pick(working_sounds), 30)
+		cyborg.heal_overall_damage(repair_amount * delta_time, repair_amount * delta_time)
+		cyborg.cell.use(powercost)
+		repairs_used++
+		update_icon()
+	else
+		to_chat(cyborg, "<span class='notice'>You are fully repaired, so your repair module deactivates automatically.</span>")
+		working = FALSE
+		update_icon()
+		STOP_PROCESSING(SSobj, src)
+	if(repairs_used > 10)
+		to_chat(cyborg, "<span class='warning'>Your self-repair module has ran out of material, shutting off and beginning further fabrication.</span>")
+		working = FALSE
+		update_icon()
+		playsound(cyborg.loc, deactivation_sound, 60)
+		begin_timer_animation()
 
-
-/obj/item/borg/upgrade/selfrepair/proc/deactivate_sr()
-	STOP_PROCESSING(SSobj, src)
-
-/obj/item/borg/upgrade/selfrepair/proc/cooldown_start(ticksleft = 0)
-	icon_state = "selfrepair_off"
-	update_icon()
-	playsound(cyborg.loc, deactivation_sound, 60)
-	COOLDOWN_START(src, recharging_repmod, ((20 SECONDS) + ((100 SECONDS) - ((10 SECONDS) * ticksleft)))) //20 seconds + 10 seconds for every repair tick used up. 2 minutes max
-	begin_timer_animation()
-
+/*
 /obj/item/borg/upgrade/selfrepair/proc/startrepair()
 	while(repair_ticks)
 		sleep(10)
@@ -446,19 +468,19 @@
 			return FALSE
 		if(!cyborg.cell || cyborg.cell.charge <= powercost * 10)
 			repair_ticks = 0
-			to_chat(cyborg, "<span class='notice'>Power level critically low! Your self-repair module has deactivated early.</span>")
+			to_chat(cyborg, "<span class='notice'>Power level critically low! Your self-repair module has been deactivated early.</span>")
 		else if(cyborg.getFireLoss())
-			playsound(cyborg.loc, pick(running_sounds), 30)
+			playsound(cyborg.loc, pick(working_sounds), 30)
 			cyborg.adjustFireLoss(repair_amount)
 			cyborg.cell.use(powercost)
 			repair_ticks--
 		else if(cyborg.getBruteLoss())
-			playsound(cyborg.loc, pick(running_sounds), 30)
+			playsound(cyborg.loc, pick(working_sounds), 30)
 			cyborg.adjustBruteLoss(repair_amount)
 			cyborg.cell.use(powercost)
 			repair_ticks--
 		else
-			to_chat(cyborg, "<span class='notice'>You are fully repaired, your module has deactivated early.</span>")
+			to_chat(cyborg, "<span class='notice'>You are fully repaired, so your module deactivates automatically.</span>")
 			cooldown_start(repair_ticks)
 			repair_ticks = 0
 	cooldown_start(0)
@@ -476,7 +498,7 @@
 		action.UpdateButtonIcon()
 		repair_ticks = 10
 		deactivate_sr()
-
+*/
 
 /obj/item/borg/upgrade/hypospray
 	name = "medical cyborg hypospray advanced synthesiser"
@@ -488,7 +510,7 @@
 	module_flags = BORG_MODULE_MEDICAL
 	var/list/additional_reagents = list()
 
-/obj/item/borg/upgrade/hypospray/action(mob/living/silicon/robot/R, user = usr)
+/obj/item/borg/upgrade/hypospray/apply_upgrade(mob/living/silicon/robot/R, user = usr)
 	. = ..()
 	if(.)
 		for(var/obj/item/reagent_containers/borghypo/H in R.module.modules)
@@ -496,7 +518,7 @@
 				for(var/re in additional_reagents)
 					H.add_reagent(re)
 
-/obj/item/borg/upgrade/hypospray/deactivate(mob/living/silicon/robot/R, user = usr)
+/obj/item/borg/upgrade/hypospray/remove_upgrade(mob/living/silicon/robot/R, user = usr)
 	. = ..()
 	if (.)
 		for(var/obj/item/reagent_containers/borghypo/H in R.module.modules)
@@ -518,7 +540,7 @@
 		pierce armor and thick material."
 	icon_state = "cyborg_upgrade3"
 
-/obj/item/borg/upgrade/piercing_hypospray/action(mob/living/silicon/robot/R, user = usr)
+/obj/item/borg/upgrade/piercing_hypospray/apply_upgrade(mob/living/silicon/robot/R, user = usr)
 	. = ..()
 	if(.)
 		var/found_hypo = FALSE
@@ -529,7 +551,7 @@
 		if(!found_hypo)
 			return FALSE
 
-/obj/item/borg/upgrade/piercing_hypospray/deactivate(mob/living/silicon/robot/R, user = usr)
+/obj/item/borg/upgrade/piercing_hypospray/remove_upgrade(mob/living/silicon/robot/R, user = usr)
 	. = ..()
 	if (.)
 		for(var/obj/item/reagent_containers/borghypo/H in R.module.modules)
@@ -544,14 +566,14 @@
 	module_type = list(/obj/item/robot_module/medical)
 	module_flags = BORG_MODULE_MEDICAL
 
-/obj/item/borg/upgrade/defib/action(mob/living/silicon/robot/R, user = usr)
+/obj/item/borg/upgrade/defib/apply_upgrade(mob/living/silicon/robot/R, user = usr)
 	. = ..()
 	if(.)
 		var/obj/item/shockpaddles/cyborg/S = new(R.module)
 		R.module.basic_modules += S
 		R.module.add_module(S, FALSE, TRUE)
 
-/obj/item/borg/upgrade/defib/deactivate(mob/living/silicon/robot/R, user = usr)
+/obj/item/borg/upgrade/defib/remove_upgrade(mob/living/silicon/robot/R, user = usr)
 	. = ..()
 	if (.)
 		var/obj/item/shockpaddles/cyborg/S = locate() in R.module
@@ -568,14 +590,14 @@
 	module_type = list(/obj/item/robot_module/medical, /obj/item/robot_module/syndicate_medical)
 	module_flags = BORG_MODULE_MEDICAL
 
-/obj/item/borg/upgrade/processor/action(mob/living/silicon/robot/R, user = usr)
+/obj/item/borg/upgrade/processor/apply_upgrade(mob/living/silicon/robot/R, user = usr)
 	. = ..()
 	if(.)
 		var/obj/item/surgical_processor/SP = new(R.module)
 		R.module.basic_modules += SP
 		R.module.add_module(SP, FALSE, TRUE)
 
-/obj/item/borg/upgrade/processor/deactivate(mob/living/silicon/robot/R, user = usr)
+/obj/item/borg/upgrade/processor/remove_upgrade(mob/living/silicon/robot/R, user = usr)
 	. = ..()
 	if (.)
 		var/obj/item/surgical_processor/SP = locate() in R.module
@@ -586,7 +608,7 @@
 	desc = "Bluespace Optimized Remote Intelligence Synchronization. An uplink device which takes the place of an MMI in cyborg endoskeletons, creating a robotic shell controlled by an AI."
 	icon_state = "boris"
 
-/obj/item/borg/upgrade/ai/action(mob/living/silicon/robot/R, user = usr)
+/obj/item/borg/upgrade/ai/apply_upgrade(mob/living/silicon/robot/R, user = usr)
 	. = ..()
 	if(.)
 		if(R.shell)
@@ -598,7 +620,7 @@
 
 		R.make_shell(src)
 
-/obj/item/borg/upgrade/ai/deactivate(mob/living/silicon/robot/R, user = usr)
+/obj/item/borg/upgrade/ai/remove_upgrade(mob/living/silicon/robot/R, user = usr)
 	. = ..()
 	if (.)
 		if(R.shell)
@@ -610,7 +632,7 @@
 	desc = "A cyborg resizer, it makes a cyborg huge."
 	icon_state = "cyborg_upgrade3"
 
-/obj/item/borg/upgrade/expand/action(mob/living/silicon/robot/R, user = usr)
+/obj/item/borg/upgrade/expand/apply_upgrade(mob/living/silicon/robot/R, user = usr)
 	. = ..()
 	if(.)
 
@@ -637,7 +659,7 @@
 		R.hasExpanded = TRUE
 		R.update_transform()
 
-/obj/item/borg/upgrade/expand/deactivate(mob/living/silicon/robot/R, user = usr)
+/obj/item/borg/upgrade/expand/remove_upgrade(mob/living/silicon/robot/R, user = usr)
 	. = ..()
 	if (.)
 		if (R.hasExpanded)
@@ -654,7 +676,7 @@
 	module_type = list(/obj/item/robot_module/engineering, /obj/item/robot_module/saboteur)
 	module_flags = BORG_MODULE_ENGINEERING
 
-/obj/item/borg/upgrade/rped/action(mob/living/silicon/robot/R, user = usr)
+/obj/item/borg/upgrade/rped/apply_upgrade(mob/living/silicon/robot/R, user = usr)
 	. = ..()
 	if(.)
 
@@ -667,7 +689,7 @@
 		R.module.basic_modules += RPED
 		R.module.add_module(RPED, FALSE, TRUE)
 
-/obj/item/borg/upgrade/rped/deactivate(mob/living/silicon/robot/R, user = usr)
+/obj/item/borg/upgrade/rped/remove_upgrade(mob/living/silicon/robot/R, user = usr)
 	. = ..()
 	if (.)
 		var/obj/item/storage/part_replacer/cyborg/RPED = locate() in R.module
@@ -684,7 +706,7 @@
 	module_flags = BORG_MODULE_MEDICAL
 	var/datum/action/crew_monitor
 
-/obj/item/borg/upgrade/pinpointer/action(mob/living/silicon/robot/R, user = usr)
+/obj/item/borg/upgrade/pinpointer/apply_upgrade(mob/living/silicon/robot/R, user = usr)
 	. = ..()
 	if(.)
 
@@ -701,7 +723,7 @@
 		icon_state = "scanner"
 
 
-/obj/item/borg/upgrade/pinpointer/deactivate(mob/living/silicon/robot/R, user = usr)
+/obj/item/borg/upgrade/pinpointer/remove_upgrade(mob/living/silicon/robot/R, user = usr)
 	. = ..()
 	if (.)
 		icon_state = "pinpointer_crew"
@@ -723,7 +745,7 @@
 	icon_state = "cyborg_upgrade3"
 	var/obj/item/robot_module/new_module = /obj/item/robot_module/standard
 
-/obj/item/borg/upgrade/transform/action(mob/living/silicon/robot/R, user = usr)
+/obj/item/borg/upgrade/transform/apply_upgrade(mob/living/silicon/robot/R, user = usr)
 	. = ..()
 	if(.)
 		R.module.transform_to(new_module)
@@ -747,7 +769,7 @@
 	icon_state = "cyborg_upgrade3"
 	new_module = /obj/item/robot_module/borgi
 
-/obj/item/borg/upgrade/transform/security/action(mob/living/silicon/robot/R, user = usr)
+/obj/item/borg/upgrade/transform/security/apply_upgrade(mob/living/silicon/robot/R, user = usr)
 	if(CONFIG_GET(flag/disable_secborg))
 		to_chat(user, "<span class='warning'>Nanotrasen policy disallows the use of weapons of mass destruction.</span>")
 		return FALSE
@@ -761,7 +783,7 @@
 	module_type = list(/obj/item/robot_module/engineering, /obj/item/robot_module/saboteur)
 	module_flags = BORG_MODULE_ENGINEERING
 
-/obj/item/borg/upgrade/circuit_app/action(mob/living/silicon/robot/R, user = usr)
+/obj/item/borg/upgrade/circuit_app/apply_upgrade(mob/living/silicon/robot/R, user = usr)
 	. = ..()
 	if(.)
 		var/obj/item/borg/apparatus/circuit/C = locate() in R.module.modules
@@ -773,7 +795,7 @@
 		R.module.basic_modules += C
 		R.module.add_module(C, FALSE, TRUE)
 
-/obj/item/borg/upgrade/circuit_app/deactivate(mob/living/silicon/robot/R, user = usr)
+/obj/item/borg/upgrade/circuit_app/remove_upgrade(mob/living/silicon/robot/R, user = usr)
 	. = ..()
 	if (.)
 		var/obj/item/borg/apparatus/circuit/C = locate() in R.module.modules
@@ -788,7 +810,7 @@
 	module_type = list(/obj/item/robot_module/medical)
 	module_flags = BORG_MODULE_MEDICAL
 
-/obj/item/borg/upgrade/beaker_app/action(mob/living/silicon/robot/R, user = usr)
+/obj/item/borg/upgrade/beaker_app/apply_upgrade(mob/living/silicon/robot/R, user = usr)
 	. = ..()
 	if(.)
 		var/obj/item/borg/apparatus/beaker/extra/E = locate() in R.module.modules
@@ -800,7 +822,7 @@
 		R.module.basic_modules += E
 		R.module.add_module(E, FALSE, TRUE)
 
-/obj/item/borg/upgrade/beaker_app/deactivate(mob/living/silicon/robot/R, user = usr)
+/obj/item/borg/upgrade/beaker_app/remove_upgrade(mob/living/silicon/robot/R, user = usr)
 	. = ..()
 	if (.)
 		var/obj/item/borg/apparatus/beaker/extra/E = locate() in R.module.modules
@@ -818,12 +840,12 @@
 	var/list/additional_reagents = list()
 	module_flags = BORG_MODULE_SPECIALITY
 
-/obj/item/borg/upgrade/speciality/action(mob/living/silicon/robot/R, user = usr)
+/obj/item/borg/upgrade/speciality/apply_upgrade(mob/living/silicon/robot/R, user = usr)
 	. = ..()
 	if(.)
 		for(var/obj/item/borg/upgrade/SPEC in R.upgrades)
 			if (istype(SPEC,/obj/item/borg/upgrade/speciality) && SPEC != src)
-				SPEC.deactivate(R)
+				SPEC.remove_upgrade(R)
 				R.upgrades -= SPEC
 				qdel(SPEC)
 
@@ -844,7 +866,7 @@
 			if (equipt )
 				R.place_on_head(equipt)
 
-/obj/item/borg/upgrade/speciality/deactivate(mob/living/silicon/robot/R, user = usr)
+/obj/item/borg/upgrade/speciality/remove_upgrade(mob/living/silicon/robot/R, user = usr)
 	. = ..()
 	if (.)
 		//Remove existing modules indiscriminately

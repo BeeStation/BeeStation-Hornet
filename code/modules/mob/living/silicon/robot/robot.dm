@@ -543,7 +543,7 @@
 		else
 			if(!user.temporarilyRemoveItemFromInventory(U))
 				return
-			if(U.action(src))
+			if(U.apply_upgrade(src))
 				to_chat(user, "<span class='notice'>You apply the upgrade to [src].</span>")
 				if(U.one_use)
 					qdel(U)
@@ -1071,7 +1071,7 @@
 
 	// Remove upgrades.
 	for(var/obj/item/borg/upgrade/I in upgrades)
-		I.deactivate(src)
+		I.remove_upgrade(src)
 		I.forceMove(get_turf(src))
 
 	upgrades.Cut()

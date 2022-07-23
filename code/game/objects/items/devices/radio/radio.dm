@@ -181,7 +181,7 @@
 				var/max = format_frequency(freerange ? MAX_FREE_FREQ : MAX_FREQ)
 				tune = input("Tune frequency ([min]-[max]):", name, format_frequency(frequency)) as null|num
 				if(!isnull(tune) && !..())
-					if (tune < MIN_FREE_FREQ && tune <= MAX_FREE_FREQ / 10)
+					if(tune < MIN_FREE_FREQ && tune <= MAX_FREE_FREQ / 10)
 						// allow typing 144.7 to get 1447
 						tune *= 10
 					. = TRUE
@@ -264,7 +264,7 @@
 		if(channel == MODE_DEPARTMENT)
 			channel = channels[1]
 		freq = secure_radio_connections[channel]
-		if (!channels[channel]) // if the channel is turned off, don't broadcast
+		if(!channels[channel]) // if the channel is turned off, don't broadcast
 			return
 	else
 		freq = frequency
@@ -281,7 +281,7 @@
 	var/datum/signal/subspace/vocal/signal = new(src, freq, speaker, language, message, spans, message_mods)
 
 	// Independent radios, on the CentCom frequency, reach all independent radios
-	if (independent && (freq == FREQ_CENTCOM || freq == FREQ_CTF_RED || freq == FREQ_CTF_BLUE))
+	if(independent && (freq == FREQ_CENTCOM || freq == FREQ_CTF_RED || freq == FREQ_CTF_BLUE))
 		signal.data["compression"] = 0
 		signal.transmission_method = TRANSMISSION_SUPERSPACE
 		signal.levels = list(0)  // reaches all Z-levels
@@ -292,7 +292,7 @@
 	signal.send_to_receivers()
 
 	// If the radio is subspace-only, that's all it can do
-	if (subspace_transmission)
+	if(subspace_transmission)
 		return
 
 	// Non-subspace radios will check in a couple of seconds, and if the signal
@@ -301,7 +301,7 @@
 
 /obj/item/radio/proc/backup_transmission(datum/signal/subspace/vocal/signal)
 	var/turf/T = get_turf(src)
-	if (signal.data["done"] && (T.get_virtual_z_level() in signal.levels))
+	if(signal.data["done"] && (T.get_virtual_z_level() in signal.levels))
 		return
 
 	// Okay, the signal was never processed, send a mundane broadcast.
@@ -317,11 +317,11 @@
 
 	if(message_mods[RADIO_EXTENSION] == MODE_L_HAND || message_mods[RADIO_EXTENSION] == MODE_R_HAND)
 		// try to avoid being heard double
-		if (loc == speaker && ismob(speaker))
+		if(loc == speaker && ismob(speaker))
 			var/mob/M = speaker
 			var/idx = M.get_held_index_of_item(src)
 			// left hands are odd slots
-			if (idx && (idx % 2) == (message_mods[RADIO_EXTENSION] == MODE_L_HAND))
+			if(idx && (idx % 2) == (message_mods[RADIO_EXTENSION] == MODE_L_HAND))
 				return
 
 	talk_into(speaker, raw_message, , spans, language=message_language)
@@ -329,19 +329,19 @@
 // Checks if this radio can receive on the given frequency.
 /obj/item/radio/proc/can_receive(freq, level)
 	// deny checks
-	if (!on || !listening || wires.is_cut(WIRE_RX))
+	if(!on || !listening || wires.is_cut(WIRE_RX))
 		return FALSE
-	if (freq == FREQ_SYNDICATE && !syndie)
+	if(freq == FREQ_SYNDICATE && !syndie)
 		return FALSE
-	if (freq == FREQ_CENTCOM)
+	if(freq == FREQ_CENTCOM)
 		return independent  // hard-ignores the z-level check
-	if (!(0 in level))
+	if(!(0 in level))
 		var/turf/position = get_turf(src)
 		if(!position || !(position.get_virtual_z_level() in level))
 			return FALSE
 
 	// allow checks: are we listening on that frequency?
-	if (freq == frequency)
+	if(freq == frequency)
 		return TRUE
 	for(var/ch_name in channels)
 		if(channels[ch_name] & FREQ_LISTENING)
@@ -353,13 +353,13 @@
 
 /obj/item/radio/examine(mob/user)
 	. = ..()
-	if (frequency && in_range(src, user))
+	if(frequency && in_range(src, user))
 		. += "<span class='notice'>It is set to broadcast over the [frequency/10] frequency.</span>"
-	if (unscrewed)
+	if(unscrewed)
 		. += "<span class='notice'>It can be attached and modified.</span>"
 	else
 		. += "<span class='notice'>It cannot be modified or attached.</span>"
-	if (in_range(src, user) && !headset)
+	if(in_range(src, user) && !headset)
 		. += "<span class='info'>Ctrl-Shift-click on the [name] to toggle speaker.<br/>Alt-click on the [name] to toggle broadcasting.</span>"
 
 /obj/item/radio/attackby(obj/item/W, mob/user, params)
@@ -375,21 +375,21 @@
 
 /obj/item/radio/emp_act(severity)
 	. = ..()
-	if (. & EMP_PROTECT_SELF)
+	if(. & EMP_PROTECT_SELF)
 		return
 	emped++ //There's been an EMP; better count it
 	var/curremp = emped //Remember which EMP this was
-	if (listening && on && ismob(loc))	// if the radio is turned on and on someone's person they notice
-		to_chat(loc, "<span class='warning'>\The [src] overloads.</span>")
+	if(listening && on && ismob(loc))	// if the radio is turned on and on someone's person they notice
+		visible_message("<span class='warning'>\The [src] overloads.</span>")
 	on = FALSE
-	addtimer(CALLBACK(src, .proc/end_emp_effect, curremp), 1200)
+	addtimer(CALLBACK(src, .proc/end_emp_effect, curremp), 2 MINUTES)
 
 /obj/item/radio/proc/end_emp_effect(curremp)
 	if(emped != curremp) //Don't fix it if it's been EMP'd again
 		return FALSE
 	emped = FALSE
 	on = TRUE
-	to_chat(loc, "<span class='warning'>\The [src] crackles as it begins to pick up signals again.</span>") //indicator that the EMP has ended
+	visible_message("<span class='warning'>\The [src] crackles as it begins to pick up signals again.</span>") //indicator that the EMP has ended
 	return TRUE
 
 ///////////////////////////////
