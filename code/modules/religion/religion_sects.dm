@@ -225,3 +225,28 @@
 	adjust_favor(20, user) //it's not a lot but hey there's a pacifist favor option at least
 	qdel(offering)
 	return TRUE
+
+/**** Necromantic Sect ****/
+
+/datum/religion_sect/necro_sect
+	name = "Necromancy"
+	desc = "A sect dedicated to the revival and summoning of the dead. Sacrificing living animals grants you favor."
+	quote = "An undead army is a must have!"
+	tgui_icon = "skull"
+	alignment = ALIGNMENT_EVIL
+	max_favor = 10000
+	desired_items = list(/obj/item/organ/)
+	rites_list = list(/datum/religion_rites/raise_dead, /datum/religion_rites/living_sacrifice, /datum/religion_rites/raise_undead)
+	altar_icon_state = "convertaltar-green"
+
+//Necro bibles don't heal or do anything special apart from the standard holy water blessings
+/datum/religion_sect/necro_sect/sect_bless(mob/living/blessed, mob/living/user)
+	return TRUE
+
+/datum/religion_sect/necro_sect/on_sacrifice(obj/item/N, mob/living/L)
+	if(!istype(N, /obj/item/organ))
+		return
+	adjust_favor(10, L)
+	to_chat(L, "<span class='notice'>You offer [N] to [GLOB.deity], pleasing them and gaining 10 favor in the process.</span>")
+	qdel(N)
+	return TRUE
