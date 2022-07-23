@@ -1,4 +1,7 @@
 //WHY ISN'T THIS COMPONENT
+/mob/living
+	/// If this is set, then when a ghost enters this mob, it will be replaced with a human with the corresponding outfit
+	var/human_outfit_replacement
 
 /mob/living/ghostize(can_reenter_corpse, sentience_retention)
 	. = ..()
@@ -29,16 +32,27 @@
 	if(key || !playable || stat)
 		return 0
 	var/question = alert("Do you want to become [name]?", "[name]", "Yes", "No")
-	if(question == "No" || !src || QDELETED(src))
+	if(question != "Yes" || !src || QDELETED(src))
 		return TRUE
 	if(key)
 		to_chat(user, "<span class='notice'>Someone else already took [name].</span>")
 		return TRUE
-	key = user.key
-	log_game("[key_name(src)] took control of [name].")
+	log_game("[key_name(user)] took control of [name].")
 	remove_from_spawner_menu()
 	if(get_spawner_flavour_text())
-		to_chat(src, "<span class='notice'>[get_spawner_flavour_text()]</span>")
+		to_chat(user, "<span class='notice'>[get_spawner_flavour_text()]</span>")
+	//Create the replacement mob if required
+	if(human_outfit_replacement)
+		//Create a replacement human
+		var/mob/living/carbon/human/H = new(loc)
+		//Transfer factions
+		H.faction = faction
+		//Give it the outfit
+		var/datum/outfit/replacement_outfit = new human_outfit_replacement()
+		replacement_outfit.equip(H)
+		H.key = user.key
+		return TRUE
+	key = user.key
 	return TRUE
 
 /mob/living/proc/set_playable()

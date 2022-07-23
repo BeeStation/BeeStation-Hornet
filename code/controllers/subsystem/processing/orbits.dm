@@ -377,6 +377,8 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 	located_shuttle.faction = ship_faction
 	located_shuttle.set_pilot(ship_ai)
 
+	return M
+
 //====================================
 // Captured Crew
 //====================================
@@ -389,7 +391,11 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 	if(!length(hostage_spawns))
 		//Spawn a hostage shuttle
 		var/datum/map_template/shuttle/supercruise/shuttle_template = SSmapping.shuttle_templates["encounter_syndicate_prisoner_transport"]
-		spawn_ship(shuttle_template, new /datum/faction/pirates(), new /datum/shuttle_ai_pilot/npc/hostile())
+		var/obj/docking_port/mobile/created_ship = spawn_ship(shuttle_template, new /datum/faction/pirates(), new /datum/shuttle_ai_pilot/npc/hostile())
+		//Grant sentience to the ship's crew
+		for(var/area/A in created_ship)
+			for(var/mob/living/simple_animal/ship_mob in A)
+				ship_mob.set_playable()
 	//Oof
 	if(!length(hostage_spawns))
 		return

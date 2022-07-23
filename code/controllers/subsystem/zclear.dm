@@ -114,7 +114,7 @@ SUBSYSTEM_DEF(zclear)
 				announced_zombie_levels["[level.z_value]"] = TRUE
 				//Yoink all mobs
 				for(var/mob/living/L as() in GLOB.mob_living_list)
-					if(L.z != level.z_value)
+					if(L.z != level.z_value || !L.mind)
 						continue
 					nullspaced_mobs |= L
 					L.moveToNullspace()
