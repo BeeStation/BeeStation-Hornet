@@ -54,16 +54,41 @@
 	else
 		return ..()
 
-/datum/objective/crew/responsibility
-	explanation_text = "Make sure nobody dies with alcohol poisoning."
+/datum/objective/crew/cocktail
+	explanation_text = "Have a bottle(any type) that contains 'something' when the shift ends. Each of them must be at least 'something'u."
 	jobs = "bartender"
+	var/targetchems = list()
+	var/list/chemnames = list()
+	var/chemsize
+	var/datum/reagent/chempath
 
-/datum/objective/crew/responsibility/check_completion()
-	for(var/mob/living/carbon/human/H in GLOB.mob_list)
-		if(H.stat == DEAD && H.drunkenness >= 80)
-			if((H.z in SSmapping.levels_by_trait(ZTRAIT_STATION)) || SSshuttle.emergency.shuttle_areas[get_area(H)])
-				return ..()
-	return TRUE
+/datum/objective/crew/cocktail/New()
+	. = ..()
+	for(var/i in 1 to 5)
+		chempath = get_random_reagent_id(CHEMICAL_GOAL_BARTENDER_SERVING)
+		if(!(chempath in targetchems))
+			targetchems += chempath
+			chemnames += "[initial(chempath.name)]"
+	// chems may reaction, but there's no reactionable recipe from CHEMICAL_GOAL_BARTENDER_SERVING. Just don't put basic chems there.
+	chemsize = 4+(5-length(targetchems))
+	update_explanation_text()
+
+/datum/objective/crew/cocktail/update_explanation_text()
+	. = ..()
+	explanation_text = "Have a bottle(any type) that contains '[english_list(chemnames, and_text = ", and ")]' when the shift ends. Each of them must be at least [chemsize]u."
+
+/datum/objective/crew/cocktail/check_completion()
+	if(owner?.current)
+		if(owner.current.contents)
+			// check every bottle in your bag.
+			for(var/obj/item/reagent_containers/B in owner.current.get_contents())
+				var/count = length(targetchems) // a bottle should have the all desired chems. reset the count for every try.
+				for(var/each in targetchems)
+					if(B.reagents.has_reagent(each, chemsize))
+						count--
+						if(!count) // if it is legit, it completes.
+							return TRUE
+	return ..()
 
 /datum/objective/crew/clean //ported from old Hippie
 	var/list/areas = list()
