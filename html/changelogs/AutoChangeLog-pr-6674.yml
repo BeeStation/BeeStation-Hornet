@@ -1,8 +1,0 @@
-author: williamcll
-delete-after: true
-changes:
-  - rscadd: Single Z-level Corgstation added.
-  - rscadd: Science shuttle access on-station.
-  - tweak: unconnected maintenace wires connected, excess wires removed.
-  - tweak: multi Z-level Corgstation disabled until wire layer adapters are fixed.
-  - bugfix: Supermatter thermomachine pipe overlap fixed.
