@@ -14,6 +14,10 @@
 	duration = 12
 	icon_state = "bloodin"
 
+/obj/effect/temp_visual/cult/blood/long // For Necro Sect usage
+	name = "necromatic summon"
+	duration = 300
+
 /obj/effect/temp_visual/cult/blood/out
 	icon_state = "bloodout"
 
