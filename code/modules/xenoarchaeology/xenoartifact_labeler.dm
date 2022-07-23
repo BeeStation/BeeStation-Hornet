@@ -24,9 +24,6 @@
 	var/sticker_name //Name artifacts something pretty
 	var/list/sticker_traits = list()//passed down to sticker
 
-/obj/item/xenoartifact_labeler/Initialize()
-	. = ..()
-
 /obj/item/xenoartifact_labeler/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
@@ -64,7 +61,7 @@
 		return
 
 	if(action == "change_print_name" && istext(params["name"]))
-		sticker_name = sanitize_text("[params["name"]]")
+		sticker_name = sanitize_text(params["name"])
 		return
 
 	trait_toggle(action, "activator", activator_traits, activator)
@@ -75,7 +72,8 @@
 	. = TRUE
 	update_icon()
 
-/obj/item/xenoartifact_labeler/proc/get_trait_list_desc(list/traits, trait_type)//Get a list of all the specified trait types names, actually
+//Get a list of all the specified trait types names, actually
+/obj/item/xenoartifact_labeler/proc/get_trait_list_desc(list/traits, trait_type)
 	trait_type = typesof(trait_type)
 	for(var/t in trait_type)
 		var/datum/xenoartifact_trait/X = t
@@ -86,16 +84,13 @@
 	return traits
 
 /obj/item/xenoartifact_labeler/proc/look_for(list/place, culprit) //This isn't really needed but, It's easier to use as a function. What does this even do?
-	for(var/X in place) //Using locate breaks this. Sorry.
-		if(X == culprit)
-			. = TRUE
-	return
+	if(place.Find(culprit))
+		return TRUE
+	return FALSE
 
 /obj/item/xenoartifact_labeler/afterattack(atom/target, mob/user)
-	..()
-	var/obj/item/xenoartifact_label/P = create_label(sticker_name)
-	if(!P.afterattack(target, user, TRUE)) //In the circumstance the sticker fails, usually means you're doing something you shouldn't be
-		qdel(P)
+	. = ..()
+	create_label(sticker_name, target, user)
 
 ///reset all the options	
 /obj/item/xenoartifact_labeler/proc/clear_selection()
@@ -108,14 +103,14 @@
 	malfunction = list()
 	ui_update()
 
-/obj/item/xenoartifact_labeler/proc/create_label(new_name)
+/obj/item/xenoartifact_labeler/proc/create_label(new_name, mob/target, mob/user)
 	var/obj/item/xenoartifact_label/P = new(get_turf(src))
 	if(new_name)
 		P.name = new_name
 		P.set_name = TRUE
 	P.trait_list = sticker_traits
 	P.info = activator+minor_trait+major_trait+malfunction
-	return P
+	P.attempt_attach(target, user, TRUE)
 
 /obj/item/xenoartifact_labeler/proc/trait_toggle(action, toggle_type, var/list/trait_list, var/list/active_trait_list)
 	var/datum/xenoartifact_trait/description_holder
@@ -133,12 +128,13 @@
 				info_list -= initial(description_holder.label_desc)
 				sticker_traits -= new_trait
 
-/obj/item/xenoartifact_labeler/proc/desc2datum(udesc) //This is just a hacky way of getting the info from a datum using its desc becuase I wrote this last and it's not heartbreaking
-	for(var/t in typesof(/datum/xenoartifact_trait))
-		var/datum/xenoartifact_trait/X = t
-		if((udesc == initial(X.desc))||(udesc == initial(X.label_name)))
-			return t
-	return "[udesc]: There's no known information on [udesc]!."
+//This is just a hacky way of getting the info from a datum using its desc becuase I wrote this last and it's not heartbreaking
+/obj/item/xenoartifact_labeler/proc/desc2datum(udesc)
+	for(var/trait in typesof(/datum/xenoartifact_trait))
+		var/datum/xenoartifact_trait/X = trait //typecast
+		if((udesc == initial(X.desc)) || (udesc == initial(X.label_name)))
+			return trait
+	CRASH("The xenoartifact trait description '[udesc]' doesn't have a corresponding trait. Something fucked up.")
 
 // Not to be confused with labeler
 /obj/item/xenoartifact_label
@@ -150,32 +146,32 @@
 	var/set_name = FALSE
 	var/mutable_appearance/sticker_overlay
 	var/list/trait_list = list() //List of traits used to compare and generate modifier.
-	var/obj/item/xenoartifact/xenoa_target
-	///reference for timer
-	var/fall_timer
 
 /obj/item/xenoartifact_label/Initialize()
+	. = ..()
 	icon_state = "sticker_[pick("star", "box", "tri", "round")]"
 	var/sticker_state = "[icon_state]_small"
 	sticker_overlay = mutable_appearance(icon, sticker_state)
 	sticker_overlay.layer = FLOAT_LAYER
-	sticker_overlay.appearance_flags = RESET_ALPHA
 	sticker_overlay.appearance_flags = RESET_COLOR
-	..()
 	
-/obj/item/xenoartifact_label/afterattack(atom/target, mob/user, instant = FALSE)
+/obj/item/xenoartifact_label/proc/attempt_attach(atom/target, mob/user, instant = FALSE)
 	if(istype(target, /mob/living))
 		to_chat(target, "<span class='warning'>[user] attempts to stick a [src] to you!</span>")
 		to_chat(user, "<span class='warning'>You attempt to stick a [src] on [target]!</span>")
 		if(!do_after(user, 30, target = target))
+			if(instant)
+				qdel(src)
 			return
 		if(!user.temporarilyRemoveItemFromInventory(src))
+			if(instant)
+				qdel(src)
 			return
 		add_sticker(target)
-		fall_timer = addtimer(CALLBACK(src, .proc/remove_sticker, target), 15 SECONDS, TIMER_STOPPABLE)
+		addtimer(CALLBACK(src, .proc/remove_sticker, target), 15 SECONDS, TIMER_STOPPABLE)
 		return TRUE
 	else if(istype(target, /obj/item/xenoartifact))
-		xenoa_target = target
+		var/obj/item/xenoartifact/xenoa_target = target
 		if(set_name) //You can update the name now
 			xenoa_target.name = name
 		calculate_modifier(xenoa_target)
@@ -213,15 +209,8 @@
 /obj/item/xenoartifact_label/proc/list2text(list/listo) //list2params acting weird. Probably already a function for this.
 	var/text = ""
 	for(var/X in listo)
-		if(X)
-			text = "[text] [X]\n"
+		text = "[text] [X]\n"
 	return text
-
-/obj/item/xenoartifact_label/Destroy()
-	. = ..()
-	deltimer(fall_timer)
-	xenoa_target?.cut_overlay(sticker_overlay)
-	xenoa_target = null
 
 /obj/item/xenoartifact_labeler/debug
 	name = "xenoartifact debug labeler"      
