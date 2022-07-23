@@ -247,7 +247,6 @@
 	icon_state = "control_boxp"
 
 
-
 	var/datum/weakref/cannon_ref
 	var/notice
 	var/target
@@ -296,16 +295,18 @@
 /obj/machinery/computer/bsa_control/proc/calibrate(mob/user)
 	if(!GLOB.bsa_unlock)
 		return
-	var/list/gps_locators = list()
-	for(var/datum/component/gps/G in GLOB.GPS_list) //nulls on the list somehow
+	var/list/targets = list()
+	// Find all active GPS
+	for(var/datum/component/gps/G in GLOB.GPS_list)
 		if(G.tracking)
-			gps_locators[G.gpstag] = G
+			targets[G.gpstag] = G
 
-	var/list/options = gps_locators
-	if(area_aim)
-		options += GLOB.teleportlocs
-	var/V = input(user,"Select target", "Select target",null) in options|null
-	target = options[V]
+	// Find all shuttles in transit
+	for(var/shuttleportid in SSorbits.assoc_shuttles)
+		var/datum/orbital_object/shuttle/shuttle = SSorbits.assoc_shuttles[shuttleportid]
+		targets[shuttle.name] = shuttle
+	var/V = input(user, "Select target", "Select target",null) in targets|null
+	target = targets[V]
 
 
 /obj/machinery/computer/bsa_control/proc/get_target_name()
@@ -314,6 +315,9 @@
 	else if(istype(target, /datum/component/gps))
 		var/datum/component/gps/G = target
 		return G.gpstag
+	else if(istype(target, /datum/orbital_object/shuttle))
+		var/datum/orbital_object/shuttle/shuttle = target
+		return shuttle.name
 
 /obj/machinery/computer/bsa_control/proc/get_impact_turf()
 	if(istype(target, /area))
@@ -321,6 +325,11 @@
 	else if(istype(target, /datum/component/gps))
 		var/datum/component/gps/G = target
 		return get_turf(G.parent)
+	else if(istype(target, /datum/orbital_object/shuttle))
+		var/datum/orbital_object/shuttle/shuttle = target
+		var/area/shuttle_area = pick(shuttle.port.shuttle_areas)
+		return pick(get_area_turfs(shuttle_area))
+
 
 /obj/machinery/computer/bsa_control/proc/fire(mob/user)
 	var/obj/machinery/bsa/full/cannon = cannon_ref?.resolve()
