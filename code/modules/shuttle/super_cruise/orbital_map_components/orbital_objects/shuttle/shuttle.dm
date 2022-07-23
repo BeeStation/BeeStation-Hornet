@@ -56,6 +56,7 @@
 /datum/orbital_object/shuttle/New(datum/orbital_vector/position, datum/orbital_vector/velocity, orbital_map_index, obj/docking_port/mobile/port)
 	if(port)
 		link_shuttle(port)
+	//Grant 10 seconds of immunity to running out of fuel
 	immunity_time = world.time + 10 SECONDS
 	. = ..()
 
@@ -247,6 +248,8 @@
 	//Stop processin the AI pilot (Flight mode)
 	if(shuttle_data.ai_pilot)
 		STOP_PROCESSING(SSorbits, shuttle_data.ai_pilot)
+	//Append the faction to the name
+	name = "\[[shuttle_data.faction.faction_tag]\] [name]"
 
 /datum/orbital_object/shuttle/proc/handle_shuttle_data_deletion(datum/source, force)
 	UnregisterSignal(shuttle_data, COMSIG_PARENT_QDELETING)
