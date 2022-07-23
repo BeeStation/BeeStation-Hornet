@@ -85,7 +85,6 @@
 /datum/xenoartifact_trait/major/timestop
 	desc = "Melted"
 	label_desc = "Melted: The shape is drooling and sluggish. Additionally, light around it seems to invert."
-	flags = BLUESPACE_TRAIT | URANIUM_TRAIT
 
 /datum/xenoartifact_trait/major/timestop/on_touch(obj/item/xenoartifact/X, mob/user)
 	to_chat(user, "<span class='notice'>Your hand feels slow while stroking the [X.name].</span>")
