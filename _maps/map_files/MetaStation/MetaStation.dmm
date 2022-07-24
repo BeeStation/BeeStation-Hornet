@@ -53268,10 +53268,6 @@
 /turf/open/floor/plasteel/freezer,
 /area/crew_quarters/toilet/restrooms)
 "fXi" = (
-/obj/machinery/door/airlock/research{
-	name = "Robotics Lab";
-	req_access_txt = "29"
-	},
 /obj/effect/turf_decal/tile/purple{
 	dir = 1
 	},
@@ -53294,6 +53290,10 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
+	},
+/obj/machinery/door/airlock/research/glass{
+	name = "Robotics Lab";
+	req_access_txt = "29"
 	},
 /turf/open/floor/plasteel,
 /area/science/robotics/lab)
