@@ -1,3 +1,5 @@
+#define COLA_AMT = 5
+
 /datum/round_event_control/infcola
 	name = "Cola Infinite"
 	typepath = /datum/round_event/infcola
@@ -16,12 +18,12 @@
 	name = "Space Cola INFINITE"
 	desc = "Cola. Probably not from space. Proceed with caution. A no-tamper filter prevents the drink from being drained and resold."
 	icon_state = "inf"
-	list_reagents = list()
+	list_reagents = list(/datum/reagent/consumable/space_cola = COLA_AMT)
 	prevent_grinding = TRUE
 	reagent_flags = AMOUNT_VISIBLE | REFILLABLE  // disables dumping chems into container, you can still fill with dangerous chems for a cool trick
 
 /obj/item/reagent_containers/food/drinks/soda_cans/inf/Initialize(mapload)
-	var/reagents = volume
+	var/reagents = volume - COLA_AMT
 	while(reagents)
 		var/newreagent = rand(1, min(reagents, 30))
 		var/category = CHEMICAL_RNG_GENERAL
@@ -50,3 +52,5 @@
 		var/turf/warp = find_safe_turf(extended_safety_checks = TRUE, dense_atoms = FALSE)
 		newCan.forceMove(warp)
 		do_smoke(location=warp)
+
+#undef COLA_AMT
