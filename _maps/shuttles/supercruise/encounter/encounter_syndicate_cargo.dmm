@@ -1544,10 +1544,6 @@
 	pixel_x = 4;
 	pixel_y = 6
 	},
-/obj/item/stack/sheet/bluespace_crystal{
-	pixel_x = -6;
-	pixel_y = 6
-	},
 /obj/machinery/atmospherics/pipe/simple/purple/visible{
 	dir = 10
 	},
