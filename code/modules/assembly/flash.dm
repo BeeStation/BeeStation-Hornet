@@ -74,6 +74,9 @@
 	charge_time = 15 SECONDS
 
 /obj/item/flashbulb/recharging/cyborg
+	name = "advancedcyborg flashbulb"
+
+/obj/item/flashbulb/recharging/cyborg/weak
 	name = "cyborg flashbulb"
 
 /obj/item/assembly/flash
@@ -96,6 +99,8 @@
 	var/cooldown = 20
 	var/last_trigger = 0 //Last time it was successfully triggered.
 	var/burnt_out = FALSE
+	var/flash_duration = 25
+	var/stun_duration = 70
 	var/obj/item/flashbulb/bulb = /obj/item/flashbulb	//Store reference to object and run new when initialised.
 
 /obj/item/assembly/flash/handheld/cyborg
@@ -163,7 +168,7 @@
 
 /obj/item/assembly/flash/proc/clown_check(mob/living/carbon/human/user)
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
-		flash_carbon(user, user, 15, 0)
+		flash_carbon(user, user, 0)
 		return FALSE
 	return TRUE
 
@@ -195,14 +200,14 @@
 	return TRUE
 
 //BYPASS CHECKS ALSO PREVENTS BURNOUT!
-/obj/item/assembly/flash/proc/AOE_flash(bypass_checks = FALSE, range = 3, power = 5, targeted = FALSE, mob/user)
+/obj/item/assembly/flash/proc/AOE_flash(bypass_checks = FALSE, range = 3, targeted = FALSE, mob/user)
 	if(!bypass_checks && !try_use_flash())
 		return FALSE
 	var/list/mob/targets = get_flash_targets(get_turf(src), range, FALSE)
 	if(user)
 		targets -= user
 	for(var/mob/living/carbon/C in targets)
-		flash_carbon(C, user, power, targeted, TRUE)
+		flash_carbon(C, user, targeted, TRUE)
 	return TRUE
 
 /obj/item/assembly/flash/proc/get_flash_targets(atom/target_loc, range = 3, override_vision_checks = FALSE)
@@ -241,7 +246,7 @@
 	set_light_on(FALSE)
 
 
-/obj/item/assembly/flash/proc/flash_carbon(mob/living/carbon/M, mob/user, power = 15, targeted = TRUE, generic_message = FALSE)
+/obj/item/assembly/flash/proc/flash_carbon(mob/living/carbon/M, mob/user, targeted = TRUE, generic_message = FALSE)
 	if(!istype(M))
 		return
 	if(user)
@@ -251,7 +256,7 @@
 	if(generic_message && M != user)
 		to_chat(M, "<span class='disarm'>[src] emits a blinding light!</span>")
 	if(targeted)
-		if(M.flash_act(1, 1))
+		if(M.flash_act(1, 1, blind_duration = flash_duration))
 			if(user)
 				terrible_conversion_proc(M, user)
 				visible_message("<span class='disarm'>[user] blinds [M] with a flash of light!</span>")
@@ -259,7 +264,7 @@
 				to_chat(M, "<span class='userdanger'>[user] blinds you with a flash of light!</span>")
 			else
 				to_chat(M, "<span class='userdanger'>You are blinded by [src]!</span>")
-			M.Paralyze(70)
+			M.Paralyze(stun_duration)
 
 		else if(user)
 			visible_message("<span class='disarm'>[user] fails to blind [M] with a flash of light!</span>")
@@ -274,7 +279,7 @@
 	if(!try_use_flash(user))
 		return FALSE
 	if(iscarbon(M))
-		flash_carbon(M, user, 5, 1)
+		flash_carbon(M, user, 1)
 		return TRUE
 	else if(issilicon(M))
 		var/mob/living/silicon/robot/R = M
@@ -344,6 +349,12 @@
 /obj/item/assembly/flash/cyborg/wirecutter_act(mob/living/user, obj/item/I)
 	return
 
+/obj/item/assembly/flash/cyborg/weak
+	name = "cyborg light"
+	bulb = /obj/item/flashbulb/recharging/cyborg/weak
+	flash_duration = 70
+	stun_duration = 10
+
 /obj/item/assembly/flash/memorizer
 	name = "memorizer"
 	desc = "If you see this, you're not likely to remember it any time soon."
@@ -401,7 +412,7 @@
 /obj/item/assembly/flash/hypnotic/wirecutter_act(mob/living/user, obj/item/I)
 	return
 
-/obj/item/assembly/flash/hypnotic/flash_carbon(mob/living/carbon/M, mob/user, power = 15, targeted = TRUE, generic_message = FALSE)
+/obj/item/assembly/flash/hypnotic/flash_carbon(mob/living/carbon/M, mob/user, targeted = TRUE, generic_message = FALSE)
 	if(!istype(M))
 		return
 	if(user)
@@ -414,7 +425,6 @@
 		if(M.flash_act(1, 1))
 			if(user)
 				user.visible_message("<span class='disarm'>[user] blinds [M] with the flash!</span>", "<span class='danger'>You hypno-flash [M]!</span>")
-
 			if(M.hypnosis_vulnerable())
 				M.apply_status_effect(/datum/status_effect/trance, 200, TRUE)
 			else
@@ -423,9 +433,6 @@
 				M.dizziness += min(M.dizziness + 10, 20)
 				M.drowsyness += min(M.drowsyness + 10, 20)
 				M.apply_status_effect(STATUS_EFFECT_PACIFY, 100)
-
-
-
 		else if(user)
 			user.visible_message("<span class='disarm'>[user] fails to blind [M] with the flash!</span>", "<span class='warning'>You fail to hypno-flash [M]!</span>")
 		else

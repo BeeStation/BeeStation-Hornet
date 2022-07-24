@@ -414,12 +414,12 @@
 	if(W.tool_behaviour == TOOL_WELDER && (user.a_intent != INTENT_HARM))
 		user.changeNext_move(CLICK_CD_MELEE)
 		if(src == user)
-			to_chat(user, "<span class='notice'>You are unable properly repair yourself, seek assistance.</span>")
+			to_chat(user, "<span class='notice'>You are unable to properly repair yourself, seek assistance.</span>")
 			return
-		if (!getBruteLoss())
+		if(!getBruteLoss())
 			to_chat(user, "<span class='warning'>[src] is already in good condition!</span>")
 			return
-		while (getBruteLoss() && W.tool_start_check(user, amount=0) && W.use_tool(src, user, 60))	//Repeatedly attempt to repair dents until done or welder is out of fuel, just like tend wounds. No need to spam click
+		while(getBruteLoss() && W.tool_start_check(user, amount=0) && W.use_tool(src, user, 60))	//Repeatedly attempt to repair dents until done or welder is out of fuel, just like tend wounds. No need to spam click
 			W.use(1)  //Due to the loop, welding fuel was only being burned passively and not actually consumed each step. This causes it to use 1 every step. 
 			adjustBruteLoss(-15)
 			updatehealth()
@@ -430,11 +430,11 @@
 	else if(istype(W, /obj/item/stack/cable_coil) && wiresexposed)
 		user.changeNext_move(CLICK_CD_MELEE)
 		var/obj/item/stack/cable_coil/coil = W
-		if (!getFireLoss())
+		if(!getFireLoss())
 			to_chat(user, "The wires seem fine, there's no need to fix them.")
 			return
 		while(getFireLoss() && do_after(user, 60, target = src))		//Repeatedly attempt to repair wires until done, just like tend wounds. No need to spam click
-			if (coil.use(1))
+			if(coil.use(1))
 				adjustFireLoss(-15)
 				updatehealth()
 				user.visible_message("[user] has fixed some of the burnt wires on [src].", "<span class='notice'>You fix some of the burnt wires on [src].</span>")
@@ -445,14 +445,14 @@
 	else if(W.tool_behaviour == TOOL_CROWBAR)	// crowbar means open or close the cover
 		if(opened)
 			to_chat(user, "<span class='notice'>You close the cover.</span>")
-			opened = 0
+			opened = FALSE
 			update_icons()
 		else
 			if(locked)
 				to_chat(user, "<span class='warning'>The cover is locked and cannot be opened!</span>")
 			else
 				to_chat(user, "<span class='notice'>You open the cover.</span>")
-				opened = 1
+				opened = TRUE
 				update_icons()
 
 	else if(istype(W, /obj/item/stock_parts/cell) && opened)	// trying to put a cell inside

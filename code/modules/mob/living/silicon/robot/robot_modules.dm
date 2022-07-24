@@ -291,6 +291,7 @@
 /obj/item/robot_module/medical
 	name = "Medical"
 	basic_modules = list(
+		/obj/item/assembly/flash/cyborg/weak,
 		/obj/item/healthanalyzer,
 		/obj/item/borg/charger,
 		/obj/item/reagent_containers/borghypo,
@@ -326,6 +327,7 @@
 /obj/item/robot_module/engineering
 	name = "Engineering"
 	basic_modules = list(
+		/obj/item/assembly/flash/cyborg/weak,
 		/obj/item/borg/sight/meson,
 		/obj/item/borg/charger,
 		/obj/item/construction/rcd/borg,
@@ -456,6 +458,7 @@
 /obj/item/robot_module/janitor
 	name = "Janitor"
 	basic_modules = list(
+		/obj/item/assembly/flash/cyborg/weak,
 		/obj/item/screwdriver/cyborg,
 		/obj/item/crowbar/cyborg,
 		/obj/item/stack/tile/plasteel/cyborg,
@@ -496,6 +499,7 @@
 /obj/item/robot_module/clown
 	name = "Clown"
 	basic_modules = list(
+		/obj/item/assembly/flash/cyborg/weak,
 		/obj/item/toy/crayon/rainbow,
 		/obj/item/instrument/bikehorn,
 		/obj/item/stamp/clown,
@@ -528,6 +532,7 @@
 /obj/item/robot_module/butler
 	name = "Service"
 	basic_modules = list(
+		/obj/item/assembly/flash/cyborg/weak,
 		/obj/item/pen,
 		/obj/item/toy/crayon/spraycan/borg,
 		/obj/item/extinguisher/mini,
@@ -602,6 +607,7 @@
 /obj/item/robot_module/miner
 	name = "Miner"
 	basic_modules = list(
+		/obj/item/assembly/flash/cyborg/weak,
 		/obj/item/borg/sight/meson,
 		/obj/item/storage/bag/ore/cyborg,
 		/obj/item/pickaxe/drill/cyborg,

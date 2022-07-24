@@ -328,7 +328,7 @@
 
 	return embeds
 
-/mob/living/carbon/flash_act(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0)
+/mob/living/carbon/flash_act(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, type, blind_duration)
 	if(NOFLASH in dna?.species?.species_traits)
 		return
 	var/obj/item/organ/eyes/eyes = getorganslot(ORGAN_SLOT_EYES)
@@ -341,7 +341,7 @@
 		if(visual)
 			return
 
-		if (damage == 1)
+		if(damage == 1)
 			to_chat(src, "<span class='warning'>Your eyes sting a little.</span>")
 			if(prob(40))
 				eyes.applyOrganDamage(1)
@@ -350,7 +350,7 @@
 			to_chat(src, "<span class='warning'>Your eyes burn.</span>")
 			eyes.applyOrganDamage(rand(2, 4))
 
-		else if( damage >= 3)
+		else if(damage >= 3)
 			to_chat(src, "<span class='warning'>Your eyes itch and burn severely!</span>")
 			eyes.applyOrganDamage(rand(12, 16))
 
