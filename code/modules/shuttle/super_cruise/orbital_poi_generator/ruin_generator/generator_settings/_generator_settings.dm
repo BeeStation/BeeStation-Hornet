@@ -32,4 +32,4 @@
 //Useful for stuff like making crutch fuel outposts that have plasma in them.
 /datum/generator_settings/proc/get_required_rooms()
 	. = list()
-	. += GLOB.ruin_part_lookup[/datum/map_template/ruin_part/archive]
+	//. += GLOB.ruin_part_lookup[/datum/map_template/ruin_part/archive]
