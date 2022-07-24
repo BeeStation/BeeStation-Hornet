@@ -655,16 +655,12 @@
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/syndicate_scout)
-"yb" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+"xV" = (
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /obj/machinery/door/airlock/external{
 	name = "Solar Maintenance";
 	req_access_txt = "10; 13"
 	},
-/obj/machinery/atmospherics/pipe/layer_manifold,
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
 	},
@@ -792,24 +788,6 @@
 	pixel_y = 4
 	},
 /turf/open/floor/mineral/plastitanium,
-/area/shuttle/syndicate_scout)
-"BG" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/effect/mapping_helpers/airlock/cyclelink_helper{
-	dir = 1
-	},
-/obj/machinery/door/airlock/external{
-	name = "Solar Maintenance";
-	req_access_txt = "10; 13"
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer3,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
-/obj/effect/turf_decal/stripes/closeup{
-	dir = 1
-	},
-/turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate_scout)
 "Ce" = (
 /obj/machinery/advanced_airlock_controller{
@@ -1256,16 +1234,6 @@
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/syndicate_scout)
-"Rz" = (
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/effect/turf_decal/stripes/closeup{
-	dir = 1
-	},
-/turf/open/floor/mineral/plastitanium/red,
-/area/shuttle/syndicate_scout)
 "RH" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 8
@@ -1366,6 +1334,19 @@
 	dir = 1
 	},
 /turf/open/floor/plasteel/techmaint,
+/area/shuttle/syndicate_scout)
+"TR" = (
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 1
+	},
+/obj/machinery/door/airlock/external{
+	name = "Solar Maintenance";
+	req_access_txt = "10; 13"
+	},
+/obj/effect/turf_decal/stripes/closeup{
+	dir = 1
+	},
+/turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate_scout)
 "TS" = (
 /obj/item/reagent_containers/food/snacks/canned/beans{
@@ -1468,6 +1449,10 @@
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate_scout)
+"Vx" = (
+/obj/effect/turf_decal/bot,
+/turf/open/floor/plasteel/techmaint,
+/area/shuttle/syndicate_scout)
 "VC" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
@@ -1505,17 +1490,6 @@
 	},
 /turf/open/floor/plasteel/techmaint,
 /area/shuttle/syndicate_scout)
-"Wf" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer1,
-/obj/machinery/atmospherics/components/binary/dp_vent_pump/layer3,
-/obj/effect/turf_decal/stripes/closeup{
-	dir = 1
-	},
-/turf/open/floor/mineral/plastitanium/red,
-/area/shuttle/syndicate_scout)
 "Wm" = (
 /obj/effect/turf_decal/trimline/yellow/filled/line{
 	dir = 1
@@ -1551,11 +1525,6 @@
 "WF" = (
 /turf/template_noop,
 /area/space)
-"Xv" = (
-/obj/machinery/portable_atmospherics/canister/miasma,
-/obj/effect/turf_decal/bot,
-/turf/open/floor/plasteel/techmaint,
-/area/shuttle/syndicate_scout)
 "Xz" = (
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate_scout)
@@ -1669,9 +1638,9 @@ ye
 ye
 ye
 Lx
-Xv
-Xv
-Xv
+Vx
+Vx
+Vx
 iJ
 ct
 wk
@@ -1964,10 +1933,10 @@ WF
 WF
 WF
 WF
-yb
-Wf
-Rz
-BG
+xV
+AW
+AW
+TR
 Xz
 Ge
 Sm

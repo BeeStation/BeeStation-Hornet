@@ -138,13 +138,13 @@
 /obj/docking_port/mobile{
 	dir = 4;
 	dwidth = 5;
+	faction_type = /datum/faction/station;
 	height = 7;
 	id = "exploration";
 	name = "Exploration Shuttle";
 	port_direction = 8;
 	shuttle_object_type = /datum/orbital_object/shuttle/custom_shuttle;
-	width = 13;
-	faction_type = /datum/faction/station
+	width = 13
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
@@ -162,6 +162,10 @@
 	dir = 9
 	},
 /turf/closed/wall/mineral/titanium/nodiagonal,
+/area/shuttle/exploration)
+"w" = (
+/obj/machinery/computer/locator,
+/turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "x" = (
 /obj/machinery/door/airlock/external/glass,
@@ -405,7 +409,7 @@ p
 "}
 (4,1,1) = {"
 R
-d
+w
 d
 S
 g
