@@ -1,0 +1,2 @@
+sounds generated using the SAM text to speech (https://github.com/discordier/sam) and audacity
+sound bytes were also taken from sound/ai/intern and generic sparking sounds
