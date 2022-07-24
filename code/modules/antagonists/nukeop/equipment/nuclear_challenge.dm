@@ -48,6 +48,9 @@
 	if(!check_allowed(user) || !war_declaration)
 		return
 
+	declare_war()
+
+/obj/item/nuclear_challenge/proc/declare_war()
 	priority_announce(war_declaration, "Declaration of War", 'sound/machines/alarm.ogg',  has_important_message = TRUE)
 
 	play_soundtrack_music(/datum/soundtrack_song/bee/future_perception)
