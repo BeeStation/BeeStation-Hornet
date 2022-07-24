@@ -27,6 +27,7 @@
 
 	//For weapons that are side mounted (None after new sprites, but support is still here.)
 	var/side = WEAPON_SIDE_LEFT
+	var/fire_from_source = TRUE
 	var/directional_offset = 0
 	var/offset_turf_x = 0
 	var/offset_turf_y = 0
@@ -38,6 +39,9 @@
 	//Lower numbers indicate that its weaker, higher are stronger.
 	//Shuttle strength ranges from 0 to 100, the closer this value is to the shuttle strength, the more likely it will be picked
 	var/strength_rating = 0
+
+	//The angle offset to fire projectiles from
+	var/angle_offset = 180
 
 /obj/machinery/shuttle_weapon/Initialize(mapload, ndir = 0)
 	. = ..()
@@ -66,6 +70,8 @@
 	var/offset_value = directional_offset * side
 	offset_turf_x = 0
 	offset_turf_y = 0
+	if(!fire_from_source)
+		return
 	switch(newdir)
 		if(1)
 			if(update_pixel)
@@ -105,7 +111,7 @@
 		var/obj/item/projectile/bullet/shuttle/P = new projectile_type(get_offset_target_turf(get_turf(src), offset_turf_x, offset_turf_y))
 		//Outgoing shots shouldn't hit our own ship because its easier
 		P.force_miss = TRUE
-		P.fire(dir2angle(dir))
+		P.fire(dir2angle(dir) + angle_offset)
 		addtimer(CALLBACK(src, .proc/spawn_incoming_fire, P, current_target_turf, missed), flight_time)
 	//Multishot cannons
 	if(shots_left > 1)

@@ -13,6 +13,7 @@
 	name = "Set target"
 	desc = "Set the weapon's target"
 	panel = ""
+	ranged_mousepointer = 'icons/effects/cult_target.dmi'
 	//Technology don't care about your stupid magic
 	has_action = FALSE
 	clothes_req = FALSE
@@ -24,28 +25,23 @@
 		to_chat(caller, "<span class='warning'>No linked console.</span>")
 		caller.RemoveSpell(/obj/effect/proc_holder/spell/set_weapon_target)
 		return FALSE
-	CHECK_TICK
 	if(..())
 		caller.RemoveSpell(/obj/effect/proc_holder/spell/set_weapon_target)
 		return FALSE
-	CHECK_TICK
 	if(!linked_console.can_interact(caller))
 		to_chat(caller, "<span class='warning'>You are too far away!</span>")
 		caller.RemoveSpell(/obj/effect/proc_holder/spell/set_weapon_target)
 		return FALSE
-	CHECK_TICK
 	if(!cast_check(FALSE, ranged_ability_user))
 		caller.RemoveSpell(/obj/effect/proc_holder/spell/set_weapon_target)
 		return FALSE
-	CHECK_TICK
-	var/turf/T = target
-	if(!istype(T))
-		T = get_turf(target)
+	var/turf/T = get_turf(target)
 	if(!T)
 		caller.RemoveSpell(/obj/effect/proc_holder/spell/set_weapon_target)
 		return FALSE
-	CHECK_TICK
 	to_chat(caller, "<span class='notice'>Weapon targetted.</span>")
+	if(prob(2))
+		caller.say("FIRE!!!!", forced = "Shuttle weapon firing")
 	var/obj/machinery/shuttle_weapon/weapon = linked_console.selected_weapon_system.resolve()
 	caller.log_message("fired [weapon ? "[weapon] " : ""] at [AREACOORD(T)]", LOG_ATTACK, color="purple")
 	log_shuttle_attack("fired [weapon ? "[weapon] " : ""] at [AREACOORD(T)]")
