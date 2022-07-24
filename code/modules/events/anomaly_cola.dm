@@ -15,18 +15,15 @@
 /obj/item/reagent_containers/food/drinks/soda_cans/inf
 	name = "Space Cola INFINITE"
 	desc = "Cola. Probably not from space. Proceed with caution."
-	icon_state = "cola"
+	icon_state = "inf"
 	list_reagents = list()
 
-/obj/item/reagent_containers/food/drinks/soda_cans/inf/Initialize()
+/obj/item/reagent_containers/food/drinks/soda_cans/inf/Initialize(mapload)
 	var/reagents = volume
 	while(reagents)
 		var/newreagent = rand(1, min(reagents, 30))
-
-		var/id = get_random_reagent_id()
-		list_reagents.add_reagent(id, newreagent)
+		list_reagents += list(get_random_reagent_id(CHEMICAL_RNG_FUN) = newreagent)
 		reagents -= newreagent
-
 	. = ..()
 
 /obj/item/reagent_containers/food/drinks/soda_cans/inf/open_soda(mob/user)  // different pop message copy-pasted
