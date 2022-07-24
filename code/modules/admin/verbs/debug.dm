@@ -516,6 +516,8 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		H.equipOutfit(dresscode)
 
 	H.regenerate_icons()
+	if(H.mind)
+		H.mind.roundstart_species = H.dna.species.type
 
 	log_admin("[key_name(usr)] changed the equipment of [key_name(H)] to [dresscode].")
 	message_admins("<span class='adminnotice'>[key_name_admin(usr)] changed the equipment of [ADMIN_LOOKUPFLW(H)] to [dresscode].</span>")

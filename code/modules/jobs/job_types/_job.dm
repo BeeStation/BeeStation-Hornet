@@ -219,6 +219,9 @@
 		announce(H)
 	dormant_disease_check(H)
 
+	if(H.mind)
+		H.mind.roundstart_species = H.dna.species.type
+
 /datum/job/proc/get_access()
 	if(!config)	//Needed for robots.
 		return src.minimal_access.Copy()
@@ -321,19 +324,19 @@
 	if(!J)
 		J = SSjob.GetJob(H.job)
 
-	var/obj/item/card/id/C = H.wear_id
-	if(istype(C))
-		C.access = J.get_access()
-		shuffle_inplace(C.access) // Shuffle access list to make NTNet passkeys less predictable
-		C.registered_name = H.real_name
-		C.assignment = J.title
-		C.set_hud_icon_on_spawn(J.title)
-		C.update_label()
+	var/obj/item/card/id/I = H.wear_id
+	if(istype(I))
+		I.access = J.get_access()
+		shuffle_inplace(I.access) // Shuffle access list to make NTNet passkeys less predictable
+		I.registered_name = H.real_name
+		I.assignment = J.title
+		I.set_hud_icon_on_spawn(J.title)
+		I.update_label()
 		for(var/A in SSeconomy.bank_accounts)
 			var/datum/bank_account/B = A
 			if(B.account_id == H.account_id)
-				C.registered_account = B
-				B.bank_cards += C
+				I.registered_account = B
+				B.bank_cards += I
 				break
 		H.sec_hud_set_ID()
 

@@ -133,6 +133,11 @@
 	if(!permanent && !uses)
 		qdel(src)
 
+	if(M.mind)
+		M.mind.roundstart_species = mob_type
+
+	return M
+
 // Base version - place these on maps/templates.
 /obj/effect/mob_spawn/human
 	mob_type = /mob/living/carbon/human
@@ -179,6 +184,11 @@
 	if(!outfit)
 		outfit = new /datum/outfit
 	return ..()
+
+/obj/effect/mob_spawn/human/create(ckey, name)
+	var/mob/living/M = ..()
+	if(M.mind)
+		M.mind.roundstart_species = mob_type || mob_species
 
 /obj/effect/mob_spawn/human/equip(mob/living/carbon/human/H)
 	if(mob_species)

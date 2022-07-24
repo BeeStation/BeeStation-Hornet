@@ -504,8 +504,10 @@
 		var/mob/dead/observer/C = pick(candidates)
 		to_chat(M, "Your mob has been taken over by a ghost!")
 		message_admins("[key_name_admin(C)] has taken control of ([ADMIN_LOOKUPFLW(M)])")
+		var/species_store = M.mind.roundstart_species
 		M.ghostize(0)
 		M.key = C.key
+		M?.mind.roundstart_species = species_store
 		return TRUE
 	else
 		to_chat(M, "There were no ghosts willing to take control.")

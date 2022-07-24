@@ -260,6 +260,9 @@
 	if(!O)
 		return 0
 
+	if(mind) // It's not good to put this here, but doing it here is quite optimised.
+		mind.roundstart_species = dna.species.type
+
 	return O.equip(src, visualsOnly)
 
 //delete all equipment without dropping anything

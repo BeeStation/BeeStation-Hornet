@@ -460,7 +460,6 @@
 			mind.late_joiner = TRUE
 		mind.active = 0					//we wish to transfer the key manually
 		mind.transfer_to(H)				//won't transfer key since the mind is not active
-		mind.roundstart_species = H.type  //remembers their real species as path.
 	H.name = real_name
 
 	. = H
