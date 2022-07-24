@@ -14,9 +14,11 @@
 
 /obj/item/reagent_containers/food/drinks/soda_cans/inf
 	name = "Space Cola INFINITE"
-	desc = "Cola. Probably not from space. Proceed with caution."
+	desc = "Cola. Probably not from space. Proceed with caution. A no-tamper filter prevents the drink from being drained and resold."
 	icon_state = "inf"
 	list_reagents = list()
+	prevent_grinding = TRUE
+	reagent_flags = AMOUNT_VISIBLE | REFILLABLE  // disables dumping chems into container, you can still fill with dangerous chems for a cool trick
 
 /obj/item/reagent_containers/food/drinks/soda_cans/inf/Initialize(mapload)
 	var/reagents = volume
@@ -39,9 +41,7 @@
 /obj/item/reagent_containers/food/drinks/soda_cans/inf/examine()
 	. = ..()
 	if(reagents && reagents.reagent_list.len)
-		. += "<span class='notice'>The can seems filled with something, but you can't tell what.</span>"
-	else
-		. += "<span class='notice'>The can seems empty.</span>"
+		. += "<span class='notice'>You feel an urge to finish off the drink.</span>"
 
 
 /datum/round_event/infcola/start()
