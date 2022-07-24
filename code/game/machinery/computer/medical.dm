@@ -210,7 +210,7 @@
 		else if(href_list["login"])
 			var/mob/M = usr
 			var/obj/item/card/id/I = M.get_idcard(TRUE)
-			if(issilicon(MACHINE_REAGENT_TRANSFER))
+			if(issilicon(M))
 				active1 = null
 				active2 = null
 				authenticated = 1

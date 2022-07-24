@@ -152,8 +152,3 @@
 		for(var/obj/C in src)
 			C.forceMove(loc)
 	qdel(src)
-
-/obj/machinery/computer/AltClick(mob/user)
-	. = ..()
-	if(!user.canUseTopic(src, !issilicon(user)) || !is_operational())
-		return

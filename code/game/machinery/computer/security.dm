@@ -487,10 +487,9 @@ What a mess.*/
 				var/mob/M = usr
 				var/obj/item/card/id/I = M.get_idcard(TRUE)
 				if(issilicon(M))
-					var/mob/living/silicon/borg = M
 					active1 = null
 					active2 = null
-					authenticated = borg.name
+					authenticated = M.name
 					rank = "AI"
 					screen = 1
 				else if(IsAdminGhost(M))
