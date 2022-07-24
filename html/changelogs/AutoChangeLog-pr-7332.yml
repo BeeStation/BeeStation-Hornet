@@ -1,4 +1,0 @@
-author: Crossedfall
-delete-after: true
-changes:
-  - server: Upgrades the TGUI dependency terser to 5.14.2
