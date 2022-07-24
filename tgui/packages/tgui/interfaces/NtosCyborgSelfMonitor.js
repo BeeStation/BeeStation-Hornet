@@ -128,8 +128,7 @@ export const NtosCyborgSelfMonitorContent = (props, context) => {
                   onChange={(e, value) =>
                     act('lampIntensity', {
                       ref: value,
-                    })
-                  }
+                    })}
                 />
                 Lamp power usage: {lampIntensity / 2} watts
               </Section>
@@ -221,8 +220,8 @@ export const NtosCyborgSelfMonitorContent = (props, context) => {
                         wireAI === 'FAULT'
                           ? 'red'
                           : wireAI === 'READY'
-                          ? 'yellow'
-                          : 'green'
+                            ? 'yellow'
+                            : 'green'
                       }>
                       {wireAI}
                     </LabeledList.Item>
@@ -237,8 +236,8 @@ export const NtosCyborgSelfMonitorContent = (props, context) => {
                         wireCamera === 'FAULT'
                           ? 'red'
                           : wireCamera === 'DISABLED'
-                          ? 'yellow'
-                          : 'green'
+                            ? 'yellow'
+                            : 'green'
                       }>
                       {wireCamera}
                     </LabeledList.Item>
@@ -253,8 +252,8 @@ export const NtosCyborgSelfMonitorContent = (props, context) => {
                         locomotion === 'FAULT'
                           ? 'red'
                           : locomotion === 'DISABLED'
-                          ? 'yellow'
-                          : 'green'
+                            ? 'yellow'
+                            : 'green'
                       }>
                       {locomotion}
                     </LabeledList.Item>
