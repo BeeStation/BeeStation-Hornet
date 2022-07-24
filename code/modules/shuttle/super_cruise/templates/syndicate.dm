@@ -1,5 +1,4 @@
 /datum/map_template/shuttle/supercruise/syndicate
-	prefix = "_maps/shuttles/supercruise/encounters/syndicate/"
 	valid_factions = list(
 		/datum/faction/syndicate,
 		/datum/faction/syndicate/cybersun,
