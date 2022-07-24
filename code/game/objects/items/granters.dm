@@ -396,8 +396,8 @@
 	name = "empty scroll"
 	icon_state = "blankscroll"
 
-/obj/item/book/granter/martial/tribal_claw/already_known(mob/user)
-	if(islizard(user))
+/obj/item/book/granter/martial/tribal_claw/already_known(mob/living/carbon/user)
+	if(islizard(user) && islizard(user?.mind?.roundstart_species)) // only true lizard mind can read this
 		return FALSE
 	else
 		to_chat(user, "<span class='warning'>You try to read the scroll but can't comprehend any of it.</span>")

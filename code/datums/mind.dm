@@ -40,6 +40,7 @@
 
 	var/assigned_role
 	var/special_role
+	var/roundstart_species // this is your origin, regardless of your 'currently mutated' species
 	var/list/restricted_roles = list()
 
 	var/list/spell_list = list() // Wizard mode & "Give Spell" badmin button.
