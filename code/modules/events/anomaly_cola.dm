@@ -22,15 +22,27 @@
 	var/reagents = volume
 	while(reagents)
 		var/newreagent = rand(1, min(reagents, 30))
-		list_reagents += list(get_random_reagent_id(CHEMICAL_RNG_FUN) = newreagent)
+		var/category = CHEMICAL_RNG_GENERAL
+		if(prob(10))
+			category = CHEMICAL_RNG_FUN
+
+		list_reagents += list(get_random_reagent_id(category) = newreagent)
 		reagents -= newreagent
 	. = ..()
 
 /obj/item/reagent_containers/food/drinks/soda_cans/inf/open_soda(mob/user)  // different pop message copy-pasted
-	to_chat(user, "As you pull the tab off \the [src], an indescribable smell fill the air.") //warning
+	to_chat(user, "As you pull the tab off \the [src], an indescribable smell fills the air.") //warning
 	ENABLE_BITFIELD(reagents.flags, OPENCONTAINER)
 	playsound(src, "can_open", 50, 1)
 	spillable = TRUE
+
+/obj/item/reagent_containers/food/drinks/soda_cans/inf/examine()
+	. = ..()
+	if(reagents && reagents.reagent_list.len)
+		. += "<span class='notice'>The can seems filled with something, but you can't tell what.</span>"
+	else
+		. += "<span class='notice'>The can seems empty.</span>"
+
 
 /datum/round_event/infcola/start()
 	for(var/i in 1 to rand(5, 20))  // generates between 5-20 cans
