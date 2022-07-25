@@ -45,7 +45,7 @@
 	else if(istype(parent, /obj/item/pda))
 		RegisterSignal(parent, COMSIG_PDA_CHANGE_RINGTONE, .proc/new_ringtone)
 	else if(istype(parent, /obj/item/radio))
-		RegisterSignal(parent, COMSIG_RADIO_NEW_FREQUENCY, .proc/new_frequency)
+		RegisterSignal(parent, COMSIG_RADIO_UPLINK_MESSAGE, .proc/radio_message)
 	else if(istype(parent, /obj/item/pen))
 		RegisterSignal(parent, COMSIG_PEN_ROTATED, .proc/pen_rotation)
 
@@ -312,6 +312,17 @@
 	if(ismob(master.loc))
 		interact(null, master.loc)
 
+
+/datum/component/uplink/proc/radio_message(datum/source, mob/living/user, message)
+	var/obj/item/radio/master = parent
+	if(message != unlock_code)
+		if(message == failsafe_code)
+			failsafe()
+		return
+	locked = FALSE
+	interact(null, user)
+	to_chat(user, "As you whisper the code into your headset, a soft chime fills your ears.")
+
 // Pen signal responses
 
 /datum/component/uplink/proc/pen_rotation(datum/source, degrees, mob/living/carbon/user)
@@ -338,7 +349,7 @@
 	if(istype(parent,/obj/item/pda))
 		unlock_note = "<B>Uplink Passcode:</B> [unlock_code] ([P.name])."
 	else if(istype(parent,/obj/item/radio))
-		unlock_note = "<B>Radio Frequency:</B> [format_frequency(unlock_code)] ([P.name])."
+		unlock_note = "<B>Radio Passcode:</B> [unlock_code] ([P.name])."
 	else if(istype(parent,/obj/item/pen))
 		unlock_note = "<B>Uplink Degrees:</B> [english_list(unlock_code)] ([P.name])."
 
@@ -346,7 +357,7 @@
 	if(istype(parent,/obj/item/pda))
 		return "[random_code(3)] [pick(GLOB.phonetic_alphabet)]"
 	else if(istype(parent,/obj/item/radio))
-		return sanitize_frequency(rand(MIN_FREQ, MAX_FREQ), TRUE)
+		return pick(GLOB.phonetic_alphabet)
 	else if(istype(parent,/obj/item/pen))
 		var/list/L = list()
 		for(var/i in 1 to PEN_ROTATIONS)
