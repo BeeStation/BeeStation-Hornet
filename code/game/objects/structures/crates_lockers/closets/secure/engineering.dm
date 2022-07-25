@@ -37,6 +37,7 @@
 	new /obj/item/card/id/departmental_budget/eng(src)
 	new /obj/item/storage/bag/construction(src)
 	new /obj/item/construction/rcd/loaded(src)
+	new /obj/item/storage/box/command_keys(src)
 	new /obj/item/rcd_ammo/large(src)
 
 /obj/structure/closet/secure_closet/engineering_electrical

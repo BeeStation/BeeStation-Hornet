@@ -2299,17 +2299,21 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/badass
 	category = "(Pointless) Badassery"
 	surplus = 0
+
+
+/datum/uplink_item/badass/costumes
+	surplus = 0
+	cost = 4
+	cant_discount = TRUE
+	purchasable_from = (UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
+
 /datum/uplink_item/badass/costumes/obvious_chameleon
 	name = "Broken Chameleon Kit"
 	desc = "A set of items that contain chameleon technology allowing you to disguise as pretty much anything on the station, and more! \
 			Please note that this kit did NOT pass quality control."
 	item = /obj/item/storage/box/syndie_kit/chameleon/broken
-
-/datum/uplink_item/badass/costumes
-	surplus = 0
-	purchasable_from = (UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
-	cost = 4
-	cant_discount = TRUE
+	cost = 2
+	purchasable_from = ALL
 
 /datum/uplink_item/badass/costumes/centcom_official
 	name = "CentCom Official Costume"
@@ -2367,6 +2371,15 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 2
 	illegal_tech = FALSE
 
+/datum/uplink_item/badass/toy_box
+	name = "Box of DonkCo. Toys"
+	desc = "A special package box for children who want to have awesome gifts from their parents, full of DonkCo. toys. \
+	Toys inside of the box are totally safe and not harmful, approved by Nanotrasen safety assurance even, that can be said as non-contraband stuff literally. \
+	This package will be special when you're going to present funny toys to your beloved child. Don't ask why the box is red."
+	item = /obj/item/storage/box/syndie_kit/toy_box
+	cost = 2
+	surplus = 0
+
 /datum/uplink_item/implants/deathrattle
 	name = "Box of Deathrattle Implants"
 	desc = "A collection of implants (and one reusable implanter) that should be injected into the team. When one of the team \
@@ -2377,3 +2390,10 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 4
 	surplus = 0
 	purchasable_from = UPLINK_NUKE_OPS
+
+/datum/uplink_item/device_tools/antag_lasso
+	name = "Mindslave Lasso"
+	desc = "A state of the art taming device.\n Use this device to tame almost any animal by lassoing and untying them.\n Tamed animals can be rode & commanded!"
+	item = /obj/item/mob_lasso/antag
+	cost = 3
+	surplus = 0
