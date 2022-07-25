@@ -238,3 +238,39 @@
 		item_state = initial(item_state)
 		lefthand_file = initial(lefthand_file)
 		righthand_file = initial(righthand_file)
+
+
+/*
+ * Screwdriver Pen
+ */
+
+/obj/item/pen/screwdriver
+	var/extended = FALSE
+
+/obj/item/pen/screwdriver/attack_self(mob/living/user)
+	if(extended)
+		extended = FALSE
+		tool_behaviour = initial(tool_behaviour)
+	else
+		extended = TRUE
+		tool_behaviour = TOOL_SCREWDRIVER
+
+/obj/item/pen/screwdriver/attack(mob/living/carbon/M, mob/living/carbon/user)
+	if(!extended)
+		return ..()
+	if(!istype(M))
+		return ..()
+	if(user.zone_selected != BODY_ZONE_PRECISE_EYES && user.zone_selected != BODY_ZONE_HEAD)
+		return ..()
+	if(HAS_TRAIT(user, TRAIT_PACIFISM))
+		to_chat(user, "<span class='warning'>You don't want to harm [M]!</span>")
+		return
+	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
+		M = user
+	return eyestab(M,user)
+
+/obj/item/pen/screwdriver/update_icon()
+	if(extended)
+		icon_state = "pendriver"
+	else
+		icon_state = initial(icon_state)
