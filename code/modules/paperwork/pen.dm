@@ -246,7 +246,8 @@
 
 /obj/item/pen/screwdriver
 	var/extended = FALSE
-	desc = "A pen with an extendable screwdriver tip."
+	desc = "A pen with an extendable screwdriver tip. This one has a yellow cap."
+	icon_state = "pendriver"
 
 /obj/item/pen/screwdriver/attack_self(mob/living/user)
 	if(extended)
@@ -275,6 +276,6 @@
 
 /obj/item/pen/screwdriver/update_icon()
 	if(extended)
-		icon_state = "pendriver"
+		icon_state = "pendriverout"
 	else
 		icon_state = initial(icon_state)
