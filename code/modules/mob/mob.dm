@@ -955,8 +955,12 @@
 	return 1
 
 ///Can the mob interact() with an atom?
-/mob/proc/can_interact_with(atom/A)
-	return IsAdminGhost(src) || Adjacent(A)
+/mob/proc/can_interact_with(atom/A, treat_mob_as_adjacent)
+	if(IsAdminGhost(src))
+		return TRUE
+	if(treat_mob_as_adjacent && src == A.loc)
+		return TRUE
+	return Adjacent(A)
 
 ///Can the mob use Topic to interact with machines
 /mob/proc/canUseTopic(atom/movable/M, be_close=FALSE, no_dextery=FALSE, no_tk=FALSE)

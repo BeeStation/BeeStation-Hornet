@@ -13,6 +13,8 @@
 	slot_flags = ITEM_SLOT_ID | ITEM_SLOT_BELT
 	has_light = TRUE //LED flashlight!
 	comp_light_luminosity = 2.3 //Same as the PDA
+	interaction_flags_atom = INTERACT_ATOM_ALLOW_USER_LOCATION
+
 	var/has_variants = TRUE
 	var/finish_color = null
 
