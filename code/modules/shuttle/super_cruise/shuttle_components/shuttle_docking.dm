@@ -166,13 +166,14 @@
 		my_port = null
 
 	if(!my_port)
+		var/list/bounds = shuttle_port.return_union_bounds(shuttle_port.get_all_towed_shuttles())
 		my_port = new()
 		my_port.name = shuttlePortName
 		my_port.id = shuttlePortId
-		my_port.height = shuttle_port.height
-		my_port.width = shuttle_port.width
-		my_port.dheight = shuttle_port.dheight
-		my_port.dwidth = shuttle_port.dwidth
+		my_port.dwidth = bounds[1]
+		my_port.dheight = bounds[2]
+		my_port.width = bounds[3]
+		my_port.height = bounds[4]
 		my_port.hidden = shuttle_port.hidden
 		my_port.delete_after = TRUE
 	my_port.setDir(the_eye.dir)

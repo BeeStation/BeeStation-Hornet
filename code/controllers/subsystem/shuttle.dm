@@ -443,13 +443,16 @@ SUBSYSTEM_DEF(shuttle)
 
 	// Shuttles travelling on their side have their dimensions swapped
 	// from our perspective
+	var/list/union_coords = M.return_union_coords(M.get_all_towed_shuttles())
+	var/M_width = union_coords[3] - union_coords[1]
+	var/M_height = union_coords[4] - union_coords[2]
 	switch(dock_dir)
 		if(NORTH, SOUTH)
-			transit_width += M.width
-			transit_height += M.height
+			transit_width += M_width
+			transit_height += M_height
 		if(EAST, WEST)
-			transit_width += M.height
-			transit_height += M.width
+			transit_width += M_height
+			transit_height += M_width
 
 /*
 	to_chat(world, "The attempted transit dock will be [transit_width] width, and \)
