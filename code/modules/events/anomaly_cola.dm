@@ -26,9 +26,7 @@
 	var/reagents = volume - COLA_AMT
 	while(reagents)
 		var/newreagent = rand(1, min(reagents, 30))
-		var/category = CHEMICAL_RNG_GENERAL
-		if(prob(10))
-			category = CHEMICAL_RNG_FUN
+		var/category = prob(10) ? CHEMICAL_RNG_FUN : CHEMICAL_RNG_GENERAL
 
 		list_reagents += list(get_random_reagent_id(category) = newreagent)
 		reagents -= newreagent
