@@ -248,6 +248,7 @@
 	var/extended = FALSE
 	desc = "A pen with an extendable screwdriver tip. This one has a yellow cap."
 	icon_state = "pendriver"
+	toolspeed = 1.10  // gotta have some downside
 
 /obj/item/pen/screwdriver/attack_self(mob/living/user)
 	if(extended)
@@ -277,5 +278,13 @@
 /obj/item/pen/screwdriver/update_icon()
 	if(extended)
 		icon_state = "pendriverout"
+		force = 5  // copies force from screwdriver
+		throwforce = 5
+		throw_speed = 3
+		throw_range = 5
 	else
 		icon_state = initial(icon_state)
+		force = initial(force)
+		throwforce = initial(throwforce)
+		throw_speed = initial(throw_speed)
+		throw_range = initial(throw_range)
