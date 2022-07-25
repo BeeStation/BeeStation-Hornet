@@ -246,14 +246,18 @@
 
 /obj/item/pen/screwdriver
 	var/extended = FALSE
+	desc = "A pen with an extendable screwdriver tip."
 
 /obj/item/pen/screwdriver/attack_self(mob/living/user)
 	if(extended)
 		extended = FALSE
 		tool_behaviour = initial(tool_behaviour)
+		to_chat(user, "You retract the screwdriver.")
 	else
 		extended = TRUE
 		tool_behaviour = TOOL_SCREWDRIVER
+		to_chat(user, "You extend the screwdriver.")
+	update_icon()
 
 /obj/item/pen/screwdriver/attack(mob/living/carbon/M, mob/living/carbon/user)
 	if(!extended)
