@@ -1,0 +1,4 @@
+author: itsmeow
+delete-after: true
+changes:
+  - bugfix: Can buckle people to stuff again
