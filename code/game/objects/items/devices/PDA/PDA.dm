@@ -969,7 +969,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 
 	else if(istype(C, /obj/item/card/id))
 		var/obj/item/card/id/idcard = C
-		if(!idcard.registered_name)
+		if(!idcard.registered_name || istype(idcard, /obj/item/card/id/syndicate/broken)) // also rejects a broken chameleon
 			to_chat(user, "<span class='warning'>\The [src] rejects the ID!</span>")
 			if(!silent)
 				playsound(src, 'sound/machines/terminal_error.ogg', 50, TRUE)

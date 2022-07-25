@@ -10,7 +10,9 @@
 	suit_store = /obj/item/tank/internals/oxygen
 	internals_slot = ITEM_SLOT_SUITSTORE
 	glasses = /obj/item/clothing/glasses/hud/debug
-	ears = /obj/item/radio/headset/headset_cent/commander
+	ears = /obj/item/radio/headset/headset_cent/alt{
+		keyslot = new /obj/item/encryptionkey/debug
+	}
 	box = /obj/item/storage/box/debugtools
 	back = /obj/item/storage/backpack/holding
 	backpack_contents = list(/obj/item/gun/magic/wand/resurrection/debug=1,\
