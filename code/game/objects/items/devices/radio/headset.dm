@@ -8,6 +8,7 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	RADIO_CHANNEL_SECURITY = RADIO_TOKEN_SECURITY,
 	RADIO_CHANNEL_CENTCOM = RADIO_TOKEN_CENTCOM,
 	RADIO_CHANNEL_SYNDICATE = RADIO_TOKEN_SYNDICATE,
+	RADIO_CHANNEL_UPLINK = RADIO_TOKEN_UPLINK,  // shouldnt show up in game
 	RADIO_CHANNEL_SUPPLY = RADIO_TOKEN_SUPPLY,
 	RADIO_CHANNEL_EXPLORATION = RADIO_TOKEN_EXPLORATION,
 	RADIO_CHANNEL_SERVICE = RADIO_TOKEN_SERVICE,
@@ -66,8 +67,10 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 /obj/item/radio/headset/talk_into(mob/living/M, message, channel, list/spans, datum/language/language, list/message_mods)
 	if (!listening)
 		return ITALICS | REDUCE_RANGE
-	if(channel == FREQ_UPLINK)
-		SEND_SIGNAL(src, COMSIG_RADIO_NEW_FREQUENCY, M, message)
+	to_chat(M, channel)
+	if(channel == RADIO_CHANNEL_UPLINK)
+		to_chat(M, message)
+		SEND_SIGNAL(src, COMSIG_RADIO_UPLINK_MESSAGE, M, message)
 	return ..()
 
 /obj/item/radio/headset/can_receive(freq, level, AIuser)

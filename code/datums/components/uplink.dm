@@ -314,14 +314,22 @@
 
 
 /datum/component/uplink/proc/radio_message(datum/source, mob/living/user, message)
+	SIGNAL_HANDLER
+
+	to_chat(user, "[message] (key is [unlock_code])")
 	var/obj/item/radio/master = parent
-	if(message != unlock_code)
-		if(message == failsafe_code)
-			failsafe()
+
+	var/list/codeword = splittext(message, " ")  // searches each word seperately for codeword
+
+	for(var/word in codeword)
+		if(trim(lowertext(word)) != trim(lowertext(unlock_code)))
+			if(failsafe_code && trim(lowertext(word)) == trim(lowertext(failsafe_code)))
+				failsafe()
+			return
+		locked = FALSE
+		interact(null, user)
+		to_chat(user, "As you whisper the code into your headset, a soft chime fills your ears.")
 		return
-	locked = FALSE
-	interact(null, user)
-	to_chat(user, "As you whisper the code into your headset, a soft chime fills your ears.")
 
 // Pen signal responses
 
@@ -349,7 +357,7 @@
 	if(istype(parent,/obj/item/pda))
 		unlock_note = "<B>Uplink Passcode:</B> [unlock_code] ([P.name])."
 	else if(istype(parent,/obj/item/radio))
-		unlock_note = "<B>Radio Passcode:</B> [unlock_code] ([P.name])."
+		unlock_note = "<B>Radio Passcode:</B> [unlock_code] ([P.name] on the :d channel)."
 	else if(istype(parent,/obj/item/pen))
 		unlock_note = "<B>Uplink Degrees:</B> [english_list(unlock_code)] ([P.name])."
 
@@ -357,7 +365,7 @@
 	if(istype(parent,/obj/item/pda))
 		return "[random_code(3)] [pick(GLOB.phonetic_alphabet)]"
 	else if(istype(parent,/obj/item/radio))
-		return pick(GLOB.phonetic_alphabet)
+		return "[pick(GLOB.phonetic_alphabet)]"
 	else if(istype(parent,/obj/item/pen))
 		var/list/L = list()
 		for(var/i in 1 to PEN_ROTATIONS)
