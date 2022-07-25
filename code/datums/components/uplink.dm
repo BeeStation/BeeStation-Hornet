@@ -316,14 +316,13 @@
 /datum/component/uplink/proc/radio_message(datum/source, mob/living/user, message)
 	SIGNAL_HANDLER
 
-	to_chat(user, "[message] (key is [unlock_code])")
-	var/obj/item/radio/master = parent
-
 	var/list/codeword = splittext(message, " ")  // searches each word seperately for codeword
 
 	for(var/word in codeword)
-		if(trim(lowertext(word)) != trim(lowertext(unlock_code)))
-			if(failsafe_code && trim(lowertext(word)) == trim(lowertext(failsafe_code)))
+		word = lowertext(replacetext(word, ".", ""))  // the pesky proper punctuation
+
+		if(trim(word) != trim(lowertext(unlock_code)))
+			if(failsafe_code && trim(word) == trim(lowertext(failsafe_code)))
 				failsafe()
 			return
 		locked = FALSE
