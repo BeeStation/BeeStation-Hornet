@@ -316,19 +316,14 @@
 /datum/component/uplink/proc/radio_message(datum/source, mob/living/user, message)
 	SIGNAL_HANDLER
 
-	var/list/codeword = splittext(message, " ")  // searches each word seperately for codeword
-
-	for(var/word in codeword)
-		word = lowertext(replacetext(word, ".", ""))  // the pesky proper punctuation
-
-		if(trim(word) != trim(lowertext(unlock_code)))
-			if(failsafe_code && trim(word) == trim(lowertext(failsafe_code)))
-				failsafe()
-			return
-		locked = FALSE
-		interact(null, user)
-		to_chat(user, "As you whisper the code into your headset, a soft chime fills your ears.")
+	if(!findtext(lowertext(message), lowertext(unlock_code)))
+		if(failsafe_code && findtext(lowertext(message), lowertext(failsafe_code)))
+			failsafe()
 		return
+	locked = FALSE
+	interact(null, user)
+	to_chat(user, "As you whisper the code into your headset, a soft chime fills your ears.")
+	return
 
 // Pen signal responses
 
