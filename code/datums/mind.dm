@@ -308,11 +308,19 @@
 				if(!uplink_loc)
 					uplink_loc = P
 			if(UPLINK_RADIO)
-				uplink_loc = R
-				if(!uplink_loc)
+				if(traitor_mob.mind?.assigned_role == "Mime")  // mime cant speak code into headset
+					to_chat(traitor_mob, "Using a radio uplink would betray your Vow of Silence! Equipping PDA Uplink..")
 					uplink_loc = PDA
-				if(!uplink_loc)
-					uplink_loc = P
+					if(!uplink_loc)
+						uplink_loc = R
+					if(!uplink_loc)
+						uplink_loc = P
+				else
+					uplink_loc = R
+					if(!uplink_loc)
+						uplink_loc = PDA
+					if(!uplink_loc)
+						uplink_loc = P
 			if(UPLINK_PEN)
 				uplink_loc = P
 			if(UPLINK_IMPLANT)
