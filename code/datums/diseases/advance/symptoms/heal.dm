@@ -18,8 +18,6 @@
 /datum/symptom/heal/Start(datum/disease/advance/A)
 	if(!..())
 		return FALSE
-	if(A.stage_rate >= 6) //stronger healing
-		power = 2
 	return TRUE //For super calls of subclasses
 
 /datum/symptom/heal/Activate(datum/disease/advance/A)
