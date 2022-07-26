@@ -10,7 +10,6 @@ Assistant
 	spawn_positions = 5
 	supervisors = "absolutely everyone"
 	selection_color = "#dddddd"
-	chat_color = "#bdbdbd"
 	access = list()			//See /datum/job/assistant/get_access()
 	minimal_access = list()	//See /datum/job/assistant/get_access()
 	outfit = /datum/outfit/job/assistant
@@ -48,3 +47,7 @@ Assistant
 			uniform = /obj/item/clothing/under/color/random
 		else
 			uniform = /obj/item/clothing/under/color/jumpskirt/random
+
+/datum/outfit/job/assistant
+	name = "Assistant"
+	id = /obj/item/card/id/job/assistant

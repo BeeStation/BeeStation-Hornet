@@ -142,7 +142,7 @@
 	name = "Cryoxadone"
 	description = "A chemical mixture with almost magical healing powers. Its main limitation is that the patient's body temperature must be under 270K for it to metabolise correctly."
 	color = "#0000C8"
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	taste_description = "blue"
 
 /datum/reagent/medicine/cryoxadone/on_mob_life(mob/living/carbon/M)
@@ -963,9 +963,27 @@
 	color = "#A0A0A0" //mannitol is light grey, neurine is lighter grey"
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_CHEMIST_BLOODSTREAM | CHEMICAL_GOAL_BOTANIST_HARVEST
 
-/datum/reagent/medicine/mannitol/on_mob_life(mob/living/carbon/C)
-	C.adjustOrganLoss(ORGAN_SLOT_BRAIN, -2*REM)
+/datum/reagent/medicine/mannitol/on_mob_add(mob/living/carbon/C)
+	if(HAS_TRAIT(C, TRAIT_BRAIN_TUMOR))
+		overdose_threshold = 35 // special overdose to brain tumor quirker
 	..()
+
+
+/datum/reagent/medicine/mannitol/on_mob_life(mob/living/carbon/C)
+	if(HAS_TRAIT(C, TRAIT_BRAIN_TUMOR)) // to brain tumor quirker
+		SEND_SIGNAL(C, COMSIG_ADD_MOOD_EVENT, "brain_tumor", /datum/mood_event/brain_tumor_mannitol)
+		if(!overdosed)
+			C.adjustOrganLoss(ORGAN_SLOT_BRAIN, -0.5*REM)
+	else // to ordinary people
+		C.adjustOrganLoss(ORGAN_SLOT_BRAIN, -2*REM)
+	..()
+
+/datum/reagent/medicine/mannitol/overdose_process(mob/living/carbon/C)
+	if(HAS_TRAIT(C, TRAIT_BRAIN_TUMOR))
+		if(prob(10))
+			C.adjustOrganLoss(ORGAN_SLOT_BRAIN, -0.1*REM)
+	..()
+
 
 /datum/reagent/medicine/neurine
 	name = "Neurine"
