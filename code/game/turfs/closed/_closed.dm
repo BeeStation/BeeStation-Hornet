@@ -77,7 +77,7 @@ INITIALIZE_IMMEDIATE(/turf/closed/indestructible/splashscreen)
 				SStitle.icon = icon
 
 /turf/closed/indestructible/splashscreen/examine(mob/user)
-	desc = pick(world.file2list("strings/splash_examine.txt"))
+	desc = pick(strings(SPLASH_DESC_FILE, "splashes"))
 	. = ..()
 
 /turf/closed/indestructible/riveted
