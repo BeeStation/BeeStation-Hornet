@@ -291,8 +291,9 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	return ..(freq, level, TRUE)
 
 /obj/item/radio/headset/clown
-	name = "Clown's Radio"
-	desc = "Automatic clowning filter, honk!"
+	name = "Clowning Headset"
+	desc = "A headset with a clowning filter, honk!"
+	icon_state = "honk_headset"
 	var/honken = TRUE
 
 /obj/item/radio/headset/clown/talk_into_impl(atom/movable/M, message, channel, list/spans, datum/language/language, list/message_mods)
