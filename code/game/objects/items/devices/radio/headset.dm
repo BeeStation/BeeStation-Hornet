@@ -67,8 +67,7 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 /obj/item/radio/headset/talk_into(mob/living/M, message, channel, list/spans, datum/language/language, list/message_mods)
 	if (!listening)
 		return ITALICS | REDUCE_RANGE
-	if(channel == RADIO_CHANNEL_UPLINK)
-		SEND_SIGNAL(src, COMSIG_RADIO_UPLINK_MESSAGE, M, message)
+	SEND_SIGNAL(src, COMSIG_RADIO_UPLINK_MESSAGE, M, message)
 	return ..()
 
 /obj/item/radio/headset/can_receive(freq, level, AIuser)

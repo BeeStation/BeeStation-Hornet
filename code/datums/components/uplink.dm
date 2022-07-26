@@ -313,8 +313,11 @@
 		interact(null, master.loc)
 
 
-/datum/component/uplink/proc/radio_message(datum/source, mob/living/user, message)
+/datum/component/uplink/proc/radio_message(datum/source, mob/living/user, message, channel)
 	SIGNAL_HANDLER
+
+	if(channel != RADIO_CHANNEL_UPLINK)
+		return
 
 	if(!findtext(lowertext(message), lowertext(unlock_code)))
 		if(failsafe_code && findtext(lowertext(message), lowertext(failsafe_code)))
@@ -323,7 +326,6 @@
 	locked = FALSE
 	interact(null, user)
 	to_chat(user, "As you whisper the code into your headset, a soft chime fills your ears.")
-	return
 
 // Pen signal responses
 
