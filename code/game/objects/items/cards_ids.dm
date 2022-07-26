@@ -721,7 +721,7 @@ update_label("John Doe", "Clowny")
 		name = "[(!newname)	? "paper slip identifier": "[newname]'s paper slip"]"
 		return
 
-	name = "[(!registered_name)	? "paper slip identifier": "[registered_name]'s paper slip (presumably)"]"
+	name = "[(!registered_name)	? "paper slip identifier": "[registered_name]'s paper slip"]"
 
 /obj/item/card/id/set_hud_icon_on_spawn(jobname)
 	return
