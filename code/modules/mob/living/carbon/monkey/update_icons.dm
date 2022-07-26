@@ -75,3 +75,28 @@
 	if(client && hud_used && hud_used.hud_shown)
 		I.screen_loc = ui_monkey_back
 		client.screen += I
+
+/* --------------------------------------- */
+//vvvvvv UPDATE_INV PROCS vvvvvv
+
+/mob/living/carbon/monkey/update_inv_w_uniform()
+	remove_overlay(UNIFORM_LAYER)
+
+	if(client && hud_used)
+		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_ICLOTHING) + 1]
+		inv.update_icon()
+
+	if(istype(w_uniform, /obj/item/clothing/under))
+		var/obj/item/clothing/under/U = w_uniform
+		U.screen_loc = ui_iclothing
+		if(client && hud_used?.hud_shown && hud_used.inventory_shown)
+			client.screen += w_uniform
+
+		var/icon/uniform_overlay = new(U.monkey_icon)
+		var/mutable_appearance/overlay = new()
+		overlay.icon = uniform_overlay
+		overlay.layer = UNIFORM_LAYER
+
+		overlays_standing[UNIFORM_LAYER] = overlay
+
+	apply_overlay(UNIFORM_LAYER)

@@ -15,6 +15,8 @@
 	var/obj/item/clothing/accessory/attached_accessory
 	var/mutable_appearance/accessory_overlay
 	var/freshly_laundered = FALSE
+	///Icon for monkey clothing
+	var/icon/monkey_icon
 
 /obj/item/clothing/under/worn_overlays(mutable_appearance/standing, isinhands = FALSE)
 	. = list()
@@ -48,6 +50,7 @@
 
 /obj/item/clothing/under/Initialize(mapload)
 	. = ..()
+	compile_monkey_icon()
 	var/new_sensor_mode = sensor_mode
 	sensor_mode = SENSOR_NOT_SET
 	if(random_sensor)
@@ -77,7 +80,7 @@
 		if(!alt_covers_chest)
 			body_parts_covered |= CHEST
 
-	if(ishuman(user))
+	if(ishuman(user) || ismonkey(user))
 		var/mob/living/carbon/human/H = user
 		H.update_inv_w_uniform()
 	if(slot == ITEM_SLOT_ICLOTHING)
@@ -101,7 +104,7 @@
 		if(ishuman(H) && attached_accessory.above_suit)
 			H.update_inv_wear_suit()
 
-	if(ishuman(H))
+	if(ishuman(H) || ismonkey(H))
 		if(H.w_uniform == src)
 			if(!HAS_TRAIT(user, TRAIT_SUIT_SENSORS))
 				return
@@ -138,6 +141,9 @@
 				var/mob/living/carbon/human/H = loc
 				H.update_inv_w_uniform()
 				H.update_inv_wear_suit()
+			if(ismonkey(loc))
+				var/mob/living/carbon/monkey/H = loc
+				H.update_inv_w_uniform()
 
 			return TRUE
 
@@ -159,6 +165,9 @@
 			var/mob/living/carbon/human/H = loc
 			H.update_inv_w_uniform()
 			H.update_inv_wear_suit()
+		if(ismonkey(loc))
+			var/mob/living/carbon/monkey/H = loc
+			H.update_inv_w_uniform()
 
 //Adds or removes mob from suit sensor global list
 /obj/item/clothing/under/proc/update_sensors(new_mode, forced = FALSE)
@@ -206,3 +215,11 @@
 
 /obj/item/clothing/under/rank
 	dying_key = DYE_REGISTRY_UNDER
+
+///Proc used to compile icon for monkey clothing
+/obj/item/clothing/under/proc/compile_monkey_icon()
+	var/icon/base = new('icons/mob/clothing/uniform.dmi', icon_state)
+	base.Shift(SOUTH, 2)
+	var/icon/mask = new('icons/mob/monkey.dmi', "monkey_mask_cloth")
+	base.AddAlphaMask(mask)
+	monkey_icon = base

@@ -20,6 +20,8 @@
 	mobchatspan = "monkeyhive"
 	ai_controller = /datum/ai_controller/monkey
 	faction = list("neutral", "monkey")
+	///Item reference for jumpsuit
+	var/obj/item/clothing/w_uniform = null
 
 GLOBAL_LIST_INIT(strippable_monkey_items, create_strippable_list(list(
 	/datum/strippable_item/hand/left,
@@ -28,6 +30,7 @@ GLOBAL_LIST_INIT(strippable_monkey_items, create_strippable_list(list(
 	/datum/strippable_item/mob_item_slot/legcuffs,
 	/datum/strippable_item/mob_item_slot/head,
 	/datum/strippable_item/mob_item_slot/back,
+	/datum/strippable_item/mob_item_slot/jumpsuit,
 	/datum/strippable_item/mob_item_slot/mask,
 	/datum/strippable_item/mob_item_slot/neck
 )))
