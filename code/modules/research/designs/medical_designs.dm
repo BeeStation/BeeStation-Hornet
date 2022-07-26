@@ -24,6 +24,16 @@
 	category = list("Control Interfaces", "Medical Designs")
 	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL | DEPARTMENTAL_FLAG_SCIENCE
 
+/datum/design/honkbox  // not sure if this is the proper place but close enoguh
+	name = "Clown Voicebox"
+	desc = "The latest in clownage tech!"
+	id = "honkbox"
+	build_type = PROTOLATHE | MECHFAB
+	materials = list(/datum/material/iron = 1500, /datum/material/copper = 500)
+	construction_time = 75
+	build_path = /obj/item/organ/tongue/honk
+	category = list("Medical Designs", "IPC Components")
+
 /datum/design/bluespacebeaker
 	name = "Bluespace Beaker"
 	desc = "A bluespace beaker, powered by experimental bluespace technology and Element Cuban combined with the Compound Pete. Can hold up to 300 units."
