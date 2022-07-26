@@ -32430,7 +32430,7 @@
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
 "hsh" = (
-/obj/effect/landmark/start/ai,
+/obj/effect/landmark/start/ai/main,
 /obj/item/radio/intercom{
 	broadcasting = 1;
 	frequency = 1447;

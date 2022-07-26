@@ -71151,7 +71151,7 @@
 	pixel_x = 28;
 	pixel_y = 6
 	},
-/obj/effect/landmark/start/ai,
+/obj/effect/landmark/start/ai/main,
 /obj/machinery/button/door{
 	id = "AI Core shutters";
 	name = "AI Core Shutters Toggle";

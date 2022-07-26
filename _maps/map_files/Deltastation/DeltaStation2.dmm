@@ -28487,7 +28487,7 @@
 	pixel_y = -23;
 	req_access_txt = "16"
 	},
-/obj/effect/landmark/start/ai,
+/obj/effect/landmark/start/ai/main,
 /turf/open/floor/circuit/green,
 /area/ai_monitored/turret_protected/ai)
 "bFU" = (

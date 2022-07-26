@@ -77748,7 +77748,7 @@
 /turf/open/floor/plasteel,
 /area/security/brig)
 "wrS" = (
-/obj/effect/landmark/start/ai,
+/obj/effect/landmark/start/ai/main,
 /obj/item/radio/intercom{
 	pixel_x = -28;
 	pixel_y = 4
