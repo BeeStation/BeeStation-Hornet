@@ -1,0 +1,4 @@
+author: Miliviu
+delete-after: true
+changes:
+  - bugfix: fixes changelings getting stucked in the stasis while being Monkeys
