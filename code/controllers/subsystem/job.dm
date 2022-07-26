@@ -268,11 +268,24 @@ SUBSYSTEM_DEF(job)
 	//Setup new player list and get the jobs list
 	JobDebug("Running DO")
 
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_ROUNDSTART_AI))
+		for(var/datum/job/ai/A in occupations)
+			A.spawn_positions = 1
+			A.total_positions = 1
+		for(var/obj/effect/landmark/start/ai/main/M in GLOB.start_landmarks_list)	//copypasta? yes.
+			M.latejoin_active = TRUE
+
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_MORE_BORGS))
+		for(var/datum/job/cyborg/C in occupations)
+			C.spawn_positions += 2
+			C.total_positions += 2
+
 	//Holder for Triumvirate is stored in the SSticker, this just processes it
 	if(SSticker.triai)
 		for(var/datum/job/ai/A in occupations)
 			A.spawn_positions = 3
-		for(var/obj/effect/landmark/start/ai/secondary/S in GLOB.start_landmarks_list)
+			A.total_positions = 3	//otherwise the next two lines don't really make any sense
+		for(var/obj/effect/landmark/start/ai/S in GLOB.start_landmarks_list)
 			S.latejoin_active = TRUE
 
 	//Get the players who are ready
