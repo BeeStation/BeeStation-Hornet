@@ -223,10 +223,11 @@
 	description = "<span class='nicegreen'>I'M SO HECKIN CUTE OMIGOSH!</span>\n"
 	mood_change = 5
 
-/datum/mood_event/eternalbloom
-	description = "<span class='nicegreen'>This plant is so gorgeous... Eternally blooming...</span>\n"
-	mood_change = 1
-	timeout = 5 MINUTES
+/datum/mood_event/brain_tumor_mannitol
+	description = "<span class='nicegreen'>Mannitol makes my brain calm down.</span>\n"
+	mood_change = 0
+	timeout = 30 SECONDS
 
-/datum/mood_event/eternalbloom/add_effects(plant)
-	description = "<span class='nicegreen'>[plant] is so gorgeous... Eternally blooming...</span>\n"
+/datum/mood_event/brain_tumor_mannitol/New(mob/M, param)
+	timeout = rand(30,60) SECONDS // makes the timing unreliable on your mood
+	..()
