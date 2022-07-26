@@ -7,8 +7,6 @@
 	icon_keyboard = "med_key"
 	req_one_access = list(ACCESS_MEDICAL, ACCESS_FORENSICS_LOCKERS)
 	circuit = /obj/item/circuitboard/computer/med_data
-	var/obj/item/card/id/scan = null
-	var/authenticated = null
 	var/rank = null
 	var/screen = null
 	var/datum/data/record/active1
@@ -25,24 +23,16 @@
 /obj/machinery/computer/med_data/syndie
 	icon_keyboard = "syndie_key"
 
-/obj/machinery/computer/med_data/attackby(obj/item/O, mob/user, params)
-	if(istype(O, /obj/item/card/id) && !scan)
-		if(!user.transferItemToLoc(O, src))
-			return
-		scan = O
-		to_chat(user, "<span class='notice'>You insert [O].</span>")
-	else
-		return ..()
-
 /obj/machinery/computer/med_data/ui_interact(mob/user)
 	. = ..()
+	if(isliving(user))
+		playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
 	var/dat
 	if(temp)
 		dat = text("<TT>[temp]</TT><BR><BR><A href='?src=[REF(src)];temp=1'>Clear Screen</A>")
 	else
-		dat = text("Confirm Identity: <A href='?src=[REF(src)];scan=1'>[]</A><HR>", (src.scan ? text("[]", src.scan.name) : "----------"))
-		if(src.authenticated)
-			switch(src.screen)
+		if(authenticated)
+			switch(screen)
 				if(1)
 					dat += {"
 <A href='?src=[REF(src)];search=1'>Search Records</A>
@@ -199,16 +189,6 @@
 		usr.set_machine(src)
 		if(href_list["temp"])
 			src.temp = null
-		if(href_list["scan"])
-			if(src.scan)
-				usr.put_in_hands(scan)
-				scan = null
-			else
-				var/obj/item/I = usr.is_holding_item_of_type(/obj/item/card/id)
-				if(I)
-					if(!usr.transferItemToLoc(I, src))
-						return
-					src.scan = I
 		else if(href_list["logout"])
 			src.authenticated = null
 			src.screen = null
@@ -228,25 +208,29 @@
 					sortBy = href_list["sort"]
 					order = initial(order)
 		else if(href_list["login"])
-			if(issilicon(usr))
-				src.active1 = null
-				src.active2 = null
-				src.authenticated = 1
-				src.rank = "AI"
-				src.screen = 1
-			else if(IsAdminGhost(usr))
-				src.active1 = null
-				src.active2 = null
-				src.authenticated = 1
-				src.rank = "Central Command"
-				src.screen = 1
-			else if(istype(src.scan, /obj/item/card/id))
-				src.active1 = null
-				src.active2 = null
-				if(src.check_access(src.scan))
-					src.authenticated = src.scan.registered_name
-					src.rank = src.scan.assignment
-					src.screen = 1
+			var/mob/M = usr
+			var/obj/item/card/id/I = M.get_idcard(TRUE)
+			if(issilicon(M))
+				active1 = null
+				active2 = null
+				authenticated = 1
+				rank = "AI"
+				screen = 1
+			else if(IsAdminGhost(M))
+				active1 = null
+				active2 = null
+				authenticated = 1
+				rank = "Central Command"
+				screen = 1
+			else if(istype(I) && check_access(I))
+				active1 = null
+				active2 = null
+				authenticated = I.registered_name
+				rank = I.assignment
+				screen = 1
+			else
+				to_chat(usr, "<span class='danger'>Unauthorized access.</span>")
+			playsound(src, 'sound/machines/terminal_on.ogg', 50, FALSE)
 		if(src.authenticated)
 
 			if(href_list["screen"])
