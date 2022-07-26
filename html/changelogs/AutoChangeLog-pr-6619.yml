@@ -1,9 +1,0 @@
-author: zeskorion
-delete-after: true
-changes:
-  - rscdel: advanced diseases can no longer have airborne spread
-  - balance: Disease transmission has been changed, check the wiki
-  - tweak: simple diseases now spread less frequently
-  - tweak: sneezing and coughing now spread viruses again, at a transmission threshold
-  - tweak: virus symptoms that spread viruses now have a warning before spreading
-      the virus, allowing perceptive players to back away in time
