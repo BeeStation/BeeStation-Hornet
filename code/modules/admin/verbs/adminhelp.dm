@@ -681,7 +681,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 		status = "Resolved - IC Issue",
 		message = "An administrator has handled your ticket and has determined that the issue you are facing is an in-character issue and does not require administrator intervention at this time.<br />\
 		For further resolution, you should pursue options that are in character, such as filing a report with security or a head of staff.<br>\
-		Thank you for creating a ticket, the adminhelp verb will be returned to you shortly.<br />\")
+		Thank you for creating a ticket, the adminhelp verb will be returned to you shortly.<br />")
 
 	if(!bwoink)
 		discordsendmsg("ahelp", "Ticket #[id] marked as IC by [key_name(usr, include_link=0)]")
