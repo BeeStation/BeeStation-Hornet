@@ -37,16 +37,17 @@
 	user.regenerate_organs()
 
 /datum/action/changeling/fakedeath/proc/ready_to_regenerate(datum/mind/mind)
-	if(mind && ishuman(mind.current))
-		var/datum/antagonist/changeling/C = mind.has_antag_datum(/datum/antagonist/changeling)
-		if(C?.purchasedpowers)
-			to_chat(mind.current, "<span class='notice'>We are ready to revive.</span>")
-			name = "Revive"
-			desc = "We arise once more."
-			button_icon_state = "revive"
-			UpdateButtonIcon()
-			chemical_cost = 0
-			revive_ready = TRUE
+	if(!mind || !iscarbon(mind.current))
+		return
+	var/datum/antagonist/changeling/C = mind.has_antag_datum(/datum/antagonist/changeling)
+	if(C?.purchasedpowers)
+		to_chat(mind.current, "<span class='notice'>We are ready to revive.</span>")
+		name = "Revive"
+		desc = "We arise once more."
+		button_icon_state = "revive"
+		UpdateButtonIcon()
+		chemical_cost = 0
+		revive_ready = TRUE
 
 /datum/action/changeling/fakedeath/can_sting(mob/living/user)
 	if(HAS_TRAIT(user, TRAIT_HUSK))
