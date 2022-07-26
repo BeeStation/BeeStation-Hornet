@@ -200,6 +200,9 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 	var/primary_ai = TRUE
 	var/latejoin_active = TRUE
 
+/obj/effect/landmark/start/ai/main
+	latejoin_active = FALSE	//the empty core has a lot of flavortext about late joining. If we get an AI, this will be changed in SSjobs.
+
 /obj/effect/landmark/start/ai/after_round_start()
 	if(latejoin_active && !used)
 		new /obj/structure/AIcore/latejoin_inactive(loc)
