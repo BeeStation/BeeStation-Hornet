@@ -240,9 +240,9 @@
 	right.AddAlphaMask(right_mask)
 
 	left.Blend(right, ICON_OVERLAY)
-	base.Blend(left, ICON_OVERLAY)
+	base = new(left) //Ubuttoned effect for fat fucking monkies
 
-	//Again for back
+	//Again for the back
 	left = new(back)
 	left.Shift(WEST, 2)
 	left.AddAlphaMask(left_mask)
@@ -252,7 +252,16 @@
 	right.AddAlphaMask(right_mask)
 
 	left.Blend(right, ICON_OVERLAY)
-	back.Blend(left, ICON_OVERLAY)
+	back.Blend(left, ICON_OVERLAY) //just blend the outcome into the current to avoid a bald stripe
+
+	//Now modify the left & right facing icons to better emphasize direction / volume
+	left = new icon(base, dir = WEST)
+	left.Shift(WEST, 2)
+	base.Insert(left, dir = WEST)
+
+	right = new icon(base, dir = EAST)
+	right.Shift(EAST, 2)
+	base.Insert(right, dir = EAST)
 
 	//Apply masking
 	var/icon/mask = new('icons/mob/monkey.dmi', "monkey_mask_cloth")//Roughly monkey shaped clothing
