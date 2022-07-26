@@ -8,4 +8,4 @@
 /obj/item/gun/energy/vortex/examine(mob/user)
 	. = ..()
 	if(isabductor(user))
-		. += "<span class='abductor'>This shouldn't be here... It's not from this era...</span>"
+		. += "<span class='abductor'>It has a subspace power core installed.</span>"
