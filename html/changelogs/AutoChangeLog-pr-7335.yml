@@ -1,0 +1,11 @@
+author: itsmeow
+delete-after: true
+changes:
+  - rscadd: Alt-Clicking on the identification console ejects only one id at a time.
+  - tweak: Medical and Security consoles now check access on worn or inhand ID instead
+      of requiring an inserted ID
+  - tweak: HoP console now shows buttons with access as green instead of red
+  - rscadd: Can easily swap out IDs in HoP console by clicking the machine or the
+      UI fields with another ID
+  - rscadd: ID console now names which IDs are added/removed in its visible messages
+  - tweak: Can now use HoP access modification after logging in without an ID in
