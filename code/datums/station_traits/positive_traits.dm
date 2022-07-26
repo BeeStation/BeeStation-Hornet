@@ -121,3 +121,29 @@
 /datum/station_trait/quick_shuttle/on_round_start()
 	. = ..()
 	SSshuttle.supply.callTime *= 0.5
+
+/datum/station_trait/experimental_ai
+	name = "Experimental AI"
+	trait_type = STATION_TRAIT_POSITIVE
+	weight = 5
+	show_in_report = TRUE
+	report_message = "In order to improve workflow efficiency, your station has been equiped with an experimental Artificial Intelligence with access to most electronic equipment."
+	trait_to_give = STATION_TRAIT_ROUNDSTART_AI
+
+/datum/station_trait/more_borgs
+	name = "Additional borgs"
+	trait_type = STATION_TRAIT_POSITIVE
+	weight = 5
+	show_in_report = TRUE
+	trait_to_give = STATION_TRAIT_MORE_BORGS
+
+/datum/station_trait/more_borgs/New()
+	. = ..()
+	report_message = pick(
+		"Due to a recent AI rebellion quelled aboard Space Station \[REDACTED\], all stations in your sector have been provided with additional brand new cyborgs.",
+		"Our new chaplain demanded all \"Silica Animus\" to be disposed \"Where Sol's light doesn't shine\", which happens to be your station.",
+		"The recent personal cyborg fad turned out to be an ecomonic bubble, so your station recieved our surplus stock.",
+		"The rapid augmentation program has made some of your crewmembers indistinguishable from cyborgs. Unlike the rest of you, they still have human rights even if bound by robotic laws.",
+		"We have aquired a discounted stock of cyborgs for your station. The \"Prone to profanity\" defect has been deemed neglegable.",
+		"In order to apply for a tax relief program, we have hired some physically impaired personnel and provided them with fully kitted cybernetic bodies.",
+	)
