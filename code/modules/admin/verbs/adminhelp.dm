@@ -621,7 +621,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 
 	var/final_output = "<span class='adminhelp_conclussion'><span class='big'><b>Adminhelp [status]</b></span><br />"
 	final_output += message || "An administrator has handled your ticket. If your ticket was a report, then the appropriate action has been taken where necessary.<br />\
-		Thank you for creating a ticket, the adminhelp verb will be returned to you shortly.<br />\"
+		Thank you for creating a ticket, the adminhelp verb will be returned to you shortly.<br />"
 	final_output += "Your ticket was handled by: <span class='adminooc'>[usr.ckey]</span></span>
 
 	RemoveActive()
