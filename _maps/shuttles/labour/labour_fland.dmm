@@ -107,7 +107,6 @@
 /obj/effect/turf_decal/caution/stand_clear{
 	dir = 8
 	},
-/obj/effect/turf_decal/tile/neutral/tile_full,
 /turf/open/floor/pod/dark,
 /area/shuttle/labor)
 "G" = (

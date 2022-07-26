@@ -1038,6 +1038,10 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	mood_bonus = -4
 	mood_message = "<span class='warning'>I'm trapped here with little hope of escape!\n</span>"
 
+/area/security/prison/shielded
+	name = "Prison Wing Shielded area"
+	icon_state = "sec_prison"
+
 /area/security/processing
 	name = "Labor Shuttle Dock"
 	icon_state = "sec_prison"

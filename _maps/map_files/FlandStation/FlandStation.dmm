@@ -19929,7 +19929,7 @@
 /area/security/checkpoint/medical)
 "fsb" = (
 /turf/closed/wall/r_wall,
-/area/security/prison/asteroid/shielded)
+/area/security/prison/shielded)
 "fsf" = (
 /obj/effect/turf_decal/tile/blue,
 /obj/structure/cable/yellow{
@@ -41484,7 +41484,7 @@
 	pixel_x = -32
 	},
 /turf/open/floor/plasteel/techmaint,
-/area/security/prison/asteroid/shielded)
+/area/security/prison/shielded)
 "lhE" = (
 /obj/machinery/airalarm{
 	dir = 4;
@@ -41503,7 +41503,7 @@
 	icon_state = "1-4"
 	},
 /turf/open/floor/plasteel/techmaint,
-/area/security/prison/asteroid/shielded)
+/area/security/prison/shielded)
 "lic" = (
 /obj/machinery/disposal/bin,
 /obj/effect/turf_decal/delivery,
@@ -41534,7 +41534,7 @@
 	dir = 6
 	},
 /turf/open/floor/plasteel/techmaint,
-/area/security/prison/asteroid/shielded)
+/area/security/prison/shielded)
 "lim" = (
 /turf/open/floor/plasteel/dark/corner{
 	dir = 1
@@ -51829,7 +51829,7 @@
 /obj/item/paper_bin,
 /obj/item/pen,
 /turf/open/floor/plasteel/techmaint,
-/area/security/prison/asteroid/shielded)
+/area/security/prison/shielded)
 "nMU" = (
 /obj/effect/turf_decal/tile/neutral/tile_side{
 	dir = 9
@@ -51904,7 +51904,7 @@
 	icon_state = "0-2"
 	},
 /turf/open/floor/plasteel/techmaint,
-/area/security/prison/asteroid/shielded)
+/area/security/prison/shielded)
 "nNI" = (
 /obj/machinery/teleport/station,
 /obj/effect/turf_decal/tile/neutral/tile_full,
@@ -61860,7 +61860,7 @@
 	pixel_x = 4
 	},
 /turf/open/floor/plasteel/techmaint,
-/area/security/prison/asteroid/shielded)
+/area/security/prison/shielded)
 "qpP" = (
 /obj/machinery/disposal/bin,
 /obj/structure/noticeboard{
@@ -62898,7 +62898,7 @@
 	pixel_y = -22
 	},
 /turf/open/floor/plasteel/techmaint,
-/area/security/prison/asteroid/shielded)
+/area/security/prison/shielded)
 "qCb" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /obj/effect/turf_decal/trimline/red/filled/line{
@@ -62912,7 +62912,7 @@
 	dir = 1
 	},
 /turf/open/floor/plasteel/techmaint,
-/area/security/prison/asteroid/shielded)
+/area/security/prison/shielded)
 "qCn" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 8
@@ -80185,7 +80185,7 @@
 	pixel_x = 24
 	},
 /turf/open/floor/plasteel/techmaint,
-/area/security/prison/asteroid/shielded)
+/area/security/prison/shielded)
 "uNv" = (
 /obj/effect/spawner/lootdrop/glowstick,
 /turf/open/floor/plating/rust,
@@ -82244,7 +82244,7 @@
 	dir = 8
 	},
 /turf/open/floor/plasteel/techmaint,
-/area/security/prison/asteroid/shielded)
+/area/security/prison/shielded)
 "vpm" = (
 /obj/item/stack/rods/fifty,
 /obj/item/stack/sheet/iron/fifty,
