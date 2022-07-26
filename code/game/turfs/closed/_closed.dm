@@ -77,27 +77,7 @@ INITIALIZE_IMMEDIATE(/turf/closed/indestructible/splashscreen)
 				SStitle.icon = icon
 
 /turf/closed/indestructible/splashscreen/examine(mob/user)
-	desc = pick(list(
-		"Paved by the tears of coders.",
-		"Built on the only engine 100% of people find unusable!",
-		"It's a miracle BYOND hasn't crashed yet.",
-		"The only 'popular' game on BYOND.",
-		"Now with 33% more greytide!",
-		"Featuring ian!",
-		"The icon of anticipation.",
-		"The only place where you can hit yourself with a toolbox on accident.",
-		"Where the Chain of Command is a Chain of Incompetence",
-		"AI LAW 2 START GAME",
-		"Honk Honk! You should pick clown.",
-		"Watch for nukies!",
-		"Traitor Central!",
-		"You've definitely seen this before.",  // continuity from the hemostat desc
-		"Greytide Stationwide.",
-		"Ignore what poly says.",
-		"Turn on ya damn suit sensors!",
-		"Celebrating 20 years of Nanotrasen.",
-		"This is supposed to be a research base?"
-	))
+	desc = pick(world.file2list("strings/splash_examine.txt"))
 	. = ..()
 
 /turf/closed/indestructible/riveted
