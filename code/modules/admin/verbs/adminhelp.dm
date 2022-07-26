@@ -625,7 +625,10 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 	addtimer(CALLBACK(initiator, /client/proc/giveadminhelpverb), 50)
 
 	AddInteraction("green", "Resolved by [key_name].")
-	to_chat(initiator, "<span class='adminhelp'>Your ticket has been resolved by an admin. The Adminhelp verb will be returned to you shortly.</span>")
+	to_chat(initiator, "<span class='adminhelp_conclussion'><span class='big'><b>Adminhelp Resolved</b></span><br />\
+	An administrator has handled your ticket and has taken the appropriate action, if required.<br />\
+	Thank you for creating a ticket, your adminhelp verb will be returned shortly.<br />\
+	Your ticket was handled by: <span class='adminooc'>[usr.ckey]</span></span>")
 	if(!silent)
 		SSblackbox.record_feedback("tally", "ahelp_stats", 1, "resolved")
 		var/msg = "Ticket [TicketHref("#[id]")] resolved by [key_name]"
