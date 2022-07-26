@@ -57856,6 +57856,7 @@
 	desc = "if you're seeing this, and you're by an explosion prone part of the station, run."
 	},
 /obj/effect/turf_decal/box,
+/obj/item/circuitboard/computer/xenobiology,
 /turf/open/floor/plating/airless,
 /area/science/test_area)
 "pqx" = (
@@ -59307,6 +59308,9 @@
 	dir = 8
 	},
 /obj/structure/disposalpipe/segment,
+/obj/structure/extinguisher_cabinet{
+	pixel_x = -26
+	},
 /turf/open/floor/plasteel/grid/steel,
 /area/science/research)
 "pKW" = (
@@ -68947,6 +68951,9 @@
 /obj/effect/turf_decal/trimline/purple/corner{
 	dir = 4
 	},
+/obj/structure/extinguisher_cabinet{
+	pixel_y = -30
+	},
 /turf/open/floor/plasteel/grid/steel,
 /area/science/research)
 "rYz" = (
@@ -74795,12 +74802,12 @@
 "txJ" = (
 /obj/docking_port/stationary{
 	dir = 8;
-	dwidth = 11;
-	height = 14;
+	dwidth = 14;
+	height = 11;
 	id = "exploration_home";
 	name = "Exploration Dock";
 	roundstart_template = /datum/map_template/shuttle/exploration/fland;
-	width = 19
+	width = 22
 	},
 /turf/open/space/basic,
 /area/space)
@@ -87672,6 +87679,9 @@
 	},
 /obj/machinery/light{
 	dir = 8
+	},
+/obj/structure/extinguisher_cabinet{
+	pixel_x = -26
 	},
 /turf/open/floor/plasteel/grid/steel,
 /area/science/research)
