@@ -1,4 +1,4 @@
-#define COLA_AMT = 5
+#define COLA_AMT 5
 
 /datum/round_event_control/infcola
 	name = "Cola Infinite"
