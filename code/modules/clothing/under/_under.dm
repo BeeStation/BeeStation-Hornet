@@ -218,8 +218,47 @@
 
 ///Proc used to compile icon for monkey clothing
 /obj/item/clothing/under/proc/compile_monkey_icon()
-	var/icon/base = new('icons/mob/clothing/uniform.dmi', icon_state)
-	base.Shift(SOUTH, 2)
-	var/icon/mask = new('icons/mob/monkey.dmi', "monkey_mask_cloth")
-	base.AddAlphaMask(mask)
+	//Start with a base and align it with the mask
+	var/icon/base = icon('icons/mob/clothing/uniform.dmi', icon_state, SOUTH) //This takes the icon and uses the worn version of the icon
+	var/icon/back = icon('icons/mob/clothing/uniform.dmi', icon_state, NORTH) //Awkard but, we have to manually insert the back
+	for(var/i in 1 to 32) //Alligning is done until the monkey's general face area is clear. This means we can support varying clothing height
+		if(!base.GetPixel(17, 20))
+			base.Shift(SOUTH, 1)
+			back.Shift(SOUTH, 1)
+		else
+			break
+
+	//Break the base down into two parts and lay it on-top of the original
+	var/icon/left = new(base)
+	var/icon/left_mask = new('icons/mob/monkey.dmi', "monkey_mask_left")
+	left.Shift(WEST, 2)
+	left.AddAlphaMask(left_mask)
+
+	var/icon/right = new(base)
+	var/icon/right_mask = new('icons/mob/monkey.dmi', "monkey_mask_right")
+	right.Shift(EAST, 2)
+	right.AddAlphaMask(right_mask)
+
+	left.Blend(right, ICON_OVERLAY)
+	base.Blend(left, ICON_OVERLAY)
+
+	//Again for back
+	left = new(back)
+	left.Shift(WEST, 2)
+	left.AddAlphaMask(left_mask)
+
+	right = new(back)
+	right.Shift(EAST, 2)
+	right.AddAlphaMask(right_mask)
+
+	left.Blend(right, ICON_OVERLAY)
+	back.Blend(left, ICON_OVERLAY)
+
+	//Apply masking
+	var/icon/mask = new('icons/mob/monkey.dmi', "monkey_mask_cloth")//Roughly monkey shaped clothing
+	base.AddAlphaMask(mask)//Quick cheeky apply so we can skip some steps, specifically NORTH
+	back.AddAlphaMask(mask)//Quick cheeky apply so we can skip some steps, specifically NORTH
+	base.Insert(back, dir = NORTH)//Insert the back into the base
+
+	//Finished!
 	monkey_icon = base
