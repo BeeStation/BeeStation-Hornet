@@ -290,6 +290,29 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 /obj/item/radio/headset/silicon/can_receive(freq, level)
 	return ..(freq, level, TRUE)
 
+/obj/item/radio/headset/clown
+	name = "Clown's Radio"
+	desc = "Automatic clowning filter, honk!"
+	var/honken = TRUE
+
+/obj/item/radio/headset/clown/talk_into_impl(atom/movable/M, message, channel, list/spans, datum/language/language, list/message_mods)
+	if(honken)
+		spans |= SPAN_CLOWN
+	. = ..()
+
+/obj/item/radio/headset/clown/AltClick(mob/user)
+	if(honken)
+		to_chat(user, "You disable the honk filter..")
+		honken = FALSE
+	else
+		to_chat(user, "You feel an urge to yell honk as you flip on the filter.")
+		honken = TRUE
+	. = ..()
+
+/obj/item/radio/headset/clown/examine(mob/user)
+	. = ..()
+	. += "The honkening filter is currently [honken ? "On" : "Off"], use Alt-Click to toggle."
+
 /obj/item/radio/headset/attackby(obj/item/W, mob/user, params)
 	user.set_machine(src)
 
