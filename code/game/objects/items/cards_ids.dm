@@ -718,7 +718,7 @@ update_label("John Doe", "Clowny")
 
 /obj/item/card/id/paper/update_label(newname, newjob)
 	if(newname || newjob)
-		name = "[(!newname)	? "paper slip identifier": "[newname]'s paper slip (presumably)"]"
+		name = "[(!newname)	? "paper slip identifier": "[newname]'s paper slip"]"
 		return
 
 	name = "[(!registered_name)	? "paper slip identifier": "[registered_name]'s paper slip (presumably)"]"
