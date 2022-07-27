@@ -257,9 +257,9 @@
 
 /obj/item/organ/tongue/honk
 	name = "clown voicebox"
-	desc = "A voice synthesizer that makes you 45% funnier."
-	status = ORGAN_ROBOTIC
-	icon_state = "toungerobot"  // looks sufficiently tech-y enough to pass
+	desc = "A voice synthesizer that makes you 45% funnier.
+	slot = ORGAN_SLOT_TONGUE
+	icon_state = "tonguerobot"  // looks sufficiently tech-y enough to pass
 	say_mod = "honks"
 	attack_verb = list("honked", "clowns")
 	modifies_speech = TRUE
