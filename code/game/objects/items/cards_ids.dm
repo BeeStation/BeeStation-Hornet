@@ -866,13 +866,13 @@ update_label("John Doe", "Clowny")
 /obj/item/card/id/job/curator
 	name = "Job card (Serv) - Curator"
 	icon_state = "chap"
-	assignment = JOB_NAME_CHAPLAIN
+	assignment = JOB_NAME_CURATOR
 	hud_state = JOB_HUD_CURATOR
 
 /obj/item/card/id/job/chaplain
 	name = "Job card (Serv) - Chaplain"
-	assignment = "Chaplain"
 	icon_state = "chap"
+	assignment = JOB_NAME_CHAPLAIN
 	hud_state = JOB_HUD_CHAPLAIN
 
 /obj/item/card/id/job/janitor
@@ -1086,7 +1086,7 @@ update_label("John Doe", "Clowny")
 
 /obj/item/card/id/gold/king
 	name = "their majesty's gold identification card"
-	assignment = "King"
+	assignment = JOB_NAME_KING
 	hud_state = JOB_HUD_KING
 
 

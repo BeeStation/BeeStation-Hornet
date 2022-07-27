@@ -59,13 +59,13 @@
 		JOB_NAME_DEPUTY = "deputy",
 		// ETC
 		"Unassigned" = "id",
-		"Prisoner" = "orange",
+		JOB_NAME_PRISONER = "orange",
 		// EMAG
 		"CentCom (Custom)" = "centcom",
 		"CentCom" = "centcom",
 		"ERT" = "ert",
 		JOB_NAME_VIP = "gold",
-		"King" = "gold",
+		JOB_NAME_KING = "gold",
 		"Syndicate" = "syndicate",
 		"Clown Operative" = "clown_op",
 		"Unknown" = "unknown",
@@ -147,11 +147,11 @@
 
 		// ETC
 		JOB_NAME_VIP = JOB_HUD_VIP,
-		"King" = JOB_HUD_KING,
+		JOB_NAME_KING = JOB_HUD_KING,
 		"Syndicate" = JOB_HUD_SYNDICATE,
 		"Clown Operative" = JOB_HUD_SYNDICATE,
 		"Unassigned" = JOB_HUD_UNKNOWN,
-		"Prisoner" = JOB_HUD_PRISONER
+		JOB_NAME_PRISONER = JOB_HUD_PRISONER
 	)
 	return id_to_hud[jobname] || JOB_HUD_UNKNOWN // default: a grey unknown hud
 

@@ -192,6 +192,8 @@
 
 // Misc & Off-Station
 #define JOB_NAME_GIMMICK "Gimmick" // gimmick
+#define JOB_NAME_KING    "King"
+#define JOB_NAME_PRISONER "Prisoner"
 #define JOB_SPACE_POLICE "Space Police"
 
 
