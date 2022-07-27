@@ -117,10 +117,6 @@
 		. += "It has electromagnetic interference shielding installed."
 	else
 		. += "<span class='info'>It can be shielded against electromagnetic interference with some <b>plasma</b>.</span>"
-	if(isXRay(TRUE)) //don't reveal it's upgraded if was done via MALF AI Upgrade Camera Network ability
-		. += "It has an X-ray photodiode installed."
-	else
-		. += "<span class='info'>It can be upgraded with an X-ray photodiode with an <b>analyzer</b>.</span>"
 	if(isMotion())
 		. += "It has a proximity sensor installed."
 	else
