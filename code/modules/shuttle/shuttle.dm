@@ -73,73 +73,77 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 	if(_y == null)
 		_y = y
 
-	//byond's sin and cos functions are inaccurate. This is faster and perfectly accurate
-	var/cos = 1
-	var/sin = 0
-	switch(_dir)
-		if(WEST)
-			cos = 0
-			sin = 1
-		if(SOUTH)
-			cos = -1
-			sin = 0
-		if(EAST)
-			cos = 0
-			sin = -1
+	//In relative shuttle space, (dwidth, dheight) is the vector pointing from the bottom left corner of the bounding box to the obj/docking_port.
+	//Therefore, the negative of this vector (-dwidth,-dheight) points to one corner of the bounding box when the obj/docking_port is at the origin.
+	//Next, we rotate according to the specified direction and translate to our location in world space, the translate vector in the matrix, mat0, is one of the coordinates.
+	var/matrix/mat0 = matrix(-dwidth, -dheight, MATRIX_TRANSLATE) * matrix(dir2angle(_dir), MATRIX_ROTATE) * matrix(_x, _y, MATRIX_TRANSLATE)
+	//The opposite corner of the bounding box in relative shuttle vector space is at (width-dwidth-1,height-dheight-1)
+	//Because matrix multipication is associative, all we need to do is left multiply the missing parts of this vector to mat0 to get the other coordinate in world space.
+	var/matrix/mat1 = matrix(width-1, height-1, MATRIX_TRANSLATE) * mat0
 
 	return list(
-		_x + (-dwidth*cos) - (-dheight*sin),
-		_y + (-dwidth*sin) + (-dheight*cos),
-		_x + (-dwidth+width-1)*cos - (-dheight+height-1)*sin,
-		_y + (-dwidth+width-1)*sin + (-dheight+height-1)*cos
+		mat0.c,
+		mat0.f,
+		mat1.c,
+		mat1.f
 		)
 
 //returns the dwidth, dheight, width, and height in the order of the union bounds of all shuttles relative to our shuttle.
 /obj/docking_port/proc/return_union_bounds(var/list/obj/docking_port/others)
-	if(!islist(others))
-		others = list(others)
-	others.Insert(src, 1)
-	//coordinate of combined shuttle bounds in our dock's vector space (positive Y towards shuttle direction, positive determinant, our dock at (0,0))
-	var/X0 = 0 //This will be the negative dwidth of the combined bounds
-	var/Y0 = 0 //This will be the negative dheight of the combined bounds
-	var/X1 = 0 //equal to width-dwidth-1
-	var/Y1 = 0 //equal to height-dheight-1
-	var/matrix/to_shuttle_space = matrix(-x,-y, MATRIX_TRANSLATE) * matrix(-dir2angle(dir), MATRIX_ROTATE) //right multiply a matrix in world space to get
-	for(var/obj/docking_port/mobile/M in others) //Matrix magic
-		var/matrix/mat0 = matrix(-M.dwidth, -M.dheight, MATRIX_TRANSLATE) * matrix(dir2angle(M.dir), MATRIX_ROTATE) * matrix(M.x, M.y, MATRIX_TRANSLATE) * to_shuttle_space
-		var/matrix/mat1 = matrix(M.width-1, M.height-1, MATRIX_TRANSLATE) * mat0
-		X0 = min(X0, mat0.c, mat1.c)
-		Y0 = min(Y0, mat0.f, mat1.f)
-		X1 = max(X1, mat0.c, mat1.c)
-		Y1 = max(Y1, mat0.f, mat1.f)
+	var/list/coords =  return_union_coords(others, 0, 0, NORTH)
+	var/X0 = min(coords[1],coords[3]) //This will be the negative dwidth of the combined bounds
+	var/Y0 = min(coords[2],coords[4]) //This will be the negative dheight of the combined bounds
+	var/X1 = max(coords[1],coords[3]) //equal to width-dwidth-1
+	var/Y1 = max(coords[2],coords[4]) //equal to height-dheight-1
 	return list(-X0, -Y0, X1-X0+1,Y1-Y0+1)
 
 //Returns the the bounding box fully containing both docking ports
-/obj/docking_port/proc/return_union_coords(var/list/obj/docking_port/others)
+/obj/docking_port/proc/return_union_coords(var/list/obj/docking_port/others, _x, _y, _dir)
+	if(_dir == null)
+		_dir = dir
+	if(_x == null)
+		_x = x
+	if(_y == null)
+		_y = y
 	if(!islist(others))
 		others = list(others)
-	. = return_coords()
+	others |= src
+	. = list(0,0,0,0)
+	//Right multiply with this matrix to transform a vector in world space to the our shuttle space specified by the parameters.
+	//This is the reason why we're not calling return_coords for each shuttle, we save time by not reconstructing the matrices lost after they're popped off the call stack
+	var/matrix/to_shuttle_space = matrix(_x-x, _y-y, MATRIX_TRANSLATE) * matrix(dir2angle(_dir)-dir2angle(dir), MATRIX_ROTATE)
 	for(var/obj/docking_port/other in others)
-		var/list/other_bounds = other.return_coords()
+		var/matrix/mat0 = matrix(-other.dwidth, -other.dheight, MATRIX_TRANSLATE) * matrix(dir2angle(other.dir), MATRIX_ROTATE) * matrix(other.x, other.y, MATRIX_TRANSLATE) * to_shuttle_space
+		var/matrix/mat1 = matrix(other.width-1, other.height-1, MATRIX_TRANSLATE) * mat0
 		. = list(
-			min(other_bounds[1], .[1], other_bounds[3], .[3]),
-			min(other_bounds[2], .[2], other_bounds[4], .[4]),
-			max(other_bounds[1], .[1], other_bounds[3], .[3]),
-			max(other_bounds[2], .[2], other_bounds[4], .[4])
+			min(.[1], mat0.c, mat1.c),
+			min(.[2], mat0.f, mat1.f),
+			max(.[3], mat0.c, mat1.c),
+			max(.[4], mat0.f, mat1.f)
 		)
 
 //Returns the bounding box containing only the intersection both docking ports
-/obj/docking_port/proc/return_intersect_coords(var/list/obj/docking_port/others)
+/obj/docking_port/proc/return_intersect_coords(var/list/obj/docking_port/others, _x, _y, _dir)
+	if(_dir == null)
+		_dir = dir
+	if(_x == null)
+		_x = x
+	if(_y == null)
+		_y = y
 	if(!islist(others))
 		others = list(others)
-	. = return_coords()
+	others |= src
+	. = list(0,0,0,0)
+	//See return_union_coords() and return_coords() for explaination of the matrices.
+	var/matrix/to_shuttle_space = matrix(_x-x, _y-y, MATRIX_TRANSLATE) * matrix(dir2angle(_dir)-dir2angle(dir), MATRIX_ROTATE)
 	for(var/obj/docking_port/other in others)
-		var/list/other_bounds = other.return_coords()
+		var/matrix/mat0 = matrix(-other.dwidth, -other.dheight, MATRIX_TRANSLATE) * matrix(dir2angle(other.dir), MATRIX_ROTATE) * matrix(other.x, other.y, MATRIX_TRANSLATE) * to_shuttle_space
+		var/matrix/mat1 = matrix(other.width-1, other.height-1, MATRIX_TRANSLATE) * mat0
 		. = list(
-			min(max(other_bounds[1], other_bounds[3]), max(.[1], .[3])),
-			min(max(other_bounds[2], other_bounds[4]), max(.[2], .[4])),
-			max(min(other_bounds[1], other_bounds[3]), min(.[1], .[3])),
-			max(min(other_bounds[2], other_bounds[4]), min(.[2], .[4]))
+			max(.[1], min(mat0.c, mat1.c)),
+			max(.[2], min(mat0.f, mat1.f)),
+			min(.[3], max(mat0.c, mat1.c)),
+			min(.[4], max(mat0.f, mat1.f)),
 		)
 
 //returns turfs within our projected rectangle in no particular order

@@ -436,23 +436,15 @@ SUBSYSTEM_DEF(shuttle)
 	// Remember, the direction is the direction we appear to be
 	// coming from
 	var/dock_angle = dir2angle(M.preferred_direction) + dir2angle(M.port_direction) + 180
-	var/dock_dir = angle2dir(dock_angle)
 
 	var/transit_width = SHUTTLE_TRANSIT_BORDER * 2
 	var/transit_height = SHUTTLE_TRANSIT_BORDER * 2
 
 	// Shuttles travelling on their side have their dimensions swapped
 	// from our perspective
-	var/list/union_coords = M.return_union_coords(M.get_all_towed_shuttles())
-	var/M_width = union_coords[3] - union_coords[1]
-	var/M_height = union_coords[4] - union_coords[2]
-	switch(dock_dir)
-		if(NORTH, SOUTH)
-			transit_width += M_width
-			transit_height += M_height
-		if(EAST, WEST)
-			transit_width += M_height
-			transit_height += M_width
+	var/list/union_coords = M.return_union_coords(M.get_all_towed_shuttles(), 0, 0, NORTH)
+	transit_width += union_coords[3] - union_coords[1] + 1
+	transit_height += union_coords[4] - union_coords[2] + 1
 
 /*
 	to_chat(world, "The attempted transit dock will be [transit_width] width, and \)
@@ -477,18 +469,23 @@ SUBSYSTEM_DEF(shuttle)
 
 	var/turf/bottomleft = locate(proposal.bottom_left_coords[1], proposal.bottom_left_coords[2], proposal.bottom_left_coords[3])
 	// Then create a transit docking port in the middle
-	var/coords = M.return_coords(0, 0, dock_dir)
-	/*  0------2
-        |      |
-        |      |
-        |  x   |
-        3------1
+	var/matrix/dir_rotation = matrix(union_coords[1], union_coords[2], 0, union_coords[3], union_coords[4], 0) * matrix(dock_angle, MATRIX_ROTATE)
+	/*    Shuttle Space         Dock Space
+	        *------s1         d1----------*
+            |      |           |          |
+            |      |     ->    |       x  |   x = (0,0)
+            |  x   |           |          |
+           s0------*           *----------d0
+		┌  ┐ ┌                     ┐   ┌  ┐
+		|s0| |  cos(dir)  sin(dir) |   |d0|
+		|s1| | -sin(dir)  cos(dir) | = |d1|
+		└  ┘ └                     ┘   └  ┘
 	*/
 
-	var/x0 = coords[1]
-	var/y0 = coords[2]
-	var/x1 = coords[3]
-	var/y1 = coords[4]
+	var/x0 = dir_rotation.a
+	var/y0 = dir_rotation.b
+	var/x1 = dir_rotation.d
+	var/y1 = dir_rotation.e
 	// Then we want the point closest to -infinity,-infinity
 	var/x2 = min(x0, x1)
 	var/y2 = min(y0, y1)
