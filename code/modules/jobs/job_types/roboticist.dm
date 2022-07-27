@@ -35,7 +35,7 @@
 	id = /obj/item/card/id/job/roboticist
 	belt = /obj/item/storage/belt/utility/full
 	l_pocket = /obj/item/pda/roboticist
-	ears = /obj/item/radio/headset/headset_sci
+	ears = /obj/item/radio/headset/headset_rob
 	uniform = /obj/item/clothing/under/rank/rnd/roboticist
 	suit = /obj/item/clothing/suit/toggle/labcoat
 

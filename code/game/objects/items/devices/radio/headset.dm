@@ -132,7 +132,7 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 
 /obj/item/radio/headset/headset_rob
 	name = "robotics radio headset"
-	desc = "Made specifically for the roboticists, who cannot decide between departments."
+	desc = "The headset for the tech literate."
 	icon_state = "rob_headset"
 	keyslot = new /obj/item/encryptionkey/headset_rob
 

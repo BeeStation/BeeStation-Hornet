@@ -53,7 +53,7 @@
 /obj/item/encryptionkey/headset_rob
 	name = "robotics radio encryption key"
 	icon_state = "rob_cypherkey"
-	channels = list(RADIO_CHANNEL_SCIENCE = 1, RADIO_CHANNEL_ENGINEERING = 1)
+	channels = list(RADIO_CHANNEL_SCIENCE = 1, RADIO_CHANNEL_AI_PRIVATE = 1)
 
 /obj/item/encryptionkey/headset_med
 	name = "medical radio encryption key"
@@ -88,12 +88,12 @@
 /obj/item/encryptionkey/heads/captain
 	name = "\proper the captain's encryption key"
 	icon_state = "cap_cypherkey"
-	channels = list(RADIO_CHANNEL_COMMAND = 1, RADIO_CHANNEL_SECURITY = 1, RADIO_CHANNEL_ENGINEERING = 0, RADIO_CHANNEL_SCIENCE = 0, RADIO_CHANNEL_MEDICAL = 0, RADIO_CHANNEL_SUPPLY = 0, RADIO_CHANNEL_SERVICE = 0, RADIO_CHANNEL_EXPLORATION = 0)
+	channels = list(RADIO_CHANNEL_COMMAND = 1, RADIO_CHANNEL_SECURITY = 1, RADIO_CHANNEL_ENGINEERING = 0, RADIO_CHANNEL_SCIENCE = 0, RADIO_CHANNEL_MEDICAL = 0, RADIO_CHANNEL_SUPPLY = 0, RADIO_CHANNEL_SERVICE = 0, RADIO_CHANNEL_EXPLORATION = 0, RADIO_CHANNEL_AI_PRIVATE = 1)
 
 /obj/item/encryptionkey/heads/rd
 	name = "\proper the research director's encryption key"
 	icon_state = "rd_cypherkey"
-	channels = list(RADIO_CHANNEL_SCIENCE = 1, RADIO_CHANNEL_EXPLORATION = 1, RADIO_CHANNEL_COMMAND = 1)
+	channels = list(RADIO_CHANNEL_SCIENCE = 1, RADIO_CHANNEL_EXPLORATION = 1, RADIO_CHANNEL_COMMAND = 1, RADIO_CHANNEL_AI_PRIVATE = 1)
 
 /obj/item/encryptionkey/heads/hos
 	name = "\proper the head of security's encryption key"
