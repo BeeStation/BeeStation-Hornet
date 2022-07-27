@@ -1,7 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - bugfix: Vortex rifles can now damage mobs
-  - bugfix: Blob ruin generator has been fixed
-  - tweak: Objective payout ranges have been adjusted to always intersect with each
-      other.
