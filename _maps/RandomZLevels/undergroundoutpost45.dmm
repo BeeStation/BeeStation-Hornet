@@ -3581,7 +3581,7 @@
 /area/awaymission/undergroundoutpost45/crew_quarters)
 "hn" = (
 /obj/structure/table,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/item/reagent_containers/glass/rag,
 /obj/effect/turf_decal/tile/bar,
 /obj/effect/turf_decal/tile/bar{
@@ -3615,7 +3615,7 @@
 /area/awaymission/undergroundoutpost45/crew_quarters)
 "hq" = (
 /obj/structure/table,
-/obj/item/stack/packageWrap,
+/obj/item/stack/package_wrap,
 /obj/item/reagent_containers/food/condiment/enzyme{
 	layer = 5
 	},
@@ -7436,7 +7436,7 @@
 	dir = 8
 	},
 /obj/item/folder/white,
-/obj/item/stamp/rd{
+/obj/item/stamp/research_director{
 	pixel_x = 3;
 	pixel_y = -2
 	},
@@ -12903,7 +12903,7 @@
 /obj/item/clothing/glasses/meson{
 	pixel_y = 4
 	},
-/obj/item/stamp/ce,
+/obj/item/stamp/chief_engineer,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},

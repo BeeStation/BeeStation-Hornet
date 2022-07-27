@@ -17,8 +17,6 @@
 	breathid = "tox"
 	damage_overlay_type = ""//let's not show bloody wounds or burns over bones.
 	var/internal_fire = FALSE //If the bones themselves are burning clothes won't help you much
-	disliked_food = FRUIT
-	liked_food = VEGETABLES
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC
 	outfit_important_for_life = /datum/outfit/plasmaman
 	species_language_holder = /datum/language_holder/skeleton
@@ -84,7 +82,7 @@
 /datum/species/plasmaman/qualifies_for_rank(rank, list/features)
 	if(rank in GLOB.security_positions)
 		return 0
-	if(rank == "Clown" || rank == "Mime")//No funny bussiness
+	if(rank == JOB_NAME_CLOWN || rank == JOB_NAME_MIME)//No funny bussiness
 		return 0
 	return ..()
 

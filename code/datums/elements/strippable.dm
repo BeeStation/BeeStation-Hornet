@@ -35,7 +35,8 @@
 	UnregisterSignal(source, COMSIG_MOUSEDROP_ONTO)
 
 	if(!isnull(strip_menus))
-		QDEL_NULL(strip_menus[source])
+		qdel(strip_menus[source])
+		strip_menus -= source
 
 /datum/element/strippable/proc/mouse_drop_onto(datum/source, atom/over, mob/user)
 	SIGNAL_HANDLER
@@ -45,6 +46,12 @@
 
 	if(over != user)
 		return
+
+	// Mobs that can walk through walls cannot strip.
+	if(isliving(user))
+		var/mob/living/L = user
+		if(L.incorporeal_move)
+			return
 
 	// Cyborgs buckle people by dragging them onto them, unless in combat mode.
 	if(iscyborg(user))
@@ -180,7 +187,7 @@
 	return TRUE
 
 /// Returns TRUE if the item is present for the mob, but not available.
-/// This is used, for example, for pockets when a jumpsuit is not worn. 
+/// This is used, for example, for pockets when a jumpsuit is not worn.
 /datum/strippable_item/proc/is_unavailable(atom/source)
 
 /// A preset for equipping items onto mob slots
