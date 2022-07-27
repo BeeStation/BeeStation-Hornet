@@ -928,7 +928,7 @@ update_label("John Doe", "Clowny")
 	icon_state = "rawcargo"
 	hud_state = JOB_HUD_RAWCARGO
 
-// ---- Engineering ----
+// ---- Engineering -----
 /obj/item/card/id/job/chief_engineer
 	name = "Job card (Eng) - CE"
 	icon_state = "ce"
