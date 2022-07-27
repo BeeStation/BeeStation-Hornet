@@ -4131,7 +4131,7 @@
 	dir = 8
 	},
 /obj/item/folder/white,
-/obj/item/stamp/rd{
+/obj/item/stamp/research_director{
 	pixel_x = 3;
 	pixel_y = -2
 	},

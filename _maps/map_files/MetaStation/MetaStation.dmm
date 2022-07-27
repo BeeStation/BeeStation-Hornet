@@ -3922,7 +3922,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 4
 	},
-/obj/structure/closet/secure_closet/brig_phys,
+/obj/structure/closet/secure_closet/brig_physician,
 /turf/open/floor/plasteel/white,
 /area/security/brig)
 "akx" = (
@@ -12304,7 +12304,7 @@
 "aQt" = (
 /obj/structure/table,
 /obj/item/clipboard,
-/obj/item/stamp/qm,
+/obj/item/stamp/quartermaster,
 /obj/machinery/status_display/supply{
 	pixel_x = 32
 	},
@@ -14888,7 +14888,7 @@
 "aZE" = (
 /obj/structure/table/reinforced,
 /obj/item/folder/yellow,
-/obj/item/stamp/ce,
+/obj/item/stamp/chief_engineer,
 /obj/item/reagent_containers/pill/patch/silver_sulf,
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
@@ -21994,7 +21994,7 @@
 	pixel_x = 5;
 	pixel_y = 4
 	},
-/obj/item/stamp/hop{
+/obj/item/stamp/head_of_personnel{
 	pixel_x = -6
 	},
 /obj/item/pen{
@@ -34650,7 +34650,7 @@
 /turf/open/floor/plasteel/white/side,
 /area/medical/surgery)
 "cns" = (
-/obj/effect/landmark/start/emt,
+/obj/effect/landmark/start/paramedic,
 /turf/open/floor/plasteel/white/side,
 /area/medical/surgery)
 "cnt" = (
@@ -38116,7 +38116,7 @@
 /obj/machinery/newscaster{
 	pixel_y = -30
 	},
-/obj/item/stamp/rd{
+/obj/item/stamp/research_director{
 	pixel_x = 3;
 	pixel_y = -2
 	},
@@ -82586,7 +82586,7 @@
 /turf/open/floor/plating,
 /area/maintenance/port)
 "xGQ" = (
-/obj/effect/landmark/start/brig_phys,
+/obj/effect/landmark/start/brig_physician,
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
 /turf/open/floor/plasteel/white,
 /area/security/brig)

@@ -158,7 +158,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 /obj/effect/immovablerod/attack_hand(mob/living/user)
 	if(ishuman(user))
 		var/mob/living/carbon/human/U = user
-		if(U.job in list("Research Director"))
+		if(U.job in list(JOB_NAME_RESEARCHDIRECTOR))
 			playsound(src, 'sound/effects/meteorimpact.ogg', 100, 1)
 			for(var/mob/M in urange(8, src))
 				if(!M.stat)

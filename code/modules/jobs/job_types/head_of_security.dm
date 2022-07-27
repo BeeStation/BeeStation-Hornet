@@ -1,8 +1,8 @@
-/datum/job/hos
-	title = "Head of Security"
+/datum/job/head_of_security
+	title = JOB_NAME_HEADOFSECURITY
 	flag = HOS
 	auto_deadmin_role_flags = DEADMIN_POSITION_HEAD|DEADMIN_POSITION_SECURITY
-	department_head = list("Captain")
+	department_head = list(JOB_NAME_CAPTAIN)
 	department_flag = ENGSEC
 	head_announce = list(RADIO_CHANNEL_SECURITY)
 	faction = "Station"
@@ -16,7 +16,7 @@
 	exp_type = EXP_TYPE_SECURITY
 	exp_type_department = EXP_TYPE_SECURITY
 
-	outfit = /datum/outfit/job/hos
+	outfit = /datum/outfit/job/head_of_security
 	mind_traits = list(TRAIT_LAW_ENFORCEMENT_METABOLISM)
 
 	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_SEC_RECORDS, ACCESS_BRIG, ACCESS_BRIGPHYS, ACCESS_ARMORY, ACCESS_COURT, ACCESS_WEAPONS, ACCESS_MECH_SECURITY,
@@ -31,19 +31,19 @@
 	paycheck_department = ACCOUNT_SEC
 
 	display_order = JOB_DISPLAY_ORDER_HEAD_OF_SECURITY
-	departments = DEPARTMENT_SECURITY | DEPARTMENT_COMMAND
+	departments = DEPARTMENT_BITFLAG_SECURITY | DEPARTMENT_BITFLAG_COMMAND
 	rpg_title = "Guard Leader"
 
 	species_outfits = list(
-		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/hos
+		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/head_of_security
 	)
 
-/datum/outfit/job/hos
-	name = "Head of Security"
-	jobtype = /datum/job/hos
+/datum/outfit/job/head_of_security
+	name = JOB_NAME_HEADOFSECURITY
+	jobtype = /datum/job/head_of_security
 
-	id = /obj/item/card/id/job/hos
-	belt = /obj/item/pda/heads/hos
+	id = /obj/item/card/id/job/head_of_security
+	belt = /obj/item/pda/heads/head_of_security
 	ears = /obj/item/radio/headset/heads/hos/alt
 	uniform = /obj/item/clothing/under/rank/security/head_of_security
 	shoes = /obj/item/clothing/shoes/jackboots
@@ -66,11 +66,11 @@
 
 	chameleon_extras = list(/obj/item/gun/energy/e_gun/hos, /obj/item/stamp/hos)
 
-/datum/outfit/job/hos/hardsuit
+/datum/outfit/job/head_of_security/hardsuit
 	name = "Head of Security (Hardsuit)"
 
 	mask = /obj/item/clothing/mask/gas/sechailer
-	suit = /obj/item/clothing/suit/space/hardsuit/security/hos
+	suit = /obj/item/clothing/suit/space/hardsuit/security/head_of_security
 	suit_store = /obj/item/tank/internals/oxygen
 	backpack_contents = list(/obj/item/melee/baton/loaded=1)
 

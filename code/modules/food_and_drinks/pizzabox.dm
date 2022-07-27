@@ -344,7 +344,7 @@
 			var/list/pineapple_pizza_liker = pizza_types.Copy()
 			pineapple_pizza_liker -= /obj/item/reagent_containers/food/snacks/pizza/pineapple
 			pizza_preferences[noms.ckey] = pickweight(pineapple_pizza_liker)
-		else if(noms.mind && noms.mind.assigned_role == "Botanist")
+		else if(noms.mind && noms.mind.assigned_role == JOB_NAME_BOTANIST)
 			pizza_preferences[noms.ckey] = /obj/item/reagent_containers/food/snacks/pizza/dank
 
 	var/obj/item/pizza_type = pizza_preferences[noms.ckey]

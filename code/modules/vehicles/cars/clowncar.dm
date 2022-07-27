@@ -25,7 +25,7 @@
 /obj/vehicle/sealed/car/clowncar/auto_assign_occupant_flags(mob/M)
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		if(H.mind?.assigned_role == "Clown") //Ensures only clowns can drive the car. (Including more at once)
+		if(H.mind?.assigned_role == JOB_NAME_CLOWN) //Ensures only clowns can drive the car. (Including more at once)
 			add_control_flags(H, VEHICLE_CONTROL_DRIVE|VEHICLE_CONTROL_PERMISSION)
 			RegisterSignal(H, COMSIG_MOB_CLICKON, .proc/FireCannon)
 			return

@@ -867,7 +867,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 #undef APPEARANCE_CATEGORY_COLUMN
 #undef MAX_MUTANT_ROWS
 
-/datum/preferences/proc/SetChoices(mob/user, limit = 16, list/splitJobs = list("Clown", "Research Director"), widthPerColumn = 295, height = 620)
+/datum/preferences/proc/SetChoices(mob/user, limit = 16, list/splitJobs = list(JOB_NAME_CLOWN, JOB_NAME_RESEARCHDIRECTOR), widthPerColumn = 295, height = 620)
 	if(!SSjob)
 		return
 
@@ -928,7 +928,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			if((job_preferences[overflow] == JP_LOW) && (rank != SSjob.overflow_role) && !is_banned_from(user.ckey, SSjob.overflow_role))
 				HTML += "<font color=orange>[rank]</font></td><td></td></tr>"
 				continue
-			if((rank in GLOB.command_positions) || (rank == "AI"))//Bold head jobs
+			if((rank in GLOB.command_positions) || (rank == JOB_NAME_AI))//Bold head jobs
 				HTML += "<b><span class='dark'>[rank]</span></b>"
 			else
 				HTML += "<span class='dark'>[rank]</span>"

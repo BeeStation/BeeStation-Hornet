@@ -15975,7 +15975,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
 	},
-/obj/effect/landmark/start/emt,
+/obj/effect/landmark/start/paramedic,
 /turf/open/floor/plasteel/dark,
 /area/medical/medbay/central)
 "dEX" = (
@@ -24551,7 +24551,7 @@
 /area/ai_monitored/turret_protected/ai_upload_foyer)
 "fBc" = (
 /obj/effect/turf_decal/trimline/green/filled/warning,
-/obj/effect/landmark/start/emt,
+/obj/effect/landmark/start/paramedic,
 /turf/open/floor/plasteel/grid,
 /area/medical/medbay/aft)
 "fBd" = (
@@ -28364,7 +28364,7 @@
 	pixel_x = 8;
 	pixel_y = 2
 	},
-/obj/item/stamp/hop{
+/obj/item/stamp/head_of_personnel{
 	pixel_x = 8;
 	pixel_y = -2
 	},
@@ -44914,7 +44914,7 @@
 /turf/open/floor/plasteel,
 /area/hydroponics)
 "kpX" = (
-/obj/structure/closet/secure_closet/brig_phys,
+/obj/structure/closet/secure_closet/brig_physician,
 /obj/item/clothing/under/rank/medical/doctor/purple{
 	pixel_y = -4
 	},
@@ -45510,7 +45510,7 @@
 /obj/effect/turf_decal/trimline/blue/filled/line{
 	dir = 4
 	},
-/obj/effect/landmark/start/emt,
+/obj/effect/landmark/start/paramedic,
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
 "kvD" = (
@@ -55481,7 +55481,7 @@
 /turf/open/floor/plasteel/dark,
 /area/medical/medbay/central)
 "mOx" = (
-/obj/effect/landmark/start/emt,
+/obj/effect/landmark/start/paramedic,
 /turf/open/floor/plasteel/freezer,
 /area/medical/surgery)
 "mOA" = (
@@ -69723,7 +69723,7 @@
 /area/maintenance/port/fore)
 "qrQ" = (
 /obj/structure/disposalpipe/segment,
-/obj/effect/landmark/start/brig_phys,
+/obj/effect/landmark/start/brig_physician,
 /obj/machinery/firealarm{
 	dir = 4;
 	pixel_x = -26
@@ -71488,7 +71488,7 @@
 /turf/open/floor/plating,
 /area/science/server)
 "qMD" = (
-/obj/effect/landmark/start/emt,
+/obj/effect/landmark/start/paramedic,
 /obj/effect/turf_decal/trimline/blue/line{
 	dir = 8
 	},
@@ -73358,7 +73358,7 @@
 /turf/open/floor/vault,
 /area/engine/atmospherics_engine)
 "rhv" = (
-/obj/structure/closet/secure_closet/brig_phys,
+/obj/structure/closet/secure_closet/brig_physician,
 /obj/item/clothing/under/rank/medical/doctor/purple{
 	pixel_y = -4
 	},
@@ -83077,7 +83077,7 @@
 	pixel_x = -3;
 	pixel_y = 7
 	},
-/obj/item/stamp/qm{
+/obj/item/stamp/quartermaster{
 	pixel_x = 8;
 	pixel_y = 10
 	},
@@ -90507,7 +90507,7 @@
 "vgq" = (
 /obj/structure/table/reinforced,
 /obj/item/folder/white,
-/obj/item/stamp/rd,
+/obj/item/stamp/research_director,
 /turf/open/floor/carpet/purple,
 /area/crew_quarters/heads/hor)
 "vgK" = (
@@ -98680,7 +98680,7 @@
 	pixel_y = 4
 	},
 /obj/item/folder,
-/obj/item/stamp/ce,
+/obj/item/stamp/chief_engineer,
 /obj/effect/turf_decal/bot,
 /obj/effect/turf_decal/tile/yellow/tile_marquee{
 	dir = 1
@@ -100073,7 +100073,7 @@
 /turf/open/floor/wood,
 /area/crew_quarters/theatre/backstage)
 "xBx" = (
-/obj/effect/landmark/start/brig_phys,
+/obj/effect/landmark/start/brig_physician,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 8
 	},

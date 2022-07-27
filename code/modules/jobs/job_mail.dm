@@ -48,7 +48,7 @@
 	)
 
 //BRIG PHYSICIAN
-/datum/job/brig_phys
+/datum/job/brig_physician
 	mail_goodies = list(
 		/obj/item/reagent_containers/hypospray/medipen = 15,
 		/obj/item/reagent_containers/medspray/silver_sulf = 10,
@@ -202,7 +202,7 @@
 	)
 
 //PARAMEDIC
-/datum/job/emt
+/datum/job/paramedic
 	mail_goodies = list(
 		/obj/item/reagent_containers/hypospray/medipen = 20,
 		/obj/item/reagent_containers/medspray/silver_sulf = 10,
@@ -216,7 +216,7 @@
 
 //EXPLORATION CREW
 //Slightly more powerful due to the rarity of them ever actually getting a chance to get their mail.
-/datum/job/exploration
+/datum/job/exploration_crew
 	mail_goodies = list(
 		/obj/item/tank/internals/emergency_oxygen/engi = 20,
 		/obj/item/storage/box/minertracker = 15,
@@ -289,7 +289,7 @@
 	)
 
 //MAGICIAN GIMMICK
-/datum/job/gimmick/magician
+/datum/job/gimmick/stage_magician
 	mail_goodies = list(
 		//AND FOR MY NEXT TRICK... Bnnuy
 		/mob/living/simple_animal/chicken/rabbit/normal = 40,
@@ -299,7 +299,7 @@
 	)
 
 //MEDICAL DOCTOR
-/datum/job/doctor
+/datum/job/medical_doctor
 	mail_goodies = list(
 		/obj/item/healthanalyzer/advanced = 10,
 		/obj/item/storage/pill_bottle/epinephrine = 8,
@@ -320,8 +320,8 @@
 		/obj/item/book/granter/spell/mimery_blockade = 1,
 	)
 
-//PSYCHOLOGIST / SHRINK GIMMICK
-/datum/job/gimmick/shrink
+//PSYCHOLOGIST / PSYCHIATRIST GIMMICK
+/datum/job/gimmick/psychiatrist
 	mail_goodies =  list(
 		/obj/item/storage/pill_bottle/mannitol = 30,
 		/obj/item/storage/pill_bottle/happy = 5,
@@ -375,7 +375,7 @@
 	)
 
 //SECURITY OFFICER
-/datum/job/officer
+/datum/job/security_officer
 	mail_goodies = list(
 		/obj/item/reagent_containers/food/snacks/donut/plain = 15,
 		/obj/effect/spawner/mail/donut = 10,
@@ -398,7 +398,7 @@
 	)
 
 //ENGINEER
-/datum/job/engineer
+/datum/job/station_engineer
 	mail_goodies = list(
 		/obj/item/storage/box/lights/mixed = 15,
 		/obj/item/reagent_containers/food/drinks/soda_cans/thirteenloko = 15,
@@ -424,8 +424,8 @@
 
 	)
 
-//VIP / CELEBRITY GIMMICK
-/datum/job/gimmick/celebrity
+//VIP / VIP GIMMICK
+/datum/job/gimmick/vip
 	mail_goodies = list(
 		//WOW THE NEW BEATS BY DR.MOFF?
 		/obj/item/clothing/ears/headphones = 10,

@@ -263,7 +263,7 @@
 	H.dna.add_mutation(DWARFISM)
 
 /obj/effect/mob_spawn/human/corpse/damaged/legioninfested/Initialize(mapload)
-	var/type = pickweight(list("Miner" = 66, "Ashwalker" = 10, "Golem" = 10,"Clown" = 10, pick(list("Shadow", "YeOlde","Operative", "Cultist")) = 4))
+	var/type = pickweight(list("Miner" = 66, "Ashwalker" = 10, "Golem" = 10,JOB_NAME_CLOWN = 10, pick(list("Shadow", "YeOlde","Operative", "Cultist")) = 4))
 	switch(type)
 		if("Miner")
 			mob_species = pickweight(list(/datum/species/human = 70, /datum/species/lizard = 26, /datum/species/fly = 2, /datum/species/plasmaman = 2))
@@ -306,7 +306,7 @@
 				r_pocket = /obj/item/kitchen/knife/combat/bone
 			if(prob(30))
 				l_pocket = /obj/item/kitchen/knife/combat/bone
-		if("Clown")
+		if(JOB_NAME_CLOWN)
 			name = pick(GLOB.clown_names)
 			outfit = /datum/outfit/job/clown
 			belt = null

@@ -251,7 +251,7 @@
 	desc = "A plasmaman envirosuit designed for chemists, two orange stripes going down it's face."
 	greyscale_colors = "#D2D2D2#D26F00#2D2D2D"
 
-/obj/item/clothing/head/helmet/space/plasmaman/emt
+/obj/item/clothing/head/helmet/space/plasmaman/paramedic
 	name = "paramedic envirosuit helmet"
 	desc = "An envirosuit helmet only for the bravest medical plasmaman."
 	greyscale_colors = "#2C3A4E#D9D9D9#2C3A4E"
@@ -467,7 +467,7 @@
 	desc = "A braced plasmaman containment helmet design for chemists."
 	greyscale_colors = "#E6E6E6#FF8800"
 
-/obj/item/clothing/head/helmet/space/plasmaman/mark2/emt
+/obj/item/clothing/head/helmet/space/plasmaman/mark2/paramedic
 	name = "paramedic Mk.II envirosuit helmet"
 	desc = "A new and improved envirosuit helmet only for the bravest medical plasmaman."
 	greyscale_colors = "#2C3A4E#D9D9D9"
@@ -667,7 +667,7 @@
 	desc = "A braced plasmaman containment helmet designed for chemists."
 	greyscale_colors = "#E6E6E6#FF8800"
 
-/obj/item/clothing/head/helmet/space/plasmaman/protective/emt
+/obj/item/clothing/head/helmet/space/plasmaman/protective/paramedic
 	name = "paramedic protective envirosuit helmet"
 	desc = "A new and improved envirosuit helmet only for the bravest medical plasmaman."
 	greyscale_colors = "#2C3A4E#EBEBEB"

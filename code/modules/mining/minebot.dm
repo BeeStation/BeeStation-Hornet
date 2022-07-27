@@ -54,7 +54,7 @@
 	imp.implant(src)
 
 	access_card = new /obj/item/card/id(src)
-	var/datum/job/mining/M = new
+	var/datum/job/shaft_miner/M = new
 	access_card.access = M.get_access()
 
 	SetCollectBehavior()

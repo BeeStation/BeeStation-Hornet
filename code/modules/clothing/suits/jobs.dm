@@ -74,7 +74,7 @@
 	item_state = "detsuit"
 
 //Brig Phys
-/obj/item/clothing/suit/hazardvest/brig_phys
+/obj/item/clothing/suit/hazardvest/brig_physician
 	name = "brig physician's vest"
 	desc = "A lightweight vest worn by the Brig Physician."
 	icon_state = "brig_phys_vest"

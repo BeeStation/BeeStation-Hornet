@@ -647,7 +647,7 @@
 		var/datum/atom_hud/DHUD = GLOB.huds[DATA_HUD_DIAGNOSTIC_BASIC]
 		DHUD.remove_hud_from(user)
 
-/obj/item/clothing/suit/space/hardsuit/rd
+/obj/item/clothing/suit/space/hardsuit/research_director
 	icon_state = "hardsuit-rd"
 	name = "prototype hardsuit"
 	desc = "A prototype suit that protects against hazardous, low pressure environments. Fitted with extensive plating for handling explosives and dangerous research materials."
@@ -694,7 +694,7 @@
 	armor = list("melee" = 45, "bullet" = 25, "laser" = 30, "energy" = 40, "bomb" = 25, "bio" = 100, "rad" = 50, "fire" = 95, "acid" = 95, "stamina" = 60)
 
 
-/obj/item/clothing/suit/space/hardsuit/security/hos
+/obj/item/clothing/suit/space/hardsuit/security/head_of_security
 	icon_state = "hardsuit-hos"
 	name = "head of security's hardsuit"
 	supports_variations = DIGITIGRADE_VARIATION
@@ -767,7 +767,7 @@
 	if(!..() || !ishuman(M))
 		return FALSE
 	var/mob/living/carbon/human/H = M
-	if(H.mind.assigned_role == "Clown")
+	if(H.mind.assigned_role == JOB_NAME_CLOWN)
 		return TRUE
 	else
 		return FALSE

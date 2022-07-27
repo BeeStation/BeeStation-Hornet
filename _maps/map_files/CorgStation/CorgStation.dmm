@@ -4226,7 +4226,7 @@
 	pixel_x = -2;
 	pixel_y = 4
 	},
-/obj/item/stamp/hop{
+/obj/item/stamp/head_of_personnel{
 	pixel_x = -4;
 	pixel_y = 4
 	},
@@ -7827,7 +7827,7 @@
 "bNp" = (
 /obj/structure/table/reinforced,
 /obj/item/folder/yellow,
-/obj/item/stamp/qm,
+/obj/item/stamp/quartermaster,
 /obj/effect/turf_decal/tile/brown,
 /obj/effect/turf_decal/tile/brown{
 	dir = 1
@@ -10437,7 +10437,7 @@
 /obj/structure/table,
 /obj/item/paper_bin,
 /obj/item/pen/red,
-/obj/item/stamp/rd,
+/obj/item/stamp/research_director,
 /obj/item/aicard,
 /turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/hor)
@@ -15140,7 +15140,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
 	},
-/obj/effect/landmark/start/emt,
+/obj/effect/landmark/start/paramedic,
 /obj/machinery/light_switch{
 	pixel_x = 1;
 	pixel_y = 28
@@ -23286,7 +23286,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
-/obj/effect/landmark/start/brig_phys,
+/obj/effect/landmark/start/brig_physician,
 /turf/open/floor/plasteel/white,
 /area/security/brig)
 "gvN" = (
@@ -26296,7 +26296,7 @@
 	pixel_x = -7;
 	pixel_y = 2
 	},
-/obj/item/stamp/ce{
+/obj/item/stamp/chief_engineer{
 	pixel_x = 5;
 	pixel_y = 8
 	},
@@ -27647,7 +27647,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/blue,
-/obj/effect/landmark/start/emt,
+/obj/effect/landmark/start/paramedic,
 /turf/open/floor/plasteel/white,
 /area/medical/storage)
 "hHR" = (
@@ -27971,7 +27971,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/blue,
-/obj/effect/landmark/start/emt,
+/obj/effect/landmark/start/paramedic,
 /turf/open/floor/plasteel/white,
 /area/medical/storage)
 "hLT" = (
@@ -31555,7 +31555,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/blue,
-/obj/effect/landmark/start/emt,
+/obj/effect/landmark/start/paramedic,
 /obj/item/radio/intercom{
 	pixel_y = 24
 	},
@@ -46328,7 +46328,7 @@
 /area/ai_monitored/turret_protected/ai)
 "mZc" = (
 /obj/machinery/holopad,
-/obj/effect/landmark/start/brig_phys,
+/obj/effect/landmark/start/brig_physician,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plasteel/white,
 /area/security/brig)
@@ -49322,7 +49322,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/blue,
-/obj/effect/landmark/start/emt,
+/obj/effect/landmark/start/paramedic,
 /turf/open/floor/plasteel/white,
 /area/medical/storage)
 "nQL" = (
@@ -54905,7 +54905,7 @@
 	},
 /area/chapel/main/monastery)
 "pxo" = (
-/obj/structure/closet/secure_closet/brig_phys,
+/obj/structure/closet/secure_closet/brig_physician,
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
@@ -67381,7 +67381,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
 	},
-/obj/effect/landmark/start/emt,
+/obj/effect/landmark/start/paramedic,
 /turf/open/floor/plasteel/white,
 /area/medical/storage)
 "tqu" = (

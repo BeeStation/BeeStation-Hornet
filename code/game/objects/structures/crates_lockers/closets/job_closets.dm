@@ -197,9 +197,9 @@
 		/obj/item/clothing/under/rank/medical/doctor/purple = 1,
 		/obj/item/clothing/under/rank/medical = 3,
 		/obj/item/clothing/suit/toggle/labcoat = 3,
-		/obj/item/clothing/suit/toggle/labcoat/emt = 3,
+		/obj/item/clothing/suit/toggle/labcoat/paramedic = 3,
 		/obj/item/clothing/shoes/sneakers/white = 3,
-		/obj/item/clothing/head/soft/emt = 3,
+		/obj/item/clothing/head/soft/paramedic = 3,
 		/obj/item/clothing/head/beret/med = 3)
 	generate_items_inside(items_inside,src)
 	return

@@ -82,7 +82,7 @@
 /datum/species/plasmaman/qualifies_for_rank(rank, list/features)
 	if(rank in GLOB.security_positions)
 		return 0
-	if(rank == "Clown" || rank == "Mime")//No funny bussiness
+	if(rank == JOB_NAME_CLOWN || rank == JOB_NAME_MIME)//No funny bussiness
 		return 0
 	return ..()
 

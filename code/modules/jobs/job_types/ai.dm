@@ -1,5 +1,5 @@
 /datum/job/ai
-	title = "AI"
+	title = JOB_NAME_AI
 	flag = AI_JF
 	auto_deadmin_role_flags = DEADMIN_POSITION_SILICON
 	department_flag = ENGSEC
@@ -14,7 +14,7 @@
 	exp_type = EXP_TYPE_CREW
 	exp_type_department = EXP_TYPE_SILICON
 	display_order = JOB_DISPLAY_ORDER_AI
-	departments = DEPARTMENT_SILICON
+	departments = DEPARTMENT_BITFLAG_SILICON
 	random_spawns_possible = FALSE
 	allow_bureaucratic_error = FALSE
 	var/do_special_check = TRUE

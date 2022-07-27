@@ -27,17 +27,17 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	var/change_position_cooldown = 30
 	//Jobs you cannot open new positions for
 	var/list/blacklisted = list(
-		"AI",
-		"Assistant",
-		"Cyborg",
-		"Captain",
-		"Head of Personnel",
-		"Head of Security",
-		"Chief Engineer",
-		"Research Director",
-		"Chief Medical Officer",
-		"Brig Physician",
-		"Deputy")
+		JOB_NAME_AI,
+		JOB_NAME_ASSISTANT,
+		JOB_NAME_CYBORG,
+		JOB_NAME_CAPTAIN,
+		JOB_NAME_HEADOFPERSONNEL,
+		JOB_NAME_HEADOFSECURITY,
+		JOB_NAME_CHIEFENGINEER,
+		JOB_NAME_RESEARCHDIRECTOR,
+		JOB_NAME_CHIEFMEDICALOFFICER,
+		JOB_NAME_BRIGPHYSICIAN,
+		JOB_NAME_DEPUTY)
 
 	//The scaling factor of max total positions in relation to the total amount of people on board the station in %
 	var/max_relative_positions = 30 //30%: Seems reasonable, limit of 6 @ 20 players
@@ -338,17 +338,17 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		var/list/alljobs = list("Unassigned")
 		alljobs += (istype(src, /obj/machinery/computer/card/centcom)? get_all_centcom_jobs() : get_all_jobs()) + "Custom"
 		for(var/job in alljobs)
-			if(job == "Assistant")
+			if(job == JOB_NAME_ASSISTANT)
 				jobs_all += "<br/>* Service: "
-			if(job == "Quartermaster")
+			if(job == JOB_NAME_QUARTERMASTER)
 				jobs_all += "<br/>* Cargo: "
-			if(job == "Chief Engineer")
+			if(job == JOB_NAME_CHIEFENGINEER)
 				jobs_all += "<br/>* Engineering: "
-			if(job == "Research Director")
+			if(job == JOB_NAME_RESEARCHDIRECTOR)
 				jobs_all += "<br/>* R&D: "
-			if(job == "Chief Medical Officer")
+			if(job == JOB_NAME_CHIEFMEDICALOFFICER)
 				jobs_all += "<br/>* Medical: "
-			if(job == "Head of Security")
+			if(job == JOB_NAME_HEADOFSECURITY)
 				jobs_all += "<br/>* Security: "
 			if(job == "Custom")
 				jobs_all += "<br/>"
@@ -491,19 +491,19 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 						if((ACCESS_HOP in inserted_scan_id.access) && ((target_dept==DEPT_GEN) || !target_dept))
 							region_access |= DEPT_GEN
 							region_access |= DEPT_SUP //Currently no seperation between service/civillian and supply
-							get_subordinates("Head of Personnel")
+							get_subordinates(JOB_NAME_HEADOFPERSONNEL)
 						if((ACCESS_HOS in inserted_scan_id.access) && ((target_dept==DEPT_SEC) || !target_dept))
 							region_access |= DEPT_SEC
-							get_subordinates("Head of Security")
+							get_subordinates(JOB_NAME_HEADOFSECURITY)
 						if((ACCESS_CMO in inserted_scan_id.access) && ((target_dept==DEPT_MED) || !target_dept))
 							region_access |= DEPT_MED
-							get_subordinates("Chief Medical Officer")
+							get_subordinates(JOB_NAME_CHIEFMEDICALOFFICER)
 						if((ACCESS_RD in inserted_scan_id.access) && ((target_dept==DEPT_SCI) || !target_dept))
 							region_access |= DEPT_SCI
-							get_subordinates("Research Director")
+							get_subordinates(JOB_NAME_RESEARCHDIRECTOR)
 						if((ACCESS_CE in inserted_scan_id.access) && ((target_dept==DEPT_ENG) || !target_dept))
 							region_access |= DEPT_ENG
-							get_subordinates("Chief Engineer")
+							get_subordinates(JOB_NAME_CHIEFENGINEER)
 						if(region_access)
 							authenticated = 1
 			else if ((!( authenticated ) && issilicon(usr)) && (!inserted_modify_id))

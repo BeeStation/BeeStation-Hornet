@@ -239,7 +239,7 @@
 /datum/emote/living/carbon/human/robot_tongue/clown/can_run_emote(mob/user, status_check = TRUE , intentional)
 	if(!..())
 		return FALSE
-	if(user.mind.assigned_role == "Clown")
+	if(user.mind.assigned_role == JOB_NAME_CLOWN)
 		return TRUE
 
 /datum/emote/living/carbon/human/robot_tongue/clown/honk

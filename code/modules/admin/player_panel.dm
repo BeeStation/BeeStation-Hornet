@@ -75,7 +75,7 @@
 					body += "<a href='?_src_=holder;[HrefToken()];showmessageckey="+ckey+"'>N</a> - "
 					body += "<a href='?_src_=vars;[HrefToken()];Vars="+ref+"'>VV</a> - "
 					body += "<a href='?_src_=holder;[HrefToken()];traitor="+ref+"'>TP</a> - "
-					if (job == "Cyborg")
+					if (job == JOB_NAME_CYBORG)
 						body += "<a href='?_src_=holder;[HrefToken()];borgpanel="+ref+"'>BP</a> - "
 					body += "<a href='?priv_msg="+ckey+"'>PM</a> - "
 					body += "<a href='?_src_=holder;[HrefToken()];subtlemessage="+ref+"'>SM</a> - "
@@ -235,11 +235,11 @@
 
 				else if(issilicon(M)) //silicon
 					if(isAI(M))
-						M_job = "AI"
+						M_job = JOB_NAME_AI
 					else if(ispAI(M))
 						M_job = ROLE_PAI
 					else if(iscyborg(M))
-						M_job = "Cyborg"
+						M_job = JOB_NAME_CYBORG
 					else
 						M_job = "Silicon-based"
 

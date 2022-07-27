@@ -89,7 +89,7 @@
 "m" = (
 /obj/structure/bed,
 /obj/item/bedsheet/random,
-/obj/effect/landmark/start/randommaint/celebrity,
+/obj/effect/landmark/start/randommaint/vip,
 /turf/open/floor/plating{
 	icon_state = "wood"
 	},

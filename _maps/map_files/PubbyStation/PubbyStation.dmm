@@ -2574,7 +2574,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 8
 	},
-/obj/effect/landmark/start/brig_phys,
+/obj/effect/landmark/start/brig_physician,
 /turf/open/floor/plasteel/white,
 /area/security/brig)
 "als" = (
@@ -7500,7 +7500,7 @@
 /area/crew_quarters/heads/hop)
 "aER" = (
 /obj/structure/table/wood,
-/obj/item/stamp/hop{
+/obj/item/stamp/head_of_personnel{
 	pixel_x = -4;
 	pixel_y = 4
 	},
@@ -14599,7 +14599,7 @@
 	pixel_y = 7
 	},
 /obj/item/coin/silver,
-/obj/item/stamp/qm,
+/obj/item/stamp/quartermaster,
 /obj/effect/turf_decal/tile/brown,
 /obj/effect/turf_decal/tile/brown{
 	dir = 8
@@ -21986,7 +21986,7 @@
 	},
 /obj/item/folder/white,
 /obj/item/pen,
-/obj/item/stamp/rd,
+/obj/item/stamp/research_director,
 /obj/machinery/status_display/evac{
 	pixel_y = -30
 	},
@@ -26416,7 +26416,7 @@
 /obj/structure/table/reinforced,
 /obj/item/clipboard,
 /obj/item/lighter,
-/obj/item/stamp/ce,
+/obj/item/stamp/chief_engineer,
 /obj/item/stock_parts/cell/high/plus,
 /obj/machinery/keycard_auth{
 	pixel_x = 26;
@@ -32597,7 +32597,7 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/obj/effect/landmark/start/emt,
+/obj/effect/landmark/start/paramedic,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 1
 	},
@@ -60168,7 +60168,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 8
 	},
-/obj/structure/closet/secure_closet/brig_phys,
+/obj/structure/closet/secure_closet/brig_physician,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 9
 	},

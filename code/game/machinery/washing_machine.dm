@@ -12,7 +12,7 @@ GLOBAL_LIST_INIT(dye_registry, list(
 		DYE_RAINBOW = /obj/item/clothing/under/color/rainbow,
 		DYE_MIME = /obj/item/clothing/under/rank/civilian/mime,
 		DYE_CLOWN = /obj/item/clothing/under/rank/civilian/clown,
-		DYE_QM = /obj/item/clothing/under/rank/cargo/qm,
+		DYE_QM = /obj/item/clothing/under/rank/cargo/quartermaster,
 		DYE_LAW = /obj/item/clothing/under/suit/black,
 		DYE_CAPTAIN = /obj/item/clothing/under/rank/captain,
 		DYE_HOP = /obj/item/clothing/under/rank/civilian/head_of_personnel,

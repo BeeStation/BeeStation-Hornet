@@ -1,5 +1,5 @@
 /datum/job/cyborg
-	title = "Cyborg"
+	title = JOB_NAME_CYBORG
 	flag = CYBORG
 	auto_deadmin_role_flags = DEADMIN_POSITION_SILICON
 	department_flag = ENGSEC
@@ -14,7 +14,7 @@
 	random_spawns_possible = FALSE
 
 	display_order = JOB_DISPLAY_ORDER_CYBORG
-	departments = DEPARTMENT_SILICON
+	departments = DEPARTMENT_BITFLAG_SILICON
 
 /datum/job/cyborg/equip(mob/living/carbon/human/H, visualsOnly = FALSE, announce = TRUE, latejoin = FALSE, datum/outfit/outfit_override = null, client/preference_source = null)
 	if(visualsOnly)

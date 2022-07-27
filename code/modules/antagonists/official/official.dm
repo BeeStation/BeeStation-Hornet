@@ -1,5 +1,5 @@
 /datum/antagonist/official
-	name = "CentCom Official"
+	name = JOB_CENTCOM_OFFICIAL
 	show_name_in_check_antagonists = TRUE
 	show_in_antagpanel = FALSE
 	can_elimination_hijack = ELIMINATION_PREVENT

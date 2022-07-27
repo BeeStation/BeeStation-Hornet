@@ -452,7 +452,7 @@
 	You are not a security module and you are expected to follow orders and prevent harm above all else. Space law means nothing to you.</span>")
 
 /obj/item/robot_module/janitor
-	name = "Janitor"
+	name = JOB_NAME_JANITOR
 	basic_modules = list(
 		/obj/item/assembly/flash/cyborg,
 		/obj/item/screwdriver/cyborg,
@@ -492,7 +492,7 @@
 			LR.Charge(R)
 
 /obj/item/robot_module/clown
-	name = "Clown"
+	name = JOB_NAME_CLOWN
 	basic_modules = list(
 		/obj/item/assembly/flash/cyborg,
 		/obj/item/toy/crayon/rainbow,

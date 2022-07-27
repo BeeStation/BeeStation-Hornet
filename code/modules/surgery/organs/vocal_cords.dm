@@ -161,13 +161,13 @@
 
 	if(user.mind)
 		//Chaplains are very good at speaking with the voice of god
-		if(user.mind.assigned_role == "Chaplain")
+		if(user.mind.assigned_role == JOB_NAME_CHAPLAIN)
 			power_multiplier *= 2
 		//Curators are very good at speaking in other languages, but not as good as Chaplain with this one
 		if(user.mind.assigned_role == "Curator")
 			power_multiplier *= 1.5
 		//Why are you speaking
-		if(user.mind.assigned_role == "Mime")
+		if(user.mind.assigned_role == JOB_NAME_MIME)
 			power_multiplier *= 0.5
 
 	//Cultists are closer to their gods and are more powerful, but they'll give themselves away
@@ -551,7 +551,7 @@
 	else if((findtext(message, honk_words)))
 		cooldown = COOLDOWN_MEME
 		addtimer(CALLBACK(GLOBAL_PROC, .proc/playsound, get_turf(user), 'sound/items/bikehorn.ogg', 300, 1), 25)
-		if(user.mind?.assigned_role == "Clown")
+		if(user.mind?.assigned_role == JOB_NAME_CLOWN)
 			for(var/mob/living/carbon/C in listeners)
 				C.slip(140 * power_multiplier)
 			cooldown = COOLDOWN_MEME

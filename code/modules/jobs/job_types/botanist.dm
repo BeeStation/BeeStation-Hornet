@@ -1,7 +1,7 @@
-/datum/job/hydro
-	title = "Botanist"
+/datum/job/botanist
+	title = JOB_NAME_BOTANIST
 	flag = BOTANIST
-	department_head = list("Head of Personnel")
+	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	department_flag = CIVILIAN
 	faction = "Station"
 	total_positions = 3
@@ -16,7 +16,7 @@
 	paycheck = PAYCHECK_EASY
 	paycheck_department = ACCOUNT_SRV
 	display_order = JOB_DISPLAY_ORDER_BOTANIST
-	departments = DEPARTMENT_SERVICE
+	departments = DEPARTMENT_BITFLAG_SERVICE
 	rpg_title = "Gardener"
 
 	species_outfits = list(
@@ -24,8 +24,8 @@
 	)
 
 /datum/outfit/job/botanist
-	name = "Botanist"
-	jobtype = /datum/job/hydro
+	name = JOB_NAME_BOTANIST
+	jobtype = /datum/job/botanist
 
 	id = /obj/item/card/id/job/botanist
 	belt = /obj/item/pda/service

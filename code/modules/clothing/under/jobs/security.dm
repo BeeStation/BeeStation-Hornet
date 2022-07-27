@@ -174,13 +174,13 @@
  * Brig Physician
 */
 
-/obj/item/clothing/under/rank/brig_phys
+/obj/item/clothing/under/rank/brig_physician
 	name = "brig physician's jumpsuit"
 	desc = "A lightly armored jumpsuit worn by Nanotrasen's Asset Protection Medical Corps."
 	icon_state = "brig_phys"
 	item_state = "labcoat_sec"
 
-/obj/item/clothing/under/rank/brig_phys/skirt
+/obj/item/clothing/under/rank/brig_physician/skirt
 	name = "brig physician's jumpskirt"
 	desc = "A lightly armored jumpskirt worn by Nanotrasen's Asset Protection Medical Corps."
 	icon_state = "brig_phys_skirt"

@@ -1,7 +1,7 @@
 /datum/job/janitor
-	title = "Janitor"
+	title = JOB_NAME_JANITOR
 	flag = JANITOR
-	department_head = list("Head of Personnel")
+	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	department_flag = CIVILIAN
 	faction = "Station"
 	total_positions = 2
@@ -17,7 +17,7 @@
 	paycheck_department = ACCOUNT_SRV
 
 	display_order = JOB_DISPLAY_ORDER_JANITOR
-	departments = DEPARTMENT_SERVICE
+	departments = DEPARTMENT_BITFLAG_SERVICE
 	rpg_title = "Groundskeeper"
 	biohazard = 20//cleaning up hazardous messes puts janitors at extra risk
 
@@ -26,7 +26,7 @@
 	)
 
 /datum/outfit/job/janitor
-	name = "Janitor"
+	name = JOB_NAME_JANITOR
 	jobtype = /datum/job/janitor
 
 	id = /obj/item/card/id/job/janitor

@@ -2,7 +2,7 @@
 Assistant
 */
 /datum/job/assistant
-	title = "Assistant"
+	title = JOB_NAME_ASSISTANT
 	flag = ASSISTANT
 	department_flag = CIVILIAN
 	faction = "Station"
@@ -17,7 +17,7 @@ Assistant
 	paycheck = PAYCHECK_ASSISTANT // Get a job. Job reassignment changes your paycheck now. Get over it.
 	paycheck_department = ACCOUNT_CIV
 	display_order = JOB_DISPLAY_ORDER_ASSISTANT
-	departments = DEPARTMENT_SERVICE
+	departments = DEPARTMENT_BITFLAG_SERVICE
 	rpg_title = "Lout"
 
 	species_outfits = list(
@@ -31,7 +31,7 @@ Assistant
 		return ..()
 
 /datum/outfit/job/assistant
-	name = "Assistant"
+	name = JOB_NAME_ASSISTANT
 	jobtype = /datum/job/assistant
 	belt = /obj/item/pda/assistant
 

@@ -1,7 +1,7 @@
 /datum/job/virologist
-	title = "Virologist"
+	title = JOB_NAME_VIROLOGIST
 	flag = VIROLOGIST
-	department_head = list("Chief Medical Officer")
+	department_head = list(JOB_NAME_CHIEFMEDICALOFFICER)
 	department_flag = MEDSCI
 	faction = "Station"
 	total_positions = 2
@@ -20,19 +20,19 @@
 	paycheck_department = ACCOUNT_MED
 
 	display_order = JOB_DISPLAY_ORDER_VIROLOGIST
-	departments = DEPARTMENT_MEDICAL
+	departments = DEPARTMENT_BITFLAG_MEDICAL
 	rpg_title = "Plague Doctor"
 
 	species_outfits = list(
-		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/viro
+		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/virologist
 	)
 	biohazard = 50 //duh
 
 /datum/outfit/job/virologist
-	name = "Virologist"
+	name = JOB_NAME_VIROLOGIST
 	jobtype = /datum/job/virologist
 
-	id = /obj/item/card/id/job/viro
+	id = /obj/item/card/id/job/virologist
 	belt = /obj/item/extrapolator
 	ears = /obj/item/radio/headset/headset_med
 	uniform = /obj/item/clothing/under/rank/medical/virologist
@@ -40,7 +40,7 @@
 	shoes = /obj/item/clothing/shoes/sneakers/white
 	suit =  /obj/item/clothing/suit/toggle/labcoat/virologist
 	suit_store =  /obj/item/flashlight/pen
-	r_pocket = /obj/item/pda/viro
+	r_pocket = /obj/item/pda/virologist
 
 	backpack = /obj/item/storage/backpack/virology
 	satchel = /obj/item/storage/backpack/satchel/vir

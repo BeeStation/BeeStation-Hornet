@@ -16,7 +16,7 @@
 	new /obj/item/clothing/shoes/sneakers/brown(src)
 	new /obj/item/tank/jetpack/suit(src)
 	new /obj/item/cartridge/ce(src)
-	new /obj/item/radio/headset/heads/ce(src)
+	new /obj/item/radio/headset/heads/chief_engineer(src)
 	new /obj/item/storage/toolbox/mechanical(src)
 	new /obj/item/clothing/suit/hazardvest(src)
 	new /obj/item/megaphone/command(src)
