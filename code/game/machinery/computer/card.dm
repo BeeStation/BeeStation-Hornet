@@ -66,7 +66,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 
 /obj/machinery/computer/card/attackby(obj/I, mob/user, params)
 	if(isidcard(I))
- 		if(istype(I, /obj/item/card/id/paper))
+		if(istype(I, /obj/item/card/id/paper))
 			to_chat(user, to_chat(user, "<span class='warning'>There's no circuitry to change!"))
 			return
 		if(check_access(I) && !inserted_scan_id)
