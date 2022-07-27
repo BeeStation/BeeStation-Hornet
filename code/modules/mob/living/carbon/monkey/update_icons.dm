@@ -76,6 +76,7 @@
 		I.screen_loc = ui_monkey_back
 		client.screen += I
 		
+//Update uniform in compliance with monkey icons
 /mob/living/carbon/monkey/update_inv_w_uniform()
 	remove_overlay(UNIFORM_LAYER)
 
@@ -88,11 +89,10 @@
 		U.screen_loc = ui_monkey_body
 		client.screen += w_uniform
 
-		var/icon/uniform_overlay = new(U.monkey_icon)
-		var/mutable_appearance/overlay = new()
-		overlay.icon = uniform_overlay
-		overlay.layer = UNIFORM_LAYER
-
-		overlays_standing[UNIFORM_LAYER] = overlay
+		var/mutable_appearance/uniform_overlay = mutable_appearance(U.monkey_icon, layer = -UNIFORM_LAYER)
+		if(OFFSET_UNIFORM in dna.species.offset_features)
+			uniform_overlay.pixel_x += dna.species.offset_features[OFFSET_UNIFORM][1]
+			uniform_overlay.pixel_y += dna.species.offset_features[OFFSET_UNIFORM][2]
+		overlays_standing[UNIFORM_LAYER] = uniform_overlay
 
 	apply_overlay(UNIFORM_LAYER)

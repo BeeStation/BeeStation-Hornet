@@ -163,3 +163,42 @@
 	uniform = /obj/item/clothing/under/suit/black_really
 	shoes = /obj/item/clothing/shoes/laceup
 	can_be_admin_equipped = TRUE
+
+/datum/job/gimmick/experiment
+	title = "Experiment"
+	flag = EXPERIMENT
+	supervisors = "the research director"
+	department_head = list("Research Director")
+	department_flag = SCIENTIST
+	gimmick = TRUE
+
+	access = list(ACCESS_MAINT_TUNNELS, ACCESS_RESEARCH, ACCESS_TOX)
+	minimal_access = list(ACCESS_MAINT_TUNNELS, ACCESS_RESEARCH, ACCESS_TOX)
+	paycheck = PAYCHECK_EASY
+	departments = DEPARTMENT_SCIENCE
+
+	paycheck_department = ACCOUNT_SCI
+	rpg_title = "Beastman"
+
+	auto_deadmin_role_flags = DEADMIN_POSITION_SILICON
+
+/datum/job/gimmick/experiment/equip(mob/living/carbon/human/H, visualsOnly, announce, latejoin, datum/outfit/outfit_override, client/preference_source)
+	if(visualsOnly)
+		CRASH("dynamic preview is unsupported")
+	//Make the monkey
+	var/mob/living/carbon/monkey/K = H.monkeyize(skip_animation = TRUE)
+	K.real_name = "Experiment-[pick("A", "B", "C")]-[rand(0, 100)]"
+	K.name = K.real_name
+	//Equip a bag, ID & cute outfit
+	var/obj/item/storage/backpack/B = new(get_turf(K))
+	K.equip_to_slot_if_possible(B, ITEM_SLOT_BACK)
+
+	var/obj/item/card/id/job/sci/id_card = new(get_turf(K))
+	id_card.update_label(K.name, title)
+	LAZYADD(id_card.access, access)
+	id_card.forceMove(B)
+
+	var/obj/item/clothing/under/rank/rnd/scientist/outfit = new(get_turf(K))
+	K.equip_to_slot_if_possible(outfit, ITEM_SLOT_ICLOTHING)
+
+	return K

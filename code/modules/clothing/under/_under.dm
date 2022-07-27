@@ -50,7 +50,6 @@
 
 /obj/item/clothing/under/Initialize(mapload)
 	. = ..()
-	compile_monkey_icon()
 	var/new_sensor_mode = sensor_mode
 	sensor_mode = SENSOR_NOT_SET
 	if(random_sensor)
@@ -83,6 +82,8 @@
 	if(ishuman(user) || ismonkey(user))
 		var/mob/living/carbon/human/H = user
 		H.update_inv_w_uniform()
+		if(ismonkey(user)) //Only generate icons if we have to
+			compile_monkey_icon()
 	if(slot == ITEM_SLOT_ICLOTHING)
 		update_sensors(sensor_mode, TRUE)
 
@@ -218,6 +219,11 @@
 
 ///Proc used to compile icon for monkey clothing. If you're confused, look at masking icons.
 /obj/item/clothing/under/proc/compile_monkey_icon()
+	//If the icon, for this type of clothing, is already made by something else, don't make it again
+	if(GLOB.monkey_icon_cache[type])
+		monkey_icon = GLOB.monkey_icon_cache[type]
+		return
+
 	//Start with a base and align it with the mask
 	var/icon/base = icon('icons/mob/clothing/uniform.dmi', icon_state, SOUTH) //This takes the icon and uses the worn version of the icon
 	var/icon/back = icon('icons/mob/clothing/uniform.dmi', icon_state, NORTH) //Awkard but, we have to manually insert the back
@@ -274,3 +280,4 @@
 
 	//Finished!
 	monkey_icon = base
+	GLOB.monkey_icon_cache[type] = icon(monkey_icon) //Don't create a reference to monkey icon

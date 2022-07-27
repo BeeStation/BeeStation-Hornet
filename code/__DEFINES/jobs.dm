@@ -50,6 +50,7 @@
 #define MAGICIAN        (1<<16)
 #define SHRINK          (1<<17)
 #define CELEBRITY       (1<<18)
+#define EXPERIMENT       (1<<19)
 
 #define JOB_AVAILABLE 0
 #define JOB_UNAVAILABLE_GENERIC 1

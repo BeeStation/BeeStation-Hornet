@@ -58410,6 +58410,7 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4,
+/obj/effect/landmark/start/randommaint/experiment,
 /turf/open/floor/plasteel/white,
 /area/science/explab)
 "jda" = (

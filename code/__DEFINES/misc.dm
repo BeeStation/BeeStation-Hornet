@@ -469,3 +469,6 @@ GLOBAL_LIST_INIT(pda_styles, sortList(list(MONO, VT, ORBITRON, SHARE)))
 #define ALIGNMENT_GOOD "good"
 #define ALIGNMENT_NEUT "neutral"
 #define ALIGNMENT_EVIL "evil"
+
+///List of monkey_icons for clothing
+GLOBAL_LIST_EMPTY(monkey_icon_cache)

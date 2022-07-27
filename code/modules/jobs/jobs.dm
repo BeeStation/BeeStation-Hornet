@@ -55,7 +55,8 @@ GLOBAL_LIST_INIT(gimmick_positions, list(
 	"Barber",
 	"Stage Magician",
 	"Psychiatrist",
-	"VIP"))
+	"VIP",
+	"Experiment"))
 
 GLOBAL_LIST_INIT(security_positions, list(
 	"Head of Security",
