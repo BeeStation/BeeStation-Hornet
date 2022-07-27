@@ -97,7 +97,7 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 	var/Y1 = max(coords[2],coords[4]) //equal to height-dheight-1
 	return list(-X0, -Y0, X1-X0+1,Y1-Y0+1)
 
-//Returns the the bounding box fully containing both docking ports
+//Returns the the bounding box fully containing all provided docking ports
 /obj/docking_port/proc/return_union_coords(var/list/obj/docking_port/others, _x, _y, _dir)
 	if(_dir == null)
 		_dir = dir
@@ -122,7 +122,7 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 			max(.[4], mat0.f, mat1.f)
 		)
 
-//Returns the bounding box containing only the intersection both docking ports
+//Returns the bounding box containing only the intersection of all provided docking ports
 /obj/docking_port/proc/return_intersect_coords(var/list/obj/docking_port/others, _x, _y, _dir)
 	if(_dir == null)
 		_dir = dir
@@ -495,9 +495,7 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 /obj/docking_port/mobile/proc/calculate_mass()
 	. = 0
 	for(var/obj/docking_port/mobile/M in get_all_towed_shuttles())
-		for(var/area/shuttleArea in M.shuttle_areas)
-			for(var/turf/T in shuttleArea.contents)
-				. += 1
+		. += M.underlying_turf_area.len
 
 /obj/docking_port/mobile/return_ordered_turfs(_x, _y, _z, _dir, include_towed = TRUE)
 	if(!include_towed) //I hate this, but I need to access the superfunction somehow.
