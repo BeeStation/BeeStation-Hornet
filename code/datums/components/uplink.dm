@@ -45,7 +45,7 @@
 	else if(istype(parent, /obj/item/pda))
 		RegisterSignal(parent, COMSIG_PDA_CHANGE_RINGTONE, .proc/new_ringtone)
 	else if(istype(parent, /obj/item/radio))
-		RegisterSignal(parent, COMSIG_RADIO_UPLINK_MESSAGE, .proc/radio_message)
+		RegisterSignal(parent, COMSIG_RADIO_MESSAGE, .proc/radio_message)
 	else if(istype(parent, /obj/item/pen))
 		RegisterSignal(parent, COMSIG_PEN_ROTATED, .proc/pen_rotation)
 
