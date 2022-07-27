@@ -62,7 +62,7 @@
 		setDir(ndir)
 
 /obj/structure/camera_assembly/handle_atom_del(atom/A)
-	else if(A == emp_module)
+	if(A == emp_module)
 		emp_module = null
 		if(malf_emp_firmware_present)
 			malf_emp_firmware_active = malf_emp_firmware_present //re-enable firmware based upgrades after the part is removed.
