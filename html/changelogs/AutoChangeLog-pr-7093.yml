@@ -1,0 +1,6 @@
+author: EvilDragonfiend
+delete-after: true
+changes:
+  - refactor: refactored job strings into DEFINES.
+  - refactor: relocated some job related code lines
+  - refactor: changed some abbreviation names into correct ones (i.e. hos -> head_of_security)
