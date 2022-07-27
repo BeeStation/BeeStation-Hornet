@@ -80,6 +80,7 @@
 
 /obj/structure/closet/secure_closet/CMO/PopulateContents()
 	..()
+	new /obj/item/gun/energy/e_gun/mini/heads(src)
 	new /obj/item/clothing/head/beret/cmo(src)
 	new /obj/item/clothing/neck/cloak/cmo(src)
 	new /obj/item/storage/backpack/duffelbag/med(src)
@@ -108,6 +109,7 @@
 	new /obj/item/reagent_containers/food/drinks/bottle/synthflesh(src)
 	new /obj/item/card/id/departmental_budget/med(src)
 	new /obj/item/extrapolator(src)
+	new /obj/item/storage/box/command_keys(src)
 	new /obj/item/storage/lockbox/medal/med(src)
 
 /obj/structure/closet/secure_closet/animal

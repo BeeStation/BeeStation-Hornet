@@ -228,6 +228,10 @@
 	reagents = tank.reagents
 	max_water = tank.volume
 
+/obj/item/extinguisher/mini/nozzle/Destroy()
+	reagents = null
+	tank = null
+	return ..()
 
 /obj/item/extinguisher/mini/nozzle/doMove(atom/destination)
 	if(destination && (destination != tank.loc || !ismob(destination)))

@@ -135,7 +135,7 @@
 
 /obj/effect/proc_holder/alien/royal/queen/promote/fire(mob/living/carbon/alien/user)
 	var/obj/item/queenpromote/prom
-	if(get_alien_type(/mob/living/carbon/alien/humanoid/royal/praetorian/))
+	if(get_alien_type_in_hive(/mob/living/carbon/alien/humanoid/royal/praetorian/))
 		to_chat(user, "<span class='noticealien'>You already have a Praetorian!</span>")
 		return 0
 	else
@@ -167,7 +167,7 @@
 	if(!isalienadult(M) || isalienroyal(M))
 		to_chat(user, "<span class='noticealien'>You may only use this with your adult, non-royal children!</span>")
 		return
-	if(get_alien_type(/mob/living/carbon/alien/humanoid/royal/praetorian/))
+	if(get_alien_type_in_hive(/mob/living/carbon/alien/humanoid/royal/praetorian/))
 		to_chat(user, "<span class='noticealien'>You already have a Praetorian!</span>")
 		return
 

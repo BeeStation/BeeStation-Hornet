@@ -5,6 +5,7 @@
 
 /obj/structure/closet/secure_closet/engineering_chief/PopulateContents()
 	..()
+	new /obj/item/gun/energy/e_gun/mini/heads(src)
 	new /obj/item/clothing/head/beret/ce(src)
 	new /obj/item/clothing/neck/cloak/ce(src)
 	new /obj/item/clothing/under/rank/engineering/chief_engineer(src)
@@ -15,7 +16,7 @@
 	new /obj/item/clothing/shoes/sneakers/brown(src)
 	new /obj/item/tank/jetpack/suit(src)
 	new /obj/item/cartridge/ce(src)
-	new /obj/item/radio/headset/heads/ce(src)
+	new /obj/item/radio/headset/heads/chief_engineer(src)
 	new /obj/item/storage/toolbox/mechanical(src)
 	new /obj/item/clothing/suit/hazardvest(src)
 	new /obj/item/megaphone/command(src)
@@ -36,6 +37,7 @@
 	new /obj/item/card/id/departmental_budget/eng(src)
 	new /obj/item/storage/bag/construction(src)
 	new /obj/item/construction/rcd/loaded(src)
+	new /obj/item/storage/box/command_keys(src)
 	new /obj/item/rcd_ammo/large(src)
 
 /obj/structure/closet/secure_closet/engineering_electrical

@@ -19,8 +19,6 @@
 	meat = /obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/lizard
 	skinned_type = /obj/item/stack/sheet/animalhide/lizard
 	exotic_bloodtype = "L"
-	disliked_food = GRAIN | DAIRY
-	liked_food = GROSS | MEAT
 	inert_mutation = FIREBREATH
 	deathsound = 'sound/voice/lizard/deathsound.ogg'
 	species_language_holder = /datum/language_holder/lizard
@@ -87,3 +85,15 @@
 	inherent_traits = list(TRAIT_NOGUNS,TRAIT_NOBREATH)
 	species_language_holder = /datum/language_holder/lizard/ash
 	digitigrade_customization = DIGITIGRADE_FORCED
+
+/datum/species/lizard/ashwalker/after_equip_job(datum/job/J, mob/living/carbon/human/H, client/preference_source = null) // For roundstart
+	H.mind?.teach_crafting_recipe(/datum/crafting_recipe/primal_lasso)
+	return ..()
+
+/datum/species/lizard/ashwalker/on_species_gain(mob/living/carbon/C, datum/species/old_species, pref_load) // For transformations
+	C.mind?.teach_crafting_recipe(/datum/crafting_recipe/primal_lasso)
+	return ..()
+
+/datum/species/lizard/ashwalker/on_species_loss(mob/living/carbon/human/C, datum/species/new_species, pref_load)
+	C.mind?.forget_crafting_recipe(/datum/crafting_recipe/primal_lasso)
+	return ..()

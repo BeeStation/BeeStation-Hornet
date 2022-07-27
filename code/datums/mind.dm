@@ -328,6 +328,8 @@
 	if (!implant)
 		. = uplink_loc
 		var/datum/component/uplink/U = uplink_loc.AddComponent(/datum/component/uplink, traitor_mob.key, TRUE, FALSE, gamemode, telecrystals)
+		if(src.has_antag_datum(/datum/antagonist/incursion))
+			U.uplink_flag = UPLINK_INCURSION
 		if(!U)
 			CRASH("Uplink creation failed.")
 		U.setup_unlock_code()
@@ -783,12 +785,12 @@
 //AI
 /mob/living/silicon/ai/mind_initialize()
 	..()
-	mind.assigned_role = "AI"
+	mind.assigned_role = JOB_NAME_AI
 
 //BORG
 /mob/living/silicon/robot/mind_initialize()
 	..()
-	mind.assigned_role = "Cyborg"
+	mind.assigned_role = JOB_NAME_CYBORG
 
 //PAI
 /mob/living/silicon/pai/mind_initialize()

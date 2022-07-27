@@ -4,6 +4,8 @@ GLOBAL_VAR_INIT(embedpocalypse, FALSE) // if true, all items will be able to emb
 
 GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/effects/fire.dmi', "fire"))
 
+GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons/effects/welding_effect.dmi', "welding_sparks", GASFIRE_LAYER, ABOVE_LIGHTING_PLANE))
+
 GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 // if true, everyone item when created will have its name changed to be
 // more... RPG-like.
@@ -266,7 +268,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		return 1
 
 /obj/item/blob_act(obj/structure/blob/B)
-	if(B && B.loc == loc)
+	if(B.loc == loc && !(resistance_flags & INDESTRUCTIBLE))
 		qdel(src)
 
 /obj/item/ComponentInitialize()
@@ -670,6 +672,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	remove_outline()
 	if(verbs && user?.client)
 		user.client.remove_verbs(verbs)
+	log_item(user, INVESTIGATE_VERB_DROPPED)
 
 // called just as an item is picked up (loc is not yet changed)
 /obj/item/proc/pickup(mob/user)
@@ -678,6 +681,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	item_flags |= PICKED_UP
 	if(verbs && user.client)
 		user.client.add_verbs(verbs)
+	log_item(user, INVESTIGATE_VERB_PICKEDUP)
 
 // called when "found" in pockets and storage items. Returns 1 if the search should end.
 /obj/item/proc/on_found(mob/finder)
@@ -697,6 +701,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			A.Grant(user)
 	if(item_flags & SLOWS_WHILE_IN_HAND || slowdown)
 		user.update_equipment_speed_mods()
+	log_item(user, INVESTIGATE_VERB_EQUIPPED)
 
 //sometimes we only want to grant the item's action if it's equipped in a specific slot.
 /obj/item/proc/item_action_slot_check(slot, mob/user)
@@ -819,6 +824,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		if(w_class < 4)
 			itempush = 0 //too light to push anything
 		return hit_atom.hitby(src, 0, itempush, throwingdatum=throwingdatum)
+
 
 /obj/item/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback, force, quickstart = TRUE)
 	if(HAS_TRAIT(src, TRAIT_NODROP))
@@ -1101,7 +1107,6 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 				M.client.screen -= src
 			layer = initial(layer)
 			plane = initial(plane)
-			appearance_flags &= ~NO_CLIENT_COLOR
 			dropped(M)
 	return ..()
 

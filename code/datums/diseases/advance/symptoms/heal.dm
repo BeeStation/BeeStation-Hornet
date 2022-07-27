@@ -522,7 +522,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 				playsound(get_turf(M), 'sound/effects/splat.ogg', 50, 1)
 				if(prob(60) && M.mind && ishuman(M))
 					if(tetsuo && prob(15))
-						if(A.affected_mob.job == "Clown")
+						if(A.affected_mob.job == JOB_NAME_CLOWN)
 							new /obj/effect/spawner/lootdrop/teratoma/major/clown(M.loc)
 						if(MOB_ROBOTIC in A.infectable_biotypes)
 							new /obj/effect/decal/cleanable/robot_debris(M.loc)
@@ -690,8 +690,8 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 				bloodpoints += 1
 			else
 				bloodpoints += max(0, grabbedblood)
-			for(var/I in 1 to power)//power doesnt increase efficiency, just usage. 
-				if(bloodpoints)
+			for(var/I in 1 to power)//power doesnt increase efficiency, just usage.
+				if(bloodpoints > 0)
 					if(ishuman(M))
 						var/mob/living/carbon/human/H = M
 						if(H.bleed_rate >= 2 && bruteheal && bloodpoints)
@@ -703,7 +703,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 					else if(bruteheal && M.getBruteLoss())
 						bloodpoints -= 1
 						M.heal_overall_damage(2, required_status = BODYTYPE_ORGANIC)
-					if(prob(60) && !M.stat) 
+					if(prob(60) && !M.stat)
 						bloodpoints -- //you cant just accumulate blood and keep it as a battery of healing. the quicker the symptom is, the faster your bloodpoints decay
 				else if(prob(20) && M.blood_volume >= BLOOD_VOLUME_BAD)//the virus continues to extract blood if you dont have any stored up. higher probability due to BP value
 					M.blood_volume = (M.blood_volume - 1)
@@ -716,7 +716,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	REMOVE_TRAIT(A.affected_mob, TRAIT_DRINKSBLOOD, DISEASE_TRAIT)
 	if(bloodtypearchive && ishuman(A.affected_mob))
 		var/mob/living/carbon/human/H = A.affected_mob
-		H.dna.blood_type = bloodtypearchive 
+		H.dna.blood_type = bloodtypearchive
 
 /datum/symptom/vampirism/proc/succ(mob/living/carbon/M) //you dont need the blood reagent to suck blood. however, you need to have blood, or at least a shared blood reagent, for most of the other uses
 	var/gainedpoints = 0
@@ -732,15 +732,16 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 			if(bloodpoints >= 200 && H.health > 0 && H.blood_volume >= BLOOD_VOLUME_NORMAL) //note that you need to actually need to heal, so a maxed out virus won't be bringing you back instantly in most cases. *even so*, if this needs to be nerfed ill do it in a heartbeat
 				H.revive(0)
 				H.visible_message("<span class='warning'>[H.name]'s skin takes on a rosy hue as they begin moving. They live again!</span>", "<span class='userdanger'>As your body fills with fresh blood, you feel your limbs once more, accompanied by an insatiable thirst for blood.</span>")
-				bloodpoints -= 200
+				bloodpoints = 0
 				return 0
 			else if(bloodbag && bloodbag.blood_volume && (bloodbag.stat || bloodbag.bleed_rate))
 				if(get_dist(bloodbag, H) <= 1 && bloodbag.z == H.z)
-					var/amt = ((bloodbag.stat * 2) + 5) * power
+					var/amt = ((bloodbag.stat * 2) + 2) * power
 					var/excess = max(((min(amt, bloodbag.blood_volume) - (BLOOD_VOLUME_NORMAL - H.blood_volume)) / 2), 0)
 					H.blood_volume = min(H.blood_volume + min(amt, bloodbag.blood_volume), BLOOD_VOLUME_NORMAL)
 					bloodbag.blood_volume = max(bloodbag.blood_volume - amt, 0)
 					bloodpoints += max(excess, 0)
+					playsound(bloodbag.loc, 'sound/magic/exit_blood.ogg', 10, 1)
 					bloodbag.visible_message("<span class='warning'>Blood flows from [bloodbag.name]'s wounds into [H.name]'s corpse!</span>", "<span class='userdanger'>Blood flows from your wounds into [H.name]'s corpse!</span>")
 				else if(get_dist(bloodbag, H) >= possibledist) //they've been taken out of range.
 					bloodbag = null
@@ -753,7 +754,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 						playsound(T, 'sound/effects/splat.ogg', 50, 1)
 						bloodpoints -= 2
 						return 0
-					else 
+					else
 						var/todir = get_dir(H, bloodbag)
 						var/targetloc = bloodbag.loc
 						var/dist = get_dist(H, bloodbag)
@@ -770,9 +771,9 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 								bloodbag.throw_at(H, 1, 1)
 								bloodpoints -= 2
 								bloodbag.visible_message("<span class='warning'>A current of blood pushes [bloodbag.name] towards [H.name]'s corpse!</span>")
-								playsound(bloodbag.loc, 'sound/magic/exit_blood.ogg', 50, 1)
-								return 0 
-			else 
+								playsound(bloodbag.loc, 'sound/magic/exit_blood.ogg', 25, 1)
+								return 0
+			else
 				var/list/candidates = list()
 				for(var/mob/living/carbon/human/C in ohearers(min(bloodpoints/4, possibledist), H))
 					if(NOBLOOD in C.dna.species.species_traits)
@@ -787,7 +788,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 						candidates[prospect] += (3 - get_dist(candidate, H)) * 2
 						candidates[prospect] += round(candidate.blood_volume / 150)
 				bloodbag = pickweight(candidates) //dont return here
-	
+
 	if(bloodpoints >= maxbloodpoints)
 		return 0
 	if(ishuman(M) && aggression) //first, try to suck those the host is actively grabbing
@@ -805,7 +806,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 					C.blood_volume = max(C.blood_volume - amt, 0)
 					gainedpoints = CLAMP(excess, 0, maxbloodpoints - bloodpoints)
 					C.visible_message("<span class='warning'>Blood flows from [C.name]'s wounds into [H.name]!</span>", "<span class='userdanger'>Blood flows from your wounds into [H.name]!</span>")
-					playsound(C.loc, 'sound/magic/exit_blood.ogg', 50, 1)
+					playsound(C.loc, 'sound/magic/exit_blood.ogg', 25, 1)
 					return gainedpoints
 	if(locate(/obj/effect/decal/cleanable/blood) in M.loc)
 		var/obj/effect/decal/cleanable/blood/initialstain = (locate(/obj/effect/decal/cleanable/blood) in M.loc)
@@ -838,7 +839,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 			playsound(M.loc, 'sound/magic/exit_blood.ogg', 50, 1)
 			M.visible_message("<span class='warning'>Blood flows from the floor into [M.name]!</span>", "<span class='warning'>You consume the errant blood</span>")
 		return CLAMP(gainedpoints, 0, maxbloodpoints - bloodpoints)
-	if(ishuman(M) && aggression)//finally, attack mobs touching the host. 
+	if(ishuman(M) && aggression)//finally, attack mobs touching the host.
 		var/mob/living/carbon/human/H = M
 		for(var/mob/living/carbon/human/C in ohearers(1, H))
 			if(NOBLOOD in C.dna.species.species_traits)
@@ -891,7 +892,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 /datum/symptom/parasite/proc/isslimetarget(var/mob/living/carbon/M)
 	if(isslimeperson(M) || isluminescent(M) || isjellyperson(M) || isoozeling(M) || isstargazer(M))
 		return TRUE
-	else 
+	else
 		return FALSE
 
 /datum/symptom/parasite/Activate(datum/disease/advance/A)
@@ -899,7 +900,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 		return
 	var/mob/living/carbon/M = A.affected_mob
 	switch(A.stage)
-		if(1, 2)	
+		if(1, 2)
 			to_chat(M, "<span class='warning'>[pick("You feel something crawling in your veins!", "You feel an unpleasant throbbing.", "You hear something squishy in your ear.")]</span>")
 		if(3 to 5)
 			var/slowdown = 0
@@ -925,12 +926,12 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 			if(((M.getToxLoss() > (LAZYLEN(grubs) * (30/power))) || isslimetarget(M)) && prob(10 * power) && (LAZYLEN(grubs) < power * 2))
 				var/mob/living/simple_animal/hostile/redgrub/grub = new(src)// add new grubs if there's enough toxin for them
 				grub.food = 10
-				grubs += grub 
+				grubs += grub
 				grub.togglehibernation()
 				grub.grubdisease = list(A)
 			if(prob(LAZYLEN(grubs) * (6/power)))// so you know its working. power lowers this so it doesnt spam you at high grub counts
 				to_chat(M, "<span class='warning'>You feel something squirming inside of you!</span>")
-			M.add_movespeed_modifier(MOVESPEED_ID_GRUB_VIRUS_SLOWDOWN, override = TRUE, multiplicative_slowdown = max(slowdown - 0.5, 0)) 
+			M.add_movespeed_modifier(MOVESPEED_ID_GRUB_VIRUS_SLOWDOWN, override = TRUE, multiplicative_slowdown = max(slowdown - 0.5, 0))
 
 /datum/symptom/parasite/End(datum/disease/advance/A)
 	. = ..()
@@ -973,7 +974,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	prefixes = list("Gray ", "Amped ", "Nervous ")
 	var/clearcc = FALSE
 	threshold_desc = "<b>Resistance 8:</b>The virus causes an even greater rate of nutriment loss, able to cause starvation, but its energy gain greatly increases<br>\
-					<b>Stage Speed 8:</b>The virus causes extreme nervousness and paranoia, resulting in occasional hallucinations, and extreme restlessness, but greater overall energy and the ability to shake off stuns faster." 
+					<b>Stage Speed 8:</b>The virus causes extreme nervousness and paranoia, resulting in occasional hallucinations, and extreme restlessness, but greater overall energy and the ability to shake off stuns faster."
 
 /datum/symptom/jitters/severityset(datum/disease/advance/A)
 	. = ..()

@@ -64,6 +64,15 @@ GLOBAL_LIST_INIT(valid_keys, list(
 	for (var/kb_name in prefs.key_bindings[full_key])
 		var/datum/keybinding/kb = GLOB.keybindings_by_name[kb_name]
 		kbs += kb
+	// WASD-type movement keys (not the native arrow keys) are handled through the keybind system here.
+	// They have "any_modifier" set, because they need to be activated even if a modifier key is pressed,
+	// since these modifier keys toggle effects like "change facing" that require the movement keys to function.
+	// Note that this doesn't prevent the user from binding CTRL-W to North: In that case *only* CTRL-W will function.
+	if (full_key != _key)
+		for (var/kb_name in prefs.key_bindings[_key])
+			var/datum/keybinding/kb = GLOB.keybindings_by_name[kb_name]
+			if (kb.any_modifier)
+				kbs += kb
 	kbs = sortList(kbs, /proc/cmp_keybinding_dsc)
 	for(var/datum/keybinding/kb in kbs)
 		if(kb.can_use(src) && kb.down(src))
@@ -83,7 +92,7 @@ GLOBAL_LIST_INIT(valid_keys, list(
 
 	keys_held -= _key
 	var/movement = SSinput.movement_keys[_key]
-	if(!(next_move_dir_add & movement))
+	if(!(next_move_dir_add & movement) && !movement_locked)
 		next_move_dir_sub |= movement
 
 	// We don't do full key for release, because for mod keys you

@@ -1,6 +1,6 @@
 //Severe traumas, when your brain gets abused way too much.
 //These range from very annoying to completely debilitating.
-//They cannot be cured with chemicals, and require brain surgery to solve.
+//They cannot be cured with chemicals, and require brain recalibration to solve.
 
 /datum/brain_trauma/severe
 	resilience = TRAUMA_RESILIENCE_SURGERY
@@ -256,7 +256,7 @@
 	gain_text = "<span class='warning'>You feel somewhat dazed.</span>"
 	lose_text = "<span class='notice'>You feel like a fog was lifted from your mind.</span>"
 
-/datum/brain_trauma/severe/hypnotic_stupor/on_lose() //hypnosis must be cleared separately, but brain surgery should get rid of both anyway
+/datum/brain_trauma/severe/hypnotic_stupor/on_lose() //hypnosis must be cleared separately, but brain recalibration should get rid of both anyway
 	..()
 	owner.remove_status_effect(/datum/status_effect/trance)
 

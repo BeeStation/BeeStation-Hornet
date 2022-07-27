@@ -306,7 +306,7 @@
 	//Find how many bodyparts we have with stamina damage
 	if(stam_regen)
 		for(var/obj/item/bodypart/BP as() in bodyparts)
-			if(BP.stamina_dam > DAMAGE_PRECISION)
+			if(BP.stamina_dam >= DAMAGE_PRECISION)
 				bodyparts_with_stam++
 				total_stamina_loss += BP.stamina_dam * BP.stam_damage_coeff
 		//Force bodyparts to heal if we have more than 120 stamina damage (6 seconds)
@@ -486,7 +486,7 @@ GLOBAL_LIST_INIT(ballmer_windows_me_msg, list("Yo man, what if, we like, uh, put
 		if(drunkenness >= 11 && slurring < 5)
 			slurring += 1.2
 
-		if(mind && (mind.assigned_role == "Scientist" || mind.assigned_role == "Research Director"))
+		if(mind && (mind.assigned_role == JOB_NAME_SCIENTIST || mind.assigned_role == JOB_NAME_RESEARCHDIRECTOR))
 			if(SSresearch.science_tech)
 				if(drunkenness >= 12.9 && drunkenness <= 13.8)
 					drunkenness = round(drunkenness, 0.01)
