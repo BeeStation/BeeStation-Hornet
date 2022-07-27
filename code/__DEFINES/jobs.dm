@@ -185,7 +185,7 @@
 
 //////////// Color defines
 // Command
-#define JOB_CHATCOLOR_RAWCOMMAND    "#FFECCA" // custom command color
+#define JOB_CHATCOLOR_RAWCOMMAND    "#CACFF0" // custom command color
 #define JOB_CHATCOLOR_CAPTAIN       "#FFDC9B"
 #define JOB_CHATCOLOR_ACTINGCAPTAIN "#FFDC9B"
 
