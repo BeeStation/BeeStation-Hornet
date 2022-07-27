@@ -153,7 +153,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 	name = "Medical Doctor"
 	icon_state = "Medical Doctor"
 
-/obj/effect/landmark/start/emt
+/obj/effect/landmark/start/paramedic
 	name = "Paramedic"
 	icon_state = "Medical Doctor"
 
@@ -211,7 +211,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 	primary_ai = FALSE
 	latejoin_active = FALSE
 
-/obj/effect/landmark/start/brig_phys
+/obj/effect/landmark/start/brig_physician
 	name = "Brig Physician"
 
 /obj/effect/landmark/start/randommaint
@@ -233,11 +233,11 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 	name = "Stage Magician"
 	job = "Stage Magician"
 
-/obj/effect/landmark/start/randommaint/shrink
+/obj/effect/landmark/start/randommaint/psychiatrist
 	name = "Psychiatrist"
 	job = "Psychiatrist"
 
-/obj/effect/landmark/start/randommaint/celebrity
+/obj/effect/landmark/start/randommaint/vip
 	name = "VIP"
 	job = "VIP"
 
