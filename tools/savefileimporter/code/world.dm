@@ -15,8 +15,8 @@
 	sleep(100)
 
 	// Remove old entries
-	var/DBQuery/q1 = GLOB.dbcon.NewQuery("DELETE FROM SS13_preferences")
-	var/DBQuery/q2 = GLOB.dbcon.NewQuery("DELETE FROM SS13_characters")
+	var/datum/DBQuery/q1 = NewDBQuery("DELETE FROM SS13_preferences", list())
+	var/datum/DBQuery/q2 = NewDBQuery("DELETE FROM SS13_characters", list())
 	q1.Execute()
 	q2.Execute()
 
@@ -33,6 +33,8 @@
 			parse_savefile(real_ckey, S)
 		log_info("Finished processing [outerpath]")
 		sleep(1)
+
+	log_info("Finished all conversions")
 
 /proc/log_info(txt)
 	world.log << "[txt]"

@@ -1,236 +1,125 @@
-//cursors
-#define Default_Cursor	0
-#define Client_Cursor	1
-#define Server_Cursor	2
-//conversions
-#define TEXT_CONV		1
-#define RSC_FILE_CONV	2
-#define NUMBER_CONV		3
-//column flag values:
-#define IS_NUMERIC		1
-#define IS_BINARY		2
-#define IS_NOT_NULL		4
-#define IS_PRIMARY_KEY	8
-#define IS_UNSIGNED		16
-//types
-#define TINYINT		1
-#define SMALLINT	2
-#define MEDIUMINT	3
-#define INTEGER		4
-#define BIGINT		5
-#define DECIMAL		6
-#define FLOAT		7
-#define DOUBLE		8
-#define DATE		9
-#define DATETIME	10
-#define TIMESTAMP	11
-#define TIME		12
-#define STRING		13
-#define BLOB		14
-// TODO: Investigate more recent type additions and see if I can handle them. - Nadrew
+#define UNTIL(X) while(!(X)) sleep(world.tick_lag)
+#define INVOKE_ASYNC ImmediateInvokeAsync
+#define GLOBAL_PROC	"some_magic_bullshit"
 
-/DBConnection
-	var/_db_con // This variable contains a reference to the actual database connection.
-	var/dbi // This variable is a string containing the DBI MySQL requires.
-	var/user // This variable contains the username data.
-	var/password // This variable contains the password data.
-	var/default_cursor // This contains the default database cursor data.
-		//
-	var/server = ""
-	var/port = 3306
+/proc/ImmediateInvokeAsync(thingtocall, proctocall, ...)
+	set waitfor = FALSE
 
-/DBConnection/New(dbi_handler,username,password_handler,cursor_handler)
-	src.dbi = dbi_handler
-	src.user = username
-	src.password = password_handler
-	src.default_cursor = cursor_handler
-	_db_con = _dm_db_new_con()
+	if(!thingtocall)
+		return
 
-/DBConnection/proc/Connect(dbi_handler=src.dbi,user_handler=src.user,password_handler=src.password,cursor_handler)
-	if(!src) return 0
-	cursor_handler = src.default_cursor
-	if(!cursor_handler) cursor_handler = Default_Cursor
-	return _dm_db_connect(_db_con,dbi_handler,user_handler,password_handler,cursor_handler,null)
+	var/list/calling_arguments = length(args) > 2 ? args.Copy(3) : null
 
-/DBConnection/proc/Disconnect() return _dm_db_close(_db_con)
-
-/DBConnection/proc/IsConnected()
-	var/success = _dm_db_is_connected(_db_con)
-	return success
-
-/DBConnection/proc/Quote(str) return _dm_db_quote(_db_con,str)
-
-/DBConnection/proc/ErrorMsg() return _dm_db_error_msg(_db_con)
-
-/DBConnection/proc/NewQuery(sql_query,cursor_handler=src.default_cursor) return new/DBQuery(sql_query,src,cursor_handler)
+	if(thingtocall == GLOBAL_PROC)
+		call(proctocall)(arglist(calling_arguments))
+	else
+		call(thingtocall, proctocall)(arglist(calling_arguments))
 
 
-/DBQuery/New(sql_query,DBConnection/connection_handler,cursor_handler)
-	if(sql_query) src.sql = sql_query
-	if(connection_handler) src.db_connection = connection_handler
-	if(cursor_handler) src.default_cursor = cursor_handler
-	_db_query = _dm_db_new_query()
-	return ..()
 
+/proc/NewDBQuery(sql_query, arguments)
+	return new /datum/DBQuery(GLOB.dbconnection, sql_query, arguments)
 
-/DBQuery
-	var/sql // The sql query being executed.
-	var/default_cursor
-	var/list/columns //list of DB Columns populated by Columns()
-	var/list/conversions
-	var/list/item[0]  //list of data values populated by NextRow()
-
-	var/DBConnection/db_connection
-	var/_db_query
-
-/DBQuery/proc/Connect(DBConnection/connection_handler) src.db_connection = connection_handler
-
-/DBQuery/proc/Execute(sql_query=src.sql,cursor_handler=default_cursor)
-	Close()
-	return _dm_db_execute(_db_query,sql_query,db_connection._db_con,cursor_handler,null)
-
-/DBQuery/proc/NextRow() return _dm_db_next_row(_db_query,item,conversions)
-
-/DBQuery/proc/RowsAffected() return _dm_db_rows_affected(_db_query)
-
-/DBQuery/proc/RowCount() return _dm_db_row_count(_db_query)
-
-/DBQuery/proc/ErrorMsg() return _dm_db_error_msg(_db_query)
-
-/DBQuery/proc/Columns()
-	if(!columns)
-		columns = _dm_db_columns(_db_query,/DBColumn)
-	return columns
-
-/DBQuery/proc/GetRowData()
-	var/list/columns = Columns()
-	var/list/results
-	if(columns.len)
-		results = list()
-		for(var/C in columns)
-			results+=C
-			var/DBColumn/cur_col = columns[C]
-			results[C] = src.item[(cur_col.position+1)]
-	return results
-
-/DBQuery/proc/Close()
-	item.len = 0
-	columns = null
-	conversions = null
-	return _dm_db_close(_db_query)
-
-/DBQuery/proc/Quote(str)
-	return db_connection.Quote(str)
-
-/DBQuery/proc/SetConversion(column,conversion)
-	if(istext(column)) column = columns.Find(column)
-	if(!conversions) conversions = new/list(column)
-	else if(conversions.len < column) conversions.len = column
-	conversions[column] = conversion
-
-
-/DBColumn
-	var/name
-	var/table
-	var/position //1-based index into item data
-	var/sql_type
-	var/flags
-	var/length
-	var/max_length
-
-/DBColumn/New(name_handler,table_handler,position_handler,type_handler,flag_handler,length_handler,max_length_handler)
-	src.name = name_handler
-	src.table = table_handler
-	src.position = position_handler
-	src.sql_type = type_handler
-	src.flags = flag_handler
-	src.length = length_handler
-	src.max_length = max_length_handler
-	return ..()
-
-
-/DBColumn/proc/SqlTypeName(type_handler=src.sql_type)
-	switch(type_handler)
-		if(TINYINT) return "TINYINT"
-		if(SMALLINT) return "SMALLINT"
-		if(MEDIUMINT) return "MEDIUMINT"
-		if(INTEGER) return "INTEGER"
-		if(BIGINT) return "BIGINT"
-		if(FLOAT) return "FLOAT"
-		if(DOUBLE) return "DOUBLE"
-		if(DATE) return "DATE"
-		if(DATETIME) return "DATETIME"
-		if(TIMESTAMP) return "TIMESTAMP"
-		if(TIME) return "TIME"
-		if(STRING) return "STRING"
-		if(BLOB) return "BLOB"
-
-/proc/setup_database_connection()
-
-	if(GLOB.failed_db_connections > 5)	//If it failed to establish a connection more than 5 times in a row, don't bother attempting to conenct anymore.
-		return 0
-
-	if(!GLOB.dbcon)
-		GLOB.dbcon = new()
-
-	var/address = GLOB.config["db_host"]
-	var/port = GLOB.config["db_port"]
-	var/user = GLOB.config["db_un"]
-	var/pass = GLOB.config["db_pw"]
-	var/db = GLOB.config["db_db"]
-
-	GLOB.dbcon.Connect("dbi:mysql:[db]:[address]:[port]","[user]","[pass]")
-	. = GLOB.dbcon.IsConnected()
-	if(.)
-		GLOB.failed_db_connections = 0	//If this connection succeeded, reset the failed connections counter.
+/proc/establish_db_connection()
+	var/result = json_decode(rustg_sql_connect_pool(json_encode(list(
+		"host" = GLOB.config["db_host"],
+		"port" = GLOB.config["db_port"],
+		"user" = GLOB.config["db_un"],
+		"pass" = GLOB.config["db_pw"],
+		"db_name" = GLOB.config["db_db"],
+		"read_timeout" = 60,
+		"write_timeout" = 60,
+		"max_threads" = 50,
+	))))
+	. = (result["status"] == "ok")
+	if (.)
+		GLOB.dbconnection = result["handle"]
 		log_info("Connected to DB")
 	else
-		GLOB.failed_db_connections++		//If it failed, increase the failed connections counter.
-		log_info(GLOB.dbcon.ErrorMsg())
+		GLOB.dbconnection = null
+		log_info("establish_db_connection() failed | [result["data"]]")
 
-	return .
+/datum/DBQuery
+	// Inputs
+	var/connection
+	var/sql
+	var/arguments
 
-//This proc ensures that the connection to the feedback database (global variable dbcon) is established
-/proc/establish_db_connection()
-	if(GLOB.failed_db_connections > 5)
-		return 0
+	// Status information
+	var/in_progress
+	var/last_error
+	var/last_activity
+	var/last_activity_time
 
-	if(!GLOB.dbcon || !GLOB.dbcon.IsConnected())
-		return setup_database_connection()
+	// Output
+	var/list/list/rows
+	var/next_row_to_take = 1
+	var/affected
+	var/last_insert_id
+
+	var/list/item  //list of data values populated by NextRow()
+
+/datum/DBQuery/New(connection, sql, arguments)
+	Activity("Created")
+	item = list()
+
+	src.connection = connection
+	src.sql = sql
+	src.arguments = arguments
+
+/datum/DBQuery/proc/Activity(activity)
+	last_activity = activity
+	last_activity_time = world.time
+
+/datum/DBQuery/proc/Execute()
+	Activity("Execute")
+	if(in_progress)
+		CRASH("Attempted to start a new query while waiting on the old one")
+
+	var/start_time
+	start_time = world.timeofday
+	Close()
+	. = run_query()
+	var/timed_out = !. && findtext(last_error, "Operation timed out")
+	if(!.)
+		log_info("[last_error] | Query used: [sql] | Arguments: [list2params(arguments)]")
+	if(timed_out)
+		log_info("Query execution started at [start_time]")
+		log_info("Query execution ended at [world.timeofday]")
+		log_info("Slow query timeout detected.")
+		log_info("Query used: [sql]")
+		log_info("Arguments: [list2params(arguments)]")
+
+/datum/DBQuery/proc/run_query()
+	var/job_result_str = rustg_sql_query_blocking(connection, sql, json_encode(arguments))
+
+	var/result = json_decode(job_result_str)
+	switch (result["status"])
+		if ("ok")
+			rows = result["rows"]
+			affected = result["affected"]
+			last_insert_id = result["last_insert_id"]
+			return TRUE
+		if ("err")
+			last_error = result["data"]
+			return FALSE
+		if ("offline")
+			last_error = "offline"
+			return FALSE
+
+/datum/DBQuery/proc/NextRow(async = TRUE)
+	Activity("NextRow")
+
+	if (rows && next_row_to_take <= rows.len)
+		item = rows[next_row_to_take]
+		next_row_to_take++
+		return !!item
 	else
-		return 1
+		return FALSE
 
-// Run all strings to be used in an SQL query through this proc first to properly escape out injection attempts.
-/proc/sanitizeSQL(var/t as text)
-	if(isnull(t))
-		return "NULL"
-	if(!istext(t))
-		t = "[t]" // Just quietly assume any non-texts are supposed to be text
-	var/sqltext = GLOB.dbcon.Quote(t);
-	return sqltext
+/datum/DBQuery/proc/ErrorMsg()
+	return last_error
 
-#undef Default_Cursor
-#undef Client_Cursor
-#undef Server_Cursor
-#undef TEXT_CONV
-#undef RSC_FILE_CONV
-#undef NUMBER_CONV
-#undef IS_NUMERIC
-#undef IS_BINARY
-#undef IS_NOT_NULL
-#undef IS_PRIMARY_KEY
-#undef IS_UNSIGNED
-#undef TINYINT
-#undef SMALLINT
-#undef MEDIUMINT
-#undef INTEGER
-#undef BIGINT
-#undef DECIMAL
-#undef FLOAT
-#undef DOUBLE
-#undef DATE
-#undef DATETIME
-#undef TIMESTAMP
-#undef TIME
-#undef STRING
-#undef BLOB
+/datum/DBQuery/proc/Close()
+	rows = null
+	item = null

@@ -1,5 +1,5 @@
 /datum/global_var_holder
-	var/DBConnection/dbcon = new
+	var/dbconnection // Arbitrary handle from RUSTG
 	var/list/config = list()
 	var/failed_db_connections = 0
 
