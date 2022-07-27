@@ -29,7 +29,7 @@
 	title = JOB_NAME_BARBER
 	flag = BARBER
 	supervisors = "the head of personnel"
-	department_head = list("Head of Personnel")
+	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	department_flag = CIVILIAN
 	gimmick = TRUE
 
@@ -40,7 +40,7 @@
 	paycheck = PAYCHECK_ASSISTANT
 	paycheck_department = ACCOUNT_SRV
 
-	departments = DEPARTMENT_SERVICE
+	departments = DEPARTMENT_BITFLAG_SERVICE
 	rpg_title = "Scissorhands"
 
 	species_outfits = list(
@@ -64,18 +64,18 @@
 	title = JOB_NAME_STAGEMAGICIAN
 	flag = MAGICIAN
 	supervisors = "the head of personnel"
-	department_head = list("Head of Personnel")
+	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	department_flag = CIVILIAN
 	gimmick = TRUE
 
-	outfit = /datum/outfit/job/gimmick/magician
+	outfit = /datum/outfit/job/gimmick/stage_magician
 
 	access = list(ACCESS_THEATRE, ACCESS_MAINT_TUNNELS)
 	minimal_access = list(ACCESS_THEATRE, ACCESS_MAINT_TUNNELS)
 	paycheck = PAYCHECK_MINIMAL
 	paycheck_department = ACCOUNT_SRV
 
-	departments = DEPARTMENT_SERVICE
+	departments = DEPARTMENT_BITFLAG_SERVICE
 	rpg_title = "Master Illusionist"
 
 	species_outfits = list(
@@ -100,18 +100,18 @@
 
 /datum/job/gimmick/psychiatrist
 	title = JOB_NAME_PSYCHIATRIST
-	flag = SHRINK
+	flag = PSYCHIATRIST
 	supervisors = "the chief medical officer"
-	department_head = list("Chief Medical Officer")
+	department_head = list(JOB_NAME_CHIEFMEDICALOFFICER)
 	department_flag = MEDSCI
 	gimmick = TRUE
 
-	outfit = /datum/outfit/job/gimmick/shrink
+	outfit = /datum/outfit/job/gimmick/psychiatrist
 
 	access = list(ACCESS_MAINT_TUNNELS, ACCESS_MEDICAL)
 	minimal_access = list(ACCESS_MAINT_TUNNELS, ACCESS_MEDICAL)
 	paycheck = PAYCHECK_EASY
-	departments = DEPARTMENT_MEDICAL
+	departments = DEPARTMENT_BITFLAG_MEDICAL
 
 	paycheck_department = ACCOUNT_MED
 	rpg_title = "Enchanter"
@@ -138,14 +138,14 @@
 	department_flag = CIVILIAN
 	gimmick = TRUE
 
-	outfit = /datum/outfit/job/gimmick/celebrity
+	outfit = /datum/outfit/job/gimmick/vip
 
 	access = list(ACCESS_MAINT_TUNNELS) //Assistants with shitloads of money, what could go wrong?
 	minimal_access = list(ACCESS_MAINT_TUNNELS)
 	paycheck = PAYCHECK_VIP  //our power is being fucking rich
 	paycheck_department = ACCOUNT_CIV
 
-	departments = DEPARTMENT_SERVICE
+	departments = DEPARTMENT_BITFLAG_SERVICE // might need to be changed
 	rpg_title = "Master of Patronage"
 
 	species_outfits = list(

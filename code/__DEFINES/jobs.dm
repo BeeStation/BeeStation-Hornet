@@ -48,7 +48,7 @@
 #define GIMMICK 		(1<<14)
 #define BARBER		    (1<<15)
 #define MAGICIAN        (1<<16)
-#define SHRINK          (1<<17)
+#define PSYCHIATRIST    (1<<17)
 #define CELEBRITY       (1<<18)
 
 #define JOB_AVAILABLE 0
@@ -100,105 +100,105 @@
 #define JOB_DISPLAY_ORDER_CYBORG 35
 
 
-#define DEPARTMENT_BITFLAG_SECURITY (1<<0)
-#define DEPARTMENT_SECURITY "Security"
-#define DEPARTMENT_BITFLAG_COMMAND  (1<<1)
-#define DEPARTMENT_COMMAND "Command"
-#define DEPARTMENT_BITFLAG_SERVICE  (1<<2)
-#define DEPARTMENT_SERVICE "Service"
-#define DEPARTMENT_BITFLAG_CARGO (1<<3)
-#define DEPARTMENT_CARGO "Cargo"
-#define DEPARTMENT_BITFLAG_ENGINEERING (1<<4)
-#define DEPARTMENT_ENGINEERING "Engineering"
-#define DEPARTMENT_BITFLAG_SCIENCE (1<<5)
-#define DEPARTMENT_SCIENCE "Science"
-#define DEPARTMENT_BITFLAG_MEDICAL (1<<6)
-#define DEPARTMENT_MEDICAL "Medical"
-#define DEPARTMENT_BITFLAG_SILICON (1<<7)
-#define DEPARTMENT_SILICON "Silicon"
-#define DEPARTMENT_BITFLAG_ASSISTANT (1<<8)
-#define DEPARTMENT_ASSISTANT "Assistant"
-#define DEPARTMENT_BITFLAG_CAPTAIN (1<<9)
-#define DEPARTMENT_CAPTAIN "Captain"
+#define DEPARTMENT_BITFLAG_COMMAND (1<<0)
+#define DEPARTMENT_BITFLAG_SERVICE (1<<1)
+#define DEPARTMENT_BITFLAG_CARGO   (1<<2)
+#define DEPARTMENT_BITFLAG_ENGINEERING (1<<3)
+#define DEPARTMENT_BITFLAG_MEDICAL  (1<<4)
+#define DEPARTMENT_BITFLAG_SCIENCE  (1<<5)
+#define DEPARTMENT_BITFLAG_SECURITY (1<<6)
+#define DEPARTMENT_BITFLAG_SILICON  (1<<7)
 
-//No department
-#define JOB_NAME_ASSISTANT "Assistant"
-//Command
+//-------------------------------------------------------------------------------------------
+//------------------------------------- Job names -------------------------------------------
+//-------------------------------------------------------------------------------------------
+// Command
 #define JOB_NAME_CAPTAIN "Captain"
+
+// Service
 #define JOB_NAME_HEADOFPERSONNEL "Head of Personnel"
-#define JOB_NAME_HEADOFSECURITY "Head of Security"
-#define JOB_NAME_RESEARCHDIRECTOR "Research Director"
-#define JOB_NAME_CHIEFENGINEER "Chief Engineer"
-#define JOB_NAME_CHIEFMEDICALOFFICER "Chief Medical Officer"
-//Security
-#define JOB_NAME_WARDEN "Warden"
-#define JOB_NAME_SECURITYOFFICER "Security Officer"
-#define JOB_NAME_DETECTIVE "Detective"
-#define JOB_NAME_DEPUTY "Deputy"
-//Engineering
+#define JOB_NAME_ASSISTANT  "Assistant"
+#define JOB_NAME_BARTENDER  "Bartender"
+#define JOB_NAME_BOTANIST   "Botanist"
+#define JOB_NAME_COOK     "Cook"
+#define JOB_NAME_JANITOR  "Janitor"
+#define JOB_NAME_CURATOR  "Curator"
+#define JOB_NAME_LAWYER   "Lawyer"
+#define JOB_NAME_CHAPLAIN "Chaplain"
+#define JOB_NAME_MIME   "Mime"
+#define JOB_NAME_CLOWN  "Clown"
+#define JOB_NAME_STAGEMAGICIAN "Stage Magician" // gimmick
+#define JOB_NAME_BARBER "Barber" // gimmick
+#define JOB_NAME_VIP    "VIP" // gimmick
+
+// Cargo
+#define JOB_NAME_QUARTERMASTER   "Quartermaster"
+#define JOB_NAME_CARGOTECHNICIAN "Cargo Technician"
+#define JOB_NAME_SHAFTMINER      "Shaft Miner"
+
+// Engineering
+#define JOB_NAME_CHIEFENGINEER   "Chief Engineer"
 #define JOB_NAME_STATIONENGINEER "Station Engineer"
 #define JOB_NAME_ATMOSPHERICTECHNICIAN "Atmospheric Technician"
-//Medical
+
+// Medical
+#define JOB_NAME_CHIEFMEDICALOFFICER "Chief Medical Officer"
 #define JOB_NAME_MEDICALDOCTOR "Medical Doctor"
-#define JOB_NAME_PARAMEDIC "Paramedic"
-#define JOB_NAME_CHEMIST "Chemist"
+#define JOB_NAME_PARAMEDIC  "Paramedic"
+#define JOB_NAME_CHEMIST    "Chemist"
 #define JOB_NAME_VIROLOGIST "Virologist"
 #define JOB_NAME_GENETICIST "Geneticist"
 #define JOB_NAME_BRIGPHYSICIAN "Brig Physician"
-//Science
-#define JOB_NAME_SCIENTIST "Scientist"
+#define JOB_NAME_PSYCHIATRIST  "Psychiatrist" // gimmick
+
+// R&D
+#define JOB_NAME_RESEARCHDIRECTOR "Research Director"
+#define JOB_NAME_SCIENTIST  "Scientist"
 #define JOB_NAME_ROBOTICIST "Roboticist"
 #define JOB_NAME_EXPLORATIONCREW "Exploration Crew"
-//Supply
-#define JOB_NAME_QUARTERMASTER "Quartermaster"
-#define JOB_NAME_CARGOTECHNICIAN "Cargo Technician"
-#define JOB_NAME_SHAFTMINER "Shaft Miner"
-//Service
-#define JOB_NAME_BARTENDER "Bartender"
-#define JOB_NAME_BOTANIST "Botanist"
-#define JOB_NAME_COOK "Cook"
-#define JOB_NAME_JANITOR "Janitor"
-#define JOB_NAME_CLOWN "Clown"
-#define JOB_NAME_MIME "Mime"
-#define JOB_NAME_CURATOR "Curator"
-#define JOB_NAME_LAWYER "Lawyer"
-#define JOB_NAME_CHAPLAIN "Chaplain"
-//Gimmicks
-#define JOB_NAME_GIMMICK "Gimmick"
-#define JOB_NAME_PSYCHIATRIST "Psychiatrist"
-#define JOB_NAME_STAGEMAGICIAN "Stage Magician"
-#define JOB_NAME_BARBER "Barber"
-#define JOB_NAME_VIP "VIP"
-//Silicon
-#define JOB_NAME_AI "AI"
-#define JOB_NAME_CYBORG "Cyborg"
-#define JOB_NAME_PAI "Personal AI"
 
-//ERTs
-#define JOB_ERT_DEATHSQUAD "Death Commando"
-#define JOB_ERT_COMMANDER "Emergency Response Team Commander"
-#define JOB_ERT_OFFICER "Security Response Officer"
-#define JOB_ERT_ENGINEER "Engineering Response Officer"
-#define JOB_ERT_MEDICAL_DOCTOR "Medical Response Officer"
-#define JOB_ERT_CHAPLAIN "Religious Response Officer"
-#define JOB_ERT_JANITOR "Janitorial Response Officer"
-#define JOB_ERT_CLOWN "Entertainment Response Officer"
-//CentCom
+// Security
+#define JOB_NAME_HEADOFSECURITY "Head of Security"
+#define JOB_NAME_WARDEN "Warden"
+#define JOB_NAME_SECURITYOFFICER "Security Officer"
+#define JOB_NAME_DETECTIVE "Detective"
+#define JOB_NAME_DEPUTY  "Deputy"
+
+// Silicon
+#define JOB_NAME_AI     "AI"
+#define JOB_NAME_CYBORG "Cyborg"
+#define JOB_NAME_PAI    "Personal AI"
+
+// ERTs
+#define JOB_ERT_DEATHSQUAD      "Death Commando"
+#define JOB_ERT_COMMANDER       "Emergency Response Team Commander"
+#define JOB_ERT_OFFICER         "Security Response Officer"
+#define JOB_ERT_ENGINEER        "Engineering Response Officer"
+#define JOB_ERT_MEDICAL_DOCTOR  "Medical Response Officer"
+#define JOB_ERT_CHAPLAIN        "Religious Response Officer"
+#define JOB_ERT_JANITOR         "Janitorial Response Officer"
+
+// CentCom
 #define JOB_CENTCOM_CENTRAL_COMMAND "Central Command"
-#define JOB_CENTCOM_OFFICIAL "CentCom Official"
-#define JOB_CENTCOM_ADMIRAL "Admiral"
+#define JOB_CENTCOM_OFFICIAL  "CentCom Official"
+#define JOB_CENTCOM_ADMIRAL   "Admiral"
 #define JOB_CENTCOM_COMMANDER "CentCom Commander"
-#define JOB_CENTCOM_VIP "VIP Guest"
+#define JOB_CENTCOM_VIP       "VIP Guest"
 #define JOB_CENTCOM_BARTENDER "CentCom Bartender"
 #define JOB_CENTCOM_CUSTODIAN "Custodian"
 #define JOB_CENTCOM_THUNDERDOME_OVERSEER "Thunderdome Overseer"
-#define JOB_CENTCOM_MEDICAL_DOCTOR "Medical Officer"
+#define JOB_CENTCOM_MEDICAL_DOCTOR   "Medical Officer"
 #define JOB_CENTCOM_RESEARCH_OFFICER "Research Officer"
-// Off-Station
+
+// Misc & Off-Station
+#define JOB_NAME_GIMMICK "Gimmick" // gimmick
 #define JOB_SPACE_POLICE "Space Police"
 
 
 
+//-------------------------------------------------------------------------------------------
+//---------------------------------------- HUD ----------------------------------------------
+//-------------------------------------------------------------------------------------------
 ////////// Job names based on hud icon names
 // Command
 #define JOB_HUD_RAWCOMMAND "rawcommand"
@@ -210,13 +210,13 @@
 #define JOB_HUD_HEADOFPERSONNEL "headofpersonnel"
 #define JOB_HUD_ASSISTANT "assistant"
 #define JOB_HUD_BARTENDER "bartender"
-#define JOB_HUD_COOK "cook"
+#define JOB_HUD_COOK     "cook"
 #define JOB_HUD_BOTANIST "botanist"
 #define JOB_HUD_CHAPLAIN "chaplain"
-#define JOB_HUD_CURATOR "curator"
-#define JOB_HUD_JANITOR "janitor"
-#define JOB_HUD_LAWYER "lawyer"
-#define JOB_HUD_MIME "mime"
+#define JOB_HUD_CURATOR  "curator"
+#define JOB_HUD_JANITOR  "janitor"
+#define JOB_HUD_LAWYER   "lawyer"
+#define JOB_HUD_MIME  "mime"
 #define JOB_HUD_CLOWN "clown"
 #define JOB_HUD_STAGEMAGICIAN "stagemagician"
 #define JOB_HUD_BARBER "barber"
@@ -226,13 +226,6 @@
 #define JOB_HUD_QUARTERMASTER "quartermaster"
 #define JOB_HUD_CARGOTECHNICIAN "cargotechnician"
 #define JOB_HUD_SHAFTMINER "shaftminer"
-
-// R&D
-#define JOB_HUD_RAWSCIENCE "rawscience"
-#define JOB_HUD_RESEARCHDIRECTOR "researchdirector"
-#define JOB_HUD_SCIENTIST "scientist"
-#define JOB_HUD_ROBOTICIST "roboticist"
-#define JOB_HUD_EXPLORATIONCREW "explorationcrew"
 
 // Engineering
 #define JOB_HUD_RAWENGINEERING "rawengineering"
@@ -249,6 +242,13 @@
 #define JOB_HUD_CHEMIST "chemist"
 #define JOB_HUD_GENETICIST "geneticist"
 #define JOB_HUD_PSYCHIATRIST "psychiatrist"
+
+// R&D
+#define JOB_HUD_RAWSCIENCE "rawscience"
+#define JOB_HUD_RESEARCHDIRECTOR "researchdirector"
+#define JOB_HUD_SCIENTIST "scientist"
+#define JOB_HUD_ROBOTICIST "roboticist"
+#define JOB_HUD_EXPLORATIONCREW "explorationcrew"
 
 // Security
 #define JOB_HUD_RAWSECURITY "rawsecurity"
@@ -300,13 +300,6 @@
 #define JOB_CHATCOLOR_CARGOTECHNICIAN "#D3A372"
 #define JOB_CHATCOLOR_SHAFTMINER      "#CE957E"
 
-// R&D
-#define JOB_CHATCOLOR_RAWSCIENCE       "#F3BFF3" // custom R&D color
-#define JOB_CHATCOLOR_RESEARCHDIRECTOR "#974EA9"
-#define JOB_CHATCOLOR_SCIENTIST        "#C772C7"
-#define JOB_CHATCOLOR_ROBOTICIST       "#AC71BA"
-#define JOB_CHATCOLOR_EXPLORATIONCREW  "#85D8B8"
-
 // Engineering
 #define JOB_CHATCOLOR_RAWENGINEERING        "#E9D1A8" // custom engineering color
 #define JOB_CHATCOLOR_CHIEFENGINEER         "#CFBB72"
@@ -322,6 +315,13 @@
 #define JOB_CHATCOLOR_CHEMIST       "#82BDCE"
 #define JOB_CHATCOLOR_GENETICIST    "#83BBBF"
 #define JOB_CHATCOLOR_PSYCHIATRIST  "#A2DFDC"
+
+// R&D
+#define JOB_CHATCOLOR_RAWSCIENCE       "#F3BFF3" // custom R&D color
+#define JOB_CHATCOLOR_RESEARCHDIRECTOR "#974EA9"
+#define JOB_CHATCOLOR_SCIENTIST        "#C772C7"
+#define JOB_CHATCOLOR_ROBOTICIST       "#AC71BA"
+#define JOB_CHATCOLOR_EXPLORATIONCREW  "#85D8B8"
 
 // Security
 #define JOB_CHATCOLOR_RAWSECURITY     "#F3BDC0" // custom security color, has some color than deputy

@@ -188,7 +188,7 @@
 	var/obj/item/card/id/W = H.wear_id
 	W.icon_state = "centcom"
 	W.access = list() // wipe access - they shouldn't get all centcom access.
-	W.access = get_centcom_access("CentCom Official")
+	W.access = get_centcom_access(JOB_CENTCOM_OFFICIAL)
 	W.access += ACCESS_WEAPONS
 	W.assignment = JOB_CENTCOM_OFFICIAL
 	W.registered_name = H.real_name

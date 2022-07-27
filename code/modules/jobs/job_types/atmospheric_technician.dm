@@ -25,11 +25,12 @@
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/atmospherics
 	)
-	jobtype = /datum/job/atmospheric_technician
-	name = JOB_NAME_ATMOSPHERICTECHNICIAN
-/datum/outfit/job/atmospheric_technician
 
-	id = /obj/item/card/id/job/atmospheric_technicianpheric_technician
+/datum/outfit/job/atmospheric_technician
+	name = JOB_NAME_ATMOSPHERICTECHNICIAN
+	jobtype = /datum/job/atmospheric_technician
+
+	id = /obj/item/card/id/job/atmospheric_technician
 	belt = /obj/item/storage/belt/utility/atmostech
 	l_pocket = /obj/item/pda/atmospheric_technician
 	ears = /obj/item/radio/headset/headset_eng

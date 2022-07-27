@@ -9,7 +9,7 @@ GLOBAL_LIST_INIT(command_positions, list(
 
 GLOBAL_LIST_INIT(engineering_positions, list(
 	JOB_NAME_CHIEFENGINEER,
-	JOB_NAME_TATIONENGINEER,
+	JOB_NAME_STATIONENGINEER,
 	JOB_NAME_ATMOSPHERICTECHNICIAN))
 
 
@@ -31,24 +31,24 @@ GLOBAL_LIST_INIT(science_positions, list(
 
 
 GLOBAL_LIST_INIT(supply_positions, list(
-	"Head of Personnel",
-	"Quartermaster",
-	"Cargo Technician",
-	"Shaft Miner"))
+	JOB_NAME_HEADOFPERSONNEL,
+	JOB_NAME_QUARTERMASTER,
+	JOB_NAME_CARGOTECHNICIAN,
+	JOB_NAME_SHAFTMINER))
 
 
 GLOBAL_LIST_INIT(civilian_positions, list(
-	"Head of Personnel",
-	"Bartender",
-	"Botanist",
-	"Cook",
-	"Janitor",
-	"Lawyer",
-	"Curator",
-	"Chaplain",
-	"Mime",
-	"Clown",
-	"Assistant"))
+	JOB_NAME_HEADOFPERSONNEL,
+	JOB_NAME_BARTENDER,
+	JOB_NAME_BOTANIST,
+	JOB_NAME_COOK,
+	JOB_NAME_JANITOR,
+	JOB_NAME_LAWYER,
+	JOB_NAME_CURATOR,
+	JOB_NAME_CHAPLAIN,
+	JOB_NAME_MIME,
+	JOB_NAME_CLOWN,
+	JOB_NAME_ASSISTANT))
 
 GLOBAL_LIST_INIT(gimmick_positions, list(
 	JOB_NAME_GIMMICK,

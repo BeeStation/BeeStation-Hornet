@@ -320,7 +320,7 @@
 		/obj/item/book/granter/spell/mimery_blockade = 1,
 	)
 
-//PSYCHOLOGIST / SHRINK GIMMICK
+//PSYCHOLOGIST / PSYCHIATRIST GIMMICK
 /datum/job/gimmick/psychiatrist
 	mail_goodies =  list(
 		/obj/item/storage/pill_bottle/mannitol = 30,
@@ -424,7 +424,7 @@
 
 	)
 
-//VIP / CELEBRITY GIMMICK
+//VIP / VIP GIMMICK
 /datum/job/gimmick/vip
 	mail_goodies = list(
 		//WOW THE NEW BEATS BY DR.MOFF?

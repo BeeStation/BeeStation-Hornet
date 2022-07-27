@@ -491,16 +491,16 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 						if((ACCESS_HOP in inserted_scan_id.access) && ((target_dept==DEPT_GEN) || !target_dept))
 							region_access |= DEPT_GEN
 							region_access |= DEPT_SUP //Currently no seperation between service/civillian and supply
-							get_subordinates("Head of Personnel")
+							get_subordinates(JOB_NAME_HEADOFPERSONNEL)
 						if((ACCESS_HOS in inserted_scan_id.access) && ((target_dept==DEPT_SEC) || !target_dept))
 							region_access |= DEPT_SEC
-							get_subordinates("Head of Security")
+							get_subordinates(JOB_NAME_HEADOFSECURITY)
 						if((ACCESS_CMO in inserted_scan_id.access) && ((target_dept==DEPT_MED) || !target_dept))
 							region_access |= DEPT_MED
-							get_subordinates("Chief Medical Officer")
+							get_subordinates(JOB_NAME_CHIEFMEDICALOFFICER)
 						if((ACCESS_RD in inserted_scan_id.access) && ((target_dept==DEPT_SCI) || !target_dept))
 							region_access |= DEPT_SCI
-							get_subordinates("Research Director")
+							get_subordinates(JOB_NAME_RESEARCHDIRECTOR)
 						if((ACCESS_CE in inserted_scan_id.access) && ((target_dept==DEPT_ENG) || !target_dept))
 							region_access |= DEPT_ENG
 							get_subordinates(JOB_NAME_CHIEFENGINEER)

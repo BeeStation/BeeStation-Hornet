@@ -17,7 +17,7 @@ Assistant
 	paycheck = PAYCHECK_ASSISTANT // Get a job. Job reassignment changes your paycheck now. Get over it.
 	paycheck_department = ACCOUNT_CIV
 	display_order = JOB_DISPLAY_ORDER_ASSISTANT
-	departments = DEPARTMENT_BITFLAG_COMMAND
+	departments = DEPARTMENT_BITFLAG_SERVICE
 	rpg_title = "Lout"
 
 	species_outfits = list(

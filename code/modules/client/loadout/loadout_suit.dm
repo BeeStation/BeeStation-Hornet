@@ -57,7 +57,7 @@
 /datum/gear/suit/wintercoat/engineering
 	display_name = "engineering winter coat"
 	path = /obj/item/clothing/suit/hooded/wintercoat/engineering
-	allowed_roles = list(JOB_NAME_CHIEFENGINEER, JOB_NAME_TATIONENGINEER, JOB_NAME_ATMOSPHERICTECHNICIAN)
+	allowed_roles = list(JOB_NAME_CHIEFENGINEER, JOB_NAME_STATIONENGINEER, JOB_NAME_ATMOSPHERICTECHNICIAN)
 
 /datum/gear/suit/wintercoat/hydro
 	display_name = "hydroponics winter coat"
@@ -77,7 +77,7 @@
 /datum/gear/suit/wintercoat/miner
 	display_name = "mining winter coat"
 	path = /obj/item/clothing/suit/hooded/wintercoat/miner
-	allowed_roles = list(JOB_SHAFT_MINER)
+	allowed_roles = list(JOB_NAME_SHAFTMINER)
 
 //JACKETS
 

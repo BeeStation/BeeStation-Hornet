@@ -150,7 +150,7 @@
 		if(3)
 			return FALSE
 
-/mob/living/simple_animal/hostile/redgrub/proc/psychiatrist()
+/mob/living/simple_animal/hostile/redgrub/proc/shrink()
 	switch(growthstage)
 		if(1)
 			return FALSE

@@ -605,8 +605,8 @@ update_label("John Doe", "Clowny")
 	. = ..()
 
 /obj/item/card/id/ert/chaplain
-	registered_name = "Religious Response Officer"
-	assignment = "Religious Response Officer"
+	registered_name = JOB_ERT_CHAPLAIN
+	assignment = JOB_ERT_CHAPLAIN
 	icon_state = "ert"
 
 /obj/item/card/id/ert/chaplain/Initialize(mapload)
@@ -614,8 +614,8 @@ update_label("John Doe", "Clowny")
 	. = ..()
 
 /obj/item/card/id/ert/Janitor
-	registered_name = "Janitorial Response Officer"
-	assignment = "Janitorial Response Officer"
+	registered_name = JOB_ERT_JANITOR
+	assignment = JOB_ERT_JANITOR
 	icon_state = "ert"
 
 /obj/item/card/id/ert/Janitor/Initialize(mapload)
@@ -827,11 +827,12 @@ update_label("John Doe", "Clowny")
 	assignment = JOB_NAME_ASSISTANT
 	hud_state = JOB_HUD_ASSISTANT
 
-/obj/item/card/id/job/hop
+/obj/item/card/id/job/head_of_personnel
 	name = "Job card (Serv) - HoP"
 	icon_state = "hop"
 	assignment = JOB_NAME_HEADOFPERSONNEL
 	hud_state = JOB_HUD_HEADOFPERSONNEL
+
 /obj/item/card/id/job/botanist
 	name = "Job card (Serv) - Botanist"
 	icon_state = "serv"
@@ -951,36 +952,6 @@ update_label("John Doe", "Clowny")
 	icon_state = "rawengineering"
 	hud_state = JOB_HUD_RAWENGINEERING
 
-// ---- Science -----
-/obj/item/card/id/job/research_director
-	name = "Job card (RND) - RD"
-	icon_state = "rd"
-	assignment = JOB_NAME_RESEARCHDIRECTOR
-	hud_state = JOB_HUD_RESEARCHDIRECTOR
-
-/obj/item/card/id/job/scientist
-	name = "Job card (RND) - Scientist"
-	icon_state = "sci"
-	assignment = JOB_NAME_SCIENTIST
-	hud_state = JOB_HUD_SCIENTIST
-
-/obj/item/card/id/job/roboticist
-	name = "Job card (RND) - Roboticist"
-	icon_state = "roboticist"
-	assignment = JOB_NAME_ROBOTICIST
-	hud_state = JOB_HUD_ROBOTICIST
-
-/obj/item/card/id/job/exploration_crew
-	name = "Job card (RND) - Explo Crew"
-	icon_state = "exploration"
-	assignment = JOB_NAME_EXPLORATIONCREW
-	hud_state = JOB_HUD_EXPLORATIONCREW
-
-/obj/item/card/id/job/rawscience
-	name = "Job card (RND) - Custom"
-	icon_state = "rawscience"
-	hud_state = JOB_HUD_RAWSCIENCE
-
 // ---- Medical ----
 /obj/item/card/id/job/chief_medical_officer
 	name = "Job card (Med) - CMO"
@@ -1029,6 +1000,36 @@ update_label("John Doe", "Clowny")
 	icon_state = "rawmedical"
 	hud_state = JOB_HUD_RAWMEDICAL
 
+
+// ---- Science -----
+/obj/item/card/id/job/research_director
+	name = "Job card (RND) - RD"
+	icon_state = "rd"
+	assignment = JOB_NAME_RESEARCHDIRECTOR
+	hud_state = JOB_HUD_RESEARCHDIRECTOR
+
+/obj/item/card/id/job/scientist
+	name = "Job card (RND) - Scientist"
+	icon_state = "sci"
+	assignment = JOB_NAME_SCIENTIST
+	hud_state = JOB_HUD_SCIENTIST
+
+/obj/item/card/id/job/roboticist
+	name = "Job card (RND) - Roboticist"
+	icon_state = "roboticist"
+	assignment = JOB_NAME_ROBOTICIST
+	hud_state = JOB_HUD_ROBOTICIST
+
+/obj/item/card/id/job/exploration_crew
+	name = "Job card (RND) - Explo Crew"
+	icon_state = "exploration"
+	assignment = JOB_NAME_EXPLORATIONCREW
+	hud_state = JOB_HUD_EXPLORATIONCREW
+
+/obj/item/card/id/job/rawscience
+	name = "Job card (RND) - Custom"
+	icon_state = "rawscience"
+	hud_state = JOB_HUD_RAWSCIENCE
 
 // ---- Security ----
 /obj/item/card/id/job/head_of_security

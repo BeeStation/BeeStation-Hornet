@@ -656,7 +656,7 @@
 
 
 	if(mind)
-		if((mind.assigned_role == JOB_NAME_TATIONENGINEER) || (mind.assigned_role == JOB_NAME_CHIEFENGINEER) )
+		if((mind.assigned_role == JOB_NAME_STATIONENGINEER) || (mind.assigned_role == JOB_NAME_CHIEFENGINEER) )
 			gain = 100
 		if(mind.assigned_role == JOB_NAME_CLOWN)
 			gain = rand(-1000, 1000)

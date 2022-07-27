@@ -368,7 +368,7 @@
 	outfit = /datum/outfit/job/scientist
 
 /obj/effect/mob_spawn/human/miner
-	name = JOB_SHAFT_MINER
+	name = JOB_NAME_SHAFTMINER
 	outfit = /datum/outfit/job/miner
 
 /obj/effect/mob_spawn/human/miner/rig

@@ -425,7 +425,7 @@
 	icon = 'icons/effects/bleed.dmi'
 	icon_state = "bleed0"
 	duration = 10
-	var/psychiatrist = TRUE
+	var/shrink = TRUE
 
 /obj/effect/temp_visual/bleed/Initialize(mapload, atom/size_calc_target)
 	. = ..()

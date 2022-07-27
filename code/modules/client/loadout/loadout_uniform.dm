@@ -291,7 +291,7 @@
 
 /datum/gear/uniform/rank/cargo
 	subtype_path = /datum/gear/uniform/rank/cargo
-	allowed_roles = list(JOB_NAME_QUARTERMASTER, JOB_NAME_CARGOTECHNICIAN, JOB_SHAFT_MINER)
+	allowed_roles = list(JOB_NAME_QUARTERMASTER, JOB_NAME_CARGOTECHNICIAN, JOB_NAME_SHAFTMINER)
 
 /datum/gear/uniform/rank/cargo/overalls
 	display_name = "laborer's overalls, light blue"
@@ -301,7 +301,7 @@
 	display_name = "miner's overalls, asteroid purple"
 	description = "Purple jumpsuit, dirty overalls. Standard Nanotrasen Shaft Miner attire, from when Lavaland had yet to be discovered and exploited for plasma."
 	path = /obj/item/clothing/under/rank/cargo/miner
-	allowed_roles = list (JOB_SHAFT_MINER)
+	allowed_roles = list (JOB_NAME_SHAFTMINER)
 
 //MEDICAL ALT UNIS
 
@@ -333,7 +333,7 @@
 
 /datum/gear/uniform/rank/engineering
 	subtype_path = /datum/gear/uniform/rank/engineering
-	allowed_roles = list(JOB_NAME_CHIEFENGINEER, JOB_NAME_TATIONENGINEER, JOB_NAME_ATMOSPHERICTECHNICIAN)
+	allowed_roles = list(JOB_NAME_CHIEFENGINEER, JOB_NAME_STATIONENGINEER, JOB_NAME_ATMOSPHERICTECHNICIAN)
 
 /datum/gear/uniform/rank/engineering/hazard
 	display_name = "engineering jumpsuit, hazard"

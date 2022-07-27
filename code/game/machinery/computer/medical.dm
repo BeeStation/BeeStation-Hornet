@@ -214,13 +214,13 @@
 				active1 = null
 				active2 = null
 				authenticated = 1
-				rank = "AI"
+				rank = JOB_NAME_AI
 				screen = 1
 			else if(IsAdminGhost(M))
 				active1 = null
 				active2 = null
 				authenticated = 1
-				rank = "Central Command"
+				rank = JOB_CENTCOM_CENTRAL_COMMAND
 				screen = 1
 			else if(istype(I) && check_access(I))
 				active1 = null

@@ -155,7 +155,7 @@
 	item_state = "banner_cargo"
 	lefthand_file = 'icons/mob/inhands/equipment/banners_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/banners_righthand.dmi'
-	job_loyalties = list(JOB_NAME_CARGOTECHNICIAN, JOB_SHAFT_MINER, JOB_NAME_QUARTERMASTER)
+	job_loyalties = list(JOB_NAME_CARGOTECHNICIAN, JOB_NAME_SHAFTMINER, JOB_NAME_QUARTERMASTER)
 	warcry = "Hail Cargonia!"
 
 /obj/item/banner/cargo/mundane
@@ -176,7 +176,7 @@
 	item_state = "banner_engineering"
 	lefthand_file = 'icons/mob/inhands/equipment/banners_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/banners_righthand.dmi'
-	job_loyalties = list(JOB_NAME_TATIONENGINEER, JOB_NAME_ATMOSPHERICTECHNICIAN, JOB_NAME_CHIEFENGINEER)
+	job_loyalties = list(JOB_NAME_STATIONENGINEER, JOB_NAME_ATMOSPHERICTECHNICIAN, JOB_NAME_CHIEFENGINEER)
 	warcry = "All hail lord Singuloth!!"
 
 /obj/item/banner/engineering/mundane

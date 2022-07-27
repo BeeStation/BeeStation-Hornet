@@ -89,17 +89,17 @@
 			var/target_points
 			var/role = targets[M]
 			switch(role)
-				if(JOB_CAPTAIN)
+				if(JOB_NAME_CAPTAIN)
 					target_points = CAPPTS
-				if(JOB_HEAD_OF_PERSONNEL)
+				if(JOB_NAME_HEADOFPERSONNEL)
 					target_points = HOPPTS
-				if(JOB_HEAD_OF_SECURITY)
+				if(JOB_NAME_HEADOFSECURITY)
 					target_points = HOSPTS
-				if(JOB_CHIEF_ENGINEER)
+				if(JOB_NAME_CHIEFENGINEER)
 					target_points = CEPTS
-				if(JOB_RESEARCH_DIRECTOR)
+				if(JOB_NAME_RESEARCHDIRECTOR)
 					target_points = RDPTS
-				if(JOB_CHIEF_MEDICAL_OFFICER)
+				if(JOB_NAME_CHIEFMEDICALOFFICER)
 					target_points = CMOPTS
 			base_points += result_points(M, target_points)
 	return base_points
