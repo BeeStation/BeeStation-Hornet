@@ -17,7 +17,6 @@ GLOBAL_LIST_INIT(cogscarabs, list())
 	visualAppearence = CLOCKDRONE
 	bubble_icon = "clock"
 	picked = TRUE
-	density = TRUE
 	flavortext = "<span class=brass>You are a cogscarab, an intricate machine that has been granted sentient by Rat'var.<br>\
 		After a long and destructive conflict, Reebe has been left mostly empty; you and the other cogscarabs like you were bought into existence to construct Reebe into the image of Rat'var.<br>\
 		Construct defences, traps and forgeries, for opening the Ark requires an unimaginable amount of power which is bound to get the attention of selfish lifeforms interested only in their own self-preservation.</span>"
@@ -44,6 +43,11 @@ GLOBAL_LIST_INIT(cogscarabs, list())
 		var/turf/T = get_turf(pick(GLOB.servant_spawns))
 		try_warp_servant(src, T, FALSE)
 	. = ..()
+
+/mob/living/simple_animal/drone/cogscarab/force_hit_projectile(obj/item/projectile/projectile)
+	if(isliving(projectile.fired_from) && is_servant_of_ratvar(projectile.fired_from))
+		return FALSE
+	return TRUE
 
 //====Shell====
 
