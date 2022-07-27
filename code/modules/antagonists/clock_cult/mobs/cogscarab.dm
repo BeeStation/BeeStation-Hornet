@@ -17,6 +17,7 @@ GLOBAL_LIST_INIT(cogscarabs, list())
 	visualAppearence = CLOCKDRONE
 	bubble_icon = "clock"
 	picked = TRUE
+	density = TRUE
 	flavortext = "<span class=brass>You are a cogscarab, an intricate machine that has been granted sentient by Rat'var.<br>\
 		After a long and destructive conflict, Reebe has been left mostly empty; you and the other cogscarabs like you were bought into existence to construct Reebe into the image of Rat'var.<br>\
 		Construct defences, traps and forgeries, for opening the Ark requires an unimaginable amount of power which is bound to get the attention of selfish lifeforms interested only in their own self-preservation.</span>"
