@@ -42,9 +42,6 @@
 				var/obj/item/organ/eyes/eyes = C.getorganslot(ORGAN_SLOT_EYES)
 				if(!eyes || HAS_TRAIT(C, TRAIT_BLIND) || HAS_TRAIT(C, TRAIT_MINDSHIELD) || istype(C.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat))
 					continue
-				for(var/datum/disease/advance/D in C.diseases)
-					if(D.GetDiseaseID() == A.GetDiseaseID())
-						continue
 				if(A.transmission >= 14)
 					if(C.ForceContractDisease(A))
 						C.emote(emote)
