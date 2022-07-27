@@ -31,9 +31,10 @@ GLOBAL_LIST_INIT(science_positions, list(
 
 
 GLOBAL_LIST_INIT(supply_positions, list(
-	JOB_NAME_QUARTERMASTER,
-	JOB_NAME_CARGOTECHNICIAN,
-	JOB_NAME_SHAFTMINER))
+	"Head of Personnel",
+	"Quartermaster",
+	"Cargo Technician",
+	"Shaft Miner"))
 
 
 GLOBAL_LIST_INIT(civilian_positions, list(
