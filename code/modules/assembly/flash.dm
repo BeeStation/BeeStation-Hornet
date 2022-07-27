@@ -259,7 +259,7 @@
 				M.Paralyze(70 * flash_proportion)
 			else if(flash_proportion > 0)
 				M.Knockdown(70 * flash_proportion)
-			M.confused = max(M.confused, 7)
+			M.confused = max(M.confused, 4)
 
 		else if(user)
 			visible_message("<span class='disarm'>[user] fails to blind [M] with the flash!</span>")
