@@ -83,7 +83,7 @@
 	var/static/id_to_hud = list(
 		// Command
 		"Command (Custom)" = JOB_HUD_RAWCOMMAND,
-		JOB_NAME_HEADOFPERSONNEL = JOB_HUD_CAPTAIN,
+		JOB_NAME_CAPTAIN = JOB_HUD_CAPTAIN,
 		"Acting Captain" = JOB_HUD_ACTINGCAPTAIN ,
 
 		// Service
