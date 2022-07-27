@@ -7599,11 +7599,11 @@
 	pixel_y = -24
 	},
 /obj/item/kirbyplants/random,
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
 /obj/machinery/light_switch{
 	pixel_x = 24
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
 	},
 /turf/open/floor/plasteel/dark,
 /area/storage/tech)
