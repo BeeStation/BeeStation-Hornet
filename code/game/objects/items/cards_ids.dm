@@ -935,7 +935,7 @@ update_label("John Doe", "Clowny")
 	assignment = JOB_NAME_CHIEFENGINEER
 	hud_state = JOB_HUD_CHIEFENGINEER
 
- /obj/item/card/id/job/station_engineer
+/obj/item/card/id/job/station_engineer
 	name = "Job card (Eng) - Station Engi"
 	icon_state = "engi"
 	assignment = JOB_NAME_STATIONENGINEER
