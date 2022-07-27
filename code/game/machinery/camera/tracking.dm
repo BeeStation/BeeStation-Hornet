@@ -72,7 +72,7 @@
 
 	attempt_track(target)
 
-/mob/living/silicon/ai/proc/attempt_track(atom/target)
+/mob/living/silicon/ai/proc/attempt_track(mob/living/target)
 	//If the target has sensors on, track instantly
 	//If the AI has malf upgrades, allow instant tracking
 	var/instant_track = !!malf_picker || issilicon(target) || isbot(target)
@@ -92,13 +92,13 @@
 
 	ai_start_tracking(target)
 
-/mob/living/silicon/ai/proc/track_if_not_moved(atom/target, turf/T)
+/mob/living/silicon/ai/proc/track_if_not_moved(mob/living/target, turf/T)
 	if(get_turf(target) != T)
 		to_chat(src, "<span class='warning'>Unable to locate target. Facial recognition services will not function on moving targets.</span>")
 		return
 	ai_start_tracking(target)
 
-/mob/living/silicon/ai/proc/ai_start_tracking(atom/target) //starts ai tracking
+/mob/living/silicon/ai/proc/ai_start_tracking(mob/living/target) //starts ai tracking
 	if(!target || !target.can_track(src))
 		to_chat(src, "<span class='warning'>Target is not near any active cameras.</span>")
 		return
