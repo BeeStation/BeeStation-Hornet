@@ -67,8 +67,33 @@
 	if(!track.initialized)
 		trackable_mobs()
 
-	var/datum/weakref/target = (isnull(track.humans[target_name]) ? track.others[target_name] : track.humans[target_name])
-	ai_start_tracking(target.resolve())
+	var/datum/weakref/target_ref = (isnull(track.humans[target_name]) ? track.others[target_name] : track.humans[target_name])
+	var/atom/target = target_ref.resolve()
+
+	//If the target has sensors on, track instantly
+	//If the AI has malf upgrades, allow instant tracking
+	var/instant_track = !!malf_picker
+
+	if(!instant_track && isliving(target))
+		var/mob/living/L = target
+		if(HAS_TRAIT(L, TRAIT_SUIT_SENSORS) || HAS_TRAIT(L, TRAIT_NANITE_SENSORS))
+			instant_track = TRUE
+
+	//Require the target to remain still for 3 seconds in order to acquire the track.
+	//Once track is acquired, it will hold and follow them while moving
+	if(!instant_track)
+		to_chat(src, "<span class='notice'>Target not present on suit sensor network, querying facial recognition network...</span>")
+		var/turf/target_turf = get_turf(target)
+		addtimer(CALLBACK(src, .proc/track_if_not_moved, target, target_turf), 3 SECONDS)
+		return
+
+	ai_start_tracking(target)
+
+/mob/living/silicon/ai/proc/track_if_not_moved(mob/living/target, turf/T)
+	if(get_turf(target) != T)
+		to_chat(src, "<span class='warning'>Unable to locate target. Facial recognition services will not function on moving targets.</span>")
+		return
+	ai_start_tracking(target)
 
 /mob/living/silicon/ai/proc/ai_start_tracking(mob/living/target) //starts ai tracking
 	if(!target || !target.can_track(src))
