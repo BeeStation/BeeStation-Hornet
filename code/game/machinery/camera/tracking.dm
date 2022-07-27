@@ -75,7 +75,7 @@
 /mob/living/silicon/ai/proc/attempt_track(atom/target)
 	//If the target has sensors on, track instantly
 	//If the AI has malf upgrades, allow instant tracking
-	var/instant_track = !!malf_picker || issilicon(target)
+	var/instant_track = !!malf_picker || issilicon(target) || isbot(target)
 
 	if(!instant_track && isliving(target))
 		var/mob/living/L = target
