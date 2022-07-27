@@ -216,58 +216,61 @@
 /obj/item/clothing/under/rank
 	dying_key = DYE_REGISTRY_UNDER
 
-///Proc used to compile icon for monkey clothing
+///Proc used to compile icon for monkey clothing. If you're confused, look at masking icons.
 /obj/item/clothing/under/proc/compile_monkey_icon()
 	//Start with a base and align it with the mask
 	var/icon/base = icon('icons/mob/clothing/uniform.dmi', icon_state, SOUTH) //This takes the icon and uses the worn version of the icon
 	var/icon/back = icon('icons/mob/clothing/uniform.dmi', icon_state, NORTH) //Awkard but, we have to manually insert the back
-	for(var/i in 1 to 32) //Alligning is done until the monkey's general face area is clear. This means we can support varying clothing height
-		if(!base.GetPixel(17, 20))
-			base.Shift(SOUTH, 1)
-			back.Shift(SOUTH, 1)
-		else
-			break
+	back.Shift(SOUTH, 2) //Allign with masks
+	base.Shift(SOUTH, 2)
 
-	//Break the base down into two parts and lay it on-top of the original
+	//Break the base down into two parts and lay it on-top of the original. This helps with clothing being too small for monkeys
 	var/icon/left = new(base)
-	var/icon/left_mask = new('icons/mob/monkey.dmi', "monkey_mask_left")
-	left.Shift(WEST, 2)
-	left.AddAlphaMask(left_mask)
+	var/icon/mask = new('icons/mob/monkey.dmi', "monkey_mask_left")
+	left.AddAlphaMask(mask)
 
 	var/icon/right = new(base)
-	var/icon/right_mask = new('icons/mob/monkey.dmi', "monkey_mask_right")
-	right.Shift(EAST, 2)
-	right.AddAlphaMask(right_mask)
+	mask = new('icons/mob/monkey.dmi', "monkey_mask_right")
+	right.AddAlphaMask(mask)
+	right.Shift(EAST, 1)
+
+	var/icon/middle = new(base) //This part is used to correct a line of pixels
+	mask = new('icons/mob/monkey.dmi', "monkey_mask_middle")
+	middle.AddAlphaMask(mask)
+	middle.Shift(EAST, 1)
 
 	left.Blend(right, ICON_OVERLAY)
-	base = new(left) //Ubuttoned effect for fat fucking monkies
+	left.Blend(middle, ICON_OVERLAY)
+	base.Blend(left, ICON_OVERLAY)
 
 	//Again for the back
 	left = new(back)
-	left.Shift(WEST, 2)
-	left.AddAlphaMask(left_mask)
+	mask = new('icons/mob/monkey.dmi', "monkey_mask_left")
+	left.AddAlphaMask(mask)
 
 	right = new(back)
-	right.Shift(EAST, 2)
-	right.AddAlphaMask(right_mask)
+	right.Shift(EAST, 1)
+	mask = new('icons/mob/monkey.dmi', "monkey_mask_right")
+	right.AddAlphaMask(mask)
 
 	left.Blend(right, ICON_OVERLAY)
-	back.Blend(left, ICON_OVERLAY) //just blend the outcome into the current to avoid a bald stripe
+	back.Blend(left, ICON_OVERLAY) //blend the outcome into the current to avoid a bald stripe
 
 	//Now modify the left & right facing icons to better emphasize direction / volume
-	left = new icon(base, dir = WEST)
+	left = new(base)
 	left.Shift(WEST, 2)
 	base.Insert(left, dir = WEST)
-
-	right = new icon(base, dir = EAST)
-	right.Shift(EAST, 2)
+	
+	right = new(left)
+	right.Flip(EAST)
 	base.Insert(right, dir = EAST)
 
 	//Apply masking
-	var/icon/mask = new('icons/mob/monkey.dmi', "monkey_mask_cloth")//Roughly monkey shaped clothing
-	base.AddAlphaMask(mask)//Quick cheeky apply so we can skip some steps, specifically NORTH
-	back.AddAlphaMask(mask)//Quick cheeky apply so we can skip some steps, specifically NORTH
-	base.Insert(back, dir = NORTH)//Insert the back into the base
+	mask = new('icons/mob/monkey.dmi', "monkey_mask_cloth")//Roughly monkey shaped clothing
+	base.AddAlphaMask(mask)
+	back.AddAlphaMask(mask)
+	base.Insert(back, dir = NORTH)//Insert faces into the base
+
 
 	//Finished!
 	monkey_icon = base

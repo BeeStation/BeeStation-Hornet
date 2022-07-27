@@ -7,7 +7,7 @@
 		update_inv_head()
 		update_inv_back()
 		update_transform()
-
+		update_inv_w_uniform()
 
 ////////
 
@@ -75,10 +75,7 @@
 	if(client && hud_used && hud_used.hud_shown)
 		I.screen_loc = ui_monkey_back
 		client.screen += I
-
-/* --------------------------------------- */
-//vvvvvv UPDATE_INV PROCS vvvvvv
-
+		
 /mob/living/carbon/monkey/update_inv_w_uniform()
 	remove_overlay(UNIFORM_LAYER)
 
@@ -86,11 +83,10 @@
 		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_ICLOTHING) + 1]
 		inv.update_icon()
 
-	if(istype(w_uniform, /obj/item/clothing/under))
+	if(istype(w_uniform, /obj/item/clothing/under) && client && hud_used.hud_shown)
 		var/obj/item/clothing/under/U = w_uniform
-		U.screen_loc = ui_iclothing
-		if(client && hud_used?.hud_shown && hud_used.inventory_shown)
-			client.screen += w_uniform
+		U.screen_loc = ui_monkey_body
+		client.screen += w_uniform
 
 		var/icon/uniform_overlay = new(U.monkey_icon)
 		var/mutable_appearance/overlay = new()

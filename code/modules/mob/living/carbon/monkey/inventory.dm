@@ -68,3 +68,14 @@
 	if(w_uniform)
 		items += w_uniform
 	return items
+
+//Hopefully this doesn't fuck with anything
+/mob/living/carbon/monkey/doUnEquip(obj/item/I, force, newloc, no_move, invdrop = TRUE, was_thrown = FALSE)
+	. = ..()
+	if(!. || !I) //We don't want to set anything to null if the parent returned 0.
+		return
+		
+	if(I == w_uniform)
+		w_uniform = null
+		if(!QDELETED(src))
+			update_inv_w_uniform()
