@@ -1,8 +1,8 @@
 /datum/job/detective
-	title = "Detective"
+	title = JOB_NAME_DETECTIVE
 	flag = DETECTIVE
 	auto_deadmin_role_flags = DEADMIN_POSITION_SECURITY
-	department_head = list("Head of Security")
+	department_head = list(JOB_NAME_HEADOFSECURITY)
 	department_flag = ENGSEC
 	faction = "Station"
 	total_positions = 1
@@ -23,7 +23,7 @@
 	mind_traits = list(TRAIT_LAW_ENFORCEMENT_METABOLISM)
 
 	display_order = JOB_DISPLAY_ORDER_DETECTIVE
-	departments = DEPARTMENT_SECURITY
+	departments = DEPARTMENT_BITFLAG_SECURITY
 	rpg_title = "Thiefcatcher"
 
 	species_outfits = list(
@@ -31,7 +31,7 @@
 	)
 
 /datum/outfit/job/detective
-	name = "Detective"
+	name = JOB_NAME_DETECTIVE
 	jobtype = /datum/job/detective
 
 	id = /obj/item/card/id/job/detective
