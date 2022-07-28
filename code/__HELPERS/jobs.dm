@@ -7,65 +7,65 @@
 	var/static/id_style = list(
 		// Command
 		"Command (Custom)" = "captain",
-		"Captain" = "captain",
+		JOB_NAME_CAPTAIN = "captain",
 		"Acting Captain" = "captain",
 		// Service
 		"Service (Custom)" = "rawservice",
-		"Head of Personnel" = "hop",
-		"Assistant" = "id",
-		"Botanist" = "serv",
-		"Bartender" = "serv",
-		"Cook" = "serv",
-		"Janitor" = "janitor",
-		"Curator" = "chap",
-		"Chaplain" = "chap",
-		"Lawyer" = "lawyer",
-		"Clown" = "clown",
-		"Mime" = "mime",
-		"Stage Magician" = "serv",
-		"Barber" = "serv",
+		JOB_NAME_HEADOFPERSONNEL = "hop",
+		JOB_NAME_ASSISTANT = "id",
+		JOB_NAME_BOTANIST = "serv",
+		JOB_NAME_BARTENDER = "serv",
+		JOB_NAME_COOK = "serv",
+		JOB_NAME_JANITOR = "janitor",
+		JOB_NAME_CURATOR = "chap",
+		JOB_NAME_CHAPLAIN = "chap",
+		JOB_NAME_LAWYER = "lawyer",
+		JOB_NAME_CLOWN = "clown",
+		JOB_NAME_MIME = "mime",
+		JOB_NAME_STAGEMAGICIAN = "serv",
+		JOB_NAME_BARBER = "serv",
 		// Cargo
 		"Cargo (Custom)" = "rawcargo",
-		"Quartermaster" = "qm",
-		"Cargo Technician" = "cargo",
-		"Shaft Miner" = "miner",
-		// R&D
-		"Science (Custom)" = "rawscience",
-		"Research Director" = "rd",
-		"Scientist" = "sci",
-		"Roboticist" = "roboticist",
-		"Exploration Crew" = "exploration",
+		JOB_NAME_QUARTERMASTER = "qm",
+		JOB_NAME_CARGOTECHNICIAN = "cargo",
+		JOB_NAME_SHAFTMINER = "miner",
 		// Engineering
 		"Engineering (Custom)" = "rawengineering",
-		"Chief Engineer" = "ce",
-		"Station Engineer" = "engi",
-		"Atmospheric Technician" = "atmos",
+		JOB_NAME_CHIEFENGINEER = "ce",
+		JOB_NAME_STATIONENGINEER = "engi",
+		JOB_NAME_ATMOSPHERICTECHNICIAN = "atmos",
 		// Medical
 		"Medical (Custom)" = "rawmedical",
-		"Chief Medical Officer" = "cmo",
-		"Medical Doctor" = "med",
-		"Paramedic" = "paramed",
-		"Virologist" = "viro",
-		"Geneticist" = "gene",
-		"Chemist" = "chemist",
-		"Psychiatrist" = "med",
+		JOB_NAME_CHIEFMEDICALOFFICER = "cmo",
+		JOB_NAME_MEDICALDOCTOR = "med",
+		JOB_NAME_PARAMEDIC = "paramed",
+		JOB_NAME_VIROLOGIST = "viro",
+		JOB_NAME_GENETICIST = "gene",
+		JOB_NAME_CHEMIST = "chemist",
+		JOB_NAME_PSYCHIATRIST = "med",
+		// R&D
+		"Science (Custom)" = "rawscience",
+		JOB_NAME_RESEARCHDIRECTOR = "rd",
+		JOB_NAME_SCIENTIST = "sci",
+		JOB_NAME_ROBOTICIST = "roboticist",
+		JOB_NAME_EXPLORATIONCREW = "exploration",
 		// Security
 		"Security (Custom)" = "rawsecurity",
-		"Head of Security" = "hos",
-		"Security Officer" = "sec",
-		"Warden" = "warden",
-		"Detective" = "detective",
-		"Brig Physician" = "brigphys",
-		"Deputy" = "deputy",
+		JOB_NAME_HEADOFSECURITY = "hos",
+		JOB_NAME_WARDEN = "warden",
+		JOB_NAME_SECURITYOFFICER = "sec",
+		JOB_NAME_DETECTIVE = "detective",
+		JOB_NAME_BRIGPHYSICIAN = "brigphys",
+		JOB_NAME_DEPUTY = "deputy",
 		// ETC
 		"Unassigned" = "id",
-		"Prisoner" = "orange",
+		JOB_NAME_PRISONER = "orange",
 		// EMAG
 		"CentCom (Custom)" = "centcom",
 		"CentCom" = "centcom",
 		"ERT" = "ert",
-		"VIP" = "gold",
-		"King" = "gold",
+		JOB_NAME_VIP = "gold",
+		JOB_NAME_KING = "gold",
 		"Syndicate" = "syndicate",
 		"Clown Operative" = "clown_op",
 		"Unknown" = "unknown",
@@ -83,62 +83,62 @@
 	var/static/id_to_hud = list(
 		// Command
 		"Command (Custom)" = JOB_HUD_RAWCOMMAND,
-		"Captain" = JOB_HUD_CAPTAIN,
+		JOB_NAME_CAPTAIN = JOB_HUD_CAPTAIN,
 		"Acting Captain" = JOB_HUD_ACTINGCAPTAIN ,
 
 		// Service
 		"Service (Custom)" = JOB_HUD_RAWSERVICE,
-		"Head of Personnel" = JOB_HUD_HEADOFPERSONNEL,
-		"Assistant" = JOB_HUD_ASSISTANT,
-		"Bartender" = JOB_HUD_BARTENDER,
-		"Cook" = JOB_HUD_COOK,
-		"Botanist" = JOB_HUD_BOTANIST,
-		"Curator" = JOB_HUD_CURATOR,
-		"Chaplain" = JOB_HUD_CHAPLAIN,
-		"Janitor" = JOB_HUD_JANITOR,
-		"Lawyer" = JOB_HUD_LAWYER,
-		"Mime" = JOB_HUD_MIME,
-		"Clown" = JOB_HUD_CLOWN,
-		"Stage Magician" = JOB_HUD_STAGEMAGICIAN,
-		"Barber" = JOB_HUD_BARBER,
+		JOB_NAME_HEADOFPERSONNEL = JOB_HUD_HEADOFPERSONNEL,
+		JOB_NAME_ASSISTANT = JOB_HUD_ASSISTANT,
+		JOB_NAME_BARTENDER = JOB_HUD_BARTENDER,
+		JOB_NAME_COOK = JOB_HUD_COOK,
+		JOB_NAME_BOTANIST = JOB_HUD_BOTANIST,
+		JOB_NAME_CURATOR = JOB_HUD_CURATOR,
+		JOB_NAME_CHAPLAIN = JOB_HUD_CHAPLAIN,
+		JOB_NAME_JANITOR = JOB_HUD_JANITOR,
+		JOB_NAME_LAWYER = JOB_HUD_LAWYER,
+		JOB_NAME_MIME = JOB_HUD_MIME,
+		JOB_NAME_CLOWN = JOB_HUD_CLOWN,
+		JOB_NAME_STAGEMAGICIAN = JOB_HUD_STAGEMAGICIAN,
+		JOB_NAME_BARBER = JOB_HUD_BARBER,
 
 		// Cargo
 		"Cargo (Custom)" = JOB_HUD_RAWCARGO,
-		"Quartermaster" = JOB_HUD_QUARTERMASTER,
-		"Cargo Technician" = JOB_HUD_CARGOTECHNICIAN,
-		"Shaft Miner" = JOB_HUD_SHAFTMINER,
-
-		// R&D
-		"Science (Custom)" = JOB_HUD_RAWSCIENCE,
-		"Research Director" = JOB_HUD_RESEARCHDIRECTOR,
-		"Scientist" = JOB_HUD_SCIENTIST,
-		"Roboticist" = JOB_HUD_ROBOTICIST,
-		"Exploration Crew" = JOB_HUD_EXPLORATIONCREW,
+		JOB_NAME_QUARTERMASTER = JOB_HUD_QUARTERMASTER,
+		JOB_NAME_CARGOTECHNICIAN = JOB_HUD_CARGOTECHNICIAN,
+		JOB_NAME_SHAFTMINER = JOB_HUD_SHAFTMINER,
 
 		// Engineering
 		"Engineering (Custom)" = JOB_HUD_RAWENGINEERING,
-		"Chief Engineer" = JOB_HUD_CHIEFENGINEER,
-		"Station Engineer" = JOB_HUD_STATIONENGINEER,
-		"Atmospheric Technician" = JOB_HUD_ATMOSPHERICTECHNICIAN,
+		JOB_NAME_CHIEFENGINEER = JOB_HUD_CHIEFENGINEER,
+		JOB_NAME_STATIONENGINEER = JOB_HUD_STATIONENGINEER,
+		JOB_NAME_ATMOSPHERICTECHNICIAN = JOB_HUD_ATMOSPHERICTECHNICIAN,
 
 		// Medical
 		"Medical (Custom)" = JOB_HUD_RAWMEDICAL,
-		"Chief Medical Officer" = JOB_HUD_CHEIFMEDICALOFFICIER,
-		"Medical Doctor" = JOB_HUD_MEDICALDOCTOR,
-		"Paramedic" = JOB_HUD_PARAMEDIC,
-		"Virologist" = JOB_HUD_VIROLOGIST,
-		"Chemist" = JOB_HUD_CHEMIST,
-		"Geneticist" = JOB_HUD_GENETICIST,
-		"Psychiatrist" = JOB_HUD_PSYCHIATRIST,
+		JOB_NAME_CHIEFMEDICALOFFICER = JOB_HUD_CHEIFMEDICALOFFICIER,
+		JOB_NAME_MEDICALDOCTOR = JOB_HUD_MEDICALDOCTOR,
+		JOB_NAME_PARAMEDIC = JOB_HUD_PARAMEDIC,
+		JOB_NAME_VIROLOGIST = JOB_HUD_VIROLOGIST,
+		JOB_NAME_CHEMIST = JOB_HUD_CHEMIST,
+		JOB_NAME_GENETICIST = JOB_HUD_GENETICIST,
+		JOB_NAME_PSYCHIATRIST = JOB_HUD_PSYCHIATRIST,
+
+		// R&D
+		"Science (Custom)" = JOB_HUD_RAWSCIENCE,
+		JOB_NAME_RESEARCHDIRECTOR = JOB_HUD_RESEARCHDIRECTOR,
+		JOB_NAME_SCIENTIST = JOB_HUD_SCIENTIST,
+		JOB_NAME_ROBOTICIST = JOB_HUD_ROBOTICIST,
+		JOB_NAME_EXPLORATIONCREW = JOB_HUD_EXPLORATIONCREW,
 
 		// Security
 		"Security (Custom)" = JOB_HUD_RAWSECURITY,
-		"Head of Security" = JOB_HUD_HEADOFSECURITY,
-		"Security Officer" = JOB_HUD_SECURITYOFFICER,
-		"Warden" = JOB_HUD_WARDEN,
-		"Detective" = JOB_HUD_DETECTIVE,
-		"Brig Physician" = JOB_HUD_BRIGPHYSICIAN,
-		"Deputy" = JOB_HUD_DEPUTY,
+		JOB_NAME_HEADOFSECURITY = JOB_HUD_HEADOFSECURITY,
+		JOB_NAME_SECURITYOFFICER = JOB_HUD_SECURITYOFFICER,
+		JOB_NAME_WARDEN = JOB_HUD_WARDEN,
+		JOB_NAME_DETECTIVE = JOB_HUD_DETECTIVE,
+		JOB_NAME_BRIGPHYSICIAN = JOB_HUD_BRIGPHYSICIAN,
+		JOB_NAME_DEPUTY = JOB_HUD_DEPUTY,
 
 		// CentCom
 		"CentCom (Custom)" = JOB_HUD_RAWCENTCOM,
@@ -146,12 +146,12 @@
 		"ERT" = JOB_HUD_CENTCOM,
 
 		// ETC
-		"VIP" = JOB_HUD_VIP,
-		"King" = JOB_HUD_KING,
+		JOB_NAME_VIP = JOB_HUD_VIP,
+		JOB_NAME_KING = JOB_HUD_KING,
 		"Syndicate" = JOB_HUD_SYNDICATE,
 		"Clown Operative" = JOB_HUD_SYNDICATE,
 		"Unassigned" = JOB_HUD_UNKNOWN,
-		"Prisoner" = JOB_HUD_PRISONER
+		JOB_NAME_PRISONER = JOB_HUD_PRISONER
 	)
 	return id_to_hud[jobname] || JOB_HUD_UNKNOWN // default: a grey unknown hud
 
@@ -189,13 +189,6 @@
 		JOB_HUD_CARGOTECHNICIAN = ACCOUNT_CAR,
 		JOB_HUD_SHAFTMINER = ACCOUNT_CAR,
 
-		// R&D
-		JOB_HUD_RAWSCIENCE = ACCOUNT_SCI,
-		JOB_HUD_RESEARCHDIRECTOR = ACCOUNT_SCI,
-		JOB_HUD_SCIENTIST = ACCOUNT_SCI,
-		JOB_HUD_ROBOTICIST = ACCOUNT_SCI,
-		JOB_HUD_EXPLORATIONCREW = ACCOUNT_SCI,
-
 		// Engineering
 		JOB_HUD_RAWENGINEERING = ACCOUNT_ENG,
 		JOB_HUD_CHIEFENGINEER = ACCOUNT_ENG,
@@ -211,6 +204,13 @@
 		JOB_HUD_CHEMIST = ACCOUNT_MED,
 		JOB_HUD_GENETICIST = ACCOUNT_MED,
 		JOB_HUD_PSYCHIATRIST = ACCOUNT_MED,
+
+		// R&D
+		JOB_HUD_RAWSCIENCE = ACCOUNT_SCI,
+		JOB_HUD_RESEARCHDIRECTOR = ACCOUNT_SCI,
+		JOB_HUD_SCIENTIST = ACCOUNT_SCI,
+		JOB_HUD_ROBOTICIST = ACCOUNT_SCI,
+		JOB_HUD_EXPLORATIONCREW = ACCOUNT_SCI,
 
 		// Security
 		JOB_HUD_RAWSECURITY = ACCOUNT_SEC,
@@ -268,13 +268,6 @@
 		JOB_HUD_CARGOTECHNICIAN = JOB_CHATCOLOR_CARGOTECHNICIAN,
 		JOB_HUD_SHAFTMINER = JOB_CHATCOLOR_SHAFTMINER,
 
-		// R&D
-		JOB_HUD_RAWSCIENCE = JOB_CHATCOLOR_RAWSCIENCE,
-		JOB_HUD_RESEARCHDIRECTOR = JOB_CHATCOLOR_RESEARCHDIRECTOR,
-		JOB_HUD_SCIENTIST = JOB_CHATCOLOR_SCIENTIST,
-		JOB_HUD_ROBOTICIST = JOB_CHATCOLOR_ROBOTICIST,
-		JOB_HUD_EXPLORATIONCREW = JOB_CHATCOLOR_EXPLORATIONCREW,
-
 		// Engineering
 		JOB_HUD_RAWENGINEERING = JOB_CHATCOLOR_RAWENGINEERING,
 		JOB_HUD_CHIEFENGINEER = JOB_CHATCOLOR_CHIEFENGINEER,
@@ -290,6 +283,13 @@
 		JOB_HUD_CHEMIST = JOB_CHATCOLOR_CHEMIST,
 		JOB_HUD_GENETICIST = JOB_CHATCOLOR_GENETICIST,
 		JOB_HUD_PSYCHIATRIST = JOB_CHATCOLOR_PSYCHIATRIST,
+
+		// R&D
+		JOB_HUD_RAWSCIENCE = JOB_CHATCOLOR_RAWSCIENCE,
+		JOB_HUD_RESEARCHDIRECTOR = JOB_CHATCOLOR_RESEARCHDIRECTOR,
+		JOB_HUD_SCIENTIST = JOB_CHATCOLOR_SCIENTIST,
+		JOB_HUD_ROBOTICIST = JOB_CHATCOLOR_ROBOTICIST,
+		JOB_HUD_EXPLORATIONCREW = JOB_CHATCOLOR_EXPLORATIONCREW,
 
 		// Security
 		JOB_HUD_RAWSECURITY = JOB_CHATCOLOR_RAWSECURITY,
