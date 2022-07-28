@@ -81,11 +81,10 @@ GLOBAL_DATUM(error_cache, /datum/error_viewer/error_cache)
 
 /datum/error_viewer/error_cache/proc/show_to_minimal(user, datum/error_viewer/back_to, linear)
 	var/html = "<b>[GLOB.total_runtimes]</b> runtimes, <b>[GLOB.total_runtimes_skipped]</b> skipped<br><br>"
-	for (var/datum/error_viewer/error_entry/error_entry in errors)
-		var/datum/error_viewer/error_source/error_source
-		for (var/erroruid in error_sources)
-			error_source = error_sources[erroruid]
-			html += "[error_source.min_name]<br>"
+	var/datum/error_viewer/error_source/error_source
+	for (var/erroruid in error_sources)
+		error_source = error_sources[erroruid]
+		html += "[error_source.min_name]<br>"
 
 	browse_to(user, html)
 
