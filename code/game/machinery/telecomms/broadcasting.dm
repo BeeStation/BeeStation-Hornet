@@ -193,6 +193,7 @@
 			if(M.should_show_chat_message(virt, language, FALSE, is_heard = TRUE))
 				show_overhead_message_to += M
 		hearer.Hear(rendered, virt, language, message, frequency, spans, message_mods)
+		calculate_dept_sfx(hearer, frequency)
 	if(length(show_overhead_message_to))
 		create_chat_message(virt, language, show_overhead_message_to, message, spans, message_mods)
 
@@ -217,3 +218,18 @@
 		log_telecomms("[virt.source] [log_text] [loc_name(get_turf(virt.source))]")
 
 	QDEL_IN(virt, 50)  // Make extra sure the virtualspeaker gets qdeleted
+
+/datum/signal/subspace/vocal/calculate_dept_sfx(mob/living/user, frequency)
+	var/sfx_file
+	switch(frequency)
+		if(RADIO_CHANNEL_SECURITY)
+			sfx_file = RADIO_SFX_SECURITY
+		if(RADIO_CHANNEL_MEDICAL)
+			sfx_file = RADIO_SFX_MEDICAL
+
+	if(!sfx_file)
+		return
+	to_chat(user, frequency)
+	var/sound/radio_sound = sound(sfx_file, volume = 50)
+	radio_sound.frequency = get_rand_frequency()
+	SEND_SOUND(user, radio_sound)

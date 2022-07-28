@@ -8,6 +8,7 @@
 #define RADIO_CHANNEL_SECURITY "Security"
 #define RADIO_KEY_SECURITY "s"
 #define RADIO_TOKEN_SECURITY ":s"
+#define RADIO_SFX_SECURITY "sound/effects/radiofreq/sec.ogg"
 
 #define RADIO_CHANNEL_ENGINEERING "Engineering"
 #define RADIO_KEY_ENGINEERING "e"
@@ -24,6 +25,7 @@
 #define RADIO_CHANNEL_MEDICAL "Medical"
 #define RADIO_KEY_MEDICAL "m"
 #define RADIO_TOKEN_MEDICAL ":m"
+#define RADIO_SFX_MEDICAL "sound/effects/radiofreq/med.ogg"
 
 #define RADIO_CHANNEL_SUPPLY "Supply"
 #define RADIO_KEY_SUPPLY "u"
