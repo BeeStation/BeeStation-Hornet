@@ -5,6 +5,9 @@
 	icon_state = "aa"
 	var/spawnitem = /obj/item/toy/allaccess
 	idle_power_usage = 5
+	density = FALSE
+	circuit = /obj/item/circuitboard/machine/allaccess
+	pass_flags = PASSTABLE
 
 /obj/machinery/allaccess/attack_hand(mob/living/user)
 	var/output = new spawnitem
