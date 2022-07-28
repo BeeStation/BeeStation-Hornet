@@ -1,5 +1,0 @@
-author: EvilDragonfiend
-delete-after: true
-changes:
-  - bugfix: player pannel is now working again.
-  - refactor: corrected some wrong usage of job defines.
