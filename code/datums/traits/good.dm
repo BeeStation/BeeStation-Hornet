@@ -106,7 +106,7 @@
 
 /datum/quirk/multilingual/on_spawn()
 	var/mob/living/carbon/human/H = quirk_holder
-	if(H.job == "Curator")
+	if(H.job == JOB_NAME_CURATOR)
 		return
 	var/obj/item/organ/tongue/T = H.getorganslot(ORGAN_SLOT_TONGUE)
 	var/list/languages_possible = T.languages_possible
