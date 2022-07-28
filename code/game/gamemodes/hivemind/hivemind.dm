@@ -7,7 +7,7 @@ GLOBAL_LIST_EMPTY(hivehosts)
 	antag_flag = ROLE_HIVE
 	false_report_weight = 5
 	protected_jobs = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN)
-	restricted_jobs = list(JOB_NAME_CYBORG,JOB_NAME_AI)
+	restricted_jobs = list(JOB_NAME_AI, JOB_NAME_CYBORG)
 	required_players = 30
 	required_enemies = 3
 	recommended_enemies = 3
