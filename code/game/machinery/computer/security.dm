@@ -490,13 +490,13 @@ What a mess.*/
 					active1 = null
 					active2 = null
 					authenticated = M.name
-					rank = "AI"
+					rank = JOB_NAME_AI
 					screen = 1
 				else if(IsAdminGhost(M))
 					active1 = null
 					active2 = null
 					authenticated = M.client.holder.admin_signature
-					rank = "Central Command"
+					rank = JOB_CENTCOM_CENTRAL_COMMAND
 					screen = 1
 				else if(I && check_access(I))
 					active1 = null
@@ -908,7 +908,7 @@ What a mess.*/
 							temp += "<li><a href='?src=[REF(src)];choice=Change Criminal Status;criminal2=released'>Discharged</a></li>"
 							temp += "</ul>"
 					if("rank")
-						var/list/L = list( "Head of Personnel", "Captain", "AI", "Central Command" )
+						var/list/L = list( JOB_NAME_HEADOFPERSONNEL, JOB_NAME_CAPTAIN, JOB_NAME_AI, JOB_CENTCOM_CENTRAL_COMMAND)
 						//This was so silly before the change. Now it actually works without beating your head against the keyboard. /N
 						if((istype(active1, /datum/data/record) && L.Find(rank)))
 							temp = "<h5>Rank:</h5>"

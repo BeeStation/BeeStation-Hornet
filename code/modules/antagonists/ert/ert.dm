@@ -14,7 +14,7 @@
 	var/leader = FALSE
 	var/datum/outfit/outfit = /datum/outfit/ert/security
 	var/datum/outfit/plasmaman_outfit = /datum/outfit/plasmaman/ert
-	var/role = "Security Officer"
+	var/role = JOB_NAME_SECURITYOFFICER
 	var/list/name_source
 	var/random_names = TRUE
 	can_elimination_hijack = ELIMINATION_PREVENT
@@ -67,7 +67,7 @@
 	outfit = /datum/outfit/ert/engineer/alert
 
 /datum/antagonist/ert/medic
-	role = "Medical Officer"
+	role = JOB_CENTCOM_MEDICAL_DOCTOR
 	outfit = /datum/outfit/ert/medic
 
 /datum/antagonist/ert/medic/red
@@ -101,7 +101,7 @@
 	owner.holy_role = HOLY_ROLE_PRIEST
 
 /datum/antagonist/ert/chaplain
-	role = "Chaplain"
+	role = JOB_NAME_CHAPLAIN
 	outfit = /datum/outfit/ert/chaplain
 
 /datum/antagonist/ert/chaplain/inquisitor
@@ -119,7 +119,7 @@
 	owner.holy_role = HOLY_ROLE_PRIEST
 
 /datum/antagonist/ert/janitor
-	role = "Janitor"
+	role = JOB_NAME_JANITOR
 	outfit = /datum/outfit/ert/janitor
 
 /datum/antagonist/ert/janitor/heavy

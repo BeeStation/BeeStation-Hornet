@@ -57,8 +57,8 @@
 					/obj/item/storage/backpack/medic = 4,
 					/obj/item/storage/backpack/satchel/med = 4,
 					/obj/item/clothing/suit/hooded/wintercoat/medical = 4,
-					/obj/item/clothing/under/rank/medical/emt = 4,
-					/obj/item/clothing/under/rank/medical/emt/skirt = 4,
+					/obj/item/clothing/under/rank/medical/paramedic = 4,
+					/obj/item/clothing/under/rank/medical/paramedic/skirt = 4,
 					/obj/item/clothing/under/rank/medical/doctor/nurse = 4,
 					/obj/item/clothing/head/nursehat = 4,
 					/obj/item/clothing/head/beret/med = 4,
@@ -70,9 +70,9 @@
 					/obj/item/clothing/under/plasmaman/medical = 4,
 					/obj/item/clothing/head/helmet/space/plasmaman/medical = 4,
 					/obj/item/clothing/suit/toggle/labcoat = 4,
-					/obj/item/clothing/suit/toggle/labcoat/emt = 4,
+					/obj/item/clothing/suit/toggle/labcoat/paramedic = 4,
 					/obj/item/clothing/shoes/sneakers/white = 4,
-					/obj/item/clothing/head/soft/emt = 4,
+					/obj/item/clothing/head/soft/paramedic = 4,
 					/obj/item/clothing/suit/apron/surgical = 4,
 					/obj/item/clothing/mask/surgical = 4)
 	contraband = list(/obj/item/clothing/suit/hooded/wintercoat/medical/old = 3)

@@ -2880,7 +2880,7 @@
 /obj/machinery/vending/wallmed/pubby{
 	pixel_x = 24
 	},
-/obj/structure/closet/secure_closet/brig_phys,
+/obj/structure/closet/secure_closet/brig_physician,
 /obj/item/storage/backpack/duffelbag/sec/surgery{
 	pixel_y = 5
 	},
@@ -11866,7 +11866,7 @@
 	pixel_y = 6
 	},
 /obj/item/pen/fourcolor,
-/obj/item/stamp/hop{
+/obj/item/stamp/head_of_personnel{
 	pixel_x = 8;
 	pixel_y = 6
 	},
@@ -14051,7 +14051,7 @@
 	pixel_y = 4
 	},
 /obj/item/folder,
-/obj/item/stamp/ce,
+/obj/item/stamp/chief_engineer,
 /turf/open/floor/plasteel,
 /area/crew_quarters/heads/chief)
 "awA" = (
@@ -27868,7 +27868,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/effect/landmark/start/emt,
+/obj/effect/landmark/start/paramedic,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
@@ -31562,7 +31562,7 @@
 	pixel_x = 8;
 	pixel_y = 8
 	},
-/obj/item/stamp/rd{
+/obj/item/stamp/research_director{
 	pixel_x = 8
 	},
 /obj/item/pen,
@@ -39364,7 +39364,7 @@
 	pixel_x = -4;
 	pixel_y = 4
 	},
-/obj/item/stamp/qm{
+/obj/item/stamp/quartermaster{
 	pixel_x = 8;
 	pixel_y = 10
 	},
@@ -100360,7 +100360,7 @@
 /turf/open/floor/grass,
 /area/security/prison)
 "sAg" = (
-/obj/effect/landmark/start/brig_phys,
+/obj/effect/landmark/start/brig_physician,
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 1
 	},
