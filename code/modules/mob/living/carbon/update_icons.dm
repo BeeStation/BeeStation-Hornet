@@ -115,11 +115,7 @@
 
 	if(wear_mask)
 		if(!(check_obscured_slots() & ITEM_SLOT_MASK))
-			var/mutable_appearance/mask_overlay = wear_mask.build_worn_icon(default_layer = FACEMASK_LAYER, default_icon_file = 'icons/mob/mask.dmi')
-			if(OFFSET_FACEMASK in dna.species.offset_features)
-				mask_overlay.pixel_x += dna?.species.offset_features[OFFSET_FACEMASK][1]
-				mask_overlay.pixel_y += dna?.species.offset_features[OFFSET_FACEMASK][2]
-			overlays_standing[FACEMASK_LAYER] = mask_overlay
+			overlays_standing[FACEMASK_LAYER] = wear_mask.build_worn_icon(default_layer = FACEMASK_LAYER, default_icon_file = 'icons/mob/mask.dmi')
 		update_hud_wear_mask(wear_mask)
 
 	apply_overlay(FACEMASK_LAYER)
@@ -162,16 +158,9 @@
 		inv.update_icon()
 
 	if(head)
-		update_hud_head(head)
 		overlays_standing[HEAD_LAYER] = head.build_worn_icon(default_layer = HEAD_LAYER, default_icon_file = 'icons/mob/clothing/head.dmi')
-		var/mutable_appearance/head_overlay = overlays_standing[HEAD_LAYER]
-		if(head_overlay)
-			remove_overlay(HEAD_LAYER)
-			if(OFFSET_HEAD in dna.species.offset_features)
-				head_overlay.pixel_x += dna?.species.offset_features[OFFSET_HEAD][1]
-				head_overlay.pixel_y += dna?.species.offset_features[OFFSET_HEAD][2]
-				overlays_standing[HEAD_LAYER] = head_overlay
-
+		update_hud_head(head)
+		
 	apply_overlay(HEAD_LAYER)
 
 

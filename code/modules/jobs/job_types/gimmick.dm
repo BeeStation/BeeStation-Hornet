@@ -175,7 +175,7 @@
 	access = list(ACCESS_MAINT_TUNNELS, ACCESS_RESEARCH, ACCESS_TOX)
 	minimal_access = list(ACCESS_MAINT_TUNNELS, ACCESS_RESEARCH, ACCESS_TOX)
 	paycheck = PAYCHECK_EASY
-	departments = DEPARTMENT_SCIENCE
+	departments = DEPARTMENT_BITFLAG_SCIENCE
 
 	paycheck_department = ACCOUNT_SCI
 	rpg_title = "Beastman"
@@ -193,7 +193,7 @@
 	var/obj/item/storage/backpack/B = new(get_turf(K))
 	K.equip_to_slot_if_possible(B, ITEM_SLOT_BACK)
 
-	var/obj/item/card/id/job/sci/id_card = new(get_turf(K))
+	var/obj/item/card/id/job/scientist/id_card = new(get_turf(K))
 	id_card.update_label(K.name, title)
 	LAZYADD(id_card.access, access)
 	id_card.forceMove(B)
