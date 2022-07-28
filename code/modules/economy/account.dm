@@ -16,7 +16,7 @@
 	var/welfare = FALSE
 	var/being_dumped = FALSE //pink levels are rising
 	var/withdrawDelay = 0
-	var/department_locked = FALSE //TRUE allows changing `account_department` into something else. used for VIP, Captain, and HoS
+	var/department_locked = FALSE //TRUE locks from changing `account_department` into something else. used for VIP, Captain, and HoS. Those jobs don't need to change paycheck department.
 
 /datum/bank_account/New(newname, job)
 	if(add_to_accounts)
