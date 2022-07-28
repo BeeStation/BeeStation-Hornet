@@ -161,6 +161,7 @@
 	. += "<br><b>Telemetry Status:</b>"
 	switch(telemetry_status)
 		if(TGUI_TELEMETRY_STAT_NOT_REQUESTED)
+			message_admins("[key_name(client)] has denied a Telemetry Request and may have a modified client.")
 			. += "<span class='bad'>Telemetry Request Not Sent. Call a coder.</span>"
 		if(TGUI_TELEMETRY_STAT_AWAITING)
 			. += "<span class='highlight'>Telemetry Awaiting.</span>"
