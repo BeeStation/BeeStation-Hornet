@@ -678,10 +678,6 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 					if(!(ACCESS_CE in inserted_scan_id.access))
 						updateUsrDialog()
 						return
-				if(ACCOUNT_VIP)
-					if(!(ACCESS_CENT_GENERAL in inserted_scan_id.access)) // only CC can adjust their wealth
-						updateUsrDialog()
-						return
 			var/new_pay = FLOOR(input(usr, "Input the new paycheck amount.", "Set new paycheck amount.", account.paycheck_amount) as num|null, 1)
 			if(isnull(new_pay))
 				updateUsrDialog()
