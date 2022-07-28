@@ -539,6 +539,7 @@
 	new /obj/item/radio/headset/chameleon/broken(src)
 	new /obj/item/stamp/chameleon/broken(src)
 	new /obj/item/pda/chameleon/broken(src)
+	new /obj/item/card/id/syndicate/broken(src)
 	// No chameleon laser, they can't randomise for //REASONS//
 
 /obj/item/storage/box/syndie_kit/bee_grenades
@@ -582,3 +583,33 @@
 	for(var/i in implants)
 		group.register(i)
 	desc += " The implants are registered to the \"[group.name]\" group."
+
+
+/obj/item/storage/box/syndie_kit/toy_box
+	name = "Box of DonkCo. toys"
+	desc = "filled with safe toys that have passed Nanotrasen saftey assurance, but contained in a suspicious red box \"for no reason.\""
+
+/obj/item/storage/box/syndie_kit/toy_box/PopulateContents()
+	new /obj/item/toy/spinningtoy(src)
+	new /obj/item/toy/talking/AI(src)
+	new /obj/item/toy/talking/codex_gigas(src)
+	new /obj/item/toy/eldrich_book(src)
+	new /obj/item/clothing/head/syndicatefake(src)
+	new /obj/item/clothing/suit/syndicatefake(src)
+	new /obj/item/card/emagfake(src)
+	new /obj/item/hot_potato/harmless/toy(src)
+	new /obj/item/toy/batong(src)
+	new /obj/item/toy/clockwork_watch(src)
+	for(var/i in 1 to 2)
+		new /obj/item/toy/cog(src)
+	new /obj/item/restraints/handcuffs/fake(src)
+	new /obj/item/toy/windupToolbox(src)
+	new /obj/item/toy/toy_dagger(src)
+	new /obj/item/toy/sword(src)
+	new /obj/item/dualsaber/toy(src)
+	new /obj/item/toy/gun(src)
+	new /obj/item/toy/foamblade(src)
+	new /obj/item/toy/redbutton(src)
+	new /obj/item/disk/nuclear/fake/obvious
+	for(var/i in 1 to 4)
+		new /obj/item/toy/reality_pierce(src)

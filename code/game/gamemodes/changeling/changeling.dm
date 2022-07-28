@@ -12,8 +12,8 @@ GLOBAL_LIST_INIT(slot2type, list("head" = /obj/item/clothing/head/changeling, "w
 	report_type = "changeling"
 	antag_flag = ROLE_CHANGELING
 	false_report_weight = 10
-	restricted_jobs = list("AI", "Cyborg")
-	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain")
+	restricted_jobs = list(JOB_NAME_AI, JOB_NAME_CYBORG)
+	protected_jobs = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN)
 	required_players = 15
 	required_enemies = 1
 	recommended_enemies = 4
@@ -35,7 +35,7 @@ GLOBAL_LIST_INIT(slot2type, list("head" = /obj/item/clothing/head/changeling, "w
 		restricted_jobs += protected_jobs
 
 	if(CONFIG_GET(flag/protect_assistant_from_antagonist))
-		restricted_jobs += "Assistant"
+		restricted_jobs += JOB_NAME_ASSISTANT
 
 	if(CONFIG_GET(flag/protect_heads_from_antagonist))
 		restricted_jobs += GLOB.command_positions
@@ -141,6 +141,7 @@ GLOBAL_LIST_INIT(slot2type, list("head" = /obj/item/clothing/head/changeling, "w
 		if(istype(C, /obj/item/card/id/changeling) && chosen_prof.id_job_name)
 			var/obj/item/card/id/changeling/flesh_id = C
 			flesh_id.assignment = chosen_prof.id_job_name
+			flesh_id.hud_state = chosen_prof.id_hud_state
 
 		if(equip)
 			user.equip_to_slot_or_del(C, GLOB.slot2slot[slot])
