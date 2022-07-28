@@ -16262,6 +16262,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 1
+	},
 /turf/open/floor/plasteel/techmaint,
 /area/security/prison)
 "ess" = (
@@ -56991,6 +56994,9 @@
 	name = "Gulag Cell 1";
 	req_access_txt = "2"
 	},
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 1
+	},
 /turf/open/floor/plasteel/techmaint,
 /area/security/prison)
 "peu" = (
@@ -59651,7 +59657,7 @@
 /obj/machinery/light,
 /obj/machinery/button/door{
 	id = "brigprisonwindow";
-	name = "Privacy Shutters Control";
+	name = "Prison Shutters Control";
 	pixel_x = 6;
 	pixel_y = -24;
 	req_access_txt = "57"
@@ -80641,6 +80647,7 @@
 	id_tag = "gulagbolt1";
 	name = "Cell 1"
 	},
+/obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /turf/open/floor/plasteel/techmaint,
 /area/security/prison)
 "uTc" = (
@@ -80652,6 +80659,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /turf/open/floor/plasteel/techmaint,
 /area/security/prison)
 "uTg" = (
@@ -80680,6 +80688,7 @@
 	id_tag = "gulagbolt3";
 	name = "Cell 3"
 	},
+/obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /turf/open/floor/plasteel/techmaint,
 /area/security/prison)
 "uTB" = (
@@ -80701,6 +80710,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
+/obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /turf/open/floor/plasteel/techmaint,
 /area/security/prison)
 "uTT" = (
@@ -88183,6 +88193,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 1
+	},
 /turf/open/floor/plasteel/techmaint,
 /area/security/prison)
 "wDK" = (
@@ -88217,6 +88230,9 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
+	},
+/obj/effect/mapping_helpers/airlock/cyclelink_helper{
+	dir = 1
 	},
 /turf/open/floor/plasteel/techmaint,
 /area/security/prison)
