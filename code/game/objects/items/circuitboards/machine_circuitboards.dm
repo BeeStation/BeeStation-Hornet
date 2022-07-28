@@ -1285,7 +1285,7 @@
 	name = "clockwork board (Report This)"
 	icon_state = "clock_mod"
 
-/obj/item/circutboard/machine/allaccess
+/obj/item/circuitboard/machine/allaccess
 	name = "all access dispenser"
 	icon_state = "generic"
 	req_components = list(

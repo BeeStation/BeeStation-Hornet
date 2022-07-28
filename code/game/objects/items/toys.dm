@@ -1530,7 +1530,7 @@
  */
 
 /obj/item/toy/allaccess
-	name = "Captains spare id card"
+	name = "captains spare ID"
 	desc = "A replica of the glorious captains card. Issued to annoying greytide as a joke."
 	icon = 'icons/obj/card.dmi'
 	icon_state = "gold"
