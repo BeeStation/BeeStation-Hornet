@@ -66,7 +66,7 @@ GLOBAL_LIST_INIT(security_positions, list(
 
 
 GLOBAL_LIST_INIT(nonhuman_positions, list(
-	JOB_NAME_CYBORG,
+	JOB_NAME_AI,
 	JOB_NAME_CYBORG,
 	ROLE_PAI))
 
@@ -147,14 +147,14 @@ GLOBAL_LIST_INIT(security_positions_hud, list(
 
 
 GLOBAL_LIST_INIT(exp_jobsmap, list(
-	EXP_TYPE_CREW = list("titles" = command_positions | engineering_positions | medical_positions | science_positions | supply_positions | security_positions | civilian_positions | gimmick_positions | list(JOB_NAME_CYBORG,JOB_NAME_CYBORG)), // crew positions
+	EXP_TYPE_CREW = list("titles" = command_positions | engineering_positions | medical_positions | science_positions | supply_positions | security_positions | civilian_positions | gimmick_positions | list(JOB_NAME_AI,JOB_NAME_CYBORG)), // crew positions
 	EXP_TYPE_COMMAND = list("titles" = command_positions),
 	EXP_TYPE_ENGINEERING = list("titles" = engineering_positions),
 	EXP_TYPE_MEDICAL = list("titles" = medical_positions),
 	EXP_TYPE_SCIENCE = list("titles" = science_positions),
 	EXP_TYPE_SUPPLY = list("titles" = supply_positions),
 	EXP_TYPE_SECURITY = list("titles" = security_positions),
-	EXP_TYPE_SILICON = list("titles" = list(JOB_NAME_CYBORG,JOB_NAME_CYBORG)),
+	EXP_TYPE_SILICON = list("titles" = list(JOB_NAME_AI,JOB_NAME_CYBORG)),
 	EXP_TYPE_SERVICE = list("titles" = civilian_positions | gimmick_positions),
 	EXP_TYPE_GIMMICK = list("titles" = gimmick_positions)
 ))
