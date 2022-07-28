@@ -131,6 +131,7 @@
 #define JOB_NAME_STAGEMAGICIAN "Stage Magician" // gimmick
 #define JOB_NAME_BARBER "Barber" // gimmick
 #define JOB_NAME_VIP    "VIP" // gimmick
+#define JOB_NAME_EXPERIMENT   "Experiment" // gimmick
 
 // Cargo
 #define JOB_NAME_QUARTERMASTER   "Quartermaster"
