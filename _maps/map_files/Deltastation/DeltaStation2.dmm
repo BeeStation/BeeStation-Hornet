@@ -34982,7 +34982,7 @@
 "bWR" = (
 /obj/structure/table/wood,
 /obj/item/paper_bin,
-/obj/item/stamp/hop,
+/obj/item/stamp/head_of_personnel,
 /turf/open/floor/wood,
 /area/crew_quarters/heads/hop)
 "bWS" = (
@@ -35518,7 +35518,7 @@
 	dir = 1;
 	pixel_y = -22
 	},
-/obj/item/stamp/ce,
+/obj/item/stamp/chief_engineer,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
@@ -59905,7 +59905,7 @@
 "dtt" = (
 /obj/structure/table/reinforced,
 /obj/item/folder/white,
-/obj/item/stamp/rd,
+/obj/item/stamp/research_director,
 /obj/effect/turf_decal/tile/purple,
 /obj/effect/turf_decal/tile/purple{
 	dir = 4
@@ -72688,7 +72688,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 4
 	},
-/obj/structure/closet/secure_closet/brig_phys,
+/obj/structure/closet/secure_closet/brig_physician,
 /turf/open/floor/plasteel/white,
 /area/security/brig)
 "eUQ" = (
@@ -76335,7 +76335,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
-/obj/effect/landmark/start/emt,
+/obj/effect/landmark/start/paramedic,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
@@ -77412,7 +77412,7 @@
 	icon_state = "4-8"
 	},
 /obj/item/folder/yellow,
-/obj/item/stamp/qm,
+/obj/item/stamp/quartermaster,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
@@ -90772,7 +90772,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/effect/landmark/start/brig_phys,
+/obj/effect/landmark/start/brig_physician,
 /turf/open/floor/plasteel/white,
 /area/security/brig)
 "mJm" = (
