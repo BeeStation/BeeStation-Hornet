@@ -1,4 +1,0 @@
-author: itsmeow
-delete-after: true
-changes:
-  - bugfix: Minimal runtimes menu will no longer show duplicates and lag
