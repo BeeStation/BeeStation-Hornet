@@ -75,88 +75,65 @@
 	if(client && hud_used && hud_used.hud_shown)
 		I.screen_loc = ui_monkey_back
 		client.screen += I
-		
+
 //Update uniform in compliance with monkey icons
 /mob/living/carbon/monkey/update_inv_w_uniform()
-	remove_overlay(UNIFORM_LAYER)
-
-	if(client && hud_used)
-		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_ICLOTHING) + 1]
-		inv.update_icon()
-
-	if(istype(w_uniform, /obj/item/clothing/under) && client && hud_used.hud_shown)
-		var/obj/item/clothing/under/U = w_uniform
-		U.screen_loc = ui_monkey_body
-		client.screen += w_uniform
-
-		var/mutable_appearance/uniform_overlay = mutable_appearance(U.monkey_icon, layer = -UNIFORM_LAYER)
-		if(OFFSET_UNIFORM in dna.species.offset_features)
-			uniform_overlay.pixel_x += dna.species.offset_features[OFFSET_UNIFORM][1]
-			uniform_overlay.pixel_y += dna.species.offset_features[OFFSET_UNIFORM][2]
-		overlays_standing[UNIFORM_LAYER] = uniform_overlay
-
-	apply_overlay(UNIFORM_LAYER)
+	update_clothing_icons(UNIFORM_LAYER)
 
 /mob/living/carbon/monkey/update_inv_head()
-	remove_overlay(HEAD_LAYER)
-
-	if(!get_bodypart(BODY_ZONE_HEAD)) //Decapitated
-		return
-
-	if(client && hud_used)
-		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_HEAD) + 1]
-		inv.update_icon()
-
-	if(istype(head, /obj/item/clothing/head) && client && hud_used.hud_shown)
-		var/obj/item/clothing/head/U = head
-		U.screen_loc = ui_monkey_head
-		client.screen += head
-
-		var/mutable_appearance/head_overlay = mutable_appearance(U.monkey_icon, layer = -HEAD_LAYER)
-		if(OFFSET_HEAD in dna.species.offset_features)
-			head_overlay.pixel_x += dna.species.offset_features[OFFSET_HEAD][1]
-			head_overlay.pixel_y += dna.species.offset_features[OFFSET_HEAD][2]
-		overlays_standing[HEAD_LAYER] = head_overlay
-
-	apply_overlay(HEAD_LAYER)
+	update_clothing_icons(HEAD_LAYER)
 
 /mob/living/carbon/monkey/update_inv_back()
-	remove_overlay(BACK_LAYER)
-
-	if(client && hud_used)
-		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_BACK) + 1]
-		inv.update_icon()
-
-	if(istype(back, /obj/item/storage) && client && hud_used.hud_shown)
-		var/obj/item/storage/U = back
-		U.screen_loc = ui_monkey_back
-		client.screen += back
-
-		var/mutable_appearance/back_overlay = mutable_appearance(U.monkey_icon, layer = -BACK_LAYER)
-		if(OFFSET_BACK in dna.species.offset_features)
-			back_overlay.pixel_x += dna.species.offset_features[OFFSET_BACK][1]
-			back_overlay.pixel_y += dna.species.offset_features[OFFSET_BACK][2]
-		overlays_standing[BACK_LAYER] = back_overlay
-
-	apply_overlay(BACK_LAYER)
+	update_clothing_icons(BACK_LAYER)
 
 /mob/living/carbon/monkey/update_inv_wear_mask()
-	remove_overlay(FACEMASK_LAYER)
+	update_clothing_icons(FACEMASK_LAYER)
+
+//used to handle monkey clothing
+/mob/living/carbon/monkey/proc/update_clothing_icons(c_layer)
+	///Item slot
+	var/slot
+	///Species offset feature
+	var/offset
+	///Actual item being worn
+	var/obj/item/U
+	//UI location
+	var/ui
+	switch(c_layer)
+		if(FACEMASK_LAYER)
+			slot = ITEM_SLOT_MASK
+			offset = OFFSET_FACEMASK
+			U = wear_mask
+			ui = ui_monkey_mask
+		if(BACK_LAYER)
+			slot = ITEM_SLOT_BACK
+			offset = OFFSET_BACK
+			U = back
+			ui = ui_monkey_back
+		if(HEAD_LAYER)
+			slot = ITEM_SLOT_HEAD
+			offset = OFFSET_HEAD
+			U = head
+			ui = ui_monkey_head
+		if(UNIFORM_LAYER)
+			slot = ITEM_SLOT_ICLOTHING
+			offset = OFFSET_UNIFORM
+			U = w_uniform
+			ui = ui_monkey_body
+
+	remove_overlay(c_layer)
 
 	if(client && hud_used)
-		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[TOBITSHIFT(ITEM_SLOT_MASK) + 1]
+		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[TOBITSHIFT(slot) + 1]
 		inv.update_icon()
 
-	if(istype(wear_mask, /obj/item/clothing/mask) && client && hud_used.hud_shown)
-		var/obj/item/clothing/mask/U = wear_mask
-		U.screen_loc = ui_monkey_mask
-		client.screen += wear_mask
+	if(client && hud_used.hud_shown)
+		U.screen_loc = ui
+		client.screen += U
+		var/mutable_appearance/cloth_overlay = mutable_appearance(U.monkey_icon, layer = -c_layer)
+		if(offset in dna.species.offset_features)
+			cloth_overlay.pixel_x += dna.species.offset_features[offset][1]
+			cloth_overlay.pixel_y += dna.species.offset_features[offset][2]
+		overlays_standing[c_layer] = cloth_overlay
 
-		var/mutable_appearance/mask_overlay = mutable_appearance(U.monkey_icon, layer = -FACEMASK_LAYER)
-		if(OFFSET_FACEMASK in dna.species.offset_features)
-			mask_overlay.pixel_x += dna.species.offset_features[OFFSET_FACEMASK][1]
-			mask_overlay.pixel_y += dna.species.offset_features[OFFSET_FACEMASK][2]
-		overlays_standing[FACEMASK_LAYER] = mask_overlay
-
-	apply_overlay(FACEMASK_LAYER)
-
+	apply_overlay(c_layer)

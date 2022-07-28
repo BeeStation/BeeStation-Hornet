@@ -84,6 +84,9 @@
 	sub.Shift(WEST, 1)
 	main.Insert(sub, dir = WEST)
 
+	//Shift it down one, backpack specific quirk
+	main.Shift(SOUTH, 1)
+
 	//Finished
 	monkey_icon = main
 	GLOB.monkey_icon_cache[type] = icon(monkey_icon)
