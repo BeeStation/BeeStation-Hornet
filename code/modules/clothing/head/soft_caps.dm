@@ -106,6 +106,6 @@
 	name = "cargo cap"
 	desc = "It's a baseball hat in a tasteless yellow colour."
 	icon_state = "cargosoft"
-	soft_color = "cargosoft"
+	soft_color = "cargo"
 
 	dog_fashion = /datum/dog_fashion/head/cargo_tech
