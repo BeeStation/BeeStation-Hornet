@@ -6,7 +6,7 @@
 	build_path = /obj/item/robot_suit
 	materials = list(/datum/material/iron=15000)
 	construction_time = 500
-	category = list(JOB_NAME_CYBORG)
+	category = list("Cyborg")
 
 /datum/design/borg_chest
 	name = "Cyborg Torso"
@@ -15,7 +15,7 @@
 	build_path = /obj/item/bodypart/chest/robot
 	materials = list(/datum/material/iron=40000)
 	construction_time = 350
-	category = list(JOB_NAME_CYBORG)
+	category = list("Cyborg")
 
 /datum/design/borg_head
 	name = "Cyborg Head"
@@ -24,7 +24,7 @@
 	build_path = /obj/item/bodypart/head/robot
 	materials = list(/datum/material/iron=5000)
 	construction_time = 350
-	category = list(JOB_NAME_CYBORG)
+	category = list("Cyborg")
 
 /datum/design/borg_l_arm
 	name = "Cyborg Left Arm"
@@ -33,7 +33,7 @@
 	build_path = /obj/item/bodypart/l_arm/robot
 	materials = list(/datum/material/iron=10000)
 	construction_time = 200
-	category = list(JOB_NAME_CYBORG)
+	category = list("Cyborg")
 
 /datum/design/borg_r_arm
 	name = "Cyborg Right Arm"
@@ -42,7 +42,7 @@
 	build_path = /obj/item/bodypart/r_arm/robot
 	materials = list(/datum/material/iron=10000)
 	construction_time = 200
-	category = list(JOB_NAME_CYBORG)
+	category = list("Cyborg")
 
 /datum/design/borg_l_leg
 	name = "Cyborg Left Leg"
@@ -51,7 +51,7 @@
 	build_path = /obj/item/bodypart/l_leg/robot
 	materials = list(/datum/material/iron=10000)
 	construction_time = 200
-	category = list(JOB_NAME_CYBORG)
+	category = list("Cyborg")
 
 /datum/design/borg_r_leg
 	name = "Cyborg Right Leg"
@@ -60,7 +60,7 @@
 	build_path = /obj/item/bodypart/r_leg/robot
 	materials = list(/datum/material/iron=10000)
 	construction_time = 200
-	category = list(JOB_NAME_CYBORG)
+	category = list("Cyborg")
 
 //Ripley
 /datum/design/ripley_chassis

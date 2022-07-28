@@ -23,7 +23,7 @@
 		braintype = "Xenoborg" //HISS....Beep.
 	else
 		icon_state = "mmi_brain"
-		braintype = JOB_NAME_CYBORG
+		braintype = "Cyborg"
 	if(brainmob && brainmob.stat != DEAD)
 		add_overlay("mmi_alive")
 	else
