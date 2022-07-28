@@ -259,7 +259,7 @@
 
 	//Now modify the left & right facing icons to better emphasize direction / volume
 	left = new(base)
-	left.Shift(WEST, 2)
+	left.Shift(WEST, 3)
 	base.Insert(left, dir = WEST)
 	
 	right = new(left)

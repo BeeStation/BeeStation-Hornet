@@ -80,7 +80,7 @@
 		monkey_icon = GLOB.monkey_icon_cache[type]
 		return
 
-	//Start with two sides
+	//Start with two sides for the front
 	var/icon/main = icon('icons/mob/clothing/head.dmi', icon_state) //This takes the icon and uses the worn version of the icon
 	var/icon/sub = icon('icons/mob/clothing/head.dmi', icon_state)
 
@@ -92,9 +92,10 @@
 	sub.Shift(EAST, 1)
 	main.Blend(sub, ICON_OVERLAY)
 
-	//Shift it facing west, due to a spriting quirk
-	sub = icon(main, dir = WEST)
-	sub.Shift(WEST, 1)
+	//handle side icons
+	sub = icon('icons/mob/clothing/head.dmi', icon_state, dir = EAST)
+	main.Insert(sub, dir = EAST)
+	sub.Flip(WEST)
 	main.Insert(sub, dir = WEST)
 
 	//Finished
