@@ -210,6 +210,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	/// A reagent list containing the reagents this item produces when JUICED in a grinder!
 	var/list/juice_results
 
+	///Icon for monkey
+	var/icon/monkey_icon
 
 /obj/item/Initialize(mapload)
 
@@ -701,6 +703,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			A.Grant(user)
 	if(item_flags & SLOWS_WHILE_IN_HAND || slowdown)
 		user.update_equipment_speed_mods()
+	if(ismonkey(user)) //Only generate icons if we have to
+		compile_monkey_icon()
 	log_item(user, INVESTIGATE_VERB_EQUIPPED)
 
 //sometimes we only want to grant the item's action if it's equipped in a specific slot.
@@ -1222,3 +1226,9 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 /obj/item/proc/on_offer_taken(mob/living/carbon/offerer, mob/living/carbon/taker)
 	if(SEND_SIGNAL(src, COMSIG_ITEM_OFFER_TAKEN, offerer, taker) & COMPONENT_OFFER_INTERRUPT)
 		return TRUE
+
+/**
+ * * Overridden to generate icons for monkey clothing
+ */
+/obj/item/proc/compile_monkey_icon()
+	return

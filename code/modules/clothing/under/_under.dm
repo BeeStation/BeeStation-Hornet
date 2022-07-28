@@ -15,8 +15,6 @@
 	var/obj/item/clothing/accessory/attached_accessory
 	var/mutable_appearance/accessory_overlay
 	var/freshly_laundered = FALSE
-	///Icon for monkey clothing
-	var/icon/monkey_icon
 
 /obj/item/clothing/under/worn_overlays(mutable_appearance/standing, isinhands = FALSE)
 	. = list()
@@ -82,8 +80,6 @@
 	if(ishuman(user) || ismonkey(user))
 		var/mob/living/carbon/human/H = user
 		H.update_inv_w_uniform()
-		if(ismonkey(user)) //Only generate icons if we have to
-			compile_monkey_icon()
 	if(slot == ITEM_SLOT_ICLOTHING)
 		update_sensors(sensor_mode, TRUE)
 
@@ -217,8 +213,7 @@
 /obj/item/clothing/under/rank
 	dying_key = DYE_REGISTRY_UNDER
 
-///Proc used to compile icon for monkey clothing. If you're confused, look at masking icons.
-/obj/item/clothing/under/proc/compile_monkey_icon()
+/obj/item/clothing/under/compile_monkey_icon()
 	//If the icon, for this type of clothing, is already made by something else, don't make it again
 	if(GLOB.monkey_icon_cache[type])
 		monkey_icon = GLOB.monkey_icon_cache[type]

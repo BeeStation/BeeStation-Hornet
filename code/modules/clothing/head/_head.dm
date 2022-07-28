@@ -73,3 +73,30 @@
 	if(ismob(loc))
 		var/mob/M = loc
 		M.update_inv_head()
+
+/obj/item/clothing/head/compile_monkey_icon()
+	//If the icon, for this type of item, is already made by something else, don't make it again
+	if(GLOB.monkey_icon_cache[type])
+		monkey_icon = GLOB.monkey_icon_cache[type]
+		return
+
+	//Start with two sides
+	var/icon/main = icon('icons/mob/clothing/head.dmi', icon_state) //This takes the icon and uses the worn version of the icon
+	var/icon/sub = icon('icons/mob/clothing/head.dmi', icon_state)
+
+	//merge the sub side with the main, after masking off the middle pixel line
+	var/icon/mask = new('icons/mob/monkey.dmi', "monkey_mask_right") //masking
+	main.AddAlphaMask(mask)
+	mask = new('icons/mob/monkey.dmi', "monkey_mask_left")
+	sub.AddAlphaMask(mask)
+	sub.Shift(EAST, 1)
+	main.Blend(sub, ICON_OVERLAY)
+
+	//Shift it facing west, due to a spriting quirk
+	sub = icon(main, dir = WEST)
+	sub.Shift(WEST, 1)
+	main.Insert(sub, dir = WEST)
+
+	//Finished
+	monkey_icon = main
+	GLOB.monkey_icon_cache[type] = icon(monkey_icon)
