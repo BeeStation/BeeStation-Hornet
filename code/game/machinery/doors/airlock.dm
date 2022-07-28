@@ -902,7 +902,7 @@
 
 /obj/machinery/door/airlock/attackby(obj/item/C, mob/user, params)
 	if(!issilicon(user) && !IsAdminGhost(user))
-		if(isElectrified())
+		if(isElectrified() && C?.siemens_coefficient)
 			if(shock(user, 75))
 				return
 	add_fingerprint(user)
@@ -1072,9 +1072,32 @@
 		user.visible_message("<span class='notice'>[user] pins [C] to [src].</span>", "<span class='notice'>You pin [C] to [src].</span>")
 		note = C
 		update_icon()
+	else if(HAS_TRAIT(C, TRAIT_DOOR_PRYER) && user.a_intent != INTENT_HARM)
+		if(isElectrified() && C?.siemens_coefficient)
+			shock(user,100)
+
+		if(locked) 
+			to_chat(user, "<span class='warning'>The bolts are down, it won't budge!</span>")
+			return
+
+		if(welded)
+			to_chat(user, "<span class='warning'>It's welded, it won't budge!</span>")
+			return
+
+		var/time_to_open = 5
+		if(hasPower() && !prying_so_hard && density)
+			time_to_open = 50
+			playsound(src, 'sound/machines/airlock_alien_prying.ogg', 100, TRUE)
+			prying_so_hard = TRUE
+			to_chat(user, "<span class='warning'>You begin prying open the airlock...</span>")
+			if(do_after(user, time_to_open, TRUE, src))
+				if(!open(2) && density)
+					to_chat(user, "<span class='warning'>Despite your attempts, [src] refuses to open.</span>")
+			prying_so_hard = FALSE
+		if(!hasPower())
+			INVOKE_ASYNC(src, (density ? .proc/open : .proc/close), 2)
 	else
 		return ..()
-
 
 /obj/machinery/door/airlock/try_to_weld(obj/item/weldingtool/W, mob/user)
 	if(!operating && density)
@@ -1136,40 +1159,13 @@
 		to_chat(user, "<span class='warning'>The airlock's motors resist your efforts to force it!</span>")
 	else if(locked)
 		to_chat(user, "<span class='warning'>The airlock's bolts prevent it from being forced!</span>")
-	else if( !welded && !operating)
+	else if(!welded && !operating)
 		if(istype(I, /obj/item/fireaxe)) //being fireaxe'd
 			var/obj/item/fireaxe/F = I
 			if(F && !ISWIELDED(F))
 				to_chat(user, "<span class='warning'>You need to be wielding the fire axe to do that!</span>")
 				return
 		INVOKE_ASYNC(src, (density ? .proc/open : .proc/close), 2)
-
-	if(HAS_TRAIT(I, TRAIT_DOOR_PRYER))
-		if(isElectrified())
-			shock(user,100)//it's like sticking a forck in a power socket
-			return
-
-		if(!density)//already open
-			return
-
-		if(locked)
-			to_chat(user, "<span class='warning'>The bolts are down, it won't budge!</span>")
-			return
-
-		if(welded)
-			to_chat(user, "<span class='warning'>It's welded, it won't budge!</span>")
-			return
-
-		var/time_to_open = 5
-		if(hasPower() && !prying_so_hard)
-			time_to_open = 50
-			playsound(src, 'sound/machines/airlock_alien_prying.ogg', 100, TRUE) //is it aliens or just the CE being a dick?
-			prying_so_hard = TRUE
-			if(do_after(user, time_to_open, TRUE, src))
-				open(2)
-				if(density && !open(2))
-					to_chat(user, "<span class='warning'>Despite your attempts, [src] refuses to open.</span>")
-			prying_so_hard = FALSE
 
 
 /obj/machinery/door/airlock/open(forced=0)

@@ -223,7 +223,7 @@
 	W.update_label(H.real_name)
 
 /datum/outfit/centcom/commander
-	name = "CentCom Commander"
+	name = JOB_CENTCOM_COMMANDER
 
 	uniform = /obj/item/clothing/under/rank/centcom/commander
 	suit = /obj/item/clothing/suit/armor/bulletproof
@@ -237,7 +237,7 @@
 	r_pocket = /obj/item/lighter
 	l_pocket = /obj/item/ammo_box/a357
 	back = /obj/item/storage/backpack/satchel/leather
-	id = /obj/item/card/id
+	id = /obj/item/card/id/centcom
 
 /datum/outfit/centcom/commander/plasmaman
 	name = "CentCom Commander Plasmaman"
@@ -256,13 +256,13 @@
 	var/obj/item/card/id/W = H.wear_id
 	W.icon_state = "centcom"
 	W.access = get_all_accesses()
-	W.access += get_centcom_access("CentCom Commander")
-	W.assignment = "CentCom Commander"
+	W.access += get_centcom_access(JOB_CENTCOM_COMMANDER)
+	W.assignment = JOB_CENTCOM_COMMANDER
 	W.registered_name = H.real_name
 	W.update_label()
 
 /datum/outfit/admiral
-	name = "Admiral"
+	name = JOB_CENTCOM_ADMIRAL
 
 	uniform = /obj/item/clothing/under/syndicate
 	suit = /obj/item/clothing/suit/space/officer
@@ -275,7 +275,7 @@
 	belt = /obj/item/gun/energy/pulse/pistol/m1911
 	r_pocket = /obj/item/lighter
 	back = /obj/item/storage/backpack/satchel/leather
-	id = /obj/item/card/id
+	id = /obj/item/card/id/centcom
 	r_hand = /obj/item/megaphone/command
 
 /datum/outfit/admiral/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -285,8 +285,8 @@
 	var/obj/item/card/id/W = H.wear_id
 	W.icon_state = "centcom"
 	W.access = get_all_accesses()
-	W.access += get_centcom_access("Admiral")
-	W.assignment = "Admiral"
+	W.access += get_centcom_access(JOB_CENTCOM_ADMIRAL)
+	W.assignment = JOB_CENTCOM_ADMIRAL
 	W.registered_name = H.real_name
 	W.update_label()
 
@@ -357,17 +357,17 @@
 	back = /obj/item/storage/backpack/satchel/leather
 	belt = /obj/item/gun/ballistic/revolver/mateba
 
-	id = /obj/item/card/id
+	id = /obj/item/card/id/silver
 
 /datum/outfit/soviet/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	if(visualsOnly)
 		return
 
-	var/obj/item/card/id/W = H.wear_id
+	var/obj/item/card/id/silver/W = H.wear_id
 	W.icon_state = "centcom"
 	W.access = get_all_accesses()
-	W.access += get_centcom_access("Admiral")
-	W.assignment = "Admiral"
+	W.access += get_centcom_access(JOB_CENTCOM_ADMIRAL)
+	W.assignment = JOB_CENTCOM_ADMIRAL
 	W.registered_name = H.real_name
 	W.update_label()
 
@@ -388,7 +388,7 @@
 		return
 
 	var/obj/item/card/id/W = H.wear_id
-	W.assignment = "Assistant"
+	W.assignment = JOB_NAME_ASSISTANT
 	W.registered_name = H.real_name
 	W.update_label()
 
@@ -422,3 +422,11 @@
 	ears = /obj/item/radio/headset/headset_srv
 
 
+/datum/outfit/joker/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	if(visualsOnly)
+		return
+
+	var/obj/item/card/id/I = H.wear_id
+	I.assignment = "Joker"
+	I.registered_name = H.real_name
+	I.update_label()

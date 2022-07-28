@@ -106,7 +106,7 @@ GLOBAL_VAR(medibot_unique_id_gen)
 
 /mob/living/simple_animal/bot/medbot/Initialize(mapload, new_skin)
 	. = ..()
-	var/datum/job/doctor/J = new /datum/job/doctor
+	var/datum/job/medical_doctor/J = new /datum/job/medical_doctor
 	access_card.access += J.get_access()
 	prev_access = access_card.access
 	qdel(J)
