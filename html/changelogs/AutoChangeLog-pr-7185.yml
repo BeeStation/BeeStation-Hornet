@@ -1,6 +1,0 @@
-author: Rukofamicom
-delete-after: true
-changes:
-  - bugfix: fixed viruses spamming deadchat with messages when they have Necrotic
-      Metabolization
-  - tweak: Wizarditis can no longer teleport across Z-levels.

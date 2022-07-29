@@ -1,8 +1,0 @@
-author: EvilDragonfiend
-delete-after: true
-changes:
-  - refactor: new mind proc 'is_murderbone()` to check if their mind has murderbone
-      objective, and objective datum has murderbone_flag variable
-  - balance: His Grace / Romerol are now only purchasable to those who have a murderbone
-      objective. (His Grace is still restricted to chaplain)
-  - balance: Romerol is now 20 TC
