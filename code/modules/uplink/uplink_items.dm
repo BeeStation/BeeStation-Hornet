@@ -116,6 +116,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	var/refundable = FALSE
 	var/surplus = 100 // Chance of being included in the surplus crate.
 	var/cant_discount = FALSE
+	var/murderbone_type = FALSE
 	var/limited_stock = -1 //Setting this above zero limits how many times this item can be bought by the same traitor in a round, -1 is unlimited
 	var/purchasable_from = ALL
 	var/list/restricted_roles = list() //If this uplink item is only available to certain roles. Roles are dependent on the frequency chip or stored ID.
@@ -800,8 +801,9 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			On death, these nodules take control of the dead body, causing limited revivification, \
 			along with slurred speech, aggression, and the ability to infect others with this agent."
 	item = /obj/item/storage/box/syndie_kit/romerol
-	cost = 25
+	cost = 20
 	cant_discount = TRUE
+	murderbone_type = TRUE
 	surplus = 0
 
 /datum/uplink_item/stealthy_weapons/sleepy_pen
@@ -2129,6 +2131,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/his_grace
 	cost = 20
 	restricted_roles = list(JOB_NAME_CHAPLAIN)
+	murderbone_type = TRUE
 	surplus = 0
 
 /datum/uplink_item/role_restricted/cultconstructkit
