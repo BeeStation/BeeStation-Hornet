@@ -32,15 +32,9 @@ GLOBAL_VAR_INIT(conversion_timer_end, 0)
 		send_sound_to_servants(sound('sound/magic/clockwork/scripture_tier_up.ogg'))
 		hierophant_message("The boundary space is being torn apart, the celestial gateway's activation sequence can no longer be stopped...'", span="<span class='large_brass'>")
 
-	//Should be 1 when its 6, should be 0 when its critical_servant_count
-	var/timer_proportion = 1 - ((servant_count - 6) / GLOB.critical_servant_count)
-
-	GLOB.conversion_timer_end = GLOB.conversion_timer_start + (80 MINUTES) * timer_proportion
-
-	addtimer(CALLBACK(GLOBAL_PROC, /proc/trigger_gateway_activation), max(GLOB.conversion_timer_end - GLOB.conversion_timer_start, 30 SECONDS), TIMER_UNIQUE | TIMER_OVERRIDE)
-
 	if(ishuman(M) && (servant_type == /datum/antagonist/servant_of_ratvar) && GLOB.critical_servant_count)
-		hierophant_message("The celestial gateway will open in [DisplayTimeText(max(GLOB.conversion_timer_end - world.time, 0))].", span="<span class='heavy_brass'>")
+		var/obj/structure/destructible/clockwork/massive/celestial_gateway/gateway = GLOB.celestial_gateway
+		gateway.update_timer()
 
 	return M.mind.add_antag_datum(antagdatum, team)
 
@@ -60,9 +54,20 @@ GLOBAL_VAR_INIT(conversion_timer_end, 0)
 
 /proc/calculate_clockcult_values()
 	var/playercount = get_active_player_count()
-	GLOB.critical_servant_count = round(max((playercount/5)+6,10))
+	GLOB.critical_servant_count = round(max((playercount/6)+6,10))
 
-/proc/trigger_gateway_activation()
+/obj/structure/destructible/clockwork/massive/celestial_gateway/proc/update_timer()
+	var/servant_count = GLOB.human_servants_of_ratvar.len
+	//Should be 1 when its 6, should be 0 when its critical_servant_count
+	var/timer_proportion = 1 - ((servant_count - 6) / (GLOB.critical_servant_count - 6))
+
+	GLOB.conversion_timer_end = GLOB.conversion_timer_start + (80 MINUTES) * timer_proportion
+
+	addtimer(CALLBACK(src, .proc/trigger_gateway_activation), max(GLOB.conversion_timer_end - GLOB.conversion_timer_start, 30 SECONDS), TIMER_UNIQUE | TIMER_OVERRIDE)
+
+	hierophant_message("The celestial gateway will open in [DisplayTimeText(max(GLOB.conversion_timer_end - world.time, 0))].", span="<span class='heavy_brass'>")
+
+/obj/structure/destructible/clockwork/massive/celestial_gateway/proc/trigger_gateway_activation()
 	if(GLOB.ark_transport_triggered)
 		return
 	for(var/datum/mind/M in GLOB.servants_of_ratvar)
