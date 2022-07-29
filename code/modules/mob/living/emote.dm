@@ -605,6 +605,7 @@
 	message_ipc = "flashes a thumbs up icon"
 	message_simple = "attempts a thumbs up"
 	message_param = "flashes a thumbs up at %t"
+	restraint_check = TRUE
 
 /datum/emote/living/thumbs_down
 	key = "thumbsdown"
@@ -615,6 +616,7 @@
 	message_ipc = "flashes a thumbs down icon"
 	message_simple = "attempts a thumbs down"
 	message_param = "flashes a thumbs down at %t"
+	restraint_check = TRUE
 
 /datum/emote/living/whistle
 	key="whistle"
