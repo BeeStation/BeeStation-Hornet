@@ -221,8 +221,8 @@
 	QDEL_IN(virt, 50)  // Make extra sure the virtualspeaker gets qdeleted
 
 /datum/signal/subspace/vocal/proc/calculate_dept_sfx(mob/living/user, frequency)
-	if(!COOLDOWN_FINISHED(radio_chime_cooldown))
-		COOLDOWN_START(radio_chime_cooldown, 30 SECONDS)
+	if(!COOLDOWN_FINISHED(src, radio_chime_cooldown))
+		COOLDOWN_START(src, radio_chime_cooldown, 30 SECONDS)
 		return
 	var/sfx_file = GLOB.radionoise["[frequency]"]  // fun string casting..
 	if(!sfx_file)
