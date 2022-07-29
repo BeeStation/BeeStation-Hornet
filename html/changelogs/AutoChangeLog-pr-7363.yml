@@ -1,0 +1,6 @@
+author: etherware-novice
+delete-after: true
+changes:
+  - rscadd: Added the :d radio channel
+  - tweak: Tweaked the ic notes, traitor splash screen, and code generation to reflect
+      the new uplink
