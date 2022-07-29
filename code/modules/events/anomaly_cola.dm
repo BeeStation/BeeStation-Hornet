@@ -5,14 +5,13 @@
 	typepath = /datum/round_event/infcola
 	min_players = 1
 	max_occurrences = 10
-	var/atom/special_target
 	can_malf_fake_alert = TRUE
 
 /datum/round_event/infcola
 	announceWhen = 2
 
 /datum/round_event/infcola/announce(fake)
-	priority_announce("Our long-range anomaly scanners have detected leakage from a soda filled dimension. Nanotrasen is [fake ? "very" : "not"] responsible for any damages caused by these anomalous canisters.", "General Alert", SSstation.announcer.get_rand_alert_sound())
+	priority_announce("Our long-range anomaly scanners have detected leakage from a soda filled dimension. Nanotrasen is not responsible for any damages caused by these anomalous canisters.", "General Alert", SSstation.announcer.get_rand_alert_sound())
 
 /obj/item/reagent_containers/food/drinks/soda_cans/inf
 	name = "Space Cola INFINITE"
