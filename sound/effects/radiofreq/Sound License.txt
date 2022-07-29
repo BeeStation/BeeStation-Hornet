@@ -1,29 +1,3 @@
-sci.ogg
-[80s laser gun] obtained from https://youtu.be/IQ-HeEhE5nY
+all obtained from freesound.org
 
-com.ogg  (and centcomm)
-[chime] sampled from sound/ai/intern's chime
-
-med.ogg
-[sos beeping] Obtained from pixaby, royalty free
-
-eng.ogg
-[sparks and generic radio crackle] Obtained from pixaby, royalty free
-
-sec.ogg
-[combine radio sfx] Obtained from Half Life 2's combine radio sounds.
-
-synd.ogg
-[tatoralert] sampled from sound/ambience/antag/tatoralert
-
-car.ogg
-[retail scanner] Obtained from pixaby, royalty free
-
-expl.ogg
-[answering machine] Obtained from pixaby, royalty free
-
-srv.ogg
-[servicebell] obtained from pixaby, royalty free
-
-ai.ogg (ai private/binary)
-[dialup] Obtained from pixaby, royalty free
+sec.ogg and eng.ogg obtained from arma 2
