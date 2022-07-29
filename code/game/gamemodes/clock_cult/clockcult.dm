@@ -156,7 +156,7 @@ GLOBAL_VAR(clockcult_eminence)
 		return FALSE
 	if(!M.mind)
 		return FALSE
-	if(ishuman(M) && (M.mind.assigned_role in list("Captain", "Chaplain")))
+	if(HAS_TRAIT(M, TRAIT_HOLY) || M.mind.holy_role)
 		return FALSE
 	if(istype(M.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat))
 		return FALSE
@@ -196,7 +196,7 @@ GLOBAL_VAR(clockcult_eminence)
 			to_chat(sender, "<span class='warning'>You message contains forbidden words, please review the server rules and do not attempt to bypass this filter.</span>")
 		return
 	var/hierophant_message = "[span]"
-	if(sender?.reagents)
+	if(istype(sender) && sender.reagents)
 		if(sender.reagents.has_reagent(/datum/reagent/water/holywater, 1))
 			to_chat(sender, "<span class='nezbere'>[pick("You fail to transmit your cries for help.", "Your calls into the void go unanswered.", "You try to transmit your message, but the hierophant network is silent.")]</span>")
 			return FALSE

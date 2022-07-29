@@ -237,6 +237,13 @@
 /turf/open/floor/clockwork/rcd_act(mob/user, obj/item/construction/rcd/the_rcd, passed_mode)
 	return
 
+/turf/open/floor/clockwork/ChangeTurf(path, new_baseturf, flags)
+	. = ..()
+	//If the wall is reinforced, just break it
+	if(istype(., /turf/closed/wall/r_wall))
+		var/turf/T = .
+		T.dismantle_wall()
+
 /turf/open/floor/clockwork/reebe
 	name = "cogplate"
 	desc = "Warm brass plating. You can feel it gently vibrating, as if machinery is on the other side."

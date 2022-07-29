@@ -489,7 +489,7 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 			desc += "The Ark is preparing to open, it will activate in <b>[round((GLOB.ratvar_arrival_tick - world.time - 6000) / 10)]</b> seconds.<br>"
 		else
 			desc += "Ratvar will rise in <b>[round((GLOB.ratvar_arrival_tick - world.time) / 10)]</b> seconds, protect the Ark with your life!<br>"
-	else if(GLOB.conversion_timer_end)
+	else if(GLOB.conversion_timer_end > world.time)
 		desc += "The gateway will activate in [DisplayTimeText(GLOB.conversion_timer_end - world.time)]. The timer will reduce every time a mind is converted."
 	if(GLOB.human_servants_of_ratvar)
 		desc += "There [GLOB.human_servants_of_ratvar.len == 1?"is" : "are"] currently [GLOB.human_servants_of_ratvar.len] loyal servant\s.<br>"

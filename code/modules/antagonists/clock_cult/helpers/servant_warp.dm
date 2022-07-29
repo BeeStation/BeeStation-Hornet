@@ -6,8 +6,8 @@
 	var/turf/T = get_turf(M)
 	if(is_centcom_level(T.z))
 		return FALSE
-	playsound(servant, 'sound/magic/magic_missile.ogg', 30, TRUE, -4)
-	playsound(target_location, 'sound/magic/magic_missile.ogg', 30, TRUE, -4)
+	playsound(servant, 'sound/magic/magic_missile.ogg', 40, TRUE, is_reebe(servant.z) ? 4 : -4)
+	playsound(target_location, 'sound/magic/magic_missile.ogg', 40, TRUE, is_reebe(target_location.z) ? 4 : -4)
 	do_sparks(5, TRUE, servant)
 	do_sparks(5, TRUE, target_location)
 	do_teleport(M, target_location, channel = TELEPORT_CHANNEL_FREE, no_effects = TRUE, teleport_mode = TELEPORT_MODE_CLOCKWORK)

@@ -71,13 +71,13 @@
 			continue
 		if(!L.toxloss && !L.staminaloss && !L.bruteloss && !L.fireloss)
 			continue
-		if(use_power(2))
+		if(use_power(20))
 			L.adjustToxLoss(-50*delta_time, FALSE, TRUE)
 			L.adjustStaminaLoss(-50*delta_time)
 			L.adjustBruteLoss(-10*delta_time)
 			L.adjustFireLoss(-10*delta_time)
 			new /obj/effect/temp_visual/heal(get_turf(L), "#45dd8a")
-			for(var/datum/reagent/R in L.reagents.reagent_list)
+			for(var/datum/reagent/R in L.reagents?.reagent_list)
 				if(istype(R, /datum/reagent/toxin))
 					L.reagents.remove_reagent(R.type, 50*delta_time)
 					holder.add_reagent(R.type, 50*delta_time)

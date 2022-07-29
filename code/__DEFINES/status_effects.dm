@@ -125,6 +125,8 @@
 
 #define STATUS_EFFECT_BOUNTY /datum/status_effect/bounty //! rewards the person who added this to the target with refreshed spells and a fair heal
 
+#define STATUS_EFFECT_SENTINELS_COOLDOWN /datum/status_effect/sentinels_cooldown	//! Cooldown for sentinel's cooldown
+
 //---------//
 //  SLIME  //
 //---------//

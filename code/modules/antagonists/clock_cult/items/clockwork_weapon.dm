@@ -72,31 +72,40 @@
 /obj/item/clockwork/weapon/proc/hit_effect(mob/living/target, mob/living/user, thrown=FALSE)
 	return
 
+/// Brass Spear
+///
+/// Extremely high throw force and good armour penetration.
+/// Usage is for throwing at targets, recalling and then throwing again.
 /obj/item/clockwork/weapon/brass_spear
 	name = "brass spear"
 	desc = "A razor-sharp spear made of brass. It thrums with barely-contained energy."
 	clockwork_desc = "A razor-sharp spear made of a magnetic brass allow. It accelerates towards targets while on Reebe dealing increased damage."
 	icon_state = "ratvarian_spear"
 	embedding = list("max_damage_mult" = 15, "armour_block" = 80)
-	throwforce = 36
-	force = 25
+	throwforce = 35
+	force = 20
 	armour_penetration = 24
 	clockwork_hint = "Throwing the spear will deal bonus damage while on Reebe."
 
+/// Brass Battlehammer
+///
+/// The weakest of all the weapons, with only 18 damage however will throw enemies away when
+/// hit, causing them to be stunned if they are knocked into other enemies
 /obj/item/clockwork/weapon/brass_battlehammer
 	name = "brass battle-hammer"
 	desc = "A brass hammer glowing with energy."
 	clockwork_desc = "A brass hammer enfused with an ancient power allowing it to strike foes with incredible force."
 	icon_state = "ratvarian_hammer"
-	throwforce = 25
+	throwforce = 18
 	armour_penetration = 6
 	sharpness = IS_BLUNT
 	attack_verb = list("bashed", "smitted", "hammered", "attacked")
 	clockwork_hint = "Enemies hit by this will be flung back while on Reebe."
+	attack_weight = 3
 
 /obj/item/clockwork/weapon/brass_battlehammer/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/two_handed, force_unwielded=15, force_wielded=28, block_power_wielded=25)
+	AddComponent(/datum/component/two_handed, force_unwielded=15, force_wielded=20, block_power_wielded=25)
 
 /obj/item/clockwork/weapon/brass_battlehammer/hit_effect(mob/living/target, mob/living/user, thrown=FALSE)
 	if(!ISWIELDED(src))
@@ -104,12 +113,15 @@
 	var/atom/throw_target = get_edge_target_turf(target, get_dir(src, get_step_away(target, src)))
 	target.throw_at(throw_target, thrown ? 2 : 1, 4)
 
+/// Brass Sword
+///
+/// The strongest of all weapons for damage, deals 24 damage per hit and EMPs targets every 30 seconds.
 /obj/item/clockwork/weapon/brass_sword
 	name = "brass longsword"
 	desc = "A large sword made of brass."
 	clockwork_desc = "A large sword made of brass. It contains an aurora of energetic power designed to disrupt electronics."
 	icon_state = "ratvarian_sword"
-	force = 26
+	force = 24
 	throwforce = 20
 	armour_penetration = 12
 	attack_verb = list("attacked", "slashed", "cut", "torn", "gored")
@@ -145,6 +157,9 @@
 /obj/item/clockwork/weapon/brass_sword/proc/send_message(mob/living/target)
 	to_chat(target, "<span class='brass'>[src] glows, indicating the next attack will disrupt electronics of the target.</span>")
 
+/// Brass Bow
+///
+/// Deals 24 damage per shot, slow firing but long ranged.
 /obj/item/gun/ballistic/bow/clockwork
 	name = "Brass Bow"
 	desc = "A bow made from brass and other components that you can't quite understand. It glows with a deep energy and frabricates arrows by itself."

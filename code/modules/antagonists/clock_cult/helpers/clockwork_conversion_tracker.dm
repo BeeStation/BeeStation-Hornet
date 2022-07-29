@@ -32,14 +32,15 @@ GLOBAL_VAR_INIT(conversion_timer_end, 0)
 		send_sound_to_servants(sound('sound/magic/clockwork/scripture_tier_up.ogg'))
 		hierophant_message("The boundary space is being torn apart, the celestial gateway's activation sequence can no longer be stopped...'", span="<span class='large_brass'>")
 
-	var/servant_conversions = GLOB.critical_servant_count - 6
+	//Should be 1 when its 6, should be 0 when its critical_servant_count
+	var/timer_proportion = 1 - ((servant_count - 6) / GLOB.critical_servant_count)
 
-	GLOB.conversion_timer_end = (80 MINUTES) * (1-((servant_count - 6) / servant_conversions))
+	GLOB.conversion_timer_end = GLOB.conversion_timer_start + (80 MINUTES) * timer_proportion
 
-	addtimer(CALLBACK(GLOBAL_PROC, /proc/trigger_gateway_activation), GLOB.conversion_timer_end - GLOB.conversion_timer_start, TIMER_UNIQUE | TIMER_OVERRIDE)
+	addtimer(CALLBACK(GLOBAL_PROC, /proc/trigger_gateway_activation), max(GLOB.conversion_timer_end - GLOB.conversion_timer_start, 30 SECONDS), TIMER_UNIQUE | TIMER_OVERRIDE)
 
 	if(ishuman(M) && (servant_type == /datum/antagonist/servant_of_ratvar) && GLOB.critical_servant_count)
-		hierophant_message("The celestial gateway will open in [DisplayTimeText(GLOB.conversion_timer_end - world.time)].", span="<span class='brass'>")
+		hierophant_message("The celestial gateway will open in [DisplayTimeText(max(GLOB.conversion_timer_end - world.time, SECONDS))].", span="<span class='heavy_brass'>")
 
 	return M.mind.add_antag_datum(antagdatum, team)
 
@@ -59,7 +60,7 @@ GLOBAL_VAR_INIT(conversion_timer_end, 0)
 
 /proc/calculate_clockcult_values()
 	var/playercount = get_active_player_count()
-	GLOB.critical_servant_count = round(max((playercount/6)+6,10))
+	GLOB.critical_servant_count = round(max((playercount/5)+6,10))
 
 /proc/trigger_gateway_activation()
 	if(GLOB.ark_transport_triggered)

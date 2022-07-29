@@ -11,9 +11,9 @@
 		if(M.client)
 			M.client.color = COLOR_WHITE
 			animate(M.client, color=LIGHT_COLOR_CLOCKWORK, time=135)
-	sleep(135)
 	SSshuttle.registerHostileEnvironment(hostile)
 	SSshuttle.lockdown = TRUE
+	sleep(120)
 	for(var/mob/M in GLOB.mob_list)
 		if(M.client)
 			M.client.color = LIGHT_COLOR_CLOCKWORK

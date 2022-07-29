@@ -1,9 +1,30 @@
+/// Brass Armour
+///
+/// Benefits
+///  - Extremely strong protection
+/// Downsides
+///  - Pretty high slowdown
+///
+/// Balancing:
+/// This item is being designed so that a single clockcultist can defeat 3 assistants
+/// with 15 damage weapons in a direct fight before going down.
+/// Assistants get a total of 45 raw damage per second.
+/// The brass sword does 24 damage per hit, meaning it takes 5 hits to take down a target.
+/// The clockcultist requires 15 hits to kill their targets.
+/// In the first 5 hits, the assistants can get 15 hits on the clockcultist.
+/// In the next 5 hits, the assistants can get 10 hits on the clockcultist.
+/// In the next 5 hits, the assistants can get 5 hits on the clockcultist.
+/// By the time the cultist gets 15 hits on their target, the assistants have got 30 hits on the clockcultist.
+/// The assistants can deal a total of 450 raw damage.
+/// The clockcultist deals a total of 360 raw damage in this time.
+/// The clockie needs their armour to be at least 78% protection from melee.
+/// We will give them 60 protection from melee, since they have special powers and healing too.
 /obj/item/clothing/suit/clockwork
 	name = "brass armor"
 	desc = "A strong, brass suit worn by the soldiers of the Ratvarian armies."
 	icon = 'icons/obj/clothing/clockwork_garb.dmi'
 	icon_state = "clockwork_cuirass"
-	armor = list("melee" = 50, "bullet" = 60, "laser" = 30, "energy" = 80, "bomb" = 80, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100, "stamina" = 60)
+	armor = list("melee" = 60, "bullet" = 80, "laser" = 40, "energy" = 80, "bomb" = 80, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100, "stamina" = 60)
 	slowdown = 0.6
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	w_class = WEIGHT_CLASS_BULKY
@@ -22,26 +43,73 @@
 		C.jitteriness += 1000
 		C.do_jitter_animation(C.jitteriness)
 		C.stuttering += 1
-		spawn(20)
 		if(C)
 			C.jitteriness = max(C.jitteriness - 990, 10)
 
+/obj/item/clothing/head/helmet/clockcult
+	name = "brass helmet"
+	desc = "A strong, brass helmet worn by the soldiers of the Ratvarian armies. Includes an integrated light-dimmer for flash protection, as well as occult-grade muffling for factory based environments."
+	icon = 'icons/obj/clothing/clockwork_garb.dmi'
+	icon_state = "clockwork_helmet"
+	armor = list("melee" = 60, "bullet" = 80, "laser" = 40, "energy" = 80, "bomb" = 80, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100, "stamina" = 60)
+	resistance_flags = FIRE_PROOF | ACID_PROOF
+	w_class = WEIGHT_CLASS_BULKY
+	flash_protect = 1
+	bang_protect = 3
+
+/// Robes of divinity
+///
+/// Benefits
+///  - 50% speedboost while worn
+///  - 30% faster attack speeds
+/// Downsides
+///  - Provides really weak protection from projectiles
+///  - Makes you more vulnerable to stun weapons, requiring the anti-stun spell
+///
+/// This armour is best suited for someone working alongside someone with the more tanky armour, as it allows
+/// for a very high damage output.
 /obj/item/clothing/suit/clockwork/speed
 	name = "robes of divinity"
-	desc = "A shiny suit, glowing with a vibrant energy. The wearer will be able to move quickly across battlefields, but will be able to withstand less damage before falling."
+	desc = "A shiny suit, glowing with a vibrant energy. The wearer will be able to move quickly across battlefields and will attack faster but won't be as protected from attacks."
 	icon = 'icons/obj/clothing/clockwork_garb.dmi'
 	icon_state = "clockwork_cuirass_speed"
-	slowdown = -0.3
+	slowdown = -0.5
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	armor = list("melee" = 40, "bullet" = 40, "laser" = 10, "energy" = -20, "bomb" = 60, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100, "stamina" = 30)
+	var/effect_applied = FALSE
 
+/obj/item/clothing/suit/clockwork/speed/equipped(mob/living/user, slot)
+	. = ..()
+	//Apply faster click speed
+	if((slot & slot_flags) && !effect_applied)
+		user.next_move_modifier -= 0.3
+		effect_applied = TRUE
+
+/obj/item/clothing/suit/clockwork/speed/dropped(mob/user)
+	. = ..()
+	//Reset it back to baseline
+	//Effect applied is actually for here, where the item can be dropped from hand or inventory slot
+	if(effect_applied)
+		user.next_move_modifier += 0.3
+		effect_applied = FALSE
+
+/// Robes of divinity
+///
+/// Benefits
+///  - Good protection from projectiles and bullets
+///  - Makes the wearer harder to see, making this good for use in station darkness
+///  - Provides full protection from light based projectiles
+/// Downsides
+///  - Extremely poor protection against melee weapons
+///
+/// This armour is best for use with ranged weapons such as the energy bow.
 /obj/item/clothing/suit/clockwork/cloak
 	name = "shrouding cloak"
 	desc = "A faltering cloak that bends light around it, distorting the user's appearance, making it hard to see them with the naked eye. However, it provides very little protection."
 	icon = 'icons/obj/clothing/clockwork_garb.dmi'
 	icon_state = "clockwork_cloak"
 	armor = list("melee" = 10, "bullet" = 60, "laser" = 40, "energy" = 20, "bomb" = 40, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100, "stamina" = 20)
-	slowdown = 0.4
+	slowdown = 0.2
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	var/shroud_active = FALSE
 	var/i
@@ -130,17 +198,6 @@
 		wearer = null
 		applied_eye_damage = 0
 		STOP_PROCESSING(SSobj, src)
-
-/obj/item/clothing/head/helmet/clockcult
-	name = "brass helmet"
-	desc = "A strong, brass helmet worn by the soldiers of the Ratvarian armies. Includes an integrated light-dimmer for flash protection, as well as occult-grade muffling for factory based environments."
-	icon = 'icons/obj/clothing/clockwork_garb.dmi'
-	icon_state = "clockwork_helmet"
-	armor = list("melee" = 50, "bullet" = 60, "laser" = 30, "energy" = 80, "bomb" = 80, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100, "stamina" = 60)
-	resistance_flags = FIRE_PROOF | ACID_PROOF
-	w_class = WEIGHT_CLASS_BULKY
-	flash_protect = 1
-	bang_protect = 3
 
 /obj/item/clothing/shoes/clockcult
 	name = "brass treads"
