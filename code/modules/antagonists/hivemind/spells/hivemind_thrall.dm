@@ -39,7 +39,7 @@
 		to_chat(user, "<span class='warning'>We must tighten our grip to be able to awaken their mind!</span>")
 		revert_cast()
 		return
-	if(is_hivehost(target) || target.is_wokevessel())
+	if(is_hivehost(target) || target.is_wokevessel() || HAS_TRAIT(target, TRAIT_MINDSHIELD))
 		to_chat(user, "<span class='warning'>Complex mental barriers protect [target.name]'s mind.</span>")
 		revert_cast()
 		return
@@ -65,6 +65,10 @@
 	V.master = hivehost
 	V.hiveID = hivehost.hiveID
 	target.mind.add_antag_datum(V)
+	var/O = "Obey and Protect your Hive Host, [user]"
+	var/datum/objective/brainwashing/objective = new(O)
+	V.objectives += objective
+	log_objective(V, objective.explanation_text)
 	flash_color(user, flash_color="#800080", flash_time=10)
 	to_chat(user,"<span class='assimilator'>This vessel is now an extension of our will.</span>")
 	if(hivehost.unlocked_dominance)
