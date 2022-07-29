@@ -1,0 +1,5 @@
+author: ivanmixo
+delete-after: true
+changes:
+  - admin: Moderators' bus perms have been toned down, but they can now rename improperly
+      named characters/mobs
