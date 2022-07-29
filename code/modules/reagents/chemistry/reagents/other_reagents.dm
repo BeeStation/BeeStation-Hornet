@@ -129,7 +129,6 @@
 	if(H)
 		to_chat(L, "<span class='warning'>You're already corgified!</span>")
 		return
-	ADD_TRAIT(L, TRAIT_MUTE, CORGIUM_TRAIT)
 	new_corgi = new(L.loc)
 	//hat check
 	var/mob/living/carbon/C = L
@@ -147,7 +146,6 @@
 		return
 	//Remove all the corgium from the person
 	L.reagents?.remove_reagent(/datum/reagent/corgium, INFINITY)
-	REMOVE_TRAIT(L, TRAIT_MUTE, CORGIUM_TRAIT)
 	if(QDELETED(new_corgi))
 		return
 	var/obj/shapeshift_holder/H = locate() in new_corgi
