@@ -1003,11 +1003,9 @@ GLOBAL_LIST_EMPTY(PDAs)
 		if(inserted_item)
 			to_chat(user, "<span class='warning'>There is already \a [inserted_item] in \the [src]!</span>")
 		else
-			if(istype(C, /obj/item/pen/screwdriver))
-				var/obj/item/pen/screwdriver/temp = C
-				if(temp.extended)
-					to_chat(user, "<span class='warning'>You can't fit the pen in!</span>")
-					return
+			if(C.w_class > WEIGHT_CLASS_TINY)
+				to_chat(user, "<span class='warning'>You can't fit the pen in!</span>")
+				return
 			if(!user.transferItemToLoc(C, src))
 				return
 			to_chat(user, "<span class='notice'>You slide \the [C] into \the [src].</span>")

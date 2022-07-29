@@ -253,11 +253,13 @@
 /obj/item/pen/screwdriver/attack_self(mob/living/user)
 	if(extended)
 		extended = FALSE
+		w_class = initial(w_class)
 		tool_behaviour = initial(tool_behaviour)
 		to_chat(user, "You retract the screwdriver.")
 	else
 		extended = TRUE
 		tool_behaviour = TOOL_SCREWDRIVER
+		w_class = WEIGHT_CLASS_SMALL  // still can fit in pocket
 		to_chat(user, "You extend the screwdriver.")
 	update_icon()
 
