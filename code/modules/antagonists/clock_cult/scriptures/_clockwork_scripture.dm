@@ -249,6 +249,7 @@
 	var/datum/clockcult/scripture/scripture
 
 /datum/action/innate/clockcult/quick_bind/Destroy()
+	activation_slab = null
 	Remove(owner)
 	. = ..()
 

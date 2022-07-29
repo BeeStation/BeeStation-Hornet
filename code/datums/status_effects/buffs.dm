@@ -357,7 +357,10 @@
 	var/chem_per_tick = 1
 
 /datum/status_effect/changeling/on_apply()
-	return is_changeling(owner)
+	ling = is_changeling(owner)
+	if(!ling)
+		return FALSE
+	return TRUE
 
 /datum/status_effect/changeling/tick()
 	if(ling.chem_charges < chem_per_tick)

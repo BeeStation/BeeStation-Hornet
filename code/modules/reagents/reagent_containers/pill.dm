@@ -139,7 +139,7 @@
 	rename_with_volume = TRUE
 
 /obj/item/reagent_containers/pill/mannitol/braintumor //For the brain tumor quirk
-	list_reagents = list(/datum/reagent/medicine/mannitol = 20)
+	list_reagents = list(/datum/reagent/medicine/mannitol = 30)
 
 /obj/item/reagent_containers/pill/mutadone
 	name = "mutadone pill"
@@ -276,7 +276,7 @@
 	dissolvable = FALSE
 
 /obj/item/reagent_containers/pill/floorpill/Initialize(mapload)
-	list_reagents = list(get_unrestricted_random_reagent_id() = rand(10,50))
+	list_reagents = list(get_random_reagent_id(CHEMICAL_RNG_FUN) = rand(10,50))
 	. = ..()
 	name = pick(names)
 
