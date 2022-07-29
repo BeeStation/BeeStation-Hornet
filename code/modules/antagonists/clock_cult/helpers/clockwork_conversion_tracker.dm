@@ -40,7 +40,7 @@ GLOBAL_VAR_INIT(conversion_timer_end, 0)
 	addtimer(CALLBACK(GLOBAL_PROC, /proc/trigger_gateway_activation), max(GLOB.conversion_timer_end - GLOB.conversion_timer_start, 30 SECONDS), TIMER_UNIQUE | TIMER_OVERRIDE)
 
 	if(ishuman(M) && (servant_type == /datum/antagonist/servant_of_ratvar) && GLOB.critical_servant_count)
-		hierophant_message("The celestial gateway will open in [DisplayTimeText(max(GLOB.conversion_timer_end - world.time, SECONDS))].", span="<span class='heavy_brass'>")
+		hierophant_message("The celestial gateway will open in [DisplayTimeText(max(GLOB.conversion_timer_end - world.time, 0))].", span="<span class='heavy_brass'>")
 
 	return M.mind.add_antag_datum(antagdatum, team)
 
