@@ -59,7 +59,7 @@
 	var/server_type = /obj/machinery/telecomms/server
 	var/datum/signal/subspace/original
 	var/list/levels
-	COOLDOWN_START(radio_chime_cooldown)
+	COOLDOWN_DECLARE(radio_chime_cooldown)
 
 /datum/signal/subspace/New(data)
 	src.data = data || list()
@@ -222,6 +222,8 @@
 
 /datum/signal/subspace/vocal/proc/calculate_dept_sfx(mob/living/user, frequency)
 	if(!COOLDOWN_FINISHED(radio_chime_cooldown))
+		COOLDOWN_START(radio_chime_cooldown, 30 SECONDS)
+		return
 	var/sfx_file = GLOB.radionoise["[frequency]"]  // fun string casting..
 	if(!sfx_file)
 		return
