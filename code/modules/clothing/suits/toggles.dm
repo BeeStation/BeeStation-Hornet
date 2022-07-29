@@ -95,7 +95,6 @@
 
 /obj/item/clothing/suit/toggle/AltClick(mob/user)
 	SEND_SIGNAL(src, COMSIG_CLICK_ALT, user)
-		suit_toggle(user)
 
 /obj/item/clothing/suit/toggle/ui_action_click()
 	suit_toggle()
