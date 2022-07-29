@@ -139,6 +139,16 @@
 /mob/living/simple_animal/updatehealth()
 	..()
 	health = CLAMP(health, 0, maxHealth)
+	update_health_hud()
+
+/mob/living/simple_animal/update_health_hud()
+	if(!hud_used)
+		return
+	var/severity = 5 - CLAMP(FLOOR((health / maxHealth) * 5, 1), 0, 5)
+	if(severity > 0)
+		overlay_fullscreen("brute", /atom/movable/screen/fullscreen/brute, severity)
+	else
+		clear_fullscreen("brute")
 
 /mob/living/simple_animal/update_stat()
 	if(status_flags & GODMODE)
@@ -186,7 +196,7 @@
 						length += emote_see.len
 					var/randomValue = rand(1,length)
 					if(randomValue <= speak.len)
-						say(pick(speak), forced = "poly")
+						say(pick(speak), forced = "simple_animal")
 					else
 						randomValue -= speak.len
 						if(emote_see && randomValue <= emote_see.len)
@@ -194,7 +204,7 @@
 						else
 							emote("me [pick(emote_hear)]", 2)
 				else
-					say(pick(speak), forced = "poly")
+					say(pick(speak), forced = "simple_animal")
 			else
 				if(!(emote_hear && emote_hear.len) && (emote_see && emote_see.len))
 					emote("me", 1, pick(emote_see))

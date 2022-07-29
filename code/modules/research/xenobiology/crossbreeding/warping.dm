@@ -8,7 +8,6 @@ put up a rune with bluespace effects, lots of those runes are fluff or act as a 
 	desc = "It just won't stay in place."
 	icon_state = "warping"
 	effect = "warping"
-	colour = "grey"
 	///what runes will be drawn depending on the crossbreed color
 	var/obj/effect/warped_rune/runepath
 	/// the number of "charge" a bluespace crossbreed start with
@@ -55,7 +54,7 @@ put up a rune with bluespace effects, lots of those runes are fluff or act as a 
 ///runes can also be deleted by bluespace crystals relatively fast as an alternative to cleaning them.
 /obj/effect/warped_rune/attackby(obj/item/used_item, mob/user)
 	. = ..()
-	if(!istype(used_item,/obj/item/stack/sheet/bluespace_crystal) && !istype(used_item,/obj/item/stack/ore/bluespace_crystal))
+	if(!istype(used_item,/obj/item/stack/ore/bluespace_crystal))
 		return
 
 	var/obj/item/stack/space_crystal = used_item
@@ -343,8 +342,8 @@ put up a rune with bluespace effects, lots of those runes are fluff or act as a 
 	desc = "To gain something you must sacrifice something else in return."
 	var/static/list/materials = list(/obj/item/stack/sheet/iron, /obj/item/stack/sheet/glass, /obj/item/stack/sheet/mineral/silver,
 									/obj/item/stack/sheet/mineral/gold, /obj/item/stack/sheet/mineral/diamond, /obj/item/stack/sheet/mineral/uranium,
-									/obj/item/stack/sheet/mineral/titanium, /obj/item/stack/sheet/mineral/copper, /obj/item/stack/sheet/mineral/uranium,
-									/obj/item/stack/sheet/bluespace_crystal)
+									/obj/item/stack/sheet/mineral/titanium, /obj/item/stack/sheet/mineral/copper,
+									/obj/item/stack/ore/bluespace_crystal/refined)
 
 /obj/effect/warped_rune/darkpurplespace/do_effect(mob/user)
 	if(locate(/obj/item/stack/sheet/mineral/plasma) in rune_turf)
@@ -601,7 +600,9 @@ GLOBAL_DATUM(blue_storage, /obj/item/storage/backpack/holding/bluespace)
 		/obj/item/toy/plush/slimeplushie,
 		/obj/item/toy/plush/awakenedplushie,
 		/obj/item/toy/plush/beeplushie,
-		/obj/item/toy/plush/moth,
+		/obj/item/toy/plush/moth/random,
+		/obj/item/toy/plush/gondola,
+		/obj/item/toy/plush/flushed = 2,
 		/obj/item/toy/eightball/haunted,
 		/obj/item/toy/foamblade,
 		/obj/item/toy/katana,

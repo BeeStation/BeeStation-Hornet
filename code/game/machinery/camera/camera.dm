@@ -26,6 +26,10 @@
 	var/datum/weakref/assembly_ref = null
 	var/area/myarea = null
 
+	//Emp tracking
+	var/thisemp
+	var/list/previous_network
+
 	FASTDMM_PROP(\
 		pinned_vars = list("name", "network", "c_tag")\
 	)
@@ -140,31 +144,30 @@
 	if(!(. & EMP_PROTECT_SELF))
 		if(prob(150/severity))
 			update_icon()
-			var/list/previous_network = network
+			previous_network = network
 			network = list()
 			GLOB.cameranet.removeCamera(src)
-			stat |= EMPED
 			set_light(0)
 			emped = emped+1  //Increase the number of consecutive EMP's
 			update_icon()
-			var/thisemp = emped //Take note of which EMP this proc is for
-			spawn(900)
-				if(loc) //qdel limbo
-					triggerCameraAlarm() //camera alarm triggers even if multiple EMPs are in effect.
-					if(emped == thisemp) //Only fix it if the camera hasn't been EMP'd again
-						network = previous_network
-						stat &= ~EMPED
-						update_icon()
-						if(can_use())
-							GLOB.cameranet.addCamera(src)
-						emped = 0 //Resets the consecutive EMP count
-						addtimer(CALLBACK(src, .proc/cancelCameraAlarm), 100)
+			thisemp = emped //Take note of which EMP this proc is for
 			for(var/i in GLOB.player_list)
 				var/mob/M = i
 				if (M.client.eye == src)
 					M.unset_machine()
 					M.reset_perspective(null)
 					to_chat(M, "The screen bursts into static.")
+
+/obj/machinery/camera/emp_reset()
+	..()
+	triggerCameraAlarm() //camera alarm triggers even if multiple EMPs are in effect.
+	if(emped == thisemp) //Only fix it if the camera hasn't been EMP'd again
+		network = previous_network
+		update_icon()
+		if(can_use())
+			GLOB.cameranet.addCamera(src)
+		emped = 0 //Resets the consecutive EMP count
+		addtimer(CALLBACK(src, .proc/cancelCameraAlarm), 100)
 
 /obj/machinery/camera/ex_act(severity, target)
 	if(invuln)

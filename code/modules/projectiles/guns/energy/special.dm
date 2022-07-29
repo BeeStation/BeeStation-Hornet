@@ -12,9 +12,6 @@
 	flight_x_offset = 17
 	flight_y_offset = 9
 
-/obj/item/gun/energy/ionrifle/emp_act(severity)
-	return
-
 /obj/item/gun/energy/ionrifle/carbine
 	name = "ion carbine"
 	desc = "The MK.II Prototype Ion Projector is a lightweight carbine version of the larger ion rifle, built to be ergonomic and efficient."
@@ -216,7 +213,9 @@
 
 /obj/item/gun/energy/plasmacutter/use_tool(atom/target, mob/living/user, delay, amount=1, volume=0, datum/callback/extra_checks)
 	if(amount)
+		target.add_overlay(GLOB.welding_sparks)
 		. = ..()
+		target.cut_overlay(GLOB.welding_sparks)
 	else
 		. = ..(amount=1)
 

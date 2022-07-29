@@ -4,6 +4,8 @@ GLOBAL_VAR_INIT(embedpocalypse, FALSE) // if true, all items will be able to emb
 
 GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/effects/fire.dmi', "fire"))
 
+GLOBAL_DATUM_INIT(welding_sparks, /mutable_appearance, mutable_appearance('icons/effects/welding_effect.dmi', "welding_sparks", GASFIRE_LAYER, ABOVE_LIGHTING_PLANE))
+
 GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 // if true, everyone item when created will have its name changed to be
 // more... RPG-like.
@@ -266,7 +268,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		return 1
 
 /obj/item/blob_act(obj/structure/blob/B)
-	if(B && B.loc == loc)
+	if(B.loc == loc && !(resistance_flags & INDESTRUCTIBLE))
 		qdel(src)
 
 /obj/item/ComponentInitialize()
@@ -670,6 +672,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	remove_outline()
 	if(verbs && user?.client)
 		user.client.remove_verbs(verbs)
+	log_item(user, INVESTIGATE_VERB_DROPPED)
 
 // called just as an item is picked up (loc is not yet changed)
 /obj/item/proc/pickup(mob/user)
@@ -678,6 +681,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	item_flags |= PICKED_UP
 	if(verbs && user.client)
 		user.client.add_verbs(verbs)
+	log_item(user, INVESTIGATE_VERB_PICKEDUP)
 
 // called when "found" in pockets and storage items. Returns 1 if the search should end.
 /obj/item/proc/on_found(mob/finder)
@@ -697,6 +701,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			A.Grant(user)
 	if(item_flags & SLOWS_WHILE_IN_HAND || slowdown)
 		user.update_equipment_speed_mods()
+	log_item(user, INVESTIGATE_VERB_EQUIPPED)
 
 //sometimes we only want to grant the item's action if it's equipped in a specific slot.
 /obj/item/proc/item_action_slot_check(slot, mob/user)
@@ -819,6 +824,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		if(w_class < 4)
 			itempush = 0 //too light to push anything
 		return hit_atom.hitby(src, 0, itempush, throwingdatum=throwingdatum)
+
 
 /obj/item/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback, force, quickstart = TRUE)
 	if(HAS_TRAIT(src, TRAIT_NODROP))
@@ -1101,7 +1107,6 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 				M.client.screen -= src
 			layer = initial(layer)
 			plane = initial(plane)
-			appearance_flags &= ~NO_CLIENT_COLOR
 			dropped(M)
 	return ..()
 
@@ -1192,3 +1197,28 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		pain_stam_pct = (!isnull(embedding["pain_stam_pct"]) ? embedding["pain_stam_pct"] : EMBEDDED_PAIN_STAM_PCT),\
 		armour_block = (!isnull(embedding["armour_block"]) ? embedding["armour_block"] : EMBEDDED_ARMOUR_BLOCK))
 	return TRUE
+
+/**
+ * * An interrupt for offering an item to other people, called mainly from [/mob/living/carbon/proc/give], in case you want to run your own offer behavior instead.
+ *
+ * * Return TRUE if you want to interrupt the offer.
+ *
+ * * Arguments:
+ * * offerer - the person offering the item
+ */
+/obj/item/proc/on_offered(mob/living/carbon/offerer)
+	if(SEND_SIGNAL(src, COMSIG_ITEM_OFFERING, offerer) & COMPONENT_OFFER_INTERRUPT)
+		return TRUE
+
+/**
+ * * An interrupt for someone trying to accept an offered item, called mainly from [/mob/living/carbon/proc/take], in case you want to run your own take behavior instead.
+ *
+ * * Return TRUE if you want to interrupt the taking.
+ *
+ * * Arguments:
+ * * offerer - the person offering the item
+ * * taker - the person trying to accept the offer
+ */
+/obj/item/proc/on_offer_taken(mob/living/carbon/offerer, mob/living/carbon/taker)
+	if(SEND_SIGNAL(src, COMSIG_ITEM_OFFER_TAKEN, offerer, taker) & COMPONENT_OFFER_INTERRUPT)
+		return TRUE

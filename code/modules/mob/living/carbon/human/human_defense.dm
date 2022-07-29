@@ -109,6 +109,7 @@
 	return 0
 
 /mob/living/carbon/human/proc/check_shields(atom/AM, var/damage, attack_text = "the attack", attack_type = MELEE_ATTACK, armour_penetration = 0)
+	SEND_SIGNAL(src, COMSIG_HUMAN_ATTACKED, AM, attack_text, damage, attack_type, armour_penetration)
 	for(var/obj/item/I in held_items)
 		if(!isclothing(I))
 			if(I.hit_reaction(src, AM, attack_text, damage, attack_type))
@@ -127,7 +128,7 @@
 
 /mob/living/carbon/human/proc/check_block()
 	if(mind)
-		if(mind.martial_art && prob(mind.martial_art.block_chance) && mind.martial_art.can_use(src) && in_throw_mode && !incapacitated(FALSE, TRUE))
+		if(mind.martial_art && prob(mind.martial_art.block_chance) && mind.martial_art.can_use(src) && throw_mode && !incapacitated(FALSE, TRUE))
 			return TRUE
 	return FALSE
 
@@ -655,9 +656,9 @@
 
 
 	if(mind)
-		if((mind.assigned_role == "Station Engineer") || (mind.assigned_role == "Chief Engineer") )
+		if((mind.assigned_role == JOB_NAME_STATIONENGINEER) || (mind.assigned_role == JOB_NAME_CHIEFENGINEER) )
 			gain = 100
-		if(mind.assigned_role == "Clown")
+		if(mind.assigned_role == JOB_NAME_CLOWN)
 			gain = rand(-1000, 1000)
 	investigate_log("([key_name(src)]) has been consumed by the singularity.", INVESTIGATE_ENGINES) //Oh that's where the clown ended up!
 	gib()

@@ -73,7 +73,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 
 	return new_msg
 
-/mob/living/say(message, bubble_type, var/list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null)
+/mob/living/say(message, bubble_type, var/list/spans = list(), sanitize = TRUE, datum/language/language, ignore_spam = FALSE, forced)
 	var/static/list/crit_allowed_modes = list(WHISPER_MODE = TRUE, MODE_ALIEN = TRUE)
 	var/static/list/unconscious_allowed_modes = list(MODE_ALIEN = TRUE)
 
@@ -105,7 +105,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 		say_dead(original_message)
 		return
 
-	if(!can_speak_basic(original_message, ignore_spam, forced) || check_emote(original_message, forced))
+	if(is_muted(original_message, ignore_spam, forced) || check_emote(original_message, forced))
 		return
 
 	if(in_critical) //There are cheaper ways to do this, but they're less flexible, and this isn't ran all that often
@@ -145,7 +145,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 			message_mods -= RADIO_EXTENSION
 		message_range = 1
 		message_mods[WHISPER_MODE] = MODE_WHISPER
-		src.log_talk(message, LOG_WHISPER)
+		log_talk(message, LOG_WHISPER)
 		if(fullcrit)
 			var/health_diff = round(-HEALTH_THRESHOLD_DEAD + health)
 			// If we cut our message short, abruptly end it with a-..
@@ -156,11 +156,11 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 			message_mods[WHISPER_MODE] = MODE_WHISPER_CRIT
 			succumbed = TRUE
 	else
-		src.log_talk(message, LOG_SAY, forced_by=forced)
+		log_talk(message, LOG_SAY, forced_by = forced)
 
 	message = treat_message(message) // unfortunately we still need this
 	var/sigreturn = SEND_SIGNAL(src, COMSIG_MOB_SAY, args)
-	if (sigreturn & COMPONENT_UPPERCASE_SPEECH)
+	if(sigreturn & COMPONENT_UPPERCASE_SPEECH)
 		message = uppertext(message)
 	if(!message)
 		return
@@ -196,7 +196,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	//No screams in space, unless you're next to someone.
 	var/turf/T = get_turf(src)
 	var/datum/gas_mixture/environment = T.return_air()
-	var/pressure = (environment)? environment.return_pressure() : 0
+	var/pressure = environment ? environment.return_pressure() : 0
 	if(pressure < SOUND_MINIMUM_PRESSURE)
 		message_range = 1
 
@@ -236,7 +236,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	var/eavesdrop_range = 0
 	if(message_mods[WHISPER_MODE]) //If we're whispering
 		eavesdrop_range = EAVESDROP_EXTRA_RANGE
-	var/list/listening = get_hearers_in_view(message_range+eavesdrop_range, source)
+	var/list/listening = get_hearers_in_view(message_range+eavesdrop_range, source, SEE_INVISIBLE_OBSERVER)
 	var/list/the_dead = list()
 	for(var/mob/M as() in GLOB.player_list)
 		if(!M)				//yogs
@@ -244,11 +244,14 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 		if(M.stat != DEAD) //not dead, not important
 			continue
 		if(!M.client || !client) //client is so that ghosts don't have to listen to mice
+			listening -= M // remove (added by SEE_INVISIBLE_OBSERVER)
 			continue
 		if(get_dist(M, src) > 7 || M.get_virtual_z_level() != get_virtual_z_level()) //they're out of range of normal hearing
 			if(eavesdrop_range && !(M.client.prefs.chat_toggles & CHAT_GHOSTWHISPER)) //they're whispering and we have hearing whispers at any range off
+				listening -= M // remove (added by SEE_INVISIBLE_OBSERVER)
 				continue
 			if(!(M.client.prefs.chat_toggles & CHAT_GHOSTEARS)) //they're talking normally and we have hearing at any range off
+				listening -= M // remove (added by SEE_INVISIBLE_OBSERVER)
 				continue
 		listening |= M
 		the_dead[M] = TRUE
@@ -308,18 +311,18 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	return FALSE
 
 /mob/living/can_speak(message) //For use outside of Say()
-	if(can_speak_basic(message) && can_speak_vocal(message))
+	if(!is_muted(message) && can_speak_vocal(message))
 		return TRUE
 
-/mob/living/proc/can_speak_basic(message, ignore_spam = FALSE, forced = FALSE) //Check BEFORE handling of xeno and ling channels
+/mob/living/proc/is_muted(message, ignore_spam = FALSE, forced = FALSE) //Check BEFORE handling of xeno and ling channels
 	if(client)
 		if(client.prefs.muted & MUTE_IC)
 			to_chat(src, "<span class='danger'>You cannot speak in IC (muted).</span>")
-			return FALSE
-		if(!ignore_spam && !forced && client.handle_spam_prevention(message,MUTE_IC))
-			return FALSE
+			return TRUE
+		if(!ignore_spam && !forced && client.handle_spam_prevention(message, MUTE_IC))
+			return TRUE
 
-	return TRUE
+	return FALSE
 
 /mob/living/proc/can_speak_vocal(message) //Check AFTER handling of xeno and ling channels
 	if(HAS_TRAIT(src, TRAIT_MUTE))

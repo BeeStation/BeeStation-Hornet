@@ -59,6 +59,9 @@ GLOBAL_VAR(clockcult_eminence)
 		if(!antag_candidates.len)
 			break
 		var/datum/mind/clockie = antag_pick(antag_candidates, ROLE_SERVANT_OF_RATVAR)
+		//In case antag_pick breaks
+		if(!clockie)
+			continue
 		antag_candidates -= clockie
 		selected_servants += clockie
 		clockie.assigned_role = ROLE_SERVANT_OF_RATVAR
@@ -235,11 +238,11 @@ GLOBAL_VAR(clockcult_eminence)
 					prefix = "Calculator"
 				else if(role in GLOB.supply_positions)
 					prefix = "Pathfinder"
-				else if(role in "Assistant")
+				else if(role in JOB_NAME_ASSISTANT)
 					prefix = "Helper"
-				else if(role in "Mime")
+				else if(role in JOB_NAME_MIME)
 					prefix = "Cogwatcher"
-				else if(role in "Clown")
+				else if(role in JOB_NAME_CLOWN)
 					prefix = "Clonker"
 				else if((role in GLOB.civilian_positions) || (role in GLOB.gimmick_positions))
 					prefix = "Cogworker"

@@ -77,7 +77,7 @@
 
 	log_directed_talk(mob, H, input, LOG_ADMIN, "reply")
 	message_admins("[key_name_admin(src)] replied to [key_name_admin(H)]'s [sender] message with: \"[input]\"")
-	to_chat(H, "You hear something crackle in your ears for a moment before a voice speaks.  \"Please stand by for a message from [sender == "Syndicate" ? "your benefactor" : "Central Command"].  Message as follows[sender == "Syndicate" ? ", agent." : ":"] <span class='bold'>[input].</span> Message ends.\"")
+	to_chat(H, "You hear something crackle in your ears for a moment before a voice speaks.  \"Please stand by for a message from [sender == "Syndicate" ? "your benefactor" : JOB_CENTCOM_CENTRAL_COMMAND].  Message as follows[sender == "Syndicate" ? ", agent." : ":"] <span class='bold'>[input].</span> Message ends.\"")
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Headset Message") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
@@ -205,8 +205,8 @@
 	SSblackbox.record_feedback("nested tally", "admin_toggle", 1, list("Godmode", "[M.status_flags & GODMODE ? "Enabled" : "Disabled"]")) //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 
-/proc/cmd_admin_mute(whom, mute_type, automute = 0)
-	if(!whom)
+/proc/cmd_admin_mute(whom, mute_type, automute = FALSE)
+	if(!whom || !mute_type)
 		return
 
 	var/muteunmute
@@ -235,7 +235,7 @@
 			mute_string = "everything"
 			feedback_string = "Everything"
 		else
-			return
+			CRASH("mute_type in cmd_admin_mute was invalid: [mute_type]")
 
 	var/client/C
 	if(istype(whom, /client))
@@ -250,12 +250,14 @@
 		P = C.prefs
 	else
 		P = GLOB.preferences_datums[whom]
+
 	if(!P)
 		return
 
 	if(automute)
 		if(!CONFIG_GET(flag/automute_on))
 			return
+
 	else
 		if(!check_rights())
 			return
@@ -265,14 +267,17 @@
 		P.muted |= mute_type
 		log_admin("SPAM AUTOMUTE: [muteunmute] [key_name(whom)] from [mute_string]")
 		message_admins("SPAM AUTOMUTE: [muteunmute] [key_name_admin(whom)] from [mute_string].")
+
 		if(C)
 			to_chat(C, "You have been [muteunmute] from [mute_string] by the SPAM AUTOMUTE system. Contact an admin.")
+
 		SSblackbox.record_feedback("nested tally", "admin_toggle", 1, list("Auto Mute [feedback_string]", "1")) //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 		return
 
 	if(P.muted & mute_type)
 		muteunmute = "unmuted"
 		P.muted &= ~mute_type
+
 	else
 		muteunmute = "muted"
 		P.muted |= mute_type
@@ -281,6 +286,7 @@
 	message_admins("[key_name_admin(usr)] has [muteunmute] [key_name_admin(whom)] from [mute_string].")
 	if(C)
 		to_chat(C, "You have been [muteunmute] from [mute_string] by [key_name(usr, include_name = FALSE)].")
+
 	SSblackbox.record_feedback("nested tally", "admin_toggle", 1, list("Mute [feedback_string]", "[P.muted & mute_type]")) //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 
@@ -438,7 +444,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	else
 		new_character.mind_initialize()
 	if(!new_character.mind.assigned_role)
-		new_character.mind.assigned_role = "Assistant"//If they somehow got a null assigned role.
+		new_character.mind.assigned_role = JOB_NAME_ASSISTANT//If they somehow got a null assigned role.
 
 	new_character.key = G_found.key
 
@@ -479,9 +485,9 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 		else//They may also be a cyborg or AI.
 			switch(new_character.mind.assigned_role)
-				if("Cyborg")//More rigging to make em' work and check if they're traitor.
+				if(JOB_NAME_CYBORG)//More rigging to make em' work and check if they're traitor.
 					new_character = new_character.Robotize(TRUE)
-				if("AI")
+				if(JOB_NAME_AI)
 					new_character = new_character.AIize()
 				else
 					SSjob.EquipRank(new_character, new_character.mind.assigned_role, 1)//Or we simply equip them.
@@ -1072,7 +1078,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(!check_rights(R_ADMIN) || !check_rights(R_FUN))
 		return
 
-	var/list/punishment_list = list(ADMIN_PUNISHMENT_LIGHTNING, ADMIN_PUNISHMENT_BRAINDAMAGE, ADMIN_PUNISHMENT_GIB, ADMIN_PUNISHMENT_BSA, ADMIN_PUNISHMENT_FIREBALL, ADMIN_PUNISHMENT_ROD, ADMIN_PUNISHMENT_SUPPLYPOD_QUICK, ADMIN_PUNISHMENT_SUPPLYPOD, ADMIN_PUNISHMENT_MAZING, ADMIN_PUNISHMENT_FLOORCLUWNE, ADMIN_PUNISHMENT_CLUWNE, ADMIN_PUNISHMENT_IMMERSE, ADMIN_PUNISHMENT_GHOST, ADMIN_PUNISHMENT_DEMOCRACY, ADMIN_PUNISHMENT_ANARCHY, ADMIN_PUNISHMENT_TOE, ADMIN_PUNISHMENT_TOEPLUS)
+	var/list/punishment_list = list(ADMIN_PUNISHMENT_LIGHTNING, ADMIN_PUNISHMENT_BRAINDAMAGE, ADMIN_PUNISHMENT_GIB, ADMIN_PUNISHMENT_BSA, ADMIN_PUNISHMENT_FIREBALL, ADMIN_PUNISHMENT_ROD, ADMIN_PUNISHMENT_SUPPLYPOD_QUICK, ADMIN_PUNISHMENT_SUPPLYPOD, ADMIN_PUNISHMENT_MAZING, ADMIN_PUNISHMENT_FLOORCLUWNE, ADMIN_PUNISHMENT_CLUWNE, ADMIN_PUNISHMENT_IMMERSE, ADMIN_PUNISHMENT_GHOST, ADMIN_PUNISHMENT_DEMOCRACY, ADMIN_PUNISHMENT_ANARCHY, ADMIN_PUNISHMENT_TOE, ADMIN_PUNISHMENT_TOEPLUS, ADMIN_PUNISHMENT_CRYO)
 	if(istype(target, /mob/living/carbon))
 		punishment_list += ADMIN_PUNISHMENT_NUGGET
 	var/punishment = input("Choose a punishment", "DIVINE SMITING") as null|anything in sortList(punishment_list)
@@ -1196,6 +1202,9 @@ Traitors and the like can also be revived with the previous role mostly intact.
 			 "down" = CALLBACK(GLOBAL_PROC, .proc/_step, target, SOUTH),
 			 "left" = CALLBACK(GLOBAL_PROC, .proc/_step, target, WEST),
 			 "right" = CALLBACK(GLOBAL_PROC, .proc/_step, target, EAST)), 10))
+
+		if(ADMIN_PUNISHMENT_CRYO)
+			forcecryo(target)
 
 	punish_log(target, punishment)
 

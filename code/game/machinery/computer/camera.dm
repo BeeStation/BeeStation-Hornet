@@ -55,10 +55,10 @@
 	cam_background.del_on_map_removal = FALSE
 
 /obj/machinery/computer/security/Destroy()
-	qdel(cam_screen)
-	qdel(cam_plane_master)
-	qdel(visual_plane_master)
-	qdel(cam_background)
+	QDEL_NULL(cam_screen)
+	QDEL_NULL(cam_plane_master)
+	QDEL_NULL(visual_plane_master)
+	QDEL_NULL(cam_background)
 	return ..()
 
 /obj/machinery/computer/security/connect_to_shuttle(obj/docking_port/mobile/port, obj/docking_port/stationary/dock, idnum, override=FALSE)
@@ -162,7 +162,7 @@
 	// Cameras that get here are moving, and are likely attached to some moving atom such as cyborgs.
 	last_camera_turf = get_turf(cam_location)
 
-	if(active_camera.isXRay())
+	if(active_camera.isXRay(TRUE))	//ignore_malf_upgrades = TRUE
 		visible_turfs += RANGE_TURFS(active_camera.view_range, cam_location)
 	else
 		for(var/turf/T in view(active_camera.view_range, cam_location))

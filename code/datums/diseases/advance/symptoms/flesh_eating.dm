@@ -117,14 +117,12 @@ Bonus
 	prefixes = list("Necrotic ", "Necro")
 	suffixes = list(" Rot")
 	var/chems = FALSE
-	var/zombie = FALSE
 	threshold_desc = "<b>Stage Speed 7:</b> Synthesizes Heparin and Lipolicide inside the host, causing increased bleeding and hunger.<br>\
 					  <b>Stealth 5:</b> The symptom remains hidden until active."
 
+
 /datum/symptom/flesh_death/severityset(datum/disease/advance/A)
 	. = ..()
-	if((A.stealth >= 2) && (A.stage_rate >= 12))
-		bodies = list("Zombie")
 
 /datum/symptom/flesh_death/Start(datum/disease/advance/A)
 	if(!..())
@@ -133,8 +131,6 @@ Bonus
 		suppress_warning = TRUE
 	if(A.stage_rate >= 7) //bleeding and hunger
 		chems = TRUE
-	if((A.stealth >= 2) && (A.stage_rate >= 12))
-		zombie = TRUE
 
 /datum/symptom/flesh_death/Activate(datum/disease/advance/A)
 	if(!..())
@@ -156,21 +152,8 @@ Bonus
 /datum/symptom/flesh_death/proc/Flesh_death(mob/living/M, datum/disease/advance/A)
 	var/get_damage = rand(6,10)
 	if(MOB_UNDEAD in M.mob_biotypes)
-		if(ishuman(M))
-			var/mob/living/carbon/human/H = M
-			var/S = H.dna.species
-			if(zombie && istype(S, /datum/species/zombie/infectious) && !istype(S, /datum/species/zombie/infectious/fast))
-				H.set_species(/datum/species/zombie/infectious/fast)
-				to_chat(M, "<span class='warning'>Your extraneous flesh sloughs off, giving you a boost of speed at the cost of a bit of padding!</span>")
-			else if(prob(base_message_chance))
-				to_chat(M, "<span class='warning'>Your body slowly decays... luckily, you're already dead!</span>")
 		return //this symptom wont work on the undead.
 	M.take_overall_damage(brute = get_damage, required_status = BODYTYPE_ORGANIC)
 	if(chems)
 		M.reagents.add_reagent_list(list(/datum/reagent/toxin/heparin = 2, /datum/reagent/toxin/lipolicide = 2))
-	if(zombie)
-		if(ishuman(A.affected_mob))
-			if(!A.affected_mob.getorganslot(ORGAN_SLOT_ZOMBIE))
-				var/obj/item/organ/zombie_infection/ZI = new()
-				ZI.Insert(M)
 	return 1
