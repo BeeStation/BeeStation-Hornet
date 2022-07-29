@@ -59,6 +59,7 @@
 	var/server_type = /obj/machinery/telecomms/server
 	var/datum/signal/subspace/original
 	var/list/levels
+	COOLDOWN_DECLARE(radio_chime_cooldown)
 
 /datum/signal/subspace/New(data)
 	src.data = data || list()
@@ -220,9 +221,13 @@
 	QDEL_IN(virt, 50)  // Make extra sure the virtualspeaker gets qdeleted
 
 /datum/signal/subspace/vocal/proc/calculate_dept_sfx(mob/living/user, frequency)
+	if(!COOLDOWN_FINISHED(src, radio_chime_cooldown))
+		COOLDOWN_START(src, radio_chime_cooldown, 30 SECONDS)
+		return
 	var/sfx_file = GLOB.radionoise["[frequency]"]  // fun string casting..
 	if(!sfx_file)
 		return
 	var/sound/radio_sound = sound(sfx_file, volume = 50)
 	radio_sound.frequency = get_rand_frequency()
 	SEND_SOUND(user, radio_sound)
+	COOLDOWN_START(src, radio_chime_cooldown, 30 SECONDS)
