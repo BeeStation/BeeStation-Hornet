@@ -471,6 +471,9 @@
 		var/mob/M = mover
 		if(is_servant_of_ratvar(M))
 			return FALSE
+	//Projectiles cannot pass this barrier
+	if(isprojectile(mover))
+		return FALSE
 	for(var/mob/M in mover.contents)
 		if(is_servant_of_ratvar(M))
 			return FALSE

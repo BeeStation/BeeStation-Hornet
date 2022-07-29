@@ -43,16 +43,23 @@
 		var/turf/gatewayT = get_turf(GLOB.celestial_gateway)
 		var/turf/ourT = get_turf(user)
 		var/distance_from_ark = get_dist(gatewayT, ourT)
-		if(gatewayT.z == ourT.z && distance_from_ark < 15)
+		if(gatewayT.z == ourT.z)
 			switch(distance_from_ark)
 				if(0 to 6)
 					force_buff = 8
-				if(6 to 10)
+				if(6 to 8)
 					force_buff = 5
-				if(10 to 15)
+				if(8 to 13)
 					force_buff = 3
+				if(22 to 28)
+					force_buff = -3
+				if(28 to INFINITY)
+					force_buff = -6
 			//Magic sound
-			playsound(src, 'sound/effects/clockcult_gateway_disrupted.ogg', 40)
+			if(force_buff > 0)
+				playsound(src, 'sound/effects/clockcult_gateway_disrupted.ogg', 40)
+			else if(force_buff < 0 && prob(20))
+				to_chat(user, "<span class='brass'>Your weapon hits with a weak force, it longs to be close to its energy source!</span>")
 	force += force_buff
 	. = ..()
 	force -= force_buff
