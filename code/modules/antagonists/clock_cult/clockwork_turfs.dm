@@ -241,7 +241,7 @@
 	. = ..()
 	//If the wall is reinforced, just break it
 	if(istype(., /turf/closed/wall/r_wall))
-		var/turf/T = .
+		var/turf/closed/wall/r_wall/T = .
 		T.dismantle_wall()
 
 /turf/open/floor/clockwork/reebe

@@ -9,7 +9,11 @@
 	category = SPELLTYPE_PRESERVATION
 	cogs_required = 1
 	power_cost = 150
-	var/mutable_appearance/overlay_image = mutable_appearance('icons/effects/clockwork_effects.dmi', "clock_shield", layer = -30)
+	var/mutable_appearance/overlay_image
+
+/datum/clockcult/scripture/slab/vanguard/New()
+	. = ..()
+	overlay_image = mutable_appearance('icons/effects/clockwork_effects.dmi', "clock_shield", layer = -30)
 
 /datum/clockcult/scripture/slab/vanguard/Destroy()
 	QDEL_NULL(overlay_image)
@@ -39,7 +43,7 @@
 		to_chat(invoker, "<span class='sevtug big'>You start to feel tired again...</span>")
 
 /datum/clockcult/scripture/slab/vanguard/end_invoke()
-	invoker.remove_overlays(overlay_image)
+	invoker.cut_overlay(overlay_image)
 	REMOVE_TRAIT(invoker, TRAIT_STUNIMMUNE, VANGUARD_TRAIT)
 	REMOVE_TRAIT(invoker, TRAIT_PUSHIMMUNE, VANGUARD_TRAIT)
 	REMOVE_TRAIT(invoker, TRAIT_CONFUSEIMMUNE, VANGUARD_TRAIT)
