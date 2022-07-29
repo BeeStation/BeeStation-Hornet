@@ -148,7 +148,9 @@
 	//Remove all the corgium from the person
 	L.reagents?.remove_reagent(/datum/reagent/corgium, INFINITY)
 	REMOVE_TRAIT(L, TRAIT_MUTE, CORGIUM_TRAIT)
-	var/obj/shapeshift_holder/H = locate() in L
+	if(QDELETED(new_corgi))
+		return
+	var/obj/shapeshift_holder/H = locate() in new_corgi
 	if(!H)
 		return
 	H.restore(convert_damage = TRUE)
