@@ -22,13 +22,13 @@
 	reagent_flags = AMOUNT_VISIBLE | REFILLABLE  // disables dumping chems into container, you can still fill with dangerous chems for a cool trick
 
 /obj/item/reagent_containers/food/drinks/soda_cans/inf/Initialize(mapload)
-	var/reagents = volume - COLA_AMT
-	while(reagents)
-		var/newreagent = rand(1, min(reagents, 30))
+	var/reagents_left = volume - COLA_AMT
+	while(reagents_left)
+		var/newreagent = rand(1, min(reagents_left, 30))
 		var/category = prob(10) ? CHEMICAL_RNG_FUN : CHEMICAL_RNG_GENERAL
 
 		list_reagents += list(get_random_reagent_id(category) = newreagent)
-		reagents -= newreagent
+		reagents_left -= newreagent
 	. = ..()
 
 /obj/item/reagent_containers/food/drinks/soda_cans/inf/open_soda(mob/user)  // different pop message copy-pasted
