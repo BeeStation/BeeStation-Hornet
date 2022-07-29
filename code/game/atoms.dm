@@ -1071,20 +1071,27 @@
 							valid_id = TRUE
 						if(!valid_id)
 							to_chat(usr, "<span class='warning'>A reagent with that ID doesn't exist!</span>")
+				
 				if("Choose from a list")
 					chosen_id = input(usr, "Choose a reagent to add.", "Choose a reagent.") as null|anything in subtypesof(/datum/reagent)
+				
 				if("I'm feeling lucky")
 					chosen_id = pick(subtypesof(/datum/reagent))
+
 			if(chosen_id)
 				var/amount = input(usr, "Choose the amount to add.", "Choose the amount.", reagents.maximum_volume) as num
+
 				if(amount)
 					reagents.add_reagent(chosen_id, amount)
 					log_admin("[key_name(usr)] has added [amount] units of [chosen_id] to [src]")
 					message_admins("<span class='notice'>[key_name(usr)] has added [amount] units of [chosen_id] to [src]</span>")
+
 	if(href_list[VV_HK_TRIGGER_EXPLOSION] && check_rights(R_FUN))
 		usr.client.cmd_admin_explosion(src)
+
 	if(href_list[VV_HK_TRIGGER_EMP] && check_rights(R_FUN))
 		usr.client.cmd_admin_emp(src)
+
 	if(href_list[VV_HK_MODIFY_TRANSFORM] && check_rights(R_VAREDIT))
 		var/result = input(usr, "Choose the transformation to apply","Transform Mod") as null|anything in list("Scale","Translate","Rotate")
 		var/matrix/M = transform
@@ -1103,13 +1110,16 @@
 				var/angle = input(usr, "Choose angle to rotate","Transform Mod") as null|num
 				if(!isnull(angle))
 					transform = M.Turn(angle)
-	if(href_list[VV_HK_AUTO_RENAME] && check_rights(R_VAREDIT))
+
+	if(href_list[VV_HK_AUTO_RENAME] && check_rights(R_ADMIN))
 		var/newname = input(usr, "What do you want to rename this to?", "Automatic Rename") as null|text
 		if(newname)
 			vv_auto_rename(newname)
-	if(href_list[VV_HK_ADD_AI])
-		if(!check_rights(R_VAREDIT))
-			return
+
+	if(href_list[VV_HK_MODIFY_TRAITS] && check_rights(R_VAREDIT))
+		usr.client.holder.modify_traits(src)
+
+	if(href_list[VV_HK_ADD_AI] && check_rights(R_VAREDIT))
 		var/result = input(usr, "Choose the AI controller to apply to this atom WARNING: Not all AI works on all atoms.", "AI controller") as null|anything in subtypesof(/datum/ai_controller)
 		if(!result)
 			return
