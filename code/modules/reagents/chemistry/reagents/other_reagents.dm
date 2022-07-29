@@ -145,6 +145,8 @@
 	//The mob was qdeleted by an explosion or something
 	if(QDELETED(L))
 		return
+	//Remove all the corgium from the person
+	L.reagents?.remove_reagent(/datum/reagent/corgium, INFINITY)
 	REMOVE_TRAIT(L, TRAIT_MUTE, CORGIUM_TRAIT)
 	var/obj/shapeshift_holder/H = locate() in L
 	if(!H)
