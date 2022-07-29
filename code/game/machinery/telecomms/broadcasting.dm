@@ -220,13 +220,7 @@
 	QDEL_IN(virt, 50)  // Make extra sure the virtualspeaker gets qdeleted
 
 /datum/signal/subspace/vocal/proc/calculate_dept_sfx(mob/living/user, frequency)
-	var/sfx_file
-	switch(frequency)
-		if(FREQ_SECURITY)
-			sfx_file = RADIO_SFX_SECURITY
-		if(FREQ_MEDICAL)
-			sfx_file = RADIO_SFX_MEDICAL
-
+	var/sfx_file = GLOB.radionoise["[frequency]"]  // fun string casting..
 	if(!sfx_file)
 		return
 	var/sound/radio_sound = sound(sfx_file, volume = 50)

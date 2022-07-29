@@ -1,5 +1,26 @@
-radio_sec.ogg
-Obtained from Half Life 2's combine radio sounds.
+radio_sci.ogg
+[80s laser gun]
+
+radio_com.ogg  (and centcomm)
+[chime] Obtained from sound/ai/intern's chime (not implimented)
 
 radio_med.ogg
-Obtained from pixaby, royalty free
+[sos beeping] Obtained from pixaby, royalty free
+
+radio_eng.ogg
+[sparks and generic radio crackle]
+
+radio_sec.ogg
+[combine radio sfx] Obtained from Half Life 2's combine radio sounds.
+
+radio_car.ogg
+[doorbell]
+
+radio_expl.ogg
+[dialup]
+
+radio_srv.ogg
+[answering machine]
+
+radio_ai.ogg (ai private/binary)
+[complex beeping]
