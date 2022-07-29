@@ -181,7 +181,7 @@
 /proc/get_teleport_turf(turf/center, precision = 0)
 	return safepick(get_teleport_turfs(center, precision))
 
-/proc/wizarditis_teleport(var/mob/living/carbon/affected_mob)
+/proc/wizarditis_teleport(mob/living/carbon/affected_mob)
 	var/list/theareas = get_areas_in_range(80, affected_mob)
 	for(var/area/space/S in theareas)
 		theareas -= S
