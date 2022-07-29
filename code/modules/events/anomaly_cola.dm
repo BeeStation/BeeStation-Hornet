@@ -40,7 +40,7 @@
 
 /obj/item/reagent_containers/food/drinks/soda_cans/inf/examine()
 	. = ..()
-	if(reagents && reagents.reagent_list.len)
+	if(length(reagents?.reagent_list))
 		. += "<span class='notice'>You feel an urge to finish off the drink.</span>"
 
 
