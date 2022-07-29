@@ -138,20 +138,14 @@
 		if(hat?.dog_fashion)
 			new_corgi.place_on_head(hat,null,FALSE)
 	H = new(new_corgi,src,L)
-
-/datum/reagent/corgium/on_mob_life(mob/living/carbon/M)
-	. = ..()
-	//If our corgi died :(
-	if(new_corgi.stat)
-		holder.remove_all_type(type)
-		addtimer(CALLBACK(src, .proc/restore, M), 2 SECONDS)
-
-/datum/reagent/corgium/on_mob_end_metabolize(mob/living/L)
-	. = ..()
-	restore(L)
+	//Restore after this time
+	addtimer(CALLBACK(src, .proc/restore, L), volume / metabolization_rate)
 
 /datum/reagent/corgium/proc/restore(mob/living/L)
-	ADD_TRAIT(L, TRAIT_MUTE, CORGIUM_TRAIT)
+	//The mob was qdeleted by an explosion or something
+	if(QDELETED(L))
+		return
+	REMOVE_TRAIT(L, TRAIT_MUTE, CORGIUM_TRAIT)
 	var/obj/shapeshift_holder/H = locate() in L
 	if(!H)
 		return
@@ -1361,7 +1355,7 @@
 	color = "#E1A116"
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	taste_description = "sourness"
-	///stores whether or not the mob has been warned that they are having difficulty breathing. 
+	///stores whether or not the mob has been warned that they are having difficulty breathing.
 	var/warned = FALSE
 
 /datum/reagent/stimulum/on_mob_metabolize(mob/living/L)
