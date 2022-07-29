@@ -66,6 +66,8 @@
 		switch(href_list["makeAntag"])
 			if("traitors")
 				var/maxCount = input("Set number of Traitors","Set Traitor Count (max)",1) as num|null
+				if (!maxCount)
+					return
 				if(src.makeTraitors(maxCount))
 					message_admins("[key_name_admin(usr)] created [maxCount] traitor(s).")
 					log_admin("[key_name(usr)] created [maxCount] traitor(s).")
@@ -74,6 +76,8 @@
 					log_admin("[key_name(usr)] failed to create [maxCount] traitor(s).")
 			if("changelings")
 				var/maxCount = input("Set number of Changelings","Set Changeling Count (max)",1) as num|null
+				if (!maxCount)
+					return
 				if(src.makeChangelings(maxCount))
 					message_admins("[key_name(usr)] created [maxCount] changelings.")
 					log_admin("[key_name(usr)] created [maxCount] changelings.")
@@ -82,6 +86,8 @@
 					log_admin("[key_name(usr)] failed to create [maxCount] changelings.")
 			if("revs")
 				var/maxCount = input("Set number of Revolutionaries","Set Revolutionaries Count (max)",1) as num|null
+				if (!maxCount)
+					return
 				if(src.makeRevs(maxCount))
 					message_admins("[key_name(usr)] started a revolution with [maxCount] freedom fighters.")
 					log_admin("[key_name(usr)] started a [maxCount] freedom fighters.")
@@ -90,6 +96,8 @@
 					log_admin("[key_name(usr)] failed to start a revolution with [maxCount] freedom fighters.")
 			if("cult")
 				var/maxCount = input("Set number of Cultists","Set Cultist Count (max)",1) as num|null
+				if (!maxCount)
+					return
 				if(src.makeCult(maxCount))
 					message_admins("[key_name(usr)] started a cult with [maxCount] cultists.")
 					log_admin("[key_name(usr)] started a cult with [maxCount] cultists.")
@@ -107,6 +115,9 @@
 			if("nukeops")
 				message_admins("[key_name(usr)] is creating a nuke team...")
 				var/maxCount = input("Set number of Nuke OPs","Set Nuke OP Count (max)",5) as num|null
+				if (!maxCount)
+					message_admins("[key_name_admin(usr)] has cancelled the creation of a Nuke team.")
+					return
 				if(src.makeNukeTeam(maxCount))
 					message_admins("[key_name(usr)] created a nuke team with [maxCount] operatives")
 					log_admin("[key_name(usr)] created a nuke team with [maxCount] operatives")
