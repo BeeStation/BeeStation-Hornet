@@ -329,6 +329,12 @@
 	slice_path = /obj/item/reagent_containers/food/snacks/meat/rawcutlet/chicken
 	tastes = list("chicken" = 1)
 
+/obj/item/reagent_containers/food/snacks/meat/slab/mothroach
+	name = "mothroach meat"
+	desc = "a light slab of mothroach meat"
+	tastes = list("gross" = 1)
+	foodtype = RAW | MEAT | GROSS
+
 ////////////////////////////////////// MEAT STEAKS ///////////////////////////////////////////////////////////
 
 
