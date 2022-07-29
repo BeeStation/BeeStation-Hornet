@@ -137,6 +137,13 @@
 		to_chat(real_C2, "<span class='assimilator'>We detect a surge of psionic energy from a far away vessel before they disappear from the hive. Whatever happened, there's a good chance they're after us now.</span>")
 	to_chat(C, "<span class='warning'>The enemy host has been ejected from our mind.</span>" )
 
+/datum/antagonist/hivemind/proc/handle_implant()
+	var/mob/living/carbon/human/self = owner.current
+	if(HAS_TRAIT(self, TRAIT_MINDSHIELD))
+		for(var/obj/item/implant/mindshield/M in self.implants)
+			to_chat(self, "<span class='notice'>Our latent psychic power destroys our mindshield implant!</span>")
+			qdel(M)
+
 /datum/antagonist/hivemind/proc/destroy_hive()
 	hivemembers = list()
 	for(var/datum/mind/mind in avessels)
