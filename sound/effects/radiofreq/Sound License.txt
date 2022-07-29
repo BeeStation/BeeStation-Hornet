@@ -1,29 +1,29 @@
 sci.ogg
-[80s laser gun]
+[80s laser gun] obtained from https://youtu.be/IQ-HeEhE5nY
 
 com.ogg  (and centcomm)
-[chime] Obtained from sound/ai/intern's chime (not implimented)
+[chime] sampled from sound/ai/intern's chime
 
 med.ogg
 [sos beeping] Obtained from pixaby, royalty free
 
 eng.ogg
-[sparks and generic radio crackle]
+[sparks and generic radio crackle] Obtained from pixaby, royalty free
 
 sec.ogg
 [combine radio sfx] Obtained from Half Life 2's combine radio sounds.
 
 synd.ogg
-[tatoralert]
+[tatoralert] sampled from sound/ambience/antag/tatoralert
 
 car.ogg
-[doorbell]
+[retail scanner] Obtained from pixaby, royalty free
 
 expl.ogg
-[dialup]
+[answering machine] Obtained from pixaby, royalty free
 
 srv.ogg
-[answering machine]
+[servicebell] obtained from pixaby, royalty free
 
 ai.ogg (ai private/binary)
-[complex beeping]
+[dialup] Obtained from pixaby, royalty free
