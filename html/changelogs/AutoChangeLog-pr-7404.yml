@@ -1,5 +1,0 @@
-author: Miliviu
-delete-after: true
-changes:
-  - bugfix: The cancel button no longer spawns antagonists in the create-antagonist
-      menu
