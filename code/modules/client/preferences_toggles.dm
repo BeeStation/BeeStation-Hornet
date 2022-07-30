@@ -413,3 +413,11 @@ GLOBAL_LIST_INIT(ghost_orbits, list(GHOST_ORBIT_CIRCLE,GHOST_ORBIT_TRIANGLE,GHOS
 		return
 	prefs.asaycolor = initial(prefs.asaycolor)
 	prefs.save_preferences()
+
+/client/proc/togglebeep()
+	set name = "Toggle Radio Beeps"
+	set category = "Preferences"
+	set desc = "Toggle department unique radio beeps"
+	prefs.radio_beeps = !prefs.radio_beeps
+	prefs.save_preferences()
+	to_chat(usr, "You will [prefs.radio_beeps ? "now" : "no longer"] hear department radio chimes.")

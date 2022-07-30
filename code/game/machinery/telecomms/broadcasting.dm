@@ -204,6 +204,9 @@
 			if(M.should_show_chat_message(virt, language, FALSE, is_heard = TRUE))
 				show_overhead_message_to += M
 		hearer.Hear(rendered, virt, language, message, frequency, spans, message_mods)
+		to_chat(hearer, "current mob: [hearer]")
+		to_chat(hearer, "mobs recieving: ")
+		to_chat(hearer, recieve_noise)
 		if(hearer in recieve_noise)
 			calculate_dept_sfx(hearer, frequency)
 	if(length(show_overhead_message_to))
@@ -232,9 +235,15 @@
 	QDEL_IN(virt, 50)  // Make extra sure the virtualspeaker gets qdeleted
 
 /datum/signal/subspace/vocal/proc/calculate_dept_sfx(mob/living/user, frequency)
+	if(user.client == null)
+		return
+	if(!user.client.prefs.radio_beeps > 0)
+		return
 	var/sfx_file = GLOB.radionoise["[frequency]"]  // fun string casting..
+	to_chat(user, sfx_file)
 	if(!sfx_file)
 		return
 	var/sound/radio_sound = sound(sfx_file, volume = 50)
 	radio_sound.frequency = get_rand_frequency()
+	to_chat(user,"frequency=[radio_sound.frequency]")
 	SEND_SOUND(user, radio_sound)

@@ -407,6 +407,7 @@ CREATE TABLE IF NOT EXISTS `SS13_preferences` (
   `lastchangelog` varchar(50) DEFAULT NULL,
   `ui_style` varchar(50) DEFAULT NULL,
   `hotkeys` tinyint(3) unsigned DEFAULT NULL,
+  `radio_beeps` tinyint(1) unsigned NOT NULL DEFAULT '1',
   `tgui_fancy` tinyint(3) unsigned DEFAULT NULL,
   `tgui_lock` tinyint(3) unsigned DEFAULT NULL,
   `buttons_locked` tinyint(3) unsigned DEFAULT NULL,
