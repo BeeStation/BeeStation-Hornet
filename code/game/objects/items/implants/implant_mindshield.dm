@@ -36,7 +36,6 @@
 		var/datum/antagonist/hivemind/hiv= target.mind.has_antag_datum(/datum/antagonist/hivemind)
 		if(hiv)
 			var/timer = round(rand(1800,3000))
-			to_chat(target, "<span class='notice'>timer: [timer]</span>")
 			addtimer(CALLBACK(hiv, /datum/antagonist/hivemind/.proc/handle_implant), timer, TIMER_STOPPABLE)
 			hiv.handle_implant()
 
@@ -48,9 +47,9 @@
 						to_chat(C, "<span class='assimilator'>We detect a surge of psionic energy from a far away vessel before they disappear from the hive. Whatever happened, there's a good chance they're after us now.</span>")
 			if(target.is_wokevessel())
 				target.mind.remove_antag_datum(/datum/antagonist/hivevessel)
+				target.visible_message("<span class='deconversion_message'>[target]'s thoughts seem to clear!</span>", null, null, null, target)
 				ADD_TRAIT(target, TRAIT_HIVE_BURNT, HIVEMIND_TRAIT)
 			to_chat(target, "<span class='assimilator'>You hear supernatural wailing echo throughout your mind as you are finally set free. Deep down, you can feel the lingering presence of those who enslaved you... as can they!</span>")
-			target.visible_message("<span class='deconversion_message'>[target]'s thoughts seem to clear!</span>", null, null, null, target)
 			remove_hivemember(target)
 
 		var/datum/antagonist/rev/rev = target.mind.has_antag_datum(/datum/antagonist/rev)
