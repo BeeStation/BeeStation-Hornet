@@ -65,7 +65,18 @@
 	materials = list(/datum/material/iron = 1500, /datum/material/silver = 150, /datum/material/glass = 3000)
 	build_path = /obj/item/lightreplacer
 	category = list("Power Designs")
-	departmental_flags = DEPARTMENTAL_FLAG_SERVICE | DEPARTMENTAL_FLAG_ENGINEERING
+	departmental_flags = DEPARTMENTAL_FLAG_ALL  // everyone should be able to replace their own lights
+
+/datum/design/light_replacer_blue
+	name = "Bluespace Light Replacer"
+	desc = "A device to automatically replace lights from a distance. Refill with working light bulbs"
+	id = "light_replacer_blue"
+	build_type = PROTOLATHE
+	materials = list(/datum/material/iron = 1500, /datum/material/silver = 150, /datum/material/glass = 3000, /datum/material/bluespace = 300)
+	build_path = /obj/item/lightreplacer/bluespace
+	category = list("Power Designs")
+	departmental_flags = DEPARTMENTAL_FLAG_SERVICE
+
 
 /datum/design/inducer
 	name = "Heavy-Duty Inducer"
