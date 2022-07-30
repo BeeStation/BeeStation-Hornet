@@ -1253,15 +1253,25 @@
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2000, TECHWEB_POINT_TYPE_NANITES = 2000)
 	export_price = 8000
 
-/datum/techweb_node/nanite_combat
-	id = "nanite_military"
+/datum/techweb_node/nanite_dangerous
+	id = "nanite_danger"
 	tech_tier = 3
-	display_name = "Military Nanite Programming"
-	description = "Nanite programs that perform military-grade functions."
+	display_name = "Dangerous Nanite Programming"
+	description = "Dangerous nanite programs that have the potential to cause death and destruction."
 	prereq_ids = list("nanite_mesh", "weaponry")
-	design_ids = list("explosive_nanites","pyro_nanites","meltdown_nanites","viral_nanites","nanite_sting_nanites")
+	design_ids = list("explosive_nanites","pyro_nanites","meltdown_nanites","viral_nanites")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 1000, TECHWEB_POINT_TYPE_NANITES = 1000)
 	export_price = 5000
+
+/datum/techweb_node/nanite_syndicate
+	id = "nanite_syndicate"
+	tech_tier = 5
+	display_name = "Syndicate Nanite Programming"
+	description = "Nanite programs that take inspiration from other syndicate technologies."
+	prereq_ids = list("nanite_harmonic", "syndicate_basic")
+	design_ids = list("nanite_sting_nanites", "haste_nanites")
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2000, TECHWEB_POINT_TYPE_NANITES = 2000)
+	export_price = 10000
 
 /datum/techweb_node/nanite_hazard
 	id = "nanite_hazard"
@@ -1269,7 +1279,7 @@
 	display_name = "Hazard Nanite Programs"
 	description = "Extremely advanced Nanite programs with the potential of being extremely dangerous."
 	prereq_ids = list("nanite_harmonic", "alientech")
-	design_ids = list("spreading_nanites","mindcontrol_nanites","mitosis_nanites", "haste_nanites")
+	design_ids = list("spreading_nanites","mindcontrol_nanites","mitosis_nanites")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 3000, TECHWEB_POINT_TYPE_NANITES = 4000)
 	export_price = 15000
 
