@@ -108,6 +108,7 @@
 		secure_radio_connections[ch_name] = add_radio(src, GLOB.radiochannels[ch_name])
 
 	become_hearing_sensitive(ROUNDSTART_TRAIT)
+	COOLDOWN_START(src, radio_chime_cooldown, 1)
 
 /obj/item/radio/ComponentInitialize()
 	. = ..()

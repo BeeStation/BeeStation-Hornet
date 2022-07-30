@@ -171,14 +171,14 @@
 	// From the list of radios, find all mobs who can hear those.
 	var/list/receive = get_mobs_in_radio_ranges(radios)
 
-	var/list/recieve_noise
+	var/list/recieve_noise = list()
 	//Gets radios that dont have cooldown (a combo of spagetti code and a bad programmer led to this)
 	if(frequency != FREQ_COMMON)
-		var/list/radios_noise
+		var/list/radios_noise = list()
 		for(var/obj/item/radio/R in radios)
 			if(COOLDOWN_FINISHED(R, radio_chime_cooldown))
 				radios_noise += R
-			COOLDOWN_START(R, radio_chime_cooldown, 30 SECONDS)
+			COOLDOWN_START(R, radio_chime_cooldown, 10 SECONDS)
 
 		recieve_noise = get_mobs_in_radio_ranges(radios_noise)
 
