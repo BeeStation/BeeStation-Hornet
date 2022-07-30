@@ -41,6 +41,7 @@
 				to_chat(user, "<span class='userdanger'>A sudden surge of psionic energy, a recognizable presence, this is the host of [hivetarget.hiveID]!</span>")
 				return
 			if(enemy.is_carbon_member(target))
+				hive.add_hive_overlay_probe(target)
 				to_chat(user, "<span class='userdanger'>We have found the vile stain of [enemy.hiveID] within this mind!</span>")
 				detected = TRUE
 				if(target.mind.has_antag_datum(/datum/antagonist/brainwashed) || target.is_wokevessel())

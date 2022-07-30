@@ -58,6 +58,7 @@ GLOBAL_LIST_EMPTY(hivehosts)
 		return
 	for(var/datum/antagonist/hivemind/H as() in GLOB.hivehosts)
 		if(H.hivemembers.Find(M))
+			H.remove_hive_overlay(M.current)
 			H.hivemembers -= M
 			H.calc_size()
 	var/datum/antagonist/hivevessel/V = L.is_wokevessel()

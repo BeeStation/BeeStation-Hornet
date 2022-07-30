@@ -57,7 +57,7 @@
 			to_chat(user, "<span class='assimilator'>This vision has provided us insight on the mental lay, allowing us to track our foes.</span>")
 			hive.searchcharge += 3
 		else
-			to_chat(user, "<span class='notice'>We strike into the inner depths of their mind and strike at nothing, no enemies lurk inside this mind.</span>")
+			to_chat(user, "<span class='notice'>We delve into the inner depths of their mind and strike at nothing, no enemies lurk inside this mind.</span>")
 	else
 		to_chat(user, "<span class='notice'>Our concentration has been broken!</span>")
 		revert_cast()

@@ -19,6 +19,7 @@
 	var/datum/action/innate/psychic_plane/plane_action
 	var/avessel_limit = 1
 	var/descriptor = "Hivemind"
+	var/list/images
 
 	var/list/upgrade_tiers = list(
 		//Tier 1 - Roundstart powers
@@ -93,6 +94,7 @@
 			UnregisterSignal(M, COMSIG_PARENT_QDELETING)
 		hivemembers |= M
 		RegisterSignal(M, COMSIG_PARENT_QDELETING, M.remove_from_hives())
+		add_hive_overlay(C)
 		calc_size()
 
 	var/user_warning = "<span class='userdanger'>We have detected an enemy hivemind using our physical form as a vessel and have begun ejecting their mind! They will be alerted of our disappearance once we succeed!</span>"
@@ -113,6 +115,7 @@
 	SIGNAL_HANDLER
 	var/datum/mind/M = C.mind
 	if(M)
+		remove_hive_overlay(C)
 		hivemembers -= M
 		calc_size()
 
