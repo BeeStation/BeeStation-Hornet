@@ -1,5 +1,0 @@
-author: PestoVerde322
-delete-after: true
-changes:
-  - bugfix: moved the two MD spawn from the virology ward in Deltastation from virology
-      to medbay's hallways
