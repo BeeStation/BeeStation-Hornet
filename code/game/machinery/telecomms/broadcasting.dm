@@ -59,7 +59,6 @@
 	var/server_type = /obj/machinery/telecomms/server
 	var/datum/signal/subspace/original
 	var/list/levels
-	COOLDOWN_DECLARE(radio_chime_cooldown)
 
 /datum/signal/subspace/New(data)
 	src.data = data || list()
@@ -172,6 +171,17 @@
 	// From the list of radios, find all mobs who can hear those.
 	var/list/receive = get_mobs_in_radio_ranges(radios)
 
+	var/list/recieve_noise
+	//Gets radios that dont have cooldown (a combo of spagetti code and a bad programmer led to this)
+	if(frequency != FREQ_COMMON)
+		var/list/radios_noise
+		for(var/obj/item/radio/R in radios)
+			if(COOLDOWN_FINISHED(R, radio_chime_cooldown))
+				radios_noise += R
+			COOLDOWN_START(R, radio_chime_cooldown, 30 SECONDS)
+
+		recieve_noise = get_mobs_in_radio_ranges(radios_noise)
+
 	// Cut out mobs with clients who are admins and have radio chatter disabled.
 	for(var/mob/R in receive)
 		if (R.client && R.client.holder && !(R.client.prefs.chat_toggles & CHAT_RADIO))
@@ -194,7 +204,8 @@
 			if(M.should_show_chat_message(virt, language, FALSE, is_heard = TRUE))
 				show_overhead_message_to += M
 		hearer.Hear(rendered, virt, language, message, frequency, spans, message_mods)
-		calculate_dept_sfx(hearer, frequency)
+		if(hearer in recieve_noise)
+			calculate_dept_sfx(hearer, frequency)
 	if(length(show_overhead_message_to))
 		create_chat_message(virt, language, show_overhead_message_to, message, spans, message_mods)
 
@@ -221,13 +232,9 @@
 	QDEL_IN(virt, 50)  // Make extra sure the virtualspeaker gets qdeleted
 
 /datum/signal/subspace/vocal/proc/calculate_dept_sfx(mob/living/user, frequency)
-	if(!COOLDOWN_FINISHED(src, radio_chime_cooldown))
-		COOLDOWN_START(src, radio_chime_cooldown, 30 SECONDS)
-		return
 	var/sfx_file = GLOB.radionoise["[frequency]"]  // fun string casting..
 	if(!sfx_file)
 		return
 	var/sound/radio_sound = sound(sfx_file, volume = 50)
 	radio_sound.frequency = get_rand_frequency()
 	SEND_SOUND(user, radio_sound)
-	COOLDOWN_START(src, radio_chime_cooldown, 30 SECONDS)
