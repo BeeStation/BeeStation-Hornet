@@ -1255,13 +1255,13 @@
 
 /datum/techweb_node/nanite_combat
 	id = "nanite_military"
-	tech_tier = 5
+	tech_tier = 3
 	display_name = "Military Nanite Programming"
 	description = "Nanite programs that perform military-grade functions."
-	prereq_ids = list("nanite_harmonic", "syndicate_basic")
+	prereq_ids = list("nanite_mesh", "weaponry")
 	design_ids = list("explosive_nanites","pyro_nanites","meltdown_nanites","viral_nanites","nanite_sting_nanites", "haste_nanites")
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500, TECHWEB_POINT_TYPE_NANITES = 2500)
-	export_price = 12500
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 1000, TECHWEB_POINT_TYPE_NANITES = 1000)
+	export_price = 5000
 
 /datum/techweb_node/nanite_hazard
 	id = "nanite_hazard"
