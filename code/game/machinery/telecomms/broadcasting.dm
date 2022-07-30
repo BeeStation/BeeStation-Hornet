@@ -178,7 +178,7 @@
 		for(var/obj/item/radio/R in radios)
 			if(COOLDOWN_FINISHED(R, radio_chime_cooldown))
 				radios_noise += R
-			COOLDOWN_START(R, radio_chime_cooldown, 10 SECONDS)
+			COOLDOWN_START(R, radio_chime_cooldown, 5 SECONDS)
 
 		recieve_noise = get_mobs_in_radio_ranges(radios_noise)
 
