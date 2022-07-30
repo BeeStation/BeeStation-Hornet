@@ -16,7 +16,7 @@
 	if(!hive)
 		to_chat(user, "<span class='notice'>This is a bug. Error:HIVE1</span>")
 		return
-	var/obj/effect/proc_holder/spell/target_hive/hive_add/the_spell = locate(/obj/effect/proc_holder/spell/target_hive/hive_add) in user.mind.spell_list
+	var/obj/effect/proc_holder/spell/targeted/hive_add/the_spell = locate(/obj/effect/proc_holder/spell/targeted/hive_add) in user.mind.spell_list
 	if(!the_spell)
 		to_chat(user, "<span class='notice'>This is a bug. Error:HIVE5</span>")
 		return

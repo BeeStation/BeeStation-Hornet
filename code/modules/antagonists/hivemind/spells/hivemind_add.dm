@@ -1,15 +1,17 @@
-/obj/effect/proc_holder/spell/target_hive/hive_add
+/obj/effect/proc_holder/spell/targeted/hive_add
 	name = "Assimilate Vessel"
 	desc = "We silently add an unsuspecting target to the hive."
+	action_icon = 'icons/mob/actions/actions_hive.dmi'
+	action_background_icon_state = "bg_hive"
 	selection_type = "view"
 	action_icon_state = "add"
-
-	charge_max = 50
-	range = 7
-	target_external = 1
+	range = 1
+	invocation_type = "none"
+	clothes_req = 0
+	max_targets = 1
 	var/ignore_mindshield = FALSE
 
-/obj/effect/proc_holder/spell/target_hive/hive_add/cast(list/targets, mob/living/user = usr)
+/obj/effect/proc_holder/spell/targeted/hive_add/cast(list/targets, mob/living/user = usr)
 	var/mob/living/carbon/target = targets[1]
 	var/datum/antagonist/hivemind/hive = user.mind.has_antag_datum(/datum/antagonist/hivemind)
 	var/success = FALSE
