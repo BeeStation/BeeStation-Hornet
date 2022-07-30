@@ -1,6 +1,6 @@
 /obj/effect/proc_holder/spell/targeted/hive_thrall
 	name = "Awaken Vessel"
-	desc = "We awaken one of our vessels, permanently turning them into an extension of our will, we can only sustain a limited amount of awakened vessels increasing with integrations."
+	desc = "We awaken one of our vessels, permanently turning them into an extension of our will, we can only sustain two awakened vessels increasing with integrations."
 	panel = "Hivemind Abilities"
 	charge_max = 600
 	range = 1

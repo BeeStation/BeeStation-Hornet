@@ -17,7 +17,7 @@
 	var/searchcharge = 0
 	var/datum/psychic_plane/psychic_plane
 	var/datum/action/innate/psychic_plane/plane_action
-	var/avessel_limit = 1
+	var/avessel_limit = 2
 	var/descriptor = "Hivemind"
 	var/list/images
 
