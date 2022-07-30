@@ -1,0 +1,5 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - balance: Cogscarabs can no longer dodge projectiles that aren't fired directly
+      at them.
