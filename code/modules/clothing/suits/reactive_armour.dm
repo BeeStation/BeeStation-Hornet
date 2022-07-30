@@ -45,7 +45,7 @@
 	///Message sent when the armor is still on cooldown, but activates.
 	var/cooldown_message = "<span class='danger'>The reactive armor fails to do much, as it is recharging! From what? Only the reactive armor knows.</span>"
 	///Duration of the cooldown specific to reactive armor for when it can activate again.
-	var/reactivearmor_cooldown_duration = 0
+	var/reactivearmor_cooldown_duration = 5 SECONDS
 	///The cooldown itself of the reactive armor for when it can activate again.
 	COOLDOWN_DECLARE(reactivearmor_cooldown)
 	pocket_storage_component_path = FALSE
@@ -206,7 +206,8 @@
 	decoy.Goto(owner, decoy.move_to_delay, decoy.minimum_distance)
 	in_stealth = TRUE
 	owner.visible_message("<span class='danger'>[owner] is hit by [attack_text] in the chest!</span>") //We pretend to be hit, since blocking it would stop the message otherwise
-	addtimer(CALLBACK(src, .proc/end_stealth, owner), 40)
+	owner.alpha = 0
+	addtimer(CALLBACK(src, .proc/end_stealth, owner), stealth_time)
 	return TRUE
 
 /obj/item/clothing/suit/armor/reactive/stealth/proc/end_stealth(mob/living/carbon/human/owner)
@@ -373,33 +374,6 @@
 	emp_message = "<span class='warning'>You feel the armor squirm.</span>"
 	///Range of the effect.
 	var/range = 4
-	///Lists for zones and bodyparts to swap and randomize
-	var/static/list/zones = list(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
-	var/static/list/chests
-	var/static/list/heads
-	var/static/list/l_arms
-	var/static/list/r_arms
-	var/static/list/l_legs
-	var/static/list/r_legs
-	var/static/list/organs
-
-/obj/item/clothing/suit/armor/reactive/delimbering/Initialize(mapload)
-	. = ..()
-	if(!chests)
-		chests = typesof(/obj/item/bodypart/chest)
-	if(!heads)
-		heads = typesof(/obj/item/bodypart/head)
-	if(!l_arms)
-		l_arms = typesof(/obj/item/bodypart/l_arm)
-	if(!r_arms)
-		r_arms = typesof(/obj/item/bodypart/r_arm)
-	if(!l_legs)
-		l_legs = typesof(/obj/item/bodypart/l_leg)
-	if(!r_legs)
-		r_legs = typesof(/obj/item/bodypart/r_leg)
-	if(!organs)
-		organs = subtypesof(/obj/item/organ)
-
 
 /obj/item/clothing/suit/armor/reactive/delimbering/cooldown_activation(mob/living/carbon/human/owner)
 	var/datum/effect_system/spark_spread/sparks = new /datum/effect_system/spark_spread

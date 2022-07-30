@@ -11,7 +11,7 @@
 #define ANOMALY_DELIMBER_ZONE_R_LEG typesof(/obj/item/bodypart/r_arm)
 #define ANOMALY_DELIMBER_ZONE_L_ARM typesof(/obj/item/bodypart/l_leg)
 #define ANOMALY_DELIMBER_ZONE_R_ARM typesof(/obj/item/bodypart/r_leg)
-#define ANOMALY_DELIMBER_ZONE_ORGANS typesof(/obj/item/organ)
+#define ANOMALY_DELIMBER_ZONE_ORGANS typesof(/obj/item/organ) - typesof(/obj/item/organ/brain) - typesof(/obj/item/organ/body_egg) - /obj/item/organ/alien/eggsac - /obj/item/organ/zombie_infection
 
 /////////////////////
 

@@ -92,7 +92,7 @@
 	chat_color = "#a2dfdc"
 	departments = DEPARTMENT_MEDICAL
 
-	mind_traits = list(TRAIT_MADNESS_IMMUNE, TRAIT_SUPERMATTER_SOOTHER)
+	mind_traits = list(TRAIT_MADNESS_IMMUNE)
 
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman
