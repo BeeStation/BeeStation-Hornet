@@ -1004,7 +1004,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 			to_chat(user, "<span class='warning'>There is already \a [inserted_item] in \the [src]!</span>")
 		else
 			if(C.w_class > WEIGHT_CLASS_TINY)
-				to_chat(user, "<span class='warning'>You can't fit the pen in!</span>")
+				to_chat(user, "<span class='warning'>The [C] doesnt fit!</span>")
 				return
 			if(!user.transferItemToLoc(C, src))
 				return

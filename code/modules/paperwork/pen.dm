@@ -255,11 +255,20 @@
 		extended = FALSE
 		w_class = initial(w_class)
 		tool_behaviour = initial(tool_behaviour)
+		force = initial(force)
+		throwforce = initial(throwforce)
+		throw_speed = initial(throw_speed)
+		throw_range = initial(throw_range)
 		to_chat(user, "You retract the screwdriver.")
+
 	else
 		extended = TRUE
 		tool_behaviour = TOOL_SCREWDRIVER
 		w_class = WEIGHT_CLASS_SMALL  // still can fit in pocket
+		force = 4  // copies force from screwdriver
+		throwforce = 5
+		throw_speed = 3
+		throw_range = 5
 		to_chat(user, "You extend the screwdriver.")
 	update_icon()
 
@@ -280,13 +289,5 @@
 /obj/item/pen/screwdriver/update_icon()
 	if(extended)
 		icon_state = "pendriverout"
-		force = 4  // copies force from screwdriver
-		throwforce = 5
-		throw_speed = 3
-		throw_range = 5
 	else
 		icon_state = initial(icon_state)
-		force = initial(force)
-		throwforce = initial(throwforce)
-		throw_speed = initial(throw_speed)
-		throw_range = initial(throw_range)
