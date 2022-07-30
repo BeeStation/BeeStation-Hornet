@@ -13,6 +13,13 @@
 /datum/round_event/infcola/announce(fake)
 	priority_announce("Our long-range anomaly scanners have detected leakage from a soda filled dimension. Nanotrasen is not responsible for any damages caused by these anomalous canisters.", "General Alert", SSstation.announcer.get_rand_alert_sound())
 
+/datum/round_event/infcola/start()
+	for(var/i in 1 to rand(5, 20))  // generates between 5-20 cans
+		var/obj/item/reagent_containers/food/drinks/soda_cans/inf/newCan = new(src)
+		var/turf/warp = find_safe_turf(extended_safety_checks = TRUE, dense_atoms = FALSE)
+		newCan.forceMove(warp)
+		do_smoke(location=warp)
+
 /obj/item/reagent_containers/food/drinks/soda_cans/inf
 	name = "Space Cola INFINITE"
 	desc = "Cola. Probably not from space. Proceed with caution. A no-tamper filter prevents the drink from being drained and resold."
@@ -41,13 +48,5 @@
 	. = ..()
 	if(length(reagents?.reagent_list))
 		. += "<span class='notice'>You feel an urge to finish off the drink.</span>"
-
-
-/datum/round_event/infcola/start()
-	for(var/i in 1 to rand(5, 20))  // generates between 5-20 cans
-		var/obj/item/reagent_containers/food/drinks/soda_cans/inf/newCan = new(src)
-		var/turf/warp = find_safe_turf(extended_safety_checks = TRUE, dense_atoms = FALSE)
-		newCan.forceMove(warp)
-		do_smoke(location=warp)
 
 #undef COLA_AMT
