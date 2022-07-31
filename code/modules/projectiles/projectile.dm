@@ -480,6 +480,8 @@
 			return FALSE
 	else
 		var/mob/living/L = target
+		if(L.force_hit_projectile(src))
+			return TRUE
 		if(direct_target)
 			return TRUE
 		// If target not able to use items, move and stand - or if they're just dead, pass over.
