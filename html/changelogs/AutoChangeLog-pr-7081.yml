@@ -1,0 +1,5 @@
+author: Ivniinvi (recouped and updated by PestoVerde322)
+delete-after: true
+changes:
+  - refactor: Refactored cult rune inscribing into a component
+  - refactor: Refactored null rod rune clearing into a component
