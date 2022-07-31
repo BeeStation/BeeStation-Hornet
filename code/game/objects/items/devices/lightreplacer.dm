@@ -265,6 +265,16 @@
 	icon_state = "lightreplacer_blue0"
 	bluespace_toggle = TRUE
 
+/obj/item/lightreplacer/bluespace/emag_act()
+	return  // long range explosions are stupid
+
+
+/obj/item/lightreplacer/attackby(obj/item/W, mob/user, params)
+	if(istype(W, /obj/item/card/emag)  // you cant do to_chat in the emag_act
+		to_chat(W, "<span class='warning'>This technology is too advanced to hack!</span>)
+	. = ..()
+
+
 /obj/item/lightreplacer/bluespace/update_icon()  // making sure it uses the new icon state names
 	icon_state = "lightreplacer_blue[(obj_flags & EMAGGED ? 1 : 0)]"
 
