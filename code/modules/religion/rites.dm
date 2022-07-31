@@ -305,7 +305,7 @@
 				to_chat(user,"<span class='warning'>You've already empowered yourself, use the spell granted to you! To empower another, they must be buckled to [movable_reltool].</span>")
 				lich_to_be = null
 				return FALSE
-		to_chat(user,"<span class='warning'>You're empowering yourself! [lich_to_be] DEBUG</span>")
+		to_chat(user,"<span class='warning'>You're empowering yourself!</span>")
 		return ..()
 
 
