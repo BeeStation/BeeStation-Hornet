@@ -65,7 +65,7 @@
 	// when we get this many shards, we get a free bulb.
 	var/shards_required = 4
 
-	var/bluespacemode = FALSE
+	var/bluespace_toggle = FALSE
 
 /obj/item/lightreplacer/examine(mob/user)
 	. = ..()
@@ -232,7 +232,7 @@
 /obj/item/lightreplacer/afterattack(atom/T, mob/U, proximity)
 	. = ..()
 
-	if(!proximity && !bluespacemode)
+	if(!proximity && !bluespace_toggle)
 		return
 	if(!isturf(T))
 		return
@@ -263,7 +263,7 @@
 	name = "bluespace light replacer"
 	desc = "A modified light replacer that zaps lights into place. Refill with broken or working light bulbs, or sheets of glass."
 	icon_state = "lightreplacer_blue0"
-	bluespacemode = TRUE
+	bluespace_toggle = TRUE
 
 /obj/item/lightreplacer/bluespace/update_icon()  // making sure it uses the new icon state names
 	icon_state = "lightreplacer_blue[(obj_flags & EMAGGED ? 1 : 0)]"
