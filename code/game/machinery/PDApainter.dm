@@ -79,7 +79,7 @@
 		"CentCom",
 		"ERT",
 		"VIP",
-		"KING",
+		"King",
 		"Syndicate",
 		"Clown Operative"
 		)
