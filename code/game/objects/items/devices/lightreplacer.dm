@@ -232,7 +232,6 @@
 /obj/item/lightreplacer/afterattack(atom/T, mob/U, proximity)
 	. = ..()
 
-	var/beam
 	if(!proximity && !bluespacemode)
 		return
 	if(!isturf(T))
