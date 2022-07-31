@@ -54,17 +54,6 @@
 	else
 		..()
 
-/obj/structure/destructible/cult/attackby(obj/I, mob/user, params)
-	if(istype(I, /obj/item/melee/cultblade/dagger) && iscultist(user))
-		anchored = !anchored
-		to_chat(user, "<span class='notice'>You [anchored ? "":"un"]secure \the [src] [anchored ? "to":"from"] the floor.</span>")
-		if(!anchored)
-			icon_state = "[initial(icon_state)]_off"
-		else
-			icon_state = initial(icon_state)
-	else
-		return ..()
-
 /obj/structure/destructible/cult/talisman
 	name = "altar"
 	desc = "A bloodstained altar dedicated to Nar'Sie."
