@@ -270,8 +270,8 @@
 
 
 /obj/item/lightreplacer/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/card/emag)  // you cant do to_chat in the emag_act
-		to_chat(W, "<span class='warning'>This technology is too advanced to hack!</span>)
+	if(istype(W, /obj/item/card/emag))  // you cant do to_chat in the emag_act
+		to_chat(W, "<span class='warning'>This technology is too advanced to hack!</span>")
 	. = ..()
 
 
