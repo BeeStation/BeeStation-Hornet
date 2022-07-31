@@ -312,6 +312,17 @@
 	category = list("Implants", "Medical Designs")
 	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
 
+/datum/design/cyberimp_scan_med
+	name = "Medical Analyzer Implant"
+	desc = "A small medical analyzer, modified to fit inside the users arm."
+	id = "ci-scan-med"
+	build_type = PROTOLATHE | MECHFAB
+	materials = list (/datum/material/iron = 2500, /datum/material/glass = 1500, /datum/material/silver = 1500, /datum/material/copper = 200)
+	build_path = /obj/item/organ/cyberimp/arm/scan_med
+	category = list("Implants", "Medical Designs")
+	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
+
+
 /datum/design/cyberimp_toolset
 	name = "Toolset Arm Implant"
 	desc = "A stripped-down version of engineering cyborg toolset, designed to be installed on subject's arm."
