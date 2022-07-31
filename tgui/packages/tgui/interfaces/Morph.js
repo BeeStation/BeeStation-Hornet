@@ -4,7 +4,7 @@ import { Box, Button, Section, Tabs, LabeledList } from '../components';
 
 export const Morph = (props, context) => {
   return (
-    <Window width={650} height={650}>
+    <Window theme="generic" width={650} height={650}>
       <Window.Content scrollable>
         <MorphContents />
       </Window.Content>
