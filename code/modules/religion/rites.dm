@@ -255,17 +255,94 @@
 
 // Necro Rites
 
+/datum/religion_rites/create_lich
+	name = "Create Lich"
+	desc = "Gives the bound creature a spell granting them the ability to create a phylactery, causing them to become a skeleton and revive on death if the phylactery still exists on-station."
+	ritual_length = 70 SECONDS
+	ritual_invocations = list("From the depths of the soul pool ...",
+	"... come forth into this being ...",
+	"... grant this servant power ...",
+	"... grant them immortality ...")
+	invoke_msg = "... Let them become one with lichdom!!"
+	favor_cost = 1750
+//the creature chosen for the rite
+	var/mob/living/lich_to_be
+//the spell
+	var/lichspell = /obj/effect/proc_holder/spell/targeted/lichdom
+
+/datum/religion_rites/create_lich/perform_rite(mob/living/user, atom/religious_tool)
+	if(!ismovable(religious_tool))
+		to_chat(user,"<span class='warning'>This rite requires a religious device that individuals can be buckled to.</span>")
+		return FALSE
+	var/atom/movable/movable_reltool = religious_tool
+	if(!movable_reltool)
+		return FALSE
+	if(LAZYLEN(movable_reltool.buckled_mobs))
+		for(var/creature in movable_reltool.buckled_mobs)
+			lich_to_be = creature
+		if(!lich_to_be.mind.hasSoul)
+			to_chat(user,"<span class='warning'>[lich_to_be] has no soul, as such this rite would not help them. To empower another, they must be buckled to [movable_reltool].</span>")
+			lich_to_be = null
+			return FALSE
+		for(var/obj/effect/proc_holder/spell/knownspell in lich_to_be.mob_spell_list)
+			if(knownspell.type == lichspell)
+				to_chat(user,"<span class='warning'>You've already empowered [lich_to_be], get them to use the spell granted to them! To empower another, they must be buckled to [movable_reltool].</span>")
+				lich_to_be = null
+				return FALSE
+		to_chat(user,"<span class='warning'>You're going to empower the [lich_to_be] who is buckled on [movable_reltool].</span>")
+		return ..()
+	else
+		if(!movable_reltool.can_buckle) //yes, if you have somehow managed to have someone buckled to something that now cannot buckle, we will still let you perform the rite!
+			to_chat(user,"<span class='warning'>This rite requires a religious device that individuals can be buckled to.</span>")
+			return FALSE
+		lich_to_be = user
+		if(!lich_to_be.mind.hasSoul)
+			to_chat(user,"<span class='warning'>You have no soul, as such this rite would not help you. To empower another, they must be buckled to [movable_reltool].</span>")
+			lich_to_be = null
+			return FALSE
+		for(var/obj/effect/proc_holder/spell/knownspell in lich_to_be.mob_spell_list)
+			if(knownspell.type == lichspell)
+				to_chat(user,"<span class='warning'>You've already empowered yourself, use the spell granted to you! To empower another, they must be buckled to [movable_reltool].</span>")
+				lich_to_be = null
+				return FALSE
+		to_chat(user,"<span class='warning'>You're empowering yourself! [lich_to_be] DEBUG</span>")
+		return ..()
+
+
+/datum/religion_rites/create_lich/invoke_effect(mob/living/user, atom/movable/religious_tool)
+	..()
+	if(!ismovable(religious_tool))
+		CRASH("[name]'s perform_rite had a movable atom that has somehow turned into a non-movable!")
+	var/atom/movable/movable_reltool = religious_tool
+	if(!movable_reltool?.buckled_mobs?.len)
+		lich_to_be = user
+	else
+		for(var/buckled in movable_reltool.buckled_mobs)
+			if(ishuman(buckled))
+				lich_to_be = buckled
+				break
+	if(!lich_to_be)
+		return FALSE
+	lich_to_be.AddSpell(new /obj/effect/proc_holder/spell/targeted/lichdom(null))
+	lich_to_be.visible_message("<span class='notice'>[lich_to_be] has been empowered by the soul pool!</span>")
+	lich_to_be = null
+	return ..()
+
+
+
+
+
 /datum/religion_rites/raise_undead
 	name = "Raise Undead"
 	desc = "Creates an undead creature if a soul is willing to take it."
-	ritual_length = 70 SECONDS
+	ritual_length = 50 SECONDS
 	ritual_invocations = list("Come forth from the pool of souls ...",
 	"... enter our realm ...",
 	"... become one with our world ...",
 	"... rise ...",
 	"... RISE! ...")
 	invoke_msg = "... RISE!!!"
-	favor_cost = 1500
+	favor_cost = 1250
 
 /datum/religion_rites/raise_undead/invoke_effect(mob/living/user, atom/movable/religious_tool)
 	var/turf/altar_turf = get_turf(religious_tool)
@@ -307,7 +384,7 @@
 /datum/religion_rites/raise_dead
 	name = "Raise Dead"
 	desc = "Revives a buckled dead creature or person."
-	ritual_length = 100 SECONDS
+	ritual_length = 70 SECONDS
 	ritual_invocations = list("Rejoin our world ...",
 	"... come forth from the beyond ...",
 	"... fresh life awaits you ...",
@@ -315,7 +392,7 @@
 	"... by the power granted by the gods ...",
 	"... you shall rise again ...")
 	invoke_msg = "Welcome back to the mortal plain."
-	favor_cost = 2500
+	favor_cost = 1500
 
 ///the target
 	var/mob/living/carbon/human/raise_target
@@ -405,7 +482,7 @@
 		to_chat(user, "<span class='warning'>The sacrifice is no longer alive, it needs to be alive until the end of the rite!</span>")
 		chosen_sacrifice = null
 		return FALSE
-	var/favor_gained = 200 + round(chosen_sacrifice.health)
+	var/favor_gained = 200 + round(chosen_sacrifice.health * 2)
 	GLOB.religious_sect?.adjust_favor(favor_gained, user)
 	new /obj/effect/temp_visual/cult/blood/out(altar_turf)
 	to_chat(user, "<span class='notice'>[GLOB.deity] absorbs [chosen_sacrifice], leaving blood and gore in its place. [GLOB.deity] rewards you with [favor_gained] favor.</span>")
