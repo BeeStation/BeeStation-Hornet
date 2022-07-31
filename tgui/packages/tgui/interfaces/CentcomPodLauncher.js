@@ -23,6 +23,7 @@ export const CentcomPodLauncher = (props, context) => {
   return (
     <Window
       key={'CPL_' + compact}
+      theme="admin"
       title={compact
         ? "Use against Helen Weinstein"
         : "Supply Pod Menu (Use against Helen Weinstein)"}

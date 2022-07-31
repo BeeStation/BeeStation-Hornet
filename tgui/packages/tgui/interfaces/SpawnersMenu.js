@@ -7,6 +7,7 @@ export const SpawnersMenu = (props, context) => {
   const spawners = data.spawners || [];
   return (
     <Window
+      theme="generic"
       width={700}
       height={600}>
       <Window.Content scrollable>

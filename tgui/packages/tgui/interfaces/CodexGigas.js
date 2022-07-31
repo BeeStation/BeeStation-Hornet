@@ -53,6 +53,7 @@ export const CodexGigas = (props, context) => {
   const { act, data } = useBackend(context);
   return (
     <Window
+      theme="generic"
       width={450}
       height={450}>
       <Window.Content>

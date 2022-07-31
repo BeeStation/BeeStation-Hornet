@@ -13,6 +13,7 @@ export const Achievements = (props, context) => {
     .filter(x => x.category === selectedCategory);
   return (
     <Window
+      theme="generic"
       title="Achievements"
       width={540}
       height={680}>

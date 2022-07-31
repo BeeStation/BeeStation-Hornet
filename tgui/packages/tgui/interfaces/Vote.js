@@ -16,6 +16,7 @@ export const Vote = (props, context) => {
 
   return (
     <Window
+      theme="generic"
       title={`Vote${
         mode
           ? `: ${

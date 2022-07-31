@@ -22,6 +22,7 @@ export const InterviewManager = (props, context) => {
 
   return (
     <Window
+      theme="admin"
       width={500}
       height={600}>
       <Window.Content scrollable>
