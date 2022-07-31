@@ -45,7 +45,7 @@
 	else if(istype(parent, /obj/item/pda))
 		RegisterSignal(parent, COMSIG_PDA_CHANGE_RINGTONE, .proc/new_ringtone)
 	else if(istype(parent, /obj/item/radio))
-		RegisterSignal(parent, COMSIG_RADIO_NEW_FREQUENCY, .proc/new_frequency)
+		RegisterSignal(parent, COMSIG_RADIO_MESSAGE, .proc/radio_message)
 	else if(istype(parent, /obj/item/pen))
 		RegisterSignal(parent, COMSIG_PEN_ROTATED, .proc/pen_rotation)
 
@@ -176,6 +176,9 @@
 			var/datum/uplink_item/I = uplink_items[category][item]
 			if(I.limited_stock == 0)
 				continue
+			if(I.murderbone_type)
+				if(!user.mind.is_murderbone()) // this is a damn proc to check a variable of every objective in you. DO NOT put it into the `if` above, or you call this proc needlessly.
+					continue
 			if(I.restricted_roles.len && I.discounted == FALSE)
 				var/is_inaccessible = TRUE
 				for(var/R in I.restricted_roles)
@@ -312,6 +315,21 @@
 	if(ismob(master.loc))
 		interact(null, master.loc)
 
+
+/datum/component/uplink/proc/radio_message(datum/source, mob/living/user, message, channel)
+	SIGNAL_HANDLER
+
+	if(channel != RADIO_CHANNEL_UPLINK)
+		return
+
+	if(!findtext(lowertext(message), lowertext(unlock_code)))
+		if(failsafe_code && findtext(lowertext(message), lowertext(failsafe_code)))
+			failsafe()
+		return
+	locked = FALSE
+	interact(null, user)
+	to_chat(user, "As you whisper the code into your headset, a soft chime fills your ears.")
+
 // Pen signal responses
 
 /datum/component/uplink/proc/pen_rotation(datum/source, degrees, mob/living/carbon/user)
@@ -338,7 +356,7 @@
 	if(istype(parent,/obj/item/pda))
 		unlock_note = "<B>Uplink Passcode:</B> [unlock_code] ([P.name])."
 	else if(istype(parent,/obj/item/radio))
-		unlock_note = "<B>Radio Frequency:</B> [format_frequency(unlock_code)] ([P.name])."
+		unlock_note = "<B>Radio Passcode:</B> [unlock_code] ([P.name] on the :d channel)."
 	else if(istype(parent,/obj/item/pen))
 		unlock_note = "<B>Uplink Degrees:</B> [english_list(unlock_code)] ([P.name])."
 
@@ -346,7 +364,7 @@
 	if(istype(parent,/obj/item/pda))
 		return "[random_code(3)] [pick(GLOB.phonetic_alphabet)]"
 	else if(istype(parent,/obj/item/radio))
-		return sanitize_frequency(rand(MIN_FREQ, MAX_FREQ), TRUE)
+		return "[pick(GLOB.phonetic_alphabet)]"
 	else if(istype(parent,/obj/item/pen))
 		var/list/L = list()
 		for(var/i in 1 to PEN_ROTATIONS)

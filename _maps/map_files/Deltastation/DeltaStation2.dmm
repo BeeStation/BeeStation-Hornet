@@ -56890,6 +56890,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
+/obj/effect/landmark/start/medical_doctor,
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
 "diE" = (
@@ -80309,7 +80310,6 @@
 	},
 /area/maintenance/port)
 "ilp" = (
-/obj/effect/landmark/start/medical_doctor,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
 	},
@@ -96574,6 +96574,7 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2,
+/obj/effect/landmark/start/medical_doctor,
 /turf/open/floor/plasteel,
 /area/medical/medbay/central)
 "oZh" = (
@@ -99641,11 +99642,6 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/carpet/purple,
 /area/crew_quarters/dorms)
-"qoQ" = (
-/obj/effect/landmark/start/medical_doctor,
-/obj/effect/turf_decal/tile/green,
-/turf/open/floor/plasteel/white,
-/area/medical/virology)
 "qpb" = (
 /turf/closed/wall/r_wall,
 /area/space)
@@ -165674,7 +165670,7 @@ ilp
 dXY
 aem
 dBo
-qoQ
+dXY
 dFm
 taz
 dGM

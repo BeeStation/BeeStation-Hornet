@@ -37,28 +37,28 @@
 	var/mob/living/M = A.affected_mob
 	switch(A.stage)
 		if(2)
-			if(prob(30) && prob(50))
-				M.say(pick("You shall not pass!", "Expeliarmus!", "By Merlins beard!", "Feel the power of the Dark Side!"))
-			if(prob(30) && prob(50))
+			if(prob(15) && M.stat != DEAD)
+				M.say(pick("You shall not pass!", "Expeliarmus!", "By Merlins beard!", "Feel the power of the Dark Side!"), forced = "wizarditis")
+			if(prob(15))
 				to_chat(M, "<span class='danger'>You feel [pick("that you don't have enough mana", "that the winds of magic are gone", "an urge to summon familiar")].</span>")
 
 
 		if(3)
-			if(prob(30) && prob(50))
-				M.say(pick("NEC CANTIO!","AULIE OXIN FIERA!", "STI KALY!", "TARCOL MINTI ZHERI!"))
-			if(prob(30) && prob(50))
+			if(prob(15) && M.stat != DEAD)
+				M.say(pick("NEC CANTIO!","AULIE OXIN FIERA!", "STI KALY!", "TARCOL MINTI ZHERI!"), forced = "wizarditis")
+			if(prob(15))
 				to_chat(M, "<span class='danger'>You feel [pick("the magic bubbling in your veins","that this location gives you a +1 to INT","an urge to summon familiar")].</span>")
 
 		if(4, 5)
 
-			if(prob(50))
-				M.say(pick("NEC CANTIO!","AULIE OXIN FIERA!","STI KALY!","EI NATH!"))
+			if(prob(50) && M.stat != DEAD)
+				M.say(pick("NEC CANTIO!","AULIE OXIN FIERA!","STI KALY!","EI NATH!"), forced = "wizarditis")
 				return
 			if(robes)
 				to_chat(M, "<span class='danger'>You feel [pick("the tidal wave of raw power building inside","that this location gives you a +2 to INT and +1 to WIS","an urge to teleport")].</span>")
 				spawn_wizard_clothes(50, A)
 			if(prob(20) && teleport)
-				teleport(A)
+				wizarditis_teleport(A.affected_mob)
 	return
 
 
@@ -98,12 +98,6 @@
 			if(!H.put_in_hands(S))
 				qdel(S)
 
-
-/datum/symptom/wizarditis/proc/teleport(datum/disease/advance/A)
-	var/turf/L = get_safe_random_station_turfs()
-	A.affected_mob.say("SCYAR NILA!")
-	do_teleport(A.affected_mob, L, channel = TELEPORT_CHANNEL_MAGIC)
-	playsound(get_turf(A.affected_mob), 'sound/weapons/zapbang.ogg', 50,1)
 
 /datum/symptom/wizarditis/End(datum/disease/advance/A)
 	if(ishuman(A.affected_mob))
