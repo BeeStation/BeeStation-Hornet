@@ -234,7 +234,7 @@
 
 	var/beam
 	if(!proximity && !bluespacemode)
-			return
+		return
 	if(!isturf(T))
 		return
 
