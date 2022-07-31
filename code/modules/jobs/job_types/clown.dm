@@ -1,14 +1,13 @@
 /datum/job/clown
-	title = "Clown"
+	title = JOB_NAME_CLOWN
 	flag = CLOWN
-	department_head = list("Head of Personnel")
+	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	department_flag = CIVILIAN
 	faction = "Station"
 	total_positions = 1
 	spawn_positions = 1
 	supervisors = "the head of personnel"
 	selection_color = "#dddddd"
-	chat_color = "#FF83D7"
 
 	outfit = /datum/outfit/job/clown
 
@@ -18,7 +17,7 @@
 	paycheck_department = ACCOUNT_SRV
 
 	display_order = JOB_DISPLAY_ORDER_CLOWN
-	departments = DEPARTMENT_SERVICE
+	departments = DEPARTMENT_BITFLAG_SERVICE
 	rpg_title = "Jester"
 
 	species_outfits = list(
@@ -30,7 +29,7 @@
 	H.apply_pref_name("clown", M.client)
 
 /datum/outfit/job/clown
-	name = "Clown"
+	name = JOB_NAME_CLOWN
 	jobtype = /datum/job/clown
 
 	id = /obj/item/card/id/job/clown

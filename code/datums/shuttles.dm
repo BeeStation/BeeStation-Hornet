@@ -29,7 +29,7 @@
 		can_be_bought = FALSE
 	shuttle_id = "[port_id]_[suffix]"
 	if(!admin_load)
-		mappath = "[prefix][shuttle_id].dmm"
+		mappath = "[prefix][port_id]/[shuttle_id].dmm"
 	. = ..()
 
 /datum/map_template/shuttle/preload_size(path, cache)
