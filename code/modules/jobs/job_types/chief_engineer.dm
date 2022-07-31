@@ -1,8 +1,8 @@
 /datum/job/chief_engineer
-	title = "Chief Engineer"
+	title = JOB_NAME_CHIEFENGINEER
 	flag = CHIEF
 	auto_deadmin_role_flags = DEADMIN_POSITION_HEAD
-	department_head = list("Captain")
+	department_head = list(JOB_NAME_CAPTAIN)
 	department_flag = ENGSEC
 	head_announce = list("Engineering")
 	faction = "Station"
@@ -16,7 +16,7 @@
 	exp_type = EXP_TYPE_ENGINEERING
 	exp_type_department = EXP_TYPE_ENGINEERING
 
-	outfit = /datum/outfit/job/ce
+	outfit = /datum/outfit/job/chief_engineer
 
 	access = list(ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE, ACCESS_MAINT_TUNNELS,
 			            ACCESS_EXTERNAL_AIRLOCKS, ACCESS_ATMOSPHERICS, ACCESS_EVA, ACCESS_AUX_BASE,
@@ -30,21 +30,21 @@
 	paycheck_department = ACCOUNT_ENG
 
 	display_order = JOB_DISPLAY_ORDER_CHIEF_ENGINEER
-	departments = DEPARTMENT_ENGINEERING | DEPARTMENT_COMMAND
+	departments = DEPARTMENT_BITFLAG_ENGINEERING | DEPARTMENT_BITFLAG_COMMAND
 	rpg_title = "High Crystallomancer"
 
 	species_outfits = list(
-		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/ce
+		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/chief_engineer
 	)
 
-/datum/outfit/job/ce
-	name = "Chief Engineer"
+/datum/outfit/job/chief_engineer
+	name = JOB_NAME_CHIEFENGINEER
 	jobtype = /datum/job/chief_engineer
 
-	id = /obj/item/card/id/job/ce
+	id = /obj/item/card/id/job/chief_engineer
 	belt = /obj/item/storage/belt/utility/chief/full
-	l_pocket = /obj/item/pda/heads/ce
-	ears = /obj/item/radio/headset/heads/ce
+	l_pocket = /obj/item/pda/heads/chief_engineer
+	ears = /obj/item/radio/headset/heads/chief_engineer
 	uniform = /obj/item/clothing/under/rank/engineering/chief_engineer
 	shoes = /obj/item/clothing/shoes/sneakers/brown
 	head = /obj/item/clothing/head/hardhat/white
@@ -57,9 +57,9 @@
 	duffelbag = /obj/item/storage/backpack/duffelbag/engineering
 	box = /obj/item/storage/box/engineer
 	pda_slot = ITEM_SLOT_LPOCKET
-	chameleon_extras = /obj/item/stamp/ce
+	chameleon_extras = /obj/item/stamp/chief_engineer
 
-/datum/outfit/job/ce/rig
+/datum/outfit/job/chief_engineer/rig
 	name = "Chief Engineer (Hardsuit)"
 
 	mask = /obj/item/clothing/mask/breath

@@ -1,7 +1,7 @@
 /datum/job/curator
-	title = "Curator"
+	title = JOB_NAME_CURATOR
 	flag = CURATOR
-	department_head = list("Head of Personnel")
+	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	department_flag = CIVILIAN
 	faction = "Station"
 	total_positions = 1
@@ -17,7 +17,7 @@
 	paycheck_department = ACCOUNT_CIV
 
 	display_order = JOB_DISPLAY_ORDER_CURATOR
-	departments = DEPARTMENT_SERVICE
+	departments = DEPARTMENT_BITFLAG_SERVICE
 	rpg_title = "Veteran Adventurer"
 
 	species_outfits = list(
@@ -27,7 +27,7 @@
 	biohazard = 5
 
 /datum/outfit/job/curator
-	name = "Curator"
+	name = JOB_NAME_CURATOR
 	jobtype = /datum/job/curator
 
 	id = /obj/item/card/id/job/curator
