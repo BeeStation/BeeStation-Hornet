@@ -89,6 +89,9 @@ GENE SCANNER
 	materials = list(/datum/material/iron=200)
 	var/scanmode = 0
 	var/advanced = FALSE
+
+/obj/item/healthanalyzer/Initialize()
+	. = ..()
 	COOLDOWN_DECLARE(viroalert)
 
 /obj/item/healthanalyzer/suicide_act(mob/living/carbon/user)
