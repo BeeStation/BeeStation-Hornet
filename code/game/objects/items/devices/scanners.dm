@@ -383,13 +383,13 @@ GENE SCANNER
 				radio.subspace_transmission = TRUE
 				radio.canhear_range = 0
 				radio.recalculateChannels()
-				radio.talk_into(speaking_mob, "Warning! Crewmember [M] has disease [D.name] ([D.stage]/[D.max_stages]). Possible cure is [D.cure_text]", RADIO_CHANNEL_MEDICAL)  // alert
+				radio.talk_into(speaking_mob, "Warning! Crewmember [M] has [D.form]: [D.name] ([D.stage]/[D.max_stages]). Possible cure is [D.cure_text]", RADIO_CHANNEL_MEDICAL)  // alert
 				qdel(radio)  // that would definitely cause an issue
 			disease_format += "[D.name] ([D.stage]/[D.max_stages])"
 			to_chat(user, "<span class='alert'><b>Warning: [D.form] detected</b>\nName: [D.name].\nType: [D.spread_text].\nStage: [D.stage]/[D.max_stages].\nPossible Cure: [D.cure_text]</span>")
 
 	if(med_rec)
-		med_rec.fields["cdi_d"] = disease_format ? disease_format.Join(",") : "No diseases have been diagnosed at the moment."
+		med_rec.fields["cdi_d"] = disease_format ? disease_format.Join(", ") : "No diseases have been diagnosed at the moment."
 
 	// Blood Level
 	if(M.has_dna())
