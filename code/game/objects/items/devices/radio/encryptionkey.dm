@@ -37,8 +37,12 @@
 
 /obj/item/encryptionkey/amplification
 	name = "amplification module key"
-	desc = "An amplification module key for a radio headset. It will enable the \"Loud mode\" ability on any headset it is inserted into."
 	amplification = TRUE
+
+// Makes sure neither channel messages show up.
+/obj/item/encryptionkey/amplification/Initialize()
+	. = ..()
+	desc = "An amplification module key for a radio headset. It will enable the \"Loud mode\" ability on any headset it is inserted into."
 
 /obj/item/encryptionkey/headset_sec
 	name = "security radio encryption key"
