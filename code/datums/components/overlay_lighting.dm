@@ -290,7 +290,7 @@
 
 ///Called when the current_holder is qdeleted, to remove the light effect.
 /datum/component/overlay_lighting/proc/on_holder_qdel(atom/movable/source, force)
-	SIGNAL_HANDLER //pigeon note: is it really needed?
+	SIGNAL_HANDLER
 	UnregisterSignal(current_holder, list(COMSIG_PARENT_QDELETING, COMSIG_MOVABLE_MOVED))
 	if(directional)
 		UnregisterSignal(current_holder, COMSIG_ATOM_DIR_CHANGE)
@@ -480,8 +480,6 @@
 	for(var/t in affected_turfs)
 		var/turf/lit_turf = t
 		lit_turf.dynamic_lumcount -= difference
-
-//may the coding gods have mercy on me after here
 
 ///Here we append the behavior associated to changing direction.
 /datum/component/overlay_lighting/proc/cast_directional_light()
