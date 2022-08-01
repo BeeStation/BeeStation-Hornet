@@ -237,7 +237,6 @@
 	if(!user.client.prefs.radio_beeps > 0)
 		return
 	var/sfx_file = GLOB.radionoise["[frequency]"]  // fun string casting..
-	to_chat(user, sfx_file)
 	if(!sfx_file)
 		return
 	var/sound/radio_sound = sound(sfx_file, volume = 50)
