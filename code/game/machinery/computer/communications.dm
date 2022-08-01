@@ -160,7 +160,7 @@
 			make_announcement(usr)
 			. = TRUE
 		if ("messageAssociates")
-			if (!authenticated(usr) || issilicon(usr))
+			if (!authenticated(usr) || issilicon(usr) || (GLOB.security_level < SEC_LEVEL_RED && !authenticated_as_non_silicon_captain(usr)))
 				return
 			if (!COOLDOWN_FINISHED(src, important_action_cooldown))
 				return
@@ -351,7 +351,7 @@
 		//Main section is always visible when authenticated
 		data["canBuyShuttles"] = can_buy_shuttles(user)
 		data["canMakeAnnouncement"] = FALSE
-		data["canMessageAssociates"] = !issilicon(user)
+		data["canMessageAssociates"] = !issilicon(user) && GLOB.security_level >= SEC_LEVEL_RED
 		data["canRecallShuttles"] = !issilicon(user)
 		data["canRequestNuke"] = FALSE
 		data["canSendToSectors"] = FALSE
@@ -367,6 +367,7 @@
 		data["shuttleCanEvacOrFailReason"] = SSshuttle.canEvac(user)
 
 		if (authenticated_as_non_silicon_captain(user))
+			data["canMessageAssociates"] = TRUE
 			data["canRequestNuke"] = TRUE
 
 		if (can_send_messages_to_other_sectors(user))
