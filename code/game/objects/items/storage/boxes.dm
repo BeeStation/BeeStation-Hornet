@@ -1310,6 +1310,7 @@
 /obj/item/storage/box/radiokey/com
 	name = "box of command staff's radio keys"
 	desc = "A spare radio key for each command staff, plus an amplification key and a generic command key."
+	icon_state = "radiobox_gold"
 
 /obj/item/storage/box/radiokey/com/PopulateContents()
 	new /obj/item/encryptionkey/heads/rd(src)
