@@ -1,0 +1,4 @@
+author: etherware-novice
+delete-after: true
+changes:
+  - rscadd: Added inspect text for the splashscreen turf
