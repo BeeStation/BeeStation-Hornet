@@ -120,7 +120,7 @@ GENE SCANNER
 						"<span class='notice'>You analyze [M]'s vitals.</span>")
 
 	if(scanmode == 0)
-		healthscan(user, M, advanced=advanced)
+		healthscan(user, M, advanced=advanced, speaking_mob=src)
 	else if(scanmode == 1)
 		chemscan(user, M)
 
@@ -128,7 +128,7 @@ GENE SCANNER
 
 
 // Used by the PDA medical scanner too
-/proc/healthscan(mob/user, mob/living/M, mode = 1, advanced = FALSE)
+/proc/healthscan(mob/user, mob/living/M, mode = 1, advanced = FALSE, speaking_mob = FALSE)
 	if(isliving(user) && (user.incapacitated() || user.eye_blind))
 		return
 	//Damage specifics
@@ -369,10 +369,29 @@ GENE SCANNER
 		if(tdelta < (DEFIB_TIME_LIMIT * 10))
 			to_chat(user, "<span class='alert'><b>Subject died [DisplayTimeText(tdelta)] ago, defibrillation may be possible!</b></span>")
 
+	var/mob/living/carbon/human/target_human = M
+	var/perpname = target_human.get_face_name(target_human.get_id_name())
+	var/datum/data/record/med_rec = find_record("name", perpname, GLOB.data_core.medical)
+	var/list/disease_format = list()
+
+	// init virtual radio to talk into
+	var/obj/item/radio/headset/radio = new(src)
+	radio.subspace_transmission = TRUE
+	radio.canhear_range = 0
+	radio.recalculateChannels()
+
 	for(var/thing in M.diseases)
 		var/datum/disease/D = thing
 		if(!(D.visibility_flags & HIDDEN_SCANNER))
+			if(speaking_mob)
+				radio.talk_into(speaking_mob, "Warning! Crewmember [M] has disease [D.form] ([D.stage]/[D.max_stages]). Possible cure is [D.cure_text]", RADIO_CHANNEL_MEDICAL)  // alert
+			disease_format += "[D.form] ([D.stage/D.max_stages])"
 			to_chat(user, "<span class='alert'><b>Warning: [D.form] detected</b>\nName: [D.name].\nType: [D.spread_text].\nStage: [D.stage]/[D.max_stages].\nPossible Cure: [D.cure_text]</span>")
+
+	if(med_rec)
+		med_rec.fields["cdi_d"] = [disease_format ? disease_format.Join(",") : "No diseases have been diagnosed at the moment."]
+
+	qdel(radio)  // that would definitely cause an issue
 
 	// Blood Level
 	if(M.has_dna())
@@ -1014,10 +1033,10 @@ GENE SCANNER
 		to_chat(user, "<span class='warning'>you begin isolating [chosen].</span>")
 		if(do_after(user, (600 / (scanner.rating + 1)), target = AM))
 			create_culture(symptomholder, user, AM)
-	else 
+	else
 		using = TRUE
 		if(do_after(user, (timer / (scanner.rating + 1)), target = AM))
-			create_culture(A, user, AM)	
+			create_culture(A, user, AM)
 	using = FALSE
 
 /obj/item/extrapolator/proc/create_culture(var/datum/disease/advance/A, mob/user)
