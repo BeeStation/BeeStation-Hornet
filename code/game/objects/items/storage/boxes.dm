@@ -17,6 +17,7 @@
  *		Replacement light boxes.
  *		Action Figure Boxes
  *		Various paper bags.
+ *		Encrpytion key boxes.
  *
  *		For syndicate call-ins see uplink_kits.dm
  */
@@ -1299,6 +1300,7 @@
 /obj/item/storage/box/radiokey
 	name = "box of generic radio keys"
 	desc = "You shouldn't be seeing this. Ahelp."
+	icon_state = "radiobox"
 	var/radio_key = /obj/item/encryptionkey
 
 /obj/item/storage/box/radiokey/PopulateContents()
@@ -1351,4 +1353,5 @@
 /obj/item/storage/box/radiokey/cap  // admin spawn
 	name = "glorious box of captain's radio keys"
 	desc = "All-access radio."
+	icon_state = "radiobox_gold"
 	radio_key = /obj/item/encryptionkey/heads/captain
