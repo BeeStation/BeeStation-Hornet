@@ -374,24 +374,22 @@ GENE SCANNER
 	var/datum/data/record/med_rec = find_record("name", perpname, GLOB.data_core.medical)
 	var/list/disease_format = list()
 
-	// init virtual radio to talk into
-	var/obj/item/radio/headset/radio = new(src)
-	radio.subspace_transmission = TRUE
-	radio.canhear_range = 0
-	radio.recalculateChannels()
-
 	for(var/thing in M.diseases)
 		var/datum/disease/D = thing
 		if(!(D.visibility_flags & HIDDEN_SCANNER))
 			if(speaking_mob)
-				radio.talk_into(speaking_mob, "Warning! Crewmember [M] has disease [D.form] ([D.stage]/[D.max_stages]). Possible cure is [D.cure_text]", RADIO_CHANNEL_MEDICAL)  // alert
-			disease_format += "[D.form] ([D.stage/D.max_stages])"
+				var/obj/item/radio/headset/radio = new(speaking_mob)
+				radio.keyslot = new /obj/item/encryptionkey/headset_med
+				radio.subspace_transmission = TRUE
+				radio.canhear_range = 0
+				radio.recalculateChannels()
+				radio.talk_into(speaking_mob, "Warning! Crewmember [M] has disease [D.name] ([D.stage]/[D.max_stages]). Possible cure is [D.cure_text]", RADIO_CHANNEL_MEDICAL)  // alert
+				qdel(radio)  // that would definitely cause an issue
+			disease_format += "[D.name] ([D.stage]/[D.max_stages])"
 			to_chat(user, "<span class='alert'><b>Warning: [D.form] detected</b>\nName: [D.name].\nType: [D.spread_text].\nStage: [D.stage]/[D.max_stages].\nPossible Cure: [D.cure_text]</span>")
 
 	if(med_rec)
-		med_rec.fields["cdi_d"] = [disease_format ? disease_format.Join(",") : "No diseases have been diagnosed at the moment."]
-
-	qdel(radio)  // that would definitely cause an issue
+		med_rec.fields["cdi_d"] = disease_format ? disease_format.Join(",") : "No diseases have been diagnosed at the moment."
 
 	// Blood Level
 	if(M.has_dna())
