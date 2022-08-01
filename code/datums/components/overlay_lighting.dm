@@ -127,25 +127,22 @@
 /datum/component/overlay_lighting/RegisterWithParent()
 	. = ..()
 	if(directional)
-		RegisterSignal(parent, COMSIG_ATOM_DIR_CHANGE, .proc/on_parent_dir_change)
-	RegisterSignal(parent, COMSIG_ATOM_SET_LIGHT_RANGE, .proc/set_range)
-	RegisterSignal(parent, COMSIG_ATOM_SET_LIGHT_POWER, .proc/set_power)
-	RegisterSignal(parent, COMSIG_ATOM_SET_LIGHT_COLOR, .proc/set_color)
-	RegisterSignal(parent, COMSIG_ATOM_SET_LIGHT_ON, .proc/on_toggle)
-	RegisterSignal(parent, COMSIG_ATOM_SET_LIGHT_FLAGS, .proc/on_light_flags_change)
-	RegisterSignal(parent, COMSIG_MOVABLE_MOVED, .proc/on_parent_moved)
+		RegisterSignal(parent, COMSIG_ATOM_DIR_CHANGE,	.proc/on_parent_dir_change)
+	RegisterSignal(parent, COMSIG_ATOM_SET_LIGHT_RANGE,	.proc/set_range)
+	RegisterSignal(parent, COMSIG_ATOM_SET_LIGHT_POWER,	.proc/set_power)
+	RegisterSignal(parent, COMSIG_ATOM_SET_LIGHT_COLOR,	.proc/set_color)
+	RegisterSignal(parent, COMSIG_ATOM_SET_LIGHT_ON,	.proc/on_toggle)
+	RegisterSignal(parent, COMSIG_ATOM_SET_LIGHT_FLAGS,	.proc/on_light_flags_change)
+	RegisterSignal(parent, COMSIG_ATOM_USED_IN_CRAFT,	.proc/on_parent_crafted)
+	RegisterSignal(parent, COMSIG_MOVABLE_MOVED,		.proc/on_parent_moved)
 
 	var/atom/movable/movable_parent = parent
 	if(movable_parent.light_flags & LIGHT_ATTACHED)
 		overlay_lighting_flags |= LIGHTING_ATTACHED
 		set_parent_attached_to(ismovable(movable_parent.loc) ? movable_parent.loc : null)
-	if(movable_parent.light_flags & LIGHT_NO_LUMCOUNT)
-		overlay_lighting_flags |= LIGHT_NO_LUMCOUNT
-		set_lum_power(real_lum_power)
 	check_holder()
 	if(movable_parent.light_on)
 		turn_on()
-
 
 /datum/component/overlay_lighting/UnregisterFromParent()
 	overlay_lighting_flags &= ~LIGHTING_ATTACHED
@@ -159,13 +156,13 @@
 		COMSIG_ATOM_SET_LIGHT_COLOR,
 		COMSIG_ATOM_SET_LIGHT_ON,
 		COMSIG_ATOM_SET_LIGHT_FLAGS,
+		COMSIG_ATOM_USED_IN_CRAFT,
 		))
 	if(directional)
 		UnregisterSignal(parent, COMSIG_ATOM_DIR_CHANGE)
 	if(overlay_lighting_flags & LIGHTING_ON)
 		turn_off()
 	return ..()
-
 
 /datum/component/overlay_lighting/Destroy()
 	set_parent_attached_to(null)
@@ -176,14 +173,11 @@
 	parent_attached_to = null
 	return ..()
 
-
 ///Clears the affected_turfs lazylist, removing from its contents the effects of being near the light.
 /datum/component/overlay_lighting/proc/clean_old_turfs()
-	for(var/t in affected_turfs)
-		var/turf/lit_turf = t
+	for(var/turf/lit_turf as anything in affected_turfs)
 		lit_turf.dynamic_lumcount -= used_lum_power
 	affected_turfs = null
-
 
 ///Populates the affected_turfs lazylist, adding to its contents the effects of being near the light.
 /datum/component/overlay_lighting/proc/get_new_turfs()
@@ -201,8 +195,8 @@
 	clean_old_turfs()
 	if(!isturf(current_holder?.loc))
 		return
-//	if(directional)
-//		cast_directional_light()
+	if(directional)
+		cast_directional_light()
 	get_new_turfs()
 
 
@@ -402,9 +396,9 @@
 	SIGNAL_HANDLER
 	var/new_value = source.light_on
 	if(new_value) //Truthy value input, turn on.
-		turn_on()
+		turn_off()
 		return
-	turn_off() //Falsey value, turn off.
+	turn_on() //Falsey value, turn off.
 
 
 ///Triggered right before the parent light flags change.
@@ -457,29 +451,14 @@
 
 ///Here we append the behavior associated to changing lum_power.
 /datum/component/overlay_lighting/proc/set_lum_power(new_lum_power)
-	//Get the simulated luminosity count (If we have no lumcount, this is set to 0)
-	var/simulated_lum_power = new_lum_power
-	if(overlay_lighting_flags & LIGHT_NO_LUMCOUNT)
-		simulated_lum_power = 0
-	//The new lum power is the same
-	if(used_lum_power == simulated_lum_power)
-		//This light doesn't affect lumcount, but lum_power must be updated regardless
-		if(new_lum_power != simulated_lum_power)
-			. = real_lum_power
-			real_lum_power = new_lum_power
+	if(real_lum_power == new_lum_power)
 		return
-	//Set the return value to the old lum power
 	. = real_lum_power
 	real_lum_power = new_lum_power
-	//Get the old used lum power
-	var/old_lum_power = used_lum_power
-	used_lum_power = simulated_lum_power
-	//Calculate the difference
-	var/difference = old_lum_power - used_lum_power
-	//Apply it to any turf we are affecting
-	for(var/t in affected_turfs)
-		var/turf/lit_turf = t
+	var/difference = . - real_lum_power
+	for(var/turf/lit_turf as anything in affected_turfs)
 		lit_turf.dynamic_lumcount -= difference
+
 
 ///Here we append the behavior associated to changing direction.
 /datum/component/overlay_lighting/proc/cast_directional_light()
