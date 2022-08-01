@@ -89,6 +89,7 @@ GENE SCANNER
 	materials = list(/datum/material/iron=200)
 	var/scanmode = 0
 	var/advanced = FALSE
+	COOLDOWN_DECLARE(viroalert)
 
 /obj/item/healthanalyzer/suicide_act(mob/living/carbon/user)
 	user.visible_message("<span class='suicide'>[user] begins to analyze [user.p_them()]self with [src]! The display shows that [user.p_theyre()] dead!</span>")
@@ -377,16 +378,19 @@ GENE SCANNER
 	for(var/thing in M.diseases)
 		var/datum/disease/D = thing
 		if(!(D.visibility_flags & HIDDEN_SCANNER))
-			if(speaking_mob)
+			if(speaking_mob && COOLDOWN_FINISHED(speaking_mob, viroalert))
 				var/obj/item/radio/headset/radio = new(speaking_mob)
 				radio.keyslot = new /obj/item/encryptionkey/headset_med
 				radio.subspace_transmission = TRUE
 				radio.canhear_range = 0
 				radio.recalculateChannels()
-				radio.talk_into(speaking_mob, "Warning! Crewmember [M] has [D.form]: [D.name] ([D.stage]/[D.max_stages]). Possible cure is [D.cure_text]", RADIO_CHANNEL_MEDICAL)  // alert
+				radio.talk_into(speaking_mob, "Warning! Crewmember [M] has a [D.spread_text] type [D.form]: [D.name] ([D.stage]/[D.max_stages]). Possible cure is [D.cure_text].", RADIO_CHANNEL_MEDICAL)  // alert
 				qdel(radio)  // that would definitely cause an issue
 			disease_format += "[D.name] ([D.stage]/[D.max_stages])"
 			to_chat(user, "<span class='alert'><b>Warning: [D.form] detected</b>\nName: [D.name].\nType: [D.spread_text].\nStage: [D.stage]/[D.max_stages].\nPossible Cure: [D.cure_text]</span>")
+
+	if(speaking_mob)
+		COOLDOWN_START(speaking_mob, viroalert, 20 SECONDS)
 
 	if(med_rec)
 		med_rec.fields["cdi_d"] = disease_format ? disease_format.Join(", ") : "No diseases have been diagnosed at the moment."
