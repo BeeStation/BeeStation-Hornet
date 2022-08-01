@@ -34,7 +34,7 @@ GLOBAL_LIST_INIT(glass_recipes, list ( \
 
 /obj/item/stack/sheet/glass/cyborg
 	materials = list()
-	is_cyborg = TRUE
+	is_cyborg = 1
 	cost = 500
 
 /obj/item/stack/sheet/glass/fifty

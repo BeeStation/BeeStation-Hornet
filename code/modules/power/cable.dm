@@ -507,7 +507,7 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 	usesound = 'sound/items/deconstruct.ogg'
 
 /obj/item/stack/cable_coil/cyborg
-	is_cyborg = TRUE
+	is_cyborg = 1
 	materials = list()
 	cost = 1
 
