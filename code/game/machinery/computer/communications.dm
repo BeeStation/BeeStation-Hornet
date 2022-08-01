@@ -160,7 +160,7 @@
 			make_announcement(usr)
 			. = TRUE
 		if ("messageAssociates")
-			if (!authenticated(usr))
+			if (!authenticated(usr) || issilicon(usr))
 				return
 			if (!COOLDOWN_FINISHED(src, important_action_cooldown))
 				return
@@ -351,7 +351,7 @@
 		//Main section is always visible when authenticated
 		data["canBuyShuttles"] = can_buy_shuttles(user)
 		data["canMakeAnnouncement"] = FALSE
-		data["canMessageAssociates"] = TRUE
+		data["canMessageAssociates"] = !issilicon(user)
 		data["canRecallShuttles"] = !issilicon(user)
 		data["canRequestNuke"] = FALSE
 		data["canSendToSectors"] = FALSE
