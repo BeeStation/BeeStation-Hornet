@@ -97,22 +97,26 @@
 	handle_clown_mutation(owner.current, removing=FALSE)
 	. = ..()
 
-/datum/antagonist/changeling/proc/reset_properties()
+/datum/antagonist/changeling/proc/reset_properties(reset_abilities = FALSE)
 	changeling_speak = 0
 	chosen_sting = null
+	mimicing = ""
+	if(reset_abilities) // For respeccing
+		return
 	geneticpoints = initial(geneticpoints)
 	sting_range = initial(sting_range)
 	chem_recharge_rate = initial(chem_recharge_rate)
 	chem_charges = min(chem_charges, chem_storage)
 	chem_recharge_slowdown = initial(chem_recharge_slowdown)
-	mimicing = ""
 
-/datum/antagonist/changeling/proc/remove_changeling_powers()
+/datum/antagonist/changeling/proc/remove_changeling_powers(reset_abilities = FALSE)
 	if(ishuman(owner.current) || ismonkey(owner.current))
-		reset_properties()
+		reset_properties(reset_abilities)
 		for(var/datum/action/changeling/p in purchasedpowers)
 			purchasedpowers -= p
 			p.Remove(owner.current)
+			if(reset_abilities) // For respeccing
+				geneticpoints += p.dna_cost
 
 	//MOVE THIS
 	if(owner.current.hud_used?.lingstingdisplay)
@@ -121,7 +125,7 @@
 
 /datum/antagonist/changeling/proc/reset_powers()
 	if(purchasedpowers)
-		remove_changeling_powers()
+		remove_changeling_powers(TRUE)
 	//Repurchase free powers.
 	for(var/path in all_powers)
 		var/datum/action/changeling/S = new path
