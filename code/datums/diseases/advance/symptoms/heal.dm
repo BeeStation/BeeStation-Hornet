@@ -530,7 +530,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 					new /obj/effect/spawner/lootdrop/teratoma/minor(M.loc)
 				if(tetsuo)
 					var/list/missing = M.get_missing_limbs()
-					if(prob(35))
+					if(prob(35) && M.mind && ishuman(M))
 						new /obj/effect/decal/cleanable/blood/gibs(M.loc) //yes. this is very messy. very, very messy.
 						new /obj/effect/spawner/lootdrop/teratoma/major(M.loc)
 					if(missing.len) //we regrow one missing limb
