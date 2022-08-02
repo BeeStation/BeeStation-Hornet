@@ -173,10 +173,12 @@
 		new /datum/data/vendor_equipment("P-KA Upgrade: AoE Mining",	/obj/item/borg/upgrade/modkit/aoe/turfs,							2000),
 	//Mining bot buddy
 		new /datum/data/vendor_equipment("Mining Bot Companion",		/mob/living/simple_animal/hostile/mining_drone,						800),
-		new /datum/data/vendor_equipment("Minebot Upgrade: Melee",		/obj/item/mine_bot_upgrade,											400),
-		new /datum/data/vendor_equipment("Minebot Upgrade: Armor",		/obj/item/mine_bot_upgrade/health,									400),
+		new /datum/data/vendor_equipment("Minebot Upgrade: Armor",		/obj/item/minebot_upgrade/health,									400),
+		new /datum/data/vendor_equipment("Minebot Upgrade: Ore Scoop",	/obj/item/minebot_upgrade/ore_pickup,								400),
 		new /datum/data/vendor_equipment("Minebot Upgrade: Cooldown",	/obj/item/borg/upgrade/modkit/cooldown/minebot,						600),
+		new /datum/data/vendor_equipment("Minebot Upgrade: Medical",	/obj/item/minebot_upgrade/medical,									800),
 		new /datum/data/vendor_equipment("Minebot Upgrade: A.I.",		/obj/item/slimepotion/slime/sentience/mining,						1000),
+		new /datum/data/vendor_equipment("Minebot Weatherproof Chassis",/obj/item/minebot_upgrade/antiweather,								1200),
 	//Various novelty items
 		new /datum/data/vendor_equipment("1000 Space Cash",				/obj/item/stack/spacecash/c1000,									2000),
 		new /datum/data/vendor_equipment("Point Transfer Card",			/obj/item/card/mining_point_card,									500),

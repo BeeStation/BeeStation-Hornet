@@ -155,7 +155,7 @@
 /area/template_noop)
 "D" = (
 /obj/structure/chair,
-/obj/effect/landmark/start/randommaint/celebrity,
+/obj/effect/landmark/start/randommaint/vip,
 /turf/open/floor/plating/beach/sand,
 /area/template_noop)
 "J" = (

@@ -71,6 +71,7 @@
 /mob/living/simple_animal/revenant/Initialize(mapload)
 	. = ..()
 	AddSpell(new /obj/effect/proc_holder/spell/targeted/night_vision/revenant(null))
+	AddSpell(new /obj/effect/proc_holder/spell/self/revenant_phase_shift(null))
 	AddSpell(new /obj/effect/proc_holder/spell/targeted/telepathy/revenant(null))
 	AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/revenant/defile(null))
 	AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/revenant/overload(null))
@@ -252,6 +253,24 @@
 
 
 //reveal, stun, icon updates, cast checks, and essence changing
+/mob/living/simple_animal/revenant/proc/phase_shift()
+	if(unreveal_time) //An ability has forced the revenant to be vulnerable and this should not override that
+		to_chat(src, "<span class='revenwarning'>You cannot become incorporeal yet!</span>")
+		return FALSE
+
+	else if(revealed) //Okay, the revenant wasn't forced to be revealed, are they currently vulnerable
+		revealed = FALSE
+		incorporeal_move = INCORPOREAL_MOVE_JAUNT
+		invisibility = INVISIBILITY_REVENANT
+
+
+	else //Revenant isn't revealed, whether by force or their own will, so this means they are currently invisible
+		revealed = TRUE
+		incorporeal_move = FALSE
+		invisibility = 0
+	update_spooky_icon()
+	return TRUE
+
 /mob/living/simple_animal/revenant/proc/reveal(time)
 	if(!src)
 		return

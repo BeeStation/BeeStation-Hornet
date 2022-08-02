@@ -288,7 +288,7 @@
 	time = 40
 	tools = list(TOOL_CROWBAR, TOOL_WIRECUTTER, TOOL_SCREWDRIVER)
 	reqs = list(/obj/item/clothing/head/foilhat = 1,
-				/obj/item/stack/packageWrap = 10,
+				/obj/item/stack/package_wrap = 10,
 				/obj/item/stack/cable_coil = 15,
 				/obj/item/clothing/glasses/meson = 1,
 				/obj/item/flashlight = 1,

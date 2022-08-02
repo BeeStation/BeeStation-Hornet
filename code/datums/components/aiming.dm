@@ -177,13 +177,11 @@ AIMING_DROP_WEAPON means they selected the "drop your weapon" command
 			to_chat(user, "<span class = 'warning'>You've already given a command recently!</span>")
 			show_ui(user, target, choice)
 			return
-		if(user.mind.assigned_role == "Mime")
+		if(user.mind.assigned_role == JOB_NAME_MIME)
 			user.visible_message("<span class='warning'>[user] waves [parent] around menacingly!</span>")
 			show_ui(user, target, choice)
 			COOLDOWN_START(src, voiceline_cooldown, 2 SECONDS)
 			return
-	var/alert_message
-	var/alert_message_3p
 	switch(choice)
 		if(CANCEL) //first off, are they telling us to stop aiming?
 			stop_aiming()
@@ -192,16 +190,11 @@ AIMING_DROP_WEAPON means they selected the "drop your weapon" command
 			fire()
 			return
 		if(RAISE_HANDS)
-			alert_message = "raise your hands!"
-			alert_message_3p = "raise their hands!"
+			user.say(pick("Put your hands above your head!", "Hands! Now!", "Hands up!"), forced = "Weapon aiming")
 		if(DROP_WEAPON)
-			alert_message = "drop your weapon!"
-			alert_message_3p = "drop their weapon!"
+			user.say(pick("Drop your weapon!", "Weapon down! Now!", "Drop it!"), forced = "Weapon aiming")
 		if(DROP_TO_FLOOR)
-			alert_message = "lie down!"
-			alert_message_3p = "lie down!"
-	user.balloon_alert(target, "[user] orders you to [alert_message]")
-	user.balloon_alert_to_viewers("[user] orders [target] to [alert_message_3p]!", "You order [target] to [alert_message_3p]", ignored_mobs = target)
+			user.say(pick("On the ground! Now!", "Lie down and place your hands behind your head!", "Get down on the ground!"), forced = "Weapon aiming")
 	aim_react(target)
 	COOLDOWN_START(src, voiceline_cooldown, 2 SECONDS)
 	show_ui(user, target, choice)
