@@ -68,6 +68,10 @@
 		src.orbital_map_index = orbital_map_index
 	if(position)
 		src.position = position
+	else
+		src.position = new /datum/orbital_vector(0, 0)
+	//Do not let this be updated
+	src.position.protected = TRUE
 	if(velocity)
 		src.velocity = velocity
 	var/static/created_amount = 0
@@ -140,7 +144,7 @@
 				continue
 			var/acceleration_amount = (GRAVITATIONAL_CONSTANT * gravitational_body.mass) / (distance * distance)
 			//Calculate acceleration direction
-			var/datum/orbital_vector/direction = new (gravitational_body.position.x - position.x, gravitational_body.position.y - position.y)
+			var/datum/orbital_vector/direction = new (gravitational_body.position.GetX() - position.GetX(), gravitational_body.position.GetY() - position.GetY())
 			direction.NormalizeSelf()
 			direction.ScaleSelf(acceleration_amount)
 			//Add on the gravitational acceleration
@@ -154,7 +158,7 @@
 	//Some objects may automatically thrust to maintain a stable orbit
 	if(maintain_orbit && target_orbital_body)
 		//Velocity should always be perpendicular to the planet
-		var/datum/orbital_vector/perpendicular_vector = new(position.y - target_orbital_body.position.y, target_orbital_body.position.x - position.x)
+		var/datum/orbital_vector/perpendicular_vector = new(position.GetY() - target_orbital_body.position.GetY(), target_orbital_body.position.GetX() - position.GetX())
 		//Calculate the relative velocity we should have
 		perpendicular_vector.NormalizeSelf()
 		perpendicular_vector.ScaleSelf(relative_velocity_required)
@@ -165,12 +169,14 @@
 	// MOVEMENT
 	//===================================
 	//Remember this
-	var/prev_x = position.x
-	var/prev_y = position.y
+	var/prev_x = position.GetX()
+	var/prev_y = position.GetY()
 
 	//Move the gravitational body.
-	var/datum/orbital_vector/vel_new = new(velocity.x * delta_time * velocity_multiplier, velocity.y * delta_time * velocity_multiplier)
+	var/datum/orbital_vector/vel_new = new(velocity.GetX() * delta_time * velocity_multiplier, velocity.GetY() * delta_time * velocity_multiplier)
+	position.protected = FALSE
 	position.AddSelf(vel_new)
+	position.protected = TRUE
 
 	//Oh we moved btw
 	parent_map.on_body_move(src, prev_x, prev_y)
@@ -182,8 +188,8 @@
 	LAZYCLEARLIST(colliding_with)
 
 	//Calculate our current position
-	var/section_x = round(position.x / ORBITAL_MAP_ZONE_SIZE)
-	var/section_y = round(position.y / ORBITAL_MAP_ZONE_SIZE)
+	var/section_x = round(position.GetX() / ORBITAL_MAP_ZONE_SIZE)
+	var/section_y = round(position.GetY() / ORBITAL_MAP_ZONE_SIZE)
 
 	var/position_key = "[section_x],[section_y]"
 	var/valid_side_key = "none"
@@ -192,8 +198,8 @@
 
 	var/dir_flags = NONE
 
-	var/segment_x = (position.x + abs(section_x) * ORBITAL_MAP_ZONE_SIZE) % ORBITAL_MAP_ZONE_SIZE
-	var/segment_y = (position.y + abs(section_y) * ORBITAL_MAP_ZONE_SIZE) % ORBITAL_MAP_ZONE_SIZE
+	var/segment_x = (position.GetX() + abs(section_x) * ORBITAL_MAP_ZONE_SIZE) % ORBITAL_MAP_ZONE_SIZE
+	var/segment_y = (position.GetY() + abs(section_y) * ORBITAL_MAP_ZONE_SIZE) % ORBITAL_MAP_ZONE_SIZE
 
 	if(segment_x < ORBITAL_MAP_ZONE_SIZE / 3)
 		valid_side_key = "[section_x - 1],[section_y]"
@@ -236,8 +242,8 @@
 		valid_objects += parent_map.collision_zone_bodies[valid_corner_key]
 
 	//Track our delta positional values for collision detection purposes
-	var/delta_x = position.x - prev_x
-	var/delta_y = position.y - prev_y
+	var/delta_x = position.GetX() - prev_x
+	var/delta_y = position.GetY() - prev_y
 
 	for(var/datum/orbital_object/object as() in valid_objects)
 		if(object == src)
@@ -265,16 +271,16 @@
 			//Must be between 0 and 1
 			var/other_x
 			var/other_y
-			var/other_delta_x = object.velocity.x
-			var/other_delta_y = object.velocity.y
+			var/other_delta_x = object.velocity.GetX()
+			var/other_delta_y = object.velocity.GetY()
 			if(object.last_update_tick == last_update_tick)
 				//They are on the same tick as us
-				other_x = object.position.x - other_delta_x
-				other_y = object.position.y - other_delta_y
+				other_x = object.position.GetX() - other_delta_x
+				other_y = object.position.GetY() - other_delta_y
 			else
 				//They are still on the previous tick
-				other_x = object.position.x
-				other_y = object.position.y
+				other_x = object.position.GetX()
+				other_y = object.position.GetY()
 			//ALRIGHT LETS DO THE CHECK
 			//Reassign variables for ease of read.
 			var/px = prev_x
@@ -310,29 +316,31 @@
 /datum/orbital_object/proc/set_orbitting_around_body(datum/orbital_object/target_body, orbit_radius = 10, force = FALSE)
 	if(orbitting && !force)
 		return
-	var/prev_x = position.x
-	var/prev_y = position.y
+	var/prev_x = position.GetX()
+	var/prev_y = position.GetY()
 	orbitting = TRUE
 	//Calculates the required velocity for the object to orbit around the target body.
 	//Hopefully the planets gravity doesn't fuck with each other too hard.
 	//Set position
-	var/delta_x = -position.x
-	var/delta_y = -position.y
-	position.x = target_body.position.x + orbit_radius
-	position.y = target_body.position.y
-	delta_x += position.x
-	delta_y += position.y
+	var/delta_x = -position.GetX()
+	var/delta_y = -position.GetY()
+	//Set unsafely, as movement is handled at the bottom
+	position.SetUnsafely(target_body.position.GetX() + orbit_radius, target_body.position.GetY())
+	delta_x += position.GetX()
+	delta_y += position.GetY()
 	//Move all orbitting b()odies too.
 	if(orbitting_bodies)
 		for(var/datum/orbital_object/object in orbitting_bodies)
 			object.position.AddSelf(new /datum/orbital_vector(delta_x, delta_y))
 	//Set velocity
 	var/relative_velocity = sqrt((GRAVITATIONAL_CONSTANT * (target_body.mass + mass)) / orbit_radius)
-	velocity.x = target_body.velocity.x
-	velocity.y = target_body.velocity.y + relative_velocity
+	velocity.Set(target_body.velocity.GetX(), target_body.velocity.GetY() + relative_velocity)
 	//Set random angle
 	var/random_angle = rand(0, 360)	//Is cos and sin in radians?
+	//Janky unprotect
+	position.protected = FALSE
 	position.RotateSelf(random_angle)
+	position.protected = TRUE
 	velocity.RotateSelf(random_angle)
 	//Update target
 	target_orbital_body = target_body

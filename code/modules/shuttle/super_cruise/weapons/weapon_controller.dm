@@ -68,6 +68,8 @@
 /obj/machinery/computer/weapons/ui_interact(mob/user, datum/tgui/ui = null)
 	if(..())
 		return
+	if(!user.client)
+		return
 	if(CONFIG_GET(flag/disable_shuttle_weapons))
 		//Boring!
 		to_chat(user, "<span class='warning'>Nanotrasen have restricted the use of shuttle based weaponry in this sector.</span>")

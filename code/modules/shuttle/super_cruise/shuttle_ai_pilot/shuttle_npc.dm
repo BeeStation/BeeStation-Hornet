@@ -178,19 +178,17 @@
 	if (!shuttleTarget)
 		last_thought = "I have nowhere to go, I'll just fly around."
 		if(!shuttle.shuttleTargetPos)
-			shuttle.shuttleTargetPos = new(shuttle.position.x, shuttle.position.y)
+			shuttle.shuttleTargetPos = new(shuttle.position.GetX(), shuttle.position.GetY())
 		else
 			//Change our position randomly
-			shuttle.shuttleTargetPos.x += rand(-100, 100)
-			shuttle.shuttleTargetPos.y += rand(-100, 100)
+			shuttle.shuttleTargetPos.AddSelf(rand(-100, 100), rand(-100, 100))
 		return
 	//Drive to the requested location
 	last_thought = "I am flying to my destination."
 	if(!shuttle.shuttleTargetPos)
-		shuttle.shuttleTargetPos = new(shuttleTarget.position.x, shuttleTarget.position.y)
+		shuttle.shuttleTargetPos = new(shuttleTarget.position.GetX(), shuttleTarget.position.GetY())
 	else
-		shuttle.shuttleTargetPos.x = shuttleTarget.position.x
-		shuttle.shuttleTargetPos.y = shuttleTarget.position.y
+		shuttle.shuttleTargetPos.Set(shuttleTarget.position.GetX(), shuttleTarget.position.GetY())
 
 /datum/shuttle_ai_pilot/npc/proc/set_target_location(datum/orbital_object/_shuttleTarget)
 	shuttleTarget = _shuttleTarget

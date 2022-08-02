@@ -86,9 +86,8 @@
 /datum/orbital_object/shuttle/proc/undock()
 	if(!docking_target || is_docking)
 		return
-	velocity.x = docking_target.velocity.x * 1.1
-	velocity.y = docking_target.velocity.y * 1.1
-	MOVE_ORBITAL_BODY(src, docking_target.position.x, docking_target.position.y)
+	velocity.Set(docking_target.velocity.GetX() * 1.1, docking_target.velocity.GetY() * 1.1)
+	MOVE_ORBITAL_BODY(src, docking_target.position.GetX(), docking_target.position.GetY())
 	docking_target = null
 	collision_ignored = TRUE
 

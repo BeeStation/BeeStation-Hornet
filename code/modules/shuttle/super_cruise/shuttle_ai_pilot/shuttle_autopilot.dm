@@ -15,17 +15,16 @@
 	if(!activated)
 		return
 	//Delete if our target goes out of range
-	if (shuttleTarget.position.DistanceTo(shuttle.position) > shuttle_data.detection_range)
+	if (shuttleTarget.position.DistanceTo(shuttle.position) > max(shuttle_data.detection_range, shuttleTarget.signal_range))
 		SEND_SIGNAL(shuttle, COMSIG_ORBITAL_BODY_MESSAGE, "Autopilot disabled, target has left detection range.")
 		shuttleTarget = null
 		qdel(src)
 		return
 	//Drive to the target location
 	if(!shuttle.shuttleTargetPos)
-		shuttle.shuttleTargetPos = new(shuttleTarget.position.x, shuttleTarget.position.y)
+		shuttle.shuttleTargetPos = new(shuttleTarget.position.GetX(), shuttleTarget.position.GetY())
 	else
-		shuttle.shuttleTargetPos.x = shuttleTarget.position.x
-		shuttle.shuttleTargetPos.y = shuttleTarget.position.y
+		shuttle.shuttleTargetPos.Set(shuttleTarget.position.GetX(), shuttleTarget.position.GetY())
 	//Enter the target port
 	if(shuttle.docking_target == shuttleTarget)
 		//Dock if we can

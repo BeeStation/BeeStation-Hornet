@@ -198,8 +198,7 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 	var/maximum_radius = hazard_distance / 3
 	created.radius = maximum_radius
 	created.set_orbitting_around_body(main.center, hazard_distance, TRUE)
-	created.velocity.x = 0
-	created.velocity.y = 0
+	created.velocity.Set(0, 0)
 
 //====================================
 // Objectives
@@ -293,10 +292,10 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 		if(attached_orbital_object && !distress)
 			var/max_vis_distance = max(attached_data?.detection_range, object.signal_range)
 			//Quick Distance Check
-			if(attached_orbital_object.position.x > object.position.x + max_vis_distance\
-				|| attached_orbital_object.position.x < object.position.x - max_vis_distance\
-				|| attached_orbital_object.position.y > object.position.y + max_vis_distance\
-				|| attached_orbital_object.position.y < object.position.y - max_vis_distance)
+			if(attached_orbital_object.position.GetX() > object.position.GetX() + max_vis_distance\
+				|| attached_orbital_object.position.GetX() < object.position.GetX() - max_vis_distance\
+				|| attached_orbital_object.position.GetY() > object.position.GetY() + max_vis_distance\
+				|| attached_orbital_object.position.GetY() < object.position.GetY() - max_vis_distance)
 				continue
 			//Refined Distance Check
 			if(attached_orbital_object.position.DistanceTo(object.position) > max_vis_distance)
@@ -305,10 +304,10 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 		data["map_objects"] += list(list(
 			"id" = object.unique_id,
 			"name" = object.name,
-			"position_x" = object.position.x,
-			"position_y" = object.position.y,
-			"velocity_x" = object.velocity.x,
-			"velocity_y" = object.velocity.y,
+			"position_x" = object.position.GetX(),
+			"position_y" = object.position.GetY(),
+			"velocity_x" = object.velocity.GetX(),
+			"velocity_y" = object.velocity.GetY(),
 			"radius" = object.radius,
 			"render_mode" = object.render_mode,
 			"priority" = object.priority,

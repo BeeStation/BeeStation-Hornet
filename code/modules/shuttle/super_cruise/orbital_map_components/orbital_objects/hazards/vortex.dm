@@ -7,8 +7,7 @@
 /datum/orbital_object/hazard/vortex/post_map_setup()
 	. = ..()
 	//Oh god its moving
-	velocity.x += rand(-200, 200)
-	velocity.y += rand(-200, 200)
+	velocity.AddSelf(rand(-200, 200), rand(-200, 200))
 	//Scale down
 	radius *= 0.35
 

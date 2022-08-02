@@ -9,5 +9,4 @@
 	if(!shuttle)
 		return
 	//Add some random velocity
-	shuttle.velocity.x += rand(-200, 200)
-	shuttle.velocity.y += rand(-200, 200)
+	shuttle.velocity.Set(rand(-200, 200), rand(-200, 200))

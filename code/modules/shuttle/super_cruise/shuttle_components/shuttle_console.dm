@@ -216,13 +216,13 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 	data["shuttleAngle"] = shuttleObject.angle
 	data["shuttleThrust"] = shuttleObject.thrust
 	data["autopilot_enabled"] = shuttleObject.shuttle_data.ai_pilot?.is_active()
-	data["shuttleVelX"] = shuttleObject.velocity.x
-	data["shuttleVelY"] = shuttleObject.velocity.y
+	data["shuttleVelX"] = shuttleObject.velocity.GetX()
+	data["shuttleVelY"] = shuttleObject.velocity.GetY()
 	//Docking data
 	data["canDock"] = shuttleObject.can_dock_with != null && !shuttleObject.docking_frozen
 	data["isDocking"] = shuttleObject.docking_target != null && !shuttleObject.docking_frozen && !shuttleObject.docking_target.is_generating
-	data["shuttleTargetX"] = shuttleObject.shuttleTargetPos?.x
-	data["shuttleTargetY"] = shuttleObject.shuttleTargetPos?.y
+	data["shuttleTargetX"] = shuttleObject.shuttleTargetPos?.GetX()
+	data["shuttleTargetY"] = shuttleObject.shuttleTargetPos?.GetY()
 	data["validDockingPorts"] = list()
 	if(shuttleObject.docking_target && !shuttleObject.docking_frozen)
 		//Undock option
@@ -351,8 +351,7 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 			if(!shuttleObject.shuttleTargetPos)
 				shuttleObject.shuttleTargetPos = new(x, y)
 			else
-				shuttleObject.shuttleTargetPos.x = x
-				shuttleObject.shuttleTargetPos.y = y
+				shuttleObject.shuttleTargetPos.Set(x, y)
 			. = TRUE
 		if("interdict")
 			if(QDELETED(shuttleObject))

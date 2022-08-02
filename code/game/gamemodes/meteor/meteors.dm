@@ -25,7 +25,9 @@ GLOBAL_LIST_INIT(meteorsC, list(/obj/effect/meteor/dust)) //for space dust event
 	for(var/i = 0; i < number; i++)
 		spawn_meteor(meteortypes, z)
 
-/proc/spawn_meteor(list/meteortypes, z = 0)
+/proc/spawn_meteor(list/meteortypes, z)
+	if(!length(meteortypes))
+		CRASH("Spawning meteor with no meteor types provided.")
 	var/turf/pickedstart
 	var/turf/pickedgoal
 	var/max_i = 10//number of tries to spawn meteor.
@@ -38,6 +40,8 @@ GLOBAL_LIST_INIT(meteorsC, list(/obj/effect/meteor/dust)) //for space dust event
 		if(max_i<=0)
 			return
 	var/Me = pickweight(meteortypes)
+	if(!Me)
+		return
 	new Me(pickedstart, pickedgoal)
 
 /proc/spaceDebrisStartLoc(startSide, Z)

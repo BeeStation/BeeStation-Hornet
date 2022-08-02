@@ -11,16 +11,12 @@
 			message_admins("Error: Shuttle is entering supercruise from a bad location. Shuttle: [name]")
 			log_runtime("Error: Shuttle is entering supercruise from a bad location. Shuttle: [name]")
 			var/datum/orbital_map/default_map = SSorbits.orbital_maps[PRIMARY_ORBITAL_MAP]
-			spawn_position.x = default_map.center.position.x
-			spawn_position.y = default_map.center.position.y
+			spawn_position.Set(default_map.center.position.GetX(), default_map.center.position.GetY())
 		else
-			spawn_position.x = z_level.orbital_body.position.x + z_level.orbital_body.velocity.x
-			spawn_position.y = z_level.orbital_body.position.y + z_level.orbital_body.velocity.y
-			spawn_velocity.x = z_level.orbital_body.velocity.x
-			spawn_velocity.y = z_level.orbital_body.velocity.y
+			spawn_position.Set(z_level.orbital_body.position.GetX() + z_level.orbital_body.velocity.GetX(), z_level.orbital_body.position.GetY() + z_level.orbital_body.velocity.GetY())
+			spawn_velocity.Set(z_level.orbital_body.velocity.GetX(), z_level.orbital_body.velocity.GetY())
 	else
-		spawn_position.x = spawn_position_param.x
-		spawn_position.y = spawn_position_param.y
+		spawn_position.Set(spawn_position_param.GetX(), spawn_position_param.GetY())
 	//Start moving
 	destination = null
 	mode = SHUTTLE_IGNITING

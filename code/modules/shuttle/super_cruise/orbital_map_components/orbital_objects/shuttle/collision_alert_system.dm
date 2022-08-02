@@ -22,10 +22,10 @@
 		if(!distress)
 			var/max_vis_distance = max(shuttle_data.detection_range, object.signal_range)
 			//Quick Distance Check
-			if(position.x > object.position.x + max_vis_distance\
-				|| position.x < object.position.x - max_vis_distance\
-				|| position.y > object.position.y + max_vis_distance\
-				|| position.y < object.position.y - max_vis_distance)
+			if(position.GetX() > object.position.GetX() + max_vis_distance\
+				|| position.GetX() < object.position.GetX() - max_vis_distance\
+				|| position.GetY() > object.position.GetY() + max_vis_distance\
+				|| position.GetY() < object.position.GetY() - max_vis_distance)
 				continue
 			//Refined Distance Check
 			if(position.DistanceTo(object.position) > max_vis_distance)

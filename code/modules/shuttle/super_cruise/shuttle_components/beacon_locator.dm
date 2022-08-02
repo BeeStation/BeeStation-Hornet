@@ -49,8 +49,8 @@
 		current_location = z_level.orbital_body
 	if(!current_location)
 		return
-	.["x"] = current_location.position.x
-	.["y"] = current_location.position.y
+	.["x"] = current_location.position.GetX()
+	.["y"] = current_location.position.GetY()
 
 /obj/machinery/computer/locator/ui_static_data(mob/user)
 	. = list()
@@ -109,6 +109,6 @@
 		if(distance < 500 || distance > 10000)
 			continue
 		distance += rand(-inaccuracy, inaccuracy)
-		pings += new /datum/orbital_ping(body.get_locator_name(), current_location.position.x, current_location.position.y, distance, body.locator_colour)
+		pings += new /datum/orbital_ping(body.get_locator_name(), current_location.position.GetX(), current_location.position.GetY(), distance, body.locator_colour)
 	update_static_data(usr)
 	return TRUE

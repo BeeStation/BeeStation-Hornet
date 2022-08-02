@@ -107,11 +107,11 @@
 	data["shuttleAngle"] = shuttleObject.angle
 	data["shuttleThrust"] = shuttleObject.thrust
 	data["autopilot_enabled"] = shuttleObject.shuttle_data.ai_pilot?.is_active()
-	data["shuttleVelX"] = shuttleObject.velocity.x
-	data["shuttleVelY"] = shuttleObject.velocity.y
+	data["shuttleVelX"] = shuttleObject.velocity.GetX()
+	data["shuttleVelY"] = shuttleObject.velocity.GetY()
 	//Docking data
 	data["canDock"] = FALSE
 	data["isDocking"] = FALSE
-	data["shuttleTargetX"] = shuttleObject.shuttleTargetPos?.x
-	data["shuttleTargetY"] = shuttleObject.shuttleTargetPos?.y
+	data["shuttleTargetX"] = shuttleObject.shuttleTargetPos?.GetX()
+	data["shuttleTargetY"] = shuttleObject.shuttleTargetPos?.GetY()
 	return data

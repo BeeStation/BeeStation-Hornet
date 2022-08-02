@@ -14,7 +14,7 @@
 		large_bodies += body
 		return
 	//Add the orbital body in the correct collision zone
-	var/position_key = "[round(body.position.x / ORBITAL_MAP_ZONE_SIZE)],[round(body.position.y / ORBITAL_MAP_ZONE_SIZE)]"
+	var/position_key = "[round(body.position.GetX() / ORBITAL_MAP_ZONE_SIZE)],[round(body.position.GetY() / ORBITAL_MAP_ZONE_SIZE)]"
 	LAZYADDASSOCLIST(collision_zone_bodies, position_key, body)
 
 /datum/orbital_map/proc/remove_body(datum/orbital_object/body)
@@ -23,7 +23,7 @@
 		large_bodies -= body
 		return
 	//Find the objects collision zone and remove it
-	var/position_key = "[round(body.position.x / ORBITAL_MAP_ZONE_SIZE)],[round(body.position.y / ORBITAL_MAP_ZONE_SIZE)]"
+	var/position_key = "[round(body.position.GetX() / ORBITAL_MAP_ZONE_SIZE)],[round(body.position.GetY() / ORBITAL_MAP_ZONE_SIZE)]"
 	if(!(body in collision_zone_bodies[position_key]))
 		CRASH("An orbital object was removed from [position_key] but was not there in the first place. ([body]). Is a body being improperly moved?")
 	LAZYREMOVEASSOC(collision_zone_bodies, position_key, body)
@@ -34,7 +34,7 @@
 	//Find the objects old collision zone and remove it
 	//Find the objects new collision zone and add it
 	var/pre_position_key = "[round(prev_x / ORBITAL_MAP_ZONE_SIZE)],[round(prev_y / ORBITAL_MAP_ZONE_SIZE)]"
-	var/post_position_key = "[round(body.position.x / ORBITAL_MAP_ZONE_SIZE)],[round(body.position.y / ORBITAL_MAP_ZONE_SIZE)]"
+	var/post_position_key = "[round(body.position.GetX() / ORBITAL_MAP_ZONE_SIZE)],[round(body.position.GetY() / ORBITAL_MAP_ZONE_SIZE)]"
 	if(pre_position_key == post_position_key)
 		return
 	LAZYREMOVEASSOC(collision_zone_bodies, pre_position_key, body)

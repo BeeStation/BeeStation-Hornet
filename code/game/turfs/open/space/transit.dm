@@ -65,7 +65,7 @@
 				else
 					//Interdiction (Its an empty z-level)
 					var/datum/orbital_object/z_linked/beacon/ruin/z_linked = new /datum/orbital_object/z_linked/beacon/ruin/interdiction(
-						new /datum/orbital_vector(shuttleObj.position.x, shuttleObj.position.y)
+						new /datum/orbital_vector(shuttleObj.position.GetX(), shuttleObj.position.GetY())
 					)
 					z_linked.name = "Stranded [AM]"
 					z_linked.assign_z_level(FALSE)

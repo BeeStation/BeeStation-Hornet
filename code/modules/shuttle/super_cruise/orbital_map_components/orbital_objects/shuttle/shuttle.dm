@@ -109,9 +109,8 @@
 		shuttle_data.ai_pilot.handle_ai_flight_action(src)
 
 	if(!QDELETED(docking_target))
-		velocity.x = 0
-		velocity.y = 0
-		MOVE_ORBITAL_BODY(src, docking_target.position.x, docking_target.position.y)
+		velocity.Set(0, 0)
+		MOVE_ORBITAL_BODY(src, docking_target.position.GetX(), docking_target.position.GetY())
 		//Disable autopilot and thrust while docking to prevent fuel usage.
 		thrust = 0
 		angle = 0
@@ -120,11 +119,10 @@
 		//If our docking target was deleted, null it to prevent docking interface etc.
 		docking_target = null
 	//I hate that I have to do this, but people keep flying them away.
-	if(position.x > 20000 || position.x < -20000 || position.y > 20000 || position.y < -20000)
+	if(position.GetX() > 20000 || position.GetX() < -20000 || position.GetY() > 20000 || position.GetY() < -20000)
 		SEND_SIGNAL(src, COMSIG_ORBITAL_BODY_MESSAGE, "Local bluespace anomaly detected, shuttle has been transported to a new location.")
 		MOVE_ORBITAL_BODY(src, rand(-2000, 2000), rand(-2000, 2000))
-		velocity.x = 0
-		velocity.y = 0
+		velocity.Set(0, 0)
 		thrust = 0
 	//Process shuttle fuel consumption
 	if(shuttle_data && !cheating_autopilot)
@@ -158,7 +156,7 @@
 			explosive_landing = TRUE
 		//Create a new orbital waypoint to drop at
 		else
-			var/datum/orbital_object/z_linked/beacon/ruin/stranded_shuttle/shuttle_location = new(new /datum/orbital_vector(position.x, position.y))
+			var/datum/orbital_object/z_linked/beacon/ruin/stranded_shuttle/shuttle_location = new(new /datum/orbital_vector(position.GetX(), position.GetY()))
 			shuttle_location.name = "Stranded [name]"
 			commence_docking(shuttle_location, TRUE, FALSE, TRUE)
 	//No more custom docking
@@ -196,17 +194,17 @@
 	var/datum/orbital_vector/next_position = shuttleTargetPos
 
 	//Adjust our speed to target to point towards it.
-	var/datum/orbital_vector/desired_velocity = new(next_position.x - position.x, next_position.y - position.y)
+	var/datum/orbital_vector/desired_velocity = new(next_position.GetX() - position.GetX(), next_position.GetY() - position.GetY())
 	var/desired_speed = distance_to_target * 0.02 + 10
 	desired_velocity.NormalizeSelf()
 	desired_velocity.ScaleSelf(desired_speed)
 
 	//Adjust thrust to make our velocity = desired_velocity
-	var/thrust_dir_x = desired_velocity.x - velocity.x
-	var/thrust_dir_y = desired_velocity.y - velocity.y
+	var/thrust_dir_x = desired_velocity.GetX() - velocity.GetX()
+	var/thrust_dir_y = desired_velocity.GetY() - velocity.GetY()
 
-	desired_vel_x = desired_velocity.x
-	desired_vel_y = desired_velocity.y
+	desired_vel_x = desired_velocity.GetX()
+	desired_vel_y = desired_velocity.GetY()
 
 	//message_admins("Thrusting in dir: [thrust_dir_y], [thrust_dir_x]")
 	//message_admins("Next pos: [next_position.x], [next_position.y]")
@@ -230,8 +228,7 @@
 
 	//Fuck all that, we cheat anyway
 	if(cheating_autopilot)
-		velocity.x = desired_vel_x
-		velocity.y = desired_vel_y
+		velocity.Set(desired_vel_x, desired_vel_y)
 
 ///Public
 ///Link this abstract shuttle datum to a physical mobile dock.
@@ -277,7 +274,7 @@
 	SEND_SIGNAL(src, COMSIG_ORBITAL_BODY_MESSAGE, "Interdictor activated, shuttle throttling down...")
 	//Create the site of interdiction
 	var/datum/orbital_object/z_linked/beacon/z_linked = new /datum/orbital_object/z_linked/beacon/ruin/interdiction(
-		new /datum/orbital_vector(position.x, position.y)
+		new /datum/orbital_vector(position.GetX(), position.GetY())
 	)
 	z_linked.name = "Interdiction Site"
 	//Lets tell everyone about it

@@ -62,4 +62,4 @@
 	if(!space_level || !space_level.orbital_body)
 		return
 	//Holy fuck
-	new /datum/orbital_object/hazard/black_hole(new /datum/orbital_vector(space_level.orbital_body.position.x, space_level.orbital_body.position.y))
+	new /datum/orbital_object/hazard/black_hole(new /datum/orbital_vector(space_level.orbital_body.position.GetX(), space_level.orbital_body.position.GetY()))
