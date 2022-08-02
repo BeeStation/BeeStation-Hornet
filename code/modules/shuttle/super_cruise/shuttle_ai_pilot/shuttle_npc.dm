@@ -181,7 +181,7 @@
 			shuttle.shuttleTargetPos = new(shuttle.position.GetX(), shuttle.position.GetY())
 		else
 			//Change our position randomly
-			shuttle.shuttleTargetPos.AddSelf(rand(-100, 100), rand(-100, 100))
+			shuttle.shuttleTargetPos.AddSelf(new /datum/orbital_vector(rand(-100, 100), rand(-100, 100)))
 		return
 	//Drive to the requested location
 	last_thought = "I am flying to my destination."
