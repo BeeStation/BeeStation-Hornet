@@ -116,6 +116,8 @@
 	paycheck_department = ACCOUNT_MED
 	rpg_title = "Enchanter"
 
+	mind_traits = list(TRAIT_MADNESS_IMMUNE)
+
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman
 	)
