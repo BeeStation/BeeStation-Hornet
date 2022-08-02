@@ -1671,6 +1671,7 @@
 #include "code\modules\antagonists\magic_servant\servant.dm"
 #include "code\modules\antagonists\morph\morph.dm"
 #include "code\modules\antagonists\morph\morph_antag.dm"
+#include "code\modules\antagonists\morph\morph_stomach.dm"
 #include "code\modules\antagonists\nightmare\nightmare.dm"
 #include "code\modules\antagonists\ninja\ninja.dm"
 #include "code\modules\antagonists\nukeop\clownop.dm"
