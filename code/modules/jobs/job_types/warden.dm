@@ -1,8 +1,8 @@
 /datum/job/warden
-	title = "Warden"
+	title = JOB_NAME_WARDEN
 	flag = WARDEN
 	auto_deadmin_role_flags = DEADMIN_POSITION_SECURITY
-	department_head = list("Head of Security")
+	department_head = list(JOB_NAME_HEADOFSECURITY)
 	department_flag = ENGSEC
 	faction = "Station"
 	total_positions = 1
@@ -23,7 +23,7 @@
 	mind_traits = list(TRAIT_LAW_ENFORCEMENT_METABOLISM)
 
 	display_order = JOB_DISPLAY_ORDER_WARDEN
-	departments = DEPARTMENT_SECURITY
+	departments = DEPARTMENT_BITFLAG_SECURITY
 	rpg_title = "Jailor"
 
 	species_outfits = list(
@@ -36,7 +36,7 @@
 	return L
 
 /datum/outfit/job/warden
-	name = "Warden"
+	name = JOB_NAME_WARDEN
 	jobtype = /datum/job/warden
 
 	id = /obj/item/card/id/job/warden

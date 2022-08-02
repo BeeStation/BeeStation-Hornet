@@ -2654,7 +2654,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/red,
-/obj/structure/closet/secure_closet/brig_phys,
+/obj/structure/closet/secure_closet/brig_physician,
 /obj/machinery/camera/autoname{
 	dir = 4
 	},
@@ -6681,7 +6681,7 @@
 	},
 /obj/item/pen,
 /obj/item/folder/white,
-/obj/item/stamp/rd{
+/obj/item/stamp/research_director{
 	pixel_x = 3;
 	pixel_y = -2
 	},
@@ -13566,7 +13566,7 @@
 /turf/open/floor/plasteel/white,
 /area/medical/sleeper)
 "bip" = (
-/obj/effect/landmark/start/emt,
+/obj/effect/landmark/start/paramedic,
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
 	},
@@ -15787,7 +15787,7 @@
 	pixel_y = 7
 	},
 /obj/item/pen,
-/obj/item/stamp/hop,
+/obj/item/stamp/head_of_personnel,
 /turf/open/floor/plasteel,
 /area/crew_quarters/heads/hop)
 "btG" = (
@@ -16526,7 +16526,7 @@
 	pixel_x = -3;
 	pixel_y = 7
 	},
-/obj/item/stamp/qm,
+/obj/item/stamp/quartermaster,
 /obj/effect/turf_decal/tile/brown,
 /obj/effect/turf_decal/tile/brown{
 	dir = 8
@@ -31838,7 +31838,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 5
 	},
-/obj/effect/landmark/start/emt,
+/obj/effect/landmark/start/paramedic,
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plasteel/white,
 /area/medical/storage)
@@ -33510,7 +33510,7 @@
 /turf/open/floor/plasteel,
 /area/quartermaster/exploration_prep)
 "fhv" = (
-/obj/effect/landmark/start/emt,
+/obj/effect/landmark/start/paramedic,
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
 "fhA" = (
@@ -42749,7 +42749,7 @@
 /turf/open/floor/plating,
 /area/hallway/secondary/entry)
 "lhK" = (
-/obj/effect/landmark/start/emt,
+/obj/effect/landmark/start/paramedic,
 /obj/structure/chair{
 	dir = 4
 	},
@@ -51550,7 +51550,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 6
 	},
-/obj/effect/landmark/start/emt,
+/obj/effect/landmark/start/paramedic,
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
 "qXP" = (
@@ -55576,7 +55576,7 @@
 "tGL" = (
 /obj/structure/table/reinforced,
 /obj/item/folder/yellow,
-/obj/item/stamp/ce,
+/obj/item/stamp/chief_engineer,
 /obj/structure/disposalpipe/segment,
 /obj/effect/landmark/event_spawn,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
@@ -58845,7 +58845,7 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
 "wcA" = (
-/obj/effect/landmark/start/brig_phys,
+/obj/effect/landmark/start/brig_physician,
 /turf/open/floor/plasteel/white,
 /area/security/brig)
 "wdd" = (
@@ -61648,7 +61648,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 5
 	},
-/obj/effect/landmark/start/emt,
+/obj/effect/landmark/start/paramedic,
 /turf/open/floor/plasteel/dark,
 /area/medical/medbay/central)
 "xYN" = (

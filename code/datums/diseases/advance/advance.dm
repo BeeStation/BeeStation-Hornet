@@ -276,8 +276,7 @@
 	else
 		visibility_flags &= ~HIDDEN_SCANNER
 
-	SetSpread(CLAMP(2 ** (transmission - symptoms.len), DISEASE_SPREAD_BLOOD, DISEASE_SPREAD_AIRBORNE))
-
+	SetSpread()
 	permeability_mod = max(CEILING(0.4 * transmission, 1), 1)
 	cure_chance = 15 - CLAMP(resistance, -5, 5) // can be between 10 and 20
 	stage_prob = max(stage_rate, 2)
@@ -287,7 +286,7 @@
 
 
 // Assign the spread type and give it the correct description.
-/datum/disease/advance/proc/SetSpread(spread_id)
+/datum/disease/advance/proc/SetSpread()
 	if(faltered)
 		spread_flags = DISEASE_SPREAD_FALTERED
 		spread_text = "Intentional Injection"
@@ -295,25 +294,16 @@
 		spread_flags = DISEASE_SPREAD_NON_CONTAGIOUS
 		spread_text = "None"
 	else
-		switch(spread_id)
-			if(DISEASE_SPREAD_NON_CONTAGIOUS)
-				spread_flags = DISEASE_SPREAD_NON_CONTAGIOUS
-				spread_text = "None"
-			if(DISEASE_SPREAD_SPECIAL)
-				spread_flags = DISEASE_SPREAD_SPECIAL
-				spread_text = "None"
-			if(DISEASE_SPREAD_BLOOD)
+		switch(transmission)
+			if(-INFINITY to 5)
 				spread_flags = DISEASE_SPREAD_BLOOD
 				spread_text = "Blood"
-			if(DISEASE_SPREAD_CONTACT_FLUIDS)
+			if(6 to 10)
 				spread_flags = DISEASE_SPREAD_BLOOD | DISEASE_SPREAD_CONTACT_FLUIDS
 				spread_text = "Fluids"
-			if(DISEASE_SPREAD_CONTACT_SKIN)
+			if(11 to INFINITY)
 				spread_flags = DISEASE_SPREAD_BLOOD | DISEASE_SPREAD_CONTACT_FLUIDS | DISEASE_SPREAD_CONTACT_SKIN
 				spread_text = "On contact"
-			if(DISEASE_SPREAD_AIRBORNE)
-				spread_flags = DISEASE_SPREAD_BLOOD | DISEASE_SPREAD_CONTACT_FLUIDS | DISEASE_SPREAD_CONTACT_SKIN | DISEASE_SPREAD_AIRBORNE
-				spread_text = "Airborne"
 
 /datum/disease/advance/proc/SetDanger(level_sev)
 	switch(level_sev)

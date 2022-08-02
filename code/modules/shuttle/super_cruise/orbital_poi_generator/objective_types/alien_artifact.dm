@@ -4,7 +4,7 @@
 	//The blackbox required to recover.
 	var/obj/item/alienartifact/objective/linked_artifact
 	min_payout = 5000
-	max_payout = 20000
+	max_payout = 25000
 
 /datum/orbital_objective/artifact/generate_objective_stuff(turf/chosen_turf)
 	generated = TRUE
