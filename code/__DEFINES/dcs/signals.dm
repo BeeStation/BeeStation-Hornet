@@ -85,7 +85,6 @@
 #define COMSIG_ATOM_LIGHTEATER_ACT "atom_lighteater_act"		//! from base of atom/light_eater_act(): (obj/item/light_eater/light_eater)
 #define COMSIG_ATOM_EMINENCE_ACT "atom_eminence_act"				//! from base of atom/eminence_act(): ()
 #define COMSIG_ATOM_RCD_ACT "atom_rcd_act"						//! from base of atom/rcd_act(): (/mob, /obj/item/construction/rcd, passed_mode)
-#define COMSIG_ATOM_USED_IN_CRAFT "atom_used_in_craft"			///from base of atom/CheckParts(): (atom/movable/new_craft) - The atom has just been used in a crafting recipe and has been moved inside new_craft.
 #define COMSIG_ATOM_TELEPORT_ACT "atom_teleport_act"			//! from base of atom/teleport_act(): ()
 #define COMSIG_ATOM_EXTRAPOLATOR_ACT "atom_extrapolator_act"	//! from base of atom/Exited(): (mob/user, var/obj/item/extrapolator/E, scan = TRUE)
 #define COMSIG_ATOM_SING_PULL "atom_sing_pull"					//!from base of atom/singularity_pull(): (/datum/component/singularity, current_size)

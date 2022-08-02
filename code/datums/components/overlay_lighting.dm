@@ -133,7 +133,6 @@
 	RegisterSignal(parent, COMSIG_ATOM_SET_LIGHT_COLOR,	.proc/set_color)
 	RegisterSignal(parent, COMSIG_ATOM_SET_LIGHT_ON,	.proc/on_toggle)
 	RegisterSignal(parent, COMSIG_ATOM_SET_LIGHT_FLAGS,	.proc/on_light_flags_change)
-	RegisterSignal(parent, COMSIG_ATOM_USED_IN_CRAFT,	.proc/on_parent_crafted)
 	RegisterSignal(parent, COMSIG_MOVABLE_MOVED,		.proc/on_parent_moved)
 
 	var/atom/movable/movable_parent = parent
@@ -156,7 +155,6 @@
 		COMSIG_ATOM_SET_LIGHT_COLOR,
 		COMSIG_ATOM_SET_LIGHT_ON,
 		COMSIG_ATOM_SET_LIGHT_FLAGS,
-		COMSIG_ATOM_USED_IN_CRAFT,
 		))
 	if(directional)
 		UnregisterSignal(parent, COMSIG_ATOM_DIR_CHANGE)
@@ -500,16 +498,6 @@
 /datum/component/overlay_lighting/proc/on_holder_dir_change(atom/movable/source, olddir, newdir)
 	SIGNAL_HANDLER
 	set_direction(newdir)
-
-/datum/component/overlay_lighting/proc/on_parent_crafted(datum/source, atom/movable/new_craft)
-	SIGNAL_HANDLER
-
-	if(!istype(new_craft))
-		return
-
-	UnregisterSignal(parent, COMSIG_ATOM_USED_IN_CRAFT)
-	RegisterSignal(new_craft, COMSIG_ATOM_USED_IN_CRAFT, .proc/on_parent_crafted)
-	set_parent_attached_to(new_craft)
 
 #undef LIGHTING_ON
 #undef LIGHTING_ATTACHED
