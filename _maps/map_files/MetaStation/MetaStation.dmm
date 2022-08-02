@@ -64528,7 +64528,6 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/machinery/vendor/exploration,
 /turf/open/floor/plasteel/white,
 /area/science/shuttledock)
 "mIS" = (
