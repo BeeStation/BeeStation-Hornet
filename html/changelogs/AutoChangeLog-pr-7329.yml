@@ -1,0 +1,16 @@
+author: itsmeow
+delete-after: true
+changes:
+  - rscadd: Persistent auto-updating Morph UI with favorites system
+  - refactor: Morph stomach contents now uses TGUI
+  - bugfix: Morph menu HUD icon is no longer invisible
+  - bugfix: Rapid attacking as morph no longer spams your chat with messages
+  - rscdel: Removed morph Strip button in favor of regular stripping as it was extremely
+      buggy
+  - tweak: Digesting a mob as morph now drops it before dusting it
+  - tweak: Digesting a mob with items no longer "strips" it first, instead the items
+      are dropped onto the ground around the morph
+  - tweak: Morph can now morph into other things without going back to its normal
+      form
+  - tweak: You can now remove your throw target as morph
+  - code_imp: Fixed issue with icon2base64
