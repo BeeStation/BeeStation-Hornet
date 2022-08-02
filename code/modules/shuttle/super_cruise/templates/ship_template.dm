@@ -1,5 +1,5 @@
 /datum/map_template/shuttle/supercruise
-	prefix = "_maps/shuttles/supercruise"
+	prefix = "_maps/shuttles/supercruise/"
 	port_id = "encounter"
 	//A list of types that this ship can belong to
 	var/list/valid_factions
