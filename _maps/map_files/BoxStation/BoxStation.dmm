@@ -38654,7 +38654,6 @@
 /turf/open/floor/plating,
 /area/maintenance/solars/starboard/fore)
 "iyL" = (
-/obj/machinery/vendor/exploration,
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel,
 /area/quartermaster/exploration_prep)

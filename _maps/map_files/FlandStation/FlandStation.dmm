@@ -28769,7 +28769,6 @@
 /turf/open/floor/plasteel/dark/side,
 /area/crew_quarters/heads/cmo)
 "gBu" = (
-/obj/machinery/vendor/exploration,
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel/techmaint,
 /area/quartermaster/exploration_prep)

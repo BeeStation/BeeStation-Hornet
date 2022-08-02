@@ -73698,7 +73698,6 @@
 /turf/open/floor/plasteel/grimy,
 /area/library)
 "fxU" = (
-/obj/machinery/vendor/exploration,
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel,
 /area/quartermaster/exploration_prep)
