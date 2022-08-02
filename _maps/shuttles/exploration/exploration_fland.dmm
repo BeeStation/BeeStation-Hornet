@@ -29,7 +29,8 @@
 	icon_state = "0-4"
 	},
 /obj/machinery/power/apc/auto_name/north{
-	cell_type = /obj/item/stock_parts/cell/high
+	cell_type = /obj/item/stock_parts/cell/high;
+	pixel_y = 24
 	},
 /turf/open/floor/plasteel/techmaint,
 /area/shuttle/exploration)
@@ -80,6 +81,14 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plasteel/techmaint,
+/area/shuttle/exploration)
+"el" = (
+/obj/machinery/light,
+/obj/effect/turf_decal/bot,
+/obj/machinery/computer/locator{
+	dir = 8
+	},
+/turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "eA" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -636,14 +645,6 @@
 /obj/effect/turf_decal/tile/neutral/tile_full,
 /turf/open/floor/plasteel/tech/grid,
 /area/shuttle/exploration)
-"Nt" = (
-/obj/machinery/light,
-/obj/machinery/computer/crew{
-	dir = 8
-	},
-/obj/effect/turf_decal/bot,
-/turf/open/floor/mineral/titanium,
-/area/shuttle/exploration)
 "Oa" = (
 /obj/machinery/door/window,
 /obj/effect/turf_decal/loading_area,
@@ -779,13 +780,13 @@
 /obj/docking_port/mobile{
 	dir = 8;
 	dwidth = 11;
+	faction_type = /datum/faction/station;
 	height = 14;
 	id = "exploration";
 	name = "Exploration Shuttle";
 	port_direction = 3;
 	shuttle_object_type = /datum/orbital_object/shuttle/custom_shuttle;
-	width = 19;
-	faction_type = /datum/faction/station
+	width = 19
 	},
 /obj/structure/fans/tiny,
 /turf/open/floor/plasteel,
@@ -1172,7 +1173,7 @@ Qv
 Om
 Om
 vp
-Nt
+el
 nG
 Kh
 ik

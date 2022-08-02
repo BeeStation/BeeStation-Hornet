@@ -22,6 +22,20 @@
 /obj/structure/window/shuttle,
 /turf/open/floor/plating,
 /area/shuttle/pod_1)
+"x" = (
+/obj/machinery/door/airlock/titanium{
+	name = "Shuttle Airlock"
+	},
+/obj/docking_port/mobile/pod{
+	dwidth = 2;
+	faction_type = /datum/faction/station;
+	height = 6;
+	launch_status = 0;
+	port_direction = 2;
+	width = 5
+	},
+/turf/open/floor/mineral/titanium/blue,
+/area/shuttle/pod_1)
 "A" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 8
@@ -71,19 +85,6 @@
 	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/pod_1)
-"O" = (
-/obj/machinery/door/airlock/titanium{
-	name = "Shuttle Airlock"
-	},
-/obj/docking_port/mobile/pod{
-	dwidth = 2;
-	height = 6;
-	launch_status = 0;
-	port_direction = 2;
-	width = 5
-	},
-/turf/open/floor/mineral/titanium/blue,
-/area/shuttle/pod_1)
 "W" = (
 /turf/template_noop,
 /area/template_noop)
@@ -116,7 +117,7 @@ C
 r
 r
 r
-O
+x
 "}
 (4,1,1) = {"
 B

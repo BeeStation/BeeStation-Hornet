@@ -26,16 +26,6 @@
 	},
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/transport)
-"i" = (
-/obj/machinery/atmospherics/components/unary/portables_connector{
-	dir = 1
-	},
-/obj/machinery/portable_atmospherics/canister/toxins{
-	filled = 1;
-	starter_temp = 50
-	},
-/turf/open/floor/mineral/titanium/blue,
-/area/shuttle/transport)
 "j" = (
 /obj/structure/chair/comfy/shuttle,
 /turf/open/floor/mineral/titanium/blue,
@@ -54,12 +44,12 @@
 /obj/docking_port/mobile{
 	dir = 8;
 	dwidth = 2;
+	faction_type = /datum/faction/nanotrasen/central_command;
 	height = 12;
 	id = "ferry";
 	name = "ferry shuttle";
 	port_direction = 2;
-	width = 5;
-	faction_type = /datum/faction/nanotrasen/central_command
+	width = 5
 	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/transport)
@@ -104,23 +94,18 @@
 	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/transport)
+"C" = (
+/obj/structure/chair/comfy/shuttle{
+	dir = 4
+	},
+/turf/open/floor/mineral/titanium/blue,
+/area/shuttle/transport)
 "F" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/supplymain/hidden{
 	dir = 4
-	},
-/turf/open/floor/mineral/titanium/blue,
-/area/shuttle/transport)
-"J" = (
-/obj/machinery/atmospherics/components/unary/portables_connector{
-	dir = 1
-	},
-/obj/item/wrench,
-/obj/machinery/portable_atmospherics/canister/toxins{
-	filled = 1;
-	starter_temp = 50
 	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/transport)
@@ -135,6 +120,23 @@
 	dir = 10
 	},
 /turf/closed/wall/mineral/titanium,
+/area/shuttle/transport)
+"R" = (
+/obj/machinery/computer/locator{
+	dir = 8
+	},
+/turf/open/floor/mineral/titanium/blue,
+/area/shuttle/transport)
+"V" = (
+/obj/machinery/atmospherics/components/unary/portables_connector{
+	dir = 1
+	},
+/obj/machinery/portable_atmospherics/canister/toxins{
+	filled = 1;
+	starter_temp = 50
+	},
+/obj/effect/mapping_helpers/auto_wrench,
+/turf/open/floor/mineral/titanium/blue,
 /area/shuttle/transport)
 "Y" = (
 /obj/machinery/atmospherics/pipe/manifold/supplymain/hidden{
@@ -179,16 +181,16 @@ f
 "}
 (5,1,1) = {"
 d
-j
+C
 Y
-J
+V
 d
 "}
 (6,1,1) = {"
 c
-j
+R
 Z
-i
+V
 c
 "}
 (7,1,1) = {"

@@ -217,12 +217,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/shuttle/abandoned/crew)
-"ax" = (
-/obj/structure/shuttle/engine/propulsion/left{
-	dir = 8
-	},
-/turf/open/floor/plating/airless,
-/area/shuttle/abandoned/engine)
 "ay" = (
 /obj/structure/window/reinforced{
 	dir = 4
@@ -399,12 +393,6 @@
 /obj/machinery/door/firedoor,
 /turf/open/floor/plasteel/dark,
 /area/shuttle/abandoned/crew)
-"aL" = (
-/obj/structure/shuttle/engine/propulsion/right{
-	dir = 8
-	},
-/turf/open/floor/plating/airless,
-/area/shuttle/abandoned/engine)
 "aM" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -3345,6 +3333,12 @@
 	},
 /turf/closed/wall/mineral/titanium/nodiagonal,
 /area/shuttle/abandoned/engine)
+"Lo" = (
+/obj/machinery/shuttle/engine/advanced{
+	dir = 8
+	},
+/turf/open/floor/plating/airless,
+/area/shuttle/abandoned/engine)
 "My" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
@@ -3361,6 +3355,7 @@
 	dir = 2;
 	dwidth = 11;
 	dynamic_id = 1;
+	faction_type = /datum/faction/independant;
 	height = 17;
 	id = "whiteship";
 	launch_status = 0;
@@ -3368,8 +3363,7 @@
 	name = "Salvage Ship";
 	port_direction = 8;
 	preferred_direction = 4;
-	width = 33;
-	faction_type = /datum/faction/independant
+	width = 33
 	},
 /obj/machinery/atmospherics/pipe/layer_manifold,
 /turf/open/floor/plating,
@@ -3407,8 +3401,8 @@
 (1,1,1) = {"
 aa
 ab
-ax
-aL
+Lo
+Lo
 ab
 aa
 aa
@@ -3418,8 +3412,8 @@ aa
 aa
 aa
 ab
-ax
-aL
+Lo
+Lo
 ab
 aa
 "}

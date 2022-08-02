@@ -25,7 +25,9 @@
 /obj/effect/turf_decal/tile/brown{
 	dir = 1
 	},
-/obj/machinery/power/apc/auto_name/east,
+/obj/machinery/power/apc/auto_name/east{
+	pixel_x = 24
+	},
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
@@ -198,13 +200,13 @@
 /obj/docking_port/mobile{
 	dir = 4;
 	dwidth = 10;
+	faction_type = /datum/faction/station;
 	height = 9;
 	id = "exploration";
 	name = "Exploration Shuttle";
 	port_direction = 8;
 	shuttle_object_type = /datum/orbital_object/shuttle/custom_shuttle;
-	width = 15;
-	faction_type = /datum/faction/station
+	width = 15
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
@@ -315,6 +317,21 @@
 /area/shuttle/exploration)
 "AE" = (
 /turf/closed/wall/mineral/titanium/nodiagonal,
+/area/shuttle/exploration)
+"AV" = (
+/obj/effect/turf_decal/delivery,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/machinery/computer/locator,
+/turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "AY" = (
 /obj/item/kirbyplants{
@@ -566,21 +583,6 @@
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
-"Zk" = (
-/obj/effect/turf_decal/delivery,
-/obj/machinery/computer/objective,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/exploration)
 "Zq" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -658,7 +660,7 @@ PK
 "}
 (5,1,1) = {"
 AZ
-Zk
+AV
 kJ
 BC
 Iv

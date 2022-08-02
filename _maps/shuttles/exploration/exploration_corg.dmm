@@ -231,11 +231,6 @@
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
-"kx" = (
-/obj/machinery/computer/security,
-/obj/effect/turf_decal/delivery,
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/exploration)
 "kH" = (
 /obj/effect/turf_decal/bot,
 /turf/open/floor/mineral/plastitanium,
@@ -586,13 +581,13 @@
 /obj/effect/turf_decal/delivery,
 /obj/docking_port/mobile{
 	dwidth = 16;
+	faction_type = /datum/faction/station;
 	height = 15;
 	id = "exploration";
 	name = "Exploration Shuttle";
 	port_direction = 4;
 	shuttle_object_type = /datum/orbital_object/shuttle/custom_shuttle;
-	width = 23;
-	faction_type = /datum/faction/station
+	width = 23
 	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 1
@@ -759,6 +754,11 @@
 	dir = 4
 	},
 /turf/open/floor/mineral/titanium,
+/area/shuttle/exploration)
+"Nc" = (
+/obj/effect/turf_decal/delivery,
+/obj/machinery/computer/locator,
+/turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "Nl" = (
 /obj/machinery/atmospherics/pipe/simple/dark/visible{
@@ -1329,7 +1329,7 @@ ZM
 ZM
 ZM
 jB
-kx
+Nc
 kO
 Dn
 nY

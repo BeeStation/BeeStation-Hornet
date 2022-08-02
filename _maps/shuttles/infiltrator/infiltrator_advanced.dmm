@@ -50,9 +50,6 @@
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/syndicate/bridge)
-"ah" = (
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/syndicate/bridge)
 "ai" = (
 /obj/structure/table/reinforced,
 /obj/machinery/light{
@@ -1435,14 +1432,14 @@
 	dheight = 1;
 	dir = 8;
 	dwidth = 12;
+	faction_type = /datum/faction/syndicate/gorlex;
 	height = 17;
 	hidden = 1;
 	id = "syndicate";
 	movement_force = list("KNOCKDOWN" = 0, "THROW" = 0);
 	name = "syndicate infiltrator";
 	port_direction = 4;
-	width = 23;
-	faction_type = /datum/faction/syndicate/gorlex
+	width = 23
 	},
 /obj/structure/fans/tiny,
 /obj/effect/turf_decal/box,
@@ -2421,6 +2418,11 @@
 /obj/machinery/shuttle/engine/advanced/large,
 /turf/open/floor/plating,
 /area/shuttle/syndicate/armory)
+"nc" = (
+/obj/machinery/computer/locator,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/mineral/plastitanium,
+/area/shuttle/syndicate/bridge)
 "nJ" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
@@ -2668,7 +2670,7 @@ ad
 "}
 (10,1,1) = {"
 ab
-ah
+nc
 ao
 av
 aF

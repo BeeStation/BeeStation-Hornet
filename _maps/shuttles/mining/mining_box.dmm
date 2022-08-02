@@ -72,12 +72,12 @@
 /obj/docking_port/mobile{
 	dir = 8;
 	dwidth = 3;
+	faction_type = /datum/faction/station;
 	height = 5;
 	id = "mining";
 	name = "mining shuttle";
 	port_direction = 4;
-	width = 7;
-	faction_type = /datum/faction/station
+	width = 7
 	},
 /obj/machinery/door/airlock/survival_pod/glass,
 /obj/structure/fans/tiny,

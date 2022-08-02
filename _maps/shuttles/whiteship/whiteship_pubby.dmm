@@ -5,12 +5,6 @@
 "b" = (
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/abandoned)
-"c" = (
-/obj/structure/shuttle/engine/propulsion/burst{
-	dir = 1
-	},
-/turf/closed/wall/mineral/titanium,
-/area/shuttle/abandoned)
 "d" = (
 /obj/machinery/door/airlock/public/glass{
 	name = "Shuttle Airlock"
@@ -22,12 +16,6 @@
 /area/shuttle/abandoned)
 "f" = (
 /turf/open/floor/plasteel,
-/area/shuttle/abandoned)
-"g" = (
-/obj/structure/shuttle/engine/propulsion/burst{
-	dir = 8
-	},
-/turf/closed/wall/mineral/titanium,
 /area/shuttle/abandoned)
 "h" = (
 /obj/structure/window/reinforced{
@@ -59,8 +47,8 @@
 /turf/open/floor/plating/abductor,
 /area/shuttle/abandoned)
 "k" = (
-/obj/structure/shuttle/engine/propulsion/burst{
-	dir = 4
+/obj/machinery/shuttle/engine/void{
+	dir = 1
 	},
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/abandoned)
@@ -107,7 +95,9 @@
 /turf/open/floor/plating/abductor,
 /area/shuttle/abandoned)
 "s" = (
-/obj/structure/shuttle/engine/propulsion/burst,
+/obj/machinery/shuttle/engine/void{
+	dir = 4
+	},
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/abandoned)
 "v" = (
@@ -118,24 +108,34 @@
 	dir = 8;
 	dwidth = 4;
 	dynamic_id = 1;
+	faction_type = /datum/faction/independant;
 	height = 9;
 	id = "whiteship";
 	launch_status = 0;
 	name = "White Ship";
 	port_direction = 4;
-	width = 9;
-	faction_type = /datum/faction/independant
+	width = 9
 	},
 /turf/open/floor/plasteel/dark,
+/area/shuttle/abandoned)
+"C" = (
+/obj/machinery/shuttle/engine/void,
+/turf/closed/wall/mineral/titanium,
+/area/shuttle/abandoned)
+"G" = (
+/obj/machinery/shuttle/engine/void{
+	dir = 8
+	},
+/turf/closed/wall/mineral/titanium,
 /area/shuttle/abandoned)
 
 (1,1,1) = {"
 a
 a
 b
-g
+s
 d
-g
+s
 b
 a
 a
@@ -163,7 +163,7 @@ b
 b
 "}
 (4,1,1) = {"
-c
+C
 e
 e
 h
@@ -171,7 +171,7 @@ l
 p
 e
 e
-s
+k
 "}
 (5,1,1) = {"
 d
@@ -185,7 +185,7 @@ f
 d
 "}
 (6,1,1) = {"
-c
+C
 e
 e
 j
@@ -193,7 +193,7 @@ n
 r
 e
 e
-s
+k
 "}
 (7,1,1) = {"
 b
@@ -221,9 +221,9 @@ a
 a
 a
 b
-k
+G
 v
-k
+G
 b
 a
 a

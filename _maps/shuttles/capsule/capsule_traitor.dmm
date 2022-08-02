@@ -178,7 +178,7 @@
 /turf/open/floor/plating,
 /area/shuttle/pod_shuttle)
 "D" = (
-/obj/machinery/computer/crew/syndie,
+/obj/machinery/computer/locator,
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/pod_shuttle)
 "K" = (
@@ -209,10 +209,10 @@
 /obj/docking_port/mobile{
 	dir = 8;
 	dwidth = 4;
+	faction_type = /datum/faction/independant;
 	height = 6;
 	shuttle_object_type = /datum/orbital_object/shuttle/custom_shuttle;
-	width = 10;
-	faction_type = /datum/faction/independant
+	width = 10
 	},
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/pod_shuttle)
