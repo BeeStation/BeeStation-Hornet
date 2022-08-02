@@ -480,7 +480,7 @@
 	message = "beeps"
 	message_param = "beeps at %t"
 	sound = 'sound/machines/twobeep.ogg'
-	mob_type_allowed_typecache = list(/mob/living/brain, /mob/living/silicon)
+	mob_type_allowed_typecache = list(/mob/living/brain, /mob/living/silicon, /mob/living/simple_animal/hostile/mining_drone)
 
 /datum/emote/living/circle
 	key = "circle"
