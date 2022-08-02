@@ -24,7 +24,9 @@
 	max_stages = 5
 	spread_text = "Unknown"
 	viable_mobtypes = list(/mob/living/carbon/human, /mob/living/carbon/monkey, /mob/living/carbon/monkey/tumor)
-
+	
+	/// last player to modify the disease. 
+	var/last_modified_by = "no CKEY"
 	var/resistance
 	var/stealth
 	var/stage_rate
@@ -171,7 +173,8 @@
 	var/list/name_symptoms = list()
 	for(var/datum/symptom/S in symptoms)
 		name_symptoms += S.name
-	return "[name] sym:[english_list(name_symptoms)] r:[resistance] s:[stealth] ss:[stage_rate] t:[transmission]"
+		
+	return "[name], last modified by: [last_modified_by] symptoms:[english_list(name_symptoms)] resistance:[resistance] stealth:[stealth] speed:[stage_rate] transmission:[transmission] faltered:[faltered ? "Yes" : "No"]"
 
 /*
 
@@ -273,8 +276,7 @@
 	else
 		visibility_flags &= ~HIDDEN_SCANNER
 
-	SetSpread(CLAMP(2 ** (transmission - symptoms.len), DISEASE_SPREAD_BLOOD, DISEASE_SPREAD_AIRBORNE))
-
+	SetSpread()
 	permeability_mod = max(CEILING(0.4 * transmission, 1), 1)
 	cure_chance = 15 - CLAMP(resistance, -5, 5) // can be between 10 and 20
 	stage_prob = max(stage_rate, 2)
@@ -284,7 +286,7 @@
 
 
 // Assign the spread type and give it the correct description.
-/datum/disease/advance/proc/SetSpread(spread_id)
+/datum/disease/advance/proc/SetSpread()
 	if(faltered)
 		spread_flags = DISEASE_SPREAD_FALTERED
 		spread_text = "Intentional Injection"
@@ -292,25 +294,16 @@
 		spread_flags = DISEASE_SPREAD_NON_CONTAGIOUS
 		spread_text = "None"
 	else
-		switch(spread_id)
-			if(DISEASE_SPREAD_NON_CONTAGIOUS)
-				spread_flags = DISEASE_SPREAD_NON_CONTAGIOUS
-				spread_text = "None"
-			if(DISEASE_SPREAD_SPECIAL)
-				spread_flags = DISEASE_SPREAD_SPECIAL
-				spread_text = "None"
-			if(DISEASE_SPREAD_BLOOD)
+		switch(transmission)
+			if(-INFINITY to 5)
 				spread_flags = DISEASE_SPREAD_BLOOD
 				spread_text = "Blood"
-			if(DISEASE_SPREAD_CONTACT_FLUIDS)
+			if(6 to 10)
 				spread_flags = DISEASE_SPREAD_BLOOD | DISEASE_SPREAD_CONTACT_FLUIDS
 				spread_text = "Fluids"
-			if(DISEASE_SPREAD_CONTACT_SKIN)
+			if(11 to INFINITY)
 				spread_flags = DISEASE_SPREAD_BLOOD | DISEASE_SPREAD_CONTACT_FLUIDS | DISEASE_SPREAD_CONTACT_SKIN
 				spread_text = "On contact"
-			if(DISEASE_SPREAD_AIRBORNE)
-				spread_flags = DISEASE_SPREAD_BLOOD | DISEASE_SPREAD_CONTACT_FLUIDS | DISEASE_SPREAD_CONTACT_SKIN | DISEASE_SPREAD_AIRBORNE
-				spread_text = "Airborne"
 
 /datum/disease/advance/proc/SetDanger(level_sev)
 	switch(level_sev)
@@ -669,3 +662,13 @@
 			return "[pick(prefixes)][pick(bodies)][pick(suffixes)]"
 		if(3)
 			return "[pick(bodies)][pick(suffixes)]"
+
+/datum/disease/advance/proc/logchanges(datum/reagents/holder, var/modification_type)
+	if(holder?.my_atom?.fingerprintslast)
+		last_modified_by = holder.my_atom.fingerprintslast
+	else
+		message_admins("[name], a disease, has been modified ([modification_type]) without logging a CKEY. Please report this to coders")
+		log_virus("[name], a disease, has been modified ([modification_type]) without logging a CKEY. Please report this to coders")
+		// if someone finds a way to avoid being logged while modifiying a virus, admins should be notified so coders can be notified.
+		return FALSE
+	log_virus("[modification_type]: [admin_details()]")

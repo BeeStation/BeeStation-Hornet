@@ -139,7 +139,7 @@
 	rename_with_volume = TRUE
 
 /obj/item/reagent_containers/pill/mannitol/braintumor //For the brain tumor quirk
-	list_reagents = list(/datum/reagent/medicine/mannitol = 20)
+	list_reagents = list(/datum/reagent/medicine/mannitol = 30)
 
 /obj/item/reagent_containers/pill/mutadone
 	name = "mutadone pill"

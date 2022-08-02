@@ -948,7 +948,7 @@
 
 ///can the mob be buckled to something by default?
 /mob/proc/can_buckle()
-	return 1
+	return TRUE
 
 ///can the mob be unbuckled from something by default?
 /mob/proc/can_unbuckle()
@@ -1119,6 +1119,9 @@
 /mob/proc/get_idcard(hand_first)
 	return
 
+/mob/proc/get_id_in_hand()
+	return
+
 /**
   * Get the mob VV dropdown extras
   */
@@ -1140,53 +1143,40 @@
 
 /mob/vv_do_topic(list/href_list)
 	. = ..()
-	if(href_list[VV_HK_REGEN_ICONS])
-		if(!check_rights(NONE))
-			return
+	if(href_list[VV_HK_REGEN_ICONS] && check_rights(R_ADMIN))
 		regenerate_icons()
-	if(href_list[VV_HK_PLAYER_PANEL])
-		if(!check_rights(NONE))
-			return
+
+	if(href_list[VV_HK_PLAYER_PANEL] && check_rights(R_ADMIN))
 		usr.client.holder.show_player_panel(src)
-	if(href_list[VV_HK_GODMODE])
-		if(!check_rights(R_ADMIN))
-			return
+	
+	if(href_list[VV_HK_GODMODE] && check_rights(R_FUN))
 		usr.client.cmd_admin_godmode(src)
-	if(href_list[VV_HK_GIVE_SPELL])
-		if(!check_rights(NONE))
-			return
+	
+	if(href_list[VV_HK_GIVE_SPELL] && check_rights(R_FUN))
 		usr.client.give_spell(src)
-	if(href_list[VV_HK_REMOVE_SPELL])
-		if(!check_rights(NONE))
-			return
+	
+	if(href_list[VV_HK_REMOVE_SPELL] && check_rights(R_FUN))
 		usr.client.remove_spell(src)
-	if(href_list[VV_HK_GIVE_DISEASE])
-		if(!check_rights(NONE))
-			return
+	
+	if(href_list[VV_HK_GIVE_DISEASE] && check_rights(R_FUN))
 		usr.client.give_disease(src)
-	if(href_list[VV_HK_GIB])
-		if(!check_rights(R_FUN))
-			return
+	
+	if(href_list[VV_HK_GIB] && check_rights(R_FUN))
 		usr.client.cmd_admin_gib(src)
-	if(href_list[VV_HK_BUILDMODE])
-		if(!check_rights(R_BUILD))
-			return
+	
+	if(href_list[VV_HK_BUILDMODE] && check_rights(R_BUILD))
 		togglebuildmode(src)
-	if(href_list[VV_HK_DROP_ALL])
-		if(!check_rights(NONE))
-			return
+	
+	if(href_list[VV_HK_DROP_ALL] && check_rights(R_FUN))
 		usr.client.cmd_admin_drop_everything(src)
-	if(href_list[VV_HK_DIRECT_CONTROL])
-		if(!check_rights(NONE))
-			return
+	
+	if(href_list[VV_HK_DIRECT_CONTROL] && check_rights(R_ADMIN))
 		usr.client.cmd_assume_direct_control(src)
-	if(href_list[VV_HK_GIVE_DIRECT_CONTROL])
-		if(!check_rights(NONE))
-			return
+	
+	if(href_list[VV_HK_GIVE_DIRECT_CONTROL] && check_rights(R_ADMIN))
 		usr.client.cmd_give_direct_control(src)
-	if(href_list[VV_HK_OFFER_GHOSTS])
-		if(!check_rights(NONE))
-			return
+	
+	if(href_list[VV_HK_OFFER_GHOSTS] && check_rights(R_ADMIN))
 		offer_control(src)
 
 /**

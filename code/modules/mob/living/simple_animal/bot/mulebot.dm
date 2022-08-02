@@ -58,7 +58,7 @@
 /mob/living/simple_animal/bot/mulebot/Initialize(mapload)
 	. = ..()
 	wires = new /datum/wires/mulebot(src)
-	var/datum/job/cargo_tech/J = new/datum/job/cargo_tech
+	var/datum/job/cargo_technician/J = new/datum/job/cargo_technician
 	access_card.access = J.get_access()
 	prev_access = access_card.access
 	cell = new /obj/item/stock_parts/cell/upgraded(src, 2000)

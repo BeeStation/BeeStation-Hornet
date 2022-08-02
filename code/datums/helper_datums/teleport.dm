@@ -180,3 +180,36 @@
 
 /proc/get_teleport_turf(turf/center, precision = 0)
 	return safepick(get_teleport_turfs(center, precision))
+
+/proc/wizarditis_teleport(mob/living/carbon/affected_mob)
+	var/list/theareas = get_areas_in_range(80, affected_mob)
+	for(var/area/space/S in theareas)
+		theareas -= S
+
+	if(!length(theareas))
+		return
+
+	var/area/thearea = pick(theareas)
+
+	var/list/L = list()
+	for(var/turf/T in get_area_turfs(thearea.type))
+		if(T.get_virtual_z_level() != affected_mob.get_virtual_z_level())
+			continue
+		if(isspaceturf(T))
+			continue
+		if(T.density)
+			continue
+
+		var/clear = TRUE
+		for(var/obj/O in T)
+			if(O.density)
+				clear = FALSE
+				break
+		if(clear)
+			L+=T
+
+	if(!L)
+		return
+
+	if(do_teleport(affected_mob, pick(L), channel = TELEPORT_CHANNEL_MAGIC, no_effects = TRUE))
+		affected_mob.say("SCYAR NILA [uppertext(thearea.name)]!", forced = "wizarditis teleport")
