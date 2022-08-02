@@ -88,8 +88,7 @@
 		return
 	velocity.x = docking_target.velocity.x * 1.1
 	velocity.y = docking_target.velocity.y * 1.1
-	position.x = docking_target.position.x
-	position.y = docking_target.position.y
+	MOVE_ORBITAL_BODY(src, docking_target.position.x, docking_target.position.y)
 	docking_target = null
 	collision_ignored = TRUE
 
