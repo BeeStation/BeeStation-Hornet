@@ -36,7 +36,7 @@
 	///Is the shuttle doomed to explode?
 	var/reactor_critical = FALSE
 	///How much damage can the ship sustain before exploding?
-	var/critical_proportion = SHIP_INTEGRITY_FACTOR
+	var/critical_proportion = SHIP_INTEGRITY_FACTOR_PLAYER
 	///The faction of this shuttle
 	var/datum/faction/faction
 	///Fired upon these factions despite being allied with them. Any ships in that faction will fire upon this ship.

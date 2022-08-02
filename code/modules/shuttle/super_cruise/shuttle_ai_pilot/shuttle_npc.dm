@@ -24,6 +24,8 @@
 	//Check if we need to start processing
 	if (!SSorbits.assoc_shuttles[shuttle_data.port_id])
 		START_PROCESSING(SSorbits, src)
+	//Make our shuttle weaker
+	shuttle_data.critical_proportion = SHIP_INTEGRITY_FACTOR_NPC
 	//Locate any pilot mobs
 	var/obj/docking_port/mobile/shuttle_port = SSshuttle.getShuttle(shuttle_data.port_id)
 	for (var/area/A in shuttle_port.shuttle_areas)
@@ -43,6 +45,9 @@
 	UnregisterSignal(source, COMSIG_PARENT_QDELETING)
 	UnregisterSignal(source, COMSIG_MOB_DEATH)
 	UnregisterSignal(source, COMSIG_GLOB_MOB_LOGGED_IN)
+	//Now that all mobs on the ship are dead, make it stronger again
+	if(!pilot_mobs)
+		shuttle_data.critical_proportion = SHIP_INTEGRITY_FACTOR_PLAYER
 
 /datum/shuttle_ai_pilot/npc/handle_ai_combat_action()
 	if(shuttle_data.reactor_critical || !pilot_mobs)
@@ -152,8 +157,9 @@
 			continue
 		//Check factional aliegence (Can't spell that word)
 		var/datum/shuttle_data/target_data = SSorbits.get_shuttle_data(shuttle_id)
-		if(check_faction_alignment(shuttle_data.faction, target_data.faction) == FACTION_STATUS_HOSTILE || (shuttle_data.faction.type in target_data.rogue_factions))
-			valid += target_data
+		if(!(check_faction_alignment(shuttle_data.faction, target_data.faction) == FACTION_STATUS_HOSTILE || (shuttle_data.faction.type in target_data.rogue_factions)))
+			continue
+		valid += target_data
 	if(!length(valid))
 		return
 	target = pick(valid)
