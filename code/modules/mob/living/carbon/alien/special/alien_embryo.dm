@@ -62,10 +62,10 @@
 	if(L.IsInStasis())
 		return
 	if(!next_stage_time)
-		COOLDOWN_START(src, next_stage_time, 1 MINUTES)
+		COOLDOWN_START(src, next_stage_time, 30 SECONDS)
 		return
 	if(COOLDOWN_FINISHED(src, next_stage_time) && stage < 5)
-		COOLDOWN_START(src, next_stage_time, rand(1 MINUTES, 1.5 MINUTES)) // Somewhere from 5-7 minutes to fully grow
+		COOLDOWN_START(src, next_stage_time, rand(30 SECONDS, 45 SECONDS)) // Somewhere from 2.5-3.5 minutes to fully grow
 		stage++
 		INVOKE_ASYNC(src, .proc/RefreshInfectionImage)
 
