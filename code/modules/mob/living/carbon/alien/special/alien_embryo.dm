@@ -70,6 +70,7 @@
 			if(!A.key || A.stat == DEAD) // Don't count dead/SSD aliens
 				continue
 			additional_grow_time += 2 SECONDS
+		additional_grow_time = min(additional_grow_time, 1 MINUTES)
 		COOLDOWN_START(src, next_stage_time, rand(30 SECONDS, 45 SECONDS) + additional_grow_time) // Somewhere from 2.5-3.5 minutes to fully grow
 		stage++
 		INVOKE_ASYNC(src, .proc/RefreshInfectionImage)
