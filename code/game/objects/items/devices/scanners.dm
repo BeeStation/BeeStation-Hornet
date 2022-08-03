@@ -89,7 +89,7 @@ GENE SCANNER
 	materials = list(/datum/material/iron=200)
 	var/scanmode = 0
 	var/advanced = FALSE
-	var/viroalert = 0  // cooldowndeclare isnt working
+	COOLDOWN_DECLARE(viroalert)
 
 
 /obj/item/healthanalyzer/suicide_act(mob/living/carbon/user)
@@ -130,7 +130,7 @@ GENE SCANNER
 
 
 // Used by the PDA medical scanner too
-/proc/healthscan(mob/user, mob/living/M, mode = 1, advanced = FALSE, speaking_mob = FALSE)
+/proc/healthscan(mob/user, mob/living/M, mode = 1, advanced = FALSE, var/obj/item/healthanalyzer/speaking_mob = FALSE)
 	if(isliving(user) && (user.incapacitated() || user.eye_blind))
 		return
 	//Damage specifics
