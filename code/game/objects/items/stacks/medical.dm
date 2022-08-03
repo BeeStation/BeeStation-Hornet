@@ -39,7 +39,7 @@
 		if(critter.health == critter.maxHealth)
 			to_chat(user, "<span class='notice'>[M] is at full health.</span>")
 			return
-		if(heal_brute < 1)
+		if(heal_brute < 0.1)
 			to_chat(user, "<span class='notice'>[src] won't help [M] at all.</span>")
 			return
 		M.heal_bodypart_damage((heal_brute * 0.5), (heal_burn * 0.5)) //half as effective on animals, since it's not made for them
@@ -60,7 +60,7 @@
 
 	if(ishuman(C)) //apparently only humans bleed? funky.
 		var/mob/living/carbon/human/H = C
-		if(stop_bleeding > 0)
+		if(stop_bleeding)
 			if(!H.bleed_rate)
 				to_chat(user, "<span class='warning'>[H] isn't bleeding!</span>")
 				return
@@ -75,6 +75,10 @@
 
 	if(!(affecting.brute_dam || affecting.burn_dam))
 		to_chat(user, "<span class='warning'>[M]'s [parse_zone(user.zone_selected)] isn't hurt!")
+		return
+
+	if((affecting.brute_dam && !affecting.burn_dam && !heal_brute) || (affecting.burn_dam && !affecting.brute_dam && !heal_burn)) //suffer
+		to_chat(user, "<span class='warning'>This type of medicine isn't appropriate for this type of wound.")
 		return
 
 	if(C == user)
