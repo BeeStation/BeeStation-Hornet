@@ -1356,3 +1356,14 @@
 	desc = "All-access radio."
 	icon_state = "radiobox_gold"
 	radio_key = /obj/item/encryptionkey/heads/captain
+
+/obj/item/storage/box/radiokey/clown  // honk
+	name = "\improper H.O.N.K. CO fake encryption keys"
+	desc = "Totally prank your friends with these realistic encryption keys!"
+	
+/obj/item/storage/box/radiokey/clown/PopulateContents()
+	new /obj/item/encryptionkey/heads/rd/fake(src)
+	new /obj/item/encryptionkey/heads/hos/fake(src)
+	new /obj/item/encryptionkey/heads/ce/fake(src)
+	new /obj/item/encryptionkey/heads/cmo/fake(src)
+	new /obj/item/encryptionkey/heads/hop/fake(src)
