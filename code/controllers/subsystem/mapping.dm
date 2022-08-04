@@ -226,7 +226,7 @@ SUBSYSTEM_DEF(mapping)
 	//Shared orbital body
 	var/datum/orbital_object/z_linked/orbital_body = new orbital_body_type()
 	for(var/datum/space_level/level as() in space_levels)
-		level.orbital_body = orbital_body
+		SSorbits.assoc_z_levels["[level.z_value]"] = orbital_body
 		orbital_body.link_to_z(level)
 
 	// load the maps
