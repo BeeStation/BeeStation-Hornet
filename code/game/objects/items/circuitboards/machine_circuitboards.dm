@@ -617,7 +617,8 @@
 	if(!build_path)
 		desc = "Theres no build path specified. Tell a coder!"
 		return
-	req_components = list(initial(build_path.refill_canister) = 1)
+	var/obj/item/machinery/typepath = build_path
+	req_components = list(initial(typepath.refill_canister) = 1)
 	
 /obj/item/circuitboard/machine/vending/station/boozemat
 	name = "Booze-O-Mat (Machine Board)"
