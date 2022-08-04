@@ -155,7 +155,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/help_tickets/admin, new)
 /datum/help_ticket/admin/NewFrom(datum/help_ticket/old_ticket)
 	if(!..())
 		return
-
+	MessageNoRecipient(initial_msg, FALSE)
 	//send it to tgs if nobody is on and tell us how many were on
 	var/admin_number_present = send2tgs_adminless_only(initiator_ckey, "Ticket #[id]: [initial_msg]")
 	log_admin_private("Ticket #[id]: [key_name(initiator)]: [name] - heard by [admin_number_present] non-AFK admins who have +BAN.")
@@ -189,13 +189,14 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/help_tickets/admin, new)
 /datum/help_ticket/admin/message_ticket_managers(msg)
 	message_admins(msg)
 
-/datum/help_ticket/admin/MessageNoRecipient(msg)
+/datum/help_ticket/admin/MessageNoRecipient(msg, add_to_ticket = TRUE)
 	var/ref_src = "[REF(src)]"
 
 	//Message to be sent to all admins
 	var/admin_msg = "<span class='adminnotice'><span class='adminhelp'>Ticket [TicketHref("#[id]", ref_src)]</span><b>: [LinkedReplyName(ref_src)] [FullMonty(ref_src)]:</b> <span class='linkify'>[keywords_lookup(msg)]</span></span>"
 
-	AddInteraction("red", msg, initiator_key_name, claimee_key_name, "You", "Administrator")
+	if(add_to_ticket)
+		AddInteraction("red", msg, initiator_key_name, claimee_key_name, "You", "Administrator")
 	log_admin_private("Ticket #[id]: [key_name(initiator)]: [msg]")
 
 	//send this msg to all admins
@@ -208,9 +209,10 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/help_tickets/admin, new)
 			html = admin_msg)
 
 	//show it to the person adminhelping too
-	to_chat(initiator,
-		type = MESSAGE_TYPE_ADMINPM,
-		html = "<span class='adminnotice'>PM to-<b>Admins</b>: <span class='linkify'>[msg]</span></span>")
+	if(add_to_ticket)
+		to_chat(initiator,
+			type = MESSAGE_TYPE_ADMINPM,
+			html = "<span class='adminnotice'>PM to-<b>Admins</b>: <span class='linkify'>[msg]</span></span>")
 
 
 //private

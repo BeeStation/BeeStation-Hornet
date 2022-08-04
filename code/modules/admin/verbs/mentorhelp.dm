@@ -132,6 +132,9 @@ GLOBAL_DATUM_INIT(mhelp_tickets, /datum/help_tickets/mentor, new)
 	..()
 	MessageNoRecipient(msg)
 
+/datum/help_ticket/mentor/NewFrom(datum/help_ticket/old_ticket)
+	..()
+	MessageNoRecipient(initial_msg, FALSE)
 
 /datum/help_ticket/mentor/TimeoutVerb()
 	initiator.remove_verb(/client/verb/mentorhelp)
@@ -143,13 +146,14 @@ GLOBAL_DATUM_INIT(mhelp_tickets, /datum/help_tickets/mentor, new)
 /datum/help_ticket/mentor/message_ticket_managers(msg)
 	message_mentors(msg)
 
-/datum/help_ticket/mentor/MessageNoRecipient(msg)
+/datum/help_ticket/mentor/MessageNoRecipient(msg, add_to_ticket = TRUE)
 	var/ref_src = "[REF(src)]"
 
 	//Message to be sent to all admins
 	var/admin_msg = "<span class='mentornotice'><span class='mentorhelp'>Mentor Ticket [TicketHref("#[id]", ref_src)]</span>: [LinkedReplyName(ref_src)] [ClosureLinks(ref_src)]: <span class='linkify'>[keywords_lookup(msg)]</span></span>"
 
-	AddInteraction("red", msg, initiator_key_name, claimee_key_name, "You", "Mentor")
+	if(add_to_ticket)
+		AddInteraction("red", msg, initiator_key_name, claimee_key_name, "You", "Mentor")
 	log_admin_private("Mentor Ticket #[id]: [key_name(initiator)]: [msg]")
 
 	//send this msg to all admins
@@ -160,7 +164,8 @@ GLOBAL_DATUM_INIT(mhelp_tickets, /datum/help_tickets/mentor, new)
 		to_chat(X, admin_msg)
 
 	//show it to the person adminhelping too
-	to_chat(initiator, "<span class='mentornotice'>PM to-<b>Mentors</b>: <span class='linkify'>[msg]</span></span>")
+	if(add_to_ticket)
+		to_chat(initiator, "<span class='mentornotice'>PM to-<b>Mentors</b>: <span class='linkify'>[msg]</span></span>")
 
 //private
 /datum/help_ticket/mentor/proc/ClosureLinks(ref_src)
