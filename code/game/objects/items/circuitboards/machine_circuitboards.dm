@@ -607,7 +607,63 @@
 		/obj/item/stack/sheet/glass = 1,
 		/obj/item/vending_refill/donksoft = 1)
 
+// its station because these are for preexisting station vendors
+/obj/item/circuitboard/machine/vending/station
+	name = "Generic station vendor"
+	icon_state = "generic"
+	build_path = null
 
+/obj/item/circuitboard/machine/vending/station/Initialize()
+	if(!build_path)
+		desc = "Theres no build path specified. Tell a coder!"
+		return
+	req_components = list(initial(build_path.refill_canister) = 1)
+	
+/obj/item/circuitboard/machine/vending/station/boozemat
+	name = "Booze-O-Mat (Machine Board)"
+	icon_state = "generic"
+	build_path = /obj/machinery/vending/boozeomat
+	
+/obj/item/circuitboard/machine/vending/station/coffee
+	name = "Solar's Best Hot Drinks (Machine Board)"
+	build_path = /obj/machinery/vending/coffee
+	
+/obj/item/circuitboard/machine/vending/station/snack
+	name = "Getmore Chocolate Corp (Machine Board)"
+	build_path = /obj/machinery/vending/snack
+	
+/obj/item/circuitboard/machine/vending/station/cola
+	name = "Robust Softdrinks (Machine Board)"
+	build_path = /obj/machinery/vending/cola 
+	
+/obj/item/circuitboard/machine/vending/station/cigarette
+	name = "ShadyCigs Deluxe (Machine Board)"
+	build_path = /obj/machinery/vending/cigarette
+	
+/obj/item/circuitboard/machine/vending/station/games
+	name = "\improper Good Clean Fun (Machine Board)"
+	build_path = /obj/machinery/vending/games
+	
+/obj/item/circuitboard/machine/vending/station/autodrobe
+	name = "AutoDrobe (Machine Board)"
+	build_path = /obj/machinery/vending/autodrobe
+	
+/obj/item/circuitboard/machine/vending/station/clothing
+	name = "ClothesMate (Machine Board)"
+	build_path = /obj/machinery/vending/clothing 
+	
+/obj/item/circuitboard/machine/vending/station/assist
+	name = "Vendomat (Machine Board)"
+	build_path = /obj/machinery/vending/assist
+
+/obj/item/circuitboard/machine/vending/station/sovietsoda
+	name = "BODA (Machine Board)"
+	build_path = /obj/machinery/vending/sovietsoda
+	
+/obj/item/circuitboard/machine/vending/station/modularapc
+	name = "Deluxe Silicate Selections"
+	build_path = /obj/machinery/vending/modularpc
+	
 //Medical
 
 
