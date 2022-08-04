@@ -3,6 +3,7 @@ import { useBackend, useLocalState } from '../backend';
 import { Box, Button, Flex, Input, Section, Table, Tabs, NoticeBox, Collapsible, BlockQuote, Slider, Divider } from '../components';
 import { Window, Layout } from '../layouts';
 import { round } from 'common/math';
+import { ButtonConfirm } from '../components/Button';
 
 export const TicketMessenger = (props, context) => {
   return (
@@ -135,21 +136,21 @@ export const TicketClosureStates = ({ admin }, context) => {
   const { act } = useBackend(context);
   return (
     <Box inline>
-      <Button
+      <ButtonConfirm
         content="REJT"
         onClick={() => act("reject")} />
-      <Button
+      <ButtonConfirm
         content="IC"
         onClick={() => act("markic")} />
-      <Button
+      <ButtonConfirm
         content="CLOSE"
         onClick={() => act("close")} />
       <Button
         content="RSLVE"
         onClick={() => act("resolve")} />
-      <Button
+      <ButtonConfirm
         content={admin ? "MHELP" : "AHELP"}
-        onClick={() => act(`${admin ? "admin" : "mentor"}help`)} />
+        onClick={() => act(`${admin ? "mentor" : "admin"}help`)} />
     </Box>
   );
 };

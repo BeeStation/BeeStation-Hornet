@@ -544,7 +544,7 @@
 	return claim_ticket
 
 /datum/help_ticket/mentor/additional_act(action, claim_ticket)
-	if(action == "mentorhelp")
+	if(action == "adminhelp")
 		AHelpThis()
 		claim_ticket = CLAIM_OVERRIDE
 	return claim_ticket

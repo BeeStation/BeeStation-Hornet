@@ -86,10 +86,10 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/help_tickets/admin, new)
 /datum/help_ui/admin/add_additional_ticket_data(data)
 	// Add mentorhelp tickets to admin panel
 	var/datum/help_tickets/data_glob = GLOB.mhelp_tickets
-	data["unclaimed_tickets"] += data_glob.get_ui_ticket_data(TICKET_UNCLAIMED)
-	data["open_tickets"] += data_glob.get_ui_ticket_data(TICKET_ACTIVE)
-	data["closed_tickets"] += data_glob.get_ui_ticket_data(TICKET_CLOSED)
-	data["resolved_tickets"] += data_glob.get_ui_ticket_data(TICKET_RESOLVED)
+	data["unclaimed_tickets_mentor"] = data_glob.get_ui_ticket_data(TICKET_UNCLAIMED)
+	data["open_tickets_mentor"] = data_glob.get_ui_ticket_data(TICKET_ACTIVE)
+	data["closed_tickets_mentor"] = data_glob.get_ui_ticket_data(TICKET_CLOSED)
+	data["resolved_tickets_mentor"] = data_glob.get_ui_ticket_data(TICKET_RESOLVED)
 	return data
 
 /datum/help_ui/admin/get_additional_ticket_data(ticket_id)
