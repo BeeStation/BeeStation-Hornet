@@ -82448,6 +82448,10 @@
 /obj/machinery/vending/snack/random,
 /turf/open/floor/plasteel,
 /area/hallway/secondary/entry)
+"tmR" = (
+/obj/machinery/vending/meta,
+/turf/open/floor/wood,
+/area/crew_quarters/dorms)
 "tmT" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 8
@@ -92455,6 +92459,11 @@
 /obj/effect/turf_decal/tile/darkblue/tile_full,
 /turf/open/floor/plasteel/dark,
 /area/bridge)
+"vEh" = (
+/obj/effect/turf_decal/delivery,
+/obj/machinery/vending/meta,
+/turf/open/floor/plasteel,
+/area/storage/primary)
 "vEv" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable/yellow{
@@ -128829,7 +128838,7 @@ oPI
 phi
 pxF
 wYb
-kFG
+vEh
 qPK
 pCs
 aHI
@@ -148370,7 +148379,7 @@ ckz
 qZB
 rvY
 bDz
-spv
+tmR
 vxf
 xwp
 kcu

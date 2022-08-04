@@ -6734,7 +6734,7 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_y = 30
 	},
-/obj/item/kirbyplants/random,
+/obj/machinery/vending/meta,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
@@ -7007,7 +7007,7 @@
 /turf/open/floor/plasteel/white/corner,
 /area/crew_quarters/dorms)
 "aDk" = (
-/obj/item/kirbyplants/random,
+/obj/machinery/vending/meta,
 /turf/open/floor/plasteel/white/corner{
 	dir = 8
 	},

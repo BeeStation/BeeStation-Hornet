@@ -1163,7 +1163,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
-/obj/item/kirbyplants/random,
+/obj/machinery/vending/meta,
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/fitness/recreation)
 "alH" = (
@@ -40310,6 +40310,7 @@
 	pixel_x = 1;
 	pixel_y = -25
 	},
+/obj/machinery/vending/meta,
 /turf/open/floor/plasteel,
 /area/storage/tools)
 "lij" = (

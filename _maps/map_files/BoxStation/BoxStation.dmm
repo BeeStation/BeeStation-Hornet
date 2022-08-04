@@ -5997,6 +5997,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
+/obj/machinery/vending/meta,
 /turf/open/floor/plasteel,
 /area/crew_quarters/fitness)
 "aAl" = (
@@ -6596,8 +6597,7 @@
 /turf/open/floor/plasteel,
 /area/storage/primary)
 "aDl" = (
-/obj/structure/table,
-/obj/item/t_scanner,
+/obj/machinery/vending/meta,
 /obj/machinery/airalarm{
 	pixel_y = 23
 	},
@@ -30900,7 +30900,7 @@
 /obj/effect/turf_decal/bot,
 /obj/machinery/camera{
 	c_tag = "Incinerator";
-	network = list("ss13", "turbine")
+	network = list("ss13","turbine")
 	},
 /turf/open/floor/plasteel,
 /area/maintenance/disposal/incinerator)
@@ -43206,7 +43206,7 @@
 /turf/open/floor/plasteel/dark,
 /area/science/nanite)
 "lxj" = (
-/obj/item/kirbyplants/random,
+/obj/machinery/vending/meta,
 /turf/open/floor/plasteel,
 /area/crew_quarters/locker)
 "lxt" = (

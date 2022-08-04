@@ -12796,6 +12796,7 @@
 /obj/effect/turf_decal/tile/brown{
 	dir = 4
 	},
+/obj/machinery/vending/meta,
 /turf/open/floor/plasteel,
 /area/storage/primary)
 "aRT" = (
@@ -65840,7 +65841,7 @@
 /turf/open/floor/plasteel,
 /area/engine/engineering)
 "nEP" = (
-/obj/structure/closet/wardrobe/green,
+/obj/machinery/vending/meta,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},

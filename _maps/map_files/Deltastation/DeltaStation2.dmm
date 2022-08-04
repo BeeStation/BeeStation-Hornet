@@ -48564,7 +48564,7 @@
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/locker)
 "cGS" = (
-/obj/structure/closet/wardrobe/black,
+/obj/machinery/vending/meta,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
@@ -97420,6 +97420,11 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/plating,
 /area/security/prison)
+"pri" = (
+/obj/machinery/vending/meta,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/plasteel,
+/area/storage/primary)
 "prO" = (
 /obj/machinery/button/door{
 	id = "construction";
@@ -113461,6 +113466,13 @@
 	heat_capacity = 1e+006
 	},
 /area/maintenance/port/fore)
+"woG" = (
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/machinery/vending/meta,
+/turf/open/floor/plasteel,
+/area/crew_quarters/fitness/recreation)
 "woJ" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -151185,7 +151197,7 @@ bIB
 bGI
 bGI
 bOr
-bGM
+pri
 bFe
 lob
 tuZ
@@ -171513,7 +171525,7 @@ cwd
 cCk
 cDJ
 cFC
-cwd
+woG
 cIk
 lMa
 cLj
