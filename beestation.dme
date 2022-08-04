@@ -3459,6 +3459,7 @@
 #include "code\modules\vending\magivend.dm"
 #include "code\modules\vending\medical.dm"
 #include "code\modules\vending\medical_wall.dm"
+#include "code\modules\vending\meta.dm"
 #include "code\modules\vending\megaseed.dm"
 #include "code\modules\vending\mining.dm"
 #include "code\modules\vending\modularpc.dm"
