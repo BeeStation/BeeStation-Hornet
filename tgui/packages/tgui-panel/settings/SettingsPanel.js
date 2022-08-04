@@ -62,8 +62,6 @@ export const SettingsGeneral = (props, context) => {
     highContrast,
     fontSize,
     lineHeight,
-    matchWord,
-    matchCase,
   } = useSelector(context, selectSettings);
   const dispatch = useDispatch(context);
   const [freeFont, setFreeFont] = useLocalState(context, "freeFont", false);
@@ -184,6 +182,8 @@ export const SettingsHighlight = (props, context) => {
   const {
     highlightText,
     highlightColor,
+    matchWord,
+    matchCase,
   } = useSelector(context, selectSettings);
   const dispatch = useDispatch(context);
   return (
