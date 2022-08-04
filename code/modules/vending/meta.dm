@@ -1,12 +1,15 @@
 /obj/machinery/vending/meta
 	name = "Meta Vendor"
 	desc = "A vendor for vendor circuits. Seems someone overestimated how many to produce."
-	icon_state = "metavend"
+	icon_state = "meta_machine"
 	product_ads = "Your advertisement here!;BUY BUY BUY!;Become a vender owner today!;Make millions with this one simple trick!"
 	product_slogans = "Start your own buisness today!"
 
 	light_color = LIGHT_COLOR_BLUE
 	products = list(
+		/obj/item/wrench = 10,  // supplies tools for construction
+		/obj/item/screwdriver = 10,
+		/obj/item/stack/cable_coil = 10,
 		/obj/item/circuitboard/machine/vending/station/sovietsoda = 20,  // nobody wants it
 		/obj/item/circuitboard/machine/vending/station/coffee = 5,
 		/obj/item/circuitboard/machine/vending/station/snack = 5,
