@@ -42,17 +42,17 @@
 /datum/gear/suit/wintercoat/security
 	display_name = "security winter coat"
 	path = /obj/item/clothing/suit/hooded/wintercoat/security
-	allowed_roles = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_BRIGPHYSICIAN, JOB_NAME_HEADOFSECURITY)
+	allowed_roles = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_BRIGPHYSICIAN, JOB_NAME_HEADOFSECURITY, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE)
 
 /datum/gear/suit/wintercoat/medical
 	display_name = "medical winter coat"
 	path = /obj/item/clothing/suit/hooded/wintercoat/medical
-	allowed_roles = list(JOB_NAME_PARAMEDIC, JOB_NAME_MEDICALDOCTOR, JOB_NAME_CHIEFMEDICALOFFICER, JOB_NAME_CHEMIST, JOB_NAME_GENETICIST)
+	allowed_roles = list(JOB_NAME_PARAMEDIC, JOB_NAME_MEDICALDOCTOR, JOB_NAME_CHIEFMEDICALOFFICER, JOB_NAME_CHEMIST, JOB_NAME_GENETICIST, JOB_NAME_VIROLOGIST, JOB_NAME_BRIGPHYSICIAN)
 
 /datum/gear/suit/wintercoat/science
 	display_name = "science winter coat"
 	path = /obj/item/clothing/suit/hooded/wintercoat/science
-	allowed_roles = list(JOB_NAME_SCIENTIST, JOB_NAME_ROBOTICIST, JOB_NAME_RESEARCHDIRECTOR)
+	allowed_roles = list(JOB_NAME_SCIENTIST, JOB_NAME_ROBOTICIST, JOB_NAME_RESEARCHDIRECTOR, JOB_NAME_EXPLORATIONCREW)
 
 /datum/gear/suit/wintercoat/engineering
 	display_name = "engineering winter coat"
@@ -93,17 +93,17 @@
 /datum/gear/suit/oldwintercoat/security
 	display_name = "nostalgic security winter coat"
 	path = /obj/item/clothing/suit/hooded/wintercoat/security/old
-	allowed_roles = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_BRIGPHYSICIAN, JOB_NAME_HEADOFSECURITY)
+	allowed_roles = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_BRIGPHYSICIAN, JOB_NAME_HEADOFSECURITY, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE)
 
 /datum/gear/suit/oldwintercoat/medical
 	display_name = "nostalgic medical winter coat"
 	path = /obj/item/clothing/suit/hooded/wintercoat/medical/old
-	allowed_roles = list(JOB_NAME_PARAMEDIC, JOB_NAME_MEDICALDOCTOR, JOB_NAME_CHIEFMEDICALOFFICER, JOB_NAME_CHEMIST, JOB_NAME_GENETICIST)
+	allowed_roles = list(JOB_NAME_PARAMEDIC, JOB_NAME_MEDICALDOCTOR, JOB_NAME_CHIEFMEDICALOFFICER, JOB_NAME_CHEMIST, JOB_NAME_GENETICIST, JOB_NAME_VIROLOGIST, JOB_NAME_BRIGPHYSICIAN)
 
 /datum/gear/suit/oldwintercoat/science
 	display_name = "nostalgic science winter coat"
 	path = /obj/item/clothing/suit/hooded/wintercoat/science/old
-	allowed_roles = list(JOB_NAME_SCIENTIST, JOB_NAME_ROBOTICIST, JOB_NAME_RESEARCHDIRECTOR)
+	allowed_roles = list(JOB_NAME_SCIENTIST, JOB_NAME_ROBOTICIST, JOB_NAME_RESEARCHDIRECTOR, JOB_NAME_EXPLORATIONCREW)
 
 /datum/gear/suit/oldwintercoat/engineering
 	display_name = "nostalgic engineering winter coat"
