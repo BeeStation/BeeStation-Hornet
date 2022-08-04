@@ -11,6 +11,7 @@ export const TicketBrowser = (props, context) => {
     closed_tickets = [],
     resolved_tickets = [],
     admin_ckey,
+    is_admin_panel,
   } = data;
   return (
     <Window
@@ -24,7 +25,7 @@ export const TicketBrowser = (props, context) => {
               <Table.Row>
                 <Table.Cell
                   inline>
-                  Administrator : {admin_ckey}
+                  {is_admin_panel ? "Administrator" : "Mentor"}: {admin_ckey}
                 </Table.Cell>
               </Table.Row>
             </Table>
@@ -33,23 +34,26 @@ export const TicketBrowser = (props, context) => {
           <TicketMenu
             ticket_list={unclaimed_tickets}
             name={"Unclaimed Tickets"}
-            actions={[["flw", "blue"], ["claim", "good"], ["reject", "bad"],
-              ["ic", "label"], ["mhelp", "label"]]} />
+            actions={[["claim", "good"], ["reject", "bad"]]}
+            admin_actions={[["flw", "blue"], ["ic", "label"], ["mhelp", "label"]]} />
           <TicketMenu
             ticket_list={open_tickets}
             name={"Claimed Tickets"}
-            actions={[["flw", "blue"], ["claim", "average"],
+            actions={[["claim", "average"],
               ["resolve", "good"],
-              ["reject", "bad"], ["close", "label"], ["mhelp", "label"],
+              ["reject", "bad"], ["close", "label"]]}
+            admin_actions={[["flw", "blue"], ["mhelp", "label"],
               ["ic", "label"]]} />
           <TicketMenu
             ticket_list={resolved_tickets}
             name={"Resolved Tickets"}
-            actions={[["flw", "blue"], ["reopen", "good"]]} />
+            actions={[["reopen", "good"]]}
+            admin_actions={[["flw", "blue"]]} />
           <TicketMenu
             ticket_list={closed_tickets}
             name={"Closed Tickets"}
-            actions={[["flw", "blue"], ["reopen", "good"]]} />
+            actions={[["reopen", "good"]]}
+            admin_actions={[["flw", "blue"]]} />
         </Section>
       </Window.Content>
     </Window>
@@ -61,6 +65,7 @@ export const TicketMenu = (props, context) => {
     ticket_list,
     name,
     actions = [],
+    admin_actions = [],
   } = props;
   const { act } = useBackend(context);
   return (
@@ -80,7 +85,7 @@ export const TicketMenu = (props, context) => {
                     id: ticket.id,
                   })}>
                   <u>
-                    {"#" + ticket.id}
+                    {(ticket.is_admin_type ? "" : "[MENTOR] ") + "#" + ticket.id}
                   </u>
                 </Button>
               </Table.Cell>
@@ -96,18 +101,19 @@ export const TicketMenu = (props, context) => {
                   </u>
                 </Button>
               </Table.Cell>
-              {actions.map(action => (
-                <Table.Cell
-                  key={action[0]}
-                  collapsing>
-                  <Button
-                    content={capitalize(action[0])}
-                    onClick={() => act(action[0], {
-                      id: ticket.id,
-                    })}
-                    color={action[1]} />
-                </Table.Cell>
-              ))}
+              {(ticket.is_admin_type ? actions.concat(admin_actions) : actions.concat([["ahelp", "label"]]))
+                .map(action => (
+                  <Table.Cell
+                    key={action[0]}
+                    collapsing>
+                    <Button
+                      content={capitalize(action[0])}
+                      onClick={() => act(action[0], {
+                        id: ticket.id,
+                      })}
+                      color={action[1]} />
+                  </Table.Cell>
+                ))}
             </Table.Row>
             <BlockQuote>
               {ticket.name}

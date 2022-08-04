@@ -36,19 +36,20 @@ export const TicketActionBar = (props, context) => {
     antag_status,
     id,
     sender,
+    is_admin_type,
   } = data;
   return (
     <Box>
       <Box
         bold
         inline>
-        Admin Help Ticket #{id} : {sender}
+        {is_admin_type ? "Admin" : "Mentor"} Help Ticket #{id} : {sender}
       </Box>
-      <Box
-        inline
-        color={antag_status==="None"?"green":"red"}>
-        Antag: {antag_status}
-      </Box>
+      {antag_status ? (
+        <Box inline color={antag_status === 'None' ? 'green' : 'red'}>
+          Antag: {antag_status}
+        </Box>
+      ) : null}
       <Box />
       <Box
         inline
@@ -81,10 +82,10 @@ export const TicketActionBar = (props, context) => {
       </Box>
       <Divider />
       <Box>
-        {disconnected
+        {is_admin_type ? (disconnected
           ? "DISCONNECTED"
-          : <TicketFullMonty /> }
-        <TicketClosureStates />
+          : <TicketFullMonty />) : null}
+        <TicketClosureStates admin={is_admin_type} />
       </Box>
     </Box>
   );
@@ -130,7 +131,7 @@ export const TicketFullMonty = (props, context) => {
   );
 };
 
-export const TicketClosureStates = (props, context) => {
+export const TicketClosureStates = ({ admin }, context) => {
   const { act } = useBackend(context);
   return (
     <Box inline>
@@ -147,8 +148,8 @@ export const TicketClosureStates = (props, context) => {
         content="RSLVE"
         onClick={() => act("resolve")} />
       <Button
-        content="MHELP"
-        onClick={() => act("mentorhelp")} />
+        content={admin ? "MHELP" : "AHELP"}
+        onClick={() => act(`${admin ? "admin" : "mentor"}help`)} />
     </Box>
   );
 };

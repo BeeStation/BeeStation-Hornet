@@ -75,10 +75,10 @@
 #define ADMIN_PUNISHMENT_TOEPLUS "Stub Toe (Always)"
 #define ADMIN_PUNISHMENT_CRYO "Force Cryo"
 
-#define AHELP_UNCLAIMED 1
-#define AHELP_ACTIVE 2
-#define AHELP_CLOSED 3
-#define AHELP_RESOLVED 4
+#define TICKET_UNCLAIMED 1
+#define TICKET_ACTIVE 2
+#define TICKET_CLOSED 3
+#define TICKET_RESOLVED 4
 
 #define ROUNDSTART_LOGOUT_REPORT_TIME	6000 //Amount of time (in deciseconds) after the rounds starts, that the player disconnect report is issued.
 

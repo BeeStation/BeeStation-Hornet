@@ -28,7 +28,7 @@
 		return
 	last_irc_check = rtod
 	var/server = CONFIG_GET(string/server)
-	return "[GLOB.round_id ? "Round #[GLOB.round_id]: " : ""][GLOB.clients.len] players on [SSmapping.config.map_name], Mode: [GLOB.master_mode]; Round [SSticker.HasRoundStarted() ? (SSticker.IsRoundInProgress() ? "Active" : "Finishing") : "Starting"] -- [server ? server : "[world.internet_address]:[world.port]"]" 
+	return "[GLOB.round_id ? "Round #[GLOB.round_id]: " : ""][GLOB.clients.len] players on [SSmapping.config.map_name], Mode: [GLOB.master_mode]; Round [SSticker.HasRoundStarted() ? (SSticker.IsRoundInProgress() ? "Active" : "Finishing") : "Starting"] -- [server ? server : "[world.internet_address]:[world.port]"]"
 
 /** -- Not for use within BeeStation
 /datum/tgs_chat_command/ahelp
@@ -44,7 +44,7 @@
 	all_params.Cut(1, 2)
 	var/id = text2num(target)
 	if(id != null)
-		var/datum/admin_help/AH = GLOB.ahelp_tickets.TicketByID(id)
+		var/datum/help_ticket/AH = GLOB.ahelp_tickets.TicketByID(id)
 		if(AH)
 			target = AH.initiator_ckey
 		else
