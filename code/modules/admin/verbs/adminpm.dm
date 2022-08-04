@@ -194,7 +194,8 @@
 		else
 			if(holder)	//sender is an admin but recipient is not. Do BIG RED TEXT
 				if(!recipient.current_adminhelp_ticket)
-					new /datum/help_ticket(msg, recipient, TRUE)
+					var/datum/help_ticket/admin/ticket = new(recipient)
+					ticket.Create(msg, TRUE)
 
 				to_chat(recipient, "<font color='red' size='4'><b>-- Administrator private message --</b></font>", type = MESSAGE_TYPE_ADMINPM)
 				to_chat(recipient, "<span class='adminsay'>Admin PM from-<b>[key_name(src, recipient, 0)]</b>: <span class='linkify'>[msg]</span></span>", type = MESSAGE_TYPE_ADMINPM)
