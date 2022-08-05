@@ -1,7 +1,8 @@
 @use 'sass:color';
 @use 'sass:meta';
 
-$generic: #6d697a;
+$generic: #484455;
+$accent: #4f56a5;
 
 @use '../colors.scss' with (
   $fg-map-keys: (),
@@ -12,14 +13,14 @@ $generic: #6d697a;
   $border-radius: 2px,
 );
 
-.theme-admin {
+.theme-generic {
   // Components
   @include meta.load-css('../components/Button.scss', $with: (
-    'color-default': color.scale($generic, $lightness: -40%),
+    'color-default': $accent,
     'color-transparent-text': rgba(227, 240, 255, 0.75),
   ));
   @include meta.load-css('../components/ProgressBar.scss', $with: (
-    'color-default-fill': $generic,
+    'color-default-fill': $accent,
     'background-color': rgba(0, 0, 0, 0.5),
   ));
   @include meta.load-css('../components/Section.scss');
