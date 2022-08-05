@@ -443,7 +443,6 @@ All ShuttleMove procs go here
 /obj/docking_port/stationary/onShuttleMove(turf/newT, turf/oldT, list/movement_force, move_dir, obj/docking_port/stationary/old_dock, obj/docking_port/mobile/moving_dock, list/obj/docking_port/mobile/towed_shuttles)
 	if(old_dock == src) //Never take our old port
 		return FALSE
-	var/obj/docking_port/mobile/docked = get_docked()
 	if(!towed_shuttles[docked] && !moving_dock.can_move_docking_ports)
 		return FALSE
 	. = ..()

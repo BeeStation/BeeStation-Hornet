@@ -40,6 +40,9 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 	///Delete this port after ship fly off.
 	var/delete_after = FALSE
 
+	//The shuttle docked here/dock we're parked at.
+	var/obj/docking_port/docked
+
 /obj/docking_port/get_save_vars()
 	return list("pixel_x", "pixel_y", "dir", "name", "req_access", "req_access_txt", "piping_layer", "color", "icon_state", "pipe_color", "amount", "width", "height", "dwidth", "dheight")
 
@@ -48,6 +51,9 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 	// unless you assert that you know what you're doing. Horrible things
 	// may result.
 	if(force)
+		if(docked)
+			docked.docked = null
+			docked = null
 		..()
 		. = QDEL_HINT_QUEUE
 	else
@@ -198,14 +204,9 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 		T.color = "#00f"
 #endif
 
-//return first-found touching dockingport
-/obj/docking_port/proc/get_docked()
-	return locate(/obj/docking_port/stationary) in loc
-
 /obj/docking_port/proc/getDockedId()
-	var/obj/docking_port/P = get_docked()
-	if(P)
-		return P.id
+	if(docked)
+		return docked.id
 
 /obj/docking_port/proc/is_in_shuttle_bounds(atom/A)
 	var/turf/T = get_turf(A)
@@ -270,10 +271,6 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 	if(roundstart_template)
 		SSshuttle.action_load(roundstart_template, src)
 
-//returns first-found touching shuttleport
-/obj/docking_port/stationary/get_docked()
-	. = locate(/obj/docking_port/mobile) in loc
-
 /obj/docking_port/stationary/transit
 	name = "In Transit"
 	var/datum/turf_reservation/reserved_area
@@ -286,7 +283,7 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 
 /obj/docking_port/stationary/transit/Destroy(force=FALSE)
 	if(force)
-		if(get_docked())
+		if(docked)
 			log_world("A transit dock was destroyed while something was docked to it.")
 		SSshuttle.transit -= src
 		if(owner)
@@ -564,6 +561,13 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 			flight_computer.shuttleId = "[id]"
 			flight_computer.shuttlePortId = "[id]_custom"
 
+	//Find open dock here and set it as ours
+	for(var/obj/docking_port/stationary/S in loc.contents)
+		if(!S.docked)
+			S.docked = src
+			docked = S
+			break
+
 	initial_engines = count_engines()
 	current_engines = initial_engines
 
@@ -622,7 +626,7 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 		return SHUTTLE_HEIGHT_TOO_LARGE
 
 	//check the dock isn't occupied
-	var/currently_docked = S.get_docked()
+	var/currently_docked = S.docked
 	if(currently_docked)
 		// by someone other than us
 		if(currently_docked != src)
@@ -696,7 +700,7 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 	if(!destination)
 		// sent to transit with no destination -> unlimited timer
 		timer = INFINITY
-	var/obj/docking_port/stationary/S0 = get_docked()
+	var/obj/docking_port/stationary/S0 = docked
 	var/obj/docking_port/stationary/S1 = assigned_transit
 	if(S1)
 		if(initiate_docking(S1) != DOCKING_SUCCESS)
@@ -869,7 +873,7 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 			if(tl <= SHUTTLE_RIPPLE_TIME)
 				create_ripples(destination, tl)
 
-	var/obj/docking_port/stationary/S0 = get_docked()
+	var/obj/docking_port/stationary/S0 = docked
 	if(istype(S0, /obj/docking_port/stationary/transit) && timeLeft(1) <= PARALLAX_LOOP_TIME)
 		for(var/place in shuttle_areas)
 			var/area/shuttle/shuttle_area = place
@@ -966,7 +970,7 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 
 
 /obj/docking_port/mobile/proc/getStatusText()
-	var/obj/docking_port/stationary/dockedAt = get_docked()
+	var/obj/docking_port/stationary/dockedAt = docked
 	var/docked_at = dockedAt?.name || "unknown"
 	if(istype(dockedAt, /obj/docking_port/stationary/transit))
 		if (timeLeft() > 1 HOURS)
@@ -985,7 +989,7 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 
 
 /obj/docking_port/mobile/proc/getDbgStatusText()
-	var/obj/docking_port/stationary/dockedAt = get_docked()
+	var/obj/docking_port/stationary/dockedAt = docked
 	. = (dockedAt && dockedAt.name) ? dockedAt.name : "unknown"
 	if(istype(dockedAt, /obj/docking_port/stationary/transit))
 		var/obj/docking_port/stationary/dst

@@ -1,7 +1,7 @@
 /// This is the main proc. It instantly moves our mobile port to stationary port `new_dock`.
 /obj/docking_port/mobile/proc/initiate_docking(obj/docking_port/stationary/new_dock, movement_direction, force=FALSE)
 	// Crashing this ship with NO SURVIVORS
-	if(new_dock.get_docked() == src)
+	if(new_dock.docked == src)
 		remove_ripples()
 		return DOCKING_SUCCESS
 
@@ -16,7 +16,7 @@
 	//Count the number of engines (and also for sound effect)
 	current_engines = count_engines()
 
-	var/obj/docking_port/stationary/old_dock = get_docked()
+	var/obj/docking_port/stationary/old_dock = docked
 
 	/**************************************************************************************************************
 		Both lists are associative with a turf:bitflag structure. (new_turfs bitflag space unused currently)
@@ -85,6 +85,11 @@
 	cleanup_runway(new_dock, old_turfs, new_turfs, areas_to_move, moved_atoms, rotation, movement_direction, underlying_old_area, all_towed_shuttles)
 
 	CHECK_TICK
+
+	//Updating docked properties
+	old_dock.docked = null
+	new_dock.docked = src
+	docked = new_dock
 
 	/*******************************************Unhiding turfs if necessary******************************************/
 	if(new_hidden_turfs)

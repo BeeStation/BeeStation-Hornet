@@ -76,7 +76,7 @@
 		shuttle_template.load(deploy_location, centered = TRUE)
 		for(var/turf/t_index in shuttle_template.get_affected_turfs(deploy_location, centered=TRUE))
 			for(var/obj/docking_port/mobile/M in t_index)
-				if(M.get_docked()) //This shuttle is already set up (probably)
+				if(M.docked) //This shuttle is already set up (probably)
 					continue
 				var/obj/docking_port/stationary/S = new /obj/docking_port/stationary(t_index)
 				S.delete_after = TRUE

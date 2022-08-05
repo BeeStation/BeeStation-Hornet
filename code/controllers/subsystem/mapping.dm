@@ -123,7 +123,7 @@ SUBSYSTEM_DEF(mapping)
 		var/obj/docking_port/stationary/transit/T = i
 		if(!istype(T))
 			continue
-		in_transit[T] = T.get_docked()
+		in_transit[T] = T.docked
 	var/go_ahead = world.time + wipe_safety_delay
 	if(in_transit.len)
 		message_admins("Shuttles in transit detected. Attempting to fast travel. Timeout is [wipe_safety_delay/10] seconds.")

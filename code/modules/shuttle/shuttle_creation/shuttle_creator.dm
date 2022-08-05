@@ -77,7 +77,7 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 	//Status data
 	data["buffered_mass"] = loggedTurfs.len
 	if(port)
-		data["inFlight"] = istype(port.get_docked(), /obj/docking_port/stationary/transit)
+		data["inFlight"] = istype(port.docked, /obj/docking_port/stationary/transit)
 		data["name"] = port.name
 		data["shuttle_mass"] = port.calculate_mass()
 
@@ -111,7 +111,7 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 	var/obj/docking_port/mobile/port
 	if(linkedShuttleId)
 		port = SSshuttle.getShuttle(linkedShuttleId)
-		if(istype(port.get_docked(), /obj/docking_port/stationary/transit)) //Not interaction while in transit
+		if(istype(port.docked, /obj/docking_port/stationary/transit)) //No interaction while in transit
 			return
 		switch(action)
 			if("current_direction")
@@ -212,11 +212,11 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 
 	var/datum/map_template/shuttle/new_shuttle = new /datum/map_template/shuttle()
 
-	var/obj/docking_port/mobile/port = new /obj/docking_port/mobile(get_turf(target))
-	port.shuttle_object_type = /datum/orbital_object/shuttle/custom_shuttle
 	var/obj/docking_port/stationary/stationary_port = new /obj/docking_port/stationary(get_turf(target))
 	stationary_port.delete_after = TRUE
 	stationary_port.name = "[recorded_shuttle_area.name] Custom Shuttle construction site"
+	var/obj/docking_port/mobile/port = new /obj/docking_port/mobile(get_turf(target))
+	port.shuttle_object_type = /datum/orbital_object/shuttle/custom_shuttle
 	port.callTime = 50
 	port.dir = 1	//Point away from space.
 	port.id = "custom_[GLOB.custom_shuttle_count]"
