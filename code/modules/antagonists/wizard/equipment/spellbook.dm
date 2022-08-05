@@ -1,3 +1,5 @@
+#define WIZARD_WILDMAGIC_SPELLPOINT_MULTIPLY 1.7
+
 /datum/spellbook_entry
 	var/name = "Entry Name"
 
@@ -24,9 +26,9 @@
 /datum/spellbook_entry/proc/CanBuy(mob/living/carbon/human/user,obj/item/spellbook/book) // Specific circumstances
 	if(book.uses<cost || limit == 0)
 		return FALSE
-	if(chaotic_spell && book.against_chaos)
+	if(chaotic_spell && book.book_against_chaos)
 		return FALSE
-	if(spell_against_chaos && book.chaotic)
+	if(spell_against_chaos && book.chaotic_book)
 		return FALSE
 	for(var/spell in user.mind.spell_list)
 		if(is_type_in_typecache(spell, no_coexistance_typecache))
@@ -605,7 +607,7 @@
 		return FALSE
 	active = TRUE
 	book.uses += 4  // gets more spell points
-	book.chaotic = TRUE // prevents you to purchase specific spells/items
+	book.chaotic_book = TRUE // prevents you to purchase specific spells/items
 	book.desc += " This book is glowing with the aura of chaos."
 	SSblackbox.record_feedback("tally", "wizard_spell_learned", 1, name)
 	playsound(get_turf(user), 'sound/magic/castsummon.ogg', 50, 1)
@@ -617,7 +619,7 @@
 
 /datum/spellbook_entry/summon/wild_magic
 	name = "Wild Magic Manipulation"
-	desc = "Double your remaining spell points and expand all of them to Wild Magic Manipulation.\
+	desc = "multiply your remaining spell points by 70%(round down) and expand all of them to Wild Magic Manipulation.\
 		You purchase random spells items upto the spell points you expanded. Spells from this ritual will no longer be refundable even if you learned it manually, but also the book will no longer accept items to refund. Not compatible with Chaotic Oath."
 	cost = 0
 	ritual_invocation = "ALADAL DESINARI ODORI'IN A'EN SPERMITEN G'ATUA H'UN OVORA DUN SPERMITUN"
@@ -628,9 +630,9 @@
 		to_chat(user, "<span class='notice'>You have no spell points for this ritual.</span>") // You can cast it again as long as you get more spell points somehow
 		return FALSE
 	SSblackbox.record_feedback("tally", "wizard_spell_learned", 1, name)
-	book.uses *= 2
+	book.uses = round(book.uses*WIZARD_WILDMAGIC_SPELLPOINT_MULTIPLY) // more spell points
 	book.refuses_refund = TRUE
-	book.against_chaos = TRUE
+	book.book_against_chaos = TRUE
 	book.desc += " The book looks powerless."
 	while(book.uses)
 		var/datum/spellbook_entry/target = pick(book.entries)
@@ -655,8 +657,8 @@
 	var/uses = 10
 	var/temp = null
 	var/tab = null
-	var/chaotic = FALSE
-	var/against_chaos = FALSE
+	var/chaotic_book = FALSE
+	var/book_against_chaos = FALSE
 	var/refuses_refund = FALSE
 	var/mob/living/carbon/human/owner
 	var/list/datum/spellbook_entry/entries = list()
@@ -825,7 +827,7 @@
 					if(E.limit)
 						E.limit--
 					if(E.spell_against_chaos)
-						against_chaos = TRUE
+						book_against_chaos = TRUE
 					uses -= E.cost
 					log_game("[initial(E.name)] purchased by [H.ckey]/[H.name] the [H.job] for [E.cost] SP, [uses] SP remaining.")
 		else if(href_list["refund"])
@@ -840,3 +842,5 @@
 			tab = sanitize(href_list["page"])
 	attack_self(H)
 	return
+
+#undef WIZARD_WILDMAGIC_SPELLPOINT_MULTIPLY
