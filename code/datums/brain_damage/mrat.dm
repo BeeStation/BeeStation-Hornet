@@ -137,6 +137,8 @@
 
 /datum/action/innate/mrat_leave/Activate()
 	var/mob/camera/imaginary_friend/I = owner
+	if(alert(I, "Are you sure you want to leave?", "Leave:", "Yes", "No") != "Yes")
+		return
 	to_chat(I, "<span class='warning'>You have ejected yourself from [I.owner].</span>")
 	to_chat(I.owner, "<span class='warning'>Your mentor has left.</span>")
 	qdel(I.trauma)
