@@ -20,6 +20,7 @@
 		friend.name = "Mentor Rat ([friend.real_name])"
 
 		var/mob/camera/imaginary_friend/mrat/I = friend
+		I.PickName()
 		I.Costume()
 
 		friend_initialized = TRUE
@@ -57,9 +58,9 @@
 	var/list/mrat_types = list(
 		new /datum/mrat_type("Mouse", 'icons/mob/animal.dmi', "mouse_white", "sound/effects/mousesqueek.ogg"),
 		new /datum/mrat_type("Corgi", 'icons/mob/pets.dmi', "corgi", "sound/machines/uplinkpurchase.ogg"),
-		new /datum/mrat_type("Hamster", 'icons/mob/pets.dmi', "hamster", "sound/machines/mousesqueek.ogg"),
+		new /datum/mrat_type("Hamster", 'icons/mob/pets.dmi', "hamster", "sound/effects/mousesqueek.ogg"),
 		new /datum/mrat_type("Kitten", 'icons/mob/pets.dmi', "kitten", "sound/machines/uplinkpurchase.ogg"),
-		new /datum/mrat_type("Hologram", 'icons/mob/ai.dmi', "default", "sound/machines/ping.ogg", volume=50),
+		new /datum/mrat_type("Hologram", 'icons/mob/ai.dmi', "default", "sound/machines/ping.ogg", type_volume=50),
 		new /datum/mrat_type("Spaceman", 'icons/mob/animal.dmi', "old", "sound/machines/buzz-sigh.ogg", null, 50),
 		new /datum/mrat_type("Bee", 'icons/mob/pai.dmi', "bee", "sound/voice/moth/scream_moth.ogg", null, 50)
 	)
@@ -71,9 +72,6 @@
 		icons_available += list("[T.name]" = image(icon = T.icon, icon_state = T.icon_state))
 
 /mob/camera/imaginary_friend/mrat/proc/Costume()
-	var/picked_name = sanitize_name(stripped_input(src, "Enter your mentor rat's name", "Rat Name", "Mentor Rat", MAX_NAME_LEN - 3 - length(key)))
-	log_game("[key_name(src)] has set \"[picked_name]\" as their mentor rat's name for [key_name(owner)]")
-	name = "[picked_name] ([key])"
 	update_available_icons()
 	if(icons_available)
 		var/selection = show_radial_menu(src, src, icons_available, radius = 38)
@@ -87,6 +85,13 @@
 				color = T.color
 				Show()
 				return
+
+/mob/camera/imaginary_friend/mrat/proc/PickName()
+	var/picked_name = sanitize_name(stripped_input(src, "Enter your mentor rat's name", "Rat Name", "Mentor Rat", MAX_NAME_LEN - 3 - length(key)))
+	if(!picked_name || pickedName == "")
+		picked_name = "Mentor Rat"
+	log_game("[key_name(src)] has set \"[picked_name]\" as their mentor rat's name for [key_name(owner)]")
+	name = "[picked_name] ([key])"
 
 /mob/camera/imaginary_friend/mrat/friend_talk()
 	. = ..()
