@@ -88,7 +88,7 @@
 
 /mob/camera/imaginary_friend/mrat/proc/PickName()
 	var/picked_name = sanitize_name(stripped_input(src, "Enter your mentor rat's name", "Rat Name", "Mentor Rat", MAX_NAME_LEN - 3 - length(key)))
-	if(!picked_name || pickedName == "")
+	if(!picked_name || picked_name == "")
 		picked_name = "Mentor Rat"
 	log_game("[key_name(src)] has set \"[picked_name]\" as their mentor rat's name for [key_name(owner)]")
 	name = "[picked_name] ([key])"
