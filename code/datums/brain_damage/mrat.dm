@@ -16,7 +16,7 @@
 		var/mob/dead/observer/C = pick(candidates)
 		friend.key = C.key
 		friend.real_name = friend.key
-		friend.name = friend.real_name
+		friend.name = "Mentor Rat ([friend.real_name])"
 
 		var/mob/camera/imaginary_friend/mrat/I = friend
 		I.Costume()
@@ -68,6 +68,9 @@
 		icons_available += list("[T.name]" = image(icon = T.icon, icon_state = T.icon_state))
 
 /mob/camera/imaginary_friend/mrat/proc/Costume()
+	var/picked_name = sanitize_name(stripped_input(src, "Enter your mentor rat's name", "Rat Name", "Mentor Rat", MAX_NAME_LEN - 3 - length(key)))
+	log_game("[key_name(src)] has set \"[picked_name]\" as their mentor rat's name for [key_name(owner)]")
+	name = "[picked_name] ([key])"
 	update_available_icons()
 	if(icons_available)
 		var/selection = show_radial_menu(src, src, icons_available, radius = 38)
