@@ -1531,7 +1531,7 @@
 
 /obj/item/toy/allaccess
 	name = "captains spare ID"
-	desc = "A replica of the glorious captains card. Issued to annoying greytide as a joke."
+	desc = "A replica of the glorious captain's card. Issued to annoying greytiders as a joke."
 	icon = 'icons/obj/card.dmi'
 	icon_state = "gold"
 

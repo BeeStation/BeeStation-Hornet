@@ -1,6 +1,6 @@
 /obj/machinery/allaccess
 	name = "All Access Dispenser"
-	desc = "Some people confuse the Head of Personell with this. Contains fake all access cards to keep the greytide at bay!"
+	desc = "Some people confuse the Head of Personnel with this. Contains fake all access cards to keep the greytide at bay!"
 	icon = 'icons/obj/card.dmi'
 	icon_state = "aa"
 	var/spawnitem = /obj/item/toy/allaccess
@@ -14,7 +14,7 @@
 	user.put_in_active_hand(output)
 	to_chat(user, "<span class='notice'>You take the card out of the dispenser.")
 
-/obj/machinery/vending/power_change()
+/obj/machinery/allaccess/power_change()
 	if(stat & BROKEN)
 		icon_state = "[initial(icon_state)]-broken"
 	else
@@ -26,5 +26,5 @@
 			stat |= NOPOWER
 
 /obj/machinery/allaccess/real
-	desc = "Some people confuse the Head of Personell with this. Contains real All Access!"  // admin spawn for funnies
+	desc = "Some people confuse the Head of Personnel with this. Contains real All Access!"  // admin spawn for funnies
 	spawnitem = /obj/item/card/id/captains_spare
