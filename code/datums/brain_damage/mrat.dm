@@ -4,6 +4,7 @@
 	scan_desc = "epistemania"
 	gain_text = "<span class='notice'>Requesting mentor...</span>"
 	lose_text = ""
+	random_gain = FALSE
 	resilience = TRAUMA_RESILIENCE_ABSOLUTE
 
 /datum/brain_trauma/special/imaginary_friend/mrat/make_friend()
@@ -34,13 +35,15 @@
 	var/color
 	var/sound
 	var/list/radial_icon
+	var/volume
 
-/datum/mrat_type/New(type_name, type_icon, type_icon_state, type_sound, type_color = "#1ABC9C")
+/datum/mrat_type/New(type_name, type_icon, type_icon_state, type_sound, type_color = "#1ABC9C", type_volume = 100)
 	name = type_name
 	icon = type_icon
 	icon_state = type_icon_state
 	color = type_color
 	sound = type_sound
+	volume = type_volume
 
 /mob/camera/imaginary_friend/mrat
 	name = "Mentor Rat"
@@ -56,9 +59,9 @@
 		new /datum/mrat_type("Corgi", 'icons/mob/pets.dmi', "corgi", "sound/machines/uplinkpurchase.ogg"),
 		new /datum/mrat_type("Hamster", 'icons/mob/pets.dmi', "hamster", "sound/machines/mousesqueek.ogg"),
 		new /datum/mrat_type("Kitten", 'icons/mob/pets.dmi', "kitten", "sound/machines/uplinkpurchase.ogg"),
-		new /datum/mrat_type("Hologram", 'icons/mob/ai.dmi', "default", "sound/machines/ping.ogg"),
-		new /datum/mrat_type("Spaceman", 'icons/mob/animal.dmi', "old", "sound/machines/buzz-sigh.ogg", null),
-		new /datum/mrat_type("Bee", 'icons/mob/pai.dmi', "bee", "sound/voice/moth/scream_moth.ogg", null)
+		new /datum/mrat_type("Hologram", 'icons/mob/ai.dmi', "default", "sound/machines/ping.ogg", volume=50),
+		new /datum/mrat_type("Spaceman", 'icons/mob/animal.dmi', "old", "sound/machines/buzz-sigh.ogg", null, 50),
+		new /datum/mrat_type("Bee", 'icons/mob/pai.dmi', "bee", "sound/voice/moth/scream_moth.ogg", null, 50)
 	)
 
 /mob/camera/imaginary_friend/mrat/proc/update_available_icons()
@@ -89,8 +92,8 @@
 	. = ..()
 	if(!current_costume || !istype(current_costume))
 		return
-	SEND_SOUND(owner, sound(current_costume.sound))
-	SEND_SOUND(src, sound(current_costume.sound))
+	SEND_SOUND(owner, sound(current_costume.sound, volume=current_costume.volume))
+	SEND_SOUND(src, sound(current_costume.sound, volume=current_costume.volume))
 
 /mob/camera/imaginary_friend/mrat/greet()
 	to_chat(src, "<span class='notice'><b>You are the mentor rat of [owner]!</b></span>")
@@ -104,6 +107,7 @@
 	costume.Grant(src)
 	leave = new
 	leave.Grant(src)
+	grant_all_languages()
 
 /mob/camera/imaginary_friend/mrat/setup_friend()
 	human_image = null
