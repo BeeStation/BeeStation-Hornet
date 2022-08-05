@@ -17,15 +17,30 @@
 		friend.key = C.key
 		friend.real_name = friend.key
 		friend.name = friend.real_name
-		
+
 		var/mob/camera/imaginary_friend/mrat/I = friend
 		I.Costume()
-					
+
 		friend_initialized = TRUE
 		to_chat(owner, "<span class='notice'>You have acquired the mentor rat [friend.key], ask them any question you like. They will leave your presence when they are done.</span>")
 	else
 		to_chat(owner, "<span class='warning'>No mentor responded to your request. Try again later.</span>")
 		qdel(src)
+
+/datum/mrat_type
+	var/name
+	var/icon
+	var/icon_state
+	var/color
+	var/sound
+	var/list/radial_icon
+
+/datum/mrat_type/New(type_name, type_icon, type_icon_state, type_sound, type_color = "#1ABC9C")
+	name = type_name
+	icon = type_icon
+	icon_state = type_icon_state
+	color = type_color
+	sound = type_sound
 
 /mob/camera/imaginary_friend/mrat
 	name = "Mentor Rat"
@@ -35,16 +50,22 @@
 	var/datum/action/innate/mrat_costume/costume
 	var/datum/action/innate/mrat_leave/leave
 	var/list/icons_available = list()
-	var/current_costume = FALSE
+	var/datum/mrat_type/current_costume = null
+	var/list/mrat_types = list(
+		new /datum/mrat_type("Mouse", 'icons/mob/animal.dmi', "mouse_white", "sound/effects/mousesqueek.ogg"),
+		new /datum/mrat_type("Corgi", 'icons/mob/pets.dmi', "corgi", "sound/machines/uplinkpurchase.ogg"),
+		new /datum/mrat_type("Hamster", 'icons/mob/pets.dmi', "hamster", "sound/machines/mousesqueek.ogg"),
+		new /datum/mrat_type("Kitten", 'icons/mob/pets.dmi', "kitten", "sound/machines/uplinkpurchase.ogg"),
+		new /datum/mrat_type("Hologram", 'icons/mob/ai.dmi', "default", "sound/machines/ping.ogg"),
+		new /datum/mrat_type("Spaceman", 'icons/mob/animal.dmi', "old", "sound/machines/buzz-sigh.ogg", null),
+		new /datum/mrat_type("Bee", 'icons/mob/pai.dmi', "bee", "sound/voice/moth/scream_moth.ogg", null)
+	)
 
 /mob/camera/imaginary_friend/mrat/proc/update_available_icons()
 	icons_available = list()
 
-	icons_available += list("Mouse" = image(icon = 'icons/mob/animal.dmi', icon_state = "mouse_white"))
-	icons_available += list("Moonrat" = image(icon = 'icons/mob/pets.dmi', icon_state = "moonrat"))
-	icons_available += list("Hologram" = image(icon = 'icons/mob/ai.dmi', icon_state = "default"))
-	icons_available += list("Spaceman" = image(icon = 'icons/mob/animal.dmi', icon_state = "old"))
-	icons_available += list("Bee" = image(icon = 'icons/mob/animal.dmi', icon_state = "bee_1"))
+	for(var/datum/mrat_type/T in mrat_types)
+		icons_available += list("[T.name]" = image(icon = T.icon, icon_state = T.icon_state))
 
 /mob/camera/imaginary_friend/mrat/proc/Costume()
 	update_available_icons()
@@ -52,51 +73,21 @@
 		var/selection = show_radial_menu(src, src, icons_available, radius = 38)
 		if(!selection)
 			return
-		
-		current_costume = selection
 
-		switch(selection)
-			if("Mouse")
-				human_image = icon('icons/mob/animal.dmi', icon_state = "mouse_white")
-				color = "#1ABC9C"
+		for(var/datum/mrat_type/T in mrat_types)
+			if(T.name == selection)
+				current_costume = T
+				human_image = image(icon = T.icon, icon_state = T.icon_state)
+				color = T.color
 				Show()
-			if("Corgi")
-				human_image = icon('icons/mob/pets.dmi', icon_state = "corgi")
-				color = "#1ABC9C"
-				Show()
-			if("Hologram")
-				human_image = icon('icons/mob/ai.dmi', icon_state = "default")
-				color = "#1ABC9C"
-				Show()
-			if("Spaceman")
-				human_image = icon('icons/mob/animal.dmi', icon_state = "old")
-				color = null
-				Show()
-			if("Bee")
-				human_image = icon('icons/mob/animal.dmi', icon_state = "bee_1")
-				color = "#1ABC9C"
-				Show()
+				return
 
 /mob/camera/imaginary_friend/mrat/friend_talk()
 	. = ..()
-	if(!current_costume)
+	if(!current_costume || !istype(current_costume))
 		return
-	switch(current_costume)
-		if("Mouse")
-			SEND_SOUND(owner, sound('sound/effects/mousesqueek.ogg'))
-			SEND_SOUND(src, sound('sound/effects/mousesqueek.ogg'))
-		if("Corgi")
-			SEND_SOUND(owner, sound('sound/machines/uplinkpurchase.ogg'))
-			SEND_SOUND(src, sound('sound/machines/uplinkpurchase.ogg'))
-		if("Hologram")
-			SEND_SOUND(owner, sound('sound/machines/ping.ogg'))
-			SEND_SOUND(src, sound('sound/machines/ping.ogg'))
-		if("Spaceman")
-			SEND_SOUND(owner, sound('sound/machines/buzz-sigh.ogg'))
-			SEND_SOUND(src, sound('sound/machines/buzz-sigh.ogg'))
-		if("Bee")
-			SEND_SOUND(owner, sound('sound/creatures/bee.ogg'))
-			SEND_SOUND(src, sound('sound/creatures/bee.ogg'))
+	SEND_SOUND(owner, sound(current_costume.sound))
+	SEND_SOUND(src, sound(current_costume.sound))
 
 /mob/camera/imaginary_friend/mrat/greet()
 	to_chat(src, "<span class='notice'><b>You are the mentor rat of [owner]!</b></span>")
