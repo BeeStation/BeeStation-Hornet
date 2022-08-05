@@ -72,12 +72,12 @@
 	default_cartridge = /obj/item/cartridge/medical
 	icon_state = "pda-paramedical"
 
-/obj/item/pda/viro
+/obj/item/pda/virologist
 	name = "virology PDA"
 	default_cartridge = /obj/item/cartridge/medical
 	icon_state = "pda-virology"
 
-/obj/item/pda/engineering
+/obj/item/pda/station_engineer
 	name = "engineering PDA"
 	default_cartridge = /obj/item/cartridge/engineering
 	icon_state = "pda-engineer"
@@ -92,7 +92,7 @@
 	default_cartridge = /obj/item/cartridge/security
 	icon_state = "pda-deputy"
 
-/obj/item/pda/brigphys
+/obj/item/pda/brig_physician
 	name = "brig Physician PDA"
 	//no cartridge?
 	icon_state = "pda-brigphys"
@@ -127,27 +127,27 @@
 	default_cartridge = /obj/item/cartridge/head
 	icon_state = "pda-heads"
 
-/obj/item/pda/heads/hop
+/obj/item/pda/heads/head_of_personnel
 	name = "head of personnel PDA"
 	default_cartridge = /obj/item/cartridge/hop
 	icon_state = "pda-hop"
 
-/obj/item/pda/heads/hos
+/obj/item/pda/heads/head_of_security
 	name = "head of security PDA"
 	default_cartridge = /obj/item/cartridge/hos
 	icon_state = "pda-hos"
 
-/obj/item/pda/heads/ce
+/obj/item/pda/heads/chief_engineer
 	name = "chief engineer PDA"
 	default_cartridge = /obj/item/cartridge/ce
 	icon_state = "pda-ce"
 
-/obj/item/pda/heads/cmo
+/obj/item/pda/heads/chief_medical_officer
 	name = "chief medical officer PDA"
 	default_cartridge = /obj/item/cartridge/cmo
 	icon_state = "pda-cmo"
 
-/obj/item/pda/heads/rd
+/obj/item/pda/heads/research_director
 	name = "research director PDA"
 	default_cartridge = /obj/item/cartridge/rd
 	inserted_item = /obj/item/pen/fountain
@@ -161,7 +161,7 @@
 	icon_state = "pda-captain"
 	detonatable = FALSE
 
-/obj/item/pda/cargo
+/obj/item/pda/cargo_technician
 	name = "cargo technician PDA"
 	default_cartridge = /obj/item/cartridge/quartermaster
 	icon_state = "pda-cargo"
@@ -172,11 +172,11 @@
 	inserted_item = /obj/item/pen/fountain
 	icon_state = "pda-qm"
 
-/obj/item/pda/shaftminer
+/obj/item/pda/shaft_miner
 	name = "shaft miner PDA"
 	icon_state = "pda-miner"
 
-/obj/item/pda/exploration
+/obj/item/pda/exploration_crew
 	name = "exploration PDA"
 	icon_state = "pda-exploration"
 
@@ -232,12 +232,12 @@
 	name = "cook PDA"
 	icon_state = "pda-cook"
 
-/obj/item/pda/bar
+/obj/item/pda/bartender
 	name = "bartender PDA"
 	icon_state = "pda-bartender"
 	inserted_item = /obj/item/pen/fountain
 
-/obj/item/pda/atmos
+/obj/item/pda/atmospheric_technician
 	name = "atmospherics PDA"
 	default_cartridge = /obj/item/cartridge/atmos
 	icon_state = "pda-atmos"
@@ -252,7 +252,7 @@
 	default_cartridge = /obj/item/cartridge/medical
 	icon_state = "pda-genetics"
 
-/obj/item/pda/celebrity
+/obj/item/pda/vip
 	name = "fancy PDA"
 	default_cartridge = /obj/item/cartridge/annoyance //so they can send messages to everyone and be generally obnoxious
 	inserted_item = /obj/item/pen/fountain
