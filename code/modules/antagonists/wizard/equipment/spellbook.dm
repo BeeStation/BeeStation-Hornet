@@ -11,6 +11,7 @@
 	var/buy_word = "Learn"
 	var/limit //used to prevent a spellbook_entry from being bought more than X times with one wizard spellbook
 	var/list/no_coexistance_typecache //Used so you can't have specific spells together
+	var/against_chaos = FALSE // when 'chaotic oath' ritual has been cast, specific items and spells will not be purchasable
 
 /datum/spellbook_entry/New()
 	..()
@@ -28,6 +29,11 @@
 	return TRUE
 
 /datum/spellbook_entry/proc/Buy(mob/living/carbon/human/user,obj/item/spellbook/book) //return TRUE on success
+	//Check if we can learn the spell
+	if(book.chaotic && against_chaos) // if the book has cast Chaotic Oath, and the spell is against chaos, you can't learn the spell
+		to_chat(user, "<span class='notice'>Your chaotic school of magic refuses to purchase the spell!</span>")
+		return FALSE
+
 	if(!S || QDELETED(S))
 		S = new spell_type()
 	//Check if we got the spell already
@@ -207,6 +213,7 @@
 	spell_type = /obj/effect/proc_holder/spell/targeted/lichdom
 	category = "Defensive"
 	cost = 3
+	against_chaos = TRUE
 
 /datum/spellbook_entry/teslablast
 	name = "Tesla Blast"
@@ -278,6 +285,9 @@
 
 
 /datum/spellbook_entry/item/Buy(mob/living/carbon/human/user,obj/item/spellbook/book)
+	//Check if we can purchase the item
+	if(book.chaotic && against_chaos) // if the book has cast Chaotic Oath, and the item is against chaos, you can't buy the item
+		to_chat(user, "<span class='notice'>Your chaotic school of magic refuses to purchase the item!</span>")
 	new item_path(get_turf(user))
 	SSblackbox.record_feedback("tally", "wizard_spell_learned", 1, name)
 	return TRUE
@@ -391,10 +401,13 @@
 
 /datum/spellbook_entry/item/bloodbottle
 	name = "Bottle of Blood"
-	desc = "A bottle of magically infused blood, the smell of which will attract extradimensional beings when broken. Be careful though, the kinds of creatures summoned by blood magic are indiscriminate in their killing, and you yourself may become a victim."
+	desc = "A bottle of magically infused blood, the smell of which will attract extradimensional \
+		beings when broken. Be careful though, the kinds of creatures summoned by blood magic are \
+		indiscriminate in their killing, and you yourself may become a victim."
 	item_path = /obj/item/antag_spawner/slaughter_demon
 	limit = 1
 	category = "Assistance"
+	against_chaos = TRUE
 
 /datum/spellbook_entry/item/hugbottle
 	name = "Bottle of Tickles"
@@ -409,6 +422,7 @@
 	cost = 1 //non-destructive; it's just a jape, sibling!
 	limit = 1
 	category = "Assistance"
+	against_chaos = TRUE
 
 /datum/spellbook_entry/item/mjolnir
 	name = "Mjolnir"
@@ -556,13 +570,42 @@
 
 /datum/spellbook_entry/summon/curse_of_madness/Buy(mob/living/carbon/human/user, obj/item/spellbook/book)
 	SSblackbox.record_feedback("tally", "wizard_spell_learned", 1, name)
-	active = TRUE
-	var/message = stripped_input(user, "Whisper a secret truth to drive your victims to madness.", "Whispers of Madness")
-	if(!message)
+	return TRUE
+
+/datum/spellbook_entry/summon/chaotic_oath
+	name = "Chaotic Oath"
+	desc = "Swear to yourself with the chaotic oath that you won't be murderbone, but going to \
+		bring more chaos to the station. <b>Your escalation policy now follows Antagonist instead of Murderbone,</b> \
+		and, in return, you get 2 more spell points and get 2 random spells(not refundable). Your apprentices follow the same rule, and \
+		please warn them not to go murderbone, or all of you'll bring space gods' displeasure. (Note that \
+		destroying the large part of the station is regarded as murderbone.)<br/>\
+		If you cast this, you'll no longer be abe to purchase specific items and spells: Bottle of Blood, Bottle of Tickles, Bind Soul. \
+		If you purchased those already, You'll never be able to cast the ritual.<br/>\
+		If you don't know what this exactly means, <b>DO NOT PURCHASE THIS.</b> You'll be expelled from Wizard Federation."
+	cost = 0
+
+/datum/spellbook_entry/summon/chaotic_oath/Buy(mob/living/carbon/human/user, obj/item/spellbook/book)
+	if(active)
 		return FALSE
-	curse_of_madness(user, message)
-	to_chat(user, "<span class='notice'>You have cast the curse of insanity!</span>")
-	playsound(user, 'sound/magic/mandswap.ogg', 50, 1)
+	if(book.against_chaos)
+		to_chat(user, "<span class='notice'>Your book is aligned to non-chaotic due to purchasing non-chaotic items/spells. You no longer cast the ritual.</span>")
+		return FALSE
+	active = TRUE
+	book.uses += 2  // gets more spell points
+	book.chaotic = TRUE // prevents you to purchase specific spells/items
+	book.desc += " This book is glowing with the aura of chaos."
+	var/left_random_spells = 2
+	while(left_random_spells)
+		var/static/datum/spellbook_entry/spells = subtypesof(/datum/spellbook_entry)
+		var/datum/spellbook_entry/candidate_spell = pick(spells)
+		if(candidate_spell.spell_type && !candidate_spell.against_chaos)
+			book.uses += candidate_spell.cost
+			if(candidate_spell.Buy(user,book))
+				left_random_spells--
+				candidate_spell.refundable = FALSE
+	SSblackbox.record_feedback("tally", "wizard_spell_learned", 1, name)
+	playsound(get_turf(user), 'sound/magic/castsummon.ogg', 50, 1)
+	to_chat(user, "<span class='notice'>You have cast chaotic oath. You feel your alignment is now chaotic...</span>")
 	return TRUE
 
 #undef MINIMUM_THREAT_FOR_RITUALS
@@ -578,6 +621,8 @@
 	var/uses = 10
 	var/temp = null
 	var/tab = null
+	var/chaotic = FALSE
+	var/against_chaos = FALSE
 	var/mob/living/carbon/human/owner
 	var/list/datum/spellbook_entry/entries = list()
 	var/list/categories = list()
@@ -741,6 +786,8 @@
 				if(E.Buy(H,src))
 					if(E.limit)
 						E.limit--
+					if(E.against_chaos)
+						against_chaos = TRUE
 					uses -= E.cost
 					log_game("[initial(E.name)] purchased by [H.ckey]/[H.name] the [H.job] for [E.cost] SP, [uses] SP remaining.")
 		else if(href_list["refund"])
