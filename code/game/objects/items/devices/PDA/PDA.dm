@@ -10,6 +10,8 @@ GLOBAL_LIST_EMPTY(PDAs)
 #define PDA_SCANNER_HALOGEN		4
 #define PDA_SCANNER_GAS			5
 #define PDA_SPAM_DELAY		    1 MINUTES
+#define PDA_TOGGLE_ON		    "On"
+#define PDA_TOGGLE_OFF		    "Off"
 
 /obj/item/pda
 	name = "\improper PDA"
@@ -74,6 +76,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 	var/equipped = FALSE  //used here to determine if this is the first time its been picked up
 	var/allow_emojis = FALSE //if the pda can send emojis and actually have them parsed as such
 	var/sort_by_job = FALSE // If this is TRUE, will sort PDA list by job.
+	var/toggle_auto_update = PDA_TOGGLE_ON // If this is "On", automatically update PDA when taken a card, if no, it doesn't.
 
 	var/obj/item/card/id/id = null //Making it possible to slot an ID card into the PDA so it can function as both.
 	var/ownjob = null //related to above
@@ -157,6 +160,18 @@ GLOBAL_LIST_EMPTY(PDAs)
 /obj/item/pda/GetID()
 	return id
 
+/obj/item/pda/RemoveID()
+	return do_remove_id()
+
+/obj/item/pda/InsertID(obj/item/inserting_item)
+	var/obj/item/card/inserting_id = inserting_item.RemoveID()
+	if(!inserting_id)
+		return
+	insert_id(inserting_id)
+	if(id == inserting_id)
+		return TRUE
+	return FALSE
+
 /obj/item/pda/update_icon()
 	cut_overlays()
 	var/mutable_appearance/overlay = new()
@@ -233,7 +248,8 @@ GLOBAL_LIST_EMPTY(PDAs)
 				dat += "<h2>PERSONAL DATA ASSISTANT v.1.2</h2>"
 				dat += "Owner: [owner], [ownjob]<br>"
 				dat += text("ID: <a href='?src=[REF(src)];choice=Authenticate'>[id ? "[id.registered_name], [id.assignment]" : "----------"]")
-				dat += text("<br><a href='?src=[REF(src)];choice=UpdateInfo'>[id ? "Update PDA Info" : ""]</A><br><br>")
+				dat += text("<br><a href='?src=[REF(src)];choice=UpdateInfo'>[id ? "Update PDA Info" : ""]</A><br>")
+				dat += text("<br><a href='?src=[REF(src)];choice=ToggleAutoUpdate'>Toggle auto-updating: \[[toggle_auto_update]\]</A><br><br>")
 
 				dat += "[station_time_timestamp()]<br>" //:[world.time / 100 % 6][world.time / 100 % 10]"
 				dat += "[time2text(world.realtime, "MMM DD")] [GLOB.year_integer+540]"
@@ -443,13 +459,14 @@ GLOBAL_LIST_EMPTY(PDAs)
 			if ("Authenticate")//Checks for ID
 				id_check(U)
 			if("UpdateInfo")
-				ownjob = id.assignment
-				if(istype(id, /obj/item/card/id/syndicate))
-					owner = id.registered_name
-				update_label()
-				if(!silent)
-					playsound(src, 'sound/machines/terminal_processing.ogg', 15, TRUE)
-					addtimer(CALLBACK(GLOBAL_PROC, .proc/playsound, src, 'sound/machines/terminal_success.ogg', 15, TRUE), 1.3 SECONDS)
+				update_pda()
+			if("ToggleAutoUpdate")
+				switch(toggle_auto_update)
+					if(PDA_TOGGLE_ON)
+						toggle_auto_update = PDA_TOGGLE_OFF
+					if(PDA_TOGGLE_OFF)
+						toggle_auto_update = PDA_TOGGLE_ON
+						update_pda()
 			if("Eject")//Ejects the cart, only done from hub.
 				eject_cart(U)
 				if(!silent)
@@ -634,17 +651,16 @@ GLOBAL_LIST_EMPTY(PDAs)
 /obj/item/pda/proc/remove_id()
 	if(issilicon(usr) || !usr.canUseTopic(src, BE_CLOSE, FALSE, NO_TK))
 		return
+	do_remove_id(usr)
 
-	if (id)
-		usr.put_in_hands(id)
-		to_chat(usr, "<span class='notice'>You remove the ID from the [name].</span>")
-		id = null
-		update_icon()
-		playsound(src, 'sound/machines/terminal_eject.ogg', 50, TRUE)
-		if(ishuman(loc))
-			var/mob/living/carbon/human/H = loc
-			if(H.wear_id == src)
-				H.sec_hud_set_ID()
+/obj/item/pda/proc/update_pda()
+	ownjob = id.assignment
+	if(istype(id, /obj/item/card/id/syndicate))
+		owner = id.registered_name
+	update_label()
+	if(!silent)
+		playsound(src, 'sound/machines/terminal_processing.ogg', 15, TRUE)
+		addtimer(CALLBACK(GLOBAL_PROC, .proc/playsound, src, 'sound/machines/terminal_success.ogg', 15, TRUE), 1.3 SECONDS)
 
 /obj/item/pda/proc/do_remove_id(mob/user)
 	if(!id)
@@ -664,7 +680,6 @@ GLOBAL_LIST_EMPTY(PDAs)
 		var/mob/living/carbon/human/H = loc
 		if(H.wear_id == src)
 			H.sec_hud_set_ID()
-
 
 /obj/item/pda/proc/msg_input(mob/living/U = usr)
 	var/t = stripped_input(U, "Please enter message", name)
@@ -897,14 +912,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 	if(I?.registered_name)
 		if(!user.transferItemToLoc(I, src))
 			return FALSE
-		var/obj/old_id = id
-		id = I
-		if(ishuman(loc))
-			var/mob/living/carbon/human/H = loc
-			if(H.wear_id == src)
-				H.sec_hud_set_ID()
-		if(old_id)
-			user.put_in_hands(old_id)
+		insert_id(I, user)
 		update_icon()
 		playsound(src, 'sound/machines/pda_button1.ogg', 50, TRUE)
 	return TRUE
@@ -936,6 +944,19 @@ GLOBAL_LIST_EMPTY(PDAs)
 	installed_cartridge.charges--
 	target.AddComponent(/datum/component/sound_player, amount = (rand(30,50)), signal_or_sig_list = sig_list)
 	return TRUE
+
+/obj/item/pda/proc/insert_id(obj/item/card/id/inserting_id, mob/user)
+	var/obj/old_id = id
+	id = inserting_id
+	if(ishuman(loc))
+		var/mob/living/carbon/human/human_wearer = loc
+		if(human_wearer.wear_id == src)
+			human_wearer.sec_hud_set_ID()
+	if(old_id)
+		if(user)
+			user.put_in_hands(old_id)
+		else
+			old_id.forceMove(get_turf(src))
 
 // access to status display signals
 /obj/item/pda/attackby(obj/item/C, mob/user, params)
@@ -971,9 +992,12 @@ GLOBAL_LIST_EMPTY(PDAs)
 			if(!id_check(user, idcard))
 				return
 			to_chat(user, "<span class='notice'>You put the ID into \the [src]'s slot.</span>")
+			if(((owner != id.registered_name) || (ownjob != id.assignment)) && (toggle_auto_update == PDA_TOGGLE_ON)) // auto-update by inserting your card
+				update_pda()
 			updateSelfDialog()//Update self dialog on success.
 
 			return	//Return in case of failed check or when successful.
+
 		updateSelfDialog()//For the non-input related code.
 	else if(istype(C, /obj/item/paicard) && !pai)
 		if(!user.transferItemToLoc(C, src))
@@ -986,6 +1010,9 @@ GLOBAL_LIST_EMPTY(PDAs)
 		if(inserted_item)
 			to_chat(user, "<span class='warning'>There is already \a [inserted_item] in \the [src]!</span>")
 		else
+			if(C.w_class > WEIGHT_CLASS_TINY)
+				to_chat(user, "<span class='warning'>The [C] doesnt fit!</span>")
+				return
 			if(!user.transferItemToLoc(C, src))
 				return
 			to_chat(user, "<span class='notice'>You slide \the [C] into \the [src].</span>")
@@ -1023,7 +1050,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 		return
 	switch(scanmode)
 		if(PDA_SCANNER_REAGENT)
-			if(!istype(A, /obj/item/reagent_containers/pill/floorpill))
+			if(!istype(A, /obj/item/reagent_containers/pill/floorpill) && !istype(A, /obj/item/reagent_containers/glass/chem_heirloom))
 				if(!isnull(A.reagents))
 					if(A.reagents.reagent_list.len > 0)
 						var/reagents_length = A.reagents.reagent_list.len
@@ -1192,3 +1219,5 @@ GLOBAL_LIST_EMPTY(PDAs)
 #undef PDA_SCANNER_HALOGEN
 #undef PDA_SCANNER_GAS
 #undef PDA_SPAM_DELAY
+#undef PDA_TOGGLE_ON
+#undef PDA_TOGGLE_OFF

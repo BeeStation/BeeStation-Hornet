@@ -27,7 +27,8 @@
 				"Warden",
 				"Detective",
 				"Head of Security",
-				"Captain"
+				"Captain",
+				"Corporate Affairs Agent"
 			],
 			"restricted_roles": [
 				"Cyborg"

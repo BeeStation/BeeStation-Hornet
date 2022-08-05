@@ -1,7 +1,7 @@
-/datum/job/cmo
-	title = "Chief Medical Officer"
+/datum/job/chief_medical_officer
+	title = JOB_NAME_CHIEFMEDICALOFFICER
 	flag = CMO_JF
-	department_head = list("Captain")
+	department_head = list(JOB_NAME_CAPTAIN)
 	department_flag = MEDSCI
 	auto_deadmin_role_flags = DEADMIN_POSITION_HEAD
 	head_announce = list(RADIO_CHANNEL_MEDICAL)
@@ -10,28 +10,25 @@
 	spawn_positions = 1
 	supervisors = "the captain"
 	selection_color = "#c1e1ec"
-	chat_color = "#7A97DA"
 	req_admin_notify = 1
 	minimal_player_age = 7
 	exp_requirements = 1200
 	exp_type = EXP_TYPE_MEDICAL
 	exp_type_department = EXP_TYPE_MEDICAL
 
-	outfit = /datum/outfit/job/cmo
+	outfit = /datum/outfit/job/chief_medical_officer
 
-	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_GENETICS, ACCESS_CLONING, ACCESS_BRIDGE,
-			ACCESS_HEADS, ACCESS_MINERAL_STOREROOM, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_CMO, ACCESS_SURGERY,
-			ACCESS_RC_ANNOUNCE, ACCESS_MECH_MEDICAL, ACCESS_KEYCARD_AUTH, ACCESS_SEC_DOORS, ACCESS_MAINT_TUNNELS,
-			ACCESS_BRIGPHYS, ACCESS_EVA, ACCESS_EXTERNAL_AIRLOCKS)
-	minimal_access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_GENETICS, ACCESS_CLONING, ACCESS_BRIDGE,
-			ACCESS_HEADS, ACCESS_MINERAL_STOREROOM, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_CMO, ACCESS_SURGERY,
-			ACCESS_RC_ANNOUNCE, ACCESS_MECH_MEDICAL, ACCESS_KEYCARD_AUTH, ACCESS_SEC_DOORS, ACCESS_MAINT_TUNNELS,
-			ACCESS_BRIGPHYS, ACCESS_EVA, ACCESS_EXTERNAL_AIRLOCKS)
+	access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_GENETICS, ACCESS_CLONING, ACCESS_BRIDGE, ACCESS_HEADS, ACCESS_MINERAL_STOREROOM,
+			ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_CMO, ACCESS_SURGERY, ACCESS_RC_ANNOUNCE, ACCESS_MECH_MEDICAL,
+			ACCESS_KEYCARD_AUTH, ACCESS_SEC_DOORS, ACCESS_MAINT_TUNNELS, ACCESS_BRIGPHYS, ACCESS_EVA, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_WEAPONS)
+	minimal_access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_GENETICS, ACCESS_CLONING, ACCESS_BRIDGE, ACCESS_HEADS, ACCESS_MINERAL_STOREROOM,
+			ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_CMO, ACCESS_SURGERY, ACCESS_RC_ANNOUNCE, ACCESS_MECH_MEDICAL,
+			ACCESS_KEYCARD_AUTH, ACCESS_SEC_DOORS, ACCESS_MAINT_TUNNELS, ACCESS_BRIGPHYS, ACCESS_EVA, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_WEAPONS)
 	paycheck = PAYCHECK_COMMAND
 	paycheck_department = ACCOUNT_MED
 
 	display_order = JOB_DISPLAY_ORDER_CHIEF_MEDICAL_OFFICER
-	departments = DEPARTMENT_MEDICAL | DEPARTMENT_COMMAND
+	departments = DEPARTMENT_BITFLAG_MEDICAL | DEPARTMENT_BITFLAG_COMMAND
 	rpg_title = "High Cleric"
 
 	species_outfits = list(
@@ -39,12 +36,12 @@
 	)
 	biohazard = 20
 
-/datum/outfit/job/cmo
-	name = "Chief Medical Officer"
-	jobtype = /datum/job/cmo
+/datum/outfit/job/chief_medical_officer
+	name = JOB_NAME_CHIEFMEDICALOFFICER
+	jobtype = /datum/job/chief_medical_officer
 
-	id = /obj/item/card/id/job/cmo
-	belt = /obj/item/pda/heads/cmo
+	id = /obj/item/card/id/job/chief_medical_officer
+	belt = /obj/item/pda/heads/chief_medical_officer
 	l_pocket = /obj/item/pinpointer/crew
 	ears = /obj/item/radio/headset/heads/cmo
 	uniform = /obj/item/clothing/under/rank/medical/chief_medical_officer
@@ -61,7 +58,7 @@
 
 	chameleon_extras = list(/obj/item/gun/syringe, /obj/item/stamp/cmo)
 
-/datum/outfit/job/cmo/hardsuit
+/datum/outfit/job/chief_medical_officer/hardsuit
 	name = "Chief Medical Officer (Hardsuit)"
 
 	mask = /obj/item/clothing/mask/breath

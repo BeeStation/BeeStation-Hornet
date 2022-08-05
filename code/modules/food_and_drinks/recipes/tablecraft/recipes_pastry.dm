@@ -327,14 +327,14 @@
 	result = /obj/item/reagent_containers/food/snacks/donkpocket
 	subcategory = CAT_PASTRY
 
-/datum/crafting_recipe/food/dankpocket
+/datum/crafting_recipe/food/donkpocket/dank
 	time = 15
 	name = "Dank-pocket"
 	reqs = list(
 		/obj/item/reagent_containers/food/snacks/pastrybase = 1,
 		/obj/item/reagent_containers/food/snacks/grown/cannabis = 1
 	)
-	result = /obj/item/reagent_containers/food/snacks/dankpocket
+	result = /obj/item/reagent_containers/food/snacks/donkpocket/dank
 	subcategory = CAT_PASTRY
 
 /datum/crafting_recipe/food/donkpocket/spicy
@@ -342,7 +342,7 @@
 	name = "Spicy-pocket"
 	reqs = list(
 		/obj/item/reagent_containers/food/snacks/pastrybase = 1,
-		/obj/item/reagent_containers/food/snacks/grown/chili
+		/obj/item/reagent_containers/food/snacks/grown/chili = 1
 	)
 	result = /obj/item/reagent_containers/food/snacks/donkpocket/spicy
 	subcategory = CAT_PASTRY

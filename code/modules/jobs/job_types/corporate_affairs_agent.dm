@@ -24,7 +24,7 @@
 	paycheck_department = ACCOUNT_CIV
 
 	display_order = JOB_DISPLAY_ORDER_CAA
-	departments = DEPARTMENT_COMMAND | DEPARTMENT_SERVICE
+	departments = DEPARTMENT_BITFLAG_COMMAND | DEPARTMENT_BITFLAG_SERVICE
 	rpg_title = "Diplomat"
 
 	species_outfits = list(
