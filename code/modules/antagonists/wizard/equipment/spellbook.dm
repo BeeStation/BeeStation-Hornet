@@ -11,7 +11,8 @@
 	var/buy_word = "Learn"
 	var/limit //used to prevent a spellbook_entry from being bought more than X times with one wizard spellbook
 	var/list/no_coexistance_typecache //Used so you can't have specific spells together
-	var/against_chaos = FALSE // when 'chaotic oath' ritual has been cast, specific items and spells will not be purchasable
+	var/chaotic_spell = FALSE // while this is TRUE and the book is `against_chaos` TRUE, you can't learn this.
+	var/spell_against_chaos = FALSE // when 'chaotic oath' ritual has been cast, specific items and spells will not be purchasable
 
 /datum/spellbook_entry/New()
 	..()
@@ -23,17 +24,16 @@
 /datum/spellbook_entry/proc/CanBuy(mob/living/carbon/human/user,obj/item/spellbook/book) // Specific circumstances
 	if(book.uses<cost || limit == 0)
 		return FALSE
+	if(chaotic_spell && book.against_chaos)
+		return FALSE
+	if(spell_against_chaos && book.chaotic)
+		return FALSE
 	for(var/spell in user.mind.spell_list)
 		if(is_type_in_typecache(spell, no_coexistance_typecache))
 			return FALSE
 	return TRUE
 
 /datum/spellbook_entry/proc/Buy(mob/living/carbon/human/user,obj/item/spellbook/book) //return TRUE on success
-	//Check if we can learn the spell
-	if(book.chaotic && against_chaos) // if the book has cast Chaotic Oath, and the spell is against chaos, you can't learn the spell
-		to_chat(user, "<span class='notice'>Your chaotic school of magic refuses to purchase the spell!</span>")
-		return FALSE
-
 	if(!S || QDELETED(S))
 		S = new spell_type()
 	//Check if we got the spell already
@@ -213,7 +213,7 @@
 	spell_type = /obj/effect/proc_holder/spell/targeted/lichdom
 	category = "Defensive"
 	cost = 3
-	against_chaos = TRUE
+	spell_against_chaos = TRUE
 
 /datum/spellbook_entry/teslablast
 	name = "Tesla Blast"
@@ -285,9 +285,6 @@
 
 
 /datum/spellbook_entry/item/Buy(mob/living/carbon/human/user,obj/item/spellbook/book)
-	//Check if we can purchase the item
-	if(book.chaotic && against_chaos) // if the book has cast Chaotic Oath, and the item is against chaos, you can't buy the item
-		to_chat(user, "<span class='notice'>Your chaotic school of magic refuses to purchase the item!</span>")
 	new item_path(get_turf(user))
 	SSblackbox.record_feedback("tally", "wizard_spell_learned", 1, name)
 	return TRUE
@@ -407,7 +404,7 @@
 	item_path = /obj/item/antag_spawner/slaughter_demon
 	limit = 1
 	category = "Assistance"
-	against_chaos = TRUE
+	spell_against_chaos = TRUE
 
 /datum/spellbook_entry/item/hugbottle
 	name = "Bottle of Tickles"
@@ -422,7 +419,7 @@
 	cost = 1 //non-destructive; it's just a jape, sibling!
 	limit = 1
 	category = "Assistance"
-	against_chaos = TRUE
+	spell_against_chaos = TRUE
 
 /datum/spellbook_entry/item/mjolnir
 	name = "Mjolnir"
@@ -464,6 +461,7 @@
 	refundable = FALSE
 	buy_word = "Cast"
 	var/active = FALSE
+	var/ritual_invocation // This does nothing. This is a flavor to ghosts observing a wizard.
 
 /datum/spellbook_entry/summon/CanBuy(mob/living/carbon/human/user,obj/item/spellbook/book)
 	return ..() && !active
@@ -480,10 +478,15 @@
 		dat += "<b>Already cast!</b><br>"
 	return dat
 
+/datum/spellbook_entry/summon/proc/say_invocation(mob/living/carbon/human/user)
+	if(ritual_invocation)
+		user.say(ritual_invocation, forced = "spell")
+
 /datum/spellbook_entry/summon/ghosts
 	name = "Summon Ghosts"
 	desc = "Spook the crew out by making them see dead people. Be warned, ghosts are capricious and occasionally vindicative, and some will use their incredibly minor abilities to frustrate you."
 	cost = 0
+	ritual_invocation = "ALADAL DESINARI ODORI'IN TUUR'IS OVOR'E POR"
 
 /datum/spellbook_entry/summon/ghosts/Buy(mob/living/carbon/human/user, obj/item/spellbook/book)
 	SSblackbox.record_feedback("tally", "wizard_spell_learned", 1, name)
@@ -491,11 +494,13 @@
 	active = TRUE
 	to_chat(user, "<span class='notice'>You have cast summon ghosts!</span>")
 	playsound(get_turf(user), 'sound/effects/ghost2.ogg', 50, 1)
+	say_invocation(user)
 	return TRUE
 
 /datum/spellbook_entry/summon/guns
 	name = "Summon Guns"
 	desc = "Nothing could possibly go wrong with arming a crew of lunatics just itching for an excuse to kill you. There is a good chance that they will shoot each other first."
+	ritual_invocation = "ALADAL DESINARI ODORI'IN DOL'G FLAM OVOR'E POR"
 
 /datum/spellbook_entry/summon/guns/IsAvailable()
 	if(!SSticker.mode) // In case spellbook is placed on map
@@ -512,11 +517,13 @@
 	active = TRUE
 	playsound(get_turf(user), 'sound/magic/castsummon.ogg', 50, 1)
 	to_chat(user, "<span class='notice'>You have cast summon guns!</span>")
+	say_invocation(user)
 	return TRUE
 
 /datum/spellbook_entry/summon/magic
 	name = "Summon Magic"
 	desc = "Share the wonders of magic with the crew and show them why they aren't to be trusted with it at the same time."
+	ritual_invocation = "ALADAL DESINARI ODORI'IN IDO'LEX SPERMITA OVOR'E POR"
 
 /datum/spellbook_entry/summon/magic/IsAvailable()
 	if(!SSticker.mode) // In case spellbook is placed on map
@@ -533,12 +540,14 @@
 	active = TRUE
 	playsound(get_turf(user), 'sound/magic/castsummon.ogg', 50, 1)
 	to_chat(user, "<span class='notice'>You have cast summon magic!</span>")
+	say_invocation(user)
 	return TRUE
 
 /datum/spellbook_entry/summon/events
 	name = "Summon Events"
 	desc = "Give Murphy's law a little push and replace all events with special wizard ones that will confound and confuse everyone. Multiple castings increase the rate of these events."
 	var/times = 0
+	ritual_invocation = "ALADAL DESINARI ODORI'IN IDO'LEX MANAG'ROKT OVOR'E POR"
 
 /datum/spellbook_entry/summon/events/IsAvailable()
 	if(!SSticker.mode) // In case spellbook is placed on map
@@ -555,6 +564,7 @@
 	times++
 	playsound(get_turf(user), 'sound/magic/castsummon.ogg', 50, 1)
 	to_chat(user, "<span class='notice'>You have cast summon events.</span>")
+	say_invocation(user)
 	return TRUE
 
 /datum/spellbook_entry/summon/events/GetInfo()
@@ -567,6 +577,7 @@
 	name = "Curse of Madness"
 	desc = "Curses the station, warping the minds of everyone inside, causing lasting traumas. Warning: this spell can affect you if not cast from a safe distance."
 	cost = 4
+	ritual_invocation = "ALADAL DESINARI ODORI'IN PORES ENHIDO'LEN MORI MAKA TU"
 
 /datum/spellbook_entry/summon/curse_of_madness/Buy(mob/living/carbon/human/user, obj/item/spellbook/book)
 	SSblackbox.record_feedback("tally", "wizard_spell_learned", 1, name)
@@ -576,37 +587,60 @@
 	name = "Chaotic Oath"
 	desc = "Swear to yourself with the chaotic oath that you won't be murderbone, but going to \
 		bring more chaos to the station. <b>Your escalation policy now follows Antagonist instead of Murderbone,</b> \
-		and, in return, you get 2 more spell points and get 2 random spells(not refundable). Your apprentices follow the same rule, and \
+		and, in return, you get 4 more spell points. Your apprentices follow the same rule, and \
 		please warn them not to go murderbone, or all of you'll bring space gods' displeasure. (Note that \
-		destroying the large part of the station is regarded as murderbone.)<br/>\
+		destroying the large part of the station is considered to be murderbone.)<br/>\
 		If you cast this, you'll no longer be abe to purchase specific items and spells: Bottle of Blood, Bottle of Tickles, Bind Soul. \
 		If you purchased those already, You'll never be able to cast the ritual.<br/>\
 		If you don't know what this exactly means, <b>DO NOT PURCHASE THIS.</b> You'll be expelled from Wizard Federation."
 	cost = 0
+	ritual_invocation = "ALADAL DESINARI ODORI'IN A'DO MAKOANEX MORI OVORA DUN EPONEKUS"
+	chaotic_spell = TRUE
 
 /datum/spellbook_entry/summon/chaotic_oath/Buy(mob/living/carbon/human/user, obj/item/spellbook/book)
 	if(active)
 		return FALSE
-	if(book.against_chaos)
-		to_chat(user, "<span class='notice'>Your book is aligned to non-chaotic due to purchasing non-chaotic items/spells. You no longer cast the ritual.</span>")
+	if(user.mind.is_murderbone())
+		to_chat(user, "<span class='notice'>Your mind is too evil because of your malicious objectives. You can't be chaotic with those.</span>")
 		return FALSE
 	active = TRUE
-	book.uses += 2  // gets more spell points
+	book.uses += 4  // gets more spell points
 	book.chaotic = TRUE // prevents you to purchase specific spells/items
 	book.desc += " This book is glowing with the aura of chaos."
-	var/left_random_spells = 2
-	while(left_random_spells)
-		var/static/datum/spellbook_entry/spells = subtypesof(/datum/spellbook_entry)
-		var/datum/spellbook_entry/candidate_spell = pick(spells)
-		if(candidate_spell.spell_type && !candidate_spell.against_chaos)
-			book.uses += candidate_spell.cost
-			if(candidate_spell.Buy(user,book))
-				left_random_spells--
-				candidate_spell.refundable = FALSE
 	SSblackbox.record_feedback("tally", "wizard_spell_learned", 1, name)
 	playsound(get_turf(user), 'sound/magic/castsummon.ogg', 50, 1)
 	to_chat(user, "<span class='notice'>You have cast chaotic oath. You feel your alignment is now chaotic...</span>")
+	log_admin("[user] the Wizard/Witch has purchased Chaotic Oath. They're no longer a murderbone wizard.")
+	log_game("[user] the Wizard/Witch has purchased Chaotic Oath. They're no longer a murderbone wizard.")
+	say_invocation(user)
 	return TRUE
+
+/datum/spellbook_entry/summon/wild_magic
+	name = "Wild Magic Manipulation"
+	desc = "Double your remaining spell points and expand all of them to Wild Magic Manipulation.\
+		You purchase random spells items upto the spell points you expanded. Spells from this ritual will no longer be refundable even if you learned it manually, but also the book will no longer accept items to refund. Not compatible with Chaotic Oath."
+	cost = 0
+	ritual_invocation = "ALADAL DESINARI ODORI'IN A'EN SPERMITEN G'ATUA H'UN OVORA DUN SPERMITUN"
+	spell_against_chaos = TRUE
+
+/datum/spellbook_entry/summon/wild_magic/Buy(mob/living/carbon/human/user, obj/item/spellbook/book)
+	if(!book.uses)
+		to_chat(user, "<span class='notice'>You have no spell points for this ritual.</span>") // You can cast it again as long as you get more spell points somehow
+		return FALSE
+	SSblackbox.record_feedback("tally", "wizard_spell_learned", 1, name)
+	book.uses *= 2
+	book.refuses_refund = TRUE
+	book.against_chaos = TRUE
+	book.desc += " The book looks powerless."
+	while(book.uses)
+		var/datum/spellbook_entry/target = pick(book.entries)
+		if(target.CanBuy(user,book))
+			if(target.Buy(user,book))
+				book.uses -= target.cost
+				target.refundable = FALSE
+	say_invocation(user)
+	return TRUE
+
 
 #undef MINIMUM_THREAT_FOR_RITUALS
 
@@ -623,6 +657,7 @@
 	var/tab = null
 	var/chaotic = FALSE
 	var/against_chaos = FALSE
+	var/refuses_refund = FALSE
 	var/mob/living/carbon/human/owner
 	var/list/datum/spellbook_entry/entries = list()
 	var/list/categories = list()
@@ -650,6 +685,9 @@
 	tab = categories[1]
 
 /obj/item/spellbook/attackby(obj/item/O, mob/user, params)
+	if(refuses_refund)
+		to_chat(user, "<span class='warning'>Your book is powerless because of Wild Magic Manipulation ritual. The book doesn't accept the item.</span>")
+		return
 	if(istype(O, /obj/item/antag_spawner/contract))
 		var/obj/item/antag_spawner/contract/contract = O
 		if(contract.used)
@@ -786,7 +824,7 @@
 				if(E.Buy(H,src))
 					if(E.limit)
 						E.limit--
-					if(E.against_chaos)
+					if(E.spell_against_chaos)
 						against_chaos = TRUE
 					uses -= E.cost
 					log_game("[initial(E.name)] purchased by [H.ckey]/[H.name] the [H.job] for [E.cost] SP, [uses] SP remaining.")
