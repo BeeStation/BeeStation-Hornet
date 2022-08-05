@@ -64,7 +64,7 @@
 	sight = NONE
 	mouse_opacity = MOUSE_OPACITY_OPAQUE
 	see_invisible = SEE_INVISIBLE_LIVING
-	invisibility = INVISIBILITY_MAXIMUM
+	invisibility = INVISIBILITY_OBSERVER
 	var/icon/human_image
 	var/image/current_image
 	var/hidden = FALSE
@@ -148,6 +148,9 @@
 
 	friend_talk(message)
 
+/mob/camera/imaginary_friend/Hear(message, atom/movable/speaker, datum/language/message_language, raw_message, radio_freq, list/spans, message_mode)
+	to_chat(src, compose_message(speaker, message_language, raw_message, radio_freq, spans, message_mode))
+
 /mob/camera/imaginary_friend/proc/friend_talk(message)
 	message = capitalize(trim(copytext_char(sanitize(message), 1, MAX_MESSAGE_LEN)))
 
@@ -166,7 +169,7 @@
 	if(owner.client)
 		var/mutable_appearance/MA = mutable_appearance('icons/mob/talk.dmi', src, "default[say_test(message)]", FLY_LAYER)
 		MA.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
-		INVOKE_ASYNC(GLOBAL_PROC, /proc/flick_overlay, MA, list(owner.client), 30)
+		INVOKE_ASYNC(GLOBAL_PROC, /.proc/flick_overlay, MA, list(owner.client), 30)
 
 	for(var/mob/M in GLOB.dead_mob_list)
 		var/link = FOLLOW_LINK(M, owner)
