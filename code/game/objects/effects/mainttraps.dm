@@ -286,6 +286,7 @@
 	pixel_x = -32
 	pixel_y = -32
 	rune_in_use = FALSE
+	can_be_scribed = FALSE
 
 /obj/effect/rune/cluwne/attackby(obj/I, mob/user, params)
 	if(istype(I, /obj/item/melee/cultblade/dagger) && iscultist(user))
