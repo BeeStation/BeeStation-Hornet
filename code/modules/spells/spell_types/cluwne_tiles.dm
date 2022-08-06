@@ -1,6 +1,6 @@
-/obj/effect/proc_holder/spell/aoe_turf/cluwne_tiles
+/obj/effect/proc_holder/spell/cluwne_tiles
 	name = "Cluwnificate tiles"
-	desc = "Lubricate big amount of tiles around you with super duper lube for some seconds while you become slip free for the duration."
+	desc = "Lubricate big amount of tiles around you with magical lubes for some seconds. Wizards are immune to magical lubes, but still vulnerable to normal lubes."
 
 	school = "conjuration" // not transmutation, because it's summoning lubes on tiles
 	clothes_req = TRUE
@@ -9,26 +9,25 @@
 	charge_max = 60 SECONDS
 	cooldown_min = 30 SECONDS
 	range = 40 // radius of tiles from the caster to lubricate
-	var/lubricant_duration = 6 SECONDS
+	var/lubricant_duration = 4 SECONDS
 
 	sound = "sound/effects/meteorimpact.ogg"
 	action_icon = 'icons/mob/mask.dmi'
 	action_icon_state = "clown"
 
-/obj/effect/proc_holder/spell/aoe_turf/cluwne_tiles/cast(list/targets, mob/user=usr)
-	var/area/A = get_area(user)
-	if(istype(A, /area/wizard_station))
-		// This is a bug-proof to prevent wizards to get perma-slip-free trait by casting then refunding the spell.
-		to_chat(user, "<span class='warning'>Wizard Federation doesn't want their property to be lubricated by the annoying spell. Best wait until you leave to use [src].</span>")
-		return
-	ADD_TRAIT(user, TRAIT_NOSLIPALL, MAGIC_TRAIT)
-	addtimer(CALLBACK(src, /obj/effect/proc_holder/spell/aoe_turf/cluwne_tiles.proc/remove_trait, user), lubricant_duration*2) // This should be called more than `1.5*duration SECONDS` because that time is exactly when the lube tiles gone. that's why it's *2.
+/obj/effect/proc_holder/spell/cluwne_tiles/choose_targets(mob/user = usr)
+	// for optimization, targets will be given in the for loop in cast proc ("spiral_range_turfs()")
+	perform(user=user)
+
+/obj/effect/proc_holder/spell/cluwne_tiles/cast(mob/user=usr)
+ 	// magical no slip is given at antag_spawner.dm as `ADD_TRAIT(H, TRAIT_NOSLIPMAGIC, MAGIC_TRAIT)`
+	// This is because your apprentices or fellow wizard(possibly) are supposed to be disabled by your cluwne tile spell
+	ADD_TRAIT(user, TRAIT_NOSLIPMAGIC, MAGIC_TRAIT) // If you got this spell somehow, not through being a real wizard, you need to get this trait
+
 	var/count = 1
-	for(var/turf/open/O in targets)
-		O.MakeSlippery(TURF_WET_SUPERLUBE, lubricant_duration)
+	for(var/turf/open/O in spiral_range_turfs(dist=range, tick_checked=FALSE))
+		O.MakeSlippery(TURF_WET_MAGICAL, lubricant_duration)
 		count++
-		if(count%200 == 0) // this is lag-proof
-			count=0
+		if(count%200 == 0) // lag proof sleep
+			count = 0
 			sleep(1)
-/obj/effect/proc_holder/spell/aoe_turf/cluwne_tiles/proc/remove_trait(mob/user)
-	REMOVE_TRAIT(user, TRAIT_NOSLIPALL, MAGIC_TRAIT)
