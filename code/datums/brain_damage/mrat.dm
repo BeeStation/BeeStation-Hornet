@@ -38,7 +38,7 @@
 	var/list/radial_icon
 	var/volume
 
-/datum/mrat_type/New(type_name, type_icon, type_icon_state, type_sound, type_color = "#1ABC9C", type_volume = 100)
+/datum/mrat_type/New(type_name, type_icon, type_icon_state, type_sound, type_color = null, type_volume = 100)
 	name = type_name
 	icon = type_icon
 	icon_state = type_icon_state
@@ -56,13 +56,18 @@
 	var/list/icons_available = list()
 	var/datum/mrat_type/current_costume = null
 	var/list/mrat_types = list(
-		new /datum/mrat_type("Mouse", 'icons/mob/animal.dmi', "mouse_white", "sound/effects/mousesqueek.ogg"),
+		new /datum/mrat_type("Mouse", 'icons/mob/animal.dmi', "mouse_white", "sound/effects/mousesqueek.ogg", "#1ABC9C"),
 		new /datum/mrat_type("Corgi", 'icons/mob/pets.dmi', "corgi", "sound/machines/uplinkpurchase.ogg"),
-		new /datum/mrat_type("Hamster", 'icons/mob/pets.dmi', "hamster", "sound/effects/mousesqueek.ogg"),
+		new /datum/mrat_type("Hamster", 'icons/mob/pets.dmi', "hamster", "sound/effects/mousesqueek.ogg", "#1ABC9C"),
 		new /datum/mrat_type("Kitten", 'icons/mob/pets.dmi', "kitten", "sound/machines/uplinkpurchase.ogg"),
+		new /datum/mrat_type("Crab", 'icons/mob/animal.dmi', "crab", "sound/machines/uplinkpurchase.ogg"),
+		new /datum/mrat_type("Slime Puppy", 'icons/mob/pets.dmi', "slime_puppy", "sound/machines/uplinkpurchase.ogg"),
+		new /datum/mrat_type("Chick", 'icons/mob/animal.dmi', "chick", "sound/effects/mousesqueek.ogg"),
+		new /datum/mrat_type("Mothroach", 'icons/mob/animal.dmi', "mothroach", "sound/voice/moth/scream_moth.ogg", type_volume=50),
+		new /datum/mrat_type("Bee", 'icons/mob/animal.dmi', "bee_big", "sound/voice/moth/scream_moth.ogg", type_volume=50),
+		new /datum/mrat_type("Butterfly", 'icons/mob/animal.dmi', "butterfly", "sound/voice/moth/scream_moth.ogg", type_color="#1ABC9C", type_volume=50),
 		new /datum/mrat_type("Hologram", 'icons/mob/ai.dmi', "default", "sound/machines/ping.ogg", type_volume=50),
-		new /datum/mrat_type("Spaceman", 'icons/mob/animal.dmi', "old", "sound/machines/buzz-sigh.ogg", null, 50),
-		new /datum/mrat_type("Bee", 'icons/mob/pai.dmi', "bee", "sound/voice/moth/scream_moth.ogg", null, 50)
+		new /datum/mrat_type("Spaceman", 'icons/mob/animal.dmi', "old", "sound/machines/buzz-sigh.ogg", type_volume=50)
 	)
 
 /mob/camera/imaginary_friend/mrat/proc/update_available_icons()
