@@ -151,6 +151,11 @@
 	independent = TRUE
 	channels = list(RADIO_CHANNEL_CENTCOM = 1)
 
+/obj/item/encryptionkey/medical_sponsor  // for the cola medibot
+	name = "medical sponsor encryption key"
+	icon_state = "medcar_cypherkey"
+	channels = list(RADIO_CHANNEL_MEDICAL = 1, RADIO_CHANNEL_SUPPLY = 1)
+
 /obj/item/encryptionkey/debug
 	name = "\improper omni radio encryption key"
 	desc = "A god-like key of omni-presence to eavesdrop anything you would want to hear."

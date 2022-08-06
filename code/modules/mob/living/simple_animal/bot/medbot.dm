@@ -551,7 +551,7 @@ GLOBAL_VAR(medibot_unique_id_gen)
 						healies *= -1.5
 					if(alt_heal(C))
 						log_combat(src, patient, "performed their alternate heal on", "internal tools", "([uppertext(treatment_method)])")
-					elif(emagged == 2)
+					else if(emagged == 2)
 						patient.reagents.add_reagent(/datum/reagent/toxin/chloralhydrate, 5)
 						patient.apply_damage_type((healies*1),treatment_method)
 						log_combat(src, patient, "pretended to tend wounds on", "internal tools", "([uppertext(treatment_method)]) (EMAGGED)")
@@ -611,32 +611,43 @@ GLOBAL_VAR(medibot_unique_id_gen)
 /obj/machinery/bot_core/medbot
 	req_one_access = list(ACCESS_MEDICAL, ACCESS_ROBOTICS)
 
+
 /mob/living/simple_animal/bot/medbot/cola
 	name = "Sponsored Medibot"
 	desc = "Even medical isn't safe from corporate greed. May contain cola."
-	COOLDOWN_STATIC_DECLARE(payday)
-	var/static/budget = 200  // gets taken out of to pay cargo
+	radio_key = /obj/item/encryptionkey/medical_sponsor  // grants cargo
+	COOLDOWN_STATIC_DECLARE(fund)
+	var/static/budget = 0  // initial value (will get refilled instantly)
 	var/static/refill = 200
 	var/payout = 10
 
-/mob/living/simple_animal/bot/medbot/cola/Initialize()
-	add_timer(CALLBACK(src, .proc/refill), 2 MINUTES)
+/mob/living/simple_animal/bot/medbot/cola/New()
+	..()
+	START_PROCESSING(SSobj, src)
 
-/mob/living/simple_animal_bot/medbot/cola/proc/refill()
-	speak("Cola funding increased by [payout] credits.")
+/mob/living/simple_animal/bot/medbot/cola/process()
+	if(COOLDOWN_FINISHED(src, fund))
+		refill()
+		COOLDOWN_START(src, fund, 2 MINUTES)
+
+/obj/item/mop/advanced/Destroy()
+	STOP_PROCESSING(SSobj, src)
+	return ..()
+
+/mob/living/simple_animal/bot/medbot/cola/proc/refill()
+	speak("Cola funding increased by [refill] credits.")
 	playsound(src, 'sound/voice/medbot/funding.ogg', 50)
 	budget += refill
-	add_timer(CALLBACK(src, .proc/refill), 2 MINUTES)
+	soft_reset()
 
 /mob/living/simple_animal/bot/medbot/cola/alt_heal(mob/living/carbon/C)
-	if(prob(10))
-		var/new_budget = budget - payout
+	if(prob(10) || emagged == 2)
 		if(!pay_out())
 			say("Budget too low to pay out! Reverting to standard healing..")
 			return FALSE
-		if(emagged = 2)
+		if(emagged == 2)
 			patient.reagents.add_reagent(/datum/reagent/consumable/ethanol/sugar_rush, 2000)  // dont know what the od is so just to be safe..
-			patient.apply_damage_type((healies*1),treatment_method)
+			patient.apply_damage_type(1,TOX)
 		else
 			patient.reagents.add_reagent(/datum/reagent/consumable/space_cola, 10)
 		var/list/messagevoice = list(  // assorted space cola quotes
@@ -653,7 +664,7 @@ GLOBAL_VAR(medibot_unique_id_gen)
 		return TRUE
 	return FALSE
 
-/mob/living/simple_animal/bot/medbot/cola/pay_out()
+/mob/living/simple_animal/bot/medbot/cola/proc/pay_out()
 	var/new_budget = budget - payout
 	if(new_budget <= 0)
 		return FALSE
