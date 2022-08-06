@@ -8,8 +8,8 @@
 	invocation_type = "shout"
 	charge_max = 60 SECONDS
 	cooldown_min = 30 SECONDS
-	range = 22 // radius of tiles from the caster to lubricate
-	var/lubricant_duration = 7 SECONDS
+	range = 40 // radius of tiles from the caster to lubricate
+	var/lubricant_duration = 6 SECONDS
 
 	sound = "sound/effects/meteorimpact.ogg"
 	action_icon = 'icons/mob/mask.dmi'
@@ -23,8 +23,12 @@
 		return
 	ADD_TRAIT(user, TRAIT_NOSLIPALL, MAGIC_TRAIT)
 	addtimer(CALLBACK(src, /obj/effect/proc_holder/spell/aoe_turf/cluwne_tiles.proc/remove_trait, user), lubricant_duration*2) // This should be called more than `1.5*duration SECONDS` because that time is exactly when the lube tiles gone. that's why it's *2.
+	var/count = 1
 	for(var/turf/open/O in targets)
 		O.MakeSlippery(TURF_WET_SUPERLUBE, lubricant_duration)
-
+		count++
+		if(count%200 == 0) // this is lag-proof
+			count=0
+			sleep(1)
 /obj/effect/proc_holder/spell/aoe_turf/cluwne_tiles/proc/remove_trait(mob/user)
 	REMOVE_TRAIT(user, TRAIT_NOSLIPALL, MAGIC_TRAIT)
