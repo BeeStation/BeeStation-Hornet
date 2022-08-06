@@ -333,3 +333,14 @@
 	)
 	result = /obj/item/reagent_containers/food/snacks/crab_rangoon
 	subcategory = CAT_MISCFOOD
+
+/datum/crafting_recipe/food/prongles
+	name = "Prongles"
+	reqs = list(
+		/obj/item/c_tube = 1,
+		/obj/item/reagent_containers/food/snacks/grown/potato/wedges = 1,
+		/obj/item/reagent_containers/food/snacks/onion_slice = 1,
+		/datum/reagent/consumable/cream = 10
+	)
+	result = /obj/item/reagent_containers/food/snacks/prongles
+	subcategory = CAT_MISCFOOD

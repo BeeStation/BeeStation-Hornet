@@ -711,3 +711,12 @@
 	filling_color = "#100800"
 	tastes = list("disgust" = 7, "tin" = 1)
 	foodtype = MEAT | GROSS | JUNKFOOD
+
+/obj/item/reagent_containers/food/snacks/prongles
+	name = "prongles"
+	desc = "Perfect to stick your arm in to find that last chip at the bottom."
+	icon_state = "prongles"
+	list_reagents = list(/datum/reagent/consumable/nutriment = 6, /datum/reagent/consumable/cooking_oil = 2, /datum/reagent/consumable/sodiumchloride = 2)
+	trash = /obj/item/c_tube
+	tastes = list("sour cream" = 2, "onion" = 1)
+	foodtype = FRIED
