@@ -233,8 +233,10 @@
 				for(var/obj/effect/proc_holder/spell/my_spell in owner.spell_list)
 					if(initial(chosen_spell.name) == initial(my_spell.name)) // You don't learn the same spell
 						failsafe = TRUE
+						break
 					if(is_type_in_typecache(my_spell, initial(chosen_spell.no_coexistance_typecache))) // You don't learn a spell that isn't compatible with another
 						failsafe = TRUE
+						break
 				if(failsafe)
 					continue
 				var/obj/effect/proc_holder/spell/new_spell = initial(chosen_spell.spell_type)
