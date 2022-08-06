@@ -1592,6 +1592,17 @@
 		var/item = pick(contains)
 		new item(C)
 
+/datum/supply_pack/medical/cola_bot
+	name = "Space-Cola branded Medibots"
+	desc = "A pack of cheap medibots filled with Space Cola sponsoring."
+	cost = 500
+	contains = list(
+		/mob/living/simple_animal/bot/medbot/cola,
+		/mob/living/simple_animal/bot/medbot/cola,
+		/mob/living/simple_animal/bot/medbot/cola,
+		/mob/living/simple_animal/bot/medbot/cola,
+	)
+
 /datum/supply_pack/medical/surgery
 	name = "Surgical Supplies Crate"
 	desc = "Do you want to perform surgery, but don't have one of those fancy shmancy degrees? Just get started with this crate containing a medical duffelbag, Sterilizine spray and collapsible roller bed."
