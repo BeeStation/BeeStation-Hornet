@@ -160,6 +160,7 @@ GLOBAL_LIST_EMPTY(bloody_footprints_cache)
 #define TURF_WET_ICE 		(1<<2)
 #define TURF_WET_LUBE		(1<<3)
 #define TURF_WET_SUPERLUBE	(1<<4)
+#define TURF_WET_MAGICAL	(1<<5)
 
 //Maximum amount of time, (in deciseconds) a tile can be wet for.
 #define MAXIMUM_WET_TIME 5 MINUTES

@@ -272,7 +272,7 @@
 
 /datum/spellbook_entry/cluwne_tiles
 	name = "Cluwnificate tiles"
-	spell_type = /obj/effect/proc_holder/spell/aoe_turf/cluwne_tiles
+	spell_type = /obj/effect/proc_holder/spell/cluwne_tiles
 	category = "Defensive"
 	cost = 2
 

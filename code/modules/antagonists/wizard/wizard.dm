@@ -134,6 +134,7 @@
 	if(H.age < wiz_age)
 		H.age = wiz_age
 	H.equipOutfit(outfit_type)
+	ADD_TRAIT(H, TRAIT_NOSLIPMAGIC, MAGIC_TRAIT)
 
 /datum/antagonist/wizard/greet()
 	to_chat(owner, "<span class='boldannounce'>You are the Space Wizard!</span>")
@@ -265,6 +266,8 @@
 	owner.AddSpell(new /obj/effect/proc_holder/spell/targeted/area_teleport/teleport(null))
 	owner.AddSpell(new /obj/effect/proc_holder/spell/targeted/turf_teleport/blink(null))
 	owner.AddSpell(new /obj/effect/proc_holder/spell/targeted/ethereal_jaunt(null))
+
+	ADD_TRAIT(H, TRAIT_NOSLIPMAGIC, MAGIC_TRAIT)
 
 /datum/antagonist/wizard/proc/update_wiz_icons_added(mob/living/wiz,join = TRUE)
 	var/datum/atom_hud/antag/wizhud = GLOB.huds[ANTAG_HUD_WIZ]
