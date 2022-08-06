@@ -615,6 +615,7 @@ GLOBAL_VAR(medibot_unique_id_gen)
 /mob/living/simple_animal/bot/medbot/cola
 	name = "Sponsored Medibot"
 	desc = "Even medical isn't safe from corporate greed. May contain cola."
+	icon_state = "colabot0"
 	radio_key = /obj/item/encryptionkey/medical_sponsor  // grants cargo
 	COOLDOWN_STATIC_DECLARE(fund)
 	var/static/budget = 0  // initial value (will get refilled instantly)
@@ -638,6 +639,24 @@ GLOBAL_VAR(medibot_unique_id_gen)
 /mob/living/simple_animal/bot/medbot/explode()
 	. = ..()
 	new /obj/item/reagent_containers/food/drinks/soda_cans/cola(drop_location())
+
+/mob/living/simple_animal/bot/medbot/cola/update_icon()
+	cut_overlays()
+	if(skin)
+		add_overlay("medskin_[skin]")
+	if(!on)
+		icon_state = "colabot0"
+		return
+	if(IsStun() || IsParalyzed())
+		icon_state = "colabota"
+		return
+	if(mode == BOT_HEALING)
+		icon_state = "colabots[stationary_mode]"
+		return
+	else if(stationary_mode) //Bot has yellow light to indicate stationary mode.
+		icon_state = "colabot2"
+	else
+		icon_state = "colabot1"
 
 /mob/living/simple_animal/bot/medbot/cola/proc/refill()
 	speak("Cola funding increased by [refill] credits.")
