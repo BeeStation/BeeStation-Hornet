@@ -228,12 +228,15 @@
 			var/static/list/spell_lists = subtypesof(/datum/spellbook_entry)-typesof(/datum/spellbook_entry/item)-typesof(/datum/spellbook_entry/summon)
 			var/spells_left = 2
 			while(spells_left)
+				var/failsafe = FALSE
 				var/datum/spellbook_entry/chosen_spell = pick(spell_lists)
 				for(var/obj/effect/proc_holder/spell/my_spell in owner.spell_list)
 					if(initial(chosen_spell.name) == initial(my_spell.name)) // You don't learn the same spell
-						continue
+						failsafe = TRUE
 					if(is_type_in_typecache(my_spell, initial(chosen_spell.no_coexistance_typecache))) // You don't learn a spell that isn't compatible with another
-						continue
+						failsafe = TRUE
+				if(failsafe)
+					continue
 				var/obj/effect/proc_holder/spell/new_spell = initial(chosen_spell.spell_type)
 				owner.AddSpell(new new_spell(null))
 				spells_left--
