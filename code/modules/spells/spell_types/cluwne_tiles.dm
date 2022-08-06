@@ -1,6 +1,6 @@
 /obj/effect/proc_holder/spell/aoe_turf/cluwne_tiles
 	name = "Cluwnificate tiles"
-	desc = "Lubricate big amount of tiles around you with super duper lube for 7 seconds while you become slip free for the duration."
+	desc = "Lubricate big amount of tiles around you with super duper lube for some seconds while you become slip free for the duration."
 
 	school = "conjuration" // not transmutation, because it's summoning lubes on tiles
 	clothes_req = TRUE
