@@ -1,4 +1,4 @@
-#define WIZARD_WILDMAGIC_SPELLPOINT_MULTIPLY 1.7
+#define WIZARD_WILDMAGIC_SPELLPOINT_MULTIPLIER 1.7
 
 /datum/spellbook_entry
 	var/name = "Entry Name"
