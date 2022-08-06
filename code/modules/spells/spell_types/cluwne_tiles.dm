@@ -9,7 +9,7 @@
 	charge_max = 60 SECONDS
 	cooldown_min = 30 SECONDS
 	range = 40 // radius of tiles from the caster to lubricate
-	var/lubricant_duration = 4 SECONDS
+	var/lubricant_duration = 7 SECONDS
 
 	sound = "sound/effects/meteorimpact.ogg"
 	action_icon = 'icons/mob/mask.dmi'
