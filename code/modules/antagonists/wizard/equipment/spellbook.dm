@@ -13,8 +13,6 @@
 	var/buy_word = "Learn"
 	var/limit //used to prevent a spellbook_entry from being bought more than X times with one wizard spellbook
 	var/list/no_coexistance_typecache //Used so you can't have specific spells together
-	var/chaotic_spell = FALSE // while this is TRUE and the book is `against_chaos` TRUE, you can't learn this.
-	var/spell_against_chaos = FALSE // when 'chaotic oath' ritual has been cast, specific items and spells will not be purchasable
 
 /datum/spellbook_entry/New()
 	..()
@@ -25,10 +23,6 @@
 
 /datum/spellbook_entry/proc/CanBuy(mob/living/carbon/human/user,obj/item/spellbook/book) // Specific circumstances
 	if(book.uses<cost || limit == 0)
-		return FALSE
-	if(chaotic_spell && book.book_against_chaos)
-		return FALSE
-	if(spell_against_chaos && book.chaotic_book)
 		return FALSE
 	for(var/spell in user.mind.spell_list)
 		if(is_type_in_typecache(spell, no_coexistance_typecache))
@@ -215,7 +209,6 @@
 	spell_type = /obj/effect/proc_holder/spell/targeted/lichdom
 	category = "Defensive"
 	cost = 3
-	spell_against_chaos = TRUE
 
 /datum/spellbook_entry/teslablast
 	name = "Tesla Blast"
@@ -406,7 +399,6 @@
 	item_path = /obj/item/antag_spawner/slaughter_demon
 	limit = 1
 	category = "Assistance"
-	spell_against_chaos = TRUE
 
 /datum/spellbook_entry/item/hugbottle
 	name = "Bottle of Tickles"
@@ -421,7 +413,6 @@
 	cost = 1 //non-destructive; it's just a jape, sibling!
 	limit = 1
 	category = "Assistance"
-	spell_against_chaos = TRUE
 
 /datum/spellbook_entry/item/mjolnir
 	name = "Mjolnir"
@@ -585,55 +576,21 @@
 	SSblackbox.record_feedback("tally", "wizard_spell_learned", 1, name)
 	return TRUE
 
-/datum/spellbook_entry/summon/chaotic_oath
-	name = "Chaotic Oath"
-	desc = "Swear to yourself with the chaotic oath that you won't be murderbone, but going to \
-		bring more chaos to the station. <b>Your escalation policy now follows Antagonist instead of Murderbone,</b> \
-		and, in return, you get 4 more spell points. Your apprentices follow the same rule, and \
-		please warn them not to go murderbone, or all of you'll bring space gods' displeasure. (Note that \
-		destroying the large part of the station is considered to be murderbone.)<br/>\
-		If you cast this, you'll no longer be abe to purchase specific items and spells: Bottle of Blood, Bottle of Tickles, Bind Soul. \
-		If you purchased those already, You'll never be able to cast the ritual.<br/>\
-		If you don't know what this exactly means, <b>DO NOT PURCHASE THIS.</b> You'll be expelled from Wizard Federation."
-	cost = 0
-	ritual_invocation = "ALADAL DESINARI ODORI'IN A'DO MAKOANEX MORI OVORA DUN EPONEKUS"
-	chaotic_spell = TRUE
-
-/datum/spellbook_entry/summon/chaotic_oath/Buy(mob/living/carbon/human/user, obj/item/spellbook/book)
-	if(active)
-		return FALSE
-	if(user.mind.is_murderbone())
-		to_chat(user, "<span class='notice'>Your mind is too evil because of your malicious objectives. You can't be chaotic with those.</span>")
-		return FALSE
-	active = TRUE
-	book.uses += 4  // gets more spell points
-	book.chaotic_book = TRUE // prevents you to purchase specific spells/items
-	book.desc += " This book is glowing with the aura of chaos."
-	SSblackbox.record_feedback("tally", "wizard_spell_learned", 1, name)
-	playsound(get_turf(user), 'sound/magic/castsummon.ogg', 50, 1)
-	to_chat(user, "<span class='notice'>You have cast chaotic oath. You feel your alignment is now chaotic...</span>")
-	log_admin("[user] the Wizard/Witch has purchased Chaotic Oath. They're no longer a murderbone wizard.")
-	log_game("[user] the Wizard/Witch has purchased Chaotic Oath. They're no longer a murderbone wizard.")
-	say_invocation(user)
-	return TRUE
-
 /datum/spellbook_entry/summon/wild_magic
 	name = "Wild Magic Manipulation"
 	desc = "multiply your remaining spell points by 70%(round down) and expand all of them to Wild Magic Manipulation.\
-		You purchase random spells items upto the spell points you expanded. Spells from this ritual will no longer be refundable even if you learned it manually, but also the book will no longer accept items to refund. Not compatible with Chaotic Oath."
+		You purchase random spells items upto the spell points you expanded. Spells from this ritual will no longer be refundable even if you learned it manually, but also the book will no longer accept items to refund."
 	cost = 0
 	ritual_invocation = "ALADAL DESINARI ODORI'IN A'EN SPERMITEN G'ATUA H'UN OVORA DUN SPERMITUN"
-	spell_against_chaos = TRUE
 
 /datum/spellbook_entry/summon/wild_magic/Buy(mob/living/carbon/human/user, obj/item/spellbook/book)
 	if(!book.uses)
 		to_chat(user, "<span class='notice'>You have no spell points for this ritual.</span>") // You can cast it again as long as you get more spell points somehow
 		return FALSE
 	SSblackbox.record_feedback("tally", "wizard_spell_learned", 1, name)
-	book.uses = round(book.uses*WIZARD_WILDMAGIC_SPELLPOINT_MULTIPLY) // more spell points
+	book.uses = round(book.uses*WIZARD_WILDMAGIC_SPELLPOINT_MULTIPLIER) // more spell points
 	book.refuses_refund = TRUE
-	book.book_against_chaos = TRUE
-	book.desc += " The book looks powerless."
+	book.desc += "An unearthly tome that once had a great power."
 	while(book.uses)
 		var/datum/spellbook_entry/target = pick(book.entries)
 		if(target.CanBuy(user,book))
@@ -657,8 +614,6 @@
 	var/uses = 10
 	var/temp = null
 	var/tab = null
-	var/chaotic_book = FALSE
-	var/book_against_chaos = FALSE
 	var/refuses_refund = FALSE
 	var/mob/living/carbon/human/owner
 	var/list/datum/spellbook_entry/entries = list()
@@ -826,8 +781,6 @@
 				if(E.Buy(H,src))
 					if(E.limit)
 						E.limit--
-					if(E.spell_against_chaos)
-						book_against_chaos = TRUE
 					uses -= E.cost
 					log_game("[initial(E.name)] purchased by [H.ckey]/[H.name] the [H.job] for [E.cost] SP, [uses] SP remaining.")
 		else if(href_list["refund"])
@@ -843,4 +796,4 @@
 	attack_self(H)
 	return
 
-#undef WIZARD_WILDMAGIC_SPELLPOINT_MULTIPLY
+#undef WIZARD_WILDMAGIC_SPELLPOINT_MULTIPLIER
