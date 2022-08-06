@@ -549,7 +549,7 @@ GLOBAL_VAR(medibot_unique_id_gen)
 						healies *= 1.5
 					if(treatment_method == TOX && HAS_TRAIT(patient, TRAIT_TOXINLOVER))
 						healies *= -1.5
-					if(alt_heal(C))
+					if(alt_heal(patient))
 						log_combat(src, patient, "performed their alternate heal on", "internal tools", "([uppertext(treatment_method)])")
 					else if(emagged == 2)
 						patient.reagents.add_reagent(/datum/reagent/toxin/chloralhydrate, 5)
@@ -626,6 +626,7 @@ GLOBAL_VAR(medibot_unique_id_gen)
 	START_PROCESSING(SSobj, src)
 
 /mob/living/simple_animal/bot/medbot/cola/process()
+	..()
 	if(COOLDOWN_FINISHED(src, fund))
 		refill()
 		COOLDOWN_START(src, fund, 2 MINUTES)
@@ -645,18 +646,19 @@ GLOBAL_VAR(medibot_unique_id_gen)
 	soft_reset()
 
 /mob/living/simple_animal/bot/medbot/cola/alt_heal(mob/living/carbon/patient)
-	to_chat(patient, "alt heal triggered emag level [emagged]")
 	if(emagged == 2)  // always sugar rush if emagged
-		to_chat(patient, "emag 'heal' triggered")
-		patient.reagents.add_reagent(/datum/reagent/consumable/ethanol/sugar_rush, 2000)  // dont know what the od is so just to be safe..
+		patient.reagents.add_reagent(/datum/reagent/consumable/ethanol/sugar_rush, 50)  // dont know what the od is so just to be safe..
+		patient.reagents.add_reagent(/datum/reagent/consumable/sugar, 50)  // knocks you out in 4 ticks
+		patient.reagents.expose_temperature(1000)
 		patient.apply_damage_type(1,TOX)
-	else if(prob(90))
+		return TRUE
+	if(prob(90))
 		return FALSE
-	else if(!pay_out())
+	if(!pay_out())
 		say("Budget too low to pay out! Reverting to standard healing..")
 		return FALSE
-	else
-		patient.reagents.add_reagent(/datum/reagent/consumable/space_cola, 10)
+
+	patient.reagents.add_reagent(/datum/reagent/consumable/space_cola, 10)
 	// im sure theres a better way to do this
 
 	var/list/messagevoice = list(  // assorted space cola quotes
