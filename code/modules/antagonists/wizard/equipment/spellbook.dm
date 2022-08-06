@@ -578,8 +578,8 @@
 
 /datum/spellbook_entry/summon/wild_magic
 	name = "Wild Magic Manipulation"
-	desc = "multiply your remaining spell points by 70%(round down) and expand all of them to Wild Magic Manipulation.\
-		You purchase random spells items upto the spell points you expanded. Spells from this ritual will no longer be refundable even if you learned it manually, but also the book will no longer accept items to refund."
+	desc = "multiply your remaining spell points by 70%(round down) and expand all of them to Wild Magic Manipulation. \
+		You purchase random spells and items upto the spell points you expanded. Spells from this ritual will no longer be refundable even if you learned it manually, but also the book will no longer accept items to refund."
 	cost = 0
 	ritual_invocation = "ALADAL DESINARI ODORI'IN A'EN SPERMITEN G'ATUA H'UN OVORA DUN SPERMITUN"
 
