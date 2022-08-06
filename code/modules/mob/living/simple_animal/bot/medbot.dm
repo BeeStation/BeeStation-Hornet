@@ -550,7 +550,7 @@ GLOBAL_VAR(medibot_unique_id_gen)
 					if(treatment_method == TOX && HAS_TRAIT(patient, TRAIT_TOXINLOVER))
 						healies *= -1.5
 					if(alt_heal(C))
-						log_combat(src, patient, "performed their alternate heal on", "internal tools", "([uppertext(treatment_method)]) [emagged ? " (EMAGGED)" : ""]"
+						log_combat(src, patient, "performed their alternate heal on", "internal tools", "([uppertext(treatment_method)])")
 					elif(emagged == 2)
 						patient.reagents.add_reagent(/datum/reagent/toxin/chloralhydrate, 5)
 						patient.apply_damage_type((healies*1),treatment_method)
@@ -571,7 +571,7 @@ GLOBAL_VAR(medibot_unique_id_gen)
 				soft_reset()
 		else
 			tending = FALSE
-			
+
 /mob/living/simple_animal/bot/medbot/proc/alt_heal(mob/living/carbon/C)
 	return FALSE  // inits the alt heal
 
@@ -614,14 +614,14 @@ GLOBAL_VAR(medibot_unique_id_gen)
 /mob/living/simple_animal/bot/medbot/cola
 	name = "Sponsored Medibot"
 	desc = "Even medical isn't safe from corporate greed. May contain cola."
-	COOLDOWN_STATIC_DECLARE(payday) 
+	COOLDOWN_STATIC_DECLARE(payday)
 	var/static/budget = 200  // gets taken out of to pay cargo
 	var/static/refill = 200
 	var/payout = 10
 
 /mob/living/simple_animal/bot/medbot/cola/Initialize()
 	add_timer(CALLBACK(src, .proc/refill), 2 MINUTES)
-	
+
 /mob/living/simple_animal_bot/medbot/cola/proc/refill()
 	speak("Cola funding increased by [payout] credits.")
 	playsound(src, 'sound/voice/medbot/funding.ogg', 50)
@@ -632,28 +632,27 @@ GLOBAL_VAR(medibot_unique_id_gen)
 	if(prob(10))
 		var/new_budget = budget - payout
 		if(!pay_out())
-			say("Budget too low to pay out! Reverting to standard..")
+			say("Budget too low to pay out! Reverting to standard healing..")
 			return FALSE
-		if(
-			if(emagged = 2)
-				patient.reagents.add_reagent(/datum/reagent/consumable/ethanol/sugar_rush, 2000)  // dont know what the od is so just to be safe..
-				patient.apply_damage_type((healies*1),treatment_method)
-			else
-				patient.reagents.add_reagent(/datum/reagent/consumable/space_cola, 10)
-			var/list/messagevoice = list(  // assorted space cola quotes
-				"The taste that can't be beat!" = 'sound/voice/medbot/beat.ogg',
-				"Please, have a drink!" = 'sound/voice/medbot/haveone.ogg',
-				"Refreshing!" = 'sound/voice/medbot/refreshing.ogg',
-				"Space Cola is our sponsor!" = 'sound/voice/medbot/sponsor.ogg',
-				"The best drinks in space!" = 'sound/voice/medbot/thebest.ogg',
-				"Hope you're thirsty!" = 'sound/voice/medbot/thirsty.ogg')
-			var/message = pick(messagevoice)
-			speak(message)
-			playsound(src, messagevoice[message], 50)
+		if(emagged = 2)
+			patient.reagents.add_reagent(/datum/reagent/consumable/ethanol/sugar_rush, 2000)  // dont know what the od is so just to be safe..
+			patient.apply_damage_type((healies*1),treatment_method)
+		else
+			patient.reagents.add_reagent(/datum/reagent/consumable/space_cola, 10)
+		var/list/messagevoice = list(  // assorted space cola quotes
+			"The taste that can't be beat!" = 'sound/voice/medbot/beat.ogg',
+			"Please, have a drink!" = 'sound/voice/medbot/haveone.ogg',
+			"Refreshing!" = 'sound/voice/medbot/refreshing.ogg',
+			"Space Cola is our sponsor!" = 'sound/voice/medbot/sponsor.ogg',
+			"The best drinks in space!" = 'sound/voice/medbot/thebest.ogg',
+			"Hope you're thirsty!" = 'sound/voice/medbot/thirsty.ogg')
+		var/message = pick(messagevoice)
+		speak(message)
+		playsound(src, messagevoice[message], 50)
 
 		return TRUE
 	return FALSE
-		
+
 /mob/living/simple_animal/bot/medbot/cola/pay_out()
 	var/new_budget = budget - payout
 	if(new_budget <= 0)
