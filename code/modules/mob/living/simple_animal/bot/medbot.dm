@@ -634,44 +634,53 @@ GLOBAL_VAR(medibot_unique_id_gen)
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
+/mob/living/simple_animal/bot/medbot/explode()
+	. = ..()
+	new /obj/item/reagent_containers/food/drinks/soda_cans/cola(drop_location())
+
 /mob/living/simple_animal/bot/medbot/cola/proc/refill()
 	speak("Cola funding increased by [refill] credits.")
 	playsound(src, 'sound/voice/medbot/funding.ogg', 50)
 	budget += refill
 	soft_reset()
 
-/mob/living/simple_animal/bot/medbot/cola/alt_heal(mob/living/carbon/C)
-	if(prob(10) || emagged == 2)
-		if(!pay_out())
-			say("Budget too low to pay out! Reverting to standard healing..")
-			return FALSE
-		if(emagged == 2)
-			patient.reagents.add_reagent(/datum/reagent/consumable/ethanol/sugar_rush, 2000)  // dont know what the od is so just to be safe..
-			patient.apply_damage_type(1,TOX)
-		else
-			patient.reagents.add_reagent(/datum/reagent/consumable/space_cola, 10)
-		var/list/messagevoice = list(  // assorted space cola quotes
-			"The taste that can't be beat!" = 'sound/voice/medbot/beat.ogg',
-			"Please, have a drink!" = 'sound/voice/medbot/haveone.ogg',
-			"Refreshing!" = 'sound/voice/medbot/refreshing.ogg',
-			"Space Cola is our sponsor!" = 'sound/voice/medbot/sponsor.ogg',
-			"The best drinks in space!" = 'sound/voice/medbot/thebest.ogg',
-			"Hope you're thirsty!" = 'sound/voice/medbot/thirsty.ogg')
-		var/message = pick(messagevoice)
-		speak(message)
-		playsound(src, messagevoice[message], 50)
+/mob/living/simple_animal/bot/medbot/cola/alt_heal(mob/living/carbon/patient)
+	to_chat(patient, "alt heal triggered emag level [emagged]")
+	if(emagged == 2)  // always sugar rush if emagged
+		to_chat(patient, "emag 'heal' triggered")
+		patient.reagents.add_reagent(/datum/reagent/consumable/ethanol/sugar_rush, 2000)  // dont know what the od is so just to be safe..
+		patient.apply_damage_type(1,TOX)
+	else if(prob(90))
+		return FALSE
+	else if(!pay_out())
+		say("Budget too low to pay out! Reverting to standard healing..")
+		return FALSE
+	else
+		patient.reagents.add_reagent(/datum/reagent/consumable/space_cola, 10)
+	// im sure theres a better way to do this
 
-		return TRUE
-	return FALSE
+	var/list/messagevoice = list(  // assorted space cola quotes
+		"The taste that can't be beat!" = 'sound/voice/medbot/beat.ogg',
+		"Please, have a drink!" = 'sound/voice/medbot/haveone.ogg',
+		"Refreshing!" = 'sound/voice/medbot/refreshing.ogg',
+		"Space Cola is our sponsor!" = 'sound/voice/medbot/sponsor.ogg',
+		"The best drinks in space!" = 'sound/voice/medbot/thebest.ogg',
+		"Hope you're thirsty!" = 'sound/voice/medbot/thirsty.ogg')
+	var/message = pick(messagevoice)
+	speak(message)
+	playsound(src, messagevoice[message], 50)
 
-/mob/living/simple_animal/bot/medbot/cola/proc/pay_out()
+	return TRUE
+
+/mob/living/simple_animal/bot/medbot/cola/proc/pay_out(announce = TRUE)
 	var/new_budget = budget - payout
 	if(new_budget <= 0)
 		return FALSE
 	budget = new_budget
 	var/datum/bank_account/bank_account = SSeconomy.get_dep_account(ACCOUNT_CAR)
 	bank_account.adjust_money(payout)
-	speak("[payout] credits payed out from sponsors.", RADIO_CHANNEL_SUPPLY)
+	if(announce)
+		speak("[payout] credits payed out from sponsors.", RADIO_CHANNEL_SUPPLY)
 	return TRUE
 
 #undef MEDBOT_PANIC_NONE
