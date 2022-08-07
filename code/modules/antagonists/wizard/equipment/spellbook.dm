@@ -586,7 +586,7 @@
 	spell_recursive()
 	return TRUE
 
-/datum/spellbook_entry/summon/same_intent/proc/spell_recursive()
+/datum/spellbook_entry/summon/all_access/proc/spell_recursive()
 	for(var/obj/item/card/id/I in GLOB.id_cards)
 		I.get_magical_access()
  	// this happens recursively to help you when your ID card access is wiped by a mean HoP or something somehow
