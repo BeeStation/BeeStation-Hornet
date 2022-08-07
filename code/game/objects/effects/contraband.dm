@@ -657,6 +657,11 @@
 	desc = "This outdated informational poster uses Safety Moth(TM) to tell the viewer to hide in lockers when the Supermatter Crystal has delaminated. Running away might be a better strategy. It's signed by 'AspEv'."
 	icon_state = "poster44_legit"
 
+/obj/structure/sign/poster/official/disk
+	name = "The Nuke Disk"
+	desc = "This poster is designed for the captain, as a friendly reminder to secure the disk. It's signed by 'ether'."
+	icon_state = "poster50_legit"
+
 /obj/structure/sign/poster/contraband/syndiemoth
 	name = "Syndie Moth - Nuclear Operation"
 	desc = "A Syndicate-commissioned poster that uses Syndie Moth(TM?) to tell the viewer to keep the nuclear authentication disk unsecured. No, we aren't doing that. It's signed by 'AspEv'."
