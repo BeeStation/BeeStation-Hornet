@@ -113,10 +113,10 @@
 //------------------------------------- Job names -------------------------------------------
 //-------------------------------------------------------------------------------------------
 // Command
-#define JOB_NAME_CAPTAIN "Captain"
+#define JOB_NAME_CAPTAIN "King"
 
 // Service
-#define JOB_NAME_HEADOFPERSONNEL "Head of Personnel"
+#define JOB_NAME_HEADOFPERSONNEL "Lord of Personnel"
 #define JOB_NAME_ASSISTANT  "Assistant"
 #define JOB_NAME_BARTENDER  "Bartender"
 #define JOB_NAME_BOTANIST   "Botanist"
@@ -137,12 +137,12 @@
 #define JOB_NAME_SHAFTMINER      "Shaft Miner"
 
 // Engineering
-#define JOB_NAME_CHIEFENGINEER   "Chief Engineer"
+#define JOB_NAME_CHIEFENGINEER   "Lord of Engineering"
 #define JOB_NAME_STATIONENGINEER "Station Engineer"
 #define JOB_NAME_ATMOSPHERICTECHNICIAN "Atmospheric Technician"
 
 // Medical
-#define JOB_NAME_CHIEFMEDICALOFFICER "Chief Medical Officer"
+#define JOB_NAME_CHIEFMEDICALOFFICER "Lord of Medical"
 #define JOB_NAME_MEDICALDOCTOR "Medical Doctor"
 #define JOB_NAME_PARAMEDIC  "Paramedic"
 #define JOB_NAME_CHEMIST    "Chemist"
@@ -152,20 +152,20 @@
 #define JOB_NAME_PSYCHIATRIST  "Psychiatrist" // gimmick
 
 // R&D
-#define JOB_NAME_RESEARCHDIRECTOR "Research Director"
+#define JOB_NAME_RESEARCHDIRECTOR "Lord of Research"
 #define JOB_NAME_SCIENTIST  "Scientist"
 #define JOB_NAME_ROBOTICIST "Roboticist"
 #define JOB_NAME_EXPLORATIONCREW "Exploration Crew"
 
 // Security
-#define JOB_NAME_HEADOFSECURITY "Head of Security"
+#define JOB_NAME_HEADOFSECURITY "Lord of Security"
 #define JOB_NAME_WARDEN "Warden"
 #define JOB_NAME_SECURITYOFFICER "Security Officer"
 #define JOB_NAME_DETECTIVE "Detective"
 #define JOB_NAME_DEPUTY  "Deputy"
 
 // Silicon
-#define JOB_NAME_AI     "AI"
+#define JOB_NAME_AI     "Lord of Intelligence"
 #define JOB_NAME_CYBORG "Cyborg"
 #define JOB_NAME_PAI    "Personal AI"
 
