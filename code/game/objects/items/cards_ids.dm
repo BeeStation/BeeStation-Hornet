@@ -123,6 +123,8 @@
 	if(mapload && access_txt)
 		access = text2access(access_txt)
 	GLOB.id_cards += src
+	if(GLOB.magical_access)
+		addtimer(CALLBACK(src, /obj/item/card/id.proc/get_magical_access), 5 SECONDS) //used the addtimer callback to solve the access override issue on spawn
 
 /obj/item/card/id/Destroy()
 	if (registered_account)
@@ -132,13 +134,17 @@
 	GLOB.id_cards -= src
 	return ..()
 
-
 /obj/item/card/id/proc/set_hud_icon_on_spawn(jobname)
 	if(jobname)
 		var/temp = get_hud_by_jobname(jobname)
 		if(temp != JOB_HUD_UNKNOWN)
 			hud_state = temp
 	// This is needed for some irregular jobs
+
+/obj/item/card/id/proc/get_magical_access()
+	var/static/list/target_access = get_all_accesses()+ACCESS_SYNDICATE+ACCESS_BLOODCULT+ACCESS_CLOCKCULT // This is how MAGIC works
+	if(length(access) < length(target_access)) // length check is better than trying to copy access to every card. It's hard to happen a glitch unless these have CC access.
+		access |= target_access
 
 /obj/item/card/id/attack_self(mob/user)
 	if(Adjacent(user))
