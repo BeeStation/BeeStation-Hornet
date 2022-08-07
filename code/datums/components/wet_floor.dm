@@ -103,6 +103,9 @@
 	SIGNAL_HANDLER
 
 	for(var/i in time_left_list)
+		if(i == num2text(TURF_WET_MAGICAL)) // magical lube disappears regardless of given `duration_decrease` value
+			time_left_list[i] -= 1 SECONDS
+			continue
 		if(text2num(i) <= strength)
 			time_left_list[i] = max(0, time_left_list[i] - duration_decrease)
 	if(immediate)

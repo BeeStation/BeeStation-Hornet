@@ -37,6 +37,11 @@
 	mood_change = -2
 	timeout = 3 MINUTES
 
+/datum/mood_event/forceslip // for clown ruin or magical lube from wizards
+	description = "<span class='warning'>I slipped. This one was inevitable...</span>\n"
+	mood_change = -1
+	timeout = 6 MINUTES
+
 /datum/mood_event/eye_stab
 	description = "<span class='boldwarning'>I used to be an adventurer like you, until I took a screwdriver to the eye.</span>\n"
 	mood_change = -4

@@ -15,9 +15,9 @@
 /mob/living/carbon/human/slip(knockdown_amount, obj/O, lube, paralyze, forcedrop)
 	if(HAS_TRAIT(src, TRAIT_NOSLIPADMIN)) // admin no slip works to all kind of lubes including magical one
 		return 0
-	if(HAS_TRAIT(src, TRAIT_NOSLIPMAGIC) && (lube&SLIDE_MAGICAL)) // magical no slip works to only magical lube
+	if(HAS_TRAIT(src, TRAIT_NOSLIPMAGIC) && (lube&MAGICALLY_LUBRICATED)) // magical no slip works to only magical lube
 		return 0
-	if(HAS_TRAIT(src, TRAIT_NOSLIPALL) && !(lube&SLIDE_MAGICAL)) // traitor no slip to standard lubes, but not to magical lube
+	if(HAS_TRAIT(src, TRAIT_NOSLIPALL) && !(lube&MAGICALLY_LUBRICATED)) // traitor no slip to standard lubes, but not to magical lube
 		return 0
 	if (!(lube&GALOSHES_DONT_HELP))
 		if(HAS_TRAIT(src, TRAIT_NOSLIPWATER))

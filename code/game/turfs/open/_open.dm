@@ -211,8 +211,11 @@
 		if(!(lube&SLIDE_ICE))
 			to_chat(slipper, "<span class='notice'>You slipped[ O ? " on the [O.name]" : ""]!</span>")
 			playsound(slipper.loc, 'sound/misc/slip.ogg', 50, 1, -3)
-
-		SEND_SIGNAL(slipper, COMSIG_ADD_MOOD_EVENT, "slipped", /datum/mood_event/slipped)
+		if(!(lube&SLIP_WHEN_CRAWLING))
+			SEND_SIGNAL(slipper, COMSIG_CLEAR_MOOD_EVENT, "slipped_force")
+			SEND_SIGNAL(slipper, COMSIG_ADD_MOOD_EVENT, "slipped", /datum/mood_event/slipped)
+		else
+			SEND_SIGNAL(slipper, COMSIG_ADD_MOOD_EVENT, "slipped_force", /datum/mood_event/forceslip)
 		if(force_drop)
 			for(var/obj/item/I in slipper.held_items)
 				slipper.accident(I)
