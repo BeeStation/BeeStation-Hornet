@@ -588,7 +588,7 @@
 	return TRUE
 
 /datum/spellbook_entry/summon/magical_access/proc/spell_recursive()
-	if(GLOB.magical_access_recursive)
+	if(!GLOB.magical_access_recursive)
 		qdel(src)
 		return
 
