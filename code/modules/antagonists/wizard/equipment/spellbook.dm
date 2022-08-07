@@ -577,7 +577,7 @@
 	active = TRUE
 	var/message = stripped_input(user, "Whisper a secret truth to drive your victims to madness.", "Whispers of Madness")
 	if(!message)
-		return FALSE
+		message = "Wizard has cast the Curse of Madness, but they didn't know what to say. This is a vile secret too."
 	curse_of_madness(user, message)
 	to_chat(user, "<span class='notice'>You have cast the curse of insanity!</span>")
 	playsound(user, 'sound/magic/mandswap.ogg', 50, 1)
