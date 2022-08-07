@@ -92,7 +92,7 @@
 			lube_flags = SLIDE | GALOSHES_DONT_HELP | SLIP_WHEN_CRAWLING
 		if(TURF_WET_MAGICAL)
 			intensity = 120
-			lube_flags = SLIDE | GALOSHES_DONT_HELP | SLIP_WHEN_CRAWLING | SLIDE_MAGICAL
+			lube_flags = SLIDE | GALOSHES_DONT_HELP | SLIP_WHEN_CRAWLING | MAGICALLY_LUBRICATED
 		else
 			qdel(parent.GetComponent(/datum/component/slippery))
 			return
@@ -103,7 +103,7 @@
 	SIGNAL_HANDLER
 
 	for(var/i in time_left_list)
-		if(i == num2text(TURF_WET_MAGICAL)) // magical lube disappears regardless of given `duration_decrease` value
+		if(text2num(i) == TURF_WET_MAGICAL) // magical lube disappears regardless of given `duration_decrease` value
 			time_left_list[i] -= 1 SECONDS
 			continue
 		if(text2num(i) <= strength)
