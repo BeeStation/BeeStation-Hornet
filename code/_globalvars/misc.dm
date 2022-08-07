@@ -42,4 +42,7 @@ GLOBAL_PROTECT(topic_tokens)
 GLOBAL_LIST_EMPTY(topic_servers)
 GLOBAL_PROTECT(topic_servers)
 
+// wizard stuff
 GLOBAL_VAR_INIT(magical_access, FALSE)
+GLOBAL_VAR_INIT(magical_access_recursive, FALSE)
+GLOBAL_VAR_INIT(same_intent_recursive, FALSE)
