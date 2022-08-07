@@ -567,7 +567,7 @@
 
 /datum/spellbook_entry/summon/all_access
 	name = "Advent Ritual of Saint Anarchismea"
-	desc = "Seeks the Saint Anarchismea's spirit and summons them onto the station. Access requirement of every electronics in the station will be magically bypassed, but also every ID card gets AA and latecomers will get the same so that they won't lose their chance to get the bless of Saint Anarchismea."
+	desc = "Seeks the Saint Anarchismea's spirit and summons them onto the station. Access requirement of every electronic in the station will be magically bypassed, but also every ID card gets AA and latecomers will get the same so that they won't lose their chance to get the blessing of Saint Anarchismea."
 	cost = 2
 	var/static/stop_flag = FALSE  // admin purpose. If you want to stop this ritual recursive, turn on stop_flag value TRUE through var edit.
 
