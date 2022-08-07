@@ -754,6 +754,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	name = "\improper CentCom identification console"
 	circuit = /obj/item/circuitboard/computer/card/centcom
 	req_access = list(ACCESS_CENT_CAPTAIN)
+	magical_access_protected = TRUE
 
 /obj/machinery/computer/card/minor
 	name = "department management console"

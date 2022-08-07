@@ -33,6 +33,7 @@
 	var/req_access_txt = "0"
 	var/list/req_one_access
 	var/req_one_access_txt = "0"
+	var/magical_access_protected = FALSE // when GLOB.magical_access is TRUE, but also this is TRUE, you can't bypass with magical access.
 	/// Custom fire overlay icon
 	var/custom_fire_overlay
 

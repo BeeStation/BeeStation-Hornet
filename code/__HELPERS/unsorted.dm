@@ -1602,3 +1602,12 @@ config_setting should be one of the following:
 		if(-INFINITY to 0, 11 to INFINITY)
 			CRASH("Can't turn invalid directions!")
 	return turn(input_dir, 180)
+
+
+// This is used to cause less lag when you need to do excessive amount of process in a loop. (i.e. lubricate 10,000 tiles)
+/proc/lag_proof_sleep(maximum=200, sleep_time=1)
+	var/static/count = 0
+	count++
+	if(count >= maximum)
+		count=0
+		sleep(sleep_time)

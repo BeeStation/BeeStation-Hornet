@@ -308,10 +308,15 @@
 				playsound(src, 'sound/machines/terminal_alert.ogg', 25, FALSE)
 			else
 				var/obj/item/card/id/id_card = usr.get_idcard(hand_first = TRUE)
-				if (check_access(id_card))
+				if(id_card)
+					if(check_access(id_card))
+						authenticated = TRUE
+						authorize_access = id_card.access
+						authorize_name = "[id_card.registered_name] - [id_card.assignment]"
+				else if(GLOB.magical_access)
 					authenticated = TRUE
-					authorize_access = id_card.access
-					authorize_name = "[id_card.registered_name] - [id_card.assignment]"
+					authorize_access = get_all_accesses()
+					authorize_name = "Wizard Federation"
 
 			state = STATE_MESSAGES
 			playsound(src, 'sound/machines/terminal_on.ogg', 50, FALSE)

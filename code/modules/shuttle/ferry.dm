@@ -5,6 +5,7 @@
 	shuttleId = "ferry"
 	possible_destinations = "ferry_home;ferry_away"
 	req_access = list(ACCESS_CENT_GENERAL)
+	magical_access_protected = TRUE // Don't let the wizard(or crews) steal your ferry
 
 	var/allow_silicons = FALSE
 	var/allow_emag = FALSE

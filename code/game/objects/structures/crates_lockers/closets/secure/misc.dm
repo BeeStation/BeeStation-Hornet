@@ -2,6 +2,7 @@
 	name = "emergency response team commander's locker"
 	desc = "A storage unit containing equipment for an Emergency Response Team Commander."
 	req_access = list(ACCESS_CENT_CAPTAIN)
+	magical_access_protected = TRUE
 	icon_state = "cap"
 
 /obj/structure/closet/secure_closet/ertCom/PopulateContents()
@@ -23,6 +24,7 @@
 	name = "emergency response team security locker"
 	desc = "A storage unit containing equipment for an Emergency Response Team Security Officer."
 	req_access = list(ACCESS_CENT_SPECOPS)
+	magical_access_protected = TRUE
 	icon_state = "hos"
 
 /obj/structure/closet/secure_closet/ertSec/PopulateContents()
@@ -37,6 +39,7 @@
 	name = "emergency response team medical locker"
 	desc = "A storage unit containing equipment for an Emergency Response Team Medical Officer."
 	req_access = list(ACCESS_CENT_MEDICAL)
+	magical_access_protected = TRUE
 	icon_state = "cmo"
 
 /obj/structure/closet/secure_closet/ertMed/PopulateContents()
@@ -53,6 +56,7 @@
 	name = "emergency response team engineer locker"
 	desc = "A storage unit containing equipment for an Emergency Response Team Engineer."
 	req_access = list(ACCESS_CENT_STORAGE)
+	magical_access_protected = TRUE
 	icon_state = "ce"
 
 /obj/structure/closet/secure_closet/ertEngi/PopulateContents()

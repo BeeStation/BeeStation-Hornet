@@ -565,6 +565,72 @@
 	playsound(user, 'sound/magic/mandswap.ogg', 50, 1)
 	return TRUE
 
+/datum/spellbook_entry/summon/all_access
+	name = "Advent Ritual of Saint Anarchismea"
+	desc = "Seeks the Saint Anarchismea's spirit and summons them onto the station. Access requirement of every electronics in the station will be magically bypassed, but also every ID card gets AA and latecommers will get the same so that they won't lose their chance to get the bless of Saint Anarchismea."
+	cost = 2
+	var/static/stop_flag = FALSE  // admin purpose. If you want to stop this ritual recursive, turn on stop_flag value TRUE through var edit.
+
+/datum/spellbook_entry/summon/all_access/Buy(mob/living/carbon/human/user, obj/item/spellbook/book)
+	SSblackbox.record_feedback("tally", "wizard_spell_learned", 1, name)
+	active = TRUE
+
+	to_chat(user, "<span class='notice'>You have summoned Saint Anarcismea!</span>")
+	playsound(user, 'sound/magic/forcewall.ogg', 50, 1)
+	message_admins("[ADMIN_LOOKUPFLW(user)] cast 'Advent Ritual of Saint Anarchismea' and everyone gets AA from now.")
+	log_game("[key_name(user)] cast 'Advent Ritual of Saint Anarchismea' and everyone gets AA from now.")
+
+	GLOB.magical_access = TRUE
+	for(var/mob/living/H in GLOB.player_list)
+		to_chat(H, "<span class='nicegreen'>You feel a holy spirit's blessing... You feel you can go anywhere you want to go.</span>")
+
+	for(var/obj/item/card/id/I in GLOB.id_cards)
+		I.get_magical_access()
+
+	return TRUE
+
+/datum/spellbook_entry/summon/same_intent
+	name = "Curse of Intent Alignment"
+	desc = "Curse everyone(even you too) for their intent. Select an intent, then everyone's intent will become what you chose regardless of where they are for every minute. This is not revertable, so choose an intent wisely."
+	cost = 3
+	var/target_intent = INTENT_HELP
+	var/static/stop_flag = FALSE  // admin purpose. If you want to stop this ritual recursive, turn on stop_flag value TRUE through var edit.
+	var/static/options = list(
+		"Help" = INTENT_HELP,
+		"Disarm" = INTENT_DISARM,
+		"Grab" = INTENT_GRAB,
+		"Harm" = INTENT_HARM
+	)
+
+/datum/spellbook_entry/summon/same_intent/Buy(mob/living/carbon/human/user, obj/item/spellbook/book)
+	SSblackbox.record_feedback("tally", "wizard_spell_learned", 1, name)
+	active = TRUE
+
+	target_intent = options[input(user, "Select an intent! Cancel will choose one randomly.", "Curse of Intent Alignment") as null|anything in options]
+	if(!target_intent)
+		target_intent = options[pick(options)]
+
+	to_chat(user, "<span class='notice'>You have cast Curse of Intent Alignment!</span>")
+	playsound(user, 'sound/magic/clockwork/invoke_general.ogg', 50, 1)
+	message_admins("[ADMIN_LOOKUPFLW(user)] cast the Curse of Intent Alignment. Everyone's intent is now [target_intent].")
+	log_game("[key_name(user)] cast the Curse of Intent Alignment. Everyone's intent is now [target_intent].")
+	spell_recursive()
+
+	return TRUE
+
+/datum/spellbook_entry/summon/same_intent/proc/spell_recursive()
+	if(stop_flag)
+		return
+
+	for(var/mob/living/carbon/human/H in GLOB.player_list)
+		if(!H.anti_magic_check())
+			addtimer(CALLBACK(H, /mob/verb/a_intent_change, target_intent), 1)
+		else
+			to_chat(H, "<span class='notice'>You notice a holy power protected a bizarre urge to change your intent.</span>")
+		lag_proof_sleep(maximum=25)
+
+	addtimer(CALLBACK(src, .proc/spell_recursive), 60 SECONDS)
+
 #undef MINIMUM_THREAT_FOR_RITUALS
 
 /obj/item/spellbook

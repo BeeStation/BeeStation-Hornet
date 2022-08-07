@@ -11,6 +11,7 @@
 	infra_luminosity = 3
 	operation_req_access = list(ACCESS_CENT_SPECOPS)
 	internals_req_access = list(ACCESS_CENT_SPECOPS)
+	magical_access_protected = TRUE
 	wreckage = /obj/structure/mecha_wreckage/marauder
 	add_req_access = 0
 	internal_damage_threshold = 25
@@ -47,6 +48,7 @@
 	icon_state = "seraph"
 	operation_req_access = list(ACCESS_CENT_SPECOPS)
 	internals_req_access = list(ACCESS_CENT_SPECOPS)
+	magical_access_protected = TRUE
 	step_in = 3
 	max_integrity = 550
 	wreckage = /obj/structure/mecha_wreckage/seraph
