@@ -41,6 +41,7 @@
 	create_dna(src)
 	randomize_human(src)
 	dna.initialize_dna()
+	dna.add_mutation(CHAV)
 
 /mob/living/carbon/human/ComponentInitialize()
 	. = ..()
