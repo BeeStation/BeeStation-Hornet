@@ -160,7 +160,7 @@
 // Security
 #define JOB_NAME_HEADOFSECURITY "Lord of Security"
 #define JOB_NAME_WARDEN "Warden"
-#define JOB_NAME_SECURITYOFFICER "Security Officer"
+#define JOB_NAME_SECURITYOFFICER "The Royal Guard"
 #define JOB_NAME_DETECTIVE "Detective"
 #define JOB_NAME_DEPUTY  "Deputy"
 
