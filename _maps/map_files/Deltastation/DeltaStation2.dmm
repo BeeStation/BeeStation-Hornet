@@ -83045,6 +83045,10 @@
 	},
 /turf/open/floor/carpet/red,
 /area/crew_quarters/heads/hos)
+"jyN" = (
+/obj/structure/sign/poster/official/disk,
+/turf/closed/wall,
+/area/crew_quarters/heads/captain/private)
 "jyU" = (
 /obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/tile/purple,
@@ -114499,6 +114503,10 @@
 	},
 /turf/open/floor/plasteel,
 /area/hydroponics)
+"wKK" = (
+/obj/structure/sign/poster/official/disk,
+/turf/closed/wall/r_wall,
+/area/crew_quarters/heads/captain)
 "wKY" = (
 /obj/machinery/holopad,
 /obj/effect/decal/cleanable/dirt,
@@ -160947,7 +160955,7 @@ bBx
 dtc
 waf
 bHp
-bIV
+wKK
 bKT
 bMO
 bOW
@@ -160956,7 +160964,7 @@ bSR
 bUQ
 bXi
 bZp
-cbg
+jyN
 ccS
 hKg
 cgy

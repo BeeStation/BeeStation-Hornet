@@ -14612,6 +14612,10 @@
 	},
 /turf/open/floor/plasteel,
 /area/engine/atmos)
+"dPP" = (
+/obj/structure/sign/poster/official/disk,
+/turf/closed/wall/r_wall,
+/area/crew_quarters/heads/captain/private)
 "dPY" = (
 /obj/machinery/atmospherics/pipe/simple/general/hidden{
 	dir = 9
@@ -15673,6 +15677,10 @@
 	},
 /turf/open/floor/wood,
 /area/crew_quarters/dorms)
+"efW" = (
+/obj/structure/sign/poster/official/disk,
+/turf/closed/wall,
+/area/crew_quarters/heads/captain/private)
 "egt" = (
 /obj/effect/turf_decal/tile/yellow{
 	dir = 1
@@ -119152,7 +119160,7 @@ aRL
 aRL
 oJI
 xtT
-xtT
+efW
 sLp
 oGO
 hdd
@@ -120691,7 +120699,7 @@ vgb
 cKK
 cSR
 lXw
-lXw
+dPP
 lXw
 lXw
 lXw

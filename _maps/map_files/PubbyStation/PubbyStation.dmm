@@ -52088,6 +52088,10 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/cmo)
+"pLn" = (
+/obj/structure/sign/poster/official/disk,
+/turf/closed/wall/r_wall,
+/area/crew_quarters/heads/captain)
 "pLp" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -91192,7 +91196,7 @@ auH
 awR
 awR
 awR
-awR
+pLn
 awR
 awR
 aAN

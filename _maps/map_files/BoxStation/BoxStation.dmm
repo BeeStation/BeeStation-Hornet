@@ -30900,7 +30900,7 @@
 /obj/effect/turf_decal/bot,
 /obj/machinery/camera{
 	c_tag = "Incinerator";
-	network = list("ss13", "turbine")
+	network = list("ss13","turbine")
 	},
 /turf/open/floor/plasteel,
 /area/maintenance/disposal/incinerator)
@@ -47847,6 +47847,10 @@
 	},
 /turf/open/floor/plasteel,
 /area/security/checkpoint/auxiliary)
+"orh" = (
+/obj/structure/sign/poster/official/disk,
+/turf/closed/wall/r_wall,
+/area/crew_quarters/heads/captain)
 "orT" = (
 /obj/structure/disposalpipe/segment{
 	dir = 6
@@ -49607,6 +49611,10 @@
 	},
 /turf/open/floor/wood,
 /area/crew_quarters/theatre)
+"pEs" = (
+/obj/structure/sign/poster/official/disk,
+/turf/closed/wall,
+/area/crew_quarters/heads/captain)
 "pEC" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 8
@@ -92529,7 +92537,7 @@ aZV
 aZV
 bmx
 bmx
-bmx
+pEs
 bqH
 bsh
 bsh
@@ -94577,7 +94585,7 @@ aZV
 aZV
 aZV
 aZV
-aZV
+orh
 aZV
 aZV
 aZV

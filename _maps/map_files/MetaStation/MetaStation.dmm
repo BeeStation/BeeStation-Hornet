@@ -57306,6 +57306,10 @@
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2,
 /turf/open/floor/plasteel/white,
 /area/science/research)
+"iAq" = (
+/obj/structure/sign/poster/official/disk,
+/turf/closed/wall,
+/area/crew_quarters/heads/captain/private)
 "iAI" = (
 /obj/effect/turf_decal/tile/red{
 	dir = 1
@@ -79766,6 +79770,10 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
+"wfL" = (
+/obj/structure/sign/poster/official/disk,
+/turf/closed/wall/r_wall,
+/area/crew_quarters/heads/captain/private)
 "wfQ" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -113896,7 +113904,7 @@ bcj
 bdI
 bfz
 bhu
-bjg
+iAq
 egk
 bjg
 sng
@@ -114930,7 +114938,7 @@ bjg
 bjg
 bcj
 bcj
-bcj
+wfL
 lXq
 bcj
 bcj

@@ -83870,6 +83870,10 @@
 "tEI" = (
 /turf/closed/mineral,
 /area/maintenance/aft)
+"tET" = (
+/obj/structure/sign/poster/official/disk,
+/turf/closed/wall,
+/area/crew_quarters/heads/captain/private)
 "tEX" = (
 /obj/structure/reagent_dispensers/watertank,
 /turf/open/floor/plating,
@@ -147564,7 +147568,7 @@ gYc
 dSc
 eLp
 enF
-wfA
+tET
 ybU
 fxI
 fxi
@@ -148085,7 +148089,7 @@ gMZ
 hgY
 lSU
 hhk
-wfA
+tET
 hYE
 ueW
 iEP
