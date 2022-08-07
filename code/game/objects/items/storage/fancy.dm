@@ -136,6 +136,7 @@
 	slot_flags = ITEM_SLOT_BELT
 	icon_type = "cigarette"
 	spawn_type = /obj/item/clothing/mask/cigarette/space_cigarette
+	var/candy = FALSE
 
 /obj/item/storage/fancy/cigarettes/ComponentInitialize()
 	. = ..()
@@ -175,6 +176,8 @@
 					inserted_overlay.icon_state = "lighter_in"
 				else if(istype(C, /obj/item/lighter))
 					inserted_overlay.icon_state = "zippo_in"
+				else if(candy)
+					inserted_overlay.icon_state = "candy"
 				else
 					inserted_overlay.icon_state = "cigarette"
 
@@ -256,6 +259,19 @@
 	desc = "A label on the packaging reads, \"Endorsed by Phineas, Freddy and Franklin.\""
 	icon_state = "midori"
 	spawn_type = /obj/item/clothing/mask/cigarette/rollie/cannabis
+
+/obj/item/storage/fancy/cigarettes/cigpack_candy
+	name = "\improper Timmy's First Smokes packet"
+	desc = "Waffling on smoking? Want to bring your children safely into the family tradition? Look no more with this special packet! Includes 100%* Nicotine-Free candy cigarettes."
+	icon_state = "candy"
+	icon_type = "candy cigarette"
+	spawn_type = /obj/item/clothing/mask/cigarette/candy
+	candy = TRUE
+
+/obj/item/storage/fancy/cigarettes/cigpack_candy/Initialize()
+	. = ..()
+	if(prob(10))
+		spawn_type = /obj/item/clothing/mask/cigarette/candy/nicotine  //uh oh!   someone mixed up their chems
 
 /obj/item/storage/fancy/cigarettes/cigpack_mindbreaker
 	name = "\improper Leary's Delight packet"

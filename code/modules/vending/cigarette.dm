@@ -6,6 +6,7 @@
 	icon_state = "cigs"
 	light_color = LIGHT_COLOR_CYAN
 	products = list(/obj/item/storage/fancy/cigarettes = 5,
+					/obj/item/storage/fancy/cigarettes/cigpack_candy = 5,  // candy made candy - candy/ether
 					/obj/item/storage/fancy/cigarettes/cigpack_uplift = 3,
 					/obj/item/storage/fancy/cigarettes/cigpack_robust = 3,
 					/obj/item/storage/fancy/cigarettes/cigpack_carp = 3,
@@ -27,6 +28,7 @@
 /obj/machinery/vending/cigarette/syndicate
 	products = list(/obj/item/storage/fancy/cigarettes/cigpack_syndicate = 7,
 					/obj/item/storage/fancy/cigarettes/cigpack_uplift = 3,
+					/obj/item/storage/fancy/cigarettes/cigpack_candy = 7,  // they stoled the candy o no
 					/obj/item/storage/fancy/cigarettes/cigpack_robust = 2,
 					/obj/item/storage/fancy/cigarettes/cigpack_carp = 3,
 					/obj/item/storage/fancy/cigarettes/cigpack_midori = 1,
