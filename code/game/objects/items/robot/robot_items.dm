@@ -156,6 +156,7 @@
 	var/mode = MODE_DRAW
 	var/work_mode	// mode the loops have been started with, to check with do_after
 	var/active = FALSE
+	var/cyborg_minimum_charge = 500 	// minimum charge cyborgs cannot go under when charging things
 	var/static/list/charge_machines = typecacheof(list(/obj/machinery/cell_charger, /obj/machinery/recharger, /obj/machinery/recharge_station, /obj/machinery/mech_bay_recharge_port))
 	var/static/list/charge_items = typecacheof(list(/obj/item/stock_parts/cell, /obj/item/gun/energy))
 
@@ -220,7 +221,7 @@
 
 	else
 		if(is_type_in_list(target, charge_items))
-			if(user.cell.charge <= 500) //leave them a bit
+			if(user.cell.charge <= cyborg_minimum_charge) //leave them a bit
 				to_chat(user, "<span class='warning'>You don't have enough power to charge [target]!</span>")
 				return
 
@@ -327,7 +328,12 @@
 			active = FALSE
 			return
 
-		var/draw = min(user.cell.charge, cell.chargerate*0.5, cell.maxcharge-cell.charge)
+		var/draw = min(max(user.cell.charge - cyborg_minimum_charge, 0), cell.chargerate*0.5, cell.maxcharge-cell.charge)
+		if(!draw)
+			to_chat(user, "<span class='warning'>Safeties prevent you from going under [cyborg_minimum_charge] charge!</span>")
+			active = FALSE
+			return
+
 		if(!user.cell.use(draw))
 			break
 
@@ -341,8 +347,8 @@
 			active = FALSE
 			return
 
-		if(user.cell.charge <= 500) //leave them a bit
-			to_chat(user, "<span class='warning'>You don't have enough power to charge [target]!</span>")
+		if(user.cell.charge <= cyborg_minimum_charge) //leave them a bit
+			to_chat(user, "<span class='warning'>You don't have enough power to continue charging [target]!</span>")
 			active = FALSE
 			return
 
