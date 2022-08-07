@@ -309,7 +309,7 @@
 #define NO_SLIP_WHEN_WALKING	(1<<0)
 #define SLIDE					(1<<1)
 #define SLIDE_ICE				(1<<2)
-#define GALOSHES_DONT_HELP		(1<<3) //can't slip while buckled unless it's lube.
+#define GALOSHES_DONT_HELP		(1<<3)
 #define SLIP_WHEN_CRAWLING		(1<<4) //clown planet ruin
 #define MAGICALLY_LUBRICATED	(1<<5) //made by magic
 
