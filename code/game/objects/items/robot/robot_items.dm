@@ -251,7 +251,7 @@
 
 	if(istype(cell))
 		while(do_after(user, 15, target = target, extra_checks = CALLBACK(src, .proc/mode_check)))
-			if(!user || !user.cell)
+			if(!user?.cell)
 				active = FALSE
 				return
 
@@ -287,7 +287,7 @@
 	else
 		var/obj/machinery/M = target
 		while(do_after(user, 15, target = M, extra_checks = CALLBACK(src, .proc/mode_check)))
-			if(!user || !user.cell)
+			if(!user?.cell)
 				active = FALSE
 				return
 
@@ -315,7 +315,7 @@
 	work_mode = mode
 
 	while(do_after(user, 15, target = target, extra_checks = CALLBACK(src, .proc/mode_check)))
-		if(!user || !user.cell)
+		if(!user?.cell)
 			active = FALSE
 			return
 
