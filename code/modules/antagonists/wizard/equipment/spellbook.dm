@@ -569,7 +569,6 @@
 	name = "Advent Ritual of Saint Anarchismea"
 	desc = "Seeks the Saint Anarchismea's spirit and summons them onto the station. Access requirement of every electronic in the station will be magically bypassed, but also every ID card gets AA. an ID card without AA will get it again, so latecomers will get the same so that they won't lose their chance to get the blessing of Saint Anarchismea."
 	cost = 2
-	var/static/stop_flag = FALSE  // admin purpose. If you want to stop this ritual recursive, turn on stop_flag value TRUE through var edit.
 
 /datum/spellbook_entry/summon/all_access/Buy(mob/living/carbon/human/user, obj/item/spellbook/book)
 	SSblackbox.record_feedback("tally", "wizard_spell_learned", 1, name)
@@ -587,6 +586,9 @@
 	return TRUE
 
 /datum/spellbook_entry/summon/all_access/proc/spell_recursive()
+	if(stop_flag)
+		return
+
 	for(var/obj/item/card/id/I in GLOB.id_cards)
 		I.get_magical_access()
  	// this happens recursively to help you when your ID card access is wiped by a mean HoP or something somehow
