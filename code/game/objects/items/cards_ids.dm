@@ -123,8 +123,6 @@
 	if(mapload && access_txt)
 		access = text2access(access_txt)
 	GLOB.id_cards += src
-	if(GLOB.magical_access)
-		addtimer(CALLBACK(src, /obj/item/card/id.proc/get_magical_access), 5 SECONDS) //used the addtimer callback to solve the access override issue on spawn
 
 /obj/item/card/id/Destroy()
 	if (registered_account)
@@ -133,11 +131,6 @@
 		my_store.my_card = null
 	GLOB.id_cards -= src
 	return ..()
-
-/obj/item/card/id/proc/get_magical_access()
-	var/static/list/target_access = get_all_accesses()+ACCESS_SYNDICATE+ACCESS_BLOODCULT+ACCESS_CLOCKCULT // This is how MAGIC works
-	if(length(access) < length(target_access))
-		access |= target_access
 
 
 /obj/item/card/id/proc/set_hud_icon_on_spawn(jobname)

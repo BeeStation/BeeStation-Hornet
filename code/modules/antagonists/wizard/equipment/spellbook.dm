@@ -567,7 +567,7 @@
 
 /datum/spellbook_entry/summon/all_access
 	name = "Advent Ritual of Saint Anarchismea"
-	desc = "Seeks the Saint Anarchismea's spirit and summons them onto the station. Access requirement of every electronic in the station will be magically bypassed, but also every ID card gets AA and latecomers will get the same so that they won't lose their chance to get the blessing of Saint Anarchismea."
+	desc = "Seeks the Saint Anarchismea's spirit and summons them onto the station. Access requirement of every electronic in the station will be magically bypassed, but also every ID card gets AA. an ID card without AA will get it again, so latecomers will get the same so that they won't lose their chance to get the blessing of Saint Anarchismea."
 	cost = 2
 	var/static/stop_flag = FALSE  // admin purpose. If you want to stop this ritual recursive, turn on stop_flag value TRUE through var edit.
 
@@ -583,16 +583,24 @@
 	GLOB.magical_access = TRUE
 	for(var/mob/living/H in GLOB.player_list)
 		to_chat(H, "<span class='nicegreen'>You feel a holy spirit's blessing... You feel you can go anywhere you want to go.</span>")
+	spell_recursive()
+	return TRUE
 
+/datum/spellbook_entry/summon/same_intent/proc/spell_recursive()
 	for(var/obj/item/card/id/I in GLOB.id_cards)
 		I.get_magical_access()
+ 	// this happens recursively to help you when your ID card access is wiped by a mean HoP or something somehow
+	addtimer(CALLBACK(src, .proc/spell_recursive), 60 SECONDS)
 
-	return TRUE
+/obj/item/card/id/proc/get_magical_access()
+	var/static/list/target_access = get_all_accesses()+ACCESS_SYNDICATE+ACCESS_BLOODCULT+ACCESS_CLOCKCULT // This is how MAGIC works
+	if(length(access) < length(target_access))
+		access |= target_access
 
 /datum/spellbook_entry/summon/same_intent
 	name = "Curse of Intent Alignment"
 	desc = "Curse everyone(even you too) with the chosen intent. Select an intent, then everyone's intent will become what you chose regardless of where they are for every minute. This is not revertable, so choose an intent wisely."
-	cost = 3
+	cost = 2
 	var/target_intent = INTENT_HELP
 	var/static/stop_flag = FALSE  // admin purpose. If you want to stop this ritual recursive, turn on stop_flag value TRUE through var edit.
 	var/static/options = list(
@@ -626,7 +634,7 @@
 		if(!H.anti_magic_check())
 			addtimer(CALLBACK(H, /mob/verb/a_intent_change, target_intent), 1)
 		else
-			to_chat(H, "<span class='notice'>You notice a holy power protected a bizarre urge to change your intent.</span>")
+			to_chat(H, "<span class='notice'>You notice a holy power protected you from a bizarre urge to change your intent.</span>")
 		lag_proof_sleep(maximum=25)
 
 	addtimer(CALLBACK(src, .proc/spell_recursive), 60 SECONDS)
