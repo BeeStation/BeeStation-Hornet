@@ -591,7 +591,7 @@
 
 /datum/spellbook_entry/summon/same_intent
 	name = "Curse of Intent Alignment"
-	desc = "Curse everyone(even you too) for their intent. Select an intent, then everyone's intent will become what you chose regardless of where they are for every minute. This is not revertable, so choose an intent wisely."
+	desc = "Curse everyone(even you too) with the chosen intent. Select an intent, then everyone's intent will become what you chose regardless of where they are for every minute. This is not revertable, so choose an intent wisely."
 	cost = 3
 	var/target_intent = INTENT_HELP
 	var/static/stop_flag = FALSE  // admin purpose. If you want to stop this ritual recursive, turn on stop_flag value TRUE through var edit.
