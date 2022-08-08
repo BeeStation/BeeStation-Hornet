@@ -63,7 +63,7 @@
 		requestonly = TRUE
 	if(isnull(buyer))
 		buyer = SSeconomy.get_dep_account(ACCOUNT_CAR)
-	else if(buyer.is_out_station_budget())
+	else if(buyer.is_nonstation_account())
 		buyer = SSeconomy.get_dep_account(ACCOUNT_CAR)
 	if(buyer)
 		data["points"] = buyer.account_balance
@@ -221,7 +221,7 @@
 					if(isnull(account))
 						computer.say("The application failed to identify [id_card].")
 						return
-					else if(account.is_out_station_budget())
+					else if(account.is_nonstation_account())
 						computer.say("The application rejects [id_card].")
 						return
 
@@ -253,7 +253,7 @@
 					var/obj/item/card/id/id_card = get_buyer_id(usr)
 					if(id_card && id_card?.registered_account)
 						SO.paying_account = SSeconomy.get_dep_account(id_card?.registered_account?.account_department)
-					if(SO.paying_account.is_out_station_budget())
+					if(SO.paying_account.is_nonstation_account())
 						return
 					SSshuttle.requestlist -= SO
 					SSshuttle.shoppinglist += SO
