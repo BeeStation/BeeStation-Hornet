@@ -20,7 +20,7 @@
 /datum/station_goal/bluespace_cannon/check_completion()
 	if(..())
 		return TRUE
-	var/obj/machinery/bsa/full/B = locate()
+	var/obj/machinery/power/bsa/full/B = locate()
 	if(B && !B.stat)
 		return TRUE
 	return FALSE
@@ -126,15 +126,21 @@
 		return WEST
 
 
-/obj/machinery/bsa/full
+/obj/machinery/power/bsa/full
 	name = "Bluespace Artillery"
 	desc = "Long range bluespace artillery."
 	icon = 'icons/obj/lavaland/cannon.dmi'
 	icon_state = "orbital_cannon1"
 	var/static/mutable_appearance/top_layer
 	var/ex_power = 3
-	var/power_used_per_shot = 2000000 //enough to kil standard apc - todo : make this use wires instead and scale explosion power with it
 	var/ready
+
+	var/power_used_per_shot = 2000000
+	var/obj/item/stock_parts/cell/cell
+	use_power = NO_POWER_USE
+	idle_power_usage = 50 // when idle
+	active_power_usage = 20000 // amount charged
+
 	pixel_y = -32
 	pixel_x = -192
 	bound_width = 352
@@ -142,10 +148,14 @@
 	appearance_flags = NONE //Removes default TILE_BOUND
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 
-/obj/machinery/bsa/full/wrench_act(mob/living/user, obj/item/I)
+/obj/machinery/power/bsa/full/wrench_act(mob/living/user, obj/item/I)
 	return FALSE
 
-/obj/machinery/bsa/full/proc/get_front_turf()
+/obj/machinery/power/bsa/full/Destroy()
+	. = ..()
+	QDEL_NULL(cell)
+
+/obj/machinery/power/bsa/full/proc/get_front_turf()
 	switch(dir)
 		if(WEST)
 			return locate(x - 7,y,z)
@@ -153,7 +163,7 @@
 			return locate(x + 4,y,z)
 	return get_turf(src)
 
-/obj/machinery/bsa/full/proc/get_back_turf()
+/obj/machinery/power/bsa/full/proc/get_back_turf()
 	switch(dir)
 		if(WEST)
 			return locate(x + 4,y,z)
@@ -161,7 +171,7 @@
 			return locate(x - 6,y,z)
 	return get_turf(src)
 
-/obj/machinery/bsa/full/proc/get_target_turf()
+/obj/machinery/power/bsa/full/proc/get_target_turf()
 	switch(dir)
 		if(WEST)
 			return locate(1,y,z)
@@ -169,8 +179,11 @@
 			return locate(world.maxx,y,z)
 	return get_turf(src)
 
-/obj/machinery/bsa/full/Initialize(mapload, cannon_direction = WEST)
+/obj/machinery/power/bsa/full/Initialize(mapload, cannon_direction = WEST)
 	. = ..()
+	cell = new /obj/item/stock_parts/cell(src, 2000000)
+	cell.charge = 0
+	connect_to_network(get_back_turf())
 	top_layer = top_layer || mutable_appearance(icon, layer = ABOVE_MOB_LAYER)
 	switch(cannon_direction)
 		if(WEST)
@@ -183,11 +196,10 @@
 			top_layer.icon_state = "top_east"
 			icon_state = "cannon_east"
 	add_overlay(top_layer)
-	reload()
 
-/obj/machinery/bsa/full/proc/fire(mob/user, turf/bullseye)
-	reload()
-
+/obj/machinery/power/bsa/full/proc/fire(mob/user, turf/bullseye)
+	if(!cell.use(power_used_per_shot))
+		return FALSE
 	var/turf/point = get_front_turf()
 	var/turf/target = get_target_turf()
 	var/atom/movable/blocker
@@ -219,15 +231,22 @@
 		log_game("[key_name(user)] has launched an artillery strike targeting [AREACOORD(bullseye)] but it was blocked by [blocker] at [AREACOORD(target)].")
 
 
-/obj/machinery/bsa/full/proc/reload()
+/obj/machinery/power/bsa/full/proc/reload()
 	ready = FALSE
-	use_power(power_used_per_shot)
 	ui_update()
 	addtimer(CALLBACK(src,"ready_cannon"),600)
 
-/obj/machinery/bsa/full/proc/ready_cannon()
+/obj/machinery/power/bsa/full/proc/ready_cannon()
 	ready = TRUE
 	ui_update()
+
+/obj/machinery/power/bsa/full/process(delta_time)
+	if(cell.percent() >= 100 || surplus() < 1)
+		return
+	add_load(idle_power_usage)
+	var/charge = CLAMP(surplus(), 0, active_power_usage) * delta_time
+	add_load(charge)
+	cell.give(charge)
 
 /obj/structure/filler
 	name = "big machinery part"
@@ -264,12 +283,14 @@
 		//Missing updates for: target GPS name changes
 
 /obj/machinery/computer/bsa_control/ui_data()
-	var/obj/machinery/bsa/full/cannon = cannon_ref?.resolve()
+	var/obj/machinery/power/bsa/full/cannon = cannon_ref?.resolve()
 	var/list/data = list()
 	data["ready"] = cannon ? cannon.ready : FALSE
 	data["connected"] = cannon
 	data["notice"] = notice
 	data["unlocked"] = GLOB.bsa_unlock
+	data["charge"] = cannon ? cannon.cell.charge : 0
+	data["max_charge"] = cannon ? cannon.cell.maxcharge : 0
 	if(target)
 		data["target"] = get_target_name()
 	else
@@ -304,7 +325,10 @@
 	// Find all shuttles in transit
 	for(var/shuttleportid in SSorbits.assoc_shuttles)
 		var/datum/orbital_object/shuttle/shuttle = SSorbits.assoc_shuttles[shuttleportid]
+		if(shuttle.stealth)
+			continue
 		targets[shuttle.name] = shuttle
+
 	var/V = input(user, "Select target", "Select target",null) in targets|null
 	target = targets[V]
 
@@ -332,18 +356,18 @@
 
 
 /obj/machinery/computer/bsa_control/proc/fire(mob/user)
-	var/obj/machinery/bsa/full/cannon = cannon_ref?.resolve()
+	var/obj/machinery/power/bsa/full/cannon = cannon_ref?.resolve()
 	if(!cannon)
 		notice = "No Cannon Exists!"
 		return
-	if(cannon.stat)
-		notice = "Cannon unpowered!"
+	if(cannon.cell.percent() < 100)
+		notice = "Cannon doesn't have enough charge!"
 		return
 	notice = null
 	cannon.fire(user, get_impact_turf())
 
 /obj/machinery/computer/bsa_control/proc/deploy(force=FALSE)
-	var/obj/machinery/bsa/full/prebuilt = locate() in range(7) //In case of adminspawn
+	var/obj/machinery/power/bsa/full/prebuilt = locate() in range(7) //In case of adminspawn
 	if(prebuilt)
 		return prebuilt
 
@@ -358,7 +382,7 @@
 	var/datum/effect_system/smoke_spread/s = new
 	s.set_up(4,get_turf(centerpiece))
 	s.start()
-	var/obj/machinery/bsa/full/cannon = new(get_turf(centerpiece),centerpiece.get_cannon_direction())
+	var/obj/machinery/power/bsa/full/cannon = new(get_turf(centerpiece),centerpiece.get_cannon_direction())
 	QDEL_NULL(centerpiece.front_ref)
 	QDEL_NULL(centerpiece.back_ref)
 	qdel(centerpiece)
