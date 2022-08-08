@@ -323,7 +323,7 @@
 	/// The floor icon state used for blend_preview_floor()
 	var/preview_floor_state = "floor"
 	/// The associated decal painter type to grab decals, colors, etc from.
-	var/obj/item/airlock_painter/decal/painter_type = /obj/item/airlock_painter/decal
+	var/painter_type = /obj/item/airlock_painter/decal
 
 /**
  * Underlay an example floor for preview purposes, and return the new icon.
