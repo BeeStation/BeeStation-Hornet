@@ -1,9 +1,0 @@
-author: itsmeow
-delete-after: true
-changes:
-  - bugfix: Using staff of change on remote AI shells will first disconnect the AI
-      instead of locking them into the new body.
-  - bugfix: Staff of change transformations on silicons no longer drops their internal,
-      unobtainable parts.
-  - rscadd: Added a message when transformed into antagonistic forms with the staff
-      of change not to self-antag.
