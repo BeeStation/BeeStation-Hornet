@@ -243,7 +243,7 @@
   * * hearing_distance (optional) is the range, how many tiles away the message can be heard.
   */
 /atom/proc/audible_message(message, deaf_message, hearing_distance = DEFAULT_MESSAGE_RANGE, self_message, list/audible_message_flags)
-	var/list/hearers = get_hearers_in_view(hearing_distance, src, SEE_INVISIBLE_OBSERVER)
+	var/list/hearers = get_hearers_in_view(hearing_distance, src, SEE_INVISIBLE_MAXIMUM)
 	if(self_message)
 		hearers -= src
 
@@ -1148,34 +1148,34 @@
 
 	if(href_list[VV_HK_PLAYER_PANEL] && check_rights(R_ADMIN))
 		usr.client.holder.show_player_panel(src)
-	
+
 	if(href_list[VV_HK_GODMODE] && check_rights(R_FUN))
 		usr.client.cmd_admin_godmode(src)
-	
+
 	if(href_list[VV_HK_GIVE_SPELL] && check_rights(R_FUN))
 		usr.client.give_spell(src)
-	
+
 	if(href_list[VV_HK_REMOVE_SPELL] && check_rights(R_FUN))
 		usr.client.remove_spell(src)
-	
+
 	if(href_list[VV_HK_GIVE_DISEASE] && check_rights(R_FUN))
 		usr.client.give_disease(src)
-	
+
 	if(href_list[VV_HK_GIB] && check_rights(R_FUN))
 		usr.client.cmd_admin_gib(src)
-	
+
 	if(href_list[VV_HK_BUILDMODE] && check_rights(R_BUILD))
 		togglebuildmode(src)
-	
+
 	if(href_list[VV_HK_DROP_ALL] && check_rights(R_FUN))
 		usr.client.cmd_admin_drop_everything(src)
-	
+
 	if(href_list[VV_HK_DIRECT_CONTROL] && check_rights(R_ADMIN))
 		usr.client.cmd_assume_direct_control(src)
-	
+
 	if(href_list[VV_HK_GIVE_DIRECT_CONTROL] && check_rights(R_ADMIN))
 		usr.client.cmd_give_direct_control(src)
-	
+
 	if(href_list[VV_HK_OFFER_GHOSTS] && check_rights(R_ADMIN))
 		offer_control(src)
 
