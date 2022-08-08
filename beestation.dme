@@ -162,6 +162,7 @@
 #include "code\__HELPERS\icon_smoothing.dm"
 #include "code\__HELPERS\icons.dm"
 #include "code\__HELPERS\jobs.dm"
+#include "code\__HELPERS\lag_proof_sleep.dm"
 #include "code\__HELPERS\level_traits.dm"
 #include "code\__HELPERS\matrices.dm"
 #include "code\__HELPERS\mobs.dm"

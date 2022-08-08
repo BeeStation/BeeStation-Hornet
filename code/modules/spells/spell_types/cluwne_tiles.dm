@@ -24,10 +24,8 @@
 	// This is because your apprentices or fellow wizard(possibly) are supposed to be disabled by your cluwne tile spell
 	ADD_TRAIT(user, TRAIT_NOSLIPMAGIC, MAGIC_TRAIT) // If you got this spell somehow, not through being a real wizard, you need to get this trait
 
-	var/count = 1
+	var/static/datum/lag_proof_sleep/loop_counter = new /datum/lag_proof_sleep() // lag handler
+
 	for(var/turf/open/O in spiral_range_turfs(dist=range, tick_checked=FALSE))
 		O.MakeSlippery(TURF_WET_MAGICAL, lubricant_duration)
-		count++
-		if(count%200 == 0) // lag proof sleep
-			count = 0
-			sleep(1)
+		loop_counter.lag_proof_sleep()
