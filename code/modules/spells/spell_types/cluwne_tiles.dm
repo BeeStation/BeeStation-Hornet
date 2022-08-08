@@ -21,7 +21,7 @@
 
 /obj/effect/proc_holder/spell/cluwne_tiles/cast(mob/user=usr)
  	// magical no slip is given at antag_spawner.dm as `ADD_TRAIT(H, TRAIT_NOSLIPMAGIC, MAGIC_TRAIT)`
-	// This is because your apprentices or fellow wizard(possibly) are supposed to be disabled by your cluwne tile spell
+	// This is because your apprentices or fellow wizard(possibly) are not supposed to be disabled by your cluwne tile spell
 	ADD_TRAIT(user, TRAIT_NOSLIPMAGIC, MAGIC_TRAIT) // If you got this spell somehow, not through being a real wizard, you need to get this trait
 
 	var/static/datum/lag_proof_sleep/loop_counter = new /datum/lag_proof_sleep() // lag handler
