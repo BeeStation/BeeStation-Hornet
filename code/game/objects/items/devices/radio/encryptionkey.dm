@@ -150,11 +150,11 @@
 	icon_state = "cent_cypherkey"
 	independent = TRUE
 	channels = list(RADIO_CHANNEL_CENTCOM = 1)
-	
+
 /obj/item/encryptionkey/greytide
 	name = "dusty radio encryption key"
 	desc = "An ancient encryption key that seems to be forgotten to time. Wiping some of the dust, you can see the words 'dev key' scrawled on the back."
-	icon_state = "srv_cypherkey"
+	icon_state = "grey_cypherkey"
 	channels = list(RADIO_CHANNEL_GREY = 1)
 
 /obj/item/encryptionkey/debug
