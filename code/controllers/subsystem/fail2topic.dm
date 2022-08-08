@@ -89,7 +89,8 @@ SUBSYSTEM_DEF(fail2topic)
 	if (!enabled)
 		return
 	var/static/regex/R = regex(@"^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$") // Anything that interacts with a shell should be parsed. Prevents direct call input tampering
-	ip = findtext(ip, R)
+	R.Find(ip)
+	ip = R.match
 	if(length(ip) > 15 || length(ip) < 8 )
 		return FALSE
 
