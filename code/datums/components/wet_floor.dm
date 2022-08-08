@@ -1,7 +1,7 @@
 /datum/component/wet_floor
 	dupe_mode = COMPONENT_DUPE_UNIQUE_PASSARGS
 	can_transfer = TRUE
-	var/highest_strength = TURF_DRY
+	var/wet_floor_bitflags = TURF_DRY
 	var/lube_flags = NONE			//why do we have this?
 	var/list/time_left_list			//In deciseconds.
 	var/static/mutable_appearance/permafrost_overlay = mutable_appearance('icons/effects/water.dmi', "ice_floor")
@@ -11,6 +11,7 @@
 	var/current_overlay
 	var/permanent = FALSE
 	var/last_process = 0
+	var/static/list/wet_floor_defines
 
 /datum/component/wet_floor/InheritComponent(datum/newcomp, orig, strength, duration_minimum, duration_add, duration_maximum, _permanent)
 	if(!newcomp)	//We are getting passed the arguments of a would-be new component, but not a new component
@@ -23,6 +24,10 @@
 			add_wet(text2num(i), WF.time_left_list[i])
 
 /datum/component/wet_floor/Initialize(strength, duration_minimum, duration_add, duration_maximum, _permanent = FALSE)
+	if(wet_floor_defines)
+		wet_floor_defines = list(
+			TURF_WET_WATER, TURF_WET_ICE, TURF_WET_PERMAFROST, TURF_WET_LUBE, TURF_WET_SUPERLUBE
+		)
 	if(!isopenturf(parent))
 		return COMPONENT_INCOMPATIBLE
 	add_wet(strength, duration_minimum, duration_add, duration_maximum)
@@ -54,7 +59,7 @@
 	if(!istype(parent, /turf/open/floor))
 		intended = generic_turf_overlay
 	else
-		switch(highest_strength)
+		switch(wet_floor_bitflags)
 			if(TURF_WET_PERMAFROST)
 				intended = permafrost_overlay
 			if(TURF_WET_ICE)
@@ -68,39 +73,39 @@
 		current_overlay = intended
 
 /datum/component/wet_floor/proc/AfterSlip(mob/living/L)
-	if(highest_strength == TURF_WET_LUBE)
+	if(wet_floor_bitflags & TURF_WET_LUBE)
 		L.confused = max(L.confused, 8)
 
 /datum/component/wet_floor/proc/update_flags()
 	var/intensity
 	lube_flags = NONE
-	switch(highest_strength)
-		if(TURF_WET_WATER)
-			intensity = 60
-			lube_flags = NO_SLIP_WHEN_WALKING
-		if(TURF_WET_LUBE)
-			intensity = 80
-			lube_flags = SLIDE | GALOSHES_DONT_HELP
-		if(TURF_WET_ICE)
-			intensity = 120
-			lube_flags = SLIDE | GALOSHES_DONT_HELP
-		if(TURF_WET_PERMAFROST)
-			intensity = 120
-			lube_flags = SLIDE_ICE | GALOSHES_DONT_HELP
-		if(TURF_WET_SUPERLUBE)
-			intensity = 120
-			lube_flags = SLIDE | GALOSHES_DONT_HELP | SLIP_WHEN_CRAWLING
+	for(var/i in wet_floor_defines)
+		if(i& TURF_WET_WATER)
+			intensity = max(60, intensity)
+			lube_flags |= NO_SLIP_WHEN_WALKING
+		if(i& TURF_WET_LUBE)
+			intensity = max(80, intensity)
+			lube_flags |= SLIDE | GALOSHES_DONT_HELP
+		if(i& TURF_WET_ICE)
+			intensity = max(120, intensity)
+			lube_flags |= SLIDE | GALOSHES_DONT_HELP
+		if(i& TURF_WET_PERMAFROST)
+			intensity = max(120, intensity)
+			lube_flags |= SLIDE_ICE | GALOSHES_DONT_HELP
+		if(i& TURF_WET_SUPERLUBE)
+			intensity = max(120, intensity)
+			lube_flags |= SLIDE | GALOSHES_DONT_HELP | SLIP_WHEN_CRAWLING
 		else
 			qdel(parent.GetComponent(/datum/component/slippery))
 			return
 
 	parent.LoadComponent(/datum/component/slippery, intensity, lube_flags, CALLBACK(src, .proc/AfterSlip))
 
-/datum/component/wet_floor/proc/dry(datum/source, strength = TURF_WET_WATER, immediate = FALSE, duration_decrease = INFINITY)
+/datum/component/wet_floor/proc/dry(datum/source, target_wet_bitflags = ALL, immediate = FALSE, duration_decrease = INFINITY)
 	SIGNAL_HANDLER
 
 	for(var/i in time_left_list)
-		if(text2num(i) <= strength)
+		if(text2num(i) & target_wet_bitflags)
 			time_left_list[i] = max(0, time_left_list[i] - duration_decrease)
 	if(immediate)
 		check()
@@ -134,9 +139,9 @@
 	last_process = world.time
 
 /datum/component/wet_floor/proc/update_strength()
-	highest_strength = 0			//Not bitflag.
+	wet_floor_bitflags = 0			//Not bitflag.
 	for(var/i in time_left_list)
-		highest_strength = max(highest_strength, text2num(i))
+		wet_floor_bitflags = max(wet_floor_bitflags, text2num(i))
 
 /datum/component/wet_floor/proc/is_wet()
 	SIGNAL_HANDLER
