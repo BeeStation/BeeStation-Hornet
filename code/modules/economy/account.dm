@@ -128,7 +128,7 @@
 
 	SSeconomy.generated_accounts += src
 
-/datum/bank_account/proc/is_out_station_budget() // returns TRUE if the budget account isn't from the station. (like VIP one)
+/datum/bank_account/proc/is_out_station_budget() // returns TRUE if the budget account is not Station department. i.e.) medical budget, security budget: FALSE / `nonstation_accounts` like VIP one: TRUE
 	for(var/each in SSeconomy.nonstation_accounts)
 		if(account_holder == SSeconomy.nonstation_accounts[each])
 			return TRUE
