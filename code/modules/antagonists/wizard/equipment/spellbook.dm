@@ -637,7 +637,6 @@
 			addtimer(CALLBACK(H, /mob/verb/a_intent_change, target_intent), 1)
 		else
 			to_chat(H, "<span class='notice'>You notice a holy power protected you from a bizarre urge to change your intent.</span>")
-		lag_proof_sleep(maximum=25)
 
 	addtimer(CALLBACK(src, .proc/spell_recursive), 60 SECONDS)
 
