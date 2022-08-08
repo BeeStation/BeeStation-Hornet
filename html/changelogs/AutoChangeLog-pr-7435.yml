@@ -1,0 +1,4 @@
+author: Phil Smith
+delete-after: true
+changes:
+  - balance: Thermal vision (the mutation) is no longer obtainable
