@@ -80,12 +80,87 @@
 /obj/item/stack/tile/mineral/titanium
 	name = "titanium tile"
 	singular_name = "titanium floor tile"
-	desc = "A tile made of titanium, used for shuttles."
+	desc = "A tile made of titanium, used for shuttles. Use while in your hand to change what type of titanium tiles you want."
 	icon_state = "tile_shuttle"
 	item_state = "tile-shuttle"
 	turf_type = /turf/open/floor/mineral/titanium
 	mineralType = "titanium"
 	materials = list(/datum/material/titanium=500)
+	tile_reskin_types = list(
+		/obj/item/stack/tile/mineral/titanium,
+		/obj/item/stack/tile/mineral/titanium/yellow,
+		/obj/item/stack/tile/mineral/titanium/blue,
+		/obj/item/stack/tile/mineral/titanium/white,
+		/obj/item/stack/tile/mineral/titanium/purple,
+		/obj/item/stack/tile/mineral/titanium/alt,
+		/obj/item/stack/tile/mineral/titanium/alt/yellow,
+		/obj/item/stack/tile/mineral/titanium/alt/blue,
+		/obj/item/stack/tile/mineral/titanium/alt/white,
+		/obj/item/stack/tile/mineral/titanium/alt/purple,
+		)
+
+/obj/item/stack/tile/mineral/titanium/yellow
+	name = "yellow titanium tile"
+	singular_name = "yellow titanium floor tile"
+	desc = "Yellow titanium tiles. Use while in your hand to change what type of titanium tiles you want."
+	turf_type = /turf/open/floor/mineral/titanium/yellow
+	icon_state = "tile_titanium_yellow"
+
+/obj/item/stack/tile/mineral/titanium/blue
+	name = "blue titanium tile"
+	singular_name = "blue titanium floor tile"
+	desc = "Blue titanium tiles. Use while in your hand to change what type of titanium tiles you want."
+	turf_type = /turf/open/floor/mineral/titanium/blue
+	icon_state = "tile_titanium_blue"
+
+/obj/item/stack/tile/mineral/titanium/white
+	name = "white titanium tile"
+	singular_name = "white titanium floor tile"
+	desc = "White titanium tiles. Use while in your hand to change what type of titanium tiles you want."
+	turf_type = /turf/open/floor/mineral/titanium/white
+	icon_state = "tile_titanium_white"
+
+/obj/item/stack/tile/mineral/titanium/purple
+	name = "purple titanium tile"
+	singular_name = "purple titanium floor tile"
+	desc = "Purple titanium tiles. Use while in your hand to change what type of titanium tiles you want."
+	turf_type = /turf/open/floor/mineral/titanium/purple
+	icon_state = "tile_titanium_purple"
+
+/obj/item/stack/tile/mineral/titanium/alt
+	name = "sleek titanium tile"
+	singular_name = "sleek titanium floor tile"
+	desc = "Sleek titanium floor tiles. Use while in your hand to change what type of titanium tiles you want."
+	turf_type = /turf/open/floor/mineral/titanium/alt
+	icon_state = "tile_titanium_alt"
+
+/obj/item/stack/tile/mineral/titanium/alt/yellow
+	name = "sleek yellow titanium tile"
+	singular_name = "sleek yellow titanium floor tile"
+	desc = "Sleek yellow titanium floor tiles. Use while in your hand to change what type of titanium tiles you want."
+	turf_type = /turf/open/floor/mineral/titanium/alt/yellow
+	icon_state = "tile_titanium_yellow_alt"
+
+/obj/item/stack/tile/mineral/titanium/alt/blue
+	name = "sleek blue titanium tile"
+	singular_name = "sleek blue titanium floor tile"
+	desc = "Sleek blue titanium floor tiles. Use while in your hand to change what type of titanium tiles you want."
+	turf_type = /turf/open/floor/mineral/titanium/alt/blue
+	icon_state = "tile_titanium_blue_alt"
+
+/obj/item/stack/tile/mineral/titanium/alt/white
+	name = "sleek white titanium tile"
+	singular_name = "sleek white titanium floor tile"
+	desc = "Sleek white titanium floor tiles. Use while in your hand to change what type of titanium tiles you want."
+	turf_type = /turf/open/floor/mineral/titanium/alt/white
+	icon_state = "tile_titanium_white_alt"
+
+/obj/item/stack/tile/mineral/titanium/alt/purple
+	name = "sleek purple titanium tile"
+	singular_name = "sleek purple titanium floor tile"
+	desc = "Sleek purple titanium floor tiles. Use while in your hand to change what type of titanium tiles you want."
+	turf_type = /turf/open/floor/mineral/titanium/alt/purple
+	icon_state = "tile_titanium_purple_alt"
 
 /obj/item/stack/tile/mineral/plastitanium
 	name = "plastitanium tile"
