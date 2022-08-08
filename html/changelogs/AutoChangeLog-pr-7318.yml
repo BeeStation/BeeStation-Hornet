@@ -1,0 +1,8 @@
+author: itsmeow
+delete-after: true
+changes:
+  - rscadd: The ability to change what type of titanium floor tiles you wish to place
+      via shift-clicking your stack of titanium floor tiles.
+  - rscadd: New smooth titanium floor sprite as an option
+  - code_imp: Added object path keys to radials
+  - code_imp: Added generic tile reskinning system
