@@ -1,4 +1,4 @@
-/obj/structure/chair/sofa //like it's brother fancy chair, this is the father of all sofas
+/obj/structure/chair/fancy/sofa //like it's brother fancy chair, this is the father of all sofas
 	name = "old father sofa"
 	desc = "Now extint, this kind of sofa shouldn't even exist anymore, if you see this rouge specimen, contact your local Nanotransen Anti-couch surfer department."
 	icon_state = "sofamiddle"
@@ -6,12 +6,8 @@
 	color = rgb(141,70,0)
 	buildstackamount = 1
 	item_chair = null
-	var/mutable_appearance/armrest
 
-/obj/structure/chair/sofa/Initialize(mapload)
-	armrest = mutable_appearance(icon, "[icon_state]_armrest", ABOVE_MOB_LAYER)
-	return ..()
-
+/*
 /obj/structure/chair/sofa/attacked_by(obj/item/I, mob/living/user)
 	. = ..()
 	if(!colorable)
@@ -27,57 +23,45 @@
 		cut_overlay(armrest)
 		armrest = GetArmrest()
 		update_armrest()
+*/
 
-/obj/structure/chair/sofa/post_buckle_mob(mob/living/M)
+/obj/structure/chair/fancy/sofa/post_buckle_mob(mob/living/M)
 	. = ..()
 	update_armrest()
 
-/obj/structure/chair/sofa/proc/GetArmrest()
-	return mutable_appearance('icons/obj/chairs.dmi', "[icon_state]_armrest")
-
-/obj/structure/chair/sofa/proc/update_armrest()
-	if(has_buckled_mobs())
-		add_overlay(armrest)
-	else
-		cut_overlay(armrest)
-
-/obj/structure/chair/sofa/post_unbuckle_mob()
-	. = ..()
-	update_armrest()
-
-/obj/structure/chair/sofa/handle_layer() //only the armrest/back of this chair should cover the mob. yet it breaks the full back one?
+/obj/structure/chair/fancy/sofa/handle_layer() //only the armrest/back of this chair should cover the mob. yet it breaks the full back one?
 	return
 
-/obj/structure/chair/sofa/old
+/obj/structure/chair/fancy/sofa/old
 	name = "old sofa"
 	desc = "A bit dated, but still does the job of being a sofa."
 	icon_state = "sofamiddle"
 
-/obj/structure/chair/sofa/left
+/obj/structure/chair/fancy/sofa/old/left
 	icon_state = "sofaend_left"
 
-/obj/structure/chair/sofa/right
+/obj/structure/chair/fancy/sofa/old/right
 	icon_state = "sofaend_right"
 
-/obj/structure/chair/sofa/corner
+/obj/structure/chair/fancy/sofa/old/corner
 	icon_state = "sofacorner"
 	possible_dirs = 8
 
 // Original icon ported from Eris(?) and updated to work here.
-/obj/structure/chair/sofa/corp
+/obj/structure/chair/fancy/sofa/corp
 	name = "sofa"
 	desc = "Soft and cushy."
 	icon_state = "corp_sofamiddle"
 
-/obj/structure/chair/sofa/corp/left
+/obj/structure/chair/fancy/sofa/corp/left
 	icon_state = "corp_sofaend_left"
-/obj/structure/chair/sofa/corp/right
+/obj/structure/chair/fancy/sofa/corp/right
 	icon_state = "corp_sofaend_right"
-/obj/structure/chair/sofa/corp/corner
+/obj/structure/chair/fancy/sofa/corp/corner
 	icon_state = "corp_sofacorner"
 
 // Bamboo benches
-/obj/structure/chair/sofa/bamboo
+/obj/structure/chair/fancy/sofa/bamboo
 	name = "bamboo bench"
 	desc = "A makeshift bench with a rustic aesthetic."
 	icon_state = "bamboo_sofamiddle"
@@ -86,33 +70,33 @@
 	buildstacktype = /obj/item/stack/sheet/mineral/bamboo
 	buildstackamount = 3
 
-/obj/structure/chair/sofa/bamboo/left
+/obj/structure/chair/fancy/sofa/bamboo/left
 	icon_state = "bamboo_sofaend_left"
-/obj/structure/chair/sofa/bamboo/right
+/obj/structure/chair/fancy/sofa/bamboo/right
 	icon_state = "bamboo_sofaend_right"
 
 // Ported from tg ported from Skyrat
-/obj/structure/chair/sofa/bench
+/obj/structure/chair/fancy/sofa/bench
 	name = "bench"
 	desc = "Perfectly designed to be comfortable to sit on, and hellish to sleep on."
 	icon_state = "bench_middle"
 	greyscale_config = /datum/greyscale_config/bench_middle
 	greyscale_colors = "#af7d28"
 
-/obj/structure/chair/sofa/bench/left
+/obj/structure/chair/fancy/sofa/bench/left
 	icon_state = "bench_left"
 	greyscale_config = /datum/greyscale_config/bench_left
 	greyscale_colors = "#af7d28"
 
-/obj/structure/chair/sofa/bench/right
+/obj/structure/chair/fancy/sofa/bench/right
 	icon_state = "bench_right"
 	greyscale_config = /datum/greyscale_config/bench_right
 	greyscale_colors = "#af7d28"
 
-/obj/structure/chair/sofa/bench/corner
+/obj/structure/chair/fancy/sofa/bench/corner
 	icon_state = "bench_corner"
 	greyscale_config = /datum/greyscale_config/bench_corner
 	greyscale_colors = "#af7d28"
 
-/obj/structure/chair/sofa/bench/handle_layer()
+/obj/structure/chair/fancy/sofa/bench/handle_layer()
 	return

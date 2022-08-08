@@ -73,7 +73,8 @@
 	B.setDir(dir)
 	qdel(src)
 
-/obj/structure/chair/attackby(obj/item/W, mob/user, params)
+///
+/obj/structure/chair/attacked_by(obj/item/W, mob/user, params)
 	if(W.tool_behaviour == TOOL_WRENCH && !(flags_1&NODECONSTRUCT_1))
 		W.use_tool(src, user, 20, volume=50)
 		deconstruct(TRUE)
@@ -173,6 +174,22 @@
 	. = ..()
 	update_armrest()
 
+/obj/structure/chair/fancy/attacked_by(obj/item/I, mob/living/user)
+	. = ..()
+	if(!colorable)
+		return
+	if(istype(I, /obj/item/toy/crayon))
+		var/obj/item/toy/crayon/C = I
+		var/new_color = C.paint_color
+		var/list/hsl = rgb2hsl(hex2num(copytext(new_color, 2, 4)), hex2num(copytext(new_color, 4, 6)), hex2num(copytext(new_color, 6, 8)))
+		hsl[3] = max(hsl[3], 0.4)
+		var/list/rgb = hsl2rgb(arglist(hsl))
+		color = "#[num2hex(rgb[1], 2)][num2hex(rgb[2], 2)][num2hex(rgb[3], 2)]"
+	if(color)
+		cut_overlay(armrest)
+		armrest = GetArmrest()
+		update_armrest()
+
 /obj/structure/chair/fancy/Initialize(mapload)
 	armrest = GetArmrest()
 	armrest.layer = ABOVE_MOB_LAYER
@@ -188,35 +205,10 @@
 	buildstackamount = 2
 	item_chair = null
 
-/obj/structure/chair/fancy/comfy/brown
-	color = rgb(141, 70, 0)
-
-/obj/structure/chair/fancy/comfy/beige
-	color = rgb(150, 126, 96)
-
-/obj/structure/chair/fancy/comfy/red
-	color = rgb(130, 50, 46)
-
-/obj/structure/chair/fancy/comfy/grey
-	color = rgb(128, 128, 128)
-
-/obj/structure/chair/fancy/comfy/black
-	color = rgb(48, 48, 48)
-
-/obj/structure/chair/fancy/comfy/yellow
-	color = rgb(186, 150, 20)
-
-/obj/structure/chair/fancy/comfy/lime
-	color = rgb(180, 220, 10)
-
-/obj/structure/chair/fancy/comfy/teal
-	color = rgb(16, 176, 176)
-
-/obj/structure/chair/fancy/comfy/blue
-	color = rgb(42, 132, 190)
-
 /obj/structure/chair/fancy/corp
 	color = null
+	name = "corporate chair"
+	desc = "It looks professional."
 	icon_state = "comfychair_corp"
 
 /obj/structure/chair/fancy/shuttle
