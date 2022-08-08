@@ -226,15 +226,17 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 	if (..()) // Sanity, maybe ?
 		return
 	if(!check_rights(R_ADMIN))
-		message_admins("[usr.key] has attempted to override the game mode panel!")
-		log_admin("[key_name(usr)] tried to use the game mode panel without authorization.")
+		message_admins("[key_name(usr)] has attempted to override the game mode panel!")
+		log_admin("[usr.key] tried to use the game mode panel without authorization.")
 		return
 	if (href_list["forced_extended"])
 		GLOB.dynamic_forced_extended = !GLOB.dynamic_forced_extended
 		message_admins("[key_name(usr)] toggled dynamic's Forced Extended setting to [GLOB.dynamic_forced_extended].")
+		dynamic_log("[usr.key] toggled dynamic's Forced Extended setting to [GLOB.dynamic_forced_extended].")
 	else if (href_list["no_stacking"])
 		GLOB.dynamic_no_stacking = !GLOB.dynamic_no_stacking
 		message_admins("[key_name(usr)] toggled dynamic's No Stacking setting to [GLOB.dynamic_no_stacking].")
+		dynamic_log("[usr.key] toggled dynamic's No Stacking setting to [GLOB.dynamic_no_stacking].")
 	else if (href_list["adjustthreat"])
 		var/threatadd = input("Specify how much threat to add (negative to subtract). This can inflate the threat level.", "Adjust Threat", 0) as null|num
 		if(!threatadd)
@@ -244,19 +246,23 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 		else
 			spend_midround_budget(-threatadd, threat_log, "[worldtime2text()]: decreased by [key_name(usr)]")
 		message_admins("[key_name(usr)] adjusted the dynamic threat level by [threatadd] threat.")
+		dynamic_log("[usr.key] adjusted the dynamic threat level by [threatadd] threat.")
 	else if (href_list["injectlate"])
 		latejoin_injection_cooldown = 0
 		forced_injection = TRUE
 		message_admins("[key_name(usr)] forced a latejoin injection.", 1)
+		dynamic_log("[usr.key] forced a latejoin injection.")
 	else if (href_list["injectmid"])
 		forced_injection = TRUE
 		message_admins("[key_name(usr)] forced a midround injection.", 1)
+		dynamic_log("[usr.key] forced a midround injection.")
 		try_midround_roll()
 	else if (href_list["threatlog"])
 		show_threatlog(usr)
 	else if (href_list["stacking_limit"])
 		GLOB.dynamic_stacking_limit = input(usr,"Change the threat limit at which round-endings rulesets will start to stack.", "Change stacking limit", null) as num
 		message_admins("[key_name(usr)] adjusted dynamic's Stacking Limit setting to [GLOB.dynamic_stacking_limit].")
+		dynamic_log("[usr.key] adjusted dynamic's Stacking Limit setting to [GLOB.dynamic_stacking_limit].")
 	else if(href_list["force_latejoin_rule"])
 		var/added_rule = input(usr,"What ruleset do you want to force upon the next latejoiner? This will bypass threat level and population restrictions.", "Rigging Latejoin", null) as null|anything in sortNames(init_rulesets(/datum/dynamic_ruleset/latejoin))
 		if (!added_rule)
