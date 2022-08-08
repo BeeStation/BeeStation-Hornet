@@ -1,5 +1,0 @@
-author: ivanmixo
-delete-after: true
-changes:
-  - rscadd: The tank transfer valve now uses tgui for it's interface
-  - admin: Added more robust logging for tank transfer valves and signalers

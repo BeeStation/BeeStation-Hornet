@@ -1,4 +1,0 @@
-author: Crossedfall
-delete-after: true
-changes:
-  - server: Fail2Topic logging migrated from world logging to topic logging

@@ -1,9 +1,0 @@
-author: Sarchutar
-delete-after: true
-changes:
-  - refactor: refactored the cyborg power connector code
-  - rscadd: changing modes of the power connector now uses a balloon alert
-  - rscadd: limit when charging things to not accidentally completely drain ones cell
-  - rscadd: when drawing power/charging it has a progress bar now
-  - bugfix: fixed a bug which made the connector unusable when moving while drawing
-      power from a cell

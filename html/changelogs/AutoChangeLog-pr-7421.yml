@@ -1,7 +1,0 @@
-author: zeskorion
-delete-after: true
-changes:
-  - rscdel: random organ drops no longer create teratoma spawners. this means maint
-      and mail tomas no longer exist, either
-  - tweak: pituitary disruption no longer makes you grow nearly as large
-  - balance: pituitary disruption no longer drops random organs from monkeys
