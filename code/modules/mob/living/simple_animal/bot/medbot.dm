@@ -573,7 +573,7 @@ GLOBAL_VAR(medibot_unique_id_gen)
 			tending = FALSE
 
 /mob/living/simple_animal/bot/medbot/proc/alt_heal(mob/living/carbon/C)
-	return FALSE  // inits the alt heal
+	return FALSE
 
 /mob/living/simple_animal/bot/medbot/explode()
 	on = FALSE
@@ -627,7 +627,6 @@ GLOBAL_VAR(medibot_unique_id_gen)
 	START_PROCESSING(SSobj, src)
 
 /mob/living/simple_animal/bot/medbot/cola/process()
-	..()
 	if(COOLDOWN_FINISHED(src, fund))
 		refill()
 		COOLDOWN_START(src, fund, 2 MINUTES)
