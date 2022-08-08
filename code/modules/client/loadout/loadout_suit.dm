@@ -42,27 +42,27 @@
 /datum/gear/suit/wintercoat/security
 	display_name = "security winter coat"
 	path = /obj/item/clothing/suit/hooded/wintercoat/security
-	allowed_roles = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_BRIGPHYSICIAN, JOB_NAME_HEADOFSECURITY)
+	allowed_roles = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_BRIGPHYSICIAN, JOB_NAME_HEADOFSECURITY, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE)
 
 /datum/gear/suit/wintercoat/medical
 	display_name = "medical winter coat"
 	path = /obj/item/clothing/suit/hooded/wintercoat/medical
-	allowed_roles = list(JOB_NAME_PARAMEDIC, JOB_NAME_MEDICALDOCTOR, JOB_NAME_CHIEFMEDICALOFFICER, JOB_NAME_CHEMIST, JOB_NAME_GENETICIST)
+	allowed_roles = list(JOB_NAME_PARAMEDIC, JOB_NAME_MEDICALDOCTOR, JOB_NAME_CHIEFMEDICALOFFICER, JOB_NAME_CHEMIST, JOB_NAME_GENETICIST, JOB_NAME_VIROLOGIST, JOB_NAME_BRIGPHYSICIAN)
 
 /datum/gear/suit/wintercoat/science
 	display_name = "science winter coat"
 	path = /obj/item/clothing/suit/hooded/wintercoat/science
-	allowed_roles = list(JOB_NAME_SCIENTIST, JOB_NAME_ROBOTICIST, JOB_NAME_RESEARCHDIRECTOR)
+	allowed_roles = list(JOB_NAME_SCIENTIST, JOB_NAME_ROBOTICIST, JOB_NAME_RESEARCHDIRECTOR, JOB_NAME_EXPLORATIONCREW)
 
 /datum/gear/suit/wintercoat/engineering
 	display_name = "engineering winter coat"
 	path = /obj/item/clothing/suit/hooded/wintercoat/engineering
 	allowed_roles = list(JOB_NAME_CHIEFENGINEER, JOB_NAME_STATIONENGINEER, JOB_NAME_ATMOSPHERICTECHNICIAN)
 
-/datum/gear/suit/wintercoat/hydro
-	display_name = "hydroponics winter coat"
-	path = /obj/item/clothing/suit/hooded/wintercoat/hydro
-	allowed_roles = list(JOB_NAME_BOTANIST)
+/datum/gear/suit/wintercoat/atmos
+	display_name = "atmospherics winter coat"
+	path = /obj/item/clothing/suit/hooded/wintercoat/engineering/atmos
+	allowed_roles = list(JOB_NAME_CHIEFENGINEER, JOB_NAME_ATMOSPHERICTECHNICIAN)
 
 /datum/gear/suit/wintercoat/hydro
 	display_name = "hydroponics winter coat"
@@ -78,6 +78,47 @@
 	display_name = "mining winter coat"
 	path = /obj/item/clothing/suit/hooded/wintercoat/miner
 	allowed_roles = list(JOB_NAME_SHAFTMINER)
+
+//NOSTALGIC WINTER COATS
+
+/datum/gear/suit/oldwintercoat
+	subtype_path = /datum/gear/suit/oldwintercoat
+	cost = 6000
+
+/datum/gear/suit/oldwintercoat/grey
+	display_name = "nostalgic winter coat"
+	path = /obj/item/clothing/suit/hooded/wintercoat/old
+	cost = 3000
+
+/datum/gear/suit/oldwintercoat/security
+	display_name = "nostalgic security winter coat"
+	path = /obj/item/clothing/suit/hooded/wintercoat/security/old
+	allowed_roles = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_BRIGPHYSICIAN, JOB_NAME_HEADOFSECURITY, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE)
+
+/datum/gear/suit/oldwintercoat/medical
+	display_name = "nostalgic medical winter coat"
+	path = /obj/item/clothing/suit/hooded/wintercoat/medical/old
+	allowed_roles = list(JOB_NAME_PARAMEDIC, JOB_NAME_MEDICALDOCTOR, JOB_NAME_CHIEFMEDICALOFFICER, JOB_NAME_CHEMIST, JOB_NAME_GENETICIST, JOB_NAME_VIROLOGIST, JOB_NAME_BRIGPHYSICIAN)
+
+/datum/gear/suit/oldwintercoat/science
+	display_name = "nostalgic science winter coat"
+	path = /obj/item/clothing/suit/hooded/wintercoat/science/old
+	allowed_roles = list(JOB_NAME_SCIENTIST, JOB_NAME_ROBOTICIST, JOB_NAME_RESEARCHDIRECTOR, JOB_NAME_EXPLORATIONCREW)
+
+/datum/gear/suit/oldwintercoat/engineering
+	display_name = "nostalgic engineering winter coat"
+	path = /obj/item/clothing/suit/hooded/wintercoat/engineering/old
+	allowed_roles = list(JOB_NAME_CHIEFENGINEER, JOB_NAME_STATIONENGINEER, JOB_NAME_ATMOSPHERICTECHNICIAN)
+
+/datum/gear/suit/oldwintercoat/atmos
+	display_name = "nostalgic atmospherics winter coat"
+	path = /obj/item/clothing/suit/hooded/wintercoat/engineering/atmos/old
+	allowed_roles = list(JOB_NAME_CHIEFENGINEER, JOB_NAME_ATMOSPHERICTECHNICIAN)
+
+/datum/gear/suit/oldwintercoat/hydro
+	display_name = "nostalgic hydroponics winter coat"
+	path = /obj/item/clothing/suit/hooded/wintercoat/hydro/old
+	allowed_roles = list(JOB_NAME_BOTANIST)
 
 //JACKETS
 
