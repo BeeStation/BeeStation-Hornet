@@ -25,17 +25,11 @@
 		update_armrest()
 */
 
-/obj/structure/chair/fancy/sofa/post_buckle_mob(mob/living/M)
-	. = ..()
-	update_armrest()
-
-/obj/structure/chair/fancy/sofa/handle_layer() //only the armrest/back of this chair should cover the mob. yet it breaks the full back one?
-	return
-
 /obj/structure/chair/fancy/sofa/old
 	name = "old sofa"
 	desc = "A bit dated, but still does the job of being a sofa."
 	icon_state = "sofamiddle"
+	colorable = TRUE
 
 /obj/structure/chair/fancy/sofa/old/left
 	icon_state = "sofaend_left"
@@ -82,6 +76,8 @@
 	icon_state = "bench_middle"
 	greyscale_config = /datum/greyscale_config/bench_middle
 	greyscale_colors = "#af7d28"
+	color = rgb(255,255,255)
+	colorable = TRUE
 
 /obj/structure/chair/fancy/sofa/bench/left
 	icon_state = "bench_left"

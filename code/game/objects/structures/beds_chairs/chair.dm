@@ -204,6 +204,7 @@
 	max_integrity = 70
 	buildstackamount = 2
 	item_chair = null
+	colorable = TRUE
 
 /obj/structure/chair/fancy/corp
 	color = null
@@ -292,6 +293,8 @@
 	buildstackamount = 2
 	item_chair = /obj/item/chair/stool/bamboo
 
+//Chairs, but as an item
+
 /obj/item/chair
 	name = "chair"
 	desc = "Bar brawl essential."
@@ -363,7 +366,6 @@
 			if(C.health < C.maxHealth*0.5)
 				C.Paralyze(20)
 		smash(user)
-
 
 /obj/item/chair/fancy
 	name = "chair"
