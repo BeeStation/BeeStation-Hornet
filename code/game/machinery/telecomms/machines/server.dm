@@ -117,7 +117,7 @@
 
 /obj/machinery/telecomms/server/presets/engineering
 	id = "Engineering Server"
-	freq_listening = list(FREQ_ENGINEERING)
+	freq_listening = list(FREQ_ENGINEERING, FREQ_GREY)
 	autolinkers = list("engineering")
 
 /obj/machinery/telecomms/server/presets/security
