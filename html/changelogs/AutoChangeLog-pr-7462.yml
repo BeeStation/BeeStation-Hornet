@@ -1,0 +1,5 @@
+author: itsmeow
+delete-after: true
+changes:
+  - bugfix: Overmind and eminence can no longer see runechat
+  - bugfix: Imaginary friends can hear again
