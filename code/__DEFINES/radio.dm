@@ -56,6 +56,10 @@
 #define RADIO_KEY_UPLINK "d"
 #define RADIO_TOKEN_UPLINK ":d"
 
+#define RADIO_CHANNEL_GREY "dev_cnl"
+#define RADIO_KEY_GREY "f"
+#define RADIO_TOKEN_GREY ":f"
+
 #define MIN_FREE_FREQ 1201 // -------------------------------------------------
 // Frequencies are always odd numbers and range from 1201 to 1599.
 
@@ -72,6 +76,8 @@
 #define FREQ_ENGINEERING 1357  //! Engineering comms frequency, orange
 #define FREQ_SECURITY 1359  //! Security comms frequency, red
 #define FREQ_EXPLORATION 1361 //! Exploration comms frequency, cyan
+
+#define FREQ_GREY 1404  //! 404 joke :)
 
 #define FREQ_STATUS_DISPLAYS 1435
 #define FREQ_ATMOS_ALARMS 1437  //! air alarms <-> alert computers
