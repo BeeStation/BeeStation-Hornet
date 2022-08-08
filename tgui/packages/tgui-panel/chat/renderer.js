@@ -250,6 +250,8 @@ class ChatRenderer {
     }
     const lines = String(text)
       .split(',')
+      // replace() escapes every character found by the regex
+      // by placing a \ infront of each
       // eslint-disable-next-line no-useless-escape
       .map(str => str.trim().replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&'))
       .filter(str => (
