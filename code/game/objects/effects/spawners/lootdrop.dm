@@ -236,7 +236,6 @@
 		/obj/item/organ/vocal_cords/adamantine = 1,
 		/obj/effect/gibspawner/xeno = 1,
 		/obj/effect/mob_spawn/human/corpse/assistant = 1,
-		/obj/effect/mob_spawn/teratomamonkey = 1,
 		/obj/item/organ/wings/moth/robust = 1,
 		/obj/item/organ/wings/dragon = 1)
 
