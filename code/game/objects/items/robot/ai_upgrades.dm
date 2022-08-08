@@ -38,7 +38,7 @@
 	if(!istype(AI))
 		return
 	if(AI.eyeobj)
-		AI.eyeobj.relay_speech = TRUE
+		AI.eyeobj.set_relay_speech(TRUE)
 		to_chat(AI, "<span class='userdanger'>[user] has upgraded you with surveillance software!</span>")
 		to_chat(AI, "Via a combination of hidden microphones and lip reading software, you are able to use your cameras to listen in on conversations.")
 	to_chat(user, "<span class='notice'>You upgrade [AI]. [src] is consumed in the process.</span>")

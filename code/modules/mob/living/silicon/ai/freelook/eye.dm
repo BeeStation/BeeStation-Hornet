@@ -11,7 +11,6 @@
 	hud_possible = list(ANTAG_HUD, AI_DETECT_HUD = HUD_LIST_LIST)
 	var/list/visibleCameraChunks = list()
 	var/mob/living/silicon/ai/ai = null
-	var/relay_speech = FALSE
 	var/use_static = TRUE
 	var/static_visibility_range = 16
 	var/ai_detector_visible = TRUE
@@ -22,6 +21,12 @@
 	GLOB.ai_eyes += src
 	update_ai_detect_hud()
 	setLoc(loc, TRUE)
+
+/mob/camera/ai_eye/proc/set_relay_speech(relay)
+	if(relay)
+		become_hearing_sensitive()
+	else
+		REMOVE_TRAIT(src, TRAIT_HEARING_SENSITIVE, TRAIT_GENERIC)
 
 /mob/camera/ai_eye/proc/update_ai_detect_hud()
 	var/datum/atom_hud/ai_detector/hud = GLOB.huds[DATA_HUD_AI_DETECT]
@@ -213,7 +218,7 @@
 
 /mob/camera/ai_eye/Hear(message, atom/movable/speaker, datum/language/message_language, raw_message, radio_freq, list/spans, list/message_mods = list())
 	. = ..()
-	if(relay_speech && speaker && ai && !radio_freq && speaker != ai && near_camera(speaker))
+	if(speaker && ai && !radio_freq && speaker != ai && near_camera(speaker))
 		ai.relay_speech(message, speaker, message_language, raw_message, radio_freq, spans, message_mods)
 
 /obj/effect/overlay/ai_detect_hud

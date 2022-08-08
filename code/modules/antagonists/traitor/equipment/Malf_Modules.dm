@@ -857,7 +857,7 @@ GLOBAL_LIST_INIT(blacklisted_malf_machines, typecacheof(list(
 
 /datum/AI_Module/large/eavesdrop/upgrade(mob/living/silicon/ai/AI)
 	if(AI.eyeobj)
-		AI.eyeobj.relay_speech = TRUE
+		AI.eyeobj.set_relay_speech(TRUE)
 
 
 //Fake Alert: Overloads a random number of lights across the station. Three uses.
