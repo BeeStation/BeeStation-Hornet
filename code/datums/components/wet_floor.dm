@@ -77,7 +77,7 @@
 		L.confused = max(L.confused, 8)
 
 /datum/component/wet_floor/proc/update_flags()
-	var/intensity
+	var/intensity = 0
 	lube_flags = NONE
 	for(var/i in wet_floor_defines)
 		if(i& TURF_WET_WATER)
@@ -138,10 +138,10 @@
 	check()
 	last_process = world.time
 
-/datum/component/wet_floor/proc/update_strength()
-	wet_floor_bitflags = 0			//Not bitflag.
+/datum/component/wet_floor/proc/update_wet_floor_bitflags()
+	wet_floor_bitflags = NONE
 	for(var/i in time_left_list)
-		wet_floor_bitflags = max(wet_floor_bitflags, text2num(i))
+		wet_floor_bitflags |= text2num(i)
 
 /datum/component/wet_floor/proc/is_wet()
 	SIGNAL_HANDLER
@@ -209,7 +209,7 @@
 			time_left_list -= i
 			changed = TRUE
 	if(changed || force_update)
-		update_strength()
+		update_wet_floor_bitflags()
 		update_overlay()
 		update_flags()
 		gc()
