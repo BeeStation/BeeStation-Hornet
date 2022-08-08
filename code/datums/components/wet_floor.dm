@@ -11,7 +11,6 @@
 	var/current_overlay
 	var/permanent = FALSE
 	var/last_process = 0
-	var/static/list/wet_floor_defines
 
 /datum/component/wet_floor/InheritComponent(datum/newcomp, orig, strength, duration_minimum, duration_add, duration_maximum, _permanent)
 	if(!newcomp)	//We are getting passed the arguments of a would-be new component, but not a new component
@@ -24,10 +23,6 @@
 			add_wet(text2num(i), WF.time_left_list[i])
 
 /datum/component/wet_floor/Initialize(strength, duration_minimum, duration_add, duration_maximum, _permanent = FALSE)
-	if(wet_floor_defines)
-		wet_floor_defines = list(
-			TURF_WET_WATER, TURF_WET_ICE, TURF_WET_PERMAFROST, TURF_WET_LUBE, TURF_WET_SUPERLUBE
-		)
 	if(!isopenturf(parent))
 		return COMPONENT_INCOMPATIBLE
 	add_wet(strength, duration_minimum, duration_add, duration_maximum)
@@ -59,13 +54,12 @@
 	if(!istype(parent, /turf/open/floor))
 		intended = generic_turf_overlay
 	else
-		switch(wet_floor_bitflags)
-			if(TURF_WET_PERMAFROST)
-				intended = permafrost_overlay
-			if(TURF_WET_ICE)
-				intended = ice_overlay
-			else
-				intended = water_overlay
+		if(wet_floor_bitflags& TURF_WET_PERMAFROST)
+			intended = permafrost_overlay
+		else if(wet_floor_bitflags& TURF_WET_ICE)
+			intended = ice_overlay
+		else
+			intended = water_overlay
 	if(current_overlay != intended)
 		var/turf/T = parent
 		T.cut_overlay(current_overlay)
@@ -79,22 +73,26 @@
 /datum/component/wet_floor/proc/update_flags()
 	var/intensity = 0
 	lube_flags = NONE
-	for(var/i in wet_floor_defines)
-		if(i& TURF_WET_WATER)
+	for(var/i in time_left_list)
+		if(text2num(i)& TURF_WET_WATER)
 			intensity = max(60, intensity)
 			lube_flags |= NO_SLIP_WHEN_WALKING
-		if(i& TURF_WET_LUBE)
+		if(text2num(i)& TURF_WET_LUBE)
 			intensity = max(80, intensity)
 			lube_flags |= SLIDE | GALOSHES_DONT_HELP
-		if(i& TURF_WET_ICE)
+			lube_flags &= ~NO_SLIP_WHEN_WALKING
+		if(text2num(i)& TURF_WET_ICE)
 			intensity = max(120, intensity)
 			lube_flags |= SLIDE | GALOSHES_DONT_HELP
-		if(i& TURF_WET_PERMAFROST)
+			lube_flags &= ~NO_SLIP_WHEN_WALKING
+		if(text2num(i)& TURF_WET_PERMAFROST)
 			intensity = max(120, intensity)
 			lube_flags |= SLIDE_ICE | GALOSHES_DONT_HELP
-		if(i& TURF_WET_SUPERLUBE)
+			lube_flags &= ~NO_SLIP_WHEN_WALKING
+		if(text2num(i)& TURF_WET_SUPERLUBE)
 			intensity = max(120, intensity)
 			lube_flags |= SLIDE | GALOSHES_DONT_HELP | SLIP_WHEN_CRAWLING
+			lube_flags &= ~NO_SLIP_WHEN_WALKING
 		else
 			qdel(parent.GetComponent(/datum/component/slippery))
 			return
@@ -132,7 +130,7 @@
 		for(var/obj/O in T.contents)
 			if(O.obj_flags & FROZEN)
 				O.make_unfrozen()
-		add_wet(TURF_WET_WATER, max_time_left())
+		add_wet(TURF_WET_WATER, duration_add=decrease)
 		dry(null, TURF_WET_ICE)
 	dry(null, ALL, FALSE, decrease)
 	check()
