@@ -1,7 +1,0 @@
-author: benbot16
-delete-after: true
-changes:
-  - balance: Tweaks xenomorph embryo bursting time. Embryos will now take 2.5-3.5
-      minutes to burst.
-  - balance: Xenomorph embryo growth times now scale based on the amount of living
-      xenos.
