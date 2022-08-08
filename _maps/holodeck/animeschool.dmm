@@ -41,7 +41,9 @@
 /turf/open/floor/holofloor,
 /area/template_noop)
 "R" = (
-/obj/structure/chair/fancy,
+/obj/structure/chair{
+	pixel_y = -2
+	},
 /turf/open/floor/holofloor,
 /area/template_noop)
 "S" = (

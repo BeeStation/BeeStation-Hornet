@@ -90,6 +90,7 @@
 /turf/open/floor/holofloor/dark,
 /area/template_noop)
 "m" = (
+/obj/item/clothing/head/chaplain/witchunter_hat,
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -101,7 +102,6 @@
 	dir = 8
 	},
 /obj/structure/table/wood/fancy,
-/obj/item/clothing/head/chaplain/graverobber_hat,
 /turf/open/floor/holofloor/dark,
 /area/template_noop)
 "o" = (
@@ -296,7 +296,7 @@
 /turf/open/floor/holofloor/dark,
 /area/template_noop)
 "Q" = (
-/obj/structure/chair/fancy,
+/obj/structure/chair,
 /turf/open/floor/holofloor/dark,
 /area/template_noop)
 "S" = (
