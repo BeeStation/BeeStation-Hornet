@@ -92084,6 +92084,13 @@
 /obj/machinery/atmospherics/pipe/simple/orange/visible,
 /turf/open/floor/vault,
 /area/engine/atmospherics_engine)
+"vxS" = (
+/obj/effect/turf_decal/guideline/guideline_in/red,
+/obj/effect/turf_decal/guideline/guideline_mid/purple,
+/obj/effect/turf_decal/guideline/guideline_out/yellow,
+/obj/structure/chair/fancy/brass/bronze,
+/turf/open/floor/plasteel,
+/area/hallway/primary/port)
 "vyd" = (
 /obj/structure/sign/painting/library{
 	pixel_x = 32
@@ -98212,6 +98219,22 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/exit/departure_lounge)
+"xaP" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral/tile_side{
+	dir = 8
+	},
+/obj/structure/chair/fancy/brass,
+/turf/open/floor/plasteel,
+/area/hallway/primary/port)
 "xaW" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 1
@@ -101901,6 +101924,7 @@
 /obj/effect/turf_decal/plaque{
 	icon_state = "L1"
 	},
+/obj/structure/chair/fancy/plastic,
 /turf/open/floor/plasteel,
 /area/hallway/primary/port)
 "xWV" = (
@@ -126914,8 +126938,8 @@ xwH
 dub
 xTG
 ydw
-onb
-pYk
+xaP
+vxS
 aUp
 tDV
 aUo
