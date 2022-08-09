@@ -146,6 +146,7 @@
 		if(loc.vars[A] == src)
 			loc.vars[A] = O
 
+	O.update_sight()
 	transfer_observers_to(O)
 
 	. = O
