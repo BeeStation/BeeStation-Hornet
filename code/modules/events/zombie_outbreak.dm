@@ -22,6 +22,8 @@
 				continue
 			if(!H.getorgan(/obj/item/organ/brain))
 				continue
+			if(!(MOB_ORGANIC in H.mob_biotypes))
+				continue
 			if(!H.getorganslot(ORGAN_SLOT_ZOMBIE))
 				var/obj/item/organ/zombie_infection/ZI = new()
 				ZI.Insert(H)
