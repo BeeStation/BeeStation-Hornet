@@ -21,6 +21,7 @@
 	show_in_antagpanel = FALSE
 	show_to_ghosts = TRUE
 	antag_moodlet = /datum/mood_event/focused
+	count_against_dynamic_roll_chance = FALSE
 
 /datum/antagonist/ert/on_gain()
 	if(random_names)

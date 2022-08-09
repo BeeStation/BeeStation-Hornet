@@ -5,6 +5,7 @@
 	silent = TRUE //greet called by the spawn
 	show_in_antagpanel = FALSE
 	prevent_roundtype_conversion = FALSE
+	count_against_dynamic_roll_chance = FALSE
 	var/datum/team/fugitive_hunters/hunter_team
 	var/backstory = "error"
 

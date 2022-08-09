@@ -33,6 +33,7 @@
 	show_in_antagpanel = TRUE
 	antagpanel_category = "Other"
 	show_name_in_check_antagonists = TRUE
+	count_against_dynamic_roll_chance = FALSE
 
 /datum/antagonist/brainwashed/on_gain()
 	owner.current.log_message("has been brainwashed!", LOG_ATTACK, color="#960000")
