@@ -100,9 +100,9 @@
 	hide.Grant(src)
 
 /mob/camera/imaginary_friend/Destroy()
-	..()
 	qdel(join)
 	qdel(hide)
+	return ..()
 
 /mob/camera/imaginary_friend/proc/setup_friend()
 	var/gender = pick(MALE, FEMALE)

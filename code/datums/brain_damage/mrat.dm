@@ -121,9 +121,9 @@
 	grant_all_languages()
 
 /mob/camera/imaginary_friend/mrat/Destroy()
-	..()
 	qdel(costume)
 	qdel(leave)
+	return ..()
 
 /mob/camera/imaginary_friend/mrat/setup_friend()
 	human_image = null
