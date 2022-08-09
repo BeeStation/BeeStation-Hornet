@@ -332,6 +332,10 @@
 	var/charges = 5
 	var/max_charges = 5
 
+/obj/item/toner/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>The ink level gauge on the side reads [round(charges / max_charges * 100)]%</span>"
+
 /obj/item/toner/large
 	name = "large toner cartridge"
 	desc = "A hefty cartridge of NanoTrasen ValueBrand toner. Fits photocopiers and autopainters alike."
