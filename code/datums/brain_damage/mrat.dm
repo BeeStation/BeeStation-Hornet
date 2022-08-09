@@ -53,9 +53,9 @@
 
 	var/datum/action/innate/mrat_costume/costume
 	var/datum/action/innate/mrat_leave/leave
-	var/list/icons_available = list()
+	var/static/list/icons_available = null
 	var/datum/mrat_type/current_costume = null
-	var/list/mrat_types = list(
+	var/static/list/mrat_types = list(
 		new /datum/mrat_type("Mouse", 'icons/mob/animal.dmi', "mouse_white", "sound/effects/mousesqueek.ogg", "#1ABC9C"),
 		new /datum/mrat_type("Corgi", 'icons/mob/pets.dmi', "corgi", "sound/machines/uplinkpurchase.ogg"),
 		new /datum/mrat_type("Hamster", 'icons/mob/pets.dmi', "hamster", "sound/effects/mousesqueek.ogg", "#1ABC9C"),
@@ -71,6 +71,8 @@
 	)
 
 /mob/camera/imaginary_friend/mrat/proc/update_available_icons()
+	if(icons_available)
+		return
 	icons_available = list()
 
 	for(var/datum/mrat_type/T in mrat_types)
@@ -78,18 +80,17 @@
 
 /mob/camera/imaginary_friend/mrat/proc/Costume()
 	update_available_icons()
-	if(icons_available)
-		var/selection = show_radial_menu(src, src, icons_available, radius = 38)
-		if(!selection)
-			return
+	var/selection = show_radial_menu(src, src, icons_available, radius = 38)
+	if(!selection)
+		return
 
-		for(var/datum/mrat_type/T in mrat_types)
-			if(T.name == selection)
-				current_costume = T
-				human_image = image(icon = T.icon, icon_state = T.icon_state)
-				color = T.color
-				Show()
-				return
+	for(var/datum/mrat_type/T in mrat_types)
+		if(T.name == selection)
+			current_costume = T
+			human_image = image(icon = T.icon, icon_state = T.icon_state)
+			color = T.color
+			Show()
+			return
 
 /mob/camera/imaginary_friend/mrat/proc/PickName()
 	var/picked_name = sanitize_name(stripped_input(src, "Enter your mentor rat's name", "Rat Name", "Mentor Rat", MAX_NAME_LEN - 3 - length(key)))
@@ -119,6 +120,11 @@
 	leave.Grant(src)
 	grant_all_languages()
 
+/mob/camera/imaginary_friend/mrat/Destroy()
+	..()
+	qdel(costume)
+	qdel(leave)
+
 /mob/camera/imaginary_friend/mrat/setup_friend()
 	human_image = null
 
@@ -147,10 +153,3 @@
 	to_chat(I, "<span class='warning'>You have ejected yourself from [I.owner].</span>")
 	to_chat(I.owner, "<span class='warning'>Your mentor has left.</span>")
 	qdel(I.trauma)
-
-/mob/camera/imaginary_friend/mrat/pointed(atom/A as mob|obj|turf in view())
-	if(!..())
-		return FALSE
-	to_chat(owner, "<b>[src]</b> points at [A].")
-	to_chat(src, "<span class='notice'>You point at [A].</span>")
-	return TRUE
