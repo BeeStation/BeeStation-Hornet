@@ -8,7 +8,6 @@
 	var/list/hivemembers = list()
 	var/list/avessels = list()
 	var/hive_size = 0
-	var/track_bonus = 0 // Bonus time to your tracking abilities
 	var/size_mod = 0 // Bonus size for using integrate
 	var/unlocked_dominance = FALSE
 	var/mutable_appearance/glow
@@ -195,7 +194,7 @@
 	..()
 
 /datum/antagonist/hivemind/proc/forge_objectives()
-	if(prob(50))
+	if(prob(50))  //One hive size objective
 		var/datum/objective/hivemind/hivesize/size_objective = new
 		size_objective.owner = owner
 		objectives += size_objective
@@ -210,11 +209,30 @@
 		biggest_objective.owner = owner
 		objectives += biggest_objective
 		log_objective(owner, biggest_objective.explanation_text)
+
+	if(prob(40)) //One medium difficulty objective
+		var/datum/objective/steal/steal_objective = new
+		steal_objective.owner = owner
+		steal_objective.find_target()
+		objectives += steal_objective
+		log_objective(owner, steal_objective.explanation_text)
+	else
+		var/datum/objective/hivemind/awaken/awaken_objective = new
+		awaken_objective.owner = owner
+		awaken_objective.find_target(null,GLOB.hivehosts)
+		objectives += awaken_objective
+		log_objective(owner, awaken_objective.explanation_text)
+
 	if(prob(30))
 		var/datum/objective/hivemind/dominance/assert_dominance = new
 		assert_dominance.owner = owner
 		objectives += assert_dominance
 		log_objective(owner, assert_dominance.explanation_text)
+	else if(prob(50))
+		var/datum/objective/hivemind/integrate/integrate_objective = new
+		integrate_objective.owner = owner
+		objectives += integrate_objective
+		log_objective(owner, integrate_objective.explanation_text)
 
 	var/datum/objective/escape/escape_objective = new
 	escape_objective.owner = owner
