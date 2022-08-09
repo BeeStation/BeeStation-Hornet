@@ -207,3 +207,19 @@
 
 	toggle(silent = TRUE)
 	return 0
+
+/obj/item/organ/cyberimp/chest/ventcrawler
+	name = "Ventcrawler implant"
+	desc = "This implant gives its user the ability to ventcrawl at will."
+	icon_state = "chest_implant"
+	implant_color = "#fffb00"
+
+/obj/item/organ/cyberimp/chest/ventcrawler/Insert()
+	. = ..()
+	owner.ventcrawler = VENTCRAWLER_ALWAYS
+
+/obj/item/organ/cyberimp/chest/ventcrawler/Remove(mob/living/carbon/M, special = FALSE)
+	. = ..()
+	M.ventcrawler = VENTCRAWLER_NONE
+
+

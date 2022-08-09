@@ -111,6 +111,10 @@
 	name = "suspicious autosurgeon (Reviver implant)"
 	starting_organ = list(/obj/item/organ/cyberimp/chest/reviver/syndicate)
 
+/obj/item/autosurgeon/syndicate/ventcrawl
+	name = "suspicious autosurgeon (Ventcrawler implant)"
+	starting_organ = list(/obj/item/organ/cyberimp/chest/ventcrawler)
+
 /obj/item/autosurgeon/syndicate/esaw_arm
 	name = "suspicious autosurgeon (arm-mounted energy saw)"
 	desc = "A single use autosurgeon that contains an energy saw arm implant."

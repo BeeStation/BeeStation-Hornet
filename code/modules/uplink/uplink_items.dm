@@ -1448,6 +1448,14 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	surplus = 30
 	illegal_tech = FALSE
 
+/datum/uplink_item/stealthy_tools/sus
+	name = "Syndicate Ventilation Specialist Kit"
+	desc = "Contains an autosurgeon for a prototype syndicate ventcrawler implant as well as a spacesuit and a combat knife."
+	item = /obj/item/storage/box/syndie_kit/sus
+	cost = 16
+	purchasable_from = (UPLINK_TRAITORS | UPLINK_INCURSION)
+
+
 //Space Suits and Hardsuits
 /datum/uplink_item/suits
 	category = "Space Suits"

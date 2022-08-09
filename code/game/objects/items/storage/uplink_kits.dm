@@ -613,3 +613,13 @@
 	new /obj/item/disk/nuclear/fake/obvious
 	for(var/i in 1 to 4)
 		new /obj/item/toy/reality_pierce(src)
+
+/obj/item/storage/box/syndie_kit/sus
+	name = "Syndicate Ventilation Specialist Kit"
+	desc = "Contains an autosurgeon for a prototype syndicate ventcrawler implant as well as a spacesuit and a combat knife."
+
+/obj/item/storage/box/syndie_kit/sus/PopulateContents()
+	new /obj/item/clothing/head/helmet/space/syndicate(src)
+	new /obj/item/clothing/suit/space/syndicate(src)
+	new /obj/item/autosurgeon/syndicate/ventcrawl(src)
+	new /obj/item/kitchen/knife/combat(src)
