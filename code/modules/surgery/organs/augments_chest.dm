@@ -213,6 +213,7 @@
 	desc = "This implant gives its user the ability to ventcrawl at will."
 	icon_state = "chest_implant"
 	implant_color = "#fffb00"
+	syndicate_implant = TRUE
 
 /obj/item/organ/cyberimp/chest/ventcrawler/Insert()
 	. = ..()
