@@ -82,6 +82,8 @@
 				S.delete_after = TRUE
 				S.name = "[M.name] deployment site"
 				M.linkup(shuttle_template,S)
+				M.docked = S
+				S.docked = M
 		new /obj/effect/particle_effect/smoke(get_turf(src))
 		qdel(src)
 
