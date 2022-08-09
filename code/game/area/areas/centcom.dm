@@ -1,6 +1,10 @@
 
 // CENTCOM
 
+// Side note, be sure to change the network_root_id of any areas that are not a part of centcom
+// and just using the z space as safe harbor.  It shouldn't matter much as centcom z is isolated
+// from everything anyway
+
 /area/centcom
 	name = "CentCom"
 	icon_state = "centcom"
@@ -123,6 +127,7 @@
 	teleport_restriction = TELEPORT_ALLOW_NONE
 	area_flags = VALID_TERRITORY | UNIQUE_AREA
 	flags_1 = NONE
+	network_root_id = "MAGIC_NET"
 
 //Abductors
 /area/abductor_ship
@@ -133,6 +138,7 @@
 	area_flags = VALID_TERRITORY | UNIQUE_AREA
 	has_gravity = STANDARD_GRAVITY
 	flags_1 = NONE
+	network_root_id = "ALIENS"
 
 //Syndicates
 /area/syndicate_mothership
@@ -144,15 +150,18 @@
 	area_flags = VALID_TERRITORY | UNIQUE_AREA
 	flags_1 = NONE
 	ambience_index = AMBIENCE_DANGER
+	network_root_id = SYNDICATE_NETWORK_ROOT
 
 /area/syndicate_mothership/control
 	name = "Syndicate Control Room"
 	icon_state = "syndie-control"
 	dynamic_lighting = DYNAMIC_LIGHTING_FORCED
+	network_root_id = SYNDICATE_NETWORK_ROOT
 
 /area/syndicate_mothership/elite_squad
 	name = "Syndicate Elite Squad"
 	icon_state = "syndie-elite"
+	network_root_id = SYNDICATE_NETWORK_ROOT
 
 //CAPTURE THE FLAG
 

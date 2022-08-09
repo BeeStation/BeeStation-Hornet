@@ -15,6 +15,20 @@
 	shock - has a chance of electrocuting its target.
 */
 
+/// Overlay cache.  Why isn't this just in /obj/machinery/door/airlock?  Because its used just a
+/// tiny bit in door_assembly.dm  Refactored so you don't have to make a null copy of airlock
+/// to get to the damn thing
+/// Someone, for the love of god, profile this.  Is there a reason to cache mutable_appearance
+/// if so, why are we JUST doing the airlocks when we can put this in mutable_appearance.dm for
+/// everything
+/proc/get_airlock_overlay(icon_state, icon_file)
+	var/static/list/airlock_overlays = list()
+	var/iconkey = "[icon_state][icon_file]"
+	if((!(. = airlock_overlays[iconkey])))
+		. = airlock_overlays[iconkey] = mutable_appearance(icon_file, icon_state)
+// Before you say this is a bad implmentation, look at what it was before then ask yourself
+// "Would this be better with a global var"
+
 // Wires for the airlock are located in the datum folder, inside the wires datum folder.
 
 #define AIRLOCK_CLOSED	1
@@ -110,7 +124,7 @@
 
 	var/electrification_timing // Set to true while electrified_loop is running, to prevent multiple being started
 
-	var/static/list/airlock_overlays = list()
+	network_id = NETWORK_DOOR_AIRLOCKS
 
 /obj/machinery/door/airlock/Initialize(mapload)
 	. = ..()
@@ -136,6 +150,8 @@
 	diag_hud_set_electrified()
 
 	rebuild_parts()
+
+	RegisterSignal(src, COMSIG_COMPONENT_NTNET_RECEIVE, .proc/ntnet_receive)
 
 	return INITIALIZE_HINT_LATELOAD
 
@@ -166,9 +182,6 @@
 				panel_open = TRUE
 	update_icon()
 
-/obj/machinery/door/airlock/ComponentInitialize()
-	. = ..()
-	AddComponent(/datum/component/ntnet_interface)
 
 /obj/machinery/door/airlock/proc/rebuild_parts()
 	if(part_overlays)
@@ -237,7 +250,7 @@
 	// Cutting WIRE_IDSCAN grants remote access
 	return id_scan_hacked() || ..()
 
-/obj/machinery/door/airlock/ntnet_receive(datum/netdata/data)
+/obj/machinery/door/airlock/proc/ntnet_receive(datum/source, datum/netdata/data)
 	// Check if the airlock is powered and can accept control packets.
 	if(!hasPower() || !canAIControl())
 		return
@@ -246,13 +259,10 @@
 	if(is_jammed())
 		return
 
-	// Check packet access level.
-	if(!check_access_ntnet(data))
-		return
 
 	// Handle received packet.
-	var/command = lowertext(data.data["data"])
-	var/command_value = lowertext(data.data["data_secondary"])
+	var/command = data.data["data"]
+	var/command_value = data.data["data_secondary"]
 	switch(command)
 		if("open")
 			if(command_value == "on" && !density)
@@ -660,13 +670,6 @@
 				SSvis_overlays.add_vis_overlay(src, overlays_file, "lights_opening", FLOAT_LAYER, FLOAT_PLANE, dir)
 	check_unres()
 
-/proc/get_airlock_overlay(icon_state, icon_file)
-	var/obj/machinery/door/airlock/A
-	pass(A)	//suppress unused warning
-	var/list/airlock_overlays = A.airlock_overlays
-	var/iconkey = "[icon_state][icon_file]"
-	if((!(. = airlock_overlays[iconkey])))
-		. = airlock_overlays[iconkey] = mutable_appearance(icon_file, icon_state)
 
 /obj/machinery/door/airlock/proc/check_unres() //unrestricted sides. This overlay indicates which directions the player can access even without an ID
 	if(hasPower() && unres_sides)

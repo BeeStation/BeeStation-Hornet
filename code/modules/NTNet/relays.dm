@@ -57,13 +57,13 @@
 		dos_failure = 1
 		ui_update()
 		update_icon()
-		SSnetworks.station_network.add_log("Quantum relay switched from normal operation mode to overload recovery mode.")
+		SSnetworks.add_log("Quantum relay switched from normal operation mode to overload recovery mode.")
 	// If the DoS buffer reaches 0 again, restart.
 	if((dos_overload == 0) && dos_failure)
 		dos_failure = 0
 		ui_update()
 		update_icon()
-		SSnetworks.station_network.add_log("Quantum relay switched from overload recovery mode to normal operation mode.")
+		SSnetworks.add_log("Quantum relay switched from overload recovery mode to normal operation mode.")
 	..()
 
 
@@ -96,11 +96,11 @@
 			dos_overload = 0
 			dos_failure = 0
 			update_icon()
-			SSnetworks.station_network.add_log("Quantum relay manually restarted from overload recovery mode to normal operation mode.")
+			SSnetworks.add_log("Quantum relay manually restarted from overload recovery mode to normal operation mode.")
 			return TRUE
 		if("toggle")
 			enabled = !enabled
-			SSnetworks.station_network.add_log("Quantum relay manually [enabled ? "enabled" : "disabled"].")
+			SSnetworks.add_log("Quantum relay manually [enabled ? "enabled" : "disabled"].")
 			update_icon()
 			return TRUE
 
@@ -109,15 +109,15 @@
 	component_parts = list()
 
 	if(SSnetworks.station_network)
-		SSnetworks.station_network.relays.Add(src)
+		SSnetworks.relays.Add(src)
 		NTNet = SSnetworks.station_network
-		SSnetworks.station_network.add_log("New quantum relay activated. Current amount of linked relays: [NTNet.relays.len]")
+		SSnetworks.add_log("New quantum relay activated. Current amount of linked relays: [SSnetworks.relays.len]")
 	. = ..()
 
 /obj/machinery/ntnet_relay/Destroy()
 	if(SSnetworks.station_network)
-		SSnetworks.station_network.relays.Remove(src)
-		SSnetworks.station_network.add_log("Quantum relay connection severed. Current amount of linked relays: [NTNet.relays.len]")
+		SSnetworks.relays.Remove(src)
+		SSnetworks.add_log("Quantum relay connection severed. Current amount of linked relays: [SSnetworks.relays.len]")
 		NTNet = null
 
 	for(var/datum/computer_file/program/ntnet_dos/D in dos_sources)

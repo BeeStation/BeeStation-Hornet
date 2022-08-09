@@ -6,6 +6,7 @@
 	var/loaded = 0 // Times loaded this round
 	var/datum/parsed_map/cached_map
 	var/keep_cached_map = FALSE
+	var/station_id = null // used to override the root id when generating
 
 	///if true, turfs loaded from this template are placed on top of the turfs already there, defaults to TRUE
 	var/should_place_on_top = TRUE
@@ -75,6 +76,10 @@
 	// first or not.  Its defined In Initialize yet its run first in templates
 	// BEFORE so... hummm
 	SSmapping.reg_in_areas_in_z(areas)
+	// We have to do this hack here because its the ONLY place we can get the
+	// meta data from the template so we can properly set up the area
+	SSnetworks.assign_areas_root_ids(areas, src)
+	// If the world is starting up stop here and the world will do the rest
 	if(!SSatoms.initialized)
 		return
 
