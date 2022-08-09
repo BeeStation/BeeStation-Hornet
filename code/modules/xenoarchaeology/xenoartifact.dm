@@ -237,6 +237,9 @@
 		for(var/datum/xenoartifact_trait/minor/t in traits)//Minor traits aren't apart of the target loop, specifically becuase they pass data into it
 			t?.activate(src, user, user)
 			log_game("[src] activated minor trait [t] at [world.time]. Located at [x] [y] [z]")
+
+		//Clamp charge to avoid fucky wucky
+		charge = max(10, charge)
    
 		for(var/atom/M in true_target) //target loop, majors & malfunctions
 			if(get_dist(get_turf(src), get_turf(M)) <= max_range) 

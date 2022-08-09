@@ -7,8 +7,10 @@
 	throw_range = 5
 	w_class = WEIGHT_CLASS_TINY
 
-	var/list/activator = list() //Checked trait
-	var/list/activator_traits = list() //Display names
+	///Checked trait
+	var/list/activator = list()
+	///Display names
+	var/list/activator_traits = list()
 
 	var/list/minor_trait = list()
 	var/list/minor_traits = list()
@@ -19,10 +21,16 @@
 	var/list/malfunction = list()
 	var/list/malfunction_list = list()  
 
-	var/list/info_list = list() //trait dialogue essentially
+	///trait dialogue essentially
+	var/list/info_list = list()
 
-	var/sticker_name //Name artifacts something pretty
-	var/list/sticker_traits = list()//passed down to sticker
+	///Name artifacts something pretty
+	var/sticker_name
+	///passed down to sticker
+	var/list/sticker_traits = list()
+
+	///Cooldown for stickers
+	COOLDOWN_DECLARE(sticker_cooldown)
 
 /obj/item/xenoartifact_labeler/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
@@ -52,9 +60,13 @@
 	if(..())
 		return
 	//Switch function could work here but it'd be pointless for the 1-2 cases
-	if(action == "print_traits")
+	if(action == "print_traits" && COOLDOWN_FINISHED(src, sticker_cooldown))
+		COOLDOWN_START(src, sticker_cooldown, 5 SECONDS)
 		create_label(sticker_name)
 		return
+	else if(!COOLDOWN_FINISHED(src, sticker_cooldown) && isliving(loc))
+		var/mob/living/user = loc
+		to_chat(user, "<span class='warning'>The labeler is still printing.</span>")
 
 	if(action == "clear_traits")
 		clear_selection()
@@ -88,9 +100,13 @@
 		return TRUE
 	return FALSE
 
-/obj/item/xenoartifact_labeler/afterattack(atom/target, mob/user)
+/obj/item/xenoartifact_labeler/afterattack(atom/target, mob/user, proximity_flag)
 	. = ..()
-	create_label(sticker_name, target, user)
+	if(proximity_flag && COOLDOWN_FINISHED(src, sticker_cooldown))
+		COOLDOWN_START(src, sticker_cooldown, 5 SECONDS)
+		create_label(sticker_name, target, user)
+	else if(!COOLDOWN_FINISHED(src, sticker_cooldown))
+		to_chat(user, "<span class='warning'>The labeler is still printing.</span>")
 
 ///reset all the options	
 /obj/item/xenoartifact_labeler/proc/clear_selection()
