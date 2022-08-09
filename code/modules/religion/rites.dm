@@ -255,22 +255,22 @@
 
 // Necro Rites
 
-/datum/religion_rites/create_lich
-	name = "Create Lich"
-	desc = "Gives the bound creature a spell granting them the ability to create a phylactery, causing them to become a skeleton and revive on death if the phylactery still exists on-station."
+/datum/religion_rites/create_lesser_lich
+	name = "Create Lesser Lich"
+	desc = "Gives the bound creature a spell granting them the ability to create a lesser phylactery, causing them to become a skeleton and revive on death twice if the phylactery still exists on-station."
 	ritual_length = 70 SECONDS
 	ritual_invocations = list("From the depths of the soul pool ...",
 	"... come forth into this being ...",
 	"... grant this servant power ...",
-	"... grant them immortality ...")
-	invoke_msg = "... Let them become one with lichdom!!"
-	favor_cost = 1750
+	"... grant them temporary immortality ...")
+	invoke_msg = "... Grant them the power to become one with necromancy!!"
+	favor_cost = 2250
 //the creature chosen for the rite
 	var/mob/living/lich_to_be
 //the spell
-	var/lichspell = /obj/effect/proc_holder/spell/targeted/lichdom
+	var/lichspell = /obj/effect/proc_holder/spell/targeted/lesserlichdom
 
-/datum/religion_rites/create_lich/perform_rite(mob/living/user, atom/religious_tool)
+/datum/religion_rites/create_lesser_lich/perform_rite(mob/living/user, atom/religious_tool)
 	if(!ismovable(religious_tool))
 		to_chat(user,"<span class='warning'>This rite requires a religious device that individuals can be buckled to.</span>")
 		return FALSE
@@ -309,7 +309,7 @@
 		return ..()
 
 
-/datum/religion_rites/create_lich/invoke_effect(mob/living/user, atom/movable/religious_tool)
+/datum/religion_rites/create_lesser_lich/invoke_effect(mob/living/user, atom/movable/religious_tool)
 	..()
 	if(!ismovable(religious_tool))
 		CRASH("[name]'s perform_rite had a movable atom that has somehow turned into a non-movable!")
@@ -323,7 +323,7 @@
 				break
 	if(!lich_to_be)
 		return FALSE
-	lich_to_be.AddSpell(new /obj/effect/proc_holder/spell/targeted/lichdom(null))
+	lich_to_be.AddSpell(new /obj/effect/proc_holder/spell/targeted/lesserlichdom(null))
 	lich_to_be.visible_message("<span class='notice'>[lich_to_be] has been empowered by the soul pool!</span>")
 	lich_to_be = null
 	return ..()

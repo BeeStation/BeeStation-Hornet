@@ -208,6 +208,12 @@
 	category = "Defensive"
 	cost = 3
 
+/datum/spellbook_entry/lesserlichdom
+	name = "Lesser Bind Soul"
+	spell_type = /obj/effect/proc_holder/spell/targeted/lesserlichdom
+	category = "Defensive"
+	cost = 1
+
 /datum/spellbook_entry/teslablast
 	name = "Tesla Blast"
 	spell_type = /obj/effect/proc_holder/spell/targeted/tesla
