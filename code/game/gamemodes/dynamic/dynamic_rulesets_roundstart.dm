@@ -640,8 +640,8 @@
 	name = "Assimilation"
 	antag_flag = ROLE_HIVE
 	antag_datum = /datum/antagonist/hivemind
-	protected_roles = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain")
-	restricted_roles = list("Cyborg","AI")
+	protected_roles = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE,JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN)
+	restricted_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG)
 	required_candidates = 3
 	weight = 3
 	cost = 30
