@@ -257,7 +257,7 @@
 
 /datum/religion_rites/create_lesser_lich
 	name = "Create Lesser Lich"
-	desc = "Gives the bound creature a spell granting them the ability to create a lesser phylactery, causing them to become a skeleton and revive on death twice if the phylactery still exists on-station."
+	desc = "Gives the bound creature a spell granting them the ability to create a lesser phylactery, causing them to become a skeleton and revive on death twice if the phylactery still exists on-station. Be warned, becoming a lesser lich will prevent revivial by any other means."
 	ritual_length = 70 SECONDS
 	ritual_invocations = list("From the depths of the soul pool ...",
 	"... come forth into this being ...",

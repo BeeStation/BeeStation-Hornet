@@ -145,7 +145,7 @@
 			old_body.visible_message("<span class='warning'>Suddenly [old_body.name]'s corpse falls to pieces! You see a strange energy rise from the remains, and speed off towards the [wheres_wizdo]!</span>")
 			body_turf.Beam(item_turf,icon_state="lichbeam",time=20+20*resurrections,maxdistance=INFINITY) // beam shows for longer on the lesser spell
 		old_body.dust()
-	if(resurrections > 2)
-		to_chat(lich,"<span class='warning'>You feel your lesser phylactery break from over-usage. You will no longer be able to resurrect on death.")
+	if(resurrections >= 2)
+		to_chat(lich,"<span class='userdanger'>You feel your lesser phylactery break from over-usage. You will no longer be able to resurrect on death.")
 		qdel(src)
 	return "Respawn of [mind] successful."
