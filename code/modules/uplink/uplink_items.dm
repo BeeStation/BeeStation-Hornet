@@ -1452,7 +1452,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	name = "Syndicate Ventilation Specialist Kit"
 	desc = "Contains an autosurgeon for a prototype syndicate ventcrawler implant as well as a spacesuit and a combat knife."
 	item = /obj/item/storage/box/syndie_kit/sus
-	cost = 16
+	cost = 20
 	purchasable_from = (UPLINK_TRAITORS | UPLINK_INCURSION)
 
 
