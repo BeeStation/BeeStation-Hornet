@@ -1,0 +1,6 @@
+author: Dejaku51, WarlockD
+delete-after: true
+changes:
+  - rscadd: Turning off ntnet remote system control makes it so you can't use door
+      remotes
+  - code_imp: updated ntnet code
