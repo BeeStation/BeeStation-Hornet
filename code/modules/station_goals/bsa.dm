@@ -322,12 +322,6 @@
 		if(G.tracking)
 			targets[G.gpstag] = G
 
-	// Find all shuttles in transit
-	for(var/shuttleportid in SSorbits.assoc_shuttles)
-		var/datum/orbital_object/shuttle/shuttle = SSorbits.assoc_shuttles[shuttleportid]
-		if(shuttle.stealth)
-			continue
-		targets[shuttle.name] = shuttle
 
 	var/V = input(user, "Select target", "Select target",null) in targets|null
 	target = targets[V]
@@ -339,9 +333,6 @@
 	else if(istype(target, /datum/component/gps))
 		var/datum/component/gps/G = target
 		return G.gpstag
-	else if(istype(target, /datum/orbital_object/shuttle))
-		var/datum/orbital_object/shuttle/shuttle = target
-		return shuttle.name
 
 /obj/machinery/computer/bsa_control/proc/get_impact_turf()
 	if(istype(target, /area))
@@ -349,10 +340,6 @@
 	else if(istype(target, /datum/component/gps))
 		var/datum/component/gps/G = target
 		return get_turf(G.parent)
-	else if(istype(target, /datum/orbital_object/shuttle))
-		var/datum/orbital_object/shuttle/shuttle = target
-		var/area/shuttle_area = pick(shuttle.port.shuttle_areas)
-		return pick(get_area_turfs(shuttle_area))
 
 
 /obj/machinery/computer/bsa_control/proc/fire(mob/user)
