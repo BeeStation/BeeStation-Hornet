@@ -61,7 +61,7 @@
 
 		to_chat(M, "<span class='userdanger'>With a hideous feeling of emptiness you watch in horrified fascination as skin sloughs off bone! Blood boils, nerves disintegrate, eyes boil in their sockets! As your organs crumble to dust in your fleshless chest you come to terms with your choice. You're a lesser lich!</span>")
 		M.mind.hasSoul = FALSE
-		M.sethellbound() // No revival other than lichdom revival
+		M.mind.hellbound = TRUE // No revival other than lichdom revival
 		M.set_species(/datum/species/skeleton)
 		// no robes spawn for a lesser spell
 		// you only get one phylactery.
