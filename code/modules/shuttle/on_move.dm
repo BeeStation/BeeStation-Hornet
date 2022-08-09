@@ -116,7 +116,7 @@ All ShuttleMove procs go here
 			BT = baseturfs[BT_index--]
 			if(BT == /turf/baseturf_skipover/shuttle)
 				break
-	if(!BT_index)
+	if(!BT_index && length(baseturfs))
 		CRASH("A turf queued to clean up after a shuttle dock somehow didn't have enough skipovers in baseturfs. [oldT]([oldT.type]):[oldT.loc]")
 
 	if(BT_index != length(baseturfs))

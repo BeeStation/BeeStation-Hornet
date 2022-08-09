@@ -16,8 +16,6 @@
 	//Count the number of engines (and also for sound effect)
 	current_engines = count_engines()
 
-	var/obj/docking_port/stationary/old_dock = docked
-
 	/**************************************************************************************************************
 		Both lists are associative with a turf:bitflag structure. (new_turfs bitflag space unused currently)
 		The bitflag contains the data for what inhabitants of that coordinate should be moved to the new location
@@ -78,7 +76,7 @@
 	// Moving to the new location will trample the ripples there at the exact
 	// same time any mobs there are trampled, to avoid any discrepancy where
 	// the ripples go away before it is safe.
-	takeoff(new_dock, old_turfs, new_turfs, moved_atoms, rotation, movement_direction, old_dock, underlying_old_area, all_towed_shuttles)
+	takeoff(new_dock, old_turfs, new_turfs, moved_atoms, rotation, movement_direction, underlying_old_area, all_towed_shuttles)
 
 	CHECK_TICK
 
@@ -87,8 +85,9 @@
 	CHECK_TICK
 
 	//Updating docked properties
-	old_dock.docked = null
 	new_dock.docked = src
+	if(docked) //Shuttles don't have a dock when initially loaded
+		docked.docked = null
 	docked = new_dock
 
 	/*******************************************Unhiding turfs if necessary******************************************/
@@ -137,7 +136,7 @@
 
 		old_turfs[oldT] = move_mode
 
-/obj/docking_port/mobile/proc/takeoff(obj/docking_port/stationary/new_dock, list/old_turfs, list/new_turfs, list/moved_atoms, rotation, movement_direction, old_dock, list/underlying_old_area, list/all_towed_shuttles)
+/obj/docking_port/mobile/proc/takeoff(obj/docking_port/stationary/new_dock, list/old_turfs, list/new_turfs, list/moved_atoms, rotation, movement_direction, list/underlying_old_area, list/all_towed_shuttles)
 	var/list/parent_shuttles = list() //Keep track of what shuttles we're landing on in case we're relanding on a shuttle we were on.
 	for(var/i in 1 to old_turfs.len)
 		var/turf/oldT = old_turfs[i]
@@ -148,7 +147,7 @@
 				var/atom/movable/moving_atom = k
 				if(moving_atom.loc != oldT) //fix for multi-tile objects
 					continue
-				if(moving_atom.onShuttleMove(newT, oldT, movement_force, movement_direction, old_dock, src, all_towed_shuttles))	//atoms
+				if(moving_atom.onShuttleMove(newT, oldT, movement_force, movement_direction, docked, src, all_towed_shuttles))	//atoms
 					moved_atoms[moving_atom] = oldT
 
 		if(move_mode & MOVE_TURF)

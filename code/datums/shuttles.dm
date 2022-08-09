@@ -63,20 +63,23 @@
 			--ycrd
 
 /datum/map_template/shuttle/load(turf/T, centered, register=TRUE)
+	if(centered)
+		T = locate(T.x - round(width/2) , T.y - round(height/2) , T.z)
+		centered = FALSE
+	var/list/turfs = block(locate(max(T.x, 1), max(T.y, 1),  T.z),
+							locate(min(T.x+width, world.maxx), min(T.y+height, world.maxy), T.z))
+	for(var/turf/turf in turfs)
+		turfs[turf] = turf.loc
 	. = ..()
 	if(!.)
 		return
-	var/list/turfs = block(	locate(.[MAP_MINX], .[MAP_MINY], .[MAP_MINZ]),
-							locate(.[MAP_MAXX], .[MAP_MAXY], .[MAP_MAXZ]))
-	for(var/i in 1 to turfs.len)
-		var/turf/place = turfs[i]
-		if(istype(place, /turf/open/space)) // This assumes all shuttles are loaded in a single spot then moved to their real destination.
+	var/obj/docking_port/mobile/my_port
+	for(var/turf/place in turfs)
+		if(!istype(place.loc, /area/shuttle)) //If not part of the shuttle, ignore it
+			turfs -= place
 			continue
-		if(length(place.baseturfs) < 2) // Some snowflake shuttle shit
-			continue
-		place.baseturfs.Insert(3, /turf/baseturf_skipover/shuttle)
-
 		for(var/obj/docking_port/mobile/port in place)
+			my_port = port
 			if(register)
 				port.register()
 			if(isnull(port_x_offset))
@@ -102,6 +105,12 @@
 					port.height = width
 					port.dwidth = port_y_offset - 1
 					port.dheight = width - port_x_offset
+
+	for(var/turf/shuttle_turf in turfs)
+		var/area/shuttle/new_loc = shuttle_turf.loc
+		var/area/old_loc = turfs[shuttle_turf]
+		old_loc.contents += shuttle_turf //For underlying_turf_area, add_turf will change it back
+		my_port.add_turf(shuttle_turf, new_loc)
 
 //Whatever special stuff you want
 /datum/map_template/shuttle/proc/post_load(obj/docking_port/mobile/M)
