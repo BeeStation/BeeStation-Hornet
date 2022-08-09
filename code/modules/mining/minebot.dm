@@ -329,7 +329,7 @@
 
 /// Melee attack handling
 /mob/living/simple_animal/hostile/mining_drone/AttackingTarget()
-	if(istype(target, /obj/machinery/computer))
+	if(client && istype(target, /obj/machinery/computer))
 		target.ui_interact(src)
 		return
 	if(stored_cutter && (istype(target, /obj/item/stack/ore/plasma) || istype(target, /obj/item/stack/sheet/mineral/plasma)) && mode == MODE_MINING) //Charging the on-board plasma cutter
