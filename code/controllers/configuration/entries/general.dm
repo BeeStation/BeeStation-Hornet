@@ -548,6 +548,7 @@
 
 /datum/config_entry/number/topic_max_size
 	config_entry_value = 500
+	protection = CONFIG_ENTRY_LOCKED
 
 /datum/config_entry/flag/topic_enabled
 	protection = CONFIG_ENTRY_LOCKED
