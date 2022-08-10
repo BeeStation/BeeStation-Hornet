@@ -55,6 +55,7 @@
 #define CATCLAWS    /datum/mutation/catclaws
 #define OVERLOAD    /datum/mutation/overload
 #define ACIDOOZE    /datum/mutation/acidooze
+#define MEDIEVAL    /datum/mutation/medieval
 
 #define UI_CHANGED "ui changed"
 #define UE_CHANGED "ue changed"
