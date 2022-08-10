@@ -1,12 +1,14 @@
 /datum/computer_file/program/arcade
 	filename = "arcade"
 	filedesc = "Nanotrasen Micro Arcade"
+	category = PROGRAM_CATEGORY_MISC
 	program_icon_state = "arcade"
 	extended_desc = "This port of the classic game 'Outbomb Cuban Pete', redesigned to run on tablets, with thrilling graphics and chilling storytelling."
 	requires_ntnet = FALSE
 	network_destination = "arcade network"
 	size = 6
 	tgui_id = "NtosArcade"
+	program_icon = "gamepad"
 
 
 

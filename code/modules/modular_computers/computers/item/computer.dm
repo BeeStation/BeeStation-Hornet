@@ -34,11 +34,12 @@
 	max_integrity = 100
 	armor = list("melee" = 0, "bullet" = 20, "laser" = 20, "energy" = 100, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 0, "acid" = 0, "stamina" = 0)
 
-	// Important hardware (must be installed for computer to work)
-
-	// Optional hardware (improves functionality, but is not critical for computer to work)
-
-	var/list/all_components = list()						// List of "connection ports" in this computer and the components with which they are plugged
+	/// List of "connection ports" in this computer and the components with which they are plugged
+	var/list/all_components = list()
+	/// Lazy List of extra hardware slots that can be used modularly.
+	var/list/expansion_bays
+	/// Number of total expansion bays this computer has available.
+	var/max_bays = 0
 
 	var/list/idle_threads							// Idle programs on background. They still receive process calls but can't be interacted with.
 	var/obj/physical = null									// Object that represents our computer. It's used for Adjacent() and UI visibility checks.
@@ -69,79 +70,14 @@
 	physical = null
 	return ..()
 
-
-/obj/item/modular_computer/proc/add_computer_verbs(var/path)
-	switch(path)
-		if(MC_CARD)
-			add_verb(/obj/item/modular_computer/proc/eject_id)
-		if(MC_SDD)
-			add_verb(/obj/item/modular_computer/proc/eject_disk)
-		if(MC_AI)
-			add_verb(/obj/item/modular_computer/proc/eject_card)
-
-/obj/item/modular_computer/proc/remove_computer_verbs(path)
-	switch(path)
-		if(MC_CARD)
-			remove_verb(/obj/item/modular_computer/proc/eject_id)
-		if(MC_SDD)
-			remove_verb(/obj/item/modular_computer/proc/eject_disk)
-		if(MC_AI)
-			remove_verb(/obj/item/modular_computer/proc/eject_card)
-
-// Eject ID card from computer, if it has ID slot with card inside.
-/obj/item/modular_computer/proc/eject_id()
-	set name = "Eject ID"
-	set category = "Object"
-	set src in view(1)
-
-	if(issilicon(usr))
-		return
-	var/obj/item/computer_hardware/card_slot/card_slot = all_components[MC_CARD]
-	if(usr.canUseTopic(src, BE_CLOSE))
-		card_slot.try_eject(null, usr)
-
-// Ejects an intellicard from a computer, if there's a slot and an intellicard inside.
-/obj/item/modular_computer/proc/eject_card()
-	set name = "Eject Intellicard"
-	set category = "Object"
-
-	if(issilicon(usr))
-		return
-	var/obj/item/computer_hardware/ai_slot/ai_slot = all_components[MC_AI]
-	if(usr.canUseTopic(src, BE_CLOSE))
-		ai_slot.try_eject(null, usr,1)
-
-
-// Ejects a data disk from a computer, if there's a slot and a disk inside.
-/obj/item/modular_computer/proc/eject_disk()
-	set name = "Eject Data Disk"
-	set category = "Object"
-
-	if(issilicon(usr))
-		return
-
-	if(usr.canUseTopic(src, BE_CLOSE))
-		var/obj/item/computer_hardware/hard_drive/portable/portable_drive = all_components[MC_SDD]
-		if(uninstall_component(portable_drive, usr))
-			portable_drive.verb_pickup()
-
 /obj/item/modular_computer/AltClick(mob/user)
 	if(issilicon(user))
 		return
 
 	if(user.canUseTopic(src, BE_CLOSE))
+		var/obj/item/computer_hardware/card_slot/card_slot2 = all_components[MC_CARD2]
 		var/obj/item/computer_hardware/card_slot/card_slot = all_components[MC_CARD]
-		var/obj/item/computer_hardware/ai_slot/ai_slot = all_components[MC_AI]
-		var/obj/item/computer_hardware/hard_drive/portable/portable_drive = all_components[MC_SDD]
-		if(portable_drive)
-			if(uninstall_component(portable_drive, user))
-				portable_drive.verb_pickup()
-		else
-			if(card_slot && card_slot.try_eject(null, user))
-				return
-			if(ai_slot)
-				ai_slot.try_eject(null, user)
-
+		return (card_slot2?.try_eject(user) || card_slot?.try_eject(user)) //Try the secondary one first.
 
 // Gets IDs/access levels from card slot. Would be useful when/if PDAs would become modular PCs.
 /obj/item/modular_computer/GetAccess()
@@ -157,19 +93,23 @@
 	return ..()
 
 /obj/item/modular_computer/RemoveID()
+	var/obj/item/computer_hardware/card_slot/card_slot2 = all_components[MC_CARD2]
 	var/obj/item/computer_hardware/card_slot/card_slot = all_components[MC_CARD]
-	if(!card_slot)
-		return
-	return card_slot.RemoveID()
+	return (card_slot2?.try_eject() || card_slot?.try_eject()) //Try the secondary one first.
 
 /obj/item/modular_computer/InsertID(obj/item/inserting_item)
 	var/obj/item/computer_hardware/card_slot/card_slot = all_components[MC_CARD]
-	if(!card_slot)
+	var/obj/item/computer_hardware/card_slot/card_slot2 = all_components[MC_CARD2]
+	if(!(card_slot || card_slot2))
 		return FALSE
+
 	var/obj/item/card/inserting_id = inserting_item.RemoveID()
 	if(!inserting_id)
 		return FALSE
-	return card_slot.try_insert(inserting_id)
+
+	if((card_slot?.try_insert(inserting_id)) || (card_slot2?.try_insert(inserting_id)))
+		return TRUE
+	return FALSE
 
 /obj/item/modular_computer/MouseDrop(obj/over_object, src_location, over_location)
 	var/mob/M = usr
@@ -305,6 +245,28 @@
 	handle_power(delta_time) // Handles all computer power interaction
 	//check_update_ui_need()
 
+/**
+  * Displays notification text alongside a soundbeep when requested to by a program.
+  *
+  * After checking that the requesting program is allowed to send an alert, creates
+  * a visible message of the requested text alongside a soundbeep. This proc adds
+  * text to indicate that the message is coming from this device and the program
+  * on it, so the supplied text should be the exact message and ending punctuation.
+  *
+  * Arguments:
+  * The program calling this proc.
+  * The message that the program wishes to display.
+ */
+
+/obj/item/modular_computer/proc/alert_call(datum/computer_file/program/caller, alerttext, sound = 'sound/machines/twobeep_high.ogg')
+	if(!caller || !caller.alert_able || caller.alert_silenced || !alerttext) //Yeah, we're checking alert_able. No, you don't get to make alerts that the user can't silence.
+		return
+	playsound(src, sound, 50, TRUE)
+	visible_message("<span class='notice'>The [src] displays a [caller.filedesc] notification: [alerttext]</span>")
+	var/mob/living/holder = loc
+	if(istype(holder))
+		to_chat(holder, "[icon2html(src)] <span class='notice'>The [src] displays a [caller.filedesc] notification: [alerttext]</span>")
+
 // Function used by NanoUI's to obtain data for header. All relevant entries begin with "PC_"
 /obj/item/modular_computer/proc/get_header_data()
 	var/list/data = list()
@@ -401,6 +363,10 @@
 
 
 /obj/item/modular_computer/attackby(obj/item/W as obj, mob/user as mob)
+	// Check for ID first
+	if(istype(W, /obj/item/card/id) && InsertID(W))
+		return
+
 	// Insert items into the components
 	for(var/h in all_components)
 		var/obj/item/computer_hardware/H = all_components[h]

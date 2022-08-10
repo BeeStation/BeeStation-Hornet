@@ -1,6 +1,7 @@
 /datum/computer_file/program/chatclient
 	filename = "ntnrc_client"
 	filedesc = "Chat Client"
+	category = PROGRAM_CATEGORY_MISC
 	program_icon_state = "command"
 	extended_desc = "This program allows communication over NTNRC network"
 	size = 8
@@ -10,9 +11,7 @@
 	ui_header = "ntnrc_idle.gif"
 	available_on_ntnet = 1
 	tgui_id = "NtosNetChat"
-
-
-
+	program_icon = "comment-alt"
 	var/last_message				// Used to generate the toolbar icon
 	var/username
 	var/active_channel
