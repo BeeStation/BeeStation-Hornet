@@ -98,7 +98,7 @@ SUBSYSTEM_DEF(fail2topic)
 	fail_counts -= ip
 	rate_limiting -= ip
 
-	. = shell("netsh advfirewall firewall add rule name=\"[CONFIG_GET(string/topic_rule_name)]\" dir=in interface=any action=block remoteip=[ip]")
+	. = shell("netsh advfirewall firewall add rule name=\"[adminscrub(CONFIG_GET(string/topic_rule_name))]\" dir=in interface=any action=block remoteip=[ip]")
 
 	if (.)
 		log_topic("ERROR: Fail2topic failed to ban [ip]. Exit code: [.].")
@@ -113,7 +113,7 @@ SUBSYSTEM_DEF(fail2topic)
 
 	active_bans = list()
 
-	. = shell("netsh advfirewall firewall delete rule name=\"[CONFIG_GET(string/topic_rule_name)]\"")
+	. = shell("netsh advfirewall firewall delete rule name=\"[adminscrub(CONFIG_GET(string/topic_rule_name))]\"")
 
 	if (.)
 		log_topic("ERROR: Fail2topic failed to drop firewall rule. Exit code: [.].")
