@@ -281,3 +281,39 @@
 	..()
 	owner.remove_language(/datum/language/beachbum, TRUE, TRUE, LANGUAGE_STONER)
 	owner.remove_blocked_language(subtypesof(/datum/language) - /datum/language/beachbum, LANGUAGE_STONER)
+
+/datum/mutation/medieval
+	name = "Medieval"
+	desc = "A unsual mutation often suffered by historians."
+	quality = MINOR_NEGATIVE
+	text_gain_indication = "<span class='notice'>Thou art feeling well good ser?</span>"
+	text_lose_indication = "<span class='notice'>You feel like you have a better sense of time..</span>"
+
+/datum/mutation/medieval/on_acquiring(mob/living/carbon/owner)
+	if(..())
+		return
+	RegisterSignal(owner, COMSIG_MOB_SAY, .proc/handle_speech)
+
+/datum/mutation/medieval/on_losing(mob/living/carbon/owner)
+	if(..())
+		return
+	UnregisterSignal(owner, COMSIG_MOB_SAY)
+
+/datum/mutation/medieval/proc/handle_speech(datum/source, list/speech_args)
+	SIGNAL_HANDLER
+
+	var/message = speech_args[SPEECH_MESSAGE]
+	if(message[1] != "*")
+		message = " [message]"
+		var/list/whole_words = strings(MEDIEVAL_SPEECH_FILE, "words")
+		
+		for(var/key in whole_words)
+			var/value = whole_words[key]
+			if(islist(value))
+				value = pick(value)
+
+			message = replacetextEx(message, " [uppertext(key)]", " [uppertext(value)]")
+			message = replacetextEx(message, " [capitalize(key)]", " [capitalize(value)]")
+			message = replacetextEx(message, " [key]", " [value]")
+
+	speech_args[SPEECH_MESSAGE] = trim(message)
