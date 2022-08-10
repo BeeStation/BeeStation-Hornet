@@ -623,7 +623,6 @@ GLOBAL_VAR(medibot_unique_id_gen)
 	var/payout = 250  // at start, uses entire budget in 8 heals
 
 /mob/living/simple_animal/bot/medbot/cola/New()
-	..()
 	START_PROCESSING(SSobj, src)
 
 /mob/living/simple_animal/bot/medbot/cola/process()
