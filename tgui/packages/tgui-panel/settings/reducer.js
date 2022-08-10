@@ -18,6 +18,8 @@ const initialState = {
   highlightText: '',
   highlightColor: '#ffdd44',
   highContrast: false,
+  matchWord: false,
+  matchCase: false,
   view: {
     visible: false,
     activeTab: SETTINGS_TABS[0].id,
