@@ -117,6 +117,7 @@
 	var/access_txt // mapping aid
 	var/datum/bank_account/registered_account
 	var/obj/machinery/paystand/my_store
+	var/hideaccount = FALSE  // removes account info from examine
 
 /obj/item/card/id/Initialize(mapload)
 	. = ..()
@@ -281,7 +282,7 @@
 	if(mining_points)
 		. += "There's [mining_points] mining equipment redemption point\s loaded onto this card."
 	. = ..()
-	if(istype(src, /obj/item/card/id/paper))  // forces off bank info for paper slip
+	if(hideaccount)  // forces off bank info for paper slip
 		return
 	if(registered_account)
 		. += "The account linked to the ID belongs to '[registered_account.account_holder]' and reports a balance of $[registered_account.account_balance]."
@@ -698,6 +699,7 @@ update_label("John Doe", "Clowny")
 	access = list()
 	assignment = "Unverified"
 	hud_state = JOB_HUD_PAPER
+	hideaccount = TRUE
 
 /obj/item/card/id/paper/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/pen))
