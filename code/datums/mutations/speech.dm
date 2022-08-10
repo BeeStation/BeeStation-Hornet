@@ -286,8 +286,8 @@
 	name = "Medieval"
 	desc = "A unsual mutation often suffered by historians."
 	quality = MINOR_NEGATIVE
-	text_gain_indication = "<span class='notice'>Thou art feeling well good ser?</span>"
-	text_lose_indication = "<span class='notice'>You feel like you have a better sense of time..</span>"
+	text_gain_indication = "<span class='notice'>Thou art feeling it well good ser?</span>"
+	text_lose_indication = "<span class='notice'>You feel like you have a better sense of the times..</span>"
 
 /datum/mutation/medieval/on_acquiring(mob/living/carbon/owner)
 	if(..())
