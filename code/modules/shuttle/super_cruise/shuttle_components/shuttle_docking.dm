@@ -276,12 +276,15 @@
 		if(!is_type_in_typecache(turf_type, whitelist_turfs))
 			return SHUTTLE_DOCKER_BLOCKED
 
+	for(var/obj/machinery/M in T.contents) //An inprecise check to prevent theft of important machines such the SM or the communication console.
+		return SHUTTLE_DOCKER_BLOCKED
+
 	// Checking for overlapping dock boundaries
 	for(var/i in 1 to overlappers.len)
 		var/obj/docking_port/stationary/port = overlappers[i]
 		if(port == my_port)
 			continue
-		if(port.delete_after) //Don't worry about it, we're landing on another ship, no ship will land on us.
+		if(port.delete_after) //Don't worry about it, we're landing on another ship, no ship will land on this port.
 			continue
 		var/port_hidden = !shuttleObject.stealth && port.hidden
 		var/list/overlap = overlappers[port]
