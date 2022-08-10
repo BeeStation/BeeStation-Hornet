@@ -339,11 +339,14 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 	var/current_engines = 0
 	var/initial_engines = 0
 	var/list/engine_list = list()
-	///if this shuttle can move docking ports other than the one it is docked at
+	//If this shuttle can move docking ports other than the one it is docked at
 	var/can_move_docking_ports = FALSE
 	var/list/hidden_turfs = list()
 	var/list/towed_shuttles = list()
 	var/list/underlying_turf_area = list()
+	//If the shuttle is unable to be moved by non-untowable shuttles.
+	//Stops interference with the arrival and escape shuttle. Use this sparingly.
+	var/untowable = FALSE
 
 	//The designated virtual Z-Value of this shuttle
 	var/virtual_z
@@ -597,6 +600,11 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 
 //this is a hook for custom behaviour. Maybe at some point we could add checks to see if engines are intact
 /obj/docking_port/mobile/proc/canMove()
+	if(untowable)
+		return TRUE
+	for(var/obj/docking_port/mobile/M in get_all_towed_shuttles())
+		if(M.untowable)
+			return FALSE
 	return TRUE
 
 //this is to check if this shuttle can physically dock at dock S

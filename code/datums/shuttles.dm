@@ -14,6 +14,7 @@
 	var/illegal_shuttle = FALSE	//makes you able to buy the shuttle at a hacked/emagged comms console even if can_be_bought is FALSE
 
 	var/list/movement_force // If set, overrides default movement_force on shuttle
+	var/untowable = FALSE // If set, the shuttle becomes untowable
 
 	var/port_x_offset
 	var/port_y_offset
@@ -80,6 +81,7 @@
 			continue
 		for(var/obj/docking_port/mobile/port in place)
 			my_port = port
+			port.untowable = untowable
 			if(register)
 				port.register()
 			if(isnull(port_x_offset))
@@ -120,6 +122,7 @@
 /datum/map_template/shuttle/emergency
 	port_id = "emergency"
 	name = "Base Shuttle Template (Emergency)"
+	untowable = TRUE
 
 /datum/map_template/shuttle/cargo
 	port_id = "cargo"
@@ -144,6 +147,7 @@
 /datum/map_template/shuttle/arrival
 	port_id = "arrival"
 	can_be_bought = FALSE
+	untowable = TRUE
 
 /datum/map_template/shuttle/infiltrator
 	port_id = "infiltrator"
