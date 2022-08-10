@@ -248,7 +248,7 @@
 /**
   * Displays notification text alongside a soundbeep when requested to by a program.
   *
-  * After checking tha the requesting program is allowed to send an alert, creates
+  * After checking that the requesting program is allowed to send an alert, creates
   * a visible message of the requested text alongside a soundbeep. This proc adds
   * text to indicate that the message is coming from this device and the program
   * on it, so the supplied text should be the exact message and ending punctuation.

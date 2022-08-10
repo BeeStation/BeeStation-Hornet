@@ -43,7 +43,6 @@
 	if(H.holder != src) // Not our component at all.
 		return FALSE
 	if(H.expansion_hw)
-
 		LAZYREMOVE(expansion_bays, H.device_type)
 	all_components.Remove(H.device_type)
 
