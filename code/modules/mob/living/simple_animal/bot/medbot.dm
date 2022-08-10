@@ -618,9 +618,9 @@ GLOBAL_VAR(medibot_unique_id_gen)
 	icon_state = "colabot0"
 	radio_key = /obj/item/encryptionkey/medical_sponsor  // grants cargo
 	COOLDOWN_STATIC_DECLARE(fund)
-	var/static/budget = 0  // initial value (will get refilled instantly)
-	var/static/refill = 200
-	var/payout = 10
+	var/static/budget = 1000  // initial value (will get refilled instantly)
+	var/static/refill = 1000
+	var/payout = 250  // at start, uses entire budget in 8 heals
 
 /mob/living/simple_animal/bot/medbot/cola/New()
 	..()
@@ -664,21 +664,19 @@ GLOBAL_VAR(medibot_unique_id_gen)
 	soft_reset()
 
 /mob/living/simple_animal/bot/medbot/cola/alt_heal(mob/living/carbon/patient)
-	if(emagged == 2)  // always sugar rush if emagged
-		patient.reagents.add_reagent(/datum/reagent/consumable/ethanol/sugar_rush, 50)  // dont know what the od is so just to be safe..
-		patient.reagents.add_reagent(/datum/reagent/consumable/sugar, 50)  // knocks you out in 4 ticks
-		patient.reagents.expose_temperature(1000)
-		patient.apply_damage_type(1,TOX)
+	if(emagged == 2)  // always 13loko if emagged
+		patient.reagents.add_reagent(/datum/reagent/consumable/ethanol/thirteenloko, 10)  // od's in 6 ticks
+		patient.apply_damage_type(2,TOX)  // extra toxic loko
 		return TRUE
-	if(prob(90))
+	if(prob(80))
 		return FALSE
 	if(!pay_out())
 		say("Budget too low to pay out! Reverting to standard healing..")
 		return FALSE
 
-	patient.reagents.add_reagent(/datum/reagent/consumable/space_cola, 10)
-	// im sure theres a better way to do this
+	// alright, no special cases, prob check passed, run the standard cola inject
 
+	patient.reagents.add_reagent(/datum/reagent/consumable/space_cola, 10)
 	var/list/messagevoice = list(  // assorted space cola quotes
 		"The taste that can't be beat!" = 'sound/voice/medbot/beat.ogg',
 		"Please, have a drink!" = 'sound/voice/medbot/haveone.ogg',
