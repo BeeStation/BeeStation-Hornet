@@ -15,7 +15,7 @@
 /mob/living/carbon/human/slip(knockdown_amount, obj/O, lube, paralyze, forcedrop)
 	if(HAS_TRAIT(src, TRAIT_NOSLIPALL))
 		return 0
-	if (!(lube&GALOSHES_DONT_HELP))
+	if(!(lube&WET_COMPONENT_GALOSHES_SLIP))
 		if(HAS_TRAIT(src, TRAIT_NOSLIPWATER))
 			return 0
 		if(shoes && isclothing(shoes))

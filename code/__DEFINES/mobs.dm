@@ -306,11 +306,15 @@
 #define ENVIRONMENT_SMASH_WALLS			(1<<1)  //walls
 #define ENVIRONMENT_SMASH_RWALLS		(1<<2)	//rwalls
 
-#define NO_SLIP_WHEN_WALKING	(1<<0)
-#define SLIDE					(1<<1)
-#define SLIDE_ICE				(1<<2)
-#define GALOSHES_DONT_HELP		(1<<3)
-#define SLIP_WHEN_CRAWLING		(1<<4) //clown planet ruin
+#define WET_LEVEL_WATER		(1<<0)
+#define WET_LEVEL_LUBE		(1<<1)
+#define WET_LEVEL_SUPERLUBE	(1<<2)
+#define WET_LEVEL_ICE		(1<<2)
+#define WET_COMPONENT_WALK_SLIPS	(1<<10)
+#define WET_COMPONENT_GALOSHES_SLIP	(1<<11)
+#define WET_COMPONENT_CRAWL_SLIPS	(1<<12) //clown planet ruin
+#define WET_COMPONENT_SLIDES		(1<<13)
+
 
 ///Flags used by the flags parameter of electrocute act.
 ///Makes it so that the shock doesn't take gloves into account.

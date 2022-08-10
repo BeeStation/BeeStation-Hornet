@@ -72,30 +72,32 @@
 
 /datum/component/wet_floor/proc/update_flags()
 	var/intensity = 0
+	var/lube_priority = WET_LEVEL_WATER
 	lube_flags = NONE
-	for(var/i in time_left_list)
-		if(text2num(i)& TURF_WET_WATER)
-			intensity = max(60, intensity)
-			lube_flags |= NO_SLIP_WHEN_WALKING
-		if(text2num(i)& TURF_WET_LUBE)
-			intensity = max(80, intensity)
-			lube_flags |= SLIDE | GALOSHES_DONT_HELP
-			lube_flags &= ~NO_SLIP_WHEN_WALKING
-		if(text2num(i)& TURF_WET_ICE)
-			intensity = max(120, intensity)
-			lube_flags |= SLIDE | GALOSHES_DONT_HELP
-			lube_flags &= ~NO_SLIP_WHEN_WALKING
-		if(text2num(i)& TURF_WET_PERMAFROST)
-			intensity = max(120, intensity)
-			lube_flags |= SLIDE_ICE | GALOSHES_DONT_HELP
-			lube_flags &= ~NO_SLIP_WHEN_WALKING
-		if(text2num(i)& TURF_WET_SUPERLUBE)
-			intensity = max(120, intensity)
-			lube_flags |= SLIDE | GALOSHES_DONT_HELP | SLIP_WHEN_CRAWLING
-			lube_flags &= ~NO_SLIP_WHEN_WALKING
-		else
-			qdel(parent.GetComponent(/datum/component/slippery))
-			return
+	if(wet_floor_bitflags& TURF_WET_WATER)
+		lube_priority = WET_LEVEL_WATER
+		intensity = max(60, intensity)
+	if(wet_floor_bitflags& TURF_WET_LUBE)
+		lube_priority = WET_LEVEL_LUBE
+		intensity = max(80, intensity)
+		ENABLE_BITFIELD(lube_flags, WET_COMPONENT_GALOSHES_SLIP | WET_COMPONENT_WALK_SLIPS | WET_COMPONENT_SLIDES)
+	if(wet_floor_bitflags& TURF_WET_ICE)
+		lube_priority = WET_LEVEL_ICE
+		intensity = max(120, intensity)
+		ENABLE_BITFIELD(lube_flags, WET_COMPONENT_GALOSHES_SLIP | WET_COMPONENT_WALK_SLIPS | WET_COMPONENT_SLIDES )
+	if(wet_floor_bitflags& TURF_WET_PERMAFROST)
+		lube_priority = WET_LEVEL_ICE
+		intensity = max(120, intensity)
+		ENABLE_BITFIELD(lube_flags, WET_COMPONENT_GALOSHES_SLIP | WET_COMPONENT_WALK_SLIPS | WET_COMPONENT_SLIDES )
+	if(wet_floor_bitflags& TURF_WET_SUPERLUBE)
+		lube_priority = WET_LEVEL_SUPERLUBE
+		intensity = max(120, intensity)
+		ENABLE_BITFIELD(lube_flags, WET_COMPONENT_GALOSHES_SLIP | WET_COMPONENT_WALK_SLIPS | WET_COMPONENT_SLIDES | WET_COMPONENT_CRAWL_SLIPS)
+
+	lube_flags |= lube_priority
+	if(!lube_flags)
+		qdel(parent.GetComponent(/datum/component/slippery))
+		return
 
 	parent.LoadComponent(/datum/component/slippery, intensity, lube_flags, CALLBACK(src, .proc/AfterSlip))
 
@@ -108,11 +110,6 @@
 	if(immediate)
 		check()
 
-/datum/component/wet_floor/proc/max_time_left()
-	. = 0
-	for(var/i in time_left_list)
-		. = max(., time_left_list[i])
-
 /datum/component/wet_floor/process()
 	var/turf/open/T = parent
 	var/diff = world.time - last_process
@@ -120,7 +117,9 @@
 	var/t = T.GetTemperature()
 	switch(t)
 		if(-INFINITY to T0C)
-			add_wet(TURF_WET_ICE, max_time_left())			//Water freezes into ice!
+			var/target_duration = time_left_list["[TURF_WET_WATER]"]
+			add_wet(TURF_WET_ICE, target_duration, target_duration)			//Water freezes into ice!
+			dry(null, TURF_WET_WATER)
 		if(T0C to T0C + 100)
 			decrease = ((T.air.return_temperature() - T0C) / SSwet_floors.temperature_coeff) * (diff / SSwet_floors.time_ratio)
 		if(T0C + 100 to INFINITY)
@@ -130,7 +129,8 @@
 		for(var/obj/O in T.contents)
 			if(O.obj_flags & FROZEN)
 				O.make_unfrozen()
-		add_wet(TURF_WET_WATER, duration_add=decrease)
+		var/target_duration = time_left_list["[TURF_WET_ICE]"]
+		add_wet(TURF_WET_WATER, target_duration, target_duration)
 		dry(null, TURF_WET_ICE)
 	dry(null, ALL, FALSE, decrease)
 	check()

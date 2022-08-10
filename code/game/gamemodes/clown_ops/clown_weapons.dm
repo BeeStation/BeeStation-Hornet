@@ -88,7 +88,7 @@
  */
 /obj/item/melee/transforming/energy/sword/proc/adjust_slipperiness()
 	if(active)
-		AddComponent(/datum/component/slippery, 60, GALOSHES_DONT_HELP)
+		AddComponent(/datum/component/slippery, 60, WET_COMPONENT_GALOSHES_SLIP)
 	else
 		qdel(GetComponent(/datum/component/slippery))
 
@@ -151,7 +151,7 @@
  */
 /obj/item/shield/energy/bananium/proc/adjust_slipperiness()
 	if(active)
-		AddComponent(/datum/component/slippery, 60, GALOSHES_DONT_HELP)
+		AddComponent(/datum/component/slippery, 60, WET_COMPONENT_GALOSHES_SLIP)
 	else
 		qdel(GetComponent(/datum/component/slippery))
 

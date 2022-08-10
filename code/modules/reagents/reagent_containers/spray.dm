@@ -207,6 +207,15 @@
 	volume = 30
 	list_reagents = list(/datum/reagent/lube/superlube = 30)
 
+/obj/item/reagent_containers/spray/waterflower/debuglube
+	name = "omnilube flower"
+	desc = "admin's malicious purpose lubrciator."
+	icon = 'icons/obj/chemical.dmi'
+	icon_state = "clownflower"
+	volume = 1000
+	list_reagents = list(/datum/reagent/lube/debug = 1000)
+
+
 /obj/item/reagent_containers/spray/waterflower/cyborg
 	reagent_flags = NONE
 	volume = 100

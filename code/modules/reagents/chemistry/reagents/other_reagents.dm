@@ -379,6 +379,11 @@
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	lube_kind = TURF_WET_SUPERLUBE
 
+/datum/reagent/lube/debug
+	name = "Omnilube"
+	description = "Admin lube for testing"
+	chem_flags = CHEMICAL_NOT_DEFINED
+	lube_kind = TURF_WET_WATER | TURF_WET_ICE | TURF_WET_PERMAFROST | TURF_WET_LUBE | TURF_WET_SUPERLUBE
 
 /datum/reagent/spraytan
 	name = "Spray Tan"
@@ -1361,7 +1366,7 @@
 	color = "#E1A116"
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	taste_description = "sourness"
-	///stores whether or not the mob has been warned that they are having difficulty breathing. 
+	///stores whether or not the mob has been warned that they are having difficulty breathing.
 	var/warned = FALSE
 
 /datum/reagent/stimulum/on_mob_metabolize(mob/living/L)
