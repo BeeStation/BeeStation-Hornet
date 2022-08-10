@@ -3,7 +3,7 @@
 	name = "dock floor"
 	desc = "Strong enough to hold a shuttle."
 	icon_state = "engine" //REMEMBER TO MAKE A SPRITE
-	floor_tile = /obj/item/stack/tile/dock //This is subject to change
+	floor_tile = /obj/item/stack/tile/dock
 	footstep = FOOTSTEP_PLATING
 	barefootstep = FOOTSTEP_HARD_BAREFOOT
 	clawfootstep = FOOTSTEP_HARD_CLAW
@@ -15,7 +15,7 @@
 	name = "dry dock floor"
 	desc = "Heavy duty plating designed to support shuttle construction and maintenance."
 	//icon_state = //This should probably get its own sprite too
-	floor_tile = /obj/item/stack/tile/drydock //This is subject to change
+	floor_tile = /obj/item/stack/tile/drydock
 
 /turf/open/floor/dock/drydock/proc/CanBuildHere()
 	for(var/i in 0 to length(baseturfs) - 1)
