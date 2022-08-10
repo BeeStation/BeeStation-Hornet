@@ -221,6 +221,6 @@
 
 /obj/item/organ/cyberimp/chest/ventcrawler/Remove(mob/living/carbon/M, special = FALSE)
 	. = ..()
-	M.ventcrawler = VENTCRAWLER_NONE
+	M.ventcrawler = initial(M.ventcrawler)
 
 
