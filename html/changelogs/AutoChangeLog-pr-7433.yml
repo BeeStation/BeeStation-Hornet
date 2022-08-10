@@ -1,6 +1,0 @@
-author: Sarchutar, Mothblocks, Wayland-Smithy
-delete-after: true
-changes:
-  - bugfix: Chat highlighting now takes every entry into account
-  - rscadd: Hightlighting can now be case sensitive and/or matched by whole words
-  - tweak: Messages sent by yourself no longer highlight
