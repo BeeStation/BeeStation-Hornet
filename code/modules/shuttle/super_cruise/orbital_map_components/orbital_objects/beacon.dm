@@ -53,7 +53,7 @@
 	//Orbit around the systems central gravitional body
 	//Pack closely together to make an asteriod belt.
 	var/datum/orbital_map/linked_map = SSorbits.orbital_maps[orbital_map_index]
-	set_orbitting_around_body(linked_map.center, 1200 + 20 * rand(-10, 10))
+	set_orbitting_around_body(linked_map.center, 3000 + 20 * rand(-50, 50))
 
 //====================
 // Regular Ruin Z-levels

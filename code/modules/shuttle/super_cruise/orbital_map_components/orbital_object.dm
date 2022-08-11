@@ -75,7 +75,7 @@
 	if(velocity)
 		src.velocity = velocity
 	var/static/created_amount = 0
-	unique_id = "ObjID[++created_amount]"
+	unique_id = "[++created_amount]"
 	. = ..()
 	//Calculate relevant grav range
 	relevant_gravity_range = sqrt((mass * GRAVITATIONAL_CONSTANT) / MINIMUM_EFFECTIVE_GRAVITATIONAL_ACCEELRATION)

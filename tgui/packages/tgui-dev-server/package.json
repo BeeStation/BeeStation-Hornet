@@ -8,6 +8,7 @@
     "glob": "^7.1.7",
     "source-map": "^0.7.3",
     "stacktrace-parser": "^0.1.10",
+    "whatwg-fetch": "^3.6.2",
     "ws": "^7.5.3"
   }
 }

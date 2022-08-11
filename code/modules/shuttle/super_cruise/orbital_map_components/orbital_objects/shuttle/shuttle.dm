@@ -62,9 +62,10 @@
 
 /datum/orbital_object/shuttle/Destroy()
 	if(shuttle_data)
+		//Disable autopilot
+		shuttle_data.try_override_pilot()
 		UnregisterSignal(shuttle_data, COMSIG_PARENT_QDELETING)
-	//Start processing the AI pilot (Combat mode)
-	if(shuttle_data)
+		//Start processing the AI pilot (Combat mode)
 		START_PROCESSING(SSorbits, shuttle_data.ai_pilot)
 	. = ..()
 
@@ -290,4 +291,4 @@
 	return TRUE
 
 /datum/orbital_object/shuttle/get_locator_name()
-	return "Unknown Shuttle"
+	return "Shuttle (#[unique_id])"

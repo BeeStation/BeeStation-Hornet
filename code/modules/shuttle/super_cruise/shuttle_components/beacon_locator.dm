@@ -20,6 +20,7 @@
 	icon_keyboard = "tech_key"
 	light_color = LIGHT_COLOR_CYAN
 	req_access = list()
+	var/target_name
 	//A list of orbital pings
 	var/list/datum/orbital_ping/pings = list()
 	//The range that it can be out by either way
@@ -49,6 +50,9 @@
 		current_location = z_level.orbital_body
 	if(!current_location)
 		return
+	var/datum/orbital_map/current_map = SSorbits.orbital_maps[current_location.orbital_map_index]
+	.["selected_target"] = target_name
+	.["valid_targets"] = current_map.get_all_bodies()
 	.["x"] = current_location.position.GetX()
 	.["y"] = current_location.position.GetY()
 
@@ -73,8 +77,28 @@
 
 	if(action == "clear")
 		QDEL_LIST(pings)
-		update_static_data(usr)
+		SStgui.update_uis_static_data(src)
 		return TRUE
+
+	if(action == "set_target")
+		//All this code for some simple href validation
+		var/datum/orbital_object/current_location
+		var/area/shuttle/A = get_area(src)
+		if(istype(A))
+			current_location = SSorbits.assoc_shuttles[A.mobile_port.id]
+		if(!istype(current_location))
+			var/datum/space_level/z_level = SSmapping.get_level(z)
+			current_location = z_level.orbital_body
+		if(!current_location)
+			return
+		var/datum/orbital_map/current_map = SSorbits.orbital_maps[current_location.orbital_map_index]
+		for(var/datum/orbital_object/object as() in current_map.get_all_bodies())
+			if(object.name == params["target"])
+				//Set the new target
+				target_name = params["target"]
+				return TRUE
+
+		return FALSE
 
 	//To many pings
 	if(length(pings) > 30)
@@ -110,5 +134,5 @@
 			continue
 		distance += rand(-inaccuracy, inaccuracy)
 		pings += new /datum/orbital_ping(body.get_locator_name(), current_location.position.GetX(), current_location.position.GetY(), distance, body.locator_colour)
-	update_static_data(usr)
+	SStgui.update_uis_static_data(src)
 	return TRUE

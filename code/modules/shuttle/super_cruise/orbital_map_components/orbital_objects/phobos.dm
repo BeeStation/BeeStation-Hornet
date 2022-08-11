@@ -7,6 +7,8 @@
 	render_mode = RENDER_MODE_PLANET
 	priority = 20
 	signal_range = 6000
+	//Important that this doesn't fly away
+	maintain_orbit = TRUE
 
 /datum/orbital_object/z_linked/phobos/post_map_setup()
 	//Orbit around the systems sun
