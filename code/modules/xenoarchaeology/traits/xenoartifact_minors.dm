@@ -323,7 +323,7 @@
 
 /datum/xenoartifact_trait/minor/signalsend/on_item(obj/item/xenoartifact/X, atom/user, atom/item)
 	if(istype(item, /obj/item/analyzer))
-		to_chat(user, "<span class='info'>The [item.name] displays a signal-output code of [X.code], and frequency [X.frequency].</span>")
+		to_chat(user, "<span class='info'>The [item.name] displays an outputting signal code of [X.code], and frequency [X.frequency].</span>")
 		return TRUE
 	..()
 

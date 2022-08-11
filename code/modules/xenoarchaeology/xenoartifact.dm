@@ -180,7 +180,7 @@
 		return
 
 	if(isliving(loc) && touch_desc?.on_touch(src, user) && user.can_see_reagents())
-		balloon_alert(user, (initial(touch_desc.desc) ? initial(touch_desc.desc) : initial(touch_desc.label_name)), BlendRGB(material, _rgba(1, 1, 1,255), 100))
+		balloon_alert(user, (initial(touch_desc.desc) ? initial(touch_desc.desc) : initial(touch_desc.label_name)), material)
 		
 	var/obj/item/clothing/gloves/artifact_pinchers/P = locate(/obj/item/clothing/gloves/artifact_pinchers) in user.contents
 	if(P?.safety && isliving(loc))

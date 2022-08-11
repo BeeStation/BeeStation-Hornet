@@ -7,9 +7,17 @@ export const XenoartifactLabeler = (props, context) => {
     <Window        
       width={350}
       height={500}>
-      <Window.Content scrollable>
+      <Window.Content scrollable={0}>
         <XenoartifactLabelerSticker />
-        <XenoartifactLabelerActivators />
+        <Flex direction="row">
+          <Flex.Item>
+            <XenoartifactLabelerActivators />
+          </Flex.Item>
+
+          <Flex.Item>
+            <XenoartifactLabelerInfo />
+          </Flex.Item>
+        </Flex>
       </Window.Content>
     </Window>
   );
@@ -29,53 +37,58 @@ const XenoartifactLabelerActivators = (props, context) => {
     info_list,
   } = data;
   return (
-    <Flex grow={1}>
-      <Flex.Item column>
-        <Section title="Material">
-          <Box>
-            {
-              activator_traits.map(trait => (<XenoartifactLabelerGenerateList 
-                specific_trait={trait} check_against={activator} key={trait}
-                trait_type="activator" />))
-            }
-          </Box>
-        </Section>
-        <Section title="Notes">
-          <Box>
-            {
-              minor_traits.map(trait => (<XenoartifactLabelerGenerateList 
-                specific_trait={trait} check_against={minor_trait} key={trait}
-                trait_type="minor" />))
-            }
-          </Box>
-        </Section>
-        <Section title="Shape">
-          <Box>
-            {
-              major_traits.map(trait => (<XenoartifactLabelerGenerateList 
-                specific_trait={trait} check_against={major_trait} key={trait} 
-                trait_type="major" />))
-            }
-          </Box>
-        </Section>
-        <Section title="Malfunction">
-          <Box>
-            {
-              malfunction_list.map(trait => (<XenoartifactLabelerGenerateList 
-                key={trait}
-                specific_trait={trait} check_against={malfunction} 
-                trait_type="malfunction" />))
-            }
-          </Box>
-        </Section>
-      </Flex.Item>
-      <Flex.Item column>
-        <Box fluid px={1}>
-          {info_list.map(info => 
-            <XenoartifactLabelerGenerateInfo info={info} key={info} />)}
+    <Box px={1} grow={1} overflowY="auto" height="425px" width="150px">
+      <Section title="Material">
+        <Box>
+          {
+            activator_traits.map(trait => (<XenoartifactLabelerGenerateList 
+              specific_trait={trait} check_against={activator} key={trait}
+              trait_type="activator" />))
+          }
         </Box>
-      </Flex.Item>
-    </Flex>
+      </Section>
+      <Section title="Notes">
+        <Box>
+          {
+            minor_traits.map(trait => (<XenoartifactLabelerGenerateList 
+              specific_trait={trait} check_against={minor_trait} key={trait}
+              trait_type="minor" />))
+          }
+        </Box>
+      </Section>
+      <Section title="Shape">
+        <Box>
+          {
+            major_traits.map(trait => (<XenoartifactLabelerGenerateList 
+              specific_trait={trait} check_against={major_trait} key={trait} 
+              trait_type="major" />))
+          }
+        </Box>
+      </Section>
+      <Section title="Malfunction">
+        <Box>
+          {
+            malfunction_list.map(trait => (<XenoartifactLabelerGenerateList 
+              key={trait}
+              specific_trait={trait} check_against={malfunction} 
+              trait_type="malfunction" />))
+          }
+        </Box>
+      </Section>
+    </Box>
+  );
+};
+
+const XenoartifactLabelerInfo= (props, context) => {
+  const { act, data } = useBackend(context);
+  const {
+    info_list,
+  } = data;
+  return (
+    <Box px={1} overflowY="auto" height="425px">
+      {info_list.map(info => 
+        <XenoartifactLabelerGenerateInfo info={info} key={info} />)}
+    </Box>
   );
 };
 
