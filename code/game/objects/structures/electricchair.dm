@@ -8,8 +8,7 @@
 
 /obj/structure/chair/e_chair/Initialize(mapload)
 	. = ..()
-	var/obj/item/assembly/shock_kit/stored_kit = new(contents)
-	add_overlay(mutable_appearance('icons/obj/chairs.dmi', "echair_over", MOB_LAYER + 1))
+	add_overlay(mutable_appearance('icons/obj/beds_chairs/chairs.dmi', "echair_over", MOB_LAYER + 1))
 
 /obj/structure/chair/e_chair/attackby(obj/item/W, mob/user, params)
 	if(W.tool_behaviour == TOOL_WRENCH)

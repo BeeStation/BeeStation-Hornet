@@ -1,13 +1,13 @@
 {
-	"bench_left": [
+	"bench_middle": [
 		{
 			"type": "icon_state",
-			"icon_state": "bench_left_base",
+			"icon_state": "corporate_bench_middle_base",
 			"blend_mode": "overlay"
 		},
 		{
 			"type": "icon_state",
-			"icon_state": "bench_left_cover",
+			"icon_state": "corporate_bench_middle_cover",
 			"blend_mode": "overlay",
 			"color_ids": [ 1 ]
 		}
