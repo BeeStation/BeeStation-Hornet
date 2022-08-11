@@ -373,6 +373,7 @@
 /// Infects a random player, making them explode into a blob.
 /datum/dynamic_ruleset/midround/blob_infection
 	name = "Blob Infection"
+	midround_ruleset_style = MIDROUND_RULESET_STYLE_HEAVY
 	antag_datum = /datum/antagonist/blob
 	antag_flag = ROLE_BLOB
 	protected_roles = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_DETECTIVE, JOB_NAME_WARDEN, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN)
@@ -380,7 +381,8 @@
 	enemy_roles = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_DETECTIVE, JOB_NAME_WARDEN, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN)
 	required_enemies = list(2,2,1,1,1,1,1,0,0,0)
 	required_candidates = 1
-	weight = 2
+	minimum_round_time = 35 MINUTES
+	weight = 3
 	cost = 10
 	requirements = list(101,101,101,80,60,50,30,20,10,10)
 	repeatable = TRUE
