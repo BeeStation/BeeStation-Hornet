@@ -284,10 +284,10 @@
 
 /datum/mutation/medieval
 	name = "Medieval"
-	desc = "A unsual mutation often suffered by historians."
+	desc = "A horrific genetic condition suffered in ancient times."
 	quality = MINOR_NEGATIVE
-	text_gain_indication = "<span class='notice'>Thou art feeling it well good ser?</span>"
-	text_lose_indication = "<span class='notice'>You feel like you have a better sense of the times..</span>"
+	text_gain_indication = "<span class='notice'>thoust feel as though thee couldst seekth the Grail.</span>"
+	text_lose_indication = "<span class='notice'>You no longer feel like seeking anything</span>"
 
 /datum/mutation/medieval/on_acquiring(mob/living/carbon/owner)
 	if(..())
@@ -306,7 +306,7 @@
 	if(message[1] != "*")
 		message = " [message]"
 		var/list/whole_words = strings(MEDIEVAL_SPEECH_FILE, "words")
-		
+
 		for(var/key in whole_words)
 			var/value = whole_words[key]
 			if(islist(value))
