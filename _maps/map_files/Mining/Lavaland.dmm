@@ -274,6 +274,10 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
+/obj/machinery/advanced_airlock_controller/lavaland{
+	dir = 8;
+	pixel_x = 26
+	},
 /turf/open/floor/noslip/dark,
 /area/mine/eva)
 "bs" = (
@@ -466,6 +470,12 @@
 "cB" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/computer/shuttle_flight/science,
+/obj/machinery/button/door{
+	id = "lavasci";
+	name = "Science shuttle shutters";
+	pixel_y = 28;
+	req_access_txt = "2"
+	},
 /turf/open/floor/plasteel,
 /area/mine/science)
 "cC" = (
@@ -1597,6 +1607,15 @@
 /obj/effect/spawner/structure/window/reinforced,
 /turf/closed/mineral/random/volcanic,
 /area/lavaland/surface/outdoors)
+"iJ" = (
+/obj/machinery/button/door{
+	id = "labor";
+	name = "Labor Camp Lockdown";
+	pixel_y = 28;
+	req_access_txt = "2"
+	},
+/turf/open/floor/plasteel,
+/area/mine/laborcamp)
 "iK" = (
 /obj/structure/stone_tile/block,
 /obj/structure/stone_tile/cracked{
@@ -2975,6 +2994,17 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/mine/maintenance)
+"oK" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/obj/item/stack/cable_coil/cut/yellow,
+/obj/item/stack/rods,
+/turf/open/floor/plating,
+/area/mine/science)
 "oN" = (
 /obj/structure/window/reinforced{
 	dir = 8
@@ -3144,6 +3174,9 @@
 /turf/open/floor/plasteel/dark,
 /area/mine/production)
 "pX" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
 /turf/open/floor/mech_bay_recharge_floor,
 /area/mine/eva)
 "qa" = (
@@ -3174,6 +3207,9 @@
 	pixel_x = 8
 	},
 /obj/item/pickaxe,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/open/floor/plasteel/dark,
 /area/mine/eva)
 "qj" = (
@@ -3576,6 +3612,20 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/plasteel/white,
 /area/mine/living_quarters)
+"ti" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/structure/lattice/catwalk/over,
+/obj/item/stack/rods,
+/turf/open/floor/plating,
+/area/mine/science)
 "tk" = (
 /obj/machinery/mineral/unloading_machine{
 	icon_state = "unloader-corner2";
@@ -3613,12 +3663,6 @@
 /turf/open/floor/plasteel/checker,
 /area/mine/living_quarters)
 "tv" = (
-/obj/machinery/button/door{
-	id = "labor";
-	name = "Labor Camp Lockdown";
-	pixel_y = 28;
-	req_access_txt = "2"
-	},
 /obj/machinery/advanced_airlock_controller/lavaland{
 	dir = 8;
 	pixel_x = 26
@@ -5407,6 +5451,9 @@
 /obj/structure/railing{
 	dir = 1
 	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
 /turf/open/floor/plasteel/stairs/medium{
 	dir = 4
 	},
@@ -5739,6 +5786,19 @@
 	},
 /turf/open/floor/plasteel/techmaint,
 /area/mine/science)
+"Ne" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/structure/lattice/catwalk/over,
+/turf/open/floor/plating,
+/area/mine/science)
 "Nn" = (
 /obj/effect/turf_decal/tile/blue/tile_marquee,
 /obj/machinery/washing_machine,
@@ -5971,6 +6031,12 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
+/obj/machinery/button/door{
+	id = "labor";
+	name = "Labor Camp Lockdown";
+	pixel_y = 28;
+	req_access_txt = "2"
+	},
 /turf/open/floor/plasteel/techmaint,
 /area/mine/laborcamp/security)
 "PC" = (
@@ -6007,8 +6073,7 @@
 "PV" = (
 /obj/structure/closet/secure_closet/miner,
 /obj/machinery/light{
-	dir = 4;
-	light_color = "#e8eaff"
+	dir = 4
 	},
 /turf/open/floor/plasteel/dark,
 /area/mine/storage)
@@ -6113,6 +6178,12 @@
 /obj/machinery/light/small,
 /turf/open/floor/carpet/red,
 /area/mine/living_quarters)
+"QH" = (
+/obj/machinery/suit_storage_unit/mining,
+/obj/effect/turf_decal/delivery,
+/obj/machinery/light,
+/turf/open/floor/plasteel/dark,
+/area/mine/eva)
 "QM" = (
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
 	dir = 8
@@ -6466,7 +6537,6 @@
 /obj/item/paper_bin,
 /obj/item/folder/blue,
 /obj/item/pen/blue,
-/obj/item/paper/monitorkey,
 /obj/item/phone{
 	desc = "Supposedly a direct line to Nanotrasen Central Command. It's not even plugged in.";
 	pixel_x = -3;
@@ -32506,7 +32576,7 @@ by
 by
 by
 by
-ch
+iJ
 Xw
 XQ
 WF
@@ -39957,7 +40027,7 @@ qf
 uW
 HY
 ed
-Bt
+QH
 bm
 Hr
 CE
@@ -45867,7 +45937,7 @@ ai
 ab
 ab
 aY
-zw
+Ne
 aY
 ab
 ab
@@ -46124,7 +46194,7 @@ ab
 ab
 aj
 aY
-zw
+ti
 aY
 aj
 aj
@@ -46381,7 +46451,7 @@ ab
 aj
 aj
 aY
-zw
+Ne
 aY
 ab
 aj
@@ -46895,7 +46965,7 @@ ab
 ab
 ab
 aY
-zw
+oK
 aY
 aj
 aj
@@ -47152,7 +47222,7 @@ aj
 aj
 aj
 aY
-zw
+Ne
 aY
 ab
 aj
@@ -47409,7 +47479,7 @@ aj
 aj
 aj
 aY
-zw
+Ne
 aY
 ab
 ab
