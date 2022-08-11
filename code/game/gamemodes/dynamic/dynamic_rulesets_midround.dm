@@ -472,16 +472,16 @@
 
 /datum/dynamic_ruleset/midround/from_ghosts/space_dragon
 	name = "Space Dragon"
+	midround_ruleset_style = MIDROUND_RULESET_STYLE_HEAVY
 	antag_datum = /datum/antagonist/space_dragon
-	antag_flag = "Space Dragon"
+	antag_flag = ROLE_SPACE_DRAGON
 	antag_flag_override = ROLE_SPACE_DRAGON
 	enemy_roles = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_DETECTIVE, JOB_NAME_WARDEN, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN)
 	required_enemies = list(2,2,1,1,1,1,1,0,0,0)
 	required_candidates = 1
 	weight = 4
-	cost = 10
-	requirements = list(101,101,101,80,60,50,30,20,10,10)
-	//high_population_requirement = 50
+	cost = 7
+	minimum_players = 25
 	repeatable = TRUE
 	var/list/spawn_locs = list()
 
