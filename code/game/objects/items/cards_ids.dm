@@ -117,7 +117,7 @@
 	var/access_txt // mapping aid
 	var/datum/bank_account/registered_account
 	var/obj/machinery/paystand/my_store
-	var/hideaccount = FALSE  // removes account info from examine
+	var/electric = TRUE  // removes account info from examine
 
 /obj/item/card/id/Initialize(mapload)
 	. = ..()
@@ -279,11 +279,11 @@
 
 /obj/item/card/id/examine(mob/user)
 	..()
+	if(!electric)  // forces off bank info for paper slip
+		return
 	if(mining_points)
 		. += "There's [mining_points] mining equipment redemption point\s loaded onto this card."
 	. = ..()
-	if(hideaccount)  // forces off bank info for paper slip
-		return
 	if(registered_account)
 		. += "The account linked to the ID belongs to '[registered_account.account_holder]' and reports a balance of $[registered_account.account_balance]."
 		if(registered_account.account_job)
@@ -691,29 +691,29 @@ update_label("John Doe", "Clowny")
 	access = list(ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MECH_MINING, ACCESS_MAILSORTING, ACCESS_MINERAL_STOREROOM)
 
 /obj/item/card/id/paper
-	name = "paper slip identifier"
-	desc = "Some spare papers taped into a vague card shape, and a name scribbled on it. Seems trustworthy."
+	name = "paper nametag"
+	desc = "Some spare papers taped into a vague card shape, with a name scribbled on it. Seems trustworthy."
 	icon_state = "paper"
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 50, "stamina" = 0)
 	resistance_flags = null  // removes all resistance because its a piece of paper
 	access = list()
 	assignment = "Unverified"
 	hud_state = JOB_HUD_PAPER
-	hideaccount = TRUE
+	electric = FALSE
 
 /obj/item/card/id/paper/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/pen))
 		var/target_name = stripped_input(user, "What name would you like to write onto the card?", "Written name:", registered_name || "John Doe", MAX_MESSAGE_LEN)
 		registered_name = target_name || registered_name  // in case they hit cancel
 		assignment = "Unverified"
-		to_chat(user, "You scribble the name [target_name] onto the slip.")
+		to_chat(user, "<span class='notice'>You scribble the name [target_name] onto the slip.</span>")
 		update_label()
 
 /obj/item/card/id/paper/alt_click_can_use_id(mob/living/user)
-	to_chat(user, "There's no money circuitry in here!")
+	to_chat(user, "<span class='warning'>There's no money circuitry in here!</span>")
 
 /obj/item/card/id/paper/insert_money(obj/item/I, mob/user, physical_currency)
-	to_chat(user, "You can't insert money into a slip!")  // not sure if this is triggerable but just as a safeclip
+	to_chat(user, "<span class='warning'>You can't insert money into a slip!</span>")  // not sure if this is triggerable but just as a safeclip
 
 /obj/item/card/id/paper/GetAccess()
 	return list()
@@ -727,10 +727,6 @@ update_label("John Doe", "Clowny")
 
 /obj/item/card/id/set_hud_icon_on_spawn(jobname)
 	return
-
-/obj/item/card/id/paper/examine(mob/user)
-	. = ..()
-	. += "There is no accounts linked, as it is a piece of paper."
 
 /obj/item/card/id/away
 	name = "\proper a perfectly generic identification card"
