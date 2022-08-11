@@ -384,7 +384,7 @@
 	minimum_round_time = 35 MINUTES
 	weight = 3
 	cost = 10
-	requirements = list(101,101,101,80,60,50,30,20,10,10)
+	minimum_players = 25
 	repeatable = TRUE
 
 /datum/dynamic_ruleset/midround/blob_infection/trim_candidates()
