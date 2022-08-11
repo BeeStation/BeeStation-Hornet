@@ -57308,8 +57308,8 @@
 /area/science/research)
 "iAq" = (
 /obj/structure/sign/poster/official/disk,
-/turf/closed/wall,
-/area/crew_quarters/heads/captain/private)
+/turf/open/space/basic,
+/area/space)
 "iAI" = (
 /obj/effect/turf_decal/tile/red{
 	dir = 1
@@ -113904,7 +113904,7 @@ bcj
 bdI
 bfz
 bhu
-iAq
+bjg
 egk
 bjg
 sng
@@ -115445,7 +115445,7 @@ bcl
 bcj
 bcj
 bcj
-bcj
+wfL
 bcj
 bcj
 bcj
@@ -131955,7 +131955,7 @@ aaf
 aaa
 aaa
 aaa
-aaa
+iAq
 aaa
 aaa
 aaa

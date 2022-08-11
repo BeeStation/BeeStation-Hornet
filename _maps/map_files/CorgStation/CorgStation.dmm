@@ -26314,6 +26314,10 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
 /turf/open/floor/carpet/orange,
 /area/crew_quarters/heads/chief)
+"hlX" = (
+/obj/structure/sign/poster/official/disk,
+/turf/open/space/basic,
+/area/space)
 "hmb" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
@@ -47412,6 +47416,10 @@
 	},
 /turf/open/floor/plasteel,
 /area/engine/engineering)
+"nqb" = (
+/obj/structure/sign/poster/official/disk,
+/turf/closed/wall/r_wall,
+/area/hallway/secondary/command)
 "nqg" = (
 /obj/effect/landmark/event_spawn,
 /turf/open/floor/plasteel,
@@ -94542,7 +94550,7 @@ aMT
 anT
 aMT
 aMT
-aMT
+hlX
 aMT
 aMT
 aMT
@@ -117878,7 +117886,7 @@ aRL
 kgE
 kgE
 bXb
-kgE
+nqb
 kgE
 kgE
 xNl

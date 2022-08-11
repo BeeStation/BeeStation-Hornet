@@ -101391,6 +101391,10 @@
 	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/science/shuttledock)
+"vph" = (
+/obj/structure/sign/poster/official/disk,
+/turf/open/space/basic,
+/area/space)
 "vqb" = (
 /turf/closed/wall/r_wall/rust,
 /area/maintenance/starboard)
@@ -153113,7 +153117,7 @@ aaa
 acm
 aaa
 aaa
-aaa
+vph
 aaa
 aaa
 aaa

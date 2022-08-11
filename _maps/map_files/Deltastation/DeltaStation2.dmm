@@ -76239,6 +76239,10 @@
 /obj/machinery/power/apc/auto_name/south,
 /turf/open/floor/plating,
 /area/maintenance/solars/port/fore)
+"gCq" = (
+/obj/structure/sign/poster/official/disk,
+/turf/open/space/basic,
+/area/space)
 "gCH" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -79822,6 +79826,10 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
+"hYZ" = (
+/obj/structure/sign/poster/official/disk,
+/turf/closed/wall/r_wall,
+/area/crew_quarters/heads/captain/private)
 "hZf" = (
 /obj/structure/sign/warning/vacuum{
 	pixel_x = -32
@@ -136099,7 +136107,7 @@ aad
 aaa
 aaa
 aaa
-aaa
+gCq
 aaa
 aaa
 aaa
@@ -158642,7 +158650,7 @@ bBM
 pfh
 bzP
 bGU
-bIV
+wKK
 bIV
 bMG
 bOP
@@ -159164,7 +159172,7 @@ bMK
 bSL
 bUL
 bXc
-bUQ
+hYZ
 cbb
 ccM
 ceE

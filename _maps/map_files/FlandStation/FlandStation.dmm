@@ -15122,6 +15122,10 @@
 	icon_state = "panelscorched"
 	},
 /area/maintenance/starboard/aft)
+"duN" = (
+/obj/structure/sign/poster/official/disk,
+/turf/closed/wall/r_wall,
+/area/crew_quarters/heads/captain)
 "duP" = (
 /obj/structure/sign/poster/official/ue_no{
 	pixel_x = -31
@@ -32027,6 +32031,10 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plasteel/techmaint,
 /area/science/robotics/mechbay)
+"hnE" = (
+/obj/structure/sign/poster/official/disk,
+/turf/closed/wall/r_wall,
+/area/bridge/meeting_room/council)
 "hoe" = (
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plasteel/dark/corner,
@@ -36464,6 +36472,10 @@
 "ioZ" = (
 /turf/closed/wall,
 /area/crew_quarters/heads/cmo)
+"ipd" = (
+/obj/structure/sign/poster/official/disk,
+/turf/open/space/basic,
+/area/space)
 "ipf" = (
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plasteel/techmaint,
@@ -137683,7 +137695,7 @@ nnx
 nnx
 nnx
 nnx
-nnx
+ipd
 nnx
 nnx
 nnx
@@ -142164,7 +142176,7 @@ ejz
 jID
 nRs
 nRs
-nRs
+hnE
 nRs
 nRs
 dFX
@@ -146807,7 +146819,7 @@ uUm
 hZf
 uUm
 uUm
-uUm
+duN
 uUm
 huQ
 hzT
@@ -148855,7 +148867,7 @@ rzV
 qQS
 eMi
 ggY
-wfA
+tET
 fXc
 usW
 ePa
