@@ -314,7 +314,10 @@
 /obj/item/organ/tongue/slime
 	name = "slimey tongue"
 	desc = "It's a piece of slime, shaped like a tongue."
-	say_mod = "blorbles"
+	say_mod = list("blorbles", "bubbles")
+	verb_ask = "inquisitively blorbles"
+	verb_exclaim = "blorble screams"
+	verb_yell = "loudly blorbles"
 	toxic_food = NONE
 	disliked_food = NONE
 
