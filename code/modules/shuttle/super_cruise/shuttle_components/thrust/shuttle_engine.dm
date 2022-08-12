@@ -16,11 +16,11 @@
 	circuit = /obj/item/circuitboard/machine/shuttle/engine
 	var/thrust = 0
 	var/fuel_use = 0
-	var/bluespace_capable = TRUE
 	var/cooldown = 0
 	var/thruster_active = FALSE
 	var/needs_heater = TRUE
 	var/has_fuel = FALSE
+	var/requires_fuel = FALSE
 
 /obj/machinery/shuttle/engine/Initialize(mapload)
 	. = ..()
@@ -54,7 +54,7 @@
 		icon_state = icon_state_closed
 		set_active(TRUE)
 		return
-	if(!idle_power_usage || !(stat & NOPOWER) || !has_fuel)
+	if((!idle_power_usage || !(stat & NOPOWER)) && (has_fuel || !requires_fuel))
 		icon_state = icon_state_closed
 		set_active(TRUE)
 	else
@@ -109,8 +109,8 @@
 	circuit = /obj/item/circuitboard/machine/shuttle/engine/plasma
 	thrust = 120
 	fuel_use = 0.24
-	bluespace_capable = FALSE
 	cooldown = 45
+	requires_fuel = TRUE
 	var/datum/weakref/attached_heater
 
 /obj/machinery/shuttle/engine/plasma/consume_fuel(amount)
@@ -191,6 +191,5 @@
 	circuit = /obj/item/circuitboard/machine/shuttle/engine/void
 	thrust = 150
 	fuel_use = 0
-	bluespace_capable = TRUE
 	needs_heater = FALSE
 	cooldown = 90

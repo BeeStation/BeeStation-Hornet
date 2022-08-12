@@ -10,7 +10,6 @@
 	circuit = /obj/item/circuitboard/machine/shuttle/engine/plasma
 	thrust = 60
 	fuel_use = 0
-	bluespace_capable = FALSE
 	cooldown = 45
 	var/usage_rate = 15
 	var/obj/machinery/power/engine_capacitor_bank/capacitor_bank
