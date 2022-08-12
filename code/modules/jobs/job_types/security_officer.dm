@@ -1,8 +1,8 @@
-/datum/job/officer
-	title = "Security Officer"
+/datum/job/security_officer
+	title = JOB_NAME_SECURITYOFFICER
 	flag = OFFICER
 	auto_deadmin_role_flags = DEADMIN_POSITION_SECURITY
-	department_head = list("Head of Security")
+	department_head = list(JOB_NAME_HEADOFSECURITY)
 	department_flag = ENGSEC
 	faction = "Station"
 	total_positions = 5 //Handled in /datum/controller/occupations/proc/setup_officer_positions()
@@ -13,34 +13,34 @@
 	exp_requirements = 840
 	exp_type = EXP_TYPE_CREW
 
-	outfit = /datum/outfit/job/security
+	outfit = /datum/outfit/job/security_officer
 
 	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_SEC_RECORDS, ACCESS_BRIG, ACCESS_COURT, ACCESS_MAINT_TUNNELS,
 					ACCESS_MECH_SECURITY, ACCESS_MORGUE, ACCESS_WEAPONS, ACCESS_FORENSICS_LOCKERS,
 					ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_SEC_RECORDS, ACCESS_BRIG, ACCESS_COURT, ACCESS_WEAPONS,
-					ACCESS_MECH_SECURITY, ACCESS_MINERAL_STOREROOM) // See /datum/job/officer/get_access()
+					ACCESS_MECH_SECURITY, ACCESS_MINERAL_STOREROOM) // See /datum/job/security_officer/get_access()
 	paycheck = PAYCHECK_HARD
 	paycheck_department = ACCOUNT_SEC
 	mind_traits = list(TRAIT_LAW_ENFORCEMENT_METABOLISM)
 
 	display_order = JOB_DISPLAY_ORDER_SECURITY_OFFICER
-	departments = DEPARTMENT_SECURITY
+	departments = DEPARTMENT_BITFLAG_SECURITY
 	rpg_title = "Guard"
 
 	species_outfits = list(
-		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/security
+		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/security_officer
 	)
 	biohazard = 15 //clean your baton, man
 
-/datum/job/officer/get_access()
+/datum/job/security_officer/get_access()
 	var/list/L = list()
 	L |= ..() | check_config_for_sec_maint()
 	return L
 
 GLOBAL_LIST_INIT(available_depts, list(SEC_DEPT_ENGINEERING, SEC_DEPT_MEDICAL, SEC_DEPT_SCIENCE, SEC_DEPT_SUPPLY))
 
-/datum/job/officer/after_spawn(mob/living/carbon/human/H, mob/M)
+/datum/job/security_officer/after_spawn(mob/living/carbon/human/H, mob/M)
 	. = ..()
 	// Assign department security
 	var/department
@@ -119,11 +119,11 @@ GLOBAL_LIST_INIT(available_depts, list(SEC_DEPT_ENGINEERING, SEC_DEPT_MEDICAL, S
 
 
 
-/datum/outfit/job/security
-	name = "Security Officer"
-	jobtype = /datum/job/officer
+/datum/outfit/job/security_officer
+	name = JOB_NAME_SECURITYOFFICER
+	jobtype = /datum/job/security_officer
 
-	id = /obj/item/card/id/job/sec
+	id = /obj/item/card/id/job/security_officer
 	belt = /obj/item/pda/security
 	ears = /obj/item/radio/headset/headset_sec/alt
 	uniform = /obj/item/clothing/under/rank/security/officer

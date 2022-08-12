@@ -34982,7 +34982,7 @@
 "bWR" = (
 /obj/structure/table/wood,
 /obj/item/paper_bin,
-/obj/item/stamp/hop,
+/obj/item/stamp/head_of_personnel,
 /turf/open/floor/wood,
 /area/crew_quarters/heads/hop)
 "bWS" = (
@@ -35518,7 +35518,7 @@
 	dir = 1;
 	pixel_y = -22
 	},
-/obj/item/stamp/ce,
+/obj/item/stamp/chief_engineer,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
@@ -56909,6 +56909,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
+/obj/effect/landmark/start/medical_doctor,
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
 "diE" = (
@@ -59905,7 +59906,7 @@
 "dtt" = (
 /obj/structure/table/reinforced,
 /obj/item/folder/white,
-/obj/item/stamp/rd,
+/obj/item/stamp/research_director,
 /obj/effect/turf_decal/tile/purple,
 /obj/effect/turf_decal/tile/purple{
 	dir = 4
@@ -72688,7 +72689,7 @@
 /obj/effect/turf_decal/tile/red{
 	dir = 4
 	},
-/obj/structure/closet/secure_closet/brig_phys,
+/obj/structure/closet/secure_closet/brig_physician,
 /turf/open/floor/plasteel/white,
 /area/security/brig)
 "eUQ" = (
@@ -76335,7 +76336,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
-/obj/effect/landmark/start/emt,
+/obj/effect/landmark/start/paramedic,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
@@ -77412,7 +77413,7 @@
 	icon_state = "4-8"
 	},
 /obj/item/folder/yellow,
-/obj/item/stamp/qm,
+/obj/item/stamp/quartermaster,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
@@ -80453,7 +80454,6 @@
 	},
 /area/maintenance/port)
 "ilp" = (
-/obj/effect/landmark/start/medical_doctor,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
 	},
@@ -90772,7 +90772,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/effect/landmark/start/brig_phys,
+/obj/effect/landmark/start/brig_physician,
 /turf/open/floor/plasteel/white,
 /area/security/brig)
 "mJm" = (
@@ -96604,6 +96604,7 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2,
+/obj/effect/landmark/start/medical_doctor,
 /turf/open/floor/plasteel,
 /area/medical/medbay/central)
 "oZh" = (
@@ -99664,11 +99665,6 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/carpet/purple,
 /area/crew_quarters/dorms)
-"qoQ" = (
-/obj/effect/landmark/start/medical_doctor,
-/obj/effect/turf_decal/tile/green,
-/turf/open/floor/plasteel/white,
-/area/medical/virology)
 "qpb" = (
 /turf/closed/wall/r_wall,
 /area/space)
@@ -165641,7 +165637,7 @@ ilp
 dXY
 aem
 dBo
-qoQ
+dXY
 dFm
 taz
 dGM

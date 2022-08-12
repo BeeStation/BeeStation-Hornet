@@ -605,6 +605,13 @@
 	result = /obj/item/extendohand
 	category = CAT_MISC
 
+/datum/crafting_recipe/mothplush
+	name = "Moth Plushie"
+	result = /obj/item/toy/plush/moth
+	reqs = list(/obj/item/stack/sheet/animalhide/mothroach = 1,
+				/obj/item/stack/sheet/cotton/cloth = 3)
+	category = CAT_MISC
+
 /datum/crafting_recipe/chemical_payload
 	name = "Chemical Payload (C4)"
 	result = /obj/item/bombcore/chemical

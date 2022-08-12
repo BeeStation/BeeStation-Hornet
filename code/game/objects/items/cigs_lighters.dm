@@ -86,6 +86,12 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 		if(M == user)
 			cig.attackby(src, user)
 		else
+			if(cig.reagents.get_reagent_amount(/datum/reagent/toxin/plasma))
+				message_admins("[cig] that contains plasma was lit by [ADMIN_LOOKUPFLW(user)] for [key_name_admin(M)]!")
+				log_game("[cig] that contains plasma was lit by [key_name(user)] for [key_name(M)]!")
+			if(cig.reagents.get_reagent_amount(/datum/reagent/fuel))
+				message_admins("[cig] that contains fuel was lit by [ADMIN_LOOKUPFLW(user)] for [key_name_admin(M)]!")
+				log_game("[cig] that contains fuel was lit by [key_name(user)] for [key_name(M)]!")
 			cig.light("<span class='notice'>[user] holds [src] out for [M], and lights [cig].</span>")
 	else
 		..()
@@ -156,6 +162,12 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	if(!lit && smoketime > 0)
 		var/lighting_text = W.ignition_effect(src, user)
 		if(lighting_text)
+			if(src.reagents.get_reagent_amount(/datum/reagent/toxin/plasma))
+				message_admins("[src] that contains plasma was lit by [ADMIN_LOOKUPFLW(user)]!")
+				log_game("[src] that contains plasma was lit by  [key_name(user)]!")
+			if(src.reagents.get_reagent_amount(/datum/reagent/fuel))
+				message_admins("[src] that contains fuel was lit by [ADMIN_LOOKUPFLW(user)]!")
+				log_game("[src] that contains fuel was lit by [key_name(user)]!")
 			light(lighting_text)
 	else
 		return ..()
@@ -167,6 +179,8 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	if(istype(glass))	//you can dip cigarettes into beakers
 		if(glass.reagents.trans_to(src, chem_volume, transfered_by = user))	//if reagents were transfered, show the message
 			to_chat(user, "<span class='notice'>You dip \the [src] into \the [glass].</span>")
+			message_admins("[ADMIN_LOOKUPFLW(user)] added reagents to [src], it now contains [english_list(src.reagents.reagent_list)]!")
+			log_game("[key_name(user)] added reagents to [src], it now contains [english_list(src.reagents.reagent_list)]!")
 		else			//if not, either the beaker was empty, or the cigarette was full
 			if(!glass.reagents.total_volume)
 				to_chat(user, "<span class='notice'>[glass] is empty.</span>")
@@ -288,6 +302,12 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	if(!istype(M))
 		return ..()
 	if(M.on_fire && !lit)
+		if(src.reagents.get_reagent_amount(/datum/reagent/toxin/plasma))
+			message_admins("[src] that contains plasma was lit by [ADMIN_LOOKUPFLW(user)]!")
+			log_game("[src] that contains plasma was lit by [key_name(user)]!")
+		if(src.reagents.get_reagent_amount(/datum/reagent/fuel))
+			message_admins("[src] that contains fuel was lit by [ADMIN_LOOKUPFLW(user)]!")
+			log_game("[src] that contains fuel was lit by [key_name(user)]!")
 		light("<span class='notice'>[user] lights [src] with [M]'s burning body. What a cold-blooded badass.</span>")
 		return
 	var/obj/item/clothing/mask/cigarette/cig = help_light_cig(M)
@@ -295,13 +315,32 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 		if(cig.lit)
 			to_chat(user, "<span class='notice'>The [cig.name] is already lit.</span>")
 		if(M == user)
+			if(cig.reagents.get_reagent_amount(/datum/reagent/toxin/plasma))
+				message_admins("[cig] that contains plasma was lit by [ADMIN_LOOKUPFLW(user)]!")
+				log_game("[cig] that contains plasma was lit by [key_name(user)]!")
+			if(cig.reagents.get_reagent_amount(/datum/reagent/fuel))
+				message_admins("[cig] that contains fuel was lit by [ADMIN_LOOKUPFLW(user)]!")
+				log_game("[cig] that contains fuel was lit by [key_name(user)]!")
 			cig.attackby(src, user)
 		else
+			if(cig.reagents.get_reagent_amount(/datum/reagent/toxin/plasma))
+				message_admins("[cig] that contains plasma was lit by [ADMIN_LOOKUPFLW(user)] for [key_name_admin(M)]!")
+				log_game("[cig] that contains plasma was lit by [key_name(user)] for [key_name(M)]!")
+			if(cig.reagents.get_reagent_amount(/datum/reagent/fuel))
+				message_admins("[cig] that contains fuel was lit by [ADMIN_LOOKUPFLW(user)] for [key_name_admin(M)]!")
+				log_game("[cig] that contains fuel was lit by [key_name(user)] for [key_name(M)]!")
 			cig.light("<span class='notice'>[user] holds the [name] out for [M], and lights [M.p_their()] [cig.name].</span>")
+
 	else
 		return ..()
 
 /obj/item/clothing/mask/cigarette/fire_act(exposed_temperature, exposed_volume)
+	if(src.reagents.get_reagent_amount(/datum/reagent/toxin/plasma))
+		message_admins("[src] that contains plasma was lit by the enviroment - Last touched by [src.fingerprintslast]!")
+		log_game("[src] that contains plasma was lit by the enviroment - Last touched by [src.fingerprintslast]!")
+	if(src.reagents.get_reagent_amount(/datum/reagent/fuel))
+		message_admins("[src] that contains fuel was lit by the enviroment - Last touched by [src.fingerprintslast]!")
+		log_game("[src] that contains fuel was lit by the enviroment - Last touched by [src.fingerprintslast]!")
 	light()
 
 /obj/item/clothing/mask/cigarette/is_hot()
@@ -670,8 +709,20 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 			cig.attackby(src, user)
 		else
 			if(fancy)
+				if(cig.reagents.get_reagent_amount(/datum/reagent/toxin/plasma))
+					message_admins("[cig.name] that contains plasma was lit by [ADMIN_LOOKUPFLW(user)] for [key_name_admin(M)]!")
+					log_game("[cig.name] that contains plasma was lit by [key_name(user)] for [key_name(M)]!")
+				if(cig.reagents.get_reagent_amount(/datum/reagent/fuel))
+					message_admins("[cig.name] that contains fuel was lit by [ADMIN_LOOKUPFLW(user)] for [key_name_admin(M)]!")
+					log_game("[cig.name] that contains fuel was lit by [key_name(user)] for [key_name(M)]!")
 				cig.light("<span class='rose'>[user] whips the [name] out and holds it for [M]. [user.p_their(TRUE)] arm is as steady as the unflickering flame [user.p_they()] light[user.p_s()] \the [cig] with.</span>")
 			else
+				if(cig.reagents.get_reagent_amount(/datum/reagent/toxin/plasma))
+					message_admins("[cig.name] that contains plasma was lit by [ADMIN_LOOKUPFLW(user)] for [key_name_admin(M)]!")
+					log_game("[cig.name] that contains plasma was lit by [key_name(user)] for [key_name(M)]!")
+				if(cig.reagents.get_reagent_amount(/datum/reagent/fuel))
+					message_admins("[cig.name] that contains fuel was lit by [ADMIN_LOOKUPFLW(user)] for [key_name_admin(M)]!")
+					log_game("[cig.name] that contains fuel was lit by [key_name(user)] for [key_name(M)]!")
 				cig.light("<span class='notice'>[user] holds the [name] out for [M], and lights [M.p_their()] [cig.name].</span>")
 	else
 		..()

@@ -420,7 +420,7 @@
 			M.Jitter(10)
 	else if(ishuman(M))
 		var/mob/living/carbon/human/H = M
-		if(H.job == "Cook")
+		if(H.job == JOB_NAME_COOK)
 			if(prob(20)) //stays in the system much longer than sprinkles/banana juice, so heals slower to partially compensate
 				H.heal_bodypart_damage(1,1, 0)
 				. = 1
