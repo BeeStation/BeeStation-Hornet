@@ -184,11 +184,12 @@
 
 /datum/orbital_object/shuttle/proc/begin_dethrottle(target_z, crashing = FALSE)
 	//Determine if we are crashing or not
-	is_crashing = crashing
+	is_crashing = crashing || force_crash
 	crash_time = world.time
 	is_docking = TRUE
 	if(is_crashing)
 		INVOKE_ASYNC(src, .proc/do_warning)
+		force_crash = FALSE
 	var/datum/space_level/space_level = SSmapping.get_level(target_z)
 	timer_id = addtimer(CALLBACK(src, .proc/unfreeze_shuttle), 3 MINUTES, TIMER_STOPPABLE)
 	RegisterSignal(space_level, COMSIG_SPACE_LEVEL_GENERATED, .proc/unfreeze_shuttle)

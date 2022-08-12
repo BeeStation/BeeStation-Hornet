@@ -11,6 +11,9 @@
 	//Set the parent faction type (If we are a shuttle, this is our representing faction)
 	parent_faction = SSorbits.get_faction(type)
 
+/datum/faction/proc/generate_faction_reward(amount)
+	return
+
 // !!! Checks how A should act towards B, rather than what B think of A !!!
 /proc/check_faction_alignment(datum/faction/A, datum/faction/B)
 	//Assume friendliness in faction, unless they are expplicitly hostile

@@ -1,13 +1,26 @@
+#define REWARD_MONEY "MONEY"
+
 /datum/orbital_objective
+	//Static variables
+	var/static/objective_num = 0
+
+	//Type dependant
 	var/name = "Null Objective"
-	var/payout = 0
-	var/completed = FALSE
 	var/min_payout = 0
 	var/max_payout = 0
+	var/weight = 0
+
+	//Instance dependent
+	var/payout = 0
+	var/completed = FALSE
 	var/id = 0
 	var/station_name
-	var/weight = 0
-	var/static/objective_num = 0
+	/// The faction offering this objective.
+	var/datum/faction/offering_faction
+	/// The offered rewards
+	var/list/reward_options = list()
+	/// The selected rewards
+	var/list/selected_rewards
 
 /datum/orbital_objective/New()
 	. = ..()
@@ -28,6 +41,20 @@
 
 /datum/orbital_objective/proc/generate_payout()
 	payout = rand(min_payout, max_payout)
+	//Generate the reward options
+	reward_options = list()
+
+	//Reward 1: Sweet cash
+	reward_options += list(
+		REWARD_MONEY = payout * 0.8
+	)
+
+	//Reward 2: Valuable Items
+
+	//Reward 3: Faction dependent
+	var/list/faction_reward = offering_faction?.generate_faction_reward(payout)
+	if(islist(faction_reward))
+		reward_options += list(faction_reward)
 
 /datum/orbital_objective/proc/generate_attached_beacon()
 	return

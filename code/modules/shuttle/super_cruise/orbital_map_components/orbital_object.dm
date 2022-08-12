@@ -331,7 +331,9 @@
 	//Move all orbitting b()odies too.
 	if(orbitting_bodies)
 		for(var/datum/orbital_object/object in orbitting_bodies)
+			object.position.protected = FALSE
 			object.position.AddSelf(new /datum/orbital_vector(delta_x, delta_y))
+			object.position.protected = TRUE
 	//Set velocity
 	var/relative_velocity = sqrt((GRAVITATIONAL_CONSTANT * (target_body.mass + mass)) / orbit_radius)
 	velocity.Set(target_body.velocity.GetX(), target_body.velocity.GetY() + relative_velocity)

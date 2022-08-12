@@ -18,6 +18,7 @@
 
 	//Crashing
 	var/is_crashing = FALSE
+	var/force_crash = FALSE
 	/// World time since crashing started
 	var/crash_time
 
@@ -67,7 +68,15 @@
 		UnregisterSignal(shuttle_data, COMSIG_PARENT_QDELETING)
 		//Start processing the AI pilot (Combat mode)
 		START_PROCESSING(SSorbits, shuttle_data.ai_pilot)
+	port = null
+	can_dock_with = null
+	docking_target = null
+	valid_docks = null
+	if(timer_id)
+		deltimer(timer_id)
+	UnregisterSignal(src, COMSIG_SPACE_LEVEL_GENERATED)
 	. = ..()
+	SSorbits.assoc_shuttles.Remove(shuttle_port_id)
 
 /datum/orbital_object/shuttle/is_distress()
 	return SSorbits.assoc_distress_beacons["[port?.virtual_z]"]
@@ -83,17 +92,6 @@
 
 /datum/orbital_object/shuttle/aux_base
 	cheating_autopilot = TRUE
-
-/datum/orbital_object/shuttle/Destroy()
-	port = null
-	can_dock_with = null
-	docking_target = null
-	valid_docks = null
-	if(timer_id)
-		deltimer(timer_id)
-	UnregisterSignal(src, COMSIG_SPACE_LEVEL_GENERATED)
-	. = ..()
-	SSorbits.assoc_shuttles.Remove(shuttle_port_id)
 
 //Dont fly into the sun idiot.
 /datum/orbital_object/shuttle/explode()

@@ -68,6 +68,9 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 	//List of hostage spawn points
 	var/list/obj/effect/hostage_spawns = list()
 
+	//Binary list of rewards
+	var/list/rewards = list()
+
 /datum/controller/subsystem/processing/orbits/Initialize(start_timeofday)
 	. = ..()
 	setup_event_list()
@@ -377,6 +380,32 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 	located_shuttle.set_pilot(ship_ai)
 
 	return M
+
+//====================================
+// Reward Items
+//====================================
+
+///Picks an item that approximately matches the said value.
+///Random variance will allow for some randomness, so it won't always return the same items.
+/datum/controller/subsystem/processing/orbits/proc/get_reward_item(approximate_value, random_variance = 1000)
+	//Collect the 5 closest
+	var/list/located_items = list()
+	for(var/item in rewards)
+		var/amount = rewards[item] + rand(-random_variance, random_variance)
+		//Directly insert
+		if(length(located_items) < 5)
+			located_items[item] = amount
+			continue
+		var/diff = abs(approximate_value - amount)
+		//Check if its closer than any of the located items
+		for(var/existing_item in located_items)
+			var/existing_amount = located_items[existing_item] + rand(-random_variance, random_variance)
+			var/existing_diff = abs(approximate_value - existing_amount)
+			if(diff < existing_diff)
+				located_items -= existing_item
+				located_items[item] = amount
+				break
+	return pick(located_items)
 
 //====================================
 // Captured Crew

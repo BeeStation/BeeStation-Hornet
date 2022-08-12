@@ -10,6 +10,10 @@
 		var/datum/techweb_node/node = SSresearch.techweb_node_by_id(node_id)
 		name = "research disk ([node.display_name])"
 
+/obj/item/disk/tech_disk/research/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/tracking_beacon, "exp", null, null, TRUE, "#fb7aff", TRUE, TRUE)
+
 /obj/item/disk/tech_disk/research/Destroy()
 	SSorbits.research_disks -= src
 	. = ..()
