@@ -70,10 +70,15 @@ export const Locator = (props, context) => {
               color="green"
               width="200px"
               selected={selected_target}
-              options={valid_targets.map(ping => ping.name)}
-              onSelected={(e) => { act("set_target", {
-                target: e.key,
-              }); }} />
+              options={valid_targets}
+              onSelected={(e) => act('set_target', {
+                target: e,
+              })} />
+          </Box>
+          <Box>
+            {selected_target
+              ? <>Scanning for {selected_target}</>
+              : "Not scanning for targets."}.
           </Box>
         </NoticeBox>
         {selected_target

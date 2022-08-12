@@ -25,7 +25,10 @@
 	//Find the objects collision zone and remove it
 	var/position_key = "[round(body.position.GetX() / ORBITAL_MAP_ZONE_SIZE)],[round(body.position.GetY() / ORBITAL_MAP_ZONE_SIZE)]"
 	if(!(body in collision_zone_bodies[position_key]))
-		CRASH("An orbital object was removed from [position_key] but was not there in the first place. ([body]). Is a body being improperly moved?")
+		//Mass search for ourselves
+		for(var/zone in collision_zone_bodies)
+			LAZYREMOVEASSOC(collision_zone_bodies, zone, body)
+		CRASH("An orbital object was removed from [position_key] but was not there in the first place. ([body]). Is a body being improperly moved? (performed a slow deletion to prevent hard-dels)")
 	LAZYREMOVEASSOC(collision_zone_bodies, position_key, body)
 
 /datum/orbital_map/proc/on_body_move(datum/orbital_object/body, prev_x, prev_y)

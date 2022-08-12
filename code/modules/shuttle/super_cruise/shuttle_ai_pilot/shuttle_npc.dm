@@ -191,8 +191,11 @@
 		shuttle.shuttleTargetPos.Set(shuttleTarget.position.GetX(), shuttleTarget.position.GetY())
 
 /datum/shuttle_ai_pilot/npc/proc/set_target_location(datum/orbital_object/_shuttleTarget)
+	if(shuttleTarget)
+		UnregisterSignal(shuttleTarget, COMSIG_PARENT_QDELETING)
 	shuttleTarget = _shuttleTarget
-	RegisterSignal(shuttleTarget, COMSIG_PARENT_QDELETING, .proc/target_deleted)
+	if(shuttleTarget)
+		RegisterSignal(shuttleTarget, COMSIG_PARENT_QDELETING, .proc/target_deleted)
 
 /datum/shuttle_ai_pilot/npc/proc/target_deleted(datum/source, force)
 	UnregisterSignal(shuttleTarget, COMSIG_PARENT_QDELETING)

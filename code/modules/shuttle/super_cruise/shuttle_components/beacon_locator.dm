@@ -97,7 +97,6 @@
 				//Set the new target
 				target_name = params["target"]
 				return TRUE
-
 		return FALSE
 
 	//To many pings
@@ -106,9 +105,9 @@
 		return
 	//Check cooldown
 	if(world.time < next_ping_cooldown)
-		say("Please wait at least 30 seconds between each ping.")
+		say("Please wait at least 3 seconds between each ping.")
 		return
-	next_ping_cooldown = world.time + 30 SECONDS
+	next_ping_cooldown = world.time + 3 SECONDS
 	//Find where we are
 	var/datum/orbital_object/current_location
 	var/area/shuttle/A = get_area(src)
@@ -124,14 +123,11 @@
 	var/orbital_map_index = current_location.orbital_map_index
 	var/datum/orbital_map/location = SSorbits.orbital_maps[orbital_map_index]
 	for(var/datum/orbital_object/body as() in location.get_all_bodies())
-		//Don't ping huge things
-		if(body.radius > 250)
+		//Ping the target
+		if(body.name != target_name)
 			continue
 		//Get the distance
 		var/distance = body.position.DistanceTo(current_location.position)
-		//Too close, or too far
-		if(distance < 500 || distance > 10000)
-			continue
 		distance += rand(-inaccuracy, inaccuracy)
 		pings += new /datum/orbital_ping(body.get_locator_name(), current_location.position.GetX(), current_location.position.GetY(), distance, body.locator_colour)
 	SStgui.update_uis_static_data(src)

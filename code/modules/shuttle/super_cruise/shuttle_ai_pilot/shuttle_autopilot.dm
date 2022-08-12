@@ -1,13 +1,13 @@
 /datum/shuttle_ai_pilot/autopilot
 	var/activated = FALSE
 	/// Target orbital body of the autopilot.
-	var/datum/orbital_object/shuttleTarget
+	VAR_PRIVATE/datum/orbital_object/shuttleTarget
 	/// The target dock of the autopilot. If set to null, the shuttle will not automatically enter a port.
 	var/targetPortId
 
 /datum/shuttle_ai_pilot/autopilot/New(datum/orbital_object/_shuttleTarget, _targetPortId)
 	. = ..()
-	shuttleTarget = _shuttleTarget
+	set_target(_shuttleTarget)
 	targetPortId = _targetPortId
 
 ///Called every shuttle tick, handles the action of the shuttle
@@ -17,7 +17,7 @@
 	//Delete if our target goes out of range
 	if (shuttleTarget.position.DistanceTo(shuttle.position) > max(shuttle_data.detection_range, shuttleTarget.signal_range))
 		SEND_SIGNAL(shuttle, COMSIG_ORBITAL_BODY_MESSAGE, "Autopilot disabled, target has left detection range.")
-		shuttleTarget = null
+		set_target(null)
 		qdel(src)
 		return
 	//Drive to the target location
@@ -36,7 +36,7 @@
 			shuttle.undock()
 			//Locate new target
 			if(targetPortId)
-				shuttleTarget = locate_target_object_from_port(targetPortId)
+				set_target(locate_target_object_from_port(targetPortId))
 		return
 	//Dock with the target location
 	if(shuttle.can_dock_with == shuttleTarget)
@@ -50,6 +50,13 @@
 	if(!space_level)
 		return
 	return space_level.orbital_body
+
+/datum/shuttle_ai_pilot/autopilot/proc/set_target(datum/orbital_object/new_target)
+	if(shuttleTarget)
+		UnregisterSignal(shuttleTarget, COMSIG_PARENT_QDELETING)
+	shuttleTarget = new_target
+	if(shuttleTarget)
+		RegisterSignal(shuttleTarget, COMSIG_PARENT_QDELETING, .proc/target_deleted)
 
 /datum/shuttle_ai_pilot/autopilot/proc/target_deleted(datum/source, force)
 	shuttleTarget = null
