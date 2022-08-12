@@ -1,0 +1,4 @@
+author: Froststahr
+delete-after: true
+changes:
+  - tweak: A cancel button has been added to the admin cinematic input dialog
