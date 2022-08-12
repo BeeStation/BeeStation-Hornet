@@ -22,7 +22,7 @@
 
 /obj/machinery/camera/xray/Initialize(mapload)
 	. = ..()
-	upgradeXRay()
+	upgradeXRay(TRUE)
 
 // MOTION
 /obj/machinery/camera/motion
@@ -41,7 +41,6 @@
 /obj/machinery/camera/all/Initialize(mapload)
 	. = ..()
 	upgradeEmpProof()
-	upgradeXRay()
 	upgradeMotion()
 
 // AUTONAME
@@ -110,11 +109,6 @@
 	if(malf_upgrade)
 		assembly.malf_xray_firmware_active = TRUE //don't add parts to drop, update icon, ect. reconstructing it will also retain the upgrade.
 		assembly.malf_xray_firmware_present = TRUE //so the upgrade is retained after incompatible parts are removed.
-
-	else if(!assembly.xray_module) //only happens via upgrading in camera/attackby()
-		assembly.xray_module = new(assembly)
-		if(assembly.malf_xray_firmware_active)
-			assembly.malf_xray_firmware_active = FALSE //make it appear like it's just normally upgraded so the icons and examine texts are restored.
 
 	upgrades |= CAMERA_UPGRADE_XRAY
 	update_icon()
