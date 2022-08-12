@@ -646,6 +646,7 @@
 	var/datum/orbital_object/shuttle/launched_shuttle = ..()
 	if(launched_shuttle && (obj_flags & EMAGGED))
 		launched_shuttle.force_crash = TRUE
+	return launched_shuttle
 
 /obj/docking_port/stationary/random
 	name = "escape pod"
