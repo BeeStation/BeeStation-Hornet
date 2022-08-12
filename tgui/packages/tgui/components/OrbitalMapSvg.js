@@ -2,7 +2,7 @@
 import { clamp } from 'common/math';
 import { Component } from 'inferno';
 
-const FPS = 20;
+const FPS = 10;
 // Scales the positions to make things on the map appear closer or further away.
 const mapDistanceScale = 1;
 

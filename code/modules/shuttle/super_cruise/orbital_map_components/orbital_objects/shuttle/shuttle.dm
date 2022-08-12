@@ -136,8 +136,8 @@
 		//Throw shuttle mobs
 		for(var/mob/living/L in GLOB.mob_living_list)
 			if(get_area(L) in port.shuttle_areas)
-				var/turf/target = get_edge_target_turf(L, angle2dir(angle))
-				L.throw_at(target, 3, 5)
+				var/turf/target = get_edge_target_turf(L, angle2dir(-angle))
+				L.throw_at(target, 3, 5, force = MOVE_FORCE_EXTREMELY_STRONG)
 		//Stop breaking
 		if(velocity.Length() < 20)
 			breaking = FALSE
