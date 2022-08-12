@@ -147,6 +147,8 @@
 	organ_flags = ORGAN_SYNTHETIC
 
 /obj/item/organ/ears/robot/emp_act(severity)
+	if(!severity)
+		return  // to prevent divide by 0 error
 	owner.Jitter(30 / severity)
 	owner.Dizzy(30 / severity)
 	owner.Knockdown(200 / severity)
