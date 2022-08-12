@@ -117,6 +117,8 @@
 	//Check the gas ratio
 	var/datum/gas_mixture/air_contents = airs[1]
 	var/total_moles = air_contents.total_moles()
+	if(!total_moles)
+		return 0
 	var/moles_plasma = air_contents.get_moles(GAS_PLASMA)
 	var/moles_tritium = air_contents.get_moles(GAS_TRITIUM)
 	return (moles_plasma / total_moles) + (3 * moles_tritium / total_moles)

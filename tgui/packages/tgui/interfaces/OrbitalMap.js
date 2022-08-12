@@ -2,7 +2,7 @@
 
 // Made by powerfulbacon
 
-import { Box, Button, Section, Table, DraggableClickableControl, Dropdown, Divider, NoticeBox, ProgressBar, Flex, OrbitalMapComponent, OrbitalMapSvg } from '../components';
+import { Box, Button, Section, Table, DraggableClickableControl, Dropdown, Divider, NoticeBox, ProgressBar, Flex, OrbitalMapComponent, OrbitalMapSvg, Grid } from '../components';
 import { useBackend, useLocalState } from '../backend';
 import { Window } from '../layouts';
 
@@ -534,6 +534,7 @@ export const ShuttleControls = (props, context) => {
     fuel = 0,
     display_stats = [],
     autopilot_enabled = false,
+    breaking = false,
   } = data;
   // Sort the map objects by priority
   let sortedMapObjects = map_objects.sort((first,
@@ -559,6 +560,35 @@ export const ShuttleControls = (props, context) => {
       <NoticeBox color="purple" mt={2}>
         Click on the primary display to fly.
       </NoticeBox>
+      <Button
+        mt={2}
+        width="100%"
+        content={autopilot_enabled ? "Disable Autopilot" : "Enable Autopilot"}
+        icon="microchip"
+        onClick={() => act('nautopilot')}
+        color={autopilot_enabled ? "green" : "red"} />
+      <Button
+        width="100%"
+        content={breaking ? "Disable Emergency Break" : "Enable Emergency Break"}
+        icon="anchor"
+        onClick={() => act('toggleBreaking', {
+          enabled: breaking ? "false" : "true",
+        })}
+        color={breaking ? "green" : "red"} />
+      {!(canDock && !isDocking) || (
+        <Button
+          width="100%"
+          content="Initiate Docking"
+          color="orange"
+          icon="rocket"
+          onClick={() => act('dock')} />
+      )}
+      <Button
+        width="100%"
+        content="ENGAGE INTERDICTOR"
+        icon="hand-paper"
+        onClick={() => act('interdict')}
+        color="purple" />
       <Box bold>
         Throttle
       </Box>
@@ -594,22 +624,6 @@ export const ShuttleControls = (props, context) => {
           </Table.Row>
         ))}
       </Table>
-      <Button
-        mt={2}
-        content="Toggle Autopilot"
-        onClick={() => act('nautopilot')}
-        color={autopilot_enabled ? "green" : "red"} />
-      {!(canDock && !isDocking) || (
-        <Button
-          mt={2}
-          content="Initiate Docking"
-          onClick={() => act('dock')} />
-      )}
-      <Button
-        mt={2}
-        content="ENGAGE INTERDICTOR"
-        onClick={() => act('interdict')}
-        color="purple" />
     </>
   );
 };

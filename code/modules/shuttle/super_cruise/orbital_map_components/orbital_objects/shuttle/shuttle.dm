@@ -54,6 +54,9 @@
 	//Is the collision alert warning active
 	var/collision_alert = FALSE
 
+	//Is the shuttle breaking?
+	var/breaking = FALSE
+
 /datum/orbital_object/shuttle/New(datum/orbital_vector/position, datum/orbital_vector/velocity, orbital_map_index, obj/docking_port/mobile/port)
 	if(port)
 		link_shuttle(port)
@@ -123,6 +126,22 @@
 		MOVE_ORBITAL_BODY(src, rand(-2000, 2000), rand(-2000, 2000))
 		velocity.Set(0, 0)
 		thrust = 0
+	//Handle breaking
+	if(breaking)
+		//Reduce velocity
+		velocity.ScaleSelf(0.8)
+		//Disable thrust
+		thrust = 0
+		var/angle = velocity.AngleFrom(new /datum/orbital_vector(0, 0))
+		//Throw shuttle mobs
+		for(var/mob/living/L in GLOB.mob_living_list)
+			if(get_area(L) in port.shuttle_areas)
+				var/turf/target = get_edge_target_turf(L, angle2dir(angle))
+				L.throw_at(target, 3, 5)
+		//Stop breaking
+		if(velocity.Length() < 20)
+			breaking = FALSE
+		return
 	//Process shuttle fuel consumption
 	if(shuttle_data && !cheating_autopilot)
 		shuttle_data.process_flight(thrust)

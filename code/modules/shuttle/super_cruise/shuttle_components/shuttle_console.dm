@@ -218,6 +218,7 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 	data["autopilot_enabled"] = shuttleObject.shuttle_data.ai_pilot?.is_active()
 	data["shuttleVelX"] = shuttleObject.velocity.GetX()
 	data["shuttleVelY"] = shuttleObject.velocity.GetY()
+	data["breaking"] = shuttleObject.breaking
 	//Docking data
 	data["canDock"] = shuttleObject.can_dock_with != null && !shuttleObject.docking_frozen
 	data["isDocking"] = shuttleObject.docking_target != null && !shuttleObject.docking_frozen && !shuttleObject.docking_target.is_generating
@@ -303,6 +304,11 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 		return
 
 	switch(action)
+		if("toggleBreaking")
+			if(QDELETED(shuttleObject))
+				say("Shuttle not in flight.")
+				return
+			shuttleObject.breaking = params["enabled"] != "false"
 		if("setTarget")
 			if(QDELETED(shuttleObject))
 				say("Shuttle not in flight.")
