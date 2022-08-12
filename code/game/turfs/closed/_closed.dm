@@ -76,6 +76,10 @@ INITIALIZE_IMMEDIATE(/turf/closed/indestructible/splashscreen)
 			if(NAMEOF(src, icon))
 				SStitle.icon = icon
 
+/turf/closed/indestructible/splashscreen/examine(mob/user)
+	desc = pick(strings(SPLASH_DESC_FILE, "splashes"))
+	. = ..()
+
 /turf/closed/indestructible/riveted
 	icon = 'icons/turf/walls/riveted.dmi'
 	icon_state = "riveted"
