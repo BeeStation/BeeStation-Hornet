@@ -1,0 +1,4 @@
+author: itsmeow
+delete-after: true
+changes:
+  - bugfix: Tablet flashlights no longer incorrectly start as ON
