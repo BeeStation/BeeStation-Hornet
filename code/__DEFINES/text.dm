@@ -7,3 +7,6 @@
 #define CENTER(text) {"<center>[##text]</center>"}
 
 #define SANITIZE_FILENAME(text) (GLOB.filename_forbidden_chars.Replace(text, ""))
+
+// for things that could be a list or a str, if its a list return rand element  - candy/ether
+#define PICK_ONE(x) islist(x) ? pick(x) : x

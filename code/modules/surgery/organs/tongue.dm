@@ -7,6 +7,9 @@
 	attack_verb = list("licked", "slobbered", "slapped", "frenched", "tongued")
 	var/list/languages_possible
 	var/say_mod = "says"
+	var/ask_mod = "asks"
+	var/yell_mod = "yells"
+	var/exclaim_mod = "exclaims"
 	var/liked_food = JUNKFOOD | FRIED
 	var/disliked_food = GROSS | RAW
 	var/toxic_food = TOXIC
@@ -315,9 +318,9 @@
 	name = "slimey tongue"
 	desc = "It's a piece of slime, shaped like a tongue."
 	say_mod = list("blorbles", "bubbles")
-	verb_ask = "inquisitively blorbles"
-	verb_exclaim = "blorble screams"
-	verb_yell = "loudly blorbles"
+	ask_mod = "inquisitively blorbles"
+	yell_mod = "blorble screams"
+	exclaim_mod = "loudly blorbles"
 	toxic_food = NONE
 	disliked_food = NONE
 
