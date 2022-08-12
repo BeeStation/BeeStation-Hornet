@@ -63,9 +63,9 @@
 
 /datum/orbital_object/shuttle/Destroy()
 	if(shuttle_data)
+		UnregisterSignal(shuttle_data, COMSIG_PARENT_QDELETING)
 		//Disable autopilot
 		shuttle_data.try_override_pilot()
-		UnregisterSignal(shuttle_data, COMSIG_PARENT_QDELETING)
 		//Start processing the AI pilot (Combat mode)
 		START_PROCESSING(SSorbits, shuttle_data.ai_pilot)
 	port = null
