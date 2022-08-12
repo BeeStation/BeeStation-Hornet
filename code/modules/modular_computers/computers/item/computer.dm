@@ -46,7 +46,7 @@
 	var/has_light = FALSE						//If the computer has a flashlight/LED light/what-have-you installed
 	var/comp_light_luminosity = 3				//The brightness of that light
 	var/comp_light_color			//The color of that light
-
+	light_on = FALSE // override behavior from atom so flashlight button is not marked as ON
 
 /obj/item/modular_computer/Initialize(mapload)
 	. = ..()
