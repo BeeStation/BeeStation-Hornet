@@ -154,4 +154,5 @@
 	if(!engine_turf)
 		return
 	for(var/obj/machinery/shuttle/engine/E in engine_turf)
+		E.has_fuel = fuel_state
 		E.check_setup()

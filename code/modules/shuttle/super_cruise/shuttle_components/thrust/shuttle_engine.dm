@@ -20,6 +20,7 @@
 	var/cooldown = 0
 	var/thruster_active = FALSE
 	var/needs_heater = TRUE
+	var/has_fuel = FALSE
 
 /obj/machinery/shuttle/engine/Initialize(mapload)
 	. = ..()
@@ -53,7 +54,7 @@
 		icon_state = icon_state_closed
 		set_active(TRUE)
 		return
-	if(!idle_power_usage || !(stat & NOPOWER))
+	if(!idle_power_usage || !(stat & NOPOWER) || !has_fuel)
 		icon_state = icon_state_closed
 		set_active(TRUE)
 	else
