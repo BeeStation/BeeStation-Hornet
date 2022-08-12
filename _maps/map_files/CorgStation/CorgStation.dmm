@@ -54389,7 +54389,7 @@
 "pqj" = (
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "Maintenance Hatch";
-	req_one_access_txt = "12;1;31"
+	req_one_access_txt = "12,1,31"
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
@@ -74708,7 +74708,7 @@
 	},
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "Cargo Maintenance";
-	req_access_txt = "31"
+	req_access_txt = "12,1,31"
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
