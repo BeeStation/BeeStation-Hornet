@@ -1,4 +1,0 @@
-author: Seris02
-delete-after: true
-changes:
-  - bugfix: fixes a runtime in detective_work.dm
