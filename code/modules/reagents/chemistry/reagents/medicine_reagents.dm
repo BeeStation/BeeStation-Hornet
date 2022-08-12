@@ -1642,7 +1642,7 @@
 		if(is_hivemember(M))
 			for(var/datum/antagonist/hivemind/hive in GLOB.antagonists)
 				if(hive.hivemembers.Find(M.mind))
-					var/mob/living/carbon/C = hive.owner.current.get_real_hivehost()
+					var/mob/living/carbon/C = hive.owner.current
 					if(C?.mind)
 						to_chat(C, "<span class='assimilator'>We detect a surge of psionic energy from a far away vessel before they disappear from the hive. Whatever happened, there's a good chance they're after us now.</span>")
 			if(M.is_wokevessel())

@@ -36,13 +36,12 @@
 			if(M.current == user)
 				continue
 			if(enemy.is_carbon_member(target))
-				var/mob/living/real_enemy = (M.current.get_real_hivehost())
+				var/mob/living/real_enemy = (M.current)
 				enemies += real_enemy
 				enemy.remove_from_hive(target)
-				if(M.current.is_real_hivehost())
-					to_chat(real_enemy, "<span class='assimilator'>We detect a surge of psionic energy from a far away vessel before they disappear from the hive. Whatever happened, there's a good chance they're after us now.</span>")
+				to_chat(real_enemy, "<span class='assimilator'>We detect a surge of psionic energy from a far away vessel before they disappear from the hive. Whatever happened, there's a good chance they're after us now.</span>")
 
-			if(enemy.owner == M && target.is_real_hivehost())
+			if(enemy.owner == M && is_hivehost(target))
 				var/atom/throwtarget
 				var/datum/antagonist/hivemind/hivetarget = target.mind.has_antag_datum(/datum/antagonist/hivemind)
 				throwtarget = get_edge_target_turf(src, get_dir(src, get_step_away(user, src)))

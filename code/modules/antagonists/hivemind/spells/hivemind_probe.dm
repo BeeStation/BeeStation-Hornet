@@ -29,7 +29,7 @@
 				continue
 			if(M.current == user)
 				continue
-			if(enemy.owner == M && target.is_real_hivehost())
+			if(enemy.owner == M && is_hivehost(target))
 				detected = TRUE
 				var/atom/throwtarget
 				var/datum/antagonist/hivemind/hivetarget = target.mind.has_antag_datum(/datum/antagonist/hivemind)

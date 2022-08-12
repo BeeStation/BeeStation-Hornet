@@ -26,21 +26,6 @@ GLOBAL_LIST_EMPTY(hivehosts)
 		return
 	return M.mind.has_antag_datum(/datum/antagonist/hivemind)
 
-/mob/living/proc/is_real_hivehost()
-	for(var/datum/antagonist/hivemind/hive as() in GLOB.hivehosts)
-		if(!hive.owner?.spell_list)
-			continue
-	return FALSE
-
-/mob/living/proc/get_real_hivehost() //Returns src
-	var/mob/living/M = src
-	if(!M)
-		return
-	if(!is_hivehost(M) || is_real_hivehost(M))
-		return M
-
-	return M
-
 /proc/is_hivemember(mob/living/L)
 	if(!L)
 		return FALSE

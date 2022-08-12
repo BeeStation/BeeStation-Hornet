@@ -22,7 +22,7 @@
 			continue
 		target.Jitter(14)
 		target.apply_damage(35 + rand(0,15), STAMINA, target.get_bodypart(BODY_ZONE_HEAD))
-		if(target.is_real_hivehost())
+		if(is_hivehost(target))
 			continue
 		if(prob(20))
 			var/text = pick(";HELP!","I'm losing control of the situation!!","Get me outta here!")
