@@ -23,6 +23,7 @@
 #define ROLE_SERVANT_OF_RATVAR	"Servant of Ratvar"
 #define ROLE_HERETIC			"Heretic"
 #define ROLE_BLOB				"Blob"
+#define ROLE_BLOB_INFECTION		"Blob Infection"
 #define ROLE_NINJA				"Space Ninja"
 #define ROLE_ABDUCTOR			"Abductor"
 #define ROLE_REVENANT			"Revenant"
@@ -62,6 +63,7 @@ GLOBAL_LIST_INIT(special_roles, list(
 	ROLE_CULTIST = /datum/game_mode/cult,
 	ROLE_SERVANT_OF_RATVAR = /datum/game_mode/clockcult,
 	ROLE_BLOB,
+	ROLE_BLOB_INFECTION,
 	ROLE_NINJA,
 	ROLE_OBSESSED,
 	ROLE_REVENANT,

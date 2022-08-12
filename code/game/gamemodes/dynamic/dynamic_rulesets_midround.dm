@@ -375,7 +375,8 @@
 	name = "Blob Infection"
 	midround_ruleset_style = MIDROUND_RULESET_STYLE_HEAVY
 	antag_datum = /datum/antagonist/blob
-	antag_flag = ROLE_BLOB
+	antag_flag = ROLE_BLOB_INFECTION
+	antag_flag_override = ROLE_BLOB
 	protected_roles = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_DETECTIVE, JOB_NAME_WARDEN, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN)
 	restricted_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG, "Positronic Brain")
 	enemy_roles = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_DETECTIVE, JOB_NAME_WARDEN, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN)
