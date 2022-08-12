@@ -36,6 +36,11 @@
 	path = /obj/item/clothing/neck/stripedbluescarf
 	cost = 1200
 
+/datum/gear/accessory/scarf/stripedgreen
+	display_name = "scarf, striped green"
+	path = /obj/item/clothing/neck/stripedgreenscarf
+	cost = 1200
+
 //armbands
 /datum/gear/accessory/armband_red
 	display_name = "armband, red"
