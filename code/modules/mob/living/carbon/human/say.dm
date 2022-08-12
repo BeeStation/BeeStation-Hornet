@@ -1,10 +1,10 @@
 /mob/living/carbon/human/say_mod(input, list/message_mods = list())
 	var/obj/item/organ/tongue/T = getorganslot(ORGAN_SLOT_TONGUE)
 	if(T)
-		verb_say = PICK_ONE(T.say_mod)
-		verb_ask = PICK_ONE(T.ask_mod)  // cant believe nobody coded this yet - ether
-		verb_yell = PICK_ONE(T.yell_mod)
-		verb_exclaim = PICK_ONE(T.exclaim_mod)
+		verb_say = pick(T.say_mod)
+		verb_ask = pick(T.ask_mod)  // cant believe nobody coded this yet - ether
+		verb_yell = pick(T.yell_mod)
+		verb_exclaim = pick(T.exclaim_mod)
 	if(slurring || !T)
 		return "slurs"
 	else
