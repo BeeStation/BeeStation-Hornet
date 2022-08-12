@@ -70,7 +70,8 @@
 		//Disable autopilot
 		shuttle_data.try_override_pilot()
 		//Start processing the AI pilot (Combat mode)
-		START_PROCESSING(SSorbits, shuttle_data.ai_pilot)
+		if(shuttle_data.ai_pilot)
+			START_PROCESSING(SSorbits, shuttle_data.ai_pilot)
 	port = null
 	can_dock_with = null
 	docking_target = null
