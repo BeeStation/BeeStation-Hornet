@@ -19,8 +19,6 @@
 	var/cooldown = 0
 	var/thruster_active = FALSE
 	var/needs_heater = TRUE
-	var/has_fuel = FALSE
-	var/requires_fuel = FALSE
 
 /obj/machinery/shuttle/engine/Initialize(mapload)
 	. = ..()
@@ -54,7 +52,7 @@
 		icon_state = icon_state_closed
 		set_active(TRUE)
 		return
-	if((!idle_power_usage || !(stat & NOPOWER)) && (has_fuel || !requires_fuel))
+	if((!idle_power_usage || !(stat & NOPOWER)))
 		icon_state = icon_state_closed
 		set_active(TRUE)
 	else
@@ -110,16 +108,24 @@
 	thrust = 120
 	fuel_use = 0.24
 	cooldown = 45
-	requires_fuel = TRUE
 	var/datum/weakref/attached_heater
+	var/cached_efficiency = -1
 
 /obj/machinery/shuttle/engine/plasma/consume_fuel(amount)
 	if(!attached_heater)
 		return
 	var/obj/machinery/atmospherics/components/unary/shuttle/engine_heater/shuttle_heater = attached_heater.resolve()
 	shuttle_heater.consumeFuel(amount * fuel_use)
+	if(cached_efficiency != shuttle_heater.get_gas_multiplier())
+		cached_efficiency = shuttle_heater.get_gas_multiplier()
+		if(!thruster_active)
+			thrust = initial(thrust) * cached_efficiency
+			return
+		set_active(FALSE)
+		thrust = initial(thrust) * cached_efficiency
+		set_active(TRUE)
 	//Adjust thrust amount based on gas mixture
-	thrust = initial(thrust) * shuttle_heater.get_gas_multiplier()
+	//thrust = initial(thrust) *
 
 /obj/machinery/shuttle/engine/plasma/get_fuel_amount()
 	if(!attached_heater)
