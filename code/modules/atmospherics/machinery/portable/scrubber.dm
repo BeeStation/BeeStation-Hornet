@@ -1,5 +1,6 @@
 /obj/machinery/portable_atmospherics/scrubber
 	name = "portable air scrubber"
+	desc = "A small portable scrubber, which removes bad gasses from the surrounding air."
 	icon_state = "pscrubber:0"
 	density = TRUE
 

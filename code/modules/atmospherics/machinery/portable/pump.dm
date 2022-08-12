@@ -6,6 +6,7 @@
 
 /obj/machinery/portable_atmospherics/pump
 	name = "portable air pump"
+	desc = "A small movable pump, for fast air deployment."
 	icon_state = "psiphon:0"
 	density = TRUE
 
