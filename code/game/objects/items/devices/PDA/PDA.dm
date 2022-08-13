@@ -1032,7 +1032,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 
 			if(PDA_SCANNER_MEDICAL)
 				C.visible_message("<span class='alert'>[user] has analyzed [C]'s vitals!</span>")
-				healthscan(user, C, 1)
+				healthscan(user, C, 0)
 				add_fingerprint(user)
 
 			if(PDA_SCANNER_HALOGEN)

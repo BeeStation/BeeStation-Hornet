@@ -104,7 +104,8 @@
 	backpack_contents = list(/obj/item/storage/box/engineer=1,
 		/obj/item/melee/baton/loaded=1,
 		/obj/item/reagent_containers/hypospray/combat=1,
-		/obj/item/gun/medbeam=1)
+		/obj/item/gun/medbeam=1,
+		/obj/item/healthanalyzer/cmo=1)
 
 /datum/outfit/ert/medic/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
@@ -124,7 +125,8 @@
 		/obj/item/melee/baton/loaded=1,
 		/obj/item/gun/energy/pulse/pistol/loyalpin=1,
 		/obj/item/reagent_containers/hypospray/combat/nanites=1,
-		/obj/item/gun/medbeam=1)
+		/obj/item/gun/medbeam=1,
+		/obj/item/healthanalyzer/cmo=1)
 
 /datum/outfit/ert/engineer
 	name = "ERT Engineer"
@@ -223,7 +225,8 @@
 		/obj/item/melee/baton/loaded=1,
 		/obj/item/reagent_containers/hypospray/combat=1,
 		/obj/item/reagent_containers/hypospray/combat/heresypurge=1,
-		/obj/item/gun/medbeam=1)
+		/obj/item/gun/medbeam=1,
+		/obj/item/healthanalyzer/cmo=1)
 
 /datum/outfit/ert/chaplain/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()

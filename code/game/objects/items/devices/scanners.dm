@@ -10,6 +10,13 @@ NANITE SCANNER
 GENE SCANNER
 
 */
+
+#define BRAIN_DAMAGE_DETECT_THRESHOLD 100
+#define BRAIN_SCAN_POWER_CMO 5
+#define BRAIN_SCAN_POWER_ADV 2
+#define BRAIN_SCAN_POWER_BASIC 1.25
+#define BRAIN_SCAN_POWER_POOR 1
+
 /obj/item/t_scanner
 	name = "\improper T-ray scanner"
 	desc = "A terahertz-ray emitter and scanner used to detect underfloor objects such as cables and pipes."
@@ -89,6 +96,8 @@ GENE SCANNER
 	materials = list(/datum/material/iron=200)
 	var/scanmode = 0
 	var/advanced = FALSE
+	var/brain_scan_power = BRAIN_SCAN_POWER_BASIC // higher it is, easier it can detect brain damage. Calculation: `Threshold(100) / scan power` If power is 4, It only needs 25 brain damage to detect
+	// Since there're some non-analyzers in the game(like nanite scan), health alayzer will more than 80 brain damage by 1.25 power
 
 /obj/item/healthanalyzer/suicide_act(mob/living/carbon/user)
 	user.visible_message("<span class='suicide'>[user] begins to analyze [user.p_them()]self with [src]! The display shows that [user.p_theyre()] dead!</span>")
@@ -120,7 +129,7 @@ GENE SCANNER
 						"<span class='notice'>You analyze [M]'s vitals.</span>")
 
 	if(scanmode == 0)
-		healthscan(user, M, advanced=advanced)
+		healthscan(user, M, advanced=advanced, brain_scan_power=brain_scan_power)
 	else if(scanmode == 1)
 		chemscan(user, M)
 
@@ -128,7 +137,7 @@ GENE SCANNER
 
 
 // Used by the PDA medical scanner too
-/proc/healthscan(mob/user, mob/living/M, mode = 1, advanced = FALSE)
+/proc/healthscan(mob/user, mob/living/M, mode = 1, advanced = FALSE, brain_scan_power=BRAIN_SCAN_POWER_POOR)
 	if(isliving(user) && (user.incapacitated() || user.eye_blind))
 		return
 	//Damage specifics
@@ -170,30 +179,43 @@ GENE SCANNER
 		to_chat(user, "\t<span class='alert'>Subject lacks a brain.</span>")
 	if(iscarbon(M))
 		var/mob/living/carbon/C = M
-		if(advanced)
-			if(LAZYLEN(C.get_traumas()))
-				var/list/trauma_text = list()
-				for(var/datum/brain_trauma/B in C.get_traumas())
-					var/trauma_desc = ""
-					switch(B.resilience)
-						if(TRAUMA_RESILIENCE_SURGERY)
+		if(LAZYLEN(C.get_traumas()))
+			var/list/trauma_text = list()
+			for(var/datum/brain_trauma/B in C.get_traumas())
+				var/trauma_desc = ""
+				var/has_traumas = FALSE
+				switch(B.resilience)
+					if(TRAUMA_RESILIENCE_BASIC)
+						if(brain_scan_power >= BRAIN_SCAN_POWER_CMO)
+							trauma_desc += ""
+							has_traumas = TRUE
+					if(TRAUMA_RESILIENCE_SURGERY)
+						if(brain_scan_power >= BRAIN_SCAN_POWER_CMO)
 							trauma_desc += "severe "
-						if(TRAUMA_RESILIENCE_LOBOTOMY)
+							has_traumas = TRUE
+					if(TRAUMA_RESILIENCE_LOBOTOMY)
+						if(brain_scan_power >= BRAIN_SCAN_POWER_ADV)
 							trauma_desc += "deep-rooted "
-						if(TRAUMA_RESILIENCE_MAGIC, TRAUMA_RESILIENCE_ABSOLUTE)
+							has_traumas = TRUE
+					if(TRAUMA_RESILIENCE_MAGIC, TRAUMA_RESILIENCE_ABSOLUTE)
+						if(brain_scan_power >= BRAIN_SCAN_POWER_BASIC) // Poor level won't detect perma traumas even
 							trauma_desc += "permanent "
+							has_traumas = TRUE
+				if(has_traumas)
 					trauma_desc += B.scan_desc
 					trauma_text += trauma_desc
+			if(length(trauma_text))
 				to_chat(user, "\t<span class='alert'>Cerebral traumas detected: subject appears to be suffering from [english_list(trauma_text)].</span>")
-		var/brain_damage_text = ""
-		switch(M.getOrganLoss(ORGAN_SLOT_BRAIN))
-			if(advanced)
-				brain_damage_text = prob(M.getOrganLoss(ORGAN_SLOT_BRAIN)/2) ? "Abnormal detected" : "Normal" // 50 brain damage = 25% chance to detect
-			else
-				brain_damage_text = prob(M.getOrganLoss(ORGAN_SLOT_BRAIN)/0.5) ? "Abnormal detected" : "Normal" // 50 brain damage = 75% chance to detect
-		to_chat(user, "\t<span class='info'>Brain Activity Estimiation: [brain_damage_text].</span>")
+
+		var/brain_damage_text = "Normal"
+		if(brain_scan_power >= 1000) // ghost purpose
+			brain_damage_text = M.getOrganLoss(ORGAN_SLOT_BRAIN)
+		else if(M.getOrganLoss(ORGAN_SLOT_BRAIN) >= BRAIN_DAMAGE_DETECT_THRESHOLD / brain_scan_power)
+			brain_damage_text = "</span><span class='alert'>Abnormal</span><span class='info'>"
+		to_chat(user, "\t<span class='info'>Brain Activity Evaluation: [brain_damage_text].</span>")
+
 		if(C.roundstart_quirks.len)
-			to_chat(user, "\t<span class='info'>Subject has the following physiological traits: [C.get_trait_string()].</span>")
+			to_chat(user, "\t<span class='info'>Subject has the following physiological traits: [C.get_trait_string()]</span>")
 
 	if(M.radiation)
 		to_chat(user, "\t<span class='alert'>Subject is irradiated.</span>")
@@ -292,6 +314,8 @@ GENE SCANNER
 		//Piece together the lists to be reported
 		for(var/O in H.internal_organs)
 			var/obj/item/organ/organ = O
+			if(istype(O, /obj/item/organ/brain))
+				continue
 			if(organ.organ_flags & ORGAN_FAILING)
 				report_organs = TRUE	//if we report one organ, we report all organs, even if the lists are empty, just for consistency
 				if(max_damage)
@@ -435,6 +459,14 @@ GENE SCANNER
 	icon_state = "health_adv"
 	desc = "A hand-held body scanner able to distinguish vital signs of the subject with high accuracy."
 	advanced = TRUE
+	brain_scan_power = BRAIN_SCAN_POWER_ADV // 50 brain damage to detect
+
+/obj/item/healthanalyzer/cmo
+	name = "nanotrasen neurotrauma health analyzer"
+	icon_state = "health_cmo" // The spriter of this is a coder rather than a real spriter. Feel free to change its sprite
+	desc = "A hand-held body scanner that is built in Nanotrasen's finest medical science architecture, able to detect brain and traumas of the subject with exceptional accuracy."
+	advanced = TRUE
+	brain_scan_power = BRAIN_SCAN_POWER_CMO // 20 brain damage to detect
 
 /obj/item/analyzer
 	desc = "A hand-held environmental scanner which reports current gas levels. Alt-Click to use the built in barometer function."
@@ -1042,3 +1074,9 @@ GENE SCANNER
 	user.put_in_hands(B)
 	playsound(src, 'sound/machines/ping.ogg', 30, TRUE)
 	return TRUE
+
+#undef BRAIN_DAMAGE_DETECT_THRESHOLD
+#undef BRAIN_SCAN_POWER_CMO
+#undef BRAIN_SCAN_POWER_ADV
+#undef BRAIN_SCAN_POWER_BASIC
+#undef BRAIN_SCAN_POWER_POOR
