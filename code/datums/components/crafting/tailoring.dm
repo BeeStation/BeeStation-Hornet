@@ -144,6 +144,25 @@
 	blacklist = list(/obj/item/clothing/glasses/science/sciencesun/degraded)
 	category = CAT_EYEWEAR
 
+/datum/crafting_recipe/sunhudmeson
+	name = "Meson Sunglasses"
+	result = /obj/item/clothing/glasses/meson/sun
+	time = 20
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	reqs = list(/obj/item/clothing/glasses/meson = 1,
+				/obj/item/clothing/glasses/sunglasses/advanced = 1,
+				/obj/item/stack/cable_coil = 5)
+	category = CAT_EYEWEAR
+
+/datum/crafting_recipe/sunhudmesonremoval
+	name = "Meson Sunglasses removal"
+	result = /obj/item/clothing/glasses/sunglasses/advanced
+	time = 20
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	reqs = list(/obj/item/clothing/glasses/science/meson/sun = 1)
+	blacklist = list(/obj/item/clothing/glasses/science/sciencesun/degraded)
+	category = CAT_EYEWEAR
+
 /datum/crafting_recipe/deghudsunsec
 	name = "Degraded Security HUDsunglasses"
 	result = /obj/item/clothing/glasses/hud/security/sunglasses/degraded
@@ -214,6 +233,24 @@
 	time = 20
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
 	reqs = list(/obj/item/clothing/glasses/science/sciencesun/degraded = 1)
+	category = CAT_EYEWEAR
+
+/datum/crafting_recipe/degsunhudmeson
+	name = "Degraded Meson Sunglasses"
+	result = /obj/item/clothing/glasses/meson/sun/degraded
+	time = 20
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	reqs = list(/obj/item/clothing/glasses/meson = 1,
+				/obj/item/clothing/glasses/sunglasses = 1,
+				/obj/item/stack/cable_coil = 5)
+	category = CAT_EYEWEAR
+
+/datum/crafting_recipe/degsunhudmesonremoval
+	name = "Degraded Meson Sunglasses removal"
+	result = /obj/item/clothing/glasses/sunglasses
+	time = 20
+	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
+	reqs = list(/obj/item/clothing/glasses/meson/sun/degraded = 1)
 	category = CAT_EYEWEAR
 
 /datum/crafting_recipe/hudpresmed

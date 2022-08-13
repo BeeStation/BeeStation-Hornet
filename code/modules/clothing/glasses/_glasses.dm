@@ -105,6 +105,17 @@
 	item_state = "glasses"
 	vision_correction = 1
 
+/obj/item/clothing/glasses/meson/sun
+	name = "meson sunglasses"
+	desc = "A set of sunglasses, upgraded with meson tech!"
+	icon_state = "sunhudmeson"
+	item_state = "sunhudscience"
+	flash_protect = 1
+
+/obj/item/clothing/glasses/meson/sun/degraded
+	name = "degraded meson sunglasses"
+	flash_protect = 0
+
 /obj/item/clothing/glasses/science
 	name = "science goggles"
 	desc = "A pair of snazzy goggles used to protect against chemical spills. Fitted with an analyzer for scanning items and reagents."
