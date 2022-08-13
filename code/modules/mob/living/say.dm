@@ -335,6 +335,11 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	if(!IsVocal())
 		return FALSE
 
+	if(isipc(src))
+		var/mob/living/carbon/target = src
+		if(!target.getorganslot(ORGAN_SLOT_TONGUE))
+			return FALSE  // who stole my soundblaster?!
+
 	return TRUE
 
 /mob/living/proc/treat_message(message)
