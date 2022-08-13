@@ -44,5 +44,3 @@ GLOBAL_PROTECT(topic_servers)
 
 // wizard stuff
 GLOBAL_VAR_INIT(magical_access, FALSE)
-GLOBAL_VAR_INIT(magical_access_recursive, FALSE)
-GLOBAL_VAR_INIT(same_intent_recursive, FALSE)

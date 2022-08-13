@@ -300,11 +300,15 @@
   *
   * Input the intent as a string such as "help" or use "right"/"left
   */
-/mob/verb/a_intent_change(input as text)
+/mob/verb/a_intent_change(input as text, force=FALSE as null)
 	set name = "a-intent"
 	set hidden = 1
 
 	if(!possible_a_intents || !possible_a_intents.len)
+		return
+
+	if(HAS_TRAIT(src, TRAIT_INTENT_LOCKED) && !force)
+		to_chat(src, "<span class='warning'>You can't change your intent!</span>")
 		return
 
 	if(input in possible_a_intents)

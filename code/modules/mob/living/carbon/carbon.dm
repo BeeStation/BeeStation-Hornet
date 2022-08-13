@@ -295,6 +295,7 @@
 		if (W)
 			W.forceMove(drop_location())
 			W.dropped(src)
+			. = TRUE
 			if (W)
 				W.layer = initial(W.layer)
 				W.plane = initial(W.plane)
@@ -308,6 +309,7 @@
 		if (W)
 			W.forceMove(drop_location())
 			W.dropped(src)
+			. = TRUE
 			if (W)
 				W.layer = initial(W.layer)
 				W.plane = initial(W.plane)
@@ -898,14 +900,14 @@
 					else
 						to_chat(usr, "Only humans can be augmented.")
 		admin_ticket_log("[key_name_admin(usr)] has modified the bodyparts of [src]")
-	
+
 	if(href_list[VV_HK_MAKE_AI])
 		if(!check_rights(R_SPAWN))
 			return
 		if(alert("Confirm mob type change?",,"Transform","Cancel") != "Transform")
 			return
 		usr.client.holder.Topic("vv_override", list("makeai"=href_list[VV_HK_TARGET]))
-	
+
 	if(href_list[VV_HK_MODIFY_ORGANS] && check_rights(R_FUN|R_DEBUG))
 		usr.client.manipulate_organs(src)
 

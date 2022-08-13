@@ -188,7 +188,7 @@
 
 /datum/spellbook_entry/knock
 	name = "Knock"
-	spell_type = /obj/effect/proc_holder/spell/aoe_turf/knock
+	spell_type = /obj/effect/proc_holder/spell/knock
 	category = "Mobility"
 	cost = 1
 
@@ -269,6 +269,13 @@
 	name = "Lesser Summon Bees"
 	spell_type = /obj/effect/proc_holder/spell/aoe_turf/conjure/creature/bee
 	category = "Defensive"
+
+/datum/spellbook_entry/intent_changer
+	name = "Meme Mentality"
+	spell_type = /obj/effect/proc_holder/spell/targeted/intent_changer
+	category = "Defensive"
+	cost = 1
+
 
 /datum/spellbook_entry/item
 	name = "Buy Item"
@@ -569,6 +576,7 @@
 	name = "Advent Ritual of Saint Anarchismea"
 	desc = "Seeks the Saint Anarchismea's spirit and summons them onto the station. Access requirement of every electronic in the station will be magically bypassed, but also every ID card gets AA. an ID card without AA will get it again, so latecomers will get the same so that they won't lose their chance to get the blessing of Saint Anarchismea."
 	cost = 2
+	var/static/recursive = FALSE
 
 /datum/spellbook_entry/summon/magical_access/Buy(mob/living/carbon/human/user, obj/item/spellbook/book)
 	SSblackbox.record_feedback("tally", "wizard_spell_learned", 1, name)
@@ -579,7 +587,6 @@
 	message_admins("[ADMIN_LOOKUPFLW(user)] cast 'Advent Ritual of Saint Anarchismea' and everyone gets AA from now.")
 	log_game("[key_name(user)] cast 'Advent Ritual of Saint Anarchismea' and everyone gets AA from now.")
 	GLOB.magical_access = TRUE
-	GLOB.magical_access_recursive = TRUE
 
 	for(var/mob/living/H in GLOB.player_list)
 		to_chat(H, "<span class='nicegreen'>You feel a holy spirit's blessing... You feel you can go anywhere you want to go.</span>")
@@ -588,56 +595,13 @@
 	return TRUE
 
 /datum/spellbook_entry/summon/magical_access/proc/spell_recursive()
-	if(!GLOB.magical_access_recursive)
+	if(!recursive)
 		qdel(src)
 		return
 
 	for(var/obj/item/card/id/I in GLOB.id_cards)
 		I.get_magical_access()
  	// this happens recursively to help you when your ID card access is wiped by a mean HoP or something somehow
-	addtimer(CALLBACK(src, .proc/spell_recursive), 60 SECONDS)
-
-/datum/spellbook_entry/summon/same_intent
-	name = "Curse of Intent Alignment"
-	desc = "Curse everyone(even you too) with the chosen intent. Select an intent, then everyone's intent will become what you chose regardless of where they are for every minute. This is not revertable, so choose an intent wisely."
-	cost = 2
-	var/target_intent = INTENT_HELP
-	var/static/options = list(
-		"Help" = INTENT_HELP,
-		"Disarm" = INTENT_DISARM,
-		"Grab" = INTENT_GRAB,
-		"Harm" = INTENT_HARM
-	)
-
-/datum/spellbook_entry/summon/same_intent/Buy(mob/living/carbon/human/user, obj/item/spellbook/book)
-	SSblackbox.record_feedback("tally", "wizard_spell_learned", 1, name)
-	active = TRUE
-
-	target_intent = options[input(user, "Select an intent! Cancel will choose one randomly.", "Curse of Intent Alignment") as null|anything in options]
-	if(!target_intent)
-		target_intent = options[pick(options)]
-
-	to_chat(user, "<span class='notice'>You have cast Curse of Intent Alignment!</span>")
-	playsound(user, 'sound/magic/clockwork/invoke_general.ogg', 50, 1)
-	message_admins("[ADMIN_LOOKUPFLW(user)] cast the Curse of Intent Alignment. Everyone's intent is now [target_intent].")
-	log_game("[key_name(user)] cast the Curse of Intent Alignment. Everyone's intent is now [target_intent].")
-
-	GLOB.same_intent_recursive = TRUE
-	var/datum/spellbook_entry/summon/same_intent/dummy = new /datum/spellbook_entry/summon/same_intent // this will go recursive even if the book is gone
-	dummy.spell_recursive()
-	return TRUE
-
-/datum/spellbook_entry/summon/same_intent/proc/spell_recursive()
-	if(!GLOB.same_intent_recursive)
-		qdel(src)
-		return
-
-	for(var/mob/living/carbon/human/H in GLOB.player_list)
-		if(!H.anti_magic_check())
-			addtimer(CALLBACK(H, /mob/verb/a_intent_change, target_intent), 1)
-		else
-			to_chat(H, "<span class='notice'>You notice a holy power protected you from a bizarre urge to change your intent.</span>")
-
 	addtimer(CALLBACK(src, .proc/spell_recursive), 60 SECONDS)
 
 #undef MINIMUM_THREAT_FOR_RITUALS

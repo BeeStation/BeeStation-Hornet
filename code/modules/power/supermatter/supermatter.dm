@@ -297,6 +297,11 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 
 	qdel(src)
 
+/obj/machinery/power/supermatter_crystal/proc/delamination_event_test()
+	var/can_spawn_anomalies = is_station_level(loc.z) && is_main_engine && anomaly_event
+	new /datum/supermatter_delamination(POWER_PENALTY_THRESHOLD*1.5, MOLE_PENALTY_THRESHOLD*1.5, get_turf(src), explosion_power, gasmix_power_ratio, can_spawn_anomalies)
+	qdel(src)
+
 //this is here to eat arguments
 /obj/machinery/power/supermatter_crystal/proc/call_delamination_event()
 	SIGNAL_HANDLER
