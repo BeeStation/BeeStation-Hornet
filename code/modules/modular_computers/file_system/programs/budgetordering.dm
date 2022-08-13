@@ -1,12 +1,14 @@
 /datum/computer_file/program/budgetorders
 	filename = "orderapp"
 	filedesc = "Nanotrasen Internal Requisition Network (NIRN)"
+	category = PROGRAM_CATEGORY_SUPL
 	program_icon_state = "request"
 	extended_desc = "A request network that utilizes the Nanotrasen Ordering network to purchase supplies using a department budget account."
 	requires_ntnet = TRUE
 	usage_flags = PROGRAM_LAPTOP | PROGRAM_TABLET
 	size = 20
 	tgui_id = "NtosCargo"
+	program_icon = "credit-card"
 	//Are you actually placing orders with it?
 	var/requestonly = TRUE
 	//Can the tablet see or buy illegal stuff?
@@ -16,9 +18,9 @@
 	//Can this console approve purchase requests?
 	var/can_approve_requests = FALSE
 	//What do we say when the shuttle moves with living beings on it.
-	var/safety_warning = "For safety reasons, the automated supply shuttle \
+	var/safety_warning = "For safety and ethical reasons, the automated supply shuttle \
 		cannot transport live organisms, human remains, classified nuclear weaponry, \
-		homing beacons or machinery housing any form of artificial intelligence."
+		homing beacons, mail, or machinery housing any form of artificial intelligence."
 	//If you're being raided by pirates, what do you tell the crew?
 	var/blockade_warning = "Bluespace instability detected. Shuttle movement impossible."
 
@@ -34,7 +36,7 @@
 		var/obj/item/computer_hardware/card_slot/card_slot = computer.all_components[MC_CARD]
 		id = card_slot?.GetID()
 	return id ? id : FALSE
-	
+
 /datum/computer_file/program/budgetorders/proc/is_visible_pack(mob/user, var/contraband)
 	if(issilicon(user)) //Borgs can't buy things.
 		return FALSE
@@ -54,7 +56,7 @@
 	if(get_buyer_id(user))
 		if((ACCESS_HEADS in id_card.access) || (ACCESS_QM in id_card.access))
 			requestonly = FALSE
-			buyer = SSeconomy.get_dep_account(id_card.registered_account.account_job.paycheck_department)
+			buyer = SSeconomy.get_dep_account(id_card.registered_account.account_department)
 			can_approve_requests = TRUE
 		else
 			requestonly = TRUE
@@ -213,7 +215,7 @@
 					computer.say("The application rejects [id_card].")
 					return
 				else
-					account = SSeconomy.get_dep_account(id_card?.registered_account?.account_job.paycheck_department)
+					account = SSeconomy.get_dep_account(id_card?.registered_account?.account_department)
 
 			var/turf/T = get_turf(src)
 			var/datum/supply_order/SO = new(pack, name, rank, ckey, reason, account)
@@ -241,7 +243,7 @@
 				if(SO.id == id)
 					var/obj/item/card/id/id_card = get_buyer_id(usr)
 					if(id_card && id_card?.registered_account)
-						SO.paying_account = SSeconomy.get_dep_account(id_card?.registered_account?.account_job.paycheck_department)
+						SO.paying_account = SSeconomy.get_dep_account(id_card?.registered_account?.account_department)
 					SSshuttle.requestlist -= SO
 					SSshuttle.shoppinglist += SO
 					. = TRUE
