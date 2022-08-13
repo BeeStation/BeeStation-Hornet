@@ -159,7 +159,7 @@
 	result = /obj/item/clothing/glasses/sunglasses/advanced
 	time = 20
 	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
-	reqs = list(/obj/item/clothing/glasses/science/meson/sun = 1)
+	reqs = list(/obj/item/clothing/glasses/meson/sun = 1)
 	blacklist = list(/obj/item/clothing/glasses/science/sciencesun/degraded)
 	category = CAT_EYEWEAR
 
