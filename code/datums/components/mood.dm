@@ -374,10 +374,8 @@
 	SIGNAL_HANDLER
 
 	var/job_check = A.mood_job.len ? FALSE : TRUE  // no list means no restrictions
-	to_chat(source, job_check)
 	if(ishuman(source) && !job_check)  // if it hasnt already passed, go forward
 		var/mob/living/carbon/human/target = source
-		to_chat(source, target.mind.assigned_role)
 		if(target.mind?.assigned_role in A.mood_job)
 			job_check = TRUE
 
