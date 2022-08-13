@@ -126,6 +126,7 @@
 	reagent_flags = DRAWABLE
 	flags_1 = null
 	list_reagents = list(/datum/reagent/medicine/epinephrine = 10, /datum/reagent/toxin/formaldehyde = 3)
+	var/list/fake_reagents = list()  // if set, will be displayed on examine instead of list_reagents
 	custom_price = 40
 
 /obj/item/reagent_containers/hypospray/medipen/suicide_act(mob/living/carbon/user)
@@ -151,10 +152,26 @@
 
 /obj/item/reagent_containers/hypospray/medipen/examine()
 	. = ..()
-	if(reagents && reagents.reagent_list.len)
-		. += "<span class='notice'>It is currently loaded.</span>"
-	else
-		. += "<span class='notice'>It is spent.</span>"
+	var/display_reagents = fake_reagents.len ? fake_reagents : reagent_list
+	if(length(reagents?.display_reagents))
+		var/reagent_text = ""
+
+		if(length(reagents.display_reagents) == 1)
+			var/datum/reagent/first = reagents.display_reagents[1]
+			reagent_text = first.name
+
+		else
+			var/len = reagents.display_reagents.len
+			var/list/reagent_names_list = list()
+			for(var/i in 1 to (len - 2))
+				var/datum/reagent/reagent_object = reagents.display_reagents[i]
+				reagent_names_list += "[reagent_object.name], "
+			var/datum/reagent/last_reagent = reagents.display_reagents[len]
+			var/datum/reagent/second_to_last_reagent = reagents.display_reagents[len - 1]
+			reagent_names_list += "[second_to_last_reagent.name] and [last_reagent.name]"
+			reagent_text = reagent_names_list.Join("")
+
+		. += span_notice("Theres a small holowarning on the side which reads, 'WARNING: This [src] contains [reagent_text]. Do not use if allergic to any listed chemicals.' in small text.")
 
 /obj/item/reagent_containers/hypospray/medipen/stimpack //goliath kiting
 	name = "stimpack medipen"
