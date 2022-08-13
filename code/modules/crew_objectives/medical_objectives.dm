@@ -14,11 +14,11 @@
 			return ..()
 	return TRUE
 
-/datum/objective/crew/emtmorgue
+/datum/objective/crew/paramedicmorgue
 	explanation_text = "Ensure that no corpses remain outside of Medbay when the shift ends."
 	jobs = "paramedic"
 
-/datum/objective/crew/emtmorgue/check_completion()
+/datum/objective/crew/paramedicmorgue/check_completion()
 	var/list/medical_areas_morgue = typecacheof(list(/area/medical/cryo, /area/medical/genetics/cloning, /area/medical/exam_room,
 		/area/medical/medbay/aft, /area/medical/medbay/central, /area/medical/medbay/lobby, /area/medical/patients_rooms,
 		/area/medical/sleeper, /area/medical/storage, /area/medical/morgue))

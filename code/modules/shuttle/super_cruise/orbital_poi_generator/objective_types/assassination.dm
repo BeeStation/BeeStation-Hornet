@@ -6,8 +6,8 @@
 	var/tank_type = /obj/item/tank/internals/oxygen
 	var/mask_type = /obj/item/clothing/mask/gas
 	var/belt_type = /obj/item/storage/belt/utility/full
-	min_payout = 15000
-	max_payout = 40000
+	min_payout = 10000
+	max_payout = 30000
 
 /datum/orbital_objective/assassination/get_text()
 	return "We have located a hostile agent currently stranded at [station_name]. We need you to send in a team and eliminate the \

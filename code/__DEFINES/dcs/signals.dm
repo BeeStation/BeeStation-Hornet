@@ -338,6 +338,8 @@
 #define COMSIG_ITEM_DISABLE_EMBED "item_disable_embed"			///from [/obj/item/proc/disableEmbedding]:
 #define COMSIG_MINE_TRIGGERED "minegoboom"						///from [/obj/effect/mine/proc/triggermine]:
 
+#define COMSIG_ITEM_ATTACK_EFFECT "item_effect_attacked"
+
 // /obj/item/clothing signals
 #define COMSIG_SHOES_STEP_ACTION "shoes_step_action"			//! from base of obj/item/clothing/shoes/proc/step_action(): ()
 
@@ -364,6 +366,7 @@
 
 // /obj/item/radio signals
 #define COMSIG_RADIO_NEW_FREQUENCY "radio_new_frequency"		//! called from base of /obj/item/radio/proc/set_frequency(): (list/args)
+#define COMSIG_RADIO_MESSAGE "radio_message"
 
 // /obj/item/pen signals
 #define COMSIG_PEN_ROTATED "pen_rotated"						//! called after rotation in /obj/item/pen/attack_self(): (rotation, mob/living/carbon/user)
@@ -402,7 +405,14 @@
 #define COMSIG_CLEAR_MOOD_EVENT "clear_mood" //! Called when you clear a mood event from anywhere in the code.
 
 //NTnet
-#define COMSIG_COMPONENT_NTNET_RECEIVE "ntnet_receive"			//! called on an object by its NTNET connection component on receive. (sending_id(number), sending_netname(text), data(datum/netdata))
+#define COMSIG_COMPONENT_NTNET_RECEIVE "ntnet_receive"			/// called on an object by its NTNET connection component on receive. (data(datum/netdata))
+#define COMSIG_COMPONENT_NTNET_PORT_UPDATE "ntnet_port_update"	/// called on an object by its NTNET connection component on a port update (hardware_id, port))
+#define COMSIG_COMPONENT_NTNET_ACK "ntnet_ack"					/// called when packet was accepted by the target (datum/netdata, error_code)
+#define COMSIG_COMPONENT_NTNET_NAK "ntnet_nack"					/// called when packet was not acknoledged by the target (datum/netdata, error_code)
+
+// Some internal NTnet signals used on ports
+#define COMSIG_COMPONENT_NTNET_PORT_DESTROYED "ntnet_port_destroyed"	/// called on an object by its NTNET connection component on a port distruction (port, list/data))
+#define COMSIG_COMPONENT_NTNET_PORT_UPDATED "ntnet_port_updated"		/// called on an object by its NTNET connection component on a port distruction (port, list/data))
 
 //Nanites
 #define COMSIG_HAS_NANITES "has_nanites"						//() returns TRUE if nanites are found
@@ -604,3 +614,9 @@
 #define COMSIG_MOVELOOP_POSTPROCESS "moveloop_postprocess"
 //from [/datum/move_loop/has_target/jps/recalculate_path] ():
 #define COMSIG_MOVELOOP_JPS_REPATH "moveloop_jps_repath"
+
+// /obj/machinery/power/supermatter_crystal signals
+/// from /obj/machinery/power/supermatter_crystal/process_atmos(); when the SM delam reaches the point of sounding alarms
+#define COMSIG_SUPERMATTER_DELAM_START_ALARM "sm_delam_start_alarm"
+/// from /obj/machinery/power/supermatter_crystal/process_atmos(); when the SM sounds an audible alarm
+#define COMSIG_SUPERMATTER_DELAM_ALARM "sm_delam_alarm"

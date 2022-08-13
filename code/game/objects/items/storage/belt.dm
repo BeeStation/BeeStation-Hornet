@@ -71,7 +71,8 @@
 		/obj/item/construction/rcd,
 		/obj/item/pipe_dispenser,
 		/obj/item/inducer,
-		/obj/item/plunger
+		/obj/item/plunger,
+		/obj/item/airlock_painter
 		))
 	STR.can_hold = can_hold
 
