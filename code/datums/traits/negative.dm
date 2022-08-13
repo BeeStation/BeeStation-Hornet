@@ -481,15 +481,20 @@
 	gain_text = "<span class='danger'>You start worrying about what you're saying.</span>"
 	lose_text = "<span class='notice'>You feel more comftorable with talking again.</span>" //if only it were that easy! (second this - etherware)
 	medical_record_text = "Patient is usually anxious in social encounters and prefers to avoid them."
+	process = TRUE
 	var/dumb_thing = TRUE
 
 /datum/quirk/social_anxiety/on_process(delta_time)
+	to_chat(quirk_holder, "start process")
 	var/nearby_people = 0
-	for(var/mob/living/carbon/human/H in oview(3, quirk_holder))
+	for(var/mob/living/carbon/human/dump in oview(3, quirk_holder))
 		nearby_people++
+	to_chat(quirk_holder, delta_time)
+	to_chat(quirk_holder, nearby_people)  // debug
 	var/mob/living/carbon/human/H = quirk_holder
 	if(DT_PROB(2 + nearby_people, delta_time))
 		H.stuttering = max(3, H.stuttering)
+		to_chat(H, "stuttering triggered")  // debug
 	else if(DT_PROB(min(3, nearby_people), delta_time) && !H.silent)
 		to_chat(H, "<span class='danger'>You retreat into yourself. You <i>really</i> don't feel up to talking.</span>")
 		H.silent = max(10, H.silent)
