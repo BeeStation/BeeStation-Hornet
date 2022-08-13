@@ -1,6 +1,7 @@
 /datum/computer_file/program/aidiag
 	filename = "aidiag"
 	filedesc = "AI Integrity Restorer"
+	category = PROGRAM_CATEGORY_ROBO
 	program_icon_state = "generic"
 	extended_desc = "This program is capable of reconstructing damaged AI systems. Requires direct AI connection via intellicard slot."
 	size = 12
@@ -9,8 +10,7 @@
 	transfer_access = ACCESS_HEADS
 	available_on_ntnet = TRUE
 	tgui_id = "NtosAiRestorer"
-
-
+	program_icon = "laptop-code"
 	/// Variable dictating if we are in the process of restoring the AI in the inserted intellicard
 	var/restoring = FALSE
 
@@ -49,7 +49,7 @@
 			if(computer.all_components[MC_AI])
 				var/obj/item/computer_hardware/ai_slot/ai_slot = computer.all_components[MC_AI]
 				if(ai_slot?.stored_card)
-					ai_slot.try_eject(0,usr)
+					ai_slot.try_eject(usr)
 					return TRUE
 
 /datum/computer_file/program/aidiag/process_tick()
