@@ -35,7 +35,8 @@
 /obj/effect/proc_holder/spell/targeted/intent_changer/process(delta_time)
 	..()
 	for(var/i in 1 to length(current_victims))
-		ADD_TRAIT(current_victims[i], TRAIT_INTENT_LOCKED, MAGIC_TRAIT)
+		var/mob/living/L = current_victims[i]
+		ADD_TRAIT(L, TRAIT_INTENT_LOCKED, MAGIC_TRAIT)
 		victim_duration[i] -= delta_time * 10
 		if(victim_duration[i] <= 0)
 			free_victim(current_victims[i])
