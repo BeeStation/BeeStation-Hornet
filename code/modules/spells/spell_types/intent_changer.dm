@@ -3,15 +3,15 @@
 	desc = "Targets all people in your view and change their intent into yours, and locks their intent for 15 seconds."
 	school = "enchantment"
 	charge_type = "recharge"
-	charge_max	= 40 SECONDS
-	cooldown_min = 25 SECONDS
+	charge_max	= 1 SECONDS
+	cooldown_min = 1 SECONDS
 	level_max = 3 // 1 to 4 lvls
 	invocation = "MORI'GA ISANGHE"
 	invocation_type = "shout"
 	clothes_req = FALSE
 	stat_allowed = FALSE
 
-	range = 7
+	range = 9
 	selection_type = "view"
 	max_targets = 0
 
@@ -36,10 +36,11 @@
 	..()
 	for(var/i in 1 to length(current_victims))
 		var/mob/living/L = current_victims[i]
-		ADD_TRAIT(L, TRAIT_INTENT_LOCKED, MAGIC_TRAIT)
-		victim_duration[i] -= delta_time * 10
-		if(victim_duration[i] <= 0)
-			free_victim(current_victims[i])
+		if(istype(L, /mob/living))
+			ADD_TRAIT(L, TRAIT_INTENT_LOCKED, MAGIC_TRAIT)
+			victim_duration[i] -= delta_time * 10
+			if(victim_duration[i] <= 0)
+				free_victim(current_victims[i])
 
 
 /obj/effect/proc_holder/spell/targeted/intent_changer/proc/add_victim(mob/victim)

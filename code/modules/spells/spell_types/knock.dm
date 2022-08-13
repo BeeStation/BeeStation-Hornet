@@ -22,14 +22,13 @@
 	// Knock has 'targeted' and 'aoe_turf' at the same time, so it should have custom target proc.
 	var/list/targets = list()
 
-	for(var/turf/target in view_or_range(range,user,selection_type))
+	for(var/turf/target in view_or_range(range, user, selection_type))
 		if(!can_target(target))
 			continue
-		if(!(target in view_or_range(range,user,selection_type)))
-			targets += target
+		targets += target
 
 	if(open_cuffs)
-		for(var/mob/living/carbon/target in view_or_range(range, user, "view"))
+		for(var/mob/living/carbon/target in view_or_range(range, user, selection_type))
 			if(!can_target(target))
 				continue
 			targets += target
