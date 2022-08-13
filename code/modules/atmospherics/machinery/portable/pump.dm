@@ -6,7 +6,7 @@
 
 /obj/machinery/portable_atmospherics/pump
 	name = "portable air pump"
-	desc = "A small movable pump, for fast air deployment."
+	desc = "It's a small portable air pump, capable of sucking or pumping glasses into its surroundings. It has a decent internal gas storage, and a slot for external tanks. It can be wrenched to connection ports to fill or empty to the pipenet."
 	icon_state = "psiphon:0"
 	density = TRUE
 
