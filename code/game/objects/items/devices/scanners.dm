@@ -170,24 +170,30 @@ GENE SCANNER
 		to_chat(user, "\t<span class='alert'>Subject lacks a brain.</span>")
 	if(iscarbon(M))
 		var/mob/living/carbon/C = M
-		if(LAZYLEN(C.get_traumas()))
-			var/list/trauma_text = list()
-			for(var/datum/brain_trauma/B in C.get_traumas())
-				var/trauma_desc = ""
-				switch(B.resilience)
-					if(TRAUMA_RESILIENCE_SURGERY)
-						trauma_desc += "severe "
-					if(TRAUMA_RESILIENCE_LOBOTOMY)
-						trauma_desc += "deep-rooted "
-					if(TRAUMA_RESILIENCE_MAGIC, TRAUMA_RESILIENCE_ABSOLUTE)
-						trauma_desc += "permanent "
-				trauma_desc += B.scan_desc
-				trauma_text += trauma_desc
-			to_chat(user, "\t<span class='alert'>Cerebral traumas detected: subject appears to be suffering from [english_list(trauma_text)].</span>")
+		if(advanced)
+			if(LAZYLEN(C.get_traumas()))
+				var/list/trauma_text = list()
+				for(var/datum/brain_trauma/B in C.get_traumas())
+					var/trauma_desc = ""
+					switch(B.resilience)
+						if(TRAUMA_RESILIENCE_SURGERY)
+							trauma_desc += "severe "
+						if(TRAUMA_RESILIENCE_LOBOTOMY)
+							trauma_desc += "deep-rooted "
+						if(TRAUMA_RESILIENCE_MAGIC, TRAUMA_RESILIENCE_ABSOLUTE)
+							trauma_desc += "permanent "
+					trauma_desc += B.scan_desc
+					trauma_text += trauma_desc
+				to_chat(user, "\t<span class='alert'>Cerebral traumas detected: subject appears to be suffering from [english_list(trauma_text)].</span>")
+		var/brain_damage_text = ""
+		switch(M.getOrganLoss(ORGAN_SLOT_BRAIN))
+			if(advanced)
+				brain_damage_text = prob(M.getOrganLoss(ORGAN_SLOT_BRAIN)/2) ? "Abnormal detected" : "Normal" // 50 brain damage = 25% chance to detect
+			else
+				brain_damage_text = prob(M.getOrganLoss(ORGAN_SLOT_BRAIN)/0.5) ? "Abnormal detected" : "Normal" // 50 brain damage = 75% chance to detect
+		to_chat(user, "\t<span class='info'>Brain Activity Estimiation: [brain_damage_text].</span>")
 		if(C.roundstart_quirks.len)
 			to_chat(user, "\t<span class='info'>Subject has the following physiological traits: [C.get_trait_string()].</span>")
-	if(advanced)
-		to_chat(user, "\t<span class='info'>Brain Activity Level: [(200 - M.getOrganLoss(ORGAN_SLOT_BRAIN))/2]%.</span>")
 
 	if(M.radiation)
 		to_chat(user, "\t<span class='alert'>Subject is irradiated.</span>")
@@ -1014,10 +1020,10 @@ GENE SCANNER
 		to_chat(user, "<span class='warning'>you begin isolating [chosen].</span>")
 		if(do_after(user, (600 / (scanner.rating + 1)), target = AM))
 			create_culture(symptomholder, user, AM)
-	else 
+	else
 		using = TRUE
 		if(do_after(user, (timer / (scanner.rating + 1)), target = AM))
-			create_culture(A, user, AM)	
+			create_culture(A, user, AM)
 	using = FALSE
 
 /obj/item/extrapolator/proc/create_culture(var/datum/disease/advance/A, mob/user)

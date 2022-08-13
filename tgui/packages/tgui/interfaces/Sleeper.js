@@ -91,8 +91,8 @@ export const Sleeper = (props, context) => {
                 </LabeledList.Item>
                 <LabeledList.Item
                   label="Brain"
-                  color={occupant.brainLoss ? 'bad' : 'good'}>
-                  {occupant.brainLoss ? 'Abnormal' : 'Healthy'}
+                  color={occupant.brainLoss>=30 ? 'bad' : 'good'}>
+                  {occupant.brainLoss>=30 ? 'Suspectible' : 'Normal'}
                 </LabeledList.Item>
                 <LabeledList.Item label="Reagents">
                   <Box color="label">
