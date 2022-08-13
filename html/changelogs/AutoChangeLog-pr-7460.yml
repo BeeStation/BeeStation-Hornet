@@ -1,0 +1,4 @@
+author: Miliviu
+delete-after: true
+changes:
+  - rscadd: added the Mothroach cargo crate
