@@ -2,7 +2,7 @@
 /turf/open/floor/dock
 	name = "dock floor"
 	desc = "Strong enough to hold a shuttle."
-	icon_state = "engine" //REMEMBER TO MAKE A SPRITE
+	icon_state = "dock"
 	floor_tile = /obj/item/stack/tile/dock
 	footstep = FOOTSTEP_PLATING
 	barefootstep = FOOTSTEP_HARD_BAREFOOT
@@ -11,11 +11,20 @@
 	tiled_dirt = FALSE
 	intact = FALSE //Makes it clearer to players that pipes/wires are destroyed when a shuttle lands on them
 
+/turf/open/floor/dock/crowbar_act(mob/living/user, obj/item/I)
+	return pry_tile(I, user)
+
 /turf/open/floor/dock/drydock
 	name = "dry dock floor"
 	desc = "Heavy duty plating designed to support shuttle construction and maintenance."
-	//icon_state = //This should probably get its own sprite too
+	icon_state = "drydock"
 	floor_tile = /obj/item/stack/tile/drydock
+
+/turf/open/floor/dock/drydock/crowbar_act(mob/living/user, obj/item/I)
+	for(var/obj/structure/lattice/lattice in contents)
+		to_chat(user, "<span class='warning'>[lattice] is blocking [I]!</span>")
+		return FALSE
+	. = ..()
 
 /turf/open/floor/dock/drydock/proc/CanBuildHere()
 	for(var/i in 0 to length(baseturfs) - 1)

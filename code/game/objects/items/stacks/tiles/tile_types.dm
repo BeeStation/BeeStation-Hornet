@@ -563,7 +563,7 @@
 	name = "dock tile"
 	singular_name = "dock tile"
 	desc = "A bulky chunk of flooring capable of holding the weight of a shuttle."
-	icon_state = "tile_poddark" //THIS NEEDS ITS OWN SPRITE
+	icon_state = "tile_dock"
 	materials = list(/datum/material/iron=500, /datum/material/plasma=500)
 	turf_type = /turf/open/floor/dock
 
@@ -571,6 +571,6 @@
 	name = "dry dock tile"
 	singular_name = "dry dock tile"
 	desc = "An extra-bulky chunk of flooring capable of supporting shuttle construction."
-	icon_state = "tile_poddark" //THIS NEEDS ITS OWN SPRITE
+	icon_state = "tile_drydock"
 	materials = list(/datum/material/iron=1000, /datum/material/plasma=1000)
 	turf_type = /turf/open/floor/dock/drydock
