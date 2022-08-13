@@ -22,3 +22,9 @@
 		if(I.loc == target && I.icon == 'icons/misc/hivemind_images.dmi' && I.icon_state == "enemy")
 			host.client.images -= I
 			qdel(I)
+
+/datum/antagonist/hivemind/proc/regain_images()
+	var/mob/living/carbon/human/host = owner.current
+	for(var/datum/mind/mind as() in hivemembers)
+		var/I = image('icons/misc/hivemind_images.dmi', loc = mind.current, icon_state = "member")
+		host.client.images += I

@@ -89,10 +89,8 @@
 		return
 	var/datum/mind/M = C.mind
 	if(M)
-		if(is_hivemember(C))
-			UnregisterSignal(M, COMSIG_PARENT_QDELETING)
 		hivemembers |= M
-		RegisterSignal(M, COMSIG_PARENT_QDELETING, M.remove_from_hives())
+		RegisterSignal(M, COMSIG_PARENT_QDELETING, .proc/handle_mind_deletion)
 		add_hive_overlay(C)
 		calc_size()
 
@@ -101,6 +99,10 @@
 		var/eject_time = rand(1400,1600) //2.5 minutes +- 10 seconds
 		addtimer(CALLBACK(GLOBAL_PROC, /proc/to_chat, C, user_warning), rand(500,1300)) // If the host has assimilated an enemy hive host, alert the enemy before booting them from the hive after a short while
 		addtimer(CALLBACK(src, .proc/handle_ejection, C), eject_time)
+
+/datum/antagonist/hivemind/proc/handle_mind_deletion(datum/mind/M)
+	SIGNAL_HANDLER
+	remove_from_hive(M.current)
 
 /datum/antagonist/hivemind/proc/is_carbon_member(mob/living/carbon/C)
 	if(!hivemembers || !C || !iscarbon(C))

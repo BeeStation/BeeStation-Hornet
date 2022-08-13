@@ -5,7 +5,7 @@
 	action_background_icon_state = "bg_hive"
 	selection_type = "view"
 	action_icon_state = "add"
-	range = 1
+	range = 7
 	invocation_type = "none"
 	clothes_req = 0
 	max_targets = 1
