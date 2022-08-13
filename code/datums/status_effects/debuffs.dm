@@ -60,7 +60,7 @@
 			carbon_owner = owner
 		if(ishuman(owner))
 			if(HAS_TRAIT(owner, TRAIT_DEATH_SLEEP))
-				owner.emote(deathgasp)
+				owner.emote("deathgasp")
 			human_owner = owner
 
 /datum/status_effect/incapacitating/sleeping/Destroy()
