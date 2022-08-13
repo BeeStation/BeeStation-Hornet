@@ -1427,6 +1427,9 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Armory"
 	icon_state = "armory"
 	ambience_index = AMBIENCE_DANGER
+	mood_job = (JOB_NAME_ASSISTANT)
+	mood_bonus = 6
+	mood_message = "<span class='nicegreen'>All these guns are mine for the taking!</span>"
 
 /area/ai_monitored/storage/eva
 	name = "EVA Storage"
@@ -1447,6 +1450,9 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "AI Upload Chamber"
 	icon_state = "ai_upload"
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
+	mood_job = list(JOB_NAME_RESEARCHDIRECTOR, JOB_NAME_CAPTAIN, JOB_NAME_ASSISTANT)  // rd and cap have access, assistant has superiority complex
+	mood_bonus = 4
+	mood_message = "<span class='nicegreen'>The AI will bend to my will!\n</span>"
 
 /area/ai_monitored/turret_protected/ai_upload_foyer
 	name = "AI Upload Access"
@@ -1512,6 +1518,9 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Telecomms Control Room"
 	icon_state = "tcom_sat_comp"
 	sound_environment = SOUND_AREA_MEDIUM_SOFTFLOOR
+	mood_job = list(JOB_NAME_RESEARCHDIRECTOR, JOB_NAME_SCIENTIST, JOB_NAME_ROBOTICIST)  // techies
+	mood_bonus = 2
+	mood_message = "<span class='nicegreen'>All this technology is so fascinating, I could sit here for hours..\n</span>"
 
 /area/tcommsat/server
 	name = "Telecomms Server Room"
