@@ -305,6 +305,15 @@
 	if(mood)
 		mood.mood_modifier -= 0.5
 
+/datum/quirk/death_sleep
+	name = "Sleeping Beauty"
+	desc = "You sleep abnormally soundly. Whenever you sleep, others will see you as dead. Health analyzers and HUDs are unaffected."
+	value = -4
+	mob_trait = TRAIT_DEATH_SLEEP
+	gain_text = "<span class='danger'>You feel at peace with the thought of sleeping.</span>"
+	lose_text = "<span class='notice'>You don't feel at peace with sleeping anymore.</span>"
+	medical_record_text = "Patient has no movements when sleeping, and was believed dead until woken."
+
 /datum/quirk/light_drinker
 	name = "Light Drinker"
 	desc = "You just can't handle your drinks and get drunk very quickly."

@@ -103,7 +103,7 @@
 
 	var/appears_dead = FALSE
 	var/just_sleeping = FALSE
-	if(stat == DEAD || (HAS_TRAIT(src, TRAIT_FAKEDEATH)))
+	if(stat == DEAD || (HAS_TRAIT(src, TRAIT_FAKEDEATH)) || (  HAS_TRAIT(src, TRAIT_DEATH_SLEEP) && mind.assigned_role != JOB_NAME_CHIEFMEDICALOFFICER ))  // cmo is knowledgable enough to do actual tests
 		appears_dead = TRUE
 
 		if(isliving(user) && HAS_TRAIT(user, TRAIT_NAIVE))

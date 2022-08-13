@@ -59,6 +59,8 @@
 		if(iscarbon(owner)) //to avoid repeated istypes
 			carbon_owner = owner
 		if(ishuman(owner))
+			if(HAS_TRAIT(owner, TRAIT_DEATH_SLEEP))
+				owner.emote(deathgasp)
 			human_owner = owner
 
 /datum/status_effect/incapacitating/sleeping/Destroy()
@@ -85,7 +87,7 @@
 	if(prob(20))
 		if(carbon_owner)
 			carbon_owner.handle_dreams()
-		if(prob(10) && owner.health > owner.crit_threshold)
+		if(prob(10) && owner.health > owner.crit_threshold && !(HAS_TRAIT(owner, TRAIT_DEATH_SLEEP)))
 			owner.emote("snore")
 
 /atom/movable/screen/alert/status_effect/asleep
@@ -947,11 +949,11 @@
 
 /datum/status_effect/slimegrub
 	id = "grub_infection"
-	duration = 60 SECONDS //a redgrub infestation in a slime 
+	duration = 60 SECONDS //a redgrub infestation in a slime
 	status_type = STATUS_EFFECT_UNIQUE
 	tick_interval = 1
 	alert_type = /atom/movable/screen/alert/status_effect/grub
-	var/adult = FALSE 
+	var/adult = FALSE
 	var/spawnbonus = 0
 	var/deathcounter = 300
 	var/list/diseases = list()
@@ -976,7 +978,7 @@
 			if(prob(10))
 				qdel(src)
 		else //don't tick while being cured
-			deathcounter -= 2 
+			deathcounter -= 2
 			if(deathcounter <= 0)
 				var/spawns = rand(1, 3 + (adult * 3))
 				for(var/I in 1 to (spawns + spawnbonus))
@@ -986,7 +988,7 @@
 				playsound(S, 'sound/effects/attackblob.ogg', 60, 1)
 				S.visible_message("<span class='warning'>[S] is eaten from the inside by [spawns] red grubs, leaving no trace!</span>")
 				S.gib()
-	else 
+	else
 		qdel(src)//no effect on nonslimes
 
 /atom/movable/screen/alert/status_effect/grub
