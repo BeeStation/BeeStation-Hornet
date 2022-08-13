@@ -30,6 +30,8 @@
 	// how do species that don't breathe talk? magic, that's what.
 	if(!HAS_TRAIT_FROM(src, TRAIT_NOBREATH, SPECIES_TRAIT) && !getorganslot(ORGAN_SLOT_LUNGS))
 		return FALSE
+	if(isipc(src) && !getorganslot(ORGAN_SLOT_TONGUE))
+		return FALSE  // who stole my soundblaster?! (-candy/etherware)
 	if(mind)
 		return !mind.miming
 	return TRUE
