@@ -32,7 +32,8 @@
 		if(!target)
 			to_chat(user, "<span class='warning'>We have run out of vessels to drain.</span>")
 			break
-		target.adjustOrganLoss(ORGAN_SLOT_BRAIN, 5)
+		if(target.getOrganLoss(ORGAN_SLOT_BRAIN) < 50)
+			target.adjustOrganLoss(ORGAN_SLOT_BRAIN, 5)
 		if(user.getBruteLoss() > user.getFireLoss())
 			user.heal_ordered_damage(5, list(CLONE, BRUTE, BURN))
 		else

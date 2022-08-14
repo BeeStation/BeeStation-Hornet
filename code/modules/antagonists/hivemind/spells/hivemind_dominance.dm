@@ -33,7 +33,7 @@
 		if(enemy.owner)
 			enemy.owner.RemoveSpell(new/obj/effect/proc_holder/spell/self/hive_dominance)
 			var/mob/living/carbon/C = enemy.owner?.current
-			if(!enemy.hiveID == hive.hiveID)
+			if(!(enemy.hiveID == hive.hiveID))
 				to_chat(C, "<span class='boldwarning'>Something's wrong...</span>")
 				addtimer(CALLBACK(GLOBAL_PROC, /proc/to_chat, C, "<span class='boldwarning'>...a new presence.</span>"), 45)
 				addtimer(CALLBACK(GLOBAL_PROC, /proc/to_chat, C, "<span class='boldwarning'>It feels overwhelming...</span>"), 90)

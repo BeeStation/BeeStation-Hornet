@@ -42,4 +42,4 @@
 	if(!active)
 		..()
 	else
-		perform(,user)
+		perform(null,user)

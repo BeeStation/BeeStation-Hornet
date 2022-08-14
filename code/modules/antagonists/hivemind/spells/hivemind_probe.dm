@@ -45,7 +45,7 @@
 				to_chat(user, "<span class='userdanger'>We have found the vile stain of [enemy.hiveID] within this mind!</span>")
 				detected = TRUE
 				if(target.mind.has_antag_datum(/datum/antagonist/brainwashed) || target.is_wokevessel())
-					to_chat(user, "<span class='assimilator'>Tendrils of control spread through our target's mind their actions are not their own!.</span>")
+					to_chat(user, "<span class='assimilator'>Our target is being controlled, their actions are not their own!.</span>")
 					return
 		if(!detected)
 			to_chat(user, "<span class='notice'>Untroubled waters meet our tentative search, there is nothing out of the ordinary here.</span>")
