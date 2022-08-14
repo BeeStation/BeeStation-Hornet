@@ -144,7 +144,7 @@
 /obj/item/card/id/proc/get_magical_access()
 	var/static/list/target_access = get_all_accesses()+ACCESS_SYNDICATE+ACCESS_BLOODCULT+ACCESS_CLOCKCULT // This is how MAGIC works
 	if(length(access) < length(target_access)) // length check is better than trying to copy access to every card. It's hard to happen a glitch unless these have CC access.
-		access |= target_access
+		access |= target_access // also, length copy is bad when your card has CC access
 
 /obj/item/card/id/attack_self(mob/user)
 	if(Adjacent(user))
