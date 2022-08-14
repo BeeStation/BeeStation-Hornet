@@ -3,7 +3,7 @@
 	desc = "Targets all people in your view and change their intent into yours, and locks their intent for 15 seconds."
 	school = "enchantment"
 	charge_type = "recharge"
-	charge_max	= 45 SECONDS
+	charge_max = 45 SECONDS
 	cooldown_min = 25 SECONDS
 	level_max = 3 // 1 to 4 lvls
 	invocation = "NAL'DDARA HEBOA"
