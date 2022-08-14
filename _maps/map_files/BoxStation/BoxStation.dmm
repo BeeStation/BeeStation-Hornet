@@ -22760,7 +22760,7 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
 	},
-/obj/machinery/rnd/production/circuit_imprinter/department/engineering,
+/obj/machinery/rnd/production/circuit_imprinter,
 /turf/open/floor/plasteel/checker,
 /area/engine/break_room)
 "cax" = (
@@ -30900,7 +30900,7 @@
 /obj/effect/turf_decal/bot,
 /obj/machinery/camera{
 	c_tag = "Incinerator";
-	network = list("ss13", "turbine")
+	network = list("ss13","turbine")
 	},
 /turf/open/floor/plasteel,
 /area/maintenance/disposal/incinerator)
