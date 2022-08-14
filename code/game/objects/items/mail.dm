@@ -155,8 +155,13 @@
 		// If the recipient's mind has gone, then anyone can open their mail
 		// whether a mind can actually be qdel'd is an exercise for the reader
 		if(recipient && recipient != user?.mind)
-			to_chat(user, "<span class='notice'>You can't open somebody else's mail! That's <em>immoral</em>!</span>")
-			return
+			if(is_changeling(user))
+				if(user.real_name != recipient.name)
+					to_chat(user, "<span class='warning'>We must keep our disguise intact.</span>")  // cuz your disguise cant open the mail so you shouldnt either
+					return
+			else
+				to_chat(user, "<span class='notice'>You can't open somebody else's mail! That's <em>immoral</em>!</span>")
+				return
 
 	user.visible_message("[user] start to unwrap a package...", \
 			"<span class='notice'>You start to unwrap the package...</span>", \
