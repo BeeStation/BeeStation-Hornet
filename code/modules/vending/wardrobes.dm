@@ -130,7 +130,7 @@
 					/obj/item/clothing/suit/hooded/wintercoat/engineering/atmos = 3,
 					/obj/item/clothing/under/rank/engineering/atmospheric_technician = 3,
 					/obj/item/clothing/shoes/sneakers/black = 3,
-					/obj/item/clothing/head/grodhat/atmos = 2
+					/obj/item/clothing/head/grodhat/atmos = 2,
 					/obj/item/clothing/head/beret/atmos = 3)
 	contraband = list(/obj/item/clothing/suit/hooded/wintercoat/engineering/atmos/old = 3)
 	refill_canister = /obj/item/vending_refill/wardrobe/atmos_wardrobe
