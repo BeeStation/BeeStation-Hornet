@@ -39,8 +39,7 @@
 		return
 	var/title = "Hive"
 	var/my_message = "<span class='changeling'><b>[title] [hivehost.hiveID]:</b> [message]</span>"
-	for(var/i in GLOB.player_list)
-		var/mob/M = i
+	for(var/mob/M as() in GLOB.player_list)
 		if(is_hivehost(M))
 			to_chat(M, my_message)
 		else if(M in GLOB.dead_mob_list)
