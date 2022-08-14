@@ -27,6 +27,7 @@
 	//Contents holder to make the turfs clickable :^)
 	var/atom/movable/screen/map_view/weapons_console/cam_screen
 	var/atom/movable/screen/plane_master/lighting/cam_plane_master
+	var/atom/movable/screen/plane_master/o_light_visual/visual_plane_master
 	var/atom/movable/screen/background/cam_background
 
 	//The coords of the top corner
@@ -49,6 +50,11 @@
 	cam_plane_master.assigned_map = map_name
 	cam_plane_master.del_on_map_removal = FALSE
 	cam_plane_master.screen_loc = "[map_name]:CENTER"
+	visual_plane_master = new
+	visual_plane_master.name = "plane_master"
+	visual_plane_master.assigned_map = map_name
+	visual_plane_master.del_on_map_removal = FALSE
+	visual_plane_master.screen_loc = "[map_name]:CENTER"
 	cam_background = new
 	cam_background.assigned_map = map_name
 	cam_background.del_on_map_removal = FALSE
@@ -57,9 +63,10 @@
 	get_attached_ship()
 
 /obj/machinery/computer/weapons/Destroy()
-	qdel(cam_screen)
-	qdel(cam_plane_master)
-	qdel(cam_background)
+	QDEL_NULL(cam_screen)
+	QDEL_NULL(cam_plane_master)
+	QDEL_NULL(cam_background)
+	QDEL_NULL(visual_plane_master)
 	concurrent_users = null
 	selected_weapon_system = null
 	return ..()
@@ -97,6 +104,7 @@
 		// Register map objects
 		user.client.register_map_obj(cam_screen)
 		user.client.register_map_obj(cam_plane_master)
+		user.client.register_map_obj(visual_plane_master)
 		user.client.register_map_obj(cam_background)
 		// Open UI
 		ui = new(user, src, "WeaponConsole")

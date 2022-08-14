@@ -414,12 +414,16 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 ///Creates a hostage ship with the killed mobs as hostages
 ///Will chase after crewed ships in the sector
 /datum/controller/subsystem/processing/orbits/proc/create_hostage_ship(list/hostages, iteration = 0)
+
 	var/to_respawn = hostages.Copy()
 	//Locate any existing spawns
 	if(!length(hostage_spawns))
 		//Spawn a hostage shuttle
 		var/datum/map_template/shuttle/supercruise/shuttle_template = SSmapping.shuttle_templates["encounter_syndicate_prisoner_transport"]
 		var/obj/docking_port/mobile/created_ship = spawn_ship(shuttle_template, new /datum/faction/pirates(), new /datum/shuttle_ai_pilot/npc/hostile())
+		//Tell admins
+		message_admins("As a result of unrecovered bodies in space, [length(hostages)] mobs were taken hostage aboard a pirate ship at [ADMIN_COORDJMP(created_ship)].")
+		log_shuttle("A hostage ship was created with [length(hostages)] mobs taken hostage.")
 		//Grant sentience to the ship's crew
 		for(var/area/A in created_ship.shuttle_areas)
 			for(var/mob/living/simple_animal/ship_mob in A)
@@ -433,6 +437,9 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 		var/obj/effect/picked_spawn = pick(hostage_spawns)
 		//Move the mob
 		L.forceMove(picked_spawn.loc)
+		L.log_message("was taken hostage on board a pirate ship.", LOG_ATTACK)
+		log_game("[key_name(L)] was taken hostage on a pirate ship.")
+		log_shuttle("[key_name(L)] was taken hostage on a pirate ship.")
 		//Transfer all of their items to a nearby simple mob's location
 		var/area/A = get_area(picked_spawn)
 		var/obj/effect/hostage_loot_point/item_point = locate() in A
@@ -447,6 +454,11 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 		L.revive(TRUE)
 		//Grab the ghost
 		L.grab_ghost()
+		//Message
+		to_chat(L, "<span class='userdanger'>You have been captured and taken hostage!</span>")
+		var/list/picked = splittext(pick(strings(EXPLORATION_FLAVOUR, "hostage")), "\n")
+		for(var/message in picked)
+			to_chat(L, "<span class='danger'>[message]</span>")
 		//Delete the spawn
 		qdel(picked_spawn)
 	//If we still have hostages left

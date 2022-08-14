@@ -33,6 +33,16 @@
 	category = list("Tool Designs")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING
 
+/datum/design/navmap
+	name = "Holo-navigation map"
+	desc = "A handheld map for locating your position in supercruise space."
+	id = "orbital_map"
+	build_path = /obj/item/navigation_map
+	build_type = PROTOLATHE
+	materials = list(/datum/material/iron = MINERAL_MATERIAL_AMOUNT * 2, /datum/material/copper = MINERAL_MATERIAL_AMOUNT)
+	category = list("Tool Designs")
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING
+
 /datum/design/exwelder
 	name = "Experimental Welding Tool"
 	desc = "An experimental welder capable of self-fuel generation."

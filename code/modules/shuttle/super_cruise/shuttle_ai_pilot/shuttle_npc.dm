@@ -33,14 +33,21 @@
 			//In case the mob becomes sentient
 			L.flavor_text = "You are a crewmember aboard <b>[shuttle_port.name]</b>. Defend your ship and protect your assets (including prisoners). <br/>\
 				Your ship's faction is: <b>[shuttle_data.faction.name]</b>.<br />\
-				This role has no specific objectives, you are free to create interesting stories: Not every conflict has to be resolved through murder, make some situations that are fun for other players!<br />\
-				<font color='red'><b>Do not take actions to permanently remove a station crewmember from the round.</b></font>"
+				This role has no specific objectives, your goal is to create interesting stories: Not every conflict has to be resolved through instant murder, make some situations that are fun for other players!<br />\
+				<font color='red'><b>This is a story role: Failure to properly roleplay will result in a ghost-role ban.</b></font><br /> \
+				<font color='red'><b>Do not take actions to permanently remove a station crewmember from the round.</b></font><br />"
 			pilot_mobs ++
 			RegisterSignal(L, COMSIG_PARENT_QDELETING, .proc/on_mob_died_or_deleted)
 			RegisterSignal(L, COMSIG_MOB_DEATH, .proc/on_mob_died_or_deleted)
-			RegisterSignal(L, COMSIG_GLOB_MOB_LOGGED_IN, .proc/on_mob_died_or_deleted)
+			RegisterSignal(L, COMSIG_GLOB_MOB_LOGGED_IN, .proc/human_takeover)
+
+/datum/shuttle_ai_pilot/npc/proc/human_takeover(datum/source, ...)
+	pilot_mobs = 0
+	shuttle_data.critical_proportion = SHIP_INTEGRITY_FACTOR_PLAYER
 
 /datum/shuttle_ai_pilot/npc/proc/on_mob_died_or_deleted(datum/source, ...)
+	if(!pilot_mobs)
+		return
 	pilot_mobs --
 	UnregisterSignal(source, COMSIG_PARENT_QDELETING)
 	UnregisterSignal(source, COMSIG_MOB_DEATH)

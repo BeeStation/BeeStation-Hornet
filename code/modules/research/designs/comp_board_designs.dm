@@ -330,8 +330,16 @@
 
 /datum/design/board/shuttle/flight_control
 	name = "Computer Design (Shuttle Flight Controls)"
-	desc = "Allows for the construction of circuit boards used to build a console that enables shuttle flight"
+	desc = "Allows for the construction of circuit boards used to build a console that enables shuttle flight."
 	id = "shuttle_control"
 	build_path = /obj/item/circuitboard/computer/shuttle/flight_control
+	category = list("Computer Boards", "Shuttle Machinery")
+	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING
+
+/datum/design/board/shuttle/navigation
+	name = "Computer Design (Navigation Computer)"
+	desc = "A circuit board for building a navigation computer, which allows you to locate objects outside of sensor range."
+	id = "shuttle_navigation"
+	build_path = /obj/item/circuitboard/computer/navigation
 	category = list("Computer Boards", "Shuttle Machinery")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING

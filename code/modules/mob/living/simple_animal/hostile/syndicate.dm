@@ -49,6 +49,7 @@
 	do_footstep = TRUE
 	mobchatspan = "syndmob"
 	human_outfit_replacement = /datum/outfit/simplemob/syndicate
+	antagonist_name = "Syndicate Operative Ghost Spawn"
 
 ///////////////Melee////////////
 

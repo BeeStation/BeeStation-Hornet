@@ -41,54 +41,52 @@ export const WeaponSelection = (props, context) => {
   } = data;
   return (
     <Section>
-      <Table>
-        <Table.Row>
-          {weapons.map(weapon => (
-            <Table.Cell
-              key={weapon.id}
-              className={classes([
-                'Button',
-                'Button--fluid',
-                'Button--color--transparent',
-                'Button--ellipsis',
-                'Button--selected',
-              ])}
-              onClick={() => {
-                act('set_weapon_target', {
-                  id: weapon.id,
-                });
-              }}>
-              <Box
-                textAlign="center">
-                <b>
-                  {weapon.name}
-                </b>
-              </Box>
-              <ProgressBar
-                ranges={{
-                  good: [0.75, Infinity],
-                  average: [0.25, 0.75],
-                  bad: [-Infinity, 0.25],
-                }}
-                value={1-weapon.cooldownLeft / weapon.cooldown}>
-                {weapon.cooldownLeft > 0
-                  ? "Recharging: " + (weapon.cooldownLeft/10)
-                  + " seconds"
-                  : "Ready to fire."}
-              </ProgressBar>
-              <Divider />
-              <Table>
-                <Table.Row>
-                  Cooldown - {weapon.cooldown/10} seconds
-                </Table.Row>
-                <Table.Row>
-                  Inaccuracy - {weapon.inaccuracy} meters
-                </Table.Row>
-              </Table>
-            </Table.Cell>
-          ))}
-        </Table.Row>
-      </Table>
+      <div className="WeaponConsole__weaponlist">
+        {weapons.map(weapon => (
+          <Box
+            key={weapon.id}
+            className={classes([
+              'Button',
+              'Button--fluid',
+              'Button--color--transparent',
+              'Button--ellipsis',
+              'Button--selected',
+            ])}
+            onClick={() => {
+              act('set_weapon_target', {
+                id: weapon.id,
+              });
+            }}>
+            <Box
+              textAlign="center">
+              <b>
+                {weapon.name}
+              </b>
+            </Box>
+            <ProgressBar
+              ranges={{
+                good: [0.75, Infinity],
+                average: [0.25, 0.75],
+                bad: [-Infinity, 0.25],
+              }}
+              value={1-weapon.cooldownLeft / weapon.cooldown}>
+              {weapon.cooldownLeft > 0
+                ? "Recharging: " + (weapon.cooldownLeft/10)
+                + " seconds"
+                : "Ready to fire."}
+            </ProgressBar>
+            <Divider />
+            <Table>
+              <Table.Row>
+                Cooldown - {weapon.cooldown/10} seconds
+              </Table.Row>
+              <Table.Row>
+                Inaccuracy - {weapon.inaccuracy} meters
+              </Table.Row>
+            </Table>
+          </Box>
+        ))}
+      </div>
     </Section>
   );
 };

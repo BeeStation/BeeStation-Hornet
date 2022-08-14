@@ -116,6 +116,12 @@
 		return
 	var/obj/machinery/atmospherics/components/unary/shuttle/engine_heater/shuttle_heater = attached_heater.resolve()
 	shuttle_heater.consumeFuel(amount * fuel_use)
+	update_efficiency()
+
+/obj/machinery/shuttle/engine/plasma/proc/update_efficiency()
+	if(!attached_heater)
+		return
+	var/obj/machinery/atmospherics/components/unary/shuttle/engine_heater/shuttle_heater = attached_heater.resolve()
 	if(cached_efficiency != shuttle_heater.get_gas_multiplier())
 		cached_efficiency = shuttle_heater.get_gas_multiplier()
 		if(!thruster_active)
@@ -124,8 +130,6 @@
 		set_active(FALSE)
 		thrust = initial(thrust) * cached_efficiency
 		set_active(TRUE)
-	//Adjust thrust amount based on gas mixture
-	//thrust = initial(thrust) *
 
 /obj/machinery/shuttle/engine/plasma/get_fuel_amount()
 	if(!attached_heater)
@@ -163,6 +167,7 @@
 	. = ..()
 
 /obj/machinery/shuttle/engine/plasma/update_engine()
+	update_efficiency()
 	if(panel_open)
 		set_active(FALSE)
 		icon_state = icon_state_open

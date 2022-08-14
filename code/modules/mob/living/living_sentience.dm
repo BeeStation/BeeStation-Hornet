@@ -2,6 +2,8 @@
 /mob/living
 	/// If this is set, then when a ghost enters this mob, it will be replaced with a human with the corresponding outfit
 	var/human_outfit_replacement
+	/// If this is set, an antagonist role with this name will be granted for admin tracking purposes
+	var/antagonist_name
 
 /mob/living/ghostize(can_reenter_corpse, sentience_retention)
 	. = ..()
@@ -46,11 +48,18 @@
 		//Create a replacement human
 		var/mob/living/carbon/human/H = new(loc)
 		//Transfer factions
-		H.faction = faction
+		H.faction |= faction
 		//Give it the outfit
 		var/datum/outfit/replacement_outfit = new human_outfit_replacement()
 		replacement_outfit.equip(H)
 		H.key = user.key
+		//Grant an antagonist role if needed
+		if (antagonist_name)
+			var/datum/antagonist/story/created_role = new
+			created_role.name = antagonist_name
+			H.mind.add_antag_datum(created_role)
+			//Give an admin message
+			message_admins("[key_name_admin(H)] took control of an NPC mob. Their flavor text is: '[get_spawner_flavour_text()]'.")
 		//Delete this mob
 		qdel(src)
 		return TRUE

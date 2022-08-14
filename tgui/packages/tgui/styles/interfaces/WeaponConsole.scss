@@ -36,6 +36,10 @@ $color-background: rgba(0, 0, 0, 0.33) !default;
   }
 }
 
+.WeaponConsole__weaponlist {
+  display: inline-block;
+}
+
 .WeaponConsole__weaponpane {
   position: absolute;
   bottom: 4px;

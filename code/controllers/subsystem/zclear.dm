@@ -1,5 +1,6 @@
 #define CLEAR_TURF_PROCESSING_TIME (120 SECONDS)	//Time it takes to clear all turfs
 #define CHECK_ZLEVEL_TICKS (5 SECONDS)			//Every 5 seconds check if a tracked z-level is free.
+#define ZCLEAR_MOB_DEATH_GRACE_TIME 8 MINUTES	//After 8 minutes of mobs being dead on a z-level, the z-level will be wiped.
 
 GLOBAL_LIST_EMPTY(zclear_atoms)
 GLOBAL_LIST_EMPTY(zclear_blockers)
@@ -29,6 +30,9 @@ SUBSYSTEM_DEF(zclear)
 
 	//List of z-levels being docked with
 	var/list/docking_levels = list()
+
+	//Grace period time for mob deaths
+	var/list/z_level_death_grace = list()
 
 	//The amoutn of ticks we fell behind on processing
 	var/processing_fallbehind = 0
@@ -99,6 +103,8 @@ SUBSYSTEM_DEF(zclear)
 			if(L.stat != DEAD)
 				active_levels["[T.z]"] = TRUE
 				living_levels["[T.z]"] = TRUE
+				//Set the grace time for clearing this level
+				z_level_death_grace["[T.z]"] = world.time + ZCLEAR_MOB_DEATH_GRACE_TIME
 	//Check active nukes
 	for(var/obj/machinery/nuclearbomb/decomission/bomb in GLOB.decomission_bombs)
 		if(bomb.timing)
@@ -129,6 +135,10 @@ SUBSYSTEM_DEF(zclear)
 	for(var/datum/space_level/level as() in autowipe)
 		if(!level)
 			autowipe -= level
+
+		//Check if grace is active
+		if(world.time < z_level_death_grace["[level.z_value]"])
+			continue
 
 		//Check if free
 		if(active_levels["[level.z_value]"])
@@ -259,9 +269,6 @@ SUBSYSTEM_DEF(zclear)
 				cleardata.completion_callback.Invoke(cleardata.zvalue)
 			if(cleardata.tracking)
 				LAZYADD(free_levels, SSmapping.z_list[cleardata.zvalue])
-			if(length(nullspaced_mobs))
-				SSorbits.create_hostage_ship(nullspaced_mobs)
-				nullspaced_mobs.Cut()
 	//Process num needs incrementing
 	if(.)
 		cleardata.process_num ++

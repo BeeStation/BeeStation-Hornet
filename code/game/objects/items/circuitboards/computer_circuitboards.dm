@@ -478,8 +478,14 @@
 
 //Shuttles
 
+
+/obj/item/circuitboard/computer/navigation
+	name = "triangulation computer (Computer Board)"
+	icon_state = "science"
+	build_path = /obj/machinery/computer/locator
+
 /obj/item/circuitboard/computer/shuttle/weapons
-	name = "Shuttle Weapons Control (Computer Board)"
+	name = "shuttle weapons control (Computer Board)"
 	icon_state = "security"
 	build_path = /obj/machinery/computer/weapons
 

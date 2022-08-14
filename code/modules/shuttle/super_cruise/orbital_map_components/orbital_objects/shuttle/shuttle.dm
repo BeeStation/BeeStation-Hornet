@@ -72,6 +72,10 @@
 		//Start processing the AI pilot (Combat mode)
 		if(shuttle_data.ai_pilot)
 			START_PROCESSING(SSorbits, shuttle_data.ai_pilot)
+	//Stop collision alert sound
+	if (collision_alert)
+		SEND_SIGNAL(src, COMSIG_SHUTTLE_TOGGLE_COLLISION_ALERT, FALSE)
+		collision_alert = FALSE
 	port = null
 	can_dock_with = null
 	docking_target = null
