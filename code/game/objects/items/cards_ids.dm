@@ -123,7 +123,7 @@
 	if(mapload && access_txt)
 		access = text2access(access_txt)
 	GLOB.id_cards += src
-	if(GLOB.magical_access)
+	if(magical_access)
 		addtimer(CALLBACK(src, /obj/item/card/id.proc/get_magical_access), 5 SECONDS) //used the addtimer callback to solve the access override issue on spawn
 
 /obj/item/card/id/Destroy()
