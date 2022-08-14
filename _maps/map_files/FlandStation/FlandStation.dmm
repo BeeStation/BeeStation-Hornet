@@ -30316,11 +30316,6 @@
 "ibI" = (
 /turf/open/floor/plasteel/tiled/light,
 /area/medical/virology)
-"icf" = (
-/obj/effect/turf_decal/delivery,
-/obj/machinery/rnd/production/circuit_imprinter/department/engineering,
-/turf/open/floor/plasteel/dark,
-/area/engine/storage_shared)
 "ich" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Storage Room";
@@ -72294,31 +72289,19 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/port)
 "sQn" = (
-/obj/machinery/holopad,
-/obj/effect/turf_decal/box/corners,
-/obj/effect/turf_decal/box/corners{
-	dir = 8
-	},
-/obj/effect/turf_decal/box/corners{
+/obj/effect/turf_decal/delivery,
+/obj/machinery/rnd/production/circuit_imprinter,
+/turf/open/floor/plasteel/dark,
+/area/engine/storage_shared)
+"sQo" = (
+/obj/machinery/light/small{
 	dir = 1
 	},
-/obj/effect/turf_decal/box/corners{
-	dir = 4
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 9
 	},
-/obj/effect/landmark/start/station_engineer,
-/obj/effect/landmark/event_spawn,
-/turf/open/floor/plasteel/dark,
-/area/engine/break_room)
-"sQo" = (
-/obj/structure/rack,
-/obj/item/wrench,
-/obj/item/screwdriver,
-/obj/item/stack/cable_coil/random/five,
-/obj/machinery/light_switch{
-	pixel_y = -24
-	},
-/turf/open/floor/plasteel,
-/area/vacant_room/commissary/commissary1)
+/turf/open/floor/plasteel/freezer,
+/area/security/prison)
 "sQD" = (
 /obj/structure/sink{
 	dir = 8;
@@ -81962,26 +81945,9 @@
 /obj/structure/mirror{
 	pixel_x = 26
 	},
-<<<<<<< HEAD
-/obj/effect/turf_decal/tile/blue/tile_marquee{
-=======
+/obj/effect/turf_decal/tile/blue/tile_marquee,
 /turf/open/floor/plasteel/dark,
 /area/security/main)
-"sQn" = (
-/obj/effect/turf_decal/delivery,
-/obj/machinery/rnd/production/circuit_imprinter,
-/turf/open/floor/plasteel/dark,
-/area/engine/storage_shared)
-"sQo" = (
-/obj/machinery/light/small{
->>>>>>> d24f1c92e7cc720c0bd07eda55e66a24b3f12061
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 9
-	},
-/turf/open/floor/plasteel/freezer,
-/area/security/prison)
 "vky" = (
 /obj/machinery/door/airlock/command/glass{
 	name = "Bridge Access";
@@ -141716,7 +141682,7 @@ qos
 fbt
 edp
 vDT
-icf
+sQn
 voH
 xsR
 jRk
