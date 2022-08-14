@@ -35368,7 +35368,6 @@
 /obj/structure/disposalpipe/junction{
 	dir = 8
 	},
-/obj/effect/landmark/start/randommaint/experiment,
 /turf/open/floor/plasteel/white,
 /area/science/research)
 "cpu" = (
