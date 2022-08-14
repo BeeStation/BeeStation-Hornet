@@ -1,4 +1,0 @@
-author: Isy232
-delete-after: true
-changes:
-  - tweak: Engineering circuit imprinters are once again generic.
