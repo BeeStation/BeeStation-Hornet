@@ -309,11 +309,15 @@
 #define WET_LEVEL_WATER		(1<<0)
 #define WET_LEVEL_LUBE		(1<<1)
 #define WET_LEVEL_SUPERLUBE	(1<<2)
-#define WET_LEVEL_ICE		(1<<2)
+#define WET_LEVEL_ICE		(1<<3)
 #define WET_COMPONENT_WALK_SLIPS	(1<<10)
 #define WET_COMPONENT_GALOSHES_SLIP	(1<<11)
 #define WET_COMPONENT_CRAWL_SLIPS	(1<<12) //clown planet ruin
-#define WET_COMPONENT_SLIDES		(1<<13)
+#define WET_RESULT_DROPITEMS	(1<<13)
+#define WET_RESULT_SLIDES		(1<<14)
+#define WET_RESULT_KNOCKDOWN	(1<<15)
+#define WET_RESULT_STOP_PULLING	(1<<16)
+#define WET_RESULT_PARALYZE		(1<<17)
 
 
 ///Flags used by the flags parameter of electrocute act.

@@ -103,4 +103,4 @@
 
 /obj/effect/decal/cleanable/oil/slippery/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/slippery, 80, SLIDE)
+	AddComponent(/datum/component/slippery, 80, WET_RESULT_SLIDES)

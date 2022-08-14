@@ -194,21 +194,21 @@
 			qdel(O)
 	return TRUE
 
-/turf/open/handle_slip(mob/living/carbon/slipper, knockdown_amount, obj/O, lube, paralyze_amount, force_drop)
+/turf/open/handle_slip(mob/living/carbon/slipper, knockdown_amount, obj/O, lube_bitflags, paralyze_amount, force_drop)
 	if(slipper.movement_type & FLYING)
 		return 0
 	if(has_gravity(src))
 		var/obj/buckled_obj
 		if(slipper.buckled)
 			buckled_obj = slipper.buckled
-			if((lube&WET_LEVEL_LUBE)||(lube&WET_LEVEL_SUPERLUBE)) //can't slip while buckled unless it's lube.
+			if((lube_bitflags&WET_LEVEL_LUBE)||(lube_bitflags&WET_LEVEL_SUPERLUBE)) //can't slip while buckled unless it's lube.
 				return 0
 		else
-			if(!(lube & SLIP_WHEN_CRAWLING) && (!(slipper.mobility_flags & MOBILITY_STAND) || !(slipper.status_flags & CANKNOCKDOWN))) // can't slip unbuckled mob if they're lying or can't fall.
+			if(!(lube_bitflags & WET_COMPONENT_CRAWL_SLIPS) && (!(slipper.mobility_flags & MOBILITY_STAND) || !(slipper.status_flags & CANKNOCKDOWN))) // can't slip unbuckled mob if they're lying or can't fall.
 				return 0
-			if(slipper.m_intent == MOVE_INTENT_WALK && !(lube&WET_COMPONENT_WALK_SLIPS))
+			if(slipper.m_intent == MOVE_INTENT_WALK && !(lube_bitflags&WET_COMPONENT_WALK_SLIPS))
 				return 0
-		if(!(lube&SLIDE_ICE))
+		if(!(lube_bitflags&WET_LEVEL_ICE))
 			to_chat(slipper, "<span class='notice'>You slipped[ O ? " on the [O.name]" : ""]!</span>")
 			playsound(slipper.loc, 'sound/misc/slip.ogg', 50, 1, -3)
 
@@ -219,23 +219,28 @@
 
 		var/olddir = slipper.dir
 		slipper.moving_diagonally = 0 //If this was part of diagonal move slipping will stop it.
-		if(!(lube & SLIDE_ICE))
-			slipper.Knockdown(knockdown_amount)
+		if(!(lube_bitflags & WET_LEVEL_ICE))
+
+		if(lube_bitflags& WET_RESULT_DROPITEMS)
 			slipper.drop_all_held_items()
-			slipper.Paralyze(paralyze_amount)
+		if(lube_bitflags& WET_RESULT_STOP_PULLING)
 			slipper.stop_pulling()
-		else
-			slipper.Knockdown(15)
-			slipper.drop_all_held_items()
+		if(lube_bitflags& WET_RESULT_KNOCKDOWN)
+			if(lube_bitflags& WET_LEVEL_ICE)
+				slipper.Knockdown(15)
+			else
+				slipper.Knockdown(knockdown_amount)
+		if(lube_bitflags& WET_RESULT_PARALYZE)
+			slipper.Paralyze(paralyze_amount)
 
 		if(buckled_obj)
 			buckled_obj.unbuckle_mob(slipper)
-			lube |= SLIDE_ICE
+			lube_bitflags |= WET_LEVEL_ICE
 
 		var/turf/target = get_ranged_target_turf(slipper, olddir, 4)
-		if(lube & SLIDE)
+		if(lube_bitflags & WET_RESULT_SLIDES)
 			slipper.AddComponent(/datum/component/force_move, target, TRUE)
-		else if(lube&SLIDE_ICE)
+		else if(lube&WET_LEVEL_ICE)
 			slipper.AddComponent(/datum/component/force_move, target, FALSE)//spinning would be bad for ice, fucks up the next dir
 		return TRUE
 
