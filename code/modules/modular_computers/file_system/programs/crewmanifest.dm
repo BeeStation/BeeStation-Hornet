@@ -1,12 +1,14 @@
 /datum/computer_file/program/crew_manifest
 	filename = "crewmani"
 	filedesc = "Crew Manifest"
+	category = PROGRAM_CATEGORY_CREW
 	program_icon_state = "id"
 	extended_desc = "Program for viewing and printing the current crew manifest"
 	transfer_access = ACCESS_HEADS
 	requires_ntnet = FALSE
 	size = 4
 	tgui_id = "NtosCrewManifest"
+	program_icon = "clipboard-list"
 
 
 
