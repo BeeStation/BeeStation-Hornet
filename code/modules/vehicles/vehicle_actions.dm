@@ -228,3 +228,19 @@
 			V.icon_state = "[V.board_icon]-grind"
 			addtimer(CALLBACK(V, /obj/vehicle/ridden/scooter/skateboard/.proc/grind), 2)
 		next_ollie = world.time + 5
+
+/datum/action/vehicle/ridden/scooter/skateboard/kflip
+	name = "Kick Flip"
+	desc = "Do a sweet kickflip to dismount..in style."
+	button_icon_state = "skateboard_ollie"
+
+/datum/action/vehicle/ridden/scooter/skateboard/kflip/Trigger()
+	var/obj/vehicle/ridden/scooter/skateboard/V = vehicle_target
+	var/mob/living/L = owner
+
+	L.visible_message("[L] does a neat kickflip and catches [L.p_their()] board in midair.", "<span class='notice'>You do a sick kickflip, catching the board in midair! Stylish.")
+	L.spin(4, 1)
+	animate(L, pixel_y = -6, time = 4)
+	animate(V, pixel_y = -6, time = 3)
+	V.unbuckle_mob(L)
+	addtimer(CALLBACK(V, /obj/vehicle/ridden/scooter/skateboard/.proc/pick_up_board, L), 2)
