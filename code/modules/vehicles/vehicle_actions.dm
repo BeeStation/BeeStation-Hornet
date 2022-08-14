@@ -239,6 +239,7 @@
 	var/mob/living/L = owner
 
 	L.visible_message("[L] does a neat kickflip and catches [L.p_their()] board in midair.", "<span class='notice'>You do a sick kickflip, catching the board in midair! Stylish.")
+	playsound(V, 'sound/vehicles/skateboard_ollie.ogg', 50, TRUE)
 	L.spin(4, 1)
 	animate(L, pixel_y = -6, time = 4)
 	animate(V, pixel_y = -6, time = 3)
