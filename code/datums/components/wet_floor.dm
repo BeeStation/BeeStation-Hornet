@@ -74,30 +74,36 @@
 	var/intensity = 0
 	var/lube_priority = WET_LEVEL_WATER
 	lube_flags = NONE
+	var/my_flags = NONE // for better readability
 	if(wet_floor_bitflags& TURF_WET_WATER)
 		lube_priority = WET_LEVEL_WATER
 		intensity = max(60, intensity)
-		ENABLE_BITFIELD(lube_flags | WET_RESULT_DROPITEMS | WET_RESULT_KNOCKDOWN)
+		my_flags = WET_RESULT_DROPITEMS | WET_RESULT_KNOCKDOWN
+		ENABLE_BITFIELD(lube_flags, my_flags)
 	if(wet_floor_bitflags& TURF_WET_LUBE)
 		lube_priority = WET_LEVEL_LUBE
 		intensity = max(80, intensity)
-		ENABLE_BITFIELD(lube_flags, WET_COMPONENT_GALOSHES_SLIP | WET_COMPONENT_WALK_SLIPS)
-		ENABLE_BITFIELD(lube_flags, WET_RESULT_DROPITEMS | WET_RESULT_SLIDES | WET_RESULT_KNOCKDOWN)
+		my_flags = WET_COMPONENT_GALOSHES_SLIP | WET_COMPONENT_WALK_SLIPS
+		my_flags = WET_RESULT_DROPITEMS | WET_RESULT_SLIDES | WET_RESULT_KNOCKDOWN
+		ENABLE_BITFIELD(lube_flags, my_flags)
 	if(wet_floor_bitflags& TURF_WET_ICE)
 		lube_priority = WET_LEVEL_ICE
 		intensity = max(120, intensity)
-		ENABLE_BITFIELD(lube_flags, WET_COMPONENT_GALOSHES_SLIP | WET_COMPONENT_WALK_SLIPS)
-		ENABLE_BITFIELD(lube_flags, WET_RESULT_DROPITEMS | WET_RESULT_SLIDES | WET_RESULT_KNOCKDOWN | WET_RESULT_STOP_PULLING)
+		my_flags = WET_COMPONENT_GALOSHES_SLIP | WET_COMPONENT_WALK_SLIPS
+		my_flags = WET_RESULT_DROPITEMS | WET_RESULT_SLIDES | WET_RESULT_KNOCKDOWN | WET_RESULT_STOP_PULLING
+		ENABLE_BITFIELD(lube_flags, my_flags)
 	if(wet_floor_bitflags& TURF_WET_PERMAFROST)
 		lube_priority = WET_LEVEL_ICE
 		intensity = max(120, intensity)
-		ENABLE_BITFIELD(lube_flags, WET_COMPONENT_GALOSHES_SLIP | WET_COMPONENT_WALK_SLIPS)
-		ENABLE_BITFIELD(lube_flags, WET_RESULT_DROPITEMS | WET_RESULT_SLIDES | WET_RESULT_KNOCKDOWN | WET_RESULT_STOP_PULLING)
+		my_flags = WET_COMPONENT_GALOSHES_SLIP | WET_COMPONENT_WALK_SLIPS
+		my_flags = WET_RESULT_DROPITEMS | WET_RESULT_SLIDES | WET_RESULT_KNOCKDOWN | WET_RESULT_STOP_PULLING
+		ENABLE_BITFIELD(lube_flags, my_flags)
 	if(wet_floor_bitflags& TURF_WET_SUPERLUBE)
 		lube_priority = WET_LEVEL_SUPERLUBE
 		intensity = max(120, intensity)
-		ENABLE_BITFIELD(lube_flags, WET_COMPONENT_GALOSHES_SLIP | WET_COMPONENT_WALK_SLIPS | WET_COMPONENT_CRAWL_SLIPS)
-		ENABLE_BITFIELD(lube_flags, WET_RESULT_DROPITEMS | WET_RESULT_SLIDES | WET_RESULT_KNOCKDOWN | WET_RESULT_STOP_PULLING)
+		my_flags = WET_COMPONENT_GALOSHES_SLIP | WET_COMPONENT_WALK_SLIPS | WET_COMPONENT_CRAWL_SLIPS
+		my_flags = WET_RESULT_DROPITEMS | WET_RESULT_SLIDES | WET_RESULT_KNOCKDOWN | WET_RESULT_STOP_PULLING
+		ENABLE_BITFIELD(lube_flags, my_flags)
 	// for better readability, first flags are for "components" how/when that slip works
 	//                         secone flags are for "result" what that slip does to you
 
