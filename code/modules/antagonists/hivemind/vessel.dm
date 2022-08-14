@@ -64,7 +64,7 @@
 
 /datum/antagonist/hivevessel/greet()
 	to_chat(owner, "<span class='assimilator'>Your mind is suddenly opened, as you see the pinnacle of evolution...</span>")
-	to_chat(owner, "<big><span class='warning'><b>Follow your Host in anything!</b></span></big>")
+	to_chat(owner, "<big><span class='warning'><b>Complete the orders of your host, no matter what!</b></span></big>")
 
 /datum/antagonist/hivevessel/farewell()
 	to_chat(owner, "<span class='assimilator'>Your mind closes up once more...</span>")
