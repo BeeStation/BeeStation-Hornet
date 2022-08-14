@@ -125,5 +125,4 @@
 	fire_projectile_towards(target, projectile_type = projectile_type, missed = missed)
 
 /obj/machinery/shuttle_weapon/wrench_act(mob/living/user, obj/item/I)
-	. = ..()
 	setDir(turn(dir, 90))
