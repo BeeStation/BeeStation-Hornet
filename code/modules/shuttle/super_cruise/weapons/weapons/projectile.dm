@@ -31,9 +31,9 @@
 	projectile_type = /obj/item/projectile/bullet/shuttle/ballistic/point_defense
 	cooldown = 90
 	simultaneous_shots = 8
-	miss_chance = 40
+	miss_chance = 80
 	hit_chance = 0
-	innaccuracy = 3
+	innaccuracy = 4
 	strength_rating = 10
 
 /obj/item/wallframe/shuttle_weapon/scatter

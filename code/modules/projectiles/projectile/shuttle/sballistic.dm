@@ -42,5 +42,5 @@
 
 /obj/item/projectile/bullet/shuttle/ballistic/point_defense
 	name = "point defense round"
-	damage = 20
+	damage = 15
 	eyeblur = 0
