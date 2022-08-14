@@ -59,6 +59,8 @@ Possible to do for anyone motivated enough:
 	var/ringing = FALSE
 	var/offset = FALSE
 	var/on_network = TRUE
+	///AI hologram
+	var/obj/effect/overlay/holo_pad_hologram/holo
 
 /obj/machinery/holopad/Initialize(mapload)
 	. = ..()
@@ -509,7 +511,7 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 
 /obj/machinery/holopad/proc/move_hologram(mob/living/user, turf/new_turf)
 	if(LAZYLEN(masters) && masters[user])
-		var/obj/effect/overlay/holo_pad_hologram/holo = masters[user]
+		holo = masters[user]
 		var/transfered = FALSE
 		if(!validate_location(new_turf))
 			if(!transfer_to_nearby_pad(new_turf,user))
