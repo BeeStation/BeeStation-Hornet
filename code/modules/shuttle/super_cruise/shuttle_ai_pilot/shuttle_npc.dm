@@ -181,6 +181,9 @@
 			last_thought = "I am dead."
 			overridable = TRUE
 		return
+	//If we are docking with something, undock
+	if (shuttle.docking_target)
+		shuttle.undock()
 	//Don't drive places if we have no target, just try to stay at our current location
 	if (!shuttleTarget)
 		last_thought = "I have nowhere to go, I'll just fly around."

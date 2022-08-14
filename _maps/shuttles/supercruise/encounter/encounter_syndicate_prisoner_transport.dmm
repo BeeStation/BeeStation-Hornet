@@ -158,20 +158,6 @@
 "ma" = (
 /turf/template_noop,
 /area/template_noop)
-"mD" = (
-/obj/machinery/porta_turret/syndicate/pod{
-	dir = 1;
-	faction = list("Syndicate","pirate")
-	},
-/turf/closed/wall/r_wall/syndicate,
-/area/shuttle/syndicate_scout)
-"mH" = (
-/obj/machinery/porta_turret/syndicate/pod{
-	dir = 10;
-	faction = list("Syndicate","pirate")
-	},
-/turf/closed/wall/r_wall/syndicate/nodiagonal,
-/area/shuttle/syndicate_scout)
 "mJ" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/door/airlock/security/glass{
@@ -188,14 +174,6 @@
 	},
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/mineral/plastitanium,
-/area/shuttle/syndicate_scout)
-"nm" = (
-/obj/machinery/door/poddoor/shutters{
-	id = "syndie_ptransport_windows";
-	name = "blast shutters"
-	},
-/obj/effect/spawner/structure/window/plastitanium,
-/turf/open/floor/plating,
 /area/shuttle/syndicate_scout)
 "ob" = (
 /obj/effect/turf_decal/tile/brown/tile_marquee,
@@ -225,6 +203,14 @@
 	pixel_y = 12
 	},
 /turf/open/floor/pod/dark,
+/area/shuttle/syndicate_scout)
+"pk" = (
+/obj/machinery/door/poddoor/shutters{
+	id = "syndie_ptransport_windows";
+	name = "blast shutters"
+	},
+/obj/effect/spawner/structure/window/plastitanium,
+/turf/open/floor/plating,
 /area/shuttle/syndicate_scout)
 "ps" = (
 /obj/effect/turf_decal/stripes/line{
@@ -262,6 +248,16 @@
 	dir = 1
 	},
 /turf/open/floor/pod/dark,
+/area/shuttle/syndicate_scout)
+"qo" = (
+/obj/structure/table/reinforced,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/machinery/light/small,
+/obj/effect/hostage_loot_point,
+/turf/open/floor/mineral/plastitanium,
 /area/shuttle/syndicate_scout)
 "rd" = (
 /obj/structure/window/reinforced/survival_pod{
@@ -346,33 +342,14 @@
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/syndicate_scout)
+"ub" = (
+/obj/effect/spawner/structure/window/plastitanium,
+/turf/open/floor/plating,
+/area/shuttle/syndicate_scout)
 "ui" = (
 /obj/effect/turf_decal/tile/neutral/tile_full,
 /obj/structure/dresser,
 /turf/open/floor/plasteel/techmaint,
-/area/shuttle/syndicate_scout)
-"uC" = (
-/obj/structure/bed/pod,
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/item/toy/plush/moth,
-/obj/effect/hostage_spawn,
-/turf/open/floor/pod,
-/area/shuttle/syndicate_scout)
-"uN" = (
-/obj/structure/bed/pod,
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/item/toy/plush/rouny{
-	dir = 4;
-	pixel_x = -2;
-	pixel_y = 8
-	},
-/obj/effect/decal/cleanable/blood/old,
-/obj/effect/decal/cleanable/blood/splatter{
-	pixel_x = 13;
-	pixel_y = 3
-	},
-/obj/effect/hostage_spawn,
-/turf/open/floor/pod,
 /area/shuttle/syndicate_scout)
 "uT" = (
 /obj/effect/turf_decal/trimline/neutral/filled/line{
@@ -396,14 +373,6 @@
 	},
 /turf/closed/wall/r_wall/syndicate/nodiagonal,
 /area/shuttle/syndicate_scout)
-"vW" = (
-/obj/machinery/computer/shuttle_flight/syndicate,
-/obj/effect/turf_decal/tile/neutral/tile_full,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/turf/open/floor/mineral/plastitanium,
-/area/shuttle/syndicate_scout)
 "wg" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/bot_white,
@@ -420,13 +389,6 @@
 "xD" = (
 /obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/mineral/plastitanium/red,
-/area/shuttle/syndicate_scout)
-"xR" = (
-/obj/machinery/porta_turret/syndicate/pod{
-	dir = 6;
-	faction = list("Syndicate","pirate")
-	},
-/turf/closed/wall/r_wall/syndicate/nodiagonal,
 /area/shuttle/syndicate_scout)
 "yo" = (
 /obj/effect/turf_decal/stripes/line{
@@ -601,6 +563,22 @@
 /obj/effect/hostage_spawn,
 /turf/open/floor/pod,
 /area/shuttle/syndicate_scout)
+"EY" = (
+/obj/structure/bed/pod,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/item/toy/plush/rouny{
+	dir = 4;
+	pixel_x = -2;
+	pixel_y = 8
+	},
+/obj/effect/decal/cleanable/blood/old,
+/obj/effect/decal/cleanable/blood/splatter{
+	pixel_x = 13;
+	pixel_y = 3
+	},
+/obj/effect/hostage_spawn,
+/turf/open/floor/pod,
+/area/shuttle/syndicate_scout)
 "Fe" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -617,6 +595,23 @@
 	req_access_txt = "180"
 	},
 /turf/open/floor/mineral/plastitanium/red,
+/area/shuttle/syndicate_scout)
+"GS" = (
+/obj/structure/table/reinforced,
+/obj/effect/turf_decal/stripes/corner{
+	dir = 1
+	},
+/obj/item/storage/firstaid/tactical{
+	pixel_x = 3;
+	pixel_y = 4
+	},
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/item/storage/firstaid/tactical{
+	pixel_x = -2;
+	pixel_y = 2
+	},
+/turf/open/floor/mineral/plastitanium,
 /area/shuttle/syndicate_scout)
 "Ho" = (
 /obj/structure/sink{
@@ -660,6 +655,13 @@
 /obj/effect/turf_decal/tile/neutral/tile_full,
 /turf/open/floor/pod/dark,
 /area/shuttle/syndicate_scout)
+"IX" = (
+/obj/machinery/porta_turret/syndicate/pod{
+	dir = 10;
+	faction = list("Syndicate","pirate")
+	},
+/turf/closed/wall/r_wall/syndicate/nodiagonal,
+/area/shuttle/syndicate_scout)
 "Jb" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
@@ -670,15 +672,20 @@
 	},
 /turf/open/floor/plasteel/techmaint,
 /area/shuttle/syndicate_scout)
-"JG" = (
-/obj/structure/table/reinforced,
+"Km" = (
+/obj/effect/turf_decal/tile/neutral/tile_full,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/light/small,
-/obj/effect/hostage_loot_point,
+/obj/machinery/computer/shuttle_flight,
 /turf/open/floor/mineral/plastitanium,
+/area/shuttle/syndicate_scout)
+"LQ" = (
+/obj/structure/bed/pod,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/item/toy/plush/moth,
+/obj/effect/hostage_spawn,
+/turf/open/floor/pod,
 /area/shuttle/syndicate_scout)
 "My" = (
 /obj/effect/decal/cleanable/dirt/dust,
@@ -818,22 +825,12 @@
 	},
 /turf/open/floor/plasteel/tech/grid,
 /area/shuttle/syndicate_scout)
-"Rl" = (
-/obj/structure/table/reinforced,
-/obj/effect/turf_decal/stripes/corner{
-	dir = 1
+"Ra" = (
+/obj/machinery/porta_turret/syndicate/pod{
+	dir = 6;
+	faction = list("Syndicate","pirate")
 	},
-/obj/item/storage/firstaid/tactical{
-	pixel_x = 3;
-	pixel_y = 4
-	},
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/item/storage/firstaid/tactical{
-	pixel_x = -2;
-	pixel_y = 2
-	},
-/turf/open/floor/mineral/plastitanium,
+/turf/closed/wall/r_wall/syndicate/nodiagonal,
 /area/shuttle/syndicate_scout)
 "Ro" = (
 /obj/machinery/shuttle/engine/plasma{
@@ -866,10 +863,6 @@
 	dir = 10
 	},
 /turf/open/floor/plasteel/techmaint,
-/area/shuttle/syndicate_scout)
-"RE" = (
-/obj/effect/spawner/structure/window/plastitanium,
-/turf/open/floor/plating,
 /area/shuttle/syndicate_scout)
 "SU" = (
 /obj/effect/turf_decal/stripes/closeup{
@@ -961,6 +954,13 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/syndicate_scout)
+"Ww" = (
+/obj/machinery/porta_turret/syndicate/pod{
+	dir = 1;
+	faction = list("Syndicate","pirate")
+	},
+/turf/closed/wall/r_wall/syndicate,
+/area/shuttle/syndicate_scout)
 "Wz" = (
 /obj/machinery/atmospherics/pipe/simple/purple/visible{
 	dir = 6
@@ -1031,7 +1031,7 @@
 ma
 ma
 ma
-mD
+Ww
 hj
 CZ
 CZ
@@ -1070,7 +1070,7 @@ kK
 My
 tp
 CZ
-mH
+IX
 ma
 "}
 (3,1,1) = {"
@@ -1084,9 +1084,9 @@ rp
 fX
 hF
 CZ
-uC
-RE
-uN
+LQ
+ub
+EY
 CZ
 Qu
 UI
@@ -1122,7 +1122,7 @@ Ro
 (5,1,1) = {"
 ma
 ma
-nm
+pk
 tB
 Vn
 CZ
@@ -1145,8 +1145,8 @@ Ro
 (6,1,1) = {"
 ma
 ma
-nm
-vW
+pk
+Km
 eZ
 SU
 YM
@@ -1168,7 +1168,7 @@ Ro
 (7,1,1) = {"
 ma
 ma
-nm
+pk
 yG
 SU
 fk
@@ -1217,13 +1217,13 @@ vi
 CZ
 wg
 Vt
-JG
+qo
 CZ
 CZ
 am
 CZ
 Yx
-RE
+ub
 EM
 CZ
 de
@@ -1240,7 +1240,7 @@ bS
 CZ
 CZ
 Fe
-Rl
+GS
 CZ
 CN
 Ho
@@ -1254,14 +1254,14 @@ Pz
 CZ
 HV
 CZ
-xR
+Ra
 ma
 "}
 (11,1,1) = {"
 ma
 ma
 ma
-mD
+Ww
 CZ
 CZ
 CZ
