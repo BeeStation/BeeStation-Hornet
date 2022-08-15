@@ -319,7 +319,7 @@
 	desc = "It's a piece of slime, shaped like a tongue."
 	say_mod = list("blorbles", "bubbles")
 	ask_mod = "inquisitively blorbles"
-	yell_mod = "blorble screams"
+	yell_mod = "shrilly blorbles"
 	exclaim_mod = "loudly blorbles"
 	toxic_food = NONE
 	disliked_food = NONE
