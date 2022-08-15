@@ -3,7 +3,7 @@
 	desc = "We forcefully insert a directive into a vessels mind for a limited time, they'll obey anything short of suicide."
 	action_icon_state = "empower"
 
-	charge_max = 1800
+	charge_max = 10 MINUTES
 
 /obj/effect/proc_holder/spell/target_hive/hive_compell/cast(list/targets, mob/living/user = usr)
 	var/mob/living/carbon/human/target = targets[1]
