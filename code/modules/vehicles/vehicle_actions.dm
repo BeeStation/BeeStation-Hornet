@@ -231,7 +231,7 @@
 
 /datum/action/vehicle/ridden/scooter/skateboard/kflip
 	name = "Kick Flip"
-	desc = "Do a sweet kickflip to dismount..in style."
+	desc = "Do a sweet kickflip to dismount... in style."
 	button_icon_state = "skateboard_ollie"
 
 /datum/action/vehicle/ridden/scooter/skateboard/kflip/Trigger()
