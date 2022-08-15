@@ -7,7 +7,7 @@
     "packages/*"
   ],
   "scripts": {
-    "tgui:build": "webpack",
+    "tgui:build": "BROWSERSLIST_IGNORE_OLD_DATA=true webpack",
     "tgui:analyze": "webpack --analyze",
     "tgui:dev": "node --experimental-modules packages/tgui-dev-server/index.js",
     "tgui:lint": "eslint packages --ext .js,.cjs,.ts,.tsx",
