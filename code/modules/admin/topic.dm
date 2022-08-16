@@ -28,7 +28,7 @@
 
 		var/ahelp_ref = href_list["ahelp"]
 		var/datum/help_ticket/admin/AH = locate(ahelp_ref)
-		if(AH && istype(AH))
+		if(istype(AH))
 			AH.Action(href_list["ahelp_action"])
 		else
 			to_chat(usr, "Ticket [ahelp_ref] has been deleted!")

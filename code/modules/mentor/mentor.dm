@@ -70,9 +70,9 @@ GLOBAL_PROTECT(mentor_href_token)
 
 	if(href_list["mhelp"])
 		var/mhelp_ref = href_list["mhelp"]
-		var/datum/help_ticket/mentor/AH = locate(mhelp_ref)
-		if(AH && istype(AH))
-			AH.Action(href_list["mhelp_action"])
+		var/datum/help_ticket/mentor/MH = locate(mhelp_ref)
+		if(istype(MH))
+			MH.Action(href_list["mhelp_action"])
 		else
 			to_chat(usr, "Ticket [mhelp_ref] has been deleted!")
 	else if(href_list["mhelp_tickets"])

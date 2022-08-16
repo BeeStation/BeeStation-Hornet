@@ -115,7 +115,8 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/help_tickets/admin, new)
 
 /datum/help_ticket/admin
 	var/heard_by_no_admins = FALSE
-	var/bwoink // is the ahelp player to admin (not bwoink) or admin to player (bwoink)
+	/// is the ahelp player to admin (not bwoink) or admin to player (bwoink)
+	var/bwoink
 
 /datum/help_ticket/admin/get_data_glob()
 	return GLOB.ahelp_tickets
@@ -215,7 +216,6 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/help_tickets/admin, new)
 			html = "<span class='adminnotice'>PM to-<b>Admins</b>: <span class='linkify'>[msg]</span></span>")
 
 
-//private
 /datum/help_ticket/admin/proc/FullMonty(ref_src)
 	if(!ref_src)
 		ref_src = "[REF(src)]"
@@ -223,7 +223,6 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/help_tickets/admin, new)
 	if(state <= TICKET_ACTIVE)
 		. += ClosureLinks(ref_src)
 
-//private
 /datum/help_ticket/admin/proc/ClosureLinks(ref_src)
 	if(!ref_src)
 		ref_src = "[REF(src)]"
@@ -233,13 +232,11 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/help_tickets/admin, new)
 	. += " (<A HREF='?_src_=holder;[HrefToken(TRUE)];ahelp=[ref_src];ahelp_action=resolve'>RSLVE</A>)"
 	. += " (<A HREF='?_src_=holder;[HrefToken(TRUE)];ahelp=[ref_src];ahelp_action=mhelp'>MHELP</A>)"
 
-//private
 /datum/help_ticket/admin/LinkedReplyName(ref_src)
 	if(!ref_src)
 		ref_src = "[REF(src)]"
 	return "<A HREF='?_src_=holder;[HrefToken(TRUE)];ahelp=[ref_src];ahelp_action=reply'>[initiator_key_name]</A>"
 
-//private
 /datum/help_ticket/admin/TicketHref(msg, ref_src, action = "ticket")
 	if(!ref_src)
 		ref_src = "[REF(src)]"
@@ -248,7 +245,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/help_tickets/admin, new)
 /datum/help_ticket/admin/blackbox_feedback(increment, data)
 	SSblackbox.record_feedback("tally", "ahelp_stats", increment, data)
 
-//Resolve ticket with IC Issue message
+/// Resolve ticket with IC Issue message
 /datum/help_ticket/admin/proc/ICIssue(key_name = key_name_ticket(usr))
 	if(state > TICKET_ACTIVE)
 		return
@@ -295,7 +292,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/help_tickets/admin, new)
 	var/datum/help_ticket/mentor/ticket = new(initiator)
 	ticket.NewFrom(src)
 
-//Forwarded action from admin/Topic
+/// Forwarded action from admin/Topic
 /datum/help_ticket/admin/proc/Action(action)
 	testing("Ahelp action: [action]")
 	switch(action)

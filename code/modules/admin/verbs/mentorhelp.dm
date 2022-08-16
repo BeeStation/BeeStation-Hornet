@@ -31,7 +31,7 @@ GLOBAL_DATUM_INIT(mhelp_tickets, /datum/help_tickets/mentor, new)
 	deltimer(mentorhelptimerid)
 	mentorhelptimerid = 0
 
-// Used for methods where input via arg doesn't work
+/// Used for methods where input via arg doesn't work
 /client/proc/get_mentorhelp()
 	var/msg = capped_multiline_input(src, "Please describe your problem concisely and a mentor will help as soon as they're able. Remember: Mentors cannot see you or what you're doing. Describe the problem in full detail.", "Mentorhelp contents")
 	mentorhelp(msg)
@@ -99,10 +99,10 @@ GLOBAL_DATUM_INIT(mhelp_tickets, /datum/help_tickets/mentor, new)
 /// Ticket Datum
 
 /datum/help_ticket/mentor
-	span_class = "mentorhelp" // class used on message spans
-	handling_name_a = "a mentor" // what type of staff is handling the ticket (admin, mentor)
+	span_class = "mentorhelp"
+	handling_name_a = "a mentor"
 	handling_name = "mentor"
-	verb_name = "Mentorhelp" // the verb that is used for this ticket type
+	verb_name = "Mentorhelp"
 	reply_sound = "sound/items/bikehorn.ogg"
 
 /datum/help_ticket/mentor/New(client/C)
@@ -116,7 +116,7 @@ GLOBAL_DATUM_INIT(mhelp_tickets, /datum/help_tickets/mentor, new)
 	return !!GLOB.mentor_datums[user.ckey]
 
 /datum/help_ticket/mentor/check_permission_act(mob/user)
-	return !!GLOB.mentor_datums[user.ckey]// && check_rights(R_MENTOR)
+	return !!GLOB.mentor_datums[user.ckey]// && check_rights(R_MENTOR) once this exists
 
 /datum/help_ticket/mentor/ui_state(mob/user)
 	return GLOB.mentor_state
@@ -167,7 +167,6 @@ GLOBAL_DATUM_INIT(mhelp_tickets, /datum/help_tickets/mentor, new)
 	if(add_to_ticket)
 		to_chat(initiator, "<span class='mentornotice'>PM to-<b>Mentors</b>: <span class='linkify'>[msg]</span></span>")
 
-//private
 /datum/help_ticket/mentor/proc/ClosureLinks(ref_src)
 	if(state > TICKET_ACTIVE)
 		return ""
@@ -178,13 +177,11 @@ GLOBAL_DATUM_INIT(mhelp_tickets, /datum/help_tickets/mentor, new)
 	. += " (<A HREF='?_src_=mentor;[MentorHrefToken(TRUE)];mhelp=[ref_src];mhelp_action=resolve'>RSLVE</A>)"
 	. += " (<A HREF='?_src_=mentor;[MentorHrefToken(TRUE)];mhelp=[ref_src];mhelp_action=ahelp'>AHELP</A>)"
 
-//private
 /datum/help_ticket/mentor/LinkedReplyName(ref_src)
 	if(!ref_src)
 		ref_src = "[REF(src)]"
 	return "<A HREF='?_src_=mentor;[MentorHrefToken(TRUE)];mhelp=[ref_src];mhelp_action=reply'>[initiator_key_name]</A>"
 
-//private
 /datum/help_ticket/mentor/TicketHref(msg, ref_src, action = "ticket")
 	if(!ref_src)
 		ref_src = "[REF(src)]"
@@ -193,6 +190,7 @@ GLOBAL_DATUM_INIT(mhelp_tickets, /datum/help_tickets/mentor, new)
 /datum/help_ticket/mentor/blackbox_feedback(increment, data)
 	SSblackbox.record_feedback("tally", "mhelp_stats", increment, data)
 
+/// Close ticket and escalate to adminhelp, auto-converts and creates a new admin ticket with the same history
 /datum/help_ticket/mentor/proc/AHelpThis(key_name = key_name_ticket(usr))
 	if(state > TICKET_ACTIVE)
 		return
@@ -218,7 +216,7 @@ GLOBAL_DATUM_INIT(mhelp_tickets, /datum/help_tickets/mentor, new)
 	var/datum/help_ticket/admin/ticket = new(initiator)
 	ticket.NewFrom(src)
 
-//Forwarded action from mentor/Topic
+/// Forwarded action from mentor/Topic
 /datum/help_ticket/mentor/proc/Action(action)
 	testing("Mhelp action: [action]")
 	switch(action)

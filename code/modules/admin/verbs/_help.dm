@@ -20,12 +20,12 @@
 	return ..()
 
 /datum/help_tickets/proc/BrowseTickets(mob/user)
+	return
 
 /datum/help_tickets/proc/TicketByID(id)
 	var/list/lists = list(unclaimed_tickets, active_tickets, closed_tickets, resolved_tickets)
 	for(var/I in lists)
-		for(var/J in I)
-			var/datum/help_ticket/AH = J
+		for(var/datum/help_ticket/AH in I)
 			if(AH.id == id)
 				return J
 
@@ -33,8 +33,7 @@
 	. = list()
 	var/list/lists = list(unclaimed_tickets, active_tickets, closed_tickets, resolved_tickets)
 	for(var/I in lists)
-		for(var/J in I)
-			var/datum/help_ticket/AH = J
+		for(var/datum/help_ticket/AH in I)
 			if(AH.initiator_ckey == ckey)
 				. += AH
 
@@ -65,9 +64,10 @@
 
 // UI holder for admins
 /datum/help_ui
+	return
 
 /datum/help_ui/proc/get_data_glob()
-	return null
+	return
 
 /datum/help_ui/proc/check_permission(mob/user)
 	return FALSE
@@ -105,8 +105,10 @@
 	return data
 
 /datum/help_ui/proc/get_additional_ticket_data(ticket_id)
+	return
 
 /datum/help_ui/proc/reply(whom)
+	return
 
 /datum/help_ui/ui_act(action, params)
 	if(!check_permission(usr))
@@ -127,7 +129,7 @@
 	switch(action)
 		if("claim")
 			if(ticket.claimee)
-				var/confirm = alert("This ticket is already claimed, override claim?",,"Yes", "No")
+				var/confirm = alert("This ticket is already claimed, override claim?", null,"Yes", "No")
 				if(confirm == "No")
 					return
 			claim_ticket = CLAIM_OVERRIDE
@@ -154,7 +156,7 @@
 
 
 /datum/help_ui/proc/additional_act(action, datum/help_ticket/ticket, claim_ticket)
-
+	return
 
 // has to be here because defines
 /datum/help_ui/admin/additional_act(action, datum/help_ticket/ticket, claim_ticket)
@@ -204,8 +206,7 @@
 	if(!l2b)
 		return
 	var/list/dat = list()
-	for(var/I in l2b)
-		var/datum/help_ticket/AH = I
+	for(var/datum/help_ticket/AH in l2b)
 		var/list/ticket = list(
 			"id" = AH.id,
 			"initiator_key_name" = AH.initiator_key_name,
@@ -235,8 +236,7 @@
 	)
 	var/num_disconnected = 0
 	for(var/l in list(active_tickets, unclaimed_tickets))
-		for(var/I in l)
-			var/datum/help_ticket/AH = I
+		for(var/datum/help_ticket/AH in l)
 			if(AH.initiator)
 				tab_data["#[AH.id]. [AH.initiator_key_name]"] = list(
 					text = AH.name,
@@ -283,14 +283,15 @@
 //Get a ticket given a ckey
 /datum/help_tickets/proc/CKey2ActiveTicket(ckey)
 	for(var/l in list(unclaimed_tickets, active_tickets))
-		for(var/I in l)
-			var/datum/help_ticket/AH = I
+		for(var/datum/help_ticket/AH in l)
 			if(AH.initiator_ckey == ckey)
 				return AH
 
 /datum/help_tickets/proc/get_active_ticket(client/C)
+	return
 
 /datum/help_tickets/proc/set_active_ticket(client/C, datum/help_ticket/ticket)
+	return
 
 //
 // Ticket interaction
@@ -299,9 +300,9 @@
 /datum/ticket_interaction
 	var/time_stamp
 	var/message_color = "default"
-	var/from_user = ""
-	var/to_user = ""
-	var/message = ""
+	var/from_user
+	var/to_user
+	var/message
 	var/from_user_safe
 	var/to_user_safe
 
@@ -317,34 +318,42 @@
 	var/id
 	var/name
 	var/state = TICKET_UNCLAIMED
-	var/initial_msg // The first (sanitized) message for this ticket
+	/// The first (sanitized) message for this ticket
+	var/initial_msg
 
 	var/opened_at
 	var/closed_at
 
-	var/client/initiator	//semi-misnomer, it's the person who ahelped/was bwoinked
+	/// The person who a/mhelped OR was bwoinked (the non-admin/mentor)
+	var/client/initiator
 	var/initiator_ckey
 	var/initiator_key_name
 
-	var/client/claimee	//The admin that has claimed this ticket
+	/// The person that has claimed this ticket
+	var/client/claimee
 	var/claimee_key_name
 
-	var/list/_interactions	//use AddInteraction() or, preferably, admin_ticket_log()
+	/// Do not add to directly. Use AddInteraction() or, preferably, admin_ticket_log()
+	var/list/_interactions
 
 	var/static/ticket_counter = 0
-	var/span_class = "adminhelp" // class used on message spans
-	var/handling_name_a = "an administrator" // what type of staff is handling the ticket (admin, mentor)
+	/// Class used on message spans
+	var/span_class = "adminhelp"
+	/// What type of staff is handling the ticket (admin, mentor) with an "a" before
+	var/handling_name_a = "an administrator"
+	/// What type of staff is handling the ticket ("Your ticket has been resolved by the _s")
 	var/handling_name = "administrator"
-	var/verb_name = "Adminhelp" // the verb that is used for this ticket type
-	var/reply_sound = "sound/effects/adminhelp.ogg" // sound used for ticket actions and replies
+	/// The help verb that is used to open this ticket type
+	var/verb_name = "Adminhelp"
+	/// The sound used for ticket actions and replies (bwoink!)
+	var/reply_sound = "sound/effects/adminhelp.ogg"
 
 /datum/help_ticket/New(client/C)
 	initiator = C
 	initiator_ckey = initiator.ckey
 	initiator_key_name = key_name(initiator, FALSE, TRUE)
 
-//call this on its own to create a ticket, don't manually assign current_ticket
-//msg is the title of the ticket: usually the ahelp text
+/// Call this on its own to create a ticket, don't manually assign current_ticket, msg is the title of the ticket: usually the ahelp text
 /datum/help_ticket/proc/Create(msg)
 	//Clean the input message
 	msg = sanitize(copytext_char(msg, 1, MAX_MESSAGE_LEN))
@@ -409,6 +418,7 @@
 	return ..()
 
 /datum/help_ticket/proc/get_data_glob()
+	return
 
 /datum/help_ticket/proc/check_permission(mob/user)
 	return FALSE
@@ -428,6 +438,7 @@
 	SStgui.update_uis(src)
 
 /datum/help_ticket/proc/TimeoutVerb()
+	return
 
 /datum/help_ticket/proc/TicketPanel()
 	ui_interact(usr)
@@ -478,6 +489,7 @@
 	return data
 
 /datum/help_ticket/proc/reply(whom, msg)
+	return
 
 /datum/help_ticket/ui_act(action, params)
 	if(!check_permission_act(usr))
@@ -509,7 +521,7 @@
 		Claim()
 
 /datum/help_ticket/proc/additional_act(action, claim_ticket)
-
+	return
 
 // has to be here because defines
 /datum/help_ticket/admin/additional_act(action, claim_ticket)
@@ -550,10 +562,13 @@
 	return claim_ticket
 
 /datum/help_ticket/proc/MessageNoRecipient(msg)
+	return
 
 /datum/help_ticket/proc/key_name_ticket(mob/user)
+	return
 
 /datum/help_ticket/proc/message_ticket_managers(msg)
+	return
 
 /datum/help_ticket/proc/LinkedReplyName(ref_src)
 	return "[initiator_key_name]"
@@ -562,6 +577,7 @@
 	return "[msg]"
 
 /datum/help_ticket/proc/blackbox_feedback(increment, data)
+	return
 
 //Reopen a closed ticket
 /datum/help_ticket/proc/Reopen()
@@ -597,7 +613,7 @@
 	blackbox_feedback(1, "reopened")
 	TicketPanel()	//can only be done from here, so refresh it
 
-//private
+/// Don't call this, internal use only. Use Close/Resolve instead
 /datum/help_ticket/proc/RemoveActive()
 	if(state > TICKET_ACTIVE)
 		return
@@ -637,7 +653,7 @@
 		message_ticket_managers(msg)
 		log_admin_private(msg)
 
-//Mark open ticket as closed/meme
+/// Mark open ticket as closed/meme
 /datum/help_ticket/proc/Close(key_name = key_name_ticket(usr), silent = FALSE)
 	if(state > TICKET_ACTIVE)
 		return
@@ -654,7 +670,7 @@
 		message_ticket_managers(msg)
 		log_admin_private(msg)
 
-//Mark open ticket as resolved/legitimate, returns ahelp verb
+/// Mark open ticket as resolved/legitimate, returns ahelp verb
 /datum/help_ticket/proc/Resolve(key_name = key_name_ticket(usr), silent = FALSE)
 	if(state > TICKET_ACTIVE)
 		return
@@ -673,7 +689,7 @@
 		message_ticket_managers(msg)
 		log_admin_private(msg)
 
-//Close and return ahelp verb, use if ticket is incoherent
+/// Close and return ahelp verb, use if ticket is incoherent
 /datum/help_ticket/proc/Reject(key_name = key_name_ticket(usr))
 	if(state > TICKET_ACTIVE)
 		return
@@ -703,8 +719,7 @@
 // LOGGING
 //
 
-//Use this proc when an admin takes action that may be related to an open ticket on what
-//what can be a client, ckey, or mob
+/// Use this proc when an admin takes action that may be related to an open ticket on "what" - "what" can be a client, ckey, or mob
 /proc/admin_ticket_log(what, message, whofrom = "", whoto = "", color = "white", isSenderAdmin = FALSE, safeSenderLogged = FALSE, is_admin_ticket = TRUE)
 	var/client/C
 	var/mob/Mob = what
