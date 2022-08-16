@@ -24,14 +24,14 @@ export const TicketBrowser = (props, context) => {
       <Window.Content scrollable>
         <h2>{is_admin_panel ? 'Administrator' : 'Mentor'}: {admin_ckey}</h2>
         {is_admin_panel ? (
-          <Section fill style={{ padding: "5px 0px" }}>
+          <Section fill>
             <Tabs>
               <Tabs.Tab selected={tab === 'admin'} onClick={() => setTab('admin')}>
-                Admin ({unclaimed_tickets.length}U-{open_tickets.length}O)
+                {`Admin${unclaimed_tickets.length ? ` (${unclaimed_tickets.length})` : ""}`}
               </Tabs.Tab>
               <Tabs.Tab selected={tab === 'mentor'} onClick={() => setTab('mentor')}>
                 {/* eslint-disable-next-line max-len*/}
-                Mentor ({unclaimed_tickets_mentor.length}U-{open_tickets_mentor.length}O)
+                {`Mentor${unclaimed_tickets_mentor.length ? ` (${unclaimed_tickets_mentor.length})` : ""}`}
               </Tabs.Tab>
             </Tabs>
             {tab === 'admin' ? <TicketMenus
