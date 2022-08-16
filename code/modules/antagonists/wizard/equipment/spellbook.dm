@@ -597,7 +597,7 @@
 	SSblackbox.record_feedback("tally", "wizard_spell_learned", 1, name)
 	book.uses = round(book.uses*WIZARD_WILDMAGIC_SPELLPOINT_MULTIPLIER) // more spell points
 	book.refuses_refund = TRUE
-	book.desc += "An unearthly tome that once had a great power."
+	book.desc = "An unearthly tome that once had a great power."
 	while(book.uses)
 		var/datum/spellbook_entry/target = pick(book.entries)
 		if(istype(target, /datum/spellbook_entry/summon/wild_magic))
