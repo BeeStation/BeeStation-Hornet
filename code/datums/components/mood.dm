@@ -381,12 +381,6 @@
 	
 	if(A.mood_reverse)
 		job_check = !job_check
-	
-	var/job_check = length(A.mood_job_allowed) ? FALSE : TRUE  // no list means no restrictions
-	if(ishuman(source) && !job_check)  // if it hasnt already passed, go forward
-		var/mob/living/carbon/human/target = source
-		if(target.mind?.assigned_role in A.mood_job_allowed)
-			job_check = TRUE
 
 	if(A.mood_bonus && job_check)
 		if(get_event("area"))	//walking between areas that give mood bonus should first clear the bonus from the previous one
