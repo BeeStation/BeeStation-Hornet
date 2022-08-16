@@ -373,6 +373,15 @@
 /datum/component/mood/proc/check_area_mood(datum/source, var/area/A)
 	SIGNAL_HANDLER
 
+	var/job_check = TRUE
+	if(ishuman(source) && length(A.mood_job_allowed))
+		var/mob/living/carbon/human/target = source
+		if(!target.mind?.assigned_role in A.mood_job_allowed)
+			job_check = FALSE
+	
+	if(A.mood_reverse)
+		job_check = !job_check
+	
 	var/job_check = length(A.mood_job_allowed) ? FALSE : TRUE  // no list means no restrictions
 	if(ishuman(source) && !job_check)  // if it hasnt already passed, go forward
 		var/mob/living/carbon/human/target = source
