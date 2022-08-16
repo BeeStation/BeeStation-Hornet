@@ -94,6 +94,12 @@
 	//Lists below are pre-calculated values arranged in the list in such a way to be easily accessable in the loop by the counter
 	//Its either this or madness with lotsa math
 
+	// Byond direction defines, because I want to put them somewhere.
+// #define NORTH 1
+// #define SOUTH 2
+// #define EAST 4
+// #define WEST 8
+
 	var/list/x_pos_beginning = list(1, 1, world.maxx - TRANSITIONEDGE, 1)  //x values of the lowest-leftest turfs of the respective 4 blocks on each side of zlevel
 	var/list/y_pos_beginning = list(world.maxy - TRANSITIONEDGE, 1, 1 + TRANSITIONEDGE, 1 + TRANSITIONEDGE)  //y values respectively
 	var/list/x_pos_ending = list(world.maxx, world.maxx, world.maxx, 1 + TRANSITIONEDGE)	//x values of the highest-rightest turfs of the respective 4 blocks on each side of zlevel
@@ -101,17 +107,31 @@
 	var/list/x_pos_transition = list(1, 1, TRANSITIONEDGE + 2, world.maxx - TRANSITIONEDGE - 1)		//values of x for the transition from respective blocks on the side of zlevel, 1 is being translated into turfs respective x value later in the code
 	var/list/y_pos_transition = list(TRANSITIONEDGE + 2, world.maxy - TRANSITIONEDGE - 1, 1, 1)		//values of y for the transition from respective blocks on the side of zlevel, 1 is being translated into turfs respective y value later in the code
 
+	var/list/x_pos_beginning_deepspace = list(1, 1, world.maxx, 1)  //x values of the lowest-leftest turfs of the respective 4 blocks on each side of zlevel
+	var/list/y_pos_beginning_deepspace = list(world.maxy, 1, 1, 1)  //y values respectively
+	var/list/x_pos_ending_deepspace = list(world.maxx, world.maxx, world.maxx, 1)	//x values of the highest-rightest turfs of the respective 4 blocks on each side of zlevel
+	var/list/y_pos_ending_deepspace = list(world.maxy, 1, world.maxy, world.maxy )	//y values respectively
+
+
 	for(var/I in cached_z_list)
 		var/datum/space_level/D = I
-		if(!D.neigbours.len)
+		if(!D.neigbours.len && D.linkage != DEEPSPACE)
 			continue
 		var/zlevelnumber = D.z_value
 		for(var/side in 1 to 4)
-			var/turf/beginning = locate(x_pos_beginning[side], y_pos_beginning[side], zlevelnumber)
-			var/turf/ending = locate(x_pos_ending[side], y_pos_ending[side], zlevelnumber)
+			var/turf/beginning = locate(D.linkage == DEEPSPACE ? x_pos_beginning_deepspace[side] : x_pos_beginning[side], D.linkage == DEEPSPACE ? y_pos_beginning_deepspace[side] : y_pos_beginning[side], zlevelnumber)
+			var/turf/ending = locate(D.linkage == DEEPSPACE ? x_pos_ending_deepspace[side] : x_pos_ending[side], D.linkage == DEEPSPACE ? y_pos_ending_deepspace[side] : y_pos_ending[side], zlevelnumber)
 			var/list/turfblock = block(beginning, ending)
 			var/dirside = 2**(side-1)
 			var/zdestination = zlevelnumber
+
+			if(D.linkage == DEEPSPACE)
+				for(var/turf/open/space/S in turfblock)
+					S.ChangeTurf(/turf/open/space/deep_space)
+					var/turf/open/space/deep_space/DS = S
+					DS.direction = dirside
+				continue
+
 			if(D.neigbours["[dirside]"] && D.neigbours["[dirside]"] != D)
 				D = D.neigbours["[dirside]"]
 				zdestination = D.z_value
@@ -125,7 +145,7 @@
 				S.destination_x = x_pos_transition[side] == 1 ? S.x : x_pos_transition[side]
 				S.destination_y = y_pos_transition[side] == 1 ? S.y : y_pos_transition[side]
 				S.destination_z = zdestination
-				
+
 				// Mirage border code
 				var/mirage_dir
 				if(S.x == 1 + TRANSITIONEDGE)

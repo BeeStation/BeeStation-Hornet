@@ -58,13 +58,15 @@ require only minor tweaks.
     #define SELFLOOPING "Self"
     /// CROSSLINKED - mixed in with the cross-linked space pool
     #define CROSSLINKED "Cross"
+	/// DEEPSPACE - allows travel between z levels from supercruise
+    #define DEEPSPACE "Deepspace"
 
 /// string - type path of the z-level's baseturf (defaults to space)
 #define ZTRAIT_BASETURF "Baseturf"
 
 /// default trait definitions, used by SSmapping
 #define ZTRAITS_CENTCOM list(ZTRAIT_CENTCOM = TRUE)
-#define ZTRAITS_STATION list(ZTRAIT_LINKAGE = SELFLOOPING, ZTRAIT_STATION = TRUE)
+#define ZTRAITS_STATION list(ZTRAIT_LINKAGE = DEEPSPACE, ZTRAIT_STATION = TRUE)
 #define ZTRAITS_SPACE list(ZTRAIT_LINKAGE = SELFLOOPING, ZTRAIT_DYNAMIC_LEVEL = TRUE)
 #define ZTRAITS_LAVALAND list(\
     ZTRAIT_MINING = TRUE, \
