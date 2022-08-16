@@ -28,6 +28,14 @@
 	var/degrees = 0
 	var/font = PEN_FONT
 
+	var/obj/item/paper/int_storage  // the paper rolled inside the pen
+
+/obj/item/pen/examine(mob/M)
+	. = ..()
+	if(int_storage || prob(30))  // fun little guessing game :)
+		. += "Something rattles inside!"
+
+
 /obj/item/pen/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is scribbling numbers all over [user.p_them()]self with [src]! It looks like [user.p_theyre()] trying to commit sudoku...</span>")
 	return(BRUTELOSS)
@@ -166,6 +174,21 @@
 				return
 			O.desc = input
 			to_chat(user, "You have successfully changed \the [O.name]'s description.")
+
+/obj/item/pen/attackby(obj/item/I, mob/living/user, params)
+	if(istype(I, /obj/item/paper))
+		if(int_storage)
+			to_chat(user, "<span class='notice'>You can't fit any more paper in!</span>")
+			return
+		to_chat(user, "<span class='notice'>You discretely roll the paper up, and stuff it into your pen.</span>")
+		I.forceMove(src)
+		int_storage	= I
+
+/obj/item/pen/attack_hand(mob/user)
+	if(int_storage)
+		to_chat(user, "<span class='notice'>You carefully shake a paper sheet out of the [src].")
+		user.put_in_hands(int_storage)
+		int_storage = null
 
 /*
  * Sleepypens
