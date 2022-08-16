@@ -1,5 +1,5 @@
-import { useBackend, useLocalState } from '../backend';
-import { Box, Button, Flex, Input, Section, Table, Tabs, NoticeBox, Collapsible, BlockQuote } from '../components';
+import { useBackend, useSharedState } from '../backend';
+import { Box, Button, Section, Table, Tabs, Collapsible, BlockQuote } from '../components';
 import { Window } from '../layouts';
 import { capitalize } from 'common/string';
 import { ButtonConfirm } from '../components/Button';
@@ -18,28 +18,40 @@ export const TicketBrowser = (props, context) => {
     admin_ckey,
     is_admin_panel,
   } = data;
+  const [tab, setTab] = useSharedState(context, 'tab', 'admin');
   return (
-    <Window theme="admin" width={720} height={480}>
+    <Window theme="admin" width={720} height={600}>
       <Window.Content scrollable>
         <h2>{is_admin_panel ? 'Administrator' : 'Mentor'}: {admin_ckey}</h2>
-        <TicketMenus
-          unclaimed_tickets={unclaimed_tickets}
-          open_tickets={open_tickets}
-          resolved_tickets={resolved_tickets}
-          closed_tickets={closed_tickets}
-        />
         {is_admin_panel ? (
-          <>
-            <h2>Mentor Tickets</h2>
-            <TicketMenus
+          <Section fill style={{ padding: "5px 0px" }}>
+            <Tabs>
+              <Tabs.Tab selected={tab === 'admin'} onClick={() => setTab('admin')}>
+                Admin ({unclaimed_tickets.length}U-{open_tickets.length}O)
+              </Tabs.Tab>
+              <Tabs.Tab selected={tab === 'mentor'} onClick={() => setTab('mentor')}>
+                {/* eslint-disable-next-line max-len*/}
+                Mentor ({unclaimed_tickets_mentor.length}U-{open_tickets_mentor.length}O)
+              </Tabs.Tab>
+            </Tabs>
+            {tab === 'admin' ? <TicketMenus
+              unclaimed_tickets={unclaimed_tickets}
+              open_tickets={open_tickets}
+              resolved_tickets={resolved_tickets}
+              closed_tickets={closed_tickets}
+            /> : <TicketMenus
               unclaimed_tickets={unclaimed_tickets_mentor}
               open_tickets={open_tickets_mentor}
               resolved_tickets={resolved_tickets_mentor}
               closed_tickets={closed_tickets_mentor}
-              collapsible
-            />
-          </>
-        ) : null}
+            />}
+          </Section>
+        ) : (<TicketMenus
+          unclaimed_tickets={unclaimed_tickets}
+          open_tickets={open_tickets}
+          resolved_tickets={resolved_tickets}
+          closed_tickets={closed_tickets}
+        />)}
       </Window.Content>
     </Window>
   );
@@ -56,10 +68,9 @@ export const TicketMenus = ({
   open_tickets,
   resolved_tickets,
   closed_tickets,
-  collapsible,
 }) => {
   return (
-    <CollapsibleSection collapsible={collapsible}>
+    <>
       <TicketMenu
         ticket_list={unclaimed_tickets}
         name={'Unclaimed Tickets'}
@@ -102,7 +113,7 @@ export const TicketMenus = ({
         admin_actions={[['flw', 'blue']]}
         collapsible
       />
-    </CollapsibleSection>
+    </>
   );
 };
 
