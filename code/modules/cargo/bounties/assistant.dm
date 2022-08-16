@@ -222,3 +222,10 @@
 	reward = 5000
 	required_count = 5
 	wanted_types = list(/obj/item/reagent_containers/food/snacks/deadmouse)
+
+/datum/bounty/item/assistant/coffee
+	name = "Coffee"
+	description = "A message to all interns: GET ME A COFFEE."
+	reward = 1000
+	required_count = 1
+	wanted_types = list(/obj/item/reagent_containers/food/drinks/coffee)
