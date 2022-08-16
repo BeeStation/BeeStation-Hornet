@@ -27,7 +27,7 @@
 	for(var/I in lists)
 		for(var/datum/help_ticket/AH in I)
 			if(AH.id == id)
-				return J
+				return AH
 
 /datum/help_tickets/proc/TicketsByCKey(ckey)
 	. = list()
@@ -64,7 +64,6 @@
 
 // UI holder for admins
 /datum/help_ui
-	return
 
 /datum/help_ui/proc/get_data_glob()
 	return
