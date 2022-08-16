@@ -15,7 +15,7 @@
 	selection_type = "view"
 	max_targets = 0
 
-	action_icon_state = "meme_mentality"
+	action_icon_state = "peer_pressure"
 	var/spell_duration = 15 SECONDS
 	var/static/processing = FALSE
 	var/static/list/current_victims = list()
