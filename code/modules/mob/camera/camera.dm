@@ -11,6 +11,14 @@
 	invisibility = INVISIBILITY_ABSTRACT // No one can see us
 	sight = SEE_SELF
 	move_on_shuttle = FALSE
+	/// Only used at init, assigning to this will do nothing after the camera is initialized
+	var/can_hear_init = FALSE
+
+/mob/camera/Initialize(mapload)
+	. = ..()
+	if(!can_hear_init)
+		// Cameras should not be able to hear by default despite being mobs
+		REMOVE_TRAIT(src, TRAIT_HEARING_SENSITIVE, TRAIT_GENERIC)
 
 /mob/camera/experience_pressure_difference()
 	return
