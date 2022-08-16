@@ -310,14 +310,20 @@
 #define WET_LEVEL_LUBE		(1<<1)
 #define WET_LEVEL_SUPERLUBE	(1<<2)
 #define WET_LEVEL_ICE		(1<<3)
-#define WET_COMPONENT_WALK_SLIPS	(1<<10)
-#define WET_COMPONENT_GALOSHES_SLIP	(1<<11)
-#define WET_COMPONENT_CRAWL_SLIPS	(1<<12) //clown planet ruin
-#define WET_RESULT_DROPITEMS	(1<<13)
-#define WET_RESULT_SLIDES		(1<<14)
-#define WET_RESULT_KNOCKDOWN	(1<<15)
-#define WET_RESULT_STOP_PULLING	(1<<16)
-#define WET_RESULT_PARALYZE		(1<<17)
+#define WET_CONDITION_WALK_SLIPS	(1<<10) // walk isn't safe
+#define WET_CONDITION_CRAWL_SLIPS	(1<<11) // only available from super lube
+#define WET_CONDITION_GALOSHES_SLIP	(1<<12) // i.e. Jani boots
+#define WET_CONDITION_BUCKLED_SLIPS	(1<<13) // buckled peope will slip even
+#define WET_RESULT_DROPITEMS	(1<<14) // drops items when slipped
+#define WET_RESULT_STOP_PULLING	(1<<15) // stops pulling when slipped
+#define WET_RESULT_SLIDES		(1<<16) // slides further when slipped
+#define WET_RESULT_KNOCKDOWN	(1<<17) // knocks down when slipped
+#define WET_RESULT_PARALYZE		(1<<18) // can't move when slipped
+/* You can put more stuff like
+WET_RESULT_SLIDE_SPARKS // frictional force makes spark
+WET_RESULT_HOLYFLAME // slip makes cultists burn
+WET_RESULT_HELLFIRE // slip makes non-cultists burn
+*/
 
 
 ///Flags used by the flags parameter of electrocute act.

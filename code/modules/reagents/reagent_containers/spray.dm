@@ -215,6 +215,13 @@
 	volume = 1000
 	list_reagents = list(/datum/reagent/lube/debug = 1000)
 
+/obj/item/reagent_containers/spray/waterflower/debuglube/ice
+	name = "ice flower"
+	list_reagents = list(/datum/reagent/lube/debug/ice = 1000)
+
+/obj/item/reagent_containers/spray/waterflower/debuglube/permafrost
+	name = "permafrost flower"
+	list_reagents = list(/datum/reagent/lube/debug/permafrost = 1000)
 
 /obj/item/reagent_containers/spray/waterflower/cyborg
 	reagent_flags = NONE

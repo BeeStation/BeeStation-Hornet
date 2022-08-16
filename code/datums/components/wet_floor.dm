@@ -72,9 +72,9 @@
 
 /datum/component/wet_floor/proc/update_flags()
 	var/intensity = 0
-	var/lube_priority = WET_LEVEL_WATER
+	var/lube_priority = WET_LEVEL_WATER // lube level 'priority'. WET_LEVEL flags shouldn't be turned on all unless it's needed
 	lube_flags = NONE
-	var/my_flags = NONE // for better readability
+	var/my_flags = NONE // temp var. for better readability
 	if(wet_floor_bitflags& TURF_WET_WATER)
 		lube_priority = WET_LEVEL_WATER
 		intensity = max(60, intensity)
@@ -83,31 +83,31 @@
 	if(wet_floor_bitflags& TURF_WET_LUBE)
 		lube_priority = WET_LEVEL_LUBE
 		intensity = max(80, intensity)
-		my_flags = WET_COMPONENT_GALOSHES_SLIP | WET_COMPONENT_WALK_SLIPS
+		my_flags = WET_CONDITION_GALOSHES_SLIP | WET_CONDITION_BUCKLED_SLIPS | WET_CONDITION_WALK_SLIPS
 		my_flags = WET_RESULT_DROPITEMS | WET_RESULT_SLIDES | WET_RESULT_KNOCKDOWN
 		ENABLE_BITFIELD(lube_flags, my_flags)
 	if(wet_floor_bitflags& TURF_WET_ICE)
 		lube_priority = WET_LEVEL_ICE
 		intensity = max(120, intensity)
-		my_flags = WET_COMPONENT_GALOSHES_SLIP | WET_COMPONENT_WALK_SLIPS
+		my_flags = WET_CONDITION_GALOSHES_SLIP | WET_CONDITION_BUCKLED_SLIPS | WET_CONDITION_WALK_SLIPS
 		my_flags = WET_RESULT_DROPITEMS | WET_RESULT_SLIDES | WET_RESULT_KNOCKDOWN | WET_RESULT_STOP_PULLING
 		ENABLE_BITFIELD(lube_flags, my_flags)
 	if(wet_floor_bitflags& TURF_WET_PERMAFROST)
 		lube_priority = WET_LEVEL_ICE
 		intensity = max(120, intensity)
-		my_flags = WET_COMPONENT_GALOSHES_SLIP | WET_COMPONENT_WALK_SLIPS
+		my_flags = WET_CONDITION_GALOSHES_SLIP | WET_CONDITION_BUCKLED_SLIPS | WET_CONDITION_WALK_SLIPS
 		my_flags = WET_RESULT_DROPITEMS | WET_RESULT_SLIDES | WET_RESULT_KNOCKDOWN | WET_RESULT_STOP_PULLING
 		ENABLE_BITFIELD(lube_flags, my_flags)
 	if(wet_floor_bitflags& TURF_WET_SUPERLUBE)
 		lube_priority = WET_LEVEL_SUPERLUBE
 		intensity = max(120, intensity)
-		my_flags = WET_COMPONENT_GALOSHES_SLIP | WET_COMPONENT_WALK_SLIPS | WET_COMPONENT_CRAWL_SLIPS
+		my_flags = WET_CONDITION_GALOSHES_SLIP | WET_CONDITION_BUCKLED_SLIPS | WET_CONDITION_WALK_SLIPS | WET_CONDITION_CRAWL_SLIPS
 		my_flags = WET_RESULT_DROPITEMS | WET_RESULT_SLIDES | WET_RESULT_KNOCKDOWN | WET_RESULT_STOP_PULLING
 		ENABLE_BITFIELD(lube_flags, my_flags)
-	// for better readability, first flags are for "components" how/when that slip works
-	//                         secone flags are for "result" what that slip does to you
+	/* for better readability, first flags are for "conditions" how/when that slip works
+	                          secone flags are for "result" what that slip does to you */
 
-	lube_flags |= lube_priority
+	lube_flags |= lube_priority // Only one type will be enabled
 	if(!lube_flags)
 		qdel(parent.GetComponent(/datum/component/slippery))
 		return
@@ -221,6 +221,7 @@
 			changed = TRUE
 	if(changed || force_update)
 		update_wet_floor_bitflags()
-		update_overlay()
 		update_flags()
+		update_overlay()
+
 		gc()

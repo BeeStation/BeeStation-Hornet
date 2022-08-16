@@ -385,6 +385,14 @@
 	chem_flags = CHEMICAL_NOT_DEFINED
 	lube_kind = TURF_WET_WATER | TURF_WET_ICE | TURF_WET_PERMAFROST | TURF_WET_LUBE | TURF_WET_SUPERLUBE
 
+/datum/reagent/lube/debug/ice
+	name = "debug lube - ice"
+	lube_kind = TURF_WET_ICE
+
+/datum/reagent/lube/debug/permafrost
+	name = "debug lube - permafrost"
+	lube_kind = TURF_WET_PERMAFROST
+
 /datum/reagent/spraytan
 	name = "Spray Tan"
 	description = "A substance applied to the skin to darken the skin."

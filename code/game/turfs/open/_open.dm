@@ -199,18 +199,19 @@
 		return 0
 	if(has_gravity(src))
 		var/obj/buckled_obj
-		if(slipper.buckled)
+		if(slipper.buckled) // when you're buckled (i.e. rollerbed, wheelchair, skateboard)
 			buckled_obj = slipper.buckled
-			if((lube_bitflags&WET_LEVEL_LUBE)||(lube_bitflags&WET_LEVEL_SUPERLUBE)) //can't slip while buckled unless it's lube.
+			if(!(lube_bitflags& WET_CONDITION_BUCKLED_SLIPS)) //can't slip while buckled
 				return 0
-		else
-			if(!(lube_bitflags & WET_COMPONENT_CRAWL_SLIPS) && (!(slipper.mobility_flags & MOBILITY_STAND) || !(slipper.status_flags & CANKNOCKDOWN))) // can't slip unbuckled mob if they're lying or can't fall.
+		else // when you're just moving
+			if(!(lube_bitflags& WET_CONDITION_CRAWL_SLIPS))
+				if(!(slipper.mobility_flags& MOBILITY_STAND) || !(slipper.status_flags& CANKNOCKDOWN))
+					return 0
+					// can't slip unbuckled mob if they're lying or can't fall.
+			if(slipper.m_intent == MOVE_INTENT_WALK && !(lube_bitflags& WET_CONDITION_WALK_SLIPS))
 				return 0
-			if(slipper.m_intent == MOVE_INTENT_WALK && !(lube_bitflags&WET_COMPONENT_WALK_SLIPS))
-				return 0
-		if(!(lube_bitflags&WET_LEVEL_ICE))
-			to_chat(slipper, "<span class='notice'>You slipped[ O ? " on the [O.name]" : ""]!</span>")
-			playsound(slipper.loc, 'sound/misc/slip.ogg', 50, 1, -3)
+		to_chat(slipper, "<span class='notice'>You slipped[ O ? " on the [O.name]" : ""]!</span>")
+		playsound(slipper.loc, 'sound/misc/slip.ogg', 50, 1, -3)
 
 		SEND_SIGNAL(slipper, COMSIG_ADD_MOOD_EVENT, "slipped", /datum/mood_event/slipped)
 		if(force_drop)
@@ -219,8 +220,6 @@
 
 		var/olddir = slipper.dir
 		slipper.moving_diagonally = 0 //If this was part of diagonal move slipping will stop it.
-		if(!(lube_bitflags & WET_LEVEL_ICE))
-
 		if(lube_bitflags& WET_RESULT_DROPITEMS)
 			slipper.drop_all_held_items()
 		if(lube_bitflags& WET_RESULT_STOP_PULLING)
@@ -233,14 +232,14 @@
 		if(lube_bitflags& WET_RESULT_PARALYZE)
 			slipper.Paralyze(paralyze_amount)
 
-		if(buckled_obj)
+		if(buckled_obj) // When WET_CONDITION_BUCKLED_SLIPS exists
 			buckled_obj.unbuckle_mob(slipper)
-			lube_bitflags |= WET_LEVEL_ICE
 
+		// Force move
 		var/turf/target = get_ranged_target_turf(slipper, olddir, 4)
-		if(lube_bitflags & WET_RESULT_SLIDES)
+		if(lube_bitflags& WET_RESULT_SLIDES)
 			slipper.AddComponent(/datum/component/force_move, target, TRUE)
-		else if(lube&WET_LEVEL_ICE)
+		else if((lube_bitflags& WET_RESULT_SLIDES) && (lube_bitflags& WET_LEVEL_ICE))
 			slipper.AddComponent(/datum/component/force_move, target, FALSE)//spinning would be bad for ice, fucks up the next dir
 		return TRUE
 
