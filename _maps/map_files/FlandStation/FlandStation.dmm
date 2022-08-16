@@ -80322,7 +80322,7 @@
 /area/security/main)
 "sQn" = (
 /obj/effect/turf_decal/delivery,
-/obj/machinery/rnd/production/circuit_imprinter/department/engineering,
+/obj/machinery/rnd/production/circuit_imprinter,
 /turf/open/floor/plasteel/dark,
 /area/engine/storage_shared)
 "sQo" = (
