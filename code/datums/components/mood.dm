@@ -376,7 +376,7 @@
 	var/job_check = TRUE
 	if(ishuman(source) && length(A.mood_job_allowed))
 		var/mob/living/carbon/human/target = source
-		if(!target.mind?.assigned_role in A.mood_job_allowed)
+		if(!(target.mind?.assigned_role in A.mood_job_allowed))
 			job_check = FALSE
 	
 	if(A.mood_reverse)
