@@ -271,7 +271,7 @@
 	category = "Defensive"
 
 /datum/spellbook_entry/intent_changer
-	name = "Meme Mentality"
+	name = "Peer Pressure"
 	spell_type = /obj/effect/proc_holder/spell/targeted/intent_changer
 	category = "Defensive"
 	cost = 1

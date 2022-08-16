@@ -1,5 +1,5 @@
 /obj/effect/proc_holder/spell/targeted/intent_changer
-	name = "Meme Mentality"
+	name = "Peer Pressure"
 	desc = "Targets all people in your view and change their intent into yours, and locks their intent for 15 seconds."
 	school = "enchantment"
 	charge_type = "recharge"
