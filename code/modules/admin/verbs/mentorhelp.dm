@@ -205,14 +205,14 @@ GLOBAL_DATUM_INIT(mhelp_tickets, /datum/help_tickets/mentor, new)
 
 	blackbox_feedback(1, "ahelp this")
 	var/msg = "Mentor Ticket [TicketHref("#[id]")] transferred to adminhelp by [key_name]"
-	message_ticket_managers(msg)
-	log_admin_private(msg)
 	AddInteraction("red", "Transferred to adminhelp by [key_name].")
 	Close(silent = TRUE)
 	if(initiator.prefs.muted & MUTE_ADMINHELP)
 		message_ticket_managers(src, "<span class='danger'>Attempted escalation to adminhelp failed because [initiator_key_name] is ahelp muted. It's possible the user is attempting to abuse the mhelp system to get around this.</span>")
 		log_admin_private(src, "<span class='danger'>[initiator_ckey] blocked from mhelp escalation (performed by [key_name]) to ahelp due to mute. Possible abuse of mhelp system.</span>")
 		return
+	message_ticket_managers(msg)
+	log_admin_private(msg)
 	var/datum/help_ticket/admin/ticket = new(initiator)
 	ticket.NewFrom(src)
 

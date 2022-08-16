@@ -280,8 +280,6 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/help_tickets/admin, new)
 
 	blackbox_feedback(1, "mhelp this")
 	var/msg = "Ticket [TicketHref("#[id]")] transferred to mentorhelp by [key_name]"
-	message_admins(msg)
-	log_admin_private(msg)
 	AddInteraction("red", "Transferred to mentorhelp by [key_name].")
 	if(!bwoink)
 		discordsendmsg("ahelp", "Ticket #[id] transferred to mentorhelp by [key_name(usr, include_link=0)]")
@@ -289,6 +287,8 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/help_tickets/admin, new)
 	if(initiator.prefs.muted & MUTE_MHELP)
 		message_admins(src, "<span class='danger'>Attempted de-escalation to mentorhelp failed because [initiator_key_name] is mhelp muted.</span>")
 		return
+	message_admins(msg)
+	log_admin_private(msg)
 	var/datum/help_ticket/mentor/ticket = new(initiator)
 	ticket.NewFrom(src)
 
