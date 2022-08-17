@@ -176,7 +176,7 @@
 		if(disease_resistances?.len)
 			blood_data["resistances"] = disease_resistances.Copy()
 		var/list/temp_chem = list()
-		for(var/datum/reagent/R in reagents?.reagent_list)
+		for(var/datum/reagent/R in reagents.reagent_list)
 			temp_chem[R.type] = R.volume
 		blood_data["trace_chem"] = list2params(temp_chem)
 		if(mind)

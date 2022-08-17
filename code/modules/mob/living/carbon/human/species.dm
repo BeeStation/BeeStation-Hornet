@@ -55,7 +55,6 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	var/allow_numbers_in_name // Can this species use numbers in its name?
 	var/datum/outfit/outfit_important_for_life /// A path to an outfit that is important for species life e.g. plasmaman outfit
 	var/datum/action/innate/flight/fly //the actual flying ability given to flying species
-	var/stance
 	// species-only traits. Can be found in DNA.dm
 	var/list/species_traits = list()
 	// generic traits tied to having the species
@@ -339,7 +338,6 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		for(var/obj/item/I in H.get_equipped_items(TRUE))
 			if(I.species_restricted & H.dna.species.bodyflag)
 				H.dropItemToGround(I)
-
 
 	replace_body(C)
 
@@ -925,7 +923,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		if(!I.species_exception || !is_type_in_list(src, I.species_exception))
 			return FALSE
 	if(I.species_restricted & H.dna?.species.bodyflag)
-		if(!disable_warning)//Wow im a dipshit
+		if(disable_warning)
 			to_chat(H, "<span class='warning'>Your species cannot wear this item!</span>")
 		return FALSE
 	var/num_arms = H.get_num_arms(FALSE)

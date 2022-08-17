@@ -475,7 +475,7 @@
 		hud_used.build_hand_slots()
 
 
-/mob/living/carbon/human/change_number_of_hands(amt, pathl = /obj/item/bodypart/l_arm, pathr = /obj/item/bodypart/r_arm)
+/mob/living/carbon/human/change_number_of_hands(amt, left_arm_path = /obj/item/bodypart/l_arm, right_arm_path = /obj/item/bodypart/r_arm)
 	var/old_limbs = held_items.len
 	if(amt < old_limbs)
 		for(var/i in hand_bodyparts.len to amt+1 step -1)
@@ -487,9 +487,9 @@
 	else if(amt > old_limbs)
 		hand_bodyparts.len = amt
 		for(var/i in old_limbs+1 to amt)
-			var/path = pathl
+			var/path = left_arm_path
 			if(!(i % 2))
-				path = pathr
+				path = right_arm_path
 
 			var/obj/item/bodypart/BP = new path ()
 			BP.species_color = dna.features["mcolor"]

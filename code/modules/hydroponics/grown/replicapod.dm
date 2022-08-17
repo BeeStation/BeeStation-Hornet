@@ -178,7 +178,7 @@
 	var/list/result = list()
 	if(CONFIG_GET(flag/revival_pod_plants))
 		if(ckey)
-			for(var/mob/M in GLOB.player_list)
+			for(var/mob/M as() in GLOB.player_list)
 				if(isobserver(M))
 					var/mob/dead/observer/O = M
 					if(O.ckey == ckey && O.can_reenter_corpse)
@@ -230,6 +230,11 @@
 		return result
 
 	// All conditions met!
+	create_plant_man(parent, ckey_holder)
+	return result
+
+///Create a plant from a given tray(parent) & key
+/obj/item/seeds/replicapod/grodpod/proc/create_plant_man(obj/machinery/hydroponics/parent, ckey_holder)
 	var/mob/living/carbon/human/podman = new /mob/living/carbon/human(parent.loc)
 	if(realName)
 		podman.real_name = realName
@@ -250,6 +255,4 @@
 	to_chat(podman, "<span class='notice'><b>There is a bright flash!</b><br><i>You feel like a new being.</i></span>")
 	podman.flash_act()
 	log_cloning("[key_name(mind)] cloned as a pod-grod via [src] in [parent] at [AREACOORD(parent)].")
-
 	parent.update_tray()
-	return result

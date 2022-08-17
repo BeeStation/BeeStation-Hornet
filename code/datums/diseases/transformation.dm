@@ -407,33 +407,32 @@
 	infectable_biotypes = list(MOB_ORGANIC, MOB_INORGANIC, MOB_UNDEAD)
 
 /datum/disease/transformation/grod/do_disease_transformation(mob/living/affected_mob) //Pretty much a duplicate of regular expression, inserts caccoon code
-	if(istype(affected_mob, /mob/living/carbon) && affected_mob.stat != DEAD)
-		if(stage5)
-			to_chat(affected_mob, pick(stage5))
-		if(QDELETED(affected_mob))
-			return
-		if(affected_mob.notransform)
-			return
-		affected_mob.notransform = 1
-		for(var/obj/item/W in affected_mob.get_equipped_items(TRUE))
-			affected_mob.dropItemToGround(W)
-		for(var/obj/item/I in affected_mob.held_items)
-			affected_mob.dropItemToGround(I)
-		var/mob/living/carbon/human/species/grod/new_mob = new new_form(affected_mob.loc) //type cast, from normal proc, to access dna features
-		if(istype(new_mob))
-			if(bantype && is_banned_from(affected_mob.ckey, bantype))
-				replace_banned_player(new_mob)
-			new_mob.a_intent = INTENT_HARM
-			if(affected_mob.mind)
-				affected_mob.mind.transfer_to(new_mob)
-			else
-				new_mob.key = affected_mob.key
+	if(!istype(affected_mob, /mob/living/carbon) || affected_mob.stat == DEAD)
+		return
+	if(stage == 5)
+		to_chat(affected_mob, pick(stage5))
+	if(QDELETED(affected_mob))
+		return
+	if(affected_mob.notransform)
+		return
+	affected_mob.notransform = 1
+	affected_mob.drop_all_held_items()
+	for(var/obj/item/I in affected_mob.held_items)
+		affected_mob.dropItemToGround(I)
+	var/mob/living/carbon/human/species/grod/new_mob = new new_form(affected_mob.loc) //type cast, from normal proc, to access dna features
+	if(bantype && is_banned_from(affected_mob.ckey, bantype))
+		replace_banned_player(new_mob)
+	new_mob.a_intent = INTENT_HARM
+	if(affected_mob.mind)
+		affected_mob.mind.transfer_to(new_mob)
+	else
+		new_mob.key = affected_mob.key
 
-		new_mob.name = affected_mob.real_name
-		new_mob.real_name = new_mob.name
-		// caccoon code
-		var/obj/structure/grod_caccoon/C = new(get_turf(affected_mob))
-		C?.color = "#[new_mob.dna?.features["mcolor"]]"
-		new_mob.forceMove(C)
-		// end caccoon code
-		qdel(affected_mob)
+	new_mob.name = affected_mob.real_name
+	new_mob.real_name = new_mob.name
+	// caccoon code
+	var/obj/structure/grod_caccoon/C = new(get_turf(affected_mob))
+	C?.color = "#[new_mob.dna?.features["mcolor"]]"
+	new_mob.forceMove(C)
+	// end caccoon code
+	qdel(affected_mob)

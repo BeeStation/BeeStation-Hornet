@@ -135,5 +135,3 @@
 /datum/outfit/grod/atmos
 	name = "Grod Atmos Tech"
 	head = /obj/item/clothing/head/grodhat/atmos
-
-

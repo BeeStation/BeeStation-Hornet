@@ -43,8 +43,8 @@
 	offset_features = list(OFFSET_LEFT_HAND = list(-1,-4), OFFSET_RIGHT_HAND = list(2,-4))
 	changesource_flags = MIRROR_BADMIN | MIRROR_MAGIC | RACE_SWAP
 	allow_numbers_in_name = TRUE
-	stance = STANCE_MOBILE
 
+	var/stance = STANCE_MOBILE
 	var/datum/action/innate/grod/swap_stance/swap_stance
 	var/datum/action/innate/grod/crownspider/crownspider
 
@@ -116,7 +116,8 @@
 	if(H.get_item_by_slot(ITEM_SLOT_HANDCUFFED))
 		return
 
-	H.dna.species.stance = !H.dna.species.stance
+	var/datum/species/grod/S = H.dna.species
+	S.stance = !S.stance
 
 	var/obj/item/G = H.gloves
 	if(G)
@@ -157,7 +158,8 @@
 	if(G)
 		H.equip_to_slot_if_possible(G, ITEM_SLOT_GLOVES) //Hacky? Yes. Works? Yes. Do I want to touch bodypart code? No.
 
-	switch(H.dna.species.stance)
+	var/datum/species/grod/grod_species = H.dna.species
+	switch(grod_species.stance)
 		if(STANCE_INTERACT)
 			H.dna.species.inherent_traits += TRAIT_NOBLOCK
 			H.dna.species.staminamod = GROD_STAMMOD + 0.3

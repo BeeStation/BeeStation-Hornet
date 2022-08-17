@@ -10,7 +10,6 @@
 	permeability_coefficient = 0.01
 	flags_cover = MASKCOVERSEYES | MASKCOVERSMOUTH
 	resistance_flags = NONE
-
 	sprite_sheets = FLAG_GROD
 	species_restricted = null
 
@@ -30,7 +29,6 @@
 	visor_flags_inv = HIDEEYES
 	visor_flags_cover = MASKCOVERSEYES
 	resistance_flags = FIRE_PROOF
-
 	species_restricted = FLAG_GROD
 
 /obj/item/clothing/mask/gas/welding/attack_self(mob/user)
@@ -51,14 +49,13 @@
 	icon_state = "plaguedoctor"
 	item_state = "gas_mask"
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 2,"energy" = 2, "bomb" = 0, "bio" = 75, "rad" = 0, "fire" = 0, "acid" = 0, "stamina" = 0)
-
 	species_restricted = FLAG_GROD
+	
 /obj/item/clothing/mask/gas/syndicate
 	name = "syndicate mask"
 	desc = "A close-fitting tactical mask that can be connected to an air supply."
 	icon_state = "syndicate"
 	strip_delay = 60
-
 	species_restricted = FLAG_GROD
 
 /obj/item/clothing/mask/gas/clown_hat
@@ -72,9 +69,7 @@
 	resistance_flags = FLAMMABLE
 	actions_types = list(/datum/action/item_action/adjust)
 	dog_fashion = /datum/dog_fashion/head/clown
-
 	species_restricted = null
-
 
 /obj/item/clothing/mask/gas/clown_hat/ui_action_click(mob/user)
 	if(!istype(user) || user.incapacitated())
@@ -107,7 +102,6 @@
 	item_state = "sexyclown"
 	flags_cover = MASKCOVERSEYES
 	resistance_flags = FLAMMABLE
-
 	species_restricted = FLAG_GROD
 
 /obj/item/clothing/mask/gas/mime
@@ -119,7 +113,6 @@
 	flags_cover = MASKCOVERSEYES
 	resistance_flags = FLAMMABLE
 	actions_types = list(/datum/action/item_action/adjust)
-
 	species_restricted = null
 	sprite_sheets = FLAG_GROD
 
@@ -153,7 +146,6 @@
 	item_state = "monkeymask"
 	flags_cover = MASKCOVERSEYES
 	resistance_flags = FLAMMABLE
-
 	species_restricted = FLAG_GROD
 
 /obj/item/clothing/mask/gas/sexymime
@@ -164,14 +156,12 @@
 	item_state = "sexymime"
 	flags_cover = MASKCOVERSEYES
 	resistance_flags = FLAMMABLE
-
 	species_restricted = FLAG_GROD
 
 /obj/item/clothing/mask/gas/death_commando
 	name = "Death Commando Mask"
 	icon_state = "death_commando_mask"
 	item_state = "death_commando_mask"
-
 	species_restricted = FLAG_GROD
 
 /obj/item/clothing/mask/gas/cyborg
@@ -179,7 +169,6 @@
 	desc = "Beep boop."
 	icon_state = "death"
 	resistance_flags = FLAMMABLE
-
 	species_restricted = FLAG_GROD
 
 /obj/item/clothing/mask/gas/owl_mask
@@ -189,13 +178,11 @@
 	clothing_flags = MASKINTERNALS
 	flags_cover = MASKCOVERSEYES
 	resistance_flags = FLAMMABLE
-
 	species_restricted = FLAG_GROD
 /obj/item/clothing/mask/gas/carp
 	name = "carp mask"
 	desc = "Gnash gnash."
 	icon_state = "carp_mask"
-
 	species_restricted = FLAG_GROD
 /obj/item/clothing/mask/gas/tiki_mask
 	name = "tiki mask"
@@ -206,7 +193,6 @@
 	max_integrity = 100
 	actions_types = list(/datum/action/item_action/adjust)
 	dog_fashion = null
-
 	species_restricted = FLAG_GROD
 
 
@@ -232,7 +218,6 @@
 /obj/item/clothing/mask/gas/tiki_mask/yalp_elor
 	icon_state = "tiki_yalp"
 	actions_types = list()
-
 	species_restricted = FLAG_GROD
 /obj/item/clothing/mask/gas/hunter
 	name = "bounty hunting mask"
@@ -241,7 +226,6 @@
 	item_state = "hunter"
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	flags_inv = HIDEFACIALHAIR|HIDEFACE|HIDEEYES|HIDEEARS|HIDEHAIR
-
 	species_restricted = FLAG_GROD
 /obj/item/clothing/mask/gas/old
 	desc = "A face-covering mask that can be connected to an air supply. This one appears to be one of the older models."

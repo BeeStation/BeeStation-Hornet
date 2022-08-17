@@ -1,6 +1,6 @@
 /datum/language/pohlan
 	name = "Poh'lan"
-	desc = "The language of the Grod people. It is synthesized using chitters and grumbles, and is completely incomprehensible."
+	desc = "The language of the Grod people. It is synthesized using chitters and grumbles, and is completely incomprehensible to outsiders."
 	icon_state = "pohlan"
 	speech_verb = "rumbles"
 	exclaim_verb = "decrees"

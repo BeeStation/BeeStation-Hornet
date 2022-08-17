@@ -608,7 +608,7 @@
 				shock_touching(30, H)
 				var/failed
 
-				if (H.suiciding || HAS_TRAIT(H, TRAIT_NO_DEFIB)) //Did you know can_defib() never actually gets called? Lmao?
+				if (H.suiciding || can_defib(H))
 					failed = "<span class='warning'>[req_defib ? "[defib]" : "[src]"] buzzes: Resuscitation failed - Recovery of patient impossible. Further attempts futile.</span>"
 				else if (H.ishellbound())
 					failed = "<span class='warning'>[req_defib ? "[defib]" : "[src]"] buzzes: Resuscitation failed - Patient's soul appears to be on another plane of existence.  Further attempts futile.</span>"
