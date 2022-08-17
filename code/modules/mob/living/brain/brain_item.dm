@@ -288,7 +288,7 @@
 			to_chat(src, "<span class='userdanger'>This tray is already in use!</span>")
 			return
 		O.myseed = seed
-		src.visible_message("<span class='danger'>[src] burrows into the hydroponics tray!</span>", "<span class='danger'>You borrow into the hydroponics tray, attempting to grow a new body!</span>")
+		visible_message("<span class='danger'>[src] burrows into the hydroponics tray!</span>", "<span class='danger'>You borrow into the hydroponics tray, attempting to grow a new body!</span>")
 		qdel(src)
 
 /obj/item/organ/brain/grod/attack_obj(obj/O)
