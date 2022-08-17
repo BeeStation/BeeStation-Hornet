@@ -1248,6 +1248,15 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 1
 	surplus = 8
 
+/datum/uplink_item/explosives/grenade_casing_box
+	name = "Grenade Casing Box"
+	desc = "A box of various empty chemical grenade casings. \
+	Requires chemistry and grenade assembly knowledge to use. \
+	Does NOT come with anything to fill grenades with!"
+	item = /obj/item/storage/box/syndie_kit/grenade_assembly_box
+	cost = 8
+	illegal_tech = FALSE
+
 //Support and Mechs
 /datum/uplink_item/support
 	category = "Support and Exosuits"
@@ -2400,12 +2409,3 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/mob_lasso/antag
 	cost = 3
 	surplus = 0
-
-/datum/uplink_item/explosives/grenade_casing_box
-	name = "Grenade Casing Box"
-	desc = "A box of various empty chemical grenade casings. \
-	Requires chemistry and grenade assembly knowledge to use. \
-	Does NOT come with anything to fill grenades with!"
-	item = /obj/item/storage/box/syndie_kit/grenade_assembly_box
-	cost = 8
-	illegal_tech = FALSE
