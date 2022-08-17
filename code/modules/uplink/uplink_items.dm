@@ -2401,7 +2401,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 3
 	surplus = 0
 
-/datum/uplink_item/device_tools/grenade_casing_box
+/datum/uplink_item/explosives/grenade_casing_box
 	name = "Grenade Casing Box"
 	desc = "A box of various empty chemical grenade casings. \
 	Requires chemistry and grenade assembly knowledge to use. \
