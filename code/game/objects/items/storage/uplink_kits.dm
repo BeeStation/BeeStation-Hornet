@@ -627,5 +627,4 @@
 	new /obj/item/grenade/chem_grenade/adv_release(src)
 	new /obj/item/stack/cable_coil(src,MAXCOIL,"red")
 	new /obj/item/screwdriver/nuke(src)
-
 	
