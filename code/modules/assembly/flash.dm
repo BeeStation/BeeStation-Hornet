@@ -315,6 +315,47 @@
 			if(!converter.add_revolutionary(H.mind))
 				to_chat(user, "<span class='warning'>This mind seems resistant to the flash!</span>")
 
+/obj/item/assembly/flash/pen
+	name = "penlight"
+	desc = "A pen-sized light, used by medical staff. It can also be used to create a hologram to alert people of incoming medical assistance."
+	icon_state = "penlight"
+	item_state = ""
+	icon = 'icons/obj/lighting.dmi'
+	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
+	flags_1 = CONDUCT_1
+	actions_types = list(/datum/action/item_action/toggle_light)
+	light_system = MOVABLE_LIGHT
+	light_range = 2
+	light_power = 1
+	light_on = FALSE
+	var/on = FALSE
+	var/holo_cooldown = 0
+
+/obj/item/flashlight/pen/afterattack(atom/target, mob/user, proximity_flag)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+	if(!proximity_flag)
+		if(holo_cooldown > world.time)
+			to_chat(user, "<span class='warning'>[src] is not ready yet!</span>")
+			return
+		var/T = get_turf(target)
+		if(locate(/mob/living) in T)
+			new /obj/effect/temp_visual/medical_holosign(T,user) //produce a holographic glow
+			holo_cooldown = world.time + 100
+			return
+
+
+/obj/item/flashlight/pen/suicide_act(mob/living/carbon/human/user)
+	if (user.eye_blind)
+		user.visible_message("<span class='suicide'>[user] is putting [src] close to [user.p_their()] eyes and turning it on... but [user.p_theyre()] blind!</span>")
+		return SHAME
+	user.visible_message("<span class='suicide'>[user] is putting [src] close to [user.p_their()] eyes and turning it on! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	return (FIRELOSS)
+
+/obj/item/flashlight/pen/attack_self(mob/user)
+	to_chat(user, "You sneak a glance at the side of \the [src], and a small screen notifies you there [bulb ? "is [bulb.charges_left] flashes left" : "is no bulb" ].")
+
 
 /obj/item/assembly/flash/cyborg
 	bulb = /obj/item/flashbulb/recharging/cyborg
