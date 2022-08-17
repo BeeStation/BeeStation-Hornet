@@ -243,10 +243,6 @@
 	icon_state = "crown_spider"
 	var/crown
 	var/obj/item/seeds/replicapod/grodpod/seed = new()
-	//Note 2 self: Dont Qdel shit you're referencing elsewhere
-
-/obj/item/organ/brain/grod/Destroy()
-	. = ..()
 
 /obj/item/organ/brain/grod/Insert(mob/living/carbon/C, special = 0,no_id_transfer = FALSE)
 	if(isgrod(C) && crown)
@@ -282,25 +278,22 @@
 
 /obj/item/organ/brain/grod/MouseDrop(var/atom/over)
 	. = ..()
-	if(istype(over, /obj/machinery/hydroponics))
-		var/obj/machinery/hydroponics/O = over
-		if(O.myseed)
-			to_chat(src, "<span class='userdanger'>This tray is already in use!</span>")
-			return
-		O.myseed = seed
-		src.visible_message("<span class='danger'>[src] burrows into the hydroponics tray!</span>", "<span class='danger'>You borrow into the hydroponics tray, attempting to grow a new body!</span>")
-		qdel(src)
+	tray_act(O)
 
 /obj/item/organ/brain/grod/attack_obj(var/obj/O)
 	. = ..()
-	if(istype(O, /obj/machinery/hydroponics))
-		var/obj/machinery/hydroponics/Ob = O
-		if(Ob.myseed)
+	tray_act(O)
+
+/obj/item/organ/brain/grod/proc/tray_act(var/atom/object)
+	if(do_after(loc, 3 SECONDS, target = O) && istype(object, /obj/machinery/hydroponics))
+		var/obj/machinery/hydroponics/tray = object
+		if(tray.myseed)
 			to_chat(src, "<span class='userdanger'>This tray is already in use!</span>")
 			return
-		Ob.myseed = seed
+		tray.myseed = seed
 		src.visible_message("<span class='danger'>[src] burrows into the hydroponics tray!</span>", "<span class='danger'>You borrow into the hydroponics tray, attempting to grow a new body!</span>")
 		qdel(src)
+
 ////////////////////////////////////TRAUMAS////////////////////////////////////
 
 /obj/item/organ/brain/proc/has_trauma_type(brain_trauma_type = /datum/brain_trauma, resilience = TRAUMA_RESILIENCE_ABSOLUTE)
