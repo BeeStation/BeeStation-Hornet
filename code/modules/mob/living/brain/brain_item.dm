@@ -280,7 +280,7 @@
 		H.dna.species.handle_mutant_bodyparts(H)
 	..()
 
-/obj/item/organ/brain/grod/MouseDrop(var/atom/over)
+/obj/item/organ/brain/grod/MouseDrop(atom/over)
 	. = ..()
 	if(istype(over, /obj/machinery/hydroponics))
 		var/obj/machinery/hydroponics/O = over
