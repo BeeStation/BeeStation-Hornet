@@ -28,3 +28,9 @@
 	icon_state = "captain_parade"
 	item_state = "by_suit"
 	can_adjust = FALSE
+
+/obj/item/clothing/under/rank/captain/military
+	name = "captain's military uniform"
+	desc = "A militaristic captains uniform"
+	icon_state = "militarycapuniform"
+	can_adjust = FALSE
