@@ -1,5 +1,0 @@
-author: The-Moon-Itself
-delete-after: true
-changes:
-  - bugfix: Atmos machines initialize properly when maploaded. Traitor shuttle capsules
-      are functional again!
