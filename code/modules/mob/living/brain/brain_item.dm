@@ -276,11 +276,11 @@
 		H.dna.species.handle_mutant_bodyparts(H)
 	..()
 
-/obj/item/organ/brain/grod/MouseDrop(var/atom/over)
+/obj/item/organ/brain/grod/MouseDrop(atom/over)
 	. = ..()
 	tray_act(O)
 
-/obj/item/organ/brain/grod/attack_obj(var/obj/O)
+/obj/item/organ/brain/grod/attack_obj(obj/O)
 	. = ..()
 	tray_act(O)
 
