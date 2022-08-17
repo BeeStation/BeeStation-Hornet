@@ -15,7 +15,7 @@
 	X.default_activate(charge, user, target)
 
 //============
-// Burn activator, responds to fire
+// Burn activator, responds to heat
 //============
 /datum/xenoartifact_trait/activator/burn
 	desc = "Flammable"
