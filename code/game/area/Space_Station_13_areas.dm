@@ -1026,8 +1026,8 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "brig"
 	mood_bonus = -3
 	mood_job_allowed = list(JOB_NAME_HEADOFSECURITY,JOB_NAME_WARDEN)
-	mood_reverse = TRUE
-	
+	mood_job_reverse = TRUE
+
 	mood_message = "<span class='warning'>I hate cramped brig cells.\n</span>"
 
 /area/security/courtroom
@@ -1040,7 +1040,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	icon_state = "sec_prison"
 	mood_bonus = -4
 	mood_job_allowed = list(JOB_NAME_HEADOFSECURITY,JOB_NAME_WARDEN)
-	mood_reverse = TRUE
+	mood_job_reverse = TRUE
 	mood_message = "<span class='warning'>I'm trapped here with little hope of escape!\n</span>"
 
 /area/security/processing
@@ -1432,9 +1432,9 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Armory"
 	icon_state = "armory"
 	ambience_index = AMBIENCE_DANGER
-	mood_job_allowed = list(JOB_NAME_ASSISTANT)
+	mood_job_allowed = list(JOB_NAME_WARDEN)
 	mood_bonus = 1
-	mood_message = "<span class='nicegreen'>All these guns are mine for the taking!</span>"
+	mood_message = "<span class='nicegreen'>It's good to be home.</span>"
 
 /area/ai_monitored/storage/eva
 	name = "EVA Storage"
@@ -1455,7 +1455,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "AI Upload Chamber"
 	icon_state = "ai_upload"
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
-	mood_job_allowed = list(JOB_NAME_RESEARCHDIRECTOR, JOB_NAME_CAPTAIN, JOB_NAME_ASSISTANT)  // rd and cap have access, assistant has superiority complex
+	mood_job_allowed = list(JOB_NAME_RESEARCHDIRECTOR, JOB_NAME_CAPTAIN)
 	mood_bonus = 4
 	mood_message = "<span class='nicegreen'>The AI will bend to my will!\n</span>"
 
