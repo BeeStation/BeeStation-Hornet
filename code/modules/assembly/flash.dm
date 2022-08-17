@@ -332,7 +332,7 @@
 	var/on = FALSE
 	var/holo_cooldown = 0
 
-/obj/item/flashlight/pen/afterattack(atom/target, mob/user, proximity_flag)
+/obj/item/assembly/flash/pen/afterattack(atom/target, mob/user, proximity_flag)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 	if(!proximity_flag)
@@ -346,16 +346,12 @@
 			return
 
 
-/obj/item/flashlight/pen/suicide_act(mob/living/carbon/human/user)
+/obj/item/assembly/flash/pen/suicide_act(mob/living/carbon/human/user)
 	if (user.eye_blind)
 		user.visible_message("<span class='suicide'>[user] is putting [src] close to [user.p_their()] eyes and turning it on... but [user.p_theyre()] blind!</span>")
 		return SHAME
 	user.visible_message("<span class='suicide'>[user] is putting [src] close to [user.p_their()] eyes and turning it on! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	return (FIRELOSS)
-
-/obj/item/flashlight/pen/attack_self(mob/user)
-	to_chat(user, "You sneak a glance at the side of \the [src], and a small screen notifies you there [bulb ? "is [bulb.charges_left] flashes left" : "is no bulb" ].")
-
 
 /obj/item/assembly/flash/cyborg
 	bulb = /obj/item/flashbulb/recharging/cyborg

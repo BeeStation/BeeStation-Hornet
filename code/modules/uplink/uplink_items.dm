@@ -1995,7 +1995,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 /datum/uplink_item/role_restricted/holoflash
 	name = "Penlight Flash"
 	desc = "Modifying the standard issue penlight, we were able to make it emit light similar to that of a disorienting flash. Be careful, as it also requires flash bulbs, and it only comes with one."
-	item = /obj/item/flashlight/pen
+	item = /obj/item/assembly/flash/pen
 	restricted_roles = list(JOB_NAME_MEDICALDOCTOR, JOB_NAME_CHIEFMEDICALOFFICER, JOB_NAME_ROBOTICIST, JOB_NAME_PARAMEDIC, JOB_NAME_BRIGPHYSICIAN)
 	cost = 6
 
