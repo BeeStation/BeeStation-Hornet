@@ -278,14 +278,14 @@
 
 /obj/item/organ/brain/grod/MouseDrop(atom/over)
 	. = ..()
-	tray_act(O)
+	tray_act(over)
 
 /obj/item/organ/brain/grod/attack_obj(obj/O)
 	. = ..()
 	tray_act(O)
 
 /obj/item/organ/brain/grod/proc/tray_act(var/atom/object)
-	if(do_after(loc, 3 SECONDS, target = O) && istype(object, /obj/machinery/hydroponics))
+	if(do_after(loc, 3 SECONDS, target = object) && istype(object, /obj/machinery/hydroponics))
 		var/obj/machinery/hydroponics/tray = object
 		if(tray.myseed)
 			to_chat(src, "<span class='userdanger'>This tray is already in use!</span>")
