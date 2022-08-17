@@ -479,7 +479,7 @@
 	desc = "Talking to people is very difficult for you, and you often stutter or even lock up."
 	value = -1
 	gain_text = "<span class='danger'>You start worrying about what you're saying.</span>"
-	lose_text = "<span class='notice'>You feel comfortable with talking again.</span>" //if only it were that easy! (second this - etherware)
+	lose_text = "<span class='notice'>You feel comfortable with talking again.</span>" //if only it were that easy!
 	medical_record_text = "Patient is usually anxious in social encounters and prefers to avoid them."
 	process = TRUE
 	var/dumb_thing = TRUE
