@@ -228,3 +228,31 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 				"priority" = object.priority,
 			))
 	return data
+
+/datum/controller/subsystem/processing/orbits/proc/get_collision_zone_by_zlevel(var/zlevel)
+
+	if(zlevel > SSmapping.z_list.len)
+		return
+
+	var/datum/space_level/space_level = SSmapping.z_list[zlevel]
+	var/datum/orbital_object/z_linked/body = space_level.orbital_body
+	var/zone_x = round(body.position.x / ORBITAL_MAP_ZONE_SIZE)
+	var/zone_y = round(body.position.y / ORBITAL_MAP_ZONE_SIZE)
+
+	return list("x" = zone_x, "y" = zone_y)
+	// for(var/collision_zone in collision_zones)
+	// 	var/list/datum/orbital_object/orbital_objects = collision_zones[collision_zone]
+	// 	for(var/datum/orbital_object/z_linked/body in orbital_objects)
+	// 		if(!body.linked_z_level)
+	// 			continue
+	// 		var/datum/space_level/linked_z_level = body.linked_z_level[1] // make it a loop later
+	// 		if(linked_z_level.z_value == AM.z)
+	// 			to_chat(world, "<span class='boldannounce'>WE ARE AT COORDS: [collision_zone]</span>")
+	// 			current_body = body
+	// 			collision_zone_coords = splittext(collision_zone, ",")
+	// 			current_collision_zone["x"] = text2num(collision_zone_coords[1])
+	// 			current_collision_zone["y"] = text2num(collision_zone_coords[2])
+	// 			break
+	// 	if(current_body)
+	// 		break
+
