@@ -637,7 +637,7 @@
 	display_name = "Cryostasis Technology"
 	description = "Smart freezing of objects to preserve them!"
 	prereq_ids = list("adv_engi", "biotech")
-	design_ids = list("splitbeaker", "noreactsyringe", "cryotube", "cryo_Grenade", "stasis")
+	design_ids = list("splitbeaker", "noreactsyringe", "cryotube",  "stasis")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2000)
 	export_price = 4000
 
@@ -921,16 +921,6 @@
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 	export_price = 5000
 	hidden = TRUE
-
-/datum/techweb_node/explosive_weapons
-	id = "explosive_weapons"
-	tech_tier = 3
-	display_name = "Explosive & Pyrotechnical Weaponry"
-	description = "If the light stuff just won't do it."
-	prereq_ids = list("adv_weaponry")
-	design_ids = list("large_Grenade", "pyro_Grenade", "adv_Grenade")
-	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
-	export_price = 5000
 
 /datum/techweb_node/ballistic_weapons
 	id = "ballistic_weapons"

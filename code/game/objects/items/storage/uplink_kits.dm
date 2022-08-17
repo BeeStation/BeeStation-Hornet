@@ -613,3 +613,19 @@
 	new /obj/item/disk/nuclear/fake/obvious
 	for(var/i in 1 to 4)
 		new /obj/item/toy/reality_pierce(src)
+
+/obj/item/storage/box/syndie_kit/grenade_assembly_box
+	name = "Box of empty grenade casings."
+	desc = "Contains a selection of various grenade casings to be filled with operatives chemicals of choice."
+
+/obj/item/storage/box/syndie_kit/grenade_assembly_box/PopulateContents()
+	new /obj/item/grenade/chem_grenade(src)
+	new /obj/item/grenade/chem_grenade(src)
+	new /obj/item/grenade/chem_grenade(src)
+	new /obj/item/grenade/chem_grenade/cryo(src)
+	new /obj/item/grenade/chem_grenade/pyro(src)
+	new /obj/item/grenade/chem_grenade/adv_release(src)
+	new /obj/item/stack/cable_coil(src,MAXCOIL,"red")
+	new /obj/item/screwdriver/nuke(src)
+
+	

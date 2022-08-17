@@ -14,6 +14,7 @@
 	var/threatscale = 1 // Used by advanced grenades to make them slightly more worthy.
 	var/no_splash = FALSE //If the grenade deletes even if it has no reagents to splash with. Used for slime core reactions.
 	var/casedesc = "This basic model accepts both beakers and bottles. It heats contents by 10°K upon ignition." // Appears when examining empty casings.
+	var/no_disassemble = FALSE //If the grenade can be disassembled. Use to prevent utility grenades from being weaponized.
 	var/obj/item/assembly/prox_sensor/landminemode = null
 
 /obj/item/grenade/chem_grenade/ComponentInitialize()
@@ -113,8 +114,11 @@
 			return
 
 	else if(stage == GRENADE_READY && I.tool_behaviour == TOOL_WIRECUTTER && !active)
-		stage_change(GRENADE_WIRED)
-		to_chat(user, "<span class='notice'>You unlock the [initial(name)] assembly.</span>")
+		if(no_disassemble)
+			to_chat(user, "<span class='notice'>[initial(name)] assembly is permanently locked.</span>")
+		else
+			stage_change(GRENADE_WIRED)
+			to_chat(user, "<span class='notice'>You unlock the [initial(name)] assembly.</span>")
 
 	else if(stage == GRENADE_WIRED && I.tool_behaviour == TOOL_WRENCH)
 		if(beakers.len)
@@ -332,6 +336,7 @@
 	name = "metal foam grenade"
 	desc = "Used for emergency sealing of hull breaches."
 	stage = GRENADE_READY
+	no_disassemble = TRUE
 
 /obj/item/grenade/chem_grenade/metalfoam/Initialize(mapload)
 	. = ..()
@@ -350,6 +355,7 @@
 	name = "smart metal foam grenade"
 	desc = "Used for emergency sealing of hull breaches, while keeping areas accessible."
 	stage = GRENADE_READY
+	no_disassemble = TRUE
 
 /obj/item/grenade/chem_grenade/smart_metal_foam/Initialize(mapload)
 	. = ..()
@@ -368,6 +374,7 @@
 	name = "incendiary grenade"
 	desc = "Used for clearing rooms of living things."
 	stage = GRENADE_READY
+	no_disassemble = TRUE
 
 /obj/item/grenade/chem_grenade/incendiary/Initialize(mapload)
 	. = ..()
@@ -386,6 +393,7 @@
 	name = "weedkiller grenade"
 	desc = "Used for purging large areas of invasive plant species. Contents under pressure. Do not directly inhale contents."
 	stage = GRENADE_READY
+	no_disassemble = TRUE
 
 /obj/item/grenade/chem_grenade/antiweed/Initialize(mapload)
 	. = ..()
@@ -405,6 +413,7 @@
 	name = "cleaner grenade"
 	desc = "BLAM!-brand foaming space cleaner. In a special applicator for rapid cleaning of wide areas."
 	stage = GRENADE_READY
+	no_disassemble = TRUE
 
 /obj/item/grenade/chem_grenade/cleaner/Initialize(mapload)
 	. = ..()
@@ -423,6 +432,7 @@
 	name = "cleaner grenade"
 	desc = "Waffle Co.-brand foaming space cleaner. In a special applicator for rapid cleaning of wide areas."
 	stage = GRENADE_READY
+	no_disassemble = TRUE
 
 /obj/item/grenade/chem_grenade/ez_clean/Initialize(mapload)
 	. = ..()
@@ -442,6 +452,7 @@
 	name = "teargas grenade"
 	desc = "Used for nonlethal riot control. Contents under pressure. Do not directly inhale contents."
 	stage = GRENADE_READY
+	no_disassemble = TRUE
 
 /obj/item/grenade/chem_grenade/teargas/Initialize(mapload)
 	. = ..()
@@ -461,6 +472,7 @@
 	name = "acid grenade"
 	desc = "Used for melting armoured opponents."
 	stage = GRENADE_READY
+	no_disassemble = TRUE
 
 /obj/item/grenade/chem_grenade/facid/Initialize(mapload)
 	. = ..()
@@ -481,6 +493,7 @@
 	name = "colorful grenade"
 	desc = "Used for wide scale painting projects."
 	stage = GRENADE_READY
+	no_disassemble = TRUE
 
 /obj/item/grenade/chem_grenade/colorful/Initialize(mapload)
 	. = ..()
@@ -499,6 +512,7 @@
 	name = "generic glitter grenade"
 	desc = "You shouldn't see this description."
 	stage = GRENADE_READY
+	no_disassemble = TRUE
 	var/glitter_type = /datum/reagent/glitter
 
 /obj/item/grenade/chem_grenade/glitter/Initialize(mapload)
@@ -533,6 +547,7 @@
 	name = "clf3 grenade"
 	desc = "BURN!-brand foaming clf3. In a special applicator for rapid purging of wide areas."
 	stage = GRENADE_READY
+	no_disassemble = TRUE
 
 /obj/item/grenade/chem_grenade/clf3/Initialize(mapload)
 	. = ..()
@@ -591,6 +606,7 @@
 	desc = "A vessel of concentrated religious might."
 	icon_state = "holy_grenade"
 	stage = GRENADE_READY
+	no_disassemble = TRUE
 
 /obj/item/grenade/chem_grenade/holy/Initialize(mapload)
 	. = ..()
@@ -607,6 +623,7 @@
 	name = "counterparanormal foam grenade"
 	desc = "The note on the side guarantees to ward off most malicious spirits from covered area.\ The grenade itself seems to be old and covered with dust."
 	stage = GRENADE_READY
+	no_disassemble = TRUE
 
 /obj/item/grenade/chem_grenade/ghostbuster/Initialize(mapload)
 	. = ..()
