@@ -65,6 +65,7 @@
 #include "species_whitelists.dm"
 #include "greyscale_config.dm"
 #include "metabolizing.dm"
+#include "ntnetwork_tests.dm"
 #include "projectiles.dm"
 #include "subsystem_init.dm"
 #include "subsystem_metric_sanity.dm"
