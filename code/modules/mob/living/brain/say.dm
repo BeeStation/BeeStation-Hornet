@@ -23,9 +23,4 @@
 	return LINGHIVE_NONE
 
 /mob/living/brain/treat_message(message)
-	// check for and apply punctuation
-	var/end = copytext(message, length(message))
-	if(!(end in list("!", ".", "?", ":", "\"", "-", "~")))
-		message += "."
-	message = capitalize(message)
-	return message
+	return treat_message_min(message)
