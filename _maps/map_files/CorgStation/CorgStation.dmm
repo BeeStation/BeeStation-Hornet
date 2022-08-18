@@ -28624,6 +28624,15 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/service)
+"hVd" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/machinery/ecto_sniffer{
+	pixel_y = -3
+	},
+/turf/open/floor/plasteel/dark,
+/area/science/robotics/lab)
 "hVn" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
@@ -117672,7 +117681,7 @@ pkM
 pJu
 iQx
 skb
-skb
+hVd
 skb
 dLC
 pkM
