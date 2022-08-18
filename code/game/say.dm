@@ -38,7 +38,7 @@ GLOBAL_LIST_INIT(freqtospan, list(
 /atom/movable/proc/send_speech(message, range = 7, obj/source = src, bubble_type, list/spans, datum/language/message_language = null, list/message_mods = list())
 	var/rendered = compose_message(src, message_language, message, , spans, message_mods)
 	var/list/show_overhead_message_to = list()
-	for(var/atom/movable/AM as() in get_hearers_in_view(range, source))
+	for(var/atom/movable/AM as() in get_hearers_in_view(range, source, SEE_INVISIBLE_MAXIMUM))
 		if(ismob(AM))
 			var/mob/M = AM
 			if(M.should_show_chat_message(source, message_language, FALSE, is_heard = TRUE))
