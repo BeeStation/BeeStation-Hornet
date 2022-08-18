@@ -87,8 +87,8 @@
 	var/rifts_charged = 0
 	/// Whether or not Space Dragon has completed their objective, and thus triggered the ending sequence.
 	var/objective_complete = FALSE
-	/// The innate ability to use wing gust
-	var/datum/action/innate/gust_attack/gust
+	/// The cooldown ability to use wing gust
+	var/datum/action/cooldown/gust_attack/gust
 	/// The innate ability to summon rifts
 	var/datum/action/innate/summon_rift/rift
 	/// The ability to make your sprite smaller
@@ -122,7 +122,8 @@
 /mob/living/simple_animal/hostile/space_dragon/Login()
 	. = ..()
 	if(!chosen_color)
-		dragon_name()
+		// Not for use on BeeStation
+		//dragon_name()
 		color_selection()
 	start_rift_timer()
 
@@ -451,23 +452,23 @@
  * Handles wing gust from the windup all the way to the endlag at the end.
  *
  * Handles the wing gust attack from start to finish, based on the timer.
- * When intially triggered, starts at 0.  Until the timer reaches 10, increase Space Dragon's y position by 2 and call back to the function in 1.5 deciseconds.
- * When the timer is at 10, trigger the attack.  Change Space Dragon's sprite. reset his y position, and push all living creatures back in a 3 tile radius and stun them for 5 seconds.
+ * After animate, trigger the attack.  Change Space Dragon's sprite and push all living creatures back in a 3 tile radius and stun them for 5 seconds.
  * Stay in the ending state for how much our tiredness dictates and add to our tiredness.
  * Arguments:
- * * timer - The timer used for the windup.
+ * * animate - If this is the animation cycle or not.
  */
-/mob/living/simple_animal/hostile/space_dragon/proc/useGust(timer)
-	if(timer != 10)
-		pixel_y = pixel_y + 2;
-		addtimer(CALLBACK(src, .proc/useGust, timer + 1), 1.5)
+/mob/living/simple_animal/hostile/space_dragon/proc/useGust(animate = TRUE)
+	if(animate)
+		animate(src, pixel_y = 20, time = 1 SECONDS)
+		addtimer(CALLBACK(src, .proc/useGust, FALSE), 1.5 SECONDS)
 		return
 	pixel_y = 0
-	icon_state = "spacedragon_gust_2"
-	cut_overlays()
-	var/mutable_appearance/overlay = mutable_appearance(icon, "overlay_gust_2")
-	overlay.appearance_flags = RESET_COLOR
-	add_overlay(overlay)
+	if(!small_sprite.small)
+		icon_state = "spacedragon_gust_2"
+		cut_overlays()
+		var/mutable_appearance/overlay = mutable_appearance(icon, "overlay_gust_2")
+		overlay.appearance_flags = RESET_COLOR
+		add_overlay(overlay)
 	playsound(src, 'sound/effects/gravhit.ogg', 100, TRUE)
 	var/gust_locs = spiral_range_turfs(gust_distance, get_turf(src))
 	var/list/hit_things = list()
@@ -507,21 +508,26 @@
 		rift.carp_stored = 999999
 		rift.time_charged = rift.max_charge
 
-/datum/action/innate/gust_attack
+/datum/action/cooldown/gust_attack
 	name = "Gust Attack"
 	desc = "Use your wings to knock back foes with gusts of air, pushing them away and stunning them. Using this too often will leave you vulnerable for longer periods of time."
 	background_icon_state = "bg_default"
 	icon_icon = 'icons/mob/actions/actions_space_dragon.dmi'
 	button_icon_state = "gust_attack"
+	cooldown_time = 5 SECONDS // the ability takes up around 2-3 seconds
 
-/datum/action/innate/gust_attack/Activate()
+/datum/action/cooldown/gust_attack/Trigger()
+	if(!..() || !istype(owner, /mob/living/simple_animal/hostile/space_dragon))
+		return FALSE
 	var/mob/living/simple_animal/hostile/space_dragon/S = owner
 	if(S.using_special)
-		return
+		return FALSE
 	S.using_special = TRUE
 	S.icon_state = "spacedragon_gust"
 	S.update_dragon_overlay()
-	S.useGust(0)
+	S.useGust(TRUE)
+	StartCooldown()
+	return TRUE
 
 /datum/action/innate/summon_rift
 	name = "Summon Rift"
