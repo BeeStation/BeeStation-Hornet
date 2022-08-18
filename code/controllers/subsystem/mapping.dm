@@ -47,6 +47,7 @@ SUBSYSTEM_DEF(mapping)
 	var/list/z_list
 	var/datum/space_level/transit
 	var/datum/space_level/empty_space
+	var/datum/space_level/trash_level/trash_level
 	var/num_of_res_levels = 1
 
 //dlete dis once #39770 is resolved
@@ -101,6 +102,11 @@ SUBSYSTEM_DEF(mapping)
 		for (var/lava_z in lava_ruins)
 			spawn_rivers(lava_z)
 	loading_ruins = FALSE
+
+	empty_space = add_new_zlevel("Trash Level", list(ZTRAIT_LINKAGE = DEEPSPACE), z_type = /datum/space_level/trash_level, orbital_body_type = null)
+	trash_level = empty_space
+	++space_levels_so_far
+
 #endif
 	// Run map generation after ruin generation to prevent issues
 	run_map_generation()

@@ -1,5 +1,6 @@
 #define CLEAR_TURF_PROCESSING_TIME (120 SECONDS)	//Time it takes to clear all turfs
 #define CHECK_ZLEVEL_TICKS (5 SECONDS)			//Every 5 seconds check if a tracked z-level is free.
+#define CLEAR_TRASH_LEVEL (10 MINUTES)
 
 GLOBAL_LIST_EMPTY(zclear_atoms)
 GLOBAL_LIST_EMPTY(zclear_blockers)
@@ -55,6 +56,8 @@ SUBSYSTEM_DEF(zclear)
 		check_for_empty_levels()
 	for(var/datum/zclear_data/cleardata as() in processing_levels)
 		continue_wipe(cleardata)
+	if(times_fired % CLEAR_TRASH_LEVEL == 0)
+		clear_trash_level()
 
 /*
  * Checks for empty z-levels and wipes them.
@@ -338,6 +341,9 @@ SUBSYSTEM_DEF(zclear)
 		new_turfs += newT
 	return new_turfs
 
+/datum/controller/subsystem/zclear/proc/clear_trash_level()
+	return
+
 /datum/zclear_data
 	var/zvalue
 	var/list/divided_turfs
@@ -345,3 +351,5 @@ SUBSYSTEM_DEF(zclear)
 	var/tracking
 	//Callback when completed, z value passed as parameters
 	var/datum/callback/completion_callback
+
+#undef CLEAR_TRASH_LEVEL

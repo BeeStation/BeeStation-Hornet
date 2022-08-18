@@ -1,6 +1,7 @@
 /turf/open/space/deep_space
 	density = TRUE
 	var/direction = 0
+	var/lasttime = 0
 
 /turf/open/space/deep_space/CanBuildHere()
 	return FALSE
@@ -11,8 +12,16 @@
 /turf/open/space/deep_space/Bumped(atom/movable/AM)
 	. = ..()
 
-	//to_chat(world, "BUMPED DEEP SPACE TURF")
-	var/datum/orbital_object/current_body
+	if(world.time - lasttime < 10 SECONDS)
+		return
+
+	if(!istype(AM, /mob/living))
+		var/turf/T = pick(block(locate(20, 20, SSmapping.trash_level.z_value), locate(200, 200, SSmapping.trash_level.z_value)))
+		to_chat(world, "TRASH TELEPORTED TO TURF: [T]")
+		AM.forceMove(T)
+		LAZYADD(SSmapping.trash_level.trash_atoms, AM)
+		return
+
 	var/list/current_collision_zone = SSorbits.get_collision_zone_by_zlevel(AM.z)
 	var/datum/orbital_map/primary_orbital_map = SSorbits.orbital_maps[SSorbits.orbital_maps[1]]
 
@@ -41,4 +50,16 @@
 			collision_zones_to_consider += collision_zones[collision_zone]
 			to_chat(world, "<span class='boldannounce'>CONSIDERING ZONE: [collision_zone]</span>")
 		var/list/datum/orbital_object/orbital_objects = collision_zones[collision_zone]
+
+	while(collision_zones_to_consider.len > 0)
+		var/datum/orbital_object/orbital_object = pick_n_take(collision_zones_to_consider)
+		if(istype(orbital_object, /datum/orbital_object/z_linked/beacon/ruin))
+			var/datum/orbital_object/z_linked/beacon/ruin/ruin = orbital_object
+			ruin.assign_z_level()
+			var/turf/T = locate(20, 20, ruin.linked_z_level[1].z_value)
+			lasttime = world.time
+			AM.forceMove(T)
+			break
+
+	var/test
 

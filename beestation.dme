@@ -2347,6 +2347,7 @@
 #include "code\modules\mapping\verify.dm"
 #include "code\modules\mapping\space_management\multiz_helpers.dm"
 #include "code\modules\mapping\space_management\space_level.dm"
+#include "code\modules\mapping\space_management\trash_level.dm"
 #include "code\modules\mapping\space_management\space_reservation.dm"
 #include "code\modules\mapping\space_management\space_transition.dm"
 #include "code\modules\mapping\space_management\traits.dm"
