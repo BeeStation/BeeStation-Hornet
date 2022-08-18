@@ -471,6 +471,8 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 
 /obj/machinery/holopad/proc/unset_holo(mob/living/user)
 	var/mob/living/silicon/ai/AI = user
+	holo = masters[user]
+	RegisterSignal(masters[user], COMSIG_PARENT_QDELETING, .proc/handle_holo_del)
 	if(istype(AI) && AI.current == src)
 		AI.current = null
 	LAZYREMOVE(masters, user) // Discard AI from the list of those who use holopad
@@ -478,6 +480,10 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 	LAZYREMOVE(holorays, user)
 	SetLightsAndPower()
 	return TRUE
+
+/obj/machinery/holopad/proc/handle_holo_del()
+	UnregisterSignal(holo, COMSIG_PARENT_QDELETING)
+	holo = null
 
 //Try to transfer hologram to another pad that can project on T
 /obj/machinery/holopad/proc/transfer_to_nearby_pad(turf/T,mob/holo_owner)
@@ -511,7 +517,6 @@ For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 
 /obj/machinery/holopad/proc/move_hologram(mob/living/user, turf/new_turf)
 	if(LAZYLEN(masters) && masters[user])
-		holo = masters[user]
 		var/transfered = FALSE
 		if(!validate_location(new_turf))
 			if(!transfer_to_nearby_pad(new_turf,user))
