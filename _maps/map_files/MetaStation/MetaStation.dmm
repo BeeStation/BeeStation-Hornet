@@ -21563,7 +21563,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/bot,
-/obj/machinery/rnd/production/circuit_imprinter/department/engineering,
+/obj/machinery/rnd/production/circuit_imprinter,
 /turf/open/floor/plasteel/dark/corner,
 /area/engine/storage_shared)
 "bvf" = (
