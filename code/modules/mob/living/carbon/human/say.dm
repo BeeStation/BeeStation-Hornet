@@ -30,9 +30,8 @@
 	// how do species that don't breathe talk? magic, that's what.
 	if(!HAS_TRAIT_FROM(src, TRAIT_NOBREATH, SPECIES_TRAIT) && !getorganslot(ORGAN_SLOT_LUNGS))
 		return FALSE
-	if(src.dna?.species)
-		if(!src.dna?.species.speak_no_tongue && !getorganslot(ORGAN_SLOT_TONGUE))  // candy-etherware
-			return FALSE
+	if(!src.dna?.species.speak_no_tongue && !getorganslot(ORGAN_SLOT_TONGUE))  // candy-etherware
+		return FALSE
 	if(mind)
 		return !mind.miming
 	return TRUE
