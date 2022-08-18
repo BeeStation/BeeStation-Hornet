@@ -747,6 +747,14 @@
 	icon_icon = 'icons/mob/carp.dmi'
 	button_icon_state = "carp"
 
+/datum/action/small_sprite/space_dragon/Trigger()
+	..()
+	if(small) // parent call already reversed this. Effectively !small
+		owner.cut_overlays() // remove the overlays. can't be done with signals, unfortunately
+	else if(istype(owner, /mob/living/simple_animal/hostile/space_dragon))
+		var/mob/living/simple_animal/hostile/space_dragon/D = owner
+		D.update_dragon_overlay() // restore overlays
+
 /datum/action/small_sprite/Trigger()
 	..()
 	if(!small)
