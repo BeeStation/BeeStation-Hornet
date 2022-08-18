@@ -73,7 +73,6 @@
 	B.setDir(dir)
 	qdel(src)
 
-///
 /obj/structure/chair/attacked_by(obj/item/W, mob/user, params)
 	if(W.tool_behaviour == TOOL_WRENCH && !(flags_1&NODECONSTRUCT_1))
 		W.use_tool(src, user, 20, volume=50)
@@ -250,11 +249,20 @@
 /obj/structure/chair/fancy/plastic/post_buckle_mob(mob/living/M) //you do not want to see an angry spaceman speeding while holding dearly onto it
 	. = ..()
 	anchored = TRUE
+	if(iscarbon(M))
+		INVOKE_ASYNC(src, .proc/snap_check, M)
 
 /obj/structure/chair/fancy/plastic/post_unbuckle_mob()
 	. = ..()
 	handle_layer()
 	anchored = FALSE
+
+/obj/structure/chair/fancy/plastic/proc/snap_check(mob/living/M)
+	if (M.nutrition >= NUTRITION_LEVEL_FAT) //you are so fat
+		to_chat(M, "<span class='warning'>The chair begins to pop and crack, you're too heavy!</span>")
+		if(do_after(M, 6 SECONDS, progress = FALSE))
+			M.visible_message("<span class='notice'>The plastic chair snaps under [M]'s weight!</span>")
+			qdel(src)
 
 /obj/structure/chair/fancy/brass
 	name = "brass chair"
@@ -371,6 +379,21 @@
 	buildstacktype = /obj/item/stack/sheet/mineral/bamboo
 	buildstackamount = 2
 	item_chair = /obj/item/chair/stool/bamboo
+
+
+/obj/structure/chair/foldable
+	icon_state = "chair_foldable"
+	name = "folding chair"
+	desc = "No matter how much you squirm, it'll still be uncomfortable."
+	max_integrity = 50
+	buildstackamount = 2
+	item_chair = /obj/item/chair/plastic
+
+/obj/structure/chair/foldable/post_buckle_mob(mob/living/Mob)
+	Mob.pixel_y += 2
+
+/obj/structure/chair/foldable/post_unbuckle_mob(mob/living/Mob)
+	Mob.pixel_y -= 2
 
 //Chairs, but as an item
 
@@ -514,4 +537,18 @@
 	break_chance = 15 //Submissive and breakable, but can handle an angry demon
 
 /obj/item/chair/plastic/narsie_act()
+	return
+
+/obj/item/chair/foldable
+	name = "folding chair"
+	desc = "Somehow, you can always find one under the wrestling ring."
+	icon_state = "folded_chair"
+	lefthand_file = 'icons/mob/inhands/misc/chairs_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/misc/chairs_righthand.dmi'
+	w_class = WEIGHT_CLASS_NORMAL
+	force = 7
+	break_chance = 25
+	origin_type = /obj/structure/chair/foldable
+
+/obj/item/chair/foldable/narsie_act()
 	return
