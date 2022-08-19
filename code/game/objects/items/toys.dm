@@ -24,6 +24,7 @@
  *		Toy Daggers
  *		Eldrich stuff
  *		Batong
+ *		Fake captains card
  */
 
 
@@ -1530,7 +1531,7 @@
  */
 
 /obj/item/toy/allaccess
-	name = "captains spare ID"
+	name = "captain's spare ID"
 	desc = "A replica of the glorious captain's card. Issued to annoying greytiders as a joke."
 	icon = 'icons/obj/card.dmi'
 	icon_state = "gold"
