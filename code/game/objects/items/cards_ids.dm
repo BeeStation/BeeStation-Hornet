@@ -117,6 +117,7 @@
 	var/access_txt // mapping aid
 	var/datum/bank_account/registered_account
 	var/obj/machinery/paystand/my_store
+	/// controls various things, disable to make it have no bank account, ineditable in id machines, etc
 	var/electric = TRUE  // removes account info from examine
 
 /obj/item/card/id/Initialize(mapload)

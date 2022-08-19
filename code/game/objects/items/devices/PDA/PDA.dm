@@ -976,7 +976,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 
 	else if(istype(C, /obj/item/card/id))
 		var/obj/item/card/id/idcard = C
-		if(!C.electric)
+		if(!idcard.electric)
 			to_chat(user, "<span class='warning'>You attempt to jam \the [C] into your PDA's ID slot. It doesn't fit.</span>")
 		if(!idcard.registered_name)
 			to_chat(user, "<span class='warning'>\The [src] rejects the ID!</span>")

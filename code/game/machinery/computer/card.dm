@@ -66,7 +66,8 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 
 /obj/machinery/computer/card/attackby(obj/I, mob/user, params)
 	if(isidcard(I))
-		if(!I.electric)
+		var/obj/item/card/id/insert_card = I
+		if(!insert_card.electric)
 			to_chat(user, to_chat(user, "<span class='warning'>There's no circuitry to change!</span>"))
 			return
 		if(check_access(I) && !inserted_scan_id)
