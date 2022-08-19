@@ -1614,7 +1614,7 @@ config_setting should be one of the following:
 				. = "For children"
 			if(300 to INFINITY)
 				. = pick("Shift wrecking hammering",
-						"Get new liver after consumtion",
+						"Get new liver after consumption",
 						"Post consumption support groups exist",
 						"Place in Molotov instead",
 						"To stumble and slur, the will of Bacchus")

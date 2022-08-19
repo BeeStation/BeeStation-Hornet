@@ -565,12 +565,12 @@
 					. += "[total_volume] units of various reagents"
 				//-------- Beer goggles ---------
 				if(user.can_see_boozepower())
-					var/total_boozepower = 0
-					var/list/taste_list = list()
 					if(length(reagents.reagent_list))
+						var/total_boozepower = 0
+						var/list/taste_list = list()
 						for(var/datum/reagent/consumable/ethanol/B in reagents.reagent_list)
 							var/real_boozepower = B.boozepwr
-							if(real_boozepower<0) // minus booze power is reversed to light drinkers, but is actually 0 to normal drinkers.
+							if(real_boozepower < 0) // minus booze power is reversed to light drinkers, but is actually 0 to normal drinkers.
 								real_boozepower = 0
 							total_boozepower += B.volume*real_boozepower
 						for(var/datum/reagent/R in reagents.reagent_list)
