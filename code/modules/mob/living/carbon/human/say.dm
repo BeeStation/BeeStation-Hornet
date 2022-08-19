@@ -31,7 +31,7 @@
 	if(!HAS_TRAIT_FROM(src, TRAIT_NOBREATH, SPECIES_TRAIT) && !getorganslot(ORGAN_SLOT_LUNGS))
 		return FALSE
 	if(dna?.species && !dna?.species.speak_no_tongue)
-		if(!getorganslot(ORGAN_SLOT_TONGUE))  // candy-etherware
+		if(!getorganslot(ORGAN_SLOT_TONGUE))
 			return FALSE
 	if(mind)
 		return !mind.miming
