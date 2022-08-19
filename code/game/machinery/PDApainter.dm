@@ -168,7 +168,6 @@
 
 	else if(istype(O, /obj/item/card/id))
 		if(istype(O, /obj/item/card/id/paper))
-			to_chat(user, "<span class='warning'>There's no circuitry to change!")
 			return
 		if(storedid)
 			to_chat(user, "<span class='warning'>There is already an ID card inside!</span>")
