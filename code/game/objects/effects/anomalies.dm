@@ -503,7 +503,7 @@
 		target.update_body(TRUE)
 		to_chat(target, "<span class='warning'>Something feels different...</span>")
 		log_game("[key_name(owner)] has caused a delimber pulse affecting [english_list(affected)].")
-		target.log_message("[owner] has caused [target]'s [picked_part] to turn into [new_part.name] and deleted their [picked_user_part.name].", LOG_ATTACK)
+		target.log_message("[owner] has caused [target]'s [picked_part] to turn into [new_part.name] and delimbed their [picked_user_part.name].", LOG_ATTACK)
 
 	if(message_admins)
 		message_admins("[ADMIN_LOOKUPFLW(owner)] has caused a delimber pulse affecting [english_list(affected)].")
