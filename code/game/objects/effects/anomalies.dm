@@ -481,7 +481,6 @@
 		var/picked_zone = pick(ANOMALY_DELIMBER_ZONES)
 		var/obj/item/bodypart/picked_user_part = target.get_bodypart(picked_zone)
 		if(!picked_user_part)
-			target.update_body(TRUE)
 			return
 		var/obj/item/bodypart/picked_part
 		switch(picked_zone)
