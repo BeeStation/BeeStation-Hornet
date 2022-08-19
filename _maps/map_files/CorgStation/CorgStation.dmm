@@ -9132,10 +9132,6 @@
 /turf/open/floor/plating,
 /area/maintenance/department/science/central)
 "ciM" = (
-/obj/machinery/door/airlock/maintenance_hatch{
-	name = "Cargo Maintenance";
-	req_access_txt = "31"
-	},
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -9144,6 +9140,10 @@
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
+/obj/machinery/door/airlock/maintenance_hatch{
+	name = "Maintenance Hatch";
+	req_access_txt = "12"
+	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
 "ciW" = (
@@ -12163,6 +12163,13 @@
 /obj/effect/turf_decal/tile/blue,
 /turf/open/floor/plasteel/white,
 /area/medical/genetics)
+"deU" = (
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
+/turf/open/floor/plating,
+/area/maintenance/port/central)
 "dfn" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
@@ -30280,7 +30287,7 @@
 "ipP" = (
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "Library Maintenance";
-	req_access_txt = "12"
+	req_one_access_txt = "12;37"
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -31139,11 +31146,11 @@
 	icon_state = "1-2"
 	},
 /obj/structure/disposalpipe/segment,
-/obj/machinery/door/airlock/maintenance_hatch{
-	name = "Maintenance Hatch";
-	req_access_txt = "12"
-	},
 /obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/maintenance_hatch{
+	name = "Cargo Maintenance";
+	req_access_txt = "31"
+	},
 /turf/open/floor/plating,
 /area/quartermaster/storage)
 "iCW" = (
@@ -59694,7 +59701,7 @@
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "Bar Maintenance";
-	req_access_txt = "25"
+	req_one_access_txt = "12;25"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -67414,7 +67421,7 @@
 /turf/open/floor/plasteel/white,
 /area/medical/storage)
 "tqu" = (
-/obj/machinery/rnd/production/protolathe/department/service,
+/obj/machinery/hydroponics/constructable,
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
 "tqE" = (
@@ -74197,6 +74204,13 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
+"vtz" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/machinery/hydroponics/constructable,
+/turf/open/floor/plating,
+/area/maintenance/starboard/aft)
 "vtC" = (
 /obj/effect/turf_decal/tile/yellow{
 	dir = 1
@@ -74749,8 +74763,8 @@
 	dir = 4
 	},
 /obj/machinery/door/airlock/maintenance_hatch{
-	name = "Cargo Maintenance";
-	req_access_txt = "31"
+	name = "Maintenance Hatch";
+	req_access_txt = "12"
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
@@ -80804,16 +80818,16 @@
 /turf/closed/wall/r_wall,
 /area/space/nearstation)
 "xnU" = (
-/obj/machinery/door/airlock/maintenance_hatch{
-	name = "Maintenance Hatch";
-	req_access_txt = "35"
-	},
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
+	},
+/obj/machinery/door/airlock/maintenance_hatch{
+	name = "Maintenance Hatch";
+	req_access_txt = "35"
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
@@ -81461,10 +81475,6 @@
 /turf/open/floor/plasteel/dark,
 /area/engine/atmos)
 "xxQ" = (
-/obj/machinery/door/airlock/maintenance_hatch{
-	name = "Maintenance Hatch";
-	req_access_txt = "12"
-	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
@@ -81481,6 +81491,10 @@
 	dir = 4
 	},
 /obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/maintenance_hatch{
+	name = "Bar Maintenance";
+	req_one_access_txt = "12;25"
+	},
 /turf/open/floor/plating,
 /area/crew_quarters/bar)
 "xxR" = (
@@ -108731,8 +108745,8 @@ vhc
 iOB
 ono
 lUW
-lUW
 qBW
+lUW
 aLx
 lUW
 lUW
@@ -115393,7 +115407,7 @@ fKx
 fKx
 aTq
 hzU
-lzJ
+deU
 lxe
 eJK
 eJK
@@ -115650,7 +115664,7 @@ fKx
 fKx
 fKx
 laH
-nHS
+aPI
 fHC
 fHC
 fHC
@@ -122606,10 +122620,10 @@ iXF
 mef
 wnG
 kfy
-kDi
+qzK
 rKM
 kfy
-qzK
+vtz
 tqu
 vUC
 jLT
