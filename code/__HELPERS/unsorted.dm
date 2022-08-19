@@ -1615,7 +1615,7 @@ config_setting should be one of the following:
 			if(300 to INFINITY)
 				. = pick("Shift wrecking hammering",
 						"Get new liver after consumption",
-						"Post consumption support groups exist",
+						"Post-consumption support groups exist",
 						"Place in Molotov instead",
 						"To stumble and slur, the will of Bacchus")
 			if(100 to 100)
@@ -1629,7 +1629,7 @@ config_setting should be one of the following:
 			if(80 to 90)
 				. = "Liver pickler"
 			if(70 to 80)
-				. = "Drunkard’s Challenge"
+				. = "Drunkard's Challenge"
 			if(60 to 70)
 				. = "Have Shotgun ready"
 			if(50 to 60)
