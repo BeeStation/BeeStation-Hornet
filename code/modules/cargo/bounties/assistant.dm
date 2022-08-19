@@ -226,6 +226,6 @@
 /datum/bounty/item/assistant/coffee
 	name = "Coffee"
 	description = "A message to all interns: GET ME A COFFEE."
-	reward = 1000
+	reward = 50  // flipping it for triple + some extra for cargo
 	required_count = 1
 	wanted_types = list(/obj/item/reagent_containers/food/drinks/coffee)
