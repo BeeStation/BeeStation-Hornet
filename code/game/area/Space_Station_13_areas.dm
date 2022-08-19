@@ -1025,7 +1025,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Brig"
 	icon_state = "brig"
 	mood_bonus = -3
-	mood_job_allowed = list(JOB_NAME_HEADOFSECURITY,JOB_NAME_WARDEN)
+	mood_job_allowed = list(JOB_NAME_HEADOFSECURITY,JOB_NAME_WARDEN,JOB_NAME_SECURITYOFFICER,JOB_NAME_BRIGPHYSICIAN,JOB_NAME_DETECTIVE)
 	mood_job_reverse = TRUE
 
 	mood_message = "<span class='warning'>I hate cramped brig cells.\n</span>"
