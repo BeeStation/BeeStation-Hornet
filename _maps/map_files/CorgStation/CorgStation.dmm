@@ -12163,13 +12163,6 @@
 /obj/effect/turf_decal/tile/blue,
 /turf/open/floor/plasteel/white,
 /area/medical/genetics)
-"deU" = (
-/obj/effect/spawner/lootdrop/maintenance,
-/obj/structure/cable/yellow{
-	icon_state = "2-4"
-	},
-/turf/open/floor/plating,
-/area/maintenance/port/central)
 "dfn" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
@@ -29106,6 +29099,13 @@
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
+"iap" = (
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
+/turf/open/floor/plating,
+/area/maintenance/port/central)
 "iaw" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -46346,6 +46346,13 @@
 /obj/item/bedsheet/dorms,
 /turf/open/floor/wood,
 /area/quartermaster/storage)
+"mYG" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/machinery/hydroponics/constructable,
+/turf/open/floor/plating,
+/area/maintenance/starboard/aft)
 "mYL" = (
 /obj/machinery/power/smes{
 	charge = 5e+006
@@ -74204,13 +74211,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
-"vtz" = (
-/obj/machinery/light/small{
-	dir = 4
-	},
-/obj/machinery/hydroponics/constructable,
-/turf/open/floor/plating,
-/area/maintenance/starboard/aft)
 "vtC" = (
 /obj/effect/turf_decal/tile/yellow{
 	dir = 1
@@ -81493,7 +81493,7 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "Bar Maintenance";
-	req_one_access_txt = "12;25"
+	req_one_access_txt = "12;25;48"
 	},
 /turf/open/floor/plating,
 /area/crew_quarters/bar)
@@ -115407,7 +115407,7 @@ fKx
 fKx
 aTq
 hzU
-deU
+iap
 lxe
 eJK
 eJK
@@ -122623,7 +122623,7 @@ kfy
 qzK
 rKM
 kfy
-vtz
+mYG
 tqu
 vUC
 jLT
