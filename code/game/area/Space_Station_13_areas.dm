@@ -1039,7 +1039,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Prison Wing"
 	icon_state = "sec_prison"
 	mood_bonus = -4
-	mood_job_allowed = list(JOB_NAME_HEADOFSECURITY,JOB_NAME_WARDEN)
+	mood_job_allowed = list(JOB_NAME_HEADOFSECURITY,JOB_NAME_WARDEN, JOB_NAME_SECURITYOFFICER)  // JUSTICE!
 	mood_job_reverse = TRUE
 	mood_message = "<span class='warning'>I'm trapped here with little hope of escape!\n</span>"
 
@@ -1524,9 +1524,9 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Telecomms Control Room"
 	icon_state = "tcom_sat_comp"
 	sound_environment = SOUND_AREA_MEDIUM_SOFTFLOOR
-	mood_job_allowed = list(JOB_NAME_RESEARCHDIRECTOR, JOB_NAME_SCIENTIST, JOB_NAME_ROBOTICIST)  // techies
+	mood_job_allowed = list(JOB_NAME_CHIEFENGINEER, JOB_NAME_STATIONENGINEER)
 	mood_bonus = 2
-	mood_message = "<span class='nicegreen'>All this technology is so fascinating, I could sit here for hours..\n</span>"
+	mood_message = "<span class='nicegreen'>It's good to see these in working order.\n</span>"
 
 /area/tcommsat/server
 	name = "Telecomms Server Room"
