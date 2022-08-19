@@ -101,9 +101,8 @@
 	changeling_speak = 0
 	chosen_sting = null
 	mimicing = ""
-	if(reset_abilities) // For respeccing
-		return
-	geneticpoints = initial(geneticpoints)
+	if(!reset_abilities) // For respeccing
+		geneticpoints = initial(geneticpoints)
 	sting_range = initial(sting_range)
 	chem_recharge_rate = initial(chem_recharge_rate)
 	chem_charges = min(chem_charges, chem_storage)
