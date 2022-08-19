@@ -411,6 +411,16 @@
 	tastes = list("cherry" = 1, "crepe" = 1)
 	foodtype = GRAIN | FRUIT | SUGAR
 
+/obj/item/reagent_containers/food/snacks/englishbreakfast
+	name = "full english breakfast"
+	desc = "The maximum amount of breakfasting. Anymore and you reach hubris."
+	iconstate = "englishbreakfast"
+	bonus_reagents = list(/datum/reagent/consumable/nutriment = 5, /datum/reagent/consumable/nutriment/vitamin = 1)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 10, /datum/reagent/consumable/nutriment/vitamin = 2)
+	tastes = list("a symphony of breakfast foods" = 1)
+	trash = /obj/item/trash/plate
+	foodtype = GRAIN | MEAT | VEGETABLES | BREAKFAST
+
 /obj/item/reagent_containers/food/snacks/lollipop
 	name = "lollipop"
 	desc = "A delicious lollipop. Makes for a great Valentine's present."
