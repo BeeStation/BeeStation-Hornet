@@ -1,5 +1,5 @@
 //Orbital vectors
-//I hate that some of these modify src and the others just return a valid
+// Improved to know which ones modify self and which ones return a new vector
 // - bacon
 
 /datum/orbital_vector
