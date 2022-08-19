@@ -144,25 +144,6 @@
 	blacklist = list(/obj/item/clothing/glasses/science/sciencesun/degraded)
 	category = CAT_EYEWEAR
 
-/datum/crafting_recipe/sunhudmeson
-	name = "Meson Sunglasses"
-	result = /obj/item/clothing/glasses/meson/sun
-	time = 20
-	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
-	reqs = list(/obj/item/clothing/glasses/meson = 1,
-				/obj/item/clothing/glasses/sunglasses/advanced = 1,
-				/obj/item/stack/cable_coil = 5)
-	category = CAT_EYEWEAR
-
-/datum/crafting_recipe/sunhudmesonremoval
-	name = "Meson Sunglasses removal"
-	result = /obj/item/clothing/glasses/sunglasses/advanced
-	time = 20
-	tools = list(TOOL_SCREWDRIVER, TOOL_WIRECUTTER)
-	reqs = list(/obj/item/clothing/glasses/meson/sun = 1)
-	blacklist = list(/obj/item/clothing/glasses/science/sciencesun/degraded)
-	category = CAT_EYEWEAR
-
 /datum/crafting_recipe/deghudsunsec
 	name = "Degraded Security HUDsunglasses"
 	result = /obj/item/clothing/glasses/hud/security/sunglasses/degraded
