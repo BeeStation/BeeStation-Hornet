@@ -976,13 +976,12 @@ GLOBAL_LIST_EMPTY(PDAs)
 
 	else if(istype(C, /obj/item/card/id))
 		var/obj/item/card/id/idcard = C
+		if(!C.electric)
+			to_chat(user, "<span class='warning'>You attempt to jam \the [C] into your PDA's ID slot. It doesn't fit.</span>")
 		if(!idcard.registered_name)
 			to_chat(user, "<span class='warning'>\The [src] rejects the ID!</span>")
 			if(!silent)
 				playsound(src, 'sound/machines/terminal_error.ogg', 50, TRUE)
-			return
-		if(istype(idcard, /obj/item/card/id/paper))
-			to_chat(user, "<span class='warning'>Your PDA can't read this!</span>")
 			return
 		if(!owner)
 			owner = idcard.registered_name

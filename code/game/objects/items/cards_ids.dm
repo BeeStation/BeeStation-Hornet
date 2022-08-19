@@ -695,7 +695,7 @@ update_label("John Doe", "Clowny")
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 50, "stamina" = 0)
 	resistance_flags = null  // removes all resistance because its a piece of paper
 	access = list()
-	assignment = "Unverified"
+	assignment = "Unknown"
 	hud_state = JOB_HUD_PAPER
 	electric = FALSE
 
@@ -703,7 +703,7 @@ update_label("John Doe", "Clowny")
 	if(istype(W, /obj/item/pen))
 		var/target_name = stripped_input(user, "What name would you like to write onto the card?", "Written name:", registered_name || "John Doe", MAX_MESSAGE_LEN)
 		registered_name = target_name || registered_name  // in case they hit cancel
-		assignment = "Unverified"
+		assignment = "Unknown"
 		to_chat(user, "<span class='notice'>You scribble the name [target_name] onto the slip.</span>")
 		update_label()
 
@@ -1146,7 +1146,7 @@ update_label("John Doe", "Clowny")
 	var/obj/item/card/id/idcard = target
 	if(istype(idcard))
 		if(istype(idcard, /obj/item/card/id/paper))
-			to_chat(user, to_chat(user, "<span class='warning'>The pass beeps a warning about this not being a proper id."))
+			to_chat(user, to_chat(user, "<span class='warning'>You swipe the id card. Nothing happens. </span>"))
 			return
 		for(var/give_access in access)
 			idcard.access |= give_access
