@@ -131,6 +131,16 @@
 	. = ..()
 	eatverb = pick("bite","chew","nibble","gobble","chomp")
 
+/obj/item/reagent_containers/food/snacks/blackpudding
+	name = "black pudding"
+	desc = "Bloody delicious."
+	icon_state = "blackpudding"
+	filling_color = "#5B3330"
+	bonus_reagents = list(/datum/reagent/consumable/nutriment = 1, /datum/reagent/consumable/nutriment/vitamin = 2)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 6, /datum/reagent/consumable/nutriment/vitamin = 2)
+	tastes = list("sausage" = 1, "savoryness" = 1, "crumblyness" = 1)
+	foodtype = MEAT | BREAKFAST
+
 /obj/item/reagent_containers/food/snacks/rawkhinkali
 	name = "raw khinkali"
 	desc = "One hundred khinkalis? Do I look like a pig?"
