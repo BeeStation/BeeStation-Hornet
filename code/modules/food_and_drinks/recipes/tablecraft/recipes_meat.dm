@@ -239,3 +239,13 @@
 	)
 	result = /obj/item/reagent_containers/food/snacks/meatclown
 	subcategory = CAT_MEAT
+
+/datum/crafting_recipe/food/blackpudding
+	name = "Black Pudding"
+	reqs = list(
+		/obj/item/reagent_containers/food/snacks/sausage = 1,
+		/obj/item/reagent_containers/food/snacks/onion_slice = 1,
+		/datum/reagent/blood = 10
+	)
+	result = /obj/item/reagent_containers/food/snacks/blackpudding
+	subcategory = CAT_MEAT
