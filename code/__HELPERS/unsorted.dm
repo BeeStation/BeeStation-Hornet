@@ -1635,7 +1635,7 @@ config_setting should be one of the following:
 			if(50 to 60)
 				. = "3 rounds till down"
 			if(40 to 50)
-				. = "Drunkard’s fixers"
+				. = "Drunkard's fixers"
 			if(30 to 40)
 				. = "Stick arounds"
 			if(20 to 30)
@@ -1643,7 +1643,7 @@ config_setting should be one of the following:
 			if(10 to 20)
 				. = "Tipsy stuff"
 			if(1 to 10)
-				. = "Lightweight’s dream"
+				. = "Lightweight's dream"
 	else
 		switch(booze_power)
 			if(-INFINITY to 1)
