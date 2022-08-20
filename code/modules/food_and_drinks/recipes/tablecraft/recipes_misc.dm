@@ -344,4 +344,4 @@
 		/obj/item/reagent_containers/food/snacks/grown/tomato = 1
 	)
 	result = /obj/item/reagent_containers/food/snacks/englishbreakfast
-	subcategory = CAT_MEAT
+	subcategory = CAT_MISCFOOD
