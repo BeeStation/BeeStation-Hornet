@@ -133,6 +133,7 @@
 
 	update_icon()
 
+//Auto sells item on pad, finds seller for you
 /obj/machinery/computer/xenoartifact_console/proc/sell()
 	if(!linked_inbox)
 		say("Error. No linked hardware.")
@@ -158,11 +159,22 @@
 					budget.adjust_money(final_price)
 					linked_techweb.add_point_type(TECHWEB_POINT_TYPE_DEFAULT, (final_price*2.3) * (final_price >= X.price))
 					linked_techweb.add_point_type(TECHWEB_POINT_TYPE_DISCOVERY, (XENOA_SOLD_DP*(final_price/X.price)) * (final_price >= X.price))
-					info = "[selling_item.name] sold at [station_time_timestamp()] for [final_price] credits, bought for [X.price]. \
-					Awarded [(final_price*2.3) * (final_price >= X.price)] Research Points & [XENOA_SOLD_DP*(final_price/X.price) * (final_price >= X.price)] Discovery Points."
+					info = "[selling_item.name] sold at [station_time_timestamp()] for [final_price] credits, bought for [X.price].</br>\
+					Awarded [(final_price*2.3) * (final_price >= X.price)] Research Points & [XENOA_SOLD_DP*(final_price/X.price) * (final_price >= X.price)] Discovery Points.</br>"
+					//append sticker traits
+					var/obj/item/xenoartifact_label/L = (locate(/obj/item/xenoartifact_label) in selling_item.contents)
+					var/obj/item/xenoartifact/A = selling_item
+					for(var/datum/xenoartifact_trait/T as() in L?.trait_list)
+						//Setting color inside fucks it up?
+						var/color = rgb(255, 0, 0)
+						//Forgive me, please. Using locate(thing) in thing ? green : red, breaks it
+						if(locate(T) in A.traits)
+							color = rgb(0, 255, 0)
+						info += {"<span style="color: [color];"></br>[initial(T.desc) || initial(T.label_name)]</span>"}
+						//owner.species_name = "[owner.species_name][sub_mask.epithet ? {"<span style="color:[features["exotic_color"]];"> [sub_mask.epithet]</span>"} : ""]" //sub-mask epithet
 					sold_artifacts += info
 					qdel(selling_item)
-			else //Future feature, not currently in use. Placeholder
+			else //Future feature, not currently in use, wont delete captains gun. Placeholder
 				final_price = 120*rand(1, 10)
 				budget.adjust_money(final_price)
 				sold_artifacts += info

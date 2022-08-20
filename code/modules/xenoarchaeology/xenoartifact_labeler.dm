@@ -198,6 +198,11 @@
 			var/textinfo = list2text(info)
 			xenoa_target.label_desc = "There's a sticker attached, it says-\n[textinfo]"
 		return TRUE
+
+/obj/item/xenoartifact_label/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+	. = ..()
+	if(proximity_flag)
+		attempt_attach(target, user, FALSE)
 	
 /obj/item/xenoartifact_label/proc/add_sticker(mob/target)
 	if(locate(/obj/item/xenoartifact_label) in target) //Remove old stickers

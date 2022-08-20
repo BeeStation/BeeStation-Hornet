@@ -253,7 +253,7 @@
 //============
 /datum/xenoartifact_trait/minor/long
 	desc = "Scoped"
-	label_desc = "Scoped: The Artifact has an almost magnifying effect to it. You could probably hit someone from really far away with it."
+	label_desc = "Scoped: The Artifact has an almost magnifying effect to it. You could probably target someone from really far away with it."
 	blacklist_traits = list(/datum/xenoartifact_trait/minor/aura)
 	flags = BLUESPACE_TRAIT | PLASMA_TRAIT | URANIUM_TRAIT
 

@@ -41,7 +41,7 @@
 	X.cooldown += 5 SECONDS
 
 //============
-// Strip, moves any clothing on target to floor
+// Strip, moves a single clothing on target to floor
 //============
 /datum/xenoartifact_trait/malfunction/strip
 	label_name = "B.A.D"
@@ -50,8 +50,8 @@
 /datum/xenoartifact_trait/malfunction/strip/activate(obj/item/xenoartifact/X, atom/target)
 	if(isliving(target))
 		var/mob/living/carbon/victim = target
-		for(var/obj/item/clothing/I in victim.contents)
-			victim.dropItemToGround(I)
+		var/obj/item/clothing/I = pick(victim.contents)
+		victim.dropItemToGround(I)
 		X.cooldown += 10 SECONDS
 
 //============
@@ -88,9 +88,33 @@
 /datum/xenoartifact_trait/malfunction/heated/activate(obj/item/xenoartifact/X, atom/target, atom/user)
 	var/turf/T = get_turf(X)
 	playsound(T, 'sound/effects/bamf.ogg', 50, TRUE) 
-	for(var/turf/open/turf in RANGE_TURFS(max(1, 5*((X.charge*1.5)/100)), T))
-		if(!locate(/obj/effect/hotspot) in turf)
-			new /obj/effect/hotspot(turf)
+	for(var/turf/open/turf in RANGE_TURFS(max(1, 4*((X.charge*1.5)/100)), T))
+		if(!locate(/obj/effect/safe_fire) in turf)
+			new /obj/effect/safe_fire(turf)
+
+//Lights on fire, does nothing else damage / atmos wise
+/obj/effect/safe_fire
+	anchored = TRUE
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	icon = 'icons/effects/fire.dmi'
+	icon_state = "1"
+	layer = GASFIRE_LAYER
+	blend_mode = BLEND_ADD
+	light_system = MOVABLE_LIGHT
+	light_range = LIGHT_RANGE_FIRE
+	light_power = 1
+	light_color = LIGHT_COLOR_FIRE
+
+/obj/effect/safe_fire/Initialize(mapload)
+	. = ..()
+	for(var/A in loc)
+		var/atom/AT = A
+		if(!QDELETED(AT) && AT != src) // It's possible that the item is deleted in temperature_expose
+			AT.fire_act(400, 50) //should be average enough to not do too much damage
+	addtimer(CALLBACK(src, .proc/after_burn), 0.3 SECONDS)
+
+/obj/effect/safe_fire/proc/after_burn()
+	qdel(src)
 
 //============
 // Radioactive, makes the artifact more radioactive with use
