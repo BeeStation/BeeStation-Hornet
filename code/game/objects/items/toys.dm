@@ -1538,7 +1538,7 @@
 
 /obj/item/toy/allaccess/afterattack()
 	. = ..()
-	playsound(src, 'sound/items/bikehorn.ogg', 50, 1)
+	playsound(src, 'sound/items/bikehorn.ogg', 50, TRUE)
 
 // Serviceborg items
 

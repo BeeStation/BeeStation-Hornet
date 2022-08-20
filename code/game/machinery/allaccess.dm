@@ -12,7 +12,7 @@
 /obj/machinery/allaccess/attack_hand(mob/living/user)
 	var/output = new spawnitem
 	user.put_in_active_hand(output)
-	to_chat(user, "<span class='notice'>You take the card out of the dispenser.")
+	to_chat(user, "<span class='notice'>You take the card out of the dispenser.</span>")
 
 /obj/machinery/allaccess/power_change()
 	if(stat & BROKEN)
