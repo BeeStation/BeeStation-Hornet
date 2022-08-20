@@ -335,7 +335,7 @@
 	subcategory = CAT_MISCFOOD
 
 /datum/crafting_recipe/food/englishbreakfast
-	name "Full English Breakfast"
+	name = "Full English Breakfast"
 	reqs = list(
 		/obj/item/reagent_containers/food/snacks/friedegg = 1,
 		/obj/item/reagent_containers/food/snacks/sausage 1,
