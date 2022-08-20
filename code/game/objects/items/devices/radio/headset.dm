@@ -294,7 +294,17 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	name = "Clowning Headset"
 	desc = "A headset with a clowning filter, honk!"
 	icon_state = "honk_headset"
-	var/honken = TRUE
+	var/honken = FALSE  // honk filter
+
+/obj/item/radio/headset/clown/ui_data(mob/user)
+	. = ..()
+	.["honk"] = honken
+
+/obj/item/radio/headset/clown/ui_act(action, params, datum/tgui/ui)
+	. = ..()
+	if(action == "honk")
+		honken = !honken
+		. = TRUE
 
 /obj/item/radio/headset/clown/talk_into_impl(atom/movable/M, message, channel, list/spans, datum/language/language, list/message_mods)
 	if(honken)
