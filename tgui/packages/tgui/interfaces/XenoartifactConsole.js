@@ -4,6 +4,7 @@ import { useBackend } from '../backend';
 import { Box, Tabs, Section, Flex, Button, BlockQuote, Icon, Collapsible, AnimatedNumber } from '../components';
 import { formatMoney } from '../format';
 import { Window } from '../layouts';
+import { sanitize } from 'dompurify'
 
 export const XenoartifactConsole = (props, context) => {
   const { act, data } = useBackend(context);
@@ -147,7 +148,7 @@ export const XenoartifactSell = (props, context) => {
           {sold_artifacts.map(item => (
             <Section key={item}>
               <BlockQuote>
-                <div dangerouslySetInnerHTML={{ __html: item }}/>
+                <div dangerouslySetInnerHTML={{ __html: sanitize(item) }} />
               </BlockQuote>
             </Section>))}
         </Collapsible>
