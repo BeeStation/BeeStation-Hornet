@@ -13,3 +13,10 @@
     name = "Head of Security's Cloak Colorizer (Royal)"
     allowed_targets = list(/obj/item/clothing/neck/cloak/hos)
     apply_icon_state = "royalhoscloak"
+
+/obj/item/colorizer/militarycapuniform
+	name = "Captain's Clothes Colourizer (Military)"
+	desc = "A colouriser that will change the look of the Captain's hat, jumpsuit and carapace to look more militaristic."
+	allowed_targets = list(/obj/item/clothing/under/rank/captain, /obj/item/clothing/suit/armor/vest/capcarapace, /obj/item/clothing/head/caphat)
+	apply_icon_state = "militarycap"
+	uses_left = 3

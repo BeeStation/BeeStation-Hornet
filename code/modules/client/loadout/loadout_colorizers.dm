@@ -27,3 +27,9 @@
     path = /obj/item/colorizer/iandeathsquad
     allowed_roles = list(JOB_NAME_HEADOFPERSONNEL)
     cost = 20000
+
+/datum/gear/colorizer/militarycap
+    display_name = "Captain's Clothes Colourizer (Military)"
+    path = /obj/item/colorizer/militarycapuniform
+    allowed_roles = list(JOB_NAME_CAPTAIN)
+    cost = 10000

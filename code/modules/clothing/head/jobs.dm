@@ -43,12 +43,6 @@
 
 	dog_fashion = null
 
-/obj/item/clothing/head/caphat/military
-	name = "captain's military cap"
-	desc = "A cap for captains who enjoy the military"
-	icon_state = "militarycaphat"
-	dog_fashion = null
-
 //Head of Personnel
 /obj/item/clothing/head/hopcap
 	name = "head of personnel's cap"

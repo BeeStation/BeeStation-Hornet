@@ -4,6 +4,7 @@
     desc = "This colorizer will apply a new set of colors to an item."
     icon = 'icons/obj/crayons.dmi'
     icon_state = "rainbowcan"
+    var/uses_left = 1
 
     var/list/allowed_targets = list()
     var/apply_icon = null
@@ -11,7 +12,6 @@
     var/apply_item_state = null
     var/apply_righthand_file = null
     var/apply_lefthand_file = null
-
 
 /obj/item/colorizer/attack_self(mob/user)
     var/obj/item/target_atom = user.get_inactive_held_item()
@@ -51,5 +51,6 @@
 
     to_chat(user, "<span class='notice'>Color applied!</span>")
     playsound(src, 'sound/effects/spray.ogg', 5, TRUE, 5)
-    qdel(src)
-
+    uses_left --
+    if(uses_left == 0)
+        qdel(src)
