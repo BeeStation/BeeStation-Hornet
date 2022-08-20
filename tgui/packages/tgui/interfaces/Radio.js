@@ -18,6 +18,7 @@ export const Radio = (props, context) => {
     useCommand,
     subspace,
     subspaceSwitchable,
+    honk
   } = data;
   const tunedChannel = RADIO_CHANNELS
     .find(channel => channel.freq === frequency);
@@ -85,6 +86,14 @@ export const Radio = (props, context) => {
                   selected={subspace}
                   content={`Subspace Tx ${subspace ? 'ON' : 'OFF'}`}
                   onClick={() => act('subspace')} />
+              )}
+              {!!honk && (
+                <Button
+                  ml={1}
+                  icon="bullhorn"
+                  selected={useHonk}
+                  content={`${useHonk ? 'HONK!' : 'honk.'}`}
+                  onClick={() => act('honk')} />
               )}
             </LabeledList.Item>
             {!!subspace && (

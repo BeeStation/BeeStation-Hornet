@@ -33,6 +33,9 @@
 	var/use_command = FALSE  // If true, broadcasts will be large and BOLD.
 	var/command = FALSE  // If true, use_command can be toggled at will.
 
+	var/use_honken = FALSE
+	var/honken = FALSE  // same as command voice but HONK
+
 	///makes anyone who is talking through this anonymous.
 	var/anonymize = FALSE
 
@@ -164,6 +167,8 @@
 	data["subspace"] = subspace_transmission
 	data["subspaceSwitchable"] = subspace_switchable
 	data["headset"] = FALSE
+	data["honk"] = honken
+	data["useHonk"] = use_honken
 
 	return data
 
@@ -219,6 +224,9 @@
 				else
 					recalculateChannels()
 				. = TRUE
+		if("honk")  // if i ever make a radio key for this it wont be broken :)
+			use_honken = !use_honken
+			. = TRUE
 
 /obj/item/radio/talk_into(atom/movable/M, message, channel, list/spans, datum/language/language, list/message_mods)
 	if(!spans)
