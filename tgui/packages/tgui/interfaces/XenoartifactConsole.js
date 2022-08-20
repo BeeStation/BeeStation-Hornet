@@ -147,7 +147,7 @@ export const XenoartifactSell = (props, context) => {
           {sold_artifacts.map(item => (
             <Section key={item}>
               <BlockQuote>
-                <div dangerouslySetInnerHTML={{__html: sanitizeText(item)}} />
+                <Box dangerouslySetInnerHTML={{ __html: sanitizeText(item) }} />
               </BlockQuote>
             </Section>))}
         </Collapsible>
