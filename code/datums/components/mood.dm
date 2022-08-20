@@ -373,16 +373,8 @@
 /datum/component/mood/proc/check_area_mood(datum/source, var/area/A)
 	SIGNAL_HANDLER
 
-	var/job_check = TRUE
-	if(ishuman(source) && length(A.mood_job_allowed))
-		var/mob/living/carbon/human/target = source
-		if(!(target.mind?.assigned_role in A.mood_job_allowed))
-			job_check = FALSE
 
-	if(A.mood_job_reverse)
-		job_check = !job_check
-
-	if(A.mood_bonus && job_check)
+	if(A.mood_check())
 		if(get_event("area"))	//walking between areas that give mood bonus should first clear the bonus from the previous one
 			clear_event(null, "area")
 		add_event(null, "area", /datum/mood_event/area, list(A.mood_bonus, A.mood_message))
