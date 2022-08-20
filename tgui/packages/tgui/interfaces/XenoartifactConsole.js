@@ -148,6 +148,7 @@ export const XenoartifactSell = (props, context) => {
           {sold_artifacts.map(item => (
             <Section key={item}>
               <BlockQuote>
+                {/*eslint-ignore-next-line react/no-danger*/}
                 <div dangerouslySetInnerHTML={{ __html: sanitize(item) }} />
               </BlockQuote>
             </Section>))}
