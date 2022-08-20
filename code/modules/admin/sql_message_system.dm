@@ -83,8 +83,8 @@
 		if(!note_severity)
 			return
 	var/datum/DBQuery/query_create_message = SSdbcore.NewQuery({"
-		INSERT INTO [format_table_name("messages")] (type, targetckey, adminckey, text, timestamp, server, server_ip, server_port, round_id, secret, expire_timestamp, severity, playtime)
-		VALUES (:type, :target_ckey, :admin_ckey, :text, :timestamp, :server, INET_ATON(:internet_address), :port, :round_id, :secret, :expiry, :note_severity, (SELECT `minutes` FROM [format_table_name("role_time")] WHERE `ckey` = :target_ckey AND `job` = 'Living'))
+		INSERT INTO [format_table_name("messages")] (type, targetckey, adminckey, text, timestamp, server_name, server_ip, server_port, round_id, secret, expire_timestamp, severity, playtime)
+		VALUES (:type, :target_ckey, :admin_ckey, :text, :timestamp, :server_name, INET_ATON(:internet_address), :port, :round_id, :secret, :expiry, :note_severity, (SELECT `minutes` FROM [format_table_name("role_time")] WHERE `ckey` = :target_ckey AND `job` = 'Living'))
 	"}, list(
 		"type" = type,
 		"target_ckey" = target_ckey,
