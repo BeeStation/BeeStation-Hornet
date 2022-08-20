@@ -334,6 +334,12 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 			to_chat(user, "<span class='warning'>The headset can't hold another key!</span>")
 			return
 
+		var/obj/item/encryptionkey/new_key = W
+		if(new_key.amplification && honken)  // sorry bub cant have honks and standard loud at the same time
+			to_chat(user, "<span class='warning'>This headset already has a voice filter!</span>")
+			playsound_local(user, 'sound/items/bikehorn.ogg', 50, TRUE)
+			return
+
 		if(!keyslot)
 			if(!user.transferItemToLoc(W, src))
 				return
