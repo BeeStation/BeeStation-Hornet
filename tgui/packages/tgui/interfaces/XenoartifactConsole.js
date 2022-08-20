@@ -1,10 +1,9 @@
 import { map, toArray } from 'common/collections';
-import { classes } from 'common/react';
 import { useBackend } from '../backend';
-import { Box, Tabs, Section, Flex, Button, BlockQuote, Icon, Collapsible, AnimatedNumber } from '../components';
+import { Box, Tabs, Section, Button, BlockQuote, Icon, Collapsible, AnimatedNumber } from '../components';
 import { formatMoney } from '../format';
 import { Window } from '../layouts';
-import { sanitize } from 'dompurify';
+import { sanitizeText } from "../sanitize";
 
 export const XenoartifactConsole = (props, context) => {
   const { act, data } = useBackend(context);
@@ -148,7 +147,7 @@ export const XenoartifactSell = (props, context) => {
           {sold_artifacts.map(item => (
             <Section key={item}>
               <BlockQuote>
-                <div dangerouslySetInnerHTML={{ __html: sanitize(item) }} />
+                <div dangerouslySetInnerHTML={{__html: sanitizeText(item)}} />
               </BlockQuote>
             </Section>))}
         </Collapsible>
