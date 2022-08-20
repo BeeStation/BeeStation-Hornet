@@ -736,12 +736,12 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 /// if it returns true, the mood effect assigned to the area is defined. Defaults to checking mood_job_allowed
 /area/proc/mood_check(mob/living/carbon/human/subject)
 	if(!mood_bonus)
-		return
+		return FALSE
 
 	. = TRUE
 
 	if(!length(mood_job_allowed))
-		return
+		return .
 	if(!(subject.mind?.assigned_role in mood_job_allowed))
 		. = FALSE
 	if(mood_job_reverse)
