@@ -121,7 +121,7 @@ Doesn't work on other aliens/AI.*/
 	if(!amount)
 		return FALSE
 
-	if(!get_dist(user,M) <= 1)
+	if(!user.Adjacent(M))
 		to_chat(user, "<span class='noticealien'>You need to be closer!</span>")
 		return FALSE
 
