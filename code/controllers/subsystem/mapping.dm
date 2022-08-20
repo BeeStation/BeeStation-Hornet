@@ -47,7 +47,7 @@ SUBSYSTEM_DEF(mapping)
 	var/list/z_list
 	var/datum/space_level/transit
 	var/datum/space_level/empty_space
-	var/datum/space_level/trash_level/trash_level
+	var/datum/space_level/trash_level
 	var/num_of_res_levels = 1
 
 //dlete dis once #39770 is resolved
@@ -83,7 +83,7 @@ SUBSYSTEM_DEF(mapping)
 	// and one level with no ruins
 	for (var/i in 1 to config.space_empty_levels)
 		++space_levels_so_far
-		empty_space = add_new_zlevel("Empty Area [space_levels_so_far]", list(ZTRAIT_LINKAGE = SELFLOOPING), orbital_body_type = /datum/orbital_object/z_linked/beacon/weak)
+		empty_space = add_new_zlevel("Empty Area [space_levels_so_far]", list(ZTRAIT_LINKAGE = DEEPSPACE), orbital_body_type = /datum/orbital_object/z_linked/beacon/weak)
 	// Pick a random away mission.
 	if(CONFIG_GET(flag/roundstart_away))
 		createRandomZlevel()
@@ -103,7 +103,7 @@ SUBSYSTEM_DEF(mapping)
 			spawn_rivers(lava_z)
 	loading_ruins = FALSE
 
-	empty_space = add_new_zlevel("Trash Level", list(ZTRAIT_LINKAGE = DEEPSPACE), z_type = /datum/space_level/trash_level, orbital_body_type = null)
+	empty_space = add_new_zlevel("Trash Level", list(ZTRAIT_LINKAGE = DEEPSPACE), z_type = /datum/space_level, orbital_body_type = null)
 	trash_level = empty_space
 	++space_levels_so_far
 

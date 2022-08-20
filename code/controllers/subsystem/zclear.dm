@@ -34,6 +34,9 @@ SUBSYSTEM_DEF(zclear)
 	//Announced zombie levels
 	var/list/announced_zombie_levels = list()
 
+	//List of atoms on the trash z_level
+	var/list/trash_atoms = list()
+
 /datum/controller/subsystem/zclear/New()
 	. = ..()
 	ignored_atoms = typecacheof(list(/mob/dead, /mob/camera, /mob/dview, /atom/movable/lighting_object, /obj/effect/abstract/mirage_holder))

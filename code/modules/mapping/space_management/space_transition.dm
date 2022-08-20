@@ -4,6 +4,30 @@
 		neigbours = list(TEXT_NORTH,TEXT_SOUTH,TEXT_EAST,TEXT_WEST)
 		for(var/A in neigbours)
 			neigbours[A] = src
+	//else if(linkage == DEEPSPACE)
+		//setup_deepspace_transitions()
+
+/datum/space_level/proc/setup_deepspace_transitions()
+
+	if(linkage != DEEPSPACE)
+		stack_trace("Why are you calling deepspace transitions on something that has [linkage] linkage?")
+		return
+
+	var/list/x_pos_beginning_deepspace = list(1, 1, world.maxx, 1)  //x values of the lowest-leftest turfs of the respective 4 blocks on each side of zlevel
+	var/list/y_pos_beginning_deepspace = list(world.maxy, 1, 1, 1)  //y values respectively
+	var/list/x_pos_ending_deepspace = list(world.maxx, world.maxx, world.maxx, 1)	//x values of the highest-rightest turfs of the respective 4 blocks on each side of zlevel
+	var/list/y_pos_ending_deepspace = list(world.maxy, 1, world.maxy, world.maxy )	//y values respectively
+
+	for(var/side in 1 to 4)
+		var/turf/beginning = locate(x_pos_beginning_deepspace[side], y_pos_beginning_deepspace[side], z_value)
+		var/turf/ending = locate(x_pos_ending_deepspace[side], y_pos_ending_deepspace[side], z_value)
+		var/list/turfblock = block(beginning, ending)
+		var/dirside = 2**(side-1)
+
+		for(var/turf/open/space/S in turfblock)
+			S.ChangeTurf(/turf/open/space/deep_space)
+			var/turf/open/space/deep_space/DS = S
+			DS.direction = dirside
 
 /datum/space_level/proc/set_neigbours(list/L)
 	for(var/datum/space_transition_point/P in L)
@@ -60,10 +84,14 @@
 	var/list/SLS = list()
 	var/list/cached_z_list = z_list
 	var/conf_set_len = 0
+
 	for(var/A in cached_z_list)
 		var/datum/space_level/D = A
 		if (D.linkage == CROSSLINKED)
 			SLS.Add(D)
+		if (D.linkage == DEEPSPACE)
+			D.setup_deepspace_transitions()
+			continue
 		conf_set_len++
 	var/list/point_grid[conf_set_len*2+1][conf_set_len*2+1]
 	var/list/grid = list()
@@ -107,30 +135,17 @@
 	var/list/x_pos_transition = list(1, 1, TRANSITIONEDGE + 2, world.maxx - TRANSITIONEDGE - 1)		//values of x for the transition from respective blocks on the side of zlevel, 1 is being translated into turfs respective x value later in the code
 	var/list/y_pos_transition = list(TRANSITIONEDGE + 2, world.maxy - TRANSITIONEDGE - 1, 1, 1)		//values of y for the transition from respective blocks on the side of zlevel, 1 is being translated into turfs respective y value later in the code
 
-	var/list/x_pos_beginning_deepspace = list(1, 1, world.maxx, 1)  //x values of the lowest-leftest turfs of the respective 4 blocks on each side of zlevel
-	var/list/y_pos_beginning_deepspace = list(world.maxy, 1, 1, 1)  //y values respectively
-	var/list/x_pos_ending_deepspace = list(world.maxx, world.maxx, world.maxx, 1)	//x values of the highest-rightest turfs of the respective 4 blocks on each side of zlevel
-	var/list/y_pos_ending_deepspace = list(world.maxy, 1, world.maxy, world.maxy )	//y values respectively
-
-
 	for(var/I in cached_z_list)
 		var/datum/space_level/D = I
-		if(!D.neigbours.len && D.linkage != DEEPSPACE)
+		if(D.linkage == DEEPSPACE)
 			continue
 		var/zlevelnumber = D.z_value
 		for(var/side in 1 to 4)
-			var/turf/beginning = locate(D.linkage == DEEPSPACE ? x_pos_beginning_deepspace[side] : x_pos_beginning[side], D.linkage == DEEPSPACE ? y_pos_beginning_deepspace[side] : y_pos_beginning[side], zlevelnumber)
-			var/turf/ending = locate(D.linkage == DEEPSPACE ? x_pos_ending_deepspace[side] : x_pos_ending[side], D.linkage == DEEPSPACE ? y_pos_ending_deepspace[side] : y_pos_ending[side], zlevelnumber)
+			var/turf/beginning = locate(x_pos_beginning[side], y_pos_beginning[side], zlevelnumber)
+			var/turf/ending = locate(x_pos_ending[side],y_pos_ending[side], zlevelnumber)
 			var/list/turfblock = block(beginning, ending)
 			var/dirside = 2**(side-1)
 			var/zdestination = zlevelnumber
-
-			if(D.linkage == DEEPSPACE)
-				for(var/turf/open/space/S in turfblock)
-					S.ChangeTurf(/turf/open/space/deep_space)
-					var/turf/open/space/deep_space/DS = S
-					DS.direction = dirside
-				continue
 
 			if(D.neigbours["[dirside]"] && D.neigbours["[dirside]"] != D)
 				D = D.neigbours["[dirside]"]
