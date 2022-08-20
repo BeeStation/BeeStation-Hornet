@@ -128,7 +128,8 @@
 /obj/item/encryptionkey/headset_qm
 	name = "quartermaster radio encryption key"
 	icon_state = "qm_cypherkey"
-	channels = list(RADIO_CHANNEL_SUPPLY = 1, RADIO_CHANNEL_SCIENCE = 1)
+	channels = list(RADIO_CHANNEL_SUPPLY = 1)
+	amplification = TRUE
 
 /obj/item/encryptionkey/headset_exp
 	name = "exploration encryption key"
