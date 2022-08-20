@@ -1145,7 +1145,7 @@ update_label("John Doe", "Clowny")
 		return .
 	var/obj/item/card/id/idcard = target
 	if(istype(idcard))
-		if(istype(idcard, /obj/item/card/id/paper))
+		if(!idcard.electric)
 			to_chat(user, to_chat(user, "<span class='warning'>You swipe the id card. Nothing happens. </span>"))
 			return
 		for(var/give_access in access)
