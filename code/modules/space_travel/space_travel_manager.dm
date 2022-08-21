@@ -87,7 +87,6 @@ GLOBAL_DATUM_INIT(spaceTravelManager, /datum/space_travel_manager, new)
 				var/turf/T = locate(20, 20, z_linked_object.linked_z_level)
 				AM.forceMove(T)
 				break
-	var/test
 
 /datum/space_travel_manager/proc/send_to_transit(var/mob/living/L)
 	var/datum/turf_reservation/spaceTransitReservation = SSmapping.RequestBlockReservation(space_travel_transit_template.width, space_travel_transit_template.height)
