@@ -399,8 +399,6 @@ GLOBAL_LIST_EMPTY(PDAs)
 
 					dat += "Temperature: [round(environment.return_temperature()-T0C)]&deg;C<br>"
 				dat += "<br>"
-			else//Else it links to the cart menu proc. Although, it really uses menu hub 4--menu 4 doesn't really exist as it simply redirects to hub.
-				dat += cartridge.generate_menu()
 			if(6)
 				dat += "<h4>[PDAIMG(dice)] Virtual Dice Sim</h4>"
 				dat += {"
@@ -413,7 +411,8 @@ GLOBAL_LIST_EMPTY(PDAs)
 				<a href='byond://?src=[REF(src)];choice=Random Code;scode=5'>+</a><br>
 				Last number generated:<br>
 				[rng_last]"}
-
+			else//Else it links to the cart menu proc. Although, it really uses menu hub 4--menu 4 doesn't really exist as it simply redirects to hub.
+				dat += cartridge.generate_menu()
 
 	dat += "</body></html>"
 
@@ -660,7 +659,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 			if("Random Code")
 				rng_max += text2num(href_list["scode"])
 				rng_max = round(rng_max)
-				rnx_max = min(2, rng_max)
+				rng_max = min(2, rng_max)
 
 //EXTRA FUNCTIONS===================================
 
