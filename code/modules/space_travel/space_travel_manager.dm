@@ -1,16 +1,28 @@
-/turf/open/space/deep_space
-	density = FALSE
-	var/direction = 0
-	var/lasttime = 0
+GLOBAL_DATUM_INIT(spaceTravelManager, /datum/space_travel_manager, new)
 
-/turf/open/space/deep_space/CanBuildHere()
-	return FALSE
+/datum/space_travel_manager
 
-/turf/open/space/deep_space/Bumped(atom/movable/AM)
-	to_chat(world, "ENTERED DEEP SPACE TURF")
+	var/list/deep_space_dirs
 
-/turf/open/space/deep_space/Entered(atom/movable/AM, atom/old_loc, list/atom/old_locs)
-	. = ..()
+	var/is_space_travel_allowed = TRUE
+
+	var/datum/map_template/space_travel_transit/space_travel_transit_template
+
+	var/list/storedTransitTemplates = list()
+
+/datum/space_travel_manager/New()
+	deep_space_dirs = list(	TEXT_NORTH = list("x" = list("min" = 3, "max"= 3), "y" = list("min" = 1000, "max"= -1)),
+							TEXT_SOUTH = list("x" = list("min" = 3, "max"= 3), "y" = list("min" = -1, "max"= 1000)),
+							TEXT_EAST = list("x" = list("min" = -1, "max"= 1000), "y" = list("min" = 3, "max"= 3)),
+							TEXT_WEST = list("x" = list("min" = 1000, "max"= -1), "y" = list("min" = 3, "max"= 3)),)
+
+	space_travel_transit_template = new()
+
+
+/datum/space_travel_manager/proc/atom_entered_deep_space(atom/movable/AM, var/direction)
+
+	if(!is_space_travel_allowed)
+		return
 
 	if(!istype(AM, /mob/living))
 		var/turf/T = pick(block(locate(20, 20, SSmapping.trash_level.z_value), locate(200, 200, SSmapping.trash_level.z_value)))
@@ -23,14 +35,10 @@
 		return
 
 	var/list/current_collision_zone = SSorbits.get_collision_zone_by_zlevel(AM.z)
+
 	var/datum/orbital_map/primary_orbital_map = SSorbits.orbital_maps[SSorbits.orbital_maps[1]]
 
 	var/list/collision_zones = primary_orbital_map.collision_zone_bodies
-
-	var/list/deep_space_dirs = list(TEXT_NORTH = list("x" = list("min" = 3, "max"= 3), "y" = list("min" = 1000, "max"= -1)),
-									TEXT_SOUTH = list("x" = list("min" = 3, "max"= 3), "y" = list("min" = -1, "max"= 1000)),
-									TEXT_EAST = list("x" = list("min" = -1, "max"= 1000), "y" = list("min" = 3, "max"= 3)),
-									TEXT_WEST = list("x" = list("min" = 1000, "max"= -1), "y" = list("min" = 3, "max"= 3)),)
 
 	var/list/collision_zone_coords = list()
 
@@ -66,6 +74,8 @@
 				SSzclear.temp_keep_z(AM.z)
 				SSzclear.temp_keep_z(space_level.z_value)
 
+				send_to_transit(AM)
+
 				var/start_time = world.time
 				UNTIL((!space_level.generating) || world.time > start_time + 3 MINUTES)
 
@@ -79,3 +89,15 @@
 				break
 	var/test
 
+/datum/space_travel_manager/proc/send_to_transit(var/mob/living/L)
+	var/datum/turf_reservation/spaceTransitReservation = SSmapping.RequestBlockReservation(space_travel_transit_template.width, space_travel_transit_template.height)
+	space_travel_transit_template.load(locate(spaceTransitReservation.bottom_left_coords[1], spaceTransitReservation.bottom_left_coords[2], spaceTransitReservation.bottom_left_coords[3]))
+	storedTransitTemplates += space_travel_transit_template
+	L.forceMove(locate(spaceTransitReservation.bottom_left_coords[1] + space_travel_transit_template.landingZoneRelativeX, spaceTransitReservation.bottom_left_coords[2] + space_travel_transit_template.landingZoneRelativeY, spaceTransitReservation.bottom_left_coords[3]))
+	sleep(100)
+
+/datum/map_template/space_travel_transit
+    name = "Space travel transit"
+    mappath = '_maps/templates/space_travel_transit.dmm'
+    var/landingZoneRelativeX = 8
+    var/landingZoneRelativeY = 8
