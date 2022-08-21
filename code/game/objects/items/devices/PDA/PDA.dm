@@ -644,12 +644,11 @@ GLOBAL_LIST_EMPTY(PDAs)
 					rng_last = "ERR"
 					return
 				rng_last = rand(1, rng_max)
-				U << browse(null, "window=pda")
 
 			if("Random Code")
 				rng_max += text2num(href_list["scode"])
 				rng_max = round(rng_max)
-				rng_max = min(2, rng_max)
+				rng_max = max(2, rng_max)
 
 //LINK FUNCTIONS===================================
 
