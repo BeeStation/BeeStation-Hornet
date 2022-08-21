@@ -891,7 +891,7 @@ GLOBAL_LIST_EMPTY(allCasters)
 
 /obj/item/newspaper/examine(mob/user)
 	if(horoscope.check_horoscope(user))
-		. += "Alt-Click to read your horoscope!"
+		. += "<span class='notice'>Alt-Click to read your horoscope!</span>"
 
 /obj/item/newspaper/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is focusing intently on [src]! It looks like [user.p_theyre()] trying to commit sudoku... until [user.p_their()] eyes light up with realization!</span>")
@@ -1113,14 +1113,17 @@ GLOBAL_LIST_EMPTY(allCasters)
 	if(admin_msg)
 		var/positive = admin_mood_amount >= 0 ? TRUE : FALSE
 		SEND_SIGNAL(reader, COMSIG_ADD_MOOD_EVENT, "horoscope_admin", positive ? /datum/mood_event/horo_good : /datum/mood_event/horo_bad)
+		message_admins("[reader] has read the admin horoscope.")
 		return "<span class='[positive ? "nicegreen" : "warning"]'>[admin_msg]</span>"
 
 	if(prob(50))
 		SEND_SIGNAL(reader, COMSIG_ADD_MOOD_EVENT, "horoscope", /datum/mood_event/horo_good)
-		return pick(positive)
+		. = pick(positive)
+	else
+		SEND_SIGNAL(reader, COMSIG_ADD_MOOD_EVENT, "horoscope", /datum/mood_event/horo_bad)
+		. = pick(negative)
 
-	SEND_SIGNAL(reader, COMSIG_ADD_MOOD_EVENT, "horoscope", /datum/mood_event/horo_bad)
-	return pick(negative)
+	message_admins("[reader] has gotten the horoscope: [.]")
 
 /datum/horoscope/proc/reset_readers()
 	has_read = null
