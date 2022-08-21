@@ -414,7 +414,7 @@
 /obj/item/reagent_containers/food/snacks/englishbreakfast
 	name = "full english breakfast"
 	desc = "The maximum amount of breakfasting. Anymore and you reach hubris."
-	iconstate = "englishbreakfast"
+	icon_state = "englishbreakfast"
 	bonus_reagents = list(/datum/reagent/consumable/nutriment = 5, /datum/reagent/consumable/nutriment/vitamin = 1)
 	list_reagents = list(/datum/reagent/consumable/nutriment = 10, /datum/reagent/consumable/nutriment/vitamin = 2)
 	tastes = list("a symphony of breakfast foods" = 1)
