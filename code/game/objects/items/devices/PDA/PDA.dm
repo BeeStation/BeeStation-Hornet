@@ -638,16 +638,6 @@ GLOBAL_LIST_EMPTY(PDAs)
 						usr.put_in_hands(pai)
 						to_chat(usr, "<span class='notice'>You remove the pAI from the [name].</span>")
 
-//LINK FUNCTIONS===================================
-
-			else//Cartridge menu linking
-				mode = max(text2num(href_list["choice"]), 0)
-
-	else//If not in range, can't interact or not using the pda.
-		U.unset_machine()
-		U << browse(null, "window=pda")
-		return
-
 //RANDOM NUM GENERATOR==============================
 			if("Generate")
 				if(rng_max < 1)  // if the user breaks it theres a failsafe
@@ -660,6 +650,16 @@ GLOBAL_LIST_EMPTY(PDAs)
 				rng_max += text2num(href_list["scode"])
 				rng_max = round(rng_max)
 				rng_max = min(2, rng_max)
+
+//LINK FUNCTIONS===================================
+
+			else//Cartridge menu linking
+				mode = max(text2num(href_list["choice"]), 0)
+
+	else//If not in range, can't interact or not using the pda.
+		U.unset_machine()
+		U << browse(null, "window=pda")
+		return
 
 //EXTRA FUNCTIONS===================================
 
