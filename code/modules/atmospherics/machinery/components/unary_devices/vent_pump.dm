@@ -166,7 +166,7 @@
 
 	var/area/A = get_area(src)
 	if(!A.air_vent_names[id_tag])
-		name = "\improper [A.name] vent pump #[id_tag]"
+		name = "\improper [A.name] vent pump #[A.air_vent_names.len + 1]"
 		A.air_vent_names[id_tag] = name
 	A.air_vent_info[id_tag] = signal.data
 
