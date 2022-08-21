@@ -41,7 +41,7 @@
 		else
 			padloc = "(UNKNOWN)"
 		src.log_talk(message, LOG_SAY, tag="HOLOPAD in [padloc]")
-		T?.holo?.say("[message]", MODE_ROBOT, language = language)
+		T.holo?.say("[message]", MODE_ROBOT, language = language)
 		to_chat(src, "<i><span class='game say'>Holopad transmitted, <span class='name'>[real_name]</span> <span class='message robot'>\"[message]\"</span></span></i>")
 	else
 		to_chat(src, "No holopad connected.")
