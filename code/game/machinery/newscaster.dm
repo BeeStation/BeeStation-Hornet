@@ -889,6 +889,10 @@ GLOBAL_LIST_EMPTY(allCasters)
 	var/creationTime
 	var/datum/horoscope/horoscope = new /datum/horoscope
 
+/obj/item/newspaper/examine(mob/user)
+	if(horoscope.check_horoscope(user))
+		. += "Alt-Click to read your horoscope!"
+
 /obj/item/newspaper/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is focusing intently on [src]! It looks like [user.p_theyre()] trying to commit sudoku... until [user.p_their()] eyes light up with realization!</span>")
 	user.say(";JOURNALISM IS MY CALLING! EVERYBODY APPRECIATES UNBIASED REPORTI-GLORF", forced="newspaper suicide")
@@ -981,11 +985,11 @@ GLOBAL_LIST_EMPTY(allCasters)
 	else
 		to_chat(user, "The paper is full of unintelligible symbols!")
 
-/obj/item/newspaper/AltClick(mob/user)
-	if(!horoscope.check_horoscope(user))
+/obj/item/newspaper/AltClick(mob/living/carbon/human/reader)
+	if(!reader)
 		return
-	to_chat(user, "You flip to the horoscopes page, and start reading.")
-	to_chat(user, horoscope.get_horoscope(user))
+	to_chat(reader, "You flip to the horoscopes page, and start reading.")
+	to_chat(reader, "<span class='notice'>[horoscope.get_horoscope(reader)]</span>")
 
 /obj/item/newspaper/proc/notContent(list/L)
 	if(!L.len)
@@ -1087,22 +1091,24 @@ GLOBAL_LIST_EMPTY(allCasters)
 	/// the amount your admin mood will be worth
 	var/admin_mood_amount = 1
 
+/datum/horoscope/New()
+	RegisterSignal(SSdcs, COMSIG_NEW_DAY, .proc/reset_readers)
+	. = ..()
+
 /datum/horoscope/proc/check_horoscope(mob/living/carbon/human/reader)
-	if(!reader)
+	if(!reader || reader?.ckey in has_read)
 		return
 	if(!reader.ckey)
 		to_chat(reader, "<span class='warning'>Alright, so I have no idea how you're seeing this. You somehow have no ckey? Please a-help so we can work this out.</span>")
 		return
-	if(reader.ckey in has_read)
-		to_chat(reader, "<span class='warning'>You've already read today's horoscope! Check back tomorrow.")
-		return
 	return TRUE
 
 /datum/horoscope/proc/get_horoscope(mob/living/carbon/human/reader)
-	if(reader)
-		LAZYADD(has_read, reader?.ckey)
-	else
+	if(!reader)
 		return
+	if(reader.ckey in has_read)
+		return "Check back tomorrow."
+	LAZYADD(has_read, reader?.ckey)
 
 	if(admin_msg)
 		var/positive = admin_mood_amount >= 0 ? TRUE : FALSE
@@ -1115,3 +1121,6 @@ GLOBAL_LIST_EMPTY(allCasters)
 
 	SEND_SIGNAL(reader, COMSIG_ADD_MOOD_EVENT, "horoscope", /datum/mood_event/horo_bad)
 	return pick(negative)
+
+/datum/horoscope/proc/reset_readers()
+	has_read = null
