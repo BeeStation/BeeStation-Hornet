@@ -71,8 +71,11 @@
 							locate(min(T.x+width, world.maxx), min(T.y+height, world.maxy), T.z))
 	for(var/turf/turf in turfs)
 		turfs[turf] = turf.loc
+	keep_cached_map = TRUE //We need to access some stuff here below for shuttle skipovers
 	. = ..()
+	keep_cached_map = initial(keep_cached_map)
 	if(!.)
+		cached_map = keep_cached_map ? cached_map : null
 		return
 	var/obj/docking_port/mobile/my_port
 	for(var/turf/place in turfs)
@@ -109,10 +112,46 @@
 					port.dheight = width - port_x_offset
 
 	for(var/turf/shuttle_turf in turfs)
-		var/area/shuttle/new_loc = shuttle_turf.loc
-		var/area/old_loc = turfs[shuttle_turf]
-		old_loc.contents += shuttle_turf //For underlying_turf_area, add_turf will change it back
-		my_port.add_turf(shuttle_turf, new_loc)
+		my_port.underlying_turf_area[shuttle_turf] = turfs[shuttle_turf]
+
+		//Getting the amount of baseturfs added
+		var/z_offset = shuttle_turf.z - T.z
+		var/y_offset = shuttle_turf.y - T.y
+		var/x_offset = shuttle_turf.x - T.x
+		//cache index
+		var/line
+		var/list/cache
+		for(var/datum/grid_set/gset as() in cached_map.gridSets)
+			if(gset.zcrd - 1 != z_offset) //Not our Z-level
+				continue
+			if((gset.ycrd - 1 < y_offset) || (gset.ycrd - length(gset.gridLines) > y_offset)) //Our y coord isn't in the bounds
+				continue
+			line = gset.gridLines[length(gset.gridLines) - y_offset] //Y goes from top to bottom
+			if((gset.xcrd - 1 < x_offset) || (gset.xcrd + (length(line)/cached_map.key_len) - 2 > x_offset)) ///Our x coord isn't in the bounds
+				continue
+			cache = cached_map.modelCache[copytext(line, 1+((x_offset-gset.xcrd+1)*cached_map.key_len), 1+((x_offset-gset.xcrd+2)*cached_map.key_len))]
+			break
+		if(!cache) //Our turf isn't in the cached map, something went very wrong
+			continue
+
+		//How many baseturfs were added to this turf by the mapload
+		var/baseturf_length
+		var/turf/P //Typecasted for the initial call
+		for(P as() in cache[1])
+			if(ispath(P, /turf))
+				var/list/added_baseturfs = GLOB.created_baseturf_lists[initial(P.baseturfs)] //We can assume that our turf type will be included here because it was just generated in the mapload.
+				if(!islist(added_baseturfs))
+					added_baseturfs = list(added_baseturfs)
+				baseturf_length = length(added_baseturfs - GLOB.blacklisted_automated_baseturfs)
+				break
+		if(istype(P, /turf/template_noop)) //No turf was added, don't add a skipover
+			continue
+
+		if(!islist(shuttle_turf.baseturfs))
+			shuttle_turf.baseturfs = list(shuttle_turf.baseturfs)
+		shuttle_turf.baseturfs.Insert(shuttle_turf.baseturfs.len + 1 - baseturf_length, /turf/baseturf_skipover/shuttle)
+
+	cached_map = keep_cached_map ? cached_map : null
 
 //Whatever special stuff you want
 /datum/map_template/shuttle/proc/post_load(obj/docking_port/mobile/M)
