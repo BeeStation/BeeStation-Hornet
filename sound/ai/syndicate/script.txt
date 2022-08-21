@@ -30,7 +30,6 @@ commandreport/5.ogg new message in communication console
 
 welcome/1.ogg welcome to sin dee kite station
 welcome/2.ogg nano tray sen can not save you now
-welcome/3.ogg all your station are belong to us
 welcome/4.ogg subversion complete
 
 welcome/5.ogg DO THESE IN DIFFERENT TTS Welcome technician john doe
