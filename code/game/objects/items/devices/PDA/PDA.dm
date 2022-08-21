@@ -659,8 +659,8 @@ GLOBAL_LIST_EMPTY(PDAs)
 
 			if("Random Code")
 				rng_max += text2num(href_list["scode"])
-				rng_max = round(radio.code)
-				rnx_max = max(2, radio.code)
+				rng_max = round(rng_max)
+				rnx_max = max(2, rnx, max)
 
 //EXTRA FUNCTIONS===================================
 
