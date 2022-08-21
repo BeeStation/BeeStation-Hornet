@@ -660,7 +660,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 			if("Random Code")
 				rng_max += text2num(href_list["scode"])
 				rng_max = round(rng_max)
-				rnx_max = max(2, rnx, max)
+				rnx_max = min(2, rng_max)
 
 //EXTRA FUNCTIONS===================================
 
