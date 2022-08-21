@@ -51,8 +51,10 @@ SUBSYSTEM_DEF(nightshift)
 	if(announce)
 		if (active)
 			announce("Good evening, crew. To reduce power consumption and stimulate the circadian rhythms of some species, all of the lights aboard the station have been dimmed for the night.")
+			SEND_GLOBAL_SIGNAL(COMSIG_NIGHT)
 		else
 			announce("Good morning, crew. As it is now day time, all of the lights aboard the station have been restored to their former brightness.")
+			SEND_GLOBAL_SIGNAL(COMSIG_NEW_DAY)
 	for(var/A in GLOB.apcs_list)
 		var/obj/machinery/power/apc/APC = A
 		if (APC.area && (APC.area.type in GLOB.the_station_areas))

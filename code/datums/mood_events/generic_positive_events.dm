@@ -231,3 +231,9 @@
 /datum/mood_event/brain_tumor_mannitol/New(mob/M, param)
 	timeout = rand(30,60) SECONDS // makes the timing unreliable on your mood
 	..()
+
+
+/datum/mood_event/horo_good
+	description = "<span class='nicegreen'>I must be lucky, it's in the stars..</span>"
+	mood_change = 1
+	timeout = 5 MINUTES

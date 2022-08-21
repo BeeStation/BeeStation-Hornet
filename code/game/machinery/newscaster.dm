@@ -887,6 +887,7 @@ GLOBAL_LIST_EMPTY(allCasters)
 	var/wantedBody
 	var/wantedPhoto
 	var/creationTime
+	var/datum/horoscope = new /datum/horoscope
 
 /obj/item/newspaper/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is focusing intently on [src]! It looks like [user.p_theyre()] trying to commit sudoku... until [user.p_their()] eyes light up with realization!</span>")
@@ -980,6 +981,12 @@ GLOBAL_LIST_EMPTY(allCasters)
 	else
 		to_chat(user, "The paper is full of unintelligible symbols!")
 
+/obj/item/newspaper/AltClick(mob/user)
+	if(!horoscope.check_horoscope(user))
+		return
+	to_chat(user, "You flip to the horoscopes page, and start reading.")
+	to_chat(user, horoscope.get_horoscope(user))
+
 /obj/item/newspaper/proc/notContent(list/L)
 	if(!L.len)
 		return 0
@@ -1044,3 +1051,67 @@ GLOBAL_LIST_EMPTY(allCasters)
 			add_fingerprint(user)
 	else
 		return ..()
+
+
+/*
+
+	A small datum for horoscopes (possibly implimented into the newscaster or a pda app?)
+	-candycane/etherware
+
+*/
+
+/datum/horoscope
+
+	LAZYINITLIST(has_read)
+
+	var/static/list/positive = list(
+		"You will find something of great value in maints.",
+		"You will affect the station's balance.",
+		"You will support the station greatly.",
+		"You will come across unexpected glory.",
+		"You will meet a pleasent companion.",
+		"You're about to hit it big."
+	)
+
+	var/static/list/negative = list(
+		"A superior will decieve you,",
+		"You will find great sorrow in maintenance.",
+		"You will be slipped.",
+		"The station will be irriplacably damaged.",
+		"Your life hangs in the balance.",
+		"You will be betrayed by someone close to you."
+	)
+
+	/// if set, will always be returned by get_horoscope
+	var/admin_msg
+	/// the amount your admin mood will be worth
+	var/admin_mood_amount = 1
+
+/datum/horoscope/proc/check_horoscope(mob/living/carbon/human/reader)
+	if(!reader)
+		return
+	if(!reader.ckey)
+		to_chat(reader, "<span class='warning'>Alright, so I have no idea how you're seeing this. You somehow have no ckey? Please a-help so we can work this out.</span>")
+		return
+	if(reader.ckey in has_read)
+		to_chat(reader, "<span class='warning'>You've already read today's horoscope! Check back tomorrow.")
+		return
+	return TRUE
+
+/datum/horoscope/proc/get_horoscope(mob/living/carbon/human/reader)
+	if(reader)
+		LAZYADD(reader?.ckey)
+	else
+		return
+
+	if(admin_msg)
+		var/new_msg = "<span class='[admin_mood_amount >= 0 ? "nicegreen" : "warning"]'>[admin_msg]</span>"
+		add_event(null, "horoscope", /datum/mood_event/area, list(admin_mood_amount, new_msg))
+		return admin_msg
+
+	if(prob(50))
+		SEND_SIGNAL(reader, COMSIG_ADD_MOOD_EVENT, "horoscope", /datum/mood_event/horo_good)
+		return pick(positive)
+
+	SEND_SIGNAL(reader, COMSIG_ADD_MOOD_EVENT, "horoscope", /datum/mood_event/horo_bad)
+	return pick(negative)

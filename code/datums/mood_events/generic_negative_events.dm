@@ -245,3 +245,8 @@
 	description = "<span class='boldwarning'>I'm not safe! I can't trust anybody!</span>\n"
 	mood_change = -6
 	timeout = 30 SECONDS
+
+/datum/mood_event/horo_bad
+	description = "<span class='warning'>I'm doomed! Woe be upon me!"
+	mood_change = -1
+	timeout = 4 MINUTES
