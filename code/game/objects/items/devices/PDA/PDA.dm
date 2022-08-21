@@ -91,6 +91,9 @@ GLOBAL_LIST_EMPTY(PDAs)
 
 	var/underline_flag = TRUE //flag for underline
 
+	var/rng_max = 20
+	var/rng_last = 0
+
 /obj/item/pda/suicide_act(mob/living/carbon/user)
 	var/deathMessage = msg_input(user)
 	if (!deathMessage)
@@ -317,6 +320,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 						dat += "<li><a href='byond://?src=[REF(src)];choice=Drone Phone'>[PDAIMG(dronephone)]Drone Phone</a></li>"
 				dat += "<li><a href='byond://?src=[REF(src)];choice=3'>[PDAIMG(atmos)]Atmospheric Scan</a></li>"
 				dat += "<li><a href='byond://?src=[REF(src)];choice=Light'>[PDAIMG(flashlight)][light_on ? "Disable" : "Enable"] Flashlight</a></li>"
+				dat += "<li><a href='byond://?src=[REF(src)];choice=6'>[PDAIMG(dice)]Virtual Dice Sim</a></li>"
 				if (pai)
 					if(pai.loc != src)
 						pai = null
@@ -397,6 +401,19 @@ GLOBAL_LIST_EMPTY(PDAs)
 				dat += "<br>"
 			else//Else it links to the cart menu proc. Although, it really uses menu hub 4--menu 4 doesn't really exist as it simply redirects to hub.
 				dat += cartridge.generate_menu()
+			if(6)
+				dat += "<h4>[PDAIMG(dice)] Virtual Dice Sim</h4>"
+				dat += {"
+				<a href='byond://?src=[REF(src)];choice=Generate'>Generate Number</A><BR>
+				Max:
+				<a href='byond://?src=[REF(src)];choice=Random Code;scode=-5'>-</a>
+				<a href='byond://?src=[REF(src)];choice=Random Code;scode=-1'>-</a>
+				[rng_max]
+				<a href='byond://?src=[REF(src)];choice=Random Code;scode=1'>+</a>
+				<a href='byond://?src=[REF(src)];choice=Random Code;scode=5'>+</a><br>
+				Last number generated:<br>
+				[rng_last]"}
+
 
 	dat += "</body></html>"
 
@@ -631,6 +648,19 @@ GLOBAL_LIST_EMPTY(PDAs)
 		U.unset_machine()
 		U << browse(null, "window=pda")
 		return
+
+//RANDOM NUM GENERATOR==============================
+			if("Generate")
+				if(rng_max < 1)  // if the user breaks it theres a failsafe
+					rng_last = "ERR"
+					return
+				rng_last = rand(1, rng_max)
+				U << browse(null, "window=pda")
+
+			if("Random Code")
+				rng_max += text2num(href_list["scode"])
+				rng_max = round(radio.code)
+				rnx_max = max(2, radio.code)
 
 //EXTRA FUNCTIONS===================================
 

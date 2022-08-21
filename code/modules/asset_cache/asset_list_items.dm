@@ -86,7 +86,8 @@
 		"signaler"		= 'icons/pda_icons/pda_signaler.png',
 		"status"		= 'icons/pda_icons/pda_status.png',
 		"dronephone"	= 'icons/pda_icons/pda_dronephone.png',
-		"emoji"			= 'icons/pda_icons/pda_emoji.png'
+		"emoji"			= 'icons/pda_icons/pda_emoji.png',
+		"dice"			= 'icons/pda_icons/pda_dice.png'
 	)
 
 /datum/asset/spritesheet/simple/paper
