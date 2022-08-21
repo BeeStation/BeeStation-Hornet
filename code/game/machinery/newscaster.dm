@@ -890,6 +890,7 @@ GLOBAL_LIST_EMPTY(allCasters)
 	var/datum/horoscope/horoscope = new /datum/horoscope
 
 /obj/item/newspaper/examine(mob/user)
+	. = ..()
 	if(horoscope.check_horoscope(user))
 		. += "<span class='notice'>Alt-Click to read your horoscope!</span>"
 
