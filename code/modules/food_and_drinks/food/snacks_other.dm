@@ -417,7 +417,7 @@
 	icon_state = "englishbreakfast"
 	bonus_reagents = list(/datum/reagent/consumable/nutriment = 5, /datum/reagent/consumable/nutriment/vitamin = 1)
 	list_reagents = list(/datum/reagent/consumable/nutriment = 10, /datum/reagent/consumable/nutriment/vitamin = 2)
-	tastes = list("a symphony of breakfast foods" = 1)
+	tastes = list("a symphony of breakfast foods" = 3)
 	trash = /obj/item/trash/plate
 	foodtype = GRAIN | MEAT | VEGETABLES | BREAKFAST
 
