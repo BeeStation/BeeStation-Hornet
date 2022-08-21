@@ -160,9 +160,6 @@
 	},
 /turf/open/floor/pod/dark,
 /area/shuttle/hunter)
-"I" = (
-/turf/open/floor/pod/dark,
-/area/shuttle/hunter)
 "J" = (
 /obj/machinery/suit_storage_unit/standard_unit,
 /turf/open/floor/pod/light,
@@ -465,7 +462,7 @@ b
 i
 A
 n
-I
+s
 i
 b
 a

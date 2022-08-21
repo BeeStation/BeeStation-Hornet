@@ -222,7 +222,7 @@
 	W.update_label(H.real_name)
 
 /datum/outfit/centcom/commander
-	name = "CentCom Commander"
+	name = JOB_CENTCOM_COMMANDER
 
 	uniform = /obj/item/clothing/under/rank/centcom/commander
 	suit = /obj/item/clothing/suit/armor/bulletproof
@@ -255,13 +255,13 @@
 	var/obj/item/card/id/W = H.wear_id
 	W.icon_state = "centcom"
 	W.access = get_all_accesses()
-	W.access += get_centcom_access("CentCom Commander")
-	W.assignment = "CentCom Commander"
+	W.access += get_centcom_access(JOB_CENTCOM_COMMANDER)
+	W.assignment = JOB_CENTCOM_COMMANDER
 	W.registered_name = H.real_name
 	W.update_label()
 
 /datum/outfit/admiral
-	name = "Admiral"
+	name = JOB_CENTCOM_ADMIRAL
 
 	uniform = /obj/item/clothing/under/syndicate
 	suit = /obj/item/clothing/suit/space/officer
@@ -284,8 +284,8 @@
 	var/obj/item/card/id/W = H.wear_id
 	W.icon_state = "centcom"
 	W.access = get_all_accesses()
-	W.access += get_centcom_access("Admiral")
-	W.assignment = "Admiral"
+	W.access += get_centcom_access(JOB_CENTCOM_ADMIRAL)
+	W.assignment = JOB_CENTCOM_ADMIRAL
 	W.registered_name = H.real_name
 	W.update_label()
 
@@ -365,8 +365,8 @@
 	var/obj/item/card/id/silver/W = H.wear_id
 	W.icon_state = "centcom"
 	W.access = get_all_accesses()
-	W.access += get_centcom_access("Admiral")
-	W.assignment = "Admiral"
+	W.access += get_centcom_access(JOB_CENTCOM_ADMIRAL)
+	W.assignment = JOB_CENTCOM_ADMIRAL
 	W.registered_name = H.real_name
 	W.update_label()
 
@@ -387,7 +387,7 @@
 		return
 
 	var/obj/item/card/id/W = H.wear_id
-	W.assignment = "Assistant"
+	W.assignment = JOB_NAME_ASSISTANT
 	W.registered_name = H.real_name
 	W.update_label()
 

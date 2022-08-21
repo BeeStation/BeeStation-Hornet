@@ -91,12 +91,12 @@
 	armor = list("melee" = 30, "bullet" = 25, "laser" = 25, "energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 20, "acid" = 50, "stamina" = 30)
 	strip_delay = 60
 
-/obj/item/clothing/head/soft/sec/brig_phys
+/obj/item/clothing/head/soft/sec/brig_physician
 	name = "security medic cap"
 	icon_state = "secmedsoft"
 	soft_color = "secmed"
 
-/obj/item/clothing/head/soft/emt
+/obj/item/clothing/head/soft/paramedic
 	name = "EMT cap"
 	desc = "It's a baseball hat with a dark turquoise color and a reflective cross on the top."
 	icon_state = "emtsoft"
@@ -106,6 +106,6 @@
 	name = "cargo cap"
 	desc = "It's a baseball hat in a tasteless yellow colour."
 	icon_state = "cargosoft"
-	soft_color = "cargosoft"
+	soft_color = "cargo"
 
 	dog_fashion = /datum/dog_fashion/head/cargo_tech

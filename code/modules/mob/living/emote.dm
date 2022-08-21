@@ -480,7 +480,7 @@
 	message = "beeps"
 	message_param = "beeps at %t"
 	sound = 'sound/machines/twobeep.ogg'
-	mob_type_allowed_typecache = list(/mob/living/brain, /mob/living/silicon)
+	mob_type_allowed_typecache = list(/mob/living/brain, /mob/living/silicon, /mob/living/simple_animal/hostile/mining_drone)
 
 /datum/emote/living/circle
 	key = "circle"
@@ -595,3 +595,36 @@
 /datum/emote/living/hiss/get_sound(mob/living/user)
 	if(islizard(user))
 		return pick('sound/voice/hiss1.ogg', 'sound/voice/hiss2.ogg', 'sound/voice/hiss3.ogg', 'sound/voice/hiss4.ogg', 'sound/voice/hiss5.ogg', 'sound/voice/hiss6.ogg')
+
+/datum/emote/living/thumbs_up
+	key = "thumbsup"
+	key_third_person = "thumbsup"
+	message = "flashes a thumbs up"
+	message_robot = "makes a crude thumbs up with their 'hands'"
+	message_AI = "flashes a quick hologram of a thumbs up"
+	message_ipc = "flashes a thumbs up icon"
+	message_simple = "attempts a thumbs up"
+	message_param = "flashes a thumbs up at %t"
+	restraint_check = TRUE
+
+/datum/emote/living/thumbs_down
+	key = "thumbsdown"
+	key_third_person = "thumbsdown"
+	message = "flashes a thumbs down"
+	message_robot = "makes a crude thumbs down with their 'hands'"
+	message_AI = "flashes a quick hologram of a thumbs down"
+	message_ipc = "flashes a thumbs down icon"
+	message_simple = "attempts a thumbs down"
+	message_param = "flashes a thumbs down at %t"
+	restraint_check = TRUE
+
+/datum/emote/living/whistle
+	key="whistle"
+	key_third_person="whistle"
+	message = "whistles a few notes"
+	message_robot = "whistles a few synthesized notes"
+	message_AI = "whistles a synthesized song"
+	message_ipc = "whistles a few synthesized notes"
+
+/datum/emote/living/whistle/get_sound(mob/living/user)
+	return 'sound/items/megaphone.ogg'
