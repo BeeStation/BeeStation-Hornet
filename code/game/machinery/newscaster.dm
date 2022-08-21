@@ -985,7 +985,7 @@ GLOBAL_LIST_EMPTY(allCasters)
 	if(!horoscope.check_horoscope(user))
 		return
 	to_chat(user, "You flip to the horoscopes page, and start reading.")
-	to_chat(user, horoscope.get_horoscope(user))
+	to_chat(user, "<span class='notice'>[horoscope.get_horoscope(user)]</span>")
 
 /obj/item/newspaper/proc/notContent(list/L)
 	if(!L.len)
@@ -1087,6 +1087,8 @@ GLOBAL_LIST_EMPTY(allCasters)
 	/// the amount your admin mood will be worth
 	var/admin_mood_amount = 1
 
+	RegisterSignal(SSdcs, COMSIG_NEW_DAY, .proc/reset_readers)
+
 /datum/horoscope/proc/check_horoscope(mob/living/carbon/human/reader)
 	if(!reader)
 		return
@@ -1100,7 +1102,7 @@ GLOBAL_LIST_EMPTY(allCasters)
 
 /datum/horoscope/proc/get_horoscope(mob/living/carbon/human/reader)
 	if(reader)
-		LAZYADD(reader?.ckey)
+		LAZYADD(has_read, reader?.ckey)
 	else
 		return
 
@@ -1115,3 +1117,6 @@ GLOBAL_LIST_EMPTY(allCasters)
 
 	SEND_SIGNAL(reader, COMSIG_ADD_MOOD_EVENT, "horoscope", /datum/mood_event/horo_bad)
 	return pick(negative)
+
+/datum/horoscope/proc/reset_readers()
+	has_read = null
