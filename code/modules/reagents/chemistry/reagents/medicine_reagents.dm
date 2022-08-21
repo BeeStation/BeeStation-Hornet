@@ -598,7 +598,7 @@
 	. = 1
 
 /datum/reagent/medicine/sal_acid/overdose_process(mob/living/M)
-	M.adjustFireLoss(-3*REM, 0)
+	M.adjustBruteLoss(-3*REM, 0)
 	M.adjustToxLoss(3*REM, 0)
 	M.adjustOrganLoss(ORGAN_SLOT_LIVER, 2)
 	..()
