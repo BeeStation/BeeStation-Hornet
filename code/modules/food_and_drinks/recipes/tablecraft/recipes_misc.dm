@@ -341,7 +341,8 @@
 		/obj/item/reagent_containers/food/snacks/sausage = 1,
 		/obj/item/reagent_containers/food/snacks/canned/beans = 1,
 		/obj/item/reagent_containers/food/snacks/breadslice/plain = 1,
-		/obj/item/reagent_containers/food/snacks/grown/tomato = 1
+		/obj/item/reagent_containers/food/snacks/grown/tomato = 1,
+		/obj/item/reagent_containers/food/snacks/meat/bacon = 1
 	)
 	result = /obj/item/reagent_containers/food/snacks/englishbreakfast
 	subcategory = CAT_MISCFOOD
