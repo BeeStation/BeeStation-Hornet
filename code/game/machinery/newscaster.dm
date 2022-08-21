@@ -1097,7 +1097,7 @@ GLOBAL_LIST_EMPTY(allCasters)
 	. = ..()
 
 /datum/horoscope/proc/check_horoscope(mob/living/carbon/human/reader)
-	if(!reader || reader?.ckey in has_read)
+	if(!reader || (reader?.ckey in has_read))
 		return
 	if(!reader.ckey)
 		to_chat(reader, "<span class='warning'>Alright, so I have no idea how you're seeing this. You somehow have no ckey? Please a-help so we can work this out.</span>")
