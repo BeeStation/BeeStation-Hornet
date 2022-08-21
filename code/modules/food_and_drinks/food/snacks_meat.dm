@@ -138,7 +138,7 @@
 	filling_color = "#5B3330"
 	bonus_reagents = list(/datum/reagent/consumable/nutriment = 1, /datum/reagent/consumable/nutriment/vitamin = 2)
 	list_reagents = list(/datum/reagent/consumable/nutriment = 6, /datum/reagent/consumable/nutriment/vitamin = 2)
-	tastes = list("sausage" = 1, "savoryness" = 1, "crumblyness" = 1)
+	tastes = list("savoryness" = 1)
 	foodtype = MEAT | BREAKFAST
 
 /obj/item/reagent_containers/food/snacks/rawkhinkali
