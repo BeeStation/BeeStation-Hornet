@@ -887,7 +887,7 @@ GLOBAL_LIST_EMPTY(allCasters)
 	var/wantedBody
 	var/wantedPhoto
 	var/creationTime
-	var/datum/horoscope = new /datum/horoscope
+	var/datum/horoscope/horoscope = new /datum/horoscope
 
 /obj/item/newspaper/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is focusing intently on [src]! It looks like [user.p_theyre()] trying to commit sudoku... until [user.p_their()] eyes light up with realization!</span>")
@@ -1062,7 +1062,7 @@ GLOBAL_LIST_EMPTY(allCasters)
 
 /datum/horoscope
 
-	LAZYINITLIST(has_read)
+	var/has_read  // lazylist
 
 	var/static/list/positive = list(
 		"You will find something of great value in maints.",
@@ -1100,14 +1100,14 @@ GLOBAL_LIST_EMPTY(allCasters)
 
 /datum/horoscope/proc/get_horoscope(mob/living/carbon/human/reader)
 	if(reader)
-		LAZYADD(reader?.ckey)
+		LAZYADD(has_read, reader?.ckey)
 	else
 		return
 
 	if(admin_msg)
-		var/new_msg = "<span class='[admin_mood_amount >= 0 ? "nicegreen" : "warning"]'>[admin_msg]</span>"
-		add_event(null, "horoscope", /datum/mood_event/area, list(admin_mood_amount, new_msg))
-		return admin_msg
+		var/positive = admin_mood_amount >= 0 ? TRUE : FALSE
+		SEND_SIGNAL(reader, COMSIG_ADD_MOOD_EVENT, "horoscope_admin", positive ? /datum/mood_event/horo_good : /datum/mood_event/horo_bad)
+		return "<span class='[positive ? "nicegreen" : "warning"]'>[admin_msg]</span>"
 
 	if(prob(50))
 		SEND_SIGNAL(reader, COMSIG_ADD_MOOD_EVENT, "horoscope", /datum/mood_event/horo_good)
