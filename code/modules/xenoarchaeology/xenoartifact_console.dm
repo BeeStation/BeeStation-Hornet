@@ -65,27 +65,32 @@
 	data["points"] = budget ? budget.account_balance : 0
 	data["seller"] = list()
 	for(var/datum/xenoartifact_seller/S as() in sellers) //Pass seller data
-		if(S)
-			data["seller"] += list(list(
-				"name" = S.name,
-				"dialogue" = S.dialogue,
-				"price" = S.price,
-				"id" = REF(S),
+		data["seller"] += list(list(
+			"name" = S.name,
+			"dialogue" = S.dialogue,
+			"price" = S.price,
+			"id" = REF(S),
 		))
 	data["buyer"] = list()
 	for(var/datum/xenoartifact_seller/buyer/B as() in buyers) //Buyer data
-		if(B)
-			data["buyer"] += list(list(
-				"name" = B.name,
-				"dialogue" = B.dialogue,
-				"price" = B.price,
-				"id" = B,
+		data["buyer"] += list(list(
+			"name" = B.name,
+			"dialogue" = B.dialogue,
+			"price" = B.price,
+			"id" = B,
 		))
+	data["sold_artifacts"] = list()
+	for(var/datum/xenoartifact_info_entry/E as() in sold_artifacts) //Pass seller data
+		data["sold_artifacts"] += list(list(
+			"main" = E.main, //Sold time
+			"gain" = E.gain, //Profits
+			"traits" = E.traits //traits
+		))	
 	data["tab_index"] = tab_index
 	data["current_tab"] = current_tab
 	data["tab_info"] = current_tab_info
 	data["linked_machines"] = linked_machines
-	data["sold_artifacts"] = sold_artifacts
+
 	return data
 
 /obj/machinery/computer/xenoartifact_console/ui_act(action, params) //I should probably use a switch statement for this but, the for statements look painful
@@ -155,24 +160,33 @@
 			if(istype(selling_item, /obj/item/xenoartifact))
 				var/datum/component/xenoartifact_pricing/X = selling_item.GetComponent(/datum/component/xenoartifact_pricing)
 				if(X)
+					//create new info entry datum to store UI dat
+					var/datum/xenoartifact_info_entry/entry = new()
+
+					//Give rewards
 					final_price = max(X.modifier*X.price, 1)
 					budget.adjust_money(final_price)
 					linked_techweb.add_point_type(TECHWEB_POINT_TYPE_DEFAULT, (final_price*2.3) * (final_price >= X.price))
 					linked_techweb.add_point_type(TECHWEB_POINT_TYPE_DISCOVERY, (XENOA_SOLD_DP*(final_price/X.price)) * (final_price >= X.price))
-					info = "[selling_item.name] sold at [station_time_timestamp()] for [final_price] credits, bought for [X.price].</br>\
-					Awarded [(final_price*2.3) * (final_price >= X.price)] Research Points & [XENOA_SOLD_DP*(final_price/X.price) * (final_price >= X.price)] Discovery Points.</br>"
-					//append sticker traits
+
+					//Handle player info
+					entry.main = "[selling_item.name] sold at [station_time_timestamp()] for [final_price] credits, bought for [X.price]."
+					entry.gain = "Awarded [(final_price*2.3) * (final_price >= X.price)] Research Points & [XENOA_SOLD_DP*(final_price/X.price) * (final_price >= X.price)] Discovery Points."
+					info = "[entry.main]\n[entry.gain]\n"
+
+					//append sticker traits & pass it off
 					var/obj/item/xenoartifact_label/L = (locate(/obj/item/xenoartifact_label) in selling_item.contents)
 					var/obj/item/xenoartifact/A = selling_item
 					for(var/datum/xenoartifact_trait/T as() in L?.trait_list)
-						//Setting color inside fucks it up?
 						var/color = rgb(255, 0, 0)
-						//Forgive me, please. Using locate(thing) in thing ? green : red, breaks it
+						//using tertiary operator breaks it
 						if(locate(T) in A.traits)
-							color = rgb(0, 255, 0)
-						info += {"<span style="color: [color];"></br>[initial(T.desc) || initial(T.label_name)]</span>"}
-						//owner.species_name = "[owner.species_name][sub_mask.epithet ? {"<span style="color:[features["exotic_color"]];"> [sub_mask.epithet]</span>"} : ""]" //sub-mask epithet
-					sold_artifacts += info
+							color =rgb(0, 255, 0)
+						var/name = (initial(T.desc) || initial(T.label_name))
+						info += {"<span style="color: [color];">\n[name]</span>"}
+						entry.traits += list(list("name" = "[name]", "color" = "[color]"))
+
+					sold_artifacts += entry
 					qdel(selling_item)
 			else //Future feature, not currently in use, wont delete captains gun. Placeholder
 				final_price = 120*rand(1, 10)
@@ -219,6 +233,7 @@
 	on_inbox_del()
 	qdel(sellers)
 	qdel(buyers)
+	qdel(sold_artifacts)
 
 /obj/machinery/xenoartifact_inbox
 	name = "bluespace straythread pad" //Science words
@@ -271,3 +286,9 @@
 	if(buying == /obj/item/xenoartifact) //Don't bother trying to use istype here
 		dialogue = "[name] is requesting: Anomoly : Class : Artifact"
 	addtimer(CALLBACK(src, .proc/change_item), (rand(1,3)*60) SECONDS)
+	
+//Used to hold information about artifact transactions. Might get standrardized sooner or later.
+/datum/xenoartifact_info_entry
+	var/main =""
+	var/gain = ""
+	var/list/traits = list()

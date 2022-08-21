@@ -136,18 +136,18 @@ export const XenoartifactLinking = (props, context) => {
 
 export const XenoartifactSell = (props, context) => {
   const { act, data } = useBackend(context);
-  const {
-    sold_artifacts,
-  } = data;
+  const entries = toArray(data.sold_artifacts)
   const buyers = toArray(data.buyer);
   return (
     <Box p={.5}>
       <Section>
         <Collapsible title="Portfolio">
-          {sold_artifacts.map(item => (
+          {entries.map(item => (
             <Section key={item}>
               <BlockQuote>
-                <Box dangerouslySetInnerHTML={{ __html: sanitizeText(item) }} />
+                <Box>{`${item.main}`}</Box>
+                <Box>{`${item.gain}`}</Box>
+                {item.traits.map(trait => (<Box color={trait.color}>{`${trait.name}`}</Box>))}
               </BlockQuote>
             </Section>))}
         </Collapsible>
