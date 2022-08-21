@@ -28,6 +28,8 @@
 
 /datum/map_template/proc/preload_size(path, cache = FALSE)
 	var/datum/parsed_map/parsed = new(file(path))
+	if(path == '_maps/templates/space_travel_transit.dmm')
+		var/test = 0
 	var/bounds = parsed?.bounds
 	if(bounds)
 		width = bounds[MAP_MAXX] // Assumes all templates are rectangular, have a single Z level, and begin at 1,1,1

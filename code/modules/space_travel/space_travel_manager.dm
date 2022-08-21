@@ -97,7 +97,18 @@ GLOBAL_DATUM_INIT(spaceTravelManager, /datum/space_travel_manager, new)
 	sleep(100)
 
 /datum/map_template/space_travel_transit
+	name = "Space travel transit"
+	mappath = '_maps/templates/space_travel_transit.dmm'
+	var/landingZoneRelativeX = 8
+	var/landingZoneRelativeY = 8
+	width = 17
+	height = 17
+
+/area/space_travel_transit_area
     name = "Space travel transit"
-    mappath = '_maps/templates/space_travel_transit.dmm'
-    var/landingZoneRelativeX = 8
-    var/landingZoneRelativeY = 8
+    icon_state = "hilbertshotel"
+    requires_power = FALSE
+    has_gravity = TRUE
+    teleport_restriction = TELEPORT_ALLOW_NONE
+    area_flags = HIDDEN_AREA
+    dynamic_lighting = DYNAMIC_LIGHTING_FORCED
