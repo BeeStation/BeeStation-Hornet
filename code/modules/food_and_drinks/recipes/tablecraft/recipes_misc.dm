@@ -338,7 +338,7 @@
 	name = "Full English Breakfast"
 	reqs = list(
 		/obj/item/reagent_containers/food/snacks/friedegg = 1,
-		/obj/item/reagent_containers/food/snacks/sausage 1,
+		/obj/item/reagent_containers/food/snacks/sausage = 1,
 		/obj/item/reagent_containers/food/snacks/canned/beans = 1,
 		/obj/item/reagent_containers/food/snacks/breadslice = 1,
 		/obj/item/reagent_containers/food/snacks/grown/tomato = 1
