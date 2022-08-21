@@ -148,7 +148,7 @@ export const XenoartifactSell = (props, context) => {
                 <Box>{`${item.main}`}</Box>
                 <Box>{`${item.gain}`}</Box>
                 {item.traits.map(trait => (
-                <Box key={trait} color={trait.color}>{`${trait.name}`}</Box>))}
+                  <Box key={trait} color={trait.color}>{`${trait.name}`}</Box>))}
               </BlockQuote>
             </Section>))}
         </Collapsible>
