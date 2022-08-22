@@ -303,20 +303,25 @@
 
 /obj/item/comb/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is trying to sweep their hair so fast it combusts! It looks like [user.p_theyre()] trying to commit suicide!</span>")
-	var/mob/living/human/carbon/departed = user
+	var/mob/living/carbon/human/departed = user
 	departed?.hair_style = "Balding Hair"  // oh no it burned off!
-	H.update_hair()
+	departed.update_hair()
 	return (FIRELOSS)
 
 
 /obj/item/comb/attack(mob/living/M, mob/living/user)
-	var/mob/living/carbon/human/H = M
-	if(user.a.intent=INTENT_HARM || !hair_check(M, user))
+	var/mob/living/carbon/human/patient = M
+	var/mob/living/carbon/human/barber = user
+
+	if(patient == barber)
+		return attack_self(patient)
+
+	if(barber.a_intent == INTENT_HARM || !hair_check(M, user))
 		return ..()
 
-	H.hair_style = applied_hair
-	H.update_hair()
-	H.visible_message("<span class='notice'>[user] carefully sweeps [H]'s hair.</span>", "<span class='notice'>[user] carefully reaches forward and sweeps your hair!</span>")
+	patient.hair_style = applied_hair
+	patient.update_hair()
+	patient.visible_message("<span class='notice'>[user] carefully sweeps [patient]'s hair.</span>", "<span class='notice'>[user] carefully reaches forward and sweeps your hair!</span>")
 
 
 /obj/item/comb/attack_self(mob/user)
@@ -324,24 +329,29 @@
 	if(!hair_check(user, user))
 		return
 
-	H.hair_style = applied_hair
-	H.update_hair()
-	H.visible_message("<span class='notice'>[user] sweeps their hair back.</span>", "<span class='notice'>You sweep your hair back.</span>")
+	var/mob/living/carbon/human/coolguy64 = user
+
+	coolguy64.hair_style = applied_hair
+	coolguy64.update_hair()
+	coolguy64.visible_message("<span class='notice'>[coolguy64] sweeps their hair back.</span>", "<span class='notice'>You sweep your hair back.</span>")
 
 
 /obj/item/comb/proc/hair_check(mob/living/carbon/human/patient, mob/barber)
 	if(!patient.get_bodypart(BODY_ZONE_HEAD))
-		to_chat(barber, "<span class='warning'>[H] doesn't have a head!</span>")
+		to_chat(barber, "<span class='warning'>[patient] doesn't have a head!</span>")
 		return
 
-	f(!(HAIR in patient.dna.species.species_traits))
+	if(!(HAIR in patient.dna.species.species_traits))
 		to_chat(barber, "<span class='warning'>There is no hair to sweep!</span>")
 		return
-	if(!get_location_accessible(patient, location))
+	if(!get_location_accessible(patient, BODY_ZONE_HEAD))
 		to_chat(barber, "<span class='warning'>The headgear is in the way!</span>")
 		return
 	if(patient.hair_style == "Bald" || patient.hair_style == "Balding Hair" || patient.hair_style == "Skinhead")
 		to_chat(barber, "<span class='warning'>There is not enough hair left to sweep!</span>")
+		return
+	if(patient.hair_style == applied_hair)
+		to_chat(barber, "<span class='warning'>[patient] is already combed!</span>")
 		return
 	return TRUE
 
