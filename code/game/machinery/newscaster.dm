@@ -1112,10 +1112,10 @@ GLOBAL_LIST_EMPTY(allCasters)
 		return has_read[reader.ckey]
 
 	if(admin_msg)
-		var/positive = admin_mood_amount >= 0 ? TRUE : FALSE
-		SEND_SIGNAL(reader, COMSIG_ADD_MOOD_EVENT, "horoscope_admin", positive ? /datum/mood_event/horo_good : /datum/mood_event/horo_bad)
-		message_admins("[reader] has read the admin horoscope.")
-		return "<span class='[positive ? "nicegreen" : "warning"]'>[admin_msg]</span>"
+		if(admin_mood_amount)
+			SEND_SIGNAL(reader, COMSIG_ADD_MOOD_EVENT, "horoscope_admin", admin_mood_amount > 0 ? /datum/mood_event/horo_good : /datum/mood_event/horo_bad)
+		log_game("[reader] has gotten the admin horoscope: [admin_msg]")
+		return admin_msg
 
 	if(prob(50))
 		SEND_SIGNAL(reader, COMSIG_ADD_MOOD_EVENT, "horoscope", /datum/mood_event/horo_good)
