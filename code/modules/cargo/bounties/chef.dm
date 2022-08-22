@@ -140,4 +140,4 @@
 	name = "Full English Breakfast"
 	description = "Nanotrasen has received messages about 'QUEEN IN VIRO' from another station. Ship a meal to impress her on her royal visit."
 	reward = 6500
-	wanted_types = list(/obj/item/reagent_containers/food/snacks/englishbreakfast)
+	wanted_types = list(/obj/item/reagent_containers/food/snacks/english_breakfast)
