@@ -79,7 +79,7 @@
 		return
 	var/obj/docking_port/mobile/my_port
 	for(var/turf/place in turfs)
-		if(!istype(place.loc, /area/shuttle)) //If not part of the shuttle, ignore it
+		if(place.loc == turfs[place] || !istype(place.loc, /area/shuttle)) //If not part of the shuttle, ignore it
 			turfs -= place
 			continue
 		for(var/obj/docking_port/mobile/port in place)
