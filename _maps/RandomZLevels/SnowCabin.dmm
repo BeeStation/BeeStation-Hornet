@@ -1082,7 +1082,7 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 1
 	},
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	desc = "A comfortable, secure seat. It has a more sturdy looking buckling system, for making it harder to get dragged into the ring.";
 	name = "announcer seat"
 	},
@@ -1562,7 +1562,7 @@
 /turf/open/floor/wood/cold,
 /area/awaymission/cabin/lumbermill)
 "eB" = (
-/obj/structure/chair/sofa/right,
+/obj/structure/chair/fancy/sofa/old/right,
 /turf/open/floor/wood,
 /area/awaymission/cabin/caves/mountain)
 "eC" = (
@@ -1656,7 +1656,7 @@
 /turf/open/floor/plating/asteroid/snow,
 /area/awaymission/cabin/snowforest)
 "eP" = (
-/obj/structure/chair/sofa,
+/obj/structure/chair/fancy/sofa/old,
 /turf/open/floor/wood,
 /area/awaymission/cabin/caves/mountain)
 "eQ" = (
@@ -1801,7 +1801,7 @@
 /turf/open/floor/wood/cold,
 /area/awaymission/cabin/lumbermill)
 "fg" = (
-/obj/structure/chair/sofa/left,
+/obj/structure/chair/fancy/sofa/old/left,
 /turf/open/floor/wood,
 /area/awaymission/cabin/caves/mountain)
 "fh" = (
@@ -2455,7 +2455,7 @@
 "gt" = (
 /obj/structure/sign/poster/contraband/pwr_game{
 	pixel_x = 32;
-	
+
 	},
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/engine,
@@ -3276,7 +3276,7 @@
 "io" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -24;
-	
+
 	},
 /turf/open/floor/wood,
 /area/awaymission/cabin)
