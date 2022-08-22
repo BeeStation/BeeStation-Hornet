@@ -715,8 +715,6 @@ Pass a positive integer as an argument to override a bot's default speed.
 /mob/living/simple_animal/bot/proc/bot_control(command, mob/user, list/user_access = list())
 	if(!on || emagged == 2 || remote_disabled) //Emagged bots do not respect anyone's authority! Bots with their remote controls off cannot get commands.
 		return TRUE //ACCESS DENIED
-	if(stationary_mode)
-		speak("Stationary mode active, not responding.", radio_channel)
 	if(client)
 		bot_control_message(command, user)
 	// process control input
@@ -729,6 +727,9 @@ Pass a positive integer as an argument to override a bot's default speed.
 			auto_patrol = 1
 
 		if("summon")
+			if(stationary_mode)
+				speak("Stationary mode active, not responding.", radio_channel)
+				return
 			bot_reset()
 			summon_target = get_turf(user)
 			if(user_access.len != 0)
