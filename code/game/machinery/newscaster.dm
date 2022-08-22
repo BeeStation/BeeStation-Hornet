@@ -887,7 +887,11 @@ GLOBAL_LIST_EMPTY(allCasters)
 	var/wantedBody
 	var/wantedPhoto
 	var/creationTime
-	var/datum/horoscope/horoscope = new /datum/horoscope
+	var/datum/horoscope/horoscope
+
+/obj/item/newspaper/Initialize(mapload)
+	. = ..()
+	horoscope = new
 
 /obj/item/newspaper/examine(mob/user)
 	. = ..()
@@ -989,7 +993,7 @@ GLOBAL_LIST_EMPTY(allCasters)
 /obj/item/newspaper/AltClick(mob/living/carbon/human/reader)
 	if(!reader)
 		return
-	to_chat(reader, "You flip to the horoscopes page, and start reading.")
+	to_chat(reader, "<span class='notice'>You flip to the horoscopes page, and start reading.</span>")
 	to_chat(reader, "<span class='notice'>[horoscope.get_horoscope(reader)]</span>")
 
 /obj/item/newspaper/proc/notContent(list/L)
@@ -1070,20 +1074,20 @@ GLOBAL_LIST_EMPTY(allCasters)
 	var/has_read  // lazylist
 
 	var/static/list/positive = list(
-		"You will find something of great value in maints.",
+		"You will find something of great value in maintenance.",
 		"You will affect the station's balance.",
 		"You will support the station greatly.",
 		"You will come across unexpected glory.",
-		"You will meet a pleasent companion.",
+		"You will meet a pleasant companion.",
 		"You're about to hit it big."
 	)
 
 	var/static/list/negative = list(
-		"A superior will decieve you,",
+		"A superior will deceive you,",
 		"You will find great sorrow in maintenance.",
 		"You will be slipped.",
-		"The station will be irriplacably damaged.",
-		"Your life hangs in the balance.",
+		"The station will be irreparably injured.",
+		"Your life hangs in the balance, tipping towards tradgedy.",
 		"You will be betrayed by someone close to you."
 	)
 
@@ -1092,34 +1096,20 @@ GLOBAL_LIST_EMPTY(allCasters)
 	/// the amount your admin mood will be worth
 	var/admin_mood_amount = 1
 
-<<<<<<< HEAD
-	RegisterSignal(SSdcs, COMSIG_NEW_DAY, .proc/reset_readers)
-=======
 /datum/horoscope/New()
 	RegisterSignal(SSdcs, COMSIG_NEW_DAY, .proc/reset_readers)
 	. = ..()
->>>>>>> a478d5666340f22817cc0a579569c013b56ad66d
 
 /datum/horoscope/proc/check_horoscope(mob/living/carbon/human/reader)
 	if(!reader || (reader?.ckey in has_read))
 		return
-	if(!reader.ckey)
-		to_chat(reader, "<span class='warning'>Alright, so I have no idea how you're seeing this. You somehow have no ckey? Please a-help so we can work this out.</span>")
-		return
 	return TRUE
 
 /datum/horoscope/proc/get_horoscope(mob/living/carbon/human/reader)
-<<<<<<< HEAD
-	if(reader)
-		LAZYADD(has_read, reader?.ckey)
-	else
-=======
 	if(!reader)
->>>>>>> a478d5666340f22817cc0a579569c013b56ad66d
 		return
-	if(reader.ckey in has_read)
-		return "Check back tomorrow."
-	LAZYADD(has_read, reader?.ckey)
+	if(reader?.ckey in has_read)
+		return has_read[reader.ckey]
 
 	if(admin_msg)
 		var/positive = admin_mood_amount >= 0 ? TRUE : FALSE
@@ -1134,12 +1124,8 @@ GLOBAL_LIST_EMPTY(allCasters)
 		SEND_SIGNAL(reader, COMSIG_ADD_MOOD_EVENT, "horoscope", /datum/mood_event/horo_bad)
 		. = pick(negative)
 
-<<<<<<< HEAD
-	SEND_SIGNAL(reader, COMSIG_ADD_MOOD_EVENT, "horoscope", /datum/mood_event/horo_bad)
-	return pick(negative)
-=======
-	message_admins("[reader] has gotten the horoscope: [.]")
->>>>>>> a478d5666340f22817cc0a579569c013b56ad66d
+	log_game("[reader] has gotten the horoscope: [.]")
+	has_read[reader.ckey] = .
 
 /datum/horoscope/proc/reset_readers()
 	has_read = null

@@ -247,6 +247,6 @@
 	timeout = 30 SECONDS
 
 /datum/mood_event/horo_bad
-	description = "<span class='warning'>I'm doomed! Woe be upon me!"
+	description = "<span class='warning'>I'm doomed! Woe be upon me!</span>"
 	mood_change = -1
 	timeout = 4 MINUTES

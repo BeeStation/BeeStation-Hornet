@@ -588,7 +588,7 @@
 #define COMSIG_MOVABLE_LIGHT_OVERLAY_TOGGLE_ON "movable_light_overlay_toggle_on"
 
 #define COMSIG_NEW_DAY "night_light_off"
-#define COMSIG_NIGHT "night_light"
+#define COMSIG_NIGHT "night_light_on"
 
 ///from base of atom/movable/on_enter_storage(): (datum/component/storage/concrete/master_storage)
 #define COMSIG_STORAGE_ENTERED "storage_entered"
