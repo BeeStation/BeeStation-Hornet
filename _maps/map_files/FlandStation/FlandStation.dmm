@@ -8100,6 +8100,7 @@
 /obj/effect/turf_decal/plaque{
 	icon_state = "L7"
 	},
+/obj/item/chair/foldable,
 /turf/open/floor/plasteel,
 /area/hallway/primary/port)
 "bQY" = (
@@ -11965,6 +11966,7 @@
 /obj/effect/turf_decal/plaque{
 	icon_state = "L11"
 	},
+/obj/item/chair/foldable,
 /turf/open/floor/plasteel,
 /area/hallway/primary/port)
 "cIi" = (
@@ -18180,6 +18182,22 @@
 	},
 /turf/open/floor/vault,
 /area/engine/atmospherics_engine)
+"eau" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral/tile_side{
+	dir = 8
+	},
+/obj/item/chair/foldable,
+/turf/open/floor/plasteel,
+/area/hallway/primary/port)
 "eaF" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -47980,7 +47998,7 @@
 	pixel_x = 28;
 	pixel_y = 1
 	},
-/obj/structure/chair/fancy/sofa/corp/corner/concave{
+/obj/structure/chair/fancy/sofa/corp/concave{
 	dir = 8
 	},
 /turf/open/floor/plasteel/dark,
@@ -91204,7 +91222,7 @@
 /obj/effect/turf_decal/tile/neutral/tile_side{
 	dir = 6
 	},
-/obj/structure/chair/fancy/sofa/corp/corner/concave,
+/obj/structure/chair/fancy/sofa/corp/concave,
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/bar/atrium)
 "voS" = (
@@ -99805,6 +99823,7 @@
 /obj/effect/turf_decal/plaque{
 	icon_state = "L12"
 	},
+/obj/item/chair/foldable,
 /turf/open/floor/plasteel,
 /area/hallway/primary/port)
 "xyj" = (
@@ -127320,7 +127339,7 @@ wtT
 pgW
 bQT
 paD
-onb
+eau
 pYk
 pzy
 hMu
