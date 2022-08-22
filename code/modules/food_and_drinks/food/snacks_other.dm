@@ -411,7 +411,7 @@
 	tastes = list("cherry" = 1, "crepe" = 1)
 	foodtype = GRAIN | FRUIT | SUGAR
 
-/obj/item/reagent_containers/food/snacks/englishbreakfast
+/obj/item/reagent_containers/food/snacks/english_breakfast
 	name = "full english breakfast"
 	desc = "The maximum amount of breakfasting. Anymore and you reach hubris."
 	icon_state = "englishbreakfast"
