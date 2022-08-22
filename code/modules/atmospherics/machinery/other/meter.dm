@@ -12,7 +12,6 @@
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 100, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 40, "acid" = 0, "stamina" = 0)
 	var/frequency = 0
 	var/atom/target
-	var/id_tag
 	var/target_layer = PIPING_LAYER_DEFAULT
 
 /obj/machinery/meter/atmos

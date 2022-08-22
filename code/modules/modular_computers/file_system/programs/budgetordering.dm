@@ -1,12 +1,14 @@
 /datum/computer_file/program/budgetorders
 	filename = "orderapp"
 	filedesc = "Nanotrasen Internal Requisition Network (NIRN)"
+	category = PROGRAM_CATEGORY_SUPL
 	program_icon_state = "request"
 	extended_desc = "A request network that utilizes the Nanotrasen Ordering network to purchase supplies using a department budget account."
 	requires_ntnet = TRUE
 	usage_flags = PROGRAM_LAPTOP | PROGRAM_TABLET
 	size = 20
 	tgui_id = "NtosCargo"
+	program_icon = "credit-card"
 	//Are you actually placing orders with it?
 	var/requestonly = TRUE
 	//Can the tablet see or buy illegal stuff?

@@ -2478,6 +2478,13 @@
 	contains = list(/mob/living/simple_animal/hostile/retaliate/goat)
 	crate_name = "goat crate"
 
+/datum/supply_pack/critter/mothroach
+	name = "Mothroach Crate"
+	desc = "Put the mothroach on your head and find out what true cuteness looks like."
+	cost = 5000
+	contains = list(/mob/living/simple_animal/mothroach)
+	crate_name = "mothroach crate"
+
 /datum/supply_pack/critter/monkey
 	name = "Monkey Cube Crate"
 	desc = "Stop monkeying around! Contains five monkey cubes. Just add water!"
@@ -2954,7 +2961,7 @@
 /datum/supply_pack/misc/bicycle/generate(atom/A, datum/bank_account/paying_account)
 	. = ..()
 	for(var/client/C as() in GLOB.clients)
-		if(C?.mob.mind.assigned_role == "Quartermaster" || C?.mob.mind.assigned_role == "Cargo Technician")
+		if(C?.mob.mind.assigned_role == JOB_NAME_QUARTERMASTER || C?.mob.mind.assigned_role == JOB_NAME_CARGOTECHNICIAN)
 			C?.give_award(/datum/award/achievement/misc/bike, C?.mob)
 
 /datum/supply_pack/misc/bigband
