@@ -296,7 +296,7 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	desc = "A headset with a clowning filter, honk!"
 	icon_state = "honk_headset"
 	honken = TRUE  // honk filter
-	use_honken = TRUE
+	use_honken = FALSE
 
 /obj/item/radio/headset/clown/talk_into_impl(atom/movable/M, message, channel, list/spans, datum/language/language, list/message_mods)
 	if(honken)
