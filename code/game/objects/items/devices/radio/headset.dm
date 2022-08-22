@@ -305,7 +305,7 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 
 /obj/item/radio/headset/clown/examine(mob/user)
 	. = ..()
-	. += "The honkening filter is currently [honken ? "On" : "Off"], use Alt-Click to toggle."
+	. += "The honkening filter is currently [honken ? "On" : "Off"]."
 
 /obj/item/radio/headset/attackby(obj/item/W, mob/user, params)
 	user.set_machine(src)
