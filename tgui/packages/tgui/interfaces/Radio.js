@@ -92,9 +92,8 @@ export const Radio = (props, context) => {
                 <Button
                   ml={1}
                   icon="bullhorn"
-                  selected={useHonk}
                   content={useHonk ? 'HONK!' : 'honk.'}
-                  color={useHonk ? "pink" : null}
+                  color={useHonk ? 'pink' : null}
                   onClick={() => act('honk')} />
               )}
             </LabeledList.Item>
