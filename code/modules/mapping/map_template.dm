@@ -27,7 +27,10 @@
 		name = rename
 
 /datum/map_template/proc/preload_size(path, cache = FALSE)
+	if(path == '_maps/templates/space_travel_transit.dmm')
+		var/test = 0
 	var/datum/parsed_map/parsed = new(file(path))
+
 	if(path == '_maps/templates/space_travel_transit.dmm')
 		var/test = 0
 	var/bounds = parsed?.bounds

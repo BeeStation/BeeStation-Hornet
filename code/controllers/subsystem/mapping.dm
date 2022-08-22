@@ -48,7 +48,6 @@ SUBSYSTEM_DEF(mapping)
 	var/datum/space_level/transit
 	var/datum/space_level/empty_space
 	var/datum/space_level/trash_level
-	var/datum/space_level/space_travel_transit
 	var/num_of_res_levels = 1
 
 //dlete dis once #39770 is resolved
@@ -109,8 +108,6 @@ SUBSYSTEM_DEF(mapping)
 
 	generate_asteroids(world.maxx / 2, world.maxy / 2, trash_level.z_value, 120, rand(-0.5, 0), rand(40, 70))
 
-	space_travel_transit = add_new_zlevel("Space level transit", list(ZTRAIT_LINKAGE = SELFLOOPING), z_type = /datum/space_level, orbital_body_type = null)
-	++space_levels_so_far
 
 #endif
 	// Run map generation after ruin generation to prevent issues

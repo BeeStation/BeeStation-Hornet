@@ -100,8 +100,6 @@ GLOBAL_DATUM_INIT(spaceTravelManager, /datum/space_travel_manager, new)
 	mappath = '_maps/templates/space_travel_transit.dmm'
 	var/landingZoneRelativeX = 8
 	var/landingZoneRelativeY = 8
-	width = 17
-	height = 17
 
 /area/space_travel_transit_area
     name = "Space travel transit"
