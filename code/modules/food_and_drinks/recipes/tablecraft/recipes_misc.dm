@@ -334,7 +334,7 @@
 	result = /obj/item/reagent_containers/food/snacks/crab_rangoon
 	subcategory = CAT_MISCFOOD
 
-/datum/crafting_recipe/food/englishbreakfast
+/datum/crafting_recipe/food/english_breakfast
 	name = "Full English Breakfast"
 	reqs = list(
 		/obj/item/reagent_containers/food/snacks/friedegg = 1,
@@ -344,5 +344,5 @@
 		/obj/item/reagent_containers/food/snacks/grown/tomato = 1,
 		/obj/item/reagent_containers/food/snacks/meat/bacon = 1
 	)
-	result = /obj/item/reagent_containers/food/snacks/englishbreakfast
+	result = /obj/item/reagent_containers/food/snacks/english_breakfast
 	subcategory = CAT_MISCFOOD
