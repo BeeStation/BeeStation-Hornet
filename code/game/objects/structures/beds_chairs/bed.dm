@@ -236,7 +236,7 @@
 	var/mob/living/goldilocks
 
 /obj/structure/bed/double/post_buckle_mob(mob/living/M)
-	if(buckled_mobs.len > 1 && !goldilocks) //Push the second buckled mob a bit higher from the normal lying position
+	if(buckled_mobs.len > 1 && !goldilocks) //Push the second buckled mob a bit higher from the normal lying position, also, if someone can figure out the same thing for plushes, i'll be really glad to know how to
 		M.pixel_y = initial(M.pixel_y) + 6
 		goldilocks = M
 
@@ -244,3 +244,13 @@
 	M.pixel_y = initial(M.pixel_y) + M.get_standard_pixel_y_offset(M.lying)
 	if(M == goldilocks)
 		goldilocks = null
+
+/obj/structure/bed/double/maint
+	name = "double dirty mattress"
+	desc = "An old grubby king sized mattress. You really try to not think about what could be the cause of those stains."
+	icon_state = "dirty_mattress_double"
+
+/obj/structure/bed/double/alien
+	name = "double resting contraption"
+	desc = "This looks similar to contraptions from Earth. Could aliens be stealing our technology?"
+	icon_state = "abed_double"

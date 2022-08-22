@@ -19,18 +19,24 @@
 /obj/structure/chair/fancy/sofa/old/right
 	icon_state = "sofa_end_right"
 
-/obj/structure/chair/fancy/sofa/old/concave
+/obj/structure/chair/fancy/sofa/old/corner
+	name = "impossible old sofa corner"
+	desc = "this kind of sofa shouldn't even exists at all, if you see this non-euclidan specimen, contact your local Nanotransen Anti-couch surfer department."
+	icon_state = "sofa_cursed"
+
+/obj/structure/chair/fancy/sofa/old/corner/handle_layer() //only the armrest/back of this chair should cover the mob.
+	return
+
+/obj/structure/chair/fancy/sofa/old/corner/concave
 	icon_state = "sofa_corner_in"
 	name = "old sofa"
 	desc = "this kind of sofa definitely exists and there's nothing wrong with it, this one is concave."
 
-/obj/structure/chair/fancy/sofa/old/convex
+/obj/structure/chair/fancy/sofa/old/corner/convex
 	icon_state = "sofa_corner_out"
 	name = "old sofa"
 	desc = "this kind of sofa definitely exists and there's nothing wrong with it, this one is convex."
 
-/obj/structure/chair/fancy/sofa/old/corner/handle_layer() //only the armrest/back of this chair should cover the mob.
-	return
 
 // Original icon ported from Eris(?) and updated to work here.
 /obj/structure/chair/fancy/sofa/corp
@@ -44,13 +50,20 @@
 /obj/structure/chair/fancy/sofa/corp/right
 	icon_state = "corp_sofa_end_right"
 
-/obj/structure/chair/fancy/sofa/corp/concave
-	icon_state = "corp_sofa_corner_in"
-	desc = "this kind of sofa definitely exists and there's nothing wrong with it, this one is concave."
-
-/obj/structure/chair/fancy/sofa/corp/convex
-	icon_state = "corp_sofa_corner_out"
-	desc = "this kind of sofa definitely exists and there's nothing wrong with it, this one is convex."
+/obj/structure/chair/fancy/sofa/corp/corner
+	name = "impossible corporate sofa corner"
+	desc = "this kind of sofa shouldn't even exists at all, if you see this non-euclidan specimen, contact your local Nanotransen Anti-couch surfer department."
+	icon_state = "corp_sofa_cursed"
 
 /obj/structure/chair/fancy/sofa/corp/corner/handle_layer()
 	return
+
+/obj/structure/chair/fancy/sofa/corp/corner/concave
+	icon_state = "corp_sofa_corner_in"
+	name = "corporate sofa"
+	desc = "this kind of professional sofa definitely exists and there's nothing wrong with it, this one is concave."
+
+/obj/structure/chair/fancy/sofa/corp/corner/convex
+	icon_state = "corp_sofa_corner_out"
+	name = "corporate sofa"
+	desc = "this kind of professional sofa definitely exists and there's nothing wrong with it, this one is convex."

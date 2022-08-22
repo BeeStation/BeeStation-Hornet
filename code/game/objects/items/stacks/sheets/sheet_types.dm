@@ -39,15 +39,15 @@ GLOBAL_LIST_INIT(metal_recipes, list ( \
 		new /datum/stack_recipe("old sofa (middle)",					/obj/structure/chair/fancy/sofa/old, 1, one_per_turf = TRUE, on_floor = TRUE), \
 		new /datum/stack_recipe("old sofa (left)",						/obj/structure/chair/fancy/sofa/old/left, 1, one_per_turf = TRUE, on_floor = TRUE), \
 		new /datum/stack_recipe("old sofa (right)",						/obj/structure/chair/fancy/sofa/old/right, 1, one_per_turf = TRUE, on_floor = TRUE), \
-		new /datum/stack_recipe("old sofa (concave corner)",			/obj/structure/chair/fancy/sofa/old/concave, 1, one_per_turf = TRUE, on_floor = TRUE), \
-		new /datum/stack_recipe("old sofa (convex corner)",				/obj/structure/chair/fancy/sofa/old/convex, 1, one_per_turf = TRUE, on_floor = TRUE), \
+		new /datum/stack_recipe("old sofa (concave corner)",			/obj/structure/chair/fancy/sofa/old/corner/concave, 1, one_per_turf = TRUE, on_floor = TRUE), \
+		new /datum/stack_recipe("old sofa (convex corner)",				/obj/structure/chair/fancy/sofa/old/corner/convex, 1, one_per_turf = TRUE, on_floor = TRUE), \
 		)), \
 	new /datum/stack_recipe_list("corporate sofas", list( \
 		new /datum/stack_recipe("corporate sofa (middle)",				/obj/structure/chair/fancy/sofa/corp, 1, one_per_turf = TRUE, on_floor = TRUE), \
 		new /datum/stack_recipe("corporate sofa (left)",				/obj/structure/chair/fancy/sofa/corp/left, 1, one_per_turf = TRUE, on_floor = TRUE), \
 		new /datum/stack_recipe("corporate sofa (right)",				/obj/structure/chair/fancy/sofa/corp/right, 1, one_per_turf = TRUE, on_floor = TRUE), \
-		new /datum/stack_recipe("corporate sofa (concave corner)",		/obj/structure/chair/fancy/sofa/corp/concave, 1, one_per_turf = TRUE, on_floor = TRUE), \
-		new /datum/stack_recipe("corporate sofa (convex corner)",		/obj/structure/chair/fancy/sofa/corp/convex, 1, one_per_turf = TRUE, on_floor = TRUE), \
+		new /datum/stack_recipe("corporate sofa (concave corner)",		/obj/structure/chair/fancy/sofa/corp/corner/concave, 1, one_per_turf = TRUE, on_floor = TRUE), \
+		new /datum/stack_recipe("corporate sofa (convex corner)",		/obj/structure/chair/fancy/sofa/corp/corner/convex, 1, one_per_turf = TRUE, on_floor = TRUE), \
 		)), \
 	new /datum/stack_recipe_list("benches", list( \
 		new /datum/stack_recipe("bench (middle)",						/obj/structure/chair/fancy/bench, 1, one_per_turf = TRUE, on_floor = TRUE), \
@@ -353,16 +353,16 @@ GLOBAL_LIST_INIT(cloth_recipes, list ( \
 	return ..()
 
 
-/obj/item/stack/sheet/cotton/fifty
+/obj/item/stack/sheet/cotton/cloth/fifty
 	amount = 50
 
-/obj/item/stack/sheet/cotton/twenty
+/obj/item/stack/sheet/cotton/cloth/twenty
 	amount = 20
 
-/obj/item/stack/sheet/cotton/ten
+/obj/item/stack/sheet/cotton/cloth/ten
 	amount = 10
 
-/obj/item/stack/sheet/cotton/five
+/obj/item/stack/sheet/cotton/cloth/five
 	amount = 5
 
 /*
@@ -683,13 +683,13 @@ GLOBAL_LIST_INIT(brass_recipes, list ( \
 /obj/item/stack/tile/brass/fifty
 	amount = 50
 
-/obj/item/stack/sheet/brass/twenty
+/obj/item/stack/tile/brass/twenty
 	amount = 20
 
-/obj/item/stack/sheet/brass/ten
+/obj/item/stack/tile/brass/ten
 	amount = 10
 
-/obj/item/stack/sheet/brass/five
+/obj/item/stack/tile/brass/five
 	amount = 5
 
 /obj/item/stack/tile/brass/cyborg
@@ -748,13 +748,13 @@ GLOBAL_LIST_INIT(bronze_recipes, list ( \
 /obj/item/stack/tile/bronze/fifty
 	amount = 50
 
-/obj/item/stack/sheet/bronze/twenty
+/obj/item/stack/tile/bronze/twenty
 	amount = 20
 
-/obj/item/stack/sheet/bronze/ten
+/obj/item/stack/tile/bronze/ten
 	amount = 10
 
-/obj/item/stack/sheet/bronze/five
+/obj/item/stack/tile/bronze/five
 	amount = 5
 
 /*
