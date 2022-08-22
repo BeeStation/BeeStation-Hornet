@@ -289,6 +289,62 @@
 		sharpness = IS_BLUNT
 		tool_behaviour = null
 
+/obj/item/comb
+	name = "comb"
+	desc = "A slick pocket comb, for cool people only."
+	icon = 'icons/obj/items_and_weapons.dmi'
+	icon_state = "comb"
+	w_class = WEIGHT_CLASS_SMALL
+	force = 2
+	throwforce = 2
+	throw_speed = 6  // like card throwing
+	throw_range = 10
+	var/applied_hair = "Combover"  // incase anyone wants to make a bedhead-inator or something
+
+/obj/item/comb/suicide_act(mob/user)
+	user.visible_message("<span class='suicide'>[user] is trying to sweep their hair so fast it combusts! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	var/mob/living/human/carbon/departed = user
+	departed?.hair_style = "Balding Hair"  // oh no it burned off!
+	H.update_hair()
+	return (FIRELOSS)
+
+
+/obj/item/comb/attack(mob/living/M, mob/living/user)
+	var/mob/living/carbon/human/H = M
+	if(user.a.intent=INTENT_HARM || !hair_check(M, user))
+		return ..()
+
+	H.hair_style = applied_hair
+	H.update_hair()
+	H.visible_message("<span class='notice'>[user] carefully sweeps [H]'s hair.</span>", "<span class='notice'>[user] carefully reaches forward and sweeps your hair!</span>")
+
+
+/obj/item/comb/attack_self(mob/user)
+	. = ..()
+	if(!hair_check(user, user))
+		return
+
+	H.hair_style = applied_hair
+	H.update_hair()
+	H.visible_message("<span class='notice'>[user] sweeps their hair back.</span>", "<span class='notice'>You sweep your hair back.</span>")
+
+
+/obj/item/comb/proc/hair_check(mob/living/carbon/human/patient, mob/barber)
+	if(!patient.get_bodypart(BODY_ZONE_HEAD))
+		to_chat(barber, "<span class='warning'>[H] doesn't have a head!</span>")
+		return
+
+	f(!(HAIR in patient.dna.species.species_traits))
+		to_chat(barber, "<span class='warning'>There is no hair to sweep!</span>")
+		return
+	if(!get_location_accessible(patient, location))
+		to_chat(barber, "<span class='warning'>The headgear is in the way!</span>")
+		return
+	if(patient.hair_style == "Bald" || patient.hair_style == "Balding Hair" || patient.hair_style == "Skinhead")
+		to_chat(barber, "<span class='warning'>There is not enough hair left to sweep!</span>")
+		return
+	return TRUE
+
 /obj/item/handmirror
 	name = "hand mirror"
 	desc = "A cheap plastic hand mirror. Useful for shaving and self-diagnoses"
