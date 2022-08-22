@@ -315,9 +315,10 @@
 
 	if(patient == barber)
 		return attack_self(patient)
-
-	if(barber.a_intent == INTENT_HARM || !hair_check(M, user))
+	if(barber.a_intent == INTENT_HARM )
 		return ..()
+	if(!hair_check(M, user))
+		return
 
 	patient.hair_style = applied_hair
 	patient.update_hair()
