@@ -131,7 +131,7 @@
 	. = ..()
 	eatverb = pick("bite","chew","nibble","gobble","chomp")
 
-/obj/item/reagent_containers/food/snacks/blackpudding
+/obj/item/reagent_containers/food/snacks/black_pudding
 	name = "black pudding"
 	desc = "Bloody delicious."
 	icon_state = "blackpudding"
