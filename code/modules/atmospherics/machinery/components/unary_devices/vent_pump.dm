@@ -20,7 +20,6 @@
 
 	interacts_with_air = TRUE
 
-	var/id_tag = null
 	var/pump_direction = RELEASING
 
 	var/pressure_checks = EXT_BOUND
@@ -40,9 +39,9 @@
 	pipe_state = "uvent"
 
 /obj/machinery/atmospherics/components/unary/vent_pump/New()
-	..()
 	if(!id_tag)
-		id_tag = assign_uid_vents()
+		id_tag = id_tag = SSnetworks.assign_random_name()
+	. = ..()
 
 /obj/machinery/atmospherics/components/unary/vent_pump/Destroy()
 	var/area/A = get_area(src)
