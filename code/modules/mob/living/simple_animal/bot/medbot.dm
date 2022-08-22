@@ -47,7 +47,6 @@ GLOBAL_VAR(medibot_unique_id_gen)
 	var/heal_threshold = 10 //Start healing when they have this much damage in a category
 	var/declare_crit = 1 //If active, the bot will transmit a critical patient alert to MedHUD users.
 	var/declare_cooldown = 0 //Prevents spam of critical patient alerts.
-	var/stationary_mode = 0 //If enabled, the Medibot will not move automatically.
 	//Are we tipped over? Used to stop the mode from being conflicted.
 	var/tipped = FALSE
 	///How panicked we are about being tipped over (why would you do this?)

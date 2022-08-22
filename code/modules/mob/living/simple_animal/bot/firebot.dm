@@ -37,7 +37,6 @@
 
 	var/extinguish_people = TRUE
 	var/extinguish_fires = TRUE
-	var/stationary_mode = FALSE
 
 /mob/living/simple_animal/bot/firebot/Initialize(mapload)
 	. = ..()
