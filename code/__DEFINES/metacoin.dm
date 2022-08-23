@@ -4,6 +4,8 @@
 #define METACOIN_ESCAPE_REWARD           30
 /// Rewarded when you survive the round
 #define METACOIN_SURVIVE_REWARD          20
+/// Rewarded when you don't survive the round, but your corpse escapes
+#define METACOIN_CORPSE_REWARD			15
 /// Rewarded when you don't survive the round, but stick around till the end
 #define METACOIN_NOTSURVIVE_REWARD       10
 /// Rewarded when you are alive and active for 10 minutes
