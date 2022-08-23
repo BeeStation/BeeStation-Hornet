@@ -71,8 +71,6 @@
 	while(dmmRegex.Find(tfile, stored_index))
 		stored_index = dmmRegex.next
 
-		if(original_path == '_maps/templates/space_travel_transit.dmm')
-			var/test = 0
 		// "aa" = (/type{vars=blah})
 		if(dmmRegex.group[1]) // Model
 			var/key = dmmRegex.group[1]
@@ -134,8 +132,6 @@
 			bounds[MAP_MAXX] = CLAMP(max(bounds[MAP_MAXX], maxx), x_lower, x_upper)
 		CHECK_TICK
 
-	if(original_path == '_maps/templates/space_travel_transit.dmm')
-		var/test = 0
 
 	// Indicate failure to parse any coordinates by nulling bounds
 	if(bounds[1] == 1.#INF)

@@ -91,18 +91,19 @@ GLOBAL_DATUM_INIT(spaceTravelManager, /datum/space_travel_manager, new)
 
 /datum/space_travel_manager/proc/send_to_transit(var/mob/living/L, var/direction)
 
-	if(space_travel_transit_template == null)
-		space_travel_transit_template = new()
-
 	var/datum/turf_reservation/space_transit_reservation
 
 	if(stored_transit_templates.len > 0)
 		space_transit_reservation = stored_transit_templates[1]
 		stored_transit_templates.Remove(space_transit_reservation)
 	else
-		space_transit_reservation = SSmapping.RequestBlockReservation(space_travel_transit_template.width, space_travel_transit_template.height)
 
-	space_travel_transit_template.load(locate(space_transit_reservation.bottom_left_coords[1], space_transit_reservation.bottom_left_coords[2], space_transit_reservation.bottom_left_coords[3]))
+		if(space_travel_transit_template == null)
+			space_travel_transit_template = new()
+
+		space_transit_reservation = SSmapping.RequestBlockReservation(space_travel_transit_template.width, space_travel_transit_template.height)
+		space_travel_transit_template.load(locate(space_transit_reservation.bottom_left_coords[1], space_transit_reservation.bottom_left_coords[2], space_transit_reservation.bottom_left_coords[3]))
+
 	L.forceMove(locate(space_transit_reservation.bottom_left_coords[1] + space_travel_transit_template.landingZoneRelativeX, space_transit_reservation.bottom_left_coords[2] + space_travel_transit_template.landingZoneRelativeY, space_transit_reservation.bottom_left_coords[3]))
 
 	L.hud_used.set_parallax_movedir(direction, FALSE)
