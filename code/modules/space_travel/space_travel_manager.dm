@@ -16,9 +16,6 @@ GLOBAL_DATUM_INIT(spaceTravelManager, /datum/space_travel_manager, new)
 							TEXT_EAST = list("x" = list("min" = -1, "max"= 1000), "y" = list("min" = 3, "max"= 3)),
 							TEXT_WEST = list("x" = list("min" = 1000, "max"= -1), "y" = list("min" = 3, "max"= 3)),)
 
-	space_travel_transit_template = new()
-
-
 /datum/space_travel_manager/proc/atom_entered_deep_space(atom/movable/AM, var/direction)
 
 	if(!is_space_travel_allowed)
@@ -62,37 +59,45 @@ GLOBAL_DATUM_INIT(spaceTravelManager, /datum/space_travel_manager, new)
 		var/datum/orbital_object/orbital_object = pick_n_take(collision_zones_to_consider)
 		if(istype(orbital_object, /datum/orbital_object/z_linked))
 			var/datum/orbital_object/z_linked/z_linked_object = orbital_object
+			var/z_level_to_travel = null
 			if(istype(z_linked_object, /datum/orbital_object/z_linked/beacon/ruin))
 				var/datum/orbital_object/z_linked/beacon/ruin/ruin = z_linked_object
 				var/datum/space_level/space_level = ruin.linked_z_level == null ? null : ruin.linked_z_level[1]
+
+				send_to_transit(AM, direction)
 
 				if(space_level == null)
 					ruin.assign_z_level()
 
 				space_level = ruin.linked_z_level[1]
+				z_level_to_travel = space_level.z_value
 
 				SSzclear.temp_keep_z(AM.z)
-				SSzclear.temp_keep_z(space_level.z_value)
-
-				send_to_transit(AM)
+				SSzclear.temp_keep_z(z_level_to_travel)
 
 				var/start_time = world.time
 				UNTIL((!space_level.generating) || world.time > start_time + 3 MINUTES)
 
-				var/turf/T = locate(20, 20, space_level.z_value)
-				AM.forceMove(T)
-				break
 			else if(istype(z_linked_object, /datum/orbital_object/z_linked/station))
 
-				var/turf/T = locate(20, 20, z_linked_object.linked_z_level)
+				z_level_to_travel = z_linked_object.linked_z_level[1].z_value
+
+
+			if(z_level_to_travel != null)
+				var/turf/T = locate(20, 20, z_level_to_travel)
 				AM.forceMove(T)
 				break
 
-/datum/space_travel_manager/proc/send_to_transit(var/mob/living/L)
+
+/datum/space_travel_manager/proc/send_to_transit(var/mob/living/L, var/direction)
+	space_travel_transit_template = new()
 	var/datum/turf_reservation/spaceTransitReservation = SSmapping.RequestBlockReservation(space_travel_transit_template.width, space_travel_transit_template.height)
 	space_travel_transit_template.load(locate(spaceTransitReservation.bottom_left_coords[1], spaceTransitReservation.bottom_left_coords[2], spaceTransitReservation.bottom_left_coords[3]))
 	storedTransitTemplates += space_travel_transit_template
 	L.forceMove(locate(spaceTransitReservation.bottom_left_coords[1] + space_travel_transit_template.landingZoneRelativeX, spaceTransitReservation.bottom_left_coords[2] + space_travel_transit_template.landingZoneRelativeY, spaceTransitReservation.bottom_left_coords[3]))
+	var/area/A = get_area(L.client.eye)
+	A.parallax_movedir = direction
+	L.update_parallax_teleport()
 	sleep(100)
 
 /datum/map_template/space_travel_transit
@@ -108,4 +113,4 @@ GLOBAL_DATUM_INIT(spaceTravelManager, /datum/space_travel_manager, new)
     has_gravity = TRUE
     teleport_restriction = TELEPORT_ALLOW_NONE
     area_flags = HIDDEN_AREA
-    dynamic_lighting = DYNAMIC_LIGHTING_FORCED
+    //dynamic_lighting = DYNAMIC_LIGHTING_FORCED
