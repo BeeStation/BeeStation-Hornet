@@ -10,6 +10,7 @@
 	var/hive_size = 0
 	var/size_mod = 0 // Bonus size for using integrate
 	var/unlocked_dominance = FALSE
+	var/dominant = FALSE
 	var/mutable_appearance/glow
 	var/isintegrating = 0
 	var/hiveID = "Hivemind"
@@ -322,11 +323,13 @@
 	return ..()
 
 /datum/antagonist/hivemind/proc/dominance()
+	dominant = TRUE
 	if(!owner?.current)
 		return
 	var/mob/living/carbon/C = owner.current
 	if(!C)
 		return
+	to_chat(C, "<span class='assimilator'>With our psyche unleashed we will be able to sustain an unlimited ammount of awakened vessels!</span>")
 	ADD_TRAIT(C, TRAIT_STUNIMMUNE, HIVEMIND_TRAIT)
 	ADD_TRAIT(C, TRAIT_SLEEPIMMUNE, HIVEMIND_TRAIT)
 	ADD_TRAIT(C, TRAIT_VIRUSIMMUNE, HIVEMIND_TRAIT)

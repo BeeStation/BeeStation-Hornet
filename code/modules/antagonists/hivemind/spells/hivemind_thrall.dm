@@ -18,7 +18,7 @@
 	if(!hivehost)
 		to_chat(user, "<span class='notice'>This is a bug. Error:HIVE1</span>")
 		return
-	if(hivehost.avessels.len >= hivehost.avessel_limit)
+	if((hivehost.avessels.len >= hivehost.avessel_limit) && !hivehost.dominant)
 		to_chat(user, "<span class='notice'>We can't support another awakened vessel!</span>")
 		return
 	var/mob/living/carbon/human/target = user.pulling
@@ -71,5 +71,5 @@
 	log_objective(V, objective.explanation_text)
 	flash_color(user, flash_color="#800080", flash_time=10)
 	to_chat(user,"<span class='assimilator'>This vessel is now an extension of our will.</span>")
-	if(hivehost.unlocked_dominance)
+	if(hivehost.dominant)
 		target.add_overlay(hivehost.glow)

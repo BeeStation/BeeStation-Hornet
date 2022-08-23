@@ -60,7 +60,7 @@
 	var/datum/antagonist/hivemind/host = owner.has_antag_datum(/datum/antagonist/hivemind)
 	if(!host)
 		return ..()
-	return host?.unlocked_dominance || ..()
+	return host?.dominant || ..()
 
 /datum/objective/hivemind/awaken
 	name = "awaken"
