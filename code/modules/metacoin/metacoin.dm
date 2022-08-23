@@ -12,10 +12,10 @@
             else
                 inc_metabalance(METACOIN_ESCAPE_REWARD, reason="Survived the shift.")
         else
-			if(M.onCentCom() || M.onSyndieBase())
-				inc_metabalance(METACOIN_CORPSE_REWARD, reason="You died, but your corpse escaped. Spooky!")
+			if(!M.onCentCom() && !M.onSyndieBase())
+				inc_metabalance(METACOIN_NOTSURVIVE_REWARD, reason="You tried.")
 			else
-	            inc_metabalance(METACOIN_NOTSURVIVE_REWARD, reason="You tried.")
+				inc_metabalance(METACOIN_CORPSE_REWARD, reason="You died, but your corpse escaped. Spooky!")
 
 /client/proc/process_greentext()
 	src.give_award(/datum/award/achievement/misc/greentext, src.mob)
