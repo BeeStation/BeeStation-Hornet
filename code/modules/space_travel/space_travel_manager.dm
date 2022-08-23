@@ -8,7 +8,7 @@ GLOBAL_DATUM_INIT(spaceTravelManager, /datum/space_travel_manager, new)
 
 	var/datum/map_template/space_travel_transit/space_travel_transit_template
 
-	var/list/storedTransitTemplates = list()
+	var/list/stored_transit_templates = list()
 
 /datum/space_travel_manager/New()
 	deep_space_dirs = list(	TEXT_NORTH = list("x" = list("min" = 3, "max"= 3), "y" = list("min" = 1000, "max"= -1)),
@@ -64,7 +64,7 @@ GLOBAL_DATUM_INIT(spaceTravelManager, /datum/space_travel_manager, new)
 				var/datum/orbital_object/z_linked/beacon/ruin/ruin = z_linked_object
 				var/datum/space_level/space_level = ruin.linked_z_level == null ? null : ruin.linked_z_level[1]
 
-				send_to_transit(AM, direction)
+				stored_transit_templates += send_to_transit(AM, direction)
 
 				if(space_level == null)
 					ruin.assign_z_level()
@@ -94,13 +94,22 @@ GLOBAL_DATUM_INIT(spaceTravelManager, /datum/space_travel_manager, new)
 	if(space_travel_transit_template == null)
 		space_travel_transit_template = new()
 
-	var/datum/turf_reservation/spaceTransitReservation = SSmapping.RequestBlockReservation(space_travel_transit_template.width, space_travel_transit_template.height)
-	space_travel_transit_template.load(locate(spaceTransitReservation.bottom_left_coords[1], spaceTransitReservation.bottom_left_coords[2], spaceTransitReservation.bottom_left_coords[3]))
-	storedTransitTemplates += space_travel_transit_template
-	L.forceMove(locate(spaceTransitReservation.bottom_left_coords[1] + space_travel_transit_template.landingZoneRelativeX, spaceTransitReservation.bottom_left_coords[2] + space_travel_transit_template.landingZoneRelativeY, spaceTransitReservation.bottom_left_coords[3]))
+	var/datum/turf_reservation/space_transit_reservation
+
+	if(stored_transit_templates.len > 0)
+		space_transit_reservation = stored_transit_templates[1]
+		stored_transit_templates.Remove(space_transit_reservation)
+	else
+		space_transit_reservation = SSmapping.RequestBlockReservation(space_travel_transit_template.width, space_travel_transit_template.height)
+
+	space_travel_transit_template.load(locate(space_transit_reservation.bottom_left_coords[1], space_transit_reservation.bottom_left_coords[2], space_transit_reservation.bottom_left_coords[3]))
+	L.forceMove(locate(space_transit_reservation.bottom_left_coords[1] + space_travel_transit_template.landingZoneRelativeX, space_transit_reservation.bottom_left_coords[2] + space_travel_transit_template.landingZoneRelativeY, space_transit_reservation.bottom_left_coords[3]))
 
 	L.hud_used.set_parallax_movedir(direction, FALSE)
+
 	sleep(100)
+
+	return space_transit_reservation
 
 /datum/map_template/space_travel_transit
 	name = "Space travel transit"
