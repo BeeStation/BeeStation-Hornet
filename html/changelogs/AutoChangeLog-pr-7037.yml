@@ -1,0 +1,7 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - tweak: Alt clicking on suits that contain embedded storage (pockets) will now
+      open the inventory instead of adjusting the style of that article of clothing.
+      Adjusting the style can be done through the context menu or the stat panel under
+      the object tab.
