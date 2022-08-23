@@ -43,7 +43,7 @@
 				target.confused += 10
 			if(3)
 				to_chat(target, "<span class='userdanger'>You freeze up in fear!</span>")
-				target.Stun(70)
+				target.Stun(30)
 			if(4)
 				to_chat(target, "<span class='userdanger'>You feel nauseous as dread washes over you!</span>")
 				target.Dizzy(15)
