@@ -378,6 +378,8 @@
 		to_chat(undead, "There is already an established religion onboard the station. You are an acolyte of [GLOB.deity]. Defer to the Chaplain.")
 		undead.equip_to_slot_or_del(B, ITEM_SLOT_BACKPACK)
 		GLOB.religious_sect?.on_conversion(undead)
+	if(is_special_character(user))
+		to_chat(undead, "<span class='userdanger'>You are grateful to have been summoned into this word by [user]. Serve [user.real_name], and assist [user.p_them()] in completing [user.p_their()] goals at any cost.</span>")
 	playsound(altar_turf, pick('sound/hallucinations/growl1.ogg','sound/hallucinations/growl2.ogg','sound/hallucinations/growl3.ogg',), 50, TRUE)
 	return ..()
 
