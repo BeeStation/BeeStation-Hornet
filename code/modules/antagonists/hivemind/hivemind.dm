@@ -18,7 +18,7 @@
 	var/datum/action/innate/psychic_plane/plane_action
 	var/avessel_limit = 2
 	var/descriptor = "Hivemind"
-	var/list/images
+	var/hud_entry_num
 
 	var/list/upgrade_tiers = list(
 		//Tier 1 - Roundstart powers
@@ -164,15 +164,29 @@
 
 /datum/antagonist/hivemind/apply_innate_effects()
 	handle_clown_mutation(owner.current, "The great psionic powers of the Hive lets you overcome your clownish nature, allowing you to wield weapons with impunity.")
-	var/datum/atom_hud/antag/hud = GLOB.huds[ANTAG_HUD_HIVE]
-	hud.join_hud(owner.current)
-	set_antag_hud(owner.current, "hivemind")
+	update_hivemind_hud(owner.current)
+
+/datum/antagonist/hivemind/proc/update_hivemind_hud(mob/living/M)
+	var/datum/atom_hud/antag/hivehud = GLOB.huds[hud_entry_num]
+	if(!hivehud)
+		hivehud = new/datum/atom_hud/antag()
+		hud_entry_num = GLOB.huds.len+1 // this is the index the hivemind hud will be added at
+		GLOB.huds += hivehud
+	hivehud.join_hud(M)
+	if(is_hivehost(M))
+		set_antag_hud(M,"hivemind")
+	else
+		set_antag_hud(M,"hivevessel")
+
+/datum/antagonist/hivemind/proc/update_hivemind_hud_removed(mob/living/M)
+	var/datum/atom_hud/antag/hivehud = GLOB.huds[hud_entry_num]
+	if(hivehud)
+		hivehud.leave_hud(M)
+		set_antag_hud(M, null)
 
 /datum/antagonist/hivemind/remove_innate_effects()
 	handle_clown_mutation(owner.current, removing=FALSE)
-	var/datum/atom_hud/antag/hud = GLOB.huds[ANTAG_HUD_HIVE]
-	hud.leave_hud(owner.current)
-	set_antag_hud(owner.current, null)
+	update_hivemind_hud_removed(owner.current)
 
 /datum/antagonist/hivemind/on_removal()
 	//Remove all hive powers here
