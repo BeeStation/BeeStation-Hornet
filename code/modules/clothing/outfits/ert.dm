@@ -172,7 +172,7 @@
 	belt = /obj/item/gun/energy/e_gun
 	l_pocket = /obj/item/pen
 	back = /obj/item/storage/backpack/satchel
-	r_pocket = /obj/item/pda/heads
+	r_pocket = /obj/item/modular_computer/tablet/pda/heads
 	l_hand = /obj/item/clipboard
 	id = /obj/item/card/id/centcom
 
@@ -361,7 +361,7 @@
 /datum/outfit/centcom_clown
 	name = "Code Banana ERT"
 	id = /obj/item/card/id/centcom
-	belt = /obj/item/pda/clown
+	belt = /obj/item/modular_computer/tablet/pda/clown
 	ears = /obj/item/radio/headset/headset_cent
 	uniform = /obj/item/clothing/under/rank/civilian/clown
 	back = /obj/item/storage/backpack/clown

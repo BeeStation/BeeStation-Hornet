@@ -563,7 +563,7 @@
 		else
 			to_chat(user, "<span class='warning'>Unable to locate a radio!</span>")
 
-	else if (istype(W, /obj/item/card/id)||istype(W, /obj/item/pda))			// trying to unlock the interface with an ID card
+	else if (istype(W, /obj/item/card/id)||istype(W, /obj/item/modular_computer/tablet/pda))			// trying to unlock the interface with an ID card
 		togglelock(user)
 
 	else if(istype(W, /obj/item/borg/upgrade/))

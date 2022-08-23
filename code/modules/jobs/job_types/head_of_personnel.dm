@@ -48,7 +48,7 @@
 	jobtype = /datum/job/head_of_personnel
 
 	id = /obj/item/card/id/job/head_of_personnel
-	belt = /obj/item/pda/heads/head_of_personnel
+	belt = /obj/item/modular_computer/tablet/pda/heads/head_of_personnel
 	ears = /obj/item/radio/headset/heads/head_of_personnel
 	uniform = /obj/item/clothing/under/rank/civilian/head_of_personnel
 	shoes = /obj/item/clothing/shoes/sneakers/brown

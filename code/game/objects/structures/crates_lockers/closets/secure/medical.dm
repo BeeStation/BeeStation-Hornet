@@ -90,7 +90,7 @@
 	new /obj/item/clothing/under/rank/medical/chief_medical_officer(src)
 	new /obj/item/clothing/under/rank/medical/chief_medical_officer/skirt(src)
 	new /obj/item/clothing/shoes/sneakers/brown	(src)
-	new /obj/item/cartridge/cmo(src)
+	new /obj/item/computer_hardware/hard_drive/role/cmo(src)
 	new /obj/item/radio/headset/heads/cmo(src)
 	new /obj/item/megaphone/command(src)
 	new /obj/item/defibrillator/compact/loaded(src)

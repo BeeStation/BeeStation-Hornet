@@ -569,11 +569,11 @@
 		new /obj/item/modular_computer/tablet/pda(src)
 	new /obj/item/computer_hardware/hard_drive/role/head(src)
 
-	var/newcart = pick(	/obj/item/cartridge/engineering,
-						/obj/item/cartridge/security,
-						/obj/item/cartridge/medical,
-						/obj/item/cartridge/signal/toxins,
-						/obj/item/cartridge/quartermaster)
+	var/newcart = pick(	/obj/item/computer_hardware/hard_drive/role/engineering,
+						/obj/item/computer_hardware/hard_drive/role/security,
+						/obj/item/computer_hardware/hard_drive/role/medical,
+						/obj/item/computer_hardware/hard_drive/role/signal/toxins,
+						/obj/item/computer_hardware/hard_drive/role/quartermaster)
 	new newcart(src)
 
 /obj/item/storage/box/silver_ids

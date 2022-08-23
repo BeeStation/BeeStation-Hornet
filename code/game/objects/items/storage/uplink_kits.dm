@@ -103,7 +103,7 @@
 			new /obj/item/doorCharge(src)
 			new /obj/item/camera_bug(src)
 			new /obj/item/sbeacondrop/powersink(src)
-			new /obj/item/cartridge/virus/syndicate(src)
+			new /obj/item/computer_hardware/hard_drive/role/virus/syndicate(src)
 			new /obj/item/storage/toolbox/syndicate(src) //To actually get to those places
 			new /obj/item/pizzabox/bomb(src)
 			new /obj/item/storage/box/syndie_kit/emp(src)
@@ -464,7 +464,7 @@
 	new /obj/item/storage/backpack/chameleon(src)
 	new /obj/item/radio/headset/chameleon(src)
 	new /obj/item/stamp/chameleon(src)
-	new /obj/item/pda/chameleon(src)
+	new /obj/item/modular_computer/tablet/pda/chameleon(src)
 	new /obj/item/razor(src)
 	new /obj/item/handmirror(src)
 	new /obj/item/clothing/head/wig(src)
@@ -539,7 +539,7 @@
 	new /obj/item/radio/headset/chameleon/broken(src)
 	new /obj/item/stamp/chameleon/broken(src)
 <<<<<<< HEAD
-	new /obj/item/pda/chameleon/broken(src)
+	new /obj/item/modular_computer/tablet/pda/chameleon/broken(src)
 	new /obj/item/card/id/syndicate/broken(src)
 =======
 	new /obj/item/modular_computer/tablet/pda/chameleon/broken(src)

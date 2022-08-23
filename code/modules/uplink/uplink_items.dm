@@ -1130,7 +1130,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	desc = "When inserted into a personal digital assistant, this cartridge gives you four opportunities to \
 			detonate PDAs of crewmembers who have their message feature enabled. \
 			The concussive effect from the explosion will knock the recipient out for a short period, and deafen them for longer."
-	item = /obj/item/cartridge/virus/syndicate
+	item = /obj/item/computer_hardware/hard_drive/role/virus/syndicate
 	cost = 6
 	restricted = TRUE
 
@@ -1620,7 +1620,7 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 			when used cause the targeted PDA to become a new uplink with zero TCs, and immediately become unlocked. \
 			You will receive the unlock code upon activating the virus, and the new uplink may be charged with \
 			telecrystals normally."
-	item = /obj/item/cartridge/virus/frame
+	item = /obj/item/computer_hardware/hard_drive/role/virus/frame
 	cost = 4
 	restricted = TRUE
 

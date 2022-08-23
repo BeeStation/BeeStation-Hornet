@@ -190,7 +190,7 @@
 	l_pocket = /obj/item/melee/transforming/energy/sword/saber
 	l_hand = /obj/item/storage/secure/briefcase
 	id = /obj/item/card/id/syndicate
-	belt = /obj/item/pda/heads
+	belt = /obj/item/modular_computer/tablet/pda/heads
 
 /datum/outfit/assassin/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	var/obj/item/clothing/under/U = H.w_uniform

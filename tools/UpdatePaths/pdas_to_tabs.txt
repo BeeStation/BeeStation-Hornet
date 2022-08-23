@@ -44,7 +44,7 @@
 /obj/item/pda/captain : /obj/item/modular_computer/tablet/pda/captain
 /obj/item/pda/cargo_technician : /obj/item/modular_computer/tablet/pda/cargo_technician
 /obj/item/pda/quartermaster : /obj/item/modular_computer/tablet/pda/quartermaster
-/obj/item/pda/shaft_miner : /obj/item/modular_computer/tablet/pda/shaftminer
+/obj/item/pda/shaft_miner : /obj/item/modular_computer/tablet/pda/shaft_miner
 /obj/item/pda/chaplain : /obj/item/modular_computer/tablet/pda/chaplain
 /obj/item/pda/lawyer : /obj/item/modular_computer/tablet/pda/lawyer
 /obj/item/pda/botanist : /obj/item/modular_computer/tablet/pda/botanist

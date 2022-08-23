@@ -43,7 +43,7 @@
 	jobtype = /datum/job/head_of_security
 
 	id = /obj/item/card/id/job/head_of_security
-	belt = /obj/item/pda/heads/head_of_security
+	belt = /obj/item/modular_computer/tablet/pda/heads/head_of_security
 	ears = /obj/item/radio/headset/heads/hos/alt
 	uniform = /obj/item/clothing/under/rank/security/head_of_security
 	shoes = /obj/item/clothing/shoes/jackboots

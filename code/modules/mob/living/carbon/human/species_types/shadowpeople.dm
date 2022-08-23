@@ -227,8 +227,8 @@
 	burn()
 	playsound(src, 'sound/items/welder.ogg', 50, 1)
 
-
-/obj/item/pda/lighteater_act(obj/item/light_eater/light_eater)
+// TODO
+/obj/item/modular_computer/tablet/pda/lighteater_act(obj/item/light_eater/light_eater)
 	if(light_range && light_power && light_on)
 		//Eject the ID card
 		if(id)

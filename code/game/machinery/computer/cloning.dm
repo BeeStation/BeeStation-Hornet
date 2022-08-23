@@ -234,7 +234,7 @@
 		scantemp = "Cannot delete: Data Corrupted."
 		return FALSE
 	var/obj/item/card/id/C = usr.get_idcard(hand_first = TRUE)
-	if(istype(C) || istype(C, /obj/item/pda) || istype(C, /obj/item/modular_computer/tablet))
+	if(istype(C) || istype(C, /obj/item/modular_computer/tablet))
 		if(check_access(C))
 			scantemp = "[GRAB.fields["name"]] => Record deleted."
 			records.Remove(GRAB)

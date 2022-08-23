@@ -25,7 +25,7 @@
 	new /obj/item/clothing/head/caphat/parade(src)
 	new /obj/item/clothing/suit/captunic(src)
 	new /obj/item/clothing/head/crown/fancy(src)
-	new /obj/item/cartridge/captain(src)
+	new /obj/item/computer_hardware/hard_drive/role/captain(src)
 	new /obj/item/storage/box/silver_ids(src)
 	new /obj/item/radio/headset/heads/captain/alt(src)
 	new /obj/item/radio/headset/heads/captain(src)
@@ -54,7 +54,7 @@
 	new /obj/item/clothing/under/rank/civilian/head_of_personnel/alt(src)
 	new /obj/item/clothing/under/rank/civilian/head_of_personnel/alt/skirt(src)
 	new /obj/item/clothing/head/hopcap(src)
-	new /obj/item/cartridge/hop(src)
+	new /obj/item/computer_hardware/hard_drive/role/hop(src)
 	new /obj/item/radio/headset/heads/head_of_personnel(src)
 	new /obj/item/clothing/shoes/sneakers/brown(src)
 	new /obj/item/storage/box/ids(src)
@@ -103,7 +103,7 @@
 <<<<<<< HEAD
 	new /obj/item/clothing/neck/cloak/hos(src)
 	new /obj/item/storage/box/deputy(src)
-	new /obj/item/cartridge/hos(src)
+	new /obj/item/computer_hardware/hard_drive/role/hos(src)
 	new /obj/item/radio/headset/heads/hos/alt(src)
 =======
 

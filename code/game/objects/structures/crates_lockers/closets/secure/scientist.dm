@@ -19,7 +19,7 @@
 	new /obj/item/clothing/under/rank/rnd/research_director/turtleneck(src)
 	new /obj/item/clothing/under/rank/rnd/research_director/turtleneck/skirt(src)
 	new /obj/item/clothing/shoes/sneakers/brown(src)
-	new /obj/item/cartridge/rd(src)
+	new /obj/item/computer_hardware/hard_drive/role/rd(src)
 	new /obj/item/clothing/gloves/color/latex(src)
 	new /obj/item/radio/headset/heads/research_director(src)
 	new /obj/item/tank/internals/air(src)

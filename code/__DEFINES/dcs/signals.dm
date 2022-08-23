@@ -362,7 +362,7 @@
 /// called on implants, after an implant has been removed: (mob/living/source, silent, special)
 #define COMSIG_IMPLANT_REMOVED "implant_removed"
 
-// /obj/item/pda signals
+// /obj/item/modular_computer/tablet/pda signals
 
 ///called on pda when the user changes the ringtone: (mob/living/user, new_ringtone)
 #define COMSIG_TABLET_CHANGE_ID "comsig_tablet_change_id"
