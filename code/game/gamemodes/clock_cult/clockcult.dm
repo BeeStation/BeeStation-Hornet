@@ -211,7 +211,7 @@ GLOBAL_VAR(clockcult_eminence)
 	if(sender)
 		if(say)
 			sender.say("#[text2ratvar(msg)]")
-		msg = sender.treat_message(msg)
+		msg = sender.treat_message_min(msg)
 		var/datum/antagonist/servant_of_ratvar/SoR = is_servant_of_ratvar(sender)
 		var/prefix = "Clockbrother"
 		switch(SoR.prefix)

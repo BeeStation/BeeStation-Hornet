@@ -240,7 +240,7 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 	if (!message)
 		return
 	message = treat_message_min(message)
-	src.log_talk(message, LOG_SAY)
+	src.log_talk(message, LOG_SAY, tag="blob")
 
 	var/message_a = say_quote(message)
 	var/rendered = "<span class='big'><font color=\"#EE4000\"><b>\[Blob Telepathy\] [name](<font color=\"[blobstrain.color]\">[blobstrain.name]</font>)</b> [message_a]</font></span>"
