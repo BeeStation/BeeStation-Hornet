@@ -366,7 +366,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 
 	return treat_message_min(message)
 
-/mob/living/proc/treat_message_min(message)
+/mob/proc/treat_message_min(message)
 	var/end = copytext(message, length(message))
 	if(!(end in list("!", ".", "?", ":", "\"", "-", "~")))
 		message += "."

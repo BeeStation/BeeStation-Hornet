@@ -192,7 +192,6 @@ GLOBAL_VAR(clockcult_eminence)
 
 //Transmits a message to everyone in the cult
 //Doesn't work if the cultists contain holy water, or are not on the station or Reebe
-//TODO: SANITIZE MESSAGES WITH THE NORMAL SAY STUFF (punctuation)
 /proc/hierophant_message(msg, mob/living/sender, span = "<span class='brass'>", use_sanitisation=TRUE, say=TRUE)
 	if(CHAT_FILTER_CHECK(msg))
 		if(sender)

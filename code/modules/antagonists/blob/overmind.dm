@@ -239,7 +239,7 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 
 	if (!message)
 		return
-
+	message = treat_message_min(message)
 	src.log_talk(message, LOG_SAY)
 
 	var/message_a = say_quote(message)
