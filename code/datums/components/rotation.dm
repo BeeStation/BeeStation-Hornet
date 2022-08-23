@@ -110,6 +110,7 @@
 	if(!can_be_rotated.Invoke(user, rotation) || !can_user_rotate.Invoke(user, rotation))
 		return
 	BaseRot(user, rotation)
+	return COMPONENT_INTERCEPT_ALT
 
 /datum/component/simple_rotation/proc/WrenchRot(datum/source, obj/item/I, mob/living/user)
 	SIGNAL_HANDLER
