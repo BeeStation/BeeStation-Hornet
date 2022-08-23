@@ -124,7 +124,6 @@
 	data["has_light"] = has_light
 	data["light_on"] = light_on
 	data["comp_light_color"] = comp_light_color
-	data["pai"] = pai
 	return data
 
 
@@ -213,12 +212,7 @@
 			return TRUE
 
 		if("PC_toggle_light")
-			light_on = !light_on
-			if(light_on)
-				set_light(comp_light_luminosity, 1, comp_light_color)
-			else
-				set_light(0)
-			return TRUE
+			return toggle_flashlight()
 
 		if("PC_light_color")
 			var/mob/user = usr
@@ -230,10 +224,7 @@
 				if(color_hex2num(new_color) < 200) //Colors too dark are rejected
 					to_chat(user, "<span class='warning'>That color is too dark! Choose a lighter one.</span>")
 					new_color = null
-			comp_light_color = new_color
-			light_color = new_color
-			update_light()
-			return TRUE
+			return set_flashlight_color(new_color)
 
 		if("PC_Eject_Disk")
 			var/param = params["name"]
@@ -264,13 +255,13 @@
 					if(!cardholder)
 						return
 					if(cardholder.try_eject(user))
-						playsound(src, 'sound/machines/card_slide.ogg', 50)
+						playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50)
 				if("secondary RFID card")
 					var/obj/item/computer_hardware/card_slot/cardholder = all_components[MC_CARD2]
 					if(!cardholder)
 						return
 					if(cardholder.try_eject(user))
-						playsound(src, 'sound/machines/card_slide.ogg', 50)
+						playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50)
 		if("PC_Imprint_ID")
 			var/obj/item/computer_hardware/card_slot/cardholder = all_components[MC_CARD]
 			var/obj/item/computer_hardware/identifier/id_hardware = all_components[MC_IDENTIFY]
@@ -284,16 +275,6 @@
 				id_hardware.UpdateDisplay()
 
 			playsound(src, 'sound/machines/terminal_processing.ogg', 15, TRUE)
-		if("PC_Pai_Interact")
-			switch(params["option"])
-				if("eject")
-					usr.put_in_hands(pai)
-					pai.slotted = FALSE
-					pai = null
-					to_chat(usr, span_notice("You remove the pAI from the [name]."))
-				if("interact")
-					pai.attack_self(usr)
-			return UI_UPDATE
 		else
 			return
 

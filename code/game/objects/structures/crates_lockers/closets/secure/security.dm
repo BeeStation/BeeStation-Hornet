@@ -100,15 +100,10 @@
 
 /obj/structure/closet/secure_closet/hos/PopulateContents()
 	..()
-<<<<<<< HEAD
 	new /obj/item/clothing/neck/cloak/hos(src)
 	new /obj/item/storage/box/deputy(src)
 	new /obj/item/computer_hardware/hard_drive/role/hos(src)
 	new /obj/item/radio/headset/heads/hos/alt(src)
-=======
-
-	new /obj/item/computer_hardware/hard_drive/role/hos(src)
->>>>>>> cd1b891d79c (Modular Tablets: Converting PDAs to the NtOS System (#65755))
 	new /obj/item/radio/headset/heads/hos(src)
 	new /obj/item/clothing/under/rank/security/head_of_security/parade/female(src)
 	new /obj/item/clothing/under/rank/security/head_of_security/parade(src)

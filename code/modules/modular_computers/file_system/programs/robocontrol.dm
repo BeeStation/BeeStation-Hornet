@@ -24,7 +24,6 @@
 	var/list/botlist = list()
 	var/list/mulelist = list()
 
-	var/obj/item/computer_hardware/hard_drive/role/job_disk = computer ? computer.all_components[MC_HDD_JOB] : null
 	var/obj/item/computer_hardware/card_slot/card_slot = computer ? computer.all_components[MC_CARD] : null
 	data["have_id_slot"] = !!card_slot
 	if(computer)

@@ -291,11 +291,11 @@
 		if(failsafe_code && trim(lowertext(new_ring_text)) == trim(lowertext(failsafe_code)))
 			failsafe()
 			return COMPONENT_STOP_RINGTONE_CHANGE
-		to_chat(user, span_notice("Unlock failure."))
+		to_chat(user, "<span class='notice'>Unlock failure.</span>")
 		return
 	locked = FALSE
 	interact(null, user)
-	to_chat(user, span_hear("The computer softly beeps."))
+	to_chat(user, "<span class='hear'>The computer softly beeps.</span>")
 	return COMPONENT_STOP_RINGTONE_CHANGE
 
 // Radio signal responses

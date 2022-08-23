@@ -83,12 +83,9 @@
 	greyscale_config = /datum/greyscale_config/tablet/captain
 	greyscale_colors = "#2C7CB2#FF0000#FFFFFF#F5D67B"
 	insert_type = /obj/item/pen/fountain
+	detonatable = FALSE
 
-/obj/item/modular_computer/tablet/pda/captain/Initialize(mapload)
-	. = ..()
-	RegisterSignal(src, COMSIG_TABLET_CHECK_DETONATE, .proc/tab_no_detonate)
-
-/obj/item/modular_computer/tablet/pda/cargo
+/obj/item/modular_computer/tablet/pda/cargo_technician
 	name = "cargo technician PDA"
 	default_disk = /obj/item/computer_hardware/hard_drive/role/quartermaster
 	greyscale_colors = "#D6B328#6506ca"
@@ -107,7 +104,7 @@
 	. = ..()
 	install_component(new /obj/item/computer_hardware/printer/mini)
 
-/obj/item/modular_computer/tablet/pda/shaftminer
+/obj/item/modular_computer/tablet/pda/shaft_miner
 	name = "shaft miner PDA"
 	greyscale_config = /datum/greyscale_config/tablet/stripe_thick
 	greyscale_colors = "#927444#D6B328#6C3BA1"
@@ -138,11 +135,11 @@
 	name = "cook PDA"
 	greyscale_colors = "#e2e2e2#a92323"
 
-/obj/item/modular_computer/tablet/pda/bar
+/obj/item/modular_computer/tablet/pda/bartender
 	name = "bartender PDA"
 	greyscale_colors = "#333333#c7c7c7"
 
-/obj/item/modular_computer/tablet/pda/atmos
+/obj/item/modular_computer/tablet/pda/atmospheric_technician
 	name = "atmospherics PDA"
 	default_disk = /obj/item/computer_hardware/hard_drive/role/atmos
 	greyscale_config = /datum/greyscale_config/tablet/stripe_thick
@@ -167,25 +164,24 @@
 	greyscale_config = null
 	greyscale_colors = null
 	insert_type = /obj/item/toy/crayon/rainbow
+	var/list/slip_victims = list() //Track slipped people
 
 /obj/item/modular_computer/tablet/pda/clown/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/slippery/clowning, 120, NO_SLIP_WHEN_WALKING, CALLBACK(src, .proc/AfterSlip), slot_whitelist = list(ITEM_SLOT_ID, ITEM_SLOT_BELT))
-	AddComponent(/datum/component/wearertargeting/sitcomlaughter, CALLBACK(src, .proc/after_sitcom_laugh))
+	AddComponent(/datum/component/slippery, 7 SECONDS, NO_SLIP_WHEN_WALKING, CALLBACK(src, .proc/AfterSlip), 5 SECONDS)
 
 /obj/item/modular_computer/tablet/pda/clown/update_overlays()
 	. = ..()
-	. += mutable_appearance(icon, "pda_stripe_clown") // clowns have eyes that go over their screen, so it needs to be compiled last
+	cut_overlays()
+	add_overlay(mutable_appearance(icon, "pda_stripe_clown")) // clowns have eyes that go over their screen, so it needs to be compiled last
 
 /obj/item/modular_computer/tablet/pda/clown/proc/AfterSlip(mob/living/carbon/human/M)
 	if (istype(M) && (M.real_name != saved_identification))
+		slip_victims |= REF(M)
 		var/obj/item/computer_hardware/hard_drive/role/virus/clown/cart = all_components[MC_HDD_JOB]
 		if(istype(cart) && cart.charges < 5)
 			cart.charges++
 			playsound(src,'sound/machines/ping.ogg',30,TRUE)
-
-/obj/item/modular_computer/tablet/pda/clown/proc/after_sitcom_laugh(mob/victim)
-	victim.visible_message("[src] lets out a burst of laughter!")
 
 /obj/item/modular_computer/tablet/pda/mime
 	name = "mime PDA"
@@ -210,14 +206,13 @@
 	greyscale_colors = null
 	icon_state = "pda-library"
 	insert_type = /obj/item/pen/fountain
-	display_overlays = FALSE
 
 /obj/item/modular_computer/tablet/pda/syndicate
 	name = "military PDA"
 	greyscale_colors = "#891417#80FF80"
 	saved_identification = "John Doe"
 	saved_job = "Citizen"
-	invisible = TRUE
+	messenger_invisible = TRUE
 
 /obj/item/modular_computer/tablet/pda/clear
 	name = "clear PDA"

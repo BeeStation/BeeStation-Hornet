@@ -6,13 +6,9 @@
 	w_class = WEIGHT_CLASS_TINY
 	device_type = MC_CARD
 
-<<<<<<< HEAD
-	var/obj/item/card/id/stored_card = null
-=======
 	var/obj/item/card/id/stored_card
-	var/current_identification = null
-	var/current_job = null
->>>>>>> cd1b891d79c (Modular Tablets: Converting PDAs to the NtOS System (#65755))
+	var/current_identification
+	var/current_job
 
 /obj/item/computer_hardware/card_slot/handle_atom_del(atom/A)
 	if(A == stored_card)

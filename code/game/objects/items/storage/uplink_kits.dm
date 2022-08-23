@@ -538,12 +538,8 @@
 	new /obj/item/storage/backpack/chameleon/broken(src)
 	new /obj/item/radio/headset/chameleon/broken(src)
 	new /obj/item/stamp/chameleon/broken(src)
-<<<<<<< HEAD
 	new /obj/item/modular_computer/tablet/pda/chameleon/broken(src)
 	new /obj/item/card/id/syndicate/broken(src)
-=======
-	new /obj/item/modular_computer/tablet/pda/chameleon/broken(src)
->>>>>>> cd1b891d79c (Modular Tablets: Converting PDAs to the NtOS System (#65755))
 	// No chameleon laser, they can't randomise for //REASONS//
 
 /obj/item/storage/box/syndie_kit/bee_grenades

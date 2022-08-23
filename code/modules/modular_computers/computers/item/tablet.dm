@@ -20,6 +20,9 @@
 	var/obj/item/insert_type = /obj/item/pen
 	var/obj/item/inserted_item
 
+	/// If this tablet can be detonated with detomatix (needs to be refactored into a signal)
+	var/detonatable = TRUE
+
 	/// The note used by the notekeeping app, stored here for convenience.
 	var/note = "Congratulations on your station upgrading to the new NtOS and Thinktronic based collaboration effort, bringing you the best in electronics and software since 2467!"
 
@@ -32,12 +35,6 @@
 		icon_state_unpowered = "tablet-[finish_color]"
 		icon_state_powered = "tablet-[finish_color]"
 
-/obj/item/modular_computer/tablet/interact(mob/user)
-	. = ..()
-	if(HAS_TRAIT(src, TRAIT_PDA_MESSAGE_MENU_RIGGED))
-		explode(usr, from_message_menu = TRUE)
-		return
-
 /obj/item/modular_computer/tablet/attackby(obj/item/attacking_item, mob/user)
 	. = ..()
 
@@ -47,7 +44,7 @@
 		else
 			if(!user.transferItemToLoc(attacking_item, src))
 				return
-			to_chat(user, span_notice("You insert \the [attacking_item] into \the [src]."))
+			to_chat(user, "<span class='notice'>You insert \the [attacking_item] into \the [src].</span>")
 			inserted_item = attacking_item
 			playsound(src, 'sound/machines/pda_button1.ogg', 50, TRUE)
 
@@ -58,45 +55,33 @@
 
 	remove_pen(user)
 
-/obj/item/modular_computer/tablet/proc/tab_no_detonate()
-	SIGNAL_HANDLER
-	return COMPONENT_TABLET_NO_DETONATE
-
 /obj/item/modular_computer/tablet/proc/remove_pen(mob/user)
-
 	if(issilicon(user) || !user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK)) //TK doesn't work even with this removed but here for readability
 		return
-
 	if(inserted_item)
-		to_chat(user, span_notice("You remove [inserted_item] from [src]."))
+		to_chat(user, "<span class='notice'>You remove [inserted_item] from [src].</span>")
 		user.put_in_hands(inserted_item)
 		inserted_item = null
-		update_appearance()
 		playsound(src, 'sound/machines/pda_button2.ogg', 50, TRUE)
 	else
-		to_chat(user, span_warning("This tablet does not have a pen in it!"))
+		to_chat(user, "<span class='warning'>This tablet does not have a pen in it!</span>")
 
 // Tablet 'splosion..
 
-/obj/item/modular_computer/tablet/proc/explode(mob/target, mob/bomber, from_message_menu = FALSE)
-	var/turf/T = get_turf(src)
+/obj/item/modular_computer/tablet/proc/explode(mob/target, mob/bomber)
+	var/turf/current_turf = get_turf(src)
 
-	if(from_message_menu)
-		log_bomber(null, null, target, "'s tablet exploded as [target.p_they()] tried to open their tablet message menu because of a recent tablet bomb.")
-	else
-		log_bomber(bomber, "successfully tablet-bombed", target, "as [target.p_they()] tried to reply to a rigged tablet message [bomber && !is_special_character(bomber) ? "(SENT BY NON-ANTAG)" : ""]")
+	log_bomber(bomber, "tablet-bombed", target, "[bomber && !is_special_character(bomber) ? "(SENT BY NON-ANTAG)" : ""]")
 
 	if (ismob(loc))
 		var/mob/victim = loc
-		victim.show_message(span_userdanger("Your [src] explodes!"), MSG_VISUAL, span_warning("You hear a loud *pop*!"), MSG_AUDIBLE)
+		victim.show_message("<span class='userdanger'>Your [src] explodes!</span>", MSG_VISUAL, "<span class='warning'>You hear a loud *pop*!</span>", MSG_AUDIBLE)
 	else
-		visible_message(span_danger("[src] explodes!"), span_warning("You hear a loud *pop*!"))
-
-	target.client?.give_award(/datum/award/achievement/misc/clickbait, target)
+		visible_message("<span class='danger'>[src] explodes!</span>", "<span class='warning'>You hear a loud *pop*!</span>")
 
 	if(current_turf)
 		current_turf.hotspot_expose(700,125)
-		if(istype(all_components[MC_HDD_JOB], /obj/item/computer_hardware/hard_drive/role/virus/deto))
+		if(istype(all_components[MC_HDD_JOB], /obj/item/computer_hardware/hard_drive/role/virus/syndicate))
 			explosion(src, devastation_range = -1, heavy_impact_range = 1, light_impact_range = 3, flash_range = 4)
 		else
 			explosion(src, devastation_range = -1, heavy_impact_range = -1, light_impact_range = 2, flash_range = 3)
@@ -197,38 +182,27 @@
 /obj/item/modular_computer/tablet/integrated/ui_data(mob/user)
 	. = ..()
 	.["has_light"] = TRUE
-	if(istype(borgo, /mob/living/silicon/robot))
+	if(iscyborg(borgo))
 		var/mob/living/silicon/robot/robo = borgo
 		.["light_on"] = robo.lamp_enabled
 		.["comp_light_color"] = robo.lamp_color
 
-//Overrides the ui_act to make the flashlight controls link to the borg instead
-/obj/item/modular_computer/tablet/integrated/ui_act(action, params)
-	switch(action)
-		if("PC_toggle_light")
-			if(!istype(borgo, /mob/living/silicon/robot))
-				return FALSE
-			var/mob/living/silicon/robot/robo = borgo
-			robo.toggle_headlamp()
-			return TRUE
+//Makes the flashlight button affect the borg rather than the tablet
+/obj/item/modular_computer/tablet/integrated/toggle_flashlight()
+	if(!borgo || QDELETED(borgo) || !iscyborg(borgo))
+		return FALSE
+	var/mob/living/silicon/robot/robo = borgo
+	robo.toggle_headlamp()
+	return TRUE
 
-		if("PC_light_color")
-			if(!istype(borgo, /mob/living/silicon/robot))
-				return FALSE
-			var/mob/living/silicon/robot/robo = borgo
-			var/mob/user = usr
-			var/new_color
-			while(!new_color)
-				new_color = input(user, "Choose a new color for [src]'s flashlight.", "Light Color",light_color) as color|null
-				if(!new_color || QDELETED(robo))
-					return
-				if(color_hex2num(new_color) < 200) //Colors too dark are rejected
-					to_chat(user, "<span class='warning'>That color is too dark! Choose a lighter one.</span>")
-					new_color = null
-			robo.lamp_color = new_color
-			robo.toggle_headlamp(FALSE, TRUE)
-			return TRUE
-	return ..()
+//Makes the flashlight color setting affect the borg rather than the tablet
+/obj/item/modular_computer/tablet/integrated/set_flashlight_color(color)
+	if(!borgo || QDELETED(borgo) || !color || !iscyborg(borgo))
+		return FALSE
+	var/mob/living/silicon/robot/robo = borgo
+	robo.lamp_color = color
+	robo.toggle_headlamp(FALSE, TRUE)
+	return TRUE
 
 /obj/item/modular_computer/tablet/integrated/alert_call(datum/computer_file/program/caller, alerttext, sound = 'sound/machines/twobeep_high.ogg')
 	if(!caller || !caller.alert_able || caller.alert_silenced || !alerttext) //Yeah, we're checking alert_able. No, you don't get to make alerts that the user can't silence.
@@ -249,7 +223,7 @@
 
 /obj/item/modular_computer/tablet/integrated/syndicate/Initialize()
 	. = ..()
-	if(istype(borgo, /mob/living/silicon/robot))
+	if(iscyborg(borgo))
 		var/mob/living/silicon/robot/robo = borgo
 		robo.lamp_color = COLOR_RED //Syndicate likes it red
 
@@ -278,7 +252,7 @@
 		. += mutable_appearance(init_icon, "light_overlay")
 
 /obj/item/modular_computer/tablet/pda/attack_ai(mob/user)
-	to_chat(user, span_notice("It doesn't feel right to snoop around like that..."))
+	to_chat(user, "<span class='notice'>It doesn't feel right to snoop around like that...</span>")
 	return // we don't want ais or cyborgs using a private role tablet
 
 /obj/item/modular_computer/tablet/pda/Initialize(mapload)

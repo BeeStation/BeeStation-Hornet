@@ -216,9 +216,9 @@
 	using = new /atom/movable/screen/pai/modpc()
 	using.screen_loc = ui_pai_mod_int
 	static_inventory += using
-	mypai.interfaceButton = using
-	var/atom/movable/screen/pai/modpc/tabletbutton = using
-	tabletbutton.pAI = mypai
+	mypai.interface_button = using
+	var/atom/movable/screen/pai/modpc/tablet_button = using
+	tablet_button.pAI = mypai
 
 // Take image
 	using = new /atom/movable/screen/pai/image_take()

@@ -112,8 +112,6 @@
 /obj/machinery/pdapainter/Initialize(mapload)
 	. = ..()
 	var/list/blocked = list(
-		/obj/item/modular_computer/tablet/pda/ai/pai,
-		/obj/item/modular_computer/tablet/pda/ai,
 		/obj/item/modular_computer/tablet/pda/heads,
 		/obj/item/modular_computer/tablet/pda/clear,
 		/obj/item/modular_computer/tablet/pda/syndicate,

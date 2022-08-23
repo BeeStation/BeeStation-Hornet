@@ -11,7 +11,6 @@
 
 	var/disk_flags = 0 // bit flag for the programs
 	var/can_spam = FALSE
-	var/list/bot_access = list()
 
 /obj/item/computer_hardware/hard_drive/role/on_remove(obj/item/modular_computer/remove_from, mob/user)
 	return
@@ -33,8 +32,9 @@
 	if(disk_flags & DISK_SEC)
 		progs_to_store += new /datum/computer_file/program/records/security(src)
 
-	if(disk_flags & DISK_JANI)
-		progs_to_store += new /datum/computer_file/program/radar/custodial_locator(src)
+	// TODO
+	//if(disk_flags & DISK_JANI)
+	//	progs_to_store += new /datum/computer_file/program/radar/custodial_locator(src)
 
 	if((disk_flags & DISK_CHEM) || (disk_flags & DISK_MED))
 		var/datum/computer_file/program/phys_scanner/scanner = new(src)
@@ -50,17 +50,17 @@
 
 	if(disk_flags & DISK_ROBOS)
 		var/datum/computer_file/program/robocontrol/robo = new(src)
-		robo.cart_mode = TRUE
 		progs_to_store += robo
 
 	if(disk_flags & DISK_CARGO)
 		progs_to_store += new /datum/computer_file/program/shipping(src)
 
-	if(disk_flags & DISK_SIGNAL)
-		progs_to_store += new /datum/computer_file/program/signaler(src)
+	// TODO
+	//if(disk_flags & DISK_SIGNAL)
+	//	progs_to_store += new /datum/computer_file/program/signaler(src)
 
-	if(disk_flags & DISK_NEWS)
-		progs_to_store += new /datum/computer_file/program/newscaster(src)
+	//if(disk_flags & DISK_NEWS)
+	//	progs_to_store += new /datum/computer_file/program/newscaster(src)
 
 	if(disk_flags & DISK_BUDGET)
 		progs_to_store += new /datum/computer_file/program/budgetorders(src)
@@ -91,18 +91,11 @@
 	name = "\improper BreatheDeep disk"
 	icon_state = "datadisk2"
 	disk_flags = DISK_ATMOS | DISK_ROBOS
-	bot_access = list(
-		FLOOR_BOT,
-		FIRE_BOT,
-	)
 
 /obj/item/computer_hardware/hard_drive/role/medical
 	name = "\improper Med-U disk"
 	icon_state = "datadisk7"
 	disk_flags = DISK_MED | DISK_ROBOS
-	bot_access = list(
-		MED_BOT,
-	)
 
 /obj/item/computer_hardware/hard_drive/role/chemistry
 	name = "\improper ChemWhiz disk"
@@ -113,28 +106,17 @@
 	name = "\improper R.O.B.U.S.T. disk"
 	icon_state = "datadisk9"
 	disk_flags = DISK_SEC | DISK_MANIFEST | DISK_ROBOS
-	bot_access = list(
-		SEC_BOT,
-		ADVANCED_SEC_BOT,
-	)
 
 /obj/item/computer_hardware/hard_drive/role/detective
 	name = "\improper D.E.T.E.C.T. disk"
 	icon_state = "datadisk9"
 	disk_flags = DISK_MED | DISK_SEC | DISK_MANIFEST | DISK_ROBOS
-	bot_access = list(
-		SEC_BOT,
-		ADVANCED_SEC_BOT,
-	)
 
 /obj/item/computer_hardware/hard_drive/role/janitor
 	name = "\improper CustodiPRO disk"
 	icon_state = "datadisk5"
 	desc = "The ultimate in clean-room design."
 	disk_flags = DISK_JANI | DISK_ROBOS
-	bot_access = list(
-		CLEAN_BOT,
-	)
 
 /obj/item/computer_hardware/hard_drive/role/lawyer
 	name = "\improper P.R.O.V.E. disk"
@@ -152,13 +134,6 @@
 	icon_state = "datadisk5"
 	desc = "Packed with heavy duty quad-bot interlink!"
 	disk_flags = DISK_ROBOS
-	bot_access = list(
-		FLOOR_BOT,
-		CLEAN_BOT,
-		MED_BOT,
-		FIRE_BOT,
-		VIBE_BOT,
-	)
 
 /obj/item/computer_hardware/hard_drive/role/signal
 	name = "generic signaler disk"
@@ -177,9 +152,6 @@
 	icon_state = "datadisk0"
 	desc = "Perfect for the Quartermaster on the go!"
 	disk_flags = DISK_CARGO | DISK_ROBOS | DISK_BUDGET
-	bot_access = list(
-		MULE_BOT,
-	)
 
 /obj/item/computer_hardware/hard_drive/role/head
 	name = "\improper Easy-Record DELUXE disk"
@@ -190,50 +162,27 @@
 	name = "\improper HumanResources9001 disk"
 	icon_state = "datadisk7"
 	disk_flags = DISK_MANIFEST | DISK_STATUS | DISK_JANI | DISK_SEC | DISK_NEWS | DISK_CARGO | DISK_ROBOS | DISK_BUDGET
-	bot_access = list(
-		MULE_BOT,
-		CLEAN_BOT,
-		VIBE_BOT,
-	)
 
 /obj/item/computer_hardware/hard_drive/role/hos
 	name = "\improper R.O.B.U.S.T. DELUXE disk"
 	icon_state = "datadisk7"
 	disk_flags = DISK_MANIFEST | DISK_STATUS | DISK_SEC | DISK_ROBOS | DISK_BUDGET
-	bot_access = list(
-		SEC_BOT,
-		ADVANCED_SEC_BOT,
-	)
 
 
 /obj/item/computer_hardware/hard_drive/role/ce
 	name = "\improper Power-On DELUXE disk"
 	icon_state = "datadisk7"
 	disk_flags = DISK_POWER | DISK_ATMOS | DISK_MANIFEST | DISK_STATUS | DISK_ROBOS | DISK_BUDGET
-	bot_access = list(
-		FLOOR_BOT,
-		FIRE_BOT,
-	)
 
 /obj/item/computer_hardware/hard_drive/role/cmo
 	name = "\improper Med-U DELUXE disk"
 	icon_state = "datadisk7"
 	disk_flags = DISK_MANIFEST | DISK_STATUS | DISK_CHEM | DISK_ROBOS | DISK_BUDGET
-	bot_access = list(
-		MED_BOT,
-	)
 
 /obj/item/computer_hardware/hard_drive/role/rd
 	name = "\improper Signal Ace DELUXE disk"
 	icon_state = "rndmajordisk"
 	disk_flags = DISK_ATMOS | DISK_MANIFEST | DISK_STATUS | DISK_CHEM | DISK_ROBOS | DISK_BUDGET | DISK_SIGNAL
-	bot_access = list(
-		FLOOR_BOT,
-		CLEAN_BOT,
-		MED_BOT,
-		FIRE_BOT,
-		VIBE_BOT,
-	)
 
 /obj/item/computer_hardware/hard_drive/role/captain
 	name = "\improper Value-PAK disk"
@@ -241,13 +190,3 @@
 	desc = "Now with 350% more value!" //Give the Captain...EVERYTHING! (Except Mime, Clown, and Syndie)
 	disk_flags = ~0
 	can_spam = TRUE
-	bot_access = list(
-		SEC_BOT,
-		ADVANCED_SEC_BOT,
-		MULE_BOT,
-		FLOOR_BOT,
-		CLEAN_BOT,
-		MED_BOT,
-		FIRE_BOT,
-		VIBE_BOT,
-	)

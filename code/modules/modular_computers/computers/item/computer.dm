@@ -66,8 +66,6 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	var/messenger_invisible = FALSE
 	/// The saved image used for messaging purposes
 	var/datum/picture/saved_image
-	/// The stored pAI device
-	var/obj/item/paicard/pai = null
 
 /obj/item/modular_computer/Initialize(mapload)
 	. = ..()
@@ -78,12 +76,10 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 		physical = src
 	comp_light_color = "#FFFFFF"
 	idle_threads = list()
-	if(looping_sound)
-		soundloop = new(src, enabled)
 	if(id)
 		id.UpdateDisplay()
 	update_icon()
-	Add_Messenger()
+	add_messenger()
 
 
 /obj/item/modular_computer/Destroy()
@@ -105,18 +101,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 >>>>>>> 7bb5888d550 (Modular Tablets: Converting PDAs to the NtOS System (#65755))
 	physical = null
 	remove_messenger()
-	if(istype(pai))
-		QDEL_NULL(pai)
 	return ..()
-
-/obj/item/modular_computer/pre_attack_secondary(atom/A, mob/living/user, params)
-	if(active_program?.tap(A, user, params))
-		user.do_attack_animation(A) //Emulate this animation since we kill the attack in three lines
-		playsound(loc, 'sound/weapons/tap.ogg', get_clamped_volume(), TRUE, -1) //Likewise for the tap sound
-		addtimer(CALLBACK(src, .proc/play_ping), 0.5 SECONDS, TIMER_UNIQUE) //Slightly delayed ping to indicate success
-		return SECONDARY_ATTACK_CANCEL_ATTACK_CHAIN
-	return ..()
-
 
 /// From [/datum/newscaster/feed_network/proc/save_photo]
 /obj/item/modular_computer/proc/save_photo(icon/photo)
@@ -438,6 +423,38 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	enabled = 0
 	update_icon()
 
+/**
+  * Toggles the computer's flashlight, if it has one.
+  *
+  * Called from ui_act(), does as the name implies.
+  * It is seperated from ui_act() to be overwritten as needed.
+*/
+/obj/item/modular_computer/proc/toggle_flashlight()
+	if(!has_light)
+		return FALSE
+	set_light_on(!light_on)
+	if(light_on)
+		set_light(comp_light_luminosity, 1, comp_light_color)
+	else
+		set_light(0)
+	return TRUE
+
+/**
+  * Sets the computer's light color, if it has a light.
+  *
+  * Called from ui_act(), this proc takes a color string and applies it.
+  * It is seperated from ui_act() to be overwritten as needed.
+  * Arguments:
+  ** color is the string that holds the color value that we should use. Proc auto-fails if this is null.
+*/
+/obj/item/modular_computer/proc/set_flashlight_color(color)
+	if(!has_light || !color)
+		return FALSE
+	comp_light_color = color
+	set_light_color(color)
+	update_light()
+	return TRUE
+
 /obj/item/modular_computer/screwdriver_act(mob/user, obj/item/tool)
 <<<<<<< HEAD
 	if(!length(all_components))
@@ -474,15 +491,6 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 /obj/item/modular_computer/attackby(obj/item/W as obj, mob/user as mob)
 	// Check for ID first
 	if(istype(W, /obj/item/card/id) && InsertID(W))
-		return
-
-	// Insert a PAI.
-	if(istype(W, /obj/item/paicard) && !pai)
-		if(!user.transferItemToLoc(W, src))
-			return
-		pai = W
-		pai.slotted = TRUE
-		to_chat(user, span_notice("You slot \the [W] into [src]."))
 		return
 
 	// Scan a photo.
@@ -544,8 +552,8 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 		return physical.Adjacent(neighbor)
 	return ..()
 
-/obj/item/modular_computer/proc/Add_Messenger()
+/obj/item/modular_computer/proc/add_messenger()
 	GLOB.TabletMessengers += src
 
-/obj/item/modular_computer/proc/Remove_Messenger()
+/obj/item/modular_computer/proc/remove_messenger()
 	GLOB.TabletMessengers -= src

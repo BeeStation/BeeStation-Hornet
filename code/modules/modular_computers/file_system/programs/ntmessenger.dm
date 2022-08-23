@@ -74,7 +74,7 @@
 		if(!drive)
 			continue
 		for(var/datum/computer_file/program/messenger/app in drive.stored_files)
-			if(!P.saved_identification || !P.saved_job || P.invisible || app.monitor_hidden)
+			if(!P.saved_identification || !P.saved_job || P.messenger_invisible || app.monitor_hidden)
 				continue
 			dictionary += P
 
@@ -141,20 +141,20 @@
 			return(UI_UPDATE)
 		if("PDA_sendMessage")
 			if(!sending_and_receiving)
-				to_chat(usr, span_notice("ERROR: Device has sending disabled."))
+				to_chat(usr, "<span class='notice'>ERROR: Device has sending disabled.</span>")
 				return
 			var/obj/item/modular_computer/target = locate(params["ref"])
 			if(!target)
 				return // we don't want tommy sending his messages to nullspace
 			if(!(target.saved_identification == params["name"] && target.saved_job == params["job"]))
-				to_chat(usr, span_notice("ERROR: User no longer exists."))
+				to_chat(usr, "<span class='notice'>ERROR: User no longer exists.</span>")
 				return
 
 			var/obj/item/computer_hardware/hard_drive/drive = target.all_components[MC_HDD]
 
 			for(var/datum/computer_file/program/messenger/app in drive.stored_files)
 				if(!app.sending_and_receiving && !sending_virus)
-					to_chat(usr, span_notice("ERROR: Device has receiving disabled."))
+					to_chat(usr, "<span class='notice'>ERROR: Device has receiving disabled.</span>")
 					return
 				if(sending_virus)
 					var/obj/item/computer_hardware/hard_drive/role/virus/disk = computer.all_components[MC_HDD_JOB]
@@ -202,13 +202,13 @@
 
 // Gets the input for a message being sent.
 
-/datum/computer_file/program/messenger/proc/msg_input(mob/living/U = usr, rigged = FALSE)
+/datum/computer_file/program/messenger/proc/msg_input(mob/living/U = usr)
 	var/t = null
 
 	if(mime_mode)
-		t = emoji_sanitize(tgui_input_text(U, "Enter emojis", "NT Messaging"))
+		t = emoji_sanitize(stripped_input(U, "Enter emojis", "NT Messaging"))
 	else
-		t = tgui_input_text(U, "Enter a message", "NT Messaging")
+		t = stripped_input(U, "Enter a message", "NT Messaging")
 
 	if (!t || !sending_and_receiving)
 		return
@@ -216,8 +216,8 @@
 		return
 	return sanitize(t)
 
-/datum/computer_file/program/messenger/proc/send_message(mob/living/user, list/obj/item/modular_computer/targets, everyone = FALSE, rigged = FALSE, fake_name = null, fake_job = null)
-	var/message = msg_input(user, rigged)
+/datum/computer_file/program/messenger/proc/send_message(mob/living/user, list/obj/item/modular_computer/targets, everyone = FALSE, fake_name = null, fake_job = null)
+	var/message = msg_input(user)
 	if(!message || !targets.len)
 		return FALSE
 	if((last_text && world.time < last_text + 10) || (everyone && last_text_everyone && world.time < last_text_everyone + 2 MINUTES))
@@ -245,7 +245,7 @@
 	var/list/string_targets = list()
 	for (var/obj/item/modular_computer/comp in targets)
 		if (comp.saved_identification && comp.saved_job)  // != src is checked by the UI
-			string_targets += STRINGIFY_PDA_TARGET(comp.saved_identification, comp.saved_job)
+			string_targets += "[comp.saved_identification] ([comp.saved_job])"
 
 	if (!string_targets.len)
 		return FALSE
@@ -257,14 +257,9 @@
 		"ref" = REF(computer),
 		"targets" = targets,
 		"emojis" = allow_emojis,
-		"rigged" = rigged,
 		"photo" = photo_path,
 		"automated" = FALSE,
 	))
-	if(rigged) //Will skip the message server and go straight to the hub so it can't be cheesed by disabling the message server machine
-		signal.data["rigged_user"] = REF(user) // Used for bomb logging
-		signal.server_type = /obj/machinery/telecomms/hub
-		signal.data["reject"] = FALSE // Do not refuse the message
 
 	signal.send_to_receivers()
 
@@ -289,15 +284,13 @@
 	message_data["photo"] = signal.data["photo"]
 
 	// Show it to ghosts
-	var/ghost_message = span_name("[message_data["name"]] </span><span class='game say'>[rigged ? "Rigged" : ""] PDA Message</span> --> [span_name("[signal.format_target()]")]: <span class='message'>[signal.data["message"]]")
+	var/ghost_message = span_name("[message_data["name"]] </span><span class='game say'>PDA Message</span> --> [span_name("[signal.format_target()]")]: <span class='message'>[signal.data["message"]]")
 	for(var/mob/M in GLOB.player_list)
 		if(isobserver(M) && (M.client?.prefs.chat_toggles & CHAT_GHOSTPDA))
 			to_chat(M, "[FOLLOW_LINK(M, user)] [ghost_message]")
 
 	// Log in the talk log
-	user.log_talk(message, LOG_PDA, tag="[rigged ? "Rigged" : ""] PDA: [initial(message_data["name"])] to [signal.format_target()]")
-	if(rigged)
-		log_bomber(user, "sent a rigged PDA message (Name: [message_data["name"]]. Job: [message_data["job"]]) to [english_list(string_targets)] [!is_special_character(user) ? "(SENT BY NON-ANTAG)" : ""]")
+	user.log_talk(message, LOG_PDA, tag="PDA: [initial(message_data["name"])] to [signal.format_target()]")
 	to_chat(user, span_info("PDA message sent to [signal.format_target()]: [signal.data["message"]]"))
 
 	if (ringer_status)
@@ -331,7 +324,7 @@
 		L = get(computer, /mob/living/silicon)
 
 	if(L && (L.stat == CONSCIOUS || L.stat == SOFT_CRIT))
-		var/reply = "(<a href='byond://?src=[REF(src)];choice=[signal.data["rigged"] ? "Mess_us_up" : "Message"];skiprefresh=1;target=[signal.data["ref"]]'>Reply</a>)"
+		var/reply = "(<a href='byond://?src=[REF(src)];choice=Message;skiprefresh=1;target=[signal.data["ref"]]'>Reply</a>)"
 		var/hrefstart
 		var/hrefend
 		if (isAI(L))
@@ -359,8 +352,3 @@
 		switch(href_list["choice"])
 			if("Message")
 				send_message(usr, list(locate(href_list["target"])))
-			if("Mess_us_up")
-				if(!HAS_TRAIT(src, TRAIT_PDA_CAN_EXPLODE))
-					var/obj/item/modular_computer/tablet/comp = computer
-					comp.explode(usr, from_message_menu = TRUE)
-					return

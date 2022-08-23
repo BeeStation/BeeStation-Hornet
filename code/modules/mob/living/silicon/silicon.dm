@@ -506,7 +506,7 @@
  * Arguments:
  * string: a string containing the message to log.
  */
-/mob/living/silicon/proc/log_event(string = "")
+/mob/living/silicon/proc/logevent(string = "")
 	if(!string)
 		return
 	if(stat == DEAD) //Dead silicons log no longer
@@ -517,6 +517,6 @@
 	var/mob/living/silicon/robot/robo = modularInterface.borgo
 	if(istype(robo))
 		modularInterface.borglog += "[station_time_timestamp()] - [string]"
-	var/datum/computer_file/program/robotact/program = modularInterface.get_robotact()
+	var/datum/computer_file/program/borg_self_monitor/program = modularInterface.get_self_monitoring()
 	if(program)
 		program.force_full_update()
