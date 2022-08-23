@@ -10,11 +10,15 @@ GLOBAL_DATUM_INIT(spaceTravelManager, /datum/space_travel_manager, new)
 
 	var/list/stored_transit_templates = list()
 
+	var/list/allowed_orbital_types = list()
+
 /datum/space_travel_manager/New()
 	deep_space_dirs = list(	TEXT_NORTH = list("x" = list("min" = 3, "max"= 3), "y" = list("min" = 1000, "max"= -1)),
 							TEXT_SOUTH = list("x" = list("min" = 3, "max"= 3), "y" = list("min" = -1, "max"= 1000)),
 							TEXT_EAST = list("x" = list("min" = -1, "max"= 1000), "y" = list("min" = 3, "max"= 3)),
 							TEXT_WEST = list("x" = list("min" = 1000, "max"= -1), "y" = list("min" = 3, "max"= 3)),)
+
+	allowed_orbital_types = list(/datum/orbital_object/z_linked/beacon/ruin, /datum/orbital_object/z_linked/station)
 
 /datum/space_travel_manager/proc/atom_entered_deep_space(atom/movable/AM, var/direction)
 
@@ -56,35 +60,39 @@ GLOBAL_DATUM_INIT(spaceTravelManager, /datum/space_travel_manager, new)
 			to_chat(world, "<span class='boldannounce'>CONSIDERING ZONE: [collision_zone]</span>")
 
 	while(collision_zones_to_consider.len > 0)
+
 		var/datum/orbital_object/orbital_object = pick_n_take(collision_zones_to_consider)
-		if(istype(orbital_object, /datum/orbital_object/z_linked))
+
+		if(is_type_in_list(orbital_object, allowed_orbital_types))
+
 			var/datum/orbital_object/z_linked/z_linked_object = orbital_object
-			var/z_level_to_travel = null
+			var/datum/space_level/z_level_to_travel = z_linked_object.linked_z_level == null ? null : z_linked_object.linked_z_level[1]
+
+			stored_transit_templates += send_to_transit(AM, direction)
+
 			if(istype(z_linked_object, /datum/orbital_object/z_linked/beacon/ruin))
+
 				var/datum/orbital_object/z_linked/beacon/ruin/ruin = z_linked_object
-				var/datum/space_level/space_level = ruin.linked_z_level == null ? null : ruin.linked_z_level[1]
 
-				stored_transit_templates += send_to_transit(AM, direction)
-
-				if(space_level == null)
+				if(z_level_to_travel == null)
 					ruin.assign_z_level()
 
-				space_level = ruin.linked_z_level[1]
-				z_level_to_travel = space_level.z_value
+				z_level_to_travel = ruin.linked_z_level[1]
 
 				SSzclear.temp_keep_z(AM.z)
-				SSzclear.temp_keep_z(z_level_to_travel)
+				SSzclear.temp_keep_z(z_level_to_travel.z_value)
 
 				var/start_time = world.time
-				UNTIL((!space_level.generating) || world.time > start_time + 3 MINUTES)
+				UNTIL((!z_level_to_travel.generating) || world.time > start_time + 3 MINUTES)
 
 			else if(istype(z_linked_object, /datum/orbital_object/z_linked/station))
 
-				z_level_to_travel = z_linked_object.linked_z_level[1].z_value
+				z_level_to_travel = z_linked_object.linked_z_level[1]
 
 
 			if(z_level_to_travel != null)
-				var/turf/T = locate(20, 20, z_level_to_travel)
+
+				var/turf/T = locate(20, 20, z_level_to_travel.z_value)
 				AM.forceMove(T)
 				break
 
@@ -94,11 +102,13 @@ GLOBAL_DATUM_INIT(spaceTravelManager, /datum/space_travel_manager, new)
 	var/datum/turf_reservation/space_transit_reservation
 
 	if(stored_transit_templates.len > 0)
+
 		space_transit_reservation = stored_transit_templates[1]
 		stored_transit_templates.Remove(space_transit_reservation)
 	else
 
 		if(space_travel_transit_template == null)
+
 			space_travel_transit_template = new()
 
 		space_transit_reservation = SSmapping.RequestBlockReservation(space_travel_transit_template.width, space_travel_transit_template.height)
