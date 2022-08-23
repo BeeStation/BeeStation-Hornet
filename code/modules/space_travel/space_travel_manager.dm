@@ -90,14 +90,16 @@ GLOBAL_DATUM_INIT(spaceTravelManager, /datum/space_travel_manager, new)
 
 
 /datum/space_travel_manager/proc/send_to_transit(var/mob/living/L, var/direction)
-	space_travel_transit_template = new()
+
+	if(space_travel_transit_template == null)
+		space_travel_transit_template = new()
+
 	var/datum/turf_reservation/spaceTransitReservation = SSmapping.RequestBlockReservation(space_travel_transit_template.width, space_travel_transit_template.height)
 	space_travel_transit_template.load(locate(spaceTransitReservation.bottom_left_coords[1], spaceTransitReservation.bottom_left_coords[2], spaceTransitReservation.bottom_left_coords[3]))
 	storedTransitTemplates += space_travel_transit_template
 	L.forceMove(locate(spaceTransitReservation.bottom_left_coords[1] + space_travel_transit_template.landingZoneRelativeX, spaceTransitReservation.bottom_left_coords[2] + space_travel_transit_template.landingZoneRelativeY, spaceTransitReservation.bottom_left_coords[3]))
-	var/area/A = get_area(L.client.eye)
-	A.parallax_movedir = direction
-	L.update_parallax_teleport()
+
+	L.hud_used.set_parallax_movedir(direction, FALSE)
 	sleep(100)
 
 /datum/map_template/space_travel_transit
