@@ -55,10 +55,11 @@
 	if(disk_flags & DISK_CARGO)
 		progs_to_store += new /datum/computer_file/program/bounty(src)
 
-	// TODO tablet-pda
-	//if(disk_flags & DISK_SIGNAL)
-	//	progs_to_store += new /datum/computer_file/program/signaler(src)
 
+	if(disk_flags & DISK_SIGNAL)
+		progs_to_store += new /datum/computer_file/program/signaller(src)
+
+	// TODO tablet-pda
 	//if(disk_flags & DISK_NEWS)
 	//	progs_to_store += new /datum/computer_file/program/newscaster(src)
 
