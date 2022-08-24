@@ -1,31 +1,35 @@
-/datum/computer_file/program/signaler
-	filename = "signaler"
-	filedesc = "SignalCommander"
+/datum/computer_file/program/signaller
+	filename = "signaller"
+	filedesc = "Remote Signaller"
 	category = PROGRAM_CATEGORY_MISC
 	program_icon_state = "signal"
 	extended_desc = "A small built-in frequency app that sends out signaller signals with the appropriate hardware."
 	size = 2
-	tgui_id = "NtosSignaler"
+	tgui_id = "NtosSignaller"
 	program_icon = "satellite-dish"
 	usage_flags = PROGRAM_TABLET | PROGRAM_LAPTOP
 	///What is the saved signal frequency?
 	var/signal_frequency = FREQ_SIGNALER
 	/// What is the saved signal code?
 	var/signal_code = DEFAULT_SIGNALER_CODE
-	/// Radio connection datum used by signalers.
+	/// Radio connection datum used by signallers.
 	var/datum/radio_frequency/radio_connection
 
-/datum/computer_file/program/signaler/run_program(mob/living/user)
+/datum/computer_file/program/signaller/New()
+	set_frequency(signal_frequency)
+	return ..()
+
+/datum/computer_file/program/signaller/run_program(mob/living/user)
 	. = ..()
 	if (!.)
 		return
-	if(!computer?.get_modular_computer_part(MC_SIGNALER)) //Giving a clue to users why the program is spitting out zeros.
+	if(!computer?.get_modular_computer_part(MC_SIGNALLER)) //Giving a clue to users why the program is spitting out zeros.
 		to_chat(user, "<span class='warning'>\The [computer] flashes an error: \"hardware\\signal_hardware\\startup.bin -- file not found\".</span>")
 
 
-/datum/computer_file/program/signaler/ui_data(mob/user)
+/datum/computer_file/program/signaller/ui_data(mob/user)
 	var/list/data = get_header_data()
-	var/obj/item/computer_hardware/radio_card/sensor = computer?.get_modular_computer_part(MC_SIGNALER)
+	var/obj/item/computer_hardware/radio_card/sensor = computer?.get_modular_computer_part(MC_SIGNALLER)
 	if(sensor?.check_functionality())
 		data["frequency"] = signal_frequency
 		data["code"] = signal_code
@@ -33,11 +37,11 @@
 		data["maxFrequency"] = MAX_FREE_FREQ
 	return data
 
-/datum/computer_file/program/signaler/ui_act(action, list/params)
+/datum/computer_file/program/signaller/ui_act(action, list/params)
 	. = ..()
 	if(.)
 		return
-	var/obj/item/computer_hardware/radio_card/sensor = computer?.get_modular_computer_part(MC_SIGNALER)
+	var/obj/item/computer_hardware/radio_card/sensor = computer?.get_modular_computer_part(MC_SIGNALLER)
 	if(!(sensor?.check_functionality()))
 		playsound(src, 'sound/machines/scanbuzz.ogg', 100, FALSE)
 		return
@@ -60,7 +64,7 @@
 				signal_code = initial(signal_code)
 			. = TRUE
 
-/datum/computer_file/program/signaler/proc/signal()
+/datum/computer_file/program/signaller/proc/signal()
 	if(!radio_connection)
 		return
 
@@ -72,10 +76,10 @@
 		logging_data = "[time] <B>:</B> [usr.key] used [src] @ location ([T.x],[T.y],[T.z]) <B>:</B> [format_frequency(signal_frequency)]/[signal_code]"
 		GLOB.lastsignalers.Add(logging_data)
 
-	var/datum/signal/signal = new(list("code" = signal_code), logging_data = logging_data)
-	radio_connection.post_signal(src, signal)
+	var/datum/signal/signal = new(list("code" = signal_code))
+	radio_connection.post_signal(src, signal, filter = RADIO_SIGNALER)
 
-/datum/computer_file/program/signaler/proc/set_frequency(new_frequency)
+/datum/computer_file/program/signaller/proc/set_frequency(new_frequency)
 	SSradio.remove_object(src, signal_frequency)
 	signal_frequency = new_frequency
 	radio_connection = SSradio.add_object(src, signal_frequency, RADIO_SIGNALER)

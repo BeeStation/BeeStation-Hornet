@@ -12,6 +12,6 @@
 	desc = "An integrated signaling assembly for computers to send an outgoing frequency signal. Required by certain programs."
 	icon_state = "signal_card"
 	w_class = WEIGHT_CLASS_TINY
-	device_type = MC_SIGNALER
+	device_type = MC_SIGNALLER
 	expansion_hw = TRUE
 	power_usage = 10
