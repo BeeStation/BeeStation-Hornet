@@ -78,9 +78,9 @@
 		access_okay = FALSE
 	else if(id_card && !Bot.bot_core.check_access(id_card))
 		access_okay = FALSE
-	if (access_okay && action in standard_actions)
+	if (access_okay && (action in standard_actions))
 		Bot.bot_control(action, current_user, id_card ? id_card.access : current_access)
-	if (access_okay && action in MULE_actions)
+	if (access_okay && (action in MULE_actions))
 		Bot.bot_control(action, current_user, id_card ? id_card.access : current_access, TRUE)
 	switch(action)
 		if("summon")
