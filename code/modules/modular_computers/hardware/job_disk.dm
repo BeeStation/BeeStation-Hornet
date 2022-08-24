@@ -32,9 +32,8 @@
 	if(disk_flags & DISK_SEC)
 		progs_to_store += new /datum/computer_file/program/records/security(src)
 
-	// TODO tablet-pda
-	//if(disk_flags & DISK_JANI)
-	//	progs_to_store += new /datum/computer_file/program/radar/custodial_locator(src)
+	if(disk_flags & DISK_JANI)
+		progs_to_store += new /datum/computer_file/program/radar/custodial_locator(src)
 
 	if((disk_flags & DISK_CHEM) || (disk_flags & DISK_MED))
 		var/datum/computer_file/program/phys_scanner/scanner = new(src)
@@ -59,7 +58,9 @@
 	if(disk_flags & DISK_SIGNAL)
 		progs_to_store += new /datum/computer_file/program/signaller(src)
 
-	// TODO tablet-pda
+	// TODO tablet-pda - the newscaster needs to be updated to TGUI for this to exist.
+	// Port: tg's #65038 - plus #65774 and #65799 possibly
+	// Then port #66035 for the program
 	//if(disk_flags & DISK_NEWS)
 	//	progs_to_store += new /datum/computer_file/program/newscaster(src)
 
