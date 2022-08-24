@@ -22,6 +22,7 @@ export const SignalerContent = (props, context) => {
     frequency,
     minFrequency,
     maxFrequency,
+    connection,
   } = data;
   return (
     <Section>
@@ -89,6 +90,7 @@ export const SignalerContent = (props, context) => {
             icon="arrow-up"
             content="Send Signal"
             textAlign="center"
+            disabled={!connection}
             onClick={() => act('signal')} />
         </Grid.Column>
       </Grid>

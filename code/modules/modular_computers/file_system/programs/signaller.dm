@@ -35,12 +35,12 @@
 		data["code"] = signal_code
 		data["minFrequency"] = MIN_FREE_FREQ
 		data["maxFrequency"] = MAX_FREE_FREQ
+	data["connection"] = !!radio_connection
 	return data
 
 /datum/computer_file/program/signaller/ui_act(action, list/params)
-	. = ..()
-	if(.)
-		return
+	if(..())
+		return TRUE
 	var/obj/item/computer_hardware/radio_card/sensor = computer?.get_modular_computer_part(MC_SIGNALLER)
 	if(!(sensor?.check_functionality()))
 		playsound(src, 'sound/machines/scanbuzz.ogg', 100, FALSE)
@@ -66,18 +66,31 @@
 
 /datum/computer_file/program/signaller/proc/signal()
 	if(!radio_connection)
+		playsound(src, 'sound/machines/scanbuzz.ogg', 100, FALSE)
 		return
 
 	var/time = time2text(world.realtime,"hh:mm:ss")
-	var/turf/T = get_turf(src)
-
-	var/logging_data
+	var/turf/T = get_turf(computer)
 	if(usr)
-		logging_data = "[time] <B>:</B> [usr.key] used [src] @ location ([T.x],[T.y],[T.z]) <B>:</B> [format_frequency(signal_frequency)]/[signal_code]"
-		GLOB.lastsignalers.Add(logging_data)
+		GLOB.lastsignalers.Add("[time] <B>:</B> [usr.key] used [src] @ location ([T.x],[T.y],[T.z]) <B>:</B> with frequency: [format_frequency(signal_frequency)]/[signal_code]")
+		log_telecomms("[time] <B>:</B> [usr.key] used [src] @ location [AREACOORD(T)] <B>:</B> with frequency: [format_frequency(signal_frequency)]/[signal_code]")
+		message_admins("<B>:</B> [usr.key] used [src] @ location [AREACOORD(T)] <B>:</B> with frequency: [format_frequency(signal_frequency)]/[signal_code]")
 
 	var/datum/signal/signal = new(list("code" = signal_code))
-	radio_connection.post_signal(src, signal, filter = RADIO_SIGNALER)
+	radio_connection.post_signal(src, signal)
+
+/datum/computer_file/program/signaller/proc/receive_signal(datum/signal/signal)
+	. = FALSE
+	if(!signal)
+		return
+	if(signal.data["code"] != signal_code)
+		return
+	var/obj/item/computer_hardware/radio_card/sensor = computer?.get_modular_computer_part(MC_SIGNALLER)
+	if(!(sensor?.check_functionality()))
+		return
+	computer.audible_message("[icon2html(computer, hearers(computer))] *beep* *beep* *beep*", null, 1)
+	playsound(get_turf(computer), 'sound/machines/triple_beep.ogg', ASSEMBLY_BEEP_VOLUME, TRUE)
+	return TRUE
 
 /datum/computer_file/program/signaller/proc/set_frequency(new_frequency)
 	SSradio.remove_object(src, signal_frequency)
