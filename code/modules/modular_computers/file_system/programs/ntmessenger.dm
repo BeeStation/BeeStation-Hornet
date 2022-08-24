@@ -69,7 +69,7 @@
 	else
 		sortmode = /proc/cmp_pdaname_asc
 
-	for(var/obj/item/modular_computer/P in sort_list(GLOB.TabletMessengers, sortmode))
+	for(var/obj/item/modular_computer/P in sortList(GLOB.TabletMessengers, sortmode))
 		var/obj/item/computer_hardware/hard_drive/drive = P.all_components[MC_HDD]
 		if(!drive)
 			continue
@@ -102,7 +102,7 @@
 
 	switch(action)
 		if("PDA_ringSet")
-			var/t = tgui_input_text(usr, "Enter a new tablet ID", "Computer ID", "", 20)
+			var/t = stripped_input(usr, "Enter a new tablet ID", "Computer ID", "", 20)
 			var/mob/living/usr_mob = usr
 			if(in_range(computer, usr_mob) && computer.loc == usr_mob && t)
 				if(SEND_SIGNAL(computer, COMSIG_TABLET_CHANGE_ID, usr_mob, t) & COMPONENT_STOP_RINGTONE_CHANGE)
@@ -127,7 +127,7 @@
 			return(UI_UPDATE)
 		if("PDA_sendEveryone")
 			if(!sending_and_receiving)
-				to_chat(usr, span_notice("ERROR: Device has sending disabled."))
+				to_chat(usr, "<span class='notice'>ERROR: Device has sending disabled.</span>")
 				return
 
 			var/list/targets = list()
@@ -220,26 +220,22 @@
 	var/message = msg_input(user)
 	if(!message || !targets.len)
 		return FALSE
-	if((last_text && world.time < last_text + 10) || (everyone && last_text_everyone && world.time < last_text_everyone + 2 MINUTES))
+	if((last_text && world.time < last_text + 10) || (everyone && last_text_everyone && world.time < last_text_everyone + 2 MINUTES)) // TODO tablet-pda
 		return FALSE
+	if(prob(1))
+		message += "\nSent from my PDA"
 
+	// Filter
+	if(CHAT_FILTER_CHECK(message))
+		to_chat(user, "<span class='warning'>ERROR: Prohibited word(s) detected in message.</span>")
+		return
+
+	// Check for jammers
 	var/turf/position = get_turf(computer)
 	for(var/obj/item/jammer/jammer as anything in GLOB.active_jammers)
 		var/turf/jammer_turf = get_turf(jammer)
 		if(position?.z == jammer_turf.z && (get_dist(position, jammer_turf) <= jammer.range))
 			return FALSE
-
-	var/list/filter_result = CAN_BYPASS_FILTER(user) ? null : is_ic_filtered_for_pdas(message)
-	if (filter_result)
-		REPORT_CHAT_FILTER_TO_USER(user, filter_result)
-		return FALSE
-
-	var/list/soft_filter_result = CAN_BYPASS_FILTER(user) ? null : is_soft_ic_filtered_for_pdas(message)
-	if (soft_filter_result)
-		if(tgui_alert(usr,"Your message contains \"[soft_filter_result[CHAT_FILTER_INDEX_WORD]]\". \"[soft_filter_result[CHAT_FILTER_INDEX_REASON]]\", Are you sure you want to send it?", "Soft Blocked Word", list("Yes", "No")) != "Yes")
-			return FALSE
-		message_admins("[ADMIN_LOOKUPFLW(usr)] has passed the soft filter for \"[soft_filter_result[CHAT_FILTER_INDEX_WORD]]\" they may be using a disallowed term in PDA messages. Message: \"[html_encode(message)]\"")
-		log_admin_private("[key_name(usr)] has passed the soft filter for \"[soft_filter_result[CHAT_FILTER_INDEX_WORD]]\" they may be using a disallowed term in PDA messages. Message: \"[message]\"")
 
 	// Send the signal
 	var/list/string_targets = list()
@@ -265,16 +261,18 @@
 
 	// If it didn't reach, note that fact
 	if (!signal.data["done"])
-		to_chat(user, span_notice("ERROR: Server isn't responding."))
+		to_chat(user, "<span class='notice'>ERROR: Server isn't responding.</span>")
+		// TODO tablet-pda
 		//if(!silent)
 			//playsound(src, 'sound/machines/terminal_error.ogg', 15, TRUE)
 		return FALSE
 
+	var/target_text = signal.format_target()
 	if(allow_emojis)
 		message = emoji_parse(message)//already sent- this just shows the sent emoji as one to the sender in the to_chat
 		signal.data["message"] = emoji_parse(signal.data["message"])
 
-	// Log it in our logs
+	// Create log entry
 	var/list/message_data = list()
 	message_data["name"] = signal.data["name"]
 	message_data["job"] = signal.data["job"]
@@ -284,14 +282,14 @@
 	message_data["photo"] = signal.data["photo"]
 
 	// Show it to ghosts
-	var/ghost_message = span_name("[message_data["name"]] </span><span class='game say'>PDA Message</span> --> [span_name("[signal.format_target()]")]: <span class='message'>[signal.data["message"]]")
+	var/ghost_message = "<span class='name'>[message_data["name"]] </span><span class='game say'>PDA Message</span> --> <span class='name'>[target_text]</span>: <span class='message'>[signal.data["message"]]</span>"
 	for(var/mob/M in GLOB.player_list)
 		if(isobserver(M) && (M.client?.prefs.chat_toggles & CHAT_GHOSTPDA))
 			to_chat(M, "[FOLLOW_LINK(M, user)] [ghost_message]")
 
 	// Log in the talk log
-	user.log_talk(message, LOG_PDA, tag="PDA: [initial(message_data["name"])] to [signal.format_target()]")
-	to_chat(user, span_info("PDA message sent to [signal.format_target()]: [signal.data["message"]]"))
+	user.log_talk(message, LOG_PDA, tag="PDA: [initial(message_data["name"])] to [target_text]")
+	to_chat(user, "<span class='info'>PDA message sent to [target_text]: [signal.data["message"]]</span>")
 
 	if (ringer_status)
 		computer.send_sound()
@@ -302,6 +300,7 @@
 		message_data["job"] = ""
 		last_text_everyone = world.time
 
+	// Log it in the local PDA's logs
 	messages += list(message_data)
 	return TRUE
 

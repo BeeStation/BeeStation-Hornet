@@ -230,10 +230,11 @@
 // Round start tablets
 
 /obj/item/modular_computer/tablet/pda
+	icon = 'icons/obj/pda.dmi'
 	icon_state = "pda"
-
-	greyscale_config = /datum/greyscale_config/tablet
-	greyscale_colors = "#999875#a92323"
+	worn_icon_state = "electronic"
+	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
 
 	bypass_state = TRUE
 
@@ -248,6 +249,8 @@
 	if(card)
 		if(card.stored_card)
 			. += mutable_appearance(init_icon, "id_overlay")
+		if(inserted_item)
+			. += mutable_appearance(init_icon, "insert_overlay")
 	if(light_on)
 		. += mutable_appearance(init_icon, "light_overlay")
 

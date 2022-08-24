@@ -32,7 +32,7 @@
 	if(disk_flags & DISK_SEC)
 		progs_to_store += new /datum/computer_file/program/records/security(src)
 
-	// TODO
+	// TODO tablet-pda
 	//if(disk_flags & DISK_JANI)
 	//	progs_to_store += new /datum/computer_file/program/radar/custodial_locator(src)
 
@@ -53,9 +53,9 @@
 		progs_to_store += robo
 
 	if(disk_flags & DISK_CARGO)
-		progs_to_store += new /datum/computer_file/program/shipping(src)
+		progs_to_store += new /datum/computer_file/program/bounty(src)
 
-	// TODO
+	// TODO tablet-pda
 	//if(disk_flags & DISK_SIGNAL)
 	//	progs_to_store += new /datum/computer_file/program/signaler(src)
 
@@ -101,6 +101,11 @@
 	name = "\improper ChemWhiz disk"
 	icon_state = "datadisk7"
 	disk_flags = DISK_CHEM
+
+/obj/item/computer_hardware/hard_drive/role/brig_physician
+	name = "\improper R.O.B.U.S.T. MED-U disk"
+	icon_state = "datadisk9"
+	disk_flags = DISK_MANIFEST | DISK_MED | DISK_ROBOS
 
 /obj/item/computer_hardware/hard_drive/role/security
 	name = "\improper R.O.B.U.S.T. disk"

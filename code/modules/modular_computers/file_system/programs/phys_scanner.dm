@@ -31,6 +31,8 @@
 	if(current_mode & DISK_MED)
 		return "Health"
 
+// TODO tablet-pda
+/*
 /datum/computer_file/program/phys_scanner/tap(atom/A, mob/living/user, params)
 	. = ..()
 
@@ -51,7 +53,7 @@
 			if(istype(carbon))
 				carbon.visible_message("<span class='notice'>[user] analyzes [A]'s vitals.</span>")
 				last_record = healthscan(user, carbon, 1, tochat = FALSE)
-
+*/
 /datum/computer_file/program/phys_scanner/ui_act(action, list/params, datum/tgui/ui)
 	. = ..()
 	if(.)

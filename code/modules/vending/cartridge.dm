@@ -10,11 +10,12 @@
 					/obj/item/computer_hardware/hard_drive/role/engineering = 10,
 					/obj/item/computer_hardware/hard_drive/role/security = 10,
 					/obj/item/computer_hardware/hard_drive/role/janitor = 10,
-					/obj/item/computer_hardware/hard_drive/role/signal/toxins = 10,
+					/obj/item/computer_hardware/hard_drive/role/signal/ordnance = 10,
 					/obj/item/modular_computer/tablet/pda/heads = 10,
 					/obj/item/computer_hardware/hard_drive/role/captain = 3,
 					/obj/item/computer_hardware/hard_drive/role/quartermaster = 10)
-	premium = list(/obj/item/computer_hardware/hard_drive/role/annoyance/lesser = 3)
+	// TODO tablet-pda
+	//premium = list(/obj/item/computer_hardware/hard_drive/role/annoyance/lesser = 3)
 	refill_canister = /obj/item/vending_refill/cart
 	default_price = 50
 	extra_price = 100
