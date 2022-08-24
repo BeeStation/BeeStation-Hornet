@@ -12,11 +12,18 @@ GLOBAL_DATUM_INIT(spaceTravelManager, /datum/space_travel_manager, new)
 
 	var/list/allowed_orbital_types = list()
 
+	var/list/arrival_dirs = list()
+
 /datum/space_travel_manager/New()
 	deep_space_dirs = list(	TEXT_NORTH = list("x" = list("min" = 3, "max"= 3), "y" = list("min" = 1000, "max"= -1)),
 							TEXT_SOUTH = list("x" = list("min" = 3, "max"= 3), "y" = list("min" = -1, "max"= 1000)),
 							TEXT_EAST = list("x" = list("min" = -1, "max"= 1000), "y" = list("min" = 3, "max"= 3)),
 							TEXT_WEST = list("x" = list("min" = 1000, "max"= -1), "y" = list("min" = 3, "max"= 3)),)
+
+	arrival_dirs = list(TEXT_NORTH = list("x" = 0, "y" = 2),
+						TEXT_SOUTH = list("x" = 0, "y" = world.maxy - 1),
+						TEXT_EAST = list("x" = 2, "y" = 0),
+						TEXT_WEST = list("x" = world.maxx - 1, "y" = 0),)
 
 	allowed_orbital_types = list(/datum/orbital_object/z_linked/beacon/ruin, /datum/orbital_object/z_linked/station)
 
@@ -25,7 +32,10 @@ GLOBAL_DATUM_INIT(spaceTravelManager, /datum/space_travel_manager, new)
 	if(!is_space_travel_allowed)
 		return
 
-	if(!istype(AM, /mob/living))
+	var/mob/living/L = istype(AM, /mob/living) ? AM : null
+
+	if(!istype(AM, /mob/living) || L != null && L.stat == DEAD)
+		var/mob/living
 		var/turf/T = pick(block(locate(20, 20, SSmapping.trash_level.z_value), locate(200, 200, SSmapping.trash_level.z_value)))
 		to_chat(world, "TRASH TELEPORTED TO TURF: [T]")
 		AM.forceMove(T)
@@ -52,6 +62,9 @@ GLOBAL_DATUM_INIT(spaceTravelManager, /datum/space_travel_manager, new)
 	var/current_y_min = current_collision_zone["y"] - _dir["y"]["min"]
 	var/current_y_max = current_collision_zone["y"] + _dir["y"]["max"]
 
+	var/departure_x = AM.x
+	var/departure_y = AM.y
+
 	for(var/collision_zone in collision_zones)
 		collision_zone_coords = splittext(collision_zone, ",")
 
@@ -65,6 +78,7 @@ GLOBAL_DATUM_INIT(spaceTravelManager, /datum/space_travel_manager, new)
 
 		if(is_type_in_list(orbital_object, allowed_orbital_types))
 
+			handle_travel_cost(AM)
 			var/datum/orbital_object/z_linked/z_linked_object = orbital_object
 			var/datum/space_level/z_level_to_travel = z_linked_object.linked_z_level == null ? null : z_linked_object.linked_z_level[1]
 
@@ -92,7 +106,9 @@ GLOBAL_DATUM_INIT(spaceTravelManager, /datum/space_travel_manager, new)
 
 			if(z_level_to_travel != null)
 
-				var/turf/T = locate(20, 20, z_level_to_travel.z_value)
+				var/arrival_x = arrival_dirs["[direction]"]["x"] == 0 ? departure_x : arrival_dirs["[direction]"]["x"]
+				var/arrival_y = arrival_dirs["[direction]"]["y"] == 0 ? departure_y : arrival_dirs["[direction]"]["y"]
+				var/turf/T = locate(arrival_x, arrival_y, z_level_to_travel.z_value)
 				AM.forceMove(T)
 				break
 
@@ -121,6 +137,16 @@ GLOBAL_DATUM_INIT(spaceTravelManager, /datum/space_travel_manager, new)
 	sleep(100)
 
 	return space_transit_reservation
+
+/datum/space_travel_manager/proc/handle_travel_cost(var/mob/living/L)
+	var/list/mob_contents = L.get_contents()
+
+	for(var/item in mob_contents)
+
+		if(istype(item, /obj/item/tank))
+			var/obj/item/tank/tank = item
+			to_chat(world, "<span class='boldannounce'>O2 contents: [tank.air_contents.get_moles(GAS_O2)]</span>")
+	var/test
 
 /datum/map_template/space_travel_transit
 	name = "Space travel transit"
