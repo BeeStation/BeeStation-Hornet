@@ -2,14 +2,14 @@ Any time you make a change to the schema files, remember to increment the databa
 
 The latest database version is 5.9; The query to update the schema revision table is:
 
-INSERT INTO `schema_revision` (`major`, `minor`) VALUES (5, 10);
+INSERT INTO `schema_revision` (`major`, `minor`) VALUES (6, 0);
 or
-INSERT INTO `SS13_schema_revision` (`major`, `minor`) VALUES (5, 10);
+INSERT INTO `SS13_schema_revision` (`major`, `minor`) VALUES (6, 0);
 
 In any query remember to add a prefix to the table names if you use one.
 
 -----------------------------------------------------
-Version 6.0, 2022-08-23 by AffectedArc07
+Version 6.0, 23 August 2022 by AffectedArc07
 
 Fully refactors the preferences system. You will want to run tools/preferences_importer
 
