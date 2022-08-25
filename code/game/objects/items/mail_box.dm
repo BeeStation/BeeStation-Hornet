@@ -27,20 +27,19 @@
 
 /obj/machinery/mailbox/attack_hand(mob/living/carbon/user)
 	if(allowed(user) && active_slots)
-		var/special_slot = input("Who's mail would you like to access?", "Mail", null) as null|anything in active_slots
+		var/datum/mail_slot/special_slot = input("Who's mail would you like to access?", "Mail", null) as null|anything in active_slots
 		special_slot.access_mail(user)
-		return
 
-	if(!user.real_name in active_slots)
+	if(!(user.real_name in active_slots))
 		to_chat(user, "<span class='notice'>You look through the tabs, but you have no mail!</span>")
 		return
 
-	var/datum/mail_slot/personal_slot = active_slots[user.real_name]
+	var/datum/mail_slot/personal_slot = special_slot || active_slots[user.real_name]
 	personal_slot.access_mail(user)
 
 /obj/machinery/mailbox/attack_by(obj/item/I, mob/living/user, params)
 	if(istype(I, /obj/item/mail))
-		if(!user.real_name in active_slots)
+		if(!(user.real_name in active_slots))
 			var/datum/mail_slot/m = new(src, user)
 			active_slots[user.real_name] = m
 		else
@@ -58,15 +57,8 @@
 	name = reader.name
 
 /datum/mail_slot/proc/insert_mail(obj/item/mail/mail)
-	if(mail?.recipient_ref)
-		var/datum/mind/recipient = recipient_ref.resolve()
-
-	if(name != recipient.name)
-		return
-
 	mail_stack += mail
 	mail.forceMove(src)
-	return TRUE
 
 /datum/mail_slot/proc/access_mail(mob/living/carbon/reader)
 	var/take_out = input("Mail to take out?", "Mail", null) as null|anything in mail_stack
