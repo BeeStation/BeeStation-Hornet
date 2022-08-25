@@ -45,7 +45,11 @@ GLOBAL_DATUM_INIT(spaceTravelManager, /datum/space_travel_manager, new)
 	if(!do_after(AM, 20, target = AM))
 		return
 
-	var/list/current_collision_zone = SSorbits.get_collision_zone_by_zlevel(AM.z)
+	var/datum/space_level/current_space_level = SSmapping.z_list[AM.z]
+
+	var/list/current_collision_zone = SSorbits.get_collision_zone_by_zlevel(current_space_level)
+
+	var/datum/orbital_object/current_orbital_object = current_space_level.orbital_body
 
 	var/datum/orbital_map/primary_orbital_map = SSorbits.orbital_maps[SSorbits.orbital_maps[1]]
 
@@ -78,9 +82,12 @@ GLOBAL_DATUM_INIT(spaceTravelManager, /datum/space_travel_manager, new)
 
 		if(is_type_in_list(orbital_object, allowed_orbital_types))
 
-			handle_travel_cost(AM)
 			var/datum/orbital_object/z_linked/z_linked_object = orbital_object
 			var/datum/space_level/z_level_to_travel = z_linked_object.linked_z_level == null ? null : z_linked_object.linked_z_level[1]
+
+			//Not enough O2 to travel there? Find something else
+			if(!handle_travel_cost(AM, current_orbital_object, orbital_object))
+				continue
 
 			stored_transit_templates += send_to_transit(AM, direction)
 
@@ -138,15 +145,41 @@ GLOBAL_DATUM_INIT(spaceTravelManager, /datum/space_travel_manager, new)
 
 	return space_transit_reservation
 
-/datum/space_travel_manager/proc/handle_travel_cost(var/mob/living/L)
+/datum/space_travel_manager/proc/handle_travel_cost(var/mob/living/L, var/datum/orbital_object/current_orbital_object, var/datum/orbital_object/target_orbital_object)
+
+	. = TRUE
+
 	var/list/mob_contents = L.get_contents()
+
+	var/list/tanks = list()
+
+	var/distance = current_orbital_object.position.DistanceTo(target_orbital_object.position)
+
+	var/cost_in_moles = distance / 100
 
 	for(var/item in mob_contents)
 
 		if(istype(item, /obj/item/tank))
 			var/obj/item/tank/tank = item
-			to_chat(world, "<span class='boldannounce'>O2 contents: [tank.air_contents.get_moles(GAS_O2)]</span>")
-	var/test
+			var/moles_in_tank = tank.air_contents.get_moles(GAS_O2)
+			var/amount_to_take = cost_in_moles - moles_in_tank > 0 ? moles_in_tank : moles_in_tank - cost_in_moles
+			if(moles_in_tank < cost_in_moles || tanks.len == 0)
+				tanks["[tanks.len]"] = list("tank" = tank, "moles" = tank.air_contents.get_moles(GAS_O2))
+				tank.air_contents.adjust_moles(GAS_O2, -amount_to_take)
+			cost_in_moles -= amount_to_take
+
+
+	//Not enough juice to travel
+	if(cost_in_moles > 0)
+
+		for(var/key in tanks)
+			var/obj/item/tank/tank = tanks[key]["tank"]
+			tank.air_contents.adjust_moles(GAS_O2, tanks[key]["moles"])
+
+
+		. = FALSE
+
+	return .
 
 /datum/map_template/space_travel_transit
 	name = "Space travel transit"
@@ -161,4 +194,3 @@ GLOBAL_DATUM_INIT(spaceTravelManager, /datum/space_travel_manager, new)
     has_gravity = TRUE
     teleport_restriction = TELEPORT_ALLOW_NONE
     area_flags = HIDDEN_AREA
-    //dynamic_lighting = DYNAMIC_LIGHTING_FORCED

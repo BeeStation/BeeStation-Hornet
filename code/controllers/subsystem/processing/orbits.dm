@@ -229,12 +229,11 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 			))
 	return data
 
-/datum/controller/subsystem/processing/orbits/proc/get_collision_zone_by_zlevel(var/zlevel)
+/datum/controller/subsystem/processing/orbits/proc/get_collision_zone_by_zlevel(var/datum/space_level/space_level)
 
-	if(zlevel > SSmapping.z_list.len)
+	if(!istype(space_level, /datum/space_level/))
 		return null
 
-	var/datum/space_level/space_level = SSmapping.z_list[zlevel]
 	var/datum/orbital_object/z_linked/body = space_level.orbital_body
 
 	if(body == null)
