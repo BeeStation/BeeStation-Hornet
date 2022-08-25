@@ -10,7 +10,7 @@
 	typepath = /datum/round_event/cola_bot
 	weight = 20
 	min_players = 3
-	can_malf_fake_alert = TRUE
+	can_malf_fake_alert = FALSE
 	var/atom/special_target
 
 /datum/round_event_control/cola_bot/admin_setup()
@@ -26,7 +26,7 @@
 	announceWhen = 0
 
 /datum/round_event/cola_bot/announce(fake)
-	priority_announce("After many negotiations, Robust Softdrinks has agreed to sponsor our station, in return for supplying specially modified medical bots. Nanotrasen and Robust softdrinks are not responsible for any injuries or death that may occur as a result.", "General Alert", SSstation.announcer.get_rand_alert_sound())
+	priority_announce("After many negotiations, Robust Softdrinks has agreed to sponsor our station, in return for supplying specially modified medical bots. Nanotrasen and Robust Softdrinks are not responsible for any injuries or death that may occur as a result.", "General Alert", SSstation.announcer.get_rand_alert_sound())
 
 
 /datum/round_event/cola_bot/start()

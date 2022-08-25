@@ -618,9 +618,9 @@ GLOBAL_VAR(medibot_unique_id_gen)
 	icon_state = "colabot0"
 	radio_key = /obj/item/encryptionkey/medical_sponsor  // grants cargo
 	COOLDOWN_STATIC_DECLARE(fund)
-	var/static/budget = 1000  // initial value (will get refilled instantly)
-	var/static/refill = 1000
-	var/payout = 250  // at start, uses entire budget in 8 heals
+	var/static/bot_budget = 1000  // initial value (will get refilled instantly)
+	var/static/bot_budget_refill_size = 1000
+	var/cola_cost = 250  // at start, uses entire budget in 8 heals
 
 /mob/living/simple_animal/bot/medbot/cola/New()
 	START_PROCESSING(SSobj, src)
@@ -657,9 +657,9 @@ GLOBAL_VAR(medibot_unique_id_gen)
 		icon_state = "colabot1"
 
 /mob/living/simple_animal/bot/medbot/cola/proc/refill()
-	speak("Cola funding increased by [refill] credits.")
+	speak("Sponsorship payout for [bot_budget_refill_size] credits processed.")
 	playsound(src, 'sound/voice/medbot/funding.ogg', 50)
-	budget += refill
+	bot_budget += bot_budget_refill_size
 	soft_reset()
 
 /mob/living/simple_animal/bot/medbot/cola/alt_heal(mob/living/carbon/patient)
@@ -670,7 +670,7 @@ GLOBAL_VAR(medibot_unique_id_gen)
 	if(prob(80))
 		return FALSE
 	if(!pay_out())
-		say("Budget too low to pay out! Reverting to standard healing..")
+		say("Budget dropped below profit margins, entering conserve mode...")
 		return FALSE
 
 	// alright, no special cases, prob check passed, run the standard cola inject
@@ -690,14 +690,14 @@ GLOBAL_VAR(medibot_unique_id_gen)
 	return TRUE
 
 /mob/living/simple_animal/bot/medbot/cola/proc/pay_out(announce = TRUE)
-	var/new_budget = budget - payout
-	if(new_budget <= 0)
+	var/new_bot_budget = bot_budget - cola_cost
+	if(new_bot_budget <= 0)
 		return FALSE
-	budget = new_budget
+	bot_budget = new_bot_budget
 	var/datum/bank_account/bank_account = SSeconomy.get_dep_account(ACCOUNT_CAR)
-	bank_account.adjust_money(payout)
+	bank_account.adjust_money(cola_cost)
 	if(announce)
-		speak("[payout] credits payed out from sponsors.", RADIO_CHANNEL_SUPPLY)
+		speak("[cola_cost] credits payed out from sponsors.", RADIO_CHANNEL_SUPPLY)
 	return TRUE
 
 #undef MEDBOT_PANIC_NONE

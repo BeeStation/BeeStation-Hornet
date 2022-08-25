@@ -1593,8 +1593,8 @@
 		new item(C)
 
 /datum/supply_pack/medical/cola_bot
-	name = "Space-Cola branded Medibots"
-	desc = "A pack of cheap medibots filled with Space Cola sponsoring."
+	name = "Robust Softdrinks branded Medibots"
+	desc = "A pack of cheap medibots, sponsored by Robust Softdrinks!."
 	cost = 500
 	contains = list(
 		/mob/living/simple_animal/bot/medbot/cola,
