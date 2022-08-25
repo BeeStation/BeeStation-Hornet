@@ -1,6 +1,6 @@
 /obj/item/computer_hardware/hard_drive/role/virus
 	name = "\improper generic virus disk"
-	icon_state = "virusdisk"
+	icon_state = "cart-detomatrix"
 	var/charges = 5
 
 /obj/item/computer_hardware/hard_drive/role/virus/proc/send_virus(obj/item/modular_computer/tablet/target, mob/living/user)
@@ -8,6 +8,8 @@
 
 /obj/item/computer_hardware/hard_drive/role/virus/clown
 	name = "\improper H.O.N.K. disk"
+	desc = "A data cartridge for portable microcomputers. It smells vaguely of bananas."
+	icon_state = "cart-clown"
 
 /obj/item/computer_hardware/hard_drive/role/virus/clown/send_virus(obj/item/modular_computer/tablet/target, mob/living/user)
 	if(charges <= 0)
@@ -41,6 +43,7 @@
 
 /obj/item/computer_hardware/hard_drive/role/virus/syndicate
 	name = "\improper D.E.T.O.M.A.T.I.X. disk"
+	icon_state = "cart-detomatrix"
 	charges = 4
 
 /obj/item/computer_hardware/hard_drive/role/virus/syndicate/send_virus(obj/item/modular_computer/tablet/target, mob/living/user)
@@ -70,6 +73,7 @@
 
 /obj/item/computer_hardware/hard_drive/role/virus/frame
 	name = "\improper F.R.A.M.E. disk"
+	icon_state = "cart-prove"
 	var/telecrystals = 0
 
 /obj/item/computer_hardware/hard_drive/role/virus/frame/send_virus(obj/item/modular_computer/tablet/target, mob/living/user)

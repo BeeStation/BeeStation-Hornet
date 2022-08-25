@@ -47,13 +47,32 @@
 			to_chat(user, "<span class='notice'>You insert \the [attacking_item] into \the [src].</span>")
 			inserted_item = attacking_item
 			playsound(src, 'sound/machines/pda_button1.ogg', 50, TRUE)
+			update_icon()
 
+// Eject the pen if the ID was not ejected
 /obj/item/modular_computer/tablet/AltClick(mob/user)
-	. = ..()
-	if(.)
+	if(..() || issilicon(user) || !user.canUseTopic(src, BE_CLOSE))
 		return
-
 	remove_pen(user)
+
+/obj/item/modular_computer/tablet/CtrlClick(mob/user)
+	..()
+	// We want to allow the user to drag the tablet still
+	if(isturf(loc) || issilicon(user) || !user.canUseTopic(src, BE_CLOSE))
+		return
+	remove_pen(user)
+
+/obj/item/modular_computer/tablet/verb/verb_toggle_light()
+	set name = "Toggle Light"
+	set category = "Object"
+	set src in oview(1)
+	toggle_flashlight()
+
+/obj/item/modular_computer/tablet/verb/verb_remove_pen()
+	set name = "Eject Pen"
+	set category = "Object"
+	set src in usr
+	remove_pen(usr)
 
 /obj/item/modular_computer/tablet/proc/remove_pen(mob/user)
 	if(issilicon(user) || !user.canUseTopic(src, BE_CLOSE, FALSE, NO_TK)) //TK doesn't work even with this removed but here for readability
@@ -63,6 +82,7 @@
 		user.put_in_hands(inserted_item)
 		inserted_item = null
 		playsound(src, 'sound/machines/pda_button2.ogg', 50, TRUE)
+		update_icon()
 	else
 		to_chat(user, "<span class='warning'>This tablet does not have a pen in it!</span>")
 
@@ -240,19 +260,20 @@
 
 	var/default_disk = 0
 
-/obj/item/modular_computer/tablet/pda/update_overlays()
-	. = ..()
+/obj/item/modular_computer/tablet/pda/update_icon()
+	..()
 	var/init_icon = initial(icon)
-	var/obj/item/computer_hardware/card_slot/card = all_components[MC_CARD]
 	if(!init_icon)
 		return
+	var/obj/item/computer_hardware/card_slot/card = all_components[MC_CARD]
 	if(card)
 		if(card.stored_card)
-			. += mutable_appearance(init_icon, "id_overlay")
-		if(inserted_item)
-			. += mutable_appearance(init_icon, "insert_overlay")
+			add_overlay(mutable_appearance(init_icon, "id_overlay"))
+	if(inserted_item)
+		add_overlay(mutable_appearance(init_icon, "insert_overlay"))
 	if(light_on)
-		. += mutable_appearance(init_icon, "light_overlay")
+		add_overlay(mutable_appearance(init_icon, "light_overlay"))
+
 
 /obj/item/modular_computer/tablet/pda/attack_ai(mob/user)
 	to_chat(user, "<span class='notice'>It doesn't feel right to snoop around like that...</span>")

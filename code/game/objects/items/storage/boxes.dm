@@ -572,7 +572,7 @@
 	var/newcart = pick(	/obj/item/computer_hardware/hard_drive/role/engineering,
 						/obj/item/computer_hardware/hard_drive/role/security,
 						/obj/item/computer_hardware/hard_drive/role/medical,
-						/obj/item/computer_hardware/hard_drive/role/signal/ordnance,
+						/obj/item/computer_hardware/hard_drive/role/signal/toxins,
 						/obj/item/computer_hardware/hard_drive/role/quartermaster)
 	new newcart(src)
 

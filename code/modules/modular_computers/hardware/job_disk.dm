@@ -2,7 +2,8 @@
 	name = "job data disk"
 	desc = "A disk meant to give a worker the needed programs to work."
 	power_usage = 0
-	icon_state = "datadisk6"
+	icon = 'icons/obj/pda.dmi'
+	icon_state = "cart"
 	w_class = WEIGHT_CLASS_TINY
 	critical = FALSE
 	max_capacity = 500
@@ -86,114 +87,113 @@
 /obj/item/computer_hardware/hard_drive/role/engineering
 	name = "Power-ON disk"
 	desc = "Engineers ignoring station power-draw since 2400."
-	icon_state = "datadisk2"
+	icon_state = "cart-engie"
 	disk_flags = DISK_POWER
 
 /obj/item/computer_hardware/hard_drive/role/atmos
 	name = "\improper BreatheDeep disk"
-	icon_state = "datadisk2"
+	icon_state = "cart-atmos"
 	disk_flags = DISK_ATMOS | DISK_ROBOS
 
 /obj/item/computer_hardware/hard_drive/role/medical
 	name = "\improper Med-U disk"
-	icon_state = "datadisk7"
+	icon_state = "cart-med"
 	disk_flags = DISK_MED | DISK_ROBOS
 
 /obj/item/computer_hardware/hard_drive/role/chemistry
 	name = "\improper ChemWhiz disk"
-	icon_state = "datadisk7"
+	icon_state = "cart-chem"
 	disk_flags = DISK_CHEM
 
 /obj/item/computer_hardware/hard_drive/role/brig_physician
 	name = "\improper R.O.B.U.S.T. MED-U disk"
-	icon_state = "datadisk9"
+	icon_state = "cart-med"
 	disk_flags = DISK_MANIFEST | DISK_MED | DISK_ROBOS
 
 /obj/item/computer_hardware/hard_drive/role/security
 	name = "\improper R.O.B.U.S.T. disk"
-	icon_state = "datadisk9"
+	icon_state = "cart-sec"
 	disk_flags = DISK_SEC | DISK_MANIFEST | DISK_ROBOS
 
 /obj/item/computer_hardware/hard_drive/role/detective
 	name = "\improper D.E.T.E.C.T. disk"
-	icon_state = "datadisk9"
+	icon_state = "cart-det"
 	disk_flags = DISK_MED | DISK_SEC | DISK_MANIFEST | DISK_ROBOS
 
 /obj/item/computer_hardware/hard_drive/role/janitor
 	name = "\improper CustodiPRO disk"
-	icon_state = "datadisk5"
+	icon_state = "cart-jan"
 	desc = "The ultimate in clean-room design."
 	disk_flags = DISK_JANI | DISK_ROBOS
 
 /obj/item/computer_hardware/hard_drive/role/lawyer
 	name = "\improper P.R.O.V.E. disk"
-	icon_state = "datadisk9"
+	icon_state = "cart-prove"
 	disk_flags = DISK_SEC
 	can_spam = TRUE
 
 /obj/item/computer_hardware/hard_drive/role/curator
 	name = "\improper Lib-Tweet disk"
-	icon_state = "datadisk2"
+	icon_state = "cart-cur"
 	disk_flags = DISK_NEWS
 
 /obj/item/computer_hardware/hard_drive/role/roboticist
 	name = "\improper B.O.O.P. Remote Control disk"
-	icon_state = "datadisk5"
+	icon_state = "cart-robo"
 	desc = "Packed with heavy duty quad-bot interlink!"
 	disk_flags = DISK_ROBOS
 
 /obj/item/computer_hardware/hard_drive/role/signal
 	name = "generic signaler disk"
-	icon_state = "datadisk5"
+	icon_state = "cart-signal"
 	desc = "A data disk with an integrated radio signaler module."
 	disk_flags = DISK_SIGNAL
 
-/obj/item/computer_hardware/hard_drive/role/signal/ordnance
+/obj/item/computer_hardware/hard_drive/role/signal/toxins
 	name = "\improper Signal Ace 2 disk"
-	icon_state = "datadisk5"
+	icon_state = "cart-tox"
 	desc = "Complete with integrated radio signaler!"
 	disk_flags = DISK_ATMOS | DISK_SIGNAL | DISK_CHEM
 
 /obj/item/computer_hardware/hard_drive/role/quartermaster
 	name = "space parts & space vendors disk"
-	icon_state = "datadisk0"
+	icon_state = "cart-qm"
 	desc = "Perfect for the Quartermaster on the go!"
 	disk_flags = DISK_CARGO | DISK_ROBOS | DISK_BUDGET
 
 /obj/item/computer_hardware/hard_drive/role/head
 	name = "\improper Easy-Record DELUXE disk"
-	icon_state = "datadisk7"
+	icon_state = "cart-val"
 	disk_flags = DISK_MANIFEST | DISK_STATUS | DISK_BUDGET
 
 /obj/item/computer_hardware/hard_drive/role/hop
 	name = "\improper HumanResources9001 disk"
-	icon_state = "datadisk7"
+	icon_state = "cart-hop"
 	disk_flags = DISK_MANIFEST | DISK_STATUS | DISK_JANI | DISK_SEC | DISK_NEWS | DISK_CARGO | DISK_ROBOS | DISK_BUDGET
 
 /obj/item/computer_hardware/hard_drive/role/hos
 	name = "\improper R.O.B.U.S.T. DELUXE disk"
-	icon_state = "datadisk7"
+	icon_state = "cart-hos"
 	disk_flags = DISK_MANIFEST | DISK_STATUS | DISK_SEC | DISK_ROBOS | DISK_BUDGET
-
 
 /obj/item/computer_hardware/hard_drive/role/ce
 	name = "\improper Power-On DELUXE disk"
-	icon_state = "datadisk7"
+	icon_state = "cart-ce"
 	disk_flags = DISK_POWER | DISK_ATMOS | DISK_MANIFEST | DISK_STATUS | DISK_ROBOS | DISK_BUDGET
 
 /obj/item/computer_hardware/hard_drive/role/cmo
 	name = "\improper Med-U DELUXE disk"
-	icon_state = "datadisk7"
+	icon_state = "cart-cmo"
 	disk_flags = DISK_MANIFEST | DISK_STATUS | DISK_CHEM | DISK_ROBOS | DISK_BUDGET
 
 /obj/item/computer_hardware/hard_drive/role/rd
 	name = "\improper Signal Ace DELUXE disk"
-	icon_state = "rndmajordisk"
+	icon_state = "cart-rd"
 	disk_flags = DISK_ATMOS | DISK_MANIFEST | DISK_STATUS | DISK_CHEM | DISK_ROBOS | DISK_BUDGET | DISK_SIGNAL
 
 /obj/item/computer_hardware/hard_drive/role/captain
 	name = "\improper Value-PAK disk"
-	icon_state = "datadisk8"
+	icon_state = "cart-cap"
 	desc = "Now with 350% more value!" //Give the Captain...EVERYTHING! (Except Mime, Clown, and Syndie)
 	disk_flags = ~0
 	can_spam = TRUE

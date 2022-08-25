@@ -1,9 +1,13 @@
 /obj/item/modular_computer/tablet/pda/clown
 	name = "clown PDA"
+	desc = "A portable microcomputer by Thinktronic Systems, LTD. The surface is coated with polytetrafluoroethylene and banana drippings."
+	note = "Honk!"
 	default_disk = /obj/item/computer_hardware/hard_drive/role/virus/clown
 	icon_state = "pda-clown"
 	insert_type = /obj/item/toy/crayon/rainbow
-	var/list/slip_victims = list() //Track slipped people
+	/// List of victims (of a very funny joke, that everyone loves!). Stores references to mobs.
+	var/list/slip_victims = list()
+	// TODO tablet-pda ttone = honk
 
 /obj/item/modular_computer/tablet/pda/clown/ComponentInitialize()
 	. = ..()
@@ -19,6 +23,7 @@
 
 /obj/item/modular_computer/tablet/pda/mime
 	name = "mime PDA"
+	desc = "A portable microcomputer by Thinktronic Systems, LTD. The hardware has been modified for compliance with the vows of silence."
 	default_disk = /obj/item/computer_hardware/hard_drive/role/virus/mime
 	insert_type = /obj/item/toy/crayon/mime
 	// TODO tablet-pda silence
@@ -90,7 +95,7 @@
 
 /obj/item/modular_computer/tablet/pda/science
 	name = "scientist PDA"
-	default_disk = /obj/item/computer_hardware/hard_drive/role/signal/ordnance
+	default_disk = /obj/item/computer_hardware/hard_drive/role/signal/toxins
 	icon_state = "pda-science"
 	// TODO tablet-pda tone = boom
 
@@ -130,6 +135,7 @@
 
 /obj/item/modular_computer/tablet/pda/captain
 	name = "captain PDA"
+	desc = "A portable microcomputer by Thinktronic Systems, LTD. The internals are modified to be more tough than the usual."
 	default_disk = /obj/item/computer_hardware/hard_drive/role/captain
 	insert_type = /obj/item/pen/fountain
 	icon_state = "pda-captain"
@@ -164,6 +170,8 @@
 
 /obj/item/modular_computer/tablet/pda/syndicate
 	name = "military PDA"
+	desc = "A portable microcomputer by Thinktronic Systems, LTD. This model is a WGW-XL-NTOS series."
+	note = "Congratulations, your -corrupted- has chosen the Thinktronic 5290 WGW-XL-NTOS Series Personal Data Assistant!"
 	default_disk = /obj/item/computer_hardware/hard_drive/role/virus/syndicate
 	saved_identification = "John Doe"
 	saved_job = "Citizen"
@@ -190,6 +198,8 @@
 
 /obj/item/modular_computer/tablet/pda/curator
 	name = "curator PDA"
+	desc = "A portable microcomputer by Thinktronic Systems, LTD. This model is a WGW-11-NTOS series e-reader."
+	note = "Congratulations, your station has chosen the Thinktronic 5290 WGW-11-NTOS Series E-reader and Personal Data Assistant!"
 	default_disk = /obj/item/computer_hardware/hard_drive/role/curator
 	icon_state = "pda-library"
 	insert_type = /obj/item/pen/fountain
@@ -197,6 +207,8 @@
 
 /obj/item/modular_computer/tablet/pda/clear
 	name = "clear PDA"
+	desc = "A portable microcomputer by Thinktronic Systems, LTD. This model is a special edition with a transparent case."
+	note = "Congratulations, you have chosen the Thinktronic 5230-NTOS Personal Data Assistant Deluxe Special Max Turbo Limited Edition!"
 	icon_state = "pda-clear"
 
 /obj/item/modular_computer/tablet/pda/cook
@@ -225,6 +237,8 @@
 
 /obj/item/modular_computer/tablet/pda/vip
 	name = "fancy PDA"
+	desc = "A portable microcomputer by Thinktronic Systems, LTD. This model is a gold-plated 5230-NTOS LRP Series, and probably quite expensive."
+	note = "Congratulations, you have chosen the Thinktronic 5230-NTOS LRP Series Personal Data Assistant Golden Edition!"
 	// TODO tablet-pda
 	//default_disk = /obj/item/computer_hardware/hard_drive/role/vip
 	insert_type = /obj/item/pen/fountain
@@ -233,5 +247,7 @@
 
 /obj/item/modular_computer/tablet/pda/unlicensed
 	name = "unlicensed PDA"
+	desc = "A shitty knockoff of a portable microcomputer by Thinktronic Systems, LTD. Complete with a cracked operating system."
+	note = "Error: Unlicensed software detected. Please contact your supervisor."
 	// TODO tablet-pda
 	icon_state = "pda-knockoff"
