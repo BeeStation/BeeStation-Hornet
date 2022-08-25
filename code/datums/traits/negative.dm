@@ -689,3 +689,27 @@
 /datum/quirk/phobia/remove()
 	var/mob/living/carbon/human/H = quirk_holder
 	H.cure_trauma_type(/datum/brain_trauma/mild/phobia, TRAUMA_RESILIENCE_ABSOLUTE)
+
+
+/datum/quirk/dock_pay
+	name = "Docked Pay"
+	desc = "You pissed off a CentCom executive, and now you're barely paid!"
+	value = -2
+	mob_trait = TRAIT_NEET
+	gain_text = "<span class='danger'>You feel your paycheck slipping away!</span>"
+	lose_text = "<span class='notice'>You feel fairly compensated for your work.</span>"
+	process = TRUE
+
+/datum/quirk/dock_pay/proc/get_card()
+	var/mob/living/carbon/human/H = quirk_holder
+	return H.get_bank_account()
+
+/datum/quirk/dock_pay/add()
+	var/datum/bank_account/D = get_card()
+	D.feck_you = TRUE
+
+/datum/quirk/dock_pay/remove()
+	var/datum/bank_account/D = get_card()
+	D.feck_you = FALSE
+	D.adjust_money(100)  // probably fine it generates money because only admins can remove this
+	D.bank_card_talk("Compensation money processed, account now holds $[account_balance].")

@@ -13,6 +13,7 @@
 	var/add_to_accounts = TRUE
 	var/account_id
 	var/welfare = FALSE
+	var/feck_you = FALSE
 	var/being_dumped = FALSE //pink levels are rising
 	var/withdrawDelay = 0
 
@@ -56,7 +57,7 @@
 	return FALSE
 
 /datum/bank_account/proc/payday(amt_of_paychecks, free = FALSE)
-	var/money_to_transfer = paycheck_amount * amt_of_paychecks
+	var/money_to_transfer = (feck_you ? PAYCHECK_ASSISTANT : paycheck_amount) * amt_of_paychecks
 	if(welfare)
 		money_to_transfer += PAYCHECK_WELFARE
 	if((money_to_transfer + paycheck_bonus) < 0) //Check if the bonus is docking more pay than possible
