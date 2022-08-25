@@ -85,20 +85,10 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 /obj/item/modular_computer/Destroy()
 	kill_program(forced = TRUE)
 	STOP_PROCESSING(SSobj, src)
-<<<<<<< HEAD
 	for(var/port in all_components)
 		var/obj/item/computer_hardware/component = all_components[port]
 		qdel(component)
-	all_components.Cut() //Die demon die
-=======
-	for(var/H in all_components)
-		var/obj/item/computer_hardware/CH = all_components[H]
-		if(CH.holder == src)
-			CH.on_remove(src)
-			CH.holder = null
-			all_components?.Remove(CH.device_type)
-			qdel(CH)
->>>>>>> 7bb5888d550 (Modular Tablets: Converting PDAs to the NtOS System (#65755))
+	all_components?.Cut()
 	physical = null
 	remove_messenger()
 	return ..()
@@ -456,15 +446,10 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	return TRUE
 
 /obj/item/modular_computer/screwdriver_act(mob/user, obj/item/tool)
-<<<<<<< HEAD
-	if(!length(all_components))
-		balloon_alert(user, "no components installed!")
-=======
 	if(!deconstructable)
 		return
-	if(!all_components.len)
-		to_chat(user, "<span class='warning'>This device doesn't have any components installed.</span>")
->>>>>>> 7bb5888d550 (Modular Tablets: Converting PDAs to the NtOS System (#65755))
+	if(!length(all_components))
+		balloon_alert(user, "no components installed!")
 		return
 	var/list/component_names = list()
 	for(var/h in all_components)
