@@ -11,6 +11,7 @@
 #define ANOMALY_DELIMBER_ZONE_R_LEG typesof(/obj/item/bodypart/r_arm)
 #define ANOMALY_DELIMBER_ZONE_L_ARM typesof(/obj/item/bodypart/l_leg)
 #define ANOMALY_DELIMBER_ZONE_R_ARM typesof(/obj/item/bodypart/r_leg)
+#define ANOMALY_DELIMBER_ZONE_ORGANS typesof(/obj/item/organ) - typesof(/obj/item/organ/brain) - typesof(/obj/item/organ/body_egg) - /obj/item/organ/alien/eggsac - /obj/item/organ/zombie_infection
 
 /////////////////////
 
@@ -449,12 +450,18 @@
 	name = "delimber anomaly"
 	icon_state = "delimber_anomaly"
 	aSignal = /obj/item/assembly/signaler/anomaly/delimber
+	immortal = TRUE
 	/// Cooldown for every anomaly pulse
 	COOLDOWN_DECLARE(pulse_cooldown)
 	/// How many seconds between each anomaly pulses
 	var/pulse_delay = 15 SECONDS
 	/// Range of the anomaly pulse
 	var/range = 5
+
+/obj/effect/anomaly/delimber/Initialize(mapload, new_lifespan)
+	. = ..()
+	if(new_lifespan)
+		immortal = FALSE //manually override the immortality lifespan
 
 /obj/effect/anomaly/delimber/anomalyEffect(delta_time)
 	. = ..()
@@ -477,10 +484,17 @@
 		// Add target
 		affected += target
 
+		// Insert a random organ
+		var/obj/item/organ/picked_organ = pick(ANOMALY_DELIMBER_ZONE_ORGANS)
+		var/obj/item/organ/new_organ = new picked_organ
+		new_organ.Insert(target, TRUE, FALSE)
+
 		// Replace a random limb
 		var/picked_zone = pick(ANOMALY_DELIMBER_ZONES)
 		var/obj/item/bodypart/picked_user_part = target.get_bodypart(picked_zone)
 		if(!picked_user_part)
+			target.update_body(TRUE)
+			target.balloon_alert(target, "something has changed about you")
 			return
 		var/obj/item/bodypart/picked_part
 		switch(picked_zone)
@@ -500,12 +514,11 @@
 		new_part.replace_limb(target, TRUE, is_creating = TRUE)
 		qdel(picked_user_part)
 		target.update_body(TRUE)
-		to_chat(target, "<span class='warning'>Something feels different...</span>")
-		log_game("[key_name(owner)] has caused a delimber pulse affecting [english_list(affected)].")
-		target.log_message("[owner] has caused [target]'s [picked_part] to turn into [new_part.name] and delimbed their [picked_user_part.name].", LOG_ATTACK)
+		target.balloon_alert(target, "something has changed about you")
 
 	if(message_admins)
 		message_admins("[ADMIN_LOOKUPFLW(owner)] has caused a delimber pulse affecting [english_list(affected)].")
+		log_game("[key_name(owner)] has caused a delimber pulse affecting [english_list(affected)].")
 
 #undef ANOMALY_MOVECHANCE
 #undef ANOMALY_DELIMBER_ZONES
@@ -515,3 +528,4 @@
 #undef ANOMALY_DELIMBER_ZONE_R_LEG
 #undef ANOMALY_DELIMBER_ZONE_L_ARM
 #undef ANOMALY_DELIMBER_ZONE_R_ARM
+#undef ANOMALY_DELIMBER_ZONE_ORGANS

@@ -828,23 +828,22 @@
 	if(locked)
 		var/atom/host = parent
 		host.balloon_alert(user, "[host] is locked.")
-		return COMPONENT_INTERCEPT_ALT
+		return
 
 	var/atom/A = parent
 	if(!quickdraw)
 		A.add_fingerprint(user)
 		user_show_to_mob(user)
 		playsound(A, "rustle", 50, 1, -5)
-		return COMPONENT_INTERCEPT_ALT
+		return
 
 	if(user.incapacitated())
 		return
 
 	var/obj/item/to_remove = locate() in real_location()
 	if(!to_remove)
-		return COMPONENT_INTERCEPT_ALT
+		return
 	INVOKE_ASYNC(src, .proc/attempt_put_in_hands, to_remove, user)
-	return COMPONENT_INTERCEPT_ALT
 
 ///attempt to put an item from contents into the users hands
 /datum/component/storage/proc/attempt_put_in_hands(obj/item/to_remove, mob/user)

@@ -502,7 +502,6 @@ SUBSYSTEM_DEF(air)
 	var/obj/machinery/atmospherics/AM
 	for(var/A in 1 to atmos_machines.len)
 		AM = atmos_machines[A]
-		AM.atmosinit()
 		CHECK_TICK
 
 	for(var/A in 1 to atmos_machines.len)

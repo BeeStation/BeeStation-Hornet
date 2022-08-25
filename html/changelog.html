@@ -56,88 +56,6 @@
 		-->
 		<div class="commit sansserif">
 
-			<h2 class="date">24 August 2022</h2>
-			<h3 class="author">Naevii updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">Change most sprites in cult.dmi</li>
-				<li class="tweak">Change bloodspear sprites in polearms_(lefthand & righthand).dmi</li>
-				<li class="tweak">Change cultblade sprites in swords_(lefthand & righthand).dmi</li>
-				<li class="tweak">Change cultrobe sprites in suit.dmi</li>
-				<li class="tweak">Change cultrobe sprites in clothing_(lefthand & righthand).dmi</li>
-				<li class="tweak">Change cultrobe sprites in suits.dmi</li>
-				<li class="tweak">Change mirror-shield in shields.dmi</li>
-				<li class="tweak">Change mirror shield in shields_(lefthand & righthand).dmi</li>
-			</ul>
-
-			<h2 class="date">23 August 2022</h2>
-			<h3 class="author">PowerfulBacon updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">Alt clicking on suits that contain embedded storage (pockets) will now open the inventory instead of adjusting the style of that article of clothing. Adjusting the style can be done through the context menu or the stat panel under the object tab.</li>
-			</ul>
-
-			<h2 class="date">21 August 2022</h2>
-			<h3 class="author">etherware-novice updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">air scrubber and pump has a proper description now</li>
-			</ul>
-			<h3 class="author">ivanmixo updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Getting batonned makes you shake and stutter</li>
-			</ul>
-
-			<h2 class="date">20 August 2022</h2>
-			<h3 class="author">benbot16 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Fixes the xenomorph transfer plasma ability</li>
-				<li class="tweak">Silicons can now speak apidite</li>
-			</ul>
-			<h3 class="author">etherware-novice updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">new scarfs now in the ooc store</li>
-			</ul>
-
-			<h2 class="date">19 August 2022</h2>
-			<h3 class="author">Impish_Delights updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Added additional set of deny and approval stamps to QM's office</li>
-				<li class="rscadd">Added HoS stamp to HoS's quarters</li>
-				<li class="rscadd">Added Ecto-Sniffer to robotics, to bring in line with other maps</li>
-				<li class="rscadd">Added chest drawers to store paperwork in both the HoP's office, and cargo lobby</li>
-				<li class="rscdel">Removed redundant Captain's stamp from quarters</li>
-				<li class="tweak">Shifted around RD & CMO stamps so they are not hidden under items at round start</li>
-				<li class="tweak">Modified cargo bay lobby to have a desk, consoles shifted to side</li>
-			</ul>
-			<h3 class="author">ivanmixo updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="balance">The delimber anomaly doesn't give out random organs anymore</li>
-				<li class="balance">The delimber anomaly isn't eternal anymore</li>
-			</ul>
-
-			<h2 class="date">18 August 2022</h2>
-			<h3 class="author">etherware-novice updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="balance">social anxiety trait now works</li>
-				<li class="rscadd">social anxiety trait has unique moodlets</li>
-			</ul>
-			<h3 class="author">ivanmixo updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="admin">Mods no longer have access to the supplypod menu</li>
-			</ul>
-
-			<h2 class="date">17 August 2022</h2>
-			<h3 class="author">CydiaLamiales updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Added the wig and the natural wig to the BeeCoin store</li>
-			</ul>
-			<h3 class="author">The-Moon-Itself updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Atmos machines initialize properly when maploaded. Traitor shuttle capsules are functional again!</li>
-			</ul>
-			<h3 class="author">etherware-novice updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Nanotrasen has weakened the dna lock on mail, allowing changelings to open their disguise's mail.</li>
-			</ul>
-
 			<h2 class="date">14 August 2022</h2>
 			<h3 class="author">Dejaku51 updated:</h3>
 			<ul class="changes bgimages16">
@@ -1048,6 +966,99 @@
 				<li class="rscadd">the e-saw as a traitor item is back</li>
 				<li class="imageadd">added new icons for all the medical tools</li>
 				<li class="imageadd">added new icons for the defibrillator, wall mount and portable version</li>
+			</ul>
+
+			<h2 class="date">23 June 2022</h2>
+			<h3 class="author">tag along with your own) updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="code_imp">Updates the contributing guidelines to include a pull-request standards section.</li>
+			</ul>
+
+			<h2 class="date">21 June 2022</h2>
+			<h3 class="author">EvilDragonfiend updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="refactor">spam_enabled variable is spam_delay, 1 means 1 minute, 2 means 2 minutes.</li>
+				<li class="refactor">send_message proc in PDA.dm is now send_pda_message to prevent any confusion from TGUI send_message.</li>
+				<li class="rscadd">Spam cartridges have now delay multiplyer based on its type.</li>
+				<li class="rscadd">Value-PAK cartridge (Captain) multiply is *2. (2 minutes)</li>
+				<li class="rscadd">P.R.O.V.E cartridge (Lawyer) multiply is *2.5. (2 min 30 seconds)</li>
+				<li class="rscadd">Lib-Tweet (Curator) now can spam, and its multiply is *3.5</li>
+				<li class="rscadd">TWIT cartridge (VIP) delay multiply is *1.5</li>
+				<li class="rscadd">FACEBUCKS cartridge (generic) is newly added, and its multiply is *5. can be purchased from HoP cartridge vendor with 100 credits.</li>
+				<li class="rscadd">Send all message function tells you how much time you should wait to send another.</li>
+				<li class="rscadd">Unlicensed PDA (Barber, Stage Magician) is now loaded with FACEBUCKS cartridge. Barber and Stage Magician can advertise themselves.</li>
+			</ul>
+			<h3 class="author">Ivniinvi (recouped by PestoVerde322) updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="admin">Re-added the plasma decontamination admin-only event.</li>
+			</ul>
+			<h3 class="author">MNarath1 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="code_imp">removes concept code i forgot about</li>
+			</ul>
+			<h3 class="author">Megaddd updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="config">slightly reduced abductor spawn rate</li>
+			</ul>
+			<h3 class="author">PowerfulBacon updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscdel">Reverts the character based gear loadouts due to a bug breaking the beecoin shop.</li>
+			</ul>
+			<h3 class="author">Rukofamicom updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="balance">Door hacking now requires insulation to be performed safely.</li>
+				<li class="tweak">Doors no longer share wiring patterns and must have their wires learned/memorized individually.</li>
+			</ul>
+			<h3 class="author">athena413 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">AI & borgs don't get less beecoins based on escaped/stranded status</li>
+			</ul>
+			<h3 class="author">d0sboots updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Supermatter radiation code is fixed, can now vary significantly from power levels</li>
+				<li class="bugfix">Pluoxium functions as the coolant it was meant to be, but nerfs power production</li>
+				<li class="rscdel">No more sneaky extra SM radiation that only targets living mobs, making it undetectable</li>
+			</ul>
+
+			<h2 class="date">20 June 2022</h2>
+			<h3 class="author">Kryyto updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="spellcheck">Corrects some minor typos</li>
+				<li class="bugfix">fixed hydroponics shutters on Fland Station</li>
+			</ul>
+			<h3 class="author">Penwin0 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">fixed a harddel with light's cells</li>
+			</ul>
+			<h3 class="author">zeskorion updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">maint under viro is now traversable on meta and delta again</li>
+			</ul>
+
+			<h2 class="date">18 June 2022</h2>
+			<h3 class="author">Hardly updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Head of Personnel's teal jumpsuit and jumpskirt now spawn in HoP's locker.</li>
+			</ul>
+			<h3 class="author">Penwin0 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">A code acquired from the robotics management console is now needed for law changes.</li>
+				<li class="rscadd">Silicon Uploads are now trackable by the Robotics Management Console.</li>
+				<li class="tweak">Cyborg uploads are now Capitalized.</li>
+				<li class="balance">RD access is now required for the robotics management console.</li>
+				<li class="balance">Hacked law module cost reduced to 3 TC to account for added difficulty</li>
+			</ul>
+
+			<h2 class="date">17 June 2022</h2>
+			<h3 class="author">ivanmixo updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="balance">slowed down hunters while buffing hunter's and sentinels' health</li>
+				<li class="refactor">refactored some xeno code</li>
+			</ul>
+			<h3 class="author">zeskorion updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">remaps viro on delta, pubby, meta, and box</li>
+				<li class="imageadd">changes PANDEMIC and virus food dispenser icons</li>
 			</ul>
 		</div>
 
