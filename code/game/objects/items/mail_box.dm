@@ -26,8 +26,9 @@
 	var/list/spam_mail = list()
 
 /obj/machinery/mailbox/attack_hand(mob/living/carbon/user)
+	var/datum/mail_slot/special_slot
 	if(allowed(user) && active_slots)
-		var/datum/mail_slot/special_slot = input("Who's mail would you like to access?", "Mail", null) as null|anything in active_slots
+		special_slot = input("Who's mail would you like to access?", "Mail", null) as null|anything in active_slots
 		special_slot.access_mail(user)
 
 	if(!(user.real_name in active_slots))
