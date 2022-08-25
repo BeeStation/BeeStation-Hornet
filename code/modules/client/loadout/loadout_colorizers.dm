@@ -31,6 +31,6 @@
 /datum/gear/colorizer/pdatransparent
 	display_name = "Transparent PDA Colorizer"
 	path = /obj/item/colorizer/pdatransparent
-	cost = 5000
+	cost = 20000
 
 
