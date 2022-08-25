@@ -3658,7 +3658,10 @@
 	pixel_x = -2;
 	pixel_y = 2
 	},
-/obj/item/stamp/cmo,
+/obj/item/stamp/cmo{
+	pixel_x = 7;
+	pixel_y = 4
+	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/heads/cmo)
 "aLL" = (
@@ -4696,6 +4699,7 @@
 /obj/structure/table/reinforced,
 /obj/item/clothing/gloves/color/fyellow,
 /obj/item/wirecutters,
+/obj/item/clipboard,
 /obj/item/stack/cable_coil/red,
 /turf/open/floor/plasteel/dark,
 /area/quartermaster/office)
@@ -6202,11 +6206,14 @@
 /obj/effect/turf_decal/tile/brown{
 	dir = 1
 	},
-/obj/structure/window/reinforced{
-	pixel_y = 1
-	},
-/obj/machinery/computer/bounty{
-	dir = 1
+/obj/structure/table/reinforced,
+/obj/machinery/door/window/westleft{
+	base_state = "right";
+	dir = 1;
+	icon_state = "right";
+	name = "Cargo Window";
+	pixel_y = 1;
+	req_access_txt = "31"
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/office)
@@ -7826,9 +7833,15 @@
 /area/science/xenobiology)
 "bNp" = (
 /obj/structure/table/reinforced,
-/obj/item/folder/yellow,
-/obj/item/stamp/quartermaster,
+/obj/item/folder/yellow{
+	pixel_y = 3;
+	pixel_x = -4
+	},
 /obj/effect/turf_decal/tile/brown,
+/obj/item/stamp/quartermaster{
+	pixel_y = -2;
+	pixel_x = 6
+	},
 /obj/effect/turf_decal/tile/brown{
 	dir = 1
 	},
@@ -7853,6 +7866,14 @@
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
+	},
+/obj/item/stamp{
+	pixel_x = 8;
+	pixel_y = 10
+	},
+/obj/item/stamp/denied{
+	pixel_x = 9;
+	pixel_y = 4
 	},
 /turf/open/floor/plasteel/dark,
 /area/quartermaster/qm)
@@ -10435,10 +10456,22 @@
 /area/engine/atmos)
 "cDm" = (
 /obj/structure/table,
-/obj/item/paper_bin,
-/obj/item/pen/red,
-/obj/item/stamp/research_director,
-/obj/item/aicard,
+/obj/item/paper_bin{
+	pixel_x = 4;
+	pixel_y = 3
+	},
+/obj/item/pen/red{
+	pixel_x = 5;
+	pixel_y = 3
+	},
+/obj/item/aicard{
+	pixel_x = -5;
+	pixel_y = 4
+	},
+/obj/item/stamp/research_director{
+	pixel_x = 9;
+	pixel_y = 2
+	},
 /turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/hor)
 "cDp" = (
@@ -13211,6 +13244,10 @@
 /obj/item/storage/firstaid,
 /obj/machinery/power/apc/auto_name/west{
 	pixel_x = -24
+	},
+/obj/item/folder/yellow{
+	pixel_x = 4;
+	pixel_y = 3
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
@@ -16178,6 +16215,10 @@
 /obj/effect/turf_decal/tile/neutral,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/item/stamp/hos{
+	pixel_x = 13;
+	pixel_y = 4
+	},
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/heads/hos)
 "enz" = (
@@ -28583,6 +28624,15 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/service)
+"hVd" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/obj/machinery/ecto_sniffer{
+	pixel_y = -3
+	},
+/turf/open/floor/plasteel/dark,
+/area/science/robotics/lab)
 "hVn" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
@@ -35939,23 +35989,8 @@
 /turf/open/floor/plating,
 /area/construction/mining/aux_base)
 "jXu" = (
-/obj/effect/turf_decal/tile/brown{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/brown{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/brown,
-/obj/effect/turf_decal/tile/brown{
-	dir = 1
-	},
-/obj/machinery/computer/cargo{
-	dir = 1
-	},
-/obj/structure/window/reinforced{
-	pixel_y = 1
-	},
-/turf/open/floor/plasteel,
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plating,
 /area/quartermaster/office)
 "jXv" = (
 /obj/structure/chair/comfy/black{
@@ -39472,9 +39507,6 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/neutral,
-/obj/structure/chair/office{
-	dir = 8
-	},
 /turf/open/floor/plasteel/dark,
 /area/quartermaster/storage)
 "kYB" = (
@@ -43509,17 +43541,6 @@
 /obj/machinery/door/firedoor,
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
-"mcV" = (
-/obj/effect/turf_decal/tile/brown,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/brown{
-	dir = 8
-	},
-/obj/structure/chair/office,
-/turf/open/floor/plasteel/dark,
-/area/quartermaster/office)
 "mdf" = (
 /obj/effect/turf_decal/tile/green{
 	dir = 8
@@ -45167,8 +45188,9 @@
 /obj/machinery/requests_console{
 	pixel_x = -32
 	},
-/obj/structure/chair/office,
-/obj/effect/landmark/start/cargo_technician,
+/obj/machinery/computer/cargo{
+	dir = 4
+	},
 /turf/open/floor/plasteel/dark,
 /area/quartermaster/office)
 "mFB" = (
@@ -50576,7 +50598,6 @@
 	pixel_x = -6;
 	pixel_y = 13
 	},
-/obj/item/stamp/captain,
 /turf/open/floor/carpet/royalblue,
 /area/crew_quarters/heads/captain/private)
 "ojz" = (
@@ -58775,6 +58796,11 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/science/xenobiology)
+"qGQ" = (
+/obj/structure/cable/yellow,
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plating,
+/area/quartermaster/office)
 "qHh" = (
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
@@ -65804,6 +65830,9 @@
 	pixel_x = -28;
 	pixel_y = -2
 	},
+/obj/machinery/computer/bounty{
+	dir = 4
+	},
 /turf/open/floor/plasteel/dark,
 /area/quartermaster/office)
 "sRB" = (
@@ -67802,6 +67831,9 @@
 	},
 /obj/effect/turf_decal/tile/brown{
 	dir = 4
+	},
+/obj/structure/filingcabinet/chestdrawer{
+	pixel_y = 2
 	},
 /turf/open/floor/plasteel/dark,
 /area/quartermaster/office)
@@ -71970,6 +72002,16 @@
 	},
 /turf/open/floor/wood,
 /area/crew_quarters/dorms)
+"uIp" = (
+/obj/effect/turf_decal/tile/brown,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/brown{
+	dir = 8
+	},
+/turf/open/floor/plasteel/dark,
+/area/quartermaster/office)
 "uIs" = (
 /obj/machinery/door/airlock/highsecurity{
 	name = "Gravity Generator Room";
@@ -83390,6 +83432,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
+/obj/structure/filingcabinet/chestdrawer,
 /turf/open/floor/wood,
 /area/crew_quarters/heads/hop)
 "ybQ" = (
@@ -83750,6 +83793,10 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
 	},
+/obj/structure/chair/office{
+	dir = 8
+	},
+/obj/effect/landmark/start/cargo_technician,
 /turf/open/floor/plasteel/dark,
 /area/quartermaster/office)
 "yfC" = (
@@ -117634,7 +117681,7 @@ pkM
 pJu
 iQx
 skb
-skb
+hVd
 skb
 dLC
 pkM
@@ -125351,7 +125398,7 @@ vnF
 qdx
 chA
 sDz
-ftE
+qGQ
 duj
 jzg
 sRy
@@ -125612,7 +125659,7 @@ ftE
 aVQ
 bfS
 yfw
-mcV
+atC
 bqW
 tbA
 jwt
@@ -125869,7 +125916,7 @@ ftE
 kNa
 ikJ
 cjv
-atC
+uIp
 blL
 tbA
 lqJ
