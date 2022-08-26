@@ -328,8 +328,7 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 					break
 			if(!card_exists) // if NOT card exists, it means their money isn't accessible anymore at any means. The station will get their money.
 				var/datum/bank_account/dept_bank = SSeconomy.get_dep_account(target_account.account_department)
-				var/total_return_money = target_account.account_balance > target_account.total_paid_payment ? target_account.total_paid_payment : target_account.account_balance
-				dept_bank.transfer_money(target_account, total_return_money)
+				dept_bank.transfer_money(target_account, target_account.account_balance > target_account.total_paid_payment ? target_account.total_paid_payment : target_account.account_balance)
 				// The station budget will get payday payment returned first.
 
 				if(target_account.account_balance)
