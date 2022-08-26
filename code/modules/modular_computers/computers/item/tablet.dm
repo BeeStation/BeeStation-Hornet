@@ -57,11 +57,22 @@
 			inserted_item = attacking_item
 			playsound(src, 'sound/machines/pda_button1.ogg', 50, TRUE)
 			update_icon()
-	if(istype(attacking_item, /obj/item/paper))
-		var/obj/item/paper/paper = attacking_item
 
-		to_chat(user, "<span class='notice'>You scan \the [attacking_item] into \the [src].</span>")
-		note = paper.info
+/obj/item/modular_computer/tablet/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+	. = ..()
+	if(istype(target, /obj/item/paper))
+		var/obj/item/paper/paper = target
+		if (!paper.info)
+			to_chat(user, "<span class='warning'>Unable to scan! Paper is blank.</span>")
+			return
+		note = replacetext(paper.info, "<BR>", "\[br\]")
+		note = replacetext(note, "<li>", "\[*\]")
+		note = replacetext(note, "<ul>", "\[list\]")
+		note = replacetext(note, "</ul>", "\[/list\]")
+		note = html_encode(note)
+		to_chat(user, "<span class='notice'>Paper scanned. Saved to PDA's notekeeper.</span>" )
+		return
+	// TODO tablet-pda add gas scan
 
 // Eject the pen if the ID was not ejected
 /obj/item/modular_computer/tablet/AltClick(mob/user)
