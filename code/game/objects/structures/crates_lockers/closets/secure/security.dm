@@ -58,6 +58,7 @@
 			box_num++
 	if(box_num<=0)
 		user.remove_movespeed_modifier(MOVESPEED_ID_SLOW_SUITBOX, TRUE)
+		// when you have none of compression box, you'll get freed from this movement slow curse
 
 /obj/item/storage/box/suitbox/PopulateContents()
 	new /obj/item/clothing/under/rank/captain(src)
