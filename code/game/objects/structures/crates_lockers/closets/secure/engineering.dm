@@ -35,7 +35,7 @@
 
 /obj/item/storage/box/suitbox/ce_tools
 	name = "compression box of chief engineer tools"
-	slow_type = MOVESPEED_ID_SLOW_SUITBOX_CE_TOOL
+	slow_type = MOVESPEED_ID_SLOW_SUITBOX_CE_TOOLS
 
 /obj/item/storage/box/suitbox/ce_tools/PopulateContents()
 	new /obj/item/pipe_dispenser(src)
