@@ -277,6 +277,7 @@
 	cost = 1
 
 
+
 /datum/spellbook_entry/item
 	name = "Buy Item"
 	refundable = FALSE
