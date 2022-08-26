@@ -38,6 +38,7 @@
 	name = "compression box of captain outfits"
 	desc = "a box with bluespace compression technology that nanotrasen has approved, but this is extremely heavy... If you're glued with this box, pull out of the contents and fold the box."
 	w_class = WEIGHT_CLASS_HUGE
+	drag_slowdown = 4 // do not steal by dragging
 	var/slow_type = MOVESPEED_ID_SLOW_SUITBOX_CAP
 	/* Note for the compression box
 	Do not put any box (or suit) into this box, or it will allow to infinite storage.
