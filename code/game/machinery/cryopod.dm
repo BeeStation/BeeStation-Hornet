@@ -325,6 +325,7 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 			for(var/obj/item/card/id/I in GLOB.id_cards)
 				if(I.registered_account == target_account)
 					card_exists = TRUE
+					break
 			if(!card_exists) // if NOT card exists, it means their money isn't accessible anymore at any means. The station will get their money.
 				var/datum/bank_account/dept_bank = SSeconomy.get_dep_account(target_account.account_department)
 				target_account.account_balance -= target_account.account_job.paycheck*STARTING_PAYCHECKS
