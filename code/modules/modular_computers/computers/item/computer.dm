@@ -7,6 +7,11 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	name = "modular microcomputer"
 	desc = "A small portable microcomputer."
 	light_system = MOVABLE_LIGHT
+	light_range = 3
+	light_power = 0.6
+	light_color = "#FFFFFF"
+	light_on = FALSE
+
 
 	var/enabled = 0											// Whether the computer is turned on.
 	var/screen_on = 1										// Whether the computer is active/opened/it's screen is on.
@@ -67,8 +72,6 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	var/comp_light_luminosity = 3
 	/// The built-in light's color, editable by players.
 	var/comp_light_color = "#FFFFFF"
-	/// Override behavior from atom so flashlight button is not marked as ON
-	light_on = FALSE
 	/// Whether or not the tablet is invisible in messenger and other apps
 	var/messenger_invisible = FALSE
 	/// The saved image used for messaging purposes
@@ -458,10 +461,6 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	if(!has_light)
 		return FALSE
 	set_light_on(!light_on)
-	if(light_on)
-		set_light(comp_light_luminosity, 1, comp_light_color)
-	else
-		set_light(0)
 	update_icon()
 	// Show the light_on overlay on top of the action button icon
 	if(light_action?.owner)
