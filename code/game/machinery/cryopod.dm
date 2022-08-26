@@ -328,10 +328,18 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 					break
 			if(!card_exists) // if NOT card exists, it means their money isn't accessible anymore at any means. The station will get their money.
 				var/datum/bank_account/dept_bank = SSeconomy.get_dep_account(target_account.account_department)
-				target_account.account_balance -= target_account.account_job.paycheck*STARTING_PAYCHECKS
-				// remove roundstart money, and then if still remained, the money will go to the station's budget
-				if(target_account.account_balance > 0)
-					dept_bank.transfer_money(target_account, target_account.account_balance)
+				var/total_return_money = target_account.account_balance > target_account.total_paid_payment ? target_account.total_paid_payment : target_account.account_balance
+				dept_bank.transfer_money(target_account, total_return_money)
+				// The station budget will get payday payment returned first.
+
+				if(target_account.account_balance)
+					target_account.account_balance -= target_account.account_job.paycheck*STARTING_PAYCHECKS
+					// after that, roundstart money will be taken into void (=Nanotrasen)
+
+					if(target_account.account_balance)
+						dept_bank.transfer_money(target_account, target_account.account_balance)
+						// if money is still remained, the station budget will have it again.
+
 	// This should be done after item removal because it checks if your ID card still exists
 
 	if(iscyborg(mob_occupant))

@@ -16,6 +16,7 @@
 	var/being_dumped = FALSE //pink levels are rising
 	var/withdrawDelay = 0
 	var/suspended = FALSE // used for cryo'ed people's account
+	var/total_paid_payment = 0
 
 /datum/bank_account/New(newname, job)
 	if(add_to_accounts)
@@ -81,6 +82,7 @@
 				return FALSE
 			else
 				bank_card_talk("Payday processed, account now holds $[account_balance].")
+				total_paid_payment += money_to_transfer
 				//The bonus only resets once it goes through.
 				if(paycheck_bonus > 0) //And we're not getting rid of debt
 					paycheck_bonus = 0
