@@ -43,6 +43,12 @@ SUBSYSTEM_DEF(economy)
 	var/effective_mailcount = living_player_count()
 	mail_waiting += clamp(effective_mailcount, 1, MAX_MAIL_PER_MINUTE)
 
+/datum/controller/subsystem/economy/proc/get_bank_account_by_id(target_id)
+	for(var/datum/bank_account/target_account in SSeconomy.bank_accounts)
+		if(target_account.account_id == target_id)
+			return target_account
+	return
+
 /datum/controller/subsystem/economy/proc/get_dep_account(dep_id)
 	for(var/datum/bank_account/department/D in generated_accounts)
 		if(D.department_id == dep_id)

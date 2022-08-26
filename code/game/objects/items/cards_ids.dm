@@ -122,12 +122,14 @@
 	. = ..()
 	if(mapload && access_txt)
 		access = text2access(access_txt)
+	GLOB.id_cards += src
 
 /obj/item/card/id/Destroy()
 	if (registered_account)
 		registered_account.bank_cards -= src
 	if (my_store && my_store.my_card == src)
 		my_store.my_card = null
+	GLOB.id_cards -= src
 	return ..()
 
 /obj/item/card/id/proc/set_hud_icon_on_spawn(jobname)

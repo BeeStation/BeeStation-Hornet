@@ -310,6 +310,28 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 		qdel(W)//because we moved all items to preserve away
 		//and yes, this totally deletes their bodyparts one by one, I just couldn't bother
 
+	// Suspend their bank payment
+	if(mob_occupant.account_id)
+		var/number_of_bank_account_holder = 0
+		for(var/mob/living/carbon/human/H in GLOB.mob_list)
+			if(H.account_id == mob_occupant.account_id)
+				if(H.mind) // if an experimental clone exists, the account will be kept.
+					number_of_bank_account_holder++
+		if(number_of_bank_account_holder <= 1)
+			var/datum/bank_account/target_account = SSeconomy.get_bank_account_by_id(mob_occupant.account_id)
+			target_account.suspended = TRUE // bank account will not be deleted, just suspended
+			var/card_exists = FALSE
+			for(var/obj/item/card/id/I in GLOB.id_cards)
+				if(I.registered_account == target_account)
+					card_exists = TRUE
+			if(!card_exists) // if NOT card exists, it means their money isn't accessible anymore at any means. The station will get their money.
+				var/datum/bank_account/dept_bank = SSeconomy.get_dep_account(target_account.account_department)
+				target_account.account_balance -= target_account.account_job.paycheck*STARTING_PAYCHECKS
+				// remove roundstart money, and then if still remained, the money will go to the station's budget
+				if(target_account.account_balance > 0)
+					dept_bank.transfer_money(target_account, target_account.account_balance)
+	// This should be done after item removal because it checks if your ID card still exists
+
 	if(iscyborg(mob_occupant))
 		var/mob/living/silicon/robot/R = occupant
 		if(!istype(R)) return

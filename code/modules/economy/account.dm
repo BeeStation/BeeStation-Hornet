@@ -15,6 +15,7 @@
 	var/welfare = FALSE
 	var/being_dumped = FALSE //pink levels are rising
 	var/withdrawDelay = 0
+	var/suspended = FALSE // used for cryo'ed people's account
 
 /datum/bank_account/New(newname, job)
 	if(add_to_accounts)
@@ -56,6 +57,8 @@
 	return FALSE
 
 /datum/bank_account/proc/payday(amt_of_paychecks, free = FALSE)
+	if(suspended)
+		bank_card_talk("ERROR: Payday aborted, the account holder had been moved to cryo storage.")
 	var/money_to_transfer = paycheck_amount * amt_of_paychecks
 	if(welfare)
 		money_to_transfer += PAYCHECK_WELFARE
