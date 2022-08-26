@@ -112,15 +112,16 @@
 	new /obj/item/door_remote/chief_medical_officer(src)
 	new /obj/item/card/id/departmental_budget/med(src)
 	new /obj/item/circuitboard/machine/techfab/department/medical(src)
-	new /obj/item/storage/box/suitbox/cmo
+	new /obj/item/storage/box/suitbox/cmo(src)
 
 /obj/item/storage/box/suitbox/cmo
-	name = "box of chief medical officer outfits"
+	name = "compression box of chief medical officer outfits"
+	slow_type = MOVESPEED_ID_SLOW_SUITBOX_CMO
 
 /obj/item/storage/box/suitbox/cmo/PopulateContents()
 	new /obj/item/clothing/under/rank/medical/chief_medical_officer(src)
 	new /obj/item/clothing/under/rank/medical/chief_medical_officer/skirt(src)
-	new /obj/item/clothing/shoes/sneakers/brown	(src)
+	new /obj/item/clothing/shoes/sneakers/brown(src)
 	new /obj/item/clothing/head/beret/cmo(src)
 
 /obj/structure/closet/secure_closet/animal

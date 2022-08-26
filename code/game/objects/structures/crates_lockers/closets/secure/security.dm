@@ -32,20 +32,25 @@
 	new /obj/item/restraints/handcuffs/cable/zipties(src)
 	new /obj/item/door_remote/captain(src)
 	new /obj/item/card/id/departmental_budget/civ(src)
-	new /obj/item/storage/box/suitbox
+	new /obj/item/storage/box/suitbox(src)
 
 /obj/item/storage/box/suitbox
-	name = "box of captain outfits"
-	desc = "a box with bluespace compression of nanotrasen approved technology, but this is extremely heavy... If you're glued with this box, pull out of the contents and fold the box."
+	name = "compression box of captain outfits"
+	desc = "a box with bluespace compression technology that nanotrasen has approved, but this is extremely heavy... If you're glued with this box, pull out of the contents and fold the box."
 	w_class = WEIGHT_CLASS_HUGE
+	var/slow_type = MOVESPEED_ID_SLOW_SUITBOX_CAP
+	/* Note for the compression box
+	Do not put any box (or suit) into this box, or it will allow to infinite storage.
+	non-storage items are only legit for this box.
+	but also, each box should have different 'slow_type' value. */
 
 /obj/item/storage/box/suitbox/pickup(mob/user)
 	. = ..()
-	user.add_movespeed_modifier(MOVESPEED_ID_SLOW_HEAD_SUITBOX, update=TRUE, priority=100, multiplicative_slowdown=4)
+	user.add_movespeed_modifier(slow_type, update=TRUE, priority=100, multiplicative_slowdown=4)
 
 /obj/item/storage/box/suitbox/dropped(mob/user)
 	..()
-	user.remove_movespeed_modifier(MOVESPEED_ID_SLOW_HEAD_SUITBOX, TRUE)
+	user.remove_movespeed_modifier(slow_type, TRUE)
 
 /obj/item/storage/box/suitbox/PopulateContents()
 	new /obj/item/clothing/under/rank/captain(src)
@@ -84,10 +89,11 @@
 	new /obj/item/door_remote/civillian(src)
 	new /obj/item/card/id/departmental_budget/srv(src)
 	new /obj/item/circuitboard/machine/techfab/department/service(src)
-	new /obj/item/storage/box/suitbox/hop
+	new /obj/item/storage/box/suitbox/hop(src)
 
 /obj/item/storage/box/suitbox/hop
-	name = "box of head of personnel outfits"
+	name = "compression box of head of personnel outfits"
+	slow_type = MOVESPEED_ID_SLOW_SUITBOX_HOP
 
 /obj/item/storage/box/suitbox/hop/PopulateContents()
 	new /obj/item/clothing/under/rank/civilian/head_of_personnel(src)
@@ -152,10 +158,11 @@
 	new /obj/item/pinpointer/nuke(src)
 	new /obj/item/card/id/departmental_budget/sec(src)
 	new /obj/item/circuitboard/machine/techfab/department/security(src)
-	new /obj/item/storage/box/suitbox/hos
+	new /obj/item/storage/box/suitbox/hos(src)
 
 /obj/item/storage/box/suitbox/hos
-	name = "suit box of head of security outfits"
+	name = "compression box of head of security outfits"
+	slow_type = MOVESPEED_ID_SLOW_SUITBOX_HOS
 
 /obj/item/storage/box/suitbox/hos/PopulateContents()
 	new /obj/item/clothing/under/rank/security/head_of_security(src)

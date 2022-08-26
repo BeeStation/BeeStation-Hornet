@@ -30,10 +30,11 @@
 	new /obj/item/door_remote/research_director(src)
 	new /obj/item/card/id/departmental_budget/sci(src)
 	new /obj/item/circuitboard/machine/techfab/department/science(src)
-	new /obj/item/storage/box/suitbox/rd
+	new /obj/item/storage/box/suitbox/rd(src)
 
 /obj/item/storage/box/suitbox/rd
-	name = "box of research director outfits"
+	name = "compression box of research director outfits"
+	slow_type = MOVESPEED_ID_SLOW_SUITBOX_RD
 
 /obj/item/storage/box/suitbox/rd/PopulateContents()
 	new /obj/item/clothing/under/rank/rnd/research_director(src)
