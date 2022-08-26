@@ -8,6 +8,7 @@
 	/// List of victims (of a very funny joke, that everyone loves!). Stores references to mobs.
 	var/list/slip_victims = list()
 	init_ringtone = "honk"
+	device_theme = "ntos-clown-pink" // Give the clown the best theme
 
 /obj/item/modular_computer/tablet/pda/clown/ComponentInitialize()
 	. = ..()
