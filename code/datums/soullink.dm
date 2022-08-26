@@ -3,7 +3,6 @@
 /mob/living
 	var/list/ownedSoullinks //soullinks we are the owner of
 	var/list/sharedSoullinks //soullinks we are a/the sharer of
-	var/account_id // this should be here because you can become living from a human holding this info
 
 /mob/living/Destroy()
 	if(playable)

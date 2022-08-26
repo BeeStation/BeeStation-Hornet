@@ -311,14 +311,13 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 		//and yes, this totally deletes their bodyparts one by one, I just couldn't bother
 
 	// Suspend their bank payment
-	if(mob_occupant.account_id)
+	if(mob_occupant?.mind?.account_id)
 		var/number_of_bank_account_holder = 0
-		for(var/mob/living/carbon/human/H in GLOB.mob_list)
-			if(H.account_id == mob_occupant.account_id)
-				if(H.mind) // if an experimental clone exists, the account will be kept.
-					number_of_bank_account_holder++
+		for(var/mob/living/L in GLOB.mob_list)
+			if(L?.mind?.account_id == mob_occupant.mind.account_id)
+				number_of_bank_account_holder++ // if an experimental clone exists, the account will be kept.
 		if(number_of_bank_account_holder <= 1)
-			var/datum/bank_account/target_account = SSeconomy.get_bank_account_by_id(mob_occupant.account_id)
+			var/datum/bank_account/target_account = SSeconomy.get_bank_account_by_id(mob_occupant.mind.account_id)
 			target_account.paycheck_bonus = 0
 			target_account.suspended = TRUE // bank account will not be deleted, just suspended
 			var/card_exists = FALSE
