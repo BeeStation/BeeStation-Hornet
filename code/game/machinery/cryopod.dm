@@ -338,7 +338,7 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 
 					if(target_account.account_balance)
 						dept_bank.transfer_money(target_account, target_account.account_balance)
-						// if money is still remained, the station budget will have it again.
+						// if money still remains, the station budget will have it again.
 
 	// This should be done after item removal because it checks if your ID card still exists
 
