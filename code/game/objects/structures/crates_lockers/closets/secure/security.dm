@@ -5,8 +5,7 @@
 
 /obj/structure/closet/secure_closet/captains/PopulateContents()
 	..()
-	new /obj/item/gun/energy/e_gun/mini/heads(src)
-	new /obj/item/storage/belt/sabre(src)
+	new /obj/item/storage/box/suitbox(src)
 	new /obj/item/storage/backpack/captain(src)
 	new /obj/item/storage/backpack/satchel/cap(src)
 	new /obj/item/storage/backpack/duffelbag/captain(src)
@@ -15,7 +14,6 @@
 	new /obj/item/clothing/suit/armor/vest/capcarapace/alt(src)
 	new /obj/item/clothing/suit/hooded/wintercoat/captain(src)
 	new /obj/item/clothing/suit/captunic(src)
-	new /obj/item/clothing/neck/cloak/cap(src)
 	new /obj/item/clothing/gloves/color/captain(src)
 	new /obj/item/clothing/glasses/sunglasses/advanced/gar/supergar(src)
 	new /obj/item/radio/headset/heads/captain/alt(src)
@@ -30,9 +28,13 @@
 	new /obj/item/cartridge/captain(src)
 	new /obj/item/storage/box/silver_ids(src)
 	new /obj/item/restraints/handcuffs/cable/zipties(src)
-	new /obj/item/door_remote/captain(src)
+
+	// prioritized items
 	new /obj/item/card/id/departmental_budget/civ(src)
-	new /obj/item/storage/box/suitbox(src)
+	new /obj/item/clothing/neck/cloak/cap(src)
+	new /obj/item/door_remote/captain(src)
+	new /obj/item/storage/belt/sabre(src)
+	new /obj/item/gun/energy/e_gun/mini/heads(src)
 
 /obj/item/storage/box/suitbox
 	name = "compression box of captain outfits"
@@ -40,10 +42,11 @@
 	w_class = WEIGHT_CLASS_HUGE
 	drag_slowdown = 4 // do not steal by dragging
 	var/slow_type = MOVESPEED_ID_SLOW_SUITBOX_CAP
-	/* Note for the compression box
-	Do not put any box (or suit) into this box, or it will allow to infinite storage.
-	non-storage items are only legit for this box.
-	but also, each box should have different 'slow_type' value. */
+	/* Note for the compression box:
+		Do not put any box (or suit) into this box, or it will allow infinite storage.
+		non-storage items are only legit for this box. (suits are storage too, so, no.)
+		but also, each box should have different 'slow_type' value,
+		nor it will allow a glitch when you can access different boxes at the same time. */
 
 /obj/item/storage/box/suitbox/pickup(mob/user)
 	. = ..()
@@ -70,10 +73,7 @@
 
 /obj/structure/closet/secure_closet/hop/PopulateContents()
 	..()
-	new /obj/item/gun/energy/e_gun/mini/heads(src)
-	new /obj/item/clothing/neck/cloak/hop(src)
-	new /obj/item/clothing/suit/armor/vest/alt(src)
-	new /obj/item/clothing/glasses/sunglasses/advanced(src)
+	new /obj/item/storage/box/suitbox/hop(src)
 	new /obj/item/radio/headset/heads/head_of_personnel(src)
 
 	new /obj/item/clothing/neck/petcollar(src)
@@ -81,16 +81,22 @@
 	new /obj/item/storage/photo_album/HoP(src)
 
 	new /obj/item/storage/box/command_keys(src)
-	new /obj/item/megaphone/command(src)
 	new /obj/item/cartridge/hop(src)
 	new /obj/item/storage/box/ids(src)
 	new /obj/item/storage/box/ids(src)
-	new /obj/item/assembly/flash/handheld(src)
 	new /obj/item/restraints/handcuffs/cable/zipties(src)
-	new /obj/item/door_remote/civillian(src)
-	new /obj/item/card/id/departmental_budget/srv(src)
 	new /obj/item/circuitboard/machine/techfab/department/service(src)
-	new /obj/item/storage/box/suitbox/hop(src)
+
+	// prioritized items
+	new /obj/item/card/id/departmental_budget/srv(src)
+	new /obj/item/clothing/neck/cloak/hop(src)
+	new /obj/item/door_remote/civillian(src)
+	new /obj/item/assembly/flash/handheld(src)
+	new /obj/item/clothing/glasses/sunglasses/advanced(src)
+	new /obj/item/clothing/suit/armor/vest/alt(src)
+	new /obj/item/megaphone/command(src)
+	new /obj/item/gun/energy/e_gun/mini/heads(src)
+
 
 /obj/item/storage/box/suitbox/hop
 	name = "compression box of head of personnel outfits"
@@ -131,13 +137,9 @@
 
 /obj/structure/closet/secure_closet/hos/PopulateContents()
 	..()
-	new /obj/item/gun/energy/e_gun/hos(src)
-	new /obj/item/shield/riot/tele(src)
-	new /obj/item/storage/belt/security/full(src)
+	new /obj/item/storage/box/suitbox/hos(src)
 	new /obj/item/clothing/suit/armor/vest/leather(src)
-	new /obj/item/clothing/suit/armor/hos/trenchcoat(src)
 	new /obj/item/clothing/suit/armor/hos(src)
-	new /obj/item/clothing/neck/cloak/hos(src)
 	new /obj/item/clothing/mask/gas/sechailer/swat(src)
 	new /obj/item/clothing/glasses/hud/security/sunglasses/eyepatch(src)
 	new /obj/item/clothing/glasses/hud/security/sunglasses/gars/supergars(src)
@@ -156,10 +158,16 @@
 	new /obj/item/storage/lockbox/medal/sec(src)
 	new /obj/item/storage/lockbox/loyalty(src)
 	new /obj/item/flashlight/seclite(src)
-	new /obj/item/pinpointer/nuke(src)
-	new /obj/item/card/id/departmental_budget/sec(src)
 	new /obj/item/circuitboard/machine/techfab/department/security(src)
-	new /obj/item/storage/box/suitbox/hos(src)
+
+	// prioritized items
+	new /obj/item/card/id/departmental_budget/sec(src)
+	new /obj/item/clothing/neck/cloak/hos(src)
+	new /obj/item/clothing/suit/armor/hos/trenchcoat(src)
+	new /obj/item/shield/riot/tele(src)
+	new /obj/item/storage/belt/security/full(src)
+	new /obj/item/gun/energy/e_gun/hos(src)
+	new /obj/item/pinpointer/nuke(src)
 
 /obj/item/storage/box/suitbox/hos
 	name = "compression box of head of security outfits"
