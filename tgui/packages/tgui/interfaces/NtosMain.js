@@ -41,7 +41,7 @@ export const NtosMain = (props, context) => {
             </Button>
           </Section>
         )}
-        {!!(cardholder && show_imprint) && (
+        {!!(cardholder) && (
           <Section
             title="User Login"
             buttons={(
@@ -52,15 +52,16 @@ export const NtosMain = (props, context) => {
                   disabled={!proposed_login.IDName}
                   onClick={() => act('PC_Eject_Disk', { name: "ID" })}
                 />
-                <Button
-                  icon="dna"
-                  content="Imprint ID"
-                  disabled={!proposed_login.IDName || (
-                    proposed_login.IDName === login.IDName
+                {!!(show_imprint) && (
+                  <Button
+                    icon="dna"
+                    content="Imprint ID"
+                    disabled={!proposed_login.IDName || (
+                      proposed_login.IDName === login.IDName
                     && proposed_login.IDJob === login.IDJob
-                  )}
-                  onClick={() => act('PC_Imprint_ID', { name: "ID" })}
-                />
+                    )}
+                    onClick={() => act('PC_Imprint_ID', { name: "ID" })}
+                  />)}
               </>
             )}>
             <Table>

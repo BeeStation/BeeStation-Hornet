@@ -26,6 +26,11 @@
 	/// The note used by the notekeeping app, stored here for convenience.
 	var/note = "Congratulations on your station upgrading to the new NtOS and Thinktronic based collaboration effort, bringing you the best in electronics and software since 2467!"
 
+/obj/item/modular_computer/tablet/ui_static_data(mob/user)
+	var/list/data = ..()
+	data["show_imprint"] = TRUE
+	return data
+
 /obj/item/modular_computer/tablet/update_icon()
 	..()
 	if (has_variants && !bypass_state)

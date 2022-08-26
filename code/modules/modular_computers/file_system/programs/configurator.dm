@@ -4,8 +4,8 @@
 
 /datum/computer_file/program/computerconfig
 	filename = "compconfig"
-	filedesc = "Hardware Configuration Tool"
-	extended_desc = "This program allows configuration of computer's hardware"
+	filedesc = "Settings"
+	extended_desc = "This program allows configuration of computer's hardware and operating system"
 	program_icon_state = "generic"
 	unsendable = 1
 	undeletable = 1
@@ -16,7 +16,13 @@
 	program_icon = "cog"
 
 	var/obj/item/modular_computer/movable = null
+	var/static/list/themes_list = list("NtOS Default", "NtOS Light", "NtOS Dark", "NtOS Red", "NtOS Orange", "NtOS Yellow", "NtOS Olive", "NtOS Green", "NtOS Teal", "NtOS Blue", "NtOS Violet", "NtOS Purple", "NtOS Pink", "NtOS Brown", "NtOS Grey", "NtOS Clown Pink", "NtOS Clown Yellow", "NtOS Hackerman", "Hackerman", "Retro")
 
+
+/datum/computer_file/program/computerconfig/ui_static_data(mob/user)
+	var/list/data = ..()
+	data["themes"] = themes_list
+	return data
 
 /datum/computer_file/program/computerconfig/ui_data(mob/user)
 	movable = computer
@@ -30,7 +36,6 @@
 		return 0
 
 	var/list/data = get_header_data()
-
 	data["disk_size"] = hard_drive.max_capacity
 	data["disk_used"] = hard_drive.used_capacity
 	data["power_usage"] = movable.last_power_usage
@@ -65,4 +70,9 @@
 			var/obj/item/computer_hardware/H = movable.find_hardware_by_name(params["name"])
 			if(H && istype(H))
 				H.enabled = !H.enabled
+			. = TRUE
+		if("PC_select_theme")
+			if(!(params["theme"] in themes_list))
+				return
+			movable.device_theme = replacetext(lowertext(params["theme"]), " ", "-")
 			. = TRUE

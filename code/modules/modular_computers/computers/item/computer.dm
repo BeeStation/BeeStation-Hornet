@@ -15,7 +15,8 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	var/upgradable = TRUE
 	/// Whether or not the computer can be deconstructed
 	var/deconstructable = TRUE
-	var/device_theme = "ntos"								// Sets the theme for the main menu, hardware config, and file browser apps. Overridden by certain non-NT devices.
+	/// Sets the theme for the main menu, hardware config, and file browser apps.
+	var/device_theme = "ntos-default"
 	var/datum/computer_file/program/active_program = null	// A currently active program running on the computer.
 	var/hardware_flag = 0									// A flag that describes this device type
 	var/last_power_usage = 0

@@ -1,5 +1,5 @@
 import { useBackend } from '../backend';
-import { Box, Button, LabeledList, ProgressBar, Section } from '../components';
+import { Box, Button, LabeledList, ProgressBar, Section, ColorBox, Dropdown } from '../components';
 import { NtosWindow } from '../layouts';
 
 export const NtosConfiguration = (props, context) => {
@@ -12,11 +12,26 @@ export const NtosConfiguration = (props, context) => {
     disk_size,
     disk_used,
     hardware = [],
+    PC_device_theme,
+    themes = [],
   } = data;
-
+  // ntos-default -> Default
+  const clean = (str) => str && str.startsWith("ntos-")
+    ? ("NtOS " + str.charAt(5).toUpperCase() + str.substring(6)).replace(/\b./g, m => m.toUpperCase()).replace("-", " ")
+    : str.replace(/\b./g, m => m.toUpperCase());
   return (
     <NtosWindow>
       <NtosWindow.Content scrollable>
+        <Section title="Appearance">
+          <Dropdown
+            overflow-y="scroll"
+            width="240px"
+            options={themes}
+            selected={clean(PC_device_theme) || "NtOS Default"}
+            onSelected={value => act('PC_select_theme', {
+              theme: value,
+            })} />
+        </Section>
         <Section
           title="Power Supply"
           buttons={(

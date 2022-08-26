@@ -56,12 +56,6 @@
 		if(ui.open())
 			ui.send_asset(get_asset_datum(/datum/asset/simple/headers))
 
-/obj/item/modular_computer/ui_static_data(mob/user)
-	. = ..()
-	var/list/data = list()
-	data["show_imprint"] = istype(src, /obj/item/modular_computer/tablet/)
-	return data
-
 /obj/item/modular_computer/ui_data(mob/user)
 	var/list/data = get_header_data()
 	data["device_theme"] = device_theme
