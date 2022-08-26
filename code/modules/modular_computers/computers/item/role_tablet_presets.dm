@@ -62,6 +62,10 @@
 	default_disk = /obj/item/computer_hardware/hard_drive/role/engineering
 	icon_state = "pda-engineer"
 
+/obj/item/modular_computer/tablet/pda/heads/station_engineer/Initialize(mapload)
+	. = ..()
+	install_component(new /obj/item/computer_hardware/sensorpackage)
+
 /obj/item/modular_computer/tablet/pda/security
 	name = "security PDA"
 	default_disk = /obj/item/computer_hardware/hard_drive/role/security
@@ -108,10 +112,18 @@
 	default_disk = /obj/item/computer_hardware/hard_drive/role/head
 	icon_state = "pda-heads"
 
+/obj/item/modular_computer/tablet/pda/heads/Initialize(mapload)
+	. = ..()
+	install_component(new /obj/item/computer_hardware/card_slot/secondary)
+
 /obj/item/modular_computer/tablet/pda/heads/head_of_personnel
 	name = "head of personnel PDA"
 	default_disk = /obj/item/computer_hardware/hard_drive/role/hop
 	icon_state = "pda-hop"
+
+/obj/item/modular_computer/tablet/pda/heads/head_of_personnel/Initialize(mapload)
+	. = ..()
+	install_component(new /obj/item/computer_hardware/printer/mini)
 
 /obj/item/modular_computer/tablet/pda/heads/head_of_security
 	name = "head of security PDA"
@@ -122,6 +134,10 @@
 	name = "chief engineer PDA"
 	default_disk = /obj/item/computer_hardware/hard_drive/role/ce
 	icon_state = "pda-ce"
+
+/obj/item/modular_computer/tablet/pda/heads/chief_engineer/Initialize(mapload)
+	. = ..()
+	install_component(new /obj/item/computer_hardware/sensorpackage)
 
 /obj/item/modular_computer/tablet/pda/heads/chief_medical_officer
 	name = "chief medical officer PDA"
@@ -134,7 +150,7 @@
 	insert_type = /obj/item/pen/fountain
 	icon_state = "pda-rd"
 
-/obj/item/modular_computer/tablet/pda/captain
+/obj/item/modular_computer/tablet/pda/heads/captain
 	name = "captain PDA"
 	desc = "A portable microcomputer by Thinktronic Systems, LTD. The internals are modified to be more tough than the usual."
 	default_disk = /obj/item/computer_hardware/hard_drive/role/captain
@@ -147,7 +163,7 @@
 	default_disk = /obj/item/computer_hardware/hard_drive/role/quartermaster
 	icon_state = "pda-cargo"
 
-/obj/item/modular_computer/tablet/pda/quartermaster/Initialize(mapload)
+/obj/item/modular_computer/tablet/pda/cargo_technician/Initialize(mapload)
 	. = ..()
 	install_component(new /obj/item/computer_hardware/printer/mini)
 
@@ -226,6 +242,10 @@
 	name = "atmospherics PDA"
 	default_disk = /obj/item/computer_hardware/hard_drive/role/atmos
 	icon_state = "pda-atmos"
+
+/obj/item/modular_computer/tablet/pda/atmospheric_technician/Initialize(mapload)
+	. = ..()
+	install_component(new /obj/item/computer_hardware/sensorpackage)
 
 /obj/item/modular_computer/tablet/pda/chemist
 	name = "chemist PDA"

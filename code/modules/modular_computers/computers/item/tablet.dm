@@ -298,7 +298,6 @@
 	install_component(new /obj/item/computer_hardware/network_card)
 	install_component(new /obj/item/computer_hardware/card_slot)
 	install_component(new /obj/item/computer_hardware/identifier)
-	install_component(new /obj/item/computer_hardware/sensorpackage)
 
 	if(default_disk)
 		var/obj/item/computer_hardware/hard_drive/portable/disk = new default_disk(src)
