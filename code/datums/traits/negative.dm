@@ -695,7 +695,7 @@
 	name = "Docked Pay"
 	desc = "You pissed off a CentCom executive, and now you're barely paid!"
 	value = -2
-	mob_trait = TRAIT_NEET
+	mob_trait = TRAIT_DOCK_PAY
 	gain_text = "<span class='danger'>You feel your paycheck slipping away!</span>"
 	lose_text = "<span class='notice'>You feel fairly compensated for your work.</span>"
 	process = TRUE
@@ -706,10 +706,14 @@
 
 /datum/quirk/dock_pay/add()
 	var/datum/bank_account/D = get_card()
+	if(!D)
+		return
 	D.feck_you = TRUE
 
 /datum/quirk/dock_pay/remove()
 	var/datum/bank_account/D = get_card()
+	if(!D)
+		return
 	D.feck_you = FALSE
 	D.adjust_money(100)  // probably fine it generates money because only admins can remove this
-	D.bank_card_talk("Compensation money processed, account now holds $[account_balance].")
+	D.bank_card_talk("Compensation money processed, account now holds $[D.account_balance].")
