@@ -12,6 +12,8 @@
 	var/list/stored_files = list()
 	/// If we should install the default programs
 	var/default_installs = TRUE
+	/// If the drive has been installed before (used to prevent re-setting initial ringtone)
+	var/has_been_installed = FALSE
 
 /obj/item/computer_hardware/hard_drive/on_remove(obj/item/modular_computer/remove_from, mob/user)
 	remove_from.shutdown_computer()
@@ -167,6 +169,16 @@
 	. = ..()
 	store_file(new /datum/computer_file/program/messenger(src))
 	store_file(new /datum/computer_file/program/notepad(src))
+
+/obj/item/computer_hardware/hard_drive/small/on_install(obj/item/modular_computer/install_into, mob/living/user = null)
+	// We don't want to set the ringtone again if they remove the drive
+	if(has_been_installed)
+		return
+	has_been_installed = TRUE
+	// Set the default ringtone
+	for(var/datum/computer_file/program/messenger/messenger in stored_files)
+		messenger.ringer_status = install_into.init_ringer_on
+		messenger.ringtone = install_into.init_ringtone
 
 /// Non-borgs only get the messenger
 /obj/item/computer_hardware/hard_drive/small/integrated/install_default_programs()

@@ -46,6 +46,7 @@ export const NtosMessenger = (props, context) => {
     photo,
     virus_attach,
     sending_virus,
+    can_set_ringtone,
   } = data;
   if (viewing_messages) {
     return (
@@ -137,6 +138,7 @@ export const NtosMessenger = (props, context) => {
               <Button
                 icon="bell"
                 content="Set Ringtone"
+                enabled={can_set_ringtone}
                 onClick={() => act('PDA_ringSet')}
               />
               <Button

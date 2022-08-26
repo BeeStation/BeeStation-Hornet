@@ -103,29 +103,30 @@
 
 	switch(action)
 		if("PDA_ringSet")
-			var/t = stripped_input(usr, "Enter a new tablet ID", "Computer ID", "", 20)
 			var/mob/living/usr_mob = usr
-			if(in_range(computer, usr_mob) && computer.loc == usr_mob && t)
-				if(SEND_SIGNAL(computer, COMSIG_TABLET_CHANGE_ID, usr_mob, t) & COMPONENT_STOP_RINGTONE_CHANGE)
-					return
-				else
-					ringtone = t
-					return(UI_UPDATE)
+			if(!in_range(computer, usr_mob) || computer.loc != usr_mob)
+				return
+			var/t = stripped_input(usr, "Enter a new ringtone", "Ringtone", "", 20)
+			if(!t || SEND_SIGNAL(computer, COMSIG_TABLET_CHANGE_ID, usr_mob, t) & COMPONENT_STOP_RINGTONE_CHANGE)
+				return
+			else
+				ringtone = t
+				return TRUE
 		if("PDA_ringer_status")
 			ringer_status = !ringer_status
-			return(UI_UPDATE)
+			return TRUE
 		if("PDA_sAndR")
 			sending_and_receiving = !sending_and_receiving
-			return(UI_UPDATE)
+			return TRUE
 		if("PDA_viewMessages")
 			viewing_messages = !viewing_messages
-			return(UI_UPDATE)
+			return TRUE
 		if("PDA_clearMessages")
 			messages = list()
-			return(UI_UPDATE)
+			return TRUE
 		if("PDA_changeSortStyle")
 			sort_by_job = !sort_by_job
-			return(UI_UPDATE)
+			return TRUE
 		if("PDA_sendEveryone")
 			if(!sending_and_receiving)
 				to_chat(usr, "<span class='notice'>ERROR: Device has sending disabled.</span>")
@@ -148,13 +149,13 @@
 					return
 				send_message(usr, targets, TRUE, multi_delay = disk.spam_delay)
 
-			return(UI_UPDATE)
+			return TRUE
 		if("PDA_sendMessage")
 			if(!sending_and_receiving)
 				to_chat(usr, "<span class='notice'>ERROR: Device has sending disabled.</span>")
 				return
 			var/obj/item/modular_computer/target = locate(params["ref"])
-			if(!target)
+			if(!istype(target))
 				return // we don't want tommy sending his messages to nullspace
 			if(!(target.saved_identification == params["name"] && target.saved_job == params["job"]))
 				to_chat(usr, "<span class='notice'>ERROR: User no longer exists.</span>")
@@ -170,16 +171,16 @@
 					var/obj/item/computer_hardware/hard_drive/role/virus/disk = computer.all_components[MC_HDD_JOB]
 					if(istype(disk))
 						disk.send_virus(target, usr)
-						return(UI_UPDATE)
+						return TRUE
 				send_message(usr, list(target))
-				return(UI_UPDATE)
+				return TRUE
 		if("PDA_clearPhoto")
 			computer.saved_image = null
 			photo_path = null
-			return(UI_UPDATE)
+			return TRUE
 		if("PDA_toggleVirus")
 			sending_virus = !sending_virus
-			return(UI_UPDATE)
+			return TRUE
 
 
 /datum/computer_file/program/messenger/ui_data(mob/user)
@@ -196,6 +197,7 @@
 	data["sortByJob"] = sort_by_job
 	data["isSilicon"] = is_silicon
 	data["photo"] = photo_path
+	data["can_set_ringtone"] = !in_range(computer, usr) || computer.loc != usr
 
 	if(disk)
 		data["canSpam"] = disk.spam_delay > 0
