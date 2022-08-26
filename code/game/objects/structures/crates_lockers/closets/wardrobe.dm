@@ -15,7 +15,6 @@
 
 /obj/item/storage/box/suitbox/wardrobe
 	name = "compression box of crew outfits"
-	slow_type = MOVESPEED_ID_SLOW_SUITBOX_WARDROBE
 	var/list/repeated_items = list( // just as a sample
 		/obj/item/clothing/under/color/blue,
 		/obj/item/clothing/under/color/jumpskirt/blue,
@@ -200,7 +199,6 @@
 
 /obj/item/storage/box/suitbox/wardrobe/mixed
 	name = "compression box of crew outfits (jumpsuit)"
-	slow_type = MOVESPEED_ID_SLOW_SUITBOX_WARDROBE_MIX_JSUIT
 	max_repetition = 2
 	repeated_items = list(
 		/obj/item/clothing/under/color/white,
@@ -217,7 +215,6 @@
 
 /obj/item/storage/box/suitbox/wardrobe/mixed/jumpskirt
 	name = "compression box of crew outfits (jumpskirt)"
-	slow_type = MOVESPEED_ID_SLOW_SUITBOX_WARDROBE_MIX_JSKIRT
 	max_repetition = 2
 	repeated_items = list(
 		/obj/item/clothing/under/color/jumpskirt/white,

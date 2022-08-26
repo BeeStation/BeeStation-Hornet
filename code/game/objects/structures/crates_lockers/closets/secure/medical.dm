@@ -117,7 +117,6 @@
 
 /obj/item/storage/box/suitbox/cmo
 	name = "compression box of chief medical officer outfits"
-	slow_type = MOVESPEED_ID_SLOW_SUITBOX_CMO
 
 /obj/item/storage/box/suitbox/cmo/PopulateContents()
 	new /obj/item/clothing/under/rank/medical/chief_medical_officer(src)

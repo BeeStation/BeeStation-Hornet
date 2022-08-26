@@ -36,7 +36,6 @@
 
 /obj/item/storage/box/suitbox/rd
 	name = "compression box of research director outfits"
-	slow_type = MOVESPEED_ID_SLOW_SUITBOX_RD
 
 /obj/item/storage/box/suitbox/rd/PopulateContents()
 	new /obj/item/clothing/under/rank/rnd/research_director(src)

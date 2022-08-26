@@ -36,7 +36,6 @@
 
 /obj/item/storage/box/suitbox/ce_tools
 	name = "compression box of chief engineer tools"
-	slow_type = MOVESPEED_ID_SLOW_SUITBOX_CE_TOOLS
 
 /obj/item/storage/box/suitbox/ce_tools/PopulateContents()
 	new /obj/item/pipe_dispenser(src)
@@ -51,7 +50,6 @@
 
 /obj/item/storage/box/suitbox/ce
 	name = "compression box of chief engineer outfits"
-	slow_type = MOVESPEED_ID_SLOW_SUITBOX_CE
 
 /obj/item/storage/box/suitbox/ce/PopulateContents()
 	new /obj/item/clothing/under/rank/engineering/chief_engineer(src)

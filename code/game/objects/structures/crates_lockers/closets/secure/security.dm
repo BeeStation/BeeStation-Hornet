@@ -41,20 +41,23 @@
 	desc = "a box with bluespace compression technology that nanotrasen has approved, but this is extremely heavy... If you're glued with this box, pull out of the contents and fold the box."
 	w_class = WEIGHT_CLASS_HUGE
 	drag_slowdown = 4 // do not steal by dragging
-	var/slow_type = MOVESPEED_ID_SLOW_SUITBOX_CAP
 	/* Note for the compression box:
 		Do not put any box (or suit) into this box, or it will allow infinite storage.
 		non-storage items are only legit for this box. (suits are storage too, so, no.)
-		but also, each box should have different 'slow_type' value,
 		nor it will allow a glitch when you can access different boxes at the same time. */
 
 /obj/item/storage/box/suitbox/pickup(mob/user)
 	. = ..()
-	user.add_movespeed_modifier(slow_type, update=TRUE, priority=100, multiplicative_slowdown=4)
+	user.add_movespeed_modifier(MOVESPEED_ID_SLOW_SUITBOX, update=TRUE, priority=100, multiplicative_slowdown=4)
 
-/obj/item/storage/box/suitbox/dropped(mob/user)
+/obj/item/storage/box/suitbox/dropped(mob/living/user)
 	..()
-	user.remove_movespeed_modifier(slow_type, TRUE)
+	var/box_num = 0
+	for(var/obj/item/I in user.get_contents())
+		if(istype(I, /obj/item/storage/box/suitbox))
+			box_num++
+	if(box_num<=0)
+		user.remove_movespeed_modifier(MOVESPEED_ID_SLOW_SUITBOX, TRUE)
 
 /obj/item/storage/box/suitbox/PopulateContents()
 	new /obj/item/clothing/under/rank/captain(src)
@@ -100,7 +103,6 @@
 
 /obj/item/storage/box/suitbox/hop
 	name = "compression box of head of personnel outfits"
-	slow_type = MOVESPEED_ID_SLOW_SUITBOX_HOP
 
 /obj/item/storage/box/suitbox/hop/PopulateContents()
 	new /obj/item/clothing/under/rank/civilian/head_of_personnel(src)
@@ -171,7 +173,6 @@
 
 /obj/item/storage/box/suitbox/hos
 	name = "compression box of head of security outfits"
-	slow_type = MOVESPEED_ID_SLOW_SUITBOX_HOS
 
 /obj/item/storage/box/suitbox/hos/PopulateContents()
 	new /obj/item/clothing/under/rank/security/head_of_security(src)
