@@ -365,7 +365,7 @@
 // /obj/item/modular_computer/tablet/pda signals
 
 ///called on pda when the user changes the ringtone: (mob/living/user, new_ringtone)
-#define COMSIG_TABLET_CHANGE_ID "comsig_tablet_change_id"
+#define COMSIG_TABLET_CHANGE_RINGTONE "comsig_tablet_change_ringtone"
 	#define COMPONENT_STOP_RINGTONE_CHANGE (1<<0)
 
 // /obj/item/radio signals

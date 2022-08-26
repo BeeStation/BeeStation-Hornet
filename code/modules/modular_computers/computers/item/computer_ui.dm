@@ -1,7 +1,3 @@
-/obj/item/modular_computer/attack_self(mob/user)
-	. = ..()
-	ui_interact(user)
-
 // Operates TGUI
 
 /obj/item/modular_computer/ui_state(mob/user)

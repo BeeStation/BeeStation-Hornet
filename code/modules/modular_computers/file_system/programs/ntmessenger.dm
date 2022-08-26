@@ -110,7 +110,10 @@
 			if(!in_range(computer, usr_mob) || computer.loc != usr_mob)
 				return
 			var/t = stripped_input(usr, "Enter a new ringtone", "Ringtone", "", 20)
-			if(!t || SEND_SIGNAL(computer, COMSIG_TABLET_CHANGE_ID, usr_mob, t) & COMPONENT_STOP_RINGTONE_CHANGE)
+			if(!t)
+				return
+			if(SEND_SIGNAL(computer, COMSIG_TABLET_CHANGE_RINGTONE, usr_mob, t) & COMPONENT_STOP_RINGTONE_CHANGE)
+				ui.close(can_be_suspended = FALSE)
 				return
 			else
 				ringtone = t
