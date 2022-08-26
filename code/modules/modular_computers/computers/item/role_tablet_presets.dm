@@ -62,10 +62,6 @@
 	default_disk = /obj/item/computer_hardware/hard_drive/role/engineering
 	icon_state = "pda-engineer"
 
-/obj/item/modular_computer/tablet/pda/heads/station_engineer/Initialize(mapload)
-	. = ..()
-	install_component(new /obj/item/computer_hardware/sensorpackage)
-
 /obj/item/modular_computer/tablet/pda/security
 	name = "security PDA"
 	default_disk = /obj/item/computer_hardware/hard_drive/role/security
@@ -134,10 +130,6 @@
 	name = "chief engineer PDA"
 	default_disk = /obj/item/computer_hardware/hard_drive/role/ce
 	icon_state = "pda-ce"
-
-/obj/item/modular_computer/tablet/pda/heads/chief_engineer/Initialize(mapload)
-	. = ..()
-	install_component(new /obj/item/computer_hardware/sensorpackage)
 
 /obj/item/modular_computer/tablet/pda/heads/chief_medical_officer
 	name = "chief medical officer PDA"
@@ -242,10 +234,6 @@
 	name = "atmospherics PDA"
 	default_disk = /obj/item/computer_hardware/hard_drive/role/atmos
 	icon_state = "pda-atmos"
-
-/obj/item/modular_computer/tablet/pda/atmospheric_technician/Initialize(mapload)
-	. = ..()
-	install_component(new /obj/item/computer_hardware/sensorpackage)
 
 /obj/item/modular_computer/tablet/pda/chemist
 	name = "chemist PDA"
