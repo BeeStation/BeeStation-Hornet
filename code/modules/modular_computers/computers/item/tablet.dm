@@ -53,6 +53,11 @@
 			inserted_item = attacking_item
 			playsound(src, 'sound/machines/pda_button1.ogg', 50, TRUE)
 			update_icon()
+	if(istype(attacking_item, /obj/item/paper))
+		var/obj/item/paper/paper = attacking_item
+
+		to_chat(user, "<span class='notice'>You scan \the [attacking_item] into \the [src].</span>")
+		note = paper.info
 
 // Eject the pen if the ID was not ejected
 /obj/item/modular_computer/tablet/AltClick(mob/user)
