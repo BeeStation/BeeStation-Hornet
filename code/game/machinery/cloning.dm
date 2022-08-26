@@ -181,7 +181,7 @@
 	return examine(user)
 
 //Start growing a human clone in the pod!
-/obj/machinery/clonepod/proc/growclone(clonename, ui, mutation_index, mindref, last_death, datum/species/mrace, list/features, factions, list/quirks, datum/bank_account/insurance, list/traumas, body_only, experimental)
+/obj/machinery/clonepod/proc/growclone(clonename, ui, mutation_index, mindref, last_death, datum/species/mrace, list/features, factions, list/quirks, datum/bank_account/insurance, list/traumas, body_only, account_id, experimental)
 	var/result = CLONING_SUCCESS
 	if(!reagents.has_reagent(/datum/reagent/medicine/synthflesh, fleshamnt))
 		connected_message("Cannot start cloning: Not enough synthflesh.")
@@ -262,7 +262,7 @@
 		clonemind.transfer_to(H)
 	else if(!(!experimental && body_only))
 		current_insurance = insurance
-		offer_to_ghost(H)
+		offer_to_ghost(H, account_id)
 		result = CLONING_SUCCESS_EXPERIMENTAL
 
 	if(H.mind)
@@ -273,6 +273,7 @@
 		if(grab_ghost_when == CLONER_MATURE_CLONE)
 			H.ghostize(TRUE)	//Only does anything if they were still in their old body and not already a ghost
 			to_chat(H.get_ghost(TRUE), "<span class='notice'>Your body is beginning to regenerate in a cloning pod. You will become conscious when it is complete.</span>")
+
 
 	if(H)
 		H.faction |= factions
@@ -296,7 +297,7 @@
 	attempting = FALSE
 	return result
 
-/obj/machinery/clonepod/proc/offer_to_ghost(mob/living/carbon/H)
+/obj/machinery/clonepod/proc/offer_to_ghost(mob/living/carbon/H, account_id)
 	set waitfor = FALSE
 	var/list/mob/dead/observer/candidates = pollCandidatesForMob("Do you want to play as [H.real_name]'s experimental clone?", ROLE_EXPERIMENTAL_CLONE, null, null, 300, H, POLL_IGNORE_EXPERIMENTAL_CLONE)
 	if(length(candidates))
@@ -305,6 +306,7 @@
 		log_game("[key_name(C)] became [H.real_name]'s experimental clone.")
 		message_admins("[key_name_admin(C)] became [H.real_name]'s experimental clone.")
 		to_chat(H, "<span class='warning'>You will instantly die if you do 'ghost'. Please stand by until the cloning is done.</span>")
+		H.mind.account_id = account_id
 
 //Grow clones to maturity then kick them out.  FREELOADERS
 /obj/machinery/clonepod/process()

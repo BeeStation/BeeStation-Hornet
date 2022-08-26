@@ -200,7 +200,8 @@
 	if(!visualsOnly)
 		var/datum/bank_account/bank_account = new(H.real_name, src)
 		bank_account.payday(STARTING_PAYCHECKS, TRUE)
-		H?.mind?.account_id = bank_account.account_id
+		if(H.mind)
+			H.mind.account_id = bank_account.account_id
 
 	//Equip the rest of the gear
 	H.dna.species.before_equip_job(src, H, visualsOnly)
