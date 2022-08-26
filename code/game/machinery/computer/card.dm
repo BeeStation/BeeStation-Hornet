@@ -308,6 +308,8 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			var/datum/bank_account/B = A
 			if(!(B.account_department in paycheck_departments))
 				continue
+			if(B.suspended)
+				continue
 			dat += "<tr>"
 			dat += "<td>[B.account_holder]</td>"
 			dat += "<td>[B.account_job.title]</td>"

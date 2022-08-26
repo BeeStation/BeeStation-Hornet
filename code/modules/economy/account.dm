@@ -59,6 +59,7 @@
 /datum/bank_account/proc/payday(amt_of_paychecks, free = FALSE)
 	if(suspended)
 		bank_card_talk("ERROR: Payday aborted, the account holder had been moved to cryo storage.")
+		return FALSE
 	var/money_to_transfer = paycheck_amount * amt_of_paychecks
 	if(welfare)
 		money_to_transfer += PAYCHECK_WELFARE

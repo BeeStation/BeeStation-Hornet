@@ -319,6 +319,7 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 					number_of_bank_account_holder++
 		if(number_of_bank_account_holder <= 1)
 			var/datum/bank_account/target_account = SSeconomy.get_bank_account_by_id(mob_occupant.account_id)
+			target_account.paycheck_bonus = 0
 			target_account.suspended = TRUE // bank account will not be deleted, just suspended
 			var/card_exists = FALSE
 			for(var/obj/item/card/id/I in GLOB.id_cards)
