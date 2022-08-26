@@ -46,7 +46,6 @@ export const NtosMessenger = (props, context) => {
     photo,
     virus_attach,
     sending_virus,
-    can_set_ringtone,
   } = data;
   if (viewing_messages) {
     return (
@@ -138,7 +137,6 @@ export const NtosMessenger = (props, context) => {
               <Button
                 icon="bell"
                 content="Set Ringtone"
-                enabled={can_set_ringtone}
                 onClick={() => act('PDA_ringSet')}
               />
               <Button
@@ -154,8 +152,8 @@ export const NtosMessenger = (props, context) => {
               {!!virus_attach && (
                 <Button
                   icon="bug"
-                  color="bad"
-                  content={`Attach Virus: ${sending_virus ? "Yes" : "No"}`}
+                  color={sending_virus ? "bad" : null}
+                  content={`Send Virus: ${sending_virus ? "Yes" : "No"}`}
                   onClick={() => act('PDA_toggleVirus')}
                 />
               )}

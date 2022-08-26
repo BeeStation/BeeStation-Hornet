@@ -66,10 +66,12 @@ export const NtosMain = (props, context) => {
             )}>
             <Table>
               <Table.Row>
-                ID Name: {login.IDName} ({proposed_login.IDName})
+                ID Name: {login.IDName}
+                {proposed_login?.IDName ? ` (${proposed_login.IDName})` : ``}
               </Table.Row>
               <Table.Row>
-                Assignment: {login.IDJob} ({proposed_login.IDJob})
+                Assignment: {login.IDJob}
+                {proposed_login?.IDJob ? ` (${proposed_login.IDJob})` : ``}
               </Table.Row>
             </Table>
           </Section>

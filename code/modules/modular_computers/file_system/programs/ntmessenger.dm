@@ -197,7 +197,6 @@
 	data["sortByJob"] = sort_by_job
 	data["isSilicon"] = is_silicon
 	data["photo"] = photo_path
-	data["can_set_ringtone"] = !in_range(computer, usr) || computer.loc != usr
 
 	if(disk)
 		data["canSpam"] = disk.spam_delay > 0
