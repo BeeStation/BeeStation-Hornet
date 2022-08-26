@@ -68,17 +68,6 @@
 		return
 	remove_pen(user)
 
-// Eject the cartridge
-/obj/item/modular_computer/tablet/CtrlShiftClick(mob/user)
-	. = ..()
-	if(.)
-		return
-	var/obj/item/computer_hardware/hard_drive/role/cart = all_components[MC_HDD_JOB]
-	if(!cart)
-		return
-	if(uninstall_component(cart, usr))
-		user.put_in_hands(cart)
-
 /obj/item/modular_computer/tablet/verb/verb_toggle_light()
 	set name = "Toggle Light"
 	set category = "Object"
