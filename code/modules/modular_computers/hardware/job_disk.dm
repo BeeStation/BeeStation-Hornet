@@ -11,7 +11,8 @@
 	default_installs = FALSE
 
 	var/disk_flags = 0 // bit flag for the programs
-	var/can_spam = FALSE
+	/// Enables "Send to All" Option. 1=1 min, 2=2mins, 2.5=2 min 30 seconds
+	var/spam_delay = 0
 
 /obj/item/computer_hardware/hard_drive/role/on_remove(obj/item/modular_computer/remove_from, mob/user)
 	return
@@ -77,11 +78,6 @@
 		prog.transfer_access = list()
 		store_file(prog)
 
-
-
-/obj/item/computer_hardware/hard_drive/role/proc/CanSpam()
-	return can_spam
-
 // Disk Definitions
 
 /obj/item/computer_hardware/hard_drive/role/engineering
@@ -130,12 +126,13 @@
 	name = "\improper P.R.O.V.E. disk"
 	icon_state = "cart-prove"
 	disk_flags = DISK_SEC
-	can_spam = TRUE
+	spam_delay = 2.5
 
 /obj/item/computer_hardware/hard_drive/role/curator
 	name = "\improper Lib-Tweet disk"
 	icon_state = "cart-cur"
 	disk_flags = DISK_NEWS
+	spam_delay = 3.5
 
 /obj/item/computer_hardware/hard_drive/role/roboticist
 	name = "\improper B.O.O.P. Remote Control disk"
@@ -196,4 +193,14 @@
 	icon_state = "cart-cap"
 	desc = "Now with 350% more value!" //Give the Captain...EVERYTHING! (Except Mime, Clown, and Syndie)
 	disk_flags = ~0
-	can_spam = TRUE
+	spam_delay = 2
+
+/obj/item/computer_hardware/hard_drive/role/vip //the only purpose of this cartridge is to allow the VIP to be annoying
+	name = "\improper TWIT cartridge"
+	icon_state = "cart-twit"
+	spam_delay = 1.5
+
+/obj/item/computer_hardware/hard_drive/role/unlicensed //HoP can give you this
+	name = "\improper FACEBUCKS cartridge"
+	icon_state = "cart-signal" // might need a new sprite
+	spam_delay = 5

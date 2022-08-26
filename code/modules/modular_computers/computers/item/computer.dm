@@ -67,6 +67,10 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	var/messenger_invisible = FALSE
 	/// The saved image used for messaging purposes
 	var/datum/picture/saved_image
+	/// The ringtone that will be set on initialize
+	var/init_ringtone = "beep"
+	/// If the device starts with its ringer on
+	var/init_ringer_on = TRUE
 
 /obj/item/modular_computer/Initialize(mapload)
 	. = ..()
@@ -81,7 +85,10 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 		id.UpdateDisplay()
 	update_icon()
 	add_messenger()
-
+	var/obj/item/computer_hardware/hard_drive/drive = all_components[MC_HDD]
+	for(var/datum/computer_file/program/messenger/app in drive.stored_files)
+		app.ringer_status = init_ringer_on
+		app.ringtone = init_ringtone
 
 /obj/item/modular_computer/Destroy()
 	kill_program(forced = TRUE)

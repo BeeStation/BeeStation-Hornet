@@ -7,7 +7,7 @@
 	insert_type = /obj/item/toy/crayon/rainbow
 	/// List of victims (of a very funny joke, that everyone loves!). Stores references to mobs.
 	var/list/slip_victims = list()
-	// TODO tablet-pda ttone = honk
+	init_ringtone = "honk"
 
 /obj/item/modular_computer/tablet/pda/clown/ComponentInitialize()
 	. = ..()
@@ -26,7 +26,8 @@
 	desc = "A portable microcomputer by Thinktronic Systems, LTD. The hardware has been modified for compliance with the vows of silence."
 	default_disk = /obj/item/computer_hardware/hard_drive/role/virus/mime
 	insert_type = /obj/item/toy/crayon/mime
-	// TODO tablet-pda silence
+	init_ringer_on = FALSE
+	init_ringtone = "silence"
 
 /obj/item/modular_computer/tablet/pda/mime/Initialize(mapload)
 	. = ..()
@@ -91,13 +92,13 @@
 	name = "janitor PDA"
 	default_disk = /obj/item/computer_hardware/hard_drive/role/janitor
 	icon_state = "pda-janitor"
-	// TODO tablet-pda tone = slip
+	init_ringtone = "slip"
 
 /obj/item/modular_computer/tablet/pda/science
 	name = "scientist PDA"
 	default_disk = /obj/item/computer_hardware/hard_drive/role/signal/toxins
 	icon_state = "pda-science"
-	// TODO tablet-pda tone = boom
+	init_ringtone = "boom"
 
 /obj/item/modular_computer/tablet/pda/service
 	name = "service PDA"
@@ -182,14 +183,14 @@
 /obj/item/modular_computer/tablet/pda/chaplain
 	name = "chaplain PDA"
 	icon_state = "pda-chaplain"
-	// TODO tablet-pda tone = holy
+	init_ringtone = "holy"
 
 /obj/item/modular_computer/tablet/pda/lawyer
 	name = "lawyer PDA"
 	default_disk = /obj/item/computer_hardware/hard_drive/role/lawyer
 	insert_type = /obj/item/pen/fountain
 	icon_state = "pda-lawyer"
-	// TODO tablet-pda tone = objection
+	init_ringtone = "objection"
 
 /obj/item/modular_computer/tablet/pda/roboticist
 	name = "roboticist PDA"
@@ -203,7 +204,8 @@
 	default_disk = /obj/item/computer_hardware/hard_drive/role/curator
 	icon_state = "pda-library"
 	insert_type = /obj/item/pen/fountain
-	// TODO tablet-pda silence
+	init_ringtone = "silence"
+	init_ringer_on = FALSE
 
 /obj/item/modular_computer/tablet/pda/clear
 	name = "clear PDA"
@@ -239,15 +241,14 @@
 	name = "fancy PDA"
 	desc = "A portable microcomputer by Thinktronic Systems, LTD. This model is a gold-plated 5230-NTOS LRP Series, and probably quite expensive."
 	note = "Congratulations, you have chosen the Thinktronic 5230-NTOS LRP Series Personal Data Assistant Golden Edition!"
-	// TODO tablet-pda
-	//default_disk = /obj/item/computer_hardware/hard_drive/role/vip
+	default_disk = /obj/item/computer_hardware/hard_drive/role/vip
 	insert_type = /obj/item/pen/fountain
 	icon_state = "pda-gold"
-	// TODO tablet-pda tone = ch-CHING
+	init_ringtone = "ch-CHING"
 
 /obj/item/modular_computer/tablet/pda/unlicensed
 	name = "unlicensed PDA"
 	desc = "A shitty knockoff of a portable microcomputer by Thinktronic Systems, LTD. Complete with a cracked operating system."
 	note = "Error: Unlicensed software detected. Please contact your supervisor."
-	// TODO tablet-pda
+	default_disk = /obj/item/computer_hardware/hard_drive/role/unlicensed
 	icon_state = "pda-knockoff"

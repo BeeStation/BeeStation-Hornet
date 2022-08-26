@@ -14,8 +14,7 @@
 					/obj/item/modular_computer/tablet/pda/heads = 10,
 					/obj/item/computer_hardware/hard_drive/role/captain = 3,
 					/obj/item/computer_hardware/hard_drive/role/quartermaster = 10)
-	// TODO tablet-pda
-	//premium = list(/obj/item/computer_hardware/hard_drive/role/annoyance/lesser = 3)
+	premium = list(/obj/item/computer_hardware/hard_drive/role/unlicensed = 3)
 	refill_canister = /obj/item/vending_refill/cart
 	default_price = 50
 	extra_price = 100

@@ -1,4 +1,3 @@
-// TODO tablet-pda
 /obj/machinery/pdapainter
 	name = "\improper color manipulator"
 	desc = "A machine able to color PDAs and IDs with ease. Insert an ID card or PDA and pick a color scheme."

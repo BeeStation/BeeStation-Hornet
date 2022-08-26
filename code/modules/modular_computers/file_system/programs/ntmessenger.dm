@@ -1,3 +1,4 @@
+#define PDA_SPAM_DELAY 1 MINUTES
 /datum/computer_file/program/messenger
 	filename = "nt_messenger"
 	filedesc = "Direct Messenger"
@@ -129,6 +130,12 @@
 			if(!sending_and_receiving)
 				to_chat(usr, "<span class='notice'>ERROR: Device has sending disabled.</span>")
 				return
+			var/obj/item/computer_hardware/hard_drive/role/disk = computer.all_components[MC_HDD_JOB]
+			if(!disk?.spam_delay)
+				if(!disk)
+					return
+				log_href_exploit(usr)
+				return
 
 			var/list/targets = list()
 
@@ -136,7 +143,10 @@
 				targets += mc
 
 			if(targets.len > 0)
-				send_message(usr, targets, TRUE)
+				if(last_text_everyone && world.time < (last_text_everyone + PDA_SPAM_DELAY * disk.spam_delay))
+					to_chat(usr, "<span class='warning'>Send To All function is still on cooldown. Enabled in [(last_text_everyone + PDA_SPAM_DELAY * disk.spam_delay - world.time)/10] seconds.")
+					return
+				send_message(usr, targets, TRUE, multi_delay = disk.spam_delay)
 
 			return(UI_UPDATE)
 		if("PDA_sendMessage")
@@ -188,7 +198,7 @@
 	data["photo"] = photo_path
 
 	if(disk)
-		data["canSpam"] = disk.CanSpam()
+		data["canSpam"] = disk.spam_delay > 0
 		data["virus_attach"] = istype(disk, /obj/item/computer_hardware/hard_drive/role/virus)
 		data["sending_virus"] = sending_virus
 
@@ -216,11 +226,11 @@
 		return
 	return sanitize(t)
 
-/datum/computer_file/program/messenger/proc/send_message(mob/living/user, list/obj/item/modular_computer/targets, everyone = FALSE, fake_name = null, fake_job = null)
+/datum/computer_file/program/messenger/proc/send_message(mob/living/user, list/obj/item/modular_computer/targets, everyone = FALSE, fake_name = null, fake_job = null, multi_delay = 0)
 	var/message = msg_input(user)
 	if(!message || !targets.len)
 		return FALSE
-	if((last_text && world.time < last_text + 10) || (everyone && last_text_everyone && world.time < last_text_everyone + 2 MINUTES)) // TODO tablet-pda
+	if((last_text && world.time < last_text + 10) || (everyone && last_text_everyone && world.time < (last_text_everyone + PDA_SPAM_DELAY * multi_delay)))
 		return FALSE
 	if(prob(1))
 		message += "\nSent from my PDA"
@@ -262,9 +272,8 @@
 	// If it didn't reach, note that fact
 	if (!signal.data["done"])
 		to_chat(user, "<span class='notice'>ERROR: Server isn't responding.</span>")
-		// TODO tablet-pda
-		//if(!silent)
-			//playsound(src, 'sound/machines/terminal_error.ogg', 15, TRUE)
+		if(ringer_status)
+			playsound(src, 'sound/machines/terminal_error.ogg', 15, TRUE)
 		return FALSE
 
 	var/target_text = signal.format_target()
@@ -351,3 +360,4 @@
 		switch(href_list["choice"])
 			if("Message")
 				send_message(usr, list(locate(href_list["target"])))
+#undef PDA_SPAM_DELAY
