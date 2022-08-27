@@ -18,6 +18,15 @@
 /obj/item/computer_hardware/hard_drive/on_remove(obj/item/modular_computer/remove_from, mob/user)
 	remove_from.shutdown_computer()
 
+/obj/item/computer_hardware/hard_drive/on_install(obj/item/modular_computer/install_into, mob/living/user)
+	// We don't want to install again if they remove the drive
+	if(has_been_installed)
+		return
+	has_been_installed = TRUE
+	// Add default programs now, instead of Initialize (this is important so they have a reference to "holder" and thus "computer")
+	if(default_installs)
+		install_default_programs()
+
 /obj/item/computer_hardware/hard_drive/proc/install_default_programs()
 	store_file(new/datum/computer_file/program/computerconfig(src)) 	// Computer configuration utility, allows hardware control and displays more info than status bar
 	store_file(new/datum/computer_file/program/ntnetdownload(src))		// NTNet Downloader Utility, allows users to download more software from NTNet repository
@@ -167,14 +176,11 @@
 	store_file(new /datum/computer_file/program/messenger(src))
 	store_file(new /datum/computer_file/program/notepad(src))
 
+
 /obj/item/computer_hardware/hard_drive/small/on_install(obj/item/modular_computer/install_into, mob/living/user = null)
-	// We don't want to set the ringtone again if they remove the drive
-	if(has_been_installed)
+	. = ..()
+	if(!.)
 		return
-	has_been_installed = TRUE
-	// Add default programs now, instead of Initialize (this is important so they have a reference to "holder" and thus "computer")
-	if(default_installs)
-		install_default_programs()
 	// Set the default ringtone
 	for(var/datum/computer_file/program/messenger/messenger in stored_files)
 		messenger.ringer_status = install_into.init_ringer_on
