@@ -30,12 +30,9 @@ $disabled-color: #303030;
     padding-right: 9px;
   }
 
-  body {
-    font-family: monospace !important;
-  }
-
-  body * {
-    font-family: monospace !important;
+  * {
+    font-family: 'Courier New', Courier, monospace, sans-serif,
+      'Font Awesome 5 Free' !important;
   }
 
   .Button {
