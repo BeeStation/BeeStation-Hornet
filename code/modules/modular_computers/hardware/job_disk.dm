@@ -103,7 +103,7 @@
 
 /obj/item/computer_hardware/hard_drive/role/brig_physician
 	name = "\improper R.O.B.U.S.T. MED-U disk"
-	icon_state = "cart-med"
+	icon_state = "cart-brigphys"
 	disk_flags = DISK_MANIFEST | DISK_MED | DISK_ROBOS
 
 /obj/item/computer_hardware/hard_drive/role/security

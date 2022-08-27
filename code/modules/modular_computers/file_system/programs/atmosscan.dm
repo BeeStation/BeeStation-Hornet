@@ -2,7 +2,7 @@
 	filename = "atmosscan"
 	filedesc = "Atmospheric Scanner"
 	category = PROGRAM_CATEGORY_ENGI
-	program_icon_state = "air"
+	program_icon_state = "atmos_control"
 	extended_desc = "A small built-in sensor reads out the atmospheric conditions around the device."
 	network_destination = "atmos scan"
 	size = 4

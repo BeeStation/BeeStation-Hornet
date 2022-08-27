@@ -15,6 +15,7 @@
 /datum/computer_file/program/records/medical
 	filedesc = "Medical Records"
 	filename = "medrecords"
+	program_icon_state = "med-records"
 	program_icon = "book-medical"
 	extended_desc = "Allows the user to view several basic medical records from the crew."
 	transfer_access = list(ACCESS_MEDICAL, ACCESS_HEADS)
@@ -24,6 +25,7 @@
 /datum/computer_file/program/records/security
 	filedesc = "Security Records"
 	filename = "secrecords"
+	program_icon_state = "sec-records"
 	extended_desc = "Allows the user to view several basic security records from the crew."
 	transfer_access = list(ACCESS_SECURITY, ACCESS_HEADS)
 	available_on_ntnet = TRUE
