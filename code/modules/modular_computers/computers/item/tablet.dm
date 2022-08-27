@@ -285,6 +285,15 @@
 	bypass_state = TRUE
 
 	var/default_disk = 0
+	/// If the PDA has been picked up / equipped before. This is used to set the user's preference background color / theme.
+	var/equipped = FALSE
+
+/obj/item/modular_computer/tablet/pda/equipped(mob/user, slot)
+	. = ..()
+	if(equipped || !user.client)
+		return
+	classic_color = user.client.prefs.pda_color
+	equipped = TRUE
 
 /obj/item/modular_computer/tablet/pda/update_icon()
 	..()

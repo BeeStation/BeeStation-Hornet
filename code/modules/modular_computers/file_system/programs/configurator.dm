@@ -16,7 +16,7 @@
 	program_icon = "cog"
 
 	var/obj/item/modular_computer/movable = null
-	var/static/list/themes_list = list("NtOS Default", "NtOS Light", "NtOS Dark", "NtOS Red", "NtOS Orange", "NtOS Yellow", "NtOS Olive", "NtOS Green", "NtOS Teal", "NtOS Blue", "NtOS Violet", "NtOS Purple", "NtOS Pink", "NtOS Brown", "NtOS Grey", "NtOS Clown Pink", "NtOS Clown Yellow", "NtOS Hackerman", "Hackerman", "Retro")
+	var/static/list/themes_list = list("NtOS Default", "Thinktronic Classic", "NtOS Light", "NtOS Dark", "NtOS Red", "NtOS Orange", "NtOS Yellow", "NtOS Olive", "NtOS Green", "NtOS Teal", "NtOS Blue", "NtOS Violet", "NtOS Purple", "NtOS Pink", "NtOS Brown", "NtOS Grey", "NtOS Clown Pink", "NtOS Clown Yellow", "NtOS Hackerman", "Hackerman", "Retro")
 
 
 /datum/computer_file/program/computerconfig/ui_static_data(mob/user)
@@ -75,4 +75,12 @@
 			if(!(params["theme"] in themes_list))
 				return
 			movable.device_theme = replacetext(lowertext(params["theme"]), " ", "-")
+			. = TRUE
+		if("PC_set_classic_color")
+			if(movable.device_theme != "thinktronic-classic")
+				return
+			var/new_color = input(usr, "Choose a new color for the device's system theme.", "System Color",movable.classic_color) as color|null
+			if(!new_color)
+				return
+			movable.classic_color = new_color
 			. = TRUE

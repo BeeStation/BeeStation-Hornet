@@ -14,11 +14,12 @@ export const NtosConfiguration = (props, context) => {
     hardware = [],
     PC_device_theme,
     themes = [],
+    PC_classic_color,
   } = data;
   // ntos-default -> Default
   const clean = (str) => str && str.startsWith("ntos-")
     ? ("NtOS " + str.charAt(5).toUpperCase() + str.substring(6)).replace(/\b./g, m => m.toUpperCase()).replace("-", " ")
-    : str.replace(/\b./g, m => m.toUpperCase());
+    : str.replace(/\b./g, m => m.toUpperCase()).replace("-", " ");
   return (
     <NtosWindow>
       <NtosWindow.Content scrollable>
@@ -31,6 +32,7 @@ export const NtosConfiguration = (props, context) => {
             onSelected={value => act('PC_select_theme', {
               theme: value,
             })} />
+          {PC_device_theme === "thinktronic-classic" ? <Button icon="palette" content="Set Color" onClick={() => act("PC_set_classic_color")} /> : null}
         </Section>
         <Section
           title="Power Supply"
