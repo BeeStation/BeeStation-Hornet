@@ -8,7 +8,7 @@ export const NtosNotepad = (props, context) => {
     note,
   } = data;
   return (
-    <NtosWindow width={600} height={800}>
+    <NtosWindow width={400} height={600}>
       <NtosWindow.Content>
         <Stack fill vertical direction="column" justify="space-between">
           <Stack.Item>

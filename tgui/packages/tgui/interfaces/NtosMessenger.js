@@ -49,7 +49,7 @@ export const NtosMessenger = (props, context) => {
   } = data;
   if (viewing_messages) {
     return (
-      <NtosWindow width={600} height={800}>
+      <NtosWindow width={400} height={600}>
         <NtosWindow.Content>
           <Stack vertical>
             <Section fill>
@@ -108,7 +108,7 @@ export const NtosMessenger = (props, context) => {
     );
   }
   return (
-    <NtosWindow width={600} height={800}>
+    <NtosWindow width={400} height={600}>
       <NtosWindow.Content>
         <Stack vertical>
           <Section fill textAlign="center">
