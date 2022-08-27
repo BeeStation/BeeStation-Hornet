@@ -5,7 +5,7 @@
 
 /obj/structure/closet/secure_closet/captains/PopulateContents()
 	..()
-	new /obj/item/storage/box/suitbox(src)
+	new /obj/item/storage/box/suitbox/cap(src)
 	new /obj/item/storage/backpack/captain(src)
 	new /obj/item/storage/backpack/satchel/cap(src)
 	new /obj/item/storage/backpack/duffelbag/captain(src)
@@ -36,31 +36,10 @@
 	new /obj/item/storage/belt/sabre(src)
 	new /obj/item/gun/energy/e_gun/mini/heads(src)
 
-/obj/item/storage/box/suitbox
+/obj/item/storage/box/suitbox/cap/PopulateContents()
 	name = "compression box of captain outfits"
-	desc = "a box with bluespace compression technology that nanotrasen has approved, but this is extremely heavy... If you're glued with this box, pull out of the contents and fold the box."
-	w_class = WEIGHT_CLASS_HUGE
-	drag_slowdown = 4 // do not steal by dragging
-	/* Note for the compression box:
-		Do not put any box (or suit) into this box, or it will allow infinite storage.
-		non-storage items are only legit for this box. (suits are storage too, so, no.)
-		nor it will allow a glitch when you can access different boxes at the same time. */
 
-/obj/item/storage/box/suitbox/pickup(mob/user)
-	. = ..()
-	user.add_movespeed_modifier(MOVESPEED_ID_SLOW_SUITBOX, update=TRUE, priority=100, multiplicative_slowdown=4)
-
-/obj/item/storage/box/suitbox/dropped(mob/living/user)
-	..()
-	var/box_num = 0
-	for(var/obj/item/I in user.get_contents())
-		if(istype(I, /obj/item/storage/box/suitbox))
-			box_num++
-	if(box_num<=0)
-		user.remove_movespeed_modifier(MOVESPEED_ID_SLOW_SUITBOX, TRUE)
-		// when you have none of compression box, you'll get freed from this movement slow curse
-
-/obj/item/storage/box/suitbox/PopulateContents()
+/obj/item/storage/box/suitbox/cap/PopulateContents()
 	new /obj/item/clothing/under/rank/captain(src)
 	new /obj/item/clothing/under/rank/captain/skirt(src)
 	new /obj/item/clothing/under/rank/captain/parade(src)
@@ -142,7 +121,6 @@
 	..()
 	new /obj/item/storage/box/suitbox/hos(src)
 	new /obj/item/clothing/suit/armor/vest/leather(src)
-	new /obj/item/clothing/suit/armor/hos(src)
 	new /obj/item/clothing/mask/gas/sechailer/swat(src)
 	new /obj/item/clothing/glasses/hud/security/sunglasses/eyepatch(src)
 	new /obj/item/clothing/glasses/hud/security/sunglasses/gars/supergars(src)
@@ -166,6 +144,7 @@
 	// prioritized items
 	new /obj/item/card/id/departmental_budget/sec(src)
 	new /obj/item/clothing/neck/cloak/hos(src)
+	new /obj/item/clothing/suit/armor/hos(src)
 	new /obj/item/clothing/suit/armor/hos/trenchcoat(src)
 	new /obj/item/shield/riot/tele(src)
 	new /obj/item/storage/belt/security/full(src)

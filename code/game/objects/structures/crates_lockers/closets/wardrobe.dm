@@ -13,20 +13,6 @@
 		new /obj/item/clothing/shoes/sneakers/brown(src)
 	return
 
-/obj/item/storage/box/suitbox/wardrobe
-	name = "compression box of crew outfits"
-	var/list/repeated_items = list( // just as a sample
-		/obj/item/clothing/under/color/blue,
-		/obj/item/clothing/under/color/jumpskirt/blue,
-		/obj/item/clothing/shoes/sneakers/brown
-	)
-	var/max_repetition = 2
-
-/obj/item/storage/box/suitbox/wardrobe/PopulateContents()
-	for(var/i in 1 to max_repetition)
-		for(var/O in repeated_items)
-			new O(src)
-
 /obj/structure/closet/wardrobe/pink
 	name = "pink wardrobe"
 	icon_door = "pink"
