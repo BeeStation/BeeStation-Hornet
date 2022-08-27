@@ -74,7 +74,7 @@
 	icon_state = "pda-deputy"
 
 /obj/item/modular_computer/tablet/pda/brig_physician
-	name = "brig Physician PDA"
+	name = "brig physician PDA"
 	default_disk = /obj/item/computer_hardware/hard_drive/role/brig_physician
 	icon_state = "pda-brigphys"
 
