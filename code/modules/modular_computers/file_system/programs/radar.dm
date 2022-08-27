@@ -50,6 +50,8 @@
 
 /datum/computer_file/program/radar/ui_data(mob/user)
 	var/list/data = get_header_data()
+	// PDAs should not have full radar capabilities
+	data["full_capability"] = !istype(computer, /obj/item/modular_computer/tablet/pda)
 	data["selected"] = selected
 	data["objects"] = list()
 	data["scanning"] = (world.time < next_scan)
@@ -97,8 +99,9 @@
 	var/pointer = "crosshairs"
 	var/locx = (target_turf.x - here_turf.x) + 24
 	var/locy = (here_turf.y - target_turf.y) + 24
+	var/dist = get_dist_euclidian(here_turf, target_turf)
 
-	if(get_dist_euclidian(here_turf, target_turf) > 24)
+	if(dist > 24 || istype(computer, /obj/item/modular_computer/tablet/pda))
 		userot = TRUE
 		rot = round(Get_Angle(here_turf, target_turf))
 	else
@@ -115,6 +118,9 @@
 		"arrowstyle" = arrowstyle,
 		"color" = pointercolor,
 		"pointer" = pointer,
+		"gpsx" = target_turf.x,
+		"gpsy" = target_turf.y,
+		"dist" = round(dist),
 		)
 	return trackinfo
 
