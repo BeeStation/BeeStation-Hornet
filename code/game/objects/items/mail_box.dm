@@ -11,7 +11,7 @@
 
 /obj/machinery/mailbox
 	name = "official postbox"
-	desc = "A small postbox stationed for easy access. Contains station letters!"
+	desc = "A small postbox stationed for easy access, containing station letters."
 	icon = 'icons/obj/library.dmi'
 	icon_state = "photocopier"
 	density = TRUE
@@ -26,27 +26,43 @@
 	var/list/spam_mail = list()
 
 /obj/machinery/mailbox/attack_hand(mob/living/carbon/user)
-	var/datum/mail_slot/special_slot
+	var/datum/mail_slot/personal_slot
 	if(allowed(user) && active_slots)
-		special_slot = input("Who's mail would you like to access?", "Mail", null) as null|anything in active_slots
-		special_slot.access_mail(user)
+		personal_slot = input("Who's mail would you like to access?", "Mail", null) as null|anything in active_slots
 
-	if(!(user.real_name in active_slots))
+	else if(!(user.real_name in active_slots))
 		to_chat(user, "<span class='notice'>You look through the tabs, but you have no mail!</span>")
 		return
 
-	var/datum/mail_slot/personal_slot = special_slot || active_slots[user.real_name]
+	personal_slot ||= active_slots[user.real_name]
 	personal_slot.access_mail(user)
 
-/obj/machinery/mailbox/attack_by(obj/item/I, mob/living/user, params)
+/obj/machinery/mailbox/attackby(obj/item/I, mob/living/user, params)
 	if(istype(I, /obj/item/mail))
-		if(!(user.real_name in active_slots))
-			var/datum/mail_slot/m = new(src, user)
-			active_slots[user.real_name] = m
+		var/datum/mail_slot/personal_slot
+		var/obj/item/mail/inserting_mail = I
+		var/datum/mind/recipient
+
+		if(!inserting_mail.recipient_ref)
+			spam_mail += inserting_mail
+			inserting_mail.forceMove(src)
+			return
+
+		recipient = inserting_mail.recipient_ref.resolve()
+		if(!recipient)
+			return
+
+		if(!(recipient.real_name in active_slots))
+			personal_slot = new(src, user)
+			active_slots[recipient.real_name] = personal_slot
 		else
-			var/datum/mail_slot/m = active_slots[user.real_name]
+			personal_slot = active_slots[recipient.real_name]
 
+		if(!personal_slot)
+			to_chat(user, "<span class='warning'>You can't find a box!</span>")
+			return
 
+			personal_slot.insert_mail(I)
 
 /datum/mail_slot
 	/// the name of the person able to open this
@@ -54,7 +70,7 @@
 	var/list/mail_stack = list()
 	var/locked = FALSE
 
-/datum/mail_slot/Initialize(mob/living/carbon/reader)
+/datum/mail_slot/New(mob/living/carbon/reader)
 	name = reader.name
 
 /datum/mail_slot/proc/insert_mail(obj/item/mail/mail)
@@ -70,4 +86,4 @@
 	mail_stack -= take_out
 
 	if(length(mail_stack))
-		return TRUE
+		qdel(src)
