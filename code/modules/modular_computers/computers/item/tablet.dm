@@ -330,3 +330,5 @@
 
 	if(insert_type)
 		inserted_item = new insert_type(src)
+		// show the inserted item
+		update_icon()

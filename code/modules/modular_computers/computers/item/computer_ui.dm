@@ -252,15 +252,13 @@
 						playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50)
 		if("PC_Imprint_ID")
 			var/obj/item/computer_hardware/card_slot/cardholder = all_components[MC_CARD]
-			var/obj/item/computer_hardware/identifier/id_hardware = all_components[MC_IDENTIFY]
 			if(!cardholder)
 				return
 
 			saved_identification = cardholder.current_identification
 			saved_job = cardholder.current_job
 
-			if(id_hardware)
-				id_hardware.UpdateDisplay()
+			update_id_display()
 
 			playsound(src, 'sound/machines/terminal_processing.ogg', 15, TRUE)
 		else

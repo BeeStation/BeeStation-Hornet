@@ -88,19 +88,22 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 /obj/item/modular_computer/Initialize(mapload)
 	. = ..()
 
-	var/obj/item/computer_hardware/identifier/id = all_components[MC_IDENTIFY]
 	START_PROCESSING(SSobj, src)
 	if(!physical)
 		physical = src
 	set_light_color(comp_light_color)
 	set_light_range(comp_light_luminosity)
 	idle_threads = list()
-	if(id)
-		id.UpdateDisplay()
+	update_id_display()
 	if(has_light)
 		light_action = new(src)
 	update_icon()
 	add_messenger()
+
+/obj/item/modular_computer/proc/update_id_display()
+	var/obj/item/computer_hardware/identifier/id = all_components[MC_IDENTIFY]
+	if(id)
+		id.UpdateDisplay()
 
 /obj/item/modular_computer/Destroy()
 	kill_program(forced = TRUE)

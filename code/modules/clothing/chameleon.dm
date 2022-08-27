@@ -215,6 +215,11 @@
 		if(ispath(picked_item, /obj/item/card/id))
 			var/mob/living/carbon/human/H = user
 			H?.sec_hud_set_ID()
+		if(istype(target, /obj/item/modular_computer/tablet/pda))
+			var/mob/living/carbon/human/H = user
+			H?.sec_hud_set_ID()
+			var/obj/item/modular_computer/tablet/pda/PDA = target
+			PDA.update_id_display()
 
 		var/obj/item/thing = target
 		thing.update_slot_icon()

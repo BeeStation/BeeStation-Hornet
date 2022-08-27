@@ -341,6 +341,7 @@
 	if(istype(PDA))
 		PDA.saved_identification = C.registered_name
 		PDA.saved_job = C.assignment
+		PDA.update_id_display()
 
 /datum/outfit/job/get_chameleon_disguise_info()
 	var/list/types = ..()
