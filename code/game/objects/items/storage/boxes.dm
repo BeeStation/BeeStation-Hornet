@@ -95,6 +95,7 @@
 	var/box_exists = FALSE
 	for(var/obj/item/storage/box/suitbox/B in user.get_contents())
 		box_exists = TRUE // `var/obj/item/storage/box/suitbox/B` is already type check
+		break
 	if(!box_exists)
 		user.remove_movespeed_modifier(MOVESPEED_ID_SLOW_SUITBOX, TRUE)
 
