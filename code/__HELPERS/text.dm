@@ -842,3 +842,12 @@ GLOBAL_LIST_INIT(alphabet, list("a","b","c","d","e","f","g","h","i","j","k","l",
 	for (var/i in 1 to numSquares)
 		loadstring += i <= limit ? "█" : "░"
 	return "\[[loadstring]\]"
+
+
+/// joins a list in a grammatically correct way (first, second, and third) including oxford comma - candycane/etherware
+/proc/join_english(...)
+	if(args.len == 1)
+        return args[1]
+    var/list/before_last = args.Copy(1, args.len)
+    before_last = before_last.Join(", ")
+    return "[before_last], and [args[args.len]]"
