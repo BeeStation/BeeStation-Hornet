@@ -10,4 +10,4 @@
 	var/name = holder.saved_identification
 	var/job = holder.saved_job
 
-	holder.name = "[name] ([job])"
+	holder.name = "PDA-[name] ([job])"
