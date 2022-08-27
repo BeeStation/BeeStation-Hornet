@@ -202,7 +202,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		var/crew = ""
 		for(var/datum/data/record/t in sortRecord(GLOB.data_core.general))
 			crew += t.fields["name"] + " - " + t.fields["rank"] + "<br>"
-		dat = "<tt><b>Crew Manifest:</b><br>Please use security record computer to modify entries.<br><br>[crew]<a href='?src=[REF(src)];choice=print'>Print</a><br><br><a href='?src=[REF(src)];choice=mode;mode_target=0'>Access ID modification console.</a><br></tt>"
+		dat = "<tt><b>Crew Manifest:</b><br>Please use security record computer to modify entries.<br><br>[crew]<a href='?src=[REF(src)];choice=print'>Print</a><br><br><a href='?src=[REF(src)];choice=mode;mode_target=0'>Return</a><br></tt>"
 
 	else if(mode == 2)
 		// JOB MANAGEMENT
@@ -215,7 +215,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			S = "--------"
 		dat += "<a href='?src=[REF(src)];choice=inserted_scan_id'>[S]</a>"
 		dat += "<table>"
-		dat += "<tr><td style='width:25%'><b>Job</b></td><td style='width:25%'><b>Slots</b></td><td style='width:25%'><b>Open job</b></td><td style='width:25%'><b>Close job</b><td style='width:25%'><b>Prioritize</b></td></td></tr>"
+		dat += "<tr><td style='width:25%'><b>Job</b></td><td style='width:5%'><b>Slots</b></td><td style='width:20%'><b>Open job</b></td><td style='width:20%'><b>Close job</b><td style='width:20%'><b>Prioritize</b></td></td></tr>"
 		var/ID
 		if(inserted_scan_id && (ACCESS_CHANGE_IDS in inserted_scan_id.access) && !target_dept)
 			ID = 1
@@ -283,6 +283,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		dat += " || Confirm Identity: "
 		var/S
 		var/list/paycheck_departments = list()
+		var/accessible_card = FALSE
 		if(inserted_scan_id)
 			S = html_encode(inserted_scan_id.name)
 			//Checking all the accesses and their corresponding departments
@@ -290,31 +291,45 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				paycheck_departments |= ACCOUNT_SRV
 				paycheck_departments |= ACCOUNT_CIV
 				paycheck_departments |= ACCOUNT_CAR //Currently no seperation between service/civillian and supply
+				accessible_card = TRUE
 			if((ACCESS_HOS in inserted_scan_id.access) && ((target_dept==DEPT_SEC) || !target_dept))
 				paycheck_departments |= ACCOUNT_SEC
+				accessible_card = TRUE
 			if((ACCESS_CMO in inserted_scan_id.access) && ((target_dept==DEPT_MED) || !target_dept))
 				paycheck_departments |= ACCOUNT_MED
+				accessible_card = TRUE
 			if((ACCESS_RD in inserted_scan_id.access) && ((target_dept==DEPT_SCI) || !target_dept))
 				paycheck_departments |= ACCOUNT_SCI
+				accessible_card = TRUE
 			if((ACCESS_CE in inserted_scan_id.access) && ((target_dept==DEPT_ENG) || !target_dept))
 				paycheck_departments |= ACCOUNT_ENG
+				accessible_card = TRUE
 		else
 			S = "--------"
 		dat += "<a href='?src=[REF(src)];choice=inserted_scan_id'>[S]</a>"
 		dat += "<table>"
-		dat += "<tr><td style='width:25%'><b>Name</b></td><td style='width:25%'><b>Job</b></td><td style='width:25%'><b>Paycheck</b></td><td style='width:25%'><b>Pay Bonus</b></td></tr>"
+		dat += "<tr><td style='width:30%'><b>Name</b></td><td style='width:20%'><b>Job</b></td><td style='width:20%'><b>Department</b></td><td style='width:15%'><b>Paycheck</b></td><td style='width:15%'><b>Pay Bonus</b></td></tr>"
 
 		for(var/A in SSeconomy.bank_accounts)
+			if(!accessible_card)
+				break // don't use `return`
+
 			var/datum/bank_account/B = A
-			if(!(B.account_department in paycheck_departments))
-				continue
-			if(B.suspended)
+			if(!(B.account_department in paycheck_departments) && !(target_dept==DEPT_ALL))
 				continue
 			dat += "<tr>"
-			dat += "<td>[B.account_holder]</td>"
+			dat += "<td>[B.account_holder] [B.suspended ? "(In Cryo)" : ""]</td>"
 			dat += "<td>[B.account_job.title]</td>"
-			dat += "<td><a href='?src=[REF(src)];choice=adjust_pay;account=[B.account_holder]'>$[B.paycheck_amount]</a></td>"
-			dat += "<td><a href='?src=[REF(src)];choice=adjust_bonus;account=[B.account_holder]'>$[B.paycheck_bonus]</a></td>"
+			dat += "<td>[B.account_department]</td>"
+			if(B.suspended)
+				dat += "<td>Closed</td>"
+				dat += "<td>$0</td>"
+			else if(!(B.account_department in paycheck_departments))
+				dat += "<td>$[B.paycheck_amount] (Auth-denied)</td>"
+				dat += "<td>$[B.paycheck_bonus]</td>"
+			else
+				dat += "<td><a href='?src=[REF(src)];choice=adjust_pay;account=[B.account_holder]'>$[B.paycheck_amount]</a></td>"
+				dat += "<td><a href='?src=[REF(src)];choice=adjust_bonus;account=[B.account_holder]'>$[B.paycheck_bonus]</a></td>"
 	else
 		var/header = ""
 
