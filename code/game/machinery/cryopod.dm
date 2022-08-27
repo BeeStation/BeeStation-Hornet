@@ -331,8 +331,8 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 				// The station budget will get payday payment returned first.
 
 				if(target_account.account_balance)
-					target_account.account_balance -= target_account.account_job.paycheck*STARTING_PAYCHECKS
-					// after that, roundstart money will be taken into void (=Nanotrasen)
+					target_account.adjust_money(-(target_account.account_job.paycheck*STARTING_PAYCHECKS))
+					// after that, roundstart money will be taken into void(=Nanotrasen)
 
 					if(target_account.account_balance)
 						dept_bank.transfer_money(target_account, target_account.account_balance)

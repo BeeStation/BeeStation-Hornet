@@ -306,7 +306,7 @@
 		log_game("[key_name(C)] became [H.real_name]'s experimental clone.")
 		message_admins("[key_name_admin(C)] became [H.real_name]'s experimental clone.")
 		to_chat(H, "<span class='warning'>You will instantly die if you do 'ghost'. Please stand by until the cloning is done.</span>")
-		H.mind.account_id = account_id
+		H.mind.account_id = account_id // your mind stores it, but you don't have any info for the account. ask your origin for the acc id
 
 //Grow clones to maturity then kick them out.  FREELOADERS
 /obj/machinery/clonepod/process()

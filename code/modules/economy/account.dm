@@ -63,7 +63,7 @@
 		return FALSE
 	var/money_to_transfer = paycheck_amount * amt_of_paychecks
 	if(welfare)
-		account_balance += PAYCHECK_WELFARE // Don't let welfare siphon your station budget
+		adjust_money(PAYCHECK_WELFARE) // Don't let welfare siphon your station budget
 		bank_card_talk("Nanotrasen welfare system processed, account now holds $[account_balance].")
 	if((money_to_transfer + paycheck_bonus) < 0) //Check if the bonus is docking more pay than possible
 		paycheck_bonus -= money_to_transfer //Remove the debt with the payday

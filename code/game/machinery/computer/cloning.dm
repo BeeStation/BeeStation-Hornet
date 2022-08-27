@@ -624,7 +624,7 @@
 	//Traumas will be overriden if the brain transplant is made because '/obj/item/organ/brain/Insert' does that thing. This should be done since we want a monkey yelling to people with 'God voice syndrome'
 
 	R.fields["bank_account"] = has_bank_account
-	R.fields["account_id"] = mob_occupant?.mind?.account_id
+	R.fields["account_id"] = mob_occupant?.mind?.account_id // don't take it from `has_bank_account`. that one is from your card, and this one is from your mind.
 	if(!experimental)
 		R.fields["mindref"] = "[REF(mob_occupant.mind)]"
 		R.fields["last_death"] = (mob_occupant.stat == DEAD && mob_occupant.mind) ? mob_occupant.mind.last_death : -1
