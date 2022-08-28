@@ -279,12 +279,11 @@
 		registered_account.bank_card_talk("<span class='warning'>ERROR: The linked account requires [difference] more credit\s to perform that withdrawal.</span>", TRUE)
 
 /obj/item/card/id/examine(mob/user)
-	..()
+	. = ..()
 	if(!electric)  // forces off bank info for paper slip
-		return
+		return .
 	if(mining_points)
 		. += "There's [mining_points] mining equipment redemption point\s loaded onto this card."
-	. = ..()
 	if(registered_account)
 		. += "The account linked to the ID belongs to '[registered_account.account_holder]' and reports a balance of $[registered_account.account_balance]."
 		if(registered_account.account_job)
