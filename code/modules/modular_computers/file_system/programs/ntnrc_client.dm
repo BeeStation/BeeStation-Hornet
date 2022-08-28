@@ -168,7 +168,7 @@
 			channel.mute_user(src, muted)
 			return TRUE
 		if("PRG_ping_user")
-			if(!authed || src in channel.muted_clients)
+			if(!authed || (src in channel.muted_clients))
 				return
 			var/datum/computer_file/program/chatclient/pinged = locate(params["ref"]) in channel.active_clients + channel.offline_clients
 			channel.ping_user(src, pinged)
