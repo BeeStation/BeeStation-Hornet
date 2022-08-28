@@ -12,7 +12,7 @@
 
 #define ACCOUNT_CIV "Civilian"
 #define ACCOUNT_CIV_NAME "Civil Budget"
-#define ACCOUNT_ENG "Engineer"
+#define ACCOUNT_ENG "Engineering"
 #define ACCOUNT_ENG_NAME "Engineering Budget"
 #define ACCOUNT_SCI "Science"
 #define ACCOUNT_SCI_NAME "Scientific Budget"
