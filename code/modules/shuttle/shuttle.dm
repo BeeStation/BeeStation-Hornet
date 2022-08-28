@@ -232,7 +232,7 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 	var/json_key
 
 /obj/docking_port/stationary/Initialize(mapload)
-	. = ..()
+	..()
 	SSshuttle.stationary += src
 	if(!id)
 		id = "[SSshuttle.stationary.len]"
@@ -247,8 +247,14 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 	highlight("#f00")
 	#endif
 
+	return INITIALIZE_HINT_LATELOAD
+
+
+/obj/docking_port/stationary/LateInitialize()
+	. = ..()
 	if(SSshuttle.shuttles_loaded)
 		load_roundstart()
+
 
 /obj/docking_port/stationary/Destroy(force)
 	if(force)

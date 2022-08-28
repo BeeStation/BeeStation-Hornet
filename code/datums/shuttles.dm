@@ -63,7 +63,7 @@
 				++xcrd
 			--ycrd
 
-/datum/map_template/shuttle/load(turf/T, centered, register=TRUE)
+/datum/map_template/shuttle/load(turf/T, centered, init_atmos = TRUE, finalize = TRUE, register=TRUE)
 	if(centered)
 		T = locate(T.x - round(width/2) , T.y - round(height/2) , T.z)
 		centered = FALSE
@@ -72,7 +72,7 @@
 	for(var/turf/turf in turfs)
 		turfs[turf] = turf.loc
 	keep_cached_map = TRUE //We need to access some stuff here below for shuttle skipovers
-	. = ..()
+	. = ..(T, centered, init_atmos = TRUE, finalize = FALSE)
 	keep_cached_map = initial(keep_cached_map)
 	if(!.)
 		cached_map = keep_cached_map ? cached_map : null
@@ -112,13 +112,16 @@
 					port.dheight = width - port_x_offset
 
 	for(var/turf/shuttle_turf in turfs)
-		my_port.underlying_turf_area[shuttle_turf] = turfs[shuttle_turf]
+		var/area/shuttle/turf_loc = turfs[shuttle_turf]
+		my_port.underlying_turf_area[shuttle_turf] = turf_loc
+		if(istype(turf_loc) && turf_loc.mobile_port)
+			turf_loc.mobile_port.towed_shuttles |= my_port
 
 		//Getting the amount of baseturfs added
 		var/z_offset = shuttle_turf.z - T.z
 		var/y_offset = shuttle_turf.y - T.y
 		var/x_offset = shuttle_turf.x - T.x
-		//cache index
+		//retrieving our cache
 		var/line
 		var/list/cache
 		for(var/datum/grid_set/gset as() in cached_map.gridSets)
@@ -150,6 +153,13 @@
 		if(!islist(shuttle_turf.baseturfs))
 			shuttle_turf.baseturfs = list(shuttle_turf.baseturfs)
 		shuttle_turf.baseturfs.Insert(shuttle_turf.baseturfs.len + 1 - baseturf_length, /turf/baseturf_skipover/shuttle)
+
+	//If this is a superfunction call, we don't want to initialize atoms here, let the subfunction handle that
+	if(finalize)
+		//initialize things that are normally initialized after map load
+		initTemplateBounds(cached_map.bounds, init_atmos)
+
+		log_game("[name] loaded at [T.x],[T.y],[T.z]")
 
 	cached_map = keep_cached_map ? cached_map : null
 
