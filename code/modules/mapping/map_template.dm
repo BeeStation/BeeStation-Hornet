@@ -173,7 +173,7 @@
 	//If this is a superfunction call, we don't want to initialize atoms here, let the subfunction handle that
 	if(finalize)
 		//initialize things that are normally initialized after map load
-		initTemplateBounds(cached_map.bounds, init_atmos)
+		initTemplateBounds(bounds, init_atmos)
 
 		log_game("[name] loaded at [T.x],[T.y],[T.z]")
 	return bounds
