@@ -60,7 +60,7 @@ SUBSYSTEM_DEF(nightshift)
 				SEND_GLOBAL_SIGNAL(COMSIG_NIGHT)
 			else
 				announce("Good morning, crew. As it is now day time, all of the lights aboard the station have been restored to their former brightness.")
-				SEND_GLOBAL_SIGNAL(COMSIG_NIGHT)
+				SEND_GLOBAL_SIGNAL(COMSIG_NEW_DAY)
 	for(var/obj/machinery/power/apc/APC as anything in currentrun)
 		currentrun -= APC
 		if (APC.area && (APC.area.type in GLOB.the_station_areas))
