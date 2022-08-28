@@ -188,7 +188,6 @@
 			sending_virus = !sending_virus
 			return TRUE
 
-
 /datum/computer_file/program/messenger/ui_data(mob/user)
 	var/list/data = get_header_data()
 
@@ -223,7 +222,7 @@
 	var/t = null
 
 	if(mime_mode)
-		t = emoji_sanitize(stripped_input(U, "Enter emojis", "NT Messaging"))
+		t = emoji_sanitize(tgui_input_emoji(U, "NT Messaging"))
 	else
 		t = stripped_input(U, "Enter a message", "NT Messaging")
 
