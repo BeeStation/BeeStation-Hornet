@@ -14,7 +14,7 @@ export const NtosConfiguration = (props, context) => {
     hardware = [],
     PC_device_theme,
     themes = [],
-    PC_classic_color,
+    PC_theme_locked,
   } = data;
   // ntos-default -> Default
   const clean = (str) => str && str.startsWith("ntos-")
@@ -23,17 +23,19 @@ export const NtosConfiguration = (props, context) => {
   return (
     <NtosWindow>
       <NtosWindow.Content scrollable>
-        <Section title="Appearance">
-          <Dropdown
-            overflow-y="scroll"
-            width="240px"
-            options={themes}
-            selected={clean(PC_device_theme) || "NtOS Default"}
-            onSelected={value => act('PC_select_theme', {
-              theme: value,
-            })} />
-          {PC_device_theme === "thinktronic-classic" ? <Button icon="palette" content="Set Color" onClick={() => act("PC_set_classic_color")} /> : null}
-        </Section>
+        {!PC_theme_locked ? (
+          <Section title="Appearance">
+            <Dropdown
+              overflow-y="scroll"
+              width="240px"
+              options={themes}
+              selected={clean(PC_device_theme) || "NtOS Default"}
+              onSelected={value => act('PC_select_theme', {
+                theme: value,
+              })} />
+            {PC_device_theme === "thinktronic-classic" ? <Button icon="palette" content="Set Color" onClick={() => act("PC_set_classic_color")} /> : null}
+          </Section>
+        ) : null}
         <Section
           title="Power Supply"
           buttons={(

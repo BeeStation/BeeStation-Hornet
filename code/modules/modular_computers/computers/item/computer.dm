@@ -23,6 +23,8 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	var/deconstructable = TRUE
 	/// Sets the theme for the main menu, hardware config, and file browser apps.
 	var/device_theme = "ntos-default"
+	/// Whether this device is allowed to change themes or not.
+	var/theme_locked = FALSE
 	/// Color used for the Thinktronic Classic theme.
 	var/classic_color = "#808000"
 	var/datum/computer_file/program/active_program = null	// A currently active program running on the computer.
@@ -368,6 +370,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 
 	data["PC_device_theme"] = device_theme
 	data["PC_classic_color"] = classic_color
+	data["PC_theme_locked"] = theme_locked
 
 	var/obj/item/computer_hardware/battery/battery_module = all_components[MC_CELL]
 	var/obj/item/computer_hardware/recharger/recharger = all_components[MC_CHARGE]

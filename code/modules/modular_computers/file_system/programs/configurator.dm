@@ -72,7 +72,7 @@
 				H.enabled = !H.enabled
 			. = TRUE
 		if("PC_select_theme")
-			if(!(params["theme"] in themes_list))
+			if(movable.theme_locked || !(params["theme"] in themes_list))
 				return
 			movable.device_theme = replacetext(lowertext(params["theme"]), " ", "-")
 			. = TRUE

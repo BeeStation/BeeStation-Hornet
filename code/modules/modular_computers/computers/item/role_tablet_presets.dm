@@ -188,6 +188,8 @@
 	icon_state = "pda-syndi"
 	messenger_invisible = TRUE
 	detonatable = FALSE
+	device_theme = "syndicate"
+	theme_locked = TRUE
 
 /obj/item/modular_computer/tablet/pda/chaplain
 	name = "chaplain PDA"
