@@ -1,0 +1,5 @@
+author: Sarchutar
+delete-after: true
+changes:
+  - rscadd: Highlighting for your own messages in chat is now a setting (default -
+      off, found next to the match word and case settings)
