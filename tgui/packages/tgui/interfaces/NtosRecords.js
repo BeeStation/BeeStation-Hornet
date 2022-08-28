@@ -38,7 +38,7 @@ export const NtosRecords = (props, context) => {
                 record.name
                   + " " + record.rank
                   + " " + record.species
-                  + " " + record.gender
+                  + " " + record.sex
                   + " " + record.age
                   + " " + record.fingerprint
               )
@@ -50,10 +50,10 @@ export const NtosRecords = (props, context) => {
             <br />
             Rank: {record.rank}<br />
             Species: {record.species}<br />
-            Gender: {record.gender}<br />
+            Sex: {record.sex}<br />
             Age: {record.age}<br />
-            Fingerprint Hash: {record.fingerprint}
-            <br /><br />
+            Fingerprint: {record.fingerprint}<br />
+            <br />
             Criminal Status: {record.wanted || "DELETED"}
           </Section>
         ))}
@@ -63,6 +63,11 @@ export const NtosRecords = (props, context) => {
             hidden={!(
               searchTerm === '' || isMatchingSearchTerms(
                 record.name
+                  + " " + record.rank
+                  + " " + record.species
+                  + " " + record.sex
+                  + " " + record.age
+                  + " " + record.fingerprint
                   + " " + record.bloodtype
                   + " " + record.m_stat
                   + " " + record.p_stat
@@ -73,11 +78,17 @@ export const NtosRecords = (props, context) => {
               {record.name}
             </Box>
             <br />
+            Rank: {record.rank}<br />
+            Species: {record.species}<br />
+            Sex: {record.sex}<br />
+            Age: {record.age}<br />
+            Fingerprint: {record.fingerprint}<br />
+            <br />
             Bloodtype: {record.bloodtype}<br />
             Minor Disabilities: {record.mi_dis}<br />
-            Major Disabilities: {record.ma_dis}<br /><br />
+            Major Disabilities: {record.ma_dis}<br />
             Notes: {record.notes}<br />
-            Notes Contd: {record.cnotes}
+            Notes Cont.d: {record.cnotes}
           </Section>
         ))}
       </NtosWindow.Content>
