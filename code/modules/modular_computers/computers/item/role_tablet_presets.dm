@@ -147,7 +147,7 @@
 	name = "captain PDA"
 	desc = "A portable microcomputer by Thinktronic Systems, LTD. The internals are modified to be more tough than the usual."
 	default_disk = /obj/item/computer_hardware/hard_drive/role/captain
-	insert_type = /obj/item/pen/fountain
+	insert_type = /obj/item/pen/fountain/captain
 	icon_state = "pda-captain"
 	detonatable = FALSE
 
