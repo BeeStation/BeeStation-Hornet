@@ -1,5 +1,0 @@
-author: 'PowerfulBacon (Porting), TiviPlus, spookydonut, MrStonedOne, '
-delete-after: true
-changes:
-  - code_imp: Updates our master controller to the current one that TG is using
-  - bugfix: Fixes subsystem freezing hopefully.

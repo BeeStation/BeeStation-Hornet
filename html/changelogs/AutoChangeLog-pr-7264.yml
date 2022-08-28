@@ -1,7 +1,0 @@
-author: ro5490
-delete-after: true
-changes:
-  - rscadd: Added Depleted Uranium Windows - created by using uranium in-hand
-  - rscadd: DU Windows block all radiation, make sure you've secured your setup with
-      either fulltiles or two layers of directionals!
-  - imageadd: added some icons for the above windows
