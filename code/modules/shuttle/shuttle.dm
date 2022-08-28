@@ -387,27 +387,29 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 	if(!shuttle_areas[A]) //Invalid area
 		return TRUE
 
+	var/bypass_skipover_insertion = FALSE
 	if(GLOB.shuttle_turf_blacklist[T.type]) //Check if the turf is valid
-		for(var/obj/structure/lattice/lattice in T)
-			A.contents |= T //Keep the lattice, not the turf
-			break
-		return TRUE
-
-	T.baseturfs = length(T.baseturfs) ? T.baseturfs : list(T.baseturfs) //We need this as a list for now
-	var/base_length = length(T.baseturfs)
-	var/skipover_index = 2 //We should always leave atleast something else below our skipover
-
-	var/BT
-	for(var/i in 0 to base_length-1) //Place the skipover after the first blacklisted baseturf from the top
-		BT = T.baseturfs[base_length - i]
-		if(BT == /turf/baseturf_skipover/shuttle) //This is a shuttle and we can't build on it
-			if(length(T.baseturfs) == 1)
-				T.baseturfs = T.baseturfs[1] //Back to a single value. I wish this wasn't a thing but I fear everything would break if I left it as a list
+		for(var/obj/structure/lattice/lattice in T.contents)
+			bypass_skipover_insertion = TRUE
+		if(!bypass_skipover_insertion)
 			return TRUE
-		if(GLOB.shuttle_turf_blacklist[BT])
-			skipover_index = base_length - i + 1
-			break
-	T.baseturfs.Insert(skipover_index, /turf/baseturf_skipover/shuttle)
+
+	if(!bypass_skipover_insertion)
+		T.baseturfs = length(T.baseturfs) ? T.baseturfs : list(T.baseturfs) //We need this as a list for now
+		var/base_length = length(T.baseturfs)
+		var/skipover_index = 2 //We should always leave atleast something else below our skipover
+
+		var/BT
+		for(var/i in 0 to base_length-1) //Place the skipover after the first blacklisted baseturf from the top
+			BT = T.baseturfs[base_length - i]
+			if(BT == /turf/baseturf_skipover/shuttle) //This is a shuttle and we can't build on it
+				if(length(T.baseturfs) == 1)
+					T.baseturfs = T.baseturfs[1] //Back to a single value. I wish this wasn't a thing but I fear everything would break if I left it as a list
+				return TRUE
+			if(GLOB.shuttle_turf_blacklist[BT])
+				skipover_index = base_length - i + 1
+				break
+		T.baseturfs.Insert(skipover_index, /turf/baseturf_skipover/shuttle)
 
 	var/area/shuttle/current_area = T.loc
 	//Account for building on shuttles
