@@ -1,0 +1,6 @@
+author: CydiaLamiales
+delete-after: true
+changes:
+  - rscadd: Added brute healing to Salicyclic Acid's overdose.
+  - rscadd: More accurate descriptions to Salicyclic Acid and Oxandrolone.
+  - rscdel: Removed burn healing from Salicyclic Acid's overdose
