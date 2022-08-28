@@ -567,7 +567,7 @@
 	if(!istype(environment))
 		return
 	var/pressure = environment.return_pressure()
-	if(pressure <= LAVALAND_EQUIPMENT_EFFECT_PRESSURE)
+	if(pressure <= LAVALAND_EQUIPMENT_EFFECT_PRESSURE & pressure > 0)
 		. = TRUE
 
 /proc/ispipewire(item)

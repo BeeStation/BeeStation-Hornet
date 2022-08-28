@@ -19,7 +19,6 @@
 	can_bayonet = TRUE
 	knife_x_offset = 20
 	knife_y_offset = 12
-	pin = /obj/item/firing_pin/off_station
 
 	var/max_mod_capacity = 100
 	var/list/modkits = list()
