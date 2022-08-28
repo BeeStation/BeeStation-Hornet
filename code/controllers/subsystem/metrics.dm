@@ -48,7 +48,7 @@ SUBSYSTEM_DEF(metrics)
 	// Funnel in all SS metrics
 	var/list/ss_data = list()
 	for(var/datum/controller/subsystem/SS in Master.subsystems)
-		ss_data[SS.ss_id] = SS.get_metrics()
+		ss_data[SS.name] = SS.get_metrics()
 
 	out["subsystems"] = ss_data
 	// And send it all
