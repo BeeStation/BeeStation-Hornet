@@ -47,7 +47,7 @@
 
 	var/obj/item/card/id/newcard = I
 	if(!newcard.electric)
-		to_chat(user, "<span class='warning'>You attempt to jam the [I] into \the [expansion_hw ? "secondary":"primary"] [src]. It doesn't fit")
+		to_chat(user, "<span class='warning'>You attempt to jam \the [I] into \the [expansion_hw ? "secondary":"primary"] [src]. It doesn't fit.")
 		return
 
 	if(stored_card)

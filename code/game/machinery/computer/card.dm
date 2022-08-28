@@ -66,9 +66,6 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 
 /obj/machinery/computer/card/attackby(obj/I, mob/user, params)
 	if(isidcard(I))
-		var/obj/item/card/id/insert_card = I
-		if(!insert_card.electric)
-			return
 		if(check_access(I) && !inserted_scan_id)
 			if(id_insert(user, I, inserted_scan_id))
 				inserted_scan_id = I
