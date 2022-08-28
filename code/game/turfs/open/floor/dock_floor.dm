@@ -37,9 +37,11 @@
 
 /turf/open/floor/dock/drydock/attackby(obj/item/C, mob/user, params)
 	..()
-	if(!CanBuildHere())
-		return
+	var/can_build = CanBuildHere()
 	if(istype(C, /obj/item/stack/rods))
+		if(!can_build)
+			to_chat(user, "<span class='warning'>[src] can't support anything more!</span>")
+			return
 		var/obj/item/stack/rods/R = C
 		var/obj/structure/lattice/L = locate(/obj/structure/lattice, src)
 		var/obj/structure/lattice/catwalk/W = locate(/obj/structure/lattice/catwalk, src)
@@ -62,6 +64,9 @@
 			to_chat(user, "<span class='warning'>You need one rod to build a lattice.</span>")
 		return
 	if(istype(C, /obj/item/stack/tile/plasteel))
+		if(!can_build)
+			to_chat(user, "<span class='warning'>[src] can't support anything more!</span>")
+			return
 		var/obj/structure/lattice/L = locate(/obj/structure/lattice, src)
 		if(L)
 			var/obj/item/stack/tile/plasteel/S = C
