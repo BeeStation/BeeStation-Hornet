@@ -620,6 +620,16 @@
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
 	export_price = 5000
 
+/datum/techweb_node/hud_adv  // feel free to add more advanced huds here too
+	id = "hud_adv"
+	tech_tier = 3
+	display_name = "Advanced HUDs"
+	description = "HUDS with additional features, now hands free!"
+	prereq_ids = list("integrated_HUDs")
+	design_ids = list("health_hud_adv")
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2000)
+	export_price = 5000
+
 ////////////////////////Medical////////////////////////
 /datum/techweb_node/cloning
 	id = "cloning"

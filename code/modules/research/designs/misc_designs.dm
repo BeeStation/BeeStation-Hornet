@@ -15,13 +15,21 @@
 
 /datum/design/health_hud_night
 	name = "Night Vision Health Scanner HUD"
-	desc = "An advanced medical head-up display that allows doctors to find patients in complete darkness."
+	desc = "An advanced medical heads-up display that allows doctors to find patients in complete darkness."
 	id = "health_hud_night"
 	build_type = PROTOLATHE
 	materials = list(/datum/material/iron = 600, /datum/material/glass = 600, /datum/material/uranium = 1000, /datum/material/silver = 350, /datum/material/copper = 300)
 	build_path = /obj/item/clothing/glasses/hud/health/night
 	category = list("Equipment")
 	departmental_flags = DEPARTMENTAL_FLAG_MEDICAL
+
+/datum/design/health_hud_adv
+	name = "Advanced Health Scanner HUD"
+	desc = "A modified medical heads-up display that includes an integrated scanner and crew monitor."
+	id = "health_hud_adv"
+	build_type = PROTOLATHE
+	materials = list(/datum/material/iron = 600, /datum/material/glass = 600, /datum/material/silver = 350, /datum/material/copper = 600)
+	build_path = /obj/item/clothing/glasses/hud/health/advanced
 
 /datum/design/security_hud
 	name = "Security HUD"

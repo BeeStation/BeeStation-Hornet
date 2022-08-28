@@ -140,15 +140,16 @@
 	name = "advanced health scanner HUD"
 	desc = "A heads-up display that scans humans in view. Also includes a crew monitor and health analyzer readout!"
 	icon_state = "healthhud_adv"
+	item_state = "glasses"
 	hud_trait = list(TRAIT_MEDICAL_HUD, TRAIT_MEDICAL_HUD_SCAN)
-	var/obj/item/sensor_device/internal_sensor = new(null)
+	actions_types = list(/datum/action/item_action/crew_monitor)
 
-/obj/item/clothing/glasses/hud/health/advanced/Initialize(mapload)
-	. = ..()
-	actions_types += list(/datum/action/item_action/crew_monitor)
+/obj/item/clothing/glasses/hud/health/advanced/attack_self(mob/user)
+	to_chat(user, "<span class='notice'>You hold the glasses up to your eyes.</span>")
+	GLOB.crewmonitor.show(user, src)
 
 /obj/item/clothing/glasses/hud/health/advanced/ui_action_click(mob/user)
-	internal_sensor.attack_self(user)
+	GLOB.crewmonitor.show(user, src)
 
 /obj/item/clothing/glasses/hud/health/sunglasses
 	name = "medical HUDSunglasses"
