@@ -1,0 +1,4 @@
+author: PestoVerde322
+delete-after: true
+changes:
+  - rscadd: Better melee attack animation, sliding to attack is no more.
