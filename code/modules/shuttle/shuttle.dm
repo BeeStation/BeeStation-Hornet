@@ -114,7 +114,7 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 	if(!islist(others))
 		others = list(others)
 	others |= src
-	. = list(0,0,0,0)
+	. = list(_x,_y,_x,_y)
 	//Right multiply with this matrix to transform a vector in world space to the our shuttle space specified by the parameters.
 	//This is the reason why we're not calling return_coords for each shuttle, we save time by not reconstructing the matrices lost after they're popped off the call stack
 	var/matrix/to_shuttle_space = matrix(_x-x, _y-y, MATRIX_TRANSLATE) * matrix(dir2angle(_dir)-dir2angle(dir), MATRIX_ROTATE)
@@ -139,7 +139,7 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 	if(!islist(others))
 		others = list(others)
 	others |= src
-	. = list(0,0,0,0)
+	. = list(_x,_y,_x,_y)
 	//See return_union_coords() and return_coords() for explaination of the matrices.
 	var/matrix/to_shuttle_space = matrix(_x-x, _y-y, MATRIX_TRANSLATE) * matrix(dir2angle(_dir)-dir2angle(dir), MATRIX_ROTATE)
 	for(var/obj/docking_port/other in others)
@@ -444,8 +444,6 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 		if(M != src)
 			bottom_shuttle = M
 		shuttle_layers++
-		if(M == top_shuttle)
-			break
 
 	if(shuttle_layers > 0)
 		var/BT_index = length(T.baseturfs)
@@ -467,7 +465,7 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 	var/turf/T1
 	var/towed
 	underlying_turf_area -= T
-	if(A.mobile_port == src) //Only change the area if we aren't covered by another shuttle
+	if(top_shuttle == src) //Only change the area if we aren't covered by another shuttle
 		A.contents -= T
 		new_area.contents += T
 		T.change_area(A, new_area)
