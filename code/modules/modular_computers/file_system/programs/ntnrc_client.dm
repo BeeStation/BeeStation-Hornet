@@ -48,6 +48,11 @@
 			var/message = reject_bad_text(params["message"])
 			if(!message)
 				return
+			if(src in channel.muted_clients)
+				return
+			if(CHAT_FILTER_CHECK(message))
+				to_chat(usr, "<span class='warning'>ERROR: Prohibited word(s) detected in message.</span>")
+				return
 			if(channel.password && (!(src in channel.active_clients) && !(src in channel.offline_clients)))
 				if(channel.password == message)
 					channel.add_client(src)
@@ -163,7 +168,7 @@
 			channel.mute_user(src, muted)
 			return TRUE
 		if("PRG_ping_user")
-			if(!authed)
+			if(!authed || src in channel.muted_clients)
 				return
 			var/datum/computer_file/program/chatclient/pinged = locate(params["ref"]) in channel.active_clients + channel.offline_clients
 			channel.ping_user(src, pinged)
