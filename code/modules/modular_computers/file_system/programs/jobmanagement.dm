@@ -24,6 +24,7 @@
 		JOB_NAME_CHIEFENGINEER,
 		JOB_NAME_RESEARCHDIRECTOR,
 		JOB_NAME_CHIEFMEDICALOFFICER,
+		JOB_NAME_BRIGPHYSICIAN,
 		JOB_NAME_DEPUTY)
 
 	//The scaling factor of max total positions in relation to the total amount of people on board the station in %
