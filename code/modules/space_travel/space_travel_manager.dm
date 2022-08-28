@@ -14,6 +14,8 @@ GLOBAL_DATUM_INIT(spaceTravelManager, /datum/space_travel_manager, new)
 
 	var/list/arrival_dirs = list()
 
+	var/list/safe_turf_directions = list()
+
 /datum/space_travel_manager/New()
 	deep_space_dirs = list(	TEXT_NORTH = list("x" = list("min" = 3, "max"= 3), "y" = list("min" = 1000, "max"= -1)),
 							TEXT_SOUTH = list("x" = list("min" = 3, "max"= 3), "y" = list("min" = -1, "max"= 1000)),
@@ -25,6 +27,11 @@ GLOBAL_DATUM_INIT(spaceTravelManager, /datum/space_travel_manager, new)
 						TEXT_EAST = list("x" = 2, "y" = 0),
 						TEXT_WEST = list("x" = world.maxx - 1, "y" = 0),)
 
+	safe_turf_directions = list(TEXT_NORTH = list("x" = 0, "y" = world.maxy - DEEP_SPACE_BORDER_RANGE - 2),
+								TEXT_SOUTH = list("x" = 0, "y" = DEEP_SPACE_BORDER_RANGE + 3),
+								TEXT_EAST = list("x" = world.maxx - DEEP_SPACE_BORDER_RANGE - 2, "y" = 0),
+								TEXT_WEST = list("x" = DEEP_SPACE_BORDER_RANGE + 3, "y" = 0),)
+
 	allowed_orbital_types = list(/datum/orbital_object/z_linked/beacon/ruin, /datum/orbital_object/z_linked/station)
 
 /datum/space_travel_manager/proc/atom_entered_deep_space(atom/movable/AM, var/direction)
@@ -35,7 +42,6 @@ GLOBAL_DATUM_INIT(spaceTravelManager, /datum/space_travel_manager, new)
 	var/mob/living/L = istype(AM, /mob/living) ? AM : null
 
 	if(!istype(AM, /mob/living) || L != null && L.stat == DEAD)
-		var/mob/living
 		var/turf/T = pick(block(locate(20, 20, SSmapping.trash_level.z_value), locate(200, 200, SSmapping.trash_level.z_value)))
 		to_chat(world, "TRASH TELEPORTED TO TURF: [T]")
 		AM.forceMove(T)
@@ -69,6 +75,11 @@ GLOBAL_DATUM_INIT(spaceTravelManager, /datum/space_travel_manager, new)
 	var/departure_x = AM.x
 	var/departure_y = AM.y
 
+	var/travel_message = null
+	var/no_target_message = "You stare into the void and see nothing, it would be a bad idea to try to travel in this direction!"
+	var/no_oxygen_message = "You can't travel that far!"
+	var/message_shown = FALSE
+
 	for(var/collision_zone in collision_zones)
 		collision_zone_coords = splittext(collision_zone, ",")
 
@@ -76,18 +87,35 @@ GLOBAL_DATUM_INIT(spaceTravelManager, /datum/space_travel_manager, new)
 			collision_zones_to_consider += collision_zones[collision_zone]
 			to_chat(world, "<span class='boldannounce'>CONSIDERING ZONE: [collision_zone]</span>")
 
+	if(collision_zones_to_consider.len == 0)
+		to_chat(AM, "<span class = 'warning'>[no_target_message]</span>")
+		return
+
 	while(collision_zones_to_consider.len > 0)
 
 		var/datum/orbital_object/orbital_object = pick_n_take(collision_zones_to_consider)
+
+		var/list/calculate_travel_return_data = list()
+		var/list/tanks = list()
+		var/cost_in_moles = 0
 
 		if(is_type_in_list(orbital_object, allowed_orbital_types))
 
 			var/datum/orbital_object/z_linked/z_linked_object = orbital_object
 			var/datum/space_level/z_level_to_travel = z_linked_object.linked_z_level == null ? null : z_linked_object.linked_z_level[1]
+			calculate_travel_return_data = calculate_travel_cost(AM, current_orbital_object, orbital_object)
 
+			var/can_travel = calculate_travel_return_data["can_travel"]
 			//Not enough O2 to travel there? Find something else
-			if(!handle_travel_cost(AM, current_orbital_object, orbital_object))
+			if(!can_travel)
+				travel_message = no_oxygen_message
 				continue
+
+			tanks = calculate_travel_return_data["tanks"]
+			cost_in_moles = calculate_travel_return_data["cost_in_moles"]
+
+			message_shown = TRUE
+			to_chat(AM, "<span class = 'warning'>You start your travel into the unknown!</span>")
 
 			stored_transit_templates += send_to_transit(AM, direction)
 
@@ -117,7 +145,13 @@ GLOBAL_DATUM_INIT(spaceTravelManager, /datum/space_travel_manager, new)
 				var/arrival_y = arrival_dirs["[direction]"]["y"] == 0 ? departure_y : arrival_dirs["[direction]"]["y"]
 				var/turf/T = locate(arrival_x, arrival_y, z_level_to_travel.z_value)
 				AM.forceMove(T)
+				handle_travel_cost(AM, tanks, cost_in_moles)
 				break
+
+	if(!message_shown)
+		travel_message = travel_message == null ? no_target_message : travel_message
+
+		to_chat(AM, "<span class = 'warning'>[travel_message]</span>")
 
 
 /datum/space_travel_manager/proc/send_to_transit(var/mob/living/L, var/direction)
@@ -145,17 +179,21 @@ GLOBAL_DATUM_INIT(spaceTravelManager, /datum/space_travel_manager, new)
 
 	return space_transit_reservation
 
-/datum/space_travel_manager/proc/handle_travel_cost(var/mob/living/L, var/datum/orbital_object/current_orbital_object, var/datum/orbital_object/target_orbital_object)
+/datum/space_travel_manager/proc/calculate_travel_cost(var/mob/living/L, var/datum/orbital_object/current_orbital_object, var/datum/orbital_object/target_orbital_object)
 
-	. = TRUE
+	var/list/return_data = list("can_travel" = TRUE, "tanks" = list(), "cost_in_moles" = 0)
+
+	. = return_data
 
 	var/list/mob_contents = L.get_contents()
-
-	var/list/tanks = list()
 
 	var/distance = current_orbital_object.position.DistanceTo(target_orbital_object.position)
 
 	var/cost_in_moles = distance / 100
+
+	return_data["cost_in_moles"] = cost_in_moles
+
+	var/total_moles = 0
 
 	for(var/item in mob_contents)
 
@@ -163,23 +201,44 @@ GLOBAL_DATUM_INIT(spaceTravelManager, /datum/space_travel_manager, new)
 			var/obj/item/tank/tank = item
 			var/moles_in_tank = tank.air_contents.get_moles(GAS_O2)
 			var/amount_to_take = cost_in_moles - moles_in_tank > 0 ? moles_in_tank : moles_in_tank - cost_in_moles
-			if(moles_in_tank < cost_in_moles || tanks.len == 0)
-				tanks["[tanks.len]"] = list("tank" = tank, "moles" = tank.air_contents.get_moles(GAS_O2))
-				tank.air_contents.adjust_moles(GAS_O2, -amount_to_take)
-			cost_in_moles -= amount_to_take
 
+			return_data["tanks"]["[return_data["tanks"].len]"] += list("tank" = tank, "moles" = moles_in_tank)
+
+			cost_in_moles -= amount_to_take
+			total_moles += moles_in_tank
 
 	//Not enough juice to travel
 	if(cost_in_moles > 0)
+		return_data["can_travel"] = FALSE
+		return .
 
-		for(var/key in tanks)
-			var/obj/item/tank/tank = tanks[key]["tank"]
-			tank.air_contents.adjust_moles(GAS_O2, tanks[key]["moles"])
-
-
-		. = FALSE
+	if(total_moles - cost_in_moles < 5)
+		switch(tgalert(L, "It seems like you may end up with very little oxygen, do you wish to proceed regardless?", "Space travel alert", "Yes", "No", Timeout = 5))
+			if("No")
+				return_data["can_travel"] = FALSE
 
 	return .
+
+/datum/space_travel_manager/proc/handle_travel_cost(var/mob/living/L, var/list/tanks, var/cost_in_moles)
+
+	for(var/key in tanks)
+		var/obj/item/tank/tank = tanks[key]["tank"]
+		var/moles_in_tank = tanks[key]["moles"]
+
+		var/amount_to_take = cost_in_moles - moles_in_tank > 0 ? moles_in_tank : moles_in_tank - cost_in_moles
+
+		if(moles_in_tank < cost_in_moles || tanks.len == 0)
+			tanks["[tanks.len]"] = list("tank" = tank, "moles" = moles_in_tank)
+			tank.air_contents.adjust_moles(GAS_O2, -amount_to_take)
+		cost_in_moles -= amount_to_take
+
+
+/datum/space_travel_manager/proc/teleport_atom_to_safety(atom/movable/AM, var/direction)
+
+	var/safe_x = safe_turf_directions["[direction]"]["x"] == 0 ? AM.x : safe_turf_directions["[direction]"]["x"]
+	var/safe_y = safe_turf_directions["[direction]"]["y"] == 0 ? AM.y : safe_turf_directions["[direction]"]["y"]
+	var/turf/T = locate(safe_x, safe_y, AM.z)
+	AM.forceMove(T)
 
 /datum/map_template/space_travel_transit
 	name = "Space travel transit"

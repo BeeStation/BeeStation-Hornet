@@ -13,18 +13,32 @@
 		stack_trace("Why are you calling deepspace transitions on something that has [linkage] linkage?")
 		return
 
-	var/list/x_pos_beginning_deepspace = list(1, 1, world.maxx, 1)  //x values of the lowest-leftest turfs of the respective 4 blocks on each side of zlevel
-	var/list/y_pos_beginning_deepspace = list(world.maxy, 1, 1, 1)  //y values respectively
-	var/list/x_pos_ending_deepspace = list(world.maxx, world.maxx, world.maxx, 1)	//x values of the highest-rightest turfs of the respective 4 blocks on each side of zlevel
-	var/list/y_pos_ending_deepspace = list(world.maxy, 1, world.maxy, world.maxy )	//y values respectively
+	var/list/x_pos_beginning_deepspace_border = list(1, 1, world.maxx - DEEP_SPACE_BORDER_RANGE, 1)  //x values of the lowest-leftest turfs of the respective 4 blocks on each side of zlevel
+	var/list/y_pos_beginning_deepspace_border = list(world.maxy - DEEP_SPACE_BORDER_RANGE, 1, 1 + DEEP_SPACE_BORDER_RANGE, 1 + DEEP_SPACE_BORDER_RANGE)  //y values respectively
+	var/list/x_pos_ending_deepspace_border = list(world.maxx, world.maxx, world.maxx, 1 + DEEP_SPACE_BORDER_RANGE)	//x values of the highest-rightest turfs of the respective 4 blocks on each side of zlevel
+	var/list/y_pos_ending_deepspace_border = list(world.maxy, 1 + DEEP_SPACE_BORDER_RANGE, world.maxy - DEEP_SPACE_BORDER_RANGE, world.maxy - DEEP_SPACE_BORDER_RANGE)	//y values respectively
+
+	var/list/x_pos_beginning_deepspace = list(1, 1, world.maxx - DEEP_SPACE_BORDER_RANGE - 1, 2 + DEEP_SPACE_BORDER_RANGE)  //x values of the lowest-leftest turfs of the respective 4 blocks on each side of zlevel
+	var/list/y_pos_beginning_deepspace = list(world.maxy - DEEP_SPACE_BORDER_RANGE - 1, 2 + DEEP_SPACE_BORDER_RANGE, 1 , 1 )  //y values respectively
+	var/list/x_pos_ending_deepspace = list(world.maxx, world.maxx, world.maxx - DEEP_SPACE_BORDER_RANGE - 1, 2 + DEEP_SPACE_BORDER_RANGE)	//x values of the highest-rightest turfs of the respective 4 blocks on each side of zlevel
+	var/list/y_pos_ending_deepspace = list(world.maxy - DEEP_SPACE_BORDER_RANGE - 1, 2 + DEEP_SPACE_BORDER_RANGE, world.maxy - DEEP_SPACE_BORDER_RANGE - 1, world.maxy - DEEP_SPACE_BORDER_RANGE - 1)
 
 	for(var/side in 1 to 4)
-		var/turf/beginning = locate(x_pos_beginning_deepspace[side], y_pos_beginning_deepspace[side], z_value)
-		var/turf/ending = locate(x_pos_ending_deepspace[side], y_pos_ending_deepspace[side], z_value)
-		var/list/turfblock = block(beginning, ending)
+		var/turf/beginning_deepspace = locate(x_pos_beginning_deepspace[side], y_pos_beginning_deepspace[side], z_value)
+		var/turf/ending_deepspace = locate(x_pos_ending_deepspace[side], y_pos_ending_deepspace[side], z_value)
+		var/list/turfblock_deepspace = block(beginning_deepspace, ending_deepspace)
+
+		var/turf/beginning_deepspace_border = locate(x_pos_beginning_deepspace_border[side], y_pos_beginning_deepspace_border[side], z_value)
+		var/turf/ending_deepspace_border = locate(x_pos_ending_deepspace_border[side], y_pos_ending_deepspace_border[side], z_value)
+		var/list/turfblock_deepspace_border = block(beginning_deepspace_border, ending_deepspace_border)
 		var/dirside = 2**(side-1)
 
-		for(var/turf/open/space/S in turfblock)
+		for(var/turf/open/space/S in turfblock_deepspace_border)
+			S.ChangeTurf(/turf/open/space/deep_space/deep_space_border)
+			var/turf/open/space/deep_space/deep_space_border/DS = S
+			DS.direction = dirside
+
+		for(var/turf/open/space/S in turfblock_deepspace)
 			S.ChangeTurf(/turf/open/space/deep_space)
 			var/turf/open/space/deep_space/DS = S
 			DS.direction = dirside
@@ -122,11 +136,6 @@
 	//Lists below are pre-calculated values arranged in the list in such a way to be easily accessable in the loop by the counter
 	//Its either this or madness with lotsa math
 
-	// Byond direction defines, because I want to put them somewhere.
-// #define NORTH 1
-// #define SOUTH 2
-// #define EAST 4
-// #define WEST 8
 
 	var/list/x_pos_beginning = list(1, 1, world.maxx - TRANSITIONEDGE, 1)  //x values of the lowest-leftest turfs of the respective 4 blocks on each side of zlevel
 	var/list/y_pos_beginning = list(world.maxy - TRANSITIONEDGE, 1, 1 + TRANSITIONEDGE, 1 + TRANSITIONEDGE)  //y values respectively
