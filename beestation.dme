@@ -1667,7 +1667,6 @@
 #include "code\modules\antagonists\hivemind\vessel.dm"
 #include "code\modules\antagonists\hivemind\spells\hivemind_add.dm"
 #include "code\modules\antagonists\hivemind\spells\hivemind_barrier.dm"
-#include "code\modules\antagonists\hivemind\spells\hivemind_comms.dm"
 #include "code\modules\antagonists\hivemind\spells\hivemind_compell.dm"
 #include "code\modules\antagonists\hivemind\spells\hivemind_dominance.dm"
 #include "code\modules\antagonists\hivemind\spells\hivemind_heal.dm"
