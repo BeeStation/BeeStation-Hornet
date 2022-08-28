@@ -1,4 +1,0 @@
-author: etherware-novice
-delete-after: true
-changes:
-  - tweak: fixed ipcs being able to talk without any tongues (speakers)
