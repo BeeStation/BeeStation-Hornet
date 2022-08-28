@@ -58,21 +58,33 @@
 			playsound(src, 'sound/machines/pda_button1.ogg', 50, TRUE)
 			update_icon()
 
-/obj/item/modular_computer/tablet/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
-	. = ..()
+/obj/item/modular_computer/tablet/attack(atom/target, mob/living/user, params)
 	if(istype(target, /obj/item/paper))
 		var/obj/item/paper/paper = target
 		if (!paper.info)
 			to_chat(user, "<span class='warning'>Unable to scan! Paper is blank.</span>")
+		else
+			note = replacetext(paper.info, "<BR>", "\[br\]")
+			note = replacetext(note, "<li>", "\[*\]")
+			note = replacetext(note, "<ul>", "\[list\]")
+			note = replacetext(note, "</ul>", "\[/list\]")
+			note = html_encode(note)
+			to_chat(user, "<span class='notice'>Paper scanned. Saved to PDA's notekeeper.</span>")
+
+	// Send to programs for processing - this should go LAST
+	// Used to implement the physical scanner.
+	for(var/datum/computer_file/program/thread in (idle_threads + active_program))
+		if(thread.use_attack && !thread.attack(target, user, params))
 			return
-		note = replacetext(paper.info, "<BR>", "\[br\]")
-		note = replacetext(note, "<li>", "\[*\]")
-		note = replacetext(note, "<ul>", "\[list\]")
-		note = replacetext(note, "</ul>", "\[/list\]")
-		note = html_encode(note)
-		to_chat(user, "<span class='notice'>Paper scanned. Saved to PDA's notekeeper.</span>" )
-		return
-	// TODO tablet-pda add gas scan
+	..()
+
+/obj/item/modular_computer/tablet/attack_obj(obj/target, mob/living/user)
+	// Send to programs for processing - this should go LAST
+	// Used to implement the gas scanner.
+	for(var/datum/computer_file/program/thread in (idle_threads + active_program))
+		if(thread.use_attack_obj && !thread.attack_obj(target, user))
+			return
+	..()
 
 // Eject the pen if the ID was not ejected
 /obj/item/modular_computer/tablet/AltClick(mob/user)

@@ -529,8 +529,8 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 			for(var/datum/computer_file/program/messenger/messenger in hdd.stored_files)
 				saved_image = pic.picture
 				messenger.ProcessPhoto()
-				to_chat(user, "<span class='notice'>You scan \the [pic].</span>")
-		return
+				to_chat(user, "<span class='notice'>You scan \the [pic] into \the [src]'s messenger.</span>")
+			return
 
 	// Insert items into the components
 	for(var/h in all_components)

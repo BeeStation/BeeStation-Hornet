@@ -31,6 +31,10 @@
 	var/alert_silenced = FALSE
 	/// Whether to highlight our program in the main screen. Intended for alerts, but loosely available for any need to notify of changed conditions. Think Windows task bar highlighting. Available even if alerts are muted.
 	var/alert_pending = FALSE
+	/// If this program should process attack calls
+	var/use_attack = FALSE
+	/// If this program should process attack_obj calls
+	var/use_attack_obj = FALSE
 
 /datum/computer_file/program/New(obj/item/modular_computer/comp = null)
 	..()
@@ -228,3 +232,13 @@
 	if(program_state != PROGRAM_STATE_ACTIVE) // Our program was closed. Close the ui if it exists.
 		return UI_CLOSE
 	return ..()
+
+/// Return TRUE if nothing was processed. Return FALSE to prevent further actions running.
+/// Set use_attack = TRUE to receive proccalls from the parent computer.
+/datum/computer_file/program/proc/attack(atom/target, mob/living/user, params)
+	return TRUE
+
+/// Return TRUE if nothing was processed. Return FALSE to prevent further actions running.
+/// Set use_attack_obj = TRUE to receive proccalls from the parent computer.
+/datum/computer_file/program/proc/attack_obj(obj/target, mob/living/user)
+	return TRUE
