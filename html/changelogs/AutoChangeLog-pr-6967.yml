@@ -1,0 +1,6 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - bugfix: Optical ecto-scanners no longer work if toggled in your pocket.
+  - tweak: Optical ecto-scanners now have a flash protect of 2 while down
+  - tweak: Optical ecto-scanners now have a green tint when worn
