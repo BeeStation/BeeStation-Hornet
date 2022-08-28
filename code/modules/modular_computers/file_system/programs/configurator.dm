@@ -21,7 +21,11 @@
 
 /datum/computer_file/program/computerconfig/ui_static_data(mob/user)
 	var/list/data = ..()
-	data["themes"] = themes_list
+	data["themes"] = list()
+	if(computer?.obj_flags & EMAGGED)
+		data["themes"] += "Syndicate"
+	data["themes"] += themes_list
+
 	return data
 
 /datum/computer_file/program/computerconfig/ui_data(mob/user)
@@ -72,7 +76,7 @@
 				H.enabled = !H.enabled
 			. = TRUE
 		if("PC_select_theme")
-			if(movable.theme_locked || !(params["theme"] in themes_list))
+			if(movable.theme_locked || !((params["theme"] in themes_list) || (params["theme"] == "Syndicate" && computer?.obj_flags & EMAGGED)))
 				return
 			movable.device_theme = replacetext(lowertext(params["theme"]), " ", "-")
 			. = TRUE

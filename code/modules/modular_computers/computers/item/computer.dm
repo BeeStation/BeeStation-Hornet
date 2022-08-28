@@ -231,6 +231,10 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 			newemag = TRUE
 	if(newemag)
 		to_chat(user, "<span class='notice'>You swipe \the [src]. A console window momentarily fills the screen, with white text rapidly scrolling past.</span>")
+		var/datum/computer_file/program/emag_console/emag_console = new(src)
+		emag_console.computer = src
+		emag_console.program_state = PROGRAM_STATE_ACTIVE
+		emag_console.ui_interact(user)
 		return TRUE
 	to_chat(user, "<span class='notice'>You swipe \the [src]. A console window fills the screen, but it quickly closes itself after only a few lines are written to it.</span>")
 	return FALSE

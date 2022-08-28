@@ -223,10 +223,11 @@
 
 
 /datum/computer_file/program/ui_host()
-	if(computer.physical)
-		return computer.physical
-	else
+	if(computer)
+		if(computer.physical)
+			return computer.physical
 		return computer
+	return ..()
 
 /datum/computer_file/program/ui_status(mob/user)
 	if(program_state != PROGRAM_STATE_ACTIVE) // Our program was closed. Close the ui if it exists.
