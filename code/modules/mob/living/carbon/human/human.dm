@@ -185,6 +185,9 @@
 			if(!HAS_TRAIT(H, TRAIT_MEDICAL_HUD))
 				return
 			if(href_list["evaluation"])
+				if(HAS_TRAIT(H, TRAIT_MEDICAL_HUD_SCAN))
+					healthscan(H, src, 1, FALSE)
+					return
 				if(!getBruteLoss() && !getFireLoss() && !getOxyLoss() && getToxLoss() < 20)
 					to_chat(usr, "<span class='notice'>No external injuries detected.</span><br>")
 					return

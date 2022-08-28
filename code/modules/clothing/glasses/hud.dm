@@ -136,6 +136,20 @@
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 	glass_colour_type = /datum/client_colour/glass_colour/green
 
+/obj/item/clothing/glasses/hud/health/advanced
+	name = "advanced health scanner HUD"
+	desc = "A heads-up display that scans humans in view. Also includes a crew monitor and health analyzer readout!"
+	icon_state = "healthhud_adv"
+	hud_trait = list(TRAIT_MEDICAL_HUD, TRAIT_MEDICAL_HUD_SCAN)
+	var/obj/item/sensor_device/internal_sensor = new(null)
+
+/obj/item/clothing/glasses/hud/health/advanced/Initialize(mapload)
+	. = ..()
+	actions_types += list(/datum/action/item_action/crew_monitor)
+
+/obj/item/clothing/glasses/hud/health/advanced/ui_action_click(mob/user)
+	internal_sensor.attack_self(user)
+
 /obj/item/clothing/glasses/hud/health/sunglasses
 	name = "medical HUDSunglasses"
 	desc = "Sunglasses with a medical HUD."
