@@ -1,5 +1,10 @@
 GLOBAL_DATUM_INIT(spaceTravelManager, /datum/space_travel_manager, new)
 
+#define DISTANCE_COST_IN_MOLES(distance) distance / 100
+#define DISTANCE_COST_IN_SECONDS(distance) distance / 1000
+#define BASE_TRAVEL_TIME 10 SECONDS
+#define MAX_TRAVEL_TIME 90 SECONDS
+
 /datum/space_travel_manager
 
 	var/list/deep_space_dirs
@@ -43,12 +48,12 @@ GLOBAL_DATUM_INIT(spaceTravelManager, /datum/space_travel_manager, new)
 
 	if(!istype(AM, /mob/living) || L != null && L.stat == DEAD)
 		var/turf/T = pick(block(locate(20, 20, SSmapping.trash_level.z_value), locate(200, 200, SSmapping.trash_level.z_value)))
-		to_chat(world, "TRASH TELEPORTED TO TURF: [T]")
+		AM.visible_message("<span class = 'warning'>[AM.name] vanishes into the void!</span>")
 		AM.forceMove(T)
 		LAZYADD(SSzclear.trash_atoms, AM)
 		return
 
-	if(!do_after(AM, 20, target = AM))
+	if(!do_after(AM, 50, target = AM))
 		return
 
 	var/datum/space_level/current_space_level = SSmapping.z_list[AM.z]
@@ -103,7 +108,11 @@ GLOBAL_DATUM_INIT(spaceTravelManager, /datum/space_travel_manager, new)
 
 			var/datum/orbital_object/z_linked/z_linked_object = orbital_object
 			var/datum/space_level/z_level_to_travel = z_linked_object.linked_z_level == null ? null : z_linked_object.linked_z_level[1]
-			calculate_travel_return_data = calculate_travel_cost(AM, current_orbital_object, orbital_object)
+			var/distance = current_orbital_object.position.DistanceTo(orbital_object.position)
+
+			calculate_travel_return_data = calculate_travel_cost(AM, distance)
+
+			var/time_to_generate = 0
 
 			var/can_travel = calculate_travel_return_data["can_travel"]
 			//Not enough O2 to travel there? Find something else
@@ -123,6 +132,8 @@ GLOBAL_DATUM_INIT(spaceTravelManager, /datum/space_travel_manager, new)
 
 				var/datum/orbital_object/z_linked/beacon/ruin/ruin = z_linked_object
 
+				var/start_time = world.time
+
 				if(z_level_to_travel == null)
 					ruin.assign_z_level()
 
@@ -131,13 +142,23 @@ GLOBAL_DATUM_INIT(spaceTravelManager, /datum/space_travel_manager, new)
 				SSzclear.temp_keep_z(AM.z)
 				SSzclear.temp_keep_z(z_level_to_travel.z_value)
 
-				var/start_time = world.time
 				UNTIL((!z_level_to_travel.generating) || world.time > start_time + 3 MINUTES)
+
+				time_to_generate = world.time - start_time
 
 			else if(istype(z_linked_object, /datum/orbital_object/z_linked/station))
 
 				z_level_to_travel = z_linked_object.linked_z_level[1]
+				SSzclear.temp_keep_z(AM.z)
+				SSzclear.temp_keep_z(z_level_to_travel.z_value)
 
+			var/target_travel_time = BASE_TRAVEL_TIME * DISTANCE_COST_IN_SECONDS(distance)
+
+			if(time_to_generate < target_travel_time)
+				var/travel_time = CLAMP(((target_travel_time) - time_to_generate), 0, MAX_TRAVEL_TIME)
+				SSzclear.temp_keep_z(AM.z)
+				SSzclear.temp_keep_z(z_level_to_travel.z_value)
+				sleep(travel_time)
 
 			if(z_level_to_travel != null)
 
@@ -145,7 +166,7 @@ GLOBAL_DATUM_INIT(spaceTravelManager, /datum/space_travel_manager, new)
 				var/arrival_y = arrival_dirs["[direction]"]["y"] == 0 ? departure_y : arrival_dirs["[direction]"]["y"]
 				var/turf/T = locate(arrival_x, arrival_y, z_level_to_travel.z_value)
 				AM.forceMove(T)
-				handle_travel_cost(AM, tanks, cost_in_moles)
+				handle_travel_cost(AM, tanks, DISTANCE_COST_IN_MOLES(distance))
 				break
 
 	if(!message_shown)
@@ -175,23 +196,17 @@ GLOBAL_DATUM_INIT(spaceTravelManager, /datum/space_travel_manager, new)
 
 	L.hud_used.set_parallax_movedir(direction, FALSE)
 
-	sleep(100)
-
 	return space_transit_reservation
 
-/datum/space_travel_manager/proc/calculate_travel_cost(var/mob/living/L, var/datum/orbital_object/current_orbital_object, var/datum/orbital_object/target_orbital_object)
+/datum/space_travel_manager/proc/calculate_travel_cost(var/mob/living/L, var/distance)
 
-	var/list/return_data = list("can_travel" = TRUE, "tanks" = list(), "cost_in_moles" = 0)
+	var/list/return_data = list("can_travel" = TRUE, "tanks" = list())
 
 	. = return_data
 
 	var/list/mob_contents = L.get_contents()
 
-	var/distance = current_orbital_object.position.DistanceTo(target_orbital_object.position)
-
-	var/cost_in_moles = distance / 100
-
-	return_data["cost_in_moles"] = cost_in_moles
+	var/cost_in_moles = DISTANCE_COST_IN_MOLES(distance)
 
 	var/total_moles = 0
 
@@ -201,8 +216,8 @@ GLOBAL_DATUM_INIT(spaceTravelManager, /datum/space_travel_manager, new)
 			var/obj/item/tank/tank = item
 			var/moles_in_tank = tank.air_contents.get_moles(GAS_O2)
 			var/amount_to_take = cost_in_moles - moles_in_tank > 0 ? moles_in_tank : moles_in_tank - cost_in_moles
-
-			return_data["tanks"]["[return_data["tanks"].len]"] += list("tank" = tank, "moles" = moles_in_tank)
+			var/list/tanks = return_data["tanks"]
+			tanks["[tanks.len]"] += list("tank" = tank, "moles" = moles_in_tank)
 
 			cost_in_moles -= amount_to_take
 			total_moles += moles_in_tank
@@ -246,10 +261,14 @@ GLOBAL_DATUM_INIT(spaceTravelManager, /datum/space_travel_manager, new)
 	var/landingZoneRelativeX = 8
 	var/landingZoneRelativeY = 8
 
-/area/space_travel_transit_area
+/area/space_travel_transit_area //TODO: make it /area/space
     name = "Space travel transit"
     icon_state = "hilbertshotel"
     requires_power = FALSE
     has_gravity = TRUE
     teleport_restriction = TELEPORT_ALLOW_NONE
     area_flags = HIDDEN_AREA
+
+#undef DISTANCE_COST_IN_MOLES
+#undef BASE_TRAVEL_TIME
+#undef DISTANCE_COST_IN_SECONDS
