@@ -20,6 +20,7 @@ const initialState = {
   highContrast: false,
   matchWord: false,
   matchCase: false,
+  highlightSelf: false,
   view: {
     visible: false,
     activeTab: SETTINGS_TABS[0].id,
