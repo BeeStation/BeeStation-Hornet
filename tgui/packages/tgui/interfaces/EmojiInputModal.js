@@ -61,7 +61,7 @@ export const EmojiInputModal = (_, context) => {
                 setCursorPos(cursor_pos - 1);
               }
             }} />
-          <Box style={{ border: "1px solid white", "border-radius": "5px", height: "50px" }}>
+          <Box style={{ border: "1px solid white", "border-radius": "5px", "min-height": "50px" }}>
             {insert(emojis.map(emoji => (<div
               key={emoji}
               className={`emoji48x48 ${emoji}`} />)), cursor_pos, <div style={
