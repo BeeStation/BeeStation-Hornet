@@ -500,20 +500,15 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 /obj/item/shuttle_creator/proc/reset_saved_area(loud = TRUE)
 	overlay_holder.clear_highlights()
 	loggedTurfs.Cut()
-	if(recorded_shuttle_area)
-		for(var/turf/T in recorded_shuttle_area.contents)
-			loggedTurfs |= T
-			overlay_holder.create_hightlight(T, T == recorded_origin)
+
+	//Rebuild the highlights on our shuttle
 	var/obj/docking_port/mobile/port
 	if(linkedShuttleId)
 		port = SSshuttle.getShuttle(linkedShuttleId)
 	if(port)
-		for(var/obj/docking_port/mobile/M in port.towed_shuttles)
-			var/list/intersect_bounds = port.return_intersect_coords(M)
-			for(var/turf/T in block(locate(intersect_bounds[1], intersect_bounds[2], port.z), locate(intersect_bounds[3], intersect_bounds[4], port.z)))
-				if(port.shuttle_areas[M.underlying_turf_area[T]])
-					loggedTurfs |= T
-					overlay_holder.create_hightlight(T, T == recorded_origin)
+		for(var/turf/T in port.underlying_turf_area)
+			loggedTurfs |= T
+			overlay_holder.create_hightlight(T, T == recorded_origin)
 	if(loud)
 		to_chat(usr, "<span class='notice'>You reset the area buffer on the [src].</span>")
 
