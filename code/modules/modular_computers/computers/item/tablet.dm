@@ -239,11 +239,11 @@
 //Makes the light settings reflect the borg's headlamp settings
 /obj/item/modular_computer/tablet/integrated/ui_data(mob/user)
 	. = ..()
-	.["has_light"] = TRUE
 	if(iscyborg(borgo))
 		var/mob/living/silicon/robot/robo = borgo
 		.["light_on"] = robo.lamp_enabled
 		.["comp_light_color"] = robo.lamp_color
+		.["has_light"] = TRUE
 
 //Makes the flashlight button affect the borg rather than the tablet
 /obj/item/modular_computer/tablet/integrated/toggle_flashlight()
