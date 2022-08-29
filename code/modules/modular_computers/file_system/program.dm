@@ -197,15 +197,17 @@
 	if(..())
 		return 1
 	if(computer)
+		if(computer.device_theme == "thinktronic-classic")
+			computer.send_select_sound()
 		switch(action)
 			if("PC_exit")
 				computer.kill_program()
 				ui.close()
-				return 1
+				return TRUE
 			if("PC_shutdown")
 				computer.shutdown_computer()
 				ui.close()
-				return 1
+				return TRUE
 			if("PC_minimize")
 				var/mob/user = usr
 				if(!computer.active_program || !computer.all_components[MC_CPU])

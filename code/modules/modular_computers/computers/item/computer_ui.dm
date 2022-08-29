@@ -119,6 +119,8 @@
 /obj/item/modular_computer/ui_act(action, params)
 	if(..())
 		return
+	if(device_theme == "thinktronic-classic")
+		send_select_sound()
 	var/obj/item/computer_hardware/hard_drive/hard_drive = all_components[MC_HDD]
 	switch(action)
 		if("PC_exit")
