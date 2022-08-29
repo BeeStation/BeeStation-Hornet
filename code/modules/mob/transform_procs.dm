@@ -57,6 +57,20 @@
 		O.set_suicide(suiciding)
 	O.a_intent = INTENT_HARM
 
+	//Move cuffs over
+	if(handcuffed)
+		handcuffed.item_flags &= ~BEING_REMOVED
+		handcuffed.forceMove(O)
+		O.handcuffed = handcuffed
+		handcuffed = null
+		O.update_handcuffed()
+	if(legcuffed)
+		legcuffed.item_flags &= ~BEING_REMOVED
+		legcuffed.forceMove(O)
+		O.legcuffed = legcuffed
+		legcuffed = null
+		O.update_inv_legcuffed()
+
 	//keep viruses?
 	if (tr_flags & TR_KEEPVIRUS)
 		O.diseases = diseases
@@ -360,6 +374,20 @@
 		if(C.anchored)
 			continue
 		O.equip_to_appropriate_slot(C)
+
+	//Move cuffs over
+	if(handcuffed)
+		handcuffed.item_flags &= ~BEING_REMOVED
+		handcuffed.forceMove(O)
+		O.handcuffed = handcuffed
+		handcuffed = null
+		O.update_handcuffed()
+	if(legcuffed)
+		legcuffed.item_flags &= ~BEING_REMOVED
+		legcuffed.forceMove(O)
+		O.legcuffed = legcuffed
+		legcuffed = null
+		O.update_inv_legcuffed()
 
 	dna.transfer_identity(O, tr_flags & TR_KEEPSE)
 	O.dna.set_se(FALSE, GET_INITIALIZED_MUTATION(RACEMUT))
