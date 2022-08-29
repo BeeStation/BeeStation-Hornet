@@ -14,6 +14,8 @@
 	var/default_installs = TRUE
 	/// If the drive has been installed before (used to prevent re-setting initial ringtone)
 	var/has_been_installed = FALSE
+	/// List of airlocks this disk can control with program/remote_airlock
+	var/list/controllable_airlocks
 
 /obj/item/computer_hardware/hard_drive/on_remove(obj/item/modular_computer/remove_from, mob/user)
 	remove_from.shutdown_computer()
@@ -208,12 +210,15 @@
 /obj/item/computer_hardware/hard_drive/small/nukeops
 	power_usage = 8
 	max_capacity = 70
+	// Make sure this matches the syndicate shuttle's shield/door id in _maps/shuttles/infiltrator/infiltrator_basic.dmm
+	controllable_airlocks = list("smindicate")
 
 /obj/item/computer_hardware/hard_drive/small/nukeops/install_default_programs()
-	store_file(new/datum/computer_file/program/computerconfig(src))
-	store_file(new/datum/computer_file/program/ntnetdownload/syndicate(src)) // Syndicate version; automatic access to syndicate apps and no NT apps
-	store_file(new/datum/computer_file/program/filemanager(src))
-	store_file(new/datum/computer_file/program/radar/fission360(src)) //I am legitimately afraid if I don't do this, Ops players will think they just don't get a pinpointer anymore.
+	store_file(new /datum/computer_file/program/computerconfig(src))
+	store_file(new /datum/computer_file/program/ntnetdownload/syndicate(src)) // Syndicate version; automatic access to syndicate apps and no NT apps
+	store_file(new /datum/computer_file/program/filemanager(src))
+	store_file(new /datum/computer_file/program/radar/fission360(src)) //I am legitimately afraid if I don't do this, Ops players will think they just don't get a pinpointer anymore.
+	store_file(new /datum/computer_file/program/remote_airlock(src)) // Remote control for the shuttle door
 
 /obj/item/computer_hardware/hard_drive/micro
 	name = "micro solid state drive"

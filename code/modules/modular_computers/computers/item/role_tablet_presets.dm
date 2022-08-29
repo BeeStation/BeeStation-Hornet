@@ -182,7 +182,7 @@
 	name = "military PDA"
 	desc = "A portable microcomputer by Thinktronic Systems, LTD. This model is a WGW-XL-NTOS series."
 	note = "Congratulations, your -corrupted- has chosen the Thinktronic 5290 WGW-XL-NTOS Series Personal Data Assistant!"
-	default_disk = /obj/item/computer_hardware/hard_drive/role/virus/syndicate
+	default_disk = /obj/item/computer_hardware/hard_drive/role/virus/syndicate/military
 	saved_identification = "John Doe"
 	saved_job = "Citizen"
 	icon_state = "pda-syndi"

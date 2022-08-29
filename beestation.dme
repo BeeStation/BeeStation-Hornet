@@ -2772,6 +2772,7 @@
 #include "code\modules\modular_computers\file_system\programs\powermonitor.dm"
 #include "code\modules\modular_computers\file_system\programs\radar.dm"
 #include "code\modules\modular_computers\file_system\programs\records.dm"
+#include "code\modules\modular_computers\file_system\programs\remote_airlock.dm"
 #include "code\modules\modular_computers\file_system\programs\robocontrol.dm"
 #include "code\modules\modular_computers\file_system\programs\secureye.dm"
 #include "code\modules\modular_computers\file_system\programs\signaller.dm"

@@ -71,6 +71,12 @@
 		to_chat(user, "<span class='notice'>Success!</span>")
 		target.explode(target, user)
 
+/obj/item/computer_hardware/hard_drive/role/virus/syndicate/military
+	name = "\improper D.E.T.O.M.A.T.I.X. Deluxe disk"
+	disk_flags = DISK_REMOTE_AIRLOCK
+	// Make sure this matches the syndicate shuttle's shield/door id in _maps/shuttles/infiltrator/infiltrator_basic.dmm
+	controllable_airlocks = list("smindicate")
+
 /obj/item/computer_hardware/hard_drive/role/virus/frame
 	name = "\improper F.R.A.M.E. disk"
 	icon_state = "cart-prove"

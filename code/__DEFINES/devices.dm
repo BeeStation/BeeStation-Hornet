@@ -12,4 +12,5 @@
 #define DISK_ROBOS (1<<9)
 #define DISK_JANI (1<<10)
 #define DISK_SEC (1<<11)
-#define DISK_BUDGET (1<<1)
+#define DISK_BUDGET (1<<12)
+#define DISK_REMOTE_AIRLOCK (1<<13)

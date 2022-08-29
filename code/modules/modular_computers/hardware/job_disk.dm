@@ -78,6 +78,9 @@
 	if(disk_flags & DISK_STATUS)
 		progs_to_store += new /datum/computer_file/program/status(src)
 
+	if(disk_flags & DISK_REMOTE_AIRLOCK)
+		progs_to_store += new /datum/computer_file/program/remote_airlock(src)
+
 	for (var/datum/computer_file/program/prog in progs_to_store)
 		prog.usage_flags = PROGRAM_ALL
 		prog.required_access = list()
@@ -197,8 +200,9 @@
 /obj/item/computer_hardware/hard_drive/role/captain
 	name = "\improper Value-PAK disk"
 	icon_state = "cart-cap"
-	desc = "Now with 350% more value!" //Give the Captain...EVERYTHING! (Except Mime, Clown, and Syndie)
-	disk_flags = ~0
+	desc = "Now with 350% more value!"
+	//Give the Captain...EVERYTHING! (except the remote airlock control)
+	disk_flags = ~(DISK_REMOTE_AIRLOCK)
 	spam_delay = 2
 
 /obj/item/computer_hardware/hard_drive/role/vip //the only purpose of this cartridge is to allow the VIP to be annoying
