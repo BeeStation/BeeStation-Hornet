@@ -66,6 +66,7 @@
 			var/message = stripped_input(usr, message = "Enter message to be sent to remote cyborg.", title = "Send Message")
 			if(!message)
 				return
+			computer.send_sound()
 			to_chat(R, "<br><br><span class='notice'>Message from [ID.registered_name] -- \"[message]\"</span><br>")
 			SEND_SOUND(R, 'sound/machines/twobeep_high.ogg')
 			if(R.connected_ai)
