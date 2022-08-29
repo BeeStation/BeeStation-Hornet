@@ -764,11 +764,35 @@ update_label("John Doe", "Clowny")
 	if(!alt_click_can_use_id(user))
 		return
 
-	if(!(obj_flags & EMAGGED))
+	var/datum/antagonist/pirate/P = user.mind.has_antag_datum(/datum/antagonist/pirate)
+	if(!((obj_flags & EMAGGED) || P)) // snowflake. pirates can just bypass.
 		to_chat(user, "<span class='warning'>Budget card isn't allowed to withdraw credits directly.</span>")
 		return
 
 	..()
+
+/obj/item/card/id/attackby(obj/item/W, mob/user, params)
+	if(istype(W, /obj/item/card/id/departmental_budget))
+		var/obj/item/card/id/departmental_budget/I_from = W
+		var/datum/bank_account/B_from = SSeconomy.get_dep_account(I_from.department_ID)
+
+		var/amount_to_remove =  FLOOR(input(user, "How much do you want to transfer to? Current Balance: [B_from.account_balance]", "Withdraw Funds", 5) as num, 1)
+
+		if(!amount_to_remove || amount_to_remove < 0)
+			to_chat(user, "<span class='warning'>You're pretty sure that's not how money works.</span>")
+			return
+		if(!alt_click_can_use_id(user))
+			return
+		if(B_from.adjust_money(-amount_to_remove))
+			registered_account.adjust_money(amount_to_remove)
+			to_chat(user, "<span class='notice'>You transfered [amount_to_remove] credits into the budget card.</span>")
+			return
+		else
+			var/difference = amount_to_remove - B_from.account_balance
+			B_from.bank_card_talk("<span class='warning'>ERROR: The linked account requires [difference] more credit\s to perform that transfer.</span>", TRUE)
+			return
+	else
+		return ..()
 
 /obj/item/card/id/departmental_budget/emag_act(mob/user)
 	if(obj_flags & EMAGGED)
