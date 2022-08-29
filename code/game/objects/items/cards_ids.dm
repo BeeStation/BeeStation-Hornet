@@ -760,6 +760,22 @@ update_label("John Doe", "Clowny")
 		desc = "Provides access to the [department_name]."
 	SSeconomy.dep_cards += src
 
+/obj/item/card/id/departmental_budget/AltClick(mob/living/user)
+	if(!alt_click_can_use_id(user))
+		return
+
+	if(!(obj_flags & EMAGGED))
+		to_chat(user, "<span class='warning'>Budget card isn't allowed to withdraw credits directly.</span>")
+		return
+
+	..()
+
+/obj/item/card/id/departmental_budget/emag_act(mob/user)
+	if(obj_flags & EMAGGED)
+		return
+	obj_flags |= EMAGGED
+	to_chat(user, "<span class='warning'>You bypassed [src]'s credit withdraw lock.</span>")
+
 /obj/item/card/id/departmental_budget/Destroy()
 	SSeconomy.dep_cards -= src
 	return ..()
