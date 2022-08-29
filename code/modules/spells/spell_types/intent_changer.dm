@@ -1,6 +1,6 @@
 /obj/effect/proc_holder/spell/targeted/intent_changer
 	name = "Peer Pressure"
-	desc = "Targets all people in your view and change their intent into yours, and locks their intent for 15 seconds."
+	desc = "Targets all people within your view and change their intent into yours, and locks their intent for 15 seconds."
 	school = "enchantment"
 	charge_type = "recharge"
 	charge_max = 45 SECONDS
