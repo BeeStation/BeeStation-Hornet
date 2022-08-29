@@ -7,6 +7,7 @@
     var/uses_left = 1
 
     var/list/allowed_targets = list()
+    var/list/forbidden_targets = list()
     var/apply_icon = null
     var/apply_icon_state = null
     var/apply_item_state = null
@@ -31,7 +32,7 @@
 /obj/item/colorizer/proc/do_colorize(atom/to_be_colored, mob/user)
     if(!to_be_colored)
         return
-    if(!is_type_in_list(to_be_colored, allowed_targets))
+    if(!is_type_in_list(to_be_colored, allowed_targets) || is_type_in_list(to_be_colored, forbidden_targets))
         to_chat(user, "<span class='warning'>This colorizer is not compatible with that!</span>")
         return
 

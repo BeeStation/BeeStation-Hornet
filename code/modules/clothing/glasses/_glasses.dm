@@ -17,6 +17,7 @@
 	var/list/icon/current = list() //the current hud icons
 	var/vision_correction = 0 //does wearing these glasses correct some of our vision defects?
 	var/glass_colour_type //colors your vision when worn
+	var/force_glass_colour = FALSE	//Should the user be forced to see the colour?
 
 /obj/item/clothing/glasses/suicide_act(mob/living/carbon/user)
 	user.visible_message("<span class='suicide'>[user] is stabbing \the [src] into [user.p_their()] eyes! It looks like [user.p_theyre()] trying to commit suicide!</span>")
@@ -312,18 +313,42 @@
 	desc = "A bulky pair of unwieldy glasses that lets you see things best left unseen. Obscures vision, but also has enhanced shielding which blocks flashes."
 	icon_state = "bustin-g"
 	item_state = "bustin-g"
-	flash_protect = 1
-	visor_vars_to_toggle = VISOR_FLASHPROTECT | VISOR_TINT
+	flash_protect = 2
+	tint = 2
 	glass_colour_type = /datum/client_colour/glass_colour/green
+	force_glass_colour = TRUE
+	var/next_use_time = 0
 
 /obj/item/clothing/glasses/welding/ghostbuster/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/team_monitor, "ghost", 1)
+	//Have the HUD enabled by default, since the glasses start in the down position.
+	var/datum/component/team_monitor/ghost_vision = AddComponent(/datum/component/team_monitor, "ghost", 1)
+	ghost_vision.toggle_hud(TRUE, null)
+
+/obj/item/clothing/glasses/welding/ghostbuster/weldingvisortoggle()
+	if(next_use_time > world.time)
+		return
+	. = ..()
 
 /obj/item/clothing/glasses/welding/ghostbuster/visor_toggling()
 	..()
+	next_use_time = world.time + 1 SECONDS
+	//Set to null by default, unless we are inside of a human
+	var/mob/living/carbon/C = null
+	if(iscarbon(loc))
+		C = loc
+		//If the user isn't wearing the glasses, don't update things for them.
+		if(C.glasses != src)
+			C = null
+	//Toggle the hud of the component
+	//Pass in the wearer, or null if they are not wearing the goggles
 	var/datum/component/team_monitor/ghost_vision = GetComponent(/datum/component/team_monitor)
-	ghost_vision.toggle_hud(!ghost_vision.hud_visible, usr)
+	ghost_vision.toggle_hud(!ghost_vision.hud_visible, C)
+	//Update the hud colour
+	if(ghost_vision.hud_visible)
+		change_glass_color(C, initial(glass_colour_type))
+	else
+		change_glass_color(C, null)
 
 /obj/item/clothing/glasses/blindfold
 	name = "blindfold"
@@ -484,7 +509,7 @@
 	..()
 
 /obj/item/clothing/glasses/AltClick(mob/user)
-	if(glass_colour_type && ishuman(user))
+	if(glass_colour_type && !force_glass_colour && ishuman(user))
 		var/mob/living/carbon/human/H = user
 		if(H.client)
 			if(H.client.prefs)
@@ -508,7 +533,7 @@
 
 
 /mob/living/carbon/human/proc/update_glasses_color(obj/item/clothing/glasses/G, glasses_equipped)
-	if(client && client.prefs.uses_glasses_colour && glasses_equipped)
+	if(((client && client.prefs.uses_glasses_colour) || G.force_glass_colour) && glasses_equipped)
 		add_client_colour(G.glass_colour_type)
 	else
 		remove_client_colour(G.glass_colour_type)

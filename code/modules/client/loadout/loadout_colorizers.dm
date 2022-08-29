@@ -33,3 +33,9 @@
     path = /obj/item/colorizer/militarycapuniform
     allowed_roles = list(JOB_NAME_CAPTAIN)
     cost = 10000
+
+/datum/gear/colorizer/pdatransparent
+	display_name = "Transparent PDA Colorizer"
+	path = /obj/item/colorizer/pdatransparent
+	cost = 20000
+
