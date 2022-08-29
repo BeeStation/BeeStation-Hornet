@@ -27,6 +27,12 @@
 
 	/// The note used by the notekeeping app, stored here for convenience.
 	var/note = "Congratulations on your station upgrading to the new NtOS and Thinktronic based collaboration effort, bringing you the best in electronics and software since 2467!"
+	/// Scanned paper
+	var/obj/item/paper/stored_paper
+
+/obj/item/modular_computer/tablet/Destroy()
+	QDEL_NULL(stored_paper)
+	return ..()
 
 /obj/item/modular_computer/tablet/ui_static_data(mob/user)
 	var/list/data = ..()
@@ -41,6 +47,20 @@
 		icon_state = "tablet-[finish_color]"
 		icon_state_unpowered = "tablet-[finish_color]"
 		icon_state_powered = "tablet-[finish_color]"
+
+/obj/item/modular_computer/tablet/proc/try_scan_paper(obj/target, mob/user)
+	if(!istype(target, /obj/item/paper))
+		return FALSE
+	var/obj/item/paper/paper = target
+	if (!paper.info)
+		to_chat(user, "<span class='warning'>Unable to scan! Paper is blank.</span>")
+	else
+		// clean up after ourselves
+		if(stored_paper)
+			qdel(stored_paper)
+		stored_paper = paper.copy(src)
+		to_chat(user, "<span class='notice'>Paper scanned. Saved to PDA's notekeeper.</span>")
+	return TRUE
 
 /obj/item/modular_computer/tablet/attackby(obj/item/attacking_item, mob/user)
 	. = ..()
@@ -57,20 +77,16 @@
 			inserted_item = attacking_item
 			playsound(src, 'sound/machines/pda_button1.ogg', 50, TRUE)
 			update_icon()
+	if(!try_scan_paper(attacking_item, user))
+		return
+
+/obj/item/modular_computer/tablet/pre_attack(atom/target, mob/living/user, params)
+	if(try_scan_paper(target, user))
+		return FALSE
+	return ..()
+
 
 /obj/item/modular_computer/tablet/attack(atom/target, mob/living/user, params)
-	if(istype(target, /obj/item/paper))
-		var/obj/item/paper/paper = target
-		if (!paper.info)
-			to_chat(user, "<span class='warning'>Unable to scan! Paper is blank.</span>")
-		else
-			note = replacetext(paper.info, "<BR>", "\[br\]")
-			note = replacetext(note, "<li>", "\[*\]")
-			note = replacetext(note, "<ul>", "\[list\]")
-			note = replacetext(note, "</ul>", "\[/list\]")
-			note = html_encode(note)
-			to_chat(user, "<span class='notice'>Paper scanned. Saved to PDA's notekeeper.</span>")
-
 	// Send to programs for processing - this should go LAST
 	// Used to implement the physical scanner.
 	for(var/datum/computer_file/program/thread in (idle_threads + active_program))

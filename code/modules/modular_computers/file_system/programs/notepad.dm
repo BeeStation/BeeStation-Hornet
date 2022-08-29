@@ -17,13 +17,24 @@
 	switch(action)
 		if("UpdateNote")
 			var/obj/item/modular_computer/tablet/comp = computer
+			if(!istype(comp))
+				return
 			comp.note = params["newnote"]
-			return UI_UPDATE
+			return TRUE
+		if("ShowPaper")
+			var/obj/item/modular_computer/tablet/comp = computer
+			if(!istype(comp) || QDELETED(comp.stored_paper))
+				return
+			comp.stored_paper.ui_interact(usr)
+			return TRUE
+
 
 /datum/computer_file/program/notepad/ui_data(mob/user)
 	var/list/data = get_header_data()
 	var/obj/item/modular_computer/tablet/comp = computer
-
+	if(!istype(comp))
+		return data
 	data["note"] = comp.note
+	data["has_paper"] = !QDELETED(comp.stored_paper)
 
 	return data
