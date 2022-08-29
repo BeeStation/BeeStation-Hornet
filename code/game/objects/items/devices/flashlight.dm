@@ -1,3 +1,11 @@
+#define LIGHT_POWER_HIGH 3
+
+#define LIGHT_POWER_LOW 2
+#define LIGHT_CHARGE_LOW 400
+
+#define LIGHT_POWER_CRIT 1
+#define LIGHT_CHARGE_CRIT 200
+
 /obj/item/flashlight
 	name = "flashlight"
 	desc = "A hand-held emergency light."
@@ -17,18 +25,68 @@
 	light_power = 1
 	light_on = FALSE
 	var/on = FALSE
+	/// uses internal battery
+	var/uses_battery = TRUE
+	var/obj/item/stock_parts/cell/int_battery
+	/// how much charge this battery starts with on init, does literally nothing else
+	var/start_battery_charge
+	/// how fast the battery is used
+	var/battery_use_rate = 1
+	/// lights power level
+	var/battery_power_amt
 
+/obj/item/mop/advanced/New()
+	..()
+	START_PROCESSING(SSobj, src)
+
+/obj/item/mop/advanced/Destroy()
+	if(on)
+		STOP_PROCESSING(SSobj, src)
+	return ..()
 
 /obj/item/flashlight/Initialize(mapload)
 	. = ..()
+	if(uses_battery)
+		int_battery = new(null)
+		int_battery.forceMove(src)
+		int_battery.charge = min(start_battery_charge || 9999999, int_battery.max_charge)
+		update_power()
 	if(icon_state == "[initial(icon_state)]-on")
 		on = TRUE
 	update_brightness()
 
+/obj/item/flashlight/proc/update_power()
+	if(int_battery)
+		switch(int_battery.charge)
+			if(LIGHT_POWER_HIGH to INFINITY)
+				battery_power_amt = LIGHT_POWER_HIGH
+			if(LIGHT_POWER_LOW to LIGHT_POWER_HIGH)
+				battery_power_amt = LIGHT_POWER_LOW
+			if(LIGHT_CHARGE_CRIT to 0)
+				battery_power_amt = LIGHT_POWER_CRIT
+			else
+				battery_power_amt = 0
+	else
+		battery_power_amt = LIGHT_POWER_HIGH
+
+
 /obj/item/flashlight/proc/update_brightness(mob/user)
 	if(on)
-		icon_state = "[initial(icon_state)]-on"
-		playsound(src, 'sound/items/flashlight_on.ogg', 25, 1)
+		if(int_battery)
+			switch(battery_power_amt)
+				if(LIGHT_POWER_HIGH)
+					light_range = initial(light_range)
+				if(LIGHT_POWER_LOW)
+					light_range = initial(light_range) / 2
+				if(LIGHT_POWER_CRIT)
+					light_range = initial(light_range) / 4
+				else
+					to_chat(user, "\The [src] flickers weakly, but doesn't have enough power to turn on.")
+					on = FALSE
+					return update_brightness(user)
+
+				icon_state = "[initial(icon_state)]-on"
+				playsound(src, 'sound/items/flashlight_on.ogg', 25, 1)
 	else
 		icon_state = initial(icon_state)
 		playsound(src, 'sound/items/flashlight_off.ogg', 25, 1)
