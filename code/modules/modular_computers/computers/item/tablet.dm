@@ -158,6 +158,8 @@
 	slot_flags = ITEM_SLOT_ID | ITEM_SLOT_BELT
 	comp_light_luminosity = 6.3
 	has_variants = FALSE
+	device_theme = "syndicate"
+	theme_locked = TRUE
 
 /// Given to Nuke Ops members.
 /obj/item/modular_computer/tablet/nukeops
@@ -167,6 +169,7 @@
 	comp_light_luminosity = 6.3
 	has_variants = FALSE
 	device_theme = "syndicate"
+	theme_locked = TRUE
 	light_color = COLOR_RED
 
 /obj/item/modular_computer/tablet/nukeops/emag_act(mob/user)
