@@ -68,6 +68,29 @@
 	righthand_file = 'icons/mob/inhands/equipment/idcards_righthand.dmi'
 	item_flags = NO_MAT_REDEMPTION | NOBLUDGEON
 	var/prox_check = TRUE //If the emag requires you to be in range
+	/// Output of last emag_act called - used for the emag log popup
+	var/last_log
+
+// Override to avoid opening UI
+/obj/item/card/interact(mob/user)
+	add_fingerprint(user)
+
+/obj/item/card/emag/ui_state(mob/user)
+	return GLOB.always_state
+
+/obj/item/card/emag/ui_data()
+	return list("log_text" = last_log)
+
+/obj/item/card/emag/ui_act(action, params)
+	if(..())
+		return
+	SStgui.close_uis(src)
+
+/obj/item/card/emag/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "EmagConsole")
+		ui.open()
 
 /obj/item/card/emag/bluespace
 	name = "bluespace cryptographic sequencer"
@@ -84,7 +107,11 @@
 	if(!proximity && prox_check)
 		return
 	log_combat(user, A, "attempted to emag")
-	A.emag_act(user)
+	var/output = A.emag_act(user)
+	// basically, if emag_act was overriden - because this function is called even if the emag does notihng
+	if(output != TRUE)
+		last_log = length(output) ? output : "Attempting access control override...\n\nDone!\n\n\nCryptographic Sequence complete."
+		ui_interact(user)
 
 /obj/item/card/emagfake
 	desc = "It is an ID card, the magnetic strip is exposed and attached to some circuitry. Closer inspection shows that this card is a poorly made replica, with a \"DonkCo\" logo stamped on the back."
