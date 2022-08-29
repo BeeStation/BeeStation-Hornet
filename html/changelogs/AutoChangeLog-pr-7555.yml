@@ -1,4 +1,0 @@
-author: CydiaLamiales
-delete-after: true
-changes:
-  - bugfix: Moves the 'give' action code to the proper file
