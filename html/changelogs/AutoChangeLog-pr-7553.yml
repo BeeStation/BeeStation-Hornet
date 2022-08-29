@@ -1,0 +1,6 @@
+author: CydiaLamiales
+delete-after: true
+changes:
+  - rscadd: Adds a transparent PDA colorizer
+  - rscadd: Adds said colorizer to the BeeCoin store
+  - rscadd: Adds a blacklist to colorizers
