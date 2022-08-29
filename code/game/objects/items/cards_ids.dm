@@ -798,7 +798,7 @@ update_label("John Doe", "Clowny")
 	if(obj_flags & EMAGGED)
 		return
 	obj_flags |= EMAGGED
-	to_chat(user, "<span class='warning'>You bypassed the credit withdraw lock of [src].</span>")
+	to_chat(user, "<span class='warning'>You bypassed the credit withdrawal lock of [src].</span>")
 
 /obj/item/card/id/departmental_budget/Destroy()
 	SSeconomy.dep_cards -= src
