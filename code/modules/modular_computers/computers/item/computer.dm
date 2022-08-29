@@ -273,6 +273,10 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 		turn_on(user)
 
 /obj/item/modular_computer/proc/turn_on(mob/user, open_ui = TRUE)
+	if(enabled)
+		if(open_ui)
+			ui_interact(user)
+		return TRUE
 	var/issynth = issilicon(user) // Robots and AIs get different activation messages.
 	if(obj_integrity <= integrity_failure)
 		if(issynth)

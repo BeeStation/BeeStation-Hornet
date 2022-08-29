@@ -53,9 +53,13 @@
 
 /atom/movable/screen/ai/modpc/Click()
 	. = ..()
-	if(.)
+	if(. || !robot.modularInterface?.turn_on(robot, open_ui = FALSE))
 		return
-	robot.modularInterface?.interact(robot)
+	var/obj/item/computer_hardware/hard_drive/drive = robot.modularInterface.all_components[MC_HDD]
+	for(var/datum/computer_file/program/messenger/app in drive?.stored_files)
+		robot.modularInterface.open_program(robot, app)
+		robot.modularInterface.interact(robot)
+		break
 
 /atom/movable/screen/ai/crew_monitor
 	name = "Crew Monitoring Console"
