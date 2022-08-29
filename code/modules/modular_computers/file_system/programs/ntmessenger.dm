@@ -28,8 +28,6 @@
 	var/last_text
 	/// even more wisdom from PDA.dm - "no everyone spamming" (prevents people from spamming the same message over and over)
 	var/last_text_everyone
-	/// Scanned photo for sending purposes.
-	var/datum/picture/picture
 	/// Whether or not we allow emojis to be sent by the user.
 	var/allow_emojis = FALSE
 	/// Whether or not we're currently looking at the message list.
@@ -269,7 +267,7 @@
 		"ref" = REF(computer),
 		"targets" = targets,
 		"emojis" = allow_emojis,
-		"photo" = photo_path,
+		"photo" = computer.saved_image,
 		"automated" = FALSE,
 	))
 

@@ -178,6 +178,8 @@
 	return "[target.saved_identification] ([target.saved_job])"
 
 /datum/signal/subspace/messaging/tablet_msg/proc/format_message()
+	if (logged && data["photo"])
+		return "\"[data["message"]]\" (<a href='byond://?src=[REF(logged)];photo=1'>Photo</a>)"
 	return "\"[data["message"]]\""
 
 /datum/signal/subspace/messaging/tablet_msg/broadcast()
@@ -222,8 +224,8 @@
 		M << browse_rsc(picture.picture_image, "pda_photo.png")
 		M << browse("<html><head><meta http-equiv='Content-Type' content='text/html; charset=UTF-8'><title>PDA Photo</title></head>" \
 		+ "<body style='overflow:hidden;margin:0;text-align:center'>" \
-		+ "<img src='pda_photo.png' width='192' style='-ms-interpolation-mode:nearest-neighbor' />" \
-		+ "</body></html>", "window=pdaphoto;size=[picture.psize_x]x[picture.psize_y];can-close=true")
+		+ "<img src='pda_photo.png' width='480' style='-ms-interpolation-mode:nearest-neighbor' />" \
+		+ "</body></html>", "window=photo_showing;size=480x608")
 		onclose(M, "pdaphoto")
 
 /datum/data_rc_msg
