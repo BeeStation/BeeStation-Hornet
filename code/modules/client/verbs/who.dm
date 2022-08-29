@@ -49,7 +49,7 @@
 				Lines += "[C.holder.fakekey] ([round(C.avgping, 1)]ms)"
 			else
 				Lines += "[C.key] ([round(C.avgping, 1)]ms)"
-		log_staffwho()
+		log_staffwho("Who")
 
 	for(var/line in sortList(Lines))
 		msg += "[line]\n"
@@ -60,7 +60,9 @@
 /client/verb/staffwho()
 	set category = "Admin"
 	set name = "Staffwho"
+	staff_who(null)
 
+/client/proc/staff_who(via)
 	var/msg = "<b>Current Admins:</b>\n"
 	if(holder)
 		for(var/client/C in GLOB.admins)
@@ -106,17 +108,17 @@
 			msg += "\t[C] is a mentor\n"
 
 		msg += "<span class='info'>Adminhelps are also sent through TGS to services like IRC and Discord. If no admins are available in game adminhelp anyways and an admin will see it and respond.</span>"
-		log_staffwho()
+		log_staffwho(via)
 	to_chat(src, msg)
 
 /client/verb/mentorwho()
 	set category = "Mentor"
 	set name = "Mentorwho"
-	staffwho()
+	staff_who("Mentorwho")
 
-/client/proc/log_staffwho()
+/client/proc/log_staffwho(via)
 	if(world.time - src.staff_check_rate > 1 MINUTES)
-		message_admins("[ADMIN_LOOKUPFLW(src.mob)] has checked online staff.")
-		log_admin("[key_name(src)] has checked online staff.")
+		message_admins("[ADMIN_LOOKUPFLW(src.mob)] has checked online staff[via ? " (via [via])" : ""].")
+		log_admin("[key_name(src)] has checked online staff[via ? " (via [via])" : ""].")
 		src.staff_check_rate = world.time
 
