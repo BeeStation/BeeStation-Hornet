@@ -59,17 +59,13 @@
 
 	//Move cuffs over
 	if(handcuffed)
-		handcuffed.item_flags &= ~BEING_REMOVED
-		handcuffed.forceMove(O)
-		O.handcuffed = handcuffed
+		handcuffed.forceMove(drop_location())
+		handcuffed.dropped(src)
 		handcuffed = null
-		O.update_handcuffed()
 	if(legcuffed)
-		legcuffed.item_flags &= ~BEING_REMOVED
-		legcuffed.forceMove(O)
-		O.legcuffed = legcuffed
+		legcuffed.forceMove(drop_location())
+		legcuffed.dropped(src)
 		legcuffed = null
-		O.update_inv_legcuffed()
 
 	//keep viruses?
 	if (tr_flags & TR_KEEPVIRUS)
@@ -234,17 +230,13 @@
 
 	//Move cuffs over
 	if(handcuffed)
-		handcuffed.item_flags &= ~BEING_REMOVED
-		handcuffed.forceMove(O)
-		O.handcuffed = handcuffed
+		handcuffed.forceMove(drop_location())
+		handcuffed.dropped(src)
 		handcuffed = null
-		O.update_handcuffed()
 	if(legcuffed)
-		legcuffed.item_flags &= ~BEING_REMOVED
-		legcuffed.forceMove(O)
-		O.legcuffed = legcuffed
+		legcuffed.forceMove(drop_location())
+		legcuffed.dropped(src)
 		legcuffed = null
-		O.update_inv_legcuffed()
 
 	//keep viruses?
 	if (tr_flags & TR_KEEPVIRUS)
@@ -391,17 +383,13 @@
 
 	//Move cuffs over
 	if(handcuffed)
-		handcuffed.item_flags &= ~BEING_REMOVED
-		handcuffed.forceMove(O)
-		O.handcuffed = handcuffed
+		handcuffed.forceMove(drop_location())
+		handcuffed.dropped(src)
 		handcuffed = null
-		O.update_handcuffed()
 	if(legcuffed)
-		legcuffed.item_flags &= ~BEING_REMOVED
-		legcuffed.forceMove(O)
-		O.legcuffed = legcuffed
+		legcuffed.forceMove(drop_location())
+		legcuffed.dropped(src)
 		legcuffed = null
-		O.update_inv_legcuffed()
 
 	dna.transfer_identity(O, tr_flags & TR_KEEPSE)
 	O.dna.set_se(FALSE, GET_INITIALIZED_MUTATION(RACEMUT))
