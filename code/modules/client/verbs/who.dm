@@ -49,6 +49,7 @@
 				Lines += "[C.holder.fakekey] ([round(C.avgping, 1)]ms)"
 			else
 				Lines += "[C.key] ([round(C.avgping, 1)]ms)"
+		log_staffwho()
 
 	for(var/line in sortList(Lines))
 		msg += "[line]\n"
@@ -59,7 +60,7 @@
 /client/verb/staffwho()
 	set category = "Admin"
 	set name = "Staffwho"
-	
+
 	var/msg = "<b>Current Admins:</b>\n"
 	if(holder)
 		for(var/client/C in GLOB.admins)
@@ -105,64 +106,17 @@
 			msg += "\t[C] is a mentor\n"
 
 		msg += "<span class='info'>Adminhelps are also sent through TGS to services like IRC and Discord. If no admins are available in game adminhelp anyways and an admin will see it and respond.</span>"
-		if(world.time - src.staff_check_rate > 1 MINUTES)
-			message_admins("[ADMIN_LOOKUPFLW(src.mob)] has checked online staff.")
-			log_admin("[key_name(src)] has checked online staff.")
-			src.staff_check_rate = world.time
+		log_staffwho()
 	to_chat(src, msg)
 
-/client/verb/mentorwho()  // redundant with staffwho, but people wont check the admin tab for if there are mentors on
+/client/verb/mentorwho()
 	set category = "Mentor"
 	set name = "Mentorwho"
+	staffwho()
 
-	var/msg = "<b>Current Admins:</b>\n"
-	if(holder)
-		for(var/client/C in GLOB.admins)
-			msg += "\t[C] is a [C.holder.rank]"
-
-			if(C.holder.fakekey)
-				msg += " <i>(as [C.holder.fakekey])</i>"
-
-			if(isobserver(C.mob))
-				msg += " - Observing"
-			else if(isnewplayer(C.mob))
-				msg += " - Lobby"
-			else
-				msg += " - Playing"
-
-			if(C.is_afk())
-				msg += " (AFK)"
-			msg += "\n"
-		msg += "<b>Current Mentors:</b>\n"
-		for(var/client/C in GLOB.mentors)
-			msg += "\t[C] is a mentor"
-
-			if(isobserver(C.mob))
-				msg += " - Observing"
-			else if(isnewplayer(C.mob))
-				msg += " - Lobby"
-			else
-				msg += " - Playing"
-
-			if(C.is_afk())
-				msg += " (AFK)"
-			msg += "\n"
-	else
-		for(var/client/C in GLOB.admins)
-			if(C.is_afk())
-				continue //Don't show afk admins to adminwho
-			if(!C.holder.fakekey)
-				msg += "\t[C] is a [C.holder.rank]\n"
-		msg += "<b>Current Mentors:</b>\n"
-		for(var/client/C in GLOB.mentors)
-			if(C.is_afk())
-				continue //Don't show afk admins to adminwho
-			msg += "\t[C] is a mentor\n"
-
-		msg += "<span class='info'>Adminhelps are also sent through TGS to services like IRC and Discord. If no admins are available in game adminhelp anyways and an admin will see it and respond.</span>"
-		if(world.time - src.staff_check_rate > 1 MINUTES)
-			message_admins("[ADMIN_LOOKUPFLW(src.mob)] has checked online staff.")
-			log_admin("[key_name(src)] has checked online staff.")
-			src.staff_check_rate = world.time
-	to_chat(src, msg)
+/client/proc/log_staffwho()
+	if(world.time - src.staff_check_rate > 1 MINUTES)
+		message_admins("[ADMIN_LOOKUPFLW(src.mob)] has checked online staff.")
+		log_admin("[key_name(src)] has checked online staff.")
+		src.staff_check_rate = world.time
 
