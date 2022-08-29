@@ -145,7 +145,7 @@
   * Return the desc of this mob for a photo
   */
 /mob/proc/get_photo_description(obj/item/camera/camera)
-	return "a ... thing?"
+	return "You can also see a ... thing?"
 
 /**
   * Show a message to this mob (visual or audible)

@@ -182,6 +182,23 @@
 			computer.saved_image = null
 			photo_path = null
 			return TRUE
+		if("PDA_selectPhoto")
+			if(!issilicon(usr))
+				return
+			var/mob/living/silicon/user = usr
+			if(!user.aicamera)
+				return
+			if(!length(user.aicamera.stored))
+				to_chat(user, "<span class='notice'>ERROR: No stored photos located.</span>")
+				if(ringer_status)
+					playsound(computer, 'sound/machines/terminal_error.ogg', 15, TRUE)
+				return
+			var/datum/picture/selected_photo = tgui_select_picture(user, user.aicamera.stored, "Select Message Attachment")
+			if(!istype(selected_photo, /datum/picture))
+				return
+			computer.saved_image = selected_photo
+			ProcessPhoto()
+			return TRUE
 		if("PDA_toggleVirus")
 			sending_virus = !sending_virus
 			return TRUE
@@ -277,7 +294,7 @@
 	if (!signal.data["done"])
 		to_chat(user, "<span class='notice'>ERROR: Server isn't responding.</span>")
 		if(ringer_status)
-			playsound(src, 'sound/machines/terminal_error.ogg', 15, TRUE)
+			playsound(computer, 'sound/machines/terminal_error.ogg', 15, TRUE)
 		return FALSE
 
 	var/target_text = signal.format_target()
