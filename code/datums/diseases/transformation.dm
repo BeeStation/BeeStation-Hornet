@@ -63,6 +63,15 @@
 			affected_mob.dropItemToGround(W)
 		for(var/obj/item/I in affected_mob.held_items)
 			affected_mob.dropItemToGround(I)
+		var/mob/living/carbon/C = affected_mob
+		if(C.handcuffed)
+			C.handcuffed.forceMove(C.drop_location())
+			C.handcuffed.dropped(C)
+			C.handcuffed = null
+		if(C.legcuffed)
+			C.legcuffed.forceMove(C.drop_location())
+			C.legcuffed.dropped(C)
+			C.legcuffed = null
 		var/mob/living/new_mob = new new_form(affected_mob.loc)
 		if(istype(new_mob))
 			if(bantype && is_banned_from(affected_mob.ckey, bantype))

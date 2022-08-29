@@ -232,6 +232,20 @@
 		O.set_suicide(suiciding)
 	O.a_intent = INTENT_HARM
 
+	//Move cuffs over
+	if(handcuffed)
+		handcuffed.item_flags &= ~BEING_REMOVED
+		handcuffed.forceMove(O)
+		O.handcuffed = handcuffed
+		handcuffed = null
+		O.update_handcuffed()
+	if(legcuffed)
+		legcuffed.item_flags &= ~BEING_REMOVED
+		legcuffed.forceMove(O)
+		O.legcuffed = legcuffed
+		legcuffed = null
+		O.update_inv_legcuffed()
+
 	//keep viruses?
 	if (tr_flags & TR_KEEPVIRUS)
 		O.diseases = diseases
@@ -519,6 +533,14 @@
 	Paralyze(1, ignore_canstun = TRUE)
 	for(var/obj/item/W in src)
 		dropItemToGround(W)
+	if(handcuffed)
+		handcuffed.forceMove(drop_location())
+		handcuffed.dropped(src)
+		handcuffed = null
+	if(legcuffed)
+		legcuffed.forceMove(drop_location())
+		legcuffed.dropped(src)
+		legcuffed = null
 	regenerate_icons()
 	icon = null
 	invisibility = INVISIBILITY_MAXIMUM
@@ -567,6 +589,20 @@
 			qdel(W)
 		else
 			dropItemToGround(W)
+	if(delete_items)
+		if(handcuffed)
+			handcuffed.forceMove(drop_location())
+			handcuffed.dropped(src)
+			handcuffed = null
+		if(legcuffed)
+			legcuffed.forceMove(drop_location())
+			legcuffed.dropped(src)
+			legcuffed = null
+	else
+		if(handcuffed)
+			qdel(handcuffed)
+		if(legcuffed)
+			qdel(legcuffed)
 	regenerate_icons()
 	icon = null
 	invisibility = INVISIBILITY_MAXIMUM
@@ -610,6 +646,14 @@
 	mobility_flags = NONE
 	for(var/obj/item/W in src)
 		dropItemToGround(W)
+	if(handcuffed)
+		handcuffed.forceMove(drop_location())
+		handcuffed.dropped(src)
+		handcuffed = null
+	if(legcuffed)
+		legcuffed.forceMove(drop_location())
+		legcuffed.dropped(src)
+		legcuffed = null
 	regenerate_icons()
 	icon = null
 	invisibility = INVISIBILITY_MAXIMUM
@@ -640,6 +684,14 @@
 	mobility_flags = NONE
 	for(var/obj/item/W in src)
 		dropItemToGround(W)
+	if(handcuffed)
+		handcuffed.forceMove(drop_location())
+		handcuffed.dropped(src)
+		handcuffed = null
+	if(legcuffed)
+		legcuffed.forceMove(drop_location())
+		legcuffed.dropped(src)
+		legcuffed = null
 	regenerate_icons()
 	icon = null
 	invisibility = INVISIBILITY_MAXIMUM
@@ -679,6 +731,14 @@
 	Paralyze(1, ignore_canstun = TRUE)
 	for(var/obj/item/W in src)
 		dropItemToGround(W)
+	if(handcuffed)
+		handcuffed.forceMove(drop_location())
+		handcuffed.dropped(src)
+		handcuffed = null
+	if(legcuffed)
+		legcuffed.forceMove(drop_location())
+		legcuffed.dropped(src)
+		legcuffed = null
 	regenerate_icons()
 	icon = null
 	invisibility = INVISIBILITY_MAXIMUM
@@ -705,6 +765,14 @@
 	Itemlist += held_items
 	for(var/obj/item/W in Itemlist)
 		dropItemToGround(W, TRUE)
+	if(handcuffed)
+		handcuffed.forceMove(drop_location())
+		handcuffed.dropped(src)
+		handcuffed = null
+	if(legcuffed)
+		legcuffed.forceMove(drop_location())
+		legcuffed.dropped(src)
+		legcuffed = null
 
 	regenerate_icons()
 	icon = null
@@ -731,6 +799,14 @@
 	Itemlist += held_items
 	for(var/obj/item/W in Itemlist)
 		dropItemToGround(W, TRUE)
+	if(handcuffed)
+		handcuffed.forceMove(drop_location())
+		handcuffed.dropped(src)
+		handcuffed = null
+	if(legcuffed)
+		legcuffed.forceMove(drop_location())
+		legcuffed.dropped(src)
+		legcuffed = null
 
 	regenerate_icons()
 	icon = null
@@ -763,6 +839,14 @@
 
 	for(var/obj/item/W in src)
 		dropItemToGround(W)
+	if(handcuffed)
+		handcuffed.forceMove(drop_location())
+		handcuffed.dropped(src)
+		handcuffed = null
+	if(legcuffed)
+		legcuffed.forceMove(drop_location())
+		legcuffed.dropped(src)
+		legcuffed = null
 
 	regenerate_icons()
 	icon = null
