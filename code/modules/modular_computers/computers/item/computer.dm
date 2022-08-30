@@ -656,3 +656,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 
 /obj/item/modular_computer/proc/remove_messenger()
 	GLOB.TabletMessengers -= src
+
+// Make messages visible via allow_inside_usr
+/obj/item/modular_computer/visible_message(message, self_message, blind_message, vision_distance, list/ignored_mobs, list/visible_message_flags, allow_inside_usr = TRUE)
+	return ..()
