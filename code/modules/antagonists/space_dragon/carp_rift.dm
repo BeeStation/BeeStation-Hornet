@@ -31,11 +31,15 @@
 		if(RA == A)
 			to_chat(S, "<span class='warning'>You've already summoned a rift in this area! You have to summon again somewhere else!</span>")
 			return
+	var/turf/rift_spawn_turf = get_turf(S)
+	if(isopenspaceturf(rift_spawn_turf))
+		owner.balloon_alert(S, "needs stable ground!")
+		return
 	to_chat(S, "<span class='warning'>You begin to open a rift...</span>")
 	if(do_after(S, 100, target = S))
-		for(var/obj/structure/carp_rift/c in S.loc.contents)
+		for(var/obj/structure/carp_rift/c in rift_spawn_turf.contents)
 			return
-		var/obj/structure/carp_rift/CR = new /obj/structure/carp_rift(S.loc)
+		var/obj/structure/carp_rift/CR = new /obj/structure/carp_rift(rift_spawn_turf)
 		playsound(S, 'sound/vehicles/rocketlaunch.ogg', 100, TRUE)
 		dragon.stop_rift_timer() // the rift needs to finish charging before we should worry about the dragon summoning another in time
 		CR.dragon = dragon
