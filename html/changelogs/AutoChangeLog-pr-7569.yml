@@ -1,0 +1,5 @@
+author: CydiaLamiales
+delete-after: true
+changes:
+  - rscadd: Adds 9 new emojis
+  - bugfix: Centers the green face emojis
