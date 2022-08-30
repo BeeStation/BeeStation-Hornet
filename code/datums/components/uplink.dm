@@ -326,7 +326,7 @@
 		if(failsafe_code && findtext(lowertext(message), lowertext(failsafe_code)))
 			failsafe()
 		return
-	locked = FALSE
+	// locked = FALSE
 	interact(null, user)
 	to_chat(user, "As you whisper the code into your headset, a soft chime fills your ears.")
 
