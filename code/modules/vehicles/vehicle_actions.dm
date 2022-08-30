@@ -228,3 +228,32 @@
 			V.icon_state = "[V.board_icon]-grind"
 			addtimer(CALLBACK(V, /obj/vehicle/ridden/scooter/skateboard/.proc/grind), 2)
 		next_ollie = world.time + 5
+
+/datum/action/vehicle/ridden/scooter/skateboard/kflip
+	name = "Kick Flip"
+	desc = "Do a sweet kickflip to dismount... in style."
+	button_icon_state = "skateboard_ollie"
+
+/datum/action/vehicle/ridden/scooter/skateboard/kflip/Trigger()
+	var/obj/vehicle/ridden/scooter/skateboard/V = vehicle_target
+	var/mob/living/L = owner
+
+	L.adjustStaminaLoss(V.instability)
+	if (L.getStaminaLoss() >= 100)
+		playsound(src, 'sound/effects/bang.ogg', 20, TRUE)
+		V.unbuckle_mob(L)
+		L.Paralyze(50)
+		if(prob(15))
+			V.visible_message("<span class='userdanger'>You smack against the board, hard.</span>", "<span class='danger'>[L] misses the landing and falls on [L.p_their()] face!</span>")
+			L.emote("scream")
+			L.adjustBruteLoss(10)  // thats gonna leave a mark
+			return
+		V.visible_message("<span class='userdanger'>You fall flat onto the board!</span>", "<span class='danger'>[L] misses the landing and falls on [L.p_their()] face!</span>")
+	else
+		L.visible_message("<span class='notice'>[L] does a sick kickflip and catches [L.p_their()] board in midair.</span>", "<span class='notice'>You do a sick kickflip, catching the board in midair! Stylish.</span>")
+		playsound(V, 'sound/vehicles/skateboard_ollie.ogg', 50, TRUE)
+		L.spin(4, 1)
+		animate(L, pixel_y = -6, time = 4)
+		animate(V, pixel_y = -6, time = 3)
+		V.unbuckle_mob(L)
+		addtimer(CALLBACK(V, /obj/vehicle/ridden/scooter/skateboard/.proc/pick_up_board, L), 2)
