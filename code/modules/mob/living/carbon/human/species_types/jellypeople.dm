@@ -743,7 +743,7 @@
 
 	var/msg = stripped_input(usr, "Message:", "Telepathy")
 	if(msg)
-		msg = H.treat_message_min(H)
+		msg = H.treat_message_min(msg)
 		log_directed_talk(H, M, msg, LOG_SAY, "slime telepathy")
 		to_chat(M, "<span class='notice'>You hear an alien voice in your head... </span><font color=#008CA2>[msg]</font>")
 		to_chat(H, "<span class='notice'>You telepathically said: \"[msg]\" to [M].</span>")
