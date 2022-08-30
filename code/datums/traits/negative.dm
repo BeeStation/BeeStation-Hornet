@@ -526,14 +526,14 @@
 	var/mob/living/carbon/human/quirker = quirk_holder
 	if(prob(min(50,(0.50*(nearby_people*12.5)*moodmod)))) //Max 50% chance of not talking
 		if(dumb_thing)
-			to_chat(quirker, "<span class='userdanger'>You think of a dumb thing you said a long time ago and scream internally.</span>"))
+			to_chat(quirker, "<span class='userdanger'>You think of a dumb thing you said a long time ago and scream internally.</span>")
 			dumb_thing = FALSE //only once per life
 			if(prob(1))
 				new/obj/item/reagent_containers/food/snacks/spaghetti/pastatomato(get_turf(quirker)) //now that's what I call spaghetti code
 		else
-			to_chat(quirk_holder, "<span class='warning'>You think that wouldn't add much to the conversation and decide not to say it.</span>"))
+			to_chat(quirk_holder, "<span class='warning'>You think that wouldn't add much to the conversation and decide not to say it.</span>")
 			if(prob(min(25,(0.25*(nearby_people*12.75)*moodmod)))) //Max 25% chance of silence stacks after succesful not talking roll
-				to_chat(quirker, "<span class='danger'>You retreat into yourself. You <i>really</i> don't feel up to talking.</span>"))
+				to_chat(quirker, "<span class='danger'>You retreat into yourself. You <i>really</i> don't feel up to talking.</span>")
 				quirker.silent = max(5, quirker.silent)
 		speech_args[SPEECH_MESSAGE] = pick("Uh.","Erm.","Um.", "S-So...", "I-", "I- um..", "Th-", "C-cool..", "Sooo..um...", "Wha?")
 	else
