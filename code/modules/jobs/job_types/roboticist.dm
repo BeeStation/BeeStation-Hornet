@@ -1,7 +1,7 @@
 /datum/job/roboticist
-	title = "Roboticist"
+	title = JOB_NAME_ROBOTICIST
 	flag = ROBOTICIST
-	department_head = list("Research Director")
+	department_head = list(JOB_NAME_RESEARCHDIRECTOR)
 	department_flag = MEDSCI
 	faction = "Station"
 	total_positions = 2
@@ -21,7 +21,7 @@
 	paycheck_department = ACCOUNT_SCI
 
 	display_order = JOB_DISPLAY_ORDER_ROBOTICIST
-	departments = DEPARTMENT_SCIENCE
+	departments = DEPARTMENT_BITFLAG_SCIENCE
 	rpg_title = "Golemancer"
 
 	species_outfits = list(
@@ -29,7 +29,7 @@
 	)
 
 /datum/outfit/job/roboticist
-	name = "Roboticist"
+	name = JOB_NAME_ROBOTICIST
 	jobtype = /datum/job/roboticist
 
 	id = /obj/item/card/id/job/roboticist

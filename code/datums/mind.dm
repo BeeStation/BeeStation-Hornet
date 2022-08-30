@@ -41,7 +41,6 @@
 	var/assigned_role
 	var/special_role
 	var/list/restricted_roles = list()
-
 	var/list/spell_list = list() // Wizard mode & "Give Spell" badmin button.
 
 	var/linglink
@@ -613,6 +612,12 @@
 /datum/mind/proc/get_all_objectives()
 	return get_all_antag_objectives() | crew_objectives
 
+/datum/mind/proc/is_murderbone()
+	for(var/datum/objective/O as() in get_all_objectives())
+		if(O.murderbone_flag)
+			return TRUE
+	return FALSE
+
 /datum/mind/proc/announce_objectives()
 	var/obj_count = 1
 	var/list/antag_objectives = get_all_antag_objectives()
@@ -789,12 +794,12 @@
 //AI
 /mob/living/silicon/ai/mind_initialize()
 	..()
-	mind.assigned_role = "AI"
+	mind.assigned_role = JOB_NAME_AI
 
 //BORG
 /mob/living/silicon/robot/mind_initialize()
 	..()
-	mind.assigned_role = "Cyborg"
+	mind.assigned_role = JOB_NAME_CYBORG
 
 //PAI
 /mob/living/silicon/pai/mind_initialize()

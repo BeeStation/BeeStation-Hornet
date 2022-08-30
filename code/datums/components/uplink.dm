@@ -176,6 +176,9 @@
 			var/datum/uplink_item/I = uplink_items[category][item]
 			if(I.limited_stock == 0)
 				continue
+			if(I.murderbone_type)
+				if(!user.mind.is_murderbone()) // this is a damn proc to check a variable of every objective in you. DO NOT put it into the `if` above, or you call this proc needlessly.
+					continue
 			if(I.restricted_roles.len && I.discounted == FALSE)
 				var/is_inaccessible = TRUE
 				for(var/R in I.restricted_roles)

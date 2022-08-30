@@ -205,7 +205,7 @@
 	. = FALSE
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
-		if(H.mind?.assigned_role == "Bartender")
+		if(H.mind?.assigned_role == JOB_NAME_BARTENDER)
 			return TRUE
 
 	var/obj/item/card/id/ID = user.get_idcard(FALSE)
