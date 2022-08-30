@@ -284,6 +284,7 @@
 	if(user.a_intent != INTENT_HELP) // Smacking/grabbing
 		return ..()
 	if(client) // No messing with the minebot while there's a player inside it.
+		to_chat(user, "<span class='info'>[src]'s equipment is currently slaved to its onboard AI. Best not to touch it.</span>")
 		return ..()
 	if(mode == MODE_MINING && !mining_enabled)
 		mining_enabled = TRUE
