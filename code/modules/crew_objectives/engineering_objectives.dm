@@ -32,3 +32,29 @@
 			if(istype(dumbbird.ears, /obj/item/radio/headset))
 				return TRUE
 	return ..()
+
+/datum/objective/crew/supermatter_survive
+	explanation_text = "Prevent the main supermatter from exploding. This does not count additional supermatters constructed."
+	jobs = "chiefengineer,stationengineer"
+
+/datum/objective/crew/supermatter_survive/check_completion()
+	if(GLOB.main_supermatter_engine)  // handy it qdel's itself
+		return TRUE
+	return ..()
+
+
+/datum/objective/crew/apc
+	explanation_text = "Make sure the station has above (something broke message us)kW in the powernet."
+	jobs = "chiefengineer,stationengineer,atmospherictechnician"
+
+/datum/objective/crew/apc/New()
+	. = ..()
+	target_amount = rand(100,500)  // no i dont know how much a normal amount is :>
+	explanation_text = "Make sure the station has above [target_amount]kW in the powernet."
+
+/datum/objective/crew/apcc/check_completion()
+	var/datum/powernet/connected_powernet = get_powernet()
+
+	if(connected_powernet.viewavail >= target_amount)
+		return TRUE
+	return ..()
