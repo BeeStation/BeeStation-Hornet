@@ -1,0 +1,4 @@
+author: Mat05usz
+delete-after: true
+changes:
+  - balance: Refresh rate for crew monitor goes up from 10 seconds to 60 seconds
