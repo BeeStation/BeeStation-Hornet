@@ -62,6 +62,8 @@
 	if(disk_flags & DISK_CARGO)
 		progs_to_store += new /datum/computer_file/program/bounty(src)
 
+	if(disk_flags & DISK_SILO_LOG)
+		progs_to_store += new /datum/computer_file/program/log_viewer(src)
 
 	if(disk_flags & DISK_SIGNAL)
 		progs_to_store += new /datum/computer_file/program/signaller(src)
@@ -162,9 +164,15 @@
 	disk_flags = DISK_ATMOS | DISK_SIGNAL | DISK_CHEM
 
 /obj/item/computer_hardware/hard_drive/role/quartermaster
-	name = "space parts & space vendors disk"
+	name = "space parts DELUXE disk"
 	icon_state = "cart-qm"
 	desc = "Perfect for the Quartermaster on the go!"
+	disk_flags = DISK_CARGO | DISK_SILO_LOG | DISK_ROBOS | DISK_BUDGET
+
+/obj/item/computer_hardware/hard_drive/role/cargo_technician
+	name = "space parts disk"
+	icon_state = "cart-qm"
+	desc = "Perfect for the Cargo Tech on the go!"
 	disk_flags = DISK_CARGO | DISK_ROBOS | DISK_BUDGET
 
 /obj/item/computer_hardware/hard_drive/role/head
@@ -175,7 +183,7 @@
 /obj/item/computer_hardware/hard_drive/role/hop
 	name = "\improper HumanResources9001 disk"
 	icon_state = "cart-hop"
-	disk_flags = DISK_MANIFEST | DISK_STATUS | DISK_JANI | DISK_SEC | DISK_NEWS | DISK_CARGO | DISK_ROBOS | DISK_BUDGET
+	disk_flags = DISK_MANIFEST | DISK_STATUS | DISK_JANI | DISK_SEC | DISK_NEWS | DISK_CARGO | DISK_SILO_LOG | DISK_ROBOS | DISK_BUDGET
 
 /obj/item/computer_hardware/hard_drive/role/hos
 	name = "\improper R.O.B.U.S.T. DELUXE disk"

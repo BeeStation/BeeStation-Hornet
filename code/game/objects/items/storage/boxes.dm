@@ -573,7 +573,7 @@
 						/obj/item/computer_hardware/hard_drive/role/security,
 						/obj/item/computer_hardware/hard_drive/role/medical,
 						/obj/item/computer_hardware/hard_drive/role/signal/toxins,
-						/obj/item/computer_hardware/hard_drive/role/quartermaster)
+						/obj/item/computer_hardware/hard_drive/role/cargo_technician)
 	new newcart(src)
 
 /obj/item/storage/box/silver_ids

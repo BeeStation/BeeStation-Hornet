@@ -153,7 +153,7 @@
 
 /obj/item/modular_computer/tablet/pda/cargo_technician
 	name = "cargo technician PDA"
-	default_disk = /obj/item/computer_hardware/hard_drive/role/quartermaster
+	default_disk = /obj/item/computer_hardware/hard_drive/role/cargo_technician
 	icon_state = "pda-cargo"
 
 /obj/item/modular_computer/tablet/pda/cargo_technician/Initialize(mapload)
