@@ -118,7 +118,7 @@
 		A.UpdateButtonIcon()
 	return 1
 
-/obj/item/flashlight/attack_by(obj/item/I, mob/user)
+/obj/item/flashlight/attackby(obj/item/I, mob/user)
 	if(istype(I, /obj/item/stock_parts/cell))
 		if(uses_battery)
 			if(int_battery)
