@@ -613,3 +613,6 @@ ELASTICSEARCH_METRICS_APIKEY thisIsSomethingThatsBased64Encoded==
 
 ## Once a typepath causes overrun from hard deletes this many times, stop hard deleting it on garbage collection failures. (set to 0 to disable)
 #HARD_DELETES_OVERRUN_LIMIT 0
+
+## Enable/disable the mentor mrat verb ("Request Mentor Assistance")
+ENABLE_MRAT
