@@ -1,5 +1,5 @@
 /// How often the sensor data updates.
-#define SENSORS_UPDATE_PERIOD 10 SECONDS
+#define SENSORS_UPDATE_PERIOD 1 MINUTES
 
 /// The job sorting ID associated with otherwise unknown jobs
 #define UNKNOWN_JOB_ID	81
