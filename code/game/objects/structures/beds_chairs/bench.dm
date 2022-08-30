@@ -1,6 +1,6 @@
 /obj/structure/chair/fancy/bench
 	name = "bench"
-	desc = "You sit in this. Either by will or force, but not alone maybe."
+	desc = "You sit in this. Either by will or force, but maybe not alone."
 	icon = 'icons/obj/beds_chairs/benches.dmi'
 	max_integrity = 250
 	integrity_failure = 25

@@ -1036,8 +1036,8 @@
 	tools = list(TOOL_WRENCH, TOOL_WIRECUTTER)
 	category = CAT_MISC
 
-/datum/crafting_recipe/chairfancy
-	name = "fancy Chair"
+/datum/crafting_recipe/chair_fancy
+	name = "Fancy Chair"
 	result = /obj/item/chair/fancy
 	time = 60
 	reqs = list(/obj/item/stack/rods = 2,

@@ -16,6 +16,7 @@
 		W.play_tool_sound(src)
 		C.setDir(dir)
 		qdel(src)
+		part.forceMove(loc)
 		return
 	. = ..()
 

@@ -1,6 +1,6 @@
 /obj/structure/chair/fancy/sofa //like it's brother fancy chair, this is the father of all sofas
 	name = "old father sofa"
-	desc = "Now extint, this kind of sofa shouldn't even exists anymore, if you see this wild specimen, contact your local Nanotransen Anti-couch surfer department."
+	desc = "Now extinct, this kind of sofa shouldn't even exist anymore. If you see this wild specimen, contact your station's Anti-Couch Surfing Department."
 	icon_state = "sofa_middle"
 	icon = 'icons/obj/beds_chairs/sofa.dmi'
 	buildstackamount = 1
@@ -9,7 +9,7 @@
 /obj/structure/chair/fancy/sofa/old
 	color = rgb(141,70,0)
 	name = "old sofa"
-	desc = "An old design, but still does the job of being a sofa."
+	desc = "An old design, but it still does the job of being a sofa."
 	icon_state = "sofa_middle"
 	colorable = TRUE
 
@@ -21,7 +21,7 @@
 
 /obj/structure/chair/fancy/sofa/old/corner
 	name = "impossible old sofa corner"
-	desc = "this kind of sofa shouldn't even exists at all, if you see this non-euclidan specimen, contact your local Nanotransen Anti-couch surfer department."
+	desc = "This kind of sofa shouldn't even exist at all. If you see this non-euclidean specimen, contact your station's Anti-Couch Surfing Department."
 	icon_state = "sofa_cursed"
 
 /obj/structure/chair/fancy/sofa/old/corner/handle_layer() //only the armrest/back of this chair should cover the mob.
@@ -30,13 +30,12 @@
 /obj/structure/chair/fancy/sofa/old/corner/concave
 	icon_state = "sofa_corner_in"
 	name = "old sofa"
-	desc = "this kind of sofa definitely exists and there's nothing wrong with it, this one is concave."
+	desc = "An old design, but it still does the job of being a sofa, this one is concave."
 
 /obj/structure/chair/fancy/sofa/old/corner/convex
 	icon_state = "sofa_corner_out"
 	name = "old sofa"
-	desc = "this kind of sofa definitely exists and there's nothing wrong with it, this one is convex."
-
+	desc = "An old design, but it still does the job of being a sofa, this one is convex."
 
 // Original icon ported from Eris(?) and updated to work here.
 /obj/structure/chair/fancy/sofa/corp
@@ -52,7 +51,7 @@
 
 /obj/structure/chair/fancy/sofa/corp/corner
 	name = "impossible corporate sofa corner"
-	desc = "this kind of sofa shouldn't even exists at all, if you see this non-euclidan specimen, contact your local Nanotransen Anti-couch surfer department."
+	desc = "This kind of sofa shouldn't even exist at all. If you see this non-euclidean specimen, contact your station's Anti-Couch Surfing Department."
 	icon_state = "corp_sofa_cursed"
 
 /obj/structure/chair/fancy/sofa/corp/corner/handle_layer()
@@ -61,9 +60,9 @@
 /obj/structure/chair/fancy/sofa/corp/corner/concave
 	icon_state = "corp_sofa_corner_in"
 	name = "corporate sofa"
-	desc = "this kind of professional sofa definitely exists and there's nothing wrong with it, this one is concave."
+	desc = "Soft and cushy, yet professional, this one is concave."
 
 /obj/structure/chair/fancy/sofa/corp/corner/convex
 	icon_state = "corp_sofa_corner_out"
 	name = "corporate sofa"
-	desc = "this kind of professional sofa definitely exists and there's nothing wrong with it, this one is convex."
+	desc = "Soft and cushy, yet professional, this one is convex."

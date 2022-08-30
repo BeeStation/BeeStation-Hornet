@@ -73,7 +73,7 @@
 	B.setDir(dir)
 	qdel(src)
 
-/obj/structure/chair/attacked_by(obj/item/W, mob/user, params)
+/obj/structure/chair/attackby(obj/item/W, mob/user, params)
 	if(W.tool_behaviour == TOOL_WRENCH && !(flags_1&NODECONSTRUCT_1))
 		W.use_tool(src, user, 20, volume=50)
 		deconstruct(TRUE)
@@ -91,7 +91,7 @@
 	else
 		return ..()
 
-/obj/structure/chaiar/attack_tk(mob/user)
+/obj/structure/chair/attack_tk(mob/user)
 	if(!anchored || has_buckled_mobs() || !isturf(user.loc))
 		..()
 	else
@@ -126,7 +126,7 @@
 
 /obj/structure/chair/old
 	name = "strange chair"
-	desc = "You sit in this. Either by will or force. Looks REALLY uncomfortable."
+	desc = "You sit in this. Either by will or force. Looks VERY uncomfortable."
 	icon_state = "chairold"
 	item_chair = null
 
@@ -166,7 +166,7 @@
 
 /obj/structure/chair/fancy //base for any chair with armrests
 	name = "fancy chair"
-	desc = "Giving you the feel of importance by just having armrests."
+	desc = "It gives you the feel of importance by just having armrests."
 	icon_state = "chair_fancy"
 	item_chair = /obj/item/chair/fancy
 	var/mutable_appearance/armrest
@@ -192,7 +192,7 @@
 	. = ..()
 	update_armrest()
 
-/obj/structure/chair/fancy/attacked_by(obj/item/I, mob/living/user)
+/obj/structure/chair/fancy/attackby(obj/item/I, mob/living/user)
 	. = ..()
 	if(!colorable)
 		return
@@ -325,6 +325,7 @@
 		playsound(src, 'sound/machines/clockcult/integration_cog_install.ogg', 50, TRUE)
 
 /obj/structure/chair/office
+	desc = "The propulsion of any lazy office worker."
 	anchored = FALSE
 	buildstackamount = 5
 	item_chair = null
