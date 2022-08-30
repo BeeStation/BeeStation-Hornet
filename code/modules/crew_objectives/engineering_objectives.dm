@@ -52,7 +52,7 @@
 	target_amount = rand(100,500)  // no i dont know how much a normal amount is :>
 	explanation_text = "Make sure the station has above [target_amount]kW in the powernet."
 
-/datum/objective/crew/apcc/check_completion()
+/datum/objective/crew/apc/check_completion()
 	var/total_power = 0
 	var/list/powermonitors = list()
 
