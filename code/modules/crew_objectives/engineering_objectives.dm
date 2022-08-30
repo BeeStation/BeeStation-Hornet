@@ -34,7 +34,7 @@
 	return ..()
 
 /datum/objective/crew/supermatter_survive
-	explanation_text = "Prevent the main supermatter from exploding. This does not count additional supermatters constructed."
+	explanation_text = "Prevent the main supermatter crystal from exploding. This does not count additional supermatters constructed."
 	jobs = "chiefengineer,stationengineer"
 
 /datum/objective/crew/supermatter_survive/check_completion()
@@ -53,14 +53,14 @@
 	explanation_text = "Make sure the station has above [target_amount]kW in the powernet."
 
 /datum/objective/crew/apcc/check_completion()
-	var/total_power += 0
+	var/total_power = 0
+	var/list/powermonitors = list()
 
 	for(var/obj/machinery/computer/monitor/pMon in GLOB.machines)
 		if(pMon.stat & (NOPOWER | BROKEN)) //check to make sure the computer is functional
 			continue
 		if(pMon.is_secret_monitor) //make sure it isn't a secret one (ie located on a ruin), allowing people to metagame that the location exists
 			continue
-		powercount++
 		powermonitors += pMon
 
 	for(var/obj/machinery/computer/monitor/pMon in powermonitors)
