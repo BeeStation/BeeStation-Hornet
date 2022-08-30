@@ -113,6 +113,9 @@ const ChemMasterContent = (props, context) => {
         title="Packaging"
         buttons={(
           <>
+            <Box inline color="label" mr={1}>
+              Mode:
+            </Box>
             <Button
               icon={volumeState === "Exact" ? "eye-dropper" : "flask"}
               content={`${volumeState}`}
