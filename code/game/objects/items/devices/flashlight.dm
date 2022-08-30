@@ -64,7 +64,7 @@
 		STOP_PROCESSING(SSobj, src)
 		return
 	if(int_battery)
-		int_battery.charge = max(int_battery.charge - (battery_use_rate * delta_time), 0)
+		int_battery.use(battery_use_rate * delta_time)
 	update_power()
 	update_brightness()
 
@@ -117,6 +117,16 @@
 		var/datum/action/A = X
 		A.UpdateButtonIcon()
 	return 1
+
+/obj/item/flashlight/attack_by(obj/item/I, mob/user)
+	if(istype(I, /obj/item/stock_parts/cell))
+		if(uses_battery)
+			if(int_battery)
+				to_chat(user, "<span class='warning'>There's already a cell inside!</span>")
+				return
+			int_battery = I
+			I.forceMove(src)
+			to_chat(user, "<span class='notice'>You plug the cell into \the [src].")
 
 /obj/item/flashlight/screwdriver_act(mob/user, obj/item/I)
 	if(int_battery)
