@@ -503,8 +503,8 @@
 /datum/action/innate/spider/comm/proc/spider_command(mob/living/user, message)
 	if(!message)
 		return
-	var/my_message
-	my_message = "<span class='spider'><b>Command from [user]:</b> [message]</span>"
+	message = user.treat_message_min(message)
+	var/my_message = "<span class='spider'><b>Command from [user]:</b> [message]</span>"
 	for(var/mob/living/simple_animal/hostile/poison/giant_spider/M in GLOB.spidermobs)
 		to_chat(M, my_message)
 	for(var/M in GLOB.dead_mob_list)

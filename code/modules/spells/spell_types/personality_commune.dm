@@ -23,6 +23,7 @@
 	if(!msg)
 		charge_counter = charge_max
 		return
+	msg = user.treat_message_min(msg)
 	to_chat(user, "<span class='boldnotice'>You concentrate and send thoughts to your other self:</span> <span class='notice'>[msg]</span>")
 	to_chat(trauma.owner, "<span class='boldnotice'>[flufftext]</span> <span class='notice'>[msg]</span>")
 	log_directed_talk(user, trauma.owner, msg, LOG_SAY ,"[name]")

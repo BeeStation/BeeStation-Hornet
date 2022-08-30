@@ -364,13 +364,14 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	if(clockslurring)
 		message = clockslur(message)
 
-	// check for and apply punctuation
+	return treat_message_min(message)
+
+/mob/proc/treat_message_min(message)
 	var/end = copytext(message, length(message))
 	if(!(end in list("!", ".", "?", ":", "\"", "-", "~")))
 		message += "."
 
 	message = capitalize(message)
-
 	return message
 
 /mob/living/proc/radio(message, list/message_mods = list(), list/spans, language)

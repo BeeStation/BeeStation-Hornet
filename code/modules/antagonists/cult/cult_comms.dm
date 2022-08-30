@@ -39,6 +39,7 @@
 		title = "Master"
 	else if(!ishuman(user))
 		title = "Construct"
+	message = user.treat_message_min(message)
 	my_message = "<span class='[span]'><b>[title] [findtextEx(user.name, user.real_name) ? user.name : "[user.real_name] (as [user.name])"]:</b> [message]</span>"
 	for(var/i in GLOB.player_list)
 		var/mob/M = i
