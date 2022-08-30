@@ -22,6 +22,14 @@ export const ChemMaster = (props, context) => {
 
 const ChemMasterContent = (props, context) => {
   const { act, data } = useBackend(context);
+  const [
+    volumeState,
+    setVolumeState,
+  ] = useSharedState(context, 'volume_state', "Exact");
+  const [
+    volumeExact,
+    setVolume,
+  ] = useSharedState(context, 'volume', 10);
   const {
     screen,
     beakerContents = [],
@@ -102,8 +110,30 @@ const ChemMasterContent = (props, context) => {
         </ChemicalBuffer>
       </Section>
       <Section
-        title="Packaging">
-        <PackagingControls />
+        title="Packaging"
+        buttons={(
+          <>
+            <Button
+              icon={volumeState === "Exact" ? "eye-dropper" : "flask"}
+              content={`${volumeState}`}
+              tooltip="Volume Distribution"
+              onClick={() => setVolumeState(volumeState === "Exact" ? "Auto" : "Exact")}
+            />
+            {volumeState === "Exact" && (
+              <NumberInput
+                width="84px"
+                amountUnit="units"
+                stepPixelSize={15}
+                value={volumeExact}
+                minValue={0.01}
+                maxValue={50}
+                onChange={(e, value) => setVolume(value)} />
+            )}
+          </>
+        )}>
+        <PackagingControls
+          volumeState={volumeState}
+          volumeExact={volumeExact} />
       </Section>
       {!!isPillBottleLoaded && (
         <Section
@@ -216,7 +246,7 @@ const PackagingControlsItem = props => {
   );
 };
 
-const PackagingControls = (props, context) => {
+const PackagingControls = ({ volumeState, volumeExact }, context) => {
   const { act, data } = useBackend(context);
   const [
     pillAmount,
@@ -239,6 +269,7 @@ const PackagingControls = (props, context) => {
     chosenPillStyle,
     pillStyles = [],
   } = data;
+  const volume = volumeState === "Exact" ? volumeExact : "auto";
   return (
     <LabeledList>
       {!condi && (
@@ -266,7 +297,7 @@ const PackagingControls = (props, context) => {
           onCreate={() => act('create', {
             type: 'pill',
             amount: pillAmount,
-            volume: 'auto',
+            volume: volume,
           })} />
       )}
       {!condi && (
@@ -279,7 +310,7 @@ const PackagingControls = (props, context) => {
           onCreate={() => act('create', {
             type: 'patch',
             amount: patchAmount,
-            volume: 'auto',
+            volume: volume,
           })} />
       )}
       {!condi && (
@@ -292,7 +323,7 @@ const PackagingControls = (props, context) => {
           onCreate={() => act('create', {
             type: 'bottle',
             amount: bottleAmount,
-            volume: 'auto',
+            volume: volume,
           })} />
       )}
       {!!condi && (
@@ -305,7 +336,7 @@ const PackagingControls = (props, context) => {
           onCreate={() => act('create', {
             type: 'condimentPack',
             amount: packAmount,
-            volume: 'auto',
+            volume: volume,
           })} />
       )}
       {!!condi && (
@@ -318,7 +349,7 @@ const PackagingControls = (props, context) => {
           onCreate={() => act('create', {
             type: 'condimentBottle',
             amount: bottleAmount,
-            volume: 'auto',
+            volume: volume,
           })} />
       )}
     </LabeledList>
