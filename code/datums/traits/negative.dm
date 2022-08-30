@@ -484,25 +484,66 @@
 	process = TRUE
 	var/dumb_thing = TRUE
 
-/datum/quirk/social_anxiety/on_process(delta_time)
+/datum/quirk/social_anxiety/add()
+	RegisterSignal(quirk_holder, COMSIG_MOB_SAY, .proc/handle_speech)
+
+/datum/quirk/social_anxiety/remove()
+	UnregisterSignal(quirk_holder, list(COMSIG_MOB_SAY, COMSIG_MOB_EYECONTACT))
+
+/datum/quirk/social_anxiety/proc/handle_speech(datum/source, list/speech_args)
+	SIGNAL_HANDLER
+
+	if(HAS_TRAIT(quirk_holder, TRAIT_FEARLESS))
+		return
+
+	var/moodmod
+	if(quirk_holder.mob_mood)
+		moodmod = (1+0.02*(50-(max(50, quirk_holder.mob_mood.mood_level*(7-quirk_holder.mob_mood.sanity_level))))) //low sanity levels are better, they max at 6
+	else
+		moodmod = (1+0.02*(50-(max(50, 0.1*quirk_holder.nutrition))))
 	var/nearby_people = 0
-	for(var/mob/living/carbon/human/stranger in oview(3, quirk_holder))
-		if(stranger.client)
+	for(var/mob/living/carbon/human/H in oview(3, quirk_holder))
+		if(H.client)
 			nearby_people++
-	var/mob/living/carbon/human/H = quirk_holder
-	if(DT_PROB(2 + nearby_people, delta_time))
-		H.stuttering = max(3, H.stuttering)
-		SEND_SIGNAL(quirk_holder, COMSIG_ADD_MOOD_EVENT, "anxiety", /datum/mood_event/anxiety)
-	else if(DT_PROB(min(3, nearby_people), delta_time) && !H.silent)
-		to_chat(H, "<span class='danger'>You retreat into yourself. You <i>really</i> don't feel up to talking.</span>")
-		H.silent = max(10, H.silent)
-		SEND_SIGNAL(quirk_holder, COMSIG_ADD_MOOD_EVENT, "anxiety_mute", /datum/mood_event/anxiety_mute)
-	else if(DT_PROB(0.5, delta_time) && dumb_thing)
-		to_chat(H, "<span class='userdanger'>You think of a dumb thing you said a long time ago and scream internally.</span>")
-		dumb_thing = FALSE //only once per life
-		SEND_SIGNAL(quirk_holder, COMSIG_ADD_MOOD_EVENT, "anxiety_dumb", /datum/mood_event/anxiety_dumb)
-		if(prob(1))
-			new/obj/item/reagent_containers/food/snacks/spaghetti/pastatomato(get_turf(H)) //now that's what I call spaghetti code
+	var/message = speech_args[SPEECH_MESSAGE]
+	if(message)
+		var/list/message_split = splittext(message, " ")
+		var/list/new_message = list()
+		var/mob/living/carbon/human/quirker = quirk_holder
+		for(var/word in message_split)
+			if(prob(max(5,(nearby_people*12.5*moodmod))) && word != message_split[1]) //Minimum 1/20 chance of filler
+				new_message += pick("uh,","erm,","um,", "i- ", "im- ", "t- ", "t- th- ")  // sadly stuff i say irl
+				if(prob(min(5,(0.05*(nearby_people*12.5)*moodmod)))) //Max 1 in 20 chance of cutoff after a succesful filler roll, for 50% odds in a 15 word sentence
+					quirker.silent = max(3, quirker.silent)
+					to_chat(quirker, span_danger("You feel self-conscious and stop talking. You need a moment to recover!"))
+					break
+			if(prob(max(5,(nearby_people*12.5*moodmod)))) //Minimum 1/20 chance of stutter
+				// Add a short stutter, THEN treat our word
+				quirker.adjust_timed_status_effect(0.5 SECONDS, /datum/status_effect/speech/stutter)
+				new_message += quirker.treat_message(word, capitalize_message = FALSE)
+
+			else
+				new_message += word
+
+		message = jointext(new_message, " ")
+	var/mob/living/carbon/human/quirker = quirk_holder
+	if(prob(min(50,(0.50*(nearby_people*12.5)*moodmod)))) //Max 50% chance of not talking
+		if(dumb_thing)
+			to_chat(quirker, span_userdanger("You think of a dumb thing you said a long time ago and scream internally."))
+			dumb_thing = FALSE //only once per life
+			if(prob(1))
+				new/obj/item/food/spaghetti/pastatomato(get_turf(quirker)) //now that's what I call spaghetti code
+		else
+			to_chat(quirk_holder, span_warning("You think that wouldn't add much to the conversation and decide not to say it."))
+			if(prob(min(25,(0.25*(nearby_people*12.75)*moodmod)))) //Max 25% chance of silence stacks after succesful not talking roll
+				to_chat(quirker, span_danger("You retreat into yourself. You <i>really</i> don't feel up to talking."))
+				quirker.silent = max(5, quirker.silent)
+		speech_args[SPEECH_MESSAGE] = pick("Uh.","Erm.","Um.", "S-So...", "I-", "I- um..", "Th-", "C-cool..", "Sooo..um...", "Wha?")
+	else
+		speech_args[SPEECH_MESSAGE] = message
+
+
+
 
 //If you want to make some kind of junkie variant, just extend this quirk.
 /datum/quirk/junkie
