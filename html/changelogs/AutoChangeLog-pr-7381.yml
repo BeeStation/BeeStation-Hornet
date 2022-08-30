@@ -1,5 +1,0 @@
-author: EvilDragonfiend
-delete-after: true
-changes:
-  - tweak: Custom command job now has blue chat colour rather than assistant-like
-      white
