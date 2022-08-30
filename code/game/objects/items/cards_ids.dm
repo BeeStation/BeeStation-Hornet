@@ -72,7 +72,7 @@
 	var/last_log
 
 // Override to avoid opening UI
-/obj/item/card/interact(mob/user)
+/obj/item/card/emag/interact(mob/user)
 	add_fingerprint(user)
 
 /obj/item/card/emag/ui_state(mob/user)

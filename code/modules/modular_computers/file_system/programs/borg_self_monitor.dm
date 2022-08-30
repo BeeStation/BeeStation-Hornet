@@ -25,7 +25,7 @@
 	. = ..()
 	if(.)
 		tablet = computer
-		if(tablet.device_theme == "syndicate")
+		if(tablet.device_theme == THEME_SYNDICATE)
 			program_icon_state = "command-syndicate"
 		return TRUE
 	return FALSE

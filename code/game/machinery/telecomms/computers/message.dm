@@ -135,7 +135,7 @@
 			var/index = 0
 			dat += "<center><A href='?src=[REF(src)];back=1'>Back</a> - <A href='?src=[REF(src)];refresh=1'>Refresh</a></center><hr>"
 			dat += "<table border='1' width='100%'><tr><th width = '5%'>X</th><th width='15%'>Sender</th><th width='15%'>Recipient</th><th width='300px' word-wrap: break-word>Message</th></tr>"
-			for(var/datum/data_tablet_msg/pda in linkedServer.pda_msgs)
+			for(var/datum/data_tablet_msg/pda in linkedServer.modular_msgs)
 				index++
 				if(index > 3000)
 					break
@@ -282,7 +282,7 @@
 			if(LINKED_SERVER_NONRESPONSIVE)
 				message = noserver
 			else if(auth)
-				linkedServer.pda_msgs = list()
+				linkedServer.modular_msgs = list()
 				message = "<span class='notice'>NOTICE: Logs cleared.</span>"
 		//Clears the request console logs - KEY REQUIRED
 		if (href_list["clear_requests"])
@@ -327,7 +327,7 @@
 				if(LINKED_SERVER_NONRESPONSIVE)
 					message = noserver
 				else if(istype(href_list["delete_logs"], /datum/data_tablet_msg))
-					linkedServer.pda_msgs -= locate(href_list["delete_logs"]) in linkedServer.pda_msgs
+					linkedServer.modular_msgs -= locate(href_list["delete_logs"]) in linkedServer.modular_msgs
 					message = "<span class='notice'>NOTICE: Log Deleted!</span>"
 		//Delete the request console log.
 		if (href_list["delete_requests"])

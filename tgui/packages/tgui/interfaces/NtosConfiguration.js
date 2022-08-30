@@ -13,13 +13,9 @@ export const NtosConfiguration = (props, context) => {
     disk_used,
     hardware = [],
     PC_device_theme,
-    themes = [],
+    themes = {},
     PC_theme_locked,
   } = data;
-  // ntos-default -> Default
-  const clean = (str) => str && str.startsWith("ntos-")
-    ? ("NtOS " + str.charAt(5).toUpperCase() + str.substring(6)).replace(/\b./g, m => m.toUpperCase()).replace("-", " ")
-    : str.replace(/\b./g, m => m.toUpperCase()).replace("-", " ");
   return (
     <NtosWindow>
       <NtosWindow.Content scrollable>
@@ -28,8 +24,8 @@ export const NtosConfiguration = (props, context) => {
             <Dropdown
               overflow-y="scroll"
               width="240px"
-              options={themes}
-              selected={clean(PC_device_theme) || "NtOS Default"}
+              options={Object.keys(themes)}
+              selected={Object.keys(themes).find(key => themes[key] === PC_device_theme) || "NtOS Default"}
               onSelected={value => act('PC_select_theme', {
                 theme: value,
               })} />

@@ -174,7 +174,7 @@
 	slot_flags = ITEM_SLOT_ID | ITEM_SLOT_BELT
 	comp_light_luminosity = 6.3
 	has_variants = FALSE
-	device_theme = "syndicate"
+	device_theme = THEME_SYNDICATE
 	theme_locked = TRUE
 
 /// Given to Nuke Ops members.
@@ -184,7 +184,7 @@
 	icon_state_unpowered = "tablet-syndicate"
 	comp_light_luminosity = 6.3
 	has_variants = FALSE
-	device_theme = "syndicate"
+	device_theme = THEME_SYNDICATE
 	theme_locked = TRUE
 	light_color = COLOR_RED
 
@@ -297,7 +297,8 @@
 	icon_state_unpowered = "tablet-silicon-syndicate"
 	icon_state_powered = "tablet-silicon-syndicate"
 	icon_state_menu = "command-syndicate"
-	device_theme = "syndicate"
+	device_theme = THEME_SYNDICATE
+	theme_locked = TRUE
 
 
 /obj/item/modular_computer/tablet/integrated/syndicate/Initialize()

@@ -22,9 +22,11 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	/// Whether or not the computer can be deconstructed
 	var/deconstructable = TRUE
 	/// Sets the theme for the main menu, hardware config, and file browser apps.
-	var/device_theme = "ntos-default"
+	var/device_theme = THEME_NTOS
 	/// Whether this device is allowed to change themes or not.
 	var/theme_locked = FALSE
+	/// List of themes for this device to allow.
+	var/list/allowed_themes
 	/// Color used for the Thinktronic Classic theme.
 	var/classic_color = "#808000"
 	var/datum/computer_file/program/active_program = null	// A currently active program running on the computer.
@@ -89,7 +91,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 
 /obj/item/modular_computer/Initialize(mapload)
 	. = ..()
-
+	allowed_themes = GLOB.ntos_device_themes_default
 	START_PROCESSING(SSobj, src)
 	if(!physical)
 		physical = src

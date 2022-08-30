@@ -197,7 +197,7 @@
 	if(..())
 		return 1
 	if(computer)
-		if(computer.device_theme == "thinktronic-classic")
+		if(computer.device_theme == THEME_THINKTRONIC)
 			computer.send_select_sound()
 		switch(action)
 			if("PC_exit")

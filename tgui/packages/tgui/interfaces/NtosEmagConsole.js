@@ -93,16 +93,16 @@ export class EmagConsoleText extends Component {
 
   constructor(props) {
     super(props);
-    this.props.log_text = logTextPrependAlways + this.props.log_text;
     this.timer = null;
     this.state = {
       index: 0,
     };
+    this.text = logTextPrependAlways + this.props.log_text;
   }
 
   tick() {
     const { props, state } = this;
-    if (state.index < props.log_text.length) {
+    if (state.index < text.length) {
       this.setState({ index: state.index + (1 * (props?.frame_skip || 1)) });
     } else {
       clearTimeout(this.timer);
@@ -123,9 +123,9 @@ export class EmagConsoleText extends Component {
   }
 
   render() {
-    const { props, state } = this;
-    const toShow = props.log_text.substring(0,
-      Math.min(state.index, props.log_text.length));
+    const { state } = this;
+    const toShow = text.substring(0,
+      Math.min(state.index, text.length));
     return (
       <Section fill scrollable backgroundColor="black">
         {(logTextAlways + toShow).split("\n").map((log) => (

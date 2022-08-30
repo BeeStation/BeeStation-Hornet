@@ -8,7 +8,7 @@
 	/// List of victims (of a very funny joke, that everyone loves!). Stores references to mobs.
 	var/list/slip_victims = list()
 	init_ringtone = "honk"
-	device_theme = "ntos-clown-pink" // Give the clown the best theme
+	device_theme = THEME_NTOS_CLOWN_PINK // Give the clown the best theme
 
 /obj/item/modular_computer/tablet/pda/clown/ComponentInitialize()
 	. = ..()
@@ -188,7 +188,7 @@
 	icon_state = "pda-syndi"
 	messenger_invisible = TRUE
 	detonatable = FALSE
-	device_theme = "syndicate"
+	device_theme = THEME_SYNDICATE
 	theme_locked = TRUE
 
 /obj/item/modular_computer/tablet/pda/chaplain

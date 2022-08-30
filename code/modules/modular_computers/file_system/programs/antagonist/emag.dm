@@ -15,7 +15,8 @@
 	if(!ui || ui.status != UI_INTERACTIVE)
 		return TRUE
 	if(computer)
-		computer.device_theme = "syndicate"
+		computer.device_theme = THEME_SYNDICATE
+		computer.allowed_themes = GLOB.ntos_device_themes_emagged
 	// bye bye UI
 	qdel(src)
 	return TRUE
