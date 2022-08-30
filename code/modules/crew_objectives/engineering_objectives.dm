@@ -53,8 +53,20 @@
 	explanation_text = "Make sure the station has above [target_amount]kW in the powernet."
 
 /datum/objective/crew/apcc/check_completion()
-	var/datum/powernet/connected_powernet = get_powernet()
+	var/total_power += 0
 
-	if(connected_powernet.viewavail >= target_amount)
+	for(var/obj/machinery/computer/monitor/pMon in GLOB.machines)
+		if(pMon.stat & (NOPOWER | BROKEN)) //check to make sure the computer is functional
+			continue
+		if(pMon.is_secret_monitor) //make sure it isn't a secret one (ie located on a ruin), allowing people to metagame that the location exists
+			continue
+		powercount++
+		powermonitors += pMon
+
+	for(var/obj/machinery/computer/monitor/pMon in powermonitors)
+		var/datum/powernet/connected_powernet = pMon.get_powernet()
+		total_power += connected_powernet.viewavail
+
+	if(total_power >= target_amount)
 		return TRUE
 	return ..()
