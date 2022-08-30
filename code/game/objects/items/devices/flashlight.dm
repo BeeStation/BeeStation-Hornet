@@ -35,6 +35,14 @@
 	/// lights power level
 	var/battery_power_amt
 
+/obj/item/flashlight/examine(mob/user)
+	. = ..()
+	if(uses_battery)
+		if(istype(int_battery))
+			. += "The flashlight is at [round(int_battery.percent() )]%."
+		else
+			. += "There doesn't seem to be a cell inserted."
+
 /obj/item/flashlight/Destroy()
 	if(on)
 		STOP_PROCESSING(SSobj, src)
@@ -54,26 +62,29 @@
 /obj/item/flashlight/process(delta_time)
 	if(!uses_battery)
 		STOP_PROCESSING(SSobj, src)
-	int_battery.charge = max(int_battery.charge - (battery_use_rate * delta_time), 0)
+		return
+	if(int_battery)
+		int_battery.charge = max(int_battery.charge - (battery_use_rate * delta_time), 0)
 	update_power()
 	update_brightness()
 
 /obj/item/flashlight/proc/update_power()
 	if(int_battery)
 		switch(int_battery.charge)
-			if(LIGHT_CHARGE_HIGH to INFINITY)
+			if(LIGHT_CHARGE_LOW to INFINITY)
 				battery_power_amt = LIGHT_POWER_HIGH
-			if(LIGHT_CHARGE_LOW to LIGHT_CHARGE_HIGH)
+			if(LIGHT_CHARGE_CRIT to LIGHT_CHARGE_LOW)
 				battery_power_amt = LIGHT_POWER_LOW
 			if(LIGHT_CHARGE_CRIT to 0)
 				battery_power_amt = LIGHT_POWER_CRIT
 			else
 				battery_power_amt = 0
 	else
-		battery_power_amt = LIGHT_POWER_HIGH
+		battery_power_amt = uses_battery ? 0 : LIGHT_POWER_HIGH
 
 
 /obj/item/flashlight/proc/update_brightness(mob/user)
+	update_power()
 	if(on)
 		if(int_battery)
 			switch(battery_power_amt)
@@ -106,6 +117,13 @@
 		var/datum/action/A = X
 		A.UpdateButtonIcon()
 	return 1
+
+/obj/item/flashlight/screwdriver_act(mob/user, obj/item/I)
+	if(int_battery)
+		to_chat(user, "<span class='notice'>You remove the battery from \the [src]</span>")
+		user.put_in_hands(int_battery)
+		int_battery = null
+
 
 /obj/item/flashlight/suicide_act(mob/living/carbon/human/user)
 	if (user.eye_blind)
