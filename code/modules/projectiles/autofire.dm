@@ -44,7 +44,6 @@ Everything else should be handled for you. Good luck soldier.
 /datum/component/full_auto
 	var/atom/autofire_target = null
 	var/default_fire_delay = 0.03 SECONDS //This is just a default value in case you didn't set the fire_rate var.
-	var/melee_attack_delay = 0.3 SECONDS //Time delay after you melee attack something at which you'll be allowed to start autofiring again. Also used as a cooldown to avoid magdumps.
 	var/next_process = 0
 
 /datum/component/full_auto/Initialize()
@@ -57,6 +56,11 @@ Everything else should be handled for you. Good luck soldier.
 /datum/component/full_auto/proc/set_target(atom/target)
 	//Preconditions: Parent has prototype "gun", the gun stand user is a living mob.
 	var/obj/item/gun/G = parent
+	// Target checking - we don't want to shoot at screen objects, objects in our inventory, or turfs on the same tile as us
+	if(istype(target, /atom/movable/screen) && !istype(target, /atom/movable/screen/click_catcher))
+		return
+	if((!isturf(target) && !isturf(target.loc)) || get_turf(G) == target)
+		return
 	if(!istype(G)) //This should never happen. But let's just be safe.
 		RemoveComponent()
 		return FALSE
@@ -71,7 +75,7 @@ Everything else should be handled for you. Good luck soldier.
 	SIGNAL_HANDLER
 
 	autofire_target = null
-	next_process = world.time + melee_attack_delay //So you can't abuse this to magdump.
+	next_process = world.time + CLICK_CD_MELEE //So you can't abuse this to magdump.
 
 /datum/component/full_auto/process()
 	if(!autofire_target)
@@ -86,14 +90,17 @@ Everything else should be handled for you. Good luck soldier.
 	var/mob/living/L = G.loc
 	if(!istype(L))
 		return PROCESS_KILL //They've dropped the weapon.
+	if(L.stat)
+		return
 	next_process = world.time + default_fire_delay
 	if(L.Adjacent(autofire_target)) //Melee attack? Or ranged attack?
-		next_process = world.time + melee_attack_delay
 		if(isobj(autofire_target))
+			next_process = world.time + CLICK_CD_MELEE
 			G.attack_obj(autofire_target, L)
 			return
 		else if(isliving(autofire_target) && L.a_intent == INTENT_HARM) // Prevents trying to attack turfs next to the shooter
 			G.attack(autofire_target, L)
+			next_process = world.time + CLICK_CD_MELEE
 			return
 	G.afterattack(autofire_target,L)
 
@@ -107,10 +114,8 @@ Everything else should be handled for you. Good luck soldier.
 
 /obj/item/gun/onMouseDown(object, location, params)
 	. = ..()
-	if(istype(object, /atom/movable/screen) && !istype(object, /atom/movable/screen/click_catcher))
-		return
 	var/modifiers = params2list(params)
-	if(modifiers["middle"] || modifiers["shift"]) // No firing on middle or shift click, since we might be trying to aim at someone or examine something
+	if(modifiers["middle"] || modifiers["shift"] || modifiers["ctrl"] || modifiers["alt"]) // Only shoot if we're not trying to do something else
 		return FALSE
 	if(burst_size <= 1) //Don't let them autofire with bursts. That would just be awful.
 		autofire_component?.set_target(object)
