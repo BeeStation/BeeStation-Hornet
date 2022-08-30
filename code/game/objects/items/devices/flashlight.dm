@@ -31,15 +31,11 @@
 	/// how much charge this battery starts with on init, does literally nothing else
 	var/start_battery_charge
 	/// how fast the battery is used
-	var/battery_use_rate = 1
+	var/battery_use_rate = 0.5
 	/// lights power level
 	var/battery_power_amt
 
-/obj/item/mop/advanced/New()
-	..()
-	START_PROCESSING(SSobj, src)
-
-/obj/item/mop/advanced/Destroy()
+/obj/item/flashlight/Destroy()
 	if(on)
 		STOP_PROCESSING(SSobj, src)
 	return ..()
@@ -49,18 +45,25 @@
 	if(uses_battery)
 		int_battery = new(null)
 		int_battery.forceMove(src)
-		int_battery.charge = min(start_battery_charge || 9999999, int_battery.max_charge)
+		int_battery.charge = min(start_battery_charge || 9999999, int_battery.maxcharge)
 		update_power()
 	if(icon_state == "[initial(icon_state)]-on")
 		on = TRUE
 	update_brightness()
 
+/obj/item/flashlight/process(delta_time)
+	if(!uses_battery)
+		STOP_PROCESSING(SSobj, src)
+	int_battery.charge = max(int_battery.charge - (battery_use_rate * delta_time), 0)
+	update_power()
+	update_brightness()
+
 /obj/item/flashlight/proc/update_power()
 	if(int_battery)
 		switch(int_battery.charge)
-			if(LIGHT_POWER_HIGH to INFINITY)
+			if(LIGHT_CHARGE_HIGH to INFINITY)
 				battery_power_amt = LIGHT_POWER_HIGH
-			if(LIGHT_POWER_LOW to LIGHT_POWER_HIGH)
+			if(LIGHT_CHARGE_LOW to LIGHT_CHARGE_HIGH)
 				battery_power_amt = LIGHT_POWER_LOW
 			if(LIGHT_CHARGE_CRIT to 0)
 				battery_power_amt = LIGHT_POWER_CRIT
@@ -83,10 +86,11 @@
 				else
 					to_chat(user, "\The [src] flickers weakly, but doesn't have enough power to turn on.")
 					on = FALSE
-					return update_brightness(user)
+					return .()
 
-				icon_state = "[initial(icon_state)]-on"
-				playsound(src, 'sound/items/flashlight_on.ogg', 25, 1)
+			icon_state = "[initial(icon_state)]-on"
+			playsound(src, 'sound/items/flashlight_on.ogg', 25, 1)
+			START_PROCESSING(SSobj, src)
 	else
 		icon_state = initial(icon_state)
 		playsound(src, 'sound/items/flashlight_off.ogg', 25, 1)
