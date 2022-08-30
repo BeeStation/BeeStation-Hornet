@@ -17,6 +17,10 @@ GLOBAL_PROTECT(mentor_verbs)
 	set name = "Request Mentor Assistance"
 	set category = "Mentor"
 
+	if(prefs.muted & MUTE_MHELP)
+		to_chat(src, "<span class='danger'>Error: You cannot send mentorhelps (Muted).</span>")
+		return
+
 	if(!istype(src.mob, /mob/living/carbon/human))
 		to_chat(src, "<span class='notice'>You must be humanoid to use this!</span>")
 		return
