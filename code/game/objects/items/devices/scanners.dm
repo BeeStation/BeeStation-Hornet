@@ -927,11 +927,11 @@ GENE SCANNER
 	if(scan)
 		icon_state = "extrapolator_sample"
 		scan = FALSE
-		to_chat(user, "<span class='notice'>You remove the probe from the device and set it to EXTRACT</span>")
+		to_chat(user, "<span class='notice'>You remove the probe from the device and set it to EXTRACT.</span>")
 	else
 		icon_state = "extrapolator_scan"
 		scan = TRUE
-		to_chat(user, "<span class='notice'>You put the probe back in the device and set it to SCAN</span>")
+		to_chat(user, "<span class='notice'>You put the probe back in the device and set it to SCAN.</span>")
 
 /obj/item/extrapolator/examine(mob/user)
 	. = ..()
@@ -954,11 +954,11 @@ GENE SCANNER
 			if(locate(/datum/component/infective) in target.datum_components)
 				return //so the failure message does not show when we can actually extrapolate from a component
 			if(scan)
-				to_chat(user, "<span class='notice'>the extrapolator fails to return any data</span>")
+				to_chat(user, "<span class='notice'>The extrapolator fails to return any data.</span>")
 			else
-				to_chat(user, "<span class='notice'>the extrapolator's probe detects no diseases</span>")
+				to_chat(user, "<span class='notice'>The extrapolator's probe detects no diseases.</span>")
 	else
-		to_chat(user, "<span class='warning'>the extrapolator has no scanner installed</span>")
+		to_chat(user, "<span class='warning'>The extrapolator has no scanner installed!</span>")
 
 /obj/item/extrapolator/proc/scan(atom/AM, var/list/diseases = list(), mob/user)
 	to_chat(user, "<span class='notice'><b>[src] detects the following diseases:</b></span>")
@@ -994,14 +994,14 @@ GENE SCANNER
 	if(cooldown > world.time - (10))
 		to_chat(user, "<span class='warning'>The extrapolator is still recharging!</span>")
 		return
-	var/datum/disease/advance/A = input(user,"What disease do you wish to extract") in null|advancediseases
+	var/datum/disease/advance/A = input(user,"Which disease do you wish to extract?") in null|advancediseases
 	if(isolate)
 		using = TRUE
 		for(var/datum/symptom/S in A.symptoms)
 			if(S.level <= 6 + scanner.rating)
 				symptoms += S
 			continue
-		var/datum/symptom/chosen = input(user,"What symptom do you wish to isolate") in null|symptoms
+		var/datum/symptom/chosen = input(user,"Which symptom do you wish to isolate?") in null|symptoms
 		var/datum/disease/advance/symptomholder = new
 		if(!symptoms.len || !chosen)
 			using = FALSE
@@ -1011,13 +1011,13 @@ GENE SCANNER
 		symptomholder.symptoms += chosen
 		symptomholder.Finalize()
 		symptomholder.Refresh()
-		to_chat(user, "<span class='warning'>you begin isolating [chosen].</span>")
+		to_chat(user, "<span class='warning'>You begin isolating [chosen].</span>")
 		if(do_after(user, (600 / (scanner.rating + 1)), target = AM))
 			create_culture(symptomholder, user, AM)
-	else 
+	else
 		using = TRUE
 		if(do_after(user, (timer / (scanner.rating + 1)), target = AM))
-			create_culture(A, user, AM)	
+			create_culture(A, user, AM)
 	using = FALSE
 
 /obj/item/extrapolator/proc/create_culture(var/datum/disease/advance/A, mob/user)

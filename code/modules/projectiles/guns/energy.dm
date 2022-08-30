@@ -65,6 +65,32 @@
 		START_PROCESSING(SSobj, src)
 	update_icon()
 
+/obj/item/gun/energy/fire_sounds()
+	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
+	var/batt_percent = FLOOR(clamp(cell.charge / cell.maxcharge, 0, 1) * 100, 1)
+	var/shot_cost_percent = 0
+	var/max_shots = 0
+	var/shots_left = 0
+	var/frequency_to_use = 0
+
+	if(shot.e_cost > 0)
+		shot_cost_percent = FLOOR(clamp(shot.e_cost / cell.maxcharge, 0, 1) * 100, 1)
+		max_shots = round(100/shot_cost_percent)
+		shots_left = round(batt_percent/shot_cost_percent)
+		frequency_to_use = sin((90/max_shots) * shots_left)
+
+	var/click_frequency_to_use = 1 - frequency_to_use * 0.75
+	var/play_click = round(sqrt(max_shots * 4)) > shots_left
+
+	if(suppressed)
+		playsound(src, suppressed_sound, suppressed_volume, vary_fire_sound, ignore_walls = FALSE, extrarange = SILENCED_SOUND_EXTRARANGE, falloff_distance = 0, frequency = frequency_to_use)
+		if(play_click)
+			playsound(src, 'sound/weapons/effects/energy_click.ogg', suppressed_volume, vary_fire_sound, ignore_walls = FALSE, extrarange = SILENCED_SOUND_EXTRARANGE, falloff_distance = 0, frequency = click_frequency_to_use)
+	else
+		playsound(src, fire_sound, fire_sound_volume, vary_fire_sound, frequency = frequency_to_use)
+		if(play_click)
+			playsound(src, 'sound/weapons/effects/energy_click.ogg', fire_sound_volume, vary_fire_sound, frequency = click_frequency_to_use)
+
 /obj/item/gun/energy/proc/update_ammo_types()
 	var/obj/item/ammo_casing/energy/shot
 	for (var/i = 1, i <= ammo_type.len, i++)

@@ -153,11 +153,6 @@
 
 /datum/config_entry/flag/allow_holidays
 
-/datum/config_entry/number/tick_limit_mc_init	//SSinitialization throttling
-	config_entry_value = TICK_LIMIT_MC_INIT_DEFAULT
-	min_val = 0 //oranges warned us
-	integer = FALSE
-
 /datum/config_entry/flag/admin_legacy_system	//Defines whether the server uses the legacy admin system with admins.txt or the SQL system
 	protection = CONFIG_ENTRY_LOCKED
 
@@ -496,7 +491,7 @@
 
 /datum/config_entry/flag/resume_after_initializations/ValidateAndSet(str_val)
 	. = ..()
-	if(. && Master.current_runlevel)
+	if(. && MC_RUNNING())
 		world.sleep_offline = !config_entry_value
 
 /datum/config_entry/number/rounds_until_hard_restart
@@ -535,18 +530,23 @@
 /datum/config_entry/number/topic_rate_limit
 	config_entry_value = 5
 	min_val = 1
+	protection = CONFIG_ENTRY_LOCKED
 
 /datum/config_entry/number/topic_max_fails
 	config_entry_value = 5
 	min_val = 1
+	protection = CONFIG_ENTRY_LOCKED
 
 /datum/config_entry/string/topic_rule_name
 	config_entry_value = "_DD_Fail2topic"
+	protection = CONFIG_ENTRY_LOCKED
 
 /datum/config_entry/number/topic_max_size
 	config_entry_value = 500
+	protection = CONFIG_ENTRY_LOCKED
 
 /datum/config_entry/flag/topic_enabled
+	protection = CONFIG_ENTRY_LOCKED
 
 /datum/config_entry/flag/auto_profile
 

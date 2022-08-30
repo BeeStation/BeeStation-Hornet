@@ -1,0 +1,7 @@
+author: itsmeow
+delete-after: true
+changes:
+  - tweak: All forms of mind-to-mind communication now properly capitalize and auto-punctuate
+      text.
+  - tweak: MMIs and posibrains now auto-punctuate speech.
+  - admin: Added logging to blob telepathy speech from non-overminds.
