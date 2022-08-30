@@ -1,0 +1,6 @@
+author: PestoVerde322
+delete-after: true
+changes:
+  - soundadd: Energy and Magic gunfire sound pitch now varies based on how much ammo
+      is left.
+  - soundadd: Ballistic and Energy gunfire now has a low-ammo click/fuse sound.
