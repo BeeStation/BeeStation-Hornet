@@ -94,7 +94,8 @@
 		qdel(action)
 
 	// Clear any equipment they might have
-	QDEL_LIST(installed_upgrades)
+	for(var/upgrade in installed_upgrades)
+		qdel(upgrade)
 	QDEL_NULL(stored_pka)
 	QDEL_NULL(stored_cutter)
 	QDEL_NULL(stored_drill)
