@@ -149,6 +149,19 @@
 			if(NAMEOF(src, assignment),NAMEOF(src, registered_name))
 				update_label()
 
+/obj/item/card/id/vv_get_dropdown()
+	. = ..()
+	VV_DROPDOWN_OPTION("", "---------")
+	VV_DROPDOWN_OPTION(VV_ID_PAYDAY, "Trigger Payday")
+
+/obj/item/card/id/vv_do_topic(list/href_list)
+	. = ..()
+	if(href_list[VV_ID_PAYDAY])
+		if(!registered_account)
+			to_chat(usr, "There's no account registered!")
+			return
+		registered_account.payday(1)
+
 /obj/item/card/id/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/holochip))
 		insert_money(W, user)
