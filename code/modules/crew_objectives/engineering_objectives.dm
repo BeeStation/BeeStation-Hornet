@@ -34,7 +34,7 @@
 	return ..()
 
 /datum/objective/crew/supermatter_survive
-	explanation_text = "Prevent the main supermatter crystal from exploding. This does not count additional supermatters constructed."
+	explanation_text = "Prevent the primary Supermatter engine from fully delaminating. Additional Supermatter shards ordered from cargo do not count for this"
 	jobs = "chiefengineer,stationengineer"
 
 /datum/objective/crew/supermatter_survive/check_completion()
