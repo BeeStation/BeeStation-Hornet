@@ -119,7 +119,6 @@
 	if(!length(candidates))
 		message_admins("The ruleset [name] received no applications.")
 		log_game("DYNAMIC: The ruleset [name] received no applications.")
-		mode.executed_rules -= src
 		return
 
 	message_admins("[candidates.len] players volunteered for the ruleset [name].")
@@ -130,7 +129,6 @@
 /// Called by send_applications().
 /datum/dynamic_ruleset/midround/from_ghosts/proc/review_applications()
 	if(length(candidates) < required_applicants)
-		mode.executed_rules -= src
 		message_admins("Not enough players volunteered for the ruleset [name] - [candidates.len] out of [required_applicants].")
 		log_game("DYNAMIC: Not enough players volunteered for the ruleset [name] - [candidates.len] out of [required_applicants].")
 		return
@@ -162,7 +160,6 @@
 	if(!length(assigned))
 		message_admins("No players were eligible for the ruleset [name] - the previous applicants were revived/left and could no longer take the role.")
 		log_game("DYNAMIC: No players were eligible for the ruleset [name] - the previous applicants were revived/left and could no longer take the role.")
-		mode.executed_rules -= src
 
 /datum/dynamic_ruleset/midround/from_ghosts/proc/generate_ruleset_body(mob/applicant)
 	var/mob/living/carbon/human/new_character = makeBody(applicant)

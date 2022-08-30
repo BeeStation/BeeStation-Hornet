@@ -98,7 +98,7 @@
 			current_rules += rule
 		new_snapshot(rule)
 		return TRUE
-	rule.clean_up()
+	mode.executed_rules -= src
 	stack_trace("The [rule.ruletype] rule \"[rule.name]\" failed to execute.")
 	return FALSE
 
