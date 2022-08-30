@@ -40,6 +40,7 @@
 	if(uses_battery)
 		if(istype(int_battery))
 			. += "The flashlight is at [round(int_battery.percent() )]%."
+			. += "<span class='notice'>Alt-click to remove cell.</span>"
 		else
 			. += "There doesn't seem to be a cell inserted."
 
@@ -128,7 +129,7 @@
 			I.forceMove(src)
 			to_chat(user, "<span class='notice'>You plug the cell into \the [src].")
 
-/obj/item/flashlight/screwdriver_act(mob/user, obj/item/I)
+/obj/item/flashlight/AltClick(mob/user)
 	if(int_battery)
 		to_chat(user, "<span class='notice'>You remove the battery from \the [src]</span>")
 		user.put_in_hands(int_battery)
