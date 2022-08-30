@@ -3541,4 +3541,8 @@
 #include "interface\interface.dm"
 #include "interface\stylesheet.dm"
 #include "interface\skin.dmf"
+#include "code\game\objects\items\stacks\tiles\tile_reskinning.dm"
+#include "code\game\gamemodes\dynamic\dynamic_midround_rolling.dm"
+#include "code\game\gamemodes\dynamic\dynamic_unfavorable_situation.dm"
+#include "code\modules\modular_computers\hardware\sensor_package.dm"
 // END_INCLUDE
