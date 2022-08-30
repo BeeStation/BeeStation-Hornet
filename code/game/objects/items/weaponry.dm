@@ -815,6 +815,9 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 
 	var/obj/structure/table/the_table = target
 
+	if(!proximity_flag)
+		return
+
 	if(user.a_intent == INTENT_HARM && table_smacks_left == initial(table_smacks_left)) // so you can't do 2 weak slaps followed by a big slam
 		transform = transform.Scale(5) // BIG slap
 		if(HAS_TRAIT(user, TRAIT_HULK))
