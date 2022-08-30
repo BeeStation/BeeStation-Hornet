@@ -125,7 +125,7 @@ const ChemMasterContent = (props, context) => {
             {volumeState === "Exact" && (
               <NumberInput
                 width="84px"
-                amountUnit="units"
+                unit="units"
                 stepPixelSize={15}
                 value={volumeExact}
                 minValue={0.01}
