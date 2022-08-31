@@ -222,7 +222,7 @@
 /obj/structure/bed/alien/examine(mob/user)
 	. = ..()
 	if(isabductor(user))
-		. += "<span class='abductor'>Fairly sure we absoluteley steal that technology.</span>"
+		. += "<span class='abductor'>Fairly sure we absoluteley stole that technology.</span>"
 
 //unfortunateley no sickness mechanics on them... yet
 /obj/structure/bed/maint
@@ -243,14 +243,22 @@
 /obj/structure/bed/double/post_buckle_mob(mob/living/M)
 	if(buckled_mobs.len > 1 && !goldilocks) //Push the second buckled mob a bit higher from the normal lying position, also, if someone can figure out the same thing for plushes, i'll be really glad to know how to
 		M.pixel_y = initial(M.pixel_y) + 6
+		if(M == goldilocks)
+			UnregisterSignal(buckled_mobs, COMSIG_PARENT_QDELETING)
 		goldilocks = M
-		UnregisterSignal(buckled_mobs, COMSIG_PARENT_QDELETING)
+		RegisterSignal(buckled_mobs, COMSIG_PARENT_QDELETING, .proc/buckled_mobs_deleted)
 
 /obj/structure/bed/double/post_unbuckle_mob(mob/living/M)
 	M.pixel_y = initial(M.pixel_y) + M.get_standard_pixel_y_offset(M.lying)
 	if(M == goldilocks)
 		goldilocks = null
 		UnregisterSignal(buckled_mobs, COMSIG_PARENT_QDELETING)
+
+//Called when the signal is raised, removes the reference
+//preventing the hard delete.
+/obj/structure/bed/double/proc/buckled_mobs_deleted(datum/source, force)
+    UnregisterSignal(buckled_mobs, COMSIG_PARENT_QDELETING)
+    goldilocks = null
 
 /obj/structure/bed/double/maint
 	name = "double dirty mattress"
@@ -265,4 +273,4 @@
 /obj/structure/bed/double/alien/examine(mob/user)
 	. = ..()
 	if(isabductor(user))
-		. += "<span class='abductor'>Fairly sure we absoluteley steal that technology...Why did we steal this again?</span>"
+		. += "<span class='abductor'>Fairly sure we absoluteley stole that technology...Why did we stole this again?</span>"
