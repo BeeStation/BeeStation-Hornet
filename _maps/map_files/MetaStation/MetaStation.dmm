@@ -19256,7 +19256,7 @@
 "bmh" = (
 /obj/machinery/modular_fabricator/autolathe,
 /obj/machinery/door/window/eastright{
-	dir = 1;
+	dir = 2;
 	name = "Cargo Office";
 	req_one_access_txt = "31;48"
 	},
@@ -32643,6 +32643,7 @@
 	name = "research shutters"
 	},
 /obj/machinery/door/firedoor,
+/obj/structure/window/reinforced/spawner/east,
 /turf/open/floor/plating,
 /area/science/lab)
 "cgg" = (
@@ -77542,7 +77543,7 @@
 	name = "research shutters"
 	},
 /obj/machinery/door/window/eastright{
-	dir = 2;
+	dir = 1;
 	name = "Research and Development Desk";
 	req_one_access_txt = "7;29"
 	},

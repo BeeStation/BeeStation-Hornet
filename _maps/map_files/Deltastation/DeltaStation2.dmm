@@ -54080,6 +54080,9 @@
 	},
 /obj/effect/turf_decal/delivery,
 /obj/machinery/door/firedoor,
+/obj/structure/window/reinforced/spawner{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/science/lab)
 "cZq" = (
@@ -71338,7 +71341,6 @@
 "eqS" = (
 /obj/machinery/modular_fabricator/autolathe,
 /obj/machinery/door/window/southleft{
-	dir = 1;
 	req_access_txt = "48"
 	},
 /obj/machinery/door/firedoor,
@@ -90330,7 +90332,8 @@
 	},
 /obj/machinery/door/window/southleft{
 	name = "Research Lab Desk";
-	req_one_access_txt = "7;29"
+	req_one_access_txt = "7;29";
+	dir = 1
 	},
 /obj/machinery/modular_fabricator/autolathe,
 /obj/machinery/door/firedoor,

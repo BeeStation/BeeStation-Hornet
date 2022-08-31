@@ -17458,6 +17458,7 @@
 	},
 /obj/item/folder/white,
 /obj/machinery/door/firedoor,
+/obj/structure/window/reinforced/spawner/east,
 /turf/open/floor/plating,
 /area/science/lab)
 "bqe" = (
@@ -37249,7 +37250,7 @@
 	name = "research shutters"
 	},
 /obj/machinery/door/window/eastright{
-	dir = 2;
+	dir = 1;
 	name = "Research and Development Desk";
 	req_one_access_txt = "7;29"
 	},
@@ -57496,7 +57497,7 @@
 "txf" = (
 /obj/machinery/modular_fabricator/autolathe,
 /obj/machinery/door/window/westleft{
-	dir = 2;
+	dir = 1;
 	name = "Cargo Desk";
 	req_access_txt = "50"
 	},

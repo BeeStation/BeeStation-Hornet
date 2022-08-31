@@ -5848,7 +5848,7 @@
 /obj/machinery/modular_fabricator/autolathe,
 /obj/machinery/door/window/westleft{
 	base_state = "right";
-	dir = 1;
+	dir = 2;
 	icon_state = "right";
 	name = "Cargo Window";
 	pixel_y = 1;

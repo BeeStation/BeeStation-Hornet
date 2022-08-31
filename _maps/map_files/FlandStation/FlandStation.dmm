@@ -31959,7 +31959,8 @@
 "hmo" = (
 /obj/machinery/door/window/eastright{
 	name = "Research and Development Desk";
-	req_one_access_txt = "7;29"
+	req_one_access_txt = "7;29";
+	dir = 8
 	},
 /obj/effect/turf_decal/stripes/box,
 /obj/machinery/modular_fabricator/autolathe,
