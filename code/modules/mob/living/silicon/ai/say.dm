@@ -34,12 +34,6 @@
 
 	var/obj/machinery/holopad/T = current
 	if(istype(T) && T.masters[src])//If there is a hologram and its master is the user.
-		var/turf/padturf = get_turf(T)
-		var/padloc
-		if(padturf)
-			padloc = AREACOORD(padturf)
-		else
-			padloc = "(UNKNOWN)"
 		T.holo?.say("[message]", MODE_ROBOT, language = language)
 		to_chat(src, "<i><span class='game say'>Holopad transmitted, <span class='name'>[real_name]</span> <span class='message robot'>\"[message]\"</span></span></i>")
 	else
