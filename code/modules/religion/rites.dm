@@ -480,10 +480,10 @@
 /datum/religion_rites/summon_carpsuit/invoke_effect(mob/living/user, atom/religious_tool)
 	if(!QDELETED(chosen_clothing) && get_turf(religious_tool) == chosen_clothing.loc) //check if the same clothing is still there
 		user.visible_message("<span class'notice'>The [chosen_clothing] transforms!</span>")
-		QDEL_NULL(chosen_clothing)
+		chosen_clothing.obj_destruction()
+		chosen_clothing = null
 		new /obj/item/clothing/suit/space/hardsuit/carp/old(get_turf(religious_tool))
 		playsound(get_turf(religious_tool), 'sound/effects/slosh.ogg', 50, TRUE)
-		chosen_clothing = null //our lord and savior no longer cares about this apparel
 		return ..()
 	chosen_clothing = null
 	to_chat(user, "<span class='warning'>The clothing that was chosen for the rite is no longer on the altar!</span>")

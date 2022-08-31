@@ -262,7 +262,7 @@
 	tgui_icon = "fish"
 	alignment = ALIGNMENT_NEUT
 	max_favor = 10000
-	desired_items = list(/obj/item/reagent_containers/food/snacks/meat, "of the meat variety")
+	desired_items = list(/obj/item/reagent_containers/food/snacks/meat/slab)
 	rites_list = list(/datum/religion_rites/summon_carp, /datum/religion_rites/flood_area, /datum/religion_rites/summon_carpsuit)
 	altar_icon_state = "convertaltar-blue"
 
