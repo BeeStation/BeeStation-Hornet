@@ -176,7 +176,7 @@
 		CRASH("[name]'s perform_rite had a movable atom that has somehow turned into a non-movable!")
 	var/atom/movable/movable_reltool = religious_tool
 	var/mob/living/carbon/human/rite_target
-	if(!movable_reltool.buckled_mobs?.len)
+	if(!length(movable_reltool.buckled_mobs))
 		rite_target = user
 	else
 		for(var/buckled in movable_reltool.buckled_mobs)
