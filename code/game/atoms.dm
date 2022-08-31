@@ -567,17 +567,13 @@
 				if(user.can_see_boozepower())
 					var/total_boozepower = 0
 					var/list/taste_list = list()
-					if(reagents.reagent_list)
-						for(var/datum/reagent/consumable/ethanol/B in reagents.reagent_list)
-							var/real_boozepower = B.boozepwr
-							if(real_boozepower < 0) // minus booze power is reversed to light drinkers, but is actually 0 to normal drinkers.
-								real_boozepower = 0
-							total_boozepower += B.volume*real_boozepower
-						for(var/datum/reagent/R in reagents.reagent_list)
-							if(istype(R, /datum/reagent/consumable/ethanol/fruit_wine) && !(user.stat == DEAD) && !(HAS_TRAIT(src, TRAIT_BARMASTER)) ) // taste of fruit wine is mysterious, but can be known by ghosts/some special bar master trait holders
-								taste_list += "<br/>   - unexplored taste of the winery (from [R.name])"
-							else
-								taste_list += "<br/>   - [R.taste_description] (from [R.name])"
+					for(var/datum/reagent/consumable/ethanol/B in reagents.reagent_list)
+						total_boozepower += B.volume * max(B.boozepwr, 0) // minus booze power is reversed to light drinkers, but is actually 0 to normal drinkers.
+					for(var/datum/reagent/R in reagents.reagent_list)
+						if(istype(R, /datum/reagent/consumable/ethanol/fruit_wine) && !(user.stat == DEAD) && !(HAS_TRAIT(src, TRAIT_BARMASTER)) ) // taste of fruit wine is mysterious, but can be known by ghosts/some special bar master trait holders
+							taste_list += "<br/>   - unexplored taste of the winery (from [R.name])"
+						else
+							taste_list += "<br/>   - [R.taste_description] (from [R.name])"
 					if(reagents.total_volume)
 						. += "<span class='notice'>Booze Power: total [total_boozepower], average [round(total_boozepower/reagents.total_volume, 0.1)] ([get_boozepower_text(total_boozepower/reagents.total_volume, user)])</span>"
 						. += "<span class='notice'>It would taste like: [english_list(taste_list, comma_text="", and_text="")].</span>"
