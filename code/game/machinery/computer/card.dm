@@ -310,28 +310,25 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		dat += "<table>"
 		dat += "<tr><td style='width:30%'><b>Name</b></td><td style='width:20%'><b>Job</b></td><td style='width:20%'><b>Department</b></td><td style='width:15%'><b>Paycheck</b></td><td style='width:15%'><b>Pay Bonus</b></td></tr>"
 
-		for(var/A in SSeconomy.bank_accounts)
-			if(!accessible_card)
-				break	/* `break` is intended here.
-							`conitnue`: needlessly looping. Don't use.
-							`return`: this code needs to run lines after this. Don't use. */
+		if(accessible_card)
+			for(var/A in SSeconomy.bank_accounts)
 
-			var/datum/bank_account/B = A
-			if(!(B.account_department in paycheck_departments) && !(target_dept==DEPT_ALL))
-				continue
-			dat += "<tr>"
-			dat += "<td>[B.account_holder] [B.suspended ? "(Account closed)" : ""]</td>"
-			dat += "<td>[B.account_job.title]</td>"
-			dat += "<td>[B.account_department]</td>"
-			if(B.suspended)
-				dat += "<td>Closed</td>"
-				dat += "<td>$0</td>"
-			else if(!(B.account_department in paycheck_departments))
-				dat += "<td>$[B.paycheck_amount] (Auth-denied)</td>"
-				dat += "<td>$[B.paycheck_bonus]</td>"
-			else
-				dat += "<td><a href='?src=[REF(src)];choice=adjust_pay;account=[B.account_holder]'>$[B.paycheck_amount]</a></td>"
-				dat += "<td><a href='?src=[REF(src)];choice=adjust_bonus;account=[B.account_holder]'>$[B.paycheck_bonus]</a></td>"
+				var/datum/bank_account/B = A
+				if(!(B.account_department in paycheck_departments) && !(target_dept==DEPT_ALL))
+					continue
+				dat += "<tr>"
+				dat += "<td>[B.account_holder] [B.suspended ? "(Account closed)" : ""]</td>"
+				dat += "<td>[B.account_job.title]</td>"
+				dat += "<td>[B.account_department]</td>"
+				if(B.suspended)
+					dat += "<td>Closed</td>"
+					dat += "<td>$0</td>"
+				else if(!(B.account_department in paycheck_departments))
+					dat += "<td>$[B.paycheck_amount] (Auth-denied)</td>"
+					dat += "<td>$[B.paycheck_bonus]</td>"
+				else
+					dat += "<td><a href='?src=[REF(src)];choice=adjust_pay;account=[B.account_holder]'>$[B.paycheck_amount]</a></td>"
+					dat += "<td><a href='?src=[REF(src)];choice=adjust_bonus;account=[B.account_holder]'>$[B.paycheck_bonus]</a></td>"
 	else
 		var/header = ""
 
