@@ -555,6 +555,7 @@
 		if(reagents.flags & TRANSPARENT)
 			. += "It contains:"
 			if(length(reagents.reagent_list))
+				//-------- Reagent checks ---------
 				if(user.can_see_reagents()) //Show each individual reagent
 					for(var/datum/reagent/R in reagents.reagent_list)
 						. += "[R.volume] units of [R.name]"
@@ -570,7 +571,7 @@
 					for(var/datum/reagent/R in reagents.reagent_list)
 					 	// calculates the total booze power from all 'ethanol' reagents
 						if(istype(R, /datum/reagent/consumable/ethanol))
-							total_boozepower += B.volume * max(B.boozepwr, 0) // minus booze power is reversed to light drinkers, but is actually 0 to normal drinkers.
+							total_boozepower += R.volume * max(R.boozepwr, 0) // minus booze power is reversed to light drinkers, but is actually 0 to normal drinkers.
 
 						// gets taste results from all reagents
 						if(istype(R, /datum/reagent/consumable/ethanol/fruit_wine) && !(user.stat == DEAD) && !(HAS_TRAIT(src, TRAIT_BARMASTER)) ) // taste of fruit wine is mysterious, but can be known by ghosts/some special bar master trait holders
