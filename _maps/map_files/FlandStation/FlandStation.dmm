@@ -33494,7 +33494,6 @@
 /obj/effect/turf_decal/plaque{
 	icon_state = "L6"
 	},
-/obj/item/toy/crayon/spraycan,
 /turf/open/floor/plasteel,
 /area/hallway/primary/port)
 "hEV" = (
@@ -102464,7 +102463,6 @@
 /obj/effect/turf_decal/plaque{
 	icon_state = "L4"
 	},
-/obj/item/toy/crayon/rainbow,
 /turf/open/floor/plasteel,
 /area/hallway/primary/port)
 "ydA" = (
