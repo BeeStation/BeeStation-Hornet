@@ -1,3 +1,8 @@
+/// below these levels trigger the special sprites
+#define PAINTER_MID 0.2
+#define PAINTER_LOW 0.1
+
+
 /obj/item/airlock_painter
 	name = "airlock painter"
 	desc = "An advanced autopainter preprogrammed with several paintjobs for airlocks. Use it on an airlock during or after construction to change the paintjob. Alt-Click to remove the ink cartridge."
@@ -41,11 +46,28 @@
 	. = ..()
 	ink = new initial_ink_type(src)
 
+/obj/item/airlock_painter/update_icon(var/base)
+	base |= initial(icon_state)  // incase you wanted to change the base sprite dynamically for SOME reason
+	if(!istype(ink))
+		icon_state = "[base]_none"
+		return
+	switch(ink.charges/ink.max_charges)
+		if(0.001 to PAINTER_LOW)
+			icon_state = "[base]_low"
+		if(PAINTER_LOW to PAINTER_MID)
+			icon_state = "[base]_mid"
+		if(PAINTER_MID to INFINITY)
+			icon_state = "[base]"
+		else
+			icon_state = "[base]_crit"
+
+
 //This proc doesn't just check if the painter can be used, but also uses it.
 //Only call this if you are certain that the painter will be used right after this check!
 /obj/item/airlock_painter/proc/use_paint(mob/user)
 	if(can_use(user))
 		ink.charges--
+		update_icon()
 		playsound(src.loc, 'sound/effects/spray2.ogg', 50, 1)
 		return TRUE
 	else
@@ -117,12 +139,16 @@
 		. += "<span class='notice'>It doesn't have a toner cartridge installed.</span>"
 		return
 	var/ink_level = "high"
-	if(ink.charges < 1)
-		ink_level = "empty"
-	else if((ink.charges/ink.max_charges) <= 0.25) //25%
-		ink_level = "low"
-	else if((ink.charges/ink.max_charges) > 1) //Over 100% (admin var edit)
-		ink_level = "dangerously high"
+	switch(ink.charges/ink.max_charges)
+		if(0.001 to PAINTER_LOW)
+			ink_level = "extremely low"
+		if(PAINTER_LOW to PAINTER_MID)
+			ink_level = "low"
+		if(1 to INFINITY) //Over 100% (admin var edit)
+			ink_level = "dangerously high"
+		else
+			ink_level = "empty"
+
 	. += "<span class='notice'>Its ink levels look [ink_level].</span>"
 
 
@@ -135,6 +161,7 @@
 			return
 		to_chat(user, "<span class='notice'>You install [W] into [src].</span>")
 		ink = W
+		update_icon()
 		playsound(src.loc, 'sound/machines/click.ogg', 50, 1)
 	else
 		return ..()
@@ -147,6 +174,7 @@
 		user.put_in_hands(ink)
 		to_chat(user, "<span class='notice'>You remove [ink] from [src].</span>")
 		ink = null
+		update_icon()
 
 /obj/item/airlock_painter/decal
 	name = "decal painter"
