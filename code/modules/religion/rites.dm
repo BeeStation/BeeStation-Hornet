@@ -253,7 +253,7 @@
 	playsound(altar_turf, 'sound/magic/fireball.ogg', 50, TRUE)
 	return TRUE
 
-// Necro Rites
+/// Necro Rites
 
 /datum/religion_rites/create_lesser_lich
 	name = "Create Lesser Lich"
@@ -265,9 +265,9 @@
 	"... grant them temporary immortality ...")
 	invoke_msg = "... Grant them the power to become one with necromancy!!"
 	favor_cost = 2250
-//the creature chosen for the rite
+/// the creature chosen for the rite
 	var/mob/living/lich_to_be
-//the spell
+/// the the typepath of the spell to gran
 	var/lichspell = /obj/effect/proc_holder/spell/targeted/lesserlichdom
 
 /datum/religion_rites/create_lesser_lich/perform_rite(mob/living/user, atom/religious_tool)
@@ -275,9 +275,7 @@
 		to_chat(user,"<span class='warning'>This rite requires a religious device that individuals can be buckled to.</span>")
 		return FALSE
 	var/atom/movable/movable_reltool = religious_tool
-	if(!movable_reltool)
-		return FALSE
-	if(LAZYLEN(movable_reltool.buckled_mobs))
+	if(length(movable_reltool.buckled_mobs))
 		for(var/creature in movable_reltool.buckled_mobs)
 			lich_to_be = creature
 		if(!lich_to_be.mind.hasSoul)
@@ -314,7 +312,7 @@
 	if(!ismovable(religious_tool))
 		CRASH("[name]'s perform_rite had a movable atom that has somehow turned into a non-movable!")
 	var/atom/movable/movable_reltool = religious_tool
-	if(!movable_reltool?.buckled_mobs?.len)
+	if(!length(movable_reltool.buckled_mobs))
 		lich_to_be = user
 	else
 		for(var/buckled in movable_reltool.buckled_mobs)
@@ -323,7 +321,7 @@
 				break
 	if(!lich_to_be)
 		return FALSE
-	lich_to_be.AddSpell(new /obj/effect/proc_holder/spell/targeted/lesserlichdom(null))
+	lich_to_be.AddSpell(new lichspell(null))
 	lich_to_be.visible_message("<span class='notice'>[lich_to_be] has been empowered by the soul pool!</span>")
 	lich_to_be = null
 	return ..()
