@@ -325,7 +325,8 @@
 		playsound(src, 'sound/machines/clockcult/integration_cog_install.ogg', 50, TRUE)
 
 /obj/structure/chair/office
-	desc = "The propulsion of any lazy office worker."
+	name = "office chair"
+	desc = "The propulsion of any lazy office worker, it has wheels."
 	anchored = FALSE
 	buildstackamount = 5
 	item_chair = null

@@ -216,8 +216,13 @@
 
 /obj/structure/bed/alien
 	name = "resting contraption"
-	desc = "This looks similar to contraptions from Earth. Could aliens be stealing our technology?"
+	desc = "This looks similar to a normal bed from Earth. Could aliens be stealing <b>our technology</b>?"
 	icon_state = "abed"
+
+/obj/structure/bed/alien/examine(mob/user)
+	. = ..()
+	if(isabductor(user))
+		. += "<span class='abductor'>Fairly sure we absoluteley steal that technology.</span>"
 
 //unfortunateley no sickness mechanics on them... yet
 /obj/structure/bed/maint
@@ -239,11 +244,13 @@
 	if(buckled_mobs.len > 1 && !goldilocks) //Push the second buckled mob a bit higher from the normal lying position, also, if someone can figure out the same thing for plushes, i'll be really glad to know how to
 		M.pixel_y = initial(M.pixel_y) + 6
 		goldilocks = M
+		UnregisterSignal(buckled_mobs, COMSIG_PARENT_QDELETING)
 
 /obj/structure/bed/double/post_unbuckle_mob(mob/living/M)
 	M.pixel_y = initial(M.pixel_y) + M.get_standard_pixel_y_offset(M.lying)
 	if(M == goldilocks)
 		goldilocks = null
+		UnregisterSignal(buckled_mobs, COMSIG_PARENT_QDELETING)
 
 /obj/structure/bed/double/maint
 	name = "double dirty mattress"
@@ -252,5 +259,10 @@
 
 /obj/structure/bed/double/alien
 	name = "double resting contraption"
-	desc = "This looks similar to contraptions from Earth. Could aliens be stealing our technology?"
+	desc = "This looks similar to a normal double bed from Earth. Could aliens be stealing <b>our technology</b>?"
 	icon_state = "abed_double"
+
+/obj/structure/bed/double/alien/examine(mob/user)
+	. = ..()
+	if(isabductor(user))
+		. += "<span class='abductor'>Fairly sure we absoluteley steal that technology...Why did we steal this again?</span>"

@@ -42,6 +42,7 @@
 
 /obj/structure/chair/fancy/bench/bamboo/left
 	icon_state = "bamboo_sofaend_left"
+
 /obj/structure/chair/fancy/bench/bamboo/right
 	icon_state = "bamboo_sofaend_right"
 
