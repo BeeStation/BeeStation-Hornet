@@ -46,8 +46,8 @@
 	. = ..()
 	ink = new initial_ink_type(src)
 
-/obj/item/airlock_painter/update_icon(var/base)
-	base |= initial(icon_state)  // incase you wanted to change the base sprite dynamically for SOME reason
+/obj/item/airlock_painter/update_icon()
+	var/base = initial(icon_state)
 	if(!istype(ink))
 		icon_state = "[base]_none"
 		return
@@ -136,7 +136,7 @@
 /obj/item/airlock_painter/examine(mob/user)
 	. = ..()
 	if(!ink)
-		. += "<span class='notice'>It doesn't have a toner cartridge installed.</span>"
+		. += "<span class='notice'>The ink compartment hangs open.</span>"
 		return
 	var/ink_level = "high"
 	switch(ink.charges/ink.max_charges)
