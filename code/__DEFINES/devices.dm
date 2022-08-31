@@ -43,7 +43,7 @@
 #define THEME_SYNDICATE "syndicate"
 
 GLOBAL_LIST_INIT(ntos_device_themes_default, list(
-	"NtOS Default"= THEME_NTOS,
+	"NtOS Default" = THEME_NTOS,
 	"Thinktronic Classic" = THEME_THINKTRONIC,
 	"NtOS Light" = THEME_NTOS_LIGHT,
 	"NtOS Dark" = THEME_NTOS_DARK,
