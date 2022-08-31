@@ -135,8 +135,7 @@ const ChemMasterContent = (props, context) => {
           </>
         )}>
         <PackagingControls
-          volumeState={volumeState}
-          volumeExact={volumeExact} />
+          volume={volumeState === "Exact" ? volumeExact : "auto"} />
       </Section>
       {!!isPillBottleLoaded && (
         <Section
@@ -249,7 +248,7 @@ const PackagingControlsItem = props => {
   );
 };
 
-const PackagingControls = ({ volumeState, volumeExact }, context) => {
+const PackagingControls = ({ volume }, context) => {
   const { act, data } = useBackend(context);
   const [
     pillAmount,
@@ -272,7 +271,6 @@ const PackagingControls = ({ volumeState, volumeExact }, context) => {
     chosenPillStyle,
     pillStyles = [],
   } = data;
-  const volume = volumeState === "Exact" ? volumeExact : "auto";
   return (
     <LabeledList>
       {!condi && (
