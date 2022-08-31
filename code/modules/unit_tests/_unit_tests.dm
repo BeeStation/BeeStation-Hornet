@@ -68,7 +68,6 @@
 #include "ntnetwork_tests.dm"
 #include "projectiles.dm"
 #include "subsystem_init.dm"
-#include "subsystem_metric_sanity.dm"
 #include "tgui_create_message.dm"
 #include "timer_sanity.dm"
 #include "unit_test.dm"
