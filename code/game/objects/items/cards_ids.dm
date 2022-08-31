@@ -791,8 +791,7 @@ update_label("John Doe", "Clowny")
 			var/difference = amount_to_remove - B_from.account_balance
 			B_from.bank_card_talk("<span class='warning'>ERROR: The linked account requires [difference] more credit\s to perform that transfer.</span>", TRUE)
 			return
-	else
-		return ..()
+	return ..()
 
 /obj/item/card/id/departmental_budget/emag_act(mob/user)
 	if(obj_flags & EMAGGED)
