@@ -236,6 +236,9 @@
 	for(var/A in SSeconomy.bank_accounts)
 		var/datum/bank_account/B = A
 		if(B.account_id == new_bank_id)
+			if(B.suspended)
+				to_chat(user, "<span class='notice'>The target bank account has been closed as its owner went cryosleep.</span>")
+				return
 			if (old_account)
 				old_account.bank_cards -= src
 

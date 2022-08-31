@@ -200,8 +200,7 @@
 	if(!visualsOnly)
 		var/datum/bank_account/bank_account = new(H.real_name, src)
 		bank_account.payday(STARTING_PAYCHECKS, TRUE)
-		if(H.mind)
-			H.mind.account_id = bank_account.account_id
+		H.mind?.account_id = bank_account.account_id
 
 	//Equip the rest of the gear
 	H.dna.species.before_equip_job(src, H, visualsOnly)
@@ -333,7 +332,7 @@
 		for(var/A in SSeconomy.bank_accounts)
 			var/datum/bank_account/B = A
 			if(H.mind)
-				if(B.account_id == H?.mind?.account_id)
+				if(B.account_id == H.mind.account_id)
 					C.registered_account = B
 					B.bank_cards += C
 					break
