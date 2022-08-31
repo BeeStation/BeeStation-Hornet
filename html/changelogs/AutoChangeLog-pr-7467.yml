@@ -1,8 +1,0 @@
-author: benbot16
-delete-after: true
-changes:
-  - tweak: Tweaks minebot HUDs a bit.
-  - tweak: Minebots can now use all of the silicon emotes, instead of just beep.
-  - bugfix: Fixes minebot radio implants.
-  - balance: Minebots can now use computer and shuttle consoles.
-  - balance: Minebots are now slightly faster.
