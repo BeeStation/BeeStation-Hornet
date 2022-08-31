@@ -1,6 +1,6 @@
 /// below these levels trigger the special sprites
-#define PAINTER_MID 0.2
-#define PAINTER_LOW 0.1
+#define PAINTER_MID 0.5
+#define PAINTER_LOW 0.2
 
 
 /obj/item/airlock_painter
@@ -144,6 +144,8 @@
 			ink_level = "extremely low"
 		if(PAINTER_LOW to PAINTER_MID)
 			ink_level = "low"
+		if(PAINTER_MID to 1)
+			ink_level = "high"
 		if(1 to INFINITY) //Over 100% (admin var edit)
 			ink_level = "dangerously high"
 		else
@@ -437,6 +439,9 @@
 
 	/// Default alpha for /obj/effect/turf_decal/tile
 	var/default_alpha = 110
+
+/obj/item/airlock_painter/decal/tile/update_icon()
+	icon_state = initial(icon_state)  // bc theres no unique icons for it
 
 /obj/item/airlock_painter/decal/tile/paint_floor(turf/open/floor/target)
 	// Account for 8-sided decals.
