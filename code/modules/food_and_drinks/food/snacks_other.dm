@@ -711,3 +711,12 @@
 	filling_color = "#100800"
 	tastes = list("disgust" = 7, "tin" = 1)
 	foodtype = MEAT | GROSS | JUNKFOOD
+
+/obj/item/reagent_containers/food/snacks/pingles
+	name = "pingles"
+	desc = "A perfect blend of sour cream and onion on a potato chip. May cause space lag."
+	icon_state = "pingles"
+	list_reagents = list(/datum/reagent/consumable/nutriment = 6, /datum/reagent/consumable/cooking_oil = 2, /datum/reagent/consumable/sodiumchloride = 2)
+	trash = /obj/item/c_tube
+	tastes = list("sour cream" = 2, "onion" = 1)
+	foodtype = FRIED
