@@ -163,12 +163,16 @@
 	M.invisibility = INVISIBILITY_ABSTRACT
 
 	var/list/contents = M.contents.Copy()
-
-	if(iscyborg(M))
-		var/mob/living/silicon/robot/Robot = M
-		if(Robot.mmi)
-			qdel(Robot.mmi)
-		Robot.notify_ai(NEW_BORG)
+	if(issilicon(M)) // silicons should not drop internal parts since they are supposed to be unobtainable
+		for(var/obj/item/W in contents)
+			qdel(W)
+		if(iscyborg(M))
+			var/mob/living/silicon/robot/Robot = M
+			if(Robot.deployed || Robot.mainframe)
+				Robot.undeploy() // disconnect any AI shells first
+			if(Robot.mmi)
+				qdel(Robot.mmi)
+			Robot.notify_ai(NEW_BORG)
 	else
 		for(var/obj/item/W in contents)
 			if(!M.dropItemToGround(W))
@@ -286,6 +290,9 @@
 	var/poly_msg = CONFIG_GET(keyed_list/policy)["polymorph"]
 	if(poly_msg)
 		to_chat(new_mob, poly_msg)
+
+	if((istype(new_mob, /mob/living/silicon/robot/modules/syndicate) || istype(new_mob, /mob/living/carbon/alien/humanoid) || istype(new_mob, /mob/living/simple_animal/hostile)))
+		to_chat(new_mob, "<span class='userdanger'>Despite taking the form of an antagonistic being, you have the same mind as before your transformation. Your loyalties and interests remain the same. Unless you were turned into a shade, or were previously an antagonist, this is not a pass to go antagonize the station.</span>")
 
 	M.transfer_observers_to(new_mob)
 

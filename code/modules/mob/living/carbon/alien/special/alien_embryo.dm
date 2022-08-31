@@ -62,10 +62,16 @@
 	if(L.IsInStasis())
 		return
 	if(!next_stage_time)
-		COOLDOWN_START(src, next_stage_time, 1 MINUTES)
+		COOLDOWN_START(src, next_stage_time, 30 SECONDS)
 		return
 	if(COOLDOWN_FINISHED(src, next_stage_time) && stage < 5)
-		COOLDOWN_START(src, next_stage_time, rand(1 MINUTES, 1.5 MINUTES)) // Somewhere from 5-7 minutes to fully grow
+		var/additional_grow_time = 0 SECONDS
+		for(var/mob/living/carbon/alien/humanoid/A in GLOB.alive_mob_list) // Add more growing time based on how many aliens are alive
+			if(!A.key || A.stat == DEAD) // Don't count dead/SSD aliens
+				continue
+			additional_grow_time += 2 SECONDS
+		additional_grow_time = min(additional_grow_time, 1 MINUTES)
+		COOLDOWN_START(src, next_stage_time, rand(30 SECONDS, 45 SECONDS) + additional_grow_time) // Somewhere from 2.5-3.5 minutes to fully grow
 		stage++
 		INVOKE_ASYNC(src, .proc/RefreshInfectionImage)
 

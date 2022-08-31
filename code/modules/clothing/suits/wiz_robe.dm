@@ -1,7 +1,7 @@
 /obj/item/clothing/head/wizard
 	name = "wizard hat"
 	desc = "Strange-looking hat-wear that most certainly belongs to a real magic user."
-	clothing_flags = SNUG_FIT
+	clothing_flags = SNUG_FIT | THICKMATERIAL
 	icon_state = "wizard"
 	gas_transfer_coefficient = 0.01 // IT'S MAGICAL OKAY JEEZ +1 TO NOT DIE
 	permeability_coefficient = 0.01
@@ -38,6 +38,7 @@
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0, "stamina" = 0)
 	resistance_flags = FLAMMABLE
 	dog_fashion = /datum/dog_fashion/head/blue_wizard
+	clothing_flags = NONE
 
 /obj/item/clothing/head/wizard/marisa
 	name = "witch hat"
@@ -73,6 +74,7 @@
 	strip_delay = 50
 	equip_delay_other = 50
 	resistance_flags = FIRE_PROOF | ACID_PROOF
+	clothing_flags = THICKMATERIAL
 
 /obj/item/clothing/suit/wizrobe/red
 	name = "red wizard robe"
@@ -126,6 +128,7 @@
 	permeability_coefficient = 1
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0, "stamina" = 0)
 	resistance_flags = FLAMMABLE
+	clothing_flags = NONE
 
 /obj/item/clothing/head/wizard/marisa/fake
 	name = "witch hat"
@@ -135,6 +138,7 @@
 	permeability_coefficient = 1
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0, "stamina" = 0)
 	resistance_flags = FLAMMABLE
+	clothing_flags = NONE
 
 /obj/item/clothing/suit/wizrobe/marisa/fake
 	name = "witch robe"
@@ -145,6 +149,7 @@
 	permeability_coefficient = 1
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0, "stamina" = 0)
 	resistance_flags = FLAMMABLE
+	clothing_flags = NONE
 
 /obj/item/clothing/suit/wizrobe/paper
 	name = "papier-mache robe" // no non-latin characters!
@@ -153,6 +158,7 @@
 	item_state = "wizard-paper"
 	var/robe_charge = TRUE
 	actions_types = list(/datum/action/item_action/stickmen)
+	clothing_flags = NONE
 
 
 /obj/item/clothing/suit/wizrobe/paper/ui_action_click(mob/user, action)

@@ -8,7 +8,7 @@
 	///Ref to lasso'd carp
 	var/mob/living/simple_animal/mob_target
 	///Whitelist of allowed animals
-	var/list/whitelist_mobs = list(/mob/living/simple_animal/hostile/carp, /mob/living/simple_animal/cow)
+	var/list/whitelist_mobs = list(/mob/living/simple_animal/hostile/carp, /mob/living/simple_animal/cow, /mob/living/simple_animal/hostile/retaliate/dolphin)
 
 /obj/item/mob_lasso/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
