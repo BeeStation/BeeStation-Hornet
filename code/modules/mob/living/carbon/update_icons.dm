@@ -163,7 +163,6 @@
 		
 	apply_overlay(HEAD_LAYER)
 
-
 /mob/living/carbon/update_inv_handcuffed()
 	remove_overlay(HANDCUFF_LAYER)
 	if(handcuffed)

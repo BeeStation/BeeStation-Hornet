@@ -48,7 +48,6 @@
 	inv_box.name = "uniform"
 	inv_box.icon = ui_style
 	inv_box.icon_state = "uniform"
-//	inv_box.icon_full = "template"
 	inv_box.screen_loc = ui_monkey_body
 	inv_box.slot_id = ITEM_SLOT_ICLOTHING
 	inv_box.hud = src

@@ -167,10 +167,10 @@
 	can_be_admin_equipped = TRUE
 
 /datum/job/gimmick/experiment
-	title = "Experiment"
+	title = JOB_NAME_EXPERIMENT
 	flag = EXPERIMENT
 	supervisors = "the research director"
-	department_head = list("Research Director")
+	department_head = list(JOB_NAME_RESEARCHDIRECTOR)
 	department_flag = SCIENTIST
 	gimmick = TRUE
 
