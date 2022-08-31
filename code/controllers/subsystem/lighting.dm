@@ -60,8 +60,9 @@ SUBSYSTEM_DEF(lighting)
 	for (i in 1 to GLOB.lighting_update_corners.len)
 		var/datum/lighting_corner/C = GLOB.lighting_update_corners[i]
 
+		C.needs_update = FALSE //update_objects() can call qdel if the corner is storing no data
 		C.update_objects()
-		C.needs_update = FALSE
+
 		if(init_tick_checks)
 			CHECK_TICK
 		else if (MC_TICK_CHECK)
