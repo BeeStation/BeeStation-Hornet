@@ -39,7 +39,6 @@
 	else
 		to_chat(src, "No holopad connected.")
 
-
 // Make sure that the code compiles with AI_VOX undefined
 #ifdef AI_VOX
 #define VOX_DELAY 600
