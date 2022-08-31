@@ -312,13 +312,15 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 
 		for(var/A in SSeconomy.bank_accounts)
 			if(!accessible_card)
-				break // don't use `return`
+				break	/* `break` is intended here.
+							`conitnue`: needlessly looping. Don't use.
+							`return`: this code needs to run lines after this. Don't use. */
 
 			var/datum/bank_account/B = A
 			if(!(B.account_department in paycheck_departments) && !(target_dept==DEPT_ALL))
 				continue
 			dat += "<tr>"
-			dat += "<td>[B.account_holder] [B.suspended ? "(In Cryo)" : ""]</td>"
+			dat += "<td>[B.account_holder] [B.suspended ? "(Account closed)" : ""]</td>"
 			dat += "<td>[B.account_job.title]</td>"
 			dat += "<td>[B.account_department]</td>"
 			if(B.suspended)

@@ -122,14 +122,12 @@
 	. = ..()
 	if(mapload && access_txt)
 		access = text2access(access_txt)
-	GLOB.id_cards += src
 
 /obj/item/card/id/Destroy()
 	if (registered_account)
 		registered_account.bank_cards -= src
 	if (my_store && my_store.my_card == src)
 		my_store.my_card = null
-	GLOB.id_cards -= src
 	return ..()
 
 /obj/item/card/id/proc/set_hud_icon_on_spawn(jobname)
@@ -465,7 +463,7 @@ update_label("John Doe", "Clowny")
 
 					for(var/bank_account in SSeconomy.bank_accounts)
 						var/datum/bank_account/account = bank_account
-						if(account.account_id == accountowner?.mind?.account_id)
+						if(account.account_id == accountowner.mind?.account_id)
 							account.bank_cards += src
 							registered_account = account
 							to_chat(user, "<span class='notice'>Your account number has been automatically assigned.</span>")
