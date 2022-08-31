@@ -326,10 +326,6 @@
 	lich_to_be = null
 	return ..()
 
-
-
-
-
 /datum/religion_rites/raise_undead
 	name = "Raise Undead"
 	desc = "Creates an undead creature if a soul is willing to take it."
