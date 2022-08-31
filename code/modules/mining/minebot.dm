@@ -30,7 +30,7 @@
 	deathmessage = "stops moving"
 	// AI stuff
 	check_friendly_fire = TRUE
-	move_to_delay = 10
+	move_to_delay = 5
 	ranged = TRUE
 	sentience_type = SENTIENCE_MINEBOT
 	stop_automated_movement_when_pulled = TRUE
@@ -82,7 +82,7 @@
 
 	// Setup radio
 	var/obj/item/implant/radio/mining/imp = new(src)
-	imp.implant(src)
+	imp.implant(src, force = TRUE)
 
 	// Setup access
 	access_card = new /obj/item/card/id(src)
@@ -94,7 +94,7 @@
 		qdel(action)
 
 	// Clear any equipment they might have
-	QDEL_LIST(installed_upgrades)
+	QDEL_LAZYLIST(installed_upgrades)
 	QDEL_NULL(stored_pka)
 	QDEL_NULL(stored_cutter)
 	QDEL_NULL(stored_drill)
@@ -108,11 +108,11 @@
 		if(stat != DEAD)
 			if(health >= maxHealth)
 				hud_used.healths.icon_state = "health0"
-			else if(health > maxHealth*0.8)
+			else if(health > maxHealth * 0.7)
 				hud_used.healths.icon_state = "health2"
-			else if(health > maxHealth * 0.5)
+			else if(health > maxHealth * 0.4)
 				hud_used.healths.icon_state = "health3"
-			else if(health > maxHealth*0.2)
+			else if(health > maxHealth * 0.2)
 				hud_used.healths.icon_state = "health4"
 			else
 				hud_used.healths.icon_state = "health5"
@@ -126,7 +126,7 @@
 		if(health >= maxHealth * 0.75)
 			. += "<span class='warning'>It looks slightly dented.</span>"
 		else if(health >= maxHealth * 0.25)
-			. += "<span class='warning'>It looks moderately dented.</span>"
+			. += "<span class='warning'>It looks <b>moderately</b> dented.</span>"
 		else if(health > 0)
 			. += "<span class='boldwarning'>It looks severely dented!</span>"
 		else
@@ -330,6 +330,9 @@
 
 /// Melee attack handling
 /mob/living/simple_animal/hostile/mining_drone/AttackingTarget()
+	if(client && istype(target, /obj/machinery/computer))
+		target.ui_interact(src)
+		return
 	if(stored_cutter && (istype(target, /obj/item/stack/ore/plasma) || istype(target, /obj/item/stack/sheet/mineral/plasma)) && mode == MODE_MINING) //Charging the on-board plasma cutter
 		stored_cutter.attackby(target, src)
 		if(stored_cutter.cell.charge == stored_cutter.cell.maxcharge) // Either charge the cutter or pick up the plasma if the cutter's full
@@ -602,7 +605,7 @@
 // Gives a health bonus to the minebot.
 /obj/item/minebot_upgrade/health
 	name = "minebot armor upgrade"
-	desc = "A minebot upgrade that improves a minebot's armor, allowing them to sustain more damage before being disabled."
+	desc = "Improves a minebot's armor, allowing them to sustain more damage before being disabled."
 	var/health_upgrade = 45
 
 /obj/item/minebot_upgrade/health/upgrade_bot(mob/living/simple_animal/hostile/mining_drone/minebot, mob/user)
