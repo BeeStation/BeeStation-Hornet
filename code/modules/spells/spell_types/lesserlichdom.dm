@@ -25,7 +25,7 @@
 		var/list/hand_items = list()
 		if(iscarbon(M))
 			hand_items = list(M.get_active_held_item(),M.get_inactive_held_item())
-		if(!hand_items.len)
+		if(!length(hand_items))
 			to_chat(M, "<span class='caution'>You must hold an item you wish to make your phylactery...</span>")
 			return
 		if(!M.mind.hasSoul)
@@ -92,14 +92,14 @@
 	active_phylacteries++
 	GLOB.poi_list |= src
 	START_PROCESSING(SSobj, src)
-	if(initial(SSticker.mode.round_ends_with_antag_death))
+	if(initial(SSticker.mode.round_ends_with_antag_death) && mind.special_role)
 		SSticker.mode.round_ends_with_antag_death = FALSE
 
 /obj/item/lesserphylactery/Destroy(force=FALSE)
 	STOP_PROCESSING(SSobj, src)
 	active_phylacteries--
 	GLOB.poi_list -= src
-	if(!active_phylacteries)
+	if(!active_phylacteries && mind.special_role)
 		SSticker.mode.round_ends_with_antag_death = initial(SSticker.mode.round_ends_with_antag_death)
 	. = ..()
 
@@ -107,7 +107,6 @@
 	if(QDELETED(mind))
 		qdel(src)
 		return
-
 	if(!mind.current || (mind.current && mind.current.stat == DEAD))
 		addtimer(CALLBACK(src, .proc/rise), respawn_time, TIMER_UNIQUE)
 
