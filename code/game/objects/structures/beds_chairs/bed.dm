@@ -222,7 +222,7 @@
 /obj/structure/bed/alien/examine(mob/user)
 	. = ..()
 	if(isabductor(user))
-		. += "<span class='abductor'>Fairly sure we absoluteley stole that technology.</span>"
+		. += "<span class='abductor'>Fairly sure we absolutely stole that technology.</span>"
 
 //unfortunateley no sickness mechanics on them... yet
 /obj/structure/bed/maint
@@ -271,4 +271,4 @@
 /obj/structure/bed/double/alien/examine(mob/user)
 	. = ..()
 	if(isabductor(user))
-		. += "<span class='abductor'>Fairly sure we absoluteley stole that technology...Why did we stole this again?</span>"
+		. += "<span class='abductor'>Fairly sure we absolutely stole that technology... Why did we steal this again?</span>"
