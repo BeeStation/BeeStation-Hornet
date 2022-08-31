@@ -575,9 +575,9 @@
 /datum/spellbook_entry/summon/curse_of_madness/Buy(mob/living/carbon/human/user, obj/item/spellbook/book)
 	SSblackbox.record_feedback("tally", "wizard_spell_learned", 1, name)
 	active = TRUE
-	var/message = stripped_input(user, "Whisper a secret truth to drive your victims to madness.", "Whispers of Madness")
-	if(!message)
-		message = "Wizard has cast the Curse of Madness, but they didn't know what to say. This is a vile secret too."
+	var/message
+	while(!message)
+		message = stripped_input(user, "Whisper a secret truth to drive your victims to madness.", "Whispers of Madness")
 	curse_of_madness(user, message)
 	to_chat(user, "<span class='notice'>You have cast the curse of insanity!</span>")
 	playsound(user, 'sound/magic/mandswap.ogg', 50, 1)
