@@ -92,16 +92,11 @@
 	active_phylacteries++
 	GLOB.poi_list |= src
 	START_PROCESSING(SSobj, src)
-	if(initial(SSticker.mode.round_ends_with_antag_death) && mind.special_role)
-		SSticker.mode.round_ends_with_antag_death = FALSE
 
 /obj/item/lesserphylactery/Destroy(force=FALSE)
 	STOP_PROCESSING(SSobj, src)
 	active_phylacteries--
 	GLOB.poi_list -= src
-	if(!active_phylacteries && mind.special_role)
-		SSticker.mode.round_ends_with_antag_death = initial(SSticker.mode.round_ends_with_antag_death)
-	. = ..()
 
 /obj/item/lesserphylactery/process()
 	if(QDELETED(mind))
