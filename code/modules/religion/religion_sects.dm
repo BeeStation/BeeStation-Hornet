@@ -137,9 +137,9 @@
 	tgui_icon = "robot"
 	alignment = ALIGNMENT_NEUT
 	desired_items = list(/obj/item/stock_parts/cell = "with battery charge")
-	rites_list = list(/datum/religion_rites/synthconversion, /datum/religion_rites/machine_blessing)
+	rites_list = list(/datum/religion_rites/synthconversion, /datum/religion_rites/machine_blessing, /datum/religion_rites/machine_implantation)
 	altar_icon_state = "convertaltar-blue"
-	max_favor = 2500
+	max_favor = 5000
 
 /datum/religion_sect/technophile/sect_bless(mob/living/target, mob/living/chap)
 	if(iscyborg(target))
@@ -193,7 +193,7 @@
 	if(the_cell.charge < 300)
 		to_chat(chap,"<span class='notice'>[GLOB.deity] does not accept pity amounts of power.</span>")
 		return
-	adjust_favor(round(the_cell.charge/300), chap)
+	adjust_favor(round(the_cell.charge/100), chap)
 	to_chat(chap, "<span class='notice'>You offer [the_cell]'s power to [GLOB.deity], pleasing them.</span>")
 	qdel(I)
 	return TRUE
