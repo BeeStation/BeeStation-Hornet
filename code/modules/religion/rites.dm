@@ -315,10 +315,9 @@
 	if(!length(movable_reltool.buckled_mobs))
 		lich_to_be = user
 	else
-		for(var/buckled in movable_reltool.buckled_mobs)
-			if(ishuman(buckled))
-				lich_to_be = buckled
-				break
+		for(var/mob/living/human/buckled in movable_reltool.buckled_mobs)
+			lich_to_be = buckled
+			break
 	if(!lich_to_be)
 		return FALSE
 	lich_to_be.AddSpell(new lichspell(null))
