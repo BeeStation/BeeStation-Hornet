@@ -49,6 +49,7 @@
 			if(!message)
 				return
 			if(src in channel.muted_clients)
+				to_chat(usr, "<span class='warning'>ERROR: You are muted from this channel.</span>")
 				return
 			if(CHAT_FILTER_CHECK(message))
 				to_chat(usr, "<span class='warning'>ERROR: Prohibited word(s) detected in message.</span>")

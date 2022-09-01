@@ -23,7 +23,7 @@
 /datum/ntnet_conversation/Destroy()
 	if(SSnetworks.station_network)
 		SSnetworks.station_network.chat_channels.Remove(src)
-	for(var/datum/computer_file/program/chatclient/chatterbox in (active_clients | offline_clients | muted_clients))
+	for(var/datum/computer_file/program/chatclient/chatterbox as() in (active_clients | offline_clients | muted_clients))
 		purge_client(chatterbox)
 	return ..()
 
@@ -68,7 +68,7 @@
 	// Channel operator left, pick new operator
 	if(leaving == operator)
 		operator = null
-		if(active_clients.len)
+		if(length(active_clients))
 			var/datum/computer_file/program/chatclient/newop = pick(active_clients)
 			changeop(newop)
 
@@ -89,7 +89,7 @@
 		muted.computer.alert_call(muted, "You have been muted from [title]!")
 
 /datum/ntnet_conversation/proc/ping_user(datum/computer_file/program/chatclient/pinger, datum/computer_file/program/chatclient/pinged)
-	if(pinger in muted_clients) //oh my god fuck off
+	if(pinger in muted_clients)
 		return
 	add_status_message("[pinger.username] pinged [pinged.username].")
 	pinged.computer.alert_call(pinged, "You have been pinged in [title] by [pinger.username]!", 'sound/machines/ping.ogg')
