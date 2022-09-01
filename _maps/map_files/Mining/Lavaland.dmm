@@ -308,7 +308,6 @@
 /turf/open/indestructible/boss,
 /area/lavaland/surface/outdoors)
 "cE" = (
-/obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 1
 	},
@@ -378,6 +377,9 @@
 /obj/machinery/airalarm{
 	dir = 1;
 	pixel_y = -22
+	},
+/obj/effect/turf_decal/siding/wood/corner{
+	dir = 8
 	},
 /turf/open/floor/wood,
 /area/mine/living_quarters)
@@ -1284,11 +1286,11 @@
 /area/mine/science)
 "jY" = (
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4/lavaland{
-	dir = 8
-	},
 /obj/effect/turf_decal/stripes/line{
-	dir = 5
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 4
 	},
 /turf/open/floor/plasteel,
 /area/mine/science)
@@ -1423,16 +1425,16 @@
 /turf/open/floor/plasteel/dark,
 /area/mine/storage)
 "kU" = (
-/obj/structure/chair/fancy/bench/pew/right{
-	dir = 4
-	},
-/turf/open/floor/wood,
+/obj/machinery/space_heater,
+/obj/machinery/atmospherics/components/unary/outlet_injector/on,
+/obj/effect/turf_decal/bot_white,
+/turf/open/floor/plasteel/dark/telecomms,
 /area/mine/living_quarters)
 "kV" = (
 /obj/machinery/atmospherics/pipe/simple/general/hidden{
 	dir = 9
 	},
-/turf/open/floor/plasteel/freezer,
+/turf/open/floor/plasteel/grid/steel,
 /area/mine/living_quarters)
 "kZ" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
@@ -1944,11 +1946,15 @@
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "pf" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/janitorialcart,
-/obj/item/mop,
-/turf/open/floor/engine,
-/area/mine/science)
+/obj/machinery/camera{
+	c_tag = "Sleeper Room";
+	dir = 8;
+	network = list("mine")
+	},
+/obj/structure/table,
+/obj/item/storage/firstaid/medical/doctorbag,
+/turf/open/floor/plasteel/white,
+/area/mine/living_quarters)
 "ph" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
@@ -2054,17 +2060,9 @@
 /turf/open/floor/plasteel,
 /area/mine/production)
 "pR" = (
-/obj/item/circuitboard/machine/smoke_machine{
-	pixel_x = 12;
-	pixel_y = -7
-	},
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/decal/cleanable/oil/slippery,
-/obj/item/circuitboard/machine/rad_collector,
-/obj/effect/turf_decal/stripes/line{
-	dir = 6
-	},
-/turf/open/floor/plasteel,
+/obj/structure/frame/machine,
+/turf/open/floor/engine,
 /area/mine/science)
 "pX" = (
 /turf/closed/mineral/random/volcanic,
@@ -2098,17 +2096,13 @@
 /area/mine/living_quarters)
 "qd" = (
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/decal/cleanable/oil/slippery,
-/obj/structure/table,
-/obj/item/storage/toolbox/mechanical{
-	pixel_x = -2;
-	pixel_y = -1
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4/lavaland{
+	dir = 8
 	},
-/obj/item/storage/toolbox/electrical{
-	pixel_x = 1;
-	pixel_y = 6
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
 	},
-/turf/open/floor/engine,
+/turf/open/floor/plasteel,
 /area/mine/science)
 "qe" = (
 /obj/structure/reagent_dispensers/watertank,
@@ -2653,11 +2647,12 @@
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "uv" = (
-/obj/structure/chair/fancy/bench/pew{
+/obj/structure/chair/fancy/bench/pew/left{
 	dir = 8
 	},
-/obj/machinery/light/small{
-	dir = 4
+/obj/item/toy/plush/gondola,
+/obj/effect/turf_decal/siding/wood/corner{
+	dir = 1
 	},
 /turf/open/floor/wood,
 /area/mine/living_quarters)
@@ -2861,6 +2856,9 @@
 /area/mine/production)
 "vG" = (
 /obj/machinery/atmospherics/pipe/simple/general/hidden,
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
 /turf/open/floor/wood,
 /area/mine/living_quarters)
 "vL" = (
@@ -3150,6 +3148,12 @@
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2,
 /turf/open/floor/plasteel,
 /area/mine/production)
+"yD" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/open/floor/plasteel,
+/area/mine/production)
 "yE" = (
 /obj/machinery/conveyor{
 	dir = 4;
@@ -3437,6 +3441,12 @@
 	},
 /turf/open/floor/circuit/telecomms,
 /area/mine/maintenance)
+"AL" = (
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
+	},
+/turf/open/floor/wood,
+/area/mine/living_quarters)
 "AN" = (
 /obj/structure/bookcase/manuals,
 /obj/effect/turf_decal/stripes/line{
@@ -3459,6 +3469,9 @@
 	},
 /obj/machinery/light_switch{
 	pixel_y = -25
+	},
+/obj/effect/turf_decal/tile/neutral/tile_side{
+	dir = 9
 	},
 /turf/open/floor/plasteel/dark,
 /area/mine/maintenance)
@@ -3679,9 +3692,11 @@
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "CQ" = (
-/obj/structure/chair/stool,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/structure/chair/stool{
+	dir = 4
+	},
 /turf/open/floor/plasteel/grid/steel,
 /area/mine/laborcamp)
 "CT" = (
@@ -3712,7 +3727,7 @@
 	pixel_y = -22
 	},
 /obj/machinery/light/small,
-/turf/open/floor/plasteel/freezer,
+/turf/open/floor/plasteel/grid/steel,
 /area/mine/living_quarters)
 "De" = (
 /obj/structure/stone_tile/block{
@@ -3743,8 +3758,8 @@
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/explored)
 "Dm" = (
-/turf/closed/wall,
-/area/lavaland/surface/outdoors)
+/turf/open/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors/unexplored/danger)
 "Do" = (
 /turf/closed/wall/r_wall,
 /area/lavaland/surface/outdoors/unexplored)
@@ -3792,9 +3807,10 @@
 /turf/open/floor/plasteel,
 /area/mine/production)
 "DS" = (
-/obj/effect/spawner/structure/window/reinforced,
-/turf/open/floor/plating,
-/area/lavaland/surface/outdoors)
+/obj/machinery/atmospherics/pipe/simple/general/hidden,
+/obj/effect/turf_decal/siding/wood,
+/turf/open/floor/wood,
+/area/mine/living_quarters)
 "Ee" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -3904,10 +3920,19 @@
 /turf/open/floor/plasteel/techmaint,
 /area/mine/science)
 "EW" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/oil/slippery,
 /obj/structure/table,
-/obj/item/storage/firstaid/regular,
-/turf/open/floor/plasteel/white,
-/area/mine/living_quarters)
+/obj/item/storage/toolbox/mechanical{
+	pixel_x = -2;
+	pixel_y = -1
+	},
+/obj/item/storage/toolbox/electrical{
+	pixel_x = 1;
+	pixel_y = 6
+	},
+/turf/open/floor/engine,
+/area/mine/science)
 "Fa" = (
 /obj/structure/chair/fancy/sofa/old/right{
 	dir = 1
@@ -4022,7 +4047,7 @@
 /area/lavaland/surface/outdoors)
 "FM" = (
 /obj/machinery/washing_machine,
-/turf/open/floor/plasteel/freezer,
+/turf/open/floor/plasteel/grid/steel,
 /area/mine/living_quarters)
 "FR" = (
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
@@ -4037,11 +4062,6 @@
 /turf/open/floor/plasteel/techmaint,
 /area/mine/laborcamp)
 "FS" = (
-/obj/machinery/camera{
-	c_tag = "Sleeper Room";
-	dir = 1;
-	network = list("mine")
-	},
 /obj/structure/table/optable{
 	name = "Robotics Operating Table"
 	},
@@ -4157,7 +4177,7 @@
 	dir = 4
 	},
 /obj/machinery/portable_atmospherics/canister/water_vapor,
-/turf/open/floor/plasteel/freezer,
+/turf/open/floor/plasteel/grid/steel,
 /area/mine/living_quarters)
 "GX" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
@@ -4252,6 +4272,7 @@
 /obj/effect/turf_decal/stripes/closeup{
 	dir = 1
 	},
+/obj/machinery/door/firedoor,
 /turf/open/floor/plasteel/grid,
 /area/mine/living_quarters)
 "Hq" = (
@@ -4342,6 +4363,9 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
+	},
+/obj/effect/turf_decal/siding/wood{
+	dir = 1
 	},
 /turf/open/floor/wood,
 /area/mine/living_quarters)
@@ -4597,12 +4621,13 @@
 /turf/open/floor/plasteel/dark,
 /area/mine/eva)
 "JK" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/reagent_dispensers/watertank,
-/obj/machinery/light/small{
-	dir = 4
+/obj/item/circuitboard/machine/smoke_machine{
+	pixel_x = 12;
+	pixel_y = -7
 	},
-/turf/open/floor/engine,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/decal/cleanable/oil/slippery,
+/turf/open/floor/plasteel,
 /area/mine/science)
 "JW" = (
 /obj/structure/extinguisher_cabinet{
@@ -4707,7 +4732,7 @@
 /obj/machinery/firealarm{
 	pixel_y = 26
 	},
-/turf/open/floor/plasteel/freezer,
+/turf/open/floor/plasteel/grid/steel,
 /area/mine/living_quarters)
 "KN" = (
 /obj/structure/stone_tile,
@@ -4840,12 +4865,13 @@
 /turf/open/floor/plasteel/techmaint,
 /area/mine/storage)
 "LI" = (
-/obj/structure/chair/fancy/bench/pew/left{
-	dir = 8
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/reagent_dispensers/watertank,
+/obj/machinery/light/small{
+	dir = 4
 	},
-/obj/item/toy/plush/gondola,
-/turf/open/floor/wood,
-/area/mine/living_quarters)
+/turf/open/floor/engine,
+/area/mine/science)
 "LJ" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4/lavaland{
 	dir = 8
@@ -5056,7 +5082,7 @@
 /obj/machinery/shower{
 	pixel_y = 12
 	},
-/turf/open/space/basic,
+/turf/open/floor/noslip/white,
 /area/mine/living_quarters)
 "Nz" = (
 /obj/machinery/rnd/experimentor,
@@ -5427,6 +5453,12 @@
 /obj/machinery/atmospherics/components/binary/dp_vent_pump/layer4,
 /turf/open/floor/plasteel/techmaint,
 /area/mine/laborcamp)
+"Qm" = (
+/obj/structure/chair/stool{
+	dir = 8
+	},
+/turf/open/floor/plasteel/grid/steel,
+/area/mine/laborcamp)
 "Qs" = (
 /turf/closed/mineral/random/high_chance/volcanic,
 /area/lavaland/surface/outdoors)
@@ -5447,6 +5479,7 @@
 /obj/structure/sign/poster/official/no_erp{
 	pixel_y = -32
 	},
+/obj/effect/turf_decal/siding/wood/corner,
 /turf/open/floor/wood,
 /area/mine/living_quarters)
 "Qw" = (
@@ -5692,8 +5725,13 @@
 /turf/open/floor/plasteel,
 /area/mine/eva)
 "Sg" = (
-/obj/structure/frame/machine,
 /obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/table/reinforced,
+/obj/item/circuitboard/machine/rad_collector,
+/obj/item/circuitboard/machine/smoke_machine{
+	pixel_x = 12;
+	pixel_y = -7
+	},
 /turf/open/floor/engine,
 /area/mine/science)
 "Sn" = (
@@ -5719,7 +5757,9 @@
 /turf/open/floor/plasteel/techmaint,
 /area/mine/laborcamp)
 "Sr" = (
-/obj/structure/chair/stool,
+/obj/structure/chair/stool{
+	dir = 1
+	},
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
 	dir = 1
 	},
@@ -5801,11 +5841,11 @@
 /turf/open/floor/plasteel/techmaint,
 /area/mine/science)
 "SM" = (
-/obj/structure/chair/fancy/bench/pew{
+/obj/structure/chair/fancy/bench/pew/right{
 	dir = 4
 	},
-/obj/machinery/light/small{
-	dir = 8
+/obj/effect/turf_decal/siding/wood/corner{
+	dir = 4
 	},
 /turf/open/floor/wood,
 /area/mine/living_quarters)
@@ -5966,15 +6006,15 @@
 /area/mine/science)
 "Ub" = (
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/frame/machine,
+/obj/structure/janitorialcart,
+/obj/item/mop,
 /turf/open/floor/engine,
 /area/mine/science)
 "Uo" = (
-/obj/machinery/space_heater,
-/obj/machinery/atmospherics/components/unary/outlet_injector/on,
-/obj/effect/turf_decal/bot_white,
-/turf/open/floor/plasteel/dark/telecomms,
-/area/mine/living_quarters)
+/obj/structure/frame/machine,
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/engine,
+/area/mine/science)
 "Uq" = (
 /obj/structure/closet/crate/radiation,
 /turf/open/floor/plasteel,
@@ -6478,6 +6518,13 @@
 	},
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"XG" = (
+/obj/machinery/light{
+	dir = 8;
+	light_color = "#e8eaff"
+	},
+/turf/open/floor/plasteel,
+/area/mine/production)
 "XH" = (
 /obj/machinery/shower{
 	pixel_y = 12
@@ -6646,7 +6693,7 @@
 /turf/closed/wall/mineral/wood,
 /area/mine/living_quarters)
 "YN" = (
-/turf/open/floor/plasteel/freezer,
+/turf/open/floor/plasteel/grid/steel,
 /area/mine/living_quarters)
 "YP" = (
 /obj/effect/turf_decal/stripes/line{
@@ -6705,11 +6752,10 @@
 "YV" = (
 /obj/effect/turf_decal/stripes/closeup,
 /obj/machinery/atmospherics/pipe/simple/general/hidden,
+/obj/structure/fans/tiny,
 /obj/machinery/door/airlock/wood/glass{
 	name = "Sauna"
 	},
-/obj/machinery/door/firedoor,
-/obj/structure/fans/tiny,
 /turf/open/floor/plasteel/grid,
 /area/mine/living_quarters)
 "YW" = (
@@ -9056,12 +9102,12 @@ oO
 oO
 oO
 oO
+oO
+oO
 go
-oO
-oO
-oO
-oO
-oO
+Dm
+Dm
+Dm
 RR
 RR
 RR
@@ -9315,10 +9361,10 @@ oO
 oO
 oO
 oO
-oO
-oO
-oO
-oO
+go
+go
+go
+Dm
 oO
 oO
 oO
@@ -33332,8 +33378,8 @@ VM
 Iq
 Fr
 zc
-ZT
-ZT
+Qm
+Qm
 TA
 zc
 CL
@@ -35887,7 +35933,7 @@ RR
 RR
 RR
 RR
-RR
+jw
 ND
 ND
 ND
@@ -36144,10 +36190,10 @@ RR
 RR
 RR
 RR
-Dm
+jw
 vF
 yY
-DN
+XG
 KO
 DN
 HK
@@ -36401,7 +36447,7 @@ RR
 RR
 Zd
 Zd
-DS
+aT
 au
 DN
 DN
@@ -36658,10 +36704,10 @@ Zd
 Zd
 Zd
 Zd
-DS
+aT
 DN
 kZ
-DN
+pE
 jr
 pE
 pE
@@ -36915,7 +36961,7 @@ Zd
 hu
 Bq
 Bq
-Dm
+jw
 DN
 DN
 DN
@@ -37172,7 +37218,7 @@ Zd
 Mw
 Zd
 Zd
-Dm
+jw
 ZF
 DN
 DN
@@ -37429,10 +37475,10 @@ Zd
 Mw
 Zd
 Zd
-Dm
+jw
 is
 jw
-DN
+yD
 Gp
 rB
 pO
@@ -37686,7 +37732,7 @@ Zd
 PV
 Zd
 TL
-DS
+aT
 Tm
 jw
 EU
@@ -37943,7 +37989,7 @@ Zd
 Mw
 Zd
 TL
-DS
+aT
 qA
 qY
 VR
@@ -38200,7 +38246,7 @@ Zd
 Mw
 TL
 TL
-Dm
+wS
 wS
 wS
 wS
@@ -42320,7 +42366,7 @@ MZ
 GX
 MZ
 Kf
-Cm
+AL
 Cm
 qR
 XR
@@ -43076,9 +43122,9 @@ Zd
 Zd
 Zd
 Zd
+Zd
 IJ
 IJ
-ZH
 ZH
 ZH
 ZH
@@ -43332,11 +43378,11 @@ Zd
 Zd
 Zd
 Zd
+Zd
 IJ
 IJ
 ZH
 ZH
-YM
 YM
 YM
 ZH
@@ -43589,11 +43635,11 @@ Zd
 Zd
 Zd
 Zd
+Zd
 IJ
 ZH
 ZH
 YM
-kU
 SM
 Qu
 ZH
@@ -43845,14 +43891,14 @@ Zd
 Zd
 Zd
 Zd
+Zd
 IJ
 IJ
 ZH
 YM
-Uo
+kU
 vG
-vG
-vG
+DS
 YV
 kV
 YN
@@ -44102,12 +44148,12 @@ IJ
 IJ
 Zd
 Zd
+Zd
 IJ
 IJ
 ZH
 ZH
 YM
-LI
 uv
 dq
 ZH
@@ -44360,11 +44406,11 @@ Zd
 Zd
 Zd
 Zd
+Zd
 IJ
 IJ
 ZH
 ZH
-YM
 YM
 YM
 ZH
@@ -44376,9 +44422,9 @@ MF
 eW
 MZ
 wz
-iP
+pf
 Rw
-EW
+iP
 uA
 ZH
 IJ
@@ -44620,7 +44666,7 @@ Zd
 IJ
 IJ
 IJ
-ZH
+IJ
 ZH
 vy
 vy
@@ -45391,7 +45437,7 @@ Zd
 Zd
 Zd
 Zd
-Zd
+IJ
 IJ
 vy
 ke
@@ -46442,9 +46488,9 @@ RR
 RR
 Zd
 Zd
-RR
-RR
 Zd
+RR
+RR
 RR
 RR
 RR
@@ -46699,9 +46745,9 @@ RR
 RR
 RR
 RR
-RR
-RR
 Zd
+Zd
+RR
 RR
 RR
 RR
@@ -46957,8 +47003,8 @@ RR
 RR
 RR
 RR
-RR
-RR
+Zd
+Zd
 RR
 RR
 RR
@@ -47215,7 +47261,7 @@ RR
 RR
 RR
 RR
-RR
+Zd
 RR
 RR
 RR
@@ -49785,8 +49831,8 @@ IJ
 IJ
 Zd
 Zd
-Zd
-Zd
+RR
+RR
 RR
 RR
 RR
@@ -50042,7 +50088,7 @@ Zd
 Zd
 Zd
 RR
-Zd
+RR
 Zd
 RR
 RR
@@ -50296,8 +50342,8 @@ mp
 Zd
 Zd
 Zd
-Zd
-Zd
+RR
+RR
 RR
 RR
 RR
@@ -50545,16 +50591,16 @@ im
 Jo
 Xb
 mp
-pf
-jY
-pR
 YW
+jY
+Kh
+Sg
 mp
 Zd
 Zd
-Zd
-Zd
-Zd
+RR
+RR
+RR
 RR
 RR
 RR
@@ -50805,12 +50851,12 @@ jh
 Ub
 qd
 JK
-Sg
-jh
+YW
+mp
 Zd
 Zd
 Zd
-Zd
+RR
 Zd
 RR
 RR
@@ -51059,15 +51105,15 @@ jh
 vf
 jh
 jh
-jh
-jh
-jh
-jh
+pR
+EW
+LI
+Uo
 jh
 Zd
-Zd
-Zd
-Zd
+RR
+RR
+RR
 Zd
 RR
 RR
@@ -51316,15 +51362,15 @@ oq
 eK
 cm
 jh
-IJ
-IJ
-rY
-IJ
+jh
+jh
+jh
+jh
+jh
 Zd
-Zd
-Zd
-Zd
-Zd
+RR
+RR
+RR
 Zd
 RR
 RR
@@ -51579,9 +51625,9 @@ rY
 IJ
 Zd
 Zd
-Zd
-Zd
-Zd
+RR
+RR
+RR
 Zd
 RR
 RR
@@ -51835,10 +51881,10 @@ IJ
 IJ
 Zd
 Zd
-Zd
-Zd
-Zd
-Zd
+RR
+RR
+RR
+RR
 Zd
 RR
 RR
@@ -52092,10 +52138,10 @@ IJ
 Zd
 Zd
 Zd
-Zd
-Zd
-Zd
-Zd
+RR
+RR
+RR
+RR
 RR
 RR
 RR
@@ -52352,7 +52398,7 @@ Zd
 Zd
 Zd
 Zd
-Zd
+RR
 RR
 RR
 RR
@@ -52606,9 +52652,9 @@ Zd
 Zd
 Zd
 Zd
+RR
 Zd
-Zd
-Zd
+RR
 RR
 RR
 RR
@@ -52865,7 +52911,7 @@ Zd
 Zd
 Zd
 Zd
-Zd
+RR
 RR
 RR
 RR
@@ -53122,7 +53168,7 @@ Zd
 Zd
 Zd
 Zd
-Zd
+RR
 RR
 RR
 RR
