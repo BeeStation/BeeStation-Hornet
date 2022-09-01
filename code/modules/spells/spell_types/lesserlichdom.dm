@@ -97,7 +97,7 @@
 	STOP_PROCESSING(SSobj, src)
 	active_phylacteries--
 	GLOB.poi_list -= src
-	. = ..()
+	return ..()
 
 /obj/item/lesserphylactery/process()
 	if(QDELETED(mind))
