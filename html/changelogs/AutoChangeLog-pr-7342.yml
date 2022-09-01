@@ -1,0 +1,12 @@
+author: ro5490
+delete-after: true
+changes:
+  - rscadd: The Chaplain now has access to a Space Carp Sect!
+  - rscadd: Flood Area rite for the Carp Sect, flood the chapel with water - 200 Favor
+      Cost
+  - rscadd: Summon Carp-Suit rite for the Carp Sect, Summons a Space-Carp suit! -
+      300 Favor cost
+  - rscadd: Summon Carp rite for the Carp Sect, Summon a Holy Space-Carp from the
+      observer pool - 500 Favor cost
+  - rscadd: Carp Sect uses the blue altar
+  - rscadd: Summoned Carp are sub-chaplains and as such, are holy!
