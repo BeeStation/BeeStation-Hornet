@@ -1,7 +1,7 @@
 #define CHALLENGE_TELECRYSTALS 280
-#define CHALLENGE_TIME_LIMIT 3000
+#define CHALLENGE_TIME_LIMIT 5 MINUTES
 #define CHALLENGE_MIN_PLAYERS 50
-#define CHALLENGE_SHUTTLE_DELAY 15000 // 25 minutes, so the ops have at least 5 minutes before the shuttle is callable.
+#define CHALLENGE_SHUTTLE_DELAY 35 MINUTES	//35 minutes, giving nukies at least 20 minutes to enact their assault.
 
 /obj/item/nuclear_challenge
 	name = "Declaration of War (Challenge Mode)"
@@ -48,11 +48,15 @@
 	if(!check_allowed(user) || !war_declaration)
 		return
 
+	declare_war(user, war_declaration)
+
+/obj/item/nuclear_challenge/proc/declare_war(mob/user, war_declaration)
 	priority_announce(war_declaration, "Declaration of War", 'sound/machines/alarm.ogg',  has_important_message = TRUE)
 
 	play_soundtrack_music(/datum/soundtrack_song/bee/future_perception)
 
-	to_chat(user, "You've attracted the attention of powerful forces within the syndicate. A bonus bundle of telecrystals has been granted to your team. Great things await you if you complete the mission.")
+	if(user)
+		to_chat(user, "You've attracted the attention of powerful forces within the syndicate. A bonus bundle of telecrystals has been granted to your team. Great things await you if you complete the mission.")
 
 	for(var/V in GLOB.syndicate_shuttle_boards)
 		var/obj/item/circuitboard/computer/syndicate_shuttle/board = V
@@ -81,8 +85,9 @@
 		uplink.telecrystals += tc_per_nukie
 		tc_to_distribute -= tc_per_nukie
 
+
 	for (var/mob/living/L in orphans)
-		var/TC = new /obj/item/stack/telecrystal(user.drop_location(), tc_per_nukie)
+		var/TC = new /obj/item/stack/telecrystal(L.drop_location(), tc_per_nukie)
 		to_chat(L, "<span class='warning'>Your uplink could not be found so your share of the team's bonus telecrystals has been bluespaced to your [L.put_in_hands(TC) ? "hands" : "feet"].</span>")
 		tc_to_distribute -= tc_per_nukie
 

@@ -71,6 +71,7 @@ GLOBAL_LIST_EMPTY(GPS_list)
 
 	toggletracking(user)
 	ui_update()
+	return COMPONENT_INTERCEPT_ALT
 
 ///Toggles the tracking for the gps
 /datum/component/gps/item/proc/toggletracking(mob/user)
