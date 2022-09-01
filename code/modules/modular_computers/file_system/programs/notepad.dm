@@ -16,25 +16,25 @@
 
 	switch(action)
 		if("UpdateNote")
-			var/obj/item/modular_computer/tablet/comp = computer
-			if(!istype(comp))
+			var/obj/item/modular_computer/tablet/tablet = computer
+			if(!istype(tablet))
 				return
-			comp.note = params["newnote"]
+			tablet.note = params["newnote"]
 			return TRUE
 		if("ShowPaper")
-			var/obj/item/modular_computer/tablet/comp = computer
-			if(!istype(comp) || QDELETED(comp.stored_paper))
+			var/obj/item/modular_computer/tablet/tablet = computer
+			if(!istype(tablet) || QDELETED(tablet.stored_paper))
 				return
-			comp.stored_paper.ui_interact(usr)
+			tablet.stored_paper.ui_interact(usr)
 			return TRUE
 
 
 /datum/computer_file/program/notepad/ui_data(mob/user)
 	var/list/data = get_header_data()
-	var/obj/item/modular_computer/tablet/comp = computer
-	if(!istype(comp))
+	var/obj/item/modular_computer/tablet/tablet = computer
+	if(!istype(tablet))
 		return data
-	data["note"] = comp.note
-	data["has_paper"] = !QDELETED(comp.stored_paper)
+	data["note"] = tablet.note
+	data["has_paper"] = !QDELETED(tablet.stored_paper)
 
 	return data
