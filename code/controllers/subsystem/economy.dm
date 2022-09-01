@@ -47,7 +47,7 @@ SUBSYSTEM_DEF(economy)
 	for(var/datum/bank_account/target_account in SSeconomy.bank_accounts)
 		if(target_account.account_id == target_id)
 			return target_account
-	return
+	return null
 
 /datum/controller/subsystem/economy/proc/get_dep_account(dep_id)
 	for(var/datum/bank_account/department/D in generated_accounts)

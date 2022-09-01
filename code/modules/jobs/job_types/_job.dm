@@ -329,13 +329,13 @@
 		C.assignment = J.title
 		C.set_hud_icon_on_spawn(J.title)
 		C.update_label()
-		for(var/A in SSeconomy.bank_accounts)
-			var/datum/bank_account/B = A
-			if(H.mind)
-				if(B.account_id == H.mind.account_id)
-					C.registered_account = B
-					B.bank_cards += C
-					break
+		for(var/datum/bank_account/B in SSeconomy.bank_accounts)
+			if(!H.mind)
+				continue
+			if(B.account_id == H.mind.account_id)
+				C.registered_account = B
+				B.bank_cards += C
+				break
 		H.sec_hud_set_ID()
 
 	var/obj/item/pda/PDA = H.get_item_by_slot(pda_slot)

@@ -15,7 +15,7 @@
 	var/welfare = FALSE
 	var/being_dumped = FALSE //pink levels are rising
 	var/withdrawDelay = 0
-	var/suspended = FALSE // used for cryo'ed people's account
+	var/suspended = FALSE /// used for cryo'ed people's account
 	var/total_paid_payment = 0
 
 /datum/bank_account/New(newname, job)
@@ -59,7 +59,7 @@
 
 /datum/bank_account/proc/payday(amt_of_paychecks, free = FALSE)
 	if(suspended)
-		bank_card_talk("ERROR: Payday aborted, the account holder had been moved to cryo storage.")
+		bank_card_talk("ERROR: Payday aborted, the account is closed by Nanotrasen Space Finance.")
 		return FALSE
 	var/money_to_transfer = paycheck_amount * amt_of_paychecks
 	if(welfare)

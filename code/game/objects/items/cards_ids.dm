@@ -175,6 +175,9 @@
 	if(!registered_account)
 		to_chat(user, "<span class='warning'>[src] doesn't have a linked account to deposit [I] into!</span>")
 		return
+	if(registered_account.suspended)
+		to_chat(user, "<span class='warning'>The bank account is closed by Nanotrasen Space Finance.</span>")
+		return
 	var/cash_money = I.get_item_credit_value()
 	if(!cash_money)
 		to_chat(user, "<span class='warning'>[I] doesn't seem to be worth anything!</span>")
@@ -193,6 +196,10 @@
 	if(!registered_account)
 		to_chat(user, "<span class='warning'>[src] doesn't have a linked account to deposit into!</span>")
 		return FALSE
+
+	if(registered_account.suspended)
+		to_chat(user, "<span class='warning'>The bank account is closed by Nanotrasen Space Finance.</span>")
+		return
 
 	if (!money || !money.len)
 		return FALSE
@@ -237,7 +244,7 @@
 		var/datum/bank_account/B = A
 		if(B.account_id == new_bank_id)
 			if(B.suspended)
-				to_chat(user, "<span class='warning'>The target bank account has been closed as its owner went cryosleep.</span>")
+				to_chat(user, "<span class='warning'>The target bank account is closed by Nanotrasen Space Finance.</span>")
 				return
 			if (old_account)
 				old_account.bank_cards -= src
@@ -257,6 +264,10 @@
 
 	if(!registered_account)
 		set_new_account(user)
+		return
+
+	if(registered_account.suspended)
+		to_chat(user, "<span class='warning'>The bank account is closed by Nanotrasen Space Finance.</span>")
 		return
 
 	if (world.time < registered_account.withdrawDelay)

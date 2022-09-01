@@ -283,7 +283,6 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		dat += " || Confirm Identity: "
 		var/S
 		var/list/paycheck_departments = list()
-		var/accessible_card = FALSE
 		if(inserted_scan_id)
 			S = html_encode(inserted_scan_id.name)
 			//Checking all the accesses and their corresponding departments
@@ -291,29 +290,22 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				paycheck_departments |= ACCOUNT_SRV
 				paycheck_departments |= ACCOUNT_CIV
 				paycheck_departments |= ACCOUNT_CAR //Currently no seperation between service/civillian and supply
-				accessible_card = TRUE
 			if((ACCESS_HOS in inserted_scan_id.access) && ((target_dept==DEPT_SEC) || !target_dept))
 				paycheck_departments |= ACCOUNT_SEC
-				accessible_card = TRUE
 			if((ACCESS_CMO in inserted_scan_id.access) && ((target_dept==DEPT_MED) || !target_dept))
 				paycheck_departments |= ACCOUNT_MED
-				accessible_card = TRUE
 			if((ACCESS_RD in inserted_scan_id.access) && ((target_dept==DEPT_SCI) || !target_dept))
 				paycheck_departments |= ACCOUNT_SCI
-				accessible_card = TRUE
 			if((ACCESS_CE in inserted_scan_id.access) && ((target_dept==DEPT_ENG) || !target_dept))
 				paycheck_departments |= ACCOUNT_ENG
-				accessible_card = TRUE
 		else
 			S = "--------"
 		dat += "<a href='?src=[REF(src)];choice=inserted_scan_id'>[S]</a>"
 		dat += "<table>"
 		dat += "<tr><td style='width:30%'><b>Name</b></td><td style='width:20%'><b>Job</b></td><td style='width:20%'><b>Department</b></td><td style='width:15%'><b>Paycheck</b></td><td style='width:15%'><b>Pay Bonus</b></td></tr>"
 
-		if(accessible_card)
-			for(var/A in SSeconomy.bank_accounts)
-
-				var/datum/bank_account/B = A
+		if(length(paycheck_departments))
+			for(var/datum/bank_account/B in SSeconomy.bank_accounts)
 				if(!(B.account_department in paycheck_departments) && !(target_dept==DEPT_ALL))
 					continue
 				dat += "<tr>"
@@ -329,6 +321,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				else
 					dat += "<td><a href='?src=[REF(src)];choice=adjust_pay;account=[B.account_holder]'>$[B.paycheck_amount]</a></td>"
 					dat += "<td><a href='?src=[REF(src)];choice=adjust_bonus;account=[B.account_holder]'>$[B.paycheck_bonus]</a></td>"
+				dat += "</tr>"
 	else
 		var/header = ""
 
