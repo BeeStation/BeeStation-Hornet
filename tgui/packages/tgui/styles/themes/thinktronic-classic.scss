@@ -11,6 +11,12 @@
 $disabled-color: #303030;
 
 .theme-thinktronic-classic {
+  @include meta.load-css('../components/Tabs.scss');
+  @include meta.load-css('../components/Section.scss');
+  @include meta.load-css('../components/Button.scss');
+  @include meta.load-css('../layouts/Layout.scss');
+  @include meta.load-css('../layouts/Window.scss');
+  @include meta.load-css('../layouts/TitleBar.scss');
   ul,
   ol {
     list-style-type: none;
@@ -36,38 +42,14 @@ $disabled-color: #303030;
   }
 
   .Button {
-    color: black;
-    position: relative;
-    display: inline-block;
-    line-height: 1.667em;
-    margin-right: 5px;
-    white-space: nowrap;
-    outline: 0;
-    margin-bottom: 5px;
-    // Disable selection in buttons
-    user-select: none;
-    -ms-user-select: none;
+    color: black !important;
 
-    &:last-child {
-      margin-right: 0;
-      margin-bottom: 0;
-    }
-
-    .fa,
-    .fas,
-    .far {
-      margin-left: -0.25em;
-      margin-right: -0.25em;
-      min-width: 1.333em;
-      text-align: center;
+    &:hover {
+      transition: color 0ms !important;
     }
 
     &:hover {
-      transition: color 0ms;
-    }
-
-    &:hover {
-      color: $disabled-color;
+      color: $disabled-color !important;
     }
 
     * {
@@ -76,8 +58,6 @@ $disabled-color: #303030;
   }
 
   .Button__content {
-    display: block;
-    align-self: stretch;
     text-decoration: underline !important;
   }
 
@@ -119,6 +99,7 @@ $disabled-color: #303030;
 
   .Button--selected {
     background-color: transparent !important;
+    color: black !important;
   }
 
   .Button--hasContent {
