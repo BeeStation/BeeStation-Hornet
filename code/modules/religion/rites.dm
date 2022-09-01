@@ -315,7 +315,7 @@
 	if(!length(movable_reltool.buckled_mobs))
 		lich_to_be = user
 	else
-		for(var/mob/living/human/buckled in movable_reltool.buckled_mobs)
+		for(var/mob/living/carbon/human/buckled in movable_reltool.buckled_mobs)
 			lich_to_be = buckled
 			break
 	if(!lich_to_be)
