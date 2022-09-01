@@ -75,7 +75,7 @@
 						"... We call upon you, in the face of adversity ...",
 						"... to complete us, removing that which is undesirable ...")
 	invoke_msg = "... Arise, our champion! Become that which your soul craves, live in the world as your true form!!"
-	favor_cost = 1000
+	favor_cost = 1800
 
 /datum/religion_rites/synthconversion/perform_rite(mob/living/user, atom/religious_tool)
 	if(!ismovable(religious_tool))
@@ -118,12 +118,12 @@
 
 /datum/religion_rites/machine_blessing
 	name = "Receive Blessing"
-	desc = "Receive a blessing from the machine god to further your ascension."
+	desc = "Receive a random blessing from the machine god to further your ascension."
 	ritual_length = 5 SECONDS
 	ritual_invocations =list( "Let your will power our forges.",
-							"...Help us in our great conquest!")
+							"... Help us in our great conquest!")
 	invoke_msg = "The end of flesh is near!"
-	favor_cost = 2000
+	favor_cost = 800
 
 /datum/religion_rites/machine_blessing/invoke_effect(mob/living/user, atom/movable/religious_tool)
 	..()
@@ -134,9 +134,63 @@
 					/obj/item/organ/cyberimp/eyes/hud/medical,
 					/obj/item/organ/cyberimp/mouth/breathing_tube,
 					/obj/item/organ/cyberimp/chest/thrusters,
+					/obj/item/organ/cyberimp/chest/nutriment,
+					/obj/item/organ/cyberimp/arm/toolset,
+					/obj/item/organ/wings/cybernetic,
 					/obj/item/organ/eyes/robotic/glow)
 	new blessing(altar_turf)
 	return TRUE
+
+
+/datum/religion_rites/machine_implantation
+	name = "Machine Implantation"
+	desc = "Apply a provided upgrade to your body. Place a cybernetic item on the altar, then buckle someone to implant them, otherwise it will implant you."
+	ritual_length = 30 SECONDS
+	ritual_invocations = list("Lend us your power ...",
+						"... We call upon you, grant us this upgrade ...",
+						"... Complete us, joining man and machine ...")
+	invoke_msg = "... Let the mechanical parts, Merge!!"
+	favor_cost = 1000
+	var/obj/item/organ/chosen_implant
+
+/datum/religion_rites/machine_implantation/perform_rite(mob/living/user, atom/religious_tool)
+	chosen_implant = locate() in get_turf(religious_tool)
+	if(!chosen_implant)
+		to_chat(user, "<span class='warning'>This rite requires cybernetics for implantation.</span>")
+		return FALSE
+	if(!ismovable(religious_tool))
+		to_chat(user,"<span class='warning'>This rite requires a religious device that individuals can be buckled to.</span>")
+		return FALSE
+	var/atom/movable/movable_reltool = religious_tool
+	if(length(movable_reltool.buckled_mobs))
+		to_chat(user,"<span class='warning'>You're going to merge the implant with the one buckled on [movable_reltool].</span>")
+	else if(!movable_reltool.can_buckle) //yes, if you have somehow managed to have someone buckled to something that now cannot buckle, we will still let you perform the rite!
+		to_chat(user,"<span class='warning'>This rite requires a religious device that individuals can be buckled to.</span>")
+		return FALSE
+	to_chat(user,"<span class='warning'>You're going to merge the implant into yourself with this ritual.</span>")
+	return ..()
+
+/datum/religion_rites/machine_implantation/invoke_effect(mob/living/user, atom/religious_tool)
+	..()
+	if(!ismovable(religious_tool))
+		CRASH("[name]'s perform_rite had a movable atom that has somehow turned into a non-movable!")
+	var/atom/movable/movable_reltool = religious_tool
+	var/mob/living/carbon/human/rite_target
+	if(!length(movable_reltool.buckled_mobs))
+		rite_target = user
+	else
+		for(var/buckled in movable_reltool.buckled_mobs)
+			if(ishuman(buckled))
+				rite_target = buckled
+				break
+	if(!rite_target)
+		chosen_implant = null
+		return FALSE
+	chosen_implant.Insert(rite_target)
+	rite_target.visible_message("<span class='notice'>[chosen_implant] has been merged into [rite_target] by the rite of [name]!</span>")
+	chosen_implant = null
+	return TRUE
+
 
 /**** Ever-Burning Candle sect ****/
 
