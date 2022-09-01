@@ -86,5 +86,5 @@
 	base_icon_state = "corporate_bench_left"
 
 /obj/structure/chair/fancy/bench/corporate/right
-	icon_state = "corporate_bench_left_mapping"
+	icon_state = "corporate_bench_right_mapping"
 	base_icon_state = "corporate_bench_right"
