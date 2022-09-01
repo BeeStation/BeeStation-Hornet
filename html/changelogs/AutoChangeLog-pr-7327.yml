@@ -1,9 +1,0 @@
-author: ro5490
-delete-after: true
-changes:
-  - rscadd: Added a new rite to the Technophile Sect - Machine Implantation - Add
-      cybernetics to your followers with ease!
-  - tweak: Technophile Sect favor is gained a little easier and rite costs have been
-      lowered a little
-  - tweak: Tech Sect Machine Blessing rite now has a chance to create nutriment, toolset,
-      and wing implants
