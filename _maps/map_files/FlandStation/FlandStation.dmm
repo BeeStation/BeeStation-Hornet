@@ -6003,24 +6003,6 @@
 /obj/machinery/power/supermatter_crystal/engine,
 /turf/open/floor/engine,
 /area/engine/supermatter)
-"bwM" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/neutral/tile_side{
-	dir = 8
-	},
-/obj/structure/chair/fancy/bench/corporate{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
-/area/hallway/primary/port)
 "bwQ" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
@@ -8121,7 +8103,6 @@
 /obj/effect/turf_decal/plaque{
 	icon_state = "L7"
 	},
-/obj/structure/chair/fancy/bench/corporate,
 /turf/open/floor/plasteel,
 /area/hallway/primary/port)
 "bQY" = (
@@ -16267,7 +16248,6 @@
 /obj/effect/turf_decal/plaque{
 	icon_state = "L5"
 	},
-/obj/structure/chair/fancy/bench/corporate/right,
 /turf/open/floor/plasteel,
 /area/hallway/primary/port)
 "dHx" = (
@@ -45713,15 +45693,6 @@
 	},
 /turf/open/floor/plating/airless,
 /area/science/test_area)
-"kxK" = (
-/obj/effect/turf_decal/guideline/guideline_in/red,
-/obj/effect/turf_decal/guideline/guideline_mid/purple,
-/obj/effect/turf_decal/guideline/guideline_out/yellow,
-/obj/structure/chair/fancy/bench/corporate/left{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
-/area/hallway/primary/port)
 "kxL" = (
 /obj/machinery/camera{
 	c_tag = "Security Post - Medbay";
@@ -58111,7 +58082,6 @@
 /obj/effect/turf_decal/plaque{
 	icon_state = "L9"
 	},
-/obj/structure/chair/fancy/bench/corporate/left,
 /turf/open/floor/plasteel,
 /area/hallway/primary/port)
 "nwl" = (
@@ -65671,24 +65641,6 @@
 	},
 /turf/open/floor/plating/airless,
 /area/science/test_area)
-"pst" = (
-/obj/effect/turf_decal/tile/brown/tile_side{
-	dir = 4
-	},
-/obj/structure/chair/fancy/bench/corporate{
-	dir = 1
-	},
-/turf/open/floor/plasteel/dark/side,
-/area/hallway/primary/port)
-"psv" = (
-/obj/effect/turf_decal/guideline/guideline_in/red,
-/obj/effect/turf_decal/guideline/guideline_mid/purple,
-/obj/effect/turf_decal/guideline/guideline_out/yellow,
-/obj/structure/chair/fancy/bench/corporate/right{
-	dir = 4
-	},
-/turf/open/floor/plasteel,
-/area/hallway/primary/port)
 "psH" = (
 /turf/closed/wall/r_wall,
 /area/docking/bridge)
@@ -73667,15 +73619,6 @@
 	},
 /turf/open/floor/plasteel/grid,
 /area/science/xenobiology)
-"rjy" = (
-/obj/effect/turf_decal/tile/brown/tile_side{
-	dir = 4
-	},
-/obj/structure/chair/fancy/bench/corporate/left{
-	dir = 1
-	},
-/turf/open/floor/plasteel/dark/side,
-/area/hallway/primary/port)
 "rjz" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 8
@@ -90529,15 +90472,6 @@
 /obj/effect/turf_decal/trimline/red/corner,
 /turf/open/floor/plasteel/dark,
 /area/security/main)
-"veW" = (
-/obj/effect/turf_decal/tile/brown/tile_side{
-	dir = 4
-	},
-/obj/structure/chair/fancy/bench/corporate/right{
-	dir = 1
-	},
-/turf/open/floor/plasteel/dark/side,
-/area/hallway/primary/port)
 "vfa" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -99930,9 +99864,6 @@
 /obj/effect/turf_decal/plaque{
 	icon_state = "L12"
 	},
-/obj/structure/chair/fancy/bench/corporate/right{
-	dir = 8
-	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/port)
 "xyj" = (
@@ -100345,24 +100276,6 @@
 /obj/machinery/pipedispenser,
 /turf/open/floor/plasteel/dark,
 /area/engine/atmos)
-"xDp" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral/tile_side{
-	dir = 8
-	},
-/obj/structure/chair/fancy/bench/corporate{
-	dir = 4
-	},
-/turf/open/floor/plasteel,
-/area/hallway/primary/port)
 "xDw" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/sign/directions/engineering{
@@ -102549,9 +102462,6 @@
 	},
 /obj/effect/turf_decal/plaque{
 	icon_state = "L4"
-	},
-/obj/structure/chair/fancy/bench/corporate/left{
-	dir = 4
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/port)
@@ -126954,8 +126864,8 @@ xwH
 dub
 xTG
 ydw
-xDp
-psv
+qhM
+pYk
 aUp
 tDV
 aUo
@@ -127213,7 +127123,7 @@ dHv
 hEU
 asS
 cgz
-rjy
+pzy
 hMu
 faa
 xGp
@@ -127470,7 +127380,7 @@ bQT
 paD
 qhM
 pYk
-pst
+pzy
 hMu
 svS
 typ
@@ -127727,7 +127637,7 @@ nwh
 mll
 yco
 pYk
-veW
+pzy
 hMu
 jZb
 uNa
@@ -127982,8 +127892,8 @@ xwH
 xJr
 cIh
 xyi
-bwM
-kxK
+yco
+pYk
 hhv
 tDV
 veC
