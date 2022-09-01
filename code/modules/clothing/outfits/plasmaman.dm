@@ -1,4 +1,4 @@
-/datum/outfit/plasmaman/bar
+/datum/outfit/plasmaman/bartender
 	name = "Bartender Plasmaman"
 
 	head = /obj/item/clothing/head/helmet/space/plasmaman/bartender
@@ -78,7 +78,7 @@
 	helmet_variants = list(HELMET_MK2 = /obj/item/clothing/head/helmet/space/plasmaman/mark2/white,
 							HELMET_PROTECTIVE = /obj/item/clothing/head/helmet/space/plasmaman/protective/white)
 
-/datum/outfit/plasmaman/security
+/datum/outfit/plasmaman/security_officer
 	name = "Security Plasmaman"
 
 	mask = /obj/item/clothing/mask/gas/sechailer
@@ -109,7 +109,7 @@
 	helmet_variants = list(HELMET_MK2 = /obj/item/clothing/head/helmet/space/plasmaman/mark2/security/warden,
 							HELMET_PROTECTIVE = /obj/item/clothing/head/helmet/space/plasmaman/protective/security/warden)
 
-/datum/outfit/plasmaman/secmed
+/datum/outfit/plasmaman/brig_physician
 	name = "Brig Physician Plasmaman"
 
 	mask = /obj/item/clothing/mask/gas/sechailer
@@ -119,7 +119,7 @@
 	helmet_variants = list(HELMET_MK2 = /obj/item/clothing/head/helmet/space/plasmaman/mark2/security/secmed,
 							HELMET_PROTECTIVE = /obj/item/clothing/head/helmet/space/plasmaman/protective/security/secmed)
 
-/datum/outfit/plasmaman/cargo
+/datum/outfit/plasmaman/cargo_technician
 	name = "Cargo Plasmaman"
 
 	head = /obj/item/clothing/head/helmet/space/plasmaman/cargo
@@ -128,7 +128,7 @@
 	helmet_variants = list(HELMET_MK2 = /obj/item/clothing/head/helmet/space/plasmaman/mark2/cargo,
 							HELMET_PROTECTIVE = /obj/item/clothing/head/helmet/space/plasmaman/protective/cargo)
 
-/datum/outfit/plasmaman/mining
+/datum/outfit/plasmaman/shaft_miner
 	name = "Mining Plasmaman"
 
 	head = /obj/item/clothing/head/helmet/space/plasmaman/mining
@@ -146,7 +146,7 @@
 	helmet_variants = list(HELMET_MK2 = /obj/item/clothing/head/helmet/space/plasmaman/mark2/medical,
 							HELMET_PROTECTIVE = /obj/item/clothing/head/helmet/space/plasmaman/protective/medical)
 
-/datum/outfit/plasmaman/viro
+/datum/outfit/plasmaman/virologist
 	name = "Virology Plasmaman"
 
 	head = /obj/item/clothing/head/helmet/space/plasmaman/viro
@@ -182,14 +182,14 @@
 	helmet_variants = list(HELMET_MK2 = /obj/item/clothing/head/helmet/space/plasmaman/mark2/science,
 							HELMET_PROTECTIVE = /obj/item/clothing/head/helmet/space/plasmaman/protective/science)
 
-/datum/outfit/plasmaman/emt
+/datum/outfit/plasmaman/paramedic
 	name = "Paramedic Plasmaman"
 
-	head = /obj/item/clothing/head/helmet/space/plasmaman/emt
-	uniform = /obj/item/clothing/under/plasmaman/emt
+	head = /obj/item/clothing/head/helmet/space/plasmaman/paramedic
+	uniform = /obj/item/clothing/under/plasmaman/paramedic
 
-	helmet_variants = list(HELMET_MK2 = /obj/item/clothing/head/helmet/space/plasmaman/mark2/emt,
-							HELMET_PROTECTIVE = /obj/item/clothing/head/helmet/space/plasmaman/protective/emt)
+	helmet_variants = list(HELMET_MK2 = /obj/item/clothing/head/helmet/space/plasmaman/mark2/paramedic,
+							HELMET_PROTECTIVE = /obj/item/clothing/head/helmet/space/plasmaman/protective/paramedic)
 
 /datum/outfit/plasmaman/robotics
 	name = "Robotics Plasmaman"
@@ -218,7 +218,7 @@
 	helmet_variants = list(HELMET_MK2 = /obj/item/clothing/head/helmet/space/plasmaman/mark2/engineering/atmospherics,
 							HELMET_PROTECTIVE = /obj/item/clothing/head/helmet/space/plasmaman/protective/engineering/atmospherics)
 
-/datum/outfit/plasmaman/exploration
+/datum/outfit/plasmaman/exploration_crew
 	name = "Exploration crew plasmaman"
 
 	head = /obj/item/clothing/head/helmet/space/plasmaman/exploration
@@ -237,7 +237,7 @@
 	helmet_variants = list(HELMET_MK2 = /obj/item/clothing/head/helmet/space/plasmaman/mark2/command,
 							HELMET_PROTECTIVE = /obj/item/clothing/head/helmet/space/plasmaman/protective/command)
 
-/datum/outfit/plasmaman/ce
+/datum/outfit/plasmaman/chief_engineer
 	name = "CE plasmaman"
 
 	head = /obj/item/clothing/head/helmet/space/plasmaman/engineering/ce
@@ -255,7 +255,7 @@
 	helmet_variants = list(HELMET_MK2 = /obj/item/clothing/head/helmet/space/plasmaman/mark2/cmo,
 							HELMET_PROTECTIVE = /obj/item/clothing/head/helmet/space/plasmaman/protective/cmo)
 
-/datum/outfit/plasmaman/hos
+/datum/outfit/plasmaman/head_of_security
 	name = "HoS plasmaman"
 
 	mask = /obj/item/clothing/mask/gas/sechailer
@@ -274,7 +274,7 @@
 	helmet_variants = list(HELMET_MK2 = /obj/item/clothing/head/helmet/space/plasmaman/mark2/rd,
 							HELMET_PROTECTIVE = /obj/item/clothing/head/helmet/space/plasmaman/protective/rd)
 
-/datum/outfit/plasmaman/hop
+/datum/outfit/plasmaman/head_of_personnel
 	name = "Hop plasmaman"
 
 	head = /obj/item/clothing/head/helmet/space/plasmaman/hop

@@ -445,8 +445,8 @@
 		return candidates
 
 	for(var/mob/dead/observer/G in GLOB.player_list)
-		if(COOLDOWN_FINISHED(G, creation_time) || G.started_as_observer) // Prevents people who have just died from becoming Antagonists
-			candidates += G
+		candidates += G
+
 	return pollCandidates(Question, jobbanType, gametypeCheck, be_special_flag, poll_time, ignore_category, flashwindow, candidates, req_hours)
 
 /proc/pollCandidates(Question, jobbanType, datum/game_mode/gametypeCheck, be_special_flag = 0, poll_time = 300, ignore_category = null, flashwindow = TRUE, list/group = null, req_hours = 0)
@@ -553,7 +553,7 @@
 	deadchat_broadcast(message, follow_target = character, message_type=DEADCHAT_ARRIVALRATTLE)
 	if((!GLOB.announcement_systems.len) || (!character.mind))
 		return
-	if((character.mind.assigned_role == "Cyborg") || (character.mind.assigned_role == character.mind.special_role))
+	if((character.mind.assigned_role == JOB_NAME_CYBORG) || (character.mind.assigned_role == character.mind.special_role))
 		return
 
 	var/obj/machinery/announcement_system/announcer = pick(GLOB.announcement_systems)

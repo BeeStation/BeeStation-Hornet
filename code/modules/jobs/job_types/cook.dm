@@ -1,14 +1,13 @@
 /datum/job/cook
-	title = "Cook"
+	title = JOB_NAME_COOK
 	flag = COOK
-	department_head = list("Head of Personnel")
+	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	department_flag = CIVILIAN
 	faction = "Station"
 	total_positions = 2
 	spawn_positions = 1
 	supervisors = "the head of personnel"
 	selection_color = "#bbe291"
-	chat_color = "#A2FBB9"
 	var/cooks = 0 //Counts cooks amount
 
 	outfit = /datum/outfit/job/cook
@@ -19,7 +18,7 @@
 	paycheck_department = ACCOUNT_SRV
 
 	display_order = JOB_DISPLAY_ORDER_COOK
-	departments = DEPARTMENT_SERVICE
+	departments = DEPARTMENT_BITFLAG_SERVICE
 	rpg_title = "Tavern Chef"
 
 	species_outfits = list(
@@ -27,10 +26,10 @@
 	)
 
 /datum/outfit/job/cook
-	name = "Cook"
+	name = JOB_NAME_COOK
 	jobtype = /datum/job/cook
 
-	id = /obj/item/card/id/job/serv
+	id = /obj/item/card/id/job/cook
 	belt = /obj/item/pda/cook
 	ears = /obj/item/radio/headset/headset_srv
 	uniform = /obj/item/clothing/under/rank/civilian/chef

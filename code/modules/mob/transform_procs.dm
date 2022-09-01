@@ -146,6 +146,7 @@
 		if(loc.vars[A] == src)
 			loc.vars[A] = O
 
+	O.update_sight()
 	transfer_observers_to(O)
 
 	. = O
@@ -567,7 +568,7 @@
 			R.mmi.brainmob.real_name = real_name //the name of the brain inside the cyborg is the robotized human's name.
 			R.mmi.brainmob.name = real_name
 
-	R.job = "Cyborg"
+	R.job = JOB_NAME_CYBORG
 	R.notify_ai(NEW_BORG)
 
 	. = R

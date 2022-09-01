@@ -4,14 +4,14 @@
 	desc = "A basic energy-based gun."
 	icon = 'icons/obj/guns/energy.dmi'
 	///What type of power cell this uses
-	var/obj/item/stock_parts/cell/cell 
+	var/obj/item/stock_parts/cell/cell
 	var/cell_type = /obj/item/stock_parts/cell
 	/// how much charge the cell will have, if we want the gun to have some abnormal charge level without making a new battery.
 	var/gun_charge
 	var/modifystate = 0
 	var/list/ammo_type = list(/obj/item/ammo_casing/energy)
 	///The state of the select fire switch. Determines from the ammo_type list what kind of shot is fired next.
-	var/select = 1 
+	var/select = 1
 	///Can it be charged in a recharger?
 	var/can_charge = TRUE
 	///Do we handle overlays with base update_icon()?
@@ -19,23 +19,23 @@
 	var/charge_sections = 4
 	ammo_x_offset = 2
 	///if this gun uses a stateful charge bar for more detail
-	var/shaded_charge = FALSE 
+	var/shaded_charge = FALSE
 	/// stores the gun's previous ammo "ratio" to see if it needs an updated icon
-	var/old_ratio = 0 
+	var/old_ratio = 0
 	var/selfcharge = 0
 	var/charge_timer = 0
 	var/charge_delay = 8
 	///whether the gun's cell drains the cyborg user's cell to recharge
-	var/use_cyborg_cell = FALSE 
+	var/use_cyborg_cell = FALSE
 	///set to true so the gun is given an empty cell
-	var/dead_cell = FALSE 
+	var/dead_cell = FALSE
 
 /obj/item/gun/energy/emp_act(severity)
 	. = ..()
 	if(!(. & EMP_PROTECT_CONTENTS))
 		obj_flags |= OBJ_EMPED
 		update_icon()
-		addtimer(CALLBACK(src, .proc/emp_reset), rand(600 / severity, 300 / severity))
+		addtimer(CALLBACK(src, .proc/emp_reset), rand(1, 200 / severity))
 		playsound(src, 'sound/machines/capacitor_discharge.ogg', 60, TRUE)
 
 /obj/item/gun/energy/proc/emp_reset()
@@ -64,6 +64,32 @@
 	if(selfcharge)
 		START_PROCESSING(SSobj, src)
 	update_icon()
+
+/obj/item/gun/energy/fire_sounds()
+	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
+	var/batt_percent = FLOOR(clamp(cell.charge / cell.maxcharge, 0, 1) * 100, 1)
+	var/shot_cost_percent = 0
+	var/max_shots = 0
+	var/shots_left = 0
+	var/frequency_to_use = 0
+
+	if(shot.e_cost > 0)
+		shot_cost_percent = FLOOR(clamp(shot.e_cost / cell.maxcharge, 0, 1) * 100, 1)
+		max_shots = round(100/shot_cost_percent)
+		shots_left = round(batt_percent/shot_cost_percent)
+		frequency_to_use = sin((90/max_shots) * shots_left)
+
+	var/click_frequency_to_use = 1 - frequency_to_use * 0.75
+	var/play_click = round(sqrt(max_shots * 4)) > shots_left
+
+	if(suppressed)
+		playsound(src, suppressed_sound, suppressed_volume, vary_fire_sound, ignore_walls = FALSE, extrarange = SILENCED_SOUND_EXTRARANGE, falloff_distance = 0, frequency = frequency_to_use)
+		if(play_click)
+			playsound(src, 'sound/weapons/effects/energy_click.ogg', suppressed_volume, vary_fire_sound, ignore_walls = FALSE, extrarange = SILENCED_SOUND_EXTRARANGE, falloff_distance = 0, frequency = click_frequency_to_use)
+	else
+		playsound(src, fire_sound, fire_sound_volume, vary_fire_sound, frequency = frequency_to_use)
+		if(play_click)
+			playsound(src, 'sound/weapons/effects/energy_click.ogg', fire_sound_volume, vary_fire_sound, frequency = click_frequency_to_use)
 
 /obj/item/gun/energy/proc/update_ammo_types()
 	var/obj/item/ammo_casing/energy/shot

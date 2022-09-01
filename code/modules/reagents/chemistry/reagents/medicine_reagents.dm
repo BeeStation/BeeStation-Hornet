@@ -142,7 +142,7 @@
 	name = "Cryoxadone"
 	description = "A chemical mixture with almost magical healing powers. Its main limitation is that the patient's body temperature must be under 270K for it to metabolise correctly."
 	color = "#0000C8"
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	taste_description = "blue"
 
 /datum/reagent/medicine/cryoxadone/on_mob_life(mob/living/carbon/M)
@@ -281,7 +281,7 @@
 
 /datum/reagent/medicine/oxandrolone
 	name = "Oxandrolone"
-	description = "Stimulates the healing of severe burns. Extremely rapidly heals severe burns and slowly heals minor ones. Overdose will worsen existing burns."
+	description = "Stimulates the healing of severe burns. Overdosing will double the effectiveness of healing the burns while also dealing toxin and liver damage"
 	reagent_state = LIQUID
 	color = "#1E8BFF"
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
@@ -582,7 +582,7 @@
 
 /datum/reagent/medicine/sal_acid
 	name = "Salicyclic Acid"
-	description = "Stimulates the healing of severe bruises. Extremely rapidly heals severe bruising and slowly heals minor ones. Overdose will worsen existing bruising."
+	description = "Stimulates the healing of severe bruises. Overdosing will double the effectiveness of healing the bruises while also dealing toxin and liver damage."
 	reagent_state = LIQUID
 	color = "#D2D2D2"
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
@@ -598,7 +598,7 @@
 	. = 1
 
 /datum/reagent/medicine/sal_acid/overdose_process(mob/living/M)
-	M.adjustFireLoss(-3*REM, 0)
+	M.adjustBruteLoss(-3*REM, 0)
 	M.adjustToxLoss(3*REM, 0)
 	M.adjustOrganLoss(ORGAN_SLOT_LIVER, 2)
 	..()
@@ -963,9 +963,27 @@
 	color = "#A0A0A0" //mannitol is light grey, neurine is lighter grey"
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_CHEMIST_BLOODSTREAM | CHEMICAL_GOAL_BOTANIST_HARVEST
 
-/datum/reagent/medicine/mannitol/on_mob_life(mob/living/carbon/C)
-	C.adjustOrganLoss(ORGAN_SLOT_BRAIN, -2*REM)
+/datum/reagent/medicine/mannitol/on_mob_add(mob/living/carbon/C)
+	if(HAS_TRAIT(C, TRAIT_BRAIN_TUMOR))
+		overdose_threshold = 35 // special overdose to brain tumor quirker
 	..()
+
+
+/datum/reagent/medicine/mannitol/on_mob_life(mob/living/carbon/C)
+	if(HAS_TRAIT(C, TRAIT_BRAIN_TUMOR)) // to brain tumor quirker
+		SEND_SIGNAL(C, COMSIG_ADD_MOOD_EVENT, "brain_tumor", /datum/mood_event/brain_tumor_mannitol)
+		if(!overdosed)
+			C.adjustOrganLoss(ORGAN_SLOT_BRAIN, -0.5*REM)
+	else // to ordinary people
+		C.adjustOrganLoss(ORGAN_SLOT_BRAIN, -2*REM)
+	..()
+
+/datum/reagent/medicine/mannitol/overdose_process(mob/living/carbon/C)
+	if(HAS_TRAIT(C, TRAIT_BRAIN_TUMOR))
+		if(prob(10))
+			C.adjustOrganLoss(ORGAN_SLOT_BRAIN, -0.1*REM)
+	..()
+
 
 /datum/reagent/medicine/neurine
 	name = "Neurine"

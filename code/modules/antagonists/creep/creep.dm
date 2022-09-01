@@ -5,6 +5,7 @@
 	job_rank = ROLE_OBSESSED
 	show_name_in_check_antagonists = TRUE
 	roundend_category = "obsessed"
+	count_against_dynamic_roll_chance = FALSE
 	silent = TRUE //not actually silent, because greet will be called by the trauma anyway.
 	var/datum/brain_trauma/special/obsessed/trauma
 
@@ -61,7 +62,7 @@
 	if(family_heirloom)//oh, they have an heirloom? Well you know we have to steal that.
 		objectives_left += "heirloom"
 
-	if(obsessionmind.assigned_role && obsessionmind.assigned_role != "Captain")
+	if(obsessionmind.assigned_role && obsessionmind.assigned_role != JOB_NAME_CAPTAIN)
 		objectives_left += "jealous"//if they have no coworkers, jealousy will pick someone else on the station. this will never be a free objective, nice.
 
 	for(var/i in 1 to 3)
