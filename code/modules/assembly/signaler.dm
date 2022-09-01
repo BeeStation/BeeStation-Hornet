@@ -83,6 +83,7 @@
 	data["code"] = code
 	data["minFrequency"] = MIN_FREE_FREQ
 	data["maxFrequency"] = MAX_FREE_FREQ
+	data["connection"] = !!radio_connection
 	return data
 
 /obj/item/assembly/signaler/ui_act(action, params)
@@ -94,9 +95,8 @@
 			INVOKE_ASYNC(src, .proc/signal)
 			. = TRUE
 		if("freq")
-			frequency = unformat_frequency(params["freq"])
-			frequency = sanitize_frequency(frequency, TRUE)
-			set_frequency(frequency)
+			var/new_frequency = sanitize_frequency(unformat_frequency(params["freq"]), TRUE)
+			set_frequency(new_frequency)
 			. = TRUE
 		if("code")
 			code = text2num(params["code"])

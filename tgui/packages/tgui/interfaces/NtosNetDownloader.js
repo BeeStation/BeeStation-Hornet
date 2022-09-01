@@ -123,6 +123,7 @@ const Program = (props, context) => {
     downloadname,
     downloadcompletion,
     emagged,
+    id_inserted,
   } = data;
   const disk_free = disk_size - disk_used;
   return (
@@ -165,12 +166,13 @@ const Program = (props, context) => {
                 icon={program.installed ? 'check' : 'times'}
                 color={
                   program.installed ? 'good'
-                    : !program.compatible ? 'bad' : 'grey'
+                    : !program.compatible ? 'bad' : null
                 }
+                disabled={!program.installed && program.compatible}
                 content={
                   program.installed ? 'Installed'
                     : !program.compatible ? 'Incompatible'
-                      : !program.access ? 'No Access' : 'No Space'
+                      : !program.access ? (id_inserted ? 'No Access' : "Insert ID") : 'No Space'
                 } />
             )
           )}

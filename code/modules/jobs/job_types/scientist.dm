@@ -44,6 +44,7 @@
 
 	backpack = /obj/item/storage/backpack/science
 	satchel = /obj/item/storage/backpack/satchel/tox
+	backpack_contents = list(/obj/item/modular_computer/tablet/preset/science=1)
 
 /datum/outfit/job/scientist/pre_equip(mob/living/carbon/human/H)
 	..()

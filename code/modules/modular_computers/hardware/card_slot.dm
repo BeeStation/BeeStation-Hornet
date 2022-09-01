@@ -10,11 +10,12 @@
 
 /obj/item/computer_hardware/card_slot/handle_atom_del(atom/A)
 	if(A == stored_card)
-		try_eject(null, TRUE)
+		try_eject(forced = TRUE)
 	. = ..()
 
 /obj/item/computer_hardware/card_slot/Destroy()
-	try_eject()
+	if(stored_card) //If you didn't expect this behavior for some dumb reason, do something different instead of directly destroying the slot
+		QDEL_NULL(stored_card)
 	return ..()
 
 /obj/item/computer_hardware/card_slot/GetAccess()
@@ -47,6 +48,11 @@
 
 	if(stored_card)
 		return FALSE
+
+	// item instead of player is checked so telekinesis will still work if the item itself is close
+	if(!in_range(src, I))
+		return FALSE
+
 	if(user)
 		if(!user.transferItemToLoc(I, src))
 			return FALSE
@@ -68,7 +74,7 @@
 		to_chat(user, "<span class='warning'>There are no cards in \the [src].</span>")
 		return FALSE
 
-	if(user)
+	if(user && !issilicon(user) && in_range(src, user))
 		user.put_in_hands(stored_card)
 	else
 		stored_card.forceMove(drop_location())

@@ -16,7 +16,8 @@
 		battery = new battery_type(src)
 
 /obj/item/computer_hardware/battery/Destroy()
-	QDEL_NULL(battery)
+	if(battery)
+		QDEL_NULL(battery)
 	return ..()
 
 /obj/item/computer_hardware/battery/handle_atom_del(atom/A)

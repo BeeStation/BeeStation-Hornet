@@ -27,7 +27,8 @@
 		var/pressure = environment.return_pressure()
 		var/total_moles = environment.total_moles()
 		data["AirPressure"] = round(pressure,0.1)
-		data["AirTemp"] = round(environment.return_temperature()-T0C)
+		data["AirTempC"] = round(environment.return_temperature() - T0C)
+		data["AirTempK"] = round(environment.return_temperature())
 		if (total_moles)
 			for(var/id in environment.get_gases())
 				var/gas_level = environment.get_moles(id)/total_moles
@@ -36,7 +37,8 @@
 		data["AirData"] = airlist
 	else
 		data["AirPressure"] = 0
-		data["AirTemp"] = 0
+		data["AirTempC"] = 0
+		data["AirTempK"] = 0
 		data["AirData"] = list(list())
 	return data
 

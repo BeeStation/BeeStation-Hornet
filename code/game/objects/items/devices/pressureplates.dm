@@ -27,7 +27,7 @@
 	if(roundstart_signaller)
 		sigdev = new
 		sigdev.code = roundstart_signaller_code
-		sigdev.frequency = roundstart_signaller_freq
+		sigdev.set_frequency(roundstart_signaller_freq)
 	if(isopenturf(loc))
 		hide(TRUE)
 	var/static/list/loc_connections = list(

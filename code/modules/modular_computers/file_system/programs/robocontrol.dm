@@ -5,7 +5,6 @@
 	category = PROGRAM_CATEGORY_ROBO
 	program_icon_state = "robot"
 	extended_desc = "A remote controller used for giving basic commands to non-sentient robots."
-	transfer_access = ACCESS_ROBOTICS
 	requires_ntnet = TRUE
 	network_destination = "robotics control network"
 	size = 12
@@ -39,7 +38,13 @@
 	for(var/B in GLOB.bots_list)
 		var/mob/living/simple_animal/bot/Bot = B
 		if(!Bot.on || Bot.get_virtual_z_level() != zlevel || Bot.remote_disabled) //Only non-emagged bots on the same Z-level are detected!
-			continue //Also, the PDA must have access to the bot type.
+			continue
+		else if(computer) //Also, the inserted ID must have access to the bot type
+			var/obj/item/card/id/id_card = card_slot ? card_slot.stored_card : null
+			if(!id_card && !Bot.bot_core.allowed(current_user))
+				continue
+			else if(id_card && !Bot.bot_core.check_access(id_card))
+				continue
 		var/list/newbot = list("name" = Bot.name, "mode" = Bot.get_mode_ui(), "model" = Bot.model, "locat" = get_area(Bot), "bot_ref" = REF(Bot), "mule_check" = FALSE)
 		if(Bot.bot_type == MULE_BOT)
 			var/mob/living/simple_animal/bot/mulebot/MULE = Bot
@@ -68,10 +73,15 @@
 	var/list/standard_actions = list("patroloff", "patrolon", "ejectpai")
 	var/list/MULE_actions = list("stop", "go", "home", "destination", "setid", "sethome", "unload", "autoret", "autopick", "report", "ejectpai")
 	var/mob/living/simple_animal/bot/Bot = locate(params["robot"]) in GLOB.bots_list
-	if (action in standard_actions)
-		Bot.bot_control(action, current_user, current_access)
-	if (action in MULE_actions)
-		Bot.bot_control(action, current_user, current_access, TRUE)
+	var access_okay = TRUE
+	if(!id_card && !Bot.bot_core.allowed(current_user))
+		access_okay = FALSE
+	else if(id_card && !Bot.bot_core.check_access(id_card))
+		access_okay = FALSE
+	if (access_okay && (action in standard_actions))
+		Bot.bot_control(action, current_user, id_card ? id_card.access : current_access)
+	if (access_okay && (action in MULE_actions))
+		Bot.bot_control(action, current_user, id_card ? id_card.access : current_access, TRUE)
 	switch(action)
 		if("summon")
 			Bot.bot_control(action, current_user, id_card ? id_card.access : current_access)
