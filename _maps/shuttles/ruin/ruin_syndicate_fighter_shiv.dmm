@@ -1,6 +1,6 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "aA" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 4
 	},
 /obj/machinery/turretid{
@@ -45,9 +45,7 @@
 /area/shuttle/caravan/syndicate1)
 "vD" = (
 /obj/machinery/porta_turret/syndicate/energy{
-	dir = 4;
-	icon_state = "standard_lethal";
-	mode = 1
+	dir = 4
 	},
 /turf/closed/wall/mineral/plastitanium,
 /area/shuttle/caravan/syndicate1)

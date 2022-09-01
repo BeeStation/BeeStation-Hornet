@@ -331,14 +331,16 @@
 /turf/open/floor/plasteel,
 /area/ruin/powered/animal_hospital)
 "bm" = (
-/obj/structure/chair/comfy/teal{
-	dir = 8
-	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
+	},
+/obj/effect/turf_decal/tile/blue,
+/obj/structure/chair/fancy/comfy{
+	color = "#354562" ;
+	dir = 8
 	},
 /turf/open/floor/plasteel,
 /area/ruin/powered/animal_hospital)
@@ -373,12 +375,13 @@
 /turf/open/floor/plasteel,
 /area/ruin/powered/animal_hospital)
 "bu" = (
-/obj/structure/chair/comfy/teal{
-	dir = 8
-	},
 /obj/effect/turf_decal/tile/blue,
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
+	},
+/obj/structure/chair/fancy/comfy{
+	color = "#354562" ;
+	dir = 8
 	},
 /turf/open/floor/plasteel,
 /area/ruin/powered/animal_hospital)
@@ -405,14 +408,15 @@
 /turf/open/floor/plasteel,
 /area/ruin/powered/animal_hospital)
 "bG" = (
-/obj/structure/chair/comfy/teal{
-	dir = 8
-	},
 /obj/effect/turf_decal/tile/blue,
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/obj/structure/chair/fancy/comfy{
+	color = "#354562" ;
 	dir = 8
 	},
 /turf/open/floor/plasteel,

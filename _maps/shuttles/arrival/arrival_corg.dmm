@@ -7,7 +7,7 @@
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/arrival)
 "b" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 8
 	},
 /obj/structure/sign/directions/security{
@@ -27,7 +27,7 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/arrival)
 "c" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 4
 	},
 /turf/open/floor/mineral/plastitanium,
@@ -116,7 +116,7 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/arrival)
 "l" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 8
 	},
 /turf/open/floor/mineral/plastitanium,
@@ -152,7 +152,7 @@
 /turf/open/floor/plating/airless,
 /area/shuttle/arrival)
 "r" = (
-/obj/structure/chair/comfy/shuttle,
+/obj/structure/chair/fancy/shuttle,
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
 	},
@@ -166,7 +166,7 @@
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/arrival)
 "t" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 4
 	},
 /obj/structure/sign/directions/security{
@@ -224,7 +224,7 @@
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/arrival)
 "B" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 8
 	},
 /obj/machinery/light/small{
@@ -242,7 +242,7 @@
 /turf/open/floor/plating/airless,
 /area/shuttle/arrival)
 "D" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 8
 	},
 /obj/structure/sign/directions/medical{
@@ -307,7 +307,7 @@
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/arrival)
 "J" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 4
 	},
 /obj/machinery/light/small{
@@ -373,7 +373,7 @@
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/arrival)
 "R" = (
-/obj/structure/chair/comfy/shuttle,
+/obj/structure/chair/fancy/shuttle,
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
 	},
@@ -434,7 +434,7 @@
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/arrival)
 "Z" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 4
 	},
 /obj/structure/sign/directions/medical{

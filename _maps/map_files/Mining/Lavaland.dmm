@@ -1693,7 +1693,7 @@
 /turf/open/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "gI" = (
-/obj/structure/chair/sofa/left,
+/obj/structure/chair/fancy/sofa/old/left,
 /turf/open/floor/plasteel,
 /area/mine/science)
 "gJ" = (
@@ -3971,7 +3971,7 @@
 /turf/open/floor/engine,
 /area/mine/science)
 "xy" = (
-/obj/structure/chair/sofa/left{
+/obj/structure/chair/fancy/sofa/old/left{
 	dir = 4
 	},
 /obj/item/newspaper{
@@ -4184,7 +4184,7 @@
 /turf/open/floor/plasteel,
 /area/mine/living_quarters)
 "AI" = (
-/obj/structure/chair/sofa/left{
+/obj/structure/chair/fancy/sofa/old/left{
 	dir = 8
 	},
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4/lavaland{
@@ -4734,7 +4734,7 @@
 /turf/open/floor/plating,
 /area/mine/production)
 "GS" = (
-/obj/structure/chair/sofa/right,
+/obj/structure/chair/fancy/sofa/old/right,
 /turf/open/floor/plasteel,
 /area/mine/science)
 "GU" = (
@@ -6086,7 +6086,7 @@
 /turf/open/floor/carpet/royalblue,
 /area/mine/science)
 "Wp" = (
-/obj/structure/chair/sofa/right{
+/obj/structure/chair/fancy/sofa/old/right{
 	dir = 8
 	},
 /turf/open/floor/plasteel,
@@ -6099,7 +6099,7 @@
 /turf/open/floor/plating,
 /area/mine/production)
 "Wy" = (
-/obj/structure/chair/sofa/right{
+/obj/structure/chair/fancy/sofa/old/right{
 	dir = 4
 	},
 /obj/item/clothing/glasses/science{
@@ -6306,7 +6306,7 @@
 /turf/open/floor/plasteel/dark,
 /area/mine/maintenance)
 "YT" = (
-/obj/structure/chair/comfy/brown{
+/obj/structure/chair/fancy/comfy{
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/red{

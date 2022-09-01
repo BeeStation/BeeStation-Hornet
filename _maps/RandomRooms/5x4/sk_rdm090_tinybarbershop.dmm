@@ -39,11 +39,11 @@
 /turf/open/floor/plasteel/cafeteria,
 /area/template_noop)
 "d" = (
-/obj/structure/chair/sofa/right,
+/obj/structure/chair/fancy/sofa/old/right,
 /turf/open/floor/carpet/green,
 /area/template_noop)
 "e" = (
-/obj/structure/chair/sofa/left,
+/obj/structure/chair/fancy/sofa/old/left,
 /turf/open/floor/carpet/green,
 /area/template_noop)
 "f" = (

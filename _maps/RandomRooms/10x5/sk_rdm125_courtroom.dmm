@@ -15,7 +15,6 @@
 	dir = 4
 	},
 /obj/machinery/light/built{
-	icon_state = "tube-empty";
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/red{
@@ -59,7 +58,6 @@
 /area/template_noop)
 "g" = (
 /obj/machinery/light/broken{
-	icon_state = "tube-broken";
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -143,14 +141,14 @@
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
 "q" = (
-/obj/structure/chair{
-	dir = 8
-	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/blue,
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/chair/fancy{
+	dir = 8
+	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "r" = (

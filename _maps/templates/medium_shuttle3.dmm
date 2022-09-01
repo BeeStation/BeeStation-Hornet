@@ -94,7 +94,7 @@
 /turf/open/floor/plasteel/dark,
 /area/ruin/powered/shuttle/medium_3)
 "x" = (
-/obj/structure/chair/comfy{
+/obj/structure/chair/fancy/shuttle{
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/yellow{

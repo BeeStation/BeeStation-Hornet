@@ -54,7 +54,9 @@
 /turf/closed/wall,
 /area/template_noop)
 "q" = (
-/obj/structure/chair/comfy/teal,
+/obj/structure/chair/fancy/comfy{
+	color = "#66b266"
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "s" = (
@@ -100,7 +102,9 @@
 /obj/structure/sign/nanotrasen{
 	pixel_y = 32
 	},
-/obj/structure/chair/comfy/teal,
+/obj/structure/chair/fancy/comfy{
+	color = "#66b266"
+	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "A" = (
@@ -135,7 +139,9 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
 	},
-/obj/structure/chair/comfy/teal,
+/obj/structure/chair/fancy/comfy{
+	color = "#66b266"
+	},
 /obj/item/radio/intercom{
 	pixel_y = 26
 	},
@@ -169,7 +175,9 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/structure/chair/comfy/teal,
+/obj/structure/chair/fancy/comfy{
+	color = "#66b266"
+	},
 /turf/open/floor/plasteel,
 /area/template_noop)
 "M" = (

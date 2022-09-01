@@ -62,7 +62,7 @@
 /turf/open/floor/pod/light,
 /area/shuttle/escape)
 "an" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/red{
@@ -88,7 +88,7 @@
 /turf/open/floor/pod/dark,
 /area/shuttle/escape)
 "ap" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/red,
@@ -115,7 +115,7 @@
 /turf/open/floor/pod/light,
 /area/shuttle/escape)
 "as" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/red{
@@ -215,25 +215,25 @@
 /turf/open/floor/pod/light,
 /area/shuttle/escape)
 "aK" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
 /turf/open/floor/pod/light,
 /area/shuttle/escape)
 "aL" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 8
 	},
 /turf/open/floor/pod/light,
 /area/shuttle/escape)
 "aM" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 4
 	},
 /turf/open/floor/pod/light,
 /area/shuttle/escape)
 "aN" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -250,7 +250,7 @@
 /turf/open/floor/pod/light,
 /area/shuttle/escape)
 "aQ" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -268,7 +268,7 @@
 /turf/open/floor/pod/light,
 /area/shuttle/escape)
 "aT" = (
-/obj/structure/chair/comfy/shuttle,
+/obj/structure/chair/fancy/shuttle,
 /turf/open/floor/pod/light,
 /area/shuttle/escape)
 "aU" = (

@@ -113,7 +113,7 @@
 /turf/open/floor/wood,
 /area/template_noop)
 "o" = (
-/obj/structure/chair/comfy/brown{
+/obj/structure/chair/fancy/comfy{
 	dir = 4
 	},
 /turf/open/floor/wood{
@@ -134,7 +134,7 @@
 /turf/open/floor/wood,
 /area/template_noop)
 "q" = (
-/obj/structure/chair/comfy/brown{
+/obj/structure/chair/fancy/comfy{
 	dir = 8
 	},
 /turf/open/floor/wood{
@@ -151,7 +151,8 @@
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
 "t" = (
-/obj/structure/chair/comfy/black{
+/obj/structure/chair/fancy/comfy{
+	color = "#666666";
 	dir = 4
 	},
 /turf/open/floor/wood,
@@ -164,7 +165,8 @@
 /turf/open/floor/wood,
 /area/template_noop)
 "v" = (
-/obj/structure/chair/comfy/black{
+/obj/structure/chair/fancy/comfy{
+	color = "#666666";
 	dir = 8
 	},
 /turf/open/floor/wood,
@@ -207,11 +209,13 @@
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
 "z" = (
-/obj/structure/chair/stool/bar,
+/obj/structure/chair/stool/bar{
+	dir = 8
+	},
 /turf/open/floor/wood,
 /area/template_noop)
 "A" = (
-/obj/structure/chair/comfy/brown{
+/obj/structure/chair/fancy/comfy{
 	dir = 4
 	},
 /turf/open/floor/wood,
@@ -223,7 +227,7 @@
 /turf/open/floor/wood,
 /area/template_noop)
 "C" = (
-/obj/structure/chair/comfy/brown{
+/obj/structure/chair/fancy/comfy{
 	dir = 8
 	},
 /turf/open/floor/wood,

@@ -295,7 +295,7 @@
 /turf/open/floor/carpet,
 /area/shuttle/exploration)
 "rj" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
 /obj/effect/decal/cleanable/xenoblood/xgibs/larva,
@@ -311,7 +311,7 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "su" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 4
 	},
 /turf/open/floor/mineral/titanium,

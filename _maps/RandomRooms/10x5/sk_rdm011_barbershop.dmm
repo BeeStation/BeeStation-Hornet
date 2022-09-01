@@ -164,7 +164,7 @@
 	},
 /area/template_noop)
 "w" = (
-/obj/structure/chair/sofa/left,
+/obj/structure/chair/fancy/sofa/old/left,
 /turf/open/floor/carpet{
 	icon_state = "carpetsymbol"
 	},
@@ -207,7 +207,7 @@
 	},
 /area/template_noop)
 "A" = (
-/obj/structure/chair/sofa/right,
+/obj/structure/chair/fancy/sofa/old/right,
 /obj/effect/decal/cleanable/blood/splatter,
 /turf/open/floor/carpet{
 	icon_state = "carpetsymbol"

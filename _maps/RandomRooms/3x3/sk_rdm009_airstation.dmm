@@ -10,11 +10,10 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "c" = (
-/obj/machinery/atmospherics/pipe/simple/general{
-	icon_state = "pipe11-2";
-	dir = 8
-	},
 /obj/machinery/meter,
+/obj/machinery/atmospherics/pipe/simple/general/visible{
+	dir = 4
+	},
 /turf/open/floor/plating,
 /area/template_noop)
 "d" = (
@@ -22,7 +21,6 @@
 	dir = 8
 	},
 /obj/machinery/light{
-	icon_state = "tube";
 	dir = 4
 	},
 /turf/open/floor/plating,
@@ -32,8 +30,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "f" = (
-/obj/machinery/atmospherics/pipe/simple/general{
-	icon_state = "pipe11-2";
+/obj/machinery/atmospherics/pipe/simple/general/visible{
 	dir = 5
 	},
 /turf/open/floor/plating,

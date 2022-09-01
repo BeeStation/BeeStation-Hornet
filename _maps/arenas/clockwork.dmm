@@ -1,9 +1,7 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
+/obj/item/stack/tile/bronze/ten,
 /turf/open/floor/clockwork/reebe,
-/area/tdome/arena)
-"b" = (
-/turf/open/floor/bronze,
 /area/tdome/arena)
 "c" = (
 /obj/item/stack/tile/bronze,
@@ -17,7 +15,7 @@
 /turf/open/floor/clockwork/reebe,
 /area/tdome/arena)
 "f" = (
-/obj/item/stack/tile/bronze/thirty,
+/obj/item/stack/tile/bronze/twenty,
 /turf/open/floor/clockwork/reebe,
 /area/tdome/arena)
 "g" = (
@@ -83,152 +81,152 @@
 /area/tdome/arena)
 
 (1,1,1) = {"
-a
-a
-a
-a
-a
-a
-a
-a
+d
+d
+d
+d
+d
+d
+d
+d
 "}
 (2,1,1) = {"
-a
-a
-a
+d
+d
+d
 j
-a
+d
 e
-a
-a
+d
+d
 "}
 (3,1,1) = {"
-b
-b
-b
+h
+h
+h
 k
 g
-b
+h
 q
-b
+h
 "}
 (4,1,1) = {"
-b
+h
 c
-a
-a
-a
-a
-a
-b
+d
+d
+d
+d
+d
+h
 "}
 (5,1,1) = {"
-b
-a
+h
+d
 h
 i
 i
 h
 c
-b
+h
 "}
 (6,1,1) = {"
-b
-a
+h
+d
 i
-a
-a
+d
+d
 i
 r
-b
+h
 "}
 (7,1,1) = {"
-b
-a
-b
+h
+d
+h
 l
 n
-b
-a
-b
+h
+d
+h
 "}
 (8,1,1) = {"
-b
+h
 d
-b
+h
 m
 o
-b
+h
 s
-b
+h
 "}
 (9,1,1) = {"
-b
+h
 e
-b
+h
 l
 p
-b
-a
-b
+h
+d
+h
 "}
 (10,1,1) = {"
-b
-a
+h
+d
 i
-a
-a
+d
+d
 i
 r
-b
+h
 "}
 (11,1,1) = {"
-b
+h
 f
 h
 i
 i
 h
-a
-b
+d
+h
 "}
 (12,1,1) = {"
-b
+h
+d
+d
+d
 a
-a
-a
-a
-a
-a
-b
+d
+d
+h
 "}
 (13,1,1) = {"
-b
+h
 g
-b
-b
-b
-b
+h
+h
+h
+h
 q
-b
+h
 "}
 (14,1,1) = {"
-a
-a
+d
+d
 e
 j
-a
+d
 e
-a
-a
+d
+d
 "}
 (15,1,1) = {"
-a
-a
-a
-a
-a
-a
-a
-a
+d
+d
+d
+d
+d
+d
+d
+d
 "}

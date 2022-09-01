@@ -89,8 +89,7 @@
 /area/tdome/arena)
 "l" = (
 /obj/effect/turf_decal/stripes/line{
-	dir = 8;
-	icon_state = "warningline"
+	dir = 8
 	},
 /turf/open/floor/plasteel,
 /area/tdome/arena)
@@ -103,8 +102,7 @@
 "o" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/line{
-	dir = 4;
-	icon_state = "warningline"
+	dir = 4
 	},
 /turf/open/floor/plasteel,
 /area/tdome/arena)
@@ -159,8 +157,7 @@
 /area/tdome/arena)
 "u" = (
 /obj/effect/turf_decal/stripes/line{
-	dir = 4;
-	icon_state = "warningline"
+	dir = 4
 	},
 /turf/open/floor/plasteel,
 /area/tdome/arena)
@@ -201,8 +198,7 @@
 "A" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/line{
-	dir = 8;
-	icon_state = "warningline"
+	dir = 8
 	},
 /turf/open/floor/plasteel,
 /area/tdome/arena)
@@ -249,8 +245,7 @@
 /area/tdome/arena)
 "G" = (
 /obj/effect/turf_decal/stripes/line{
-	dir = 8;
-	icon_state = "warningline"
+	dir = 8
 	},
 /turf/open/floor/plasteel/freezer,
 /area/tdome/arena)
@@ -292,8 +287,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/stripes/line{
-	dir = 4;
-	icon_state = "warningline"
+	dir = 4
 	},
 /turf/open/floor/plasteel/cafeteria,
 /area/tdome/arena)
@@ -378,6 +372,27 @@
 	},
 /turf/open/floor/plasteel,
 /area/tdome/arena)
+"W" = (
+/obj/structure/chair/stool{
+	dir = 1
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel,
+/area/tdome/arena)
+"Y" = (
+/obj/structure/chair/stool{
+	dir = 4
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel,
+/area/tdome/arena)
+"Z" = (
+/obj/structure/chair/stool{
+	dir = 8
+	},
+/obj/effect/decal/cleanable/dirt,
+/turf/open/floor/plasteel,
+/area/tdome/arena)
 
 (1,1,1) = {"
 a
@@ -435,7 +450,7 @@ m
 r
 c
 c
-x
+Y
 c
 c
 "}
@@ -456,7 +471,7 @@ t
 x
 C
 B
-x
+W
 n
 "}
 (9,1,1) = {"
@@ -474,7 +489,7 @@ f
 m
 r
 c
-x
+Z
 c
 c
 n

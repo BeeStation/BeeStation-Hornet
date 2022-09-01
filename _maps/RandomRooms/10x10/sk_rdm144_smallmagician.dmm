@@ -134,7 +134,7 @@
 	},
 /area/template_noop)
 "z" = (
-/obj/structure/chair/sofa{
+/obj/structure/chair/fancy/sofa/old{
 	dir = 1
 	},
 /turf/open/floor/carpet/red,
@@ -155,7 +155,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "D" = (
-/obj/structure/chair/sofa/left{
+/obj/structure/chair/fancy/sofa/old/left{
 	dir = 1
 	},
 /turf/open/floor/carpet/red,
@@ -216,7 +216,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "Q" = (
-/obj/structure/chair/sofa/right{
+/obj/structure/chair/fancy/sofa/old/right{
 	dir = 1
 	},
 /turf/open/floor/carpet/red,

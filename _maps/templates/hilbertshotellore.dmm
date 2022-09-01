@@ -52,7 +52,7 @@
 /turf/open/indestructible/hotelwood,
 /area/hilbertshotel)
 "ak" = (
-/obj/structure/chair/comfy/brown{
+/obj/structure/chair/fancy/comfy{
 	dir = 4
 	},
 /obj/machinery/light/small{
@@ -65,7 +65,7 @@
 /turf/open/indestructible/hotelwood,
 /area/hilbertshotel)
 "am" = (
-/obj/structure/chair/comfy/brown{
+/obj/structure/chair/fancy/comfy{
 	dir = 8
 	},
 /obj/machinery/light/small{
@@ -85,7 +85,7 @@
 /turf/open/indestructible/hotelwood,
 /area/hilbertshotel)
 "aq" = (
-/obj/structure/chair/comfy/brown{
+/obj/structure/chair/fancy/comfy{
 	dir = 1
 	},
 /turf/open/indestructible/hotelwood,

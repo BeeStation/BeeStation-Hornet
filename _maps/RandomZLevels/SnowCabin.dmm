@@ -73,7 +73,7 @@
 /turf/open/floor/wood/cold,
 /area/awaymission/cabin/lumbermill)
 "am" = (
-/obj/structure/chair/comfy{
+/obj/structure/chair/fancy/comfy{
 	color = "#B22222";
 	dir = 8
 	},
@@ -388,7 +388,6 @@
 	anchored = 1;
 	density = 1;
 	desc = "Generates power from lava!";
-	dir = 2;
 	icon = 'icons/obj/atmospherics/pipes/simple.dmi';
 	icon_state = "turbine";
 	name = "geothermal generator"
@@ -456,9 +455,7 @@
 /turf/open/floor/plasteel/freezer,
 /area/awaymission/cabin)
 "bl" = (
-/obj/machinery/vending/autodrobe{
-	req_access_txt = "0"
-	},
+/obj/machinery/vending/autodrobe,
 /turf/open/floor/wood,
 /area/awaymission/cabin)
 "bm" = (
@@ -615,9 +612,7 @@
 /turf/open/floor/wood,
 /area/awaymission/cabin)
 "bN" = (
-/obj/machinery/vending/boozeomat{
-	req_access_txt = "0"
-	},
+/obj/machinery/vending/boozeomat,
 /turf/open/floor/wood,
 /area/awaymission/cabin)
 "bO" = (
@@ -1082,7 +1077,7 @@
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 1
 	},
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	desc = "A comfortable, secure seat. It has a more sturdy looking buckling system, for making it harder to get dragged into the ring.";
 	name = "announcer seat"
 	},
@@ -1200,8 +1195,7 @@
 	desc = "It's a polar bear, in space, but not actually in space. It's actually on a planet. This is a planet.";
 	melee_damage = 15;
 	name = "fat space polar bear";
-	speed = 3;
-	wander = 1
+	speed = 3
 	},
 /turf/open/floor/plating/snowed/temperatre,
 /area/awaymission/cabin/snowforest/sovietsurface)
@@ -1362,8 +1356,7 @@
 	desc = "It's a polar bear, in space, but not actually in space. It's actually on a planet. This is a planet.";
 	melee_damage = 15;
 	name = "fat space polar bear";
-	speed = 3;
-	wander = 1
+	speed = 3
 	},
 /turf/open/floor/plating/snowed/temperatre,
 /area/awaymission/cabin/snowforest/sovietsurface)
@@ -1562,7 +1555,7 @@
 /turf/open/floor/wood/cold,
 /area/awaymission/cabin/lumbermill)
 "eB" = (
-/obj/structure/chair/sofa/right,
+/obj/structure/chair/fancy/sofa/old/right,
 /turf/open/floor/wood,
 /area/awaymission/cabin/caves/mountain)
 "eC" = (
@@ -1656,7 +1649,7 @@
 /turf/open/floor/plating/asteroid/snow,
 /area/awaymission/cabin/snowforest)
 "eP" = (
-/obj/structure/chair/sofa,
+/obj/structure/chair/fancy/sofa/old,
 /turf/open/floor/wood,
 /area/awaymission/cabin/caves/mountain)
 "eQ" = (
@@ -1801,19 +1794,17 @@
 /turf/open/floor/wood/cold,
 /area/awaymission/cabin/lumbermill)
 "fg" = (
-/obj/structure/chair/sofa/left,
+/obj/structure/chair/fancy/sofa/old/left,
 /turf/open/floor/wood,
 /area/awaymission/cabin/caves/mountain)
 "fh" = (
 /obj/structure{
-	alpha = 255;
 	anchored = 1;
 	desc = "It is a ghostly cat.";
 	icon = 'icons/mob/mob.dmi';
 	icon_state = "catghost";
 	layer = 3;
 	max_integrity = 66666;
-	mouse_opacity = 1;
 	name = "Cat"
 	},
 /turf/open/floor/wood,
@@ -2454,8 +2445,7 @@
 /area/awaymission/cabin/caves/mountain)
 "gt" = (
 /obj/structure/sign/poster/contraband/pwr_game{
-	pixel_x = 32;
-	
+	pixel_x = 32
 	},
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/engine,
@@ -2585,7 +2575,6 @@
 	},
 /obj/effect/turf_decal/tile/blue,
 /obj/item/reagent_containers/food/snacks/egg/rainbow{
-	anchored = 0;
 	desc = "Was an egg really worth this much effort?";
 	name = "easter egg"
 	},
@@ -2753,7 +2742,6 @@
 	alpha = 0;
 	color = "#000000";
 	desc = "EXAMINING THAT WAS A MISTAKE!";
-	height = 0;
 	icon_state = "7";
 	id = "TheRealSecretPlace";
 	light_range = 10;
@@ -3275,8 +3263,7 @@
 /area/awaymission/cabin/caves/sovietcave)
 "io" = (
 /obj/structure/extinguisher_cabinet{
-	pixel_x = -24;
-	
+	pixel_x = -24
 	},
 /turf/open/floor/wood,
 /area/awaymission/cabin)
@@ -4855,7 +4842,6 @@
 /mob/living/simple_animal/hostile/bear/russian{
 	desc = "He'll hold the line against you!";
 	light_range = 3;
-	melee_damage = 30;
 	name = "Artyom";
 	speak = list("Blyat!","Rawr!","GRR!","Growl!");
 	wander = 0
@@ -5321,7 +5307,6 @@
 "no" = (
 /obj/structure/ladder/unbreakable{
 	desc = "Finally.";
-	height = 0;
 	icon_state = "ladder10";
 	id = "whyisitcalledladder10andnotladder1";
 	name = "Freedom"
@@ -5364,7 +5349,6 @@
 /obj/structure/ladder/unbreakable{
 	desc = "Who left the grate open?";
 	height = 1;
-	icon = 'icons/obj/structures.dmi';
 	icon_state = "ladder01";
 	id = "dealwentoffwithoutahitchBRO";
 	name = "Grate";
@@ -5437,7 +5421,6 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/ladder/unbreakable{
 	desc = "Yeah, I'll just go back to jail instead of this. It's not like there is an escape out of here, right?";
-	height = 0;
 	icon_state = "ladder10";
 	id = "dealwentoffwithoutahitchBRO";
 	name = "Sewer Ladder"
@@ -5539,9 +5522,7 @@
 	},
 /area/awaymission/cabin/caves/sovietcave)
 "nN" = (
-/obj/machinery/light/small{
-	dir = 2
-	},
+/obj/machinery/light/small,
 /turf/open/floor/wood,
 /area/awaymission/cabin)
 "nO" = (

@@ -127,8 +127,10 @@
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
 "m" = (
-/obj/structure/chair/stool/bar,
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/chair/stool/bar{
+	dir = 1
+	},
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
 "n" = (
@@ -330,6 +332,28 @@
 /obj/effect/spawner/lootdrop/trap,
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
+"J" = (
+/obj/structure/chair/stool/bar{
+	dir = 1
+	},
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
+"M" = (
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/structure/chair/stool/bar{
+	dir = 1
+	},
+/turf/open/floor/plasteel/dark,
+/area/template_noop)
 
 (1,1,1) = {"
 a
@@ -340,7 +364,7 @@ w
 "}
 (2,1,1) = {"
 b
-l
+J
 e
 u
 c
@@ -375,7 +399,7 @@ n
 "}
 (7,1,1) = {"
 g
-n
+M
 n
 l
 b
