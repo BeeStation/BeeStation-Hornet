@@ -15,7 +15,8 @@
 	var/welfare = FALSE
 	var/being_dumped = FALSE //pink levels are rising
 	var/withdrawDelay = 0
-	var/suspended = FALSE /// used for cryo'ed people's account
+	/// used for cryo'ed people's account. Once it's TRUE, most bank features of the bank account will be disabled.
+	var/suspended = FALSE
 	var/total_paid_payment = 0
 
 /datum/bank_account/New(newname, job)
