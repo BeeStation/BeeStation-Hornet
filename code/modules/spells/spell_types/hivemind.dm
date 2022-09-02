@@ -958,6 +958,7 @@
 	var/message = stripped_input(user, "What do you want to say?", "Hive Communication")
 	if(!message)
 		return
+	message = user.treat_message_min(message)
 	var/title = "One Mind"
 	var/span = "changeling"
 	if(user.mind && user.mind.has_antag_datum(/datum/antagonist/hivemind))
