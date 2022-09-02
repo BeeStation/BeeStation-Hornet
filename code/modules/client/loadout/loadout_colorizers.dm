@@ -29,8 +29,8 @@
     cost = 20000
 
 /datum/gear/colorizer/militarycap
-    display_name = "Captain's Clothes Colourizer (Military)"
-    path = /obj/item/colorizer/militarycapuniform
+    display_name = "Captain's Clothes Colouriser (Military)"
+    path = /obj/item/colorizer/captain_military_uniform
     allowed_roles = list(JOB_NAME_CAPTAIN)
     cost = 10000
 

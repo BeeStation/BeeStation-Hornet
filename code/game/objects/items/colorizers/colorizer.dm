@@ -53,5 +53,5 @@
     to_chat(user, "<span class='notice'>Color applied!</span>")
     playsound(src, 'sound/effects/spray.ogg', 5, TRUE, 5)
     uses_left --
-    if(uses_left == 0)
+    if(!uses_left)
         qdel(src)

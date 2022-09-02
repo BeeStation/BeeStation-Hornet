@@ -28,5 +28,3 @@
 	icon_state = "captain_parade"
 	item_state = "by_suit"
 	can_adjust = FALSE
-
-
