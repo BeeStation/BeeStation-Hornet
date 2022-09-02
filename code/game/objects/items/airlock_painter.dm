@@ -148,8 +148,8 @@
 			ink_level = "high"
 		if(1 to INFINITY) //Over 100% (admin var edit)
 			ink_level = "dangerously high"
-		else
-			ink_level = "empty"
+	if(ink.charges <= 0)
+		ink_level = "empty"
 
 	. += "<span class='notice'>Its ink levels look [ink_level].</span>"
 
@@ -439,9 +439,6 @@
 
 	/// Default alpha for /obj/effect/turf_decal/tile
 	var/default_alpha = 110
-
-/obj/item/airlock_painter/decal/tile/update_icon()
-	icon_state = initial(icon_state)  // bc theres no unique icons for it
 
 /obj/item/airlock_painter/decal/tile/paint_floor(turf/open/floor/target)
 	// Account for 8-sided decals.
