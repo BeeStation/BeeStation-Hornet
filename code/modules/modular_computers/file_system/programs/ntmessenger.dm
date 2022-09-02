@@ -285,6 +285,7 @@
 		"targets" = targets,
 		"emojis" = allow_emojis,
 		"photo" = computer.saved_image,
+		"photo_path" = photo_path,
 		"automated" = FALSE,
 	))
 
@@ -309,10 +310,10 @@
 	message_data["contents"] = html_decode(signal.format_message())
 	message_data["outgoing"] = TRUE
 	message_data["ref"] = signal.data["ref"]
-	message_data["photo"] = signal.data["photo"]
+	message_data["photo"] = signal.data["photo_path"]
 
 	// Show it to ghosts
-	var/ghost_message = "<span class='name'>[message_data["name"]] </span><span class='game say'>PDA Message</span> --> <span class='name'>[target_text]</span>: <span class='message'>[signal.format_message()]</span>"
+	var/ghost_message = "<span class='name'>[message_data["name"]] </span><span class='game say'>PDA Message</span> --> <span class='name'>[target_text]</span>: <span class='message'>[signal.format_message(include_photo = TRUE)]</span>"
 	for(var/mob/M in GLOB.player_list)
 		if(isobserver(M) && (M.client?.prefs.chat_toggles & CHAT_GHOSTPDA))
 			to_chat(M, "[FOLLOW_LINK(M, user)] [ghost_message]")
@@ -342,7 +343,7 @@
 	message_data["outgoing"] = FALSE
 	message_data["ref"] = signal.data["ref"]
 	message_data["automated"] = signal.data["automated"]
-	message_data["photo"] = signal.data["photo"]
+	message_data["photo"] = signal.data["photo_path"]
 	messages += list(message_data)
 
 	var/mob/living/L = null
@@ -363,7 +364,7 @@
 		if(signal.data["automated"])
 			reply = "\[Automated Message\]"
 
-		var/inbound_message = signal.format_message()
+		var/inbound_message = signal.format_message(include_photo = TRUE)
 		if(signal.data["emojis"] == TRUE)//so will not parse emojis as such from pdas that don't send emojis
 			inbound_message = emoji_parse(inbound_message)
 

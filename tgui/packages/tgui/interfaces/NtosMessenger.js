@@ -76,7 +76,7 @@ export const NtosMessenger = (props, context) => {
                   </Box>
                   {message.outgoing ? (
                     <Box bold>
-                      {message.name + " (" + message.job + ")"}
+                      {message.name + (message.job ? ` (${message.job})` : "")}
                     </Box>
                   ) : (
                     <Button transparent

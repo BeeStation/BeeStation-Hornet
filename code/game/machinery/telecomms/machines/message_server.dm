@@ -176,8 +176,8 @@
 	var/obj/item/modular_computer/target = data["targets"][1]
 	return "[target.saved_identification] ([target.saved_job])"
 
-/datum/signal/subspace/messaging/tablet_msg/proc/format_message()
-	if (logged && data["photo"])
+/datum/signal/subspace/messaging/tablet_msg/proc/format_message(include_photo = FALSE)
+	if (include_photo && logged && data["photo"])
 		return "\"[data["message"]]\" (<a href='byond://?src=[REF(logged)];photo=1'>Photo</a>)"
 	return "\"[data["message"]]\""
 
