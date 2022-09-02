@@ -74,9 +74,11 @@
 	qdel(src)
 
 /obj/structure/chair/attackby(obj/item/W, mob/user, params)
-	if(W.tool_behaviour == TOOL_WRENCH && !(flags_1&NODECONSTRUCT_1))
-		W.use_tool(src, user, 20, volume=50)
-		deconstruct(TRUE)
+	if(W.tool_behaviour == TOOL_WRENCH && !(flags_1 & NODECONSTRUCT_1))
+		to_chat(user, "<span class='notice'>You start deconstructing [src]...</span>")
+		if(W.use_tool(src, user, 30, volume=50))
+			playsound(src.loc, 'sound/items/deconstruct.ogg', 50, 1)
+			deconstruct(TRUE, 1)
 	else if(istype(W, /obj/item/assembly/shock_kit))
 		if(!user.temporarilyRemoveItemFromInventory(W))
 			return
