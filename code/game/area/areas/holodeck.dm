@@ -7,7 +7,9 @@
 	sound_environment = SOUND_ENVIRONMENT_PADDED_CELL
 
 	var/obj/machinery/computer/holodeck/linked
-	var/restricted = 0 // if true, program goes on emag list
+	var/restricted = FALSE // if true, program goes on emag list
+
+	network_root_id = "HOLODECK"
 
 /*
 	Power tracking: Use the holodeck computer's power grid
