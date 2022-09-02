@@ -12,6 +12,8 @@
 		var/obj/item/clothing/mask/chameleon/V = wear_mask
 		if(V.vchange && wear_id)
 			var/obj/item/card/id/idcard = wear_id.GetID()
+			if(V.rname_cooldown > world.time)
+				return dna.species.random_name(rand(1, 2))
 			if(istype(idcard))
 				return idcard.registered_name
 			else

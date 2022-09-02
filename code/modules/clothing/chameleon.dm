@@ -543,7 +543,8 @@
 	permeability_coefficient = 0.01
 	flags_cover = MASKCOVERSEYES | MASKCOVERSMOUTH
 
-	var/vchange = 1
+	var/vchange = TRUE
+	var/rname_cooldown = 0
 
 	var/datum/action/item_action/chameleon/change/chameleon_action
 
@@ -560,6 +561,7 @@
 	if(. & EMP_PROTECT_SELF)
 		return
 	chameleon_action.emp_randomise()
+	rname_cooldown = world.time + 2 MINUTES
 
 /obj/item/clothing/mask/chameleon/broken/Initialize(mapload)
 	. = ..()
