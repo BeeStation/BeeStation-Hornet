@@ -1,0 +1,5 @@
+author: etherware-novice
+delete-after: true
+changes:
+  - refactor: area mood buffs can now be applied to only certain jobs
+  - rscadd: added new job restricted area mood buffs
