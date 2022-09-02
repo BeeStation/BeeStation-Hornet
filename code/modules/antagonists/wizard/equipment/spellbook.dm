@@ -596,7 +596,7 @@
 	desc = "Seeks the Saint Anarchismea's spirit and summons them onto the station. Access requirement of every electronic in the station will be magically bypassed, but also every ID card gets AA. an ID card without AA will get it again, so latecomers will get the same so that they won't lose their chance to get the blessing of Saint Anarchismea."
 	cost = 2
 	var/static/recursive = FALSE
-  ritual_invocation = "ALADAL DESINARI ODORI'IN IDO'LEX IVLAROYE VOR ANARCHIDMEA OVOR'E SJIENYLE"
+	ritual_invocation = "ALADAL DESINARI ODORI'IN IDO'LEX IVLAROYE VOR ANARCHIDMEA OVOR'E SJIENYLE"
 
 /datum/spellbook_entry/summon/magical_access/Buy(mob/living/carbon/human/user, obj/item/spellbook/book)
 	SSblackbox.record_feedback("tally", "wizard_spell_learned", 1, name)
