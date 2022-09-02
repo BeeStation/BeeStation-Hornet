@@ -1,0 +1,5 @@
+author: etherware-novice
+delete-after: true
+changes:
+  - tweak: oozelings have 50% more blorbles
+  - refactor: tounges can now modify your ask, yell, and exclaim verbs
