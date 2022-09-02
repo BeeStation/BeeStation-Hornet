@@ -14,7 +14,7 @@
 	living_crew = get_living_station_crew()
 	var/infection_count = round(length(living_crew) / 10)
 
-	for(var/i = 0, i < infection_count, i++)
+	for(var/i in 0 to infection_count)
 		for(var/mob/living/carbon/human/H in shuffle(GLOB.player_list))
 			if(H.stat == DEAD)
 				continue
