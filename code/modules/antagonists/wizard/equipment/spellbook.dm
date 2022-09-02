@@ -1,3 +1,5 @@
+#define WIZARD_WILDMAGIC_SPELLPOINT_MULTIPLIER 1.7
+
 /datum/spellbook_entry
 	var/name = "Entry Name"
 
@@ -391,7 +393,9 @@
 
 /datum/spellbook_entry/item/bloodbottle
 	name = "Bottle of Blood"
-	desc = "A bottle of magically infused blood, the smell of which will attract extradimensional beings when broken. Be careful though, the kinds of creatures summoned by blood magic are indiscriminate in their killing, and you yourself may become a victim."
+	desc = "A bottle of magically infused blood, the smell of which will attract extradimensional \
+		beings when broken. Be careful though, the kinds of creatures summoned by blood magic are \
+		indiscriminate in their killing, and you yourself may become a victim."
 	item_path = /obj/item/antag_spawner/slaughter_demon
 	limit = 1
 	category = "Assistance"
@@ -450,6 +454,7 @@
 	refundable = FALSE
 	buy_word = "Cast"
 	var/active = FALSE
+	var/ritual_invocation // This does nothing. This is a flavor to ghosts observing a wizard.
 
 /datum/spellbook_entry/summon/CanBuy(mob/living/carbon/human/user,obj/item/spellbook/book)
 	return ..() && !active
@@ -466,10 +471,15 @@
 		dat += "<b>Already cast!</b><br>"
 	return dat
 
+/datum/spellbook_entry/summon/proc/say_invocation(mob/living/carbon/human/user)
+	if(ritual_invocation)
+		user.say(ritual_invocation, forced = "spell")
+
 /datum/spellbook_entry/summon/ghosts
 	name = "Summon Ghosts"
 	desc = "Spook the crew out by making them see dead people. Be warned, ghosts are capricious and occasionally vindicative, and some will use their incredibly minor abilities to frustrate you."
 	cost = 0
+	ritual_invocation = "ALADAL DESINARI ODORI'IN TUUR'IS OVOR'E POR"
 
 /datum/spellbook_entry/summon/ghosts/Buy(mob/living/carbon/human/user, obj/item/spellbook/book)
 	SSblackbox.record_feedback("tally", "wizard_spell_learned", 1, name)
@@ -477,11 +487,13 @@
 	active = TRUE
 	to_chat(user, "<span class='notice'>You have cast summon ghosts!</span>")
 	playsound(get_turf(user), 'sound/effects/ghost2.ogg', 50, 1)
+	say_invocation(user)
 	return TRUE
 
 /datum/spellbook_entry/summon/guns
 	name = "Summon Guns"
 	desc = "Nothing could possibly go wrong with arming a crew of lunatics just itching for an excuse to kill you. There is a good chance that they will shoot each other first."
+	ritual_invocation = "ALADAL DESINARI ODORI'IN DOL'G FLAM OVOR'E POR"
 
 /datum/spellbook_entry/summon/guns/IsAvailable()
 	if(!SSticker.mode) // In case spellbook is placed on map
@@ -498,11 +510,13 @@
 	active = TRUE
 	playsound(get_turf(user), 'sound/magic/castsummon.ogg', 50, 1)
 	to_chat(user, "<span class='notice'>You have cast summon guns!</span>")
+	say_invocation(user)
 	return TRUE
 
 /datum/spellbook_entry/summon/magic
 	name = "Summon Magic"
 	desc = "Share the wonders of magic with the crew and show them why they aren't to be trusted with it at the same time."
+	ritual_invocation = "ALADAL DESINARI ODORI'IN IDO'LEX SPERMITA OVOR'E POR"
 
 /datum/spellbook_entry/summon/magic/IsAvailable()
 	if(!SSticker.mode) // In case spellbook is placed on map
@@ -519,12 +533,14 @@
 	active = TRUE
 	playsound(get_turf(user), 'sound/magic/castsummon.ogg', 50, 1)
 	to_chat(user, "<span class='notice'>You have cast summon magic!</span>")
+	say_invocation(user)
 	return TRUE
 
 /datum/spellbook_entry/summon/events
 	name = "Summon Events"
 	desc = "Give Murphy's law a little push and replace all events with special wizard ones that will confound and confuse everyone. Multiple castings increase the rate of these events."
 	var/times = 0
+	ritual_invocation = "ALADAL DESINARI ODORI'IN IDO'LEX MANAG'ROKT OVOR'E POR"
 
 /datum/spellbook_entry/summon/events/IsAvailable()
 	if(!SSticker.mode) // In case spellbook is placed on map
@@ -541,6 +557,7 @@
 	times++
 	playsound(get_turf(user), 'sound/magic/castsummon.ogg', 50, 1)
 	to_chat(user, "<span class='notice'>You have cast summon events.</span>")
+	say_invocation(user)
 	return TRUE
 
 /datum/spellbook_entry/summon/events/GetInfo()
@@ -553,17 +570,45 @@
 	name = "Curse of Madness"
 	desc = "Curses the station, warping the minds of everyone inside, causing lasting traumas. Warning: this spell can affect you if not cast from a safe distance."
 	cost = 4
+	ritual_invocation = "ALADAL DESINARI ODORI'IN PORES ENHIDO'LEN MORI MAKA TU"
 
 /datum/spellbook_entry/summon/curse_of_madness/Buy(mob/living/carbon/human/user, obj/item/spellbook/book)
 	SSblackbox.record_feedback("tally", "wizard_spell_learned", 1, name)
 	active = TRUE
-	var/message = stripped_input(user, "Whisper a secret truth to drive your victims to madness.", "Whispers of Madness")
-	if(!message)
-		return FALSE
+	var/message
+	while(!message)
+		message = stripped_input(user, "Whisper a secret truth to drive your victims to madness.", "Whispers of Madness")
 	curse_of_madness(user, message)
 	to_chat(user, "<span class='notice'>You have cast the curse of insanity!</span>")
 	playsound(user, 'sound/magic/mandswap.ogg', 50, 1)
 	return TRUE
+
+/datum/spellbook_entry/summon/wild_magic
+	name = "Wild Magic Manipulation"
+	desc = "multiply your remaining spell points by 70%(round down) and expand all of them to Wild Magic Manipulation. \
+		You purchase random spells and items upto the spell points you expanded. Spells from this ritual will no longer be refundable even if you learned it manually, but also the book will no longer accept items to refund."
+	cost = 0
+	ritual_invocation = "ALADAL DESINARI ODORI'IN A'EN SPERMITEN G'ATUA H'UN OVORA DUN SPERMITUN"
+
+/datum/spellbook_entry/summon/wild_magic/Buy(mob/living/carbon/human/user, obj/item/spellbook/book)
+	if(!book.uses)
+		to_chat(user, "<span class='notice'>You have no spell points for this ritual.</span>") // You can cast it again as long as you get more spell points somehow
+		return FALSE
+	SSblackbox.record_feedback("tally", "wizard_spell_learned", 1, name)
+	book.uses = round(book.uses*WIZARD_WILDMAGIC_SPELLPOINT_MULTIPLIER) // more spell points
+	book.refuses_refund = TRUE
+	book.desc = "An unearthly tome that once had a great power."
+	while(book.uses)
+		var/datum/spellbook_entry/target = pick(book.entries)
+		if(istype(target, /datum/spellbook_entry/summon/wild_magic))
+			continue // Too lucky to get more spell points, but no.
+		if(target.CanBuy(user,book))
+			if(target.Buy(user,book))
+				book.uses -= target.cost
+				target.refundable = FALSE
+	say_invocation(user)
+	return TRUE
+
 
 #undef MINIMUM_THREAT_FOR_RITUALS
 
@@ -578,6 +623,7 @@
 	var/uses = 10
 	var/temp = null
 	var/tab = null
+	var/refuses_refund = FALSE
 	var/mob/living/carbon/human/owner
 	var/list/datum/spellbook_entry/entries = list()
 	var/list/categories = list()
@@ -605,6 +651,9 @@
 	tab = categories[1]
 
 /obj/item/spellbook/attackby(obj/item/O, mob/user, params)
+	if(refuses_refund)
+		to_chat(user, "<span class='warning'>Your book is powerless because of Wild Magic Manipulation ritual. The book doesn't accept the item.</span>")
+		return
 	if(istype(O, /obj/item/antag_spawner/contract))
 		var/obj/item/antag_spawner/contract/contract = O
 		if(contract.used)
@@ -755,3 +804,5 @@
 			tab = sanitize(href_list["page"])
 	attack_self(H)
 	return
+
+#undef WIZARD_WILDMAGIC_SPELLPOINT_MULTIPLIER
