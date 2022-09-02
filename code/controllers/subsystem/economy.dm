@@ -1,3 +1,5 @@
+#define VIP_BUDGET_BASE rand(8888888, 11111111)
+
 SUBSYSTEM_DEF(economy)
 	name = "Economy"
 	wait = 5 MINUTES
@@ -12,6 +14,7 @@ SUBSYSTEM_DEF(economy)
 										ACCOUNT_SRV = ACCOUNT_SRV_NAME,
 										ACCOUNT_CAR = ACCOUNT_CAR_NAME,
 										ACCOUNT_SEC = ACCOUNT_SEC_NAME)
+	var/list/nonstation_accounts = list(ACCOUNT_VIP = ACCOUNT_VIP_NAME)
 	var/list/generated_accounts = list()
 	var/full_ancap = FALSE // Enables extra money charges for things that normally would be free, such as sleepers/cryo/cloning.
 							//Take care when enabling, as players will NOT respond well if the economy is set up for low cash flows.
@@ -30,6 +33,8 @@ SUBSYSTEM_DEF(economy)
 	var/budget_to_hand_out = round(budget_pool / department_accounts.len)
 	for(var/A in department_accounts)
 		new /datum/bank_account/department(A, budget_to_hand_out)
+	for(var/A in nonstation_accounts)
+		new /datum/bank_account/department(A, VIP_BUDGET_BASE)
 	return ..()
 
 /datum/controller/subsystem/economy/Recover()
@@ -91,3 +96,9 @@ SUBSYSTEM_DEF(economy)
 	sci?.adjust_money(science_cash)
 	civ?.adjust_money(civilian_cash)
 	car?.adjust_money(cargo_cash)
+
+	// VIP budget will not dry
+	var/datum/bank_account/vip = get_dep_account(ACCOUNT_VIP)
+	vip?.adjust_money(cargo_cash)
+
+#undef VIP_BUDGET_BASE

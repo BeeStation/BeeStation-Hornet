@@ -338,8 +338,8 @@
 				if(internal_radio)
 					SPEAK("The cloning of [mob_occupant.real_name] has been ended prematurely due to being unable to pay.")
 			else
-				var/datum/bank_account/D = SSeconomy.get_dep_account(payment_department)
-				if(D)
+				var/datum/bank_account/department/D = SSeconomy.get_dep_account(payment_department)
+				if(D && !D.is_nonstation_account())
 					D.adjust_money(fair_market_price)
 		if(mob_occupant && (mob_occupant.stat == DEAD) || (mob_occupant.suiciding) || mob_occupant.ishellbound())  //Autoeject corpses and suiciding dudes.
 			connected_message("Clone Rejected: Deceased.")
