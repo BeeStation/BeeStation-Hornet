@@ -13,7 +13,7 @@
 /turf/open/floor/clockwork/reebe,
 /area/reebe/city_of_cogs)
 "d" = (
-/obj/structure/chair/brass{
+/obj/structure/chair/fancy/brass{
 	dir = 1
 	},
 /turf/open/floor/clockwork/reebe,
@@ -75,7 +75,7 @@
 /turf/open/floor/clockwork/reebe,
 /area/reebe/city_of_cogs)
 "t" = (
-/obj/structure/chair/brass,
+/obj/structure/chair/fancy/brass,
 /turf/open/floor/clockwork/reebe,
 /area/reebe/city_of_cogs)
 "v" = (
@@ -102,7 +102,7 @@
 /turf/open/floor/clockwork/reebe,
 /area/reebe/city_of_cogs)
 "B" = (
-/obj/structure/chair/brass{
+/obj/structure/chair/fancy/brass{
 	dir = 8
 	},
 /turf/open/floor/clockwork/reebe,
@@ -136,7 +136,7 @@
 /turf/open/floor/clockwork/reebe,
 /area/reebe/city_of_cogs)
 "L" = (
-/obj/structure/chair/brass{
+/obj/structure/chair/fancy/brass{
 	dir = 4
 	},
 /turf/open/floor/clockwork/reebe,
