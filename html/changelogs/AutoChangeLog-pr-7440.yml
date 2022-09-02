@@ -1,0 +1,13 @@
+author: EvilDragonfiend
+delete-after: true
+changes:
+  - rscadd: New wizard ritual - Wild Magic Manipulation. Simply, Wizard version of
+      Surplus crate. Your spell points are multiplied by 70%(round down) and You get
+      random spells and items, including any available ritual.
+  - rscadd: New wizard apprentice - Wild Magic school. They get 2 random wizard spells.
+  - rscadd: Wizard rituals now let the wizards say spell words. It's actually nothing,
+      but a flavor for ghosts observing a wizard
+  - refactor: minor change to wizard related description for codewise
+  - bugfix: curse of madness is not revertable when you have a window to write your
+      mad message. This won't let you get free +4 spell points when wild magic picked
+      curse of madness.
