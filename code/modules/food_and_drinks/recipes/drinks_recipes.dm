@@ -858,3 +858,9 @@
 	id = /datum/reagent/consumable/ethanol/beeffizz
 	results = list(/datum/reagent/consumable/ethanol/beeffizz = 10)
 	required_reagents = list(/datum/reagent/consumable/beefbroth = 7, /datum/reagent/consumable/ice = 2, /datum/reagent/consumable/lemonjuice = 1 )
+
+/datum/chemical_reaction/bilkshake
+	name = "Bilkshake"
+	id = /datum/reagent/consumable/ethanol/bilkshake
+	results = list(/datum/reagent/consumable/ethanol/bilkshake = 3)
+	required_reagents = list(/datum/reagent/consumable/ethanol/bilk = 1, /datum/reagent/consumable/ice = 1, /datum/reagent/consumable/cream = 1)

@@ -2524,3 +2524,21 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	M.adjust_disgust(30)
 	SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "quality_drink", /datum/mood_event/quality_bad)
 	. = ..()
+
+/datum/reagent/consumable/ethanol/bilkshake
+	name = "Bilkshake"
+	description = "A \"milkshake\" with beer mixed in. Drink at your own risk."
+	color = "#A15837"  // rgb 161,88,55
+	chem_flags = CHEMICAL_RNG_GENERAL
+	boozepwr = 10  // diluted beer
+	quality = DRINK_BAD
+	taste_description = "regret, and a bit of cream"
+	glass_icon_state = "bilkshake"
+	glass_name = "Bilkshake"
+	glass_desc = "A beer milkshake. A beer. Milkshake. Whoever made this should be fired."
+
+/datum/reagent/consumable/bilkshake/on_mob_metabolize(mob/living/M)
+	to_chat(M, "<span class='warning'>You taste the drink burning into your mouth.</span>")
+	M.adjust_disgust(40)
+	SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "quality_drink", /datum/mood_event/quality_bad)
+	. = ..()
