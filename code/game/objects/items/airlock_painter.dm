@@ -1,4 +1,5 @@
 /// below these levels trigger the special sprites
+#define PAINTER_MOST 0.76
 #define PAINTER_MID 0.5
 #define PAINTER_LOW 0.2
 
@@ -56,8 +57,10 @@
 			icon_state = "[base]_low"
 		if(PAINTER_LOW to PAINTER_MID)
 			icon_state = "[base]_mid"
-		if(PAINTER_MID to INFINITY)
-			icon_state = "[base]"
+		if(PAINTER_MID to PAINTER_MOST)
+			icon_state = "[base]_most"
+		if(PAINTER_MOST to INFINITY)
+			icon_state = base
 		else
 			icon_state = "[base]_crit"
 
