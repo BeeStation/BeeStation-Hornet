@@ -36,3 +36,11 @@
 	backpack_contents = list(/obj/item/storage/box/beanbag=1)
 	shoes = /obj/item/clothing/shoes/laceup
 
+
+/datum/outfit/job/bartender/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	..()
+
+	if(visualsOnly)
+		return
+
+	ADD_TRAIT(H, TRAIT_SOMMELIER, ROUNDSTART_TRAIT)

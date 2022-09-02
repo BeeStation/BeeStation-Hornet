@@ -411,6 +411,14 @@
 	glasses = /obj/item/clothing/glasses/sunglasses/advanced/reagent
 	id = /obj/item/card/id
 
+/datum/outfit/spacebartender/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	..()
+
+	if(visualsOnly)
+		return
+
+	ADD_TRAIT(H, TRAIT_SOMMELIER, ROUNDSTART_TRAIT)
+
 /obj/effect/mob_spawn/human/beach
 	outfit = /datum/outfit/beachbum
 

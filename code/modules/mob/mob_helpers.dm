@@ -592,4 +592,19 @@
 
 //Can the mob see reagents inside of containers?
 /mob/proc/can_see_reagents()
-	return stat == DEAD || has_unlimited_silicon_privilege //Dead guys and silicons can always see reagents
+	. = FALSE
+	if(stat == DEAD) // Dead guys and silicons can always see reagents
+		return TRUE
+	else if(has_unlimited_silicon_privilege)
+		return TRUE
+	else if(HAS_TRAIT(src, TRAIT_BARMASTER)) // If they're a bar master, they know what reagents are at a glance
+		return TRUE
+
+/mob/proc/can_see_boozepower() // same rule above
+	. = FALSE
+	if(stat == DEAD)
+		return TRUE
+	else if(has_unlimited_silicon_privilege)
+		return TRUE
+	else if(HAS_TRAIT(src, TRAIT_BARMASTER))
+		return TRUE
