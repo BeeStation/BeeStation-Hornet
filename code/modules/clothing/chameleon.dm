@@ -566,6 +566,7 @@
 /obj/item/clothing/mask/chameleon/broken/Initialize(mapload)
 	. = ..()
 	chameleon_action.emp_randomise(INFINITY)
+	rname_cooldown = INFINITY  // mulligan
 
 /obj/item/clothing/mask/chameleon/attack_self(mob/user)
 	vchange = !vchange
