@@ -1,0 +1,4 @@
+author: benbot16
+delete-after: true
+changes:
+  - balance: Changelings no longer lose extra genetic points when readapting.
