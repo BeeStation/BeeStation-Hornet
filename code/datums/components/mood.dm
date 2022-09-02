@@ -373,7 +373,8 @@
 /datum/component/mood/proc/check_area_mood(datum/source, var/area/A)
 	SIGNAL_HANDLER
 
-	if(A.mood_bonus)
+
+	if(A.mood_check())
 		if(get_event("area"))	//walking between areas that give mood bonus should first clear the bonus from the previous one
 			clear_event(null, "area")
 		add_event(null, "area", /datum/mood_event/area, list(A.mood_bonus, A.mood_message))
