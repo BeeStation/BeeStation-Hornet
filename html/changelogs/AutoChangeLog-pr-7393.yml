@@ -1,0 +1,8 @@
+author: etherware-novice
+delete-after: true
+changes:
+  - rscadd: Added the toy captains card
+  - rscadd: Adds the all access dispenser
+  - rscadd: Adds an admin-only version that actually creates captains spare ids
+  - tweak: Adds the card to the arcade prizes
+  - tweak: Adds the dispenser to maint spawns
