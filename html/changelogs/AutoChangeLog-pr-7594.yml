@@ -1,0 +1,11 @@
+author: 'PigeonVerde322, PositiveEntropy '
+delete-after: true
+changes:
+  - rscadd: FORGOT to credit PositiveEntropy for the Wooden chairs icons and the armchair/Sofa
+      icons in the previous PR, apoligies!
+  - rscadd: Added time-to-build to all the chairs
+  - rscadd: Courtesy of para, now benches can be coloured
+  - bugfix: fixed a bug that, if you moved while deconstructing any chair, it would
+      override the deconstruction time
+  - bugfix: fixed Corporate benches being broken, now they use a different system
+      than GAGs, also courtesy of para, now benches padding can be coloured!
