@@ -17,6 +17,7 @@
 	/// Used to handle rotation properly, should only be 1, 4, or 8
 	var/possible_dirs = 4
 	var/colorable = FALSE
+	flags_1 = SAVE_SAFE_1
 
 /obj/structure/chair/examine(mob/user)
 	. = ..()

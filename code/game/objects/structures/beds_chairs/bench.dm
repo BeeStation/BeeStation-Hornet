@@ -5,6 +5,7 @@
 	max_integrity = 250
 	integrity_failure = 25
 	icon_state = "bench_center"
+	flags_1 = SAVE_SAFE_1
 
 /obj/structure/chair/fancy/bench/left
 	icon_state = "bench_left"

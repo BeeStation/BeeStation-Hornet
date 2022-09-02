@@ -23,6 +23,7 @@
 	var/buildstacktype = /obj/item/stack/sheet/iron
 	var/buildstackamount = 2
 	var/bolts = TRUE
+	flags_1 = SAVE_SAFE_1
 
 /obj/structure/bed/examine(mob/user)
 	. = ..()
