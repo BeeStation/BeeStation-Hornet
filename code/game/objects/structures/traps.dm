@@ -54,7 +54,7 @@
 	// Makes the trap visible, and starts the cooldown until it's
 	// able to be triggered again.
 	visible_message(flare_message)
-	if(sparks && Master.current_runlevel)
+	if(sparks && MC_RUNNING())
 		spark_system.start()
 	alpha = 200
 	last_trigger = world.time

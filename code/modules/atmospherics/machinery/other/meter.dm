@@ -13,7 +13,6 @@
 	flags_1 = SAVE_SAFE_1
 	var/frequency = 0
 	var/atom/target
-	var/id_tag
 	var/target_layer = PIPING_LAYER_DEFAULT
 
 /obj/machinery/meter/atmos

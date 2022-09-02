@@ -186,3 +186,18 @@
 /datum/greyscale_config/carp/disk_mouth
 	name = "Space Carp Disk in Mouth"
 	json_config = 'code/datums/greyscale/json_configs/carp_disk_mouth.json'
+
+/datum/greyscale_config/bench_middle
+	name = "Bench Middle"
+	icon_file = 'icons/obj/beds_chairs/benches.dmi'
+	json_config = 'code/datums/greyscale/json_configs/corporate_bench_middle.json'
+
+/datum/greyscale_config/bench_left
+	name = "Bench Left"
+	icon_file = 'icons/obj/beds_chairs/benches.dmi'
+	json_config = 'code/datums/greyscale/json_configs/corporate_bench_left.json'
+
+/datum/greyscale_config/bench_right
+	name = "Bench Right"
+	icon_file = 'icons/obj/beds_chairs/benches.dmi'
+	json_config = 'code/datums/greyscale/json_configs/corporate_bench_right.json'

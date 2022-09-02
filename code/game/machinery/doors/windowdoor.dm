@@ -18,6 +18,7 @@
 	opacity = 0
 	CanAtmosPass = ATMOS_PASS_PROC
 	interaction_flags_machine = INTERACT_MACHINE_WIRES_IF_OPEN | INTERACT_MACHINE_ALLOW_SILICON | INTERACT_MACHINE_OPEN_SILICON | INTERACT_MACHINE_REQUIRES_SILICON | INTERACT_MACHINE_OPEN
+	network_id = NETWORK_DOOR_AIRLOCKS
 	var/obj/item/electronics/airlock/electronics = null
 	var/reinf = 0
 	var/shards = 2
@@ -44,10 +45,7 @@
 	)
 
 	AddElement(/datum/element/connect_loc, loc_connections)
-
-/obj/machinery/door/window/ComponentInitialize()
-	. = ..()
-	AddComponent(/datum/component/ntnet_interface)
+	RegisterSignal(src, COMSIG_COMPONENT_NTNET_RECEIVE, .proc/ntnet_receive)
 
 /obj/machinery/door/window/Destroy()
 	density = FALSE
@@ -323,7 +321,7 @@
 	// Cutting WIRE_IDSCAN grants remote access... or it would, if we could hack windowdoors.
 	return id_scan_hacked() || ..()
 
-/obj/machinery/door/window/ntnet_receive(datum/netdata/data)
+/obj/machinery/door/window/proc/ntnet_receive(datum/source, datum/netdata/data)
 	// Check if the airlock is powered.
 	if(!hasPower())
 		return
@@ -332,13 +330,10 @@
 	if(is_jammed())
 		return
 
-	// Check packet access level.
-	if(!check_access_ntnet(data))
-		return
 
 	// Handle received packet.
-	var/command = lowertext(data.data["data"])
-	var/command_value = lowertext(data.data["data_secondary"])
+	var/command = data.data["data"]
+	var/command_value = data.data["data_secondary"]
 	switch(command)
 		if("open")
 			if(command_value == "on" && !density)
