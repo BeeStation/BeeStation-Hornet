@@ -1,0 +1,7 @@
+author: itsmeow
+delete-after: true
+changes:
+  - rscadd: Adds entropic plume spell to heretics
+  - rscdel: Removes rust wave spell from heretics
+  - bugfix: The ash man and rust walker nodes now link to the correct nodes.
+  - bugfix: Rust's rune visual effect does not appear on reinforced walls.
