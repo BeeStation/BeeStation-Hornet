@@ -16,8 +16,7 @@
 	if(stat != DEAD)
 		if(low_power_mode)
 			if(cell?.charge)
-				low_power_mode = 0
-				update_headlamp()
+				low_power_mode = FALSE
 		else if(stat == CONSCIOUS)
 			use_power()
 
@@ -25,12 +24,12 @@
 	if(cell?.charge)
 		if(cell.charge <= 100)
 			uneq_all()
-		var/amt = CLAMP((lamp_intensity - 2) * 2,1,cell.charge) //Always try to use at least one charge per tick, but allow it to completely drain the cell.
+		var/amt = clamp((lamp_enabled * lamp_intensity),1,cell.charge) //Lamp will use a max of 5 charge, depending on brightness of lamp. If lamp is off, borg systems consume 1 point of charge, or the rest of the cell if it's lower than that.
 		cell.use(amt) //Usage table: 1/tick if off/lowest setting, 4 = 4/tick, 6 = 8/tick, 8 = 12/tick, 10 = 16/tick
 	else
 		uneq_all()
-		low_power_mode = 1
-		update_headlamp()
+		low_power_mode = TRUE
+		toggle_headlamp(TRUE)
 	diag_hud_set_borgcell()
 
 /mob/living/silicon/robot/proc/handle_robot_hud_updates()
