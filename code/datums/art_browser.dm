@@ -42,21 +42,24 @@
 	var/price = chosen_portrait["price"]
 	var/owner = chosen_portrait["owner"]
 
-	if(alert(owner_ckey, "Are you sure you want to purchase this painting?", "Confirmation", "Yes", "No") == "Yes")
-		if(owner == usr.ckey)
-			to_chat(usr, "<span class='warning'>You already own this painting!</span>")
-			return
-		if(price > usr.client?.get_metabalance())
-			to_chat(usr, "<span class='warning'>You don't have enough [CONFIG_GET(string/metacurrency_name)]s to buy this painting.</span>")
-			return
-		usr.client?.inc_metabalance(price * -1, TRUE, "Purchased [title].")
-		SSpersistence.add_art_payout(owner, round(price * 0.25))
-		SSpersistence.add_art_payout(author, round(price * 0.25))
-		if(SSticker.current_state != GAME_STATE_PLAYING) // for flexing purposes
-			to_chat(world, "<span class='nicegreen'>[usr.ckey] purchased [title] from [owner] for [price] [CONFIG_GET(string/metacurrency_name)]s!</span>")
-		SSpersistence.paintings["library"][params["selected"]]["owner"] = usr.ckey
-		SSpersistence.paintings["library"][params["selected"]]["price"] += 500
-		refresh_owned()
+	if (chosen_portrait)
+		if(alert(owner_ckey, "Are you sure you want to purchase this painting?", "Confirmation", "Yes", "No") == "Yes")
+			if(owner == usr.ckey)
+				to_chat(usr, "<span class='warning'>You already own this painting!</span>")
+				return
+			if(price > usr.client?.get_metabalance())
+				to_chat(usr, "<span class='warning'>You don't have enough [CONFIG_GET(string/metacurrency_name)]s to buy this painting.</span>")
+				return
+			usr.client?.inc_metabalance(price * -1, TRUE, "Purchased [title].")
+			SSpersistence.add_art_payout(owner, round(price * 0.25))
+			SSpersistence.add_art_payout(author, round(price * 0.25))
+			if(SSticker.current_state != GAME_STATE_PLAYING) // for flexing purposes
+				to_chat(world, "<span class='nicegreen'>[usr.ckey] purchased [title] from [owner] for [price] [CONFIG_GET(string/metacurrency_name)]s!</span>")
+			SSpersistence.paintings["library"][params["selected"]]["owner"] = usr.ckey
+			SSpersistence.paintings["library"][params["selected"]]["price"] += 500
+			refresh_owned()
+	else
+		to_chat(usr, "<span class='warning'>this painting is NULL, please contact a maintainer as soon as possible!</span>")
 
 /client/verb/browseart()
 	set category = "OOC"
