@@ -4702,7 +4702,6 @@
 /obj/structure/table/reinforced,
 /obj/item/clothing/gloves/color/fyellow,
 /obj/item/wirecutters,
-/obj/item/clipboard,
 /obj/item/stack/cable_coil/red,
 /turf/open/floor/plasteel/dark,
 /area/quartermaster/office)
@@ -8110,7 +8109,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/engine,
-/area/science/mixing)
+/area/science/mixing/chamber)
 "bQp" = (
 /obj/effect/turf_decal/tile/red,
 /obj/effect/turf_decal/tile/red{
@@ -8453,15 +8452,11 @@
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
 "bWm" = (
-/obj/effect/turf_decal/tile/brown,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
+/obj/structure/sign/painting/library{
+	pixel_x = 32
 	},
-/obj/effect/turf_decal/loading_area{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
-/area/hallway/primary/starboard)
+/turf/open/floor/carpet/green,
+/area/library)
 "bWV" = (
 /obj/effect/turf_decal/tile/green,
 /turf/open/floor/plasteel,
@@ -12767,7 +12762,8 @@
 	dir = 4
 	},
 /obj/machinery/door/airlock/science{
-	req_access_txt = "49"
+	req_access_txt = "49";
+	name = "Exploration Dock Airlock"
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
@@ -13260,10 +13256,6 @@
 /obj/item/storage/firstaid,
 /obj/machinery/power/apc/auto_name/west{
 	pixel_x = -24
-	},
-/obj/item/folder/yellow{
-	pixel_x = 4;
-	pixel_y = 3
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
@@ -14420,9 +14412,6 @@
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
-	},
-/obj/machinery/requests_console{
-	pixel_x = 32
 	},
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/security/armory)
@@ -20634,6 +20623,7 @@
 "fHx" = (
 /obj/effect/turf_decal/tile/brown,
 /obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel/dark,
 /area/quartermaster/storage)
 "fHC" = (
@@ -21408,6 +21398,23 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/quartermaster/exploration_prep)
+"fRt" = (
+/obj/effect/turf_decal/delivery,
+/obj/machinery/requests_console{
+	pixel_x = 32
+	},
+/obj/structure/rack,
+/obj/item/gun/ballistic/shotgun/riot{
+	pixel_x = 2;
+	pixel_y = -3
+	},
+/obj/item/gun/ballistic/shotgun/riot,
+/obj/item/gun/ballistic/shotgun/riot{
+	pixel_x = -2;
+	pixel_y = 3
+	},
+/turf/open/floor/plasteel,
+/area/ai_monitored/security/armory)
 "fRu" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -22988,6 +22995,9 @@
 /obj/machinery/computer/libraryconsole{
 	pixel_y = 5
 	},
+/obj/structure/sign/painting/library{
+	pixel_x = -32
+	},
 /turf/open/floor/wood,
 /area/library)
 "grD" = (
@@ -23028,9 +23038,6 @@
 	},
 /obj/effect/turf_decal/tile/brown{
 	dir = 4
-	},
-/obj/machinery/light_switch{
-	pixel_x = 26
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -30862,14 +30869,22 @@
 	},
 /obj/machinery/meter,
 /obj/machinery/button/ignition/incinerator/toxmix{
-	pixel_x = -5;
-	pixel_y = 26
+	pixel_x = -8;
+	pixel_y = 28
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
+/obj/machinery/airalarm/mixingchamber{
+	dir = 4;
+	pixel_x = -24
+	},
+/obj/machinery/button/door/incinerator_vent_toxmix{
+	pixel_x = 8;
+	pixel_y = 28
+	},
 /turf/open/floor/plasteel/white,
-/area/science/mixing)
+/area/science/mixing/chamber)
 "iyi" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/tile/yellow{
@@ -34241,6 +34256,18 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 6
 	},
+/obj/item/stack/cable_coil/random{
+	pixel_x = -1;
+	pixel_y = 4
+	},
+/obj/item/stack/cable_coil/random{
+	pixel_x = 1;
+	pixel_y = 2
+	},
+/obj/item/stack/cable_coil/random{
+	pixel_x = 2;
+	pixel_y = -1
+	},
 /turf/open/floor/plasteel,
 /area/science/robotics/lab)
 "jxO" = (
@@ -34276,7 +34303,12 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
 	},
-/obj/effect/turf_decal/bot,
+/obj/structure/table/reinforced,
+/obj/item/folder/yellow{
+	pixel_x = 4;
+	pixel_y = 3
+	},
+/obj/item/clipboard,
 /turf/open/floor/plasteel/dark,
 /area/quartermaster/office)
 "jzk" = (
@@ -34349,6 +34381,7 @@
 /obj/effect/turf_decal/tile/green{
 	dir = 8
 	},
+/obj/structure/closet/l3closet/virology,
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
 "jzR" = (
@@ -45139,7 +45172,8 @@
 /area/security/brig)
 "mEh" = (
 /obj/machinery/door/airlock/science{
-	req_access_txt = "49"
+	req_access_txt = "49";
+	name = "Toxins Lab"
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -45734,7 +45768,8 @@
 /area/chapel/main/monastery)
 "mPL" = (
 /obj/machinery/door/airlock/science{
-	req_access_txt = "49"
+	req_access_txt = "49";
+	name = "Toxins Lab"
 	},
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
@@ -50744,6 +50779,9 @@
 	departmentType = 1;
 	pixel_x = -32
 	},
+/obj/machinery/modular_computer/console/preset/curator{
+	dir = 4
+	},
 /turf/open/floor/carpet/green,
 /area/library)
 "ome" = (
@@ -51137,6 +51175,13 @@
 	},
 /turf/open/floor/plasteel,
 /area/engine/engineering)
+"otX" = (
+/obj/structure/closet/secure_closet/lethalshots,
+/obj/effect/turf_decal/bot,
+/obj/item/storage/box/breacherslug,
+/obj/item/storage/box/breacherslug,
+/turf/open/floor/plasteel,
+/area/ai_monitored/security/armory)
 "oui" = (
 /obj/structure/lattice,
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
@@ -52650,7 +52695,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
-/obj/effect/landmark/secequipment,
+/obj/structure/closet/bombcloset/security,
 /turf/open/floor/plasteel,
 /area/security/main)
 "oQg" = (
@@ -54185,7 +54230,7 @@
 	dir = 1
 	},
 /turf/closed/wall/r_wall,
-/area/science/mixing)
+/area/science/mixing/chamber)
 "plC" = (
 /obj/structure/chair/fancy/sofa/old/right{
 	dir = 8
@@ -55584,15 +55629,7 @@
 /obj/effect/turf_decal/tile/brown{
 	dir = 1
 	},
-/obj/machinery/mineral/ore_redemption{
-	input_dir = 4;
-	output_dir = 8
-	},
-/obj/machinery/door/window/westleft{
-	name = "Ore Redemption Windoor";
-	pixel_y = 1;
-	req_access_txt = "31"
-	},
+/obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plasteel/dark,
 /area/quartermaster/office)
 "pGk" = (
@@ -64446,6 +64483,13 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/security/armory)
+"stH" = (
+/obj/machinery/mineral/ore_redemption{
+	input_dir = 4;
+	output_dir = 8
+	},
+/turf/open/floor/plasteel/dark,
+/area/quartermaster/office)
 "stR" = (
 /obj/structure/bookcase/random/adult,
 /turf/open/floor/carpet/green,
@@ -64970,7 +65014,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/effect/landmark/secequipment,
+/obj/structure/closet/l3closet/security,
 /turf/open/floor/plasteel,
 /area/security/main)
 "sBO" = (
@@ -67927,6 +67971,10 @@
 	},
 /obj/structure/filingcabinet/chestdrawer{
 	pixel_y = 2
+	},
+/obj/machinery/light_switch{
+	pixel_y = -26;
+	pixel_x = -2
 	},
 /turf/open/floor/plasteel/dark,
 /area/quartermaster/office)
@@ -72497,6 +72545,9 @@
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/structure/sign/painting/library{
+	pixel_y = 32
+	},
 /turf/open/floor/carpet/green,
 /area/library)
 "uNH" = (
@@ -73157,6 +73208,9 @@
 	},
 /obj/structure/cable/yellow{
 	icon_state = "0-4"
+	},
+/obj/structure/sign/painting/library{
+	pixel_x = -32
 	},
 /turf/open/floor/wood,
 /area/library)
@@ -78496,6 +78550,7 @@
 /obj/effect/turf_decal/tile/green{
 	dir = 1
 	},
+/obj/structure/closet/l3closet/virology,
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
 "wBb" = (
@@ -84084,10 +84139,6 @@
 "yjt" = (
 /obj/machinery/atmospherics/components/binary/pump/on{
 	dir = 1
-	},
-/obj/machinery/airalarm/mixingchamber{
-	dir = 4;
-	pixel_x = -24
 	},
 /obj/machinery/camera/autoname{
 	dir = 10
@@ -111646,7 +111697,7 @@ bFD
 bFD
 maS
 maS
-cah
+maS
 cah
 cah
 cah
@@ -119921,7 +119972,7 @@ fiS
 lHx
 uru
 hqE
-lmv
+bWm
 rFj
 ujs
 bzg
@@ -121115,7 +121166,7 @@ oXI
 oXI
 oXI
 oXI
-aMT
+oXI
 aMT
 aMT
 ktc
@@ -121371,7 +121422,7 @@ oXI
 vfN
 iYF
 pbI
-oXI
+otX
 oXI
 anT
 anT
@@ -122913,7 +122964,7 @@ oXI
 wyE
 ihK
 cwn
-oXI
+fRt
 oXI
 anT
 anT
@@ -123171,7 +123222,7 @@ oXI
 oXI
 oXI
 oXI
-aMT
+oXI
 aMT
 aMT
 tTo
@@ -124995,7 +125046,7 @@ vXf
 tOz
 aBD
 nvV
-bWm
+aBD
 qCT
 aBD
 aPS
@@ -127050,7 +127101,7 @@ vlt
 tEq
 oKE
 dIv
-dIv
+stH
 oxw
 dIv
 rvY
