@@ -212,7 +212,7 @@
 
 /obj/item/flashlight/crank/Initialize(mapload)
 	current_charge = max_charge
-	. = ..()
+	return ..()
 
 /obj/item/flashlight/crank/update_brightness(mob/user)
 	. = ..()
