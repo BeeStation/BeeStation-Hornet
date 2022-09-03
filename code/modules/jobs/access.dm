@@ -405,18 +405,6 @@
 /proc/get_all_centcom_jobs()
 	return list(JOB_CENTCOM_VIP,JOB_CENTCOM_CUSTODIAN, JOB_CENTCOM_THUNDERDOME_OVERSEER,JOB_CENTCOM_OFFICIAL,JOB_CENTCOM_MEDICAL_DOCTOR,JOB_ERT_DEATHSQUAD,JOB_CENTCOM_RESEARCH_OFFICER,"Special Ops Officer",JOB_CENTCOM_ADMIRAL,JOB_CENTCOM_COMMANDER,JOB_ERT_COMMANDER,JOB_ERT_OFFICER ,JOB_ERT_ENGINEER, JOB_ERT_MEDICAL_DOCTOR,JOB_CENTCOM_BARTENDER,"Comedy Response Officer", "HONK Squad Trooper")
 
-/obj/item/proc/GetJobName() //Used in secHUD icon generation (old one, but reamined because some code uses it)
-	// Note: I don't know why this proc is even used in 'non-hud-icon' related procs...
-	var/obj/item/card/id/I = GetID()
-	if(!I)
-		return
-	var/jobName = I.assignment
-	if(jobName in get_all_job_icons()) //Check if the job has a hud icon
-		return jobName
-	if(jobName in get_all_centcom_jobs()) //Return with the NT logo if it is a CentCom job
-		return "CentCom"
-	return "Unknown" //Return unknown if none of the above apply
-
 /obj/item/proc/GetJobIcon() //Used in secHUD icon generation (the new one)
 	var/obj/item/card/id/I = GetID()
 	if(!I)
