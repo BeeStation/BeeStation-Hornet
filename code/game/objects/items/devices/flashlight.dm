@@ -262,6 +262,7 @@
 	. += "The current charge is [current_charge/max_charge]%."
 
 /obj/item/flashlight/crank/Destroy()
+	. = ..()
 	if(on)
 		STOP_PROCESSING(SSobj, src)
 
