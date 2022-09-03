@@ -353,9 +353,9 @@
 			var/mob/living/carbon/human/H
 			if(ishuman(M.current))
 				H = M.current
-			return M.current.stat != DEAD && !issilicon(M.current) && !isbrain(M.current) && (!H || H.dna.species.id != "memezombies" && H.dna.species.id != "memezombiesfast")
+			return M.current.stat != DEAD && !HAS_TRAIT(M, MIND_TRAIT_OBJECTIVE_DEAD) && !issilicon(M.current) && !isbrain(M.current) && (!H || (H.dna.species.id != "memezombies" && H.dna.species.id != "memezombiesfast"))
 		else if(isliving(M.current))
-			return M.current.stat != DEAD
+			return M.current.stat != DEAD && !HAS_TRAIT(M, MIND_TRAIT_OBJECTIVE_DEAD)
 	return FALSE
 
 /proc/considered_afk(datum/mind/M)

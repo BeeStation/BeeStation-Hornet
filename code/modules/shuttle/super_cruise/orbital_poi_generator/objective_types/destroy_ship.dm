@@ -27,6 +27,22 @@
 	//Give the ship some AI
 	var/datum/shuttle_data/located_shuttle = SSorbits.get_shuttle_data(M.id)
 	located_shuttle.set_pilot(new /datum/shuttle_ai_pilot/npc/hostile())
+	var/selected_faction = pickweight(list(
+		/datum/faction/felinids = 2,
+		/datum/faction/golems = 3,
+		/datum/faction/independant = 10,
+		/datum/faction/pirates = 15,
+		/datum/faction/spider_clan = 3,
+		/datum/faction/syndicate/arc = 1,
+		/datum/faction/syndicate/cybersun = 1,
+		/datum/faction/syndicate/donk = 1,
+		/datum/faction/syndicate/gorlex = 1,
+		/datum/faction/syndicate/mi_thirteen = 1,
+		/datum/faction/syndicate/self = 1,
+		/datum/faction/syndicate/tiger_corp = 1,
+		/datum/faction/syndicate/waffle = 1,
+	))
+	located_shuttle.faction = new selected_faction()
 
 	registered_port = M
 	registered_shuttle_data = located_shuttle

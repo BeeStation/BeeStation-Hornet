@@ -19,6 +19,10 @@
 /obj/item/alienartifact/ComponentInitialize()
 	AddComponent(/datum/component/discoverable, 10000, TRUE)
 
+/obj/item/alienartifact/objective
+	//A special kind of artifact we want
+	resistance_flags = INDESTRUCTIBLE
+
 /obj/item/alienartifact/objective/ComponentInitialize()
 	. = ..()
 	AddComponent(/datum/component/gps, "[scramble_message_replace_chars("#########", 100)]", TRUE)

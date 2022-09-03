@@ -103,6 +103,8 @@
 	switch(action.type)
 		if(/datum/action/item_action/toggle_beacon_hud)
 			toggle_hud(user)
+		else
+			..()
 
 /obj/item/clothing/head/helmet/space/hardsuit/proc/toggle_hud(mob/user)
 	var/datum/component/team_monitor/monitor = GetComponent(/datum/component/team_monitor)

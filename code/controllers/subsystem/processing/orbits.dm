@@ -20,6 +20,8 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 
 	var/datum/orbital_objective/current_objective
 
+	var/list/datum/orbital_objective/completed_objectives = list()
+
 	var/list/datum/ruin_event/ruin_events = list()
 
 	var/list/runnable_events
@@ -438,6 +440,8 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 		//Move the mob
 		L.forceMove(picked_spawn.loc)
 		L.log_message("was taken hostage on board a pirate ship.", LOG_ATTACK)
+		if(L.mind)
+			ADD_TRAIT(L.mind, MIND_TRAIT_OBJECTIVE_DEAD, HOSTAGE_REVIVED_TRAIT)
 		log_game("[key_name(L)] was taken hostage on a pirate ship.")
 		log_shuttle("[key_name(L)] was taken hostage on a pirate ship.")
 		//Transfer all of their items to a nearby simple mob's location
@@ -450,6 +454,11 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 		//Equip prisoner outfit
 		var/datum/outfit/hostage/hostage_outfit = new()
 		hostage_outfit.equip(L)
+		//Delete the spawn
+		qdel(picked_spawn)
+		//Cannot be revived in this state
+		if (HAS_TRAIT(L, TRAIT_BADDNA) || L.ishellbound())
+			continue
 		//Revive the mob
 		L.revive(TRUE)
 		//Grab the ghost
@@ -459,8 +468,6 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 		var/list/picked = splittext(pick(strings(EXPLORATION_FLAVOUR, "hostage")), "\n")
 		for(var/message in picked)
 			to_chat(L, "<span class='danger'>[message]</span>")
-		//Delete the spawn
-		qdel(picked_spawn)
 	//If we still have hostages left
 	if(length(to_respawn) && iteration < 4)
 		create_hostage_ship(to_respawn, iteration + 1)

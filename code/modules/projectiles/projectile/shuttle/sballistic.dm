@@ -44,3 +44,5 @@
 	name = "point defense round"
 	damage = 15
 	eyeblur = 0
+	light_damage_factor = 7
+	heavy_damage_factor = 10
