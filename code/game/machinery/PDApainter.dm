@@ -65,7 +65,7 @@
 			JOB_NAME_VIROLOGIST, JOB_NAME_PARAMEDIC, JOB_NAME_PSYCHIATRIST,
 		"----Security----","Security (Custom)",JOB_NAME_HEADOFSECURITY, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE, JOB_NAME_SECURITYOFFICER,
 			JOB_NAME_BRIGPHYSICIAN, JOB_NAME_DEPUTY,
-		"----MISC----","Unassigned","Prisoner"
+		"----MISC----","Unassigned",JOB_NAME_PRISONER
 	)
 	max_integrity = 200
 	var/list/colorlist = list()
