@@ -253,7 +253,7 @@ effective or pretty fucking useless.
 /obj/item/shadowcloak/magician
 	name = "magician's cape"
 	desc = "A magician never reveals his secrets."
-	icon = 'icons/obj/bedsheets.dmi'
+	icon = 'icons/obj/beds_chairs/beds.dmi'
 	lefthand_file = 'icons/mob/inhands/misc/bedsheet_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/bedsheet_righthand.dmi'
 	icon_state = "sheetmagician"

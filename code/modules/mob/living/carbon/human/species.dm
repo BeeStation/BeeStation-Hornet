@@ -100,6 +100,9 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	var/obj/item/bodypart/species_r_leg = /obj/item/bodypart/r_leg
 	var/obj/item/bodypart/species_l_leg = /obj/item/bodypart/l_leg
 
+	/// if false, having no tongue makes you unable to speak
+	var/speak_no_tongue = TRUE
+
 ///////////
 // PROCS //
 ///////////

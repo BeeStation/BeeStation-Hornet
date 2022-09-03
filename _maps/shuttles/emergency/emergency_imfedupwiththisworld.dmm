@@ -8,8 +8,6 @@
 /area/shuttle/escape)
 "c" = (
 /obj/docking_port/mobile/emergency{
-	dheight = 0;
-	dir = 4;
 	dwidth = 1;
 	height = 10;
 	name = "Oh Hi Mark";
@@ -28,7 +26,9 @@
 /turf/open/floor/carpet,
 /area/shuttle/escape)
 "f" = (
-/obj/structure/chair/comfy/teal,
+/obj/structure/chair/fancy/comfy{
+	color = "#354562"
+	},
 /turf/open/floor/carpet,
 /area/shuttle/escape)
 "g" = (
@@ -73,7 +73,8 @@
 /turf/open/floor/carpet,
 /area/shuttle/escape)
 "n" = (
-/obj/structure/chair/comfy/teal{
+/obj/structure/chair/fancy/comfy{
+	color = "#354562";
 	dir = 8
 	},
 /turf/open/floor/carpet,
