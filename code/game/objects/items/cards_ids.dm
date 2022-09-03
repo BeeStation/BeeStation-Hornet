@@ -476,7 +476,9 @@ update_label("John Doe", "Clowny")
 			// copy paste from HoP card painting machine
 			var/target_id_style = "-"
 			while(target_id_style[1] == "-") // trick. "-" is only non-valid option here.
-				target_id_style = input(user, "Select an ID skin - cancel to change nothing", "ID  Painting") as null|anything in valid_jobs
+				target_id_style = input(user, "Select an ID skin (Cancel to change nothing)", "Chameleon card shape") as null|anything in valid_jobs
+				if(!target_id_style)
+					break
 
 			log_id("[key_name(user)] forged agent ID [src] name to [input_name] and occupation to [target_occupation][target_id_style ? " with [target_id_style] card style" : " with non changed [icon_state] shape, [hud_state] hud style"] at [AREACOORD(user)].")
 			registered_name = input_name
@@ -484,6 +486,7 @@ update_label("John Doe", "Clowny")
 			if(target_id_style)
 				icon_state = get_cardstyle_by_jobname(target_id_style)
 				hud_state = get_hud_by_jobname(target_id_style)
+				user.sec_hud_set_ID()
 			update_label()
 			forged = TRUE
 			to_chat(user, "<span class='notice'>You successfully forge the ID card.</span>")
