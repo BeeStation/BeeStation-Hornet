@@ -60,13 +60,10 @@
 /obj/item/modular_computer/Destroy()
 	kill_program(forced = TRUE)
 	STOP_PROCESSING(SSobj, src)
-	for(var/H in all_components)
-		var/obj/item/computer_hardware/CH = all_components[H]
-		if(CH.holder == src)
-			CH.on_remove(src)
-			CH.holder = null
-			all_components.Remove(CH.device_type)
-			qdel(CH)
+	for(var/port in all_components)
+		var/obj/item/computer_hardware/component = all_components[port]
+		qdel(component)
+	all_components.Cut() //Die demon die
 	physical = null
 	return ..()
 
@@ -310,7 +307,7 @@
 		if(3)
 			data["PC_ntneticon"] = "sig_lan.gif"
 
-	if(idle_threads.len)
+	if(length(idle_threads))
 		var/list/program_headers = list()
 		for(var/I in idle_threads)
 			var/datum/computer_file/program/P = I
@@ -361,6 +358,31 @@
 	enabled = 0
 	update_icon()
 
+/obj/item/modular_computer/screwdriver_act(mob/user, obj/item/tool)
+	if(!length(all_components))
+		balloon_alert(user, "no components installed!")
+		return
+	var/list/component_names = list()
+	for(var/h in all_components)
+		var/obj/item/computer_hardware/H = all_components[h]
+		component_names.Add(H.name)
+
+	var/choice = input(user, "Which component do you want to uninstall?", "Computer maintenance", null) as null|anything in sortList(component_names)
+
+	if(!choice)
+		return
+
+	if(!Adjacent(user))
+		return
+
+	var/obj/item/computer_hardware/H = find_hardware_by_name(choice)
+
+	if(!H)
+		return
+
+	tool.play_tool_sound(user, volume=20)
+	uninstall_component(H, user)
+	return
 
 /obj/item/modular_computer/attackby(obj/item/W as obj, mob/user as mob)
 	// Check for ID first
@@ -379,11 +401,12 @@
 			return
 
 	if(W.tool_behaviour == TOOL_WRENCH)
-		if(all_components.len)
-			to_chat(user, "<span class='warning'>Remove all components from \the [src] before disassembling it.</span>")
+		if(length(all_components))
+			balloon_alert(user, "remove the other components!")
 			return
+		W.play_tool_sound(src, user, 20, volume=20)
 		new /obj/item/stack/sheet/iron( get_turf(src.loc), steel_sheet_cost )
-		physical.visible_message("\The [src] has been disassembled by [user].")
+		user.balloon_alert(user, "disassembled")
 		relay_qdel()
 		qdel(src)
 		return
@@ -400,31 +423,7 @@
 		if(W.use_tool(src, user, 20, volume=50, amount=1))
 			obj_integrity = max_integrity
 			to_chat(user, "<span class='notice'>You repair \the [src].</span>")
-		return
-
-	if(W.tool_behaviour == TOOL_SCREWDRIVER)
-		if(!all_components.len)
-			to_chat(user, "<span class='warning'>This device doesn't have any components installed.</span>")
-			return
-		var/list/component_names = list()
-		for(var/h in all_components)
-			var/obj/item/computer_hardware/H = all_components[h]
-			component_names.Add(H.name)
-
-		var/choice = input(user, "Which component do you want to uninstall?", "Computer maintenance", null) as null|anything in sortList(component_names)
-
-		if(!choice)
-			return
-
-		if(!Adjacent(user))
-			return
-
-		var/obj/item/computer_hardware/H = find_hardware_by_name(choice)
-
-		if(!H)
-			return
-
-		uninstall_component(H, user)
+			update_icon()
 		return
 
 	..()

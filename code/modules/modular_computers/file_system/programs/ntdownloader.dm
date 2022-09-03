@@ -142,6 +142,7 @@
 
 	data["downloading"] = !!downloaded_file
 	data["error"] = downloaderror || FALSE
+	data["id_inserted"] = !!card_slot?.GetID()
 
 	// Download running. Wait please..
 	if(downloaded_file)
