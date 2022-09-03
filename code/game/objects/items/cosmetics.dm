@@ -320,6 +320,9 @@
 	if(!hair_check(M, user))
 		return
 
+	barber.visible_message("<span class='notice'>You attempt to sweep [patient]'s hair.</span>", "<span class='notice'>[barber] reaches towards [patient]'s hair with a comb.</span>")
+	if(!do_after(user, 3, target=patient))
+		return
 	patient.hair_style = applied_hair
 	patient.update_hair()
 	patient.visible_message("<span class='notice'>[user] carefully sweeps [patient]'s hair.</span>", "<span class='notice'>[user] carefully reaches forward and sweeps your hair!</span>")
