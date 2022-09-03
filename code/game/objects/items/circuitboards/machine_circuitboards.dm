@@ -323,6 +323,17 @@
 		/obj/item/stack/cable_coil = 5,
 		/obj/item/stock_parts/micro_laser = 1)
 
+/obj/item/circuitboard/machine/shuttle/engine/ion
+	name = "ion thruster (Machine Board)"
+	build_path = /obj/machinery/shuttle/engine/ion
+	req_components = list(/obj/item/stock_parts/capacitor = 2,
+		/obj/item/stack/cable_coil = 5,
+		/obj/item/stock_parts/micro_laser = 1)
+
+/obj/item/circuitboard/machine/shuttle/engine/ion/burst
+	name = "ion burst thruster (Machine Board)"
+	build_path = /obj/machinery/shuttle/engine/ion/burst
+
 /obj/item/circuitboard/machine/shuttle/engine/void
 	name = "void thruster (Machine Board)"
 	build_path = /obj/machinery/shuttle/engine/void

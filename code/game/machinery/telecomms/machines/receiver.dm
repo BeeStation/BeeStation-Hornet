@@ -31,7 +31,7 @@
 
 	for(var/obj/machinery/telecomms/hub/H in links)
 		for(var/obj/machinery/telecomms/relay/R in H.links)
-			if(R.can_receive(signal) && get_minimal_orbital_distance(signal.sources) < signal.receieve_range)
+			if(R.can_receive(signal) && R.get_minimal_orbital_distance(signal.sources) < signal.receieve_range)
 				return TRUE
 
 	return FALSE

@@ -7,7 +7,7 @@
 	icon_state_off = "ion_thruster_off"
 
 	idle_power_usage = 0
-	circuit = /obj/item/circuitboard/machine/shuttle/engine/plasma
+	circuit = /obj/item/circuitboard/machine/shuttle/engine/ion
 	thrust = 60
 	fuel_use = 0
 	cooldown = 45
@@ -197,7 +197,7 @@
 	name = "burst ion thruster"
 	desc = "A varient of the ion thruster that uses significantly more power for a burst of thrust."
 
-	circuit = /obj/item/circuitboard/machine/shuttle/engine/plasma
+	circuit = /obj/item/circuitboard/machine/shuttle/engine/ion
 	//Must faster
 	thrust = 300
 	//Uses more than it can be charged with a basic capacitor, so cannot sustain long periods of flight
