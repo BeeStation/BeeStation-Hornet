@@ -6,7 +6,7 @@
 		ssd_indicator = new
 		ssd_indicator.icon = 'icons/mob/hud.dmi'
 		ssd_indicator.icon_state = "ssd"
-		ssd_indicator.layer = ABOVE_MOB_LAYER
+		ssd_indicator.layer = FLY_LAYER
 
 	ssd_indicator.invisibility = invisibility
 	if(state && stat != DEAD)
