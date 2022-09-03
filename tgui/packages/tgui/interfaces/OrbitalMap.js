@@ -2,7 +2,7 @@
 
 // Made by powerfulbacon
 
-import { Box, Button, Section, Table, DraggableClickableControl, Dropdown, Divider, NoticeBox, ProgressBar, Flex, OrbitalMapComponent, OrbitalMapSvg, Grid } from '../components';
+import { Box, Button, Section, Table, DraggableClickableControl, Dropdown, Divider, NoticeBox, ProgressBar, Flex, OrbitalMapComponent, OrbitalMapSvg, Grid, Stack, Tabs } from '../components';
 import { useBackend, useLocalState } from '../backend';
 import { Window } from '../layouts';
 
@@ -72,24 +72,17 @@ export const OrbitalMap = (props, context) => {
       <Window.Content fitted>
         <Flex height="100%">
           <Flex.Item class="OrbitalMap__radar" grow id="radar">
-            {interdictionTime ? (
-              <InterdictionDisplay
-                xOffset={dynamicXOffset}
-                yOffset={dynamicYOffset}
-                zoomScale={zoomScale}
-                setZoomScale={setZoomScale}
-                setXOffset={setXOffset}
-                setYOffset={setYOffset} />
-            ) : (
-              <OrbitalMapDisplay
-                dynamicXOffset={dynamicXOffset}
-                dynamicYOffset={dynamicYOffset}
-                isTracking={trackedBody !== "None"}
-                zoomScale={zoomScale}
-                setZoomScale={setZoomScale}
-                setTrackedBody={setTrackedBody}
-                ourObject={ourObject} />
-            )}
+            <DisplayWindow
+              xOffset={dynamicXOffset}
+              yOffset={dynamicYOffset}
+              isTracking={trackedBody !== map_objects[0].name}
+              zoomScale={zoomScale}
+              setZoomScale={setZoomScale}
+              setXOffset={setXOffset}
+              setYOffset={setYOffset}
+              setTrackedBody={setTrackedBody}
+              ourObject={ourObject}
+              interdictionTime={interdictionTime} />
           </Flex.Item>
           <Flex.Item class="OrbitalMap__panel">
             <Section fill scrollable>
@@ -200,6 +193,158 @@ export const OrbitalMap = (props, context) => {
         </Flex>
       </Window.Content>
     </Window>
+  );
+};
+
+export const DisplayWindow = (props, context) => {
+  const {
+    xOffset,
+    yOffset,
+    zoomScale,
+    setZoomScale,
+    setXOffset,
+    setYOffset,
+    interdictionTime,
+    isTracking,
+    setTrackedBody,
+    ourObject,
+  } = props;
+
+  const [
+    isInterdicted,
+    setIsInterdicted,
+  ] = useLocalState(context, 'isInterdicted', false);
+
+  const [
+    selectedMap,
+    setSelectedMap,
+  ] = useLocalState(context, 'selectedMap', 'map');
+
+  if (isInterdicted === false && interdictionTime > 0)
+  {
+    setIsInterdicted(true);
+    setSelectedMap('interdiction');
+  } else if (interdictionTime <= 0 && isInterdicted === true)
+  {
+    setIsInterdicted(false);
+  }
+
+  return (
+    <>
+      {selectedMap === 'interdiction' ? (
+        <InterdictionDisplay
+          xOffset={xOffset}
+          yOffset={yOffset}
+          zoomScale={zoomScale}
+          setZoomScale={setZoomScale}
+          setXOffset={setXOffset}
+          setYOffset={setYOffset} />
+      ) : selectedMap === 'communication' ? (
+        <OrbitalMapComms />
+      ) : (
+        <OrbitalMapDisplay
+          dynamicXOffset={xOffset}
+          dynamicYOffset={yOffset}
+          isTracking={isTracking}
+          zoomScale={zoomScale}
+          setZoomScale={setZoomScale}
+          setTrackedBody={setTrackedBody}
+          ourObject={ourObject} />
+      )}
+      {selectedMap !== 'communication' && (
+        <>
+          <Button
+            position="absolute"
+            icon="search-plus"
+            right="20px"
+            top="15px"
+            fontSize="18px"
+            color="grey"
+            onClick={() => setZoomScale(zoomScale * 2)} />
+          <Button
+            position="absolute"
+            icon="search-minus"
+            right="20px"
+            top="47px"
+            fontSize="18px"
+            color="grey"
+            onClick={() => setZoomScale(zoomScale / 2)} />
+        </>
+      )}
+      <Button
+        position="absolute"
+        icon="map"
+        right="5px"
+        bottom="83px"
+        fontSize="18px"
+        color="grey"
+        onClick={() => setSelectedMap('map')}
+        selected={selectedMap === 'map'}
+        content="Orbital Map" />
+      <Button
+        position="absolute"
+        icon="route"
+        right="5px"
+        bottom="49px"
+        fontSize="18px"
+        color="grey"
+        onClick={() => setSelectedMap('interdiction')}
+        selected={selectedMap === 'interdiction'}
+        content="Local Map" />
+      <Button
+        position="absolute"
+        icon="satellite-dish"
+        right="5px"
+        bottom="15px"
+        fontSize="18px"
+        color="grey"
+        onClick={() => setSelectedMap('communication')}
+        selected={selectedMap === 'communication'}
+        content="Communications" />
+    </>
+  );
+};
+
+export const OrbitalMapComms = (props, context) => {
+  const { act, data } = useBackend(context);
+
+  const {
+    map_objects = {},
+  } = data;
+
+  const [
+    communicationTarget,
+    setCommunicationTarget,
+  ] = useLocalState(context, 'communicationTarget', map_objects[0].id);
+
+  return (
+    <Stack
+      height="100%">
+      <Stack.Item
+        overflowY="auto">
+        <Section
+          height="100%"
+          title="Communication Targets">
+          <Tabs vertical>
+            {map_objects.map(element => (
+              <Tabs.Tab
+                key={element}
+                selected={communicationTarget===element.id}
+                onClick={() => setCommunicationTarget(element.id)}>
+                {element.name}
+              </Tabs.Tab>
+            ))}
+          </Tabs>
+        </Section>
+      </Stack.Item>
+      <Stack.Divider />
+      <Stack.Item width="100%">
+        <Section width="100%" height="100%" title="Communications Window">
+          a
+        </Section>
+      </Stack.Item>
+      <Stack.Divider />
+    </Stack>
   );
 };
 
