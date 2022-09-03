@@ -697,7 +697,7 @@ GLOBAL_VAR(medibot_unique_id_gen)
 	var/datum/bank_account/bank_account = SSeconomy.get_dep_account(ACCOUNT_CAR)
 	bank_account.adjust_money(cola_cost)
 	if(announce)
-		speak("[cola_cost] credits payed out from sponsors.", RADIO_CHANNEL_SUPPLY)
+		speak("[cola_cost] credits paid out from sponsors.", RADIO_CHANNEL_SUPPLY)
 	return TRUE
 
 #undef MEDBOT_PANIC_NONE
