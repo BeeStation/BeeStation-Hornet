@@ -18,7 +18,7 @@
 
 	if(target.mind && target.client && target.stat != DEAD)
 		if((!HAS_TRAIT(target, TRAIT_MINDSHIELD)) && !istype(target.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat))
-			if(!is_hivehost(target) && !target.is_wokevessel())
+			if(!IS_HIVEHOST(target) && !IS_WOKEVESSEL(target))
 				target.hive_weak_awaken(directive)
 				to_chat(user, "<span class='warning'>We successfully overpower their weak psyche!.</span>")
 				success = TRUE

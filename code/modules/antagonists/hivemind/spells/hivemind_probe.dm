@@ -29,7 +29,7 @@
 				continue
 			if(M.current == user)
 				continue
-			if(enemy.owner == M && is_hivehost(target))
+			if(enemy.owner == M && IS_HIVEHOST(target))
 				detected = TRUE
 				var/atom/throwtarget
 				var/datum/antagonist/hivemind/hivetarget = target.mind.has_antag_datum(/datum/antagonist/hivemind)
@@ -44,7 +44,7 @@
 				hive.add_hive_overlay_probe(target)
 				to_chat(user, "<span class='userdanger'>We have found the vile stain of [enemy.hiveID] within this mind!</span>")
 				detected = TRUE
-				if(target.mind.has_antag_datum(/datum/antagonist/brainwashed) || target.is_wokevessel())
+				if(target.mind.has_antag_datum(/datum/antagonist/brainwashed) || IS_WOKEVESSEL(target))
 					to_chat(user, "<span class='assimilator'>Our target is being controlled, their actions are not their own!.</span>")
 					return
 		if(!detected)

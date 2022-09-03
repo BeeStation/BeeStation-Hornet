@@ -39,7 +39,7 @@
 		to_chat(user, "<span class='warning'>We must tighten our grip to be able to awaken their mind!</span>")
 		revert_cast()
 		return
-	if(is_hivehost(target) || target.is_wokevessel() || HAS_TRAIT(target, TRAIT_MINDSHIELD))
+	if(IS_HIVEHOST(target) || IS_WOKEVESSEL(target) || HAS_TRAIT(target, TRAIT_MINDSHIELD))
 		to_chat(user, "<span class='warning'>Complex mental barriers protect [target.name]'s mind.</span>")
 		revert_cast()
 		return

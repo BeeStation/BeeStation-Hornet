@@ -45,7 +45,7 @@
 					var/mob/living/carbon/C = hive.owner.current
 					if(C?.mind)
 						to_chat(C, "<span class='assimilator'>We detect a surge of psionic energy from a far away vessel before they disappear from the hive. Whatever happened, there's a good chance they're after us now.</span>")
-			if(target.is_wokevessel())
+			if(IS_WOKEVESSEL(target))
 				target.mind.remove_antag_datum(/datum/antagonist/hivevessel)
 				target.visible_message("<span class='deconversion_message'>[target]'s thoughts seem to clear!</span>", null, null, null, target)
 				ADD_TRAIT(target, TRAIT_HIVE_BURNT, HIVEMIND_TRAIT)

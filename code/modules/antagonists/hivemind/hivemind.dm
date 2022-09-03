@@ -95,7 +95,7 @@
 		calc_size()
 
 	var/user_warning = "<span class='userdanger'>We have detected an enemy hivemind using our physical form as a vessel and have begun ejecting their mind! They will be alerted of our disappearance once we succeed!</span>"
-	if(is_hivehost(C))
+	if(IS_HIVEHOST(C))
 		var/eject_time = rand(1400,1600) //2.5 minutes +- 10 seconds
 		addtimer(CALLBACK(GLOBAL_PROC, /proc/to_chat, C, user_warning), rand(500,1300)) // If the host has assimilated an enemy hive host, alert the enemy before booting them from the hive after a short while
 		addtimer(CALLBACK(src, .proc/handle_ejection, C), eject_time)
@@ -126,7 +126,7 @@
 	var/mob/living/carbon/C2 = owner.current
 	if(!C2)
 		return
-	if(is_hivehost(C) && is_hivehost(C2))
+	if(IS_HIVEHOST(C) && IS_HIVEHOST(C2))
 		remove_from_hive(C)
 		to_chat(C2, "<span class='assimilator'>We detect a surge of psionic energy from a far away vessel before they disappear from the hive. Whatever happened, there's a good chance they're after us now.</span>")
 		to_chat(C, "<span class='warning'>The enemy host has been ejected from our mind.</span>" )
@@ -173,7 +173,7 @@
 		hud_entry_num = GLOB.huds.len+1 // this is the index the hivemind hud will be added at
 		GLOB.huds += hivehud
 	hivehud.join_hud(M)
-	if(is_hivehost(M))
+	if(IS_HIVEHOST(M))
 		set_antag_hud(M,"hivemind")
 	else
 		set_antag_hud(M,"hivevessel")

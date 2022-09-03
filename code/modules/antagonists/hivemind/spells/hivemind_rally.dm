@@ -21,7 +21,7 @@
 		return
 	var/list/victims = list()
 	for(var/mob/living/target in targets)
-		if(is_hivehost(target))
+		if(IS_HIVEHOST(target))
 			victims += target
 		var/datum/mind/mind = target.mind
 		if(mind in hive.avessels)

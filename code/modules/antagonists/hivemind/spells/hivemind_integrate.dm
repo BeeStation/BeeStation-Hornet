@@ -24,7 +24,7 @@
 		hivehost.isintegrating = FALSE
 		revert_cast()
 		return
-	if(!is_hivehost(target))
+	if(!IS_HIVEHOST(target))
 		to_chat(user, "<span class='warning'>Their mind is worthless to us!</span>")
 		revert_cast()
 		return

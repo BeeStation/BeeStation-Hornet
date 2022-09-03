@@ -21,10 +21,6 @@ GLOBAL_LIST_EMPTY(hivehosts)
 
 	var/list/hosts = list()
 
-/proc/is_hivehost(mob/living/M)
-	if(!M || !M.mind)
-		return
-	return M.mind.has_antag_datum(/datum/antagonist/hivemind)
 
 /proc/is_hivemember(mob/living/L)
 	if(!L)
@@ -46,7 +42,7 @@ GLOBAL_LIST_EMPTY(hivehosts)
 			H.remove_hive_overlay(M.current)
 			H.hivemembers -= M
 			H.calc_size()
-	var/datum/antagonist/hivevessel/V = L.is_wokevessel()
+	var/datum/antagonist/hivevessel/V = IS_WOKEVESSEL(L)
 	if(V && M)
 		M.remove_antag_datum(/datum/antagonist/hivevessel)
 

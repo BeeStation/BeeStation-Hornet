@@ -1678,6 +1678,7 @@
 #include "code\modules\antagonists\hivemind\spells\hivemind_barrier.dm"
 #include "code\modules\antagonists\hivemind\spells\hivemind_compell.dm"
 #include "code\modules\antagonists\hivemind\spells\hivemind_dominance.dm"
+#include "code\modules\antagonists\hivemind\spells\hivemind_hand.dm"
 #include "code\modules\antagonists\hivemind\spells\hivemind_heal.dm"
 #include "code\modules\antagonists\hivemind\spells\hivemind_integrate.dm"
 #include "code\modules\antagonists\hivemind\spells\hivemind_invasion.dm"

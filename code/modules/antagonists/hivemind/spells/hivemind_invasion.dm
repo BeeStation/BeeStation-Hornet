@@ -41,7 +41,7 @@
 				enemy.remove_from_hive(target)
 				to_chat(real_enemy, "<span class='assimilator'>We detect a surge of psionic energy from a far away vessel before they disappear from the hive. Whatever happened, there's a good chance they're after us now.</span>")
 
-			if(enemy.owner == M && is_hivehost(target))
+			if(enemy.owner == M && IS_HIVEHOST(target))
 				var/atom/throwtarget
 				var/datum/antagonist/hivemind/hivetarget = target.mind.has_antag_datum(/datum/antagonist/hivemind)
 				throwtarget = get_edge_target_turf(src, get_dir(src, get_step_away(user, src)))

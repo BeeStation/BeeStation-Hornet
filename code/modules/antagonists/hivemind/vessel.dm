@@ -10,11 +10,9 @@
 	var/datum/antagonist/hivemind/master
 	var/special_role = ROLE_HIVE_VESSEL
 	var/mutable_appearance/glow
+	var/obj/effect/proc_holder/spell/targeted/touch/hive_fist/fist = new
 	show_in_roundend = FALSE
 
-
-/mob/living/proc/is_wokevessel()
-	return mind?.has_antag_datum(/datum/antagonist/hivevessel)
 
 /mob/living/proc/hive_weak_awaken(directive)
 	var/mob/living/user = src
@@ -39,9 +37,11 @@
 
 /datum/antagonist/hivevessel/on_gain()
 	owner.special_role = special_role
+	owner.AddSpell(fist)
 	..()
 
 /datum/antagonist/hivevessel/on_removal()
+	owner.RemoveSpell(fist)
 	if(master)
 		to_chat(master.owner, "<span class='assimilator'>A figment of our consciousness snaps out, we have lost an awakened vessel!</span>")
 	if(owner?.current && glow)

@@ -20,7 +20,7 @@
 		if(HAS_TRAIT(target, TRAIT_MINDSHIELD))
 			to_chat(user, "<span class='warning'>Powerful technology protects [target.name]'s mind.</span>")
 			return
-		if(!is_hivehost(target))
+		if(!IS_HIVEHOST(target))
 			var/power = 120-get_dist(user, target)
 			switch(hive.hive_size)
 				if(0 to 4)
