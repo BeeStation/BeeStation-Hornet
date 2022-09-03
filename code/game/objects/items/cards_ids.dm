@@ -447,7 +447,7 @@ update_label("John Doe", "Clowny")
 			JOB_NAME_VIROLOGIST, JOB_NAME_PARAMEDIC, JOB_NAME_PSYCHIATRIST,
 		"----Security----","Security (Custom)",JOB_NAME_HEADOFSECURITY, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE, JOB_NAME_SECURITYOFFICER,
 			JOB_NAME_BRIGPHYSICIAN, JOB_NAME_DEPUTY,
-		"----MISC----","Unassigned","Prisoner","CentCom (Custom)","CentCom","ERT",JOB_NAME_VIP,"King","Syndicate","Clown Operative"
+		"----MISC----","Unassigned",JOB_NAME_PRISONER,"CentCom (Custom)","CentCom","ERT",JOB_NAME_VIP,JOB_NAME_KING,"Syndicate","Clown Operative"
 	)
 	if(isliving(user) && user.mind)
 		var/first_use = registered_name ? FALSE : TRUE
