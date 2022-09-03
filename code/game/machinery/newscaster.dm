@@ -895,7 +895,7 @@ GLOBAL_LIST_EMPTY(allCasters)
 
 /obj/item/newspaper/examine(mob/user)
 	. = ..()
-	if(	if(reader && !(REF(reader) in horoscope.has_read))
+	if(reader && !(REF(reader) in horoscope.has_read))
 		. += "<span class='notice'>Alt-Click to read your horoscope!</span>"
 
 /obj/item/newspaper/suicide_act(mob/user)
