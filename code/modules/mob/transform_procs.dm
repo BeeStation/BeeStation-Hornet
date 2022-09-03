@@ -464,7 +464,7 @@
 	qdel(src)
 
 //A common proc to start an -ize transformation
-/mob/living/carbon/proc/pre_fooize(delete_items = FALSE)
+/mob/living/carbon/proc/pre_transform(delete_items = FALSE)
 	if(notransform)
 		return TRUE
 	notransform = TRUE
@@ -482,7 +482,7 @@
 		qdel(t)
 
 /mob/living/carbon/AIize(transfer_after = TRUE, client/preference_source)
-	return pre_fooize() ? null : ..()
+	return pre_transform() ? null : ..()
 
 /mob/proc/AIize(transfer_after = TRUE, client/preference_source)
 	var/list/turf/landmark_loc = list()
@@ -517,7 +517,7 @@
 	qdel(src)
 
 /mob/living/carbon/human/proc/Robotize(delete_items = 0, transfer_after = TRUE)
-	if(pre_fooize(delete_items))
+	if(pre_transform(delete_items))
 		return
 
 	var/mob/living/silicon/robot/R = new /mob/living/silicon/robot(loc)
@@ -551,7 +551,7 @@
 
 //human -> alien
 /mob/living/carbon/human/proc/Alienize()
-	if(pre_fooize())
+	if(pre_transform())
 		return
 
 	var/alien_caste = pick("Hunter","Sentinel","Drone")
@@ -572,7 +572,7 @@
 	qdel(src)
 
 /mob/living/carbon/human/proc/slimeize(reproduce as num)
-	if(pre_fooize())
+	if(pre_transform())
 		return
 
 	var/mob/living/simple_animal/slime/new_slime
@@ -602,7 +602,7 @@
 
 
 /mob/living/carbon/proc/corgize()
-	if(pre_fooize())
+	if(pre_transform())
 		return
 
 	var/mob/living/simple_animal/pet/dog/corgi/new_corgi = new /mob/living/simple_animal/pet/dog/corgi (loc)
@@ -614,7 +614,7 @@
 	qdel(src)
 
 /mob/living/carbon/proc/gorillize()
-	if(pre_fooize())
+	if(pre_transform())
 		return
 	var/mob/living/simple_animal/hostile/gorilla/new_gorilla = new (get_turf(src))
 	new_gorilla.a_intent = INTENT_HARM
@@ -627,7 +627,7 @@
 	qdel(src)
 
 /mob/living/carbon/proc/junglegorillize()
-	if(pre_fooize())
+	if(pre_transform())
 		return
 	var/mob/living/simple_animal/hostile/gorilla/rabid/new_gorilla = new (get_turf(src))
 	new_gorilla.a_intent = INTENT_HARM
@@ -650,7 +650,7 @@
 		to_chat(usr, "<span class='danger'>Sorry but this mob type is currently unavailable.</span>")
 		return
 
-	if(pre_fooize())
+	if(pre_transform())
 		return
 
 	var/mob/new_mob = new mobpath(src.loc)
