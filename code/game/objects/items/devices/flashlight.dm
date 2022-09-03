@@ -215,11 +215,13 @@
 	return ..()
 
 /obj/item/flashlight/crank/update_brightness(mob/user)
-	. = ..()
-	if(on)
-		START_PROCESSING(SSobj, src)
 	if(current_charge <= 0)
 		user.visible_message("<span class='warning'>The flashlight flickers a few times, before cutting out.</span>")
+		on = FALSE
+		current_charge = 0  // underflow prevent
+
+	. = ..()
+	START_PROCESSING(SSobj, src)
 
 /obj/item/flashlight/crank/process(delta_time)
 	current_charge -= delta_time
