@@ -51085,7 +51085,7 @@
 /obj/machinery/microwave{
 	desc = "Cooks and boils stuff, somehow.";
 	pixel_x = -1;
-	pixel_y = 0
+	pixel_y = -1
 	},
 /turf/open/floor/plasteel,
 /area/security/brig)
