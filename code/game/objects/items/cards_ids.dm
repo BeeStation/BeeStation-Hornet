@@ -476,7 +476,7 @@ update_label("John Doe", "Clowny")
 			// copy paste from HoP card painting machine
 			var/target_id_style = "-"
 			while(target_id_style[1] == "-") // trick. "-" is only non-valid option here.
-				target_id_style = input(user, "Select an ID skin (Cancel to change nothing)", "Chameleon card shape") as null|anything in valid_jobs
+				target_id_style = input(user, "Select an ID skin (Cancel to change nothing)\nCard HUD icon will follow the job you choose.", "Chameleon card shape") as null|anything in valid_jobs
 				if(!target_id_style)
 					break
 
@@ -486,7 +486,8 @@ update_label("John Doe", "Clowny")
 			if(target_id_style)
 				icon_state = get_cardstyle_by_jobname(target_id_style)
 				hud_state = get_hud_by_jobname(target_id_style)
-				user.sec_hud_set_ID()
+				var/mob/living/carbon/human/H = user
+				H.sec_hud_set_ID()
 			update_label()
 			forged = TRUE
 			to_chat(user, "<span class='notice'>You successfully forge the ID card.</span>")
