@@ -65,6 +65,11 @@ if grep -i 'centcomm' code/**/*.dm; then
     echo -e "${RED}ERROR: Misspelling(s) of CentCom detected in code, please remove the extra M(s).${NC}"
     st=1
 fi;
+if grep -i 'centcomm' _maps/**/*.dm; then
+    echo
+    echo -e "${RED}ERROR: Misspelling(s) of CentCom detected in maps, please remove the extra M(s).${NC}"
+    st=1
+fi;
 if grep -P 'set name\s*=\s*"[\S\s]*![\S\s]*"' code/**/*.dm; then
     echo
     echo -e "${RED}ERROR: Verb with name containing an exclamation point found. These verbs are not compatible with TGUI chat's statpanel or chat box.${NC}"
