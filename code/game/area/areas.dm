@@ -33,6 +33,10 @@
 
 	var/mood_bonus = 0 //Mood for being here
 	var/mood_message = "<span class='nicegreen'>This area is pretty nice!\n</span>" //Mood message for being here, only shows up if mood_bonus != 0
+	/// if defined, restricts what jobs get this buff using JOB_NAME defines (-candycane/etherware)
+	var/list/mood_job_allowed = null
+	/// if true, mood_job_allowed will represent jobs exempt from getting the mood.
+	var/mood_job_reverse = FALSE
 
 	///Will objects this area be needing power?
 	var/requires_power = TRUE
@@ -728,3 +732,17 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 
 /area/get_virtual_z_level()
 	return get_virtual_z(get_turf(src))
+
+/// if it returns true, the mood effect assigned to the area is defined. Defaults to checking mood_job_allowed
+/area/proc/mood_check(mob/living/carbon/human/subject)
+	if(!mood_bonus)
+		return FALSE
+
+	. = TRUE
+
+	if(!length(mood_job_allowed))
+		return .
+	if(!(subject.mind?.assigned_role in mood_job_allowed))
+		. = FALSE
+	if(mood_job_reverse)
+		return !.  // the most eye bleeding syntax ive written
