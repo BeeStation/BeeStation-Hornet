@@ -48,13 +48,15 @@
 	new /obj/item/crowbar/red(src)
 	new /obj/item/weldingtool/mini(src)
 	new /obj/item/extinguisher/mini(src)
-	switch(rand(1,3))
+	switch(rand(1,4))
 		if(1)
 			new /obj/item/flashlight(src)
 		if(2)
 			new /obj/item/flashlight/glowstick(src)
 		if(3)
 			new /obj/item/flashlight/flare(src)
+		if(4)
+			new /obj/item/flashlight/crank(src)
 	new /obj/item/radio/off(src)
 
 /obj/item/storage/toolbox/emergency/old

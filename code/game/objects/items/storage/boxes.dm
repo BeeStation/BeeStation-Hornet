@@ -132,7 +132,7 @@
 		new /obj/item/tank/internals/plasmaman/belt(src)
 
 	if(HAS_TRAIT(SSstation, STATION_TRAIT_PREMIUM_INTERNALS))
-		new /obj/item/flashlight/flare(src)
+		new /obj/item/flashlight/crank(src)
 		new /obj/item/radio/off(src)
 
 /obj/item/storage/box/survival/radio/PopulateContents()

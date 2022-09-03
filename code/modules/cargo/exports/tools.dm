@@ -76,6 +76,11 @@
 	unit_name = "flare"
 	export_types = list(/obj/item/flashlight/flare)
 
+/datum/export/crank_flashlight
+	cost = 3
+	unit_name = "crank flashlight"
+	export_types = list(/obj/item/flashlight/crank)
+
 /datum/export/flashlight/seclite
 	cost = 10
 	unit_name = "seclite"
