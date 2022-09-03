@@ -1,4 +1,0 @@
-author: EvilDragonfiend
-delete-after: true
-changes:
-  - code_imp: removed an unused proc '/obj/item/proc/GetJobName()'
