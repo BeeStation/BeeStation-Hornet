@@ -20,6 +20,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	var/mode = 0
 	var/printing = null
 	var/target_dept = DEPT_ALL //Which department this computer has access to.
+	var/target_paycheck = null
 
 	//Cooldown for closing positions in seconds
 	//if set to -1: No cooldown... probably a bad idea
@@ -457,6 +458,22 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		return
 
 	usr.set_machine(src)
+	switch(href_list["paytype"])
+		if("civ")
+			target_paycheck = ACCOUNT_CIV
+		if("srv")
+			target_paycheck = ACCOUNT_SRV
+		if("car")
+			target_paycheck = ACCOUNT_CAR
+		if("sci")
+			target_paycheck = ACCOUNT_SCI
+		if("eng")
+			target_paycheck = ACCOUNT_ENG
+		if("med")
+			target_paycheck = ACCOUNT_MED
+		if("sec")
+			target_paycheck = ACCOUNT_SEC
+
 	switch(href_list["choice"])
 		if ("inserted_modify_id")
 			if(inserted_modify_id && !usr.get_active_held_item())

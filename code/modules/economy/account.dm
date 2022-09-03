@@ -4,12 +4,7 @@
 /datum/bank_account
 	var/account_holder = "Rusty Venture"
 	var/account_balance = 0
-	//Amount payed on each payday
-	var/paycheck_amount = 0
-	//Bonus amount for a single payday
-	var/paycheck_bonus = 0
 	var/datum/job/account_job
-	var/account_department
 	var/list/bank_cards = list()
 	var/add_to_accounts = TRUE
 	var/account_id
@@ -19,7 +14,52 @@
 	var/department_locked = FALSE //TRUE locks from changing `account_department` into something else. used for VIP, Captain, and HoS. Those jobs don't need to change paycheck department.
 	/// used for cryo'ed people's account. Once it's TRUE, most bank features of the bank account will be disabled.
 	var/suspended = FALSE
-	var/total_paid_payment = 0
+	/// your main department
+	var/account_department
+
+	///
+	var/active_departments = NONE
+	/// payment from each department.
+	var/list/departments_paycheck = list(
+		ACCOUNT_CIV=0,
+		ACCOUNT_ENG=0,
+		ACCOUNT_SCI=0,
+		ACCOUNT_MED=0,
+		ACCOUNT_SRV=0,
+		ACCOUNT_CAR=0,
+		ACCOUNT_SEC=0,
+		ACCOUNT_VIP=0
+	)
+	/// bonus from each department.
+	var/list/departments_bonus = list(
+		ACCOUNT_CIV=0,
+		ACCOUNT_ENG=0,
+		ACCOUNT_SCI=0,
+		ACCOUNT_MED=0,
+		ACCOUNT_SRV=0,
+		ACCOUNT_CAR=0,
+		ACCOUNT_SEC=0,
+		ACCOUNT_VIP=0
+	)
+	/// the amount of credits that would be returned to the station before it siphons roundstart credits into void when its owner went cryo.
+	var/list/total_paid_payment = list(
+		ACCOUNT_CIV=0,
+		ACCOUNT_ENG=0,
+		ACCOUNT_SCI=0,
+		ACCOUNT_MED=0,
+		ACCOUNT_SRV=0,
+		ACCOUNT_CAR=0,
+		ACCOUNT_SEC=0,
+		ACCOUNT_VIP=0
+	)
+
+
+
+
+	//Amount payed on each payday
+	var/paycheck_amount = 0
+	//Bonus amount for a single payday
+	var/paycheck_bonus = 0
 
 /datum/bank_account/New(newname, job)
 	if(add_to_accounts)
@@ -61,6 +101,18 @@
 		from.adjust_money(-amount)
 		return TRUE
 	return FALSE
+
+/datum/bank_account/proc/get_department_strings()
+	var/static/list/dept_flags = list(
+		ACCOUNT_CIV_FLAG,
+		ACCOUNT_ENG_FLAG,
+		ACCOUNT_SCI_FLAG,
+		ACCOUNT_MED_FLAG,
+		ACCOUNT_SRV_FLAG,
+		ACCOUNT_CAR_FLAG,
+		ACCOUNT_SEC_FLAG,
+		ACCOUNT_VIP_FLAG
+	)
 
 /datum/bank_account/proc/payday(amt_of_paychecks, free = FALSE)
 	if(suspended)
