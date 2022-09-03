@@ -194,3 +194,14 @@
 		return TRUE
 	if(isclothing(wear_mask) && (wear_mask.clothing_flags & SCAN_REAGENTS))
 		return TRUE
+
+/mob/living/carbon/human/can_see_boozepower()
+	. = ..()
+	if(.)
+		return
+	if(isclothing(glasses) && (glasses.clothing_flags & SCAN_BOOZEPOWER))
+		return TRUE
+	if(isclothing(head) && (head.clothing_flags & SCAN_BOOZEPOWER))
+		return TRUE
+	if(isclothing(wear_mask) && (wear_mask.clothing_flags & SCAN_BOOZEPOWER))
+		return TRUE
