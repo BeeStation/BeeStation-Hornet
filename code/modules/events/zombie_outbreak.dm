@@ -14,18 +14,19 @@
 	living_crew = get_living_station_crew()
 	var/infection_count = round(length(living_crew) / 10)
 
-	for(var/i in 0 to infection_count)
-		for(var/mob/living/carbon/human/H in shuffle(GLOB.player_list))
-			if(H.stat == DEAD)
-				continue
-			if(!SSjob.GetJob(H.mind.assigned_role) || (H.mind.assigned_role in GLOB.nonhuman_positions))
-				continue
-			if(!H.getorgan(/obj/item/organ/brain))
-				continue
-			if(!(MOB_ORGANIC in H.mob_biotypes))
-				continue
-			if(!H.getorganslot(ORGAN_SLOT_ZOMBIE))
-				var/obj/item/organ/zombie_infection/ZI = new()
-				ZI.Insert(H)
-			announce_to_ghosts(H)
+	for(var/mob/living/carbon/human/H in shuffle(GLOB.player_list))
+		if(H.stat == DEAD)
+			continue
+		if(!SSjob.GetJob(H.mind.assigned_role) || (H.mind.assigned_role in GLOB.nonhuman_positions))
+			continue
+		if(!H.getorgan(/obj/item/organ/brain))
+			continue
+		if(!(MOB_ORGANIC in H.mob_biotypes))
+			continue
+		if(!H.getorganslot(ORGAN_SLOT_ZOMBIE))
+			var/obj/item/organ/zombie_infection/ZI = new()
+			ZI.Insert(H)
+		announce_to_ghosts(H)
+		infection_count  --
+		if (infection_count <= 0)
 			break
