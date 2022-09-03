@@ -895,7 +895,7 @@ GLOBAL_LIST_EMPTY(allCasters)
 
 /obj/item/newspaper/examine(mob/user)
 	. = ..()
-	if(horoscope.check_horoscope(user))
+	if(	if(reader && !(REF(reader) in horoscope.has_read))
 		. += "<span class='notice'>Alt-Click to read your horoscope!</span>"
 
 /obj/item/newspaper/suicide_act(mob/user)
@@ -1100,16 +1100,11 @@ GLOBAL_LIST_EMPTY(allCasters)
 	RegisterSignal(SSdcs, COMSIG_NEW_DAY, .proc/reset_readers)
 	. = ..()
 
-/datum/horoscope/proc/check_horoscope(mob/living/carbon/human/reader)
-	if(!reader || (reader?.ckey in has_read))
-		return
-	return TRUE
-
 /datum/horoscope/proc/get_horoscope(mob/living/carbon/human/reader)
 	if(!reader)
 		return
-	if(reader?.ckey in has_read)
-		return has_read[reader.ckey]
+	if(REF(reader) in has_read)
+		return has_read[REF(READER)]
 
 	if(admin_msg)
 		if(admin_mood_amount)
@@ -1125,7 +1120,7 @@ GLOBAL_LIST_EMPTY(allCasters)
 		. = pick(negative)
 
 	log_game("[reader] has gotten the horoscope: [.]")
-	has_read[reader.ckey] = .
+	has_read[REF(reader)] = .
 
 /datum/horoscope/proc/reset_readers()
 	has_read = null
