@@ -67,6 +67,7 @@
 	if(centered)
 		T = locate(T.x - round(width/2) , T.y - round(height/2) , T.z)
 		centered = FALSE
+	//This assumes a non-multi-z shuttle. If you are making a multi-z shuttle, you'll need to change the z bounds for this block. Good luck.
 	var/list/turfs = block(locate(max(T.x, 1), max(T.y, 1),  T.z),
 							locate(min(T.x+width, world.maxx), min(T.y+height, world.maxy), T.z))
 	for(var/turf/turf in turfs)
@@ -147,7 +148,7 @@
 					added_baseturfs = list(added_baseturfs)
 				baseturf_length = length(added_baseturfs - GLOB.blacklisted_automated_baseturfs)
 				break
-		if(istype(P, /turf/template_noop)) //No turf was added, don't add a skipover
+		if(ispath(P, /turf/template_noop)) //No turf was added, don't add a skipover
 			continue
 
 		if(!islist(shuttle_turf.baseturfs))
