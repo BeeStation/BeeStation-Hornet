@@ -1,7 +1,7 @@
 /datum/orbital_objective/destroy_ship
 	name = "Intercept Vessel"
-	min_payout = 5000
-	max_payout = 25000
+	min_payout = 3000
+	max_payout = 12000
 	weight = 2
 	var/datum/registered_port
 	var/datum/registered_shuttle_data

@@ -4,8 +4,8 @@
 	//The blackbox required to recover.
 	var/obj/machinery/nuclearbomb/decomission/nuclear_bomb
 	var/obj/item/disk/nuclear/decommission/nuclear_disk
-	min_payout = 6000
-	max_payout = 16000
+	min_payout = 4000
+	max_payout = 10000
 	weight = 1
 
 /datum/orbital_objective/ruin/nuclear_bomb/generate_objective_stuff(turf/chosen_turf)

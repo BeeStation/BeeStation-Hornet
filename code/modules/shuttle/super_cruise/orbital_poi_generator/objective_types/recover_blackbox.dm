@@ -4,8 +4,8 @@
 	//The blackbox required to recover.
 	var/obj/item/blackbox/objective/linked_blackbox
 	//Relatively easy mission.
-	min_payout = 2000
-	max_payout = 12000
+	min_payout = 1000
+	max_payout = 6000
 	weight = 4
 
 /datum/orbital_objective/ruin/recover_blackbox/generate_objective_stuff(turf/chosen_turf)
