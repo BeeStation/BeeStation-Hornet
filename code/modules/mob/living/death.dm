@@ -79,6 +79,8 @@
 
 	stop_pulling()
 
+	set_ssd_indicator(FALSE)
+
 	. = ..()
 
 	if (client)

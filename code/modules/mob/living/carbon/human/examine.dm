@@ -297,7 +297,7 @@
 
 	if(!appears_dead)
 		if(stat == UNCONSCIOUS)
-			msg += "[t_He] [t_is]n't responding to anything around [t_him] and seem[p_s()] to be asleep.\n"
+			msg += "[t_has] been completely unresponsive to anything for [round(((world.time - lastclienttime) / (1 MINUTES)),1)] minutes. [t_He] may snap out of it soon.\n"
 		else
 			if(HAS_TRAIT(src, TRAIT_DUMB))
 				msg += "[t_He] [t_has] a stupid expression on [t_his] face.\n"
