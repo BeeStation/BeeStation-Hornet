@@ -159,7 +159,7 @@ GLOBAL_VAR(clockcult_eminence)
 		return FALSE
 	if(!M.mind)
 		return FALSE
-	if(ishuman(M) && (M.mind.assigned_role in list("Captain", "Chaplain")))
+	if(ishuman(M) && (M.mind.assigned_role in list(JOB_NAME_CAPTAIN, JOB_NAME_CHAPLAIN)))
 		return FALSE
 	if(istype(M.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat))
 		return FALSE
@@ -192,7 +192,6 @@ GLOBAL_VAR(clockcult_eminence)
 
 //Transmits a message to everyone in the cult
 //Doesn't work if the cultists contain holy water, or are not on the station or Reebe
-//TODO: SANITIZE MESSAGES WITH THE NORMAL SAY STUFF (punctuation)
 /proc/hierophant_message(msg, mob/living/sender, span = "<span class='brass'>", use_sanitisation=TRUE, say=TRUE)
 	if(CHAT_FILTER_CHECK(msg))
 		if(sender)
@@ -212,7 +211,7 @@ GLOBAL_VAR(clockcult_eminence)
 	if(sender)
 		if(say)
 			sender.say("#[text2ratvar(msg)]")
-		msg = sender.treat_message(msg)
+		msg = sender.treat_message_min(msg)
 		var/datum/antagonist/servant_of_ratvar/SoR = is_servant_of_ratvar(sender)
 		var/prefix = "Clockbrother"
 		switch(SoR.prefix)
@@ -238,11 +237,11 @@ GLOBAL_VAR(clockcult_eminence)
 					prefix = "Calculator"
 				else if(role in GLOB.supply_positions)
 					prefix = "Pathfinder"
-				else if(role in "Assistant")
+				else if(role in JOB_NAME_ASSISTANT)
 					prefix = "Helper"
-				else if(role in "Mime")
+				else if(role in JOB_NAME_MIME)
 					prefix = "Cogwatcher"
-				else if(role in "Clown")
+				else if(role in JOB_NAME_CLOWN)
 					prefix = "Clonker"
 				else if((role in GLOB.civilian_positions) || (role in GLOB.gimmick_positions))
 					prefix = "Cogworker"

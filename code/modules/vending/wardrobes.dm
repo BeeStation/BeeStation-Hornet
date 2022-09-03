@@ -57,8 +57,8 @@
 					/obj/item/storage/backpack/medic = 4,
 					/obj/item/storage/backpack/satchel/med = 4,
 					/obj/item/clothing/suit/hooded/wintercoat/medical = 4,
-					/obj/item/clothing/under/rank/medical/emt = 4,
-					/obj/item/clothing/under/rank/medical/emt/skirt = 4,
+					/obj/item/clothing/under/rank/medical/paramedic = 4,
+					/obj/item/clothing/under/rank/medical/paramedic/skirt = 4,
 					/obj/item/clothing/under/rank/medical/doctor/nurse = 4,
 					/obj/item/clothing/head/nursehat = 4,
 					/obj/item/clothing/head/beret/med = 4,
@@ -70,9 +70,9 @@
 					/obj/item/clothing/under/plasmaman/medical = 4,
 					/obj/item/clothing/head/helmet/space/plasmaman/medical = 4,
 					/obj/item/clothing/suit/toggle/labcoat = 4,
-					/obj/item/clothing/suit/toggle/labcoat/emt = 4,
+					/obj/item/clothing/suit/toggle/labcoat/paramedic = 4,
 					/obj/item/clothing/shoes/sneakers/white = 4,
-					/obj/item/clothing/head/soft/emt = 4,
+					/obj/item/clothing/head/soft/paramedic = 4,
 					/obj/item/clothing/suit/apron/surgical = 4,
 					/obj/item/clothing/mask/surgical = 4)
 	contraband = list(/obj/item/clothing/suit/hooded/wintercoat/medical/old = 3)
@@ -123,7 +123,8 @@
 					/obj/item/clothing/head/helmet/space/plasmaman/engineering/atmospherics = 3,
 					/obj/item/clothing/suit/hooded/wintercoat/engineering/atmos = 3,
 					/obj/item/clothing/under/rank/engineering/atmospheric_technician = 3,
-					/obj/item/clothing/shoes/sneakers/black = 3)
+					/obj/item/clothing/shoes/sneakers/black = 3,
+					/obj/item/clothing/head/beret/atmos = 3)
 	contraband = list(/obj/item/clothing/suit/hooded/wintercoat/engineering/atmos/old = 3)
 	refill_canister = /obj/item/vending_refill/wardrobe/atmos_wardrobe
 	payment_department = ACCOUNT_ENG
@@ -136,6 +137,7 @@
 	icon_state = "cargodrobe"
 	product_ads = "Upgraded Assistant Style! Pick yours today!;These shorts are comfy and easy to wear, get yours now!"
 	vend_reply = "Thank you for using the CargoDrobe!"
+	extra_price = 50
 	light_color = LIGHT_COLOR_YELLOW
 	products = list(/obj/item/clothing/suit/hooded/wintercoat/cargo = 3,
 					/obj/item/clothing/under/rank/cargo/tech = 3,
@@ -147,7 +149,14 @@
 					/obj/item/clothing/head/soft/cargo = 3,
 					/obj/item/clothing/head/beret/supply = 3,
 					/obj/item/radio/headset/headset_cargo = 3)
-	premium = list(/obj/item/clothing/under/rank/cargo/miner = 3)
+	premium = list(	/obj/item/clothing/under/rank/cargo/miner = 3,
+					/obj/item/clothing/head/mailman = 2,
+					/obj/item/clothing/under/misc/mailman/skirt = 2,
+					/obj/item/clothing/under/misc/mailman = 2,
+					/obj/item/storage/bag/mail = 2,
+					/obj/item/clothing/under/plasmaman/mailman = 2,
+					/obj/item/clothing/head/helmet/space/plasmaman/mailman = 2
+	)
 	contraband = list(/obj/item/radio/headset/headset_quartermaster = 1)
 	refill_canister = /obj/item/vending_refill/wardrobe/cargo_wardrobe
 	payment_department = ACCOUNT_CAR

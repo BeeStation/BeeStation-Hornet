@@ -23,11 +23,9 @@
 	max_integrity = 100
 
 	var/stat = CONSCIOUS //UNCONSCIOUS is the idle state in this case
-
 	var/sterile = FALSE
 	var/real = TRUE //0 for the toy, 1 for real. Sure I could istype, but fuck that.
 	var/strength = 5
-
 	var/attached = 0
 
 /obj/item/clothing/mask/facehugger/Initialize(mapload)
@@ -39,7 +37,7 @@
 
 /obj/item/clothing/mask/facehugger/lamarr
 	name = "Lamarr"
-	sterile = 1
+	sterile = TRUE
 
 /obj/item/clothing/mask/facehugger/dead
 	icon_state = "facehugger_dead"
@@ -52,7 +50,7 @@
 	stat = DEAD
 
 /obj/item/clothing/mask/facehugger/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
-	..()
+	. = ..()
 	if(obj_integrity < 90)
 		Die()
 
@@ -67,10 +65,10 @@
 	if((stat == CONSCIOUS && !sterile) && !isalien(user))
 		if(Leap(user))
 			return
-	. = ..()
+	return ..()
 
 /obj/item/clothing/mask/facehugger/attack(mob/living/M, mob/user)
-	..()
+	. = ..()
 	if(user.transferItemToLoc(src, get_turf(M)))
 		Leap(M)
 
@@ -79,11 +77,11 @@
 	if(!real)//So that giant red text about probisci doesn't show up.
 		return
 	switch(stat)
-		if(DEAD,UNCONSCIOUS)
+		if(DEAD, UNCONSCIOUS)
 			. += "<span class='boldannounce'>[src] is not moving.</span>"
 		if(CONSCIOUS)
 			. += "<span class='boldannounce'>[src] seems to be active!</span>"
-	if (sterile)
+	if(sterile)
 		. += "<span class='boldannounce'>It looks like the proboscis has been removed.</span>"
 
 
@@ -98,17 +96,16 @@
 	SIGNAL_HANDLER
 
 	HasProximity(target)
-	return
 
 /obj/item/clothing/mask/facehugger/on_found(mob/finder)
 	if(stat == CONSCIOUS)
 		return HasProximity(finder)
-	return 0
+	return FALSE
 
 /obj/item/clothing/mask/facehugger/HasProximity(atom/movable/AM as mob|obj)
 	if(CanHug(AM) && Adjacent(AM))
 		return Leap(AM)
-	return 0
+	return FALSE
 
 /obj/item/clothing/mask/facehugger/throw_at(atom/target, range, speed, mob/thrower, spin=1, diagonals_first = 0, datum/callback/callback, quickstart = TRUE)
 	if(!..())
@@ -122,7 +119,7 @@
 		icon_state = "[initial(icon_state)]"
 
 /obj/item/clothing/mask/facehugger/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
-	..()
+	. = ..()
 	if(stat == CONSCIOUS)
 		icon_state = "[initial(icon_state)]"
 		Leap(hit_atom)
@@ -130,20 +127,15 @@
 /obj/item/clothing/mask/facehugger/proc/valid_to_attach(mob/living/M)
 	// valid targets: carbons except aliens and devils
 	// facehugger state early exit checks
-	if(stat != CONSCIOUS)
-		return FALSE
-	if(attached)
+	if(stat != CONSCIOUS || attached)
 		return FALSE
 	if(iscarbon(M))
 		// disallowed carbons
 		if(isalien(M) || isdevil(M))
 			return FALSE
 		var/mob/living/carbon/target = M
-		// gotta have a head to be implanted (no changelings or sentient plants)
-		if(!target.get_bodypart(BODY_ZONE_HEAD))
-			return FALSE
-		// gotta be able to have the xeno implanted
-		if(HAS_TRAIT(target, TRAIT_XENO_IMMUNE))
+		// gotta have a head to be implanted (no changelings or sentient plants), gotta be able to have the xeno implanted
+		if(!target.get_bodypart(BODY_ZONE_HEAD) || HAS_TRAIT(target, TRAIT_XENO_IMMUNE))
 			return FALSE
 		// carbon, has head, not alien or devil, has no hivenode or embryo: valid
 		return TRUE
@@ -185,10 +177,9 @@
 	if(!valid_to_attach(M))
 		return
 	// early returns and validity checks done: attach.
-	attached++
+	attached = TRUE
 	//ensure we detach once we no longer need to be attached
 	addtimer(CALLBACK(src, .proc/detach), MAX_IMPREGNATION_TIME)
-
 
 	if(!sterile)
 		M.take_bodypart_damage(strength,0) //done here so that humans in helmets take damage
@@ -199,7 +190,7 @@
 	addtimer(CALLBACK(src, .proc/Impregnate, M), rand(MIN_IMPREGNATION_TIME, MAX_IMPREGNATION_TIME))
 
 /obj/item/clothing/mask/facehugger/proc/detach()
-	attached = 0
+	attached = FALSE
 
 /obj/item/clothing/mask/facehugger/proc/Impregnate(mob/living/target)
 	if(!target || target.stat == DEAD) //was taken off or something
@@ -254,23 +245,19 @@
 	visible_message("<span class='danger'>[src] curls up into a ball!</span>")
 
 /proc/CanHug(mob/living/M)
-	if(!istype(M))
-		return 0
-	if(M.stat == DEAD)
-		return 0
-	if(M.getorgan(/obj/item/organ/alien/hivenode))
-		return 0
+	if(!istype(M) || M.stat == DEAD || M.getorgan(/obj/item/organ/alien/hivenode))
+		return FALSE
 
 	if(ismonkey(M))
-		return 1
+		return TRUE
 
 	var/mob/living/carbon/C = M
 	if(ishuman(C) && !(ITEM_SLOT_MASK in C.dna.species.no_equip))
 		var/mob/living/carbon/human/H = C
 		if(H.is_mouth_covered(head_only = 1))
-			return 0
-		return 1
-	return 0
+			return FALSE
+		return TRUE
+	return FALSE
 
 #undef MIN_ACTIVE_TIME
 #undef MAX_ACTIVE_TIME

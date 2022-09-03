@@ -17,7 +17,6 @@
 
 	interacts_with_air = TRUE
 
-	var/id_tag = null
 	var/scrubbing = SCRUBBING //0 = siphoning, 1 = scrubbing
 
 	var/filter_types = list(GAS_CO2, GAS_BZ)
@@ -33,9 +32,9 @@
 	pipe_state = "scrubber"
 
 /obj/machinery/atmospherics/components/unary/vent_scrubber/New()
-	..()
 	if(!id_tag)
-		id_tag = assign_uid_vents()
+		id_tag = SSnetworks.assign_random_name()
+	. = ..()
 
 /obj/machinery/atmospherics/components/unary/vent_scrubber/Destroy()
 	var/area/A = get_area(src)

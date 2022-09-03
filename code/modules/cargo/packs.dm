@@ -1022,6 +1022,16 @@
 	contains = list(/obj/item/circuitboard/computer/sat_control)
 	crate_name= "shield control board crate"
 
+/datum/supply_pack/engineering/bluespace_tap
+	name = "Bluespace Harvester Parts"
+	cost = 15000
+	special = TRUE
+	contains = list(
+					/obj/item/circuitboard/machine/bluespace_tap,
+					/obj/item/paper/bluespace_tap
+					)
+	crate_name = "bluespace harvester parts crate"
+
 /datum/supply_pack/engineering/shuttle_construction
 	name = "Shuttle Construction Kit"
 	desc = "A DIY kit for building your own shuttle! Comes with all the parts you need to get your people to the stars!"
@@ -1814,9 +1824,9 @@
 	contains = list(/obj/item/stamp,
 					/obj/item/stamp/denied,
 					/obj/item/export_scanner,
-					/obj/item/destTagger,
+					/obj/item/dest_tagger,
 					/obj/item/hand_labeler,
-					/obj/item/stack/packageWrap)
+					/obj/item/stack/package_wrap)
 	crate_name = "cargo supplies crate"
 
 /datum/supply_pack/service/noslipfloor
@@ -2468,6 +2478,13 @@
 	contains = list(/mob/living/simple_animal/hostile/retaliate/goat)
 	crate_name = "goat crate"
 
+/datum/supply_pack/critter/mothroach
+	name = "Mothroach Crate"
+	desc = "Put the mothroach on your head and find out what true cuteness looks like."
+	cost = 5000
+	contains = list(/mob/living/simple_animal/mothroach)
+	crate_name = "mothroach crate"
+
 /datum/supply_pack/critter/monkey
 	name = "Monkey Cube Crate"
 	desc = "Stop monkeying around! Contains five monkey cubes. Just add water!"
@@ -2944,7 +2961,7 @@
 /datum/supply_pack/misc/bicycle/generate(atom/A, datum/bank_account/paying_account)
 	. = ..()
 	for(var/client/C as() in GLOB.clients)
-		if(C?.mob.mind.assigned_role == "Quartermaster" || C?.mob.mind.assigned_role == "Cargo Technician")
+		if(C?.mob.mind.assigned_role == JOB_NAME_QUARTERMASTER || C?.mob.mind.assigned_role == JOB_NAME_CARGOTECHNICIAN)
 			C?.give_award(/datum/award/achievement/misc/bike, C?.mob)
 
 /datum/supply_pack/misc/bigband
