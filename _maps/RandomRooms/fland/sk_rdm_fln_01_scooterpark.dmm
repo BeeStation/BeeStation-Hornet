@@ -143,7 +143,7 @@
 /turf/open/floor/plasteel,
 /area/template_noop)
 "z" = (
-/obj/structure/chair/sofa/right{
+/obj/structure/chair/fancy/sofa/old/right{
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -178,7 +178,7 @@
 /turf/open/floor/plasteel/dark,
 /area/template_noop)
 "G" = (
-/obj/structure/chair/sofa/left{
+/obj/structure/chair/fancy/sofa/old/left{
 	dir = 8
 	},
 /turf/open/floor/plasteel,

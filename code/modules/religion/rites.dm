@@ -75,7 +75,7 @@
 						"... We call upon you, in the face of adversity ...",
 						"... to complete us, removing that which is undesirable ...")
 	invoke_msg = "... Arise, our champion! Become that which your soul craves, live in the world as your true form!!"
-	favor_cost = 1000
+	favor_cost = 1800
 
 /datum/religion_rites/synthconversion/perform_rite(mob/living/user, atom/religious_tool)
 	if(!ismovable(religious_tool))
@@ -118,12 +118,12 @@
 
 /datum/religion_rites/machine_blessing
 	name = "Receive Blessing"
-	desc = "Receive a blessing from the machine god to further your ascension."
+	desc = "Receive a random blessing from the machine god to further your ascension."
 	ritual_length = 5 SECONDS
 	ritual_invocations =list( "Let your will power our forges.",
-							"...Help us in our great conquest!")
+							"... Help us in our great conquest!")
 	invoke_msg = "The end of flesh is near!"
-	favor_cost = 2000
+	favor_cost = 800
 
 /datum/religion_rites/machine_blessing/invoke_effect(mob/living/user, atom/movable/religious_tool)
 	..()
@@ -134,9 +134,63 @@
 					/obj/item/organ/cyberimp/eyes/hud/medical,
 					/obj/item/organ/cyberimp/mouth/breathing_tube,
 					/obj/item/organ/cyberimp/chest/thrusters,
+					/obj/item/organ/cyberimp/chest/nutriment,
+					/obj/item/organ/cyberimp/arm/toolset,
+					/obj/item/organ/wings/cybernetic,
 					/obj/item/organ/eyes/robotic/glow)
 	new blessing(altar_turf)
 	return TRUE
+
+
+/datum/religion_rites/machine_implantation
+	name = "Machine Implantation"
+	desc = "Apply a provided upgrade to your body. Place a cybernetic item on the altar, then buckle someone to implant them, otherwise it will implant you."
+	ritual_length = 30 SECONDS
+	ritual_invocations = list("Lend us your power ...",
+						"... We call upon you, grant us this upgrade ...",
+						"... Complete us, joining man and machine ...")
+	invoke_msg = "... Let the mechanical parts, Merge!!"
+	favor_cost = 1000
+	var/obj/item/organ/chosen_implant
+
+/datum/religion_rites/machine_implantation/perform_rite(mob/living/user, atom/religious_tool)
+	chosen_implant = locate() in get_turf(religious_tool)
+	if(!chosen_implant)
+		to_chat(user, "<span class='warning'>This rite requires cybernetics for implantation.</span>")
+		return FALSE
+	if(!ismovable(religious_tool))
+		to_chat(user,"<span class='warning'>This rite requires a religious device that individuals can be buckled to.</span>")
+		return FALSE
+	var/atom/movable/movable_reltool = religious_tool
+	if(length(movable_reltool.buckled_mobs))
+		to_chat(user,"<span class='warning'>You're going to merge the implant with the one buckled on [movable_reltool].</span>")
+	else if(!movable_reltool.can_buckle) //yes, if you have somehow managed to have someone buckled to something that now cannot buckle, we will still let you perform the rite!
+		to_chat(user,"<span class='warning'>This rite requires a religious device that individuals can be buckled to.</span>")
+		return FALSE
+	to_chat(user,"<span class='warning'>You're going to merge the implant into yourself with this ritual.</span>")
+	return ..()
+
+/datum/religion_rites/machine_implantation/invoke_effect(mob/living/user, atom/religious_tool)
+	..()
+	if(!ismovable(religious_tool))
+		CRASH("[name]'s perform_rite had a movable atom that has somehow turned into a non-movable!")
+	var/atom/movable/movable_reltool = religious_tool
+	var/mob/living/carbon/human/rite_target
+	if(!length(movable_reltool.buckled_mobs))
+		rite_target = user
+	else
+		for(var/buckled in movable_reltool.buckled_mobs)
+			if(ishuman(buckled))
+				rite_target = buckled
+				break
+	if(!rite_target)
+		chosen_implant = null
+		return FALSE
+	chosen_implant.Insert(rite_target)
+	rite_target.visible_message("<span class='notice'>[chosen_implant] has been merged into [rite_target] by the rite of [name]!</span>")
+	chosen_implant = null
+	return TRUE
+
 
 /**** Ever-Burning Candle sect ****/
 
@@ -410,4 +464,99 @@
 	chosen_sacrifice.gib(TRUE, FALSE, TRUE)
 	playsound(get_turf(religious_tool), 'sound/effects/bamf.ogg', 50, TRUE)
 	chosen_sacrifice = null
+	return ..()
+
+/**** Carp rites ****/
+
+/datum/religion_rites/summon_carp
+	name = "Summon Carp"
+	desc = "Creates a Sentient Space Carp, if a soul is willing to take it. If not, the favor is refunded."
+	ritual_length = 90 SECONDS
+	ritual_invocations = list("Grant us a new follower ...",
+	"... let them enter our realm ...",
+	"... become one with our world ...",
+	"... to swim in our space ...",
+	"... and help our cause ...")
+	invoke_msg = "... We summon thee, Holy Carp!"
+	favor_cost = 500
+
+/datum/religion_rites/summon_carp/invoke_effect(mob/living/user, atom/movable/religious_tool)
+	var/turf/altar_turf = get_turf(religious_tool)
+	new /obj/effect/temp_visual/bluespace_fissure/long(altar_turf)
+	user.visible_message("<span class'notice'>A tear in reality appears above the altar!</span>")
+	var/list/jobbans = list(ROLE_BRAINWASHED, ROLE_DEATHSQUAD, ROLE_DRONE, ROLE_LAVALAND, ROLE_MIND_TRANSFER, ROLE_POSIBRAIN, ROLE_SENTIENCE)
+	var/list/candidates = pollGhostCandidates("Do you wish to be summoned as a Holy Carp?", jobbans, null, FALSE)
+	if(!length(candidates))
+		new /obj/effect/gibspawner/generic(altar_turf)
+		user.visible_message("<span class='warning'>The carp pool was not strong enough to bring forth a space carp.")
+		GLOB.religious_sect?.adjust_favor(400, user)
+		return NOT_ENOUGH_PLAYERS
+	var/mob/dead/observer/selected = pick_n_take(candidates)
+	var/datum/mind/M = new /datum/mind(selected.key)
+	var/carp_species = pick(/mob/living/simple_animal/hostile/carp/megacarp, /mob/living/simple_animal/hostile/carp)
+	var/mob/living/simple_animal/hostile/carp = new carp_species(altar_turf)
+	carp.name = "Holy Space-Carp ([rand(1,999)])"
+	carp.key = selected.key
+	carp.sentience_act()
+	carp.maxHealth += 100
+	carp.health += 100
+	M.transfer_to(carp)
+	if(GLOB.religion)
+		carp.mind?.holy_role = HOLY_ROLE_PRIEST
+		to_chat(carp, "There is already an established religion onboard the station. You are an acolyte of [GLOB.deity]. Defer to the Chaplain.")
+		GLOB.religious_sect?.on_conversion(carp)
+	playsound(altar_turf, 'sound/effects/slosh.ogg', 50, TRUE)
+	return ..()
+
+/datum/religion_rites/summon_carpsuit
+	name = "Summon Carp-Suit"
+	desc = "Summons a Space-Carp Suit"
+	ritual_length = 60 SECONDS
+	ritual_invocations = list("We shall become one ...",
+	"... we shall blend in ...",
+	"... we shall join in the ways of the carp ...",
+	"... grant us new clothing ...")
+	invoke_msg = "So we can swim."
+	favor_cost = 300
+	var/obj/item/clothing/suit/chosen_clothing
+
+/datum/religion_rites/summon_carpsuit/perform_rite(mob/living/user, atom/religious_tool)
+	var/turf/T = get_turf(religious_tool)
+	var/list/L = T.contents
+	if(!locate(/obj/item/clothing/suit) in L)
+		to_chat(user, "<span class='warning'>There is no suit clothing on the altar!</span>")
+		return FALSE
+	for(var/obj/item/clothing/suit/apparel in L)
+		chosen_clothing = apparel //the apparel has been chosen by our lord and savior
+		return ..()
+	return FALSE
+
+/datum/religion_rites/summon_carpsuit/invoke_effect(mob/living/user, atom/religious_tool)
+	if(!QDELETED(chosen_clothing) && get_turf(religious_tool) == chosen_clothing.loc) //check if the same clothing is still there
+		user.visible_message("<span class'notice'>The [chosen_clothing] transforms!</span>")
+		chosen_clothing.obj_destruction()
+		chosen_clothing = null
+		new /obj/item/clothing/suit/space/hardsuit/carp/old(get_turf(religious_tool))
+		playsound(get_turf(religious_tool), 'sound/effects/slosh.ogg', 50, TRUE)
+		return ..()
+	chosen_clothing = null
+	to_chat(user, "<span class='warning'>The clothing that was chosen for the rite is no longer on the altar!</span>")
+	return FALSE
+
+/datum/religion_rites/flood_area
+	name = "Flood Area"
+	desc = "Flood the area with water vapor, great for learning to swim!"
+	ritual_length = 40 SECONDS
+	ritual_invocations = list("We must swim ...",
+	"... but to do so, we need water ...",
+	"... grant us a great flood ...",
+	"... soak us in your glory ...",
+	"... we shall swim forever ...")
+	invoke_msg = "... in our own personal ocean."
+	favor_cost = 200
+
+/datum/religion_rites/flood_area/invoke_effect(mob/living/user, atom/movable/religious_tool)
+	var/turf/open/T = get_turf(religious_tool)
+	if(istype(T))
+		T.atmos_spawn_air("water_vapor=5000;TEMP=255")
 	return ..()
