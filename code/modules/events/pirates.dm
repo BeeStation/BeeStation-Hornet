@@ -30,7 +30,10 @@
 	ship_name = pick(strings(PIRATE_NAMES_FILE, "ship_names"))
 	threat.title = "Business proposition"
 	threat.content = "This is [ship_name]. Pay up [payoff] credits or you'll walk the plank."
-	threat.possible_answers = list("We'll pay.","No way.")
+	threat.possible_answers = list(
+		PIRATE_RESPONSE_PAY = "We'll pay.",
+		PIRATE_RESPONSE_NO_PAY = "No way.",
+	)
 	threat.answer_callback = CALLBACK(GLOBAL_PROC, .proc/pirates_answered, threat, payoff, ship_name, initial_send_time, response_max_time)
 	addtimer(CALLBACK(GLOBAL_PROC, .proc/spawn_pirates, threat, FALSE), response_max_time)
 	SScommunications.send_message(threat,unique = TRUE)
@@ -39,7 +42,7 @@
 	if(world.time > initial_send_time + response_max_time)
 		priority_announce("Too late to beg for mercy!",sender_override = ship_name)
 		return
-	if(threat && threat.answered == 1)
+	if(threat?.answered)
 		var/datum/bank_account/D = SSeconomy.get_dep_account(ACCOUNT_CAR)
 		if(D)
 			if(D.adjust_money(-payoff))
@@ -47,10 +50,10 @@
 				return
 			else
 				priority_announce("Trying to cheat us? You'll regret this!", sound = SSstation.announcer.get_rand_alert_sound(), sender_override = ship_name)
-	spawn_pirates(threat, TRUE)
+				spawn_pirates(threat, TRUE)
 
 /proc/spawn_pirates(datum/comm_message/threat, skip_answer_check)
-	if(!skip_answer_check && threat?.answered == TRUE)
+	if(!skip_answer_check && threat?.answered == PIRATE_RESPONSE_NO_PAY)
 		return
 
 	var/list/candidates = pollGhostCandidates("Do you wish to be considered for pirate crew?", ROLE_TRAITOR)

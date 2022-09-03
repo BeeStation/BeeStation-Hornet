@@ -469,3 +469,7 @@ GLOBAL_LIST_INIT(pda_styles, sortList(list(MONO, VT, ORBITRON, SHARE)))
 #define ALIGNMENT_GOOD "good"
 #define ALIGNMENT_NEUT "neutral"
 #define ALIGNMENT_EVIL "evil"
+
+// Pirates threat
+#define PIRATE_RESPONSE_NO_PAY "pirate_answer_no_pay"
+#define PIRATE_RESPONSE_PAY "pirate_answer_pay"
