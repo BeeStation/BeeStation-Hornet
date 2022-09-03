@@ -947,11 +947,11 @@
 
 /datum/status_effect/slimegrub
 	id = "grub_infection"
-	duration = 60 SECONDS //a redgrub infestation in a slime 
+	duration = 60 SECONDS //a redgrub infestation in a slime
 	status_type = STATUS_EFFECT_UNIQUE
 	tick_interval = 1
 	alert_type = /atom/movable/screen/alert/status_effect/grub
-	var/adult = FALSE 
+	var/adult = FALSE
 	var/spawnbonus = 0
 	var/deathcounter = 300
 	var/list/diseases = list()
@@ -976,7 +976,7 @@
 			if(prob(10))
 				qdel(src)
 		else //don't tick while being cured
-			deathcounter -= 2 
+			deathcounter -= 2
 			if(deathcounter <= 0)
 				var/spawns = rand(1, 3 + (adult * 3))
 				for(var/I in 1 to (spawns + spawnbonus))
@@ -986,10 +986,69 @@
 				playsound(S, 'sound/effects/attackblob.ogg', 60, 1)
 				S.visible_message("<span class='warning'>[S] is eaten from the inside by [spawns] red grubs, leaving no trace!</span>")
 				S.gib()
-	else 
+	else
 		qdel(src)//no effect on nonslimes
 
 /atom/movable/screen/alert/status_effect/grub
 	name = "Infected"
 	desc = "You have a redgrub infection, and can't reproduce or grow! If you don't find a source of heat, you will die!"
 	icon_state = "grub"
+
+/datum/status_effect/amok
+	id = "amok"
+	status_type = STATUS_EFFECT_REPLACE
+	alert_type = null
+	duration = 10 SECONDS
+	tick_interval = 1 SECONDS
+
+/datum/status_effect/amok/on_apply(mob/living/afflicted)
+	. = ..()
+	to_chat(owner, "<span class='boldwarning'>You feel filled with a rage that is not your own!</span>")
+
+/datum/status_effect/amok/tick()
+	. = ..()
+	var/prev_intent = owner.a_intent
+	owner.a_intent = INTENT_HARM
+
+	var/list/mob/living/targets = list()
+	for(var/mob/living/potential_target in oview(owner, 1))
+		if(IS_HERETIC(potential_target) || potential_target.mind?.has_antag_datum(/datum/antagonist/heretic_monster))
+			continue
+		targets += potential_target
+	if(LAZYLEN(targets))
+		owner.log_message(" attacked someone due to the amok debuff.", LOG_ATTACK) //the following attack will log itself
+		owner.ClickOn(pick(targets))
+	owner.a_intent = prev_intent
+
+/datum/status_effect/cloudstruck
+	id = "cloudstruck"
+	status_type = STATUS_EFFECT_REPLACE
+	duration = 3 SECONDS
+	on_remove_on_mob_delete = TRUE
+	///This overlay is applied to the owner for the duration of the effect.
+	var/mutable_appearance/mob_overlay
+
+/datum/status_effect/cloudstruck/on_creation(mob/living/new_owner, set_duration)
+	if(isnum(set_duration))
+		duration = set_duration
+	. = ..()
+
+/datum/status_effect/cloudstruck/on_apply()
+	mob_overlay = mutable_appearance('icons/effects/eldritch.dmi', "cloud_swirl", ABOVE_MOB_LAYER)
+	owner.overlays += mob_overlay
+	owner.update_icon()
+	ADD_TRAIT(owner, TRAIT_BLIND, "cloudstruck")
+	return TRUE
+
+/datum/status_effect/cloudstruck/on_remove()
+	. = ..()
+	if(QDELETED(owner))
+		return
+	REMOVE_TRAIT(owner, TRAIT_BLIND, "cloudstruck")
+	if(owner)
+		owner.overlays -= mob_overlay
+		owner.update_icon()
+
+/datum/status_effect/cloudstruck/Destroy()
+	. = ..()
+	QDEL_NULL(mob_overlay)
