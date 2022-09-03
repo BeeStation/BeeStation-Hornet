@@ -59,6 +59,7 @@
 #endif
 
 #include "antag_datums.dm"
+#include "dcs_get_id_from_elements.dm"
 #include "dynamic_ruleset_sanity.dm"
 #include "enumerables.dm"
 #include "gamemode_sanity.dm"
