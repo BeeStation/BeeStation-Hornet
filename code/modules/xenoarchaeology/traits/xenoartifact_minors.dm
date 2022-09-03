@@ -273,7 +273,7 @@
 	X.slot_flags = ITEM_SLOT_GLOVES
 	
 /datum/xenoartifact_trait/minor/wearable/activate(obj/item/xenoartifact/X, atom/user)
-	X.true_target += list(user)
+	X.true_target |= list(user)
 
 //============
 // Allows artifact to act like a shield
