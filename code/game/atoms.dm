@@ -112,6 +112,9 @@
 	/// Lazylist of all messages currently on this atom
 	var/list/chat_messages
 
+	///LazyList of all balloon alerts currently on this atom
+	var/list/balloon_alerts
+
 /**
   * Called when an atom is created in byond (built in engine proc)
   *
@@ -552,6 +555,7 @@
 		if(reagents.flags & TRANSPARENT)
 			. += "It contains:"
 			if(length(reagents.reagent_list))
+				//-------- Reagent checks ---------
 				if(user.can_see_reagents()) //Show each individual reagent
 					for(var/datum/reagent/R in reagents.reagent_list)
 						. += "[R.volume] units of [R.name]"
@@ -560,6 +564,25 @@
 					for(var/datum/reagent/R in reagents.reagent_list)
 						total_volume += R.volume
 					. += "[total_volume] units of various reagents"
+				//-------- Beer goggles ---------
+				if(user.can_see_boozepower())
+					var/total_boozepower = 0
+					var/list/taste_list = list()
+
+					// calculates the total booze power from all 'ethanol' reagents
+					for(var/datum/reagent/consumable/ethanol/B in reagents.reagent_list)
+						total_boozepower += B.volume * max(B.boozepwr, 0) // minus booze power is reversed to light drinkers, but is actually 0 to normal drinkers.
+
+					// gets taste results from all reagents
+					for(var/datum/reagent/R in reagents.reagent_list)
+						if(istype(R, /datum/reagent/consumable/ethanol/fruit_wine) && !(user.stat == DEAD) && !(HAS_TRAIT(src, TRAIT_BARMASTER)) ) // taste of fruit wine is mysterious, but can be known by ghosts/some special bar master trait holders
+							taste_list += "<br/>   - unexplored taste of the winery (from [R.name])"
+						else
+							taste_list += "<br/>   - [R.taste_description] (from [R.name])"
+					if(reagents.total_volume)
+						. += "<span class='notice'>Booze Power: total [total_boozepower], average [round(total_boozepower/reagents.total_volume, 0.1)] ([get_boozepower_text(total_boozepower/reagents.total_volume, user)])</span>"
+						. += "<span class='notice'>It would taste like: [english_list(taste_list, comma_text="", and_text="")].</span>"
+				//-------------------------------
 			else
 				. += "Nothing."
 		else if(reagents.flags & AMOUNT_VISIBLE)
@@ -651,8 +674,9 @@
   * default behaviour is to send the COMSIG_ATOM_BLOB_ACT signal
   */
 /atom/proc/blob_act(obj/structure/blob/B)
-	SEND_SIGNAL(src, COMSIG_ATOM_BLOB_ACT, B)
-	return
+	if(SEND_SIGNAL(src, COMSIG_ATOM_BLOB_ACT, B) & COMPONENT_CANCEL_BLOB_ACT)
+		return FALSE
+	return TRUE
 
 /atom/proc/fire_act(exposed_temperature, exposed_volume)
 	SEND_SIGNAL(src, COMSIG_ATOM_FIRE_ACT, exposed_temperature, exposed_volume)
@@ -754,7 +778,7 @@
   *
   * Default behaviour is to send COMSIG_ATOM_SING_PULL and return
   */
-/atom/proc/singularity_pull(obj/singularity/S, current_size)
+/atom/proc/singularity_pull(obj/anomaly/singularity/S, current_size)
 	SEND_SIGNAL(src, COMSIG_ATOM_SING_PULL, S, current_size)
 
 
@@ -802,7 +826,11 @@
   * Called when lighteater is called on this.
   */
 /atom/proc/lighteater_act(obj/item/light_eater/light_eater)
-	return
+	SHOULD_CALL_PARENT(TRUE)
+	SEND_SIGNAL(src,COMSIG_ATOM_LIGHTEATER_ACT)
+	for(var/datum/light_source/light_source in light_sources)
+		if(light_source.source_atom != src)
+			light_source.source_atom.lighteater_act(light_eater)
 
 /**
   * Respond to the eminence clicking on our atom
@@ -878,6 +906,7 @@
 	if(user.active_storage) //refresh the HUD to show the transfered contents
 		user.active_storage.close(user)
 		user.active_storage.show_to(user)
+	src_object.update_icon()
 	return TRUE
 
 ///Get the best place to dump the items contained in the source storage item?
@@ -927,6 +956,11 @@
 /atom/proc/setDir(newdir)
 	SEND_SIGNAL(src, COMSIG_ATOM_DIR_CHANGE, dir, newdir)
 	dir = newdir
+
+/// Attempts to turn to the given direction. May fail if anchored/unconscious/etc.
+/atom/proc/try_face(newdir)
+	setDir(newdir)
+	return TRUE
 
 ///Handle melee attack by a mech
 /atom/proc/mech_melee_attack(obj/mecha/M)
@@ -1057,20 +1091,27 @@
 							valid_id = TRUE
 						if(!valid_id)
 							to_chat(usr, "<span class='warning'>A reagent with that ID doesn't exist!</span>")
+				
 				if("Choose from a list")
 					chosen_id = input(usr, "Choose a reagent to add.", "Choose a reagent.") as null|anything in subtypesof(/datum/reagent)
+				
 				if("I'm feeling lucky")
 					chosen_id = pick(subtypesof(/datum/reagent))
+
 			if(chosen_id)
 				var/amount = input(usr, "Choose the amount to add.", "Choose the amount.", reagents.maximum_volume) as num
+
 				if(amount)
 					reagents.add_reagent(chosen_id, amount)
 					log_admin("[key_name(usr)] has added [amount] units of [chosen_id] to [src]")
 					message_admins("<span class='notice'>[key_name(usr)] has added [amount] units of [chosen_id] to [src]</span>")
+
 	if(href_list[VV_HK_TRIGGER_EXPLOSION] && check_rights(R_FUN))
 		usr.client.cmd_admin_explosion(src)
+
 	if(href_list[VV_HK_TRIGGER_EMP] && check_rights(R_FUN))
 		usr.client.cmd_admin_emp(src)
+
 	if(href_list[VV_HK_MODIFY_TRANSFORM] && check_rights(R_VAREDIT))
 		var/result = input(usr, "Choose the transformation to apply","Transform Mod") as null|anything in list("Scale","Translate","Rotate")
 		var/matrix/M = transform
@@ -1089,13 +1130,16 @@
 				var/angle = input(usr, "Choose angle to rotate","Transform Mod") as null|num
 				if(!isnull(angle))
 					transform = M.Turn(angle)
-	if(href_list[VV_HK_AUTO_RENAME] && check_rights(R_VAREDIT))
+
+	if(href_list[VV_HK_AUTO_RENAME] && check_rights(R_ADMIN))
 		var/newname = input(usr, "What do you want to rename this to?", "Automatic Rename") as null|text
 		if(newname)
 			vv_auto_rename(newname)
-	if(href_list[VV_HK_ADD_AI])
-		if(!check_rights(R_VAREDIT))
-			return
+
+	if(href_list[VV_HK_MODIFY_TRAITS] && check_rights(R_VAREDIT))
+		usr.client.holder.modify_traits(src)
+
+	if(href_list[VV_HK_ADD_AI] && check_rights(R_VAREDIT))
 		var/result = input(usr, "Choose the AI controller to apply to this atom WARNING: Not all AI works on all atoms.", "AI controller") as null|anything in subtypesof(/datum/ai_controller)
 		if(!result)
 			return

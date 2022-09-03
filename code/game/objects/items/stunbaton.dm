@@ -71,7 +71,9 @@
 
 
 /obj/item/melee/baton/update_icon()
-	if(turned_on)
+	if(obj_flags & OBJ_EMPED)
+		icon_state = "[initial(icon_state)]"
+	else if(turned_on)
 		icon_state = "[initial(icon_state)]_active"
 	else if(!cell)
 		icon_state = "[initial(icon_state)]_nocell"
@@ -89,15 +91,15 @@
 	if(istype(W, /obj/item/stock_parts/cell))
 		var/obj/item/stock_parts/cell/C = W
 		if(cell)
-			balloon_alert(user, "[src] already has a cell")
+			balloon_alert(user, "[src] already has a cell.")
 		else
 			if(C.maxcharge < hitcost)
-				balloon_alert(user, "[src] requires a higher capacity cell")
+				balloon_alert(user, "[src] requires a higher capacity power cell.")
 				return
 			if(!user.transferItemToLoc(W, src))
 				return
 			cell = W
-			balloon_alert(user, "Cell installed")
+			balloon_alert(user, "You insert the power cell.")
 			update_icon()
 
 	else if(W.tool_behaviour == TOOL_SCREWDRIVER)
@@ -105,37 +107,38 @@
 			cell.update_icon()
 			cell.forceMove(get_turf(src))
 			cell = null
-			balloon_alert(user, "Cell removed")
+			balloon_alert(user, "You remove the power cell.")
 			turned_on = FALSE
 			update_icon()
 	else
 		return ..()
 
 /obj/item/melee/baton/attack_self(mob/user)
-	if(cell && cell.charge > hitcost)
+	if(cell && cell.charge > hitcost && !(obj_flags & OBJ_EMPED))
 		turned_on = !turned_on
 		balloon_alert(user, "[src] [turned_on ? "on" : "off"]")
 		playsound(src, "sparks", 75, TRUE, -1)
 	else
 		turned_on = FALSE
 		if(!cell)
-			balloon_alert(user, "No power source")
-		else
-			balloon_alert(user, "Out of charge")
+			balloon_alert(user, "It has no power source!")
+		else if(obj_flags & OBJ_EMPED)
+			balloon_alert(user, "It's not responding!")
 	update_icon()
 	add_fingerprint(user)
 
 /obj/item/melee/baton/attack(mob/M, mob/living/carbon/human/user)
-	if(turned_on && HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
+	if(turned_on && HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50) && !(obj_flags & OBJ_EMPED))
 		user.visible_message("<span class='danger'>[user] accidentally hits [user.p_them()]self with [src], electrocuting themselves badly!</span>", \
 							"<span class='userdanger'>You accidentally hit yourself with [src], electrocuting yourself badly!</span>")
 		user.adjustStaminaLoss(stunforce*3)
+		user.stuttering = 20
+		user.do_jitter_animation(20)
 		deductcharge(hitcost)
 		return
 
 	if(iscyborg(M))
-		..()
-		return
+		return ..()
 
 
 	if(ishuman(M))
@@ -154,9 +157,11 @@
 	else
 		if(turned_on)
 			baton_stun(M, user)
-		..()
+		return ..()
 
 /obj/item/melee/baton/proc/baton_stun(mob/living/target, mob/living/user)
+	if(obj_flags & OBJ_EMPED)
+		return FALSE
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
 		if(H.check_shields(src, 0, "[user]'s [name]", MELEE_ATTACK)) //No message; check_shields() handles that
@@ -175,7 +180,9 @@
 	// L.adjustStaminaLoss(stunforce)
 	target.apply_damage(stunforce, STAMINA, affecting, armor_block)
 	target.apply_effect(EFFECT_STUTTER, stunforce)
-	SEND_SIGNAL(target, COMSIG_LIVING_MINOR_SHOCK)
+	SEND_SIGNAL(target, COMSIG_LIVING_MINOR_SHOCK) //Only used for nanites
+	target.stuttering = 20
+	target.do_jitter_animation(20)
 	if(user)
 		target.lastattacker = user.real_name
 		target.lastattackerckey = user.ckey
@@ -194,8 +201,16 @@
 
 /obj/item/melee/baton/emp_act(severity)
 	. = ..()
-	if (!(. & EMP_PROTECT_SELF))
-		deductcharge(1000 / severity)
+	if (!(. & EMP_PROTECT_SELF) && !(obj_flags & OBJ_EMPED))
+		obj_flags |= OBJ_EMPED
+		update_icon()
+		addtimer(CALLBACK(src, .proc/emp_reset), rand(1, 200 / severity))
+		playsound(src, 'sound/machines/capacitor_discharge.ogg', 60, TRUE)
+
+/obj/item/melee/baton/proc/emp_reset()
+	obj_flags &= ~OBJ_EMPED
+	update_icon()
+	playsound(src, 'sound/machines/capacitor_charge.ogg', 100, TRUE)
 
 //Makeshift stun baton. Replacement for stun gloves.
 /obj/item/melee/baton/cattleprod
@@ -219,6 +234,8 @@
 	sparkler = new (src)
 
 /obj/item/melee/baton/cattleprod/baton_stun()
+	if(obj_flags & OBJ_EMPED)
+		return FALSE
 	if(sparkler.activate())
 		..()
 

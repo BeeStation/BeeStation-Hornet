@@ -10,7 +10,7 @@
 /obj/item/alienartifact/examine(mob/user)
 	. = ..()
 	var/mob/living/L = user
-	if(istype(L) && L.mind?.assigned_role != "Curator")
+	if(istype(L) && L.mind?.assigned_role != JOB_NAME_CURATOR)
 		return
 	for(var/datum/artifact_effect/effect in effects)
 		for(var/verb in effect.effect_act_descs)
@@ -397,7 +397,6 @@ GLOBAL_LIST_EMPTY(destabliization_exits)
 	var/static/list/valid_outputs = list(
 		/datum/gas/bz = 3,
 		/datum/gas/hypernoblium = 1,
-		/datum/gas/miasma = 3,
 		/datum/gas/plasma = 3,
 		/datum/gas/tritium = 2,
 		/datum/gas/nitryl = 1

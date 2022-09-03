@@ -101,6 +101,7 @@ GLOBAL_DATUM_INIT(requests, /datum/request_manager, new)
 	requests[C.ckey] += request
 	requests_by_id.len++
 	requests_by_id[request.id] = request
+	SStgui.update_uis(src)
 
 /datum/request_manager/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
@@ -189,7 +190,7 @@ GLOBAL_DATUM_INIT(requests, /datum/request_manager, new)
 			if (request.req_type != REQUEST_NUKE)
 				to_chat(usr, "You cannot set the nuke code for a non-nuke-code-request request!")
 				return TRUE
-			var/code = random_nukecode()
+			var/code = random_code(5)
 			for(var/obj/machinery/nuclearbomb/selfdestruct/SD in GLOB.nuke_list)
 				SD.r_code = code
 			message_admins("[key_name_admin(usr)] has set the self-destruct code to \"[code]\".")

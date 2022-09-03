@@ -1,4 +1,5 @@
 //Just new and forget
+//Depricated, use movement loops instead. Exists to support things that want to move more then 10 times a second
 /datum/forced_movement
 	var/atom/movable/victim
 	var/atom/target
@@ -61,15 +62,15 @@
 		. = step_towards(vic, tar)
 
 	//shit way for getting around corners
-	if(!.)
-		if(tar.x > vic.x)
+	if(!.) //If stepping towards the target failed
+		if(tar.x > vic.x) //If we're going x, step x
 			if(step(vic, EAST))
 				. = TRUE
 		else if(tar.x < vic.x)
 			if(step(vic, WEST))
 				. = TRUE
 
-		if(!.)
+		if(!.) //If the x step failed, go y
 			if(tar.y > vic.y)
 				if(step(vic, NORTH))
 					. = TRUE
@@ -77,7 +78,7 @@
 				if(step(vic, SOUTH))
 					. = TRUE
 
-			if(!.)
+			if(!.) //If both failed, try again for some reason
 				if(recursive)
 					return FALSE
 				else

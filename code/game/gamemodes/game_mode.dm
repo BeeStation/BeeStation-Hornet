@@ -268,7 +268,7 @@
 	if(CONFIG_GET(flag/protect_roles_from_antagonist))
 		replacementmode.restricted_jobs += replacementmode.protected_jobs
 	if(CONFIG_GET(flag/protect_assistant_from_antagonist))
-		replacementmode.restricted_jobs += "Assistant"
+		replacementmode.restricted_jobs += JOB_NAME_ASSISTANT
 	if(CONFIG_GET(flag/protect_heads_from_antagonist))
 		replacementmode.restricted_jobs += GLOB.command_positions
 
@@ -444,6 +444,9 @@
 	for(var/datum/mind/mind in candidates)
 		p_ckey = ckey(mind.key)
 		var/mob/dead/new_player/player = get_mob_by_ckey(p_ckey)
+		if(!player)
+			candidates -= mind
+			continue
 		total_tickets += min(((role in player.client.prefs.be_special) ? SSpersistence.antag_rep[p_ckey] : 0) + DEFAULT_ANTAG_TICKETS, MAX_TICKETS_PER_ROLL)
 
 	var/antag_select = rand(1,total_tickets)
@@ -847,7 +850,7 @@
 	round_credits += "<center><h1>The Hardy Civilians:</h1>"
 	len_before_addition = round_credits.len
 	for(var/datum/mind/current in SSticker.mode.get_all_by_department(GLOB.civilian_positions | GLOB.gimmick_positions))
-		if(current.assigned_role == "Assistant")
+		if(current.assigned_role == JOB_NAME_ASSISTANT)
 			human_garbage += current
 		else
 			round_credits += "<center><h2>[current.name] as the [current.assigned_role]</h2>"

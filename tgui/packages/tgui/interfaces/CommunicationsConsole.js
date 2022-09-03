@@ -496,7 +496,7 @@ const PageMain = (props, context) => {
 
       {!!canMessageAssociates && messagingAssociates && <MessageModal
         label={`Message to transmit to ${emagged ? "[ABNORMAL ROUTING COORDINATES]" : "CentCom"} via quantum entanglement`}
-        notice="Please be aware that this process is very expensive, and abuse will lead to...termination. Transmission does not guarantee a response."
+        notice="Please be aware that this process is very expensive, and abuse will lead to...termination. Transmission does not guarantee a response. Use by heads of staff is only authorized during an emergency situation."
         icon="bullhorn"
         buttonText="Send"
         onBack={() => setMessagingAssociates(false)}

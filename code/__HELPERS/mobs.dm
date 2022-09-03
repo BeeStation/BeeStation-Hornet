@@ -189,8 +189,8 @@ GLOBAL_LIST_EMPTY(species_list)
 		return 0
 	var/user_loc = user.loc
 
-	var/drifting = 0
-	if(!user.Process_Spacemove(0) && user.inertia_dir)
+	var/drifting = FALSE
+	if(SSmove_manager.processing_on(user, SSspacedrift))
 		drifting = 1
 
 	var/target_loc = target.loc
@@ -213,7 +213,7 @@ GLOBAL_LIST_EMPTY(species_list)
 		if(uninterruptible)
 			continue
 
-		if(drifting && !user.inertia_dir)
+		if(drifting && SSmove_manager.processing_on(user, SSspacedrift))
 			drifting = 0
 			user_loc = user.loc
 
@@ -252,7 +252,7 @@ GLOBAL_LIST_EMPTY(species_list)
 	var/atom/Uloc = user.loc
 
 	var/drifting = 0
-	if(!user.Process_Spacemove(0) && user.inertia_dir)
+	if(SSmove_manager.processing_on(user, SSspacedrift))
 		drifting = 1
 
 	var/holding = user.get_active_held_item()
@@ -275,7 +275,7 @@ GLOBAL_LIST_EMPTY(species_list)
 		if (progress)
 			progbar.update(world.time - starttime)
 
-		if(drifting && !user.inertia_dir)
+		if(drifting && SSmove_manager.processing_on(user, SSspacedrift))
 			drifting = 0
 			Uloc = user.loc
 
@@ -326,7 +326,7 @@ GLOBAL_LIST_EMPTY(species_list)
 	time *= user.cached_multiplicative_actions_slowdown
 
 	var/drifting = FALSE
-	if(!user.Process_Spacemove(0) && user.inertia_dir)
+	if(SSmove_manager.processing_on(user, SSspacedrift))
 		drifting = 1
 
 	var/list/originalloc = list()
@@ -355,7 +355,7 @@ GLOBAL_LIST_EMPTY(species_list)
 			if(uninterruptible)
 				continue
 
-			if(drifting && !user.inertia_dir)
+			if(drifting && SSmove_manager.processing_on(user, SSspacedrift))
 				drifting = 0
 				user_loc = user.loc
 
@@ -477,9 +477,9 @@ GLOBAL_LIST_EMPTY(species_list)
 				var/turf_link = TURF_LINK(M, turf_target)
 				rendered_message = "[turf_link] [message]"
 
-			to_chat(M, rendered_message)
+			to_chat(M, rendered_message, avoid_highlighting = speaker_key == M.key)
 		else
-			to_chat(M, message)
+			to_chat(M, message, avoid_highlighting = speaker_key == M.key)
 
 //Used in chemical_mob_spawn. Generates a random mob based on a given gold_core_spawnable value.
 /proc/create_random_mob(spawn_location, mob_class = HOSTILE_SPAWN)

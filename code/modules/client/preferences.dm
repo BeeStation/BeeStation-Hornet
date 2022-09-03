@@ -867,7 +867,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 #undef APPEARANCE_CATEGORY_COLUMN
 #undef MAX_MUTANT_ROWS
 
-/datum/preferences/proc/SetChoices(mob/user, limit = 16, list/splitJobs = list("Clown", "Research Director"), widthPerColumn = 295, height = 620)
+/datum/preferences/proc/SetChoices(mob/user, limit = 16, list/splitJobs = list(JOB_NAME_CLOWN, JOB_NAME_RESEARCHDIRECTOR), widthPerColumn = 295, height = 620)
 	if(!SSjob)
 		return
 
@@ -928,7 +928,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			if((job_preferences[overflow] == JP_LOW) && (rank != SSjob.overflow_role) && !is_banned_from(user.ckey, SSjob.overflow_role))
 				HTML += "<font color=orange>[rank]</font></td><td></td></tr>"
 				continue
-			if((rank in GLOB.command_positions) || (rank == "AI"))//Bold head jobs
+			if((rank in GLOB.command_positions) || (rank == JOB_NAME_AI))//Bold head jobs
 				HTML += "<b><span class='dark'>[rank]</span></b>"
 			else
 				HTML += "<span class='dark'>[rank]</span>"
@@ -1019,7 +1019,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			var/bound_key = user_binds[kb.name]
 			bound_key = (bound_key) ? bound_key : "Unbound"
 
-			HTML += "<label>[kb.full_name]</label> <a href ='?_src_=prefs;preference=keybindings_capture;keybinding=[kb.name];old_key=[bound_key]'>[bound_key] Default: ( [kb.key] )</a>"
+			HTML += "<label>[kb.full_name]</label> <a href ='?_src_=prefs;preference=keybindings_capture;keybinding=[kb.name];old_key=[url_encode(bound_key)]'>[bound_key] Default: ( [kb.key] )</a>"
 			HTML += "<br>"
 
 	HTML += "<br><br>"
@@ -1044,7 +1044,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		var ctrl = e.ctrlKey ? 1 : 0;
 		var numpad = (95 < e.keyCode && e.keyCode < 112) ? 1 : 0;
 		var escPressed = e.keyCode == 27 ? 1 : 0;
-		var url = 'byond://?_src_=prefs;preference=keybindings_set;keybinding=[kb.name];old_key=[old_key];clear_key='+escPressed+';key='+e.key+';shift='+shift+';alt='+alt+';ctrl='+ctrl+';numpad='+numpad+';key_code='+e.keyCode;
+		var url = 'byond://?_src_=prefs;preference=keybindings_set;keybinding=[kb.name];old_key=[url_encode(old_key)];clear_key='+escPressed+';key='+encodeURIComponent(e.key)+';shift='+shift+';alt='+alt+';ctrl='+ctrl+';numpad='+numpad+';key_code='+e.keyCode;
 		window.location=url;
 	}
 	document.getElementById('focus').focus();
@@ -1708,7 +1708,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						default += " ([config.defaultmap.map_name])"
 					for (var/M in config.maplist)
 						var/datum/map_config/VM = config.maplist[M]
-						if(!VM.votable)
+						if(!VM.votable || SSmapping.config.map_name == VM.map_name) //current map will be excluded from the vote
 							continue
 						var/friendlyname = "[VM.map_name] "
 						if (VM.voteweight <= 0)

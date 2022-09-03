@@ -41,13 +41,18 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 		/obj/item/toy/windupToolbox = 2,
 		/obj/item/toy/clockwork_watch = 2,
 		/obj/item/toy/toy_dagger = 2,
+		/obj/item/toy/cog = 2,
+		/obj/item/toy/batong = 1,
+		/obj/item/toy/replica_fabricator = 1,
 		/obj/item/extendohand/acme = 1,
 		/obj/item/hot_potato/harmless/toy = 1,
 		/obj/item/card/emagfake = 1,
 		/obj/item/disk/nuclear/fake/obvious = 1,
 		/obj/item/clothing/shoes/wheelys = 2,
 		/obj/item/clothing/shoes/kindleKicks = 2,
-		/obj/item/toy/plush/moth = 2,
+		/obj/item/toy/plush/moth/random = 2,
+		/obj/item/toy/plush/flushed = 2,
+		/obj/item/toy/plush/gondola = 2,
 		/obj/item/toy/plush/rouny = 2,
 		/obj/item/storage/box/heretic_asshole = 1,
 		/obj/item/toy/eldrich_book = 1,
@@ -58,7 +63,8 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 		/obj/item/choice_beacon/pet/hamster = 1,
 		/obj/item/choice_beacon/pet/pug = 1,
 		/obj/item/choice_beacon/pet/pingu = 1,
-		/obj/item/choice_beacon/pet/clown = 1))
+		/obj/item/choice_beacon/pet/clown = 1,
+		/obj/item/toy/allaccess = 1))
 
 /obj/machinery/computer/arcade
 	name = "random arcade"
@@ -712,7 +718,7 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 					if(isliving(usr))
 						var/mob/living/L = usr
 						L.Stun(200, ignore_canstun = TRUE) //you can't run :^)
-					var/S = new /obj/singularity/academy(usr.loc)
+					var/S = new /obj/anomaly/singularity/academy(usr.loc)
 					addtimer(CALLBACK(src, /atom/movable/proc/say, "[S] winks out, just as suddenly as it appeared."), 50)
 					QDEL_IN(S, 50)
 			else

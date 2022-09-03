@@ -1,14 +1,13 @@
 /datum/job/scientist
-	title = "Scientist"
+	title = JOB_NAME_SCIENTIST
 	flag = SCIENTIST
-	department_head = list("Research Director")
+	department_head = list(JOB_NAME_RESEARCHDIRECTOR)
 	department_flag = MEDSCI
 	faction = "Station"
 	total_positions = 5
 	spawn_positions = 3
 	supervisors = "the research director"
 	selection_color = "#ffeeff"
-	chat_color = "#C772C7"
 	exp_requirements = 120
 	exp_type = EXP_TYPE_CREW
 
@@ -22,7 +21,7 @@
 	paycheck_department = ACCOUNT_SCI
 
 	display_order = JOB_DISPLAY_ORDER_SCIENTIST
-	departments = DEPARTMENT_SCIENCE
+	departments = DEPARTMENT_BITFLAG_SCIENCE
 	rpg_title = "Thaumaturgist"
 
 	species_outfits = list(
@@ -31,10 +30,10 @@
 	biohazard = 15
 
 /datum/outfit/job/scientist
-	name = "Scientist"
+	name = JOB_NAME_SCIENTIST
 	jobtype = /datum/job/scientist
 
-	id = /obj/item/card/id/job/sci
+	id = /obj/item/card/id/job/scientist
 	belt = /obj/item/pda/toxins
 	ears = /obj/item/radio/headset/headset_sci
 	uniform = /obj/item/clothing/under/rank/rnd/scientist
@@ -45,6 +44,7 @@
 
 	backpack = /obj/item/storage/backpack/science
 	satchel = /obj/item/storage/backpack/satchel/tox
+	backpack_contents = list(/obj/item/modular_computer/tablet/preset/science=1)
 
 /datum/outfit/job/scientist/pre_equip(mob/living/carbon/human/H)
 	..()

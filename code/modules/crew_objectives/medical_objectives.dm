@@ -14,11 +14,11 @@
 			return ..()
 	return TRUE
 
-/datum/objective/crew/emtmorgue
+/datum/objective/crew/paramedicmorgue
 	explanation_text = "Ensure that no corpses remain outside of Medbay when the shift ends."
 	jobs = "paramedic"
 
-/datum/objective/crew/emtmorgue/check_completion()
+/datum/objective/crew/paramedicmorgue/check_completion()
 	var/list/medical_areas_morgue = typecacheof(list(/area/medical/cryo, /area/medical/genetics/cloning, /area/medical/exam_room,
 		/area/medical/medbay/aft, /area/medical/medbay/central, /area/medical/medbay/lobby, /area/medical/patients_rooms,
 		/area/medical/sleeper, /area/medical/storage, /area/medical/morgue))
@@ -36,11 +36,7 @@
 
 /datum/objective/crew/chems/New()
 	. = ..()
-	var/list/blacklist = list(/datum/reagent/drug, /datum/reagent/drug/nicotine, /datum/reagent/medicine, /datum/reagent/medicine/adminordrazine, /datum/reagent/medicine/mine_salve, /datum/reagent/medicine/omnizine, /datum/reagent/medicine/syndicate_nanites, /datum/reagent/medicine/earthsblood, /datum/reagent/medicine/strange_reagent, /datum/reagent/medicine/changelingadrenaline)
-	var/list/drugs = typesof(/datum/reagent/drug) - blacklist
-	var/list/meds = typesof(/datum/reagent/medicine) - blacklist
-	var/list/chemlist = drugs + meds
-	chempath = pick(chemlist)
+	chempath = get_random_reagent_id(CHEMICAL_GOAL_CHEMIST_BLOODSTREAM)
 	targetchem = chempath
 	update_explanation_text()
 
@@ -66,10 +62,7 @@
 	. = ..()
 	target_amount = rand(5,50)
 	chemamount = rand(1,20)
-	var/list/blacklist = list(/datum/reagent/drug, /datum/reagent/drug/nicotine, /datum/reagent/medicine, /datum/reagent/medicine/adminordrazine, /datum/reagent/medicine/mine_salve, /datum/reagent/medicine/omnizine, /datum/reagent/medicine/syndicate_nanites, /datum/reagent/medicine/earthsblood, /datum/reagent/medicine/strange_reagent, /datum/reagent/medicine/changelingadrenaline)
-	var/list/drugs = typesof(/datum/reagent/drug) - blacklist
-	var/list/chemlist = drugs
-	chempath = pick(chemlist)
+	chempath = get_random_reagent_id(CHEMICAL_GOAL_CHEMIST_DRUG)
 	targetchem = chempath
 	update_explanation_text()
 

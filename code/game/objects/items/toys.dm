@@ -23,6 +23,8 @@
  *		Clockwork Watches
  *		Toy Daggers
  *		Eldrich stuff
+ *		Batong
+ *		Fake captains card
  */
 
 
@@ -202,7 +204,7 @@
 	if (!user.IsAdvancedToolUser())
 		to_chat(user, "<span class='warning'>You don't have the dexterity to do this!</span>")
 		return
-	src.add_fingerprint(user)
+	add_fingerprint(user)
 	if (src.bullets < 1)
 		user.show_message("<span class='warning'>*click*</span>", MSG_AUDIBLE)
 		playsound(src, 'sound/weapons/gun_dry_fire.ogg', 30, TRUE)
@@ -308,6 +310,20 @@
 	attack_verb = list("pricked", "absorbed", "gored")
 	w_class = WEIGHT_CLASS_SMALL
 	resistance_flags = FLAMMABLE
+
+/*
+ * Batong
+ */
+/obj/item/toy/batong
+	name = "batong"
+	desc = "Despite being a cheap plastic imitation of a stunbaton, it can still be charged."
+	icon = 'icons/obj/items_and_weapons.dmi'
+	icon_state = "stunbaton"
+	item_state = "baton"
+	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
+	attack_verb = list("batonged", "stunned", "hit")
+	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/toy/windupToolbox
 	name = "windup toolbox"
@@ -1160,6 +1176,40 @@
 	w_class = WEIGHT_CLASS_SMALL
 
 /*
+ * Toy Cog
+ */
+
+/obj/item/toy/cog
+	name = "integration cog"
+	desc = "A small cog that seems to spin by its own acord when left alone."
+	resistance_flags = FIRE_PROOF | ACID_PROOF
+	icon = 'icons/obj/clockwork_objects.dmi'
+	icon_state = "integration_cog"
+	w_class = WEIGHT_CLASS_SMALL
+
+/obj/item/toy/cog/examine(mob/user)
+	. = ..()
+	if(is_servant_of_ratvar(user))
+		. += "<span class='warning'>It's clearly a fake, how could anybody fall for this!</span>"
+
+/*
+ * Replica fabricator
+ */
+
+/obj/item/toy/replica_fabricator
+	name = "replica fabricator"
+	desc = "A strange, brass device with many twisting cogs and vents."
+	resistance_flags = FIRE_PROOF | ACID_PROOF
+	icon = 'icons/obj/clockwork_objects.dmi'
+	icon_state = "replica_fabricator"
+	w_class = WEIGHT_CLASS_SMALL
+
+/obj/item/toy/replica_fabricator/examine(mob/user)
+	. = ..()
+	if(is_servant_of_ratvar(user))
+		. += "<span class='warning'>It's clearly a fake, how could anybody fall for this!</span>"
+
+/*
  * Xenomorph action figure
  */
 
@@ -1475,6 +1525,20 @@
 /obj/item/storage/box/heretic_asshole/PopulateContents()
 	for(var/i in 1 to rand(1,4))
 		new /obj/item/toy/reality_pierce(src)
+
+/*
+ * Fake captains card
+ */
+
+/obj/item/toy/allaccess
+	name = "captain's spare ID"
+	desc = "A replica of the glorious captain's card. Issued to annoying greytiders as a joke."
+	icon = 'icons/obj/card.dmi'
+	icon_state = "gold"
+
+/obj/item/toy/allaccess/afterattack()
+	. = ..()
+	playsound(src, 'sound/items/bikehorn.ogg', 50, TRUE)
 
 // Serviceborg items
 

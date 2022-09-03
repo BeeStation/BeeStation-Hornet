@@ -121,11 +121,9 @@
 					var/mob/M = A
 					if(M.mob_negates_gravity())
 						continue
-				spawn(0)
-					var/iter = 5-get_dist(A,target)
-					for(var/i=0 to iter)
-						step_away(A,target)
-						sleep(2)
+				var/dist = 5 - get_dist(A, target)
+				var/delay = 2
+				SSmove_manager.move_away(A, target, delay = delay, timeout = delay * dist, flags = MOVEMENT_LOOP_START_FAST, priority = MOVEMENT_ABOVE_SPACE_PRIORITY)
 			var/turf/T = get_turf(target)
 			log_game("[key_name(chassis.occupant)] used a Gravitational Catapult repulse wave on [AREACOORD(T)]")
 			return TRUE

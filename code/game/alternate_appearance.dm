@@ -96,7 +96,7 @@ GLOBAL_LIST_EMPTY(active_alternate_appearances)
 		qdel(src)
 
 /datum/atom_hud/alternate_appearance/basic/copy_overlays(atom/other, cut_old)
-		theImage.copy_overlays(other, cut_old)
+	theImage.copy_overlays(other, cut_old)
 
 /datum/atom_hud/alternate_appearance/basic/everyone
 	add_ghost_version = TRUE
@@ -170,7 +170,7 @@ GLOBAL_LIST_EMPTY(active_alternate_appearances)
 			add_hud_to(mob)
 
 /datum/atom_hud/alternate_appearance/basic/blessedAware/mobShouldSee(mob/M)
-	if(M.mind && (M.mind.assigned_role == "Chaplain"))
+	if(M.mind && (M.mind.assigned_role == JOB_NAME_CHAPLAIN))
 		return TRUE
 	if (istype(M, /mob/living/simple_animal/hostile/construct/wraith))
 		return TRUE

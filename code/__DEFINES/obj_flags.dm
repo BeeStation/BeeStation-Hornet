@@ -14,6 +14,7 @@
 #define BLOCK_Z_OUT_UP			(1<<10) // Should this object block z uprise from loc?
 #define BLOCK_Z_IN_DOWN			(1<<11) // Should this object block z falling from above?
 #define BLOCK_Z_IN_UP			(1<<12) // Should this object block z uprise from below?
+#define OBJ_EMPED				(1<<13) // Object is affected by EMP
 
 // If you add new ones, be sure to add them to /obj/Initialize as well for complete mapping support
 
@@ -45,8 +46,9 @@
 #define SNUG_FIT                (1<<9)  //! prevents hat throwing from knocking this hat off
 #define EFFECT_HAT              (1<<10) //! For hats with an effect that shouldn't get knocked off ie finfoil
 #define SCAN_REAGENTS           (1<<11) //! Allows helmets and glasses to scan reagents.
-#define MASKEXTENDRANGE			(1<<12) //! For masks, allows you to breathe from internals on adjecent tiles
-#define NOTCONSUMABLE			(1<<13) //! Moths cannot eat clothing with that flag
+#define SCAN_BOOZEPOWER         (1<<12) //! Allows helmets and glasses to scan reagents.
+#define MASKEXTENDRANGE			(1<<13) //! For masks, allows you to breathe from internals on adjecent tiles
+#define NOTCONSUMABLE			(1<<14) //! Moths cannot eat clothing with that flag
 
 /// Flags for the organ_flags var on /obj/item/organ
 

@@ -259,7 +259,7 @@
 	check_ass() //Just to make sure that you can re-drag somebody onto it after they moved off.
 	if (!istype(target) || target.anchored || target.buckled || !Adjacent(target) || !user.canUseTopic(src, BE_CLOSE) || target == ass || copier_blocked())
 		return
-	src.add_fingerprint(user)
+	add_fingerprint(user)
 	if(target == user)
 		user.visible_message("[user] starts climbing onto the photocopier!", "<span class='notice'>You start climbing onto the photocopier...</span>")
 	else
@@ -331,6 +331,10 @@
 	grind_results = list(/datum/reagent/iodine = 40, /datum/reagent/iron = 10)
 	var/charges = 5
 	var/max_charges = 5
+
+/obj/item/toner/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>The ink level gauge on the side reads [round(charges / max_charges * 100)]%</span>"
 
 /obj/item/toner/large
 	name = "large toner cartridge"

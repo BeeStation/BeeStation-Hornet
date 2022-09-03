@@ -6,7 +6,7 @@
 	canAIControl - 1 if the AI can control the airlock, 0 if not (then check canAIHack to see if it can hack in)
 	canAIHack - 1 if the AI can hack into the airlock to recover control, 0 if not. Also returns 0 if the AI does not *need* to hack it.
 	hasPower - 1 if the main or backup power are functioning, 0 if not.
-	requiresIDs - 1 if the airlock is requiring IDs, 0 if not
+	id_scan_hacked - Whether the AI has disabled the ID scanner, or the wire has been cut.
 	isAllPowerCut - 1 if the main and backup power both have cut wires.
 	regainMainPower - handles the effect of main power coming back on.
 	loseMainPower - handles the effect of main power going offline. Usually (if one isn't already running) spawn a thread to count down how long it will be offline - counting down won't happen if main power was completely cut along with backup power, though, the thread will just sleep.
@@ -14,6 +14,20 @@
 	regainBackupPower - handles the effect of main power coming back on.
 	shock - has a chance of electrocuting its target.
 */
+
+/// Overlay cache.  Why isn't this just in /obj/machinery/door/airlock?  Because its used just a
+/// tiny bit in door_assembly.dm  Refactored so you don't have to make a null copy of airlock
+/// to get to the damn thing
+/// Someone, for the love of god, profile this.  Is there a reason to cache mutable_appearance
+/// if so, why are we JUST doing the airlocks when we can put this in mutable_appearance.dm for
+/// everything
+/proc/get_airlock_overlay(icon_state, icon_file)
+	var/static/list/airlock_overlays = list()
+	var/iconkey = "[icon_state][icon_file]"
+	if((!(. = airlock_overlays[iconkey])))
+		. = airlock_overlays[iconkey] = mutable_appearance(icon_file, icon_state)
+// Before you say this is a bad implmentation, look at what it was before then ask yourself
+// "Would this be better with a global var"
 
 // Wires for the airlock are located in the datum folder, inside the wires datum folder.
 
@@ -110,7 +124,7 @@
 
 	var/electrification_timing // Set to true while electrified_loop is running, to prevent multiple being started
 
-	var/static/list/airlock_overlays = list()
+	network_id = NETWORK_DOOR_AIRLOCKS
 
 /obj/machinery/door/airlock/Initialize(mapload)
 	. = ..()
@@ -136,6 +150,8 @@
 	diag_hud_set_electrified()
 
 	rebuild_parts()
+
+	RegisterSignal(src, COMSIG_COMPONENT_NTNET_RECEIVE, .proc/ntnet_receive)
 
 	return INITIALIZE_HINT_LATELOAD
 
@@ -166,9 +182,6 @@
 				panel_open = TRUE
 	update_icon()
 
-/obj/machinery/door/airlock/ComponentInitialize()
-	. = ..()
-	AddComponent(/datum/component/ntnet_interface)
 
 /obj/machinery/door/airlock/proc/rebuild_parts()
 	if(part_overlays)
@@ -234,9 +247,10 @@
 			cyclelinkairlock()
 
 /obj/machinery/door/airlock/check_access_ntnet(datum/netdata/data)
-	return !requiresID() || ..()
+	// Cutting WIRE_IDSCAN grants remote access
+	return id_scan_hacked() || ..()
 
-/obj/machinery/door/airlock/ntnet_receive(datum/netdata/data)
+/obj/machinery/door/airlock/proc/ntnet_receive(datum/source, datum/netdata/data)
 	// Check if the airlock is powered and can accept control packets.
 	if(!hasPower() || !canAIControl())
 		return
@@ -245,13 +259,10 @@
 	if(is_jammed())
 		return
 
-	// Check packet access level.
-	if(!check_access_ntnet(data))
-		return
 
 	// Handle received packet.
-	var/command = lowertext(data.data["data"])
-	var/command_value = lowertext(data.data["data_secondary"])
+	var/command = data.data["data"]
+	var/command_value = data.data["data_secondary"]
 	switch(command)
 		if("open")
 			if(command_value == "on" && !density)
@@ -456,8 +467,8 @@
 		return TRUE
 	return ((!secondsMainPowerLost || !secondsBackupPowerLost) && !(stat & NOPOWER))
 
-/obj/machinery/door/airlock/requiresID()
-	return !(wires.is_cut(WIRE_IDSCAN) || aiDisabledIdScanner)
+/obj/machinery/door/airlock/id_scan_hacked()
+	return wires.is_cut(WIRE_IDSCAN) || aiDisabledIdScanner
 
 /obj/machinery/door/airlock/proc/isAllPowerCut()
 	if(protected_door)
@@ -659,13 +670,6 @@
 				SSvis_overlays.add_vis_overlay(src, overlays_file, "lights_opening", FLOAT_LAYER, FLOAT_PLANE, dir)
 	check_unres()
 
-/proc/get_airlock_overlay(icon_state, icon_file)
-	var/obj/machinery/door/airlock/A
-	pass(A)	//suppress unused warning
-	var/list/airlock_overlays = A.airlock_overlays
-	var/iconkey = "[icon_state][icon_file]"
-	if((!(. = airlock_overlays[iconkey])))
-		. = airlock_overlays[iconkey] = mutable_appearance(icon_file, icon_state)
 
 /obj/machinery/door/airlock/proc/check_unres() //unrestricted sides. This overlay indicates which directions the player can access even without an ID
 	if(hasPower() && unres_sides)
@@ -901,7 +905,7 @@
 
 /obj/machinery/door/airlock/attackby(obj/item/C, mob/user, params)
 	if(!issilicon(user) && !IsAdminGhost(user))
-		if(isElectrified())
+		if(isElectrified() && C?.siemens_coefficient)
 			if(shock(user, 75))
 				return
 	add_fingerprint(user)
@@ -1071,9 +1075,32 @@
 		user.visible_message("<span class='notice'>[user] pins [C] to [src].</span>", "<span class='notice'>You pin [C] to [src].</span>")
 		note = C
 		update_icon()
+	else if(HAS_TRAIT(C, TRAIT_DOOR_PRYER) && user.a_intent != INTENT_HARM)
+		if(isElectrified() && C?.siemens_coefficient)
+			shock(user,100)
+
+		if(locked) 
+			to_chat(user, "<span class='warning'>The bolts are down, it won't budge!</span>")
+			return
+
+		if(welded)
+			to_chat(user, "<span class='warning'>It's welded, it won't budge!</span>")
+			return
+
+		var/time_to_open = 5
+		if(hasPower() && !prying_so_hard && density)
+			time_to_open = 50
+			playsound(src, 'sound/machines/airlock_alien_prying.ogg', 100, TRUE)
+			prying_so_hard = TRUE
+			to_chat(user, "<span class='warning'>You begin prying open the airlock...</span>")
+			if(do_after(user, time_to_open, TRUE, src))
+				if(!open(2) && density)
+					to_chat(user, "<span class='warning'>Despite your attempts, [src] refuses to open.</span>")
+			prying_so_hard = FALSE
+		if(!hasPower())
+			INVOKE_ASYNC(src, (density ? .proc/open : .proc/close), 2)
 	else
 		return ..()
-
 
 /obj/machinery/door/airlock/try_to_weld(obj/item/weldingtool/W, mob/user)
 	if(!operating && density)
@@ -1135,40 +1162,13 @@
 		to_chat(user, "<span class='warning'>The airlock's motors resist your efforts to force it!</span>")
 	else if(locked)
 		to_chat(user, "<span class='warning'>The airlock's bolts prevent it from being forced!</span>")
-	else if( !welded && !operating)
+	else if(!welded && !operating)
 		if(istype(I, /obj/item/fireaxe)) //being fireaxe'd
 			var/obj/item/fireaxe/F = I
 			if(F && !ISWIELDED(F))
 				to_chat(user, "<span class='warning'>You need to be wielding the fire axe to do that!</span>")
 				return
 		INVOKE_ASYNC(src, (density ? .proc/open : .proc/close), 2)
-
-	if(HAS_TRAIT(I, TRAIT_DOOR_PRYER))
-		if(isElectrified())
-			shock(user,100)//it's like sticking a forck in a power socket
-			return
-
-		if(!density)//already open
-			return
-
-		if(locked)
-			to_chat(user, "<span class='warning'>The bolts are down, it won't budge!</span>")
-			return
-
-		if(welded)
-			to_chat(user, "<span class='warning'>It's welded, it won't budge!</span>")
-			return
-
-		var/time_to_open = 5
-		if(hasPower() && !prying_so_hard)
-			time_to_open = 50
-			playsound(src, 'sound/machines/airlock_alien_prying.ogg', 100, TRUE) //is it aliens or just the CE being a dick?
-			prying_so_hard = TRUE
-			if(do_after(user, time_to_open, TRUE, src))
-				open(2)
-				if(density && !open(2))
-					to_chat(user, "<span class='warning'>Despite your attempts, [src] refuses to open.</span>")
-			prying_so_hard = FALSE
 
 
 /obj/machinery/door/airlock/open(forced=0)

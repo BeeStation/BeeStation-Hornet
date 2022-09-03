@@ -72,10 +72,10 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 		if(T.z == z_original)
 			special_target_valid = TRUE_THRESHOLD
 	if(special_target_valid)
-		walk_towards(src, special_target, 1)
+		SSmove_manager.home_onto(src, special_target)
 		previous_distance = get_dist(src, special_target)
 	else if(end && end.z==z_original)
-		walk_towards(src, destination, 1)
+		SSmove_manager.home_onto(src, destination)
 		previous_distance = get_dist(src, destination)
 
 /obj/effect/immovablerod/Destroy()
@@ -105,8 +105,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	//We hit what we wanted to hit, time to go
 	special_target = null
 	destination = get_edge_target_turf(src, dir)
-	walk(src,0)
-	walk_towards(src, destination, 1)
+	SSmove_manager.home_onto(src, destination)
 
 /obj/effect/immovablerod/ex_act(severity, target)
 	return 0
@@ -145,6 +144,9 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 		qdel(src)
 		qdel(other)
 
+/obj/effect/immovablerod/Process_Spacemove()
+	return TRUE
+
 /obj/effect/immovablerod/proc/penetrate(mob/living/L)
 	L.visible_message("<span class='danger'>[L] is penetrated by an immovable rod!</span>" , "<span class='userdanger'>The rod penetrates you!</span>" , "<span class ='danger'>You hear a CLANG!</span>")
 	if(ishuman(L))
@@ -156,7 +158,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 /obj/effect/immovablerod/attack_hand(mob/living/user)
 	if(ishuman(user))
 		var/mob/living/carbon/human/U = user
-		if(U.job in list("Research Director"))
+		if(U.job in list(JOB_NAME_RESEARCHDIRECTOR))
 			playsound(src, 'sound/effects/meteorimpact.ogg', 100, 1)
 			for(var/mob/M in urange(8, src))
 				if(!M.stat)

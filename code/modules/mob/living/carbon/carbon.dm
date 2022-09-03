@@ -80,8 +80,8 @@
 				visible_message("<span class='danger'>[victim] catches [src]!</span>",\
 					"<span class='userdanger'>[victim] catches you!</span>")
 				grabbedby(victim, TRUE)
-				victim.throw_mode_off()
-				log_combat(victim, src, "caught (thrown mob)")
+				victim.throw_mode_off(THROW_MODE_TOGGLE)
+				log_combat(victim, src, "caught [src]")
 				return
 			if(hurt)
 				victim.take_bodypart_damage(10,check_armor = TRUE)
@@ -109,20 +109,22 @@
 /mob/living/carbon/proc/toggle_throw_mode()
 	if(stat)
 		return
-	if(in_throw_mode)
-		throw_mode_off()
+	if(throw_mode)
+		throw_mode_off(THROW_MODE_TOGGLE)
 	else
-		throw_mode_on()
+		throw_mode_on(THROW_MODE_TOGGLE)
 
 
-/mob/living/carbon/proc/throw_mode_off()
-	in_throw_mode = 0
+/mob/living/carbon/proc/throw_mode_off(method)
+	if(throw_mode > method) //A toggle doesnt affect a hold
+		return
+	throw_mode = THROW_MODE_DISABLED
 	if(client && hud_used)
 		hud_used.throw_icon.icon_state = "act_throw_off"
 
 
-/mob/living/carbon/proc/throw_mode_on()
-	in_throw_mode = 1
+/mob/living/carbon/proc/throw_mode_on(mode = THROW_MODE_TOGGLE)
+	throw_mode = mode
 	if(client && hud_used)
 		hud_used.throw_icon.icon_state = "act_throw_on"
 
@@ -133,7 +135,7 @@
 
 /mob/living/carbon/throw_item(atom/target)
 	. = ..()
-	throw_mode_off()
+	throw_mode_off(THROW_MODE_TOGGLE)
 	if(!target || !isturf(loc))
 		return FALSE
 	if(istype(target, /atom/movable/screen))
@@ -501,7 +503,7 @@
 
 /mob/living/carbon/update_stamina(extend_stam_crit = FALSE)
 	var/stam = getStaminaLoss()
-	if(stam > DAMAGE_PRECISION && (maxHealth - stam) <= crit_threshold && !stat && !HAS_TRAIT(src, TRAIT_NOSTAMCRIT))
+	if(stam >= DAMAGE_PRECISION && (maxHealth - stam) <= crit_threshold && !stat && !HAS_TRAIT(src, TRAIT_NOSTAMCRIT))
 		if(extend_stam_crit || !stam_paralyzed)
 			enter_stamcrit()
 	else if(stam_paralyzed)
@@ -896,19 +898,18 @@
 					else
 						to_chat(usr, "Only humans can be augmented.")
 		admin_ticket_log("[key_name_admin(usr)] has modified the bodyparts of [src]")
+	
 	if(href_list[VV_HK_MAKE_AI])
 		if(!check_rights(R_SPAWN))
 			return
 		if(alert("Confirm mob type change?",,"Transform","Cancel") != "Transform")
 			return
 		usr.client.holder.Topic("vv_override", list("makeai"=href_list[VV_HK_TARGET]))
-	if(href_list[VV_HK_MODIFY_ORGANS])
-		if(!check_rights(NONE))
-			return
+	
+	if(href_list[VV_HK_MODIFY_ORGANS] && check_rights(R_FUN|R_DEBUG))
 		usr.client.manipulate_organs(src)
-	if(href_list[VV_HK_MARTIAL_ART])
-		if(!check_rights(NONE))
-			return
+
+	if(href_list[VV_HK_MARTIAL_ART] && check_rights(R_FUN))
 		var/list/artpaths = subtypesof(/datum/martial_art)
 		var/list/artnames = list()
 		for(var/i in artpaths)
@@ -926,9 +927,8 @@
 			MA.teach(src)
 			log_admin("[key_name(usr)] has taught [MA] to [key_name(src)].")
 			message_admins("<span class='notice'>[key_name_admin(usr)] has taught [MA] to [key_name_admin(src)].</span>")
-	if(href_list[VV_HK_GIVE_TRAUMA])
-		if(!check_rights(NONE))
-			return
+
+	if(href_list[VV_HK_GIVE_TRAUMA] && check_rights(R_FUN|R_DEBUG))
 		var/list/traumas = subtypesof(/datum/brain_trauma)
 		var/result = input(usr, "Choose the brain trauma to apply","Traumatize") as null|anything in traumas
 		if(!usr)
@@ -942,15 +942,13 @@
 		if(BT)
 			log_admin("[key_name(usr)] has traumatized [key_name(src)] with [BT.name]")
 			message_admins("<span class='notice'>[key_name_admin(usr)] has traumatized [key_name_admin(src)] with [BT.name].</span>")
-	if(href_list[VV_HK_CURE_TRAUMA])
-		if(!check_rights(NONE))
-			return
+
+	if(href_list[VV_HK_CURE_TRAUMA] && check_rights(R_FUN|R_DEBUG))
 		cure_all_traumas(TRAUMA_RESILIENCE_ABSOLUTE)
 		log_admin("[key_name(usr)] has cured all traumas from [key_name(src)].")
 		message_admins("<span class='notice'>[key_name_admin(usr)] has cured all traumas from [key_name_admin(src)].</span>")
-	if(href_list[VV_HK_HALLUCINATION])
-		if(!check_rights(NONE))
-			return
+
+	if(href_list[VV_HK_HALLUCINATION] && check_rights(R_FUN))
 		var/list/hallucinations = subtypesof(/datum/hallucination)
 		var/result = input(usr, "Choose the hallucination to apply","Send Hallucination") as null|anything in hallucinations
 		if(!usr)

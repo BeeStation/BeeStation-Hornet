@@ -25,14 +25,14 @@
 /obj/item/clothing/gloves/color/yellow/equipped(mob/user, slot)
 	. = ..()
 	if(slot == ITEM_SLOT_GLOVES)
-		if(user.mind?.assigned_role == "Assistant")
+		if(user.mind?.assigned_role == JOB_NAME_ASSISTANT)
 			SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "assistant_insulated_gloves", /datum/mood_event/assistant_insulated_gloves)
 		if(user.mind?.assigned_role in GLOB.security_positions)
 			SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "sec_insulated_gloves", /datum/mood_event/sec_insulated_gloves)
 
 /obj/item/clothing/gloves/color/yellow/dropped(mob/user)
 	..()
-	if(user.mind?.assigned_role == "Assistant")
+	if(user.mind?.assigned_role == JOB_NAME_ASSISTANT)
 		SEND_SIGNAL(user, COMSIG_CLEAR_MOOD_EVENT, "assistant_insulated_gloves")
 	if(user.mind?.assigned_role in GLOB.security_positions)
 		SEND_SIGNAL(user, COMSIG_CLEAR_MOOD_EVENT, "sec_insulated_gloves")
@@ -53,17 +53,6 @@
 	. = ..()
 	siemens_coefficient = pick(0,0.5,0.5,0.5,0.5,0.75,1.5)
 
-/obj/item/clothing/gloves/color/fyellow/examine(mob/user)
-	. = ..()
-	var/protectionpercentage = ((1 - siemens_coefficient) * 100)
-	if(HAS_TRAIT(user, TRAIT_APPRAISAL))
-		if(siemens_coefficient <= 0)
-			. += "[src] will fully protect from electric shocks."
-		if(siemens_coefficient > 1)
-			. += "[src] will only make shocks worse."
-		else
-			. += "[src] will provide [protectionpercentage] percent protection from electric shocks."
-
 /obj/item/clothing/gloves/color/fyellow/old
 	desc = "Old and worn out insulated gloves, hopefully they still work."
 	name = "worn out insulated gloves"
@@ -77,6 +66,7 @@
 	name = "fingerless insulated gloves"
 	icon_state = "yellowcut"
 	item_state = "ygloves"
+	worn_icon_state = "ygloves"
 	transfer_prints = TRUE
 
 /obj/item/clothing/gloves/cut/heirloom
@@ -238,3 +228,10 @@
 		/obj/item/clothing/gloves/color/brown = 1,
 		/obj/item/clothing/gloves/color/white = 1,
 		/obj/item/clothing/gloves/color/rainbow = 1)
+
+/obj/item/clothing/gloves/maid
+	name = "maid arm covers"
+	desc = "Cylindrical looking tubes that go over your arm, weird."
+	icon_state = "maid_arms"
+	item_state = "maid_arms"
+	worn_icon_state = "maid_arms"

@@ -52,6 +52,21 @@
 	mood_change = -12
 	timeout = 2 MINUTES
 
+/datum/mood_event/anxiety
+	description = "<span class='warning'>I feel scared around all these people..</span>\n"
+	mood_change = -2
+	timeout = 60 SECONDS
+
+/datum/mood_event/anxiety_mute
+	description = "<span class='boldwarning'>I can't speak up, not with everyone here!</span>\n"
+	mood_change = -4
+	timeout = 2 MINUTES
+
+/datum/mood_event/anxiety_dumb
+	description = "<span class='boldwarning'>Oh god, I made a fool of myself.</span>\n"
+	mood_change = -10
+	timeout = 2 MINUTES
+
 /datum/mood_event/shameful_suicide //suicide_acts that return SHAME, like sord
   description = "<span class='boldwarning'>I can't even end it all!</span>\n"
   mood_change = -15
@@ -231,3 +246,17 @@
 	description = "<span class='warning'>All the fish are dead...</span>\n"
 	mood_change = -3
 	timeout = 1.5 MINUTES
+
+/datum/mood_event/feline_dysmorphia
+	description = "<span class='boldwarning'>I'm so ugly. I wish I was cuter!</span>\n"
+	mood_change = -10
+
+/datum/mood_event/nervous
+	description = "<span class='warning'>I feel on edge... Gotta get a grip.</span>\n"
+	mood_change = -3
+	timeout = 30 SECONDS
+
+/datum/mood_event/paranoid
+	description = "<span class='boldwarning'>I'm not safe! I can't trust anybody!</span>\n"
+	mood_change = -6
+	timeout = 30 SECONDS

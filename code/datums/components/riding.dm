@@ -376,3 +376,28 @@
 		if(rider in AM.buckled_mobs)
 			AM.unbuckle_mob(rider)
 	. = ..()
+
+//tamed riding
+/datum/component/riding/tamed/Initialize()
+	. = ..()
+	if(istype(parent, /mob/living/simple_animal))
+		var/mob/living/simple_animal/S = parent
+		override_allow_spacemove = S.spacewalk
+		RegisterSignal(parent, COMSIG_MOB_DEATH, .proc/handle_mortality)
+
+/datum/component/riding/tamed/proc/handle_mortality()
+	qdel(src)
+
+/datum/component/riding/tamed/vehicle_mob_buckle(datum/source, mob/living/M, force = FALSE)
+	if(istype(parent, /mob/living/simple_animal))
+		var/mob/living/simple_animal/S = parent
+		M.spacewalk = S.spacewalk
+		S.toggle_ai(AI_OFF)
+	..()
+
+/datum/component/riding/tamed/vehicle_mob_unbuckle(datum/source, mob/living/M, force = FALSE)
+	M.spacewalk = FALSE
+	if(istype(parent, /mob/living/simple_animal))
+		var/mob/living/simple_animal/S = parent
+		S.toggle_ai(AI_ON)
+	..()

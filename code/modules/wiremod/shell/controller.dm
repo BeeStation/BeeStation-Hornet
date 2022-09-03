@@ -58,7 +58,7 @@
 	SIGNAL_HANDLER
 	if(!user.Adjacent(source))
 		return
-	source.balloon_alert(user, "clicked primary button")
+	source.balloon_alert(user, "Clicked the primary button.")
 	playsound(source, get_sfx("terminal_type"), 25, FALSE)
 	signal.set_output(COMPONENT_SIGNAL)
 
@@ -69,14 +69,15 @@
 	SIGNAL_HANDLER
 	if(!user.Adjacent(source))
 		return
-	source.balloon_alert(user, "clicked alternate button")
+	source.balloon_alert(user, "Clicked the alternate button.")
 	playsound(source, get_sfx("terminal_type"), 25, FALSE)
 	alt.set_output(COMPONENT_SIGNAL)
+	return COMPONENT_INTERCEPT_ALT
 
 /obj/item/circuit_component/controller/proc/send_right_signal(atom/source, mob/user)
 	SIGNAL_HANDLER
 	if(!user.Adjacent(source))
 		return
-	source.balloon_alert(user, "clicked extra button")
+	source.balloon_alert(user, "Clicked the extra button.")
 	playsound(source, get_sfx("terminal_type"), 25, FALSE)
 	right.set_output(COMPONENT_SIGNAL)

@@ -11,6 +11,7 @@
 	item_flags = NOBLUDGEON
 	var/flush = FALSE
 	var/mob/living/silicon/ai/AI
+	investigate_flags = ADMIN_INVESTIGATE_TARGET
 
 /obj/item/aicard/aitater
 	name = "intelliTater"
