@@ -100,7 +100,7 @@
 	var/datum/space_level/assigned_space_level = SSzclear.get_free_z_level()
 	linked_z_level = list(assigned_space_level)
 	assigned_space_level.orbital_body = src
-	generate_space_ruin(world.maxx / 2, world.maxy / 2, assigned_space_level.z_value, quick_generation ? 40 : 100, quick_generation ? 40 : 100, linked_objective, null, ruin_event)
+	generate_space_ruin(world.maxx / 2, world.maxy / 2, assigned_space_level.z_value, quick_generation ? 30 : 50, quick_generation ? 30 : 50, linked_objective, null, ruin_event)
 
 /datum/orbital_object/z_linked/beacon/ruin/post_map_setup()
 	//Orbit around the systems sun

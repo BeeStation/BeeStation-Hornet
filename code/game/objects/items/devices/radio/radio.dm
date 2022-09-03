@@ -285,7 +285,7 @@
 	if (independent && (freq == FREQ_CENTCOM || freq == FREQ_CTF_RED || freq == FREQ_CTF_BLUE))
 		signal.data["compression"] = 0
 		signal.transmission_method = TRANSMISSION_SUPERSPACE
-		signal.levels = list(0)  // reaches all Z-levels
+		signal.receieve_range = 500000
 		signal.broadcast()
 		return
 
@@ -301,14 +301,12 @@
 	addtimer(CALLBACK(src, .proc/backup_transmission, signal), 20)
 
 /obj/item/radio/proc/backup_transmission(datum/signal/subspace/vocal/signal)
-	var/turf/T = get_turf(src)
-	if (signal.data["done"] && (T.get_virtual_z_level() in signal.levels))
+	if (signal.data["done"] && get_minimal_orbital_distance(signal.sources) < signal.receieve_range)
 		return
 
 	// Okay, the signal was never processed, send a mundane broadcast.
 	signal.data["compression"] = 0
 	signal.transmission_method = TRANSMISSION_RADIO
-	signal.levels = list(T.get_virtual_z_level())
 	signal.broadcast()
 
 /obj/item/radio/Hear(message, atom/movable/speaker, message_language, raw_message, radio_freq, list/spans, list/message_mods = list())
@@ -328,28 +326,37 @@
 	talk_into(speaker, raw_message, , spans, language=message_language)
 
 // Checks if this radio can receive on the given frequency.
-/obj/item/radio/proc/can_receive(freq, level)
+// Returns 0 if cannot hear
+// Returns 1 if can hear
+// Returns 2 if can hear (scrambled)
+/obj/item/radio/proc/can_receive(datum/signal/signal)
 	// deny checks
 	if (!on || !listening || wires.is_cut(WIRE_RX))
-		return FALSE
-	if (freq == FREQ_SYNDICATE && !syndie)
-		return FALSE
-	if (freq == FREQ_CENTCOM)
+		return RADIO_CANNOT_HEAR
+	if (signal.frequency == FREQ_SYNDICATE && !syndie)
+		return RADIO_CANNOT_HEAR
+	if (signal.frequency == FREQ_CENTCOM)
 		return independent  // hard-ignores the z-level check
-	if (!(0 in level))
+	if (signal.sources)
 		var/turf/position = get_turf(src)
-		if(!position || !(position.get_virtual_z_level() in level))
-			return FALSE
+		if(!position)
+			return RADIO_CANNOT_HEAR
+		//Distance check
+		var/orbital_distance = get_minimal_orbital_distance(signal.sources)
+		if (orbital_distance < signal.receieve_range)
+			return RADIO_CAN_HEAR
+		else if (orbital_distance < signal.receieve_range * RADIO_SCRAMBLED_RANGE_MULTIPLIER)
+			return RADIO_SCRAMBLED_HEAR
 
 	// allow checks: are we listening on that frequency?
-	if (freq == frequency)
-		return TRUE
+	if (signal.frequency == frequency)
+		return RADIO_CAN_HEAR
 	for(var/ch_name in channels)
 		if(channels[ch_name] & FREQ_LISTENING)
 			//the GLOB.radiochannels list is located in communications.dm
-			if(GLOB.radiochannels[ch_name] == text2num(freq) || syndie)
-				return TRUE
-	return FALSE
+			if(GLOB.radiochannels[ch_name] == text2num(signal.frequency) || syndie)
+				return RADIO_CAN_HEAR
+	return RADIO_CANNOT_HEAR
 
 
 /obj/item/radio/examine(mob/user)

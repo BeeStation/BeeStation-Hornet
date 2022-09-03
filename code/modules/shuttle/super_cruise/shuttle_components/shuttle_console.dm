@@ -36,6 +36,7 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 	var/datum/looping_sound/shuttle_crash/emergency_alarm
 	var/datum/looping_sound/shuttle_collision_alarm/collision_warning
 
+	//Internal variable to indicate if the warning system is active or not
 	var/collision_warning_system_active = FALSE
 
 /obj/machinery/computer/shuttle_flight/Initialize(mapload, obj/item/circuitboard/C)

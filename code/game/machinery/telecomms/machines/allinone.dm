@@ -26,13 +26,15 @@
 		return
 	if(!on || !is_freq_listening(signal))  // has to be on to receive messages
 		return
-	if (!intercept && !(get_virtual_z_level() in signal.levels) && !(0 in signal.levels))  // has to be syndicate or on the right level
+	if (!intercept && get_minimal_orbital_distance(signal.sources) < signal.receieve_range)  // has to be syndicate or on the right level
 		return
 
-	// Decompress the signal and mark it done
+	//Intercept telecomms boxes can listen from anywhere
 	if (intercept)
-		signal.levels += 0  // Signal is broadcast to agents anywhere
+		//Massive, but not infinite, range (Getting trapped in another dimension will still block radios)
+		signal.receieve_range = 500000
 
+	// Decompress the signal and mark it done
 	signal.data["compression"] = 0
 	signal.mark_done()
 	if(signal.data["slow"] > 0)

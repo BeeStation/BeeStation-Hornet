@@ -24,7 +24,7 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 
 	var/list/runnable_events
 
-	var/event_probability = 60
+	var/event_probability = 30
 
 	//key = port_id
 	//value = orbital shuttle object

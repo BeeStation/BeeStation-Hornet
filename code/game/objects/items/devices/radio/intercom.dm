@@ -78,22 +78,28 @@
 
 	return GLOB.physical_state // But monkeys can't use default state, and they can already use hotkeys
 
-/obj/item/radio/intercom/can_receive(freq, level)
+/obj/item/radio/intercom/can_receive(datum/signal/signal)
 	if(!on)
-		return FALSE
+		return RADIO_CANNOT_HEAR
 	if(wires.is_cut(WIRE_RX))
-		return FALSE
-	if(!(0 in level))
+		return RADIO_CANNOT_HEAR
+	if (signal.sources)
 		var/turf/position = get_turf(src)
-		if(isnull(position) || !(position.get_virtual_z_level() in level))
-			return FALSE
+		if(!position)
+			return RADIO_CANNOT_HEAR
+		//Distance check
+		var/orbital_distance = get_minimal_orbital_distance(signal.sources)
+		if (orbital_distance < signal.receieve_range)
+			return RADIO_CAN_HEAR
+		else if (orbital_distance < signal.receieve_range * RADIO_SCRAMBLED_RANGE_MULTIPLIER)
+			return RADIO_SCRAMBLED_HEAR
 	if(!listening)
-		return FALSE
-	if(freq == FREQ_SYNDICATE)
+		return RADIO_CANNOT_HEAR
+	if(signal.frequency == FREQ_SYNDICATE)
 		if(!(syndie))
-			return FALSE//Prevents broadcast of messages over devices lacking the encryption
+			return RADIO_CANNOT_HEAR //Prevents broadcast of messages over devices lacking the encryption
 
-	return TRUE
+	return RADIO_CAN_HEAR
 
 
 /obj/item/radio/intercom/Hear(message, atom/movable/speaker, message_langs, raw_message, radio_freq, list/spans, list/message_mods = list())

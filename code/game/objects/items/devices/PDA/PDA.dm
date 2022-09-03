@@ -762,7 +762,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 		last_everyone = world.time
 
 /obj/item/pda/proc/receive_message(datum/signal/subspace/messaging/pda/signal)
-	tnote += "<i><b>&larr; From <a href='byond://?src=[REF(src)];choice=Message;target=[REF(signal.source)]'>[signal.data["name"]]</a> ([signal.data["job"]]):</b></i><br>[signal.format_message()]<br>"
+	tnote += "<i><b>&larr; From <a href='byond://?src=[REF(src)];choice=Message;target=[REF(signal.sources[1])]'>[signal.data["name"]]</a> ([signal.data["job"]]):</b></i><br>[signal.format_message()]<br>"
 
 	if (!silent)
 		if(HAS_TRAIT(SSstation, STATION_TRAIT_PDA_GLITCHED))
@@ -779,7 +779,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 		L = get(src, /mob/living/silicon)
 
 	if(L && L.stat != UNCONSCIOUS)
-		var/reply = "(<a href='byond://?src=[REF(src)];choice=Message;skiprefresh=1;target=[REF(signal.source)]'>Reply</a>)"
+		var/reply = "(<a href='byond://?src=[REF(src)];choice=Message;skiprefresh=1;target=[REF(signal.sources[1])]'>Reply</a>)"
 		var/hrefstart
 		var/hrefend
 		if (isAI(L))

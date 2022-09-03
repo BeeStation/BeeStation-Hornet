@@ -121,3 +121,13 @@
 #define REQ_DEP_TYPE_ASSISTANCE 	(1<<0)
 #define REQ_DEP_TYPE_SUPPLIES 		(1<<1)
 #define REQ_DEP_TYPE_INFORMATION 	(1<<2)
+
+//Radio can hear returns
+#define RADIO_CANNOT_HEAR 0
+#define RADIO_CAN_HEAR 1
+#define RADIO_SCRAMBLED_HEAR 2
+
+//Distance that radios can be heard from (Extends z-levels via orbital maps)
+#define RADIO_RANGE 1000
+//Distance that radios can be heard from but will appear scrambled
+#define RADIO_SCRAMBLED_RANGE_MULTIPLIER 1.5

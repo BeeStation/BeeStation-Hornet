@@ -156,17 +156,14 @@
 	var/datum/logged
 
 /datum/signal/subspace/messaging/New(init_source, init_data)
-	source = init_source
+	sources = list(init_source)
 	data = init_data
-	var/turf/T = get_turf(source)
-	levels = list(T.get_virtual_z_level())
 	if(!("reject" in data))
 		data["reject"] = TRUE
 
 /datum/signal/subspace/messaging/copy()
-	var/datum/signal/subspace/messaging/copy = new type(source, data.Copy())
+	var/datum/signal/subspace/messaging/copy = new type(sources, data.Copy())
 	copy.original = src
-	copy.levels = levels
 	return copy
 
 // PDA signal datum

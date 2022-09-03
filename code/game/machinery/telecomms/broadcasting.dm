@@ -58,7 +58,6 @@
 	transmission_method = TRANSMISSION_SUBSPACE
 	var/server_type = /obj/machinery/telecomms/server
 	var/datum/signal/subspace/original
-	var/list/levels
 
 /datum/signal/subspace/New(data)
 	src.data = data || list()
@@ -66,8 +65,8 @@
 /datum/signal/subspace/proc/copy()
 	var/datum/signal/subspace/copy = new
 	copy.original = src
-	copy.source = source
-	copy.levels = levels
+	copy.sources = sources
+	copy.receieve_range = receieve_range
 	copy.frequency = frequency
 	copy.server_type = server_type
 	copy.transmission_method = transmission_method
@@ -97,7 +96,7 @@
 	var/datum/language/language
 
 /datum/signal/subspace/vocal/New(
-	obj/source,  // the originating radio
+	source,  // the originating radio
 	frequency,  // the frequency the signal is taking place on
 	atom/movable/virtualspeaker/speaker,  // representation of the method's speaker
 	datum/language/language,  // the langauge of the message
@@ -105,7 +104,7 @@
 	spans,  // the list of spans applied to the message
 	list/message_mods // the list of modification applied to the message. Whispering ect
 )
-	src.source = source
+	src.sources = islist(source) ? source : list(source)
 	src.frequency = frequency
 	src.language = language
 	virt = speaker
@@ -119,14 +118,11 @@
 		"spans" = spans,
 		"mods" = message_mods
 	)
-	var/turf/T = get_turf(source)
-	levels = list(T.get_virtual_z_level())
 
 /datum/signal/subspace/vocal/copy()
-	var/datum/signal/subspace/vocal/copy = new(source, frequency, virt, language)
+	var/datum/signal/subspace/vocal/copy = new(sources, frequency, virt, language)
 	copy.original = src
 	copy.data = data.Copy()
-	copy.levels = levels
 	return copy
 
 // This is the meat function for making radios hear vocal transmissions.
@@ -143,58 +139,95 @@
 
 	// Assemble the list of radios
 	var/list/radios = list()
+	var/list/ranged_radios = list()
 	switch (transmission_method)
 		if (TRANSMISSION_SUBSPACE)
 			// Reaches any radios on the levels
 			for(var/obj/item/radio/R in GLOB.all_radios["[frequency]"])
-				if(R.can_receive(frequency, levels))
-					radios += R
+				switch (R.can_receive(src))
+					if (RADIO_CAN_HEAR)
+						radios |= R
+					if (RADIO_SCRAMBLED_HEAR)
+						ranged_radios |= R
 
 			// Syndicate radios can hear all well-known radio channels
 			if (num2text(frequency) in GLOB.reverseradiochannels)
 				for(var/obj/item/radio/R in GLOB.all_radios["[FREQ_SYNDICATE]"])
-					if(R.can_receive(FREQ_SYNDICATE, list(R.get_virtual_z_level())))
-						radios |= R
+					switch (R.can_receive(src))
+						if (RADIO_CAN_HEAR)
+							radios |= R
+						if (RADIO_SCRAMBLED_HEAR)
+							ranged_radios |= R
 
 		if (TRANSMISSION_RADIO)
 			// Only radios not currently in subspace mode
 			for(var/obj/item/radio/R in GLOB.all_radios["[frequency]"])
-				if(!R.subspace_transmission && R.can_receive(frequency, levels))
-					radios += R
+				if(!R.subspace_transmission)
+					switch (R.can_receive(src))
+						if (RADIO_CAN_HEAR)
+							radios |= R
+						if (RADIO_SCRAMBLED_HEAR)
+							ranged_radios |= R
 
 		if (TRANSMISSION_SUPERSPACE)
 			// Only radios which are independent
 			for(var/obj/item/radio/R in GLOB.all_radios["[frequency]"])
-				if(R.independent && R.can_receive(frequency, levels))
-					radios += R
+				if(R.independent)
+					switch (R.can_receive(src))
+						if (RADIO_CAN_HEAR)
+							radios |= R
+						if (RADIO_SCRAMBLED_HEAR)
+							ranged_radios |= R
 
 	// From the list of radios, find all mobs who can hear those.
 	var/list/receive = get_mobs_in_radio_ranges(radios)
+	var/list/ranged_receieve = get_mobs_in_radio_ranges(ranged_radios)
 
 	// Cut out mobs with clients who are admins and have radio chatter disabled.
 	for(var/mob/R in receive)
 		if (R.client && R.client.holder && !(R.client.prefs.chat_toggles & CHAT_RADIO))
 			receive -= R
+	for(var/mob/R in ranged_receieve)
+		if (R.client && R.client.holder && !(R.client.prefs.chat_toggles & CHAT_RADIO))
+			ranged_receieve -= R
 
 	// Add observers who have ghost radio enabled.
 	for(var/mob/dead/observer/M in GLOB.player_list)
 		if(M.client && (M.client.prefs.chat_toggles & CHAT_GHOSTRADIO))
 			receive |= M
+	for(var/mob/dead/observer/M in GLOB.player_list)
+		if(M.client && (M.client.prefs.chat_toggles & CHAT_GHOSTRADIO))
+			ranged_receieve |= M
 
 	// Render the message and have everybody hear it.
 	// Always call this on the virtualspeaker to avoid issues.
+	var/scrambled_message = scramble_message_replace_chars(message, 60)
+
 	var/spans = data["spans"]
 	var/list/message_mods = data["mods"]
 	var/rendered = virt.compose_message(virt, language, message, frequency, spans)
+	var/scramble_rendered = virt.compose_message(virt, language, scrambled_message, frequency, spans)
 	var/list/show_overhead_message_to = list()
-	for(var/atom/movable/hearer in receive)
+	var/list/show_scrambled_overhead_message_to = list()
+
+	for(var/atom/movable/hearer as() in receive)
 		if(ismob(hearer))
 			var/mob/M = hearer
 			if(M.should_show_chat_message(virt, language, FALSE, is_heard = TRUE))
 				show_overhead_message_to += M
 		hearer.Hear(rendered, virt, language, message, frequency, spans, message_mods)
+
+	for(var/atom/movable/hearer as() in ranged_receieve)
+		if(ismob(hearer))
+			var/mob/M = hearer
+			if(M.should_show_chat_message(virt, language, FALSE, is_heard = TRUE))
+				show_scrambled_overhead_message_to += M
+		hearer.Hear(scramble_rendered, virt, language, scrambled_message, frequency, spans, message_mods)
+
 	if(length(show_overhead_message_to))
 		create_chat_message(virt, language, show_overhead_message_to, message, spans, message_mods)
+	if(length(show_scrambled_overhead_message_to))
+		create_chat_message(virt, language, show_scrambled_overhead_message_to, scrambled_message, spans, message_mods)
 
 	// This following recording is intended for research and feedback in the use of department radio channels
 	if(length(receive))

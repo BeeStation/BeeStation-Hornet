@@ -20,8 +20,14 @@
 	SSorbits.hostage_spawns += src
 
 /obj/effect/hostage_spawn/Destroy(force)
-	. = ..()
 	SSorbits.hostage_spawns -= src
+	. = ..()
+
+/obj/effect/hostage_spawn/onShuttleMove(turf/newT, turf/oldT, list/movement_force, move_dir, obj/docking_port/stationary/old_dock, obj/docking_port/mobile/moving_dock)
+	. = ..()
+	//Force delete this if moved to another location that isn't transit
+	if (!is_reserved_level(newT))
+		qdel(src, TRUE)
 
 /obj/effect/hostage_loot_point
 	name = "hostage loot spawn point"
