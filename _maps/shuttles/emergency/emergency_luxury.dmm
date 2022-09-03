@@ -112,11 +112,11 @@
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "au" = (
-/obj/structure/chair/comfy,
+/obj/structure/chair/fancy/comfy,
 /turf/open/floor/carpet,
 /area/shuttle/escape/luxury)
 "av" = (
-/obj/structure/chair/comfy{
+/obj/structure/chair/fancy/comfy{
 	dir = 4
 	},
 /turf/open/floor/mineral/gold,
@@ -290,7 +290,7 @@
 /turf/open/floor/mineral/gold,
 /area/shuttle/escape/luxury)
 "bd" = (
-/obj/structure/chair/comfy{
+/obj/structure/chair/fancy/comfy{
 	dir = 1
 	},
 /turf/open/floor/carpet,
