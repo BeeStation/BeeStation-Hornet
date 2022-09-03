@@ -184,6 +184,7 @@ export const SettingsHighlight = (props, context) => {
     highlightColor,
     matchWord,
     matchCase,
+    highlightSelf,
   } = useSelector(context, selectSettings);
   const dispatch = useDispatch(context);
   return (
@@ -230,6 +231,13 @@ export const SettingsHighlight = (props, context) => {
             matchCase: !matchCase,
           }))}>
           Match case
+        </Button.Checkbox>
+        <Button.Checkbox
+          checked={highlightSelf}
+          onClick={() => dispatch(updateSettings({
+            highlightSelf: !highlightSelf,
+          }))}>
+          Highlight own Messages
         </Button.Checkbox>
       </Box>
       <Divider />
