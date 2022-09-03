@@ -40,7 +40,8 @@
 #define ACCOUNT_SRV_FLAG (1<<4)
 #define ACCOUNT_CAR_FLAG (1<<5)
 #define ACCOUNT_SEC_FLAG (1<<6)
-#define ACCOUNT_VIP_FLAG (1<<7)
+#define ACCOUNT_COM_FLAG (1<<7) // for Commander only vender items
+#define ACCOUNT_VIP_FLAG (1<<8) // for VIP only vender items
 
 #define NO_FREEBIES "commies go home"
 
