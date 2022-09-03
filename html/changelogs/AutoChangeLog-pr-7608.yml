@@ -1,6 +1,0 @@
-author: itsmeow
-delete-after: true
-changes:
-  - bugfix: Pirates event no longer spawns two pirate ships.
-  - refactor: Comms console message responses now use string keys so that DEFINES
-      can be used.

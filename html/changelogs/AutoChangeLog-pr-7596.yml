@@ -1,5 +1,0 @@
-author: itsmeow
-delete-after: true
-changes:
-  - bugfix: Animated sprites in custom vendors and display cases no longer expand
-      into all their frames

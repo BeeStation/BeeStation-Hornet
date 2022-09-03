@@ -1,4 +1,0 @@
-author: Dejaku51, out-of-phaze, LemonInTheDark, MrStonedOne
-delete-after: true
-changes:
-  - code_imp: Fix client timers having invalid <1ds waits
