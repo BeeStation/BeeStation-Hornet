@@ -13,7 +13,8 @@
 		if(V.vchange && wear_id)
 			var/obj/item/card/id/idcard = wear_id.GetID()
 			if(V.rname_cooldown > world.time)
-				return dna.species.random_name(rand(1, 2))
+				var/randomize = dna.species.random_name(rand(1, 2))
+				return randomize | "John Doe"  // fallback
 			if(istype(idcard))
 				return idcard.registered_name
 			else
