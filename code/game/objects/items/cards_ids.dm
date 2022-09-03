@@ -151,6 +151,19 @@
 			if(NAMEOF(src, assignment),NAMEOF(src, registered_name))
 				update_label()
 
+/obj/item/card/id/vv_get_dropdown()
+	. = ..()
+	VV_DROPDOWN_OPTION("", "---------")
+	VV_DROPDOWN_OPTION(VV_ID_PAYDAY, "Trigger Payday")
+
+/obj/item/card/id/vv_do_topic(list/href_list)
+	. = ..()
+	if(href_list[VV_ID_PAYDAY])
+		if(!registered_account)
+			to_chat(usr, "There's no account registered!")
+			return
+		registered_account.payday(1)
+
 /obj/item/card/id/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/holochip))
 		insert_money(W, user)
@@ -846,6 +859,13 @@ update_label("John Doe", "Clowny")
 	department_name = ACCOUNT_SEC_NAME
 	icon_state = "budget_sec"
 	hud_state = JOB_HUD_RAWSECURITY
+
+// This will never be spawned, but should be trackable by admins anyway.
+/obj/item/card/id/departmental_budget/vip
+	department_ID = ACCOUNT_VIP
+	department_name = ACCOUNT_VIP_NAME
+	icon_state = "budget"
+	hud_state = JOB_HUD_VIP
 
 /// Job Specific ID Cards///
 // These should have default job name and hud state, etc, because chameleon card needs such information
