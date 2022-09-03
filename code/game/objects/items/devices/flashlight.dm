@@ -203,53 +203,67 @@
 	desc = "An older flashlight model, used in emergency situations."
 	icon_state = "crank"
 	light_range = 3  // old
+	light_power = 2
+	actions_types = list(/datum/action/item_action/toggle_light, /datum/action/item_action/crank)
 
-	var/current_charge
+	var/current_charge = 0
 	var/max_charge = 300  // 5 minutes
 	var/crank_adds = 30 // 10 cranks to full
 
-/obj/item/flashlight/Initialize(mapload)
+/obj/item/flashlight/crank/Initialize(mapload)
 	current_charge = max_charge
 	. = ..()
 
 /obj/item/flashlight/crank/update_brightness(mob/user)
 	. = ..()
-	START_PROCESSING(SSobj, src)
+	if(on)
+		START_PROCESSING(SSobj, src)
+	if(current_charge <= 0)
+		user.visible_message("<span class='warning'>The flashlight flickers a few times, before cutting out.</span>")
 
 /obj/item/flashlight/crank/process(delta_time)
 	current_charge -= delta_time
 	if(current_charge <= 0)
 		current_charge = 0  // negative charge?
-		visible_message("<span class='warning'>The flashlight flickers a few times, before cutting out.</span>")
 		on = FALSE
 		update_brightness()
 		return PROCESS_KILL
 
-/obj/item/flashlight/crank/AltClick(mob/user)
+/obj/item/flashlight/crank/AltClick(mob/living/user)
 	. = ..()
-	activate_crank()
+	activate_crank(user)
 
-/obj/item/flashlight/crank/activate_crank(mob/user)
+/obj/item/flashlight/crank/proc/activate_crank(mob/living/user)
 	if(current_charge >= max_charge)
 		to_chat(user, "<span class='warning'>\The [src] is already charged!")
 		return
 	visible_message(user, "<span class='notice'>You begin spinning the crank..</span>")
 	while(current_charge < max_charge)
 		user.adjustStaminaLoss(5)  // takes a lotta energy to spin it apparently
-		if(L.getStaminaLoss() >= 100)
+		if(user.getStaminaLoss() >= 100)
 			to_chat("<span class='userwarning'>You don't have the energy to keep spinning the crank!</span>")
 			return
-		if(!do_after(user, 2, target=src))
+		if(!do_after(user, 3, target=src))
 			return
 		current_charge += crank_adds
 	current_charge = min(current_charge, max_charge)  // no overflow :)
 	to_chat("<span class='notice'>You finish charging \the [src]</span>")
 
+/obj/item/flashlight/crank/verb/crank()
+	set name = "Crank Light"
+	set category = "Object"
+	set src in oview(1)
+
+	if(usr)
+		activate_crank(usr)
 
 /obj/item/flashlight/crank/examine(mob/user)
 	. = ..()
-	. += "The current charge is [current_charge/max_charge]%.
+	. += "The current charge is [current_charge/max_charge]%."
 
+/obj/item/flashlight/crank/Destroy()
+	if(on)
+		STOP_PROCESSING(SSobj, src)
 
 /obj/item/flashlight/seclite
 	name = "seclite"

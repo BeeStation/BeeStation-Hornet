@@ -363,7 +363,7 @@
 
 /datum/action/item_action/crank/Trigger()
 	var/obj/item/I = target
-	I.activate_crank(owner)
+	I.AltClick(owner)
 
 /datum/action/item_action/toggle
 
