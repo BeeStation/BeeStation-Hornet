@@ -435,6 +435,17 @@ update_label("John Doe", "Clowny")
 				to_chat(usr, "<span class='notice'>The card's microscanners activate as you pass it over the ID, copying its access.</span>")
 
 /obj/item/card/id/syndicate/attack_self(mob/user)
+	var/static/valid_jobs = list( // copy-paste from hop card paint machine, but this has more options, and valid to be static.
+			"----Command----","Command (Custom)", "Captain", "Acting Captain",
+			"----Service----","Service (Custom)", "Assistant", "Head of Personnel", "Bartender", "Cook", "Botanist", "Janitor", "Curator",
+			"Chaplain", "Lawyer", "Clown", "Mime", "Barber", "Stage Magician",
+			"----Cargo----","Cargo (Custom)","Quartermaster", "Cargo Technician","Shaft Miner",
+			"----Engineering----","Engineering (Custom)","Chief Engineer", "Station Engineer", "Atmospheric Technician",
+			"----Science----","Science (Custom)","Research Director", "Scientist", "Roboticist", "Exploration Crew",
+			"----Medical----","Medical (Custom)","Chief Medical Officer", "Medical Doctor", "Chemist", "Geneticist", "Virologist", "Paramedic", "Psychiatrist",
+			"----Security----","Security (Custom)","Head of Security", "Warden", "Detective", "Security Officer", "Brig Physician", "Deputy",
+			"----MISC----","Unassigned","Prisoner","CentCom (Custom)","CentCom","ERT","VIP","King","Syndicate","Clown Operative"
+		)
 	if(isliving(user) && user.mind)
 		var/first_use = registered_name ? FALSE : TRUE
 		if(!(user.mind.special_role || anyone)) //Unless anyone is allowed, only syndies can use the card, to stop metagaming.
@@ -461,13 +472,22 @@ update_label("John Doe", "Clowny")
 			var/target_occupation = stripped_input(user, "What occupation would you like to put on this card?\nNote: This will not grant any access levels other than Maintenance.", "Agent card job assignment", assignment ? assignment : JOB_NAME_ASSISTANT, MAX_MESSAGE_LEN)
 			if(!target_occupation)
 				return
-			log_id("[key_name(user)] forged agent ID [src] name to [input_name] and occupation to [target_occupation] at [AREACOORD(user)].")
+
+			// copy paste from HoP card painting machine
+			var/target_id_style = "-"
+			while(target_id_style[1] == "-") // trick. "-" is only non-valid option here.
+				target_id_style = input(user, "Select an ID skin - cancel to change nothing", "ID  Painting") as null|anything in valid_jobs
+
+			log_id("[key_name(user)] forged agent ID [src] name to [input_name] and occupation to [target_occupation][target_id_style ? " with [target_id_style] card style" : " with non changed [icon_state] shape, [hud_state] hud style"] at [AREACOORD(user)].")
 			registered_name = input_name
 			assignment = target_occupation
+			if(target_id_style)
+				icon_state = get_cardstyle_by_jobname(target_id_style)
+				hud_state = get_hud_by_jobname(target_id_style)
 			update_label()
 			forged = TRUE
 			to_chat(user, "<span class='notice'>You successfully forge the ID card.</span>")
-			log_game("[key_name(user)] has forged \the [initial(name)] with name \"[registered_name]\" and occupation \"[assignment]\".")
+			log_game("[key_name(user)] has forged \the [initial(name)] with name \"[registered_name]\" and occupation \"[assignment]\"[target_id_style ? " with [target_id_style] card style" : " with non changed [icon_state] shape, [hud_state] hud style"].")
 
 			// First time use automatically sets the account id to the user.
 			if (first_use && !registered_account)
