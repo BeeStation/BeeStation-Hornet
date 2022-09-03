@@ -33,7 +33,7 @@
 		holder.dropItemToGround(X, thrown = TRUE)
 	if(ismovable(target) && !(istype(target, /obj/structure)) || !(istype(target, /obj/machinery)))
 		var/atom/movable/AM = target
-		if(AM.anchored)
+		if(AM?.anchored || !AM)
 			return
 		addtimer(CALLBACK(src, .proc/release, X, AM), X.charge*0.5 SECONDS)
 		AM.forceMove(X)
