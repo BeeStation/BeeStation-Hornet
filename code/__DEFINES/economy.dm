@@ -33,6 +33,15 @@
 #define ACCOUNT_VIP "VIP"
 #define ACCOUNT_VIP_NAME "Nanotrasen VIP Expense Account Budget"
 
+#define ACCOUNT_CIV_FLAG (1<<0)
+#define ACCOUNT_ENG_FLAG (1<<1)
+#define ACCOUNT_SCI_FLAG (1<<2)
+#define ACCOUNT_MED_FLAG (1<<3)
+#define ACCOUNT_SRV_FLAG (1<<4)
+#define ACCOUNT_CAR_FLAG (1<<5)
+#define ACCOUNT_SEC_FLAG (1<<6)
+#define ACCOUNT_VIP_FLAG (1<<7)
+
 #define NO_FREEBIES "commies go home"
 
 /// How much mail the Economy SS will create per minute, regardless of firing time.
