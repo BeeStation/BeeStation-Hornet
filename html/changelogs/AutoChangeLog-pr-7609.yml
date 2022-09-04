@@ -1,0 +1,7 @@
+author: EvilDragonfiend
+delete-after: true
+changes:
+  - rscadd: agent card 'forge' option shows a hud/card style menu so that you don't
+      still have syndicate hud accidentally.
+  - code_imp: adjusted some code that doesn't use job-defines to use job-defines,
+      and adjusted its incorrect code indentation.
