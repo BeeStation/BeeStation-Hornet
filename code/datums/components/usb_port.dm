@@ -24,7 +24,7 @@
 
 	circuit_components = list()
 
-	set_circuit_components(circuit_component_types)
+	src.circuit_component_types = circuit_component_types
 
 /datum/component/usb_port/proc/set_circuit_components(list/components)
 	var/should_register = FALSE
@@ -135,6 +135,9 @@
 
 /datum/component/usb_port/proc/on_atom_usb_cable_try_attach(datum/source, obj/item/usb_cable/connecting_cable, mob/user)
 	SIGNAL_HANDLER
+
+	if (!length(circuit_components))
+		set_circuit_components(circuit_component_types)
 
 	var/atom/atom_parent = parent
 
