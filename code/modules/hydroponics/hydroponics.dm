@@ -796,19 +796,19 @@
 	else if(istype(O, /obj/item/plant_analyzer))
 		var/list/message = list()
 		if(myseed)
-			message +=(user, "*** <B>[myseed.plantname]</B> ***" )
-			message +=(user, "- Plant Age: <span class='notice'>[age]</span>")
+			message += "*** <B>[myseed.plantname]</B> ***"
+			message += "- Plant Age: <span class='notice'>[age]</span>"
 			var/list/text_string = myseed.get_analyzer_text()
 			if(text_string)
-				message +=(user, text_string)
+				message += text_string
 		else
-			message +=(user, "<B>No plant found.</B>")
-		message +=(user, "- Weed level: <span class='notice'>[weedlevel] / 10</span>")
-		message +=(user, "- Pest level: <span class='notice'>[pestlevel] / 10</span>")
-		message +=(user, "- Toxicity level: <span class='notice'>[toxic] / 100</span>")
-		message +=(user, "- Water level: <span class='notice'>[waterlevel] / [maxwater]</span>")
-		message +=(user, "- Nutrition level: <span class='notice'>[nutrilevel] / [maxnutri]</span>")
-		to_chat(user, examine_block(jointext(message, "\n")))
+			message += "<B>No plant found.</B>"
+		message += "- Weed level: <span class='notice'>[weedlevel] / 10</span>"
+		message += "- Pest level: <span class='notice'>[pestlevel] / 10</span>"
+		message += "- Toxicity level: <span class='notice'>[toxic] / 100</span>"
+		message += "- Water level: <span class='notice'>[waterlevel] / [maxwater]</span>"
+		message += "- Nutrition level: <span class='notice'>[nutrilevel] / [maxnutri]</span>"
+		to_chat(user, EXAMINE_BLOCK(jointext(message, "\n")))
 
 	else if(istype(O, /obj/item/cultivator))
 		if(weedlevel > 0)

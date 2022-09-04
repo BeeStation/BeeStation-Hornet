@@ -82,7 +82,7 @@
 
 		if(reag_txt)
 			msg += reag_txt
-		to_chat(user, examine_block(msg))
+		to_chat(user, EXAMINE_BLOCK(msg))
 	else
 		if(seed)
 			for(var/datum/plant_gene/trait/T in seed.genes)

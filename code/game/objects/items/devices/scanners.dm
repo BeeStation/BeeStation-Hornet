@@ -273,7 +273,7 @@ GENE SCANNER
 								<td><font color='red'>[(org.brute_dam > 0) ? "[round(org.brute_dam,1)]" : "0"]</font></td>\
 								<td><font color='orange'>[(org.burn_dam > 0) ? "[round(org.burn_dam,1)]" : "0"]</font></td></tr>"
 			dmgreport += "</font></table>"
-			message += dmgreport.Join())
+			message += dmgreport.Join()
 
 
 	//Organ damages report
@@ -325,12 +325,12 @@ GENE SCANNER
 				minor_damage = "\t<span class='info'>Mildly Damaged Organs: </span>"
 			else
 				minor_damage += "</span>"
-			message += minor_damage)
-			message += major_damage)
-			message += max_damage)
+			message += minor_damage
+			message += major_damage
+			message += max_damage
 		//Genetic damage
 		if(advanced && H.has_dna())
-			message += "\t<span class='info'>Genetic Stability: [H.dna.stability]%.</span>")
+			message += "\t<span class='info'>Genetic Stability: [H.dna.stability]%.</span>"
 
 	// Species and body temperature
 	if(ishuman(M))
@@ -360,20 +360,20 @@ GENE SCANNER
 		else if(S.mutantstomach != initial(S.mutantstomach))
 			mutant = TRUE
 
-		message += "<span class='info'>Species: [S.name][mutant ? "-derived mutant" : ""]</span>")
-	message += "<span class='info'>Body temperature: [round(M.bodytemperature-T0C,0.1)] &deg;C ([round(M.bodytemperature*1.8-459.67,0.1)] &deg;F)</span>")
+		message += "<span class='info'>Species: [S.name][mutant ? "-derived mutant" : ""]</span>"
+	message += "<span class='info'>Body temperature: [round(M.bodytemperature-T0C,0.1)] &deg;C ([round(M.bodytemperature*1.8-459.67,0.1)] &deg;F)</span>"
 
 	// Time of death
 	if(M.tod && (M.stat == DEAD || ((HAS_TRAIT(M, TRAIT_FAKEDEATH)) && !advanced)))
-		message += "<span class='info'>Time of Death: [M.tod]</span>")
+		message += "<span class='info'>Time of Death: [M.tod]</span>"
 		var/tdelta = round(world.time - M.timeofdeath)
 		if(tdelta < (DEFIB_TIME_LIMIT * 10))
-			message += "<span class='alert'><b>Subject died [DisplayTimeText(tdelta)] ago, defibrillation may be possible!</b></span>")
+			message += "<span class='alert'><b>Subject died [DisplayTimeText(tdelta)] ago, defibrillation may be possible!</b></span>"
 
 	for(var/thing in M.diseases)
 		var/datum/disease/D = thing
 		if(!(D.visibility_flags & HIDDEN_SCANNER))
-			message += "<span class='alert'><b>Warning: [D.form] detected</b>\nName: [D.name].\nType: [D.spread_text].\nStage: [D.stage]/[D.max_stages].\nPossible Cure: [D.cure_text]</span>")
+			message += "<span class='alert'><b>Warning: [D.form] detected</b>\nName: [D.name].\nType: [D.spread_text].\nStage: [D.stage]/[D.max_stages].\nPossible Cure: [D.cure_text]</span>"
 
 	// Blood Level
 	if(M.has_dna())
@@ -383,7 +383,7 @@ GENE SCANNER
 			if(ishuman(C))
 				var/mob/living/carbon/human/H = C
 				if(H.bleed_rate)
-					message += "<span class='alert'><b>Subject is bleeding!</b></span>")
+					message += "<span class='alert'><b>Subject is bleeding!</b></span>"
 			var/blood_percent =  round((C.blood_volume / BLOOD_VOLUME_NORMAL)*100)
 			var/blood_type = C.dna.blood_type
 			if(blood_id != /datum/reagent/blood)//special blood substance
@@ -393,22 +393,22 @@ GENE SCANNER
 				else
 					blood_type = blood_id
 			if(C.blood_volume <= BLOOD_VOLUME_SAFE && C.blood_volume > BLOOD_VOLUME_OKAY)
-				message += "<span class='alert'>Blood level: LOW [blood_percent] %, [C.blood_volume] cl,</span> <span class='info'>type: [blood_type]</span>")
+				message += "<span class='alert'>Blood level: LOW [blood_percent] %, [C.blood_volume] cl,</span> <span class='info'>type: [blood_type]</span>"
 			else if(C.blood_volume <= BLOOD_VOLUME_OKAY)
-				message += "<span class='alert'>Blood level: <b>CRITICAL [blood_percent] %</b>, [C.blood_volume] cl,</span> <span class='info'>type: [blood_type]</span>")
+				message += "<span class='alert'>Blood level: <b>CRITICAL [blood_percent] %</b>, [C.blood_volume] cl,</span> <span class='info'>type: [blood_type]</span>"
 			else
-				message += "<span class='info'>Blood level: [blood_percent] %, [C.blood_volume] cl, type: [blood_type]</span>")
+				message += "<span class='info'>Blood level: [blood_percent] %, [C.blood_volume] cl, type: [blood_type]</span>"
 
 		var/list/cyberimp_detect = list()
 		for(var/obj/item/organ/cyberimp/CI in C.internal_organs)
 			if(CI.status == ORGAN_ROBOTIC && !CI.syndicate_implant)
 				cyberimp_detect += CI.name
 		if(length(cyberimp_detect))
-			message += "<span class='notice'>Detected cybernetic modifications:</span>")
+			message += "<span class='notice'>Detected cybernetic modifications:</span>"
 			for(var/name in cyberimp_detect)
-				message += "<span class='notice'>[name]</span>")
+				message += "<span class='notice'>[name]</span>"
 
-	to_chat(user, examine_block(jointext(message, "\n")))
+	to_chat(user, EXAMINE_BLOCK(jointext(message, "\n")))
 	SEND_SIGNAL(M, COMSIG_NANITE_SCAN, user, FALSE)
 
 /proc/chemscan(mob/living/user, mob/living/M)
@@ -416,18 +416,18 @@ GENE SCANNER
 	if(istype(M))
 		if(M.reagents)
 			if(M.reagents.reagent_list.len)
-				message += "<span class='notice'>Subject contains the following reagents:</span>")
+				message += "<span class='notice'>Subject contains the following reagents:</span>"
 				for(var/datum/reagent/R in M.reagents.reagent_list)
-					message += "<span class='notice'>[round(R.volume, 0.001)] units of [R.name][R.overdosed == 1 ? "</span> - <span class='boldannounce'>OVERDOSING</span>" : ".</span>"]")
+					message += "<span class='notice'>[round(R.volume, 0.001)] units of [R.name][R.overdosed == 1 ? "</span> - <span class='boldannounce'>OVERDOSING</span>" : ".</span>"]"
 			else
-				message += "<span class='notice'>Subject contains no reagents.</span>")
+				message += "<span class='notice'>Subject contains no reagents.</span>"
 			if(M.reagents.addiction_list.len)
-				message += "<span class='boldannounce'>Subject is addicted to the following reagents:</span>")
+				message += "<span class='boldannounce'>Subject is addicted to the following reagents:</span>"
 				for(var/datum/reagent/R in M.reagents.addiction_list)
-					message += "<span class='alert'>[R.name]</span>")
+					message += "<span class='alert'>[R.name]</span>"
 			else
-				message += "<span class='notice'>Subject is not addicted to any reagents.</span>")
-		to_chat(user, examine_block(jointext(message, "\n")))
+				message += "<span class='notice'>Subject is not addicted to any reagents.</span>"
+		to_chat(user, EXAMINE_BLOCK(jointext(message, "\n")))
 
 /obj/item/healthanalyzer/advanced
 	name = "advanced health analyzer"
@@ -565,7 +565,7 @@ GENE SCANNER
 	var/list/airs = islist(mixture) ? mixture : list(mixture)
 	for(var/g in airs)
 		if(airs.len > 1) //not a unary gas mixture
-			message += "<span class='boldnotice'>Node [airs.Find(g)]</span>")
+			message += "<span class='boldnotice'>Node [airs.Find(g)]</span>"
 		var/datum/gas_mixture/air_contents = g
 
 		var/total_moles = air_contents.total_moles()
@@ -595,7 +595,7 @@ GENE SCANNER
 			message += "<span class='boldnotice'>Large amounts of free neutrons detected in the air indicate that a fusion reaction took place.</span>"
 			message += "<span class='notice'>Instability of the last fusion reaction: [instability].</span>"
 
-	to_chat(user, examine_block(jointext(message, "\n")))
+	to_chat(user, EXAMINE_BLOCK(jointext(message, "\n")))
 	return TRUE
 
 /obj/item/analyzer/proc/scan_turf(mob/user, turf/location)
@@ -605,11 +605,11 @@ GENE SCANNER
 	var/pressure = environment.return_pressure()
 	var/total_moles = environment.total_moles()
 
-	message += "<span class='info'><B>Results:</B></span>")
+	message += "<span class='info'><B>Results:</B></span>"
 	if(abs(pressure - ONE_ATMOSPHERE) < 10)
-		message += "<span class='info'>Pressure: [round(pressure, 0.01)] kPa</span>")
+		message += "<span class='info'>Pressure: [round(pressure, 0.01)] kPa</span>"
 	else
-		message += "<span class='alert'>Pressure: [round(pressure, 0.01)] kPa</span>")
+		message += "<span class='alert'>Pressure: [round(pressure, 0.01)] kPa</span>"
 	if(total_moles)
 		var/o2_concentration = environment.get_moles(GAS_O2)/total_moles
 		var/n2_concentration = environment.get_moles(GAS_N2)/total_moles
@@ -617,32 +617,32 @@ GENE SCANNER
 		var/plasma_concentration = environment.get_moles(GAS_PLASMA)/total_moles
 
 		if(abs(n2_concentration - N2STANDARD) < 20)
-			message += "<span class='info'>Nitrogen: [round(n2_concentration*100, 0.01)] % ([round(environment.get_moles(GAS_N2), 0.01)] mol)</span>")
+			message += "<span class='info'>Nitrogen: [round(n2_concentration*100, 0.01)] % ([round(environment.get_moles(GAS_N2), 0.01)] mol)</span>"
 		else
-			message += "<span class='alert'>Nitrogen: [round(n2_concentration*100, 0.01)] % ([round(environment.get_moles(GAS_N2), 0.01)] mol)</span>")
+			message += "<span class='alert'>Nitrogen: [round(n2_concentration*100, 0.01)] % ([round(environment.get_moles(GAS_N2), 0.01)] mol)</span>"
 
 		if(abs(o2_concentration - O2STANDARD) < 2)
-			message += "<span class='info'>Oxygen: [round(o2_concentration*100, 0.01)] % ([round(environment.get_moles(GAS_O2), 0.01)] mol)</span>")
+			message += "<span class='info'>Oxygen: [round(o2_concentration*100, 0.01)] % ([round(environment.get_moles(GAS_O2), 0.01)] mol)</span>"
 		else
-			message += "<span class='alert'>Oxygen: [round(o2_concentration*100, 0.01)] % ([round(environment.get_moles(GAS_O2), 0.01)] mol)</span>")
+			message += "<span class='alert'>Oxygen: [round(o2_concentration*100, 0.01)] % ([round(environment.get_moles(GAS_O2), 0.01)] mol)</span>"
 
 		if(co2_concentration > 0.01)
-			message += "<span class='alert'>CO2: [round(co2_concentration*100, 0.01)] % ([round(environment.get_moles(GAS_CO2), 0.01)] mol)</span>")
+			message += "<span class='alert'>CO2: [round(co2_concentration*100, 0.01)] % ([round(environment.get_moles(GAS_CO2), 0.01)] mol)</span>"
 		else
-			message += "<span class='info'>CO2: [round(co2_concentration*100, 0.01)] % ([round(environment.get_moles(GAS_CO2), 0.01)] mol)</span>")
+			message += "<span class='info'>CO2: [round(co2_concentration*100, 0.01)] % ([round(environment.get_moles(GAS_CO2), 0.01)] mol)</span>"
 
 		if(plasma_concentration > 0.005)
-			message += "<span class='alert'>Plasma: [round(plasma_concentration*100, 0.01)] % ([round(environment.get_moles(GAS_PLASMA), 0.01)] mol)</span>")
+			message += "<span class='alert'>Plasma: [round(plasma_concentration*100, 0.01)] % ([round(environment.get_moles(GAS_PLASMA), 0.01)] mol)</span>"
 		else
-			message += "<span class='info'>Plasma: [round(plasma_concentration*100, 0.01)] % ([round(environment.get_moles(GAS_PLASMA), 0.01)] mol)</span>")
+			message += "<span class='info'>Plasma: [round(plasma_concentration*100, 0.01)] % ([round(environment.get_moles(GAS_PLASMA), 0.01)] mol)</span>"
 
 		for(var/id in environment.get_gases())
 			if(id in GLOB.hardcoded_gases)
 				continue
 			var/gas_concentration = environment.get_moles(id)/total_moles
-			message += "<span class='alert'>[GLOB.gas_data.names[id]]: [round(gas_concentration*100, 0.01)] % ([round(environment.get_moles(id), 0.01)] mol)</span>")
-		message += "<span class='info'>Temperature: [round(environment.return_temperature()-T0C, 0.01)] &deg;C ([round(environment.return_temperature(), 0.01)] K)</span>")
-	to_chat(user, examine_block(jointext(message, "\n")))
+			message += "<span class='alert'>[GLOB.gas_data.names[id]]: [round(gas_concentration*100, 0.01)] % ([round(environment.get_moles(id), 0.01)] mol)</span>"
+		message += "<span class='info'>Temperature: [round(environment.return_temperature()-T0C, 0.01)] &deg;C ([round(environment.return_temperature(), 0.01)] K)</span>"
+	to_chat(user, EXAMINE_BLOCK(jointext(message, "\n")))
 
 /obj/item/analyzer/ranged
 	desc = "A hand-held scanner which uses advanced spectroscopy and infrared readings to analyze gases as a distance. Alt-Click to use the built in barometer function."
@@ -687,37 +687,37 @@ GENE SCANNER
 /proc/slime_scan(mob/living/simple_animal/slime/T, mob/living/user)
 	var/list/message = list()
 
-	message += "<b>Slime scan results:</b>")
-	message += "<span class='notice'>[T.colour] [T.is_adult ? "adult" : "baby"] slime</span>")
-	message += "Nutrition: [T.nutrition]/[T.get_max_nutrition()]")
+	message += "<b>Slime scan results:</b>"
+	message += "<span class='notice'>[T.colour] [T.is_adult ? "adult" : "baby"] slime</span>"
+	message += "Nutrition: [T.nutrition]/[T.get_max_nutrition()]"
 	if(T.nutrition < T.get_starve_nutrition())
-		message += "<span class='warning'>Warning: slime is starving!</span>")
+		message += "<span class='warning'>Warning: slime is starving!</span>"
 	else if(T.nutrition < T.get_hunger_nutrition())
-		message += "<span class='warning'>Warning: slime is hungry</span>")
-	message += "Electric change strength: [T.powerlevel]")
-	message += "Health: [round(T.health/T.maxHealth,0.01)*100]%")
+		message += "<span class='warning'>Warning: slime is hungry</span>"
+	message += "Electric change strength: [T.powerlevel]"
+	message += "Health: [round(T.health/T.maxHealth,0.01)*100]%"
 	if(T.slime_mutation[4] == T.colour)
-		message += "This slime does not evolve any further.")
+		message += "This slime does not evolve any further."
 	else
 		if(T.slime_mutation[3] == T.slime_mutation[4])
 			if(T.slime_mutation[2] == T.slime_mutation[1])
-				message += "Possible mutation: [T.slime_mutation[3]]")
-				message += "Genetic destability: [T.mutation_chance/2] % chance of mutation on splitting")
+				message += "Possible mutation: [T.slime_mutation[3]]"
+				message += "Genetic destability: [T.mutation_chance/2] % chance of mutation on splitting"
 			else
-				message += "Possible mutations: [T.slime_mutation[1]], [T.slime_mutation[2]], [T.slime_mutation[3]] (x2)")
-				message += "Genetic destability: [T.mutation_chance] % chance of mutation on splitting")
+				message += "Possible mutations: [T.slime_mutation[1]], [T.slime_mutation[2]], [T.slime_mutation[3]] (x2)"
+				message += "Genetic destability: [T.mutation_chance] % chance of mutation on splitting"
 		else
-			message += "Possible mutations: [T.slime_mutation[1]], [T.slime_mutation[2]], [T.slime_mutation[3]], [T.slime_mutation[4]]")
-			message += "Genetic destability: [T.mutation_chance] % chance of mutation on splitting")
+			message += "Possible mutations: [T.slime_mutation[1]], [T.slime_mutation[2]], [T.slime_mutation[3]], [T.slime_mutation[4]]"
+			message += "Genetic destability: [T.mutation_chance] % chance of mutation on splitting"
 	if(T.cores > 1)
-		message += "Multiple cores detected")
-	message += "Growth progress: [T.amount_grown]/[SLIME_EVOLUTION_THRESHOLD]")
+		message += "Multiple cores detected"
+	message += "Growth progress: [T.amount_grown]/[SLIME_EVOLUTION_THRESHOLD]"
 	if(T.has_status_effect(STATUS_EFFECT_SLIMEGRUB))
-		message += "<b>Redgrub infestation detected. Quarantine immediately.</b>")
-		message += "Redgrubs can be purged from a slime using capsaicin oil or extreme heat")
+		message += "<b>Redgrub infestation detected. Quarantine immediately.</b>"
+		message += "Redgrubs can be purged from a slime using capsaicin oil or extreme heat"
 	if(T.effectmod)
-		message += "<span class='notice'>Core mutation in progress: [T.effectmod]</span>")
-		message += "<span class = 'notice'>Progress in core mutation: [T.applied] / [SLIME_EXTRACT_CROSSING_REQUIRED]</span>")
+		message += "<span class='notice'>Core mutation in progress: [T.effectmod]</span>"
+		message += "<span class = 'notice'>Progress in core mutation: [T.applied] / [SLIME_EXTRACT_CROSSING_REQUIRED]</span>"
 	if(T.transformeffects != SLIME_EFFECT_DEFAULT)
 		var/slimeeffect = "\nTransformative extract effect detected: "
 		if(T.transformeffects & SLIME_EFFECT_GREY)
@@ -764,8 +764,8 @@ GENE SCANNER
 			slimeeffect += "adamantine"
 		if(T.transformeffects & SLIME_EFFECT_RAINBOW)
 			slimeeffect += "rainbow"
-		message += "<span class='notice'>[slimeeffect].</span>")
-	to_chat(user, examine_block(message, "\n"))
+		message += "<span class='notice'>[slimeeffect].</span>"
+	to_chat(user, EXAMINE_BLOCK(jointext(message, "\n")))
 
 
 /obj/item/nanite_scanner

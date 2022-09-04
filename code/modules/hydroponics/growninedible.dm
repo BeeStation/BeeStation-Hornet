@@ -42,7 +42,7 @@
 		if(seed)
 			msg += seed.get_analyzer_text()
 		msg += "</span>"
-		to_chat(usr, examine_block(msg))
+		to_chat(usr, EXAMINE_BLOCK(msg))
 		return
 
 /obj/item/grown/proc/add_juice()
