@@ -17,6 +17,7 @@
  *		Replacement light boxes.
  *		Action Figure Boxes
  *		Various paper bags.
+ *		Encrpytion key boxes.
  *
  *		For syndicate call-ins see uplink_kits.dm
  */
@@ -1296,3 +1297,73 @@
 		new /obj/item/clothing/accessory/armband/deputy(src)
 		new /obj/item/card/id/pass/deputy(src)
 
+/obj/item/storage/box/radiokey
+	name = "box of generic radio keys"
+	desc = "You shouldn't be seeing this. Ahelp."
+	icon_state = "radiobox"
+	var/radio_key = /obj/item/encryptionkey
+
+/obj/item/storage/box/radiokey/PopulateContents()
+	for(var/i in 1 to 7)
+		new radio_key(src)
+
+/obj/item/storage/box/radiokey/com
+	name = "box of command staff's radio keys"
+	desc = "A spare radio key for each command staff, plus an amplification key and a generic command key."
+	icon_state = "radiobox_gold"
+
+/obj/item/storage/box/radiokey/com/PopulateContents()
+	new /obj/item/encryptionkey/heads/rd(src)
+	new /obj/item/encryptionkey/heads/hos(src)
+	new /obj/item/encryptionkey/heads/ce(src)
+	new /obj/item/encryptionkey/heads/cmo(src)
+	new /obj/item/encryptionkey/heads/hop(src)
+	new /obj/item/encryptionkey/headset_com(src)
+	new /obj/item/encryptionkey/amplification(src)
+
+/obj/item/storage/box/radiokey/sci
+	name = "box of science radio keys"
+	desc = "For SCIENCE!"
+	radio_key = /obj/item/encryptionkey/headset_sci
+
+/obj/item/storage/box/radiokey/sec
+	name = "box of security radio keys"
+	desc = "Grants access to the station's security radio."
+	radio_key = /obj/item/encryptionkey/headset_sec
+
+/obj/item/storage/box/radiokey/eng
+	name = "box of engineering radio keys"
+	desc = "Dooms you to listen to Poly for all eternity."
+	radio_key = /obj/item/encryptionkey/headset_eng
+
+/obj/item/storage/box/radiokey/med
+	name = "box of medical radio keys"
+	desc = "9 out of 10 doctors reccomend."
+	radio_key = /obj/item/encryptionkey/headset_med
+
+/obj/item/storage/box/radiokey/srv
+	name = "box of service radio keys"
+	desc = "The channel for servants."
+	radio_key = /obj/item/encryptionkey/headset_service
+
+/obj/item/storage/box/radiokey/car
+	name = "box of cargo tech radio keys"  // qm can always buy mining conscript
+	desc = "Slaves you to the quartermaster."
+	radio_key = /obj/item/encryptionkey/headset_cargo
+
+/obj/item/storage/box/radiokey/cap  // admin spawn
+	name = "glorious box of captain's radio keys"
+	desc = "All-access radio."
+	icon_state = "radiobox_gold"
+	radio_key = /obj/item/encryptionkey/heads/captain
+
+/obj/item/storage/box/radiokey/clown  // honk
+	name = "\improper H.O.N.K. CO fake encryption keys"
+	desc = "Totally prank your friends with these realistic encryption keys!"
+	
+/obj/item/storage/box/radiokey/clown/PopulateContents()
+	new /obj/item/encryptionkey/heads/rd/fake(src)
+	new /obj/item/encryptionkey/heads/hos/fake(src)
+	new /obj/item/encryptionkey/heads/ce/fake(src)
+	new /obj/item/encryptionkey/heads/cmo/fake(src)
+	new /obj/item/encryptionkey/heads/hop/fake(src)

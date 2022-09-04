@@ -37,6 +37,7 @@
 	new /obj/item/storage/photo_album/Captain(src)
 	new /obj/item/storage/box/command_keys(src)
 	new /obj/item/card/id/departmental_budget/civ(src)
+	new /obj/item/storage/box/radiokey/com(src)
 
 /obj/structure/closet/secure_closet/hop
 	name = "\proper head of personnel's locker"
@@ -70,6 +71,7 @@
 	new /obj/item/storage/photo_album/HoP(src)
 	new /obj/item/storage/box/command_keys(src)
 	new /obj/item/card/id/departmental_budget/srv(src)
+	new /obj/item/storage/box/radiokey/srv(src)
 
 /obj/structure/closet/secure_closet/brig_physician
 	name = "\proper brig physician's locker"
@@ -130,6 +132,7 @@
 	new /obj/item/storage/photo_album/HoS(src)
 	new /obj/item/storage/box/command_keys(src)
 	new /obj/item/card/id/departmental_budget/sec(src)
+	new /obj/item/storage/box/radiokey/sec(src)
 
 /obj/structure/closet/secure_closet/warden
 	name = "\proper warden's locker"
