@@ -1777,6 +1777,32 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	item = /obj/item/clothing/glasses/thermal/syndi
 	cost = 3
 
+/datum/uplink_item/device_tools/spyradio
+	name = "Hacked Station Bounced Radio"
+	desc = "A radio hacked to let you tune to any frequency outside the standard band. \
+	It also masks your voice, allowing for anonymous messages to any department channel. \
+	Comes with an easy to memorize list of the standard radio frequencies!"
+	item = /obj/item/radio/spy
+	cost = 3  // bc the syndie key is 2
+
+	var/static/radio_help = "Standard Radio Frequencies:<BR>\
+	121.3 - Syndicate<BR>\
+	134.7 - Supply<BR>\
+	134.9 - Service<BR>\
+	135.1 - Science<BR>\
+	135.3 - Command<BR>\
+	135.5 - Medical<BR>\
+	135.7 - Engineering<BR>\
+	135.9 - Security<BR>\
+	136.1 - Exploration<BR>"
+
+/datum/uplink_item/device_tools/spyradio/spawn_item(spawn_path, mob/user, datum/component/uplink/U)
+	. = ..()
+
+	if(user.mind && !("[radio_help]<BR>" in user.mind.memory))  // a very hacky way to make it not spam notes
+		to_chat("<span class='notice'>You quickly memorize the radio frequencies.</span>")
+		user.mind.store_memory(radio_help)
+
 // Implants
 /datum/uplink_item/implants
 	category = "Implants"

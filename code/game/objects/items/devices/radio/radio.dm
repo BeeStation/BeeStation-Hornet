@@ -396,6 +396,16 @@
 	on = TRUE
 	return TRUE
 
+/obj/item/radio/spy
+	anonymize = TRUE
+	freerange = TRUE
+	var/static/admin_freqs = list(FREQ_CENTCOM)
+
+/obj/item/radio/spy/ui_act(action, params, datum/tgui/ui)
+	. = ..()
+	if(tune in admin_freqs)  // let the admins have their fun :|
+		tune += 2
+
 ///////////////////////////////
 //////////Borg Radios//////////
 ///////////////////////////////
