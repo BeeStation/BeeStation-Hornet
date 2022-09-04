@@ -716,29 +716,24 @@
 /// Use this proc when an admin takes action that may be related to an open ticket on "what" - "what" can be a client, ckey, or mob
 /proc/admin_ticket_log(what, message, whofrom = "", whoto = "", color = "white", isSenderAdmin = FALSE, safeSenderLogged = FALSE, is_admin_ticket = TRUE)
 	var/client/C
-	var/mob/Mob = what
-	if(istype(Mob))
-		C = Mob.client
-	else
+	var/mob/mob = what
+	if(istype(mob))
+		C = mob.client
+	else if(istype(what, /client))
 		C = what
-	var/admin_name = is_admin_ticket ? "Administrator" : "Mentor"
+	else if(istext(what) && (what in GLOB.directory))
+		C = GLOB.directory[what]
+	if(!istype(C))
+		return
 	var/datum/help_ticket/ticket = is_admin_ticket ? C.current_adminhelp_ticket : C.current_mentorhelp_ticket
-	if(istype(C) && ticket)
-		if(safeSenderLogged)
-			ticket.AddInteraction(color, message, whofrom, whoto, isSenderAdmin ? admin_name : "You", isSenderAdmin ? "You" : admin_name)
-		else
-			ticket.AddInteraction(color, message, whofrom, whoto)
-		return ticket
-	if(istext(what))	//ckey
-		var/datum/help_tickets/tickets = is_admin_ticket ? GLOB.ahelp_tickets : GLOB.mhelp_tickets
-		var/datum/help_ticket/AH = tickets.CKey2ActiveTicket(what)
-		if(AH)
-			if(safeSenderLogged)
-				AH.AddInteraction(color, message, whofrom, whoto, isSenderAdmin ? admin_name : "You", isSenderAdmin ? "You" : admin_name)
-			else
-				AH.AddInteraction(color, message, whofrom, whoto)
-			return AH
-
+	if(!ticket)
+		return
+	if(safeSenderLogged)
+		var/send_name = is_admin_ticket ? "Administrator" : "Mentor"
+		ticket.AddInteraction(color, message, whofrom, whoto, isSenderAdmin ? send_name : "You", isSenderAdmin ? "You" : send_name)
+	else
+		ticket.AddInteraction(color, message, whofrom, whoto)
+	return ticket
 
 //
 // HELPER PROCS
