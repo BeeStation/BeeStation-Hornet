@@ -542,7 +542,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 	else if(path.len == 1)
 		step_to(src, dest)
 		if(last_waypoint != null)
-			if(z > last_waypoint.z || z < last_waypoint.z)
+			if(z != last_waypoint.z)
 				bot_z_movement()
 		set_path(null)
 	return TRUE
@@ -565,7 +565,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 	last_waypoint = ai_waypoint
 
 	if(!is_reserved_level(z))
-		if(z > waypoint.z || z < waypoint.z)
+		if(z != waypoint.z)
 			call_bot_z_move(caller, waypoint)
 			return
 
