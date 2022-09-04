@@ -403,8 +403,8 @@
 
 /obj/item/radio/spy/ui_act(action, params, datum/tgui/ui)
 	. = ..()
-	if(tune in admin_freqs)  // let the admins have their fun :|
-		tune += 2
+	if(frequency in admin_freqs)  // let the admins have their fun :|
+		set_frequency(sanitize_frequency(frequency, freerange))
 
 ///////////////////////////////
 //////////Borg Radios//////////
