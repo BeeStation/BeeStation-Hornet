@@ -1,0 +1,6 @@
+author: LemonLimeSoda
+delete-after: true
+changes:
+  - rscadd: 'added a new midround event with the same weight as xenos and blobs: spontaneous
+      zombie infection'
+  - tweak: changed the wizard blob zombies event's name to avoid confusion
