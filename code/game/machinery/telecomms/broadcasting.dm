@@ -155,9 +155,9 @@
 				for(var/obj/item/radio/R in GLOB.all_radios["[FREQ_SYNDICATE]"])
 					if(R.can_receive(FREQ_SYNDICATE, list(R.get_virtual_z_level())))
 						radios |= R
-				for(var/obj/item/radio/R in GLOB.all_radios["[FREQ_CAN_FREETUNE]"])  // i hate this
-					if(R.can_receive(frequency, levels)) // direct tuning workaround
-						radios += R
+			for(var/obj/item/radio/R in GLOB.all_radios["[FREQ_CAN_FREETUNE]"])  // i hate this
+				if(R.can_receive(frequency, levels)) // direct tuning workaround
+					radios += R
 
 		if (TRANSMISSION_RADIO)
 			// Only radios not currently in subspace mode

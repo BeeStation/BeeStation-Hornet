@@ -245,6 +245,8 @@
 		return
 	if(!M.IsVocal())
 		return
+	if(channel == RADIO_CHANNEL_UPLINK)
+		return // please dont send an acutl a message with this thenls
 
 	if(!radio_silent)//Radios make small static noises now
 		var/mob/sender = loc
@@ -343,6 +345,8 @@
 		return FALSE
 	if (freq == FREQ_CENTCOM)
 		return independent  // hard-ignores the z-level check
+	if (freq == FREQ_UPLINK)
+		return FALSE // i somehow broke my uplink radio with this
 	if (!(0 in level))
 		var/turf/position = get_turf(src)
 		if(!position || !(position.get_virtual_z_level() in level))
