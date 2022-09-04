@@ -80,10 +80,15 @@
 	var/list/standard_actions = list("patroloff", "patrolon", "ejectpai")
 	var/list/MULE_actions = list("stop", "go", "home", "destination", "setid", "sethome", "unload", "autoret", "autopick", "report", "ejectpai")
 	var/mob/living/simple_animal/bot/Bot = locate(params["robot"]) in GLOB.bots_list
-	if (action in standard_actions)
-		Bot.bot_control(action, current_user, current_access)
-	if (action in MULE_actions)
-		Bot.bot_control(action, current_user, current_access, TRUE)
+	var access_okay = TRUE
+	if(!id_card && !Bot.bot_core.allowed(current_user))
+		access_okay = FALSE
+	else if(id_card && !Bot.bot_core.check_access(id_card))
+		access_okay = FALSE
+	if (access_okay && (action in standard_actions))
+		Bot.bot_control(action, current_user, id_card ? id_card.access : current_access)
+	if (access_okay && (action in MULE_actions))
+		Bot.bot_control(action, current_user, id_card ? id_card.access : current_access, TRUE)
 	switch(action)
 		if("summon")
 			Bot.bot_control(action, current_user, id_card ? id_card.access : current_access)
