@@ -672,10 +672,16 @@ Code:
 		var/botcount = 0
 		for(var/B in GLOB.bots_list) //Git da botz
 			var/mob/living/simple_animal/bot/Bot = B
-			if(!Bot.on || Bot.get_virtual_z_level() != zlevel || Bot.remote_disabled || !(bot_access_flags & Bot.bot_type)) //Only non-emagged bots on the same Z-level are detected!
+			if(!Bot.on || Bot.remote_disabled || !(bot_access_flags & Bot.bot_type)) //Only non-emagged bots are detected!
 				continue //Also, the PDA must have access to the bot type.
-			menu += "<A href='byond://?src=[REF(src)];op=control;bot=[REF(Bot)]'><b>[Bot.name]</b> ([Bot.get_mode()])<BR>"
-			botcount++
+			if(Bot.get_virtual_z_level() in SSmapping.levels_by_trait(ZTRAIT_STATION))
+				if(zlevel in SSmapping.levels_by_trait(ZTRAIT_STATION))
+					menu += "<A href='byond://?src=[REF(src)];op=control;bot=[REF(Bot)]'><b>[Bot.name]</b> ([Bot.get_mode()])<BR>"
+					botcount++
+			else if (Bot.get_virtual_z_level() == zlevel)
+				if(!(zlevel in SSmapping.levels_by_trait(ZTRAIT_STATION)))
+					menu += "<A href='byond://?src=[REF(src)];op=control;bot=[REF(Bot)]'><b>[Bot.name]</b> ([Bot.get_mode()])<BR>"
+					botcount++
 		if(!botcount) //No bots at all? Lame.
 			menu += "No bots found.<BR>"
 			return
