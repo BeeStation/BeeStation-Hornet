@@ -108,7 +108,6 @@ GLOBAL_VAR(medibot_unique_id_gen)
 	. = ..()
 	var/datum/job/medical_doctor/J = new /datum/job/medical_doctor
 	access_card.access += J.get_access()
-	access_card.access += ACCESS_MAINT_TUNNELS
 	prev_access = access_card.access
 	qdel(J)
 	skin = new_skin

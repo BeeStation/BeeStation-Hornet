@@ -641,13 +641,12 @@
 				return
 	path = get_path_to(src, target, 250, id=access_card, exclude=avoid)
 
-//NSV13 - BOT MULTI-Z MOVEMENT
 /mob/living/simple_animal/bot/mulebot/proc/mule_up_or_down(direction)
 	if(!is_reserved_level(z) && is_station_level(z))
 		var/new_target = find_nearest_bot_elevator(direction)
 
 		var/go_here
-		mulebot_z_mode = 10
+		mulebot_z_mode = MULEBOT_Z_MODE_ACTIVE
 		if(!new_target)
 			return
 		go_here = get_turf(new_target)
@@ -655,10 +654,9 @@
 		target = go_here
 		path = get_path_to(src, target, 250, id=access_card)
 
-//NSV13 - BOT MULTI-Z MOVEMENT
 /mob/living/simple_animal/bot/mulebot/proc/mulebot_z_movement()
 	var/obj/structure/bot_elevator/E = locate(/obj/structure/bot_elevator) in get_turf(src)
-	if(mulebot_z_mode == 10)
+	if(mulebot_z_mode == MULEBOT_Z_MODE_ACTIVE)
 		if(E)
 			if(z > last_target.z)
 				E.travel(FALSE, src, FALSE, E.down, FALSE)

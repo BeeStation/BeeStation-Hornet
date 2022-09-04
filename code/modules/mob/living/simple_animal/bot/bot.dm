@@ -76,7 +76,7 @@
 	var/awaiting_beacon	= 0	// count of pticks awaiting a beacon response
 
 	var/turf/last_waypoint
-	var/bot_z_mode //SETTINGS: 10 = AI CALLED. 20 = PATROLLING. 30 = SOMEONE CALLED.
+	var/bot_z_mode 	//SETTINGS: 10 = AI CALLED. 20 = PATROLLING. 30 = SOMEONE CALLED.
 	var/turf/original_patrol
 	var/turf/last_summon
 
@@ -665,7 +665,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 
 	if(loc == patrol_target)		// reached target
 		if(original_patrol != null)
-			if(z > original_patrol.z || z < original_patrol.z)
+			if(z != original_patrol.z)
 				bot_z_movement()
 				return
 		//Find the next beacon matching the target.
@@ -705,9 +705,8 @@ Pass a positive integer as an argument to override a bot's default speed.
 
 /mob/living/simple_animal/bot/proc/get_next_patrol_target()
 	// search the beacon list for the next target in the list.
-	var/temporary_z = SSmapping.levels_by_trait(ZTRAIT_STATION)
-	for(var/ZYes in temporary_z)
-		for(var/obj/machinery/navbeacon/NB in GLOB.navbeacons["[ZYes]"])
+	for(var/Zlevel in SSmapping.levels_by_trait(ZTRAIT_STATION))
+		for(var/obj/machinery/navbeacon/NB in GLOB.navbeacons["[Zlevel]"])
 			if(NB.location == next_destination) //Does the Beacon location text match the destination?
 				destination = new_destination //We now know the name of where we want to go.
 				patrol_target = NB.loc //Get its location and set it as the target.
@@ -716,9 +715,8 @@ Pass a positive integer as an argument to override a bot's default speed.
 				return TRUE
 
 /mob/living/simple_animal/bot/proc/find_nearest_beacon()
-	var/temporary_z = SSmapping.levels_by_trait(ZTRAIT_STATION)
-	for(var/ZYes in temporary_z)
-		for(var/obj/machinery/navbeacon/NB in GLOB.navbeacons["[ZYes]"])
+	for(var/Zlevel in SSmapping.levels_by_trait(ZTRAIT_STATION))
+		for(var/obj/machinery/navbeacon/NB in GLOB.navbeacons["[Zlevel]"])
 			var/dist = get_dist(src, NB)
 			if(nearest_beacon) //Loop though the beacon net to find the true closest beacon.
 				//Ignore the beacon if were are located on it.
@@ -824,7 +822,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 
 	if(loc == summon_target)		// Arrived to summon location.
 		if(last_summon != null)
-			if(z > last_summon.z || z < last_summon.z)
+			if(z != last_summon.z)
 				bot_z_movement()
 				return
 		bot_reset()
@@ -843,7 +841,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 
 	else	// no path, so calculate new one
 		if(summon_target != null)
-			if(z > summon_target.z || z < summon_target.z)
+			if(z != summon_target.z)
 				last_summon = summon_target
 		calc_summon_path()
 
@@ -1118,7 +1116,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//Multi-Z Related section for NSV13
+//Multi-Z Related section
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 /**
@@ -1156,7 +1154,7 @@ Pass a positive integer as an argument to override a bot's default speed.
  */
 /mob/living/simple_animal/bot/proc/bot_z_movement()
 	var/obj/structure/bot_elevator/E = locate(/obj/structure/bot_elevator) in get_turf(src)
-	if(bot_z_mode == 10)
+	if(bot_z_mode == BOT_Z_MODE_AI_CALLED)
 		if(E)
 			if(z > last_waypoint.z)
 				E.travel(FALSE, src, FALSE, E.down, FALSE)
@@ -1167,7 +1165,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 				ai_waypoint = last_waypoint
 				call_bot(calling_ai, ai_waypoint)
 
-	if(bot_z_mode == 20)
+	if(bot_z_mode == BOT_Z_MODE_PATROLLING)
 		if(E)
 			if(z > original_patrol.z)
 				E.travel(FALSE, src, FALSE, E.down, FALSE)
@@ -1177,7 +1175,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 				E.travel(TRUE, src, FALSE, E.up, FALSE)
 				patrol_target = original_patrol
 				calc_path()
-	if(bot_z_mode == 30)
+	if(bot_z_mode == BOT_Z_MODE_SUMMONED)
 		if(E)
 			if(z > last_summon.z)
 				E.travel(FALSE, src, FALSE, E.down, FALSE)
@@ -1192,9 +1190,9 @@ Pass a positive integer as an argument to override a bot's default speed.
 /mob/living/simple_animal/bot/proc/call_bot_z_move(caller, turf/ori_dest, message=TRUE)
 	//For giving the bot temporary all-access.
 	var/obj/item/card/id/all_access = new /obj/item/card/id
-	var/datum/job/captain/All = new/datum/job/captain
-	all_access.access = All.get_access()
-	bot_z_mode = 10
+	var/datum/job/captain/all = new/datum/job/captain
+	all_access.access = all.get_access()
+	bot_z_mode = BOT_Z_MODE_AI_CALLED
 
 	var/target
 	var/turf/destination
@@ -1236,9 +1234,9 @@ Pass a positive integer as an argument to override a bot's default speed.
 /mob/living/simple_animal/bot/proc/go_up_or_down(direction)
 	//For giving the bot temporary all-access.
 	var/obj/item/card/id/all_access = new /obj/item/card/id
-	var/datum/job/captain/All = new/datum/job/captain
-	all_access.access = All.get_access()
-	bot_z_mode = 20
+	var/datum/job/captain/all = new/datum/job/captain
+	all_access.access = all.get_access()
+	bot_z_mode = BOT_Z_MODE_PATROLLING
 
 	if(!is_reserved_level(z) && is_station_level(z))
 		var/new_target = find_nearest_bot_elevator(direction)
@@ -1249,7 +1247,7 @@ Pass a positive integer as an argument to override a bot's default speed.
 		set_path(get_path_to(src, patrol_target, 200, id=all_access))
 
 /mob/living/simple_animal/bot/proc/summon_up_or_down(direction)
-	bot_z_mode = 30
+	bot_z_mode = BOT_Z_MODE_SUMMONED
 
 	if(!is_reserved_level(z) && is_station_level(z))
 		var/new_target = find_nearest_bot_elevator(direction)
@@ -1261,4 +1259,4 @@ Pass a positive integer as an argument to override a bot's default speed.
 		last_summon = summon_target
 		summon_target = target
 		set_path(get_path_to(src, summon_target, 200, id=access_card))
- 
+
