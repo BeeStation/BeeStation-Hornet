@@ -134,7 +134,7 @@
 /turf/open/floor/plating,
 /area/ruin/powered/shuttle/medium_2)
 "y" = (
-/obj/structure/chair/comfy{
+/obj/structure/chair/fancy/shuttle{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/yellow{

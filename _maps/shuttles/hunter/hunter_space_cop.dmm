@@ -19,7 +19,6 @@
 	width = 7
 	},
 /obj/docking_port/mobile{
-	dheight = 0;
 	dir = 4;
 	dwidth = 3;
 	height = 12;
@@ -35,8 +34,7 @@
 /area/shuttle/hunter)
 "af" = (
 /obj/effect/turf_decal/stripes{
-	dir = 8;
-	icon_state = "warningline"
+	dir = 8
 	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/hunter)
@@ -46,8 +44,7 @@
 /area/shuttle/hunter)
 "ah" = (
 /obj/effect/turf_decal/loading_area{
-	dir = 4;
-	icon_state = "loadingarea"
+	dir = 4
 	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/hunter)
@@ -57,36 +54,31 @@
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/hunter)
 "ak" = (
-/obj/structure/chair/comfy/shuttle{
-	dir = 1;
-	icon_state = "shuttle_chair"
+/obj/structure/chair/fancy/shuttle{
+	dir = 1
 	},
 /obj/effect/mob_spawn/human/fugitive/spacepol{
-	dir = 1;
-	icon_state = "sleeper"
+	dir = 1
 	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/hunter)
 "al" = (
 /obj/effect/turf_decal/stripes{
-	dir = 8;
-	icon_state = "warningline"
+	dir = 8
 	},
 /obj/effect/turf_decal/caution{
-	dir = 4;
-	icon_state = "caution"
+	dir = 4
 	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/hunter)
 "bY" = (
-/obj/structure/chair/comfy/shuttle,
+/obj/structure/chair/fancy/shuttle,
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/hunter)
 "gi" = (
 /obj/structure/table,
 /obj/effect/mob_spawn/human/fugitive/spacepol{
-	dir = 8;
-	icon_state = "sleeper"
+	dir = 8
 	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/hunter)
@@ -115,8 +107,7 @@
 	req_access_txt = "181"
 	},
 /obj/effect/turf_decal/stripes{
-	dir = 8;
-	icon_state = "warningline"
+	dir = 8
 	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/hunter)
@@ -141,7 +132,7 @@
 /turf/template_noop,
 /area/template_noop)
 "Rz" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 4
 	},
 /turf/open/floor/mineral/titanium/blue,

@@ -819,6 +819,13 @@ update_label("John Doe", "Clowny")
 	icon_state = "budget_sec"
 	hud_state = JOB_HUD_RAWSECURITY
 
+// This will never be spawned, but should be trackable by admins anyway.
+/obj/item/card/id/departmental_budget/vip
+	department_ID = ACCOUNT_VIP
+	department_name = ACCOUNT_VIP_NAME
+	icon_state = "budget"
+	hud_state = JOB_HUD_VIP
+
 /// Job Specific ID Cards///
 // These should have default job name and hud state, etc, because chameleon card needs such information
 // ---- Command ----
