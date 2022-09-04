@@ -169,7 +169,7 @@
 
 /obj/item/paicard/proc/alertUpdate()
 	var/image/I = image(icon, src, icon_state = "pai-alert")
-	flick_overlay_view(I, src, 5 SECONDS)  // overlay workaround
+	flick_overlay_view(I, src, 5 SECONDS)
 	playsound(src, 'sound/machines/ping.ogg', 100)
 	audible_message("<span class ='info'>[src] flashes a message across its screen, \"Additional personalities available for download.\"</span>", "<span class='notice'>[src] vibrates with an alert.</span>")
 
