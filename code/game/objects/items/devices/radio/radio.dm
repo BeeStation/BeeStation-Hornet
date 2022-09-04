@@ -1,3 +1,5 @@
+// abandon all hope ye who enter here
+
 #define FREQ_LISTENING (1<<0)
 
 /obj/item/radio
@@ -44,6 +46,9 @@
 	var/list/channels = list()  // Map from name (see communications.dm) to on/off. First entry is current department (:h).
 	var/list/secure_radio_connections
 	var/radio_silent = FALSE // If true, radio doesn't make sound effects (ie for Syndicate internal radio implants)
+
+	/// can connect to department channels without a key if the frequency is set to it including syndie
+	var/decrypt_channel = FALSE
 
 /obj/item/radio/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] starts bouncing [src] off [user.p_their()] head! It looks like [user.p_theyre()] trying to commit suicide!</span>")
@@ -106,6 +111,8 @@
 	for(var/ch_name in channels)
 		secure_radio_connections[ch_name] = add_radio(src, GLOB.radiochannels[ch_name])
 
+	if(decrypt_channel)  // best workaround i could thinkof
+		secure_radio_connections[RADIO_CHANNEL_SYNDICATE] = add_radio(src, GLOB.radiochannels[RADIO_CHANNEL_SYNDICATE])
 	become_hearing_sensitive(ROUNDSTART_TRAIT)
 
 /obj/item/radio/ComponentInitialize()
