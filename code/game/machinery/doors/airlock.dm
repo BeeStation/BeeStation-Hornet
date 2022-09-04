@@ -66,6 +66,7 @@
 	normalspeed = 1
 	explosion_block = 1
 	hud_possible = list(DIAG_AIRLOCK_HUD)
+	flags_1 = PREVENT_CLICK_UNDER_1 & HTML_USE_INITAL_ICON_1
 	var/allow_repaint = TRUE //Set to FALSE if the airlock should not be allowed to be repainted.
 
 	FASTDMM_PROP(\
@@ -1079,7 +1080,7 @@
 		if(isElectrified() && C?.siemens_coefficient)
 			shock(user,100)
 
-		if(locked) 
+		if(locked)
 			to_chat(user, "<span class='warning'>The bolts are down, it won't budge!</span>")
 			return
 
