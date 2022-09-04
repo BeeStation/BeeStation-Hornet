@@ -557,7 +557,7 @@
 		if(BOT_DELIVER, BOT_GO_HOME, BOT_BLOCKED) // navigating to deliver,home, or blocked
 			if(loc == target) // reached target
 				if(last_target != null)
-					if(z > last_target.z || z < last_target.z)
+					if(z != last_target.z)
 						mulebot_z_movement()
 						return
 				at_target()
