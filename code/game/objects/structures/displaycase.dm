@@ -11,21 +11,21 @@
 	integrity_failure = 25
 	var/obj/item/showpiece = null
 	///This allows for showpieces that can only hold items if they're the same istype as this.
-	var/obj/item/showpiece_type = null 
+	var/obj/item/showpiece_type = null
 	var/alert = TRUE
 	var/open = FALSE
 	var/openable = TRUE
 	///Is the case made of glass? Should it sound like that when it is being whacked?
 	var/shatter = TRUE
 	///If the case should be completely locked out at green alert, for cases containing equipment intended to be accessed only by antagonists or after threat level is raised
-	var/security_level_locked = SEC_LEVEL_GREEN 
+	var/security_level_locked = SEC_LEVEL_GREEN
 	///If we have a custom glass overlay to use.
-	var/custom_glass_overlay = FALSE 
+	var/custom_glass_overlay = FALSE
 	var/obj/item/electronics/airlock/electronics
 	///add type for items on display
-	var/start_showpiece_type = null 
+	var/start_showpiece_type = null
 	///Takes sublists in the form of list("type" = /obj/item/bikehorn, "trophy_message" = "henk")
-	var/list/start_showpieces = list() 
+	var/list/start_showpieces = list()
 	var/trophy_message = ""
 	var/glass_fix = TRUE
 
@@ -131,7 +131,7 @@
 
 /obj/structure/displaycase/attackby(obj/item/W, mob/user, params)
 	if(W.GetID() && !broken && openable)
-		if(open)	//You do not require access to close a case, only to open it. 
+		if(open)	//You do not require access to close a case, only to open it.
 			to_chat(user,  "<span class='notice'>You close [src].</span>")
 			toggle_lock(user)
 		else if(security_level_locked > GLOB.security_level || !allowed(user))
@@ -445,7 +445,7 @@
 	data["product_icon"] = null
 	if(showpiece)
 		data["product_name"] = capitalize(showpiece.name)
-		var/base64 = icon2base64(icon(showpiece.icon, showpiece.icon_state))
+		var/base64 = icon2base64(icon(showpiece.icon, showpiece.icon_state, frame=1))
 		data["product_icon"] = base64
 	data["registered"] = register
 	data["product_cost"] = sale_price
