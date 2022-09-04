@@ -201,5 +201,5 @@
 	cmd_mentor_pm(whom, msg)
 
 /proc/message_mentors(msg)
-	msg = "<span class=\"mentor\"><span class=\"prefix\">MENTOR LOG:</span> <span class=\"message linkify\">[msg]</span></span>"
-	to_chat(GLOB.mentors | GLOB.admins, msg)
+	msg = "<span class='mentorlog'><span class='prefix'>MENTOR LOG:</span> <span class='message linkify'>[msg]</span></span>"
+	to_chat(GLOB.mentors | GLOB.admins, msg, type = MESSAGE_TYPE_MENTORLOG)

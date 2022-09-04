@@ -17,5 +17,6 @@
 #define MESSAGE_TYPE_MENTORCHAT "mentorchat"
 #define MESSAGE_TYPE_EVENTCHAT "eventchat"
 #define MESSAGE_TYPE_ADMINLOG "adminlog"
+#define MESSAGE_TYPE_MENTORLOG "mentorlog"
 #define MESSAGE_TYPE_ATTACKLOG "attacklog"
 #define MESSAGE_TYPE_DEBUG "debug"
