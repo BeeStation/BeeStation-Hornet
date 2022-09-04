@@ -1,0 +1,5 @@
+author: etherware-novice
+delete-after: true
+changes:
+  - rscadd: Added the bluespace light replacer
+  - tweak: Moved the standard light replacer to a round-start item
