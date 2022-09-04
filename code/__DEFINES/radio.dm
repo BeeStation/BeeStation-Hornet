@@ -56,6 +56,8 @@
 #define RADIO_KEY_UPLINK "d"
 #define RADIO_TOKEN_UPLINK ":d"
 
+#define RADIO_CAN_FREETUNE "Freetune"
+
 #define MIN_FREE_FREQ 1201 // -------------------------------------------------
 // Frequencies are always odd numbers and range from 1201 to 1599.
 
@@ -63,6 +65,7 @@
 #define FREQ_UPLINK 1214   //!  Dummy channel for headset uplink
 #define FREQ_CTF_RED 1215  //!  CTF red team comms frequency, red
 #define FREQ_CTF_BLUE 1217  //!  CTF blue team comms frequency, blue
+#define FREQ_CAN_FREETUNE 1218  //! i hate radio code, this is a massive workaround for the spyradio
 #define FREQ_CENTCOM 1337  //!  CentCom comms frequency, gray
 #define FREQ_SUPPLY 1347  //!  Supply comms frequency, light brown
 #define FREQ_SERVICE 1349  //! Service comms frequency, green

@@ -111,8 +111,8 @@
 	for(var/ch_name in channels)
 		secure_radio_connections[ch_name] = add_radio(src, GLOB.radiochannels[ch_name])
 
-	if(decrypt_channel)  // best workaround i could thinkof
-		secure_radio_connections[RADIO_CHANNEL_SYNDICATE] = add_radio(src, GLOB.radiochannels[RADIO_CHANNEL_SYNDICATE])
+	if(decrypt_channel)  // best workaround i could thinkof, i hate i have to staple this with my other radio pr
+		secure_radio_connections[RADIO_CAN_FREETUNE] = add_radio(src, GLOB.radiochannels[RADIO_CAN_FREETUNE])
 	become_hearing_sensitive(ROUNDSTART_TRAIT)
 
 /obj/item/radio/ComponentInitialize()
@@ -339,7 +339,7 @@
 	// deny checks
 	if (!on || !listening || wires.is_cut(WIRE_RX))
 		return FALSE
-	if (freq == FREQ_SYNDICATE && !syndie)
+	if (freq == FREQ_SYNDICATE && (!syndie || !decrypt_channel))
 		return FALSE
 	if (freq == FREQ_CENTCOM)
 		return independent  // hard-ignores the z-level check
