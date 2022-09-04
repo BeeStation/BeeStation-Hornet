@@ -734,13 +734,13 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	return get_virtual_z(get_turf(src))
 
 /// if it returns true, the mood effect assigned to the area is defined. Defaults to checking mood_job_allowed
-/area/proc/mood_check(mob/living/carbon/human/subject)
+/area/proc/mood_check(mob/living/carbon/subject)
 	if(!mood_bonus)
 		return FALSE
 
 	. = TRUE
 
-	if(!length(mood_job_allowed))
+	if(!LAZYLEN(mood_job_allowed))
 		return .
 	if(!(subject.mind?.assigned_role in mood_job_allowed))
 		. = FALSE

@@ -618,10 +618,13 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	lighting_colour_bulb = "#ffebc1"
 	sound_environment = SOUND_AREA_WOODFLOOR
 
-/area/crew_quarters/bar/mood_check(mob/living/carbon/human/subject)
-		. = ..()
-		if (HAS_TRAIT(subject, TRAIT_LIGHT_DRINKER))
-				. = FALSE
+/area/crew_quarters/bar/mood_check(mob/living/carbon/subject)
+	. = ..()  // should return TRUE
+
+	if(!istype(subject))
+		return FALSE
+	if (HAS_TRAIT(subject, TRAIT_LIGHT_DRINKER))
+		return FALSE
 
 /area/crew_quarters/bar/lounge
 	name = "Bar lounge"
