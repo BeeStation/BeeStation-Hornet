@@ -141,9 +141,6 @@
 		if("reopen")
 			claim_ticket = CLAIM_OVERRIDE
 			ticket.Reopen()
-		if("close")
-			claim_ticket = CLAIM_OVERRIDE
-			ticket.Close()
 		if("view")
 			ticket.TicketPanel()
 		if("pm")
@@ -165,16 +162,14 @@
 			if(istype(ticket, /datum/help_ticket/admin))
 				var/datum/help_ticket/admin/a_ticket = ticket
 				a_ticket.ICIssue()
+		if("close")
+			claim_ticket = CLAIM_OVERRIDE
+			ticket.Close()
 		if("mhelp")
 			claim_ticket = CLAIM_OVERRIDE
 			if(istype(ticket, /datum/help_ticket/admin))
 				var/datum/help_ticket/admin/a_ticket = ticket
 				a_ticket.MHelpThis()
-		if("ahelp")
-			claim_ticket = CLAIM_OVERRIDE
-			if(istype(ticket, /datum/help_ticket/mentor))
-				var/datum/help_ticket/mentor/m_ticket = ticket
-				m_ticket.AHelpThis()
 		if("flw")
 			var/datum/admins/admin_datum = GLOB.admin_datums[usr.ckey]
 			if(!admin_datum)
@@ -504,9 +499,6 @@
 		if("reject")
 			Reject()
 			claim_ticket = CLAIM_OVERRIDE
-		if("close")
-			Close()
-			claim_ticket = CLAIM_OVERRIDE
 		if("resolve")
 			Resolve()
 			claim_ticket = CLAIM_OVERRIDE
@@ -530,6 +522,9 @@
 		log_admin_private("[usr] sent a request to interact with the ticket window without sufficient rights.")
 		return
 	switch(action)
+		if("close")
+			Close()
+			claim_ticket = CLAIM_OVERRIDE
 		if("moreinfo")
 			admin_datum.admin_more_info(get_mob_by_ckey(initiator.ckey))
 		if("playerpanel")
