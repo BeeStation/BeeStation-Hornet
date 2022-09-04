@@ -466,6 +466,13 @@ h1.alert, h2.alert		{color: #000000;}
 .text-normal {font-weight: normal; font-style: normal;}
 .hidden {display: none; visibility: hidden;}
 
+.examine_block {
+  background: #1b1c1e;
+  border: 1px solid #a4bad6;
+  margin: 0.5em;
+  padding: 0.5em 0.75em;
+}
+
 //Job Colours
 //Make sure you add to replacementNodes in renderer.js
 // ----------

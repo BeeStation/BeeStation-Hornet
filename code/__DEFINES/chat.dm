@@ -19,3 +19,5 @@
 #define MESSAGE_TYPE_ADMINLOG "adminlog"
 #define MESSAGE_TYPE_ATTACKLOG "attacklog"
 #define MESSAGE_TYPE_DEBUG "debug"
+
+#define EXAMINE_BLOCK(str) ("<div class='examine_block'>" + str + "</div>")

@@ -542,7 +542,11 @@
   * Produces a signal COMSIG_PARENT_EXAMINE
   */
 /atom/proc/examine(mob/user)
-	. = list("[get_examine_string(user, TRUE)].")
+	var/examine_string = list("[get_examine_string(user, TRUE)].")
+	if(examine_string)
+		. = list("[examine_string]")
+	else
+		. = list()
 
 	if(desc)
 		. += desc
@@ -1091,10 +1095,10 @@
 							valid_id = TRUE
 						if(!valid_id)
 							to_chat(usr, "<span class='warning'>A reagent with that ID doesn't exist!</span>")
-				
+
 				if("Choose from a list")
 					chosen_id = input(usr, "Choose a reagent to add.", "Choose a reagent.") as null|anything in subtypesof(/datum/reagent)
-				
+
 				if("I'm feeling lucky")
 					chosen_id = pick(subtypesof(/datum/reagent))
 
