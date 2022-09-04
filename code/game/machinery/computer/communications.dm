@@ -92,14 +92,14 @@
 		if ("answerMessage")
 			if (!authenticated(usr))
 				return
-			var/answer_index = text2num(params["answer"])
+			var/answer_key = params["answer"]
 			var/message_index = text2num(params["message"])
-			if (!answer_index || !message_index || answer_index < 1 || message_index < 1)
+			if (!answer_key || !message_index || message_index < 1)
 				return
 			var/datum/comm_message/message = messages[message_index]
-			if (message.answered)
+			if (!(answer_key in message.possible_answers) || message.answered)
 				return
-			message.answered = answer_index
+			message.answered = answer_key
 			message.answer_callback.InvokeAsync()
 			. = TRUE
 		if ("callShuttle")
@@ -160,7 +160,7 @@
 			make_announcement(usr)
 			. = TRUE
 		if ("messageAssociates")
-			if (!authenticated_as_non_silicon_captain(usr))
+			if (!authenticated(usr) || issilicon(usr) || (GLOB.security_level < SEC_LEVEL_RED && !authenticated_as_non_silicon_captain(usr)))
 				return
 			if (!COOLDOWN_FINISHED(src, important_action_cooldown))
 				return
@@ -351,7 +351,7 @@
 		//Main section is always visible when authenticated
 		data["canBuyShuttles"] = can_buy_shuttles(user)
 		data["canMakeAnnouncement"] = FALSE
-		data["canMessageAssociates"] = FALSE
+		data["canMessageAssociates"] = !issilicon(user) && GLOB.security_level >= SEC_LEVEL_RED
 		data["canRecallShuttles"] = !issilicon(user)
 		data["canRequestNuke"] = FALSE
 		data["canSendToSectors"] = FALSE

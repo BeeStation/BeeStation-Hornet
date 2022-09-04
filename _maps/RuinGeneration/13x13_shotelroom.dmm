@@ -92,7 +92,7 @@
 /turf/open/floor/plasteel/tiled,
 /area/ruin/unpowered)
 "u" = (
-/obj/structure/chair/sofa/left{
+/obj/structure/chair/fancy/sofa/old/left{
 	dir = 4
 	},
 /turf/open/floor/wood,
@@ -122,7 +122,7 @@
 /turf/open/floor/plasteel/tiled,
 /area/ruin/unpowered)
 "D" = (
-/obj/structure/chair/sofa/right{
+/obj/structure/chair/fancy/sofa/old/right{
 	dir = 4
 	},
 /turf/open/floor/wood,

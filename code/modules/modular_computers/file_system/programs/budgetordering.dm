@@ -1,12 +1,14 @@
 /datum/computer_file/program/budgetorders
 	filename = "orderapp"
 	filedesc = "Nanotrasen Internal Requisition Network (NIRN)"
+	category = PROGRAM_CATEGORY_SUPL
 	program_icon_state = "request"
 	extended_desc = "A request network that utilizes the Nanotrasen Ordering network to purchase supplies using a department budget account."
 	requires_ntnet = TRUE
 	usage_flags = PROGRAM_LAPTOP | PROGRAM_TABLET
 	size = 20
 	tgui_id = "NtosCargo"
+	program_icon = "credit-card"
 	//Are you actually placing orders with it?
 	var/requestonly = TRUE
 	//Can the tablet see or buy illegal stuff?
@@ -54,13 +56,17 @@
 	if(get_buyer_id(user))
 		if((ACCESS_HEADS in id_card.access) || (ACCESS_QM in id_card.access))
 			requestonly = FALSE
-			buyer = SSeconomy.get_dep_account(id_card.registered_account.account_department)
+			buyer = SSeconomy.get_dep_account(id_card?.registered_account?.account_department)
 			can_approve_requests = TRUE
 		else
 			requestonly = TRUE
 			can_approve_requests = FALSE
 	else
 		requestonly = TRUE
+	if(isnull(buyer))
+		buyer = SSeconomy.get_dep_account(ACCOUNT_CAR)
+	else if(buyer.is_nonstation_account())
+		buyer = SSeconomy.get_dep_account(ACCOUNT_CAR)
 	if(buyer)
 		data["points"] = buyer.account_balance
 
@@ -214,6 +220,13 @@
 					return
 				else
 					account = SSeconomy.get_dep_account(id_card?.registered_account?.account_department)
+					if(isnull(account))
+						computer.say("The application failed to identify [id_card].")
+						return
+					else if(account.is_nonstation_account())
+						computer.say("The application rejects [id_card].")
+						return
+
 
 			var/turf/T = get_turf(src)
 			var/datum/supply_order/SO = new(pack, name, rank, ckey, reason, account)
@@ -242,6 +255,8 @@
 					var/obj/item/card/id/id_card = get_buyer_id(usr)
 					if(id_card && id_card?.registered_account)
 						SO.paying_account = SSeconomy.get_dep_account(id_card?.registered_account?.account_department)
+					if(SO.paying_account.is_nonstation_account())
+						return
 					SSshuttle.requestlist -= SO
 					SSshuttle.shoppinglist += SO
 					. = TRUE

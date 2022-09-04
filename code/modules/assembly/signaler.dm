@@ -83,6 +83,7 @@
 	data["code"] = code
 	data["minFrequency"] = MIN_FREE_FREQ
 	data["maxFrequency"] = MAX_FREE_FREQ
+	data["connection"] = !!radio_connection
 	return data
 
 /obj/item/assembly/signaler/ui_act(action, params)
@@ -94,9 +95,8 @@
 			INVOKE_ASYNC(src, .proc/signal)
 			. = TRUE
 		if("freq")
-			frequency = unformat_frequency(params["freq"])
-			frequency = sanitize_frequency(frequency, TRUE)
-			set_frequency(frequency)
+			var/new_frequency = sanitize_frequency(unformat_frequency(params["freq"]), TRUE)
+			set_frequency(new_frequency)
 			. = TRUE
 		if("code")
 			code = text2num(params["code"])
@@ -132,7 +132,9 @@
 	var/time = time2text(world.realtime,"hh:mm:ss")
 	var/turf/T = get_turf(src)
 	if(usr)
-		GLOB.lastsignalers.Add("[time] <B>:</B> [usr.key] used [src] @ location ([T.x],[T.y],[T.z]) <B>:</B> [format_frequency(frequency)]/[code]")
+		GLOB.lastsignalers.Add("[time] <B>:</B> [usr.key] used [src] @ location ([T.x],[T.y],[T.z]) <B>:</B> with frequency: [format_frequency(frequency)]/[code]")
+		log_telecomms("[time] <B>:</B> [usr.key] used [src] @ location [AREACOORD(T)] <B>:</B> with frequency: [format_frequency(frequency)]/[code]")
+		message_admins("<B>:</B> [usr.key] used [src] @ location [AREACOORD(T)] <B>:</B> with frequency: [format_frequency(frequency)]/[code]")
 
 /obj/item/assembly/signaler/receive_signal(datum/signal/signal)
 	. = FALSE
