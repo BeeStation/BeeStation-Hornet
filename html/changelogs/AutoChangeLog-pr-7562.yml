@@ -1,0 +1,5 @@
+author: CydiaLamiales
+delete-after: true
+changes:
+  - rscadd: Added a new mind trait for the medical staff
+  - tweak: Tweaked the Doctor's Delight to not drain hunger from all medical staff
