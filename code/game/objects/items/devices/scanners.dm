@@ -154,21 +154,21 @@ GENE SCANNER
 	if(brute_loss > 10)
 		message += "\t<span class='alert'>[brute_loss > 50 ? "Severe" : "Minor"] tissue damage detected.</span>"
 	if(fire_loss > 10)
-		message += "\t<span class='alert'>[fire_loss > 50 ? "Severe" : "Minor"] burn damage detected.</span>")
+		message += "\t<span class='alert'>[fire_loss > 50 ? "Severe" : "Minor"] burn damage detected.</span>"
 	if(oxy_loss > 10)
-		message += "\t<span class='info'><span class='alert'>[oxy_loss > 50 ? "Severe" : "Minor"] oxygen deprivation detected.</span>")
+		message += "\t<span class='info'><span class='alert'>[oxy_loss > 50 ? "Severe" : "Minor"] oxygen deprivation detected.</span>"
 	if(tox_loss > 10)
-		message += "\t<span class='alert'>[tox_loss > 50 ? "Severe" : "Minor"] amount of toxin damage detected.</span>")
+		message += "\t<span class='alert'>[tox_loss > 50 ? "Severe" : "Minor"] amount of toxin damage detected.</span>"
 	if(M.getStaminaLoss())
-		message += "\t<span class='alert'>Subject appears to be suffering from fatigue.</span>")
+		message += "\t<span class='alert'>Subject appears to be suffering from fatigue.</span>"
 		if(advanced)
-			message += "\t<span class='info'>Fatigue Level: [M.getStaminaLoss()]%.</span>")
+			message += "\t<span class='info'>Fatigue Level: [M.getStaminaLoss()]%.</span>"
 	if(M.getCloneLoss())
-		message += "\t<span class='alert'>Subject appears to have [M.getCloneLoss() > 30 ? "Severe" : "Minor"] cellular damage.</span>")
+		message += "\t<span class='alert'>Subject appears to have [M.getCloneLoss() > 30 ? "Severe" : "Minor"] cellular damage.</span>"
 		if(advanced)
-			message += "\t<span class='info'>Cellular Damage Level: [M.getCloneLoss()].</span>")
+			message += "\t<span class='info'>Cellular Damage Level: [M.getCloneLoss()].</span>"
 	if(!M.getorgan(/obj/item/organ/brain))
-		message += "\t<span class='alert'>Subject lacks a brain.</span>")
+		message += "\t<span class='alert'>Subject lacks a brain.</span>"
 	if(iscarbon(M))
 		var/mob/living/carbon/C = M
 		if(LAZYLEN(C.get_traumas()))
@@ -184,68 +184,68 @@ GENE SCANNER
 						trauma_desc += "permanent "
 				trauma_desc += B.scan_desc
 				trauma_text += trauma_desc
-			message += "\t<span class='alert'>Cerebral traumas detected: subject appears to be suffering from [english_list(trauma_text)].</span>")
+			message += "\t<span class='alert'>Cerebral traumas detected: subject appears to be suffering from [english_list(trauma_text)].</span>"
 		if(C.roundstart_quirks.len)
-			message += "\t<span class='info'>Subject has the following physiological traits: [C.get_trait_string()].</span>")
+			message += "\t<span class='info'>Subject has the following physiological traits: [C.get_trait_string()].</span>"
 	if(advanced)
-		message += "\t<span class='info'>Brain Activity Level: [(200 - M.getOrganLoss(ORGAN_SLOT_BRAIN))/2]%.</span>")
+		message += "\t<span class='info'>Brain Activity Level: [(200 - M.getOrganLoss(ORGAN_SLOT_BRAIN))/2]%.</span>"
 
 	if(M.radiation)
-		message += "\t<span class='alert'>Subject is irradiated.</span>")
+		message += "\t<span class='alert'>Subject is irradiated.</span>"
 		if(advanced)
-			message += "\t<span class='info'>Radiation Level: [M.radiation]%.</span>")
+			message += "\t<span class='info'>Radiation Level: [M.radiation]%.</span>"
 
 	if(advanced && M.hallucinating())
-		message += "\t<span class='info'>Subject is hallucinating.</span>")
+		message += "\t<span class='info'>Subject is hallucinating.</span>"
 
 	//Eyes and ears
 	if(advanced)
 		if(iscarbon(M))
 			var/mob/living/carbon/C = M
 			var/obj/item/organ/ears/ears = C.getorganslot(ORGAN_SLOT_EARS)
-			message += "\t<span class='info'><b>==EAR STATUS==</b></span>")
+			message += "\t<span class='info'><b>==EAR STATUS==</b></span>"
 			if(istype(ears))
 				var/healthy = TRUE
 				if(HAS_TRAIT_FROM(C, TRAIT_DEAF, GENETIC_MUTATION))
 					healthy = FALSE
-					message += "\t<span class='alert'>Subject is genetically deaf.</span>")
+					message += "\t<span class='alert'>Subject is genetically deaf.</span>"
 				else if(HAS_TRAIT(C, TRAIT_DEAF))
 					healthy = FALSE
-					message += "\t<span class='alert'>Subject is deaf.</span>")
+					message += "\t<span class='alert'>Subject is deaf.</span>"
 				else
 					if(ears.damage)
-						message += "\t<span class='alert'>Subject has [ears.damage > ears.maxHealth ? "permanent ": "temporary "]hearing damage.</span>")
+						message += "\t<span class='alert'>Subject has [ears.damage > ears.maxHealth ? "permanent ": "temporary "]hearing damage.</span>"
 						healthy = FALSE
 					if(ears.deaf)
-						message += "\t<span class='alert'>Subject is [ears.damage > ears.maxHealth ? "permanently ": "temporarily "] deaf.</span>")
+						message += "\t<span class='alert'>Subject is [ears.damage > ears.maxHealth ? "permanently ": "temporarily "] deaf.</span>"
 						healthy = FALSE
 				if(healthy)
-					message += "\t<span class='info'>Healthy.</span>")
+					message += "\t<span class='info'>Healthy.</span>"
 			else
-				message += "\t<span class='alert'>Subject does not have ears.</span>")
+				message += "\t<span class='alert'>Subject does not have ears.</span>"
 			var/obj/item/organ/eyes/eyes = C.getorganslot(ORGAN_SLOT_EYES)
-			message += "\t<span class='info'><b>==EYE STATUS==</b></span>")
+			message += "\t<span class='info'><b>==EYE STATUS==</b></span>"
 			if(istype(eyes))
 				var/healthy = TRUE
 				if(HAS_TRAIT(C, TRAIT_BLIND))
-					message += "\t<span class='alert'>Subject is blind.</span>")
+					message += "\t<span class='alert'>Subject is blind.</span>"
 					healthy = FALSE
 				if(HAS_TRAIT(C, TRAIT_NEARSIGHT))
-					message += "\t<span class='alert'>Subject is nearsighted.</span>")
+					message += "\t<span class='alert'>Subject is nearsighted.</span>"
 					healthy = FALSE
 				if(eyes.damage > 30)
-					message += "\t<span class='alert'>Subject has severe eye damage.</span>")
+					message += "\t<span class='alert'>Subject has severe eye damage.</span>"
 					healthy = FALSE
 				else if(eyes.damage > 20)
-					message += "\t<span class='alert'>Subject has significant eye damage.</span>")
+					message += "\t<span class='alert'>Subject has significant eye damage.</span>"
 					healthy = FALSE
 				else if(eyes.damage)
-					message += "\t<span class='alert'>Subject has minor eye damage.</span>")
+					message += "\t<span class='alert'>Subject has minor eye damage.</span>"
 					healthy = FALSE
 				if(healthy)
-					message += "\t<span class='info'>Healthy.</span>")
+					message += "\t<span class='info'>Healthy.</span>"
 			else
-				message += "\t<span class='alert'>Subject does not have eyes.</span>")
+				message += "\t<span class='alert'>Subject does not have eyes.</span>"
 
 
 	// Body part damage report
