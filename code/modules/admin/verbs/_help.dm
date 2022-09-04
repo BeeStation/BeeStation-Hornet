@@ -639,7 +639,7 @@
 		data_glob.unclaimed_tickets -= src
 		state = TICKET_ACTIVE
 		data_glob.ListInsert(src)
-	var/updated = claimee
+	var/updated = claimee?.ckey
 	if(updated)
 		AddInteraction("blue", "Claimed by [key_name] (Overwritten from [updated])")
 	else

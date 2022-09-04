@@ -78,9 +78,9 @@ export const TicketMenus = ({
         actions_confirm={[['reject', 'bad']]}
         admin_actions={[['flw', 'blue']]}
         admin_actions_confirm={[
-          ['mhelp', 'label'],
           ['ic', 'label'],
         ]}
+        conversion
       />
       <TicketMenu
         ticket_list={open_tickets}
@@ -91,13 +91,15 @@ export const TicketMenus = ({
         ]}
         actions_confirm={[
           ['reject', 'bad'],
+        ]}
+        admin_actions={[
+          ['flw', 'blue'],
           ['close', 'label'],
         ]}
-        admin_actions={[['flw', 'blue']]}
         admin_actions_confirm={[
-          ['mhelp', 'label'],
           ['ic', 'label'],
         ]}
+        conversion
       />
       <TicketMenu
         ticket_list={resolved_tickets}
@@ -126,6 +128,7 @@ export const TicketMenu = (props, context) => {
     actions_confirm = [],
     admin_actions_confirm = [],
     collapsible,
+    conversion,
   } = props;
   const { act } = useBackend(context);
   return (
@@ -176,24 +179,26 @@ export const TicketMenu = (props, context) => {
                   confirm
                 />
               ))}
-              {admin_actions?.map((action) => (
+              {ticket.is_admin_type ? admin_actions?.map((action) => (
                 <ActionButton
                   key={action[0]}
                   action={action}
                   ticket_id={ticket.id}
                 />
-              ))}
-              {(ticket.is_admin_type
-                ? admin_actions_confirm
-                : [['ahelp', 'label']]
-              ).map((action) => (
-                <ActionButton
+              )) : null}
+              {ticket.is_admin_type ? admin_actions_confirm?.map((action) =>
+                (<ActionButton
                   key={action[0]}
                   action={action}
                   ticket_id={ticket.id}
                   confirm
-                />
-              ))}
+                />)
+              ) : null}
+              {conversion ? <ActionButton
+                action={ticket.is_admin_type ? ['mhelp', 'label'] : ['ahelp', 'label']}
+                ticket_id={ticket.id}
+                confirm
+              /> : null}
             </Table.Row>
             <BlockQuote>{ticket.name}</BlockQuote>
             <Box color={ticket.claimed_key_name ? 'good' : 'bad'}>

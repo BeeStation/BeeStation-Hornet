@@ -139,12 +139,16 @@ export const TicketClosureStates = ({ admin }, context) => {
       <ButtonConfirm
         content="REJT"
         onClick={() => act("reject")} />
-      <ButtonConfirm
-        content="IC"
-        onClick={() => act("markic")} />
-      <ButtonConfirm
-        content="CLOSE"
-        onClick={() => act("close")} />
+      {admin ? (
+        <>
+          <ButtonConfirm
+            content="IC"
+            onClick={() => act("markic")} />
+          <ButtonConfirm
+            content="CLOSE"
+            onClick={() => act("close")} />
+        </>
+      ): null}
       <Button
         content="RSLVE"
         onClick={() => act("resolve")} />
