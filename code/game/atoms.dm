@@ -542,11 +542,7 @@
   * Produces a signal COMSIG_PARENT_EXAMINE
   */
 /atom/proc/examine(mob/user)
-	var/examine_string = list("[get_examine_string(user, TRUE)].")
-	if(examine_string)
-		. = list("[examine_string]")
-	else
-		. = list()
+	. = list("[get_examine_string(user, TRUE)].")
 
 	if(desc)
 		. += desc
