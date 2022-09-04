@@ -174,7 +174,7 @@
 			var/datum/admins/admin_datum = GLOB.admin_datums[usr.ckey]
 			if(!admin_datum)
 				return
-			admin_datum.admin_follow(get_mob_by_ckey(ticket.initiator.ckey))
+			admin_datum.admin_follow(get_mob_by_ckey(ticket.initiator_ckey))
 	return claim_ticket
 
 /datum/help_ui/mentor/additional_act(action, datum/help_ticket/ticket, claim_ticket)
