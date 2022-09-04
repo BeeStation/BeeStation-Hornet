@@ -895,8 +895,7 @@ GLOBAL_LIST_EMPTY(allCasters)
 
 /obj/item/newspaper/examine(mob/user)
 	. = ..()
-	if(user && !(REF(user) in horoscope.has_read))
-		. += "<span class='notice'>Alt-Click to read your horoscope!</span>"
+	. += "<span class='notice'>Alt-Click to read your horoscope!</span>"
 
 /obj/item/newspaper/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is focusing intently on [src]! It looks like [user.p_theyre()] trying to commit sudoku... until [user.p_their()] eyes light up with realization!</span>")
