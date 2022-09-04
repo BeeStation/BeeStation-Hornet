@@ -453,7 +453,7 @@
 
 
 /obj/machinery/airalarm/proc/shock(mob/user, prb)
-	if((stat & (NOPOWER)))		// unpowered, no shock
+	if((machine_stat & (NOPOWER)))		// unpowered, no shock
 		return 0
 	if(!prob(prb))
 		return 0 //you lucked out, no shock for you
@@ -628,7 +628,7 @@
 				icon_state = "alarm_b1"
 		return
 
-	if((stat & (NOPOWER|BROKEN)) || shorted)
+	if((machine_stat & (NOPOWER|BROKEN)) || shorted)
 		icon_state = "alarmp"
 		return
 
@@ -642,7 +642,7 @@
 			icon_state = "alarm1"
 
 /obj/machinery/airalarm/process()
-	if((stat & (NOPOWER|BROKEN)) || shorted)
+	if((machine_stat & (NOPOWER|BROKEN)) || shorted)
 		return
 
 	var/turf/location = get_turf(src)
@@ -705,7 +705,7 @@
 
 	var/new_area_danger_level = 0
 	for(var/obj/machinery/airalarm/AA in A)
-		if (!(AA.stat & (NOPOWER|BROKEN)) && !AA.shorted)
+		if (!(AA.machine_stat & (NOPOWER|BROKEN)) && !AA.shorted)
 			new_area_danger_level = clamp(max(new_area_danger_level, AA.danger_level), 0, 1)
 	if(A.atmosalert(new_area_danger_level,src)) //if area was in normal state or if area was in alert state
 		post_alert(new_area_danger_level)
@@ -818,7 +818,7 @@
 		togglelock(user)
 
 /obj/machinery/airalarm/proc/togglelock(mob/living/user)
-	if(stat & (NOPOWER|BROKEN))
+	if(machine_stat & (NOPOWER|BROKEN))
 		to_chat(user, "<span class='warning'>It does nothing!</span>")
 	else
 		if(src.allowed(usr) && !wires.is_cut(WIRE_IDSCAN))

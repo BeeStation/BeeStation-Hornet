@@ -46,7 +46,7 @@
 	update_icon()
 
 /obj/machinery/smartfridge/update_icon()
-	if(!stat)
+	if(!machine_stat)
 		if (visible_contents)
 			switch(contents.len)
 				if(0)
@@ -86,7 +86,7 @@
 	if(default_deconstruction_crowbar(O))
 		return
 
-	if(!stat)
+	if(!machine_stat)
 
 		if(contents.len >= max_n_of_items)
 			to_chat(user, "<span class='warning'>\The [src] is full!</span>")
@@ -154,7 +154,7 @@
 
 
 /obj/machinery/smartfridge/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
-	if(!stat)
+	if(!machine_stat)
 		if (istype(AM, /obj/item))
 			var/obj/item/O = AM
 			if(contents.len < max_n_of_items && accept_check(O))
