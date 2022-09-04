@@ -112,6 +112,7 @@
 	minimal_access = list(ACCESS_MAINT_TUNNELS, ACCESS_MEDICAL)
 	paycheck = PAYCHECK_EASY
 	departments = DEPARTMENT_BITFLAG_MEDICAL
+	mind_traits = list(TRAIT_MEDICAL_METABOLISM)
 
 	paycheck_department = ACCOUNT_MED
 	rpg_title = "Enchanter"
