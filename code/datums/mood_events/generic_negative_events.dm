@@ -56,10 +56,12 @@
 	var/datum/component/L = owner
 	var/mob/living/crew = L.parent
 
-	L.add_movespeed_modifier("delta_panic", multiplicative_slowdown=-2)
+	crew.add_movespeed_modifier("delta_panic", multiplicative_slowdown=-1.3)
 
 /datum/mood_event/delta/remove_effects()
-	L.remove_movespeed_modifier("delta_panic")
+	var/datum/component/L = owner
+	var/mob/living/crew = L.parent
+	crew.remove_movespeed_modifier("delta_panic")
 
 /datum/mood_event/delta_cancel
 	description = "<span class='warning'>I thought it wasn't a drill...</span>"
@@ -70,10 +72,12 @@
 	var/datum/component/L = owner
 	var/mob/living/crew = L.parent
 
-	L.add_movespeed_modifier("delta_recover", multiplicative_slowdown=1.5)
+	crew.add_movespeed_modifier("delta_recover", multiplicative_slowdown=1.5)
 
 /datum/mood_event/delta_can/remove_effects()
-	L.remove_movespeed_modifier("delta_recover")
+	var/datum/component/L = owner
+	var/mob/living/crew = L.parent
+	crew.remove_movespeed_modifier("delta_recover")
 
 /datum/mood_event/depression
 	description = "<span class='warning'>I feel sad for no particular reason.</span>\n"
