@@ -48,15 +48,19 @@
 
 /obj/machinery/rnd/production/examine(mob/user)
 	. = ..()
-	alert_research() // juust in case :)
-	if(pending_research.len)
+	var/num_research = length(pending_research)
+	if(num_research)
 		. += "\nPENDING RESEARCH:"
-		. += pending_research.Join("\n")
+		var/list/displayed = reverseList(pending_research)  // newest first
+		if(num_research >= MAX_SENT)
+			displayed.Cut(MAX_SENT)
+			displayed += "And more..."
+		. += displayed.Join("\n")
 
 /obj/machinery/rnd/production/update_icon()
 	. = ..()
 	cut_overlays()
-	if(pending_research.len)
+	if(length(pending_research))
 		add_overlay("lathe-research")
 
 /obj/machinery/rnd/production/proc/on_materials_changed()
@@ -71,20 +75,14 @@
 	host_research.copy_research_to(stored_research, TRUE)
 	update_designs()
 
-/obj/machinery/rnd/production/proc/alert_research()
+/obj/machinery/rnd/production/proc/alert_research(var/node_id)
 	SIGNAL_HANDLER
-	pending_research.Cut()
-	var/list/diff_nodes = host_research.researched_designs ^ stored_research.researched_designs
-	var/amount_sent = 0
-	if(!diff_nodes)
-		return
 
-	for(var/i in diff_nodes)
+	var/datum/techweb_node/node = SSresearch.techweb_node_by_id(node_id)
+
+	for(var/i in node.design_ids)
 		var/datum/design/d = SSresearch.techweb_design_by_id(i)
 		if((isnull(allowed_department_flags) || (d.departmental_flags & allowed_department_flags)) && (d.build_type & allowed_buildtypes))
-			if(amount_sent >= MAX_SENT)
-				pending_research[MAX_SENT-1] = "And more!"
-				break
 			pending_research += d.name
 			amount_sent += 1
 	update_icon()
