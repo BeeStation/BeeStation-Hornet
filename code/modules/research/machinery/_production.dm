@@ -71,14 +71,14 @@
 	if(!diff_nodes)
 		return
 
-	for(var/datum/techweb_node/x in diff_nodes)
-		var/datum/design/d = SSresearch.techweb_design_by_id(x)
-			if((isnull(allowed_department_flags) || (d.departmental_flags & allowed_department_flags)) && (d.build_type & allowed_buildtypes))
-				if(amount_sent >= MAX_SENT)
-					pending_research[MAX_SENT] = "And more!"
-					return
-				pending_research += d.name
-
+	for(var/i in diff_nodes)
+		var/datum/design/d = SSresearch.techweb_design_by_id(i)
+		if((isnull(allowed_department_flags) || (d.departmental_flags & allowed_department_flags)) && (d.build_type & allowed_buildtypes))
+			if(amount_sent >= MAX_SENT)
+				pending_research[MAX_SENT] = "And more!"
+				return
+			pending_research += d.name
+			amount_sent += 1
 
 /obj/machinery/rnd/production/proc/update_designs()
 	pending_research.Cut()
