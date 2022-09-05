@@ -2090,6 +2090,24 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	restricted = TRUE
 	restricted_roles = list(JOB_NAME_CLOWN, JOB_NAME_CHAPLAIN)
 
+/datum/uplink_item/role_restricted/boombox
+	name = "EMP Sound Synthesizer"
+	desc = "An emp blaster disguised as a sound synth.\
+	 Simply play the code sound, and the device will automatically emp everything in a certain range."
+	item = /obj/item/soundsynth/boombox
+	cost = 5
+	limited_stock = 1  // mostly just to prevent memory spam
+	restricted = TRUE
+	restricted_roles = list(JOB_NAME_CLOWN, JOB_NAME_MIME)
+
+/datum/uplink_item/role_restricted/boombox/spawn_item(spawn_path, mob/user, datum/component/uplink/U)
+	/obj/item/soundsynth/boombox/new_box = ..()
+	var/code = new_box.generate_sound
+	if(user.mind)
+		user.mind.store_memory("Code for [new_box] : [code]")
+
+	return new_box
+
 /datum/uplink_item/role_restricted/concealed_weapon_bay
 	name = "Concealed Weapon Bay"
 	desc = "A modification for non-combat mechas that allows them to equip one piece of equipment designed for combat mechs. \

@@ -75,3 +75,29 @@
         M.playsound_local(get_turf(src), selected_sound, volume, shiftpitch)
         spam_flag = world.timeofday
         //to_chat(M, selected_sound) //this doesn't actually go to their chat very much at all.
+
+/obj/item/soundsynth/boombox  // tator item
+	var/trigger_sound
+	var/recharge_rate = 5 MINUTES
+	COOLDOWN_DECLARE(kaboom)
+
+/obj/item/soundsynth/boombox/generate_sound()
+	trigger_sound = pick(sound_list)
+	return trigger_sound // returns to the uplink buy proc, to add to memory
+
+/obj/item/soundsynth/boombox/attack_self(mob/user)
+	if(trigger_sound == selected_sound)
+		if(COOLDOWN_FINISHED(src, kaboom))
+			for(atom/movable/affected in oview(2, user))
+				affected.emp_act(EMP_HEAVY)
+				do_sparks(1, FALSE, affected)
+				if(ismob(affected))
+					var/mob/A = affected
+					log_combat(user, A, "attacked", "EMP-boombox")
+			user.visible_message("<span class='danger'>A wave of static seems to eminate out of [user].</span>")"
+			do_sparks(1, FALSE, user)
+			COOLDOWN_START(src, kaboom, 5 MINUTES)
+		else
+			to_chat(user, "<span class='warning'>\The [src] is still recharging! You can use it again in [round((kaboom - world.time) / 10)] seconds.")
+		return
+	. = ..()
