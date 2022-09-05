@@ -18,7 +18,7 @@
 	var/engine_power = 1
 	var/state = ENGINE_WELDED //welding shmelding
 
-/obj/structure/shuttle/Initialize(mapload)
+/obj/structure/shuttle/engine/Initialize(mapload)
 	. = ..()
 	if(anchored && state == ENGINE_UNWRENCHED)
 		state = ENGINE_WRENCHED
