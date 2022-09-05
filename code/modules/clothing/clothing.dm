@@ -256,7 +256,7 @@
 		add_overlay(damaged_clothes_icon, 1)
 	else
 		damaged_clothes = 0
-		cut_overlay(damaged_clothes_icons[index], TRUE)
+		cut_overlay(damaged_clothes_icons[index])
 
 
 /*

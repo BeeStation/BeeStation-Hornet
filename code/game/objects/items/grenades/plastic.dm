@@ -69,7 +69,7 @@
 		if(!QDELETED(target))
 			location = get_turf(target)
 			density_check = target.density //since turfs getting exploded makes this a bit fucky wucky we need to assert whether we should go directional before that part
-			target.cut_overlay(plastic_overlay, TRUE)
+			target.cut_overlay(plastic_overlay)
 			if(!ismob(target) || full_damage_on_mobs)
 				target.ex_act(EXPLODE_HEAVY, target)
 	else
@@ -141,7 +141,7 @@
 		else if(istype(AM, /mob/living))
 			plastic_overlay.layer = FLOAT_LAYER
 
-		target.add_overlay(plastic_overlay, TRUE)
+		target.add_overlay(plastic_overlay)
 		if(!nadeassembly)
 			to_chat(user, "<span class='notice'>You plant the bomb. Timer counting down from [det_time].</span>")
 			addtimer(CALLBACK(src, .proc/prime), det_time*10)
@@ -232,7 +232,7 @@
 	if(target)
 		if(!QDELETED(target))
 			location = get_turf(target)
-			target.cut_overlay(plastic_overlay, TRUE)
+			target.cut_overlay(plastic_overlay)
 			if(!ismob(target) || full_damage_on_mobs)
 				target.ex_act(2, target)
 	else

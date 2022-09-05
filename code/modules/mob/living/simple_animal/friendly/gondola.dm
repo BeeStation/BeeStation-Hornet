@@ -51,7 +51,7 @@
 			eyes_overlay.pixel_y = -8
 			moustache_overlay.pixel_y = -8
 
-	cut_overlays(TRUE)
+	cut_overlays()
 	add_overlay(body_overlay)
 	add_overlay(eyes_overlay)
 	add_overlay(moustache_overlay)

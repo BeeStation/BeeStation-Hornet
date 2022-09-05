@@ -485,7 +485,7 @@
 		knife_overlay = mutable_appearance(bayonet_icons, state)
 		knife_overlay.pixel_x = knife_x_offset
 		knife_overlay.pixel_y = knife_y_offset
-		add_overlay(knife_overlay, TRUE)
+		add_overlay(knife_overlay)
 	else
 		return ..()
 
@@ -573,7 +573,7 @@
 		return
 	bayonet = null
 	if(knife_overlay)
-		cut_overlay(knife_overlay, TRUE)
+		cut_overlay(knife_overlay)
 		knife_overlay = null
 	return TRUE
 
