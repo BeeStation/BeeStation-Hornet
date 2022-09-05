@@ -110,12 +110,12 @@
 		return TRUE
 	return ..()
 
-/datum/xenoartifact_trait/activator/batteryneed/calculate_charge(datum/source, obj/item/thing, mob/user, atom/target, params)
+/datum/xenoartifact_trait/activator/batteryneed/calculate_charge(datum/source, obj/item/stock_parts/cell/thing, mob/user, atom/target, params)
 	var/obj/item/xenoartifact/X = source
-	if(istype(thing, /obj/item/stock_parts/cell))
-		var/obj/item/stock_parts/cell/C = thing
-		if(C.use(X.charge_req*10))
-			X.default_activate(charge, user, user)
+	if(istype(thing))
+		return
+	if(thing.use(X.charge_req*10))
+		X.default_activate(charge, user, user)
 
 ///============
 /// Weighted activator, picking up activates

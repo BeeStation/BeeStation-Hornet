@@ -52,6 +52,9 @@
 	//snowflake variable for shaped
 	var/transfer_prints = FALSE
 
+	//
+	var/list/test = list()
+
 /obj/item/xenoartifact/ComponentInitialize()
 	. = ..()
 	AddComponent(/datum/component/xenoartifact_pricing)
@@ -59,6 +62,11 @@
 
 /obj/item/xenoartifact/Initialize(mapload, difficulty)
 	. = ..()
+
+	//If you're the first artifact, be a lamb and ask the globals to setup
+	if(!GLOB.xenoa_all_traits)
+		generate_xenoa_statics()
+	test = GLOB.xenoa_activators
 
 	material = difficulty //Difficulty is set, in most cases
 	if(!material)
@@ -69,14 +77,14 @@
 	switch(material)
 		if(XENOA_BLUESPACE) //Check xenoartifact_materials.dm for info on artifact materials/types/traits
 			name = "bluespace [name]"
-			generate_traits(XENOA_BLUESPACE_BLACKLIST)
+			generate_traits(GLOB.xenoa_bluespace_blacklist)
 			if(!price)
 				price = pick(100, 200, 300)
 			extra_masks = pick(1)
 
 		if(XENOA_PLASMA)
 			name = "plasma [name]"
-			generate_traits(XENOA_PLASMA_BLACKLIST)
+			generate_traits(GLOB.xenoa_plasma_blacklist)
 			if(!price)
 				price = pick(200, 300, 500)
 			malfunction_mod = 0.5
@@ -84,7 +92,7 @@
 
 		if(XENOA_URANIUM)
 			name = "uranium [name]"
-			generate_traits(XENOA_URANIUM_BLACKLIST, TRUE) 
+			generate_traits(GLOB.xenoa_uranium_blacklist, TRUE) 
 			if(!price)
 				price = pick(300, 500, 800) 
 			malfunction_mod = 1
@@ -222,7 +230,7 @@
 	if(COOLDOWN_FINISHED(src, xenoa_cooldown))
 		COOLDOWN_START(src, xenoa_cooldown, cooldown+cooldownmod)
 		if(prob(malfunction_chance) && traits.len < 6 + (material == XENOA_URANIUM ? 1 : 0)) //See if we pick up an malfunction
-			generate_trait_unique(XENOA_MALFS)
+			generate_trait_unique(GLOB.xenoa_malfs)
 			malfunction_chance = 0 //Lower chance after contracting 
 		else //otherwise increase chance.
 			malfunction_chance = min(malfunction_chance + malfunction_mod, 100)
@@ -255,25 +263,25 @@
 ///Generate traits outside of blacklist. Malf = TRUE if you want malfunctioning traits.
 /obj/item/xenoartifact/proc/generate_traits(var/list/blacklist_traits, malf = FALSE)
 	var/datum/xenoartifact_trait/desc_holder
-	desc_holder = generate_trait_unique(XENOA_ACTIVATORS, blacklist_traits, FALSE) //Activator
+	desc_holder = generate_trait_unique(GLOB.xenoa_activators, blacklist_traits, FALSE) //Activator
 	special_desc = initial(desc_holder.desc) ? "[special_desc] [initial(desc_holder.desc)]" : "[special_desc]n Unknown"
 
 	desc_holder = null
 	var/datum/xenoartifact_trait/minor_desc_holder
 	for(var/i in 1 to 3)
-		minor_desc_holder = generate_trait_unique(XENOA_MINORS, blacklist_traits, FALSE) //Minor/s
+		minor_desc_holder = generate_trait_unique(GLOB.xenoa_minors, blacklist_traits, FALSE) //Minor/s
 		desc_holder = desc_holder ? desc_holder : minor_desc_holder
 		if(!touch_desc)
-			touch_desc = traits[traits.len] 
+			touch_desc = traits[traits.len]
 			if(!touch_desc.on_touch(src, src))
 				touch_desc = null //not setting this to null fucks with check, qdel refuses to be helpful another day
 
 	special_desc = initial(desc_holder?.desc) ? "[special_desc] [initial(desc_holder.desc)] material." : "[special_desc] material."
 
 	if(malf)
-		generate_trait_unique(XENOA_MALFS, blacklist_traits) //Malf
+		generate_trait_unique(GLOB.xenoa_malfs, blacklist_traits) //Malf
 
-	desc_holder = generate_trait_unique(XENOA_MAJORS, blacklist_traits, FALSE) //Major
+	desc_holder = generate_trait_unique(GLOB.xenoa_majors, blacklist_traits, FALSE) //Major
 	special_desc = initial(desc_holder.desc) ? "[special_desc] The shape is [initial(desc_holder.desc)]." : "[special_desc] The shape is Unknown."
 
 	charge_req = rand(1, 10) * 10

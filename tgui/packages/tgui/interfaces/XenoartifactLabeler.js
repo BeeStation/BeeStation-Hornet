@@ -26,14 +26,14 @@ export const XenoartifactLabeler = (props, context) => {
 const XenoartifactLabelerActivators = (props, context) => {
   const { act, data } = useBackend(context);
   const {
-    activator,
+    selected_activator_traits,
     activator_traits,
-    minor_trait,
+    selected_minor_traits,
     minor_traits,
-    major_trait,
+    selected_major_traits,
     major_traits,
     malfunction_list,
-    malfunction,
+    selected_malfunction_traits,
     info_list,
   } = data;
   return (
@@ -42,7 +42,7 @@ const XenoartifactLabelerActivators = (props, context) => {
         <Box>
           {
             activator_traits.map(trait => (<XenoartifactLabelerGenerateList 
-              specific_trait={trait} check_against={activator} key={trait}
+              specific_trait={trait} check_against={selected_activator_traits} key={trait}
               trait_type="activator" />))
           }
         </Box>
@@ -51,7 +51,7 @@ const XenoartifactLabelerActivators = (props, context) => {
         <Box>
           {
             minor_traits.map(trait => (<XenoartifactLabelerGenerateList 
-              specific_trait={trait} check_against={minor_trait} key={trait}
+              specific_trait={trait} check_against={selected_minor_traits} key={trait}
               trait_type="minor" />))
           }
         </Box>
@@ -60,7 +60,7 @@ const XenoartifactLabelerActivators = (props, context) => {
         <Box>
           {
             major_traits.map(trait => (<XenoartifactLabelerGenerateList 
-              specific_trait={trait} check_against={major_trait} key={trait} 
+              specific_trait={trait} check_against={selected_major_traits} key={trait} 
               trait_type="major" />))
           }
         </Box>
@@ -70,7 +70,7 @@ const XenoartifactLabelerActivators = (props, context) => {
           {
             malfunction_list.map(trait => (<XenoartifactLabelerGenerateList 
               key={trait}
-              specific_trait={trait} check_against={malfunction} 
+              specific_trait={trait} check_against={selected_malfunction_traits} 
               trait_type="malfunction" />))
           }
         </Box>

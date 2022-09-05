@@ -20,13 +20,13 @@
 	var/list/temp = subtypesof(path)
 	var/list/weighted = list()
 	for(var/datum/xenoartifact_trait/T as() in temp)
-		weighted += list((T) = initial(T?.weight))
+		weighted += list((T) = initial(T.weight))
 	return weighted
 
 ///Compile a blacklist of traits from a given flag/s
 /proc/compile_artifact_blacklist(var/flags)
 	var/list/output = list()
-	for(var/datum/xenoartifact_trait/T as() in XENOA_ALL_TRAITS)
+	for(var/datum/xenoartifact_trait/T as() in GLOB.xenoa_all_traits)
 		if(!(initial(T.flags) & flags))
 			output += T
 	return output

@@ -32,6 +32,13 @@
 	///Cooldown for stickers
 	COOLDOWN_DECLARE(sticker_cooldown)
 
+/obj/item/xenoartifact_labeler/Initialize(mapload)
+	. = ..()
+	activator_traits = get_trait_list_desc(activator_traits, GLOB.xenoa_activators)
+	minor_traits = get_trait_list_desc(minor_traits, GLOB.xenoa_minors)
+	major_traits = get_trait_list_desc(major_traits, GLOB.xenoa_majors)
+	malfunction_list = get_trait_list_desc(malfunction_list, GLOB.xenoa_malfs)
+
 /obj/item/xenoartifact_labeler/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
@@ -41,16 +48,16 @@
 /obj/item/xenoartifact_labeler/ui_data(mob/user)
 	var/list/data = list()
 	data["selected_activator_traits"] = selected_activator_traits
-	data["activator_traits"] = get_trait_list_desc(activator_traits, /datum/xenoartifact_trait/activator)
+	data["activator_traits"] = activator_traits
 
 	data["selected_minor_traits"] = selected_minor_traits
-	data["minor_traits"] = get_trait_list_desc(minor_traits, /datum/xenoartifact_trait/minor)
+	data["minor_traits"] = minor_traits
 
 	data["selected_major_traits"] = selected_major_traits
-	data["major_traits"] = get_trait_list_desc(major_traits, /datum/xenoartifact_trait/major)
+	data["major_traits"] = major_traits
 
 	data["selected_malfunction_traits"] = selected_malfunction_traits
-	data["malfunction_list"] = get_trait_list_desc(malfunction_list, /datum/xenoartifact_trait/malfunction)
+	data["malfunction_list"] = malfunction_list
 
 	data["info_list"] = info_list
 
@@ -76,23 +83,19 @@
 		sticker_name = sanitize_text(params["name"])
 		return
 
-	trait_toggle(action, "selected_activator_traits", activator_traits, selected_activator_traits)
+	trait_toggle(action, "activator", activator_traits, selected_activator_traits)
 	trait_toggle(action, "minor", minor_traits, selected_minor_traits)
 	trait_toggle(action, "major", major_traits, selected_major_traits)
-	trait_toggle(action, "selected_malfunction_traits", malfunction_list, selected_malfunction_traits)
+	trait_toggle(action, "malfunction", malfunction_list, selected_malfunction_traits)
 
 	update_icon()
 	return TRUE
 
 //Get a list of all the specified trait types names, actually
-/obj/item/xenoartifact_labeler/proc/get_trait_list_desc(list/traits, trait_type)
-	trait_type = typesof(trait_type)
-	for(var/t in trait_type)
-		var/datum/xenoartifact_trait/X = t
-		if(initial(X.desc) && !(initial(X.desc) in traits) && !(initial(X.label_name)))
-			traits += initial(X.desc)
-		else if(initial(X.label_name) && !(initial(X.label_name) in traits)) //For cases where the trait doesn't have a desc or is tool cool to use one
-			traits += initial(X.label_name)
+/obj/item/xenoartifact_labeler/proc/get_trait_list_desc(list/traits, list/trait_type)
+	for(var/T in trait_type)
+		var/datum/xenoartifact_trait/X = T
+		traits += (initial(X.desc) || initial(X.label_name))
 	return traits
 
 /obj/item/xenoartifact_labeler/proc/look_for(list/place, culprit) //This isn't really needed but, It's easier to use as a function. What does this even do?
@@ -134,19 +137,20 @@
 	for(var/t in trait_list)
 		new_trait = desc2datum(t)
 		description_holder = new_trait
-		if(action == "assign_[toggle_type]_[t]")
-			if(!look_for(active_trait_list, t))
-				active_trait_list += t
-				info_list += initial(description_holder.label_desc)
-				sticker_traits += new_trait
-			else
-				active_trait_list -= t
-				info_list -= initial(description_holder.label_desc)
-				sticker_traits -= new_trait
+		if(action != "assign_[toggle_type]_[t]")
+			continue
+		if(!look_for(active_trait_list, t))
+			active_trait_list += t
+			info_list += initial(description_holder.label_desc)
+			sticker_traits += new_trait
+		else
+			active_trait_list -= t
+			info_list -= initial(description_holder.label_desc)
+			sticker_traits -= new_trait
 
 //This is just a hacky way of getting the info from a datum using its desc becuase I wrote this last and it's not heartbreaking
 /obj/item/xenoartifact_labeler/proc/desc2datum(udesc)
-	for(var/trait in typesof(/datum/xenoartifact_trait))
+	for(var/trait in GLOB.xenoa_all_traits)
 		var/datum/xenoartifact_trait/X = trait //typecast
 		if((udesc == initial(X.desc)) || (udesc == initial(X.label_name)))
 			return trait
