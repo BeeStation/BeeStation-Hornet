@@ -151,7 +151,7 @@
 	restore(L)
 
 /datum/reagent/corgium/proc/restore(mob/living/L)
-	REMOVE_TRAIT(L, TRAIT_MUTE, CORGIUM_TRAIT)
+	ADD_TRAIT(L, TRAIT_MUTE, CORGIUM_TRAIT)
 	var/obj/shapeshift_holder/H = locate() in L
 	if(!H)
 		return

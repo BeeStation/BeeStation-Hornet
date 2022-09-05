@@ -57,3 +57,8 @@
 
 ///Chance to avoid target if wearing bomb suit
 #define XENOA_DEFLECT_CHANCE 45
+
+//Xenoartifact signals.
+#define XENOA_DEFAULT_SIGNAL "xenoa_default_signal"
+#define XENOA_SIGNAL "xenoa_signal"
+#define XENOA_CHANGE_PRICE "xenoa_change_price"

@@ -143,58 +143,57 @@
 	if(!linked_inbox)
 		say("Error. No linked hardware.")
 		return
-	else
-		var/obj/selling_item
-		for(var/obj/I in oview(1, linked_inbox))
-			for(var/datum/xenoartifact_seller/buyer/B in buyers)
-				if(istype(I, B.buying))
-					buyers -= B
-					addtimer(CALLBACK(src, .proc/generate_new_buyer), (rand(1,3)*60) SECONDS)
-					selling_item = I
-					break
-			if(selling_item)
+	var/obj/selling_item
+	for(var/obj/I in oview(1, linked_inbox))
+		for(var/datum/xenoartifact_seller/buyer/B as() in buyers)
+			if(istype(I, B.buying))
+				buyers -= B
+				addtimer(CALLBACK(src, .proc/generate_new_buyer), (rand(1,3)*60) SECONDS)
+				selling_item = I
 				break
-		var/final_price
-		var/info
 		if(selling_item)
-			if(istype(selling_item, /obj/item/xenoartifact))
-				var/datum/component/xenoartifact_pricing/X = selling_item.GetComponent(/datum/component/xenoartifact_pricing)
-				if(X)
-					//create new info entry datum to store UI dat
-					var/datum/xenoartifact_info_entry/entry = new()
+			break
+	var/final_price
+	var/info
+	if(selling_item)
+		if(istype(selling_item, /obj/item/xenoartifact))
+			var/datum/component/xenoartifact_pricing/X = selling_item.GetComponent(/datum/component/xenoartifact_pricing)
+			if(X)
+				//create new info entry datum to store UI dat
+				var/datum/xenoartifact_info_entry/entry = new()
 
-					//Give rewards
-					final_price = max(X.modifier*X.price, 1)
-					budget.adjust_money(final_price)
-					linked_techweb.add_point_type(TECHWEB_POINT_TYPE_DEFAULT, (final_price*2.3) * (final_price >= X.price))
-					linked_techweb.add_point_type(TECHWEB_POINT_TYPE_DISCOVERY, (XENOA_SOLD_DP*(final_price/X.price)) * (final_price >= X.price))
-
-					//Handle player info
-					entry.main = "[selling_item.name] sold at [station_time_timestamp()] for [final_price] credits, bought for [X.price]."
-					entry.gain = "Awarded [(final_price*2.3) * (final_price >= X.price)] Research Points & [XENOA_SOLD_DP*(final_price/X.price) * (final_price >= X.price)] Discovery Points."
-					info = "[entry.main]\n[entry.gain]\n"
-
-					//append sticker traits & pass it off
-					var/obj/item/xenoartifact_label/L = (locate(/obj/item/xenoartifact_label) in selling_item.contents)
-					var/obj/item/xenoartifact/A = selling_item
-					for(var/datum/xenoartifact_trait/T as() in L?.trait_list)
-						var/color = rgb(255, 0, 0)
-						//using tertiary operator breaks it
-						if(locate(T) in A.traits)
-							color =rgb(0, 255, 0)
-						var/name = (initial(T.desc) || initial(T.label_name))
-						info += {"<span style="color: [color];">\n[name]</span>"}
-						entry.traits += list(list("name" = "[name]", "color" = "[color]"))
-
-					sold_artifacts += entry
-					qdel(selling_item)
-			else //Future feature, not currently in use, wont delete captains gun. Placeholder
-				final_price = 120*rand(1, 10)
+				//Give rewards
+				final_price = max(X.modifier*X.price, 1)
 				budget.adjust_money(final_price)
-				sold_artifacts += info
+				linked_techweb.add_point_type(TECHWEB_POINT_TYPE_DEFAULT, (final_price*2.3) * (final_price >= X.price))
+				linked_techweb.add_point_type(TECHWEB_POINT_TYPE_DISCOVERY, (XENOA_SOLD_DP*(final_price/X.price)) * (final_price >= X.price))
+
+				//Handle player info
+				entry.main = "[selling_item.name] sold at [station_time_timestamp()] for [final_price] credits, bought for [X.price]."
+				entry.gain = "Awarded [(final_price*2.3) * (final_price >= X.price)] Research Points & [XENOA_SOLD_DP*(final_price/X.price) * (final_price >= X.price)] Discovery Points."
+				info = "[entry.main]\n[entry.gain]\n"
+
+				//append sticker traits & pass it off
+				var/obj/item/xenoartifact_label/L = (locate(/obj/item/xenoartifact_label) in selling_item.contents)
+				var/obj/item/xenoartifact/A = selling_item
+				for(var/datum/xenoartifact_trait/T as() in L?.trait_list)
+					var/color = rgb(255, 0, 0)
+					//using tertiary operator breaks it
+					if(locate(T) in A.traits)
+						color =rgb(0, 255, 0)
+					var/name = (initial(T.desc) || initial(T.label_name))
+					info += {"<span style="color: [color];">\n[name]</span>"}
+					entry.traits += list(list("name" = "[name]", "color" = "[color]"))
+
+				sold_artifacts += entry
 				qdel(selling_item)
-		if(info)	
-			say(info)
+		else //Future feature, not currently in use, wont delete captains gun. Placeholder
+			final_price = 120*rand(1, 10)
+			budget.adjust_money(final_price)
+			sold_artifacts += info
+			qdel(selling_item)
+	if(info)	
+		say(info)
 
 
 /obj/machinery/computer/xenoartifact_console/proc/generate_new_seller() //Called after a short period

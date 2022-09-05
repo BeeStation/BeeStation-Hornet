@@ -91,7 +91,7 @@
 	SEND_SIGNAL(xenoa, XENOA_DEFAULT_SIGNAL, target, params, user) //Weird order to fix this becuase signals are mean
 
 /datum/xenoartifact_trait/activator/proc/translate_pickup(mob/user, params)
-	SEND_SIGNAL(xenoa, XENOA_DEFAULT_SIGNAL, xenoa, params, params) //Weird order to fix this becuase signals are mean
+	SEND_SIGNAL(xenoa, XENOA_DEFAULT_SIGNAL, xenoa, params) //Weird order to fix this becuase signals are mean
 
 //End activator
 //Declare procs

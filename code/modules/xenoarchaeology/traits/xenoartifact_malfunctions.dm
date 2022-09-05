@@ -107,8 +107,7 @@
 
 /obj/effect/safe_fire/Initialize(mapload)
 	. = ..()
-	for(var/A in loc)
-		var/atom/AT = A
+	for(var/atom/AT in loc)
 		if(!QDELETED(AT) && AT != src) // It's possible that the item is deleted in temperature_expose
 			AT.fire_act(400, 50) //should be average enough to not do too much damage
 	addtimer(CALLBACK(src, .proc/after_burn), 0.3 SECONDS)

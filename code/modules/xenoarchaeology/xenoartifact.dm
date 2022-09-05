@@ -1,8 +1,3 @@
-//Xenoartifact signals.
-#define XENOA_DEFAULT_SIGNAL "xenoa_default_signal" //Used for xenoartifact signal handlers
-#define XENOA_SIGNAL "xenoa_signal"
-#define XENOA_CHANGE_PRICE "xenoa_change_price" //Bacon requested it
-
 /obj/item/xenoartifact
 	name = "artifact"
 	icon = 'icons/obj/xenoarchaeology/xenoartifact.dmi'
@@ -97,7 +92,7 @@
 
 		if(XENOA_BANANIUM)
 			name = "bananium [name]"
-			generate_traits(list(/datum/xenoartifact_trait/major/sing))
+			generate_traits()
 			if(!price)
 				price = pick(500, 800, 1000)
 			extra_masks = pick(0)
@@ -136,7 +131,7 @@
 			qdel(AM)
 		else
 			AM.forceMove((loc ? loc : get_turf(src)))
-	. = ..()
+	return ..()
 
 /obj/item/xenoartifact/CanAllowThrough(atom/movable/mover, turf/target) //tweedle dee, density feature
 	if(get_trait(/datum/xenoartifact_trait/minor/dense) || anchored)
@@ -236,7 +231,7 @@
 		charge = (charge+charge_req)/1.9 //Not quite an average. Generally produces better results.
 
 		for(var/datum/xenoartifact_trait/minor/t in traits)//Minor traits aren't apart of the target loop, specifically becuase they pass data into it
-			t?.activate(src, user, user)
+			t.activate(src, user, user)
 			log_game("[src] activated minor trait [t] at [world.time]. Located at [x] [y] [z]")
 
 		//Clamp charge to avoid fucky wucky
@@ -327,7 +322,7 @@
 		. = M?.pulling ? M.pulling : M
 	else
 		. = target
-	RegisterSignal(., COMSIG_PARENT_QDELETING, .proc/on_target_del, .)
+	RegisterSignal(., COMSIG_PARENT_QDELETING, .proc/on_target_del)
 	return
 
 ///Hard del handle

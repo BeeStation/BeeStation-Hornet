@@ -8,17 +8,17 @@
 	w_class = WEIGHT_CLASS_TINY
 
 	///Checked trait
-	var/list/activator = list()
+	var/list/selected_activator_traits = list()
 	///Display names
 	var/list/activator_traits = list()
 
-	var/list/minor_trait = list()
+	var/list/selected_minor_traits = list()
 	var/list/minor_traits = list()
 
-	var/list/major_trait = list()
+	var/list/selected_major_traits = list()
 	var/list/major_traits = list()
 
-	var/list/malfunction = list()
+	var/list/selected_malfunction_traits = list()
 	var/list/malfunction_list = list()  
 
 	///trait dialogue essentially
@@ -40,16 +40,16 @@
 
 /obj/item/xenoartifact_labeler/ui_data(mob/user)
 	var/list/data = list()
-	data["activator"] = activator
+	data["selected_activator_traits"] = selected_activator_traits
 	data["activator_traits"] = get_trait_list_desc(activator_traits, /datum/xenoartifact_trait/activator)
 
-	data["minor_trait"] = minor_trait
+	data["selected_minor_traits"] = selected_minor_traits
 	data["minor_traits"] = get_trait_list_desc(minor_traits, /datum/xenoartifact_trait/minor)
 
-	data["major_trait"] = major_trait
+	data["selected_major_traits"] = selected_major_traits
 	data["major_traits"] = get_trait_list_desc(major_traits, /datum/xenoartifact_trait/major)
 
-	data["malfunction"] = malfunction
+	data["selected_malfunction_traits"] = selected_malfunction_traits
 	data["malfunction_list"] = get_trait_list_desc(malfunction_list, /datum/xenoartifact_trait/malfunction)
 
 	data["info_list"] = info_list
@@ -76,10 +76,10 @@
 		sticker_name = sanitize_text(params["name"])
 		return
 
-	trait_toggle(action, "activator", activator_traits, activator)
-	trait_toggle(action, "minor", minor_traits, minor_trait)
-	trait_toggle(action, "major", major_traits, major_trait)
-	trait_toggle(action, "malfunction", malfunction_list, malfunction)
+	trait_toggle(action, "selected_activator_traits", activator_traits, selected_activator_traits)
+	trait_toggle(action, "minor", minor_traits, selected_minor_traits)
+	trait_toggle(action, "major", major_traits, selected_major_traits)
+	trait_toggle(action, "selected_malfunction_traits", malfunction_list, selected_malfunction_traits)
 
 	. = TRUE
 	update_icon()
@@ -113,10 +113,10 @@
 	sticker_name = null
 	info_list = list()
 	sticker_traits = list()
-	activator = list()
-	minor_trait = list()
-	major_trait = list()
-	malfunction = list()
+	selected_activator_traits = list()
+	selected_minor_traits = list()
+	selected_major_traits = list()
+	selected_malfunction_traits = list()
 	ui_update()
 
 /obj/item/xenoartifact_labeler/proc/create_label(new_name, mob/target, mob/user)
@@ -125,7 +125,7 @@
 		P.name = new_name
 		P.set_name = TRUE
 	P.trait_list = sticker_traits
-	P.info = activator+minor_trait+major_trait+malfunction
+	P.info = selected_activator_traits+selected_minor_traits+selected_major_traits+selected_malfunction_traits
 	P.attempt_attach(target, user, TRUE)
 
 /obj/item/xenoartifact_labeler/proc/trait_toggle(action, toggle_type, var/list/trait_list, var/list/active_trait_list)

@@ -11,7 +11,7 @@
 	if(istype(item, /obj/item/multitool))
 		to_chat(user, "<span class='info'>The [item.name] displays a resistance reading of [X.charge_req*0.1].</span>") 
 		return TRUE
-	..()
+	return ..()
 
 /datum/xenoartifact_trait/minor/looped/activate(obj/item/xenoartifact/X)
 	X.charge = ((100-X.charge)*0.2)+X.charge //This should generally cut off around 100
@@ -49,7 +49,7 @@
 	if(istype(item, /obj/item/multitool))
 		to_chat(user, "<span class='info'>The [item.name] displays an overcharge reading of [charges/3].</span>") 
 		return TRUE
-	..()
+	return ..()
 
 //============
 // Dense, makes the artifact mimic a structure
@@ -176,12 +176,8 @@
 
 /datum/xenoartifact_trait/minor/sentient/Destroy(force, ...)
 	. = ..()
-	if(man)
-		qdel(man) //Kill the inner person. Otherwise invisible runs around
-		man = null
-	if(S)
-		qdel(S)
-		S = null
+	QDEL_NULL(man) //Kill the inner person. Otherwise invisible runs around
+	QDEL_NULL(S)
 
 /obj/effect/mob_spawn/sentient_artifact
 	death = FALSE
@@ -190,18 +186,18 @@
 	flavour_text = "Return to your master..."
 	use_cooldown = TRUE
 	invisibility = 101
-	var/obj/item/xenoartifact/X
+	var/obj/item/xenoartifact/artifact
 
 /obj/effect/mob_spawn/sentient_artifact/Initialize(mapload, var/obj/item/xenoartifact/Z)
 	if(!Z)
 		qdel(src)
 		return FALSE
-	X = Z
-	..()
+	artifact = Z
+	return ..()
 
 /obj/effect/mob_spawn/sentient_artifact/create(ckey, name)
-	var/datum/xenoartifact_trait/minor/sentient/S = X.get_trait(/datum/xenoartifact_trait/minor/sentient)
-	S.setup_sentience(X, ckey)
+	var/datum/xenoartifact_trait/minor/sentient/S = artifact.get_trait(/datum/xenoartifact_trait/minor/sentient)
+	S.setup_sentience(artifact, ckey)
 
 //============
 // Delicate, makes the artifact have limited uses
@@ -325,7 +321,7 @@
 	if(istype(item, /obj/item/analyzer))
 		to_chat(user, "<span class='info'>The [item.name] displays an outputting signal code of [X.code], and frequency [X.frequency].</span>")
 		return TRUE
-	..()
+	return ..()
 
 /datum/xenoartifact_trait/minor/signalsend/on_init(obj/item/xenoartifact/X)
 	X.code = rand(1, 100)
@@ -364,7 +360,7 @@
 		if(!X.get_trait(/datum/xenoartifact_trait/minor/dense))
 			X.density = !X.density
 		return TRUE
-	..()
+	return ..()
 
 //============
 // Slippery, the artifact is slippery. Honk
@@ -380,9 +376,8 @@
 	slipper = X.AddComponent(/datum/component/slippery, 80)
 
 /datum/xenoartifact_trait/minor/slippery/Destroy(force, ...)
-	qdel(slipper)
-	slipper = null
-	..()
+	QDEL_NULL(slipper)
+	return ..()
 
 //============
 // haunted, the artifact can be controlled by deadchat, works well with sentient
@@ -413,12 +408,11 @@
 	if(istype(item, /obj/item/storage/book/bible))
 		to_chat(user, "<span class='warning'>The [X.name] rumbles on contact with the [item].</span>")
 		return TRUE
-	..()
+	return ..()
 
 /datum/xenoartifact_trait/minor/haunted/Destroy(force, ...)
-	qdel(controller)
-	controller = null
-	..()
+	QDEL_NULL(controller)
+	return ..()
 
 //============
 // Delay, delays the activation. Credit to EvilDragon#4532

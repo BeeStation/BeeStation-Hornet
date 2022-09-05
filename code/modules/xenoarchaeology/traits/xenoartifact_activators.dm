@@ -1,7 +1,7 @@
-//Activation traits - only used to generate charge
-//============
-// Default acvitavor, on-use / interact
-//============
+///Activation traits - only used to generate charge
+///============
+/// Default acvitavor, on-use / interact
+///============
 /datum/xenoartifact_trait/activator/impact
 	desc = "Sturdy"
 	label_desc = "Sturdy: The material is sturdy. The amount of force applied seems to directly correlate to the size of the reaction."
@@ -12,12 +12,12 @@
 
 /datum/xenoartifact_trait/activator/impact/calculate_charge(datum/source, obj/item/thing, mob/user, atom/target)
 	var/obj/item/xenoartifact/X = source
-	charge = charge*(thing?.force*0.1)
+	charge = charge*((thing?.force || 10)*0.1)
 	X.default_activate(charge, user, target)
 
-//============
-// Burn activator, responds to heat
-//============
+///============
+/// Burn activator, responds to heat
+///============
 /datum/xenoartifact_trait/activator/burn
 	desc = "Flammable"
 	label_desc = "Flammable: The material is flammable, and seems to react when ignited."
@@ -38,9 +38,9 @@
 		START_PROCESSING(SSobj, X)
 		log_game("[key_name_admin(user)] lit [X] at [world.time] using [thing]. [X] located at [X.x] [X.y] [X.z].")
 
-//============
-// Timed activator, activates on a timer. Timer is turned on when used, has a chance to turn off.
-//============
+///============
+/// Timed activator, activates on a timer. Timer is turned on when used, has a chance to turn off.
+///============
 /datum/xenoartifact_trait/activator/clock
 	label_name = "Tuned"
 	label_desc = "Tuned: The material produces a resonance pattern similar to quartz, causing it to produce a reaction every so often."
@@ -58,7 +58,7 @@
 	if(istype(item, /obj/item/clothing/neck/stethoscope))
 		to_chat(user, "<span class='info'>The [X.name] ticks deep from within.\n</span>")
 		return TRUE
-	..()
+	return ..()
 
 /datum/xenoartifact_trait/activator/clock/calculate_charge(datum/source, obj/item/thing, mob/user, atom/target, params)
 	var/obj/item/xenoartifact/X = source
@@ -66,9 +66,9 @@
 	START_PROCESSING(SSobj, X)
 	log_game("[key_name_admin(user)] set clock on [X] at [world.time] using [thing]. [X] located at [X.x] [X.y] [X.z].")
 
-//============
-// Signal activator, responds to respective signals sent through signallers
-//============
+///============
+/// Signal activator, responds to respective signals sent through signallers
+///============
 /datum/xenoartifact_trait/activator/signal
 	label_name = "Signal"
 	label_desc = "Signal: The material recieves radio frequencies and reacts when a matching code is delivered."
@@ -87,16 +87,16 @@
 	if(istype(item, /obj/item/analyzer))
 		to_chat(user, "<span class='info'>The [item.name] displays a signal-input code of [X.code], and frequency [X.frequency].</span>")
 		return TRUE
-	..()
+	return ..()
 
 /datum/xenoartifact_trait/activator/signal/calculate_charge(datum/source, obj/item/thing, mob/user, atom/target, params)
 	var/obj/item/xenoartifact/X = source
 	X.default_activate(charge, user, target)
 	log_game("[key_name_admin(user)] signalled [X] at [world.time]. [X] located at [X.x] [X.y] [X.z].")
 
-//============
-// Battery activator, needs a cell to activate
-//============
+///============
+/// Battery activator, needs a cell to activate
+///============
 /datum/xenoartifact_trait/activator/batteryneed
 	desc = "Charged"
 	label_desc = "Charged: The material has a natural power draw. Supplying any current to this will cause a reaction."
@@ -108,7 +108,7 @@
 	if(istype(item, /obj/item/multitool))
 		to_chat(user, "<span class='info'>The [item.name] displays a draw of [X.charge_req].</span>")
 		return TRUE
-	..()
+	return ..()
 
 /datum/xenoartifact_trait/activator/batteryneed/calculate_charge(datum/source, obj/item/thing, mob/user, atom/target, params)
 	var/obj/item/xenoartifact/X = source
@@ -117,9 +117,9 @@
 		if(C.use(X.charge_req*10))
 			X.default_activate(charge, user, user)
 
-//============
-// Weighted activator, picking up activates
-//============
+///============
+/// Weighted activator, picking up activates
+///============
 /datum/xenoartifact_trait/activator/weighted
 	desc = "Weighted"
 	label_desc = "Weighted: The material is weighted and produces a reaction when picked up."
@@ -129,16 +129,15 @@
 	flags = BLUESPACE_TRAIT | URANIUM_TRAIT
 
 /datum/xenoartifact_trait/activator/weighted/calculate_charge(datum/source, obj/item/thing, mob/user, atom/target)
-	var/obj/item/clothing/gloves/artifact_pinchers/P = locate(/obj/item/clothing/gloves/artifact_pinchers) in target.contents
-	P = (P ? P : locate(/obj/item/clothing/gloves/artifact_pinchers) in user.contents) //Signal black magic makes me need to check twice...
+	var/obj/item/clothing/gloves/artifact_pinchers/P = (locate(/obj/item/clothing/gloves/artifact_pinchers) in target.contents || locate(/obj/item/clothing/gloves/artifact_pinchers) in user.contents)
 	if(P?.safety) //This trait is a special tism
 		return
 	var/obj/item/xenoartifact/X = source
 	X.default_activate(charge, user, target)
 
-//============
-// Pitch activator, artifact activates when thrown. Credit to EvilDragon#4532
-//============
+///============
+/// Pitch activator, artifact activates when thrown. Credit to EvilDragon#4532
+///============
 /datum/xenoartifact_trait/activator/pitch
 	label_name = "Pitched"
 	label_desc = "Pitched: The material is aerodynamic and activates when thrown."
