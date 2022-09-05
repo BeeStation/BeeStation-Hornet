@@ -5,14 +5,11 @@ GLOBAL_LIST_INIT(mentor_verbs, list(
 GLOBAL_PROTECT(mentor_verbs)
 
 /client/proc/add_mentor_verbs()
-	if(CONFIG_GET(flag/enable_mrat))
-		add_verb(/client/proc/mrat)
 	if(mentor_datum)
 		add_verb(GLOB.mentor_verbs)
 		reset_badges()
 
 /client/proc/remove_mentor_verbs()
-	remove_verb(/client/proc/mrat)
 	remove_verb(GLOB.mentor_verbs)
 	reset_badges()
 
