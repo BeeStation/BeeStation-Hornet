@@ -83,19 +83,14 @@
 
 /obj/item/soundsynth/boombox/proc/generate_sound()
 	var/sound_index = pick(sound_list)
-    var/list/assblast = params2list(sound_list[sound_index])
-    trigger_sound = assblast["selected_sound"]
-	return trigger_sound // returns to the uplink buy proc, to add to memory
+	var/list/assblast = params2list(sound_list[sound_index])
+	trigger_sound = assblast["selected_sound"]
+	return sound_index // returns to the uplink buy proc, to add to memory
 
 /obj/item/soundsynth/boombox/attack_self(mob/user)
 	if(trigger_sound == selected_sound)
 		if(COOLDOWN_FINISHED(src, kaboom))
-			for(var/atom/movable/affected in oview(2, user))
-				affected.emp_act(EMP_HEAVY)
-				do_sparks(1, FALSE, affected)
-				if(ismob(affected))
-					var/mob/A = affected
-					log_combat(user, A, "attacked", "EMP-boombox")
+			empulse(get_turf(user), 1, 2)
 			user.visible_message("<span class='danger'>A wave of static seems to eminate out of [user].</span>")
 			do_sparks(1, FALSE, user)
 			COOLDOWN_START(src, kaboom, 5 MINUTES)
