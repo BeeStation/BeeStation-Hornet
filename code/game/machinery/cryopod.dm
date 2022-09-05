@@ -316,12 +316,17 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 		for(var/mob/living/L in GLOB.mob_list)
 			if(L?.mind?.account_id == mob_occupant.mind.account_id)
 				number_of_bank_account_holder++ // if an experimental clone exists, the account will be kept.
-		if(number_of_bank_account_holder <= 1)
+				if(number_of_bank_account_holder>=2)
+					break
+		if(!number_of_bank_account_holder)
 			var/datum/bank_account/target_account = SSeconomy.get_bank_account_by_id(mob_occupant.mind.account_id)
-			target_account.paycheck_bonus = 0
+			for(var/D in target_account.payment_per_department)
+				target_account.payment_per_department[D] = 0
+				target_account.bonus_per_department[D] = 0
 			target_account.suspended = TRUE // bank account will not be deleted, just suspended
+			/*
 			if(!length(target_account.bank_cards)) // if no card exists, it means their money isn't accessible anymore at any means. The station will get their money.
-				var/datum/bank_account/dept_bank = SSeconomy.get_dep_account(target_account.account_department)
+				var/datum/bank_account/dept_bank = SSeconomy.get_dep_account(target_account.account 111 _department)
 				dept_bank.transfer_money(target_account, target_account.account_balance > target_account.total_paid_payment ? target_account.total_paid_payment : target_account.account_balance)
 				// The station budget will get payday payment returned first.
 
@@ -332,6 +337,7 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 					if(target_account.account_balance)
 						dept_bank.transfer_money(target_account, target_account.account_balance)
 						// if money still remains, the station budget will have it again.
+						*/
 
 	// This should be done after item removal because it checks if your ID card still exists
 

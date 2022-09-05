@@ -236,7 +236,7 @@
 
 // used to determine chat color by HUD in `chatmessage.dm`
 // Note: custom colors are what I really didn't put much attention into. feel free to change its color when you feel off.
-/datum/chatmessage/proc/get_chatcolor_by_hud(jobname)
+/proc/get_chatcolor_by_hud(jobname)
 	if(!jobname)
 		CRASH("The proc has taken a null value")
 

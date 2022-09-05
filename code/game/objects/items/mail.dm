@@ -194,8 +194,12 @@
 	var/datum/job/this_job = SSjob.name_occupations[recipient.assigned_role]
 	if(this_job)
 		goodies += this_job.mail_goodies
-		if(this_job.paycheck_department && department_colors[this_job.paycheck_department])
-			color = department_colors[this_job.paycheck_department]
+		var/datum/data/record/R = find_record("name", recipient.name, GLOB.data_core.general)
+		if(R)
+			color = get_chatcolor_by_hud(R.fields["hud"])
+		if(!color)
+			color = COLOR_WHITE
+
 
 	for(var/i in 1 to goodie_count)
 		var/target_good = pickweight(goodies)

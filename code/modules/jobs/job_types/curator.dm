@@ -14,7 +14,7 @@
 	access = list(ACCESS_LIBRARY, ACCESS_AUX_BASE, ACCESS_MINING_STATION)
 	minimal_access = list(ACCESS_LIBRARY, ACCESS_AUX_BASE, ACCESS_MINING_STATION)
 	paycheck = PAYCHECK_EASY
-	paycheck_department = ACCOUNT_CIV
+	bank_account_department = ACCOUNT_CIV_FLAG
 
 	display_order = JOB_DISPLAY_ORDER_CURATOR
 	departments = DEPARTMENT_BITFLAG_SERVICE

@@ -1,4 +1,6 @@
 #define VIP_BUDGET_BASE rand(8888888, 11111111)
+#define BUDGET_RATIO_TYPE_A 1
+#define BUDGET_RATIO_TYPE_B 2
 
 SUBSYSTEM_DEF(economy)
 	name = "Economy"
@@ -15,6 +17,14 @@ SUBSYSTEM_DEF(economy)
 										ACCOUNT_CAR = ACCOUNT_CAR_NAME,
 										ACCOUNT_SEC = ACCOUNT_SEC_NAME)
 	var/list/nonstation_accounts = list(ACCOUNT_VIP = ACCOUNT_VIP_NAME)
+	var/static/list/budget_flags = list(ACCOUNT_CIV = ACCOUNT_CIV_FLAG,
+										ACCOUNT_ENG = ACCOUNT_ENG_FLAG,
+										ACCOUNT_SCI = ACCOUNT_SCI_FLAG,
+										ACCOUNT_MED = ACCOUNT_MED_FLAG,
+										ACCOUNT_SRV = ACCOUNT_SRV_FLAG,
+										ACCOUNT_CAR = ACCOUNT_CAR_FLAG,
+										ACCOUNT_SEC = ACCOUNT_SEC_FLAG,
+										ACCOUNT_VIP = ACCOUNT_VIP_FLAG)
 	var/list/generated_accounts = list()
 	var/full_ancap = FALSE // Enables extra money charges for things that normally would be free, such as sleepers/cryo/cloning.
 							//Take care when enabling, as players will NOT respond well if the economy is set up for low cash flows.
@@ -32,9 +42,9 @@ SUBSYSTEM_DEF(economy)
 /datum/controller/subsystem/economy/Initialize(timeofday)
 	var/budget_to_hand_out = round(budget_pool / department_accounts.len)
 	for(var/A in department_accounts)
-		new /datum/bank_account/department(A, budget_to_hand_out)
+		new /datum/bank_account/department(A, budget_flags[A], budget_to_hand_out)
 	for(var/A in nonstation_accounts)
-		new /datum/bank_account/department(A, VIP_BUDGET_BASE)
+		new /datum/bank_account/department(A, budget_flags[A], VIP_BUDGET_BASE)
 	return ..()
 
 /datum/controller/subsystem/economy/Recover()
@@ -71,29 +81,29 @@ SUBSYSTEM_DEF(economy)
 	var/departments = 0
 
 	if(eng)
-		departments += 2
+		departments += BUDGET_RATIO_TYPE_B
 	if(sec)
-		departments += 2
+		departments += BUDGET_RATIO_TYPE_B
 	if(med)
-		departments += 2
+		departments += BUDGET_RATIO_TYPE_B
 	if(srv)
-		departments += 1
+		departments += BUDGET_RATIO_TYPE_A
 	if(sci)
-		departments += 2
+		departments += BUDGET_RATIO_TYPE_B
 	if(civ)
-		departments += 1
+		departments += BUDGET_RATIO_TYPE_A
 	if(car)
-		departments += 2
+		departments += BUDGET_RATIO_TYPE_B
 
 	var/parts = round(amount / departments)
 
-	var/engineering_cash = parts * 2
-	var/security_cash = parts * 2
-	var/medical_cash = parts * 2
-	var/service_cash = parts
-	var/science_cash = parts * 2
-	var/civilian_cash = parts
-	var/cargo_cash = parts * 2
+	var/engineering_cash = parts * BUDGET_RATIO_TYPE_B
+	var/security_cash = parts * BUDGET_RATIO_TYPE_B
+	var/medical_cash = parts * BUDGET_RATIO_TYPE_B
+	var/service_cash = parts * BUDGET_RATIO_TYPE_A
+	var/science_cash = parts * BUDGET_RATIO_TYPE_B
+	var/civilian_cash = parts * BUDGET_RATIO_TYPE_A
+	var/cargo_cash = parts * BUDGET_RATIO_TYPE_B
 
 	eng?.adjust_money(engineering_cash)
 	sec?.adjust_money(security_cash)

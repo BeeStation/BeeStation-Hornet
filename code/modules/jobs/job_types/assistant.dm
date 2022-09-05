@@ -15,7 +15,7 @@ Assistant
 	outfit = /datum/outfit/job/assistant
 	antag_rep = 7
 	paycheck = PAYCHECK_ASSISTANT // Get a job. Job reassignment changes your paycheck now. Get over it.
-	paycheck_department = ACCOUNT_CIV
+	bank_account_department = ACCOUNT_CIV_FLAG
 	display_order = JOB_DISPLAY_ORDER_ASSISTANT
 	departments = DEPARTMENT_BITFLAG_SERVICE
 	rpg_title = "Lout"

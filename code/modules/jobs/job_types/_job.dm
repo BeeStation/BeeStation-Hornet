@@ -57,6 +57,16 @@
 
 	var/paycheck = PAYCHECK_MINIMAL
 	var/paycheck_department = ACCOUNT_CIV
+	var/payment_per_department = list(
+		ACCOUNT_CIV=0,
+		ACCOUNT_SRV=0,
+		ACCOUNT_CAR=0,
+		ACCOUNT_ENG=0,
+		ACCOUNT_SCI=0,
+		ACCOUNT_MED=0,
+		ACCOUNT_SEC=0,
+		ACCOUNT_VIP=0
+	)
 	var/bank_account_department = ACCOUNT_CIV_FLAG
 
 	var/list/mind_traits // Traits added to the mind of the mob assigned this job

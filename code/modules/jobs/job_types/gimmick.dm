@@ -13,7 +13,7 @@
 	access = list(ACCESS_MAINT_TUNNELS)
 	minimal_access = list(ACCESS_MAINT_TUNNELS)
 	paycheck = PAYCHECK_ASSISTANT
-	paycheck_department = ACCOUNT_CIV
+	bank_account_department = ACCOUNT_CIV_FLAG
 
 	display_order = JOB_DISPLAY_ORDER_ASSISTANT
 	departments = DEPARTMENT_BITFLAG_SERVICE
@@ -38,7 +38,7 @@
 	access = list(ACCESS_MORGUE, ACCESS_MAINT_TUNNELS)
 	minimal_access = list(ACCESS_MORGUE, ACCESS_MAINT_TUNNELS)
 	paycheck = PAYCHECK_ASSISTANT
-	paycheck_department = ACCOUNT_SRV
+	bank_account_department = ACCOUNT_SRV_FLAG
 
 	departments = DEPARTMENT_BITFLAG_SERVICE
 	rpg_title = "Scissorhands"
@@ -73,7 +73,7 @@
 	access = list(ACCESS_THEATRE, ACCESS_MAINT_TUNNELS)
 	minimal_access = list(ACCESS_THEATRE, ACCESS_MAINT_TUNNELS)
 	paycheck = PAYCHECK_MINIMAL
-	paycheck_department = ACCOUNT_SRV
+	bank_account_department = ACCOUNT_SRV_FLAG
 
 	departments = DEPARTMENT_BITFLAG_SERVICE
 	rpg_title = "Master Illusionist"
@@ -113,7 +113,7 @@
 	paycheck = PAYCHECK_EASY
 	departments = DEPARTMENT_BITFLAG_MEDICAL
 
-	paycheck_department = ACCOUNT_MED
+	bank_account_department = ACCOUNT_MED_FLAG
 	rpg_title = "Enchanter"
 
 	mind_traits = list(TRAIT_MADNESS_IMMUNE)
@@ -145,7 +145,7 @@
 	access = list(ACCESS_MAINT_TUNNELS) //Assistants with shitloads of money, what could go wrong?
 	minimal_access = list(ACCESS_MAINT_TUNNELS)
 	paycheck = PAYCHECK_VIP  //our power is being fucking rich
-	paycheck_department = ACCOUNT_VIP //budget will never dry
+	bank_account_department = ACCOUNT_VIP_FLAG
 
 	departments = DEPARTMENT_BITFLAG_SERVICE // might need to be changed
 	rpg_title = "Master of Patronage"

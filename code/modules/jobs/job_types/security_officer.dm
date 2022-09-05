@@ -21,7 +21,7 @@
 	minimal_access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_SEC_RECORDS, ACCESS_BRIG, ACCESS_COURT, ACCESS_WEAPONS,
 					ACCESS_MECH_SECURITY, ACCESS_MINERAL_STOREROOM) // See /datum/job/security_officer/get_access()
 	paycheck = PAYCHECK_HARD
-	paycheck_department = ACCOUNT_SEC
+	bank_account_department = ACCOUNT_SEC_FLAG
 	mind_traits = list(TRAIT_LAW_ENFORCEMENT_METABOLISM)
 
 	display_order = JOB_DISPLAY_ORDER_SECURITY_OFFICER

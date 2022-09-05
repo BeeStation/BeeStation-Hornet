@@ -188,9 +188,6 @@
 	if(!registered_account)
 		to_chat(user, "<span class='warning'>[src] doesn't have a linked account to deposit [I] into!</span>")
 		return
-	if(registered_account.suspended)
-		to_chat(user, "<span class='warning'>The bank account is closed by Nanotrasen Space Finance.</span>")
-		return
 	var/cash_money = I.get_item_credit_value()
 	if(!cash_money)
 		to_chat(user, "<span class='warning'>[I] doesn't seem to be worth anything!</span>")
@@ -209,10 +206,6 @@
 	if(!registered_account)
 		to_chat(user, "<span class='warning'>[src] doesn't have a linked account to deposit into!</span>")
 		return FALSE
-
-	if(registered_account.suspended)
-		to_chat(user, "<span class='warning'>The bank account is closed by Nanotrasen Space Finance.</span>")
-		return
 
 	if (!money || !money.len)
 		return FALSE
@@ -256,9 +249,6 @@
 	for(var/A in SSeconomy.bank_accounts)
 		var/datum/bank_account/B = A
 		if(B.account_id == new_bank_id)
-			if(B.suspended)
-				to_chat(user, "<span class='warning'>The target bank account is closed by Nanotrasen Space Finance.</span>")
-				return
 			if (old_account)
 				old_account.bank_cards -= src
 
@@ -277,10 +267,6 @@
 
 	if(!registered_account)
 		set_new_account(user)
-		return
-
-	if(registered_account.suspended)
-		to_chat(user, "<span class='warning'>The bank account is closed by Nanotrasen Space Finance.</span>")
 		return
 
 	if (world.time < registered_account.withdrawDelay)
@@ -310,10 +296,15 @@
 	. = ..()
 	if(registered_account)
 		. += "The account linked to the ID belongs to '[registered_account.account_holder]' and reports a balance of $[registered_account.account_balance]."
-		if(registered_account.account_job)
-			var/datum/bank_account/D = SSeconomy.get_dep_account(registered_account.account_department)
-			if(D)
-				. += "The [D.account_holder] reports a balance of $[D.account_balance]."
+		if(registered_account)
+			for(var/D in registered_account.payment_per_department)
+				if(registered_account.payment_per_department[D] > 0)
+					. += "Your payment from [D] budget is $[registered_account.payment_per_department[D]]."
+			for(var/D in SSeconomy.budget_flags)
+				if(SSeconomy.budget_flags[D] & registered_account.active_departments)
+					var/datum/bank_account/B = SSeconomy.get_dep_account(D)
+					if(B)
+						. += "The [B.account_holder] reports a balance of $[B.account_balance]."
 		. += "<span class='info'>Alt-Click the ID to pull money from the linked account in the form of holochips.</span>"
 		. += "<span class='info'>You can insert credits into the linked account by pressing holochips, cash, or coins against the ID.</span>"
 		if(registered_account.account_holder == user.real_name)

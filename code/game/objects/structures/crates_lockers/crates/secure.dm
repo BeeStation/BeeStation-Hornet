@@ -107,28 +107,38 @@
 		department_account = buyer_account
 
 /obj/structure/closet/crate/secure/owned/togglelock(mob/living/user, silent)
-	if(privacy_lock)
-		if(!broken)
-			var/obj/item/card/id/id_card = user.get_idcard(TRUE)
-			if(id_card)
-				if(id_card.registered_account)
-					if(id_card.registered_account == buyer_account || (department_purchase && (id_card.registered_account?.account_job?.paycheck_department) == (department_account.department_id)))
-						if(allowed(user))
-							if(iscarbon(user))
-								add_fingerprint(user)
-							locked = !locked
-							user.visible_message("<span class='notice'>[user] unlocks [src]'s privacy lock.</span>",
-											"<span class='notice'>You unlock [src]'s privacy lock.</span>")
-							privacy_lock = FALSE
-							update_icon()
-						else if(!silent)
-							to_chat(user, "<span class='notice'>Access Denied, insufficient access on ID card.</span>")
-					else if(!silent)
-						to_chat(user, "<span class='notice'>Bank account does not match with buyer!</span>")
-				else if(!silent)
-					to_chat(user, "<span class='notice'>No linked bank account detected!</span>")
-			else if(!silent)
+	if(!privacy_lock)
+		..()
+	else
+		if(broken)
+			if(!silent)
+				to_chat(user, "<span class='warning'>[src] is broken!</span>")
+			return FALSE
+		var/obj/item/card/id/id_card = user.get_idcard(TRUE)
+		if(!id_card)
+			if(!silent)
 				to_chat(user, "<span class='notice'>No ID detected!</span>")
-		else if(!silent)
-			to_chat(user, "<span class='warning'>[src] is broken!</span>")
-	else ..()
+			return FALSE
+		if(!id_card.registered_account)
+			if(!silent)
+				to_chat(user, "<span class='notice'>No linked bank account detected!</span>")
+			return FALSE
+		if(!(id_card.registered_account == buyer_account))
+			if(!silent)
+				to_chat(user, "<span class='notice'>Bank account does not match with buyer!</span>")
+			return FALSE
+		if(!(department_purchase && (id_card.registered_account?.account_job?.paycheck_department) == (department_account.department_id)))
+			if(!silent)
+				to_chat(user, "<span class='notice'>Bank account does not match with buyer! 222</span>")
+			return FALSE
+		if(!allowed(user))
+			if(!silent)
+				to_chat(user, "<span class='notice'>Access Denied, insufficient access on ID card.</span>")
+			return FALSE
+		if(iscarbon(user))
+			add_fingerprint(user)
+		locked = !locked
+		user.visible_message("<span class='notice'>[user] unlocks [src]'s privacy lock.</span>",
+						"<span class='notice'>You unlock [src]'s privacy lock.</span>")
+		privacy_lock = FALSE
+		update_icon()
