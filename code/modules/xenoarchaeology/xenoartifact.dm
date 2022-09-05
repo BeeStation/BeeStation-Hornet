@@ -418,7 +418,7 @@
 	UnregisterSignal(parent, XENOA_CHANGE_PRICE)
 	..()
 
-///Typically used to change internally, Bacon requested?
+///Typically used to change internally
 /datum/component/xenoartifact_pricing/proc/update_price(datum/source, f_price)
 	price = f_price
 
