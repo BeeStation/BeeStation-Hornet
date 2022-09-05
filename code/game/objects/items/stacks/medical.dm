@@ -39,7 +39,7 @@
 		if(critter.health == critter.maxHealth)
 			to_chat(user, "<span class='notice'>[M] is at full health.</span>")
 			return
-		if(heal_brute < 0.1)
+		if(heal_brute < DAMAGE_PRECISION)
 			to_chat(user, "<span class='notice'>[src] won't help [M] at all.</span>")
 			return
 		M.heal_bodypart_damage((heal_brute * 0.5), (heal_burn * 0.5)) //half as effective on animals, since it's not made for them
