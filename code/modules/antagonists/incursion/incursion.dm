@@ -60,12 +60,12 @@
 	if(issilicon(owner))
 		var/mob/living/silicon/S = owner
 		if(istype(S.laws, /datum/ai_laws/syndicate_override))
-			SSticker.mode.update_incursion_icons_added(owner)
+			update_incursion_icons_added(owner)
 	else
-		SSticker.mode.update_incursion_icons_added(owner)
+		update_incursion_icons_added(owner)
 
 /datum/antagonist/incursion/remove_innate_effects(mob/living/mob_override)
-	SSticker.mode.update_incursion_icons_removed(owner)
+	update_incursion_icons_removed(owner)
 
 /datum/antagonist/incursion/proc/finalize_incursion()
 	equip()
@@ -101,6 +101,12 @@
 
 /datum/team/incursion/is_solo()
 	return FALSE
+
+/datum/team/incursion/proc/check_incursion_victory()
+	for(var/datum/objective/objective in objectives)
+		if(!objective.check_completion())
+			return FALSE
+	return TRUE
 
 /datum/team/incursion/roundend_report()
 	var/list/parts = list()

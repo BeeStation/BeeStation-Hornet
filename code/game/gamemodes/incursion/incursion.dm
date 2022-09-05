@@ -48,7 +48,7 @@
 		possible_traitors -= incursion
 		antag_candidates -= incursion
 		team.add_member(incursion)
-		incursion.special_role = "incursionist"
+		incursion.special_role = ROLE_INCURSION
 		incursion.restricted_roles = restricted_jobs
 		log_game("[key_name(incursion)] has been selected as a member of the incursion")
 	pre_incursionist_team = team
@@ -67,12 +67,12 @@
 	return "Intel suggests that the Syndicate have recently had high level meetings discussing your station, and are disgruntled due to recent classified events. A large terrorist force may wish to take the station by force."
 
 //===please merge heretics so these can be made not terrible===
-/datum/game_mode/proc/update_incursion_icons_added(datum/mind/incursion_mind)
+/proc/update_incursion_icons_added(datum/mind/incursion_mind)
 	var/datum/atom_hud/antag/incursionhud = GLOB.huds[ANTAG_HUD_INCURSION]
 	incursionhud.join_hud(incursion_mind.current)
 	set_antag_hud(incursion_mind.current, "incursion")
 
-/datum/game_mode/proc/update_incursion_icons_removed(datum/mind/incursion_mind)
+/proc/update_incursion_icons_removed(datum/mind/incursion_mind)
 	var/datum/atom_hud/antag/incursionhud = GLOB.huds[ANTAG_HUD_INCURSION]
 	incursionhud.leave_hud(incursion_mind.current)
 	set_antag_hud(incursion_mind.current, null)
