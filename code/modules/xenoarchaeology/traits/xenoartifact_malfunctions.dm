@@ -3,7 +3,7 @@
 // Bear, produces a bear until it reaches its upper limit
 //============
 /datum/xenoartifact_trait/malfunction/bear
-	label_name = "P.B.R" 
+	label_name = "P.B.R." 
 	label_desc = "Parallel Bearspace Retrieval: A strange malfunction causes the Artifact to open a gateway to deep bearspace."
 	weight = 15
 	var/bears //bear per bears
