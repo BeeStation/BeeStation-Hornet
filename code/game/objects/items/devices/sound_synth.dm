@@ -90,7 +90,7 @@
 /obj/item/soundsynth/boombox/attack_self(mob/user)
 	if(trigger_sound == selected_sound)
 		if(COOLDOWN_FINISHED(src, kaboom))
-			empulse(get_turf(user), 1, 2)
+			empulse(get_turf(user), 2, 3)
 			user.visible_message("<span class='danger'>A wave of static seems to eminate out of [user].</span>")
 			do_sparks(1, FALSE, user)
 			COOLDOWN_START(src, kaboom, 5 MINUTES)
