@@ -55,7 +55,7 @@
 
 /obj/machinery/rnd/production/update_icon()
 	. = ..()
-	cut_overlay()
+	cut_overlays()
 	if(pending_research)
 		add_overlay("lathe-research")
 
