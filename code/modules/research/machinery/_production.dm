@@ -1,3 +1,5 @@
+#define MAX_SENT 10
+
 /obj/machinery/rnd/production
 	name = "technology fabricator"
 	desc = "Makes researched and prototype items with materials and energy."
@@ -20,6 +22,8 @@
 
 	var/list/mob/viewing_mobs = list()
 
+	var/list/pending_research = list()  // only for examination
+
 /obj/machinery/rnd/production/Initialize(mapload)
 	. = ..()
 	create_reagents(0, OPENCONTAINER)
@@ -32,6 +36,7 @@
 	RefreshParts()
 	RegisterSignal(src, COMSIG_MATERIAL_CONTAINER_CHANGED, .proc/on_materials_changed)
 	RegisterSignal(src, COMSIG_REMOTE_MATERIALS_CHANGED, .proc/on_materials_changed)
+	RegisterSignal(SSdcs, COMSIG_GLOB_NEW_RESEARCH, .proc/alert_research)
 
 /obj/machinery/rnd/production/Destroy()
 	materials = null
@@ -40,6 +45,12 @@
 	QDEL_NULL(stored_research)
 	host_research = null
 	return ..()
+
+/obj/machinery/rnd/production/examine(mob/user)
+	. = ..()
+	alert_research() // juust in case :)
+	if(pending_research.len)
+		. += pending_research.Join("\n")
 
 /obj/machinery/rnd/production/proc/on_materials_changed()
 	SIGNAL_HANDLER
@@ -53,7 +64,24 @@
 	host_research.copy_research_to(stored_research, TRUE)
 	update_designs()
 
+/obj/machinery/rnd/production/proc/alert_research()
+	pending_research.Cut()
+	var/list/diff_nodes = host_research.researched_designs | stored_research.researched_designs
+	var/amount_sent = 0
+	if(!diff_nodes)
+		return
+
+	for(var/datum/techweb_node/x in diff_nodes)
+		var/datum/design/d = SSresearch.techweb_design_by_id(x)
+			if((isnull(allowed_department_flags) || (d.departmental_flags & allowed_department_flags)) && (d.build_type & allowed_buildtypes))
+				if(amount_sent >= MAX_SENT)
+					pending_research[MAX_SENT] = "And more!"
+					return
+				pending_research += d.name
+
+
 /obj/machinery/rnd/production/proc/update_designs()
+	pending_research.Cut()
 	cached_designs.Cut()
 	for(var/i in stored_research.researched_designs)
 		var/datum/design/d = SSresearch.techweb_design_by_id(i)
@@ -335,3 +363,5 @@
 /obj/machinery/rnd/production/reset_busy()
 	. = ..()
 	SStgui.update_uis(src)
+
+#undef MAX_SENT

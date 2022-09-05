@@ -26,6 +26,9 @@
 /// crewmember joined the game (mob/living, rank)
 #define COMSIG_GLOB_CREWMEMBER_JOINED "!crewmember_joined"
 
+/// research has been researched
+#define COMSIG_GLOB_NEW_RESEARCH "!remote_research_changed"
+
 /// Signifies that this proc is used to handle signals.
 /// Every proc you pass to RegisterSignal must have this.
 #define SIGNAL_HANDLER SHOULD_NOT_SLEEP(TRUE)
