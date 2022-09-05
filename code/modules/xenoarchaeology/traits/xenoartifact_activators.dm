@@ -58,7 +58,7 @@
 	if(istype(item, /obj/item/clothing/neck/stethoscope))
 		to_chat(user, "<span class='info'>The [X.name] ticks deep from within.\n</span>")
 		return TRUE
-	..()
+	return ..()
 
 /datum/xenoartifact_trait/activator/clock/calculate_charge(datum/source, obj/item/thing, mob/user, atom/target, params)
 	var/obj/item/xenoartifact/X = source
