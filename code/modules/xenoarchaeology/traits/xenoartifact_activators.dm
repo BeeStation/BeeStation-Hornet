@@ -87,7 +87,7 @@
 	if(istype(item, /obj/item/analyzer))
 		to_chat(user, "<span class='info'>The [item.name] displays a signal-input code of [X.code], and frequency [X.frequency].</span>")
 		return TRUE
-	..()
+	return ..()
 
 /datum/xenoartifact_trait/activator/signal/calculate_charge(datum/source, obj/item/thing, mob/user, atom/target, params)
 	var/obj/item/xenoartifact/X = source
