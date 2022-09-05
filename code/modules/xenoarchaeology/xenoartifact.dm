@@ -422,7 +422,8 @@
 /datum/component/xenoartifact_pricing/proc/update_price(datum/source, f_price)
 	price = f_price
 
-/obj/item/xenoartifact/objective/Initialize(mapload, difficulty) //Objective version for exploration
+ ///Objective version for exploration
+/obj/item/xenoartifact/objective/Initialize(mapload, difficulty)
 	traits += new /datum/xenoartifact_trait/special/objective
 	..()
 
