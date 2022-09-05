@@ -44,7 +44,7 @@
 // Strip, moves a single clothing on target to floor
 //============
 /datum/xenoartifact_trait/malfunction/strip
-	label_name = "B.A.D"
+	label_name = "B.A.D."
 	label_desc = "Bluespace Axis Desync: A strange malfunction inside the Artifact causes it to shift the target's realspace position with its bluespace mass in an offset manner. This results in the target dropping all they're wearing. This is probably the plot to a very educational movie."
 
 /datum/xenoartifact_trait/malfunction/strip/activate(obj/item/xenoartifact/X, atom/target)
