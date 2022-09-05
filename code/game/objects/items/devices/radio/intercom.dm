@@ -20,6 +20,7 @@
 	if(!current_area)
 		return
 	RegisterSignal(current_area, COMSIG_AREA_POWER_CHANGE, .proc/AreaPowerCheck)
+	update_icon()
 
 /obj/item/radio/intercom/examine(mob/user)
 	. = ..()
@@ -122,6 +123,14 @@
 		add_overlay("intercom-bc")
 
 /obj/item/radio/intercom/ui_act(action, params, datum/tgui/ui)
+	. = ..()
+	update_icon()
+
+/obj/item/radio/intercom/AltClick(mob/user)
+	. = ..()
+	update_icon()
+
+/obj/item/radio/intercom/CtrlShiftClick(mob/user)
 	. = ..()
 	update_icon()
 
