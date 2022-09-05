@@ -81,8 +81,8 @@
 	trait_toggle(action, "major", major_traits, selected_major_traits)
 	trait_toggle(action, "selected_malfunction_traits", malfunction_list, selected_malfunction_traits)
 
-	. = TRUE
 	update_icon()
+	return TRUE
 
 //Get a list of all the specified trait types names, actually
 /obj/item/xenoartifact_labeler/proc/get_trait_list_desc(list/traits, trait_type)

@@ -13,9 +13,6 @@
 		fren = TRUE
 
 /datum/xenoartifact_trait/major/capture/activate(obj/item/xenoartifact/X, atom/target)
-	if(!(SSzclear.get_free_z_level())) //Sometimes we can get pressed on z-levels
-		playsound(get_turf(X), 'sound/machines/buzz-sigh.ogg', 50, TRUE) //this shouldn't happen too often but, exploration can eat a few zlevels.
-		return
 	if(isliving(X.loc))
 		var/mob/living/holder = X.loc
 		holder.dropItemToGround(X, thrown = TRUE)
