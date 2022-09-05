@@ -72,6 +72,7 @@
 	update_designs()
 
 /obj/machinery/rnd/production/proc/alert_research()
+	SIGNAL_HANDLER
 	pending_research.Cut()
 	var/list/diff_nodes = host_research.researched_designs ^ stored_research.researched_designs
 	var/amount_sent = 0
