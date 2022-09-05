@@ -22,17 +22,17 @@
 	description = "<span class='[span]'>[description]</span>"
 
 /proc/generate_mood_span(adjust)
-    switch(mood_change)
+    switch(adjust)
         if(-BOLD_LIMIT to -1)
-            span = "warning"
+            return "warning"
         if(-INFINITY to -BOLD_LIMIT)
-            span = "boldwarning"
+            return "boldwarning"
         if(0)
-            span = "emote"  // nice grey color
+            return "emote"  // nice grey color
         if(1 to BOLD_LIMIT)
-            span = "nicegreen"
+            return "nicegreen"
         if(BOLD_LIMIT to INFINITY)
-            span = "greenannounce"
+            return "greenannounce"
 
 /datum/mood_event/Destroy()
 	remove_effects()
