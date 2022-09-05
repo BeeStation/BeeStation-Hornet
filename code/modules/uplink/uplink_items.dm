@@ -2101,8 +2101,8 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	restricted_roles = list(JOB_NAME_CLOWN, JOB_NAME_MIME)
 
 /datum/uplink_item/role_restricted/boombox/spawn_item(spawn_path, mob/user, datum/component/uplink/U)
-	/obj/item/soundsynth/boombox/new_box = ..()
-	var/code = new_box.generate_sound
+	var/obj/item/soundsynth/boombox/new_box = ..()
+	var/code = new_box.generate_sound()
 	if(user.mind)
 		user.mind.store_memory("Code for [new_box] : [code]")
 
