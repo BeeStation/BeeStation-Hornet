@@ -52,6 +52,12 @@
 	if(pending_research.len)
 		. += pending_research.Join("\n")
 
+/obj/machinery/rnd/production/update_icon()
+	. = ..()
+	cut_overlay()
+	if(pending_research)
+		add_overlay("lathe-research")
+
 /obj/machinery/rnd/production/proc/on_materials_changed()
 	SIGNAL_HANDLER
 	ui_update()
@@ -75,10 +81,11 @@
 		var/datum/design/d = SSresearch.techweb_design_by_id(i)
 		if((isnull(allowed_department_flags) || (d.departmental_flags & allowed_department_flags)) && (d.build_type & allowed_buildtypes))
 			if(amount_sent >= MAX_SENT)
-				pending_research[MAX_SENT] = "And more!"
-				return
+				pending_research[MAX_SENT-1] = "And more!"
+				break
 			pending_research += d.name
 			amount_sent += 1
+	update_icon()
 
 /obj/machinery/rnd/production/proc/update_designs()
 	pending_research.Cut()
