@@ -22,17 +22,17 @@
 	description = "<span class='[span]'>[description]</span>"
 
 /proc/generate_mood_span(adjust)
-    switch(adjust)
-        if(-INFINITY to -BOLD_LIMIT)
-            return "boldwarning"
+    switch(mood_change)
         if(-BOLD_LIMIT to -1)
-            return "warning"
+            span = "warning"
+        if(-INFINITY to -BOLD_LIMIT)
+            span = "boldwarning"
         if(0)
-            return "emote"  // nice grey color
-        if(BOLD_LIMIT to INFINITY)  // need to catch the upper bolding first
-            return "greenannounce"
+            span = "emote"  // nice grey color
         if(1 to BOLD_LIMIT)
-            return "nicegreen"
+            span = "nicegreen"
+        if(BOLD_LIMIT to INFINITY)
+            span = "greenannounce"
 
 /datum/mood_event/Destroy()
 	remove_effects()
