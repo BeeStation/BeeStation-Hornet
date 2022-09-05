@@ -31,7 +31,6 @@ GLOBAL_VAR_INIT(security_level, SEC_LEVEL_GREEN)
 					SSshuttle.emergency.modTimer(4)
 				else
 					SSshuttle.emergency.modTimer(2)
-			new_mood = /datum/mood_event/green_alert
 
 		if(SEC_LEVEL_BLUE)
 			if(GLOB.security_level < SEC_LEVEL_BLUE)
@@ -53,7 +52,6 @@ GLOBAL_VAR_INIT(security_level, SEC_LEVEL_GREEN)
 						SSshuttle.emergency.modTimer(0.5)
 			else
 				minor_announce(CONFIG_GET(string/alert_red_downto), "Attention! Code red!")
-			new_mood = /datum/mood_event/red_alert
 
 		if(SEC_LEVEL_DELTA)
 			minor_announce(CONFIG_GET(string/alert_delta), "Attention! Delta security level reached!",1)

@@ -47,19 +47,33 @@
 	mood_change = -2
 	timeout = 4 MINUTES
 
-/datum/mood_event/red_alert
-	description = "<span class='warning'>Seems things are really heating up..</span>"
-	mood_change = -2
-
 /datum/mood_event/delta
 	description = "<span class='boldwarning'>RUN!! IT'S GOING TO BLOW!!</span>"
-	mood_change = -8
+	mood_change = -6
 	timeout = 4 MINUTES  // most likely manually cleared but in case..
+
+/datum/mood_event/delta/add_effects()
+	var/datum/component/L = owner
+	var/mob/living/crew = L.parent
+
+	L.add_movespeed_modifier("delta_panic", multiplicative_slowdown=-2)
+
+/datum/mood_event/delta/remove_effects()
+	L.remove_movespeed_modifier("delta_panic")
 
 /datum/mood_event/delta_cancel
 	description = "<span class='warning'>I thought it wasn't a drill...</span>"
 	mood_change = -2
 	timeout = 2 MINUTES
+
+/datum/mood_event/delta_cancel/add_effects()
+	var/datum/component/L = owner
+	var/mob/living/crew = L.parent
+
+	L.add_movespeed_modifier("delta_recover", multiplicative_slowdown=1.5)
+
+/datum/mood_event/delta_can/remove_effects()
+	L.remove_movespeed_modifier("delta_recover")
 
 /datum/mood_event/depression
 	description = "<span class='warning'>I feel sad for no particular reason.</span>\n"
