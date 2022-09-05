@@ -54,7 +54,7 @@
 		var/list/displayed = reverseList(pending_research)  // newest first
 		if(num_research >= MAX_SENT)
 			displayed.Cut(MAX_SENT)
-			displayed += "And more..."
+			displayed += "..."
 		. += displayed.Join("\n")
 
 /obj/machinery/rnd/production/update_icon()
@@ -75,7 +75,7 @@
 	host_research.copy_research_to(stored_research, TRUE)
 	update_designs()
 
-/obj/machinery/rnd/production/proc/alert_research(var/node_id)
+/obj/machinery/rnd/production/proc/alert_research(datum/source, var/node_id)
 	SIGNAL_HANDLER
 
 	var/datum/techweb_node/node = SSresearch.techweb_node_by_id(node_id)
@@ -84,7 +84,6 @@
 		var/datum/design/d = SSresearch.techweb_design_by_id(i)
 		if((isnull(allowed_department_flags) || (d.departmental_flags & allowed_department_flags)) && (d.build_type & allowed_buildtypes))
 			pending_research += d.name
-			amount_sent += 1
 	update_icon()
 
 /obj/machinery/rnd/production/proc/update_designs()
@@ -95,6 +94,7 @@
 		if((isnull(allowed_department_flags) || (d.departmental_flags & allowed_department_flags)) && (d.build_type & allowed_buildtypes))
 			cached_designs |= d
 	update_viewer_statics()
+	update_icon()
 
 /obj/machinery/rnd/production/RefreshParts()
 	calculate_efficiency()
