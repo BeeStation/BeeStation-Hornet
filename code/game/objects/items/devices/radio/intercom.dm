@@ -20,7 +20,6 @@
 	if(!current_area)
 		return
 	RegisterSignal(current_area, COMSIG_AREA_POWER_CHANGE, .proc/AreaPowerCheck)
-	update_icon()
 
 /obj/item/radio/intercom/examine(mob/user)
 	. = ..()
