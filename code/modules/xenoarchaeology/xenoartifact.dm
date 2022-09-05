@@ -136,7 +136,7 @@
 			qdel(AM)
 		else
 			AM.forceMove((loc ? loc : get_turf(src)))
-	. = ..()
+	return ..()
 
 /obj/item/xenoartifact/CanAllowThrough(atom/movable/mover, turf/target) //tweedle dee, density feature
 	if(get_trait(/datum/xenoartifact_trait/minor/dense) || anchored)
