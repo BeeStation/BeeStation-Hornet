@@ -50,6 +50,7 @@
 	. = ..()
 	alert_research() // juust in case :)
 	if(pending_research.len)
+		. += "\nPENDING RESEARCH:"
 		. += pending_research.Join("\n")
 
 /obj/machinery/rnd/production/proc/on_materials_changed()
@@ -66,7 +67,7 @@
 
 /obj/machinery/rnd/production/proc/alert_research()
 	pending_research.Cut()
-	var/list/diff_nodes = host_research.researched_designs | stored_research.researched_designs
+	var/list/diff_nodes = host_research.researched_designs ^ stored_research.researched_designs
 	var/amount_sent = 0
 	if(!diff_nodes)
 		return
