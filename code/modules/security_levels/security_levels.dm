@@ -7,6 +7,9 @@ GLOBAL_VAR_INIT(security_level, SEC_LEVEL_GREEN)
 //config.alert_desc_blue_downto
 
 /proc/set_security_level(level)
+	// sets mood based on the new level
+	var/datum/mood_event/new_mood
+
 	switch(level)
 		if("green")
 			level = SEC_LEVEL_GREEN
@@ -28,6 +31,7 @@ GLOBAL_VAR_INIT(security_level, SEC_LEVEL_GREEN)
 					SSshuttle.emergency.modTimer(4)
 				else
 					SSshuttle.emergency.modTimer(2)
+			new_mood = /datum/mood_event/green_alert
 
 		if(SEC_LEVEL_BLUE)
 			if(GLOB.security_level < SEC_LEVEL_BLUE)
@@ -49,6 +53,7 @@ GLOBAL_VAR_INIT(security_level, SEC_LEVEL_GREEN)
 						SSshuttle.emergency.modTimer(0.5)
 			else
 				minor_announce(CONFIG_GET(string/alert_red_downto), "Attention! Code red!")
+			new_mood = /datum/mood_event/red_alert
 
 		if(SEC_LEVEL_DELTA)
 			minor_announce(CONFIG_GET(string/alert_delta), "Attention! Delta security level reached!",1)
@@ -57,6 +62,21 @@ GLOBAL_VAR_INIT(security_level, SEC_LEVEL_GREEN)
 					SSshuttle.emergency.modTimer(0.25)
 				else if(GLOB.security_level == SEC_LEVEL_BLUE)
 					SSshuttle.emergency.modTimer(0.5)
+			new_mood = /datum/mood_event/delta
+
+	if(GLOB.security_level == SEC_LEVEL_DELTA && level != SEC_LEVEL_DELTA)  // going down from delta
+		new_mood = /datum/mood_event/delta_cancel
+
+	for(var/mob/M in GLOB.player_list)
+		if(ROLE_SYNDICATE in M.faction)  // syndie just dont care
+			continue
+		var/datum/component/mood/mood = M.GetComponent(/datum/component/mood)
+		if(mood.get_event("alert_mood"))
+			SEND_SIGNAL(M, COMSIG_CLEAR_MOOD_EVENT, "alert_mood")  // clears last event
+
+		if(new_mood)
+			SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "alert_mood", new_mood)
+
 
 	GLOB.security_level = level
 	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_SECURITY_ALERT_CHANGE, level)

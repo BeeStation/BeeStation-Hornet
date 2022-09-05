@@ -231,3 +231,8 @@
 /datum/mood_event/brain_tumor_mannitol/New(mob/M, param)
 	timeout = rand(30,60) SECONDS // makes the timing unreliable on your mood
 	..()
+
+
+/datum/mood_event/green_alert
+	description = "<span class='nicegreen'>Glad things are getting back to normal around here.</span>"
+	mood_change = 2
