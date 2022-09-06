@@ -16,6 +16,7 @@
 	new /obj/item/pet_carrier(src)
 	new /obj/item/storage/photo_album/CE(src)
 
+	new /obj/item/storage/box/radiokey/eng(src)
 	new /obj/item/storage/box/command_keys(src)
 	new /obj/item/megaphone/command(src)
 	new /obj/item/cartridge/ce(src)
@@ -47,7 +48,6 @@
 	new /obj/item/rcd_ammo/large(src)
 	new /obj/item/holosign_creator/engineering(src)
 	new /obj/item/holosign_creator/atmos(src)
-	new /obj/item/storage/box/radiokey/eng(src)
 
 /obj/item/storage/box/suitbox/ce
 	name = "compression box of chief engineer outfits"

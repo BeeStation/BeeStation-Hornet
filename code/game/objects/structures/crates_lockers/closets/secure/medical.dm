@@ -93,6 +93,7 @@
 	new /obj/item/pet_carrier(src)
 	new /obj/item/storage/photo_album/CMO(src)
 
+	new /obj/item/storage/box/radiokey/med(src)
 	new /obj/item/storage/box/command_keys(src)
 	new /obj/item/megaphone/command(src)
 	new /obj/item/cartridge/cmo(src)
@@ -114,9 +115,6 @@
 	new /obj/item/healthanalyzer/advanced(src)
 	new /obj/item/wallframe/defib_mount(src)
 	new /obj/item/gun/energy/e_gun/mini/heads(src)
-	new /obj/item/storage/box/command_keys(src)
-	new /obj/item/storage/lockbox/medal/med(src)
-	new /obj/item/storage/box/radiokey/med(src)
 
 /obj/item/storage/box/suitbox/cmo
 	name = "compression box of chief medical officer outfits"
