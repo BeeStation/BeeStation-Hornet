@@ -42,7 +42,8 @@ const XenoartifactLabelerActivators = (props, context) => {
         <Box>
           {
             activator_traits.map(trait => (<XenoartifactLabelerGenerateList 
-              specific_trait={trait} check_against={selected_activator_traits} key={trait}
+              specific_trait={trait} check_against={selected_activator_traits}
+              key={trait}
               trait_type="activator" />))
           }
         </Box>
@@ -51,7 +52,8 @@ const XenoartifactLabelerActivators = (props, context) => {
         <Box>
           {
             minor_traits.map(trait => (<XenoartifactLabelerGenerateList 
-              specific_trait={trait} check_against={selected_minor_traits} key={trait}
+              specific_trait={trait} check_against={selected_minor_traits}
+              key={trait}
               trait_type="minor" />))
           }
         </Box>
@@ -59,8 +61,9 @@ const XenoartifactLabelerActivators = (props, context) => {
       <Section title="Shape">
         <Box>
           {
-            major_traits.map(trait => (<XenoartifactLabelerGenerateList 
-              specific_trait={trait} check_against={selected_major_traits} key={trait} 
+            major_traits.map(trait => (<XenoartifactLabelerGenerateList
+              specific_trait={trait} check_against={selected_major_traits}
+              key={trait} 
               trait_type="major" />))
           }
         </Box>
@@ -70,7 +73,8 @@ const XenoartifactLabelerActivators = (props, context) => {
           {
             malfunction_list.map(trait => (<XenoartifactLabelerGenerateList 
               key={trait}
-              specific_trait={trait} check_against={selected_malfunction_traits} 
+              specific_trait={trait} 
+              check_against={selected_malfunction_traits}
               trait_type="malfunction" />))
           }
         </Box>
