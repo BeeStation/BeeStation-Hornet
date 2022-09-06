@@ -29,3 +29,9 @@
 #define VISOR_DARKNESSVIEW	(1<<3)
 #define VISOR_INVISVIEW		(1<<4)
 
+// Modes used by /obj/item/clothing/glasses/meson/engine
+#define MODE_NONE ""
+#define MODE_MESON "meson"
+#define MODE_TRAY "t-ray"
+#define MODE_RAD "radiation"
+#define MODE_SHUTTLE "shuttle"
