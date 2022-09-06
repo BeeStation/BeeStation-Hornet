@@ -1,4 +1,5 @@
-GLOBAL_LIST_EMPTY(mentors) //all clients whom are admins
+/// All clients with mentor datums (excluding admins) - use is_mentor() instead of checking this
+GLOBAL_LIST_EMPTY(mentors)
 GLOBAL_PROTECT(mentors)
 
 /client/New()
@@ -6,8 +7,7 @@ GLOBAL_PROTECT(mentors)
 	mentor_datum_set()
 
 /client/proc/is_mentor() // admins are mentors too.
-	if(mentor_datum || check_rights_for(src, R_ADMIN,0))
-		return TRUE
+	return mentor_datum || check_rights_for(src, R_ADMIN, 0)
 
 /client/proc/mentor_datum_set(admin)
 	mentor_datum = GLOB.mentor_datums[ckey]

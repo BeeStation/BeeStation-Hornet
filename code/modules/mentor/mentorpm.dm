@@ -1,25 +1,6 @@
-//This file was ported from hippie, used to be indented with spaces, and is the single worst corner of this codebase next to voice radio. For the love of god please rewrite this.
-//8/3/2022: I partially rewrote it but I haven't nuked everything, enjoy
-
-//shows a list of clients we could send PMs to, then forwards our choice to cmd_Mentor_pm
-/client/proc/cmd_mentor_pm_panel()
-	set category = "Mentor"
-	set name = "Mentor PM"
-	if(!is_mentor())
-		to_chat(src, "<font color='red'>Error: Mentor-PM-Panel: Only Mentors and Admins may use this command.</span>")
-		return
-	var/list/client/targets[0]
-	for(var/client/T)
-		targets["[T]"] = T
-
-	var/list/sorted = sortList(targets)
-	var/target = input(src,"To whom shall we send a message?","Mentor PM",null) in sorted|null
-	cmd_mentor_pm(targets[target],null)
-	SSblackbox.record_feedback("tally", "Mentor_verb", 1, "APM") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
-
-
-//takes input from cmd_mentor_pm_context, cmd_Mentor_pm_panel or /client/Topic and sends them a PM.
-//Fetching a message if needed. src is the sender and C is the target client
+/// Sends a mentor PM to the relevant ticket log and client
+/// - whom: a CKEY, a Stealth Key, or a client
+/// - msg: the message to send
 /client/proc/cmd_mentor_pm(whom, msg)
 	if(prefs.muted & MUTE_MHELP)
 		to_chat(src, "<span class='danger'>Error: Mentor-PM: You are unable to use mentor PM-s (muted).</span>", type = MESSAGE_TYPE_MENTORPM)
@@ -105,7 +86,7 @@
 		if(X.key!=key && X.key!=recipient.key)	//check client/X is an Mentor and isn't the sender or recipient
 			to_chat(X, "<B><span class='mentorto'>Mentor PM: [key_name_mentor(src, X)]-&gt;[key_name_mentor(recipient, X)]:</B> <span class='mentorhelp'>[msg]</span>") //inform X
 
-
+/// Basically the same thing as key_name_admin but with the mentorPM key instead
 /proc/key_name_mentor(var/whom, var/include_link = null)
 	var/mob/M
 	var/client/C
@@ -153,6 +134,7 @@
 		. += "*no key*"
 	return .
 
+/// Used when Reply is clicked for a ticket in chat - informs other mentors when you start typing.
 /client/proc/cmd_mhelp_reply(whom)
 	if(prefs.muted & MUTE_MHELP)
 		to_chat(src, "<span class='danger'>Error: Mentor-PM: You are unable to use mentor PM-s (muted).</span>", type = MESSAGE_TYPE_ADMINPM)
@@ -180,6 +162,7 @@
 	cmd_mentor_pm(whom, msg)
 	AH.Claim()
 
+/// Use when PMing from a ticket
 /client/proc/cmd_mhelp_reply_instant(whom, msg)
 	if(prefs.muted & MUTE_MHELP)
 		to_chat(src, "<span class='danger'>Error: Mentor-PM: You are unable to use mentor PM-s (muted).</span>", type = MESSAGE_TYPE_ADMINPM)
@@ -200,6 +183,7 @@
 		return
 	cmd_mentor_pm(whom, msg)
 
+/// Send a message to all mentors (MENTOR LOG:)
 /proc/message_mentors(msg)
 	msg = "<span class='mentorlog'><span class='prefix'>MENTOR LOG:</span> <span class='message linkify'>[msg]</span></span>"
 	to_chat(GLOB.mentors | GLOB.admins, msg, type = MESSAGE_TYPE_MENTORLOG)

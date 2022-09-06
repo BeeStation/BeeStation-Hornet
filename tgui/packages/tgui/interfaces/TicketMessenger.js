@@ -1,7 +1,7 @@
-import { multiline, decodeHtmlEntities } from 'common/string';
-import { useBackend, useLocalState } from '../backend';
-import { Box, Button, Flex, Input, Section, Table, Tabs, NoticeBox, Collapsible, BlockQuote, Slider, Divider } from '../components';
-import { Window, Layout } from '../layouts';
+import { decodeHtmlEntities } from 'common/string';
+import { useBackend } from '../backend';
+import { Box, Button, Input, Section, Table, Divider } from '../components';
+import { Window } from '../layouts';
 import { round } from 'common/math';
 import { ButtonConfirm } from '../components/Button';
 
@@ -29,10 +29,7 @@ export const TicketActionBar = (props, context) => {
   const {
     disconnected,
     time_opened,
-    time_closed,
     world_time,
-    ticket_state,
-    claimee,
     claimee_key,
     antag_status,
     id,
@@ -92,7 +89,7 @@ export const TicketActionBar = (props, context) => {
   );
 };
 
-export const TicketFullMonty = (props, context) => {
+export const TicketFullMonty = (_, context) => {
   const { act } = useBackend(context);
   return (
     <Box inline>
@@ -159,7 +156,7 @@ export const TicketClosureStates = ({ admin }, context) => {
   );
 };
 
-export const TicketChatWindow = (props, context) => {
+export const TicketChatWindow = (_, context) => {
   const { act, data } = useBackend(context);
   const {
     messages = [],

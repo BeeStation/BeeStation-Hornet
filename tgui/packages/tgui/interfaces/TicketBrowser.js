@@ -1,10 +1,10 @@
-import { useBackend, useSharedState } from '../backend';
+import { useBackend, useLocalState } from '../backend';
 import { Box, Button, Section, Table, Tabs, Collapsible, BlockQuote } from '../components';
 import { Window } from '../layouts';
 import { capitalize } from 'common/string';
 import { ButtonConfirm } from '../components/Button';
 
-export const TicketBrowser = (props, context) => {
+export const TicketBrowser = (_, context) => {
   const { data } = useBackend(context);
   const {
     unclaimed_tickets = [],
@@ -18,7 +18,7 @@ export const TicketBrowser = (props, context) => {
     admin_ckey,
     is_admin_panel,
   } = data;
-  const [tab, setTab] = useSharedState(context, 'tab', 'admin');
+  const [tab, setTab] = useLocalState(context, 'tab', 'admin');
   return (
     <Window theme="admin" width={720} height={600}>
       <Window.Content scrollable>
