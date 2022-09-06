@@ -1,0 +1,5 @@
+author: itsmeow
+delete-after: true
+changes:
+  - bugfix: If you wrench an emitter or shuttle engine before adding the board to
+      the machine frame, it now lets you weld the frame as expected.
