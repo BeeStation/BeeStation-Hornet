@@ -4,7 +4,7 @@
 //  - Put cable in user's hand instead of on the ground
 //  - Camera jack
 
-
+// why is this so indented?
 /mob/living/silicon/pai/var/list/available_software = list(
 															//Nightvision
 															//T-Ray
@@ -25,6 +25,7 @@
 															//"projection array" = 15,
 															"medical HUD" = 20,
 															"security HUD" = 20,
+															"diagnostic HUD" = 20,
 															"loudness booster" = 20,
 															"newscaster" = 20,
 															"door jack" = 25,
@@ -70,6 +71,8 @@
 				left_part = facialRecognition()
 			if("medicalhud")
 				left_part = medicalAnalysis()
+			if("diaghud")
+				left_part = electricalScan()
 			if("doorjack")
 				left_part = softwareDoor()
 			if("camerajack")
@@ -253,22 +256,28 @@
 			if("securityhud")
 				if(href_list["toggle"])
 					secHUD = !secHUD
+					var/datum/atom_hud/sec = GLOB.huds[sec_hud]
 					if(secHUD)
-						var/datum/atom_hud/sec = GLOB.huds[sec_hud]
 						sec.add_hud_to(src)
 					else
-						var/datum/atom_hud/sec = GLOB.huds[sec_hud]
 						sec.remove_hud_from(src)
 
 			if("medicalhud")
 				if(href_list["toggle"])
 					medHUD = !medHUD
+					var/datum/atom_hud/med = GLOB.huds[med_hud]
 					if(medHUD)
-						var/datum/atom_hud/med = GLOB.huds[med_hud]
 						med.add_hud_to(src)
 					else
-						var/datum/atom_hud/med = GLOB.huds[med_hud]
 						med.remove_hud_from(src)
+			if("diaghud")
+				if(href_list["toggle"])
+					dHud = !dHud
+					var/datum/atom_hud/diag = GLOB.huds[d_hud]
+					if(dHud)
+						diag.add_hud_to(src)
+					else
+						diag.remove_hud_from(src)
 
 			if("hostscan")
 				if(href_list["toggle"])
@@ -349,6 +358,8 @@
 			dat += "<a href='byond://?src=[REF(src)];software=securityhud;sub=0'>Facial Recognition Suite</a>[(secHUD) ? "<font color=#55FF55> On</font>" : "<font color=#FF5555> Off</font>"] <br>"
 		if(s == "medical HUD")
 			dat += "<a href='byond://?src=[REF(src)];software=medicalhud;sub=0'>Medical Analysis Suite</a>[(medHUD) ? "<font color=#55FF55> On</font>" : "<font color=#FF5555> Off</font>"] <br>"
+		if(s == "diagnostic HUD")
+			dat += "<a href='byond://?src=[REF(src)];software=diaghud;sub=0'>Electrical Diagnostic Suite</a>[(dHUD) ? "<font color=#55FF55> On</font>" : "<font color=#FF5555> Off</font>"] <br>"
 		if(s == "encryption keys")
 			dat += "<a href='byond://?src=[REF(src)];software=encryptionkeys;sub=0'>Channel Encryption Firmware</a>[(encryptmod) ? "<font color=#55FF55> On</font>" : "<font color=#FF5555> Off</font>"] <br>"
 		if(s == "universal translator")
@@ -538,6 +549,15 @@
 			<a href='byond://?src=[REF(src)];software=medicalhud;sub=0;toggle=1'>Toggle Suite</a><br>
 			"}
 	return dat
+
+// Diag HUD
+/mob/living/silicon/pai/proc/electricalScan()
+	var/dat
+	dat += {"<h3>Electical Diagnostic Overlay</h3><br>
+		When enabled, this package will interface with nearby electrical devices, and provide real-time graphical data on their performance. <br><br>
+		The suite is currently [ (dHUD) ? "<font color=#55FF55>en" : "<font color=#FF5555>dis" ]abled.</font><br>
+		<a href='byond://?src=[REF(src)];software=diaghud;sub=0;toggle=1'>Toggle Suite</a><br>
+	"}
 
 //Health Scanner
 /mob/living/silicon/pai/proc/softwareHostScan()
