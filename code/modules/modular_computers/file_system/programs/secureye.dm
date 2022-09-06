@@ -3,6 +3,7 @@
 /datum/computer_file/program/secureye
 	filename = "secureye"
 	filedesc = "SecurEye"
+	category = PROGRAM_CATEGORY_MISC
 	program_icon_state = "generic"
 	extended_desc = "This program allows access to standard security camera networks."
 	requires_ntnet = TRUE
@@ -10,6 +11,7 @@
 	usage_flags = PROGRAM_CONSOLE | PROGRAM_LAPTOP
 	size = 5
 	tgui_id = "NtosSecurEye"
+	program_icon = "eye"
 
 	var/list/network = list("ss13")
 	var/obj/machinery/camera/active_camera

@@ -35,6 +35,7 @@
 	new /obj/item/door_remote/captain(src)
 	new /obj/item/storage/belt/sabre(src)
 	new /obj/item/gun/energy/e_gun/mini/heads(src)
+	new /obj/item/storage/box/radiokey/com(src)
 
 /obj/item/storage/box/suitbox/cap/PopulateContents()
 	name = "compression box of captain outfits"
@@ -91,6 +92,21 @@
 	new /obj/item/clothing/under/rank/civilian/head_of_personnel/alt/skirt(src)
 	new /obj/item/clothing/head/hopcap(src)
 	new /obj/item/clothing/shoes/sneakers/brown(src)
+	new /obj/item/storage/box/ids(src)
+	new /obj/item/storage/box/ids(src)
+	new /obj/item/megaphone/command(src)
+	new /obj/item/clothing/suit/armor/vest/alt(src)
+	new /obj/item/assembly/flash/handheld(src)
+	new /obj/item/clothing/glasses/sunglasses/advanced(src)
+	new /obj/item/restraints/handcuffs/cable/zipties(src)
+	new /obj/item/clothing/neck/petcollar(src)
+	new /obj/item/pet_carrier(src)
+	new /obj/item/door_remote/civillian(src)
+	new /obj/item/circuitboard/machine/techfab/department/service(src)
+	new /obj/item/storage/photo_album/HoP(src)
+	new /obj/item/storage/box/command_keys(src)
+	new /obj/item/card/id/departmental_budget/srv(src)
+	new /obj/item/storage/box/radiokey/srv(src)
 
 /obj/structure/closet/secure_closet/brig_physician
 	name = "\proper brig physician's locker"
@@ -150,6 +166,11 @@
 	new /obj/item/storage/belt/security/full(src)
 	new /obj/item/gun/energy/e_gun/hos(src)
 	new /obj/item/pinpointer/nuke(src)
+	new /obj/item/circuitboard/machine/techfab/department/security(src)
+	new /obj/item/storage/photo_album/HoS(src)
+	new /obj/item/storage/box/command_keys(src)
+	new /obj/item/card/id/departmental_budget/sec(src)
+	new /obj/item/storage/box/radiokey/sec(src)
 
 /obj/item/storage/box/suitbox/hos
 	name = "compression box of head of security outfits"

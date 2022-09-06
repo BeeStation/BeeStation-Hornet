@@ -8,6 +8,7 @@
 	icon_state_unpowered = null
 	icon_state_menu = null
 	hardware_flag = 0
+	max_bays = 4
 
 	var/obj/machinery/modular_computer/machinery_computer = null
 
@@ -58,23 +59,11 @@
 	machinery_computer.update_icon()
 	return
 
-/obj/item/modular_computer/processor/add_computer_verbs(path)
-	switch(path)
-		if(MC_CARD)
-			machinery_computer.add_verb(/obj/machinery/modular_computer/proc/eject_id)
-		if(MC_SDD)
-			machinery_computer.add_verb(/obj/machinery/modular_computer/proc/eject_disk)
-		if(MC_AI)
-			machinery_computer.add_verb(/obj/machinery/modular_computer/proc/eject_card)
-
-/obj/item/modular_computer/processor/remove_computer_verbs(path)
-	switch(path)
-		if(MC_CARD)
-			machinery_computer.remove_verb(/obj/machinery/modular_computer/proc/eject_id)
-		if(MC_SDD)
-			machinery_computer.remove_verb(/obj/machinery/modular_computer/proc/eject_disk)
-		if(MC_AI)
-			machinery_computer.remove_verb(/obj/machinery/modular_computer/proc/eject_card)
-
 /obj/item/modular_computer/processor/attack_ghost(mob/user)
 	ui_interact(user)
+
+/obj/item/modular_computer/processor/alert_call(datum/computer_file/program/caller, alerttext)
+	if(!caller || !caller.alert_able || caller.alert_silenced || !alerttext)
+		return
+	playsound(src, 'sound/machines/twobeep_high.ogg', 50, TRUE)
+	machinery_computer.visible_message("<span class='notice'>The [src] displays a [caller.filedesc] notification: [alerttext]</span>")

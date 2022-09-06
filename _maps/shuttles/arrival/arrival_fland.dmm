@@ -218,7 +218,7 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/arrival)
 "ws" = (
-/obj/structure/chair/comfy/shuttle,
+/obj/structure/chair/fancy/shuttle,
 /turf/open/floor/mineral/titanium/yellow,
 /area/shuttle/arrival)
 "xa" = (
@@ -355,7 +355,7 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/arrival)
 "GO" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
 /obj/effect/turf_decal/bot,
@@ -369,7 +369,7 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/arrival)
 "GX" = (
-/obj/structure/chair/comfy/shuttle,
+/obj/structure/chair/fancy/shuttle,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/arrival)

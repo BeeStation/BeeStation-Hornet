@@ -1033,7 +1033,7 @@
 /area/shuttle/abandoned/medbay)
 "bJ" = (
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 4
 	},
 /obj/effect/decal/cleanable/blood/old,
@@ -1215,7 +1215,7 @@
 /area/shuttle/abandoned/bridge)
 "ca" = (
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
@@ -1380,7 +1380,7 @@
 /area/shuttle/abandoned/bridge)
 "cn" = (
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/blue,
@@ -2126,7 +2126,6 @@
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
 /obj/docking_port/mobile{
 	callTime = 250;
-	dheight = 0;
 	dir = 2;
 	dwidth = 11;
 	dynamic_id = 1;

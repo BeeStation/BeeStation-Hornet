@@ -4,7 +4,7 @@
 /turf/closed/wall/mineral/plastitanium,
 /area/shuttle/assault_pod)
 "c" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 4
 	},
 /turf/open/floor/mineral/plastitanium/red,
@@ -16,11 +16,9 @@
 /obj/machinery/door/airlock/centcom{
 	aiControlDisabled = 1;
 	name = "Assault Pod";
-	opacity = 1;
 	req_access_txt = "150"
 	},
 /obj/docking_port/mobile/assault_pod{
-	dwidth = 3;
 	name = "steel rain";
 	port_direction = 4;
 	preferred_direction = 4
@@ -38,26 +36,25 @@
 /obj/machinery/door/airlock/centcom{
 	aiControlDisabled = 1;
 	name = "Assault Pod";
-	opacity = 1;
 	req_access_txt = "150"
 	},
 /turf/open/floor/plating,
 /area/shuttle/assault_pod)
 "D" = (
-/obj/structure/chair/comfy/shuttle,
+/obj/structure/chair/fancy/shuttle,
 /obj/machinery/light{
 	dir = 1
 	},
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/assault_pod)
 "H" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 8
 	},
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/assault_pod)
 "L" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
 /obj/machinery/light,
@@ -66,7 +63,6 @@
 "R" = (
 /obj/machinery/door/airlock/centcom{
 	name = "Assault Pod";
-	opacity = 1;
 	req_access_txt = "150"
 	},
 /turf/open/floor/plating,

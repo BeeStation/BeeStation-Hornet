@@ -236,14 +236,14 @@
 /turf/open/floor/plasteel,
 /area/shuttle/arrival)
 "u" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 4
 	},
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel,
 /area/shuttle/arrival)
 "v" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 8
 	},
 /obj/effect/turf_decal/bot,
@@ -403,9 +403,7 @@
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/arrival)
 "O" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
+/obj/effect/turf_decal/stripes/line,
 /obj/machinery/door/airlock/shuttle{
 	name = "Arrival Shuttle Airlock"
 	},

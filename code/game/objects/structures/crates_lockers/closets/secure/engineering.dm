@@ -47,6 +47,7 @@
 	new /obj/item/rcd_ammo/large(src)
 	new /obj/item/holosign_creator/engineering(src)
 	new /obj/item/holosign_creator/atmos(src)
+	new /obj/item/storage/box/radiokey/eng(src)
 
 /obj/item/storage/box/suitbox/ce
 	name = "compression box of chief engineer outfits"
