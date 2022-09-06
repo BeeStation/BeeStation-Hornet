@@ -423,7 +423,7 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 			var/obj/machinery/computer/shuttle_flight/flight_computer = locate() in curT
 			if(!flight_computer)
 				continue
-			flight_computer.shuttleId = "[id]"
+			flight_computer.set_shuttle_id("[id]")
 			flight_computer.shuttlePortId = "[id]_custom"
 
 	initial_engines = count_engines()

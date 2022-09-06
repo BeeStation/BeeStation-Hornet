@@ -54,6 +54,8 @@
 	var/list/obj/machinery/shuttle_weapon/shuttle_weapons = list()
 	///List of registered turfs, so we can unregister them if needed
 	var/list/turf/registered_turfs = list()
+	///Communications manager
+	var/datum/orbital_comms_manager/comms
 
 /datum/shuttle_data/New(port_id, faction_type = /datum/faction/independant)
 	. = ..()
@@ -65,11 +67,15 @@
 	var/obj/docking_port/mobile/attached_port = SSshuttle.getShuttle(port_id)
 	shuttle_name = attached_port.name
 	calculate_initial_stats()
+	//Create the communications manager for that shuttle
+	comms = new /datum/orbital_comms_manager(port_id)
+	SSorbits.register_communication_manager(comms)
 
 /datum/shuttle_data/Destroy(force, ...)
 	unregister_turfs()
 	. = ..()
 	log_shuttle("Shuttle data [shuttle_name] ([port_id]) was deleted.")
+	QDEL_NULL(comms)
 
 /// Private
 /// Calculates the initial stats of the shuttle

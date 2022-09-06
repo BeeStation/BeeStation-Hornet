@@ -49,7 +49,7 @@
 			designator.icon_state = "rsd_used"
 
 /obj/machinery/computer/shuttle_flight/custom_shuttle/proc/linkShuttle(var/new_id)
-	shuttleId = new_id
+	set_shuttle_id(new_id)
 	shuttlePortId = "[shuttleId]_custom_dock"
 
 /obj/machinery/computer/shuttle_flight/custom_shuttle/connect_to_shuttle(obj/docking_port/mobile/port, obj/docking_port/stationary/dock, idnum, override=FALSE)

@@ -63,6 +63,9 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 	//shuttle weapons
 	var/list/shuttle_weapons = list()
 
+	//=====Communications=====
+	var/list/communication_managers = list()
+
 	//=====Factions=====
 	// factions[datum] = new datum
 	var/list/factions
@@ -316,7 +319,7 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 			"radius" = object.radius,
 			"render_mode" = object.render_mode,
 			"priority" = object.priority,
-			"distress" = distress
+			"distress" = distress,
 		))
 	return data
 
@@ -408,6 +411,14 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 				located_items[item] = amount
 				break
 	return pick(located_items)
+
+//====================================
+// Communications
+//====================================
+
+/// Register a communication manager
+/datum/controller/subsystem/processing/orbits/proc/register_communication_manager(datum/orbital_comms_manager/comms)
+	communication_managers[comms.messenger_id] = comms
 
 //====================================
 // Captured Crew

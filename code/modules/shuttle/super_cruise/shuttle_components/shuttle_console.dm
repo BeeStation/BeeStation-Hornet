@@ -39,19 +39,46 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 	//Internal variable to indicate if the warning system is active or not
 	var/collision_warning_system_active = FALSE
 
+	var/registered = FALSE
+
 /obj/machinery/computer/shuttle_flight/Initialize(mapload, obj/item/circuitboard/C)
 	. = ..()
 	valid_docks = params2list(possible_destinations)
 	if(shuttleId)
 		shuttlePortId = "[shuttleId]_custom"
+		set_shuttle_id(shuttleId)
 	else
 		var/static/i = 0
 		shuttlePortId = "unlinked_shuttle_console_[i++]"
 	RegisterSignal(SSorbits, COMSIG_ORBITAL_BODY_CREATED, .proc/register_shuttle_object)
-	register_shuttle_object(null, SSorbits.assoc_shuttles[shuttleId])
 	//Setup the looping sound
 	emergency_alarm = new(list(src))
 	collision_warning = new(list(src))
+
+/obj/machinery/computer/shuttle_flight/proc/set_shuttle_id(new_id, stack_depth = 0)
+	if (stack_depth > 5)
+		CRASH("Failed to set shuttle ID after 5 attempts, shuttle does still not exist. Shuttle ID: [new_id]")
+	//Unregister if we need
+	if (registered)
+		if (shuttleObject)
+			unregister_shuttle_object(null, FALSE)
+		var/datum/shuttle_data/old_shuttle = SSorbits.get_shuttle_data(shuttleId)
+		if (old_shuttle)
+			UnregisterSignal(old_shuttle.comms, COMSIG_COMMUNICATION_RECEIEVED)
+		registered = FALSE
+	//Set the shuttle ID
+	shuttleId = new_id
+	//Set to null shuttle
+	if (!shuttleId)
+		return
+	//Get the shuttle data
+	var/datum/shuttle_data/new_shuttle = SSorbits.get_shuttle_data(shuttleId)
+	if (new_shuttle)
+		register_shuttle_object(null, SSorbits.assoc_shuttles[shuttleId])
+		RegisterSignal(new_shuttle.comms, COMSIG_COMMUNICATION_RECEIEVED, .proc/message_recieved)
+		registered = TRUE
+	else
+		addtimer(CALLBACK(src, .proc/set_shuttle_id, new_id, stack_depth + 1), 5 SECONDS)
 
 /obj/machinery/computer/shuttle_flight/Destroy()
 	. = ..()
@@ -137,12 +164,18 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 		data["valid_dock"] += list(list(
 			"id" = dock,
 		))
+	//Can message
+	data["can_message"] = TRUE
+	data["communication_targets"] = list()
+	for (var/key in SSorbits.communication_managers)
+		data["communication_targets"] += key
 	//Get the shuttle data
 	var/datum/shuttle_data/shuttle_data = SSorbits.get_shuttle_data(shuttleId)
 	//If we are a recall console.
 	data["recall_docking_port_id"] = recall_docking_port_id
 	data["request_shuttle_message"] = request_shuttle_message
-	data["interdiction_range"] = shuttle_data.interdiction_range
+	if(shuttle_data)
+		data["interdiction_range"] = shuttle_data.interdiction_range
 	return data
 
 /obj/machinery/computer/shuttle_flight/ui_data(mob/user)
@@ -155,8 +188,9 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 	if(!map_reference_object)
 		//Locate the port
 		var/obj/docking_port/mobile/mobile_port = SSshuttle.getShuttle(shuttleId)
-		var/datum/space_level/space_level = SSmapping.get_level(mobile_port.z)
-		map_reference_object = space_level.orbital_body
+		if(mobile_port)
+			var/datum/space_level/space_level = SSmapping.get_level(mobile_port.z)
+			map_reference_object = space_level.orbital_body
 
 	//Get the base map data
 	var/list/data = SSorbits.get_orbital_map_base_data(
@@ -166,6 +200,9 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 		map_reference_object,
 		shuttle_data
 	)
+
+	//Shuttle communications
+	data += shuttle_data.comms.get_ui_data()
 
 	data["shuttleName"] = map_reference_object?.name
 
@@ -305,6 +342,38 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 		return
 
 	switch(action)
+		if("send_message")
+			//Get the shuttle data
+			var/datum/shuttle_data/shuttle_data = SSorbits.get_shuttle_data(shuttleId)
+			if (!shuttle_data)
+				return
+			//sanitize
+			var/datum/orbital_comms_manager/target = SSorbits.communication_managers[params["id"]]
+			if(!target)
+				return
+			//Get the message we wish to send
+			var/message = stripped_input(usr, "What message would you like to transmit?", "Communication")
+			if (!message)
+				return
+			message_admins("[ADMIN_LOOKUPFLW(usr)] sent a shuttle communication to [target.messenger_id] reading '[message]'.")
+			log_shuttle("[key_name(usr)] sent a shuttle communication to [target.messenger_id] reading '[message]'.")
+			shuttle_data.comms.send_message_to(target.messenger_id, message)
+		if("send_emergency_message")
+			//Get the shuttle data
+			var/datum/shuttle_data/shuttle_data = SSorbits.get_shuttle_data(shuttleId)
+			if (!shuttle_data)
+				return
+			//sanitize
+			var/datum/orbital_comms_manager/target = SSorbits.communication_managers[params["id"]]
+			if(!target)
+				return
+			//Get the message we wish to send
+			var/message = stripped_input(usr, "What message would you like to transmit?", "Communication")
+			if (!message)
+				return
+			message_admins("[ADMIN_LOOKUPFLW(usr)] sent an emergency communication to [target.messenger_id] reading 'message'.")
+			log_shuttle("[key_name(usr)] sent an emergency communication to [target.messenger_id] reading '[message]'.")
+			shuttle_data.comms.send_emergency_message_to(target.messenger_id, message)
 		if("toggleBreaking")
 			if(QDELETED(shuttleObject))
 				say("Shuttle not in flight.")
@@ -445,3 +514,10 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 	if(istype(circuit_board) && circuit_board.hacked)
 		return TRUE
 	return ..()
+
+/obj/machinery/computer/shuttle_flight/proc/message_recieved(datum/source, sender, message, emergency)
+	if (emergency)
+		playsound(src, 'sound/machines/warning-buzzer.ogg', 50, 1)
+		say("Emergency transmission receieved from [sender]. The communication reads, '[message]'.")
+	else
+		say("Communication receieved from [sender]. The communication reads, '[message]'.")

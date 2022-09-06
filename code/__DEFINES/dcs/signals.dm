@@ -633,6 +633,10 @@
 /// Called when a collision alert for shuttles is toggled (new_status)
 #define COMSIG_SHUTTLE_TOGGLE_COLLISION_ALERT "shuttle_collision_alert_toggle"
 
+// Orbital Communication Signals
+/// Called when a communication manager receieves a message: (string/sender, string/message, bool/emergency)
+#define COMSIG_COMMUNICATION_RECEIEVED "communication_recieved"
+
 // /obj/machinery/power/supermatter_crystal signals
 /// from /obj/machinery/power/supermatter_crystal/process_atmos(); when the SM delam reaches the point of sounding alarms
 #define COMSIG_SUPERMATTER_DELAM_START_ALARM "sm_delam_start_alarm"

@@ -3222,6 +3222,8 @@
 #include "code\modules\shuttle\super_cruise\debug_verbs.dm"
 #include "code\modules\shuttle\super_cruise\shuttle_supercruise.dm"
 #include "code\modules\shuttle\super_cruise\bluespace_beacon\bluespace_beacon.dm"
+#include "code\modules\shuttle\super_cruise\communications\communication_manager.dm"
+#include "code\modules\shuttle\super_cruise\communications\communication_message.dm"
 #include "code\modules\shuttle\super_cruise\factions\faction.dm"
 #include "code\modules\shuttle\super_cruise\factions\faction_independant.dm"
 #include "code\modules\shuttle\super_cruise\factions\faction_nanotrasen.dm"

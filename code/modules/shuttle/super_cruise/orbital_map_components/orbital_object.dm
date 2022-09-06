@@ -60,6 +60,9 @@
 	//Add to this when you want THIS objects collision proc to be called.
 	var/collision_flags = NONE
 
+	//The ID used for comms
+	var/comms_id
+
 	//The color of the locator
 	var/locator_colour
 

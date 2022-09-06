@@ -309,13 +309,16 @@ export const OrbitalMapComms = (props, context) => {
   const { act, data } = useBackend(context);
 
   const {
-    map_objects = {},
+    communication_targets = {},
+    messages = [],
   } = data;
 
   const [
     communicationTarget,
     setCommunicationTarget,
-  ] = useLocalState(context, 'communicationTarget', map_objects[0].id);
+  ] = useLocalState(context, 'communicationTarget', communication_targets[0]);
+
+  const message_category = messages[communicationTarget];
 
   return (
     <Stack
@@ -326,12 +329,12 @@ export const OrbitalMapComms = (props, context) => {
           height="100%"
           title="Communication Targets">
           <Tabs vertical>
-            {map_objects.map(element => (
+            {communication_targets.map(element => (
               <Tabs.Tab
                 key={element}
-                selected={communicationTarget===element.id}
-                onClick={() => setCommunicationTarget(element.id)}>
-                {element.name}
+                selected={communicationTarget===element}
+                onClick={() => setCommunicationTarget(element)}>
+                {element}
               </Tabs.Tab>
             ))}
           </Tabs>
@@ -339,8 +342,53 @@ export const OrbitalMapComms = (props, context) => {
       </Stack.Item>
       <Stack.Divider />
       <Stack.Item width="100%">
-        <Section width="100%" height="100%" title="Communications Window">
-          a
+        <Section width="100%" height="100%" title="Communications Window" overflowY="scroll">
+          <Button
+            inline
+            flex={1}
+            icon="comments-o"
+            onClick={() => act('send_message', {
+              id: communicationTarget,
+            })} >
+            Send Message
+          </Button>
+          <Button
+            inline
+            flex={1}
+            icon="exclamation-triangle"
+            onClick={() => act('send_emergency_message', {
+              id: communicationTarget,
+            })} >
+            Send Emergency Message
+          </Button>
+          <Divider />
+          <Table>
+            {message_category && message_category.map(message =>
+              message.sourced_locally ? (
+                <Table.Row>
+                  <Table.Cell bold color="red">
+                    <b>You</b>
+                  </Table.Cell>
+                  <Table.Cell width="100%">
+                    {message.message}
+                    <Divider />
+                  </Table.Cell>
+                  <Table.Cell> </Table.Cell>
+                </Table.Row>
+              ) : (
+                <Table.Row>
+                  <Table.Cell> </Table.Cell>
+                  <Table.Cell width="100%">
+                    {message.message}
+                    <Divider />
+                  </Table.Cell>
+                  <Table.Cell bold color="blue">
+                    {communicationTarget}
+                  </Table.Cell>
+                </Table.Row>
+              )
+            )}
+          </Table>
         </Section>
       </Stack.Item>
       <Stack.Divider />
