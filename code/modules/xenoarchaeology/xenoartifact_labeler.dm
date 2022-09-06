@@ -94,8 +94,7 @@
 
 //Get a list of all the specified trait types names, actually
 /obj/item/xenoartifact_labeler/proc/get_trait_list_desc(list/traits, list/trait_type)
-	for(var/T in trait_type)
-		var/datum/xenoartifact_trait/X = T
+	for(var/datum/xenoartifact_trait/X as() in trait_type)
 		traits += (initial(X.desc) || initial(X.label_name))
 	return traits
 
@@ -151,10 +150,9 @@
 
 //This is just a hacky way of getting the info from a datum using its desc becuase I wrote this last and it's not heartbreaking
 /obj/item/xenoartifact_labeler/proc/desc2datum(udesc)
-	for(var/trait in GLOB.xenoa_all_traits)
-		var/datum/xenoartifact_trait/X = trait //typecast
+	for(var/datum/xenoartifact_trait/X as() in GLOB.xenoa_all_traits)
 		if((udesc == initial(X.desc)) || (udesc == initial(X.label_name)))
-			return trait
+			return X
 	CRASH("The xenoartifact trait description '[udesc]' doesn't have a corresponding trait. Something fucked up.")
 
 // Not to be confused with labeler
