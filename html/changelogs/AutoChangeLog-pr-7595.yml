@@ -1,0 +1,7 @@
+author: itsmeow
+delete-after: true
+changes:
+  - bugfix: Verbs with ! in the name have had it removed, and can now be run from
+      TGUI chat (Server Hop)
+  - code_imp: Added a linter check for to prevent verbs with ! in the name
+  - code_imp: Improved clarity of check_grep
