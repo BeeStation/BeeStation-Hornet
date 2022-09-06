@@ -20,6 +20,8 @@
 	var/material 
 	///activation trait, minor 1, minor 2, minor 3, major, malfunction
 	var/list/traits = list()
+	///Internal list of unallowed traits
+	var/list/blacklist = list()
 	///Touch hint
 	var/datum/xenoartifact_trait/touch_desc
 	///used for special examine circumstance, science goggles & ghosts
@@ -52,9 +54,6 @@
 	//snowflake variable for shaped
 	var/transfer_prints = FALSE
 
-	//
-	var/list/test = list()
-
 /obj/item/xenoartifact/ComponentInitialize()
 	. = ..()
 	AddComponent(/datum/component/xenoartifact_pricing)
@@ -63,10 +62,7 @@
 /obj/item/xenoartifact/Initialize(mapload, difficulty)
 	. = ..()
 
-	//If you're the first artifact, be a lamb and ask the globals to setup
-	if(!GLOB.xenoa_all_traits)
-		generate_xenoa_statics()
-	test = GLOB.xenoa_activators
+	generate_xenoa_statics() //This wont load if it's already done, aka this wont spam
 
 	material = difficulty //Difficulty is set, in most cases
 	if(!material)
@@ -261,15 +257,17 @@
 	true_target = list()
 
 ///Generate traits outside of blacklist. Malf = TRUE if you want malfunctioning traits.
-/obj/item/xenoartifact/proc/generate_traits(var/list/blacklist_traits, malf = FALSE)
+/obj/item/xenoartifact/proc/generate_traits(list/blacklist_traits, malf = FALSE)
+	blacklist = blacklist_traits.Copy()
+
 	var/datum/xenoartifact_trait/desc_holder
-	desc_holder = generate_trait_unique(GLOB.xenoa_activators, blacklist_traits, FALSE) //Activator
+	desc_holder = generate_trait_unique(GLOB.xenoa_activators, blacklist, FALSE) //Activator
 	special_desc = initial(desc_holder.desc) ? "[special_desc] [initial(desc_holder.desc)]" : "[special_desc]n Unknown"
 
 	desc_holder = null
 	var/datum/xenoartifact_trait/minor_desc_holder
 	for(var/i in 1 to 3)
-		minor_desc_holder = generate_trait_unique(GLOB.xenoa_minors, blacklist_traits, FALSE) //Minor/s
+		minor_desc_holder = generate_trait_unique(GLOB.xenoa_minors, blacklist, FALSE) //Minor/s
 		desc_holder = desc_holder ? desc_holder : minor_desc_holder
 		if(!touch_desc)
 			touch_desc = traits[traits.len]
@@ -279,26 +277,26 @@
 	special_desc = initial(desc_holder?.desc) ? "[special_desc] [initial(desc_holder.desc)] material." : "[special_desc] material."
 
 	if(malf)
-		generate_trait_unique(GLOB.xenoa_malfs, blacklist_traits) //Malf
+		generate_trait_unique(GLOB.xenoa_malfs, blacklist) //Malf
 
-	desc_holder = generate_trait_unique(GLOB.xenoa_majors, blacklist_traits, FALSE) //Major
+	desc_holder = generate_trait_unique(GLOB.xenoa_majors, blacklist, FALSE) //Major
 	special_desc = initial(desc_holder.desc) ? "[special_desc] The shape is [initial(desc_holder.desc)]." : "[special_desc] The shape is Unknown."
 
 	charge_req = rand(1, 10) * 10
 
 ///generate a single trait against a blacklist. Used in larger /obj/item/xenoartifact/proc/generate_traits()
-/obj/item/xenoartifact/proc/generate_trait_unique(var/list/trait_list, var/list/blacklist_traits = list())
+/obj/item/xenoartifact/proc/generate_trait_unique(list/trait_list, list/blacklist_traits = list())
 	var/datum/xenoartifact_trait/new_trait //Selection
-	var/list/selection = trait_list //Selectable traits
+	var/list/selection = trait_list.Copy() //Selectable traits
 	selection -= blacklist_traits
 	if(selection.len < 1)
-		log_game("An almost impossible event has occured. [src] has failed to generate any traits with [trait_list]!")
+		log_game("An impossible event has occured. [src] has failed to generate any traits!")
 		return
 	new_trait = pickweight(selection)
-	blacklist_traits += new_trait //Add chosen trait to blacklist
+	blacklist += new_trait //Add chosen trait to blacklist
 	traits += new new_trait
 	new_trait = new new_trait //type converting doesn't work too well here but this should be fine.
-	blacklist_traits += new_trait.blacklist_traits //Cant use initial() to access lists without bork'ing it
+	blacklist += new_trait.blacklist_traits //Cant use initial() to access lists without bork'ing it
 	return new_trait
 	
 ///Gets a singular entity, there's a specific traits that handles multiple.

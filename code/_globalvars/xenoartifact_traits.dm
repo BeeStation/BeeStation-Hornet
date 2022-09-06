@@ -10,9 +10,9 @@ GLOBAL_LIST(xenoa_bluespace_blacklist)
 GLOBAL_LIST(xenoa_plasma_blacklist)
 GLOBAL_LIST(xenoa_uranium_blacklist)
 
-//We're not allowed to just use this in a GLOBAL_LIST_INIT
+///Fill globals
 /proc/generate_xenoa_statics()
-    if(GLOB.xenoa_all_traits)
+    if(GLOB.xenoa_all_traits?.len) //Stop artifacts & other spamming generation
         return
 
     GLOB.xenoa_activators = compile_artifact_weights(/datum/xenoartifact_trait/activator)

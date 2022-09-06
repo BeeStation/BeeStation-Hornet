@@ -34,6 +34,7 @@
 
 /obj/item/xenoartifact_labeler/Initialize(mapload)
 	. = ..()
+	generate_xenoa_statics()
 	activator_traits = get_trait_list_desc(activator_traits, GLOB.xenoa_activators)
 	minor_traits = get_trait_list_desc(minor_traits, GLOB.xenoa_minors)
 	major_traits = get_trait_list_desc(major_traits, GLOB.xenoa_majors)
