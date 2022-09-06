@@ -8,6 +8,26 @@
 	armor = list("melee" = 50, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50, "stamina" = 0)
 	var/buildable_sign = 1 //unwrenchable and modifiable
 	rad_flags = RAD_PROTECT_CONTENTS | RAD_NO_CONTAMINATE
+	var/random_dept_base  // will be replaced by a random subtype if the station has random_dept and this is defined
+
+/obj/structure/sign/Initialize(mapload)
+	. = ..()
+	if(random_dept_base)
+		return INITIALIZE_HINT_LATELOAD
+
+/obj/structure/sign/LateInitialize(mapload)
+	. = ..()
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_RANDOM_DEPT) && prob(50))
+		var/list/all_dept = subtypesof(random_dept_base)
+
+		while(TRUE)
+			var/obj/structure/sign/departments/new_dept = pick(all_dept)
+			if(initial(new_dept.desc) || initial(new_dept.icon_state))  // prevents null entries
+				name = initial(new_dept.name)
+				desc = initial(new_dept.desc)
+				icon_state = initial(new_dept.icon_state)
+				break
+
 
 /obj/structure/sign/basic
 	name = "blank sign"
@@ -133,29 +153,7 @@
 // probably a better way to do this..
 
 /obj/structure/sign/departments
-/obj/structure/sign/departments/Initialize(mapload)
-	. = ..()
-	if(HAS_TRAIT(SSstation, STATION_TRAIT_RANDOM_DEPT) && prob(50))
-		var/list/all_dept = subtypesof(/obj/structure/sign/departments)
-
-		while(TRUE)
-			var/obj/structure/sign/departments/new_dept = pick(all_dept)
-			if(initial(new_dept.desc) || initial(new_dept.icon_state))  // prevents null entries
-				name = initial(new_dept.name)
-				desc = initial(new_dept.desc)
-				icon_state = initial(new_dept.icon_state)
-				break
+	random_dept_base = /obj/structure/sign/departments
 
 /obj/structure/sign/directions
-/obj/structure/sign/directions/Initialize(mapload)
-	. = ..()
-	if(HAS_TRAIT(SSstation, STATION_TRAIT_RANDOM_DEPT) && prob(50))
-		var/list/all_dept = subtypesof(/obj/structure/sign/directions)
-
-		while(TRUE)
-			var/obj/structure/sign/departments/new_dept = pick(all_dept)
-			if(initial(new_dept.desc) || initial(new_dept.icon_state))  // prevents null entries
-				name = initial(new_dept.name)
-				desc = initial(new_dept.desc)
-				icon_state = initial(new_dept.icon_state)
-				break
+	random_dept_base = /obj/structure/sign/directions
