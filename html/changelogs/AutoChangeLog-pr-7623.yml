@@ -1,0 +1,5 @@
+author: itsmeow
+delete-after: true
+changes:
+  - bugfix: Restoring an AI through the modular computer app now properly informs
+      their ghost.
