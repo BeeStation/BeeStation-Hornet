@@ -12,14 +12,11 @@
 	symptom_delay_min = 1
 	symptom_delay_max = 1
 	var/passive_message = "" //random message to infected but not actively healing people
-	threshold_desc = "<b>Stage Speed 6:</b> Doubles healing speed.<br>\
-					  <b>Stealth 4:</b> Healing will no longer be visible to onlookers."
+	threshold_desc = "<b>Stealth 4:</b> Healing will no longer be visible to onlookers."
 
 /datum/symptom/heal/Start(datum/disease/advance/A)
 	if(!..())
 		return FALSE
-	if(A.stage_rate >= 6) //stronger healing
-		power = 2
 	return TRUE //For super calls of subclasses
 
 /datum/symptom/heal/Activate(datum/disease/advance/A)
@@ -505,7 +502,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	var/mob/living/carbon/M = A.affected_mob
 	ownermind = M.mind
 	if(!A.carrier && !A.dormant)
-		sizemult = CLAMP((0.5 + A.stage_rate / 10), 1.1, 2.5)
+		sizemult = CLAMP((0.5 + A.stage_rate / 10), 1.1, 1.5)
 		M.resize = sizemult
 		M.update_transform()
 
@@ -522,7 +519,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 				playsound(get_turf(M), 'sound/effects/splat.ogg', 50, 1)
 				if(prob(60) && M.mind && ishuman(M))
 					if(tetsuo && prob(15))
-						if(A.affected_mob.job == "Clown")
+						if(A.affected_mob.job == JOB_NAME_CLOWN)
 							new /obj/effect/spawner/lootdrop/teratoma/major/clown(M.loc)
 						if(MOB_ROBOTIC in A.infectable_biotypes)
 							new /obj/effect/decal/cleanable/robot_debris(M.loc)
@@ -530,7 +527,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 					new /obj/effect/spawner/lootdrop/teratoma/minor(M.loc)
 				if(tetsuo)
 					var/list/missing = M.get_missing_limbs()
-					if(prob(35))
+					if(prob(35) && M.mind && ishuman(M))
 						new /obj/effect/decal/cleanable/blood/gibs(M.loc) //yes. this is very messy. very, very messy.
 						new /obj/effect/spawner/lootdrop/teratoma/major(M.loc)
 					if(missing.len) //we regrow one missing limb
@@ -573,48 +570,6 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	to_chat(M, "<span class='notice'>You lose your balance and stumble as you shrink, and your legs come out from underneath you!</span>")
 	M.resize = 1/sizemult
 	M.update_transform()
-
-//they are used for the maintenance spawn, for ling teratoma see changeling\teratoma.dm
-/obj/effect/mob_spawn/teratomamonkey //spawning these is one of the downsides of overclocking the symptom
-	name = "fleshy mass"
-	desc = "A writhing mass of flesh."
-	icon = 'icons/mob/blob.dmi'
-	icon_state = "blob_spore_temp"
-	density = FALSE
-	anchored = FALSE
-
-	antagonist_type = /datum/antagonist/teratoma/hugbox
-	mob_type = /mob/living/carbon/monkey/tumor
-	mob_name = "a living tumor"
-	death = FALSE
-	roundstart = FALSE
-	use_cooldown = TRUE
-	show_flavour = FALSE	//it's handled by antag datum
-	short_desc = "You are a living tumor. By all accounts you should not exist."
-	flavour_text = "Spread misery and chaos upon the station."
-	important_info = "Avoid killing unprovoked, kill only in self defense!"
-
-/obj/effect/mob_spawn/teratomamonkey/Initialize(mapload)
-	. = ..()
-	var/area/A = get_area(src)
-	if(A)
-		notify_ghosts("A living tumor has been born in [A.name].", 'sound/effects/splat.ogg', source = src, action = NOTIFY_ATTACK, flashwindow = FALSE)
-
-/obj/effect/mob_spawn/teratomamonkey/attack_hand(mob/living/user)
-	. = ..()
-	if(.)
-		return
-	to_chat(user, "<span class='notice'>Ew. It would be a bad idea to touch this. It could probably be destroyed with the extreme heat of a welder.</span>")
-
-/obj/effect/mob_spawn/teratomamonkey/attackby(obj/item/W, mob/user, params)
-	if(W.tool_behaviour == TOOL_WELDER && user.a_intent != INTENT_HARM)
-		user.visible_message("<span class='warning'>[usr.name] destroys [src].</span>",
-			"<span class='notice'>You hold the welder to [src] and it violently bursts!</span>",
-			"<span class='italics'>You hear a gurgling noise.</span>")
-		new /obj/effect/gibspawner/human(get_turf(src))
-		qdel(src)
-	else
-		..()
 
 #undef TELEPORT_COOLDOWN
 
@@ -690,7 +645,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 				bloodpoints += 1
 			else
 				bloodpoints += max(0, grabbedblood)
-			for(var/I in 1 to power)//power doesnt increase efficiency, just usage. 
+			for(var/I in 1 to power)//power doesnt increase efficiency, just usage.
 				if(bloodpoints > 0)
 					if(ishuman(M))
 						var/mob/living/carbon/human/H = M
@@ -703,7 +658,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 					else if(bruteheal && M.getBruteLoss())
 						bloodpoints -= 1
 						M.heal_overall_damage(2, required_status = BODYTYPE_ORGANIC)
-					if(prob(60) && !M.stat) 
+					if(prob(60) && !M.stat)
 						bloodpoints -- //you cant just accumulate blood and keep it as a battery of healing. the quicker the symptom is, the faster your bloodpoints decay
 				else if(prob(20) && M.blood_volume >= BLOOD_VOLUME_BAD)//the virus continues to extract blood if you dont have any stored up. higher probability due to BP value
 					M.blood_volume = (M.blood_volume - 1)
@@ -716,7 +671,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	REMOVE_TRAIT(A.affected_mob, TRAIT_DRINKSBLOOD, DISEASE_TRAIT)
 	if(bloodtypearchive && ishuman(A.affected_mob))
 		var/mob/living/carbon/human/H = A.affected_mob
-		H.dna.blood_type = bloodtypearchive 
+		H.dna.blood_type = bloodtypearchive
 
 /datum/symptom/vampirism/proc/succ(mob/living/carbon/M) //you dont need the blood reagent to suck blood. however, you need to have blood, or at least a shared blood reagent, for most of the other uses
 	var/gainedpoints = 0
@@ -754,7 +709,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 						playsound(T, 'sound/effects/splat.ogg', 50, 1)
 						bloodpoints -= 2
 						return 0
-					else 
+					else
 						var/todir = get_dir(H, bloodbag)
 						var/targetloc = bloodbag.loc
 						var/dist = get_dist(H, bloodbag)
@@ -772,8 +727,8 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 								bloodpoints -= 2
 								bloodbag.visible_message("<span class='warning'>A current of blood pushes [bloodbag.name] towards [H.name]'s corpse!</span>")
 								playsound(bloodbag.loc, 'sound/magic/exit_blood.ogg', 25, 1)
-								return 0 
-			else 
+								return 0
+			else
 				var/list/candidates = list()
 				for(var/mob/living/carbon/human/C in ohearers(min(bloodpoints/4, possibledist), H))
 					if(NOBLOOD in C.dna.species.species_traits)
@@ -788,7 +743,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 						candidates[prospect] += (3 - get_dist(candidate, H)) * 2
 						candidates[prospect] += round(candidate.blood_volume / 150)
 				bloodbag = pickweight(candidates) //dont return here
-	
+
 	if(bloodpoints >= maxbloodpoints)
 		return 0
 	if(ishuman(M) && aggression) //first, try to suck those the host is actively grabbing
@@ -839,7 +794,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 			playsound(M.loc, 'sound/magic/exit_blood.ogg', 50, 1)
 			M.visible_message("<span class='warning'>Blood flows from the floor into [M.name]!</span>", "<span class='warning'>You consume the errant blood</span>")
 		return CLAMP(gainedpoints, 0, maxbloodpoints - bloodpoints)
-	if(ishuman(M) && aggression)//finally, attack mobs touching the host. 
+	if(ishuman(M) && aggression)//finally, attack mobs touching the host.
 		var/mob/living/carbon/human/H = M
 		for(var/mob/living/carbon/human/C in ohearers(1, H))
 			if(NOBLOOD in C.dna.species.species_traits)
@@ -892,7 +847,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 /datum/symptom/parasite/proc/isslimetarget(var/mob/living/carbon/M)
 	if(isslimeperson(M) || isluminescent(M) || isjellyperson(M) || isoozeling(M) || isstargazer(M))
 		return TRUE
-	else 
+	else
 		return FALSE
 
 /datum/symptom/parasite/Activate(datum/disease/advance/A)
@@ -900,7 +855,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 		return
 	var/mob/living/carbon/M = A.affected_mob
 	switch(A.stage)
-		if(1, 2)	
+		if(1, 2)
 			to_chat(M, "<span class='warning'>[pick("You feel something crawling in your veins!", "You feel an unpleasant throbbing.", "You hear something squishy in your ear.")]</span>")
 		if(3 to 5)
 			var/slowdown = 0
@@ -926,12 +881,12 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 			if(((M.getToxLoss() > (LAZYLEN(grubs) * (30/power))) || isslimetarget(M)) && prob(10 * power) && (LAZYLEN(grubs) < power * 2))
 				var/mob/living/simple_animal/hostile/redgrub/grub = new(src)// add new grubs if there's enough toxin for them
 				grub.food = 10
-				grubs += grub 
+				grubs += grub
 				grub.togglehibernation()
 				grub.grubdisease = list(A)
 			if(prob(LAZYLEN(grubs) * (6/power)))// so you know its working. power lowers this so it doesnt spam you at high grub counts
 				to_chat(M, "<span class='warning'>You feel something squirming inside of you!</span>")
-			M.add_movespeed_modifier(MOVESPEED_ID_GRUB_VIRUS_SLOWDOWN, override = TRUE, multiplicative_slowdown = max(slowdown - 0.5, 0)) 
+			M.add_movespeed_modifier(MOVESPEED_ID_GRUB_VIRUS_SLOWDOWN, override = TRUE, multiplicative_slowdown = max(slowdown - 0.5, 0))
 
 /datum/symptom/parasite/End(datum/disease/advance/A)
 	. = ..()
@@ -974,7 +929,7 @@ im not even gonna bother with these for the following symptoms. typed em out, co
 	prefixes = list("Gray ", "Amped ", "Nervous ")
 	var/clearcc = FALSE
 	threshold_desc = "<b>Resistance 8:</b>The virus causes an even greater rate of nutriment loss, able to cause starvation, but its energy gain greatly increases<br>\
-					<b>Stage Speed 8:</b>The virus causes extreme nervousness and paranoia, resulting in occasional hallucinations, and extreme restlessness, but greater overall energy and the ability to shake off stuns faster." 
+					<b>Stage Speed 8:</b>The virus causes extreme nervousness and paranoia, resulting in occasional hallucinations, and extreme restlessness, but greater overall energy and the ability to shake off stuns faster."
 
 /datum/symptom/jitters/severityset(datum/disease/advance/A)
 	. = ..()

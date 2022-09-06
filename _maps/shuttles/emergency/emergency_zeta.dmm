@@ -59,7 +59,7 @@
 /turf/open/floor/plating/abductor,
 /area/shuttle/escape)
 "am" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
 /turf/open/floor/plating/abductor,
@@ -73,7 +73,7 @@
 /turf/open/floor/plating/abductor,
 /area/shuttle/escape)
 "ao" = (
-/obj/structure/chair/comfy/shuttle,
+/obj/structure/chair/fancy/shuttle,
 /turf/open/floor/plating/abductor,
 /area/shuttle/escape)
 "ap" = (
@@ -89,7 +89,7 @@
 /turf/open/floor/plating/abductor,
 /area/shuttle/escape)
 "ar" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 8
 	},
 /turf/open/floor/plating/abductor,
@@ -99,7 +99,7 @@
 /turf/open/floor/plating/abductor,
 /area/shuttle/escape)
 "au" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 4
 	},
 /turf/open/floor/plating/abductor,

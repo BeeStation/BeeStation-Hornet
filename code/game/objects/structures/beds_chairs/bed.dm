@@ -11,13 +11,14 @@
 	name = "bed"
 	desc = "This is used to lie in, sleep in or strap on."
 	icon_state = "bed"
-	icon = 'icons/obj/objects.dmi'
+	icon = 'icons/obj/beds_chairs/beds.dmi'
 	anchored = TRUE
 	can_buckle = TRUE
 	buckle_lying = 90
 	resistance_flags = FLAMMABLE
 	max_integrity = 100
 	integrity_failure = 30
+	dir = SOUTH
 	var/buildstacktype = /obj/item/stack/sheet/iron
 	var/buildstackamount = 2
 	var/bolts = TRUE
@@ -48,7 +49,7 @@
  */
 /obj/structure/bed/roller
 	name = "roller bed"
-	icon = 'icons/obj/rollerbed.dmi'
+	icon = 'icons/obj/beds_chairs/rollerbed.dmi'
 	icon_state = "down"
 	anchored = FALSE
 	resistance_flags = NONE
@@ -106,7 +107,7 @@
 /obj/item/roller
 	name = "roller bed"
 	desc = "A collapsed roller bed that can be carried around."
-	icon = 'icons/obj/rollerbed.dmi'
+	icon = 'icons/obj/beds_chairs/rollerbed.dmi'
 	icon_state = "folded"
 	w_class = WEIGHT_CLASS_NORMAL // No more excuses, stop getting blood everywhere
 
@@ -215,5 +216,59 @@
 
 /obj/structure/bed/alien
 	name = "resting contraption"
-	desc = "This looks similar to contraptions from Earth. Could aliens be stealing our technology?"
+	desc = "This looks similar to a normal bed from Earth. Could aliens be stealing <b>our technology</b>?"
 	icon_state = "abed"
+
+/obj/structure/bed/alien/examine(mob/user)
+	. = ..()
+	if(isabductor(user))
+		. += "<span class='abductor'>Fairly sure we absolutely stole that technology.</span>"
+
+//unfortunateley no sickness mechanics on them... yet
+/obj/structure/bed/maint
+	name = "dirty mattress"
+	desc = "An old grubby mattress. You try to not think about what could be the cause of those stains."
+	icon_state = "dirty_mattress"
+
+//Double Beds, for luxurious sleeping, i.e. the captain and maybe heads - if people use this for ERP, send them to skyrat, or worse, acacia
+/obj/structure/bed/double
+	name = "double bed"
+	desc = "A luxurious double bed, for those too important for small dreams."
+	icon_state = "bed_double"
+	buildstackamount = 4
+	max_buckled_mobs = 2
+	///The mob who buckled to this bed second, to avoid other mobs getting pixel-shifted before they unbuckles.
+	var/mob/living/goldilocks
+
+/obj/structure/bed/double/post_buckle_mob(mob/living/M)
+	if(buckled_mobs.len > 1 && !goldilocks) //Push the second buckled mob a bit higher from the normal lying position, also, if someone can figure out the same thing for plushes, i'll be really glad to know how to
+		M.pixel_y = initial(M.pixel_y) + 6
+		goldilocks = M
+		RegisterSignal(goldilocks, COMSIG_PARENT_QDELETING, .proc/goldilocks_deleted)
+
+/obj/structure/bed/double/post_unbuckle_mob(mob/living/M)
+	M.pixel_y = initial(M.pixel_y) + M.get_standard_pixel_y_offset(M.lying)
+	if(M == goldilocks)
+		UnregisterSignal(goldilocks, COMSIG_PARENT_QDELETING)
+		goldilocks = null
+
+//Called when the signal is raised, removes the reference
+//preventing the hard delete.
+/obj/structure/bed/double/proc/goldilocks_deleted(datum/source, force)
+	UnregisterSignal(goldilocks, COMSIG_PARENT_QDELETING)
+	goldilocks = null
+
+/obj/structure/bed/double/maint
+	name = "double dirty mattress"
+	desc = "An old grubby king sized mattress. You really try to not think about what could be the cause of those stains."
+	icon_state = "dirty_mattress_double"
+
+/obj/structure/bed/double/alien
+	name = "double resting contraption"
+	desc = "This looks similar to a normal double bed from Earth. Could aliens be stealing <b>our technology</b>?"
+	icon_state = "abed_double"
+
+/obj/structure/bed/double/alien/examine(mob/user)
+	. = ..()
+	if(isabductor(user))
+		. += "<span class='abductor'>Fairly sure we absolutely stole that technology... Why did we steal this again?</span>"
