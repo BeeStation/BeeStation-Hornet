@@ -20,7 +20,7 @@
 			if(cell?.charge)
 				low_power_mode = FALSE
 				remove_movespeed_modifier(NO_POWERCELL) //Cyborg speed restored when cell is replaced
-				update_headlamp()
+				toggle_headlamp()
 		else if(stat == CONSCIOUS)
 			use_power()
 
@@ -34,7 +34,7 @@
 		uneq_all()
 		low_power_mode = TRUE
 		add_movespeed_modifier(NO_POWERCELL, override = TRUE, multiplicative_slowdown = 1.5, blacklisted_movetypes = FLOATING) //Cyborg is greatly slowed with no cell charge
-		update_headlamp()
+		toggle_headlamp()
 	diag_hud_set_borgcell()
 
 /mob/living/silicon/robot/proc/handle_robot_hud_updates()
