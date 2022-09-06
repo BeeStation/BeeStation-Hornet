@@ -129,3 +129,14 @@
 	name = "\improper Nanotrasen logo"
 	desc = "The Nanotrasen corporate logo."
 	icon_state = "nanotrasen_sign1"
+
+/obj/structure/sign/departments
+/obj/structure/sign/departments/Initialize(mapload)
+	. = ..()
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_RANDOM_DEPT) && prob(99))  // note to self dont forget to reset this to 50 and delete this note if you dont i will be very sad
+		var/list/all_dept = subtypesof(/obj/structure/sign/departments)
+		var/obj/structure/sign/departments/new_dept = pick(all_dept)
+
+		name = initial(new_dept.name)
+		desc = initial(new_dept.desc)
+		icon_state = initial(new_dept.icon_state)
