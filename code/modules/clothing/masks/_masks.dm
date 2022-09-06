@@ -93,14 +93,10 @@
 	main.Blend(sub, ICON_OVERLAY)
 
 	//Flip it facing west, due to a spriting quirk
-	sub = icon(main, dir = WEST)
-	sub.Shift(WEST, 1)
-	main.Insert(sub, dir = WEST)
-
-	//Handle spriting quirk for west face
 	sub = icon('icons/mob/mask.dmi', icon_state, dir = EAST)
+	main.Insert(sub, dir = EAST)
 	sub.Flip(WEST)
-	main.Insert(sub, WEST)
+	main.Insert(sub, dir = WEST)
 
 	//Finished
 	monkey_icon = main
