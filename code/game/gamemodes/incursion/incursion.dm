@@ -67,12 +67,12 @@
 	return "Intel suggests that the Syndicate have recently had high level meetings discussing your station, and are disgruntled due to recent classified events. A large terrorist force may wish to take the station by force."
 
 //===please merge heretics so these can be made not terrible===
-/proc/update_incursion_icons_added(datum/mind/incursion_mind)
+/datum/game_mode/proc/update_incursion_icons_added(datum/mind/incursion_mind)
 	var/datum/atom_hud/antag/incursionhud = GLOB.huds[ANTAG_HUD_INCURSION]
 	incursionhud.join_hud(incursion_mind.current)
 	set_antag_hud(incursion_mind.current, "incursion")
 
-/proc/update_incursion_icons_removed(datum/mind/incursion_mind)
+/datum/game_mode/proc/update_incursion_icons_removed(datum/mind/incursion_mind)
 	var/datum/atom_hud/antag/incursionhud = GLOB.huds[ANTAG_HUD_INCURSION]
 	incursionhud.leave_hud(incursion_mind.current)
 	set_antag_hud(incursion_mind.current, null)
