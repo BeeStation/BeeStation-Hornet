@@ -321,7 +321,7 @@
 /obj/machinery/porta_turret/emag_act(mob/user)
 	..()
 	to_chat(user, "<span class='warning'>You short out [src]'s threat assessment circuits.</span>")
-	user?.visible_message("[src] hums oddly...")
+	visible_message("[src] hums oddly...")
 	controllock = TRUE
 	toggle_on(FALSE) //turns off the turret temporarily
 	update_icon()
