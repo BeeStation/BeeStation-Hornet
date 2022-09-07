@@ -88,6 +88,8 @@
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)
 		power_usage -= 50 * M.rating
 	active_power_usage = power_usage
+	if(anchored && state == EMITTER_UNWRENCHED)
+		state = EMITTER_WRENCHED
 
 /obj/machinery/power/emitter/examine(mob/user)
 	. = ..()

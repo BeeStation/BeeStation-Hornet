@@ -365,6 +365,7 @@
 		var/message = stripped_input(user, "Write a message to send to your target's brain.","Enter message")
 		if(!message)
 			return
+		message = user.treat_message_min(message)
 		if(QDELETED(L) || L.stat == DEAD)
 			return
 

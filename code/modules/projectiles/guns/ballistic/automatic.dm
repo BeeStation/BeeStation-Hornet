@@ -6,7 +6,6 @@
 	semi_auto = TRUE
 	fire_sound = "sound/weapons/smgshot.ogg"
 	fire_sound_volume = 80
-	vary_fire_sound = FALSE
 	automatic = 1
 	rack_sound = "sound/weapons/smgrack.ogg"
 	weapon_weight = WEAPON_MEDIUM
@@ -298,7 +297,6 @@
 	item_state = "sniper"
 	fire_sound = "sound/weapons/sniper_shot.ogg"
 	fire_sound_volume = 90
-	vary_fire_sound = FALSE
 	load_sound = "sound/weapons/sniper_mag_insert.ogg"
 	rack_sound = "sound/weapons/sniper_rack.ogg"
 	recoil = 2

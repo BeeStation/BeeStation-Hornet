@@ -157,7 +157,7 @@
 /turf/open/floor/plasteel/dark,
 /area/shuttle/escape)
 "aq" = (
-/obj/structure/chair/comfy/beige{
+/obj/structure/chair/fancy/comfy{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/purple{
@@ -223,7 +223,7 @@
 /turf/open/floor/plasteel/dark,
 /area/shuttle/escape)
 "aw" = (
-/obj/structure/chair/comfy/beige{
+/obj/structure/chair/fancy/comfy{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/yellow{
@@ -350,7 +350,7 @@
 /turf/open/floor/plasteel/dark,
 /area/shuttle/escape)
 "aH" = (
-/obj/structure/chair/comfy/beige{
+/obj/structure/chair/fancy/comfy{
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/blue{
@@ -384,7 +384,7 @@
 /turf/open/floor/plasteel/dark,
 /area/shuttle/escape)
 "aK" = (
-/obj/structure/chair/comfy/beige{
+/obj/structure/chair/fancy/comfy{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/red{
@@ -473,11 +473,11 @@
 /turf/open/floor/plasteel/dark,
 /area/shuttle/escape)
 "aS" = (
-/obj/structure/chair/comfy/shuttle,
+/obj/structure/chair/fancy/shuttle,
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "aT" = (
-/obj/structure/chair/comfy/shuttle,
+/obj/structure/chair/fancy/shuttle,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -522,7 +522,7 @@
 /turf/open/floor/plasteel,
 /area/shuttle/escape)
 "bd" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 4
 	},
 /turf/open/floor/mineral/plastitanium/red/brig,
@@ -531,7 +531,7 @@
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "bf" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 8
 	},
 /obj/machinery/flasher{
@@ -555,7 +555,7 @@
 /turf/open/floor/mech_bay_recharge_floor,
 /area/shuttle/escape)
 "bk" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 8
 	},
 /turf/open/floor/mineral/plastitanium/red/brig,
@@ -565,7 +565,7 @@
 /turf/open/floor/plasteel,
 /area/shuttle/escape)
 "bp" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 4
 	},
 /obj/machinery/flasher{
@@ -615,7 +615,7 @@
 /turf/open/floor/plasteel,
 /area/shuttle/escape)
 "bw" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
 /turf/open/floor/mineral/plastitanium/red/brig,
@@ -838,7 +838,7 @@
 /turf/open/floor/plasteel,
 /area/shuttle/escape)
 "bW" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 8
 	},
 /obj/structure/window/reinforced{
@@ -857,7 +857,7 @@
 /turf/open/floor/plasteel,
 /area/shuttle/escape)
 "bX" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 4
 	},
 /obj/structure/window/reinforced{
@@ -1696,7 +1696,6 @@
 	name = "Emergency Shuttle Airlock"
 	},
 /obj/docking_port/mobile/emergency{
-	dheight = 0;
 	dwidth = 15;
 	height = 20;
 	name = "Cere emergency shuttle";

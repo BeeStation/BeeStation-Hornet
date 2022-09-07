@@ -30,7 +30,7 @@
 /turf/open/floor/plating/abductor,
 /area/shuttle/abandoned)
 "i" = (
-/obj/structure/chair/comfy/shuttle,
+/obj/structure/chair/fancy/shuttle,
 /turf/open/floor/plating/abductor,
 /area/shuttle/abandoned)
 "j" = (
@@ -53,7 +53,7 @@
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/abandoned)
 "l" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 4
 	},
 /turf/open/floor/plating/abductor,
@@ -63,7 +63,7 @@
 /turf/open/floor/plating/abductor,
 /area/shuttle/abandoned)
 "n" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 8
 	},
 /turf/open/floor/plating/abductor,
@@ -80,7 +80,7 @@
 /turf/open/floor/plating/abductor,
 /area/shuttle/abandoned)
 "q" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
 /turf/open/floor/plating/abductor,

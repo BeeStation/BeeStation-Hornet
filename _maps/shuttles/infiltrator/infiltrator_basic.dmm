@@ -228,7 +228,7 @@
 /turf/closed/wall/r_wall/syndicate,
 /area/shuttle/syndicate/airlock)
 "aC" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 4;
 	name = "tactical chair"
 	},
@@ -248,7 +248,7 @@
 /turf/open/floor/plasteel/dark,
 /area/shuttle/syndicate/hallway)
 "aE" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 8;
 	name = "tactical chair"
 	},
@@ -265,7 +265,7 @@
 /turf/open/floor/plasteel/dark,
 /area/shuttle/syndicate/hallway)
 "aH" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 4;
 	name = "tactical chair"
 	},
@@ -285,7 +285,7 @@
 /turf/open/floor/plasteel/dark,
 /area/shuttle/syndicate/hallway)
 "aI" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 8;
 	name = "tactical chair"
 	},
@@ -336,7 +336,7 @@
 /turf/open/floor/plasteel/dark,
 /area/shuttle/syndicate/eva)
 "aO" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 4;
 	name = "tactical chair"
 	},
@@ -414,7 +414,7 @@
 /turf/open/floor/plasteel/dark,
 /area/shuttle/syndicate/hallway)
 "aX" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 4;
 	name = "tactical chair"
 	},
@@ -494,9 +494,7 @@
 /turf/open/floor/plasteel/dark,
 /area/shuttle/syndicate/airlock)
 "bd" = (
-/obj/structure/sign/warning/vacuum/external{
-	layer = 4
-	},
+/obj/structure/sign/warning/vacuum/external,
 /turf/closed/wall/r_wall/syndicate,
 /area/shuttle/syndicate/airlock)
 "be" = (

@@ -420,8 +420,7 @@
 	name = "Syndicate Salvage Worker"
 	},
 /obj/machinery/atmospherics/components/trinary/filter/atmos/n2{
-	dir = 8;
-	piping_layer = 3
+	dir = 8
 	},
 /turf/open/floor/plating,
 /area/shuttle/abandoned/engine)
@@ -431,8 +430,7 @@
 	icon_state = "2-4"
 	},
 /obj/machinery/atmospherics/components/trinary/filter/atmos/o2{
-	dir = 8;
-	piping_layer = 3
+	dir = 8
 	},
 /turf/open/floor/plating,
 /area/shuttle/abandoned/engine)
@@ -1472,7 +1470,7 @@
 /turf/open/floor/plasteel/dark,
 /area/shuttle/abandoned/bridge)
 "cf" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt/dust,
@@ -1763,7 +1761,7 @@
 /turf/open/floor/plasteel/dark,
 /area/shuttle/abandoned/bridge)
 "cu" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt/dust,
@@ -1939,7 +1937,7 @@
 /turf/open/floor/plasteel/dark,
 /area/shuttle/abandoned/bridge)
 "cF" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt/dust,

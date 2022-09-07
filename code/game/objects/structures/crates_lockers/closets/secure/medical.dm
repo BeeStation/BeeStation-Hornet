@@ -111,6 +111,7 @@
 	new /obj/item/extrapolator(src)
 	new /obj/item/storage/box/command_keys(src)
 	new /obj/item/storage/lockbox/medal/med(src)
+	new /obj/item/storage/box/radiokey/med(src)
 
 /obj/structure/closet/secure_closet/animal
 	name = "animal control"

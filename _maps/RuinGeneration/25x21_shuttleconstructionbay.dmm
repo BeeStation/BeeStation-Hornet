@@ -43,7 +43,7 @@
 /turf/template_noop/open,
 /area/template_noop)
 "eR" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
 /turf/open/floor/mineral/titanium/airless,
