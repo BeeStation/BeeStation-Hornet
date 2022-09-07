@@ -68,7 +68,7 @@
 	shuttle_name = attached_port.name
 	calculate_initial_stats()
 	//Create the communications manager for that shuttle
-	comms = new /datum/orbital_comms_manager(port_id)
+	comms = new /datum/orbital_comms_manager(port_id, shuttle_name)
 	SSorbits.register_communication_manager(comms)
 
 /datum/shuttle_data/Destroy(force, ...)

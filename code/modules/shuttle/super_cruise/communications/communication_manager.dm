@@ -1,12 +1,15 @@
 /datum/orbital_comms_manager
+	/// The name
+	var/messenger_name
 	/// Manager name
 	var/messenger_id
 	/// List of messages
 	var/list/datum/orbital_communication_message/messages = list()
 
-/datum/orbital_comms_manager/New(id)
+/datum/orbital_comms_manager/New(id, name)
 	. = ..()
 	messenger_id = id
+	messenger_name = name
 
 /datum/orbital_comms_manager/Destroy(force, ...)
 	. = ..()

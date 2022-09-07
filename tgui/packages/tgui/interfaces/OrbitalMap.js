@@ -316,7 +316,7 @@ export const OrbitalMapComms = (props, context) => {
   const [
     communicationTarget,
     setCommunicationTarget,
-  ] = useLocalState(context, 'communicationTarget', communication_targets[0]);
+  ] = useLocalState(context, 'communicationTarget', communication_targets[0].id);
 
   const message_category = messages[communicationTarget];
 
@@ -331,10 +331,10 @@ export const OrbitalMapComms = (props, context) => {
           <Tabs vertical>
             {communication_targets.map(element => (
               <Tabs.Tab
-                key={element}
-                selected={communicationTarget===element}
-                onClick={() => setCommunicationTarget(element)}>
-                {element}
+                key={element.id}
+                selected={communicationTarget===element.id}
+                onClick={() => setCommunicationTarget(element.id)}>
+                {element.name}
               </Tabs.Tab>
             ))}
           </Tabs>

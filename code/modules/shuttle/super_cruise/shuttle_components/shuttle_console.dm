@@ -168,7 +168,11 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 	data["can_message"] = TRUE
 	data["communication_targets"] = list()
 	for (var/key in SSorbits.communication_managers)
-		data["communication_targets"] += key
+		var/datum/orbital_comms_manager/comms_manager = SSorbits.communication_managers[key]
+		data["communication_targets"] += list(list(
+			name = comms_manager.messenger_name,
+			id = comms_manager.messenger_id,
+			))
 	//Get the shuttle data
 	var/datum/shuttle_data/shuttle_data = SSorbits.get_shuttle_data(shuttleId)
 	//If we are a recall console.
@@ -368,7 +372,7 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 			if(!target)
 				return
 			//Get the message we wish to send
-			var/message = stripped_input(usr, "What message would you like to transmit?", "Communication")
+			var/message = stripped_input(usr, "What message would you like to transmit? Abuse of emergency communications will result in contract termination.", "Communication")
 			if (!message)
 				return
 			message_admins("[ADMIN_LOOKUPFLW(usr)] sent an emergency communication to [target.messenger_id] reading 'message'.")
