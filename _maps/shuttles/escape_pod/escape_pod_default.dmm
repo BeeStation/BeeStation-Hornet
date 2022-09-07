@@ -4,11 +4,8 @@
 	name = "Escape Pod Airlock"
 	},
 /obj/docking_port/mobile/pod{
-	dwidth = 1;
 	faction_type = /datum/faction/station;
-	height = 4;
-	port_direction = 2;
-	width = 3
+	port_direction = 2
 	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/pod_1)
@@ -22,14 +19,14 @@
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/pod_1)
 "G" = (
-/obj/structure/chair/comfy/shuttle{
-	dir = 1
-	},
 /obj/machinery/status_display/evac{
 	pixel_x = 32
 	},
 /obj/machinery/computer/shuttle_flight/pod{
 	pixel_x = -32
+	},
+/obj/structure/chair/fancy/shuttle{
+	dir = 1
 	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/pod_1)
@@ -38,9 +35,6 @@
 /turf/open/floor/plating,
 /area/shuttle/pod_1)
 "U" = (
-/obj/structure/chair/comfy/shuttle{
-	dir = 1
-	},
 /obj/item/radio/intercom{
 	pixel_x = 25
 	},
@@ -49,6 +43,9 @@
 	},
 /obj/machinery/light/small{
 	dir = 8
+	},
+/obj/structure/chair/fancy/shuttle{
+	dir = 1
 	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/pod_1)

@@ -27,7 +27,7 @@
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/transport)
 "j" = (
-/obj/structure/chair/comfy/shuttle,
+/obj/structure/chair/fancy/shuttle,
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/transport)
 "k" = (
@@ -60,7 +60,7 @@
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/transport)
 "q" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
 /turf/open/floor/mineral/titanium/blue,
@@ -95,16 +95,16 @@
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/transport)
 "C" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 4
 	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/transport)
 "F" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/machinery/atmospherics/pipe/simple/supplymain/hidden{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/supplymain/hidden{
+/obj/structure/chair/fancy/shuttle{
 	dir = 4
 	},
 /turf/open/floor/mineral/titanium/blue,
@@ -195,9 +195,9 @@ c
 "}
 (7,1,1) = {"
 c
-j
 l
-q
+l
+l
 c
 "}
 (8,1,1) = {"

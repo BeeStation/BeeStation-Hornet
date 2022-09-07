@@ -49,9 +49,6 @@
 /turf/open/floor/pod/dark,
 /area/shuttle/mining)
 "g" = (
-/obj/structure/chair/comfy/shuttle{
-	dir = 1
-	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
@@ -61,6 +58,9 @@
 	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
+	},
+/obj/structure/chair/fancy/shuttle{
+	dir = 1
 	},
 /turf/open/floor/pod/dark,
 /area/shuttle/mining)
@@ -102,14 +102,12 @@
 /turf/open/floor/plating,
 /area/shuttle/mining)
 "o" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/stripes/line{
-	dir = 2
-	},
-/obj/effect/turf_decal/stripes/line{
+/obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
 /turf/open/floor/pod/dark,
@@ -246,15 +244,15 @@
 /turf/open/floor/pod/light,
 /area/shuttle/mining)
 "G" = (
-/obj/structure/chair/comfy/shuttle{
-	dir = 1
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/end{
 	dir = 8
 	},
 /obj/machinery/power/terminal,
 /obj/structure/cable,
+/obj/structure/chair/fancy/shuttle{
+	dir = 1
+	},
 /turf/open/floor/pod/dark,
 /area/shuttle/mining)
 "I" = (

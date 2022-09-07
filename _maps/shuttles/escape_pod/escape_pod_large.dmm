@@ -1,10 +1,10 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "h" = (
-/obj/structure/chair/comfy/shuttle{
-	dir = 4
-	},
 /obj/item/storage/pod{
 	pixel_x = -24
+	},
+/obj/structure/chair/fancy/shuttle{
+	dir = 4
 	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/pod_1)
@@ -30,18 +30,17 @@
 	dwidth = 2;
 	faction_type = /datum/faction/station;
 	height = 6;
-	launch_status = 0;
 	port_direction = 2;
 	width = 5
 	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/pod_1)
 "A" = (
-/obj/structure/chair/comfy/shuttle{
-	dir = 8
-	},
 /obj/item/radio/intercom{
 	pixel_x = 30
+	},
+/obj/structure/chair/fancy/shuttle{
+	dir = 8
 	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/pod_1)
@@ -56,32 +55,35 @@
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/pod_1)
 "H" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
+	dir = 8
+	},
+/obj/structure/chair/fancy/shuttle{
 	dir = 8
 	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/pod_1)
 "J" = (
-/obj/structure/chair/comfy/shuttle{
-	dir = 4
-	},
 /obj/machinery/status_display/evac{
 	pixel_x = -32
+	},
+/obj/structure/chair/fancy/shuttle{
+	dir = 4
 	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/pod_1)
 "L" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 4
 	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/pod_1)
 "M" = (
-/obj/structure/chair/comfy/shuttle{
-	dir = 8
-	},
 /obj/machinery/status_display/evac{
 	pixel_x = 32
+	},
+/obj/structure/chair/fancy/shuttle{
+	dir = 8
 	},
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/pod_1)

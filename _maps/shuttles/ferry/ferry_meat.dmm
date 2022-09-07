@@ -82,7 +82,6 @@
 /area/shuttle/transport)
 "n" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/chair/comfy/shuttle,
 /turf/open/floor/plasteel/freezer,
 /area/shuttle/transport)
 "o" = (
@@ -121,12 +120,6 @@
 	},
 /turf/open/floor/plasteel/freezer,
 /area/shuttle/transport)
-"w" = (
-/obj/structure/chair/comfy/shuttle{
-	dir = 1
-	},
-/turf/open/floor/plasteel/freezer,
-/area/shuttle/transport)
 "B" = (
 /obj/machinery/atmospherics/components/unary/shuttle/engine_heater{
 	dir = 4
@@ -147,10 +140,10 @@
 /turf/open/floor/plasteel/freezer,
 /area/shuttle/transport)
 "F" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/machinery/atmospherics/pipe/simple/supplymain/hidden{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/supplymain/hidden{
+/obj/structure/chair/fancy/shuttle{
 	dir = 4
 	},
 /turf/open/floor/plasteel/freezer,
@@ -287,7 +280,7 @@ c
 c
 n
 i
-w
+i
 c
 "}
 (12,1,1) = {"

@@ -89,11 +89,11 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
-/obj/structure/chair/comfy/shuttle{
-	dir = 4
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
+	},
+/obj/structure/chair/fancy/shuttle{
+	dir = 4
 	},
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/labor)
@@ -121,9 +121,6 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/line,
-/obj/structure/chair/comfy/shuttle{
-	dir = 1
-	},
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/labor)
 "s" = (
@@ -193,13 +190,13 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
-/obj/structure/chair/comfy/shuttle{
-	dir = 8
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
 /obj/machinery/atmospherics/pipe/simple/supplymain/hidden,
+/obj/structure/chair/fancy/shuttle{
+	dir = 8
+	},
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/labor)
 "O" = (
