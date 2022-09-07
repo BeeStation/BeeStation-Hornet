@@ -54,7 +54,7 @@
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/hunter)
 "ak" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 1;
 	icon_state = "shuttle_chair"
 	},
@@ -82,11 +82,11 @@
 /turf/open/floor/plating,
 /area/shuttle/hunter)
 "bY" = (
-/obj/structure/chair/comfy/shuttle,
+/obj/structure/chair/fancy/shuttle,
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/hunter)
 "fD" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/manifold/supplymain/hidden{

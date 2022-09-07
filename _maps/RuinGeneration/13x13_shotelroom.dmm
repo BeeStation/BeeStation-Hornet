@@ -166,7 +166,7 @@
 /turf/open/floor/wood,
 /area/ruin/unpowered)
 "L" = (
-/obj/structure/chair/comfy/black,
+/obj/structure/chair/fancy/comfy/black,
 /turf/open/floor/carpet/orange,
 /area/ruin/unpowered)
 "M" = (
@@ -203,7 +203,7 @@
 /turf/open/floor/wood,
 /area/ruin/unpowered)
 "P" = (
-/obj/structure/chair/comfy/black{
+/obj/structure/chair/fancy/comfy/black{
 	dir = 1
 	},
 /turf/open/floor/carpet/orange,

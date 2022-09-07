@@ -125,7 +125,7 @@
 /area/shuttle/syndicate_scout)
 "jQ" = (
 /obj/effect/turf_decal/tile/neutral/tile_full,
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 1;
 	name = "tactical chair"
 	},
@@ -387,7 +387,7 @@
 /area/shuttle/syndicate_scout)
 "xd" = (
 /obj/effect/turf_decal/tile/neutral/tile_full,
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 8
 	},
 /obj/machinery/light,

@@ -4,7 +4,7 @@
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "k" = (
-/obj/structure/chair/comfy,
+/obj/structure/chair/fancy/comfy,
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "o" = (
@@ -16,7 +16,7 @@
 /turf/open/floor/plasteel,
 /area/ruin/unpowered)
 "u" = (
-/obj/structure/chair/comfy{
+/obj/structure/chair/fancy/comfy{
 	dir = 1
 	},
 /turf/open/floor/plasteel,

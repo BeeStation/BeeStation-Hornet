@@ -147,7 +147,7 @@
 /turf/closed/wall/mineral/plastitanium,
 /area/shuttle/labor)
 "J" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/line,
@@ -174,7 +174,7 @@
 	},
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/light,
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
 /turf/open/floor/mineral/plastitanium/red,

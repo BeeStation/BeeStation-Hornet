@@ -92,7 +92,7 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/syndicate/bridge)
 "an" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 8;
 	name = "tactical chair"
 	},
@@ -125,7 +125,7 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/syndicate/bridge)
 "ap" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 1;
 	name = "tactical chair"
 	},
@@ -161,7 +161,7 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/syndicate/bridge)
 "ar" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 4;
 	name = "tactical chair"
 	},
@@ -200,7 +200,7 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/syndicate/bridge)
 "au" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 8;
 	name = "tactical chair"
 	},
@@ -252,7 +252,7 @@
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate/bridge)
 "ay" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 4;
 	name = "tactical chair"
 	},
@@ -295,7 +295,7 @@
 /turf/closed/wall/r_wall/syndicate,
 /area/shuttle/syndicate/airlock)
 "aC" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 2;
 	name = "tactical chair"
 	},
@@ -309,7 +309,7 @@
 /turf/closed/wall/r_wall/syndicate,
 /area/shuttle/syndicate/airlock)
 "aE" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 2;
 	name = "tactical chair"
 	},
@@ -350,7 +350,7 @@
 /turf/closed/wall/r_wall/syndicate,
 /area/shuttle/syndicate/eva)
 "aI" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 2;
 	name = "tactical chair"
 	},
@@ -365,7 +365,7 @@
 /turf/closed/wall/r_wall/syndicate,
 /area/shuttle/syndicate/airlock)
 "aK" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 2;
 	name = "tactical chair"
 	},
@@ -764,7 +764,7 @@
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate/eva)
 "bu" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 2;
 	name = "tactical chair"
 	},

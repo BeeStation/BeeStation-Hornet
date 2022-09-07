@@ -56,7 +56,7 @@
 	},
 /area/template_noop)
 "j" = (
-/obj/structure/chair/comfy/brown{
+/obj/structure/chair/fancy/comfy/brown{
 	dir = 8
 	},
 /turf/open/floor/wood{

@@ -207,7 +207,7 @@
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "lO" = (
-/obj/structure/chair/comfy/black{
+/obj/structure/chair/fancy/comfy/black{
 	dir = 1
 	},
 /turf/open/floor/plating/asteroid,
@@ -227,7 +227,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered)
 "mj" = (
-/obj/structure/chair/comfy/black{
+/obj/structure/chair/fancy/comfy/black{
 	dir = 8
 	},
 /turf/open/floor/plating/asteroid,
@@ -426,7 +426,7 @@
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "wl" = (
-/obj/structure/chair/comfy/black{
+/obj/structure/chair/fancy/comfy/black{
 	dir = 4
 	},
 /turf/open/floor/plating/asteroid,
@@ -825,7 +825,7 @@
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered)
 "Nz" = (
-/obj/structure/chair/comfy/black,
+/obj/structure/chair/fancy/comfy/black,
 /turf/open/floor/plating/asteroid,
 /area/ruin/unpowered)
 "Ok" = (

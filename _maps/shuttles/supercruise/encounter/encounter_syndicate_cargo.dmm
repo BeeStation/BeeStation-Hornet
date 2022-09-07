@@ -105,7 +105,7 @@
 /turf/open/floor/pod/dark,
 /area/shuttle/syndicate_scout)
 "en" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 4;
 	name = "tactical chair"
 	},
@@ -165,7 +165,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
 /mob/living/simple_animal/hostile/syndicate/melee,
@@ -558,7 +558,7 @@
 "uD" = (
 /obj/effect/turf_decal/tile/neutral/tile_full,
 /obj/effect/turf_decal/stripes/line,
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 8;
 	name = "tactical chair"
 	},
@@ -833,7 +833,7 @@
 /turf/open/floor/plasteel/techmaint,
 /area/shuttle/syndicate_scout)
 "Dp" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 8;
 	name = "tactical chair"
 	},
@@ -1062,7 +1062,7 @@
 /turf/open/floor/plasteel/techmaint,
 /area/shuttle/syndicate_scout)
 "KZ" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 4;
 	name = "tactical chair"
 	},

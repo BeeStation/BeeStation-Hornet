@@ -47,7 +47,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
 /turf/open/floor/mineral/titanium,
