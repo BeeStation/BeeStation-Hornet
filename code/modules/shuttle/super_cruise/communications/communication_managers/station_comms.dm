@@ -22,10 +22,9 @@
 		FREQ_COMMAND,
 		speaker,
 		/datum/language/common,
-		"Incomming hyperspace communication from [source.messenger_name], '[message]'",
+		"Incomming hyperspace communication from [source.messenger_name], '[message]'.",
 		list(),
 		list())
-
 
 	// All radios make an attempt to use the subspace system first
 	signal.send_to_receivers()

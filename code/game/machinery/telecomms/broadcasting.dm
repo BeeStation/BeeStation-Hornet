@@ -195,9 +195,6 @@
 	for(var/mob/dead/observer/M in GLOB.player_list)
 		if(M.client && (M.client.prefs.chat_toggles & CHAT_GHOSTRADIO))
 			receive |= M
-	for(var/mob/dead/observer/M in GLOB.player_list)
-		if(M.client && (M.client.prefs.chat_toggles & CHAT_GHOSTRADIO))
-			ranged_receieve |= M
 
 	// Render the message and have everybody hear it.
 	// Always call this on the virtualspeaker to avoid issues.
