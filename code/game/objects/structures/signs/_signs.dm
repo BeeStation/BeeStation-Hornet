@@ -1,3 +1,5 @@
+GLOBAL_LIST_EMPTY(dept_signs)
+
 /obj/structure/sign
 	icon = 'icons/obj/decals.dmi'
 	anchored = TRUE
@@ -13,20 +15,19 @@
 /obj/structure/sign/Initialize(mapload)
 	. = ..()
 	if(random_dept_base)
-		return INITIALIZE_HINT_LATELOAD
+		GLOB.dept_signs += src
 
-/obj/structure/sign/LateInitialize(mapload)
-	. = ..()
-	if(HAS_TRAIT(SSstation, STATION_TRAIT_RANDOM_DEPT) && prob(50))
-		var/list/all_dept = subtypesof(random_dept_base)
-
-		while(TRUE)
-			var/obj/structure/sign/departments/new_dept = pick(all_dept)
-			if(initial(new_dept.desc) || initial(new_dept.icon_state))  // prevents null entries
-				name = initial(new_dept.name)
-				desc = initial(new_dept.desc)
-				icon_state = initial(new_dept.icon_state)
-				break
+/obj/structure/sign/proc/randomize()
+	if(!random_dept_base)
+		return
+	var/list/all_dept = subtypesof(random_dept_base)
+	while(TRUE)
+		var/obj/structure/sign/departments/new_dept = pick(all_dept)
+		if(initial(new_dept.desc) || initial(new_dept.icon_state))  // prevents null entries
+			name = initial(new_dept.name)
+			desc = initial(new_dept.desc)
+			icon_state = initial(new_dept.icon_state)
+			break
 
 
 /obj/structure/sign/basic
