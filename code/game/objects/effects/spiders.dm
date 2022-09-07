@@ -53,11 +53,23 @@
 	desc = "They seem to pulse slightly with an inner life."
 	icon_state = "eggs"
 	var/amount_grown = 0
-	var/player_spiders = 0
-	var/directive = "" //Message from the mother
+	var/spawns_remaining = 4
+	var/enriched_spawns = 0
+	// The mother's directive
+	var/directive = ""
 	var/poison_type = /datum/reagent/toxin
 	var/poison_per_bite = 5
 	var/list/faction = list("spiders")
+	// Whether or not a ghost can use the cluster to become a spider.
+	var/ghost_ready = FALSE
+	// The types of spiders the egg sac can produce.
+	var/list/mob/living/potential_spawns = list(/mob/living/simple_animal/hostile/poison/giant_spider,
+								/mob/living/simple_animal/hostile/poison/giant_spider/hunter,
+								/mob/living/simple_animal/hostile/poison/giant_spider/nurse)
+	// The types of spiders the egg sac produces when we have enriched spawns left
+	var/list/mob/living/potential_enriched_spawns = list(/mob/living/simple_animal/hostile/poison/giant_spider/tarantula,
+							/mob/living/simple_animal/hostile/poison/giant_spider/hunter/viper,
+							/mob/living/simple_animal/hostile/poison/giant_spider/nurse/midwife)
 
 /obj/structure/spider/eggcluster/Initialize(mapload)
 	pixel_x = rand(3,-3)
@@ -67,15 +79,57 @@
 
 /obj/structure/spider/eggcluster/process(delta_time)
 	amount_grown += rand(0,1) * delta_time
-	if(amount_grown >= 100)
-		var/num = round(rand(1.5, 6) * delta_time)
-		for(var/i=0, i<num, i++)
-			var/obj/structure/spider/spiderling/S = new /obj/structure/spider/spiderling(src.loc)
-			S.faction = faction.Copy()
-			S.directive = directive
-			if(player_spiders)
-				S.player_spiders = 1
-		qdel(src)
+	if(amount_grown >= 100 && !ghost_ready)
+		notify_ghosts("[src] is ready to hatch!", null, enter_link="<a href=?src=[REF(src)];activate=1>(Click to play)</a>", source=src, action=NOTIFY_ATTACK, ignore_key = POLL_IGNORE_SPIDER)
+		ghost_ready = TRUE
+
+/obj/structure/spider/eggcluster/attack_ghost(mob/user)
+	. = ..()
+	if(ghost_ready)
+		make_spider(user)
+
+/**
+  * Makes a ghost into a spider based on the type of egg cluster.
+  *
+  * Allows a ghost to get a prompt to use the egg cluster to become a spider.
+  * Arguments:
+  * * user - The ghost attempting to become a spider.
+  */
+/obj/structure/spider/eggcluster/proc/make_spider(mob/user)
+	var/list/spider_list = list()
+	var/list/display_spiders = list()
+	var/list/to_spawn
+	if(enriched_spawns)
+		to_spawn = potential_enriched_spawns
+	else
+		to_spawn = potential_spawns
+	for(var/choice in to_spawn)
+		var/mob/living/simple_animal/spider = choice
+		spider_list[initial(spider.name)] = choice
+		var/image/spider_image = image(icon = initial(spider.icon), icon_state = initial(spider.icon_state))
+		display_spiders += list(initial(spider.name) = spider_image)
+	sortList(display_spiders)
+	var/chosen_spider = show_radial_menu(user, src, display_spiders, radius = 38, require_near = TRUE)
+	chosen_spider = spider_list[chosen_spider]
+	if(QDELETED(src) || QDELETED(user) || !chosen_spider || !spawns_remaining)
+		return FALSE
+	if(potential_enriched_spawns.Find(chosen_spider))
+		if(!enriched_spawns)
+			return FALSE
+		enriched_spawns--
+	else
+		spawns_remaining--
+	var/mob/living/simple_animal/hostile/poison/giant_spider/new_spider = new chosen_spider(src.loc)
+	new_spider.faction = faction.Copy()
+	new_spider.directive = directive
+	new_spider.key = user.key
+	QDEL_NULL(src)
+	return TRUE
+
+/obj/structure/spider/eggcluster/midwife
+	name = "midwife egg cluster"
+	potential_spawns = list(/mob/living/simple_animal/hostile/poison/giant_spider/nurse/midwife)
+	directive = "Ensure the survival of the spider species and overtake whatever structure you find yourself in."
 
 /obj/structure/spider/spiderling
 	name = "spiderling"
