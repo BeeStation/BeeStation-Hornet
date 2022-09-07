@@ -42,10 +42,6 @@
 	var/cooldownmod = 0
 	COOLDOWN_DECLARE(xenoa_cooldown)
 
-	//Associated with random sprite stuff. It's setup as [4] so it's easier to check for slots being assigned by traits and such
-	var/list/icon_slots[4]
-	var/mutable_appearance/icon_overlay 
-
 	///Everytime the artifact is used this increases. When this is successfully proc'd the artifact gains a malfunction and this is lowered.
 	var/malfunction_chance = 0
 	///How much the chance can change in a sinlge itteration
@@ -404,8 +400,8 @@
 	..()
 
 /datum/component/xenoartifact_pricing ///Pricing component for shipping solution. Consider swapping to cargo after change.
-	///Buying and selling related
-	var/modifier = 0.65
+	///Buying and selling related, based on guess qaulity
+	var/modifier = 0.5
 	///default price gets generated if it isn't set by console. This only happens if the artifact spawns outside of that process
 	var/price
 
