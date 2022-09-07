@@ -12,7 +12,7 @@
 
 /datum/gear/misc/eightball
 	display_name = "Magic Eightball"
-	description = "A black ball with a stenciled number eight in white on the side. It seems full of dark liquid. \n The instructions state that you should ask your question aloud, and then shake."
+	description = "A black ball with a stenciled number eight in white on the side. It seems full of dark liquid. The instructions state that you should ask your question aloud, and then shake."
 	path = /obj/item/toy/eightball
 	cost = 500
 
