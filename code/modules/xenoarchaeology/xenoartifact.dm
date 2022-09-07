@@ -219,7 +219,7 @@
 /obj/item/xenoartifact/proc/check_charge(mob/user, charge_mod)
 	log_game("[user] attempted to activate [src] at [world.time]. Located at [x] [y] [z].")
 
-	if(COOLDOWN_FINISHED(src, xenoa_cooldown))
+	if(COOLDOWN_FINISHED(src, xenoa_cooldown) && !istype(loc, /obj/item/storage))
 		COOLDOWN_START(src, xenoa_cooldown, cooldown+cooldownmod)
 		if(prob(malfunction_chance) && traits.len < 6 + (material == XENOA_URANIUM ? 1 : 0)) //See if we pick up an malfunction
 			generate_trait_unique(GLOB.xenoa_malfs)
@@ -245,9 +245,7 @@
 						log_game("[src] activated trait [t] at [world.time]. Located at [x] [y] [z]")
 						t.activate(src, M, user)
 		if(!get_trait(/datum/xenoartifact_trait/major/horn))
-			playsound(get_turf(src), 'sound/magic/blink.ogg', 25, TRUE) 
-	else
-		visible_message("<span class='notice'>[src] echos emptily.</span>")
+			playsound(get_turf(src), 'sound/magic/blink.ogg', 25, TRUE)
 
 	charge = 0
 	true_target = list()
@@ -334,7 +332,7 @@
 /obj/item/xenoartifact/proc/create_beam(atom/target)
 	if((locate(src) in target?.contents) || !get_turf(target))
 		return
-	var/datum/beam/xenoa_beam/B = new((!isturf(src.loc) ? src.loc : src), target, time=1.5 SECONDS, beam_icon='icons/obj/xenoarchaeology/xenoartifact.dmi', beam_icon_state="xenoa_beam", btype=/obj/effect/ebeam/xenoa_ebeam)
+	var/datum/beam/xenoa_beam/B = new((!isturf(loc) ? loc : src), target, time=1.5 SECONDS, beam_icon='icons/obj/xenoarchaeology/xenoartifact.dmi', beam_icon_state="xenoa_beam", btype=/obj/effect/ebeam/xenoa_ebeam)
 	B.set_color(material)
 	INVOKE_ASYNC(B, /datum/beam/xenoa_beam.proc/Start)
 
