@@ -136,6 +136,9 @@
 	. = ..()
 
 	emittersemicd = TRUE
+	for(var/hudtype in list(DATA_HUD_SECURITY_ADVANCED, DATA_HUD_MEDICAL_ADVANCED, DATA_HUD_DIAGNOSTIC_ADVANCED, DATA_HUD_DIAGNOSTIC_BASIC))  // no freebies go buy the huds
+		var/datum/atom_hud/H = GLOB.huds[hudtype]
+		H.remove_hud_from(src)
 	addtimer(CALLBACK(src, .proc/emittercool), 600)
 
 /mob/living/silicon/pai/Life()

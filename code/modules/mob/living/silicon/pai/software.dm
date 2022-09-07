@@ -272,9 +272,9 @@
 						med.remove_hud_from(src)
 			if("diaghud")
 				if(href_list["toggle"])
-					dHud = !dHud
+					dHUD = !dHUD
 					var/datum/atom_hud/diag = GLOB.huds[d_hud]
-					if(dHud)
+					if(dHUD)
 						diag.add_hud_to(src)
 					else
 						diag.remove_hud_from(src)
@@ -558,6 +558,7 @@
 		The suite is currently [ (dHUD) ? "<font color=#55FF55>en" : "<font color=#FF5555>dis" ]abled.</font><br>
 		<a href='byond://?src=[REF(src)];software=diaghud;sub=0;toggle=1'>Toggle Suite</a><br>
 	"}
+	return dat
 
 //Health Scanner
 /mob/living/silicon/pai/proc/softwareHostScan()
