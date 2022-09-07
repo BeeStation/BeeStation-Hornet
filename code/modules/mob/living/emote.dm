@@ -190,15 +190,18 @@
 		return !C.silent
 
 /datum/emote/living/laugh/get_sound(mob/living/user)
-	if(ishuman(user))
-		var/mob/living/carbon/human/H = user
-		var/human_laugh = ishumanbasic(H) || iscatperson(H)
-		if(human_laugh && (!H.mind || !H.mind.miming))
-			if(user.gender == FEMALE)
-				return 'sound/voice/human/womanlaugh.ogg'
-			else
-				return pick('sound/voice/human/manlaugh1.ogg', 'sound/voice/human/manlaugh2.ogg')
-
+    if(!ishuman(user))
+        return
+    var/mob/living/carbon/human/H = user
+    var/human_laugh = ishumanbasic(H) || iscatperson(H)
+    if(human_laugh && (!H.mind || !H.mind.miming))
+        if(user.gender == FEMALE)
+            return 'sound/voice/human/womanlaugh.ogg'
+        else
+            return pick('sound/voice/human/manlaugh1.ogg', 'sound/voice/human/manlaugh2.ogg')
+    if(ismoth(H))
+        return 'code/datums/emote_sounds/emotes/mothlaugh.ogg'
+		
 /datum/emote/living/look
 	key = "look"
 	key_third_person = "looks"

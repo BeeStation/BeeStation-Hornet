@@ -160,15 +160,6 @@
 	mob_type_allowed_typecache = list(/mob/living/carbon/human/species/moth,/mob/living/simple_animal/mothroach)
 	sound = 'code/datums/emote_sounds/emotes/mothsqueak.ogg'
 
-/datum/emote/living/carbon/mothlaugh
-	key = "mlaugh"
-	key_third_person = "laughs"
-	message = "laughs!"
-	emote_type = EMOTE_AUDIBLE
-	vary = TRUE
-	mob_type_allowed_typecache = /mob/living/carbon/human/species/moth
-	sound = 'code/datums/emote_sounds/emotes/mothlaugh.ogg'
-
 /datum/emote/living/carbon/mothchitter
 	key = "chitter"
 	key_third_person = "chitters"
