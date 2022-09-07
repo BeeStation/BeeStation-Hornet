@@ -26,7 +26,11 @@
 	flags_inv = HIDEGLOVES|HIDESHOES|HIDEJUMPSUIT
 	strip_delay = 70
 	equip_delay_other = 70
-	resistance_flags = ACID_PROOF | ARTIFACT_PROOF
+	resistance_flags = ACID_PROOF
+
+/obj/item/clothing/suit/bio_suit/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/anti_artifact, INFINITY, FALSE, 75)
 
 //Standard biosuit, orange stripe
 /obj/item/clothing/head/bio_hood/general

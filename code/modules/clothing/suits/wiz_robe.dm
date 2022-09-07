@@ -8,7 +8,7 @@
 	armor = list("melee" = 30, "bullet" = 20, "laser" = 20, "energy" = 20, "bomb" = 20, "bio" = 20, "rad" = 20, "fire" = 100, "acid" = 100, "stamina" = 50)
 	strip_delay = 50
 	equip_delay_other = 50
-	resistance_flags = FIRE_PROOF | ACID_PROOF | ARTIFACT_PROOF_EXTREME
+	resistance_flags = FIRE_PROOF | ACID_PROOF
 	dog_fashion = /datum/dog_fashion/head/blue_wizard
 
 /obj/item/clothing/head/wizard/red
@@ -73,8 +73,12 @@
 	flags_inv = HIDEJUMPSUIT
 	strip_delay = 50
 	equip_delay_other = 50
-	resistance_flags = FIRE_PROOF | ACID_PROOF | ARTIFACT_PROOF_EXTREME
+	resistance_flags = FIRE_PROOF | ACID_PROOF
 	clothing_flags = THICKMATERIAL
+
+/obj/item/clothing/suit/wizrobe/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/anti_artifact, INFINITY, FALSE, 100)
 
 /obj/item/clothing/suit/wizrobe/red
 	name = "red wizard robe"
