@@ -52,17 +52,6 @@
 		var/mob/living/L = user
 		L.Unconscious(40)
 
-/datum/emote/living/cough
-	key = "cough"
-	key_third_person = "coughs"
-	message = "coughs"
-	emote_type = EMOTE_AUDIBLE
-
-/datum/emote/living/cough/can_run_emote(mob/user, status_check = TRUE , intentional)
-	. = ..()
-	if(HAS_TRAIT(user, TRAIT_SOOTHED_THROAT))
-		return FALSE
-
 /datum/emote/living/dance
 	key = "dance"
 	key_third_person = "dances"
@@ -142,13 +131,6 @@
 	key_third_person = "gags"
 	message = "gags"
 	emote_type = EMOTE_AUDIBLE
-
-/datum/emote/living/gasp
-	key = "gasp"
-	key_third_person = "gasps"
-	message = "gasps"
-	emote_type = EMOTE_AUDIBLE
-	stat_allowed = UNCONSCIOUS
 
 /datum/emote/living/giggle
 	key = "giggle"
@@ -286,12 +268,6 @@
 	message = "shivers"
 	emote_type = EMOTE_AUDIBLE
 
-/datum/emote/living/sigh
-	key = "sigh"
-	key_third_person = "sighs"
-	message = "sighs"
-	emote_type = EMOTE_AUDIBLE
-
 /datum/emote/living/sit
 	key = "sit"
 	key_third_person = "sits"
@@ -302,22 +278,10 @@
 	key_third_person = "smiles"
 	message = "smiles"
 
-/datum/emote/living/sneeze
-	key = "sneeze"
-	key_third_person = "sneezes"
-	message = "sneezes"
-	emote_type = EMOTE_AUDIBLE
-
 /datum/emote/living/smug
 	key = "smug"
 	key_third_person = "smugs"
 	message = "grins smugly"
-
-/datum/emote/living/sniff
-	key = "sniff"
-	key_third_person = "sniffs"
-	message = "sniffs"
-	emote_type = EMOTE_AUDIBLE
 
 /datum/emote/living/snore
 	key = "snore"
@@ -525,16 +489,6 @@
 	else
 		qdel(N)
 		to_chat(user, "<span class='warning'>You don't have any free hands to high-five with.</span>")
-
-/datum/emote/living/snap
-	key = "snap"
-	key_third_person = "snaps"
-	message = "snaps their fingers"
-	message_param = "snaps their fingers at %t"
-	emote_type = EMOTE_AUDIBLE
-
-/datum/emote/living/snap/get_sound(mob/living/user)
-	return pick('sound/misc/fingersnap1.ogg', 'sound/misc/fingersnap2.ogg')
 
 /datum/emote/living/fingergun
 	key = "fingergun"

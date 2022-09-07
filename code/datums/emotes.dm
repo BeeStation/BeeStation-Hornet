@@ -18,6 +18,7 @@
 	var/emote_type = EMOTE_VISIBLE //Whether the emote is visible or audible
 	var/restraint_check = FALSE //Checks if the mob is restrained before performing the emote
 	var/muzzle_ignore = FALSE //Will only work if the emote is EMOTE_AUDIBLE
+	var/cooldown = 0.8 //Cooldown between the uses of an emote
 	var/list/mob_type_allowed_typecache = /mob //Types that are allowed to use that emote
 	var/list/mob_type_blacklist_typecache //Types that are NOT allowed to use that emote
 	var/list/mob_type_ignore_stat_typecache
@@ -178,4 +179,3 @@
 				ghost.show_message("[FOLLOW_LINK(ghost, src)] [ghost_text]")
 
 	visible_message(text, visible_message_flags = list(CHATMESSAGE_EMOTE = TRUE))
-
