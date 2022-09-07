@@ -4,34 +4,34 @@
 //  - Put cable in user's hand instead of on the ground
 //  - Camera jack
 
-// why is this so indented?
+
 /mob/living/silicon/pai/var/list/available_software = list(
-															//Nightvision
-															//T-Ray
-															//radiation eyes
-															//chem goggs
-															//mesons
-															"crew manifest" = 5,
-															"digital messenger" = 5,
-															"atmosphere sensor" = 5,
-															"photography module" = 5,
-															"remote signaller" = 10,
-															"medical records" = 10,
-															"security records" = 10,
-															"camera zoom" = 10,
-															"host scan" = 10,
-															//"camera jack" = 10,
-															//"heartbeat sensor" = 10,
-															//"projection array" = 15,
-															"medical HUD" = 20,
-															"security HUD" = 20,
-															"diagnostic HUD" = 20,
-															"loudness booster" = 20,
-															"newscaster" = 20,
-															"door jack" = 25,
-															"encryption keys" = 25,
-															"universal translator" = 35
-															)
+		//Nightvision
+		//T-Ray
+		//radiation eyes
+		//chem goggs
+		//mesons
+		"crew manifest" = 5,
+		"digital messenger" = 5,
+		"atmosphere sensor" = 5,
+		"photography module" = 5,
+		"remote signaller" = 10,
+		"medical records" = 10,
+		"security records" = 10,
+		"camera zoom" = 10,
+		"host scan" = 10,
+		//"camera jack" = 10,
+		//"heartbeat sensor" = 10,
+		//"projection array" = 15,
+		"medical HUD" = 20,
+		"security HUD" = 20,
+		"diagnostic HUD" = 20,
+		"loudness booster" = 20,
+		"newscaster" = 20,
+		"door jack" = 25,
+		"encryption keys" = 25,
+		"universal translator" = 35
+)
 
 /mob/living/silicon/pai/proc/paiInterface()
 	var/dat = ""
@@ -255,6 +255,8 @@
 
 			if("securityhud")
 				if(href_list["toggle"])
+					if(!("security HUD" in software))
+						return
 					secHUD = !secHUD
 					var/datum/atom_hud/sec = GLOB.huds[sec_hud]
 					if(secHUD)
@@ -264,6 +266,8 @@
 
 			if("medicalhud")
 				if(href_list["toggle"])
+					if(!("medical HUD" in software))
+						return
 					medHUD = !medHUD
 					var/datum/atom_hud/med = GLOB.huds[med_hud]
 					if(medHUD)
@@ -272,9 +276,11 @@
 						med.remove_hud_from(src)
 			if("diaghud")
 				if(href_list["toggle"])
-					dHud = !dHud
+					if(!("diagnostic HUD" in software))
+						return
+					dHUD = !dHUD
 					var/datum/atom_hud/diag = GLOB.huds[d_hud]
-					if(dHud)
+					if(dHUD)
 						diag.add_hud_to(src)
 					else
 						diag.remove_hud_from(src)
@@ -558,6 +564,7 @@
 		The suite is currently [ (dHUD) ? "<font color=#55FF55>en" : "<font color=#FF5555>dis" ]abled.</font><br>
 		<a href='byond://?src=[REF(src)];software=diaghud;sub=0;toggle=1'>Toggle Suite</a><br>
 	"}
+	return dat
 
 //Health Scanner
 /mob/living/silicon/pai/proc/softwareHostScan()

@@ -89,6 +89,8 @@
 	var/overload_maxhealth = 0
 	var/silent = FALSE
 
+	sensors_on = FALSE  // dont spawn with huds
+
 
 /mob/living/silicon/pai/can_unbuckle()
 	return FALSE
