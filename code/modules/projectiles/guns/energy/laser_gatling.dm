@@ -11,6 +11,7 @@
 	righthand_file = 'icons/mob/inhands/equipment/backpack_righthand.dmi'
 	slot_flags = ITEM_SLOT_BACK
 	w_class = WEIGHT_CLASS_HUGE
+	can_emag = TRUE
 	var/obj/item/gun/energy/minigun/gun
 	var/armed = 0 //whether the gun is attached, 0 is attached, 1 is the gun is wielded.
 	var/overheat = 0
@@ -96,9 +97,7 @@
 	user.update_inv_back()
 
 /obj/item/minigunpack/emag_act(mob/user)
-	if(obj_flags & EMAGGED)
-		return
-	obj_flags |= EMAGGED
+	..()
 	to_chat(user, "<span class='warning'>You break the heat sensor.</span>")
 	overheat_max = 1000
 
@@ -127,6 +126,7 @@
 	fire_sound = 'sound/weapons/laser.ogg'
 	item_flags = NEEDS_PERMIT | SLOWS_WHILE_IN_HAND
 	full_auto = TRUE
+	can_emag = TRUE
 	var/cooldown = 0
 	var/obj/item/minigunpack/ammo_pack
 
@@ -183,9 +183,7 @@
 	ammo_pack.attach_gun(user)
 
 /obj/item/gun/energy/minigun/emag_act(mob/user)
-	if(obj_flags & EMAGGED)
-		return
-	obj_flags |= EMAGGED
+	..()
 	fire_sound = null
 	spread = 60
 	recoil = 1

@@ -2,6 +2,7 @@
 	name = "HUD"
 	desc = "A heads-up display that provides important info in (almost) real time."
 	flags_1 = null //doesn't protect eyes because it's a monocle, duh
+	can_emag = TRUE
 	var/hud_trait = null //Used for topic calls. Just because you have a HUD display doesn't mean you should be able to interact with stuff. If something uses multiple traits, make it a list.
 	var/hud_type = null	//If something uses multiple huds, make it a list.
 	var/atom/movable/screen/plane_master/data_hud/glitching_hud
@@ -67,9 +68,7 @@
 	stop_glitch()
 
 /obj/item/clothing/glasses/hud/emag_act(mob/user)
-	if(obj_flags & EMAGGED)
-		return
-	obj_flags |= EMAGGED
+	..()
 	to_chat(user, "<span class='warning'>PZZTTPFFFT</span>")
 	desc = "[desc] The display is flickering slightly."
 	//If we aren't already glitching out, start glitching

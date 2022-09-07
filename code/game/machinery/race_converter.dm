@@ -5,6 +5,7 @@
 	icon_state = "fat"
 	state_open = FALSE
 	density = TRUE
+	can_emag = TRUE
 	var/dangerous = FALSE // Can the species coverter turn people into plasma men?
 	var/brainwash = FALSE
 	var/processing = FALSE
@@ -139,10 +140,8 @@
 		to_chat(user, "<span class='notice'>You change \the [src]'s desired race setting to [initial(desired_race.name)].</span>")
 
 /obj/machinery/species_converter/emag_act(mob/user)
-	if(obj_flags & EMAGGED)
-		return
+	..()
 	dangerous = TRUE
 	brainwash = prob(30)
 	changed = FALSE
-	obj_flags |= EMAGGED
 	to_chat(user, "<span class='warning'>You quitely disable \the [src]'s safety measures.</span>")

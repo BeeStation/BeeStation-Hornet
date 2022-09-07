@@ -17,6 +17,7 @@
 	CanAtmosPass = ATMOS_PASS_PROC
 	interaction_flags_machine = INTERACT_MACHINE_WIRES_IF_OPEN | INTERACT_MACHINE_ALLOW_SILICON | INTERACT_MACHINE_OPEN_SILICON | INTERACT_MACHINE_REQUIRES_SILICON | INTERACT_MACHINE_OPEN
 	network_id = NETWORK_DOOR_AIRLOCKS
+	can_emag = TRUE
 	var/obj/item/electronics/airlock/electronics = null
 	var/reinf = 0
 	var/shards = 2
@@ -214,16 +215,23 @@
 		take_damage(round(exposed_volume / 200), BURN, 0, 0)
 	..()
 
+/obj/machinery/door/window/emag_check(mob/user)
+	// Don't allow emag if the door is currently open or moving
+	return !operating && density && ..()
+
 /obj/machinery/door/window/emag_act(mob/user)
-	if(!operating && density && !(obj_flags & EMAGGED))
-		obj_flags |= EMAGGED
-		operating = TRUE
-		flick("[base_state]spark", src)
-		playsound(src, "sparks", 75, 1)
-		sleep(6)
-		operating = FALSE
-		desc += "<BR><span class='warning'>Its access panel is smoking slightly.</span>"
-		open(2)
+	..()
+	operating = TRUE
+	flick("[base_state]spark", src)
+	playsound(src, "sparks", 75, 1)
+	addtimer(CALLBACK(src, .proc/emag_after), 6)
+
+/obj/machinery/door/window/proc/emag_after()
+	if(QDELETED(src))
+		return
+	operating = FALSE
+	desc += "<BR><span class='warning'>Its access panel is smoking slightly.</span>"
+	open(2)
 
 /obj/machinery/door/window/attackby(obj/item/I, mob/living/user, params)
 

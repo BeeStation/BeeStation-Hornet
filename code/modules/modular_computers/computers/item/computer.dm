@@ -4,6 +4,7 @@
 /obj/item/modular_computer
 	name = "modular microcomputer"
 	desc = "A small portable microcomputer."
+	can_emag = TRUE
 
 	var/enabled = 0											// Whether the computer is turned on.
 	var/screen_on = 1										// Whether the computer is active/opened/it's screen is on.
@@ -128,11 +129,14 @@
 		if(response == "Yes")
 			turn_on(user)
 
-/obj/item/modular_computer/emag_act(mob/user)
+/obj/item/modular_computer/emag_check(mob/user)
 	if(!enabled)
 		to_chat(user, "<span class='warning'>You'd need to turn the [src] on first.</span>")
 		return FALSE
-	obj_flags |= EMAGGED //Mostly for consistancy purposes; the programs will do their own emag handling
+	return TRUE
+
+/obj/item/modular_computer/emag_act(mob/user)
+	..()
 	var/newemag = FALSE
 	var/obj/item/computer_hardware/hard_drive/drive = all_components[MC_HDD]
 	for(var/datum/computer_file/program/app in drive.stored_files)

@@ -166,9 +166,7 @@
 	icon_keyboard = "rd_key"
 	req_access = list(ACCESS_RD_SERVER)
 	circuit = /obj/item/circuitboard/computer/rdservercontrol
-
-
-
+	can_emag = TRUE
 
 /obj/machinery/computer/rdservercontrol/ui_state(mob/user)
 	return GLOB.default_state
@@ -232,8 +230,6 @@
 					break
 
 /obj/machinery/computer/rdservercontrol/emag_act(mob/user)
-	if(obj_flags & EMAGGED)
-		return
+	..()
 	playsound(src, "sparks", 75, 1)
-	obj_flags |= EMAGGED
 	to_chat(user, "<span class='notice'>You disable the security protocols.</span>")

@@ -7,6 +7,7 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 	icon_keyboard = "tech_key"
 	light_color = LIGHT_COLOR_CYAN
 	req_access = list()
+	can_emag = TRUE
 	var/shuttleId
 
 	//Interdiction range
@@ -524,10 +525,8 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 	shuttle_dock.setTimer(20)
 
 /obj/machinery/computer/shuttle_flight/emag_act(mob/user)
-	if(obj_flags & EMAGGED)
-		return
+	..()
 	req_access = list()
-	obj_flags |= EMAGGED
 	to_chat(user, "<span class='notice'>You fried the consoles ID checking system.</span>")
 
 /obj/machinery/computer/shuttle_flight/allowed(mob/M)

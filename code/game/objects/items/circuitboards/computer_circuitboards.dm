@@ -435,6 +435,7 @@
 	name = "supply console (Computer Board)"
 	icon_state = "supply"
 	build_path = /obj/machinery/computer/cargo
+	can_emag = TRUE
 	var/contraband = FALSE
 
 /obj/item/circuitboard/computer/cargo/multitool_act(mob/living/user)
@@ -444,11 +445,10 @@
 	else
 		to_chat(user, "<span class='notice'>The spectrum chip is unresponsive.</span>")
 
-/obj/item/circuitboard/computer/cargo/emag_act(mob/living/user)
-	if(!(obj_flags & EMAGGED))
-		contraband = TRUE
-		obj_flags |= EMAGGED
-		to_chat(user, "<span class='notice'>You adjust [src]'s routing and receiver spectrum, unlocking special supplies and contraband.</span>")
+/obj/item/circuitboard/computer/cargo/emag_act(mob/user)
+	..()
+	contraband = TRUE
+	to_chat(user, "<span class='notice'>You adjust [src]'s routing and receiver spectrum, unlocking special supplies and contraband.</span>")
 
 /obj/item/circuitboard/computer/cargo/express
 	name = "express supply console (Computer Board)"
@@ -462,9 +462,9 @@
 		to_chat(user, "<span class='notice'>You reset the routing protocols to: \"factory defaults\".</span>")
 		obj_flags &= ~EMAGGED
 
-/obj/item/circuitboard/computer/cargo/express/emag_act(mob/living/user)
-		to_chat(user, "<span class='notice'>You change the routing protocols, allowing the Drop Pod to land anywhere on the station.</span>")
-		obj_flags |= EMAGGED
+/obj/item/circuitboard/computer/cargo/express/emag_act(mob/user)
+	..()
+	to_chat(user, "<span class='notice'>You change the routing protocols, allowing the Drop Pod to land anywhere on the station.</span>")
 
 /obj/item/circuitboard/computer/cargo/request
 	name = "supply request console (Computer Board)"

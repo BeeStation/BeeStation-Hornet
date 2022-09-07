@@ -232,19 +232,24 @@
 	desc = "A stripped-down version of the engineering cyborg toolset, designed to be installed on subject's arm. Contains advanced versions of every tool."
 	items_to_create = list(/obj/item/screwdriver/cyborg, /obj/item/wrench/cyborg, /obj/item/weldingtool/largetank/cyborg,
 		/obj/item/crowbar/cyborg, /obj/item/wirecutters/cyborg, /obj/item/multitool/cyborg)
+	can_emag = TRUE
 
 /obj/item/organ/cyberimp/arm/toolset/l
 	zone = BODY_ZONE_L_ARM
 
-/obj/item/organ/cyberimp/arm/toolset/emag_act(mob/user)
+/obj/item/organ/cyberimp/arm/toolset/emag_check(mob/user)
+	if(!..())
+		return FALSE
 	for(var/datum/weakref/created_item in items_list)
 		var/obj/potential_blade = created_item.resolve()
 		if(istype(/obj/item/melee/hydraulic_blade, potential_blade))
 			return FALSE
+	return TRUE
 
+/obj/item/organ/cyberimp/arm/toolset/emag_act(mob/user)
+	..()
 	to_chat(user, "<span class='notice'>You unlock [src]'s integrated blade!</span>")
 	items_list += WEAKREF(new /obj/item/melee/hydraulic_blade(src))
-	return TRUE
 
 /obj/item/organ/cyberimp/arm/esword
 	name = "arm-mounted energy blade"
@@ -337,8 +342,10 @@
 	name = "janitorial tools implant"
 	desc = "A set of janitorial tools on the user's arm."
 	items_to_create = list(/obj/item/lightreplacer/cyborg, /obj/item/holosign_creator/janibarrier, /obj/item/soap/nanotrasen, /obj/item/reagent_containers/spray/cyborg/drying_agent, /obj/item/mop/advanced/cyborg, /obj/item/paint/paint_remover, /obj/item/reagent_containers/spray/cleaner)
+	can_emag = TRUE
 
 /obj/item/organ/cyberimp/arm/janitor/emag_act(mob/user)
+	..()
 	to_chat(usr, "<span class='notice'>You unlock [src]'s integrated deluxe cleaning supplies!</span>")
 	items_list += WEAKREF(new /obj/item/soap/syndie(src)) //We add not replace.
 	items_list += WEAKREF(new /obj/item/reagent_containers/spray/cyborg/lube(src))

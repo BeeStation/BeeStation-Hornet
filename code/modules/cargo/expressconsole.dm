@@ -5,6 +5,7 @@
 		All sales are near instantaneous - please choose carefully"
 	icon_screen = "supply_express"
 	circuit = /obj/item/circuitboard/computer/cargo/express
+	can_emag = TRUE
 
 
 	blockade_warning = "Bluespace instability detected. Delivery impossible."
@@ -48,16 +49,9 @@
 			to_chat(user, "<span class='notice'>[src] is already linked to [sb].</span>")
 	..()
 
-/obj/machinery/computer/cargo/express/emag_act(mob/living/user)
-	if(obj_flags & EMAGGED)
-		return
-	if(user)
-		user.visible_message("<span class='warning'>[user] swipes a suspicious card through [src]!</span>",
-		"<span class='notice'>You change the routing protocols, allowing the Supply Pod to land anywhere on the station.</span>")
-	obj_flags |= EMAGGED
-	// This also sets this on the circuit board
-	var/obj/item/circuitboard/computer/cargo/board = circuit
-	board.obj_flags |= EMAGGED
+/obj/machinery/computer/cargo/express/emag_act(mob/user)
+	..()
+	to_chat(user,"<span class='notice'>You change the routing protocols, allowing the Supply Pod to land anywhere on the station.</span>")
 	packin_up()
 
 /obj/machinery/computer/cargo/express/proc/packin_up() // oh shit, I'm sorry

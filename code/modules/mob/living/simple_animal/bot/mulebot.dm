@@ -175,7 +175,7 @@
 	else
 		return ..()
 
-/mob/living/simple_animal/bot/mulebot/emag_act(mob/user)
+/mob/living/simple_animal/bot/mulebot/emag_act(atom/target, mob/user)
 	if(!emagged)
 		emagged = TRUE
 	if(!open)

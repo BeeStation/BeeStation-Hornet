@@ -75,6 +75,7 @@
 	pressure_resistance = 2*ONE_ATMOSPHERE
 	req_access = list(ACCESS_ENGINE)
 	max_integrity = 100
+	can_emag = TRUE
 	var/active = FALSE
 	var/list/deployed_shields
 	var/locked = FALSE
@@ -198,10 +199,7 @@
 		return ..()
 
 /obj/machinery/shieldgen/emag_act(mob/user)
-	if(obj_flags & EMAGGED)
-		to_chat(user, "<span class='warning'>The access controller is damaged!</span>")
-		return
-	obj_flags |= EMAGGED
+	..()
 	locked = FALSE
 	playsound(src, "sparks", 100, 1)
 	to_chat(user, "<span class='warning'>You short out the access controller.</span>")
@@ -225,6 +223,7 @@
 	flags_1 = CONDUCT_1
 	use_power = NO_POWER_USE
 	max_integrity = 300
+	can_emag = TRUE
 	var/active = FALSE
 	var/power = 0
 	var/maximum_stored_power = 500
@@ -399,10 +398,7 @@
 	add_fingerprint(user)
 
 /obj/machinery/shieldwallgen/emag_act(mob/user)
-	if(obj_flags & EMAGGED)
-		to_chat(user, "<span class='warning'>The access controller is damaged!</span>")
-		return
-	obj_flags |= EMAGGED
+	..()
 	locked = FALSE
 	playsound(src, "sparks", 100, 1)
 	to_chat(user, "<span class='warning'>You short out the access controller.</span>")

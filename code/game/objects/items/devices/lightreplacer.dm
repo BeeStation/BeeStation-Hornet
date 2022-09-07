@@ -52,6 +52,7 @@
 	flags_1 = CONDUCT_1
 	slot_flags = ITEM_SLOT_BELT
 	force = 8
+	can_emag = TRUE
 
 	var/max_uses = 20
 	var/uses = 10
@@ -143,10 +144,11 @@
 
 		to_chat(user, "<span class='notice'>You fill \the [src] with lights from \the [S]. " + status_string() + "</span>")
 
-/obj/item/lightreplacer/emag_act()
-	if(obj_flags & EMAGGED)
-		return
-	Emag()
+/obj/item/lightreplacer/emag_act(mob/user)
+	..()
+	playsound(src.loc, "sparks", 100, 1)
+	name = "shortcircuited [initial(name)]"
+	update_icon()
 
 /obj/item/lightreplacer/attack_self(mob/user)
 	for(var/obj/machinery/light/target in user.loc)
@@ -215,15 +217,6 @@
 	else
 		to_chat(U, "<span class='warning'>There is a working [target.fitting] already inserted!</span>")
 		return
-
-/obj/item/lightreplacer/proc/Emag()
-	obj_flags ^= EMAGGED
-	playsound(src.loc, "sparks", 100, 1)
-	if(obj_flags & EMAGGED)
-		name = "shortcircuited [initial(name)]"
-	else
-		name = initial(name)
-	update_icon()
 
 /obj/item/lightreplacer/proc/CanUse(mob/living/user)
 	add_fingerprint(user)

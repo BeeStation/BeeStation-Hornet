@@ -8,6 +8,7 @@ GLOBAL_LIST(labor_sheet_values)
 	icon = 'icons/obj/machines/mining_machines.dmi'
 	icon_state = "console"
 	density = FALSE
+	can_emag = TRUE
 	var/obj/machinery/mineral/stacking_machine/laborstacker/stacking_machine
 	//needed to send messages to sec radio
 	var/obj/item/radio/integrated_radio
@@ -128,9 +129,8 @@ GLOBAL_LIST(labor_sheet_values)
 		stacking_machine.console = src
 
 /obj/machinery/mineral/labor_claim_console/emag_act(mob/user)
-	if(!(obj_flags & EMAGGED))
-		obj_flags |= EMAGGED
-		to_chat(user, "<span class='warning'>PZZTTPFFFT</span>")
+	..()
+	to_chat(user, "<span class='warning'>PZZTTPFFFT</span>")
 
 /**********************Prisoner Collection Unit**************************/
 

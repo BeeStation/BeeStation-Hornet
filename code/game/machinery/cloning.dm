@@ -17,6 +17,7 @@
 	req_access = list(ACCESS_CLONING) //FOR PREMATURE UNLOCKING.
 	verb_say = "states"
 	circuit = /obj/item/circuitboard/machine/clonepod
+	can_emag = TRUE
 
 	var/heal_level //The clone is released once its health reaches this level.
 	var/obj/machinery/computer/cloning/connected //So we remember the connected clone machine.
@@ -450,9 +451,11 @@
 	else
 		return ..()
 
+/obj/machinery/clonepod/emag_check(mob/user)
+	return !!occupant
+
 /obj/machinery/clonepod/emag_act(mob/user)
-	if(!occupant)
-		return
+	..()
 	to_chat(user, "<span class='warning'>You corrupt the genetic compiler.</span>")
 	malfunction()
 	add_fingerprint(user)

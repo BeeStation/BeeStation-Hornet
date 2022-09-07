@@ -15,6 +15,7 @@
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 2
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
+	can_emag = TRUE
 
 /obj/machinery/button/indestructible
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
@@ -105,12 +106,10 @@
 		return ..()
 
 /obj/machinery/button/emag_act(mob/user)
-	if(obj_flags & EMAGGED)
-		return
+	..()
 	req_access = list()
 	req_one_access = list()
 	playsound(src, "sparks", 100, 1)
-	obj_flags |= EMAGGED
 
 /obj/machinery/button/eminence_act(mob/living/simple_animal/eminence/eminence)
 	. = ..()

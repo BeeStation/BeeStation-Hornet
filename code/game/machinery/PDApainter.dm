@@ -6,6 +6,7 @@
 	max_integrity = 200
 	density = TRUE
 	anchored = TRUE
+	can_emag = TRUE
 	var/obj/item/pda/storedpda = null
 	var/obj/item/card/id/storedid = null
 	var/pda_icons = list(
@@ -71,8 +72,7 @@
 	var/list/colorlist = list()
 
 /obj/machinery/pdapainter/emag_act(mob/user)
-	if(obj_flags & EMAGGED)
-		return
+	..()
 	pda_icons += list(
 		"Transparent" = "pda-clear",
 		"Syndicate" = "pda-syndi"
@@ -87,7 +87,7 @@
 		"Clown Operative"
 	)
 	to_chat(user, "<span class='warning'>You short out the design locking circuitry, allowing contraband and special designs.</span>")
-	obj_flags |= EMAGGED
+
 /obj/machinery/pdapainter/update_icon()
 	cut_overlays()
 

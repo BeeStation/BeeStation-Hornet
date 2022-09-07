@@ -6,6 +6,7 @@
 	req_access = list(ACCESS_ENGINE)
 	circuit = /obj/item/circuitboard/computer/apc_control
 	light_color = LIGHT_COLOR_YELLOW
+	can_emag = TRUE
 	var/mob/living/operator //Who's operating the computer right now
 	var/obj/machinery/power/apc/active_apc //The APC we're using right now
 	var/list/result_filters //For sorting the results
@@ -182,15 +183,18 @@
 		logs = list()
 	ui_interact(usr) //Refresh the UI after a filter changes
 
+/obj/machinery/computer/apc_control/emag_check(mob/user)
+	return !authenticated || ..()
+
 /obj/machinery/computer/apc_control/emag_act(mob/user)
 	if(!authenticated)
 		to_chat(user, "<span class='warning'>You bypass [src]'s access requirements using your emag.</span>")
 		authenticated = TRUE
 		log_activity("logged in")
-	else if(!(obj_flags & EMAGGED))
+	else
 		user.visible_message("<span class='warning'>[user] emags the [src], disabling precise logging!</span>", "<span class='warning'>You emag [src], disabling precise logging and allowing you to clear logs.</span>")
 		log_game("[key_name(user)] emagged [src] at [AREACOORD(src)], disabling operator tracking.")
-		obj_flags |= EMAGGED
+		..()
 	playsound(src, "sparks", 50, 1)
 
 /obj/machinery/computer/apc_control/proc/log_activity(log_text)

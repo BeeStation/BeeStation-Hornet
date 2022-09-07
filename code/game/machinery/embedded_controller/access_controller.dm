@@ -10,6 +10,7 @@
 	idle_power_usage = 2
 	active_power_usage = 4
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+	can_emag = TRUE
 	var/idSelf
 
 /obj/machinery/doorButtons/attackby(obj/O, mob/user)
@@ -26,9 +27,7 @@
 	findObjsByTag()
 
 /obj/machinery/doorButtons/emag_act(mob/user)
-	if(obj_flags & EMAGGED)
-		return
-	obj_flags |= EMAGGED
+	..()
 	req_access = list()
 	req_one_access = list()
 	playsound(src, "sparks", 100, 1)

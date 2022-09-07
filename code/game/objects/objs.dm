@@ -51,6 +51,10 @@
 
 	var/investigate_flags = NONE
 	// ADMIN_INVESTIGATE_TARGET: investigate_log on pickup/drop
+	/// Controls whether the emag signals are registered - if changed, the signal is unregistered when the object is emagged again.
+	var/can_emag = FALSE
+	/// If the emag behavior should be toggleable
+	var/emag_toggleable = FALSE
 
 /obj/vv_edit_var(vname, vval)
 	switch(vname)
@@ -98,8 +102,14 @@
 			network_id = NETWORK_NAME_COMBINE(STATION_NETWORK_ROOT, network_id) // I regret nothing!!
 		AddComponent(/datum/component/ntnet_interface, network_id, id_tag)
 		/// Needs to run before as ComponentInitialize runs after this statement...why do we have ComponentInitialize again?
+	if(can_emag)
+		RegisterSignal(src, COMSIG_ATOM_EMAG_CHECK, .proc/emag_check_sig)
+		RegisterSignal(src, COMSIG_ATOM_EMAG_ACT, .proc/emag_act_sig)
 
 /obj/Destroy(force=FALSE)
+	if(can_emag)
+		UnregisterSignal(src, COMSIG_ATOM_EMAG_CHECK)
+		UnregisterSignal(src, COMSIG_ATOM_EMAG_ACT)
 	if(!ismachinery(src) && (datum_flags & DF_ISPROCESSING))
 		STOP_PROCESSING(SSobj, src)
 	SStgui.close_uis(src)
@@ -435,3 +445,26 @@
 	. = ..()
 	if(. && ricochet_damage_mod)
 		take_damage(P.damage * ricochet_damage_mod, P.damage_type, P.flag, 0, turn(P.dir, 180), P.armour_penetration) // pass along ricochet_damage_mod damage to the structure for the ricochet
+
+/// Do not override, allows overriding without removing the parent behaviour. Override emag_check instead.
+/obj/proc/emag_check_sig(atom/target, mob/user)
+	SIGNAL_HANDLER
+
+	if(!can_emag)
+		UnregisterSignal(src, COMSIG_ATOM_EMAG_CHECK)
+		UnregisterSignal(src, COMSIG_ATOM_EMAG_ACT)
+		return FALSE
+	return emag_check(user)
+
+/obj/proc/emag_check(mob/user)
+	return emag_toggleable || !(obj_flags & EMAGGED)
+
+/obj/proc/emag_act_sig(atom/target, mob/user)
+	SIGNAL_HANDLER
+	emag_act(user)
+
+/obj/proc/emag_act(mob/user)
+	if(emag_toggleable)
+		obj_flags ^= EMAGGED
+	else
+		obj_flags |= EMAGGED

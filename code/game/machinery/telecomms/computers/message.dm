@@ -17,6 +17,7 @@
 	desc = "Used to monitor the crew's PDA messages, as well as request console messages."
 	icon_screen = "comm_logs"
 	circuit = /obj/item/circuitboard/computer/message_monitor
+	can_emag = TRUE
 	//Server linked to.
 	var/obj/machinery/telecomms/message_server/linkedServer = null
 	//Sparks effect - For emag
@@ -47,22 +48,25 @@
 	else
 		return ..()
 
-/obj/machinery/computer/message_monitor/emag_act(mob/user)
-	if(obj_flags & EMAGGED)
-		return
-	if(!isnull(linkedServer))
-		obj_flags |= EMAGGED
-		screen = MSG_MON_SCREEN_HACKED
-		spark_system.set_up(5, 0, src)
-		spark_system.start()
-		var/obj/item/paper/monitorkey/MK = new(loc, linkedServer)
-		// Will help make emagging the console not so easy to get away with.
-		MK.info += "<br><br><font color='red'>£%@%(*$%&(£&?*(%&£/{}</font>"
-		var/time = 100 * length(linkedServer.decryptkey)
-		addtimer(CALLBACK(src, .proc/UnmagConsole), time)
-		message = rebootmsg
-	else
+/obj/machinery/computer/message_monitor/emag_check(mob/user)
+	if(!..())
+		return FALSE
+	if(isnull(linkedServer))
 		to_chat(user, "<span class='notice'>A no server error appears on the screen.</span>")
+		return FALSE
+	return TRUE
+
+/obj/machinery/computer/message_monitor/emag_act(mob/user)
+	..()
+	screen = MSG_MON_SCREEN_HACKED
+	spark_system.set_up(5, 0, src)
+	spark_system.start()
+	var/obj/item/paper/monitorkey/MK = new(loc, linkedServer)
+	// Will help make emagging the console not so easy to get away with.
+	MK.info += "<br><br><font color='red'>£%@%(*$%&(£&?*(%&£/{}</font>"
+	var/time = 100 * length(linkedServer.decryptkey)
+	addtimer(CALLBACK(src, .proc/UnmagConsole), time)
+	message = rebootmsg
 
 /obj/machinery/computer/message_monitor/New()
 	..()

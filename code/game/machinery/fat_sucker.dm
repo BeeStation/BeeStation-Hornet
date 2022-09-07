@@ -8,6 +8,7 @@
 	density = TRUE
 	req_access = list(ACCESS_KITCHEN)
 	circuit = /obj/item/circuitboard/machine/fat_sucker
+	can_emag = TRUE
 	var/processing = FALSE
 	var/start_at = NUTRITION_LEVEL_WELL_FED
 	var/stop_at = NUTRITION_LEVEL_STARVING
@@ -220,10 +221,8 @@
 	if(default_deconstruction_crowbar(I))
 		return TRUE
 
-/obj/machinery/fat_sucker/emag_act(mob/living/user)
-	if(obj_flags & EMAGGED)
-		return
+/obj/machinery/fat_sucker/emag_act(mob/user)
+	..()
 	start_at = 100
 	stop_at = 0
 	to_chat(user, "<span class='notice'>You remove the access restrictions and lower the automatic ejection threshold!</span>")
-	obj_flags |= EMAGGED

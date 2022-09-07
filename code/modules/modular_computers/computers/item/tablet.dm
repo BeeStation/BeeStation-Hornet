@@ -47,11 +47,9 @@
 	device_theme = "syndicate"
 	light_color = COLOR_RED
 
-/obj/item/modular_computer/tablet/nukeops/emag_act(mob/user)
-	if(!enabled)
-		to_chat(user, "<span class='warning'>You'd need to turn the [src] on first.</span>")
-		return FALSE
-	to_chat(user, "<span class='notice'>You swipe \the [src]. It's screen briefly shows a message reading \"MEMORY CODE INJECTION DETECTED AND SUCCESSFULLY QUARANTINED\".</span>")
+/obj/item/modular_computer/tablet/nukeops/emag_check(mob/user)
+	if(..())
+		to_chat(user, "<span class='notice'>You swipe \the [src]. It's screen briefly shows a message reading \"MEMORY CODE INJECTION DETECTED AND SUCCESSFULLY QUARANTINED\".</span>")
 	return FALSE
 
 /// Borg Built-in tablet interface

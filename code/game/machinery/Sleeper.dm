@@ -13,6 +13,7 @@
 	state_open = TRUE
 	circuit = /obj/item/circuitboard/machine/sleeper
 	clicksound = 'sound/machines/pda_button1.ogg'
+	can_emag = TRUE
 
 	var/efficiency = 1
 	var/min_health = -25
@@ -234,7 +235,11 @@
 				if(scrambled_chems && prob(5))
 					to_chat(usr, "<span class='warning'>Chemical system re-route detected, results may not be as expected!</span>")
 
+/obj/machinery/sleeper/emag_check(mob/user)
+	return TRUE
+
 /obj/machinery/sleeper/emag_act(mob/user)
+	..()
 	scramble_chem_buttons()
 	to_chat(user, "<span class='warning'>You scramble the sleeper's user interface!</span>")
 

@@ -14,6 +14,7 @@
 	req_access = list(ACCESS_HEADS)
 	circuit = /obj/item/circuitboard/computer/communications
 	light_color = LIGHT_COLOR_BLUE
+	can_emag = TRUE
 
 	/// Cooldown for important actions, such as messaging CentCom or other sectors
 	COOLDOWN_DECLARE(static/important_action_cooldown)
@@ -69,9 +70,7 @@
 		return ..()
 
 /obj/machinery/computer/communications/emag_act(mob/user)
-	if (obj_flags & EMAGGED)
-		return
-	obj_flags |= EMAGGED
+	..()
 	if (authenticated)
 		authorize_access = get_all_accesses()
 	to_chat(user, "<span class='danger'>You scramble the communication routing circuits!</span>")

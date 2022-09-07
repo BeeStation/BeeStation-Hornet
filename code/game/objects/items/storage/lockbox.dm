@@ -7,6 +7,7 @@
 	righthand_file = 'icons/mob/inhands/equipment/case_righthand.dmi'
 	w_class = WEIGHT_CLASS_BULKY
 	req_access = list(ACCESS_ARMORY)
+	can_emag = TRUE
 	var/broken = FALSE
 	var/open = FALSE
 	var/base_icon_state = "lockbox"
@@ -47,16 +48,17 @@
 	else
 		to_chat(user, "<span class='danger'>It's locked!</span>")
 
+/obj/item/storage/lockbox/emag_check(mob/user)
+	return !broken && ..()
+
 /obj/item/storage/lockbox/emag_act(mob/user)
-	if(!broken)
-		broken = TRUE
-		SEND_SIGNAL(src, COMSIG_TRY_STORAGE_SET_LOCKSTATE, FALSE)
-		desc += "It appears to be broken."
-		icon_state = "[src.base_icon_state]+b"
-		item_state = "[src.base_icon_state]+b"
-		if(user)
-			visible_message("<span class='warning'>\The [src] has been broken by [user] with an electromagnetic card!</span>")
-			return
+	..()
+	broken = TRUE
+	SEND_SIGNAL(src, COMSIG_TRY_STORAGE_SET_LOCKSTATE, FALSE)
+	desc += "It appears to be broken."
+	icon_state = "[src.base_icon_state]+b"
+	item_state = "[src.base_icon_state]+b"
+	user?.visible_message("<span class='warning'>[user] breaks \the [src] with an electromagnetic card!</span>")
 
 /obj/item/storage/lockbox/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	. = ..()

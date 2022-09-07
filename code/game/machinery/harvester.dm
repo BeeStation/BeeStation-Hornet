@@ -9,6 +9,7 @@
 	idle_power_usage = 50
 	circuit = /obj/item/circuitboard/machine/harvester
 	light_color = LIGHT_COLOR_BLUE
+	can_emag = TRUE
 	var/interval = 20
 	var/harvesting = FALSE
 	var/list/operation_order = list() //Order of wich we harvest limbs.
@@ -158,9 +159,7 @@
 		open_machine()
 
 /obj/machinery/harvester/emag_act(mob/user)
-	if(obj_flags & EMAGGED)
-		return
-	obj_flags |= EMAGGED
+	..()
 	allow_living = TRUE
 	to_chat(user, "<span class='warning'>You overload [src]'s lifesign scanners.</span>")
 

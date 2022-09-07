@@ -201,6 +201,7 @@ GLOBAL_LIST(cachedbooks) // List of our cached book datums
 	verb_ask = "beeps"
 	verb_exclaim = "beeps"
 	pass_flags = PASSTABLE
+	can_emag = TRUE
 	var/arcanecheckout = 0
 	var/buffer_book
 	var/buffer_mob
@@ -372,9 +373,8 @@ GLOBAL_LIST(cachedbooks) // List of our cached book datums
 	else
 		return ..()
 
-/obj/machinery/computer/libraryconsole/bookmanagement/emag_act(mob/user)
-	if(density && !(obj_flags & EMAGGED))
-		obj_flags |= EMAGGED
+/obj/machinery/computer/libraryconsole/bookmanagement/emag_check(mob/user)
+	return density && ..()
 
 /obj/machinery/computer/libraryconsole/bookmanagement/Topic(href, href_list)
 	if(..())

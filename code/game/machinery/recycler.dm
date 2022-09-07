@@ -10,6 +10,7 @@
 	circuit = /obj/item/circuitboard/machine/recycler
 	idle_power_usage = 50
 	active_power_usage = 200
+	can_emag = TRUE
 	var/safety_mode = FALSE // Temporarily stops machine if it detects a mob
 	var/icon_name = "grinder-o"
 	var/blood = 0
@@ -68,9 +69,7 @@
 	return ..()
 
 /obj/machinery/recycler/emag_act(mob/user)
-	if(obj_flags & EMAGGED)
-		return
-	obj_flags |= EMAGGED
+	..()
 	if(safety_mode)
 		safety_mode = FALSE
 		update_icon()

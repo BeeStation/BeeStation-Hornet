@@ -8,6 +8,7 @@
 	righthand_file = 'icons/mob/inhands/misc/megaphone_righthand.dmi'
 	w_class = WEIGHT_CLASS_SMALL
 	siemens_coefficient = 1
+	can_emag = TRUE
 	var/spamcheck = 0
 	var/list/voicespan = list(SPAN_MEGAPHONE)
 
@@ -40,10 +41,8 @@
 			speech_args[SPEECH_SPANS] |= voicespan
 
 /obj/item/megaphone/emag_act(mob/user)
-	if(obj_flags & EMAGGED)
-		return
+	..()
 	to_chat(user, "<span class='warning'>You overload \the [src]'s voice synthesizer.</span>")
-	obj_flags |= EMAGGED
 	voicespan = list(SPAN_REALLYBIG, "userdanger")
 
 /obj/item/megaphone/sec

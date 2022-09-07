@@ -14,6 +14,7 @@
 	idle_power_usage = 10
 	active_power_usage = 100
 	circuit = /obj/item/circuitboard/machine/limbgrower
+	can_emag = TRUE
 
 	var/operating = FALSE
 	var/disabled = FALSE
@@ -224,11 +225,9 @@
 	return dat
 
 /obj/machinery/limbgrower/emag_act(mob/user)
-	if(obj_flags & EMAGGED)
-		return
+	..()
 	for(var/id in SSresearch.techweb_designs)
 		var/datum/design/D = SSresearch.techweb_design_by_id(id)
 		if((D.build_type & LIMBGROWER) && ("emagged" in D.category))
 			stored_research.add_design(D)
 	to_chat(user, "<span class='warning'>A warning flashes onto the screen, stating that safety overrides have been deactivated!</span>")
-	obj_flags |= EMAGGED

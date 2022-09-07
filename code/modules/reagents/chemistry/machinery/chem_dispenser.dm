@@ -22,6 +22,7 @@
 	interaction_flags_machine = INTERACT_MACHINE_OPEN | INTERACT_MACHINE_ALLOW_SILICON | INTERACT_MACHINE_OFFLINE
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	circuit = /obj/item/circuitboard/machine/chem_dispenser
+	can_emag = TRUE
 
 
 	var/obj/item/stock_parts/cell/cell
@@ -140,15 +141,10 @@
 		beaker_overlay = display_beaker()
 		add_overlay(beaker_overlay)
 
-
-
 /obj/machinery/chem_dispenser/emag_act(mob/user)
-	if(obj_flags & EMAGGED)
-		to_chat(user, "<span class='warning'>[src] has no functional safeties to emag.</span>")
-		return
+	..()
 	to_chat(user, "<span class='notice'>You short out [src]'s safeties.</span>")
 	dispensable_reagents |= emagged_reagents//add the emagged reagents to the dispensable ones
-	obj_flags |= EMAGGED
 
 /obj/machinery/chem_dispenser/ex_act(severity, target)
 	if(severity < 3)

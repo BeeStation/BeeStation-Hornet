@@ -17,6 +17,7 @@
 	icon_screen = "shuttle"
 	icon_keyboard = "tech_key"
 	resistance_flags = INDESTRUCTIBLE
+	can_emag = TRUE
 
 
 
@@ -254,20 +255,22 @@
 			{AUTH - ROOT (uid: 0)}.</font>[SSshuttle.emergency.mode == SHUTTLE_ESCAPE ? "Diverting from existing route - Bluespace exit in [hijack_completion_flight_time_set/10] seconds." : ""]"
 	minor_announce(scramble_message_replace_chars(msg, replaceprob = 10), "Emergency Shuttle", TRUE)
 
-/obj/machinery/computer/emergency_shuttle/emag_act(mob/user)
+/obj/machinery/computer/emergency_shuttle/emag_check(mob/user)
 	// How did you even get on the shuttle before it go to the station?
 	if(!IS_DOCKED)
-		return
-
-	if((obj_flags & EMAGGED) || ENGINES_STARTED)	//SYSTEM ERROR: THE SHUTTLE WILL LA-SYSTEM ERROR: THE SHUTTLE WILL LA-SYSTEM ERROR: THE SHUTTLE WILL LAUNCH IN 10 SECONDS
+		return FALSE
+	if(!..() || ENGINES_STARTED)
+		//SYSTEM ERROR: THE SHUTTLE WILL LA-SYSTEM ERROR: THE SHUTTLE WILL LA-SYSTEM ERROR: THE SHUTTLE WILL LAUNCH IN 10 SECONDS
 		to_chat(user, "<span class='warning'>The shuttle is already launching!</span>")
-		return
+		return FALSE
+	return TRUE
 
+/obj/machinery/computer/emergency_shuttle/emag_act(mob/user)
+	..()
 	var/time = TIME_LEFT
 	message_admins("[ADMIN_LOOKUPFLW(user.client)] has emagged the emergency shuttle, [time] seconds before launch.")
 	log_game("[key_name(user)] has emagged the emergency shuttle in [COORD(src)] [time] seconds before launch.")
 
-	obj_flags |= EMAGGED
 	SSshuttle.emergency.movement_force = list("KNOCKDOWN" = 60, "THROW" = 20)//YOUR PUNY SEATBELTS can SAVE YOU NOW, MORTAL
 	var/datum/species/S = new
 	for(var/i in 1 to 10)
@@ -612,6 +615,7 @@
 	light_color = LIGHT_COLOR_BLUE
 	density = FALSE
 	clockwork = TRUE //it'd look weird
+	can_emag = TRUE
 
 /obj/machinery/computer/shuttle_flight/pod/Initialize()
 	. = ..()
@@ -625,9 +629,7 @@
 	return
 
 /obj/machinery/computer/shuttle_flight/pod/emag_act(mob/user)
-	if(obj_flags & EMAGGED)
-		return
-	obj_flags |= EMAGGED
+	..()
 	to_chat(user, "<span class='warning'>You fry the pod's alert level monitoring system.</span>")
 
 /obj/machinery/computer/shuttle_flight/pod/connect_to_shuttle(obj/docking_port/mobile/port, obj/docking_port/stationary/dock, idnum, override=FALSE)

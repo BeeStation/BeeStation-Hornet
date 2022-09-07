@@ -9,6 +9,7 @@
 	power_channel = AREA_USAGE_EQUIP
 	density = TRUE
 	max_integrity = 250
+	can_emag = TRUE
 
 
 
@@ -206,9 +207,7 @@
 	ui_update()
 
 /obj/machinery/suit_storage_unit/emag_act(mob/user)
-	if(obj_flags & EMAGGED)
-		return
-	obj_flags |= EMAGGED
+	..()
 	to_chat(user, "<span class='warning'>You reprogram [src]'s decontamination subroutines.</span>")
 
 /obj/machinery/suit_storage_unit/deconstruct(disassembled = TRUE)

@@ -17,6 +17,7 @@
 	active_power_usage = 600	//when active, this turret takes up constant 300 Equipment power
 	req_access = list(ACCESS_SECURITY)
 	power_channel = AREA_USAGE_EQUIP	//drains power from the EQUIPMENT channel
+	can_emag = TRUE
 
 	var/uses_stored = TRUE	//if TRUE this will cause the turret to stop working if the stored_gun var is null in process()
 
@@ -318,15 +319,18 @@
 		return ..()
 
 /obj/machinery/porta_turret/emag_act(mob/user)
-	if(obj_flags & EMAGGED)
-		return
+	..()
 	to_chat(user, "<span class='warning'>You short out [src]'s threat assessment circuits.</span>")
-	visible_message("[src] hums oddly...")
-	obj_flags |= EMAGGED
+	user?.visible_message("[src] hums oddly...")
 	controllock = TRUE
 	toggle_on(FALSE) //turns off the turret temporarily
 	update_icon()
-	sleep(60) //6 seconds for the traitor to gtfo of the area before the turret decides to ruin his shit
+	//6 seconds for the traitor to gtfo of the area before the turret decides to ruin his shit
+	addtimer(CALLBACK(src, .proc/emag_after), 6 SECONDS)
+
+/obj/machinery/porta_turret/proc/emag_after()
+	if(QDELETED(src))
+		return
 	toggle_on(TRUE) //turns it back on. The cover popUp() popDown() are automatically called in process(), no need to define it here
 
 
@@ -823,6 +827,7 @@
 	density = FALSE
 	req_access = list(ACCESS_AI_UPLOAD)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+	can_emag = TRUE
 
 
 	/// Variable dictating if linked turrets are active and will shoot targets
@@ -904,10 +909,8 @@
 			to_chat(user, "<span class='warning'>Access denied.</span>")
 
 /obj/machinery/turretid/emag_act(mob/user)
-	if(obj_flags & EMAGGED)
-		return
+	..()
 	to_chat(user, "<span class='danger'>You short out the turret controls' access analysis module.</span>")
-	obj_flags |= EMAGGED
 	locked = FALSE
 
 /obj/machinery/turretid/attack_robot(mob/user)

@@ -78,7 +78,6 @@
 /// if returned, forces nothing to happen when the atom is attacked by a blob
 	#define COMPONENT_CANCEL_BLOB_ACT (1<<0)
 #define COMSIG_ATOM_ACID_ACT "atom_acid_act"					//! from base of atom/acid_act(): (acidpwr, acid_volume)
-#define COMSIG_ATOM_EMAG_ACT "atom_emag_act"					//! from base of atom/emag_act(): ()
 #define COMSIG_ATOM_RAD_ACT "atom_rad_act"						//! from base of atom/rad_act(intensity)
 #define COMSIG_ATOM_NARSIE_ACT "atom_narsie_act"				//! from base of atom/narsie_act(): ()
 #define COMSIG_ATOM_RATVAR_ACT "atom_ratvar_act"				//! from base of atom/ratvar_act(): ()
@@ -621,3 +620,8 @@
 #define COMSIG_SUPERMATTER_DELAM_START_ALARM "sm_delam_start_alarm"
 /// from /obj/machinery/power/supermatter_crystal/process_atmos(); when the SM sounds an audible alarm
 #define COMSIG_SUPERMATTER_DELAM_ALARM "sm_delam_alarm"
+
+/// Check if an emag action should occur
+#define COMSIG_ATOM_EMAG_CHECK "atom_emag_check"
+/// Do the emag action (if CHECK is true)
+#define COMSIG_ATOM_EMAG_ACT "atom_emag_act"

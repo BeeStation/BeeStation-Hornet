@@ -84,7 +84,7 @@
 	if(!proximity && prox_check)
 		return
 	log_combat(user, A, "attempted to emag")
-	A.emag_act(user)
+	A.use_emag(user)
 
 /obj/item/card/emagfake
 	desc = "It is an ID card, the magnetic strip is exposed and attached to some circuitry. Closer inspection shows that this card is a poorly made replica, with a \"DonkCo\" logo stamped on the back."

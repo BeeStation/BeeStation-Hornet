@@ -31,6 +31,7 @@
 	icon_keyboard = "med_key"
 	density = TRUE
 	circuit = /obj/item/circuitboard/computer/scan_consolenew
+	can_emag = TRUE
 
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 10
@@ -2064,10 +2065,9 @@
 	diskette = null
 
 /obj/machinery/computer/scan_consolenew/emag_act(mob/user)
-	obj_flags |= EMAGGED
-	if(req_access)
-		req_access = list()
-		to_chat(user, "<span class='warning'>You bypass [src]'s access requirements.</span>")
+	..()
+	req_access = list()
+	to_chat(user, "<span class='warning'>You bypass [src]'s access requirements.</span>")
 
 /////////////////////////// DNA MACHINES
 #undef INJECTOR_TIMEOUT

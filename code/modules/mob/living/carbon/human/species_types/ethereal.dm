@@ -61,7 +61,8 @@
 	r1 = GETREDPART(default_color)
 	g1 = GETGREENPART(default_color)
 	b1 = GETBLUEPART(default_color)
-	RegisterSignal(ethereal, COMSIG_ATOM_EMAG_ACT, .proc/on_emag_act)
+	RegisterSignal(ethereal, COMSIG_ATOM_EMAG_CHECK, .proc/emag_check)
+	RegisterSignal(ethereal, COMSIG_ATOM_EMAG_ACT, .proc/emag_act)
 	RegisterSignal(ethereal, COMSIG_ATOM_EMP_ACT, .proc/on_emp_act)
 
 	spec_updatehealth(ethereal)
@@ -74,6 +75,7 @@
 			BP.update_limb(is_creating = TRUE)
 
 /datum/species/ethereal/on_species_loss(mob/living/carbon/human/C, datum/species/new_species, pref_load)
+	UnregisterSignal(C, COMSIG_ATOM_EMAG_CHECK)
 	UnregisterSignal(C, COMSIG_ATOM_EMAG_ACT)
 	UnregisterSignal(C, COMSIG_ATOM_EMP_ACT)
 	QDEL_NULL(ethereal_light)
@@ -116,11 +118,12 @@
 		if(EMP_HEAVY)
 			addtimer(CALLBACK(src, .proc/stop_emp, H), 20 SECONDS, TIMER_UNIQUE|TIMER_OVERRIDE) //We're out for 20 seconds
 
-/datum/species/ethereal/proc/on_emag_act(mob/living/carbon/human/H, mob/user)
+/datum/species/ethereal/proc/emag_check(mob/living/carbon/human/H, mob/user)
+	return !emageffect || !istype(H)
+
+/datum/species/ethereal/proc/emag_act(mob/living/carbon/human/H, mob/user)
 	SIGNAL_HANDLER
 
-	if(emageffect)
-		return
 	emageffect = TRUE
 	if(user)
 		to_chat(user, "<span class='notice'>You tap [H] on the back with your card.</span>")

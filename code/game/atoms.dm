@@ -793,10 +793,19 @@
 /**
   * Respond to an emag being used on our atom
   *
-  * Default behaviour is to send COMSIG_ATOM_EMAG_ACT and return
+  * Default behaviour is to send COMSIG_ATOM_EMAG_CHECK, if that is true then COMSIG_ATOM_EMAG_ACT and return
+  *
+  * This typically should not be overriden, in favor of the /obj counterparts:
+  * - Set 'can_emag = TRUE' on the object
+  * - Override emag_act(mob/user)
+  * - Maintain parent calls in emag_act for good practice
+  * - If the item is "undo-emaggable" (can be flipped on/off), set emag_toggleable = TRUE
+  * For COMSIG_ATOM_EMAG_CHECK, /obj uses emag_check.
+  * - Parent calls do not need to be maintained.
   */
-/atom/proc/emag_act()
-	SEND_SIGNAL(src, COMSIG_ATOM_EMAG_ACT)
+/atom/proc/use_emag(mob/user)
+	if(SEND_SIGNAL(src, COMSIG_ATOM_EMAG_CHECK, user))
+		SEND_SIGNAL(src, COMSIG_ATOM_EMAG_ACT, user)
 
 /**
   * Respond to a radioactive wave hitting this atom
@@ -835,7 +844,7 @@
 /**
   * Respond to the eminence clicking on our atom
   *
-  * Default behaviour is to send COMSIG_ATOM_EMAG_ACT and return
+  * Default behaviour is to send COMSIG_ATOM_EMINENCE_ACT and return
   */
 /atom/proc/eminence_act(mob/living/simple_animal/eminence/eminence)
 	SEND_SIGNAL(src, COMSIG_ATOM_EMINENCE_ACT, eminence)
@@ -1091,10 +1100,10 @@
 							valid_id = TRUE
 						if(!valid_id)
 							to_chat(usr, "<span class='warning'>A reagent with that ID doesn't exist!</span>")
-				
+
 				if("Choose from a list")
 					chosen_id = input(usr, "Choose a reagent to add.", "Choose a reagent.") as null|anything in subtypesof(/datum/reagent)
-				
+
 				if("I'm feeling lucky")
 					chosen_id = pick(subtypesof(/datum/reagent))
 

@@ -3,6 +3,7 @@
 	desc = "Used to order supplies, approve requests, and control the shuttle."
 	icon_screen = "supply"
 	circuit = /obj/item/circuitboard/computer/cargo
+	can_emag = TRUE
 
 	//Can the supply console send the shuttle back and forth? Used in the UI backend.
 	var/can_send = TRUE
@@ -54,12 +55,10 @@
 		. |= EXPORT_EMAG
 
 /obj/machinery/computer/cargo/emag_act(mob/user)
-	if(obj_flags & EMAGGED)
-		return
-	user.visible_message("<span class='warning'>[user] swipes a suspicious card through [src]!</span>",
-	"<span class='notice'>You adjust [src]'s routing and receiver spectrum, unlocking special supplies and contraband.</span>")
+	..()
+	user?.visible_message("<span class='warning'>[user] swipes a suspicious card through [src]!</span>",
+		"<span class='notice'>You adjust [src]'s routing and receiver spectrum, unlocking special supplies and contraband.</span>")
 
-	obj_flags |= EMAGGED
 	contraband = TRUE
 
 	// This also permamently sets this on the circuit board

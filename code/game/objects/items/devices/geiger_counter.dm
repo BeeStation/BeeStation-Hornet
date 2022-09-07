@@ -15,6 +15,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	slot_flags = ITEM_SLOT_BELT
 	materials = list(/datum/material/iron = 150, /datum/material/glass = 150)
+	can_emag = TRUE
 
 	var/grace = RAD_GEIGER_GRACE_PERIOD
 	var/datum/looping_sound/geiger/soundloop
@@ -184,16 +185,17 @@
 	to_chat(usr, "<span class='notice'>You flush [src]'s radiation counts, resetting it to normal.</span>")
 	update_icon()
 
-/obj/item/geiger_counter/emag_act(mob/user)
-	if(obj_flags & EMAGGED)
-		return
+/obj/item/geiger_counter/emag_check(mob/user)
+	if(!..())
+		return FALSE
 	if(scanning)
-		to_chat(user, "<span class='warning'>Turn off [src] before you perform this action!</span>")
-		return 0
+		to_chat(user, "<span class='warning'>Turn off \the [src] before you perform this action!</span>")
+		return FALSE
+	return TRUE
+
+/obj/item/geiger_counter/emag_act(mob/user)
+	..()
 	to_chat(user, "<span class='warning'>You override [src]'s radiation storing protocols. It will now generate small doses of radiation, and stored rads are now projected into creatures you scan.</span>")
-	obj_flags |= EMAGGED
-
-
 
 /obj/item/geiger_counter/cyborg
 	var/mob/listeningTo

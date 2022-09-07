@@ -14,6 +14,7 @@
 	icon_state_on = "wabbajack_statue_on"
 	active = FALSE
 	allow_switch_interact = FALSE
+	can_emag = FALSE
 	var/list/active_tables = list()
 	var/tables_required = 2
 
@@ -47,9 +48,6 @@
 	return
 
 /obj/machinery/power/emitter/energycannon/magical/ex_act(severity)
-	return
-
-/obj/machinery/power/emitter/energycannon/magical/emag_act(mob/user)
 	return
 
 /obj/structure/table/abductor/wabbajack

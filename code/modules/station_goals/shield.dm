@@ -141,6 +141,7 @@
 	mode = "M-SHIELD"
 	processing_flags = START_PROCESSING_MANUALLY
 	subsystem_type = /datum/controller/subsystem/processing/fastprocess
+	can_emag = TRUE
 	var/kill_range = 14
 
 /obj/machinery/satellite/meteor_shield/proc/space_los(meteor)
@@ -181,9 +182,7 @@
 		change_meteor_chance(0.5)
 
 /obj/machinery/satellite/meteor_shield/emag_act(mob/user)
-	if(obj_flags & EMAGGED)
-		return
-	obj_flags |= EMAGGED
+	..()
 	to_chat(user, "<span class='notice'>You access the satellite's debug mode, increasing the chance of meteor strikes.</span>")
 	if(active)
 		change_meteor_chance(2)
