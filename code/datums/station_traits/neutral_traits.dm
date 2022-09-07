@@ -71,7 +71,6 @@
 	weight = 10
 	show_in_report = TRUE
 	report_message = "Our engineers seem to have messed up sign placement. Please bear with us until we can get a repair crew out."  // nobody is coming
-	trait_to_give = STATION_TRAIT_RANDOM_DEPT
 
 /datum/station_trait/random_dept_signs/New()
 	. = ..()
