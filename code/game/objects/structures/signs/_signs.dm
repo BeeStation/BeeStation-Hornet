@@ -20,9 +20,9 @@ GLOBAL_LIST_EMPTY(dept_signs)
 /obj/structure/sign/proc/randomize()
 	if(!random_dept_base)
 		return
-	var/list/all_dept = subtypesof(random_dept_base)
-	while(TRUE)
-		var/obj/structure/sign/departments/new_dept = pick(all_dept)
+	var/static/list/all_dept = subtypesof(random_dept_base)
+	shuffle_inplace(all_dept)
+	for(var/obj/structure/sign/departments/new_dept in all_dept)
 		if(initial(new_dept.desc) || initial(new_dept.icon_state))  // prevents null entries
 			name = initial(new_dept.name)
 			desc = initial(new_dept.desc)
