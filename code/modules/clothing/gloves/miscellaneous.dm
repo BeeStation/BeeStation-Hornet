@@ -116,7 +116,7 @@
 	if(get_dist(A, user) <= 1 )
 		return FALSE
 	if(user in viewers(range, A))
-		user.visible_message("<span_class ='danger'>[user] waves their hands at [A]</span>", "<span_class ='notice'>You begin manipulating [A].</span>")
+		user.visible_message("<span class='danger'>[user] waves their hands at [A]</span>", "<span class='notice'>You begin manipulating [A].</span>")
 		new	/obj/effect/temp_visual/telegloves(A.loc)
 		user.changeNext_move(CLICK_CD_MELEE)
 		if(do_mob(user, A, 0.8 SECONDS))
