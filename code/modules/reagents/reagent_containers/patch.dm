@@ -13,14 +13,14 @@
 /obj/item/reagent_containers/pill/patch/attack(mob/living/L, mob/user, obj/item/bodypart/affecting)
 	if(!ishuman(L))
 		return ..()
-	var/obj/item/bodypart/affecting = L.get_bodypart(check_zone(user.zone_selected))
+	affecting = L.get_bodypart(check_zone(user.zone_selected))
 	if(!affecting)
 		balloon_alert(user, "The limb is missing.")
 		return
 	if(!IS_ORGANIC_LIMB(affecting))
 		balloon_alert(user, "[src] doesn't work on robotic limbs.")
 		return
-	return ..(L, user, affecting)
+	return ..()
 
 /obj/item/reagent_containers/pill/patch/canconsume(mob/eater, mob/user)
 	if(!iscarbon(eater))
