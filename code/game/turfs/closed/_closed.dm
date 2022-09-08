@@ -69,11 +69,15 @@ INITIALIZE_IMMEDIATE(/turf/closed/indestructible/splashscreen)
 	if(SStitle.icon)
 		icon = SStitle.icon
 
+	update_splash()
+
+
+/turf/closed/indestructible/splashscreen/proc/update_splash()
 	var/splash_text = pick(strings(SPLASH_DESC_FILE, "splashes"))
-	maptext = "<span font color='#ebfc50'>[MAPTEXT(splash_text)]</span>"
-	maptext_height = world.icon_size * 2
-	maptext_width = world.icon_size * 12
-	var/list/offsets = get_title_offset(icon)
+	maptext = MAPTEXT("<font color='ebfc50'>[splash_text]</font>")
+	maptext_height = world.icon_size * 4
+	maptext_width = world.icon_size * 16
+	var/list/offsets = get_title_offset()
 	maptext_x = offsets[1]
 	maptext_y = offsets[2]
 
@@ -84,6 +88,7 @@ INITIALIZE_IMMEDIATE(/turf/closed/indestructible/splashscreen)
 		switch(var_name)
 			if(NAMEOF(src, icon))
 				SStitle.icon = icon
+				update_splash()
 
 /turf/closed/indestructible/splashscreen/examine(mob/user)
 	desc = pick(strings(SPLASH_DESC_FILE, "splashes"))

@@ -31,6 +31,7 @@ SUBSYSTEM_DEF(title)
 
 	if(splash_turf)
 		splash_turf.icon = icon
+		splash_turf.update_splash()
 
 	return ..()
 

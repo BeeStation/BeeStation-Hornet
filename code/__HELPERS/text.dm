@@ -845,27 +845,19 @@ GLOBAL_LIST_INIT(alphabet, list("a","b","c","d","e","f","g","h","i","j","k","l",
 
 
 // uses screen_loc types
-/proc/get_title_offset(title_img, convert=FALSE)
+/proc/get_title_offset(var/file_path=null)
 	var/static/base_folder = "[global.config.directory]/title_screens/images"
 
-	var/static/list/offset_lookup = list( // coords from top left, reverse the percent if doing from south
-		"[base_folder]/bee_wars.dmi"			= "EAST-33%,NORTH-17%",	// 320x 83y
-		"[base_folder]/delaminating_issues.dmi"	= "WEST+32%,NORTH-16%",	// 154x 81y
-		"[base_folder]/extended.dmi"			= "WEST+11%,NORTH-41%",	//57x 200y
-		"[base_folder]/greytide_worldwide.dmi"	= "WEST+33%,SOUTH+9%",	//160x 433y
-		"[base_folder]/how_can_i_help_you.dmi"	= "WEST+1%,SOUTH+22%",	// 10x 370y
-		"[base_folder]/janitor.dmi"				= "WEST+14%,NORTH-20%",	// 69x nice 99y
-		"[base_folder]/meta_boiz.dmi"			= "WEST+10%,NORTH-28%",	// 50x 135y
-		"[base_folder]/singuloose.dmi"			= "WEST+12%,NORTH+21%",	// 60x 104y
-		"[base_folder]/vaporwave.dmi"			= "WEST+43%,NORTH+6%" // 210x 30y
+	var/static/list/offset_lookup = list( // x,y
+		"[base_folder]/bee_wars.dmi"			= list(320, 400),
+		"[base_folder]/delaminating_issues.dmi"	= list(154, 400),
+		"[base_folder]/extended.dmi"			= list(10, 300),
+		"[base_folder]/greytide_worldwide.dmi"	= list(40, 40),
+		"[base_folder]/how_can_i_help_you.dmi"	= list(10, 110),
+		"[base_folder]/janitor.dmi"				= list(69, 380), // nice
+		"[base_folder]/meta_boiz.dmi"			= list(10, 340),
+		"[base_folder]/singuloose.dmi"			= list(60, 380),
+		"[base_folder]/vaporwave.dmi"			= list(210, 300)
 	)
 
-	. = offset_lookup[title_img] || "WEST+10%,NORTH+10%"
-	if(convert)
-		return get_xy_from_loc(.)
-
-/proc/get_xy_from_loc(loc)
-	var/obj/item/tester = new(loc)
-	var/list/return_list = list(tester.x, tester.y)
-	qdel(tester)
-	return return_list
+	return offset_lookup[file_path || SStitle.file_path] || "WEST,SOUTH"
