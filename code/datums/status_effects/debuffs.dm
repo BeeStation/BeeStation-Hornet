@@ -295,6 +295,8 @@
 /datum/status_effect/cultghost/tick()
 	if(owner.reagents)
 		owner.reagents.del_reagent(/datum/reagent/water/holywater) //can't be deconverted
+		owner.reagents.del_reagent(/datum/reagent/water/holywater/milk)
+		owner.reagents.del_reagent(/datum/reagent/water/holywater/bilk)
 
 /datum/status_effect/crusher_mark
 	id = "crusher_mark"

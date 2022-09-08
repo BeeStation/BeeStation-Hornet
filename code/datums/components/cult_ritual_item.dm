@@ -109,7 +109,7 @@
 
 	. = COMPONENT_CANCEL_ATTACK_CHAIN // No hurting other cultists.
 
-	if(!target.reagents.get_reagent(/datum/reagent/water/holywater))
+	if(!target.reagents.get_reagent(/datum/reagent/water/holywater) || !target.reagents.get_reagent(/datum/reagent/water/holywater/milk) || !target.reagents.get_reagent(/datum/reagent/water/holywater/bilk))
 		return
 
 	INVOKE_ASYNC(src, .proc/do_purge_holywater, user)
@@ -158,6 +158,10 @@
 	to_chat(cultist, "<span class='cult'>You remove the taint from [target] using [parent].</span>")
 	var/holy_to_unholy = target.reagents.get_reagent_amount(/datum/reagent/water/holywater)
 	target.reagents.del_reagent(/datum/reagent/water/holywater)
+	holy_to_unholy += target.reagents.get_reagent_amount(/datum/reagent/water/holywater/milk)
+	target.reagents.del_reagent(/datum/reagent/water/holywater/milk)
+	holy_to_unholy += target.reagents.get_reagent_amount(/datum/reagent/water/holywater/bilk)
+	target.reagents.del_reagent(/datum/reagent/water/holywater/bilk)
 	// For carbonss we also want to clear out the stomach of any holywater
 	if(iscarbon(target))
 		var/mob/living/carbon/carbon_target = target
@@ -165,6 +169,10 @@
 		if(belly)
 			holy_to_unholy += belly.reagents.get_reagent_amount(/datum/reagent/water/holywater)
 			belly.reagents.del_reagent(/datum/reagent/water/holywater)
+			holy_to_unholy += belly.reagents.get_reagent_amount(/datum/reagent/water/holywater/milk)
+			belly.reagents.del_reagent(/datum/reagent/water/holywater/milk)
+			holy_to_unholy += belly.reagents.get_reagent_amount(/datum/reagent/water/holywater/bilk)
+			belly.reagents.del_reagent(/datum/reagent/water/holywater/bilk)
 	target.reagents.add_reagent(/datum/reagent/fuel/unholywater, holy_to_unholy)
 	log_combat(cultist, target, "smacked", parent, " removing the holy water from them")
 

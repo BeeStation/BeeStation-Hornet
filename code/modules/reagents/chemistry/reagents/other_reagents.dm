@@ -305,6 +305,33 @@
 			qdel(R)
 	T.Bless()
 
+/datum/reagent/water/holywater/milk
+	name = "Holy Milk"
+	description = "Milk, blessed by the gods. Contains Vitamin D."
+	glass_name = "glass of holy milk"
+	glass_desc = "A glass of milk, blessed by a deity. Sure to bring good luck."
+	taste_description = "milky goodness"
+
+/datum/reagent/water/holywater/milk/on_mob_life(mob/living/carbon/M)
+	if(M.getBruteLoss() && prob(20))
+		M.heal_bodypart_damage(1,0, 0)
+		. = 1
+	if(holder.has_reagent(/datum/reagent/consumable/capsaicin))
+		holder.remove_reagent(/datum/reagent/consumable/capsaicin, 2)
+	..()
+
+/datum/reagent/water/holywater/bilk
+	name = "\"Holy\" Bilk"
+	description = "Holy in name alone."
+	glass_name = "glass of \"holy\" bilk"
+	glass_desc = "A glass of bilk. It's been blessed, though that won't save you from the taste."
+	glass_icon_state = "glass_brown"
+	taste_description = "desperation and lactate"
+
+/datum/reagent/water/holywater/on_mob_life(mob/living/carbon/M)
+	. = ..()
+	M.adjustToxLoss(-2, 0)  // cant stand this
+
 /datum/reagent/fuel/unholywater		//if you somehow managed to extract this from someone, dont splash it on yourself and have a smoke
 	name = "Unholy Water"
 	description = "Something that shouldn't exist on this plane of existence."
@@ -1361,7 +1388,7 @@
 	color = "#E1A116"
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	taste_description = "sourness"
-	///stores whether or not the mob has been warned that they are having difficulty breathing. 
+	///stores whether or not the mob has been warned that they are having difficulty breathing.
 	var/warned = FALSE
 
 /datum/reagent/stimulum/on_mob_metabolize(mob/living/L)

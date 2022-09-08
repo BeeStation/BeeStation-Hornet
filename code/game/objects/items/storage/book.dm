@@ -176,7 +176,17 @@ GLOBAL_LIST_INIT(bibleitemstates, list("bible", "koran", "scrapbook", "burning",
 			to_chat(user, "<span class='notice'>You bless [A].</span>")
 			var/water2holy = A.reagents.get_reagent_amount(/datum/reagent/water)
 			A.reagents.del_reagent(/datum/reagent/water)
-			A.reagents.add_reagent(/datum/reagent/water/holywater,water2holy)
+			A.reagents.add_reagent(/datum/reagent/water/holywater,water2holy)  // more copypaste
+		if(A.reagents && A.reagents.has_reagent(/datum/reagent/consumable/milk))
+			to_chat(user, "<span class='notice'>You bless [A].</span>")
+			var/water2holy = A.reagents.get_reagent_amount(/datum/reagent/consumable/milk)
+			A.reagents.del_reagent(/datum/reagent/consumable/milk)
+			A.reagents.add_reagent(/datum/reagent/water/holywater/milk,water2holy)
+		if(A.reagents && A.reagents.has_reagent(/datum/reagent/consumable/ethanol/bilk))
+			to_chat(user, "<span class='notice'>You \"bless\" [A].</span>")
+			var/water2holy = A.reagents.get_reagent_amount(/datum/reagent/consumable/ethanol/bilk)
+			A.reagents.del_reagent(/datum/reagent/consumable/ethanol/bilk)
+			A.reagents.add_reagent(/datum/reagent/water/holywater/bilk,water2holy)
 		if(A.reagents && A.reagents.has_reagent(/datum/reagent/fuel/unholywater)) // yeah yeah, copy pasted code - sue me
 			to_chat(user, "<span class='notice'>You purify [A].</span>")
 			var/unholy2clean = A.reagents.get_reagent_amount(/datum/reagent/fuel/unholywater)

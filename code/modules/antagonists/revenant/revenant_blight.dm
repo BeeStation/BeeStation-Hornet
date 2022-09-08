@@ -5,7 +5,7 @@
 	spread_flags = DISEASE_SPREAD_NON_CONTAGIOUS
 	cure_text = "Holy water or extensive rest."
 	spread_text = "A burst of unholy energy"
-	cures = list(/datum/reagent/water/holywater)
+	cures = list(/datum/reagent/water/holywater, /datum/reagent/water/holywater/milk, /datum/reagent/water/holywater/bilk)
 	cure_chance = 50 //higher chance to cure, because revenants are assholes
 	agent = "Unholy Forces"
 	viable_mobtypes = list(/mob/living/carbon/human)
