@@ -230,7 +230,7 @@
 		charge += charge_mod
 		charge = (charge+charge_req)/1.9 //Not quite an average. Generally produces better results.
 
-		for(var/datum/xenoartifact_trait/minor/t in traits)//Minor traits aren't apart of the target loop, specifically becuase they pass data into it
+		for(var/datum/xenoartifact_trait/minor/t in traits)//Minor traits aren't apart of the target loop, specifically becuase they pass data into it.
 			t.activate(src, user, user)
 			log_game("[src] activated minor trait [t] at [world.time]. Located at [x] [y] [z]")
 
