@@ -106,6 +106,9 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	area_flags = BLOBS_ALLOWED | UNIQUE_AREA
 	mood_bonus = -1
 	mood_message = "<span class='warning'>It's kind of cramped in here!\n</span>"
+	// assistants are associated with maints, jani closet is in maints, engis have to go into maints often
+	mood_job_allowed = list(JOB_NAME_ASSISTANT, JOB_NAME_JANITOR, JOB_NAME_STATIONENGINEER, JOB_NAME_CHIEFENGINEER, JOB_NAME_ATMOSPHERICTECHNICIAN)
+	mood_job_reverse = TRUE
 	lighting_colour_tube = "#ffe5cb"
 	lighting_colour_bulb = "#ffdbb4"
 
@@ -619,10 +622,9 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	sound_environment = SOUND_AREA_WOODFLOOR
 
 /area/crew_quarters/bar/mood_check(mob/living/carbon/subject)
-	. = ..()  // should return TRUE
-
-	if(!istype(subject) || HAS_TRAIT(subject, TRAIT_LIGHT_DRINKER))
+	if(istype(subject) && HAS_TRAIT(subject, TRAIT_LIGHT_DRINKER))
 		return FALSE
+	return TRUE
 
 /area/crew_quarters/bar/lounge
 	name = "Bar lounge"

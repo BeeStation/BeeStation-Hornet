@@ -1541,6 +1541,7 @@
 	playsound(src, 'sound/items/bikehorn.ogg', 50, TRUE)
 
 /obj/item/toy/allaccess/attack_self(mob/user) // flex
+	. = ..()
 	if(Adjacent(user))
 		user.visible_message("<span class='notice'>[user] shows you: [icon2html(src, viewers(user))] [src.name].</span>", "<span class='notice'>You show \the [src.name].</span>")
 	add_fingerprint(user)

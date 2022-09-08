@@ -374,7 +374,7 @@
 	SIGNAL_HANDLER
 
 
-	if(A.mood_check())
+	if(A.mood_check(owner))
 		if(get_event("area"))	//walking between areas that give mood bonus should first clear the bonus from the previous one
 			clear_event(null, "area")
 		add_event(null, "area", /datum/mood_event/area, list(A.mood_bonus, A.mood_message))
