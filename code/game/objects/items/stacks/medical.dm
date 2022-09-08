@@ -17,7 +17,7 @@
 	///For how long does it stop bleeding?
 	var/stop_bleeding = 0
 	///How long does it take to apply on yourself?
-	var/self_delay = 20
+	var/self_delay = 2 SECONDS
 
 /obj/item/stack/medical/attack(mob/living/M, mob/user)
 	if(!M || !user || (isliving(M) && !M.can_inject(user, TRUE))) //If no mob, user and if we can't inject the mob just return
@@ -74,11 +74,11 @@
 		return
 
 	if(!(affecting.brute_dam || affecting.burn_dam))
-		to_chat(user, "<span class='warning'>[M]'s [parse_zone(user.zone_selected)] isn't hurt!")
+		to_chat(user, "<span class='warning'>[M]'s [parse_zone(user.zone_selected)] isn't hurt!</span>")
 		return
 
 	if((affecting.brute_dam && !affecting.burn_dam && !heal_brute) || (affecting.burn_dam && !affecting.brute_dam && !heal_burn)) //suffer
-		to_chat(user, "<span class='warning'>This type of medicine isn't appropriate for this type of wound.")
+		to_chat(user, "<span class='warning'>This type of medicine isn't appropriate for this type of wound.</span>")
 		return
 
 	if(C == user)
@@ -161,7 +161,7 @@
 	name = "sterilized medical gauze"
 	desc = "A roll of elastic sterilized cloth that is extremely effective at stopping bleeding, heals minor wounds and cleans them."
 	singular_name = "sterilized medical gauze"
-	self_delay = 5
+	self_delay = 0.5 SECONDS
 
 /obj/item/stack/medical/gauze/adv/one
 	amount = 1
