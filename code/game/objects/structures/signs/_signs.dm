@@ -21,7 +21,7 @@ GLOBAL_LIST_EMPTY(dept_signs)
 	if(!random_dept_base)
 		return
 	var/static/list/all_dept = subtypesof(random_dept_base)
-	var/picked = pick(all_dept)
+	var/obj/structure/sign/departments/picked = pick(all_dept)
 	while(!initial(picked.desc) || !initial(picked.icon_state))  // prevents null entries
 		picked = pick(all_dept)
 
