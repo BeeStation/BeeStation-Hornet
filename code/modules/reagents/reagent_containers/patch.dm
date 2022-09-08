@@ -10,7 +10,7 @@
 	self_delay = 3 SECONDS
 	dissolvable = FALSE
 
-/obj/item/reagent_containers/pill/patch/attack(mob/living/L, mob/user)
+/obj/item/reagent_containers/pill/patch/attack(mob/living/L, mob/user, obj/item/bodypart/affecting)
 	if(!ishuman(L))
 		return ..()
 	var/obj/item/bodypart/affecting = L.get_bodypart(check_zone(user.zone_selected))
