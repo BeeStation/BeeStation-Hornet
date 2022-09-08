@@ -140,6 +140,11 @@
 	playsound(loc, 'sound/effects/pai_boot.ogg', 50, 1, -1)
 	audible_message("\The [src] plays a cheerful startup noise!")
 
+	var/turf/T = get_turf(src)
+	for(var/mob/M in get_turf(src))
+		if(!istype(M, /mob/living/silicon/pai))
+			to_chat(M, "<span class='notice'>Remember to apply your dna!</span>")
+
 /obj/item/paicard/proc/setEmotion(emotion)
 	if(pai)
 		src.cut_overlays()
