@@ -17,6 +17,10 @@ GLOBAL_LIST_EMPTY(dept_signs)
 	if(random_dept_base)
 		GLOB.dept_signs += src
 
+/obj/structure/sign/Destroy()
+	GLOB.dept_signs -= src
+	. = ..()
+
 /obj/structure/sign/proc/randomize()
 	if(!random_dept_base)
 		return

@@ -75,5 +75,4 @@
 /datum/station_trait/random_dept_signs/New()
 	. = ..()
 	for(var/obj/structure/sign/the_sign in GLOB.dept_signs)
-		if(istype(the_sign))
-			the_sign.randomize()
+		the_sign.randomize()
