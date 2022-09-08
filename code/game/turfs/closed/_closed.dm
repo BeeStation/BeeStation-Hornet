@@ -78,8 +78,10 @@ INITIALIZE_IMMEDIATE(/turf/closed/indestructible/splashscreen)
 	maptext_height = world.icon_size * 4
 	maptext_width = world.icon_size * 16
 	var/list/offsets = get_title_offset()
-	maptext_x = offsets[1] - (16 * length(splash_text))
+	maptext_x = offsets[1]
 	maptext_y = offsets[2]
+
+	maptext_x -= length(splash_text)  // this is all funky
 
 
 /turf/closed/indestructible/splashscreen/vv_edit_var(var_name, var_value)

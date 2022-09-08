@@ -860,4 +860,4 @@ GLOBAL_LIST_INIT(alphabet, list("a","b","c","d","e","f","g","h","i","j","k","l",
 		"[base_folder]/vaporwave.dmi"			= list(210, 300)
 	)
 
-	return offset_lookup[file_path || SStitle.file_path] || "WEST,SOUTH"
+	return offset_lookup[file_path || SStitle.file_path] || list(0, 0)
