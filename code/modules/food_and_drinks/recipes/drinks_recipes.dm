@@ -19,6 +19,12 @@
 	results = list(/datum/reagent/consumable/ethanol/bilk = 2)
 	required_reagents = list(/datum/reagent/consumable/milk = 1, /datum/reagent/consumable/ethanol/beer = 1)
 
+/datum/chemical_reaction/holy_bilk
+	name = "\"Holy\" Bilk"
+	id = /datum/reagent/water/holywater/bilk
+	results = list(/datum/reagent/water/holywater/bilk = 2)
+	required_reagents = list(/datum/reagent/water/holywater/milk = 1, /datum/reagent/consumable/ethanol/beer = 1)
+
 /datum/chemical_reaction/icetea
 	name = "Iced Tea"
 	id = /datum/reagent/consumable/icetea
