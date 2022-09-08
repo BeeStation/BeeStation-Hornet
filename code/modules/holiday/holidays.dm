@@ -12,6 +12,10 @@
 	var/year_offset = 0
 	var/obj/item/drone_hat //If this is defined, drones without a default hat will spawn with this one during the holiday; check drones_as_items.dm to see this used
 
+	var/poster_name = "generic celebration poster" // changes the festive poster to specified name
+	var/poster_desc = "A poster for celebrating the current holiday. Seems someone forgot to fill it out?" // same as above but for desc
+	var/poster_icon = "generic" // icon state, found in icons/obj/festive_posters.dmi
+
 // This proc gets run before the game starts when the holiday is activated. Do festive shit here.
 /datum/holiday/proc/celebrate()
 	return
@@ -71,6 +75,9 @@
 	end_day = 2
 	end_month = JANUARY
 	drone_hat = /obj/item/clothing/head/festive
+	poster_name = "\improper New Year's celebration poster"
+	poster_desc = "A poster reminding the reader that the new year is here! It also depicts the TerraGov's old tradition of the \"ball drop\"."
+	poster_icon = "nyear"
 
 /datum/holiday/new_year/getStationPrefix()
 	return pick("Party","New","Hangover","Resolution", "Auld")
@@ -89,6 +96,9 @@
 	begin_day = 13
 	end_day = 15
 	begin_month = FEBRUARY
+	poster_name = "Lovey-Dovey poster"
+	poster_desc = "A poster dedicated to all the couples this love-filled day. Of course, you probably don't have one."
+	poster_icon = "valen"
 
 /datum/holiday/valentines/getStationPrefix()
 	return pick("Love","Amore","Single","Smootch","Hug")
@@ -111,6 +121,9 @@
 	begin_day = 16
 	begin_month = FEBRUARY
 	drone_hat = /obj/item/clothing/head/festive
+	poster_name = "birthday celebration poster"
+	poster_desc = "A poster celebrating another year of the station's operation. Why anyone would be happy to be here is byond you."
+	poster_icon = "cake"
 
 /datum/holiday/birthday/greet()
 	var/game_age = text2num(time2text(world.timeofday, "YY")) - 3

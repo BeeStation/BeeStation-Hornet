@@ -78,6 +78,9 @@
 
 	var/obj/structure/sign/poster/selected = pick(approved_types)
 
+	if(SSevents.holidays && prob(30))  // more festive posters on festive days!
+		selected = /obj/structure/sign/poster/official/festive
+
 	name = initial(selected.name)
 	desc = initial(selected.desc)
 	icon_state = initial(selected.icon_state)
@@ -661,5 +664,22 @@
 	name = "Syndie Moth - Nuclear Operation"
 	desc = "A Syndicate-commissioned poster that uses Syndie Moth(TM?) to tell the viewer to keep the nuclear authentication disk unsecured. No, we aren't doing that. It's signed by 'AspEv'."
 	icon_state = "poster49"
+
+/obj/structure/sign/poster/official/festive
+	name = "Celebrate the Day!"
+	desc = "A poster informing the reader every day is a gift, and not to waste it."
+	icon = 'icons/obj/festive_posters.dmi'
+	icon_state = "generic"
+
+/obj/structure/sign/poster/official/festive/Initialize()
+	if(!length(SSevents.holidays))
+		return
+	var/cele_holiday = pick(SSevents.holidays)
+	var/datum/holiday/holi_data = SSevents.holidays[cele_holiday]
+
+	name = holi_data.poster_name
+	desc = holi_data.poster_desc
+	icon_state = holi_data.poster_icon
+
 
 #undef PLACE_SPEED
