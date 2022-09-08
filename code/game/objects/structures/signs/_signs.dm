@@ -10,29 +10,6 @@ GLOBAL_LIST_EMPTY(dept_signs)
 	armor = list("melee" = 50, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50, "stamina" = 0)
 	var/buildable_sign = 1 //unwrenchable and modifiable
 	rad_flags = RAD_PROTECT_CONTENTS | RAD_NO_CONTAMINATE
-	var/random_dept_base  // will be replaced by a random subtype if the station has random_dept and this is defined
-
-/obj/structure/sign/Initialize(mapload)
-	. = ..()
-	if(random_dept_base)
-		GLOB.dept_signs += src
-
-/obj/structure/sign/Destroy()
-	GLOB.dept_signs -= src
-	. = ..()
-
-/obj/structure/sign/proc/randomize()
-	if(!random_dept_base)
-		return
-	var/static/list/all_dept = subtypesof(random_dept_base)
-	var/obj/structure/sign/departments/picked = pick(all_dept)
-	while(!initial(picked.desc) || !initial(picked.icon_state))  // prevents null entries
-		picked = pick(all_dept)
-
-	name = initial(picked.name)
-	desc = initial(picked.desc)
-	icon_state = initial(picked.icon_state)
-
 
 /obj/structure/sign/basic
 	name = "blank sign"
@@ -157,8 +134,20 @@ GLOBAL_LIST_EMPTY(dept_signs)
 
 // probably a better way to do this..
 
-/obj/structure/sign/departments
-	random_dept_base = /obj/structure/sign/departments
+/obj/structure/sign/departments/Initialize(mapload)
+	. = ..()
+		GLOB.dept_signs += src
 
-/obj/structure/sign/directions
-	random_dept_base = /obj/structure/sign/directions
+/obj/structure/sign/departments/Destroy()
+	GLOB.dept_signs -= src
+	. = ..()
+
+/obj/structure/sign/departments/proc/randomize()
+	var/static/list/all_dept = subtypesof(/obj/structure/sign/departments)
+	var/obj/structure/sign/departments/picked = pick(all_dept)
+	while(!initial(picked.desc) || !initial(picked.icon_state))  // prevents null entries
+		picked = pick(all_dept)
+
+	name = initial(picked.name)
+	desc = initial(picked.desc)
+	icon_state = initial(picked.icon_state)
