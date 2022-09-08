@@ -69,6 +69,14 @@ INITIALIZE_IMMEDIATE(/turf/closed/indestructible/splashscreen)
 	if(SStitle.icon)
 		icon = SStitle.icon
 
+	maptext = MAPTEXT(pick(strings(SPLASH_DESC_FILE, "splashes")))
+	maptext_height = world.icon_size * 2
+	maptext_width = world.icon_size * 12
+	var/list/offsets = get_title_offset(icon)
+	maptext_x = offsets[1]
+	maptext_y = offsets[2]
+
+
 /turf/closed/indestructible/splashscreen/vv_edit_var(var_name, var_value)
 	. = ..()
 	if(.)

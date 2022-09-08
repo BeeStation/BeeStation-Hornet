@@ -842,3 +842,24 @@ GLOBAL_LIST_INIT(alphabet, list("a","b","c","d","e","f","g","h","i","j","k","l",
 	for (var/i in 1 to numSquares)
 		loadstring += i <= limit ? "█" : "░"
 	return "\[[loadstring]\]"
+
+
+// uses screen_loc types
+/proc/get_title_offset(title_img, split=FALSE)
+	var/static/base_folder = "[global.config.directory]/title_screens/images"
+
+	var/static/list/offset_lookup = list( // coords from top left, reverse the percent if doing from south
+		"[base_folder]/bee_wars.dmi"			= "EAST-33%,NORTH-17%",	// 320x 83y
+		"[base_folder]/delaminating_issues.dmi"	= "WEST+32%,NORTH-16%",	// 154x 81y
+		"[base_folder]/extended.dmi"			= "WEST+11%,NORTH-41%",	//57x 200y
+		"[base_folder]/greytide_worldwide.dmi"	= "WEST+33%,SOUTH+9%",	//160x 433y
+		"[base_folder]/how_can_i_help_you.dmi"	= "WEST+1%,SOUTH+22%",	// 10x 370y
+		"[base_folder]/janitor.dmi"				= "WEST+14%,NORTH-20%",	// 69x nice 99y
+		"[base_folder]/meta_boiz.dmi"			= "WEST+10%,NORTH-28%",	// 50x 135y
+		"[base_folder]/singuloose.dmi"			= "WEST+12%,NORTH+21%",	// 60x 104y
+		"[base_folder]/vaporwave.dmi"			= "WEST+43%,NORTH+6%" // 210x 30y
+	)
+
+	. = offset_lookup[title_img] || "WEST+10%,NORTH+10%"
+	if(split)
+		return splittext(., ",")
