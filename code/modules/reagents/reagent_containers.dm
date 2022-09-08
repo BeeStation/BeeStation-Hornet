@@ -147,12 +147,13 @@
 	update_icon()
 
 /obj/item/reagent_containers/update_icon(dont_fill = FALSE)
-	. = ..()
-	if(!fill_icon_thresholds || dont_fill || !reagents.total_volume)
-		return
+	if(!fill_icon_thresholds || dont_fill)
+		return ..()
 
 	cut_overlays()
 
+	if(!reagents.total_volume)
+		return ..()
 	var/fill_name = fill_icon_state ? fill_icon_state : icon_state
 	var/mutable_appearance/filling = mutable_appearance('icons/obj/reagentfillings.dmi', "[fill_name][fill_icon_thresholds[1]]")
 
@@ -165,6 +166,7 @@
 
 	filling.color = mix_color_from_reagents(reagents.reagent_list)
 	add_overlay(filling)
+	return ..()
 
 /obj/item/reagent_containers/extrapolator_act(mob/user, var/obj/item/extrapolator/E, scan = FALSE)
 	var/datum/reagent/blood/B = locate() in reagents.reagent_list
