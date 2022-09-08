@@ -136,7 +136,7 @@ GLOBAL_LIST_EMPTY(dept_signs)
 
 /obj/structure/sign/departments/Initialize(mapload)
 	. = ..()
-		GLOB.dept_signs += src
+	GLOB.dept_signs += src
 
 /obj/structure/sign/departments/Destroy()
 	GLOB.dept_signs -= src
