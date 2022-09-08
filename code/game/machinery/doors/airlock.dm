@@ -1044,6 +1044,15 @@
 	else if(is_wire_tool(C) && panel_open)
 		attempt_wire_interaction(user)
 		return
+	else if(istype(C, /obj/item/toy/crayon/spraycan))
+		var/obj/item/toy/crayon/spraycan/can = C
+		if(can.charges <= 0)
+			to_chat(user, "<span class='warning'>The can is empty!</span>")
+			return
+		if(wires.apply_paint(C))
+			to_chat(user, "<span class='notice'>You spray paint on the wires!</span>")
+			can.charges -= 1
+			return
 	else if(istype(C, /obj/item/pai_cable))
 		var/obj/item/pai_cable/cable = C
 		cable.plugin(src, user)

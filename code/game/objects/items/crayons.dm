@@ -644,6 +644,9 @@
 	if(!proximity)
 		return
 
+	if(istype(target.wires) && user.a_intent != INTENT_HARM)
+		return TRUE
+
 	if(is_capped)
 		if(istype(target, /obj/machinery/modular_fabricator/autolathe))
 			return ..()

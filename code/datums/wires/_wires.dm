@@ -34,6 +34,8 @@
 	var/randomize = 0 // If every instance of these wires should be random.
 					  // Prevents wires from showing up in station blueprints
 
+	var/spray_lock = FALSE  // whether every wire is the same from spraycan use
+
 /datum/wires/New(atom/holder)
 	..()
 	if(!istype(holder, holder_type))
@@ -258,7 +260,7 @@
 
 	for(var/color in colors)
 		payload.Add(list(list(
-			"color" = color,
+			"color" = spray_lock ? "red" : color,
 			"wire" = ((reveal_wires && !is_dud_color(color)) ? get_wire(color) : null),
 			"cut" = is_color_cut(color),
 			"attached" = is_attached(color)
@@ -310,5 +312,18 @@
 						. = TRUE
 					else
 						to_chat(L, "<span class='warning'>You need an attachable assembly!</span>")
+
+/datum/wires/proc/apply_paint()
+	if(spray_lock)
+		return FALSE
+	spray_lock = TRUE
+	ui_update()
+	addtimer(CALLBACK(src, .proc/remove_paint), 5 MINUTES)
+	return TRUE
+
+/datum/wires/proc/remove_paint()
+	spray_lock = FALSE
+	ui_update()
+
 
 #undef MAXIMUM_EMP_WIRES
