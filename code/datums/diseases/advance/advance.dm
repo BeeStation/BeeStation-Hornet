@@ -51,7 +51,7 @@
 		list(/datum/reagent/medicine/salglu_solution, /datum/reagent/medicine/antihol, /datum/reagent/fuel, /datum/reagent/space_cleaner),
 		list(/datum/reagent/medicine/spaceacillin, /datum/reagent/toxin/mindbreaker, /datum/reagent/toxin/itching_powder, /datum/reagent/medicine/cryoxadone, /datum/reagent/medicine/epinephrine),
 		list(/datum/reagent/medicine/mine_salve, /datum/reagent/medicine/oxandrolone, /datum/reagent/medicine/atropine),
-		list(/datum/reagent/medicine/leporazine, /datum/reagent/water/holywater, /datum/reagent/water/holywater/milk, /datum/reagent/water/holywater/bilk, /datum/reagent/medicine/neurine),
+		list(/datum/reagent/medicine/leporazine, /datum/reagent/water/holywater, /datum/reagent/consumable/milk/holy, /datum/reagent/consumable/ethanol/bilk/holy, /datum/reagent/medicine/neurine),
 		list(/datum/reagent/concentrated_barbers_aid, /datum/reagent/drug/happiness, /datum/reagent/medicine/pen_acid),
 		list(/datum/reagent/medicine/haloperidol, /datum/reagent/pax, /datum/reagent/blackpowder, /datum/reagent/medicine/diphenhydramine),
 		list(/datum/reagent/toxin/lipolicide, /datum/reagent/drug/ketamine, /datum/reagent/drug/methamphetamine),

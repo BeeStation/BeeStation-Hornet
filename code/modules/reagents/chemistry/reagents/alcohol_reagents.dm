@@ -270,12 +270,20 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	glass_icon_state = "glass_brown"
 	glass_name = "glass of bilk"
 	glass_desc = "A brew of milk and beer. For those alcoholics who fear osteoporosis."
+	blessed_transform = /datum/reagent/consumable/ethanol/bilk/holy
 
 /datum/reagent/consumable/ethanol/bilk/on_mob_life(mob/living/carbon/M)
 	if(M.getBruteLoss() && prob(10))
 		M.heal_bodypart_damage(1)
 		. = 1
 	return ..() || .
+
+/datum/reagent/consumable/ethanol/bilk/holy
+	name = "\"Holy\" Bilk"
+	description = "Holy in name alone."
+	glass_name = "glass of \"holy\" bilk"
+	glass_desc = "A glass of bilk. It's been blessed, though that won't save you from the taste."
+	is_blessed = TRUE
 
 /datum/reagent/consumable/ethanol/threemileisland
 	name = "Three Mile Island Iced Tea"

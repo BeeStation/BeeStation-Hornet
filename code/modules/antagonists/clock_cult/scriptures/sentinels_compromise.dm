@@ -37,9 +37,7 @@
 	M.adjustOxyLoss(-M.getOxyLoss() * 0.6, FALSE)
 	M.adjustCloneLoss(-M.getCloneLoss() * 0.6, TRUE)
 	M.blood_volume = BLOOD_VOLUME_NORMAL
-	M.reagents.remove_reagent(/datum/reagent/water/holywater, INFINITY)
-	M.reagents.remove_reagent(/datum/reagent/water/holywater/milk, INFINITY)
-	M.reagents.remove_reagent(/datum/reagent/water/holywater/bilk, INFINITY)
+	M.reagents.purge_holy()
 	M.set_nutrition(NUTRITION_LEVEL_FULL)
 	M.bodytemperature = BODYTEMP_NORMAL
 	M.set_blindness(0)

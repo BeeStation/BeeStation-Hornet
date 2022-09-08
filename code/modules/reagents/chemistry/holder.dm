@@ -793,6 +793,28 @@
 
 	return has_removed_reagent
 
+// removes all reagents in the list, then returns the total num removed. useful for "replacing" reagents
+/datum/reagents/proc/remove_replace(list/reagent_types)
+	. = 0
+	for(var/datum/reagent/target in reagent_types)
+		. += get_reagent_amount(target)
+		del_reagent(target)
+
+// same as above but targets any holy chems
+/datum/reagents/proc/purge_holy()
+	. = 0
+	for(var/datum/reagent/target in reagent_list)
+		if(!target.is_blessed)
+			continue
+		. += get_reagent_amount(target)
+		del_reagent(target)
+
+/datum/reagents/proc/check_holy()
+	. = FALSE
+	for(var/datum/reagent/target in reagent_list)
+		if(target.is_blessed)
+			return TRUE
+
 //two helper functions to preserve data across reactions (needed for xenoarch)
 /datum/reagents/proc/get_data(reagent_id)
 	var/list/cached_reagents = reagent_list

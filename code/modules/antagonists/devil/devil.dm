@@ -385,7 +385,7 @@ GLOBAL_LIST_INIT(devil_suffix, list(" the Red", " the Soulless", " the Master", 
 		if(BANISH_WATER)
 			if(iscarbon(body))
 				var/mob/living/carbon/H = body
-				return (H.reagents.has_reagent(/datum/reagent/water/holywater) || H.reagents.has_reagent(/datum/reagent/water/holywater/milk) || H.reagents.has_reagent(/datum/reagent/water/holywater/bilk))
+				return H.reagents.check_holy()
 			return 0
 		if(BANISH_COFFIN)
 			return (body && istype(body.loc, /obj/structure/closet/crate/coffin))

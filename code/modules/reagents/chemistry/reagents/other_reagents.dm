@@ -169,7 +169,7 @@
 	glass_desc = "The father of all refreshments."
 	shot_glass_icon_state = "shotglassclear"
 	process_flags = ORGANIC | SYNTHETIC
-
+	blessed_transform = /datum/reagent/water/holywater  // note figure out how to make this not affect subtypes
 
 /*
  *	Water reaction to turf
@@ -244,93 +244,7 @@
 	glass_name = "glass of holy water"
 	glass_desc = "A glass of holy water."
 	self_consuming = TRUE //divine intervention won't be limited by the lack of a liver
-
-/datum/reagent/water/holywater/on_mob_metabolize(mob/living/L)
-	..()
-	ADD_TRAIT(L, TRAIT_HOLY, type)
-
-/datum/reagent/water/holywater/on_mob_end_metabolize(mob/living/L)
-	REMOVE_TRAIT(L, TRAIT_HOLY, type)
-	if(HAS_TRAIT_FROM(L, TRAIT_DEPRESSION, HOLYWATER_TRAIT))
-		REMOVE_TRAIT(L, TRAIT_DEPRESSION, HOLYWATER_TRAIT)
-		to_chat(L, "<span class='notice'>You cheer up, knowing that everything is going to be ok.</span>")
-	..()
-
-/datum/reagent/water/holywater/on_mob_life(mob/living/carbon/M)
-	if(!data)
-		data = list("misc" = 1)
-	data["misc"]++
-	M.jitteriness = min(M.jitteriness+4,10)
-	if(iscultist(M))
-		for(var/datum/action/innate/cult/blood_magic/BM in M.actions)
-			to_chat(M, "<span class='cultlarge'>Your blood rites falter as holy water scours your body!</span>")
-			for(var/datum/action/innate/cult/blood_spell/BS in BM.spells)
-				qdel(BS)
-	if(data["misc"] >= 25)		// 10 units, 45 seconds @ metabolism 0.4 units & tick rate 1.8 sec
-		if(!M.stuttering)
-			M.stuttering = 1
-		M.stuttering = min(M.stuttering+4, 10)
-		M.Dizzy(5)
-		if(is_servant_of_ratvar(M) && prob(20))
-			M.say(text2ratvar(pick("Please don't leave me...", "Rat'var what happened?", "My friends, where are you?", "The hierophant network just went dark, is anyone there?", "The light is fading...", "No... It can't be...")), forced = "holy water")
-			if(prob(40))
-				if(!HAS_TRAIT_FROM(M, TRAIT_DEPRESSION, HOLYWATER_TRAIT))
-					to_chat(M, "<span class='large_brass'>You feel the light fading and the world collapsing around you...</span>")
-					ADD_TRAIT(M, TRAIT_DEPRESSION, HOLYWATER_TRAIT)
-		if(iscultist(M) && prob(20))
-			M.say(pick("Av'te Nar'Sie","Pa'lid Mors","INO INO ORA ANA","SAT ANA!","Daim'niodeis Arc'iai Le'eones","R'ge Na'sie","Diabo us Vo'iscum","Eld' Mon Nobis"), forced = "holy water")
-			if(prob(10))
-				M.visible_message("<span class='danger'>[M] starts having a seizure!</span>", "<span class='userdanger'>You have a seizure!</span>")
-				M.Unconscious(120)
-				to_chat(M, "<span class='cultlarge'>[pick("Your blood is your bond - you are nothing without it", "Do not forget your place", \
-				"All that power, and you still fail?", "If you cannot scour this poison, I shall scour your meager life!")].</span>")
-	if(data["misc"] >= 60)	// 30 units, 135 seconds
-		if(iscultist(M) || is_servant_of_ratvar(M))
-			if(iscultist(M))
-				SSticker.mode.remove_cultist(M.mind, FALSE, TRUE)
-			if(is_servant_of_ratvar(M))
-				remove_servant_of_ratvar(M.mind)
-			M.jitteriness = 0
-			M.stuttering = 0
-			holder.remove_reagent(type, volume)	// maybe this is a little too perfect and a max() cap on the statuses would be better??
-			return
-	holder.remove_reagent(type, 0.4)	//fixed consumption to prevent balancing going out of whack
-
-/datum/reagent/water/holywater/reaction_turf(turf/T, reac_volume)
-	..()
-	if(!istype(T))
-		return
-	if(reac_volume>=10)
-		for(var/obj/effect/rune/R in T)
-			qdel(R)
-	T.Bless()
-
-/datum/reagent/water/holywater/milk
-	name = "Holy Milk"
-	description = "Milk, blessed by the gods. Contains Vitamin D."
-	glass_name = "glass of holy milk"
-	glass_desc = "A glass of milk, blessed by a deity. Sure to bring good luck."
-	taste_description = "milky goodness"
-
-/datum/reagent/water/holywater/milk/on_mob_life(mob/living/carbon/M)
-	if(M.getBruteLoss() && prob(20))
-		M.heal_bodypart_damage(1,0, 0)
-		. = 1
-	if(holder.has_reagent(/datum/reagent/consumable/capsaicin))
-		holder.remove_reagent(/datum/reagent/consumable/capsaicin, 2)
-	..()
-
-/datum/reagent/water/holywater/bilk
-	name = "\"Holy\" Bilk"
-	description = "Holy in name alone."
-	glass_name = "glass of \"holy\" bilk"
-	glass_desc = "A glass of bilk. It's been blessed, though that won't save you from the taste."
-	glass_icon_state = "glass_brown"
-	taste_description = "desperation and lactate"
-
-/datum/reagent/water/holywater/on_mob_life(mob/living/carbon/M)
-	. = ..()
-	M.adjustToxLoss(-2, 0)  // cant stand this
+	is_blessed = TRUE
 
 /datum/reagent/fuel/unholywater		//if you somehow managed to extract this from someone, dont splash it on yourself and have a smoke
 	name = "Unholy Water"

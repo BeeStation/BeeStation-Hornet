@@ -226,6 +226,7 @@
 	glass_name = "glass of milk"
 	glass_desc = "White and nutritious goodness!"
 	overdose_threshold = 500 //High calcium intake is bad for bone health. OD is exactly like having taken a normal-ish bone hurt juice. If anyone hits the superoverdose, well I'll be damned
+	blessed_transform = /datum/reagent/consumable/milk/holy
 
 /datum/reagent/consumable/milk/on_mob_life(mob/living/carbon/M)
 	if(M.getBruteLoss() && prob(20))
@@ -259,6 +260,13 @@
 	* Copy pasting the above and changing /datum/reagent/toxin/bonehurtingjuice as well as the documentation to be accurate for another type path will work so long as the reagent using this has an OD threshold.
 	* You can just change the target units and should double check that the starting amount meets outlined criteria.
 	*/
+
+/datum/reagent/consumable/milk/holy
+	name = "Holy Milk"
+	description = "Milk, blessed by the gods. Contains Vitamin D."
+	glass_name = "glass of holy milk"
+	glass_desc = "A glass of milk, blessed by a deity. Sure to bring good luck."
+	is_blessed = TRUE
 
 /datum/reagent/consumable/soymilk
 	name = "Soy Milk"

@@ -172,25 +172,16 @@ GLOBAL_LIST_INIT(bibleitemstates, list("bible", "koran", "scrapbook", "burning",
 			for(var/obj/effect/rune/R in orange(2,user))
 				R.invisibility = 0
 	if(user?.mind?.holy_role)
-		if(A.reagents && A.reagents.has_reagent(/datum/reagent/water)) // blesses all the water in the holder
-			to_chat(user, "<span class='notice'>You bless [A].</span>")
-			var/water2holy = A.reagents.get_reagent_amount(/datum/reagent/water)
-			A.reagents.del_reagent(/datum/reagent/water)
-			A.reagents.add_reagent(/datum/reagent/water/holywater,water2holy)  // more copypaste
-		if(A.reagents && A.reagents.has_reagent(/datum/reagent/consumable/milk))
-			to_chat(user, "<span class='notice'>You bless [A].</span>")
-			var/water2holy = A.reagents.get_reagent_amount(/datum/reagent/consumable/milk)
-			A.reagents.del_reagent(/datum/reagent/consumable/milk)
-			A.reagents.add_reagent(/datum/reagent/water/holywater/milk,water2holy)
-		if(A.reagents && A.reagents.has_reagent(/datum/reagent/consumable/ethanol/bilk))
-			to_chat(user, "<span class='notice'>You \"bless\" [A].</span>")
-			var/water2holy = A.reagents.get_reagent_amount(/datum/reagent/consumable/ethanol/bilk)
-			A.reagents.del_reagent(/datum/reagent/consumable/ethanol/bilk)
-			A.reagents.add_reagent(/datum/reagent/water/holywater/bilk,water2holy)
+		if(A.reagents) // blesses all the water in the holder
+			for(var/datum/reagent/target in A.reagents)
+				if(!target.is_blessed)
+					continue
+				to_chat(user, "<span class='notice'>You bless the [target.name] inside the [A].</span>")
+				var/water2holy = remove_replace(list(target))
+				A.reagents.add_reagent(target.blessed_transform,water2holy)  // more copypaste
 		if(A.reagents && A.reagents.has_reagent(/datum/reagent/fuel/unholywater)) // yeah yeah, copy pasted code - sue me
 			to_chat(user, "<span class='notice'>You purify [A].</span>")
-			var/unholy2clean = A.reagents.get_reagent_amount(/datum/reagent/fuel/unholywater)
-			A.reagents.del_reagent(/datum/reagent/fuel/unholywater)
+			var/unholy2clean = A.reagents.remove_replace((/datum/reagent/fuel/unholywater))
 			A.reagents.add_reagent(/datum/reagent/water/holywater,unholy2clean)
 		if(istype(A, /obj/item/storage/book/bible) && !istype(A, /obj/item/storage/book/bible/syndicate))
 			to_chat(user, "<span class='notice'>You purify [A], conforming it to your belief.</span>")
