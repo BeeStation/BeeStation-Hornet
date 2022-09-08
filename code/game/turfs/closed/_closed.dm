@@ -69,7 +69,8 @@ INITIALIZE_IMMEDIATE(/turf/closed/indestructible/splashscreen)
 	if(SStitle.icon)
 		icon = SStitle.icon
 
-	maptext = MAPTEXT(pick(strings(SPLASH_DESC_FILE, "splashes")))
+	var/splash_text = pick(strings(SPLASH_DESC_FILE, "splashes"))
+	maptext = "<span font color='#ebfc50'>[MAPTEXT(splash_text)]</span>"
 	maptext_height = world.icon_size * 2
 	maptext_width = world.icon_size * 12
 	var/list/offsets = get_title_offset(icon)

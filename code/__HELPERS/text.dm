@@ -845,7 +845,7 @@ GLOBAL_LIST_INIT(alphabet, list("a","b","c","d","e","f","g","h","i","j","k","l",
 
 
 // uses screen_loc types
-/proc/get_title_offset(title_img, split=FALSE)
+/proc/get_title_offset(title_img, convert=FALSE)
 	var/static/base_folder = "[global.config.directory]/title_screens/images"
 
 	var/static/list/offset_lookup = list( // coords from top left, reverse the percent if doing from south
@@ -861,5 +861,11 @@ GLOBAL_LIST_INIT(alphabet, list("a","b","c","d","e","f","g","h","i","j","k","l",
 	)
 
 	. = offset_lookup[title_img] || "WEST+10%,NORTH+10%"
-	if(split)
-		return splittext(., ",")
+	if(convert)
+		return get_xy_from_loc(.)
+
+/proc/get_xy_from_loc(loc)
+	var/obj/item/tester = new(loc)
+	var/list/return_list = list(tester.x, tester.y)
+	qdel(tester)
+	return return_list
