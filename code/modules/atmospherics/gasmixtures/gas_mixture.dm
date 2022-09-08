@@ -137,16 +137,24 @@ we use a hook instead
 /datum/gas_mixture/proc/set_temperature(new_temp)
 /datum/gas_mixture/proc/set_volume(new_volume)
 /datum/gas_mixture/proc/get_moles(gas_type)
+/datum/gas_mixture/proc/get_by_flag(flag)
 /datum/gas_mixture/proc/set_moles(gas_type, moles)
 /datum/gas_mixture/proc/scrub_into(datum/gas_mixture/target, ratio, list/gases)
 /datum/gas_mixture/proc/mark_immutable()
 /datum/gas_mixture/proc/get_gases()
+/datum/gas_mixture/proc/add(amt)
+/datum/gas_mixture/proc/subtract(amt)
 /datum/gas_mixture/proc/multiply(factor)
+/datum/gas_mixture/proc/divide(factor)
 /datum/gas_mixture/proc/get_last_share()
 /datum/gas_mixture/proc/clear()
 
 /datum/gas_mixture/proc/adjust_moles(gas_type, amt = 0)
 	set_moles(gas_type, clamp(get_moles(gas_type) + amt,0,INFINITY))
+
+/datum/gas_mixture/proc/adjust_moles_temp(gas_type, amt, temperature)
+
+/datum/gas_mixture/proc/adjust_multi()
 
 /datum/gas_mixture/proc/return_volume() //liters
 
@@ -163,6 +171,10 @@ we use a hook instead
 /datum/gas_mixture/proc/remove(amount)
 	//Proportionally removes amount of gas from the gas_mixture
 	//Returns: gas_mixture with the gases removed
+
+/datum/gas_mixture/proc/remove_by_flag(flag, amount)
+	//Removes amount of gas from the gas mixture by flag
+	//Returns: gas_mixture with gases that match the flag removed
 
 /datum/gas_mixture/proc/transfer_to(datum/gas_mixture/target, amount)
 
@@ -222,6 +234,14 @@ we use a hook instead
 /proc/equalize_all_gases_in_list(list/L)
 	//Makes every gas in the given list have the same pressure, temperature and gas proportions.
 	//Returns: null
+
+/datum/gas_mixture/proc/__remove_by_flag()
+
+/datum/gas_mixture/remove_by_flag(flag, amount)
+	var/datum/gas_mixture/removed = new type
+	__remove_by_flag(removed, flag, amount)
+
+	return removed
 
 /datum/gas_mixture/proc/__remove()
 /datum/gas_mixture/remove(amount)
