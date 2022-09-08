@@ -216,11 +216,11 @@
 		return
 	if(isliving(target))
 		var/mob/living/kidnapee = target
-		var/kidnaptime = max(10, (kidnapee.health * (kidnapee.mob_size / 2)))
+		var/kidnaptime = max(1 SECONDS, (kidnapee.health * (kidnapee.mob_size / 2)))
 		if(iscarbon(target))
-			kidnaptime += 100
+			kidnaptime += 10 SECONDS
 		if(target == user)
-			kidnaptime = 10
+			kidnaptime = 1 SECONDS
 		kidnapee.visible_message("<span class='warning'>[user] starts pulling [src] over [kidnapee]'s head!</span>", "<span class='userdanger'>[user] starts pulling [src] over your head!</span>")
 		if(do_mob(user, kidnapee, kidnaptime * kidnappingcoefficient))
 			if(kidnapee == user)

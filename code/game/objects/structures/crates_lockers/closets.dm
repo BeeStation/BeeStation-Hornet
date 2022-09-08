@@ -354,13 +354,13 @@
 						"<span class='warning'>You [actuallyismob ? "try to " : ""]stuff [O] into [src].</span>", \
 						"<span class='italics'>You hear clanging.</span>")
 	if(actuallyismob)
-		if(do_mob(user, O, 40))
+		if(do_mob(user, O, 4 SECONDS))
 			user.visible_message("<span class='notice'>[user] stuffs [O] into [src].</span>", \
 								"<span class='notice'>You stuff [O] into [src].</span>", \
 								"<span class='italics'>You hear a loud metal bang.</span>")
 			var/mob/living/L = O
 			if(!issilicon(L))
-				L.Paralyze(40)
+				L.Paralyze(4 SECONDS)
 			if(istype(src, /obj/structure/closet/supplypod/extractionpod))
 				O.forceMove(src)
 			else

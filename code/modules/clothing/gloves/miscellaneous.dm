@@ -113,13 +113,13 @@
 
 /obj/item/clothing/gloves/color/white/magic/Touch(atom/A, proximity)
 	var/mob/living/user = loc
-	if(get_dist(A, user) <= 1)
+	if(get_dist(A, user) <= 1 )
 		return FALSE
 	if(user in viewers(range, A))
 		user.visible_message("<span_class ='danger'>[user] waves their hands at [A]</span>", "<span_class ='notice'>You begin manipulating [A].</span>")
 		new	/obj/effect/temp_visual/telegloves(A.loc)
 		user.changeNext_move(CLICK_CD_MELEE)
-		if(do_mob(user, A, 8))
+		if(do_mob(user, A, 0.8 SECONDS))
 			new /obj/effect/temp_visual/telekinesis(user.loc)
 			playsound(user, 'sound/weapons/emitter2.ogg', 25, 1, -1)
 			A.attack_hand(user)
