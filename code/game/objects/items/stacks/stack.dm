@@ -405,7 +405,7 @@
 		var/stackmaterial = round(input(user,"How many sheets do you wish to take out of this stack? (Maximum  [max])") as null|num)
 		max = get_amount()
 		stackmaterial = min(max, stackmaterial)
-		if(!stackmaterial || !user.canUseTopic(src, BE_CLOSE, ismonkey(user)))
+		if(!stackmaterial || stackmaterial < 0 || !user.canUseTopic(src, BE_CLOSE, ismonkey(user)))
 			return
 		else
 			change_stack(user, stackmaterial)
