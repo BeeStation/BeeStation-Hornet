@@ -21,13 +21,13 @@ GLOBAL_LIST_EMPTY(dept_signs)
 	if(!random_dept_base)
 		return
 	var/static/list/all_dept = subtypesof(random_dept_base)
-	shuffle_inplace(all_dept)
-	for(var/obj/structure/sign/departments/new_dept in all_dept)
-		if(initial(new_dept.desc) || initial(new_dept.icon_state))  // prevents null entries
-			name = initial(new_dept.name)
-			desc = initial(new_dept.desc)
-			icon_state = initial(new_dept.icon_state)
-			break
+	var/picked = pick(all_dept)
+	while(!initial(picked.desc) || !initial(picked.icon_state))  // prevents null entries
+		picked = pick(all_dept)
+
+	name = initial(picked.name)
+	desc = initial(picked.desc)
+	icon_state = initial(picked.icon_state)
 
 
 /obj/structure/sign/basic
