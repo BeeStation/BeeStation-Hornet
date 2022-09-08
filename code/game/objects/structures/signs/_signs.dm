@@ -143,10 +143,9 @@ GLOBAL_LIST_EMPTY(dept_signs)
 	. = ..()
 
 /obj/structure/sign/departments/proc/randomize()
-	var/static/list/all_dept = subtypesof(/obj/structure/sign/departments)
-	var/obj/structure/sign/departments/picked = pick(all_dept)
+	var/obj/structure/sign/departments/picked = pick(GLOB.dept_signs)
 	while(!initial(picked.desc) || !initial(picked.icon_state))  // prevents null entries
-		picked = pick(all_dept)
+		picked = pick(GLOB.dept_signs)
 
 	name = initial(picked.name)
 	desc = initial(picked.desc)
