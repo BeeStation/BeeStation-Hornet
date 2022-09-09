@@ -42,18 +42,23 @@
 	if(world.time > initial_send_time + response_max_time)
 		priority_announce("Too late to beg for mercy!",sender_override = ship_name)
 		return
-	if(threat?.answered)
+	// Attempted to pay off
+	if(threat?.answered == PIRATE_RESPONSE_PAY)
 		var/datum/bank_account/D = SSeconomy.get_dep_account(ACCOUNT_CAR)
-		if(D)
-			if(D.adjust_money(-payoff))
-				priority_announce("Thanks for the credits, landlubbers.", sound = SSstation.announcer.get_rand_alert_sound(), sender_override = ship_name)
-				return
-			else
-				priority_announce("Trying to cheat us? You'll regret this!", sound = SSstation.announcer.get_rand_alert_sound(), sender_override = ship_name)
-				spawn_pirates(threat, TRUE)
+		if(!D)
+			return
+		// Check if they can afford it
+		if(D.adjust_money(-payoff))
+			priority_announce("Thanks for the credits, landlubbers.", sound = SSstation.announcer.get_rand_alert_sound(), sender_override = ship_name)
+		else
+			priority_announce("Trying to cheat us? You'll regret this!", sound = SSstation.announcer.get_rand_alert_sound(), sender_override = ship_name)
+			spawn_pirates(threat, TRUE) // insta-spawn!
 
 /proc/spawn_pirates(datum/comm_message/threat, skip_answer_check)
-	if(!skip_answer_check && threat?.answered == PIRATE_RESPONSE_NO_PAY)
+	// If they paid it off in the meantime, don't spawn pirates
+	// If they couldn't afford to pay, don't spawn another - it already spawned (see above)
+	// If they selected "No way.", this spawns on the timeout, so we don't want to return for the answer check
+	if(!skip_answer_check && threat?.answered == PIRATE_RESPONSE_PAY)
 		return
 
 	var/list/candidates = pollGhostCandidates("Do you wish to be considered for pirate crew?", ROLE_TRAITOR)
