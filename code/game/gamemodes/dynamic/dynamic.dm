@@ -547,6 +547,9 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 				if (other_ruleset.flags & HIGH_IMPACT_RULESET)
 					drafted_rules[other_ruleset] = null
 
+		if (ruleset.flags & NO_OTHER_ROUNDSTARTS_RULESET)
+			drafted_rules.Cut()
+
 		if (ruleset.flags & LONE_RULESET)
 			drafted_rules[ruleset] = null
 
