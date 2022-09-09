@@ -375,7 +375,7 @@
 		playsound(cyborg.loc, activation_sound, 30)
 		update_icon()
 	else
-		to_chat(cyborg, "<span class='notice'>Your self-repair module is not ready to be activated again yet.</span>")
+		to_chat(cyborg, "<span class='notice'>Your self-repair module is currently charging.</span>")
 
 /obj/item/borg/upgrade/selfrepair/update_icon()
 	. = ..()
