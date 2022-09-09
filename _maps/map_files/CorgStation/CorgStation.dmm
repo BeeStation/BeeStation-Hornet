@@ -30033,6 +30033,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
+/obj/machinery/mailbox,
 /turf/open/floor/plasteel/dark,
 /area/hallway/primary/starboard)
 "ioa" = (

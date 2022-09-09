@@ -31831,6 +31831,10 @@
 /obj/effect/turf_decal/tile/blue,
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
+"dVg" = (
+/obj/machinery/mailbox,
+/turf/open/floor/plasteel,
+/area/quartermaster/office)
 "dVI" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 1
@@ -85595,7 +85599,7 @@ xJL
 fwS
 cJh
 bbR
-bbR
+dVg
 bwd
 ccR
 xVe

@@ -21230,14 +21230,12 @@
 /area/hallway/primary/fore)
 "blJ" = (
 /obj/machinery/light,
-/obj/item/kirbyplants{
-	icon_state = "plant-21"
-	},
 /obj/effect/turf_decal/tile/brown,
 /obj/effect/turf_decal/tile/brown{
 	dir = 8
 	},
 /obj/machinery/firealarm/directional/south,
+/obj/machinery/mailbox,
 /turf/open/floor/plasteel,
 /area/hallway/primary/fore)
 "blL" = (

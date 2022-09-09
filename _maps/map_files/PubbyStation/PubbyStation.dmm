@@ -59338,6 +59338,13 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/brig)
+"uSq" = (
+/obj/effect/turf_decal/tile/brown{
+	dir = 4
+	},
+/obj/machinery/mailbox,
+/turf/open/floor/plasteel,
+/area/quartermaster/office)
 "uSM" = (
 /obj/machinery/door/airlock/medical/glass{
 	name = "Cloning";
@@ -100971,7 +100978,7 @@ aOQ
 aOQ
 aPV
 aRf
-aSc
+uSq
 aPY
 nMr
 aPY

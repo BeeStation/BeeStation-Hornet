@@ -55285,6 +55285,14 @@
 /obj/machinery/power/apc/auto_name/east,
 /turf/open/floor/plasteel,
 /area/hydroponics/garden)
+"mLI" = (
+/obj/effect/turf_decal/bot,
+/obj/effect/turf_decal/tile/brown/tile_side{
+	dir = 4
+	},
+/obj/machinery/mailbox,
+/turf/open/floor/plasteel/dark/side,
+/area/quartermaster/office)
 "mLK" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable/yellow{
@@ -129126,7 +129134,7 @@ tIZ
 sJv
 jyf
 rzO
-xwW
+mLI
 wGT
 epl
 tYb
