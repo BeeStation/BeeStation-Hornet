@@ -9,18 +9,13 @@
 */
 
 
-/obj/machinery/mailbox
+/obj/structure/mailbox
 	name = "official postbox"
 	desc = "A small postbox stationed for easy access, containing station letters."
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "mailbox"
 	density = TRUE
-	use_power = 0
-	idle_power_usage = 0
-	active_power_usage = 0
-	power_channel = AREA_USAGE_EQUIP
-	max_integrity = 300
-	integrity_failure = 100
+	max_integrity = 1000
 	req_access = list(ACCESS_CARGO)  // can look thru anyones mail
 	var/list/active_slots = list()
 	var/list/spam_mail = list()
@@ -32,12 +27,15 @@
 		. += "<span class='notice'>You spot a green light above your tray!</span>"
 
 /obj/machinery/mailbox/attack_hand(mob/living/carbon/user)
+	. = ..()
 	if(!length(active_slots))
 		to_chat(user, "<span class='notice'>All of the trays are empty!</span>")
 		return
 	var/datum/mail_slot/personal_slot
 	if(allowed(user) && active_slots)
 		var/manual_name = input("Who's mail would you like to access?", "Mail", null) as null|anything in active_slots
+		if(!manual_name)
+			return
 		personal_slot = active_slots[manual_name]
 
 	else if(!(user.real_name in active_slots))
@@ -64,7 +62,6 @@
 			return
 
 		var/mail_to = recipient.name
-		to_chat(user, personal_slot)
 
 		if(!(mail_to in active_slots))
 			personal_slot = new()
@@ -78,6 +75,12 @@
 
 		to_chat(user, "<span class='notice'>You slip the mail into the proper box.</span>")
 		personal_slot.insert_mail(I)
+
+/obj/strucutre/mailbox/AltClick(mob/user)
+	. = ..()
+	var/picked_mail = input("What spam mail would you like to access?", "Mail", null) as null|anything in spam_mail
+	user.put_in_hands(picked_mail)
+	to_chat(user, "<span class='notice'>You take the mail out from the spam folder.</spam>")
 
 /datum/mail_slot
 	/// the name of the person able to open this
