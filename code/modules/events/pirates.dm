@@ -53,7 +53,9 @@
 				spawn_pirates(threat, TRUE)
 
 /proc/spawn_pirates(datum/comm_message/threat, skip_answer_check)
-	if(!skip_answer_check && threat?.answered == PIRATE_RESPONSE_NO_PAY)
+	// If they paid it off in the meantime, don't spawn pirates
+	// If they didn't pay, don't spawn another - it already spawned
+	if(!skip_answer_check && threat?.answered)
 		return
 
 	var/list/candidates = pollGhostCandidates("Do you wish to be considered for pirate crew?", ROLE_TRAITOR)
