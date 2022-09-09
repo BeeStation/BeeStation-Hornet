@@ -21,7 +21,7 @@
 	power_channel = AREA_USAGE_EQUIP
 	max_integrity = 300
 	integrity_failure = 100
-	req_access = list(ACCESS_CARGO)
+	req_access = list(ACCESS_CARGO)  // can look thru anyones mail
 	var/list/active_slots = list()
 	var/list/spam_mail = list()
 
@@ -35,43 +35,43 @@
 		return
 
 	personal_slot ||= active_slots[user.real_name]
-	personal_slot.access_mail(user)
+	if(personal_slot.access_mail(user))
+		active_slots -= user.real_name
 
 /obj/machinery/mailbox/attackby(obj/item/I, mob/living/user, params)
 	if(istype(I, /obj/item/mail))
 		var/datum/mail_slot/personal_slot
 		var/obj/item/mail/inserting_mail = I
-		var/datum/mind/recipient
 
 		if(!inserting_mail.recipient_ref)
 			spam_mail += inserting_mail
 			inserting_mail.forceMove(src)
+			to_chat(user, "<span class='notice'>You slip the mail into the spam box.</span>")
 			return
 
-		recipient = inserting_mail.recipient_ref.resolve()
+		var/datum/mind/recipient = inserting_mail.recipient_ref.resolve()
 		if(!recipient)
 			return
 
-		if(!(recipient.real_name in active_slots))
-			personal_slot = new(src, user)
-			active_slots[recipient.real_name] = personal_slot
+		var/mail_to = recipient.name
+		to_chat(user, personal_slot)
+
+		if(!(mail_to in active_slots))
+			personal_slot = new()
+			active_slots[mail_to] = personal_slot
 		else
-			personal_slot = active_slots[recipient.real_name]
+			personal_slot = active_slots[mail_to]
 
 		if(!personal_slot)
 			to_chat(user, "<span class='warning'>You can't find a box!</span>")
 			return
 
-			personal_slot.insert_mail(I)
+		personal_slot.insert_mail(I)
 
 /datum/mail_slot
 	/// the name of the person able to open this
-	var/name
 	var/list/mail_stack = list()
 	var/locked = FALSE
-
-/datum/mail_slot/New(mob/living/carbon/reader)
-	name = reader.name
 
 /datum/mail_slot/proc/insert_mail(obj/item/mail/mail)
 	mail_stack += mail
@@ -85,5 +85,5 @@
 	to_chat(reader, "You take \the [take_out] out of \the [src].")
 	mail_stack -= take_out
 
-	if(length(mail_stack))
-		qdel(src)
+	if(!length(mail_stack))
+		return TRUE // time to clear entry
