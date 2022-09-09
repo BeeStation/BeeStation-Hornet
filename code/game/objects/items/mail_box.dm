@@ -75,6 +75,19 @@
 
 		to_chat(user, "<span class='notice'>You slip the mail into the proper box.</span>")
 		personal_slot.insert_mail(I)
+	if(istype(I, /obj/item/card/id))
+		if(!allowed(user))
+			to_chat(user, "<span class='warning'>No access.</span>")
+			return
+		if(!length(active_slots))
+			return
+
+		var/manual_name = input("Who's mail would you like to access?", "Mail", null) as null|anything in active_slots
+		if(!manual_name)
+			return
+		var/datum/mail_slot/personal_slot = active_slots[manual_name]
+		personal_slot.locked = !personal_slot.locked
+
 
 /obj/strucutre/mailbox/AltClick(mob/user)
 	. = ..()
@@ -92,6 +105,9 @@
 	mail.forceMove(src)
 
 /datum/mail_slot/proc/access_mail(mob/living/carbon/reader)
+	if(locked)
+		to_chat(user, "<span class='warning'>This box is locked!</span>")
+		return
 	var/take_out = input("Mail to take out?", "Mail", null) as null|anything in mail_stack
 	if(!take_out)
 		return
