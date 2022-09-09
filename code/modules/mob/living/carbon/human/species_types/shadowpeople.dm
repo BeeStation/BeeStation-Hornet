@@ -209,9 +209,8 @@
 
 /mob/living/silicon/robot/lighteater_act(obj/item/light_eater/light_eater)
 	..()
-	if(!lamp_cooldown)
-		update_headlamp(TRUE, INFINITY)
-		to_chat(src, "<span class='danger'>Your headlamp is fried! You'll need a human to help replace it.</span>")
+	if(lamp_enabled)
+		smash_headlamp()
 
 /obj/structure/bonfire/lighteater_act(obj/item/light_eater/light_eater)
 	if(burning)

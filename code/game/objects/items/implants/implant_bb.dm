@@ -19,6 +19,7 @@
 		if(CHAT_FILTER_CHECK(input))
 			to_chat(imp_in, "<span class='warning'>The message contains prohibited words!</span>")
 			return
+		input = imp_in.treat_message_min(input)
 
 		var/my_message = "<font color=\"[implant_colour]\"><b><i>[imp_in]:</i></b></font> [input]" //add sender, color source with syndie color
 		var/ghost_message = "<font color=\"[implant_colour]\"><b><i>[imp_in] -> Blood Brothers:</i></b></font> [input]"

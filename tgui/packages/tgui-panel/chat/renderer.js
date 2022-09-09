@@ -242,7 +242,7 @@ class ChatRenderer {
     }
   }
 
-  setHighlight(text, color, matchWord, matchCase) {
+  setHighlight(text, color, matchWord, matchCase, highlightSelf) {
     if (!text || !color) {
       this.highlightRegex = null;
       this.highlightColor = null;
@@ -268,6 +268,7 @@ class ChatRenderer {
     const flags = 'g' + (matchCase ? '' : 'i');
     this.highlightRegex = new RegExp(pattern, flags);
     this.highlightColor = color;
+    this.highlightSelf = highlightSelf;
   }
 
   setHighContrast(newValue) {
@@ -389,7 +390,8 @@ class ChatRenderer {
           logger.error('Error: message is missing text payload', message);
         }
         // Highlight text
-        if (!message.avoidHighlighting && this.highlightRegex) {
+        if ((!message.avoidHighlighting || this.highlightSelf)
+        && this.highlightRegex) {
           const highlighted = highlightNode(node,
             this.highlightRegex,
             text => (

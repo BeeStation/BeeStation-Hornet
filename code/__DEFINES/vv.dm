@@ -98,6 +98,9 @@
 #define VV_HK_MASS_DEL_TYPE "mass_delete_type"
 #define VV_HK_ARMOR_MOD "mod_obj_armor"
 
+// /obj/item/card/id
+#define VV_ID_PAYDAY "id_payday"
+
 // /mob
 #define VV_HK_GIB "gib"
 #define VV_HK_GIVE_SPELL "give_spell"
