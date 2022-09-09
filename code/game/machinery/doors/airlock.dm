@@ -498,7 +498,7 @@
 	if (!cont)
 		restorePower()
 	else
-		addtimer(CALLBACK(src. proc/restorePower), 1 SECONDS)
+		addtimer(CALLBACK(src, .proc/restorePower), 1 SECONDS)
 
 /obj/machinery/door/airlock/proc/restorePower()
 	spawnPowerRestoreRunning = FALSE
@@ -715,8 +715,10 @@
 			if(!stat)
 				update_icon(AIRLOCK_DENY)
 				playsound(src,doorDeni,50,0,3)
-				sleep(6)
-				update_icon(AIRLOCK_CLOSED)
+				addtimer(CALLBACK(src, .proc/finish_close_animation), 6)
+
+/obj/machinery/door/airlock/proc/finish_close_animation()
+	update_icon(AIRLOCK_CLOSED)
 
 /obj/machinery/door/airlock/examine(mob/user)
 	. = ..()
