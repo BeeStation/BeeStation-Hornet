@@ -9,16 +9,14 @@
 	supervisors = "Central Command"
 	selection_color = "#ddddff"
 	chat_color = "#50C878"
-	exp_requirements = 840
-	exp_type = EXP_TYPE_CREW
+	exp_requirements = 900
+	exp_type = EXP_TYPE_COMMAND
 
 	outfit = /datum/outfit/job/caa
 
 	access = list(ACCESS_CAA, ACCESS_COURT, ACCESS_SEC_DOORS, ACCESS_SEC_RECORDS,
-				ACCESS_MEDICAL, ACCESS_CONSTRUCTION, ACCESS_RESEARCH, ACCESS_CARGO,
 				ACCESS_BRIDGE)
 	minimal_access = list(ACCESS_CAA, ACCESS_COURT, ACCESS_SEC_DOORS, ACCESS_SEC_RECORDS,
-				ACCESS_MEDICAL, ACCESS_CONSTRUCTION, ACCESS_RESEARCH, ACCESS_CARGO,
 				ACCESS_BRIDGE)
 	paycheck = PAYCHECK_HARD
 	paycheck_department = ACCOUNT_CIV
