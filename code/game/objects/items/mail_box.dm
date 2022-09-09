@@ -12,8 +12,8 @@
 /obj/machinery/mailbox
 	name = "official postbox"
 	desc = "A small postbox stationed for easy access, containing station letters."
-	icon = 'icons/obj/library.dmi'
-	icon_state = "photocopier"
+	icon = 'icons/obj/bureaucracy.dmi'
+	icon_state = "mailbox"
 	density = TRUE
 	use_power = 0
 	idle_power_usage = 0
