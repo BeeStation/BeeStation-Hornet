@@ -39,6 +39,7 @@
 	new /obj/item/construction/rcd/loaded(src)
 	new /obj/item/storage/box/command_keys(src)
 	new /obj/item/rcd_ammo/large(src)
+	new /obj/item/storage/box/radiokey/eng(src)
 
 /obj/structure/closet/secure_closet/engineering_electrical
 	name = "electrical supplies locker"

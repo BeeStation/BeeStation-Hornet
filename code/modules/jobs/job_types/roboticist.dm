@@ -41,5 +41,6 @@
 
 	backpack = /obj/item/storage/backpack/science
 	satchel = /obj/item/storage/backpack/satchel/tox
+	backpack_contents = list(/obj/item/modular_computer/tablet/preset/science=1)
 
 	pda_slot = ITEM_SLOT_LPOCKET
