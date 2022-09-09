@@ -135,9 +135,10 @@
 	Proj.on_hit(src, 0, piercing_hit)
 	return BULLET_ACT_HIT
 
-/mob/living/silicon/flash_act(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, type = /atom/movable/screen/fullscreen/flash/static)
+/mob/living/silicon/flash_act(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, type = /atom/movable/screen/fullscreen/flash/static, blind_duration)
 	if(affect_silicon)
 		overlay_fullscreen("flash", type)
-		addtimer(CALLBACK(src, .proc/clear_fullscreen, "flash", 25), 70) //Flashes now blind silicons for the duration they used to stun
+		//Flashes now blind for the duration they used to stun, the 2.5 SECONDS here is the time it takes for the flash animation to go away.
+		addtimer(CALLBACK(src, .proc/clear_fullscreen, "flash", 2.5 SECONDS), blind_duration)
 		return TRUE
 	return FALSE

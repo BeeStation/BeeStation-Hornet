@@ -328,7 +328,7 @@
 
 	return embeds
 
-/mob/living/carbon/flash_act(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, type, blind_duration = 25)
+/mob/living/carbon/flash_act(intensity = 1, override_blindness_check = 0, affect_silicon = 0, visual = 0, type, blind_duration = 2.5 SECONDS)
 	if(NOFLASH in dna?.species?.species_traits)
 		return
 	var/obj/item/organ/eyes/eyes = getorganslot(ORGAN_SLOT_EYES)

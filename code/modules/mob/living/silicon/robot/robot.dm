@@ -426,7 +426,7 @@
 	if(W.tool_behaviour == TOOL_WELDER && (user.a_intent != INTENT_HARM))
 		user.changeNext_move(CLICK_CD_MELEE)
 		if(src == user)
-			to_chat(user, "<span class='notice'>You are unable to properly repair yourself, seek assistance.</span>")
+			to_chat(user, "<span class='notice'>You try to repair your shell, but your arms don't have the mobility required to do so.</span>")
 			return
 		if(!getBruteLoss())
 			to_chat(user, "<span class='warning'>[src] is already in good condition!</span>")
@@ -443,7 +443,7 @@
 		user.changeNext_move(CLICK_CD_MELEE)
 		var/obj/item/stack/cable_coil/coil = W
 		if(!getFireLoss())
-			to_chat(user, "The wires seem fine, there's no need to fix them.")
+			to_chat(user, "<span class='notice'>The wires seem fine, there's no need to fix them.</span>")
 			return
 		while(getFireLoss() && do_after(user, 60, target = src))		//Repeatedly attempt to repair wires until done, just like tend wounds. No need to spam click
 			if(coil.use(1))

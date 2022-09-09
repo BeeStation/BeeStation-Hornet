@@ -8,12 +8,10 @@
 	desc = "A powerful bulb that, when placed into a flash device can emit a bright light that will disorientate and subdue targets."
 	icon = 'icons/obj/assemblies/new_assemblies.dmi'
 	icon_state = "flashbulb"
-	throwforce = 0
 	w_class = WEIGHT_CLASS_TINY
 	materials = list(/datum/material/iron = 150, /datum/material/glass = 100)
 	flags_1 = CONDUCT_1
 	throw_speed = 3
-	throw_range = 7
 	var/charges_left = 10
 
 /obj/item/flashbulb/update_icon()
@@ -24,8 +22,7 @@
 
 /obj/item/flashbulb/examine(mob/user)
 	. = ..()
-	. += "[charges_left == 0 ? "The bulb is completely burnt out" : charges_left == 1 ? "This bulb will probably burn out immediately in a flash" : "This bulb can probably just about handle [charges_left] more uses."]"
-	
+	. += "[charges_left == 0 ? "The bulb is completely burnt out." : charges_left == 1 ? "This bulb will probably burn out on it's next use." : "This bulb can probably just about handle [charges_left] more uses."]"
 
 /obj/item/flashbulb/proc/check_working()
 	return charges_left > 0
@@ -42,7 +39,6 @@
 /obj/item/flashbulb/cyborg
 	name = "cyborg flashlight bulb"
 	desc = "A lamp intended for use within a cyborg eye."
-
 	charges_left = 1
 
 /obj/item/flashbulb/recharging
@@ -74,7 +70,7 @@
 	charge_time = 15 SECONDS
 
 /obj/item/flashbulb/recharging/cyborg
-	name = "advancedcyborg flashbulb"
+	name = "advanced cyborg flashbulb"
 
 /obj/item/flashbulb/recharging/cyborg/weak
 	name = "cyborg flashbulb"
@@ -95,18 +91,18 @@
 	light_power = FLASH_LIGHT_POWER
 	light_on = FALSE
 	var/flashing_overlay = "flash-f"
-	var/last_used = 0 //last world.time it was used.
-	var/cooldown = 20
+	var/cooldown = 2 SECONDS
 	var/last_trigger = 0 //Last time it was successfully triggered.
 	var/burnt_out = FALSE
-	var/flash_duration = 25
-	var/stun_duration = 70
+	var/flash_duration = 2.5 SECONDS
+	var/stun_duration = 7 SECONDS
+	var/silicon_stun_duration = 2 SECONDS
 	var/obj/item/flashbulb/bulb = /obj/item/flashbulb	//Store reference to object and run new when initialised.
 
 /obj/item/assembly/flash/handheld/cyborg
 	bulb = /obj/item/flashbulb/cyborg
 	name = "cyborg eye"
-	desc = "A small but powerful light with a shielded camera lens embedded in the center. Cyborgs need these to see what they're doing. The camera is non-functional until it is attached to a cyborg head"
+	desc = "A small but powerful light with a shielded camera lens embedded in the center. Cyborgs need these to see what they're doing. The camera is non-functional until it is attached to a cyborg head."
 	icon = 'icons/obj/machines/camera.dmi'
 	icon_state = "cameracase"
 	lefthand_file = null
@@ -121,7 +117,7 @@
 
 /obj/item/assembly/flash/examine(mob/user)
 	. = ..()
-	. += "[!bulb ? "The device has no bulb installed." : bulb.charges_left == 0 ? "It looks like you can cut the burnt flashbulb out with a pair of wirecutters." : bulb.charges_left == 1 ? "The bulb looks like it will burn out if used" : "The bulb looks like it can handle just about [bulb.charges_left] more uses."]"
+	. += "[!bulb ? "The device has no bulb installed." : bulb.charges_left == 0 ? "It looks like you can cut the burnt flashbulb out with a pair of wirecutters." : bulb.charges_left == 1 ? "The bulb looks like it will burn out if used." : "The bulb looks like it can handle just about [bulb.charges_left] more uses."]"
 
 /obj/item/assembly/flash/suicide_act(mob/living/user)
 	if(!bulb)
@@ -285,7 +281,7 @@
 		var/mob/living/silicon/robot/R = M
 		log_combat(user, R, "flashed", src)
 		update_icon(1)
-		R.Paralyze(20)
+		R.Paralyze(silicon_stun_duration)
 		R.flash_act(affect_silicon = 1, type = /atom/movable/screen/fullscreen/flash/static)
 		user.visible_message("<span class='disarm'>[user] overloads [R]'s sensors with the flash!</span>", "<span class='danger'>You overload [R]'s sensors with the flash!</span>")
 		return TRUE
@@ -301,9 +297,7 @@
 
 /obj/item/assembly/flash/emp_act(severity)
 	. = ..()
-	if(. & EMP_PROTECT_SELF)
-		return
-	if(!try_use_flash())
+	if((. & EMP_PROTECT_SELF) || !try_use_flash())
 		return
 	AOE_flash()
 	burn_out()
@@ -352,8 +346,8 @@
 /obj/item/assembly/flash/cyborg/weak
 	name = "cyborg light"
 	bulb = /obj/item/flashbulb/recharging/cyborg/weak
-	flash_duration = 70
-	stun_duration = 10
+	flash_duration = 7 SECONDS
+	stun_duration = 1 SECONDS
 
 /obj/item/assembly/flash/memorizer
 	name = "memorizer"
