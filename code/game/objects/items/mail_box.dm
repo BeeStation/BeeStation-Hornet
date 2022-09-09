@@ -25,10 +25,20 @@
 	var/list/active_slots = list()
 	var/list/spam_mail = list()
 
+/obj/machinery/mailbox/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>A small ticker on the side reads\nUSR - [length(active_slots)]\nSPM - [length(spam_mail)]"
+	if(active_slots[user.real_name])
+		. += "<span class='notice'>You spot a green light above your tray!</span>"
+
 /obj/machinery/mailbox/attack_hand(mob/living/carbon/user)
+	if(!length(active_slots))
+		to_chat(user, "<span class='notice'>All of the trays are empty!</span>")
+		return
 	var/datum/mail_slot/personal_slot
 	if(allowed(user) && active_slots)
-		personal_slot = input("Who's mail would you like to access?", "Mail", null) as null|anything in active_slots
+		var/manual_name = input("Who's mail would you like to access?", "Mail", null) as null|anything in active_slots
+		personal_slot = active_slots[manual_name]
 
 	else if(!(user.real_name in active_slots))
 		to_chat(user, "<span class='notice'>You look through the tabs, but you have no mail!</span>")
@@ -66,6 +76,7 @@
 			to_chat(user, "<span class='warning'>You can't find a box!</span>")
 			return
 
+		to_chat(user, "<span class='notice'>You slip the mail into the proper box.</span>")
 		personal_slot.insert_mail(I)
 
 /datum/mail_slot
@@ -82,7 +93,7 @@
 	if(!take_out)
 		return
 	reader.put_in_hands(take_out)
-	to_chat(reader, "You take \the [take_out] out of \the [src].")
+	to_chat(reader, "You take \the [take_out] out of the slot.")
 	mail_stack -= take_out
 
 	if(!length(mail_stack))
