@@ -1,0 +1,5 @@
+author: itsmeow
+delete-after: true
+changes:
+  - bugfix: Pirates will no longer ignore the fact that you paid them off.
+  - bugfix: Refusing to pay pirates will no longer still attempt to pay them off.
