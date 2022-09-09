@@ -128,6 +128,7 @@
 			var/warning = stripped_input(usr, "Message:", "Enter your message here!", "", MAX_MESSAGE_LEN)
 			if(!warning)
 				return
+			warning = usr.treat_message_min(warning)
 			var/obj/item/implant/I = locate(href_list["warn"]) in GLOB.tracked_implants
 			if(I && istype(I) && I.imp_in)
 				var/mob/living/R = I.imp_in

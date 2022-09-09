@@ -481,7 +481,6 @@
 /area/ruin/space/has_grav/hotel/guestroom/room_3)
 "bN" = (
 /obj/machinery/power/apc/highcap/five_k{
-	dir = 2;
 	name = "Guest Room APC";
 	pixel_y = -24
 	},
@@ -529,7 +528,6 @@
 /area/ruin/space/has_grav/hotel/guestroom/room_4)
 "bT" = (
 /obj/machinery/power/apc/highcap/five_k{
-	dir = 2;
 	name = "Guest Room APC";
 	pixel_y = -24
 	},
@@ -577,7 +575,6 @@
 /area/ruin/space/has_grav/hotel/guestroom/room_5)
 "bZ" = (
 /obj/machinery/power/apc/highcap/five_k{
-	dir = 2;
 	name = "Guest Room APC";
 	pixel_y = -24
 	},
@@ -625,7 +622,6 @@
 /area/ruin/space/has_grav/hotel/guestroom/room_6)
 "cf" = (
 /obj/machinery/power/apc/highcap/five_k{
-	dir = 2;
 	name = "Guest Room APC";
 	pixel_y = -24
 	},
@@ -1464,7 +1460,6 @@
 /area/ruin/space/has_grav/hotel/workroom)
 "eA" = (
 /obj/machinery/power/apc/highcap/five_k{
-	dir = 2;
 	name = "Laundry APC";
 	pixel_y = -24
 	},
@@ -1594,7 +1589,7 @@
 /turf/open/floor/wood,
 /area/ruin/space/has_grav/hotel/dock)
 "eX" = (
-/obj/structure/chair/comfy/brown{
+/obj/structure/chair/fancy/comfy{
 	dir = 4
 	},
 /turf/open/floor/wood,
@@ -1604,7 +1599,7 @@
 /turf/open/floor/wood,
 /area/ruin/space/has_grav/hotel/dock)
 "eZ" = (
-/obj/structure/chair/comfy/brown{
+/obj/structure/chair/fancy/comfy{
 	dir = 8
 	},
 /turf/open/floor/wood,
@@ -1657,7 +1652,6 @@
 /area/ruin/space/has_grav/hotel)
 "fh" = (
 /obj/machinery/power/apc/highcap/five_k{
-	dir = 2;
 	name = "Kitchen APC";
 	pixel_y = -24
 	},
@@ -2135,7 +2129,7 @@
 /turf/open/floor/plasteel/dark,
 /area/ruin/space/has_grav/hotel/dock)
 "gy" = (
-/obj/structure/chair/comfy/brown{
+/obj/structure/chair/fancy/comfy{
 	dir = 8
 	},
 /turf/open/floor/carpet,
@@ -2500,7 +2494,6 @@
 /area/ruin/space/has_grav/hotel/bar)
 "hA" = (
 /obj/machinery/power/apc/highcap/five_k{
-	dir = 2;
 	name = "Staff Room APC";
 	pixel_y = -24
 	},
@@ -2546,16 +2539,14 @@
 /area/ruin/space/has_grav/hotel/workroom)
 "hG" = (
 /obj/effect/mob_spawn/human/hotel_staff{
-	dir = 1;
-	icon_state = "sleeper_s"
+	dir = 1
 	},
 /obj/machinery/light,
 /turf/open/floor/plasteel/dark,
 /area/ruin/space/has_grav/hotel/workroom)
 "hH" = (
 /obj/effect/mob_spawn/human/hotel_staff{
-	dir = 1;
-	icon_state = "sleeper_s"
+	dir = 1
 	},
 /turf/open/floor/plasteel/dark,
 /area/ruin/space/has_grav/hotel/workroom)
@@ -3047,7 +3038,6 @@
 /area/ruin/space/has_grav/hotel/power)
 "iU" = (
 /obj/machinery/power/apc/highcap/five_k{
-	dir = 2;
 	name = "Security APC";
 	pixel_y = -24
 	},
@@ -3094,7 +3084,6 @@
 /area/ruin/space/has_grav/hotel/pool)
 "iZ" = (
 /obj/machinery/power/apc/highcap/five_k{
-	dir = 2;
 	name = "Pool APC";
 	pixel_y = -24
 	},
@@ -3143,7 +3132,6 @@
 	dir = 8
 	},
 /obj/machinery/power/apc/highcap/five_k{
-	dir = 2;
 	name = "Dock APC";
 	pixel_y = -24
 	},
@@ -3155,7 +3143,7 @@
 /turf/open/floor/wood,
 /area/ruin/space/has_grav/hotel/dock)
 "jg" = (
-/obj/structure/chair/comfy/brown{
+/obj/structure/chair/fancy/comfy{
 	dir = 8
 	},
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on,
@@ -4135,9 +4123,7 @@
 /turf/open/floor/plasteel/freezer,
 /area/ruin/space/has_grav/hotel/pool)
 "lv" = (
-/obj/machinery/atmospherics/components/unary/outlet_injector/on{
-	dir = 2
-	},
+/obj/machinery/atmospherics/components/unary/outlet_injector/on,
 /turf/open/floor/plating/airless,
 /area/ruin/unpowered/no_grav)
 "lw" = (
@@ -4854,7 +4840,6 @@
 /area/ruin/space/has_grav/hotel/custodial)
 "mJ" = (
 /obj/machinery/power/apc/highcap/five_k{
-	dir = 2;
 	name = "Custodial APC";
 	pixel_y = -24
 	},
@@ -5100,7 +5085,6 @@
 /area/ruin/space/has_grav/hotel/pool)
 "Bn" = (
 /obj/machinery/power/apc/highcap/five_k{
-	dir = 2;
 	name = "Laundry APC";
 	pixel_y = -24
 	},

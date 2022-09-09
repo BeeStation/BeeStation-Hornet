@@ -174,7 +174,7 @@
 /datum/computer_file/program/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui && tgui_id)
-		ui = new(user, src, tgui_id, filename)
+		ui = new(user, src, tgui_id, filedesc)
 		ui.set_autoupdate(TRUE)
 		if(ui.open())
 			ui.send_asset(get_asset_datum(/datum/asset/simple/headers))
