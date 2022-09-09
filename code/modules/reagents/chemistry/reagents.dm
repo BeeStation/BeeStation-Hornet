@@ -63,7 +63,7 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 /datum/reagent/proc/reaction_obj(obj/O, volume)
 	return
 
-/datum/reagent/proc/reaction_turf(turf/T, volume)
+/datum/reagent/proc/reaction_turf(turf/T, reac_volume)
 	if(!istype(T))
 		return
 	if(reac_volume>=10)
@@ -83,7 +83,7 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 	M.jitteriness = min(M.jitteriness+4,10)
 	if(iscultist(M))
 		for(var/datum/action/innate/cult/blood_magic/BM in M.actions)
-			to_chat(M, "<span class='cultlarge'>Your blood rites falter as [name.lower()] scours your body!</span>")
+			to_chat(M, "<span class='cultlarge'>Your blood rites falter as [name] scours your body!</span>")
 			for(var/datum/action/innate/cult/blood_spell/BS in BM.spells)
 				qdel(BS)
 	if(data["misc"] >= 25)		// 10 units, 45 seconds @ metabolism 0.4 units & tick rate 1.8 sec

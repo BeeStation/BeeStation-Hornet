@@ -199,7 +199,7 @@ GLOBAL_VAR(clockcult_eminence)
 		return
 	var/hierophant_message = "[span]"
 	if(sender?.reagents)
-		if(sender.check_holy())
+		if(sender.reagents.check_holy())
 			to_chat(sender, "<span class='nezbere'>[pick("You fail to transmit your cries for help.", "Your calls into the void go unanswered.", "You try to transmit your message, but the hierophant network is silent.")]</span>")
 			return FALSE
 	if(!msg)

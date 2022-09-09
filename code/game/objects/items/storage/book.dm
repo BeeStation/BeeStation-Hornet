@@ -177,7 +177,7 @@ GLOBAL_LIST_INIT(bibleitemstates, list("bible", "koran", "scrapbook", "burning",
 				if(!target.is_blessed)
 					continue
 				to_chat(user, "<span class='notice'>You bless the [target.name] inside the [A].</span>")
-				var/water2holy = remove_replace(list(target))
+				var/water2holy = A.reagents.remove_replace(list(target))
 				A.reagents.add_reagent(target.blessed_transform,water2holy)  // more copypaste
 		if(A.reagents && A.reagents.has_reagent(/datum/reagent/fuel/unholywater)) // yeah yeah, copy pasted code - sue me
 			to_chat(user, "<span class='notice'>You purify [A].</span>")
