@@ -12,7 +12,7 @@
 		var/obj/item/clothing/mask/chameleon/V = wear_mask
 		if(V.vchange && wear_id)
 			var/obj/item/card/id/idcard = wear_id.GetID()
-			if(COOLDOWN_FINISHED(V, rname_cooldown))
+			if(!COOLDOWN_FINISHED(V, rname_cooldown))
 				var/randomize = dna.species.random_name(rand(1, 2))
 				return (randomize || "John Doe")  // fallback
 			if(istype(idcard))
