@@ -23,7 +23,7 @@ SUBSYSTEM_DEF(communications)
 		minor_announce(input,"[user.name] Announces:", html_encode = FALSE)
 		silicon_message_cooldown = world.time + COMMUNICATION_COOLDOWN_AI
 	else
-		alert_sound = 'sound/misc/announce.ogg'
+		var/alert_sound = 'sound/misc/announce.ogg'
 		switch(GLOB.security_level)
 			if(SEC_LEVEL_BLUE)
 				alert_sound = 'sound/misc/announce_dig.ogg'
