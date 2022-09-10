@@ -627,4 +627,7 @@
 	message_ipc = "whistles a few synthesized notes"
 
 /datum/emote/living/whistle/get_sound(mob/living/user)
-	return 'sound/items/megaphone.ogg'
+	if(MOB_ROBOTIC in user.mob_biotypes)
+		return 'sound/items/megaphone.ogg'
+	else
+		return 'sound/magic/warpwhistle.ogg'
