@@ -214,6 +214,8 @@
 				channels[channel] |= FREQ_LISTENING
 			. = TRUE
 		if("command")
+			if(!command)
+				return
 			use_command = !use_command
 			. = TRUE
 		if("subspace")
@@ -225,6 +227,8 @@
 					recalculateChannels()
 				. = TRUE
 		if("honk")  // if i ever make a radio key for this it wont be broken :)
+			if(!honken)
+				return
 			use_honken = !use_honken
 			. = TRUE
 
