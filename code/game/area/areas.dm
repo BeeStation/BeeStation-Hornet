@@ -740,7 +740,7 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 
 	. = TRUE
 
-	if(!LAZYLEN(mood_job_allowed))
+	if(!length(mood_job_allowed))
 		return .
 	if(!(subject.mind?.assigned_role in mood_job_allowed))
 		. = FALSE
