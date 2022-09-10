@@ -130,14 +130,7 @@
 			if(allowed(usr))
 				var/mob/living/silicon/robot/R = locate(params["ref"]) in GLOB.silicon_mobs
 				if(can_control(usr, R) && !..())
-					var/turf/T = get_turf(R)
-					message_admins("<span class='notice'>[ADMIN_LOOKUPFLW(usr)] detonated [key_name_admin(R, R.client)] at [ADMIN_VERBOSEJMP(T)]!</span>")
-					log_game("\<span class='notice'>[key_name(usr)] detonated [key_name(R)]!</span>")
-					log_combat(usr, R, "detonated cyborg")
-
-					if(R.connected_ai)
-						to_chat(R.connected_ai, "<br><br><span class='alert'>ALERT - Cyborg detonation detected: [R.name]</span><br>")
-					R.self_destruct()
+					R.self_destruct(usr)
 			else
 				to_chat(usr, "<span class='danger'>Access Denied.</span>")
 		if("stopbot")

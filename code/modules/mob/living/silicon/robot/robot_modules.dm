@@ -198,6 +198,7 @@
 	R.module = RM
 	R.update_module_innate()
 	RM.rebuild_modules()
+	R.set_modularInterface_theme()
 	INVOKE_ASYNC(RM, .proc/do_transform_animation)
 	qdel(src)
 	return RM
