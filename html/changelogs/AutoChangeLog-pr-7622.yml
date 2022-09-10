@@ -1,7 +1,0 @@
-author: itsmeow
-delete-after: true
-changes:
-  - rscadd: Emagged and syndicate borgs can now self destruct from their management
-      app.
-  - tweak: Syndicate and emagged borgs get their interface theme set to syndicate
-      and properly recolored on the HUD.
