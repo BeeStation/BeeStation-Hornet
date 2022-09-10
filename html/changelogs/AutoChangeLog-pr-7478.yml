@@ -1,0 +1,6 @@
+author: Sarchutar, Ryll-Ryll
+delete-after: true
+changes:
+  - rscadd: Shields for hardsuits (Syndie, CTF, Wizard etc) are now a component
+  - rscdel: Shielded Syndicate Hardsuits cannot have their shield color changed with
+      a multitool anymore
