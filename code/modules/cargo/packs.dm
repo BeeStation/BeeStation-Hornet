@@ -1003,7 +1003,6 @@
 	name = "Shield Generator Satellite"
 	desc = "Protect the very existence of this station with these Anti-Meteor defenses. Contains three Shield Generator Satellites."
 	cost = 3000
-	special = TRUE
 	access_budget = ACCESS_HEADS
 	contains = list(
 					/obj/machinery/satellite/meteor_shield,
@@ -1017,7 +1016,6 @@
 	name = "Shield System Control Board"
 	desc = "A control system for the Shield Generator Satellite system."
 	cost = 5000
-	special = TRUE
 	access_budget = ACCESS_HEADS
 	contains = list(/obj/item/circuitboard/computer/sat_control)
 	crate_name= "shield control board crate"
