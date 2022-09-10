@@ -1,0 +1,4 @@
+author: itsmeow
+delete-after: true
+changes:
+  - rscadd: Ghosts can now click on the Supermatter to see its monitoring info.
