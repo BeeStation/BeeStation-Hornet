@@ -81,11 +81,6 @@
 
 /datum/round_event/meteor_wave/announce(fake)
 	priority_announce("Meteors have been detected on collision course with the station. Estimated time until impact: 10 MINUTES. Anti-meteor point defense is available for purchase via the station's cargo shuttle.", "Meteor Alert", ANNOUNCER_METEORS)
-	if(!fake)
-		var/datum/supply_pack/P = SSshuttle.supply_packs[/datum/supply_pack/engineering/shield_sat]
-		P.special_enabled = TRUE
-		P = SSshuttle.supply_packs[/datum/supply_pack/engineering/shield_sat_control]
-		P.special_enabled = TRUE
 
 /datum/round_event_control/meteor_wave/threatening
 	name = "Meteor Wave: Threatening"
