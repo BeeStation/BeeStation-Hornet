@@ -23,7 +23,15 @@ SUBSYSTEM_DEF(communications)
 		minor_announce(input,"[user.name] Announces:", html_encode = FALSE)
 		silicon_message_cooldown = world.time + COMMUNICATION_COOLDOWN_AI
 	else
-		priority_announce(html_decode(user.treat_message(input)), null, 'sound/misc/announce.ogg', "Captain", has_important_message = TRUE, auth_id = auth_id)
+		alert_sound = 'sound/misc/announce.ogg'
+		switch(GLOB.security_level)
+			if(SEC_LEVEL_BLUE)
+				alert_sound = 'sound/misc/announce_dig.ogg'
+			if(SEC_LEVEL_RED)
+				alert_sound = 'sound/items/geiger/ext1.ogg'
+			if(SEC_LEVEL_DELTA)
+				alert_sound = 'sound/items/airhorn.ogg'  // why are you announcing on delta
+		priority_announce(html_decode(user.treat_message(input)), null, alert_sound, "Captain", has_important_message = TRUE, auth_id = auth_id)
 		nonsilicon_message_cooldown = world.time + COMMUNICATION_COOLDOWN
 	user.log_talk(input, LOG_SAY, tag="priority announcement")
 	message_admins("[ADMIN_LOOKUPFLW(user)] has made a priority announcement.")
