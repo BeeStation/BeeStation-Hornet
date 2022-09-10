@@ -28,6 +28,8 @@ GLOBAL_LIST_INIT(available_ui_styles, sortList(list(
 	var/atom/movable/screen/ling/chems/lingchemdisplay
 	var/atom/movable/screen/ling/sting/lingstingdisplay
 
+	var/atom/movable/screen/grod/pocket/grodpocket
+
 	var/atom/movable/screen/blobpwrdisplay
 
 	var/atom/movable/screen/alien_plasma_display
@@ -111,6 +113,7 @@ GLOBAL_LIST_INIT(available_ui_styles, sortList(list(
 	healthdoll = null
 	internals = null
 	lingchemdisplay = null
+	grodpocket = null
 	devilsouldisplay = null
 	lingstingdisplay = null
 	blobpwrdisplay = null

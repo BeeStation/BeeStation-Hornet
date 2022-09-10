@@ -12,28 +12,16 @@
 	is_dimorphic = FALSE
 	should_draw_greyscale = TRUE
 
-/obj/item/bodypart/l_arm/grod_upper //upper left arm
+/obj/item/bodypart/l_arm/grod
 	static_icon = 'icons/mob/species/grod/bodyparts.dmi'
 	icon = 'icons/mob/species/grod/bodyparts.dmi'
 	limb_id = "grod"
 	should_draw_greyscale = TRUE
 
-/obj/item/bodypart/r_arm/grod_upper //upper right arm
+/obj/item/bodypart/r_arm/grod
 	static_icon = 'icons/mob/species/grod/bodyparts.dmi'
 	icon = 'icons/mob/species/grod/bodyparts.dmi'
 	limb_id = "grod"
-	should_draw_greyscale = TRUE
-
-/obj/item/bodypart/l_arm/grod_lower //lower left arm
-	static_icon = 'icons/mob/species/grod/bodyparts.dmi'
-	icon = 'icons/mob/species/grod/bodyparts.dmi'
-	limb_id = "grod lower"
-	should_draw_greyscale = TRUE
-
-/obj/item/bodypart/r_arm/grod_lower //lower right arm
-	static_icon = 'icons/mob/species/grod/bodyparts.dmi'
-	icon = 'icons/mob/species/grod/bodyparts.dmi'
-	limb_id = "grod lower"
 	should_draw_greyscale = TRUE
 
 /obj/item/bodypart/l_leg/grod

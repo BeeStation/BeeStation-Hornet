@@ -9,6 +9,7 @@
 	item_state = "jumpsuit"
 	worn_icon_state = "jumpsuit"
 	worn_icon = 'icons/mob/clothing/uniform.dmi'
+	species_restricted = SPECIES_GROD
 	supports_variations = DIGITIGRADE_VARIATION
 	dying_key = DYE_REGISTRY_UNDER
 
@@ -224,6 +225,7 @@
 	greyscale_config_inhand_left = null
 	greyscale_config_inhand_right = null
 	greyscale_config_worn = null
+	species_restricted = null
 
 /obj/item/clothing/under/color/jumpskirt/rainbow
 	name = "rainbow jumpskirt"
@@ -234,3 +236,4 @@
 	greyscale_config_inhand_left = null
 	greyscale_config_inhand_right = null
 	greyscale_config_worn = null
+	species_restricted = null

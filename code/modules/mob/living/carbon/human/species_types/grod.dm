@@ -1,12 +1,8 @@
-#define STANCE_MOBILE 0
-#define STANCE_INTERACT 1
-
 #define GROD_BRUTEMOD 1.1
 #define GROD_BURNMOD 1.2
 #define GROD_HEATMOD 1.3
 #define GROD_COLDMOD 0.7
 #define GROD_TOXMOD 0.8
-#define GROD_SPEEDMOD 0.9 //10% faster than a human
 #define GROD_STAMMOD 1.2
 
 #define CROWNSPIDER_MAX_HEALTH 30
@@ -23,29 +19,25 @@
 	inherent_biotypes = list(MOB_ORGANIC, MOB_HUMANOID)
 	species_chest = /obj/item/bodypart/chest/grod
 	species_head = /obj/item/bodypart/head/grod
-	species_l_arm = /obj/item/bodypart/l_arm/grod_upper
-	species_r_arm = /obj/item/bodypart/r_arm/grod_upper
+	species_l_arm = /obj/item/bodypart/l_arm/grod
+	species_r_arm = /obj/item/bodypart/r_arm/grod
 	species_l_leg = /obj/item/bodypart/l_leg/grod
 	species_r_leg = /obj/item/bodypart/r_leg/grod
 	mutanttongue = /obj/item/organ/tongue/grod
 	meat = /obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/plant
-	mutant_bodyparts = list("grod_crown", "grod_marks", "grod_hair", "grod_tail")
-	default_features = list("grod_crown" = "Crown", "grod_marks" = "None", "grod_marks_color" = "9c3030", "grod_tail" = "Regular")
+	mutant_bodyparts = list("grod_crown", "grod_marks", "grod_tail")
+	default_features = list("grod_crown" = "Crown", "grod_marks" = "None", "grod_tail" = "Regular")
 	mutant_brain = /obj/item/organ/brain/grod
 	brutemod = GROD_BRUTEMOD
 	burnmod = GROD_BURNMOD
 	heatmod = GROD_HEATMOD
 	coldmod = GROD_COLDMOD
 	toxmod = GROD_TOXMOD
-	speedmod = GROD_SPEEDMOD
 	staminamod = GROD_STAMMOD
 	species_language_holder = /datum/language_holder/grod
 	offset_features = list(OFFSET_LEFT_HAND = list(-1,-4), OFFSET_RIGHT_HAND = list(2,-4))
 	changesource_flags = MIRROR_BADMIN | MIRROR_MAGIC | RACE_SWAP
-	allow_numbers_in_name = TRUE
 
-	var/stance = STANCE_MOBILE
-	var/datum/action/innate/grod/swap_stance/swap_stance
 	var/datum/action/innate/grod/crownspider/crownspider
 
 /datum/species/grod/random_name(gender, unique, lastname, attempts)
@@ -67,34 +59,16 @@
 	. = ..()
 	if(ishuman(C))
 		var/mob/living/carbon/human/H = C
-		H.update_hands_on_rotate()
-
-		if(!swap_stance)
-			swap_stance = new
-			swap_stance.Grant(C)
+		H.AddComponent(/datum/component/grod_pockets)
 		if(!crownspider)
 			crownspider = new
-			crownspider.Grant(C)
-
-		H.change_number_of_hands(4, /obj/item/bodypart/l_arm/grod_lower, /obj/item/bodypart/r_arm/grod_lower) //Add extra grod limbs
-		for(var/i in 3 to 4) //disable new limbs
-			if(H?.hand_bodyparts[i])
-				var/obj/item/bodypart/L = H?.hand_bodyparts[i]
-				L?.disabled = TRUE
-		H.update_hud_handcuffed()
+			crownspider.Grant(H)
 
 /datum/species/grod/on_species_loss(mob/living/carbon/human/H, datum/species/new_species, pref_load)
 	. = ..()
-	H.swap_hand(1)
-	if(swap_stance)
-		if(stance == STANCE_INTERACT)
-			swap_stance.Activate()
-		swap_stance.Remove(H)
-		QDEL_NULL(swap_stance)
 	if(crownspider)
 		crownspider.Remove(H)
 		QDEL_NULL(crownspider)
-	H.stop_updating_hands()
 
 /datum/species/grod/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H)
 	if(chem.type == /datum/reagent/toxin/pestkiller || chem.type == /datum/reagent/toxin/plantbgone)
@@ -102,83 +76,6 @@
 		H.reagents.remove_reagent(chem.type, chem.metabolization_rate)
 		return FALSE
 	return ..()
-
-/datum/action/innate/grod/swap_stance
-	name = "Swap Stance"
-	check_flags = AB_CHECK_CONSCIOUS
-	icon_icon = 'icons/mob/actions/actions_grod.dmi'
-	button_icon_state = "stanceswap"
-
-/datum/action/innate/grod/swap_stance/Activate()
-	if(!isgrod(owner))
-		return
-	var/mob/living/carbon/human/H = owner
-	if(H.get_item_by_slot(ITEM_SLOT_HANDCUFFED))
-		return
-
-	var/datum/species/grod/S = H.dna.species
-	S.stance = !S.stance
-
-	var/obj/item/G = H.gloves
-	if(G)
-		H.doUnEquip(H.gloves)
-	for(var/i in 1 to 4) //enable / disable extra hands
-		if(H.hand_bodyparts[i])
-			var/obj/item/bodypart/L = H.hand_bodyparts[i]
-			if(istype(L, /obj/item/bodypart/l_arm/grod_lower) || istype(L, /obj/item/bodypart/r_arm/grod_lower))
-				L?.disabled = !L.disabled
-	if(H.hand_bodyparts.len > 2 && H.hand_bodyparts[1]) //swap old & new hands LEFT
-		H.hand_bodyparts.Swap(1, 3)
-		//Unfortunately bodyparts work weird and we have to commit some tom foolerly
-		var/part_up
-		var/part_low
-		var/index = 1
-		for(var/obj/item/bodypart/i as() in H.bodyparts)
-			if(istype(i, /obj/item/bodypart/l_arm/grod_upper) && !part_up)
-				part_up=index
-			if(istype(i, /obj/item/bodypart/l_arm/grod_lower) && !part_low)
-				part_low=index
-			index+=1
-		if(part_up && part_low)
-			H.bodyparts.Swap(part_up, part_low)
-	if(H.hand_bodyparts.len > 3 && H.hand_bodyparts[2]) //swap old & new hands RIGHT
-		H.hand_bodyparts.Swap(2, 4)
-		var/part_up
-		var/part_low
-		var/index = 1
-		for(var/obj/item/bodypart/i as() in H.bodyparts)
-			if(istype(i, /obj/item/bodypart/r_arm/grod_upper) && !part_up)
-				part_up=index
-			if(istype(i, /obj/item/bodypart/r_arm/grod_lower) && !part_low)
-				part_low=index
-			index+=1
-		if(part_up && part_low)
-			H.bodyparts.Swap(part_up, part_low)
-	H.update_hud_handcuffed()
-	if(G)
-		H.equip_to_slot_if_possible(G, ITEM_SLOT_GLOVES) //Hacky? Yes. Works? Yes. Do I want to touch bodypart code? No.
-
-	var/datum/species/grod/grod_species = H.dna.species
-	switch(grod_species.stance)
-		if(STANCE_INTERACT)
-			H.dna.species.inherent_traits += TRAIT_NOBLOCK
-			H.dna.species.staminamod = GROD_STAMMOD + 0.3
-			H.add_movespeed_modifier(MOVESPEED_ID_GROD_INTERACT, update=TRUE, priority=100, multiplicative_slowdown=0.8) //Undocumented movespeed system. I tried.
-			H.nutrition -= 20
-			to_chat(H,"<span class ='warning'>You focus your energy into your additional hands.</span>")
-			to_chat(H,"<span class ='warning'>You feel weak and slow.</span>")
-		if(STANCE_MOBILE)
-			H.dna.species.inherent_traits -= TRAIT_NOBLOCK
-			H.dna.species.staminamod = GROD_STAMMOD
-			H.remove_movespeed_modifier(MOVESPEED_ID_GROD_INTERACT, TRUE)
-			H.nutrition -= 10
-			to_chat(H,"<span class ='warning'>You focus your energy back into your legs.</span>")
-			to_chat(H,"<span class ='warning'>The feeling dissipates.</span>")
-			if(H.held_items.len > 2)
-				H.dropItemToGround(H.held_items[3])
-			if(H.held_items.len > 3)
-				H.dropItemToGround(H.held_items[4])
-
 /datum/action/innate/grod/crownspider
 	name = "Detach Crown"
 	desc = "Detach your crown from your current body. This should only be done in dire circumstances!"
@@ -189,7 +86,6 @@
 	..()
 	if(!isgrod(owner))
 		return
-	RegisterSignal(owner, COMSIG_MOB_DEATH, .proc/on_death)
 
 /datum/action/innate/grod/crownspider/Activate()
 	if(!isgrod(owner)) //Stop trying to break shit
@@ -204,18 +100,6 @@
 	if(alert("Are you sure you wish to leave your current body, this will cause massive damage to your Crown!",,"Yes", "No") == "No")
 		return
 	do_leave_body()
-
-/datum/action/innate/grod/crownspider/proc/on_death()
-	if(!isgrod(owner)) //Stop trying to break shit
-		return
-	var/mob/living/carbon/human/H = owner
-	if(!istype(H.getorganslot(ORGAN_SLOT_BRAIN), /obj/item/organ/brain/grod))
-		to_chat(H, "<span class = 'warning'>You dont have a crown! Contact a coder!</span>")
-		return
-	if(alert("Do you wish to leave your current body, this will cause massive damage to your Crown!\nThis is your last chance to do so, before death.",,"Yes", "No") == "No")
-		return
-	do_leave_body()
-
 
 /datum/action/innate/grod/crownspider/proc/do_leave_body() //disconnect from body
 	var/mob/living/carbon/human/H = owner
@@ -239,27 +123,6 @@
 		crown.origin.active = 1
 		crown.origin.transfer_to(crown)
 		to_chat(crown, "<span class='warning'>Your consiousness returns to its Crown and you leave your body!</span>")
-
-/datum/species/grod/get_item_offsets_for_index(var/i) //a fall-back incase the mob loses its dir tracking somehow
-	switch(i)
-		if(3) //odd = left hands
-			return list("x" = -1, "y" = 5)
-		if(4) //even = right hands
-			return list("x" = 1, "y" = 5)
-		else
-			return
-
-/datum/species/grod/get_item_offsets_for_dir(var/dir, var/hand)
-	////BOTTOM LEFT | BOTTOM RIGHT | TOP LEFT | TOP RIGHT
-	switch(dir)
-		if(SOUTH)
-			return list(list("x" = -1, "y" = -4), list("x" = 2, "y" = -4), list("x" = -2, "y" = 1),list("x" = 3, "y" = 1))
-		if(NORTH)
-			return list(list("x" = 3, "y" = 0), list("x" = -2, "y" = 0), list("x" = 3, "y" = 5),list("x" = -2, "y" = 5))
-		if(EAST)
-			return list(list("x" = 4, "y" = -4), list("x" = 10, "y" = -3), list("x" = 6, "y" = 2),list("x" = 10, "y" = 1))
-		if(WEST)
-			return list(list("x" = -10, "y" = -3), list("x" = -4, "y" = -4), list("x" = -10, "y" = 1),list("x" = -6, "y" = 2))
 
 /datum/species/grod/get_custom_icons(part)
 	switch(part)
@@ -408,6 +271,27 @@
 			O = new /datum/outfit/grod/assistant
 	H.equipOutfit(O, visualsOnly)
 	return 0
+
+/datum/species/grod/get_item_offsets_for_index(var/i) //a fall-back incase the mob loses its dir tracking somehow
+	switch(i)
+		if(3) //odd = left hands
+			return list("x" = -1, "y" = 5)
+		if(4) //even = right hands
+			return list("x" = 1, "y" = 5)
+		else
+			return
+
+/datum/species/grod/get_item_offsets_for_dir(var/dir)
+	////BOTTOM LEFT | BOTTOM RIGHT | TOP LEFT | TOP RIGHT
+	switch(dir)
+		if(SOUTH)
+			return list(list("x" = -1, "y" = -4), list("x" = 2, "y" = -4), list("x" = -2, "y" = 1),list("x" = 3, "y" = 1))
+		if(NORTH)
+			return list(list("x" = 3, "y" = 0), list("x" = -2, "y" = 0), list("x" = 3, "y" = 5),list("x" = -2, "y" = 5))
+		if(EAST)
+			return list(list("x" = 4, "y" = -4), list("x" = 10, "y" = -3), list("x" = 6, "y" = 2),list("x" = 10, "y" = 1))
+		if(WEST)
+			return list(list("x" = -10, "y" = -3), list("x" = -4, "y" = -4), list("x" = -10, "y" = 1),list("x" = -6, "y" = 2))
 
 ///////Grod Crown////////
 /mob/living/simple_animal/hostile/crown_spider
