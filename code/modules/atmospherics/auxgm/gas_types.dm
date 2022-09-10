@@ -35,6 +35,7 @@
 		)
 	)
 	fusion_power = 3
+	enthalpy = -393500
 
 /datum/gas/plasma
 	id = GAS_PLASMA
@@ -44,6 +45,7 @@
 	moles_visible = MOLES_GAS_VISIBLE
 	flags = GAS_FLAG_DANGEROUS
 	// no fire info cause it has its own bespoke reaction for trit generation reasons
+	enthalpy = FIRE_PLASMA_ENERGY_RELEASED // 3000000, 3 megajoules, 3000 kj
 
 /datum/gas/water_vapor
 	id = GAS_H2O
@@ -53,6 +55,7 @@
 	moles_visible = MOLES_GAS_VISIBLE
 	fusion_power = 8
 	breath_reagent = /datum/reagent/water
+	enthalpy = -241800 // FIRE_HYDROGEN_ENERGY_RELEASED is actually what this was supposed to be
 
 /datum/gas/hypernoblium
 	id = GAS_HYPERNOB
@@ -71,6 +74,7 @@
 	fire_products = list(GAS_N2 = 1)
 	oxidation_rate = 0.5
 	oxidation_temperature = FIRE_MINIMUM_TEMPERATURE_TO_EXIST + 100
+	enthalpy = 81600
 
 /datum/gas/nitryl
 	id = GAS_NITRYL
@@ -82,6 +86,7 @@
 	fusion_power = 15
 	fire_products = list(GAS_N2 = 0.5)
 	oxidation_temperature = FIRE_MINIMUM_TEMPERATURE_TO_EXIST - 50
+	enthalpy = 33200
 
 /datum/gas/tritium
 	id = GAS_TRITIUM
@@ -95,7 +100,7 @@
 	these are for when we add hydrogen, trit gets to keep its hardcoded fire for legacy reasons
 	fire_provides = list(GAS_H2O = 2)
 	fire_burn_rate = 2
-	fire_energy_released = FIRE_HYDROGEN_ENERGY_RELEASED
+	enthalpy = FIRE_HYDROGEN_ENERGY_RELEASED
 	fire_temperature = FIRE_MINIMUM_TEMPERATURE_TO_EXIST - 50
 	*/
 
@@ -105,6 +110,7 @@
 	name = "BZ"
 	flags = GAS_FLAG_DANGEROUS
 	fusion_power = 8
+	enthalpy = FIRE_CARBON_ENERGY_RELEASED // it is a mystery
 
 /datum/gas/stimulum
 	id = GAS_STIMULUM
@@ -119,3 +125,4 @@
 	fusion_power = 10
 	oxidation_temperature = FIRE_MINIMUM_TEMPERATURE_TO_EXIST * 1000 // it is VERY stable
 	oxidation_rate = 8
+	enthalpy = -50000 // but it reduces the heat output a bit
