@@ -49,3 +49,14 @@
 			"head" = JOB_NAME_CHIEFENGINEER
 		)
 	)
+
+/datum/computer_file/program/card_req/ui_static_data(mob/user)
+	var/list/regions = list()
+	for(var/i in 1 to 7)
+		var/list/accesses = list()
+		for(var/access in get_region_accesses(i))
+			if (get_access_desc(access))
+				accesses += list(list(
+					"desc" = replacetext(get_access_desc(access), "&nbsp", " "),
+					"ref" = access,
+				))
