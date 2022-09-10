@@ -441,7 +441,7 @@
 		/datum/action/item_action/toggle_beacon_frequency
 	)
 
-/obj/item/clothing/suit/space/hardsuit/syndi/Initialize(mapload)
+/obj/item/clothing/suit/space/hardsuit/syndi/ComponentInitialize()
 	. = ..()
 	AddComponent(/datum/component/anti_artifact, INFINITY, FALSE, 100)
 
@@ -536,10 +536,6 @@
 	max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 
-/obj/item/clothing/suit/space/hardsuit/syndi/elite/Initialize(mapload)
-	. = ..()
-	AddComponent(/datum/component/anti_artifact, INFINITY, FALSE, 100)
-
 //The Owl Hardsuit
 /obj/item/clothing/head/helmet/space/hardsuit/syndi/owl
 	name = "owl hardsuit helmet"
@@ -589,7 +585,7 @@
 	jetpack = /obj/item/tank/jetpack/suit
 	slowdown = 0.3
 
-/obj/item/clothing/suit/space/hardsuit/wizard/Initialize(mapload)
+/obj/item/clothing/suit/space/hardsuit/wizard/ComponentInitialize()
 	. = ..()
 	AddComponent(/datum/component/anti_artifact, INFINITY, FALSE, 100)
 	AddComponent(/datum/component/anti_magic, TRUE, FALSE, INFINITY, FALSE)
@@ -668,7 +664,7 @@
 	armor = list("melee" = 30, "bullet" = 5, "laser" = 10, "energy" = 15, "bomb" = 100, "bio" = 100, "rad" = 60, "fire" = 60, "acid" = 80, "stamina" = 30)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/rd
 
-/obj/item/clothing/suit/space/hardsuit/research_director/Initialize(mapload)
+/obj/item/clothing/suit/space/hardsuit/research_director/ComponentInitialize()
 	. = ..()
 	AddComponent(/datum/component/anti_artifact, INFINITY, FALSE, 100)
 
@@ -911,7 +907,7 @@
 	)
 	jetpack = /obj/item/tank/jetpack/suit
  
-/obj/item/clothing/suit/space/hardsuit/shielded/syndi/Initialize(mapload)
+/obj/item/clothing/suit/space/hardsuit/shielded/syndi/ComponentInitialize()
 	. = ..()
 	AddComponent(/datum/component/anti_artifact, INFINITY, FALSE, 100)
 

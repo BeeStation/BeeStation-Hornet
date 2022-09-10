@@ -6,11 +6,11 @@
 	desc = "Hollow"
 	label_desc = "Hollow: The shape is hollow, however the inside is deceptively large."
 	flags = BLUESPACE_TRAIT | PLASMA_TRAIT | URANIUM_TRAIT
-	var/fren = FALSE
+	var/spawn_russian = FALSE
 
 /datum/xenoartifact_trait/major/capture/on_init(obj/item/xenoartifact/X)
-	if(prob(1)) 
-		fren = TRUE
+	if(prob(1))
+		spawn_russian = TRUE
 
 /datum/xenoartifact_trait/major/capture/activate(obj/item/xenoartifact/X, atom/target)
 	if(isliving(X.loc))
@@ -34,10 +34,10 @@
 	var/turf/T = get_turf(X.loc)
 	AM.anchored = FALSE
 	AM.forceMove(T)
-	if(fren)
+	if(spawn_russian)
 		new /mob/living/simple_animal/hostile/russian(T)
 		log_game("[X] spawned (/mob/living/simple_animal/hostile/russian) at [world.time]. [X] located at [X.x] [X.y] [X.z]")
-		fren = FALSE
+		spawn_russian = FALSE
 
 ///============
 /// Shock, the artifact electrocutes the target
