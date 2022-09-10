@@ -3297,6 +3297,7 @@
 #include "code\modules\spells\spell_types\hivemind.dm"
 #include "code\modules\spells\spell_types\infinite_guns.dm"
 #include "code\modules\spells\spell_types\knock.dm"
+#include "code\modules\spells\spell_types\lesserlichdom.dm"
 #include "code\modules\spells\spell_types\lichdom.dm"
 #include "code\modules\spells\spell_types\lightning.dm"
 #include "code\modules\spells\spell_types\mime.dm"
