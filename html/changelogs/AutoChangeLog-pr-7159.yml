@@ -1,0 +1,4 @@
+author: 13spacemen
+delete-after: true
+changes:
+  - rscadd: The BYOND hub entry shows time and alert now
