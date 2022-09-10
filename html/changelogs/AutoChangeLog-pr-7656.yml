@@ -1,0 +1,5 @@
+author: LemonLimeSoda
+delete-after: true
+changes:
+  - balance: slimepeople (including oozelings, jellypeople, etc) are no longer immune
+      to/heal from zombie tumors
