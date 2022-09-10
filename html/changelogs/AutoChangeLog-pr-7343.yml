@@ -1,0 +1,10 @@
+author: ro5490
+delete-after: true
+changes:
+  - rscadd: Necro Summoned Undead are now able to cast a smoke spell, just like the
+      chaplain himself!
+  - tweak: Necro Sect rites are now faster to perform and cost a bit less.
+  - tweak: Necro Sect gains favor a little easier
+  - bugfix: No more favor loss if the Neco Sect's Summon Undead rite fails.
+  - rscadd: Necro Sect now has a Create Lesser Lich rite which grants the new lesser
+      lichdom spell
