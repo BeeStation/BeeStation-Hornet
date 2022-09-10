@@ -115,6 +115,23 @@
 		icon_state = initial(icon_state)
 	else
 		icon_state = "intercom-p"
+	cut_overlays()
+	if(listening)
+		add_overlay("intercom-mic")
+	if(broadcasting)
+		add_overlay("intercom-bc")
+
+/obj/item/radio/intercom/ui_act(action, params, datum/tgui/ui)
+	. = ..()
+	update_icon()
+
+/obj/item/radio/intercom/AltClick(mob/user)
+	. = ..()
+	update_icon()
+
+/obj/item/radio/intercom/CtrlShiftClick(mob/user)
+	. = ..()
+	update_icon()
 
 /**
  * Proc called whenever the intercom's area loses or gains power. Responsible for setting the `on` variable and calling `update_icon()`.
