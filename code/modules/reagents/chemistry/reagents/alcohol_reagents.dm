@@ -259,24 +259,6 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	M.radiation = max(M.radiation-2,0)
 	return ..()
 
-/datum/reagent/consumable/ethanol/bilk
-	name = "Bilk"
-	description = "This appears to be beer mixed with milk. Disgusting."
-	color = "#895C4C" // rgb: 137, 92, 76
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
-	nutriment_factor = 2 * REAGENTS_METABOLISM
-	boozepwr = 15
-	taste_description = "desperation and lactate"
-	glass_icon_state = "glass_brown"
-	glass_name = "glass of bilk"
-	glass_desc = "A brew of milk and beer. For those alcoholics who fear osteoporosis."
-
-/datum/reagent/consumable/ethanol/bilk/on_mob_life(mob/living/carbon/M)
-	if(M.getBruteLoss() && prob(10))
-		M.heal_bodypart_damage(1)
-		. = 1
-	return ..() || .
-
 /datum/reagent/consumable/ethanol/threemileisland
 	name = "Three Mile Island Iced Tea"
 	description = "Made for a woman, but strong enough for a man."

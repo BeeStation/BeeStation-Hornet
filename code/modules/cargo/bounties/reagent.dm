@@ -45,7 +45,6 @@
 		/datum/reagent/consumable/ethanol/bananahonk,\
 		/datum/reagent/consumable/ethanol/beepsky_smash,\
 		/datum/reagent/consumable/ethanol/between_the_sheets,\
-		/datum/reagent/consumable/ethanol/bilk,\
 		/datum/reagent/consumable/ethanol/black_russian,\
 		/datum/reagent/consumable/ethanol/bloody_mary,\
 		/datum/reagent/consumable/ethanol/brave_bull,\
