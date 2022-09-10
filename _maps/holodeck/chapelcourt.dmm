@@ -90,7 +90,7 @@
 /turf/open/floor/holofloor/dark,
 /area/template_noop)
 "m" = (
-/obj/item/clothing/head/chaplain/witchunter_hat,
+/obj/item/clothing/head/helmet/chaplain/witchunter_hat,
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
