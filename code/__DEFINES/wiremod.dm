@@ -125,9 +125,9 @@
 #define COMP_TEXT_LOWER "To Lower"
 #define COMP_TEXT_UPPER "To Upper"
 
-// Typecheck component
-#define COMP_TYPECHECK_MOB "organism"
-#define COMP_TYPECHECK_HUMAN "humanoid"
+// Typecast component
+#define COMP_TYPECAST_MOB "organism"
+#define COMP_TYPECAST_HUMAN "humanoid"
 
 // Clock component
 #define COMP_CLOCK_DELAY 0.9 SECONDS
