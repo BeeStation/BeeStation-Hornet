@@ -10,6 +10,7 @@
 	integrity_failure = 100
 	flags_ricochet = RICOCHET_SHINY
 	layer = ABOVE_WINDOW_LAYER
+	var/magical = FALSE
 
 /obj/structure/mirror/Initialize(mapload)
 	. = ..()
@@ -23,7 +24,7 @@
 	if(broken || !Adjacent(user))
 		return
 
-	if(ishuman(user))
+	if(ishuman(user) && !magical)
 		var/mob/living/carbon/human/H = user
 
 		//see code/modules/mob/dead/new_player/preferences.dm at approx line 545 for comments!
@@ -94,12 +95,12 @@
 		if(BURN)
 			playsound(src, 'sound/effects/hit_on_shattered_glass.ogg', 70, 1)
 
-
 /obj/structure/mirror/magic
 	name = "magic mirror"
 	desc = "Turn and face the strange... face."
 	icon_state = "magic_mirror"
 	var/list/choosable_races = list()
+	magical = TRUE
 
 /obj/structure/mirror/magic/Initialize(mapload)
 	. = ..()
