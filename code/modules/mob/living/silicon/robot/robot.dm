@@ -274,6 +274,7 @@
 		return
 
 	module.transform_to(modulelist[input_module])
+	radio.recalculateChannels()  // gets module's channels
 
 
 /mob/living/silicon/robot/proc/updatename(client/C)

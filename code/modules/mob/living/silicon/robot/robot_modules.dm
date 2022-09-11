@@ -37,6 +37,8 @@
 	var/allow_riding = TRUE
 	var/canDispose = FALSE // Whether the borg can stuff itself into disposal
 
+	var/list/radio_channels = list() // what key is applied on moduling
+
 /obj/item/robot_module/Initialize(mapload)
 	. = ..()
 	for(var/i in basic_modules)
@@ -290,6 +292,8 @@
 	moduleselect_icon = "standard"
 	hat_offset = -3
 
+	radio_channels = (RADIO_CHANNEL_AI_PRIVATE)
+
 /obj/item/robot_module/medical
 	name = "Medical"
 	basic_modules = list(
@@ -324,6 +328,7 @@
 	moduleselect_icon = "medical"
 	can_be_pushed = FALSE
 	hat_offset = 3
+	radio_channels = list(RADIO_CHANNEL_MEDICAL)
 
 /obj/item/robot_module/engineering
 	name = "Engineering"
@@ -367,6 +372,8 @@
 	magpulsing = TRUE
 	hat_offset = -4
 
+	radio_channels = list(RADIO_CHANNEL_ENGINEERING)
+
 /obj/item/robot_module/deathsquad
 	name = "CentCom"
 	basic_modules = list(
@@ -385,6 +392,8 @@
 	moduleselect_icon = "malf"
 	can_be_pushed = FALSE
 	hat_offset = 3
+
+	radio_channels = list(RADIO_CHANNEL_CENTCOM, RADIO_CHANNEL_COMMAND)
 
 
 /obj/item/robot_module/security
@@ -407,6 +416,8 @@
 	moduleselect_icon = "security"
 	can_be_pushed = FALSE
 	hat_offset = 3
+
+	radio_channels = list(RADIO_CHANNEL_SECURITY, RADIO_CHANNEL_COMMAND)
 
 /obj/item/robot_module/security/do_transform_animation()
 	..()
@@ -448,6 +459,8 @@
 	can_be_pushed = FALSE
 	hat_offset = -2
 
+	radio_channels = list(RADIO_CHANNEL_MEDICAL, RADIO_CHANNEL_SECURITY)  // they know the locations of bad people
+
 /obj/item/robot_module/peacekeeper/do_transform_animation()
 	..()
 	to_chat(loc, "<span class='userdanger'>Under ASIMOV, you are an enforcer of the PEACE and preventer of HUMAN HARM. \
@@ -485,6 +498,8 @@
 	moduleselect_icon = "janitor"
 	hat_offset = -5
 	clean_on_move = TRUE
+
+	radio_channels = list(RADIO_CHANNEL_SERVICE)
 
 /obj/item/robot_module/janitor/respawn_consumable(mob/living/silicon/robot/R, coeff = 1)
 	..()
@@ -525,6 +540,8 @@
 	cyborg_base_icon = "clown"
 	hat_offset = -2
 
+	radio_channels = list(RADIO_CHANNEL_SERVICE)  // obligatory clown radio
+
 /obj/item/robot_module/butler
 	name = "Service"
 	basic_modules = list(
@@ -555,6 +572,8 @@
 	cyborg_base_icon = "service_m" // display as butlerborg for radial model selection
 	special_light_key = "service"
 	hat_offset = 0
+
+	radio_channels = list(RADIO_CHANNEL_SERVICE)
 
 /obj/item/robot_module/butler/respawn_consumable(mob/living/silicon/robot/R, coeff = 1)
 	..()
@@ -600,6 +619,8 @@
 	cyborg_base_icon = "borgi"
 	moduleselect_icon = "standard"
 
+	radio_channels = list(RADIO_CHANNEL_COMMAND)  // to be kidnapped by the HoP
+
 /obj/item/robot_module/miner
 	name = "Miner"
 	basic_modules = list(
@@ -626,6 +647,8 @@
 	moduleselect_icon = "miner"
 	hat_offset = 0
 	var/obj/item/t_scanner/adv_mining_scanner/cyborg/mining_scanner //built in memes.
+
+	radio_channels = list(RADIO_CHANNEL_SCIENCE, RADIO_CHANNEL_SUPPLY, RADIO_CHANNEL_EXPLORATION)
 
 /obj/item/robot_module/miner/be_transformed_to(obj/item/robot_module/old_module)
 	var/mob/living/silicon/robot/cyborg = loc
@@ -673,6 +696,8 @@
 	can_be_pushed = FALSE
 	hat_offset = 3
 
+	radio_channels = list(RADIO_CHANNEL_SYNDICATE)
+
 /obj/item/robot_module/syndicate/rebuild_modules()
 	..()
 	var/mob/living/silicon/robot/Syndi = loc
@@ -711,6 +736,8 @@
 	can_be_pushed = FALSE
 	hat_offset = 3
 
+	radio_channels = list(RADIO_CHANNEL_SYNDICATE, RADIO_CHANNEL_MEDICAL)
+
 /obj/item/robot_module/saboteur
 	name = "Syndicate Saboteur"
 	basic_modules = list(
@@ -744,6 +771,8 @@
 	magpulsing = TRUE
 	hat_offset = -4
 	canDispose = TRUE
+
+	radio_channels = list(RADIO_CHANNEL_SYNDICATE, RADIO_CHANNEL_ENGINEERING)
 
 /datum/robot_energy_storage
 	var/name = "Generic energy storage"

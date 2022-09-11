@@ -409,6 +409,14 @@
 /obj/item/radio/borg/Initialize(mapload)
 	. = ..()
 
+/obj/item/radio/borg/recalculateChannels()
+	. = ..()
+	var/mob/living/silicon/robot/R = loc
+	if(istype(loc))
+		for(var/channel in R.module.radio_channels)
+			channels[channel] = 1
+
+
 /obj/item/radio/borg/syndicate
 	syndie = 1
 	keyslot = new /obj/item/encryptionkey/syndicate
