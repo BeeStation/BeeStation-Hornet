@@ -110,7 +110,7 @@
 		return FALSE
 	if(istype(A, /obj))
 		O = A
-	if(istype(A, /mob/living/carbon))
+	if(iscarbon(A))
 		var/mob/living/carbon/human_target = A
 		if(HAS_TRAIT(human_target, TRAIT_POWERHUNGRY))
 			battery = human_target.getorganslot(ORGAN_SLOT_STOMACH)
