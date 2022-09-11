@@ -36,6 +36,7 @@
 	var/icon_state
 	var/color
 	var/list/radial_icon
+	var/sound
 	var/volume
 
 /datum/mrat_type/New(type_name, type_icon, type_icon_state, type_sound, type_color = null, type_volume = 100)
