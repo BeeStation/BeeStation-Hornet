@@ -176,17 +176,6 @@
 	diag_hud_set_borgcell()
 	logevent("System brought online.")
 
-/mob/living/silicon/robot/proc/create_modularInterface()
-	if(!modularInterface)
-		modularInterface = new /obj/item/modular_computer/tablet/integrated(src)
-	modularInterface.layer = ABOVE_HUD_PLANE
-	modularInterface.plane = ABOVE_HUD_PLANE
-
-/mob/living/silicon/robot/modules/syndicate/create_modularInterface()
-	if(!modularInterface)
-		modularInterface = new /obj/item/modular_computer/tablet/integrated/syndicate(src)
-	return ..()
-
 /**
  * Sets the tablet theme and icon
  *
@@ -200,7 +189,7 @@
 		modularInterface.icon_state_powered = "tablet-silicon-syndicate"
 		modularInterface.icon_state_unpowered = "tablet-silicon-syndicate"
 	else
-		modularInterface.device_theme = "ntos"
+		modularInterface.device_theme = THEME_NTOS_DEFAULT
 		modularInterface.icon_state = "tablet-silicon"
 		modularInterface.icon_state_powered = "tablet-silicon"
 		modularInterface.icon_state_unpowered = "tablet-silicon"
@@ -944,6 +933,12 @@
 
 /mob/living/silicon/robot/modules/syndicate/ResetModule()
 	return
+
+
+/mob/living/silicon/robot/modules/syndicate/create_modularInterface()
+	if(!modularInterface)
+		modularInterface = new /obj/item/modular_computer/tablet/integrated/syndicate(src)
+	return ..()
 
 /mob/living/silicon/robot/modules/syndicate/medical
 	icon_state = "synd_medical"
