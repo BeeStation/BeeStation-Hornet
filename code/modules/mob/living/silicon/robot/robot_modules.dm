@@ -292,7 +292,7 @@
 	moduleselect_icon = "standard"
 	hat_offset = -3
 
-	radio_channels = (RADIO_CHANNEL_AI_PRIVATE)
+	radio_channels = list(RADIO_CHANNEL_AI_PRIVATE)
 
 /obj/item/robot_module/medical
 	name = "Medical"
