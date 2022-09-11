@@ -22,6 +22,7 @@
 		var/mob/camera/imaginary_friend/mrat/I = friend
 		I.PickName()
 		I.Costume()
+		I.add_kick_action()
 
 		friend_initialized = TRUE
 		to_chat(owner, "<span class='notice'>You have acquired the mentor rat [friend.key], ask them any question you like. They will leave your presence when they are done.</span>")
@@ -53,6 +54,7 @@
 
 	var/datum/action/innate/mrat_costume/costume
 	var/datum/action/innate/mrat_leave/leave
+	var/datum/action/innate/mrat_kick/kick
 	var/static/list/icons_available = null
 	var/datum/mrat_type/current_costume = null
 	var/static/list/mrat_types = list(
@@ -118,11 +120,18 @@
 	costume.Grant(src)
 	leave = new
 	leave.Grant(src)
+
 	grant_all_languages()
 
+/mob/camera/imaginary_friend/mrat/proc/add_kick_action()
+	kick = new
+	kick.friend = src
+	kick.Grant(trauma.owner)
+
 /mob/camera/imaginary_friend/mrat/Destroy()
-	qdel(costume)
-	qdel(leave)
+	QDEL_NULL(costume)
+	QDEL_NULL(leave)
+	QDEL_NULL(kick)
 	return ..()
 
 /mob/camera/imaginary_friend/mrat/setup_friend()
@@ -137,6 +146,8 @@
 
 /datum/action/innate/mrat_costume/Activate()
 	var/mob/camera/imaginary_friend/mrat/I = owner
+	if(!istype(I))
+		qdel(src)
 	I.Costume()
 
 /datum/action/innate/mrat_leave
@@ -147,9 +158,32 @@
 	button_icon_state = "beam_up"
 
 /datum/action/innate/mrat_leave/Activate()
-	var/mob/camera/imaginary_friend/I = owner
-	if(alert(I, "Are you sure you want to leave?", "Leave:", "Yes", "No") != "Yes")
+	var/mob/camera/imaginary_friend/friend = owner
+	if(!istype(friend))
+		qdel(src)
+	if(alert(friend, "Are you sure you want to leave?", "Leave:", "Yes", "No") != "Yes")
 		return
-	to_chat(I, "<span class='warning'>You have ejected yourself from [I.owner].</span>")
-	to_chat(I.owner, "<span class='warning'>Your mentor has left.</span>")
-	qdel(I.trauma)
+	to_chat(friend, "<span class='warning'>You have ejected yourself from [friend.owner].</span>")
+	to_chat(friend.owner, "<span class='warning'>Your mentor has left.</span>")
+	qdel(friend.trauma)
+
+/datum/action/innate/mrat_kick
+	name = "Remove Mentor"
+	desc = "Removes your mentor."
+	icon_icon = 'icons/mob/actions/actions_minor_antag.dmi'
+	background_icon_state = "bg_revenant"
+	button_icon_state = "beam_up"
+	var/mob/camera/imaginary_friend/mrat/friend
+
+/datum/action/innate/mrat_kick/Destroy()
+	. = ..()
+	friend = null
+
+/datum/action/innate/mrat_kick/Activate()
+	if(!istype(friend))
+		qdel(src)
+	if(!istype(friend) || alert(friend, "Are you sure you want to remove your mentor?", "Remove:", "Yes", "No") != "Yes")
+		return
+	to_chat(friend, "<span class='warning'>You have been removed from [friend.owner].</span>")
+	to_chat(friend.owner, "<span class='warning'>Your mentor has been removed.</span>")
+	qdel(friend.trauma)
