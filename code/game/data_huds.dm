@@ -184,10 +184,6 @@
 	else
 		stack_trace("[src] does not have a HEALTH_HUD but updates it!")
 
-/mob/living/carbon/ghostize(can_reenter_corpse, sentience_retention)
-	. = ..()
-	med_hud_set_status()
-
 /mob/living/carbon/Logout()
 	..()
 	med_hud_set_status()
