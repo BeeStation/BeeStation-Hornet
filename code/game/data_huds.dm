@@ -184,6 +184,14 @@
 	else
 		stack_trace("[src] does not have a HEALTH_HUD but updates it!")
 
+/mob/living/carbon/ghostize(can_reenter_corpse, sentience_retention)
+	. = ..()
+	med_hud_set_status()
+
+/mob/living/carbon/Logout()
+	..()
+	med_hud_set_status()
+
 /mob/living/carbon/med_hud_set_status()
 	var/image/holder = hud_list[STATUS_HUD]
 	if(holder)
@@ -193,11 +201,20 @@
 		if(HAS_TRAIT(src, TRAIT_XENO_HOST))
 			holder.icon_state = "hudxeno"
 		else if(stat == DEAD)
+			if(!getorgan(/obj/item/organ/brain) || soul_departed() || ishellbound())
+				holder.icon_state = "huddead-permanent"
+				return
 			if(tod)
 				var/tdelta = round(world.time - timeofdeath)
 				if(tdelta < (DEFIB_TIME_LIMIT * 10))
+					if(!client && key)
+						holder.icon_state = "huddefib-ssd"
+						return
 					holder.icon_state = "huddefib"
 					return
+			if(!client && key)
+				holder.icon_state = "huddead-ssd"
+				return
 			holder.icon_state = "huddead"
 		else if(HAS_TRAIT(src, TRAIT_FAKEDEATH))
 			holder.icon_state = "huddefib"
