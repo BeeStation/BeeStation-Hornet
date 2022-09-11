@@ -99,11 +99,6 @@
 	hide = new
 	hide.Grant(src)
 
-/mob/camera/imaginary_friend/Destroy()
-	qdel(join)
-	qdel(hide)
-	return ..()
-
 /mob/camera/imaginary_friend/proc/setup_friend()
 	var/gender = pick(MALE, FEMALE)
 	real_name = owner.dna.species.random_name(gender)
@@ -195,13 +190,6 @@
 	if(!owner || loc == owner)
 		return FALSE
 	abstract_move(owner)
-
-/mob/camera/imaginary_friend/pointed(atom/A as mob|obj|turf in view())
-	if(!..())
-		return FALSE
-	to_chat(owner, "<b>[src]</b> points at [A].")
-	to_chat(src, "<span class='notice'>You point at [A].</span>")
-	return TRUE
 
 /datum/action/innate/imaginary_join
 	name = "Join"
