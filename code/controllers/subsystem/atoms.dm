@@ -51,7 +51,9 @@ SUBSYSTEM_DEF(atoms)
 	CreateAtoms(atoms, atoms_to_return)
 	clear_tracked_initalize()
 
-	var/len = late_loaders.len
+	#ifdef TESTING
+	var/late_loader_len = late_loaders.len
+	#endif
 	if(late_loaders.len)
 		for(var/atom/A as() in late_loaders)
 			//I hate that we need this
@@ -59,7 +61,7 @@ SUBSYSTEM_DEF(atoms)
 				continue
 			late_loaders -= A //We don't want to call LateInitialize twice in case of stoplag()
 			A.LateInitialize()
-		testing("Late initialized [len] atoms")
+		testing("Late initialized [late_loader_len] atoms")
 		late_loaders.Cut()
 
 	if(created_atoms)
