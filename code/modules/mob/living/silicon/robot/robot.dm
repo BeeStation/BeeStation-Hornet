@@ -184,12 +184,12 @@
  */
 /mob/living/silicon/robot/proc/set_modularInterface_theme()
 	if(istype(module, /obj/item/robot_module/syndicate) || emagged)
-		modularInterface.device_theme = "syndicate"
+		modularInterface.device_theme = THEME_SYNDICATE
 		modularInterface.icon_state = "tablet-silicon-syndicate"
 		modularInterface.icon_state_powered = "tablet-silicon-syndicate"
 		modularInterface.icon_state_unpowered = "tablet-silicon-syndicate"
 	else
-		modularInterface.device_theme = THEME_NTOS_DEFAULT
+		modularInterface.device_theme = THEME_NTOS
 		modularInterface.icon_state = "tablet-silicon"
 		modularInterface.icon_state_powered = "tablet-silicon"
 		modularInterface.icon_state_unpowered = "tablet-silicon"
