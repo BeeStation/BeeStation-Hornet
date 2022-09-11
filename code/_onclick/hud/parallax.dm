@@ -175,8 +175,8 @@
 	for(var/atom/movable/screen/parallax_layer/L as() in C.parallax_layers)
 		if (L.view_sized != C.view)
 			L.update_o(C.view)
+		L.update_status(mymob)
 		if(!C.frozen_parallax)
-			L.update_status(mymob)
 			L.screen_loc = "CENTER-7:0,CENTER-7:0"
 			C.frozen_parallax = TRUE
 

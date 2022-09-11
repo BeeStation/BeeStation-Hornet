@@ -86,12 +86,12 @@ SUBSYSTEM_DEF(parallax)
 	var/parallax_update_queued = FALSE
 	var/last_parallax_update_tick
 
-/datum/controller/subsystem/parallax/proc/update_client_parallax(client/updater)
+/datum/controller/subsystem/parallax/proc/update_client_parallax(client/updater, force = FALSE)
 	//Already queued for update
 	if(!updater || updater?.parallax_update_queued)
 		return
 	//If we haven't updated yet, instantly update
-	if (updater?.last_parallax_update_tick < times_fired)
+	if (updater?.last_parallax_update_tick < times_fired || force)
 		if ((throttle_ghosts && isobserver(updater.mob)) || (throttle_all))
 			updater?.mob?.hud_used?.freeze_parallax()
 		else
