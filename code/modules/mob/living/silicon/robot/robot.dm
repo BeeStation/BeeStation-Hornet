@@ -1120,6 +1120,8 @@
 	ionpulse = FALSE
 	revert_shell()
 
+	radio.recalculateChannels()  // you have lost radio perms
+
 	return 1
 
 /mob/living/silicon/robot/proc/has_module()
