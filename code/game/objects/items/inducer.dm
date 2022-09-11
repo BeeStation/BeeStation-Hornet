@@ -129,7 +129,7 @@
 			if(do_after(user, 10, target = user) && cell.charge)
 				done_any = TRUE
 				if(battery)
-					battery.adjust_charge_scaled(10)  // pure guesstimate of a good recharge amt
+					battery.adjust_charge(min(cell.charge,250))
 				else
 					induce(C, coefficient)
 				do_sparks(1, FALSE, A)
