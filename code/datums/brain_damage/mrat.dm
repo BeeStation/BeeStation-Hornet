@@ -35,7 +35,6 @@
 	var/icon
 	var/icon_state
 	var/color
-	var/sound
 	var/list/radial_icon
 	var/volume
 
@@ -65,9 +64,9 @@
 		new /datum/mrat_type("Crab", 'icons/mob/animal.dmi', "crab", "sound/machines/uplinkpurchase.ogg"),
 		new /datum/mrat_type("Slime Puppy", 'icons/mob/pets.dmi', "slime_puppy", "sound/machines/uplinkpurchase.ogg"),
 		new /datum/mrat_type("Chick", 'icons/mob/animal.dmi', "chick", "sound/effects/mousesqueek.ogg"),
-		new /datum/mrat_type("Mothroach", 'icons/mob/animal.dmi', "mothroach", "sound/voice/moth/scream_moth.ogg", type_volume=50),
-		new /datum/mrat_type("Bee", 'icons/mob/animal.dmi', "bee_big", "sound/voice/moth/scream_moth.ogg", type_volume=50),
-		new /datum/mrat_type("Butterfly", 'icons/mob/animal.dmi', "butterfly", "sound/voice/moth/scream_moth.ogg", type_color="#1ABC9C", type_volume=50),
+		new /datum/mrat_type("Mothroach", 'icons/mob/animal.dmi', "mothroach", "sound/voice/moth/scream_moth.ogg", type_volume=25),
+		new /datum/mrat_type("Bee", 'icons/mob/animal.dmi', "bee_big", "sound/voice/moth/scream_moth.ogg", type_volume=25),
+		new /datum/mrat_type("Butterfly", 'icons/mob/animal.dmi', "butterfly", "sound/voice/moth/scream_moth.ogg", type_color="#1ABC9C", type_volume=25),
 		new /datum/mrat_type("Hologram", 'icons/mob/ai.dmi', "default", "sound/machines/ping.ogg", type_volume=50),
 		new /datum/mrat_type("Spaceman", 'icons/mob/animal.dmi', "old", "sound/machines/buzz-sigh.ogg", type_volume=50)
 	)
@@ -106,7 +105,7 @@
 	if(!current_costume || !istype(current_costume))
 		return
 	SEND_SOUND(owner, sound(current_costume.sound, volume=current_costume.volume))
-	SEND_SOUND(src, sound(current_costume.sound, volume=current_costume.volume))
+	SEND_SOUND(src, sound(current_costume.sound, volume=(current_costume.volume / 2)))
 
 /mob/camera/imaginary_friend/mrat/greet()
 	to_chat(src, "<span class='notice'><b>You are the mentor rat of [owner]!</b></span>")
