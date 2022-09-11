@@ -34,7 +34,7 @@
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
 	response_harm   = "hits"
-	language_holder = /datum/language_holder/spider
+	initial_language_holder = /datum/language_holder/spider
 	maxHealth = 80
 	health = 80
 	obj_damage = 30
@@ -262,7 +262,7 @@
 	busy = SPIDER_IDLE
 	stop_automated_movement = FALSE
 
-//midwives are the queen of the spiders, can send messages to all them and web faster. That rare round where you get a queen spider and turn your 'for honor' players into 'r6siege' players will be a fun one.
+//midwives are the queen of the spiders, can send messages to all them and web faster.
 /mob/living/simple_animal/hostile/poison/giant_spider/nurse/midwife
 	name = "midwife"
 	desc = "Furry and black, it makes you shudder to look at it. This one has scintillating green eyes."
@@ -469,7 +469,7 @@
 		if(!istype(owner, /mob/living/simple_animal/hostile/poison/giant_spider/nurse))
 			return FALSE
 		var/mob/living/simple_animal/hostile/poison/giant_spider/nurse/S = owner
-		if(S.fed && (S.directive || !S.ckey))
+		if((S.fed || S.enriched_fed) && (S.directive || !S.ckey))
 			return TRUE
 		return FALSE
 
@@ -481,7 +481,7 @@
 	var/obj/structure/spider/eggcluster/cluster = locate() in get_turf(spider)
 	if(cluster)
 		to_chat(spider, "<span class='warning'>There is already a cluster of eggs here!</span>")
-	else if(!spider.fed)
+	else if(!(spider.fed || spider.enriched_fed))
 		to_chat(spider, "<span class='warning'>You are too hungry to do this!</span>")
 	else if(!spider.directive && spider.ckey)
 		to_chat(spider, "<span class='warning'>You need to set a directive to do this!</span>")
@@ -494,15 +494,16 @@
 				cluster = locate() in get_turf(spider)
 				if(!cluster || !isturf(spider.loc))
 					var/obj/structure/spider/eggcluster/new_cluster = new /obj/structure/spider/eggcluster(get_turf(spider))
-					if(spider.enriched_fed)
+					if(spider.enriched_fed) // Add a special spider if the spider that made us ate a person instead of just a monkey
 						new_cluster.enriched_spawns++
 						new_cluster.spawns_remaining--
 						spider.enriched_fed--
+					else
+						spider.fed--
 					new_cluster.directive = spider.directive
 					new_cluster.poison_type = spider.poison_type
 					new_cluster.poison_per_bite = spider.poison_per_bite
 					new_cluster.faction = spider.faction.Copy()
-					spider.fed--
 					UpdateButtonIcon(TRUE)
 		spider.busy = SPIDER_IDLE
 		spider.stop_automated_movement = FALSE

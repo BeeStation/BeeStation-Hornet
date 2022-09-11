@@ -694,21 +694,38 @@
 //                                          //
 //////////////////////////////////////////////
 
-/datum/dynamic_ruleset/midround/spiders
+/datum/dynamic_ruleset/midround/from_ghosts/spiders
 	name = "Spiders"
 	antag_flag = "Spider"
 	antag_flag_override = ROLE_ALIEN
 	midround_ruleset_style = MIDROUND_RULESET_STYLE_HEAVY
 	required_type = /mob/dead/observer
 	enemy_roles = list("Security Officer", "Detective", "Head of Security", "Captain")
-	required_enemies = list(2,2,1,1,1,1,1,0,0,0)
-	required_candidates = 0
-	weight = 3
+	required_enemies = list(2,2,1,1,1,0,0,0,0,0)
+	required_candidates = 2
+	weight = 5
 	cost = 10
 	requirements = list(101,101,101,80,60,50,30,20,10,10)
 	repeatable = TRUE
-	var/spawncount = 2
 
-/datum/dynamic_ruleset/midround/spiders/execute()
-	create_midwife_eggs(spawncount)
-	return ..()
+/datum/dynamic_ruleset/midround/from_ghosts/spiders/execute()
+	for(var/obj/machinery/atmospherics/components/unary/vent_pump/temp_vent in GLOB.machines)
+		if(QDELETED(temp_vent))
+			continue
+		if(is_station_level(temp_vent.loc.z) && !temp_vent.welded)
+			var/datum/pipeline/temp_vent_parent = temp_vent.parents[1]
+			if(!temp_vent_parent)
+				continue // No parent vent
+			if(temp_vent_parent.other_atmosmch.len > 20)
+				vents += temp_vent // Makes sure the pipeline is large enough
+	if(!vents.len)
+		return FALSE
+	. = ..()
+
+/datum/dynamic_ruleset/midround/from_ghosts/spiders/generate_ruleset_body(mob/applicant)
+	var/obj/vent = pick_n_take(vents)
+	var/mob/living/simple_animal/hostile/poison/giant_spider/nurse/midwife/spider = new(vent.loc)
+	spider.key = applicant.key
+	message_admins("[ADMIN_LOOKUPFLW(spider)] has been made into a spider by the midround ruleset.")
+	log_game("DYNAMIC: [key_name(spider)] was spawned as a spider by the midround ruleset.")
+	return new_xeno

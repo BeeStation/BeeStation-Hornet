@@ -66,7 +66,7 @@
 	var/list/mob/living/potential_spawns = list(/mob/living/simple_animal/hostile/poison/giant_spider,
 								/mob/living/simple_animal/hostile/poison/giant_spider/hunter,
 								/mob/living/simple_animal/hostile/poison/giant_spider/nurse)
-	// The types of spiders the egg sac produces when we have enriched spawns left
+	// The types of spiders the egg sac produces when we have enriched spawns left (laying spider ate a human)
 	var/list/mob/living/potential_enriched_spawns = list(/mob/living/simple_animal/hostile/poison/giant_spider/tarantula,
 							/mob/living/simple_animal/hostile/poison/giant_spider/hunter/viper,
 							/mob/living/simple_animal/hostile/poison/giant_spider/nurse/midwife)
@@ -83,10 +83,19 @@
 		notify_ghosts("[src] is ready to hatch!", null, enter_link="<a href=?src=[REF(src)];activate=1>(Click to play)</a>", source=src, action=NOTIFY_ATTACK, ignore_key = POLL_IGNORE_SPIDER)
 		ghost_ready = TRUE
 
+/obj/structure/spider/eggcluster/Topic(href, href_list)
+	if(..())
+		return
+	if(href_list["activate"])
+		var/mob/dead/observer/ghost = usr
+		if(istype(ghost))
+			attack_ghost(ghost)
+
 /obj/structure/spider/eggcluster/attack_ghost(mob/user)
 	. = ..()
 	if(ghost_ready)
-		make_spider(user)
+		var/mob/dead/observer/ghost = user
+		make_spider(ghost)
 
 /**
   * Makes a ghost into a spider based on the type of egg cluster.
@@ -96,9 +105,8 @@
   * * user - The ghost attempting to become a spider.
   */
 /obj/structure/spider/eggcluster/proc/make_spider(mob/user)
+	var/list/to_spawn = list()
 	var/list/spider_list = list()
-	var/list/display_spiders = list()
-	var/list/to_spawn
 	if(enriched_spawns)
 		to_spawn = potential_enriched_spawns
 	else
@@ -106,30 +114,31 @@
 	for(var/choice in to_spawn)
 		var/mob/living/simple_animal/spider = choice
 		spider_list[initial(spider.name)] = choice
-		var/image/spider_image = image(icon = initial(spider.icon), icon_state = initial(spider.icon_state))
-		display_spiders += list(initial(spider.name) = spider_image)
-	sortList(display_spiders)
-	var/chosen_spider = show_radial_menu(user, src, display_spiders, radius = 38, require_near = TRUE)
-	chosen_spider = spider_list[chosen_spider]
-	if(QDELETED(src) || QDELETED(user) || !chosen_spider || !spawns_remaining)
+	var/chosen_spider = input("Spider Type", "Egg Cluster") as null|anything in spider_list
+	if(QDELETED(src) || QDELETED(user) || !chosen_spider || !(spawns_remaining || enriched_spawns))
 		return FALSE
-	if(potential_enriched_spawns.Find(chosen_spider))
+	if(chosen_spider in potential_enriched_spawns)
 		if(!enriched_spawns)
+			to_chat(user, "<span class='warning'>You can't pick that type of spider anymore!</span>")
 			return FALSE
 		enriched_spawns--
 	else
 		spawns_remaining--
-	var/mob/living/simple_animal/hostile/poison/giant_spider/new_spider = new chosen_spider(src.loc)
+	var/spider_to_spawn = spider_list[chosen_spider]
+	var/mob/living/simple_animal/hostile/poison/giant_spider/new_spider = new spider_to_spawn(get_turf(src))
 	new_spider.faction = faction.Copy()
 	new_spider.directive = directive
 	new_spider.key = user.key
-	QDEL_NULL(src)
+	qdel(src)
 	return TRUE
 
+// A special egg cluster to spawn midwives, used for the infestation event.
 /obj/structure/spider/eggcluster/midwife
 	name = "midwife egg cluster"
 	potential_spawns = list(/mob/living/simple_animal/hostile/poison/giant_spider/nurse/midwife)
+	potential_enriched_spawns = list()
 	directive = "Ensure the survival of the spider species and overtake whatever structure you find yourself in."
+	spawns_remaining = 1
 
 /obj/structure/spider/spiderling
 	name = "spiderling"
