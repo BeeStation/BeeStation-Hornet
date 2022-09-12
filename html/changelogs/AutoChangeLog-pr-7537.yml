@@ -1,4 +1,0 @@
-author: itsmeow
-delete-after: true
-changes:
-  - admin: Clients without telemetry are denied access
