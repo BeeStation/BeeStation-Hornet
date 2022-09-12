@@ -89,11 +89,11 @@
 /datum/bank_account/proc/payday(amt_of_paychecks, free = FALSE)
 	var/bank_card_talk_sound = 1 // noisy-proof. it will only sound once.
 	if(suspended)
-		bank_card_talk("ERROR: Payday aborted, the account is closed by Nanotrasen Space Finance.", sound=bank_card_talk_sound--)
+		bank_card_talk("ERROR: Payday aborted, the account is closed by Nanotrasen Space Finance.")
 		return
 	if(welfare)
 		adjust_money(PAYCHECK_WELFARE) // Don't let welfare siphon your station budget
-		bank_card_talk("Nanotrasen welfare system processed, account now holds €[account_balance], supported with €[PAYCHECK_WELFARE].", sound=bank_card_talk_sound--)
+		bank_card_talk("Nanotrasen welfare system processed, account now holds €[account_balance], supported with €[PAYCHECK_WELFARE].")
 
 	for(var/D in payment_per_department)
 		if(payment_per_department[D] <= 0 && bonus_per_department[D] <= 0)
@@ -112,14 +112,14 @@
 		else
 			var/datum/bank_account/B = SSeconomy.get_dep_account(D)
 			if(!B)
-				bank_card_talk("ERROR: Payday aborted, unable to query [D] departmental account.", sound=bank_card_talk_sound--)
+				bank_card_talk("ERROR: Payday aborted, unable to query [D] departmental account.")
 			else
 				if(!transfer_money(B, money_to_transfer))
-					bank_card_talk("ERROR: Payday aborted, [D] departmental funds insufficient.", sound=bank_card_talk_sound--)
+					bank_card_talk("ERROR: Payday aborted, [D] departmental funds insufficient.")
 					bonus_per_department[D] += (money_to_transfer-bonus_per_department[D]) // you'll get paid someday
 					continue
 				else
-					bank_card_talk("Payday processed, account now holds €[account_balance], paid with €[money_to_transfer] from [D] payment.", sound=bank_card_talk_sound--)
+					bank_card_talk("Payday processed, account now holds €[account_balance], paid with €[money_to_transfer] from [D] payment.")
 					//The bonus only resets once it goes through.
 					if(bonus_per_department[D] > 0) //And we're not getting rid of debt
 						bonus_per_department[D] = 0
@@ -133,24 +133,21 @@
 			if(card_holder.client && !(card_holder.client.prefs.chat_toggles & CHAT_BANKCARD) && !force)
 				return
 
-			if(sound)
-				card_holder.playsound_local(get_turf(card_holder), 'sound/machines/twobeep_high.ogg', 50, TRUE)
+			card_holder.playsound_local(get_turf(card_holder), 'sound/machines/twobeep_high.ogg', 50, TRUE)
 			if(card_holder.can_hear())
 				to_chat(card_holder, "[icon2html(A, card_holder)] *[message]*")
 		else if(isturf(A.loc)) //If on the ground
 			for(var/mob/M as() in hearers(1,get_turf(A)))
 				if(M.client && !(M.client.prefs.chat_toggles & CHAT_BANKCARD) && !force)
 					return
-				if(sound)
-					playsound(A, 'sound/machines/twobeep_high.ogg', 50, TRUE)
+				playsound(A, 'sound/machines/twobeep_high.ogg', 50, TRUE)
 				A.audible_message("[icon2html(A, hearers(A))] *[message]*", null, 1)
 				break
 		else
 			for(var/mob/M in A.loc) //If inside a container with other mobs (e.g. locker)
 				if(M.client && !(M.client.prefs.chat_toggles & CHAT_BANKCARD) && !force)
 					return
-				if(sound)
-					M.playsound_local(get_turf(M), 'sound/machines/twobeep_high.ogg', 50, TRUE)
+				M.playsound_local(get_turf(M), 'sound/machines/twobeep_high.ogg', 50, TRUE)
 				if(M.can_hear())
 					to_chat(M, "[icon2html(A, M)] *[message]*")
 
