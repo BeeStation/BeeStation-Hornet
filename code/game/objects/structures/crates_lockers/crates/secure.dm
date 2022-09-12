@@ -88,8 +88,6 @@
 	icon_door_override = FALSE
 	//Account of the person buying the crate if private purchasing.
 	var/datum/bank_account/buyer_account
-	//Department of the person buying the crate if buying via the NIRN app.
-	var/datum/bank_account/department/department_account
 	//Is the secure crate opened or closed?
 	var/privacy_lock = TRUE
 	//Is the crate being bought by a person, or a budget card?
@@ -104,7 +102,6 @@
 	buyer_account = _buyer_account
 	if(istype(buyer_account, /datum/bank_account/department))
 		department_purchase = TRUE
-		department_account = buyer_account
 
 /obj/structure/closet/crate/secure/owned/togglelock(mob/living/user, silent)
 	if(!privacy_lock)
@@ -125,15 +122,18 @@
 			return FALSE
 		if(!(id_card.registered_account == buyer_account))
 			if(!silent)
-				to_chat(user, "<span class='notice'>Bank account does not match with buyer!</span>")
+				to_chat(user, "<span class='notice'>Bank account in ID card does not match with buyer!</span>")
 			return FALSE
-		if(!(department_purchase && (id_card.registered_account?.account_job?.paycheck_department) == (department_account.department_id)))
+		if(department_purchase && !istype(id_card, /obj/item/card/id/departmental_budget))
 			if(!silent)
-				to_chat(user, "<span class='notice'>Bank account does not match with buyer! 222</span>")
+				to_chat(user, "<span class='notice'>ID isn't a budget card!</span>")
 			return FALSE
 		if(!allowed(user))
 			if(!silent)
-				to_chat(user, "<span class='notice'>Access Denied, insufficient access on ID card.</span>")
+				if(!department_purchase)
+					to_chat(user, "<span class='notice'>Access Denied, insufficient access on ID card.</span>")
+				else
+					to_chat(user, "<span class='notice'>Access Denied, insufficient access on ID card. Equip an ID card with the required access to open, and tab the budget card onto the crate.</span>")
 			return FALSE
 		if(iscarbon(user))
 			add_fingerprint(user)

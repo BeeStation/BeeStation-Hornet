@@ -70,7 +70,7 @@
 			for(var/datum/data/crime/crime in crimes)
 				if(crime.dataId == text2num(cDataId))
 					crime.paid = crime.paid + amount
-					var/datum/bank_account/D = SSeconomy.get_dep_account(ACCOUNT_SEC)
+					var/datum/bank_account/D = SSeconomy.get_dep_account(ACCOUNT_SEC_ID)
 					D.adjust_money(amount)
 					return
 

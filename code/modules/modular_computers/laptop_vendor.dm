@@ -258,7 +258,7 @@
 	else if(istype(I, /obj/item/holochip))
 		var/obj/item/holochip/HC = I
 		credits += HC.credits
-		visible_message("<span class='info'>[user] inserts a $[HC.credits] holocredit chip into [src].</span>")
+		visible_message("<span class='info'>[user] inserts a €[HC.credits] holocredit chip into [src].</span>")
 		qdel(HC)
 		ui_update()
 		return

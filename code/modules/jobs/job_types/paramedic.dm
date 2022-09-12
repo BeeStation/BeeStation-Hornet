@@ -2,11 +2,10 @@
 	title = JOB_NAME_PARAMEDIC
 	flag = PARAMEDIC
 	department_head = list(JOB_NAME_CHIEFMEDICALOFFICER)
-	department_flag = MEDSCI
+	supervisors = "the chief medical officer"
 	faction = "Station"
 	total_positions = 2
 	spawn_positions = 1
-	supervisors = "the chief medical officer"
 	selection_color = "#d4ebf2"
 	exp_requirements = 120
 	exp_type = EXP_TYPE_CREW
@@ -17,8 +16,10 @@
 					ACCESS_MAINT_TUNNELS, ACCESS_EVA, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_AUX_BASE)
 	minimal_access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_CLONING, ACCESS_MECH_MEDICAL, ACCESS_MAINT_TUNNELS,
 					ACCESS_EVA, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_AUX_BASE)
-	paycheck = PAYCHECK_MEDIUM
-	bank_account_department = ACCOUNT_MED_FLAG
+
+	department_flag = MEDSCI
+	bank_account_department = ACCOUNT_MED_BITFLAG
+	payment_per_department = list(ACCOUNT_MED_ID = PAYCHECK_MEDIUM)
 
 	display_order = JOB_DISPLAY_ORDER_MEDICAL_DOCTOR
 	departments = DEPARTMENT_BITFLAG_MEDICAL

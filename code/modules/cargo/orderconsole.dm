@@ -82,7 +82,7 @@
 /obj/machinery/computer/cargo/ui_data()
 	var/list/data = list()
 	data["location"] = SSshuttle.supply.getStatusText()
-	var/datum/bank_account/D = SSeconomy.get_dep_account(ACCOUNT_CAR)
+	var/datum/bank_account/D = SSeconomy.get_dep_account(ACCOUNT_CAR_ID)
 	if(D)
 		data["points"] = D.account_balance
 	data["away"] = SSshuttle.supply.getDockedId() == "supply_away"

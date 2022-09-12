@@ -41,7 +41,7 @@
 	var/flesh_number = 0
 	var/datum/bank_account/current_insurance
 	fair_market_price = 5 // He nodded, because he knew I was right. Then he swiped his credit card to pay me for arresting him.
-	payment_department = ACCOUNT_MED
+	payment_department = ACCOUNT_MED_BITFLAG
 	var/experimental_pod = FALSE //experimental cloner will have true. TRUE allows you to clone a weird brain after scanning it.
 
 /obj/machinery/clonepod/Initialize(mapload)

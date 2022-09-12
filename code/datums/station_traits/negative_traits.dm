@@ -174,3 +174,26 @@
 		/// The bot's language holder - so we can randomize and change their language
 		var/datum/language_holder/bot_languages = found_bot.get_language_holder()
 		bot_languages.selected_language = bot_languages.get_random_spoken_language()
+
+/datum/station_trait/united_budget
+	name = "United Department Budget Management"
+	trait_type = STATION_TRAIT_NEGATIVE
+	weight = 2
+	show_in_report = TRUE
+	report_message = "As your station is selected for our financial experiments, all station budgets are united into one, and all budget card will be linked to that one."
+	trait_to_give = STATION_TRAIT_UNITED_BUDGET
+
+/datum/station_trait/united_budget/New()
+	. = ..()
+	var/event_source = pick(list("As your station has been selected for our financial experiments,",
+								"As our financial planner planned at their best,",
+								"As our AI with the financial plan support module generated the result,",
+								"As the budget categorisation was too complex more than it had to be,",
+								"It appears one of your superiors is creatively mean to you, so",
+								"Syndicate messed up our budget categorisation system,",
+								"Since We reverted the previous confirmation about the budget plan that our intern made,",
+								"Since we gave a chance to our intern that they can practically plan the station budget system,",
+								"Thanks to our financial intern,",
+								"Due to the budget cuts in Nanotrasen Space Finance,",
+								"Since \[REDACTED\] has been \[REDACTED\] by \[REDACTED\]"))
+	report_message = "[event_source] all station budgets are united into a single budget account, and all budget cards will be linked to that one."

@@ -324,20 +324,6 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 				target_account.payment_per_department[D] = 0
 				target_account.bonus_per_department[D] = 0
 			target_account.suspended = TRUE // bank account will not be deleted, just suspended
-			/*
-			if(!length(target_account.bank_cards)) // if no card exists, it means their money isn't accessible anymore at any means. The station will get their money.
-				var/datum/bank_account/dept_bank = SSeconomy.get_dep_account(target_account.account 111 _department)
-				dept_bank.transfer_money(target_account, target_account.account_balance > target_account.total_paid_payment ? target_account.total_paid_payment : target_account.account_balance)
-				// The station budget will get payday payment returned first.
-
-				if(target_account.account_balance)
-					target_account.adjust_money(-(target_account.account_job.paycheck*STARTING_PAYCHECKS))
-					// after that, roundstart money will be taken into void(=Nanotrasen)
-
-					if(target_account.account_balance)
-						dept_bank.transfer_money(target_account, target_account.account_balance)
-						// if money still remains, the station budget will have it again.
-						*/
 
 	// This should be done after item removal because it checks if your ID card still exists
 

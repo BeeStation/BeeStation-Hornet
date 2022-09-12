@@ -126,7 +126,7 @@ Class Procs:
 	var/interaction_flags_machine = INTERACT_MACHINE_WIRES_IF_OPEN | INTERACT_MACHINE_ALLOW_SILICON | INTERACT_MACHINE_OPEN_SILICON | INTERACT_MACHINE_SET_MACHINE
 	var/fair_market_price = 69
 	var/market_verb = "Customer"
-	var/payment_department = ACCOUNT_ENG
+	var/payment_department = ACCOUNT_ENG_BITFLAG
 
 	var/clickvol = 40	// sound volume played on succesful click
 	var/next_clicksound = 0	// value to compare with world.time for whether to play clicksound according to CLICKSOUND_INTERVAL

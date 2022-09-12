@@ -8,23 +8,24 @@ SUBSYSTEM_DEF(economy)
 	init_order = INIT_ORDER_ECONOMY
 	runlevels = RUNLEVEL_GAME
 	var/roundstart_paychecks = 5
-	var/budget_pool = 25000
-	var/list/department_accounts = list(ACCOUNT_CIV = ACCOUNT_CIV_NAME,
-										ACCOUNT_ENG = ACCOUNT_ENG_NAME,
-										ACCOUNT_SCI = ACCOUNT_SCI_NAME,
-										ACCOUNT_MED = ACCOUNT_MED_NAME,
-										ACCOUNT_SRV = ACCOUNT_SRV_NAME,
-										ACCOUNT_CAR = ACCOUNT_CAR_NAME,
-										ACCOUNT_SEC = ACCOUNT_SEC_NAME)
-	var/list/nonstation_accounts = list(ACCOUNT_VIP = ACCOUNT_VIP_NAME)
-	var/static/list/budget_flags = list(ACCOUNT_CIV = ACCOUNT_CIV_FLAG,
-										ACCOUNT_ENG = ACCOUNT_ENG_FLAG,
-										ACCOUNT_SCI = ACCOUNT_SCI_FLAG,
-										ACCOUNT_MED = ACCOUNT_MED_FLAG,
-										ACCOUNT_SRV = ACCOUNT_SRV_FLAG,
-										ACCOUNT_CAR = ACCOUNT_CAR_FLAG,
-										ACCOUNT_SEC = ACCOUNT_SEC_FLAG,
-										ACCOUNT_VIP = ACCOUNT_VIP_FLAG)
+	var/budget_pool = 25200 // "25000 / 7 = 3571" is ugly.
+	var/list/department_accounts = list(ACCOUNT_CIV_ID = ACCOUNT_CIV_NAME,
+										ACCOUNT_SRV_ID = ACCOUNT_SRV_NAME,
+										ACCOUNT_CAR_ID = ACCOUNT_CAR_NAME,
+										ACCOUNT_ENG_ID = ACCOUNT_ENG_NAME,
+										ACCOUNT_SCI_ID = ACCOUNT_SCI_NAME,
+										ACCOUNT_MED_ID = ACCOUNT_MED_NAME,
+										ACCOUNT_SEC_ID = ACCOUNT_SEC_NAME)
+	var/list/nonstation_accounts = list(ACCOUNT_VIP_ID = ACCOUNT_VIP_NAME)
+	var/list/budget_flags = list(ACCOUNT_COM_ID = ACCOUNT_COM_BITFLAG,
+								 ACCOUNT_CIV_ID = ACCOUNT_CIV_BITFLAG,
+								 ACCOUNT_SRV_ID = ACCOUNT_SRV_BITFLAG,
+								 ACCOUNT_CAR_ID = ACCOUNT_CAR_BITFLAG,
+								 ACCOUNT_ENG_ID = ACCOUNT_ENG_BITFLAG,
+								 ACCOUNT_SCI_ID = ACCOUNT_SCI_BITFLAG,
+								 ACCOUNT_MED_ID = ACCOUNT_MED_BITFLAG,
+								 ACCOUNT_SEC_ID = ACCOUNT_SEC_BITFLAG,
+								 ACCOUNT_VIP_ID = ACCOUNT_VIP_BITFLAG)
 	var/list/generated_accounts = list()
 	var/full_ancap = FALSE // Enables extra money charges for things that normally would be free, such as sleepers/cryo/cloning.
 							//Take care when enabling, as players will NOT respond well if the economy is set up for low cash flows.
@@ -39,12 +40,27 @@ SUBSYSTEM_DEF(economy)
 	/// Mail Holiday: AKA does mail arrive today? Always blocked on Sundays, but not on bee, the mail is 24/7.
 	var/mail_blocked = FALSE
 
+
+	/// checking `if(HAS_TRAIT(SSstation, STATION_TRAIT_UNITED_BUDGET))` costs (a little bit) more resource. this is faster.
+	var/static/united_budget_trait = FALSE
+
 /datum/controller/subsystem/economy/Initialize(timeofday)
-	var/budget_to_hand_out = round(budget_pool / department_accounts.len)
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_UNITED_BUDGET))
+		united_budget_trait = TRUE
+
+	var/budget_to_hand_out = united_budget_trait ? budget_pool : round(budget_pool / department_accounts.len)
 	for(var/A in department_accounts)
-		new /datum/bank_account/department(A, budget_flags[A], budget_to_hand_out)
+		new /datum/bank_account/department(A, budget_to_hand_out)
+
+	if(united_budget_trait)
+		var/datum/bank_account/department/D = get_dep_account(ACCOUNT_CAR_ID)
+		department_accounts[ACCOUNT_CAR_ID] = ACCOUNT_ALL_NAME
+		D.account_holder = ACCOUNT_ALL_NAME
+		// if you want to remove united_budget feature, try an event
+
 	for(var/A in nonstation_accounts)
-		new /datum/bank_account/department(A, budget_flags[A], VIP_BUDGET_BASE)
+		new /datum/bank_account/department(A, VIP_BUDGET_BASE)
+
 	return ..()
 
 /datum/controller/subsystem/economy/Recover()
@@ -65,18 +81,28 @@ SUBSYSTEM_DEF(economy)
 	return null
 
 /datum/controller/subsystem/economy/proc/get_dep_account(dep_id)
+	if(united_budget_trait && !(dep_id in nonstation_accounts))
+		dep_id = ACCOUNT_CAR_ID
 	for(var/datum/bank_account/department/D in generated_accounts)
 		if(D.department_id == dep_id)
 			return D
 
+/datum/controller/subsystem/economy/proc/is_nonstation_account(datum/bank_account/department/D) // takes a bank account type or dep_ID define
+	if(!D)
+		return FALSE
+	for(var/each in SSeconomy.nonstation_accounts)
+		if(D.account_holder == SSeconomy.nonstation_accounts[each])
+			return TRUE
+	return FALSE
+
 /datum/controller/subsystem/economy/proc/distribute_funds(amount)
-	var/datum/bank_account/eng = get_dep_account(ACCOUNT_ENG)
-	var/datum/bank_account/sec = get_dep_account(ACCOUNT_SEC)
-	var/datum/bank_account/med = get_dep_account(ACCOUNT_MED)
-	var/datum/bank_account/srv = get_dep_account(ACCOUNT_SRV)
-	var/datum/bank_account/sci = get_dep_account(ACCOUNT_SCI)
-	var/datum/bank_account/civ = get_dep_account(ACCOUNT_CIV)
-	var/datum/bank_account/car = get_dep_account(ACCOUNT_CAR)
+	var/datum/bank_account/eng = get_dep_account(ACCOUNT_ENG_ID)
+	var/datum/bank_account/sec = get_dep_account(ACCOUNT_SEC_ID)
+	var/datum/bank_account/med = get_dep_account(ACCOUNT_MED_ID)
+	var/datum/bank_account/srv = get_dep_account(ACCOUNT_SRV_ID)
+	var/datum/bank_account/sci = get_dep_account(ACCOUNT_SCI_ID)
+	var/datum/bank_account/civ = get_dep_account(ACCOUNT_CIV_ID)
+	var/datum/bank_account/car = get_dep_account(ACCOUNT_CAR_ID)
 
 	var/departments = 0
 
@@ -114,7 +140,7 @@ SUBSYSTEM_DEF(economy)
 	car?.adjust_money(cargo_cash)
 
 	// VIP budget will not dry
-	var/datum/bank_account/vip = get_dep_account(ACCOUNT_VIP)
+	var/datum/bank_account/vip = get_dep_account(ACCOUNT_VIP_ID)
 	vip?.adjust_money(cargo_cash)
 
 #undef VIP_BUDGET_BASE

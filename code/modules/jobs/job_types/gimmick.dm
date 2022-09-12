@@ -1,7 +1,6 @@
 /datum/job/gimmick //gimmick var must be set to true for all gimmick jobs BUT the parent
 	title = JOB_NAME_GIMMICK
 	flag = GIMMICK
-	department_flag = CIVILIAN
 	faction = "Station"
 	total_positions = 0
 	spawn_positions = 0
@@ -12,8 +11,10 @@
 
 	access = list(ACCESS_MAINT_TUNNELS)
 	minimal_access = list(ACCESS_MAINT_TUNNELS)
-	paycheck = PAYCHECK_ASSISTANT
-	bank_account_department = ACCOUNT_CIV_FLAG
+
+	department_flag = CIVILIAN
+	bank_account_department = ACCOUNT_CIV_BITFLAG
+	payment_per_department = list(ACCOUNT_CIV_ID = PAYCHECK_ASSISTANT)
 
 	display_order = JOB_DISPLAY_ORDER_ASSISTANT
 	departments = DEPARTMENT_BITFLAG_SERVICE
@@ -28,17 +29,18 @@
 /datum/job/gimmick/barber
 	title = JOB_NAME_BARBER
 	flag = BARBER
-	supervisors = "the head of personnel"
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
-	department_flag = CIVILIAN
+	supervisors = "the head of personnel"
 	gimmick = TRUE
 
 	outfit = /datum/outfit/job/gimmick/barber
 
 	access = list(ACCESS_MORGUE, ACCESS_MAINT_TUNNELS)
 	minimal_access = list(ACCESS_MORGUE, ACCESS_MAINT_TUNNELS)
-	paycheck = PAYCHECK_ASSISTANT
-	bank_account_department = ACCOUNT_SRV_FLAG
+
+	department_flag = CIVILIAN
+	bank_account_department = ACCOUNT_SRV_BITFLAG
+	payment_per_department = list(ACCOUNT_SRV_ID = PAYCHECK_ASSISTANT)
 
 	departments = DEPARTMENT_BITFLAG_SERVICE
 	rpg_title = "Scissorhands"
@@ -63,17 +65,18 @@
 /datum/job/gimmick/stage_magician
 	title = JOB_NAME_STAGEMAGICIAN
 	flag = MAGICIAN
-	supervisors = "the head of personnel"
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
-	department_flag = CIVILIAN
+	supervisors = "the head of personnel"
 	gimmick = TRUE
 
 	outfit = /datum/outfit/job/gimmick/stage_magician
 
 	access = list(ACCESS_THEATRE, ACCESS_MAINT_TUNNELS)
 	minimal_access = list(ACCESS_THEATRE, ACCESS_MAINT_TUNNELS)
-	paycheck = PAYCHECK_MINIMAL
-	bank_account_department = ACCOUNT_SRV_FLAG
+
+	department_flag = CIVILIAN
+	bank_account_department = ACCOUNT_SRV_BITFLAG
+	payment_per_department = list(ACCOUNT_SRV_ID = PAYCHECK_MINIMAL)
 
 	departments = DEPARTMENT_BITFLAG_SERVICE
 	rpg_title = "Master Illusionist"
@@ -101,22 +104,23 @@
 /datum/job/gimmick/psychiatrist
 	title = JOB_NAME_PSYCHIATRIST
 	flag = PSYCHIATRIST
-	supervisors = "the chief medical officer"
 	department_head = list(JOB_NAME_CHIEFMEDICALOFFICER)
-	department_flag = MEDSCI
+	supervisors = "the chief medical officer"
 	gimmick = TRUE
 
 	outfit = /datum/outfit/job/gimmick/psychiatrist
 
 	access = list(ACCESS_MAINT_TUNNELS, ACCESS_MEDICAL)
 	minimal_access = list(ACCESS_MAINT_TUNNELS, ACCESS_MEDICAL)
-	paycheck = PAYCHECK_EASY
-	departments = DEPARTMENT_BITFLAG_MEDICAL
 
-	bank_account_department = ACCOUNT_MED_FLAG
+	department_flag = MEDSCI
+	bank_account_department = ACCOUNT_MED_BITFLAG
+	payment_per_department = list(ACCOUNT_MED_ID = PAYCHECK_EASY)
+	mind_traits = list(TRAIT_MADNESS_IMMUNE)
+
+	departments = DEPARTMENT_BITFLAG_MEDICAL
 	rpg_title = "Enchanter"
 
-	mind_traits = list(TRAIT_MADNESS_IMMUNE)
 
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman
@@ -137,15 +141,16 @@
 /datum/job/gimmick/vip
 	title = JOB_NAME_VIP
 	flag = CELEBRITY
-	department_flag = CIVILIAN
 	gimmick = TRUE
 
 	outfit = /datum/outfit/job/gimmick/vip
 
 	access = list(ACCESS_MAINT_TUNNELS) //Assistants with shitloads of money, what could go wrong?
 	minimal_access = list(ACCESS_MAINT_TUNNELS)
-	paycheck = PAYCHECK_VIP  //our power is being fucking rich
-	bank_account_department = ACCOUNT_VIP_FLAG
+
+	department_flag = CIVILIAN
+	bank_account_department = ACCOUNT_VIP_BITFLAG
+	payment_per_department = list(ACCOUNT_VIP_ID = PAYCHECK_VIP)  //our power is being fucking rich
 
 	departments = DEPARTMENT_BITFLAG_SERVICE // might need to be changed
 	rpg_title = "Master of Patronage"

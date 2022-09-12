@@ -2,11 +2,10 @@
 	title = JOB_NAME_BRIGPHYSICIAN
 	flag = BRIG_PHYS
 	department_head = list(JOB_NAME_CHIEFMEDICALOFFICER)
-	department_flag = ENGSEC
+	supervisors = "chief medical officer"
 	faction = "Station"
 	total_positions = 1
 	spawn_positions = 1
-	supervisors = "chief medical officer"
 	selection_color = "#ffeeee"
 	minimal_player_age = 7
 	exp_requirements = 120
@@ -16,8 +15,11 @@
 
 	access = list(ACCESS_SEC_DOORS, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_MORGUE, ACCESS_MEDICAL, ACCESS_BRIGPHYS)
 	minimal_access = list(ACCESS_SEC_DOORS, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_MORGUE, ACCESS_MEDICAL, ACCESS_BRIGPHYS)
-	paycheck = PAYCHECK_MEDIUM
-	bank_account_department = ACCOUNT_MED_FLAG
+
+	department_flag = ENGSEC
+	bank_account_department = ACCOUNT_MED_BITFLAG
+	payment_per_department = list(ACCOUNT_MED_ID = PAYCHECK_MEDIUM)
+
 
 	display_order = JOB_DISPLAY_ORDER_BRIG_PHYS
 	departments = DEPARTMENT_BITFLAG_MEDICAL | DEPARTMENT_BITFLAG_SECURITY

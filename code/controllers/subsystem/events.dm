@@ -19,7 +19,7 @@ SUBSYSTEM_DEF(events)
 		var/datum/round_event_control/E = new type()
 		if(!E.typepath || !E.auto_add)
 			continue				//don't want this one! leave it for the garbage collector
-		control += E				//add it to the list of all events (controls)
+		control += E				//add it to the list of all events (controls))
 	reschedule()
 	getHoliday()
 	return ..()
