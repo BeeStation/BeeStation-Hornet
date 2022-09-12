@@ -68,12 +68,11 @@
 			I.department_name = initial(I.department_name)
 			I.name = "departmental card ([I.department_name])"
 			I.desc = "Provides access to the [I.department_name]."
-
-	var/money_to_distribute = round(SSeconomy.get_dep_account(ACCOUNT_CAR_ID).account_balance / SSeconomy.department_accounts.len)
+	var/datum/bank_account/department/D = SSeconomy.get_dep_account(ACCOUNT_CAR_ID)
+	var/money_to_distribute = round(D.account_balance / SSeconomy.department_accounts.len)
 	for(var/i in SSeconomy.department_accounts)
 		var/datum/bank_account/department/D = SSeconomy.get_dep_account(i)
 		D.account_balance = money_to_distribute
 
-	var/datum/bank_account/department/D = SSeconomy.get_dep_account(ACCOUNT_CAR_ID)
 	D.account_holder = ACCOUNT_CAR_NAME
 	SSeconomy.department_accounts[ACCOUNT_CAR_ID] = ACCOUNT_CAR_NAME
