@@ -809,7 +809,7 @@ update_label("John Doe", "Clowny")
 /obj/item/card/id/departmental_budget/Initialize(mapload)
 	. = ..()
 	var/datum/bank_account/B = SSeconomy.get_dep_account(department_ID)
-	if(HAS_TRAIT(SSstation, STATION_TRAIT_UNITED_BUDGET) && !D.is_nonstation_account())
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_UNITED_BUDGET) && !B.is_nonstation_account())
 		department_ID = ACCOUNT_CAR_ID
 		department_name = ACCOUNT_ALL_NAME
 
