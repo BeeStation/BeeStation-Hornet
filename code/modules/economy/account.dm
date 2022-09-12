@@ -119,7 +119,7 @@
 					bonus_per_department[D] += (money_to_transfer-bonus_per_department[D]) // you'll get paid someday
 					continue
 				else
-					bank_card_talk("Payday processed, account now holds €[account_balance], paid with €[money_to_transfer] from [D] payment.")
+					bank_card_talk("Payday processed, account now holds €[account_balance], paid with €[money_to_transfer] from [D] budget.")
 					//The bonus only resets once it goes through.
 					if(bonus_per_department[D] > 0) //And we're not getting rid of debt
 						bonus_per_department[D] = 0
