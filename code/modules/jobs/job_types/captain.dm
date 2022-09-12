@@ -21,14 +21,7 @@
 
 	department_flag = ENGSEC
 	bank_account_department = ACCOUNT_SEC_BITFLAG | ACCOUNT_COM_BITFLAG
-	payment_per_department = list(ACCOUNT_CIV_ID = 50,
-								ACCOUNT_SRV_ID = 60,
-								ACCOUNT_CAR_ID = 70,
-								ACCOUNT_ENG_ID = 80,
-								ACCOUNT_SCI_ID = 90,
-								ACCOUNT_MED_ID = 100,
-								ACCOUNT_SEC_ID = 110,
-								ACCOUNT_VIP_ID = 250)
+	payment_per_department = list(ACCOUNT_SEC_ID = PAYCHECK_COMMAND)
 	mind_traits = list(TRAIT_DISK_VERIFIER)
 
 	display_order = JOB_DISPLAY_ORDER_CAPTAIN
