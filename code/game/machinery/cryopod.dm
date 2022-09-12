@@ -320,10 +320,11 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 					break
 		if(!number_of_bank_account_holder)
 			var/datum/bank_account/target_account = SSeconomy.get_bank_account_by_id(mob_occupant.mind.account_id)
-			for(var/D in target_account.payment_per_department)
-				target_account.payment_per_department[D] = 0
-				target_account.bonus_per_department[D] = 0
-			target_account.suspended = TRUE // bank account will not be deleted, just suspended
+			if(target_account)
+				for(var/D in target_account.payment_per_department)
+					target_account.payment_per_department[D] = 0
+					target_account.bonus_per_department[D] = 0
+				target_account.suspended = TRUE // bank account will not be deleted, just suspended
 
 	// This should be done after item removal because it checks if your ID card still exists
 
