@@ -318,9 +318,6 @@ GLOBAL_VAR(restart_counter)
 
 	var/list/features = list()
 
-	if(GLOB.master_mode)
-		features += GLOB.master_mode
-
 	if (!GLOB.enter_allowed)
 		features += "closed"
 
@@ -335,7 +332,7 @@ GLOBAL_VAR(restart_counter)
 
 	s += "<b>[station_name()]</b>";
 	var/discordurl = CONFIG_GET(string/discordurl)
-	s += "(<a href='[discordurl]'>Discord</a>|<a href='http://beestation13.com'>Website</a>))"
+	s += " (<a href='[discordurl]'>Discord</a>|<a href='http://beestation13.com'>Website</a>)"
 
 	var/players = GLOB.clients.len
 
@@ -344,18 +341,17 @@ GLOBAL_VAR(restart_counter)
 	if (popcap)
 		popcaptext = "/[popcap]"
 
-	if (players > 1)
-		features += "[players][popcaptext] players"
-	else if (players > 0)
-		features += "[players][popcaptext] player"
-
 	game_state = (CONFIG_GET(number/extreme_popcap) && players >= CONFIG_GET(number/extreme_popcap)) //tells the hub if we are full
 
 	if (!host && hostedby)
 		features += "hosted by <b>[hostedby]</b>"
 
-	if (features)
+	if(length(features))
 		s += ": [jointext(features, ", ")]"
+
+	s += "<br>Time: <b>[gameTimestamp("hh:mm")]</b>"
+	s += "<br>Alert: <b>[capitalize(get_security_level())]</b>"
+	s += "<br>Players: <b>[players][popcaptext]</b>"
 
 	status = s
 
@@ -373,27 +369,5 @@ GLOBAL_VAR(restart_counter)
 	SSmobs.MaxZChanged()
 	SSidlenpcpool.MaxZChanged()
 	world.refresh_atmos_grid()
-
-/world/proc/change_fps(new_value = 20)
-	if(new_value <= 0)
-		CRASH("change_fps() called with [new_value] new_value.")
-	if(fps == new_value)
-		return //No change required.
-
-	fps = new_value
-	on_tickrate_change()
-
-/world/proc/change_tick_lag(new_value = 0.5)
-	if(new_value <= 0)
-		CRASH("change_tick_lag() called with [new_value] new_value.")
-	if(tick_lag == new_value)
-		return //No change required.
-
-	tick_lag = new_value
-	on_tickrate_change()
-
-
-/world/proc/on_tickrate_change()
-	SStimer?.reset_buckets()
 
 /world/proc/refresh_atmos_grid()

@@ -149,6 +149,9 @@
 /mob/living/simple_animal/drone/snowflake/bardrone/Initialize(mapload)
 	. = ..()
 	access_card.access |= ACCESS_CENT_BAR
+	ADD_TRAIT(src, TRAIT_BARMASTER, ROUNDSTART_TRAIT)
+	ADD_TRAIT(src, TRAIT_SOMMELIER, ROUNDSTART_TRAIT)
+
 
 /mob/living/simple_animal/hostile/alien/maid/barmaid
 	gold_core_spawnable = NO_SPAWN
@@ -168,6 +171,8 @@
 	access_card.access = C.get_access()
 	access_card.access |= ACCESS_CENT_BAR
 	ADD_TRAIT(access_card, TRAIT_NODROP, ABSTRACT_ITEM_TRAIT)
+	ADD_TRAIT(src, TRAIT_BARMASTER, ROUNDSTART_TRAIT)
+	ADD_TRAIT(src, TRAIT_SOMMELIER, ROUNDSTART_TRAIT)
 
 /mob/living/simple_animal/hostile/alien/maid/barmaid/Destroy()
 	qdel(access_card)

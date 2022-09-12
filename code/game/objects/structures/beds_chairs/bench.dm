@@ -46,23 +46,45 @@
 /obj/structure/chair/fancy/bench/bamboo/right
 	icon_state = "bamboo_sofaend_right"
 
-// Ported from tg ported from Skyrat
+// Ported from tg ported from Skyrat, oh and this version is off Paradise, aka GAGless but almost GAGs!
 /obj/structure/chair/fancy/bench/corporate
 	name = "corporate bench"
 	desc = "Perfectly designed to be comfortable to sit on, and hellish to sleep on."
-	icon_state = "corporate_bench_middle"
-	greyscale_config = /datum/greyscale_config/bench_middle
-	greyscale_colors = "#af7d28"
-	color = rgb(255,255,255)
-	colorable = TRUE
+	icon_state = "corporate_bench_middle_mapping"
+	var/base_icon_state = "corporate_bench_middle"
+	///icon for the cover seat
+	var/image/cover
+	///cover seat color, by default this one
+	var/cover_color = rgb(175, 125, 40)
+	color = null
+	colorable = FALSE
 
-/obj/structure/chair/fancy/bench/corporate/left
-	icon_state = "corporate_bench_left"
-	greyscale_config = /datum/greyscale_config/bench_left
+/obj/structure/chair/fancy/bench/corporate/Initialize(mapload)
+	icon_state = base_icon_state //so the rainbow seats for mapper clarity are not in-game
+	GetCover()
+	return ..()
 
-/obj/structure/chair/fancy/bench/corporate/right
-	icon_state = "corporate_bench_right"
-	greyscale_config = /datum/greyscale_config/bench_right
+/obj/structure/chair/fancy/bench/corporate/proc/GetCover()
+	if(cover)
+		cut_overlay(cover)
+	cover = mutable_appearance('icons/obj/beds_chairs/benches.dmi', "[icon_state]_cover", color = cover_color) //this supports colouring, but not the base bench
+	add_overlay(cover)
+
+/obj/structure/chair/fancy/bench/corporate/attacked_by(obj/item/I, mob/living/user)
+	. = ..()
+	if(istype(I, /obj/item/toy/crayon))
+		var/obj/item/toy/crayon/C = I
+		cover_color = C.crayon_color
+	if(cover_color)
+		GetCover()
 
 /obj/structure/chair/fancy/bench/corporate/handle_layer()
 	return
+
+/obj/structure/chair/fancy/bench/corporate/left
+	icon_state = "corporate_bench_left_mapping"
+	base_icon_state = "corporate_bench_left"
+
+/obj/structure/chair/fancy/bench/corporate/right
+	icon_state = "corporate_bench_right_mapping"
+	base_icon_state = "corporate_bench_right"

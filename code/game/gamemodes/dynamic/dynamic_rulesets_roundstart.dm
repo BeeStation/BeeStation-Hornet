@@ -627,3 +627,55 @@
 	else
 		SSticker.news_report = CULT_FAILURE
 		SSticker.mode_result = "loss - servants failed their objective (summon ratvar)"
+
+//////////////////////////////////////////////
+//                                          //
+//                INCURSION                 //
+//                                          //
+//////////////////////////////////////////////
+
+/datum/dynamic_ruleset/roundstart/incursion
+	name = "Incursion"
+	antag_flag = ROLE_INCURSION
+	antag_datum = /datum/antagonist/incursion
+	protected_roles = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE,JOB_NAME_CAPTAIN, JOB_NAME_HEADOFPERSONNEL, JOB_NAME_HEADOFSECURITY, JOB_NAME_CHIEFENGINEER, JOB_NAME_RESEARCHDIRECTOR, JOB_NAME_CHIEFMEDICALOFFICER)
+	restricted_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG)
+	required_candidates = 2
+	weight = 3
+	cost = 20
+	requirements = list(100,90,80,60,40,30,10,10,10,10)
+	flags = HIGH_IMPACT_RULESET
+	antag_cap = list("denominator" = 10, "offset" = 1)
+	var/datum/team/incursion/incursion_team
+
+/datum/dynamic_ruleset/roundstart/incursion/ready(population, forced = FALSE)
+	required_candidates = CLAMP(get_antag_cap(population), CONFIG_GET(number/incursion_count_min), CONFIG_GET(number/incursion_count_max))
+	return ..()
+
+/datum/dynamic_ruleset/roundstart/incursion/pre_execute(population)
+	. = ..()
+	for(var/x = 1 to required_candidates)
+		if(!length(candidates))
+			break
+		var/mob/M = pick_n_take(candidates)
+		assigned += M.mind
+		M.mind.special_role = ROLE_INCURSION
+		M.mind.restricted_roles = restricted_roles
+	return TRUE
+
+/datum/dynamic_ruleset/roundstart/incursion/execute()
+	incursion_team = new
+	incursion_team.forge_team_objectives()
+	for(var/datum/mind/M in assigned)
+		var/datum/antagonist/incursion/new_incursionist = new antag_datum()
+		new_incursionist.team = incursion_team
+		incursion_team.add_member(M)
+		M.add_antag_datum(new_incursionist)
+	return TRUE
+
+/datum/dynamic_ruleset/roundstart/incursion/round_result()
+	..()
+	if(incursion_team.check_incursion_victory())
+		SSticker.mode_result = "win - incursion win"
+	else
+		SSticker.mode_result = "loss - staff stopped the incursion"
