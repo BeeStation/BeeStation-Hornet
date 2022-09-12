@@ -17,15 +17,15 @@ SUBSYSTEM_DEF(economy)
 										ACCOUNT_MED_ID = ACCOUNT_MED_NAME,
 										ACCOUNT_SEC_ID = ACCOUNT_SEC_NAME)
 	var/list/nonstation_accounts = list(ACCOUNT_VIP_ID = ACCOUNT_VIP_NAME)
-	var/list/budget_flags = list(ACCOUNT_COM_ID = ACCOUNT_COM_BITFLAG,
-								 ACCOUNT_CIV_ID = ACCOUNT_CIV_BITFLAG,
-								 ACCOUNT_SRV_ID = ACCOUNT_SRV_BITFLAG,
-								 ACCOUNT_CAR_ID = ACCOUNT_CAR_BITFLAG,
-								 ACCOUNT_ENG_ID = ACCOUNT_ENG_BITFLAG,
-								 ACCOUNT_SCI_ID = ACCOUNT_SCI_BITFLAG,
-								 ACCOUNT_MED_ID = ACCOUNT_MED_BITFLAG,
-								 ACCOUNT_SEC_ID = ACCOUNT_SEC_BITFLAG,
-								 ACCOUNT_VIP_ID = ACCOUNT_VIP_BITFLAG)
+	var/list/account_bitflags = list(ACCOUNT_COM_ID = ACCOUNT_COM_BITFLAG,
+									 ACCOUNT_CIV_ID = ACCOUNT_CIV_BITFLAG,
+									 ACCOUNT_SRV_ID = ACCOUNT_SRV_BITFLAG,
+									 ACCOUNT_CAR_ID = ACCOUNT_CAR_BITFLAG,
+									 ACCOUNT_ENG_ID = ACCOUNT_ENG_BITFLAG,
+									 ACCOUNT_SCI_ID = ACCOUNT_SCI_BITFLAG,
+									 ACCOUNT_MED_ID = ACCOUNT_MED_BITFLAG,
+									 ACCOUNT_SEC_ID = ACCOUNT_SEC_BITFLAG,
+									 ACCOUNT_VIP_ID = ACCOUNT_VIP_BITFLAG)
 	var/list/generated_accounts = list()
 	var/full_ancap = FALSE // Enables extra money charges for things that normally would be free, such as sleepers/cryo/cloning.
 							//Take care when enabling, as players will NOT respond well if the economy is set up for low cash flows.
@@ -81,7 +81,7 @@ SUBSYSTEM_DEF(economy)
 	return null
 
 /datum/controller/subsystem/economy/proc/get_dep_account(dep_id)
-	if(united_budget_trait && !(dep_id in nonstation_accounts))
+	if(united_budget_trait && !(dep_id in nonstation_accounts)) // using 'is_nonstation()' here is innecessary
 		dep_id = ACCOUNT_CAR_ID
 	for(var/datum/bank_account/department/D in generated_accounts)
 		if(D.department_id == dep_id)
@@ -144,3 +144,5 @@ SUBSYSTEM_DEF(economy)
 	vip?.adjust_money(cargo_cash)
 
 #undef VIP_BUDGET_BASE
+#undef BUDGET_RATIO_TYPE_A
+#undef BUDGET_RATIO_TYPE_B

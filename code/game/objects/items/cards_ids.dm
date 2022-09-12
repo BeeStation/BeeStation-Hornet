@@ -301,8 +301,8 @@
 				if(registered_account.payment_per_department[D] > 0)
 					. += "Your payment from [D] budget is €[registered_account.payment_per_department[D]]."
 		if(!HAS_TRAIT(SSstation, STATION_TRAIT_UNITED_BUDGET))
-			for(var/D in SSeconomy.budget_flags)
-				if(SSeconomy.budget_flags[D] & registered_account.active_departments)
+			for(var/D in SSeconomy.account_bitflags)
+				if(SSeconomy.account_bitflags[D] & registered_account.active_departments)
 					var/datum/bank_account/B = SSeconomy.get_dep_account(D)
 					if(B)
 						. += "The [B.account_holder] reports a balance of €[B.account_balance]."

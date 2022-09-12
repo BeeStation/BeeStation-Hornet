@@ -713,8 +713,8 @@ GLOBAL_LIST_EMPTY(vending_products)
 			if(C.registered_account.account_job)
 				.["user"]["job"] = C.registered_account.account_job.title
 				var/list/dept_list = list()
-				for(var/each in SSeconomy.budget_flags)
-					if(SSeconomy.budget_flags[each] & C.registered_account.active_departments)
+				for(var/each in SSeconomy.account_bitflags)
+					if(SSeconomy.account_bitflags[each] & C.registered_account.active_departments)
 						dept_list += each
 				.["user"]["department"] = english_list(dept_list)
 			if(R)

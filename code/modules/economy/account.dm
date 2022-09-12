@@ -168,7 +168,7 @@
 /datum/bank_account/department/New(dep_id, budget)
 	department_id = dep_id
 	account_balance = budget
-	active_departments = SSeconomy.budget_flags[dep_id]
+	active_departments = SSeconomy.account_bitflags[dep_id]
 	account_holder = (SSeconomy.department_accounts+SSeconomy.nonstation_accounts)[dep_id]
 
 	SSeconomy.generated_accounts += src
