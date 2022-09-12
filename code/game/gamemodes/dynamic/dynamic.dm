@@ -169,6 +169,12 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 	/// The chance for latejoins to roll when ready
 	var/latejoin_roll_chance = 50
 
+	/// The maximum percentage of (living antags / living players) can be before midround traitors, heretics, and all latejoins stop injecting while under "max_traitor_injection_max_pop" population.
+	var/max_traitor_injection_antag_percent = 18
+
+	/// The population size where dynamic stops caring about antag percents during injections. This is usually because on higher pop it isn't forced to spawn a bunch of sleeper agents.
+	var/max_traitor_injection_max_pop = 30
+
 	// == EVERYTHING BELOW THIS POINT SHOULD NOT BE CONFIGURED ==
 
 	/// A list of recorded "snapshots" of the round, stored in the dynamic.json log
@@ -655,6 +661,14 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 				if(blocking == executed.type)
 					log_game("DYNAMIC: FAIL: check_blocking - [blocking] conflicts with [executed.type]")
 					return TRUE
+	return FALSE
+
+/datum/game_mode/dynamic/proc/check_lowpop_lowimpact_injection()
+	var/living_players_count = current_players[CURRENT_LIVING_PLAYERS]
+	var/living_antags_count = current_players[CURRENT_LIVING_ANTAGS]
+	if(living_players_count && living_players_count < max_traitor_injection_max_pop && (living_antags_count / living_players_count) * 100 > max_traitor_injection_antag_percent)
+		log_game("DYNAMIC: FAIL: [src] has too many living antags for the population ([living_antags_count] of [living_players_count] players)")
+		return TRUE
 	return FALSE
 
 /// Checks if client age is age or older.

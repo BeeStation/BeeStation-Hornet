@@ -210,6 +210,8 @@
 	if (required_candidates > length(living_players))
 		log_game("DYNAMIC: FAIL: [src] does not have enough candidates, using living_players ([required_candidates] needed, [living_players.len] found)")
 		return FALSE
+	if (mode.check_lowpop_lowimpact_injection())
+		return FALSE
 	return ..()
 
 /datum/dynamic_ruleset/midround/autotraitor/execute()
