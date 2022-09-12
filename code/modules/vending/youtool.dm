@@ -27,7 +27,7 @@
 	resistance_flags = FIRE_PROOF
 	default_price = 10
 	extra_price = 80
-	payment_department = ACCOUNT_ENG_BITFLAG
+	payment_department = ACCOUNT_ENG
 
 /obj/item/vending_refill/tool
 	machine_name = "YouTool"

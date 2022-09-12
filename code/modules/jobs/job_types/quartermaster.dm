@@ -2,10 +2,11 @@
 	title = JOB_NAME_QUARTERMASTER
 	flag = QUARTERMASTER
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
-	supervisors = "the head of personnel"
+	department_flag = CIVILIAN
 	faction = "Station"
 	total_positions = 1
 	spawn_positions = 1
+	supervisors = "the head of personnel"
 	selection_color = "#d7b088"
 	exp_requirements = 600
 	exp_type = EXP_TYPE_SUPPLY
@@ -15,10 +16,8 @@
 
 	access = list(ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_QM, ACCESS_MINING, ACCESS_MECH_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM, ACCESS_VAULT, ACCESS_AUX_BASE, ACCESS_EXPLORATION)
 	minimal_access = list(ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_QM, ACCESS_MINING, ACCESS_MECH_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM, ACCESS_VAULT, ACCESS_AUX_BASE, ACCESS_EXPLORATION)
-
-	department_flag = CIVILIAN
-	bank_account_department = ACCOUNT_CAR_BITFLAG
-	payment_per_department = list(ACCOUNT_CAR_ID = PAYCHECK_MEDIUM)
+	paycheck = PAYCHECK_MEDIUM
+	paycheck_department = ACCOUNT_CAR
 
 	display_order = JOB_DISPLAY_ORDER_QUARTERMASTER
 	departments = DEPARTMENT_BITFLAG_CARGO

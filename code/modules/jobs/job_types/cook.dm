@@ -2,10 +2,11 @@
 	title = JOB_NAME_COOK
 	flag = COOK
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
-	supervisors = "the head of personnel"
+	department_flag = CIVILIAN
 	faction = "Station"
 	total_positions = 2
 	spawn_positions = 1
+	supervisors = "the head of personnel"
 	selection_color = "#bbe291"
 	var/cooks = 0 //Counts cooks amount
 
@@ -13,11 +14,8 @@
 
 	access = list(ACCESS_HYDROPONICS, ACCESS_BAR, ACCESS_KITCHEN, ACCESS_MORGUE, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_KITCHEN, ACCESS_MORGUE, ACCESS_MINERAL_STOREROOM)
-
-	department_flag = CIVILIAN
-	bank_account_department = ACCOUNT_SRV_BITFLAG
-	payment_per_department = list(ACCOUNT_SRV_ID = PAYCHECK_EASY)
-
+	paycheck = PAYCHECK_EASY
+	paycheck_department = ACCOUNT_SRV
 
 	display_order = JOB_DISPLAY_ORDER_COOK
 	departments = DEPARTMENT_BITFLAG_SERVICE

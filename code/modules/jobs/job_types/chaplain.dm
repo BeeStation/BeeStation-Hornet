@@ -2,21 +2,19 @@
 	title = JOB_NAME_CHAPLAIN
 	flag = CHAPLAIN
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
-	supervisors = "the head of personnel"
+	department_flag = CIVILIAN
 	faction = "Station"
 	total_positions = 1
 	spawn_positions = 1
+	supervisors = "the head of personnel"
 	selection_color = "#dddddd"
 
 	outfit = /datum/outfit/job/chaplain
 
 	access = list(ACCESS_MORGUE, ACCESS_CHAPEL_OFFICE, ACCESS_CREMATORIUM, ACCESS_THEATRE)
 	minimal_access = list(ACCESS_MORGUE, ACCESS_CHAPEL_OFFICE, ACCESS_CREMATORIUM, ACCESS_THEATRE)
-
-	department_flag = CIVILIAN
-	bank_account_department = ACCOUNT_CIV_BITFLAG
-	payment_per_department = list(ACCOUNT_CIV_ID = PAYCHECK_EASY)
-
+	paycheck = PAYCHECK_EASY
+	paycheck_department = ACCOUNT_CIV
 
 	display_order = JOB_DISPLAY_ORDER_CHAPLAIN
 	departments = DEPARTMENT_BITFLAG_SERVICE

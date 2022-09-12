@@ -18,7 +18,7 @@
 	refill_canister = /obj/item/vending_refill/cart
 	default_price = 50
 	extra_price = 100
-	payment_department = ACCOUNT_SRV_BITFLAG
+	payment_department = ACCOUNT_SRV
 
 /obj/item/vending_refill/cart
 	machine_name = "PTech"

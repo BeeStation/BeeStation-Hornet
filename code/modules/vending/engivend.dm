@@ -24,7 +24,7 @@
 	refill_canister = /obj/item/vending_refill/engivend
 	default_price = 20
 	extra_price = 50
-	payment_department = ACCOUNT_ENG_BITFLAG
+	payment_department = ACCOUNT_ENG
 
 /obj/item/vending_refill/engivend
 	machine_name = "Engi-Vend"

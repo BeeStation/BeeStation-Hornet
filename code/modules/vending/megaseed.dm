@@ -55,7 +55,7 @@
 	refill_canister = /obj/item/vending_refill/hydroseeds
 	default_price = 10
 	extra_price = 50
-	payment_department = ACCOUNT_SRV_BITFLAG
+	payment_department = ACCOUNT_SRV
 
 /obj/item/vending_refill/hydroseeds
 	machine_name = "MegaSeed Servitor"

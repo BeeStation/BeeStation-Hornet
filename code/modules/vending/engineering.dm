@@ -31,7 +31,7 @@
 	refill_canister = /obj/item/vending_refill/engineering
 	default_price = 50
 	extra_price = 60
-	payment_department = ACCOUNT_ENG_BITFLAG
+	payment_department = ACCOUNT_ENG
 
 /obj/item/vending_refill/engineering
 	machine_name = "Robco Tool Maker"
