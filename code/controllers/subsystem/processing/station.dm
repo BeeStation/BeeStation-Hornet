@@ -20,6 +20,14 @@ PROCESSING_SUBSYSTEM_DEF(station)
 	station_traits = list()
 	selectable_traits_by_types = list(STATION_TRAIT_POSITIVE = list(), STATION_TRAIT_NEUTRAL = list(), STATION_TRAIT_NEGATIVE = list())
 
+	/*
+	//If doing unit tests we don't do none of that trait shit ya know?
+	#ifndef UNIT_TESTS
+	if(CONFIG_GET(flag/station_traits))
+		setup_traits()
+		prepare_report()
+	#endif
+	*/
 	//station_traits += new /datum/station_trait/united_budget
 	prepare_report()
 

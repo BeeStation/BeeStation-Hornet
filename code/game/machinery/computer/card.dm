@@ -77,8 +77,6 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		available_paycheck_departments |= list(ACCOUNT_MED_ID = ACCOUNT_MED_BITFLAG)
 	if((target_dept == DEPT_ALL) || (target_dept == DEPT_SEC))
 		available_paycheck_departments |= list(ACCOUNT_SEC_ID = ACCOUNT_SEC_BITFLAG)
-	if((target_dept == DEPT_ALL))
-		available_paycheck_departments |= list(ACCOUNT_COM_ID = ACCOUNT_COM_BITFLAG)
 
 
 /obj/machinery/computer/card/examine(mob/user)

@@ -121,7 +121,7 @@
 			else
 				if(!transfer_money(B, money_to_transfer))
 					bank_card_talk("ERROR: Payday aborted, [D] departmental funds insufficient.", sound=bank_card_talk_sound--)
-					bonus_per_department[D] += money_to_transfer // you'll get paid someday
+					bonus_per_department[D] += (money_to_transfer-bonus_per_department[D]) // you'll get paid someday
 					continue
 				else
 					bank_card_talk("Payday processed, account now holds €[account_balance], paid with €[money_to_transfer] from [D] payment.", sound=bank_card_talk_sound--)
