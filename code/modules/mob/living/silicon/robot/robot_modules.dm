@@ -292,7 +292,7 @@
 	moduleselect_icon = "standard"
 	hat_offset = -3
 
-	radio_channels = list(RADIO_CHANNEL_AI_PRIVATE)
+	radio_channels = list(RADIO_CHANNEL_SERVICE)
 
 /obj/item/robot_module/medical
 	name = "Medical"
@@ -417,7 +417,7 @@
 	can_be_pushed = FALSE
 	hat_offset = 3
 
-	radio_channels = list(RADIO_CHANNEL_SECURITY, RADIO_CHANNEL_COMMAND)
+	radio_channels = list(RADIO_CHANNEL_SECURITY)  // unused anyway
 
 /obj/item/robot_module/security/do_transform_animation()
 	..()
@@ -459,7 +459,7 @@
 	can_be_pushed = FALSE
 	hat_offset = -2
 
-	radio_channels = list(RADIO_CHANNEL_MEDICAL, RADIO_CHANNEL_SECURITY)  // they know the locations of bad people
+	radio_channels = list(RADIO_CHANNEL_SERVICE)  // temporary until civilian channel
 
 /obj/item/robot_module/peacekeeper/do_transform_animation()
 	..()
@@ -540,7 +540,7 @@
 	cyborg_base_icon = "clown"
 	hat_offset = -2
 
-	radio_channels = list(RADIO_CHANNEL_SERVICE)  // obligatory clown radio
+	radio_channels = list(RADIO_CHANNEL_SERVICE)  // placeholder for civilian channel
 
 /obj/item/robot_module/butler
 	name = "Service"
@@ -648,7 +648,7 @@
 	hat_offset = 0
 	var/obj/item/t_scanner/adv_mining_scanner/cyborg/mining_scanner //built in memes.
 
-	radio_channels = list(RADIO_CHANNEL_SCIENCE, RADIO_CHANNEL_SUPPLY, RADIO_CHANNEL_EXPLORATION)
+	radio_channels = list(RADIO_CHANNEL_SUPPLY)
 
 /obj/item/robot_module/miner/be_transformed_to(obj/item/robot_module/old_module)
 	var/mob/living/silicon/robot/cyborg = loc
