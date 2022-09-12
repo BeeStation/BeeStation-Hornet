@@ -138,7 +138,7 @@ SUBSYSTEM_DEF(blackbox)
 	if(sealed || CONFIG_GET(flag/limited_feedback))
 		return
 	switch(freq)
-		if(FREQ_COMMON)
+		if(FREQ_WALKIE)
 			record_feedback("tally", "radio_usage", 1, "common")
 		if(FREQ_SCIENCE)
 			record_feedback("tally", "radio_usage", 1, "science")

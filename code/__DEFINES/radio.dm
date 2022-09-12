@@ -2,6 +2,9 @@
 
 //say based modes like binary are in living/say.dm
 
+#define RADIO_CHANNEL_WALKIE "Walkie"
+#define RADIO_KEY_WALKIE ";"
+
 #define RADIO_CHANNEL_SECURITY "Security"
 #define RADIO_KEY_SECURITY "s"
 #define RADIO_TOKEN_SECURITY ":s"
@@ -87,7 +90,7 @@
 #define FREQ_MAGNETS 1449
 #define FREQ_LOCATOR_IMPLANT 1451
 #define FREQ_SIGNALER 1457  //! the default for new signalers
-#define FREQ_COMMON 1459  //! Common comms frequency, dark green
+#define FREQ_WALKIE 1459  //! Common comms frequency, dark green
 
 #define MAX_FREQ 1489 // ------------------------------------------------------
 

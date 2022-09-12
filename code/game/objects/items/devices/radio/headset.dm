@@ -1,6 +1,5 @@
 // Used for translating channels to tokens on examination
 GLOBAL_LIST_INIT(channel_tokens, list(
-	RADIO_CHANNEL_COMMON = RADIO_KEY_COMMON,
 	RADIO_CHANNEL_SCIENCE = RADIO_TOKEN_SCIENCE,
 	RADIO_CHANNEL_COMMAND = RADIO_TOKEN_COMMAND,
 	RADIO_CHANNEL_MEDICAL = RADIO_TOKEN_MEDICAL,
@@ -30,6 +29,8 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	slot_flags = ITEM_SLOT_EARS
 	var/obj/item/encryptionkey/keyslot2 = null
 	dog_fashion = null
+
+	frequency = FREQ_SIGNALER
 
 /obj/item/radio/headset/suicide_act(mob/living/carbon/user)
 	user.visible_message("<span class='suicide'>[user] begins putting \the [src]'s antenna up [user.p_their()] nose! It looks like [user.p_theyre()] trying to give [user.p_them()]self cancer!</span>")

@@ -151,7 +151,7 @@
 
 // Root messaging signal datum
 /datum/signal/subspace/messaging
-	frequency = FREQ_COMMON
+	frequency = FREQ_WALKIE
 	server_type = /obj/machinery/telecomms/message_server
 	var/datum/logged
 

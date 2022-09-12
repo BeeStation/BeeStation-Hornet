@@ -2,10 +2,10 @@
 
 /obj/item/radio
 	icon = 'icons/obj/radio.dmi'
-	name = "station bounced radio"
+	name = "Walkie-Talkie"
 	icon_state = "walkietalkie"
 	item_state = "walkietalkie"
-	desc = "A basic handheld radio that communicates with local telecommunication networks."
+	desc = "A basic handheld radio that communicates with local telecommunication networks. Can be used to communicate with other walkie talkies."
 	dog_fashion = /datum/dog_fashion/back
 
 	flags_1 = CONDUCT_1
@@ -17,7 +17,7 @@
 	obj_flags = USES_TGUI
 
 	var/on = TRUE
-	var/frequency = FREQ_COMMON
+	var/frequency = FREQ_WALKIE
 	var/canhear_range = 3  // The range around the radio in which mobs can hear what it receives.
 	var/emped = 0  // Tracks the number of EMPs currently stacked.
 	var/headset = FALSE
