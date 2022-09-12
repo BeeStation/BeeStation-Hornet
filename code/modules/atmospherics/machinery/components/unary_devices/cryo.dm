@@ -38,7 +38,7 @@
 	var/message_cooldown
 	var/breakout_time = 300
 	fair_market_price = 10
-	payment_department = ACCOUNT_MED
+	payment_department = ACCOUNT_MED_BITFLAG
 
 
 /obj/machinery/atmospherics/components/unary/cryo_cell/Initialize(mapload)

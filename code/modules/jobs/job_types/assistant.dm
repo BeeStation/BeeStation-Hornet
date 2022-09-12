@@ -4,18 +4,22 @@ Assistant
 /datum/job/assistant
 	title = JOB_NAME_ASSISTANT
 	flag = ASSISTANT
-	department_flag = CIVILIAN
+	supervisors = "absolutely everyone"
 	faction = "Station"
 	total_positions = 5
 	spawn_positions = 5
-	supervisors = "absolutely everyone"
 	selection_color = "#dddddd"
+	antag_rep = 7
+
+	outfit = /datum/outfit/job/assistant
+
 	access = list()			//See /datum/job/assistant/get_access()
 	minimal_access = list()	//See /datum/job/assistant/get_access()
-	outfit = /datum/outfit/job/assistant
-	antag_rep = 7
-	paycheck = PAYCHECK_ASSISTANT // Get a job. Job reassignment changes your paycheck now. Get over it.
-	paycheck_department = ACCOUNT_CIV
+
+	department_flag = CIVILIAN
+	bank_account_department = NONE // nothing is free for them
+	payment_per_department = list(ACCOUNT_CIV_ID = PAYCHECK_ASSISTANT) // Get a job. Job reassignment changes your paycheck now. Get over it.
+
 	display_order = JOB_DISPLAY_ORDER_ASSISTANT
 	departments = DEPARTMENT_BITFLAG_SERVICE
 	rpg_title = "Lout"

@@ -2,11 +2,10 @@
 	title = JOB_NAME_LAWYER
 	flag = LAWYER
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
-	department_flag = CIVILIAN
+	supervisors = "the head of personnel"
 	faction = "Station"
 	total_positions = 2
 	spawn_positions = 2
-	supervisors = "the head of personnel"
 	selection_color = "#dddddd"
 	var/lawyers = 0 //Counts lawyer amount
 
@@ -14,8 +13,10 @@
 
 	access = list(ACCESS_LAWYER, ACCESS_COURT, ACCESS_SEC_DOORS)
 	minimal_access = list(ACCESS_LAWYER, ACCESS_COURT, ACCESS_SEC_DOORS)
-	paycheck = PAYCHECK_EASY
-	paycheck_department = ACCOUNT_CIV
+
+	department_flag = CIVILIAN
+	bank_account_department = ACCOUNT_CIV_BITFLAG
+	payment_per_department = list(ACCOUNT_CIV_ID = PAYCHECK_EASY)
 	mind_traits = list(TRAIT_LAW_ENFORCEMENT_METABOLISM)
 
 	display_order = JOB_DISPLAY_ORDER_LAWYER

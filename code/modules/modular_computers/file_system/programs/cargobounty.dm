@@ -23,7 +23,7 @@
 	if(!GLOB.bounties_list.len)
 		setup_bounties()
 	printer_ready = world.time + PRINTER_TIMEOUT
-	cargocash = SSeconomy.get_dep_account(ACCOUNT_CAR)
+	cargocash = SSeconomy.get_dep_account(ACCOUNT_CAR_ID)
 	. = ..()
 
 /datum/computer_file/program/bounty/ui_data(mob/user)

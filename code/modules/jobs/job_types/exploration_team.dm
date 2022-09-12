@@ -2,11 +2,10 @@
 	title = JOB_NAME_EXPLORATIONCREW
 	flag = EXPLORATION_CREW
 	department_head = list(JOB_NAME_RESEARCHDIRECTOR)
-	department_flag = MEDSCI
+	supervisors = "the research director"
 	faction = "Station"
 	total_positions = 3
 	spawn_positions = 3
-	supervisors = "the research director"
 	minimal_player_age = 3
 	exp_requirements = 900
 	exp_type = EXP_TYPE_CREW
@@ -16,8 +15,10 @@
 
 	access = list(ACCESS_MAINT_TUNNELS, ACCESS_RESEARCH, ACCESS_EXPLORATION, ACCESS_TOX, ACCESS_MECH_SCIENCE, ACCESS_XENOBIOLOGY)
 	minimal_access = list(ACCESS_RESEARCH, ACCESS_EXPLORATION, ACCESS_TOX, ACCESS_MECH_SCIENCE)
-	paycheck = PAYCHECK_HARD
-	paycheck_department = ACCOUNT_SCI
+
+	department_flag = MEDSCI
+	bank_account_department = ACCOUNT_SCI_BITFLAG
+	payment_per_department = list(ACCOUNT_SCI_ID = PAYCHECK_HARD)
 
 	display_order = JOB_DISPLAY_ORDER_EXPLORATION
 	departments = DEPARTMENT_BITFLAG_SCIENCE

@@ -3,11 +3,10 @@
 	flag = DETECTIVE
 	auto_deadmin_role_flags = DEADMIN_POSITION_SECURITY
 	department_head = list(JOB_NAME_HEADOFSECURITY)
-	department_flag = ENGSEC
+	supervisors = "the head of security"
 	faction = "Station"
 	total_positions = 1
 	spawn_positions = 1
-	supervisors = "the head of security"
 	selection_color = "#ffeeee"
 	minimal_player_age = 7
 	exp_requirements = 180
@@ -18,8 +17,10 @@
 
 	access = list(ACCESS_SEC_DOORS, ACCESS_SEC_RECORDS, ACCESS_FORENSICS_LOCKERS, ACCESS_MORGUE, ACCESS_MAINT_TUNNELS, ACCESS_MECH_SECURITY, ACCESS_COURT, ACCESS_BRIG, ACCESS_WEAPONS, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_SEC_DOORS, ACCESS_SEC_RECORDS, ACCESS_FORENSICS_LOCKERS, ACCESS_MORGUE, ACCESS_MAINT_TUNNELS, ACCESS_MECH_SECURITY, ACCESS_COURT, ACCESS_BRIG, ACCESS_WEAPONS, ACCESS_MINERAL_STOREROOM)
-	paycheck = PAYCHECK_MEDIUM
-	paycheck_department = ACCOUNT_SEC
+
+	department_flag = ENGSEC
+	bank_account_department = ACCOUNT_SEC_BITFLAG
+	payment_per_department = list(ACCOUNT_SEC_ID = PAYCHECK_MEDIUM)
 	mind_traits = list(TRAIT_LAW_ENFORCEMENT_METABOLISM)
 
 	display_order = JOB_DISPLAY_ORDER_DETECTIVE

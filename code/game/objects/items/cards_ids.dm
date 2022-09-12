@@ -199,7 +199,7 @@
 	else
 		to_chat(user, "<span class='notice'>You insert [I] into [src], adding [cash_money] credits to the linked account.</span>")
 
-	to_chat(user, "<span class='notice'>The linked account now reports a balance of $[registered_account.account_balance].</span>")
+	to_chat(user, "<span class='notice'>The linked account now reports a balance of €[registered_account.account_balance].</span>")
 	qdel(I)
 
 /obj/item/card/id/proc/mass_insert_money(list/money, mob/user)
@@ -295,11 +295,23 @@
 		. += "There's [mining_points] mining equipment redemption point\s loaded onto this card."
 	. = ..()
 	if(registered_account)
-		. += "The account linked to the ID belongs to '[registered_account.account_holder]' and reports a balance of $[registered_account.account_balance]."
-		if(registered_account.account_job)
-			var/datum/bank_account/D = SSeconomy.get_dep_account(registered_account.account_department)
-			if(D)
-				. += "The [D.account_holder] reports a balance of $[D.account_balance]."
+		. += "The account linked to the ID belongs to '[registered_account.account_holder]' and reports a balance of €[registered_account.account_balance]."
+		if(!istype(src, /obj/item/card/id/departmental_budget))
+			for(var/D in registered_account.payment_per_department)
+				if(registered_account.payment_per_department[D] > 0)
+					. += "Your payment from [D] budget is €[registered_account.payment_per_department[D]]."
+		if(!HAS_TRAIT(SSstation, STATION_TRAIT_UNITED_BUDGET))
+			for(var/D in SSeconomy.account_bitflags)
+				if(SSeconomy.account_bitflags[D] & registered_account.active_departments)
+					var/datum/bank_account/B = SSeconomy.get_dep_account(D)
+					if(B)
+						. += "The [B.account_holder] reports a balance of €[B.account_balance]."
+		else
+			var/datum/bank_account/B = SSeconomy.get_dep_account(ACCOUNT_CAR_ID)
+			if(B)
+				. += "The [B.account_holder] reports a balance of €[B.account_balance]."
+
+
 		. += "<span class='info'>Alt-Click the ID to pull money from the linked account in the form of holochips.</span>"
 		. += "<span class='info'>You can insert credits into the linked account by pressing holochips, cash, or coins against the ID.</span>"
 		if(registered_account.account_holder == user.real_name)
@@ -503,7 +515,7 @@ update_label("John Doe", "Clowny")
 
 					for(var/bank_account in SSeconomy.bank_accounts)
 						var/datum/bank_account/account = bank_account
-						if(account.account_id == accountowner.account_id)
+						if(account.account_id == accountowner.mind?.account_id)
 							account.bank_cards += src
 							registered_account = account
 							to_chat(user, "<span class='notice'>Your account number has been automatically assigned.</span>")
@@ -573,7 +585,7 @@ update_label("John Doe", "Clowny")
 
 /obj/item/card/id/syndicate/debug/Initialize(mapload)
 	access = get_every_access()
-	registered_account = SSeconomy.get_dep_account(ACCOUNT_CAR)
+	registered_account = SSeconomy.get_dep_account(ACCOUNT_CAR_ID)
 	. = ..()
 
 /obj/item/card/id/captains_spare
@@ -784,13 +796,17 @@ update_label("John Doe", "Clowny")
 	name = "departmental card (budget)"
 	desc = "Provides access to the departmental budget."
 	icon_state = "budget"
-	var/department_ID = ACCOUNT_CIV
+	var/department_ID = ACCOUNT_CIV_ID
 	var/department_name = ACCOUNT_CIV_NAME
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	investigate_flags = ADMIN_INVESTIGATE_TARGET
 
 /obj/item/card/id/departmental_budget/Initialize(mapload)
 	. = ..()
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_UNITED_BUDGET) && !SSeconomy.get_dep_account(department_ID).is_nonstation_account())
+		department_ID = ACCOUNT_CAR_ID
+		department_name = ACCOUNT_ALL_NAME
+
 	var/datum/bank_account/B = SSeconomy.get_dep_account(department_ID)
 	if(B)
 		registered_account = B
@@ -805,50 +821,50 @@ update_label("John Doe", "Clowny")
 	return ..()
 
 /obj/item/card/id/departmental_budget/civ
-	department_ID = ACCOUNT_CIV
+	department_ID = ACCOUNT_CIV_ID
 	department_name = ACCOUNT_CIV_NAME
 	icon_state = "budget"
 	hud_state = JOB_HUD_RAWCOMMAND
 
 /obj/item/card/id/departmental_budget/eng
-	department_ID = ACCOUNT_ENG
+	department_ID = ACCOUNT_ENG_ID
 	department_name = ACCOUNT_ENG_NAME
 	icon_state = "budget_eng"
 	hud_state = JOB_HUD_RAWENGINEERING
 
 /obj/item/card/id/departmental_budget/sci
-	department_ID = ACCOUNT_SCI
+	department_ID = ACCOUNT_SCI_ID
 	department_name = ACCOUNT_SCI_NAME
 	icon_state = "budget_sci"
 	hud_state = JOB_HUD_RAWSCIENCE
 
 /obj/item/card/id/departmental_budget/med
-	department_ID = ACCOUNT_MED
+	department_ID = ACCOUNT_MED_ID
 	department_name = ACCOUNT_MED_NAME
 	icon_state = "budget_med"
 	hud_state = JOB_HUD_RAWMEDICAL
 
 /obj/item/card/id/departmental_budget/srv
-	department_ID = ACCOUNT_SRV
+	department_ID = ACCOUNT_SRV_ID
 	department_name = ACCOUNT_SRV_NAME
 	icon_state = "budget_srv"
 	hud_state = JOB_HUD_RAWSERVICE
 
 /obj/item/card/id/departmental_budget/car
-	department_ID = ACCOUNT_CAR
+	department_ID = ACCOUNT_CAR_ID
 	department_name = ACCOUNT_CAR_NAME
 	icon_state = "budget_car"
 	hud_state = JOB_HUD_RAWCARGO
 
 /obj/item/card/id/departmental_budget/sec
-	department_ID = ACCOUNT_SEC
+	department_ID = ACCOUNT_SEC_ID
 	department_name = ACCOUNT_SEC_NAME
 	icon_state = "budget_sec"
 	hud_state = JOB_HUD_RAWSECURITY
 
 // This will never be spawned, but should be trackable by admins anyway.
 /obj/item/card/id/departmental_budget/vip
-	department_ID = ACCOUNT_VIP
+	department_ID = ACCOUNT_VIP_ID
 	department_name = ACCOUNT_VIP_NAME
 	icon_state = "budget"
 	hud_state = JOB_HUD_VIP

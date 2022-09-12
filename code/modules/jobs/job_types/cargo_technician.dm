@@ -2,19 +2,21 @@
 	title = JOB_NAME_CARGOTECHNICIAN
 	flag = CARGOTECH
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
-	department_flag = CIVILIAN
+	supervisors = "the quartermaster and the head of personnel"
 	faction = "Station"
 	total_positions = 3
 	spawn_positions = 2
-	supervisors = "the quartermaster and the head of personnel"
 	selection_color = "#dcba97"
 
 	outfit = /datum/outfit/job/cargo_technician
 
 	access = list(ACCESS_MAINT_TUNNELS, ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_QM, ACCESS_MINING, ACCESS_MECH_MINING, ACCESS_MINING_STATION, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_MAINT_TUNNELS, ACCESS_CARGO, ACCESS_MAILSORTING, ACCESS_MINERAL_STOREROOM)
-	paycheck = PAYCHECK_EASY
-	paycheck_department = ACCOUNT_CAR
+
+	department_flag = CIVILIAN
+	bank_account_department = ACCOUNT_CAR_BITFLAG
+	payment_per_department = list(ACCOUNT_CAR_ID = PAYCHECK_EASY)
+
 
 	display_order = JOB_DISPLAY_ORDER_CARGO_TECHNICIAN
 	departments = DEPARTMENT_BITFLAG_CARGO

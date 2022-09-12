@@ -17,7 +17,7 @@ const VendingRow = (props, context) => {
       !product.premium
       && data.department
       && data.user
-      && data.department === data.user.department
+      && (data.department & data.user.department)
     )
   );
   return (

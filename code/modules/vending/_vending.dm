@@ -55,7 +55,7 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 	armor = list("melee" = 20, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 70, "stamina" = 0)
 	circuit = /obj/item/circuitboard/machine/vendor
 	clicksound = 'sound/machines/pda_button1.ogg'
-	payment_department = ACCOUNT_SRV
+	payment_department = ACCOUNT_SRV_BITFLAG
 
 	light_color = LIGHT_COLOR_BLUE
 
@@ -707,12 +707,18 @@ GLOBAL_LIST_EMPTY(vending_products)
 			.["user"] = list()
 			.["user"]["name"] = C.registered_account.account_holder
 			.["user"]["cash"] = C.registered_account.account_balance
+			.["user"]["job"] = "No Job"
+			.["user"]["department"] = "No Department"
+			var/datum/data/record/R = find_record("name", C.registered_account.account_holder, GLOB.data_core.general)
 			if(C.registered_account.account_job)
 				.["user"]["job"] = C.registered_account.account_job.title
-				.["user"]["department"] = C.registered_account.account_department
-			else
-				.["user"]["job"] = "No Job"
-				.["user"]["department"] = "No Department"
+				var/list/dept_list = list()
+				for(var/each in SSeconomy.account_bitflags)
+					if(SSeconomy.account_bitflags[each] & C.registered_account.active_departments)
+						dept_list += each
+				.["user"]["department"] = english_list(dept_list)
+			if(R)
+				.["user"]["job"] = R.fields["rank"]
 	.["stock"] = list()
 	for (var/datum/data/vending_product/R in product_records + coin_records + hidden_records)
 		.["stock"]["[replacetext(replacetext("[R.product_path]", "/obj/item/", ""), "/", "-")]"] = R.amount
@@ -768,7 +774,7 @@ GLOBAL_LIST_EMPTY(vending_products)
 					vend_ready = TRUE
 					return
 				var/datum/bank_account/account = C.registered_account
-				if(account.account_job && account.account_department == payment_department)
+				if(account.account_job && (account.active_departments & payment_department))
 					price_to_use = 0
 				if(coin_records.Find(R))
 					price_to_use = R.custom_premium_price ? R.custom_premium_price : extra_price

@@ -2,11 +2,10 @@
 	title = JOB_NAME_SCIENTIST
 	flag = SCIENTIST
 	department_head = list(JOB_NAME_RESEARCHDIRECTOR)
-	department_flag = MEDSCI
+	supervisors = "the research director"
 	faction = "Station"
 	total_positions = 5
 	spawn_positions = 3
-	supervisors = "the research director"
 	selection_color = "#ffeeff"
 	exp_requirements = 120
 	exp_type = EXP_TYPE_CREW
@@ -17,8 +16,10 @@
 					ACCESS_MINERAL_STOREROOM, ACCESS_TECH_STORAGE, ACCESS_GENETICS, ACCESS_AUX_BASE, ACCESS_EXPLORATION)
 	minimal_access = list(ACCESS_TOX, ACCESS_TOX_STORAGE, ACCESS_RESEARCH, ACCESS_XENOBIOLOGY, ACCESS_MECH_SCIENCE,
 					ACCESS_MINERAL_STOREROOM, ACCESS_AUX_BASE, ACCESS_EXPLORATION)
-	paycheck = PAYCHECK_MEDIUM
-	paycheck_department = ACCOUNT_SCI
+
+	department_flag = MEDSCI
+	bank_account_department = ACCOUNT_SCI_BITFLAG
+	payment_per_department = list(ACCOUNT_SCI_ID = PAYCHECK_MEDIUM)
 
 	display_order = JOB_DISPLAY_ORDER_SCIENTIST
 	departments = DEPARTMENT_BITFLAG_SCIENCE

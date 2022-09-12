@@ -2,19 +2,21 @@
 	title = JOB_NAME_BOTANIST
 	flag = BOTANIST
 	department_head = list(JOB_NAME_HEADOFPERSONNEL)
-	department_flag = CIVILIAN
+	supervisors = "the head of personnel"
 	faction = "Station"
 	total_positions = 3
 	spawn_positions = 2
-	supervisors = "the head of personnel"
 	selection_color = "#bbe291"
 
 	outfit = /datum/outfit/job/botanist
 
 	access = list(ACCESS_HYDROPONICS, ACCESS_BAR, ACCESS_KITCHEN, ACCESS_MORGUE, ACCESS_MINERAL_STOREROOM)
 	minimal_access = list(ACCESS_HYDROPONICS, ACCESS_MORGUE, ACCESS_MINERAL_STOREROOM)
-	paycheck = PAYCHECK_EASY
-	paycheck_department = ACCOUNT_SRV
+
+	department_flag = CIVILIAN
+	bank_account_department = ACCOUNT_SRV_BITFLAG
+	payment_per_department = list(ACCOUNT_SRV_ID = PAYCHECK_EASY)
+
 	display_order = JOB_DISPLAY_ORDER_BOTANIST
 	departments = DEPARTMENT_BITFLAG_SERVICE
 	rpg_title = "Gardener"

@@ -72,6 +72,8 @@
 
 	/// A lazy list of statuses to add next to this mind in the traitor panel
 	var/list/special_statuses
+	/// your bank account id in your mind
+	var/account_id
 
 /datum/mind/New(var/key)
 	src.key = key

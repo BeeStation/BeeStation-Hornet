@@ -196,7 +196,7 @@
 			if (!shuttle.prerequisites_met())
 				to_chat(usr, "<span class='alert'>You have not met the requirements for purchasing this shuttle.</span>")
 				return
-			var/datum/bank_account/bank_account = SSeconomy.get_dep_account(ACCOUNT_CAR)
+			var/datum/bank_account/bank_account = SSeconomy.get_dep_account(ACCOUNT_CAR_ID)
 			if (bank_account.account_balance < shuttle.credit_cost)
 				return
 			SSshuttle.shuttle_purchased = TRUE
@@ -404,7 +404,7 @@
 							"possibleAnswers" = message.possible_answers,
 						))
 			if (STATE_BUYING_SHUTTLE)
-				var/datum/bank_account/bank_account = SSeconomy.get_dep_account(ACCOUNT_CAR)
+				var/datum/bank_account/bank_account = SSeconomy.get_dep_account(ACCOUNT_CAR_ID)
 				var/list/shuttles = list()
 
 				for (var/shuttle_id in SSmapping.shuttle_templates)

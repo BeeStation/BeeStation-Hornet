@@ -6,6 +6,8 @@
 #define DEPT_ENG 5
 #define DEPT_SUP 6
 
+#define NEW_BANK_ACCOUNT_COST 1000
+
 //Keeps track of the time for the ID console. Having it as a global variable prevents people from dismantling/reassembling it to
 //increase the slots of many jobs.
 GLOBAL_VAR_INIT(time_last_changed_position, 0)
@@ -20,6 +22,8 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	var/mode = 0
 	var/printing = null
 	var/target_dept = DEPT_ALL //Which department this computer has access to.
+	var/available_paycheck_departments = list()
+	var/target_paycheck = ACCOUNT_CIV_ID
 
 	//Cooldown for closing positions in seconds
 	//if set to -1: No cooldown... probably a bad idea
@@ -58,6 +62,22 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	for(var/G in typesof(/datum/job/gimmick))
 		var/datum/job/gimmick/J = new G
 		blacklisted += J.title
+
+	if((target_dept == DEPT_ALL) || (target_dept == DEPT_GEN))
+		available_paycheck_departments |= list(
+			ACCOUNT_CIV_ID = ACCOUNT_CIV_BITFLAG,
+			ACCOUNT_SRV_ID = ACCOUNT_SRV_BITFLAG,
+			ACCOUNT_CAR_ID = ACCOUNT_CAR_BITFLAG
+		)
+	if((target_dept == DEPT_ALL) || (target_dept == DEPT_ENG))
+		available_paycheck_departments |= list(ACCOUNT_ENG_ID = ACCOUNT_ENG_BITFLAG)
+	if((target_dept == DEPT_ALL) || (target_dept == DEPT_SCI))
+		available_paycheck_departments |= list(ACCOUNT_SCI_ID = ACCOUNT_SCI_BITFLAG)
+	if((target_dept == DEPT_ALL) || (target_dept == DEPT_MED))
+		available_paycheck_departments |= list(ACCOUNT_MED_ID = ACCOUNT_MED_BITFLAG)
+	if((target_dept == DEPT_ALL) || (target_dept == DEPT_SEC))
+		available_paycheck_departments |= list(ACCOUNT_SEC_ID = ACCOUNT_SEC_BITFLAG)
+
 
 /obj/machinery/computer/card/examine(mob/user)
 	. = ..()
@@ -173,8 +193,6 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		return TRUE
 
 /obj/machinery/computer/card/proc/update_modify_manifest()
-	if(inserted_modify_id.registered_account)
-		inserted_modify_id.registered_account.account_department = get_department_by_hud(inserted_modify_id.hud_state) // your true department by your hud icon color
 	GLOB.data_core.manifest_modify(inserted_modify_id.registered_name, inserted_modify_id.assignment, inserted_modify_id.hud_state)
 
 /obj/machinery/computer/card/AltClick(mob/user)
@@ -202,7 +220,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		var/crew = ""
 		for(var/datum/data/record/t in sortRecord(GLOB.data_core.general))
 			crew += t.fields["name"] + " - " + t.fields["rank"] + "<br>"
-		dat = "<tt><b>Crew Manifest:</b><br>Please use security record computer to modify entries.<br><br>[crew]<a href='?src=[REF(src)];choice=print'>Print</a><br><br><a href='?src=[REF(src)];choice=mode;mode_target=0'>Access ID modification console.</a><br></tt>"
+		dat = "<tt><b>Crew Manifest:</b><br>Please use security record computer to modify entries.<br><br>[crew]<a href='?src=[REF(src)];choice=print'>Print</a><br><br><a href='?src=[REF(src)];choice=mode;mode_target=0'>Return</a><br></tt>"
 
 	else if(mode == 2)
 		// JOB MANAGEMENT
@@ -215,7 +233,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			S = "--------"
 		dat += "<a href='?src=[REF(src)];choice=inserted_scan_id'>[S]</a>"
 		dat += "<table>"
-		dat += "<tr><td style='width:25%'><b>Job</b></td><td style='width:25%'><b>Slots</b></td><td style='width:25%'><b>Open job</b></td><td style='width:25%'><b>Close job</b><td style='width:25%'><b>Prioritize</b></td></td></tr>"
+		dat += "<tr><td style='width:25%'><b>Job</b></td><td style='width:5%'><b>Slots</b></td><td style='width:20%'><b>Open job</b></td><td style='width:20%'><b>Close job</b><td style='width:20%'><b>Prioritize</b></td></td></tr>"
 		var/ID
 		if(inserted_scan_id && (ACCESS_CHANGE_IDS in inserted_scan_id.access) && !target_dept)
 			ID = 1
@@ -287,32 +305,47 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			S = html_encode(inserted_scan_id.name)
 			//Checking all the accesses and their corresponding departments
 			if((ACCESS_HOP in inserted_scan_id.access) && ((target_dept==DEPT_GEN) || !target_dept))
-				paycheck_departments |= ACCOUNT_SRV
-				paycheck_departments |= ACCOUNT_CIV
-				paycheck_departments |= ACCOUNT_CAR //Currently no seperation between service/civillian and supply
+				paycheck_departments |= ACCOUNT_SRV_ID
+				paycheck_departments |= ACCOUNT_CIV_ID
+				paycheck_departments |= ACCOUNT_CAR_ID //Currently no seperation between service/civillian and supply
 			if((ACCESS_HOS in inserted_scan_id.access) && ((target_dept==DEPT_SEC) || !target_dept))
-				paycheck_departments |= ACCOUNT_SEC
+				paycheck_departments |= ACCOUNT_SEC_ID
 			if((ACCESS_CMO in inserted_scan_id.access) && ((target_dept==DEPT_MED) || !target_dept))
-				paycheck_departments |= ACCOUNT_MED
+				paycheck_departments |= ACCOUNT_MED_ID
 			if((ACCESS_RD in inserted_scan_id.access) && ((target_dept==DEPT_SCI) || !target_dept))
-				paycheck_departments |= ACCOUNT_SCI
+				paycheck_departments |= ACCOUNT_SCI_ID
 			if((ACCESS_CE in inserted_scan_id.access) && ((target_dept==DEPT_ENG) || !target_dept))
-				paycheck_departments |= ACCOUNT_ENG
+				paycheck_departments |= ACCOUNT_ENG_ID
 		else
 			S = "--------"
-		dat += "<a href='?src=[REF(src)];choice=inserted_scan_id'>[S]</a>"
+		dat += "<a href='?src=[REF(src)];choice=inserted_scan_id'>[S]</a></br>"
+		dat += "<td>target department: "
+		if(length(paycheck_departments))
+			for(var/P in available_paycheck_departments)
+				var/colourful = "[P == target_paycheck ? "<font color=\"6bc473\">" : "" ]"
+				dat += "<a href='?src=[REF(src)];choice=set_paycheck_department;paytype=[P]'>[colourful][P][colourful ? "</font>" : ""]</a> "
+		dat += "</td>"
 		dat += "<table>"
-		dat += "<tr><td style='width:25%'><b>Name</b></td><td style='width:25%'><b>Job</b></td><td style='width:25%'><b>Paycheck</b></td><td style='width:25%'><b>Pay Bonus</b></td></tr>"
+		dat += "<tr><td style='width:30%'><b>Name</b></td><td style='width:20%'><b>Job</b></td><td style='width:20%'><b>Department</b></td><td style='width:15%'><b>Paycheck</b></td><td style='width:15%'><b>Pay Bonus</b></td></tr>"
 
-		for(var/A in SSeconomy.bank_accounts)
-			var/datum/bank_account/B = A
-			if(!(B.account_department in paycheck_departments))
-				continue
-			dat += "<tr>"
-			dat += "<td>[B.account_holder]</td>"
-			dat += "<td>[B.account_job.title]</td>"
-			dat += "<td><a href='?src=[REF(src)];choice=adjust_pay;account=[B.account_holder]'>$[B.paycheck_amount]</a></td>"
-			dat += "<td><a href='?src=[REF(src)];choice=adjust_bonus;account=[B.account_holder]'>$[B.paycheck_bonus]</a></td>"
+		if(length(paycheck_departments))
+			for(var/datum/bank_account/B in SSeconomy.bank_accounts)
+				var/datum/data/record/R = find_record("name", B.account_holder, GLOB.data_core.general)
+				dat += "<tr>"
+				dat += "<td>[B.account_holder] [B.suspended ? "(Account closed)" : ""]</td>"
+				dat += "<td>[R ? R.fields["rank"] : "(No data)"]</td>"
+				if(B.active_departments & available_paycheck_departments[target_paycheck])
+					dat += "<td><a href='?src=[REF(src)];choice=turn_on_off_department'><font color=\"6bc473\">Vendor free</font></a></td>"
+				else
+					dat += "<td><a href='?src=[REF(src)];choice=turn_on_off_department'>No free</a></td>"
+				if(!(target_paycheck in list(ACCOUNT_COM_ID)))
+					if(B.suspended)
+						dat += "<td>Closed</td>"
+						dat += "<td>$0</td>"
+					else
+						dat += "<td><a href='?src=[REF(src)];choice=adjust_pay;account=[B.account_holder]'>€[B.payment_per_department[target_paycheck]]</a></td>"
+						dat += "<td><a href='?src=[REF(src)];choice=adjust_bonus;account=[B.account_holder]'>€[B.bonus_per_department[target_paycheck]]</a></td>"
+				dat += "</tr>"
 	else
 		var/header = ""
 
@@ -432,6 +465,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			if(!target_dept)
 				body += "<br><hr><a href = '?src=[REF(src)];choice=mode;mode_target=2'>Job Management</a>"
 			body += "<a href='?src=[REF(src)];choice=mode;mode_target=3'>Paycheck Management</a>"
+			body += "<a href='?src=[REF(src)];choice=open_new_account'>Open a new bank account</a>"
 
 		dat = "<tt>[header][body]<hr><br></tt>"
 	var/datum/browser/popup = new(user, "id_com", src.name, 900, 620)
@@ -648,6 +682,28 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				to_chat(usr, "<span class='notice'>[j.title] has been successfully [priority ?  "prioritized" : "unprioritized"]. Potential employees will notice your request.</span>")
 				playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
 
+		if ("set_paycheck_department")
+			if(!inserted_scan_id)
+				updateUsrDialog()
+				return
+			switch(href_list["paytype"])
+				if(ACCOUNT_CIV_ID)
+					target_paycheck = ACCOUNT_CIV_ID
+				if(ACCOUNT_SRV_ID)
+					target_paycheck = ACCOUNT_SRV_ID
+				if(ACCOUNT_CAR_ID)
+					target_paycheck = ACCOUNT_CAR_ID
+				if(ACCOUNT_ENG_ID)
+					target_paycheck = ACCOUNT_ENG_ID
+				if(ACCOUNT_SCI_ID)
+					target_paycheck = ACCOUNT_SCI_ID
+				if(ACCOUNT_MED_ID)
+					target_paycheck = ACCOUNT_MED_ID
+				if(ACCOUNT_SEC_ID)
+					target_paycheck = ACCOUNT_SEC_ID
+				if(ACCOUNT_VIP_ID)
+					target_paycheck = ACCOUNT_COM_ID
+
 		if ("adjust_pay")
 			//Adjust the paycheck of a crew member. Can't be less than zero.
 			if(!inserted_scan_id)
@@ -662,28 +718,27 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			if(isnull(account))
 				updateUsrDialog()
 				return
-			switch(account.account_department) //Checking if the user has access to change pay.
-				if(ACCOUNT_SRV,ACCOUNT_CIV,ACCOUNT_CAR)
-					if(!(ACCESS_HOP in inserted_scan_id.access))
-						updateUsrDialog()
-						return
-				if(ACCOUNT_SEC)
-					if(!(ACCESS_HOS in inserted_scan_id.access))
-						updateUsrDialog()
-						return
-				if(ACCOUNT_MED)
-					if(!(ACCESS_CMO in inserted_scan_id.access))
-						updateUsrDialog()
-						return
-				if(ACCOUNT_SCI)
-					if(!(ACCESS_RD in inserted_scan_id.access))
-						updateUsrDialog()
-						return
-				if(ACCOUNT_ENG)
-					if(!(ACCESS_CE in inserted_scan_id.access))
-						updateUsrDialog()
-						return
-			var/new_pay = FLOOR(input(usr, "Input the new paycheck amount.", "Set new paycheck amount.", account.paycheck_amount) as num|null, 1)
+			if(account.active_departments & (ACCOUNT_SRV_BITFLAG | ACCOUNT_CIV_BITFLAG | ACCOUNT_CAR_BITFLAG)) //Checking if the user has access to change pay.
+				if(!(ACCESS_HOP in inserted_scan_id.access))
+					updateUsrDialog()
+					return
+			if(account.active_departments & ACCOUNT_SEC_BITFLAG)
+				if(!(ACCESS_HOS in inserted_scan_id.access))
+					updateUsrDialog()
+					return
+			if(account.active_departments & ACCOUNT_MED_BITFLAG)
+				if(!(ACCESS_CMO in inserted_scan_id.access))
+					updateUsrDialog()
+					return
+			if(account.active_departments & ACCOUNT_SCI_BITFLAG)
+				if(!(ACCESS_RD in inserted_scan_id.access))
+					updateUsrDialog()
+					return
+			if(account.active_departments & ACCOUNT_ENG_BITFLAG)
+				if(!(ACCESS_CE in inserted_scan_id.access))
+					updateUsrDialog()
+					return
+			var/new_pay = FLOOR(input(usr, "Input the new paycheck amount.", "Set new paycheck amount.", account.payment_per_department[target_paycheck]) as num|null, 1)
 			if(isnull(new_pay))
 				updateUsrDialog()
 				return
@@ -691,7 +746,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				to_chat(usr, "<span class='warning'>Paychecks cannot be negative.</span>")
 				updateUsrDialog()
 				return
-			account.paycheck_amount = new_pay
+			account.payment_per_department[target_paycheck] = new_pay
 
 		if ("adjust_bonus")
 			//Adjust the bonus pay of a crew member. Negative amounts dock pay.
@@ -707,36 +762,36 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			if(isnull(account))
 				updateUsrDialog()
 				return
-			switch(account.account_department) //Checking if the user has access to change pay.
-				if(ACCOUNT_SRV,ACCOUNT_CIV,ACCOUNT_CAR)
-					if(!(ACCESS_HOP in inserted_scan_id.access))
-						updateUsrDialog()
-						return
-				if(ACCOUNT_SEC)
-					if(!(ACCESS_HOS in inserted_scan_id.access))
-						updateUsrDialog()
-						return
-				if(ACCOUNT_MED)
-					if(!(ACCESS_CMO in inserted_scan_id.access))
-						updateUsrDialog()
-						return
-				if(ACCOUNT_SCI)
-					if(!(ACCESS_RD in inserted_scan_id.access))
-						updateUsrDialog()
-						return
-				if(ACCOUNT_ENG)
-					if(!(ACCESS_CE in inserted_scan_id.access))
-						updateUsrDialog()
-						return
-			var/new_bonus = FLOOR(input(usr, "Input the bonus amount. Negative values will dock paychecks.", "Set paycheck bonus", account.paycheck_bonus) as num|null, 1)
+			if(account.active_departments & (ACCOUNT_SRV_BITFLAG | ACCOUNT_CIV_BITFLAG | ACCOUNT_CAR_BITFLAG))//Checking if the user has access to change pay.
+				if(!(ACCESS_HOP in inserted_scan_id.access))
+					updateUsrDialog()
+					return
+			if(account.active_departments & ACCOUNT_SEC_BITFLAG)
+				if(!(ACCESS_HOS in inserted_scan_id.access))
+					updateUsrDialog()
+					return
+			if(account.active_departments & ACCOUNT_MED_BITFLAG)
+				if(!(ACCESS_CMO in inserted_scan_id.access))
+					updateUsrDialog()
+					return
+			if(account.active_departments & ACCOUNT_SCI_BITFLAG)
+				if(!(ACCESS_RD in inserted_scan_id.access))
+					updateUsrDialog()
+					return
+			if(account.active_departments & ACCOUNT_ENG_BITFLAG)
+				if(!(ACCESS_CE in inserted_scan_id.access))
+					updateUsrDialog()
+					return
+			var/new_bonus = FLOOR(input(usr, "Input the bonus amount. Negative values will dock paychecks.", "Set paycheck bonus", account.bonus_per_department[target_paycheck]) as num|null, 1)
 			if(isnull(new_bonus))
 				updateUsrDialog()
 				return
-			account.paycheck_bonus = new_bonus
+			account.bonus_per_department[target_paycheck] = new_bonus
 
 		if ("print")
 			if (!( printing ))
 				printing = 1
+				say("Printing...")
 				sleep(50)
 				var/obj/item/paper/P = new /obj/item/paper( loc )
 				var/t1 = "<B>Crew Manifest:</B><BR>"
@@ -746,6 +801,47 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				P.name = "paper- 'Crew Manifest'"
 				printing = null
 				playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, FALSE)
+
+		if ("open_new_account")
+			if(!inserted_scan_id)
+				say("No ID detected.")
+				updateUsrDialog()
+				return
+			if(!(ACCESS_HOP in inserted_scan_id.access))
+				say("Insufficient access to create a new bank account.")
+				return
+			var/datum/bank_account/B = SSeconomy.get_dep_account(ACCOUNT_SRV_ID)
+			switch(alert("Would you like to open a new bank account?\nIt will cost 1,000 credits in service budget.","Open a new account","Yes","No"))
+				if("No")
+					return
+				if("Yes")
+					if(!B.has_money(NEW_BANK_ACCOUNT_COST))
+						say("Insufficient budget balance, abort opening a new bank account.")
+						return
+			if (!(printing))
+				printing = 1
+				var/target_name = input("Write the bank owner's name", "Account owner's name?")
+				if(!target_name)
+					printing = null
+					return
+				if(!B.adjust_money(-NEW_BANK_ACCOUNT_COST)) // double fail check
+					say("Insufficient budget balance, abort opening a new bank account.")
+					printing = null
+					return
+
+				B = new /datum/bank_account(target_name, SSjob.GetJob(JOB_NAME_ASSISTANT))
+				for(var/each in B.payment_per_department)
+					B.payment_per_department[each] = 0
+				say("Printing...")
+				sleep(50)
+				var/obj/item/paper/P = new /obj/item/paper( loc )
+				P.name = "New bank account information"
+				P.info += "<b>* Owner:</b> [target_name]</br>"
+				P.info += "<b>* Bank ID:</b> [B.account_id]</br>"
+				P.info += "--- Created by Nanotrasen Space Finance ---"
+				printing = null
+				playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, FALSE)
+
 	if (inserted_modify_id)
 		inserted_modify_id.update_label()
 	updateUsrDialog()
@@ -778,22 +874,26 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 
 /obj/machinery/computer/card/minor/hos
 	target_dept = DEPT_SEC
+	target_paycheck = ACCOUNT_SEC_ID
 	icon_screen = "idhos"
 
 	light_color = LIGHT_COLOR_RED
 
 /obj/machinery/computer/card/minor/cmo
 	target_dept = DEPT_MED
+	target_paycheck = ACCOUNT_MED_ID
 	icon_screen = "idcmo"
 
 /obj/machinery/computer/card/minor/rd
 	target_dept = DEPT_SCI
+	target_paycheck = ACCOUNT_SCI_ID
 	icon_screen = "idrd"
 
 	light_color = LIGHT_COLOR_PINK
 
 /obj/machinery/computer/card/minor/ce
 	target_dept = DEPT_ENG
+	target_paycheck = ACCOUNT_ENG_ID
 	icon_screen = "idce"
 
 	light_color = LIGHT_COLOR_YELLOW
@@ -805,3 +905,5 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 #undef DEPT_SCI
 #undef DEPT_ENG
 #undef DEPT_SUP
+
+#undef NEW_BANK_ACCOUNT_COST

@@ -1,22 +1,54 @@
-#define DEPARTMENT_LOCKED_JOBS list("VIP", "Captain", "Head of Security")
 #define DUMPTIME 3000
 
 /datum/bank_account
 	var/account_holder = "Rusty Venture"
 	var/account_balance = 0
-	//Amount payed on each payday
-	var/paycheck_amount = 0
-	//Bonus amount for a single payday
-	var/paycheck_bonus = 0
 	var/datum/job/account_job
-	var/account_department
 	var/list/bank_cards = list()
 	var/add_to_accounts = TRUE
 	var/account_id
+	/// used for NEET quirk to give you extra credits
 	var/welfare = FALSE
 	var/being_dumped = FALSE //pink levels are rising
 	var/withdrawDelay = 0
-	var/department_locked = FALSE //TRUE locks from changing `account_department` into something else. used for VIP, Captain, and HoS. Those jobs don't need to change paycheck department.
+	/// used for cryo'ed people's account. Once it's TRUE, most bank features of the bank account will be disabled.
+	var/suspended = FALSE
+
+	///
+	var/active_departments = NONE
+	/// payment from each department.
+	var/list/payment_per_department = list(
+		ACCOUNT_CIV_ID=0,
+		ACCOUNT_SRV_ID=0,
+		ACCOUNT_CAR_ID=0,
+		ACCOUNT_ENG_ID=0,
+		ACCOUNT_SCI_ID=0,
+		ACCOUNT_MED_ID=0,
+		ACCOUNT_SEC_ID=0,
+		ACCOUNT_VIP_ID=0
+	)
+	/// bonus from each department.
+	var/list/bonus_per_department = list(
+		ACCOUNT_CIV_ID=0,
+		ACCOUNT_SRV_ID=0,
+		ACCOUNT_CAR_ID=0,
+		ACCOUNT_ENG_ID=0,
+		ACCOUNT_SCI_ID=0,
+		ACCOUNT_MED_ID=0,
+		ACCOUNT_SEC_ID=0,
+		ACCOUNT_VIP_ID=0
+	)
+	/// the amount of credits that would be returned to the station budgets before it siphons roundstart credits into void when its owner went cryo.
+	var/list/total_paid_payment = list(
+		ACCOUNT_CIV_ID=0,
+		ACCOUNT_SRV_ID=0,
+		ACCOUNT_CAR_ID=0,
+		ACCOUNT_ENG_ID=0,
+		ACCOUNT_SCI_ID=0,
+		ACCOUNT_MED_ID=0,
+		ACCOUNT_SEC_ID=0,
+		ACCOUNT_VIP_ID=0
+	)
 
 /datum/bank_account/New(newname, job)
 	if(add_to_accounts)
@@ -24,10 +56,10 @@
 	account_holder = newname
 	account_job = job
 	account_id = rand(111111,999999)
-	paycheck_amount = account_job.paycheck
-	account_department = account_job.paycheck_department
-	if(account_job.title in DEPARTMENT_LOCKED_JOBS)
-		department_locked = TRUE
+
+	active_departments = account_job.bank_account_department
+	for(var/D in account_job.payment_per_department)
+		payment_per_department[D] = account_job.payment_per_department[D]
 
 /datum/bank_account/Destroy()
 	if(add_to_accounts)
@@ -60,34 +92,45 @@
 	return FALSE
 
 /datum/bank_account/proc/payday(amt_of_paychecks, free = FALSE)
-	var/money_to_transfer = paycheck_amount * amt_of_paychecks
+	var/bank_card_talk_sound = 1 // noisy-proof. it will only sound once.
+	if(suspended)
+		bank_card_talk("ERROR: Payday aborted, the account is closed by Nanotrasen Space Finance.", sound=bank_card_talk_sound--)
+		return
 	if(welfare)
-		money_to_transfer += PAYCHECK_WELFARE
-	if((money_to_transfer + paycheck_bonus) < 0) //Check if the bonus is docking more pay than possible
-		paycheck_bonus -= money_to_transfer //Remove the debt with the payday
-		money_to_transfer = 0 //No money for you
-	else
-		money_to_transfer += paycheck_bonus
-	if(free)
-		adjust_money(money_to_transfer)
-		if(paycheck_bonus > 0) //Get rid of bonus if we have one
-			paycheck_bonus = 0
-	else
-		var/datum/bank_account/D = SSeconomy.get_dep_account(account_department)
-		if(D)
-			if(!transfer_money(D, money_to_transfer))
-				bank_card_talk("ERROR: Payday aborted, departmental funds insufficient.")
-				return FALSE
-			else
-				bank_card_talk("Payday processed, account now holds $[account_balance].")
-				//The bonus only resets once it goes through.
-				if(paycheck_bonus > 0) //And we're not getting rid of debt
-					paycheck_bonus = 0
-				return TRUE
-	bank_card_talk("ERROR: Payday aborted, unable to contact departmental account.")
-	return FALSE
+		adjust_money(PAYCHECK_WELFARE) // Don't let welfare siphon your station budget
+		bank_card_talk("Nanotrasen welfare system processed, account now holds €[account_balance], supported with €[PAYCHECK_WELFARE].", sound=bank_card_talk_sound--)
 
-/datum/bank_account/proc/bank_card_talk(message, force)
+	for(var/D in payment_per_department)
+		if(payment_per_department[D] <= 0 && bonus_per_department[D] <= 0)
+			continue
+
+		var/money_to_transfer = payment_per_department[D] * amt_of_paychecks
+		if((money_to_transfer + bonus_per_department[D]) < 0) //Check if the bonus is docking more pay than possible
+			bonus_per_department[D] -= money_to_transfer //Remove the debt with the payday
+			money_to_transfer = 0 //No money for you
+		else
+			money_to_transfer += bonus_per_department[D]
+		if(free)
+			adjust_money(money_to_transfer)
+			if(bonus_per_department[D] > 0) //Get rid of bonus if we have one
+				bonus_per_department[D] = 0
+		else
+			var/datum/bank_account/B = SSeconomy.get_dep_account(D)
+			if(!B)
+				bank_card_talk("ERROR: Payday aborted, unable to query [D] departmental account.", sound=bank_card_talk_sound--)
+			else
+				if(!transfer_money(B, money_to_transfer))
+					bank_card_talk("ERROR: Payday aborted, [D] departmental funds insufficient.", sound=bank_card_talk_sound--)
+					bonus_per_department[D] += (money_to_transfer-bonus_per_department[D]) // you'll get paid someday
+					continue
+				else
+					bank_card_talk("Payday processed, account now holds €[account_balance], paid with €[money_to_transfer] from [D] payment.", sound=bank_card_talk_sound--)
+					total_paid_payment[D] += money_to_transfer
+					//The bonus only resets once it goes through.
+					if(bonus_per_department[D] > 0) //And we're not getting rid of debt
+						bonus_per_department[D] = 0
+
+/datum/bank_account/proc/bank_card_talk(message, force, sound=TRUE)
 	if(!message || !bank_cards.len)
 		return
 	for(var/obj/A in bank_cards)
@@ -96,21 +139,24 @@
 			if(card_holder.client && !(card_holder.client.prefs.chat_toggles & CHAT_BANKCARD) && !force)
 				return
 
-			card_holder.playsound_local(get_turf(card_holder), 'sound/machines/twobeep_high.ogg', 50, TRUE)
+			if(sound)
+				card_holder.playsound_local(get_turf(card_holder), 'sound/machines/twobeep_high.ogg', 50, TRUE)
 			if(card_holder.can_hear())
 				to_chat(card_holder, "[icon2html(A, card_holder)] *[message]*")
 		else if(isturf(A.loc)) //If on the ground
 			for(var/mob/M as() in hearers(1,get_turf(A)))
 				if(M.client && !(M.client.prefs.chat_toggles & CHAT_BANKCARD) && !force)
 					return
-				playsound(A, 'sound/machines/twobeep_high.ogg', 50, TRUE)
+				if(sound)
+					playsound(A, 'sound/machines/twobeep_high.ogg', 50, TRUE)
 				A.audible_message("[icon2html(A, hearers(A))] *[message]*", null, 1)
 				break
 		else
 			for(var/mob/M in A.loc) //If inside a container with other mobs (e.g. locker)
 				if(M.client && !(M.client.prefs.chat_toggles & CHAT_BANKCARD) && !force)
 					return
-				M.playsound_local(get_turf(M), 'sound/machines/twobeep_high.ogg', 50, TRUE)
+				if(sound)
+					M.playsound_local(get_turf(M), 'sound/machines/twobeep_high.ogg', 50, TRUE)
 				if(M.can_hear())
 					to_chat(M, "[icon2html(A, M)] *[message]*")
 
@@ -122,17 +168,12 @@
 /datum/bank_account/department/New(dep_id, budget)
 	department_id = dep_id
 	account_balance = budget
-	var/list/total_department_list = SSeconomy.department_accounts+SSeconomy.nonstation_accounts
-
-	account_holder = total_department_list[dep_id]
+	active_departments = SSeconomy.account_bitflags[dep_id]
+	account_holder = (SSeconomy.department_accounts+SSeconomy.nonstation_accounts)[dep_id]
 
 	SSeconomy.generated_accounts += src
 
-/datum/bank_account/proc/is_nonstation_account() // returns TRUE if the budget account is not Station department. i.e.) medical budget, security budget: FALSE / `nonstation_accounts` like VIP one: TRUE
-	for(var/each in SSeconomy.nonstation_accounts)
-		if(account_holder == SSeconomy.nonstation_accounts[each])
-			return TRUE
-	return FALSE
+/datum/bank_account/proc/is_nonstation_account()
+	return SSeconomy.is_nonstation_account(src)
 
 #undef DUMPTIME
-#undef DEPARTMENT_LOCKED_JOBS
