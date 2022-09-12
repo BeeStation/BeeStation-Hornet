@@ -40,14 +40,14 @@
 
 // If a vending machine matches its department flag with your bank account's, it gets free.
 #define NO_FREEBIES "commies go home"
-#define ACCOUNT_COM_BITFLAG (1<<1) // for Commander only vender items (i.e. HoP cartridge vendor)
-#define ACCOUNT_CIV_BITFLAG (1<<2)
-#define ACCOUNT_SRV_BITFLAG (1<<3)
-#define ACCOUNT_CAR_BITFLAG (1<<4)
-#define ACCOUNT_ENG_BITFLAG (1<<5)
-#define ACCOUNT_SCI_BITFLAG (1<<6)
-#define ACCOUNT_MED_BITFLAG (1<<7)
-#define ACCOUNT_SEC_BITFLAG (1<<8)
+#define ACCOUNT_COM_BITFLAG (1<<0) // for Commander only vender items (i.e. HoP cartridge vendor)
+#define ACCOUNT_CIV_BITFLAG (1<<1)
+#define ACCOUNT_SRV_BITFLAG (1<<2)
+#define ACCOUNT_CAR_BITFLAG (1<<3)
+#define ACCOUNT_ENG_BITFLAG (1<<4)
+#define ACCOUNT_SCI_BITFLAG (1<<5)
+#define ACCOUNT_MED_BITFLAG (1<<6)
+#define ACCOUNT_SEC_BITFLAG (1<<7)
 #define ACCOUNT_VIP_BITFLAG (1<<8) // for VIP only vender items. currently not used.
 
 /// How much mail the Economy SS will create per minute, regardless of firing time.

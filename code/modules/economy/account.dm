@@ -38,28 +38,23 @@
 		ACCOUNT_SEC_ID=0,
 		ACCOUNT_VIP_ID=0
 	)
-	/// the amount of credits that would be returned to the station budgets before it siphons roundstart credits into void when its owner went cryo.
-	var/list/total_paid_payment = list(
-		ACCOUNT_CIV_ID=0,
-		ACCOUNT_SRV_ID=0,
-		ACCOUNT_CAR_ID=0,
-		ACCOUNT_ENG_ID=0,
-		ACCOUNT_SCI_ID=0,
-		ACCOUNT_MED_ID=0,
-		ACCOUNT_SEC_ID=0,
-		ACCOUNT_VIP_ID=0
-	)
 
 /datum/bank_account/New(newname, job)
-	if(add_to_accounts)
-		SSeconomy.bank_accounts += src
 	account_holder = newname
 	account_job = job
 	account_id = rand(111111,999999)
+	var/failcheck = 2000
+	while(SSeconomy.get_bank_account_by_id(account_id, TRUE)) // Don't get the same account ID
+		account_id = rand(111111,999999)
+		if(!failcheck--)
+			CRASH("Something's wrong to creat to a bank account")
 
 	active_departments = account_job.bank_account_department
 	for(var/D in account_job.payment_per_department)
 		payment_per_department[D] = account_job.payment_per_department[D]
+
+	if(add_to_accounts)
+		SSeconomy.bank_accounts += src // this should be added when New() is finished
 
 /datum/bank_account/Destroy()
 	if(add_to_accounts)
@@ -125,7 +120,6 @@
 					continue
 				else
 					bank_card_talk("Payday processed, account now holds €[account_balance], paid with €[money_to_transfer] from [D] payment.", sound=bank_card_talk_sound--)
-					total_paid_payment[D] += money_to_transfer
 					//The bonus only resets once it goes through.
 					if(bonus_per_department[D] > 0) //And we're not getting rid of debt
 						bonus_per_department[D] = 0

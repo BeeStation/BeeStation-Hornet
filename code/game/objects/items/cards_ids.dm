@@ -297,19 +297,24 @@
 	if(registered_account)
 		. += "The account linked to the ID belongs to '[registered_account.account_holder]' and reports a balance of €[registered_account.account_balance]."
 		if(!istype(src, /obj/item/card/id/departmental_budget))
+			var/list/payment_result = list()
 			for(var/D in registered_account.payment_per_department)
 				if(registered_account.payment_per_department[D] > 0)
-					. += "Your payment from [D] budget is €[registered_account.payment_per_department[D]]."
-		if(!HAS_TRAIT(SSstation, STATION_TRAIT_UNITED_BUDGET))
-			for(var/D in SSeconomy.account_bitflags)
-				if(SSeconomy.account_bitflags[D] & registered_account.active_departments)
-					var/datum/bank_account/B = SSeconomy.get_dep_account(D)
-					if(B)
-						. += "The [B.account_holder] reports a balance of €[B.account_balance]."
-		else
-			var/datum/bank_account/B = SSeconomy.get_dep_account(ACCOUNT_CAR_ID)
-			if(B)
-				. += "The [B.account_holder] reports a balance of €[B.account_balance]."
+					payment_result += "[D]: €[registered_account.payment_per_department[D]]"
+			if(length(payment_result))
+				. += "The payment of this account is -"
+				for(var/each in payment_result)
+					. += "\t[each]"
+			if(!HAS_TRAIT(SSstation, STATION_TRAIT_UNITED_BUDGET))
+				for(var/D in SSeconomy.account_bitflags)
+					if(SSeconomy.account_bitflags[D] & registered_account.active_departments)
+						var/datum/bank_account/B = SSeconomy.get_dep_account(D)
+						if(B)
+							. += "The [B.account_holder] reports a balance of €[B.account_balance]."
+			else
+				var/datum/bank_account/B = SSeconomy.get_dep_account(ACCOUNT_CAR_ID)
+				if(B)
+					. += "The [B.account_holder] reports a balance of €[B.account_balance]."
 
 
 		. += "<span class='info'>Alt-Click the ID to pull money from the linked account in the form of holochips.</span>"

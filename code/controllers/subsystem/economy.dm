@@ -74,10 +74,13 @@ SUBSYSTEM_DEF(economy)
 	var/effective_mailcount = living_player_count()
 	mail_waiting += clamp(effective_mailcount, 1, MAX_MAIL_PER_MINUTE)
 
-/datum/controller/subsystem/economy/proc/get_bank_account_by_id(target_id)
-	for(var/datum/bank_account/target_account in SSeconomy.bank_accounts)
+/datum/controller/subsystem/economy/proc/get_bank_account_by_id(target_id, no_failcheck=FALSE)
+	target_id = text2num(target_id)
+	for(var/datum/bank_account/target_account in bank_accounts)
 		if(target_account.account_id == target_id)
 			return target_account
+	if(!no_failcheck)
+		CRASH("[target_id] is not a valid bank ID, or the proc failed to search")
 	return null
 
 /datum/controller/subsystem/economy/proc/get_dep_account(dep_id)
@@ -86,6 +89,11 @@ SUBSYSTEM_DEF(economy)
 	for(var/datum/bank_account/department/D in generated_accounts)
 		if(D.department_id == dep_id)
 			return D
+
+/datum/controller/subsystem/economy/proc/get_dept_id_by_bitflag(target_bitflag)
+	for(var/B in account_bitflags)
+		if(account_bitflags[B] == target_bitflag)
+			return B
 
 /datum/controller/subsystem/economy/proc/is_nonstation_account(datum/bank_account/department/D) // takes a bank account type or dep_ID define
 	if(!D)

@@ -23,7 +23,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	var/printing = null
 	var/target_dept = DEPT_ALL //Which department this computer has access to.
 	var/available_paycheck_departments = list()
-	var/target_paycheck = ACCOUNT_CIV_ID
+	var/target_paycheck = ACCOUNT_SRV_ID
 
 	//Cooldown for closing positions in seconds
 	//if set to -1: No cooldown... probably a bad idea
@@ -63,6 +63,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		var/datum/job/gimmick/J = new G
 		blacklisted += J.title
 
+	// This determines which department payment list the console will show to you.
 	if((target_dept == DEPT_ALL) || (target_dept == DEPT_GEN))
 		available_paycheck_departments |= list(
 			ACCOUNT_CIV_ID = ACCOUNT_CIV_BITFLAG,
@@ -77,6 +78,8 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		available_paycheck_departments |= list(ACCOUNT_MED_ID = ACCOUNT_MED_BITFLAG)
 	if((target_dept == DEPT_ALL) || (target_dept == DEPT_SEC))
 		available_paycheck_departments |= list(ACCOUNT_SEC_ID = ACCOUNT_SEC_BITFLAG)
+	if((target_dept == DEPT_ALL))
+		available_paycheck_departments |= list(ACCOUNT_COM_ID = ACCOUNT_COM_BITFLAG)
 
 
 /obj/machinery/computer/card/examine(mob/user)
@@ -318,7 +321,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				paycheck_departments |= ACCOUNT_ENG_ID
 		else
 			S = "--------"
-		dat += "<a href='?src=[REF(src)];choice=inserted_scan_id'>[S]</a></br>"
+		dat += "<a href='?src=[REF(src)];choice=inserted_scan_id'>[S]</a><br>"
 		dat += "<td>target department: "
 		if(length(paycheck_departments))
 			for(var/P in available_paycheck_departments)
@@ -334,17 +337,21 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				dat += "<tr>"
 				dat += "<td>[B.account_holder] [B.suspended ? "(Account closed)" : ""]</td>"
 				dat += "<td>[R ? R.fields["rank"] : "(No data)"]</td>"
-				if(B.active_departments & available_paycheck_departments[target_paycheck])
-					dat += "<td><a href='?src=[REF(src)];choice=turn_on_off_department'><font color=\"6bc473\">Vendor free</font></a></td>"
+				if(target_paycheck in paycheck_departments)
+					dat += "<td><a href='?src=[REF(src)];choice=turn_on_off_department;account=[B.account_id];paycheck_t=[target_paycheck]'><font color=\"6bc473\">Vendor free</font></a></td>"
 				else
-					dat += "<td><a href='?src=[REF(src)];choice=turn_on_off_department'>No free</a></td>"
-				if(!(target_paycheck in list(ACCOUNT_COM_ID)))
-					if(B.suspended)
-						dat += "<td>Closed</td>"
-						dat += "<td>$0</td>"
-					else
-						dat += "<td><a href='?src=[REF(src)];choice=adjust_pay;account=[B.account_holder]'>€[B.payment_per_department[target_paycheck]]</a></td>"
-						dat += "<td><a href='?src=[REF(src)];choice=adjust_bonus;account=[B.account_holder]'>€[B.bonus_per_department[target_paycheck]]</a></td>"
+					dat += "<td><a href='?src=[REF(src)];choice=turn_on_off_department;account=[B.account_id];paycheck_t=[target_paycheck]'>No free</a></td>"
+				if(target_paycheck in list(ACCOUNT_COM_ID))
+					continue
+				if(B.suspended)
+					dat += "<td>Closed</td>"
+					dat += "<td>$0</td>"
+				else if(!(target_paycheck in paycheck_departments))
+					dat += "<td>$[B.payment_per_department[target_paycheck]] (Auth-denied)</td>"
+					dat += "<td>$[B.bonus_per_department[target_paycheck]]</td>"
+				else
+					dat += "<td><a href='?src=[REF(src)];choice=adjust_pay;account=[B.account_id];paycheck_t=[target_paycheck]'>€[B.payment_per_department[target_paycheck]]</a></td>"
+					dat += "<td><a href='?src=[REF(src)];choice=adjust_bonus;account=[B.account_id];paycheck_t=[target_paycheck]'>€[B.bonus_per_department[target_paycheck]]</a></td>"
 				dat += "</tr>"
 	else
 		var/header = ""
@@ -428,6 +435,30 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				carddesc += "<b>registered_name:</b> [target_owner]</span>"
 				jobs += "<b>Assignment:</b> [target_rank] (<a href='?src=[REF(src)];choice=demote'>Demote</a>)</span>"
 
+			var/banking = ""
+			var/datum/bank_account/B = inserted_modify_id?.registered_account
+			if(B)
+				banking += "<b>Bank status:</b>"
+				banking += "<table border='1' cellspacing='1' cellpadding='0'>"
+				banking += "<tr>"
+				banking += "<td><b>Department Vendor free:</b></td>"
+				for(var/each in available_paycheck_departments)
+					if(B.active_departments & available_paycheck_departments[each])
+						banking += "<td><a href='?src=[REF(src)];choice=turn_on_off_department;account=[B.account_id];paycheck_t=[each]'><font color=\"6bc473\">[each]</a></font></td>"
+					else
+						banking += "<td><a href='?src=[REF(src)];choice=turn_on_off_department;account=[B.account_id];paycheck_t=[each]'>[each]</a></td>"
+				banking += "</tr>"
+				banking += "<tr>"
+				banking += "<td><b>Payment per department:</b></td>"
+				for(var/each in available_paycheck_departments)
+					if(each in list(ACCOUNT_COM_ID))
+						banking += "<td>(no budget)</td>"
+						continue
+					banking += "<td><a href='?src=[REF(src)];choice=adjust_pay;account=[B.account_id];paycheck_t=[each]'>€[B.payment_per_department[each]]</a></td>"
+				banking += "</tr>"
+				banking += "</table>"
+			banking += "<br>"
+
 			var/accesses = ""
 			if(istype(src, /obj/machinery/computer/card/centcom))
 				accesses += "<h5>Central Command:</h5>"
@@ -457,7 +488,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 						accesses += "<br>"
 					accesses += "</td>"
 				accesses += "</tr></table>"
-			body = "[carddesc]<br>[jobs]<br><br>[accesses]" //CHECK THIS
+			body = "[carddesc]<br>[jobs]<br>[banking]<br>[accesses]" //CHECK THIS
 
 		else
 			body = "<a href='?src=[REF(src)];choice=auth'>{Log in}</a> <br><hr>"
@@ -465,10 +496,11 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			if(!target_dept)
 				body += "<br><hr><a href = '?src=[REF(src)];choice=mode;mode_target=2'>Job Management</a>"
 			body += "<a href='?src=[REF(src)];choice=mode;mode_target=3'>Paycheck Management</a>"
-			body += "<a href='?src=[REF(src)];choice=open_new_account'>Open a new bank account</a>"
+			if(target_dept == DEPT_ALL) // currently locked in HoP console only. other console can make bank account with their own budget if this lock is removed
+				body += "<a href='?src=[REF(src)];choice=open_new_account'>Open a new bank account</a>"
 
 		dat = "<tt>[header][body]<hr><br></tt>"
-	var/datum/browser/popup = new(user, "id_com", src.name, 900, 620)
+	var/datum/browser/popup = new(user, "id_com", src.name, 1150, 720)
 	popup.set_content(dat)
 	popup.open()
 
@@ -701,7 +733,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 					target_paycheck = ACCOUNT_MED_ID
 				if(ACCOUNT_SEC_ID)
 					target_paycheck = ACCOUNT_SEC_ID
-				if(ACCOUNT_VIP_ID)
+				if(ACCOUNT_COM_ID)
 					target_paycheck = ACCOUNT_COM_ID
 
 		if ("adjust_pay")
@@ -709,12 +741,9 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			if(!inserted_scan_id)
 				updateUsrDialog()
 				return
-			var/account_name = href_list["account"]
-			var/datum/bank_account/account = null
-			for(var/datum/bank_account/B in SSeconomy.bank_accounts)
-				if(B.account_holder == account_name)
-					account = B
-					break
+			var/account_id = href_list["account"]
+			var/paycheck_t = href_list["paycheck_t"]
+			var/datum/bank_account/account = SSeconomy.get_bank_account_by_id(account_id)
 			if(isnull(account))
 				updateUsrDialog()
 				return
@@ -746,19 +775,16 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				to_chat(usr, "<span class='warning'>Paychecks cannot be negative.</span>")
 				updateUsrDialog()
 				return
-			account.payment_per_department[target_paycheck] = new_pay
+			account.payment_per_department[paycheck_t] = new_pay
 
 		if ("adjust_bonus")
 			//Adjust the bonus pay of a crew member. Negative amounts dock pay.
 			if(!inserted_scan_id)
 				updateUsrDialog()
 				return
-			var/account_name = href_list["account"]
-			var/datum/bank_account/account = null
-			for(var/datum/bank_account/B in SSeconomy.bank_accounts)
-				if(B.account_holder == account_name)
-					account = B
-					break
+			var/account_id = href_list["account"]
+			var/paycheck_t = href_list["paycheck_t"]
+			var/datum/bank_account/account = SSeconomy.get_bank_account_by_id(account_id)
 			if(isnull(account))
 				updateUsrDialog()
 				return
@@ -786,7 +812,23 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			if(isnull(new_bonus))
 				updateUsrDialog()
 				return
-			account.bonus_per_department[target_paycheck] = new_bonus
+			account.bonus_per_department[paycheck_t] = new_bonus
+
+		if ("turn_on_off_department")
+			if(!inserted_scan_id)
+				updateUsrDialog()
+				return
+			var/account_id = href_list["account"]
+			var/paycheck_t = href_list["paycheck_t"]
+			var/datum/bank_account/B = SSeconomy.get_bank_account_by_id(account_id)
+			if(!B)
+				updateUsrDialog()
+				return
+
+			if(B.active_departments & SSeconomy.account_bitflags[paycheck_t])
+				B.active_departments &= ~SSeconomy.account_bitflags[paycheck_t] // turn off
+			else
+				B.active_departments |= SSeconomy.account_bitflags[paycheck_t] // turn on
 
 		if ("print")
 			if (!( printing ))
@@ -810,8 +852,8 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			if(!(ACCESS_HOP in inserted_scan_id.access))
 				say("Insufficient access to create a new bank account.")
 				return
-			var/datum/bank_account/B = SSeconomy.get_dep_account(ACCOUNT_SRV_ID)
-			switch(alert("Would you like to open a new bank account?\nIt will cost 1,000 credits in service budget.","Open a new account","Yes","No"))
+			var/datum/bank_account/B = SSeconomy.get_dep_account(initial(target_paycheck))
+			switch(alert("Would you like to open a new bank account?\nIt will cost 1,000 credits in [lowertext(initial(target_paycheck))] budget.","Open a new account","Yes","No"))
 				if("No")
 					return
 				if("Yes")
@@ -836,8 +878,8 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				sleep(50)
 				var/obj/item/paper/P = new /obj/item/paper( loc )
 				P.name = "New bank account information"
-				P.info += "<b>* Owner:</b> [target_name]</br>"
-				P.info += "<b>* Bank ID:</b> [B.account_id]</br>"
+				P.info += "<b>* Owner:</b> [target_name]<br>"
+				P.info += "<b>* Bank ID:</b> [B.account_id]<br>"
 				P.info += "--- Created by Nanotrasen Space Finance ---"
 				printing = null
 				playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, FALSE)

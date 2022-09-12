@@ -661,7 +661,7 @@ GLOBAL_LIST_EMPTY(vending_products)
 /obj/machinery/vending/ui_static_data(mob/user)
 	. = list()
 	.["onstation"] = onstation
-	.["department"] = payment_department
+	.["department_bitflag"] = payment_department
 	.["product_records"] = list()
 	for (var/datum/data/vending_product/R in product_records)
 		var/list/data = list(
@@ -709,6 +709,7 @@ GLOBAL_LIST_EMPTY(vending_products)
 			.["user"]["cash"] = C.registered_account.account_balance
 			.["user"]["job"] = "No Job"
 			.["user"]["department"] = "No Department"
+			.["user"]["department_bitflag"] = 0
 			var/datum/data/record/R = find_record("name", C.registered_account.account_holder, GLOB.data_core.general)
 			if(C.registered_account.account_job)
 				.["user"]["job"] = C.registered_account.account_job.title
@@ -717,6 +718,7 @@ GLOBAL_LIST_EMPTY(vending_products)
 					if(SSeconomy.account_bitflags[each] & C.registered_account.active_departments)
 						dept_list += each
 				.["user"]["department"] = english_list(dept_list)
+				.["user"]["department_bitflag"] = payment_department
 			if(R)
 				.["user"]["job"] = R.fields["rank"]
 	.["stock"] = list()
@@ -774,7 +776,7 @@ GLOBAL_LIST_EMPTY(vending_products)
 					vend_ready = TRUE
 					return
 				var/datum/bank_account/account = C.registered_account
-				if(account.account_job && (account.active_departments & payment_department))
+				if(account.active_departments & payment_department)
 					price_to_use = 0
 				if(coin_records.Find(R))
 					price_to_use = R.custom_premium_price ? R.custom_premium_price : extra_price
@@ -783,7 +785,7 @@ GLOBAL_LIST_EMPTY(vending_products)
 					flick(icon_deny,src)
 					vend_ready = TRUE
 					return
-				var/datum/bank_account/D = SSeconomy.get_dep_account(payment_department)
+				var/datum/bank_account/D = SSeconomy.get_dep_account(SSeconomy.get_dept_id_by_bitflag(payment_department))
 				if(D)
 					D.adjust_money(price_to_use)
 			if(last_shopper != REF(usr) || purchase_message_cooldown < world.time)

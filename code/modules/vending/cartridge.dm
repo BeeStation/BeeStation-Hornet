@@ -16,9 +16,9 @@
 					/obj/item/cartridge/quartermaster = 10)
 	premium = list(/obj/item/cartridge/annoyance/lesser = 3)
 	refill_canister = /obj/item/vending_refill/cart
-	default_price = 50
-	extra_price = 100
-	payment_department = ACCOUNT_SRV_BITFLAG
+	default_price = 150
+	extra_price = 300
+	payment_department = ACCOUNT_COM_BITFLAG
 
 /obj/item/vending_refill/cart
 	machine_name = "PTech"
