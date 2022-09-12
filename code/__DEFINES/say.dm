@@ -30,8 +30,8 @@
 #define MODE_WHISPER_CRIT "whispercrit"
 
 #define MODE_DEPARTMENT "department"
-#define MODE_KEY_DEPARTMENT "h"
-#define MODE_TOKEN_DEPARTMENT ":h"
+#define MODE_KEY_DEPARTMENT ;"
+#define MODE_TOKEN_DEPARTMENT ";"
 
 #define MODE_ALIEN "alientalk"
 #define MODE_HOLOPAD "holopad"

@@ -31,6 +31,7 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	dog_fashion = null
 
 	frequency = FREQ_SIGNALER
+	freqlock = TRUE
 
 /obj/item/radio/headset/suicide_act(mob/living/carbon/user)
 	user.visible_message("<span class='suicide'>[user] begins putting \the [src]'s antenna up [user.p_their()] nose! It looks like [user.p_theyre()] trying to give [user.p_them()]self cancer!</span>")
