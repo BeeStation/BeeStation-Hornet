@@ -71,7 +71,7 @@
 	var/datum/bank_account/department/D = SSeconomy.get_dep_account(ACCOUNT_CAR_ID)
 	var/money_to_distribute = round(D.account_balance / SSeconomy.department_accounts.len)
 	for(var/i in SSeconomy.department_accounts)
-		var/datum/bank_account/department/D = SSeconomy.get_dep_account(i)
+		D = SSeconomy.get_dep_account(i)
 		D.account_balance = money_to_distribute
 
 	D.account_holder = ACCOUNT_CAR_NAME
