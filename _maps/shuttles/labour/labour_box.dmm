@@ -62,15 +62,6 @@
 /obj/machinery/iv_drip,
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/labor)
-"k" = (
-/obj/machinery/light{
-	dir = 4
-	},
-/obj/structure/chair/fancy/shuttle{
-	dir = 8
-	},
-/turf/open/floor/mineral/plastitanium/red,
-/area/shuttle/labor)
 "l" = (
 /obj/machinery/door/window/brigdoor/southleft{
 	req_one_access_txt = "2";
@@ -99,6 +90,9 @@
 	},
 /obj/structure/chair/fancy/shuttle{
 	dir = 8
+	},
+/obj/machinery/light{
+	dir = 4
 	},
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/labor)
@@ -149,6 +143,7 @@
 /area/shuttle/labor)
 "x" = (
 /obj/effect/turf_decal/stripes/line,
+/obj/machinery/light,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/labor)
 "A" = (
@@ -247,7 +242,7 @@ G
 b
 e
 h
-k
+n
 n
 o
 U
