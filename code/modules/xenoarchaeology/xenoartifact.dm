@@ -252,7 +252,8 @@
 
 ///Generate traits outside of blacklist. Malf = TRUE if you want malfunctioning traits.
 /obj/item/xenoartifact/proc/generate_traits(list/blacklist_traits, malf = FALSE)
-	blacklist = blacklist_traits?.Copy() || list() //Safe access satisfies the linter, this isn't ever an issue unless an admin fucks it
+	//Provided blacklist or nothing, covers bananium
+	blacklist = blacklist_traits?.Copy() || list()
 
 	var/datum/xenoartifact_trait/desc_holder
 	desc_holder = generate_trait_unique(GLOB.xenoa_activators, blacklist, FALSE) //Activator
