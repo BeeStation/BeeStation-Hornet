@@ -25,6 +25,7 @@
 		log_game("Reagent explosion reaction occurred at [AREACOORD(T)]. Last Fingerprint: [lastkey ? lastkey : "N/A"]." )
 		var/datum/effect_system/reagents_explosion/e = new()
 		e.set_up(power , T, 0, 0)
+		SEND_SIGNAL(e, COMSIG_REAGENT_EXPLOSION, holder.my_atom)
 		e.start()
 		holder.clear_reagents()
 
@@ -167,7 +168,7 @@
 	id = "methboom1"
 	required_temp = 380 //slightly above the meth mix time.
 	required_reagents = list(/datum/reagent/drug/methamphetamine = 1)
-	strengthdiv = 6
+	strengthdiv = 10
 	modifier = 1
 	mob_react = FALSE
 
