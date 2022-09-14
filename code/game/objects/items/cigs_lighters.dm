@@ -894,7 +894,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	if(!..())
 		return FALSE
 	if(!screw)
-		to_chat(user, "<span class='notice'>The cryptographic sequencer attempts to connect to the [src], but the cap is in the way.</span>")
+		to_chat(user, "<span class='notice'>The cryptographic sequencer attempts to connect to \the [src], but the cap is in the way.</span>")
 		return FALSE
 	return TRUE
 
