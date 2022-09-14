@@ -162,7 +162,7 @@
 	else if(!(locate(/datum/objective/escape/single) in objectives))
 		add_objective(new/datum/objective/escape/single, FALSE)
 
-/datum/team/incursion/proc/forge_single_objective(difficulty=1, list, list/restricted_jobs)
+/datum/team/incursion/proc/forge_single_objective(difficulty=1, list/restricted_jobs)
 	difficulty = CLAMP(difficulty, 1, 3)
 	switch(difficulty)
 		if(3)
