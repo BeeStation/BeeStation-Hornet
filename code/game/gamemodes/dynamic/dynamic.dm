@@ -123,7 +123,7 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 	var/threat_curve_width = 1.8
 
 	/// Population at which the threat curve center starts getting reduced by 'threat_curve_lowop_coeff' for every X players under the threshold.
-	var/threat_curve_centre_lowpop_reduction_threshold = 35
+	var/threat_curve_centre_lowpop_reduction_threshold = 30
 
 	/// The amount the threat curve centre is reduced for every player under 'threat_curve_centre_lowpop_reduction_threshold'
 	var/threat_curve_centre_lowpop_reduction_coeff = 1
