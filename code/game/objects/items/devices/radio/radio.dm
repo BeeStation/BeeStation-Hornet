@@ -302,7 +302,7 @@
 
 /obj/item/radio/proc/backup_transmission(datum/signal/subspace/vocal/signal)
 	var/turf/T = get_turf(src)
-	if ( signal.data["done"] && (T.get_virtual_z_level() in signal.levels))
+	if (signal.data["done"] && (T.get_virtual_z_level() in signal.levels))
 		return
 
 	// Okay, the signal was never processed, send a mundane broadcast.
@@ -318,11 +318,11 @@
 
 	if(message_mods[RADIO_EXTENSION] == MODE_L_HAND || message_mods[RADIO_EXTENSION] == MODE_R_HAND)
 		// try to avoid being heard double
-		if(loc == speaker && ismob(speaker))
+		if (loc == speaker && ismob(speaker))
 			var/mob/M = speaker
 			var/idx = M.get_held_index_of_item(src)
 			// left hands are odd slots
-			if(idx && (idx % 2) == (message_mods[RADIO_EXTENSION] == MODE_L_HAND))
+			if (idx && (idx % 2) == (message_mods[RADIO_EXTENSION] == MODE_L_HAND))
 				return
 
 	talk_into(speaker, raw_message, , spans, language=message_language)
@@ -354,7 +354,7 @@
 
 /obj/item/radio/examine(mob/user)
 	. = ..()
-	if( frequency && in_range(src, user))
+	if (frequency && in_range(src, user))
 		. += "<span class='notice'>It is set to broadcast over the [frequency/10] frequency.</span>"
 	if (unscrewed)
 		. += "<span class='notice'>It can be attached and modified.</span>"
