@@ -623,6 +623,8 @@
 /datum/dynamic_ruleset/midround/obsessed/ready(forced = FALSE)
 	if(!check_candidates())
 		return FALSE
+	if(mode.check_lowpop_lowimpact_injection())
+		return FALSE
 	return ..()
 
 /datum/dynamic_ruleset/midround/obsessed/execute()
