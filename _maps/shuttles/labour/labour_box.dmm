@@ -19,8 +19,7 @@
 /area/shuttle/labor)
 "e" = (
 /obj/structure/table,
-/obj/item/folder/red,
-/obj/item/restraints/handcuffs,
+/obj/item/storage/firstaid,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/labor)
 "f" = (
@@ -33,14 +32,7 @@
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/labor)
 "h" = (
-/obj/machinery/mineral/stacking_unit_console{
-	machinedir = 2;
-	pixel_x = 30;
-	pixel_y = 30
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
+/obj/machinery/light,
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/labor)
 "i" = (
@@ -58,24 +50,19 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/labor)
 "j" = (
-/obj/structure/bed/roller,
-/obj/machinery/iv_drip,
-/turf/open/floor/mineral/plastitanium/red,
-/area/shuttle/labor)
-"l" = (
-/obj/machinery/door/window/brigdoor/southleft{
-	req_one_access_txt = "2";
-	name = "Prisoner Area"
+/obj/structure/chair/fancy/shuttle{
+	dir = 4
 	},
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/labor)
 "m" = (
-/obj/structure/closet/crate,
-/obj/item/storage/firstaid,
-/obj/item/reagent_containers/blood/random,
-/obj/item/reagent_containers/blood/random,
-/obj/item/reagent_containers/blood/random,
-/obj/item/reagent_containers/blood/random,
+/obj/machinery/button/flasher{
+	id = "gulagshuttleflasher";
+	name = "Flash Control";
+	req_access_txt = "1";
+	pixel_y = -22;
+	pixel_x = 22
+	},
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/labor)
 "n" = (
@@ -85,24 +72,23 @@
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/labor)
 "o" = (
-/obj/structure/window/reinforced{
-	pixel_y = 1
+/obj/machinery/door/airlock/titanium{
+	name = "Labor Shuttle Airlock";
+	req_access_txt = "2"
 	},
-/obj/structure/chair/fancy/shuttle{
-	dir = 8
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
 	},
-/obj/machinery/light{
-	dir = 4
-	},
-/turf/open/floor/mineral/plastitanium/red,
+/obj/effect/turf_decal/stripes/line,
+/turf/open/floor/mineral/plastitanium,
 /area/shuttle/labor)
 "p" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
 	},
-/obj/machinery/mineral/labor_claim_console{
-	machinedir = 1;
-	pixel_x = -32
+/obj/machinery/mineral/stacking_machine/laborstacker{
+	input_dir = 2;
+	output_dir = 1
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/labor)
@@ -133,6 +119,13 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
 	},
+/obj/machinery/mineral/labor_claim_console{
+	machinedir = 1;
+	pixel_x = -32
+	},
+/obj/structure/chair/fancy/shuttle{
+	dir = 4
+	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/labor)
 "s" = (
@@ -144,6 +137,10 @@
 "x" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/light,
+/obj/machinery/flasher{
+	id = "gulagshuttleflasher";
+	pixel_y = -25
+	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/labor)
 "A" = (
@@ -165,16 +162,20 @@
 	req_access_txt = "1";
 	pixel_x = -32
 	},
+/obj/structure/window/reinforced/spawner,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/labor)
 "C" = (
-/obj/machinery/mineral/stacking_machine/laborstacker{
-	input_dir = 2;
-	output_dir = 1;
-	pixel_x = -3
+/obj/machinery/mineral/stacking_unit_console{
+	machinedir = 2;
+	pixel_x = -32
 	},
-/obj/structure/window/reinforced/spawner/east,
-/turf/open/floor/mineral/plastitanium/red,
+/obj/structure/window/reinforced/spawner,
+/obj/structure/closet/crate,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/turf/open/floor/mineral/plastitanium,
 /area/shuttle/labor)
 "G" = (
 /obj/structure/shuttle/engine/propulsion{
@@ -198,10 +199,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
-/obj/machinery/flasher{
-	id = "gulagshuttleflasher";
-	pixel_x = 25
-	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/labor)
 
@@ -221,7 +218,7 @@ b
 c
 B
 j
-m
+f
 C
 p
 r
@@ -232,8 +229,8 @@ b
 d
 g
 f
-f
-l
+h
+v
 A
 x
 G
@@ -241,9 +238,9 @@ G
 (4,1,1) = {"
 b
 e
-h
+g
 n
-n
+m
 o
 U
 Y
