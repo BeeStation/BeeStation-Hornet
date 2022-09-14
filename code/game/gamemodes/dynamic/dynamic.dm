@@ -665,7 +665,7 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 
 /datum/game_mode/dynamic/proc/check_lowpop_lowimpact_injection()
 	var/living_players_count = length(current_players[CURRENT_LIVING_PLAYERS])
-	var/antags_count = length(current_players[CURRENT_LIVING_ANTAGS])
+	var/living_antags_count = length(current_players[CURRENT_LIVING_ANTAGS])
 	var/antag_percent = living_players_count ? (living_antags_count / living_players_count) * 100 : 0
 	if(living_players_count && living_players_count < max_traitor_injection_max_pop && antag_percent > max_traitor_injection_antag_percent)
 		log_game("DYNAMIC: FAIL: [src] has too many living antags for the population ([living_antags_count] antags of [living_players_count] players - [antag_percent]%)")
