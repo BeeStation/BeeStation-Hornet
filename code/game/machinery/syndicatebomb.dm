@@ -24,7 +24,7 @@
 
 	var/open_panel = FALSE 	//are the wires exposed?
 	var/active = FALSE		//is the bomb counting down?
-	var/obj/item/bombcore/payload = /obj/item/bombcore
+	var/obj/item/payload = /obj/item/bombcore
 	var/beepsound = 'sound/items/timer.ogg'
 	var/obj/effect/countdown/syndicatebomb/countdown
 
@@ -49,7 +49,12 @@
 
 /obj/machinery/syndicatebomb/proc/try_detonate(ignore_active = FALSE)
 	if((payload in src) && (active || ignore_active))
-		payload.detonate()
+		if(istype(payload, /obj/item/bombcore))
+			var/obj/item/bombcore/bomb_payload = payload
+			bomb_payload.detonate()
+		else if(istype(payload, /obj/item/transfer_valve))
+			var/obj/item/transfer_valve/valve_payload = payload
+			valve_payload.toggle_valve()
 
 /obj/machinery/syndicatebomb/obj_break()
 	if(!try_detonate())
@@ -151,7 +156,7 @@
 			to_chat(user, "<span class='warning'>The wires connecting the shell to the explosives are holding it down!</span>")
 		else
 			to_chat(user, "<span class='warning'>The cover is screwed on, it won't pry off!</span>")
-	else if(istype(I, /obj/item/bombcore))
+	else if(istype(I, /obj/item/bombcore) || istype(I, /obj/item/transfer_valve))
 		if(!payload)
 			if(!user.transferItemToLoc(I, src))
 				return
