@@ -73,8 +73,9 @@
 		detonation_timer = null
 		next_beep = null
 		countdown.stop()
-		if(payload in src)
-			payload.defuse()
+		if((payload in src) && istype(payload, /obj/item/bombcore))
+			var/obj/item/bombcore/payload_core = payload
+			payload_core.defuse()
 		return
 
 	if(!isnull(next_beep) && (next_beep <= world.time))
@@ -229,7 +230,9 @@
 
 		if(payload && !istype(payload, /obj/item/bombcore/training))
 			log_bomber(user, "has primed a", src, "for detonation (Payload: [payload.name])")
-			payload.adminlog = "The [name] that [key_name(user)] had primed detonated!"
+			if(istype(payload, /obj/item/bombcore))
+				var/obj/item/bombcore/payload_core = payload
+				payload_core.adminlog = "The [name] that [key_name(user)] had primed detonated!"
 
 ///Bomb Subtypes///
 
