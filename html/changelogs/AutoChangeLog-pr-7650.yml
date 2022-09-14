@@ -1,0 +1,4 @@
+author: benbot16
+delete-after: true
+changes:
+  - bugfix: Fixes repairing cyborgs with plasma cutters
