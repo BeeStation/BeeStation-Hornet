@@ -235,12 +235,12 @@
 	animate(arrow, pixel_x = (tile.x - our_tile.x) * world.icon_size + A.pixel_x, pixel_y = (tile.y - our_tile.y) * world.icon_size + A.pixel_y, time = 1.7, easing = EASE_OUT)
 	owner?.client?.images += arrow
 	client?.images += arrow
-	addtimer(CALLBACK(src, .proc/remove_arrow, arrow), 2.5 SECONDS)
+	addtimer(CALLBACK(src, .proc/remove_arrow, arrow, client, owner?.client), 2.5 SECONDS)
 	return TRUE
 
-/mob/camera/imaginary_friend/proc/remove_arrow(image/arrow)
-	owner?.client?.images -= arrow
-	client?.images -= arrow
+/mob/camera/imaginary_friend/proc/remove_arrow(image/arrow, client/client_1, client/client_2)
+	client_1?.images -= arrow
+	client_2?.images -= arrow
 	qdel(arrow)
 
 /datum/action/innate/imaginary_join
