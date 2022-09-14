@@ -268,11 +268,11 @@
 		for(var/i in 1 to REACTIONS_BEFORE_EXPLOSION)
 			air_contents.react(src)
 		pressure = air_contents.return_pressure()
-		var/range = ((pressure-TANK_FRAGMENT_PRESSURE)/TANK_FRAGMENT_SCALE) * explosion_mod
+		var/range = (pressure-TANK_FRAGMENT_PRESSURE)/TANK_FRAGMENT_SCALE
 		var/turf/epicenter = get_turf(loc)
 
 
-		explosion(epicenter, round(range*0.25), round(range*0.5), round(range), round(range*1.5))
+		explosion(epicenter, round(range*0.25), round(range*0.5), round(range), round(range*1.5), cap_modifier = explosion_mod)
 		if(istype(src.loc, /obj/item/transfer_valve))
 			qdel(src.loc)
 		else

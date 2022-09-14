@@ -260,7 +260,6 @@
 	desc = "An ominous looking device designed to detonate an explosive payload. Can be bolted down using a wrench."
 	payload = null
 	open_panel = TRUE
-	timer_set = 120
 
 /obj/machinery/syndicatebomb/empty/Initialize(mapload)
 	. = ..()
