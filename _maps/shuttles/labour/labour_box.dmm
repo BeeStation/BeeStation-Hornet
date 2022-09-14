@@ -65,12 +65,6 @@
 	},
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/labor)
-"n" = (
-/obj/structure/chair/fancy/shuttle{
-	dir = 8
-	},
-/turf/open/floor/mineral/plastitanium/red,
-/area/shuttle/labor)
 "o" = (
 /obj/machinery/door/airlock/titanium{
 	name = "Labor Shuttle Airlock";
@@ -123,9 +117,6 @@
 	machinedir = 1;
 	pixel_x = -32
 	},
-/obj/structure/chair/fancy/shuttle{
-	dir = 4
-	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/labor)
 "s" = (
@@ -147,6 +138,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
+/obj/structure/chair/fancy/shuttle,
 /turf/open/floor/mineral/titanium,
 /area/shuttle/labor)
 "B" = (
@@ -218,7 +210,7 @@ b
 c
 B
 j
-f
+j
 C
 p
 r
@@ -239,7 +231,7 @@ G
 b
 e
 g
-n
+f
 m
 o
 U
