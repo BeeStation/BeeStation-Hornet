@@ -237,6 +237,7 @@
 	can_charge = FALSE
 	use_cyborg_cell = TRUE
 	tool_behaviour = null //because it will drain the cutters cell and not the borgs.
+	requires_wielding = FALSE
 
 
 /obj/item/gun/energy/wormhole_projector
