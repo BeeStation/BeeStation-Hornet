@@ -27,7 +27,7 @@
 	speak_emote = list("chitters")
 	emote_hear = list("chitters")
 	speak_chance = 5
-	speed = 1
+	speed = 2
 	turns_per_move = 5
 	see_in_dark = 10
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab/spider = 2, /obj/item/reagent_containers/food/snacks/spiderleg = 8)
@@ -80,14 +80,15 @@
 	..()
 	if(directive)
 		log_game("[key_name(src)] took control of [name] with the objective: '[directive]'.")
+	SSmove_manager.stop_looping(src) // Just in case the AI's doing anything when we give them the mind
 	return TRUE
 
 /mob/living/simple_animal/hostile/poison/giant_spider/handle_automated_action()
 	if(!..()) //AIStatus is off
 		return FALSE
 	if(AIStatus == AI_IDLE)
-		//1% chance to skitter madly away
-		if(!busy && prob(1))
+		//10% chance to skitter madly away
+		if(!busy && prob(10))
 			stop_automated_movement = TRUE
 			Goto(pick(urange(20, src, 1)), move_to_delay)
 			addtimer(CALLBACK(src, .proc/do_action), 5 SECONDS)
@@ -109,6 +110,7 @@
 	health = 40
 	melee_damage = 10
 	poison_per_bite = 3
+	speed = 1 // A bit faster than midwives
 	var/atom/movable/cocoon_target
 	var/mob/living/simple_animal/hostile/poison/giant_spider/heal_target
 	var/fed = 0
@@ -195,7 +197,7 @@
 						if(isitem(O) || isstructure(O) || ismachinery(O))
 							cocoon_target = O
 							busy = MOVING_TO_TARGET
-							stop_automated_movement = 1
+							stop_automated_movement = TRUE
 							Goto(O, move_to_delay)
 							//give up if we can't reach them after 10 seconds
 							addtimer(CALLBACK(src, .proc/GiveUp, O), 10 SECONDS)
@@ -218,6 +220,7 @@
 			heal_target = null
 		busy = FALSE
 		stop_automated_movement = FALSE
+		SSmove_manager.stop_looping(src)
 
 /mob/living/simple_animal/hostile/poison/giant_spider/nurse/proc/cocoon()
 	if(stat != DEAD && cocoon_target && !cocoon_target.anchored)
@@ -319,24 +322,26 @@
 	icon_state = "tarantula"
 	icon_living = "tarantula"
 	icon_dead = "tarantula_dead"
-	maxHealth = 300 // woah nelly
+	maxHealth = 300
 	health = 300
 	melee_damage = 45
 	obj_damage = 50
 	poison_per_bite = 0
 	move_to_delay = 8
-	speed = 2
+	speed = 5
+	web_speed = 0.5
 	status_flags = NONE
 	mob_size = MOB_SIZE_LARGE
 	gold_core_spawnable = NO_SPAWN
 
+// Handles faster movement on webs
 /mob/living/simple_animal/hostile/poison/giant_spider/tarantula/Moved(atom/oldloc, dir)
 	. = ..()
 	var/turf/T = get_turf(src)
 	if(locate(/obj/structure/spider/stickyweb) in T)
-		speed = 2
+		set_varspeed(0)
 	else
-		speed = 5
+		set_varspeed(5)
 
 // Ice spiders
 /mob/living/simple_animal/hostile/poison/giant_spider/ice
@@ -518,7 +523,7 @@
 		if(!istype(owner, /mob/living/simple_animal/hostile/poison/giant_spider))
 			return FALSE
 		var/mob/living/simple_animal/hostile/poison/giant_spider/S = owner
-		if(!S.directive)
+		if(S.directive)
 			return FALSE
 		return TRUE
 

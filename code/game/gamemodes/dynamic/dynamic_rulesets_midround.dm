@@ -707,6 +707,7 @@
 	cost = 10
 	requirements = list(101,101,101,80,60,50,30,20,10,10)
 	repeatable = TRUE
+	var/list/vents = list()
 
 /datum/dynamic_ruleset/midround/from_ghosts/spiders/execute()
 	for(var/obj/machinery/atmospherics/components/unary/vent_pump/temp_vent in GLOB.machines)
@@ -728,4 +729,4 @@
 	spider.key = applicant.key
 	message_admins("[ADMIN_LOOKUPFLW(spider)] has been made into a spider by the midround ruleset.")
 	log_game("DYNAMIC: [key_name(spider)] was spawned as a spider by the midround ruleset.")
-	return new_xeno
+	return spider

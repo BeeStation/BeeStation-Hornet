@@ -78,8 +78,8 @@
 	. = ..()
 
 /obj/structure/spider/eggcluster/process(delta_time)
-	amount_grown += rand(0,1) * delta_time
-	if(amount_grown >= 100 && !ghost_ready)
+	amount_grown += delta_time
+	if(amount_grown >= 1 MINUTES && !ghost_ready)
 		notify_ghosts("[src] is ready to hatch!", null, enter_link="<a href=?src=[REF(src)];activate=1>(Click to play)</a>", source=src, action=NOTIFY_ATTACK, ignore_key = POLL_IGNORE_SPIDER)
 		ghost_ready = TRUE
 
@@ -94,8 +94,9 @@
 /obj/structure/spider/eggcluster/attack_ghost(mob/user)
 	. = ..()
 	if(ghost_ready)
-		var/mob/dead/observer/ghost = user
-		make_spider(ghost)
+		make_spider(user)
+	else
+		to_chat(user, "<span class='warning'>[src] isn't ready yet!</span>")
 
 /**
   * Makes a ghost into a spider based on the type of egg cluster.
@@ -105,6 +106,7 @@
   * * user - The ghost attempting to become a spider.
   */
 /obj/structure/spider/eggcluster/proc/make_spider(mob/user)
+	// Get what spiders the user can choose, and check to make sure their choice makes sense
 	var/list/to_spawn = list()
 	var/list/spider_list = list()
 	if(enriched_spawns)
@@ -124,21 +126,19 @@
 		enriched_spawns--
 	else
 		spawns_remaining--
+
+	// Setup our spooder
 	var/spider_to_spawn = spider_list[chosen_spider]
 	var/mob/living/simple_animal/hostile/poison/giant_spider/new_spider = new spider_to_spawn(get_turf(src))
 	new_spider.faction = faction.Copy()
 	new_spider.directive = directive
 	new_spider.key = user.key
-	qdel(src)
-	return TRUE
+	new_spider.set_playable()
 
-// A special egg cluster to spawn midwives, used for the infestation event.
-/obj/structure/spider/eggcluster/midwife
-	name = "midwife egg cluster"
-	potential_spawns = list(/mob/living/simple_animal/hostile/poison/giant_spider/nurse/midwife)
-	potential_enriched_spawns = list()
-	directive = "Ensure the survival of the spider species and overtake whatever structure you find yourself in."
-	spawns_remaining = 1
+	// Check to see if we need to delete ourselves
+	if(!enriched_spawns && !spawns_remaining)
+		qdel(src)
+	return TRUE
 
 /obj/structure/spider/spiderling
 	name = "spiderling"
