@@ -1,0 +1,5 @@
+author: benbot16
+delete-after: true
+changes:
+  - bugfix: Mining cyborg plasma cutters no longer require wielding, meaning they
+      no longer have scatter by default.
