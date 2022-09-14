@@ -1,0 +1,7 @@
+author: ro5490
+delete-after: true
+changes:
+  - tweak: Depleted Uranium/Rad-proof Fulltile windows now cost 2 uranium to make
+      instead of 10.
+  - tweak: Depleted Uranium/Rad-proof directional windows now cost 1 uranium to make
+      instead of 5.
