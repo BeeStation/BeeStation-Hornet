@@ -170,7 +170,7 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 	var/latejoin_roll_chance = 50
 
 	/// The maximum percentage of (living antags / living players) can be before midround traitors, heretics, and all latejoins stop injecting while under "max_traitor_injection_max_pop" population.
-	var/max_traitor_injection_antag_percent = 10
+	var/max_traitor_injection_antag_percent = 15
 
 	/// The population size where dynamic stops caring about antag percents during injections. This is usually because on higher pop it isn't forced to spawn a bunch of sleeper agents.
 	var/max_traitor_injection_max_pop = 30
