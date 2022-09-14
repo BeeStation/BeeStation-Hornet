@@ -88,7 +88,9 @@
 
 ///This proc is used to determin if a borg should be shown in the list (based on the borg's scrambledcodes var). Syndicate version overrides this to show only syndicate borgs.
 /datum/computer_file/program/borg_monitor/proc/evaluate_borg(mob/living/silicon/robot/R)
-	if((get_turf(computer)).get_virtual_z_level() != (get_turf(R)).get_virtual_z_level())
+	var/turf/computer_turf = get_turf(computer)
+	var/turf/robot_turf = get_turf(R)
+	if(computer_turf.get_virtual_z_level() != robot_turf.get_virtual_z_level())
 		return FALSE
 	if(R.scrambledcodes)
 		return FALSE
