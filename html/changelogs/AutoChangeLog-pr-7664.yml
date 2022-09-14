@@ -1,0 +1,4 @@
+author: etherware-novice
+delete-after: true
+changes:
+  - admin: nukes going off after round end no longer mutes ooc
