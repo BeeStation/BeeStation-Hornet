@@ -198,11 +198,19 @@
 
 /datum/team/incursion/proc/generate_traitor_kill_objective()
 	//Spawn someone as a traitor
+	if(istype(SSticker.mode, /datum/game_mode/dynamic))
+		SSticker.mode.restricted_jobs = list(JOB_NAME_AI, JOB_NAME_CYBORG)
+		SSticker.mode.protected_jobs = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE, JOB_NAME_CAPTAIN, JOB_NAME_HEADOFPERSONNEL, JOB_NAME_HEADOFSECURITY, JOB_NAME_CHIEFENGINEER, JOB_NAME_RESEARCHDIRECTOR, JOB_NAME_CHIEFMEDICALOFFICER)
+		if(CONFIG_GET(flag/protect_roles_from_antagonist))
+			SSticker.mode.restricted_jobs += SSticker.mode.protected_jobs
 	var/list/datum/mind/people = SSticker.mode.get_alive_non_antagonsist_players_for_role(ROLE_EXCOMM)
 	if(!LAZYLEN(people))
 		log_game("Not enough players for incursion role. [LAZYLEN(people)]")
 		return
 	var/datum/mind/target = SSticker.mode.antag_pick(people, ROLE_EXCOMM)
+	if(istype(SSticker.mode, /datum/game_mode/dynamic))
+		SSticker.mode.restricted_jobs = list()
+		SSticker.mode.protected_jobs = list()
 	if(!target)
 		log_game("No mind selected.")
 		return
