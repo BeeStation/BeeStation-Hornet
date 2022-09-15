@@ -25232,7 +25232,6 @@
 /area/engine/atmos)
 "bRC" = (
 /obj/structure/lattice,
-/obj/structure/lattice,
 /turf/open/space,
 /area/space/nearstation)
 "bRG" = (
@@ -31281,7 +31280,6 @@
 /turf/closed/wall,
 /area/library/lounge)
 "cyL" = (
-/obj/structure/lattice,
 /obj/structure/lattice,
 /turf/closed/mineral,
 /area/chapel/asteroid/monastery)
@@ -51281,7 +51279,6 @@
 /area/storage/tech)
 "pmj" = (
 /obj/structure/lattice,
-/obj/structure/lattice,
 /obj/structure/grille,
 /turf/open/space,
 /area/space/nearstation)
@@ -52445,7 +52442,6 @@
 /turf/open/floor/plating,
 /area/maintenance/department/engine)
 "pWb" = (
-/obj/structure/lattice,
 /obj/structure/lattice,
 /obj/structure/grille,
 /turf/open/space/basic,

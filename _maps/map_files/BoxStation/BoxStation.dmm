@@ -43834,7 +43834,6 @@
 /turf/open/floor/plasteel,
 /area/hallway/secondary/entry)
 "lNg" = (
-/obj/structure/lattice,
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
 	icon_state = "1-2"

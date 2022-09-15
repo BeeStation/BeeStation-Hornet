@@ -25355,8 +25355,6 @@
 "bJe" = (
 /obj/structure/lattice,
 /obj/structure/grille,
-/obj/structure/lattice,
-/obj/structure/lattice,
 /turf/closed/wall/r_wall,
 /area/space/nearstation)
 "bJf" = (
@@ -25951,9 +25949,6 @@
 /turf/open/floor/engine/n2o,
 /area/engine/atmos)
 "bKK" = (
-/obj/structure/grille,
-/obj/structure/lattice,
-/obj/structure/lattice,
 /turf/closed/wall/r_wall,
 /area/space/nearstation)
 "bKL" = (

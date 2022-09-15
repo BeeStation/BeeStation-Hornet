@@ -49457,7 +49457,6 @@
 /area/engine/engine_room)
 "nRw" = (
 /obj/structure/lattice,
-/obj/structure/lattice,
 /turf/open/space/basic,
 /area/space)
 "nRy" = (
@@ -71621,7 +71620,6 @@
 /turf/open/floor/plasteel/white,
 /area/medical/chemistry)
 "uBJ" = (
-/obj/structure/table,
 /obj/structure/table,
 /obj/item/clothing/suit/apron/surgical,
 /obj/item/clothing/mask/surgical,
