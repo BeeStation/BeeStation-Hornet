@@ -40,11 +40,6 @@ if grep -P '\td[1-2] =' _maps/**/*.dmm;    then
     st=1
 fi;
 echo -e "${BLUE}Checking for stacked cables...${NC}"
-if grep -P '"\w+" = \(\n([^)]+\n)*/obj/structure/cable,\n([^)]+\n)*/obj/structure/cable,\n([^)]+\n)*/area/.+\)' _maps/**/*.dmm;    then
-    echo
-    echo -e "${RED}ERROR: Found multiple cables on the same tile, please remove them.${NC}"
-    st=1
-fi;
 if grep -Pzo '"\w+" = \(\n[^)]*?/obj/structure/lattice[/\w]*?,\n[^)]*?/obj/structure/lattice[/\w]*?,\n[^)]*?/area/.+?\)' _maps/**/*.dmm;	then
 	echo
     echo -e "${RED}ERROR: Found multiple lattices on the same tile, please remove them.${NC}"
