@@ -604,7 +604,7 @@
 			if (holder.holder)
 				supplypod_punish_log(bouttaDie)
 			else
-				var/msg = "[key_name_admin(user)] launched a supply pod at [COORD(get_turf(target))]."
+				var/msg = "[key_name_admin(user)] launched a supply pod at [AREACOORD(target)]"
 				message_admins(msg)
 				log_admin(msg)
 			if (!effectBurst) //If we're not using burst mode, just launch normally.
