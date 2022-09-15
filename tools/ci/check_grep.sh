@@ -50,17 +50,17 @@ if grep -Pzo '"\w+" = \(\n[^)]*?/obj/structure/lattice[/\w]*?,\n[^)]*?/obj/struc
     echo -e "${RED}ERROR: Found multiple lattices on the same tile, please remove them.${NC}"
     st=1
 fi;
-if grep -Pzo '"\w+" = \(\n[^)]*?/obj/structure/barricade/(?<type>[/\w]*),\n[^)]*?/obj/structure/barricade/\g{type},\n[^)]*?/area/.+\)' _maps/**/*.dmm;	then
+if grep -Pzo '"\w+" = \(\n[^)]*?/obj/structure/barricade(?<type>[/\w]*),\n[^)]*?/obj/structure/barricade\g{type},\n[^)]*?/area/.+\)' _maps/**/*.dmm;	then
 	echo
     echo -e "${RED}ERROR: Found multiple identical barricades on the same tile, please remove them.${NC}"
     st=1
 fi;
-if grep -Pzo '"\w+" = \(\n[^)]*?/obj/structure/table/(?<type>[/\w]*),\n[^)]*?/obj/structure/table/\g{type},\n[^)]*?/area/.+\)' _maps/**/*.dmm;	then
+if grep -Pzo '"\w+" = \(\n[^)]*?/obj/structure/table(?<type>[/\w]*),\n[^)]*?/obj/structure/table\g{type},\n[^)]*?/area/.+\)' _maps/**/*.dmm;	then
 	echo
     echo -e "${RED}ERROR: Found multiple identical tables on the same tile, please remove them.${NC}"
     st=1
 fi;
-if grep -Pzo '"\w+" = \(\n[^)]*?/obj/structure/chair/(?<type>[/\w]*),\n[^)]*?/obj/structure/chair/\g{type},\n[^)]*?/area/.+\)' _maps/**/*.dmm;	then
+if grep -Pzo '"\w+" = \(\n[^)]*?/obj/structure/chair(?<type>[/\w]*),\n[^)]*?/obj/structure/chair\g{type},\n[^)]*?/area/.+\)' _maps/**/*.dmm;	then
 	echo
     echo -e "${RED}ERROR: Found multiple identical chairs on the same tile, please remove them.${NC}"
     st=1
@@ -75,22 +75,22 @@ if grep -Pzo '"\w+" = \(\n[^)]*?/obj/machinery/door/firedoor[/\w]*?,\n[^)]*?/obj
     echo -e "${RED}ERROR: Found multiple firelocks on the same tile, please remove them.${NC}"
     st=1
 fi;
-if grep -Pzo '"\w+" = \(\n[^)]*?/obj/structure/closet/(?<type>[/\w]*),\n[^)]*?/obj/structure/closet/\g{type},\n[^)]*?/area/.+\)' _maps/**/*.dmm;	then
+if grep -Pzo '"\w+" = \(\n[^)]*?/obj/structure/closet(?<type>[/\w]*),\n[^)]*?/obj/structure/closet\g{type},\n[^)]*?/area/.+\)' _maps/**/*.dmm;	then
 	echo
     echo -e "${RED}ERROR: Found multiple identical closets on the same tile, please remove them.${NC}"
     st=1
 fi;
-if grep -Pzo '"\w+" = \(\n[^)]*?/obj/structure/grille/(?<type>[/\w]*),\n[^)]*?/obj/structure/grille/\g{type},\n[^)]*?/area/.+\)' _maps/**/*.dmm;	then
+if grep -Pzo '"\w+" = \(\n[^)]*?/obj/structure/grille(?<type>[/\w]*),\n[^)]*?/obj/structure/grille\g{type},\n[^)]*?/area/.+\)' _maps/**/*.dmm;	then
 	echo
     echo -e "${RED}ERROR: Found multiple identical grilles on the same tile, please remove them.${NC}"
     st=1
 fi;
-if grep -Pzo '"\w+" = \(\n[^)]*?/obj/structure/girder/(?<type>[/\w]*),\n[^)]*?/obj/structure/girder/\g{type},\n[^)]*?/area/.+\)' _maps/**/*.dmm;	then
+if grep -Pzo '"\w+" = \(\n[^)]*?/obj/structure/girder(?<type>[/\w]*),\n[^)]*?/obj/structure/girder\g{type},\n[^)]*?/area/.+\)' _maps/**/*.dmm;	then
 	echo
     echo -e "${RED}ERROR: Found multiple identical girders on the same tile, please remove them.${NC}"
     st=1
 fi;
-if grep -Pzo '"\w+" = \(\n[^)]*?/obj/structure/stairs/(?<type>[/\w]*),\n[^)]*?/obj/structure/stairs/\g{type},\n[^)]*?/area/.+\)' _maps/**/*.dmm;	then
+if grep -Pzo '"\w+" = \(\n[^)]*?/obj/structure/stairs(?<type>[/\w]*),\n[^)]*?/obj/structure/stairs\g{type},\n[^)]*?/area/.+\)' _maps/**/*.dmm;	then
 	echo
     echo -e "${RED}ERROR: Found multiple identical stairs on the same tile, please remove them.${NC}"
 	st=1
