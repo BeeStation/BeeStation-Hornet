@@ -137,6 +137,7 @@
 	parsed.load(T.x, T.y, T.z, cropMap=TRUE, no_changeturf=TRUE, placeOnTop=should_place_on_top)
 
 /datum/map_template/proc/load(turf/T, centered = FALSE, init_atmos = TRUE)
+	set waitfor = FALSE
 	if(centered)
 		T = locate(T.x - round(width/2) , T.y - round(height/2) , T.z)
 	if(!T)
@@ -161,8 +162,9 @@
 	update_blacklist(T, turf_blacklist)
 
 	parsed.turf_blacklist = turf_blacklist
-	if(!parsed.load(T.x, T.y, T.z, cropMap=TRUE, no_changeturf=(SSatoms.initialized == INITIALIZATION_INSSATOMS), placeOnTop=should_place_on_top))
-		return
+	var/datum/map_generator/map_place/map_placer = new(parsed, T.x, T.y, T.z, cropMap=TRUE, no_changeturf=(SSatoms.initialized == INITIALIZATION_INSSATOMS), placeOnTop=should_place_on_top)
+	map_placer.generate()
+	UNTIL(map_placer.completed)
 	var/list/bounds = parsed.bounds
 	if(!bounds)
 		return

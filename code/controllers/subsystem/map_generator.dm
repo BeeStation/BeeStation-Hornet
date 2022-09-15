@@ -1,7 +1,8 @@
-SUBSYSTEM_DEF(ruin_generator)
-	name = "Ruin Generator"
+SUBSYSTEM_DEF(map_generator)
+	name = "Map Generator"
 	wait = 1
 	flags = SS_BACKGROUND | SS_NO_INIT
+	runlevels = ALL
 
 	/// List of all currently executing generator datums
 	var/list/executing_generators = list()
@@ -12,7 +13,7 @@ SUBSYSTEM_DEF(ruin_generator)
 	/// Length of current run
 	var/current_run_length
 
-/datum/controller/subsystem/ruin_generator/fire()
+/datum/controller/subsystem/map_generator/fire()
 	if (!length(executing_generators))
 		return
 	//Reset the queue
@@ -24,7 +25,7 @@ SUBSYSTEM_DEF(ruin_generator)
 	//Start processing
 	while (current_run_index <= current_run_length)
 		//Get current action
-		var/datum/ruin_generator/currently_running = executing_generators[current_run_index]
+		var/datum/map_generator/currently_running = executing_generators[current_run_index]
 		current_run_index ++
 		//Perform generate action
 		var/completed = TRUE
@@ -44,20 +45,3 @@ SUBSYSTEM_DEF(ruin_generator)
 			current_run_length --
 		//Continue to the next process
 		MC_SPLIT_TICK
-
-/// ======================================
-/// Ruin generator process holder
-/// ======================================
-/datum/ruin_generator
-
-/// Begin generating
-/datum/ruin_generator/proc/generate()
-	SSruin_generator.executing_generators += src
-
-/// Execute a current run.
-/// Returns TRUE if finished
-/datum/ruin_generator/proc/execute_run()
-	return TRUE
-
-/datum/ruin_generator/proc/complete()
-	return

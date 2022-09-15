@@ -20,10 +20,10 @@
  * can go past the border. No attachment points can be generated past the border.
  */
 /proc/generate_space_ruin(center_x, center_y, center_z, border_x, border_y, datum/orbital_objective/linked_objective, forced_decoration, datum/ruin_event/ruin_event)
-	var/datum/ruin_generator/space_ruin/ruin = new(center_x, center_y, center_z, border_x, border_y, linked_objective, forced_decoration, ruin_event)
+	var/datum/map_generator/space_ruin/ruin = new(center_x, center_y, center_z, border_x, border_y, linked_objective, forced_decoration, ruin_event)
 	ruin.generate()
 
-/datum/ruin_generator/space_ruin
+/datum/map_generator/space_ruin
 	/// The X position to start generating the ruin at
 	var/center_x
 	/// The Y position to start generating the ruin at
@@ -69,7 +69,7 @@
 
 	var/stage = 0
 
-/datum/ruin_generator/space_ruin/New(center_x, center_y, center_z, border_x, border_y, datum/orbital_objective/linked_objective, forced_decoration, datum/ruin_event/ruin_event)
+/datum/map_generator/space_ruin/New(center_x, center_y, center_z, border_x, border_y, datum/orbital_objective/linked_objective, forced_decoration, datum/ruin_event/ruin_event)
 	. = ..()
 	src.center_x = center_x
 	src.center_y = center_y
@@ -121,11 +121,12 @@
 	structure_damage_prob = generator_settings.structure_damage_prob
 	floor_break_prob = generator_settings.floor_break_prob
 
-/datum/ruin_generator/space_ruin/complete()
+/datum/map_generator/space_ruin/complete()
+	..()
 	var/datum/space_level/space_level = SSmapping.get_level(center_z)
 	space_level.generating = FALSE
 
-/datum/ruin_generator/space_ruin/execute_run()
+/datum/map_generator/space_ruin/execute_run()
 	switch (stage)
 		if (0)
 			if (ruin_placer_run())
@@ -145,7 +146,7 @@
 			CRASH("Ruin generator in invalid state: [stage]")
 	return FALSE
 
-/datum/ruin_generator/space_ruin/proc/ruin_placer_run()
+/datum/map_generator/space_ruin/proc/ruin_placer_run()
 	sanity --
 	if(sanity < 0)
 		message_admins("Ruin sanity limit reached.")
@@ -328,7 +329,7 @@
 
 	return !length(hallway_connections) && !length(room_connections)
 
-/datum/ruin_generator/space_ruin/proc/post_generation()
+/datum/map_generator/space_ruin/proc/post_generation()
 	//Lets place doors
 	for(var/door_pos in placed_room_entrances)
 		var/splitextdoor = splittext(door_pos, "_")
@@ -361,7 +362,7 @@
 	//Repopulate areas
 	repopulate_sorted_areas()
 
-/datum/ruin_generator/space_ruin/proc/put_shit_everywhere()
+/datum/map_generator/space_ruin/proc/put_shit_everywhere()
 	//Place trash
 	var/place = blocked_turfs[shit_index]
 	//Increment shit index
@@ -408,7 +409,7 @@
 							A.pixel_x = -32
 			break
 
-/datum/ruin_generator/space_ruin/proc/finalize()
+/datum/map_generator/space_ruin/proc/finalize()
 
 	//Generate objective stuff
 	if(linked_objective)
