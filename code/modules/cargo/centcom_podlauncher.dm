@@ -603,6 +603,10 @@
 				bouttaDie.Add(target_mob)
 			if (holder.holder)
 				supplypod_punish_log(bouttaDie)
+			else
+				var/msg = "[key_name_admin(user)] launched a supply pod at [COORD(get_turf(target))]."
+				message_admins(msg)
+				log_admin(msg)
 			if (!effectBurst) //If we're not using burst mode, just launch normally.
 				launch(target)
 			else
@@ -796,7 +800,9 @@
 			whomString += "[key_name(M)], "
 
 	var/msg = "launched [podString] towards [whomString]"
-	message_admins("[key_name_admin(usr)] [msg] in [ADMIN_VERBOSEJMP(specificTarget)].")
+	var/full_msg = "[key_name_admin(usr)] [msg] in [ADMIN_VERBOSEJMP(specificTarget)]."
+	message_admins(full_msg)
+	log_game(full_msg)
 	if (length(whoDyin))
 		for (var/mob/living/M in whoDyin)
 			admin_ticket_log(M, "[key_name_admin(usr)] [msg]")
