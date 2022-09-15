@@ -45,11 +45,6 @@ if grep -P '"\w+" = \(\n([^)]+\n)*/obj/structure/cable,\n([^)]+\n)*/obj/structur
     echo -e "${RED}ERROR: Found multiple cables on the same tile, please remove them.${NC}"
     st=1
 fi;
-if grep -Pzo '"\w+" = \(\n[^)]*?/obj/machinery/atmospherics/pipe/(?<type>[/\w]*),\n[^)]*?/obj/machinery/atmospherics/pipe/\g{type},\n[^)]*?/area/.+\)' _maps/**/*.dmm;	then
-	echo
-    echo -e "${RED}ERROR: Found multiple identical pipes on the same tile, please remove them.${NC}"
-    st=1
-fi;
 if grep -Pzo '"\w+" = \(\n[^)]*?/obj/structure/lattice[/\w]*?,\n[^)]*?/obj/structure/lattice[/\w]*?,\n[^)]*?/area/.+?\)' _maps/**/*.dmm;	then
 	echo
     echo -e "${RED}ERROR: Found multiple lattices on the same tile, please remove them.${NC}"
