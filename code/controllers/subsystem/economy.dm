@@ -16,7 +16,8 @@ SUBSYSTEM_DEF(economy)
 										ACCOUNT_SCI_ID = ACCOUNT_SCI_NAME,
 										ACCOUNT_MED_ID = ACCOUNT_MED_NAME,
 										ACCOUNT_SEC_ID = ACCOUNT_SEC_NAME)
-	var/list/nonstation_accounts = list(ACCOUNT_VIP_ID = ACCOUNT_VIP_NAME)
+	var/list/nonstation_accounts = list(ACCOUNT_COM_ID = ACCOUNT_COM_NAME,
+										ACCOUNT_VIP_ID = ACCOUNT_VIP_NAME)
 	var/list/account_bitflags = list(ACCOUNT_COM_ID = ACCOUNT_COM_BITFLAG,
 									 ACCOUNT_CIV_ID = ACCOUNT_CIV_BITFLAG,
 									 ACCOUNT_SRV_ID = ACCOUNT_SRV_BITFLAG,
@@ -42,7 +43,7 @@ SUBSYSTEM_DEF(economy)
 
 
 	/// checking `if(HAS_TRAIT(SSstation, STATION_TRAIT_UNITED_BUDGET))` costs (a little bit) more resource. this is faster.
-	var/static/united_budget_trait = FALSE
+	var/united_budget_trait = FALSE
 
 /datum/controller/subsystem/economy/Initialize(timeofday)
 	if(HAS_TRAIT(SSstation, STATION_TRAIT_UNITED_BUDGET))
@@ -74,13 +75,15 @@ SUBSYSTEM_DEF(economy)
 	var/effective_mailcount = living_player_count()
 	mail_waiting += clamp(effective_mailcount, 1, MAX_MAIL_PER_MINUTE)
 
-/datum/controller/subsystem/economy/proc/get_bank_account_by_id(target_id, no_failcheck=FALSE)
+/datum/controller/subsystem/economy/proc/get_bank_account_by_id(target_id, failcheck=TRUE)
+	if(!length(bank_accounts))
+		return FALSE
 	target_id = text2num(target_id)
 	for(var/datum/bank_account/target_account in bank_accounts)
 		if(target_account.account_id == target_id)
 			return target_account
-	if(!no_failcheck)
-		CRASH("[target_id] is not a valid bank ID, or the proc failed to search")
+	if(!failcheck)
+		CRASH("the proc failed to search [target_id] bank account, appears to be an invalid bank ID")
 	return null
 
 /datum/controller/subsystem/economy/proc/get_dep_account(dep_id)
@@ -95,8 +98,13 @@ SUBSYSTEM_DEF(economy)
 		if(account_bitflags[B] == target_bitflag)
 			return B
 
+/// How to use: `bankaccount.is_nonstation_account()`, `SSeconomy.is_nonstation_account(bankaccount type)` or `SSecononmy.is_nonstation_account(ACCOUNT_CAR)`. This returns TRUE if an account is non-station account - i.e.) VIP budget, Command budget
 /datum/controller/subsystem/economy/proc/is_nonstation_account(datum/bank_account/department/D) // takes a bank account type or dep_ID define
-	if(!D)
+	if(!D) // null check first
+		return FALSE
+	if(!istype(D, /datum/bank_account/department)) // if parameter was given as a dept id, replace it into better type
+		D = SSeconomy.get_dep_account(text2num(D)) // tricky
+	if(!istype(D, /datum/bank_account/department)) // if it failed to replacing, return false.
 		return FALSE
 	for(var/each in SSeconomy.nonstation_accounts)
 		if(D.account_holder == SSeconomy.nonstation_accounts[each])

@@ -812,6 +812,7 @@ update_label("John Doe", "Clowny")
 	if(HAS_TRAIT(SSstation, STATION_TRAIT_UNITED_BUDGET) && !B.is_nonstation_account())
 		department_ID = ACCOUNT_CAR_ID
 		department_name = ACCOUNT_ALL_NAME
+		B = SSeconomy.get_dep_account(department_ID)
 
 	if(B)
 		registered_account = B
@@ -867,11 +868,17 @@ update_label("John Doe", "Clowny")
 	icon_state = "budget_sec"
 	hud_state = JOB_HUD_RAWSECURITY
 
-// This will never be spawned, but should be trackable by admins anyway.
+// These will never be spawned, but should be trackable by admins anyway.
+/obj/item/card/id/departmental_budget/com
+	department_ID = ACCOUNT_COM_ID
+	department_name = ACCOUNT_COM_NAME
+	icon_state = "budget_centcom"
+	hud_state = JOB_HUD_ACTINGCAPTAIN
+
 /obj/item/card/id/departmental_budget/vip
 	department_ID = ACCOUNT_VIP_ID
 	department_name = ACCOUNT_VIP_NAME
-	icon_state = "budget"
+	icon_state = "budget_centcom"
 	hud_state = JOB_HUD_VIP
 
 /// Job Specific ID Cards///

@@ -708,17 +708,11 @@ GLOBAL_LIST_EMPTY(vending_products)
 			.["user"]["name"] = C.registered_account.account_holder
 			.["user"]["cash"] = C.registered_account.account_balance
 			.["user"]["job"] = "No Job"
-			.["user"]["department"] = "No Department"
 			.["user"]["department_bitflag"] = 0
 			var/datum/data/record/R = find_record("name", C.registered_account.account_holder, GLOB.data_core.general)
 			if(C.registered_account.account_job)
 				.["user"]["job"] = C.registered_account.account_job.title
-				var/list/dept_list = list()
-				for(var/each in SSeconomy.account_bitflags)
-					if(SSeconomy.account_bitflags[each] & C.registered_account.active_departments)
-						dept_list += each
-				.["user"]["department"] = english_list(dept_list)
-				.["user"]["department_bitflag"] = payment_department
+				.["user"]["department_bitflag"] = C.registered_account.active_departments
 			if(R)
 				.["user"]["job"] = R.fields["rank"]
 	.["stock"] = list()

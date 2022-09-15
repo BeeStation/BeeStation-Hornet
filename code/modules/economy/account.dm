@@ -25,6 +25,7 @@
 		ACCOUNT_SCI_ID=0,
 		ACCOUNT_MED_ID=0,
 		ACCOUNT_SEC_ID=0,
+		ACCOUNT_COM_ID=0,
 		ACCOUNT_VIP_ID=0
 	)
 	/// bonus from each department.
@@ -36,6 +37,7 @@
 		ACCOUNT_SCI_ID=0,
 		ACCOUNT_MED_ID=0,
 		ACCOUNT_SEC_ID=0,
+		ACCOUNT_COM_ID=0,
 		ACCOUNT_VIP_ID=0
 	)
 
@@ -44,7 +46,7 @@
 	account_job = job
 	account_id = rand(111111,999999)
 	var/failcheck = 2000
-	while(SSeconomy.get_bank_account_by_id(account_id, TRUE)) // Don't get the same account ID
+	while(SSeconomy.get_bank_account_by_id(account_id, FALSE)) // Don't get the same account ID
 		account_id = rand(111111,999999)
 		if(!failcheck--)
 			CRASH("Something's wrong to creat to a bank account")
@@ -87,7 +89,6 @@
 	return FALSE
 
 /datum/bank_account/proc/payday(amt_of_paychecks, free = FALSE)
-	var/bank_card_talk_sound = 1 // noisy-proof. it will only sound once.
 	if(suspended)
 		bank_card_talk("ERROR: Payday aborted, the account is closed by Nanotrasen Space Finance.")
 		return

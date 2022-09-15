@@ -64,22 +64,21 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		blacklisted += J.title
 
 	// This determines which department payment list the console will show to you.
-	if((target_dept == DEPT_ALL) || (target_dept == DEPT_GEN))
+	if(!target_dept)
+		available_paycheck_departments |= list(ACCOUNT_COM_ID = ACCOUNT_COM_BITFLAG)
+	if((target_dept == DEPT_GEN) || !target_dept)
 		available_paycheck_departments |= list(
 			ACCOUNT_CIV_ID = ACCOUNT_CIV_BITFLAG,
 			ACCOUNT_SRV_ID = ACCOUNT_SRV_BITFLAG,
-			ACCOUNT_CAR_ID = ACCOUNT_CAR_BITFLAG
-		)
-	if((target_dept == DEPT_ALL) || (target_dept == DEPT_ENG))
+			ACCOUNT_CAR_ID = ACCOUNT_CAR_BITFLAG)
+	if((target_dept == DEPT_ENG) || !target_dept)
 		available_paycheck_departments |= list(ACCOUNT_ENG_ID = ACCOUNT_ENG_BITFLAG)
-	if((target_dept == DEPT_ALL) || (target_dept == DEPT_SCI))
+	if((target_dept == DEPT_SCI) || !target_dept)
 		available_paycheck_departments |= list(ACCOUNT_SCI_ID = ACCOUNT_SCI_BITFLAG)
-	if((target_dept == DEPT_ALL) || (target_dept == DEPT_MED))
+	if((target_dept == DEPT_MED) || !target_dept)
 		available_paycheck_departments |= list(ACCOUNT_MED_ID = ACCOUNT_MED_BITFLAG)
-	if((target_dept == DEPT_ALL) || (target_dept == DEPT_SEC))
+	if((target_dept == DEPT_SEC) || !target_dept)
 		available_paycheck_departments |= list(ACCOUNT_SEC_ID = ACCOUNT_SEC_BITFLAG)
-	if((target_dept == DEPT_ALL))
-		available_paycheck_departments |= list(ACCOUNT_COM_ID = ACCOUNT_COM_BITFLAG)
 
 
 /obj/machinery/computer/card/examine(mob/user)
@@ -341,8 +340,6 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 					dat += "<td><a href='?src=[REF(src)];choice=turn_on_off_department;account=[B.account_id];paycheck_t=[target_paycheck]'><font color=\"6bc473\">Vendor free</font></a></td>"
 				else
 					dat += "<td><a href='?src=[REF(src)];choice=turn_on_off_department;account=[B.account_id];paycheck_t=[target_paycheck]'>No free</a></td>"
-				if(target_paycheck in list(ACCOUNT_COM_ID))
-					continue
 				if(B.suspended)
 					dat += "<td>Closed</td>"
 					dat += "<td>$0</td>"
@@ -443,6 +440,8 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				banking += "<tr>"
 				banking += "<td><b>Department Vendor free:</b></td>"
 				for(var/each in available_paycheck_departments)
+					if(!is_bank_edit_authorized(each))
+						continue
 					if(B.active_departments & available_paycheck_departments[each])
 						banking += "<td><a href='?src=[REF(src)];choice=turn_on_off_department;account=[B.account_id];paycheck_t=[each]'><font color=\"6bc473\">[each]</a></font></td>"
 					else
@@ -451,8 +450,10 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				banking += "<tr>"
 				banking += "<td><b>Payment per department:</b></td>"
 				for(var/each in available_paycheck_departments)
-					if(each in list(ACCOUNT_COM_ID))
-						banking += "<td>(no budget)</td>"
+					if(!is_bank_edit_authorized(each))
+						continue
+					if(SSeconomy.is_nonstation_account(each))
+						banking += "<td>€[B.payment_per_department[each]]</td>"
 						continue
 					banking += "<td><a href='?src=[REF(src)];choice=adjust_pay;account=[B.account_id];paycheck_t=[each]'>€[B.payment_per_department[each]]</a></td>"
 				banking += "</tr>"
@@ -733,8 +734,6 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 					target_paycheck = ACCOUNT_MED_ID
 				if(ACCOUNT_SEC_ID)
 					target_paycheck = ACCOUNT_SEC_ID
-				if(ACCOUNT_COM_ID)
-					target_paycheck = ACCOUNT_COM_ID
 
 		if ("adjust_pay")
 			//Adjust the paycheck of a crew member. Can't be less than zero.
@@ -887,6 +886,30 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	if (inserted_modify_id)
 		inserted_modify_id.update_label()
 	updateUsrDialog()
+
+/obj/machinery/computer/card/proc/is_bank_edit_authorized(dep)
+	if(!inserted_scan_id)
+		return FALSE
+	switch(dep)
+		if(ACCOUNT_COM_ID)
+			if(!target_dept)
+				return TRUE
+		if(ACCOUNT_CIV_ID, ACCOUNT_SRV_ID, ACCOUNT_CAR_ID)
+			if((target_dept==DEPT_GEN) || !target_dept)
+				return TRUE
+		if(ACCOUNT_ENG_ID)
+			if((target_dept==DEPT_ENG) || !target_dept)
+				return TRUE
+		if(ACCOUNT_SEC_ID)
+			if((target_dept==DEPT_SEC) || !target_dept)
+				return TRUE
+		if(ACCOUNT_MED_ID)
+			if((target_dept==DEPT_MED) || !target_dept)
+				return TRUE
+		if(ACCOUNT_SCI_ID)
+			if((target_dept==DEPT_SCI) || !target_dept)
+				return TRUE
+	return FALSE
 
 /obj/machinery/computer/card/proc/get_subordinates(rank)
 	for(var/datum/job/job in SSjob.occupations)

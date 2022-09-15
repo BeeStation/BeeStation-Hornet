@@ -67,8 +67,6 @@
 	var/stamp_offset_x = 0
 	/// Physical offset of stamps on the object. Y direction.
 	var/stamp_offset_y = 2
-	/// Mail will have the color of the department the recipient is in.
-	var/static/list/department_colors
 
 /obj/item/mail/envelope
 	name = "envelope"
@@ -95,17 +93,6 @@
 	. = ..()
 	RegisterSignal(src, COMSIG_MOVABLE_DISPOSING, .proc/disposal_handling)
 	AddElement(/datum/element/item_scaling, 0.75, 1)
-	if(isnull(department_colors))
-		department_colors = list(
-			ACCOUNT_CIV_ID = COLOR_WHITE,
-			ACCOUNT_ENG_ID = COLOR_PALE_ORANGE,
-			ACCOUNT_SCI_ID = COLOR_PALE_PURPLE_GRAY,
-			ACCOUNT_MED_ID = COLOR_PALE_BLUE_GRAY,
-			ACCOUNT_SRV_ID = COLOR_PALE_GREEN_GRAY,
-			ACCOUNT_CAR_ID = COLOR_BEIGE,
-			ACCOUNT_SEC_ID = COLOR_PALE_RED_GRAY,
-			ACCOUNT_VIP_ID = COLOR_YELLOW,
-		)
 
 	// Icons
 	// Add some random stamps.
@@ -195,8 +182,10 @@
 	if(this_job)
 		goodies += this_job.mail_goodies
 		var/datum/data/record/R = find_record("name", recipient.name, GLOB.data_core.general)
-		if(R)
-			color = get_chatcolor_by_hud(R.fields["hud"])
+		if(R) // datacore is primary
+			color = get_chatcolor_by_hud(get_hud_by_jobname(R.fields["hud"]))
+		else if(this_job.title) // when they have no datacore, roundstart job will be base
+			color = get_chatcolor_by_hud(this_job.title)
 		if(!color)
 			color = COLOR_WHITE
 
