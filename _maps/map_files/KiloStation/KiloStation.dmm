@@ -81892,7 +81892,6 @@
 /area/engine/engineering)
 "cvF" = (
 /obj/structure/girder/displaced,
-/obj/structure/girder/displaced,
 /turf/closed/wall,
 /area/maintenance/port)
 "cvG" = (

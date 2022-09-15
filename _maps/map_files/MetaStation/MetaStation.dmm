@@ -25360,7 +25360,6 @@
 "bJf" = (
 /obj/structure/lattice,
 /obj/structure/grille,
-/obj/structure/lattice,
 /turf/closed/wall/r_wall,
 /area/space/nearstation)
 "bJg" = (

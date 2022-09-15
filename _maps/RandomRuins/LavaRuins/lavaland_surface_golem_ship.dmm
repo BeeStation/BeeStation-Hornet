@@ -882,7 +882,6 @@
 "cM" = (
 /obj/structure/grille,
 /obj/structure/window/plastitanium,
-/turf/closed/wall/mineral/plastitanium,
 /area/ruin/powered/golem_ship)
 "jC" = (
 /obj/effect/decal/cleanable/dirt,

@@ -86414,7 +86414,6 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
 "kNc" = (
-/obj/structure/table/glass,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
@@ -93279,7 +93278,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/machinery/door/firedoor,
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4

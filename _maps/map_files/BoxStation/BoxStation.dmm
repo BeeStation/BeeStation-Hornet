@@ -23652,7 +23652,6 @@
 	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/door/firedoor,
-/obj/machinery/door/firedoor,
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
 "cdI" = (
@@ -50318,7 +50317,6 @@
 "qcr" = (
 /obj/structure/closet/l3closet/virology,
 /obj/item/storage/box/masks,
-/obj/structure/closet/l3closet/virology,
 /obj/item/storage/box/masks,
 /obj/item/storage/box/gloves,
 /turf/open/floor/plasteel/white,

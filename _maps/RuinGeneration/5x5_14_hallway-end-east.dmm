@@ -18,7 +18,6 @@
 "M" = (
 /obj/effect/spawner/structure/window,
 /obj/machinery/door/firedoor/window,
-/obj/machinery/door/firedoor/window,
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "Q" = (

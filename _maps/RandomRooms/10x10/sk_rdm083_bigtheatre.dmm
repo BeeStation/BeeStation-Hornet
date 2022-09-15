@@ -11,7 +11,6 @@
 /area/template_noop)
 "d" = (
 /obj/structure/chair/fancy/comfy,
-/obj/structure/chair/fancy/comfy,
 /turf/open/floor/wood,
 /area/template_noop)
 "e" = (

@@ -12568,7 +12568,6 @@
 "aYl" = (
 /obj/structure/table/wood,
 /obj/item/soap,
-/obj/structure/table/wood,
 /obj/item/bikehorn,
 /obj/item/toy/cattoy,
 /obj/effect/turf_decal/tile/neutral{
@@ -46784,7 +46783,6 @@
 "mlq" = (
 /obj/item/soap/nanotrasen,
 /obj/item/clothing/neck/stethoscope,
-/obj/structure/table/glass,
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
 	},
@@ -58909,7 +58907,6 @@
 /obj/effect/turf_decal/box,
 /obj/structure/closet/l3closet/virology,
 /obj/item/storage/box/masks,
-/obj/structure/closet/l3closet/virology,
 /obj/item/storage/box/masks,
 /obj/item/storage/box/gloves,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
