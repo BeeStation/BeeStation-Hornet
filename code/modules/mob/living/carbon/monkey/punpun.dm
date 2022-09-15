@@ -3,11 +3,19 @@
 	unique_name = 0
 	var/ancestor_name
 	var/ancestor_chain = 1
-	var/relic_hat	//Note: these two are paths
+	var/relic_hat	//Note: relic_hat and relic_mask are paths
+	var/relic_hat_blacklist
 	var/relic_mask
+	var/relic_mask_blacklist
 	var/memory_saved = FALSE
 
 /mob/living/carbon/monkey/punpun/Initialize(mapload)
+	// Init our blacklists. These are lists instead of typecaches because relic_mask and relic_hat are decoded into strings,
+	// which doesn't play well with typecaches.
+	relic_hat_blacklist = list("/obj/item/clothing/head/chameleon")
+	relic_mask_blacklist = list("/obj/item/clothing/mask/facehugger", "/obj/item/clothing/mask/chameleon")
+
+	// Read memory
 	Read_Memory()
 	if(ancestor_name)
 		name = ancestor_name
@@ -22,9 +30,9 @@
 	//These have to be after the parent new to ensure that the monkey
 	//bodyparts are actually created before we try to equip things to
 	//those slots
-	if(relic_hat)
+	if(relic_hat && !(relic_hat in relic_hat_blacklist))
 		equip_to_slot_or_del(new relic_hat, ITEM_SLOT_HEAD)
-	if(relic_mask)
+	if(relic_mask && !(relic_mask in relic_mask_blacklist))
 		equip_to_slot_or_del(new relic_mask, ITEM_SLOT_MASK)
 
 /mob/living/carbon/monkey/punpun/Life()
