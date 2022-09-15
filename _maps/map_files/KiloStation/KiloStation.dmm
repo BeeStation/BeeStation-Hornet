@@ -19857,7 +19857,6 @@
 	},
 /area/tcommsat/server)
 "aFM" = (
-/obj/structure/grille,
 /turf/closed/wall/r_wall,
 /area/engine/atmos)
 "aFO" = (
@@ -21617,7 +21616,6 @@
 /turf/open/floor/plasteel,
 /area/engine/break_room)
 "aIG" = (
-/obj/structure/grille,
 /turf/closed/wall/r_wall/rust,
 /area/engine/atmos)
 "aIH" = (
@@ -24444,7 +24442,6 @@
 /obj/machinery/atmospherics/pipe/simple/green/visible{
 	dir = 4
 	},
-/obj/structure/grille,
 /turf/closed/wall/r_wall,
 /area/engine/atmos)
 "aMU" = (
@@ -30559,7 +30556,6 @@
 /obj/machinery/atmospherics/pipe/simple/yellow/visible{
 	dir = 4
 	},
-/obj/structure/grille,
 /turf/closed/wall/r_wall,
 /area/engine/atmos)
 "aVR" = (
@@ -44867,7 +44863,6 @@
 /obj/machinery/atmospherics/pipe/simple/yellow/visible{
 	dir = 4
 	},
-/obj/structure/grille,
 /turf/closed/wall/r_wall/rust,
 /area/engine/atmos)
 "bqj" = (
@@ -48801,7 +48796,6 @@
 /obj/machinery/atmospherics/pipe/simple/cyan/visible{
 	dir = 4
 	},
-/obj/structure/grille,
 /turf/closed/wall/r_wall,
 /area/engine/atmos)
 "bwy" = (
@@ -77287,7 +77281,6 @@
 /area/space/nearstation)
 "cow" = (
 /obj/structure/lattice,
-/obj/structure/grille,
 /turf/closed/wall/r_wall,
 /area/space/nearstation)
 "cox" = (
@@ -85114,7 +85107,6 @@
 /area/maintenance/port/aft)
 "cBz" = (
 /obj/machinery/atmospherics/pipe/simple/green/visible,
-/obj/structure/grille,
 /turf/closed/wall/r_wall/rust,
 /area/engine/atmos)
 "cBA" = (
@@ -85123,12 +85115,10 @@
 /area/engine/atmos)
 "cBB" = (
 /obj/machinery/atmospherics/pipe/simple/yellow/visible,
-/obj/structure/grille,
 /turf/closed/wall/r_wall,
 /area/engine/atmos)
 "cBC" = (
 /obj/machinery/atmospherics/pipe/simple/purple/visible,
-/obj/structure/grille,
 /turf/closed/wall/r_wall,
 /area/engine/atmos)
 "cBD" = (
@@ -91416,12 +91406,10 @@
 /area/maintenance/disposal/incinerator)
 "cMy" = (
 /obj/structure/sign/warning/fire,
-/obj/structure/grille,
 /turf/closed/wall/r_wall,
 /area/engine/atmos)
 "cMz" = (
 /obj/structure/sign/warning/fire,
-/obj/structure/grille,
 /turf/closed/wall/r_wall/rust,
 /area/engine/atmos)
 "cMA" = (
@@ -91707,12 +91695,10 @@
 /area/hallway/secondary/entry)
 "cMS" = (
 /obj/structure/sign/warning/vacuum,
-/obj/structure/grille,
 /turf/closed/wall/r_wall/rust,
 /area/engine/atmos)
 "cMT" = (
 /obj/structure/sign/warning/vacuum,
-/obj/structure/grille,
 /turf/closed/wall/r_wall,
 /area/engine/atmos)
 "cMU" = (

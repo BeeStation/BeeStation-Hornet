@@ -3860,7 +3860,6 @@
 /turf/open/floor/plating,
 /area/maintenance/disposal)
 "ako" = (
-/obj/structure/lattice,
 /turf/closed/wall,
 /area/maintenance/port/fore)
 "akt" = (
@@ -20152,7 +20151,6 @@
 /turf/open/floor/plasteel,
 /area/security/checkpoint/customs)
 "bpu" = (
-/obj/structure/lattice,
 /turf/closed/wall/r_wall,
 /area/space/nearstation)
 "bpv" = (
@@ -22821,13 +22819,9 @@
 	},
 /area/engine/atmos)
 "bzi" = (
-/obj/structure/lattice,
-/obj/structure/grille,
 /turf/closed/wall/r_wall,
 /area/space/nearstation)
 "bzj" = (
-/obj/structure/grille,
-/obj/structure/lattice,
 /turf/closed/wall/r_wall,
 /area/space/nearstation)
 "bzn" = (
@@ -23276,7 +23270,6 @@
 /turf/open/floor/plasteel,
 /area/engine/atmos)
 "bAR" = (
-/obj/structure/grille,
 /turf/closed/wall/r_wall,
 /area/engine/atmos)
 "bAS" = (
@@ -23874,7 +23867,6 @@
 /obj/machinery/atmospherics/pipe/simple/yellow/visible{
 	dir = 4
 	},
-/obj/structure/grille,
 /turf/closed/wall/r_wall,
 /area/engine/atmos)
 "bCB" = (
@@ -24496,7 +24488,6 @@
 /obj/machinery/atmospherics/pipe/simple/green/visible{
 	dir = 4
 	},
-/obj/structure/grille,
 /turf/closed/wall/r_wall,
 /area/engine/atmos)
 "bGa" = (
@@ -25354,12 +25345,10 @@
 /area/engine/atmos)
 "bJe" = (
 /obj/structure/lattice,
-/obj/structure/grille,
 /turf/closed/wall/r_wall,
 /area/space/nearstation)
 "bJf" = (
 /obj/structure/lattice,
-/obj/structure/grille,
 /turf/closed/wall/r_wall,
 /area/space/nearstation)
 "bJg" = (
@@ -40276,7 +40265,6 @@
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/aft)
 "cDL" = (
-/obj/structure/lattice,
 /turf/closed/wall/r_wall,
 /area/medical/virology)
 "cDM" = (
@@ -56345,7 +56333,6 @@
 /turf/open/floor/plasteel,
 /area/security/brig)
 "hZi" = (
-/obj/structure/lattice,
 /turf/closed/wall,
 /area/science/shuttledock)
 "hZn" = (
@@ -67142,7 +67129,6 @@
 /turf/open/floor/plasteel/dark,
 /area/science/server)
 "ovZ" = (
-/obj/structure/lattice,
 /turf/closed/wall,
 /area/crew_quarters/cryopods)
 "owl" = (

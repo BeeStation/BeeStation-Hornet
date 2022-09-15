@@ -2388,7 +2388,6 @@
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
 "ajr" = (
-/obj/structure/grille,
 /turf/closed/wall/r_wall,
 /area/space/nearstation)
 "ajs" = (
@@ -13492,7 +13491,6 @@
 /turf/open/space,
 /area/engine/atmos)
 "aRF" = (
-/obj/structure/grille,
 /turf/closed/wall/r_wall,
 /area/engine/atmos)
 "aRK" = (
@@ -15361,7 +15359,6 @@
 /obj/machinery/atmospherics/pipe/simple/yellow/visible{
 	dir = 4
 	},
-/obj/structure/grille,
 /turf/closed/wall/r_wall,
 /area/engine/atmos)
 "aWx" = (
@@ -16638,7 +16635,6 @@
 /obj/machinery/atmospherics/pipe/simple/green/visible{
 	dir = 4
 	},
-/obj/structure/grille,
 /turf/closed/wall/r_wall,
 /area/engine/atmos)
 "aZR" = (
@@ -77091,7 +77087,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
-/obj/machinery/door/firedoor,
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plasteel,
 /area/maintenance/department/medical/morgue)
@@ -92198,7 +92193,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/machinery/door/firedoor,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -92856,7 +92850,6 @@
 /turf/open/floor/plasteel,
 /area/maintenance/starboard/fore)
 "nyB" = (
-/obj/structure/lattice,
 /turf/closed/wall/r_wall,
 /area/engine/gravity_generator)
 "nzb" = (
@@ -113330,7 +113323,6 @@
 /area/engine/storage_shared)
 "wiQ" = (
 /obj/structure/lattice,
-/obj/structure/grille,
 /turf/closed/wall/r_wall,
 /area/space/nearstation)
 "wja" = (

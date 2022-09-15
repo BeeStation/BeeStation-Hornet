@@ -11922,7 +11922,6 @@
 /turf/open/floor/plasteel/dark,
 /area/quartermaster/exploration_prep)
 "dbi" = (
-/obj/structure/grille,
 /turf/closed/wall,
 /area/space/nearstation)
 "dbq" = (
@@ -17859,7 +17858,6 @@
 /turf/open/floor/wood,
 /area/crew_quarters/bar)
 "eNy" = (
-/obj/structure/grille,
 /turf/closed/wall/r_wall,
 /area/engine/atmos)
 "eNC" = (
@@ -35921,7 +35919,6 @@
 /obj/machinery/camera/autoname{
 	dir = 8
 	},
-/obj/structure/grille,
 /turf/closed/wall/r_wall,
 /area/space/nearstation)
 "jWk" = (
@@ -36739,7 +36736,6 @@
 /turf/open/floor/plasteel/dark,
 /area/science/explab)
 "kiV" = (
-/obj/structure/grille,
 /turf/closed/wall/r_wall,
 /area/space/nearstation)
 "kja" = (
@@ -44554,7 +44550,6 @@
 /turf/open/floor/plating,
 /area/hallway/secondary/service)
 "mtF" = (
-/obj/structure/lattice,
 /turf/closed/wall,
 /area/chapel/main/monastery)
 "mtL" = (
@@ -50635,7 +50630,6 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
 "ojg" = (
-/obj/structure/lattice,
 /turf/closed/wall,
 /area/chapel/office)
 "oji" = (
@@ -64972,7 +64966,6 @@
 /turf/open/floor/plasteel,
 /area/security/main)
 "sBO" = (
-/obj/structure/lattice,
 /turf/closed/wall/r_wall,
 /area/security/execution/education)
 "sCp" = (
@@ -80902,7 +80895,6 @@
 /area/chapel/main/monastery)
 "xnS" = (
 /obj/structure/lattice,
-/obj/structure/grille,
 /turf/closed/wall/r_wall,
 /area/space/nearstation)
 "xnU" = (

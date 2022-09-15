@@ -2739,7 +2739,6 @@
 /area/engine/atmos)
 "aJV" = (
 /obj/structure/lattice,
-/obj/structure/grille,
 /turf/closed/wall/r_wall,
 /area/space/nearstation)
 "aJZ" = (
@@ -8569,7 +8568,6 @@
 /turf/open/floor/plasteel/sepia,
 /area/construction/mining/aux_base)
 "bWy" = (
-/obj/structure/lattice,
 /turf/closed/wall/r_wall,
 /area/maintenance/port/central)
 "bWE" = (
@@ -9033,7 +9031,6 @@
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/aft)
 "cbE" = (
-/obj/structure/lattice,
 /turf/closed/wall,
 /area/hallway/secondary/entry)
 "cbH" = (
@@ -10350,7 +10347,6 @@
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
 "cpr" = (
-/obj/structure/lattice,
 /turf/closed/wall/r_wall,
 /area/docking/arrival)
 "cps" = (
@@ -12199,7 +12195,6 @@
 /turf/open/floor/carpet/red,
 /area/library/lounge)
 "cKm" = (
-/obj/structure/grille,
 /turf/closed/wall/r_wall,
 /area/engine/atmos)
 "cKu" = (
@@ -20025,7 +20020,6 @@
 	name = "Mixed Air Tank In"
 	},
 /obj/machinery/atmospherics/pipe/simple/cyan/visible,
-/obj/structure/grille,
 /turf/closed/wall/r_wall,
 /area/engine/atmos)
 "ewk" = (
@@ -57063,7 +57057,6 @@
 "njl" = (
 /obj/machinery/meter,
 /obj/machinery/atmospherics/pipe/simple/yellow/visible,
-/obj/structure/grille,
 /turf/closed/wall/r_wall,
 /area/engine/atmos)
 "njq" = (
@@ -68752,7 +68745,6 @@
 	dir = 4
 	},
 /obj/machinery/meter,
-/obj/structure/grille,
 /turf/closed/wall/r_wall,
 /area/engine/atmos)
 "qgD" = (
@@ -77035,7 +77027,6 @@
 /obj/machinery/atmospherics/pipe/simple/green/visible{
 	dir = 4
 	},
-/obj/structure/grille,
 /turf/closed/wall/r_wall,
 /area/engine/atmos)
 "sbM" = (
@@ -78224,7 +78215,6 @@
 "spX" = (
 /obj/machinery/meter,
 /obj/machinery/atmospherics/pipe/simple/green/visible,
-/obj/structure/grille,
 /turf/closed/wall/r_wall,
 /area/engine/atmos)
 "spY" = (
@@ -94149,7 +94139,6 @@
 /obj/machinery/atmospherics/pipe/simple/yellow/visible{
 	dir = 4
 	},
-/obj/structure/grille,
 /turf/closed/wall/r_wall,
 /area/engine/atmos)
 "vZS" = (
@@ -94803,7 +94792,6 @@
 	name = "Mixed Air Tank Out"
 	},
 /obj/machinery/atmospherics/pipe/simple/cyan/visible,
-/obj/structure/grille,
 /turf/closed/wall/r_wall,
 /area/engine/atmos)
 "wkt" = (

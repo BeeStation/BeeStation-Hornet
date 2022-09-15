@@ -23397,7 +23397,6 @@
 /turf/open/floor/plasteel/dark,
 /area/science/storage)
 "bJP" = (
-/obj/structure/grille,
 /turf/closed/wall/r_wall,
 /area/engine/atmos)
 "bJQ" = (
@@ -35307,8 +35306,6 @@
 /turf/open/floor/plating,
 /area/maintenance/department/engine)
 "eNF" = (
-/obj/structure/grille,
-/obj/structure/lattice,
 /turf/closed/wall,
 /area/space/nearstation)
 "eOd" = (
@@ -58379,7 +58376,6 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
 "ujt" = (
-/obj/structure/lattice,
 /turf/closed/wall,
 /area/science/shuttledock)
 "ujz" = (

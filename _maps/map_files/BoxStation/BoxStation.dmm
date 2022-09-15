@@ -19860,7 +19860,6 @@
 /turf/open/floor/plasteel,
 /area/engine/atmos)
 "bOh" = (
-/obj/structure/grille,
 /turf/closed/wall/r_wall,
 /area/engine/atmos)
 "bOl" = (
@@ -45126,7 +45125,6 @@
 /turf/open/floor/plasteel,
 /area/crew_quarters/fitness)
 "mFI" = (
-/obj/structure/lattice,
 /turf/closed/wall,
 /area/quartermaster/exploration_dock)
 "mFY" = (
