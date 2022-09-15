@@ -19361,9 +19361,6 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel,
 /area/engine/atmos)
-"bLK" = (
-/turf/closed/wall/r_wall,
-/area/engine/atmos)
 "bLL" = (
 /obj/machinery/portable_atmospherics/canister/nitrous_oxide,
 /obj/effect/turf_decal/bot,
@@ -24999,19 +24996,6 @@
 /obj/structure/sign/warning/electricshock,
 /turf/closed/wall/r_wall,
 /area/maintenance/solars/starboard/aft)
-"cjH" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/turf/open/space/basic,
-/area/solar/port/aft)
 "cjI" = (
 /obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/maintenance/two,
@@ -36017,9 +36001,6 @@
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2,
 /turf/open/floor/plating,
 /area/maintenance/fore)
-"gQd" = (
-/turf/closed/wall,
-/area/quartermaster/exploration_dock)
 "gQf" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 4
@@ -77468,10 +77449,10 @@ ccX
 cgz
 chL
 ciP
-cjH
-cjH
 lNg
-cjH
+lNg
+lNg
+lNg
 cnl
 aaa
 aaS
@@ -78496,10 +78477,10 @@ ccX
 cgz
 chL
 ciP
-cjH
-cjH
-cjH
-cjH
+lNg
+lNg
+lNg
+lNg
 cnl
 aaa
 aaS
@@ -79524,10 +79505,10 @@ ccX
 cgz
 chL
 ciP
-cjH
-cjH
-cjH
-cjH
+lNg
+lNg
+lNg
+lNg
 cnl
 aaa
 aaS
@@ -91579,9 +91560,9 @@ cBD
 cBD
 cBD
 mvY
-bLK
-bLK
-bLK
+bOh
+bOh
+bOh
 bOQ
 bQf
 bRq
@@ -91836,7 +91817,7 @@ bDL
 cuK
 cBD
 jxk
-bLK
+bOh
 cvZ
 cwl
 bOT
@@ -92093,7 +92074,7 @@ dod
 cuS
 cBD
 jxk
-bLK
+bOh
 bLJ
 bNP
 bOd
@@ -92104,7 +92085,7 @@ bMK
 nBl
 gJy
 bWN
-bLK
+bOh
 tjS
 bZy
 bZy
@@ -92350,7 +92331,7 @@ wHC
 uWT
 kUY
 sfj
-bLK
+bOh
 bLM
 cwm
 cwr
@@ -92607,7 +92588,7 @@ lJv
 oia
 cBD
 jxk
-bLK
+bOh
 bLL
 cwp
 bOd
@@ -92864,7 +92845,7 @@ vNj
 dRs
 cBD
 jxk
-bLK
+bOh
 bLN
 bNQ
 bOd
@@ -93121,7 +93102,7 @@ cAL
 pXB
 cBD
 jxk
-bLK
+bOh
 bMK
 bNR
 bOW
@@ -93378,7 +93359,7 @@ cBD
 tCh
 cBD
 jxk
-bLK
+bOh
 bMK
 bMK
 bMK
@@ -93635,7 +93616,7 @@ cBD
 qUA
 cBD
 jxk
-bLK
+bOh
 bML
 bNT
 bOd
@@ -93892,7 +93873,7 @@ tZA
 xHx
 cBD
 jxk
-bLK
+bOh
 bMN
 bNV
 bOd
@@ -94149,7 +94130,7 @@ cBD
 tEr
 cBD
 jxk
-bLK
+bOh
 bMM
 bOd
 bOd
@@ -94171,7 +94152,7 @@ cex
 bOd
 cfN
 cfN
-bLK
+bOh
 aaf
 bOh
 bOh
@@ -94406,7 +94387,7 @@ cBD
 dRs
 cBD
 jxk
-bLK
+bOh
 bMP
 jHJ
 bOd
@@ -94920,7 +94901,7 @@ kwW
 xwr
 cBD
 kff
-bLK
+bOh
 bMR
 ftr
 bJF
@@ -95177,7 +95158,7 @@ cBD
 bHW
 cBD
 qap
-bLK
+bOh
 bMQ
 lcG
 bMQ
@@ -95691,7 +95672,7 @@ vIS
 cvb
 bof
 jxk
-bLK
+bOh
 bMS
 ejG
 qEK
@@ -96205,7 +96186,7 @@ nDv
 imK
 cvi
 rzm
-bLK
+bOh
 bMU
 bOc
 bPe
@@ -96462,7 +96443,7 @@ itx
 ngt
 bof
 xdc
-bLK
+bOh
 bMX
 bOd
 bPg
@@ -96719,7 +96700,7 @@ vRM
 fjZ
 bof
 xdc
-bLK
+bOh
 bMW
 bOe
 bPf
@@ -96976,7 +96957,7 @@ bof
 wMz
 bof
 xdc
-bLK
+bOh
 bMZ
 bOg
 bPi
@@ -97233,7 +97214,7 @@ cux
 uyP
 bof
 xdc
-bLK
+bOh
 bMY
 qXP
 juX
@@ -97252,10 +97233,10 @@ juX
 xNI
 lpu
 xHM
-bLK
+bOh
 lwt
 lsV
-bLK
+bOh
 aaf
 bOh
 bOh
@@ -97512,7 +97493,7 @@ cCI
 cCP
 oNa
 lNh
-bLK
+bOh
 aaf
 aoV
 aoV
@@ -97769,7 +97750,7 @@ bOh
 cCQ
 lcf
 oMA
-bLK
+bOh
 aoV
 aoV
 aoV
@@ -113665,16 +113646,16 @@ aaa
 bky
 bky
 mnE
-gQd
-gQd
-gQd
+mFI
+mFI
+mFI
 jGM
-gQd
-gQd
-gQd
-gQd
-gQd
-gQd
+mFI
+mFI
+mFI
+mFI
+mFI
+mFI
 bEs
 bGc
 bGc
@@ -113924,14 +113905,14 @@ xkR
 sDn
 equ
 dLB
-gQd
+mFI
 hkz
 ict
 hjM
 uyV
 hXz
 cRa
-gQd
+mFI
 atS
 aaf
 aaf
@@ -114188,7 +114169,7 @@ vfr
 jCm
 qOj
 ezu
-gQd
+mFI
 aaf
 aaa
 aaa
@@ -114695,14 +114676,14 @@ xkR
 rKw
 eQc
 wWK
-gQd
+mFI
 wOv
 pqr
 qmf
 nFZ
 xkR
-gQd
-gQd
+mFI
+mFI
 aaa
 aaa
 aaa
@@ -114951,14 +114932,14 @@ gXs
 xkR
 xkR
 xkR
-gQd
-gQd
+mFI
+mFI
 tEj
 dOV
 qmf
 smw
-gQd
-gQd
+mFI
+mFI
 gXs
 aaa
 aaa
@@ -115209,13 +115190,13 @@ aaa
 aaa
 aaa
 aaa
-gQd
+mFI
 xkR
 xkR
 fau
 uvv
 xkR
-gQd
+mFI
 gXs
 aaa
 aaa

@@ -520,9 +520,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/fitness/recreation)
-"aix" = (
-/turf/closed/mineral,
-/area/asteroid/nearstation)
 "aiz" = (
 /obj/structure/table,
 /obj/item/stock_parts/subspace/transmitter,
@@ -8292,9 +8289,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/security/checkpoint/science/research)
-"bTg" = (
-/turf/closed/wall/r_wall,
-/area/docking/arrival)
 "bTo" = (
 /obj/effect/turf_decal/tile/yellow/tile_side,
 /turf/open/floor/plasteel,
@@ -8563,9 +8557,6 @@
 /obj/effect/landmark/event_spawn,
 /turf/open/floor/plasteel/sepia,
 /area/construction/mining/aux_base)
-"bWy" = (
-/turf/closed/wall/r_wall,
-/area/maintenance/port/central)
 "bWE" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
 /turf/open/floor/carpet,
@@ -9026,9 +9017,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/aft)
-"cbE" = (
-/turf/closed/wall,
-/area/hallway/secondary/entry)
 "cbH" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 8
@@ -12190,9 +12178,6 @@
 	},
 /turf/open/floor/carpet/red,
 /area/library/lounge)
-"cKm" = (
-/turf/closed/wall/r_wall,
-/area/engine/atmos)
 "cKu" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 8
@@ -115539,11 +115524,11 @@ xAx
 xAx
 xAx
 src
-bTg
-bTg
-bTg
-bTg
-bTg
+cpr
+cpr
+cpr
+cpr
+cpr
 cpr
 cGS
 cGS
@@ -115556,8 +115541,8 @@ cGS
 cGS
 cGS
 cGS
-bTg
-bTg
+cpr
+cpr
 ryl
 nnx
 nnx
@@ -120960,7 +120945,7 @@ wVU
 ttr
 tqw
 qCg
-cbE
+giY
 csJ
 csJ
 csJ
@@ -129325,7 +129310,7 @@ wMM
 lFq
 bcd
 eNY
-aix
+kHH
 wMM
 kHH
 kHH
@@ -131641,7 +131626,7 @@ csJ
 aqJ
 arb
 acQ
-bWy
+xaE
 wCd
 gTM
 wMM
@@ -145900,11 +145885,11 @@ ydA
 oRa
 kKG
 tJm
-cKm
-cKm
-cKm
-cKm
-cKm
+uUs
+uUs
+uUs
+uUs
+uUs
 ufF
 vXB
 umv
@@ -146161,7 +146146,7 @@ spX
 krS
 eIN
 eIN
-cKm
+uUs
 ufF
 tEI
 quH
@@ -146418,7 +146403,7 @@ hwQ
 riD
 cYE
 eIN
-cKm
+uUs
 ufF
 tEI
 quH
@@ -146675,7 +146660,7 @@ njl
 rjX
 eIN
 uzf
-cKm
+uUs
 ufF
 tEI
 quH
@@ -146928,11 +146913,11 @@ pTI
 uzH
 oIM
 tJm
-cKm
-cKm
+uUs
+uUs
 hwQ
-cKm
-cKm
+uUs
+uUs
 ufF
 tEI
 quH
@@ -147189,7 +147174,7 @@ spX
 lMW
 uEz
 uEz
-cKm
+uUs
 ufF
 tEI
 quH
@@ -147446,7 +147431,7 @@ hwQ
 pxt
 tdR
 uEz
-cKm
+uUs
 ufF
 tEI
 quH
@@ -147703,7 +147688,7 @@ njl
 hUc
 uEz
 oiz
-cKm
+uUs
 ufF
 tEI
 quH
@@ -147956,11 +147941,11 @@ tXi
 anf
 ege
 lge
-cKm
-cKm
+uUs
+uUs
 hwQ
-cKm
-cKm
+uUs
+uUs
 ufF
 vXB
 oqC
@@ -148217,7 +148202,7 @@ ewe
 oXa
 aNF
 nxC
-cKm
+uUs
 ufF
 tEI
 hoP
@@ -148474,7 +148459,7 @@ hwQ
 nhR
 wIT
 nxC
-cKm
+uUs
 ufF
 tEI
 kFL
@@ -148731,7 +148716,7 @@ wke
 srF
 nxC
 tgp
-cKm
+uUs
 ufF
 tEI
 gXL
@@ -148984,11 +148969,11 @@ nCD
 kbW
 fyr
 wrR
-cKm
-cKm
-cKm
-cKm
-cKm
+uUs
+uUs
+uUs
+uUs
+uUs
 uUs
 tEI
 hoP
@@ -150768,27 +150753,27 @@ xKz
 kiu
 uUs
 uUs
-cKm
+uUs
 qgC
 hwQ
 vZL
-cKm
+uUs
 wzA
 wzA
 omF
-cKm
+uUs
 vZL
 hwQ
 qgC
-cKm
+uUs
 vZL
 hwQ
 sbK
-cKm
+uUs
 vZL
 hwQ
 sbK
-cKm
+uUs
 tEI
 gXL
 wVT
@@ -151025,27 +151010,27 @@ jBG
 qhc
 pBe
 hgB
-cKm
+uUs
 iUw
 mjS
 aJU
-cKm
+uUs
 clP
 suJ
 pMj
-cKm
+uUs
 sEo
 sNW
 sRD
-cKm
+uUs
 tjh
 ttx
 ogq
-cKm
+uUs
 mdT
 fSC
 mKv
-cKm
+uUs
 tEI
 hoP
 aJS
@@ -151282,7 +151267,7 @@ ptR
 uKS
 tTZ
 hgB
-cKm
+uUs
 lIA
 xZn
 lIA
@@ -151302,7 +151287,7 @@ hwQ
 vJN
 fSY
 vJN
-cKm
+uUs
 tEI
 hoP
 wVT
@@ -151539,27 +151524,27 @@ jqm
 sKK
 wBq
 hgB
-cKm
+uUs
 ejo
 lIA
 lIA
-cKm
+uUs
 xDl
 qid
 jAT
-cKm
+uUs
 sjh
 igW
 igW
-cKm
+uUs
 sej
 tMP
 tMP
-cKm
+uUs
 idR
 vJN
 vJN
-cKm
+uUs
 tEI
 kFL
 dDM
@@ -151796,27 +151781,27 @@ piM
 sKK
 tTZ
 hgB
-cKm
-cKm
-cKm
-cKm
-cKm
+uUs
+uUs
+uUs
+uUs
+uUs
 uUs
 uUs
 ijV
-cKm
-cKm
-cKm
-cKm
-cKm
-cKm
-cKm
-cKm
-cKm
-cKm
-cKm
-cKm
-cKm
+uUs
+uUs
+uUs
+uUs
+uUs
+uUs
+uUs
+uUs
+uUs
+uUs
+uUs
+uUs
+uUs
 tEI
 kFL
 wVT

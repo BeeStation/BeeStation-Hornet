@@ -13861,9 +13861,6 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plasteel/dark,
 /area/storage/primary)
-"awu" = (
-/turf/closed/wall/r_wall,
-/area/engine/atmos)
 "awv" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/cyan/visible{
@@ -17594,9 +17591,6 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/plasteel/showroomfloor,
 /area/science/research)
-"aBY" = (
-/turf/closed/wall/r_wall/rust,
-/area/engine/atmos)
 "aBZ" = (
 /obj/structure/table,
 /obj/effect/turf_decal/tile/neutral{
@@ -19737,10 +19731,6 @@
 	dir = 4
 	},
 /turf/open/floor/plasteel,
-/area/engine/atmos)
-"aFA" = (
-/obj/structure/sign/warning/fire,
-/turf/closed/wall/r_wall,
 /area/engine/atmos)
 "aFB" = (
 /obj/machinery/door/firedoor,
@@ -128991,7 +128981,7 @@ cyk
 bFa
 clJ
 bEV
-aBY
+aIG
 bwv
 bGo
 aCw
@@ -129248,7 +129238,7 @@ cnG
 bFa
 clL
 bGG
-awu
+aFM
 bmV
 ayG
 aEF
@@ -129505,7 +129495,7 @@ czA
 bFa
 cmz
 cmF
-aBY
+aIG
 bEm
 aLY
 aSk
@@ -129762,7 +129752,7 @@ czC
 bET
 bFa
 cmG
-awu
+aFM
 cKs
 caP
 caW
@@ -130276,7 +130266,7 @@ cJS
 bFa
 bGG
 csc
-aFA
+cMy
 bFx
 bFy
 aIl
@@ -130533,9 +130523,9 @@ bYL
 bFa
 aRQ
 cNt
-awu
-awu
-aBY
+aFM
+aFM
+aIG
 aCW
 csd
 aMR
@@ -130791,7 +130781,7 @@ ckJ
 cmA
 cOz
 cKj
-awu
+aFM
 aGw
 aAT
 cso
@@ -131048,7 +131038,7 @@ clL
 bFZ
 bRT
 cKk
-awu
+aFM
 bFi
 aEI
 cso
@@ -131305,7 +131295,7 @@ clC
 aRQ
 cny
 bEV
-aBY
+aIG
 aCZ
 aCL
 csd
@@ -131562,7 +131552,7 @@ ckd
 bFa
 cnz
 bFS
-aBY
+aIG
 caQ
 aEY
 csd
@@ -131819,7 +131809,7 @@ ckg
 ckO
 cnA
 cnC
-awu
+aFM
 aMV
 aGi
 csd
@@ -132076,7 +132066,7 @@ ckL
 cBp
 bET
 bFY
-awu
+aFM
 aDk
 crU
 cst
@@ -132333,7 +132323,7 @@ clH
 bGK
 bFa
 cnE
-awu
+aFM
 aJh
 aGC
 byl
@@ -132590,7 +132580,7 @@ ckN
 bFC
 aHV
 cnH
-aBY
+aIG
 aJh
 aGH
 csy
@@ -134403,7 +134393,7 @@ aKI
 aKI
 aJR
 ciA
-awu
+aFM
 cok
 aFM
 aFM
@@ -134660,7 +134650,7 @@ aMy
 aDx
 aLo
 cgG
-awu
+aFM
 cok
 aDT
 clX
@@ -134914,10 +134904,10 @@ bGC
 bUW
 bUY
 cjs
-awu
+aFM
 cwj
-awu
-awu
+aFM
+aFM
 cwo
 aDU
 aDY
@@ -135171,7 +135161,7 @@ axa
 cpB
 axa
 cpB
-awu
+aFM
 bVm
 cgH
 cDA
