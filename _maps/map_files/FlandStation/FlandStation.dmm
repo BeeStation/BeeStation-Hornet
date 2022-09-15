@@ -521,7 +521,6 @@
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/fitness/recreation)
 "aix" = (
-/obj/structure/lattice,
 /turf/closed/mineral,
 /area/asteroid/nearstation)
 "aiz" = (
@@ -2738,7 +2737,6 @@
 /turf/open/floor/engine/vacuum/light,
 /area/engine/atmos)
 "aJV" = (
-/obj/structure/lattice,
 /turf/closed/wall/r_wall,
 /area/space/nearstation)
 "aJZ" = (
@@ -2988,8 +2986,6 @@
 /turf/open/floor/wood,
 /area/hallway/secondary/exit/departure_lounge)
 "aMh" = (
-/obj/structure/lattice,
-/obj/structure/grille,
 /obj/effect/decal/cleanable/dirt,
 /turf/closed/wall/r_wall,
 /area/space/nearstation)

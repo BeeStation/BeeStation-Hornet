@@ -31278,11 +31278,9 @@
 /turf/closed/wall,
 /area/library/lounge)
 "cyL" = (
-/obj/structure/lattice,
 /turf/closed/mineral,
 /area/chapel/asteroid/monastery)
 "cyM" = (
-/obj/structure/lattice,
 /turf/closed/mineral,
 /area/chapel/asteroid/monastery)
 "cyP" = (

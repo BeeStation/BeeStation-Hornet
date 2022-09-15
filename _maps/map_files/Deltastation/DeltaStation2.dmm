@@ -113322,7 +113322,6 @@
 /turf/open/floor/plasteel,
 /area/engine/storage_shared)
 "wiQ" = (
-/obj/structure/lattice,
 /turf/closed/wall/r_wall,
 /area/space/nearstation)
 "wja" = (

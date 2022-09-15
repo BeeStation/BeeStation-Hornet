@@ -25344,11 +25344,9 @@
 /turf/open/floor/engine/n2o,
 /area/engine/atmos)
 "bJe" = (
-/obj/structure/lattice,
 /turf/closed/wall/r_wall,
 /area/space/nearstation)
 "bJf" = (
-/obj/structure/lattice,
 /turf/closed/wall/r_wall,
 /area/space/nearstation)
 "bJg" = (

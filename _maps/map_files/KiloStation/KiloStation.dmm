@@ -77280,7 +77280,6 @@
 /turf/open/space/basic,
 /area/space/nearstation)
 "cow" = (
-/obj/structure/lattice,
 /turf/closed/wall/r_wall,
 /area/space/nearstation)
 "cox" = (

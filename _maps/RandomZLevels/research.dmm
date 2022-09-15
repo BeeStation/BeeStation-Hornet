@@ -4675,7 +4675,6 @@
 /turf/open/floor/plasteel/white,
 /area/awaymission/research/interior/medbay)
 "ji" = (
-/obj/machinery/door/airlock/glass_large,
 /turf/closed/mineral,
 /area/awaymission/research/exterior)
 "jj" = (
