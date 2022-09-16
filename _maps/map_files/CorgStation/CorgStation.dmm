@@ -7845,13 +7845,13 @@
 "bNp" = (
 /obj/structure/table/reinforced,
 /obj/item/folder/yellow{
-	pixel_y = 3;
-	pixel_x = -4
+	pixel_x = -4;
+	pixel_y = 3
 	},
 /obj/effect/turf_decal/tile/brown,
 /obj/item/stamp/quartermaster{
-	pixel_y = -2;
-	pixel_x = 6
+	pixel_x = 6;
+	pixel_y = -2
 	},
 /obj/effect/turf_decal/tile/brown{
 	dir = 1
@@ -31911,7 +31911,7 @@
 /obj/machinery/door/window/brigdoor{
 	dir = 1;
 	name = "Virology Desk";
-	req_access_txt = "20"
+	req_access_txt = "39"
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
