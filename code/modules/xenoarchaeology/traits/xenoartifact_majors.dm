@@ -196,8 +196,8 @@
 	var/list/victims = list()
 
 /datum/xenoartifact_trait/major/invisible/on_item(obj/item/xenoartifact/X, atom/user, obj/item/I)
-	if(istype(I) && I.light > 0)
-		to_chat(user, "<span class='info'>The [item.name]'s light passes through the structure.</span>")
+	if(istype(I) && I.light_power > 0)
+		to_chat(user, "<span class='info'>The [I.name]'s light passes through the structure.</span>")
 		return TRUE
 	..()
 
@@ -321,8 +321,8 @@
 /// Chem, injects a random safe chem into target
 ///============
 /datum/xenoartifact_trait/major/chem
-	desc = "Tubed"
-	label_desc = "Tubed: The Artifact's shape is comprised of many twisting tubes and vials, it seems a liquid may be inside."
+	desc = "Needled"
+	label_desc = "Needled: The Artifact's shape is comprised of many twisting tubes and vials, it seems a liquid may be inside."
 	flags = BLUESPACE_TRAIT | PLASMA_TRAIT | URANIUM_TRAIT
 	var/datum/reagent/formula
 	var/amount

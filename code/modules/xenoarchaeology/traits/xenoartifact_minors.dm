@@ -136,7 +136,7 @@
 		playsound(get_turf(X), 'sound/machines/buzz-sigh.ogg', 50, TRUE) 
 		return	
 	man = new(get_turf(X))
-	man.name = pick("Calcifer", "Lucifer", "Ahpuch", "Ahriman", "Bacon")
+	man.name = pick(GLOB.xenoa_artifact_names)
 	man.real_name = "[man.name] - [X]"
 	man.key = ckey
 	man.status_flags |= GODMODE
