@@ -38115,6 +38115,13 @@
 /obj/machinery/door/firedoor,
 /turf/open/floor/plasteel/white,
 /area/medical/cryo)
+"iga" = (
+/obj/machinery/sparker{
+	id = "Xenobio";
+	pixel_x = 9
+	},
+/turf/closed/wall/r_wall,
+/area/science/xenobiology)
 "igW" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -41458,13 +41465,6 @@
 /obj/structure/bed/roller,
 /turf/open/floor/plasteel/freezer,
 /area/medical/virology)
-"krn" = (
-/obj/machinery/sparker{
-	id = "Xenobio";
-	pixel_y = -9
-	},
-/turf/closed/wall/r_wall,
-/area/science/xenobiology)
 "krK" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -104215,7 +104215,7 @@ bxg
 bBR
 bDb
 bDb
-bDb
+iga
 bDb
 bDb
 bDb
@@ -104984,7 +104984,7 @@ byf
 bzt
 bAy
 bBS
-krn
+bDb
 bEm
 bEm
 cBz
