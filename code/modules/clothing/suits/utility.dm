@@ -92,6 +92,7 @@
 	min_cold_protection_temperature = ARMOR_MIN_TEMP_PROTECT
 	strip_delay = 70
 	equip_delay_other = 70
+	resistance_flags = NONE
 
 /obj/item/clothing/head/bomb_hood/security
 	icon_state = "bombsuit_sec"

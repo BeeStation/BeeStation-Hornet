@@ -128,8 +128,14 @@
 	blacklist_traits = list(/datum/xenoartifact_trait/minor/dense, /datum/xenoartifact_trait/minor/anchor, /datum/xenoartifact_trait/major/distablizer)
 	flags = BLUESPACE_TRAIT | URANIUM_TRAIT
 
-/datum/xenoartifact_trait/activator/weighted/calculate_charge(datum/source, obj/item/thing, mob/user, atom/target)
-	var/obj/item/clothing/gloves/artifact_pinchers/P = (locate(/obj/item/clothing/gloves/artifact_pinchers) in target.contents || locate(/obj/item/clothing/gloves/artifact_pinchers) in user.contents)
+/datum/xenoartifact_trait/activator/weighted/calculate_charge(datum/source, obj/item/thing, mob/living/carbon/user, mob/living/carbon/human/target)
+	var/obj/item/clothing/gloves/artifact_pinchers/P
+	//Grab ref to gloves for check
+	if(istype(target))
+		P = target.get_item_by_slot(ITEM_SLOT_GLOVES)
+	if(istype(user) && !P)
+		P = user.get_item_by_slot(ITEM_SLOT_GLOVES)
+	
 	if(P?.safety) //This trait is a special tism
 		return
 	var/obj/item/xenoartifact/X = source

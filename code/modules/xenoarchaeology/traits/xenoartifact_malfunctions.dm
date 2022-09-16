@@ -10,7 +10,7 @@
 
 /datum/xenoartifact_trait/malfunction/bear/activate(obj/item/xenoartifact/X)
 	if(bears < XENOA_MAX_BEARS)
-		bears+=1
+		bears++
 		var/mob/living/simple_animal/hostile/bear/new_bear
 		new_bear = new(get_turf(X.loc))
 		new_bear.name = pick("Freddy", "Bearington", "Smokey", "Beorn", "Pooh", "Paddington", "Winnie", "Baloo", "Rupert", "Yogi", "Fozzie", "Boo") //Why not?
@@ -37,7 +37,7 @@
 		M = user.loc
 	else
 		return
-	X.true_target = list(M)
+	X.true_target = X.process_target(M)
 	X.cooldown += 5 SECONDS
 
 //============
@@ -50,8 +50,11 @@
 /datum/xenoartifact_trait/malfunction/strip/activate(obj/item/xenoartifact/X, atom/target)
 	if(isliving(target))
 		var/mob/living/carbon/victim = target
-		var/obj/item/clothing/I = pick(victim.contents)
-		victim.dropItemToGround(I)
+		var/list/clothing_list = list()
+		//Im okay with this targetting clothing in other non-worn slots
+		for(var/obj/item/clothing/I in victim.contents)
+			clothing_list += I
+		victim.dropItemToGround(pick(clothing_list))
 		X.cooldown += 10 SECONDS
 
 //============
@@ -123,7 +126,7 @@
 	label_desc = "Radioactive: The Artifact Emmits harmful particles when a reaction takes place."
 
 /datum/xenoartifact_trait/malfunction/radioactive/on_init(obj/item/xenoartifact/X)
-	X.AddComponent(/datum/component/radioactive, 25, X)
+	X.rad_act(25)
 
 /datum/xenoartifact_trait/malfunction/radioactive/on_item(obj/item/xenoartifact/X, atom/user, atom/item)
 	if(istype(item, /obj/item/geiger_counter))
@@ -136,4 +139,4 @@
 	return TRUE
 
 /datum/xenoartifact_trait/malfunction/radioactive/activate(obj/item/xenoartifact/X)
-	X.AddComponent(/datum/component/radioactive, 25)
+	X.rad_act(25)

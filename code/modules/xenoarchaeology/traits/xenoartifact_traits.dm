@@ -13,6 +13,22 @@
 	///Weight in trait list, most traits wont change this
 	var/weight = 50
 
+//Subtype shenanigahns
+/datum/xenoartifact_trait/minor //leave these here for later.
+
+/datum/xenoartifact_trait/major
+
+/datum/xenoartifact_trait/malfunction
+	flags = BLUESPACE_TRAIT | PLASMA_TRAIT | URANIUM_TRAIT
+
+/datum/xenoartifact_trait/activator
+	///How much an activator trait can output on a standard, modified by the artifacts charge_req and circumstances.
+	var/charge
+	///which signals trait responds to
+	var/list/signals
+	///Not used outside of signal handle, please
+	var/obj/item/xenoartifact/xenoa
+
 ///Proc used to compile trait weights into a list
 /proc/compile_artifact_weights(path)
 	if(!ispath(path))
@@ -32,14 +48,6 @@
 	return output
 
 //Activator signal shenanignas 
-/datum/xenoartifact_trait/activator
-	///How much an activator trait can output on a standard, modified by the artifacts charge_req and circumstances.
-	var/charge
-	///which signals trait responds to
-	var/list/signals
-	///Not used outside of signal handle, please
-	var/obj/item/xenoartifact/xenoa
-
 /datum/xenoartifact_trait/activator/proc/calculate_charge(obj/item/xenoartifact/X)
 	return
 
@@ -95,13 +103,6 @@
 
 //End activator
 //Declare procs
-/datum/xenoartifact_trait/minor //Leave these here, for the future.
-
-/datum/xenoartifact_trait/major
-
-/datum/xenoartifact_trait/malfunction
-	flags = BLUESPACE_TRAIT | PLASMA_TRAIT | URANIUM_TRAIT
-
 /datum/xenoartifact_trait/proc/activate(obj/item/xenoartifact/X, atom/target, atom/user, setup = TRUE) //Typical behaviour
 	return
 

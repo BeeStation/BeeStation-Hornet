@@ -16,7 +16,7 @@
 	if(isliving(X.loc))
 		var/mob/living/holder = X.loc
 		holder.dropItemToGround(X, thrown = TRUE)
-	if(ismovable(target) && !(istype(target, /obj/structure)) || !(istype(target, /obj/machinery)))
+	if(ismovable(target) && (istype(target, /obj/item) || istype(target, /mob/living)))
 		var/atom/movable/AM = target
 		if(AM?.anchored || !AM)
 			return
@@ -103,7 +103,7 @@
 		if(25 to 79)
 			A = new /obj/item/projectile/beam/laser
 		if(80 to 200)
-			A = new /obj/item/ammo_casing/energy/laser/heavy
+			A = new /obj/item/projectile/beam/laser/heavylaser
 	A.preparePixelProjectile(get_turf(target), X)
 	A.fire()
 	playsound(get_turf(src), 'sound/mecha/mech_shield_deflect.ogg', 50, TRUE) 
@@ -119,17 +119,12 @@
 	var/list/victims = list()
 	///list of targets by corgi
 	var/list/target_keys = list()
-	///list of timers for transform back
-	var/list/timers = list()
 
 /datum/xenoartifact_trait/major/corginator/activate(obj/item/xenoartifact/X, mob/living/target)
 	X.say(pick("Woof!", "Bark!", "Yap!"))
-	if(!(SSzclear.get_free_z_level()))
-		playsound(get_turf(X), 'sound/machines/buzz-sigh.ogg', 50, TRUE)
-		return
 	if(istype(target, /mob/living) && !(istype(target, /mob/living/simple_animal/pet/dog/corgi)))
 		var/mob/living/simple_animal/pet/dog/corgi/new_corgi = transform(target)
-		timers[new_corgi] = addtimer(CALLBACK(src, .proc/transform_back, new_corgi), (X.charge*0.6) SECONDS, TIMER_STOPPABLE)
+		addtimer(CALLBACK(src, .proc/transform_back, new_corgi), (X.charge*0.6) SECONDS, TIMER_STOPPABLE)
 		victims |= new_corgi
 		target_keys[new_corgi] = target
 		X.cooldownmod = (X.charge*0.8) SECONDS
@@ -158,7 +153,7 @@
 	UnregisterSignal(new_corgi, COMSIG_MOB_DEATH)
 	REMOVE_TRAIT(target, TRAIT_MUTE, CORGIUM_TRAIT)
 	victims -= new_corgi
-	target_keys[new_corgi] = null
+	target_keys[new_corgi] -= target
 	var/turf/T = get_turf(new_corgi)
 	if(new_corgi.inventory_head && !target.equip_to_slot_if_possible(new_corgi.inventory_head, ITEM_SLOT_HEAD,disable_warning = TRUE, bypass_equip_delay_self=TRUE))
 		new_corgi.inventory_head.forceMove(T)
@@ -177,79 +172,6 @@
 		for(var/mob/living/simple_animal/pet/dog/corgi/H as() in victims)
 			transform_back(H)
 		target_keys = list()
-
-///============
-/// Mirrored, temporarily swaps last two target's minds
-///============
-/datum/xenoartifact_trait/major/mirrored
-	desc = "Mirrored"
-	label_desc = "Mirrored: The shape is perfectly symetrical. Perhaps you could interest the Captain?"
-	flags = BLUESPACE_TRAIT | URANIUM_TRAIT
-	weight = 25
-	///List generally used for initial swap, contains the swapping mobs
-	var/list/victims = list()
-	///List used to hold lists that contain swapped mobs
-	var/list/reverse_victims = list()
-
-/datum/xenoartifact_trait/major/mirrored/activate(obj/item/xenoartifact/X, mob/target, atom/user)
-	if(victims.len < 2)
-		if(!isliving(target) || IS_DEAD_OR_INCAP(target) || HAS_TRAIT(target, TRAIT_MINDSWAPPED))
-			playsound(get_turf(X), 'sound/machines/buzz-sigh.ogg', 50, TRUE)
-			return
-		else
-			victims += target
-			if(victims.len < 2) //one last check before hand
-				return
-	//type cast to check qdel
-	var/atom/a = victims[1]
-	var/atom/b = victims[2]
-	if(QDELETED(a) || QDELETED(b))
-		victims = list()
-		return
-	swap(victims[1], victims[2])
-	log_game("[X] swapped the identities of [key_name_admin(victims[1])] & [key_name_admin(victims[2])] at [world.time]. [X] located at [X.x] [X.y] [X.z]")
-	addtimer(CALLBACK(src, .proc/undo_swap), ((X.charge*0.20) SECONDS)+ 6 SECONDS) //6 extra seconds while targets are asleep
-	X.cooldownmod = ((X.charge*0.3)SECONDS)+ 6 SECONDS
-	victims = list()
-
-/datum/xenoartifact_trait/major/mirrored/proc/swap(var/atom/victim_a, var/atom/victim_b)
-	if(QDELETED(victim_a) || QDELETED(victim_b))
-		victims = list()
-		return
-	var/mob/living/caster = victim_a
-	var/mob/living/victim = victim_b
-	if(HAS_TRAIT(caster, TRAIT_MINDSWAPPED)) //doesn't really matter which we check
-		REMOVE_TRAIT(caster, TRAIT_MINDSWAPPED, type)
-		REMOVE_TRAIT(victim, TRAIT_MINDSWAPPED, type)
-	else
-		ADD_TRAIT(caster, TRAIT_MINDSWAPPED, type)
-		ADD_TRAIT(victim, TRAIT_MINDSWAPPED, type)
-
-	var/mob/dead/observer/ghost_v = victim.ghostize(0)
-	var/mob/dead/observer/ghost_c = caster.ghostize(0)
-	ghost_v?.mind.transfer_to(caster)
-	ghost_c?.mind.transfer_to(victim)
-	if(ghost_v?.key)
-		caster?.key = ghost_v?.key
-	if(ghost_c?.key)
-		victim?.key = ghost_c?.key
-	qdel(ghost_v)
-	qdel(ghost_c)
-
-	caster.Unconscious(6 SECONDS)
-	victim.Unconscious(6 SECONDS)
-	reverse_victims += list(list(caster, victim))
-
-/datum/xenoartifact_trait/major/mirrored/proc/undo_swap()
-	for(var/list/L as() in reverse_victims)
-		if(L.len > 1)
-			//convert to atoms to check qdel
-			var/mob/living/a = L[1]
-			var/mob/living/b = L[2]
-			if(!QDELETED(a) && !QDELETED(b))
-				swap(L[1], L[2])
-	reverse_victims = list()
-
 
 ///============
 /// EMP, produces an empulse
@@ -283,25 +205,26 @@
 
 /datum/xenoartifact_trait/major/invisible/activate(obj/item/xenoartifact/X, mob/living/target)
 	if(isliving(target))
-		victims += target
+		victims += WEAKREF(target)
 		hide(target)
 		addtimer(CALLBACK(src, .proc/reveal, target), ((X.charge*0.4) SECONDS))
 		X.cooldownmod = ((X.charge*0.4)+1) SECONDS
 
 /datum/xenoartifact_trait/major/invisible/proc/hide(mob/living/target)
 	ADD_TRAIT(target, TRAIT_PACIFISM, type)
-	animate(target, ,alpha = 0, time = 5)
+	animate(target, alpha = 0, time = 5)
 
 /datum/xenoartifact_trait/major/invisible/proc/reveal(mob/living/target)
 	if(target)
 		REMOVE_TRAIT(target, TRAIT_PACIFISM, type)
-		animate(target, ,alpha = 255, time = 5)
-		target = null
+		animate(target, alpha = 255, time = 5)
 
 /datum/xenoartifact_trait/major/invisible/Destroy()
 	. = ..()
-	for(var/mob/living/M in victims)
-		reveal(M)
+	for(var/M in victims)
+		var/datum/weakref/r = M
+		var/mob/living/L = r.resolve()
+		reveal(L)
 
 ///============
 /// Teleports the target to a random nearby location
@@ -331,40 +254,12 @@
 	X.light_color = pick(LIGHT_COLOR_FIRE, LIGHT_COLOR_BLUE, LIGHT_COLOR_GREEN, LIGHT_COLOR_RED, LIGHT_COLOR_ORANGE, LIGHT_COLOR_PINK)
 
 /datum/xenoartifact_trait/major/lamp/activate(obj/item/xenoartifact/X, atom/target, atom/user)
-	X.AddComponent(/datum/component/overlay_lighting, 1.4+(X.charge*0.5), max(X.charge*0.05, 0.1), X.light_color)
+	X.set_light(1.4+(X.charge*0.5), max(X.charge*0.05, 0.1), X.light_color)
 	addtimer(CALLBACK(src, .proc/unlight, X), (X.charge*0.6) SECONDS)
 	X.cooldownmod = (X.charge*0.6) SECONDS
 
 /datum/xenoartifact_trait/major/lamp/proc/unlight(var/obj/item/xenoartifact/X)
-	var/datum/component/overlay_lighting/L = X.GetComponent(/datum/component/overlay_lighting)
-	if(L)
-		qdel(L)
-
-///============
-/// Dark, opposite of lamp, creates darkness
-///============
-/datum/xenoartifact_trait/major/lamp/dark
-	label_name = "Shade"
-	label_desc = "Shade: The Artifact retracts light. Nothing in its shape suggests this."
-	flags = BLUESPACE_TRAIT | PLASMA_TRAIT | URANIUM_TRAIT
-
-/datum/xenoartifact_trait/major/lamp/dark/on_init(obj/item/xenoartifact/X)
-	X.light_system = MOVABLE_LIGHT
-	X.light_color = "#000000"
-
-/datum/xenoartifact_trait/major/lamp/dark/activate(obj/item/xenoartifact/X)
-	for(var/C in 1 to 3)
-		X.AddComponent(/datum/component/overlay_lighting/dupable, 1.4+(X.charge*0.5), max(X.charge*0.05, 0.1), X.light_color)
-		addtimer(CALLBACK(src, .proc/unlight, X), (X.charge*0.6) SECONDS)
-		X.cooldownmod = (X.charge*0.6) SECONDS
-		
-/datum/xenoartifact_trait/major/lamp/dark/unlight(var/obj/item/xenoartifact/X)
-	var/datum/component/overlay_lighting/dupable/L = X.GetComponent(/datum/component/overlay_lighting/dupable)
-	if(L)
-		qdel(L)
-
-/datum/component/overlay_lighting/dupable //Lighting component for shade
-	dupe_mode = COMPONENT_DUPE_ALLOWED
+	X.set_light(0, 0)
 
 ///============
 /// Forcefield, creates a random shape wizard wall
@@ -404,7 +299,7 @@
 	var/healing_type
 
 /datum/xenoartifact_trait/major/heal/on_init(obj/item/xenoartifact/X)
-	healing_type = pick("brute", "burn", "toxin", "stamina")
+	healing_type = pick("brute", "burn", "toxin")
 
 /datum/xenoartifact_trait/major/heal/on_item(obj/item/xenoartifact/X, atom/user, atom/item)
 	if(istype(item, /obj/item/healthanalyzer))
@@ -423,8 +318,6 @@
 				victim.adjustFireLoss((X.charge*0.25)*-1)
 			if("toxin")
 				victim.adjustToxLoss((X.charge*0.25)*-1)
-			if("stamina")
-				victim.adjustOxyLoss((X.charge*0.25)*-1)
 
 ///============
 /// Chem, injects a random safe chem into target
@@ -458,6 +351,8 @@
 /datum/xenoartifact_trait/major/push/activate(obj/item/xenoartifact/X, atom/target)
 	if(ismovable(target))
 		var/atom/movable/victim = target
+		if(victim.anchored)
+			return
 		var/atom/trg = get_edge_target_turf(X.loc, get_dir(X.loc, target.loc) || pick(NORTH, EAST, SOUTH, WEST))
 		victim.throw_at(get_turf(trg), (X.charge*0.07)+1, 8)
 
@@ -475,6 +370,8 @@
 /datum/xenoartifact_trait/major/pull/activate(obj/item/xenoartifact/X, atom/target)
 	if(ismovable(target))
 		var/atom/movable/victim = target
+		if(victim.anchored)
+			return
 		if(get_dist(X, target) <= 1 && isliving(target))
 			var/mob/living/living_victim = target
 			living_victim.Knockdown(SHOVE_KNOCKDOWN_SOLID)
@@ -559,9 +456,11 @@
 	exit = X
 	GLOB.destabliization_exits += X
 
-/datum/xenoartifact_trait/major/distablizer/on_item(obj/item/xenoartifact/X, atom/user, atom/item)
-	var/obj/item/clothing/gloves/artifact_pinchers/P = locate(/obj/item/clothing/gloves/artifact_pinchers) in user.contents
-	if(do_banish(item) && !P?.safety)
+/datum/xenoartifact_trait/major/distablizer/on_item(obj/item/xenoartifact/X, mob/living/carbon/human/user, atom/item)
+	var/obj/item/clothing/gloves/artifact_pinchers/P
+	if(istype(user))
+		P = user.get_item_by_slot(ITEM_SLOT_GLOVES)
+	if(!P?.safety && do_banish(item))
 		to_chat(user, "<span class='warning'>The [item] dissapears!</span>")
 		return TRUE
 	..()

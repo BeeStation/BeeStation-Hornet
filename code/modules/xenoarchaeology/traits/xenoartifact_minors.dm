@@ -111,7 +111,7 @@
 	label_name = "Sentient"
 	label_desc = "Sentient: The Artifact seems to be alive, influencing events around it. The Artifact wants to return to its master..."
 	///he who lives inside
-	var/mob/living/simple_animal/man
+	var/mob/living/simple_animal/shade/man
 	///His doorbell
 	var/obj/effect/mob_spawn/sentient_artifact/S
 
@@ -136,16 +136,19 @@
 		playsound(get_turf(X), 'sound/machines/buzz-sigh.ogg', 50, TRUE) 
 		return	
 	man = new(get_turf(X))
-	man.name = "[pick("Calcifer", "Lucifer", "Ahpuch", "Ahriman")]"
+	man.name = pick("Calcifer", "Lucifer", "Ahpuch", "Ahriman", "Bacon")
 	man.real_name = "[man.name] - [X]"
 	man.key = ckey
-	man.maxbodytemp = INFINITY
+	man.status_flags |= GODMODE
 	log_game("[key_name_admin(man)] took control of the sentient [X]. [X] located at [X.x] [X.y] [X.z]")
-	ADD_TRAIT(man, TRAIT_NOBREATH, TRAIT_NODEATH)
-	man.forceMove(X) //Better hope no greedy goblins took all the zlevels
+	man.forceMove(X)
 	man.anchored = TRUE
 	var/obj/effect/proc_holder/spell/targeted/xeno_senitent_action/P = new /obj/effect/proc_holder/spell/targeted/xeno_senitent_action(,X)
 	man.AddSpell(P)
+	//show little guy his traits
+	to_chat(man, "<span class='notice'>Your traits are: \n</span>")
+	for(var/datum/xenoartifact_trait/T in X.traits)
+		to_chat(man, "<span class='notice'>[(T.desc || T.label_name)]\n</span>")
 	if(man.key)
 		playsound(get_turf(X), 'sound/items/haunted/ghostitemattack.ogg', 50, TRUE)
 	qdel(S)
@@ -215,6 +218,7 @@
 /datum/xenoartifact_trait/minor/delicate/activate(obj/item/xenoartifact/X, atom/user)
 	if(X.obj_integrity)
 		X.obj_integrity -= 100
+		X.visible_message("<span class='danger'>The [X.name] cracks!</span>", "<span class='danger'>The [X.name] cracks!</span>")
 	else if(X.obj_integrity <= 0)
 		X.visible_message("<span class='danger'>The [X.name] shatters!</span>", "<span class='danger'>The [X.name] shatters!</span>")
 		var/obj/effect/decal/cleanable/ash/A = new(get_turf(X))

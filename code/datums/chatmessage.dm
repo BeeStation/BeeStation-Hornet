@@ -491,7 +491,9 @@
 		stack_trace("/datum/chatmessage created with [isnull(owner) ? "null" : "invalid"] mob owner")
 		qdel(src)
 		return
-	INVOKE_ASYNC(src, .proc/generate_image, text, target, owner, color)
+	//handle color
+	tgt_color = color
+	INVOKE_ASYNC(src, .proc/generate_image, text, target, owner)
 
 /datum/chatmessage/balloon_alert/Destroy()
 	if(!QDELETED(message_loc))
@@ -503,7 +505,7 @@
 	animate(message, alpha = 0, pixel_y = message.pixel_y + MESSAGE_FADE_PIXEL_Y, time = fadetime, flags = ANIMATION_PARALLEL)
 	addtimer(CALLBACK(GLOBAL_PROC, /proc/qdel, src), fadetime, TIMER_DELETE_ME, SSrunechat)
 
-/datum/chatmessage/balloon_alert/generate_image(text, atom/target, mob/owner, color)
+/datum/chatmessage/balloon_alert/generate_image(text, atom/target, mob/owner)
 	// Register client who owns this message
 	var/client/owned_by = owner.client
 	RegisterSignal(owned_by, COMSIG_PARENT_QDELETING, .proc/on_parent_qdel)
@@ -534,7 +536,7 @@
 	message.maptext_width = BALLOON_TEXT_WIDTH
 	message.maptext_height = WXH_TO_HEIGHT(owned_by?.MeasureText(text, null, BALLOON_TEXT_WIDTH))
 	message.maptext_x = (BALLOON_TEXT_WIDTH - bound_width) * -0.5
-	message.maptext = MAPTEXT("<span style='text-align: center; -dm-text-outline: 1px #0005; color: [color ? color : tgt_color]'>[text]</span>")
+	message.maptext = MAPTEXT("<span style='text-align: center; -dm-text-outline: 1px #0005; color: [tgt_color]'>[text]</span>")
 
 	// View the message
 	owned_by.images += message

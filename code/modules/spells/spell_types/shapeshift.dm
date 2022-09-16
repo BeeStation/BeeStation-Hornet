@@ -159,7 +159,7 @@
 		shape.mind.transfer_to(stored)
 	if(death)
 		stored.death()
-	else if(convert_damage && istype(source) && source.convert_damage)
+	else if(convert_damage || (istype(source) && source.convert_damage))
 		var/original_blood_volume = stored.blood_volume
 		stored.revive(full_heal = TRUE)
 

@@ -135,7 +135,7 @@ SUBSYSTEM_DEF(zclear)
  * After a 60 second grace period of allocation, the z-level will be put back into the pool of z-levels to clear.
  * Will create a new z-level if none are available.
 */
-/datum/controller/subsystem/zclear/proc/get_free_z_level(create_level = TRUE)
+/datum/controller/subsystem/zclear/proc/get_free_z_level()
 	while(LAZYLEN(free_levels))
 		var/datum/space_level/picked_level = pick(free_levels)
 		LAZYREMOVE(free_levels, picked_level)
@@ -151,9 +151,6 @@ SUBSYSTEM_DEF(zclear)
 				break
 		if(free)
 			return picked_level
-	//Create a new z-level
-	if(!create_level)
-		return FALSE //if couldn't find a z-level
 	var/datum/space_level/picked_level = SSmapping.add_new_zlevel("Dynamic free level [LAZYLEN(free_levels)]", ZTRAITS_SPACE, orbital_body_type = null)
 	addtimer(CALLBACK(src, .proc/begin_tracking, picked_level), 60 SECONDS)
 	message_admins("SSORBITS: Created a new dynamic free level ([LAZYLEN(free_levels)] now created) as none were available at the time.")
