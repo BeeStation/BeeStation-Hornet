@@ -308,5 +308,5 @@
 	if(!C)
 		C = H.client
 	if(C)
-		CS = C.prefs.character_saves
+		CS = C.prefs.active_character
 	return get_flat_human_icon(null, J, CS, DUMMY_HUMAN_SLOT_MANIFEST, show_directions)

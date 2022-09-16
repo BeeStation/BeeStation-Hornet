@@ -106,7 +106,7 @@
 	pda_color		= sanitize_hexcolor(pda_color, 6, TRUE, initial(pda_color))
 
 	key_bindings 	= sanitize_islist(key_bindings, deepCopyList(GLOB.keybinding_list_by_key))
-	if (!key_bindings)
+	if (!length(key_bindings))
 		key_bindings = deepCopyList(GLOB.keybinding_list_by_key)
 
 	if(!purchased_gear)
