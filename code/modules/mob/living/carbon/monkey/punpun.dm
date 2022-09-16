@@ -10,10 +10,9 @@
 	var/memory_saved = FALSE
 
 /mob/living/carbon/monkey/punpun/Initialize(mapload)
-	// Init our blacklists. These are lists instead of typecaches because relic_mask and relic_hat are decoded into strings,
-	// which doesn't play well with typecaches.
-	relic_hat_blacklist = list("/obj/item/clothing/head/chameleon")
-	relic_mask_blacklist = list("/obj/item/clothing/mask/facehugger", "/obj/item/clothing/mask/chameleon")
+	// Init our blacklists.
+	relic_hat_blacklist = typecacheof(list(/obj/item/clothing/head/chameleon), only_root_path = TRUE)
+	relic_mask_blacklist = typecacheof(list(/obj/item/clothing/mask/facehugger, /obj/item/clothing/mask/chameleon), only_root_path = TRUE)
 
 	// Read memory
 	Read_Memory()
@@ -30,9 +29,9 @@
 	//These have to be after the parent new to ensure that the monkey
 	//bodyparts are actually created before we try to equip things to
 	//those slots
-	if(relic_hat && !(relic_hat in relic_hat_blacklist))
+	if(relic_hat && !is_type_in_typecache(relic_hat, relic_hat_blacklist))
 		equip_to_slot_or_del(new relic_hat, ITEM_SLOT_HEAD)
-	if(relic_mask && !(relic_mask in relic_mask_blacklist))
+	if(relic_mask && !is_type_in_typecache(relic_mask, relic_mask_blacklist))
 		equip_to_slot_or_del(new relic_mask, ITEM_SLOT_MASK)
 
 /mob/living/carbon/monkey/punpun/Life()
@@ -54,6 +53,8 @@
 		S["relic_hat"]		>> relic_hat
 		S["relic_mask"]		>> relic_mask
 		fdel("data/npc_saves/Punpun.sav")
+		relic_hat = text2path(relic_hat) // Convert from a string to a path
+		relic_mask = text2path(relic_mask)
 	else
 		var/json_file = file("data/npc_saves/Punpun.json")
 		if(!fexists(json_file))
@@ -61,8 +62,8 @@
 		var/list/json = json_decode(rustg_file_read(json_file))
 		ancestor_name = json["ancestor_name"]
 		ancestor_chain = json["ancestor_chain"]
-		relic_hat = json["relic_hat"]
-		relic_mask = json["relic_mask"]
+		relic_hat = text2path(json["relic_hat"]) // We convert these to paths for type checking
+		relic_mask = text2path(json["relic_mask"])
 
 /mob/living/carbon/monkey/punpun/proc/Write_Memory(dead, gibbed)
 	var/json_file = file("data/npc_saves/Punpun.json")
