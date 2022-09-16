@@ -258,8 +258,8 @@
 	var/difficulty //Xenoartifact shit, not exactly difficulty
 
 /datum/xenoartifact_seller/proc/generate()
-	name = pick(XENOA_SELLER_NAMES)
-	dialogue = pick(XENOA_SELLER_DIAL)
+	name = pick(GLOB.xenoa_seller_names)
+	dialogue = pick(GLOB.xenoa_seller_dialogue)
 	price = rand(5,80) * 10
 	switch(price)
 		if(50 to 300)
@@ -280,7 +280,7 @@
 	var/obj/buying
 
 /datum/xenoartifact_seller/buyer/generate()
-	name = pick(XENOA_SELLER_NAMES)
+	name = pick(GLOB.xenoa_seller_names)
 	buying = pick(/obj/item/xenoartifact)
 	if(buying == /obj/item/xenoartifact) //Don't bother trying to use istype here
 		dialogue = "[name] is requesting: Anomoly : Class : Artifact"

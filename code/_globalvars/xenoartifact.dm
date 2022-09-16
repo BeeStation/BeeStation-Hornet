@@ -1,3 +1,7 @@
+///Global names for science sellers
+GLOBAL_LIST_INIT(xenoa_seller_names, world.file2list("strings/names/science_seller.txt") + "")
+GLOBAL_LIST_INIT(xenoa_seller_dialogue, world.file2list("strings/science_dialogue.txt") + "")
+
 ///traits types, referenced for generation
 GLOBAL_LIST(xenoa_activators)
 GLOBAL_LIST(xenoa_minors)

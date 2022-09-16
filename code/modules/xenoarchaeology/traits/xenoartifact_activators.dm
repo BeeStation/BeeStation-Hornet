@@ -42,8 +42,8 @@
 /// Timed activator, activates on a timer. Timer is turned on when used, has a chance to turn off.
 ///============
 /datum/xenoartifact_trait/activator/clock
-	label_name = "Tuned"
-	label_desc = "Tuned: The material produces a resonance pattern similar to quartz, causing it to produce a reaction every so often."
+	label_name = "Timed"
+	label_desc = "Timed: The material produces a resonance pattern similar to quartz, causing it to produce a reaction every so often."
 	charge = 25
 	blacklist_traits = list(/datum/xenoartifact_trait/minor/capacitive)
 	signals = list(COMSIG_PARENT_ATTACKBY, COMSIG_MOVABLE_IMPACT, COMSIG_ITEM_ATTACK_SELF, COMSIG_ITEM_AFTERATTACK)

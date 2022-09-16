@@ -68,8 +68,8 @@
 /// Timestop, spawns time-stop effect
 ///============
 /datum/xenoartifact_trait/major/timestop
-	desc = "Melted"
-	label_desc = "Melted: The shape is drooling and sluggish. Additionally, light around it seems to invert."
+	desc = "Temporal"
+	label_desc = "Temporal: The shape is drooling and sluggish. Additionally, light around it seems to invert."
 
 /datum/xenoartifact_trait/major/timestop/on_touch(obj/item/xenoartifact/X, mob/user)
 	to_chat(user, "<span class='notice'>Your hand feels slow while stroking the [X.name].</span>")
@@ -195,12 +195,10 @@
 	weight = 25
 	var/list/victims = list()
 
-/datum/xenoartifact_trait/major/invisible/on_item(obj/item/xenoartifact/X, atom/user, atom/item)
-	if(istype(item, /obj/item/laser_pointer))
-		var/obj/item/laser_pointer/L = item
-		if(L.energy)
-			to_chat(user, "<span class='info'>The [item.name]'s light passes through the structure.</span>")
-			return TRUE
+/datum/xenoartifact_trait/major/invisible/on_item(obj/item/xenoartifact/X, atom/user, obj/item/I)
+	if(istype(I) && I.light > 0)
+		to_chat(user, "<span class='info'>The [item.name]'s light passes through the structure.</span>")
+		return TRUE
 	..()
 
 /datum/xenoartifact_trait/major/invisible/activate(obj/item/xenoartifact/X, mob/living/target)
