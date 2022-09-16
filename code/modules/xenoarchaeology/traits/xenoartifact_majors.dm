@@ -117,8 +117,6 @@
 	flags = BLUESPACE_TRAIT
 	///List of all affected targets, used for early qdel
 	var/list/victims = list()
-	///list of targets by corgi
-	var/list/target_keys = list()
 
 /datum/xenoartifact_trait/major/corginator/activate(obj/item/xenoartifact/X, mob/living/target)
 	X.say(pick("Woof!", "Bark!", "Yap!"))
@@ -126,7 +124,6 @@
 		var/mob/living/simple_animal/pet/dog/corgi/new_corgi = transform(target)
 		addtimer(CALLBACK(src, .proc/transform_back, new_corgi), (X.charge*0.6) SECONDS, TIMER_STOPPABLE)
 		victims |= new_corgi
-		target_keys[new_corgi] = target
 		X.cooldownmod = (X.charge*0.8) SECONDS
 
 /datum/xenoartifact_trait/major/corginator/proc/transform(mob/living/target)
@@ -149,20 +146,19 @@
 	return new_corgi
 
 /datum/xenoartifact_trait/major/corginator/proc/transform_back(mob/living/simple_animal/pet/dog/corgi/new_corgi)
-	var/mob/living/target = (target_keys[new_corgi])
+	var/obj/shapeshift_holder/H = locate() in new_corgi
+	if(!H)
+		return
+	var/mob/living/target = H.stored
 	UnregisterSignal(new_corgi, COMSIG_MOB_DEATH)
 	REMOVE_TRAIT(target, TRAIT_MUTE, CORGIUM_TRAIT)
 	victims -= new_corgi
-	target_keys[new_corgi] -= target
 	var/turf/T = get_turf(new_corgi)
 	if(new_corgi.inventory_head && !target.equip_to_slot_if_possible(new_corgi.inventory_head, ITEM_SLOT_HEAD,disable_warning = TRUE, bypass_equip_delay_self=TRUE))
 		new_corgi.inventory_head.forceMove(T)
 	new_corgi.inventory_back?.forceMove(T)
 	new_corgi.inventory_head = null
 	new_corgi.inventory_back = null
-	var/obj/shapeshift_holder/H = locate() in new_corgi
-	if(!H)
-		return
 	H.restore(FALSE, FALSE)
 	target.Knockdown(SHOVE_KNOCKDOWN_SOLID)
 
@@ -171,7 +167,6 @@
 	if(victims.len)
 		for(var/mob/living/simple_animal/pet/dog/corgi/H as() in victims)
 			transform_back(H)
-		target_keys = list()
 
 ///============
 /// EMP, produces an empulse
@@ -321,8 +316,8 @@
 /// Chem, injects a random safe chem into target
 ///============
 /datum/xenoartifact_trait/major/chem
-	desc = "Needled"
-	label_desc = "Needled: The Artifact's shape is comprised of many twisting tubes and vials, it seems a liquid may be inside."
+	desc = "Hypodermic"
+	label_desc = "Hypodermic: The Artifact's shape is comprised of many twisting tubes and vials, it seems a liquid may be inside."
 	flags = BLUESPACE_TRAIT | PLASMA_TRAIT | URANIUM_TRAIT
 	var/datum/reagent/formula
 	var/amount
