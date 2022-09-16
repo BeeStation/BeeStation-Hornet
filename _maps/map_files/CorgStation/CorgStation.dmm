@@ -32023,6 +32023,9 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/turret_protected/aisat_interior)
+"iQq" = (
+/turf/closed/wall/r_wall,
+/area/hallway/primary/starboard)
 "iQt" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -73975,7 +73978,7 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/fore)
 "vnF" = (
-/turf/closed/wall,
+/turf/closed/wall/r_wall,
 /area/security/checkpoint/supply)
 "vnG" = (
 /obj/effect/landmark/start/research_director,
@@ -125144,7 +125147,7 @@ duF
 mAW
 duF
 duF
-gnj
+iQq
 lSD
 vXf
 tOz
@@ -126682,10 +126685,10 @@ ubx
 ubx
 ubx
 ubx
-hmy
-hmy
-hmy
-hmy
+duF
+duF
+duF
+duF
 vnF
 uEx
 ujG
