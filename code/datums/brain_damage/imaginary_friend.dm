@@ -121,6 +121,7 @@
 	human_image = get_flat_human_icon(null, pick(SSjob.occupations))
 
 /mob/camera/imaginary_friend/proc/Show()
+	SIGNAL_HANDLER
 	if(!client) //nobody home
 		return
 
@@ -182,15 +183,17 @@
 	src.log_talk(message, LOG_SAY, tag="imaginary friend")
 
 	// Display message
-	if (!owner.client?.prefs.chat_on_map)
+	var/owner_chat_map = owner.client?.prefs.chat_on_map
+	var/friend_chat_map = client?.prefs.chat_on_map
+	if (!owner_chat_map)
 		var/mutable_appearance/MA = mutable_appearance('icons/mob/talk.dmi', src, "default[say_test(message)]", FLY_LAYER)
 		MA.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
 		INVOKE_ASYNC(GLOBAL_PROC, /proc/flick_overlay, MA, list(owner.client), 30)
-	if(owner.client?.prefs.chat_on_map || client?.prefs.chat_on_map)
+	if(owner_chat_map || friend_chat_map)
 		var/list/hearers = list()
-		if(client?.prefs.chat_on_map)
+		if(friend_chat_map)
 			hearers += client
-		if(owner.client?.prefs.chat_on_map)
+		if(owner_chat_map)
 			hearers += owner.client
 		new /datum/chatmessage(message, src, hearers, null)
 
