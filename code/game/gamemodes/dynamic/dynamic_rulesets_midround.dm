@@ -28,7 +28,7 @@
 	var/required_applicants = 1
 
 /datum/dynamic_ruleset/midround/from_ghosts/check_candidates()
-	var/dead_count = dead_players.len + list_observers.len
+	var/dead_count = length(dead_players) + length(list_observers)
 	if (required_candidates <= dead_count)
 		return TRUE
 
@@ -69,7 +69,7 @@
 			if (M.mind.assigned_role in restricted_roles) // Does their job allow it?
 				trimmed_list.Remove(M)
 				continue
-			if ((exclusive_roles.len > 0) && !(M.mind.assigned_role in exclusive_roles)) // Is the rule exclusive to their job?
+			if ((length(exclusive_roles) > 0) && !(M.mind.assigned_role in exclusive_roles)) // Is the rule exclusive to their job?
 				trimmed_list.Remove(M)
 				continue
 	return trimmed_list
@@ -84,7 +84,7 @@
 		return TRUE
 
 	var/job_check = 0
-	if (enemy_roles.len > 0)
+	if (length(enemy_roles))
 		for (var/mob/M in mode.current_players[CURRENT_LIVING_PLAYERS])
 			if (M.stat == DEAD || !M.client)
 				continue // Dead/disconnected players cannot count as opponents
@@ -104,14 +104,11 @@
 	possible_candidates.Add(dead_players)
 	possible_candidates.Add(list_observers)
 	send_applications(possible_candidates)
-	if(assigned.len > 0)
-		return TRUE
-	else
-		return FALSE
+	return length(assigned)
 
 /// This sends a poll to ghosts if they want to be a ghost spawn from a ruleset.
 /datum/dynamic_ruleset/midround/from_ghosts/proc/send_applications(list/possible_volunteers = list())
-	if (possible_volunteers.len <= 0) // This shouldn't happen, as ready() should return FALSE if there is not a single valid candidate
+	if (!length(possible_volunteers)) // This shouldn't happen, as ready() should return FALSE if there is not a single valid candidate
 		message_admins("Possible volunteers was 0. This shouldn't appear, because of ready(), unless you forced it!")
 		return
 	message_admins("Polling [possible_volunteers.len] players to apply for the [name] ruleset.")
@@ -119,10 +116,9 @@
 
 	candidates = pollGhostCandidates("The mode is looking for volunteers to become [antag_flag] for [name]", antag_flag, SSticker.mode, antag_flag_override ? antag_flag_override : antag_flag, poll_time = 300)
 
-	if(!candidates || candidates.len <= 0)
+	if(!length(candidates))
 		message_admins("The ruleset [name] received no applications.")
 		log_game("DYNAMIC: The ruleset [name] received no applications.")
-		mode.executed_rules -= src
 		return
 
 	message_admins("[candidates.len] players volunteered for the ruleset [name].")
@@ -132,11 +128,12 @@
 /// Here is where you can check if your ghost applicants are valid for the ruleset.
 /// Called by send_applications().
 /datum/dynamic_ruleset/midround/from_ghosts/proc/review_applications()
-	if(candidates.len < required_applicants)
-		mode.executed_rules -= src
+	if(length(candidates) < required_applicants)
+		message_admins("Not enough players volunteered for the ruleset [name] - [candidates.len] out of [required_applicants].")
+		log_game("DYNAMIC: Not enough players volunteered for the ruleset [name] - [candidates.len] out of [required_applicants].")
 		return
 	for (var/i = 1, i <= required_candidates, i++)
-		if(candidates.len <= 0)
+		if(!length(candidates))
 			break
 		var/mob/applicant = pick(candidates)
 		candidates -= applicant
@@ -159,6 +156,10 @@
 		finish_setup(new_character, i)
 		assigned += applicant
 		notify_ghosts("[applicant.name] has been picked for the ruleset [name]!", source = new_character, action = NOTIFY_ORBIT, header="Something Interesting!")
+	// No one got the role
+	if(!length(assigned))
+		message_admins("No players were eligible for the ruleset [name] - the previous applicants were revived/left and could no longer take the role.")
+		log_game("DYNAMIC: No players were eligible for the ruleset [name] - the previous applicants were revived/left and could no longer take the role.")
 
 /datum/dynamic_ruleset/midround/from_ghosts/proc/generate_ruleset_body(mob/applicant)
 	var/mob/living/carbon/human/new_character = makeBody(applicant)
@@ -202,11 +203,11 @@
 		if(is_centcom_level(player.z))
 			living_players -= player // We don't autotator people in CentCom
 			continue
-		if(player.mind && (player.mind.special_role || player.mind.antag_datums?.len > 0))
+		if(player.mind && (player.mind.special_role || length(player.mind.antag_datums)))
 			living_players -= player // We don't autotator people with roles already
 
 /datum/dynamic_ruleset/midround/autotraitor/ready(forced = FALSE)
-	if (required_candidates > living_players.len)
+	if (required_candidates > length(living_players))
 		log_game("DYNAMIC: FAIL: [src] does not have enough candidates, using living_players ([required_candidates] needed, [living_players.len] found)")
 		return FALSE
 	return ..()
@@ -251,12 +252,15 @@
 		if(is_centcom_level(player.z))
 			candidates -= player
 			continue
-		if(player.mind && (player.mind.special_role || player.mind.antag_datums?.len > 0))
+		if(player.mind && (player.mind.special_role || length(player.mind.antag_datums)))
 			candidates -= player
 
-/datum/dynamic_ruleset/midround/malf/execute()
-	if(!candidates || !candidates.len)
+/datum/dynamic_ruleset/midround/malf/ready(forced = FALSE)
+	if(!check_candidates())
 		return FALSE
+	return ..()
+
+/datum/dynamic_ruleset/midround/malf/execute()
 	var/mob/living/silicon/ai/M = pick_n_take(candidates)
 	assigned += M.mind
 	var/datum/antagonist/traitor/AI = new
@@ -292,7 +296,7 @@
 /datum/dynamic_ruleset/midround/from_ghosts/wizard/ready(forced = FALSE)
 	if (!check_candidates())
 		return FALSE
-	if(GLOB.wizardstart.len == 0)
+	if(!length(GLOB.wizardstart))
 		log_admin("Cannot accept Wizard ruleset. Couldn't find any wizard spawn points.")
 		message_admins("Cannot accept Wizard ruleset. Couldn't find any wizard spawn points.")
 		return FALSE
@@ -327,7 +331,7 @@
 /datum/dynamic_ruleset/midround/from_ghosts/nuclear/acceptable(population=0, threat=0)
 	if (locate(/datum/dynamic_ruleset/roundstart/nuclear) in mode.executed_rules)
 		return FALSE // Unavailable if nuke ops were already sent at roundstart
-	indice_pop = min(operative_cap.len, round(living_players.len/5)+1)
+	indice_pop = min(length(operative_cap), round(length(living_players)/5)+1)
 	required_candidates = operative_cap[indice_pop]
 	return ..()
 
@@ -403,9 +407,10 @@
 				continue // No parent vent
 			// Stops Aliens getting stuck in small networks.
 			// See: Security, Virology
-			if(temp_vent_parent.other_atmosmch.len > 20)
+			if(length(temp_vent_parent.other_atmosmch) > 20)
 				vents += temp_vent
-	if(!vents.len)
+	if(!length(vents))
+		log_game("DYNAMIC: [ruletype] ruleset [name] execute failed due to no valid spawn locations.")
 		return FALSE
 	. = ..()
 
@@ -444,7 +449,8 @@
 		var/light_amount = T.get_lumcount()
 		if(light_amount < SHADOW_SPECIES_LIGHT_THRESHOLD)
 			spawn_locs += T
-	if(!spawn_locs.len)
+	if(!length(spawn_locs))
+		log_game("DYNAMIC: [ruletype] ruleset [name] execute failed due to no valid spawn locations.")
 		return FALSE
 	. = ..()
 
@@ -487,7 +493,7 @@
 	var/datum/team/abductor_team/new_team
 
 /datum/dynamic_ruleset/midround/from_ghosts/abductors/ready(forced = FALSE)
-	if (required_candidates > (dead_players.len + list_observers.len))
+	if (required_candidates > (length(dead_players) + length(list_observers)))
 		return FALSE
 	return ..()
 
@@ -527,7 +533,7 @@
 	var/list/spawn_locs = list()
 
 /datum/dynamic_ruleset/midround/from_ghosts/revenant/acceptable(population=0, threat=0)
-	if(GLOB.dead_mob_list.len < dead_mobs_required)
+	if(length(GLOB.dead_mob_list) < dead_mobs_required)
 		return FALSE
 	return ..()
 
@@ -536,16 +542,17 @@
 		var/turf/corpse_turf = get_turf(corpse)
 		if(corpse_turf && is_station_level(corpse_turf.z))
 			spawn_locs += corpse_turf
-	if(!spawn_locs.len || spawn_locs.len < need_extra_spawns_value) //look for any morgue trays, crematoriums, ect if there weren't alot of dead bodies on the station to pick from
+	if(!length(spawn_locs) || length(spawn_locs) < need_extra_spawns_value) //look for any morgue trays, crematoriums, ect if there weren't alot of dead bodies on the station to pick from
 		for(var/obj/structure/bodycontainer/corpse_container in GLOB.bodycontainers)
 			var/turf/container_turf = get_turf(corpse_container)
 			if(container_turf && is_station_level(container_turf.z))
 				spawn_locs += container_turf
-	if(!spawn_locs.len) //If we can't find any valid spawnpoints, try the carp spawns
+	if(!length(spawn_locs)) //If we can't find any valid spawnpoints, try the carp spawns
 		for(var/obj/effect/landmark/carpspawn/carp_spawnpoint in GLOB.landmarks_list)
 			if(isturf(carp_spawnpoint.loc))
 				spawn_locs += carp_spawnpoint.loc
-	if(!spawn_locs.len) //If we can't find THAT, then just give up and cry
+	if(!length(spawn_locs)) //If we can't find THAT, then just give up and cry
+		log_game("DYNAMIC: [ruletype] ruleset [name] execute failed due to no valid spawn locations.")
 		return FALSE
 	. = ..()
 
@@ -611,9 +618,12 @@
 		)
 			candidates -= candidate
 
-/datum/dynamic_ruleset/midround/obsessed/execute()
-	if(!candidates || !candidates.len)
+/datum/dynamic_ruleset/midround/obsessed/ready(forced = FALSE)
+	if(!check_candidates())
 		return FALSE
+	return ..()
+
+/datum/dynamic_ruleset/midround/obsessed/execute()
 	var/mob/living/carbon/human/obsessed = pick_n_take(candidates)
 	obsessed.gain_trauma(/datum/brain_trauma/special/obsessed)
 	message_admins("[ADMIN_LOOKUPFLW(obsessed)] has been made Obsessed by the midround ruleset.")
