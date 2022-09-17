@@ -41165,13 +41165,6 @@
 	},
 /turf/open/floor/plating,
 /area/engine/gravity_generator)
-"lrQ" = (
-/obj/machinery/door/airlock/security/glass{
-	name = "Security Medical";
-	req_access_txt = "63"
-	},
-/turf/open/floor/plasteel/white,
-/area/security/brig)
 "lsf" = (
 /obj/machinery/mass_driver{
 	dir = 8;
@@ -126566,7 +126559,7 @@ hmy
 qXV
 pxo
 jFk
-lrQ
+gfk
 hIh
 duF
 oPA
