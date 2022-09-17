@@ -1,0 +1,4 @@
+author: etherware-novice
+delete-after: true
+changes:
+  - tweak: fixes bar mood event and all access machine
