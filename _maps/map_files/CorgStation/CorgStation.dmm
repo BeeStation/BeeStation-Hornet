@@ -27371,6 +27371,10 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
+/obj/machinery/door/airlock/security/glass{
+	name = "Security Medical";
+	req_access_txt = "63"
+	},
 /turf/open/floor/plasteel/white,
 /area/security/brig)
 "hAq" = (
@@ -49413,6 +49417,10 @@
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
+	},
+/obj/machinery/door/airlock/security/glass{
+	name = "Security Medical";
+	req_access_txt = "63"
 	},
 /turf/open/floor/plasteel/white,
 /area/security/brig)
