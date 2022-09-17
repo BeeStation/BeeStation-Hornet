@@ -31121,6 +31121,10 @@
 /obj/item/radio/intercom{
 	pixel_y = -28
 	},
+/obj/machinery/firealarm{
+	dir = 8;
+	pixel_x = 24
+	},
 /turf/open/floor/plasteel/white,
 /area/security/brig)
 "iAW" = (
@@ -39248,6 +39252,9 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/blue{
+	dir = 4
+	},
+/obj/machinery/camera/autoname{
 	dir = 4
 	},
 /turf/open/floor/plasteel/white,
@@ -75009,12 +75016,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
-/obj/machinery/firealarm{
-	pixel_y = -24
-	},
-/obj/machinery/camera/autoname{
-	dir = 1
-	},
+/obj/item/kirbyplants/random,
 /turf/open/floor/plasteel/white,
 /area/security/brig)
 "vCo" = (
