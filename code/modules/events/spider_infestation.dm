@@ -2,9 +2,7 @@
 	name = "Spider Infestation"
 	typepath = /datum/round_event/ghost_role/spider_infestation
 	weight = 10
-
 	min_players = 20
-
 	dynamic_should_hijack = TRUE
 	can_malf_fake_alert = TRUE
 

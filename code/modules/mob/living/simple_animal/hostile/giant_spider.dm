@@ -16,7 +16,7 @@
 		if(poison_per_bite && L.reagents)
 			L.reagents.add_reagent(poison_type, poison_per_bite)
 
-//basic spider mob, these generally guard nests
+//The base "Spider" mob
 /mob/living/simple_animal/hostile/poison/giant_spider
 	name = "giant spider"
 	desc = "Furry and black, it makes you shudder to look at it. This one has deep red eyes."
@@ -34,7 +34,7 @@
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
 	response_harm   = "hits"
-	initial_language_holder = /datum/language_holder/spider
+	initial_language_holder = /datum/language_holder/spider // Speaks buzzwords, understands buzzwords and common
 	maxHealth = 80
 	health = 80
 	obj_damage = 30
@@ -49,8 +49,8 @@
 	gold_core_spawnable = HOSTILE_SPAWN
 	see_in_dark = 4
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
-	var/busy = SPIDER_IDLE
-	var/datum/action/innate/spider/lay_web/lay_web
+	var/busy = SPIDER_IDLE // What a spider's doing
+	var/datum/action/innate/spider/lay_web/lay_web // Web action
 	var/web_speed // How quickly a spider lays down webs
 	var/directive = "" // Message passed down to children, to relay the creator's orders
 
@@ -74,13 +74,13 @@
 		to_chat(src, "<span class='spiderlarge'><b>Directive: [directive]</b></span>")
 		if(mind)
 			mind.store_memory("<span class='spiderlarge'><b>Directive: [directive]</b></span>")
+	SSmove_manager.stop_looping(src) // Just in case the AI's doing anything when we give them the mind
 	GLOB.spidermobs[src] = TRUE
 
 /mob/living/simple_animal/hostile/poison/giant_spider/give_mind(mob/user)
 	..()
 	if(directive)
 		log_game("[key_name(src)] took control of [name] with the objective: '[directive]'.")
-	SSmove_manager.stop_looping(src) // Just in case the AI's doing anything when we give them the mind
 	return TRUE
 
 /mob/living/simple_animal/hostile/poison/giant_spider/handle_automated_action()
@@ -98,7 +98,7 @@
 	stop_automated_movement = FALSE
 	SSmove_manager.stop_looping(src)
 
-//nursemaids - these create webs and eggs
+//Nurses lay eggs and can heal other spiders.
 /mob/living/simple_animal/hostile/poison/giant_spider/nurse
 	desc = "Furry and black, it makes you shudder to look at it. This one has brilliant green eyes."
 	icon_state = "nurse"
@@ -141,7 +141,7 @@
 	QDEL_NULL(set_directive)
 	return ..()
 
-// Allows nurses to heal other spiders.
+// Allows nurses to heal other spiders if they're adjacent
 /mob/living/simple_animal/hostile/poison/giant_spider/nurse/AttackingTarget()
 	if(is_busy)
 		return
@@ -162,6 +162,7 @@
 		visible_message("<span class='notice'>[src] wraps the wounds of [hurt_spider].</span>","<span class='notice'>You wrap the wounds of [hurt_spider].</span>")
 	is_busy = FALSE
 
+// Handles automatically attacking, webbing, and healing.
 /mob/living/simple_animal/hostile/poison/giant_spider/nurse/handle_automated_action()
 	if(..())
 		var/list/can_see = view(10, src)
@@ -184,8 +185,8 @@
 			if(!W)
 				lay_web.Activate()
 			else
-				//third, lay an egg cluster there
-				if(fed)
+				//third, lay an egg cluster there if we can
+				if(fed || enriched_fed)
 					lay_eggs.Activate()
 				else
 					//fourthly, cocoon any nearby items so those pesky pinkskins can't use them
@@ -201,6 +202,7 @@
 							Goto(O, move_to_delay)
 							//give up if we can't reach them after 10 seconds
 							addtimer(CALLBACK(src, .proc/GiveUp, O), 10 SECONDS)
+							break
 
 		else if(busy == MOVING_TO_TARGET)
 			if(cocoon_target && get_dist(src, cocoon_target) <= 1)
@@ -222,6 +224,7 @@
 		stop_automated_movement = FALSE
 		SSmove_manager.stop_looping(src)
 
+// Handles cocooning items
 /mob/living/simple_animal/hostile/poison/giant_spider/nurse/proc/cocoon()
 	if(stat != DEAD && cocoon_target && !cocoon_target.anchored)
 		if(cocoon_target == src)
@@ -272,8 +275,9 @@
 	icon_state = "midwife"
 	icon_living = "midwife"
 	icon_dead = "midwife_dead"
-	maxHealth = 40
+	maxHealth = 40 // Quite squishy compared to other spiders
 	health = 40
+	web_speed = 0.15 // Easily able to web
 	// Allows the spider to use spider comms
 	var/datum/action/innate/spider/comm/letmetalkpls
 
@@ -286,20 +290,20 @@
 	QDEL_NULL(letmetalkpls)
 	return ..()
 
-//hunters have the most poison and move the fastest, so they can find prey
+//hunters have a decent amount of poison and have decent general stats, making them offensive spiders.
 /mob/living/simple_animal/hostile/poison/giant_spider/hunter
 	desc = "Furry and black, it makes you shudder to look at it. This one has sparkling purple eyes."
 	icon_state = "hunter"
 	icon_living = "hunter"
 	icon_dead = "hunter_dead"
-	maxHealth = 50
-	health = 50
+	maxHealth = 100
+	health = 100
 	melee_damage = 20
 	poison_per_bite = 5
 	move_to_delay = 5
 	speed = -0.1
 
-//vipers are the rare variant of the hunter, no IMMEDIATE damage but so much poison medical care will be needed fast.
+//vipers are the rare variant of the hunter, able to move quickly and inject a lot of venom.
 /mob/living/simple_animal/hostile/poison/giant_spider/hunter/viper
 	name = "viper"
 	desc = "Furry and black, it makes you shudder to look at it. This one has effervescent purple eyes."
@@ -312,7 +316,7 @@
 	poison_per_bite = 12
 	move_to_delay = 4
 	poison_type = /datum/reagent/toxin/venom
-	speed = 0
+	speed = -0.1
 	gold_core_spawnable = NO_SPAWN
 
 //tarantulas are really tanky, but slower than normal spiders. They can also break stuff much easier, and can do more damage.
@@ -335,6 +339,7 @@
 	gold_core_spawnable = NO_SPAWN
 
 // Handles faster movement on webs
+// This is triggered after the first time a spider steps on/off a web, making web-peeking using this harder
 /mob/living/simple_animal/hostile/poison/giant_spider/tarantula/Moved(atom/oldloc, dir)
 	. = ..()
 	var/turf/T = get_turf(src)
@@ -343,7 +348,7 @@
 	else
 		set_varspeed(5)
 
-// Ice spiders
+// Ice spiders - for when you want a spider that really doesn't care about atmos
 /mob/living/simple_animal/hostile/poison/giant_spider/ice
 	name = "giant ice spider"
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
@@ -464,6 +469,9 @@
 /obj/effect/proc_holder/wrap/on_lose(mob/living/carbon/user)
 	remove_ranged_ability()
 
+// Laying eggs
+// If a spider eats a human, they can lay eggs that can hatch into special variants of the base spiders
+// Otherwise, it's just basic spiders.
 /datum/action/innate/spider/lay_eggs
 	name = "Lay Eggs"
 	desc = "Lay a cluster of eggs, which will soon grow into more spiders. You must have a directive set and wrap a living being to do this."
@@ -513,6 +521,8 @@
 		spider.busy = SPIDER_IDLE
 		spider.stop_automated_movement = FALSE
 
+// Directive command, for giving children orders
+// The set directive is placed in the notes of every child spider, and said child gets the objective when they log into the mob
 /datum/action/innate/spider/set_directive
 	name = "Set Directive"
 	desc = "Set a directive for your children to follow."
@@ -549,7 +559,7 @@
 	return ..() && istype(owner, /mob/living/simple_animal/hostile/poison/giant_spider/nurse/midwife)
 
 /datum/action/innate/spider/comm/Trigger()
-	var/input = stripped_input(owner, "Input a command for your legions to follow.", "Command", "")
+	var/input = stripped_input(owner, "Input a command for your children to follow.", "Command", "")
 	if(QDELETED(src) || !input || !IsAvailable())
 		return FALSE
 	spider_command(owner, input)
@@ -570,6 +580,8 @@
 		to_chat(M, "[link] [my_message]")
 	usr.log_talk(message, LOG_SAY, tag="spider command")
 
+// Temperature damage
+// Flat 20 brute if they're out of safe temperature, making them vulnerable to fire or spacing
 /mob/living/simple_animal/hostile/poison/giant_spider/handle_temperature_damage()
 	if(bodytemperature < minbodytemp)
 		adjustBruteLoss(20)
