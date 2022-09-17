@@ -6,6 +6,7 @@
 	icon_living = "static"
 	icon_dead = "null"
 	gender = NEUTER
+	real_gender = NEUTER
 	mob_biotypes = list()
 	melee_damage = 5
 	a_intent = INTENT_HARM

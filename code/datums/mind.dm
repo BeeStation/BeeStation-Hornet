@@ -29,6 +29,8 @@
 
 */
 
+#define TABLE_BORDER(str) ("<table border='1' cellspacing='1' cellpadding='0' style='margin:5px; margin-bottom:25px;'><tr><td>"+str+"</td></tr></table>")
+
 /datum/mind
 	var/key
 	var/name				//replaces mob/var/original_name
@@ -391,31 +393,41 @@
 /datum/mind/proc/show_memory(mob/recipient, window=1)
 	if(!recipient)
 		recipient = current
-	var/output = "<B>[current.real_name]'s Memories:</B><br>"
-	output += memory
+	var/output
+	output += "<b>[current.real_name]'s identity:</b>"
+	output += TABLE_BORDER("   <b>Name:</b> [current.real_name]<br>\t<b>Age:</b> [current.real_age]<br>	<b>Sex:</b> [current.real_gender]")
+	output += "<B>[current.real_name]'s Memories:</B><br>"
+	output += TABLE_BORDER(memory)
 
 
+	var/list/temp_text = list()
 	var/list/antag_objectives = get_all_antag_objectives()
 	for(var/datum/antagonist/A in antag_datums)
-		output += A.antag_memory
+		temp_text += TABLE_BORDER(A.antag_memory)
+	if(length(temp_text))
+		output += TABLE_BORDER(english_list(temp_text, and_text="<br>", comma_text="<br>"))
 
+	temp_text = list()
 	if(antag_objectives.len)
-		output += "<br><B>Objectives:</B>"
+		output += "<B>Objectives:</B>"
 		var/obj_count = 1
 		for(var/datum/objective/objective in antag_objectives)
-			output += "<br><B>Objective #[obj_count++]</B>: [objective.explanation_text]"
+			temp_text += "<B>Objective #[obj_count++]</B>: [objective.explanation_text]"
 			if (objective.name == "gimmick")
-				output += " - This objective is optional and not tracked, so just have fun with it!"
+				temp_text += " - This objective is optional and not tracked, so just have fun with it!"
 			var/list/datum/mind/other_owners = objective.get_owners() - src
 			if(other_owners.len)
-				output += "<ul>"
+				temp_text += "<ul>"
 				for(var/datum/mind/M in other_owners)
-					output += "<li>Conspirator: [M.name]</li>"
-				output += "</ul>"
+					temp_text += "<li>Conspirator: [M.name]</li>"
+				temp_text += "</ul>"
+		output += TABLE_BORDER(english_list(temp_text, and_text="<br>", comma_text="<br>"))
+	temp_text = list()
 	if(crew_objectives.len)
-		output += "<br><B>Optional Objectives:</B>"
+		output += "<B>Optional Objectives:</B>"
 		for(var/datum/objective/objective as() in crew_objectives)
-			output += "<br>[objective.explanation_text]"
+			temp_text += "[objective.explanation_text]"
+		output += TABLE_BORDER(english_list(temp_text, and_text="<br>", comma_text="<br>"))
 
 	if(window)
 		recipient << browse(output,"window=memory")
@@ -806,3 +818,5 @@
 	..()
 	mind.assigned_role = ROLE_PAI
 	mind.special_role = ""
+
+#undef TABLE_BORDER

@@ -24,6 +24,7 @@
 /datum/job/cyborg/after_spawn(mob/living/silicon/robot/R, mob/M)
 	R.updatename(M.client)
 	R.gender = NEUTER
+	R.real_gender = NEUTER
 
 /datum/job/cyborg/radio_help_message(mob/M)
 	to_chat(M, "<b>Prefix your message with :b to speak with other cyborgs and AI.</b>")

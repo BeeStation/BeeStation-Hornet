@@ -3,6 +3,7 @@
 	real_name = "Shade"
 	desc = "A bound spirit."
 	gender = PLURAL
+	real_gender = PLURAL
 	icon = 'icons/mob/mob.dmi'
 	icon_state = "shade"
 	icon_living = "shade"

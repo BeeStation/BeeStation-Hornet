@@ -335,6 +335,7 @@
 
 /mob/living/simple_animal/hostile/syndicate/factory
 	gender = MALE
+	real_gender = MALE
 	faction = list("nanotrasenprivate")
 	speak_chance = 5
 	speak = list("Come get me!","You can't get away!","Die!")

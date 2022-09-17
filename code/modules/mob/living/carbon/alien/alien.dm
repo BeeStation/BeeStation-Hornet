@@ -2,6 +2,9 @@
 	name = "alien"
 	icon = 'icons/mob/alien.dmi'
 	gender = FEMALE //All xenos are girls!!
+	real_gender = FEMALE
+	age = 0 // and indeed they're YOUNG GIRLS!!!
+	real_age = 0
 	dna = null
 	faction = list(ROLE_ALIEN)
 	ventcrawler = VENTCRAWLER_ALWAYS

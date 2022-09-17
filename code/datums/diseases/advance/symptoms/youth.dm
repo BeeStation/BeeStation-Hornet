@@ -58,3 +58,12 @@ BONUS
 				if(H.age > 21)
 					H.age = 21
 					to_chat(H, "<span class='notice'>You feel like you can take on the world!</span>")
+
+/datum/symptom/youth/OnRemove(datum/disease/advance/A)
+	var/mob/living/M = A.affected_mob
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		if(H.real_age <= 21) // Young people don't need to see the message
+			return
+		H.age = H.real_age
+		to_chat(H, "<span class='notice'>You feel your real age got you...</span>")

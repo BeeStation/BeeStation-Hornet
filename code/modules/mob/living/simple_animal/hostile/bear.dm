@@ -45,6 +45,7 @@
 /mob/living/simple_animal/hostile/bear/Hudson
 	name = "Hudson"
 	gender = MALE
+	real_gender = MALE
 	desc = "Feared outlaw, this guy is one bad news bear." //I'm sorry...
 
 /mob/living/simple_animal/hostile/bear/snow

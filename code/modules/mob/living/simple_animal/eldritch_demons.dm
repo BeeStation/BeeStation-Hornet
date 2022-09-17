@@ -3,6 +3,7 @@
 	real_name = "Demon"
 	desc = ""
 	gender = NEUTER
+	real_gender = NEUTER
 	mob_biotypes = NONE
 	speak_emote = list("screams")
 	response_help = "think better of touching"

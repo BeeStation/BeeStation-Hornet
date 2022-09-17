@@ -2021,8 +2021,10 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	character.real_name = real_name
 	character.name = character.real_name
 
-	character.gender = gender
-	character.age = age
+	character.real_gender = gender
+	character.gender = character.real_gender
+	character.real_age = age
+	character.age = character.real_age
 
 	character.eye_color = eye_color
 	var/obj/item/organ/eyes/organ_eyes = character.getorgan(/obj/item/organ/eyes)

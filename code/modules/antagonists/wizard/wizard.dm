@@ -132,7 +132,8 @@
 	//Wizards are human by default. Use the mirror if you want something else.
 	H.set_species(/datum/species/human)
 	if(H.age < wiz_age)
-		H.age = wiz_age
+		H.real_age = wiz_age
+		H.age = H.real_age
 	H.equipOutfit(outfit_type)
 
 /datum/antagonist/wizard/greet()

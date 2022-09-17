@@ -34,6 +34,7 @@
 	sight = (SEE_TURFS | SEE_OBJS)
 	status_flags = (CANPUSH | CANSTUN | CANKNOCKDOWN)
 	gender = NEUTER
+	real_gender = NEUTER
 	mob_biotypes = list(MOB_ROBOTIC)
 	speak_emote = list("chirps")
 	speech_span = SPAN_ROBOT

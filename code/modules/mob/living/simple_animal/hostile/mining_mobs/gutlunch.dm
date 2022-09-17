@@ -27,6 +27,7 @@
 	gold_core_spawnable = FRIENDLY_SPAWN
 	stat_attack = UNCONSCIOUS
 	gender = NEUTER
+	real_gender = NEUTER
 	stop_automated_movement = FALSE
 	stop_automated_movement_when_pulled = TRUE
 	stat_exclusive = TRUE
@@ -98,6 +99,7 @@
 /mob/living/simple_animal/hostile/asteroid/gutlunch/gubbuck
 	name = "gubbuck"
 	gender = MALE
+	real_gender = MALE
 
 /mob/living/simple_animal/hostile/asteroid/gutlunch/gubbuck/Initialize(mapload)
 	. = ..()
@@ -109,6 +111,7 @@
 /mob/living/simple_animal/hostile/asteroid/gutlunch/guthen
 	name = "guthen"
 	gender = FEMALE
+	real_gender = FEMALE
 
 /mob/living/simple_animal/hostile/asteroid/gutlunch/guthen/Life()
 	..()

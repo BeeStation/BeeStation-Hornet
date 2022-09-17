@@ -137,6 +137,8 @@
 	var/mob/living/carbon/C = clone
 	if(istype(C) && istype(O))
 		C.real_name = O.real_name
+		C.real_age = O.real_age
+		C.real_gender = O.real_gender
 		O.dna.transfer_identity(C)
 		C.updateappearance(mutcolor_update=1)
 	if(owner.mind)

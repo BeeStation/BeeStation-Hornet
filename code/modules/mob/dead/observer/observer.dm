@@ -87,7 +87,8 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	if(ismob(body))
 		T = get_turf(body)				//Where is the body located?
 
-		gender = body.gender
+		var/mob/living/temp_body = body
+		gender = temp_body.real_gender || body.gender
 		if(body.mind && body.mind.name)
 			if(body.mind.ghostname)
 				name = body.mind.ghostname

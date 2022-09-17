@@ -32,6 +32,7 @@
 	H.fully_replace_character_name(null,"Waldo")
 	H.eye_color = "000"
 	H.gender = MALE
+	H.real_gender = MALE
 	H.skin_tone = "caucasian3"
 	H.hair_style = "Business Hair 3"
 	H.facial_hair_style = "Shaved"

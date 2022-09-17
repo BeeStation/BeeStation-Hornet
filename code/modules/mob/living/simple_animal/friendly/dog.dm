@@ -92,6 +92,7 @@
 	name = "Walter"
 	real_name = "Walter"
 	gender = MALE
+	real_gender = MALE
 	desc = "Nar'sie and rat'var are nothing compared to the might of this monstertruck loving dog."
 	gold_core_spawnable = NO_SPAWN
 	unique_pet = TRUE
@@ -362,6 +363,7 @@ GLOBAL_LIST_INIT(strippable_corgi_items, create_strippable_list(list(
 	name = "Ian"
 	real_name = "Ian"	//Intended to hold the name without altering it.
 	gender = MALE
+	real_gender = MALE
 	desc = "It's the HoP's beloved corgi."
 	var/turns_since_scan = 0
 	var/obj/movement_target
@@ -370,7 +372,7 @@ GLOBAL_LIST_INIT(strippable_corgi_items, create_strippable_list(list(
 	response_harm   = "kicks"
 	gold_core_spawnable = NO_SPAWN
 	unique_pet = TRUE
-	var/age = 0
+	age = 0
 	var/record_age = 1
 	var/memory_saved = FALSE
 	var/saved_head //path
@@ -620,6 +622,7 @@ GLOBAL_LIST_INIT(strippable_corgi_items, create_strippable_list(list(
 	name = "Ian"
 	real_name = "Ian"
 	gender = MALE
+	real_gender = MALE
 	desc = "It's the HoP's beloved corgi puppy."
 
 
@@ -650,6 +653,7 @@ GLOBAL_LIST_INIT(strippable_corgi_items, create_strippable_list(list(
 	name = "Lisa"
 	real_name = "Lisa"
 	gender = FEMALE
+	real_gender = FEMALE
 	desc = "She's tearing you apart."
 	gold_core_spawnable = NO_SPAWN
 	unique_pet = TRUE

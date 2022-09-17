@@ -7,6 +7,7 @@
 	icon_living = "headcrab"
 	icon_dead = "headcrab_dead"
 	gender = NEUTER
+	real_gender = NEUTER
 	health = 50
 	maxHealth = 50
 	melee_damage = 10

@@ -7,6 +7,7 @@
 	icon_gib = "clown_gib"
 	mob_biotypes = list(MOB_ORGANIC, MOB_HUMANOID)
 	gender = MALE
+	real_gender = MALE
 	turns_per_move = 5
 	response_help = "pokes"
 	response_disarm = "gently pushes aside"

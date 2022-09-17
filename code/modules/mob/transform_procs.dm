@@ -548,6 +548,7 @@
 	var/mob/living/silicon/robot/R = new /mob/living/silicon/robot(loc)
 
 	R.gender = gender
+	R.real_gender = real_gender
 	R.invisibility = 0
 
 	if(client)

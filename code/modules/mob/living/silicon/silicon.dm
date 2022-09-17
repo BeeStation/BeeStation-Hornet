@@ -1,5 +1,6 @@
 /mob/living/silicon
 	gender = NEUTER
+	real_gender = NEUTER
 	has_unlimited_silicon_privilege = 1
 	verb_say = "states"
 	verb_ask = "queries"

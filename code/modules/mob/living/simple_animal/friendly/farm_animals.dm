@@ -113,6 +113,7 @@
 	icon_dead = "cow_dead"
 	icon_gib = "cow_gib"
 	gender = FEMALE
+	real_gender = FEMALE
 	mob_biotypes = list(MOB_ORGANIC, MOB_BEAST)
 	speak = list("moo?","moo","MOOOOOO")
 	speak_emote = list("moos","moos hauntingly")
@@ -197,6 +198,7 @@
 	worn_slot_flags = ITEM_SLOT_HEAD
 	held_state = "chick"
 	gender = FEMALE
+	real_gender = FEMALE
 	mob_biotypes = list(MOB_ORGANIC, MOB_BEAST)
 	speak = list("Cherp.","Cherp?","Chirrup.","Cheep!")
 	speak_emote = list("cheeps")
@@ -254,6 +256,7 @@
 	name = "\improper chicken"
 	desc = "Hopefully the eggs are good this season."
 	gender = FEMALE
+	real_gender = FEMALE
 	mob_biotypes = list(MOB_ORGANIC, MOB_BEAST)
 	icon_state = "chicken_brown"
 	icon_living = "chicken_brown"

@@ -42,6 +42,7 @@
 	real_name = "Birdboat"
 	desc = "It's a sick-looking goose, probably ate too much maintenance trash. Best not to move it around too much."
 	gender = MALE
+	real_gender = MALE
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
 	response_harm   = "kicks"

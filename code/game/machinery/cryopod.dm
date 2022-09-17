@@ -265,21 +265,20 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 	// Delete them from datacore.
 
 	var/announce_rank = null
-	for(var/datum/data/record/R as() in GLOB.data_core.medical)
-		if((R.fields["name"] == mob_occupant.real_name))
-			qdel(R)
-	for(var/datum/data/record/T as() in GLOB.data_core.security)
-		if((T.fields["name"] == mob_occupant.real_name))
-			qdel(T)
-	for(var/datum/data/record/G as() in GLOB.data_core.general)
-		if((G.fields["name"] == mob_occupant.real_name))
-			announce_rank = G.fields["rank"]
-			qdel(G)
-
-	for(var/obj/machinery/computer/cloning/cloner in GLOB.machines)
-		for(var/datum/data/record/R as() in cloner.records)
-			if(R.fields["name"] == mob_occupant.real_name)
-				cloner.records.Remove(R)
+	var/datum/data/record/D
+	D = find_datacore_individual(mob_occupant.real_name, mob_occupant.real_age, mob_occupant.real_gender, GLOB.data_core.medical)
+	if(D)
+		GLOB.data_core.medical -= D
+		qdel(D)
+	D = find_datacore_individual(mob_occupant.real_name, mob_occupant.real_age, mob_occupant.real_gender, GLOB.data_core.security)
+	if(D)
+		GLOB.data_core.security -= D
+		qdel(D)
+	D = find_datacore_individual(mob_occupant.real_name, mob_occupant.real_age, mob_occupant.real_gender, GLOB.data_core.general)
+	if(D)
+		GLOB.data_core.general -= D
+		announce_rank = D.fields["rank"]
+		qdel(D)
 
 	//Make an announcement and log the person entering storage.
 	var/obj/machinery/computer/cryopod/control_computer = control_computer_weakref?.resolve()

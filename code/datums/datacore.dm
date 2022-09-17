@@ -248,12 +248,12 @@
 		G.fields["name"]		= H.real_name
 		G.fields["rank"]		= assignment
 		G.fields["hud"]			= get_hud_by_jobname(assignment)
-		G.fields["age"]			= H.age
+		G.fields["age"]			= H.real_age
 		G.fields["species"]	= H.dna.species.name
 		G.fields["fingerprint"]	= rustg_hash_string(RUSTG_HASH_MD5, H.dna.uni_identity)
 		G.fields["p_stat"]		= "Active"
 		G.fields["m_stat"]		= "Stable"
-		G.fields["sex"]			= H.gender
+		G.fields["sex"]			= H.real_gender
 		G.fields["photo_front"]	= photo_front
 		G.fields["photo_side"]	= photo_side
 		general += G
@@ -262,6 +262,8 @@
 		var/datum/data/record/M = new()
 		M.fields["id"]			= id
 		M.fields["name"]		= H.real_name
+		M.fields["age"]			= H.real_age
+		M.fields["sex"]			= H.real_gender
 		M.fields["blood_type"]	= H.dna.blood_type
 		M.fields["b_dna"]		= H.dna.unique_enzymes
 		M.fields["mi_dis"]		= "None"
@@ -279,6 +281,8 @@
 		var/datum/data/record/S = new()
 		S.fields["id"]			= id
 		S.fields["name"]		= H.real_name
+		S.fields["age"]			= H.real_age
+		S.fields["sex"]			= H.real_gender
 		S.fields["criminal"]	= "None"
 		S.fields["citation"]	= list()
 		S.fields["crim"]		= list()
@@ -290,8 +294,8 @@
 		L.fields["id"]			= rustg_hash_string(RUSTG_HASH_MD5, "[H.real_name][H.mind.assigned_role]")	//surely this should just be id, like the others?
 		L.fields["name"]		= H.real_name
 		L.fields["rank"] 		= H.mind.assigned_role
-		L.fields["age"]			= H.age
-		L.fields["sex"]			= H.gender
+		L.fields["age"]			= H.real_age
+		L.fields["sex"]			= H.real_gender
 		L.fields["blood_type"]	= H.dna.blood_type
 		L.fields["b_dna"]		= H.dna.unique_enzymes
 		L.fields["identity"]	= H.dna.uni_identity
@@ -310,3 +314,15 @@
 	if(C)
 		P = C.prefs
 	return get_flat_human_icon(null, J, P, DUMMY_HUMAN_SLOT_MANIFEST, show_directions)
+
+/proc/find_datacore_individual(name, age, gender, list/L)
+	world.log << "target: [name], [age], [gender]"
+	for(var/datum/data/record/R in L)
+		world.log << "target: [R.fields["name"]], [R.fields["age"]], [R.fields["gender"]]"
+		if(R.fields["name"] != name)
+			continue
+		if(R.fields["age"] != age)
+			continue
+		if(R.fields["gender"] == gender)
+			return R
+	return FALSE

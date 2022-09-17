@@ -87,6 +87,7 @@
 		if(!mob_gender)
 			mob_gender = pick(MALE, FEMALE)
 		M.gender = mob_gender
+		M.real_gender = mob_gender
 	if(faction)
 		M.faction = list(faction)
 	if(disease)

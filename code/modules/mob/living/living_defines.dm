@@ -132,6 +132,15 @@
 	var/icon/head_icon = 'icons/mob/pets_held.dmi'//what it looks like on your head
 	var/held_state = ""//icon state for the above
 
+	/// Player's age
+	var/age = 30
+	/// Your real age - above one can be changed (i.e. youth virus, old time booze)
+	var/real_age = 30
+	/// mobs real gender to track when theirs is changed somehow (i.e. unwanted mutation)
+	var/real_gender
+	/// used to track your 'real' info is in memory
+	var/real_itentity_given = FALSE
+
 	//is mob player controllable
 	var/playable = FALSE
 	var/flavor_text = FLAVOR_TEXT_NONE

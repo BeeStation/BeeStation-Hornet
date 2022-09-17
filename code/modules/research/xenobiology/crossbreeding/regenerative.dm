@@ -246,6 +246,8 @@ Regenerative extracts:
 		T.dna.transfer_identity(D)
 		D.updateappearance(mutcolor_update=1)
 		D.real_name = T.real_name
+		D.real_age = T.real_age
+		D.real_gender = T.real_gender
 	dummy.adjustBruteLoss(target.getBruteLoss())
 	dummy.adjustFireLoss(target.getFireLoss())
 	dummy.adjustToxLoss(target.getToxLoss())
