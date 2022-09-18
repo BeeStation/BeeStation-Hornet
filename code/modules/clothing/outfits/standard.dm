@@ -128,7 +128,7 @@
 
 	var/obj/item/card/id/W = H.wear_id
 	if(W)
-		W.registered_name = H.real_name
+		W.set_basic_info_on_spawn(H)
 		W.update_label(H.real_name)
 
 /datum/outfit/tunnel_clown
@@ -154,7 +154,7 @@
 	W.access = get_all_accesses()
 	W.icon_state = "clown_op"
 	W.assignment = "Tunnel Clown!"
-	W.registered_name = H.real_name
+	W.set_basic_info_on_spawn(H)
 	W.update_label(H.real_name)
 
 /datum/outfit/psycho
@@ -218,7 +218,7 @@
 	var/obj/item/card/id/syndicate/W = H.wear_id
 	W.access = get_all_accesses()
 	W.assignment = "Reaper"
-	W.registered_name = H.real_name
+	W.set_basic_info_on_spawn(H)
 	W.update_label(H.real_name)
 
 /datum/outfit/centcom/commander
@@ -257,7 +257,7 @@
 	W.access = get_all_accesses()
 	W.access += get_centcom_access(JOB_CENTCOM_COMMANDER)
 	W.assignment = JOB_CENTCOM_COMMANDER
-	W.registered_name = H.real_name
+	W.set_basic_info_on_spawn(H)
 	W.update_label()
 
 /datum/outfit/admiral
@@ -286,7 +286,7 @@
 	W.access = get_all_accesses()
 	W.access += get_centcom_access(JOB_CENTCOM_ADMIRAL)
 	W.assignment = JOB_CENTCOM_ADMIRAL
-	W.registered_name = H.real_name
+	W.set_basic_info_on_spawn(H)
 	W.update_label()
 
 	var/obj/item/radio/headset/R = H.ears
@@ -367,7 +367,7 @@
 	W.access = get_all_accesses()
 	W.access += get_centcom_access(JOB_CENTCOM_ADMIRAL)
 	W.assignment = JOB_CENTCOM_ADMIRAL
-	W.registered_name = H.real_name
+	W.set_basic_info_on_spawn(H)
 	W.update_label()
 
 /datum/outfit/mobster
@@ -388,7 +388,7 @@
 
 	var/obj/item/card/id/W = H.wear_id
 	W.assignment = JOB_NAME_ASSISTANT
-	W.registered_name = H.real_name
+	W.set_basic_info_on_spawn(H)
 	W.update_label()
 
 /datum/outfit/plasmaman
@@ -427,5 +427,5 @@
 
 	var/obj/item/card/id/I = H.wear_id
 	I.assignment = "Joker"
-	I.registered_name = H.real_name
+	I.set_basic_info_on_spawn(H)
 	I.update_label()

@@ -395,7 +395,24 @@
 		recipient = current
 	var/output
 	output += "<b>[current.mind.name]'s current identity:</b>"
-	output += TABLE_BORDER("<b>Name:</b> [current.real_name]<br>\t<b>Age:</b>[current.real_age]<br><b>Sex:</b> [current.real_gender]")
+	var/personal_info
+	if(current.real_name == current.name)
+		personal_info += "<b>Name:</b> [current.real_name]<br>"
+	else
+		personal_info += "<b>Real Name:</b> [current.real_name]<br>"
+		personal_info += "<b>Visible Name:</b> [current.name]<br>"
+	if(current.real_age == current.age)
+		personal_info += "<b>Age:</b> [current.real_age]<br>"
+	else
+		personal_info += "<b>Actual Age:</b> [current.real_age]<br>"
+		personal_info += "<b>Visible Age:</b> [current.age]<br>"
+	if(current.real_gender == current.gender)
+		personal_info += "<b>Sex:</b> [current.real_gender]"
+	else
+		personal_info += "<b>Actual Sex:</b> [current.real_gender]"
+		personal_info += "<b>Visible Sex:</b> [current.gender]"
+	output += TABLE_BORDER(personal_info)
+
 	output += "<B>[current.mind.name]'s Memories:</B><br>"
 	output += TABLE_BORDER(memory)
 
@@ -403,7 +420,8 @@
 	var/list/temp_text = list()
 	var/list/antag_objectives = get_all_antag_objectives()
 	for(var/datum/antagonist/A in antag_datums)
-		temp_text += A.antag_memory
+		if(A.antag_memory != "")
+			temp_text += A.antag_memory
 	if(length(temp_text))
 		output += TABLE_BORDER(english_list(temp_text, and_text="<br>", comma_text="<br>"))
 
@@ -430,7 +448,7 @@
 		output += TABLE_BORDER(english_list(temp_text, and_text="<br>", comma_text="<br>"))
 
 	if(window)
-		recipient << browse(output,"window=memory")
+		recipient << browse(output,"window=memory;size=400x550")
 	else if(antag_objectives.len || crew_objectives.len || memory)
 		to_chat(recipient, "<i>[output]</i>")
 

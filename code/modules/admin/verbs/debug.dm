@@ -199,7 +199,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		else
 			id = new /obj/item/card/id/gold(H.loc)
 			id.access = get_all_accesses()+get_all_centcom_access()+get_all_syndicate_access()
-			id.registered_name = H.real_name
+			id.set_basic_info_on_spawn(H)
 			id.assignment = JOB_NAME_CAPTAIN
 			id.update_label()
 

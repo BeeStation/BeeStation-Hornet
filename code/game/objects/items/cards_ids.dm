@@ -132,6 +132,11 @@
 		my_store.my_card = null
 	return ..()
 
+/obj/item/card/id/proc/set_basic_info_on_spawn(mob/living/L)
+	registered_name = L.real_name
+	age = L.real_age
+	registered_gender = L.real_gender
+
 /obj/item/card/id/proc/set_hud_icon_on_spawn(jobname)
 	if(jobname)
 		var/temp = get_hud_by_jobname(jobname)
@@ -141,7 +146,7 @@
 
 /obj/item/card/id/attack_self(mob/user)
 	if(Adjacent(user))
-		user.visible_message("<span class='notice'>[user] shows you: [icon2html(src, viewers(user))] [src.name].</span>", "<span class='notice'>You show \the [src.name].</span>")
+		user.visible_message("<span class='notice'>[user] shows you: [icon2html(src, viewers(user))] [src.name], [age] years old, [registered_gender].</span>", "<span class='notice'>You show \the [src.name].</span>")
 	add_fingerprint(user)
 
 /obj/item/card/id/vv_edit_var(var_name, var_value)
@@ -384,7 +389,8 @@ update_label("John Doe", "Clowny")
 	icon_state = "syndicate"
 	hud_state = JOB_HUD_SYNDICATE
 	var/anyone = FALSE //Can anyone forge the ID or just syndicate?
-	var/forged = FALSE //have we set a custom name and job assignment, or will we use what we're given when we chameleon change?
+	age = 0 // QoL for forging
+	registered_gender = "" // QoL for foring
 
 	var/datum/action/item_action/chameleon/change/chameleon_action
 
@@ -436,7 +442,7 @@ update_label("John Doe", "Clowny")
 			if(user.mind.special_role || anyone)
 				to_chat(usr, "<span class='notice'>The card's microscanners activate as you pass it over the ID, copying its access.</span>")
 
-/obj/item/card/id/syndicate/attack_self(mob/user)
+/obj/item/card/id/syndicate/attack_self(mob/living/user)
 	var/valid_jobs = list( // copy-paste from hop card paint machine, but this has more options, and valid to be static.
 		"----Command----", "Command (Custom)",JOB_NAME_CAPTAIN,
 		"----Service----", "Service (Custom)", JOB_NAME_ASSISTANT, JOB_NAME_HEADOFPERSONNEL, JOB_NAME_BARTENDER, JOB_NAME_COOK,
@@ -459,10 +465,10 @@ update_label("John Doe", "Clowny")
 			else
 				return ..()
 
-		var/popup_input = alert(user, "Choose Action", "Agent ID", "Show", "Forge/Reset", "Change Account ID")
+		var/popup_input = alert(user, "Choose Action", "Agent ID", "Show", "Forge", "Change Account ID")
 		if(user.incapacitated())
 			return
-		if(popup_input == "Forge/Reset" && !forged)
+		if(popup_input == "Forge")
 			var/input_name = stripped_input(user, "What name would you like to put on this card? Leave blank to randomise.", "Agent card name", registered_name ? registered_name : (ishuman(user) ? user.real_name : user.name), MAX_NAME_LEN)
 			input_name = reject_bad_name(input_name)
 			if(!input_name)
@@ -473,6 +479,16 @@ update_label("John Doe", "Clowny")
 					input_name = "[pick(GLOB.first_names_female)] [pick(GLOB.last_names)]"
 				else
 					input_name = "[pick(GLOB.first_names)] [pick(GLOB.last_names)]"
+
+			var/input_age = text2num(stripped_input(user, "What age would you like to put on this card? Leave blank to randomise.", "Agent card age", age ? age : user.real_age, MAX_NAME_LEN))
+			if(!input_age || !isnum(input_age))
+				input_age = rand(18, 85)
+
+			var/static/gender_options = GENDER_OPTIONS
+			var/input_gender = input(user, "Select a gender!", "Agent card gender") as null|anything in gender_options
+			if(!input_gender)
+				to_chat(user, "<span class='notice'>You stopped forging the card.</span>")
+				return
 
 			var/target_occupation = stripped_input(user, "What occupation would you like to put on this card?\nNote: This will not grant any access levels other than Maintenance.", "Agent card job assignment", assignment ? assignment : JOB_NAME_ASSISTANT, MAX_MESSAGE_LEN)
 			if(!target_occupation)
@@ -487,6 +503,8 @@ update_label("John Doe", "Clowny")
 
 			log_id("[key_name(user)] forged agent ID [src] name to [input_name] and occupation to [target_occupation][target_id_style ? " with [target_id_style] card style" : " with non changed [icon_state] shape, [hud_state] hud style"] at [AREACOORD(user)].")
 			registered_name = input_name
+			age = input_age
+			registered_gender = input_gender
 			assignment = target_occupation
 			if(target_id_style)
 				icon_state = get_cardstyle_by_jobname(target_id_style)
@@ -494,7 +512,6 @@ update_label("John Doe", "Clowny")
 				var/mob/living/carbon/human/H = user
 				H.sec_hud_set_ID()
 			update_label()
-			forged = TRUE
 			to_chat(user, "<span class='notice'>You successfully forge the ID card.</span>")
 			log_game("[key_name(user)] has forged \the [initial(name)] with name \"[registered_name]\" and occupation \"[assignment]\"[target_id_style ? " with [target_id_style] card style" : " with non changed [icon_state] shape, [hud_state] hud style"].")
 
@@ -509,15 +526,6 @@ update_label("John Doe", "Clowny")
 							account.bank_cards += src
 							registered_account = account
 							to_chat(user, "<span class='notice'>Your account number has been automatically assigned.</span>")
-			return
-		else if (popup_input == "Forge/Reset" && forged)
-			registered_name = initial(registered_name)
-			assignment = initial(assignment)
-			log_id("[key_name(user)] reset agent ID [src] name to default at [AREACOORD(user)].")
-			log_game("[key_name(user)] has reset \the [initial(name)] named \"[src]\" to default.")
-			update_label()
-			forged = FALSE
-			to_chat(user, "<span class='notice'>You successfully reset the ID card.</span>")
 			return
 		else if (popup_input == "Change Account ID")
 			set_new_account(user)

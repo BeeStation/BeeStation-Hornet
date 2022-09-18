@@ -61,15 +61,14 @@
 
 /mob/living/proc/measure_age(visible_age)
 	// I don't care these numbers. feel free to change age desc per range
+	. = "unrecognisable"
 	switch(text2num(visible_age))
-		if("Unknown")
-			. = "unrecognisable"
 		if(-INFINITY to -1)
 			. = "imposibly young"
 		if(0 to 12)
 			. = "around child"
 		if(13)
-			. = "potentially 13"
+			. = "exact thirteen"
 		if(14 to 18)
 			. = "teenager"
 		if(19 to 22)

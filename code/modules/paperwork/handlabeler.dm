@@ -24,7 +24,7 @@
 			if(their_card.registered_name != old_real_name)
 				continue
 
-			their_card.registered_name = user.real_name
+			their_card.set_basic_info_on_spawn(user)
 			their_card.update_label()
 
 	// NOT EVEN DEATH WILL TAKE AWAY THE STAIN

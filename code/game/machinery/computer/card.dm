@@ -370,6 +370,14 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 										var nameField = document.getElementById('namefield');
 										nameField.style.backgroundColor = "#DDFFDD";
 									}
+									function markRedAge(){
+										var ageField = document.getElementById('agefield');
+										ageField.style.backgroundColor = "#FFDDDD";
+									}
+									function markGreenAge(){
+										var ageField = document.getElementById('agefield');
+										ageField.style.backgroundColor = "#DDFFDD";
+									}
 									function showAll(){
 										var allJobsSlot = document.getElementById('alljobsslot');
 										allJobsSlot.innerHTML = "<a href='#' onclick='hideAll()'>hide</a><br>"+ "[jobs_all]";
@@ -379,12 +387,29 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 										allJobsSlot.innerHTML = "<a href='#' onclick='showAll()'>show</a>";
 									}
 								</script>"}
+				// rename form
 				carddesc += "<form name='cardcomp' action='?src=[REF(src)]' method='get'>"
 				carddesc += "<input type='hidden' name='src' value='[REF(src)]'>"
 				carddesc += "<input type='hidden' name='choice' value='reg'>"
 				carddesc += "<b>registered name:</b> <input type='text' id='namefield' name='reg' value='[target_owner]' style='width:250px; background-color:white;' onchange='markRed()'>"
 				carddesc += "<input type='submit' value='Rename' onclick='markGreen()'>"
 				carddesc += "</form>"
+				// re-age form
+				carddesc += "<form name='cardcomp' action='?src=[REF(src)]' method='get'>"
+				carddesc += "<input type='hidden' name='src' value='[REF(src)]'>"
+				carddesc += "<input type='hidden' name='choice' value='reg_age'>"
+				carddesc += "<b>registered age:</b> <input type='text' id='agefield' name='reg_age' value='[inserted_modify_id.age]' style='width:60px; background-color:white;' onchange='markRedAge()'>"
+				carddesc += "<input type='submit' value='Confirm age' onclick='markGreenAge()'>"
+				carddesc += "</form>"
+				// re-gender form
+				carddesc += "<b>registered gender:</b>"
+				for(var/each in GENDER_OPTIONS)
+					if(inserted_modify_id.registered_gender == each)
+						carddesc += "<a href='#'><font color=\"6bc473\">[each]</font></a>"
+					else
+						carddesc += "<a href='?src=[REF(src)];choice=set_gender;gender_target=[each]'>[each]</a>"
+				carddesc += "<br>"
+				// Assignment form
 				carddesc += "<b>Assignment:</b> "
 
 				jobs += "<span id='alljobsslot'><a href='#' onclick='showAll()'>[target_rank]</a></span>" //CHECK THIS
@@ -582,6 +607,42 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 						to_chat(usr, "<span class='error'>Invalid name entered.</span>")
 						updateUsrDialog()
 						return
+		if ("reg_age")
+			if (authenticated)
+				var/t2 = inserted_modify_id
+				if ((authenticated && inserted_modify_id == t2 && (in_range(src, usr) || issilicon(usr)) && isturf(loc)))
+					var/new_age = text2num(sanitize(href_list["reg_age"]))
+					if(!new_age)
+						to_chat(usr, "<span class='error'>Invalid number entered.</span>")
+						updateUsrDialog()
+						return
+					if(!isnum(new_age))
+						to_chat(usr, "<span class='error'>Invalid number entered.</span>")
+						updateUsrDialog()
+						return
+					if(new_age < 0) // age 1 is legit anyway
+						to_chat(usr, "<span class='error'>Invalid number entered.</span>")
+						updateUsrDialog()
+						return
+					log_id("[key_name(usr)] changed [inserted_modify_id] age to '[new_age]', using [inserted_scan_id] at [AREACOORD(usr)].")
+					inserted_modify_id.age = new_age
+					playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
+		if ("set_gender")
+			if (authenticated)
+				var/t2 = inserted_modify_id
+				if ((authenticated && inserted_modify_id == t2 && (in_range(src, usr) || issilicon(usr)) && isturf(loc)))
+					var/new_gender = href_list["gender_target"]
+					if(!new_gender)
+						to_chat(usr, "<span class='error'>Invalid name entered.</span>")
+						updateUsrDialog()
+						return
+					if(!(new_gender in GENDER_OPTIONS))
+						to_chat(usr, "<span class='error'>Invalid gender entered.</span>")
+						updateUsrDialog()
+						return
+					log_id("[key_name(usr)] changed [inserted_modify_id] gender to '[new_gender]', using [inserted_scan_id] at [AREACOORD(usr)].")
+					inserted_modify_id.registered_gender = new_gender
+					playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
 		if ("mode")
 			mode = text2num(href_list["mode_target"])
 

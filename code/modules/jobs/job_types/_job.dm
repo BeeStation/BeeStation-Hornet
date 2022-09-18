@@ -325,7 +325,7 @@
 	if(istype(C))
 		C.access = J.get_access()
 		shuffle_inplace(C.access) // Shuffle access list to make NTNet passkeys less predictable
-		C.registered_name = H.real_name
+		C.set_basic_info_on_spawn(H)
 		C.assignment = J.title
 		C.set_hud_icon_on_spawn(J.title)
 		C.update_label()

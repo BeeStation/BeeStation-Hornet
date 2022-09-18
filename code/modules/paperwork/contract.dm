@@ -296,7 +296,7 @@
 		id.update_label()
 	else
 		id = new /obj/item/card/id/gold(user.loc)
-		id.registered_name = user.real_name
+		id.set_basic_info_on_spawn(user)
 		id.access = get_all_accesses()+get_all_centcom_access()
 		id.assignment = JOB_NAME_CAPTAIN
 		id.update_label()

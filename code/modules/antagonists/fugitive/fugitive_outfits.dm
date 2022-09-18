@@ -82,7 +82,7 @@
 		return
 	var/obj/item/card/id/W = H.wear_id
 	W.assignment = "Police Officer"
-	W.registered_name = H.real_name
+	W.set_basic_info_on_spawn(H)
 	W.update_label()
 
 /datum/outfit/russiancorpse/hunter
@@ -114,7 +114,7 @@
 		return
 	var/obj/item/card/id/W = H.wear_id
 	W.assignment = "Bounty Hunter"
-	W.registered_name = H.real_name
+	W.set_basic_info_on_spawn(H)
 	W.update_label()
 
 /datum/outfit/bountyhook

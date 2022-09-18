@@ -1,11 +1,13 @@
 /mob/living/carbon/human/examine(mob/user)
 //this is very slightly better than it was because you can use it more places. still can't do \his[src] though.
 	var/t_He = p_they(TRUE)
+	var/t_he = p_they()
 	var/t_His = p_their(TRUE)
 	var/t_his = p_their()
 	var/t_him = p_them()
 	var/t_has = p_have()
 	var/t_is = p_are()
+	var/t_s = p_s()
 	var/t_es = p_es()
 	var/obscure_name
 
@@ -21,6 +23,8 @@
 	if(dna?.species && !skipface)
 		apparent_species = ", \an [dna.species.name]"
 	. = list("<span class='info'>*---------*\nThis is <EM>[!obscure_name ? name : "Unknown"][apparent_species]</EM>!")
+	if(!obscure_name)
+		. += list("You assume [t_he] seem[t_s] to be [measure_age(get_face_info(target=RETURNS_AGE))] by judging [t_his] visible age.")
 
 	//uniform
 	if(w_uniform && !(obscured & ITEM_SLOT_ICLOTHING))

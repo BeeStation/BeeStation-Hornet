@@ -20,7 +20,7 @@
 
 	var/obj/item/card/id/W = H.wear_id
 	if(W)
-		W.registered_name = H.real_name
+		W.set_basic_info_on_spawn(H)
 		W.update_label()
 	..()
 
@@ -191,7 +191,7 @@
 	W.access = get_centcom_access(JOB_CENTCOM_OFFICIAL)
 	W.access += ACCESS_WEAPONS
 	W.assignment = JOB_CENTCOM_OFFICIAL
-	W.registered_name = H.real_name
+	W.set_basic_info_on_spawn(H)
 	W.update_label()
 
 /datum/outfit/ert/commander/inquisitor
@@ -348,7 +348,7 @@
 	W.access = get_centcom_access(name)
 	W.access += ACCESS_WEAPONS
 	W.assignment = name
-	W.registered_name = H.real_name
+	W.set_basic_info_on_spawn(H)
 	W.update_label()
 
 /datum/outfit/centcom_intern/leader
@@ -394,7 +394,7 @@
 	ADD_TRAIT(H, TRAIT_NAIVE, INNATE_TRAIT)
 
 	var/obj/item/card/id/W = H.wear_id
-	W.registered_name = H.real_name
+	W.set_basic_info_on_spawn(H)
 	W.access += ACCESS_THEATRE
 	W.update_label(W.registered_name, W.assignment)
 	H.dna.add_mutation(CLOWNMUT)
@@ -460,7 +460,7 @@
 	W.access = get_all_accesses()//They get full station access.
 	W.access += get_centcom_access(JOB_ERT_DEATHSQUAD)//Let's add their alloted CentCom access.
 	W.assignment = JOB_ERT_DEATHSQUAD
-	W.registered_name = H.real_name
+	W.set_basic_info_on_spawn(H)
 	W.update_label(W.registered_name, W.assignment)
 
 /datum/outfit/death_commando/officer

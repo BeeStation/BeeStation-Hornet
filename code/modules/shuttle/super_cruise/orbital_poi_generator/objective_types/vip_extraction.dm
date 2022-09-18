@@ -94,7 +94,7 @@
 	if(H.wear_id?.GetID())
 		var/obj/item/card/id/I = H.wear_id.GetID()
 		if(I)
-			I.registered_name = H.real_name
+			I.set_basic_info_on_spawn(H)
 			I.update_label()
 
 

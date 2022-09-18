@@ -237,7 +237,7 @@
 			W.access |= id_access_list
 		if(id_job)
 			W.assignment = id_job
-		W.registered_name = H.real_name
+		W.set_basic_info_on_spawn(H)
 		W.update_label()
 
 //Instant version - use when spawning corpses during runtime

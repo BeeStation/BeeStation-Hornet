@@ -399,7 +399,7 @@
 		var/mob/living/carbon/human/H = L
 		var/obj/item/worn = H.wear_id
 		var/obj/item/card/id/id = worn.GetID()
-		id.registered_name = L.real_name
+		id.set_basic_info_on_spawn(L)
 		id.update_label()
 	else
 		to_chat(L, "<span class='userdanger'>Your owner is already dead!  You will soon perish.</span>")

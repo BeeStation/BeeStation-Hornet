@@ -66,7 +66,7 @@
 		owner.copy_languages(target, LANGUAGE_ABSORB)
 
 		var/datum/mind/suckedbrain = target.mind
-		user.mind.memory += "<b>We've absorbed [target.mind?.name | target.real_name]'s memories into our own...</b><BR>[suckedbrain.memory]<BR>"
+		user.mind.memory += "<b>We've absorbed [target?.mind.name ? target.mind.name : target.real_name]'s memories into our own...</b><BR>[suckedbrain.memory]<BR>"
 		for(var/A in suckedbrain.antag_datums)
 			var/datum/antagonist/antag_types = A
 			var/list/all_objectives = antag_types.objectives.Copy()
