@@ -65,7 +65,9 @@
 #define ADMIN_PUNISHMENT_DCHAT_ANARCHY "Deadchat Control (Anarchy)"
 #define ADMIN_PUNISHMENT_DCHAT_DEMOCRACY "Deadchat Control (Democracy)"
 #define ADMIN_PUNISHMENT_FIREBALL "Fireball"
-#define ADMIN_PUNISHMENT_FLOORCLUWNE "Floor Cluwne"
+#define ADMIN_PUNISHMENT_FLOORCLUWNE "Floor Cluwne (Aggressive)"
+#define ADMIN_PUNISHMENT_FLOORCLUWNE_STALKER "Floor Cluwne (Stalker)"
+#define ADMIN_PUNISHMENT_FORCESAY "Forcesay"
 #define ADMIN_PUNISHMENT_GHOST "Offer To Ghosts"
 #define ADMIN_PUNISHMENT_GIB "Admingib"
 #define ADMIN_PUNISHMENT_IMMERSE "Fully Immerse"
@@ -80,6 +82,7 @@
 #define ADMIN_PUNISHMENT_SUPPLYPOD_QUICK "Supply Pod (Quick)"
 #define ADMIN_PUNISHMENT_TOE "Stub Toe (Once)"
 #define ADMIN_PUNISHMENT_TOEPLUS "Stub Toe (Always)"
+#define ADMIN_PUNISHMENT_VOICE_OF_GOD "Voice of God"
 
 #define AHELP_UNCLAIMED 1
 #define AHELP_ACTIVE 2

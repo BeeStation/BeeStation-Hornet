@@ -1088,6 +1088,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		ADMIN_PUNISHMENT_DCHAT_ANARCHY,
 		ADMIN_PUNISHMENT_DCHAT_DEMOCRACY,
 		ADMIN_PUNISHMENT_FIREBALL,
+		ADMIN_PUNISHMENT_FORCESAY,
 		ADMIN_PUNISHMENT_GHOST,
 		ADMIN_PUNISHMENT_GIB,
 		ADMIN_PUNISHMENT_IMMERSE,
@@ -1097,13 +1098,15 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		ADMIN_PUNISHMENT_ROD,
 		ADMIN_PUNISHMENT_SLEEP,
 		ADMIN_PUNISHMENT_SUPPLYPOD,
-		ADMIN_PUNISHMENT_SUPPLYPOD_QUICK
+		ADMIN_PUNISHMENT_SUPPLYPOD_QUICK,
+		ADMIN_PUNISHMENT_VOICE_OF_GOD
 	)
 	if(istype(target, /mob/living/carbon))
 		punishment_list += ADMIN_PUNISHMENT_COOKIE
 		punishment_list += ADMIN_PUNISHMENT_NUGGET
 	if(ishuman(target))
 		punishment_list += ADMIN_PUNISHMENT_FLOORCLUWNE
+		punishment_list += ADMIN_PUNISHMENT_FLOORCLUWNE_STALKER
 		punishment_list += ADMIN_PUNISHMENT_STALKER
 		punishment_list += ADMIN_PUNISHMENT_TOE
 		punishment_list += ADMIN_PUNISHMENT_TOEPLUS
@@ -1176,6 +1179,21 @@ Traitors and the like can also be revived with the previous role mostly intact.
 			FC.force_target(target)
 			FC.stage = 4
 
+		if(ADMIN_PUNISHMENT_FLOORCLUWNE_STALKER)
+			var/mob/living/carbon/human/H = target
+			var/mob/living/simple_animal/hostile/floor_cluwne/FC = new /mob/living/simple_animal/hostile/floor_cluwne(get_turf(target))
+			FC.force_target(H)
+			FC.delete_after_target_killed = TRUE
+
+		if(ADMIN_PUNISHMENT_FORCESAY)
+			var/forced_speech = input(usr, "What will they say?") as null|text
+			if(isnull(forced_speech)) //The user pressed "Cancel"
+				return
+
+			target.say(forced_speech, forced = "admin speech")
+
+			punishment += ": \"[forced_speech]\""
+
 		if(ADMIN_PUNISHMENT_GHOST)
 			if (target.key)
 				target.ghostize(FALSE,SENTIENCE_FORCE)
@@ -1222,7 +1240,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 			new /obj/effect/immovablerod(startT, endT,target)
 
 		if(ADMIN_PUNISHMENT_SLEEP)
-			target.visible_message("<span class ='danger'>[target] faints in fear!.</span>", "<span class ='userdanger'>You faint in the presence of God!</span>")
+			target.visible_message("<span class ='danger'>[target] faints in fear!</span>", "<span class ='userdanger'>You faint in the presence of God!</span>")
 			target.Sleeping(300, TRUE, TRUE)
 
 		if(ADMIN_PUNISHMENT_STALKER)
@@ -1267,6 +1285,20 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 		if(ADMIN_PUNISHMENT_TOEPLUS)
 			ADD_TRAIT(target, TRAIT_ALWAYS_STUBS, "adminabuse")
+
+		if(ADMIN_PUNISHMENT_VOICE_OF_GOD)
+			var/target_sound = input(usr, "Enter the filepath of the sound they will hear.", "God Soundfile", 'sound/magic/clockwork/invoke_general.ogg') as null|text
+			var/target_speech = input(usr, "What will they hear from God?", "Divine Command", "Cease your heresy.") as null|text
+			if(isnull(target_sound) || isnull(target_speech)) //The user pressed "Cancel"
+				return
+
+			target.visible_message("<span class='warning'>[target] faints!</span>", "<span class='narsie'>[target_speech]</span>")
+			target.playsound_local(get_turf(target), target_sound, 200, 1)
+			target.Paralyze(300)
+			target.Jitter(100)
+			target.confused += 50
+
+			punishment += ": \"[target_speech]\""
 
 	punish_log(target, punishment)
 
