@@ -1097,8 +1097,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		ADMIN_PUNISHMENT_ROD,
 		ADMIN_PUNISHMENT_SLEEP,
 		ADMIN_PUNISHMENT_SUPPLYPOD,
-		ADMIN_PUNISHMENT_SUPPLYPOD_QUICK,
-		ADMIN_PUNISHMENT_TABLE
+		ADMIN_PUNISHMENT_SUPPLYPOD_QUICK
 	)
 	if(istype(target, /mob/living/carbon))
 		punishment_list += ADMIN_PUNISHMENT_COOKIE
@@ -1260,15 +1259,6 @@ Traitors and the like can also be revived with the previous role mostly intact.
 						return
 				new delivery(pod)
 			new /obj/effect/pod_landingzone(get_turf(target), pod)
-
-		if(ADMIN_PUNISHMENT_TABLE)
-			var/mob/dead/observer/temp_ghost = new()
-			temp_ghost.name = "Something"
-			for(var/obj/structure/table/tabele in world)
-				if(tabele.z == target.z)
-					tabele.tablepush(temp_ghost, target, FALSE)
-					sleep(1)
-			qdel(temp_ghost)
 
 		if(ADMIN_PUNISHMENT_TOE)
 			var/mob/living/carbon/human/H = target

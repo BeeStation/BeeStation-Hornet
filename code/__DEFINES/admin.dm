@@ -78,7 +78,6 @@
 #define ADMIN_PUNISHMENT_STALKER "Give Stalker Trauma"
 #define ADMIN_PUNISHMENT_SUPPLYPOD "Supply Pod"
 #define ADMIN_PUNISHMENT_SUPPLYPOD_QUICK "Supply Pod (Quick)"
-#define ADMIN_PUNISHMENT_TABLE "TABLE them"
 #define ADMIN_PUNISHMENT_TOE "Stub Toe (Once)"
 #define ADMIN_PUNISHMENT_TOEPLUS "Stub Toe (Always)"
 
