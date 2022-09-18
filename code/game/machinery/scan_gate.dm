@@ -111,8 +111,8 @@
 			if(ishuman(M))
 				var/mob/living/carbon/human/H = M
 				var/perpname = H.get_face_info(H.get_id_info())
-				var/perp_age = H.get_face_info(get_id_info(target=RETURNS_AGE), RETURNS_AGE)
-				var/perp_gender = H.get_face_info(get_id_info(target=RETURNS_GENDER), RETURNS_GENDER)
+				var/perp_age = H.get_face_info(H.get_id_info(target=RETURNS_AGE), RETURNS_AGE)
+				var/perp_gender = H.get_face_info(H.get_id_info(target=RETURNS_GENDER), RETURNS_GENDER)
 				var/datum/data/record/R = find_datacore_individual(perpname, perp_age, perp_gender, GLOB.data_core.security, TRUE)
 				if(!R || (R.fields["criminal"] == "*Arrest*"))
 					beep = TRUE
