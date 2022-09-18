@@ -713,7 +713,7 @@
 	pixel_y = -30
 	},
 /obj/structure/bed/double,
-/obj/item/bedsheet/cmo/double,
+/obj/item/bedsheet/double/cmo,
 /turf/open/floor/carpet/royalblue,
 /area/crew_quarters/heads/cmo)
 "akG" = (
@@ -2852,7 +2852,7 @@
 	pixel_x = 24
 	},
 /obj/structure/bed/double,
-/obj/item/bedsheet/hos/double,
+/obj/item/bedsheet/double/hos,
 /turf/open/floor/carpet/red,
 /area/crew_quarters/heads/hos)
 "aKS" = (
@@ -23216,7 +23216,7 @@
 /area/security/courtroom)
 "fkx" = (
 /obj/structure/bed/double,
-/obj/item/bedsheet/hop/double,
+/obj/item/bedsheet/double/hop,
 /turf/open/floor/carpet/blue,
 /area/crew_quarters/heads/hop)
 "fkA" = (
@@ -38292,7 +38292,7 @@
 	pixel_y = 1
 	},
 /obj/structure/bed/double,
-/obj/item/bedsheet/ce/double,
+/obj/item/bedsheet/double/ce,
 /obj/effect/landmark/start/chief_engineer,
 /turf/open/floor/carpet/orange,
 /area/crew_quarters/heads/chief)
@@ -55884,7 +55884,7 @@
 /area/quartermaster/exploration_prep)
 "mUj" = (
 /obj/structure/bed/double,
-/obj/item/bedsheet/qm/double,
+/obj/item/bedsheet/double/qm,
 /turf/open/floor/wood,
 /area/quartermaster/qm)
 "mUv" = (
@@ -56345,7 +56345,7 @@
 	pixel_y = 2
 	},
 /obj/structure/bed/double,
-/obj/item/bedsheet/dorms/double,
+/obj/item/bedsheet/double/dorms,
 /turf/open/floor/plasteel/dark,
 /area/security/main)
 "mZR" = (
@@ -59676,7 +59676,7 @@
 	pixel_y = -28
 	},
 /obj/structure/bed/double,
-/obj/item/bedsheet/rd/double,
+/obj/item/bedsheet/double/rd,
 /turf/open/floor/carpet/purple,
 /area/crew_quarters/heads/hor)
 "nPb" = (
@@ -87476,7 +87476,7 @@
 	pixel_x = 24
 	},
 /obj/structure/bed/double,
-/obj/item/bedsheet/captain/double,
+/obj/item/bedsheet/double/captain,
 /obj/effect/landmark/start/captain,
 /turf/open/floor/wood,
 /area/crew_quarters/heads/captain/private)
@@ -94346,7 +94346,7 @@
 	pixel_y = 2
 	},
 /obj/structure/bed/double/pod,
-/obj/item/bedsheet/dorms/double,
+/obj/item/bedsheet/double/dorms,
 /turf/open/floor/carpet/green,
 /area/crew_quarters/dorms)
 "wcI" = (

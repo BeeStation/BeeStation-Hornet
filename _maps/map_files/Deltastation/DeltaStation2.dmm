@@ -21634,7 +21634,7 @@
 	c_tag = "Security - Head of Security's Quarters"
 	},
 /obj/structure/bed/double,
-/obj/item/bedsheet/hos/double,
+/obj/item/bedsheet/double/hos,
 /turf/open/floor/carpet/red,
 /area/crew_quarters/heads/hos)
 "bmC" = (
@@ -33302,7 +33302,7 @@
 	dir = 1
 	},
 /obj/structure/bed/double,
-/obj/item/bedsheet/ce/double,
+/obj/item/bedsheet/double/ce,
 /turf/open/floor/carpet/orange,
 /area/crew_quarters/heads/chief)
 "bSg" = (
@@ -41736,7 +41736,7 @@
 	pixel_x = -32
 	},
 /obj/structure/bed/double,
-/obj/item/bedsheet/hop/double,
+/obj/item/bedsheet/double/hop,
 /turf/open/floor/carpet/royalblue,
 /area/crew_quarters/heads/hop)
 "cod" = (
@@ -61989,7 +61989,7 @@
 	dir = 4
 	},
 /obj/structure/bed/double,
-/obj/item/bedsheet/rd/double,
+/obj/item/bedsheet/double/rd,
 /turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/hor)
 "dAJ" = (
@@ -64278,7 +64278,7 @@
 	dir = 8
 	},
 /obj/structure/bed/double,
-/obj/item/bedsheet/cmo/double,
+/obj/item/bedsheet/double/cmo,
 /turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/cmo)
 "dHW" = (
