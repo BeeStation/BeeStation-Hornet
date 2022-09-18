@@ -458,7 +458,7 @@
 		updatehealth()
 		add_fingerprint(user)
 		user.visible_message("[user] has fixed some of the dents on [src].", "<span class='notice'>You fix some of the dents on [src].</span>")
-		return
+		return TRUE
 
 	else if(istype(W, /obj/item/stack/cable_coil) && wiresexposed)
 		user.changeNext_move(CLICK_CD_MELEE)
