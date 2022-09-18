@@ -1,0 +1,8 @@
+author: itsmeow
+delete-after: true
+changes:
+  - tweak: Emagged tablets can use Cyborg Monitoring's message feature without an
+      ID inserted.
+  - rscadd: Added a syndicate version of Cyborg Monitoring for messaging/monitoring
+      syndicate borgs.
+  - admin: Added an IC filter check and logging to Cyborg Monitoring messages.
