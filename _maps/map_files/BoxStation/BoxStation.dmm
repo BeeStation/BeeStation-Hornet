@@ -30392,7 +30392,7 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 8
 	},
-/turf/open/floor/noslip/white,
+/turf/open/floor/plasteel/white,
 /area/science/research)
 "cUP" = (
 /obj/structure/cable/yellow{
