@@ -1,0 +1,5 @@
+author: etherware-novice
+delete-after: true
+changes:
+  - rscadd: IPC chassis's (and ethereals) have been modified to interface with heavy-duty
+      inducers
