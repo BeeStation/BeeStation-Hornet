@@ -71,6 +71,7 @@
 #define ADMIN_PUNISHMENT_IMMERSE "Fully Immerse"
 #define ADMIN_PUNISHMENT_LIGHTNING "Lightning Bolt"
 #define ADMIN_PUNISHMENT_NUGGET "Nugget"
+#define ADMIN_PUNISHMENT_PACIFISM "Force Pacifism"
 #define ADMIN_PUNISHMENT_PUZZLE "Puzzle"
 #define ADMIN_PUNISHMENT_ROD "Immovable Rod"
 #define ADMIN_PUNISHMENT_SLEEP "Force Sleep"

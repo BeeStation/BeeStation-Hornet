@@ -1092,6 +1092,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		ADMIN_PUNISHMENT_GIB,
 		ADMIN_PUNISHMENT_IMMERSE,
 		ADMIN_PUNISHMENT_LIGHTNING,
+		ADMIN_PUNISHMENT_PACIFISM,
 		ADMIN_PUNISHMENT_PUZZLE,
 		ADMIN_PUNISHMENT_ROD,
 		ADMIN_PUNISHMENT_SLEEP,
@@ -1204,6 +1205,10 @@ Traitors and the like can also be revived with the previous role mostly intact.
 				if(BP.body_part != HEAD && BP.body_part != CHEST)
 					if(BP.dismemberable)
 						BP.dismember()
+
+		if(ADMIN_PUNISHMENT_PACIFISM)
+			ADD_TRAIT(target, TRAIT_PACIFISM, "adminabuse")
+			to_chat(target, "<span class='danger'>You feel repulsed by the thought of violence!</span>")
 
 		if(ADMIN_PUNISHMENT_PUZZLE)
 			if(!puzzle_imprison(target))
