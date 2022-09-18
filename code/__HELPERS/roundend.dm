@@ -166,7 +166,7 @@
 		if(outer != N)
 			if(isliving(outer))
 				var/mob/living/L = outer
-				data["holder"] = L.mind.name
+				data["holder"] = L.mind?.name || L.real_name
 			else
 				data["holder"] = outer.name
 
