@@ -1,5 +1,0 @@
-author: PestoVerde322
-delete-after: true
-changes:
-  - code_imp: fixed broken bedsheets spawners and their worn icons
-  - refactor: refactored how bedsheets works
