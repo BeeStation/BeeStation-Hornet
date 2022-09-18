@@ -163,8 +163,9 @@
 
 	parsed.turf_blacklist = turf_blacklist
 	var/datum/map_generator/map_place/map_placer = new(parsed, T.x, T.y, T.z, cropMap=TRUE, no_changeturf=(SSatoms.initialized == INITIALIZATION_INSSATOMS), placeOnTop=should_place_on_top)
-	map_placer.generate()
-	UNTIL(map_placer.completed)
+	map_placer.generate(CALLBACK(src, .proc/on_placement_completed), T, init_atmos, parsed)
+
+/datum/map_template/proc/on_placement_completed(datum/map_generator/map_gen, turf/T, init_atmos, datum/parsed_map/parsed)
 	var/list/bounds = parsed.bounds
 	if(!bounds)
 		return

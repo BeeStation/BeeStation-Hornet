@@ -13,11 +13,17 @@ SUBSYSTEM_DEF(map_generator)
 	/// Length of current run
 	var/current_run_length
 
+/datum/controller/subsystem/map_generator/stat_entry()
+	var/list/things = list()
+	for(var/datum/map_generator/running_generator as() in executing_generators)
+		things += "{Ticks: [running_generator.ticks]}"
+	. = ..("GenCnt:[length(executing_generators)], [things.Join(",")]")
+
 /datum/controller/subsystem/map_generator/fire()
 	if (!length(executing_generators))
 		return
 	//Reset the queue
-	if (current_run_index > length(executing_generators) || !current_run_length)
+	if (current_run_index > current_run_length || !current_run_length)
 		current_run_index = 1
 		current_run_length = length(executing_generators)
 	//Split the tick
