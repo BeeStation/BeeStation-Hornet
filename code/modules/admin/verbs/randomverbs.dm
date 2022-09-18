@@ -1297,7 +1297,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 			target.visible_message("<span class='warning'>[target] faints!</span>", "<span class='narsie'>[target_speech]</span>")
 			target.playsound_local(get_turf(target), target_sound, 200, 1)
-			target.Paralyze(300)
+			target.Paralyze(300, ignore_canstun = TRUE)
 			target.Jitter(100)
 			target.confused += 50
 
