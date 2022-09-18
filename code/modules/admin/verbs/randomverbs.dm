@@ -1128,7 +1128,6 @@ Traitors and the like can also be revived with the previous role mostly intact.
 			target.cluwne()
 
 		if(ADMIN_PUNISHMENT_COOKIE)
-			//TODO: TEST
 			var/mob/living/carbon/H = target
 			H.give_cookie(usr)
 			admin_ticket_log(target, "[key_name_admin(usr)] gave [key_name_admin(target)] a cookie.")
@@ -1258,8 +1257,6 @@ Traitors and the like can also be revived with the previous role mostly intact.
 			new /obj/effect/pod_landingzone(get_turf(target), pod)
 
 		if(ADMIN_PUNISHMENT_TABLE)
-			//TODO: TEST THIS SHIT
-
 			var/mob/dead/observer/temp_ghost = new()
 			temp_ghost.name = "Something"
 			for(var/obj/structure/table/tabele in world)
