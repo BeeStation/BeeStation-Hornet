@@ -1,0 +1,4 @@
+author: EvilDragonfiend
+delete-after: true
+changes:
+  - bugfix: blood brothers implant will show your true name instead of fake names
