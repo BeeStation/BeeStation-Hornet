@@ -62,10 +62,11 @@
 				++xcrd
 			--ycrd
 
-/datum/map_template/shuttle/load(turf/T, centered, register=TRUE)
+/datum/map_template/shuttle/load(turf/T, centered, init_atmos, register = TRUE)
 	. = ..()
-	if(!.)
-		return
+
+/datum/map_template/shuttle/on_placement_completed(datum/map_generator/map_gen, turf/T, init_atmos, datum/parsed_map/parsed, register = TRUE)
+	. = ..()
 	var/list/turfs = block(	locate(.[MAP_MINX], .[MAP_MINY], .[MAP_MINZ]),
 							locate(.[MAP_MAXX], .[MAP_MAXY], .[MAP_MAXZ]))
 	for(var/i in 1 to turfs.len)

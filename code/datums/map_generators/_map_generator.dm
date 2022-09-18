@@ -4,14 +4,17 @@
 /datum/map_generator
 	var/completed = FALSE
 	var/ticks = 0
-	var/datum/callback/on_completion
+	var/list/datum/callback/completion_callbacks = list()
 	var/list/callback_args
 
 /// Begin generating
-/datum/map_generator/proc/generate(datum/callback/completion_callback, ...)
+/datum/map_generator/proc/generate(...)
 	SSmap_generator.executing_generators += src
-	on_completion = completion_callback
-	callback_args = args
+	if (length(args) > 1)
+		callback_args = args.Copy(2)
+
+/datum/map_generator/proc/on_completion(datum/callback/completion_callback)
+	completion_callbacks += completion_callback
 
 /// Execute a current run.
 /// Returns TRUE if finished
@@ -23,5 +26,7 @@
 	message_admins("Map generator [type] finished generating in [ticks] ticks.")
 	completed = TRUE
 	var/list/arguments = list(src)
-	arguments += callback_args
-	on_completion?.Invoke(arguments)
+	if (callback_args)
+		arguments += callback_args
+	for (var/datum/callback/on_completion as() in completion_callbacks)
+		on_completion?.Invoke(arglist(arguments))

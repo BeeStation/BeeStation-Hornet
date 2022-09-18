@@ -35,7 +35,7 @@
 	var/run_stage = 0
 
 	var/list/area_cache = list()
-	var/list/model_cache = list()
+	var/list/model_cache
 	var/space_key = null
 	var/list/bounds
 
@@ -85,15 +85,14 @@
 
 /datum/map_generator/map_place/execute_run()
 	..()
-	switch (current_run)
-		if (GENERATE_STAGE_BUILD_CACHE_START)
-			build_cache_start()
-		if (GENERATE_STAGE_BUILD_CACHE)
-			build_cache()
-		if (GENERATE_STAGE_BUILD_COORDINATES_START)
-			build_coordinates_start()
-		if (GENERATE_STAGE_BUILD_COORDINATES)
-			build_coordinates()
+	if (current_run == GENERATE_STAGE_BUILD_CACHE_START)
+		build_cache_start()
+	if (current_run == GENERATE_STAGE_BUILD_CACHE)
+		build_cache()
+	if (current_run == GENERATE_STAGE_BUILD_COORDINATES_START)
+		build_coordinates_start()
+	if (current_run == GENERATE_STAGE_BUILD_COORDINATES)
+		build_coordinates()
 	. = current_run == GENERATE_STAGE_COMPLETED
 
 /datum/map_generator/map_place/proc/set_stage(stage)
@@ -222,6 +221,8 @@
 		model_cache = placing_template.modelCache
 		set_stage(GENERATE_STAGE_BUILD_COORDINATES_START)
 		return
+	//Set these all to be the same reference
+	model_cache = placing_template.modelCache = list()
 	set_stage(GENERATE_STAGE_BUILD_CACHE)
 	//Set the grid models
 	grid_models = placing_template.grid_models
@@ -286,6 +287,10 @@
 	model = grid_models[model_key]
 	members = list()
 	members_attributes = list()
+	//Reset dpos for next loop
+	dpos = null
+	index = 1
+	old_position = 1
 
 /// Constructing members and corresponding variables lists
 /datum/map_generator/map_place/proc/build_cache_construct_members()

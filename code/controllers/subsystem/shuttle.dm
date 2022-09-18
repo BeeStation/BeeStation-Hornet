@@ -658,10 +658,17 @@ SUBSYSTEM_DEF(shuttle)
 		QDEL_NULL(preview_reservation)
 
 	if(!preview_shuttle)
-		if(load_template(loading_template))
-			preview_shuttle.linkup(loading_template, destination_port)
+		var/datum/map_generator/shuttle_loader = load_template(loading_template)
+		shuttle_loader.on_completion(CALLBACK(src, .proc/linkup_shuttle_after_load, loading_template, destination_port))
+		shuttle_loader.on_completion(CALLBACK(src, .proc/action_load_completed, destination_port))
 		preview_template = loading_template
+	else
+		action_load_completed(destination_port)
 
+/datum/controller/subsystem/shuttle/proc/linkup_shuttle_after_load(datum/map_template/shuttle/loading_template, obj/docking_port/stationary/destination_port)
+	preview_shuttle.linkup(loading_template, destination_port)
+
+/datum/controller/subsystem/shuttle/proc/action_load_completed(obj/docking_port/stationary/destination_port)
 	// get the existing shuttle information, if any
 	var/timer = 0
 	var/mode = SHUTTLE_IDLE
@@ -722,8 +729,13 @@ SUBSYSTEM_DEF(shuttle)
 	if(!preview_reservation)
 		CRASH("failed to reserve an area for shuttle template loading")
 	var/turf/BL = TURF_FROM_COORDS_LIST(preview_reservation.bottom_left_coords)
-	S.load(BL, centered = FALSE, register = FALSE)
+	var/datum/map_generator/shuttle_loader = S.load(BL, FALSE, TRUE, FALSE)
+	shuttle_loader.on_completion(CALLBACK(src, .proc/template_loaded, S, BL))
+	return shuttle_loader
 
+/// Template loaded completed.
+/// Parameters preceeded by _ are discarded and not used.
+/datum/controller/subsystem/shuttle/proc/template_loaded(datum/map_template/shuttle/S, turf/BL)
 	var/affected = S.get_affected_turfs(BL, centered=FALSE)
 
 	var/found = 0
@@ -884,10 +896,9 @@ SUBSYSTEM_DEF(shuttle)
 			if(S)
 				. = TRUE
 				unload_preview()
-				load_template(S)
-				if(preview_shuttle)
-					preview_template = S
-					user.forceMove(get_turf(preview_shuttle))
+				var/datum/map_generator/shuttle_loader = load_template(S)
+				shuttle_loader.on_completion(CALLBACK(src, .proc/jump_to_preview, user))
+				preview_template = S
 		if("load")
 			if(existing_shuttle == backup_shuttle)
 				// TODO make the load button disabled
@@ -903,3 +914,7 @@ SUBSYSTEM_DEF(shuttle)
 					message_admins("[key_name_admin(usr)] loaded [mdp] with the shuttle manipulator.")
 					log_admin("[key_name(usr)] loaded [mdp] with the shuttle manipulator.</span>")
 					SSblackbox.record_feedback("text", "shuttle_manipulator", 1, "[mdp.name]")
+
+/datum/controller/subsystem/shuttle/proc/jump_to_preview(mob/user)
+	if(preview_shuttle)
+		user.forceMove(get_turf(preview_shuttle))

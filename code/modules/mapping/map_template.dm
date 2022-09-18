@@ -136,8 +136,7 @@
 	var/datum/parsed_map/parsed = new(file(mappath))
 	parsed.load(T.x, T.y, T.z, cropMap=TRUE, no_changeturf=TRUE, placeOnTop=should_place_on_top)
 
-/datum/map_template/proc/load(turf/T, centered = FALSE, init_atmos = TRUE)
-	set waitfor = FALSE
+/datum/map_template/proc/load(turf/T, centered = FALSE, init_atmos = TRUE, ...)
 	if(centered)
 		T = locate(T.x - round(width/2) , T.y - round(height/2) , T.z)
 	if(!T)
@@ -163,9 +162,11 @@
 
 	parsed.turf_blacklist = turf_blacklist
 	var/datum/map_generator/map_place/map_placer = new(parsed, T.x, T.y, T.z, cropMap=TRUE, no_changeturf=(SSatoms.initialized == INITIALIZATION_INSSATOMS), placeOnTop=should_place_on_top)
-	map_placer.generate(CALLBACK(src, .proc/on_placement_completed), T, init_atmos, parsed)
+	map_placer.on_completion(CALLBACK(src, .proc/on_placement_completed))
+	map_placer.generate(T, init_atmos, parsed, args)
+	return map_placer
 
-/datum/map_template/proc/on_placement_completed(datum/map_generator/map_gen, turf/T, init_atmos, datum/parsed_map/parsed)
+/datum/map_template/proc/on_placement_completed(datum/map_generator/map_gen, turf/T, init_atmos, datum/parsed_map/parsed, ...)
 	var/list/bounds = parsed.bounds
 	if(!bounds)
 		return
@@ -177,6 +178,7 @@
 	initTemplateBounds(bounds, init_atmos)
 
 	log_game("[name] loaded at [T.x],[T.y],[T.z]")
+
 	return bounds
 
 /datum/map_template/proc/update_blacklist(turf/T, list/input_blacklist)
