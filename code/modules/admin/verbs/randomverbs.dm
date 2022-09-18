@@ -1080,6 +1080,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 	var/list/punishment_list = list(
 		ADMIN_PUNISHMENT_AHEAL,
+		ADMIN_PUNISHMENT_ANIMALIZE,
 		ADMIN_PUNISHMENT_BRAINDAMAGE,
 		ADMIN_PUNISHMENT_BSA,
 		ADMIN_PUNISHMENT_CLUWNE,
@@ -1120,6 +1121,9 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		if(ADMIN_PUNISHMENT_AHEAL)
 			target.revive(full_heal = 1, admin_revive = 1)
 
+		if(ADMIN_PUNISHMENT_ANIMALIZE)
+			target.Animalize()
+
 		if(ADMIN_PUNISHMENT_BRAINDAMAGE)
 			target.adjustOrganLoss(ORGAN_SLOT_BRAIN, 199, 199)
 
@@ -1127,7 +1131,6 @@ Traitors and the like can also be revived with the previous role mostly intact.
 			bluespace_artillery(target)
 
 		if(ADMIN_PUNISHMENT_CLUWNE)
-			message_admins("[usr] cluwned [target]")
 			target.cluwne()
 
 		if(ADMIN_PUNISHMENT_COOKIE)
@@ -1308,18 +1311,18 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		if(ishuman(src))
 			src.update_inv_hands()
 		log_admin("[key_name(src)] got their cookie, spawned by [key_name(admin_client)].")
-		message_admins("[key_name(src)] got their cookie, spawned by [key_name(admin_client)].")
+		message_admins("[key_name_admin(src)] got their cookie, spawned by [key_name(admin_client)].")
 		to_chat(src, "<span class='adminnotice'>Your prayers have been answered!! You received the <b>best cookie</b>!</span>")
 		SEND_SOUND(src, sound('sound/effects/pray_chaplain.ogg'))
 	else
 		qdel(cookie)
 		log_admin("[key_name(src)] has their hands full, so they did not receive their cookie, spawned by [key_name(admin_client)].")
-		message_admins("[key_name(src)] has their hands full, so they did not receive their cookie, spawned by [key_name(admin_client)].")
+		message_admins("[key_name_admin(src)] has their hands full, so they did not receive their cookie, spawned by [key_name(admin_client)].")
 
 /client/proc/punish_log(var/whom, var/punishment)
 	var/msg = "[key_name_admin(usr)] punished [key_name_admin(whom)] with [punishment]."
-	message_admins(msg)
 	admin_ticket_log(whom, msg)
+	message_admins(msg)
 	log_admin("[key_name(usr)] punished [key_name(whom)] with [punishment].")
 
 /client/proc/trigger_centcom_recall()

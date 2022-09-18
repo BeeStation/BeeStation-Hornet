@@ -56,6 +56,7 @@
 #define ADMIN_RETRIEVE_BOH_ITEMS(boh) "(<a href='?_src_=holder;[HrefToken(TRUE)];retrieveboh=[REF(boh)]'>RETRIEVE CONSUMED ITEMS</a>)"
 
 #define ADMIN_PUNISHMENT_AHEAL "Adminheal"
+#define ADMIN_PUNISHMENT_ANIMALIZE "Make into simplemob"
 #define ADMIN_PUNISHMENT_BRAINDAMAGE "Give Brain Damage"
 #define ADMIN_PUNISHMENT_BSA "Bluespace Artillery Device"
 #define ADMIN_PUNISHMENT_CLUWNE "Make Cluwne"
