@@ -24,10 +24,10 @@
 #define ACCOUNT_SRV_NAME "Service Budget"
 #define ACCOUNT_CAR_ID "Cargo"
 #define ACCOUNT_CAR_NAME "Cargo Budget"
-#define ACCOUNT_ENG_ID "Engineering"
-#define ACCOUNT_ENG_NAME "Engineering Budget"
 #define ACCOUNT_SCI_ID "Science"
 #define ACCOUNT_SCI_NAME "Scientific Budget"
+#define ACCOUNT_ENG_ID "Engineering"
+#define ACCOUNT_ENG_NAME "Engineering Budget"
 #define ACCOUNT_MED_ID "Medical"
 #define ACCOUNT_MED_NAME "Medical Budget"
 #define ACCOUNT_SEC_ID "Security"
@@ -40,16 +40,16 @@
 #define ACCOUNT_ALL_NAME "United Station Budget" // for negative station trait - united budget
 
 // If a vending machine matches its department flag with your bank account's, it gets free.
-#define NO_FREEBIES (1<<0) // used for a vendor selling nothing for free
-#define ACCOUNT_COM_BITFLAG (1<<1) // for Commander only vendor items (i.e. HoP cartridge vendor)
-#define ACCOUNT_CIV_BITFLAG (1<<2)
-#define ACCOUNT_SRV_BITFLAG (1<<3)
-#define ACCOUNT_CAR_BITFLAG (1<<4)
+#define NO_FREEBIES "commies go home" // used for a vendor selling nothing for free
+#define ACCOUNT_COM_BITFLAG (1<<0) // for Commander only vendor items (i.e. HoP cartridge vendor)
+#define ACCOUNT_CIV_BITFLAG (1<<1)
+#define ACCOUNT_SRV_BITFLAG (1<<2)
+#define ACCOUNT_CAR_BITFLAG (1<<3)
+#define ACCOUNT_SCI_BITFLAG (1<<4)
 #define ACCOUNT_ENG_BITFLAG (1<<5)
-#define ACCOUNT_SCI_BITFLAG (1<<6)
-#define ACCOUNT_MED_BITFLAG (1<<7)
-#define ACCOUNT_SEC_BITFLAG (1<<8)
-#define ACCOUNT_VIP_BITFLAG (1<<9) // for VIP only vendor items. currently not used.
+#define ACCOUNT_MED_BITFLAG (1<<6)
+#define ACCOUNT_SEC_BITFLAG (1<<7)
+#define ACCOUNT_VIP_BITFLAG (1<<8) // for VIP only vendor items. currently not used.
 
 /// How much mail the Economy SS will create per minute, regardless of firing time.
 #define MAX_MAIL_PER_MINUTE 3

@@ -16,12 +16,13 @@
 	minimal_access = list(ACCESS_SEC_DOORS, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_MORGUE, ACCESS_MEDICAL, ACCESS_BRIGPHYS)
 
 	department_flag = ENGSEC
+	crew_manifest_department = ACCOUNT_MED_BITFLAG
 	bank_account_department = ACCOUNT_MED_BITFLAG
 	payment_per_department = list(ACCOUNT_MED_ID = PAYCHECK_MEDIUM)
 	mind_traits = list(TRAIT_MEDICAL_METABOLISM)
 
 	display_order = JOB_DISPLAY_ORDER_BRIG_PHYS
-	departments = DEPARTMENT_BITFLAG_MEDICAL | DEPARTMENT_BITFLAG_SECURITY
+	departments = DEPARTMENT_BITFLAG_MED | DEPARTMENT_BITFLAG_SEC
 	rpg_title = "Battle Cleric"
 
 	species_outfits = list(

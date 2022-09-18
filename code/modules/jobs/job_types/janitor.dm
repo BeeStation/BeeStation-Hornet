@@ -18,7 +18,7 @@
 	payment_per_department = list(ACCOUNT_SRV_ID = PAYCHECK_EASY)
 
 	display_order = JOB_DISPLAY_ORDER_JANITOR
-	departments = DEPARTMENT_BITFLAG_SERVICE
+	departments = DEPARTMENT_BITFLAG_SRV
 	rpg_title = "Groundskeeper"
 	biohazard = 20//cleaning up hazardous messes puts janitors at extra risk
 

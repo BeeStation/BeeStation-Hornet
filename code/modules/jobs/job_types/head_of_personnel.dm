@@ -39,7 +39,7 @@
 		ACCOUNT_SRV_ID = PAYCHECK_COMMAND_DEPT)
 
 	display_order = JOB_DISPLAY_ORDER_HEAD_OF_PERSONNEL
-	departments = DEPARTMENT_BITFLAG_COMMAND | DEPARTMENT_BITFLAG_SERVICE
+	departments = DEPARTMENT_BITFLAG_COM | DEPARTMENT_BITFLAG_SRV
 	rpg_title = "Guild Questgiver"
 
 	species_outfits = list(

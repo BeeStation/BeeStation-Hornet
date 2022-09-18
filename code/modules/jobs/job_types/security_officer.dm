@@ -26,7 +26,7 @@
 	mind_traits = list(TRAIT_LAW_ENFORCEMENT_METABOLISM)
 
 	display_order = JOB_DISPLAY_ORDER_SECURITY_OFFICER
-	departments = DEPARTMENT_BITFLAG_SECURITY
+	departments = DEPARTMENT_BITFLAG_SEC
 	rpg_title = "Guard"
 
 	species_outfits = list(

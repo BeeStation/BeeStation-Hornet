@@ -18,7 +18,7 @@
 	payment_per_department = list(ACCOUNT_SRV_ID = PAYCHECK_MINIMAL)
 
 	display_order = JOB_DISPLAY_ORDER_MIME
-	departments = DEPARTMENT_BITFLAG_SERVICE
+	departments = DEPARTMENT_BITFLAG_SRV
 	rpg_title = "Fool"
 
 	species_outfits = list(

@@ -16,7 +16,7 @@
 	payment_per_department = list(ACCOUNT_CIV_ID = PAYCHECK_ASSISTANT)
 
 	display_order = JOB_DISPLAY_ORDER_ASSISTANT
-	departments = DEPARTMENT_BITFLAG_SERVICE
+	departments = DEPARTMENT_BITFLAG_SRV
 	rpg_title = "Peasant"
 	allow_bureaucratic_error = FALSE
 	outfit = /datum/outfit/job/gimmick
@@ -38,7 +38,7 @@
 	bank_account_department = ACCOUNT_SRV_BITFLAG
 	payment_per_department = list(ACCOUNT_SRV_ID = PAYCHECK_ASSISTANT)
 
-	departments = DEPARTMENT_BITFLAG_SERVICE
+	departments = DEPARTMENT_BITFLAG_SRV
 	rpg_title = "Scissorhands"
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman
@@ -70,7 +70,7 @@
 	bank_account_department = ACCOUNT_SRV_BITFLAG
 	payment_per_department = list(ACCOUNT_SRV_ID = PAYCHECK_MINIMAL)
 
-	departments = DEPARTMENT_BITFLAG_SERVICE
+	departments = DEPARTMENT_BITFLAG_SRV
 	rpg_title = "Master Illusionist"
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/magic
@@ -106,7 +106,7 @@
 	payment_per_department = list(ACCOUNT_MED_ID = PAYCHECK_EASY)
 	mind_traits = list(TRAIT_MADNESS_IMMUNE, TRAIT_MEDICAL_METABOLISM)
 
-	departments = DEPARTMENT_BITFLAG_MEDICAL
+	departments = DEPARTMENT_BITFLAG_MED
 	rpg_title = "Enchanter"
 
 
@@ -137,7 +137,7 @@
 	bank_account_department = ACCOUNT_VIP_BITFLAG
 	payment_per_department = list(ACCOUNT_VIP_ID = PAYCHECK_VIP)  //our power is being fucking rich
 
-	departments = DEPARTMENT_BITFLAG_SERVICE // might need to be changed
+	departments = DEPARTMENT_BITFLAG_SRV // might need to be changed
 	rpg_title = "Master of Patronage"
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/vip

@@ -56,7 +56,7 @@
 	if(get_buyer_id(user))
 		if((ACCESS_HEADS in id_card.access) || (ACCESS_QM in id_card.access))
 			requestonly = FALSE
-			buyer = SSeconomy.get_dep_account(ACCOUNT_CAR_ID) // need to fix
+			buyer = SSeconomy.get_dep_account(ACCOUNT_CAR_ID)
 			can_approve_requests = TRUE
 		else
 			requestonly = TRUE
@@ -219,7 +219,7 @@
 					computer.say("The application rejects [id_card].")
 					return
 				else
-					account = SSeconomy.get_dep_account(ACCOUNT_CAR_ID) // need to fix
+					account = SSeconomy.get_dep_account(ACCOUNT_CAR_ID)
 					if(isnull(account))
 						computer.say("The application failed to identify [id_card].")
 						return
@@ -254,7 +254,7 @@
 				if(SO.id == id)
 					var/obj/item/card/id/id_card = get_buyer_id(usr)
 					if(id_card && id_card?.registered_account)
-						SO.paying_account = SSeconomy.get_dep_account(ACCOUNT_CAR_ID) // need to fix
+						SO.paying_account = SSeconomy.get_dep_account(ACCOUNT_CAR_ID)
 					if(SO.paying_account.is_nonstation_account())
 						return
 					SSshuttle.requestlist -= SO

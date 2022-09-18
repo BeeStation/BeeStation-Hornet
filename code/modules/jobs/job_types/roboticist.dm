@@ -22,7 +22,7 @@
 	payment_per_department = list(ACCOUNT_SCI_ID = PAYCHECK_MEDIUM)
 
 	display_order = JOB_DISPLAY_ORDER_ROBOTICIST
-	departments = DEPARTMENT_BITFLAG_SCIENCE
+	departments = DEPARTMENT_BITFLAG_SCI
 	rpg_title = "Golemancer"
 
 	species_outfits = list(

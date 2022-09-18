@@ -32,7 +32,7 @@
 	mind_traits = list(TRAIT_MEDICAL_METABOLISM)
 
 	display_order = JOB_DISPLAY_ORDER_CHIEF_MEDICAL_OFFICER
-	departments = DEPARTMENT_BITFLAG_MEDICAL | DEPARTMENT_BITFLAG_COMMAND
+	departments = DEPARTMENT_BITFLAG_MED | DEPARTMENT_BITFLAG_COM
 	rpg_title = "High Cleric"
 
 	species_outfits = list(

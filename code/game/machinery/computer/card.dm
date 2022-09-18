@@ -435,8 +435,24 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			var/banking = ""
 			var/datum/bank_account/B = inserted_modify_id?.registered_account
 			if(B)
-				banking += "<b>Bank status:</b>"
+				banking += "<b>Department active & Bank account status:</b>"
 				banking += "<table border='1' cellspacing='1' cellpadding='0'>"
+				// Department active status
+				banking += "<tr>"
+				banking += "<td><b>Department manifest active:</b></td>"
+				var/datum/data/record/R = find_record("name", inserted_modify_id.registered_name, GLOB.data_core.general)
+				if(R)
+					for(var/each in available_paycheck_departments)
+						if(!is_bank_edit_authorized(each))
+							continue
+						if(B.active_departments & available_paycheck_departments[each])
+							banking += "<td><a href='?src=[REF(src)];choice=turn_on_off_department;account=[R.fields["active_dept"]];paycheck_t=[each]'><font color=\"6bc473\">[each]</a></font></td>"
+						else
+							banking += "<td><a href='?src=[REF(src)];choice=turn_on_off_department;account=[R.fields["active_dept"]];paycheck_t=[each]'>[each]</a></td>"
+				else
+					banking += "<td><b>Data not found</b></td>"
+				banking += "</tr>"
+				// Bank vendor free status - Lets you to buy department stuff for free
 				banking += "<tr>"
 				banking += "<td><b>Department Vendor free:</b></td>"
 				for(var/each in available_paycheck_departments)
@@ -447,6 +463,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 					else
 						banking += "<td><a href='?src=[REF(src)];choice=turn_on_off_department;account=[B.account_id];paycheck_t=[each]'>[each]</a></td>"
 				banking += "</tr>"
+				// Payment status
 				banking += "<tr>"
 				banking += "<td><b>Payment per department:</b></td>"
 				for(var/each in available_paycheck_departments)

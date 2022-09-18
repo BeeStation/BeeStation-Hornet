@@ -17,11 +17,12 @@ Assistant
 	minimal_access = list()	//See /datum/job/assistant/get_access()
 
 	department_flag = CIVILIAN
+	crew_manifest_department = ACCOUNT_CIV_BITFLAG
 	bank_account_department = NONE // nothing is free for them
 	payment_per_department = list(ACCOUNT_CIV_ID = PAYCHECK_ASSISTANT) // Get a job. Job reassignment changes your paycheck now. Get over it.
 
 	display_order = JOB_DISPLAY_ORDER_ASSISTANT
-	departments = DEPARTMENT_BITFLAG_SERVICE
+	departments = DEPARTMENT_BITFLAG_SRV
 	rpg_title = "Lout"
 
 	species_outfits = list(

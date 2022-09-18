@@ -14,11 +14,12 @@
 	minimal_access = list(ACCESS_HYDROPONICS, ACCESS_MORGUE, ACCESS_MINERAL_STOREROOM)
 
 	department_flag = CIVILIAN
+	crew_manifest_department = ACCOUNT_SRV_BITFLAG
 	bank_account_department = ACCOUNT_SRV_BITFLAG
 	payment_per_department = list(ACCOUNT_SRV_ID = PAYCHECK_EASY)
 
 	display_order = JOB_DISPLAY_ORDER_BOTANIST
-	departments = DEPARTMENT_BITFLAG_SERVICE
+	departments = DEPARTMENT_BITFLAG_SRV
 	rpg_title = "Gardener"
 
 	species_outfits = list(

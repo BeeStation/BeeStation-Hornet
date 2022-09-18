@@ -20,7 +20,7 @@
 	mind_traits = list(TRAIT_MEDICAL_METABOLISM)
 
 	display_order = JOB_DISPLAY_ORDER_CHEMIST
-	departments = DEPARTMENT_BITFLAG_MEDICAL
+	departments = DEPARTMENT_BITFLAG_MED
 	rpg_title = "Alchemist"
 
 	species_outfits = list(

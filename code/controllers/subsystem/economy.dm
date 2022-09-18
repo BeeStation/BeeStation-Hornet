@@ -155,9 +155,11 @@ SUBSYSTEM_DEF(economy)
 	civ?.adjust_money(civilian_cash)
 	car?.adjust_money(cargo_cash)
 
-	// VIP budget will not dry
+	// these budgets will never dry, but let's supply their money anyway
 	var/datum/bank_account/vip = get_dep_account(ACCOUNT_VIP_ID)
+	var/datum/bank_account/com = get_dep_account(ACCOUNT_COM_ID)
 	vip?.adjust_money(cargo_cash)
+	com?.adjust_money(cargo_cash)
 
 #undef VIP_BUDGET_BASE
 #undef BUDGET_RATIO_TYPE_A

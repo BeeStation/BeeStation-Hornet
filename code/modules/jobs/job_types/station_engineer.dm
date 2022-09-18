@@ -23,7 +23,7 @@
 	payment_per_department = list(ACCOUNT_ENG_ID = PAYCHECK_MEDIUM)
 
 	display_order = JOB_DISPLAY_ORDER_STATION_ENGINEER
-	departments = DEPARTMENT_BITFLAG_ENGINEERING
+	departments = DEPARTMENT_BITFLAG_ENG
 	rpg_title = "Crystallomancer"
 
 	species_outfits = list(

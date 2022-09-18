@@ -34,7 +34,7 @@
 
 
 	display_order = JOB_DISPLAY_ORDER_CHIEF_ENGINEER
-	departments = DEPARTMENT_BITFLAG_ENGINEERING | DEPARTMENT_BITFLAG_COMMAND
+	departments = DEPARTMENT_BITFLAG_ENG | DEPARTMENT_BITFLAG_COM
 	rpg_title = "High Crystallomancer"
 
 	species_outfits = list(

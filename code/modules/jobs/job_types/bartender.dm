@@ -15,11 +15,12 @@
 	minimal_access = list(ACCESS_BAR, ACCESS_MINERAL_STOREROOM, ACCESS_THEATRE)
 
 	department_flag = CIVILIAN
+	crew_manifest_department = ACCOUNT_SRV_BITFLAG
 	bank_account_department = ACCOUNT_SRV_BITFLAG
 	payment_per_department = list(ACCOUNT_SRV_ID = PAYCHECK_EASY)
 
 	display_order = JOB_DISPLAY_ORDER_BARTENDER
-	departments = DEPARTMENT_BITFLAG_SERVICE
+	departments = DEPARTMENT_BITFLAG_SRV
 	rpg_title = "Tavernkeeper"
 
 	species_outfits = list(

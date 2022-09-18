@@ -248,6 +248,7 @@
 		G.fields["name"]		= H.real_name
 		G.fields["rank"]		= assignment
 		G.fields["hud"]			= get_hud_by_jobname(assignment)
+		G.fields["active_dept"]	= SSjob.GetJob(H.mind.assigned_role).bank_account_department
 		G.fields["age"]			= H.age
 		G.fields["species"]	= H.dna.species.name
 		G.fields["fingerprint"]	= rustg_hash_string(RUSTG_HASH_MD5, H.dna.uni_identity)

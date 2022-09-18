@@ -21,7 +21,7 @@
 	mind_traits = list(TRAIT_MEDICAL_METABOLISM)
 
 	display_order = JOB_DISPLAY_ORDER_VIROLOGIST
-	departments = DEPARTMENT_BITFLAG_MEDICAL
+	departments = DEPARTMENT_BITFLAG_MED
 	rpg_title = "Plague Doctor"
 
 	species_outfits = list(

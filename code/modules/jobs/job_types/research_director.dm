@@ -35,7 +35,7 @@
 		ACCOUNT_SEC_ID = PAYCHECK_COMMAND_DEPT)
 
 	display_order = JOB_DISPLAY_ORDER_RESEARCH_DIRECTOR
-	departments = DEPARTMENT_BITFLAG_SCIENCE
+	departments = DEPARTMENT_BITFLAG_SCI
 	rpg_title = "Archmagister"
 
 	species_outfits = list(

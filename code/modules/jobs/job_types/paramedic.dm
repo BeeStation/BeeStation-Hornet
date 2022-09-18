@@ -21,7 +21,7 @@
 	mind_traits = list(TRAIT_MEDICAL_METABOLISM)
 
 	display_order = JOB_DISPLAY_ORDER_MEDICAL_DOCTOR
-	departments = DEPARTMENT_BITFLAG_MEDICAL
+	departments = DEPARTMENT_BITFLAG_MED
 	rpg_title = "Corpse Runner"
 
 	species_outfits = list(

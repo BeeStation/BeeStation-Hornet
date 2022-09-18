@@ -20,7 +20,7 @@
 
 
 	display_order = JOB_DISPLAY_ORDER_COOK
-	departments = DEPARTMENT_BITFLAG_SERVICE
+	departments = DEPARTMENT_BITFLAG_SRV
 	rpg_title = "Tavern Chef"
 
 	species_outfits = list(

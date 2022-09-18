@@ -14,12 +14,13 @@
 	minimal_access = list(ACCESS_MORGUE, ACCESS_CHAPEL_OFFICE, ACCESS_CREMATORIUM, ACCESS_THEATRE)
 
 	department_flag = CIVILIAN
+	crew_manifest_department = ACCOUNT_CIV_BITFLAG
 	bank_account_department = ACCOUNT_CIV_BITFLAG
 	payment_per_department = list(ACCOUNT_CIV_ID = PAYCHECK_EASY)
 
 
 	display_order = JOB_DISPLAY_ORDER_CHAPLAIN
-	departments = DEPARTMENT_BITFLAG_SERVICE
+	departments = DEPARTMENT_BITFLAG_SRV
 	rpg_title = "Paladin"
 
 	species_outfits = list(

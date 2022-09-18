@@ -21,7 +21,7 @@
 	payment_per_department = list(ACCOUNT_SCI_ID = PAYCHECK_HARD)
 
 	display_order = JOB_DISPLAY_ORDER_EXPLORATION
-	departments = DEPARTMENT_BITFLAG_SCIENCE
+	departments = DEPARTMENT_BITFLAG_SCI
 	rpg_title = "Sailor"
 
 	species_outfits = list(

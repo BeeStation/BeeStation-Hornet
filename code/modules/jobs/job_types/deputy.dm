@@ -22,7 +22,7 @@
 	mind_traits = list(TRAIT_LAW_ENFORCEMENT_METABOLISM)
 
 	display_order = JOB_DISPLAY_ORDER_DEPUTY  //see code/__DEFINES/jobs.dm
-	departments = DEPARTMENT_BITFLAG_SECURITY
+	departments = DEPARTMENT_BITFLAG_SEC
 
 /datum/outfit/job/deputy
 	name = JOB_NAME_DEPUTY

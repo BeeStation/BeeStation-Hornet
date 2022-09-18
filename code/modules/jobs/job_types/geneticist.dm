@@ -23,7 +23,7 @@
 	mind_traits = list(TRAIT_MEDICAL_METABOLISM)
 
 	display_order = JOB_DISPLAY_ORDER_GENETICIST
-	departments = DEPARTMENT_BITFLAG_MEDICAL
+	departments = DEPARTMENT_BITFLAG_MED
 	rpg_title = "Genemancer"
 
 	species_outfits = list(

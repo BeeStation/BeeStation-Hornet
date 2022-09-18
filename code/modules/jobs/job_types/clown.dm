@@ -19,7 +19,7 @@
 
 
 	display_order = JOB_DISPLAY_ORDER_CLOWN
-	departments = DEPARTMENT_BITFLAG_SERVICE
+	departments = DEPARTMENT_BITFLAG_SRV
 	rpg_title = "Jester"
 
 	species_outfits = list(
