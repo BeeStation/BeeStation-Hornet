@@ -35,7 +35,7 @@
 		message_admins("[key_name_admin(src)] decided not to answer [ADMIN_LOOKUPFLW(M)]'s prayer")
 		return
 	if(usr)
-		if (usr.client)
+		if(usr.client)
 			if(usr.client.holder)
 				to_chat(M, "<i>You hear a voice in your head... <b>[msg]</i></b>")
 
@@ -64,7 +64,7 @@
 		to_chat(usr, "The person you are trying to contact is not wearing a headset.")
 		return
 
-	if (!sender)
+	if(!sender)
 		sender = input("Who is the message from?", "Sender") as null|anything in list(RADIO_CHANNEL_CENTCOM,RADIO_CHANNEL_SYNDICATE)
 		if(!sender)
 			return
@@ -102,7 +102,7 @@
 
 		msg = input("Message:", prompt) as num|null
 
-		if (!msg)
+		if(!msg)
 			return
 
 		var/ANTAG_REP_MAXIMUM = CONFIG_GET(number/antag_rep_maximum)
@@ -136,7 +136,7 @@
 
 	var/msg = capped_input(usr, "Message:", "Enter the text you wish to appear to everyone:")
 
-	if (!msg)
+	if(!msg)
 		return
 	to_chat(world, "[msg]")
 	log_admin("GlobalNarrate: [key_name(usr)] : [msg]")
@@ -158,7 +158,7 @@
 
 	var/msg = capped_input(usr, "Message:", "Enter the text you wish to appear to your target:")
 
-	if( !msg )
+	if(!msg)
 		return
 
 	to_chat(M, msg)
@@ -180,7 +180,7 @@
 	if(!range)
 		return
 	var/msg = capped_input(usr, "Message:", "Enter the text you wish to appear to everyone within view:")
-	if (!msg)
+	if(!msg)
 		return
 	for(var/mob/M as() in hearers(range,A))
 		to_chat(M, msg)
@@ -636,9 +636,9 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(flames == null)
 		return
 
-	if ((devastation != -1) || (heavy != -1) || (light != -1) || (flash != -1) || (flames != -1))
-		if ((devastation > 20) || (heavy > 20) || (light > 20) || (flames > 20))
-			if (alert(src, "Are you sure you want to do this? It will laaag.", "Confirmation", "Yes", "No") == "No")
+	if((devastation != -1) || (heavy != -1) || (light != -1) || (flash != -1) || (flames != -1))
+		if((devastation > 20) || (heavy > 20) || (light > 20) || (flames > 20))
+			if(alert(src, "Are you sure you want to do this? It will laaag.", "Confirmation", "Yes", "No") == "No")
 				return
 
 		explosion(O, devastation, heavy, light, flash, null, null,flames)
@@ -663,7 +663,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(light == null)
 		return
 
-	if (heavy || light)
+	if(heavy || light)
 
 		empulse(O, heavy, light)
 		log_admin("[key_name(usr)] created an EM Pulse ([heavy],[light]) at [AREACOORD(O)]")
@@ -1052,7 +1052,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 	log_admin("[key_name(usr)] has toggled the server's hub status for the round, it is now [(GLOB.hub_visibility?"on":"off")] the hub.")
 	message_admins("[key_name_admin(usr)] has toggled the server's hub status for the round, it is now [(GLOB.hub_visibility?"on":"off")] the hub.")
-	if (GLOB.hub_visibility && !world.reachable)
+	if(GLOB.hub_visibility && !world.reachable)
 		message_admins("WARNING: The server will not show up on the hub because byond is detecting that a filewall is blocking incoming connections.")
 
 	SSblackbox.record_feedback("nested tally", "admin_toggle", 1, list("Toggled Hub Visibility", "[GLOB.hub_visibility ? "Enabled" : "Disabled"]")) //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
@@ -1198,7 +1198,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 			punishment += ": \"[forced_speech]\""
 
 		if(ADMIN_PUNISHMENT_GHOST)
-			if (target.key)
+			if(target.key)
 				target.ghostize(FALSE,SENTIENCE_FORCE)
 			else
 				target.set_playable()
@@ -1243,7 +1243,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 			new /obj/effect/immovablerod(startT, endT,target)
 
 		if(ADMIN_PUNISHMENT_SLEEP)
-			target.visible_message("<span class ='danger'>[target] faints in fear!</span>", "<span class ='userdanger'>You faint in the presence of God!</span>")
+			target.visible_message("<span class='danger'>[target] faints in fear!</span>", "<span class='userdanger'>You inexplicably faint!</span>")
 			target.Sleeping(300, TRUE, TRUE)
 
 		if(ADMIN_PUNISHMENT_STALKER)
