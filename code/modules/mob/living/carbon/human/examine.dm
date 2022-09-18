@@ -335,9 +335,9 @@
 
 	var/traitstring = get_trait_string()
 
-	var/perpname = get_face_info(get_id_name(""))
-	var/perp_age = get_face_info("none", RETURNS_AGE)
-	var/perp_gender = get_face_info("none", RETURNS_GENDER)
+	var/perpname = get_face_info(get_id_info(""))
+	var/perp_age = get_face_info(get_id_info(target=RETURNS_AGE), RETURNS_AGE)
+	var/perp_gender = get_face_info(get_id_info(target=RETURNS_GENDER), RETURNS_GENDER)
 	if(perpname && (HAS_TRAIT(user, TRAIT_SECURITY_HUD) || HAS_TRAIT(user, TRAIT_MEDICAL_HUD)))
 		var/datum/data/record/R = find_datacore_individual(perpname, perp_age, perp_gender, GLOB.data_core.general, TRUE)
 		if(R)

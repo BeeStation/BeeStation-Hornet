@@ -64,25 +64,23 @@
 	. = "unrecognisable"
 	switch(text2num(visible_age))
 		if(-INFINITY to -1)
-			. = "imposibly young"
+			. = "impossibly young"
 		if(0 to 12)
-			. = "around child"
+			. = "rather childish"
 		if(13)
-			. = "exact thirteen"
+			. = "exactly thirteen"
 		if(14 to 18)
-			. = "teenager"
+			. = "juvenile"
 		if(19 to 22)
-			. = "matured (18 to 22)"
-		if(23 to 37)
-			. = "young adult (23 to 37)"
-		if(38 to 55)
-			. = "middle-aged (38 to 55)"
-		if(56 to 70)
-			. = "very old (56 to 70)"
-		if(71 to 100)
-			. = "elderly (71 to 100)"
+			. = "a young adult"
+		if(23 to 30)
+			. = "an adult"
+		if(31 to 60)
+			. = " middle-aged"
+		if(61 to 100)
+			. = "elderly"
 		if(101 to INFINITY)
-			. = "skelly elder (more than 100)"
+			. = "way past their prime"
 
 /mob/living/proc/can_bumpslam()
 	REMOVE_MOB_PROPERTY(src, PROP_CANTBUMPSLAM, src.type)

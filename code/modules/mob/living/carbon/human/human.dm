@@ -163,9 +163,9 @@
 		if(!ishuman(usr))
 			return
 		var/mob/living/carbon/human/H = usr
-		var/perpname = get_face_info(get_id_name(""))
-		var/perp_age = get_face_info("none", RETURNS_AGE)
-		var/perp_gender = get_face_info("none", RETURNS_GENDER)
+		var/perpname = get_face_info(get_id_info(""))
+		var/perp_age = get_face_info(get_id_info(target=RETURNS_AGE), RETURNS_AGE)
+		var/perp_gender = get_face_info(get_id_info(target=RETURNS_GENDER), RETURNS_GENDER)
 		if(!HAS_TRAIT(H, TRAIT_SECURITY_HUD) && !HAS_TRAIT(H, TRAIT_MEDICAL_HUD))
 			return
 		var/datum/data/record/R = find_datacore_individual(perpname, perp_age, perp_gender, GLOB.data_core.general, TRUE)
@@ -494,9 +494,9 @@
 
 	//Check for arrest warrant
 	if(judgment_criteria & JUDGE_RECORDCHECK)
-		var/perpname = get_face_info(get_id_name())
-		var/perp_age = get_face_info("none", RETURNS_AGE)
-		var/perp_gender = get_face_info("none", RETURNS_GENDER)
+		var/perpname = get_face_info(get_id_info())
+		var/perp_age = get_face_info(get_id_info(target=RETURNS_AGE), RETURNS_AGE)
+		var/perp_gender = get_face_info(get_id_info(target=RETURNS_GENDER), RETURNS_GENDER)
 		var/datum/data/record/R = find_datacore_individual(perpname, perp_age, perp_gender, GLOB.data_core.security, TRUE)
 		if(R && R.fields["criminal"])
 			switch(R.fields["criminal"])

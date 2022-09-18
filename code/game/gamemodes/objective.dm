@@ -577,7 +577,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 		var/mob/living/carbon/human/H
 		if(ishuman(target.current))
 			H = target.current
-		if(H && H.get_id_name() != target_real_name)
+		if(H && H.get_id_info() != target_real_name)
 			target_missing_id = 1
 		else
 			explanation_text += " while wearing their identification card"
@@ -592,7 +592,7 @@ GLOBAL_LIST(admin_objective_list) //Prefilled admin assignable objective list
 		if(!ishuman(M.current) || !considered_escaped(M))
 			continue
 		var/mob/living/carbon/human/H = M.current
-		if(H.dna.real_name == target_real_name && (H.get_id_name() == target_real_name || target_missing_id))
+		if(H.dna.real_name == target_real_name && (H.get_id_info() == target_real_name || target_missing_id))
 			return TRUE
 	return ..()
 

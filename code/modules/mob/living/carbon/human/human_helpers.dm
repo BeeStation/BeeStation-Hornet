@@ -35,10 +35,10 @@
 		return pda.owner
 	return if_no_id
 
-//repurposed proc. Now it combines get_id_name() and get_face_info() to determine a mob's name variable. Made into a separate proc as it'll be useful elsewhere
+//repurposed proc. Now it combines get_id_info() and get_face_info() to determine a mob's name variable. Made into a separate proc as it'll be useful elsewhere
 /mob/living/carbon/human/get_visible_name()
 	var/face_name = get_face_info("")
-	var/id_name = get_id_name("")
+	var/id_name = get_id_info("")
 	if(name_override)
 		return name_override
 	if(face_name)
@@ -52,24 +52,29 @@
 
 //gets name from ID or PDA itself, ID inside PDA doesn't matter
 //Useful when player is being seen by other mobs
-/mob/living/carbon/human/proc/get_id_name(if_no_id = "Unknown")
+/mob/living/carbon/human/proc/get_id_info(if_no_id = "Unknown", target=RETURNS_NAME)
 	var/obj/item/storage/wallet/wallet = wear_id
 	var/obj/item/pda/pda = wear_id
 	var/obj/item/card/id/id = wear_id
 	var/obj/item/modular_computer/tablet/tablet = wear_id
 	if(istype(wallet))
 		id = wallet.front_id
-	if(istype(id))
-		. = id.registered_name
 	else if(istype(pda))
-		. = pda.owner
+		id = pda.id
 	else if(istype(tablet))
 		var/obj/item/computer_hardware/card_slot/card_slot = tablet.all_components[MC_CARD]
 		if(card_slot?.stored_card)
-			. = card_slot.stored_card.registered_name
+			id = card_slot.stored_card
+	if(istype(id))
+		switch(target)
+			if(RETURNS_NAME)
+				. = id.registered_name
+			if(RETURNS_AGE)
+				. = id.age
+			if(RETURNS_GENDER)
+				. = id.registered_gender
 	if(!.)
 		. = if_no_id	//to prevent null-names making the mob unclickable
-	return
 
 //Gets ID card from a human. If hand_first is false the one in the id slot is prioritized, otherwise inventory slots go first.
 /mob/living/carbon/human/get_idcard(hand_first = TRUE)

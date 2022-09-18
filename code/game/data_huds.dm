@@ -273,9 +273,9 @@
 	var/image/holder = hud_list[WANTED_HUD]
 	var/icon/I = icon(icon, icon_state, dir)
 	holder.pixel_y = I.Height() - world.icon_size
-	var/perpname = get_face_info(get_id_name(""))
-	var/perp_age = get_face_info("none", RETURNS_AGE)
-	var/perp_gender = get_face_info("none", RETURNS_GENDER)
+	var/perpname = get_face_info(get_id_info(""))
+	var/perp_age = get_face_info(get_id_info(target=RETURNS_AGE), RETURNS_AGE)
+	var/perp_gender = get_face_info(get_id_info(target=RETURNS_GENDER), RETURNS_GENDER)
 	if(perpname && GLOB.data_core)
 		var/datum/data/record/R = find_datacore_individual(perpname, perp_age, perp_gender, GLOB.data_core.security, TRUE)
 		if(R)
