@@ -59,6 +59,32 @@
 /mob/living/proc/OpenCraftingMenu()
 	return
 
+/mob/living/proc/measure_age(visible_age)
+	// I don't care these numbers. feel free to change age desc per range
+	switch(text2num(visible_age))
+		if("Unknown")
+			. = "unrecognisable"
+		if(-INFINITY to -1)
+			. = "imposibly young"
+		if(0 to 12)
+			. = "around child"
+		if(13)
+			. = "potentially 13"
+		if(14 to 18)
+			. = "teenager"
+		if(19 to 22)
+			. = "matured (18 to 22)"
+		if(23 to 37)
+			. = "young adult (23 to 37)"
+		if(38 to 55)
+			. = "middle-aged (38 to 55)"
+		if(56 to 70)
+			. = "very old (56 to 70)"
+		if(71 to 100)
+			. = "elderly (71 to 100)"
+		if(101 to INFINITY)
+			. = "skelly elder (more than 100)"
+
 /mob/living/proc/can_bumpslam()
 	REMOVE_MOB_PROPERTY(src, PROP_CANTBUMPSLAM, src.type)
 

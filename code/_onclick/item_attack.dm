@@ -83,8 +83,11 @@
 
 	user.do_attack_animation(M)
 	M.attacked_by(src, user)
-
-	log_combat(user, M, "attacked", src.name, "(INTENT: [uppertext(user.a_intent)]) (DAMTYPE: [uppertext(damtype)])")
+	var/attacker_info
+	attacker_info += "(Attckers info- name: [user.name]"
+	attacker_info += "[user.name == user.real_name ? "" : "/real name: [user.real_name]"]"
+	attacker_info += "[user.name == user.mind?.name ? "" : "/mind name: [user.mind?.name]"])"
+	log_combat(user, M, "attacked", src.name, "(INTENT: [uppertext(user.a_intent)]) (DAMTYPE: [uppertext(damtype)]) [attacker_info]")
 	add_fingerprint(user)
 
 

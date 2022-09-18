@@ -60,7 +60,7 @@ GLOBAL_LIST_INIT(freqtospan, list(
 	if(ishuman(speaker))
 		var/mob/living/carbon/human/H = speaker
 		if(face_name)
-			namepart = "[H.get_face_name()]" //So "fake" speaking like in hallucinations does not give the speaker away if disguised
+			namepart = "[H.get_face_info()]" //So "fake" speaking like in hallucinations does not give the speaker away if disguised
 		if(!radio_freq)
 			if(H.wear_id?.GetID())
 				var/obj/item/card/id/idcard = H.wear_id.GetID()
@@ -165,6 +165,15 @@ GLOBAL_LIST_INIT(freqtospan, list(
 /atom/movable/proc/GetVoice()
 	return "[src]"	//Returns the atom's name, prepended with 'The' if it's not a proper noun
 
+/atom/movable/proc/GetVoice_info(target=RETURNS_AGE) // hearing people's voice can recognise their age at least..
+	var/mob/living/L = src
+	if(isliving(L))
+		switch(target)
+			if(RETURNS_AGE)
+				return "[L.age]" //Returns the atom's name age
+			if(RETURNS_GENDER)
+				return "[L.gender]"
+
 /atom/movable/proc/IsVocal()
 	return 1
 
@@ -201,7 +210,7 @@ INITIALIZE_IMMEDIATE(/atom/movable/virtualspeaker)
 	if(ishuman(M))
 		// Humans use their job as seen on the crew manifest. This is so the AI
 		// can know their job even if they don't carry an ID.
-		var/datum/data/record/findjob = find_record("name", name, GLOB.data_core.general)
+		var/datum/data/record/findjob = find_datacore_individual(name, M.GetVoice_info(RETURNS_AGE), M.GetVoice_info(RETURNS_GENDER), GLOB.data_core.general, TRUE)
 		if(findjob)
 			job = findjob.fields["rank"]
 		else

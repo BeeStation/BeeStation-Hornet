@@ -173,9 +173,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		return TRUE
 
 /obj/machinery/computer/card/proc/update_modify_manifest()
-	if(inserted_modify_id.registered_account)
-		inserted_modify_id.registered_account.account_department = get_department_by_hud(inserted_modify_id.hud_state) // your true department by your hud icon color
-	GLOB.data_core.manifest_modify(inserted_modify_id.registered_name, inserted_modify_id.assignment, inserted_modify_id.hud_state)
+	GLOB.data_core.manifest_modify(inserted_modify_id)
 
 /obj/machinery/computer/card/AltClick(mob/user)
 	..()

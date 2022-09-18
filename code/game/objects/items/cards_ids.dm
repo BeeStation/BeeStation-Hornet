@@ -109,11 +109,13 @@
 	slot_flags = ITEM_SLOT_ID
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 100, "stamina" = 0)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
-	var/mining_points = 0 //For redeeming at mining equipment vendors
-	var/list/access = list()
 	var/registered_name// The name registered_name on the card
+	var/age = 13
+	var/registered_gender = MALE
 	var/assignment
 	var/hud_state = JOB_HUD_UNKNOWN
+	var/mining_points = 0 //For redeeming at mining equipment vendors
+	var/list/access = list()
 	var/access_txt // mapping aid
 	var/datum/bank_account/registered_account
 	var/obj/machinery/paystand/my_store

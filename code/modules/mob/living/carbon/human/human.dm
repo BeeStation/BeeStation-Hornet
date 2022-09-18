@@ -163,10 +163,12 @@
 		if(!ishuman(usr))
 			return
 		var/mob/living/carbon/human/H = usr
-		var/perpname = get_face_name(get_id_name(""))
+		var/perpname = get_face_info(get_id_name(""))
+		var/perp_age = get_face_info("none", RETURNS_AGE)
+		var/perp_gender = get_face_info("none", RETURNS_GENDER)
 		if(!HAS_TRAIT(H, TRAIT_SECURITY_HUD) && !HAS_TRAIT(H, TRAIT_MEDICAL_HUD))
 			return
-		var/datum/data/record/R = find_record("name", perpname, GLOB.data_core.general)
+		var/datum/data/record/R = find_datacore_individual(perpname, perp_age, perp_gender, GLOB.data_core.general, TRUE)
 		if(href_list["photo_front"] || href_list["photo_side"])
 			if(!R)
 				return
@@ -278,7 +280,7 @@
 			if(!perpname)
 				to_chat(H, "<span class='warning'>ERROR: Can not identify target.</span>")
 				return
-			R = find_record("name", perpname, GLOB.data_core.security)
+			R = find_datacore_individual(perpname, perp_age, perp_gender, GLOB.data_core.security)
 			if(!R)
 				to_chat(usr, "<span class='warning'>ERROR: Unable to locate data core entry for target.</span>")
 				return
@@ -492,8 +494,10 @@
 
 	//Check for arrest warrant
 	if(judgment_criteria & JUDGE_RECORDCHECK)
-		var/perpname = get_face_name(get_id_name())
-		var/datum/data/record/R = find_record("name", perpname, GLOB.data_core.security)
+		var/perpname = get_face_info(get_id_name())
+		var/perp_age = get_face_info("none", RETURNS_AGE)
+		var/perp_gender = get_face_info("none", RETURNS_GENDER)
+		var/datum/data/record/R = find_datacore_individual(perpname, perp_age, perp_gender, GLOB.data_core.security, TRUE)
 		if(R && R.fields["criminal"])
 			switch(R.fields["criminal"])
 				if("Arrest")
@@ -659,7 +663,7 @@
 
 /mob/living/carbon/human/replace_records_name(oldname,newname) // Only humans have records right now, move this up if changed.
 	for(var/list/L in list(GLOB.data_core.general,GLOB.data_core.medical,GLOB.data_core.security,GLOB.data_core.locked))
-		var/datum/data/record/R = find_record("name", oldname, L)
+		var/datum/data/record/R = find_datacore_individual(oldname, real_age, real_gender, L)
 		if(R)
 			R.fields["name"] = newname
 

@@ -133,11 +133,11 @@
 			manifest_inject(N.new_character, N.client)
 		CHECK_TICK
 
-/datum/datacore/proc/manifest_modify(name, assignment, hudstate)
-	var/datum/data/record/foundrecord = find_record("name", name, GLOB.data_core.general)
+/datum/datacore/proc/manifest_modify(obj/item/card/id/I)
+	var/datum/data/record/foundrecord = find_datacore_individual(I.registered_name, I.age, I.registered_gender, GLOB.data_core.general)
 	if(foundrecord)
-		foundrecord.fields["rank"] = assignment
-		foundrecord.fields["hud"] = hudstate
+		foundrecord.fields["rank"] = I.assignment
+		foundrecord.fields["hud"] = I.hud_state
 
 /datum/datacore/proc/get_manifest()
 	var/list/manifest_out = list()
@@ -246,14 +246,14 @@
 		var/datum/data/record/G = new()
 		G.fields["id"]			= id
 		G.fields["name"]		= H.real_name
+		G.fields["age"]			= H.real_age
+		G.fields["sex"]			= H.real_gender
 		G.fields["rank"]		= assignment
 		G.fields["hud"]			= get_hud_by_jobname(assignment)
-		G.fields["age"]			= H.real_age
 		G.fields["species"]	= H.dna.species.name
 		G.fields["fingerprint"]	= rustg_hash_string(RUSTG_HASH_MD5, H.dna.uni_identity)
 		G.fields["p_stat"]		= "Active"
 		G.fields["m_stat"]		= "Stable"
-		G.fields["sex"]			= H.real_gender
 		G.fields["photo_front"]	= photo_front
 		G.fields["photo_side"]	= photo_side
 		general += G
@@ -293,9 +293,9 @@
 		var/datum/data/record/L = new()
 		L.fields["id"]			= rustg_hash_string(RUSTG_HASH_MD5, "[H.real_name][H.mind.assigned_role]")	//surely this should just be id, like the others?
 		L.fields["name"]		= H.real_name
-		L.fields["rank"] 		= H.mind.assigned_role
 		L.fields["age"]			= H.real_age
 		L.fields["sex"]			= H.real_gender
+		L.fields["rank"] 		= H.mind.assigned_role
 		L.fields["blood_type"]	= H.dna.blood_type
 		L.fields["b_dna"]		= H.dna.unique_enzymes
 		L.fields["identity"]	= H.dna.uni_identity
@@ -315,14 +315,20 @@
 		P = C.prefs
 	return get_flat_human_icon(null, J, P, DUMMY_HUMAN_SLOT_MANIFEST, show_directions)
 
-/proc/find_datacore_individual(name, age, gender, list/L)
-	world.log << "target: [name], [age], [gender]"
+/proc/find_datacore_individual(name, age="none", gender="none", list/L, find_similar=FALSE)
+	var/datum/data/record/A
+	var/similarity_level = 0
 	for(var/datum/data/record/R in L)
-		world.log << "target: [R.fields["name"]], [R.fields["age"]], [R.fields["gender"]]"
 		if(R.fields["name"] != name)
+			if(similarity_level < 1)
+				A = R
+				similarity_level++
 			continue
 		if(R.fields["age"] != age)
+			if(similarity_level < 2)
+				A = R
+				similarity_level++
 			continue
-		if(R.fields["gender"] == gender)
+		if(R.fields["sex"] == gender)
 			return R
-	return FALSE
+	return find_similar ? A : FALSE // returns the closest one

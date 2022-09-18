@@ -269,6 +269,8 @@
 	H.dna.copy_dna(new_dna)
 	prof.dna = new_dna
 	prof.name = H.real_name
+	prof.age = H.age
+	prof.gender = H.gender
 	prof.protected = protect
 
 	prof.underwear = H.underwear
@@ -497,6 +499,8 @@
 
 /datum/changelingprofile
 	var/name = "a bug"
+	var/age = 13
+	var/gender = PLURAL
 
 	var/protected = 0
 
@@ -525,6 +529,8 @@
 
 /datum/changelingprofile/proc/copy_profile(datum/changelingprofile/newprofile)
 	newprofile.name = name
+	newprofile.age = age
+	newprofile.gender = gender
 	newprofile.protected = protected
 	newprofile.dna = new dna.type
 	dna.copy_dna(newprofile.dna)

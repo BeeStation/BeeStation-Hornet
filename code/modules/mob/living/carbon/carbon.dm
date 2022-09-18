@@ -43,6 +43,22 @@
 		if(H)
 			H.update_icon()
 
+//Returns "Unknown" if facially disfigured and real_name if not. Useful for setting name when Fluacided or when updating a human's name variable
+/mob/living/carbon/proc/get_face_info(if_no_face="Unknown", target=RETURNS_NAME)
+	if( wear_mask && (wear_mask.flags_inv&HIDEFACE) )	//Wearing a mask which hides our face, use id-name if possible
+		return if_no_face
+	if( head && (head.flags_inv&HIDEFACE) )
+		return if_no_face		//Likewise for hats
+	var/obj/item/bodypart/O = get_bodypart(BODY_ZONE_HEAD)
+	if( !O || (HAS_TRAIT(src, TRAIT_DISFIGURED)) || (O.brutestate+O.burnstate)>2 || cloneloss>50 || !real_name )	//disfigured. use id-name if possible
+		return if_no_face
+	switch(target)
+		if(RETURNS_NAME)
+			return real_name
+		if(RETURNS_AGE)
+			return age
+		if(RETURNS_GENDER)
+			return gender
 
 /mob/living/carbon/activate_hand(selhand) //l/r OR 1-held_items.len
 	if(!selhand)
@@ -898,14 +914,14 @@
 					else
 						to_chat(usr, "Only humans can be augmented.")
 		admin_ticket_log("[key_name_admin(usr)] has modified the bodyparts of [src]")
-	
+
 	if(href_list[VV_HK_MAKE_AI])
 		if(!check_rights(R_SPAWN))
 			return
 		if(alert("Confirm mob type change?",,"Transform","Cancel") != "Transform")
 			return
 		usr.client.holder.Topic("vv_override", list("makeai"=href_list[VV_HK_TARGET]))
-	
+
 	if(href_list[VV_HK_MODIFY_ORGANS] && check_rights(R_FUN|R_DEBUG))
 		usr.client.manipulate_organs(src)
 

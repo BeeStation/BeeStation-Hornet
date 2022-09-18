@@ -138,8 +138,6 @@
 	var/real_age = 30
 	/// mobs real gender to track when theirs is changed somehow (i.e. unwanted mutation)
 	var/real_gender
-	/// used to track your 'real' info is in memory
-	var/real_itentity_given = FALSE
 
 	//is mob player controllable
 	var/playable = FALSE

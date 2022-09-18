@@ -526,14 +526,14 @@
 	. = ..()
 	if (.)
 		if(mind && master)
-			mind.store_memory("<b>Serve [master.real_name], your master.</b>")
+			mind.store_memory("<b>Serve [master.mind.name], your master.</b>")
 	return .
 
 /mob/living/simple_animal/slime/get_spawner_desc()
-	return "be a slime[master ? " under the command of [master.real_name]" : ""]."
+	return "be a slime[master ? " under the command of [master.mind.name]" : ""]."
 
 /mob/living/simple_animal/slime/get_spawner_flavour_text()
-	return "You are a slime born and raised in a laboratory.[master ? " Your duty is to follow the orders of [master.real_name].": ""]"
+	return "You are a slime born and raised in a laboratory.[master ? " Your duty is to follow the orders of [master.mind.name].": ""]"
 
 /mob/living/simple_animal/slime/proc/make_master(mob/user)
 	Friends[user] += SLIME_FRIENDSHIP_ATTACK * 2

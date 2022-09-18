@@ -97,6 +97,8 @@ GLOBAL_LIST_INIT(slot2type, list("head" = /obj/item/clothing/head/changeling, "w
 /proc/changeling_transform(mob/living/carbon/human/user, datum/changelingprofile/chosen_prof)
 	var/datum/dna/chosen_dna = chosen_prof.dna
 	user.real_name = chosen_prof.name
+	user.real_age = chosen_prof.age
+	user.real_gender = chosen_prof.gender
 	user.underwear = chosen_prof.underwear
 	user.undershirt = chosen_prof.undershirt
 	user.socks = chosen_prof.socks

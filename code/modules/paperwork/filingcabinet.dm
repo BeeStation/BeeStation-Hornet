@@ -119,7 +119,7 @@
 /obj/structure/filingcabinet/security/proc/populate()
 	if(virgin)
 		for(var/datum/data/record/G in GLOB.data_core.general)
-			var/datum/data/record/S = find_record("name", G.fields["name"], GLOB.data_core.security)
+			var/datum/data/record/S = find_record("id", G.fields["id"], GLOB.data_core.security)
 			if(!S)
 				continue
 			var/obj/item/paper/P = new /obj/item/paper(src)

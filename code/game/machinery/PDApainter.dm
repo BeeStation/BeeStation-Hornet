@@ -237,7 +237,7 @@
 				if(storedid.registered_account)
 					if(!storedid.registered_account.department_locked)
 						storedid.registered_account.account_department = get_department_by_hud(storedid.hud_state) // your true department by your hud icon color
-				GLOB.data_core.manifest_modify(storedid.registered_name, storedid.assignment, storedid.hud_state) // update crew manifest
+				GLOB.data_core.manifest_modify(storedid) // update crew manifest
 				// There are the same code lines in `card.dm`
 				ejectid()
 		else
