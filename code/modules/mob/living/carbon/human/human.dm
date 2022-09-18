@@ -280,7 +280,7 @@
 			if(!perpname)
 				to_chat(H, "<span class='warning'>ERROR: Can not identify target.</span>")
 				return
-			R = find_datacore_individual(perpname, perp_age, perp_gender, GLOB.data_core.security)
+			R = find_datacore_individual(perpname, perp_age, perp_gender, GLOB.data_core.security, TRUE)
 			if(!R)
 				to_chat(usr, "<span class='warning'>ERROR: Unable to locate data core entry for target.</span>")
 				return

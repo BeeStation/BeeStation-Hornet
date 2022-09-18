@@ -354,7 +354,7 @@
 				. += "<a href='?src=[REF(src)];hud=m;p_stat=1'>\[[health_r]\]</a>"
 				health_r = R.fields["m_stat"]
 				. += "<a href='?src=[REF(src)];hud=m;m_stat=1'>\[[health_r]\]</a>"
-			R = find_datacore_individual(perpname, perp_age, perp_gender, GLOB.data_core.medical)
+			R = find_datacore_individual(perpname, perp_age, perp_gender, GLOB.data_core.medical, TRUE)
 			if(R)
 				. += "<a href='?src=[REF(src)];hud=m;evaluation=1'>\[Medical evaluation\]</a><br>"
 			if(traitstring)
@@ -365,7 +365,7 @@
 			//|| !user.canmove || user.restrained()) Fluff: Sechuds have eye-tracking technology and sets 'arrest' to people that the wearer looks and blinks at.
 				var/criminal = "None"
 
-				R = find_datacore_individual(perpname, perp_age, perp_gender, GLOB.data_core.security)
+				R = find_datacore_individual(perpname, perp_age, perp_gender, GLOB.data_core.security, TRUE)
 				if(R)
 					criminal = R.fields["criminal"]
 
