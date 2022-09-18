@@ -1094,15 +1094,17 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		ADMIN_PUNISHMENT_LIGHTNING,
 		ADMIN_PUNISHMENT_PUZZLE,
 		ADMIN_PUNISHMENT_ROD,
+		ADMIN_PUNISHMENT_SLEEP,
 		ADMIN_PUNISHMENT_SUPPLYPOD,
 		ADMIN_PUNISHMENT_SUPPLYPOD_QUICK,
 		ADMIN_PUNISHMENT_TABLE
 	)
 	if(istype(target, /mob/living/carbon))
+		punishment_list += ADMIN_PUNISHMENT_COOKIE
 		punishment_list += ADMIN_PUNISHMENT_NUGGET
 	if(ishuman(target))
-		punishment_list += ADMIN_PUNISHMENT_COOKIE
 		punishment_list += ADMIN_PUNISHMENT_FLOORCLUWNE
+		punishment_list += ADMIN_PUNISHMENT_STALKER
 		punishment_list += ADMIN_PUNISHMENT_TOE
 		punishment_list += ADMIN_PUNISHMENT_TOEPLUS
 
@@ -1127,7 +1129,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 		if(ADMIN_PUNISHMENT_COOKIE)
 			//TODO: TEST
-			var/mob/living/carbon/human/H = target
+			var/mob/living/carbon/H = target
 			H.give_cookie(usr)
 			admin_ticket_log(target, "[key_name_admin(usr)] gave [key_name_admin(target)] a cookie.")
 			return //We return here because punish_log() is handled by /mob/living/carbon/human/proc/give_cookie()
@@ -1197,8 +1199,8 @@ Traitors and the like can also be revived with the previous role mostly intact.
 			to_chat(target, "<span class='userdanger'>The gods have punished you for your sins!</span>")
 
 		if(ADMIN_PUNISHMENT_NUGGET)
-			var/mob/living/carbon/human/C = target
-			for(var/X in C.bodyparts)
+			var/mob/living/carbon/human/H = target
+			for(var/X in H.bodyparts)
 				var/obj/item/bodypart/BP = X
 				if(BP.body_part != HEAD && BP.body_part != CHEST)
 					if(BP.dismemberable)
@@ -1215,6 +1217,14 @@ Traitors and the like can also be revived with the previous role mostly intact.
 			var/turf/startT = spaceDebrisStartLoc(startside, T.z)
 			var/turf/endT = spaceDebrisFinishLoc(startside, T.z)
 			new /obj/effect/immovablerod(startT, endT,target)
+
+		if(ADMIN_PUNISHMENT_SLEEP)
+			target.visible_message("<span class ='danger'>[target] faints in fear!.</span>", "<span class ='userdanger'>You faint in the presence of God!</span>")
+			target.Sleeping(300, TRUE, TRUE)
+
+		if(ADMIN_PUNISHMENT_STALKER)
+			var/mob/living/carbon/human/H = target
+			H.gain_trauma(/datum/brain_trauma/magic/stalker, TRAUMA_LIMIT_LOBOTOMY)
 
 		if(ADMIN_PUNISHMENT_SUPPLYPOD)
 			var/datum/centcom_podlauncher/plaunch  = new(usr)
@@ -1268,10 +1278,11 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 	punish_log(target, punishment)
 
-/mob/living/carbon/human/proc/give_cookie(var/client/admin_client)
+/mob/living/carbon/proc/give_cookie(var/client/admin_client)
 	var/obj/item/reagent_containers/food/snacks/cookie/cookie = new(src)
 	if(src.put_in_hands(cookie))
-		src.update_inv_hands()
+		if(ishuman(src))
+			src.update_inv_hands()
 		log_admin("[key_name(src)] got their cookie, spawned by [key_name(admin_client)].")
 		message_admins("[key_name(src)] got their cookie, spawned by [key_name(admin_client)].")
 		to_chat(src, "<span class='adminnotice'>Your prayers have been answered!! You received the <b>best cookie</b>!</span>")

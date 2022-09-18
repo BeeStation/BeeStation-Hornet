@@ -56,7 +56,7 @@
 #define ADMIN_RETRIEVE_BOH_ITEMS(boh) "(<a href='?_src_=holder;[HrefToken(TRUE)];retrieveboh=[REF(boh)]'>RETRIEVE CONSUMED ITEMS</a>)"
 
 #define ADMIN_PUNISHMENT_AHEAL "Adminheal"
-#define ADMIN_PUNISHMENT_BRAINDAMAGE "Brain Damage"
+#define ADMIN_PUNISHMENT_BRAINDAMAGE "Give Brain Damage"
 #define ADMIN_PUNISHMENT_BSA "Bluespace Artillery Device"
 #define ADMIN_PUNISHMENT_CLUWNE "Make Cluwne"
 #define ADMIN_PUNISHMENT_COOKIE "Give Cookie"
@@ -73,6 +73,8 @@
 #define ADMIN_PUNISHMENT_NUGGET "Nugget"
 #define ADMIN_PUNISHMENT_PUZZLE "Puzzle"
 #define ADMIN_PUNISHMENT_ROD "Immovable Rod"
+#define ADMIN_PUNISHMENT_SLEEP "Force Sleep"
+#define ADMIN_PUNISHMENT_STALKER "Give Stalker Trauma"
 #define ADMIN_PUNISHMENT_SUPPLYPOD "Supply Pod"
 #define ADMIN_PUNISHMENT_SUPPLYPOD_QUICK "Supply Pod (Quick)"
 #define ADMIN_PUNISHMENT_TABLE "TABLE them"
