@@ -173,6 +173,7 @@
 
 //called when a carbon changes stat, virus or XENO_HOST
 /mob/living/proc/med_hud_set_status()
+	SIGNAL_HANDLER
 	var/image/holder = hud_list[STATUS_HUD]
 	if(holder)
 		var/icon/I = icon(icon, icon_state, dir)
@@ -185,7 +186,6 @@
 		stack_trace("[src] does not have a HEALTH_HUD but updates it!")
 
 /mob/living/carbon/med_hud_set_status()
-	SIGNAL_HANDLER
 	var/image/holder = hud_list[STATUS_HUD]
 	if(holder)
 		var/icon/I = icon(icon, icon_state, dir)
