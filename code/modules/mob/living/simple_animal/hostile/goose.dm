@@ -168,11 +168,10 @@
 
 /mob/living/simple_animal/hostile/retaliate/goose/vomit/proc/eat()
 	var/turf/currentTurf = get_turf(src)
-	while (currentTurf == get_turf(src))
+	if (currentTurf == get_turf(src))
 		var/obj/item/reagent_containers/food/tasty = locate() in currentTurf
 		if (tasty)
 			feed(tasty)
-		stoplag(2)
 
 /datum/action/cooldown/vomit
 	name = "Vomit"
