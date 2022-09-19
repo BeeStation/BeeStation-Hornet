@@ -273,6 +273,12 @@ GLOBAL_LIST_INIT(fluid_duct_recipes, list(
 	UnregisterSignal(user, COMSIG_MOUSE_SCROLL_ON)
 	return ..()
 
+/obj/item/pipe_dispenser/pre_attack(atom/target, mob/user, params)
+	if(istype(target, /obj/item/rpd_upgrade/unwrench))
+		install_upgrade(target, user)
+		return TRUE
+	return ..()
+
 /obj/item/pipe_dispenser/attack_self(mob/user)
 	ui_interact(user)
 
