@@ -112,6 +112,10 @@ INITIALIZE_IMMEDIATE(/mob/dead)
 	var/turf/T = get_turf(src)
 	if (isturf(T))
 		update_z(T.z)
+	if(istype(mind.current, /mob/living/carbon))
+		var/mob/living/carbon/body = mind.current
+		// Update SSD indicator for ghost's body
+		body.med_hud_set_status()
 
 /mob/dead/auto_deadmin_on_login()
 	return

@@ -33,6 +33,7 @@
 	var/key
 	var/name				//replaces mob/var/original_name
 	var/ghostname			//replaces name for observers name if set
+	/// The last living mob this mind occupied - if the player is dead, this is their body.
 	var/mob/living/current
 	var/active = 0
 
@@ -143,6 +144,13 @@
 		new_character.key = key		//now transfer the key to link the client to our new body
 	current.update_atom_languages()
 	SEND_SIGNAL(src, COMSIG_MIND_TRANSFER_TO, old_current, new_character)
+	// Update SSD indicators
+	if(istype(old_current, /mob/living/carbon))
+		var/mob/living/carbon/body = old_current
+		body.med_hud_set_status()
+	if(istype(current, /mob/living/carbon))
+		var/mob/living/carbon/body = current
+		body.med_hud_set_status()
 
 /datum/mind/proc/set_death_time()
 	SIGNAL_HANDLER
