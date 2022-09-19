@@ -219,6 +219,7 @@
 	store_file(new /datum/computer_file/program/filemanager(src))
 	store_file(new /datum/computer_file/program/radar/fission360(src)) //I am legitimately afraid if I don't do this, Ops players will think they just don't get a pinpointer anymore.
 	store_file(new /datum/computer_file/program/remote_airlock(src)) // Remote control for the shuttle door
+	store_file(new/datum/computer_file/program/borg_monitor/syndicate(src))
 
 /obj/item/computer_hardware/hard_drive/micro
 	name = "micro solid state drive"
