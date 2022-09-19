@@ -944,18 +944,14 @@
 	var/hrefpart = "<a href='?src=[REF(src)];track=[html_encode(namepart)]'>"
 	var/jobpart = "Unknown"
 
-	if (ishuman(speaker))
+	if(ishuman(speaker))
 		var/mob/living/carbon/human/S = speaker
 		if(S.wear_id)
 			var/obj/item/card/id/I = S.wear_id.GetID()
 			if(I)
 				jobpart = "[I.assignment]"
 
-	//AIs can't hear holograms
-	if(istype(speaker, /obj/effect/overlay/holo_pad_hologram))
-		return
 	var/rendered = "<i><span class='game say'>[start]<span class='name'>[hrefpart][namepart] ([jobpart])</a> </span><span class='message'>[treated_message]</span></span></i>"
-
 	show_message(rendered, 2)
 
 /mob/living/silicon/ai/fully_replace_character_name(oldname,newname)

@@ -417,7 +417,7 @@ Possible to do for anyone motivated enough:
 For the other part of the code, check silicon say.dm. Particularly robot talk.*/
 /obj/machinery/holopad/Hear(message, atom/movable/speaker, datum/language/message_language, raw_message, radio_freq, list/spans, list/message_mods = list())
 	. = ..()
-	if(speaker && LAZYLEN(masters) && !radio_freq)//Master is mostly a safety in case lag hits or something. Radio_freq so AIs dont hear holopad stuff through radios.
+	if(speaker && LAZYLEN(masters) && !radio_freq && speaker != holo)//Master is mostly a safety in case lag hits or something. Radio_freq so AIs dont hear holopad stuff through radios.
 		for(var/mob/living/silicon/ai/master in masters)
 			if(masters[master] && speaker != master)
 				master.relay_speech(message, speaker, message_language, raw_message, radio_freq, spans, message_mods)
