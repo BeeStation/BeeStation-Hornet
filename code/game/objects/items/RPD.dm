@@ -8,36 +8,36 @@ RPD
 #define TRANSIT_CATEGORY 2
 #define PLUMBING_CATEGORY 3
 
-#define BUILD_MODE 1
-#define WRENCH_MODE 2
-#define DESTROY_MODE 4
-#define PAINT_MODE 8
+#define BUILD_MODE (1<<0)
+#define WRENCH_MODE (1<<1)
+#define DESTROY_MODE (1<<2)
+#define PAINT_MODE (1<<3)
 
 
 GLOBAL_LIST_INIT(atmos_pipe_recipes, list(
 	"Pipes" = list(
 		new /datum/pipe_info/pipe("Pipe",				/obj/machinery/atmospherics/pipe/simple, TRUE),
 		new /datum/pipe_info/pipe("Manifold",			/obj/machinery/atmospherics/pipe/manifold, TRUE),
-		new /datum/pipe_info/pipe("Manual Valve",		/obj/machinery/atmospherics/components/binary/valve, TRUE),
-		new /datum/pipe_info/pipe("Digital Valve",		/obj/machinery/atmospherics/components/binary/valve/digital, TRUE),
 		new /datum/pipe_info/pipe("4-Way Manifold",		/obj/machinery/atmospherics/pipe/manifold4w, TRUE),
 		new /datum/pipe_info/pipe("Layer Adapter",		/obj/machinery/atmospherics/pipe/layer_manifold, TRUE),
 		new /datum/pipe_info/pipe("Multi-Deck Adapter", /obj/machinery/atmospherics/pipe/multiz, TRUE),
 	),
 	"Devices" = list(
 		new /datum/pipe_info/pipe("Connector",			/obj/machinery/atmospherics/components/unary/portables_connector, TRUE),
-		new /datum/pipe_info/pipe("Unary Vent",			/obj/machinery/atmospherics/components/unary/vent_pump, TRUE),
 		new /datum/pipe_info/pipe("Gas Pump",			/obj/machinery/atmospherics/components/binary/pump, TRUE),
-		new /datum/pipe_info/pipe("Passive Gate",		/obj/machinery/atmospherics/components/binary/passive_gate, TRUE),
 		new /datum/pipe_info/pipe("Volume Pump",		/obj/machinery/atmospherics/components/binary/volume_pump, TRUE),
-		new /datum/pipe_info/pipe("Scrubber",			/obj/machinery/atmospherics/components/unary/vent_scrubber, TRUE),
-		new /datum/pipe_info/pipe("Injector",			/obj/machinery/atmospherics/components/unary/outlet_injector, TRUE),
-		new /datum/pipe_info/pipe("Passive Vent",		/obj/machinery/atmospherics/components/unary/passive_vent, TRUE),
 		new /datum/pipe_info/pipe("Gas Filter",			/obj/machinery/atmospherics/components/trinary/filter, TRUE),
 		new /datum/pipe_info/pipe("Gas Mixer",			/obj/machinery/atmospherics/components/trinary/mixer, TRUE),
+		new /datum/pipe_info/pipe("Passive Gate",		/obj/machinery/atmospherics/components/binary/passive_gate, TRUE),
+		new /datum/pipe_info/pipe("Injector",			/obj/machinery/atmospherics/components/unary/outlet_injector, TRUE),
+		new /datum/pipe_info/pipe("Scrubber",			/obj/machinery/atmospherics/components/unary/vent_scrubber, TRUE),
+		new /datum/pipe_info/pipe("Unary Vent",			/obj/machinery/atmospherics/components/unary/vent_pump, TRUE),
+		new /datum/pipe_info/pipe("Passive Vent",		/obj/machinery/atmospherics/components/unary/passive_vent, TRUE),
 		new /datum/pipe_info/pipe("Pressure Valve",		/obj/machinery/atmospherics/components/binary/pressure_valve, TRUE),
 		new /datum/pipe_info/pipe("Temperature Gate",	/obj/machinery/atmospherics/components/binary/temperature_gate, TRUE),
 		new /datum/pipe_info/pipe("Temperature Pump",	/obj/machinery/atmospherics/components/binary/temperature_pump, TRUE),
+		new /datum/pipe_info/pipe("Manual Valve",		/obj/machinery/atmospherics/components/binary/valve, TRUE),
+		new /datum/pipe_info/pipe("Digital Valve",		/obj/machinery/atmospherics/components/binary/valve/digital, TRUE),
 		new /datum/pipe_info/meter("Meter"),
 	),
 	"Heat Exchange" = list(
@@ -113,22 +113,22 @@ GLOBAL_LIST_INIT(fluid_duct_recipes, list(
 			dirs = list("[NORTH]" = "Vertical", "[EAST]" = "Horizontal")
 			if(dirtype == PIPE_BENDABLE)
 				dirs += list("[NORTHWEST]" = "West to North", "[NORTHEAST]" = "North to East",
-							 "[SOUTHWEST]" = "South to West", "[SOUTHEAST]" = "East to South")
+							"[SOUTHWEST]" = "South to West", "[SOUTHEAST]" = "East to South")
 		if(PIPE_TRINARY)
-			dirs = list("[NORTH]" = "West South East", "[EAST]" = "North West South",
-						"[SOUTH]" = "East North West", "[WEST]" = "South East North")
+			dirs = list("[NORTH]" = "West South East", "[SOUTH]" = "East North West",
+						"[EAST]" = "North West South", "[WEST]" = "South East North")
 		if(PIPE_TRIN_M)
-			dirs = list("[NORTH]" = "North East South", "[EAST]" = "East South West",
-						"[SOUTH]" = "South West North", "[WEST]" = "West North East",
-						"[SOUTHEAST]" = "West South East", "[NORTHEAST]" = "South East North",
-						"[NORTHWEST]" = "East North West", "[SOUTHWEST]" = "North West South")
+			dirs = list("[NORTH]" = "North East South", "[SOUTHWEST]" = "North West South",
+						"[NORTHEAST]" = "South East North", "[SOUTH]" = "South West North",
+						"[WEST]" = "West North East", "[SOUTHEAST]" = "West South East",
+						"[NORTHWEST]" = "East North West", "[EAST]" = "East South West")
 		if(PIPE_UNARY)
-			dirs = list("[NORTH]" = "North", "[EAST]" = "East", "[SOUTH]" = "South", "[WEST]" = "West")
+			dirs = list("[NORTH]" = "North", "[SOUTH]" = "South", "[WEST]" = "West", "[EAST]" = "East")
 		if(PIPE_ONEDIR)
 			dirs = list("[SOUTH]" = name)
 		if(PIPE_UNARY_FLIPPABLE)
-			dirs = list("[NORTH]" = "North", "[NORTHEAST]" = "North Flipped", "[EAST]" = "East", "[SOUTHEAST]" = "East Flipped",
-						"[SOUTH]" = "South", "[SOUTHWEST]" = "South Flipped", "[WEST]" = "West", "[NORTHWEST]" = "West Flipped")
+			dirs = list("[NORTH]" = "North", "[EAST]" = "East", "[SOUTH]" = "South", "[WEST]" = "West",
+						"[NORTHEAST]" = "North Flipped", "[SOUTHEAST]" = "East Flipped", "[SOUTHWEST]" = "South Flipped", "[NORTHWEST]" = "West Flipped")
 
 
 	var/list/rows = list()
@@ -230,7 +230,7 @@ GLOBAL_LIST_INIT(fluid_duct_recipes, list(
 	var/static/datum/pipe_info/first_disposal
 	var/static/datum/pipe_info/first_transit
 	var/static/datum/pipe_info/first_plumbing
-	var/mode = BUILD_MODE | PAINT_MODE | DESTROY_MODE | WRENCH_MODE
+	var/mode = BUILD_MODE | DESTROY_MODE | WRENCH_MODE
 	var/locked = FALSE //wheter we can change categories. Useful for the plumber
 
 /obj/item/pipe_dispenser/Initialize(mapload)
@@ -375,11 +375,13 @@ GLOBAL_LIST_INIT(fluid_duct_recipes, list(
 	var/static/list/make_pipe_whitelist
 	if(!make_pipe_whitelist)
 		make_pipe_whitelist = typecacheof(list(/obj/structure/lattice, /obj/structure/girder, /obj/item/pipe, /obj/structure/window, /obj/structure/grille))
+	if(istype(A, /obj/machinery/atmospherics) && ((mode & BUILD_MODE) && !(mode & PAINT_MODE))) //Reduces pixelhunt when coloring is off.
+		A = get_turf(A)
 	var/can_make_pipe = (isturf(A) || is_type_in_typecache(A, make_pipe_whitelist))
 
 	. = FALSE
 
-	if((mode&DESTROY_MODE) && istype(A, /obj/item/pipe) || istype(A, /obj/structure/disposalconstruct) || istype(A, /obj/structure/c_transit_tube) || istype(A, /obj/structure/c_transit_tube_pod) || istype(A, /obj/item/pipe_meter))
+	if((mode & DESTROY_MODE) && istype(A, /obj/item/pipe) || istype(A, /obj/structure/disposalconstruct) || istype(A, /obj/structure/c_transit_tube) || istype(A, /obj/structure/c_transit_tube_pod) || istype(A, /obj/item/pipe_meter))
 		to_chat(user, "<span class='notice'>You start destroying a pipe...</span>")
 		playsound(get_turf(src), 'sound/machines/click.ogg', 50, 1)
 		if(do_after(user, destroy_speed, target = A))
@@ -405,7 +407,7 @@ GLOBAL_LIST_INIT(fluid_duct_recipes, list(
 				user.visible_message("<span class='notice'>[user] paints \the [P] [paint_color].</span>","<span class='notice'>You paint \the [P] [paint_color].</span>")
 			return
 
-	if(mode&BUILD_MODE)
+	if(mode & BUILD_MODE)
 		switch(category) //if we've gotten this var, the target is valid
 			if(ATMOS_CATEGORY) //Making pipes
 				if(!can_make_pipe)
@@ -417,7 +419,7 @@ GLOBAL_LIST_INIT(fluid_duct_recipes, list(
 						activate()
 						var/obj/item/pipe_meter/PM = new /obj/item/pipe_meter(get_turf(A))
 						PM.setAttachLayer(piping_layer)
-						if(mode&WRENCH_MODE)
+						if(mode & WRENCH_MODE)
 							PM.wrench_act(user, src)
 				else
 					if(recipe.all_layers == FALSE && (piping_layer == 1 || piping_layer == 5))
@@ -442,7 +444,7 @@ GLOBAL_LIST_INIT(fluid_duct_recipes, list(
 						P.setPipingLayer(piping_layer)
 						if(findtext("[queued_p_type]", "/obj/machinery/atmospherics/pipe") && !findtext("[queued_p_type]", "layer_manifold"))
 							P.add_atom_colour(GLOB.pipe_paint_colors[paint_color], FIXED_COLOUR_PRIORITY)
-						if(mode&WRENCH_MODE)
+						if(mode & WRENCH_MODE)
 							P.wrench_act(user, src)
 
 			if(DISPOSALS_CATEGORY) //Making disposals pipes
@@ -466,7 +468,7 @@ GLOBAL_LIST_INIT(fluid_duct_recipes, list(
 
 					C.add_fingerprint(usr)
 					C.update_icon()
-					if(mode&WRENCH_MODE)
+					if(mode & WRENCH_MODE)
 						C.wrench_act(user, src)
 					return
 
@@ -484,7 +486,7 @@ GLOBAL_LIST_INIT(fluid_duct_recipes, list(
 					if(queued_p_type == /obj/structure/c_transit_tube_pod)
 						var/obj/structure/c_transit_tube_pod/pod = new /obj/structure/c_transit_tube_pod(A)
 						pod.add_fingerprint(usr)
-						if(mode&WRENCH_MODE)
+						if(mode & WRENCH_MODE)
 							pod.wrench_act(user, src)
 
 					else
@@ -496,7 +498,7 @@ GLOBAL_LIST_INIT(fluid_duct_recipes, list(
 							tube.simple_rotate_flip()
 
 						tube.add_fingerprint(usr)
-						if(mode&WRENCH_MODE)
+						if(mode & WRENCH_MODE)
 							tube.wrench_act(user, src)
 					return
 			if(PLUMBING_CATEGORY) //Making pancakes
