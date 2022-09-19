@@ -145,6 +145,7 @@
 #define COMSIG_MOUSEDROP_ONTO "mousedrop_onto"					//! from base of atom/MouseDrop(): (/atom/over, /mob/user)
 	#define COMPONENT_NO_MOUSEDROP 1
 #define COMSIG_MOUSEDROPPED_ONTO "mousedropped_onto"			//! from base of atom/MouseDrop_T: (/atom/from, /mob/user)
+#define COMSIG_MOUSE_SCROLL_ON "mousescroll_on"					//! from base of mob/MouseWheelOn(): (/atom, delta_x, delta_y, params)
 
 // /area signals
 #define COMSIG_AREA_ENTERED "area_entered" 						//! from base of area/Entered(): (atom/movable/M)
