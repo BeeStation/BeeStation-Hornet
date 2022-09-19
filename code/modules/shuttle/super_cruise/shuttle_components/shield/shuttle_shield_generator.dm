@@ -17,6 +17,9 @@
 	//Can gain 2 shield health per second
 	var/charge_rate = 100
 
+	//Shield bubble overlay
+	var/mutable_appearance/shield_bubble
+
 /obj/machinery/power/shuttle_shield_generator/Initialize(mapload)
 	. = ..()
 	//Check our area
@@ -24,6 +27,7 @@
 	if(istype(current_area) && current_area.mobile_port)
 		var/datum/shuttle_data/shuttle_data = SSorbits.get_shuttle_data(current_area.mobile_port.id)
 		shuttle_data?.register_shield_generator(src)
+	create_shield_bubble()
 
 /obj/machinery/power/shuttle_shield_generator/Destroy()
 	//Remove our health from the shuttle object
@@ -108,3 +112,10 @@
 	if(available_power)
 		powernet.load += available_power
 		current_power_stored += available_power
+
+/obj/machinery/power/shuttle_shield_generator/proc/create_shield_bubble()
+	if (shield_bubble)
+		CRASH("Attempted to deploy a shield bubble while a shield bubble was already active.")
+	shield_bubble = mutable_appearance('icons/effects/512x512.dmi', "shield", SHIELD_BUBBLE_LAYER, SHIELD_BUBBLE_PLANE)
+	shield_bubble.pixel_x = -256
+	shield_bubble.pixel_y = -256

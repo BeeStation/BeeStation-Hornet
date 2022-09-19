@@ -157,3 +157,16 @@
 	render_target = O_LIGHTING_VISUAL_RENDER_TARGET
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	blend_mode = BLEND_MULTIPLY
+
+/atom/movable/screen/plane_master/shield_bubble
+	name = "shield bubble plane master"
+	layer = SHIELD_BUBBLE_LAYER
+	plane = SHIELD_BUBBLE_PLANE
+	render_target = SHIELD_BUBBLE_RENDER_TARGET
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	blend_mode = BLEND_OVERLAY
+
+/atom/movable/screen/plane_master/shield_bubble/backdrop(mob/mymob)
+	filters = list()
+	add_filter("blur", 1, gauss_blur_filter(2))
+	apply_wibbly_filters(src, 5)

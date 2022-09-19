@@ -75,7 +75,7 @@ export const OrbitalMap = (props, context) => {
             <DisplayWindow
               xOffset={dynamicXOffset}
               yOffset={dynamicYOffset}
-              isTracking={trackedBody !== map_objects[0].name}
+              isTracking={trackedBody !== "None"}
               zoomScale={zoomScale}
               setZoomScale={setZoomScale}
               setXOffset={setXOffset}
@@ -197,6 +197,12 @@ export const OrbitalMap = (props, context) => {
 };
 
 export const DisplayWindow = (props, context) => {
+  const { data } = useBackend(context);
+
+  const {
+    communication_targets = {},
+  } = data;
+
   const {
     xOffset,
     yOffset,
@@ -220,13 +226,16 @@ export const DisplayWindow = (props, context) => {
     setSelectedMap,
   ] = useLocalState(context, 'selectedMap', 'map');
 
-  if (isInterdicted === false && interdictionTime > 0)
-  {
+  if (isInterdicted === false && interdictionTime > 0) {
     setIsInterdicted(true);
     setSelectedMap('interdiction');
-  } else if (interdictionTime <= 0 && isInterdicted === true)
-  {
+  } else if (interdictionTime <= 0 && isInterdicted === true) {
     setIsInterdicted(false);
+  }
+
+  if (selectedMap === 'communication' && Object.keys(communication_targets).length === 0) {
+    setSelectedMap('map');
+    return;
   }
 
   return (
@@ -291,7 +300,7 @@ export const DisplayWindow = (props, context) => {
         onClick={() => setSelectedMap('interdiction')}
         selected={selectedMap === 'interdiction'}
         content="Local Map" />
-      <Button
+      {Object.keys(communication_targets).length > 0 && <Button
         position="absolute"
         icon="satellite-dish"
         right="5px"
@@ -300,7 +309,7 @@ export const DisplayWindow = (props, context) => {
         color="grey"
         onClick={() => setSelectedMap('communication')}
         selected={selectedMap === 'communication'}
-        content="Communications" />
+        content="Communications" />}
     </>
   );
 };

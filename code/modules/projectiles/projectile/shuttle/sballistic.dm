@@ -18,6 +18,18 @@
 	name = "guass round"
 	damage = 50
 	armour_penetration = 40
+	projectile_piercing = ALL
+
+/obj/item/projectile/bullet/shuttle/ballistic/guass/on_hit(atom/target, blocked)
+	var/turf/T = target
+	//Make it so it can damage turfs
+	if(istype(T))
+		if(impact_effect_type && !hitscan)
+			new impact_effect_type(T, target.pixel_x + rand(-8, 8), target.pixel_y + rand(-8, 8))
+		//Boom
+		explosion(T, 0, 0, 1, 0, flame_range = 2)
+		return BULLET_ACT_FORCE_PIERCE
+	return ..()
 
 /obj/item/projectile/bullet/shuttle/ballistic/guass/uranium
 	icon_state = "gaussradioactive"
@@ -26,19 +38,6 @@
 	damage = 80
 	slur = 50
 	knockdown = 80
-
-/obj/item/projectile/bullet/shuttle/ballistic/guass/on_hit(atom/target, blocked)
-	if(miss || force_miss)
-		return
-	var/turf/T = target
-	//Make it so it can damage turfs
-	if(istype(T))
-		if(impact_effect_type && !hitscan)
-			new impact_effect_type(T, target.pixel_x + rand(-8, 8), target.pixel_y + rand(-8, 8))
-		//Boom
-		explosion(T, 0, 0, 1, 0, flame_range = 2)
-		return BULLET_ACT_HIT
-	return ..()
 
 /obj/item/projectile/bullet/shuttle/ballistic/point_defense
 	name = "point defense round"

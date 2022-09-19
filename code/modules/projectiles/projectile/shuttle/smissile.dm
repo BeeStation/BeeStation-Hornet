@@ -5,6 +5,7 @@
 	armour_penetration = 100
 	dismemberment = 0
 	ricochets_max = 0
+	pass_flags = ALL
 	var/devastation = -1
 	var/heavy = -1
 	var/light_r = -1
@@ -12,7 +13,7 @@
 	var/fire = -1
 
 /obj/item/projectile/bullet/shuttle/missile/on_hit(atom/target, blocked = FALSE)
-	if((get_turf(target) != original && istype(target, /obj/structure/emergency_shield)) || force_miss)
+	if(get_turf(target) != original && istype(target, /obj/structure/emergency_shield))
 		return FALSE
 	explosion(target, devastation, heavy, light_r, flash, 0, flame_range = fire)
 	qdel(src)
