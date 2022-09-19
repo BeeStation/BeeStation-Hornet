@@ -59,10 +59,7 @@
 		if(affected_mob.notransform)
 			return
 		affected_mob.notransform = 1
-		for(var/obj/item/W in affected_mob.get_equipped_items(TRUE))
-			affected_mob.dropItemToGround(W)
-		for(var/obj/item/I in affected_mob.held_items)
-			affected_mob.dropItemToGround(I)
+		affected_mob.unequip_everything()
 		var/mob/living/new_mob = new new_form(affected_mob.loc)
 		if(istype(new_mob))
 			if(bantype && is_banned_from(affected_mob.ckey, bantype))
