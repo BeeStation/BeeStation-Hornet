@@ -1,4 +1,5 @@
-#define CLOCKCULT_SERVANTS 4
+#define CLOCKCULT_SOULS 2
+#define CLOCKCULT_BELIEVERS 2
 
 //component id defines; sometimes these may not make sense in regards to their use in scripture but important ones are bright
 #define BELLIGERENT_EYE "belligerent_eye" //! Use this for offensive and damaging scripture!

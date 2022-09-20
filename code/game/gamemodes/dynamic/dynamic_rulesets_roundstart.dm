@@ -615,8 +615,8 @@
 		servant_mind.current.forceMove(pick_n_take(spawns))
 		servant_mind.current.set_species(/datum/species/human)
 		var/datum/antagonist/servant_of_ratvar/S = add_servant_of_ratvar(servant_mind.current, team=main_cult)
-		S.equip_carbon(servant_mind.current)
-		S.equip_servant()
+		//S.equip_carbon(servant_mind.current)
+		//S.equip_servant()
 		S.prefix = CLOCKCULT_PREFIX_MASTER
 	//Setup the conversion limits for auto opening the ark
 	calculate_clockcult_values()

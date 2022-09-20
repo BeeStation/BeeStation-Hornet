@@ -1407,9 +1407,11 @@
 
 		//=====Clock Cult=====
 		if(integration_cog && cell.charge >= cell.maxcharge/2)
-			var/power_delta = CLAMP(cell.charge - 20, 0, 20)
-			GLOB.clockcult_power += power_delta
-			cell.charge -= power_delta
+			// Take power directly from the cables
+			var/datum/powernet/clockcult/clocknet = GLOB.clockcult_powernet
+			var/power_consumed = min(clocknet.cog_charge_rate, excess)
+			add_load(power_consumed)
+			clocknet.avail += power_consumed
 
 	else // no cell, switch everything off
 

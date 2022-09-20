@@ -40,4 +40,4 @@
 		M.client.color = LIGHT_COLOR_CLOCKWORK
 		animate(M.client, color=previous_colour, time=10)
 	var/datum/antagonist/servant_of_ratvar/R = add_servant_of_ratvar(M)
-	R.equip_servant_conversion()
+	//R.equip_servant_conversion()

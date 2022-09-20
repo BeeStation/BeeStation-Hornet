@@ -481,7 +481,8 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 	var/datum/antagonist/servant_of_ratvar/servant_antagonist = is_servant_of_ratvar(owner)
 	if(!(servant_antagonist?.team))
 		return
-	desc = "Stored Power - <b>[DisplayPower(GLOB.clockcult_power)]</b>.<br>"
+	var/datum/powernet/powernet = GLOB.clockcult_powernet
+	desc = "Available Power - <b>[DisplayPower(powernet.avail)]</b>.<br>"
 	desc += "Stored Vitality - <b>[GLOB.clockcult_vitality]</b>.<br>"
 	if(GLOB.ratvar_arrival_tick)
 		if(GLOB.ratvar_arrival_tick - world.time > 6000)
@@ -492,7 +493,6 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 		desc += "The gateway will activate in [DisplayTimeText(GLOB.conversion_timer_end - world.time)]. The timer will reduce every time a mind is converted."
 	if(GLOB.human_servants_of_ratvar)
 		desc += "There [GLOB.human_servants_of_ratvar.len == 1?"is" : "are"] currently [GLOB.human_servants_of_ratvar.len] loyal servant\s.<br>"
-	desc += "The gateway is running at [round((1/GLOB.clockwork_cached_cost_multiplier) * 100)]% efficiency, keep as many minds active as possible in order to preserve this."
 
 //GUARDIANS
 

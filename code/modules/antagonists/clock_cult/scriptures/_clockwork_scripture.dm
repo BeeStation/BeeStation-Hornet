@@ -21,16 +21,15 @@
 	var/sound/recital_sound = null
 
 /datum/clockcult/scripture/proc/invoke()
-	var/power_multiplier = calculate_clockwork_cost_multiplier()
-	if(GLOB.clockcult_power < (power_cost * power_multiplier) || GLOB.clockcult_vitality < (vitality_cost * power_multiplier))
+	if(GLOB.clockcult_power < (power_cost) || GLOB.clockcult_vitality < (vitality_cost))
 		invoke_fail()
 		if(invokation_chant_timer)
 			deltimer(invokation_chant_timer)
 			invokation_chant_timer = null
 		end_invoke()
 		return
-	GLOB.clockcult_power -= (power_cost * power_multiplier)
-	GLOB.clockcult_vitality -= (vitality_cost * power_multiplier)
+	GLOB.clockcult_power -= power_cost
+	GLOB.clockcult_vitality -= vitality_cost
 	invoke_success()
 
 /datum/clockcult/scripture/proc/invoke_success()

@@ -15,25 +15,10 @@
 
 	var/prefix = CLOCKCULT_PREFIX_RECRUIT
 
-	var/counts_towards_total = TRUE//Counts towards the total number of servants.
+	//Counts towards the total number of servants.
+	var/counts_towards_total = FALSE
 
 	var/mutable_appearance/forbearance
-
-/datum/antagonist/servant_of_ratvar/greet()
-	if(!owner.current)
-		return
-	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/clockcultalr.ogg', 60, FALSE, pressure_affected = FALSE)
-	to_chat(owner.current, "<span class='heavy_brass'><font size='7'>You feel a flash of light and the world spin around you!</font></span>")
-	to_chat(owner.current, "<span class='brass'><font size='5'>Using your clockwork slab you can invoke a variety of powers to help you complete Ratvar's will.</font></span>")
-	to_chat(owner.current, "<span class='brass'>Use Rat'varian observation consoles to monitor the crew and warp to the station.</span>")
-	to_chat(owner.current, "<span class='brass'>Use your Clockwork Slab to summon integration cogs to unlock more scriptures and siphon power.</span>")
-	to_chat(owner.current, "<span class='brass'>Unlock Kindle to stun targets, Hateful Manacles to restrain them and use a sigil of submission to convert them!</span>")
-	to_chat(owner.current, "<span class='brass'>The Celestial Gateway will automatically activate after some time and will open faster with every conversion.</span>")
-	to_chat(owner.current, "<span class='brass'>Prevent unnecessary damage, the Gateway is fed by the station's powergrid and the minds of the living. The Gateway will be weakend with every death and strengthened with every mindshielded brain.</span>")
-	owner.current.client?.tgui_panel?.give_antagonist_popup("Servant of Rat'Var",
-		"Use your clockwork slab to unlock and invoke scriptures.\n\
-		Hijack APCs by placing an integration cog into them.\n\
-		Convert the unfaithful to your side but above all else, protect the Gateway!")
 
 /datum/antagonist/servant_of_ratvar/on_gain()
 	. = ..()
@@ -59,8 +44,6 @@
 /datum/antagonist/servant_of_ratvar/apply_innate_effects(mob/living/M)
 	. = ..()
 	owner.current.faction |= "ratvar"
-	transmit_spell = new()
-	transmit_spell.Grant(owner.current)
 	if(GLOB.gateway_opening && ishuman(owner.current))
 		var/mob/living/carbon/owner_mob = owner.current
 		forbearance = mutable_appearance('icons/effects/genetics.dmi', "servitude", -MUTATIONS_LAYER)
@@ -73,7 +56,6 @@
 /datum/antagonist/servant_of_ratvar/remove_innate_effects(mob/living/M)
 	owner.current.faction -= "ratvar"
 	owner.current.clear_alert("clockinfo")
-	transmit_spell.Remove(transmit_spell.owner)
 	SSticker.mode.update_clockcult_icons_removed(owner)
 	if(forbearance && ishuman(owner.current))
 		var/mob/living/carbon/owner_mob = owner.current
@@ -100,16 +82,7 @@
 		clockwork_outfit.equip(H)
 
 /datum/antagonist/servant_of_ratvar/proc/equip_carbon(mob/living/carbon/H)
-	//Convert all items in their inventory to Ratvarian
-	var/list/contents = H.get_contents()
-	for(var/atom/A in contents)
-		A.ratvar_act()
-	//Equip them with a slab
-	var/obj/item/clockwork/clockwork_slab/slab = new(get_turf(H))
-	H.put_in_hands(slab)
-	//Remove cuffs
-	H.uncuff()
-	return FALSE
+	return
 
 //Grant access to the clockwork tools.
 //If AI, disconnect all active borgs and make it only able to control converted shells
@@ -150,6 +123,7 @@
 	team = new /datum/team/clock_cult
 	team.setup_objectives()
 
+
 //==========================
 //==== Clock cult team  ====
 //==========================
@@ -159,3 +133,4 @@
 
 /datum/team/clock_cult/proc/setup_objectives()
 	objectives = list(new /datum/objective/clockcult)
+

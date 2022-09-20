@@ -24,7 +24,7 @@
 	desc = "A strong, brass suit worn by the soldiers of the Ratvarian armies."
 	icon = 'icons/obj/clothing/clockwork_garb.dmi'
 	icon_state = "clockwork_cuirass"
-	armor = list("melee" = 60, "bullet" = 80, "laser" = 40, "energy" = 80, "bomb" = 80, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100, "stamina" = 60)
+	armor = list("melee" = 35, "bullet" = 60, "laser" = 45, "energy" = 80, "bomb" = 40, "bio" = 100, "rad" = 100, "fire" = 70, "acid" = 90, "stamina" = 60)
 	slowdown = 0.6
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	w_class = WEIGHT_CLASS_BULKY
@@ -51,7 +51,7 @@
 	desc = "A strong, brass helmet worn by the soldiers of the Ratvarian armies. Includes an integrated light-dimmer for flash protection, as well as occult-grade muffling for factory based environments."
 	icon = 'icons/obj/clothing/clockwork_garb.dmi'
 	icon_state = "clockwork_helmet"
-	armor = list("melee" = 60, "bullet" = 80, "laser" = 40, "energy" = 80, "bomb" = 80, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100, "stamina" = 60)
+	armor = list("melee" = 35, "bullet" = 60, "laser" = 45, "energy" = 80, "bomb" = 40, "bio" = 100, "rad" = 100, "fire" = 70, "acid" = 90, "stamina" = 60)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	w_class = WEIGHT_CLASS_BULKY
 	flash_protect = 1
@@ -75,7 +75,7 @@
 	icon_state = "clockwork_cuirass_speed"
 	slowdown = -0.5
 	resistance_flags = FIRE_PROOF | ACID_PROOF
-	armor = list("melee" = 40, "bullet" = 40, "laser" = 10, "energy" = -20, "bomb" = 60, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100, "stamina" = 30)
+	armor = list("melee" = 10, "bullet" = 45, "laser" = 45, "energy" = 20, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 70, "acid" = 90, "stamina" = 20)
 	var/effect_applied = FALSE
 
 /obj/item/clothing/suit/clockwork/speed/equipped(mob/living/user, slot)
@@ -108,7 +108,7 @@
 	desc = "A faltering cloak that bends light around it, distorting the user's appearance, making it hard to see them with the naked eye. However, it provides very little protection."
 	icon = 'icons/obj/clothing/clockwork_garb.dmi'
 	icon_state = "clockwork_cloak"
-	armor = list("melee" = 10, "bullet" = 60, "laser" = 40, "energy" = 20, "bomb" = 40, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100, "stamina" = 20)
+	armor = list("melee" = 15, "bullet" = 30, "laser" = 30, "energy" = 30, "bomb" = 10, "bio" = 100, "rad" = 100, "fire" = 70, "acid" = 90, "stamina" = 20)
 	slowdown = 0.2
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	var/shroud_active = FALSE
@@ -116,6 +116,10 @@
 	var/f
 	var/start
 	var/previous_alpha
+
+/obj/item/clothing/suit/clockwork/cloak/IsReflect(def_zone)
+	//Chance for lasers to be refracted by the light.
+	return prob(40)
 
 /obj/item/clothing/suit/clockwork/cloak/equipped(mob/user, slot)
 	. = ..()

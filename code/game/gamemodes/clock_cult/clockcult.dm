@@ -18,6 +18,8 @@ GLOBAL_LIST_EMPTY(clockcult_all_scriptures)
 GLOBAL_VAR_INIT(clockcult_power, 2500)
 GLOBAL_VAR_INIT(clockcult_vitality, 200)
 
+GLOBAL_VAR(clockcult_powernet)
+
 GLOBAL_VAR(clockcult_eminence)
 
 //==========================
@@ -41,10 +43,13 @@ GLOBAL_VAR(clockcult_eminence)
 	<span class='danger'>Servants</span>: Convert more servants and defend the Ark of the Clockwork Justicar!\n\
 	<span class='notice'>Crew</span>: Prepare yourselfs and destroy the Ark of the Clockwork Justicar."
 
+	//Number of clockies
+	var/clock_cultists = CLOCKCULT_SOULS + CLOCKCULT_BELIEVERS
 
-	var/clock_cultists = CLOCKCULT_SERVANTS
+	//List of people selected fort he mode
 	var/list/selected_servants = list()
 
+	//The main team
 	var/datum/team/clock_cult/main_cult
 
 /datum/game_mode/clockcult/setup_maps()
@@ -54,6 +59,8 @@ GLOBAL_VAR(clockcult_eminence)
 	return TRUE
 
 /datum/game_mode/clockcult/pre_setup()
+	//Create the powernet
+	GLOB.clockcult_powernet = new /datum/powernet/clockcult()
 	//Generate cultists
 	for(var/i in 1 to clock_cultists)
 		if(!antag_candidates.len)
@@ -73,6 +80,7 @@ GLOBAL_VAR(clockcult_eminence)
 	var/list/spawns = GLOB.servant_spawns.Copy()
 	main_cult = new
 	main_cult.setup_objectives()
+	var/number_of_souls = CLOCKCULT_SOULS
 	//Create team
 	for(var/datum/mind/servant_mind in selected_servants)
 		//Somehow the mind has no mob, ignore them so it doesn't break everything
@@ -81,12 +89,17 @@ GLOBAL_VAR(clockcult_eminence)
 		//Somehow all spawns where used, reuse old spawns
 		if(!length(spawns))
 			spawns = GLOB.servant_spawns.Copy()
-		servant_mind.current.forceMove(pick_n_take(spawns))
-		servant_mind.current.set_species(/datum/species/human)
-		var/datum/antagonist/servant_of_ratvar/S = add_servant_of_ratvar(servant_mind.current, team=main_cult)
-		S.equip_carbon(servant_mind.current)
-		S.equip_servant()
-		S.prefix = CLOCKCULT_PREFIX_MASTER
+		if (number_of_souls > 0)
+			number_of_souls --
+			servant_mind.current.forceMove(pick_n_take(spawns))
+			servant_mind.current.set_species(/datum/species/human)
+			var/datum/antagonist/servant_of_ratvar/reebe_soul/S = add_servant_of_ratvar(servant_mind.current, servant_type = /datum/antagonist/servant_of_ratvar/reebe_soul, team=main_cult)
+			S.equip_carbon(servant_mind.current)
+			S.equip_servant()
+			S.prefix = CLOCKCULT_PREFIX_MASTER
+		else
+			var/datum/antagonist/servant_of_ratvar/believer/S = add_servant_of_ratvar(servant_mind.current, servant_type = /datum/antagonist/servant_of_ratvar/believer, team=main_cult)
+			S.prefix = CLOCKCULT_PREFIX_MASTER
 	//Setup the conversion limits for auto opening the ark
 	calculate_clockcult_values()
 	return ..()
