@@ -169,6 +169,7 @@
 /datum/map_template/proc/on_placement_completed(datum/map_generator/map_gen, turf/T, init_atmos, datum/parsed_map/parsed, ...)
 	var/list/bounds = parsed.bounds
 	if(!bounds)
+		message_admins("NO PARSED BOUNDS!")
 		return
 
 	if(!SSmapping.loading_ruins) //Will be done manually during mapping ss init

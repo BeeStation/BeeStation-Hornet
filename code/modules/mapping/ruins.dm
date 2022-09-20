@@ -29,14 +29,17 @@
 			for(var/obj/structure/flora/ash/plant in T)
 				qdel(plant)
 
-		load(central_turf,centered = TRUE)
-		loaded++
+		var/datum/map_generator/map_placer = load(central_turf,centered = TRUE)
+		map_placer.on_completion(CALLBACK(src, .proc/after_ruin_generation, central_turf))
+		return map_placer
 
-		for(var/turf/T in get_affected_turfs(central_turf, 1))
-			T.flags_1 |= NO_RUINS_1
+/datum/map_template/ruin/proc/after_ruin_generation(turf/central_turf)
+	loaded++
 
-		new /obj/effect/landmark/ruin(central_turf, src)
-		return central_turf
+	for(var/turf/T in get_affected_turfs(central_turf, 1))
+		T.flags_1 |= NO_RUINS_1
+
+	new /obj/effect/landmark/ruin(central_turf, src)
 
 /datum/map_template/ruin/proc/place_on_isolated_level(z)
 	var/datum/turf_reservation/reservation = SSmapping.RequestBlockReservation(width, height, z) //Make the new level creation work with different traits.

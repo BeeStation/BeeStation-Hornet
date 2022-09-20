@@ -10,8 +10,7 @@
 /// Begin generating
 /datum/map_generator/proc/generate(...)
 	SSmap_generator.executing_generators += src
-	if (length(args) > 1)
-		callback_args = args.Copy(2)
+	callback_args = args.Copy(1)
 
 /datum/map_generator/proc/on_completion(datum/callback/completion_callback)
 	completion_callbacks += completion_callback

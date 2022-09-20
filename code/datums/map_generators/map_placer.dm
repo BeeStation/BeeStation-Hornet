@@ -107,7 +107,7 @@
 	//Locate the space key
 	space_key = model_cache[SPACE_KEY]
 	//Set them all to the same reference, so changing one affects the other
-	placing_template.bounds = bounds = list(1.#INF, 1.#INF, 1.#INF, -1.#INF, -1.#INF, -1.#INF)
+	bounds = placing_template.bounds = list(1.#INF, 1.#INF, 1.#INF, -1.#INF, -1.#INF, -1.#INF)
 	//Move to the next stage
 	set_stage(GENERATE_STAGE_BUILD_COORDINATES)
 
