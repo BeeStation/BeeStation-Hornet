@@ -42927,6 +42927,10 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
+"jIi" = (
+/obj/structure/sign/poster/official/disk,
+/turf/closed/wall/r_wall,
+/area/crew_quarters/heads/hop)
 "jJN" = (
 /obj/machinery/holopad,
 /obj/effect/landmark/event_spawn,
@@ -43241,6 +43245,10 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/chapel/main/monastery)
+"jUG" = (
+/obj/structure/sign/poster/official/disk,
+/turf/open/space/basic,
+/area/space)
 "jUT" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -96631,7 +96639,7 @@ aAH
 aAH
 aAH
 oIX
-aAH
+jIi
 aAH
 axi
 axi
@@ -96884,7 +96892,7 @@ atY
 fVn
 xBD
 vTi
-aAH
+jIi
 aBz
 aCP
 cTE
@@ -97146,7 +97154,7 @@ aBA
 aCQ
 rdV
 pHo
-aAH
+jIi
 aGu
 aHh
 aHV
@@ -97660,7 +97668,7 @@ aBC
 brO
 scQ
 aEN
-aAH
+jIi
 aGw
 aHj
 aHV
@@ -107494,7 +107502,7 @@ aaa
 aaa
 aaa
 aaa
-aaa
+jUG
 aaa
 aaa
 aaa

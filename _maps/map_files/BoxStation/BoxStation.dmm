@@ -39482,6 +39482,10 @@
 /obj/structure/disposalpipe/junction,
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
+"iZM" = (
+/obj/structure/sign/poster/official/disk,
+/turf/open/space/basic,
+/area/space)
 "iZP" = (
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
@@ -49423,6 +49427,10 @@
 /obj/structure/chair/office,
 /turf/open/floor/plasteel/grimy,
 /area/security/detectives_office)
+"pvr" = (
+/obj/structure/sign/poster/official/disk,
+/turf/closed/wall/r_wall,
+/area/crew_quarters/heads/captain)
 "pwf" = (
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 4
@@ -59963,6 +59971,10 @@
 	},
 /turf/open/floor/plasteel,
 /area/security/brig)
+"wRL" = (
+/obj/structure/sign/poster/official/disk,
+/turf/closed/wall,
+/area/crew_quarters/heads/captain)
 "wRV" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -92636,7 +92648,7 @@ bgS
 bik
 aZV
 aZV
-bmx
+wRL
 bmx
 bmx
 bqH
@@ -94684,12 +94696,12 @@ aXf
 aYk
 aZV
 aZV
+pvr
 aZV
 aZV
 aZV
 aZV
-aZV
-aZV
+pvr
 aZV
 aZV
 aZV
@@ -118357,7 +118369,7 @@ aaf
 aaa
 aaf
 aaa
-aaa
+iZM
 aaa
 aaa
 aaa

@@ -36713,6 +36713,7 @@
 /turf/open/floor/plasteel,
 /area/crew_quarters/heads/captain/private)
 "cbg" = (
+/obj/structure/sign/poster/official/disk,
 /turf/closed/wall,
 /area/crew_quarters/heads/captain/private)
 "cbj" = (
@@ -90621,6 +90622,10 @@
 /obj/structure/sign/departments/minsky/supply/hydroponics,
 /turf/closed/wall,
 /area/hydroponics)
+"mCo" = (
+/obj/structure/sign/poster/official/disk,
+/turf/closed/wall/r_wall,
+/area/crew_quarters/heads/captain)
 "mCL" = (
 /turf/closed/wall,
 /area/engine/storage_shared)
@@ -102693,6 +102698,10 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
 /turf/open/floor/plasteel,
 /area/security/main)
+"rBX" = (
+/obj/structure/sign/poster/official/disk,
+/turf/closed/wall/r_wall,
+/area/crew_quarters/heads/captain/private)
 "rBZ" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -158965,7 +158974,7 @@ bBM
 pfh
 bzP
 bGU
-bIV
+mCo
 bIV
 bMG
 bOP
@@ -159487,7 +159496,7 @@ bMK
 bSL
 bUL
 bXc
-bUQ
+rBX
 cbb
 ccM
 ceE
@@ -159749,7 +159758,7 @@ fTp
 oBX
 oIG
 cgs
-bUQ
+rBX
 cjK
 cjK
 kUj
@@ -161278,7 +161287,7 @@ bBx
 dtc
 waf
 bHp
-bIV
+mCo
 bKT
 bMO
 bOW

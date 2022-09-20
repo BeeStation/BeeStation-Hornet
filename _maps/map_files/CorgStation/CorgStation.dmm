@@ -3614,6 +3614,10 @@
 /obj/effect/spawner/structure/window/plasma/reinforced,
 /turf/open/floor/plating,
 /area/engine/supermatter)
+"aLp" = (
+/obj/structure/sign/poster/official/disk,
+/turf/open/space/basic,
+/area/space)
 "aLq" = (
 /turf/closed/wall/r_wall,
 /area/engine/engine_room)
@@ -101885,7 +101889,7 @@ anT
 aMT
 anT
 aMT
-aMT
+aLp
 aMT
 aMT
 aMT

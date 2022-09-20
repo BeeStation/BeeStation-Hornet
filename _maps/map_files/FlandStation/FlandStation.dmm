@@ -1401,6 +1401,10 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen/coldroom)
+"asf" = (
+/obj/structure/sign/poster/official/disk,
+/turf/closed/wall,
+/area/crew_quarters/heads/captain/private)
 "ask" = (
 /obj/machinery/disposal/bin,
 /obj/effect/decal/cleanable/cobweb,
@@ -1517,6 +1521,10 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/exit/departure_lounge)
+"atc" = (
+/obj/structure/sign/poster/official/disk,
+/turf/open/space/basic,
+/area/space)
 "atn" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
@@ -64803,6 +64811,10 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
+"pgy" = (
+/obj/structure/sign/poster/official/disk,
+/turf/closed/wall/r_wall,
+/area/crew_quarters/heads/captain)
 "pgD" = (
 /obj/effect/turf_decal/box/corners,
 /obj/effect/turf_decal/box/corners{
@@ -138251,7 +138263,7 @@ nnx
 nnx
 nnx
 nnx
-nnx
+atc
 nnx
 nnx
 nnx
@@ -146861,7 +146873,7 @@ uUm
 uUm
 hZf
 uUm
-uUm
+pgy
 uUm
 uUm
 huQ
@@ -147880,11 +147892,11 @@ dLx
 sRp
 rzV
 ojY
-wfA
+asf
 rCM
 flj
 wRq
-wfA
+asf
 wfA
 sni
 wfA
@@ -148144,7 +148156,7 @@ gMZ
 hgY
 lSU
 hhk
-wfA
+asf
 hYE
 ueW
 iEP
@@ -148910,7 +148922,7 @@ rzV
 qQS
 eMi
 ggY
-wfA
+asf
 fXc
 usW
 ePa

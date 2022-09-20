@@ -48077,6 +48077,10 @@
 /obj/structure/reagent_dispensers/watertank,
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
+"dqs" = (
+/obj/structure/sign/poster/official/disk,
+/turf/open/space/basic,
+/area/space)
 "dqu" = (
 /obj/structure/reagent_dispensers/watertank,
 /turf/open/floor/plating,
@@ -80742,6 +80746,10 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/fore)
+"wDD" = (
+/obj/structure/sign/poster/official/disk,
+/turf/closed/wall/r_wall,
+/area/crew_quarters/heads/captain/private)
 "wDR" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -113489,7 +113497,7 @@ buF
 bwA
 bkO
 bAc
-bcj
+wDD
 bDs
 tMu
 bGM
@@ -115027,7 +115035,7 @@ bjg
 bjg
 bcj
 bcj
-bcj
+wDD
 lXq
 bcj
 bcj
@@ -115536,7 +115544,7 @@ bcj
 bcj
 bcj
 bcj
-bcj
+wDD
 bcj
 bcj
 bcj
@@ -129986,7 +129994,7 @@ aaa
 aaa
 aaf
 aaa
-aaa
+dqs
 aaa
 aaa
 aaa
