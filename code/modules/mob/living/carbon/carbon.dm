@@ -69,18 +69,17 @@
 				if(S.next_step(user,user.a_intent))
 					return TRUE
 
-	if(iscarbon(user))
-		var/obj/item/bodypart/affecting = src.get_bodypart(check_zone(user.zone_selected))
-		// Handles welder repairs on carbon limbs (IPCs/prosthetics)
-		if(I.tool_behaviour == TOOL_WELDER && affecting && (!IS_ORGANIC_LIMB(affecting)) && user.a_intent != INTENT_HARM)
-			if(I.use_tool(src, user, 0, volume=50, amount=1))
-				if(user == src)
-					user.visible_message("<span class='notice'>[user] starts to fix some of the dents on [src]'s [parse_zone(affecting.body_zone)].</span>",
-					"<span class='notice'>You start fixing some of the dents on [src == user ? "your" : "[src]'s"] [parse_zone(affecting.body_zone)].</span>")
-					if(!do_mob(user, src, 50))
-						return
-				item_heal_robotic(src, user, 15, 0)
-				return TRUE // We managed to heal the limb
+	var/obj/item/bodypart/affecting = src.get_bodypart(check_zone(user.zone_selected))
+	// Handles welder repairs on carbon limbs (IPCs/prosthetics)
+	if(I.tool_behaviour == TOOL_WELDER && affecting && (!IS_ORGANIC_LIMB(affecting)) && user.a_intent != INTENT_HARM)
+		if(I.use_tool(src, user, 0, volume=50, amount=1))
+			if(user == src)
+				user.visible_message("<span class='notice'>[user] starts to fix some of the dents on [src]'s [parse_zone(affecting.body_zone)].</span>",
+				"<span class='notice'>You start fixing some of the dents on [src == user ? "your" : "[src]'s"] [parse_zone(affecting.body_zone)].</span>")
+				if(!do_mob(user, src, 50))
+					return
+			item_heal_robotic(src, user, 15, 0)
+			return TRUE // We managed to heal the limb
 
 	return ..()
 
