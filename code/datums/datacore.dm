@@ -288,7 +288,7 @@
 		//Locked Record
 		var/datum/data/record/L = new()
 		L.fields["id"]			= rustg_hash_string(RUSTG_HASH_MD5, "[H.real_name][H.mind.assigned_role]")	//surely this should just be id, like the others?
-		S.fields["spawn_id"]	= id
+		L.fields["spawn_id"]	= id
 		L.fields["name"]		= H.real_name
 		L.fields["age"]			= H.real_age
 		L.fields["sex"]			= H.real_gender

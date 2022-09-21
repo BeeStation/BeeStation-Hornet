@@ -83,9 +83,13 @@
 			. = "a young adult"
 		if(23 to 30)
 			. = "an adult"
-		if(31 to 60)
+		if(31 to 50)
 			. = "middle-aged"
-		if(61 to 100)
+		if(51 to 62)
+			. = "a bit aged"
+		if(63 to 75)
+			. = "fairly old"
+		if(76 to 100)
 			. = "elderly"
 		if(101 to INFINITY)
 			. = "way past their prime"
