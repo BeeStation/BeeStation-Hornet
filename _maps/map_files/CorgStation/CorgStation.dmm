@@ -11473,9 +11473,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/security/brig)
-"cSX" = (
-/turf/closed/wall,
-/area/security/prison)
 "cTe" = (
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
@@ -126270,10 +126267,10 @@ aMT
 aMT
 qBt
 uKT
-cSX
-cSX
-cSX
-cSX
+uKT
+uKT
+uKT
+uKT
 hmy
 hmy
 anT
