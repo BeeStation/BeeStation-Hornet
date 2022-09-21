@@ -17,7 +17,6 @@
 	icon_living = ""
 	icon = 'icons/mob/bees.dmi'
 	gender = FEMALE
-	real_gender = FEMALE
 	speak_emote = list("buzzes")
 	emote_hear = list("buzzes")
 	turns_per_move = 0

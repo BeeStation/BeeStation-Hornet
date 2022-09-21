@@ -7,7 +7,6 @@
 	icon_living = "eyeball"
 	icon_gib = ""
 	gender = NEUTER
-	real_gender = NEUTER
 	mob_biotypes = list(MOB_ORGANIC)
 	response_help = "pets"
 	response_disarm = "gently pushes aside"

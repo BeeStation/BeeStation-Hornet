@@ -6,7 +6,6 @@
 	icon_dead = "faithless_dead"
 	mob_biotypes = list(MOB_ORGANIC, MOB_HUMANOID)
 	gender = MALE
-	real_gender = MALE
 	speak_chance = 0
 	turns_per_move = 5
 	response_help = "passes through"

@@ -6,7 +6,6 @@
 	pass_flags = PASSTABLE | PASSGRILLE
 	ventcrawler = VENTCRAWLER_ALWAYS
 	gender = NEUTER
-	real_gender = NEUTER
 	var/is_adult = 0
 	var/docile = 0
 	faction = list("slime","neutral")

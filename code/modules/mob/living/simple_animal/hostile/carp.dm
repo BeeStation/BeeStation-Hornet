@@ -141,7 +141,6 @@
 	name = "Cayenne"
 	desc = "A failed Syndicate experiment in weaponized space carp technology, it now serves as a lovable mascot."
 	gender = FEMALE
-	real_gender = FEMALE
 	speak_emote = list("squeaks")
 	gold_core_spawnable = NO_SPAWN
 	faction = list(ROLE_SYNDICATE)
@@ -219,7 +218,6 @@
 	real_name = "Lia"
 	desc = "A failed experiment of Nanotrasen to create weaponised carp technology. This less than intimidating carp now serves as the Head of Security's pet."
 	gender = FEMALE
-	real_gender = FEMALE
 	speak_emote = list("squeaks")
 	gold_core_spawnable = NO_SPAWN
 	faction = list("neutral")

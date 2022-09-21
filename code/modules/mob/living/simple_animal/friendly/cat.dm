@@ -7,7 +7,6 @@
 	icon_living = "cat2"
 	icon_dead = "cat2_dead"
 	gender = MALE
-	real_gender = MALE
 	speak = list("Meow!", "Esp!", "Purr!", "HSSSSS")
 	speak_emote = list("purrs", "meows")
 	emote_hear = list("meows.", "mews.")
@@ -58,7 +57,6 @@
 	name = "Batsy"
 	desc = "The product of alien DNA and bored geneticists."
 	gender = FEMALE
-	real_gender = FEMALE
 	icon_state = "original"
 	icon_living = "original"
 	icon_dead = "original_dead"
@@ -85,7 +83,6 @@
 	icon_living = "cat"
 	icon_dead = "cat_dead"
 	gender = FEMALE
-	real_gender = FEMALE
 	gold_core_spawnable = NO_SPAWN
 	unique_pet = TRUE
 	var/list/family = list()//var restored from savefile, has count of each child type
@@ -161,7 +158,6 @@
 /mob/living/simple_animal/pet/cat/Proc
 	name = "Proc"
 	gender = MALE
-	real_gender = MALE
 	gold_core_spawnable = NO_SPAWN
 	unique_pet = TRUE
 
@@ -264,7 +260,6 @@
 	health = 50
 	maxHealth = 50
 	gender = FEMALE
-	real_gender = FEMALE
 	butcher_results = list(/obj/item/organ/brain = 1, /obj/item/organ/heart = 1, /obj/item/reagent_containers/food/snacks/cakeslice/birthday = 3,  \
 	/obj/item/reagent_containers/food/snacks/meat/slab = 2)
 	response_harm = "takes a bite out of"
@@ -311,7 +306,6 @@
 	name = "bread cat"
 	desc = "It's a cat... with a bread!"
 	gender = MALE
-	real_gender = MALE
 	icon_state = "breadcat"
 	icon_living = "breadcat"
 	icon_dead = "breadcat_dead"
@@ -323,7 +317,6 @@
 	name = "arabian cat"
 	desc = "It's a cat with Agal on his head."
 	gender = MALE
-	real_gender = MALE
 	icon_state = "cathalal"
 	icon_living = "cathalal"
 	collar_type = null

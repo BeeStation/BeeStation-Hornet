@@ -6,7 +6,6 @@
 	icon_living = "heart-on"
 	icon_dead = "heart-on"
 	gender = NEUTER
-	real_gender = NEUTER
 	turns_per_move = 5
 	speak_emote = list("beats")
 	emote_see = list("beats")

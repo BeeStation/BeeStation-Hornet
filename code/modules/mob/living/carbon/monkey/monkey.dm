@@ -37,8 +37,8 @@ GLOBAL_LIST_INIT(strippable_monkey_items, create_strippable_list(list(
 	add_verb(/mob/living/proc/lay_down)
 
 	if(unique_name) //used to exclude pun pun
-		real_gender = pick(MALE, FEMALE)
-		gender = real_gender
+		gender = pick(MALE, FEMALE)
+		real_gender = gender
 	real_name = name
 
 	//initialize limbs

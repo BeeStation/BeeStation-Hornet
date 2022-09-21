@@ -8,7 +8,6 @@
 	icon_living = "human_male"
 	icon_dead = "human_male"
 	gender = NEUTER
-	real_gender = NEUTER
 	a_intent = INTENT_HARM
 	mob_biotypes = list(MOB_INORGANIC, MOB_HUMANOID)
 

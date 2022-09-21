@@ -6,7 +6,6 @@
 	icon_living = "mutantbread"
 	icon_dead = "bread"
 	gender = NEUTER
-	real_gender = NEUTER
 	speak_chance = 0
 	turns_per_move = 5
 	maxHealth = 30

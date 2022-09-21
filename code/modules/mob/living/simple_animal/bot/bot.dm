@@ -3,7 +3,6 @@
 	icon = 'icons/mob/aibots.dmi'
 	layer = MOB_LAYER
 	gender = NEUTER
-	real_gender = NEUTER
 	mob_biotypes = list(MOB_ROBOTIC)
 	wander = FALSE
 	healable = 0

@@ -20,7 +20,6 @@
 	name = "goliath broodmother"
 	desc = "An example of sexual dimorphism, this female goliath looks much different than the males of her species.  She is, however, just as dangerous, if not more."
 	gender = FEMALE
-	real_gender = FEMALE
 	icon_state = "broodmother"
 	icon_living = "broodmother"
 	icon_aggro = "broodmother"

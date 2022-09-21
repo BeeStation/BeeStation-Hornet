@@ -7,7 +7,6 @@
 	icon_dead = "pine_1"
 	icon_gib = "pine_1"
 	gender = NEUTER
-	real_gender = NEUTER
 	speak_chance = 0
 	turns_per_move = 5
 	response_help = "brushes"

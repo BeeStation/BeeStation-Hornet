@@ -47,7 +47,6 @@
 	real_name = "Coffee"
 	desc = "It's Coffee, the other pet!"
 	gender = FEMALE
-	real_gender = FEMALE
 	response_help  = "pets"
 	response_disarm = "gently pushes aside"
 	response_harm   = "stomps"

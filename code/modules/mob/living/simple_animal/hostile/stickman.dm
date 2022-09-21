@@ -7,7 +7,6 @@
 	icon_gib = "syndicate_gib"
 	mob_biotypes = list(MOB_INORGANIC, MOB_HUMANOID)
 	gender = MALE
-	real_gender = MALE
 	speak_chance = 0
 	turns_per_move = 5
 	response_help = "pokes"

@@ -10,6 +10,10 @@
 	faction += "[REF(src)]"
 	GLOB.mob_living_list += src
 	initialize_footstep()
+	if(!real_age && age)
+		real_age = age
+	if(!real_gender && gender)
+		real_gender = gender
 	if (playable)
 		set_playable()	//announce to ghosts
 

@@ -4,7 +4,6 @@
 	health = 20
 	maxHealth = 20
 	gender = PLURAL //placeholder
-	real_gender = PLURAL
 
 	status_flags = CANPUSH
 
@@ -102,8 +101,8 @@
 	. = ..()
 	GLOB.simple_animals[AIStatus] += src
 	if(gender == PLURAL)
-		real_gender = pick(MALE,FEMALE)
-		gender = real_gender
+		gender = pick(MALE,FEMALE)
+		real_gender = gender
 	if(!real_name)
 		real_name = name
 	if(!loc)
