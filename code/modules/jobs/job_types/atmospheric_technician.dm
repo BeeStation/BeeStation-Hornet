@@ -17,12 +17,11 @@
 	minimal_access = list(ACCESS_ATMOSPHERICS, ACCESS_MAINT_TUNNELS, ACCESS_CONSTRUCTION, ACCESS_MECH_ENGINE, ACCESS_MINERAL_STOREROOM, ACCESS_AUX_BASE)
 
 	department_flag = ENGSEC
-	crew_manifest_department = ACCOUNT_ENG_BITFLAG
+	departments = DEPT_BITFLAG_ENG
 	bank_account_department = ACCOUNT_ENG_BITFLAG
 	payment_per_department = list(ACCOUNT_ENG_ID = PAYCHECK_MEDIUM)
 
 	display_order = JOB_DISPLAY_ORDER_ATMOSPHERIC_TECHNICIAN
-	departments = DEPARTMENT_BITFLAG_ENG
 	rpg_title = "Aeromancer"
 
 	species_outfits = list(

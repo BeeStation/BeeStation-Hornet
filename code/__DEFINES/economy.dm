@@ -50,6 +50,8 @@
 #define ACCOUNT_MED_BITFLAG (1<<6)
 #define ACCOUNT_SEC_BITFLAG (1<<7)
 #define ACCOUNT_VIP_BITFLAG (1<<8) // for VIP only vendor items. currently not used.
+// this should use the same bitflag values in `\_DEFINES\jobs.dm` to match.
+// It's true that bitflags shouldn't be separated in two DEFINES if these are same, but just in case the system can be devided, it's remained separated.
 
 /// How much mail the Economy SS will create per minute, regardless of firing time.
 #define MAX_MAIL_PER_MINUTE 3

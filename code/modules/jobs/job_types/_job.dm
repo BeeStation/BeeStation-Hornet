@@ -56,8 +56,6 @@
 	///The amount of good boy points playing this role will earn you towards a higher chance to roll antagonist next round can be overridden by antag_rep.txt config
 	var/antag_rep = 10
 
-	///Your crew manifest department
-	var/crew_manifest_department
 	///vender will not ask you for credits when you buy a stuff from it as long as department matches
 	var/bank_account_department = ACCOUNT_CIV_BITFLAG
 	///your payment per department. geneticist will be a good example for this.

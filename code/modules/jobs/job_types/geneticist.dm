@@ -15,6 +15,7 @@
 	minimal_access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_GENETICS, ACCESS_CLONING, ACCESS_MECH_MEDICAL, ACCESS_RESEARCH, ACCESS_MINERAL_STOREROOM)
 
 	department_flag = MEDSCI
+	departments = DEPT_BITFLAG_MED | DEPT_BITFLAG_SCI
 	bank_account_department = ACCOUNT_MED_BITFLAG | ACCOUNT_SCI_BITFLAG
 	payment_per_department = list(
 		ACCOUNT_MED_ID = PAYCHECK_MEDIUM_BY_HALF,  // Paid by med for half
@@ -23,7 +24,6 @@
 	mind_traits = list(TRAIT_MEDICAL_METABOLISM)
 
 	display_order = JOB_DISPLAY_ORDER_GENETICIST
-	departments = DEPARTMENT_BITFLAG_MED
 	rpg_title = "Genemancer"
 
 	species_outfits = list(

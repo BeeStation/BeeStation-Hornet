@@ -17,11 +17,11 @@
 	minimal_access = list(ACCESS_RESEARCH, ACCESS_EXPLORATION, ACCESS_TOX, ACCESS_MECH_SCIENCE)
 
 	department_flag = MEDSCI
+	departments = DEPT_BITFLAG_SCI
 	bank_account_department = ACCOUNT_SCI_BITFLAG
 	payment_per_department = list(ACCOUNT_SCI_ID = PAYCHECK_HARD)
 
 	display_order = JOB_DISPLAY_ORDER_EXPLORATION
-	departments = DEPARTMENT_BITFLAG_SCI
 	rpg_title = "Sailor"
 
 	species_outfits = list(

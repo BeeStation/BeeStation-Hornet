@@ -46,7 +46,7 @@
 	account_job = job
 	account_id = rand(111111,999999)
 	var/failcheck = 2000
-	while(SSeconomy.get_bank_account_by_id(account_id, FALSE)) // Don't get the same account ID
+	while(SSeconomy.get_bank_account_by_id(account_id)) // Don't get the same account ID
 		account_id = rand(111111,999999)
 		if(!failcheck--)
 			CRASH("Something's wrong to creat to a bank account")

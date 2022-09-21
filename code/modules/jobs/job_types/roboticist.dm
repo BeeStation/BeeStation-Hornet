@@ -18,11 +18,11 @@
 					ACCESS_MINERAL_STOREROOM, ACCESS_AUX_BASE)
 
 	department_flag = MEDSCI
+	departments = DEPT_BITFLAG_SCI
 	bank_account_department = ACCOUNT_SCI_BITFLAG
 	payment_per_department = list(ACCOUNT_SCI_ID = PAYCHECK_MEDIUM)
 
 	display_order = JOB_DISPLAY_ORDER_ROBOTICIST
-	departments = DEPARTMENT_BITFLAG_SCI
 	rpg_title = "Golemancer"
 
 	species_outfits = list(

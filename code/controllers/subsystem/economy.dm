@@ -75,15 +75,13 @@ SUBSYSTEM_DEF(economy)
 	var/effective_mailcount = living_player_count()
 	mail_waiting += clamp(effective_mailcount, 1, MAX_MAIL_PER_MINUTE)
 
-/datum/controller/subsystem/economy/proc/get_bank_account_by_id(target_id, failcheck=TRUE)
+/datum/controller/subsystem/economy/proc/get_bank_account_by_id(target_id)
 	if(!length(bank_accounts))
 		return FALSE
 	target_id = text2num(target_id)
 	for(var/datum/bank_account/target_account in bank_accounts)
 		if(target_account.account_id == target_id)
 			return target_account
-	if(!failcheck)
-		CRASH("the proc failed to search [target_id] bank account, appears to be an invalid bank ID")
 	return null
 
 /datum/controller/subsystem/economy/proc/get_dep_account(dep_id)
@@ -103,7 +101,7 @@ SUBSYSTEM_DEF(economy)
 	if(!D) // null check first
 		return FALSE
 	if(!istype(D, /datum/bank_account/department)) // if parameter was given as a dept id, replace it into better type
-		D = SSeconomy.get_dep_account(text2num(D)) // tricky
+		D = SSeconomy.get_dep_account(D) // tricky
 	if(!istype(D, /datum/bank_account/department)) // if it failed to replacing, return false.
 		return FALSE
 	for(var/each in SSeconomy.nonstation_accounts)

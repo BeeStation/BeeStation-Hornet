@@ -14,13 +14,12 @@
 	minimal_access = list(ACCESS_MAINT_TUNNELS, ACCESS_CARGO, ACCESS_MAILSORTING, ACCESS_MINERAL_STOREROOM)
 
 	department_flag = CIVILIAN
-	crew_manifest_department = ACCOUNT_CAR_BITFLAG
+	departments = DEPT_BITFLAG_CAR
 	bank_account_department = ACCOUNT_CAR_BITFLAG
 	payment_per_department = list(ACCOUNT_CAR_ID = PAYCHECK_EASY)
 
 
 	display_order = JOB_DISPLAY_ORDER_CARGO_TECHNICIAN
-	departments = DEPARTMENT_BITFLAG_CAR
 	rpg_title = "Merchantman"
 
 	species_outfits = list(

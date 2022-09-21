@@ -295,6 +295,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 					else
 						dat += "Prioritize"
 
+
 			dat += "</td></tr>"
 		dat += "</table>"
 	else if(mode == 3)
@@ -324,6 +325,8 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		dat += "<td>target department: "
 		if(length(paycheck_departments))
 			for(var/P in available_paycheck_departments)
+				if(SSeconomy.is_nonstation_account(P))
+					continue
 				var/colourful = "[P == target_paycheck ? "<font color=\"6bc473\">" : "" ]"
 				dat += "<a href='?src=[REF(src)];choice=set_paycheck_department;paytype=[P]'>[colourful][P][colourful ? "</font>" : ""]</a> "
 		dat += "</td>"
@@ -336,10 +339,13 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				dat += "<tr>"
 				dat += "<td>[B.account_holder] [B.suspended ? "(Account closed)" : ""]</td>"
 				dat += "<td>[R ? R.fields["rank"] : "(No data)"]</td>"
-				if(target_paycheck in paycheck_departments)
-					dat += "<td><a href='?src=[REF(src)];choice=turn_on_off_department;account=[B.account_id];paycheck_t=[target_paycheck]'><font color=\"6bc473\">Vendor free</font></a></td>"
+				if(!(target_paycheck in paycheck_departments))
+					dat += "<td>(Auth-denied)</td>"
 				else
-					dat += "<td><a href='?src=[REF(src)];choice=turn_on_off_department;account=[B.account_id];paycheck_t=[target_paycheck]'>No free</a></td>"
+					if(B.active_departments & SSeconomy.account_bitflags[target_paycheck])
+						dat += "<td><a href='?src=[REF(src)];choice=turn_on_off_department_bank;account=[B.account_id];paycheck_t=[target_paycheck]'><font color=\"6bc473\">Vendor free</font></a></td>"
+					else
+						dat += "<td><a href='?src=[REF(src)];choice=turn_on_off_department_bank;account=[B.account_id];paycheck_t=[target_paycheck]'>No free</a></td>"
 				if(B.suspended)
 					dat += "<td>Closed</td>"
 					dat += "<td>$0</td>"
@@ -379,10 +385,10 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				jobs_all += "<br/>* Service: "
 			if(job == JOB_NAME_QUARTERMASTER)
 				jobs_all += "<br/>* Cargo: "
-			if(job == JOB_NAME_CHIEFENGINEER)
-				jobs_all += "<br/>* Engineering: "
 			if(job == JOB_NAME_RESEARCHDIRECTOR)
 				jobs_all += "<br/>* R&D: "
+			if(job == JOB_NAME_CHIEFENGINEER)
+				jobs_all += "<br/>* Engineering: "
 			if(job == JOB_NAME_CHIEFMEDICALOFFICER)
 				jobs_all += "<br/>* Medical: "
 			if(job == JOB_NAME_HEADOFSECURITY)
@@ -445,10 +451,10 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 					for(var/each in available_paycheck_departments)
 						if(!is_bank_edit_authorized(each))
 							continue
-						if(B.active_departments & available_paycheck_departments[each])
-							banking += "<td><a href='?src=[REF(src)];choice=turn_on_off_department;account=[R.fields["active_dept"]];paycheck_t=[each]'><font color=\"6bc473\">[each]</a></font></td>"
+						if(R.fields["active_dept"] & available_paycheck_departments[each])
+							banking += "<td><a href='?src=[REF(src)];choice=turn_on_off_department_manifest;target_bitflag=[available_paycheck_departments[each]]'><font color=\"6bc473\">[each]</a></font></td>"
 						else
-							banking += "<td><a href='?src=[REF(src)];choice=turn_on_off_department;account=[R.fields["active_dept"]];paycheck_t=[each]'>[each]</a></td>"
+							banking += "<td><a href='?src=[REF(src)];choice=turn_on_off_department_manifest;target_bitflag=[available_paycheck_departments[each]]'>[each]</a></td>"
 				else
 					banking += "<td><b>Data not found</b></td>"
 				banking += "</tr>"
@@ -459,9 +465,9 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 					if(!is_bank_edit_authorized(each))
 						continue
 					if(B.active_departments & available_paycheck_departments[each])
-						banking += "<td><a href='?src=[REF(src)];choice=turn_on_off_department;account=[B.account_id];paycheck_t=[each]'><font color=\"6bc473\">[each]</a></font></td>"
+						banking += "<td><a href='?src=[REF(src)];choice=turn_on_off_department_bank;account=[B.account_id];paycheck_t=[each]'><font color=\"6bc473\">[each]</a></font></td>"
 					else
-						banking += "<td><a href='?src=[REF(src)];choice=turn_on_off_department;account=[B.account_id];paycheck_t=[each]'>[each]</a></td>"
+						banking += "<td><a href='?src=[REF(src)];choice=turn_on_off_department_bank;account=[B.account_id];paycheck_t=[each]'>[each]</a></td>"
 				banking += "</tr>"
 				// Payment status
 				banking += "<tr>"
@@ -469,6 +475,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				for(var/each in available_paycheck_departments)
 					if(!is_bank_edit_authorized(each))
 						continue
+					world.log << "non station called: [each]"
 					if(SSeconomy.is_nonstation_account(each))
 						banking += "<td>€[B.payment_per_department[each]]</td>"
 						continue
@@ -743,10 +750,10 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 					target_paycheck = ACCOUNT_SRV_ID
 				if(ACCOUNT_CAR_ID)
 					target_paycheck = ACCOUNT_CAR_ID
-				if(ACCOUNT_ENG_ID)
-					target_paycheck = ACCOUNT_ENG_ID
 				if(ACCOUNT_SCI_ID)
 					target_paycheck = ACCOUNT_SCI_ID
+				if(ACCOUNT_ENG_ID)
+					target_paycheck = ACCOUNT_ENG_ID
 				if(ACCOUNT_MED_ID)
 					target_paycheck = ACCOUNT_MED_ID
 				if(ACCOUNT_SEC_ID)
@@ -754,7 +761,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 
 		if ("adjust_pay")
 			//Adjust the paycheck of a crew member. Can't be less than zero.
-			if(!inserted_scan_id)
+			if(!authenticated)
 				updateUsrDialog()
 				return
 			var/account_id = href_list["account"]
@@ -763,26 +770,6 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			if(isnull(account))
 				updateUsrDialog()
 				return
-			if(account.active_departments & (ACCOUNT_SRV_BITFLAG | ACCOUNT_CIV_BITFLAG | ACCOUNT_CAR_BITFLAG)) //Checking if the user has access to change pay.
-				if(!(ACCESS_HOP in inserted_scan_id.access))
-					updateUsrDialog()
-					return
-			if(account.active_departments & ACCOUNT_SEC_BITFLAG)
-				if(!(ACCESS_HOS in inserted_scan_id.access))
-					updateUsrDialog()
-					return
-			if(account.active_departments & ACCOUNT_MED_BITFLAG)
-				if(!(ACCESS_CMO in inserted_scan_id.access))
-					updateUsrDialog()
-					return
-			if(account.active_departments & ACCOUNT_SCI_BITFLAG)
-				if(!(ACCESS_RD in inserted_scan_id.access))
-					updateUsrDialog()
-					return
-			if(account.active_departments & ACCOUNT_ENG_BITFLAG)
-				if(!(ACCESS_CE in inserted_scan_id.access))
-					updateUsrDialog()
-					return
 			var/new_pay = FLOOR(input(usr, "Input the new paycheck amount.", "Set new paycheck amount.", account.payment_per_department[target_paycheck]) as num|null, 1)
 			if(isnull(new_pay))
 				updateUsrDialog()
@@ -795,7 +782,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 
 		if ("adjust_bonus")
 			//Adjust the bonus pay of a crew member. Negative amounts dock pay.
-			if(!inserted_scan_id)
+			if(!authenticated)
 				updateUsrDialog()
 				return
 			var/account_id = href_list["account"]
@@ -804,33 +791,13 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			if(isnull(account))
 				updateUsrDialog()
 				return
-			if(account.active_departments & (ACCOUNT_SRV_BITFLAG | ACCOUNT_CIV_BITFLAG | ACCOUNT_CAR_BITFLAG))//Checking if the user has access to change pay.
-				if(!(ACCESS_HOP in inserted_scan_id.access))
-					updateUsrDialog()
-					return
-			if(account.active_departments & ACCOUNT_SEC_BITFLAG)
-				if(!(ACCESS_HOS in inserted_scan_id.access))
-					updateUsrDialog()
-					return
-			if(account.active_departments & ACCOUNT_MED_BITFLAG)
-				if(!(ACCESS_CMO in inserted_scan_id.access))
-					updateUsrDialog()
-					return
-			if(account.active_departments & ACCOUNT_SCI_BITFLAG)
-				if(!(ACCESS_RD in inserted_scan_id.access))
-					updateUsrDialog()
-					return
-			if(account.active_departments & ACCOUNT_ENG_BITFLAG)
-				if(!(ACCESS_CE in inserted_scan_id.access))
-					updateUsrDialog()
-					return
 			var/new_bonus = FLOOR(input(usr, "Input the bonus amount. Negative values will dock paychecks.", "Set paycheck bonus", account.bonus_per_department[target_paycheck]) as num|null, 1)
 			if(isnull(new_bonus))
 				updateUsrDialog()
 				return
 			account.bonus_per_department[paycheck_t] = new_bonus
 
-		if ("turn_on_off_department")
+		if ("turn_on_off_department_bank")
 			if(!inserted_scan_id)
 				updateUsrDialog()
 				return
@@ -845,6 +812,21 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				B.active_departments &= ~SSeconomy.account_bitflags[paycheck_t] // turn off
 			else
 				B.active_departments |= SSeconomy.account_bitflags[paycheck_t] // turn on
+
+		if ("turn_on_off_department_manifest")
+			if(!inserted_scan_id)
+				updateUsrDialog()
+				return
+			var/target_bitflag = text2num(href_list["target_bitflag"])
+			var/datum/data/record/R = find_record("name", inserted_modify_id.registered_name, GLOB.data_core.general)
+			if(!R)
+				updateUsrDialog()
+				return
+
+			if(R.fields["active_dept"] & target_bitflag)
+				R.fields["active_dept"] &= ~target_bitflag // turn off
+			else
+				R.fields["active_dept"] |= target_bitflag // turn on
 
 		if ("print")
 			if (!( printing ))
@@ -905,28 +887,26 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	updateUsrDialog()
 
 /obj/machinery/computer/card/proc/is_bank_edit_authorized(dep)
-	if(!inserted_scan_id)
-		return FALSE
 	switch(dep)
 		if(ACCOUNT_COM_ID)
-			if(!target_dept)
+			if(DEPT_GEN in region_access)
 				return TRUE
 		if(ACCOUNT_CIV_ID, ACCOUNT_SRV_ID, ACCOUNT_CAR_ID)
-			if((target_dept==DEPT_GEN) || !target_dept)
+			if(DEPT_GEN in region_access)
 				return TRUE
 		if(ACCOUNT_ENG_ID)
-			if((target_dept==DEPT_ENG) || !target_dept)
+			if(DEPT_ENG in region_access)
 				return TRUE
 		if(ACCOUNT_SEC_ID)
-			if((target_dept==DEPT_SEC) || !target_dept)
+			if(DEPT_SEC in region_access)
 				return TRUE
 		if(ACCOUNT_MED_ID)
-			if((target_dept==DEPT_MED) || !target_dept)
+			if(DEPT_MED in region_access)
 				return TRUE
 		if(ACCOUNT_SCI_ID)
-			if((target_dept==DEPT_SCI) || !target_dept)
+			if(DEPT_SCI in region_access)
 				return TRUE
-	return FALSE
+	return TRUE
 
 /obj/machinery/computer/card/proc/get_subordinates(rank)
 	for(var/datum/job/job in SSjob.occupations)

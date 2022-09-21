@@ -14,11 +14,11 @@
 	minimal_access = list(ACCESS_LIBRARY, ACCESS_AUX_BASE, ACCESS_MINING_STATION)
 
 	department_flag = CIVILIAN
+	departments = DEPT_BITFLAG_CIV
 	bank_account_department = ACCOUNT_CIV_BITFLAG
 	payment_per_department = list(ACCOUNT_CIV_ID = PAYCHECK_EASY)
 
 	display_order = JOB_DISPLAY_ORDER_CURATOR
-	departments = DEPARTMENT_BITFLAG_SRV
 	rpg_title = "Veteran Adventurer"
 
 	species_outfits = list(

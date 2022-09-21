@@ -16,11 +16,11 @@
 					ACCESS_AUX_BASE)
 
 	department_flag = CIVILIAN
+	departments = DEPT_BITFLAG_CAR
 	bank_account_department = ACCOUNT_CAR_BITFLAG
 	payment_per_department = list(ACCOUNT_CAR_ID = PAYCHECK_HARD)
 
 	display_order = JOB_DISPLAY_ORDER_SHAFT_MINER
-	departments = DEPARTMENT_BITFLAG_CAR
 	rpg_title = "Adventurer"
 
 	species_outfits = list(
