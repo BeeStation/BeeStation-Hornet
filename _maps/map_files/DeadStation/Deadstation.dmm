@@ -768,7 +768,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
 	},
-/obj/structure/chair/comfy,
+/obj/structure/chair/fancy/comfy,
 /obj/machinery/requests_console{
 	department = "Medical Lobby";
 	departmentType = 5;
@@ -836,7 +836,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
 	},
-/obj/structure/chair/comfy,
+/obj/structure/chair/fancy/comfy,
 /obj/machinery/firealarm/directional/north,
 /obj/effect/landmark/start/assistant,
 /turf/open/floor/plasteel/white,
@@ -873,7 +873,7 @@
 /turf/open/floor/plasteel,
 /area/engine/gravity_generator)
 "aVz" = (
-/obj/structure/chair/comfy/brown,
+/obj/structure/chair/fancy/comfy,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
@@ -1852,7 +1852,7 @@
 /turf/open/floor/plating,
 /area/security/prison)
 "bKJ" = (
-/obj/structure/chair/comfy/brown{
+/obj/structure/chair/fancy/comfy{
 	dir = 1
 	},
 /turf/open/floor/plasteel/grimy,
@@ -2474,7 +2474,7 @@
 "cmR" = (
 /obj/structure/table,
 /obj/item/clipboard,
-/obj/item/stamp/qm,
+/obj/item/stamp/quartermaster,
 /obj/effect/turf_decal/tile/brown{
 	dir = 8
 	},
@@ -2624,7 +2624,7 @@
 /turf/open/floor/plasteel/freezer,
 /area/crew_quarters/kitchen/coldroom)
 "ctl" = (
-/obj/structure/chair/pew/right{
+/obj/structure/chair/fancy/bench/pew/right{
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
@@ -2676,7 +2676,7 @@
 /turf/open/floor/plasteel,
 /area/security/main)
 "cur" = (
-/obj/structure/chair/pew{
+/obj/structure/chair/fancy/bench/pew{
 	dir = 1
 	},
 /turf/open/floor/plasteel/chapel{
@@ -3104,7 +3104,7 @@
 /turf/open/floor/wood,
 /area/crew_quarters/heads/captain)
 "cNK" = (
-/obj/structure/chair/pew/right{
+/obj/structure/chair/fancy/bench/pew/right{
 	dir = 1
 	},
 /turf/open/floor/plasteel/dark,
@@ -3343,9 +3343,9 @@
 "dia" = (
 /obj/machinery/requests_console{
 	department = "Genetics";
+	departmentType = 5;
 	name = "Genetics Lab RC";
-	pixel_y = -32;
-	departmentType = 5
+	pixel_y = -32
 	},
 /obj/effect/turf_decal/tile/purple,
 /obj/effect/turf_decal/tile/purple{
@@ -4162,8 +4162,8 @@
 /obj/machinery/requests_console{
 	department = "Armory";
 	departmentType = 5;
-	pixel_y = 30;
-	name = "Armory RC"
+	name = "Armory RC";
+	pixel_y = 30
 	},
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/security/armory)
@@ -4895,7 +4895,7 @@
 /turf/open/floor/plating,
 /area/engine/engineering)
 "eKD" = (
-/obj/structure/chair/pew/left{
+/obj/structure/chair/fancy/bench/pew/left{
 	dir = 1
 	},
 /turf/open/floor/plasteel/chapel{
@@ -5919,7 +5919,7 @@
 /turf/open/floor/wood,
 /area/library)
 "fBF" = (
-/obj/effect/landmark/start/brig_phys,
+/obj/effect/landmark/start/brig_physician,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
@@ -6949,8 +6949,8 @@
 /obj/machinery/requests_console{
 	department = "Hydroponics";
 	departmentType = 1;
-	pixel_y = -29;
-	name = "Hydroponics RC RC"
+	name = "Hydroponics RC RC";
+	pixel_y = -29
 	},
 /obj/effect/turf_decal/tile/green/tile_marquee,
 /turf/open/floor/plasteel,
@@ -7280,8 +7280,8 @@
 /obj/machinery/requests_console{
 	department = "Vault";
 	departmentType = 5;
-	pixel_y = 32;
-	name = "Vault RC"
+	name = "Vault RC";
+	pixel_y = 32
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/nuke_storage)
@@ -7673,10 +7673,10 @@
 "huT" = (
 /obj/machinery/requests_console{
 	department = "Science Break Room";
-	name = "Science Break Room RC";
-	receive_ore_updates = 1;
 	departmentType = 5;
-	pixel_y = -32
+	name = "Science Break Room RC";
+	pixel_y = -32;
+	receive_ore_updates = 1
 	},
 /obj/structure/table/reinforced,
 /obj/effect/turf_decal/tile/purple,
@@ -9458,8 +9458,8 @@
 /obj/machinery/requests_console{
 	department = "Evidence Control";
 	departmentType = 5;
-	pixel_y = 30;
-	name = "Evidence Room RC"
+	name = "Evidence Room RC";
+	pixel_y = 30
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/prison)
@@ -9961,7 +9961,7 @@
 /area/engine/engine_smes)
 "jPB" = (
 /obj/effect/landmark/start/chief_medical_officer,
-/obj/structure/chair/comfy/teal{
+/obj/structure/chair/fancy/comfy{
 	dir = 1
 	},
 /obj/structure/cable/yellow{
@@ -11490,7 +11490,7 @@
 /turf/open/floor/plasteel,
 /area/quartermaster/qm)
 "lzi" = (
-/obj/structure/chair/comfy/brown,
+/obj/structure/chair/fancy/comfy,
 /obj/machinery/camera/autoname,
 /turf/open/floor/wood,
 /area/library)
@@ -11909,8 +11909,8 @@
 /obj/machinery/requests_console{
 	department = "Transfer Center";
 	departmentType = 5;
-	pixel_y = 30;
-	name = "Transfer Center RC"
+	name = "Transfer Center RC";
+	pixel_y = 30
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/execution/education)
@@ -11953,7 +11953,7 @@
 /turf/open/floor/plating,
 /area/hallway/secondary/command)
 "man" = (
-/obj/structure/chair/comfy/black,
+/obj/structure/chair/fancy/comfy,
 /obj/effect/turf_decal/tile/darkblue/tile_marquee,
 /turf/open/floor/plasteel/dark,
 /area/bridge)
@@ -12186,7 +12186,7 @@
 /turf/open/floor/plasteel,
 /area/security/prison)
 "mjy" = (
-/obj/structure/chair/comfy/brown,
+/obj/structure/chair/fancy/comfy,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/structure/cable/yellow{
@@ -12347,7 +12347,7 @@
 /turf/open/floor/plating,
 /area/medical/surgery)
 "mqM" = (
-/obj/structure/chair/pew{
+/obj/structure/chair/fancy/bench/pew{
 	dir = 1
 	},
 /turf/open/floor/plasteel/chapel{
@@ -12360,8 +12360,8 @@
 /obj/machinery/requests_console{
 	department = "Security Equipment";
 	departmentType = 5;
-	pixel_y = -32;
-	name = "Security Equipment RC"
+	name = "Security Equipment RC";
+	pixel_y = -32
 	},
 /turf/open/floor/plasteel,
 /area/security/main)
@@ -12878,7 +12878,7 @@
 /turf/open/floor/plasteel,
 /area/engine/atmos)
 "mVx" = (
-/obj/structure/chair/pew/left{
+/obj/structure/chair/fancy/bench/pew/left{
 	dir = 1
 	},
 /turf/open/floor/plasteel/dark,
@@ -12910,7 +12910,7 @@
 /turf/open/floor/plasteel,
 /area/engine/atmos)
 "mXa" = (
-/obj/structure/chair/sofa/right,
+/obj/structure/chair/fancy/sofa/old/right,
 /turf/open/floor/plasteel/grimy,
 /area/chapel/main)
 "mXf" = (
@@ -13452,7 +13452,7 @@
 /turf/open/floor/plating,
 /area/maintenance/department/medical)
 "nvx" = (
-/obj/effect/landmark/start/emt,
+/obj/effect/landmark/start/paramedic,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 1
 	},
@@ -13472,10 +13472,10 @@
 	},
 /obj/machinery/requests_console{
 	department = "Chemistry";
+	departmentType = 5;
 	name = "Chemistry RC";
 	pixel_x = 29;
-	receive_ore_updates = 1;
-	departmentType = 5
+	receive_ore_updates = 1
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/chemistry)
@@ -14033,7 +14033,7 @@
 /turf/closed/wall/r_wall,
 /area/maintenance/disposal)
 "nUC" = (
-/obj/structure/chair/comfy/brown{
+/obj/structure/chair/fancy/comfy{
 	dir = 1
 	},
 /obj/structure/cable/yellow{
@@ -14065,7 +14065,7 @@
 /obj/item/cartridge/atmos,
 /obj/item/cartridge/atmos,
 /obj/item/cartridge/atmos,
-/obj/item/stamp/ce,
+/obj/item/stamp/chief_engineer,
 /obj/structure/table/wood,
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/heads/chief)
@@ -14620,8 +14620,8 @@
 /obj/machinery/requests_console{
 	department = "Quartermaster's Office";
 	departmentType = 2;
-	pixel_x = -32;
-	name = "Quartermaster's Office RC"
+	name = "Quartermaster's Office RC";
+	pixel_x = -32
 	},
 /obj/machinery/computer/bounty{
 	dir = 4
@@ -14869,7 +14869,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
-/obj/structure/chair/comfy,
+/obj/structure/chair/fancy/comfy,
 /obj/machinery/status_display/directional/north,
 /obj/machinery/airalarm/directional/east,
 /turf/open/floor/plasteel/white,
@@ -14931,8 +14931,8 @@
 /obj/machinery/requests_console{
 	department = "Cargo Office";
 	departmentType = 2;
-	pixel_x = -32;
-	name = "Cargo Office RC"
+	name = "Cargo Office RC";
+	pixel_x = -32
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/office)
@@ -15286,8 +15286,8 @@
 /obj/machinery/requests_console{
 	department = "Custodial Closet";
 	departmentType = 1;
-	pixel_y = -29;
-	name = "Custodial RC"
+	name = "Custodial RC";
+	pixel_y = -29
 	},
 /obj/item/grenade/chem_grenade/cleaner,
 /obj/item/grenade/chem_grenade/cleaner,
@@ -16058,10 +16058,10 @@
 /obj/machinery/vending/cigarette,
 /obj/machinery/requests_console{
 	department = "Research Lab";
+	departmentType = 5;
 	name = "Research RC";
 	pixel_x = 32;
-	receive_ore_updates = 1;
-	departmentType = 5
+	receive_ore_updates = 1
 	},
 /turf/open/floor/plasteel,
 /area/science/research)
@@ -16250,8 +16250,8 @@
 /obj/machinery/requests_console{
 	department = "Warden's Office";
 	departmentType = 5;
-	pixel_y = 30;
-	name = "Brig Control RC"
+	name = "Brig Control RC";
+	pixel_y = 30
 	},
 /obj/machinery/light{
 	dir = 1
@@ -16407,7 +16407,7 @@
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
 "qoF" = (
-/obj/structure/chair/sofa,
+/obj/structure/chair/fancy/sofa/old,
 /obj/machinery/camera/autoname,
 /turf/open/floor/plasteel/grimy,
 /area/chapel/main)
@@ -17882,7 +17882,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
-/obj/structure/chair/comfy,
+/obj/structure/chair/fancy/comfy,
 /obj/structure/cable/yellow{
 	icon_state = "0-2"
 	},
@@ -18331,7 +18331,7 @@
 /turf/open/floor/plasteel,
 /area/security/brig)
 "sbH" = (
-/obj/structure/chair/comfy/black,
+/obj/structure/chair/fancy/comfy,
 /obj/effect/landmark/start/head_of_security,
 /obj/effect/turf_decal/tile/red{
 	dir = 8
@@ -19082,7 +19082,7 @@
 /turf/open/floor/plasteel/cafeteria,
 /area/crew_quarters/kitchen)
 "sIi" = (
-/obj/structure/chair/comfy/brown{
+/obj/structure/chair/fancy/comfy{
 	dir = 1
 	},
 /obj/structure/cable/yellow{
@@ -19291,7 +19291,7 @@
 /turf/open/floor/plasteel,
 /area/engine/atmos)
 "sVO" = (
-/obj/structure/closet/secure_closet/brig_phys,
+/obj/structure/closet/secure_closet/brig_physician,
 /obj/effect/turf_decal/tile/red{
 	dir = 1
 	},
@@ -20006,7 +20006,7 @@
 /obj/machinery/computer/secure_data/laptop{
 	dir = 8
 	},
-/obj/item/stamp/hop{
+/obj/item/stamp/head_of_personnel{
 	pixel_x = -6
 	},
 /obj/machinery/button/door{
@@ -20314,9 +20314,9 @@
 "tYj" = (
 /obj/machinery/requests_console{
 	department = "EVA";
-	pixel_x = 32;
 	departmentType = 5;
-	name = "EVA RC"
+	name = "EVA RC";
+	pixel_x = 32
 	},
 /obj/structure/closet/crate/rcd,
 /obj/effect/turf_decal/tile/blue/tile_marquee,
@@ -21093,9 +21093,9 @@
 /obj/machinery/requests_console{
 	department = "Bar";
 	departmentType = 2;
+	name = "Bar RC";
 	pixel_x = 30;
-	receive_ore_updates = 1;
-	name = "Bar RC"
+	receive_ore_updates = 1
 	},
 /turf/open/floor/wood,
 /area/crew_quarters/bar)
@@ -23000,7 +23000,7 @@
 /turf/open/floor/plasteel,
 /area/security/brig)
 "wHC" = (
-/obj/structure/chair/sofa/left,
+/obj/structure/chair/fancy/sofa/old/left,
 /turf/open/floor/plasteel/grimy,
 /area/chapel/main)
 "wHY" = (
@@ -23613,7 +23613,7 @@
 /turf/open/floor/plasteel/dark,
 /area/teleporter)
 "xmx" = (
-/obj/structure/chair/comfy/brown{
+/obj/structure/chair/fancy/comfy{
 	dir = 8
 	},
 /obj/structure/cable/yellow{
@@ -24293,7 +24293,7 @@
 /turf/open/floor/carpet/royalblue,
 /area/crew_quarters/heads/captain)
 "xSQ" = (
-/obj/structure/chair/pew/right{
+/obj/structure/chair/fancy/bench/pew/right{
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{

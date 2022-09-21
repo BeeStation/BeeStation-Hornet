@@ -302,7 +302,7 @@
 "bl" = (
 /obj/structure/railing,
 /obj/machinery/firealarm/directional/north,
-/obj/structure/chair/comfy/brown,
+/obj/structure/chair/fancy/comfy,
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 4
 	},
@@ -629,8 +629,8 @@
 /obj/machinery/requests_console{
 	department = "Toxins Storage Lab";
 	name = "Toxins Storage RC";
-	receive_ore_updates = 1;
-	pixel_y = -32
+	pixel_y = -32;
+	receive_ore_updates = 1
 	},
 /turf/open/floor/plasteel,
 /area/science/storage)
@@ -853,7 +853,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/chair/sofa/corner{
+/obj/structure/chair/fancy/sofa/old/corner{
 	dir = 8
 	},
 /turf/open/floor/plasteel,
@@ -1123,7 +1123,7 @@
 	pixel_y = 7
 	},
 /obj/structure/table,
-/obj/item/stamp/rd{
+/obj/item/stamp/research_director{
 	pixel_x = 3;
 	pixel_y = -2
 	},
@@ -1273,7 +1273,7 @@
 "fd" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/chair/sofa/right,
+/obj/structure/chair/fancy/comfy,
 /turf/open/floor/plasteel,
 /area/maintenance/department/security)
 "fe" = (
@@ -1656,10 +1656,10 @@
 "hc" = (
 /obj/machinery/requests_console{
 	department = "Chemistry Factory";
+	departmentType = 5;
 	name = "Chemistry Factory RC";
 	pixel_x = 29;
-	receive_ore_updates = 1;
-	departmentType = 5
+	receive_ore_updates = 1
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/chemistry/upper)
@@ -1693,7 +1693,7 @@
 /turf/open/floor/plasteel,
 /area/crew_quarters/locker)
 "hq" = (
-/obj/structure/chair/comfy/beige{
+/obj/structure/chair/fancy/comfy{
 	dir = 1
 	},
 /turf/open/floor/carpet/blue,
@@ -2102,7 +2102,7 @@
 /area/science/xenobiology)
 "iW" = (
 /obj/structure/railing,
-/obj/structure/chair/comfy/brown,
+/obj/structure/chair/fancy/comfy,
 /obj/machinery/atmospherics/pipe/heat_exchanging/junction{
 	dir = 4
 	},
@@ -2429,7 +2429,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/structure/chair/comfy/black{
+/obj/structure/chair/fancy/comfy{
 	dir = 1
 	},
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
@@ -2674,7 +2674,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/chair/sofa/left{
+/obj/structure/chair/fancy/sofa/old/left{
 	dir = 1
 	},
 /turf/open/floor/plating,
@@ -2788,7 +2788,7 @@
 /area/maintenance/lower/port/fore)
 "mp" = (
 /obj/structure/railing,
-/obj/structure/chair/comfy/brown,
+/obj/structure/chair/fancy/comfy,
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
 	dir = 1
 	},
@@ -2964,8 +2964,6 @@
 /obj/item/stack/sheet/iron/fifty,
 /obj/item/stack/sheet/iron/fifty,
 /obj/item/stack/sheet/iron/fifty,
-/obj/item/stack/packageWrap,
-/obj/item/stack/packageWrap,
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel,
 /area/science/robotics)
@@ -3062,16 +3060,16 @@
 /turf/open/floor/plasteel/dark,
 /area/science/xenobiology)
 "nv" = (
-/obj/structure/chair/comfy/black{
+/obj/structure/chair/fancy/comfy{
 	dir = 8
 	},
 /obj/machinery/requests_console{
-	department = "Heads of Staff Meeting Room";
-	name = "Confrence Room";
-	receive_ore_updates = 1;
-	departmentType = 5;
 	announcementConsole = 1;
-	pixel_y = 30
+	department = "Heads of Staff Meeting Room";
+	departmentType = 5;
+	name = "Confrence Room";
+	pixel_y = 30;
+	receive_ore_updates = 1
 	},
 /turf/open/floor/carpet/blue,
 /area/bridge/meeting_room/council)
@@ -3109,7 +3107,7 @@
 /turf/open/floor/plasteel,
 /area/science/xenobiology)
 "nE" = (
-/obj/structure/chair/sofa/bamboo/right{
+/obj/structure/chair/fancy/bench/bamboo/right{
 	dir = 8
 	},
 /turf/open/floor/plasteel,
@@ -3378,7 +3376,7 @@
 /turf/open/floor/plasteel,
 /area/science/mixing)
 "oC" = (
-/obj/structure/chair/sofa/bamboo/left{
+/obj/structure/chair/fancy/bench/bamboo/left{
 	dir = 8
 	},
 /turf/open/floor/plasteel,
@@ -3549,7 +3547,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
-/obj/structure/chair/comfy/brown{
+/obj/structure/chair/fancy/comfy{
 	dir = 4
 	},
 /turf/open/floor/plasteel,
@@ -3968,8 +3966,8 @@
 /obj/item/clothing/glasses/hud/security/sunglasses,
 /obj/machinery/requests_console{
 	department = "Detective's office";
-	pixel_x = -30;
-	name = "Detective's RC"
+	name = "Detective's RC";
+	pixel_x = -30
 	},
 /turf/open/floor/plasteel/grimy,
 /area/security/detectives_office)
@@ -4168,7 +4166,7 @@
 /obj/structure/railing{
 	dir = 8
 	},
-/obj/structure/chair/comfy/brown{
+/obj/structure/chair/fancy/comfy{
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple,
@@ -4482,7 +4480,7 @@
 /turf/open/floor/plasteel/dark,
 /area/science/server)
 "sK" = (
-/obj/structure/chair/comfy/black,
+/obj/structure/chair/fancy/comfy,
 /turf/open/floor/plasteel/dark,
 /area/bridge/meeting_room/council)
 "sL" = (
@@ -4576,7 +4574,7 @@
 /turf/open/floor/plating,
 /area/maintenance/department/security)
 "tl" = (
-/obj/structure/chair/sofa/bamboo{
+/obj/structure/chair/fancy/bench/bamboo{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
@@ -5288,7 +5286,7 @@
 /obj/structure/railing{
 	dir = 8
 	},
-/obj/structure/chair/comfy/brown{
+/obj/structure/chair/fancy/comfy{
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
@@ -5398,7 +5396,7 @@
 /turf/open/floor/plasteel,
 /area/science/storage)
 "xk" = (
-/obj/structure/chair/comfy/beige{
+/obj/structure/chair/fancy/comfy{
 	dir = 1
 	},
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
@@ -5772,7 +5770,7 @@
 /obj/structure/railing{
 	dir = 4
 	},
-/obj/structure/chair/comfy/brown{
+/obj/structure/chair/fancy/comfy{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple,
@@ -5929,7 +5927,7 @@
 "zt" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/chair/sofa/corner,
+/obj/structure/chair/fancy/sofa/old/corner,
 /turf/open/floor/plasteel,
 /area/maintenance/department/security)
 "zu" = (
@@ -6187,7 +6185,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/structure/chair/comfy/brown,
+/obj/structure/chair/fancy/comfy,
 /turf/open/floor/plasteel/grimy,
 /area/security/detectives_office)
 "AH" = (
@@ -7540,10 +7538,10 @@
 /obj/effect/turf_decal/delivery,
 /obj/machinery/requests_console{
 	department = "Robotics";
+	departmentType = 5;
 	name = "Robotics RC";
 	pixel_x = 32;
-	receive_ore_updates = 1;
-	departmentType = 5
+	receive_ore_updates = 1
 	},
 /turf/open/floor/plasteel,
 /area/science/robotics)
@@ -7620,7 +7618,7 @@
 /turf/open/floor/plasteel,
 /area/science/xenobiology)
 "IF" = (
-/obj/structure/chair/sofa/bamboo/right{
+/obj/structure/chair/fancy/bench/bamboo/right{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
@@ -7888,7 +7886,7 @@
 /obj/machinery/atmospherics/pipe/multiz/layer4,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/chair/sofa{
+/obj/structure/chair/fancy/comfy{
 	dir = 8
 	},
 /turf/open/floor/plasteel,
@@ -7990,7 +7988,7 @@
 /obj/structure/railing{
 	dir = 1
 	},
-/obj/structure/chair/comfy/brown{
+/obj/structure/chair/fancy/comfy{
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
@@ -8072,7 +8070,7 @@
 /turf/open/floor/plasteel,
 /area/science/storage)
 "Kw" = (
-/obj/structure/chair/sofa/bamboo{
+/obj/structure/chair/fancy/bench/bamboo{
 	dir = 8
 	},
 /turf/open/floor/plasteel,
@@ -8252,7 +8250,7 @@
 /obj/structure/railing{
 	dir = 8
 	},
-/obj/structure/chair/comfy/brown{
+/obj/structure/chair/fancy/comfy{
 	dir = 8
 	},
 /turf/open/floor/wood,
@@ -8405,7 +8403,7 @@
 /obj/structure/railing{
 	dir = 4
 	},
-/obj/structure/chair/comfy/brown{
+/obj/structure/chair/fancy/comfy{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
@@ -8696,7 +8694,7 @@
 /turf/open/floor/plating/airless,
 /area/ai_monitored/turret_protected/ai_upload)
 "Nd" = (
-/obj/structure/chair/comfy/brown{
+/obj/structure/chair/fancy/comfy{
 	dir = 1
 	},
 /turf/open/floor/plasteel,
@@ -8892,7 +8890,7 @@
 /obj/structure/railing{
 	dir = 1
 	},
-/obj/structure/chair/comfy/brown{
+/obj/structure/chair/fancy/comfy{
 	dir = 1
 	},
 /turf/open/floor/wood,
@@ -8956,10 +8954,10 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/requests_console{
 	department = "AI Upload";
+	departmentType = 5;
 	name = "AI Upload RC";
 	pixel_x = 32;
-	receive_ore_updates = 1;
-	departmentType = 5
+	receive_ore_updates = 1
 	},
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/turret_protected/ai_upload)
@@ -8997,7 +8995,7 @@
 /turf/open/floor/plasteel/grimy,
 /area/tcommsat/computer)
 "Ox" = (
-/obj/structure/chair/comfy/brown{
+/obj/structure/chair/fancy/comfy{
 	dir = 8
 	},
 /turf/open/floor/plasteel,
@@ -9159,7 +9157,7 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 8
 	},
-/obj/structure/chair/comfy/brown{
+/obj/structure/chair/fancy/comfy{
 	dir = 4
 	},
 /turf/open/floor/plasteel,
@@ -9256,7 +9254,7 @@
 /obj/structure/railing{
 	dir = 4
 	},
-/obj/structure/chair/comfy/brown{
+/obj/structure/chair/fancy/comfy{
 	dir = 4
 	},
 /turf/open/floor/wood,
@@ -9412,7 +9410,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/structure/chair/comfy/black{
+/obj/structure/chair/fancy/comfy{
 	dir = 4
 	},
 /obj/structure/cable/yellow{
@@ -9597,7 +9595,7 @@
 /obj/structure/railing{
 	dir = 4
 	},
-/obj/structure/chair/comfy/brown{
+/obj/structure/chair/fancy/comfy{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/brown/visible{
@@ -9870,7 +9868,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
-/obj/structure/chair/comfy/brown,
+/obj/structure/chair/fancy/comfy,
 /turf/open/floor/wood,
 /area/maintenance/lower/starboard/central)
 "Td" = (
@@ -10162,7 +10160,7 @@
 /obj/structure/railing{
 	dir = 8
 	},
-/obj/structure/chair/comfy/brown{
+/obj/structure/chair/fancy/comfy{
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
@@ -10393,7 +10391,7 @@
 /turf/open/floor/plating,
 /area/maintenance/department/security)
 "VO" = (
-/obj/structure/chair/comfy/teal{
+/obj/structure/chair/fancy/comfy{
 	dir = 8
 	},
 /turf/open/floor/plasteel/grimy,
@@ -10613,7 +10611,7 @@
 /area/science/xenobiology)
 "WN" = (
 /obj/structure/railing,
-/obj/structure/chair/comfy/brown,
+/obj/structure/chair/fancy/comfy,
 /turf/open/floor/wood,
 /area/maintenance/lower/starboard/central)
 "WP" = (
@@ -10839,7 +10837,7 @@
 /turf/open/floor/plasteel/dark,
 /area/storage/tech)
 "Yi" = (
-/obj/structure/chair/sofa/bamboo/left{
+/obj/structure/chair/fancy/bench/bamboo/left{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
@@ -10909,7 +10907,7 @@
 /obj/structure/railing{
 	dir = 4
 	},
-/obj/structure/chair/comfy/brown{
+/obj/structure/chair/fancy/comfy{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
@@ -10918,7 +10916,7 @@
 /turf/open/floor/wood,
 /area/maintenance/lower/starboard/central)
 "Yz" = (
-/obj/structure/chair/comfy/brown,
+/obj/structure/chair/fancy/comfy,
 /turf/open/floor/plasteel,
 /area/crew_quarters/cryopods)
 "YC" = (
@@ -10969,12 +10967,12 @@
 /area/crew_quarters/heads/hor)
 "YW" = (
 /obj/machinery/requests_console{
+	announcementConsole = 1;
 	department = "AI Chamber";
+	departmentType = 5;
 	name = "AI Chamber RC";
 	pixel_x = 32;
-	receive_ore_updates = 1;
-	departmentType = 5;
-	announcementConsole = 1
+	receive_ore_updates = 1
 	},
 /turf/open/floor/circuit,
 /area/ai_monitored/turret_protected/ai)
