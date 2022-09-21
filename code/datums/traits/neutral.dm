@@ -19,17 +19,18 @@
 
 /datum/quirk/vegetarian/add()
 	var/mob/living/carbon/human/H = quirk_holder
-	H.dna.species.liked_food &= ~MEAT
-	H.dna.species.disliked_food |= MEAT
+	var/obj/item/organ/tongue/T = H.getorganslot(ORGAN_SLOT_TONGUE)
+	T?.liked_food &= ~MEAT
+	T?.disliked_food |= MEAT
 
 /datum/quirk/vegetarian/remove()
 	var/mob/living/carbon/human/H = quirk_holder
+	var/obj/item/organ/tongue/T = H.getorganslot(ORGAN_SLOT_TONGUE)
 	if(H)
-		var/datum/species/species = H.dna.species
-		if(initial(species.liked_food) & MEAT)
-			species.liked_food |= MEAT
-		if(!(initial(species.disliked_food) & MEAT))
-			species.disliked_food &= ~MEAT
+		if(initial(T.liked_food) & MEAT)
+			T?.liked_food |= MEAT
+		if(!(initial(T.disliked_food) & MEAT))
+			T?.disliked_food &= ~MEAT
 
 /datum/quirk/pineapple_liker
 	name = "Ananas Affinity"
@@ -40,11 +41,13 @@
 
 /datum/quirk/pineapple_liker/add()
 	var/mob/living/carbon/human/H = quirk_holder
-	H.dna.species.liked_food |= PINEAPPLE
+	var/obj/item/organ/tongue/T = H.getorganslot(ORGAN_SLOT_TONGUE)
+	T?.liked_food |= PINEAPPLE
 
 /datum/quirk/pineapple_liker/remove()
 	var/mob/living/carbon/human/H = quirk_holder
-	H.dna.species.liked_food &= ~PINEAPPLE
+	var/obj/item/organ/tongue/T = H.getorganslot(ORGAN_SLOT_TONGUE)
+	T?.liked_food &= ~PINEAPPLE
 
 /datum/quirk/pineapple_hater
 	name = "Ananas Aversion"
@@ -55,11 +58,13 @@
 
 /datum/quirk/pineapple_hater/add()
 	var/mob/living/carbon/human/H = quirk_holder
-	H.dna.species.disliked_food |= PINEAPPLE
+	var/obj/item/organ/tongue/T = H.getorganslot(ORGAN_SLOT_TONGUE)
+	T?.disliked_food |= PINEAPPLE
 
 /datum/quirk/pineapple_hater/remove()
 	var/mob/living/carbon/human/H = quirk_holder
-	H.dna.species.disliked_food &= ~PINEAPPLE
+	var/obj/item/organ/tongue/T = H.getorganslot(ORGAN_SLOT_TONGUE)
+	T?.disliked_food &= ~PINEAPPLE
 
 /datum/quirk/deviant_tastes
 	name = "Deviant Tastes"
@@ -70,16 +75,16 @@
 
 /datum/quirk/deviant_tastes/add()
 	var/mob/living/carbon/human/H = quirk_holder
-	var/datum/species/species = H.dna.species
-	var/liked = species.liked_food
-	species.liked_food = species.disliked_food
-	species.disliked_food = liked
+	var/obj/item/organ/tongue/T = H.getorganslot(ORGAN_SLOT_TONGUE)
+	var/liked = T?.liked_food
+	T?.liked_food = T?.disliked_food
+	T?.disliked_food = liked
 
 /datum/quirk/deviant_tastes/remove()
 	var/mob/living/carbon/human/H = quirk_holder
-	var/datum/species/species = H.dna.species
-	species.liked_food = initial(species.liked_food)
-	species.disliked_food = initial(species.disliked_food)
+	var/obj/item/organ/tongue/T = H.getorganslot(ORGAN_SLOT_TONGUE)
+	T?.liked_food = initial(T?.liked_food)
+	T?.disliked_food = initial(T?.disliked_food)
 
 /datum/quirk/monochromatic
 	name = "Monochromacy"
@@ -91,90 +96,12 @@
 	quirk_holder.add_client_colour(/datum/client_colour/monochrome)
 
 /datum/quirk/monochromatic/post_add()
-	if(quirk_holder.mind.assigned_role == "Detective")
+	if(quirk_holder.mind.assigned_role == JOB_NAME_DETECTIVE)
 		to_chat(quirk_holder, "<span class='boldannounce'>Mmm. Nothing's ever clear on this station. It's all shades of gray.</span>")
 		quirk_holder.playsound_local(quirk_holder, 'sound/ambience/ambidet1.ogg', 50, FALSE)
 
 /datum/quirk/monochromatic/remove()
 	quirk_holder.remove_client_colour(/datum/client_colour/monochrome)
-
-
-/datum/status_effect/offering
-	id = "offering"
-	duration = -1
-	tick_interval = -1
-	status_type = STATUS_EFFECT_UNIQUE
-	alert_type = null
-	/// The people who were offered this item at the start
-	var/list/possible_takers
-	/// The actual item being offered
-	var/obj/item/offered_item
-	/// The type of alert given to people when offered, in case you need to override some behavior (like for high-fives)
-	var/give_alert_type = /atom/movable/screen/alert/give
-
-/datum/status_effect/offering/on_creation(mob/living/new_owner, obj/item/offer, give_alert_override)
-	. = ..()
-	if(!.)
-		return
-	offered_item = offer
-	if(give_alert_override)
-		give_alert_type = give_alert_override
-
-	for(var/mob/living/carbon/possible_taker in orange(1, owner))
-		if(!owner.CanReach(possible_taker) || IS_DEAD_OR_INCAP(possible_taker) || !possible_taker.can_hold_items())
-			continue
-		register_candidate(possible_taker)
-
-	if(!possible_takers) // no one around
-		qdel(src)
-		return
-
-	RegisterSignal(owner, COMSIG_MOVABLE_MOVED, .proc/check_owner_in_range)
-	RegisterSignal(offered_item, list(COMSIG_PARENT_QDELETING, COMSIG_ITEM_DROPPED), .proc/dropped_item)
-
-/datum/status_effect/offering/Destroy()
-	for(var/i in possible_takers)
-		var/mob/living/carbon/removed_taker = i
-		remove_candidate(removed_taker)
-	LAZYCLEARLIST(possible_takers)
-	return ..()
-
-/// Hook up the specified carbon mob to be offered the item in question, give them the alert and signals and all
-/datum/status_effect/offering/proc/register_candidate(mob/living/carbon/possible_candidate)
-	var/atom/movable/screen/alert/give/G = possible_candidate.throw_alert("[owner]", give_alert_type)
-	if(!G)
-		return
-	LAZYADD(possible_takers, possible_candidate)
-	RegisterSignal(possible_candidate, COMSIG_MOVABLE_MOVED, .proc/check_taker_in_range)
-	G.setup(possible_candidate, owner, offered_item)
-
-/// Remove the alert and signals for the specified carbon mob. Automatically removes the status effect when we lost the last taker
-/datum/status_effect/offering/proc/remove_candidate(mob/living/carbon/removed_candidate)
-	removed_candidate.clear_alert("[owner]")
-	LAZYREMOVE(possible_takers, removed_candidate)
-	UnregisterSignal(removed_candidate, COMSIG_MOVABLE_MOVED)
-
-	if(!possible_takers && !QDELING(src))
-		qdel(src)
-
-/// One of our possible takers moved, see if they left us hanging
-/datum/status_effect/offering/proc/check_taker_in_range(mob/living/carbon/taker)
-	SIGNAL_HANDLER
-	if(owner.CanReach(taker) && !IS_DEAD_OR_INCAP(taker))
-		return
-
-/// The offerer moved, see if anyone is out of range now
-/datum/status_effect/offering/proc/check_owner_in_range(mob/living/carbon/source)
-	SIGNAL_HANDLER
-	for(var/i in possible_takers)
-		var/mob/living/carbon/checking_taker = i
-		if(!istype(checking_taker) || !owner.CanReach(checking_taker) || IS_DEAD_OR_INCAP(checking_taker))
-			remove_candidate(checking_taker)
-
-/// We lost the item, give it up
-/datum/status_effect/offering/proc/dropped_item(obj/item/source)
-	SIGNAL_HANDLER
-	qdel(src)
 
 /datum/quirk/mute
 	name = "Mute"

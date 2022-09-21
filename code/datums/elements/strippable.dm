@@ -35,7 +35,8 @@
 	UnregisterSignal(source, COMSIG_MOUSEDROP_ONTO)
 
 	if(!isnull(strip_menus))
-		QDEL_NULL(strip_menus[source])
+		qdel(strip_menus[source])
+		strip_menus -= source
 
 /datum/element/strippable/proc/mouse_drop_onto(datum/source, atom/over, mob/user)
 	SIGNAL_HANDLER
@@ -82,6 +83,16 @@
 	/// Should we warn about dangerous clothing?
 	var/warn_dangerous_clothing = TRUE
 
+/datum/strippable_item/proc/can_interact(mob/user)
+	if(isliving(user))
+		var/mob/living/L = user
+		if(L.incorporeal_move) // Mobs that can walk through walls cannot grasp items to strip
+			to_chat(user, "<span class='warning'>You can't interact with the physical plane while you are incorporeal!</span>")
+			return FALSE
+		return TRUE
+	else
+		return FALSE // Mobs that are not living cannot strip
+
 /// Gets the item from the given source.
 /datum/strippable_item/proc/get_item(atom/source)
 
@@ -90,6 +101,8 @@
 /// This should be used for checking if an item CAN be equipped.
 /// It should not perform the equipping itself.
 /datum/strippable_item/proc/try_equip(atom/source, obj/item/equipping, mob/user)
+	if(!can_interact(user))
+		return FALSE
 	if(!equipping)
 		return
 	if(HAS_TRAIT(equipping, TRAIT_NODROP))
@@ -125,6 +138,8 @@
 /// It should not perform the unequipping itself.
 /datum/strippable_item/proc/try_unequip(atom/source, mob/user)
 	SHOULD_NOT_SLEEP(TRUE)
+	if(!can_interact(user))
+		return FALSE
 
 	var/obj/item/item = get_item(source)
 	if(isnull(item))
@@ -140,6 +155,7 @@
 /// Start the unequipping process. This is the proc you should yield in.
 /// Returns TRUE/FALSE depending on if it is allowed.
 /datum/strippable_item/proc/start_unequip(atom/source, mob/user)
+
 	var/obj/item/item = get_item(source)
 	if(isnull(item))
 		return FALSE
@@ -180,7 +196,7 @@
 	return TRUE
 
 /// Returns TRUE if the item is present for the mob, but not available.
-/// This is used, for example, for pockets when a jumpsuit is not worn. 
+/// This is used, for example, for pockets when a jumpsuit is not worn.
 /datum/strippable_item/proc/is_unavailable(atom/source)
 
 /// A preset for equipping items onto mob slots

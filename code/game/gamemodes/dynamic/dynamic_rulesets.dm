@@ -3,6 +3,8 @@
 
 /datum/dynamic_ruleset
 	/// For admin logging and round end screen.
+	// If you want to change this variable name, the force latejoin/midround rulesets
+	// to not use sortNames.
 	var/name = ""
 	/// For admin logging and round end screen, do not change this unless making a new rule type.
 	var/ruletype = ""
@@ -78,13 +80,13 @@
 
 
 /datum/dynamic_ruleset/New()
+	// Rulesets can be instantiated more than once, such as when an admin clicks
+	// "Execute Midround Ruleset". Thus, it would be wrong to perform any
+	// side effects here. Dynamic rulesets should be stateless anyway.
+	SHOULD_NOT_OVERRIDE(TRUE)
+
+	mode = SSticker.mode
 	..()
-
-	if (istype(SSticker.mode, /datum/game_mode/dynamic))
-		mode = SSticker.mode
-	else if (!SSticker.is_mode("dynamic")) // This is here to make roundstart forced ruleset function.
-		qdel(src)
-
 
 /datum/dynamic_ruleset/roundstart // One or more of those drafted at roundstart
 	ruletype = "Roundstart"
@@ -97,13 +99,20 @@
 /// If your rule has extra checks, such as counting security officers, do that in ready() instead
 /datum/dynamic_ruleset/proc/acceptable(population = 0, threat_level = 0)
 	if(minimum_players > population)
+		log_game("DYNAMIC: FAIL: [src] failed acceptable: minimum_players ([minimum_players]) > population ([population])")
 		return FALSE
+
 	if(maximum_players > 0 && population > maximum_players)
+		log_game("DYNAMIC: FAIL: [src] failed acceptable: maximum_players ([maximum_players]) < population ([population])")
 		return FALSE
 
 	pop_per_requirement = pop_per_requirement > 0 ? pop_per_requirement : mode.pop_per_requirement
 	indice_pop = min(requirements.len,round(population/pop_per_requirement)+1)
-	return (threat_level >= requirements[indice_pop])
+	if (threat_level < requirements[indice_pop])
+		log_game("DYNAMIC: FAIL: [src] failed acceptable: threat_level ([threat_level]) < requirement ([requirements[indice_pop]])")
+		return FALSE
+
+	return TRUE
 
 /// When picking rulesets, if dynamic picks the same one multiple times, it will "scale up".
 /// However, doing this blindly would result in lowpop rounds (think under 10 people) where over 80% of the crew is antags!
@@ -138,7 +147,7 @@
 
 /// Called on game mode pre_setup for roundstart rulesets.
 /// Do everything you need to do before job is assigned here.
-/// IMPORTANT: ASSIGN special_role HERE
+/// IMPORTANT: ASSIGN special_role HERE (for midrounds, this doesn't apply)
 /datum/dynamic_ruleset/proc/pre_execute()
 	return TRUE
 
@@ -153,15 +162,16 @@
 /// Remember that on roundstart no one knows what their job is at this point.
 /// IMPORTANT: If ready() returns TRUE, that means pre_execute() or execute() should never fail!
 /datum/dynamic_ruleset/proc/ready(forced = 0)
-	if (required_candidates > candidates.len)
-		return FALSE
-	return TRUE
+	return check_candidates()
 
 /// Runs from gamemode process() if ruleset fails to start, like delayed rulesets not getting valid candidates.
 /// This one only handles refunding the threat, override in ruleset to clean up the rest.
 /datum/dynamic_ruleset/proc/clean_up()
 	mode.refund_threat(cost + (scaled_times * scaling_cost))
-	mode.threat_log += "[worldtime2text()]: [ruletype] [name] refunded [cost + (scaled_times * scaling_cost)]. Failed to execute."
+	var/msg = "[ruletype] [name] refunded [cost + (scaled_times * scaling_cost)]. Failed to execute."
+	mode.threat_log += "[worldtime2text()]: [msg]"
+	message_admins(msg)
+	log_game("DYNAMIC: [ruletype] [name] is cleaning up, failed to execute.")
 
 /// Gets weight of the ruleset
 /// Note that this decreases weight if repeatable is TRUE and repeatable_weight_decrease is higher than 0
@@ -172,6 +182,14 @@
 			if(istype(DR, type))
 				weight = max(weight-repeatable_weight_decrease,1)
 	return weight
+
+/// Checks if there are enough candidates to run, and logs otherwise
+/datum/dynamic_ruleset/proc/check_candidates()
+	if (required_candidates <= candidates.len)
+		return TRUE
+
+	log_game("DYNAMIC: FAIL: [src] does not have enough candidates ([required_candidates] needed, [candidates.len] found)")
+	return FALSE
 
 /// Here you can remove candidates that do not meet your requirements.
 /// This means if their job is not correct or they have disconnected you can remove them from candidates here.

@@ -132,12 +132,13 @@
 		user.visible_message("<span class='danger'>[user] accidentally hits [user.p_them()]self with [src], electrocuting themselves badly!</span>", \
 							"<span class='userdanger'>You accidentally hit yourself with [src], electrocuting yourself badly!</span>")
 		user.adjustStaminaLoss(stunforce*3)
+		user.stuttering = 20
+		user.do_jitter_animation(20)
 		deductcharge(hitcost)
 		return
 
 	if(iscyborg(M))
-		..()
-		return
+		return ..()
 
 
 	if(ishuman(M))
@@ -156,7 +157,7 @@
 	else
 		if(turned_on)
 			baton_stun(M, user)
-		..()
+		return ..()
 
 /obj/item/melee/baton/proc/baton_stun(mob/living/target, mob/living/user)
 	if(obj_flags & OBJ_EMPED)
@@ -179,7 +180,9 @@
 	// L.adjustStaminaLoss(stunforce)
 	target.apply_damage(stunforce, STAMINA, affecting, armor_block)
 	target.apply_effect(EFFECT_STUTTER, stunforce)
-	SEND_SIGNAL(target, COMSIG_LIVING_MINOR_SHOCK)
+	SEND_SIGNAL(target, COMSIG_LIVING_MINOR_SHOCK) //Only used for nanites
+	target.stuttering = 20
+	target.do_jitter_animation(20)
 	if(user)
 		target.lastattacker = user.real_name
 		target.lastattackerckey = user.ckey
@@ -201,7 +204,7 @@
 	if (!(. & EMP_PROTECT_SELF) && !(obj_flags & OBJ_EMPED))
 		obj_flags |= OBJ_EMPED
 		update_icon()
-		addtimer(CALLBACK(src, .proc/emp_reset), rand(1200 / severity, 600 / severity))
+		addtimer(CALLBACK(src, .proc/emp_reset), rand(1, 200 / severity))
 		playsound(src, 'sound/machines/capacitor_discharge.ogg', 60, TRUE)
 
 /obj/item/melee/baton/proc/emp_reset()

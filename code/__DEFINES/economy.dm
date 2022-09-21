@@ -6,7 +6,13 @@
 #define PAYCHECK_MEDIUM 40
 #define PAYCHECK_HARD 70
 #define PAYCHECK_COMMAND 100
-#define PAYCHECK_VIP 250
+#define PAYCHECK_VIP 2000
+/*	Note: The current intention for crazy amount of money to VIP is that they can be a rich shitter
+		  or be targeted by antags for their money - oh, my, being rich isn't always good.
+		  The first buff to their money was to 2,000 credits. Nerf is fine if you think it's necessary,
+		  but if you decrease their payment too much, they'll be no longer interested.
+		  I recommend to nerf their gimmick spawn chance instead. */
+
 
 #define PAYCHECK_WELFARE 20 //NEETbucks
 
@@ -24,5 +30,12 @@
 #define ACCOUNT_CAR_NAME "Cargo Budget"
 #define ACCOUNT_SEC "SEC"
 #define ACCOUNT_SEC_NAME "Defense Budget"
+#define ACCOUNT_VIP "VIP"
+#define ACCOUNT_VIP_NAME "Nanotrasen VIP Expense Account Budget"
 
 #define NO_FREEBIES "commies go home"
+
+/// How much mail the Economy SS will create per minute, regardless of firing time.
+#define MAX_MAIL_PER_MINUTE 3
+/// Probability of using letters of envelope sprites on all letters.
+#define FULL_CRATE_LETTER_ODDS 70

@@ -11,29 +11,23 @@
 	initial_language_holder = /datum/language_holder/alien
 	bubble_icon = "alien"
 	type_of_meat = /obj/item/reagent_containers/food/snacks/meat/slab/xeno
-
-	var/has_fine_manipulation = 0
-	var/move_delay_add = 0 // movement delay to add
-
 	status_flags = CANUNCONSCIOUS|CANPUSH
-
-	var/heat_protection = 0.5
-	var/leaping = 0
 	gib_type = /obj/effect/decal/cleanable/xenoblood/xgibs
 	unique_name = 1
-
 	mobchatspan = "alienmobsay"
+
 	var/static/regex/alien_name_regex = new("alien (larva|sentinel|drone|hunter|praetorian|queen)( \\(\\d+\\))?")
+	var/heat_protection = 0.5
+	var/leaping = FALSE
+	var/has_fine_manipulation = FALSE
+	var/move_delay_add = 0 // movement delay to add
 
 /mob/living/carbon/alien/Initialize(mapload)
 	add_verb(/mob/living/proc/mob_sleep)
 	add_verb(/mob/living/proc/lay_down)
-
 	create_bodyparts() //initialize bodyparts
-
 	create_internal_organs()
-
-	. = ..()
+	return ..()
 
 /mob/living/carbon/alien/create_internal_organs()
 	internal_organs += new /obj/item/organ/brain/alien
@@ -42,7 +36,7 @@
 	internal_organs += new /obj/item/organ/eyes/night_vision/alien
 	internal_organs += new /obj/item/organ/liver/alien
 	internal_organs += new /obj/item/organ/ears
-	..()
+	return ..()
 
 /mob/living/carbon/alien/assess_threat(judgment_criteria, lasercolor = "", datum/callback/weaponcheck=null) // beepsky won't hunt aliums
 	return -10
@@ -54,8 +48,8 @@
 	var/loc_temp = get_temperature(environment)
 
 	// Aliens are now weak to fire.
-
 	//After then, it reacts to the surrounding atmosphere based on your thermal protection
+
 	if(!on_fire) // If you're on fire, ignore local air temperature
 		if(loc_temp > bodytemperature)
 			//Place is hotter than we are
@@ -82,7 +76,7 @@
 		clear_alert("alien_fire")
 
 /mob/living/carbon/alien/reagent_check(datum/reagent/R) //can metabolize all reagents
-	return 0
+	return FALSE
 
 /mob/living/carbon/alien/IsAdvancedToolUser()
 	return has_fine_manipulation
@@ -97,15 +91,15 @@ Proc: AddInfectionImages()
 Des: Gives the client of the alien an image on each infected mob.
 ----------------------------------------*/
 /mob/living/carbon/alien/proc/AddInfectionImages()
-	if (client)
-		for (var/i in GLOB.mob_living_list)
-			var/mob/living/L = i
-			if(HAS_TRAIT(L, TRAIT_XENO_HOST))
-				var/obj/item/organ/body_egg/alien_embryo/A = L.getorgan(/obj/item/organ/body_egg/alien_embryo)
-				if(A)
-					var/I = image('icons/mob/alien.dmi', loc = L, icon_state = "infected[A.stage]")
-					client.images += I
-	return
+	if(!client)
+		return
+	for(var/i in GLOB.mob_living_list)
+		var/mob/living/L = i
+		if(HAS_TRAIT(L, TRAIT_XENO_HOST))
+			var/obj/item/organ/body_egg/alien_embryo/A = L.getorgan(/obj/item/organ/body_egg/alien_embryo)
+			if(A)
+				var/I = image('icons/mob/alien.dmi', loc = L, icon_state = "infected[A.stage]")
+				client.images += I
 
 
 /*----------------------------------------
@@ -113,15 +107,16 @@ Proc: RemoveInfectionImages()
 Des: Removes all infected images from the alien.
 ----------------------------------------*/
 /mob/living/carbon/alien/proc/RemoveInfectionImages()
-	if (client)
+	if(client)
 		for(var/image/I in client.images)
 			var/searchfor = "infected"
 			if(findtext(I.icon_state, searchfor, 1, length(searchfor) + 1))
+				client.images -= I
 				qdel(I)
 	return
 
 /mob/living/carbon/alien/canBeHandcuffed()
-	return 1
+	return TRUE
 
 /mob/living/carbon/alien/get_standard_pixel_y_offset(lying = 0)
 	return initial(pixel_y)

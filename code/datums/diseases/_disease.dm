@@ -21,7 +21,7 @@
 	var/list/viable_mobtypes = list() //typepaths of viable mobs
 	var/mob/living/carbon/affected_mob = null
 	var/list/cures = list() //list of cures if the disease has the CURABLE flag, these are reagent ids
-	var/infectivity = 65
+	var/infectivity = 10
 	var/cure_chance = 8
 	var/carrier = FALSE //If our host is only a carrier
 	var/bypasses_immunity = FALSE //Does it skip species virus immunity check? Some things may diseases and not viruses
@@ -46,12 +46,8 @@
 	infect(infectee, make_copy)
 	return TRUE
 
-/**
-* add the disease with no checks
-* Don't use this proc. use ForceContractDisease on mob/living/carbon instead
-*/
+//add the disease with no checks
 /datum/disease/proc/infect(var/mob/living/infectee, make_copy = TRUE)
-	PROTECTED_PROC(TRUE)
 	var/datum/disease/D = make_copy ? Copy() : src	
 	infectee.diseases += D
 	D.affected_mob = infectee

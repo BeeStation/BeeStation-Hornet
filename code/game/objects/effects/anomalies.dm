@@ -3,6 +3,17 @@
 /// Chance of taking a step per second
 #define ANOMALY_MOVECHANCE 45
 
+/// Lists for zones and bodyparts to swap and randomize
+#define ANOMALY_DELIMBER_ZONES list(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
+#define ANOMALY_DELIMBER_ZONE_CHEST typesof(/obj/item/bodypart/chest)
+#define ANOMALY_DELIMBER_ZONE_HEAD typesof(/obj/item/bodypart/head)
+#define ANOMALY_DELIMBER_ZONE_L_LEG typesof(/obj/item/bodypart/l_arm)
+#define ANOMALY_DELIMBER_ZONE_R_LEG typesof(/obj/item/bodypart/r_arm)
+#define ANOMALY_DELIMBER_ZONE_L_ARM typesof(/obj/item/bodypart/l_leg)
+#define ANOMALY_DELIMBER_ZONE_R_ARM typesof(/obj/item/bodypart/r_leg)
+
+/////////////////////
+
 /obj/effect/anomaly
 	name = "anomaly"
 	desc = "A mysterious anomaly, seen commonly only in the region of space that the station orbits..."
@@ -19,6 +30,9 @@
 
 	var/countdown_colour
 	var/obj/effect/countdown/anomaly/countdown
+
+	/// Do we keep on living forever?
+	var/immortal = FALSE
 
 /obj/effect/anomaly/Initialize(mapload, new_lifespan)
 	. = ..()
@@ -39,6 +53,9 @@
 	if(new_lifespan)
 		lifespan = new_lifespan
 	death_time = world.time + lifespan
+
+	if(immortal)
+		return // no countdown for forever anomalies
 	countdown = new(src)
 	if(countdown_colour)
 		countdown.color = countdown_colour
@@ -46,7 +63,7 @@
 
 /obj/effect/anomaly/process(delta_time)
 	anomalyEffect(delta_time)
-	if(death_time < world.time)
+	if(death_time < world.time && !immortal)
 		if(loc)
 			detonate()
 		qdel(src)
@@ -153,11 +170,11 @@
 	density = TRUE
 	var/canshock = 0
 	var/shockdamage = 20
-	var/explosive = TRUE
+	var/explosive = ANOMALY_FLUX_EXPLOSIVE
 
-/obj/effect/anomaly/flux/Initialize(mapload, new_lifespan, drops_core = TRUE, _explosive = TRUE)
+/obj/effect/anomaly/flux/Initialize(mapload, new_lifespan, drops_core = TRUE, explosive = ANOMALY_FLUX_EXPLOSIVE)
 	. = ..()
-	explosive = _explosive
+	src.explosive = explosive
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = .proc/on_entered,
 	)
@@ -196,12 +213,13 @@
 		"<span class='italics'>You hear a heavy electrical crack.</span>")
 
 /obj/effect/anomaly/flux/detonate()
-	if(explosive)
-		explosion(src, 1, 4, 16, 18) //Low devastation, but hits a lot of stuff.
-		log_game("A flux anomaly has detonated at [loc].")
-		message_admins("A flux anomaly has detonated at [ADMIN_VERBOSEJMP(loc)].")
-	else
-		new /obj/effect/particle_effect/sparks(loc)
+	switch(explosive)
+		if(ANOMALY_FLUX_EXPLOSIVE)
+			explosion(src, devastation_range = 1, heavy_impact_range = 4, light_impact_range = 16, flash_range = 18) //Low devastation, but hits a lot of stuff.
+		if(ANOMALY_FLUX_LOW_EXPLOSIVE)
+			explosion(src, heavy_impact_range = 1, light_impact_range = 4, flash_range = 6)
+		if(ANOMALY_FLUX_NO_EXPLOSION)
+			new /obj/effect/particle_effect/sparks(loc)
 
 
 /////////////////////
@@ -375,3 +393,125 @@
 				SSexplosions.medturf += T
 			if(EXPLODE_LIGHT)
 				SSexplosions.lowturf += T
+
+/////////////////////
+
+/obj/effect/anomaly/hallucination
+	name = "hallucination anomaly"
+	icon_state = "hallucination_anomaly"
+	aSignal = /obj/item/assembly/signaler/anomaly/hallucination
+	/// Time passed since the last effect, increased by delta_time of the SSobj
+	var/ticks = 0
+	/// How many seconds between each small hallucination pulses
+	var/release_delay = 5
+
+/obj/effect/anomaly/hallucination/anomalyEffect(delta_time)
+	. = ..()
+	ticks += delta_time
+	if(ticks < release_delay)
+		return
+	ticks -= release_delay
+	var/turf/open/our_turf = get_turf(src)
+	if(istype(our_turf))
+		hallucination_pulse(our_turf, 5)
+
+/obj/effect/anomaly/hallucination/detonate()
+	var/turf/open/our_turf = get_turf(src)
+	if(istype(our_turf))
+		hallucination_pulse(our_turf, 10)
+
+/proc/hallucination_pulse(turf/location, range, strength = 50)
+	for(var/mob/living/carbon/human/near in view(location, range))
+		// If they are immune to hallucinations
+		if (HAS_TRAIT(near, TRAIT_MADNESS_IMMUNE) || (near.mind && HAS_TRAIT(near.mind, TRAIT_MADNESS_IMMUNE)))
+			continue
+
+		// Blind people don't get hallucinations
+		if (is_blind(near))
+			continue
+
+		// Everyone else
+		var/dist = sqrt(1 / max(1, get_dist(near, location)))
+		near.hallucination += strength * dist
+		near.hallucination = clamp(near.hallucination, 0, 150)
+		var/list/messages = list(
+			"You feel your conscious mind fall apart!",
+			"Reality warps around you!",
+			"Something's wispering around you!",
+			"You are going insane!",
+			"What was that?!"
+		)
+		to_chat(near, "<span class='warning'>[pick(messages)]</span>")
+
+/////////////////////
+
+/obj/effect/anomaly/delimber
+	name = "delimber anomaly"
+	icon_state = "delimber_anomaly"
+	aSignal = /obj/item/assembly/signaler/anomaly/delimber
+	/// Cooldown for every anomaly pulse
+	COOLDOWN_DECLARE(pulse_cooldown)
+	/// How many seconds between each anomaly pulses
+	var/pulse_delay = 15 SECONDS
+	/// Range of the anomaly pulse
+	var/range = 5
+
+/obj/effect/anomaly/delimber/anomalyEffect(delta_time)
+	. = ..()
+
+	if(!COOLDOWN_FINISHED(src, pulse_cooldown))
+		return
+
+	COOLDOWN_START(src, pulse_cooldown, pulse_delay)
+
+	delimber_pulse(src, range)
+
+/proc/delimber_pulse(atom/owner, range = 5, ignore_owner = FALSE, message_admins = FALSE)
+	var/list/mob/living/carbon/affected = list()
+	for(var/mob/living/carbon/target in range(range, owner))
+		if(!ignore_owner && target == owner)
+			continue
+		if(target.run_armor_check(attack_flag = "bio", absorb_text = "Your armor protects you from [owner]!") >= 100)
+			continue //We are protected
+
+		// Add target
+		affected += target
+
+		// Replace a random limb
+		var/picked_zone = pick(ANOMALY_DELIMBER_ZONES)
+		var/obj/item/bodypart/picked_user_part = target.get_bodypart(picked_zone)
+		if(!picked_user_part)
+			return
+		var/obj/item/bodypart/picked_part
+		switch(picked_zone)
+			if(BODY_ZONE_HEAD)
+				picked_part = pick(ANOMALY_DELIMBER_ZONE_HEAD)
+			if(BODY_ZONE_CHEST)
+				picked_part = pick(ANOMALY_DELIMBER_ZONE_CHEST)
+			if(BODY_ZONE_L_ARM)
+				picked_part = pick(ANOMALY_DELIMBER_ZONE_L_ARM)
+			if(BODY_ZONE_R_ARM)
+				picked_part = pick(ANOMALY_DELIMBER_ZONE_R_ARM)
+			if(BODY_ZONE_L_LEG)
+				picked_part = pick(ANOMALY_DELIMBER_ZONE_L_LEG)
+			if(BODY_ZONE_R_LEG)
+				picked_part = pick(ANOMALY_DELIMBER_ZONE_R_LEG)
+		var/obj/item/bodypart/new_part = new picked_part()
+		new_part.replace_limb(target, TRUE, is_creating = TRUE)
+		qdel(picked_user_part)
+		target.update_body(TRUE)
+		to_chat(target, "<span class='warning'>Something feels different...</span>")
+		log_game("[key_name(owner)] has caused a delimber pulse affecting [english_list(affected)].")
+		target.log_message("[owner] has caused [target]'s [picked_part] to turn into [new_part.name] and delimbed their [picked_user_part.name].", LOG_ATTACK)
+
+	if(message_admins)
+		message_admins("[ADMIN_LOOKUPFLW(owner)] has caused a delimber pulse affecting [english_list(affected)].")
+
+#undef ANOMALY_MOVECHANCE
+#undef ANOMALY_DELIMBER_ZONES
+#undef ANOMALY_DELIMBER_ZONE_CHEST
+#undef ANOMALY_DELIMBER_ZONE_HEAD
+#undef ANOMALY_DELIMBER_ZONE_L_LEG
+#undef ANOMALY_DELIMBER_ZONE_R_LEG
+#undef ANOMALY_DELIMBER_ZONE_L_ARM
+#undef ANOMALY_DELIMBER_ZONE_R_ARM

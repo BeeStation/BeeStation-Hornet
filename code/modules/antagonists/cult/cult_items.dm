@@ -23,13 +23,20 @@
 	force = 15
 	throwforce = 12 // unlike normal daggers, this one is curved and not designed to be thrown
 	armour_penetration = 35
-	actions_types = list(/datum/action/item_action/cult_dagger)
 
 /obj/item/melee/cultblade/dagger/Initialize(mapload)
 	. = ..()
-	var/image/I = image(icon = 'icons/effects/blood.dmi' , icon_state = null, loc = src)
-	I.override = TRUE
-	add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/silicons, "cult_dagger", I)
+	var/image/silicon_image = image(icon = 'icons/effects/blood.dmi' , icon_state = null, loc = src)
+	silicon_image.override = TRUE
+	add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/silicons, "cult_dagger", silicon_image)
+
+	var/examine_text = {"Allows the scribing of blood runes of the cult of Nar'Sie.
+Hitting a cult structure will unanchor or reanchor it. Cult Girders will be destroyed in a single blow.
+Can be used to scrape blood runes away, removing any trace of them.
+Striking another cultist with it will purge all holy water from them and transform it into unholy water.
+Striking a noncultist, however, will tear their flesh."}
+
+	AddComponent(/datum/component/cult_ritual_item, "<span class='cult'>[examine_text]</span>")
 
 /obj/item/melee/cultblade
 	name = "eldritch longsword"
@@ -383,8 +390,19 @@
 	armor = list("melee" = 40, "bullet" = 30, "laser" = 40,"energy" = 30, "bomb" = 50, "bio" = 30, "rad" = 30, "fire" = 50, "acid" = 60, "stamina" = 40)
 	body_parts_covered = CHEST|GROIN|LEGS|ARMS
 	allowed = list(/obj/item/tome, /obj/item/melee/cultblade)
-	var/current_charges = 3
 	hoodtype = /obj/item/clothing/head/hooded/cult_hoodie
+
+/obj/item/clothing/suit/hooded/cultrobes/cult_shield/Initialize()
+	. = ..()
+	// note that these charges don't regenerate
+	AddComponent(/datum/component/shielded, recharge_start_delay = 0, shield_icon_file = 'icons/effects/cult_effects.dmi', shield_icon = "shield-cult", run_hit_callback = CALLBACK(src, .proc/shield_damaged))
+
+/// A proc for callback when the shield breaks, since cult robes are stupid and have different effects
+/obj/item/clothing/suit/hooded/cultrobes/cult_shield/proc/shield_damaged(mob/living/wearer, attack_text, new_current_charges)
+	wearer.visible_message("<span class='danger'>[wearer]'s robes neutralize [attack_text] in a burst of blood-red sparks!</span>")
+	new /obj/effect/temp_visual/cult/sparks(get_turf(wearer))
+	if(new_current_charges == 0)
+		wearer.visible_message("<span class='danger'>The runed shield around [wearer] suddenly disappears!</span>")
 
 /obj/item/clothing/head/hooded/cult_hoodie
 	name = "empowered cultist helmet"
@@ -402,22 +420,6 @@
 		user.dropItemToGround(src, TRUE)
 		user.Dizzy(30)
 		user.Paralyze(100)
-
-/obj/item/clothing/suit/hooded/cultrobes/cult_shield/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
-	if(current_charges)
-		owner.visible_message("<span class='danger'>\The [attack_text] is deflected in a burst of blood-red sparks!</span>")
-		current_charges--
-		new /obj/effect/temp_visual/cult/sparks(get_turf(owner))
-		if(!current_charges)
-			owner.visible_message("<span class='danger'>The runed shield around [owner] suddenly disappears!</span>")
-			owner.update_inv_wear_suit()
-		return 1
-	return 0
-
-/obj/item/clothing/suit/hooded/cultrobes/cult_shield/worn_overlays(mutable_appearance/standing, isinhands)
-	. = list()
-	if(!isinhands && current_charges)
-		. += mutable_appearance('icons/effects/cult_effects.dmi', "shield-cult", MOB_LAYER + 0.01)
 
 /obj/item/clothing/suit/hooded/cultrobes/berserker
 	name = "flagellant's robes"
@@ -748,7 +750,7 @@
 	guns_left = 24
 	mag_type = /obj/item/ammo_box/magazine/internal/boltaction/enchanted/arcane_barrage/blood
 	fire_sound = 'sound/magic/wand_teleport.ogg'
-	requires_wielding = FALSE
+	weapon_weight = WEAPON_LIGHT
 
 /obj/item/ammo_box/magazine/internal/boltaction/enchanted/arcane_barrage/blood
 	ammo_type = /obj/item/ammo_casing/magic/arcane_barrage/blood

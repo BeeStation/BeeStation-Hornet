@@ -16,6 +16,7 @@
 		/obj/item/gun/energy,
 		/obj/item/melee/baton,
 		/obj/item/ammo_box/magazine/recharge,
+		/obj/item/toy/batong,
 		/obj/item/modular_computer))
 
 /obj/machinery/recharger/RefreshParts()
@@ -37,7 +38,10 @@
 		. += "<span class='notice'>- Recharging <b>[recharge_coeff*10]%</b> cell charge per cycle.</span>"
 		if(charging)
 			var/obj/item/stock_parts/cell/C = charging.get_cell()
-			. += "<span class='notice'>- \The [charging]'s cell is at <b>[C.percent()]%</b>.</span>"
+			if(C)
+				. += "<span class='notice'>- \The [charging]'s cell is at <b>[C.percent()]%</b>.</span>"
+			else
+				. += "<span class='notice'>- \The [charging] has no power cell installed.</span>"
 
 
 /obj/machinery/recharger/proc/setCharging(new_charging)

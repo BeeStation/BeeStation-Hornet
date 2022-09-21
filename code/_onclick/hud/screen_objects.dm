@@ -176,7 +176,7 @@
 	var/image/item_overlay = image(holding)
 	item_overlay.alpha = 92
 
-	if(!user.can_equip(holding, slot_id, TRUE))
+	if(!user.can_equip(holding, slot_id, TRUE, bypass_equip_delay_self = TRUE))
 		item_overlay.color = "#FF0000"
 	else
 		item_overlay.color = "#00ff00"
@@ -618,6 +618,10 @@
 /atom/movable/screen/healths/robot
 	icon = 'icons/mob/screen_cyborg.dmi'
 	screen_loc = ui_borg_health
+
+/atom/movable/screen/healths/minebot
+	icon = 'icons/mob/screen_cyborg.dmi'
+	screen_loc = ui_health
 
 /atom/movable/screen/healths/blob
 	name = "blob health"

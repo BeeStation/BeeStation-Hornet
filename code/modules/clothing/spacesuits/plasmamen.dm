@@ -120,21 +120,35 @@
 				update_icon()
 				update_button_icons(user)
 		return
-	if(istype(item, /obj/item/clothing/head) && !istype(item, /obj/item/clothing/head/helmet/space/plasmaman)) // i know someone is gonna do it after i thought about it
+	if(istype(item, /obj/item/clothing/head) \
+		// i know someone is gonna do it after i thought about it
+		&& !istype(item, /obj/item/clothing/head/helmet/space/plasmaman) \
+		// messy and icon can't be seen before putting on
+		&& !istype(item, /obj/item/clothing/head/foilhat))
 		var/obj/item/clothing/head/hat = item
 		if(attached_hat)
 			to_chat(user, "<span class='notice'>There's already a hat on the helmet!</span>")
 			return
 		attached_hat = hat
 		hat.forceMove(src)
+		if (user.get_item_by_slot(ITEM_SLOT_HEAD) == src)
+			hat.equipped(user, ITEM_SLOT_HEAD)
 		update_icon()
 		update_button_icons(user)
 		add_verb(/obj/item/clothing/head/helmet/space/plasmaman/verb/unattach_hat)
 
+/obj/item/clothing/head/helmet/space/plasmaman/equipped(mob/user, slot)
+	. = ..()
+	attached_hat?.equipped(user, slot)
+
+/obj/item/clothing/head/helmet/space/plasmaman/dropped(mob/user)
+	. = ..()
+	attached_hat?.dropped(user)
+
 /obj/item/clothing/head/helmet/space/plasmaman/proc/update_button_icons(mob/user)
 	if(!user)
 		return
-	
+
 	//The icon's may look differently due to overlays being applied asynchronously
 	for(var/X in actions)
 		var/datum/action/A=X
@@ -160,6 +174,8 @@
 	set src in usr
 
 	usr.put_in_hands(attached_hat)
+	if (usr.get_item_by_slot(ITEM_SLOT_HEAD) == src)
+		attached_hat.dropped(usr)
 	attached_hat = null
 	update_icon()
 	remove_verb(/obj/item/clothing/head/helmet/space/plasmaman/verb/unattach_hat)
@@ -193,7 +209,7 @@
 	update_icon()
 	user.update_inv_head() //So the mob overlay updates
 	update_button_icons(user)
-	
+
 /obj/item/clothing/head/helmet/space/plasmaman/update_overlays()
 	cut_overlays()
 
@@ -201,7 +217,7 @@
 		add_overlay(mutable_appearance('icons/obj/clothing/hats.dmi', visor_state + "_weld"))
 	else if(helmet_on)
 		add_overlay(mutable_appearance('icons/obj/clothing/hats.dmi', visor_state + "_light"))
-	
+
 	return ..()
 
 /obj/item/clothing/head/helmet/space/plasmaman/security
@@ -235,7 +251,7 @@
 	desc = "A plasmaman envirosuit designed for chemists, two orange stripes going down it's face."
 	greyscale_colors = "#D2D2D2#D26F00#2D2D2D"
 
-/obj/item/clothing/head/helmet/space/plasmaman/emt
+/obj/item/clothing/head/helmet/space/plasmaman/paramedic
 	name = "paramedic envirosuit helmet"
 	desc = "An envirosuit helmet only for the bravest medical plasmaman."
 	greyscale_colors = "#2C3A4E#D9D9D9#2C3A4E"
@@ -265,6 +281,11 @@
 	name = "atmospherics envirosuit helmet"
 	desc = "A space-worthy helmet specially designed for atmos technician plasmamen, the usual purple stripes being replaced by engineering's blue."
 	greyscale_colors = "#F0DE00#0098CA#F0DE00"
+
+/obj/item/clothing/head/helmet/space/plasmaman/mailman
+	name = "mailman envirosuit helmet"
+	desc = "<i>'Right-on-time'</i> mail plasmamen service head wear."
+	greyscale_colors = "#091544#e6c447#091544"
 
 /obj/item/clothing/head/helmet/space/plasmaman/cargo
 	name = "cargo envirosuit helmet"
@@ -446,7 +467,7 @@
 	desc = "A braced plasmaman containment helmet design for chemists."
 	greyscale_colors = "#E6E6E6#FF8800"
 
-/obj/item/clothing/head/helmet/space/plasmaman/mark2/emt
+/obj/item/clothing/head/helmet/space/plasmaman/mark2/paramedic
 	name = "paramedic Mk.II envirosuit helmet"
 	desc = "A new and improved envirosuit helmet only for the bravest medical plasmaman."
 	greyscale_colors = "#2C3A4E#D9D9D9"
@@ -481,6 +502,12 @@
 	name = "cargo Mk.II envirosuit helmet"
 	desc = "A stylish new iteration upon the original plasmaman containment helmet design for cargo techs and quartermasters. Neo-liberal grifting has never been this groovy"
 	greyscale_colors = "#ADADAD#BB9042"
+
+/obj/item/clothing/head/helmet/space/plasmaman/mark2/mailman
+	name = "mailman Mk.II envirosuit helmet"
+	desc = "<i>'Right-on-time'</i> a modernized mail plasmamen service head wear."
+	greyscale_colors = "#091544#e6c447"
+
 
 /obj/item/clothing/head/helmet/space/plasmaman/mark2/mining
 	name = "mining Mk.II envirosuit helmet"
@@ -640,7 +667,7 @@
 	desc = "A braced plasmaman containment helmet designed for chemists."
 	greyscale_colors = "#E6E6E6#FF8800"
 
-/obj/item/clothing/head/helmet/space/plasmaman/protective/emt
+/obj/item/clothing/head/helmet/space/plasmaman/protective/paramedic
 	name = "paramedic protective envirosuit helmet"
 	desc = "A new and improved envirosuit helmet only for the bravest medical plasmaman."
 	greyscale_colors = "#2C3A4E#EBEBEB"
@@ -676,8 +703,13 @@
 	desc = "A braced plasmaman containment helmet design for cargo techs and quartermasters."
 	greyscale_colors = "#ADADAD#BB9042"
 
+/obj/item/clothing/head/helmet/space/plasmaman/protective/mailman
+	name = "mailman Mk.II envirosuit helmet"
+	desc = "<i>'Right-on-time'</i> a braced mail plasmamen service head wear."
+	greyscale_colors = "#091544#e6c447"
+
 /obj/item/clothing/head/helmet/space/plasmaman/protective/mining
-	name = "mining protective envirosuit helmet"
+	name = "mining Mk.II envirosuit helmet"
 	desc = "A new styling of the classic khaki helmet given to plasmamen miners."
 	greyscale_colors = "#55524A#8A5AE1"
 

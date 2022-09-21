@@ -1,3 +1,5 @@
+#define VIP_BUDGET_BASE rand(8888888, 11111111)
+
 SUBSYSTEM_DEF(economy)
 	name = "Economy"
 	wait = 5 MINUTES
@@ -12,6 +14,7 @@ SUBSYSTEM_DEF(economy)
 										ACCOUNT_SRV = ACCOUNT_SRV_NAME,
 										ACCOUNT_CAR = ACCOUNT_CAR_NAME,
 										ACCOUNT_SEC = ACCOUNT_SEC_NAME)
+	var/list/nonstation_accounts = list(ACCOUNT_VIP = ACCOUNT_VIP_NAME)
 	var/list/generated_accounts = list()
 	var/full_ancap = FALSE // Enables extra money charges for things that normally would be free, such as sleepers/cryo/cloning.
 							//Take care when enabling, as players will NOT respond well if the economy is set up for low cash flows.
@@ -21,10 +24,17 @@ SUBSYSTEM_DEF(economy)
 	///Multiplied as they go to all department accounts rather than just cargo.
 	var/bounty_modifier = 3
 
+	/// Number of mail items generated.
+	var/mail_waiting
+	/// Mail Holiday: AKA does mail arrive today? Always blocked on Sundays, but not on bee, the mail is 24/7.
+	var/mail_blocked = FALSE
+
 /datum/controller/subsystem/economy/Initialize(timeofday)
 	var/budget_to_hand_out = round(budget_pool / department_accounts.len)
 	for(var/A in department_accounts)
 		new /datum/bank_account/department(A, budget_to_hand_out)
+	for(var/A in nonstation_accounts)
+		new /datum/bank_account/department(A, VIP_BUDGET_BASE)
 	return ..()
 
 /datum/controller/subsystem/economy/Recover()
@@ -35,7 +45,8 @@ SUBSYSTEM_DEF(economy)
 	for(var/A in bank_accounts)
 		var/datum/bank_account/B = A
 		B.payday(1)
-
+	var/effective_mailcount = living_player_count()
+	mail_waiting += clamp(effective_mailcount, 1, MAX_MAIL_PER_MINUTE)
 
 /datum/controller/subsystem/economy/proc/get_dep_account(dep_id)
 	for(var/datum/bank_account/department/D in generated_accounts)
@@ -85,3 +96,9 @@ SUBSYSTEM_DEF(economy)
 	sci?.adjust_money(science_cash)
 	civ?.adjust_money(civilian_cash)
 	car?.adjust_money(cargo_cash)
+
+	// VIP budget will not dry
+	var/datum/bank_account/vip = get_dep_account(ACCOUNT_VIP)
+	vip?.adjust_money(cargo_cash)
+
+#undef VIP_BUDGET_BASE

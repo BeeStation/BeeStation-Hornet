@@ -42,6 +42,15 @@
 	var/drag_slowdown // Amont of multiplicative slowdown applied if pulled. >1 makes you slower, <1 makes you faster.
 
 	vis_flags = VIS_INHERIT_PLANE //when this be added to vis_contents of something it inherit something.plane, important for visualisation of obj in openspace.
+	/// Map tag for something.  Tired of it being used on snowflake items.  Moved here for some semblance of a standard.
+	/// Next pr after the network fix will have me refactor door interactions, so help me god.
+	var/id_tag = null
+	/// Network id. If set it can be found by either its hardware id or by the id tag if thats set.  It can also be
+	/// broadcasted to as long as the other guys network is on the same branch or above.
+	var/network_id = null
+
+	var/investigate_flags = NONE
+	// ADMIN_INVESTIGATE_TARGET: investigate_log on pickup/drop
 
 /obj/vv_edit_var(vname, vval)
 	switch(vname)
@@ -77,6 +86,18 @@
 	if((obj_flags & ON_BLUEPRINTS) && isturf(loc))
 		var/turf/T = loc
 		T.add_blueprints_preround(src)
+	if(network_id)
+		var/area/A = get_area(src)
+		if(A)
+			if(!A.network_root_id)
+				log_telecomms("Area '[A.name]([REF(A)])' has no network network_root_id, force assigning in object [src]([REF(src)])")
+				SSnetworks.lookup_area_root_id(A)
+			network_id = NETWORK_NAME_COMBINE(A.network_root_id, network_id) // I regret nothing!!
+		else
+			log_telecomms("Created [src]([REF(src)] in nullspace, assuming network to be in station")
+			network_id = NETWORK_NAME_COMBINE(STATION_NETWORK_ROOT, network_id) // I regret nothing!!
+		AddComponent(/datum/component/ntnet_interface, network_id, id_tag)
+		/// Needs to run before as ComponentInitialize runs after this statement...why do we have ComponentInitialize again?
 
 /obj/Destroy(force=FALSE)
 	if(!ismachinery(src) && (datum_flags & DF_ISPROCESSING))
@@ -373,6 +394,12 @@
 
 /obj/proc/plunger_act(obj/item/plunger/P, mob/living/user, reinforced)
 	return
+
+/obj/proc/log_item(mob/user, actverb="(unknown verb)", additional_info="")
+	if(investigate_flags & ADMIN_INVESTIGATE_TARGET)
+		if(x == 0 && y == 0 && z == 0)
+			actverb = "possessed"
+		investigate_log("[src] was [actverb] by [key_name(user)] at [AREACOORD(user)]. [additional_info]", INVESTIGATE_ITEMS)
 
 //For returning special data when the object is saved
 //For example, or silos will return a list of their materials which will be dumped on top of them
