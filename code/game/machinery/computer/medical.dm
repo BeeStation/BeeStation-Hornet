@@ -274,10 +274,14 @@
 							src.active1.fields["fingerprint"] = t1
 					if("sex")
 						if(active1)
-							if(src.active1.fields["sex"] == "Male")
-								src.active1.fields["sex"] = "Female"
-							else
-								src.active1.fields["sex"] = "Male"
+							if(active1.fields["sex"] == MALE)
+								active1.fields["sex"] = FEMALE
+							if(active1.fields["sex"] == FEMALE)
+								active1.fields["sex"] = PLURAL
+							if(active1.fields["sex"] == PLURAL)
+								active1.fields["sex"] = NEUTER
+							if(active1.fields["sex"] == NEUTER)
+								active1.fields["sex"] = MALE
 					if("age")
 						if(active1)
 							var/t1 = input("Please input age:", "Med. records", src.active1.fields["age"], null)  as num

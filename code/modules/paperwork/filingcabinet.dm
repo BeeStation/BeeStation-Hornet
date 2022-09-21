@@ -152,7 +152,7 @@
 /obj/structure/filingcabinet/medical/proc/populate()
 	if(virgin)
 		for(var/datum/data/record/G in GLOB.data_core.general)
-			var/datum/data/record/M = find_record("name", G.fields["name"], GLOB.data_core.medical)
+			var/datum/data/record/M = find_record("id", G.fields["id"], GLOB.data_core.medical)
 			if(!M)
 				continue
 			var/obj/item/paper/P = new /obj/item/paper(src)

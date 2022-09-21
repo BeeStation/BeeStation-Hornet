@@ -473,3 +473,10 @@ GLOBAL_LIST_INIT(pda_styles, sortList(list(MONO, VT, ORBITRON, SHARE)))
 // Pirates threat
 #define PIRATE_RESPONSE_NO_PAY "pirate_answer_no_pay"
 #define PIRATE_RESPONSE_PAY "pirate_answer_pay"
+
+
+// datacore return type
+#define DATACORE_RETURNS_GENERAL "general"
+#define DATACORE_RETURNS_SECURITY "medical"
+#define DATACORE_RETURNS_MEDICAL "general"
+#define DATACORE_RETURNS_LOCKED "locked"

@@ -10,7 +10,6 @@
 	icon_state = "true_devil"
 	gender = NEUTER
 	age = 666
-	real_age = 666
 	health = 350
 	maxHealth = 350
 	ventcrawler = VENTCRAWLER_NONE

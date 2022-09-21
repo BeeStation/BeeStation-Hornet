@@ -277,7 +277,7 @@
 	var/perp_age = get_face_info(get_id_info(target=RETURNS_AGE), RETURNS_AGE)
 	var/perp_gender = get_face_info(get_id_info(target=RETURNS_GENDER), RETURNS_GENDER)
 	if(perpname && GLOB.data_core)
-		var/datum/data/record/R = find_datacore_individual(perpname, perp_age, perp_gender, GLOB.data_core.security, TRUE)
+		var/datum/data/record/R = find_datacore_individual(perpname, perp_age, perp_gender, DATACORE_RETURNS_SECURITY, TRUE)
 		if(R)
 			switch(R.fields["criminal"])
 				if("Arrest")

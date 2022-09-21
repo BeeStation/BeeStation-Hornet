@@ -210,7 +210,7 @@ INITIALIZE_IMMEDIATE(/atom/movable/virtualspeaker)
 	if(ishuman(M))
 		// Humans use their job as seen on the crew manifest. This is so the AI
 		// can know their job even if they don't carry an ID.
-		var/datum/data/record/findjob = find_datacore_individual(name, M.GetVoice_info(RETURNS_AGE), M.GetVoice_info(RETURNS_GENDER), GLOB.data_core.general, TRUE)
+		var/datum/data/record/findjob = find_datacore_individual(name, M.GetVoice_info(RETURNS_AGE), M.GetVoice_info(RETURNS_GENDER), DATACORE_RETURNS_GENERAL, TRUE)
 		if(findjob)
 			job = findjob.fields["rank"]
 		else

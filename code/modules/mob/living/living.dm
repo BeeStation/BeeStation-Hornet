@@ -66,7 +66,11 @@
 /mob/living/proc/measure_age(visible_age)
 	// I don't care these numbers. feel free to change age desc per range
 	. = "unrecognisable"
-	switch(text2num(visible_age))
+	if(isnum(text2num(visible_age)))
+		visible_age = text2num(visible_age)
+	switch(visible_age)
+		if("Unknown")
+			. = "Unknown"
 		if(-INFINITY to -1)
 			. = "impossibly young"
 		if(0 to 12)
@@ -80,7 +84,7 @@
 		if(23 to 30)
 			. = "an adult"
 		if(31 to 60)
-			. = " middle-aged"
+			. = "middle-aged"
 		if(61 to 100)
 			. = "elderly"
 		if(101 to INFINITY)

@@ -767,10 +767,14 @@ What a mess.*/
 							active1.fields["fingerprint"] = t1
 					if("sex")
 						if(istype(active1, /datum/data/record))
-							if(active1.fields["sex"] == "Male")
-								active1.fields["sex"] = "Female"
-							else
-								active1.fields["sex"] = "Male"
+							if(active1.fields["sex"] == MALE)
+								active1.fields["sex"] = FEMALE
+							if(active1.fields["sex"] == FEMALE)
+								active1.fields["sex"] = PLURAL
+							if(active1.fields["sex"] == PLURAL)
+								active1.fields["sex"] = NEUTER
+							if(active1.fields["sex"] == NEUTER)
+								active1.fields["sex"] = MALE
 					if("age")
 						if(istype(active1, /datum/data/record))
 							var/t1 = input("Please input age:", "Secure. records", active1.fields["age"], null) as num

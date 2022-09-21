@@ -134,7 +134,7 @@
 		CHECK_TICK
 
 /datum/datacore/proc/manifest_modify(obj/item/card/id/I)
-	var/datum/data/record/foundrecord = find_datacore_individual(I.registered_name, I.age, I.registered_gender, GLOB.data_core.general)
+	var/datum/data/record/foundrecord = find_datacore_individual(I.registered_name, I.age, I.registered_gender, DATACORE_RETURNS_GENERAL)
 	if(foundrecord)
 		foundrecord.fields["rank"] = I.assignment
 		foundrecord.fields["hud"] = I.hud_state
@@ -262,8 +262,6 @@
 		var/datum/data/record/M = new()
 		M.fields["id"]			= id
 		M.fields["name"]		= H.real_name
-		M.fields["age"]			= H.real_age
-		M.fields["sex"]			= H.real_gender
 		M.fields["blood_type"]	= H.dna.blood_type
 		M.fields["b_dna"]		= H.dna.unique_enzymes
 		M.fields["mi_dis"]		= "None"
@@ -281,8 +279,6 @@
 		var/datum/data/record/S = new()
 		S.fields["id"]			= id
 		S.fields["name"]		= H.real_name
-		S.fields["age"]			= H.real_age
-		S.fields["sex"]			= H.real_gender
 		S.fields["criminal"]	= "None"
 		S.fields["citation"]	= list()
 		S.fields["crim"]		= list()
@@ -292,6 +288,7 @@
 		//Locked Record
 		var/datum/data/record/L = new()
 		L.fields["id"]			= rustg_hash_string(RUSTG_HASH_MD5, "[H.real_name][H.mind.assigned_role]")	//surely this should just be id, like the others?
+		S.fields["spawn_id"]	= id
 		L.fields["name"]		= H.real_name
 		L.fields["age"]			= H.real_age
 		L.fields["sex"]			= H.real_gender
@@ -315,20 +312,52 @@
 		P = C.prefs
 	return get_flat_human_icon(null, J, P, DUMMY_HUMAN_SLOT_MANIFEST, show_directions)
 
-/proc/find_datacore_individual(name, age="none", gender="none", list/L, find_similar=FALSE)
+/proc/find_datacore_individual(name, age, gender, return_type, find_similar=FALSE)
+	if(!length(GLOB.data_core.general))
+		return FALSE
+	if(!(return_type in list(DATACORE_RETURNS_GENERAL, DATACORE_RETURNS_SECURITY, DATACORE_RETURNS_MEDICAL, DATACORE_RETURNS_LOCKED)))
+		return FALSE
+	if(!name || !gender)
+		return FALSE
+	age = text2num(age)
+	if(!isnum(age))
+		return FALSE
+
 	var/datum/data/record/A
-	var/similarity_level = 0
-	for(var/datum/data/record/R in L)
-		if(R.fields["name"] != name)
-			if(similarity_level < 1)
-				A = R
-				similarity_level++
+	var/age_gap = INFINITY // if "age=20, datacore age=30", age_gap is 10. so having 0 is best
+	/* return priority:
+		1. [full match] name & age & gender matched
+		2. [half match] name & age matched / gender not matched
+		3. [similar match] name matched / age is similar / gender check passed
+		4. [single match] name matched / doesn't care age
+		x. [no match] name not matched (no return)  */
+	for(var/datum/data/record/R in GLOB.data_core.general)
+		if(R.fields["name"] != name) // [no match]
 			continue
-		if(R.fields["age"] != age)
-			if(similarity_level < 2)
-				A = R
-				similarity_level++
-			continue
-		if(R.fields["sex"] == gender)
-			return R
-	return find_similar ? A : FALSE // returns the closest one
+		else
+			if(!A)
+				A = R // [single match]
+		if(age_gap) // being 0 means you have a best case for the age. no need to compare age.
+			var/age_abs = abs(age-R.fields["age"])
+			if(age_abs < age_gap)
+				age_gap = age_abs
+				A = R   // [half match], but...↓
+			if(age_gap) // [similar match], if age_gap exists.  (and, indentation is correct. don't change.)
+				continue
+		if(R.fields["sex"] == gender) // if it didn't get continue, [half match] will check gender integrity to be [full match]
+			A = R // [full match]
+			. = TRUE
+
+	if(!A || (!find_similar && !.)) // failed to find something, or failed to find full match
+		return FALSE
+
+	switch(return_type)
+		if(DATACORE_RETURNS_GENERAL)
+			return A // You're already returning data_core.general
+		if(DATACORE_RETURNS_SECURITY)
+			A = find_record("id", A.fields["id"], GLOB.data_core.security)
+		if(DATACORE_RETURNS_MEDICAL)
+			A = find_record("id", A.fields["id"], GLOB.data_core.medical)
+		if(DATACORE_RETURNS_LOCKED)
+			A = find_record("spawn_id", A.fields["spawn_id"], GLOB.data_core.locked)
+	return A

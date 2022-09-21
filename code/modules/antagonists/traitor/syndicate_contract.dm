@@ -21,7 +21,7 @@
 	var/datum/data/record/record
 	if (contract.target)
 		var/mob/living/carbon/T = contract.target.current
-		record = find_datacore_individual(T.real_name, T.real_age, T.real_gender, GLOB.data_core.general, TRUE)
+		record = find_datacore_individual(T.real_name, T.real_age, T.real_gender, DATACORE_RETURNS_GENERAL, TRUE)
 
 	if (record)
 		target_rank = record.fields["rank"]

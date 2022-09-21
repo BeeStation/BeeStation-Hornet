@@ -7,8 +7,6 @@
 	icon_dead = "alienh_dead"
 	icon_gib = "syndicate_gib"
 	gender = FEMALE
-	age = 0
-	real_age = 0
 	response_help = "pokes"
 	response_disarm = "shoves"
 	response_harm = "hits"

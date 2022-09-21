@@ -266,15 +266,15 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 
 	var/announce_rank = null
 	var/datum/data/record/D
-	D = find_datacore_individual(mob_occupant.real_name, mob_occupant.real_age, mob_occupant.real_gender, GLOB.data_core.medical)
+	D = find_datacore_individual(mob_occupant.real_name, mob_occupant.real_age, mob_occupant.real_gender, DATACORE_RETURNS_MEDICAL)
 	if(D)
 		GLOB.data_core.medical -= D
 		qdel(D)
-	D = find_datacore_individual(mob_occupant.real_name, mob_occupant.real_age, mob_occupant.real_gender, GLOB.data_core.security)
+	D = find_datacore_individual(mob_occupant.real_name, mob_occupant.real_age, mob_occupant.real_gender, DATACORE_RETURNS_SECURITY)
 	if(D)
 		GLOB.data_core.security -= D
 		qdel(D)
-	D = find_datacore_individual(mob_occupant.real_name, mob_occupant.real_age, mob_occupant.real_gender, GLOB.data_core.general)
+	D = find_datacore_individual(mob_occupant.real_name, mob_occupant.real_age, mob_occupant.real_gender, DATACORE_RETURNS_GENERAL)
 	if(D)
 		GLOB.data_core.general -= D
 		announce_rank = D.fields["rank"]

@@ -1,7 +1,6 @@
 /mob/living/carbon/human/examine(mob/user)
 //this is very slightly better than it was because you can use it more places. still can't do \his[src] though.
 	var/t_He = p_they(TRUE)
-	var/t_he = p_they()
 	var/t_His = p_their(TRUE)
 	var/t_his = p_their()
 	var/t_him = p_them()
@@ -23,8 +22,10 @@
 	if(dna?.species && !skipface)
 		apparent_species = ", \an [dna.species.name]"
 	. = list("<span class='info'>*---------*\nThis is <EM>[!obscure_name ? name : "Unknown"][apparent_species]</EM>!")
+	var/idendified_age = measure_age(get_face_info(target=RETURNS_AGE))
 	if(!obscure_name)
-		. += list("You assume [t_he] seem[t_s] to be [measure_age(get_face_info(target=RETURNS_AGE))] by judging [t_his] visible age.")
+		if(idendified_age!="Unknown")
+			. += list("[t_He] seem[t_s] to be [idendified_age] by judging [t_his] visible age.")
 
 	//uniform
 	if(w_uniform && !(obscured & ITEM_SLOT_ICLOTHING))
@@ -339,7 +340,7 @@
 	var/perp_age = get_face_info(get_id_info(target=RETURNS_AGE), RETURNS_AGE)
 	var/perp_gender = get_face_info(get_id_info(target=RETURNS_GENDER), RETURNS_GENDER)
 	if(perpname && (HAS_TRAIT(user, TRAIT_SECURITY_HUD) || HAS_TRAIT(user, TRAIT_MEDICAL_HUD)))
-		var/datum/data/record/R = find_datacore_individual(perpname, perp_age, perp_gender, GLOB.data_core.general, TRUE)
+		var/datum/data/record/R = find_datacore_individual(perpname, perp_age, perp_gender, DATACORE_RETURNS_GENERAL, TRUE)
 		if(R)
 			. += "<span class='deptradio'>Rank:</span> [R.fields["rank"]]\n<a href='?src=[REF(src)];hud=1;photo_front=1'>\[Front photo\]</a><a href='?src=[REF(src)];hud=1;photo_side=1'>\[Side photo\]</a>"
 		if(HAS_TRAIT(user, TRAIT_MEDICAL_HUD))
@@ -354,7 +355,7 @@
 				. += "<a href='?src=[REF(src)];hud=m;p_stat=1'>\[[health_r]\]</a>"
 				health_r = R.fields["m_stat"]
 				. += "<a href='?src=[REF(src)];hud=m;m_stat=1'>\[[health_r]\]</a>"
-			R = find_datacore_individual(perpname, perp_age, perp_gender, GLOB.data_core.medical, TRUE)
+			R = find_datacore_individual(perpname, perp_age, perp_gender, DATACORE_RETURNS_MEDICAL, TRUE)
 			if(R)
 				. += "<a href='?src=[REF(src)];hud=m;evaluation=1'>\[Medical evaluation\]</a><br>"
 			if(traitstring)
@@ -365,7 +366,7 @@
 			//|| !user.canmove || user.restrained()) Fluff: Sechuds have eye-tracking technology and sets 'arrest' to people that the wearer looks and blinks at.
 				var/criminal = "None"
 
-				R = find_datacore_individual(perpname, perp_age, perp_gender, GLOB.data_core.security, TRUE)
+				R = find_datacore_individual(perpname, perp_age, perp_gender, DATACORE_RETURNS_SECURITY, TRUE)
 				if(R)
 					criminal = R.fields["criminal"]
 

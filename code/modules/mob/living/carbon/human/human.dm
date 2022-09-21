@@ -168,7 +168,7 @@
 		var/perp_gender = get_face_info(get_id_info(target=RETURNS_GENDER), RETURNS_GENDER)
 		if(!HAS_TRAIT(H, TRAIT_SECURITY_HUD) && !HAS_TRAIT(H, TRAIT_MEDICAL_HUD))
 			return
-		var/datum/data/record/R = find_datacore_individual(perpname, perp_age, perp_gender, GLOB.data_core.general, TRUE)
+		var/datum/data/record/R = find_datacore_individual(perpname, perp_age, perp_gender, DATACORE_RETURNS_GENERAL, TRUE)
 		if(href_list["photo_front"] || href_list["photo_side"])
 			if(!R)
 				return
@@ -280,7 +280,7 @@
 			if(!perpname)
 				to_chat(H, "<span class='warning'>ERROR: Can not identify target.</span>")
 				return
-			R = find_datacore_individual(perpname, perp_age, perp_gender, GLOB.data_core.security, TRUE)
+			R = find_datacore_individual(perpname, perp_age, perp_gender, DATACORE_RETURNS_SECURITY, TRUE)
 			if(!R)
 				to_chat(usr, "<span class='warning'>ERROR: Unable to locate data core entry for target.</span>")
 				return
@@ -497,7 +497,7 @@
 		var/perpname = get_face_info(get_id_info())
 		var/perp_age = get_face_info(get_id_info(target=RETURNS_AGE), RETURNS_AGE)
 		var/perp_gender = get_face_info(get_id_info(target=RETURNS_GENDER), RETURNS_GENDER)
-		var/datum/data/record/R = find_datacore_individual(perpname, perp_age, perp_gender, GLOB.data_core.security, TRUE)
+		var/datum/data/record/R = find_datacore_individual(perpname, perp_age, perp_gender, DATACORE_RETURNS_SECURITY, TRUE)
 		if(R && R.fields["criminal"])
 			switch(R.fields["criminal"])
 				if("Arrest")
@@ -662,10 +662,12 @@
 		..()
 
 /mob/living/carbon/human/replace_records_name(oldname,newname) // Only humans have records right now, move this up if changed.
-	for(var/list/L in list(GLOB.data_core.general,GLOB.data_core.medical,GLOB.data_core.security,GLOB.data_core.locked))
-		var/datum/data/record/R = find_datacore_individual(oldname, real_age, real_gender, L)
-		if(R)
-			R.fields["name"] = newname
+	var/datum/data/record/D = find_datacore_individual(oldname, real_age, real_gender, DATACORE_RETURNS_GENERAL)
+	if(D)
+		for(var/list/L in list(GLOB.data_core.general,GLOB.data_core.medical,GLOB.data_core.security,GLOB.data_core.locked))
+			var/datum/data/record/R = find_record("id", D?.fields["id"], L)
+			if(R)
+				R.fields["name"] = newname
 
 /mob/living/carbon/human/get_total_tint()
 	. = ..()
