@@ -1,0 +1,14 @@
+author: The-Moon-Itself
+delete-after: true
+changes:
+  - rscadd: Nested shuttles. shuttles can now land on top of each other and be towed
+      around.
+  - rscadd: Dock turfs. Shuttles can always land on these, regardless of whether the
+      dock is in space, on the station, or on another shuttle. Tiles are craftable
+      with 1 plasteel per 4 tiles.
+  - rscadd: Dry docks. Works like docks, but you can build on these as if you were
+      in space and designate what you build onto a shuttle. Tiles are craftable with
+      2 plasteel per 4 tiles.
+  - tweak: Arrival shuttles and Emergency shuttles cannot be towed by other shuttles.
+  - refactor: Lots of changes to shuttle code, especially relating to docking.
+  - balance: Machinery now blocks custom docking to prevent theft of important equipment.
