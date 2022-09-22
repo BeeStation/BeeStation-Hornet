@@ -1,0 +1,5 @@
+author: PestoVerde322
+delete-after: true
+changes:
+  - bugfix: fixed the orientation of the steel bench
+  - bugfix: you can't pick up a bench and convert any bench into a chair anymore
