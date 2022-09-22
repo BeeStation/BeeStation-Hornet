@@ -70,7 +70,7 @@
 			if(RETURNS_NAME)
 				. = id.registered_name
 			if(RETURNS_AGE)
-				. = id.age
+				. = id.registered_age
 			if(RETURNS_GENDER)
 				. = id.registered_gender
 	if(!.)

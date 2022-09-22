@@ -292,6 +292,13 @@
 
 		H.set_suicide(FALSE)
 
+	var/datum/data/record/D = find_record("id", rustg_hash_string(RUSTG_HASH_MD5, "[H.real_name][H?.mind.assigned_role]"), GLOB.data_core.locked)
+	if(D)
+		H.real_age = D.fields["age"]
+		H.real_gender = D.fields["sex"]
+	else
+		H.real_age = H.age
+		H.real_gender = H.gender
 
 	attempting = FALSE
 	return result

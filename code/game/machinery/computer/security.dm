@@ -769,11 +769,11 @@ What a mess.*/
 						if(istype(active1, /datum/data/record))
 							if(active1.fields["sex"] == MALE)
 								active1.fields["sex"] = FEMALE
-							if(active1.fields["sex"] == FEMALE)
+							else if(active1.fields["sex"] == FEMALE)
 								active1.fields["sex"] = PLURAL
-							if(active1.fields["sex"] == PLURAL)
+							else if(active1.fields["sex"] == PLURAL)
 								active1.fields["sex"] = NEUTER
-							if(active1.fields["sex"] == NEUTER)
+							else if(active1.fields["sex"] == NEUTER)
 								active1.fields["sex"] = MALE
 					if("age")
 						if(istype(active1, /datum/data/record))

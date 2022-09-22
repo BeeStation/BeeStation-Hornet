@@ -398,7 +398,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				carddesc += "<form name='cardcomp' action='?src=[REF(src)]' method='get'>"
 				carddesc += "<input type='hidden' name='src' value='[REF(src)]'>"
 				carddesc += "<input type='hidden' name='choice' value='reg_age'>"
-				carddesc += "<b>registered age:</b> <input type='text' id='agefield' name='reg_age' value='[inserted_modify_id.age]' style='width:60px; background-color:white;' onchange='markRedAge()'>"
+				carddesc += "<b>registered age:</b> <input type='text' id='agefield' name='reg_age' value='[inserted_modify_id.registered_age]' style='width:60px; background-color:white;' onchange='markRedAge()'>"
 				carddesc += "<input type='submit' value='Confirm age' onclick='markGreenAge()'>"
 				carddesc += "</form>"
 				// re-gender form
@@ -625,7 +625,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 						updateUsrDialog()
 						return
 					log_id("[key_name(usr)] changed [inserted_modify_id] age to '[new_age]', using [inserted_scan_id] at [AREACOORD(usr)].")
-					inserted_modify_id.age = new_age
+					inserted_modify_id.registered_age = new_age
 					playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
 		if ("set_gender")
 			if (authenticated)

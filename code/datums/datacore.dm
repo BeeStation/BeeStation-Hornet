@@ -134,7 +134,7 @@
 		CHECK_TICK
 
 /datum/datacore/proc/manifest_modify(obj/item/card/id/I)
-	var/datum/data/record/foundrecord = find_datacore_individual(I.registered_name, I.age, I.registered_gender, DATACORE_RETURNS_GENERAL)
+	var/datum/data/record/foundrecord = find_datacore_individual(I.registered_name, I.registered_age, I.registered_gender, DATACORE_RETURNS_GENERAL)
 	if(foundrecord)
 		foundrecord.fields["rank"] = I.assignment
 		foundrecord.fields["hud"] = I.hud_state
@@ -344,7 +344,7 @@
 				A = R   // [half match], but...↓
 			if(age_gap) // [similar match], if age_gap exists.  (and, indentation is correct. don't change.)
 				continue
-		if(R.fields["sex"] == gender) // if it didn't get continue, [half match] will check gender integrity to be [full match]
+		if(R.fields["sex"] == gender && !age_gap) // if it didn't get continue, [half match] will check gender integrity to be [full match]
 			A = R // [full match]
 			. = TRUE
 
