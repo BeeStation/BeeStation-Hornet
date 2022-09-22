@@ -477,8 +477,8 @@ GLOBAL_LIST_INIT(pda_styles, sortList(list(MONO, VT, ORBITRON, SHARE)))
 
 // datacore return type
 #define DATACORE_RETURNS_GENERAL "general"
-#define DATACORE_RETURNS_SECURITY "medical"
-#define DATACORE_RETURNS_MEDICAL "general"
+#define DATACORE_RETURNS_SECURITY "security"
+#define DATACORE_RETURNS_MEDICAL "medical"
 #define DATACORE_RETURNS_LOCKED "locked"
 
 #define GENDER_OPTIONS list(MALE, FEMALE, PLURAL, NEUTER)
