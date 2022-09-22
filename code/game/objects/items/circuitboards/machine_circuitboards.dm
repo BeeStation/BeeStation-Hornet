@@ -821,11 +821,6 @@
 	icon_state = "science"
 	build_path = /obj/machinery/rnd/production/circuit_imprinter/department/science
 
-/obj/item/circuitboard/machine/circuit_imprinter/department/engineering
-	name = "departmental circuit imprinter - engineering (Machine Board)"
-	icon_state = "engineering"
-	build_path = /obj/machinery/rnd/production/circuit_imprinter/department/engineering
-
 /obj/item/circuitboard/machine/cyborgrecharger
 	name = "cyborg recharger (Machine Board)"
 	icon_state = "science"
@@ -1284,3 +1279,11 @@
 /obj/item/circuitboard/machine/clockwork
 	name = "clockwork board (Report This)"
 	icon_state = "clock_mod"
+
+/obj/item/circuitboard/machine/allaccess
+	name = "all access dispenser"
+	icon_state = "generic"
+	build_path = /obj/machinery/allaccess
+	req_components = list(
+		/obj/item/stock_parts/manipulator = 1,
+		/obj/item/stock_parts/micro_laser = 1)

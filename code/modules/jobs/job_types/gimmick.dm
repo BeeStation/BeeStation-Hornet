@@ -112,6 +112,7 @@
 	minimal_access = list(ACCESS_MAINT_TUNNELS, ACCESS_MEDICAL)
 	paycheck = PAYCHECK_EASY
 	departments = DEPARTMENT_BITFLAG_MEDICAL
+	mind_traits = list(TRAIT_MEDICAL_METABOLISM)
 
 	paycheck_department = ACCOUNT_MED
 	rpg_title = "Enchanter"
@@ -145,7 +146,7 @@
 	access = list(ACCESS_MAINT_TUNNELS) //Assistants with shitloads of money, what could go wrong?
 	minimal_access = list(ACCESS_MAINT_TUNNELS)
 	paycheck = PAYCHECK_VIP  //our power is being fucking rich
-	paycheck_department = ACCOUNT_CIV
+	paycheck_department = ACCOUNT_VIP //budget will never dry
 
 	departments = DEPARTMENT_BITFLAG_SERVICE // might need to be changed
 	rpg_title = "Master of Patronage"

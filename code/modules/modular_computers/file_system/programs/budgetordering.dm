@@ -56,13 +56,17 @@
 	if(get_buyer_id(user))
 		if((ACCESS_HEADS in id_card.access) || (ACCESS_QM in id_card.access))
 			requestonly = FALSE
-			buyer = SSeconomy.get_dep_account(id_card.registered_account.account_department)
+			buyer = SSeconomy.get_dep_account(id_card?.registered_account?.account_department)
 			can_approve_requests = TRUE
 		else
 			requestonly = TRUE
 			can_approve_requests = FALSE
 	else
 		requestonly = TRUE
+	if(isnull(buyer))
+		buyer = SSeconomy.get_dep_account(ACCOUNT_CAR)
+	else if(buyer.is_nonstation_account())
+		buyer = SSeconomy.get_dep_account(ACCOUNT_CAR)
 	if(buyer)
 		data["points"] = buyer.account_balance
 
@@ -216,6 +220,13 @@
 					return
 				else
 					account = SSeconomy.get_dep_account(id_card?.registered_account?.account_department)
+					if(isnull(account))
+						computer.say("The application failed to identify [id_card].")
+						return
+					else if(account.is_nonstation_account())
+						computer.say("The application rejects [id_card].")
+						return
+
 
 			var/turf/T = get_turf(src)
 			var/datum/supply_order/SO = new(pack, name, rank, ckey, reason, account)
@@ -244,6 +255,8 @@
 					var/obj/item/card/id/id_card = get_buyer_id(usr)
 					if(id_card && id_card?.registered_account)
 						SO.paying_account = SSeconomy.get_dep_account(id_card?.registered_account?.account_department)
+					if(SO.paying_account.is_nonstation_account())
+						return
 					SSshuttle.requestlist -= SO
 					SSshuttle.shoppinglist += SO
 					. = TRUE

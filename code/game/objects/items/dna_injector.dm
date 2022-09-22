@@ -472,6 +472,14 @@
 	name = "\improper DNA injector (Pepto-Bismol)"
 	remove_mutations = list(ACIDOOZE)
 
+/obj/item/dnainjector/medievalmut
+	name = "\improper DNA injector (Medieval)"
+	add_mutations = list(MEDIEVAL)
+
+/obj/item/dnainjector/antimedieval
+	name = "\improper DNA injector (Anti-Medieval)"
+	remove_mutations = list(MEDIEVAL)
+
 /obj/item/dnainjector/timed
 	var/duration = 600
 

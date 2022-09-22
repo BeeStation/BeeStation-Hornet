@@ -102,6 +102,12 @@
 /datum/team/incursion/is_solo()
 	return FALSE
 
+/datum/team/incursion/proc/check_incursion_victory()
+	for(var/datum/objective/objective in objectives)
+		if(!objective.check_completion())
+			return FALSE
+	return TRUE
+
 /datum/team/incursion/roundend_report()
 	var/list/parts = list()
 
