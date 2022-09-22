@@ -39,7 +39,7 @@
 	// Whether or not we're sending (or trying to send) a virus.
 	var/sending_virus = FALSE
 
-	/// The path for the current loaded image in rsc
+	/// The path for the current loaded image in rsc - used only for the "saved image" preview in the Messenger before sending
 	var/photo_path
 
 	/// Whether or not this app is loaded on a silicon's tablet.
@@ -209,6 +209,10 @@
 	var/obj/item/computer_hardware/hard_drive/role/disk = computer.all_components[MC_HDD_JOB]
 
 	data["owner"] = computer.saved_identification
+	// Convert the photo object into a file so it can be rendered properly in Show Messages
+	for(var/list/message as() in messages)
+		if(!message["photo"])
+			message["photo"] = rsc_image(message["photo_obj"], message["ref"], user)
 	data["messages"] = messages
 	data["ringer_status"] = ringer_status
 	data["sending_and_receiving"] = sending_and_receiving
@@ -224,6 +228,13 @@
 		data["sending_virus"] = sending_virus
 
 	return data
+
+/datum/computer_file/program/messenger/proc/rsc_image(datum/picture/photo, ref, user)
+	if(!istype(photo) || !photo.picture_image)
+		return
+	var/path = "pda_img[ref].png"
+	user << browse_rsc(photo.picture_image, path)
+	return path
 
 ////////////////////////
 // MESSAGE HANDLING
@@ -285,7 +296,6 @@
 		"targets" = targets,
 		"emojis" = allow_emojis,
 		"photo" = computer.saved_image,
-		"photo_path" = photo_path,
 		"automated" = FALSE,
 	))
 
@@ -310,7 +320,7 @@
 	message_data["contents"] = html_decode(signal.format_message())
 	message_data["outgoing"] = TRUE
 	message_data["ref"] = signal.data["ref"]
-	message_data["photo"] = signal.data["photo_path"]
+	message_data["photo_obj"] = signal.data["photo"]
 
 	// Show it to ghosts
 	var/ghost_message = "<span class='name'>[message_data["name"]] </span><span class='game say'>PDA Message</span> --> <span class='name'>[target_text]</span>: <span class='message'>[signal.format_message(include_photo = TRUE)]</span>"
@@ -343,7 +353,7 @@
 	message_data["outgoing"] = FALSE
 	message_data["ref"] = signal.data["ref"]
 	message_data["automated"] = signal.data["automated"]
-	message_data["photo"] = signal.data["photo_path"]
+	message_data["photo_obj"] = signal.data["photo"]
 	messages += list(message_data)
 
 	var/mob/living/L = null
