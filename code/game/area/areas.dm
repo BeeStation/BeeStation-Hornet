@@ -245,7 +245,7 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 		if(additional_genturfs)
 			turfs += additional_genturfs
 			additional_genturfs = null
-		map_generator.generate_terrain(turfs)
+		map_generator.generate_terrain(turfs, src)
 
 /area/proc/test_gen()
 	if(map_generator)
@@ -255,7 +255,7 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 		if(additional_genturfs)
 			turfs += additional_genturfs
 			additional_genturfs = null
-		map_generator.generate_terrain(turfs)
+		map_generator.generate_terrain(turfs, src)
 
 
 /**

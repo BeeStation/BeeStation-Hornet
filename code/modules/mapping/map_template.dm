@@ -162,6 +162,7 @@
 	var/list/turf_blacklist = list()
 	update_blacklist(T, turf_blacklist)
 
+	UNSETEMPTY(turf_blacklist)
 	parsed.turf_blacklist = turf_blacklist
 	var/datum/map_generator/map_place/map_placer = new(parsed, T.x, T.y, T.z, cropMap=TRUE, no_changeturf=(SSatoms.initialized == INITIALIZATION_INSSATOMS), placeOnTop=should_place_on_top)
 	map_placer.on_completion(CALLBACK(src, PROC_REF(on_placement_completed)))

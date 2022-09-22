@@ -97,7 +97,7 @@ SUBSYSTEM_DEF(mapping)
 	loading_ruins = TRUE
 	var/list/lava_ruins = levels_by_trait(ZTRAIT_LAVA_RUINS)
 	if (lava_ruins.len)
-		seedRuins(lava_ruins, CONFIG_GET(number/lavaland_budget), /area/lavaland/surface/outdoors/unexplored, lava_ruins_templates)
+		seedRuins(lava_ruins, CONFIG_GET(number/lavaland_budget), /area/lavaland/surface/outdoors/unexplored, lava_ruins_templates, clear_below = TRUE)
 		for (var/lava_z in lava_ruins)
 			spawn_rivers(lava_z)
 	loading_ruins = FALSE

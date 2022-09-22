@@ -301,9 +301,9 @@
 	//find next delimiter (comma here) that's not within {...}
 	dpos = placing_template.find_next_delimiter_position(model, old_position, ",", "{", "}")
 	//full definition, e.g : /obj/foo/bar{variables=derp}
-	var/full_def = placing_template.trim_text(copytext(model, old_position, dpos))
+	var/full_def = trim_reduced(copytext(model, old_position, dpos))
 	var/variables_start = findtext(full_def, "{")
-	var/path_text = placing_template.trim_text(copytext(full_def, 1, variables_start))
+	var/path_text = trim_reduced(copytext(full_def, 1, variables_start))
 	//path definition, e.g /obj/foo/bar
 	var/atom_def = text2path(path_text)
 	if(dpos)
