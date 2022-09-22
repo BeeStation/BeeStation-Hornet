@@ -57,6 +57,9 @@
 
 	data["disk"] = null
 
+	data["stored_pai"] = istype(stored_pai_card)
+	data["stored_pai_name"] = stored_pai_card?.pai?.name
+
 	var/obj/item/computer_hardware/card_slot/cardholder = all_components[MC_CARD]
 	var/obj/item/computer_hardware/hard_drive/role/ssd = all_components[MC_HDD_JOB]
 	data["cardholder"] = FALSE
@@ -234,6 +237,16 @@
 			update_id_display()
 
 			playsound(src, 'sound/machines/terminal_processing.ogg', 15, TRUE)
+		if("PC_Pai_Interact")
+			if(!can_store_pai || !istype(stored_pai_card))
+				return
+			if(params["option"] == "interact")
+				stored_pai_card.attack_self(usr)
+			else if(params["option"] == "eject")
+				usr.put_in_hands(stored_pai_card)
+				remove_pai()
+				to_chat(usr, "<span class='notice'>You remove the pAI from [src].</span>")
+				playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50)
 		else
 			return
 

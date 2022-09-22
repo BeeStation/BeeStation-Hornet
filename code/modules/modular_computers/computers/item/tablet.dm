@@ -317,6 +317,7 @@
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'
 
 	bypass_state = TRUE
+	can_store_pai = TRUE
 
 	var/default_disk = 0
 	/// If the PDA has been picked up / equipped before. This is used to set the user's preference background color / theme.

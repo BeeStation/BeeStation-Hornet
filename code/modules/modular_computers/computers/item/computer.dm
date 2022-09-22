@@ -88,6 +88,10 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	var/init_ringer_on = TRUE
 	/// The action for enabling/disabling the flashlight
 	var/datum/action/item_action/toggle_computer_light/light_action
+	/// Stored pAI card
+	var/obj/item/paicard/stored_pai_card
+	/// If the device is capable of storing a pAI
+	var/can_store_pai = FALSE
 
 /obj/item/modular_computer/Initialize(mapload)
 	. = ..()
@@ -116,6 +120,9 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 		var/obj/item/computer_hardware/component = all_components[port]
 		qdel(component)
 	all_components?.Cut()
+	if(istype(stored_pai_card))
+		qdel(stored_pai_card)
+		remove_pai()
 	if(istype(light_action))
 		QDEL_NULL(light_action)
 	physical = null
@@ -261,6 +268,9 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 
 	if(enabled)
 		add_overlay(active_program ? mutable_appearance(init_icon, active_program.program_icon_state) : mutable_appearance(init_icon, icon_state_menu))
+
+	if(can_store_pai && stored_pai_card)
+		add_overlay(stored_pai_card.pai ? mutable_appearance(init_icon, "pai-overlay") : mutable_appearance(init_icon, "pai-off-overlay"))
 
 	if(obj_integrity <= integrity_failure)
 		add_overlay(mutable_appearance(init_icon, "bsod"))
@@ -604,6 +614,18 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 		if(H.try_insert(attacking_item, user))
 			return
 
+	// Insert a pAI card
+	if(can_store_pai && !stored_pai_card && istype(attacking_item, /obj/item/paicard))
+		if(!user.transferItemToLoc(attacking_item, src))
+			return
+		stored_pai_card = attacking_item
+		// If the pAI moves out of the PDA, remove the reference.
+		RegisterSignal(stored_pai_card, COMSIG_MOVABLE_MOVED, .proc/stored_pai_moved)
+		RegisterSignal(stored_pai_card, COMSIG_PARENT_QDELETING, .proc/remove_pai)
+		to_chat(user, "<span class='notice'>You slot \the [attacking_item] into [src].</span>")
+		playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50)
+		update_icon()
+
 	// Insert new hardware
 	if(istype(attacking_item, /obj/item/computer_hardware) && upgradable)
 		if(install_component(attacking_item, user))
@@ -642,6 +664,21 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 		id.attackby(attacking_item, user) // If we do, try and put that attacking object in
 		return
 	..()
+
+/// Handle when the pAI moves to exit the PDA
+/obj/item/modular_computer/proc/stored_pai_moved()
+	if(istype(stored_pai_card) && stored_pai_card.loc != src)
+		visible_message("<span class='notice'>[stored_pai_card] ejects itself from [src]!</span>")
+		remove_pai()
+
+/// Set the internal pAI card to null - this is NOT "Ejecting" it.
+/obj/item/modular_computer/proc/remove_pai()
+	if(!istype(stored_pai_card))
+		return
+	UnregisterSignal(stored_pai_card, COMSIG_MOVABLE_MOVED)
+	UnregisterSignal(stored_pai_card, COMSIG_PARENT_QDELETING)
+	stored_pai_card = null
+	update_icon()
 
 // Used by processor to relay qdel() to machinery type.
 /obj/item/modular_computer/proc/relay_qdel()

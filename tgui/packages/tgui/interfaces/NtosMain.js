@@ -17,7 +17,8 @@ export const NtosMain = (props, context) => {
     disk,
     disk_name,
     disk_programs = [],
-    pai,
+    stored_pai,
+    stored_pai_name,
   } = data;
   return (
     <NtosWindow
@@ -95,22 +96,9 @@ export const NtosMain = (props, context) => {
             </Table>
           </Section>
         )}
-        {!!pai && (
-          <Section title="pAI">
+        {!!stored_pai && (
+          <Section title={stored_pai_name ? `pAI (${stored_pai_name})` : "pAI"}>
             <Table>
-              <Table.Row>
-                <Table.Cell>
-                  <Button
-                    fluid
-                    icon="eject"
-                    color="transparent"
-                    content="Eject pAI"
-                    onClick={() => act('PC_Pai_Interact', {
-                      option: "eject",
-                    })}
-                  />
-                </Table.Cell>
-              </Table.Row>
               <Table.Row>
                 <Table.Cell>
                   <Button
@@ -120,6 +108,19 @@ export const NtosMain = (props, context) => {
                     content="Configure pAI"
                     onClick={() => act('PC_Pai_Interact', {
                       option: "interact",
+                    })}
+                  />
+                </Table.Cell>
+              </Table.Row>
+              <Table.Row>
+                <Table.Cell>
+                  <Button
+                    fluid
+                    icon="eject"
+                    color="transparent"
+                    content="Eject pAI"
+                    onClick={() => act('PC_Pai_Interact', {
+                      option: "eject",
                     })}
                   />
                 </Table.Cell>
