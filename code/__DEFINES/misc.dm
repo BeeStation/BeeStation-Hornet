@@ -475,10 +475,16 @@ GLOBAL_LIST_INIT(pda_styles, sortList(list(MONO, VT, ORBITRON, SHARE)))
 #define PIRATE_RESPONSE_PAY "pirate_answer_pay"
 
 
-// datacore return type
+// used for 'find_datacore_individual()' as a parameter which datacore it would return
 #define DATACORE_RETURNS_GENERAL "general"
 #define DATACORE_RETURNS_SECURITY "security"
 #define DATACORE_RETURNS_MEDICAL "medical"
 #define DATACORE_RETURNS_LOCKED "locked"
 
+// gender selection for HoP console and agent card
 #define GENDER_OPTIONS list(MALE, FEMALE, PLURAL, NEUTER)
+
+// used for get_faceinfo() and getvoice_info() procs which returns a mob's name/age/gender
+#define RETURNS_NAME "target_name"
+#define RETURNS_AGE  "target_age"
+#define RETURNS_GENDER "target_gender"

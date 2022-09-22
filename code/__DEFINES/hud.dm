@@ -9,7 +9,3 @@
 #define HUD_STYLE_NOHUD 3 //! No hud (for screenshots)
 
 #define HUD_VERSIONS 3	//! Used in show_hud(); Please ensure this is the same as the maximum index.
-
-#define RETURNS_NAME "target_name"
-#define RETURNS_AGE  "target_age"
-#define RETURNS_GENDER "target_gender"
