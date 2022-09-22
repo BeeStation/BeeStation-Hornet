@@ -101,6 +101,10 @@
 	icon_state = "pda-science"
 	init_ringtone = "boom"
 
+/obj/item/modular_computer/tablet/pda/science/Initialize(mapload)
+	. = ..()
+	install_component(new /obj/item/computer_hardware/radio_card)
+
 /obj/item/modular_computer/tablet/pda/service
 	name = "service PDA"
 	icon_state = "pda-service"
@@ -142,6 +146,10 @@
 	default_disk = /obj/item/computer_hardware/hard_drive/role/rd
 	insert_type = /obj/item/pen/fountain
 	icon_state = "pda-rd"
+
+/obj/item/modular_computer/tablet/pda/heads/research_director/Initialize(mapload)
+	. = ..()
+	install_component(new /obj/item/computer_hardware/radio_card)
 
 /obj/item/modular_computer/tablet/pda/heads/captain
 	name = "captain PDA"
