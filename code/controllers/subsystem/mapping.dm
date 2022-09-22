@@ -123,7 +123,7 @@ SUBSYSTEM_DEF(mapping)
 		var/obj/docking_port/stationary/transit/T = i
 		if(!istype(T))
 			continue
-		in_transit[T] = T.get_docked()
+		in_transit[T] = T.docked
 	var/go_ahead = world.time + wipe_safety_delay
 	if(in_transit.len)
 		message_admins("Shuttles in transit detected. Attempting to fast travel. Timeout is [wipe_safety_delay/10] seconds.")
@@ -226,7 +226,7 @@ SUBSYSTEM_DEF(mapping)
 	//Shared orbital body
 	var/datum/orbital_object/z_linked/orbital_body = new orbital_body_type()
 	for(var/datum/space_level/level as() in space_levels)
-		level.orbital_body = orbital_body
+		SSorbits.assoc_z_levels["[level.z_value]"] = orbital_body
 		orbital_body.link_to_z(level)
 
 	// load the maps

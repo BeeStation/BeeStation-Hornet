@@ -111,7 +111,7 @@ SUBSYSTEM_DEF(shuttle)
 		if(owner)
 			var/idle = owner.mode == SHUTTLE_IDLE
 			var/not_centcom_evac = owner.launch_status == NOLAUNCH
-			var/not_in_use = (!T.get_docked())
+			var/not_in_use = (!T.docked)
 			if(idle && not_centcom_evac && not_in_use)
 				qdel(T, force=TRUE)
 	CheckAutoEvac()
@@ -391,7 +391,7 @@ SUBSYSTEM_DEF(shuttle)
 	var/obj/docking_port/mobile/M = getShuttle(shuttleId)
 	if(!M)
 		return 1
-	var/obj/docking_port/stationary/dockedAt = M.get_docked()
+	var/obj/docking_port/stationary/dockedAt = M.docked
 	var/destination = dockHome
 	if(dockedAt && dockedAt.id == dockHome)
 		destination = dockAway
@@ -436,20 +436,15 @@ SUBSYSTEM_DEF(shuttle)
 	// Remember, the direction is the direction we appear to be
 	// coming from
 	var/dock_angle = dir2angle(M.preferred_direction) + dir2angle(M.port_direction) + 180
-	var/dock_dir = angle2dir(dock_angle)
 
 	var/transit_width = SHUTTLE_TRANSIT_BORDER * 2
 	var/transit_height = SHUTTLE_TRANSIT_BORDER * 2
 
 	// Shuttles travelling on their side have their dimensions swapped
 	// from our perspective
-	switch(dock_dir)
-		if(NORTH, SOUTH)
-			transit_width += M.width
-			transit_height += M.height
-		if(EAST, WEST)
-			transit_width += M.height
-			transit_height += M.width
+	var/list/union_coords = M.return_union_coords(M.get_all_towed_shuttles(), 0, 0, NORTH)
+	transit_width += union_coords[3] - union_coords[1] + 1
+	transit_height += union_coords[4] - union_coords[2] + 1
 
 /*
 	to_chat(world, "The attempted transit dock will be [transit_width] width, and \)
@@ -474,18 +469,23 @@ SUBSYSTEM_DEF(shuttle)
 
 	var/turf/bottomleft = locate(proposal.bottom_left_coords[1], proposal.bottom_left_coords[2], proposal.bottom_left_coords[3])
 	// Then create a transit docking port in the middle
-	var/coords = M.return_coords(0, 0, dock_dir)
-	/*  0------2
-        |      |
-        |      |
-        |  x   |
-        3------1
+	var/matrix/dir_rotation = matrix(union_coords[1], union_coords[2], 0, union_coords[3], union_coords[4], 0) * matrix(dock_angle, MATRIX_ROTATE)
+	/*    Shuttle Space         Dock Space
+	        *------s1         d1----------*
+            |      |           |          |
+            |      |     ->    |       x  |   x = (0,0)
+            |  x   |           |          |
+           s0------*           *----------d0
+		┌  ┐ ┌                     ┐   ┌  ┐
+		|s0| |  cos(dir)  sin(dir) |   |d0|
+		|s1| | -sin(dir)  cos(dir) | = |d1|
+		└  ┘ └                     ┘   └  ┘
 	*/
 
-	var/x0 = coords[1]
-	var/y0 = coords[2]
-	var/x1 = coords[3]
-	var/y1 = coords[4]
+	var/x0 = dir_rotation.a
+	var/y0 = dir_rotation.b
+	var/x1 = dir_rotation.d
+	var/y1 = dir_rotation.e
 	// Then we want the point closest to -infinity,-infinity
 	var/x2 = min(x0, x1)
 	var/y2 = min(y0, y1)
@@ -672,7 +672,7 @@ SUBSYSTEM_DEF(shuttle)
 	else if(existing_shuttle)
 		timer = existing_shuttle.timer
 		mode = existing_shuttle.mode
-		D = existing_shuttle.get_docked()
+		D = existing_shuttle.docked
 
 	if(!D)
 		D = generate_transit_dock(preview_shuttle)
@@ -733,16 +733,14 @@ SUBSYSTEM_DEF(shuttle)
 	// - We need to check that no additional ports have slipped in from the
 	//   template, because that causes unintended behaviour.
 	for(var/T in affected)
-		for(var/obj/docking_port/P in T)
-			if(istype(P, /obj/docking_port/mobile))
+		for(var/obj/docking_port/mobile/P in T)
+			if(!P.docked)
 				found++
 				if(found > 1)
 					qdel(P, force=TRUE)
 					log_world("Map warning: Shuttle Template [S.mappath] has multiple mobile docking ports.")
 				else
 					preview_shuttle = P
-			if(istype(P, /obj/docking_port/stationary))
-				log_world("Map warning: Shuttle Template [S.mappath] has a stationary docking port.")
 	if(!found)
 		var/msg = "load_template(): Shuttle Template [S.mappath] has no mobile docking port. Aborting import."
 		for(var/T in affected)
