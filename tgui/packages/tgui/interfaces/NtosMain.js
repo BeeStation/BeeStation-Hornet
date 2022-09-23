@@ -1,5 +1,6 @@
 import { useBackend } from '../backend';
 import { Button, ColorBox, Section, Table } from '../components';
+import { ButtonCheckbox } from '../components/Button';
 import { NtosWindow } from '../layouts';
 
 export const NtosMain = (props, context) => {
@@ -12,6 +13,7 @@ export const NtosMain = (props, context) => {
     comp_light_color,
     removable_media = [],
     cardholder,
+    auto_imprint,
     login = [],
     proposed_login = [],
     disk,
@@ -54,15 +56,21 @@ export const NtosMain = (props, context) => {
                   onClick={() => act('PC_Eject_Disk', { name: "ID" })}
                 />
                 {!!(show_imprint) && (
-                  <Button
-                    icon="dna"
-                    content="Imprint ID"
-                    disabled={!proposed_login.IDName || (
-                      proposed_login.IDName === login.IDName
+                  <>
+                    <Button
+                      icon="dna"
+                      content="Imprint"
+                      disabled={!proposed_login.IDName || (
+                        proposed_login.IDName === login.IDName
                     && proposed_login.IDJob === login.IDJob
-                    )}
-                    onClick={() => act('PC_Imprint_ID', { name: "ID" })}
-                  />)}
+                      )}
+                      onClick={() => act('PC_Imprint_ID', { name: "ID" })}
+                    />
+                    <ButtonCheckbox
+                      checked={auto_imprint}
+                      content="Auto"
+                      onClick={() => act('PC_Toggle_Auto_Imprint')} />
+                  </>)}
               </>
             )}>
             <Table>

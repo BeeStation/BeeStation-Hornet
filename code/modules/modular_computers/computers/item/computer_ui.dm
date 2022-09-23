@@ -66,6 +66,7 @@
 
 	if(cardholder)
 		data["cardholder"] = TRUE
+		data["auto_imprint"] = saved_auto_imprint
 
 		var/stored_name = saved_identification
 		var/stored_title = saved_job
@@ -237,6 +238,11 @@
 			update_id_display()
 
 			playsound(src, 'sound/machines/terminal_processing.ogg', 15, TRUE)
+			addtimer(CALLBACK(GLOBAL_PROC, .proc/playsound, src, 'sound/machines/terminal_success.ogg', 15, TRUE), 1.3 SECONDS)
+		if("PC_Toggle_Auto_Imprint")
+			saved_auto_imprint = !saved_auto_imprint
+			if(saved_auto_imprint)
+				on_id_insert()
 		if("PC_Pai_Interact")
 			if(!can_store_pai || !istype(stored_pai_card))
 				return

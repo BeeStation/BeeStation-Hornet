@@ -66,6 +66,8 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	var/saved_identification = null
 	/// The currently imprinted job.
 	var/saved_job = null
+	/// If the saved info should auto-update
+	var/saved_auto_imprint = TRUE
 	/// The amount of honks. honk honk honk honk honk honkh onk honkhnoohnk
 	var/honk_amount = 0
 	/// Idle programs on background. They still receive process calls but can't be interacted with.
@@ -112,6 +114,21 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 	var/obj/item/computer_hardware/identifier/id = all_components[MC_IDENTIFY]
 	if(id)
 		id.UpdateDisplay()
+
+/obj/item/modular_computer/proc/on_id_insert()
+	var/obj/item/computer_hardware/card_slot/cardholder = all_components[MC_CARD]
+	// We shouldn't auto-imprint if ID modification is open.
+	if(!saved_auto_imprint || !cardholder || istype(active_program, /datum/computer_file/program/card_mod))
+		return
+	if(cardholder.current_identification == saved_identification && cardholder.current_job == saved_job)
+		return
+	if(!cardholder.current_identification || !cardholder.current_job)
+		return
+	saved_identification = cardholder.current_identification
+	saved_job = cardholder.current_job
+	update_id_display()
+	playsound(src, 'sound/machines/terminal_processing.ogg', 15, TRUE)
+	addtimer(CALLBACK(GLOBAL_PROC, .proc/playsound, src, 'sound/machines/terminal_success.ogg', 15, TRUE), 1.3 SECONDS)
 
 /obj/item/modular_computer/Destroy()
 	kill_program(forced = TRUE)
