@@ -198,7 +198,7 @@
 /obj/item/computer_hardware/hard_drive/role/cmo
 	name = "\improper Med-U DELUXE disk"
 	icon_state = "cart-cmo"
-	disk_flags = DISK_MANIFEST | DISK_STATUS | DISK_CHEM | DISK_ROBOS | DISK_BUDGET
+	disk_flags = DISK_MANIFEST | DISK_STATUS | DISK_MED | DISK_CHEM | DISK_ROBOS | DISK_BUDGET
 
 /obj/item/computer_hardware/hard_drive/role/rd
 	name = "\improper Signal Ace DELUXE disk"
