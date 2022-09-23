@@ -8,6 +8,9 @@
 	buildstackamount = 1
 	item_chair = null
 
+/obj/structure/chair/fancy/bench/handle_layer()
+  return
+
 /obj/structure/chair/fancy/bench/left
 	icon_state = "bench_left"
 
