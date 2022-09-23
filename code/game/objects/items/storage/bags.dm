@@ -113,6 +113,29 @@
 /obj/item/storage/bag/trash/bluespace/cyborg
 	insertable = FALSE
 
+/obj/item/storage/bag/trash/beam
+	name = "Trash Drive"
+	desc = "The power of a dish drive, shoved into a trash bag."
+	var/fire_every = 2 MINUTES  /// how often the bag will try to fire trash
+	var/auto_empty_full = TRUE  /// if set, will automatically attempt to fire when reaching capacity
+
+/obj/item/storage/bag/trash/beam/Initialize(mapload)
+	. = ..()
+	RegisterSignal(src, COMSIG_TRY_STORAGE_INSERT, .proc/try_empty_full)
+
+/obj/item/storage/bag/trash/beam/proc/try_empty_full(datum/source, obj/item/I, mob/M)
+	SIGNAL_HANDLER
+
+	if(!auto_empty_full)
+		return
+	if(!SEND_SIGNAL(src, COMSIG_TRY_STORAGE_CAN_INSERT, I, M))  // if the bag is (close to) full
+		if(!dump_it())
+			to_chat(M, "<span class='warning'>The [src] cannot locate a nearby trashcan, and is\
+			past the maximum storage amount. Please empty manually for continued use.</span>")
+
+/obj/item/storage/bag/trash/beam/proc/dump_it(manual)  // dumpeet
+	return  // placeholder
+
 // -----------------------------
 //        Mining Satchel
 // -----------------------------
