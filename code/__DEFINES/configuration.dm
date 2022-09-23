@@ -42,3 +42,4 @@
 #define TARGET_GIMMICK_OBJ_FILE "[STRING_DIRECTORY]/target_gimmick_objectives.txt"
 #define SPLASH_DESC_FILE "splash.json"
 #define EXPLORATION_FLAVOUR "exploration.json"
+#define MEDIEVAL_SPEECH_FILE "medieval_speech.json"

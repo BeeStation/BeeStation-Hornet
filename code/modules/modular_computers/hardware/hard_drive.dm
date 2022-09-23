@@ -183,6 +183,7 @@
 	store_file(new/datum/computer_file/program/ntnetdownload/syndicate(src)) // Syndicate version; automatic access to syndicate apps and no NT apps
 	store_file(new/datum/computer_file/program/filemanager(src))
 	store_file(new/datum/computer_file/program/radar/fission360(src)) //I am legitimately afraid if I don't do this, Ops players will think they just don't get a pinpointer anymore.
+	store_file(new/datum/computer_file/program/borg_monitor/syndicate(src))
 
 /obj/item/computer_hardware/hard_drive/micro
 	name = "micro solid state drive"

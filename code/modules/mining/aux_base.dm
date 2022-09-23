@@ -172,7 +172,6 @@ interface with the mining shuttle at the landing site if a mobile beacon is also
 	landing_zone.width = base_dock.width
 	landing_zone.height = base_dock.height
 	landing_zone.setDir(base_dock.dir)
-	landing_zone.area_type = A.type
 
 	possible_destinations += "[landing_zone.id];"
 
@@ -244,6 +243,12 @@ interface with the mining shuttle at the landing site if a mobile beacon is also
 	height = 9
 	shuttle_object_type = /datum/orbital_object/shuttle/aux_base
 
+/obj/docking_port/mobile/auxillary_base/Initialize(mapload)
+	. = ..()
+	for(var/area/A in shuttle_areas)
+		for(var/turf/T in A.contents)
+			underlying_turf_area[T] = GLOB.areas_by_type[/area/construction/mining/aux_base]
+
 /obj/docking_port/mobile/auxillary_base/takeoff(list/old_turfs, list/new_turfs, list/moved_atoms, rotation, movement_direction, old_dock, area/underlying_old_area)
 	for(var/i in new_turfs)
 		var/turf/place = i
@@ -258,7 +263,6 @@ interface with the mining shuttle at the landing site if a mobile beacon is also
 	dwidth = 3
 	width = 7
 	height = 5
-	area_type = /area/construction/mining/aux_base
 
 /obj/structure/mining_shuttle_beacon
 	name = "mining shuttle beacon"
@@ -307,8 +311,6 @@ interface with the mining shuttle at the landing site if a mobile beacon is also
 		var/obj/docking_port/stationary/SM = S //SM is declared outside so it can be checked for null
 		if(SM.id == "mining_home" || SM.id == "mining_away")
 
-			var/area/A = get_area(landing_spot)
-
 			Mport = new(landing_spot)
 			Mport.id = "landing_zone_dock"
 			Mport.name = "auxillary base landing site"
@@ -317,7 +319,6 @@ interface with the mining shuttle at the landing site if a mobile beacon is also
 			Mport.width = SM.width
 			Mport.height = SM.height
 			Mport.setDir(dir)
-			Mport.area_type = A.type
 
 			break
 	if(!Mport)

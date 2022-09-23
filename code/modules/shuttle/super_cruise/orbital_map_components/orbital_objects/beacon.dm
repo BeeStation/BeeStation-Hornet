@@ -46,7 +46,7 @@
 /datum/orbital_object/z_linked/beacon/ruin/asteroid/assign_z_level(quick_generation = FALSE)
 	var/datum/space_level/assigned_space_level = SSzclear.get_free_z_level()
 	linked_z_level = list(assigned_space_level)
-	assigned_space_level.orbital_body = src
+	SSorbits.assoc_z_levels["[assigned_space_level.z_value]"] = src
 	generate_asteroids(world.maxx / 2, world.maxy / 2, assigned_space_level.z_value, quick_generation ? 40 : 120, rand(-0.5, 0), rand(40, 70))
 
 /datum/orbital_object/z_linked/beacon/ruin/asteroid/post_map_setup()
@@ -74,7 +74,7 @@
 /datum/orbital_object/z_linked/beacon/ruin/spaceruin/assign_z_level(quick_generation = FALSE)
 	var/datum/space_level/assigned_space_level = SSzclear.get_free_z_level()
 	linked_z_level = list(assigned_space_level)
-	assigned_space_level.orbital_body = src
+	SSorbits.assoc_z_levels["[assigned_space_level.z_value]"] = src
 	seedRuins(list(assigned_space_level.z_value), CONFIG_GET(number/space_budget), /area/space, SSmapping.space_ruins_templates)
 
 /datum/orbital_object/z_linked/beacon/ruin/spaceruin/post_map_setup()
@@ -99,7 +99,7 @@
 /datum/orbital_object/z_linked/beacon/ruin/proc/assign_z_level(quick_generation = FALSE)
 	var/datum/space_level/assigned_space_level = SSzclear.get_free_z_level()
 	linked_z_level = list(assigned_space_level)
-	assigned_space_level.orbital_body = src
+	SSorbits.assoc_z_levels["[assigned_space_level.z_value]"] = src
 	generate_space_ruin(world.maxx / 2, world.maxy / 2, assigned_space_level.z_value, quick_generation ? 30 : 50, quick_generation ? 30 : 50, linked_objective, null, ruin_event)
 
 /datum/orbital_object/z_linked/beacon/ruin/post_map_setup()
@@ -118,7 +118,7 @@
 /datum/orbital_object/z_linked/beacon/ruin/stranded_shuttle/assign_z_level(quick_generation = FALSE)
 	var/datum/space_level/assigned_space_level = SSzclear.get_free_z_level()
 	linked_z_level = list(assigned_space_level)
-	assigned_space_level.orbital_body = src
+	SSorbits.assoc_z_levels["[assigned_space_level.z_value]"] = src
 	generate_asteroids(world.maxx / 2, world.maxy / 2, assigned_space_level.z_value, quick_generation ? 40 : 120, -0.4, 40)
 
 /datum/orbital_object/z_linked/beacon/ruin/stranded_shuttle/post_map_setup()
@@ -135,7 +135,7 @@
 /datum/orbital_object/z_linked/beacon/ruin/interdiction/assign_z_level(quick_generation = FALSE)
 	var/datum/space_level/assigned_space_level = SSzclear.get_free_z_level()
 	linked_z_level = list(assigned_space_level)
-	assigned_space_level.orbital_body = src
+	SSorbits.assoc_z_levels["[assigned_space_level.z_value]"] = src
 
 /datum/orbital_object/z_linked/beacon/ruin/interdiction/post_map_setup()
 	return

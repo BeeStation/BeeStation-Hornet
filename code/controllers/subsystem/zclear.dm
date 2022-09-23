@@ -153,7 +153,7 @@ SUBSYSTEM_DEF(zclear)
 		//Level is free, do the wiping thing.
 		LAZYREMOVE(autowipe, level)
 		//Reset orbital body.
-		QDEL_NULL(level.orbital_body)
+		QDEL_NULL(SSorbits.assoc_z_levels["[level.z_value]"])
 		//Continue tracking after
 		wipe_z_level(level.z_value, TRUE)
 	if(length(nullspaced_mobs))

@@ -193,10 +193,10 @@
 	build_path = /obj/item/circuit_component/trig/hyper_trig
 	category = list(WIREMOD_CIRCUITRY, WIREMOD_MATH_COMPONENTS)
 
-/datum/design/component/typecheck
-	name = "Typecheck Component"
-	id = "comp_typecheck"
-	build_path = /obj/item/circuit_component/compare/typecheck
+/datum/design/component/typecast
+	name = "Typecast Component"
+	id = "comp_typecast"
+	build_path = /obj/item/circuit_component/compare/typecast
 	category = list(WIREMOD_CIRCUITRY, WIREMOD_LOGIC_COMPONENTS)
 
 /datum/design/component/concat
