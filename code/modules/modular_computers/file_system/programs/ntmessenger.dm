@@ -97,6 +97,16 @@
 		return GLOB.reverse_contained_state
 	return GLOB.default_state
 
+/datum/computer_file/program/messenger/ui_assets(mob/user)
+	return list(
+		get_asset_datum(/datum/asset/spritesheet/chat),
+	)
+
+/datum/computer_file/program/messenger/ui_static_data(mob/user)
+	var/list/data = list()
+	data["emoji_names"] = icon_states('icons/emoji.dmi')
+	return data
+
 /datum/computer_file/program/messenger/ui_act(action, list/params, datum/tgui/ui)
 	. = ..()
 	if(.)
@@ -309,18 +319,21 @@
 		return FALSE
 
 	var/target_text = signal.format_target()
-	if(allow_emojis)
-		message = emoji_parse(message)//already sent- this just shows the sent emoji as one to the sender in the to_chat
-		signal.data["message"] = emoji_parse(signal.data["message"])
 
 	// Create log entry
 	var/list/message_data = list()
 	message_data["name"] = signal.data["name"]
 	message_data["job"] = signal.data["job"]
-	message_data["contents"] = html_decode(signal.format_message())
+	message_data["contents"] = signal.format_message()
 	message_data["outgoing"] = TRUE
 	message_data["ref"] = signal.data["ref"]
 	message_data["photo_obj"] = signal.data["photo"]
+	message_data["emojis"] = signal.data["emojis"]
+
+	// Parse emojis before to_chat
+	if(allow_emojis)
+		message = emoji_parse(message)//already sent- this just shows the sent emoji as one to the sender in the to_chat
+		signal.data["message"] = emoji_parse(signal.data["message"])
 
 	// Show it to ghosts
 	var/ghost_message = "<span class='name'>[message_data["name"]] </span><span class='game say'>PDA Message</span> --> <span class='name'>[target_text]</span>: <span class='message'>[signal.format_message(include_photo = TRUE)]</span>"
@@ -354,6 +367,7 @@
 	message_data["ref"] = signal.data["ref"]
 	message_data["automated"] = signal.data["automated"]
 	message_data["photo_obj"] = signal.data["photo"]
+	message_data["emojis"] = signal.data["emojis"]
 	messages += list(message_data)
 
 	var/mob/living/L = null
