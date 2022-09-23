@@ -116,6 +116,16 @@
 		return
 	remove_pen(user)
 
+// Eject Cartridge
+/obj/item/modular_computer/tablet/CtrlShiftClick(mob/user)
+	..()
+	// We want to allow the user to drag the tablet still
+	if(isturf(loc) || issilicon(user) || !user.canUseTopic(src, BE_CLOSE))
+		return
+	var/obj/item/computer_hardware/hard_drive/role/disk = all_components[MC_HDD_JOB]
+	if(istype(disk))
+		uninstall_component(disk, user, TRUE)
+
 /obj/item/modular_computer/tablet/verb/verb_toggle_light()
 	set name = "Toggle Light"
 	set category = "Object"

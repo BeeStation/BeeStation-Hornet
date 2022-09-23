@@ -9,10 +9,16 @@
 	max_capacity = 500
 	device_type = MC_HDD_JOB
 	default_installs = FALSE
+	hotswap = TRUE
 
 	var/disk_flags = 0 // bit flag for the programs
 	/// Enables "Send to All" Option. 1=1 min, 2=2mins, 2.5=2 min 30 seconds
 	var/spam_delay = 0
+
+/obj/item/computer_hardware/hard_drive/role/on_inserted(mob/user)
+	..()
+	if(holder)
+		playsound(holder, 'sound/machines/pda_button1.ogg', 50, TRUE)
 
 /obj/item/computer_hardware/hard_drive/role/on_remove(obj/item/modular_computer/remove_from, mob/user)
 	return

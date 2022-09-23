@@ -606,7 +606,7 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 		return
 
 	tool.play_tool_sound(user, volume=20)
-	uninstall_component(H, user)
+	uninstall_component(H, user, TRUE)
 	return
 
 /obj/item/modular_computer/attackby(obj/item/attacking_item, mob/user, params)
@@ -644,8 +644,10 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 		update_icon()
 
 	// Insert new hardware
-	if(istype(attacking_item, /obj/item/computer_hardware) && upgradable)
-		if(install_component(attacking_item, user))
+	var/obj/item/computer_hardware/inserted_hardware = attacking_item
+	if(istype(inserted_hardware) && upgradable)
+		if(install_component(inserted_hardware, user))
+			inserted_hardware.on_inserted(user)
 			return
 
 	if(attacking_item.tool_behaviour == TOOL_WRENCH)

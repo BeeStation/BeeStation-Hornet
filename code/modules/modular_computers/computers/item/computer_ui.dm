@@ -199,15 +199,13 @@
 					var/obj/item/computer_hardware/hard_drive/portable/portable_drive = all_components[MC_SDD]
 					if(!portable_drive)
 						return
-					if(uninstall_component(portable_drive, usr))
-						user.put_in_hands(portable_drive)
+					if(uninstall_component(portable_drive, usr, TRUE))
 						playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50)
 				if("job disk")
 					var/obj/item/computer_hardware/hard_drive/role/ssd = all_components[MC_HDD_JOB]
 					if(!ssd)
 						return
-					if(uninstall_component(ssd, usr))
-						user.put_in_hands(ssd)
+					if(uninstall_component(ssd, usr, TRUE))
 						playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50)
 				if("intelliCard")
 					var/obj/item/computer_hardware/ai_slot/intelliholder = all_components[MC_AI]
