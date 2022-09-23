@@ -181,14 +181,12 @@
 
 ///Find a new target
 /datum/shuttle_ai_pilot/npc/proc/find_target()
-	var/obj/docking_port/mobile/our_port = SSshuttle.getShuttle(shuttle_data.port_id)
 	var/datum/orbital_object/shuttle/our_shuttle = SSorbits.assoc_shuttles[shuttle_data.port_id]
 	if(!our_shuttle)
 		return
 	var/list/valid = list()
 	//Locate all ships on this z-level
 	for (var/shuttle_id in SSorbits.assoc_shuttle_data)
-		var/obj/docking_port/mobile/target_port = SSshuttle.getShuttle(shuttle_id)
 		//Check factional aliegence (Can't spell that word)
 		var/datum/shuttle_data/target_data = SSorbits.get_shuttle_data(shuttle_id)
 		if(!(check_faction_alignment(shuttle_data.faction, target_data.faction) == FACTION_STATUS_HOSTILE || (shuttle_data.faction.type in target_data.rogue_factions)))

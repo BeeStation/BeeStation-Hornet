@@ -7,10 +7,7 @@
 			return null
 		return SSorbits.assoc_shuttles[shuttle_area.mobile_port.id]
 	else
-		var/datum/space_level/our_level = SSmapping.get_level(current_turf.z)
-		if(!our_level || !our_level.orbital_body)
-			return null
-		return our_level.orbital_body
+		return SSorbits.assoc_z_levels["[current_turf.z]"]
 
 /atom/proc/get_orbital_distance(atom/target)
 	if (get_virtual_z_level() == target.get_virtual_z_level())

@@ -46,8 +46,7 @@
 	if(istype(A))
 		current_location = SSorbits.assoc_shuttles[A.mobile_port.id]
 	if(!istype(current_location))
-		var/datum/space_level/z_level = SSmapping.get_level(z)
-		current_location = z_level.orbital_body
+		current_location = SSorbits.assoc_z_levels["[z]"]
 	if(!current_location)
 		return
 	var/datum/orbital_map/current_map = SSorbits.orbital_maps[current_location.orbital_map_index]
@@ -87,8 +86,7 @@
 		if(istype(A))
 			current_location = SSorbits.assoc_shuttles[A.mobile_port.id]
 		if(!istype(current_location))
-			var/datum/space_level/z_level = SSmapping.get_level(z)
-			current_location = z_level.orbital_body
+			current_location = SSorbits.assoc_z_levels["[z]"]
 		if(!current_location)
 			return
 		var/datum/orbital_map/current_map = SSorbits.orbital_maps[current_location.orbital_map_index]
@@ -114,8 +112,7 @@
 	if(istype(A))
 		current_location = SSorbits.assoc_shuttles[A.mobile_port.id]
 	if(!istype(current_location))
-		var/datum/space_level/z_level = SSmapping.get_level(z)
-		current_location = z_level.orbital_body
+		current_location = SSorbits.assoc_z_levels["[z]"]
 	if(!istype(current_location))
 		say("Unable to ping, invalid location.")
 		return

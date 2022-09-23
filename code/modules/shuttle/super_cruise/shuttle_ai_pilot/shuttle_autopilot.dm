@@ -46,10 +46,7 @@
 	var/obj/docking_port/stationary/target_port = SSshuttle.getDock(port_id)
 	if(!target_port)
 		return
-	var/datum/space_level/space_level = SSmapping.get_level(target_port.z)
-	if(!space_level)
-		return
-	return space_level.orbital_body
+	return SSorbits.assoc_z_levels["[target_port.z]"]
 
 /datum/shuttle_ai_pilot/autopilot/proc/set_target(datum/orbital_object/new_target)
 	if(shuttleTarget)

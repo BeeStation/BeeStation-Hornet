@@ -58,9 +58,9 @@
 /obj/item/projectile/bullet/shuttle/missile/black_hole/on_hit(atom/target, blocked)
 	//Locate our current z-level
 	var/turf/T = get_turf(target)
-	var/datum/space_level/space_level = SSmapping.get_level(T.z)
+	var/datum/orbital_object/orbital_body = SSorbits.assoc_z_levels["[T.z]"]
 	new /obj/anomaly/singularity(T)
-	if(!space_level || !space_level.orbital_body)
+	if(!orbital_body)
 		return
 	//Holy fuck
-	new /datum/orbital_object/hazard/black_hole(new /datum/orbital_vector(space_level.orbital_body.position.GetX(), space_level.orbital_body.position.GetY()))
+	new /datum/orbital_object/hazard/black_hole(new /datum/orbital_vector(orbital_body.position.GetX(), orbital_body.position.GetY()))

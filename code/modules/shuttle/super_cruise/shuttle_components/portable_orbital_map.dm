@@ -39,8 +39,7 @@
 		shuttleObject = map_reference_object
 	//Get the z level
 	if(!map_reference_object)
-		var/datum/space_level/space_level = SSmapping.get_level(T.z)
-		map_reference_object = space_level.orbital_body
+		map_reference_object = SSorbits.assoc_z_levels["[T.z]"]
 
 	var/orbital_map_index = map_reference_object?.orbital_map_index
 

@@ -195,8 +195,7 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 		//Locate the port
 		var/obj/docking_port/mobile/mobile_port = SSshuttle.getShuttle(shuttleId)
 		if(mobile_port)
-			var/datum/space_level/space_level = SSmapping.get_level(mobile_port.z)
-			map_reference_object = space_level.orbital_body
+			map_reference_object = SSorbits.assoc_z_levels["[mobile_port.z]"]
 
 	//Get the base map data
 	var/list/data = SSorbits.get_orbital_map_base_data(
