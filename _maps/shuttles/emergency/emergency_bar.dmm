@@ -29,7 +29,7 @@
 /turf/open/floor/carpet,
 /area/shuttle/escape)
 "ag" = (
-/obj/structure/chair/comfy/brown{
+/obj/structure/chair/fancy/comfy{
 	dir = 1
 	},
 /turf/open/floor/carpet,
@@ -74,7 +74,7 @@
 /turf/open/floor/carpet,
 /area/shuttle/escape)
 "am" = (
-/obj/structure/chair/comfy/brown{
+/obj/structure/chair/fancy/comfy{
 	dir = 8
 	},
 /turf/open/floor/carpet,
@@ -83,7 +83,7 @@
 /turf/open/floor/carpet,
 /area/shuttle/escape)
 "ao" = (
-/obj/structure/chair/comfy/brown{
+/obj/structure/chair/fancy/comfy{
 	dir = 4
 	},
 /turf/open/floor/carpet,
@@ -104,7 +104,7 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_y = -30
 	},
-/obj/structure/chair/comfy/brown{
+/obj/structure/chair/fancy/comfy{
 	dir = 8
 	},
 /turf/open/floor/carpet,
@@ -139,7 +139,7 @@
 /turf/closed/wall/mineral/titanium,
 /area/shuttle/escape)
 "aC" = (
-/obj/structure/chair/comfy/shuttle,
+/obj/structure/chair/fancy/shuttle,
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "aD" = (
@@ -177,7 +177,8 @@
 /area/shuttle/escape)
 "aG" = (
 /obj/structure/chair/stool{
-	can_buckle = 1
+	can_buckle = 1;
+	dir = 8
 	},
 /turf/open/floor/plasteel/grimy,
 /area/shuttle/escape)
@@ -208,7 +209,7 @@
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "aM" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
 /turf/open/floor/mineral/plastitanium/red/brig,
@@ -444,7 +445,7 @@
 /turf/open/floor/plasteel/grimy,
 /area/shuttle/escape)
 "bM" = (
-/obj/structure/chair/comfy/brown{
+/obj/structure/chair/fancy/comfy{
 	dir = 8
 	},
 /turf/open/floor/plasteel/grimy,
@@ -625,6 +626,16 @@
 	},
 /obj/machinery/door/firedoor,
 /turf/open/floor/carpet,
+/area/shuttle/escape)
+"HM" = (
+/obj/effect/turf_decal/tile/bar,
+/obj/effect/turf_decal/tile/bar{
+	dir = 1
+	},
+/obj/structure/chair/stool/bar{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
 /area/shuttle/escape)
 "LQ" = (
 /obj/machinery/door/airlock/titanium{
@@ -834,13 +845,13 @@ an
 GY
 aE
 aE
-aN
-aN
-aN
-aN
-aN
-aN
-aN
+HM
+HM
+HM
+HM
+HM
+HM
+HM
 aE
 ca
 Yn

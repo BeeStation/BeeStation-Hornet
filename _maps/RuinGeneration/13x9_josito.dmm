@@ -73,7 +73,7 @@
 /turf/open/floor/wood,
 /area/ruin/unpowered)
 "A" = (
-/obj/structure/chair/sofa/left{
+/obj/structure/chair/fancy/sofa/old/left{
 	dir = 8
 	},
 /turf/open/floor/carpet/purple,
@@ -85,7 +85,7 @@
 /turf/open/floor/wood,
 /area/ruin/unpowered)
 "D" = (
-/obj/structure/chair/sofa/left,
+/obj/structure/chair/fancy/sofa/old/left,
 /turf/open/floor/wood,
 /area/ruin/unpowered)
 "E" = (
@@ -101,11 +101,11 @@
 /turf/open/floor/plating,
 /area/ruin/unpowered)
 "J" = (
-/obj/structure/chair/sofa/right,
+/obj/structure/chair/fancy/sofa/old/right,
 /turf/open/floor/wood,
 /area/ruin/unpowered)
 "L" = (
-/obj/structure/chair/sofa/right{
+/obj/structure/chair/fancy/sofa/old/right{
 	dir = 8
 	},
 /turf/open/floor/carpet/purple,
