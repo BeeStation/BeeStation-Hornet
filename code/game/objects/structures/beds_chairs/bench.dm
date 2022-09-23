@@ -63,7 +63,7 @@
 	var/cover_color = rgb(175, 125, 40)
 	color = null
 	colorable = FALSE
-	override_layer = FALSE
+	override_layer = TRUE
 
 /obj/structure/chair/fancy/bench/corporate/Initialize(mapload)
 	icon_state = base_icon_state //so the rainbow seats for mapper clarity are not in-game
