@@ -89,6 +89,10 @@
 	if(disk_flags & DISK_REMOTE_AIRLOCK)
 		progs_to_store += new /datum/computer_file/program/remote_airlock(src)
 
+	if(disk_flags & DISK_HOP)
+		progs_to_store += new /datum/computer_file/program/card_mod(src)
+		progs_to_store += new /datum/computer_file/program/job_management(src)
+
 	for (var/datum/computer_file/program/prog in progs_to_store)
 		prog.usage_flags = PROGRAM_ALL
 		prog.required_access = list()
@@ -189,7 +193,7 @@
 /obj/item/computer_hardware/hard_drive/role/hop
 	name = "\improper HumanResources9001 disk"
 	icon_state = "cart-hop"
-	disk_flags = DISK_MANIFEST | DISK_STATUS | DISK_JANI | DISK_SEC | DISK_NEWS | DISK_CARGO | DISK_SILO_LOG | DISK_ROBOS | DISK_BUDGET
+	disk_flags = DISK_MANIFEST | DISK_STATUS | DISK_JANI | DISK_SEC | DISK_NEWS | DISK_CARGO | DISK_SILO_LOG | DISK_ROBOS | DISK_BUDGET | DISK_HOP
 
 /obj/item/computer_hardware/hard_drive/role/hos
 	name = "\improper R.O.B.U.S.T. DELUXE disk"
