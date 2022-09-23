@@ -1,6 +1,0 @@
-author: itsmeow
-delete-after: true
-changes:
-  - code_imp: Fixes an issue with the modular PC singaller app initializing its frequency
-      too early.
-  - code_imp: Enforces parent proc calls in run_program
