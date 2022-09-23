@@ -1514,7 +1514,7 @@
 /obj/machinery/door/window/brigdoor{
 	dir = 4;
 	name = "Virology Desk";
-	req_access_txt = "20"
+	req_access_txt = "39"
 	},
 /obj/item/reagent_containers/food/drinks/bottle/virusfood{
 	pixel_x = 2;

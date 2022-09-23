@@ -49652,7 +49652,7 @@
 /obj/machinery/door/window/brigdoor{
 	dir = 8;
 	name = "Virology Desk";
-	req_access_txt = "20"
+	req_access_txt = "39"
 	},
 /obj/item/paper_bin{
 	pixel_x = -2;
