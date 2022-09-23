@@ -28,13 +28,10 @@
 	to_chat(user, "<span class='notice'>You disable the magic lock with the [item].</span>")
 	return TRUE
 
-
 /obj/structure/closet/crate/necropolis/tendril
 	desc = "It's watching you suspiciously."
 
-
-
-/obj/structure/closet/crate/necropolis/tendril/try_spawn_loot(datum/source, obj/item/item, mob/user, params) ///proc that handles key checking and generating loot
+/obj/structure/closet/crate/necropolis/tendril/try_spawn_loot(datum/source, obj/item/item, mob/user, params) ///proc that handles key checking and generating loot - MAY REPLACE WITH pickweight(loot)
 	if(..())
 		var/loot = rand(1,18)
 		switch(loot)
@@ -796,7 +793,7 @@
 //Dragon
 
 /obj/structure/closet/crate/necropolis/dragon
-	name = "drake chest"	
+	name = "drake chest"
 
 /obj/structure/closet/crate/necropolis/dragon/try_spawn_loot(datum/source, obj/item/item, mob/user, params) ///proc that handles key checking and generating loot
 	if(..())
@@ -975,7 +972,7 @@
 	var/reset_cooldown = 50
 	var/timer = 0
 	var/static/list/banned_turfs = typecacheof(list(/turf/closed))
-	var/static/list/allowed_areas = list(/area/lavaland/surface/outdoors)
+	var/static/list/allowed_areas = typecacheof(list(/area/lavaland/surface/outdoors))
 
 /obj/item/lava_staff/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
@@ -1157,7 +1154,7 @@
 
 /obj/item/hierophant_club/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
-	if(user.mind.martial_art.no_guns) 
+	if(user.mind.martial_art.no_guns)
 		to_chat(user, "<span class='warning'>To use this weapon would bring dishonor to the clan.</span>")
 		return
 	var/turf/T = get_turf(target)
