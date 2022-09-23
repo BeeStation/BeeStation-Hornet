@@ -322,6 +322,9 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 	/// What faction type should we use
 	var/faction_type = /datum/faction/independant
 
+	/// If true, the shuttle will be deleted upon landing
+	var/delete_on_land = FALSE
+
 /obj/docking_port/mobile/proc/register()
 	SSshuttle.mobile |= src
 	SSorbits.register_shuttle(id, faction_type)

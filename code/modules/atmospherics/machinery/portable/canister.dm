@@ -150,6 +150,10 @@
 	greyscale_config = /datum/greyscale_config/canister/hazard
 	greyscale_colors = "#3fcd40#000000"
 
+/obj/machinery/portable_atmospherics/canister/tritium/high_capacity
+	filled = 1
+	starter_temp = 100
+
 /obj/machinery/portable_atmospherics/canister/water_vapor
 	name = "water vapor canister"
 	desc = "Water Vapor. We get it, you vape."

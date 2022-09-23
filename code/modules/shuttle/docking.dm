@@ -108,6 +108,10 @@
 		explode()
 		log_shuttle("Shuttle [name] ([id]) crash landed at [new_dock.name] [COORD(new_dock)], causing an explosion.")
 	log_shuttle_movement("Shuttle [name] ([id]) moved to [new_dock.name] [COORD(new_dock)].")
+
+	if (delete_on_land)
+		qdel(src)
+
 	return DOCKING_SUCCESS
 
 /obj/docking_port/mobile/proc/preflight_check(list/old_turfs, list/new_turfs, list/areas_to_move, rotation)

@@ -225,7 +225,7 @@
 			explosion(any_turf, 12, 15, 18, -1, FALSE)
 	//Force delete the docking port
 	//We totally know what we are doing
-	qdel(M, TRUE)
+	M.delete_on_land = TRUE
 
 ///Called when a shuttle turf is changed, for better or for worse
 /datum/shuttle_data/proc/shuttle_turf_changed(turf/source, path, list/new_baseturfs, flags, list/transferring_comps)

@@ -10,6 +10,18 @@
 /obj/effect/turf_decal/stripes/closeup,
 /turf/open/floor/mineral/plastitanium/red,
 /area/shuttle/syndicate_scout)
+"aW" = (
+/obj/effect/turf_decal/trimline/yellow/filled/line,
+/obj/effect/turf_decal/tile/neutral/tile_side{
+	dir = 4
+	},
+/obj/machinery/atmospherics/components/unary/portables_connector/visible{
+	dir = 4
+	},
+/obj/effect/mapping_helpers/auto_wrench,
+/obj/machinery/portable_atmospherics/canister/tritium/high_capacity,
+/turf/open/floor/plasteel/techmaint,
+/area/shuttle/syndicate_scout)
 "bg" = (
 /obj/effect/turf_decal/trimline/yellow/filled/line{
 	dir = 1
@@ -1510,18 +1522,6 @@
 	},
 /turf/closed/wall/r_wall/syndicate,
 /area/shuttle/syndicate_scout)
-"Wv" = (
-/obj/effect/turf_decal/trimline/yellow/filled/line,
-/obj/effect/turf_decal/tile/neutral/tile_side{
-	dir = 4
-	},
-/obj/machinery/portable_atmospherics/canister/tritium,
-/obj/machinery/atmospherics/components/unary/portables_connector/visible{
-	dir = 4
-	},
-/obj/effect/mapping_helpers/auto_wrench,
-/turf/open/floor/plasteel/techmaint,
-/area/shuttle/syndicate_scout)
 "WF" = (
 /turf/template_noop,
 /area/space)
@@ -1764,7 +1764,7 @@ Vv
 Gi
 Aa
 vV
-Wv
+aW
 ne
 mG
 mG

@@ -146,7 +146,7 @@
 		var/datum/shuttle_data/ship = SSorbits.get_shuttle_data(ship_id)
 		var/datum/orbital_object/shuttle/shuttle_object = SSorbits.assoc_shuttles[ship_id]
 		//Don't allow us to shoot ourselfs
-		if(ship.port_id == shuttle_id)
+		if(!ship || !shuttle_object || ship.port_id == shuttle_id)
 			continue
 		//Ignore ships that are too far away
 		var/obj/target_port = SSshuttle.getShuttle(ship_id)

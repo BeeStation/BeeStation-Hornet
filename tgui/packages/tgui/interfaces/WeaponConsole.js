@@ -104,7 +104,7 @@ export const WeaponDisplay = (props, context) => {
 export const ShipSearchContent = (props, context) => {
   const { act, data } = useBackend(context);
   const {
-    ships,
+    ships = [],
     selectedShip,
     in_flight = false,
   } = data;
@@ -120,7 +120,7 @@ export const ShipSearchContent = (props, context) => {
           No targets in range.
         </div>
       )}
-      {ships.map(ship => (
+      {ships && ships.map(ship => (
         <Box
           key={ship.id}
           className={classes([

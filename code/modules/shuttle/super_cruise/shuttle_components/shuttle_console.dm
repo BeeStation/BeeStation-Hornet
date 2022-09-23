@@ -109,6 +109,8 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 		return
 	if(shuttle.shuttle_port_id != shuttleId)
 		return
+	if(shuttleObject)
+		return
 	emergency_alarm?.stop()
 	shuttleObject = body
 	RegisterSignal(shuttleObject, COMSIG_PARENT_QDELETING, .proc/unregister_shuttle_object)

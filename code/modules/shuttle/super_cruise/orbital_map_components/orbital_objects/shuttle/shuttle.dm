@@ -113,8 +113,8 @@
 
 	//Destroyed, awaiting to dock at stranded location
 	if (!shuttle_data)
-		velocity.x = 0
-		velocity.y = 0
+		velocity.Set(0, 0)
+		strand_shuttle()
 		return
 
 	//Process AI action

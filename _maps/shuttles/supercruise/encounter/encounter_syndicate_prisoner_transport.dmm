@@ -17,6 +17,16 @@
 "bS" = (
 /turf/closed/wall/r_wall/syndicate,
 /area/shuttle/syndicate_scout)
+"cb" = (
+/obj/effect/decal/cleanable/cobweb/cobweb2,
+/obj/machinery/atmospherics/components/unary/portables_connector/visible{
+	dir = 8
+	},
+/obj/item/wrench,
+/obj/effect/mapping_helpers/auto_wrench,
+/obj/machinery/portable_atmospherics/canister/tritium/high_capacity,
+/turf/open/floor/plasteel/techmaint,
+/area/shuttle/syndicate_scout)
 "co" = (
 /obj/structure/closet/crate{
 	name = "food crate"
@@ -603,16 +613,6 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plasteel/showroomfloor,
-/area/shuttle/syndicate_scout)
-"HV" = (
-/obj/effect/decal/cleanable/cobweb/cobweb2,
-/obj/machinery/atmospherics/components/unary/portables_connector/visible{
-	dir = 8
-	},
-/obj/item/wrench,
-/obj/machinery/portable_atmospherics/canister/tritium,
-/obj/effect/mapping_helpers/auto_wrench,
-/turf/open/floor/plasteel/techmaint,
 /area/shuttle/syndicate_scout)
 "Io" = (
 /obj/effect/turf_decal/stripes/line{
@@ -1248,7 +1248,7 @@ CZ
 co
 Pz
 CZ
-HV
+cb
 CZ
 Ra
 ma

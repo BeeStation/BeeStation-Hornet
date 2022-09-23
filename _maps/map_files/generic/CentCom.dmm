@@ -5696,15 +5696,6 @@
 	},
 /turf/open/floor/plating/airless,
 /area/syndicate_mothership/control)
-"sq" = (
-/obj/machinery/computer/shuttle_flight/white_ship{
-	dir = 4
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 5
-	},
-/turf/open/floor/plasteel,
-/area/centcom/ferry)
 "sr" = (
 /obj/structure/chair/office{
 	dir = 8
@@ -15327,6 +15318,15 @@
 	},
 /turf/open/floor/plasteel,
 /area/centcom/supplypod)
+"QP" = (
+/obj/effect/turf_decal/stripes/line{
+	dir = 5
+	},
+/obj/machinery/computer/shuttle_flight/custom_shuttle/exploration{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/centcom/ferry)
 "QT" = (
 /obj/machinery/chem_dispenser/drinks,
 /turf/closed/indestructible{
@@ -50987,7 +50987,7 @@ aa
 aa
 oe
 rk
-sq
+QP
 to
 uj
 oe
