@@ -23,16 +23,16 @@
 	name = "breaching missile"
 	desc = "Putting holes in your hulls since 2042."
 	devastation = -1
-	heavy = 1
-	light_r = 2
-	flash = 1
+	heavy = 2
+	light_r = 4
+	flash = 5
 	fire = 1
 
 /obj/item/projectile/bullet/shuttle/missile/fire
 	name = "incediary missile"
 	desc = "An anti-personnel weapon, for roasting your enemies harder than any diss-track ever could."
 	light_r = 2
-	flash = 3
+	flash = 5
 	fire = 4
 
 /obj/item/projectile/bullet/shuttle/missile/mini
@@ -40,7 +40,7 @@
 	desc = "A missile with a small payload."
 	heavy = 1
 	light_r = 3
-	flash = 2
+	flash = 4
 	fire = 2
 
 /obj/item/projectile/bullet/shuttle/missile/mini/examine(mob/user)

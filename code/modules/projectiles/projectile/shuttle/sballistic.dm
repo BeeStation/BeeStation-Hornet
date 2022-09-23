@@ -27,7 +27,7 @@
 		if(impact_effect_type && !hitscan)
 			new impact_effect_type(T, target.pixel_x + rand(-8, 8), target.pixel_y + rand(-8, 8))
 		//Boom
-		explosion(T, 0, 0, 1, 0, flame_range = 2)
+		explosion(T, 0, 0, 1, 0, flame_range = 2, adminlog = FALSE)
 		return BULLET_ACT_FORCE_PIERCE
 	return ..()
 
