@@ -33,7 +33,7 @@
 
 /turf/open/space/transit/proc/throw_atom(atom/movable/AM, atom/OldLoc)
 	set waitfor = FALSE
-	if(!AM || istype(AM, /obj/docking_port) || istype(AM, /obj/effect/abstract))
+	if(!AM || istype(AM, /obj/docking_port) || istype(AM, /obj/effect/abstract) || istype(AM, /obj/item/projectile/bullet/shuttle))
 		return
 	if(AM.loc != src) 	// Multi-tile objects are "in" multiple locs but its loc is it's true placement.
 		return			// Don't move multi tile objects if their origin isn't in transit

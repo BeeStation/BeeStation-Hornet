@@ -21,6 +21,22 @@ $color-background: rgba(0, 0, 0, 0.33) !default;
   background-color: $color-background;
 }
 
+.weaponConsole__alert {
+  border: solid 2px rgb(255, 127, 22);
+  background-color: black;
+  padding: 10px 4px;
+  text-align: center;
+  margin: 5px;
+  animation: warning_flash 1s infinite;
+}
+
+@keyframes warning_flash {
+  0% {border: solid 2px rgb(231, 219, 43);}
+  49% {border: solid 2px rgb(231, 219, 43);}
+  50% {border: solid 2px rgb(255, 127, 22);}
+  100% {border: solid 2px rgb(255, 127, 22);}
+}
+
 .WeaponConsole__map {
   position: absolute;
   top: 0px;
@@ -37,7 +53,52 @@ $color-background: rgba(0, 0, 0, 0.33) !default;
 }
 
 .WeaponConsole__weaponlist {
-  display: inline-block;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.weaponConsole__weapon {
+  display: flex;
+  align-items: center;
+  padding: 4px;
+  border: solid 2px rgb(255, 127, 22);
+  margin: 2px;
+  min-width: 130px;
+  max-width: 45%;
+  max-height: 70px;
+  font-size: smaller;
+}
+
+.weaponConsole__weapon.selected {
+  animation: selection_flash 2s;
+}
+
+@keyframes selection_flash {
+  0% {border: solid 2px white;}
+  100% {border: solid 2px rgb(255, 127, 22);}
+}
+
+.weaponConsole__flash_yellow {
+  animation: flash_yellow 1s infinite;
+}
+
+@keyframes flash_yellow {
+  0% {background-color: black;}
+  30% {background-color: black;}
+  31% {background-color: "#f5e553";}
+  100% {background-color: "#f5e553";}
+}
+
+.weaponConsole__flash {
+  animation: flash_red 1s infinite;
+}
+
+@keyframes flash_red {
+  0% {background-color: black;}
+  49% {background-color: black;}
+  51% {background-color: red;}
+  100% {background-color: red;}
 }
 
 .WeaponConsole__weaponpane {
@@ -48,7 +109,7 @@ $color-background: rgba(0, 0, 0, 0.33) !default;
   height: 140px;
   line-height: 24px;
   margin: 4px 6px 0;
-  overflow-x: scroll;
+  overflow-y: scroll;
 
   // Fancy scrollbar
   scrollbar-base-color: color.scale(

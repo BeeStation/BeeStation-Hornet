@@ -20,7 +20,7 @@
 
 /obj/item/projectile/bullet/shuttle/can_hit_target(atom/target, direct_target, ignore_loc, cross_failed)
 	// Never hit targets if we missed
-	if (miss || force_miss)
+	if (!isturf(target) && (miss || force_miss))
 		return FALSE
 	. = ..()
 
@@ -41,8 +41,7 @@
 			T.ex_act(EXPLODE_DEVASTATE)
 		//Damage objects in the turf
 		for(var/obj/object in T)
-			object.obj_integrity -= damage
-		return BULLET_ACT_HIT
+			object.take_damage(damage)
 	return ..()
 
 /obj/item/projectile/bullet/shuttle/pixel_move(trajectory_multiplier, hitscanning)

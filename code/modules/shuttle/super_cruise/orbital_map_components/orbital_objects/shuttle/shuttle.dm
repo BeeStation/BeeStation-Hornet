@@ -111,6 +111,12 @@
 	if(check_stuck())
 		return
 
+	//Destroyed, awaiting to dock at stranded location
+	if (!shuttle_data)
+		velocity.x = 0
+		velocity.y = 0
+		return
+
 	//Process AI action
 	if(shuttle_data.ai_pilot)
 		shuttle_data.ai_pilot.handle_ai_flight_action(src)
@@ -273,6 +279,7 @@
 
 /datum/orbital_object/shuttle/proc/handle_shuttle_data_deletion(datum/source, force)
 	UnregisterSignal(shuttle_data, COMSIG_PARENT_QDELETING)
+	strand_shuttle()
 	shuttle_data = null
 
 ///Perform an interdiction

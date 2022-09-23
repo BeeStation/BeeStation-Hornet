@@ -68,7 +68,7 @@ export const OrbitalMap = (props, context) => {
   return (
     <Window
       width={1136}
-      height={770}>
+      height={770} >
       <Window.Content fitted>
         <Flex height="100%">
           <Flex.Item class="OrbitalMap__radar" grow id="radar">

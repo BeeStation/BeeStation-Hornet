@@ -122,17 +122,35 @@
 		return data
 	//Not attached to any shuttle
 	var/datum/shuttle_data/our_ship = SSorbits.get_shuttle_data(shuttle_id)
-	if(!our_ship)
+	var/datum/orbital_object/shuttle/our_shuttle_object = SSorbits.assoc_shuttles[shuttle_id]
+	if (!our_ship)
 		return data
+	//Weapons
+	for(var/obj/machinery/shuttle_weapon/weapon in our_ship.shuttle_weapons)
+		var/list/active_weapon = list(
+			id = weapon.weapon_id,
+			name = weapon.name,
+			cooldownLeft = max(weapon.next_shot_world_time - world.time, 0),
+			cooldown = weapon.cooldown,
+			inaccuracy = weapon.innaccuracy,
+		)
+		data["weapons"] += list(active_weapon)
+	data["in_flight"] = FALSE
+	// We are not currently in flight
+	if (!our_shuttle_object)
+		return data
+	//Send this data over
+	data["in_flight"] = TRUE
 	//Enemy Ships
-	for(var/ship_id in SSorbits.assoc_shuttle_data)
+	for(var/ship_id in SSorbits.assoc_shuttles)
 		var/datum/shuttle_data/ship = SSorbits.get_shuttle_data(ship_id)
+		var/datum/orbital_object/shuttle/shuttle_object = SSorbits.assoc_shuttles[ship_id]
 		//Don't allow us to shoot ourselfs
 		if(ship.port_id == shuttle_id)
 			continue
-		//Ignore ships that are on different virtual z-levels
+		//Ignore ships that are too far away
 		var/obj/target_port = SSshuttle.getShuttle(ship_id)
-		if(!target_port || target_port.get_virtual_z_level() != connected_port.get_virtual_z_level())
+		if(!target_port || our_shuttle_object.position.DistanceTo(shuttle_object.position) > our_ship.detection_range)
 			continue
 		var/datum/faction/their_faction = ship.faction
 		var/list/other_ship = list(
@@ -146,22 +164,23 @@
 			hostile = check_faction_alignment(ship.faction, our_ship.faction) == FACTION_STATUS_HOSTILE || (their_faction.type in our_ship.rogue_factions),
 		)
 		data["ships"] += list(other_ship)
-	//Weapons
-	for(var/obj/machinery/shuttle_weapon/weapon in our_ship.shuttle_weapons)
-		var/list/active_weapon = list(
-			id = weapon.weapon_id,
-			name = weapon.name,
-			cooldownLeft = max(weapon.next_shot_world_time - world.time, 0),
-			cooldown = weapon.cooldown,
-			inaccuracy = weapon.innaccuracy,
-		)
-		data["weapons"] += list(active_weapon)
 	return data
 
 /obj/machinery/computer/weapons/ui_static_data(mob/user)
 	var/list/data = list()
 	data["mapRef"] = map_name
 	return data
+
+/obj/machinery/computer/weapons/process()
+	. = ..()
+	//Check target range
+	if(selected_ship_id)
+		var/datum/orbital_object/shuttle/our_shuttle_object = SSorbits.assoc_shuttles[shuttle_id]
+		var/datum/orbital_object/shuttle/shuttle_object = SSorbits.assoc_shuttles[selected_ship_id]
+		var/datum/shuttle_data/our_ship = SSorbits.get_shuttle_data(shuttle_id)
+		if(!our_ship || !shuttle_object || !our_shuttle_object || !our_shuttle_object.position.DistanceTo(shuttle_object.position) > our_ship.detection_range)
+			show_camera_static()
+			selected_ship_id = null
 
 /obj/machinery/computer/weapons/ui_act(action, params)
 	. = ..()
@@ -181,16 +200,20 @@
 
 			var/obj/docking_port/mobile/target = SSshuttle.getShuttle(s_id)
 			var/obj/docking_port/mobile/connected_port = SSshuttle.getShuttle(shuttle_id)
-			selected_ship_id = s_id
 
 			if(!target || !connected_port)
 				show_camera_static()
 				return TRUE
 
 			//Prevent from HREF exploitation by only allowing viewing of ships that should be in view
-			if(connected_port.get_virtual_z_level() != target.get_virtual_z_level())
+			var/datum/orbital_object/shuttle/our_shuttle_object = SSorbits.assoc_shuttles[shuttle_id]
+			var/datum/orbital_object/shuttle/shuttle_object = SSorbits.assoc_shuttles[s_id]
+			var/datum/shuttle_data/our_ship = SSorbits.get_shuttle_data(shuttle_id)
+			if(!our_ship || !shuttle_object || !our_shuttle_object || !our_shuttle_object.position.DistanceTo(shuttle_object.position) > our_ship.detection_range)
 				show_camera_static()
 				return TRUE
+
+			selected_ship_id = s_id
 
 			//Target.return_turfs() but with added range
 			var/list/L = target.return_coords()
@@ -265,21 +288,17 @@
 	if(!weapon)
 		log_shuttle("[usr] attempted to target a location, but somehow managed to not have the weapon system targetted.")
 		CRASH("[usr] attempted to target a location, but somehow managed to not have the weapon system targetted.")
-	CHECK_TICK
 	//Check if the turf is on the enemy ships turf (Prevents you from firing the console at nearby turfs, or using a weapons console and security camera console to fire at the station)
 	var/obj/docking_port/mobile/M = SSshuttle.getShuttle(selected_ship_id)
-	CHECK_TICK
 	if(!M)
 		log_shuttle("Attempted to fire at [selected_ship_id] although it doesn't exist as a shuttle (likely destroyed).")
 		return
 	if(!(T in M.return_turfs()))
 		return
 	weapon.target_turf = T
-	CHECK_TICK
 	//Fire
 	INVOKE_ASYNC(weapon, /obj/machinery/shuttle_weapon.proc/fire)
 	to_chat(usr, "<span class='notice'>Weapon target selected successfully.</span>")
-	CHECK_TICK
 	//Handle declaring ships rogue
 	var/datum/shuttle_data/our_ship = SSorbits.get_shuttle_data(shuttle_id)
 	var/datum/shuttle_data/their_ship = SSorbits.get_shuttle_data(selected_ship_id)
