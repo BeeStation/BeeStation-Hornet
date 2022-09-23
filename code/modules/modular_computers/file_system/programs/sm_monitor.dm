@@ -33,6 +33,8 @@
 
 /datum/computer_file/program/supermatter_monitor/on_start(mob/living/user)
 	. = ..(user)
+	if(!.)
+		return
 	if(!(active in GLOB.machines))
 		active = null
 	refresh()
