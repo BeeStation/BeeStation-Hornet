@@ -33623,11 +33623,6 @@
 /turf/open/floor/plating,
 /area/maintenance/port)
 "fkB" = (
-/obj/machinery/button/door{
-	id = "medpriv4";
-	name = "Privacy Shutters";
-	pixel_y = 25
-	},
 /obj/machinery/computer/pandemic,
 /obj/structure/sign/departments/minsky/medical/virology/virology1{
 	pixel_y = 29
@@ -39817,7 +39812,7 @@
 /obj/machinery/door/window/brigdoor{
 	dir = 8;
 	name = "Virology Desk";
-	req_access_txt = "20"
+	req_access_txt = "39"
 	},
 /obj/item/storage/box/masks,
 /obj/item/reagent_containers/syringe/antiviral{
