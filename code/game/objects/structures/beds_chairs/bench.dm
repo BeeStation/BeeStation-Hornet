@@ -7,9 +7,7 @@
 	icon_state = "bench_center"
 	buildstackamount = 1
 	item_chair = null
-
-/obj/structure/chair/fancy/bench/handle_layer()
-  return
+	override_layer = TRUE
 
 /obj/structure/chair/fancy/bench/left
 	icon_state = "bench_left"
@@ -26,6 +24,7 @@
 	buildstacktype = /obj/item/stack/sheet/mineral/wood
 	buildstackamount = 3
 	item_chair = null
+	override_layer = FALSE
 
 /obj/structure/chair/fancy/bench/pew/left
 	name = "left wooden pew end"
@@ -44,6 +43,7 @@
 	max_integrity = 60
 	buildstacktype = /obj/item/stack/sheet/mineral/bamboo
 	buildstackamount = 3
+	override_layer = FALSE
 
 /obj/structure/chair/fancy/bench/bamboo/left
 	icon_state = "bamboo_sofaend_left"
@@ -63,6 +63,7 @@
 	var/cover_color = rgb(175, 125, 40)
 	color = null
 	colorable = FALSE
+	override_layer = FALSE
 
 /obj/structure/chair/fancy/bench/corporate/Initialize(mapload)
 	icon_state = base_icon_state //so the rainbow seats for mapper clarity are not in-game
@@ -82,9 +83,6 @@
 		cover_color = C.crayon_color
 	if(cover_color)
 		GetCover()
-
-/obj/structure/chair/fancy/bench/corporate/handle_layer()
-	return
 
 /obj/structure/chair/fancy/bench/corporate/left
 	icon_state = "corporate_bench_left_mapping"

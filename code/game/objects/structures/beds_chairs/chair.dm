@@ -16,6 +16,7 @@
 	/// Used to handle rotation properly, should only be 1, 4, or 8
 	var/possible_dirs = 4
 	var/colorable = FALSE
+	var/override_layer = FALSE // for benches
 
 /obj/structure/chair/examine(mob/user)
 	. = ..()
@@ -107,10 +108,11 @@
 			buckled_mob.setDir(direction)
 
 /obj/structure/chair/proc/handle_layer()
-	if(has_buckled_mobs() && dir == NORTH)
-		layer = ABOVE_MOB_LAYER
-	else
-		layer = OBJ_LAYER
+  if(override_layer) return
+  if(has_buckled_mobs() && dir == NORTH)
+    layer = ABOVE_MOB_LAYER
+  else
+    layer = OBJ_LAYER
 
 /obj/structure/chair/post_buckle_mob(mob/living/M)
 	. = ..()
