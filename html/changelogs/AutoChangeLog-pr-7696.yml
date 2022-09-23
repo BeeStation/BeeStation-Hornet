@@ -1,0 +1,5 @@
+author: Tyranicranger4
+delete-after: true
+changes:
+  - rscdel: Removed hidden unused objects from Virology.
+  - bugfix: Fixed virology windoor access, viro's now have access to their own windoor.
