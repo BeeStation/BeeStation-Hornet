@@ -162,5 +162,17 @@
 
 #define CLICKSOUND_INTERVAL (0.1 SECONDS)	//clicky noises, how much time needed in between clicks on the machine for the sound to play on click again.
 
-// From code/game/machinery/computer/communications.dm for setting status display. Used in modpc status app as well.
+// From code/game/machinery/computer/communications.dm
+// ---------------------------------------------------
+
+// for setting status display. Used in modpc status app as well.
 #define MAX_STATUS_LINE_LENGTH 40
+// approvied pictures, also used in modpc app
+GLOBAL_LIST_INIT(approved_status_pictures, list(
+	"biohazard",
+	"blank",
+	"default",
+	"lockdown",
+	"redalert",
+	"shuttle",
+))

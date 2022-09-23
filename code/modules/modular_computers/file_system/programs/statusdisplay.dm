@@ -14,17 +14,25 @@
 
 	var/upper_text
 	var/lower_text
+	var/picture
 
-/datum/computer_file/program/status/proc/SendSignal()
+/datum/computer_file/program/status/proc/SendSignal(type)
 	var/datum/radio_frequency/frequency = SSradio.return_frequency(FREQ_STATUS_DISPLAYS)
 
 	if(!frequency)
 		return
 
-	var/datum/signal/status_signal = new(list("command" = "message"))
-
-	status_signal.data["msg1"] = reject_bad_text(upper_text || "", MAX_STATUS_LINE_LENGTH)
-	status_signal.data["msg2"] = reject_bad_text(lower_text || "", MAX_STATUS_LINE_LENGTH)
+	var/datum/signal/status_signal = new(list("command" = type))
+	switch(type)
+		if("message")
+			var/data1 = reject_bad_text(upper_text || "", MAX_STATUS_LINE_LENGTH)
+			var/data2 = reject_bad_text(lower_text || "", MAX_STATUS_LINE_LENGTH)
+			status_signal.data["msg1"] = data1
+			status_signal.data["msg2"] = data2
+			message_admins("[ADMIN_LOOKUPFLW(usr)] changed the Status Message to - [data1], [data2] - From the Status Display app.")
+			log_game("[key_name(usr)] changed the Status Message to - [data1], [data2] - From the Status Display app.")
+		if("alert")
+			status_signal.data["picture_state"] = picture
 
 	frequency.post_signal(computer, status_signal)
 
@@ -42,9 +50,15 @@
 
 	switch(action)
 		if("stat_send")
-			SendSignal()
+			SendSignal("message")
 		if("stat_update")
-			SetText(params["position"], params["text"]) // i hate the player i hate the player
+			SetText(params["position"], params["text"])
+		if("stat_pic")
+			var/chosen_picture = params["picture"]
+			if (!(chosen_picture in GLOB.approved_status_pictures))
+				return
+			picture = chosen_picture
+			SendSignal("alert")
 
 /datum/computer_file/program/status/ui_data(mob/user)
 	var/list/data = get_header_data()
