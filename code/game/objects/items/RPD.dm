@@ -434,7 +434,7 @@ GLOBAL_LIST_INIT(fluid_duct_recipes, list(
 		make_pipe_whitelist = typecacheof(list(/obj/structure/lattice, /obj/structure/girder, /obj/item/pipe, /obj/structure/window, /obj/structure/grille))
 	if(istype(attack_target, /obj/machinery/atmospherics) && ((mode & BUILD_MODE) && !(mode & PAINT_MODE))) //Reduces pixelhunt when coloring is off.
 		A = get_turf(attack_target)
-	var/can_make_pipe = (isturf(attack_target) || is_type_in_typecache(attack_target, make_pipe_whitelist))
+	var/can_make_pipe = (isturf(A) || is_type_in_typecache(A, make_pipe_whitelist))
 
 	. = FALSE
 
