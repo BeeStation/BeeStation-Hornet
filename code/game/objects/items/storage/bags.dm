@@ -147,15 +147,12 @@
 		return
 	var/obj/machinery/disposal/bin/bin = locate() in view(7, src.loc)
 	if(!bin)
-		to_chat(world, "no bin")  // DEBUG
 		return
 	var/disposed = 0
 	for(var/obj/item/I in contents)
-		to_chat(world, I)  // DEBUG
 		I.forceMove(bin)
 		disposed++
 	if (disposed)
-		to_chat(world, "beam stuff")  // DEBUG
 		visible_message("<span class='notice'>[src] [pick("whooshes", "bwooms", "fwooms", "pshooms")] and beams [disposed] stored item\s into the nearby [bin.name].</span>")
 		playsound(src, 'sound/items/pshoom.ogg', 50, TRUE)
 		playsound(bin, 'sound/items/pshoom.ogg', 50, TRUE)
