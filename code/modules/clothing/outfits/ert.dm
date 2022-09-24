@@ -268,7 +268,7 @@
 	belt = /obj/item/storage/belt/janitor/full
 	r_pocket = /obj/item/grenade/chem_grenade/cleaner
 	l_pocket = /obj/item/grenade/chem_grenade/cleaner
-	l_hand = /obj/item/storage/bag/trash/bluespace
+	l_hand = /obj/item/storage/bag/trash/beam
 	backpack_contents = list(/obj/item/storage/box/engineer=1,
 		/obj/item/storage/box/lights/mixed=1,
 		/obj/item/melee/baton/loaded=1,
