@@ -286,7 +286,7 @@
 	id = "blutrash"
 	build_type = PROTOLATHE
 	materials = list(/datum/material/gold = 1500, /datum/material/uranium = 250, /datum/material/plasma = 1500)
-	build_path = /obj/item/storage/bag/trash/bea,
+	build_path = /obj/item/storage/bag/trash/beam
 	category = list("Equipment")
 	departmental_flags = DEPARTMENTAL_FLAG_SERVICE
 
