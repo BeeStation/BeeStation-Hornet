@@ -261,7 +261,7 @@
 	config_entry_value = list(			//DEFAULTS
 	/mob/living/simple_animal = 1,
 	/mob/living/silicon/pai = 1,
-	/mob/living/carbon/alien/humanoid/hunter = -1,
+	/mob/living/carbon/alien/humanoid/hunter = -0.5,
 	/mob/living/carbon/alien/humanoid/royal/praetorian = 1,
 	/mob/living/carbon/alien/humanoid/royal/queen = 3
 	)
@@ -363,7 +363,7 @@
 	min_val = -1
 
 /datum/config_entry/string/overflow_job
-	config_entry_value = "Assistant"
+	config_entry_value = JOB_NAME_ASSISTANT
 
 /datum/config_entry/flag/starlight
 /datum/config_entry/flag/grey_assistants

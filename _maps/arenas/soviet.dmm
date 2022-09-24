@@ -51,26 +51,22 @@
 	dir = 8
 	},
 /turf/open/floor/plasteel/yellowsiding/corner{
-	icon_state = "yellowcornersiding";
 	dir = 8
 	},
 /area/tdome/arena)
 "k" = (
 /turf/open/floor/plasteel/yellowsiding{
-	icon_state = "yellowsiding";
 	dir = 4
 	},
 /area/tdome/arena)
 "l" = (
 /obj/effect/turf_decal/stripes/red/line{
-	icon_state = "warningline_red";
 	dir = 6
 	},
 /turf/open/floor/plasteel/telecomms,
 /area/tdome/arena)
 "m" = (
 /obj/effect/turf_decal/stripes/red/line{
-	icon_state = "warningline_red";
 	dir = 1
 	},
 /turf/open/floor/plasteel/telecomms,
@@ -78,7 +74,6 @@
 "n" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/red/line{
-	icon_state = "warningline_red";
 	dir = 1
 	},
 /turf/open/floor/plasteel/telecomms,
@@ -86,14 +81,12 @@
 "o" = (
 /obj/item/clothing/head/chicken,
 /obj/effect/turf_decal/stripes/red/line{
-	icon_state = "warningline_red";
 	dir = 1
 	},
 /turf/open/floor/plasteel/telecomms,
 /area/tdome/arena)
 "p" = (
 /obj/effect/turf_decal/stripes/red/line{
-	icon_state = "warningline_red";
 	dir = 10
 	},
 /turf/open/floor/plasteel/telecomms,
@@ -101,14 +94,12 @@
 "q" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/yellowsiding{
-	icon_state = "yellowsiding";
 	dir = 8
 	},
 /area/tdome/arena)
 "r" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/red/line{
-	icon_state = "warningline_red";
 	dir = 8
 	},
 /turf/open/floor/plasteel/telecomms,
@@ -129,20 +120,17 @@
 "v" = (
 /obj/item/clothing/suit/chickensuit,
 /obj/effect/turf_decal/stripes/red/line{
-	icon_state = "warningline_red";
 	dir = 4
 	},
 /turf/open/floor/plasteel/telecomms,
 /area/tdome/arena)
 "w" = (
 /turf/open/floor/plasteel/yellowsiding{
-	icon_state = "yellowsiding";
 	dir = 8
 	},
 /area/tdome/arena)
 "x" = (
 /obj/effect/turf_decal/stripes/red/line{
-	icon_state = "warningline_red";
 	dir = 8
 	},
 /turf/open/floor/plasteel/telecomms,
@@ -157,7 +145,6 @@
 /area/tdome/arena)
 "A" = (
 /obj/effect/turf_decal/stripes/red/line{
-	icon_state = "warningline_red";
 	dir = 4
 	},
 /turf/open/floor/plasteel/telecomms,
@@ -169,7 +156,6 @@
 "C" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/red/line{
-	icon_state = "warningline_red";
 	dir = 5
 	},
 /turf/open/floor/plasteel/telecomms,
@@ -185,7 +171,6 @@
 /area/tdome/arena)
 "F" = (
 /obj/effect/turf_decal/stripes/red/line{
-	icon_state = "warningline_red";
 	dir = 9
 	},
 /turf/open/floor/plasteel/telecomms,
@@ -195,7 +180,6 @@
 	dir = 4
 	},
 /turf/open/floor/plasteel/yellowsiding/corner{
-	icon_state = "yellowcornersiding";
 	dir = 4
 	},
 /area/tdome/arena)
@@ -241,7 +225,6 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/yellowsiding/corner{
-	icon_state = "yellowcornersiding";
 	dir = 1
 	},
 /area/tdome/arena)
@@ -252,7 +235,6 @@
 /area/tdome/arena)
 "T" = (
 /obj/effect/turf_decal/stripes/red/line{
-	icon_state = "warningline_red";
 	dir = 1
 	},
 /obj/item/reagent_containers/food/snacks/deadmouse,

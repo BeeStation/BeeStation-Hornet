@@ -1,9 +1,9 @@
-/datum/generator_settings/blob
+/datum/generator_settings/ratvar
 	probability = 2
 	floor_break_prob = 8
 	structure_damage_prob = 6
 
-/datum/generator_settings/blob/get_floortrash()
+/datum/generator_settings/ratvar/get_floortrash()
 	. = list(
 		/obj/effect/decal/cleanable/dirt = 6,
 		/obj/effect/decal/cleanable/blood/old = 3,
@@ -26,14 +26,14 @@
 	for(var/trash in subtypesof(/obj/item/trash))
 		.[trash] = 1
 
-/datum/generator_settings/blob/get_directional_walltrash()
+/datum/generator_settings/ratvar/get_directional_walltrash()
 	return list(
 		/obj/machinery/light/broken = 4,
 		/obj/machinery/light/small = 1,
 		null = 75,
 	)
 
-/datum/generator_settings/blob/get_non_directional_walltrash()
+/datum/generator_settings/ratvar/get_non_directional_walltrash()
 	return list(
 		/obj/item/radio/intercom = 2,
 		/obj/structure/sign/poster/random = 1,

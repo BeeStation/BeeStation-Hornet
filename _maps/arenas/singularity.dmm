@@ -131,7 +131,6 @@
 /area/tdome/arena)
 "aw" = (
 /obj/effect/turf_decal/box/corners{
-	icon_state = "box_corners";
 	dir = 8
 	},
 /obj/structure/fans/tiny,
@@ -146,7 +145,6 @@
 /area/tdome/arena)
 "ay" = (
 /obj/effect/turf_decal/trimline/red/filled/line{
-	icon_state = "trimline_fill";
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/neutral,
@@ -157,7 +155,6 @@
 /area/tdome/arena)
 "az" = (
 /obj/effect/turf_decal/trimline/red/filled/line{
-	icon_state = "trimline_fill";
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/neutral{
@@ -171,7 +168,6 @@
 /area/tdome/arena)
 "aA" = (
 /obj/effect/turf_decal/trimline/red/filled/line{
-	icon_state = "trimline_fill";
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/neutral{
@@ -185,7 +181,6 @@
 /area/tdome/arena)
 "aB" = (
 /obj/effect/turf_decal/trimline/red/filled/line{
-	icon_state = "trimline_fill";
 	dir = 5
 	},
 /obj/effect/turf_decal/tile/neutral{
@@ -199,7 +194,6 @@
 /area/tdome/arena)
 "aC" = (
 /obj/effect/turf_decal/trimline/red/filled/line{
-	icon_state = "trimline_fill";
 	dir = 9
 	},
 /obj/effect/turf_decal/tile/neutral,
@@ -208,7 +202,6 @@
 /area/tdome/arena)
 "aD" = (
 /obj/effect/turf_decal/trimline/red/filled/line{
-	icon_state = "trimline_fill";
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/neutral{
@@ -220,7 +213,6 @@
 /area/tdome/arena)
 "aE" = (
 /obj/effect/turf_decal/trimline/red/filled/line{
-	icon_state = "trimline_fill";
 	dir = 5
 	},
 /obj/effect/turf_decal/tile/neutral{
@@ -231,7 +223,6 @@
 /area/tdome/arena)
 "aF" = (
 /obj/effect/turf_decal/trimline/red/filled/line{
-	icon_state = "trimline_fill";
 	dir = 9
 	},
 /obj/effect/turf_decal/tile/neutral,
@@ -243,7 +234,6 @@
 /area/tdome/arena)
 "aG" = (
 /obj/effect/turf_decal/trimline/red/filled/line{
-	icon_state = "trimline_fill";
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/neutral{
@@ -257,7 +247,6 @@
 /area/tdome/arena)
 "aH" = (
 /obj/effect/turf_decal/trimline/red/filled/line{
-	icon_state = "trimline_fill";
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/neutral{
@@ -290,7 +279,6 @@
 /area/tdome/arena)
 "aK" = (
 /obj/effect/turf_decal/trimline/red/filled/line{
-	icon_state = "trimline_fill";
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/neutral{
@@ -306,7 +294,6 @@
 /area/tdome/arena)
 "aL" = (
 /obj/effect/turf_decal/trimline/red/filled/line{
-	icon_state = "trimline_fill";
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/neutral,
@@ -317,7 +304,6 @@
 /area/tdome/arena)
 "aM" = (
 /obj/effect/turf_decal/box/corners{
-	icon_state = "box_corners";
 	dir = 1
 	},
 /obj/structure/fans/tiny,
@@ -325,7 +311,6 @@
 /area/tdome/arena)
 "aN" = (
 /obj/effect/turf_decal/box/corners{
-	icon_state = "box_corners";
 	dir = 4
 	},
 /obj/structure/fans/tiny,
@@ -333,7 +318,6 @@
 /area/tdome/arena)
 "aO" = (
 /obj/effect/turf_decal/trimline/red/filled/line{
-	icon_state = "trimline_fill";
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/neutral{
@@ -346,7 +330,6 @@
 /area/tdome/arena)
 "aP" = (
 /obj/effect/turf_decal/trimline/red/filled/line{
-	icon_state = "trimline_fill";
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/neutral,
@@ -369,7 +352,6 @@
 /area/tdome/arena)
 "aR" = (
 /obj/effect/turf_decal/box/corners{
-	icon_state = "box_corners";
 	dir = 8
 	},
 /obj/structure/fans/tiny,
@@ -409,7 +391,6 @@
 /area/tdome/arena)
 "aV" = (
 /obj/effect/turf_decal/trimline/red/filled/line{
-	icon_state = "trimline_fill";
 	dir = 6
 	},
 /obj/effect/turf_decal/tile/neutral{
@@ -423,7 +404,6 @@
 /area/tdome/arena)
 "aW" = (
 /obj/effect/turf_decal/trimline/red/filled/line{
-	icon_state = "trimline_fill";
 	dir = 10
 	},
 /obj/effect/turf_decal/tile/neutral{
@@ -445,7 +425,6 @@
 /area/tdome/arena)
 "aY" = (
 /obj/effect/turf_decal/trimline/red/filled/line{
-	icon_state = "trimline_fill";
 	dir = 6
 	},
 /obj/effect/turf_decal/tile/neutral{
@@ -456,7 +435,6 @@
 /area/tdome/arena)
 "aZ" = (
 /obj/effect/turf_decal/trimline/red/filled/line{
-	icon_state = "trimline_fill";
 	dir = 10
 	},
 /obj/effect/turf_decal/tile/neutral{
@@ -494,7 +472,6 @@
 /area/tdome/arena)
 "bd" = (
 /obj/effect/turf_decal/box/corners{
-	icon_state = "box_corners";
 	dir = 4
 	},
 /obj/structure/fans/tiny,

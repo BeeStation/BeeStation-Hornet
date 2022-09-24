@@ -213,7 +213,9 @@
 
 /obj/item/gun/energy/plasmacutter/use_tool(atom/target, mob/living/user, delay, amount=1, volume=0, datum/callback/extra_checks)
 	if(amount)
+		target.add_overlay(GLOB.welding_sparks)
 		. = ..()
+		target.cut_overlay(GLOB.welding_sparks)
 	else
 		. = ..(amount=1)
 
@@ -235,6 +237,7 @@
 	can_charge = FALSE
 	use_cyborg_cell = TRUE
 	tool_behaviour = null //because it will drain the cutters cell and not the borgs.
+	requires_wielding = FALSE
 
 
 /obj/item/gun/energy/wormhole_projector

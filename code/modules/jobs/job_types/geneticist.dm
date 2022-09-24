@@ -1,14 +1,13 @@
 /datum/job/geneticist
-	title = "Geneticist"
+	title = JOB_NAME_GENETICIST
 	flag = GENETICIST
-	department_head = list("Chief Medical Officer", "Research Director")
+	department_head = list(JOB_NAME_CHIEFMEDICALOFFICER, JOB_NAME_RESEARCHDIRECTOR)
 	department_flag = MEDSCI
 	faction = "Station"
 	total_positions = 2
 	spawn_positions = 2
 	supervisors = "the chief medical officer and research director"
 	selection_color = "#d4ebf2"
-	chat_color = "#83BBBF"
 	exp_requirements = 120
 	exp_type = EXP_TYPE_CREW
 
@@ -18,9 +17,10 @@
 	minimal_access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_GENETICS, ACCESS_CLONING, ACCESS_MECH_MEDICAL, ACCESS_RESEARCH, ACCESS_MINERAL_STOREROOM)
 	paycheck = PAYCHECK_MEDIUM
 	paycheck_department = ACCOUNT_MED
+	mind_traits = list(TRAIT_MEDICAL_METABOLISM)
 
 	display_order = JOB_DISPLAY_ORDER_GENETICIST
-	departments = DEPARTMENT_MEDICAL
+	departments = DEPARTMENT_BITFLAG_MEDICAL
 	rpg_title = "Genemancer"
 
 	species_outfits = list(
@@ -29,10 +29,10 @@
 	biohazard = 15
 
 /datum/outfit/job/geneticist
-	name = "Geneticist"
+	name = JOB_NAME_GENETICIST
 	jobtype = /datum/job/geneticist
 
-	id = /obj/item/card/id/job/gene
+	id = /obj/item/card/id/job/geneticist
 	belt = /obj/item/pda/geneticist
 	ears = /obj/item/radio/headset/headset_medsci
 	uniform = /obj/item/clothing/under/rank/medical/geneticist

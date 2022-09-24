@@ -7,7 +7,7 @@
 	proportion = 0.05			//The prbability per person of rolling it (5% is (5 in 100) (1 in 20))
 	max_amount = 4				//The maximum amount
 	role_name = "Undercover Agent"
-	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Head of Personnel", "Chief Medical Officer", "Chief Engineer", "Research Director", "Captain", "Clown")
+	protected_jobs = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE, JOB_NAME_HEADOFSECURITY, JOB_NAME_HEADOFPERSONNEL, JOB_NAME_CHIEFMEDICALOFFICER, JOB_NAME_CHIEFENGINEER, JOB_NAME_RESEARCHDIRECTOR, JOB_NAME_CAPTAIN, JOB_NAME_CLOWN)
 	attached_antag_datum = /datum/antagonist/special/undercover
 
 ////////////////////////////////
@@ -128,4 +128,4 @@
 	var/obj/machinery/power/supermatter_crystal/S = target_sm.resolve()
 	if(!S)
 		return ..()
-	return (S.get_integrity() > target_amount) || ..()
+	return (S.get_integrity_percent() > target_amount) || ..()

@@ -11,7 +11,6 @@
 	exotic_blood = /datum/reagent/toxin/slimejelly
 	damage_overlay_type = ""
 	var/datum/action/innate/regenerate_limbs/regenerate_limbs
-	liked_food = MEAT
 	coldmod = 6   // = 3x cold damage
 	heatmod = 0.5 // = 1/4x heat damage
 	burnmod = 0.5 // = 1/2x generic burn damage
@@ -693,7 +692,7 @@
 		return
 
 	var/message = stripped_input(usr, "Message:", "Slime Telepathy")
-
+	message = H.treat_message_min(message)
 	if(!species || !(H in species.linked_mobs))
 		to_chat(H, "<span class='warning'>The link seems to have been severed...</span>")
 		Remove(H)
@@ -744,6 +743,7 @@
 
 	var/msg = stripped_input(usr, "Message:", "Telepathy")
 	if(msg)
+		msg = H.treat_message_min(msg)
 		log_directed_talk(H, M, msg, LOG_SAY, "slime telepathy")
 		to_chat(M, "<span class='notice'>You hear an alien voice in your head... </span><font color=#008CA2>[msg]</font>")
 		to_chat(H, "<span class='notice'>You telepathically said: \"[msg]\" to [M].</span>")

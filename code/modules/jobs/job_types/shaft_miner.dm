@@ -1,14 +1,13 @@
-/datum/job/mining
-	title = "Shaft Miner"
+/datum/job/shaft_miner
+	title = JOB_NAME_SHAFTMINER
 	flag = MINER
-	department_head = list("Head of Personnel")
+	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	department_flag = CIVILIAN
 	faction = "Station"
 	total_positions = 3
 	spawn_positions = 3
 	supervisors = "the quartermaster and the head of personnel"
 	selection_color = "#dcba97"
-	chat_color = "#CE957E"
 
 	outfit = /datum/outfit/job/miner
 
@@ -20,20 +19,20 @@
 	paycheck_department = ACCOUNT_CAR
 
 	display_order = JOB_DISPLAY_ORDER_SHAFT_MINER
-	departments = DEPARTMENT_CARGO
+	departments = DEPARTMENT_BITFLAG_CARGO
 	rpg_title = "Adventurer"
 
 	species_outfits = list(
-		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/mining
+		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/shaft_miner
 	)
 
 /datum/outfit/job/miner
-	name = "Shaft Miner"
-	jobtype = /datum/job/mining
+	name = JOB_NAME_SHAFTMINER
+	jobtype = /datum/job/shaft_miner
 
-	id = /obj/item/card/id/job/miner
-	belt = /obj/item/pda/shaftminer
-	ears = /obj/item/radio/headset/headset_cargo/mining
+	id = /obj/item/card/id/job/shaft_miner
+	belt = /obj/item/pda/shaft_miner
+	ears = /obj/item/radio/headset/headset_cargo/shaft_miner
 	shoes = /obj/item/clothing/shoes/workboots/mining
 	gloves = /obj/item/clothing/gloves/color/black
 	uniform = /obj/item/clothing/under/rank/cargo/miner/lavaland
@@ -43,7 +42,8 @@
 		/obj/item/flashlight/seclite=1,\
 		/obj/item/kitchen/knife/combat/survival=1,\
 		/obj/item/mining_voucher=1,\
-		/obj/item/stack/marker_beacon/ten=1)
+		/obj/item/stack/marker_beacon/ten=1,\
+		/obj/item/discovery_scanner=1)
 
 	backpack = /obj/item/storage/backpack/explorer
 	satchel = /obj/item/storage/backpack/satchel/explorer

@@ -1,4 +1,5 @@
 GLOBAL_LIST_EMPTY(station_turfs)
+GLOBAL_LIST_EMPTY(created_baseturf_lists)
 /turf
 	icon = 'icons/turf/floors.dmi'
 	level = 1
@@ -166,7 +167,7 @@ GLOBAL_LIST_EMPTY(station_turfs)
 		if(!user.has_gravity(src) || (user.movement_type & FLYING))
 			check_z_travel(user)
 			return
-		else
+		else if(allow_z_travel)
 			to_chat(user, "<span class='warning'>You can't float up and down when there is gravity!</span>")
 	. = ..()
 	if(SEND_SIGNAL(user, COMSIG_MOB_ATTACK_HAND_TURF, src) & COMPONENT_NO_ATTACK_HAND)
@@ -211,26 +212,23 @@ GLOBAL_LIST_EMPTY(station_turfs)
 		to_chat(user, "<span class='warning'>There is nothing in that direction!</span>")
 		return
 	//Check if we can travel in that direction
-	if((upwards && !target.allow_z_travel) || (!upwards && !allow_z_travel))
+	var/mob/living/L = user
+	var/jaunting = isliving(user) && L.incorporeal_move
+
+	if(!jaunting && ((upwards && !target.allow_z_travel) || (!upwards && !allow_z_travel)))
 		to_chat(user, "<span class='warning'>Something is blocking you!</span>")
 		return
 	user.visible_message("<span class='notice'>[user] begins floating [upwards ? "upwards" : "downwards"]!</span>", "<span class='notice'>You begin floating [upwards ? "upwards" : "downwards"].")
 	var/matrix/M = user.transform
 	//Animation is inverted due to immediately resetting user vars.
-	animate(user, 30, pixel_y = upwards ? -64 : 64, transform = matrix() * (upwards ? 0.7 : 1.3))
+	animate(user, 30, pixel_y = upwards ? 32 : -32, transform = matrix() * (upwards ? 1.3 : 0.7))
 	user.pixel_y = 0
 	user.transform = M
 	if(!do_after(user, 30, FALSE, get_turf(user)))
 		animate(user, 0, flags = ANIMATION_END_NOW)
 		return
-	if(isliving(user))
-		var/mob/living/L = user
-		if(L.incorporeal_move) // Allow most jaunting
-			user.client?.Process_Incorpmove(upwards ? UP : DOWN)
-			return
-	// You can push off of or land on the floor, but not go through it
-	if((upwards && !target.allow_z_travel) || (!upwards && !allow_z_travel))
-		to_chat(user, "<span class='warning'>Something is blocking you!</span>")
+	if(jaunting) // Allow most jaunting
+		user.client?.Process_Incorpmove(upwards ? UP : DOWN)
 		return
 	var/atom/movable/AM
 	if(user.pulling)
@@ -383,7 +381,6 @@ GLOBAL_LIST_EMPTY(station_turfs)
 
 // A proc in case it needs to be recreated or badmins want to change the baseturfs
 /turf/proc/assemble_baseturfs(turf/fake_baseturf_type)
-	var/static/list/created_baseturf_lists = list()
 	var/turf/current_target
 	if(fake_baseturf_type)
 		if(length(fake_baseturf_type)) // We were given a list, just apply it and move on
@@ -400,8 +397,8 @@ GLOBAL_LIST_EMPTY(station_turfs)
 			current_target = baseturfs
 
 	// If we've made the output before we don't need to regenerate it
-	if(created_baseturf_lists[current_target])
-		var/list/premade_baseturfs = created_baseturf_lists[current_target]
+	if(GLOB.created_baseturf_lists[current_target])
+		var/list/premade_baseturfs = GLOB.created_baseturf_lists[current_target]
 		if(length(premade_baseturfs))
 			baseturfs = premade_baseturfs.Copy()
 		else
@@ -412,7 +409,7 @@ GLOBAL_LIST_EMPTY(station_turfs)
 	//Most things only have 1 baseturf so this loop won't run in most cases
 	if(current_target == next_target)
 		baseturfs = current_target
-		created_baseturf_lists[current_target] = current_target
+		GLOB.created_baseturf_lists[current_target] = current_target
 		return current_target
 	var/list/new_baseturfs = list(current_target)
 	for(var/i=0;current_target != next_target;i++)
@@ -427,7 +424,7 @@ GLOBAL_LIST_EMPTY(station_turfs)
 		next_target = initial(current_target.baseturfs)
 
 	baseturfs = new_baseturfs
-	created_baseturf_lists[new_baseturfs[new_baseturfs.len]] = new_baseturfs.Copy()
+	GLOB.created_baseturf_lists[new_baseturfs[new_baseturfs.len]] = new_baseturfs.Copy()
 	return new_baseturfs
 
 /turf/proc/levelupdate()

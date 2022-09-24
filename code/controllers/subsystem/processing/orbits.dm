@@ -30,6 +30,10 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 	//value = orbital shuttle object
 	var/list/assoc_shuttles = list()
 
+	//key = z-level as a string
+	//value = orbital object for that z-level
+	var/list/assoc_z_levels = list()
+
 	//Key = port_id
 	//value = world time of next launch
 	var/list/interdicted_shuttles = list()
@@ -152,7 +156,7 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 		/datum/orbital_objective/vip_recovery = 1
 	)
 	if(!length(possible_objectives))
-		priority_announce("Priority station objective recieved - Details transmitted to all available objective consoles. \
+		priority_announce("Priority station objective received - Details transmitted to all available objective consoles. \
 			[GLOB.station_name] will have funds distributed upon objective completion.", "Central Command Report", SSstation.announcer.get_rand_report_sound())
 	var/chosen = pickweight(valid_objectives)
 	if(!chosen)

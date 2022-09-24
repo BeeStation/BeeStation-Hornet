@@ -326,7 +326,6 @@
 			client.screen -= I
 		I.layer = initial(I.layer)
 		I.plane = initial(I.plane)
-		I.appearance_flags &= ~NO_CLIENT_COLOR
 		if(!no_move && !(I.item_flags & DROPDEL))	//item may be moved/qdel'd immedietely, don't bother moving it
 			if (isnull(newloc))
 				I.moveToNullspace()
@@ -350,6 +349,10 @@
 		items += wear_mask
 	if(wear_neck)
 		items += wear_neck
+	if(handcuffed)
+		items += handcuffed
+	if(legcuffed)
+		items += legcuffed
 	return items
 
 /mob/living/carbon/human/get_equipped_items(include_pockets = FALSE)

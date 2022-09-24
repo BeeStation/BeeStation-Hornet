@@ -47,7 +47,7 @@
 /area/template_noop)
 "s" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/structure/chair/sofa/right,
+/obj/structure/chair/fancy/sofa/old/right,
 /turf/open/floor/carpet/red,
 /area/template_noop)
 "u" = (
@@ -84,11 +84,11 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 10
 	},
-/obj/structure/chair/sofa/right,
+/obj/structure/chair/fancy/sofa/old/right,
 /turf/open/floor/carpet/red,
 /area/template_noop)
 "C" = (
-/obj/structure/chair/sofa/left,
+/obj/structure/chair/fancy/sofa/old/left,
 /turf/open/floor/carpet/red,
 /area/template_noop)
 "D" = (

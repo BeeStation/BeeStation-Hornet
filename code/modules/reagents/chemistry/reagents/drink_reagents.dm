@@ -56,7 +56,7 @@
 	name = "Carrot Juice"
 	description = "It is just like a carrot but without crunching."
 	color = "#973800" // rgb: 151, 56, 0
-	chem_flags = NONE
+	chem_flags = CHEMICAL_GOAL_BARTENDER_SERVING
 	taste_description = "carrots"
 	glass_icon_state = "carrotjuice"
 	glass_name = "glass of  carrot juice"
@@ -95,7 +95,7 @@
 	name = "Poison Berry Juice"
 	description = "A tasty juice blended from various kinds of very deadly and toxic berries."
 	color = "#863353" // rgb: 134, 51, 83
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN
+	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_GOAL_BARTENDER_SERVING
 	taste_description = "berries"
 	glass_icon_state = "poisonberryjuice"
 	glass_name = "glass of berry juice"
@@ -137,7 +137,7 @@
 	glass_desc = "The raw essence of a banana. HONK."
 
 /datum/reagent/consumable/banana/on_mob_life(mob/living/carbon/M)
-	if((ishuman(M) && M.job == "Clown") || ismonkey(M))
+	if((ishuman(M) && M.job == JOB_NAME_CLOWN) || ismonkey(M))
 		M.heal_bodypart_damage(1,1, 0)
 		. = 1
 	..()
@@ -154,7 +154,7 @@
 
 
 /datum/reagent/consumable/nothing/on_mob_life(mob/living/carbon/M)
-	if(ishuman(M) && M.job == "Mime")
+	if(ishuman(M) && M.job == JOB_NAME_MIME)
 		M.silent = max(M.silent, MIMEDRINK_SILENCE_DURATION)
 		M.heal_bodypart_damage(1,1, 0)
 		. = 1
@@ -447,7 +447,7 @@
 
 /datum/reagent/consumable/nuka_cola/on_mob_metabolize(mob/living/L)
 	..()
-	L.add_movespeed_modifier(type, update=TRUE, priority=100, multiplicative_slowdown=-0.50, blacklisted_movetypes=(FLYING|FLOATING))
+	L.add_movespeed_modifier(type, update=TRUE, priority=100, multiplicative_slowdown=-0.25, blacklisted_movetypes=(FLYING|FLOATING))
 
 /datum/reagent/consumable/nuka_cola/on_mob_end_metabolize(mob/living/L)
 	L.remove_movespeed_modifier(type)
@@ -636,7 +636,7 @@
 /datum/reagent/consumable/monkey_energy/on_mob_metabolize(mob/living/L)
 	..()
 	if(ismonkey(L))
-		L.add_movespeed_modifier(type, update=TRUE, priority=100, multiplicative_slowdown=-0.75, blacklisted_movetypes=(FLYING|FLOATING))
+		L.add_movespeed_modifier(type, update=TRUE, priority=100, multiplicative_slowdown=-0.25, blacklisted_movetypes=(FLYING|FLOATING))
 
 /datum/reagent/consumable/monkey_energy/on_mob_end_metabolize(mob/living/L)
 	L.remove_movespeed_modifier(type)
@@ -718,7 +718,7 @@
 	M.adjustToxLoss(-0.5, 0)
 	M.adjustOxyLoss(-0.5, 0)
 	if(M.nutrition && (M.nutrition - 2 > 0))
-		if(M.mind?.assigned_role != "Medical Doctor") //Drains the nutrition of the holder. Not medical doctors though, since it's the Doctor's Delight!
+		if(M.mind && !HAS_TRAIT(M.mind, TRAIT_MEDICAL_METABOLISM)) //Drains the nutrition of the holder. Not medical staff though, since it's the Doctor's Delight!
 			M.adjust_nutrition(-2)
 	..()
 	. = 1
@@ -876,7 +876,7 @@
 	name = "Peach Juice"
 	description = "Just peachy."
 	color = "#E78108"
-	chem_flags = NONE
+	chem_flags = CHEMICAL_RNG_BOTANY
 	taste_description = "peaches"
 	glass_name = "glass of peach juice"
 
@@ -893,7 +893,7 @@
 	name = "Cream Soda"
 	description = "A classic space-American vanilla flavored soft drink."
 	color = "#dcb137"
-	chem_flags = CHEMICAL_RNG_BOTANY
+	chem_flags = CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	quality = DRINK_VERYGOOD
 	taste_description = "fizzy vanilla"
 	glass_icon_state = "cream_soda"
@@ -908,7 +908,7 @@
 	name = "Red Queen"
 	description = "DRINK ME."
 	color = "#e6ddc3"
-	chem_flags = CHEMICAL_RNG_BOTANY
+	chem_flags = CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	quality = DRINK_GOOD
 	taste_description = "wonder"
 	glass_icon_state = "red_queen"
@@ -938,7 +938,7 @@
 /datum/reagent/consumable/bungojuice
 	name = "Bungo Juice"
 	color = "#F9E43D"
-	chem_flags = NONE
+	chem_flags = CHEMICAL_GOAL_BARTENDER_SERVING
 	description = "Exotic! You feel like you are on vacation already."
 	taste_description = "succulent bungo"
 	glass_icon_state = "glass_yellow"
