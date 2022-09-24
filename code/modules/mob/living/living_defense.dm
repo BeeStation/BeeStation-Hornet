@@ -428,6 +428,7 @@
 /mob/living/proc/sethellbound()
 	if(mind)
 		mind.hellbound = TRUE
+		med_hud_set_status()
 		return TRUE
 	return FALSE
 
