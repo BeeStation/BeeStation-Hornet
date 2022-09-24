@@ -223,12 +223,12 @@
 	disk_flags = ~(DISK_REMOTE_AIRLOCK)
 	spam_delay = 2
 
-/obj/item/computer_hardware/hard_drive/role/vip //the only purpose of this cartridge is to allow the VIP to be annoying
-	name = "\improper TWIT cartridge"
+/obj/item/computer_hardware/hard_drive/role/vip //the only purpose of this disk is to allow the VIP to be annoying
+	name = "\improper TWIT disk"
 	icon_state = "cart-twit"
 	spam_delay = 1.5
 
 /obj/item/computer_hardware/hard_drive/role/unlicensed //HoP can give you this
-	name = "\improper FACEBUCKS cartridge"
+	name = "\improper FACEBUCKS disk"
 	icon_state = "cart-signal" // might need a new sprite
 	spam_delay = 5

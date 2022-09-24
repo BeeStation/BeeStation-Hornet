@@ -8,7 +8,7 @@
 
 /obj/item/computer_hardware/hard_drive/role/virus/clown
 	name = "\improper H.O.N.K. disk"
-	desc = "A data cartridge for portable microcomputers. It smells vaguely of bananas."
+	desc = "A data disk for portable microcomputers. It smells vaguely of bananas."
 	icon_state = "cart-clown"
 
 /obj/item/computer_hardware/hard_drive/role/virus/clown/send_virus(obj/item/modular_computer/tablet/target, mob/living/user)
@@ -60,7 +60,7 @@
 	if(disk)
 		difficulty += BitCount(disk.disk_flags & (DISK_MED | DISK_SEC | DISK_POWER | DISK_MANIFEST))
 		if(disk.disk_flags & DISK_MANIFEST)
-			difficulty++ //if cartridge has manifest access it has extra snowflake difficulty
+			difficulty++ //if disk has manifest access it has extra snowflake difficulty
 		else
 			difficulty += 2
 	var/datum/component/uplink/hidden_uplink = target.GetComponent(/datum/component/uplink)

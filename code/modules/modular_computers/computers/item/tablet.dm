@@ -116,7 +116,7 @@
 		return
 	remove_pen(user)
 
-// Eject Cartridge
+// Eject Job Disk
 /obj/item/modular_computer/tablet/CtrlShiftClick(mob/user)
 	..()
 	// We want to allow the user to drag the tablet still

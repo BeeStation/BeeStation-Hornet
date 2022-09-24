@@ -602,8 +602,8 @@
 	new /obj/item/card/id/prisoner/seven(src)
 
 /obj/item/storage/box/seccarts
-	name = "box of PDA security cartridges"
-	desc = "A box full of PDA cartridges used by Security."
+	name = "box of PDA security job disks"
+	desc = "A box full of PDA job disks used by Security."
 	icon_state = "secbox"
 	illustration = "pda"
 
@@ -1360,7 +1360,7 @@
 /obj/item/storage/box/radiokey/clown  // honk
 	name = "\improper H.O.N.K. CO fake encryption keys"
 	desc = "Totally prank your friends with these realistic encryption keys!"
-	
+
 /obj/item/storage/box/radiokey/clown/PopulateContents()
 	new /obj/item/encryptionkey/heads/rd/fake(src)
 	new /obj/item/encryptionkey/heads/hos/fake(src)

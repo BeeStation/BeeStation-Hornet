@@ -1126,8 +1126,8 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	purchasable_from = UPLINK_CLOWN_OPS
 
 /datum/uplink_item/explosives/detomatix
-	name = "Detomatix PDA Cartridge"
-	desc = "When inserted into a personal digital assistant, this cartridge gives you four opportunities to \
+	name = "Detomatix PDA Disk"
+	desc = "When inserted into a personal digital assistant, this disk gives you four opportunities to \
 			detonate PDAs of crewmembers who have their message feature enabled. \
 			The concussive effect from the explosion will knock the recipient out for a short period, and deafen them for longer."
 	item = /obj/item/computer_hardware/hard_drive/role/virus/syndicate
@@ -1615,8 +1615,8 @@ GLOBAL_LIST_INIT(uplink_items, subtypesof(/datum/uplink_item))
 	cost = 8
 
 /datum/uplink_item/device_tools/frame
-	name = "F.R.A.M.E. PDA Cartridge"
-	desc = "When inserted into a personal digital assistant, this cartridge gives you five PDA viruses which \
+	name = "F.R.A.M.E. PDA Disk"
+	desc = "When inserted into a personal digital assistant, this disk gives you five PDA viruses which \
 			when used cause the targeted PDA to become a new uplink with zero TCs, and immediately become unlocked. \
 			You will receive the unlock code upon activating the virus, and the new uplink may be charged with \
 			telecrystals normally."
