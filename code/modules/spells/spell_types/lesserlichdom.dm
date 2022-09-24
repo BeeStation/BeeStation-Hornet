@@ -63,8 +63,8 @@
 		M.mind.hasSoul = FALSE
 		// No revival other than lichdom revival
 		if(isliving(M))
-			var/mob/living/mob = M
-			mob.sethellbound()
+			var/mob/living/L = M
+			L.sethellbound()
 		else
 			M.mind.hellbound = TRUE
 		M.set_species(/datum/species/skeleton)
