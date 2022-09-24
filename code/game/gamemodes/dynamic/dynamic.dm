@@ -175,11 +175,11 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 	/// The chance for latejoins to roll when ready
 	var/latejoin_roll_chance = 50
 
-	/// The maximum percentage of (living antags / living players) can be before midround traitors, heretics, and all latejoins stop injecting while under "max_traitor_injection_max_pop" population.
-	var/max_traitor_injection_antag_percent = 15
+	/// The maximum percentage of (living antags / living players) can be before midround traitors, heretics, and all latejoins stop injecting while under "traitor_percentage_population_threshold" population.
+	var/lowpop_max_traitor_percentage = 15
 
 	/// The population size where dynamic stops caring about antag percents during injections. This is usually because on higher pop it isn't forced to spawn a bunch of sleeper agents.
-	var/max_traitor_injection_max_pop = 30
+	var/traitor_percentage_population_threshold = 30
 
 	// == EVERYTHING BELOW THIS POINT SHOULD NOT BE CONFIGURED ==
 
@@ -682,7 +682,7 @@ GLOBAL_VAR_INIT(dynamic_forced_threat_level, -1)
 	var/living_players_count = length(current_players[CURRENT_LIVING_PLAYERS])
 	var/living_antags_count = length(current_players[CURRENT_LIVING_ANTAGS])
 	var/antag_percent = living_players_count ? (living_antags_count / living_players_count) * 100 : 0
-	if(living_players_count && living_players_count < max_traitor_injection_max_pop && antag_percent > max_traitor_injection_antag_percent)
+	if(living_players_count && living_players_count < traitor_percentage_population_threshold && antag_percent > lowpop_max_traitor_percentage)
 		log_game("DYNAMIC: FAIL: [src] has too many living antags for the population ([living_antags_count] antags of [living_players_count] players - [antag_percent]%)")
 		return TRUE
 	log_game("DYNAMIC: [src] passed lowpop_lowimpact requirement: ([living_antags_count] antags of [living_players_count] players - [antag_percent]%)")
