@@ -904,7 +904,7 @@ GLOBAL_LIST_INIT(shuttle_turf_blacklist, typecacheof(list(
 		var/area/A = get_area(M)
 		if(!A)
 			continue
-		if(A in shuttle_areas)
+		if(shuttle_areas[A])
 			SSparallax.update_client_parallax(M.client, TRUE)
 
 /obj/docking_port/mobile/proc/check_transit_zone()
