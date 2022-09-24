@@ -38,6 +38,7 @@
 		register_parent(A.loc)
 
 /datum/component/moved_relay/proc/parent_moved(atom/source, atom/oldLoc)
+	SIGNAL_HANDLER
 	//If old location wasn't a turf, then it was tracked by us
 	//Stop tracking old atoms
 	if(oldLoc && !isturf(oldLoc))
@@ -49,6 +50,7 @@
 		register_parent(source.loc)
 
 /datum/component/moved_relay/proc/parent_deleted(datum/source, force)
+	SIGNAL_HANDLER
 	unregister_parent(source)
 
 /datum/component/moved_relay/proc/unregister_parent(atom/A)
