@@ -825,7 +825,6 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				return
 			if(SSeconomy.is_nonstation_account(B))
 				CRASH("[ckey(src)] tried to adjust [B.account_id] payment. It must be they're hacking the game.")
-				return
 			var/new_pay = FLOOR(input(usr, "Input the new paycheck amount.", "Set new paycheck amount.", B.payment_per_department[target_paycheck]) as num|null, 1)
 			if(isnull(new_pay))
 				updateUsrDialog()
@@ -848,7 +847,6 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				return
 			if(SSeconomy.is_nonstation_account(B))
 				CRASH("[ckey(src)] tried to adjust [inserted_modify_id.registered_name]'s [B.account_id] pay bonus. It must be they're hacking the game.")
-				return
 			var/new_bonus = FLOOR(input(usr, "Input the bonus amount. Negative values will dock paychecks.", "Set paycheck bonus", B.bonus_per_department[target_paycheck]) as num|null, 1)
 			if(isnull(new_bonus))
 				updateUsrDialog()
@@ -866,7 +864,6 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				return
 			if(SSeconomy.is_nonstation_account(B) && !(B.account_id == ACCOUNT_COM_ID))
 				CRASH("[ckey(src)] tried to adjust [inserted_modify_id.registered_name]'s vendor free status of [B.account_id]. It must be they're hacking the game.")
-				return
 
 			if(B.active_departments & SSeconomy.account_bitflags[paycheck_t])
 				B.active_departments &= ~SSeconomy.account_bitflags[paycheck_t] // turn off
@@ -884,7 +881,6 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				return
 			if(target_bitflag & SSeconomy.account_bitflags[ACCOUNT_VIP_ID])
 				CRASH("[ckey(src)] tried to adjust [inserted_modify_id.registered_name]'s [ACCOUNT_VIP_ID] department status. It must be they're hacking the game.")
-				return
 
 			if(R.fields["active_dept"] & target_bitflag)
 				R.fields["active_dept"] &= ~target_bitflag // turn off
