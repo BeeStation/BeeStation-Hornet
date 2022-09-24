@@ -59,10 +59,10 @@ SUBSYSTEM_DEF(parallax)
 			continue
 		C?.parallax_update_queued = FALSE
 		//Do the parallax update (Move it to the correct location)
-		if ((throttle_ghosts && isobserver(C.mob)) || (throttle_all))
-			C?.mob?.hud_used?.freeze_parallax()
+		if ((throttle_ghosts && isobserver(C?.mob)) || (throttle_all))
+			C?.mob.hud_used?.freeze_parallax()
 		else
-			C?.mob?.hud_used?.update_parallax()
+			C?.mob.hud_used?.update_parallax()
 		//Tick check to prevent overrunning
 		if(MC_TICK_CHECK)
 			return
@@ -70,15 +70,18 @@ SUBSYSTEM_DEF(parallax)
 	currentrun.len = 0
 
 /datum/controller/subsystem/parallax/proc/on_mob_login(datum/source, mob/new_login)
+	SIGNAL_HANDLER
 	//Register the required signals
 	RegisterSignal(new_login, COMSIG_PARENT_MOVED_RELAY, .proc/on_mob_moved)
 	RegisterSignal(new_login, COMSIG_MOB_LOGOUT, .proc/on_mob_logout)
 
 /datum/controller/subsystem/parallax/proc/on_mob_logout(mob/source)
+	SIGNAL_HANDLER
 	UnregisterSignal(source, COMSIG_PARENT_MOVED_RELAY)
 	UnregisterSignal(source, COMSIG_MOB_LOGOUT)
 
 /datum/controller/subsystem/parallax/proc/on_mob_moved(mob/moving_mob, atom/parent, force)
+	SIGNAL_HANDLER
 	update_client_parallax(moving_mob.client)
 
 //We need a client var for optimisation purposes
