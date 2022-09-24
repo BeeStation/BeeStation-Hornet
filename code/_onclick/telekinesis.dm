@@ -140,6 +140,10 @@
 		to_chat(user, "<span class='notice'>This object is too heavy to move with something buckled to it!</span>")
 		return
 
+	if(locate(/mob/living) in target.GetAllContents())
+		to_chat(user, "<span class='notice'>This object is too heavy to move with something inside of it!</span>")
+		return
+
 	if(!isturf(target) && isitem(focus) && target.Adjacent(focus))
 		apply_focus_overlay()
 		var/obj/item/I = focus
