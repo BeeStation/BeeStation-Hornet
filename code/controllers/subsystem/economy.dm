@@ -78,6 +78,9 @@ SUBSYSTEM_DEF(economy)
 /datum/controller/subsystem/economy/proc/get_bank_account_by_id(target_id)
 	if(!length(bank_accounts))
 		return FALSE
+	if(istype(target_id, /datum/bank_account))
+		stack_trace("proc took account type itself, but it is supposed to take account id number.")
+		return target_id
 	target_id = text2num(target_id)
 	for(var/datum/bank_account/target_account in bank_accounts)
 		if(target_account.account_id == target_id)

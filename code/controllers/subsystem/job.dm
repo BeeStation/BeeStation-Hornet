@@ -91,14 +91,32 @@ SUBSYSTEM_DEF(job)
 
 
 /datum/controller/subsystem/job/proc/GetJob(rank)
+	if(!rank)
+		CRASH("proc has taken no job name")
 	if(!occupations.len)
 		SetupOccupations()
+	if(!name_occupations[rank])
+		CRASH("job name [rank] is not valid")
 	return name_occupations[rank]
 
 /datum/controller/subsystem/job/proc/GetJobType(jobtype)
+	if(!jobtype)
+		CRASH("proc has taken no job type")
 	if(!occupations.len)
 		SetupOccupations()
+	if(!type_occupations[jobtype])
+		CRASH("job type [jobtype] is not valid")
 	return type_occupations[jobtype]
+
+/datum/controller/subsystem/job/proc/GetJobActiveDepartment(rank)
+	if(!rank)
+		CRASH("proc has taken no job name")
+	if(!occupations.len)
+		SetupOccupations()
+	if(!name_occupations[rank])
+		CRASH("job name [rank] is not valid")
+	var/datum/job/J = name_occupations[rank]
+	return J.departments
 
 /datum/controller/subsystem/job/proc/AssignRole(mob/dead/new_player/player, rank, latejoin = FALSE)
 	JobDebug("Running AR, Player: [player], Rank: [rank], LJ: [latejoin]")

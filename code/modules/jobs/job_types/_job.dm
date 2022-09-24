@@ -75,7 +75,7 @@
 
 	var/gimmick = FALSE //least hacky way i could think of for this
 
-	///Bitfield of departments this job belongs wit
+	///Bitfield of departments this job belongs with
 	var/departments = NONE
 	///Is this job affected by weird spawns like the ones from station traits
 	var/random_spawns_possible = TRUE
