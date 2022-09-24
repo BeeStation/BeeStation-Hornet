@@ -28,49 +28,42 @@
 	to_chat(user, "<span class='notice'>You disable the magic lock with the [item].</span>")
 	return TRUE
 
+
+/obj/effect/spawner/mail/maintloot
+	name = "\improper Random maintenance loot spawner"
+/obj/effect/spawner/mail/maintloot/Initialize()
+	var/static/list/mail_maintloot = pick(GLOB.maintenance_loot)
+	new mail_maintloot(loc)
+	return INITIALIZE_HINT_QDEL
+
 /obj/structure/closet/crate/necropolis/tendril
 	desc = "It's watching you suspiciously."
 
 /obj/structure/closet/crate/necropolis/tendril/try_spawn_loot(datum/source, obj/item/item, mob/user, params) ///proc that handles key checking and generating loot - MAY REPLACE WITH pickweight(loot)
+	var/static/list/necropolis_goodies = list(	//weights to be defined later on, for now they're all the same
+		/obj/item/clothing/glasses/godeye									= 5,
+		/obj/item/pickaxe/diamond											= 5,
+		/obj/item/rod_of_asclepius											= 5,
+		/obj/item/organ/heart/cursed/wizard						 			= 5,
+		/obj/item/ship_in_a_bottle											= 5,
+		/obj/item/jacobs_ladder												= 5,
+		/obj/item/warp_cube/red												= 5,
+		/obj/item/wisp_lantern												= 5,
+		/obj/item/immortality_talisman										= 5,
+		/obj/item/gun/magic/hook											= 5,
+		/obj/item/book_of_babel 											= 5,
+		/obj/item/clothing/neck/necklace/memento_mori						= 5,
+		/obj/item/reagent_containers/glass/waterbottle/relic				= 5,
+		/obj/item/reagent_containers/glass/bottle/necropolis_seed			= 5,
+		/obj/item/borg/upgrade/modkit/lifesteal								= 5,
+		/obj/item/shared_storage/red										= 5,
+		/obj/item/staff/storm												= 5
+	)
+
 	if(..())
-		var/loot = rand(1,18)
-		switch(loot)
-			if(1)
-				new /obj/item/clothing/glasses/godeye(src)
-			if(2)
-				new /obj/item/reagent_containers/glass/bottle/potion/flight(src)
-			if(3)
-				new /obj/item/pickaxe/diamond(src) //Ashwalkers exist. This is actually a great drop for them
-			if(4)
-				new /obj/item/rod_of_asclepius(src)
-			if(5)
-				new /obj/item/organ/heart/cursed/wizard(src)
-			if(6)
-				new /obj/item/ship_in_a_bottle(src)
-			if(7)
-				new /obj/item/jacobs_ladder(src)
-			if(8)
-				new /obj/item/warp_cube/red(src)
-			if(9)
-				new /obj/item/wisp_lantern(src)
-			if(10)
-				new /obj/item/immortality_talisman(src)
-			if(11)
-				new /obj/item/gun/magic/hook(src)
-			if(12)
-				new /obj/item/book_of_babel(src)
-			if(13)
-				new /obj/item/clothing/neck/necklace/memento_mori(src)
-			if(14)
-				new /obj/item/reagent_containers/glass/waterbottle/relic(src)
-			if(15)
-				new /obj/item/reagent_containers/glass/bottle/necropolis_seed(src)
-			if(16)
-				new /obj/item/borg/upgrade/modkit/lifesteal(src)
-			if(17)
-				new /obj/item/shared_storage/red(src)
-			if(18)
-				new /obj/item/staff/storm(src)
+		var/necropolis_loot = pickweight(necropolis_goodies.Copy())
+		new necropolis_loot(src)
+	return TRUE
 
 /obj/structure/closet/crate/necropolis/can_open(mob/living/user, force = FALSE)
 	if(!spawned_loot)
