@@ -106,7 +106,7 @@
 	idle_power_usage = 0
 	circuit = /obj/item/circuitboard/machine/shuttle/engine/plasma
 	thrust = 120
-	fuel_use = 0.24
+	fuel_use = 0.12
 	cooldown = 45
 	var/datum/weakref/attached_heater
 	var/cached_efficiency = -1
