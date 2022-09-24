@@ -117,12 +117,14 @@
 	flags = BLUESPACE_TRAIT
 	///List of all affected targets, used for early qdel
 	var/list/victims = list()
+	///Ref to timer - if corgi is deleted early remove this reference to the puppy
+	var/timer
 
 /datum/xenoartifact_trait/major/corginator/activate(obj/item/xenoartifact/X, mob/living/target)
 	X.say(pick("Woof!", "Bark!", "Yap!"))
 	if(istype(target, /mob/living) && !(istype(target, /mob/living/simple_animal/pet/dog/corgi)))
 		var/mob/living/simple_animal/pet/dog/corgi/new_corgi = transform(target)
-		addtimer(CALLBACK(src, .proc/transform_back, new_corgi), (X.charge*0.6) SECONDS, TIMER_STOPPABLE)
+		timer = addtimer(CALLBACK(src, .proc/transform_back, new_corgi), (X.charge*0.6) SECONDS, TIMER_STOPPABLE)
 		victims |= new_corgi
 		X.cooldownmod = (X.charge*0.8) SECONDS
 
@@ -146,6 +148,10 @@
 	return new_corgi
 
 /datum/xenoartifact_trait/major/corginator/proc/transform_back(mob/living/simple_animal/pet/dog/corgi/new_corgi)
+	//Kill timer
+	deltimer(timer)
+	timer = null
+	
 	var/obj/shapeshift_holder/H = locate() in new_corgi
 	if(!H)
 		return
