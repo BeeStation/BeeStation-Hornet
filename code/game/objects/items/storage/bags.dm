@@ -118,10 +118,17 @@
 	desc = "The power of a dish drive, shoved into a trash bag."
 	var/fire_every = 2 MINUTES  /// how often the bag will try to fire trash
 	var/auto_empty_full = TRUE  /// if set, will automatically attempt to fire when reaching capacity
+	COOLDOWN_DECLARE(time_to_next_beam)
 
 /obj/item/storage/bag/trash/beam/Initialize(mapload)
 	. = ..()
 	RegisterSignal(src, COMSIG_TRY_STORAGE_INSERT, .proc/try_empty_full)
+	COOLDOWN_START(src, time_to_next_beam, fire_every)
+	START_PROCESSING(src)
+
+/obj/item/storage/bag/trash/beam/process(delta_time)
+	if(COOLDOWN_FINISHED(src, time_to_next_beam))
+		dump_it()
 
 /obj/item/storage/bag/trash/beam/proc/try_empty_full(datum/source, obj/item/I, mob/M)
 	SIGNAL_HANDLER
@@ -130,11 +137,37 @@
 		return
 	if(!SEND_SIGNAL(src, COMSIG_TRY_STORAGE_CAN_INSERT, I, M))  // if the bag is (close to) full
 		if(!dump_it())
-			to_chat(M, "<span class='warning'>The [src] cannot locate a nearby trashcan, and is\
+			to_chat(M, "<span class='warning'>\The [src] cannot locate a nearby trashcan, and is\
 			past the maximum storage amount. Please empty manually for continued use.</span>")
 
-/obj/item/storage/bag/trash/beam/proc/dump_it(manual)  // dumpeet
-	return  // placeholder
+/obj/item/storage/bag/trash/beam/AltClick(mob/user)
+	. = ..()
+	if(!dump_it())
+		to_chat(user, "<span class='warning'>\The [src] cannot beam items. Please try again later.")
+		playsound(src, 'sound/machines/buzz-sigh.ogg', 50, TRUE)
+	COOLDOWN_START(time_to_next_beam, fire_every)  // overrides the default cooldown
+
+/// the meat of the bag, returns false if it couldnt run properly
+/obj/item/storage/bag/trash/beam/proc/dump_it()  // dumpeet
+	if(!contents.len)
+		return
+	var/obj/machinery/disposal/bin/bin = locate() in view(7, src)
+	if(!bin)
+		return
+	var/disposed = 0
+	for(var/obj/item/I in contents)
+		if(is_type_in_list(I, disposable_items))
+			I.forceMove(bin)
+			disposed++
+	if (disposed)
+		visible_message("<span class='notice'>[src] [pick("whooshes", "bwooms", "fwooms", "pshooms")] and beams [disposed] stored item\s into the nearby [bin.name].</span>")
+		playsound(src, 'sound/items/pshoom.ogg', 50, TRUE)
+		playsound(bin, 'sound/items/pshoom.ogg', 50, TRUE)
+		Beam(bin, icon_state = "rped_upgrade", time = 5)
+		bin.update_icon()
+		COOLDOWN_START(time_to_next_beam, fire_every)
+		return TRUE
+	COOLDOWN_START(time_to_next_beam, fire_every / 2)  // makes it fire more often on failing
 
 // -----------------------------
 //        Mining Satchel
