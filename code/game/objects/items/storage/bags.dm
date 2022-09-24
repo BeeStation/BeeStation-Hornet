@@ -116,6 +116,7 @@
 /obj/item/storage/bag/trash/beam
 	name = "Trash Drive"
 	desc = "The power of a dish drive, shoved into a trash bag."
+	w_class = WEIGHT_CLASS_NORMAL  // its not a real trashbag
 	var/fire_every = 2 MINUTES  /// how often the bag will try to fire trash
 	COOLDOWN_DECLARE(time_to_next_beam)
 
