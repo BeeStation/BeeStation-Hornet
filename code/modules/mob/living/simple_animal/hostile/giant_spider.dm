@@ -275,8 +275,6 @@
 	icon_state = "midwife"
 	icon_living = "midwife"
 	icon_dead = "midwife_dead"
-	maxHealth = 40 // Quite squishy compared to other spiders
-	health = 40
 	web_speed = 0.15 // Easily able to web
 	// Allows the spider to use spider comms
 	var/datum/action/innate/spider/comm/letmetalkpls
@@ -310,8 +308,8 @@
 	icon_state = "viper"
 	icon_living = "viper"
 	icon_dead = "viper_dead"
-	maxHealth = 40
-	health = 40
+	maxHealth = 50
+	health = 50
 	melee_damage = 1
 	poison_per_bite = 12
 	move_to_delay = 4
