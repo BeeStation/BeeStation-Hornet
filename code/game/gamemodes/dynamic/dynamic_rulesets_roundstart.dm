@@ -665,7 +665,7 @@
 
 /datum/dynamic_ruleset/roundstart/incursion/execute()
 	incursion_team = new
-	incursion_team.forge_team_objectives()
+	incursion_team.forge_team_objectives(restricted_roles)
 	for(var/datum/mind/M in assigned)
 		var/datum/antagonist/incursion/new_incursionist = new antag_datum()
 		new_incursionist.team = incursion_team

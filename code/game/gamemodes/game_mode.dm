@@ -545,7 +545,7 @@
 							//			Less if there are not enough valid players in the game entirely to make recommended_enemies.
 
 
-/datum/game_mode/proc/get_alive_non_antagonsist_players_for_role(role)
+/datum/game_mode/proc/get_alive_non_antagonsist_players_for_role(role, list/restricted_roles)
 	var/list/candidates = list()
 
 	for(var/mob/living/carbon/human/player in GLOB.player_list)
@@ -555,9 +555,10 @@
 					if(age_check(player.client) && !player.mind.special_role) //Must be older than the minimum age
 						candidates += player.mind				// Get a list of all the people who want to be the antagonist for this round
 
-	if(restricted_jobs)
+	var/restricted_list = length(restricted_roles) ? restricted_roles : restricted_jobs
+	if(restricted_list)
 		for(var/datum/mind/player in candidates)
-			for(var/job in restricted_jobs)					// Remove people who want to be antagonist but have a job already that precludes it
+			for(var/job in restricted_list)					// Remove people who want to be antagonist but have a job already that precludes it
 				if(player.assigned_role == job)
 					candidates -= player
 
