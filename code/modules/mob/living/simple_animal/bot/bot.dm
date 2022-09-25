@@ -195,6 +195,8 @@
 	QDEL_NULL(Radio)
 	QDEL_NULL(access_card)
 	QDEL_NULL(bot_core)
+	UnregisterSignal(src, COMSIG_ATOM_EMAG_ACT)
+	UnregisterSignal(src, COMSIG_ATOM_EMAG_CHECK)
 	return ..()
 
 /mob/living/simple_animal/bot/bee_friendly()
