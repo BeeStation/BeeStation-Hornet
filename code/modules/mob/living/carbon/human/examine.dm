@@ -115,8 +115,10 @@
 			if(ishellbound())
 				. += "<span class='warning'>[t_His] soul seems to have been ripped out of [t_his] body. Revival is impossible.</span>"
 			. += ""
-			if(getorgan(/obj/item/organ/brain) && !key && !get_ghost(FALSE, TRUE))
+			if(soul_departed())
 				. += "<span class='deadsay'>[t_He] [t_is] limp and unresponsive; there are no signs of life and [t_his] soul has departed...</span>"
+			else if(!client && key)
+				. += "<span class='deadsay'>[t_He] [t_is] limp and unresponsive; there are no signs of life and [t_his] soul seems distant, it may return soon...</span>"
 			else
 				. += "<span class='deadsay'>[t_He] [t_is] limp and unresponsive; there are no signs of life...</span>"
 
@@ -385,3 +387,6 @@
 			dat += "[new_text]\n" //dat.Join("\n") doesn't work here, for some reason
 	if(dat.len)
 		return dat.Join()
+
+/mob/living/proc/soul_departed()
+	return getorgan(/obj/item/organ/brain) && !key && !get_ghost(FALSE, TRUE)
