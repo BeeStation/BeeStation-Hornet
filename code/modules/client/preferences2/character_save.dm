@@ -90,26 +90,26 @@
 	SAFE_READ_QUERY(3, real_name)
 	SAFE_READ_QUERY(4, be_random_name)
 	SAFE_READ_QUERY(5, be_random_body)
-	SAFE_READ_QUERY(5, gender)
-	SAFE_READ_QUERY(6, age)
-	SAFE_READ_QUERY(7, hair_color)
-	SAFE_READ_QUERY(8, gradient_color)
-	SAFE_READ_QUERY(9, facial_hair_color)
-	SAFE_READ_QUERY(10, eye_color)
-	SAFE_READ_QUERY(11, skin_tone)
-	SAFE_READ_QUERY(12, hair_style)
-	SAFE_READ_QUERY(13, gradient_style)
-	SAFE_READ_QUERY(14, facial_hair_style)
-	SAFE_READ_QUERY(15, underwear)
-	SAFE_READ_QUERY(16, underwear_color)
-	SAFE_READ_QUERY(17, undershirt)
-	SAFE_READ_QUERY(18, socks)
-	SAFE_READ_QUERY(19, backbag)
-	SAFE_READ_QUERY(20, jumpsuit_style)
-	SAFE_READ_QUERY(21, uplink_spawn_loc)
+	SAFE_READ_QUERY(6, gender)
+	SAFE_READ_QUERY(7, age)
+	SAFE_READ_QUERY(8, hair_color)
+	SAFE_READ_QUERY(9, gradient_color)
+	SAFE_READ_QUERY(10, facial_hair_color)
+	SAFE_READ_QUERY(11, eye_color)
+	SAFE_READ_QUERY(12, skin_tone)
+	SAFE_READ_QUERY(13, hair_style)
+	SAFE_READ_QUERY(14, gradient_style)
+	SAFE_READ_QUERY(15, facial_hair_style)
+	SAFE_READ_QUERY(16, underwear)
+	SAFE_READ_QUERY(17, underwear_color)
+	SAFE_READ_QUERY(18, undershirt)
+	SAFE_READ_QUERY(19, socks)
+	SAFE_READ_QUERY(20, backbag)
+	SAFE_READ_QUERY(21, jumpsuit_style)
+	SAFE_READ_QUERY(22, uplink_spawn_loc)
 
 	var/tmp_features
-	SAFE_READ_QUERY(22, tmp_features)
+	SAFE_READ_QUERY(23, tmp_features)
 	if(tmp_features)
 		features = json_decode(tmp_features)
 
@@ -119,29 +119,29 @@
 
 	//Custom names
 	var/tmp_names
-	SAFE_READ_QUERY(23, tmp_names)
+	SAFE_READ_QUERY(24, tmp_names)
 	custom_names = json_decode(tmp_names)
 
-	SAFE_READ_QUERY(24, helmet_style)
+	SAFE_READ_QUERY(25, helmet_style)
 
-	SAFE_READ_QUERY(25, preferred_ai_core_display)
-	SAFE_READ_QUERY(26, preferred_security_department)
+	SAFE_READ_QUERY(26, preferred_ai_core_display)
+	SAFE_READ_QUERY(27, preferred_security_department)
 
 	//Jobs
-	SAFE_READ_QUERY(27, joblessrole)
+	SAFE_READ_QUERY(28, joblessrole)
 	//Load prefs
 	var/job_tmp
-	SAFE_READ_QUERY(28, job_tmp)
+	SAFE_READ_QUERY(29, job_tmp)
 	job_preferences = json_decode(job_tmp)
 
 	//Quirks
 	var/quirks_tmp
-	SAFE_READ_QUERY(29, quirks_tmp)
+	SAFE_READ_QUERY(30, quirks_tmp)
 	all_quirks = json_decode(quirks_tmp)
 
 	// Gear
 	var/loadout_tmp
-	SAFE_READ_QUERY(30, loadout_tmp)
+	SAFE_READ_QUERY(31, loadout_tmp)
 	equipped_gear = json_decode(loadout_tmp)
 
 	//Sanitize. Please dont put query reads below this point. Please.

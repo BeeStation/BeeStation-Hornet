@@ -407,7 +407,7 @@ DROP TABLE IF EXISTS `SS13_preferences`;
 CREATE TABLE `SS13_preferences` (
 	`ckey` VARCHAR(64) NOT NULL COLLATE 'utf8mb4_general_ci',
 	`preference_tag` INT(11) NOT NULL,
-	`preference_value` MEDIUMTEXT NOT NULL COLLATE 'utf8mb4_general_ci',
+	`preference_value` MEDIUMTEXT NULL COLLATE 'utf8mb4_general_ci',
 	UNIQUE INDEX `prefbinding` (`ckey`, `preference_tag`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 

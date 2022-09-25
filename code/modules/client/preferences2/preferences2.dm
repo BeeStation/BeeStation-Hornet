@@ -35,6 +35,9 @@
 	. = FALSE
 	if(!SSdbcore.IsConnected())
 		// TODO - Loading of sane defaults
+		if (!length(key_bindings))
+			key_bindings = deepCopyList(GLOB.keybinding_list_by_key)
+
 		return
 
 	var/datum/DBQuery/read_player_data = SSdbcore.NewQuery(
@@ -62,8 +65,6 @@
 	READPREF_INT(parallax, PREFERENCE_TAG_PARALLAX)
 	READPREF_INT(pixel_size, PREFERENCE_TAG_PIXELSIZE)
 	READPREF_INT(tip_delay, PREFERENCE_TAG_TIP_DELAY)
-	READPREF_INT(pda_style, PREFERENCE_TAG_PDA_STYLE)
-	READPREF_INT(pda_color, PREFERENCE_TAG_PDA_COLOUR)
 
 	READPREF_RAW(asaycolor, PREFERENCE_TAG_ASAY_COLOUR)
 	READPREF_RAW(ooccolor, PREFERENCE_TAG_OOC_COLOUR)
@@ -76,6 +77,8 @@
 	READPREF_RAW(ghost_orbit, PREFERENCE_TAG_GHOST_ORBIT)
 	READPREF_RAW(ghost_accs, PREFERENCE_TAG_GHOST_ACCS)
 	READPREF_RAW(ghost_others, PREFERENCE_TAG_GHOST_OTHERS)
+	READPREF_RAW(pda_style, PREFERENCE_TAG_PDA_STYLE)
+	READPREF_RAW(pda_color, PREFERENCE_TAG_PDA_COLOUR)
 
 	READPREF_JSONDEC(ignoring, PREFERENCE_TAG_IGNORING)
 	READPREF_JSONDEC(key_bindings, PREFERENCE_TAG_KEYBINDS)
@@ -185,6 +188,7 @@
 			hair_color,
 			gradient_color,
 			facial_hair_color,
+			eye_color,
 			skin_tone,
 			hair_style_name,
 			gradient_style,

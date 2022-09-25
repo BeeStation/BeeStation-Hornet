@@ -14,7 +14,7 @@ var/global/list/custom_name_types = list(
 // In its own file because its such a mess
 /proc/parse_characters(owning_ckey, savefile/S, list/cdirs)
 	for(var/character_dir in cdirs)
-		S.cd = character_dir
+		S.cd = "/[character_dir]"
 
 		READ_FILE(S["species"], species_id, "human")
 		READ_FILE(S["real_name"], real_name, "Unnamed Character")
