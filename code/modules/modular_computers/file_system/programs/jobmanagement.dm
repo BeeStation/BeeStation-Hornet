@@ -24,6 +24,7 @@
 		JOB_NAME_CHIEFENGINEER,
 		JOB_NAME_RESEARCHDIRECTOR,
 		JOB_NAME_CHIEFMEDICALOFFICER,
+		JOB_NAME_BRIGPHYSICIAN,
 		JOB_NAME_DEPUTY)
 
 	//The scaling factor of max total positions in relation to the total amount of people on board the station in %
@@ -88,8 +89,6 @@
 			playsound(computer, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
 			return TRUE
 		if("PRG_priority")
-			if(length(SSjob.prioritized_jobs) >= 5)
-				return
 			var/priority_target = params["target"]
 			var/datum/job/j = SSjob.GetJob(priority_target)
 			if(!j)
@@ -99,7 +98,10 @@
 			if(j in SSjob.prioritized_jobs)
 				SSjob.prioritized_jobs -= j
 			else
-				SSjob.prioritized_jobs += j
+				if(length(SSjob.prioritized_jobs) < 5)
+					SSjob.prioritized_jobs += j
+				else
+					computer.say("Error: CentCom employment protocols restrict prioritising more than 5 jobs.")
 			playsound(computer, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
 			return TRUE
 

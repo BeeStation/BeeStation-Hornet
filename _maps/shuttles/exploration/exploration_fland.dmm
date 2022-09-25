@@ -274,8 +274,8 @@
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "rj" = (
-/obj/machinery/light{
-	dir = 8
+/obj/structure/chair/fancy/shuttle{
+	dir = 1
 	},
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
@@ -295,10 +295,8 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "su" = (
-/obj/structure/closet/emcloset/anchored,
-/obj/effect/turf_decal/delivery,
-/obj/effect/turf_decal/stripes/corner{
-	dir = 8
+/obj/structure/chair/fancy/shuttle{
+	dir = 4
 	},
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)

@@ -22,10 +22,7 @@
 		CH.cavity_item = null
 
 	if(tr_flags & TR_KEEPITEMS)
-		var/Itemlist = get_equipped_items(TRUE)
-		Itemlist += held_items
-		for(var/obj/item/W in Itemlist)
-			dropItemToGround(W)
+		unequip_everything()
 
 	//Make mob invisible and spawn animation
 	notransform = TRUE
@@ -180,10 +177,7 @@
 		CH.cavity_item = null
 
 	if(tr_flags & TR_KEEPITEMS)
-		var/Itemlist = get_equipped_items(TRUE)
-		Itemlist += held_items
-		for(var/obj/item/W in Itemlist)
-			dropItemToGround(W)
+		unequip_everything()
 
 	//Make mob invisible and spawn animation
 	notransform = TRUE
@@ -333,14 +327,7 @@
 
 	//now the rest
 	if (tr_flags & TR_KEEPITEMS)
-		var/Itemlist = get_equipped_items(TRUE)
-		Itemlist += held_items
-		for(var/obj/item/W in Itemlist)
-			dropItemToGround(W, TRUE)
-			if (client)
-				client.screen -= W
-
-
+		unequip_everything()
 
 	//Make mob invisible and spawn animation
 	notransform = TRUE
@@ -476,25 +463,26 @@
 
 	qdel(src)
 
-/mob/living/carbon/human/AIize(transfer_after = TRUE, client/preference_source)
-	if (notransform)
-		return
-	for(var/t in bodyparts)
-		qdel(t)
-
-	return ..()
-
-/mob/living/carbon/AIize(transfer_after = TRUE, client/preference_source)
-	if (notransform)
-		return
+//A common proc to start an -ize transformation
+/mob/living/carbon/proc/pre_transform(delete_items = FALSE)
+	if(notransform)
+		return TRUE
 	notransform = TRUE
 	Paralyze(1, ignore_canstun = TRUE)
-	for(var/obj/item/W in src)
-		dropItemToGround(W)
+
+	if(delete_items)
+		for(var/obj/item/W in get_equipped_items(TRUE) | held_items)
+			qdel(W)
+	else
+		unequip_everything()
 	regenerate_icons()
 	icon = null
 	invisibility = INVISIBILITY_MAXIMUM
-	return ..()
+	for(var/t in bodyparts)
+		qdel(t)
+
+/mob/living/carbon/AIize(transfer_after = TRUE, client/preference_source)
+	return pre_transform() ? null : ..()
 
 /mob/proc/AIize(transfer_after = TRUE, client/preference_source)
 	var/list/turf/landmark_loc = list()
@@ -529,21 +517,8 @@
 	qdel(src)
 
 /mob/living/carbon/human/proc/Robotize(delete_items = 0, transfer_after = TRUE)
-	if (notransform)
+	if(pre_transform(delete_items))
 		return
-	notransform = TRUE
-	Paralyze(1, ignore_canstun = TRUE)
-
-	for(var/obj/item/W in src)
-		if(delete_items)
-			qdel(W)
-		else
-			dropItemToGround(W)
-	regenerate_icons()
-	icon = null
-	invisibility = INVISIBILITY_MAXIMUM
-	for(var/t in bodyparts)
-		qdel(t)
 
 	var/mob/living/silicon/robot/R = new /mob/living/silicon/robot(loc)
 
@@ -576,17 +551,8 @@
 
 //human -> alien
 /mob/living/carbon/human/proc/Alienize()
-	if (notransform)
+	if(pre_transform())
 		return
-	notransform = TRUE
-	mobility_flags = NONE
-	for(var/obj/item/W in src)
-		dropItemToGround(W)
-	regenerate_icons()
-	icon = null
-	invisibility = INVISIBILITY_MAXIMUM
-	for(var/t in bodyparts)
-		qdel(t)
 
 	var/alien_caste = pick("Hunter","Sentinel","Drone")
 	var/mob/living/carbon/alien/humanoid/new_xeno
@@ -606,17 +572,8 @@
 	qdel(src)
 
 /mob/living/carbon/human/proc/slimeize(reproduce as num)
-	if (notransform)
+	if(pre_transform())
 		return
-	notransform = TRUE
-	mobility_flags = NONE
-	for(var/obj/item/W in src)
-		dropItemToGround(W)
-	regenerate_icons()
-	icon = null
-	invisibility = INVISIBILITY_MAXIMUM
-	for(var/t in bodyparts)
-		qdel(t)
 
 	var/mob/living/simple_animal/slime/new_slime
 	if(reproduce)
@@ -645,17 +602,8 @@
 
 
 /mob/living/carbon/proc/corgize()
-	if (notransform)
+	if(pre_transform())
 		return
-	notransform = TRUE
-	Paralyze(1, ignore_canstun = TRUE)
-	for(var/obj/item/W in src)
-		dropItemToGround(W)
-	regenerate_icons()
-	icon = null
-	invisibility = INVISIBILITY_MAXIMUM
-	for(var/t in bodyparts)	//this really should not be necessary
-		qdel(t)
 
 	var/mob/living/simple_animal/pet/dog/corgi/new_corgi = new /mob/living/simple_animal/pet/dog/corgi (loc)
 	new_corgi.a_intent = INTENT_HARM
@@ -666,21 +614,8 @@
 	qdel(src)
 
 /mob/living/carbon/proc/gorillize()
-	if(notransform)
+	if(pre_transform())
 		return
-	notransform = TRUE
-	Paralyze(1, ignore_canstun = TRUE)
-
-	SSblackbox.record_feedback("amount", "gorillas_created", 1)
-
-	var/Itemlist = get_equipped_items(TRUE)
-	Itemlist += held_items
-	for(var/obj/item/W in Itemlist)
-		dropItemToGround(W, TRUE)
-
-	regenerate_icons()
-	icon = null
-	invisibility = INVISIBILITY_MAXIMUM
 	var/mob/living/simple_animal/hostile/gorilla/new_gorilla = new (get_turf(src))
 	new_gorilla.a_intent = INTENT_HARM
 	if(mind)
@@ -692,21 +627,8 @@
 	qdel(src)
 
 /mob/living/carbon/proc/junglegorillize()
-	if(notransform)
+	if(pre_transform())
 		return
-	notransform = TRUE
-	Paralyze(1, ignore_canstun = TRUE)
-
-	SSblackbox.record_feedback("amount", "gorillas_created", 1)
-
-	var/Itemlist = get_equipped_items(TRUE)
-	Itemlist += held_items
-	for(var/obj/item/W in Itemlist)
-		dropItemToGround(W, TRUE)
-
-	regenerate_icons()
-	icon = null
-	invisibility = INVISIBILITY_MAXIMUM
 	var/mob/living/simple_animal/hostile/gorilla/rabid/new_gorilla = new (get_turf(src))
 	new_gorilla.a_intent = INTENT_HARM
 	var/datum/atom_hud/H = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
@@ -728,20 +650,8 @@
 		to_chat(usr, "<span class='danger'>Sorry but this mob type is currently unavailable.</span>")
 		return
 
-	if(notransform)
+	if(pre_transform())
 		return
-	notransform = TRUE
-	Paralyze(1, ignore_canstun = TRUE)
-
-	for(var/obj/item/W in src)
-		dropItemToGround(W)
-
-	regenerate_icons()
-	icon = null
-	invisibility = INVISIBILITY_MAXIMUM
-
-	for(var/t in bodyparts)
-		qdel(t)
 
 	var/mob/new_mob = new mobpath(src.loc)
 

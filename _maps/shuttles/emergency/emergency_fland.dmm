@@ -9,7 +9,7 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "aH" = (
-/obj/structure/chair/sofa/corp{
+/obj/structure/chair/fancy/sofa/corp{
 	color = "#7fb3d5";
 	dir = 4
 	},
@@ -32,7 +32,7 @@
 /turf/open/floor/pod/dark,
 /area/shuttle/escape)
 "aW" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/neutral{
@@ -67,7 +67,7 @@
 /turf/open/floor/pod/dark,
 /area/shuttle/escape)
 "cM" = (
-/obj/structure/chair/comfy/shuttle,
+/obj/structure/chair/fancy/shuttle,
 /obj/effect/turf_decal/bot,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
@@ -211,7 +211,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/structure/chair/sofa/corp/left{
+/obj/structure/chair/fancy/sofa/corp/left{
 	color = "#7fb3d5";
 	dir = 8
 	},
@@ -305,7 +305,7 @@
 /turf/closed/wall/mineral/plastitanium,
 /area/shuttle/escape)
 "lu" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 4
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -682,14 +682,14 @@
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "zw" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 4
 	},
 /obj/effect/turf_decal/bot,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/escape)
 "zx" = (
-/obj/structure/chair/sofa/corp{
+/obj/structure/chair/fancy/sofa/corp{
 	color = "#7fb3d5";
 	dir = 8
 	},
@@ -699,7 +699,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/structure/chair/sofa/corp/right{
+/obj/structure/chair/fancy/sofa/corp/right{
 	color = "#7fb3d5";
 	dir = 8
 	},
@@ -740,7 +740,7 @@
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "zM" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
 /obj/effect/turf_decal/bot,
@@ -776,7 +776,7 @@
 /turf/open/floor/pod/dark,
 /area/shuttle/escape)
 "Au" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -798,7 +798,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/structure/chair/sofa/corp/right{
+/obj/structure/chair/fancy/sofa/corp/right{
 	color = "#7fb3d5";
 	dir = 4
 	},
@@ -812,7 +812,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/structure/chair/sofa/corp/left{
+/obj/structure/chair/fancy/sofa/corp/left{
 	color = "#7fb3d5";
 	dir = 4
 	},
@@ -851,7 +851,7 @@
 /turf/open/floor/pod/dark,
 /area/shuttle/escape)
 "EX" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 4
 	},
 /obj/machinery/light{
@@ -997,7 +997,7 @@
 /turf/open/floor/pod/dark,
 /area/shuttle/escape)
 "IZ" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 8
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -1028,7 +1028,7 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "Lb" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 4
 	},
 /obj/effect/turf_decal/box/corners{
@@ -1080,7 +1080,7 @@
 /turf/open/floor/plasteel,
 /area/shuttle/escape)
 "MJ" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/neutral,
@@ -1162,7 +1162,7 @@
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "OF" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/neutral,
@@ -1224,7 +1224,7 @@
 /turf/open/floor/pod/dark,
 /area/shuttle/escape)
 "Rl" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 8
 	},
 /obj/effect/turf_decal/bot,
@@ -1382,7 +1382,7 @@
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "Wa" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
 /obj/machinery/light{
@@ -1413,7 +1413,7 @@
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "WP" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
 /obj/machinery/light{
@@ -1456,7 +1456,7 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "Yp" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 8
 	},
 /obj/effect/turf_decal/bot,
@@ -1488,13 +1488,13 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "Zn" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
 /turf/open/floor/mineral/titanium/white,
 /area/shuttle/escape)
 "Zt" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 4
 	},
 /obj/effect/turf_decal/bot,

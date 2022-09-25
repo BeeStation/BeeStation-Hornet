@@ -34,6 +34,8 @@
 
 /datum/computer_file/program/ntnetdownload/run_program()
 	. = ..()
+	if(!.)
+		return
 	main_repo = SSnetworks.station_network.available_station_software
 	antag_repo = SSnetworks.station_network.available_antag_software
 
@@ -142,6 +144,7 @@
 
 	data["downloading"] = !!downloaded_file
 	data["error"] = downloaderror || FALSE
+	data["id_inserted"] = !!card_slot?.GetID()
 
 	// Download running. Wait please..
 	if(downloaded_file)
@@ -209,5 +212,7 @@
 
 /datum/computer_file/program/ntnetdownload/syndicate/run_program()
 	. = ..()
+	if(!.)
+		return
 	main_repo = SSnetworks.station_network.available_antag_software
 	antag_repo = null

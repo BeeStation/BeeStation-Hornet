@@ -197,8 +197,8 @@ const PageBuyingShuttle = (props, context) => {
                           data.budget < shuttle.creditCost ? (`You need ${
                             shuttle.creditCost - data.budget
                           } more credits.`
-                          ) : (shuttle.illegal 
-                            ? ILLEGAL_SHUTTLE_NOTICE 
+                          ) : (shuttle.illegal
+                            ? ILLEGAL_SHUTTLE_NOTICE
                             : undefined)
                         }
                         tooltipPosition="left"
@@ -496,7 +496,7 @@ const PageMain = (props, context) => {
 
       {!!canMessageAssociates && messagingAssociates && <MessageModal
         label={`Message to transmit to ${emagged ? "[ABNORMAL ROUTING COORDINATES]" : "CentCom"} via quantum entanglement`}
-        notice="Please be aware that this process is very expensive, and abuse will lead to...termination. Transmission does not guarantee a response."
+        notice="Please be aware that this process is very expensive, and abuse will lead to...termination. Transmission does not guarantee a response. Use by heads of staff is only authorized during an emergency situation."
         icon="bullhorn"
         buttonText="Send"
         onBack={() => setMessagingAssociates(false)}
@@ -619,17 +619,17 @@ const PageMessages = (props, context) => {
         messages.map((message, messageIndex) => {
           let answers = null;
 
-          if (message.possibleAnswers.length > 0) {
+          if (Object.keys(message.possibleAnswers).length > 0) {
             answers = (
               <Box mt={1}>
-                {message.possibleAnswers.map((answer, answerIndex) => (
+                {Object.entries(message.possibleAnswers).map((answer) => (
                   <Button
-                    content={answer}
-                    color={message.answered === answerIndex + 1 ? "good" : undefined}
-                    key={answerIndex}
+                    content={answer[1]}
+                    color={message.answered === answer[0] ? "good" : undefined}
+                    key={answer[0]}
                     onClick={message.answered ? undefined : () => act("answerMessage", {
                       message: messageIndex + 1,
-                      answer: answerIndex + 1,
+                      answer: answer[0],
                     })}
                   />
                 ))}
@@ -678,7 +678,7 @@ const ConditionalTooltip = (props, context) => {
   {
     return children;
   }
-  
+
   return (
     <Tooltip {...rest}>
       {children}
@@ -748,7 +748,7 @@ export const CommunicationsConsole = (props, context) => {
                           <Tabs.Tab fluid
                             icon="shopping-cart"
                             selected={page===STATE_BUYING_SHUTTLE}
-                            onClick={() => act("setState", 
+                            onClick={() => act("setState",
                               { state: STATE_BUYING_SHUTTLE }
                             )}>
                             Purchase Shuttle

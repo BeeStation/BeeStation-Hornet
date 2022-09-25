@@ -121,7 +121,7 @@
 /turf/open/floor/mineral/titanium/purple,
 /area/shuttle/science)
 "Q" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
 /turf/open/floor/mineral/titanium/white,
