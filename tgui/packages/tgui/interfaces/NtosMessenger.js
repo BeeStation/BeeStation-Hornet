@@ -66,7 +66,7 @@ export const NtosMessenger = (props, context) => {
               />
             </Section>
             {messages.map(message => (
-              <Stack vertical key={message} mt={1}>
+              <>
                 <Section fill textAlign="left">
                   <Box italic opacity={0.5}>
                     {message.outgoing ? (
@@ -77,7 +77,7 @@ export const NtosMessenger = (props, context) => {
                   </Box>
                   {message.outgoing ? (
                     <Box bold>
-                      {message.name + (message.job ? ` (${message.job})` : "")}
+                      {message.target}
                     </Box>
                   ) : (
                     <Button transparent
@@ -90,31 +90,31 @@ export const NtosMessenger = (props, context) => {
                     />
                   )}
                 </Section>
-                <Section mt={-1}>
-                  <Box italic>
-                    {
-                      message.contents.split(":").map((part, index, arr) => {
-                        if (message.emojis
+                <Section fill mt={message.outgoing ? -0.9 : -1} mb={2}>
+                  {
+                    message.contents.split(":").map((part, index, arr) => {
+                      if (message.emojis
                           && Object.keys(emoji_names).includes(part)) {
-                          return (<span
-                            key={part}
-                            class={`chat16x16 emoji-${part}`} />);
-                        } else {
-                          // re-add colons from split()
-                          // if the next element in the array is not valid emoji
-                          return <span key={part}>{part}{arr.length - 1 !== index && (index + 1 >= arr.length || !message.emojis || !Object.keys(emoji_names).includes(arr[index + 1])) ? ":" : ""}</span>;
-                        }
-                      })
-                    }
-                  </Box>
+                        return (<span
+                          key={part}
+                          class={`chat16x16 emoji-${part}`} />);
+                      } else {
+                        // re-add colons from split()
+                        // if the next element in the array is not valid emoji
+                        return <span key={part}>{part}{arr.length - 1 !== index && (index + 1 >= arr.length || !message.emojis || !Object.keys(emoji_names).includes(arr[index + 1])) ? ":" : ""}</span>;
+                      }
+                    })
+                  }
                   {!!message.photo && (
                     <Box
+                      width={`${message.photo_width}px`}
+                      height={`${message.photo_height}px`}
                       as="img"
                       src={message.photo}
                     />
                   )}
                 </Section>
-              </Stack>
+              </>
             ))}
           </Stack>
         </NtosWindow.Content>

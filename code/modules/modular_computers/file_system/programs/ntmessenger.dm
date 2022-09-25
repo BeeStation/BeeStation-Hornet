@@ -221,8 +221,11 @@
 	data["owner"] = computer.saved_identification
 	// Convert the photo object into a file so it can be rendered properly in Show Messages
 	for(var/list/message as() in messages)
-		if(!message["photo"])
-			message["photo"] = rsc_image(message["photo_obj"], message["ref"], user)
+		var/datum/picture/pic = message["photo_obj"]
+		if(!message["photo"] && istype(pic))
+			message["photo"] = rsc_image(pic, message["ref"], user)
+			message["photo_width"] = pic.psize_x
+			message["photo_height"] = pic.psize_y
 	data["messages"] = messages
 	data["ringer_status"] = ringer_status
 	data["sending_and_receiving"] = sending_and_receiving
@@ -324,7 +327,8 @@
 	var/list/message_data = list()
 	message_data["name"] = signal.data["name"]
 	message_data["job"] = signal.data["job"]
-	message_data["contents"] = signal.format_message()
+	message_data["target"] = target_text
+	message_data["contents"] = html_decode(signal.data["message"])
 	message_data["outgoing"] = TRUE
 	message_data["ref"] = signal.data["ref"]
 	message_data["photo_obj"] = signal.data["photo"]
@@ -362,7 +366,7 @@
 	var/list/message_data = list()
 	message_data["name"] = signal.data["name"]
 	message_data["job"] = signal.data["job"]
-	message_data["contents"] = signal.format_message()
+	message_data["contents"] = html_decode(signal.data["message"])
 	message_data["outgoing"] = FALSE
 	message_data["ref"] = signal.data["ref"]
 	message_data["automated"] = signal.data["automated"]
