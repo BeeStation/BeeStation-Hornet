@@ -1102,7 +1102,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		ADMIN_PUNISHMENT_SUPPLYPOD_QUICK,
 		ADMIN_PUNISHMENT_VOICE_OF_GOD
 	)
-	if(istype(target, /mob/living/carbon))
+	if(iscarbon(target))
 		punishment_list += ADMIN_PUNISHMENT_COOKIE
 		punishment_list += ADMIN_PUNISHMENT_NUGGET
 	if(ishuman(target))
