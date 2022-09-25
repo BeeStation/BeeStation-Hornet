@@ -797,7 +797,6 @@
   */
 /atom/proc/emag_act()
 	SEND_SIGNAL(src, COMSIG_ATOM_EMAG_ACT)
-	return TRUE
 
 /**
   * Respond to a radioactive wave hitting this atom
@@ -1092,10 +1091,10 @@
 							valid_id = TRUE
 						if(!valid_id)
 							to_chat(usr, "<span class='warning'>A reagent with that ID doesn't exist!</span>")
-
+				
 				if("Choose from a list")
 					chosen_id = input(usr, "Choose a reagent to add.", "Choose a reagent.") as null|anything in subtypesof(/datum/reagent)
-
+				
 				if("I'm feeling lucky")
 					chosen_id = pick(subtypesof(/datum/reagent))
 
