@@ -1602,3 +1602,77 @@ config_setting should be one of the following:
 		if(-INFINITY to 0, 11 to INFINITY)
 			CRASH("Can't turn invalid directions!")
 	return turn(input_dir, 180)
+
+/atom/proc/get_boozepower_text(booze_power, mob/living/L)
+	if(isnull(booze_power))
+		return
+
+	if(HAS_TRAIT(L, TRAIT_SOMMELIER)) // A trained sommelier will have different identifying flavour
+		// because of float values, you need to write like `0 to 10`, `10 to 20`
+		switch(booze_power)
+			if(-INFINITY to 1)
+				. = "For children"
+			if(300 to INFINITY)
+				. = pick("Shift wrecking hammering",
+						"Get new liver after consumption",
+						"Post-consumption support groups exist",
+						"Place in Molotov instead",
+						"To stumble and slur, the will of Bacchus")
+			if(100 to 100)
+				. = "For a real man"
+			// these values must be detected first.
+
+			if(100 to 300)
+				. = "Cheated the blessing"
+			if(90 to 100)
+				. = "Get to drunk tank"
+			if(80 to 90)
+				. = "Liver pickler"
+			if(70 to 80)
+				. = "Drunkard's Challenge"
+			if(60 to 70)
+				. = "Have Shotgun ready"
+			if(50 to 60)
+				. = "3 rounds till down"
+			if(40 to 50)
+				. = "Drunkard's fixers"
+			if(30 to 40)
+				. = "Stick arounds"
+			if(20 to 30)
+				. = "Flask fillers"
+			if(10 to 20)
+				. = "Tipsy stuff"
+			if(1 to 10)
+				. = "Lightweight's dream"
+	else
+		switch(booze_power)
+			if(-INFINITY to 1)
+				. = "Safe for work"
+			if(300 to INFINITY)
+				. = "Lethal"
+			if(100 to 300)
+				. = "Deadly"
+			if(90 to 100)
+				. = "Dangerous"
+			if(80 to 90)
+				. = "Extreme"
+			if(70 to 80)
+				. = "Challenging"
+			if(60 to 70)
+				. = "Stronger"
+			if(50 to 60)
+				. = "Strong"
+			if(40 to 50)
+				. = "Average"
+			if(30 to 40)
+				. = "Less than average"
+			if(20 to 30)
+				. = "Light"
+			if(10 to 20)
+				. = "Mild"
+			if(1 to 10)
+				. = "Delightfully mild"
+
+	if(!.)
+		. = "not measurable. Ask the space god for what's wrong with this drink."
+		CRASH("not valid booze power value is detected: [booze_power]")

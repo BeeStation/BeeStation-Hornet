@@ -18,7 +18,7 @@ export const NtosFileManager = (props, context) => {
             usbconnected={usbconnected}
             onUpload={file => act('PRG_copytousb', { name: file })}
             onDelete={file => act('PRG_deletefile', { name: file })}
-            onRename={(file, newName) => act('PRG_rename', {
+            onRename={(file, newName) => act('PRG_renamefile', {
               name: file,
               new_name: newName,
             })}
@@ -32,8 +32,8 @@ export const NtosFileManager = (props, context) => {
               files={usbfiles}
               usbconnected={usbconnected}
               onUpload={file => act('PRG_copyfromusb', { name: file })}
-              onDelete={file => act('PRG_deletefile', { name: file })}
-              onRename={(file, newName) => act('PRG_rename', {
+              onDelete={file => act('PRG_usbdeletefile', { name: file })}
+              onRename={(file, newName) => act('PRG_usbrenamefile', {
                 name: file,
                 new_name: newName,
               })}
