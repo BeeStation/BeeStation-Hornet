@@ -1,7 +1,0 @@
-author: itsmeow
-delete-after: true
-changes:
-  - tweak: SSD and soulless bodies now have indicator overlays while dead on medhuds.
-  - tweak: Examining a disconnected player while they are dead will now show that
-      their soul is "distant, and may return soon".
-  - bugfix: Lesser Lichdom now calls set_hellbound any /mob/living.
