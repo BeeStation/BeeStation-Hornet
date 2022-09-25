@@ -388,5 +388,5 @@
 	if(dat.len)
 		return dat.Join()
 
-/mob/living/carbon/proc/soul_departed()
+/mob/living/proc/soul_departed()
 	return getorgan(/obj/item/organ/brain) && !key && !get_ghost(FALSE, TRUE)
