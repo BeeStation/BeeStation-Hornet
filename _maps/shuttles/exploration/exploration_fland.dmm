@@ -142,7 +142,7 @@
 /area/shuttle/exploration)
 "hQ" = (
 /obj/effect/turf_decal/bot,
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair{
 	dir = 8
 	},
 /obj/machinery/light{
@@ -202,10 +202,10 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/exploration)
 "kV" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
-/obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/mineral/plastitanium,
 /area/shuttle/exploration)
 "lw" = (
@@ -375,7 +375,7 @@
 /area/shuttle/exploration)
 "wy" = (
 /obj/effect/decal/cleanable/glass,
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 8
 	},
 /turf/open/floor/carpet,
@@ -968,7 +968,7 @@
 /turf/closed/wall/r_wall/syndicate/nodiagonal,
 /area/shuttle/exploration)
 "Xd" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 4
 	},
 /turf/open/floor/carpet,
@@ -1012,7 +1012,7 @@
 /turf/open/floor/plasteel/techmaint,
 /area/shuttle/exploration)
 "XP" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 8
 	},
 /turf/open/floor/carpet,
