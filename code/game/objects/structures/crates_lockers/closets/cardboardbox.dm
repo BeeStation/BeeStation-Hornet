@@ -5,7 +5,7 @@
 	icon_state = "cardboard"
 	mob_storage_capacity = 1
 	resistance_flags = FLAMMABLE
-	max_integrity = 70
+	max_integrity = 45
 	integrity_failure = 0
 	can_weld_shut = 0
 	cutting_tool = TOOL_WIRECUTTER
@@ -66,7 +66,7 @@
 	name = "large metal box"
 	desc = "THE COWARDS! THE FOOLS!"
 	icon_state = "metalbox"
-	max_integrity = 500
+	max_integrity = 400
 	mob_storage_capacity = 5
 	resistance_flags = NONE
 	move_speed_multiplier = 2
