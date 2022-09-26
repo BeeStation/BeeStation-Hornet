@@ -10,7 +10,7 @@
 	flags = BLUESPACE_TRAIT | PLASMA_TRAIT | URANIUM_TRAIT
 	weight = 30
 
-/datum/xenoartifact_trait/activator/impact/calculate_charge(datum/source, obj/item/thing, mob/user, atom/target)
+/datum/xenoartifact_trait/activator/impact/pass_input(datum/source, obj/item/thing, mob/user, atom/target)
 	var/obj/item/xenoartifact/X = source
 	charge = charge*((thing?.force || 10)*0.1)
 	X.default_activate(charge, user, target)
@@ -29,7 +29,7 @@
 	..()
 	X.max_range += 1
 
-/datum/xenoartifact_trait/activator/burn/calculate_charge(datum/source, obj/item/thing, mob/user, atom/target, params) //xenoa item handles this, see process proc there
+/datum/xenoartifact_trait/activator/burn/pass_input(datum/source, obj/item/thing, mob/user, atom/target, params) //xenoa item handles this, see process proc there
 	var/obj/item/xenoartifact/X = source
 	if(X.process_type != PROCESS_TYPE_LIT && thing.ignition_effect(X, user))
 		X.visible_message("<span class='danger'>The [X.name] sparks on.</span>")
@@ -60,7 +60,7 @@
 		return TRUE
 	return ..()
 
-/datum/xenoartifact_trait/activator/clock/calculate_charge(datum/source, obj/item/thing, mob/user, atom/target, params)
+/datum/xenoartifact_trait/activator/clock/pass_input(datum/source, obj/item/thing, mob/user, atom/target, params)
 	var/obj/item/xenoartifact/X = source
 	X.process_type = PROCESS_TYPE_TICK
 	START_PROCESSING(SSobj, X)
@@ -89,7 +89,7 @@
 		return TRUE
 	return ..()
 
-/datum/xenoartifact_trait/activator/signal/calculate_charge(datum/source, obj/item/thing, mob/user, atom/target, params)
+/datum/xenoartifact_trait/activator/signal/pass_input(datum/source, obj/item/thing, mob/user, atom/target, params)
 	var/obj/item/xenoartifact/X = source
 	X.default_activate(charge, user, target)
 	log_game("[key_name_admin(user)] signalled [X] at [world.time]. [X] located at [X.x] [X.y] [X.z].")
@@ -110,7 +110,7 @@
 		return TRUE
 	return ..()
 
-/datum/xenoartifact_trait/activator/batteryneed/calculate_charge(datum/source, obj/item/stock_parts/cell/thing, mob/user, atom/target, params)
+/datum/xenoartifact_trait/activator/batteryneed/pass_input(datum/source, obj/item/stock_parts/cell/thing, mob/user, atom/target, params)
 	var/obj/item/xenoartifact/X = source
 	if(istype(thing))
 		return
@@ -128,7 +128,7 @@
 	blacklist_traits = list(/datum/xenoartifact_trait/minor/dense, /datum/xenoartifact_trait/minor/anchor, /datum/xenoartifact_trait/major/distablizer)
 	flags = BLUESPACE_TRAIT | URANIUM_TRAIT
 
-/datum/xenoartifact_trait/activator/weighted/calculate_charge(datum/source, obj/item/thing, mob/living/carbon/user, mob/living/carbon/human/target)
+/datum/xenoartifact_trait/activator/weighted/pass_input(datum/source, obj/item/thing, mob/living/carbon/user, mob/living/carbon/human/target)
 	var/obj/item/clothing/gloves/artifact_pinchers/P
 	//Grab ref to gloves for check
 	if(istype(target))
@@ -152,6 +152,6 @@
 	signals = list(COMSIG_MOVABLE_IMPACT)
 	flags = BLUESPACE_TRAIT | URANIUM_TRAIT
 
-/datum/xenoartifact_trait/activator/pitch/calculate_charge(datum/source, obj/item/thing, mob/user, atom/target)
+/datum/xenoartifact_trait/activator/pitch/pass_input(datum/source, obj/item/thing, mob/user, atom/target)
 	var/obj/item/xenoartifact/X = source
 	X.default_activate(charge, user, target)

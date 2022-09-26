@@ -48,7 +48,8 @@
 	return output
 
 //Activator signal shenanignas 
-/datum/xenoartifact_trait/activator/proc/calculate_charge(obj/item/xenoartifact/X)
+///Passes information into the activator datum to decide if, and how, the artifact activates
+/datum/xenoartifact_trait/activator/proc/pass_input(obj/item/xenoartifact/X)
 	return
 
 /datum/xenoartifact_trait/activator/on_init(obj/item/xenoartifact/X)
@@ -72,7 +73,7 @@
 				RegisterSignal(xenoa, COMSIG_ITEM_ATTACK_SELF, .proc/translate_attack_self)
 			if(XENOA_SIGNAL)
 				RegisterSignal(xenoa, XENOA_SIGNAL, .proc/translate_attackby)
-	RegisterSignal(xenoa, XENOA_DEFAULT_SIGNAL, .proc/calculate_charge) //Signal sent by handles
+	RegisterSignal(xenoa, XENOA_DEFAULT_SIGNAL, .proc/pass_input) //Signal sent by handles
 
 /datum/xenoartifact_trait/activator/Destroy(force, ...)
 	. = ..()
