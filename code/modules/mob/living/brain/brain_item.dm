@@ -14,8 +14,8 @@
 	decay_factor = STANDARD_ORGAN_DECAY	/ 2		//30 minutes of decaying to result in a fully damaged brain, since a fast decay rate would be unfun gameplay-wise
 
 	maxHealth	= BRAIN_DAMAGE_DEATH
-	low_threshold = 45
-	high_threshold = 120
+	low_threshold = 25
+	high_threshold = 100
 
 	var/suicided = FALSE
 	var/mob/living/brain/brainmob = null
