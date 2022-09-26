@@ -245,7 +245,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
 	flags_1 = CONDUCT_1
 	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BACK
-	force = 40
+	force = 37
 	throwforce = 10
 	w_class = WEIGHT_CLASS_HUGE
 	hitsound = 'sound/weapons/bladeslice.ogg'
@@ -368,7 +368,7 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	attack_verb = list("stubbed", "poked")
 	resistance_flags = FIRE_PROOF
 	var/extended = 0
-	var/extended_force = 20
+	var/extended_force = 17
 	var/extended_throwforce = 23
 	var/extended_icon_state = "switchblade_ext"
 
