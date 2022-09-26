@@ -1,5 +1,5 @@
 /datum/round_event_control/wizard/blobies //avast!
-	name = "Zombie Outbreak"
+	name = "Blob Zombie Outbreak"
 	weight = 3
 	typepath = /datum/round_event/wizard/blobies
 	max_occurrences = 3
