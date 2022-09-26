@@ -561,6 +561,9 @@
 /// Sent from /obj/machinery/close_machine(): (atom/movable/target)
 #define COMSIG_MACHINE_CLOSE "machine_close"
 
+// /obj/machinery/ecto_sniffer
+#define COMSIG_GLOB_GHOST_SUBMIT "!ghost_submit"
+
 // Aquarium related signals
 #define COMSIG_AQUARIUM_BEFORE_INSERT_CHECK "aquarium_about_to_be_inserted"
 #define COMSIG_AQUARIUM_SURFACE_CHANGED "aquarium_surface_changed"

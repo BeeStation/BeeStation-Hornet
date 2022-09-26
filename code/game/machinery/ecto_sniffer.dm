@@ -36,6 +36,7 @@
 	playsound(loc, 'sound/machines/ectoscope_beep.ogg', 25)
 	visible_message("<span class='notice'>[src] beeps, detecting ectoplasm! There may be additional positronic brain matrixes available!</span>")
 	use_power(10)
+	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_GHOST_SUBMIT)
 	if(activator?.ckey)
 		ectoplasmic_residues[activator.ckey] = TRUE
 		addtimer(CALLBACK(src, .proc/clear_residue, activator.ckey), 30 SECONDS)
@@ -80,3 +81,23 @@
 	if(!ghost || isliving(ghost))
 		return
 	to_chat(ghost, "[FOLLOW_LINK(ghost, src)] <span class='nicegreen'>The coating of ectoplasmic residue you left on [src]'s sensors has decayed.</span>")
+
+
+/obj/item/ecto_alert
+	name = "ectoscopic alerter"
+	desc = "A small handheld device that listens for electroscopic transmissions."
+	icon = 'icons/obj/machines/research.dmi'
+	icon_state = "ecto_sniffer"
+	w_class = WEIGHT_CLASS_SMALL
+	var/on = TRUE
+
+/obj/item/ecto_alert/Initialize(mapload)
+	. = ..()
+	RegisterSignal(SSdcs, COMSIG_GLOB_GHOST_SUBMIT, .proc/activate)
+
+/obj/item/ecto_alert/proc/activate(datum/source)
+	if(!on)
+		return
+	flick("[initial(icon)]_flick", src)
+	playsound(loc, 'sound/machines/ectoscope_beep.ogg', 15)
+	visible_message("<span class='notice'>\The [src] relays an ectoscopic signal!</span>")
