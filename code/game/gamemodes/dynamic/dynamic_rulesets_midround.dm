@@ -193,6 +193,13 @@
 	cost = 3
 	requirements = list(3,3,3,3,3,3,3,3,3,3)
 	repeatable = TRUE
+	blocking_rules = list(
+		/datum/dynamic_ruleset/roundstart/bloodcult,
+		/datum/dynamic_ruleset/roundstart/clockcult,
+		/datum/dynamic_ruleset/roundstart/nuclear,
+		/datum/dynamic_ruleset/roundstart/wizard,
+		/datum/dynamic_ruleset/roundstart/revs
+	)
 
 /datum/dynamic_ruleset/midround/autotraitor/trim_candidates()
 	..()
@@ -239,6 +246,7 @@
 	weight = 2
 	cost = 10
 	required_type = /mob/living/silicon/ai
+	blocking_rules = list(/datum/dynamic_ruleset/roundstart/nuclear)
 	var/ion_announce = 33
 	var/removeDontImproveChance = 10
 

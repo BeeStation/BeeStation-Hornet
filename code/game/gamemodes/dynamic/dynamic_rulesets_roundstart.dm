@@ -172,7 +172,7 @@
 	name = "Wizard"
 	antag_flag = ROLE_WIZARD
 	antag_datum = /datum/antagonist/wizard
-	flags = HIGH_IMPACT_RULESET
+	flags = HIGH_IMPACT_RULESET | NO_OTHER_ROUNDSTARTS_RULESET
 	minimum_required_age = 14
 	restricted_roles = list(JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN) // Just to be sure that a wizard getting picked won't ever imply a Captain or HoS not getting drafted
 	required_candidates = 1
@@ -222,7 +222,7 @@
 	weight = 3
 	cost = 20
 	requirements = list(100,90,80,60,40,30,10,10,10,10)
-	flags = HIGH_IMPACT_RULESET
+	flags = HIGH_IMPACT_RULESET | NO_OTHER_ROUNDSTARTS_RULESET
 	antag_cap = list("denominator" = 20, "offset" = 1)
 	var/datum/team/cult/main_cult
 
@@ -278,7 +278,7 @@
 	weight = 3
 	cost = 20
 	requirements = list(90,90,90,80,60,40,30,20,10,10)
-	flags = HIGH_IMPACT_RULESET
+	flags = HIGH_IMPACT_RULESET | NO_OTHER_ROUNDSTARTS_RULESET
 	antag_cap = list("denominator" = 18, "offset" = 1)
 	var/datum/team/nuclear/nuke_team
 
@@ -365,7 +365,7 @@
 	cost = 20
 	requirements = list(101,101,70,40,30,20,10,10,10,10)
 	antag_cap = 3
-	flags = HIGH_IMPACT_RULESET
+	flags = HIGH_IMPACT_RULESET | NO_OTHER_ROUNDSTARTS_RULESET
 	blocking_rules = list(/datum/dynamic_ruleset/latejoin/provocateur)
 	// I give up, just there should be enough heads with 35 players...
 	minimum_players = 35
@@ -581,7 +581,7 @@
 	weight = 3
 	cost = 35
 	requirements = list(100,90,80,70,60,50,30,30,30,30)
-	flags = HIGH_IMPACT_RULESET
+	flags = HIGH_IMPACT_RULESET | NO_OTHER_ROUNDSTARTS_RULESET
 	var/datum/team/clock_cult/main_cult
 	var/list/selected_servants = list()
 
