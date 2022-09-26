@@ -1,5 +1,0 @@
-author: itsmeow
-delete-after: true
-changes:
-  - balance: Dynamic will no longer spawn traitors, changeling, blood brothers, or
-      heretics during the cult, nuclear assault, wizard, and revs roundstart rules.
