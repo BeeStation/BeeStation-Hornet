@@ -5,13 +5,13 @@
 /obj/machinery/door/airlock/command
 	icon = 'icons/obj/doors/airlocks/station/command.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_com
-	normal_integrity = 450
+	normal_integrity = 400
 	security_level = 6
 
 /obj/machinery/door/airlock/security
 	icon = 'icons/obj/doors/airlocks/station/security.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_sec
-	normal_integrity = 450
+	normal_integrity = 400
 
 /obj/machinery/door/airlock/engineering
 	icon = 'icons/obj/doors/airlocks/station/engineering.dmi'
@@ -25,7 +25,7 @@
 	name = "maintenance access"
 	icon = 'icons/obj/doors/airlocks/station/maintenance.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_mai
-	normal_integrity = 250
+	normal_integrity = 200
 
 /obj/machinery/door/airlock/maintenance/external
 	name = "external airlock access"
@@ -85,7 +85,7 @@
 /obj/machinery/door/airlock/command/glass
 	opacity = 0
 	glass = TRUE
-	normal_integrity = 400
+	normal_integrity = 350
 	security_level =  6
 
 /obj/machinery/door/airlock/engineering/glass
@@ -98,7 +98,7 @@
 /obj/machinery/door/airlock/security/glass
 	opacity = 0
 	glass = TRUE
-	normal_integrity = 400
+	normal_integrity = 350
 
 /obj/machinery/door/airlock/medical/glass
 	opacity = 0
@@ -148,7 +148,7 @@
 /obj/machinery/door/airlock/maintenance/external/glass
 	opacity = 0
 	glass = TRUE
-	normal_integrity = 200
+	normal_integrity = 180
 
 //////////////////////////////////
 /*
@@ -186,11 +186,11 @@
 	name = "diamond airlock"
 	icon = 'icons/obj/doors/airlocks/station/diamond.dmi'
 	assemblytype = /obj/structure/door_assembly/door_assembly_diamond
-	normal_integrity = 1000
+	normal_integrity = 900
 	explosion_block = 2
 
 /obj/machinery/door/airlock/diamond/glass
-	normal_integrity = 950
+	normal_integrity = 850
 	opacity = 0
 	glass = TRUE
 
@@ -443,7 +443,7 @@
 	anim_parts = "rightu=14,0;left=-14,0;right=14,0"
 	assemblytype = /obj/structure/door_assembly/door_assembly_highsecurity
 	explosion_block = 2
-	normal_integrity = 500
+	normal_integrity = 450
 	security_level = 1
 	damage_deflection = 30
 
@@ -587,7 +587,7 @@
 /obj/machinery/door/airlock/cult/weak
 	name = "brittle cult airlock"
 	desc = "An airlock hastily corrupted by blood magic, it is unusually brittle in this state."
-	normal_integrity = 150
+	normal_integrity = 120
 	damage_deflection = 5
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0, "stamina" = 0)
 
