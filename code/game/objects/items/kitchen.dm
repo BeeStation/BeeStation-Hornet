@@ -30,6 +30,11 @@
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 30, "stamina" = 0)
 	var/datum/reagent/forkload //used to eat omelette
 
+/obj/item/kitchen/fork/attack(mob/living/target, mob/living/user)
+	. = ..()
+	user.changeNext_move(CLICK_CD_NORM)
+	return
+
 /obj/item/kitchen/fork/suicide_act(mob/living/carbon/user)
 	user.visible_message("<span class='suicide'>[user] stabs \the [src] into [user.p_their()] chest! It looks like [user.p_theyre()] trying to take a bite out of [user.p_them()]self!</span>")
 	playsound(src, 'sound/items/eatfood.ogg', 50, 1)
@@ -89,6 +94,12 @@
 	var/bayonet = FALSE	//Can this be attached to a gun?
 	custom_price = 30
 
+/obj/item/kitchen/knife/attack(mob/living/target, mob/living/user)
+	. = ..()
+	user.changeNext_move(CLICK_CD_NORM)
+	return
+
+
 /obj/item/kitchen/knife/Initialize(mapload)
 	. = ..()
 
@@ -117,6 +128,11 @@
 	righthand_file = 'icons/mob/inhands/equipment/kitchen_righthand.dmi'
 	w_class = WEIGHT_CLASS_NORMAL
 
+/obj/item/kitchen/knife/ritual/attack(mob/living/target, mob/living/user)
+	. = ..()
+	user.changeNext_move(CLICK_CD_NORM)
+	return
+
 /obj/item/kitchen/knife/butcher
 	name = "butcher's cleaver"
 	icon_state = "butch"
@@ -137,6 +153,11 @@
 	icon_state = "huntingknife"
 	force = 12
 
+/obj/item/kitchen/knife/hunting/attack(mob/living/target, mob/living/user)
+	. = ..()
+	user.changeNext_move(CLICK_CD_NORM)
+	return
+
 /obj/item/kitchen/knife/poison
 	name = "venom knife"
 	icon_state = "poisonknife"
@@ -148,6 +169,11 @@
 	var/list/possible_transfer_amounts
 	desc = "An infamous knife of syndicate design, it has a tiny hole going through the blade to the handle which stores toxins."
 	materials = null
+
+/obj/item/kitchen/knife/poison/attack(mob/living/target, mob/living/user)
+	. = ..()
+	user.changeNext_move(CLICK_CD_NORM)
+	return
 
 /obj/item/kitchen/knife/poison/Initialize(mapload)
 	. = ..()
@@ -172,19 +198,31 @@
 	icon_state = "buckknife"
 	desc = "A military combat utility survival knife."
 	embedding = list("pain_mult" = 4, "embed_chance" = 65, "fall_chance" = 10, "ignore_throwspeed_threshold" = TRUE, "armour_block" = 60)
-	force = 20
+	force = 18
 	throwforce = 20
 	attack_verb = list("slashed", "stabbed", "sliced", "tore", "ripped", "cut")
 	bayonet = TRUE
+
+/obj/item/kitchen/knife/combat/attack(mob/living/target, mob/living/user)
+	. = ..()
+	user.changeNext_move(CLICK_CD_NORM)
+	return
+
 
 /obj/item/kitchen/knife/combat/survival
 	name = "survival knife"
 	icon_state = "survivalknife"
 	embedding = list("pain_mult" = 4, "embed_chance" = 35, "fall_chance" = 10, "armour_block" = 40)
 	desc = "A hunting grade survival knife."
-	force = 15
+	force = 13
 	throwforce = 15
 	bayonet = TRUE
+
+/obj/item/kitchen/knife/combat/survival/attack(mob/living/target, mob/living/user)
+	. = ..()
+	user.changeNext_move(CLICK_CD_NORM)
+	return
+
 
 /obj/item/kitchen/knife/combat/bone
 	name = "bone dagger"
@@ -197,6 +235,12 @@
 	force = 15
 	throwforce = 15
 	materials = list()
+
+/obj/item/kitchen/knife/combat/bone/attack(mob/living/target, mob/living/user)
+	. = ..()
+	user.changeNext_move(CLICK_CD_NORM)
+	return
+
 
 /obj/item/kitchen/knife/combat/cyborg
 	name = "cyborg knife"
@@ -232,6 +276,11 @@
 	armour_penetration = 10 //spear has 10 armour pen, I think its fitting another glass tipped item should have it too
 	embedding = list("embedded_pain_multiplier" = 6, "embed_chance" = 40, "embedded_fall_chance" = 5, "armour_block" = 30) // Incentive to disengage/stop chasing when stuck
 	attack_verb = list("stuck", "shanked")
+
+/obj/item/kitchen/knife/shank/attack(mob/living/target, mob/living/user)
+	. = ..()
+	user.changeNext_move(CLICK_CD_NORM)
+	return
 
 /obj/item/kitchen/knife/shank/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is slitting [user.p_their()] [pick("wrists", "throat")] with the shank! It looks like [user.p_theyre()] trying to commit suicide.</span>")
