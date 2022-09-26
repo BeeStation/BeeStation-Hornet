@@ -87,7 +87,7 @@
 	name = "ectoscopic alerter"
 	desc = "A small handheld device that listens for electroscopic transmissions."
 	icon = 'icons/obj/machines/research.dmi'
-	icon_state = "ecto_sniffer"
+	icon_state = "ecto_portable"
 	w_class = WEIGHT_CLASS_SMALL
 	var/on = TRUE
 
