@@ -16,7 +16,7 @@ SUBSYSTEM_DEF(communications)
 	else
 		. = TRUE
 
-/datum/controller/subsystem/communications/proc/make_announcement(mob/living/user, is_silicon, input, auth_id)
+/datum/controller/subsystem/communications/proc/make_announcement(mob/living/user, is_silicon, input, auth_id, sound_override = null)
 	if(!can_announce(user, is_silicon))
 		return FALSE
 	if(is_silicon)
@@ -26,11 +26,13 @@ SUBSYSTEM_DEF(communications)
 		var/alert_sound = 'sound/misc/announce.ogg'
 		switch(GLOB.security_level)
 			if(SEC_LEVEL_BLUE)
-				alert_sound = 'sound/misc/announce_dig.ogg'
+				alert_sound = 'sound/misc/announce_dig.ogg'  // suprised nobodys used this before
 			if(SEC_LEVEL_RED)
-				alert_sound = 'sound/items/geiger/ext1.ogg'
+				alert_sound = 'sound/misc/notice1.ogg'
 			if(SEC_LEVEL_DELTA)
-				alert_sound = 'sound/items/airhorn.ogg'  // why are you announcing on delta
+				alert_sound = 'sound/misc/bloblarm.ogg'  // why are you announcing on delta
+		if(sound_override)
+			alert_sound = sound_override  // admins can have a little fun, as a treat
 		priority_announce(html_decode(user.treat_message(input)), null, alert_sound, "Captain", has_important_message = TRUE, auth_id = auth_id)
 		nonsilicon_message_cooldown = world.time + COMMUNICATION_COOLDOWN
 	user.log_talk(input, LOG_SAY, tag="priority announcement")
