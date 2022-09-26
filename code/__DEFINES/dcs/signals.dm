@@ -329,6 +329,7 @@
 #define COMSIG_ITEM_MARK_RETRIEVAL "item_mark_retrieval"		//! called before marking an object for retrieval, checked in /obj/effect/proc_holder/spell/targeted/summonitem/cast() : (mob/user)
 	#define COMPONENT_BLOCK_MARK_RETRIEVAL 1
 #define COMSIG_ITEM_HIT_REACT "item_hit_react"					//! from base of obj/item/hit_reaction(): (list/args)
+	#define COMPONENT_HIT_REACTION_BLOCK (1<<0)
 #define COMSIG_ITEM_SHARPEN_ACT "sharpen_act"           //! from base of item/sharpener/attackby(): (amount, max)
   #define COMPONENT_BLOCK_SHARPEN_APPLIED 1
   #define COMPONENT_BLOCK_SHARPEN_BLOCKED 2
