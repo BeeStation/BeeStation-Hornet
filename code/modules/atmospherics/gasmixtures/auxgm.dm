@@ -32,7 +32,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(GAS_O2, GAS_N2, GAS_CO2, GA
 	var/list/oxidation_temperatures = list()
 	var/list/oxidation_rates = list()
 	var/list/fire_temperatures = list()
-	var/list/fire_enthalpies = list()
+	var/list/enthalpies = list()
 	var/list/fire_products = list()
 	var/list/fire_burn_rates = list()
 
@@ -53,7 +53,7 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(GAS_O2, GAS_N2, GAS_CO2, GA
 	var/oxidation_rate = 1 // how many moles of this can oxidize how many moles of material
 	var/fire_temperature = null // temperature above which gas may catch fire; null for none
 	var/list/fire_products = null // what results when this gas is burned (oxidizer or fuel); null for none
-	var/fire_energy_released = 0 // how much energy is released per mole of fuel burned
+	var/enthalpy = 0 // how much energy is released per mole of fuel burned
 	var/fire_burn_rate = 1 // how many moles are burned per product released
 
 /datum/gas/proc/breath(partial_pressure, light_threshold, heavy_threshold, moles, mob/living/carbon/C, obj/item/organ/lungs/lungs)
@@ -93,13 +93,13 @@ GLOBAL_LIST_INIT(nonreactive_gases, typecacheof(list(GAS_O2, GAS_N2, GAS_CO2, GA
 			oxidation_rates[g] = gas.oxidation_rate
 			if(gas.fire_products)
 				fire_products[g] = gas.fire_products
-			fire_enthalpies[g] = gas.fire_energy_released
+			enthalpies[g] = gas.enthalpy
 		else if(gas.fire_temperature)
 			fire_temperatures[g] = gas.fire_temperature
 			fire_burn_rates[g] = gas.fire_burn_rate
 			if(gas.fire_products)
 				fire_products[g] = gas.fire_products
-			fire_enthalpies[g] = gas.fire_energy_released
+			enthalpies[g] = gas.enthalpy
 
 		_auxtools_register_gas(gas)
 
