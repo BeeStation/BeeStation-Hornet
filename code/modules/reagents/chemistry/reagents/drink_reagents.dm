@@ -963,9 +963,10 @@
 /datum/reagent/consumable/ethanol/bee_burst
 	name = "Bee Burst"
 	glass_name = "Bee Burst"
-	description = "A \"drink\" consisting of an excess of sugar and honey. It's barely drinkable."
-	glass_desc = "There's so much honey in here it would attract real bees. Drink at caution."
+	description = "A \"drink\" consisting of excess of sugar and honey. It's barely drinkable."
+	glass_desc = "There's so much honey in here that it would attract real bees. Drink at caution."
 	color = "#f0eb89"  // rgb: 240, 235, 137
+	chem_flags = CHEMICAL_RNG_FUN
 	boozepwr = 20
 	quality = DRINK_NICE  // sweet tooth
 	nutriment_factor = 2 * REAGENTS_METABOLISM
@@ -980,11 +981,11 @@
 
 /datum/reagent/consumable/ethanol/bee_burst/on_mob_life(mob/living/carbon/consumers)
 	consumers.satiety -= 4  // dilluted
-	if(prob(30) && (COOLDOWN_FINISHED(src, bee_limit)))
+	if(prob(20) && (COOLDOWN_FINISHED(src, bee_limit)))
 		consumers.vomit()
 		new /mob/living/simple_animal/hostile/poison/bees(consumers.loc)  // no friendly bees wha
 		to_chat(consumers, "<span class='warning'>You puke up a bee!</span>")
-		COOLDOWN_START(src, bee_limit, 3 SECONDS)
+		COOLDOWN_START(src, bee_limit, 5 SECONDS)
 
 	return ..()
 
