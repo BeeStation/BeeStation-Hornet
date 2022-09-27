@@ -959,3 +959,35 @@
 	M.adjust_disgust(30)
 	SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "quality_drink", /datum/mood_event/quality_bad)
 	. = ..()
+
+/datum/reagent/consumable/ethanol/bee_burst
+	name = "Bee Burst"
+	glass_name = "Bee Burst"
+	description = "A \"drink\" consisting of an excess of sugar and honey. It's barely drinkable."
+	glass_desc = "There's so much honey in here it would attract real bees. Drink at caution."
+	color = "#f0eb89"  // rgb: 240, 235, 137
+	boozepwr = 20
+	quality = DRINK_NICE  // sweet tooth
+	nutriment_factor = 2 * REAGENTS_METABOLISM
+	taste_description = "a bee hive"
+	glass_icon_state = "bee_burst"
+	COOLDOWN_DECLARE(bee_limit)
+
+
+/datum/reagent/consumable/ethanol/bee_burst/on_mob_metabolize(mob/living/consumers)
+	to_chat(consumers, "<span class='notice'>You feel fluttering in your stomach..</span>")
+	return ..()
+
+/datum/reagent/consumable/ethanol/bee_burst/on_mob_life(mob/living/carbon/consumers)
+	consumers.satiety -= 4  // dilluted
+	if(prob(30) && (COOLDOWN_FINISHED(src, bee_limit)))
+		consumers.vomit()
+		new /mob/living/simple_animal/hostile/poison/bees/friendly(consumers.loc)
+		to_chat(consumers, "<span class='warning'>You puke up a bee!</span>")
+		COOLDOWN_START(src, bee_limit, 3 SECONDS)
+
+	return ..()
+
+/datum/reagent/consumable/ethanol/bee_burst/on_mob_end_metabolize(mob/living/M)
+	to_chat(M, "<span class='notice'>The fluttering in your stomach slows, before falling silent.</span>")
+	return ..()
