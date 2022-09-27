@@ -98,6 +98,9 @@
 	sub.Flip(WEST)
 	main.Insert(sub, dir = WEST)
 
+	//Mix in GAG color
+	main.Blend(greyscale_colors, ICON_MULTIPLY)
+
 	//Finished
 	monkey_icon = main
 	GLOB.monkey_icon_cache[type] = icon(monkey_icon)

@@ -87,6 +87,9 @@
 	//Shift it down one, backpack specific quirk
 	main.Shift(SOUTH, 1)
 
+	//Mix in GAG color
+	main.Blend(greyscale_colors, ICON_MULTIPLY)
+
 	//Finished
 	monkey_icon = main
 	GLOB.monkey_icon_cache[type] = icon(monkey_icon)
