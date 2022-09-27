@@ -982,7 +982,7 @@
 	consumers.satiety -= 4  // dilluted
 	if(prob(30) && (COOLDOWN_FINISHED(src, bee_limit)))
 		consumers.vomit()
-		new /mob/living/simple_animal/hostile/poison/bees/friendly(consumers.loc)
+		new /mob/living/simple_animal/hostile/poison/bees(consumers.loc)  // no friendly bees wha
 		to_chat(consumers, "<span class='warning'>You puke up a bee!</span>")
 		COOLDOWN_START(src, bee_limit, 3 SECONDS)
 
