@@ -3628,10 +3628,10 @@
 /turf/open/floor/wood,
 /area/mine/living_quarters)
 "AN" = (
-/obj/structure/bookcase/manuals,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
+/obj/structure/bookcase/random,
 /turf/open/floor/plasteel/techmaint,
 /area/mine/laborcamp)
 "AP" = (
