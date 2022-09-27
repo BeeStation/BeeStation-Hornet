@@ -90,10 +90,25 @@
 	icon_state = "ecto_portable"
 	w_class = WEIGHT_CLASS_SMALL
 	var/on = TRUE
+	/// last time it recieved a signal
+	var/last_trigger = 0
+	/// how many minutes until the last trigger is cleared from the examinetext
+	var/clear_after = 5
 
 /obj/item/ecto_alert/Initialize(mapload)
 	. = ..()
 	RegisterSignal(SSdcs, COMSIG_GLOB_GHOST_SUBMIT, .proc/activate)
+
+/obj/item/ecto_alert/attack_self(mob/user)
+	. = ..()
+	on = !on
+	to_chat(user, "<span class='notice'>You turn \the [src] [on ? "ON" : "OFF"].")
+
+/obj/item/ecto_alert/examine(mob/user)
+	. = ..()
+	if(last_trigger > world.time + clear_after MINUTES)  // only displays from the last 5 minutes
+		var/display_time = FLOOR((last_trigger - world.time) / 10)
+		. += "It's last recorded trigger is [display_time], and will clear in [clear_after] minutes."
 
 /obj/item/ecto_alert/proc/activate(datum/source)
 	if(!on)
@@ -101,3 +116,4 @@
 	flick("[initial(icon)]_flick", src)
 	playsound(loc, 'sound/machines/ectoscope_beep.ogg', 15)
 	visible_message("<span class='notice'>\The [src] relays an ectoscopic signal!</span>")
+	last_trigger = world.time
