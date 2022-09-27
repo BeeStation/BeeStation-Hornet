@@ -1,5 +1,0 @@
-author: itsmeow
-delete-after: true
-changes:
-  - bugfix: Fixed a runtime with medhud SSD indicators whenever a player joined or
-      left.
