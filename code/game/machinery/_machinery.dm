@@ -139,6 +139,9 @@ Class Procs:
 	/// Maximum time an EMP will disable this machine for
 	var/emp_disable_time = 2 MINUTES
 
+	/// controls whether it can be alt-clicked to rotate, also controls the examine text
+	var/can_alt_rotate = TRUE
+
 /obj/machinery/Initialize(mapload)
 	if(!armor)
 		armor = list("melee" = 25, "bullet" = 10, "laser" = 10, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 70, "stamina" = 0)
