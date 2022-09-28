@@ -548,7 +548,7 @@
 	. = list("[get_examine_string(user, TRUE)].")
 
 	if(fun_desc && HAS_TRAIT(user, TRAIT_CLOWN_VIS))
-		. += fun_desc
+		. += pick(fun_desc)
 
 	else if(desc)
 		. += desc

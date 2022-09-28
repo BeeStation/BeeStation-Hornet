@@ -2,7 +2,7 @@
 	. = list("<span class='info'>*---------*\nThis is [icon2html(src, user)] \a <EM>[src]</EM>!")
 
 	if(fun_desc && HAS_TRAIT(user, TRAIT_CLOWN_VIS))
-		. += "[fun_desc]"
+		. += "[pick(fun_desc)]"
 	else if(desc)
 		. += "[desc]"
 
