@@ -1,0 +1,6 @@
+author: PestoVerde322
+delete-after: true
+changes:
+  - bugfix: fixed the missing labor shuttle dock for lavaland
+  - rscadd: missing cameras around lavaland
+  - rscadd: a light in the lavaland's sauna.
