@@ -111,3 +111,12 @@
 	gain_text = "<span class='danger'>You feel unable to talk.</span>"
 	lose_text = "<span class='notice'>You feel able to talk again.</span>"
 	medical_record_text = "Patient is unable to speak."
+
+/datum/quirk/clown_vis
+	name = "Clownly Vision"
+	desc = "You see the funny in everything."
+	value = 0
+	mob_trait = TRAIT_CLOWN_VIS
+	gain_text = "<span class='notice'>You start noticing funniness everywhere.</span>"
+	lose_text = "<span class='danger'>You feel the funniness leave your body.</span>"
+	medical_record_text = "Patient is very easy to make laugh."

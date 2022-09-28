@@ -177,6 +177,16 @@
 	category = list("Equipment")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
 
+/datum/design/clown_vis
+	name = "Clown Vision Goggles"
+	desc = "Goggles fitted with a clown filter, making everything appear funnier."
+	id = "clownvis"
+	build_type = PROTOLATHE
+	materials = list(/datum/material/iron = 500, /datum/material/glass = 500)
+	build_path = /obj/item/clothing/glasses/clownvis
+	category = list("Equipment")
+	departmental_flags = DEPARTMENTAL_FLAG_SERVICE
+
 /datum/design/diskplantgene
 	name = "Plant Data Disk"
 	desc = "A disk for storing plant genetic data."

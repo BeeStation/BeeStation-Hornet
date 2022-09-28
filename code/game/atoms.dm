@@ -11,6 +11,9 @@
 	appearance_flags = TILE_BOUND
 	var/level = 2
 
+	/// object's description if the user has TRAIT_CLOWN_VIS
+	var/fun_desc
+
 	/// pass_flags that we are. If any of this matches a pass_flag on a moving thing, by default, we let them through.
 	var/pass_flags_self = NONE
 
@@ -544,7 +547,10 @@
 /atom/proc/examine(mob/user)
 	. = list("[get_examine_string(user, TRUE)].")
 
-	if(desc)
+	if(fun_desc && HAS_TRAIT(user, TRAIT_CLOWN_VIS))
+		. += fun_desc
+
+	else if(desc)
 		. += desc
 
 	if(custom_materials)
@@ -1091,10 +1097,10 @@
 							valid_id = TRUE
 						if(!valid_id)
 							to_chat(usr, "<span class='warning'>A reagent with that ID doesn't exist!</span>")
-				
+
 				if("Choose from a list")
 					chosen_id = input(usr, "Choose a reagent to add.", "Choose a reagent.") as null|anything in subtypesof(/datum/reagent)
-				
+
 				if("I'm feeling lucky")
 					chosen_id = pick(subtypesof(/datum/reagent))
 

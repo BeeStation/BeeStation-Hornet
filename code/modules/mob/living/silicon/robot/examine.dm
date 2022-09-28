@@ -1,6 +1,9 @@
 /mob/living/silicon/robot/examine(mob/user)
 	. = list("<span class='info'>*---------*\nThis is [icon2html(src, user)] \a <EM>[src]</EM>!")
-	if(desc)
+
+	if(fun_desc && HAS_TRAIT(user, TRAIT_CLOWN_VIS))
+		. += "[fun_desc]"
+	else if(desc)
 		. += "[desc]"
 
 	var/obj/act_module = get_active_held_item()

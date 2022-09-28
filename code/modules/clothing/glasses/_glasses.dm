@@ -479,6 +479,14 @@
 	item_state = "redglasses"
 	glass_colour_type = /datum/client_colour/glass_colour/red
 
+/obj/item/clothing/glasses/clownvis
+	name = "\improper Clown-O-Vision Glasses"
+	desc = "Even looking through the lens makes you want to laugh."
+	fun_desc = "A window to the Honkmother's domain. Protect with your life, honk."
+	icon_state = "jamjar_glasses"
+	item_state = "jamjar_glasses"
+	clothing_flags = TRAIT_CLOWN_VIS
+
 /obj/item/clothing/glasses/godeye
 	name = "eye of god"
 	desc = "A strange eye, said to have been torn from an omniscient creature that used to roam the wastes."
