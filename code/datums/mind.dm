@@ -145,8 +145,10 @@
 	current.update_atom_languages()
 	SEND_SIGNAL(src, COMSIG_MIND_TRANSFER_TO, old_current, new_character)
 	// Update SSD indicators
-	old_current?.med_hud_set_status()
-	current?.med_hud_set_status()
+	if(isliving(old_current))
+		old_current.med_hud_set_status()
+	if(isliving(current))
+		current.med_hud_set_status()
 
 /datum/mind/proc/set_death_time()
 	SIGNAL_HANDLER
