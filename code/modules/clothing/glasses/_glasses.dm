@@ -485,7 +485,15 @@
 	fun_desc = "A window to the Honkmother's domain. Protect with your life, honk."
 	icon_state = "jamjar_glasses"
 	item_state = "jamjar_glasses"
-	clothing_flags = TRAIT_CLOWN_VIS
+
+/obj/item/clothing/glasses/clownvis/equipped(mob/user, slot)
+	. = ..()
+	if(ishuman(user) && slot == ITEM_SLOT_EYES)
+		ADD_TRAIT(user, TRAIT_CLOWN_VIS, CLOTHING_TRAIT)
+
+/obj/item/clothing/glasses/clownvis/dropped(mob/user)
+	. = ..()
+	REMOVE_TRAIT(user, TRAIT_CLOWN_VIS, CLOTHING_TRAIT)
 
 /obj/item/clothing/glasses/godeye
 	name = "eye of god"

@@ -1,6 +1,7 @@
 /obj/item/screwdriver
 	name = "screwdriver"
 	desc = "You can be totally screwy with this."
+	fun_desc = "Apply to your eyes! Hack into Bridge! The possibilities are endless!"
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "screwdriver_map"
 	item_state = "screwdriver"
