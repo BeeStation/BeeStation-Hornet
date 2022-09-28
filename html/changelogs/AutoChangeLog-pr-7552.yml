@@ -1,0 +1,5 @@
+author: Phil Smith
+delete-after: true
+changes:
+  - balance: PKAs now have the same weakness in a vacuum as they have in a pressurized
+      environment
