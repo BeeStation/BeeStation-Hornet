@@ -1,7 +1,0 @@
-author: spockye
-delete-after: true
-changes:
-  - bugfix: Removes the duplicate door from Pubby's genetics department
-  - bugfix: replaces wrong zoning
-  - bugfix: unpowers the pond
-  - bugfix: Removes Table (randomly placed table at departures airlock)
