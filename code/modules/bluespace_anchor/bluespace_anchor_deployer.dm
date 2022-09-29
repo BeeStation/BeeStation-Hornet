@@ -15,7 +15,7 @@
 
 /obj/item/bluespace_anchor/Initialize(mapload, obj/item/stock_parts/cell/cell)
 	. = ..()
-	insert_cell(cell)
+	set_cell(cell)
 
 /obj/item/bluespace_anchor/Destroy()
 	//Delete the power cell
@@ -23,11 +23,10 @@
 		QDEL_NULL(power_cell)
 	. = ..()
 
-/obj/item/bluespace_anchor/proc/insert_cell(cell)
+/obj/item/bluespace_anchor/proc/set_cell(cell)
 	if(power_cell)
 		power_cell.forceMove(get_turf(src))
 		UnregisterSignal(power_cell, COMSIG_PARENT_QDELETING)
-		power_cell = null
 	power_cell = cell
 	if(power_cell)
 		power_cell.forceMove(src)
@@ -37,10 +36,10 @@
 		to_chat(user, "<span class='notice'>There is no cell inside [src].</span>")
 		return
 	to_chat(user, "<span class='notice'>You remove the cell inside [src].</span>")
-	insert_cell(null)
+	set_cell(null)
 
 /obj/item/bluespace_anchor/attack_self(mob/user)
-	to_chat(user, "<span class='notice'>You begin deploying [src]...</span>")
+	user.visible_message("<span class='notice'>[user] begin deploying [src].</span>", "<span class='notice'>You begin deploying [src]...</span>")
 	if(!do_after(user, 4 SECONDS, target = src))
 		return
 	new /obj/machinery/bluespace_anchor(get_turf(user), power_cell)
@@ -55,5 +54,5 @@
 	if(power_cell)
 		to_chat(user, "<span class='notice'>Remove the power cell inside [src] first!</span>")
 		return
-	insert_cell(cell)
+	set_cell(cell)
 	to_chat(user, "<span class='notice'>You insert [cell] into [src].</span>")

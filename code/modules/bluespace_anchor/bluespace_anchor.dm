@@ -14,7 +14,7 @@ GLOBAL_LIST_EMPTY(active_bluespace_anchors)
 /obj/machinery/bluespace_anchor/Initialize(mapload, obj/item/stock_parts/cell/cell)
 	. = ..()
 	//Move the cell
-	insert_cell(cell)
+	set_cell(cell)
 	GLOB.active_bluespace_anchors += src
 
 /obj/machinery/bluespace_anchor/Destroy()
@@ -25,26 +25,24 @@ GLOBAL_LIST_EMPTY(active_bluespace_anchors)
 	. = ..()
 
 /obj/machinery/bluespace_anchor/attack_hand(mob/living/user)
-	to_chat(usr, "<span class='notice'>You begin deactivating [src]...</span>")
+	user.visible_message("<span class='notice'>[user] starts deactivating [src].</span>", "<span class='notice'>You begin deactivating [src]...</span>")
 	//Failing to deactivate it
 	if(!do_after(user, 8 SECONDS, target = src))
-		to_chat(usr, "<span class='userdanger'>You fail to deactivate [src]!</span>")
+		user.visible_message("<span class='warning'>[user] fails to deactivate [src]!</span>", "<span class='warning'>You fail to deactivate [src]!</span>")
 		if(!power_cell.use(power_usage_per_teleport))
 			return
 		user.electrocute_act(40)
 		return
 	//Deactivate it
-	var/obj/item/created = new /obj/item/bluespace_anchor(get_turf(src), power_cell)
+	var/removed_power_cell = power_cell
+	set_cell(null)
+	var/obj/item/created = new /obj/item/bluespace_anchor(get_turf(src), removed_power_cell)
 	user.put_in_active_hand(created)
-	UnregisterSignal(power_cell, COMSIG_PARENT_QDELETING)
-	power_cell = null
 	qdel(src)
 
 /obj/machinery/bluespace_anchor/proc/try_activate(atom/teleatom)
 	//Check power
-	if (!power_cell)
-		return FALSE
-	if(!power_cell.use(power_usage_per_teleport))
+	if(!power_cell?.use(power_usage_per_teleport))
 		return FALSE
 	//Spark and shock people adjacent
 	for (var/mob/living/L in view(1, src))
@@ -53,11 +51,10 @@ GLOBAL_LIST_EMPTY(active_bluespace_anchors)
 		L.electrocute_act(shock_damage, src)
 	return TRUE
 
-/obj/machinery/bluespace_anchor/proc/insert_cell(cell)
+/obj/machinery/bluespace_anchor/proc/set_cell(cell)
 	if(power_cell)
 		power_cell.forceMove(get_turf(src))
 		UnregisterSignal(power_cell, COMSIG_PARENT_QDELETING)
-		power_cell = null
 	power_cell = cell
 	if(power_cell)
 		power_cell.forceMove(src)
