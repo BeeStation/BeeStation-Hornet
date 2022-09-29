@@ -1,0 +1,11 @@
+author: ivanmixo
+delete-after: true
+changes:
+  - balance: bruise pack/gauze/ointment application do_afters(the use bars) can't
+      be stacked on yourself anymore yet
+  - bugfix: you can't apply gauze on people who arent hurt anymore
+  - rscdel: useless do_after_mob proc
+  - refactor: refactored bruise pack/ointment/gauze application proc
+  - balance: the area of the body you're targeting when applying touch based healing
+      reagents through a patch/medspray now actually matters
+  - code_imp: Added a bunch of comments to items related to chems and stacks
