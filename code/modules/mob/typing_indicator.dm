@@ -68,7 +68,8 @@ Both the say/me wrappers and cancel_typing remove the typing indicator.
 /mob/living/create_typing_indicator()
 	if(typing_indicator || stat != CONSCIOUS) //Prevents sticky overlays and typing while in any state besides conscious
 		return
-	var/sprite_used = bubble_icon || "default"  // if theres no bubble default to default
+	var/obj/item/organ/tongue/voice = getorganslot(ORGAN_SLOT_TONGUE)
+	var/sprite_used = voice?.bubble_sprite || bubble_icon || "default"  // if theres no bubble default to default
 	typing_indicator = mutable_appearance('icons/mob/talk.dmi', "[sprite_used]0", -TYPING_LAYER)
 	add_overlay(typing_indicator)
 

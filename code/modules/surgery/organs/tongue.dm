@@ -15,6 +15,8 @@
 	var/toxic_food = TOXIC
 	var/taste_sensitivity = 15 // lower is more sensitive.
 	var/modifies_speech = FALSE
+	/// what typing indicator used
+	var/bubble_sprite
 	var/static/list/languages_possible_base = typecacheof(list(
 		/datum/language/aphasia,
 		/datum/language/apidite,
@@ -200,6 +202,7 @@
 	liked_food = VEGETABLES | FRUIT
 	disliked_food = GROSS | DAIRY
 	toxic_food = MEAT | RAW
+	bubble_sprite = "bee"
 
 /obj/item/organ/tongue/bone
 	name = "bone \"tongue\""
@@ -245,6 +248,7 @@
 	attack_verb = list("beeped", "booped")
 	modifies_speech = TRUE
 	taste_sensitivity = 25 // not as good as an organic tongue
+	bubble_sprite = "machine"
 
 /obj/item/organ/tongue/robot/Initialize(mapload)
 	. = ..()
@@ -281,6 +285,7 @@
 	attack_verb = list("shocked", "jolted", "zapped")
 	taste_sensitivity = 101 // Not a tongue, they can't taste shit
 	toxic_food = NONE
+	bubble_sprite = "electrical"
 
 /obj/item/organ/tongue/ethereal/Initialize(mapload)
 	. = ..()
@@ -292,6 +297,7 @@
 	say_mod = "rumbles"
 	taste_sensitivity = 101 //They don't eat.
 	icon_state = "adamantine_cords"
+	bubble_sprite = "stone"
 
 /obj/item/organ/tongue/golem/Initialize(mapload)
 	. = ..()
@@ -323,6 +329,7 @@
 	exclaim_mod = "loudly blorbles"
 	toxic_food = NONE
 	disliked_food = NONE
+	bubble_sprite = "slime"
 
 /obj/item/organ/tongue/slime/Initialize(mapload)
 	. = ..()
