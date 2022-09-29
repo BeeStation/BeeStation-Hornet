@@ -26602,9 +26602,6 @@
 	},
 /turf/open/floor/engine/co2,
 /area/engine/atmos)
-"bWh" = (
-/turf/open/floor/plating/asteroid,
-/area/chapel/office)
 "bWi" = (
 /obj/structure/flora/ausbushes/leafybush,
 /obj/structure/flora/ausbushes/reedbush,
@@ -36387,7 +36384,7 @@
 /obj/item/stack/package_wrap,
 /obj/item/coin/gold,
 /turf/open/floor/plasteel/dark,
-/area/library/lounge)
+/area/hallway/secondary/exit/departure_lounge)
 "fzK" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -55416,7 +55413,7 @@
 	dir = 4
 	},
 /turf/open/floor/engine,
-/area/engine/supermatter)
+/area/engine/engineering)
 "rZi" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -56955,7 +56952,7 @@
 	dir = 8
 	},
 /turf/open/floor/plasteel/dark,
-/area/chapel/main/monastery)
+/area/science/explab)
 "tdB" = (
 /obj/structure/table,
 /obj/item/reagent_containers/glass/beaker,
@@ -58994,7 +58991,7 @@
 	dir = 4
 	},
 /turf/open/floor/plasteel,
-/area/engine/engineering)
+/area/chapel/main/monastery)
 "uGp" = (
 /obj/machinery/door/airlock/security{
 	aiControlDisabled = 1;
@@ -78704,7 +78701,7 @@ aaa
 abI
 bNs
 bNs
-bWh
+bOw
 bOw
 bOw
 bOw
@@ -84028,9 +84025,9 @@ bBW
 ajM
 avq
 ajM
-ajM
-aiu
-aiu
+qnk
+qnk
+qnk
 gSH
 xJy
 twu
@@ -84542,7 +84539,7 @@ ajM
 akA
 akA
 akA
-ajM
+qnk
 ayF
 fzK
 xLC
