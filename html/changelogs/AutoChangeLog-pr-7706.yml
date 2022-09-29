@@ -1,0 +1,4 @@
+author: Tyranicranger4
+delete-after: true
+changes:
+  - bugfix: Box station engine monitoring camera consoles now work properly.
