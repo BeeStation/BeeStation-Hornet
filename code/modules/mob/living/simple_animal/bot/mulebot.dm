@@ -50,15 +50,18 @@
 	var/auto_return = TRUE		/// true if auto return to home beacon after unload
 	var/auto_pickup = TRUE 	/// true if auto-pickup at beacon
 	var/report_delivery = TRUE /// true if bot will announce an arrival to a location.
+	var/turf/last_target
+	var/mulebot_z_mode
 
 	var/obj/item/stock_parts/cell/cell /// Internal Powercell
 	var/bloodiness = 0 ///If we've run over a mob, how many tiles will we leave tracks on while moving
 	var/num_steps = 0 ///The amount of steps we should take until we rest for a time.
+	var/network_id = NETWORK_BOTS_CARGO
 
 /mob/living/simple_animal/bot/mulebot/Initialize(mapload)
 	. = ..()
 	wires = new /datum/wires/mulebot(src)
-	var/datum/job/cargo_tech/J = new/datum/job/cargo_tech
+	var/datum/job/cargo_technician/J = new/datum/job/cargo_technician
 	access_card.access = J.get_access()
 	prev_access = access_card.access
 	cell = new /obj/item/stock_parts/cell/upgraded(src, 2000)
@@ -74,10 +77,8 @@
 	D.set_vehicle_dir_layer(NORTH, layer)
 	D.set_vehicle_dir_layer(EAST, layer)
 	D.set_vehicle_dir_layer(WEST, layer)
-
-/mob/living/simple_animal/bot/mulebot/ComponentInitialize()
-	. = ..()
-	AddComponent(/datum/component/ntnet_interface)
+	if(network_id)
+		AddComponent(/datum/component/ntnet_interface, network_id)
 
 /mob/living/simple_animal/bot/mulebot/handle_atom_del(atom/A)
 	if(A == load)
@@ -126,7 +127,7 @@
 	id = new_id
 	if(paicard)
 		bot_name = "\improper MULEbot ([new_id])"
-	else
+	else if(name == "\improper MULEbot")
 		name = "\improper MULEbot ([new_id])"
 
 /mob/living/simple_animal/bot/mulebot/bot_reset()
@@ -555,6 +556,10 @@
 
 		if(BOT_DELIVER, BOT_GO_HOME, BOT_BLOCKED) // navigating to deliver,home, or blocked
 			if(loc == target) // reached target
+				if(last_target != null)
+					if(z != last_target.z)
+						mulebot_z_movement()
+						return
 				at_target()
 				return
 
@@ -626,7 +631,41 @@
 // calculates a path to the current destination
 // given an optional turf to avoid
 /mob/living/simple_animal/bot/mulebot/calc_path(turf/avoid = null)
+	if(!is_reserved_level(z) && is_station_level(z))
+		if(target != null)
+			if(z > target.z)
+				mule_up_or_down(DOWN)
+				return
+			if(z < target.z)
+				mule_up_or_down(UP)
+				return
 	path = get_path_to(src, target, 250, id=access_card, exclude=avoid)
+
+/mob/living/simple_animal/bot/mulebot/proc/mule_up_or_down(direction)
+	if(!is_reserved_level(z) && is_station_level(z))
+		var/new_target = find_nearest_bot_elevator(direction)
+
+		var/go_here
+		mulebot_z_mode = MULEBOT_Z_MODE_ACTIVE
+		if(!new_target)
+			return
+		go_here = get_turf(new_target)
+		last_target = target
+		target = go_here
+		path = get_path_to(src, target, 250, id=access_card)
+
+/mob/living/simple_animal/bot/mulebot/proc/mulebot_z_movement()
+	var/obj/structure/bot_elevator/E = locate(/obj/structure/bot_elevator) in get_turf(src)
+	if(mulebot_z_mode == MULEBOT_Z_MODE_ACTIVE)
+		if(E)
+			if(z > last_target.z)
+				E.travel(FALSE, src, FALSE, E.down, FALSE)
+				target = last_target
+				calc_path()
+			else
+				E.travel(TRUE, src, FALSE, E.up, FALSE)
+				target = last_target
+				calc_path()
 
 // sets the current destination
 // signals all beacons matching the delivery code

@@ -78,6 +78,7 @@
 	trigger_guard = TRIGGER_GUARD_ALLOW_ALL
 	overheat_time = 20
 	holds_charge = TRUE
+	requires_wielding = FALSE
 	unique_frequency = TRUE
 
 /obj/item/gun/energy/kinetic_accelerator/Initialize(mapload)
@@ -345,7 +346,7 @@
 	icon_state = "door_electronics"
 	icon = 'icons/obj/module.dmi'
 	denied_type = /obj/item/borg/upgrade/modkit/cooldown/minebot
-	modifier = 10
+	modifier = 5
 	cost = 0
 	minebot_upgrade = TRUE
 	minebot_exclusive = TRUE
@@ -508,7 +509,7 @@
 //Indoors
 /obj/item/borg/upgrade/modkit/indoors
 	name = "decrease pressure penalty"
-	desc = "A syndicate modification kit that increases the damage a kinetic accelerator does in high pressure environments."
+	desc = "A syndicate modification kit that increases the damage a kinetic accelerator does in high pressure and full vacuum environments."
 	modifier = 2
 	denied_type = /obj/item/borg/upgrade/modkit/indoors
 	maximum_of_type = 2

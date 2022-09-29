@@ -1,6 +1,7 @@
 /datum/computer_file/program/supermatter_monitor
 	filename = "smmonitor"
 	filedesc = "Supermatter Monitoring"
+	category = PROGRAM_CATEGORY_ENGI
 	ui_header = "smmon_0.gif"
 	program_icon_state = "smmon_0"
 	extended_desc = "This program connects to specially calibrated supermatter sensors to provide information on the status of supermatter-based engines."
@@ -9,12 +10,16 @@
 	network_destination = "supermatter monitoring system"
 	size = 5
 	tgui_id = "NtosSupermatterMonitor"
-
-
+	program_icon = "radiation"
+	alert_able = TRUE
 	var/last_status = SUPERMATTER_INACTIVE
 	var/list/supermatters
 	var/obj/machinery/power/supermatter_crystal/active		// Currently selected supermatter crystal.
 
+/datum/computer_file/program/supermatter_monitor/Destroy()
+	clear_signals()
+	active = null
+	return ..()
 
 /datum/computer_file/program/supermatter_monitor/process_tick()
 	..()
@@ -28,6 +33,10 @@
 
 /datum/computer_file/program/supermatter_monitor/run_program(mob/living/user)
 	. = ..(user)
+	if(!.)
+		return
+	if(!(active in GLOB.machines))
+		active = null
 	refresh()
 
 /datum/computer_file/program/supermatter_monitor/kill_program(forced = FALSE)
@@ -56,7 +65,59 @@
 	for(var/obj/machinery/power/supermatter_crystal/S in supermatters)
 		. = max(., S.get_status())
 
-/datum/computer_file/program/supermatter_monitor/ui_data()
+/**
+  * Sets up the signal listener for Supermatter delaminations.
+  *
+  * Unregisters any old listners for SM delams, and then registers one for the SM refered
+  * to in the `active` variable. This proc is also used with no active SM to simply clear
+  * the signal and exit.
+ */
+/datum/computer_file/program/supermatter_monitor/proc/set_signals()
+	if(active)
+		RegisterSignal(active, COMSIG_SUPERMATTER_DELAM_ALARM, .proc/send_alert, override = TRUE)
+		RegisterSignal(active, COMSIG_SUPERMATTER_DELAM_START_ALARM, .proc/send_start_alert, override = TRUE)
+
+/**
+  * Removes the signal listener for Supermatter delaminations from the selected supermatter.
+  *
+  * Pretty much does what it says.
+ */
+/datum/computer_file/program/supermatter_monitor/proc/clear_signals()
+	if(active)
+		UnregisterSignal(active, COMSIG_SUPERMATTER_DELAM_ALARM)
+		UnregisterSignal(active, COMSIG_SUPERMATTER_DELAM_START_ALARM)
+
+/**
+  * Sends an SM delam alert to the computer.
+  *
+  * Triggered by a signal from the selected supermatter, this proc sends a notification
+  * to the computer if the program is either closed or minimized. We do not send these
+  * notifications to the comptuer if we're the active program, because engineers fixing
+  * the supermatter probably don't need constant beeping to distract them.
+ */
+/datum/computer_file/program/supermatter_monitor/proc/send_alert()
+	if(!computer.get_ntnet_status())
+		return
+	if(computer.active_program != src)
+		computer.alert_call(src, "Crystal delamination in progress!")
+		alert_pending = TRUE
+
+/**
+  * Sends an SM delam start alert to the computer.
+  *
+  * Triggered by a signal from the selected supermatter at the start of a delamination,
+  * this proc sends a notification to the computer if this program is the active one.
+  * We do this so that people carrying a tablet with NT CIMS open but with the NTOS window
+  * closed will still get one audio alert. This is not sent to computers with the program
+  * minimized or closed to avoid double-notifications.
+ */
+/datum/computer_file/program/supermatter_monitor/proc/send_start_alert()
+	if(!computer.get_ntnet_status())
+		return
+	if(computer.active_program == src)
+		computer.alert_call(src, "Crystal delamination in progress!")
+
+/datum/computer_file/program/supermatter_monitor/ui_data(mob/user)
 	var/list/data = get_header_data()
 
 	if(istype(active))
@@ -69,30 +130,8 @@
 		if(!air)
 			active = null
 			return
-
-		data["active"] = TRUE
-		data["SM_integrity"] = active.get_integrity()
-		data["SM_power"] = active.power
-		data["SM_radiation"] = active.last_rads
-		data["SM_ambienttemp"] = air.return_temperature()
-		data["SM_ambientpressure"] = air.return_pressure()
-		//data["SM_EPR"] = round((air.total_moles / air.group_multiplier) / 23.1, 0.01)
-		var/list/gasdata = list()
-
-
-		if(air.total_moles())
-			for(var/gasid in air.get_gases())
-				gasdata.Add(list(list(
-				"name"= GLOB.gas_data.names[gasid],
-				"amount" = round(100*air.get_moles(gasid)/air.total_moles(),0.01))))
-
-		else
-			for(var/gasid in air.get_gases())
-				gasdata.Add(list(list(
-					"name"= GLOB.gas_data.names[gasid],
-					"amount" = 0)))
-
-		data["gases"] = gasdata
+		data += active.ui_data()
+		data["standalone_mode"] = FALSE
 	else
 		var/list/SMS = list()
 		for(var/obj/machinery/power/supermatter_crystal/S in supermatters)
@@ -100,7 +139,7 @@
 			if(A)
 				SMS.Add(list(list(
 				"area_name" = A.name,
-				"integrity" = S.get_integrity(),
+				"integrity" = S.get_integrity_percent(),
 				"uid" = S.uid
 				)))
 
@@ -110,11 +149,13 @@
 	return data
 
 /datum/computer_file/program/supermatter_monitor/ui_act(action, params)
-	if(..())
-		return TRUE
+	. = ..()
+	if(.)
+		return
 
 	switch(action)
 		if("PRG_clear")
+			clear_signals()
 			active = null
 			return TRUE
 		if("PRG_refresh")
@@ -125,6 +166,7 @@
 			for(var/obj/machinery/power/supermatter_crystal/S in supermatters)
 				if(S.uid == newuid)
 					active = S
+					set_signals()
 			return TRUE
 
 /datum/computer_file/program/supermatter_monitor/proc/react_to_del(datum/source)

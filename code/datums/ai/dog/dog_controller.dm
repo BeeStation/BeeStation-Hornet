@@ -180,6 +180,7 @@
 	if(!istype(clicker) || !blackboard[BB_DOG_FRIENDS][WEAKREF(clicker)])
 		return
 	INVOKE_ASYNC(src, .proc/command_radial, clicker)
+	return COMPONENT_INTERCEPT_ALT
 
 /// Show the command radial menu
 /datum/ai_controller/dog/proc/command_radial(mob/living/clicker)
