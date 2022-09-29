@@ -17,6 +17,7 @@
 	attack_verb = "slash"
 	attack_sound = 'sound/weapons/slash.ogg'
 	miss_sound = 'sound/weapons/slashmiss.ogg'
+	var/datum/action/innate/cocoon/cocoon
 	meat = /obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/moth
 	mutanteyes = /obj/item/organ/eyes/moth
 	mutantwings = /obj/item/organ/wings/moth
@@ -54,8 +55,6 @@
 	if(istype(weapon, /obj/item/melee/flyswatter))
 		return 9 //flyswatters deal 10x damage to moths
 	return 0
-
-var/datum/action/innate/cocoon/cocoon
 
 /datum/species/moth/on_species_gain(mob/living/carbon/human/H)
 	..()
