@@ -27,8 +27,6 @@
 	species_l_leg = /obj/item/bodypart/l_leg/golem
 	species_r_leg = /obj/item/bodypart/r_leg/golem
 
-	bubble_sprite = "stone"
-
 	fixed_mut_color = "aaa"
 	swimming_component = /datum/component/swimming/golem
 	var/info_text = "As an <span class='danger'>Iron Golem</span>, you don't have any special traits."

@@ -103,9 +103,6 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	/// if false, having no tongue makes you unable to speak
 	var/speak_no_tongue = TRUE
 
-	/// unique talk bubble sprite
-	var/bubble_sprite
-
 ///////////
 // PROCS //
 ///////////
@@ -393,8 +390,6 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 			C.faction += i //Using +=/-= for this in case you also gain the faction from a different source.
 
 	C.add_movespeed_modifier(MOVESPEED_ID_SPECIES, TRUE, 100, override=TRUE, multiplicative_slowdown=speedmod, movetypes=(~FLYING))
-	if(bubble_sprite)
-		C.bubble_icon = bubble_sprite
 
 	SEND_SIGNAL(C, COMSIG_SPECIES_GAIN, src, old_species)
 
@@ -426,8 +421,6 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		for(var/i in inherent_factions)
 			C.faction -= i
 	C.remove_movespeed_modifier(MOVESPEED_ID_SPECIES)
-	if(bubble_sprite)
-		C.bubble_icon = "default"  // i sure hope setting it to default is fine
 	SEND_SIGNAL(C, COMSIG_SPECIES_LOSS, src)
 
 /datum/species/proc/handle_hair(mob/living/carbon/human/H, forced_colour)
