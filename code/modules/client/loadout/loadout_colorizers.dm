@@ -28,9 +28,14 @@
     allowed_roles = list(JOB_NAME_HEADOFPERSONNEL)
     cost = 20000
 
+/datum/gear/colorizer/militarycap
+    display_name = "Captain's Clothes Colouriser (Military)"
+    path = /obj/item/colorizer/captain_military_uniform
+    allowed_roles = list(JOB_NAME_CAPTAIN)
+    cost = 10000
+
 /datum/gear/colorizer/pdatransparent
 	display_name = "Transparent PDA Colorizer"
 	path = /obj/item/colorizer/pdatransparent
 	cost = 20000
-
 
