@@ -215,25 +215,25 @@
 	if(!proximity_flag)
 		return
 	if(isliving(target))
-		var/mob/living/M = target
-		var/kidnaptime = max(10, (M.health * (M.mob_size / 2)))
+		var/mob/living/kidnapee = target
+		var/kidnaptime = max(1 SECONDS, (kidnapee.health * (kidnapee.mob_size / 2)))
 		if(iscarbon(target))
-			kidnaptime += 100
+			kidnaptime += 10 SECONDS
 		if(target == user)
-			kidnaptime = 10
-		M.visible_message("<span class='warning'>[user] starts pulling [src] over [M]'s head!</span>", "<span class='userdanger'>[user] starts pulling [src] over your head!</span>")
-		if(do_after_mob(user, M, kidnaptime * kidnappingcoefficient))
-			if(M == user)
-				M.drop_all_held_items()
+			kidnaptime = 1 SECONDS
+		kidnapee.visible_message("<span class='warning'>[user] starts pulling [src] over [kidnapee]'s head!</span>", "<span class='userdanger'>[user] starts pulling [src] over your head!</span>")
+		if(do_mob(user, kidnapee, kidnaptime * kidnappingcoefficient))
+			if(kidnapee == user)
+				kidnapee.drop_all_held_items()
 				if(HAS_TRAIT(src, TRAIT_NODROP))
 					return
-			if(M.mob_size <= capacity)
-				src.contents += M
-				capacity -= M.mob_size
-				user.visible_message("<span class='warning'>[user] stuffs [M] into the [src]!</span>")
-				to_chat(M, "<span class='userdanger'>[user] stuffs you into the [src]!</span>")
+			if(kidnapee.mob_size <= capacity)
+				src.contents += kidnapee
+				capacity -= kidnapee.mob_size
+				user.visible_message("<span class='warning'>[user] stuffs [kidnapee] into the [src]!</span>")
+				to_chat(kidnapee, "<span class='userdanger'>[user] stuffs you into the [src]!</span>")
 			else
-				to_chat(user, "[M] will not fit in the tophat!")
+				to_chat(user, "[kidnapee] will not fit in the tophat!")
 	else if (isitem(target))
 		var/obj/item/I = target
 		if(I in user.contents)

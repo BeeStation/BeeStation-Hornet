@@ -934,7 +934,7 @@
 	result = /obj/item/stack/medical/bruise_pack/one
 	time = 1
 	reqs = list(/obj/item/stack/medical/gauze = 1,
-				/datum/reagent/medicine/styptic_powder = 10)
+				/datum/reagent/medicine/styptic_powder = 40)
 	category = CAT_MISC
 
 /datum/crafting_recipe/burn_pack
@@ -942,7 +942,7 @@
 	result = /obj/item/stack/medical/ointment/one
 	time = 1
 	reqs = list(/obj/item/stack/medical/gauze = 1,
-				/datum/reagent/medicine/silver_sulfadiazine = 10)
+				/datum/reagent/medicine/silver_sulfadiazine = 40)
 	category = CAT_MISC
 
 // Shank - Makeshift weapon that can embed on throw
