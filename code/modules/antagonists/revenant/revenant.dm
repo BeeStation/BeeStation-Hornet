@@ -163,6 +163,9 @@
 /mob/living/simple_animal/revenant/say(message, bubble_type, var/list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null)
 	if(!message)
 		return
+	if(CHAT_FILTER_CHECK(message))
+		to_chat(usr, "<span class='warning'>Your message contains forbidden words.</span>")
+		return
 	message = treat_message_min(message)
 	src.log_talk(message, LOG_SAY)
 	var/rendered = "<span class='revennotice'><b>[src]</b> says, \"[message]\"</span>"

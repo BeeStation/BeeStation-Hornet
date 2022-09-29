@@ -225,9 +225,16 @@
 		if("set_message")
 			if(locked)
 				return
-			var/new_message = html_encode(params["value"])
+			var/new_message = trim(html_encode(params["value"]))
 			if(!new_message)
 				return
+			if(CHAT_FILTER_CHECK(new_message))
+				to_chat(usr, "<span class='warning'>Your message contains forbidden words.</span>")
+				var/logmsg = "attempted to set a forbidden nanite cloud message with contents: \"[new_message]\". The message was filtered and blocked."
+				log_admin_private("[key_name(usr)] [logmsg]")
+				message_admins("[ADMIN_LOOKUPFLW(usr)] [logmsg]")
+				return
+			log_game("[key_name(usr)] set the nanite cloud message to: \"[new_message]\"")
 			comm_message = new_message
 			. = TRUE
 

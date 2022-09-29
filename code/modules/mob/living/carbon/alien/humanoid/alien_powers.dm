@@ -92,6 +92,9 @@ Doesn't work on other aliens/AI.*/
 	var/msg = stripped_input(usr, "Message:", "Alien Whisper")
 	if(!msg)
 		return FALSE
+	if(CHAT_FILTER_CHECK(msg))
+		to_chat(usr, "<span class='warning'>Your message contains forbidden words.</span>")
+		return FALSE
 	msg = user.treat_message_min(msg)
 	log_directed_talk(user, M, msg, LOG_SAY, tag="alien whisper")
 	to_chat(M, "<span class='noticealien'>You hear a strange, alien voice in your head.</span>[msg]")

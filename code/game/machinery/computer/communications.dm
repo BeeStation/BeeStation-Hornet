@@ -248,6 +248,9 @@
 			var/message = trim(html_encode(params["message"]), MAX_MESSAGE_LEN)
 			if (!message)
 				return
+			if(CHAT_FILTER_CHECK(message))
+				to_chat(usr, "<span class='warning'>Your message contains forbidden words.</span>")
+				return
 
 			playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
 

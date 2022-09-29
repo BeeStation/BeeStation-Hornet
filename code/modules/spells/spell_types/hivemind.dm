@@ -958,6 +958,9 @@
 	var/message = stripped_input(user, "What do you want to say?", "Hive Communication")
 	if(!message)
 		return
+	if(CHAT_FILTER_CHECK(message))
+		to_chat(usr, "<span class='warning'>Your message contains forbidden words.</span>")
+		return
 	message = user.treat_message_min(message)
 	var/title = "One Mind"
 	var/span = "changeling"
