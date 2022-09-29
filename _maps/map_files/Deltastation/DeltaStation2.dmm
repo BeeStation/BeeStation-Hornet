@@ -70547,6 +70547,13 @@
 	dir = 1;
 	name = "chapel camera"
 	},
+/obj/machinery/button/door{
+	id = "chapelprivacy";
+	name = "Chapel Privacy Shutters";
+	pixel_x = 23;
+	pixel_y = -23;
+	req_access_txt = "27"
+	},
 /turf/open/floor/carpet,
 /area/chapel/office)
 "egh" = (
@@ -70750,10 +70757,6 @@
 	},
 /turf/open/floor/plasteel/airless/solarpanel,
 /area/solar/port/aft)
-"egC" = (
-/obj/effect/spawner/structure/window/reinforced,
-/turf/open/floor/plating,
-/area/chapel/office)
 "egD" = (
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 1
@@ -153663,7 +153666,7 @@ edT
 qaB
 fCm
 efi
-egC
+efg
 aaa
 aad
 aaa
@@ -153920,7 +153923,7 @@ edU
 eeD
 mEx
 ege
-egC
+efg
 aaa
 aad
 aaa
@@ -154177,7 +154180,7 @@ exB
 qfN
 exs
 ege
-egC
+efg
 aad
 ajr
 aaa
