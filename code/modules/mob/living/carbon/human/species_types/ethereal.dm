@@ -29,6 +29,8 @@
 	species_l_leg = /obj/item/bodypart/l_leg/ethereal
 	species_r_leg = /obj/item/bodypart/r_leg/ethereal
 
+	bubble_sprite = "electrical"
+
 	var/current_color
 	var/EMPeffect = FALSE
 	var/emageffect = FALSE

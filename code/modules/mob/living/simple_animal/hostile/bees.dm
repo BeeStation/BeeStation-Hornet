@@ -48,6 +48,8 @@
 	minbodytemp = 0
 	del_on_death = TRUE
 
+	bubble_icon = "bee"
+
 	var/datum/reagent/beegent = null //hehe, beegent
 	var/obj/structure/beebox/beehome = null
 	var/idle = 0

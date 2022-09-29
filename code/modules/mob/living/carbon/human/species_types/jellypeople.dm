@@ -27,6 +27,8 @@
 	species_l_leg = /obj/item/bodypart/l_leg/jelly
 	species_r_leg = /obj/item/bodypart/r_leg/jelly
 
+	bubble_sprite = "slime"
+
 /datum/species/jelly/on_species_loss(mob/living/carbon/C)
 	if(regenerate_limbs)
 		regenerate_limbs.Remove(C)
