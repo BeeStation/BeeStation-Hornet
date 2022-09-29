@@ -29,7 +29,7 @@ GLOBAL_LIST_EMPTY(active_bluespace_anchors)
 	//Failing to deactivate it
 	if(!do_after(user, 8 SECONDS, target = src))
 		user.visible_message("<span class='warning'>[user] fails to deactivate [src]!</span>", "<span class='warning'>You fail to deactivate [src]!</span>")
-		if(!power_cell.use(power_usage_per_teleport))
+		if(!power_cell?.use(power_usage_per_teleport))
 			return
 		user.electrocute_act(40)
 		return
