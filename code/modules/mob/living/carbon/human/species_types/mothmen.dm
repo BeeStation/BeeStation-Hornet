@@ -1,5 +1,5 @@
 #define COCOON_WEAVE_DELAY 5 SECONDS //how long it takes you to create the cocoon
-#define COCOON_EMERGE_DELAY 60 SECONDS //how long you remain inside of it
+#define COCOON_EMERGE_DELAY 20 SECONDS //how long you remain inside of it
 #define COCOON_HARM_AMOUNT 50 //how much damage gets dealt to you if the cocoon gets broken prematurely
 #define COCOON_HEAL_AMOUNT 35 //how much damage gets restored while you're cocooned
 #define COCOON_NUTRITION_AMOUNT 200 //how much hunger gets drained in total
@@ -94,6 +94,9 @@
 	"<span class='notice'>You begin to focus on weaving a cocoon... (This will take [COCOON_WEAVE_DELAY / 10] seconds and you must hold still.)</span>")
 	H.adjustStaminaLoss(20, 0) //this is here to deter people from spamming it if they get interrupted
 	if(do_after(H, COCOON_WEAVE_DELAY, FALSE, H))
+		if(!ismoth(H))
+			to_chat(H, "<span class='warning'>You have lost your mandibles and cannot weave anymore!.</span>")
+			return
 		if(H.incapacitated())
 			to_chat(H, "<span class='warning'>You cannot weave a cocoon in your current state.</span>")
 			return
@@ -116,12 +119,15 @@
 			return
 		//if(H.dna.features["moth_wings"] == "Burnt Off") //this check seems redundant as burned wings are a roundstart option and sending a signal to clear a non-existing mood event doesn't cause any issues
 		SEND_SIGNAL(H, COMSIG_CLEAR_MOOD_EVENT, "burnt_wings")
-		H.dna.features["moth_wings"] = "[H.dna.original_wings]"
-		var/obj/item/organ/wings/moth/organ = new()
-		organ.wing_type = "[H.dna.original_wings]"
-		organ.Insert(H, TRUE, FALSE)
+		//if(!ismoth(H))//mutation toxin is a thing, so this is here to prevent accidentally creating a mishmash of moth and whatever else
+			//return Note - this makes the transformed user NEVER wake up
+		if(ismoth(H))
+			H.dna.features["moth_wings"] = "[H.dna.original_wings]"
+			var/obj/item/organ/wings/moth/organ = new()
+			organ.wing_type = "[H.dna.original_wings]"
+			organ.Insert(H, TRUE, FALSE)
 		//H.drowsyness += 5
-		H.dna.species.handle_mutant_bodyparts(H)
+			H.dna.species.handle_mutant_bodyparts(H)
 	C.preparing_to_emerge = FALSE
 	qdel(C)
 
