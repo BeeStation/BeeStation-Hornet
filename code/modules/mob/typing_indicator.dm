@@ -30,11 +30,11 @@ Both the say/me wrappers and cancel_typing remove the typing indicator.
 */
 
 /// Show the typing indicator. The source signifies what action the user is typing for.
-/mob/verb/start_typing(source as text) // The source argument is currently unused
+/mob/verb/start_typing(source as text) // The source argument is currently unused  // not anymore
 	set name = ".start_typing"
 	set hidden = 1
 
-	create_typing_indicator()
+	create_typing_indicator(source == "me" ? TRUE : FALSE)
 
 /// Hide the typing indicator. The source signifies what action the user was typing for.
 /mob/verb/cancel_typing(source as text)
@@ -65,11 +65,18 @@ Both the say/me wrappers and cancel_typing remove the typing indicator.
 		me_verb(message)
 
 ///Human Typing Indicators///
-/mob/living/create_typing_indicator()
+/mob/living/create_typing_indicator(hide_species = FALSE)
 	if(typing_indicator || stat != CONSCIOUS) //Prevents sticky overlays and typing while in any state besides conscious
 		return
 	var/obj/item/organ/tongue/voice = getorganslot(ORGAN_SLOT_TONGUE)
 	var/sprite_used = voice?.bubble_sprite || bubble_icon || "default"  // if theres no bubble default to default
+
+	var/turf/T = get_turf(src)
+	var/datum/gas_mixture/environment = T.return_air()
+	var/pressure = environment ? environment.return_pressure() : 0
+	if(pressure < SOUND_MINIMUM_PRESSURE || hide_species)
+		sprite_used = "default"  // in space nobody can discrimate your race
+
 	typing_indicator = mutable_appearance('icons/mob/talk.dmi', "[sprite_used]0", -TYPING_LAYER)
 	add_overlay(typing_indicator)
 
