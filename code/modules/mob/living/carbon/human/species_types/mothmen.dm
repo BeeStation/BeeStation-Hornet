@@ -93,7 +93,6 @@ var/datum/action/innate/cocoon/cocoon
 		return
 	H.visible_message("<span class='notice'>[H] begins to hold still and concentrate on weaving a cocoon...</span>", \
 	"<span class='notice'>You begin to focus on weaving a cocoon... (This will take [COCOON_WEAVE_DELAY / 10] seconds and you must hold still.)</span>")
-	to_chat(H, "<span=class'notice'>1 :</span>")
 	H.adjustStaminaLoss(20, 0) //this is here to deter people from spamming it if they get interrupted
 	if(do_after(H, COCOON_WEAVE_DELAY, FALSE, H))
 		if(H.incapacitated())
@@ -122,7 +121,7 @@ var/datum/action/innate/cocoon/cocoon
 		var/obj/item/organ/wings/moth/organ = new()
 		organ.wing_type = "[H.dna.original_wings]"
 		organ.Insert(H, TRUE, FALSE)
-		H.drowsyness += 5
+		//H.drowsyness += 5
 		H.dna.species.handle_mutant_bodyparts(H)
 	C.preparing_to_emerge = FALSE
 	qdel(C)
