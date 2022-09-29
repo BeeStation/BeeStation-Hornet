@@ -1,4 +1,4 @@
-GLOBAL_DATUM_INIT(typing_indicator, /mutable_appearance, mutable_appearance('icons/mob/talk.dmi', "default0", -TYPING_LAYER))
+GLOBAL_DATUM_INIT(typing_indicator, /mutable_appearance, )
 
 /mob/proc/create_typing_indicator()
 	return
@@ -68,11 +68,13 @@ Both the say/me wrappers and cancel_typing remove the typing indicator.
 
 ///Human Typing Indicators///
 /mob/living/create_typing_indicator()
-	if(!typing_indicator && stat == CONSCIOUS) //Prevents sticky overlays and typing while in any state besides conscious
-		add_overlay(GLOB.typing_indicator)
-		typing_indicator = TRUE
+	if(typing_indicator || stat != CONSCIOUS) //Prevents sticky overlays and typing while in any state besides conscious
+		return
+	var/sprite_used = "[bubble_icon || "default"]0"  // if theres no bubble default to default
+	typing_indicator = mutable_appearance('icons/mob/talk.dmi', "[sprite_used]0", -TYPING_LAYER)
+	add_overlay(typing_indicator)
 
 /mob/living/remove_typing_indicator()
 	if(typing_indicator)
-		cut_overlay(GLOB.typing_indicator)
-		typing_indicator = FALSE
+		cut_overlay(typing_indicator)
+		typing_indicator = null
