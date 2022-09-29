@@ -665,6 +665,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		A.Remove(user)
 	if(item_flags & DROPDEL)
 		qdel(src)
+	item_flags &= ~BEING_REMOVED
 	item_flags &= ~PICKED_UP
 	SEND_SIGNAL(src, COMSIG_ITEM_DROPPED, user)
 	SEND_SIGNAL(user, COMSIG_MOB_DROPPED_ITEM, src, loc)

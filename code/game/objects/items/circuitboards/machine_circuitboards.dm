@@ -1283,6 +1283,7 @@
 /obj/item/circuitboard/machine/allaccess
 	name = "all access dispenser"
 	icon_state = "generic"
+	build_path = /obj/machinery/allaccess
 	req_components = list(
 		/obj/item/stock_parts/manipulator = 1,
 		/obj/item/stock_parts/micro_laser = 1)
