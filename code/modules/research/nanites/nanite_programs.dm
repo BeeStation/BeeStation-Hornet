@@ -120,6 +120,14 @@
 ///You can override this if you need to have special behavior after setting certain settings.
 /datum/nanite_program/proc/set_extra_setting(setting, value)
 	var/datum/nanite_extra_setting/ES = extra_settings[setting]
+	if(istype(ES, /datum/nanite_extra_setting/text))
+		if(CHAT_FILTER_CHECK(value))
+			to_chat(usr, "<span class='warning'>Your message contains forbidden words.</span>")
+			var/logmsg = "attempted to set a forbidden nanite cloud [src] field \"[setting]\" with contents: \"[value]\". The message was filtered and blocked."
+			log_admin_private("[key_name(usr)] [logmsg]")
+			message_admins("[ADMIN_LOOKUPFLW(usr)] [logmsg]")
+			return ES.set_value("")
+	log_game("[key_name(usr)] set the nanite cloud [src] field \"[setting]\" to: \"[value]\"")
 	return ES.set_value(value)
 
 ///You probably shouldn't be overriding this one, but I'm not a cop.
