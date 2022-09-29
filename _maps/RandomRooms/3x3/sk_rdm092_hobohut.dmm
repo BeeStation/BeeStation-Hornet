@@ -12,8 +12,8 @@
 	},
 /obj/structure/table/wood,
 /obj/item/wirecutters{
-	pixel_y = -3;
-	pixel_x = 6
+	pixel_x = 6;
+	pixel_y = -3
 	},
 /obj/item/wrench/medical{
 	pixel_x = -4;
@@ -60,10 +60,7 @@
 /turf/open/floor/plating,
 /area/template_noop)
 "Y" = (
-/obj/structure/bed/roller{
-	name = "rusty cot"
-	},
-/obj/item/bedsheet/blue,
+/obj/structure/bed/maint,
 /turf/open/floor/plating,
 /area/template_noop)
 

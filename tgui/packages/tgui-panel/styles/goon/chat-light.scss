@@ -468,43 +468,71 @@ h1.alert, h2.alert		{color: #000000;}
 
 //Job Colours
 //Make sure you add to replacementNodes in renderer.js
-.unknown {color: #313131}
+// ----------
+// command
+.rawcommand {color: #7584ad}
+.captain {color: #d8aa53}
+.actingcaptain {color: #cfa962}
+// Service
+.rawservice {color: #6ec959}
 .assistant {color: #a1a1a1}
-.atmospherictechnician {color: #d4a07d}
+.headofpersonnel {color: #526bf8}
 .bartender {color: #71a073}
 .botanist {color: #7cb86f}
-.brigphysician {color: #b16789}
-.captain {color: #d8aa53}
-.cargotechnician {color: #d3a372}
-.chaplain {color: #8ab48c}
-.chemist {color: #82bdce}
-.chiefengineer {color: #cfbb72}
-.chiefmedicalofficer {color: #67b7f8}
-.clown {color: #ff83d7}
 .cook {color: #54ce75}
+.chaplain {color: #8ab48c}
 .curator {color: #88c999}
-.deputy {color: #cc7e7e}
-.detective {color: #b45c5c}
-.paramedic {color: #8fbeb4}
-.geneticist {color: #83bbbf}
-.headofpersonnel {color: #526bf8}
-.headofsecurity {color: #be132d}
 .janitor {color: #2da792}
 .lawyer {color: #c07d7d}
-.medicaldoctor {color: #6cb1c5}
+.clown {color: #ff83d7}
 .mime {color: #6e9b6e}
+.stagemagician {color: #b659a6}
+.barber {color: #836f5f}
+// Cargo
+.rawcargo {color: #d8b999}
 .quartermaster {color: #c79c52}
-.researchdirector {color: #974ea9}
-.roboticist {color: #ac71ba}
-.scientist {color: #c772c7}
-.securityofficer {color: #c43a3a}
+.cargotechnician {color: #d3a372}
 .shaftminer {color: #ce957e}
-.explorationcrew {color: #85d8b8}
+// Engineering
+.rawengineering {color: #daa32d}
+.chiefengineer {color: #cfbb72}
 .stationengineer {color: #be953d}
+.atmospherictechnician {color: #d4a07d}
+// Medical
+.rawmedical {color: #47b6d8}
+.chiefmedicalofficer {color: #67b7f8}
+.medicaldoctor {color: #6cb1c5}
+.paramedic {color: #8fbeb4}
+.chemist {color: #82bdce}
 .virologist {color: #5ac5b0}
+.geneticist {color: #83bbbf}
+.psychiatrist {color: #5394a8;}
+// R&D
+.rawscience {color: #ce6fce}
+.researchdirector {color: #974ea9}
+.scientist {color: #c772c7}
+.roboticist {color: #ac71ba}
+.explorationcrew {color: #85d8b8}
+// Security
+.rawsecurity {color: #c75c5c}
+.headofsecurity {color: #be132d}
 .warden {color: #dd3944}
+.securityofficer {color: #c43a3a}
+.detective {color: #b45c5c}
+.brigphysician {color: #b16789}
+.deputy {color: #cc7e7e}
+// CentCom
+.rawcentcom {color: #55b835}
 .centcom {color: #419b23}
+// MISC - job
+.vip {color: #d3be62}
+.king {color: #dbbc33}
 .prisoner {color: #8b644b}
+.syndicate {color: #6e4141}
+.notcentcom {color: #6e6cc7}
+.unassigned {color: #585858}
+.unknown {color: #313131}
+// MISC - mob
 .blob {color: #cfa356}
 .corgi {color: #ECDA88}
 .fox {color: #FFAE64}
@@ -515,11 +543,6 @@ h1.alert, h2.alert		{color: #000000;}
 .alienmobsay {color: #543354;}
 .cultmobsay {color: #960000;}
 .slimemobsay {color: #00CED1;}
-.gimmick {color: #a1a1a1;}
-.barber {color: #836f5f;}
-.stagemagician {color: #b659a6;}
-.psychiatrist {color: #5394a8;}
-.vip {color: #d3be62;}
 
 @keyframes rainbowtext {
 	0% { color: #ff0000; }

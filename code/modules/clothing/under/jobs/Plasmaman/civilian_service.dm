@@ -4,6 +4,12 @@
 	icon_state = "cargo_envirosuit"
 	item_state = "cargo_envirosuit"
 
+/obj/item/clothing/under/plasmaman/mailman
+	name = "mailman plasma envirosuit"
+	desc = "<i>'Special hazardous delivery!'</i>"
+	icon_state = "mailman_envirosuit"
+	item_state = "mailman_envirosuit"
+
 /obj/item/clothing/under/plasmaman/mining
 	name = "mining plasma envirosuit"
 	desc = "An air-tight khaki suit designed for operations on lavaland by plasmamen."

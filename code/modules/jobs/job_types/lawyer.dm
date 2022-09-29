@@ -1,14 +1,13 @@
 /datum/job/lawyer
-	title = "Lawyer"
+	title = JOB_NAME_LAWYER
 	flag = LAWYER
-	department_head = list("Head of Personnel")
+	department_head = list(JOB_NAME_HEADOFPERSONNEL)
 	department_flag = CIVILIAN
 	faction = "Station"
 	total_positions = 2
 	spawn_positions = 2
 	supervisors = "the head of personnel"
 	selection_color = "#dddddd"
-	chat_color = "#C07D7D"
 	var/lawyers = 0 //Counts lawyer amount
 
 	outfit = /datum/outfit/job/lawyer
@@ -20,7 +19,7 @@
 	mind_traits = list(TRAIT_LAW_ENFORCEMENT_METABOLISM)
 
 	display_order = JOB_DISPLAY_ORDER_LAWYER
-	departments = DEPARTMENT_SERVICE
+	departments = DEPARTMENT_BITFLAG_SERVICE
 	rpg_title = "Magistrate"
 
 	species_outfits = list(
@@ -28,7 +27,7 @@
 	)
 
 /datum/outfit/job/lawyer
-	name = "Lawyer"
+	name = JOB_NAME_LAWYER
 	jobtype = /datum/job/lawyer
 
 	id = /obj/item/card/id/job/lawyer

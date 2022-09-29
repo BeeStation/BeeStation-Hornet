@@ -4,8 +4,8 @@
 	//The blackbox required to recover.
 	var/obj/item/blackbox/objective/linked_blackbox
 	//Relatively easy mission.
-	min_payout = 5000	//1k credits for sci/sec/eng, 500 for ser / civ
-	max_payout = 10000	//2k credits for sci/sec/eng, 1k for serv / civ
+	min_payout = 5000
+	max_payout = 20000
 
 /datum/orbital_objective/recover_blackbox/generate_objective_stuff(turf/chosen_turf)
 	generated = TRUE

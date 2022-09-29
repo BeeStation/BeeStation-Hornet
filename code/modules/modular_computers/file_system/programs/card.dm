@@ -9,12 +9,14 @@
 /datum/computer_file/program/card_mod
 	filename = "cardmod"
 	filedesc = "ID Card Modification"
+	category = PROGRAM_CATEGORY_CREW
 	program_icon_state = "id"
 	extended_desc = "Program for programming employee ID cards to access parts of the station."
 	transfer_access = ACCESS_HEADS
 	requires_ntnet = 0
 	size = 8
 	tgui_id = "NtosCard"
+	program_icon = "id-card"
 
 
 
@@ -35,27 +37,27 @@
 		"[ACCESS_HOP]" = list(
 			"department" = list(CARDCON_DEPARTMENT_SUPPLY, CARDCON_DEPARTMENT_COMMAND),
 			"region" = 1,
-			"head" = "Head of Personnel"
+			"head" = JOB_NAME_HEADOFPERSONNEL
 		),
 		"[ACCESS_HOS]" = list(
 			"department" = CARDCON_DEPARTMENT_SECURITY,
 			"region" = 2,
-			"head" = "Head of Security"
+			"head" = JOB_NAME_HEADOFSECURITY
 		),
 		"[ACCESS_CMO]" = list(
 			"department" = CARDCON_DEPARTMENT_MEDICAL,
 			"region" = 3,
-			"head" = "Chief Medical Officer"
+			"head" = JOB_NAME_CHIEFMEDICALOFFICER
 		),
 		"[ACCESS_RD]" = list(
 			"department" = CARDCON_DEPARTMENT_SCIENCE,
 			"region" = 4,
-			"head" = "Research Director"
+			"head" = JOB_NAME_RESEARCHDIRECTOR
 		),
 		"[ACCESS_CE]" = list(
 			"department" = CARDCON_DEPARTMENT_ENGINEERING,
 			"region" = 5,
-			"head" = "Chief Engineer"
+			"head" = JOB_NAME_CHIEFENGINEER
 		)
 	)
 
@@ -100,17 +102,19 @@
 		return TRUE
 
 	var/obj/item/computer_hardware/card_slot/card_slot
+	var/obj/item/computer_hardware/card_slot/card_slot2
 	var/obj/item/computer_hardware/printer/printer
 	if(computer)
 		card_slot = computer.all_components[MC_CARD]
+		card_slot2 = computer.all_components[MC_CARD2]
 		printer = computer.all_components[MC_PRINT]
-		if(!card_slot)
+		if(!card_slot || !card_slot2)
 			return
 
 	var/mob/user = usr
-	var/obj/item/card/id/user_id_card = user.get_idcard(FALSE)
+	var/obj/item/card/id/user_id_card = card_slot.stored_card
 
-	var/obj/item/card/id/id_card = card_slot.stored_card
+	var/obj/item/card/id/target_id_card = card_slot2.stored_card
 
 	switch(action)
 		if("PRG_authenticate")
@@ -131,14 +135,14 @@
 				return
 			var/contents = {"<h4>Access Report</h4>
 						<u>Prepared By:</u> [user_id_card && user_id_card.registered_name ? user_id_card.registered_name : "Unknown"]<br>
-						<u>For:</u> [id_card.registered_name ? id_card.registered_name : "Unregistered"]<br>
+						<u>For:</u> [target_id_card.registered_name ? target_id_card.registered_name : "Unregistered"]<br>
 						<hr>
-						<u>Assignment:</u> [id_card.assignment]<br>
+						<u>Assignment:</u> [target_id_card.assignment]<br>
 						<u>Access:</u><br>
 						"}
 
 			var/known_access_rights = get_all_accesses()
-			for(var/A in id_card.access)
+			for(var/A in target_id_card.access)
 				if(A in known_access_rights)
 					contents += "  [get_access_desc(A)]"
 
@@ -150,56 +154,65 @@
 				computer.visible_message("<span class='notice'>\The [computer] prints out a paper.</span>")
 			return TRUE
 		if("PRG_eject")
-			if(!computer || !card_slot)
+			if(!computer || !card_slot2)
 				return
-			if(id_card)
-				GLOB.data_core.manifest_modify(id_card.registered_name, id_card.assignment)
-				card_slot.try_eject(TRUE, user)
+			if(target_id_card)
+				GLOB.data_core.manifest_modify(target_id_card.registered_name, target_id_card.assignment, target_id_card.hud_state)
+				return card_slot2.try_eject(user)
 			else
 				var/obj/item/I = user.get_active_held_item()
 				if(istype(I, /obj/item/card/id))
-					if(!user.transferItemToLoc(I, computer))
-						return
-					card_slot.stored_card = I
-			playsound(computer, 'sound/machines/terminal_insert_disc.ogg', 50, FALSE)
-			return TRUE
+					return card_slot2.try_insert(I, user)
+			return FALSE
 		if("PRG_terminate")
 			if(!computer || !authenticated)
 				return
 			if(minor)
-				if(!(id_card.assignment in head_subordinates) && id_card.assignment != "Assistant")
+				if(!(target_id_card.assignment in head_subordinates) && target_id_card.assignment != JOB_NAME_ASSISTANT)
 					return
 
-			id_card.access -= get_all_centcom_access() + get_all_accesses()
-			id_card.assignment = "Unassigned"
-			id_card.update_label()
-			log_id("[key_name(usr)] unassigned and stripped all access from [id_card] using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
+			target_id_card.access -= get_all_centcom_access() + get_all_accesses()
+			target_id_card.assignment = "Unassigned"
+			target_id_card.update_label()
+			log_id("[key_name(usr)] unassigned and stripped all access from [target_id_card] using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
 			playsound(computer, 'sound/machines/terminal_prompt_deny.ogg', 50, FALSE)
 			return TRUE
 		if("PRG_edit")
-			if(!computer || !authenticated || !id_card)
+			if(!computer || !authenticated || !target_id_card)
 				return
-			var/new_name = reject_bad_name(params["name"]) // if reject bad name fails, the edit will just not go through instead of discarding all input, as new_name would be blank.
+
+			// Sanitize the name first. We're not using the full sanitize_name proc as ID cards can have a wider variety of things on them that
+			// would not pass as a formal character name, but would still be valid on an ID card created by a player.
+			var/new_name = sanitize(params["name"])
+			// However, we are going to reject bad names overall including names with invalid characters in them, while allowing numbers.
+			new_name = reject_bad_name(new_name, allow_numbers = TRUE)
+
 			if(!new_name)
+				to_chat(usr, "<span class='notice'>Software error: The ID card rejected the new name as it contains prohibited characters.</span>")
 				return
-			log_id("[key_name(usr)] changed [id_card] name to '[new_name]', using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
-			id_card.registered_name = new_name
-			id_card.update_label()
+			log_id("[key_name(usr)] changed [target_id_card] name to '[new_name]', using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
+			target_id_card.registered_name = new_name
+			target_id_card.update_label()
 			playsound(computer, "terminal_type", 50, FALSE)
 			return TRUE
 		if("PRG_assign")
-			if(!computer || !authenticated || !id_card)
+			if(!computer || !authenticated || !target_id_card)
 				return
 			var/target = params["assign_target"]
 			if(!target)
 				return
 
 			if(target == "Custom")
-				var/custom_name = reject_bad_name(params["custom_name"]) // if reject bad name fails, the edit will just not go through, as custom_name would be empty
-				if(custom_name)
-					log_id("[key_name(usr)] assigned a custom assignment '[custom_name]' to [id_card] using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
-					id_card.assignment = custom_name
-					id_card.update_label()
+				// Sanitize the custom assignment name first.
+				var/custom_name = sanitize(params["custom_name"])
+				// However, we are going to assignments containing bad text overall.
+				custom_name = reject_bad_text(custom_name)
+				if(!custom_name)
+					to_chat(usr, "<span class='notice'>Software error: The ID card rejected the new custom assignment as it contains prohibited characters.</span>")
+				else
+					log_id("[key_name(usr)] assigned a custom assignment '[custom_name]' to [target_id_card] using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
+					target_id_card.assignment = custom_name
+					target_id_card.update_label()
 			else
 				if(minor && !(target in head_subordinates))
 					return
@@ -217,11 +230,11 @@
 						to_chat(user, "<span class='warning'>No class exists for this job: [target].</span>")
 						return
 					new_access = job.get_access()
-				log_id("[key_name(usr)] changed [id_card] assignment to '[target]', overriding all previous access using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
-				id_card.access -= get_all_centcom_access() + get_all_accesses()
-				id_card.access |= new_access
-				id_card.assignment = target
-				id_card.update_label()
+				log_id("[key_name(usr)] changed [target_id_card] assignment to '[target]', overriding all previous access using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
+				target_id_card.access -= get_all_centcom_access() + get_all_accesses()
+				target_id_card.access |= new_access
+				target_id_card.assignment = target
+				target_id_card.update_label()
 
 			playsound(computer, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
 			return TRUE
@@ -230,26 +243,26 @@
 				return
 			var/access_type = text2num(params["access_target"])
 			if(access_type in (is_centcom ? get_all_centcom_access() : get_all_accesses()))
-				if(access_type in id_card.access)
-					id_card.access -= access_type
-					log_id("[key_name(usr)] removed [get_access_desc(access_type)] from [id_card] using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
+				if(access_type in target_id_card.access)
+					target_id_card.access -= access_type
+					log_id("[key_name(usr)] removed [get_access_desc(access_type)] from [target_id_card] using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
 				else
-					id_card.access |= access_type
-					log_id("[key_name(usr)] added [get_access_desc(access_type)] to [id_card] using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
+					target_id_card.access |= access_type
+					log_id("[key_name(usr)] added [get_access_desc(access_type)] to [target_id_card] using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
 				playsound(computer, "terminal_type", 50, FALSE)
 				return TRUE
 		if("PRG_grantall")
 			if(!computer || !authenticated || minor)
 				return
-			id_card.access |= (is_centcom ? get_all_centcom_access() : get_all_accesses())
-			log_id("[key_name(usr)] granted All Access to [id_card] using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
+			target_id_card.access |= (is_centcom ? get_all_centcom_access() : get_all_accesses())
+			log_id("[key_name(usr)] granted All Access to [target_id_card] using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
 			playsound(computer, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
 			return TRUE
 		if("PRG_denyall")
 			if(!computer || !authenticated || minor)
 				return
-			id_card.access.Cut()
-			log_id("[key_name(usr)] removed All Access from [id_card] using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
+			target_id_card.access.Cut()
+			log_id("[key_name(usr)] removed All Access from [target_id_card] using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
 			playsound(computer, 'sound/machines/terminal_prompt_deny.ogg', 50, FALSE)
 			return TRUE
 		if("PRG_grantregion")
@@ -258,8 +271,8 @@
 			var/region = text2num(params["region"])
 			if(isnull(region))
 				return
-			id_card.access |= get_region_accesses(region)
-			log_id("[key_name(usr)] granted [get_region_accesses_name(region)] regional access to [id_card] using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
+			target_id_card.access |= get_region_accesses(region)
+			log_id("[key_name(usr)] granted [get_region_accesses_name(region)] regional access to [target_id_card] using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
 			playsound(computer, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
 			return TRUE
 		if("PRG_denyregion")
@@ -268,8 +281,8 @@
 			var/region = text2num(params["region"])
 			if(isnull(region))
 				return
-			id_card.access -= get_region_accesses(region)
-			log_id("[key_name(usr)] removed [region] regional access from [id_card] using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
+			target_id_card.access -= get_region_accesses(region)
+			log_id("[key_name(usr)] removed [region] regional access from [target_id_card] using [user_id_card] via a portable ID console at [AREACOORD(usr)].")
 			playsound(computer, 'sound/machines/terminal_prompt_deny.ogg', 50, FALSE)
 			return TRUE
 
@@ -286,7 +299,7 @@
 		departments = list("CentCom" = get_all_centcom_jobs())
 	else if(isnull(departments))
 		departments = list(
-			CARDCON_DEPARTMENT_COMMAND = list("Captain"),//lol
+			CARDCON_DEPARTMENT_COMMAND = list(JOB_NAME_CAPTAIN),//lol
 			CARDCON_DEPARTMENT_ENGINEERING = GLOB.engineering_positions,
 			CARDCON_DEPARTMENT_MEDICAL = GLOB.medical_positions,
 			CARDCON_DEPARTMENT_SCIENCE = GLOB.science_positions,
@@ -334,32 +347,31 @@
 /datum/computer_file/program/card_mod/ui_data(mob/user)
 	var/list/data = get_header_data()
 
-	var/obj/item/computer_hardware/card_slot/card_slot
+	data["station_name"] = station_name()
+
+	var/obj/item/computer_hardware/card_slot/card_slot2
 	var/obj/item/computer_hardware/printer/printer
 
 	if(computer)
-		card_slot = computer.all_components[MC_CARD]
+		card_slot2 = computer.all_components[MC_CARD2]
 		printer = computer.all_components[MC_PRINT]
-
-	data["station_name"] = station_name()
-
-	if(computer)
-		data["have_id_slot"] = !!card_slot
-		data["have_printer"] = !!printer
+		data["have_id_slot"] = !!(card_slot2)
+		data["have_printer"] = !!(printer)
 	else
 		data["have_id_slot"] = FALSE
 		data["have_printer"] = FALSE
 
 	data["authenticated"] = authenticated
+	if(!card_slot2)
+		return data //We're just gonna error out on the js side at this point anyway
 
-	if(computer)
-		var/obj/item/card/id/id_card = card_slot.stored_card
-		data["has_id"] = !!id_card
-		data["id_name"] = id_card ? id_card.name : "-----"
-		if(id_card)
-			data["id_rank"] = id_card.assignment ? id_card.assignment : "Unassigned"
-			data["id_owner"] = id_card.registered_name ? id_card.registered_name : "-----"
-			data["access_on_card"] = id_card.access
+	var/obj/item/card/id/id_card = card_slot2.stored_card
+	data["has_id"] = !!id_card
+	data["id_name"] = id_card ? id_card.name : "-----"
+	if(id_card)
+		data["id_rank"] = id_card.assignment ? id_card.assignment : "Unassigned"
+		data["id_owner"] = id_card.registered_name ? id_card.registered_name : "-----"
+		data["access_on_card"] = id_card.access
 
 	return data
 

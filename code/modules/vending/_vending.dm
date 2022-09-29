@@ -709,13 +709,13 @@ GLOBAL_LIST_EMPTY(vending_products)
 			.["user"]["cash"] = C.registered_account.account_balance
 			if(C.registered_account.account_job)
 				.["user"]["job"] = C.registered_account.account_job.title
-				.["user"]["department"] = C.registered_account.account_job.paycheck_department
+				.["user"]["department"] = C.registered_account.account_department
 			else
 				.["user"]["job"] = "No Job"
 				.["user"]["department"] = "No Department"
 	.["stock"] = list()
 	for (var/datum/data/vending_product/R in product_records + coin_records + hidden_records)
-		.["stock"][R.name] = R.amount
+		.["stock"]["[replacetext(replacetext("[R.product_path]", "/obj/item/", ""), "/", "-")]"] = R.amount
 	.["extended_inventory"] = extended_inventory
 
 /obj/machinery/vending/ui_act(action, params)
@@ -768,7 +768,7 @@ GLOBAL_LIST_EMPTY(vending_products)
 					vend_ready = TRUE
 					return
 				var/datum/bank_account/account = C.registered_account
-				if(account.account_job && account.account_job.paycheck_department == payment_department)
+				if(account.account_job && account.account_department == payment_department)
 					price_to_use = 0
 				if(coin_records.Find(R))
 					price_to_use = R.custom_premium_price ? R.custom_premium_price : extra_price
@@ -977,7 +977,7 @@ GLOBAL_LIST_EMPTY(vending_products)
 						if(base64_cache[T.type])
 							base64 = base64_cache[T.type]
 						else
-							base64 = icon2base64(icon(T.icon, T.icon_state))
+							base64 = icon2base64(icon(T.icon, T.icon_state, frame=1))
 							base64_cache[T.type] = base64
 					break
 			var/list/data = list(

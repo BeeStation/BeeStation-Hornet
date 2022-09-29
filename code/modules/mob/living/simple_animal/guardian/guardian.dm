@@ -395,7 +395,10 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 		var/input = stripped_input(src, "Please enter a message to tell your summoner.", "Guardian", "")
 		if(!input)
 			return
-
+		if(CHAT_FILTER_CHECK(input))
+			to_chat(usr, "<span class='warning'>Your message contains forbidden words.</span>")
+			return
+		input = treat_message_min(input)
 		var/preliminary_message = "<span class='holoparasite bold'>[input]</span>" //apply basic color/bolding
 		var/my_message = "<font color=\"[guardiancolor]\"><b><i>[src]:</i></b></font> [preliminary_message]" //add source, color source with the guardian's color
 
@@ -416,7 +419,10 @@ GLOBAL_LIST_EMPTY(parasites) //all currently existing/living guardians
 	var/input = stripped_input(src, "Please enter a message to tell your guardian.", "Message", "")
 	if(!input)
 		return
-
+	if(CHAT_FILTER_CHECK(input))
+		to_chat(usr, "<span class='warning'>Your message contains forbidden words.</span>")
+		return
+	input = treat_message_min(input)
 	var/preliminary_message = "<span class='holoparasite bold'>[input]</span>" //apply basic color/bolding
 	var/my_message = "<span class='holoparasite bold'><i>[src]:</i> [preliminary_message]</span>" //add source, color source with default grey...
 

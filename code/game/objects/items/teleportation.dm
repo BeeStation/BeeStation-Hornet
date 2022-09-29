@@ -115,6 +115,7 @@
 	var/list/active_portal_pairs
 	var/max_portal_pairs = 3
 	var/atmos_link_override
+	investigate_flags = ADMIN_INVESTIGATE_TARGET
 
 /obj/item/hand_tele/Initialize(mapload)
 	. = ..()

@@ -157,6 +157,7 @@
 				body += "<B>Is an AI</B> "
 			else if(ishuman(M))
 				body += "<A href='?_src_=holder;[HrefToken()];makeai=[REF(M)]'>Make AI</A> "
+				body += "<A href='?_src_=holder;[HrefToken()];makepai=[REF(M)]'>Make PAI</A> "
 				body += "<A href='?_src_=holder;[HrefToken()];makerobot=[REF(M)]'>Make Robot</A> "
 				body += "<A href='?_src_=holder;[HrefToken()];makealien=[REF(M)]'>Make Alien</A> "
 				body += "<A href='?_src_=holder;[HrefToken()];makeslime=[REF(M)]'>Make Slime</A> "
@@ -866,7 +867,7 @@
 			message += jointext(S.laws.get_law_list(include_zeroth = TRUE), "<br>")
 
 		to_chat(usr, message)
-	
+
 	if(!ai_number)
 		to_chat(usr, "<b>No AIs located</b>" )
 
