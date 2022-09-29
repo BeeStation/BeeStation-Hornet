@@ -137,7 +137,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 /obj/effect/rune/proc/can_invoke(var/mob/living/user=null)
 	//This proc determines if the rune can be invoked at the time. If there are multiple required cultists, it will find all nearby cultists.
 	var/list/invokers = list() //people eligible to invoke the rune
-	if(user)
+	if(user && (allow_ghosts || !user.has_status_effect(STATUS_EFFECT_SUMMONEDGHOST)))
 		invokers += user
 	if(req_cultists > 1 || istype(src, /obj/effect/rune/convert))
 		var/obj/item/toy/plush/narplush/plushsie = locate() in range(1, src)
