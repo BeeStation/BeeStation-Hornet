@@ -1,0 +1,5 @@
+author: etherware-novice
+delete-after: true
+changes:
+  - tweak: Airlock and Decal painters now have an indicator for low ink
+  - refactor: Adjusts the Airlock painters examine text
