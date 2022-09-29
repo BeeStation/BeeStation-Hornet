@@ -619,7 +619,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 	if(state > AHELP_ACTIVE)
 		return
 
-	var/final_output = "<span class='adminhelp_conclussion'><span class='big'><b>Adminhelp [status]</b></span><br />"
+	var/final_output = "<span class='adminhelp_conclusion'><span class='big'><b>Adminhelp [status]</b></span><br />"
 	final_output += message || "An administrator has handled your ticket. If your ticket was a report, then the appropriate action has been taken where necessary.<br />\
 		Thank you for creating a ticket, the adminhelp verb will be returned to you shortly.<br />"
 	final_output += "Your ticket was handled by: <span class='adminooc'>[usr.ckey]</span></span>"
@@ -651,7 +651,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 
 		SEND_SOUND(initiator, sound('sound/effects/adminhelp.ogg'))
 
-		to_chat(initiator, "<span class='adminhelp_conclussion'><span class='big'><b>Adminhelp Rejected</b></span><br/>\
+		to_chat(initiator, "<span class='adminhelp_conclusion'><span class='big'><b>Adminhelp Rejected</b></span><br/>\
 			<b>The administrators could not resolve your ticket.</b> The adminhelp verb has been returned to you so that you may try again.<br/>\
 			Please try to be calm, clear, and descriptive in admin helps, do not assume the admin has seen any related events, and clearly state the names of anybody you are reporting.<br/>\
 			Your ticket was handled by: <span class='adminooc'>[usr.ckey]</span></span>")
@@ -695,7 +695,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 
 		SEND_SOUND(initiator, sound('sound/effects/adminhelp.ogg'))
 
-		to_chat(initiator, "<span class='adminhelp_conclussion'><span class='big'><b>Adminhelp Rejected</b></span><br/>\
+		to_chat(initiator, "<span class='adminhelp_conclusion'><span class='big'><b>Adminhelp Rejected</b></span><br/>\
 			This question may regard <b>game mechanics or how-tos</b>. Such questions should be asked with <b>Mentorhelp</b><br/>\
 			Your ticket was handled by: <span class='adminooc'>[usr.ckey]</span></span>")
 
