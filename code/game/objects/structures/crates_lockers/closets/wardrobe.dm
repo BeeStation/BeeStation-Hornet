@@ -165,28 +165,8 @@
 		new /obj/item/clothing/suit/jacket(src)
 	if(prob(40))
 		new /obj/item/clothing/suit/jacket(src)
-	new /obj/item/clothing/under/color/white(src)
-	new /obj/item/clothing/under/color/jumpskirt/white(src)
-	new /obj/item/clothing/under/color/blue(src)
-	new /obj/item/clothing/under/color/jumpskirt/blue(src)
-	new /obj/item/clothing/under/color/yellow(src)
-	new /obj/item/clothing/under/color/jumpskirt/yellow(src)
-	new /obj/item/clothing/under/color/green(src)
-	new /obj/item/clothing/under/color/jumpskirt/green(src)
-	new /obj/item/clothing/under/color/orange(src)
-	new /obj/item/clothing/under/color/jumpskirt/orange(src)
-	new /obj/item/clothing/under/color/pink(src)
-	new /obj/item/clothing/under/color/jumpskirt/pink(src)
-	new /obj/item/clothing/under/color/red(src)
-	new /obj/item/clothing/under/color/jumpskirt/red(src)
-	new /obj/item/clothing/under/color/darkblue(src)
-	new /obj/item/clothing/under/color/jumpskirt/darkblue(src)
-	new /obj/item/clothing/under/color/teal(src)
-	new /obj/item/clothing/under/color/jumpskirt/teal(src)
-	new /obj/item/clothing/under/color/lightpurple(src)
-	new /obj/item/clothing/under/color/jumpskirt/lightpurple(src)
-	new /obj/item/clothing/under/color/green(src)
-	new /obj/item/clothing/under/color/jumpskirt/green(src)
+	new /obj/item/storage/box/suitbox/wardrobe/mixed(src)
+	new /obj/item/storage/box/suitbox/wardrobe/mixed/jumpskirt(src)
 	new /obj/item/clothing/mask/bandana/red(src)
 	new /obj/item/clothing/mask/bandana/red(src)
 	new /obj/item/clothing/mask/bandana/blue(src)
@@ -202,3 +182,35 @@
 	if(prob(40))
 		new /obj/item/clothing/suit/toggle/softshell(src)
 	return
+
+/obj/item/storage/box/suitbox/wardrobe/mixed
+	name = "compression box of crew outfits (jumpsuit)"
+	max_repetition = 2
+	repeated_items = list(
+		/obj/item/clothing/under/color/white,
+		/obj/item/clothing/under/color/blue,
+		/obj/item/clothing/under/color/yellow,
+		/obj/item/clothing/under/color/green,
+		/obj/item/clothing/under/color/orange,
+		/obj/item/clothing/under/color/pink,
+		/obj/item/clothing/under/color/red,
+		/obj/item/clothing/under/color/darkblue,
+		/obj/item/clothing/under/color/teal,
+		/obj/item/clothing/under/color/lightpurple
+	)
+
+/obj/item/storage/box/suitbox/wardrobe/mixed/jumpskirt
+	name = "compression box of crew outfits (jumpskirt)"
+	max_repetition = 2
+	repeated_items = list(
+		/obj/item/clothing/under/color/jumpskirt/white,
+		/obj/item/clothing/under/color/jumpskirt/blue,
+		/obj/item/clothing/under/color/jumpskirt/yellow,
+		/obj/item/clothing/under/color/jumpskirt/green,
+		/obj/item/clothing/under/color/jumpskirt/orange,
+		/obj/item/clothing/under/color/jumpskirt/pink,
+		/obj/item/clothing/under/color/jumpskirt/red,
+		/obj/item/clothing/under/color/jumpskirt/darkblue,
+		/obj/item/clothing/under/color/jumpskirt/teal,
+		/obj/item/clothing/under/color/jumpskirt/lightpurple
+	)

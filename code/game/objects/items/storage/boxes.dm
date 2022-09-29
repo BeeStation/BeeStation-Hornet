@@ -75,6 +75,45 @@
 		return 0
 	return ..()
 
+//Locker overloading issue solving boxes
+/obj/item/storage/box/suitbox
+	name = "compression box of invisible outfits"
+	desc = "a box with bluespace compression technology that nanotrasen has approved, but this is extremely heavy... If you're glued with this box, pull out of the contents and fold the box."
+	w_class = WEIGHT_CLASS_HUGE
+	drag_slowdown = 4 // do not steal by dragging
+	/* Note for the compression box:
+		Do not put any box (or suit) into this box, or it will allow infinite storage.
+		non-storage items are only legit for this box. (suits are storage too, so, no.)
+		nor it will allow a glitch when you can access different boxes at the same time.
+		examples exist in `closets/secure/security.dm` */
+
+/obj/item/storage/box/suitbox/pickup(mob/user)
+	. = ..()
+	user.add_movespeed_modifier(MOVESPEED_ID_SLOW_SUITBOX, update=TRUE, priority=100, multiplicative_slowdown=4)
+
+/obj/item/storage/box/suitbox/dropped(mob/living/user)
+	..()
+	var/box_exists = FALSE
+	for(var/obj/item/storage/box/suitbox/B in user.get_contents())
+		box_exists = TRUE // `var/obj/item/storage/box/suitbox/B` is already type check
+		break
+	if(!box_exists)
+		user.remove_movespeed_modifier(MOVESPEED_ID_SLOW_SUITBOX, TRUE)
+
+/obj/item/storage/box/suitbox/wardrobe // for `wardrobe.dm`
+	name = "compression box of crew outfits"
+	var/list/repeated_items = list( // just as a sample
+		/obj/item/clothing/under/color/blue,
+		/obj/item/clothing/under/color/jumpskirt/blue,
+		/obj/item/clothing/shoes/sneakers/brown
+	)
+	var/max_repetition = 2
+
+/obj/item/storage/box/suitbox/wardrobe/PopulateContents()
+	for(var/i in 1 to max_repetition)
+		for(var/O in repeated_items)
+			new O(src)
+
 //Mime spell boxes
 
 /obj/item/storage/box/mime
