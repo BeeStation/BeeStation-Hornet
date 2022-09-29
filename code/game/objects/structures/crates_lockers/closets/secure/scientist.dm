@@ -11,6 +11,8 @@
 	new /obj/item/clothing/gloves/color/latex(src)
 	new /obj/item/clothing/mask/gas(src)
 	new /obj/item/radio/headset/heads/research_director(src)
+	new /obj/item/clothing/glasses/hud/diagnostic(src)
+	new /obj/item/clothing/glasses/science(src)
 
 	new /obj/item/clothing/suit/bio_suit/scientist(src)
 	new /obj/item/clothing/head/bio_hood/scientist(src)
