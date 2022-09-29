@@ -39,7 +39,7 @@
 	set_cell(null)
 
 /obj/item/bluespace_anchor/attack_self(mob/user)
-	user.visible_message("<span class='notice'>[user] begin deploying [src].</span>", "<span class='notice'>You begin deploying [src]...</span>")
+	user.visible_message("<span class='notice'>[user] begins deploying [src].</span>", "<span class='notice'>You begin deploying [src]...</span>")
 	if(!do_after(user, 4 SECONDS, target = src))
 		return
 	new /obj/machinery/bluespace_anchor(get_turf(user), power_cell)
