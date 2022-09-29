@@ -27,6 +27,8 @@
 	species_l_leg = /obj/item/bodypart/l_leg/oozeling
 	species_r_leg = /obj/item/bodypart/r_leg/oozeling
 
+	bubble_sprite = "slime"
+
 /datum/species/oozeling/random_name(gender, unique, lastname, attempts)
 	. = "[pick(GLOB.oozeling_first_names)]"
 	if(lastname)
