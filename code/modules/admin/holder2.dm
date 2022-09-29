@@ -32,6 +32,7 @@ GLOBAL_PROTECT(href_token)
 	var/datum/admin_help_ui/admin_interface
 
 	var/datum/filter_editor/filteriffic
+	var/datum/particle_editor/particool
 
 /datum/admins/New(datum/admin_rank/R, ckey, force_active = FALSE, protected)
 	if(IsAdminAdvancedProcCall())

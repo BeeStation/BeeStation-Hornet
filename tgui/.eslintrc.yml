@@ -369,7 +369,7 @@ rules:
   # max-depth: error
   ## Enforce a maximum line length
   max-len: [error, {
-    code: 80,
+    code: 128,
     ## Ignore imports
     ignorePattern: '^(import\s.+\sfrom\s|.*require\()',
     ignoreUrls: true,

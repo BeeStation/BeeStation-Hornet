@@ -84,6 +84,9 @@
 #define VV_HK_TRIGGER_EXPLOSION "explode"
 #define VV_HK_AUTO_RENAME "auto_rename"
 #define VV_HK_EDIT_FILTERS "edit_filters"
+#define VV_HK_EDIT_PARTICLES "edit_particles"
+#define VV_HK_ADD_EMITTER "add_emitter"
+#define VV_HK_REMOVE_EMITTER "remove_emitter"
 #define VV_HK_ADD_AI "add_ai"
 
 // /datum/gas_mixture
