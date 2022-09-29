@@ -193,6 +193,13 @@
 	cost = 3
 	requirements = list(3,3,3,3,3,3,3,3,3,3)
 	repeatable = TRUE
+	blocking_rules = list(
+		/datum/dynamic_ruleset/roundstart/bloodcult,
+		/datum/dynamic_ruleset/roundstart/clockcult,
+		/datum/dynamic_ruleset/roundstart/nuclear,
+		/datum/dynamic_ruleset/roundstart/wizard,
+		/datum/dynamic_ruleset/roundstart/revs
+	)
 
 /datum/dynamic_ruleset/midround/autotraitor/trim_candidates()
 	..()
@@ -239,6 +246,7 @@
 	weight = 2
 	cost = 10
 	required_type = /mob/living/silicon/ai
+	blocking_rules = list(/datum/dynamic_ruleset/roundstart/nuclear)
 	var/ion_announce = 33
 	var/removeDontImproveChance = 10
 
@@ -386,10 +394,10 @@
 	antag_datum = /datum/antagonist/xeno
 	antag_flag = ROLE_ALIEN
 	enemy_roles = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_DETECTIVE, JOB_NAME_WARDEN, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN)
-	required_enemies = list(2,2,1,1,1,1,1,0,0,0)
+	required_enemies = list(2,2,2,1,1,1,1,0,0,0)
 	required_candidates = 1
 	minimum_round_time = 40 MINUTES
-	weight = 5
+	weight = 3
 	cost = 10
 	minimum_players = 25
 	repeatable = TRUE

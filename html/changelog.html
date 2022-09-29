@@ -56,6 +56,125 @@
 		-->
 		<div class="commit sansserif">
 
+			<h2 class="date">29 September 2022</h2>
+			<h3 class="author">itsmeow updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="admin">Added an IC filter check to most forms of telepathy and alternate speech (such as hivemind talk, silicon binary, blood bros, etc)</li>
+				<li class="admin">Added an IC filter check and logging to nanite cloud messages.</li>
+				<li class="admin">Added an IC filter check and logging to nanite program text fields.</li>
+				<li class="admin">Added an IC filter check to Poly.</li>
+				<li class="admin">Added an IC filter check to Allied Station messages.</li>
+				<li class="admin">Added an IC filter check to requests console announcements.</li>
+				<li class="bugfix">Added an OOC filter check to dchat if you are still inside your body.</li>
+			</ul>
+			<h3 class="author">ivanmixo updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="balance">bruise pack/gauze/ointment application do_afters(the use bars) can't be stacked on yourself anymore yet</li>
+				<li class="bugfix">you can't apply gauze on people who arent hurt anymore</li>
+				<li class="rscdel">useless do_after_mob proc</li>
+				<li class="refactor">refactored bruise pack/ointment/gauze application proc</li>
+				<li class="balance">the area of the body you're targeting when applying touch based healing reagents through a patch/medspray now actually matters</li>
+				<li class="code_imp">Added a bunch of comments to items related to chems and stacks</li>
+			</ul>
+
+			<h2 class="date">28 September 2022</h2>
+			<h3 class="author">PestoVerde322 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">fixed the missing labor shuttle dock for lavaland</li>
+				<li class="rscadd">missing cameras around lavaland</li>
+				<li class="rscadd">a light in the lavaland's sauna.</li>
+			</ul>
+			<h3 class="author">Phil Smith updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="balance">PKAs now have the same weakness in a vacuum as they have in a pressurized environment</li>
+			</ul>
+			<h3 class="author">itsmeow updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fixed another runtime with the MedHUD SSD indicator on mind transfer.</li>
+			</ul>
+
+			<h2 class="date">27 September 2022</h2>
+			<h3 class="author">itsmeow updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fixed a runtime with medhud SSD indicators whenever a player joined or left.</li>
+			</ul>
+
+			<h2 class="date">26 September 2022</h2>
+			<h3 class="author">itsmeow updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="balance">Dynamic will no longer spawn traitors, changeling, blood brothers, or heretics during the cult, nuclear assault, wizard, and revs roundstart rules.</li>
+			</ul>
+
+			<h2 class="date">25 September 2022</h2>
+			<h3 class="author">itsmeow updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Dynamic incursion will no longer allow security to be traitors.</li>
+				<li class="tweak">SSD and soulless bodies now have indicator overlays while dead on medhuds.</li>
+				<li class="tweak">Examining a disconnected player while they are dead will now show that their soul is "distant, and may return soon".</li>
+				<li class="bugfix">Lesser Lichdom now calls set_hellbound any /mob/living.</li>
+			</ul>
+
+			<h2 class="date">24 September 2022</h2>
+			<h3 class="author">benbot16 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">Blacklists certain items from Pun-Pun's mask/hat saving functionality (notably facehuggers and chameleon clothing)</li>
+			</ul>
+
+			<h2 class="date">23 September 2022</h2>
+			<h3 class="author">Penwin0 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="code_imp">build_appearance_list is faster</li>
+			</ul>
+			<h3 class="author">PestoVerde322 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">fixed the orientation of the steel bench</li>
+				<li class="bugfix">you can't pick up a bench and convert any bench into a chair anymore</li>
+			</ul>
+			<h3 class="author">Tyranicranger4 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscdel">Removed hidden unused objects from Virology.</li>
+				<li class="bugfix">Fixed virology windoor access, viro's now have access to their own windoor.</li>
+			</ul>
+			<h3 class="author">itsmeow updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="code_imp">Fixes an issue with the modular PC singaller app initializing its frequency too early.</li>
+				<li class="code_imp">Enforces parent proc calls in run_program</li>
+			</ul>
+
+			<h2 class="date">22 September 2022</h2>
+			<h3 class="author">PestoVerde322 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Added a brand new lavaland, featuring a Sauna, proper cooking equipment, a gulag that doesn't look like a nanotransen 2x2 jail and overall more aesthetic than before</li>
+			</ul>
+			<h3 class="author">The-Moon-Itself updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Nested shuttles. shuttles can now land on top of each other and be towed around.</li>
+				<li class="rscadd">Dock turfs. Shuttles can always land on these, regardless of whether the dock is in space, on the station, or on another shuttle. Tiles are craftable with 1 plasteel per 4 tiles.</li>
+				<li class="rscadd">Dry docks. Works like docks, but you can build on these as if you were in space and designate what you build onto a shuttle. Tiles are craftable with 2 plasteel per 4 tiles.</li>
+				<li class="tweak">Arrival shuttles and Emergency shuttles cannot be towed by other shuttles.</li>
+				<li class="refactor">Lots of changes to shuttle code, especially relating to docking.</li>
+				<li class="balance">Machinery now blocks custom docking to prevent theft of important equipment.</li>
+			</ul>
+			<h3 class="author">etherware-novice updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">soap is properly gendered</li>
+			</ul>
+
+			<h2 class="date">19 September 2022</h2>
+			<h3 class="author">12Oreos updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Medieval Mutation that modifies speech when applied</li>
+			</ul>
+			<h3 class="author">The-Moon-Itself updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">cuffs are now properly accounted for in situations that affects all equipped items on a mob. This  most notable affects when a mob transforms, where cuffs will now drop with everything else rather than being deleted.</li>
+			</ul>
+			<h3 class="author">itsmeow updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">Midround xenos now have a lower weight and will occur less often.</li>
+				<li class="tweak">At 20 to 30 threat, midround xenos require two security instead of one.</li>
+			</ul>
+
 			<h2 class="date">18 September 2022</h2>
 			<h3 class="author">EvilDragonfiend updated:</h3>
 			<ul class="changes bgimages16">
@@ -891,195 +1010,6 @@
 			<h3 class="author">ivanmixo updated:</h3>
 			<ul class="changes bgimages16">
 				<li class="admin">Moderators' bus perms have been toned down, but they can now rename improperly named characters/mobs</li>
-			</ul>
-
-			<h2 class="date">28 July 2022</h2>
-			<h3 class="author">EvilDragonfiend updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">player pannel is now working again.</li>
-				<li class="refactor">corrected some wrong usage of job defines.</li>
-			</ul>
-			<h3 class="author">Memendia updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Cargo Caps flip again</li>
-			</ul>
-			<h3 class="author">itsmeow updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Minimal runtimes menu will no longer show duplicates and lag</li>
-			</ul>
-
-			<h2 class="date">27 July 2022</h2>
-			<h3 class="author">EvilDragonfiend updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="refactor">refactored job strings into DEFINES.</li>
-				<li class="refactor">relocated some job related code lines</li>
-				<li class="refactor">changed some abbreviation names into correct ones (i.e. hos -> head_of_security)</li>
-			</ul>
-			<h3 class="author">PowerfulBacon updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Vortex rifles can now damage mobs</li>
-				<li class="bugfix">Blob ruin generator has been fixed</li>
-				<li class="tweak">Objective payout ranges have been adjusted to always intersect with each other.</li>
-			</ul>
-
-			<h2 class="date">26 July 2022</h2>
-			<h3 class="author">Miliviu updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">fixes changelings getting stucked in the stasis while being Monkeys</li>
-			</ul>
-			<h3 class="author">itsmeow updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Alt-Clicking on the identification console ejects only one id at a time.</li>
-				<li class="tweak">Medical and Security consoles now check access on worn or inhand ID instead of requiring an inserted ID</li>
-				<li class="tweak">HoP console now shows buttons with access as green instead of red</li>
-				<li class="rscadd">Can easily swap out IDs in HoP console by clicking the machine or the UI fields with another ID</li>
-				<li class="rscadd">ID console now names which IDs are added/removed in its visible messages</li>
-				<li class="tweak">Can now use HoP access modification after logging in without an ID in</li>
-			</ul>
-			<h3 class="author">zeskorion updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscdel">advanced diseases can no longer have airborne spread</li>
-				<li class="balance">Disease transmission has been changed, check the wiki</li>
-				<li class="tweak">simple diseases now spread less frequently</li>
-				<li class="tweak">sneezing and coughing now spread viruses again, at a transmission threshold</li>
-				<li class="tweak">virus symptoms that spread viruses now have a warning before spreading the virus, allowing perceptive players to back away in time</li>
-			</ul>
-
-			<h2 class="date">25 July 2022</h2>
-			<h3 class="author">itsmeow updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Can buckle people to stuff again</li>
-			</ul>
-
-			<h2 class="date">24 July 2022</h2>
-			<h3 class="author">Crossedfall updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="server">Upgrades the TGUI dependency terser to 5.14.2</li>
-			</ul>
-			<h3 class="author">dokorwueue, dog132 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">Meta Station: Replaces the door to Robotics with a glass version</li>
-			</ul>
-
-			<h2 class="date">23 July 2022</h2>
-			<h3 class="author">Dejaku51 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="code_imp">moved the shuttles to individual folders</li>
-				<li class="config">changed shuttles_illegal.txt and shuttles_unbuyable.txt to point to new shuttles location</li>
-			</ul>
-			<h3 class="author">DrDuckedGoose updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Adds lasso items</li>
-				<li class="rscadd">Adds tamed riding component subtype, toggles AI & sometimes spacewalking</li>
-				<li class="rscadd">Adds antag lasso to syndicate uplink</li>
-				<li class="rscadd">Add new AI for tamed animals</li>
-				<li class="rscadd">Add tamed component</li>
-				<li class="bugfix">Fix Carp lassos lassoing people</li>
-				<li class="bugfix">Fix Carp lassos lassoing dead thing</li>
-				<li class="bugfix">Fix riding dead things</li>
-				<li class="bugfix">Fix lassoing unseeable things</li>
-				<li class="bugfix">Fix lasso icon on round end</li>
-			</ul>
-			<h3 class="author">EvilDragonfiend updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscdel">bartender responsibility crew objective</li>
-				<li class="rscadd">bartender new crew objective "cocktail" - you get 5 random 'drinks', and you need to have 4u for each of them in any kind of chemical container</li>
-				<li class="tweak">adjusted some random chem flags (peach juice is now available from botany RNG)</li>
-				<li class="balance">Brain Tumor will deal 0.1 brain damage at 80% chance. (equals 0.08 damage) previously it was 0.2 damage.</li>
-				<li class="balance">Brain Tumor will not deal brain damage when the quirker has mannitol in their bloodstream.</li>
-				<li class="balance">Mannitol is less effective for Brain Tumor quirker. It only heals 0.5 brain damage and special overdose thresholds(35u). on overdose, it will heal only 0.1 brain damage at 10% chance. (equals 0.01 damage) Don't overdose them.</li>
-				<li class="balance">Brain Tumor quirker now starts with 5 pills of 30u mannitol. Each pill keeps you for 150 seconds, in total 750 seconds.</li>
-				<li class="rscadd">Brain Tumor will warn you when you're about to be at a mild trauma threshold. It will notice you when your brain damage is at near zero.</li>
-				<li class="rscadd">Brain Tumor quirker will have a +0 mood event when they eat mannitol. the message will persist for 30~60 seconds longer even if mannitol doesn't exist in your bloodstream.</li>
-				<li class="refactor">better gimmick codes</li>
-				<li class="tweak">gimmick jobs now do have a supervisor. (except for VIP)</li>
-				<li class="tweak">gimmick jobs now have a title from RPG title wizard event.</li>
-			</ul>
-			<h3 class="author">Penwin, TDSS updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">A new station goal, the bluespace tap. Feed it power for fantastical rewards!</li>
-			</ul>
-			<h3 class="author">PowerfulBacon updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">You can now only view runtimes as a player if you are a ghost, or the round has ended.</li>
-			</ul>
-			<h3 class="author">benbot16 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">Xeno chestbursters no longer gib their hosts.</li>
-				<li class="tweak">Tweaks alien embryo growth logic</li>
-			</ul>
-			<h3 class="author">itsmeow updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="admin">Added View Minimal Runtimes verb to OOC tab for non-admins with less details</li>
-			</ul>
-			<h3 class="author">ivanmixo updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">added blood being smeared on objects when your hands are bloody</li>
-			</ul>
-			<h3 class="author">ro5490 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">The Chaplain now has access to a Necromancy Sect!</li>
-				<li class="rscadd">Living Sacrifice rite for the Necromancy Sect, Sacrifice Non-Sentient living creatures for favor</li>
-				<li class="rscadd">Raise Dead rite for the Necromancy Sect, Resurrect anyone with the power of god - 2500 Favor cost</li>
-				<li class="rscadd">Raise Undead rite for the Necromancy Sect, Raise a high functioning zombie/skeleton from the observer pool - 1500 Favor cost</li>
-				<li class="rscadd">Necromancy Sect uses the green altar</li>
-				<li class="rscadd">Summoned Undead are sub-chaplains, and have their own clothing and bible!</li>
-			</ul>
-
-			<h2 class="date">22 July 2022</h2>
-			<h3 class="author">EvilDragonfiend updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">TGUI chat 'Colored names' option no longer shows colored names when it's disabled.</li>
-				<li class="bugfix">Scientist selection in PDA painter no longer gives a non-painted ID card</li>
-			</ul>
-
-			<h2 class="date">21 July 2022</h2>
-			<h3 class="author">EvilDragonfiend updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Latejoin now shows Head of Personnel job to Civilian and Cargo categories both along with Command category.</li>
-				<li class="bugfix">When HoP job is in a non-command category, it showed the category as Command. (i.e. Supply as Command) now they're consistently showing proper categories even if HoP is there.</li>
-			</ul>
-			<h3 class="author">benbot16 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Fixes xeno infection images sticking around after a larva's been removed from a person.</li>
-			</ul>
-			<h3 class="author">qwertyquerty updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="soundadd">Space ambience song "Drifting"</li>
-			</ul>
-
-			<h2 class="date">20 July 2022</h2>
-			<h3 class="author">St0rmC4st3r updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Camera consoles can no longer be used to metagame a malf AI installing x-ray upgrades.</li>
-			</ul>
-			<h3 class="author">ro5490 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">Slight changes to the Technophile Sect</li>
-				<li class="rscadd">Technophile Sect now has a new rite, Machine Blessing, get your new implants today!</li>
-				<li class="tweak">Sects now run via a TGUI Menu, it looks good</li>
-			</ul>
-
-			<h2 class="date">19 July 2022</h2>
-			<h3 class="author">EvilDragonfiend updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">adjusted ghost role spawn character's ID card as it doesn't show grey hud icon. (CentCom commander, Official, etc)</li>
-				<li class="tweak">PDA now has a clickable link to turn on/off PDA auto-update. As long as it's On, PDA is automatically updated when it takes a card (Chameleon PDA still should do a manual update when you change appearance.)</li>
-				<li class="bugfix">Ruin VIP's card gets their owner's name now.</li>
-			</ul>
-			<h3 class="author">wixoa, ported by ike709 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Fixed subsystem priority sorting</li>
-			</ul>
-
-			<h2 class="date">18 July 2022</h2>
-			<h3 class="author">EvilDragonfiend updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Changeling no longer shows a grey hud icon when they copied the appearance of a creature wearing a PDA instead of an ID card</li>
-			</ul>
-			<h3 class="author">benbot16 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Fixes posi restrictions, but properly this time.</li>
 			</ul>
 		</div>
 
