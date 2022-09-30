@@ -1,14 +1,3 @@
-// Byond direction defines, because I want to put them somewhere.
-// #define NORTH 1
-// #define SOUTH 2
-// #define EAST 4
-// #define WEST 8
-
-#define TEXT_NORTH			"[NORTH]"
-#define TEXT_SOUTH			"[SOUTH]"
-#define TEXT_EAST			"[EAST]"
-#define TEXT_WEST			"[WEST]"
-
 //  The highest number of "for()" loop iterations before infinite loop detection triggers
 // +1 for "while()" loops, for some reason
 #define INFINITE_LOOP_DETECTION_THRESHOLD 1048574
@@ -171,8 +160,6 @@ GLOBAL_LIST_EMPTY(bloody_footprints_cache)
 #define POLLTYPE_MULTI		"MULTICHOICE"
 #define POLLTYPE_IRV		"IRV"
 
-
-
 //subtypesof(), typesof() without the parent path
 #define subtypesof(typepath) ( typesof(typepath) - typepath )
 
@@ -330,11 +317,6 @@ GLOBAL_LIST_INIT(pda_styles, sortList(list(MONO, VT, ORBITRON, SHARE)))
 #define BEAT_FAST 1
 #define BEAT_SLOW 2
 #define BEAT_NONE 0
-
-//https://secure.byond.com/docs/ref/info.html#/atom/var/mouse_opacity
-#define MOUSE_OPACITY_TRANSPARENT 0
-#define MOUSE_OPACITY_ICON 1
-#define MOUSE_OPACITY_OPAQUE 2
 
 //world/proc/shelleo
 #define SHELLEO_ERRORLEVEL 1
