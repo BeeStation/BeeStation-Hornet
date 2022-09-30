@@ -203,10 +203,10 @@
 					bounds[MAP_MAXX] = max(bounds[MAP_MAXX], xcrd)
 					bounds[MAP_MAXY] = max(bounds[MAP_MAXY], ycrd)
 					bounds[MAP_MAXZ] = max(bounds[MAP_MAXZ], zcrd)
-				#ifdef TESTING
+#ifdef TESTING
 				else
-					++turfsSkipped
-				#endif
+					++placing_template.turfsSkipped
+#endif
 			++xcrd
 	--ycrd
 

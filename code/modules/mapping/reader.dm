@@ -31,9 +31,9 @@
 	var/static/regex/trimQuotesRegex = new(@'^[\s\n]+"?|"?[\s\n]+$|^"|"$', "g")
 	var/static/regex/trimRegex = new(@'^[\s\n]+|[\s\n]+$', "g")
 
-	#ifdef TESTING
+#ifdef TESTING
 	var/turfsSkipped = 0
-	#endif
+#endif
 
 /// Shortcut function to parse a map and apply it to the world.
 ///
@@ -213,10 +213,10 @@
 							bounds[MAP_MAXX] = max(bounds[MAP_MAXX], xcrd)
 							bounds[MAP_MAXY] = max(bounds[MAP_MAXY], ycrd)
 							bounds[MAP_MAXZ] = max(bounds[MAP_MAXZ], zcrd)
-						#ifdef TESTING
+#ifdef TESTING
 						else
 							++turfsSkipped
-						#endif
+#endif
 						CHECK_TICK
 					++xcrd
 			--ycrd
@@ -229,10 +229,10 @@
 			//we do this after we load everything in. if we don't; we'll have weird atmos bugs regarding atmos adjacent turfs
 			T.AfterChange(CHANGETURF_IGNORE_AIR)
 
-	#ifdef TESTING
+#ifdef TESTING
 	if(turfsSkipped)
 		testing("Skipped loading [turfsSkipped] default turfs")
-	#endif
+#endif
 
 	if(did_expand)
 		world.refresh_atmos_grid()
