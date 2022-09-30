@@ -61926,7 +61926,6 @@
 /area/medical/chemistry)
 "xWW" = (
 /obj/structure/disposalpipe/segment,
-/obj/machinery/meter,
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
 	dir = 4
 	},
