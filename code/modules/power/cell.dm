@@ -12,21 +12,21 @@
 	throw_range = 5
 	w_class = WEIGHT_CLASS_SMALL
 	/// note %age conveted to actual charge in New
-	var/charge = 0	
+	var/charge = 0
 	var/maxcharge = 1000
 	materials = list(/datum/material/iron=700, /datum/material/glass=50)
 	grind_results = list(/datum/reagent/lithium = 15, /datum/reagent/iron = 5, /datum/reagent/silicon = 5)
 	/// true if rigged to explode
-	var/rigged = FALSE	
+	var/rigged = FALSE
 	///how much power is given every tick in a recharger
-	var/chargerate = 100 
+	var/chargerate = 100
 	///does it self recharge, over time, or not?
 	var/self_recharge = FALSE
 	///stores the chargerate to restore when hit with EMP, for slime cores
 	var/emp_timer = 0
 	var/ratingdesc = TRUE
 	/// If it's a grown that acts as a battery, add a wire overlay to it.
-	var/grown_battery = FALSE 
+	var/grown_battery = FALSE
 
 /obj/item/stock_parts/cell/get_cell()
 	return src
@@ -39,7 +39,7 @@
 		maxcharge = override_maxcharge
 	charge = maxcharge
 	if(ratingdesc)
-		desc += " This one has a rating of [DisplayEnergy(maxcharge)], and you should not swallow it."
+		desc += " This one has a rating of [display_energy(maxcharge)], and you should not swallow it."
 	update_icon()
 
 /obj/item/stock_parts/cell/Destroy()
@@ -147,7 +147,7 @@
 		charge = 0
 	if(self_recharge)
 		emp_timer = world.time + 30 SECONDS
-	
+
 
 /obj/item/stock_parts/cell/ex_act(severity, target)
 	..()

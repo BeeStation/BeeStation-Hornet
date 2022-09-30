@@ -203,7 +203,7 @@ By design, d1 is the smallest direction and d2 is the highest
 
 /obj/structure/cable/proc/get_power_info()
 	if(powernet && (powernet.avail > 0))		// is it powered?
-		return "<span class='danger'>Total power: [DisplayPower(powernet.avail)]\nLoad: [DisplayPower(powernet.load)]\nExcess power: [DisplayPower(surplus())]</span>"
+		return "<span class='danger'>Total power: [display_power(powernet.avail)]\nLoad: [display_power(powernet.load)]\nExcess power: [display_power(surplus())]</span>"
 	else
 		return "<span class='danger'>The cable is not powered.</span>"
 
