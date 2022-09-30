@@ -1,0 +1,5 @@
+author: LemonInTheDark, Whoneedspace
+delete-after: true
+changes:
+  - code_imp: Weather now handled by ZTRAITS
+  - code_imp: Reduces sound loop overtime
