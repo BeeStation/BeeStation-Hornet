@@ -42,9 +42,9 @@
 	user.visible_message("<span class='notice'>[user] begins deploying [src].</span>", "<span class='notice'>You begin deploying [src]...</span>")
 	if(!do_after(user, 4 SECONDS, target = src))
 		return
-	new /obj/machinery/bluespace_anchor(get_turf(user), power_cell)
-	UnregisterSignal(power_cell, COMSIG_PARENT_QDELETING)
-	power_cell = null
+	var/stored_cell = power_cell
+	set_cell(null)
+	new /obj/machinery/bluespace_anchor(get_turf(user), stored_cell)
 	qdel(src)
 
 /obj/item/bluespace_anchor/attackby(obj/item/I, mob/living/user, params)

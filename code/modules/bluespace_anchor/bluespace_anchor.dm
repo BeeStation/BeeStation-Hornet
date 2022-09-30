@@ -7,15 +7,20 @@ GLOBAL_LIST_EMPTY(active_bluespace_anchors)
 	icon = 'icons/obj/bluespace_anchor.dmi'
 	icon_state = "anchor_active"
 
+	light_range = 1.8
+	light_color = "#aeebe6"
+	light_system = MOVABLE_LIGHT
+
 	var/obj/item/stock_parts/cell/power_cell
 	var/range = 8
-	var/power_usage_per_teleport = 3500
+	var/power_usage_per_teleport = 1500
 
 /obj/machinery/bluespace_anchor/Initialize(mapload, obj/item/stock_parts/cell/cell)
 	. = ..()
 	//Move the cell
 	set_cell(cell)
 	GLOB.active_bluespace_anchors += src
+	update_icon()
 
 /obj/machinery/bluespace_anchor/Destroy()
 	GLOB.active_bluespace_anchors -= src
@@ -68,4 +73,4 @@ GLOBAL_LIST_EMPTY(active_bluespace_anchors)
 	power_cell = cell
 	if(power_cell)
 		power_cell.forceMove(src)
-
+	update_icon()
