@@ -17,7 +17,7 @@
 	attack_verb = "slash"
 	attack_sound = 'sound/weapons/slash.ogg'
 	miss_sound = 'sound/weapons/slashmiss.ogg'
-	var/datum/action/innate/cocoon/cocoon
+	var/datum/action/innate/cocoon/cocoon_action
 	meat = /obj/item/reagent_containers/food/snacks/meat/slab/human/mutant/moth
 	mutanteyes = /obj/item/organ/eyes/moth
 	mutantwings = /obj/item/organ/wings/moth
@@ -59,12 +59,13 @@
 /datum/species/moth/on_species_gain(mob/living/carbon/human/H)
 	..()
 	H.dna.original_wings = "[H.dna.features["moth_wings"]]" //This stores the current wing type
-	cocoon = new()
-	cocoon.Grant(H)
+	cocoon_action = new()
+	cocoon_action.Grant(H)
 
 /datum/species/moth/on_species_loss(mob/living/carbon/human/H)
 	..()
-	cocoon.Remove(H)
+	cocoon_action.Remove(H)
+	QDEL_NULL(cocoon_action)
 /*
 /datum/species/moth/spec_WakeUp(mob/living/carbon/human/H)
 	if(H.has_status_effect(STATUS_EFFECT_COCOONED))
@@ -149,19 +150,22 @@
 /obj/structure/moth/cocoon/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)
 		if(BRUTE)
-			playsound(src, 'sound/weapons/slash.ogg', 80, 1)
+			playsound(src, 'sound/weapons/slash.ogg', 80, TRUE)
 		if(BURN)
-			playsound(src, 'sound/items/welder.ogg', 80, 1)
+			playsound(src, 'sound/items/welder.ogg', 80, TRUE)
 
 /obj/structure/moth/cocoon/Destroy()
 	if(!preparing_to_emerge)
 		visible_message("<span class='danger'>[src] splits open from within!</span>")
+		for(var/mob/living/carbon/human/H in contents)
+			log_game("[key_name(H)] has emerged from their cocoon with the nutrition level of [H.nutrition][H.nutrition <= NUTRITION_LEVEL_STARVING ? ", now starving" : ""]")
 	else
 		visible_message("<span class='danger'>[src] is torn open, harming the Mothperson within!</span>")
 		for(var/mob/living/carbon/human/H in contents)
 			H.drowsyness += COCOON_HARM_AMOUNT / 2
 			H.adjustBruteLoss(COCOON_HARM_AMOUNT, 0)
 			H.adjustStaminaLoss(COCOON_HARM_AMOUNT * 2, 0)
+			//log_game("[key_name(H)] has emerged from their cocoon with the nutrition level of [H.nutrition][H.nutrition <= NUTRITION_LEVEL_STARVING ? ", now starving" : ""]")
 
 	for(var/mob/living/carbon/human/H in contents)
 		H.remove_status_effect(STATUS_EFFECT_COCOONED)

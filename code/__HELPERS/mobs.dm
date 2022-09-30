@@ -70,8 +70,6 @@
 		init_sprite_accessory_subtypes(/datum/sprite_accessory/wings, GLOB.wings_list)
 	if(!GLOB.moth_wings_list.len)
 		init_sprite_accessory_subtypes(/datum/sprite_accessory/moth_wings, GLOB.moth_wings_list)
-	if(!GLOB.moth_wings_roundstart_list.len)
-		init_sprite_accessory_subtypes(/datum/sprite_accessory/moth_wings, GLOB.moth_wings_roundstart_list)
 	if(!GLOB.ipc_screens_list.len)
 		init_sprite_accessory_subtypes(/datum/sprite_accessory/ipc_screens, GLOB.ipc_screens_list)
 	if(!GLOB.ipc_antennas_list.len)
