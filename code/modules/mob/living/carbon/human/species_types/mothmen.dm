@@ -1,5 +1,5 @@
 #define COCOON_WEAVE_DELAY 5 SECONDS //how long it takes you to create the cocoon
-#define COCOON_EMERGE_DELAY 20 SECONDS //how long you remain inside of it
+#define COCOON_EMERGE_DELAY 60 SECONDS //how long you remain inside of it
 #define COCOON_HARM_AMOUNT 50 //how much damage gets dealt to you if the cocoon gets broken prematurely
 #define COCOON_HEAL_AMOUNT 35 //how much damage gets restored while you're cocooned
 #define COCOON_NUTRITION_AMOUNT 200 //how much hunger gets drained in total
@@ -104,7 +104,6 @@
 		H.visible_message("<span class='notice'>[H] finishes weaving a cocoon!</span>", "<span class='notice'>You finish weaving your cocoon.</span>")
 		var/obj/structure/moth/cocoon/C = new(get_turf(H))
 		H.forceMove(C)
-		//H.Sleeping(COCOON_EMERGE_DELAY, 0)
 		H.Sleeping(20, 0)
 		C.preparing_to_emerge = TRUE
 		H.apply_status_effect(STATUS_EFFECT_COCOONED)

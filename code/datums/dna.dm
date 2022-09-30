@@ -8,7 +8,7 @@
 	var/list/features = list("FFF") //first value is mutant color
 	var/real_name //Stores the real name of the person who originally got this dna datum. Used primarely for changelings,
 	var/list/mutations = list()   //All mutations are from now on here
-	var/original_wings = "Plain" //Used for the restoration of moth wings, also a failsafe
+	var/original_wings = "Plain" //Stores the original wing type of a moth upon them gaining the species, used for regenerating them with a cocoon, Plain is there as a failsafe
 	var/list/temporary_mutations = list() //Temporary changes to the UE
 	var/list/previous = list() //For temporary name/ui/ue/blood_type modifications
 	var/mob/living/holder
