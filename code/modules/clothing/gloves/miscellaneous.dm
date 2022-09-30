@@ -112,16 +112,15 @@
 			playsound(user, 'sound/weapons/emitter2.ogg', 25, 1, -1)
 
 /obj/item/clothing/gloves/color/white/magic/Touch(atom/A, proximity)
-	var/mob/living/M = loc
-	if(get_dist(A, M) <= 1)
-		return 0
-	if(M in viewers(range, A))
-		M.visible_message("<span_class ='danger'>[M] waves their hands at [A]</span>", "<span_class ='notice'>You begin manipulating [A].</span>")
+	var/mob/living/user = loc
+	if(get_dist(A, user) <= 1 )
+		return FALSE
+	if(user in viewers(range, A))
+		user.visible_message("<span class='danger'>[user] waves their hands at [A]</span>", "<span class='notice'>You begin manipulating [A].</span>")
 		new	/obj/effect/temp_visual/telegloves(A.loc)
-		M.changeNext_move(CLICK_CD_MELEE)
-		if(do_after_mob(M, A, 8))
-			new /obj/effect/temp_visual/telekinesis(M.loc)
-			playsound(M, 'sound/weapons/emitter2.ogg', 25, 1, -1)
-			A.attack_hand(M)
-			return 1
-
+		user.changeNext_move(CLICK_CD_MELEE)
+		if(do_mob(user, A, 0.8 SECONDS))
+			new /obj/effect/temp_visual/telekinesis(user.loc)
+			playsound(user, 'sound/weapons/emitter2.ogg', 25, 1, -1)
+			A.attack_hand(user)
+			return TRUE
