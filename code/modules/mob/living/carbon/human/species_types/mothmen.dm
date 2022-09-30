@@ -126,7 +126,6 @@
 			var/obj/item/organ/wings/moth/organ = new()
 			organ.wing_type = "[H.dna.original_wings]"
 			organ.Insert(H, TRUE, FALSE)
-		//H.drowsyness += 5
 			H.dna.species.handle_mutant_bodyparts(H)
 	C.preparing_to_emerge = FALSE
 	qdel(C)
@@ -139,8 +138,8 @@
 
 
 /obj/structure/moth/cocoon
-	name = "\improper Mothman cocoon"
-	desc = "Someone wrapped in a Mothman cocoon. It's best to let them rest."
+	name = "\improper Mothperson cocoon"
+	desc = "Someone wrapped in a Mothperson cocoon. It's best to let them rest."
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "cocoon_large1"
 	anchored = TRUE
@@ -158,11 +157,10 @@
 	if(!preparing_to_emerge)
 		visible_message("<span class='danger'>[src] splits open from within!</span>")
 	else
-		visible_message("<span class='danger'>[src] is torn open, harming the Mothman within!</span>")
+		visible_message("<span class='danger'>[src] is torn open, harming the Mothperson within!</span>")
 		for(var/mob/living/carbon/human/H in contents)
 			H.drowsyness += COCOON_HARM_AMOUNT / 2
 			H.adjustBruteLoss(COCOON_HARM_AMOUNT, 0)
-			//H.adjustCloneLoss(COCOON_HARM_AMOUNT / 2, 0) //uncomment this if you're evil
 			H.adjustStaminaLoss(COCOON_HARM_AMOUNT * 2, 0)
 
 	for(var/mob/living/carbon/human/H in contents)
@@ -171,6 +169,7 @@
 		//H.adjust_nutrition(-COCOON_NUTRITION_AMOUNT)
 		H.forceMove(loc)
 		H.visible_message("<span class='notice'>[H]'s wings unfold, looking good as new!</span>", "<span class='notice'>Your wings unfold with new vigor!.</span>")
+		log_game("[key_name(H)] has emerged from their cocoon with the nutrition level of [H.nutrition][H.nutrition <= NUTRITION_LEVEL_STARVING ? ", now starving" : ""]")
 		//H.create_log(MISC_LOG, "has emerged from their cocoon with the nutrition level of [H.nutrition][H.nutrition <= NUTRITION_LEVEL_STARVING ? ", now starving" : ""]")
 	return ..()
 
