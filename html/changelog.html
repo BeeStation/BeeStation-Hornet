@@ -56,6 +56,88 @@
 		-->
 		<div class="commit sansserif">
 
+			<h2 class="date">30 September 2022</h2>
+			<h3 class="author">LemonInTheDark, Whoneedspace updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="code_imp">Weather now handled by ZTRAITS</li>
+				<li class="code_imp">Reduces sound loop overtime</li>
+			</ul>
+			<h3 class="author">PestoVerde322 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">adds helpful code comments to procs</li>
+				<li class="refactor">refactors and sorts _HELPERS/unsorted.dm into their own files</li>
+				<li class="refactor">turf_flags.dm is renamed to turfs.dm</li>
+				<li class="rscadd">adds some new directional flags</li>
+			</ul>
+
+			<h2 class="date">29 September 2022</h2>
+			<h3 class="author">BarteG44 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Added black and white decal colors</li>
+				<li class="rscadd">Added flat floor decals for monotiles</li>
+			</ul>
+			<h3 class="author">EvilDragonfiend updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">compression box of (head items) that contains head outfits (and CE tools for CE) to solve the overloading issue of the head lockers. Holding this box will slow your movement extremely, so you'll not be able to steal their compressed box that easily.</li>
+				<li class="tweak">mixed wardrobe has a compression box of its jumpsuits/skirts because it has the same issue too.</li>
+				<li class="tweak">all heads lockers will have pet collar and pet carrier.</li>
+				<li class="tweak">captain's locker now has a megaphone.</li>
+				<li class="refactor">changed some head locker items ordering</li>
+			</ul>
+			<h3 class="author">Tyranicranger4 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Box station engine monitoring camera consoles now work properly.</li>
+			</ul>
+			<h3 class="author">etherware-novice updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">Airlock and Decal painters now have an indicator for low ink</li>
+				<li class="refactor">Adjusts the Airlock painters examine text</li>
+				<li class="tweak">Captain cryoing does a stationwide announcement</li>
+			</ul>
+			<h3 class="author">itsmeow updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="admin">Added an IC filter check to most forms of telepathy and alternate speech (such as hivemind talk, silicon binary, blood bros, etc)</li>
+				<li class="admin">Added an IC filter check and logging to nanite cloud messages.</li>
+				<li class="admin">Added an IC filter check and logging to nanite program text fields.</li>
+				<li class="admin">Added an IC filter check to Poly.</li>
+				<li class="admin">Added an IC filter check to Allied Station messages.</li>
+				<li class="admin">Added an IC filter check to requests console announcements.</li>
+				<li class="bugfix">Added an OOC filter check to dchat if you are still inside your body.</li>
+			</ul>
+			<h3 class="author">ivanmixo updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="balance">bruise pack/gauze/ointment application do_afters(the use bars) can't be stacked on yourself anymore yet</li>
+				<li class="bugfix">you can't apply gauze on people who arent hurt anymore</li>
+				<li class="rscdel">useless do_after_mob proc</li>
+				<li class="refactor">refactored bruise pack/ointment/gauze application proc</li>
+				<li class="balance">the area of the body you're targeting when applying touch based healing reagents through a patch/medspray now actually matters</li>
+				<li class="code_imp">Added a bunch of comments to items related to chems and stacks</li>
+			</ul>
+			<h3 class="author">spockye updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Added missing shutters to Delta chapel</li>
+				<li class="bugfix">Removes the duplicate door from Pubby's genetics department</li>
+				<li class="bugfix">replaces wrong zoning</li>
+				<li class="bugfix">unpowers the pond</li>
+				<li class="bugfix">Removes Table (randomly placed table at departures airlock)</li>
+			</ul>
+
+			<h2 class="date">28 September 2022</h2>
+			<h3 class="author">PestoVerde322 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">fixed the missing labor shuttle dock for lavaland</li>
+				<li class="rscadd">missing cameras around lavaland</li>
+				<li class="rscadd">a light in the lavaland's sauna.</li>
+			</ul>
+			<h3 class="author">Phil Smith updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="balance">PKAs now have the same weakness in a vacuum as they have in a pressurized environment</li>
+			</ul>
+			<h3 class="author">itsmeow updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Fixed another runtime with the MedHUD SSD indicator on mind transfer.</li>
+			</ul>
+
 			<h2 class="date">27 September 2022</h2>
 			<h3 class="author">itsmeow updated:</h3>
 			<ul class="changes bgimages16">
@@ -939,55 +1021,6 @@
 			<h3 class="author">zeskorion updated:</h3>
 			<ul class="changes bgimages16">
 				<li class="tweak">the hysteria symptom has been toned down to avoid lag</li>
-			</ul>
-
-			<h2 class="date">29 July 2022</h2>
-			<h3 class="author">EvilDragonfiend updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="refactor">new mind proc 'is_murderbone()` to check if their mind has murderbone objective, and objective datum has murderbone_flag variable</li>
-				<li class="balance">His Grace / Romerol are now only purchasable to those who have a murderbone objective. (His Grace is still restricted to chaplain)</li>
-				<li class="balance">Romerol is now 20 TC</li>
-			</ul>
-			<h3 class="author">Miliviu updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">The cancel button no longer spawns antagonists in the create-antagonist menu</li>
-			</ul>
-			<h3 class="author">PestoVerde322, Rukofamicom updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Revenants may now reveal themselves at will with a new ability! While corporeal revenants are vulnerable but able to perform the same basic functions that other simplemobs can, such as stripping players and dragging things around.</li>
-			</ul>
-			<h3 class="author">Rukofamicom updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">fixed viruses spamming deadchat with messages when they have Necrotic Metabolization</li>
-				<li class="tweak">Wizarditis can no longer teleport across Z-levels.</li>
-			</ul>
-			<h3 class="author">ValuedEmployee Justice12354 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Added Mothroaches</li>
-			</ul>
-			<h3 class="author">etherware-novice updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Added the :d radio channel</li>
-				<li class="tweak">Tweaked the ic notes, traitor splash screen, and code generation to reflect the new uplink</li>
-			</ul>
-			<h3 class="author">ivanmixo updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="admin">Moderators' bus perms have been toned down, but they can now rename improperly named characters/mobs</li>
-			</ul>
-
-			<h2 class="date">28 July 2022</h2>
-			<h3 class="author">EvilDragonfiend updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">player pannel is now working again.</li>
-				<li class="refactor">corrected some wrong usage of job defines.</li>
-			</ul>
-			<h3 class="author">Memendia updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Cargo Caps flip again</li>
-			</ul>
-			<h3 class="author">itsmeow updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Minimal runtimes menu will no longer show duplicates and lag</li>
 			</ul>
 		</div>
 
