@@ -50,7 +50,6 @@
 #define MAGICIAN        (1<<16)
 #define PSYCHIATRIST    (1<<17)
 #define CELEBRITY       (1<<18)
-#define EXPERIMENT       (1<<19)
 
 #define JOB_AVAILABLE 0
 #define JOB_UNAVAILABLE_GENERIC 1
@@ -131,7 +130,6 @@
 #define JOB_NAME_STAGEMAGICIAN "Stage Magician" // gimmick
 #define JOB_NAME_BARBER "Barber" // gimmick
 #define JOB_NAME_VIP    "VIP" // gimmick
-#define JOB_NAME_EXPERIMENT   "Experiment" // gimmick
 
 // Cargo
 #define JOB_NAME_QUARTERMASTER   "Quartermaster"
