@@ -729,7 +729,7 @@ SUBSYSTEM_DEF(shuttle)
 	if(!preview_reservation)
 		CRASH("failed to reserve an area for shuttle template loading")
 	var/turf/BL = TURF_FROM_COORDS_LIST(preview_reservation.bottom_left_coords)
-	var/datum/map_generator/shuttle_loader = S.load(BL, FALSE, TRUE, FALSE)
+	var/datum/map_generator/shuttle_loader = S.load(BL, FALSE, TRUE, TRUE, FALSE)
 	shuttle_loader.on_completion(CALLBACK(src, .proc/template_loaded, S, BL))
 	return shuttle_loader
 
