@@ -6,6 +6,7 @@
 	var/loaded = 0 // Times loaded this round
 	var/datum/parsed_map/cached_map
 	var/keep_cached_map = FALSE
+	var/station_id = null // used to override the root id when generating
 
 	///if true, turfs loaded from this template are placed on top of the turfs already there, defaults to TRUE
 	var/should_place_on_top = TRUE
@@ -75,6 +76,10 @@
 	// first or not.  Its defined In Initialize yet its run first in templates
 	// BEFORE so... hummm
 	SSmapping.reg_in_areas_in_z(areas)
+	// We have to do this hack here because its the ONLY place we can get the
+	// meta data from the template so we can properly set up the area
+	SSnetworks.assign_areas_root_ids(areas, src)
+	// If the world is starting up stop here and the world will do the rest
 	if(!SSatoms.initialized)
 		return
 
@@ -131,7 +136,7 @@
 	var/datum/parsed_map/parsed = new(file(mappath))
 	parsed.load(T.x, T.y, T.z, cropMap=TRUE, no_changeturf=TRUE, placeOnTop=should_place_on_top)
 
-/datum/map_template/proc/load(turf/T, centered = FALSE, init_atmos = TRUE)
+/datum/map_template/proc/load(turf/T, centered = FALSE, init_atmos = TRUE, finalize = TRUE)
 	if(centered)
 		T = locate(T.x - round(width/2) , T.y - round(height/2) , T.z)
 	if(!T)
@@ -165,10 +170,12 @@
 	if(!SSmapping.loading_ruins) //Will be done manually during mapping ss init
 		repopulate_sorted_areas()
 
-	//initialize things that are normally initialized after map load
-	initTemplateBounds(bounds, init_atmos)
+	//If this is a superfunction call, we don't want to initialize atoms here, let the subfunction handle that
+	if(finalize)
+		//initialize things that are normally initialized after map load
+		initTemplateBounds(bounds, init_atmos)
 
-	log_game("[name] loaded at [T.x],[T.y],[T.z]")
+		log_game("[name] loaded at [T.x],[T.y],[T.z]")
 	return bounds
 
 /datum/map_template/proc/update_blacklist(turf/T, list/input_blacklist)

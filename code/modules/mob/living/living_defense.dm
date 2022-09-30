@@ -428,8 +428,12 @@
 /mob/living/proc/sethellbound()
 	if(mind)
 		mind.hellbound = TRUE
+		med_hud_set_status()
 		return TRUE
 	return FALSE
 
 /mob/living/proc/ishellbound()
-	return mind && mind.hellbound
+	return mind?.hellbound
+
+/mob/living/proc/force_hit_projectile(obj/item/projectile/projectile)
+	return FALSE

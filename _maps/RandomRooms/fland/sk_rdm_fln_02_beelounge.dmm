@@ -33,7 +33,7 @@
 /turf/open/floor/wax,
 /area/template_noop)
 "o" = (
-/obj/structure/chair/sofa/corp/right{
+/obj/structure/chair/fancy/sofa/corp/right{
 	color = "#ffd966";
 	dir = 8
 	},
@@ -78,7 +78,7 @@
 /turf/open/floor/wax,
 /area/template_noop)
 "C" = (
-/obj/structure/chair/sofa/corp/corner{
+/obj/structure/chair/fancy/sofa/corp/corner/concave{
 	color = "#ffd966";
 	dir = 8
 	},
@@ -109,15 +109,15 @@
 /turf/open/floor/noslip/standard,
 /area/template_noop)
 "G" = (
-/obj/structure/chair/sofa/corp/right{
-	color = "#ffd966";
-	dir = 1
-	},
 /obj/machinery/light_switch{
 	pixel_x = -4;
 	pixel_y = -32
 	},
 /obj/item/toy/plush/beeplushie,
+/obj/structure/chair/fancy/sofa/corp/left{
+	color = "#ffd966";
+	dir = 1
+	},
 /turf/open/floor/wax,
 /area/template_noop)
 "H" = (
@@ -187,6 +187,7 @@
 /turf/open/floor/plasteel/grid/steel,
 /area/template_noop)
 "X" = (
+/obj/machinery/door/airlock/public,
 /turf/open/floor/noslip/standard,
 /area/template_noop)
 

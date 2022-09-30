@@ -48,6 +48,7 @@
 #include "check_adjustable_clothing.dm"
 #include "component_tests.dm"
 #include "connect_loc.dm"
+#include "crafting_tests.dm"
 
 // Del the World.
 // This unit test creates and qdels almost every atom in the code, checking for errors with initialization and harddels on deletion.
@@ -64,6 +65,7 @@
 #include "species_whitelists.dm"
 #include "greyscale_config.dm"
 #include "metabolizing.dm"
+#include "ntnetwork_tests.dm"
 #include "projectiles.dm"
 #include "subsystem_init.dm"
 #include "subsystem_metric_sanity.dm"

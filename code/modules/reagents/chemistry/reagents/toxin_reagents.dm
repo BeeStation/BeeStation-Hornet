@@ -188,7 +188,7 @@
 /datum/reagent/toxin/zombiepowder/on_mob_life(mob/living/carbon/M)
 	if(current_cycle >= 10) // delayed activation for toxin
 		M.adjustStaminaLoss((current_cycle - 5)*REM, 0)
-	if(M.getStaminaLoss() >= 145) // fake death tied to stamina for interesting interactions - 23 ticks to fake death with pure ZP
+	if(M.getStaminaLoss() >= 145 && !HAS_TRAIT(M, TRAIT_FAKEDEATH)) // fake death tied to stamina for interesting interactions - 23 ticks to fake death with pure ZP
 		M.fakedeath(type)
 	..()
 
@@ -358,7 +358,7 @@
 	description = "Finely shredded tea leaves, used for making tea."
 	reagent_state = SOLID
 	color = "#7F8400" // rgb: 127, 132, 0
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
+	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BARTENDER_SERVING
 	toxpwr = 0.1
 	taste_description = "green tea"
 
@@ -367,7 +367,7 @@
 	description = "A nonlethal poison that inhibits speech in its victim."
 	silent_toxin = TRUE
 	color = "#F0F8FF" // rgb: 240, 248, 255
-	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BOTANIST_HARVEST
+	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_BOTANIST_HARVEST | CHEMICAL_GOAL_BARTENDER_SERVING
 	toxpwr = 0
 	taste_description = "silence"
 

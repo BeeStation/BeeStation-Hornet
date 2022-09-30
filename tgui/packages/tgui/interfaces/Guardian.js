@@ -8,6 +8,7 @@ export const Guardian = (props, context) => {
   const [tab, setTab] = useLocalState(context, 'tab', 'general');
   return (
     <Window
+      theme="generic"
       width={580}
       height={600}>
       <Window.Content scrollable>

@@ -41,6 +41,7 @@
 	difficulty = 18
 	text_gain_indication = "<span class='notice'>You can see the heat rising off of your skin...</span>"
 	instability = 25
+	locked = TRUE
 	var/visionflag = TRAIT_THERMAL_VISION
 
 /datum/mutation/thermal/on_acquiring(mob/living/carbon/owner)

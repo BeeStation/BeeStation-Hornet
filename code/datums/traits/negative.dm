@@ -53,15 +53,29 @@
 /datum/quirk/brainproblems
 	name = "Brain Tumor"
 	desc = "You have a little friend in your brain that is slowly destroying it. Thankfully, you start with a bottle of mannitol pills."
+	mob_trait = TRAIT_BRAIN_TUMOR
 	value = -3
 	gain_text = "<span class='danger'>You feel smooth.</span>"
 	lose_text = "<span class='notice'>You feel wrinkled again.</span>"
 	medical_record_text = "Patient has a tumor in their brain that is slowly driving them to brain death."
 	process = TRUE
 	var/where = "at your feet"
+	var/notified = FALSE
 
 /datum/quirk/brainproblems/on_process(delta_time)
-	quirk_holder.adjustOrganLoss(ORGAN_SLOT_BRAIN, 0.2 * delta_time)
+	if(!quirk_holder.reagents.has_reagent(/datum/reagent/medicine/mannitol))
+		if(prob(80))
+			quirk_holder.adjustOrganLoss(ORGAN_SLOT_BRAIN, 0.1 * delta_time)
+	var/obj/item/organ/brain/B = quirk_holder.getorgan(/obj/item/organ/brain)
+	if(B)
+		if(B.damage>BRAIN_DAMAGE_MILD-1 && !notified)
+			to_chat(quirk_holder, "<span class='danger'>You sense your brain is getting beyond your control...</span>")
+			notified = TRUE
+		if(B.damage<1 && notified)
+			to_chat(quirk_holder, "<span class='notice'>You feel your brain is quite well.</span>")
+			notified = FALSE
+
+
 
 /datum/quirk/brainproblems/on_spawn()
 	var/mob/living/carbon/human/H = quirk_holder
@@ -122,76 +136,76 @@
 	else
 		switch(quirk_holder.mind.assigned_role)
 			//Service jobs
-			if("Clown")
+			if(JOB_NAME_CLOWN)
 				heirloom_type = /obj/item/bikehorn/golden
-			if("Mime")
+			if(JOB_NAME_MIME)
 				heirloom_type = /obj/item/reagent_containers/food/snacks/baguette/mime
-			if("Janitor")
+			if(JOB_NAME_JANITOR)
 				heirloom_type = pick(/obj/item/mop, /obj/item/clothing/suit/caution, /obj/item/reagent_containers/glass/bucket)
-			if("Cook")
+			if(JOB_NAME_COOK)
 				heirloom_type = pick(/obj/item/reagent_containers/food/condiment/saltshaker, /obj/item/kitchen/rollingpin, /obj/item/clothing/head/chefhat)
-			if("Botanist")
+			if(JOB_NAME_BOTANIST)
 				heirloom_type = pick(/obj/item/cultivator, /obj/item/reagent_containers/glass/bucket, /obj/item/storage/bag/plants, /obj/item/toy/plush/beeplushie)
-			if("Bartender")
+			if(JOB_NAME_BARTENDER)
 				heirloom_type = pick(/obj/item/reagent_containers/glass/rag, /obj/item/clothing/head/that, /obj/item/reagent_containers/food/drinks/shaker)
-			if("Curator")
+			if(JOB_NAME_CURATOR)
 				heirloom_type = pick(/obj/item/pen/fountain, /obj/item/storage/pill_bottle/dice)
-			if("Chaplain")
+			if(JOB_NAME_CHAPLAIN)
 				heirloom_type = pick(/obj/item/toy/windupToolbox, /obj/item/reagent_containers/food/drinks/bottle/holywater)
-			if("Assistant")
+			if(JOB_NAME_ASSISTANT)
 				heirloom_type = pick(/obj/item/heirloomtoolbox, /obj/item/clothing/gloves/cut/heirloom)
-			if("Barber")
+			if(JOB_NAME_BARBER)
 				heirloom_type = /obj/item/handmirror
-			if("Stage Magician")
+			if(JOB_NAME_STAGEMAGICIAN)
 				heirloom_type = /obj/item/gun/magic/wand
 			//Security/Command
-			if("Captain")
+			if(JOB_NAME_CAPTAIN)
 				heirloom_type = /obj/item/reagent_containers/food/drinks/flask/gold
-			if("Head of Security")
+			if(JOB_NAME_HEADOFSECURITY)
 				heirloom_type = /obj/item/book/manual/wiki/security_space_law
-			if("Warden")
+			if(JOB_NAME_WARDEN)
 				heirloom_type = /obj/item/book/manual/wiki/security_space_law
-			if("Security Officer")
+			if(JOB_NAME_SECURITYOFFICER)
 				heirloom_type = pick(/obj/item/book/manual/wiki/security_space_law, /obj/item/clothing/head/beret/sec)
-			if("Detective")
+			if(JOB_NAME_DETECTIVE)
 				heirloom_type = /obj/item/reagent_containers/food/drinks/bottle/whiskey
-			if("Lawyer")
+			if(JOB_NAME_LAWYER)
 				heirloom_type = pick(/obj/item/gavelhammer, /obj/item/book/manual/wiki/security_space_law)
-			if("Brig Physician")
+			if(JOB_NAME_BRIGPHYSICIAN)
 				heirloom_type = pick(/obj/item/clothing/neck/stethoscope, /obj/item/book/manual/wiki/security_space_law)
 			//RnD
-			if("Research Director")
+			if(JOB_NAME_RESEARCHDIRECTOR)
 				heirloom_type = /obj/item/toy/plush/slimeplushie
-			if("Scientist")
+			if(JOB_NAME_SCIENTIST)
 				heirloom_type = /obj/item/toy/plush/slimeplushie
-			if("Roboticist")
+			if(JOB_NAME_ROBOTICIST)
 				heirloom_type = pick(subtypesof(/obj/item/toy/prize)) //look at this nerd
 			//Medical
-			if("Chief Medical Officer")
+			if(JOB_NAME_CHIEFMEDICALOFFICER)
 				heirloom_type = pick(/obj/item/clothing/neck/stethoscope, /obj/item/bodybag)
-			if("Medical Doctor")
+			if(JOB_NAME_MEDICALDOCTOR)
 				heirloom_type = pick(/obj/item/clothing/neck/stethoscope, /obj/item/bodybag)
-			if("Paramedic")
+			if(JOB_NAME_PARAMEDIC)
 				heirloom_type = pick(/obj/item/bodybag)
-			if("Chemist")
-				heirloom_type = /obj/item/book/manual/wiki/chemistry
-			if("Virologist")
+			if(JOB_NAME_CHEMIST)
+				heirloom_type = /obj/item/reagent_containers/glass/chem_heirloom
+			if(JOB_NAME_VIROLOGIST)
 				heirloom_type = /obj/item/reagent_containers/dropper
-			if("Geneticist")
+			if(JOB_NAME_GENETICIST)
 				heirloom_type = /obj/item/clothing/under/shorts/purple
 			//Engineering
-			if("Chief Engineer")
+			if(JOB_NAME_CHIEFENGINEER)
 				heirloom_type = pick(/obj/item/clothing/head/hardhat/white, /obj/item/screwdriver, /obj/item/wrench, /obj/item/weldingtool, /obj/item/crowbar, /obj/item/wirecutters)
-			if("Station Engineer")
+			if(JOB_NAME_STATIONENGINEER)
 				heirloom_type = pick(/obj/item/clothing/head/hardhat, /obj/item/screwdriver, /obj/item/wrench, /obj/item/weldingtool, /obj/item/crowbar, /obj/item/wirecutters)
-			if("Atmospheric Technician")
+			if(JOB_NAME_ATMOSPHERICTECHNICIAN)
 				heirloom_type = pick(/obj/item/lighter, /obj/item/lighter/greyscale, /obj/item/storage/box/matches)
 			//Supply
-			if("Quartermaster")
+			if(JOB_NAME_QUARTERMASTER)
 				heirloom_type = pick(/obj/item/stamp, /obj/item/stamp/denied)
-			if("Cargo Technician")
+			if(JOB_NAME_CARGOTECHNICIAN)
 				heirloom_type = /obj/item/clipboard
-			if("Shaft Miner")
+			if(JOB_NAME_SHAFTMINER)
 				heirloom_type = pick(/obj/item/pickaxe/mini, /obj/item/shovel)
 
 	if(!heirloom_type)
@@ -218,6 +232,9 @@
 	var/family_name = names[names.len]
 
 	heirloom.AddComponent(/datum/component/heirloom, quirk_holder.mind, family_name)
+	if(istype(heirloom, /obj/item/reagent_containers/glass/chem_heirloom)) //Edge case for chem_heirloom. Solution to component not being present on init.
+		var/obj/item/reagent_containers/glass/chem_heirloom/H = heirloom
+		H.update_name()
 
 /datum/quirk/family_heirloom/on_process()
 	if(heirloom in quirk_holder.GetAllContents())
@@ -252,13 +269,13 @@
 
 /datum/quirk/foreigner/add()
 	var/mob/living/carbon/human/H = quirk_holder
-	if(ishuman(H) && H.job != "Curator")
+	if(ishuman(H) && H.job != JOB_NAME_CURATOR)
 		H.add_blocked_language(/datum/language/common)
 		H.grant_language(/datum/language/uncommon)
 
 /datum/quirk/foreigner/remove()
 	var/mob/living/carbon/human/H = quirk_holder
-	if(ishuman(H) && H.job != "Curator")
+	if(ishuman(H) && H.job != JOB_NAME_CURATOR)
 		H.remove_blocked_language(/datum/language/common)
 		H.remove_language(/datum/language/uncommon)
 
@@ -462,24 +479,28 @@
 	desc = "Talking to people is very difficult for you, and you often stutter or even lock up."
 	value = -1
 	gain_text = "<span class='danger'>You start worrying about what you're saying.</span>"
-	lose_text = "<span class='notice'>You feel easier about talking again.</span>" //if only it were that easy!
+	lose_text = "<span class='notice'>You feel comfortable with talking again.</span>" //if only it were that easy!
 	medical_record_text = "Patient is usually anxious in social encounters and prefers to avoid them."
+	process = TRUE
 	var/dumb_thing = TRUE
 
 /datum/quirk/social_anxiety/on_process(delta_time)
 	var/nearby_people = 0
-	for(var/mob/living/carbon/human/H in oview(3, quirk_holder))
-		if(H.client)
+	for(var/mob/living/carbon/human/stranger in oview(3, quirk_holder))
+		if(stranger.client)
 			nearby_people++
 	var/mob/living/carbon/human/H = quirk_holder
 	if(DT_PROB(2 + nearby_people, delta_time))
 		H.stuttering = max(3, H.stuttering)
+		SEND_SIGNAL(quirk_holder, COMSIG_ADD_MOOD_EVENT, "anxiety", /datum/mood_event/anxiety)
 	else if(DT_PROB(min(3, nearby_people), delta_time) && !H.silent)
 		to_chat(H, "<span class='danger'>You retreat into yourself. You <i>really</i> don't feel up to talking.</span>")
 		H.silent = max(10, H.silent)
+		SEND_SIGNAL(quirk_holder, COMSIG_ADD_MOOD_EVENT, "anxiety_mute", /datum/mood_event/anxiety_mute)
 	else if(DT_PROB(0.5, delta_time) && dumb_thing)
 		to_chat(H, "<span class='userdanger'>You think of a dumb thing you said a long time ago and scream internally.</span>")
 		dumb_thing = FALSE //only once per life
+		SEND_SIGNAL(quirk_holder, COMSIG_ADD_MOOD_EVENT, "anxiety_dumb", /datum/mood_event/anxiety_dumb)
 		if(prob(1))
 			new/obj/item/reagent_containers/food/snacks/spaghetti/pastatomato(get_turf(H)) //now that's what I call spaghetti code
 

@@ -35,6 +35,12 @@
 /obj/item/proc/GetID()
 	return null
 
+/obj/item/proc/RemoveID()
+	return null
+
+/obj/item/proc/InsertID()
+	return FALSE
+
 /obj/proc/text2access(access_text)
 	. = list()
 	if(!access_text)
@@ -84,44 +90,53 @@
 		return FALSE
 	return TRUE
 
-/obj/proc/check_access_ntnet(datum/netdata/data)
-	return check_access_list(data.passkey)
+/*
+ * Checks if this packet can access this device
+ *
+ * Normally just checks the access list however you can override it for
+ * hacking proposes or if wires are cut
+ *
+ * Arguments:
+ * * passkey - passkey from the datum/netdata packet
+ */
+/obj/proc/check_access_ntnet(list/passkey)
+	return check_access_list(passkey)
 
 /proc/get_centcom_access(job)
 	switch(job)
-		if("VIP Guest")
+		if(JOB_CENTCOM_VIP)
 			return list(ACCESS_CENT_GENERAL)
-		if("Custodian")
+		if(JOB_CENTCOM_CUSTODIAN)
 			return list(ACCESS_CENT_GENERAL, ACCESS_CENT_LIVING, ACCESS_CENT_STORAGE)
-		if("Thunderdome Overseer")
+		if(JOB_CENTCOM_THUNDERDOME_OVERSEER)
 			return list(ACCESS_CENT_GENERAL, ACCESS_CENT_THUNDER)
-		if("CentCom Official")
+		if(JOB_CENTCOM_OFFICIAL)
 			return list(ACCESS_CENT_GENERAL, ACCESS_CENT_LIVING)
 		if("CentCom Intern")
 			return list(ACCESS_CENT_GENERAL, ACCESS_CENT_LIVING)
 		if("CentCom Head Intern")
 			return list(ACCESS_CENT_GENERAL, ACCESS_CENT_LIVING)
-		if("Medical Officer")
+		if(JOB_CENTCOM_MEDICAL_DOCTOR)
 			return list(ACCESS_CENT_GENERAL, ACCESS_CENT_LIVING, ACCESS_CENT_MEDICAL)
-		if("Death Commando")
+		if(JOB_ERT_DEATHSQUAD)
 			return list(ACCESS_CENT_GENERAL, ACCESS_CENT_SPECOPS, ACCESS_CENT_LIVING, ACCESS_CENT_STORAGE)
-		if("Research Officer")
+		if(JOB_CENTCOM_RESEARCH_OFFICER)
 			return list(ACCESS_CENT_GENERAL, ACCESS_CENT_SPECOPS, ACCESS_CENT_MEDICAL, ACCESS_CENT_TELEPORTER, ACCESS_CENT_STORAGE)
 		if("Special Ops Officer")
 			return list(ACCESS_CENT_GENERAL, ACCESS_CENT_THUNDER, ACCESS_CENT_SPECOPS, ACCESS_CENT_LIVING, ACCESS_CENT_STORAGE)
-		if("Admiral")
+		if(JOB_CENTCOM_ADMIRAL)
 			return get_all_centcom_access()
-		if("CentCom Commander")
+		if(JOB_CENTCOM_COMMANDER)
 			return get_all_centcom_access()
-		if("Emergency Response Team Commander")
+		if(JOB_ERT_COMMANDER)
 			return get_ert_access("commander")
-		if("Security Response Officer")
+		if(JOB_ERT_OFFICER )
 			return get_ert_access("sec")
-		if("Engineer Response Officer")
+		if(JOB_ERT_ENGINEER)
 			return get_ert_access("eng")
-		if("Medical Response Officer")
+		if(JOB_ERT_MEDICAL_DOCTOR)
 			return get_ert_access("med")
-		if("CentCom Bartender")
+		if(JOB_CENTCOM_BARTENDER)
 			return list(ACCESS_CENT_GENERAL, ACCESS_CENT_LIVING, ACCESS_CENT_BAR)
 		if("Comedy Response Officer")
 			return list(ACCESS_CENT_GENERAL, ACCESS_CENT_LIVING)
@@ -368,35 +383,33 @@
 			return "Code Scotch"
 
 /proc/get_all_jobs()
-	return list("Captain",
+	return list(JOB_NAME_CAPTAIN,
 				// Service
-				"Assistant", "Head of Personnel", "Bartender", "Cook", "Botanist", "Janitor", "Curator",
-				"Chaplain", "Lawyer", "Clown", "Mime", "Barber", "Stage Magician",
+				JOB_NAME_ASSISTANT, JOB_NAME_HEADOFPERSONNEL, JOB_NAME_BARTENDER, JOB_NAME_COOK, JOB_NAME_BOTANIST, JOB_NAME_JANITOR, JOB_NAME_CURATOR,
+				JOB_NAME_CHAPLAIN, JOB_NAME_LAWYER, JOB_NAME_CLOWN, JOB_NAME_MIME, JOB_NAME_BARBER, JOB_NAME_STAGEMAGICIAN,
 				// Cargo
-				"Quartermaster", "Cargo Technician","Shaft Miner",
+				JOB_NAME_QUARTERMASTER, JOB_NAME_CARGOTECHNICIAN,JOB_NAME_SHAFTMINER,
 				// Engineering
-				"Chief Engineer", "Station Engineer", "Atmospheric Technician",
+				JOB_NAME_CHIEFENGINEER, JOB_NAME_STATIONENGINEER, JOB_NAME_ATMOSPHERICTECHNICIAN,
 				// R&D
-				"Research Director", "Scientist", "Roboticist", "Exploration Crew",
+				JOB_NAME_RESEARCHDIRECTOR, JOB_NAME_SCIENTIST, JOB_NAME_ROBOTICIST, JOB_NAME_EXPLORATIONCREW,
 				// Medical
-				"Chief Medical Officer", "Medical Doctor", "Chemist", "Geneticist", "Virologist", "Paramedic", "Psychiatrist",
+				JOB_NAME_CHIEFMEDICALOFFICER, JOB_NAME_MEDICALDOCTOR, JOB_NAME_CHEMIST, JOB_NAME_GENETICIST, JOB_NAME_VIROLOGIST, JOB_NAME_PARAMEDIC, JOB_NAME_PSYCHIATRIST,
 				// Security
-				"Head of Security", "Warden", "Detective", "Security Officer", "Brig Physician", "Deputy")
+				JOB_NAME_HEADOFSECURITY, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE, JOB_NAME_SECURITYOFFICER, JOB_NAME_BRIGPHYSICIAN, JOB_NAME_DEPUTY)
 				// Each job is supposed to be in their department due to the HoP console.
 
 /proc/get_all_job_icons() //We need their HUD icons, but we don't want to give these jobs to people from the job list of HoP console.
-	return get_all_jobs() + list("Prisoner", "King", "VIP", "Acting Captain")
+	return get_all_jobs() + list("Prisoner", "King", JOB_NAME_VIP, "Acting Captain")
 
 /proc/get_all_centcom_jobs()
-	return list("VIP Guest","Custodian","Thunderdome Overseer","CentCom Official","Medical Officer","Death Commando","Research Officer","Special Ops Officer","Admiral","CentCom Commander","Emergency Response Team Commander","Security Response Officer","Engineer Response Officer", "Medical Response Officer","CentCom Bartender","Comedy Response Officer", "HONK Squad Trooper")
+	return list(JOB_CENTCOM_VIP,JOB_CENTCOM_CUSTODIAN, JOB_CENTCOM_THUNDERDOME_OVERSEER,JOB_CENTCOM_OFFICIAL,JOB_CENTCOM_MEDICAL_DOCTOR,JOB_ERT_DEATHSQUAD,JOB_CENTCOM_RESEARCH_OFFICER,"Special Ops Officer",JOB_CENTCOM_ADMIRAL,JOB_CENTCOM_COMMANDER,JOB_ERT_COMMANDER,JOB_ERT_OFFICER ,JOB_ERT_ENGINEER, JOB_ERT_MEDICAL_DOCTOR,JOB_CENTCOM_BARTENDER,"Comedy Response Officer", "HONK Squad Trooper")
 
-/obj/item/proc/GetJobName() //Used in secHUD icon generation
+/obj/item/proc/GetJobIcon() //Used in secHUD icon generation (the new one)
 	var/obj/item/card/id/I = GetID()
 	if(!I)
 		return
-	var/jobName = I.assignment
-	if(jobName in get_all_job_icons()) //Check if the job has a hud icon
-		return jobName
-	if(jobName in get_all_centcom_jobs()) //Return with the NT logo if it is a CentCom job
-		return "CentCom"
-	return "Unknown" //Return unknown if none of the above apply
+	var/I_hud = I.hud_state
+	if(I_hud)
+		return I_hud
+	return "unknown"

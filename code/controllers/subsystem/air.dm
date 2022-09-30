@@ -499,13 +499,14 @@ SUBSYSTEM_DEF(air)
 /datum/controller/subsystem/air/proc/setup_template_machinery(list/atmos_machines)
 	if(!initialized) // yogs - fixes randomized bars
 		return // yogs
-	for(var/A in atmos_machines)
-		var/obj/machinery/atmospherics/AM = A
+	var/obj/machinery/atmospherics/AM
+	for(var/A in 1 to atmos_machines.len)
+		AM = atmos_machines[A]
 		AM.atmosinit()
 		CHECK_TICK
 
-	for(var/A in atmos_machines)
-		var/obj/machinery/atmospherics/AM = A
+	for(var/A in 1 to atmos_machines.len)
+		AM = atmos_machines[A]
 		AM.build_network()
 		CHECK_TICK
 

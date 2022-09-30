@@ -31,6 +31,20 @@
 	..()
 	spin()
 
+
+/obj/item/gun/ballistic/revolver/fire_sounds()
+	var/frequency_to_use = sin((90/magazine?.max_ammo) * get_ammo(TRUE, FALSE)) // fucking REVOLVERS
+	var/click_frequency_to_use = 1 - frequency_to_use * 0.75
+	var/play_click = sqrt(magazine?.max_ammo) > get_ammo(TRUE, FALSE)
+	if(suppressed)
+		playsound(src, suppressed_sound, suppressed_volume, vary_fire_sound, ignore_walls = FALSE, extrarange = SILENCED_SOUND_EXTRARANGE, falloff_distance = 0)
+		if(play_click)
+			playsound(src, 'sound/weapons/effects/ballistic_click.ogg', suppressed_volume, vary_fire_sound, ignore_walls = FALSE, extrarange = SILENCED_SOUND_EXTRARANGE, falloff_distance = 0, frequency = click_frequency_to_use)
+	else
+		playsound(src, fire_sound, fire_sound_volume, vary_fire_sound)
+		if(play_click)
+			playsound(src, 'sound/weapons/effects/ballistic_click.ogg', fire_sound_volume, vary_fire_sound, frequency = click_frequency_to_use)
+
 /obj/item/gun/ballistic/revolver/verb/spin()
 	set name = "Spin Chamber"
 	set category = "Object"
@@ -256,7 +270,7 @@
 	clumsy_check = 0
 
 /obj/item/gun/ballistic/revolver/reverse/can_trigger_gun(mob/living/user)
-	if((HAS_TRAIT(user, TRAIT_CLUMSY)) || (user.mind && user.mind.assigned_role == "Clown"))
+	if((HAS_TRAIT(user, TRAIT_CLUMSY)) || (user.mind && user.mind.assigned_role == JOB_NAME_CLOWN))
 		return ..()
 	if(process_fire(user, user, FALSE, null, BODY_ZONE_HEAD))
 		user.visible_message("<span class='warning'>[user] somehow manages to shoot [user.p_them()]self in the face!</span>", "<span class='userdanger'>You somehow shoot yourself in the face! How the hell?!</span>")

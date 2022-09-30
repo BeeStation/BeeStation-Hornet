@@ -1,5 +1,5 @@
 /// How often the sensor data updates.
-#define SENSORS_UPDATE_PERIOD 10 SECONDS
+#define SENSORS_UPDATE_PERIOD 1 MINUTES
 
 /// The job sorting ID associated with otherwise unknown jobs
 #define UNKNOWN_JOB_ID	81
@@ -38,63 +38,72 @@ GLOBAL_DATUM_INIT(crewmonitor, /datum/crewmonitor, new)
 	/// Map of job to ID for sorting purposes
 	var/list/jobs = list(
 		// Note that jobs divisible by 10 are considered heads of staff, and bolded
-		// 00: Captain
-		"Captain" = 00,
+		// Job names are based on `hud_state` from id card.
+		// 0: Captain
+		JOB_HUD_CAPTAIN = 0,
+		JOB_HUD_ACTINGCAPTAIN  = 1,
+		JOB_HUD_RAWCOMMAND = 7,
+		// 8-9: self-important people
+		JOB_HUD_VIP = 8,
+		JOB_HUD_KING = 9,
 		// 10-19: Security
-		"Head of Security" = 10,
-		"Warden" = 11,
-		"Security Officer" = 12,
-		"Detective" = 13,
-		"Brig Physician" = 14,
-		"Deputy" = 15,
+		JOB_HUD_HEADOFSECURITY = 10,
+		JOB_HUD_WARDEN = 11,
+		JOB_HUD_SECURITYOFFICER = 12,
+		JOB_HUD_DETECTIVE = 13,
+		JOB_HUD_BRIGPHYSICIAN = 14,
+		JOB_HUD_DEPUTY = 15,
+		JOB_HUD_RAWSECURITY = 19,
 		// 20-29: Medbay
-		"Chief Medical Officer" = 20,
-		"Chemist" = 21,
-		"Geneticist" = 22,
-		"Virologist" = 23,
-		"Medical Doctor" = 24,
-		"Paramedic" = 25,
-		"Psychiatrist" = 26,
+		JOB_HUD_CHEIFMEDICALOFFICIER = 20,
+		JOB_HUD_CHEMIST = 21,
+		JOB_HUD_GENETICIST = 22,
+		JOB_HUD_VIROLOGIST = 23,
+		JOB_HUD_MEDICALDOCTOR = 24,
+		JOB_HUD_PARAMEDIC = 25,
+		JOB_HUD_PSYCHIATRIST = 26,
+		JOB_HUD_RAWMEDICAL = 29,
 		// 30-39: Science
-		"Research Director" = 30,
-		"Scientist" = 31,
-		"Roboticist" = 32,
-		"Exploration Crew" = 33,
+		JOB_HUD_RESEARCHDIRECTOR = 30,
+		JOB_HUD_SCIENTIST = 31,
+		JOB_HUD_ROBOTICIST = 32,
+		JOB_HUD_EXPLORATIONCREW = 33,
+		JOB_HUD_RAWSCIENCE = 39,
 		// 40-49: Engineering
-		"Chief Engineer" = 40,
-		"Station Engineer" = 41,
-		"Atmospheric Technician" = 42,
+		JOB_HUD_CHIEFENGINEER = 40,
+		JOB_HUD_STATIONENGINEER = 41,
+		JOB_HUD_ATMOSPHERICTECHNICIAN = 42,
+		JOB_HUD_RAWENGINEERING = 49,
 		// 50-59: Cargo
-		"Head of Personnel" = 50,
-		"Quartermaster" = 51,
-		"Shaft Miner" = 52,
-		"Cargo Technician" = 53,
+		JOB_HUD_HEADOFPERSONNEL = 50,
+		JOB_HUD_QUARTERMASTER = 51,
+		JOB_HUD_SHAFTMINER = 52,
+		JOB_HUD_CARGOTECHNICIAN = 53,
+		JOB_HUD_RAWCARGO = 59,
 		// 60+: Civilian/other
-		"Bartender" = 61,
-		"Cook" = 62,
-		"Botanist" = 63,
-		"Curator" = 64,
-		"Chaplain" = 65,
-		"Clown" = 66,
-		"Mime" = 67,
-		"Janitor" = 68,
-		"Lawyer" = 69,
-		"Barber" = 71,
-		"Stage Magician" = 72,
-		"VIP" = 73,
+		JOB_HUD_BARTENDER = 61,
+		JOB_HUD_COOK = 62,
+		JOB_HUD_BOTANIST = 63,
+		JOB_HUD_CURATOR = 64,
+		JOB_HUD_CHAPLAIN = 65,
+		JOB_HUD_CLOWN = 66,
+		JOB_HUD_MIME = 67,
+		JOB_HUD_JANITOR = 68,
+		JOB_HUD_LAWYER = 69,
+		JOB_HUD_BARBER = 71,
+		JOB_HUD_STAGEMAGICIAN = 72,
+		JOB_HUD_RAWSERVICE = 99,
 		// ANYTHING ELSE = UNKNOWN_JOB_ID, Unknowns/custom jobs will appear after civilians, and before assistants
-		"Assistant" = 999,
+		JOB_HUD_ASSISTANT = 999,
 
 		// 200-229: Centcom
-		"Admiral" = 200,
-		"CentCom Commander" = 210,
-		"Custodian" = 211,
-		"Medical Officer" = 212,
-		"Research Officer" = 213,
-		"Emergency Response Team Commander" = 220,
-		"Security Response Officer" = 221,
-		"Engineer Response Officer" = 222,
-		"Medical Response Officer" = 223
+		JOB_HUD_CENTCOM = 200,
+		JOB_HUD_RAWCENTCOM = 229,
+
+
+		// 300-309: misc
+		JOB_HUD_SYNDICATE = 301,
+		JOB_HUD_PRISONER = 302
 	)
 
 
@@ -190,10 +199,10 @@ GLOBAL_DATUM_INIT(crewmonitor, /datum/crewmonitor, new)
 		var/obj/item/card/id/I = tracked_human.wear_id ? tracked_human.wear_id.GetID() : null
 
 		if (I)
-			entry["name"] = I.registered_name
-			entry["assignment"] = I.assignment
-			if(jobs[I.assignment] != null)
-				entry["ijob"] = jobs[I.assignment]
+			entry["name"] = I.registered_name ? I.registered_name : "Unknown"
+			entry["assignment"] = I.assignment ? I.assignment : "Unknown"
+			if(jobs[I.hud_state] != null)
+				entry["ijob"] = jobs[I.hud_state]
 
 		// Binary living/dead status
 		if (nanite_sensors || uniform.sensor_mode >= SENSOR_LIVING)

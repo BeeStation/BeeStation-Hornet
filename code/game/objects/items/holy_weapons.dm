@@ -252,6 +252,11 @@
 /obj/item/nullrod/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/anti_magic, TRUE, TRUE, null, FALSE)
+	AddComponent(/datum/component/effect_remover, \
+	success_feedback = "You disrupt the magic of %THEEFFECT with %THEWEAPON.", \
+	success_forcesay = "BEGONE FOUL MAGIKS!!", \
+	on_clear_callback = CALLBACK(src, .proc/on_cult_rune_removed), \
+	effects_we_clear = list(/obj/effect/rune, /obj/effect/eldritch))
 
 /obj/item/nullrod/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is killing [user.p_them()]self with [src]! It looks like [user.p_theyre()] trying to get closer to god!</span>")
@@ -283,6 +288,16 @@
 		holy_weapon.reskinned = TRUE
 		qdel(src)
 		M.put_in_active_hand(holy_weapon)
+
+/obj/item/nullrod/proc/on_cult_rune_removed(obj/effect/target, mob/living/user)
+	if(!istype(target, /obj/effect/rune))
+		return
+
+	var/obj/effect/rune/target_rune = target
+	if(target_rune.log_when_erased)
+		log_game("[target_rune.cultist_name] rune erased by [key_name(user)] using a null rod.")
+		message_admins("[ADMIN_LOOKUPFLW(user)] erased a [target_rune.cultist_name] rune with a null rod.")
+	SSshuttle.shuttle_purchase_requirements_met[SHUTTLE_UNLOCK_NARNAR] = TRUE
 
 /obj/item/nullrod/godhand
 	icon_state = "disintegrate"
@@ -320,7 +335,7 @@
 /obj/item/nullrod/staff/worn_overlays(mutable_appearance/standing, isinhands)
 	. = list()
 	if(isinhands)
-		. += mutable_appearance('icons/effects/effects.dmi', shield_icon, MOB_LAYER + 0.01)
+		. += mutable_appearance('icons/effects/effects.dmi', shield_icon, MOB_SHIELD_LAYER)
 
 /obj/item/nullrod/staff/blue
 	name = "blue holy staff"
@@ -649,6 +664,7 @@
 /obj/item/nullrod/armblade/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, HAND_REPLACEMENT_TRAIT)
+//	ADD_TRAIT(src, TRAIT_DOOR_PRYER, INNATE_TRAIT)	//uncomment if you want chaplains to have AA as a null rod option. The armblade will behave even more like a changeling one then!
 	AddComponent(/datum/component/butchering, 80, 70)
 
 /obj/item/nullrod/armblade/tentacle

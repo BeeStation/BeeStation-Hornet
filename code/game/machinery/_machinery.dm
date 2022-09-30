@@ -318,7 +318,7 @@ Class Procs:
 						nap_violation(occupant)
 						return FALSE
 					var/datum/bank_account/D = SSeconomy.get_dep_account(payment_department)
-					if(D)
+					if(D && !D.is_nonstation_account())
 						D.adjust_money(fair_market_price)
 			else
 				say("[market_verb] NAP Violation: No ID card found.")
@@ -563,6 +563,8 @@ Class Procs:
 				. += "<span class='warning'>It's falling apart!</span>"
 	if(user.research_scanner && component_parts)
 		. += display_parts(user, TRUE)
+	if(return_blood_DNA())
+		. += "<span class='warning'>It's smeared with blood!</span>"
 
 //called on machinery construction (i.e from frame to machinery) but not on initialization
 /obj/machinery/proc/on_construction()

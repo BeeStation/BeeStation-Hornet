@@ -78,7 +78,7 @@
 	mask_type = /obj/item/clothing/mask/gas/sechailer
 
 /obj/machinery/suit_storage_unit/hos
-	suit_type = /obj/item/clothing/suit/space/hardsuit/security/hos
+	suit_type = /obj/item/clothing/suit/space/hardsuit/security/head_of_security
 	mask_type = /obj/item/clothing/mask/gas/sechailer
 	storage_type = /obj/item/tank/internals/oxygen
 
@@ -104,7 +104,7 @@
 	mask_type = /obj/item/clothing/mask/breath
 
 /obj/machinery/suit_storage_unit/rd
-	suit_type = /obj/item/clothing/suit/space/hardsuit/rd
+	suit_type = /obj/item/clothing/suit/space/hardsuit/research_director
 	mask_type = /obj/item/clothing/mask/breath
 
 /obj/machinery/suit_storage_unit/syndicate

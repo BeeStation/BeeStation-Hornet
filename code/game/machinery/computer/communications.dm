@@ -15,9 +15,6 @@
 	circuit = /obj/item/circuitboard/computer/communications
 	light_color = LIGHT_COLOR_BLUE
 
-	/// Authentication level
-	var/authenticated = 0
-
 	/// Cooldown for important actions, such as messaging CentCom or other sectors
 	COOLDOWN_DECLARE(static/important_action_cooldown)
 
@@ -95,14 +92,14 @@
 		if ("answerMessage")
 			if (!authenticated(usr))
 				return
-			var/answer_index = text2num(params["answer"])
+			var/answer_key = params["answer"]
 			var/message_index = text2num(params["message"])
-			if (!answer_index || !message_index || answer_index < 1 || message_index < 1)
+			if (!answer_key || !message_index || message_index < 1)
 				return
 			var/datum/comm_message/message = messages[message_index]
-			if (message.answered)
+			if (!(answer_key in message.possible_answers) || message.answered)
 				return
-			message.answered = answer_index
+			message.answered = answer_key
 			message.answer_callback.InvokeAsync()
 			. = TRUE
 		if ("callShuttle")
@@ -163,7 +160,7 @@
 			make_announcement(usr)
 			. = TRUE
 		if ("messageAssociates")
-			if (!authenticated_as_non_silicon_captain(usr))
+			if (!authenticated(usr) || issilicon(usr) || (GLOB.security_level < SEC_LEVEL_RED && !authenticated_as_non_silicon_captain(usr)))
 				return
 			if (!COOLDOWN_FINISHED(src, important_action_cooldown))
 				return
@@ -250,6 +247,9 @@
 
 			var/message = trim(html_encode(params["message"]), MAX_MESSAGE_LEN)
 			if (!message)
+				return
+			if(CHAT_FILTER_CHECK(message))
+				to_chat(usr, "<span class='warning'>Your message contains forbidden words.</span>")
 				return
 
 			playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
@@ -354,7 +354,7 @@
 		//Main section is always visible when authenticated
 		data["canBuyShuttles"] = can_buy_shuttles(user)
 		data["canMakeAnnouncement"] = FALSE
-		data["canMessageAssociates"] = FALSE
+		data["canMessageAssociates"] = !issilicon(user) && GLOB.security_level >= SEC_LEVEL_RED
 		data["canRecallShuttles"] = !issilicon(user)
 		data["canRequestNuke"] = FALSE
 		data["canSendToSectors"] = FALSE

@@ -92,6 +92,10 @@ Doesn't work on other aliens/AI.*/
 	var/msg = stripped_input(usr, "Message:", "Alien Whisper")
 	if(!msg)
 		return FALSE
+	if(CHAT_FILTER_CHECK(msg))
+		to_chat(usr, "<span class='warning'>Your message contains forbidden words.</span>")
+		return FALSE
+	msg = user.treat_message_min(msg)
 	log_directed_talk(user, M, msg, LOG_SAY, tag="alien whisper")
 	to_chat(M, "<span class='noticealien'>You hear a strange, alien voice in your head.</span>[msg]")
 	to_chat(user, "<span class='noticealien'>You said: \"[msg]\" to [M]</span>")
@@ -121,7 +125,7 @@ Doesn't work on other aliens/AI.*/
 	if(!amount)
 		return FALSE
 
-	if(!get_dist(user,M) <= 1)
+	if(!user.Adjacent(M))
 		to_chat(user, "<span class='noticealien'>You need to be closer!</span>")
 		return FALSE
 
