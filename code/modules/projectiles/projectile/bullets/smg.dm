@@ -2,17 +2,17 @@
 
 /obj/item/projectile/bullet/c45
 	name = ".45 bullet"
-	damage = 30
+	damage = 34
 
 // 4.6x30mm (Autorifles)
 
 /obj/item/projectile/bullet/c46x30mm
 	name = "4.6x30mm bullet"
-	damage = 20
+	damage = 30
 
 /obj/item/projectile/bullet/c46x30mm_ap
 	name = "4.6x30mm armor-piercing bullet"
-	damage = 15
+	damage = 25
 	armour_penetration = 40
 
 /obj/item/projectile/bullet/incendiary/c46x30mm
