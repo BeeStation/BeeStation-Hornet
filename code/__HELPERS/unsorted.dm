@@ -1202,7 +1202,6 @@ Increases delay as the server gets more overloaded, as sleeps aren't cheap and s
 	. = 0
 	//Begin tracking if we are in debugging
 #ifdef TICK_OVERRUN_DEBUG
-	var/recorded = FALSE
 	var/stack_traced = FALSE
 	var/should_print = !GLOB.controller_frozen
 #endif

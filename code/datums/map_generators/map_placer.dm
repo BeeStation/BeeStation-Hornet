@@ -131,10 +131,10 @@
 					T.AfterChange(CHANGETURF_IGNORE_AIR)
 
 			// Testing message
-			#ifdef TESTING
+#ifdef TESTING
 			if(placing_template.turfsSkipped)
 				testing("Skipped loading [placing_template.turfsSkipped] default turfs")
-			#endif
+#endif
 
 			// Refresh atmospherics grid
 			if(placing_template.did_expand)
@@ -147,6 +147,8 @@
 		gset = placing_template.gridSets[run_stage - 1]
 		ycrd = gset.ycrd + y_offset - 1
 		zcrd = gset.zcrd + z_offset - 1
+		//Set the current grid line back to 1, for the next iteration
+		current_grid_line = 1
 		if(!crop_map && ycrd > world.maxy)
 			// Expand Y here.  X is expanded in the loop below
 			world.maxy = ycrd
@@ -162,8 +164,6 @@
 					placing_template.did_expand = FALSE
 			if(!no_changeturf)
 				WARNING("Z-level expansion occurred without no_changeturf set, this may cause problems when /turf/AfterChange is called")
-		//Set the current grid line back to 1, for the next iteration
-		current_grid_line = 1
 		// Check for tick overrun
 		if (TICK_CHECK)
 			return

@@ -1,7 +1,7 @@
 SUBSYSTEM_DEF(map_generator)
 	name = "Map Generator"
 	wait = 1
-	flags = SS_BACKGROUND | SS_NO_INIT
+	flags = SS_TICKER | SS_NO_INIT
 	runlevels = ALL
 
 	/// List of all currently executing generator datums

@@ -127,6 +127,7 @@
 	space_level.generating = FALSE
 
 /datum/map_generator/space_ruin/execute_run()
+	..()
 	switch (stage)
 		if (0)
 			if (ruin_placer_run())
@@ -147,6 +148,9 @@
 	return FALSE
 
 /datum/map_generator/space_ruin/proc/ruin_placer_run()
+	// Lets pause for a bit to let the map generator catch up
+	if (length(SSmap_generator.executing_generators) > 15)
+		return FALSE
 	sanity --
 	if(sanity < 0)
 		message_admins("Ruin sanity limit reached.")
