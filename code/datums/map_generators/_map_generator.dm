@@ -22,7 +22,6 @@
 	return TRUE
 
 /datum/map_generator/proc/complete()
-	message_admins("Map generator [type] finished generating in [ticks] ticks.")
 	completed = TRUE
 	var/list/arguments = list(src)
 	if (callback_args)

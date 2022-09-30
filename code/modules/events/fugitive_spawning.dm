@@ -111,8 +111,10 @@
 	var/turf/T = locate(x,y,z)
 	if(!T)
 		CRASH("Fugitive Hunters (Created from fugitive event) found no turf to load in")
-	if(!ship.load(T))
-		CRASH("Loading [backstory] ship failed!")
+	var/datum/map_generator/template_placer = ship.load(T)
+	template_placer.on_completion(CALLBACK(src, .proc/announce_fugative_spawns, ship))
+
+/datum/round_event/ghost_role/fugitives/proc/announce_fugative_spawns(datum/map_template/shuttle/ship, datum/map_generator/generator, turf/T)
 	for(var/turf/A in ship.get_affected_turfs(T))
 		for(var/obj/effect/mob_spawn/human/fugitive/spawner in A)
 			announce_to_ghosts(spawner)
