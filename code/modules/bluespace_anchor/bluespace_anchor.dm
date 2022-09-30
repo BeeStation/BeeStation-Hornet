@@ -4,8 +4,8 @@ GLOBAL_LIST_EMPTY(active_bluespace_anchors)
 	name = "deployed bluespace anchor"
 	desc = "A deployed bluespace anchor, it consumes a large amount of energy in order to stablise bluespace instabilities and prevent teleporation."
 
-	icon = 'icons/obj/device.dmi'
-	icon_state = "memorizer2"
+	icon = 'icons/obj/bluespace_anchor.dmi'
+	icon_state = "anchor_active"
 
 	var/obj/item/stock_parts/cell/power_cell
 	var/range = 8
@@ -23,6 +23,13 @@ GLOBAL_LIST_EMPTY(active_bluespace_anchors)
 	if(power_cell)
 		QDEL_NULL(power_cell)
 	. = ..()
+
+/obj/machinery/bluespace_anchor/update_icon()
+	. = ..()
+	if (!power_cell || power_cell.charge < power_usage_per_teleport)
+		icon_state = "anchor_depleted"
+	else
+		icon_state = "anchor_active"
 
 /obj/machinery/bluespace_anchor/attack_hand(mob/living/user)
 	user.visible_message("<span class='notice'>[user] starts deactivating [src].</span>", "<span class='notice'>You begin deactivating [src]...</span>")
@@ -44,6 +51,9 @@ GLOBAL_LIST_EMPTY(active_bluespace_anchors)
 	//Check power
 	if(!power_cell?.use(power_usage_per_teleport))
 		return FALSE
+	//Update icon
+	update_icon()
+	flick("anchor_pulse", src)
 	//Spark and shock people adjacent
 	for (var/mob/living/L in view(1, src))
 		src.Beam(L, icon_state="lightning[rand(1,12)]", time=5, maxdistance = INFINITY)

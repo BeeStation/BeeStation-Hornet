@@ -2,8 +2,8 @@
 	name = "bluespace anchor"
 	desc = "A portable device that, once deployed, will stablise the volatile bluespace instabilities around it, preventing teleportation. Consumes a large amount of power."
 
-	icon = 'icons/obj/device.dmi'
-	icon_state = "memorizer2"
+	icon = 'icons/obj/bluespace_anchor.dmi'
+	icon_state = "anchor_undeployed"
 	item_state = "electronic"
 	lefthand_file = 'icons/mob/inhands/misc/devices_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/devices_righthand.dmi'

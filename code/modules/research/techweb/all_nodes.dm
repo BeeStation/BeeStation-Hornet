@@ -244,6 +244,7 @@
 	design_ids = list("bsanchor")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 7500)
 	export_price = 5000
+	hidden = TRUE
 
 /datum/techweb_node/bag_of_holding
 	id = "bagofholding"

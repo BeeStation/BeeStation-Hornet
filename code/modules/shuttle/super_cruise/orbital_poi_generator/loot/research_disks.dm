@@ -62,3 +62,6 @@
 
 /obj/item/disk/tech_disk/research/linkedsurgery_implant
 	node_id = "linkedsurgery_implant"
+
+/obj/item/disk/tech_disk/research/bsanchor
+	node_id = "bluespace_anchor"
