@@ -16,3 +16,5 @@ CthulhuOnIce = Host
 # the rest are in the db
 
 Armolitskiy = Host
+Evolet = Admin
+TeodorD = Admin
