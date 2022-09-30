@@ -20,6 +20,7 @@
   * * grant any actions the mob has to the client
   * * calls [auto_deadmin_on_login](mob.html#proc/auto_deadmin_on_login)
   * * send signal COMSIG_MOB_CLIENT_LOGIN
+  * * attaches the ash listener element so clients can hear weather
   */
 /mob/Login()
 	add_to_player_list()
@@ -96,6 +97,8 @@
 	log_message("Client [key_name(src)] has taken ownership of mob [src]([src.type])", LOG_OWNERSHIP)
 	SEND_SIGNAL(src, COMSIG_MOB_CLIENT_LOGIN, client)
 	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_MOB_LOGGED_IN, src)
+
+	AddElement(/datum/element/weather_listener, /datum/weather/ash_storm, ZTRAIT_ASHSTORM, GLOB.ash_storm_sounds)
 
 
 /**

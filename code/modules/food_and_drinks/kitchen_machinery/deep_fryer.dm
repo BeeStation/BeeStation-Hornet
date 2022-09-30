@@ -62,7 +62,7 @@ God bless America.
 	component_parts += new /obj/item/circuitboard/machine/deep_fryer(null)
 	component_parts += new /obj/item/stock_parts/micro_laser(null)
 	RefreshParts()
-	fry_loop = new(list(src), FALSE)
+	fry_loop = new(src, FALSE)
 
 /obj/machinery/deepfryer/Destroy()
 	QDEL_NULL(fry_loop)

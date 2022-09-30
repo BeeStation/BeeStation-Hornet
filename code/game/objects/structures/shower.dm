@@ -48,7 +48,7 @@
 	create_reagents(reaction_volume)
 	reagents.add_reagent(reagent_id, reaction_volume)
 
-	soundloop = new(list(src), FALSE)
+	soundloop = new(src, FALSE)
 
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = .proc/on_entered,

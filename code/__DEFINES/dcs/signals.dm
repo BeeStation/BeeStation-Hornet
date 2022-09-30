@@ -25,6 +25,11 @@
 #define COMSIG_GLOB_MOB_LOGGED_IN "!mob_logged_in"
 /// crewmember joined the game (mob/living, rank)
 #define COMSIG_GLOB_CREWMEMBER_JOINED "!crewmember_joined"
+/// a weather event of some kind occured
+#define COMSIG_WEATHER_TELEGRAPH(event_type) "!weather_telegraph [event_type]"
+#define COMSIG_WEATHER_START(event_type) "!weather_start [event_type]"
+#define COMSIG_WEATHER_WINDDOWN(event_type) "!weather_winddown [event_type]"
+#define COMSIG_WEATHER_END(event_type) "!weather_end [event_type]"
 
 /// Signifies that this proc is used to handle signals.
 /// Every proc you pass to RegisterSignal must have this.
