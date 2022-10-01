@@ -411,7 +411,6 @@
 //Jungle rocks
 
 /obj/structure/flora/rock/jungle
-	icon_state = "pile of rocks"
 	desc = "A pile of rocks."
 	icon_state = "rock"
 	icon = 'icons/obj/flora/jungleflora.dmi'
