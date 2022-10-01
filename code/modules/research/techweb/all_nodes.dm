@@ -664,7 +664,7 @@
 	id = "med_scanner"
 	tech_tier = 3
 	display_name = "Medical Scanning"
-	description = "NT didn't trust us with their design data for this, so we figured it out ourselves."
+	description = "By taking apart the ones we already had, we figured out how to make them ourselves."
 	prereq_ids = list("adv_biotech")
 	design_ids = list("healthanalyzer")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
