@@ -39,7 +39,7 @@
 	H.facial_hair_color = H.hair_color
 	H.update_body()
 	if(H.mind)
-		H.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/knock(null))
+		H.mind.AddSpell(new /obj/effect/proc_holder/spell/knock/lesser(null)) // never give them normal version of knock. knock spell as non-lesser is capable of uncuffing you.
 	var/list/no_drops = list()
 	no_drops += H.get_item_by_slot(ITEM_SLOT_FEET)
 	no_drops += H.get_item_by_slot(ITEM_SLOT_ICLOTHING)

@@ -9,6 +9,7 @@
 	armor = list("melee" = 30, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 10, "bio" = 0, "rad" = 0, "fire" = 70, "acid" = 100, "stamina" = 0)
 	max_integrity = 200
 	integrity_failure = 25
+	obj_flags = CAN_BE_HIT | MAGICAL_ACCESS_PROTECTED
 	var/obj/item/showpiece = null
 	///This allows for showpieces that can only hold items if they're the same istype as this.
 	var/obj/item/showpiece_type = null
@@ -134,7 +135,7 @@
 		if(open)	//You do not require access to close a case, only to open it.
 			to_chat(user,  "<span class='notice'>You close [src].</span>")
 			toggle_lock(user)
-		else if(security_level_locked > GLOB.security_level || !allowed(user))
+		else if((security_level_locked > GLOB.security_level || !allowed(user)) && !GLOB.magical_access) // Blue alert allows you to open, or AA bless should exist
 			to_chat(user,  "<span class='alert'>Access denied.</span>")
 		else
 			to_chat(user,  "<span class='notice'>You open [src].</span>")
