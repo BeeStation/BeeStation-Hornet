@@ -35,24 +35,20 @@
 		if(material.get_amount() < 1)
 			to_chat(user, "<span class='warning'>You need one [material.name] sheet to do this!</span>")
 			return
-		if(!check_turf_contents())
-			return
 		to_chat(user, "<span class='notice'>You start adding [material] to [src]...</span>")
 		if(do_after(user, 20, target = src) && material.use(1))
 			make_new_table(material.tableVariant, user)
 	else
 		return ..()
 
-/obj/structure/table_frame/proc/check_turf_contents()
-	for(var/obj/contained_object in get_turf(loc))
-		if(istype(contained_object, /obj/structure/table))
-			to_chat(user, "<span class='danger'>There is already a table here.</span>")
-			return FALSE
-		if(contained_object.density && !(contained_object.flags_1 & ON_BORDER_1))
-			to_chat(user, "<span class='danger'>\the [contained_object] is in the way.</span>")
-			return FALSE
-
 /obj/structure/table_frame/proc/make_new_table(table_type, user = null) //makes sure the new table made retains what we had as a frame
+	for(var/obj/A in get_turf(loc))
+		if(istype(A, /obj/structure/table))
+			to_chat(user, "<span class='danger'>There is already a table here.</span>")
+			return
+		if(A.density && !(A.flags_1 & ON_BORDER_1))
+			to_chat(user, "<span class='danger'>\the [A] is in the way.</span>")
+			return
 	var/obj/structure/table/T = new table_type(loc)
 	T.frame = type
 	T.framestack = framestack
@@ -92,8 +88,6 @@
 			if(material.get_amount() < 1)
 				to_chat(user, "<span class='warning'>You need one [material.name] sheet to do this!</span>")
 				return
-			if(!check_turf_contents())
-				return
 			to_chat(user, "<span class='notice'>You start adding [material] to [src]...</span>")
 			if(do_after(user, 20, target = src) && material.use(1))
 				make_new_table(toConstruct)
@@ -113,8 +107,6 @@
 		var/obj/item/stack/tile/brass/W = I
 		if(W.get_amount() < 1)
 			to_chat(user, "<span class='warning'>You need one brass sheet to do this!</span>")
-			return
-		if(!check_turf_contents())
 			return
 		to_chat(user, "<span class='notice'>You start adding [W] to [src]...</span>")
 		if(do_after(user, 20, target = src) && W.use(1))
