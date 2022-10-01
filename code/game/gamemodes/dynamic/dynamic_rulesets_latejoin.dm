@@ -45,6 +45,9 @@
 		log_game("DYNAMIC: FAIL: [src] is not ready, because there are not enough enemies: [required_enemies[threat]] needed, [job_check] found")
 		return FALSE
 
+	if (mode.check_lowpop_lowimpact_injection())
+		return FALSE
+
 	return ..()
 
 /datum/dynamic_ruleset/latejoin/execute()
