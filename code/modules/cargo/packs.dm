@@ -625,7 +625,6 @@
 					/obj/item/gun/energy/laser)
 	crate_name = "bulk laser guns crate"
 
-
 /datum/supply_pack/security/armory/exileimp
 	name = "Exile Implants Crate"
 	desc = "Contains five Exile implants. Requires Armory access to open."
