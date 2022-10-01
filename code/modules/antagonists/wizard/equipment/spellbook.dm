@@ -190,7 +190,7 @@
 
 /datum/spellbook_entry/knock
 	name = "Knock"
-	spell_type = /obj/effect/proc_holder/spell/aoe_turf/knock
+	spell_type = /obj/effect/proc_holder/spell/knock
 	category = "Mobility"
 	cost = 1
 
@@ -568,7 +568,8 @@
 
 /datum/spellbook_entry/summon/curse_of_madness
 	name = "Curse of Madness"
-	desc = "Curses the station, warping the minds of everyone inside, causing lasting traumas. Warning: this spell can affect you if not cast from a safe distance."
+	desc = "Curses the station, warping the minds of everyone inside, causing lasting traumas. \
+		Warning: this spell can affect you if not cast from a safe distance."
 	cost = 4
 	ritual_invocation = "ALADAL DESINARI ODORI'IN PORES ENHIDO'LEN MORI MAKA TU"
 
@@ -583,10 +584,35 @@
 	playsound(user, 'sound/magic/mandswap.ogg', 50, 1)
 	return TRUE
 
+GLOBAL_VAR_INIT(magical_access, FALSE)
+/datum/spellbook_entry/summon/magical_access
+	name = "Advent Ritual of Saint Anarchismea"
+	desc = "Summons the spirit of Saint Anarchismea's onto the station. Access requirement of all electronic devices \
+		on the station will be bypassed magically, and all ID cards will be blessed with unlimited freedom of passage."
+	cost = 2
+	ritual_invocation = "ALADAL DESINARI ODORI'IN IDO'LEX IVLAROYE VOR ANARCHIDMEA OVOR'E SJIENYLE"
+
+/datum/spellbook_entry/summon/magical_access/Buy(mob/living/carbon/human/user, obj/item/spellbook/book)
+	SSblackbox.record_feedback("tally", "wizard_spell_learned", 1, name)
+	active = TRUE
+
+	to_chat(user, "<span class='notice'>You have summoned Saint Anarcismea!</span>")
+	playsound(user, 'sound/magic/forcewall.ogg', 50, 1)
+	message_admins("[ADMIN_LOOKUPFLW(user)] cast 'Advent Ritual of Saint Anarchismea' and everyone gets AA from now.")
+	log_game("[key_name(user)] cast 'Advent Ritual of Saint Anarchismea' and everyone gets AA from now.")
+	GLOB.magical_access = TRUE
+
+	for(var/obj/item/card/id/I in GLOB.id_cards)
+		I.grant_magical_access()
+	for(var/mob/living/H in GLOB.player_list)
+		to_chat(H, "<span class='nicegreen'>You feel a holy spirit's blessing... You feel you can go anywhere you want to go.</span>")
+	return TRUE
+
 /datum/spellbook_entry/summon/wild_magic
 	name = "Wild Magic Manipulation"
 	desc = "multiply your remaining spell points by 70%(round down) and expand all of them to Wild Magic Manipulation. \
-		You purchase random spells and items upto the spell points you expanded. Spells from this ritual will no longer be refundable even if you learned it manually, but also the book will no longer accept items to refund."
+		You purchase random spells and items upto the spell points you expanded. Spells from this ritual will no longer \
+		be refundable even if you learned it manually, but also the book will no longer accept items to refund."
 	cost = 0
 	ritual_invocation = "ALADAL DESINARI ODORI'IN A'EN SPERMITEN G'ATUA H'UN OVORA DUN SPERMITUN"
 
