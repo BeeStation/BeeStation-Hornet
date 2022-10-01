@@ -701,8 +701,8 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	var/banned = C ? is_banned_from(C.ckey, "Appearance") : null
 
 	while(loop && safety < 5)
-		if(C && C.prefs.custom_names[role] && !safety && !banned)
-			newname = C.prefs.custom_names[role]
+		if(C?.prefs.active_character.custom_names[role] && !safety && !banned)
+			newname = C.prefs.active_character.custom_names[role]
 		else
 			switch(role)
 				if("human")
