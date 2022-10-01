@@ -73,9 +73,9 @@
 /obj/item/clothing/glasses/meson/dropped(mob/living/carbon/human/user)
 	..()
 	if(ishuman(user))
-    	var/mob/living/carbon/human/H = user
-    	if(H.glasses != src)
-        	return
+		var/mob/living/carbon/human/H = user
+		if(H.glasses != src)
+			return
 		else
 			REMOVE_TRAIT(user, TRAIT_MADNESS_IMMUNE, CLOTHING_TRAIT)
 
