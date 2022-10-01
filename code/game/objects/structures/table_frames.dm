@@ -51,6 +51,7 @@
 		if(contained_object.density && !(contained_object.flags_1 & ON_BORDER_1))
 			to_chat(user, "<span class='danger'>\the [contained_object] is in the way.</span>")
 			return FALSE
+	return TRUE
 
 /obj/structure/table_frame/proc/make_new_table(table_type, user = null) //makes sure the new table made retains what we had as a frame
 	var/obj/structure/table/T = new table_type(loc)
