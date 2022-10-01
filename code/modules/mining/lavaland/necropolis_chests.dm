@@ -71,7 +71,8 @@
 		if(25)
 			new /obj/item/reagent_containers/glass/bottle/necropolis_seed(src)
 	spawned_loot = TRUE
-	qdel(item)
+	if(!GLOB.magical_access) // you should be capable of opening the chest without a skeleton key if we have magical access, but let miners should buy a key at least.
+		qdel(item)
 	to_chat(user, "<span class='notice'>You disable the magic lock, revealing the loot.</span>")
 	return TRUE
 

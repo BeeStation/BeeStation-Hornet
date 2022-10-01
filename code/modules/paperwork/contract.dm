@@ -321,7 +321,7 @@
 	if(!istype(user) || !user.mind)
 		return -1
 	user.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/conjure_item/spellpacket/robeless(null))
-	user.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/knock(null))
+	user.mind.AddSpell(new /obj/effect/proc_holder/spell/knock(null))
 	return ..()
 
 /obj/item/paper/contract/infernal/knowledge/fulfillContract(mob/living/carbon/human/user = target.current, blood = 0)

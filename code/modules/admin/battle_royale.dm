@@ -338,7 +338,7 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 		//Assistant gang
 		H.equipOutfit(/datum/outfit/job/assistant)
 		//Give them a spell
-		H.AddSpell(new /obj/effect/proc_holder/spell/aoe_turf/knock)
+		H.AddSpell(new /obj/effect/proc_holder/spell/knock/lesser)
 		H.key = key
 		//Give weapons key
 		var/obj/item/implant/weapons_auth/W = new
@@ -357,7 +357,7 @@ GLOBAL_DATUM(battle_royale, /datum/battle_royale_controller)
 
 /datum/battle_royale_controller/proc/end_grace()
 	for(var/mob/M in GLOB.player_list)
-		M.RemoveSpell(/obj/effect/proc_holder/spell/aoe_turf/knock)
+		M.RemoveSpell(/obj/effect/proc_holder/spell/knock/lesser)
 		M.status_flags -= GODMODE
 		REMOVE_TRAIT(M, TRAIT_PACIFISM, BATTLE_ROYALE_TRAIT)
 		to_chat(M, "<span class='greenannounce'>You are no longer a pacifist. Be the last [M.gender == MALE ? "man" : "woman"] standing.</span>")
