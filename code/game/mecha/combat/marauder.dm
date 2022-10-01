@@ -2,7 +2,6 @@
 	desc = "Heavy-duty, combat exosuit, developed after the Durand model. Rarely found among civilian populations."
 	name = "\improper Marauder"
 	icon_state = "marauder"
-	obj_flags = CAN_BE_HIT | MAGICAL_ACCESS_PROTECTED
 	step_in = 5
 	max_integrity = 500
 	deflect_chance = 25
@@ -46,7 +45,6 @@
 	desc = "Heavy-duty, command-type exosuit. This is a custom model, utilized only by high-ranking military personnel."
 	name = "\improper Seraph"
 	icon_state = "seraph"
-	obj_flags = CAN_BE_HIT | MAGICAL_ACCESS_PROTECTED
 	operation_req_access = list(ACCESS_CENT_SPECOPS)
 	internals_req_access = list(ACCESS_CENT_SPECOPS)
 	step_in = 3

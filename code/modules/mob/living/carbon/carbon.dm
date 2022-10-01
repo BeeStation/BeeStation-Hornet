@@ -297,7 +297,6 @@
 		if (W)
 			W.forceMove(drop_location())
 			W.dropped(src)
-			. = TRUE
 			if (W)
 				W.layer = initial(W.layer)
 				W.plane = initial(W.plane)
@@ -311,7 +310,6 @@
 		if (W)
 			W.forceMove(drop_location())
 			W.dropped(src)
-			. = TRUE
 			if (W)
 				W.layer = initial(W.layer)
 				W.plane = initial(W.plane)

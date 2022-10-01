@@ -87,9 +87,8 @@
 	A.emag_act(user)
 
 /obj/item/card/emagfake
+	desc = "It is an ID card, the magnetic strip is exposed and attached to some circuitry. Closer inspection shows that this card is a poorly made replica, with a \"DonkCo\" logo stamped on the back."
 	name = "cryptographic sequencer"
-	desc = "It is an ID card, the magnetic strip is exposed and attached to some circuitry.\
-			Closer inspection shows that this card is a poorly made replica, with a \"DonkCo\" logo stamped on the back."
 	icon_state = "emag"
 	item_state = "card-id"
 	lefthand_file = 'icons/mob/inhands/equipment/idcards_lefthand.dmi'
@@ -123,17 +122,12 @@
 	. = ..()
 	if(mapload && access_txt)
 		access = text2access(access_txt)
-	if(GLOB.magical_access)
-		grant_magical_access()
-		// do not put this above `if(mapload && access_txt)`. You still need for centcom access.
-	GLOB.id_cards += src
 
 /obj/item/card/id/Destroy()
 	if (registered_account)
 		registered_account.bank_cards -= src
 	if (my_store && my_store.my_card == src)
 		my_store.my_card = null
-	GLOB.id_cards -= src
 	return ..()
 
 /obj/item/card/id/proc/set_hud_icon_on_spawn(jobname)
@@ -142,11 +136,6 @@
 		if(temp != JOB_HUD_UNKNOWN)
 			hud_state = temp
 	// This is needed for some irregular jobs
-
-/obj/item/card/id/proc/grant_magical_access()
-	var/static/list/target_access = get_all_accesses()+ACCESS_SYNDICATE+ACCESS_BLOODCULT+ACCESS_CLOCKCULT // This is how MAGIC works
-	access |= target_access // length copy is bad when your card has CC access. use `|=` to handle special access.
-	shuffle_inplace(access) // a code line in `_job.dm` says this is needed to make NTNet passkeys less predictable. I don't know why we need this.
 
 /obj/item/card/id/attack_self(mob/user)
 	if(Adjacent(user))

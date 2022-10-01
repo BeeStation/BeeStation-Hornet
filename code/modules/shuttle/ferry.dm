@@ -5,7 +5,6 @@
 	shuttleId = "ferry"
 	possible_destinations = "ferry_home;ferry_away"
 	req_access = list(ACCESS_CENT_GENERAL)
-	obj_flags = CAN_BE_HIT | MAGICAL_ACCESS_PROTECTED
 
 	var/allow_silicons = FALSE
 	var/allow_emag = FALSE

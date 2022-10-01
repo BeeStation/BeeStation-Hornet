@@ -65,9 +65,6 @@
 
 // Check if an item has access to this object
 /obj/proc/check_access(obj/item/I)
-	if(GLOB.magical_access)
-		if(!(obj_flags & MAGICAL_ACCESS_PROTECTED) && !(is_centcom_level(src.z))) // CC stuff is protected from magical access
-			return TRUE
 	return check_access_list(I ? I.GetAccess() : null)
 
 /obj/proc/check_access_list(list/access_list)

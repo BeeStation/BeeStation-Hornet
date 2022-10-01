@@ -247,7 +247,7 @@
 	user.petrify(60)
 
 /obj/item/book/granter/spell/knock
-	spell = /obj/effect/proc_holder/spell/knock
+	spell = /obj/effect/proc_holder/spell/aoe_turf/knock
 	spellname = "knock"
 	icon_state ="bookknock"
 	desc = "This book is hard to hold closed properly."
