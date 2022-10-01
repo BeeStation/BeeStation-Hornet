@@ -167,8 +167,7 @@
 	 "vomit" = CALLBACK(src, .proc/vomit_prestart, 25)), 20)
 
 /mob/living/simple_animal/hostile/retaliate/goose/vomit/proc/eat()
-	var/turf/currentTurf = get_turf(src)
-	var/obj/item/reagent_containers/food/tasty = locate() in currentTurf
+	var/obj/item/reagent_containers/food/tasty = locate() in get_turf(src)
 	if (tasty)
 		feed(tasty)
 
