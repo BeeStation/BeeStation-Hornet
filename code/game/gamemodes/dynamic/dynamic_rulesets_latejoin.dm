@@ -71,6 +71,13 @@
 	cost = 5
 	requirements = list(5,5,5,5,5,5,5,5,5,5)
 	repeatable = TRUE
+	blocking_rules = list(
+		/datum/dynamic_ruleset/roundstart/bloodcult,
+		/datum/dynamic_ruleset/roundstart/clockcult,
+		/datum/dynamic_ruleset/roundstart/nuclear,
+		/datum/dynamic_ruleset/roundstart/wizard,
+		/datum/dynamic_ruleset/roundstart/revs
+	)
 
 //////////////////////////////////////////////
 //                                          //
@@ -166,3 +173,10 @@
 	cost = 7
 	requirements = list(101,101,101,10,10,10,10,10,10,10)
 	repeatable = TRUE
+	blocking_rules = list(
+		/datum/dynamic_ruleset/roundstart/bloodcult,
+		/datum/dynamic_ruleset/roundstart/clockcult,
+		/datum/dynamic_ruleset/roundstart/nuclear,
+		/datum/dynamic_ruleset/roundstart/wizard,
+		/datum/dynamic_ruleset/roundstart/revs
+	)

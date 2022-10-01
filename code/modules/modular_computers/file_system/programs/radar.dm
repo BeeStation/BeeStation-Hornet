@@ -103,7 +103,7 @@
 
 	if(dist > 24 || istype(computer, /obj/item/modular_computer/tablet/pda))
 		userot = TRUE
-		rot = round(Get_Angle(here_turf, target_turf))
+		rot = round(get_angle(here_turf, target_turf))
 	else
 		if(target_turf.z > here_turf.z)
 			pointer="caret-up"

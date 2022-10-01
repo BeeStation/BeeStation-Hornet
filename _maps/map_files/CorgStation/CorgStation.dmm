@@ -31911,7 +31911,7 @@
 /obj/machinery/door/window/brigdoor{
 	dir = 1;
 	name = "Virology Desk";
-	req_access_txt = "20"
+	req_access_txt = "39"
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/virology)

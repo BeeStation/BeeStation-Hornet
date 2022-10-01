@@ -483,7 +483,7 @@
 		var/mob/living/carbon/C = usr
 		C.swap_hand()
 	else
-		var/turf/T = params2turf(modifiers["screen-loc"], get_turf(usr.client ? usr.client.eye : usr), usr.client)
+		var/turf/T = parse_caught_click_modifiers(modifiers["screen-loc"], get_turf(usr.client ? usr.client.eye : usr), usr.client)
 		params += "&catcher=1"
 		if(T)
 			T.Click(location, control, params)

@@ -58,7 +58,7 @@
 	var/obj/item/computer_hardware/hard_drive/role/disk = target.all_components[MC_HDD_JOB]
 
 	if(disk)
-		difficulty += BitCount(disk.disk_flags & (DISK_MED | DISK_SEC | DISK_POWER | DISK_MANIFEST))
+		difficulty += bit_count(disk.disk_flags & (DISK_MED | DISK_SEC | DISK_POWER | DISK_MANIFEST))
 		if(disk.disk_flags & DISK_MANIFEST)
 			difficulty++ //if disk has manifest access it has extra snowflake difficulty
 		else

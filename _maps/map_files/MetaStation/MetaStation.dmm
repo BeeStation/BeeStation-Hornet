@@ -37079,7 +37079,7 @@
 /obj/machinery/door/window/brigdoor{
 	dir = 8;
 	name = "Virology Desk";
-	req_access_txt = "20"
+	req_access_txt = "39"
 	},
 /obj/item/reagent_containers/glass/bottle/spaceacillin{
 	pixel_x = 9;
@@ -41337,6 +41337,9 @@
 "cHr" = (
 /obj/structure/bed/dogbed/vector,
 /mob/living/simple_animal/pet/hamster/vector,
+/obj/machinery/light_switch{
+	pixel_y = 24
+	},
 /turf/open/floor/plasteel,
 /area/medical/virology)
 "cHt" = (
@@ -69448,9 +69451,6 @@
 /turf/open/floor/plasteel,
 /area/engine/engineering)
 "pQJ" = (
-/obj/machinery/light_switch{
-	pixel_y = 24
-	},
 /obj/structure/sign/departments/minsky/medical/virology/virology1{
 	pixel_y = 32
 	},
@@ -82384,9 +82384,6 @@
 /turf/open/floor/plasteel/dark,
 /area/engine/engineering)
 "xyY" = (
-/obj/machinery/vending/wallmed{
-	pixel_y = 28
-	},
 /obj/structure/sign/departments/minsky/medical/chemistry/chemical1{
 	pixel_y = 32
 	},
