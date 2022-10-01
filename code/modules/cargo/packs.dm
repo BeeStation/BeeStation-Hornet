@@ -367,16 +367,6 @@
 					/obj/item/clothing/head/fedora/det_hat)
 	crate_name = "forensics crate"
 
-/datum/supply_pack/security/laser
-	name = "Lasers Crate"
-	desc = "Contains three lethal, high-energy laser guns. Requires Security access to open."
-	cost = 1800
-	access_budget = ACCESS_ARMORY
-	contains = list(/obj/item/gun/energy/laser,
-					/obj/item/gun/energy/laser,
-					/obj/item/gun/energy/laser)
-	crate_name = "laser crate"
-
 /datum/supply_pack/security/match
 	name = ".38 Match Grade Speedloader"
 	desc = "Contains one speedloader of match grade .38 ammunition, perfect for showing off trickshots. Requires Security or Forensics access to open."
@@ -616,6 +606,15 @@
 					/obj/item/gun/energy/e_gun)
 	crate_name = "bulk energy guns crate"
 	crate_type = /obj/structure/closet/crate/secure/plasma
+
+/datum/supply_pack/security/armory/laser
+	name = "Lasers Crate"
+	desc = "Contains three lethal, high-energy laser guns. Requires Armory access to open."
+	cost = 1800
+	contains = list(/obj/item/gun/energy/laser,
+					/obj/item/gun/energy/laser,
+					/obj/item/gun/energy/laser)
+	crate_name = "laser crate"
 
 /datum/supply_pack/security/armory/exileimp
 	name = "Exile Implants Crate"
