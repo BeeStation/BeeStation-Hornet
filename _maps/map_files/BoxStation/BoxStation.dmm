@@ -908,7 +908,8 @@
 	},
 /obj/structure/table/wood,
 /obj/machinery/camera/autoname{
-	dir = 4
+	dir = 4;
+	network = list("ss13, engine")
 	},
 /turf/open/floor/carpet/red,
 /area/crew_quarters/heads/hos)
@@ -1025,7 +1026,8 @@
 "acO" = (
 /obj/structure/closet/l3closet/security,
 /obj/machinery/camera/autoname{
-	dir = 4
+	dir = 4;
+	network = list("ss13, engine")
 	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/security/main)
@@ -2216,7 +2218,8 @@
 "agv" = (
 /obj/machinery/computer/security/mining,
 /obj/machinery/camera/autoname{
-	dir = 4
+	dir = 4;
+	network = list("ss13, engine")
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/miningdock)
@@ -2662,7 +2665,8 @@
 /obj/effect/turf_decal/tile/red,
 /obj/structure/closet/secure_closet/brig_physician,
 /obj/machinery/camera/autoname{
-	dir = 4
+	dir = 4;
+	network = list("ss13, engine")
 	},
 /turf/open/floor/plasteel/white,
 /area/security/brig)
@@ -6845,7 +6849,8 @@
 	},
 /obj/item/storage/firstaid/regular,
 /obj/machinery/camera/autoname{
-	dir = 4
+	dir = 4;
+	network = list("ss13, engine")
 	},
 /turf/open/floor/plasteel,
 /area/gateway)
@@ -8681,7 +8686,8 @@
 /area/hydroponics)
 "aMM" = (
 /obj/machinery/camera/autoname{
-	dir = 4
+	dir = 4;
+	network = list("ss13, engine")
 	},
 /turf/open/floor/plasteel/dark,
 /area/chapel/main)
@@ -10401,7 +10407,8 @@
 /area/janitor)
 "aUy" = (
 /obj/machinery/camera/autoname{
-	dir = 4
+	dir = 4;
+	network = list("ss13, engine")
 	},
 /turf/open/floor/wood,
 /area/vacant_room/office)
@@ -10558,7 +10565,8 @@
 	dir = 1
 	},
 /obj/machinery/camera/autoname{
-	dir = 4
+	dir = 4;
+	network = list("ss13, engine")
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/fore)
@@ -12250,7 +12258,8 @@
 	dir = 8
 	},
 /obj/machinery/camera/autoname{
-	dir = 4
+	dir = 4;
+	network = list("ss13, engine")
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
@@ -13004,7 +13013,8 @@
 	dir = 4
 	},
 /obj/machinery/camera/autoname{
-	dir = 4
+	dir = 4;
+	network = list("ss13, engine")
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/sorting)
@@ -14756,7 +14766,8 @@
 	dir = 8
 	},
 /obj/machinery/camera/autoname{
-	dir = 4
+	dir = 4;
+	network = list("ss13, engine")
 	},
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -27
@@ -15511,7 +15522,8 @@
 	},
 /obj/machinery/rnd/production/techfab/department/cargo,
 /obj/machinery/camera/autoname{
-	dir = 4
+	dir = 4;
+	network = list("ss13, engine")
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/office)
@@ -16247,7 +16259,8 @@
 	pixel_x = -32
 	},
 /obj/machinery/camera/autoname{
-	dir = 4
+	dir = 4;
+	network = list("ss13, engine")
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
@@ -17291,7 +17304,8 @@
 	dir = 8
 	},
 /obj/machinery/camera/autoname{
-	dir = 4
+	dir = 4;
+	network = list("ss13, engine")
 	},
 /turf/open/floor/plasteel,
 /area/security/checkpoint/science)
@@ -17337,7 +17351,8 @@
 	dir = 8
 	},
 /obj/machinery/camera/autoname{
-	dir = 4
+	dir = 4;
+	network = list("ss13, engine")
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/qm)
@@ -18519,7 +18534,8 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/camera/autoname{
-	dir = 4
+	dir = 4;
+	network = list("ss13, engine")
 	},
 /turf/open/floor/plasteel,
 /area/science/storage)
@@ -18622,7 +18638,8 @@
 	dir = 8
 	},
 /obj/machinery/camera/autoname{
-	dir = 4
+	dir = 4;
+	network = list("ss13, engine")
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
@@ -19834,7 +19851,8 @@
 	dir = 8
 	},
 /obj/machinery/camera/autoname{
-	dir = 4
+	dir = 4;
+	network = list("ss13, engine")
 	},
 /turf/open/floor/plasteel,
 /area/engine/atmos)
@@ -22401,7 +22419,8 @@
 	pixel_y = 2
 	},
 /obj/machinery/camera/autoname{
-	dir = 4
+	dir = 4;
+	network = list("ss13, engine")
 	},
 /turf/open/floor/plasteel/white,
 /area/science/xenobiology)
@@ -22833,7 +22852,8 @@
 	name = "Port to Filter"
 	},
 /obj/machinery/camera/autoname{
-	dir = 4
+	dir = 4;
+	network = list("ss13, engine")
 	},
 /turf/open/floor/plasteel,
 /area/engine/atmos)
@@ -22956,7 +22976,8 @@
 /area/science/nanite)
 "cbl" = (
 /obj/machinery/camera/autoname{
-	dir = 4
+	dir = 4;
+	network = list("ss13, engine")
 	},
 /turf/open/floor/plasteel/dark/telecomms,
 /area/tcommsat/server)
@@ -23811,7 +23832,8 @@
 /area/engine/engineering)
 "cex" = (
 /obj/machinery/camera/autoname{
-	dir = 4
+	dir = 4;
+	network = list("ss13, engine")
 	},
 /turf/open/floor/plasteel,
 /area/engine/atmos)
@@ -23996,7 +24018,8 @@
 	pressure_checks = 0
 	},
 /obj/machinery/camera/autoname{
-	dir = 4
+	dir = 4;
+	network = list("ss13, engine")
 	},
 /turf/open/floor/circuit/telecomms,
 /area/science/xenobiology)
@@ -24306,7 +24329,8 @@
 	dir = 4
 	},
 /obj/machinery/camera/autoname{
-	dir = 8
+	dir = 8;
+	network = list("ss13","engine")
 	},
 /turf/open/floor/plasteel,
 /area/engine/engineering)
@@ -24943,7 +24967,8 @@
 	dir = 8
 	},
 /obj/machinery/camera/autoname{
-	dir = 4
+	dir = 4;
+	network = list("ss13, engine")
 	},
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/heads/chief)
@@ -24964,7 +24989,8 @@
 /area/engine/engineering)
 "cjl" = (
 /obj/machinery/camera/autoname{
-	dir = 4
+	dir = 4;
+	network = list("ss13, engine")
 	},
 /turf/open/floor/plasteel,
 /area/engine/engineering)
@@ -25040,7 +25066,8 @@
 	dir = 8
 	},
 /obj/machinery/camera/autoname{
-	dir = 4
+	dir = 4;
+	network = list("ss13, engine")
 	},
 /turf/open/floor/plating,
 /area/engine/engineering)
@@ -25327,7 +25354,8 @@
 "cly" = (
 /obj/structure/chair/stool,
 /obj/machinery/camera/autoname{
-	dir = 4
+	dir = 4;
+	network = list("ss13, engine")
 	},
 /turf/open/floor/plating,
 /area/maintenance/solars/starboard/aft)
@@ -25744,7 +25772,8 @@
 	pixel_y = -3
 	},
 /obj/machinery/camera/autoname{
-	dir = 4
+	dir = 4;
+	network = list("ss13, engine")
 	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/security/warden)
@@ -26172,7 +26201,8 @@
 "cpV" = (
 /obj/structure/table,
 /obj/machinery/camera/autoname{
-	dir = 4
+	dir = 4;
+	network = list("ss13","engine")
 	},
 /turf/open/floor/plasteel,
 /area/engine/engineering)
@@ -26247,7 +26277,8 @@
 	dir = 1
 	},
 /obj/machinery/camera/autoname{
-	dir = 10
+	dir = 10;
+	network = list("ss13","engine")
 	},
 /turf/open/floor/engine,
 /area/engine/engineering)
@@ -26308,7 +26339,8 @@
 /area/engine/engineering)
 "cqp" = (
 /obj/machinery/camera/autoname{
-	dir = 4
+	dir = 4;
+	network = list("ss13, engine")
 	},
 /turf/open/floor/plating,
 /area/engine/engineering)
@@ -27027,7 +27059,8 @@
 	},
 /obj/structure/closet/emcloset,
 /obj/machinery/camera/autoname{
-	dir = 4
+	dir = 4;
+	network = list("ss13, engine")
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
@@ -27434,7 +27467,8 @@
 "cvu" = (
 /obj/structure/lattice,
 /obj/machinery/camera/autoname{
-	dir = 4
+	dir = 4;
+	network = list("ss13, engine")
 	},
 /turf/open/space,
 /area/space/nearstation)
@@ -27948,7 +27982,8 @@
 	layer = 3.2
 	},
 /obj/machinery/camera/autoname{
-	dir = 4
+	dir = 4;
+	network = list("ss13, engine")
 	},
 /turf/open/floor/plasteel/freezer,
 /area/medical/virology)
@@ -28821,7 +28856,8 @@
 	dir = 4
 	},
 /obj/machinery/camera/autoname{
-	dir = 8
+	dir = 8;
+	network = list("ss13","engine")
 	},
 /turf/open/floor/engine,
 /area/engine/engineering)
@@ -28867,7 +28903,8 @@
 	icon_state = "4-8"
 	},
 /obj/machinery/camera/autoname{
-	dir = 6
+	dir = 6;
+	network = list("ss13","engine")
 	},
 /turf/open/floor/engine,
 /area/engine/supermatter)
@@ -29209,7 +29246,8 @@
 	dir = 4
 	},
 /obj/machinery/camera/autoname{
-	dir = 6
+	dir = 6;
+	network = list("ss13","engine")
 	},
 /turf/open/floor/plasteel/dark,
 /area/engine/engineering)
@@ -30174,7 +30212,9 @@
 /obj/structure/sign/warning/nosmoking{
 	pixel_y = 32
 	},
-/obj/machinery/camera/autoname,
+/obj/machinery/camera/autoname{
+	network = list("ss13","engine")
+	},
 /turf/open/floor/plasteel,
 /area/engine/engineering)
 "cSV" = (
@@ -32929,7 +32969,8 @@
 	dir = 1
 	},
 /obj/machinery/camera/autoname{
-	dir = 4
+	dir = 4;
+	network = list("ss13, engine")
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/bar)
@@ -34376,7 +34417,8 @@
 	dir = 4
 	},
 /obj/machinery/camera/autoname{
-	dir = 4
+	dir = 4;
+	network = list("ss13, engine")
 	},
 /turf/open/floor/plating,
 /area/ai_monitored/turret_protected/aisat/atmos)
@@ -34934,7 +34976,8 @@
 	icon_state = "0-2"
 	},
 /obj/machinery/camera/autoname{
-	dir = 4
+	dir = 4;
+	network = list("ss13, engine")
 	},
 /turf/open/floor/engine/vacuum,
 /area/maintenance/disposal/incinerator)
@@ -35847,7 +35890,8 @@
 	dir = 1
 	},
 /obj/machinery/camera/autoname{
-	dir = 4
+	dir = 4;
+	network = list("ss13, engine")
 	},
 /turf/open/floor/plasteel/dark/corner{
 	dir = 1
@@ -43955,7 +43999,8 @@
 /obj/machinery/computer/nanite_cloud_controller,
 /obj/effect/turf_decal/bot,
 /obj/machinery/camera/autoname{
-	dir = 4
+	dir = 4;
+	network = list("ss13, engine")
 	},
 /turf/open/floor/plasteel/dark,
 /area/science/nanite)
@@ -43989,7 +44034,8 @@
 	dir = 1
 	},
 /obj/machinery/camera/autoname{
-	dir = 4
+	dir = 4;
+	network = list("ss13, engine")
 	},
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/turret_protected/aisat_interior)
@@ -44049,7 +44095,8 @@
 	dir = 8
 	},
 /obj/machinery/camera/autoname{
-	dir = 4
+	dir = 4;
+	network = list("ss13, engine")
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/dorms)
@@ -45028,7 +45075,8 @@
 	dir = 8
 	},
 /obj/machinery/camera/autoname{
-	dir = 4
+	dir = 4;
+	network = list("ss13, engine")
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
@@ -46050,7 +46098,8 @@
 	dir = 4
 	},
 /obj/machinery/camera/autoname{
-	dir = 4
+	dir = 4;
+	network = list("ss13","engine")
 	},
 /turf/open/floor/engine,
 /area/engine/engineering)
@@ -52421,7 +52470,8 @@
 /area/maintenance/aft)
 "rzn" = (
 /obj/machinery/camera/autoname{
-	dir = 4
+	dir = 4;
+	network = list("ss13, engine")
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 1
@@ -52786,7 +52836,8 @@
 	dir = 4
 	},
 /obj/machinery/camera/autoname{
-	dir = 4
+	dir = 4;
+	network = list("ss13, engine")
 	},
 /obj/structure/table/wood/fancy,
 /obj/item/soulstone/anybody/chaplain,
@@ -56761,7 +56812,8 @@
 	dir = 4
 	},
 /obj/machinery/camera/autoname{
-	dir = 4
+	dir = 4;
+	network = list("ss13, engine")
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/exit)
@@ -61016,7 +61068,8 @@
 	dir = 4
 	},
 /obj/machinery/camera/autoname{
-	dir = 4
+	dir = 4;
+	network = list("ss13","engine")
 	},
 /turf/open/floor/plasteel,
 /area/engine/engineering)

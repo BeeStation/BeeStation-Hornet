@@ -163,7 +163,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 
 /mob/dead/observer/Destroy()
 	// Update medhud on their body (soul departed?)
-	if(mind?.current)
+	if(isliving(mind?.current))
 		addtimer(CALLBACK(mind.current, /mob/living.proc/med_hud_set_status), 1 SECONDS)
 	if(data_huds_on)
 		remove_data_huds()
@@ -383,7 +383,8 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		return
 
 	can_reenter_corpse = FALSE
-	mind?.current?.med_hud_set_status()
+	if(isliving(mind?.current))
+		mind.current.med_hud_set_status()
 	to_chat(src, "You can no longer be brought back into your body.")
 	return TRUE
 

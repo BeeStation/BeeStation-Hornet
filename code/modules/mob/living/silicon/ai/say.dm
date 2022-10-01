@@ -31,6 +31,9 @@
 
 	if (!message)
 		return
+	if(CHAT_FILTER_CHECK(message))
+		to_chat(usr, "<span class='warning'>Your message contains forbidden words.</span>")
+		return
 
 	var/obj/machinery/holopad/T = current
 	if(istype(T) && T.masters[src])//If there is a hologram and its master is the user.
