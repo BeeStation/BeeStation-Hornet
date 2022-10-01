@@ -71,7 +71,7 @@
 		ADD_TRAIT(user, TRAIT_MADNESS_IMMUNE, CLOTHING_TRAIT)
 
 /obj/item/clothing/glasses/meson/dropped(mob/living/carbon/human/user)
-	. = ..()
+	..()
 	if(!ishuman(user) || user.glasses != src)
 		return
 	REMOVE_TRAIT(user, TRAIT_MADNESS_IMMUNE, CLOTHING_TRAIT)
