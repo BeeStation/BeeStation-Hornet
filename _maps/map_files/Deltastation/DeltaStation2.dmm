@@ -28086,6 +28086,9 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 8
 	},
+/obj/item/radio/intercom{
+	pixel_x = -26
+	},
 /turf/open/floor/wood,
 /area/quartermaster/exploration_prep)
 "bEB" = (
@@ -39349,6 +39352,9 @@
 /obj/effect/landmark/start/exploration,
 /obj/effect/turf_decal/siding/wood{
 	dir = 5
+	},
+/obj/structure/extinguisher_cabinet{
+	pixel_x = 26
 	},
 /turf/open/floor/wood,
 /area/quartermaster/exploration_prep)
@@ -85055,7 +85061,19 @@
 /turf/open/floor/plasteel/dark,
 /area/bridge)
 "kgt" = (
-/obj/structure/bookcase/random/nonfiction,
+/obj/structure/window/reinforced{
+	dir = 1;
+	pixel_y = 4
+	},
+/obj/structure/closet/secure_closet/personal,
+/obj/effect/turf_decal/box,
+/obj/effect/turf_decal/tile/neutral/tile_full,
+/obj/effect/turf_decal/tile/green{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/brown{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/quartermaster/exploration_prep)
 "khm" = (
@@ -90545,6 +90563,10 @@
 /obj/structure/closet/secure_closet/personal,
 /obj/effect/turf_decal/box,
 /obj/effect/turf_decal/tile/neutral/tile_full,
+/obj/effect/turf_decal/tile/green,
+/obj/effect/turf_decal/tile/brown{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/quartermaster/exploration_prep)
 "mwm" = (
@@ -93188,6 +93210,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 2
 	},
+/obj/machinery/firealarm/directional/north,
 /turf/open/floor/plasteel/techmaint,
 /area/quartermaster/exploration_prep)
 "nBQ" = (
@@ -96652,6 +96675,21 @@
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/office)
+"oRw" = (
+/obj/structure/closet/secure_closet/personal,
+/obj/effect/turf_decal/box,
+/obj/effect/turf_decal/tile/neutral/tile_full,
+/obj/effect/turf_decal/tile/green{
+	dir = 8
+	},
+/obj/effect/turf_decal/tile/brown{
+	dir = 1
+	},
+/obj/item/radio/intercom{
+	pixel_x = -26
+	},
+/turf/open/floor/plasteel,
+/area/quartermaster/exploration_prep)
 "oRB" = (
 /obj/machinery/newscaster{
 	pixel_y = -32
@@ -107150,6 +107188,7 @@
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/machinery/firealarm/directional/west,
 /turf/open/floor/plasteel,
 /area/quartermaster/exploration_prep)
 "txV" = (
@@ -108454,10 +108493,6 @@
 /obj/machinery/firealarm/directional/east,
 /turf/open/floor/plasteel,
 /area/hallway/primary/fore)
-"uan" = (
-/obj/effect/turf_decal/tile/neutral/tile_full,
-/turf/open/floor/plasteel,
-/area/quartermaster/exploration_prep)
 "uaG" = (
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
@@ -108704,6 +108739,13 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
+"uig" = (
+/obj/machinery/newscaster{
+	pixel_y = 32
+	},
+/obj/structure/bookcase/random,
+/turf/open/floor/plasteel,
+/area/quartermaster/exploration_prep)
 "uii" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -109946,6 +109988,9 @@
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/structure/extinguisher_cabinet{
+	pixel_x = 26
+	},
 /turf/open/floor/plasteel,
 /area/quartermaster/exploration_prep)
 "uGm" = (
@@ -110373,6 +110418,10 @@
 /obj/structure/closet/secure_closet/personal,
 /obj/effect/turf_decal/box,
 /obj/effect/turf_decal/tile/neutral/tile_full,
+/obj/effect/turf_decal/tile/green,
+/obj/effect/turf_decal/tile/brown{
+	dir = 4
+	},
 /turf/open/floor/plasteel,
 /area/quartermaster/exploration_prep)
 "uNP" = (
@@ -113305,6 +113354,10 @@
 	},
 /turf/open/floor/plasteel,
 /area/maintenance/disposal/incinerator)
+"vXO" = (
+/obj/effect/turf_decal/tile/neutral/tile_full,
+/turf/open/floor/plasteel,
+/area/quartermaster/exploration_prep)
 "vXR" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
@@ -117996,10 +118049,10 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/starboard)
 "xTN" = (
-/obj/structure/bookcase/random/adult,
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/structure/bookcase/random,
 /turf/open/floor/plasteel,
 /area/quartermaster/exploration_prep)
 "xUp" = (
@@ -147679,7 +147732,7 @@ jwJ
 oMr
 eBl
 eHD
-kgt
+ens
 kOa
 mrS
 rNd
@@ -148193,7 +148246,7 @@ abf
 oJC
 xSF
 eHD
-ens
+uig
 njx
 gBy
 nTD
@@ -150253,8 +150306,8 @@ aHu
 vLe
 txK
 lys
-mwg
-uNM
+oRw
+kgt
 aFN
 gZe
 alf
@@ -150510,7 +150563,7 @@ wot
 mSc
 uvN
 fxU
-uan
+vXO
 dfR
 aFN
 iDw
