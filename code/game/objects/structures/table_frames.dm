@@ -35,7 +35,7 @@
 		if(material.get_amount() < 1)
 			to_chat(user, "<span class='warning'>You need one [material.name] sheet to do this!</span>")
 			return
-		if(!check_turf_contents(user))
+		if(!check_turf_contents())
 			return
 		to_chat(user, "<span class='notice'>You start adding [material] to [src]...</span>")
 		if(do_after(user, 20, target = src) && material.use(1))
@@ -43,7 +43,7 @@
 	else
 		return ..()
 
-/obj/structure/table_frame/proc/check_turf_contents(mob/user)
+/obj/structure/table_frame/proc/check_turf_contents()
 	for(var/obj/contained_object in get_turf(loc))
 		if(istype(contained_object, /obj/structure/table))
 			to_chat(user, "<span class='danger'>There is already a table here.</span>")
@@ -92,7 +92,7 @@
 			if(material.get_amount() < 1)
 				to_chat(user, "<span class='warning'>You need one [material.name] sheet to do this!</span>")
 				return
-			if(!check_turf_contents(user))
+			if(!check_turf_contents())
 				return
 			to_chat(user, "<span class='notice'>You start adding [material] to [src]...</span>")
 			if(do_after(user, 20, target = src) && material.use(1))
@@ -114,7 +114,7 @@
 		if(W.get_amount() < 1)
 			to_chat(user, "<span class='warning'>You need one brass sheet to do this!</span>")
 			return
-		if(!check_turf_contents(user))
+		if(!check_turf_contents())
 			return
 		to_chat(user, "<span class='notice'>You start adding [W] to [src]...</span>")
 		if(do_after(user, 20, target = src) && W.use(1))
