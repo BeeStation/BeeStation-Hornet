@@ -70,8 +70,10 @@
 	if(ishuman(user) && slot == ITEM_SLOT_EYES)
 		ADD_TRAIT(user, TRAIT_MADNESS_IMMUNE, CLOTHING_TRAIT)
 
-/obj/item/clothing/glasses/meson/dropped(mob/user)
+/obj/item/clothing/glasses/meson/dropped(mob/living/carbon/human/user)
 	. = ..()
+	if(!ishuman(user) || user.glasses != src)
+		return
 	REMOVE_TRAIT(user, TRAIT_MADNESS_IMMUNE, CLOTHING_TRAIT)
 
 /obj/item/clothing/glasses/meson/suicide_act(mob/living/carbon/user)
