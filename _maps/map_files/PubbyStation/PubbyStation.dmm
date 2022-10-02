@@ -29025,7 +29025,7 @@
 "ckD" = (
 /obj/structure/chair/wood/normal,
 /obj/machinery/firealarm{
-	dir = 8;
+	dir = 4;
 	pixel_x = -28
 	},
 /turf/open/floor/plasteel/dark,
@@ -33832,7 +33832,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/firealarm{
-	dir = 8;
+	dir = 4;
 	pixel_x = -28
 	},
 /turf/open/floor/plasteel/dark,
@@ -57837,7 +57837,7 @@
 	dir = 8
 	},
 /obj/machinery/firealarm{
-	dir = 8;
+	dir = 4;
 	pixel_x = -28
 	},
 /turf/open/floor/plasteel/dark,
