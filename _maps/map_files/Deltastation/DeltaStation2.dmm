@@ -41767,8 +41767,12 @@
 /obj/machinery/newscaster{
 	pixel_x = -32
 	},
-/obj/structure/bed/double,
-/obj/item/bedsheet/double/hop,
+/obj/structure/bed/double{
+	dir = 1
+	},
+/obj/item/bedsheet/double/hop{
+	dir = 1
+	},
 /turf/open/floor/carpet/royalblue,
 /area/crew_quarters/heads/hop)
 "cod" = (
