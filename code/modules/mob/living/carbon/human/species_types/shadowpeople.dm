@@ -220,7 +220,8 @@
 
 /obj/structure/glowshroom/lighteater_act(obj/item/light_eater/light_eater)
 	..()
-	acid_act()
+	if (light_power > 0)
+		acid_act()
 
 /obj/item/lighteater_act(obj/item/light_eater/light_eater)
 	..()
@@ -233,7 +234,7 @@
 
 
 /obj/item/pda/lighteater_act(obj/item/light_eater/light_eater)
-	if(light_range && light_power && light_on)
+	if(light_range && light_power > 0 && light_on)
 		//Eject the ID card
 		if(id)
 			id.forceMove(get_turf(src))
