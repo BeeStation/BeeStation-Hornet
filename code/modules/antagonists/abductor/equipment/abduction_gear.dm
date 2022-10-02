@@ -591,10 +591,12 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 
 /// Switch a target, freeing our old target
 /obj/item/abductor/baton/proc/switch_target(mob/new_target)
+	if (current_target == new_target)
+		return
 	if (current_target)
 		//Free the target
-		if (isliving(new_target))
-			var/mob/living/L = new_target
+		if (isliving(current_target))
+			var/mob/living/L = current_target
 			L.SetParalyzed(0)
 			L.SetSleeping(0)
 		//Unregister them
@@ -602,14 +604,14 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	current_target = new_target
 	if (current_target)
 		RegisterSignal(current_target, COMSIG_PARENT_QDELETING, .proc/unregister_target)
-		START_PROCESSING(SSmachines, src)
+		START_PROCESSING(SSprocessing, src)
 
 /// Called when a target is deleted
 /obj/item/abductor/baton/proc/unregister_target()
 	SIGNAL_HANDLER
 	UnregisterSignal(current_target, COMSIG_PARENT_QDELETING)
 	current_target = null
-	STOP_PROCESSING(SSmachines, src)
+	STOP_PROCESSING(SSprocessing, src)
 
 /obj/item/abductor/baton/process(delta_time)
 	if (!current_target)
