@@ -1,0 +1,4 @@
+author: dwasint
+delete-after: true
+changes:
+  - bugfix: guns being not able to fire when you click outside of vision
