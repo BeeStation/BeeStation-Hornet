@@ -72271,10 +72271,6 @@
 /turf/open/floor/plasteel,
 /area/engine/atmos)
 "eOQ" = (
-/obj/structure/window/reinforced{
-	dir = 1;
-	pixel_y = 4
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
@@ -72803,15 +72799,12 @@
 /turf/open/floor/plasteel,
 /area/maintenance/port/fore)
 "fcn" = (
-/obj/structure/window/reinforced{
-	dir = 1;
-	pixel_y = 4
-	},
 /obj/machinery/suit_storage_unit/exploration,
 /obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
+/obj/structure/window/reinforced,
 /turf/open/floor/plasteel/techmaint,
 /area/quartermaster/exploration_prep)
 "fcp" = (
@@ -85359,7 +85352,7 @@
 	name = "exploration preperation room";
 	req_access_txt = "49"
 	},
-/turf/open/floor/wood,
+/turf/open/floor/plasteel/dark/telecomms,
 /area/quartermaster/exploration_prep)
 "koy" = (
 /obj/structure/cable/yellow{
@@ -90511,10 +90504,6 @@
 /turf/open/floor/plasteel,
 /area/science/xenobiology)
 "mwg" = (
-/obj/structure/window/reinforced{
-	dir = 1;
-	pixel_y = 4
-	},
 /obj/item/kirbyplants/random,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -103396,15 +103385,12 @@
 /turf/open/floor/plasteel,
 /area/maintenance/port/aft)
 "rNd" = (
-/obj/structure/window/reinforced{
-	dir = 1;
-	pixel_y = 4
-	},
 /obj/machinery/suit_storage_unit/exploration,
 /obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
+/obj/structure/window/reinforced,
 /turf/open/floor/plasteel/techmaint,
 /area/quartermaster/exploration_prep)
 "rNn" = (
@@ -103419,7 +103405,7 @@
 	dir = 4
 	},
 /obj/machinery/door/firedoor,
-/turf/open/floor/wood,
+/turf/open/floor/plasteel/dark/telecomms,
 /area/quartermaster/exploration_prep)
 "rNr" = (
 /obj/machinery/portable_atmospherics/canister/oxygen,
@@ -113697,13 +113683,15 @@
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
 "wfG" = (
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/machinery/door/firedoor,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /obj/machinery/door/airlock/science{
 	name = "exploration preperation room";
 	req_access_txt = "49"
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/door/firedoor,
 /turf/open/floor/plasteel,
 /area/quartermaster/exploration_prep)
 "wfK" = (
