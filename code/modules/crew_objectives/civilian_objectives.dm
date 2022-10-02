@@ -260,7 +260,7 @@
 		var/ownername = "[ckey(owner.current.real_name)][ckey(owner.assigned_role)]"
 		for(var/datum/feed_channel/channel in GLOB.news_network.network_channels)
 			for(var/datum/feed_message/message in channel.messages)
-				if(ckey(message.return_author()) == ckey(ownername))
+				if(ckey(message.author) == ckey(ownername))
 					if(length(message.return_body()) >= charcount)
 						target_amount--
 	if(target_amount <= 0)
