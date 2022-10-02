@@ -30422,10 +30422,6 @@
 /area/ai_monitored/security/armory)
 "iqs" = (
 /obj/structure/table/glass,
-/obj/item/storage/firstaid/o2{
-	pixel_x = 3;
-	pixel_y = 2
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 6
 	},
