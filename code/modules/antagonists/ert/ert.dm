@@ -34,12 +34,12 @@
 /datum/antagonist/ert/get_team()
 	return ert_team
 
-/datum/antagonist/ert/New()
-	. = ..()
-	name_source = GLOB.last_names
-
 /datum/antagonist/ert/proc/update_name()
-	owner.current.fully_replace_character_name(owner.current.real_name,"[role] [pick(name_source)]")
+	var/name
+	if (name = pick(name_source))
+	else if (!(name = owner.current.client?.prefs.custom_names["human"]))
+		name = pick(GLOB.last_names)
+	owner.current.fully_replace_character_name(owner.current.real_name,"[role] [name]")
 
 /datum/antagonist/ert/deathsquad/New()
 	. = ..()
