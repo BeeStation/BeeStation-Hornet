@@ -1,0 +1,6 @@
+author: spockye
+delete-after: true
+changes:
+  - rscadd: new box vacant office
+  - bugfix: fixes zones and wires on box station
+  - bugfix: removed unused passtrought turf tiles in maintenance
