@@ -436,7 +436,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	. = ..()
 	if (!isabductor(user))
 		return
-	. += "The device emits active neuro-impulses to stun only a single target at a time."
+	. += "The device emits active neuro-impulses capable of stunning up to a single target at a time."
 	switch(mode)
 		if(BATON_STUN)
 			. += "<span class='warning'>The baton is in stun mode.</span>"
