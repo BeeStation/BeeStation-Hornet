@@ -17,9 +17,6 @@ GLOBAL_LIST(xenoa_uranium_blacklist)
 
 ///Fill globals
 /proc/generate_xenoa_statics()
-	if(GLOB.xenoa_all_traits?.len) //Stop artifacts & other spamming generation
-		return
-
 	GLOB.xenoa_seller_names -= ""
 	GLOB.xenoa_seller_dialogue -= ""
 	GLOB.xenoa_artifact_names -= ""
