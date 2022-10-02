@@ -435,7 +435,7 @@
 	color = col
 
 /datum/beam/xenoa_beam/Draw()
-	var/Angle = round(Get_Angle(origin,target))
+	var/Angle = round(get_angle(origin,target))
 	var/matrix/rot_matrix = matrix()
 	rot_matrix.Turn(Angle)
 
