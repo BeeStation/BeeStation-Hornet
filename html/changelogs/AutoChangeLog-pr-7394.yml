@@ -1,0 +1,9 @@
+author: DrDuckedGoose
+delete-after: true
+changes:
+  - rscadd: New monkey sprites
+  - tweak: Tweaks monkey inventory update - procs interface with ``monkey_icon``
+  - rscadd: Add ``i_clothing`` slot to monkey equipment slots
+  - tweak: Allow monkeys to equip ``i_clothing``
+  - rscadd: Add Experiment gimmick job
+  - rscadd: Add Experiment job-spawn to MetaStation
