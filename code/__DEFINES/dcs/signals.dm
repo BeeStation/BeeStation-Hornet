@@ -629,3 +629,6 @@
 #define COMSIG_SUPERMATTER_DELAM_START_ALARM "sm_delam_start_alarm"
 /// from /obj/machinery/power/supermatter_crystal/process_atmos(); when the SM sounds an audible alarm
 #define COMSIG_SUPERMATTER_DELAM_ALARM "sm_delam_alarm"
+
+// /obj/machinery signals
+#define COMSIG_MACHINERY_BROKEN "machinery_broken"				//from /obj/machinery/obj_break(damage_flag): (damage_flag)
