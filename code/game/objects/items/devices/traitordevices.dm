@@ -282,7 +282,7 @@ effective or pretty fucking useless.
 	var/range = 12
 
 /obj/item/jammer/Destroy()
-		GLOB.active_jammers -= src
+	GLOB.active_jammers -= src
 	return ..()
 
 /obj/item/jammer/attack_self(mob/user)
