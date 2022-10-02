@@ -109,12 +109,12 @@
 			buckled_mob.setDir(direction)
 
 /obj/structure/chair/proc/handle_layer()
-  if(override_layer)
-	return
-  if(has_buckled_mobs() && dir == NORTH)
-    layer = ABOVE_MOB_LAYER
-  else
-    layer = OBJ_LAYER
+	if(override_layer)
+		return
+	if(has_buckled_mobs() && dir == NORTH)
+		layer = ABOVE_MOB_LAYER
+	else
+		layer = OBJ_LAYER
 
 /obj/structure/chair/post_buckle_mob(mob/living/M)
 	. = ..()
