@@ -20,6 +20,10 @@ GLOBAL_LIST(xenoa_uranium_blacklist)
     if(GLOB.xenoa_all_traits?.len) //Stop artifacts & other spamming generation
         return
 
+    GLOB.xenoa_seller_names.Cut(0,0)
+    GLOB.xenoa_seller_dialogue.Cut(0,0)
+    GLOB.xenoa_artifact_names.Cut(0,0)
+
     GLOB.xenoa_activators = compile_artifact_weights(/datum/xenoartifact_trait/activator)
     GLOB.xenoa_minors = compile_artifact_weights(/datum/xenoartifact_trait/minor)
     GLOB.xenoa_majors = compile_artifact_weights(/datum/xenoartifact_trait/major)
