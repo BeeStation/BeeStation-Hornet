@@ -627,3 +627,7 @@
 #define COMSIG_SUPERMATTER_DELAM_START_ALARM "sm_delam_start_alarm"
 /// from /obj/machinery/power/supermatter_crystal/process_atmos(); when the SM sounds an audible alarm
 #define COMSIG_SUPERMATTER_DELAM_ALARM "sm_delam_alarm"
+
+// Radio jammer signals
+/// Calls something to toggle its jamming ability. (mob/user, silent = FALSE)
+#define COMSIG_TOGGLE_JAMMER "toggle_jammer
