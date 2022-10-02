@@ -7,6 +7,9 @@
 /// This ruleset can only be picked once. Anything that does not have a scaling_cost MUST have this.
 #define LONE_RULESET (1 << 2)
 
+/// This ruleset can't execute alongside ANY other roundstart ruleset.
+#define NO_OTHER_ROUNDSTARTS_RULESET (1 << 3)
+
 /// This is a "heavy" midround ruleset, and should be run later into the round
 #define MIDROUND_RULESET_STYLE_HEAVY "Heavy"
 
