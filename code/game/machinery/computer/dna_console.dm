@@ -186,7 +186,7 @@
 	for(var/direction in GLOB.cardinals)
 		test_scanner = locate(/obj/machinery/dna_scannernew, get_step(src, direction))
 		if(!isnull(test_scanner))
-			if(test_scanner.is_operational())
+			if(test_scanner.is_operational)
 				connect_scanner(test_scanner)
 				return
 			else
@@ -1566,7 +1566,7 @@
 	if(!connected_scanner)
 		return FALSE
 
-	return (connected_scanner && connected_scanner.is_operational() && !connected_scanner.wires.is_cut(WIRE_LIMIT))
+	return (connected_scanner && connected_scanner.is_operational && !connected_scanner.wires.is_cut(WIRE_LIMIT))
 
 /**
   * Checks if there is a valid DNA Scanner occupant for genetic modification

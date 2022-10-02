@@ -306,12 +306,15 @@
 	return ..()
 
 /obj/machinery/camera/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
-	if(damage_flag == "melee" && damage_amount < 12 && !(stat & BROKEN))
+	if(damage_flag == "melee" && damage_amount < 12 && !(machine_stat & BROKEN))
 		return 0
 	. = ..()
 
 /obj/machinery/camera/obj_break(damage_flag)
-	if(status && !(flags_1 & NODECONSTRUCT_1))
+	if(!status)
+		return
+	. = ..()
+	if(.)
 		triggerCameraAlarm()
 		toggle_cam(null, 0)
 
@@ -334,7 +337,7 @@
 /obj/machinery/camera/update_icon() //TO-DO: Make panel open states, xray camera, and indicator lights overlays instead.
 	if(!status)
 		icon_state = "[default_camera_icon]_off"
-	else if (stat & EMPED)
+	else if (machine_stat & EMPED)
 		icon_state = "[default_camera_icon]_emp"
 	else
 		icon_state = "[default_camera_icon][in_use_lights ? "_in_use" : ""]"
@@ -391,7 +394,7 @@
 /obj/machinery/camera/proc/can_use()
 	if(!status)
 		return FALSE
-	if(stat & EMPED)
+	if(machine_stat & EMPED)
 		return FALSE
 	if(is_jammed())
 		return FALSE

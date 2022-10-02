@@ -23,7 +23,7 @@
 	. = ..()
 	pump = new(src, FALSE)
 	pump.on = TRUE
-	pump.stat = 0
+	pump.machine_stat = 0
 	SSair.add_to_rebuild_queue(pump)
 
 /obj/machinery/portable_atmospherics/pump/Destroy()
@@ -65,7 +65,7 @@
 	. = ..()
 	if(. & EMP_PROTECT_SELF)
 		return
-	if(is_operational())
+	if(is_operational)
 		if(prob(50 / severity))
 			on = !on
 		if(prob(100 / severity))

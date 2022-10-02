@@ -67,7 +67,7 @@
 		add_overlay("sheater-open")
 
 /obj/machinery/space_heater/process_atmos() //TODO figure out delta_time
-	if(!on || !is_operational())
+	if(!on || !is_operational)
 		if (on) // If it's broken, turn it off too
 			on = FALSE
 		return PROCESS_KILL
@@ -133,7 +133,7 @@
 
 /obj/machinery/space_heater/emp_act(severity)
 	. = ..()
-	if(stat & (NOPOWER|BROKEN) || . & EMP_PROTECT_CONTENTS)
+	if(machine_stat & (NOPOWER|BROKEN) || . & EMP_PROTECT_CONTENTS)
 		return
 	if(cell)
 		cell.emp_act(severity)

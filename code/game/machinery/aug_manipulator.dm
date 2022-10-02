@@ -22,7 +22,7 @@
 /obj/machinery/aug_manipulator/update_icon()
 	cut_overlays()
 
-	if(stat & BROKEN)
+	if(machine_stat & BROKEN)
 		icon_state = "[initial_icon_state]-broken"
 		return
 
@@ -83,22 +83,16 @@
 				"<span class='italics'>You hear welding.</span>")
 
 			if(O.use_tool(src, user, 40, volume=50))
-				if(!(stat & BROKEN))
+				if(!(machine_stat & BROKEN))
 					return
 				to_chat(user, "<span class='notice'>You repair [src].</span>")
-				stat &= ~BROKEN
+				set_machine_stat(machine_stat & ~BROKEN)
 				obj_integrity = max(obj_integrity, max_integrity)
 				update_icon()
 		else
 			to_chat(user, "<span class='notice'>[src] does not need repairs.</span>")
 	else
 		return ..()
-
-/obj/machinery/aug_manipulator/obj_break(damage_flag)
-	if(!(flags_1 & NODECONSTRUCT_1))
-		if(!(stat & BROKEN))
-			stat |= BROKEN
-			update_icon()
 
 /obj/machinery/aug_manipulator/attack_hand(mob/user)
 	. = ..()

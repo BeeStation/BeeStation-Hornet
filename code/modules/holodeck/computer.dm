@@ -189,7 +189,7 @@ and clear when youre done! if you dont i will use :newspaper2: on you
 	if (program == map_id)
 		return
 
-	if (!is_operational())//load_program is called once with a timer (in toggle_power) we dont want this to load anything if its off
+	if (!is_operational)//load_program is called once with a timer (in toggle_power) we dont want this to load anything if its off
 		map_id = offline_program
 		force = TRUE
 
@@ -344,7 +344,7 @@ and clear when youre done! if you dont i will use :newspaper2: on you
 
 /obj/machinery/computer/holodeck/power_change()
 	. = ..()
-	INVOKE_ASYNC(src, .proc/toggle_power, !stat)
+	INVOKE_ASYNC(src, .proc/toggle_power, !machine_stat)
 
 ///shuts down the holodeck and force loads the offline_program
 /obj/machinery/computer/holodeck/proc/emergency_shutdown()

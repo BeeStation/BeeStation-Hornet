@@ -229,7 +229,7 @@ GLOBAL_LIST_EMPTY(allCasters)
 
 /obj/machinery/newscaster/update_icon()
 	cut_overlays()
-	if(stat & (NOPOWER|BROKEN))
+	if(machine_stat & (NOPOWER|BROKEN))
 		icon_state = "newscaster_off"
 		set_light(0)
 	else
@@ -253,14 +253,14 @@ GLOBAL_LIST_EMPTY(allCasters)
 
 
 /obj/machinery/newscaster/power_change()
-	if(stat & BROKEN)
+	if(machine_stat & BROKEN)
 		return
 	if(powered())
-		stat &= ~NOPOWER
+		set_machine_stat(machine_stat & ~NOPOWER)
 		update_icon()
 	else
 		spawn(rand(0, 15))
-			stat |= NOPOWER
+			set_machine_stat(machine_stat | NOPOWER)
 			update_icon()
 
 /obj/machinery/newscaster/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
@@ -725,7 +725,7 @@ GLOBAL_LIST_EMPTY(allCasters)
 		I.play_tool_sound(src)
 		if(I.use_tool(src, user, 60))
 			playsound(loc, 'sound/items/deconstruct.ogg', 50, 1)
-			if(stat & BROKEN)
+			if(machine_stat & BROKEN)
 				to_chat(user, "<span class='warning'>The broken remains of [src] fall on the ground.</span>")
 				new /obj/item/stack/sheet/iron(loc, 5)
 				new /obj/item/shard(loc)
@@ -735,18 +735,18 @@ GLOBAL_LIST_EMPTY(allCasters)
 				new /obj/item/wallframe/newscaster(loc)
 			qdel(src)
 	else if(I.tool_behaviour == TOOL_WELDER && user.a_intent != INTENT_HARM)
-		if(stat & BROKEN)
+		if(machine_stat & BROKEN)
 			if(!I.tool_start_check(user, amount=0))
 				return
 			user.visible_message("[user] is repairing [src].", \
 							"<span class='notice'>You begin repairing [src]...</span>", \
 							"<span class='italics'>You hear welding.</span>")
 			if(I.use_tool(src, user, 40, volume=50))
-				if(!(stat & BROKEN))
+				if(!(machine_stat & BROKEN))
 					return
 				to_chat(user, "<span class='notice'>You repair [src].</span>")
 				obj_integrity = max_integrity
-				stat &= ~BROKEN
+				set_machine_stat(machine_stat & ~BROKEN)
 				update_icon()
 		else
 			to_chat(user, "<span class='notice'>[src] does not need repairs.</span>")
@@ -756,7 +756,7 @@ GLOBAL_LIST_EMPTY(allCasters)
 /obj/machinery/newscaster/play_attack_sound(damage, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)
 		if(BRUTE)
-			if(stat & BROKEN)
+			if(machine_stat & BROKEN)
 				playsound(loc, 'sound/effects/hit_on_shattered_glass.ogg', 100, 1)
 			else
 				playsound(loc, 'sound/effects/glasshit.ogg', 90, 1)
@@ -771,12 +771,10 @@ GLOBAL_LIST_EMPTY(allCasters)
 		new /obj/item/shard(loc)
 	qdel(src)
 
-/obj/machinery/newscaster/obj_break()
-	if(!(stat & BROKEN) && !(flags_1 & NODECONSTRUCT_1))
-		stat |= BROKEN
-		playsound(loc, 'sound/effects/glassbr3.ogg', 100, 1)
-		update_icon()
-
+/obj/machinery/newscaster/obj_break(damage_flag)
+	. = ..()
+	if(.)
+		playsound(loc, 'sound/effects/glassbr3.ogg', 100, TRUE)
 
 /obj/machinery/newscaster/attack_paw(mob/user)
 	if(user.a_intent != INTENT_HARM)

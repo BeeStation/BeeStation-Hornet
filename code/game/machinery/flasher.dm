@@ -44,13 +44,13 @@
 
 /obj/machinery/flasher/power_change()
 	if (powered() && anchored && bulb)
-		stat &= ~NOPOWER
+		set_machine_stat(machine_stat & ~NOPOWER)
 		if(bulb.burnt_out)
 			icon_state = "[base_state]1-p"
 		else
 			icon_state = "[base_state]1"
 	else
-		stat |= NOPOWER
+		set_machine_stat(machine_stat | NOPOWER)
 		icon_state = "[base_state]1-p"
 
 //Don't want to render prison breaks impossible
@@ -135,19 +135,17 @@
 
 /obj/machinery/flasher/emp_act(severity)
 	. = ..()
-	if(!(stat & (BROKEN|NOPOWER)) && !(. & EMP_PROTECT_SELF))
+	if(!(machine_stat & (BROKEN|NOPOWER)) && !(. & EMP_PROTECT_SELF))
 		if(bulb && prob(75/severity))
 			flash()
 			bulb.burn_out()
 			power_change()
 
 /obj/machinery/flasher/obj_break(damage_flag)
-	if(!(flags_1 & NODECONSTRUCT_1))
-		if(!(stat & BROKEN))
-			stat |= BROKEN
-			if(bulb)
-				bulb.burn_out()
-				power_change()
+	. = ..()
+	if(. && bulb)
+		bulb.burn_out()
+		power_change()
 
 /obj/machinery/flasher/deconstruct(disassembled = TRUE)
 	if(!(flags_1 & NODECONSTRUCT_1))

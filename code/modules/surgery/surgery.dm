@@ -79,7 +79,7 @@
 	if(table)
 		if(!table.computer)
 			return .
-		if(table.computer.stat & (NOPOWER|BROKEN))
+		if(table.computer.machine_stat & (NOPOWER|BROKEN))
 			return .
 		if(replaced_by in table.computer.advanced_surgeries)
 			return FALSE
@@ -88,7 +88,7 @@
 
 	var/obj/machinery/stasis/the_stasis_bed = locate(/obj/machinery/stasis, T)
 	if(the_stasis_bed?.op_computer)
-		if(the_stasis_bed.op_computer.stat & (NOPOWER|BROKEN))
+		if(the_stasis_bed.op_computer.machine_stat & (NOPOWER|BROKEN))
 			return .
 		if(replaced_by in the_stasis_bed.op_computer.advanced_surgeries)
 			return FALSE
@@ -156,7 +156,7 @@
 	var/obj/structure/table/optable/table = locate(/obj/structure/table/optable, T)
 	if(!table || !table.computer)
 		return FALSE
-	if(table.computer.stat & (NOPOWER|BROKEN))
+	if(table.computer.machine_stat & (NOPOWER|BROKEN))
 		return FALSE
 	if(type in table.computer.advanced_surgeries)
 		return TRUE

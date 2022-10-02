@@ -43,7 +43,7 @@
 
 	for(var/I in callees)
 		var/obj/machinery/holopad/H = I
-		if(!QDELETED(H) && H.is_operational())
+		if(!QDELETED(H) && H.is_operational)
 			dialed_holopads += H
 			H.say("Incoming call.")
 			LAZYADD(H.holo_calls, src)
@@ -166,13 +166,13 @@
 /datum/holocall/proc/Check()
 	for(var/I in dialed_holopads)
 		var/obj/machinery/holopad/H = I
-		if(!H.is_operational())
+		if(!H.is_operational)
 			ConnectionFailure(H)
 
 	if(QDELETED(src))
 		return FALSE
 
-	. = !QDELETED(user) && !user.incapacitated() && !QDELETED(calling_holopad) && calling_holopad.is_operational() && user.loc == calling_holopad.loc
+	. = !QDELETED(user) && !user.incapacitated() && !QDELETED(calling_holopad) && calling_holopad.is_operational && user.loc == calling_holopad.loc
 
 	if(.)
 		if(!connected_holopad)

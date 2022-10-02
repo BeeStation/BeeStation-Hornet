@@ -111,7 +111,7 @@
 	return GLOB.default_state
 
 /obj/machinery/modular_fabricator/ui_interact(mob/user, datum/tgui/ui = null)
-	if(!is_operational())
+	if(!is_operational)
 		return
 
 	ui = SStgui.try_update_ui(user, src, ui)
