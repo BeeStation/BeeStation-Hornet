@@ -496,12 +496,12 @@
 
 	for(var/law in hacked)
 		if (length(law) > 0)
-			var/num = ionnum()
+			var/num = ion_num()
 			data += "[show_numbers ? "[num]:" : ""] <font color='#660000'>[law]</font>"
 
 	for(var/law in ion)
 		if (length(law) > 0)
-			var/num = ionnum()
+			var/num = ion_num()
 			data += "[show_numbers ? "[num]:" : ""] <font color='#547DFE'>[law]</font>"
 
 	var/number = 1

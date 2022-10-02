@@ -55,7 +55,7 @@
 		var/atom/movable/oldfirer = P.firer
 		P.firer = src
 		P.original = oldfirer
-		P.setAngle(Get_Angle(src, oldfirer))
+		P.setAngle(get_angle(src, oldfirer))
 		visible_message("<span class='danger'>The air around [src] diverts \the [P] back towards [oldfirer]!</span>")
 		return BULLET_ACT_FORCE_PIERCE
 	return ..()
@@ -105,7 +105,7 @@
 		var/atom/movable/oldfirer = P.firer
 		P.firer = src
 		P.original = oldfirer
-		P.setAngle(Get_Angle(src, oldfirer))
+		P.setAngle(get_angle(src, oldfirer))
 		visible_message("<span class='danger'>The air around [src] diverts \the [P] back towards [oldfirer]!</span>")
 		return BULLET_ACT_FORCE_PIERCE
 	return ..()
