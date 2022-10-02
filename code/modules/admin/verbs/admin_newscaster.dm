@@ -1,16 +1,14 @@
 /datum/admins/proc/access_news_network() //MARKER
-	set category = "Admin.Events"
+	set category = "Round"
 	set name = "Access Newscaster Network"
 	set desc = "Allows you to view, add and edit news feeds."
 
 	if (!istype(src, /datum/admins))
 		src = usr.client.holder
 	if (!istype(src, /datum/admins))
-		to_chat(usr, "Error: you are not an admin!", confidential = TRUE)
 		return
 
 	var/datum/newspanel/new_newspanel = new
-
 	new_newspanel.ui_interact(usr)
 
 /datum/newspanel
@@ -24,18 +22,26 @@
 	var/datum/picture/current_image
 	///Is the current user creating a new channel at the moment?
 	var/creating_channel = FALSE
+	///Is the current user editing the current channel at the moment?
+	var/editing_channel = FALSE
 	///Is the current user creating a new comment at the moment?
 	var/creating_comment = FALSE
 	///Is the current user editing or viewing a new wanted issue at the moment?
 	var/viewing_wanted  = FALSE
+	///Is the current user editing the wanted issue at the moment?
+	var/editing_wanted = FALSE
 	///What is the user submitted, criminal name for the new wanted issue?
 	var/criminal_name
 	///What is the user submitted, crime description for the new wanted issue?
 	var/crime_description
+	///If the current wanted issue has an image
+	var/wanted_image = FALSE
 	///What is the current, in-creation channel's name going to be?
 	var/channel_name
 	///What is the current, in-creation channel's description going to be?
 	var/channel_desc
+	///What is the current, in-creation channel's publicity going to be?
+	var/channel_locked
 	///What is the current, in-creation comment's body going to be?
 	var/comment_text
 
@@ -55,6 +61,8 @@
 	var/list/message_list = list()
 
 	data["user"] = list()
+	data["user"]["authenticated"] = TRUE
+	data["user"]["admin"] = TRUE
 	data["user"]["name"] = "Centcom Official"
 	data["user"]["job"] = "Official"
 	data["user"]["department"] = "Department of News"
@@ -62,10 +70,12 @@
 	data["security_mode"] = TRUE
 	data["photo_data"] = !isnull(current_image)
 	data["creating_channel"] = creating_channel
+	data["editing_channel"] = editing_channel
 	data["creating_comment"] = creating_comment
 
 	//Here is all the UI_data sent about the current wanted issue, as well as making a new one in the UI.
 	data["viewing_wanted"] = viewing_wanted
+	data["editing_wanted"] = editing_wanted
 	data["making_wanted_issue"] = !(GLOB.news_network.wanted_issue?.active)
 	data["criminal_name"] = criminal_name
 	data["crime_description"] = crime_description
@@ -104,8 +114,9 @@
 					"body" = comment_message.body,
 					"time" = comment_message.time_stamp,
 				))
+			var/auth_m = feed_message.return_author()
 			message_list += list(list(
-				"auth" = feed_message.author,
+				"auth" = auth_m,
 				"body" = feed_message.body,
 				"time" = feed_message.time_stamp,
 				"channel_num" = feed_message.parent_ID,
@@ -113,6 +124,7 @@
 				"censored_author" = feed_message.author_censor,
 				"ID" = feed_message.message_ID,
 				"photo" = photo_ID,
+				"photo_caption" = feed_message.caption,
 				"comments" = comment_list
 			))
 
@@ -130,6 +142,11 @@
 		data["channelDesc"] = current_channel.channel_desc
 		data["channelLocked"] = current_channel.locked
 		data["channelCensored"] = current_channel.censored
+
+	data["editor"] = list()
+	data["editor"]["channelName"] = channel_name
+	data["editor"]["channelDesc"] = channel_desc
+	data["editor"]["channelLocked"] = channel_locked
 
 	//We send all the information about all channels and all messages in existance.
 	data["channels"] = channel_list
@@ -166,6 +183,10 @@
 			start_creating_channel()
 			return TRUE
 
+		if("startEditChannel")
+			start_edit_channel()
+			return TRUE
+
 		if("setChannelName")
 			var/pre_channel_name = params["channeltext"]
 			if(!pre_channel_name)
@@ -178,15 +199,26 @@
 				return TRUE
 			channel_desc = pre_channel_desc
 
+		if("setChannelLocked")
+			channel_locked = !!params["channellocked"]
+			return TRUE
+
 		if("createChannel")
 			var/locked = params["lockedmode"]
-			create_channel(locked)
+			if(creating_channel)
+				create_channel(locked)
+			else if(editing_channel)
+				edit_channel(locked)
 			return TRUE
 
 		if("cancelCreation")
-			creating_channel = FALSE
+			stop_editing_channel()
+			stop_creating_channel()
 			creating_comment = FALSE
 			viewing_wanted = FALSE
+			editing_wanted = FALSE
+			criminal_name = null
+			crime_description = null
 			return TRUE
 
 		if("storyCensor")
@@ -210,6 +242,9 @@
 					current_channel = potential_channel
 					break
 			current_channel.toggle_censor_D_class()
+			// Channel censor is part of static data
+			update_static_data(usr)
+			return TRUE
 
 		if("startComment")
 			creating_comment = TRUE
@@ -232,8 +267,14 @@
 			create_comment()
 			return TRUE
 
-		if("toggleWanted")
+		if("showWanted")
 			viewing_wanted = TRUE
+			editing_wanted = FALSE
+			return TRUE
+
+		if("editWanted")
+			viewing_wanted = TRUE
+			editing_wanted = TRUE
 			return TRUE
 
 		if("setCriminalName")
@@ -253,8 +294,13 @@
 		if("submitWantedIssue")
 			if(!crime_description || !criminal_name)
 				return TRUE
-			GLOB.news_network.submit_wanted(criminal_name, crime_description, "Centcom Official", current_image, adminMsg = TRUE, newMessage = TRUE)
+			GLOB.news_network.submit_wanted(criminal_name, crime_description, "Centcom Official", current_image, adminMsg = TRUE, newMessage = TRUE, has_image = wanted_image)
 			current_image = null
+			viewing_wanted = FALSE
+			editing_wanted = FALSE
+			criminal_name = null
+			crime_description = null
+			wanted_image = FALSE
 			return TRUE
 
 		if("clearWantedIssue")
@@ -263,6 +309,17 @@
 
 	return TRUE
 
+/datum/newspanel/proc/stop_editing_channel()
+	editing_channel = FALSE
+	channel_name = null
+	channel_desc = null
+	channel_locked = null
+
+/datum/newspanel/proc/stop_creating_channel()
+	creating_channel = FALSE
+	channel_name = null
+	channel_desc = null
+	channel_locked = null
 
 /**
  * Sends photo data to build the newscaster article.
@@ -284,7 +341,7 @@
  * Performs a series of sanity checks before giving the user confirmation to create a new feed_channel using channel_name, and channel_desc.
  * *channel_locked: This variable determines if other users than the author can make comments and new feed_stories on this channel.
  */
-/datum/newspanel/proc/create_channel(channel_locked)
+/datum/newspanel/proc/create_channel()
 	if(!channel_name)
 		return
 	for(var/datum/feed_channel/iterated_feed_channel as anything in GLOB.news_network.network_channels)
@@ -293,13 +350,27 @@
 			return TRUE
 	if(!channel_desc)
 		return TRUE
-	if(isnull(channel_locked))
-		return TRUE
 	var/choice = alert(usr, "Please confirm feed channel creation","Network Channel Handler", "Confirm", "Cancel")
 	if(choice == "Confirm")
-		GLOB.news_network.create_feed_channel(channel_name, "Centcom Offical", channel_desc, locked = channel_locked)
+		GLOB.news_network.create_feed_channel(channel_name, "Centcom Official", channel_desc, locked = channel_locked)
 		SSblackbox.record_feedback("text", "newscaster_channels", 1, "[channel_name]")
-	creating_channel = FALSE
+	stop_creating_channel()
+	update_static_data(usr)
+
+/datum/newspanel/proc/edit_channel()
+	if(!channel_name)
+		return
+	for(var/datum/feed_channel/iterated_feed_channel as anything in GLOB.news_network.network_channels)
+		if(iterated_feed_channel != current_channel && iterated_feed_channel.channel_name == channel_name)
+			alert(usr, "ERROR: Feed channel with that name already exists on the Network.", "Okay")
+			return TRUE
+	if(!channel_desc)
+		return TRUE
+	current_channel.channel_name = channel_name
+	current_channel.channel_desc = channel_desc
+	current_channel.locked = channel_locked
+	stop_editing_channel()
+	update_static_data(usr)
 
 /**
  * Constructs a comment to attach to the currently selected feed_message of choice, assuming that a user can be found and that a message body has been written.
@@ -322,14 +393,16 @@
  * Otherwise, sets creating_channel to TRUE.
  */
 /datum/newspanel/proc/start_creating_channel()
-	//This first block checks for pre-existing reasons to prevent you from making a new channel, like being censored, or if you have a channel already.
-	var/list/existing_authors = list()
-	for(var/datum/feed_channel/iterated_feed_channel as anything in GLOB.news_network.network_channels)
-		if(iterated_feed_channel.author_censor)
-			existing_authors += GLOB.news_network.redacted_text
-		else
-			existing_authors += iterated_feed_channel.author
 	creating_channel = TRUE
+
+/datum/newspanel/proc/start_edit_channel()
+	// bad
+	if(current_channel.channel_name == "Station Announcements")
+		return TRUE
+	channel_name = current_channel.channel_name
+	channel_desc = current_channel.channel_desc
+	channel_locked = current_channel.locked
+	editing_channel = TRUE
 
 /**
  * Creates a new feed story to the global newscaster network.
@@ -346,7 +419,7 @@
 		return TRUE
 	if(temp_message)
 		feed_channel_message = temp_message
-	GLOB.news_network.submit_article("<font face=\"[PEN_FONT]\">[parsemarkdown(feed_channel_message, usr)]</font>", "Centcom Official", current_channel.channel_name, send_photo_data(), adminMessage = TRUE, allow_comments = TRUE)
+	GLOB.news_network.submit_article("<font face=\"[PEN_FONT]\">[parsemarkdown(feed_channel_message, usr)]</font>", "Centcom Official", current_channel.channel_name, send_photo_data(), adminMessage = TRUE, allow_comments = TRUE, author_job = "Official")
 	SSblackbox.record_feedback("amount", "newscaster_stories", 1)
 	feed_channel_message = ""
 	current_image = null
@@ -365,4 +438,6 @@
 
 /datum/newspanel/proc/clear_wanted_issue(user)
 	GLOB.news_network.wanted_issue.active = FALSE
+	wanted_image = FALSE
+	current_image = null
 	return

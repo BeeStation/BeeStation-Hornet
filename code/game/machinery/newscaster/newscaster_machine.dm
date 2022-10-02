@@ -11,8 +11,6 @@
 	armor = list("melee" = 50, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "fire" = 50, "acid" = 30)
 	max_integrity = 200
 	integrity_failure = 0.25
-	///Reference to the currently logged in user.
-	var/datum/bank_account/current_user
 	///How much paper is contained within the newscaster?
 	var/paper_remaining = 0
 
@@ -26,20 +24,28 @@
 	var/datum/picture/current_image
 	///Is there currently an alert on this newscaster that hasn't been seen yet?
 	var/alert = FALSE
-	///Is the current user editing or viewing a new wanted issue at the moment?
-	var/viewing_wanted  = FALSE
+	///Is the current user viewing the issue at the moment?
+	var/viewing_wanted = FALSE
+	///Is the current user editing the wanted issue at the moment?
+	var/editing_wanted = FALSE
 	///Is the current user creating a new channel at the moment?
 	var/creating_channel = FALSE
+	///Is the current user editing the current channel at the moment?
+	var/editing_channel = FALSE
 	///Is the current user creating a new comment at the moment?
 	var/creating_comment = FALSE
 	///What is the user submitted, criminal name for the new wanted issue?
 	var/criminal_name
 	///What is the user submitted, crime description for the new wanted issue?
 	var/crime_description
+	///If the current wanted issue has an image
+	var/wanted_image = FALSE
 	///What is the current, in-creation channel's name going to be?
 	var/channel_name
 	///What is the current, in-creation channel's description going to be?
 	var/channel_desc
+	///What is the current, in-creation channel's publicity going to be?
+	var/channel_locked
 	///What is the current, in-creation comment's body going to be?
 	var/comment_text
 
@@ -62,7 +68,6 @@
 	current_channel = null
 	current_image = null
 	active_request = null
-	current_user = null
 	return ..()
 
 /obj/machinery/newscaster/update_icon()
@@ -101,6 +106,13 @@
 	alert = FALSE //We're checking our messages!
 	update_icon()
 
+/obj/machinery/newscaster/proc/get_registered_account(mob/user)
+	if(!isliving(user))
+		return
+	var/mob/living/living_user = user
+	var/obj/item/card/id/card = living_user.get_idcard(hand_first = TRUE)
+	if(istype(card))
+		return card.registered_account
 
 /obj/machinery/newscaster/ui_data(mob/user)
 	var/list/data = list()
@@ -112,8 +124,8 @@
 		var/mob/living/living_user = user
 		card = living_user.get_idcard(hand_first = TRUE)
 	if(card?.registered_account)
-		current_user = card.registered_account
 		data["user"] = list()
+		data["user"]["authenticated"] = TRUE
 		data["user"]["name"] = card.registered_account.account_holder
 		if(card?.registered_account.account_job)
 			data["user"]["job"] = card.registered_account.account_job.title
@@ -123,15 +135,18 @@
 			data["user"]["department"] = "No Department"
 	else
 		data["user"] = list()
-		data["user"]["name"] = user.name
+		data["user"]["authenticated"] = FALSE
+		data["user"]["name"] = "Unknown"
 		data["user"]["job"] = "N/A"
 		data["user"]["department"] = "N/A"
 
 	data["security_mode"] = (ACCESS_ARMORY in card?.GetAccess())
 	data["photo_data"] = !isnull(current_image)
 	data["creating_channel"] = creating_channel
+	data["editing_channel"] = editing_channel
 	data["creating_comment"] = creating_comment
 	data["viewing_wanted"] = viewing_wanted
+	data["editing_wanted"] = editing_wanted
 
 	//Here is all the UI_data sent about the current wanted issue, as well as making a new one in the UI.
 	data["making_wanted_issue"] = !(GLOB.news_network.wanted_issue?.active)
@@ -146,7 +161,8 @@
 			"criminal" = GLOB.news_network.wanted_issue.criminal,
 			"crime" = GLOB.news_network.wanted_issue.body,
 			"author" = GLOB.news_network.wanted_issue.scanned_user,
-			"image" = "wanted_photo.png"
+			"image" = "wanted_photo.png",
+			"has_image" = GLOB.news_network.wanted_issue.has_image,
 		))
 
 	//Code breaking down the channels that have been made on-station thus far. ha
@@ -164,8 +180,9 @@
 					"body" = comment_message.body,
 					"time" = comment_message.time_stamp,
 				))
+			var/auth_m = feed_message.return_author()
 			message_list += list(list(
-				"auth" = feed_message.author,
+				"auth" = auth_m,
 				"body" = feed_message.body,
 				"time" = feed_message.time_stamp,
 				"channel_num" = feed_message.parent_ID,
@@ -173,6 +190,7 @@
 				"censored_author" = feed_message.author_censor,
 				"ID" = feed_message.message_ID,
 				"photo" = photo_ID,
+				"photo_caption" = feed_message.caption,
 				"comments" = comment_list
 			))
 
@@ -191,6 +209,11 @@
 		data["channelDesc"] = current_channel.channel_desc
 		data["channelLocked"] = current_channel.locked
 		data["channelCensored"] = current_channel.censored
+
+	data["editor"] = list()
+	data["editor"]["channelName"] = channel_name
+	data["editor"]["channelDesc"] = channel_desc
+	data["editor"]["channelLocked"] = channel_locked
 
 	//We send all the information about all messages in existance.
 	data["messages"] = message_list
@@ -268,6 +291,10 @@
 			start_create_channel()
 			return TRUE
 
+		if("startEditChannel")
+			start_edit_channel()
+			return TRUE
+
 		if("setChannelName")
 			var/pre_channel_name = params["channeltext"]
 			if(!pre_channel_name)
@@ -280,15 +307,23 @@
 				return TRUE
 			channel_desc = pre_channel_desc
 
+		if("setChannelLocked")
+			channel_locked = !!params["channellocked"]
+			return TRUE
+
 		if("createChannel")
-			var/locked = params["lockedmode"]
-			create_channel(locked)
+			if(creating_channel)
+				create_channel()
+			else if(editing_channel)
+				edit_channel()
 			return TRUE
 
 		if("cancelCreation")
-			creating_channel = FALSE
+			stop_editing_channel()
+			stop_creating_channel()
 			creating_comment = FALSE
 			viewing_wanted = FALSE
+			editing_wanted = FALSE
 			criminal_name = null
 			crime_description = null
 			return TRUE
@@ -299,7 +334,7 @@
 				var/mob/living/living_user = usr
 				id_card = living_user.get_idcard(hand_first = TRUE)
 			if(!(ACCESS_ARMORY in id_card?.GetAccess()))
-				say("Clearance not found.")
+				say("ERROR: Unauthorized request.")
 				return TRUE
 			var/questionable_message = params["messageID"]
 			for(var/datum/feed_message/iterated_feed_message as anything in current_channel.messages)
@@ -313,7 +348,7 @@
 				var/mob/living/living_user = usr
 				id_card = living_user.get_idcard(hand_first = TRUE)
 			if(!(ACCESS_ARMORY in id_card?.GetAccess()))
-				say("Clearance not found.")
+				say("ERROR: Unauthorized request.")
 				return TRUE
 			var/questionable_message = params["messageID"]
 			for(var/datum/feed_message/iterated_feed_message in current_channel.messages)
@@ -327,7 +362,7 @@
 				var/mob/living/living_user = usr
 				id_card = living_user.get_idcard(hand_first = TRUE)
 			if(!(ACCESS_ARMORY in id_card?.GetAccess()))
-				say("Clearance not found.")
+				say("ERROR: Unauthorized request.")
 				return TRUE
 			var/prototype_channel = (params["channel"])
 			for(var/datum/feed_channel/potential_channel in GLOB.news_network.network_channels)
@@ -335,9 +370,13 @@
 					current_channel = potential_channel
 					break
 			current_channel.toggle_censor_D_class()
+			// Channel censor is part of static data
+			update_static_data(usr)
+			return TRUE
 
 		if("startComment")
-			if(!current_user)
+			if(!get_registered_account(usr))
+				say("ERROR: Cannote locate linked account ID.")
 				creating_comment = FALSE
 				return TRUE
 			creating_comment = TRUE
@@ -360,9 +399,17 @@
 			create_comment()
 			return TRUE
 
-		if("toggleWanted")
+		if("showWanted")
 			alert = FALSE
 			viewing_wanted = TRUE
+			editing_wanted = FALSE
+			update_overlays()
+			return TRUE
+
+		if("editWanted")
+			alert = FALSE
+			viewing_wanted = TRUE
+			editing_wanted = TRUE
 			update_overlays()
 			return TRUE
 
@@ -382,9 +429,19 @@
 
 		if("submitWantedIssue")
 			if(!crime_description || !criminal_name)
+				say("ERROR: Missing crime details.")
 				return TRUE
-			GLOB.news_network.submit_wanted(criminal_name, crime_description, current_user?.account_holder, current_image, adminMsg = FALSE, newMessage = TRUE)
+			var/datum/bank_account/account = get_registered_account(usr)
+			if(!istype(account))
+				say("ERROR: Cannot locate linked account ID.")
+				return TRUE
+			GLOB.news_network.submit_wanted(criminal_name, crime_description, account.account_holder, current_image, adminMsg = FALSE, newMessage = TRUE, has_image = wanted_image)
 			current_image = null
+			viewing_wanted = FALSE
+			editing_wanted = FALSE
+			criminal_name = null
+			crime_description = null
+			wanted_image = FALSE
 			return TRUE
 
 		if("clearWantedIssue")
@@ -408,12 +465,6 @@
 		if("payApplicant")
 			pay_applicant(payment_target = request_target)
 			return TRUE
-
-		if("clear")
-			if(current_user)
-				current_user = null
-				say("Account Reset.")
-				return TRUE
 
 		if("deleteRequest")
 			delete_bounty_request()
@@ -594,9 +645,8 @@
 
 /**
  * Performs a series of sanity checks before giving the user confirmation to create a new feed_channel using channel_name, and channel_desc.
- * *channel_locked: This variable determines if other users than the author can make comments and new feed_stories on this channel.
  */
-/obj/machinery/newscaster/proc/create_channel(channel_locked)
+/obj/machinery/newscaster/proc/create_channel()
 	if(!channel_name)
 		return
 	for(var/datum/feed_channel/iterated_feed_channel as anything in GLOB.news_network.network_channels)
@@ -604,15 +654,56 @@
 			alert(usr, "ERROR: Feed channel with that name already exists on the Network.", "Okay")
 			return TRUE
 	if(!channel_desc)
+		say("ERROR: No channel description present.")
 		return TRUE
-	if(isnull(channel_locked))
+	var/datum/bank_account/account = get_registered_account(usr)
+	if(!istype(account))
+		say("ERROR: Cannot locate linked account ID.")
+		stop_creating_channel()
 		return TRUE
 	var/choice = alert(usr, "Please confirm feed channel creation","Network Channel Handler", "Confirm", "Cancel")
 	if(choice == "Confirm")
-		GLOB.news_network.create_feed_channel(channel_name, current_user.account_holder, channel_desc, locked = channel_locked)
+		GLOB.news_network.create_feed_channel(channel_name, account.account_holder, channel_desc, locked = channel_locked)
 		SSblackbox.record_feedback("text", "newscaster_channels", 1, "[channel_name]")
-	creating_channel = FALSE
+	stop_creating_channel()
 	update_static_data(usr)
+
+/obj/machinery/newscaster/proc/edit_channel()
+	if(!channel_name)
+		return
+	for(var/datum/feed_channel/iterated_feed_channel as anything in GLOB.news_network.network_channels)
+		if(iterated_feed_channel != current_channel && iterated_feed_channel.channel_name == channel_name)
+			alert(usr, "ERROR: Feed channel with that name already exists on the Network.", "Okay")
+			return TRUE
+	if(!channel_desc)
+		say("ERROR: No channel description present.")
+		return TRUE
+	var/datum/bank_account/account = get_registered_account(usr)
+	if(!istype(account))
+		say("ERROR: Cannot locate linked account ID.")
+		stop_editing_channel()
+		return TRUE
+	if(current_channel.author != account?.account_holder)
+		say("ERROR: Unauthorized request.")
+		stop_editing_channel()
+		return TRUE
+	current_channel.channel_name = channel_name
+	current_channel.channel_desc = channel_desc
+	current_channel.locked = channel_locked
+	stop_editing_channel()
+	update_static_data(usr)
+
+/obj/machinery/newscaster/proc/stop_editing_channel()
+	editing_channel = FALSE
+	channel_name = null
+	channel_desc = null
+	channel_locked = null
+
+/obj/machinery/newscaster/proc/stop_creating_channel()
+	creating_channel = FALSE
+	channel_name = null
+	channel_desc = null
+	channel_locked = null
 
 /**
  * Constructs a comment to attach to the currently selected feed_message of choice, assuming that a user can be found and that a message body has been written.
@@ -621,15 +712,17 @@
 	if(!comment_text)
 		creating_comment = FALSE
 		return TRUE
-	if(!current_user)
+	var/datum/bank_account/account = get_registered_account(usr)
+	if(!istype(account))
+		say("ERROR: Cannot locate linked account ID.")
 		creating_comment = FALSE
 		return TRUE
 	var/datum/feed_comment/new_feed_comment = new/datum/feed_comment
-	new_feed_comment.author = current_user.account_holder
+	new_feed_comment.author = "[account.account_holder] ([account.account_job?.title])"
 	new_feed_comment.body = comment_text
 	new_feed_comment.time_stamp = station_time_timestamp()
 	current_message.comments += new_feed_comment
-	usr.log_message("(as [current_user.account_holder]) commented on message [current_message.return_body(-1)] -- [current_message.body]", LOG_COMMENT)
+	usr.log_message("(as [account.account_holder]) commented on message [current_message.return_body(-1)] -- [current_message.body]", LOG_COMMENT)
 	creating_comment = FALSE
 
 /**
@@ -638,6 +731,13 @@
  * Otherwise, sets creating_channel to TRUE.
  */
 /obj/machinery/newscaster/proc/start_create_channel()
+	if(editing_channel)
+		return TRUE
+	var/datum/bank_account/account = get_registered_account(usr)
+	if(!istype(account))
+		say("ERROR: Cannot locate linked account ID.")
+		stop_creating_channel()
+		return TRUE
 	//This first block checks for pre-existing reasons to prevent you from making a new channel, like being censored, or if you have a channel already.
 	var/list/existing_authors = list()
 	for(var/datum/feed_channel/iterated_feed_channel as anything in GLOB.news_network.network_channels)
@@ -645,11 +745,30 @@
 			existing_authors += GLOB.news_network.redacted_text
 		else
 			existing_authors += iterated_feed_channel.author
-	if((current_user?.account_holder == "Unknown") || (current_user.account_holder in existing_authors) || isnull(current_user?.account_holder))
-		creating_channel = FALSE
+	if((account.account_holder == "Unknown") || (account.account_holder in existing_authors) || isnull(account.account_holder))
+		stop_creating_channel()
 		alert(usr, "ERROR: User cannot be found or already has an owned feed channel.", "Okay")
 		return TRUE
 	creating_channel = TRUE
+	return TRUE
+
+/obj/machinery/newscaster/proc/start_edit_channel()
+	if(creating_channel)
+		return TRUE
+	var/datum/bank_account/account = get_registered_account(usr)
+	if(!istype(account))
+		say("ERROR: Cannot locate linked account ID.")
+		stop_editing_channel()
+		return TRUE
+	if(current_channel.author != account.account_holder)
+		say("ERROR: Unauthorized request.")
+		stop_editing_channel()
+		return TRUE
+	// set initial values to current channel settings
+	channel_name = current_channel.channel_name
+	channel_desc = current_channel.channel_desc
+	channel_locked = current_channel.locked
+	editing_channel = TRUE
 	return TRUE
 
 /**
@@ -658,16 +777,23 @@
  * Finally, it submits the message to the network, is logged globally, and clears all message-specific variables from the machine.
  */
 /obj/machinery/newscaster/proc/create_story(channel_name)
+	var/datum/bank_account/account = get_registered_account(usr)
+	if(!istype(account))
+		say("ERROR: Cannot locate linked account ID.")
+		return TRUE
 	for(var/datum/feed_channel/potential_channel as anything in GLOB.news_network.network_channels)
 		if(channel_name == potential_channel.channel_ID)
 			current_channel = potential_channel
 			break
+	if(current_channel.locked && current_channel.author != account.account_holder)
+		say("ERROR: Unauthorized request.")
+		return TRUE
 	var/temp_message = stripped_multiline_input(usr, "Write your Feed story", "Network Channel Handler", feed_channel_message)
 	if(length(temp_message) <= 1)
 		return TRUE
 	if(temp_message)
 		feed_channel_message = temp_message
-	GLOB.news_network.submit_article("<font face=\"[PEN_FONT]\">[parsemarkdown(feed_channel_message, usr)]</font>", current_user?.account_holder, current_channel.channel_name, send_photo_data(), adminMessage = FALSE, allow_comments = TRUE)
+	GLOB.news_network.submit_article("<font face=\"[PEN_FONT]\">[parsemarkdown(feed_channel_message, usr)]</font>", account.account_holder, current_channel.channel_name, send_photo_data(), adminMessage = FALSE, allow_comments = TRUE, author_job = account.account_job.title)
 	SSblackbox.record_feedback("amount", "newscaster_stories", 1)
 	feed_channel_message = ""
 	current_image = null
@@ -680,9 +806,13 @@
 	if(current_image)
 		balloon_alert(usr, "current photo cleared.")
 		current_image = null
+		if(editing_wanted)
+			wanted_image = FALSE
 		return TRUE
 	else
 		attach_photo(usr)
+		if(editing_wanted)
+			wanted_image = !!current_image
 		if(current_image)
 			balloon_alert(usr, "photo selected.")
 		else
@@ -697,16 +827,24 @@
 		say("Clearance not found.")
 		return TRUE
 	GLOB.news_network.wanted_issue.active = FALSE
+	wanted_image = FALSE
+	current_image = null
 	return TRUE
 
 /**
  * This proc removes a station_request from the global list of requests, after checking that the owner of that request is the one who is trying to remove it.
  */
 /obj/machinery/newscaster/proc/delete_bounty_request()
-	if(!active_request || !current_user)
+	var/datum/bank_account/account = get_registered_account(usr)
+	if(!istype(account))
+		say("ERROR: Cannot locate linked account ID.")
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 20, TRUE)
 		return TRUE
-	if(active_request?.owner != current_user?.account_holder)
+	if(!active_request)
+		playsound(src, 'sound/machines/buzz-sigh.ogg', 20, TRUE)
+		return TRUE
+	if(active_request?.owner != account.account_holder)
+		say("ERROR: Unauthorized request.")
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 20, TRUE)
 		return TRUE
 	say("Deleted current request.")
@@ -717,14 +855,20 @@
  * For more info, see datum/station_request.
  */
 /obj/machinery/newscaster/proc/create_bounty()
-	if(!current_user || !bounty_text)
+	var/datum/bank_account/account = get_registered_account(usr)
+	if(!istype(account))
+		say("ERROR: Cannot locate linked account ID.")
+		playsound(src, 'sound/machines/buzz-sigh.ogg', 20, TRUE)
+		return TRUE
+	if(!bounty_text)
+		say("ERROR: No bounty text.")
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 20, TRUE)
 		return TRUE
 	for(var/datum/station_request/iterated_station_request as anything in GLOB.request_list)
-		if(iterated_station_request.req_number == current_user.account_id)
-			say("Account already has active bounty.")
+		if(iterated_station_request.req_number == account.account_id)
+			say("ERROR: Account already has active bounty.")
 			return TRUE
-	var/datum/station_request/curr_request = new /datum/station_request(current_user.account_holder, bounty_value,bounty_text,current_user.account_id, current_user)
+	var/datum/station_request/curr_request = new /datum/station_request(account.account_holder, bounty_value,bounty_text, account.account_id, account)
 	GLOB.request_list += list(curr_request)
 	for(var/obj/iterated_bounty_board as anything in GLOB.allbountyboards)
 		iterated_bounty_board.say("New bounty added!")
@@ -734,28 +878,35 @@
  * Then, adds the current user to the list of applicants to that bounty.
  */
 /obj/machinery/newscaster/proc/apply_to_bounty()
-	if(!current_user)
-		say("Please equip a valid ID first.")
+	var/datum/bank_account/account = get_registered_account(usr)
+	if(!istype(account))
+		say("ERROR: Cannot locate linked account ID.")
 		return TRUE
-	if(current_user.account_holder == active_request.owner)
+	if(account.account_holder == active_request.owner)
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 20, TRUE)
 		return TRUE
-	for(var/new_apply in active_request?.applicants)
-		if(current_user.account_holder == active_request?.applicants[new_apply])
-			playsound(src, 'sound/machines/buzz-sigh.ogg', 20, TRUE)
-			return TRUE
-	active_request.applicants += list(current_user)
+	if(account in active_request.applicants)
+		playsound(src, 'sound/machines/buzz-sigh.ogg', 20, TRUE)
+		return TRUE
+	active_request.applicants += list(account)
 
 /**
  * This pays out the current request_target the amount held by the active request's assigned value, and then clears the active request from the global list.
  */
 /obj/machinery/newscaster/proc/pay_applicant(datum/bank_account/payment_target)
-	if(!current_user)
+	var/datum/bank_account/account = get_registered_account(usr)
+	if(!istype(account))
+		say("ERROR: Cannot locate linked account ID.")
 		return TRUE
-	if(!current_user.has_money(active_request.value) || (current_user.account_holder != active_request.owner))
+	var/has_money = account.has_money(active_request.value)
+	if((account.account_holder != active_request.owner) || !has_money)
+		if(has_money)
+			say("ERROR: Unauthorized request.")
+		else
+			say("ERROR: Insufficient funds.")
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 30, TRUE)
 		return TRUE
-	payment_target.transfer_money(current_user, active_request.value)
+	payment_target.transfer_money(account, active_request.value)
 	say("Paid out [active_request.value] credits.")
 	GLOB.request_list.Remove(active_request)
 	qdel(active_request)

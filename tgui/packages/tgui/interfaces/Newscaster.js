@@ -7,9 +7,9 @@
  */
 
 import { decodeHtmlEntities } from 'common/string';
-import { useBackend, useSharedState, useLocalState } from '../backend';
+import { useBackend, useSharedState } from '../backend';
 import { BountyBoardContent } from './BountyBoard';
-import { BlockQuote, Box, Button, Divider, LabeledList, Modal, Section, Stack, Tabs, TextArea, Icon, NoticeBox } from '../components';
+import { BlockQuote, Box, Button, Divider, LabeledList, Modal, Section, Stack, Tabs, TextArea, Icon, NoticeBox, Input } from '../components';
 import { Window } from '../layouts';
 import { marked } from 'marked';
 import { sanitizeText } from "../sanitize";
@@ -18,6 +18,10 @@ const CENSOR_MESSAGE = "This channel has been deemed as threatening to \
   the welfare of the station, and marked with a Nanotrasen D-Notice.";
 
 export const Newscaster = (_, context) => {
+  const { data } = useBackend(context);
+  const {
+    user,
+  } = data;
   const NEWSCASTER_SCREEN = 1;
   const BOUNTYBOARD_SCREEN = 2;
   const [screenmode, setScreenmode] = useSharedState(context, 'tab_main', NEWSCASTER_SCREEN);
@@ -26,6 +30,7 @@ export const Newscaster = (_, context) => {
       width={575}
       height={560}>
       <NewscasterChannelCreation />
+      <NewscasterChannelEditing />
       <NewscasterCommentCreation />
       <NewscasterWantedScreen />
       <Window.Content scrollable>
@@ -38,12 +43,14 @@ export const Newscaster = (_, context) => {
                 onClick={() => setScreenmode(NEWSCASTER_SCREEN)}>
                 Newscaster
               </Tabs.Tab>
-              <Tabs.Tab
-                Color="Blue"
-                selected={screenmode === BOUNTYBOARD_SCREEN}
-                onClick={() => setScreenmode(BOUNTYBOARD_SCREEN)}>
-                Bounty Board
-              </Tabs.Tab>
+              {!user?.admin && (
+                <Tabs.Tab
+                  Color="Blue"
+                  selected={screenmode === BOUNTYBOARD_SCREEN}
+                  onClick={() => setScreenmode(BOUNTYBOARD_SCREEN)}>
+                  Bounty Board
+                </Tabs.Tab>
+              )}
             </Tabs>
           </Stack.Item>
           <Stack.Item grow>
@@ -60,91 +67,120 @@ export const Newscaster = (_, context) => {
   );
 };
 
-/** The modal menu that contains the prompts to making new channels. */
-const NewscasterChannelCreation = (_, context) => {
-  const { act, data } = useBackend(context);
-  const [lockedmode, setLockedmode] = useLocalState(context, 'lockedmode', 1);
-  const {
-    creating_channel,
-  } = data;
-  if (!creating_channel) {
-    return null;
-  }
+const NewscasterChannelModal = (
+  {
+    header,
+    submit_content,
+  },
+  context) => {
+  const { act,
+    data: {
+      editor: {
+        channelName,
+        channelDesc,
+        channelLocked,
+      },
+    },
+  } = useBackend(context);
   return (
     <Modal
       textAlign="center"
-      mr={1.5}>
-      <Stack vertical>
-        <>
-          <Stack.Item>
-            <Box pb={1}>
-              Enter channel name here:
+      mr={1.5}
+      pt={0}
+      style={{ border: "1px solid #2c4461" }}
+      width="350px">
+      <h2>{header}</h2>
+      <Stack vertical fill>
+        <Stack.Item>
+          <Stack>
+            <Stack.Item>
+              <Box as="label" color="label" htmlFor="create_channel_name">Channel Name: </Box>
+            </Stack.Item>
+            <Stack.Item grow>
+              <Input
+                id="create_channel_name"
+                width="100%"
+                maxLength={42}
+                onChange={(e, name) => act('setChannelName', {
+                  channeltext: name,
+                })}
+                value={channelName} />
+            </Stack.Item>
+          </Stack>
+        </Stack.Item>
+        <Stack.Item>
+          <Stack>
+            <Stack.Item>
+              <Box as="label" color="label" htmlFor="create_channel_name">Channel Privacy: </Box>
+            </Stack.Item>
+            <Stack.Item grow textAlign="left">
               <Button
-                content="X"
-                color="red"
-                position="relative"
-                top="20%"
-                left="15%"
-                onClick={() => act('cancelCreation')} />
-            </Box>
-            <TextArea
-              fluid
-              height="40px"
-              width="240px"
-              backgroundColor="black"
-              textColor="white"
-              maxLength={42}
-              onChange={(e, name) => act('setChannelName', {
-                channeltext: name,
-              })}>
-              Channel Name
-            </TextArea>
-          </Stack.Item>
-          <Stack.Item>
-            <Box pb={1}>
-              Enter channel description here:
-            </Box>
-            <TextArea
-              fluid
-              height="150px"
-              width="240px"
-              backgroundColor="black"
-              textColor="white"
-              maxLength={512}
-              onChange={(e, desc) => act('setChannelDesc', {
-                channeldesc: desc,
-              })}>
-              Channel Description
-            </TextArea>
-          </Stack.Item>
-          <Stack.Item>
-            <Section>
-              Set Channel as Public or Private
-              <Box pt={1}>
-                <Button
-                  selected={!lockedmode}
-                  content="Public"
-                  onClick={() => setLockedmode(false)} />
-                <Button
-                  selected={!!lockedmode}
-                  content="Private"
-                  onClick={() => setLockedmode(true)} />
-              </Box>
-            </Section>
-          </Stack.Item>
-          <Stack.Item>
-            <Box>
+                selected={!channelLocked}
+                content="Public"
+                onClick={() => act('setChannelLocked', { channellocked: false })} />
               <Button
-                content="Submit Channel"
-                onClick={() => act('createChannel', {
-                  lockedmode: lockedmode,
-                })} />
-            </Box>
-          </Stack.Item>
-        </>
+                selected={!!channelLocked}
+                content="Private"
+                onClick={() => act('setChannelLocked', { channellocked: true })} />
+            </Stack.Item>
+          </Stack>
+        </Stack.Item>
+        <Stack.Item>
+          <Stack vertical>
+            <Stack.Item>
+              <Box as="label" color="label" htmlFor="create_channel_desc">Channel Description</Box>
+            </Stack.Item>
+            <Stack.Item grow>
+              <TextArea
+                id="create_channel_desc"
+                height="150px"
+                width="100%"
+                maxLength={512}
+                onChange={(e, desc) => act('setChannelDesc', {
+                  channeldesc: desc,
+                })}
+                value={channelDesc} />
+            </Stack.Item>
+          </Stack>
+        </Stack.Item>
+        <Stack.Item>
+          <Box>
+            <Button
+              content={submit_content}
+              onClick={() => act('createChannel')} />
+            <Button
+              content="Cancel"
+              color="red"
+              onClick={() => act('cancelCreation')} />
+          </Box>
+        </Stack.Item>
       </Stack>
     </Modal>
   );
+};
+
+/** The modal menu that contains the prompts to making new channels. */
+const NewscasterChannelCreation = (_, context) => {
+  const { data: { creating_channel } } = useBackend(context);
+  if (!creating_channel) {
+    return null;
+  }
+  return <NewscasterChannelModal header="Create Channel" submit_content="Submit Channel" default_locked />;
+};
+
+const NewscasterChannelEditing = (_, context) => {
+  const {
+    data: {
+      creating_channel,
+      editing_channel,
+    },
+  } = useBackend(context);
+  if (creating_channel || !editing_channel) {
+    return null;
+  }
+  return (<NewscasterChannelModal
+    header="Edit Channel"
+    submit_content="Save Changes" />);
 };
 
 /** The modal menu that contains the prompts to making new comments. */
@@ -204,13 +240,14 @@ const NewscasterWantedScreen = (_, context) => {
   const { act, data } = useBackend(context);
   const {
     viewing_wanted,
+    editing_wanted,
     photo_data,
     security_mode,
     wanted = [],
     criminal_name,
     crime_description,
   } = data;
-  if (!viewing_wanted) {
+  if (!viewing_wanted && !editing_wanted) {
     return null;
   }
   return (
@@ -218,91 +255,85 @@ const NewscasterWantedScreen = (_, context) => {
       textAlign="center"
       mr={1.5}
       width={25}>
-      {wanted.map(activeWanted => (
-        <>
-          <Stack vertical>
-            <Stack.Item>
-              <Box bold color="red">
-                {activeWanted.active?"Active Wanted Issue:"
-                  :"Dismissed Wanted Issue:"}
-                <Button
-                  content="X"
-                  color="red"
-                  position="relative"
-                  top="20%"
-                  left="18%"
-                  onClick={() => act('cancelCreation')} />
-              </Box>
-              <Section>
-                <Box bold>
-                  {activeWanted.criminal}
-                </Box>
-                <Box italic>
-                  {activeWanted.crime}
-                </Box>
-              </Section>
-              <Box
-                as="img"
-                src={activeWanted.image
-                  ? activeWanted.image
-                  : null} />
-              <Box italic>
-                Posted by {activeWanted.author ? activeWanted.author : "N/A"}
-              </Box>
-            </Stack.Item>
-          </Stack>
-          <Divider />
-        </>
-      ))}
-      {security_mode
-        ?(
+      {!editing_wanted ? wanted
+        .filter(wanted => wanted.criminal)
+        .map(activeWanted => (
           <>
-            <LabeledList>
-              <LabeledList.Item
-                label="Criminal Name">
-                <Button
-                  content={criminal_name ? criminal_name : " N/A"}
-                  disabled={!security_mode}
-                  icon="pen"
-                  onClick={() => act('setCriminalName')} />
-              </LabeledList.Item>
-              <LabeledList.Item
-                label="Criminal Activity">
-                <Button
-                  content={crime_description ? crime_description : " N/A"}
-                  nowrap={false}
-                  disabled={!security_mode}
-                  icon="pen"
-                  onClick={() => act('setCrimeData')} />
-              </LabeledList.Item>
-            </LabeledList>
-            <Section>
-              <Button
-                icon="camera"
-                selected={photo_data}
-                disabled={!security_mode}
-                content={photo_data ? "Remove photo" : "Attach photo"}
-                onClick={() => act('togglePhoto')} />
-              <Button
-                content={"Set Wanted Issue"}
-                disabled={!security_mode}
-                icon="volume-up"
-                onClick={() => act('submitWantedIssue')} />
-              <Button
-                content={"Clear Wanted"}
-                disabled={!security_mode}
-                icon="times"
-                color="red"
-                onClick={() => act('clearWantedIssue')} />
-            </Section>
+            <Stack vertical>
+              <Stack.Item>
+                <Box bold color="red" mb={1}>
+                  {activeWanted.active ? "Active Wanted Issue" : "Dismissed Wanted Issue"}
+                </Box>
+                <Section>
+                  {activeWanted.has_image ? (
+                    <Box
+                      as="img"
+                      src={activeWanted.image} />
+                  ): null }
+                  <Box bold>
+                    {activeWanted.criminal}
+                  </Box>
+                  <Box italic>
+                    {activeWanted.crime}
+                  </Box>
+                </Section>
+                <Box italic>
+                  Posted by {activeWanted.author ? activeWanted.author : "N/A"}
+                </Box>
+              </Stack.Item>
+            </Stack>
+            <Divider />
+            <Button
+              content="Close"
+              color="red"
+              onClick={() => act('cancelCreation')} />
           </>
-        ) : (
-          <Box>
-            {wanted.active
-              ? "Please contact your local security officer if spotted."
-              : "No wanted issue posted. Have a secure day."}
-          </Box>
-        )}
+        )) : null}
+      {security_mode && editing_wanted ? (
+        <>
+          <LabeledList>
+            <LabeledList.Item
+              label="Criminal Name">
+              <Button
+                content={criminal_name ? criminal_name : " N/A"}
+                disabled={!security_mode}
+                icon="pen"
+                onClick={() => act('setCriminalName')} />
+            </LabeledList.Item>
+            <LabeledList.Item
+              label="Criminal Activity">
+              <Button
+                content={crime_description ? crime_description : " N/A"}
+                nowrap={false}
+                disabled={!security_mode}
+                icon="pen"
+                onClick={() => act('setCrimeData')} />
+            </LabeledList.Item>
+          </LabeledList>
+          <Button
+            mt={1}
+            mb={1}
+            icon="camera"
+            selected={photo_data}
+            disabled={!security_mode}
+            content={photo_data ? "Remove Photo" : "Scan Photo"}
+            onClick={() => act('togglePhoto')} />
+          <Section>
+            <Button
+              content="Submit"
+              disabled={!security_mode}
+              color="green"
+              icon="volume-up"
+              onClick={() => act('submitWantedIssue')} />
+            <Button
+              content="Cancel"
+              disabled={!security_mode}
+              icon="times"
+              color="red"
+              onClick={() => act('cancelCreation')} />
+          </Section>
+        </>
+      ) : null}
     </Modal>
   );
 };
@@ -311,7 +342,7 @@ export const UserDetails = (_, context) => {
   const { data } = useBackend(context);
   const { user } = data;
 
-  if (!user) {
+  if (!user.authenticated) {
     return (
       <NoticeBox>No ID detected! Contact the Head of Personnel.</NoticeBox>
     );
@@ -326,7 +357,7 @@ export const UserDetails = (_, context) => {
             <LabeledList>
               <LabeledList.Item label="User">{user.name}</LabeledList.Item>
               <LabeledList.Item label="Occupation">
-                {user.job || 'Unemployed'}
+                {user.job}
               </LabeledList.Item>
             </LabeledList>
           </Stack.Item>
@@ -342,31 +373,27 @@ const NewscasterContent = (_, context) => {
     current_channel = {},
   } = data;
   return (
-    <Stack fill vertical>
-      <Stack.Item grow>
-        <Stack fill style={{ width: "100%" }}>
-          <Stack.Item>
-            <NewscasterChannelSelector />
-          </Stack.Item>
-          <Stack.Item>
-            <Stack fill vertical>
-              <Stack.Item>
-                <UserDetails />
-              </Stack.Item>
-              <Stack.Item grow>
-                <NewscasterChannelBox
-                  channelName={current_channel.name}
-                  channelOwner={current_channel.owner}
-                  channelDesc={current_channel.desc} />
-              </Stack.Item>
-            </Stack>
-          </Stack.Item>
-        </Stack>
-      </Stack.Item>
-      <Stack.Item grow>
-        <NewscasterChannelMessages />
-      </Stack.Item>
-    </Stack>
+    <>
+      <Stack>
+        <Stack.Item grow>
+          <NewscasterChannelSelector />
+        </Stack.Item>
+        <Stack.Item grow style={{ width: "100%" }}>
+          <Stack fill vertical>
+            <Stack.Item>
+              <UserDetails />
+            </Stack.Item>
+            <Stack.Item grow>
+              <NewscasterChannelBox
+                channelName={current_channel.name}
+                channelOwner={current_channel.owner}
+                channelDesc={current_channel.desc} />
+            </Stack.Item>
+          </Stack>
+        </Stack.Item>
+      </Stack>
+      <NewscasterChannelMessages />
+    </>
   );
 };
 
@@ -386,7 +413,14 @@ const NewscasterChannelBox = (_, context) => {
     user,
   } = data;
   return (
-    <Section fill title={channelName}>
+    <Section fill title={channelName} buttons={
+      user.name === channelAuthor || user.admin ? (
+        <Button
+          icon="pen"
+          content="Edit Channel"
+          onClick={() => act('startEditChannel', { current: viewing_channel })} />
+      ) : null
+    }>
       <Stack fill vertical>
         <Stack.Item grow>
           {channelCensored ? (
@@ -396,11 +430,11 @@ const NewscasterChannelBox = (_, context) => {
               </BlockQuote>
             </Section>)
             : (
-              <Section fill scrollable>
-                <BlockQuote italic fontSize={1.2} wrap>
+              <Box width="100%" height="100%" style={{ "overflow-y": "auto" }}>
+                <BlockQuote italic fontSize={1.2}>
                   {decodeHtmlEntities(channelDesc)}
                 </BlockQuote>
-              </Section>
+              </Box>
             )}
         </Stack.Item>
         <Stack.Item>
@@ -408,23 +442,26 @@ const NewscasterChannelBox = (_, context) => {
             <Button
               icon="print"
               content="Submit Story"
-              disabled={(channelLocked && (channelAuthor !== user.name))
+              disabled={(channelLocked
+                && (channelAuthor !== user.name) && !user.admin)
             || channelCensored}
               onClick={() => act('createStory', { current: viewing_channel })}
               mt={1} />
             <Button
               icon="camera"
               selected={photo_data}
-              content="Select Photo"
-              disabled={(channelLocked && (channelAuthor !== user.name))
+              content="Scan Photo"
+              disabled={(channelLocked
+                && (channelAuthor !== user.name) && !user.admin)
             || channelCensored}
               onClick={() => act('togglePhoto')} />
             {!!security_mode && (
               <Button
                 icon="ban"
-                content={"D-Notice"}
-                tooltip="Censor the whole channel and it's \
-                  contents as dangerous to the station. Cannot be undone."
+                content={channelCensored ? "Remove D-Notice" : "D-Notice"}
+                color={channelCensored ? "red" : null}
+                tooltip="Censor the whole channel and its \
+                  contents as dangerous to the station."
                 disabled={!security_mode || !viewing_channel}
                 onClick={() => act('channelDNotice', {
                   secure: security_mode,
@@ -437,6 +474,7 @@ const NewscasterChannelBox = (_, context) => {
               icon="newspaper"
               content="Print Newspaper"
               disabled={paper <= 0}
+              tooltip={paper <= 0 ? "Please insert paper." : null}
               onClick={() => act('printNewspaper')} />
           </Box>
         </Stack.Item>
@@ -452,47 +490,77 @@ const NewscasterChannelSelector = (_, context) => {
     channels = [],
     viewing_channel,
     wanted = [],
+    user,
+    security_mode,
   } = data;
   return (
     <Section fill>
-      <Tabs vertical>
-        {wanted.map(activeWanted => (
-          <Tabs.Tab
-            pt={0.75}
-            pb={0.75}
-            mr={1}
-            key={activeWanted.index}
-            icon={activeWanted.active ? "skull-crossbones" : null}
-            textColor={activeWanted.active ? "red" : "grey"}
-            onClick={() => act('toggleWanted')}>
-            Wanted Issue
-          </Tabs.Tab>
-        ))}
-        {channels.map(channel => (
-          <Tabs.Tab
-            key={channel.index}
-            pt={0.75}
-            pb={0.75}
-            mr={1}
-            selected={viewing_channel === channel.ID}
-            icon={channel.censored ? 'ban' : null}
-            textColor={channel.censored ? "red" : "white"}
-            onClick={() => act('setChannel', {
-              channel: channel.ID,
-            })}>
-            {channel.name}
-          </Tabs.Tab>
-        ))}
-        <Tabs.Tab
-          pt={0.75}
-          pb={0.75}
-          mr={1}
-          textColor="white"
-          color="Green"
-          onClick={() => act('startCreateChannel')}>
-          Create Channel [+]
-        </Tabs.Tab>
-      </Tabs>
+      <Stack vertical fill>
+        <Stack.Item grow>
+          <Tabs vertical>
+            {wanted.filter(wanted => wanted.criminal).map(activeWanted => (
+              <Tabs.Tab
+                pt={0.75}
+                pb={0.75}
+                mr={1}
+                key={activeWanted.index}
+                icon={activeWanted.active ? "skull-crossbones" : null}
+                textColor={activeWanted.active ? "red" : "grey"}
+                onClick={() => act('showWanted')}>
+                Wanted Issue
+              </Tabs.Tab>
+            ))}
+            {channels.map(channel => (
+              <Tabs.Tab
+                key={channel.index}
+                pt={0.75}
+                pb={0.75}
+                mr={1}
+                selected={viewing_channel === channel.ID}
+                icon={channel.censored ? 'ban' : null}
+                textColor={channel.censored ? "red" : "white"}
+                onClick={() => act('setChannel', {
+                  channel: channel.ID,
+                })}>
+                {channel.name}
+              </Tabs.Tab>
+            ))}
+          </Tabs>
+        </Stack.Item>
+        <Stack.Item>
+          <Button
+            fill
+            width="100%"
+            color="green"
+            onClick={() => act('startCreateChannel')}
+            content="Create Channel"
+            icon="plus-square"
+            disabled={!user.authenticated}
+          />
+        </Stack.Item>
+        {!!security_mode && (
+          <>
+            <Stack.Item>
+              <Button
+                fill
+                width="100%"
+                color="red"
+                onClick={() => act('editWanted')}
+                content="Edit Wanted Issue"
+                icon="pen" />
+            </Stack.Item>
+            <Stack.Item>
+              <Button
+                fill
+                width="100%"
+                color="red"
+                content="Clear Wanted Issue"
+                icon="times"
+                onClick={() => act('clearWantedIssue')} />
+            </Stack.Item>
+          </>
+        )}
+      </Stack>
     </Section>
   );
 };
@@ -524,7 +592,7 @@ const NewscasterChannelMessages = (_, context) => {
   } = data;
   if (channelCensored) {
     return (
-      <Section color="red">
+      <Section style={{ "margin-top": "0.5em" }} color="red">
         <b>ATTENTION:</b> Comments cannot be read at this time.<br />
         Thank you for your understanding, and have a secure day.
       </Section>
@@ -533,18 +601,20 @@ const NewscasterChannelMessages = (_, context) => {
   const visibleMessages = messages.filter(message => (
     message.ID !== viewing_channel
   ));
+
   return (
-    <Section>
+    <Box style={{ "margin-top": "0.5em" }}>
       {visibleMessages.map(message => {
         return (
           <Section
             key={message.index}
             textColor="white"
+            style={{ "margin-top": "0.5em" }}
             title={(
               <i>
                 {message.censored_author ? (
-                  <Box textColor="red">
-                    By: [REDACTED]. <b>D-Notice Notice</b> .
+                  <Box as="span" color="red" style={{ display: "inline" }}>
+                    By: [REDACTED] (D-Notice)
                   </Box>
                 ):(
                   <>
@@ -579,8 +649,9 @@ const NewscasterChannelMessages = (_, context) => {
                   disabled={
                     message.censored_author
                     || message.censored_message
-                    || user.name === "Unknown"
-                    || !!channelLocked && (channelAuthor !== user.name)
+                    || !user?.authenticated
+                    || !!channelLocked
+                    && (channelAuthor !== user?.name && !user?.admin)
                   }
                   onClick={() => act('startComment', {
                     messageID: message.ID,
@@ -599,10 +670,17 @@ const NewscasterChannelMessages = (_, context) => {
                   dangerouslySetInnerHTML={processedText(message.body)}
                   pl={1} />
               )}
-              {message.photo !== null && !message.censored_message &&(
-                <Box
-                  as="img"
-                  src={message.photo} />
+              {message.photo !== null && !message.censored_message && (
+                <>
+                  <Box
+                    as="img"
+                    src={message.photo} />
+                  <Section
+                    dangerouslySetInnerHTML={
+                      processedText(message.photo_caption)
+                    }
+                    pl={1} />
+                </>
               )}
               {!!message.comments &&(
                 <Box>
@@ -626,6 +704,6 @@ const NewscasterChannelMessages = (_, context) => {
           </Section>
         ); }
       )}
-    </Section>
+    </Box>
   );
 };

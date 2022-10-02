@@ -14,7 +14,9 @@ GLOBAL_LIST_EMPTY(request_list)
 
 /datum/feed_message
 	///Who is the author of the full-size article to the feed channel?
-	var/author =""
+	var/author = ""
+	///What is the job of the author?
+	var/author_job = ""
 	///Body of the full-size article to the feed channel.
 	var/body =""
 	///In station time, at what time was the author's messages censored and blocked from viewing.
@@ -51,7 +53,7 @@ GLOBAL_LIST_EMPTY(request_list)
 		censor = author_censor
 	var/txt = "[GLOB.news_network.redacted_text]"
 	if(!censor)
-		txt = author
+		txt = length(author_job) ? "[author] ([author_job])" : author
 	return txt
 
 /datum/feed_message/proc/return_body(censor)
@@ -165,6 +167,8 @@ GLOBAL_LIST_EMPTY(request_list)
 	var/icon/img
 	/// Reference to the photo file used by wanted message on creation.
 	var/photo_file
+	/// If it has an image for display purposes
+	var/has_image
 
 /datum/feed_network
 	/// All the feed channels that have been made on the feed network.
@@ -195,9 +199,10 @@ GLOBAL_LIST_EMPTY(request_list)
 		newChannel.channel_ID = hardset_channel
 	network_channels += newChannel
 
-/datum/feed_network/proc/submit_article(msg, author, channel_name, datum/picture/picture, adminMessage = FALSE, allow_comments = TRUE, update_alert = TRUE)
+/datum/feed_network/proc/submit_article(msg, author, channel_name, datum/picture/picture, adminMessage = FALSE, allow_comments = TRUE, update_alert = TRUE, author_job = "")
 	var/datum/feed_message/newMsg = new /datum/feed_message
 	newMsg.author = author
+	newMsg.author_job = author_job
 	newMsg.body = msg
 	newMsg.time_stamp = "[station_time_timestamp()]"
 	newMsg.is_admin_message = adminMessage
@@ -218,13 +223,14 @@ GLOBAL_LIST_EMPTY(request_list)
 	message_count ++
 	newMsg.message_ID = message_count
 
-/datum/feed_network/proc/submit_wanted(criminal, body, scanned_user, datum/picture/picture, adminMsg = FALSE, newMessage = FALSE)
+/datum/feed_network/proc/submit_wanted(criminal, body, scanned_user, datum/picture/picture, adminMsg = FALSE, newMessage = FALSE, has_image = TRUE)
 	wanted_issue.active = TRUE
 	wanted_issue.criminal = criminal
 	wanted_issue.body = body
 	wanted_issue.scanned_user = scanned_user
 	wanted_issue.is_admin_msg = adminMsg
-	if(picture)
+	wanted_issue.has_image = has_image
+	if(has_image && picture)
 		wanted_issue.img = picture.picture_image
 		wanted_issue.photo_file = save_photo(picture.picture_image)
 	if(newMessage)
