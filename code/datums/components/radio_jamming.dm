@@ -35,4 +35,4 @@
 	else
 		enable(source, user, silent)
 	if (!silent && user)
-		to_chat(user,"<span class='notice'>You [active ? "deactivate" : "activate"] [parent].</span>")
+		to_chat(user,"<span class='notice'>You [!active ? "deactivate" : "activate"] [parent].</span>")
