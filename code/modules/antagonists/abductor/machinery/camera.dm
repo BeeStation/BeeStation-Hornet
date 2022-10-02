@@ -86,7 +86,7 @@
 		//Technically a specimin, however we should avoid meta tactics
 		if (!specimin.client)
 			continue
-		to_chat(owner, "<span class='warning'>You cannot warp to this location, an unprocessed specimin might spot you, tampering with the experiment!</span>")
+		to_chat(owner, "<span class='warning'>You cannot warp to this location, an unprocessed specimen might spot you, tampering with the experiment!</span>")
 		return
 
 	if(GLOB.cameranet.checkTurfVis(remote_eye.loc))
