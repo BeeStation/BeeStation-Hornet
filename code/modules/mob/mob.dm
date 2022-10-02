@@ -907,6 +907,15 @@
 	if((magic && HAS_TRAIT(src, TRAIT_ANTIMAGIC)) || (holy && HAS_TRAIT(src, TRAIT_HOLY)))
 		return src
 
+///Return any anti artifact atom on this mob
+/mob/proc/anti_artifact_check(self = FALSE)
+	var/list/protection_sources = list()
+	if(SEND_SIGNAL(src, COMSIG_MOB_RECEIVE_ARTIFACT, src, self, protection_sources) & COMPONENT_BLOCK_ARTIFACT)
+		if(protection_sources.len)
+			return pick(protection_sources)
+		else
+			return src
+
 /**
   * Buckle to another mob
   *
