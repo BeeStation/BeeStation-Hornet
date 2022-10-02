@@ -330,7 +330,7 @@ BLIND     // can't see anything
 						 "<span class='notice'>[user] turns your remote sensors to maximum.</span>", null, COMBAT_MESSAGE_RANGE)
 			update_sensors(sensor_selection)
 			log_combat(user, wearer, "changed sensors to [switchMode]")
-	if(ishuman(loc))
+	if(ishuman(loc) || ismonkey(loc))
 		var/mob/living/carbon/human/H = loc
 		if(H.w_uniform == src)
 			H.update_suit_sensors()

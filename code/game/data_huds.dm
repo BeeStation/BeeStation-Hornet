@@ -23,7 +23,7 @@
 /datum/atom_hud/data/human/medical/basic
 
 /datum/atom_hud/data/human/medical/basic/proc/check_sensors(mob/living/carbon/human/H)
-	if(!istype(H))
+	if(!istype(H) && !ismonkey(H))
 		return 0
 	var/obj/item/clothing/under/U = H.w_uniform
 	if(!istype(U))
