@@ -2016,9 +2016,6 @@
 	},
 /turf/open/floor/plating,
 /area/security/main)
-"afR" = (
-/turf/template_noop,
-/area/maintenance/port/aft)
 "afT" = (
 /obj/effect/landmark/start/security_officer,
 /obj/effect/turf_decal/tile/red{
@@ -2077,10 +2074,6 @@
 /obj/machinery/atmospherics/pipe/manifold4w/general/visible,
 /turf/open/floor/plasteel,
 /area/engine/atmos)
-"age" = (
-/obj/effect/spawner/room/threexthree,
-/turf/template_noop,
-/area/maintenance/port/aft)
 "agf" = (
 /obj/structure/table,
 /obj/item/stack/sheet/iron,
@@ -5652,9 +5645,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/ai_monitored/storage/eva)
-"aAX" = (
-/turf/template_noop,
-/area/maintenance/port)
 "aBa" = (
 /turf/closed/wall/r_wall,
 /area/ai_monitored/nuke_storage)
@@ -53836,10 +53826,6 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /turf/open/floor/plasteel,
 /area/engine/engineering)
-"syg" = (
-/obj/item/stack/rods,
-/turf/open/space,
-/area/space)
 "syL" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
@@ -54868,6 +54854,10 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
+"tmB" = (
+/obj/item/stack/rods,
+/turf/open/space,
+/area/space)
 "tno" = (
 /obj/effect/turf_decal/tile/red{
 	dir = 4
@@ -80145,7 +80135,7 @@ aYH
 ydA
 bbO
 aPA
-aAX
+aSg
 aSg
 aeS
 afe
@@ -80402,7 +80392,7 @@ aZx
 cBh
 bbN
 aPA
-aAX
+aSg
 aSg
 aSg
 afh
@@ -80659,7 +80649,7 @@ aYS
 aZx
 bbO
 aPA
-aAX
+aSg
 aSg
 aSg
 bhT
@@ -85821,9 +85811,9 @@ bwe
 kCJ
 bHE
 bCq
-afR
-afR
-age
+bHE
+bHE
+abg
 bCq
 bLu
 bHE
@@ -86078,9 +86068,9 @@ bwe
 kCJ
 bHC
 bGo
-afR
-afR
-afR
+bHE
+bHE
+bHE
 bCq
 bCq
 bLv
@@ -86335,9 +86325,9 @@ bwe
 eRh
 bCe
 bCq
-afR
-afR
-afR
+bHE
+bHE
+bHE
 bCq
 aaa
 bLv
@@ -105288,7 +105278,7 @@ aaf
 aaa
 aaf
 aaa
-syg
+tmB
 aaa
 aaS
 aaa
