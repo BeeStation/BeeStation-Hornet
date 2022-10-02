@@ -28711,6 +28711,10 @@
 "ciy" = (
 /obj/item/reagent_containers/glass/bucket,
 /obj/item/reagent_containers/glass/bucket,
+/obj/machinery/firealarm{
+	dir = 4;
+	pixel_x = 28
+	},
 /turf/open/floor/plasteel,
 /area/chapel/main/monastery)
 "ciz" = (
@@ -33818,6 +33822,21 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
+"dYL" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/machinery/firealarm{
+	dir = 4;
+	pixel_x = -28
+	},
+/turf/open/floor/plasteel/dark,
+/area/chapel/main/monastery)
 "dYQ" = (
 /obj/effect/spawner/structure/window/plasma/reinforced,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/visible,
@@ -43743,6 +43762,22 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/exit/departure_lounge)
+"kvC" = (
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 8
+	},
+/obj/machinery/firealarm{
+	dir = 4;
+	pixel_x = 28
+	},
+/turf/open/floor/plasteel/dark,
+/area/chapel/office)
 "kwk" = (
 /obj/structure/displaycase/captain,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
@@ -57797,6 +57832,16 @@
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2,
 /turf/open/floor/plasteel/dark,
 /area/chapel/dock)
+"tOX" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/machinery/firealarm{
+	dir = 4;
+	pixel_x = -28
+	},
+/turf/open/floor/plasteel/dark,
+/area/chapel/main/monastery)
 "tPl" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
@@ -59924,6 +59969,13 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/plasteel,
 /area/hallway/secondary/entry)
+"vrw" = (
+/obj/machinery/firealarm{
+	dir = 4;
+	pixel_x = 28
+	},
+/turf/open/floor/plasteel/dark,
+/area/chapel/dock)
 "vsl" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -77155,7 +77207,7 @@ rAU
 cvR
 bXJ
 bXJ
-crj
+tOX
 cwO
 fIT
 mZE
@@ -77651,7 +77703,7 @@ pkM
 crv
 owS
 dnb
-rrU
+kvC
 gKz
 bZY
 cfN
@@ -79455,7 +79507,7 @@ cfm
 dVm
 fED
 kbw
-uYz
+dYL
 gGP
 mbk
 xKk
@@ -80219,7 +80271,7 @@ bXJ
 crK
 bXJ
 bXJ
-crj
+tOX
 dZZ
 bWV
 cfm
@@ -81483,7 +81535,7 @@ bGE
 bIX
 bKd
 tOL
-bLn
+vrw
 bNv
 bNw
 bNw
