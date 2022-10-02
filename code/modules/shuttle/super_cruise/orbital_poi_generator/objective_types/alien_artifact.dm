@@ -2,7 +2,7 @@
 	name = "Artifact Recovery"
 	var/generated = FALSE
 	//The blackbox required to recover.
-	var/obj/item/alienartifact/objective/linked_artifact
+	var/obj/item/xenoartifact/objective/linked_artifact
 	min_payout = 5000
 	max_payout = 25000
 
