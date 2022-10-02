@@ -3363,6 +3363,9 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/science/misc_lab/range)
+"amP" = (
+/turf/closed/wall,
+/area/hallway/primary/port)
 "amS" = (
 /obj/structure/window/reinforced,
 /obj/structure/window/reinforced{
@@ -3742,6 +3745,14 @@
 /obj/effect/spawner/room/fivexthree,
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
+"anQ" = (
+/obj/structure/lattice,
+/obj/machinery/camera/motion{
+	c_tag = "Armory - Exterior";
+	dir = 4
+	},
+/turf/open/space,
+/area/space/nearstation)
 "anS" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/neutral{
@@ -6545,6 +6556,23 @@
 /obj/structure/lattice/catwalk,
 /turf/open/space,
 /area/solar/port/fore)
+"axp" = (
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/caution/stand_clear,
+/obj/machinery/advanced_airlock_controller{
+	pixel_y = 26
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/obj/machinery/atmospherics/components/binary/dp_vent_pump/layer2{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/security/checkpoint/escape)
 "axq" = (
 /obj/machinery/atmospherics/pipe/heat_exchanging/simple{
 	dir = 9
@@ -38415,23 +38443,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/turret_protected/ai_upload)
-"cfA" = (
-/obj/effect/turf_decal/stripes/line,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/effect/turf_decal/caution/stand_clear,
-/obj/machinery/advanced_airlock_controller{
-	pixel_y = 26
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/obj/machinery/atmospherics/components/binary/dp_vent_pump/layer2{
-	dir = 4
-	},
-/turf/open/floor/plasteel,
-/area/security/checkpoint/escape)
 "cfB" = (
 /obj/machinery/camera/emp_proof{
 	c_tag = "Containment - Fore Starboard";
@@ -47374,14 +47385,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/fitness/recreation)
-"cDT" = (
-/obj/structure/lattice,
-/obj/machinery/camera/motion{
-	c_tag = "Armory - Exterior";
-	dir = 4
-	},
-/turf/open/space,
-/area/space/nearstation)
 "cDU" = (
 /obj/effect/decal/cleanable/oil,
 /obj/effect/turf_decal/stripes/line{
@@ -69846,9 +69849,6 @@
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/security/checkpoint/escape)
-"eei" = (
-/turf/closed/wall,
-/area/hallway/primary/port)
 "eej" = (
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
@@ -105312,6 +105312,15 @@
 	dir = 1
 	},
 /area/hallway/secondary/entry)
+"sAJ" = (
+/obj/structure/disposalpipe/segment,
+/obj/effect/turf_decal/tile/red,
+/obj/effect/turf_decal/tile/red{
+	dir = 4
+	},
+/obj/structure/bed/double,
+/turf/open/floor/plasteel,
+/area/security/brig)
 "sBn" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
@@ -111891,15 +111900,6 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/space,
 /area/space/nearstation)
-"vtm" = (
-/obj/structure/disposalpipe/segment,
-/obj/effect/turf_decal/tile/red,
-/obj/effect/turf_decal/tile/red{
-	dir = 4
-	},
-/obj/structure/bed/double,
-/turf/open/floor/plasteel,
-/area/security/brig)
 "vtq" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -140888,23 +140888,23 @@ aNX
 aPC
 aFr
 aad
-aRE
+aad
 aWx
-aRE
+aad
 aZR
-aRE
+aad
 aWx
-aRE
+aad
 aZR
-aRE
+aad
 aWx
-aRE
+aad
 aZR
-aRE
+aad
 aZR
-aRE
+aad
 aWx
-aRE
+aad
 qYo
 nBr
 qYx
@@ -147841,11 +147841,11 @@ aRF
 aMO
 alf
 hja
-eei
-eei
-eei
+amP
+amP
+amP
 bst
-eei
+amP
 bss
 bss
 bss
@@ -147860,7 +147860,7 @@ bSq
 pFV
 bWC
 bWC
-eei
+amP
 caE
 cea
 cea
@@ -159251,7 +159251,7 @@ aad
 dST
 mjn
 edY
-cfA
+axp
 eek
 aad
 aaa
@@ -170469,7 +170469,7 @@ njU
 ljq
 bJy
 bNl
-vtm
+sAJ
 bNl
 bNl
 bNl
@@ -173555,7 +173555,7 @@ aad
 aad
 aad
 aad
-cDT
+anQ
 bTl
 aad
 aaa
