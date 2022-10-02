@@ -630,4 +630,4 @@
 
 // Radio jammer signals
 /// Calls something to toggle its jamming ability. (mob/user, silent = FALSE)
-#define COMSIG_TOGGLE_JAMMER "toggle_jammer
+#define COMSIG_TOGGLE_JAMMER "toggle_jammer"
