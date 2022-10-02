@@ -61,7 +61,7 @@
 	pixel_y = -32
 	},
 /turf/open/space,
-/area/space/nearstation)
+/area/space)
 "aai" = (
 /turf/closed/wall/r_wall,
 /area/security/prison)
@@ -1273,7 +1273,7 @@
 	pixel_x = 32
 	},
 /turf/open/space,
-/area/space/nearstation)
+/area/space)
 "adC" = (
 /obj/structure/table,
 /obj/item/razor,
@@ -3364,9 +3364,6 @@
 /obj/machinery/firealarm{
 	dir = 4;
 	pixel_x = -24
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-4"
 	},
 /obj/structure/table,
 /obj/item/stack/sheet/glass/fifty,
@@ -21066,12 +21063,6 @@
 	},
 /turf/open/space,
 /area/space/nearstation)
-"bVz" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/open/floor/plating/airless,
-/area/space/nearstation)
 "bVI" = (
 /turf/closed/wall/r_wall,
 /area/tcommsat/server)
@@ -21948,15 +21939,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/engine/break_room)
-"bZm" = (
-/obj/structure/disposaloutlet{
-	dir = 8
-	},
-/obj/structure/disposalpipe/trunk{
-	dir = 4
-	},
-/turf/open/floor/plating/airless,
-/area/space/nearstation)
 "bZo" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -25994,7 +25976,7 @@
 "crn" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating/airless,
-/area/engine/engineering)
+/area/space/nearstation)
 "crp" = (
 /obj/structure/sign/warning/electricshock,
 /turf/closed/wall/r_wall,
@@ -26108,12 +26090,6 @@
 	},
 /turf/open/space,
 /area/solar/starboard/aft)
-"crH" = (
-/obj/machinery/atmospherics/pipe/heat_exchanging/simple{
-	dir = 4
-	},
-/turf/open/space,
-/area/space/nearstation)
 "crI" = (
 /obj/machinery/meter,
 /obj/machinery/atmospherics/pipe/simple/general/visible{
@@ -26205,6 +26181,7 @@
 /obj/structure/transit_tube/curved/flipped{
 	dir = 1
 	},
+/obj/structure/lattice,
 /turf/open/space,
 /area/space/nearstation)
 "csk" = (
@@ -26215,6 +26192,7 @@
 /obj/structure/transit_tube/curved{
 	dir = 4
 	},
+/obj/structure/lattice,
 /turf/open/space,
 /area/space/nearstation)
 "csm" = (
@@ -26227,6 +26205,7 @@
 /area/maintenance/starboard/aft)
 "csn" = (
 /obj/structure/transit_tube/horizontal,
+/obj/structure/lattice,
 /turf/open/space,
 /area/space/nearstation)
 "cso" = (
@@ -32672,16 +32651,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/engine/engineering)
-"eMQ" = (
-/obj/effect/turf_decal/siding/wood{
-	dir = 5
-	},
-/obj/item/kirbyplants{
-	icon_state = "plant-10"
-	},
-/obj/machinery/airalarm/directional/north,
-/turf/open/floor/holofloor/wood,
-/area/space)
 "eMU" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -49974,13 +49943,6 @@
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plating,
 /area/ai_monitored/turret_protected/aisat/atmos)
-"pRN" = (
-/obj/structure/fireplace,
-/obj/effect/turf_decal/siding/wood{
-	dir = 1
-	},
-/turf/open/floor/holofloor/wood,
-/area/space)
 "pRO" = (
 /obj/machinery/computer/crew,
 /obj/machinery/requests_console{
@@ -53875,7 +53837,7 @@
 /turf/open/floor/plasteel,
 /area/engine/engineering)
 "syg" = (
-/obj/structure/lattice,
+/obj/item/stack/rods,
 /turf/open/space,
 /area/space)
 "syL" = (
@@ -54906,16 +54868,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
-"tmB" = (
-/obj/effect/turf_decal/siding/wood{
-	dir = 9
-	},
-/obj/machinery/firealarm{
-	pixel_y = 26
-	},
-/obj/machinery/power/apc/auto_name/west,
-/turf/open/floor/holofloor/wood,
-/area/space)
 "tno" = (
 /obj/effect/turf_decal/tile/red{
 	dir = 4
@@ -61159,16 +61111,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/port)
-"xAy" = (
-/obj/effect/turf_decal/siding/wood{
-	dir = 1
-	},
-/obj/structure/noticeboard{
-	pixel_y = 31
-	},
-/obj/machinery/jukebox,
-/turf/open/floor/holofloor/wood,
-/area/space)
 "xAJ" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 6
@@ -72487,7 +72429,7 @@ jdt
 aRY
 rQX
 aaa
-tmB
+aaa
 aaa
 aaa
 aaa
@@ -72744,7 +72686,7 @@ iMy
 aRY
 rQX
 aaa
-pRN
+aaa
 aaa
 aaa
 aaa
@@ -73001,7 +72943,7 @@ iMy
 aRY
 rQX
 aaa
-xAy
+aaa
 aaa
 aaa
 aaa
@@ -73258,7 +73200,7 @@ vfN
 aRY
 rQX
 aaa
-eMQ
+aaa
 aaa
 aaa
 aaa
@@ -79723,7 +79665,7 @@ aaa
 aag
 aaa
 aoV
-bZm
+aaa
 aoV
 aoV
 aoV
@@ -79980,7 +79922,7 @@ aaa
 aag
 aaa
 aoV
-bVz
+aaa
 aaf
 aaf
 aoV
@@ -84118,7 +84060,7 @@ aaa
 aaa
 aaf
 aaf
-cig
+atS
 aaf
 aaa
 aaa
@@ -86431,7 +86373,7 @@ rta
 cjJ
 aaf
 aaf
-cig
+atS
 aaf
 aaT
 aaT
@@ -88231,7 +88173,7 @@ cpX
 cqz
 cqQ
 ccw
-crH
+crZ
 crT
 crZ
 cFo
@@ -88745,7 +88687,7 @@ rxh
 cig
 rva
 ccw
-crH
+crZ
 crT
 crZ
 cFo
@@ -91706,7 +91648,7 @@ aaa
 aaa
 aaa
 aaa
-syg
+aaf
 aaf
 aaa
 aaf
@@ -105346,7 +105288,7 @@ aaf
 aaa
 aaf
 aaa
-aiS
+syg
 aaa
 aaS
 aaa
