@@ -1,5 +1,0 @@
-author: CydiaLamiales
-delete-after: true
-changes:
-  - bugfix: Fixed meson goggles no longer giving you SM hallucination immunity if
-      you dropped a second pair of mesons while wearing them.

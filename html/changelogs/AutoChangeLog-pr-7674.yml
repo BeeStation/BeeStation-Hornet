@@ -1,9 +1,0 @@
-author: itsmeow
-delete-after: true
-changes:
-  - rscadd: Imaginary friends now have runechat.
-  - rscadd: Imaginary friends now have visible points.
-  - bugfix: Fixed a possible hard-delete with imaginary friend actions.
-  - tweak: Imaginary friends can now hear their owner if out of range.
-  - bugfix: Imaginary friends now properly turn when they turn instead of next time
-      they move.
