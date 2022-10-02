@@ -5856,11 +5856,6 @@
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
 "avq" = (
-/obj/structure/closet/crate{
-	opened = 1
-	},
-/obj/item/crowbar/red,
-/obj/effect/spawner/lootdrop/maintenance,
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
@@ -73800,6 +73795,9 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 10
+	},
 /turf/open/floor/plasteel,
 /area/quartermaster/exploration_prep)
 "fyp" = (
@@ -83325,7 +83323,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
 /turf/open/floor/plasteel/techmaint,
 /area/quartermaster/exploration_prep)
 "jAl" = (
@@ -88288,7 +88285,7 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 9
+	dir = 4
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/exploration_prep)
@@ -90902,6 +90899,9 @@
 /area/chapel/office)
 "mEd" = (
 /obj/effect/turf_decal/tile/neutral/tile_full,
+/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/quartermaster/exploration_prep)
 "mEg" = (
@@ -96710,6 +96710,11 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
 	},
+/obj/structure/closet/crate{
+	opened = 1
+	},
+/obj/effect/spawner/lootdrop/maintenance,
+/obj/item/crowbar/red,
 /turf/open/floor/plasteel,
 /area/maintenance/port/fore)
 "oSD" = (
@@ -97444,9 +97449,6 @@
 /obj/item/pen{
 	pixel_x = 8;
 	pixel_y = 2
-	},
-/obj/effect/turf_decal/siding/wood{
-	dir = 8
 	},
 /turf/open/floor/carpet,
 /area/quartermaster/exploration_prep)
@@ -101558,12 +101560,10 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 6
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2,
 /turf/open/floor/wood,
 /area/quartermaster/exploration_prep)
 "qVV" = (
@@ -102687,8 +102687,8 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 9
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
+	dir = 8
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/exploration_prep)
@@ -106011,9 +106011,7 @@
 /obj/effect/landmark/start/exploration,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
-	dir = 4
-	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/carpet,
 /area/quartermaster/exploration_prep)
 "sVd" = (
@@ -106627,9 +106625,6 @@
 	pixel_x = -3;
 	pixel_y = -6
 	},
-/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
-	dir = 4
-	},
 /turf/open/floor/carpet,
 /area/quartermaster/exploration_prep)
 "tkL" = (
@@ -107215,7 +107210,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/firealarm/directional/west,
 /turf/open/floor/plasteel,
 /area/quartermaster/exploration_prep)
@@ -110009,7 +110003,6 @@
 /obj/machinery/camera/autoname{
 	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 26
 	},
@@ -111540,6 +111533,7 @@
 /obj/effect/turf_decal/siding/wood{
 	dir = 4
 	},
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
 /turf/open/floor/wood,
 /area/quartermaster/exploration_prep)
 "vlb" = (
@@ -112705,7 +112699,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /turf/open/floor/plasteel/techmaint,
 /area/quartermaster/exploration_prep)
 "vLK" = (
@@ -148788,11 +148781,11 @@ eHD
 eHD
 eHD
 eHD
-oRG
-aoY
-avq
-awo
-axJ
+alf
+alf
+alf
+alf
+alf
 uSu
 alf
 alg
@@ -149044,11 +149037,11 @@ qVQ
 tzl
 xyE
 esh
-eHD
+tmQ
 alf
-alf
-alf
-alf
+alg
+alg
+aLC
 alf
 uYO
 alf
@@ -149301,11 +149294,11 @@ rNn
 eHD
 vxl
 joI
-tmQ
+mSc
 alf
 alg
 alg
-aLC
+alg
 alf
 ajb
 alf
@@ -149559,11 +149552,11 @@ eHD
 tCt
 kdx
 rBZ
-alf
+aiY
 alg
 alg
 alg
-alf
+tMC
 jzY
 alf
 alg
@@ -149816,11 +149809,11 @@ eHD
 rHz
 eCD
 rNr
-aiY
+alf
 alg
 alg
 alg
-tMC
+alf
 mQW
 alf
 alg
@@ -150331,9 +150324,9 @@ uNM
 aFN
 gZe
 alf
-alg
-alg
-alg
+alf
+aja
+alf
 alf
 fbT
 alf
@@ -150588,9 +150581,9 @@ dfR
 aFN
 iDw
 alf
-alf
-aja
-alf
+alg
+alg
+aLC
 alf
 uYO
 alf
@@ -150847,7 +150840,7 @@ ggN
 alf
 alg
 alg
-aLC
+alg
 alf
 jzY
 alf
@@ -151105,7 +151098,7 @@ alf
 alg
 alg
 alg
-alf
+tMC
 uSu
 xrk
 wJT
@@ -151359,10 +151352,10 @@ alg
 alf
 vPN
 alf
+sfp
 alg
 alg
-alg
-tMC
+alf
 whF
 aAd
 olZ
@@ -151616,7 +151609,7 @@ apZ
 wnn
 qdW
 alf
-sfp
+alg
 alg
 alg
 alf
@@ -151873,10 +151866,10 @@ aqa
 alf
 arA
 alf
-alg
-alg
-alg
 alf
+aja
+alf
+ary
 uSu
 arB
 ebj
@@ -152129,11 +152122,11 @@ aky
 aky
 aky
 vtK
-alf
-alf
-aja
-alf
-ary
+oRG
+aoY
+avq
+awo
+axJ
 uSu
 aAf
 kCv
