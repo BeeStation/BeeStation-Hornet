@@ -452,6 +452,9 @@ GLOBAL_LIST_INIT(pda_styles, sortList(list(MONO, VT, ORBITRON, SHARE)))
 #define ALIGNMENT_NEUT "neutral"
 #define ALIGNMENT_EVIL "evil"
 
+///List of monkey_icons for clothing
+GLOBAL_LIST_EMPTY(monkey_icon_cache)
+
 // Pirates threat
 #define PIRATE_RESPONSE_NO_PAY "pirate_answer_no_pay"
 #define PIRATE_RESPONSE_PAY "pirate_answer_pay"
