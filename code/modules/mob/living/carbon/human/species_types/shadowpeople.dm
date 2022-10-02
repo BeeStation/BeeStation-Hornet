@@ -218,10 +218,6 @@
 		playsound(src, 'sound/items/cig_snuff.ogg', 50, 1)
 	..()
 
-/obj/structure/glowshroom/lighteater_act(obj/item/light_eater/light_eater)
-	..()
-	acid_act()
-
 /obj/item/lighteater_act(obj/item/light_eater/light_eater)
 	..()
 	if(!light_range || !light_power || !light_on)
