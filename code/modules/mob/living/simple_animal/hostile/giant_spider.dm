@@ -166,7 +166,7 @@
 /mob/living/simple_animal/hostile/poison/giant_spider/nurse/handle_automated_action()
 	if(..())
 		var/list/can_see = view(10, src)
-		if(!busy && prob(30))	//30% chance to stop wandering and do something
+		if(!busy)
 			//first, check for potential food nearby to cocoon
 			for(var/mob/living/C in can_see)
 				if(istype(C, /mob/living/simple_animal/hostile/poison/giant_spider) && C.stat != DEAD && C.health < C.maxHealth)
@@ -216,10 +216,15 @@
 
 /mob/living/simple_animal/hostile/poison/giant_spider/nurse/proc/GiveUp(C)
 	if(busy == MOVING_TO_TARGET)
+		var/reset = FALSE
 		if(cocoon_target == C && get_dist(src,cocoon_target) > 1)
 			cocoon_target = null
+			reset = TRUE
 		if(heal_target == C && get_dist(src, heal_target) > 1)
 			heal_target = null
+			reset = TRUE
+		if(!reset)
+			return
 		busy = FALSE
 		stop_automated_movement = FALSE
 		SSmove_manager.stop_looping(src)
@@ -314,7 +319,6 @@
 	poison_per_bite = 12
 	move_to_delay = 4
 	poison_type = /datum/reagent/toxin/venom
-	speed = -0.1
 	gold_core_spawnable = NO_SPAWN
 
 //tarantulas are really tanky, but slower than normal spiders. They can also break stuff much easier, and can do more damage.
