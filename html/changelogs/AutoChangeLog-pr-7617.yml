@@ -1,7 +1,0 @@
-author: PestoVerde322
-delete-after: true
-changes:
-  - rscadd: Added new way on how broken machinery works
-  - code_imp: added a new signal for broken machinery
-  - refactor: refactored machine_stat and is_processing
-  - refactor: refactored relay.dm with a better logic for it's operational logic
