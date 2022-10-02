@@ -11030,6 +11030,7 @@
 	dir = 1;
 	pixel_y = -30
 	},
+/obj/machinery/light/small,
 /turf/open/floor/carpet,
 /area/vacant_room/office)
 "aZp" = (
@@ -26080,6 +26081,10 @@
 	},
 /turf/open/space,
 /area/solar/starboard/aft)
+"crH" = (
+/obj/item/stack/rods,
+/turf/open/space,
+/area/space)
 "crI" = (
 /obj/machinery/meter,
 /obj/machinery/atmospherics/pipe/simple/general/visible{
@@ -41835,14 +41840,6 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plasteel,
 /area/security/prison)
-"kKn" = (
-/obj/structure/frame/computer{
-	anchored = 1;
-	dir = 1
-	},
-/obj/machinery/light/small,
-/turf/open/floor/carpet,
-/area/vacant_room/office)
 "kKp" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 1
@@ -53826,6 +53823,22 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /turf/open/floor/plasteel,
 /area/engine/engineering)
+"syg" = (
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 8
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/plating,
+/area/maintenance/port)
 "syL" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
@@ -54855,9 +54868,13 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
 "tmB" = (
-/obj/item/stack/rods,
-/turf/open/space,
-/area/space)
+/obj/machinery/door/airlock/maintenance_hatch{
+	name = "Office Maintenance";
+	req_access_txt = "32"
+	},
+/obj/effect/mapping_helpers/airlock/abandoned,
+/turf/open/floor/plating,
+/area/vacant_room/office)
 "tno" = (
 /obj/effect/turf_decal/tile/red{
 	dir = 4
@@ -76791,9 +76808,9 @@ aUl
 aUR
 eBa
 aXL
-kKn
-czK
-pHH
+aXL
+tmB
+syg
 beO
 beO
 beO
@@ -105278,7 +105295,7 @@ aaf
 aaa
 aaf
 aaa
-tmB
+crH
 aaa
 aaS
 aaa
