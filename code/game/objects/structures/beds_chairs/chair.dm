@@ -16,7 +16,8 @@
 	/// Used to handle rotation properly, should only be 1, 4, or 8
 	var/possible_dirs = 4
 	var/colorable = FALSE
-	var/override_layer = FALSE // for benches
+	///makes the player sprite always display above the chair (used for benches)
+	var/override_layer = FALSE
 
 /obj/structure/chair/examine(mob/user)
 	. = ..()
@@ -108,7 +109,8 @@
 			buckled_mob.setDir(direction)
 
 /obj/structure/chair/proc/handle_layer()
-  if(override_layer) return
+  if(override_layer)
+	return
   if(has_buckled_mobs() && dir == NORTH)
     layer = ABOVE_MOB_LAYER
   else
