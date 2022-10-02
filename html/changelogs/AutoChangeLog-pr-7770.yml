@@ -1,4 +1,0 @@
-author: benbot16
-delete-after: true
-changes:
-  - bugfix: Fixes calling the labor camp shuttle using the prison shuttle terminal
