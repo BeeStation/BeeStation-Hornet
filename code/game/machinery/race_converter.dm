@@ -19,7 +19,7 @@
 
 /obj/machinery/species_converter/Initialize(mapload)
 	. = ..()
-	soundloop = new(list(src),  FALSE)
+	soundloop = new(src,  FALSE)
 	update_icon()
 
 /obj/machinery/species_converter/Destroy()

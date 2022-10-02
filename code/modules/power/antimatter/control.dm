@@ -305,7 +305,7 @@
 	dat += "Cores: [linked_cores.len]<BR><BR>"
 	dat += "-Current Efficiency: [reported_core_efficiency]<BR>"
 	dat += "-Average Stability: [stored_core_stability] <A href='?src=[REF(src)];refreshstability=1'>(update)</A><BR>"
-	dat += "Last Produced: [DisplayPower(stored_power)]<BR>"
+	dat += "Last Produced: [display_power(stored_power)]<BR>"
 
 	dat += "Fuel: "
 	if(!fueljar)
