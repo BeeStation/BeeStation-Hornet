@@ -123,8 +123,11 @@
 	if(isliving(user))
 		var/mob/living/living_user = user
 		card = living_user.get_idcard(hand_first = TRUE)
+	data["user"] = list()
+	data["user"]["authenticated"] = FALSE
+	data["user"]["silicon"] = FALSE
+	data["security_mode"] = (ACCESS_ARMORY in card?.GetAccess())
 	if(card?.registered_account)
-		data["user"] = list()
 		data["user"]["authenticated"] = TRUE
 		data["user"]["name"] = card.registered_account.account_holder
 		if(card?.registered_account.account_job)
@@ -133,14 +136,17 @@
 		else
 			data["user"]["job"] = "No Job"
 			data["user"]["department"] = "No Department"
+	else if(issilicon(user))
+		data["user"]["authenticated"] = TRUE
+		data["user"]["silicon"] = TRUE
+		data["user"]["name"] = user.name
+		data["user"]["job"] = user.job
+		data["security_mode"] = TRUE
 	else
-		data["user"] = list()
-		data["user"]["authenticated"] = FALSE
 		data["user"]["name"] = "Unknown"
 		data["user"]["job"] = "N/A"
 		data["user"]["department"] = "N/A"
 
-	data["security_mode"] = (ACCESS_ARMORY in card?.GetAccess())
 	data["photo_data"] = !isnull(current_image)
 	data["creating_channel"] = creating_channel
 	data["editing_channel"] = editing_channel
@@ -266,7 +272,7 @@
 			if(iterated_bank_account.account_id == current_app_num)
 				request_target = iterated_bank_account
 				break
-
+	var/silicon = issilicon(usr)
 	switch(action)
 		if("setChannel")
 			var/prototype_channel = params["channel"]
@@ -329,13 +335,14 @@
 			return TRUE
 
 		if("storyCensor")
-			var/obj/item/card/id/id_card
-			if(isliving(usr))
-				var/mob/living/living_user = usr
-				id_card = living_user.get_idcard(hand_first = TRUE)
-			if(!(ACCESS_ARMORY in id_card?.GetAccess()))
-				say("ERROR: Unauthorized request.")
-				return TRUE
+			if(!silicon)
+				var/obj/item/card/id/id_card
+				if(isliving(usr))
+					var/mob/living/living_user = usr
+					id_card = living_user.get_idcard(hand_first = TRUE)
+				if(!(ACCESS_ARMORY in id_card?.GetAccess()))
+					say("ERROR: Unauthorized request.")
+					return TRUE
 			var/questionable_message = params["messageID"]
 			for(var/datum/feed_message/iterated_feed_message as anything in current_channel.messages)
 				if(iterated_feed_message.message_ID == questionable_message)
@@ -343,13 +350,14 @@
 					break
 
 		if("authorCensor")
-			var/obj/item/card/id/id_card
-			if(isliving(usr))
-				var/mob/living/living_user = usr
-				id_card = living_user.get_idcard(hand_first = TRUE)
-			if(!(ACCESS_ARMORY in id_card?.GetAccess()))
-				say("ERROR: Unauthorized request.")
-				return TRUE
+			if(!silicon)
+				var/obj/item/card/id/id_card
+				if(isliving(usr))
+					var/mob/living/living_user = usr
+					id_card = living_user.get_idcard(hand_first = TRUE)
+				if(!(ACCESS_ARMORY in id_card?.GetAccess()))
+					say("ERROR: Unauthorized request.")
+					return TRUE
 			var/questionable_message = params["messageID"]
 			for(var/datum/feed_message/iterated_feed_message in current_channel.messages)
 				if(iterated_feed_message.message_ID == questionable_message)
@@ -357,13 +365,14 @@
 					break
 
 		if("channelDNotice")
-			var/obj/item/card/id/id_card
-			if(isliving(usr))
-				var/mob/living/living_user = usr
-				id_card = living_user.get_idcard(hand_first = TRUE)
-			if(!(ACCESS_ARMORY in id_card?.GetAccess()))
-				say("ERROR: Unauthorized request.")
-				return TRUE
+			if(!silicon)
+				var/obj/item/card/id/id_card
+				if(isliving(usr))
+					var/mob/living/living_user = usr
+					id_card = living_user.get_idcard(hand_first = TRUE)
+				if(!(ACCESS_ARMORY in id_card?.GetAccess()))
+					say("ERROR: Unauthorized request.")
+					return TRUE
 			var/prototype_channel = (params["channel"])
 			for(var/datum/feed_channel/potential_channel in GLOB.news_network.network_channels)
 				if(prototype_channel == potential_channel.channel_ID)
@@ -375,7 +384,7 @@
 			return TRUE
 
 		if("startComment")
-			if(!get_registered_account(usr))
+			if(!get_registered_account(usr) && !silicon)
 				say("ERROR: Cannote locate linked account ID.")
 				creating_comment = FALSE
 				return TRUE
@@ -432,10 +441,10 @@
 				say("ERROR: Missing crime details.")
 				return TRUE
 			var/datum/bank_account/account = get_registered_account(usr)
-			if(!istype(account))
+			if(!istype(account) && !silicon)
 				say("ERROR: Cannot locate linked account ID.")
 				return TRUE
-			GLOB.news_network.submit_wanted(criminal_name, crime_description, account.account_holder, current_image, adminMsg = FALSE, newMessage = TRUE, has_image = wanted_image)
+			GLOB.news_network.submit_wanted(criminal_name, crime_description, silicon ? usr.name : account.account_holder, current_image, adminMsg = FALSE, newMessage = TRUE, has_image = wanted_image)
 			current_image = null
 			viewing_wanted = FALSE
 			editing_wanted = FALSE
@@ -572,9 +581,6 @@
  * *user: The mob who is being checked for a held photo object.
  */
 /obj/machinery/newscaster/proc/attach_photo(mob/user)
-	var/obj/item/photo/photo = user.is_holding_item_of_type(/obj/item/photo)
-	if(photo)
-		current_image = photo.picture
 	if(issilicon(user))
 		var/obj/item/camera/siliconcam/targetcam
 		if(isAI(user))
@@ -591,18 +597,24 @@
 				targetcam = R.aicamera
 		else
 			to_chat(user, "<span class='warning'>You cannot interface with silicon photo uploading!</span>")
-		if(!targetcam.stored.len)
+		if(!length(targetcam.stored))
 			to_chat(usr, "<span class='boldannounce'>No images saved.</span>")
 			return
 		var/datum/picture/selection = targetcam.selectpicture(user)
 		if(selection)
 			current_image = selection
+	else
+		var/obj/item/photo/photo = user.is_holding_item_of_type(/obj/item/photo)
+		if(photo)
+			current_image = photo.picture
 
 /**
  * This takes all current feed stories and messages, and prints them onto a newspaper, after checking that the newscaster has been loaded with paper.
  * The newscaster then prints the paper to the floor.
  */
 /obj/machinery/newscaster/proc/print_paper()
+	if(issilicon(usr))
+		return TRUE
 	if(paper_remaining <= 0)
 		balloon_alert_to_viewers("out of paper!")
 		return TRUE
@@ -657,13 +669,13 @@
 		say("ERROR: No channel description present.")
 		return TRUE
 	var/datum/bank_account/account = get_registered_account(usr)
-	if(!istype(account))
+	if(!istype(account) && !issilicon(usr))
 		say("ERROR: Cannot locate linked account ID.")
 		stop_creating_channel()
 		return TRUE
 	var/choice = alert(usr, "Please confirm feed channel creation","Network Channel Handler", "Confirm", "Cancel")
 	if(choice == "Confirm")
-		GLOB.news_network.create_feed_channel(channel_name, account.account_holder, channel_desc, locked = channel_locked)
+		GLOB.news_network.create_feed_channel(channel_name, issilicon(usr) ? usr.name : account.account_holder, channel_desc, locked = channel_locked)
 		SSblackbox.record_feedback("text", "newscaster_channels", 1, "[channel_name]")
 	stop_creating_channel()
 	update_static_data(usr)
@@ -679,11 +691,11 @@
 		say("ERROR: No channel description present.")
 		return TRUE
 	var/datum/bank_account/account = get_registered_account(usr)
-	if(!istype(account))
+	if(!istype(account) && !issilicon(usr))
 		say("ERROR: Cannot locate linked account ID.")
 		stop_editing_channel()
 		return TRUE
-	if(current_channel.author != account?.account_holder)
+	if(current_channel.author != (issilicon(usr) ? usr.name : account.account_holder))
 		say("ERROR: Unauthorized request.")
 		stop_editing_channel()
 		return TRUE
@@ -713,16 +725,17 @@
 		creating_comment = FALSE
 		return TRUE
 	var/datum/bank_account/account = get_registered_account(usr)
-	if(!istype(account))
+	if(!istype(account) && !issilicon(usr))
 		say("ERROR: Cannot locate linked account ID.")
 		creating_comment = FALSE
 		return TRUE
 	var/datum/feed_comment/new_feed_comment = new/datum/feed_comment
-	new_feed_comment.author = "[account.account_holder] ([account.account_job?.title])"
+	var/author_text = issilicon(usr) ? "[usr.name] ([usr.job])" : "[account.account_holder] ([account.account_job?.title])"
+	new_feed_comment.author = author_text
 	new_feed_comment.body = comment_text
 	new_feed_comment.time_stamp = station_time_timestamp()
 	current_message.comments += new_feed_comment
-	usr.log_message("(as [account.account_holder]) commented on message [current_message.return_body(-1)] -- [current_message.body]", LOG_COMMENT)
+	usr.log_message("(as [author_text]) commented on message [current_message.return_body(-1)] -- [current_message.body]", LOG_COMMENT)
 	creating_comment = FALSE
 
 /**
@@ -734,7 +747,7 @@
 	if(editing_channel)
 		return TRUE
 	var/datum/bank_account/account = get_registered_account(usr)
-	if(!istype(account))
+	if(!istype(account) && !issilicon(usr))
 		say("ERROR: Cannot locate linked account ID.")
 		stop_creating_channel()
 		return TRUE
@@ -745,7 +758,8 @@
 			existing_authors += GLOB.news_network.redacted_text
 		else
 			existing_authors += iterated_feed_channel.author
-	if((account.account_holder == "Unknown") || (account.account_holder in existing_authors) || isnull(account.account_holder))
+	var/usr_name = issilicon(usr) ? usr.name : account.account_holder
+	if((usr_name == "Unknown") || (usr_name in existing_authors) || isnull(usr_name))
 		stop_creating_channel()
 		alert(usr, "ERROR: User cannot be found or already has an owned feed channel.", "Okay")
 		return TRUE
@@ -756,11 +770,11 @@
 	if(creating_channel)
 		return TRUE
 	var/datum/bank_account/account = get_registered_account(usr)
-	if(!istype(account))
+	if(!istype(account) && !issilicon(usr))
 		say("ERROR: Cannot locate linked account ID.")
 		stop_editing_channel()
 		return TRUE
-	if(current_channel.author != account.account_holder)
+	if(current_channel.author != (issilicon(usr) ? usr.name : account.account_holder))
 		say("ERROR: Unauthorized request.")
 		stop_editing_channel()
 		return TRUE
@@ -778,14 +792,15 @@
  */
 /obj/machinery/newscaster/proc/create_story(channel_name)
 	var/datum/bank_account/account = get_registered_account(usr)
-	if(!istype(account))
+	if(!istype(account) && !issilicon(usr))
 		say("ERROR: Cannot locate linked account ID.")
 		return TRUE
 	for(var/datum/feed_channel/potential_channel as anything in GLOB.news_network.network_channels)
 		if(channel_name == potential_channel.channel_ID)
 			current_channel = potential_channel
 			break
-	if(current_channel.locked && current_channel.author != account.account_holder)
+	var/usr_name = issilicon(usr) ? usr.name : account.account_holder
+	if(current_channel.locked && current_channel.author != usr_name)
 		say("ERROR: Unauthorized request.")
 		return TRUE
 	var/temp_message = stripped_multiline_input(usr, "Write your Feed story", "Network Channel Handler", feed_channel_message)
@@ -793,7 +808,7 @@
 		return TRUE
 	if(temp_message)
 		feed_channel_message = temp_message
-	GLOB.news_network.submit_article("<font face=\"[PEN_FONT]\">[parsemarkdown(feed_channel_message, usr)]</font>", account.account_holder, current_channel.channel_name, send_photo_data(), adminMessage = FALSE, allow_comments = TRUE, author_job = account.account_job.title)
+	GLOB.news_network.submit_article("<font face=\"[PEN_FONT]\">[parsemarkdown(feed_channel_message, usr)]</font>", usr_name, current_channel.channel_name, send_photo_data(), adminMessage = FALSE, allow_comments = TRUE, author_job = issilicon(usr) ? usr.job : account.account_job.title)
 	SSblackbox.record_feedback("amount", "newscaster_stories", 1)
 	feed_channel_message = ""
 	current_image = null
@@ -819,13 +834,14 @@
 			balloon_alert(usr, "no photo identified.")
 
 /obj/machinery/newscaster/proc/clear_wanted_issue(user)
-	var/obj/item/card/id/id_card
-	if(isliving(usr))
-		var/mob/living/living_user = usr
-		id_card = living_user.get_idcard(hand_first = TRUE)
-	if(!(ACCESS_ARMORY in id_card?.GetAccess()))
-		say("Clearance not found.")
-		return TRUE
+	if(!issilicon(usr))
+		var/obj/item/card/id/id_card
+		if(isliving(usr))
+			var/mob/living/living_user = usr
+			id_card = living_user.get_idcard(hand_first = TRUE)
+		if(!(ACCESS_ARMORY in id_card?.GetAccess()))
+			say("Clearance not found.")
+			return TRUE
 	GLOB.news_network.wanted_issue.active = FALSE
 	wanted_image = FALSE
 	current_image = null
@@ -835,6 +851,8 @@
  * This proc removes a station_request from the global list of requests, after checking that the owner of that request is the one who is trying to remove it.
  */
 /obj/machinery/newscaster/proc/delete_bounty_request()
+	if(issilicon(usr))
+		return TRUE
 	var/datum/bank_account/account = get_registered_account(usr)
 	if(!istype(account))
 		say("ERROR: Cannot locate linked account ID.")
@@ -855,6 +873,8 @@
  * For more info, see datum/station_request.
  */
 /obj/machinery/newscaster/proc/create_bounty()
+	if(issilicon(usr))
+		return TRUE
 	var/datum/bank_account/account = get_registered_account(usr)
 	if(!istype(account))
 		say("ERROR: Cannot locate linked account ID.")
@@ -878,6 +898,8 @@
  * Then, adds the current user to the list of applicants to that bounty.
  */
 /obj/machinery/newscaster/proc/apply_to_bounty()
+	if(issilicon(usr))
+		return TRUE
 	var/datum/bank_account/account = get_registered_account(usr)
 	if(!istype(account))
 		say("ERROR: Cannot locate linked account ID.")
@@ -894,6 +916,8 @@
  * This pays out the current request_target the amount held by the active request's assigned value, and then clears the active request from the global list.
  */
 /obj/machinery/newscaster/proc/pay_applicant(datum/bank_account/payment_target)
+	if(issilicon(usr))
+		return TRUE
 	var/datum/bank_account/account = get_registered_account(usr)
 	if(!istype(account))
 		say("ERROR: Cannot locate linked account ID.")

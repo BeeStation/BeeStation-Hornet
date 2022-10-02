@@ -473,7 +473,7 @@ const NewscasterChannelBox = (_, context) => {
             <Button
               icon="newspaper"
               content="Print Newspaper"
-              disabled={paper <= 0}
+              disabled={user.silicon || paper <= 0}
               tooltip={paper <= 0 ? "Please insert paper." : null}
               onClick={() => act('printNewspaper')} />
           </Box>
@@ -675,11 +675,12 @@ const NewscasterChannelMessages = (_, context) => {
                   <Box
                     as="img"
                     src={message.photo} />
-                  <Section
+                  {message.photo_caption
+                  && <Section
                     dangerouslySetInnerHTML={
                       processedText(message.photo_caption)
                     }
-                    pl={1} />
+                    pl={1} />}
                 </>
               )}
               {!!message.comments &&(

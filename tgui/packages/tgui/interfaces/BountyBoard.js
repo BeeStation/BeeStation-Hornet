@@ -30,7 +30,7 @@ export const BountyBoardContent = (_, context) => {
       <Section title="User Details">
         <UserDetails />
       </Section>
-      <NewBountyMenu />
+      {user.silicon ? null : <NewBountyMenu />}
       {requests?.map(request => (
         <Collapsible
           key={request.name}
@@ -46,7 +46,8 @@ export const BountyBoardContent = (_, context) => {
                   icon="pen-fancy"
                   content="Apply"
                   disabled={
-                    !user.authenticated || request.owner === user.name
+                    user.silicon
+                    || !user.authenticated || request.owner === user.name
                   }
                   onClick={() => act('apply', {
                     request: request.acc_number,
