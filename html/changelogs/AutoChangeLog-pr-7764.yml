@@ -1,0 +1,4 @@
+author: dwasint
+delete-after: true
+changes:
+  - bugfix: lit glowstick map helpers to actually work
