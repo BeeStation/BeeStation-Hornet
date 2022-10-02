@@ -1,6 +1,0 @@
-author: spockye
-delete-after: true
-changes:
-  - rscadd: Remakes the Delta station exploration room, and the maintenance around
-      it
-  - bugfix: fixes wrong zoning around the map
