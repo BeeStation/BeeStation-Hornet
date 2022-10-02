@@ -46,7 +46,7 @@
 		var/client/C = pick_n_take(candidates)
 
 		var/mob/living/simple_animal/hostile/poison/giant_spider/nurse/midwife/spooder = new(vent.loc)
-		spooder.directive = ""
+		spooder.directive = "Ensure the survival of your brood and overtake whatever structure you find yourself in."
 		spooder.key = C.key
 		spooder.enriched_fed++ // Give our spiders some friends to help them get started
 

@@ -695,7 +695,7 @@
 //////////////////////////////////////////////
 
 /datum/dynamic_ruleset/midround/from_ghosts/spiders
-	name = "Spiders"
+	name = "Spider Infestation"
 	antag_flag = "Spider"
 	antag_flag_override = ROLE_ALIEN
 	midround_ruleset_style = MIDROUND_RULESET_STYLE_HEAVY
@@ -705,7 +705,6 @@
 	required_candidates = 2
 	weight = 5
 	cost = 10
-	requirements = list(101,101,101,80,60,50,30,20,10,10)
 	repeatable = TRUE
 	var/list/vents = list()
 
@@ -726,6 +725,7 @@
 /datum/dynamic_ruleset/midround/from_ghosts/spiders/generate_ruleset_body(mob/applicant)
 	var/obj/vent = pick_n_take(vents)
 	var/mob/living/simple_animal/hostile/poison/giant_spider/nurse/midwife/spider = new(vent.loc)
+	spider.directive = "Ensure the survival of your brood and overtake whatever structure you find yourself in."
 	spider.key = applicant.key
 	message_admins("[ADMIN_LOOKUPFLW(spider)] has been made into a spider by the midround ruleset.")
 	log_game("DYNAMIC: [key_name(spider)] was spawned as a spider by the midround ruleset.")
