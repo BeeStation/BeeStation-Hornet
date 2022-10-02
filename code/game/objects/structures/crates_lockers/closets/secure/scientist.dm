@@ -8,7 +8,6 @@
 	new /obj/item/storage/box/suitbox/rd(src)
 	new /obj/item/clothing/suit/armor/reactive/teleport(src)
 	new /obj/item/clothing/suit/toggle/labcoat/research_director(src)
-	new /obj/item/clothing/gloves/color/latex(src)
 	new /obj/item/clothing/mask/gas(src)
 	new /obj/item/radio/headset/heads/research_director(src)
 
@@ -31,6 +30,9 @@
 	// prioritized items
 	new /obj/item/card/id/departmental_budget/sci(src)
 	new /obj/item/clothing/neck/cloak/rd(src)
+	new /obj/item/clothing/gloves/color/latex(src)
+	new /obj/item/clothing/glasses/hud/diagnostic(src)
+	new /obj/item/clothing/glasses/science(src)
 	new /obj/item/door_remote/research_director(src)
 	new /obj/item/assembly/flash/handheld(src)
 	new /obj/item/gun/energy/e_gun/mini/heads(src)
