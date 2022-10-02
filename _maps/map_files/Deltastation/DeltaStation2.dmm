@@ -84476,6 +84476,9 @@
 /obj/item/radio/intercom{
 	pixel_x = -26
 	},
+/obj/structure/window/reinforced{
+	dir = 1
+	},
 /turf/open/floor/plasteel,
 /area/quartermaster/exploration_prep)
 "jYr" = (
@@ -103127,10 +103130,6 @@
 /turf/open/floor/plasteel/dark,
 /area/engine/atmos)
 "rHz" = (
-/obj/structure/window/reinforced{
-	dir = 1;
-	pixel_y = 4
-	},
 /obj/structure/closet/secure_closet/personal,
 /obj/effect/turf_decal/box,
 /obj/effect/turf_decal/tile/neutral/tile_full,
@@ -103138,6 +103137,9 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/brown{
+	dir = 1
+	},
+/obj/structure/window/reinforced{
 	dir = 1
 	},
 /turf/open/floor/plasteel,
@@ -111958,20 +111960,6 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/space,
 /area/space/nearstation)
-"vtm" = (
-/obj/structure/window/reinforced{
-	dir = 1;
-	pixel_y = 4
-	},
-/obj/structure/closet/secure_closet/personal,
-/obj/effect/turf_decal/box,
-/obj/effect/turf_decal/tile/neutral/tile_full,
-/obj/effect/turf_decal/tile/green,
-/obj/effect/turf_decal/tile/brown{
-	dir = 4
-	},
-/turf/open/floor/plasteel,
-/area/quartermaster/exploration_prep)
 "vtq" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -111997,6 +111985,9 @@
 /obj/effect/turf_decal/tile/green,
 /obj/effect/turf_decal/tile/brown{
 	dir = 4
+	},
+/obj/structure/window/reinforced{
+	dir = 1
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/exploration_prep)
@@ -150954,7 +150945,7 @@ fcn
 eOQ
 twg
 vtz
-vtm
+vtz
 aFN
 uSu
 alf
