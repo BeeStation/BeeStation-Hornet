@@ -6,9 +6,9 @@
 	w_class = WEIGHT_CLASS_SMALL
 	var/uses = 1
 
-/obj/item/syndie_glue/suicide_act(mob/living/carbon/M)
-	visible_message("<span class='suicide'>[user] is drinking the whole bottle of glue! It looks like [user.p_theyre()] trying to commit suicide!")
-	return(OXYLOSS) // read the warning n00b
+/obj/item/syndie_glue/suicide_act(mob/living/M)
+	visible_message("<span class='suicide'>[M] is drinking the whole bottle of glue! It looks like [M.p_theyre()] trying to commit suicide!</span>")
+	return (OXYLOSS) // read the warning n00b
 
 /obj/item/syndie_glue/afterattack(atom/target, mob/user, proximity)
 	. = ..()
