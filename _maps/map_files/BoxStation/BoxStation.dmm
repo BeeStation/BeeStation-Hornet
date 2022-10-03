@@ -50305,14 +50305,6 @@
 	},
 /turf/open/floor/plating,
 /area/hallway/secondary/exit)
-"qcr" = (
-/obj/structure/closet/l3closet/virology,
-/obj/item/storage/box/masks,
-/obj/structure/closet/l3closet/virology,
-/obj/item/storage/box/masks,
-/obj/item/storage/box/gloves,
-/turf/open/floor/plasteel/white,
-/area/medical/virology)
 "qcG" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -100924,7 +100916,7 @@ ojT
 ogb
 xnm
 sqF
-qcr
+bSQ
 tsY
 nMH
 wef
