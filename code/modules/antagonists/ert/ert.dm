@@ -36,7 +36,7 @@
 
 /datum/antagonist/ert/proc/update_name()
 	var/name = pick(name_source)
-	if (name == null)
+	if (!name)
 		name = pick(GLOB.last_names)
 		var/backup = owner.current.client?.prefs.custom_names["human"]
 		name = backup ? backup : name
