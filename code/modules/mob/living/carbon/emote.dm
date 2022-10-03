@@ -99,6 +99,7 @@
 	key = "snap"
 	key_third_person = "snaps"
 	message = "snaps their fingers"
+	message_param = "snaps their fingers at %t"
 	emote_type = EMOTE_AUDIBLE
 	muzzle_ignore = TRUE
 	restraint_check = TRUE
@@ -109,6 +110,7 @@
 	key = "snap2"
 	key_third_person = "snaps twice"
 	message = "snaps their fingers twice"
+	message_param = "snaps their fingers at %t twice"
 	emote_type = EMOTE_AUDIBLE
 	muzzle_ignore = TRUE
 	restraint_check = TRUE
@@ -119,6 +121,7 @@
 	key = "snap3"
 	key_third_person = "snaps thrice"
 	message = "snaps their fingers thrice"
+	message_param = "snaps their fingers at %t thrice"
 	emote_type = EMOTE_AUDIBLE
 	muzzle_ignore = TRUE
 	restraint_check = TRUE
