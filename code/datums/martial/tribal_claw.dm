@@ -105,12 +105,12 @@ Deals 15 brute to head(reduced by armor) and causes a rapid bleeding effect simi
 	var/output = "<B>The techniques of Tribal Claw:</B><br>"
 	output += "<B>Calf Kick</B>: <B style='color:#FF0000'>Harm</B> <B style='color:#FF9900'>Grab</B> <B style='color:#0000FF'>Disarm</B>.\
 	<br>Paralyses one of your opponent's legs.<br>"
-	output += "<B>Tail Sweep</span>: <B style='color:#0000FF'>Disarm</B> <B style='color:#0000FF'>Disarm</B> <B style='color:#FF9900'>Grab</B> <B style='color:#FF0000'>Harm</B>.\
+	output += "<B>Tail Sweep</B>: <B style='color:#0000FF'>Disarm</B> <B style='color:#0000FF'>Disarm</B> <B style='color:#FF9900'>Grab</B> <B style='color:#FF0000'>Harm</B>.\
 	<br>Pushes everyone around you away and knocks them down.<br>"
-	output += "<B>Face Scratch</span>: <B style='color:#FF0000'>Harm</B> <B style='color:#0000FF'>Disarm</B>.\
+	output += "<B>Face Scratch</B>: <B style='color:#FF0000'>Harm</B> <B style='color:#0000FF'>Disarm</B>.\
 	<br>Damages your target's head and confuses them for a short time.<br>"
-	output += "<B>Jugular Cut</span>: <B style='color:#FF0000'>Harm</B> <B style='color:#FF0000'>Harm</B> <B style='color:#FF9900'>Grab</B>.\
+	output += "<B>Jugular Cut</B>: <B style='color:#FF0000'>Harm</B> <B style='color:#FF0000'>Harm</B> <B style='color:#FF9900'>Grab</B>.\
 	<br>Causes your target to rapidly lose blood, works only if you grab your target by their neck, if they are sleeping, or in critical condition.<br>"
-	output += "<B>Tail Grab</span>: <B style='color:#0000FF'>Disarm</B> <B style='color:#FF0000'>Harm</B> <B style='color:#FF9900'>Grab</B> <B style='color:#FF9900'>Grab</B>.\
+	output += "<B>Tail Grab</B>: <B style='color:#0000FF'>Disarm</B> <B style='color:#FF0000'>Harm</B> <B style='color:#FF9900'>Grab</B> <B style='color:#FF9900'>Grab</B>.\
 	<br>Grabs your target by their neck and makes them unable to talk for a short time.<br>"
 	usr << browse(output,"window=memory")

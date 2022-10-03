@@ -113,7 +113,7 @@
 /mob/living/carbon/human/proc/karate_help()
 	set name = "Recall Teachings"
 	set desc = "Remember the martial techniques of Karate."
-	set category = "IC"
+	set category = "Karate"
 	/*
 	to_chat(usr, "<b><i>You try to remember the fundamentals of Karate...</i></b>")
 
