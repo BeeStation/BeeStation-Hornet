@@ -49,7 +49,7 @@
 		D.apply_damage(5, BRUTE, pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM))
 		D.Stun(60)
 		return 1
-	
+
 	return basic_hit(A,D)
 
 /datum/martial_art/the_sleeping_carp/proc/backKick(mob/living/carbon/human/A, mob/living/carbon/human/D)
@@ -153,14 +153,19 @@
 	set name = "Recall Teachings"
 	set desc = "Remember the martial techniques of the Sleeping Carp clan."
 	set category = "Sleeping Carp"
-
 	to_chat(usr, "<b><i>You retreat inward and recall the teachings of the Sleeping Carp...</i></b>")
-
-	to_chat(usr, "<span class='notice'>Wrist Wrench</span>: Disarm Disarm. Forces opponent to drop item in hand.")
-	to_chat(usr, "<span class='notice'>Back Kick</span>: Harm Grab. Opponent must be facing away. Knocks down.")
-	to_chat(usr, "<span class='notice'>Stomach Knee</span>: Grab Harm. Knocks the wind out of opponent and stuns.")
-	to_chat(usr, "<span class='notice'>Head Kick</span>: Disarm Harm Harm. Decent damage, forces opponent to drop item in hand.")
-	to_chat(usr, "<span class='notice'>Elbow Drop</span>: Harm Disarm Harm Disarm Harm. Opponent must be on the ground. Deals huge damage, instantly kills anyone in critical condition.")
+	var/output = "<B>The techniques of Sleeping Carp:</B><br>"
+	output += "<B>Wrist Wrench</B>: <B style='color:#0000FF'>Disarm</B> <B style='color:#0000FF'>Disarm</B>.\
+	<br>Forces opponent to drop item in hand.<br>"
+	output += "<B>Back Kick</B>: <B style='color:#FF0000'>Harm</B> <B style='color:#FF9900'>Grab</B>. Opponent must be facing away.\
+	<br>Knocks down.<br>"
+	output += "<B>Stomach Knee</B>: <B style='color:#FF9900'>Grab</B> <B style='color:#FF0000'>Harm</B>.\
+	<br>Knocks the wind out of opponent and stuns.<br>"
+	output += "<B>Head Kick</B>: <B style='color:#0000FF'>Disarm</B> <B style='color:#FF0000'>Harm</B> <B style='color:#FF0000'>Harm</B>.\
+	<br>Decent damage, forces opponent to drop item in hand.<br>"
+	output += "<B>Elbow Drop</B>: <B style='color:#FF0000'>Harm</B> <B style='color:#0000FF'>Disarm</B> <B style='color:#FF0000'>Harm</B> <B style='color:#0000FF'>Disarm</B> <B style='color:#FF0000'>Harm</B>.\
+	<br>Opponent must be on the ground. Deals huge damage, instantly kills anyone in critical condition.<br>"
+	usr << browse(output,"window=memory")
 
 /obj/item/staff/bostaff
 	name = "bo staff"

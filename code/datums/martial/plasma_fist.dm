@@ -85,8 +85,12 @@
 	set name = "Recall Teachings"
 	set desc = "Remember the martial techniques of the Plasma Fist."
 	set category = "Plasma Fist"
-
 	to_chat(usr, "<b><i>You clench your fists and have a flashback of knowledge...</i></b>")
-	to_chat(usr, "<span class='notice'>Tornado Sweep</span>: Harm Harm Disarm. Repulses target and everyone back.")
-	to_chat(usr, "<span class='notice'>Throwback</span>: Disarm Harm Disarm. Throws the target and an item at them.")
-	to_chat(usr, "<span class='notice'>The Plasma Fist</span>: Harm Disarm Disarm Disarm Harm. Knocks the brain out of the opponent and gibs their body.")
+	var/output = "<B>The techniques of Plasma Fist:</B><br>"
+	output += "<B>Tornado Sweep</B>: <B style='color:#FF0000'>Harm</B> <B style='color:#FF0000'>Harm</B> <B style='color:#0000FF'>Disarm</B>.\
+	<br>Repulses target and everyone back.<br>"
+	output += "<B>Throwback</B>: <B style='color:#0000FF'>Disarm</B> <B style='color:#FF0000'>Harm</B> <B style='color:#0000FF'>Disarm</B>.\
+	<br>Throws the target and an item at them.<br>"
+	output += "<B>The Plasma Fist</B>: <B style='color:#FF0000'>Harm</B> <B style='color:#0000FF'>Disarm</B> <B style='color:#0000FF'>Disarm</B> <B style='color:#0000FF'>Disarm</B> <B style='color:#FF0000'>Harm</B>.\
+	<br>Knocks the brain out of the opponent and gibs their body.<br>"
+	usr << browse(output,"window=memory")

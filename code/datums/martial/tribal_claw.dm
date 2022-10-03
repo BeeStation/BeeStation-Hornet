@@ -101,10 +101,16 @@ Deals 15 brute to head(reduced by armor) and causes a rapid bleeding effect simi
 	set name = "Recall Teachings"
 	set desc = "Remember the martial techniques of the Tribal Claw"
 	set category = "Tribal Claw"
-
 	to_chat(usr, "<b><i>You retreat inward and recall the teachings of the Tribal Claw...</i></b>")
-
-	to_chat(usr, "<span class='notice'>Tail Sweep</span>: Disarm Disarm Grab Harm. Pushes everyone around you away and knocks them down.")
-	to_chat(usr, "<span class='notice'>Face Scratch</span>: Harm Disarm. Damages your target's head and confuses them for a short time.")
-	to_chat(usr, "<span class='notice'>Jugular Cut</span>: Harm Harm Grab. Causes your target to rapidly lose blood, works only if you grab your target by their neck, if they are sleeping, or in critical condition.")
-	to_chat(usr, "<span class='notice'>Tail Grab</span>: Disarm Harm Grab Grab. Grabs your target by their neck and makes them unable to talk for a short time.")
+	var/output = "<B>The techniques of Tribal Claw:</B><br>"
+	output += "<B>Calf Kick</B>: <B style='color:#FF0000'>Harm</B> <B style='color:#FF9900'>Grab</B> <B style='color:#0000FF'>Disarm</B>.\
+	<br>Paralyses one of your opponent's legs.<br>"
+	output += "<B>Tail Sweep</span>: <B style='color:#0000FF'>Disarm</B> <B style='color:#0000FF'>Disarm</B> <B style='color:#FF9900'>Grab</B> <B style='color:#FF0000'>Harm</B>.\
+	<br>Pushes everyone around you away and knocks them down.<br>"
+	output += "<B>Face Scratch</span>: <B style='color:#FF0000'>Harm</B> <B style='color:#0000FF'>Disarm</B>.\
+	<br>Damages your target's head and confuses them for a short time.<br>"
+	output += "<B>Jugular Cut</span>: <B style='color:#FF0000'>Harm</B> <B style='color:#FF0000'>Harm</B> <B style='color:#FF9900'>Grab</B>.\
+	<br>Causes your target to rapidly lose blood, works only if you grab your target by their neck, if they are sleeping, or in critical condition.<br>"
+	output += "<B>Tail Grab</span>: <B style='color:#0000FF'>Disarm</B> <B style='color:#FF0000'>Harm</B> <B style='color:#FF9900'>Grab</B> <B style='color:#FF9900'>Grab</B>.\
+	<br>Grabs your target by their neck and makes them unable to talk for a short time.<br>"
+	usr << browse(output,"window=memory")

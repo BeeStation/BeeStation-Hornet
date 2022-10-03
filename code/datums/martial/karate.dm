@@ -113,11 +113,23 @@
 /mob/living/carbon/human/proc/karate_help()
 	set name = "Recall Teachings"
 	set desc = "Remember the martial techniques of Karate."
-	set category = "Karate"
-
+	set category = "IC"
+	/*
 	to_chat(usr, "<b><i>You try to remember the fundamentals of Karate...</i></b>")
 
 	to_chat(usr, "<span class='notice'>Calf Kick</span>: Harm Grab Disarm. Paralyses one of your opponent's legs.")
 	to_chat(usr, "<span class='notice'>Jumping Knee</span>: Harm Disarm Harm. Deals significant stamina damage and knocks your opponent down briefly.")
 	to_chat(usr, "<span class='notice'>Karate Chop</span>: Grab Harm Disarm. Very briefly confuses your opponent and blurs their vision.")
 	to_chat(usr, "<span class='notice'>Floor Stomp</span>: Harm Grab Harm. Deals brute and stamina damage if your opponent isn't standing up.")
+	*/
+	//var/mob/living/carbon/human/H = usr
+	var/output = "<B>The fundamentals of Karate:</B><br>"
+	output += "<B>Calf Kick</B>: <B style='color:#FF0000'>Harm</B> <B style='color:#FF9900'>Grab</B> <B style='color:#0000FF'>Disarm</B>.\
+	<br>Paralyses one of your opponent's legs.<br>"
+	output += "<B>Jumping Knee</B>: <B style='color:#FF0000'>Harm</B> <B style='color:#0000FF'>Disarm</B> <B style='color:#FF0000'>Harm</B>.\
+	<br>Deals significant stamina damage and knocks your opponent down briefly.<br>"
+	output += "<B>Karate Chop</B>: <B style='color:#FF9900'>Grab</B> <B style='color:#FF0000'>Harm</B> <B style='color:#0000FF'>Disarm</B>.\
+	<br>Very briefly confuses your opponent and blurs their vision.<br>"
+	output += "<B>Floor Stomp</B>: <B style='color:#FF0000'>Harm</B> <B style='color:#FF9900'>Grab</B> <B style='color:#FF0000'>Harm</B>.\
+	<br>Deals brute and stamina damage if your opponent isn't standing up.<br>"
+	usr << browse(output,"window=memory")

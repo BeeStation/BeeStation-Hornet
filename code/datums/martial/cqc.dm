@@ -216,11 +216,17 @@
 	set desc = "You try to remember some of the basics of CQC."
 	set category = "CQC"
 	to_chat(usr, "<b><i>You try to remember some of the basics of CQC.</i></b>")
-
-	to_chat(usr, "<span class='notice'>Slam</span>: Grab Harm. Slam opponent into the ground, knocking them down.")
-	to_chat(usr, "<span class='notice'>CQC Kick</span>: Harm Harm. Knocks opponent away. Knocks out stunned or knocked down opponents.")
-	to_chat(usr, "<span class='notice'>Restrain</span>: Grab Grab. Locks opponents into a restraining position, disarm to knock them out with a chokehold.")
-	to_chat(usr, "<span class='notice'>Pressure</span>: Disarm Grab. Decent stamina damage.")
-	to_chat(usr, "<span class='notice'>Consecutive CQC</span>: Disarm Disarm Harm. Mainly offensive move, huge damage and decent stamina damage.")
-
-	to_chat(usr, "<b><i>In addition, by having your throw mode on when being attacked, you enter an active defense mode where you have a chance to block and sometimes even counter attacks done to you.</i></b>")
+	var/output = "<B>The basics of CQC:</B><br>"
+	output += "<B>Slam</B>: <B style='color:#FF9900'>Grab</B> <B style='color:#FF0000'>Harm</B>.\
+	<br>Slam opponent into the ground, knocking them down.<br>"
+	output += "<B>CQC Kick</B>: <B style='color:#FF0000'>Harm</B> <B style='color:#FF0000'>Harm</B>.\
+	<br>Knocks opponent away. Knocks out stunned or knocked down opponents.<br>"
+	output += "<B>Restrain</B>: <B style='color:#FF9900'>Grab</B> <B style='color:#FF9900'>Grab</B>.\
+	<br>Locks opponents into a restraining position, disarm to knock them out with a chokehold.<br>"
+	output += "<B>Pressure</B>: <B style='color:#0000FF'>Disarm</B> <B style='color:#FF9900'>Grab</B>.\
+	<br>Decent stamina damage.<br>"
+	output += "<B>Consecutive CQC</B>: <B style='color:#0000FF'>Disarm</B> <B style='color:#0000FF'>Disarm</B> <B style='color:#FF0000'>Harm</B>.\
+	<br>Mainly offensive move, huge damage and decent stamina damage.<br>"
+	output += "<br><b><i>In addition, by having your throw mode on when being attacked, you enter an active defense mode \
+	where you have a chance to block and sometimes even counter attacks done to you.</i></b><br>"
+	usr << browse(output,"window=memory")
