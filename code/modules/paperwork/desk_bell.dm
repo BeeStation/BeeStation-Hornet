@@ -18,7 +18,7 @@
 	/// The length of the cooldown. Setting it to 0 will skip all cooldowns alltogether.
 	var/ring_cooldown_length = 0.3 SECONDS // This is here to protect against tinnitus.
 	/// The sound the bell makes
-	var/ring_sound = 'sound/machines/microwave/microwave-end.ogg'
+	var/ring_sound = 'sound/machines/microwave/bellsound.ogg'
 
 /obj/structure/desk_bell/Initialize(mapload)
 	. = ..()
