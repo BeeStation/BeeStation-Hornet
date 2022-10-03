@@ -1,4 +1,0 @@
-author: TheChaser212
-delete-after: true
-changes:
-  - bugfix: AIs now lose syndicate channel when malf status removed
