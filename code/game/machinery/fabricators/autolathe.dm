@@ -40,10 +40,10 @@
 	wires = new /datum/wires/autolathe(src)
 
 /obj/machinery/modular_fabricator/autolathe/ui_interact(mob/user, datum/tgui/ui = null)
-	if(!is_operational())
+	if(!is_operational)
 		return
 
-	if(shocked && !(stat & NOPOWER))
+	if(shocked && !(machine_stat & NOPOWER))
 		shock(user,50)
 
 	ui = SStgui.try_update_ui(user, src, ui)
@@ -105,7 +105,7 @@
 	if(user.a_intent == INTENT_HARM) //so we can hit the machine
 		return ..()
 
-	if(stat)
+	if(machine_stat)
 		return TRUE
 
 	if(istype(O, /obj/item/disk/design_disk))
@@ -133,7 +133,7 @@
 	wires.ui_update()
 
 /obj/machinery/modular_fabricator/autolathe/proc/shock(mob/user, prb)
-	if(stat & (BROKEN|NOPOWER))		// unpowered, no shock
+	if(machine_stat & (BROKEN|NOPOWER))		// unpowered, no shock
 		return FALSE
 	if(!prob(prb))
 		return FALSE
