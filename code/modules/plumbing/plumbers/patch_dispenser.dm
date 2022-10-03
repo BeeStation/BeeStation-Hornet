@@ -25,7 +25,7 @@
 	AddComponent(/datum/component/plumbing/simple_demand, bolt)
 
 /obj/machinery/plumbing/patch_dispenser/process()
-	if(stat & NOPOWER)
+	if(machine_stat & NOPOWER)
 		return
 	if((reagents.total_volume >= patch_size) && (stored_patches.len < max_stored_patches))
 		var/obj/item/reagent_containers/pill/patch/P = new(src)
