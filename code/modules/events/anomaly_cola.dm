@@ -11,7 +11,7 @@
 	announceWhen = 2
 
 /datum/round_event/infcola/announce(fake)
-	priority_announce("Our long-range anomaly scanners have detected leakage from a soda filled dimension. Nanotrasen is not responsible for any damages caused by these anomalous canisters.", "General Alert", SSstation.announcer.get_rand_alert_sound())
+	priority_announce("Due to some failed bluespace experiments, corrupted bottles of Space Cola may appear across your station. Please refrain from drinking out of these bottles, as there is no current information on the contents. We are not responsible for any damages.", "General Alert", SSstation.announcer.get_rand_alert_sound())
 
 /datum/round_event/infcola/start()
 	for(var/i in 1 to rand(5, 20))  // generates between 5-20 cans
