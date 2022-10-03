@@ -181,7 +181,7 @@
 
 /obj/item/computer_hardware/hard_drive/role/cargo_technician
 	name = "space parts disk"
-	icon_state = "cart-qm"
+	icon_state = "cart-cargo"
 	desc = "Perfect for the Cargo Tech on the go!"
 	disk_flags = DISK_CARGO | DISK_ROBOS | DISK_BUDGET
 
