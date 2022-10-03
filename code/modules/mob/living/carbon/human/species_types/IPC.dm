@@ -47,7 +47,7 @@
 
 	var/saved_screen //for saving the screen when they die
 	var/datum/action/innate/change_screen/change_screen
-	
+
 	speak_no_tongue = FALSE  // who stole my soundblaster?! (-candy/etherware)
 
 /datum/species/ipc/random_name(gender, unique, lastname, attempts)
@@ -75,6 +75,8 @@
 		var/mob/living/carbon/human/H = C
 		H.physiology.bleed_mod *= 0.1
 
+	RegisterSignal(C, COMSIG_ATOM_EMAG_ACT, .proc/on_emag_act)
+
 /datum/species/ipc/on_species_loss(mob/living/carbon/C)
 	. = ..()
 	if(change_screen)
@@ -83,6 +85,8 @@
 	if(ishuman(C))
 		var/mob/living/carbon/human/H = C
 		H.physiology.bleed_mod *= 10
+
+	UnregisterSignal(C, COMSIG_ATOM_EMAG_ACT)
 
 /datum/species/ipc/proc/handle_speech(datum/source, list/speech_args)
 	speech_args[SPEECH_SPANS] |= SPAN_ROBOT //beep
@@ -252,3 +256,26 @@
 		BP.limb_id = chassis_of_choice.limbs_id
 		BP.name = "\improper[chassis_of_choice.name] [parse_zone(BP.body_zone)]"
 		BP.update_limb()
+
+
+/datum/species/ipc/proc/on_emag_act(mob/living/carbon/human/H, mob/user)
+	SIGNAL_HANDLER
+
+	if(H.has_status_effect(/datum/status_effect/trance))
+		to_chat(user, "<span class='warning'>[H] is already fried, nows your chance!</span>")
+		return
+
+	if(!H.hypnosis_vulnerable())
+		log_combat(user, H, "ipc emagged (reset)", src)
+		to_chat(user, "<span class='warning'>You try to emag [H], but they partially reset.</span>")
+		to_chat(H, "<span class='warning'>You feel your circuits shutting down, before rebooting</span>")
+		H.confused += min(H.confused + 10, 20)
+		H.dizziness += min(H.dizziness + 10, 20)
+		H.drowsyness += min(H.drowsyness + 10, 20)
+		H.apply_status_effect(STATUS_EFFECT_PACIFY, 100)
+		return
+
+	log_combat(user, H, "ipc emagged (hypno)", src)
+	to_chat(user, "<span class='notice'>You silently tap your emag to [H], and they slump over slightly.</span>")
+	to_chat(H, "<span class='notice'>You feel your circuits being fried, but you're too relaxed..</span>")
+	H.apply_status_effect(/datum/status_effect/trance, 200, TRUE)
