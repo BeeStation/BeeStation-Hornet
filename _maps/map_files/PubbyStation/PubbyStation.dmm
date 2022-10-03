@@ -58861,7 +58861,6 @@
 /obj/effect/turf_decal/box,
 /obj/structure/closet/l3closet/virology,
 /obj/item/storage/box/masks,
-/obj/structure/closet/l3closet/virology,
 /obj/item/storage/box/masks,
 /obj/item/storage/box/gloves,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
