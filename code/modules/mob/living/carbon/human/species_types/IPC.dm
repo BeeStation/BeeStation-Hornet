@@ -265,10 +265,10 @@
 		to_chat(user, "<span class='warning'>[H] is already fried, nows your chance!</span>")
 		return
 
-	if(!H.hypnosis_vulnerable())
+	if(HAS_TRAIT(H, TRAIT_MINDSHIELDED))
 		log_combat(user, H, "ipc emagged (reset)", src)
 		to_chat(user, "<span class='warning'>You try to emag [H], but they partially reset.</span>")
-		to_chat(H, "<span class='warning'>You feel your circuits shutting down, before rebooting</span>")
+		to_chat(H, "<span class='warning'>You feel your circuits shutting down, before rebooting.</span>")
 		H.confused += min(H.confused + 10, 20)
 		H.dizziness += min(H.dizziness + 10, 20)
 		H.drowsyness += min(H.drowsyness + 10, 20)
