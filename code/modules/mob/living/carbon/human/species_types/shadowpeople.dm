@@ -218,6 +218,11 @@
 		playsound(src, 'sound/items/cig_snuff.ogg', 50, 1)
 	..()
 
+/obj/structure/glowshroom/lighteater_act(obj/item/light_eater/light_eater)
+	..()
+	if (light_power > 0)
+		acid_act()
+
 /obj/item/lighteater_act(obj/item/light_eater/light_eater)
 	..()
 	if(!light_range || !light_power || !light_on)
@@ -228,7 +233,7 @@
 	playsound(src, 'sound/items/welder.ogg', 50, 1)
 
 /obj/item/modular_computer/tablet/lighteater_act(obj/item/light_eater/light_eater)
-	if(light_range && light_power && light_on)
+	if(light_range && light_power > 0 && light_on)
 		// Only the queen of Beetania can save our IDs from this infernal nightmare
 		var/obj/item/computer_hardware/card_slot/card_slot2 = all_components[MC_CARD2]
 		var/obj/item/computer_hardware/card_slot/card_slot = all_components[MC_CARD]
