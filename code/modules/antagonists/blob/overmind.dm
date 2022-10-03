@@ -239,6 +239,9 @@ GLOBAL_LIST_EMPTY(blob_nodes)
 
 	if (!message)
 		return
+	if(CHAT_FILTER_CHECK(message))
+		to_chat(usr, "<span class='warning'>Your message contains forbidden words.</span>")
+		return
 	message = treat_message_min(message)
 	src.log_talk(message, LOG_SAY, tag="blob")
 

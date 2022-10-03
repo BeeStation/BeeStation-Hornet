@@ -193,6 +193,13 @@
 	cost = 3
 	requirements = list(3,3,3,3,3,3,3,3,3,3)
 	repeatable = TRUE
+	blocking_rules = list(
+		/datum/dynamic_ruleset/roundstart/bloodcult,
+		/datum/dynamic_ruleset/roundstart/clockcult,
+		/datum/dynamic_ruleset/roundstart/nuclear,
+		/datum/dynamic_ruleset/roundstart/wizard,
+		/datum/dynamic_ruleset/roundstart/revs
+	)
 
 /datum/dynamic_ruleset/midround/autotraitor/trim_candidates()
 	..()
@@ -209,6 +216,8 @@
 /datum/dynamic_ruleset/midround/autotraitor/ready(forced = FALSE)
 	if (required_candidates > length(living_players))
 		log_game("DYNAMIC: FAIL: [src] does not have enough candidates, using living_players ([required_candidates] needed, [living_players.len] found)")
+		return FALSE
+	if (mode.check_lowpop_lowimpact_injection())
 		return FALSE
 	return ..()
 
@@ -239,6 +248,7 @@
 	weight = 2
 	cost = 10
 	required_type = /mob/living/silicon/ai
+	blocking_rules = list(/datum/dynamic_ruleset/roundstart/nuclear)
 	var/ion_announce = 33
 	var/removeDontImproveChance = 10
 
@@ -620,6 +630,8 @@
 
 /datum/dynamic_ruleset/midround/obsessed/ready(forced = FALSE)
 	if(!check_candidates())
+		return FALSE
+	if(mode.check_lowpop_lowimpact_injection())
 		return FALSE
 	return ..()
 
