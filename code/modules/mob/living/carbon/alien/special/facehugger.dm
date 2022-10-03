@@ -30,6 +30,7 @@
 
 /obj/item/clothing/mask/facehugger/Initialize(mapload)
 	. = ..()
+	compile_monkey_icon()
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = .proc/on_entered,
 	)
@@ -42,6 +43,7 @@
 		return
 	monkey_icon = icon('icons/obj/clothing/monkey_alt.dmi', "facehugger")
 	GLOB.monkey_icon_cache[type] = icon(monkey_icon)
+
 /obj/item/clothing/mask/facehugger/lamarr
 	name = "Lamarr"
 	sterile = TRUE
