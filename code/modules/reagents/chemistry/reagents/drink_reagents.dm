@@ -971,7 +971,7 @@
 	quality = DRINK_NICE  // sweet tooth
 	nutriment_factor = 2 * REAGENTS_METABOLISM
 	taste_description = "a bee hive"
-	glass_icon_state = "bee_burst"
+	glass_icon_state = "beeburst"
 	COOLDOWN_DECLARE(bee_limit)
 
 
