@@ -2731,12 +2731,9 @@
 "ahc" = (
 /turf/open/floor/plasteel,
 /area/security/range)
-"ahd" = (
-/turf/template_noop,
-/area/maintenance/fore)
 "ahe" = (
 /obj/effect/spawner/room/fivexfour,
-/turf/template_noop,
+/turf/open/floor/plating,
 /area/maintenance/fore)
 "ahf" = (
 /obj/structure/cable/yellow{
@@ -3218,7 +3215,7 @@
 /area/maintenance/solars/port/fore)
 "aio" = (
 /obj/effect/landmark/xeno_spawn,
-/turf/template_noop,
+/turf/open/floor/plating,
 /area/maintenance/fore)
 "aip" = (
 /obj/effect/spawner/structure/window/reinforced,
@@ -6410,12 +6407,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
-"atw" = (
-/obj/structure/lattice,
-/obj/structure/disposalpipe/segment,
-/obj/machinery/atmospherics/pipe/simple/general/visible,
-/turf/open/space,
-/area/maintenance/disposal/incinerator)
 "atx" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
@@ -6533,9 +6524,6 @@
 /obj/effect/spawner/room/tenxten,
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
-"auv" = (
-/turf/open/space/basic,
-/area/space/nearstation)
 "auw" = (
 /obj/machinery/camera{
 	c_tag = "Gravity Generator Foyer"
@@ -13080,7 +13068,7 @@
 	icon_state = "4-8"
 	},
 /turf/open/floor/plating,
-/area/maintenance/port)
+/area/maintenance/port/fore)
 "aTa" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -36467,10 +36455,6 @@
 /obj/structure/lattice,
 /turf/open/space,
 /area/space/nearstation)
-"ctm" = (
-/obj/structure/grille/broken,
-/turf/open/space,
-/area/space/nearstation)
 "ctn" = (
 /obj/item/radio/intercom{
 	broadcasting = 1;
@@ -40045,19 +40029,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
-"cEi" = (
-/obj/effect/turf_decal/tile/purple{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/purple,
-/obj/effect/turf_decal/tile/purple{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/purple{
-	dir = 8
-	},
-/turf/open/floor/plasteel,
-/area/science/robotics/lab)
 "cEj" = (
 /obj/structure/table/reinforced,
 /obj/item/pen,
@@ -41313,9 +41284,6 @@
 	pixel_x = 32
 	},
 /turf/open/floor/plasteel/white/corner,
-/area/hallway/primary/aft)
-"cIH" = (
-/turf/closed/wall/r_wall,
 /area/hallway/primary/aft)
 "cII" = (
 /obj/structure/table,
@@ -46821,6 +46789,7 @@
 /obj/machinery/atmospherics/pipe/simple/orange/visible{
 	dir = 5
 	},
+/obj/structure/lattice,
 /turf/open/space,
 /area/space/nearstation)
 "dgJ" = (
@@ -46834,12 +46803,14 @@
 /obj/machinery/atmospherics/pipe/simple/orange/visible{
 	dir = 4
 	},
+/obj/structure/lattice,
 /turf/open/space,
 /area/space/nearstation)
 "dgM" = (
 /obj/machinery/atmospherics/pipe/simple/orange/visible{
 	dir = 10
 	},
+/obj/structure/lattice,
 /turf/open/space,
 /area/space/nearstation)
 "dgN" = (
@@ -46850,6 +46821,7 @@
 /area/space/nearstation)
 "dgO" = (
 /obj/machinery/atmospherics/pipe/simple/orange/visible,
+/obj/structure/lattice,
 /turf/open/space,
 /area/space/nearstation)
 "dha" = (
@@ -57645,12 +57617,6 @@
 	},
 /turf/open/floor/plasteel/white/corner,
 /area/hallway/secondary/entry)
-"iPk" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/turf/open/floor/plating/airless,
-/area/space)
 "iPr" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -65349,7 +65315,7 @@
 /area/security/prison)
 "nqW" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/turf/template_noop,
+/turf/open/floor/plating,
 /area/maintenance/fore)
 "nrE" = (
 /obj/structure/cable/yellow{
@@ -79351,9 +79317,9 @@
 /turf/open/floor/plasteel,
 /area/crew_quarters/dorms)
 "vLD" = (
-/obj/structure/lattice,
-/turf/open/space/basic,
-/area/space)
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plating,
+/area/science/misc_lab/range)
 "vLM" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -81849,7 +81815,7 @@
 /area/maintenance/aft)
 "xjz" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
-/turf/template_noop,
+/turf/open/floor/plating,
 /area/maintenance/fore)
 "xjG" = (
 /obj/structure/cable/yellow{
@@ -94302,7 +94268,7 @@ aaa
 aaa
 aaa
 aaa
-ctm
+aai
 anT
 aai
 anT
@@ -99362,8 +99328,8 @@ aaa
 aaa
 aaa
 aaa
-vLD
-vLD
+lMJ
+lMJ
 aaa
 aaa
 aaf
@@ -99616,12 +99582,12 @@ aaa
 aaa
 aaa
 aaa
-vLD
+lMJ
 qkj
 aaa
-iPk
-vLD
-vLD
+frA
+lMJ
+lMJ
 aaa
 aaa
 aaf
@@ -100130,7 +100096,7 @@ aaf
 aaa
 aaa
 aaf
-vLD
+lMJ
 aaf
 aaa
 aaf
@@ -100216,7 +100182,7 @@ bXE
 bXE
 bXE
 cJh
-auv
+aaa
 cwf
 ack
 aaf
@@ -101988,7 +101954,7 @@ bvW
 aob
 aob
 aob
-bXE
+aob
 aqT
 alK
 wlC
@@ -106658,7 +106624,7 @@ cxU
 duX
 cKu
 cLd
-cLa
+cMI
 cMJ
 cOm
 cOi
@@ -106915,7 +106881,7 @@ cxU
 fuE
 izg
 urh
-cLa
+cMI
 cMK
 cOm
 cOj
@@ -107172,7 +107138,7 @@ bTs
 bTs
 avr
 wRZ
-cLa
+cMI
 cML
 cOm
 cOk
@@ -107686,7 +107652,7 @@ avr
 bTs
 avr
 lVj
-cLa
+cMI
 cMN
 cNG
 cOm
@@ -107943,7 +107909,7 @@ avr
 bTs
 avr
 wRZ
-cLa
+cMI
 cMO
 cNG
 cOm
@@ -108200,7 +108166,7 @@ bTs
 bTs
 avr
 pey
-cLa
+cMI
 cMP
 cNG
 cOm
@@ -108457,7 +108423,7 @@ gGF
 vjM
 gGF
 dFB
-cLa
+cMI
 cMI
 cNH
 cOn
@@ -111789,12 +111755,12 @@ sdd
 cvH
 cvH
 cqv
-cEi
+cpb
 cCq
 cCq
 cCq
 cCq
-cIH
+cCq
 cCq
 cCq
 fij
@@ -117094,9 +117060,9 @@ agq
 fCb
 aje
 agq
-ahd
-ahd
-ahd
+aje
+aje
+aje
 ahe
 agq
 fVE
@@ -117351,10 +117317,10 @@ agq
 lhb
 aje
 agq
-ahd
-ahd
+aje
+aje
 aio
-ahd
+aje
 agq
 kfH
 epz
@@ -117608,7 +117574,7 @@ wLz
 wLz
 wLz
 agq
-ahd
+aje
 xjz
 nqW
 nqW
@@ -117865,10 +117831,10 @@ sGK
 koT
 iMM
 agq
-ahd
-ahd
-ahd
-ahd
+aje
+aje
+aje
+aje
 agq
 wdT
 agq
@@ -118122,10 +118088,10 @@ fLl
 hsl
 sEA
 acP
-ahd
-ahd
-ahd
-ahd
+aje
+aje
+aje
+aje
 agq
 dVK
 agq
@@ -120032,7 +119998,7 @@ aaa
 aaf
 aaa
 aaa
-vLD
+lMJ
 aaa
 aaf
 aaa
@@ -120279,7 +120245,7 @@ dvY
 dvY
 kDM
 dvY
-vLD
+lMJ
 dbN
 xse
 dbN
@@ -120287,8 +120253,8 @@ aaf
 aaf
 aaf
 aaf
-vLD
-vLD
+lMJ
+lMJ
 aaf
 aaa
 aaa
@@ -120530,7 +120496,7 @@ czD
 cQB
 cAO
 cBL
-cEA
+cAP
 cDu
 cEA
 ack
@@ -120787,7 +120753,7 @@ czD
 czI
 cAP
 cAP
-blx
+czD
 anS
 blx
 aaa
@@ -121040,7 +121006,7 @@ eZj
 krD
 krD
 krD
-cEA
+vLD
 aaf
 aaf
 aaf
@@ -121297,7 +121263,7 @@ eZj
 krD
 krD
 kss
-cEA
+vLD
 aaf
 aaf
 lMJ
@@ -122825,9 +122791,9 @@ ovj
 ovj
 ovj
 ovj
-vLD
-vLD
-vLD
+lMJ
+lMJ
+lMJ
 ctl
 mjJ
 htz
@@ -123078,14 +123044,14 @@ afQ
 cgv
 anz
 ciY
-atw
+cmc
 cmc
 cmc
 cmc
 cpM
 crc
 aaf
-vLD
+lMJ
 aaa
 aaa
 mjJ
@@ -128477,7 +128443,7 @@ aaa
 aaf
 aaa
 aaf
-vLD
+lMJ
 aaa
 aaa
 aaf
