@@ -54707,10 +54707,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/starboard)
-"tom" = (
-/obj/structure/sign/poster/official/disk,
-/turf/open/space/basic,
-/area/space)
 "tpe" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
@@ -118484,7 +118480,7 @@ aaf
 aaa
 aaf
 aaa
-tom
+aaa
 aaa
 aaa
 aaa

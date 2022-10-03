@@ -53796,10 +53796,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
-"gsM" = (
-/obj/structure/sign/poster/official/disk,
-/turf/open/space/basic,
-/area/space)
 "gte" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable/yellow{
@@ -130050,7 +130046,7 @@ aaa
 aaa
 aaf
 aaa
-gsM
+aaa
 aaa
 aaa
 aaa

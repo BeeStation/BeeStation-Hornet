@@ -58400,10 +58400,6 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel/yellowsiding,
 /area/storage/primary)
-"ulF" = (
-/obj/structure/sign/poster/official/disk,
-/turf/open/space/basic,
-/area/space)
 "ulV" = (
 /obj/structure/rack,
 /obj/item/clothing/mask/gas/sechailer,
@@ -107462,7 +107458,7 @@ aaa
 aaa
 aaa
 aaa
-ulF
+aaa
 aaa
 aaa
 aaa

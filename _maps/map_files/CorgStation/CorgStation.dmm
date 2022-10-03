@@ -27753,10 +27753,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/hallway/primary/central)
-"hId" = (
-/obj/structure/sign/poster/official/disk,
-/turf/open/space/basic,
-/area/space)
 "hIh" = (
 /obj/effect/turf_decal/tile/blue,
 /obj/effect/turf_decal/tile/blue{
@@ -101909,7 +101905,7 @@ anT
 aMT
 anT
 aMT
-hId
+aMT
 aMT
 aMT
 aMT

@@ -97286,10 +97286,6 @@
 /obj/item/book/manual/wiki/engineering_hacking,
 /turf/open/floor/plating,
 /area/quartermaster/warehouse)
-"ltq" = (
-/obj/structure/sign/poster/official/disk,
-/turf/open/space/basic,
-/area/space)
 "lyq" = (
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
@@ -153106,7 +153102,7 @@ aeo
 aaa
 acm
 aaa
-ltq
+aaa
 aaa
 aaa
 aaa

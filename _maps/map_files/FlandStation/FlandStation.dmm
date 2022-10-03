@@ -29544,10 +29544,6 @@
 	},
 /turf/open/floor/plasteel/techmaint,
 /area/security/prison/asteroid)
-"gKE" = (
-/obj/structure/sign/poster/official/disk,
-/turf/open/space/basic,
-/area/space)
 "gKH" = (
 /obj/item/stack/marker_beacon{
 	anchored = 1;
@@ -138231,7 +138227,7 @@ nnx
 nnx
 nnx
 nnx
-gKE
+nnx
 nnx
 nnx
 nnx
