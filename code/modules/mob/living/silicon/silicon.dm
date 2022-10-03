@@ -34,7 +34,8 @@
 	var/hackedcheck[1]
 	var/devillawcheck[5]
 
-	var/sensors_on = 0
+	/// Are our siliconHUDs on? TRUE for yes, FALSE for no.
+	var/sensors_on = TRUE
 	var/med_hud = DATA_HUD_MEDICAL_ADVANCED //Determines the med hud to use
 	var/sec_hud = DATA_HUD_SECURITY_ADVANCED //Determines the sec hud to use
 	var/d_hud = DATA_HUD_DIAGNOSTIC_BASIC //Determines the diag hud to use
@@ -62,6 +63,7 @@
 		diag_hud.add_to_hud(src)
 	diag_hud_set_status()
 	diag_hud_set_health()
+	add_sensors()
 	create_access_card(default_access_list)
 	default_access_list = null
 
@@ -263,7 +265,7 @@
 
 	for (var/index = 1, index <= laws.hacked.len, index++)
 		var/law = laws.hacked[index]
-		var/num = ionnum()
+		var/num = ion_num()
 		if (length(law) > 0)
 			if (force || hackedcheck[index] == "Yes")
 				say("[radiomod] [num]. [law]")
@@ -273,7 +275,7 @@
 
 	for (var/index = 1, index <= laws.ion.len, index++)
 		var/law = laws.ion[index]
-		var/num = ionnum()
+		var/num = ion_num()
 		if (length(law) > 0)
 			if (force || ioncheck[index] == "Yes")
 				say("[radiomod] [num]. [law]")
@@ -327,7 +329,7 @@
 		if (length(law) > 0)
 			if (!hackedcheck[index])
 				hackedcheck[index] = "No"
-			list += {"<A href='byond://?src=[REF(src)];lawh=[index]'>[hackedcheck[index]] [ionnum()]:</A> <font color='#660000'>[law]</font><BR>"}
+			list += {"<A href='byond://?src=[REF(src)];lawh=[index]'>[hackedcheck[index]] [ion_num()]:</A> <font color='#660000'>[law]</font><BR>"}
 			hackedcheck.len += 1
 
 	for (var/index = 1, index <= laws.ion.len, index++)
@@ -336,7 +338,7 @@
 		if (length(law) > 0)
 			if (!ioncheck[index])
 				ioncheck[index] = "Yes"
-			list += {"<A href='byond://?src=[REF(src)];lawi=[index]'>[ioncheck[index]] [ionnum()]:</A> <font color='#547DFE'>[law]</font><BR>"}
+			list += {"<A href='byond://?src=[REF(src)];lawi=[index]'>[ioncheck[index]] [ion_num()]:</A> <font color='#547DFE'>[law]</font><BR>"}
 			ioncheck.len += 1
 
 	var/number = 1

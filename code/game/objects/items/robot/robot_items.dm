@@ -187,7 +187,7 @@
 		if(is_type_in_list(target, charge_machines))
 			var/obj/machinery/M = target
 
-			if((M.stat & (NOPOWER|BROKEN)) || !M.anchored)
+			if((M.machine_stat & (NOPOWER|BROKEN)) || !M.anchored)
 				to_chat(user, "<span class='warning'>[M] is unpowered!</span>")
 				return
 
@@ -296,7 +296,7 @@
 				active = FALSE
 				return
 
-			if((M.stat & (NOPOWER|BROKEN)) || !M.anchored)
+			if((M.machine_stat & (NOPOWER|BROKEN)) || !M.anchored)
 				break
 
 			if(!user.cell.give(150))

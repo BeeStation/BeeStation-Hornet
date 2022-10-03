@@ -92,14 +92,14 @@
 		if ("answerMessage")
 			if (!authenticated(usr))
 				return
-			var/answer_index = text2num(params["answer"])
+			var/answer_key = params["answer"]
 			var/message_index = text2num(params["message"])
-			if (!answer_index || !message_index || answer_index < 1 || message_index < 1)
+			if (!answer_key || !message_index || message_index < 1)
 				return
 			var/datum/comm_message/message = messages[message_index]
-			if (message.answered)
+			if (!(answer_key in message.possible_answers) || message.answered)
 				return
-			message.answered = answer_index
+			message.answered = answer_key
 			message.answer_callback.InvokeAsync()
 			. = TRUE
 		if ("callShuttle")
@@ -247,6 +247,9 @@
 
 			var/message = trim(html_encode(params["message"]), MAX_MESSAGE_LEN)
 			if (!message)
+				return
+			if(CHAT_FILTER_CHECK(message))
+				to_chat(usr, "<span class='warning'>Your message contains forbidden words.</span>")
 				return
 
 			playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)

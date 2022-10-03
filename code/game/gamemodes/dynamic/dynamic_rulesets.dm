@@ -147,7 +147,7 @@
 
 /// Called on game mode pre_setup for roundstart rulesets.
 /// Do everything you need to do before job is assigned here.
-/// IMPORTANT: ASSIGN special_role HERE
+/// IMPORTANT: ASSIGN special_role HERE (for midrounds, this doesn't apply)
 /datum/dynamic_ruleset/proc/pre_execute()
 	return TRUE
 
@@ -168,7 +168,10 @@
 /// This one only handles refunding the threat, override in ruleset to clean up the rest.
 /datum/dynamic_ruleset/proc/clean_up()
 	mode.refund_threat(cost + (scaled_times * scaling_cost))
-	mode.threat_log += "[worldtime2text()]: [ruletype] [name] refunded [cost + (scaled_times * scaling_cost)]. Failed to execute."
+	var/msg = "[ruletype] [name] refunded [cost + (scaled_times * scaling_cost)]. Failed to execute."
+	mode.threat_log += "[worldtime2text()]: [msg]"
+	message_admins(msg)
+	log_game("DYNAMIC: [ruletype] [name] is cleaning up, failed to execute.")
 
 /// Gets weight of the ruleset
 /// Note that this decreases weight if repeatable is TRUE and repeatable_weight_decrease is higher than 0
