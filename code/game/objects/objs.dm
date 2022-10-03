@@ -59,6 +59,8 @@
 	var/suicider
 	/// holds the number of people to suicide with this item (ideally 0)
 	var/suicide_count = 0
+	/// hides the suicide stuff from examine
+	var/hide_suicide
 
 /obj/vv_edit_var(vname, vval)
 	switch(vname)
@@ -374,6 +376,8 @@
 	if(unique_reskin && !current_skin)
 		. += "<span class='notice'>Alt-click it to reskin it.</span>"
 
+	if(hide_suicide)
+		return
 	if(suicider)
 		. += "<span class='notice'>For some reason, it reminds you of [suicider].</span>"
 	if(suicide_count >= SUICIDE_CONCERN)

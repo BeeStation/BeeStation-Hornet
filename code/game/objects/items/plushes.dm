@@ -545,8 +545,7 @@
 	icon_state = "moffplush"
 	attack_verb = list("fluttered", "flapped")
 	squeak_override = list('sound/voice/moth/scream_moth.ogg'=1)
-///Used to track how many people killed themselves with item/toy/plush/moth
-	var/suicide_count = 0
+	hide_suicide = TRUE  // they will never find the bodies :)
 
 /obj/item/toy/plush/moth/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] stares deeply into the eyes of [src]. The plush begins to consume [user.p_their()] soul!  It looks like [user.p_theyre()] trying to commit suicide!</span>")

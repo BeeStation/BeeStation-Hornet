@@ -14,7 +14,7 @@
 	var/frequency = FREQ_SIGNALER
 	var/datum/radio_frequency/radio_connection
 	///Holds the mind that commited suicide.
-	var/datum/mind/suicider
+	var/datum/mind/danger_man
 	///Holds a reference string to the mob, decides how much of a gamer you are.
 	var/suicide_mob
 	var/hearing_range = 1
@@ -23,7 +23,7 @@
 	user.visible_message("<span class='suicide'>[user] eats \the [src]! If it is signaled, [user.p_they()] will die!</span>")
 	playsound(src, 'sound/items/eatfood.ogg', 50, TRUE)
 	moveToNullspace()
-	suicider = user.mind
+	danger_man = user.mind
 	suicide_mob = REF(user)
 	return MANUAL_SUICIDE_NONLETHAL
 
@@ -48,7 +48,7 @@
 
 /obj/item/assembly/signaler/Destroy()
 	SSradio.remove_object(src,frequency)
-	suicider = null
+	danger_man = null
 	. = ..()
 
 /obj/item/assembly/signaler/activate()
@@ -144,8 +144,8 @@
 		return
 	if(!(src.wires & WIRE_RADIO_RECEIVE))
 		return
-	if(suicider)
-		manual_suicide(suicider)
+	if(danger_man)
+		manual_suicide(danger_man)
 		return
 	pulse(TRUE)
 	audible_message("[icon2html(src, hearers(src))] *beep* *beep* *beep*", null, hearing_range)
@@ -195,8 +195,8 @@
 		return FALSE
 	if(signal.data["code"] != code)
 		return FALSE
-	if(suicider)
-		manual_suicide(suicider)
+	if(danger_man)
+		manual_suicide(danger_man)
 	for(var/obj/effect/anomaly/A in get_turf(src))
 		A.anomalyNeutralize()
 	return TRUE
