@@ -199,17 +199,6 @@
 	emote_length = 3 SECONDS
 	sound = 'code/datums/emote_sounds/emotes/question.ogg'
 
-/datum/emote/living/carbon/realize
-	key = "realize"
-	key_third_person = "realizes"
-	emote_type = EMOTE_ANIMATED
-	sound_volume = 25
-	vary = TRUE
-	overlay_icon_state = "realize"
-	overlay_y_offset = 15
-	emote_length = 5 SECONDS
-	sound = 'code/datums/emote_sounds/emotes/realize.ogg'
-
 /datum/emote/living/carbon/annoyed
 	key = "annoyed"
 	key_third_person = "is annoyed"
