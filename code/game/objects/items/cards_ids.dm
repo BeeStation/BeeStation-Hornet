@@ -763,8 +763,6 @@ update_label("John Doe", "Clowny")
 
 	name = "[(!registered_name)	? "paper slip identifier": "[registered_name]'s paper slip"]"
 
-/obj/item/card/id/set_hud_icon_on_spawn(jobname)
-	return
 
 /obj/item/card/id/away
 	name = "\proper a perfectly generic identification card"
