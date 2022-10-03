@@ -10082,6 +10082,7 @@
 	},
 /obj/effect/turf_decal/tile/red,
 /obj/machinery/airalarm/directional/south,
+/obj/item/storage/fancy/donut_box,
 /turf/open/floor/plasteel/dark,
 /area/security/checkpoint/science)
 "cxQ" = (
@@ -28110,6 +28111,7 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
+/obj/item/storage/fancy/donut_box,
 /turf/open/floor/plasteel/dark,
 /area/security/checkpoint/engineering)
 "hNp" = (
@@ -51539,6 +51541,7 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/neutral,
+/obj/item/storage/fancy/donut_box,
 /turf/open/floor/plasteel/dark,
 /area/security/checkpoint/medical)
 "oBV" = (
@@ -66985,6 +66988,7 @@
 	icon_state = "right";
 	name = "Outer Window"
 	},
+/obj/item/storage/fancy/donut_box,
 /turf/open/floor/plasteel,
 /area/security/warden)
 "thv" = (
@@ -76611,6 +76615,7 @@
 	},
 /obj/effect/turf_decal/tile/red,
 /obj/machinery/airalarm/directional/south,
+/obj/item/storage/fancy/donut_box,
 /turf/open/floor/plasteel/dark,
 /area/security/checkpoint/supply)
 "vXi" = (
