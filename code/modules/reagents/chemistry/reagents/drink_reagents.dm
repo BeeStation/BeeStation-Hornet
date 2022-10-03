@@ -963,8 +963,8 @@
 /datum/reagent/consumable/ethanol/bee_burst
 	name = "Bee Burst"
 	glass_name = "Bee Burst"
-	description = "A \"drink\" consisting of excess of sugar and honey. It's barely drinkable."
-	glass_desc = "There's so much honey in here that it would attract real bees. Drink at caution."
+	description = "A \"drink\" consisting of sugar and honey. It's barely drinkable."
+	glass_desc = "There's so much honey in here that it attracts bees. Drink at caution."
 	color = "#f0eb89"  // rgb: 240, 235, 137
 	chem_flags = CHEMICAL_RNG_FUN
 	boozepwr = 20
