@@ -60,8 +60,8 @@
 	user.Stun(100, ignore_canstun = TRUE)
 	playsound(loc, 'sound/effects/pray.ogg', 50, 1, -1)
 
-	new /obj/effect/temp_visual/holy/light(user,loc)
-	new /obj/effect/temp_visual/holy/beam(user,loc)
+	new /obj/effect/temp_visual/holy/beam(get_turf(user))
+	new /obj/effect/temp_visual/holy/light(get_turf(user))
 
 	// Let the sound effect finish playing
 	add_fingerprint(user)
