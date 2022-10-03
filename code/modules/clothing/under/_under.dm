@@ -219,6 +219,12 @@
 		monkey_icon = GLOB.monkey_icon_cache[type]
 		return
 
+	//If an edge case icon exists, use that
+	if(icon_exists('icons/obj/clothing/monkey_alt.dmi', icon_state))
+		monkey_icon = icon('icons/obj/clothing/monkey_alt.dmi', icon_state)
+		GLOB.monkey_icon_cache[type] = icon(monkey_icon)
+		return
+
 	//Start with a base and align it with the mask
 	var/icon/base = icon('icons/mob/clothing/uniform.dmi', icon_state, SOUTH) //This takes the icon and uses the worn version of the icon
 	var/icon/back = icon('icons/mob/clothing/uniform.dmi', icon_state, NORTH) //Awkard but, we have to manually insert the back
