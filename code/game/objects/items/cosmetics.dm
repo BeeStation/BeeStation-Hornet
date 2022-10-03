@@ -321,7 +321,7 @@
 		return
 
 	barber.visible_message("<span class='notice'>You attempt to sweep [patient]'s hair.</span>", "<span class='notice'>[barber] reaches towards [patient]'s hair with a comb.</span>")
-	if(!do_after(user, 3, target=patient))
+	if(!do_after(user, 5 SECONDS, target=patient))
 		return
 	patient.hair_style = applied_hair
 	patient.update_hair()

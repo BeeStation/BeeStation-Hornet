@@ -7,8 +7,7 @@
 	product_slogans = "Dress for success!;Prepare to look swagalicious!;Look at all this swag!;Why leave style up to fate? Use the ClothesMate!"
 	vend_reply = "Thank you for using the ClothesMate!"
 	light_color = LIGHT_COLOR_GREEN
-	products = list(/obj/item/comb = 10,
-					/obj/item/clothing/head/beanie = 3,
+	products = list(/obj/item/clothing/head/beanie = 3,
 		            /obj/item/clothing/head/beanie/black = 3,
 		            /obj/item/clothing/head/beanie/red = 3,
 		            /obj/item/clothing/head/beanie/green = 3,
