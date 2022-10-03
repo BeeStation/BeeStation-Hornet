@@ -11594,9 +11594,6 @@
 	name = "Evidence Storage";
 	req_one_access_txt = "1;4"
 	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
 /turf/open/floor/plasteel/dark,
 /area/security/brig)
 "cUA" = (
@@ -34145,7 +34142,6 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/door/airlock/security/glass{
 	name = "Security Medical";
 	req_access_txt = "63"
@@ -52646,7 +52642,6 @@
 	dir = 4
 	},
 /obj/machinery/firealarm{
-	dir = 1;
 	pixel_y = 24
 	},
 /obj/effect/turf_decal/stripes/line{
