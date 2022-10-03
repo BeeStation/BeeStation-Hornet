@@ -40,7 +40,7 @@
 
 /obj/machinery/limbgrower/ui_interact(mob/user)
 	. = ..()
-	if(!is_operational())
+	if(!is_operational)
 		return
 
 	var/dat = main_win(user)

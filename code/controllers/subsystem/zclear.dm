@@ -112,13 +112,14 @@ SUBSYSTEM_DEF(zclear)
 			if(!living_levels["[level.z_value]"] && mob_levels["[level.z_value]"] && !announced_zombie_levels["[level.z_value]"])
 				//Zombie level detected.
 				announced_zombie_levels["[level.z_value]"] = TRUE
-				if(level.orbital_body)
-					priority_announce("Nanotrasen long ranged sensors have indicated that all sentient life forms at priority waypoint [level.orbital_body.name] have ceased life functions. Command is recommended to establish a rescue operation to recover the bodies. Due to the nature of the threat at this location, security personnel armed with lethal weaponry is recommended to accompany the rescue team.", "Nanotrasen Long Range Sensors")
+				var/datum/orbital_object/linked_object = SSorbits.assoc_z_levels["[level.z_value]"]
+				if(linked_object)
+					priority_announce("Nanotrasen long ranged sensors have indicated that all sentient life forms at priority waypoint [linked_object.name] have ceased life functions. Command is recommended to establish a rescue operation to recover the bodies. Due to the nature of the threat at this location, security personnel armed with lethal weaponry is recommended to accompany the rescue team.", "Nanotrasen Long Range Sensors")
 			continue
 		//Level is free, do the wiping thing.
 		LAZYREMOVE(autowipe, level)
 		//Reset orbital body.
-		QDEL_NULL(level.orbital_body)
+		QDEL_NULL(SSorbits.assoc_z_levels["[level.z_value]"])
 		//Continue tracking after
 		wipe_z_level(level.z_value, TRUE)
 
@@ -151,7 +152,6 @@ SUBSYSTEM_DEF(zclear)
 				break
 		if(free)
 			return picked_level
-	//Create a new z-level
 	var/datum/space_level/picked_level = SSmapping.add_new_zlevel("Dynamic free level [LAZYLEN(free_levels)]", ZTRAITS_SPACE, orbital_body_type = null)
 	addtimer(CALLBACK(src, .proc/begin_tracking, picked_level), 60 SECONDS)
 	message_admins("SSORBITS: Created a new dynamic free level ([LAZYLEN(free_levels)] now created) as none were available at the time.")
