@@ -1,0 +1,5 @@
+author: BrumalLake
+delete-after: true
+changes:
+  - bugfix: light eater now works on glowshrooms
+  - bugfix: light eater now longer disintegrates shadowshrooms
