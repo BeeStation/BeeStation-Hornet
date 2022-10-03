@@ -11,6 +11,7 @@
 	var/category = CAT_NONE //where it shows up in the crafting UI
 	var/subcategory = CAT_NONE
 	var/always_available = TRUE //Set to FALSE if it needs to be learned first.
+	var/one_per_turf = FALSE ///Should only one object exist on the same turf?
 
 /datum/crafting_recipe/New()
 	if(!(result in reqs))
@@ -593,11 +594,6 @@
 	result = /obj/item/stack/tile/carpet/black/fifty
 	category = CAT_MISC
 
-/datum/crafting_recipe/showercurtain
-	name = "Shower Curtains"
-	reqs = 	list(/obj/item/stack/sheet/cotton/cloth = 2, /obj/item/stack/sheet/plastic = 2, /obj/item/stack/rods = 1)
-	result = /obj/structure/curtain
-	category = CAT_MISC
 
 /datum/crafting_recipe/extendohand
 	name = "Extendo-Hand"
@@ -883,7 +879,7 @@
 		        /obj/item/stack/sheet/mineral/wood = 20,
 		        /obj/item/stack/cable_coil = 10)
 	tools = list(TOOL_SCREWDRIVER, TOOL_WRENCH, TOOL_WELDER)
-	category = CAT_MISC
+	category = CAT_STRUCTURE
 
 /datum/crafting_recipe/aitater
 	name = "intelliTater"
@@ -992,7 +988,6 @@
 
 	category = CAT_CLOTHING
 
-
 /datum/crafting_recipe/aquarium
 	name = "Aquarium"
 	result = /obj/structure/aquarium
@@ -1045,3 +1040,33 @@
 				)
 	tools = list(TOOL_WRENCH, TOOL_WIRECUTTER)
 	category = CAT_MISC
+
+/datum/crafting_recipe/shutters
+	name = "Shutters"
+	reqs = list(/obj/item/stack/sheet/plasteel = 5,
+				/obj/item/stack/cable_coil = 5,
+				/obj/item/electronics/airlock = 1
+				)
+	result = /obj/machinery/door/poddoor/shutters/preopen
+	tools = list(TOOL_SCREWDRIVER, TOOL_MULTITOOL, TOOL_WIRECUTTER, TOOL_WELDER)
+	time = 10 SECONDS
+	category = CAT_STRUCTURE
+	one_per_turf = TRUE
+
+/datum/crafting_recipe/blast_doors
+	name = "Blast Door"
+	reqs = list(/obj/item/stack/sheet/plasteel = 15,
+				/obj/item/stack/cable_coil = 15,
+				/obj/item/electronics/airlock = 1
+				)
+	result = /obj/machinery/door/poddoor/preopen
+	tools = list(TOOL_SCREWDRIVER, TOOL_MULTITOOL, TOOL_WIRECUTTER, TOOL_WELDER)
+	time = 30 SECONDS
+	category = CAT_STRUCTURE
+	one_per_turf = TRUE
+
+/datum/crafting_recipe/showercurtain
+	name = "Shower Curtains"
+	reqs = 	list(/obj/item/stack/sheet/cotton/cloth = 2, /obj/item/stack/sheet/plastic = 2, /obj/item/stack/rods = 1)
+	result = /obj/structure/curtain
+	category = CAT_STRUCTURE

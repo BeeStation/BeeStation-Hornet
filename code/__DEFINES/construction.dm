@@ -96,8 +96,8 @@
 #define CAT_SOUP	"Soups"
 #define CAT_SPAGHETTI	"Spaghettis"
 #define CAT_ICE	"Frozen"
-#define CAT_DRINK "Drinks"
-
+#define CAT_DRINK	"Drinks"
+#define CAT_STRUCTURE	"Structures"
 
 // rcd buildtype defines
 #define RCD_FLOORWALL 1
