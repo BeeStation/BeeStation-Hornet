@@ -29,3 +29,6 @@
 		changeling.regain_powers()
 
 	set_ssd_indicator(FALSE)
+	var/datum/antagonist/hivemind/hivemind = mind.has_antag_datum(/datum/antagonist/hivemind)
+	if(hivemind)
+		hivemind.regain_images()
