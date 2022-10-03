@@ -29,6 +29,20 @@
 			"connections" = TGUI_TELEMETRY_MAX_CONNECTIONS,
 		),
 	))
+	addtimer(CALLBACK(src, .proc/handle_telemetry_timeout), TGUI_TELEMETRY_RESPONSE_WINDOW) // give [TGUI_TELEMETRY_RESPONSE_WINDOW] to send telemetry
+
+/**
+ * private
+ *
+ * Handles a timeout from telemetry (usually, the client has lost connection or is actively refusing to send telemetry)
+ */
+/datum/tgui_panel/proc/handle_telemetry_timeout()
+	if(client && !QDELETED(client) && !telemetry_analyzed_at && telemetry_status <= TGUI_TELEMETRY_STAT_AWAITING && !broken)
+		telemetry_status = TGUI_TELEMETRY_STAT_MISSING
+		var/msg = "[key_name(client)] has timed out on the telemetry request. It's possible they are using a hacked client. Kicking them from the server."
+		message_admins(msg)
+		log_admin_private(msg)
+		qdel(client)
 
 /**
  * private
