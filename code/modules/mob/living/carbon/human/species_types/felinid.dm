@@ -111,6 +111,7 @@
 		return FALSE
 	return ..() //second part of this effect is handled elsewhere
 
+
 /proc/mass_purrbation()
 	for(var/M in GLOB.mob_list)
 		if(ishumanbasic(M))
