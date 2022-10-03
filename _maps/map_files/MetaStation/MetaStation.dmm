@@ -40029,6 +40029,10 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
+"cEi" = (
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plating,
+/area/science/misc_lab/range)
 "cEj" = (
 /obj/structure/table/reinforced,
 /obj/item/pen,
@@ -70838,9 +70842,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/port)
-"qOT" = (
-/turf/open/space/basic,
-/area/science/shuttledock)
 "qPr" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -79316,10 +79317,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/dorms)
-"vLD" = (
-/obj/effect/spawner/structure/window/reinforced,
-/turf/open/floor/plating,
-/area/science/misc_lab/range)
 "vLM" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -121006,7 +121003,7 @@ eZj
 krD
 krD
 krD
-vLD
+cEi
 aaf
 aaf
 aaf
@@ -121263,7 +121260,7 @@ eZj
 krD
 krD
 kss
-vLD
+cEi
 aaf
 aaf
 lMJ
@@ -122804,7 +122801,7 @@ rIW
 htz
 qbQ
 mjJ
-qOT
+aaa
 lMJ
 aaa
 aaa
@@ -123061,7 +123058,7 @@ htz
 htz
 lZW
 htz
-qOT
+aaa
 lMJ
 lMJ
 lMJ
