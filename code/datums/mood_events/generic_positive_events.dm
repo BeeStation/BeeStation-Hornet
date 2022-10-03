@@ -117,6 +117,16 @@
 	mood_change = 10 //maybe being a cultist isn't that bad after all
 	hidden = TRUE
 
+/datum/mood_event/hivehost
+	description = "<span class='nicegreen'>Our psyche expands, our influence broadens.</span>\n"
+	mood_change = 5
+	hidden = TRUE
+
+/datum/mood_event/hiveawakened
+	description = "<span class='nicegreen'>True purpose has been revealed to us, at last!.</span>\n"
+	mood_change =  2
+	hidden = TRUE
+
 /datum/mood_event/family_heirloom
 	description = "<span class='nicegreen'>My family heirloom is safe with me.</span>\n"
 	mood_change = 1
