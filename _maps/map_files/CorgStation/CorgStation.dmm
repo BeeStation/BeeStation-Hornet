@@ -40202,7 +40202,7 @@
 	dir = 1
 	},
 /obj/machinery/atmospherics/pipe/layer_manifold{
-	dir = 4
+	dir = 8
 	},
 /turf/open/floor/plasteel,
 /area/engine/atmos)
