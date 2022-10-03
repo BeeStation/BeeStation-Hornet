@@ -59,7 +59,9 @@
 	// Stun stops them from wandering off
 	user.Stun(100, ignore_canstun = TRUE)
 	playsound(loc, 'sound/effects/pray.ogg', 50, 1, -1)
-	new /obj/effect/temp_visual/holy_light(user,loc)
+
+	new /obj/effect/temp_visual/holy/light(user,loc)
+	new /obj/effect/temp_visual/holy/beam(user,loc)
 
 	// Let the sound effect finish playing
 	add_fingerprint(user)
@@ -72,12 +74,17 @@
 	user.dust()
 	return OXYLOSS
 
-/obj/effect/temp_visual/holy_light  // you shalled the cleansed
+/obj/effect/temp_visual/holy  // you shalled the cleansed
 	name = "holy light"
 	desc = "A holy looking light surrounding someone. Bow down."
-	icon = 'icons/mob/mob.dmi'
-	icon_state = "phasein"  // pray
-	duration = 20  // line up through the sleep
+	icon = 'icons/obj/projectiles.dmi'
+	duration = 20
+
+/obj/effect/temp_visual/holy/light
+	icon_state = "seedling"
+
+/obj/effect/temp_visual/holy/beam
+	icon_state = "blood_beam"
 
 /obj/item/wrench/cyborg
 	name = "hydraulic wrench"
