@@ -103,6 +103,9 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	/// if false, having no tongue makes you unable to speak
 	var/speak_no_tongue = TRUE
 
+	/// If the species can cough, clear their throat, gasp, sigh, sneeze, huff, and sniff
+	var/humanlike_vocals = TRUE
+
 ///////////
 // PROCS //
 ///////////
@@ -2109,4 +2112,10 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	return
 
 /datum/species/proc/get_harm_descriptors()
+	return
+
+/datum/species/proc/get_laugh_sound(mob/living/carbon/user)
+	return
+
+/datum/species/proc/get_scream_sound(mob/living/carbon/user)
 	return

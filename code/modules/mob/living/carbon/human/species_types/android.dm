@@ -13,6 +13,7 @@
 	species_gibs = GIB_TYPE_ROBOTIC
 	attack_sound = 'sound/items/trayhit1.ogg'
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_PRIDE | MIRROR_MAGIC | RACE_SWAP | ERT_SPAWN | SLIME_EXTRACT
+	humanlike_vocals = FALSE
 
 /datum/species/android/on_species_gain(mob/living/carbon/C)
 	. = ..()

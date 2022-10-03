@@ -18,6 +18,7 @@
 	species_language_holder = /datum/language_holder/moth
 	inert_mutation = STRONGWINGS
 	deathsound = 'code/datums/emote_sounds/moth_deathgasp.ogg'
+	humanlike_vocals = FALSE
 
 	species_chest = /obj/item/bodypart/chest/moth
 	species_head = /obj/item/bodypart/head/moth
@@ -48,3 +49,9 @@
 	if(istype(weapon, /obj/item/melee/flyswatter))
 		return 9 //flyswatters deal 10x damage to moths
 	return 0
+
+/datum/species/moth/get_laugh_sound(mob/living/carbon/user)
+	return 'code/datums/emote_sounds/emotes/mothlaugh.ogg'
+
+/datum/species/moth/get_scream_sound(mob/living/carbon/user)
+	return 'sound/voice/moth/scream_moth.ogg'

@@ -15,6 +15,7 @@
 	mutantlungs = /obj/item/organ/lungs/apid
 	mutantwings = /obj/item/organ/wings/bee
 	mutanttongue = /obj/item/organ/tongue/bee
+	humanlike_vocals = FALSE
 	burnmod = 1.5
 	toxmod = 1.5
 	staminamod = 1.25

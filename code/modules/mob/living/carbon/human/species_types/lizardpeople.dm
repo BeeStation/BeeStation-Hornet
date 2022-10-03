@@ -74,6 +74,9 @@
 		mutant_bodyparts |= "spines"
 	H.update_body()
 
+/datum/species/lizard/get_scream_sound(mob/living/carbon/user)
+	return pick('sound/voice/lizard/lizard_scream_1.ogg', 'sound/voice/lizard/lizard_scream_2.ogg', 'sound/voice/lizard/lizard_scream_3.ogg', 'sound/voice/lizard/lizard_scream_4.ogg')
+
 /*
  Lizard subspecies: ASHWALKERS
 */

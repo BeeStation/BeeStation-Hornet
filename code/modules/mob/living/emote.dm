@@ -4,6 +4,20 @@
 	mob_type_allowed_typecache = /mob/living
 	mob_type_blacklist_typecache = list(/mob/living/simple_animal/slime, /mob/living/brain)
 
+/datum/emote/living/blep
+	key = "blep"
+	key_third_person = "bleps"
+	message = "bleps their tongue out"
+	message_AI = "shows an image of a random blepping animal"
+	vary = TRUE
+	mob_type_blacklist_typecache = list(/mob/living/carbon/alien,/mob/living/silicon/robot)
+
+/datum/emote/living/blep/can_run_emote(mob/user, status_check = TRUE, intentional)
+	if(!..())
+		return FALSE
+	var/obj/item/organ/tongue/T = user.getorganslot(ORGAN_SLOT_TONGUE)
+	return isAI(user) || istype(T)
+
 /datum/emote/living/blush
 	key = "blush"
 	key_third_person = "blushes"
@@ -162,6 +176,14 @@
 	key_third_person = "grimaces"
 	message = "grimaces"
 
+/datum/emote/living/headtilt
+	key = "tilt"
+	key_third_person = "tilts"
+	message = "tilts their head"
+	message_AI = "tilts the image on their display"
+	vary = TRUE
+	mob_type_blacklist_typecache = list(/mob/living/silicon/robot,/mob/living/carbon/alien/larva)
+
 /datum/emote/living/jump
 	key = "jump"
 	key_third_person = "jumps"
@@ -185,23 +207,18 @@
 
 /datum/emote/living/laugh/can_run_emote(mob/living/user, status_check = TRUE , intentional)
 	. = ..()
-	if(. && iscarbon(user))
+	if(!.)
+		return FALSE
+	if(iscarbon(user))
 		var/mob/living/carbon/C = user
 		return !C.silent
 
 /datum/emote/living/laugh/get_sound(mob/living/user)
-    if(!ishuman(user))
-        return
-    var/mob/living/carbon/human/H = user
-    var/human_laugh = ishumanbasic(H) || iscatperson(H)
-    if(human_laugh && (!H.mind || !H.mind.miming))
-        if(user.gender == FEMALE)
-            return 'sound/voice/human/womanlaugh.ogg'
-        else
-            return pick('sound/voice/human/manlaugh1.ogg', 'sound/voice/human/manlaugh2.ogg')
-    if(ismoth(H))
-        return 'code/datums/emote_sounds/emotes/mothlaugh.ogg'
-		
+	if(!iscarbon(user) || user.mind?.miming)
+		return
+	var/mob/living/carbon/H = user
+	return H.dna?.species?.get_laugh_sound(H)
+
 /datum/emote/living/look
 	key = "look"
 	key_third_person = "looks"
@@ -394,10 +411,8 @@
 		if(custom_emote && !check_invalid(user, custom_emote))
 			var/type = input("Is this a visible or hearable emote?") as null|anything in list("Visible", "Hearable")
 			switch(type)
-				if("Visible")
-					emote_type = EMOTE_VISIBLE
 				if("Hearable")
-					emote_type = EMOTE_AUDIBLE
+					emote_type |= EMOTE_AUDIBLE
 				else
 					alert("Unable to use this emote, must be either hearable or visible.")
 					return
@@ -408,7 +423,7 @@
 			emote_type = type_override
 	. = ..()
 	message = null
-	emote_type = EMOTE_VISIBLE
+	emote_type = 0
 
 /datum/emote/living/custom/replace_pronoun(mob/user, message)
 	return message
@@ -516,7 +531,7 @@
 	message_insect = "clicks their mandibles"
 
 /datum/emote/living/click/get_sound(mob/living/user)
-	if(ismoth(user) || isapid(user) || isflyperson(user))
+	if(ismoth(user) || isapid(user) || isflyperson(user) || istype(user, /mob/living/simple_animal/mothroach))
 		return 'sound/creatures/rattle.ogg'
 	else if(isipc(user))
 		return 'sound/machines/click.ogg'

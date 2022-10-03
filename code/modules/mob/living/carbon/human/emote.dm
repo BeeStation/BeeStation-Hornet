@@ -14,6 +14,18 @@
 	message_param = "give daps to %t"
 	restraint_check = TRUE
 
+/datum/emote/living/carbon/human/etwitch
+	key = "etwitch"
+	key_third_person = "twitches their ears"
+	message = "twitches their ears"
+	vary = TRUE
+
+/datum/emote/living/carbon/human/etwitch/can_run_emote(mob/user, status_check = TRUE, intentional)
+	if(!..())
+		return FALSE
+	var/mob/living/carbon/human/H = user
+	return ("ears" in H.dna?.species?.mutant_bodyparts)
+
 /datum/emote/living/carbon/human/eyebrow
 	key = "eyebrow"
 	message = "raises an eyebrow"
@@ -45,6 +57,33 @@
 	message = "mumbles"
 	emote_type = EMOTE_AUDIBLE
 
+/datum/emote/living/carbon/human/moth
+	// allow mothroach as well as human base mob - species check is done in can_run_emote
+	mob_type_allowed_typecache = list(/mob/living/carbon/human,/mob/living/simple_animal/mothroach)
+
+/datum/emote/living/carbon/human/moth/can_run_emote(mob/user, status_check = TRUE, intentional)
+	if(!..())
+		return FALSE
+	if(ishuman(user))
+		return ismoth(user)
+	return istype(user, /mob/living/simple_animal/mothroach)
+
+/datum/emote/living/carbon/human/moth/squeak
+	key = "msqueak"
+	key_third_person = "squeaks"
+	message = "lets out a tiny squeak"
+	emote_type = EMOTE_AUDIBLE
+	vary = TRUE
+	sound = 'code/datums/emote_sounds/emotes/mothsqueak.ogg'
+
+/datum/emote/living/carbon/human/moth/chitter
+	key = "chitter"
+	key_third_person = "chitters"
+	message = "chitters"
+	emote_type = EMOTE_AUDIBLE
+	vary = TRUE
+	sound = 'code/datums/emote_sounds/emotes/mothchitter.ogg'
+
 /datum/emote/living/carbon/human/scream
 	key = "scream"
 	key_third_person = "screams"
@@ -53,21 +92,10 @@
 	vary = TRUE
 
 /datum/emote/living/carbon/human/scream/get_sound(mob/living/user)
-	if(!ishuman(user))
+	if(!ishuman(user) || user.mind?.miming)
 		return
-	var/mob/living/carbon/human/H = user
-	if(H.mind?.miming)
-		return
-	if(ishumanbasic(H) || iscatperson(H))
-		if(user.gender == FEMALE)
-			return pick('sound/voice/human/femalescream_1.ogg', 'sound/voice/human/femalescream_2.ogg', 'sound/voice/human/femalescream_3.ogg', 'sound/voice/human/femalescream_4.ogg')
-		else
-			return pick('sound/voice/human/malescream_1.ogg', 'sound/voice/human/malescream_2.ogg', 'sound/voice/human/malescream_3.ogg', 'sound/voice/human/malescream_4.ogg', 'sound/voice/human/malescream_5.ogg')
-	else if(ismoth(H))
-		return 'sound/voice/moth/scream_moth.ogg'
-	else if(islizard(H))
-		return pick('sound/voice/lizard/lizard_scream_1.ogg', 'sound/voice/lizard/lizard_scream_2.ogg', 'sound/voice/lizard/lizard_scream_3.ogg', 'sound/voice/lizard/lizard_scream_4.ogg')
-
+	var/mob/living/carbon/H = user
+	return H.dna?.species?.get_scream_sound(H)
 
 /datum/emote/living/carbon/human/pale
 	key = "pale"
@@ -112,7 +140,7 @@
 	if(!..())
 		return FALSE
 	var/mob/living/carbon/human/H = user
-	return H.dna && H.dna.species && H.dna.species.can_wag_tail(user)
+	return H.dna?.species?.can_wag_tail(user)
 
 /datum/emote/living/carbon/human/wag/select_message_type(mob/user, intentional)
 	. = ..()
@@ -176,14 +204,97 @@
 		return
 	return 'sound/misc/fart1.ogg'
 
-//Ayy lmao
+/datum/emote/living/carbon/human/humanlike_vocals
+	emote_type = EMOTE_AUDIBLE
+	vary = TRUE
+
+/datum/emote/living/carbon/human/humanlike_vocals/can_run_emote(mob/user, status_check = TRUE, intentional)
+	if(!..())
+		return FALSE
+	var/mob/living/carbon/human/H = user
+	return H?.dna?.species?.humanlike_vocals && !HAS_TRAIT(H, TRAIT_NOBREATH)
+
+/datum/emote/living/carbon/human/humanlike_vocals/clear
+	key = "clear"
+	key_third_person = "clears their throat"
+	message = "clears their throat"
+
+/datum/emote/living/carbon/human/humanlike_vocals/cough
+	key = "cough"
+	key_third_person = "coughs"
+	message = "coughs!"
+
+/datum/emote/living/carbon/human/humanlike_vocals/cough/can_run_emote(mob/user, status_check = TRUE, intentional)
+	return ..() && !HAS_TRAIT(user, TRAIT_SOOTHED_THROAT)
+
+/datum/emote/living/carbon/human/humanlike_vocals/cough/get_sound(mob/living/user)
+	if(user.gender==MALE)
+		return pick('code/datums/emote_sounds/emotes/male/male_cough_1.ogg',
+					'code/datums/emote_sounds/emotes/male/male_cough_2.ogg',
+					'code/datums/emote_sounds/emotes/male/male_cough_3.ogg')
+	return pick('code/datums/emote_sounds/emotes/female/female_cough_1.ogg',
+				'code/datums/emote_sounds/emotes/female/female_cough_2.ogg',
+				'code/datums/emote_sounds/emotes/female/female_cough_3.ogg')
+
+/datum/emote/living/carbon/human/humanlike_vocals/gasp
+	key = "gasp"
+	key_third_person = "gasps"
+	message = "gasps!"
+
+/datum/emote/living/carbon/human/humanlike_vocals/gasp/get_sound(mob/living/user)
+	if(user.gender == MALE)
+		return pick('code/datums/emote_sounds/emotes/male/gasp_m1.ogg',
+				'code/datums/emote_sounds/emotes/male/gasp_m2.ogg',
+				'code/datums/emote_sounds/emotes/male/gasp_m3.ogg',
+				'code/datums/emote_sounds/emotes/male/gasp_m4.ogg',
+				'code/datums/emote_sounds/emotes/male/gasp_m5.ogg',
+				'code/datums/emote_sounds/emotes/male/gasp_m6.ogg')
+	return pick('code/datums/emote_sounds/emotes/female/gasp_f1.ogg',
+				'code/datums/emote_sounds/emotes/female/gasp_f2.ogg',
+				'code/datums/emote_sounds/emotes/female/gasp_f3.ogg',
+				'code/datums/emote_sounds/emotes/female/gasp_f4.ogg',
+				'code/datums/emote_sounds/emotes/female/gasp_f5.ogg',
+				'code/datums/emote_sounds/emotes/female/gasp_f6.ogg')
+
+/datum/emote/living/carbon/human/humanlike_vocals/huff
+	key = "huff"
+	key_third_person = "huffs"
+	message ="lets out a huff!"
+
+/datum/emote/living/carbon/human/humanlike_vocals/sigh
+	key = "sigh"
+	key_third_person = "sighs"
+	message = "sighs!"
+	emote_type = EMOTE_AUDIBLE|EMOTE_ANIMATED
+	emote_length = 3 SECONDS
+	overlay_y_offset = -1
+	overlay_icon_state = "sigh"
+
+/datum/emote/living/carbon/human/humanlike_vocals/sigh/get_sound(mob/living/user)
+	return user.gender == FEMALE ? 'code/datums/emote_sounds/emotes/female/female_sigh.ogg' : 'code/datums/emote_sounds/emotes/male/male_sigh.ogg'
+
+/datum/emote/living/carbon/human/humanlike_vocals/sneeze
+	key = "sneeze"
+	key_third_person = "sneezes"
+	message = "sneezes!"
+
+/datum/emote/living/carbon/human/humanlike_vocals/sneeze/get_sound(mob/living/user)
+	return user.gender == FEMALE ? 'code/datums/emote_sounds/emotes/female/female_sneeze.ogg' : 'code/datums/emote_sounds/emotes/male/male_sneeze.ogg'
+
+/datum/emote/living/carbon/human/humanlike_vocals/sniff
+	key = "sniff"
+	key_third_person = "sniffs"
+	message = "sniffs."
+
+/datum/emote/living/carbon/human/humanlike_vocals/sniff/get_sound(mob/living/user)
+	return user.gender == FEMALE ? 'code/datums/emote_sounds/emotes/female/female_sniff.ogg' : 'code/datums/emote_sounds/emotes/male/male_sniff.ogg'
 
 // Robotic Tongue emotes. Beep!
 
 /datum/emote/living/carbon/human/robot_tongue/can_run_emote(mob/user, status_check = TRUE , intentional)
 	if(!..())
 		return FALSE
-	var/obj/item/organ/tongue/T = user.getorganslot("tongue")
+	var/obj/item/organ/tongue/T = user.getorganslot(ORGAN_SLOT_TONGUE)
 	if(T.status == ORGAN_ROBOTIC)
 		return TRUE
 
@@ -233,6 +344,16 @@
 /datum/emote/living/carbon/human/robot_tongue/ping/run_emote(mob/user, params)
 	if(..())
 		playsound(user.loc, 'sound/machines/ping.ogg', 50)
+
+/datum/emote/living/carbon/human/robot_tongue/dwoop
+	key = "dwoop"
+	key_third_person = "dwoops"
+	message = "emits a dwoop sound."
+	emote_type = EMOTE_AUDIBLE
+
+/datum/emote/living/carbon/human/robot_tongue/dwoop/run_emote(mob/user, params)
+	if(..())
+		playsound(user.loc, 'code/datums/emote_sounds/emotes/dwoop.ogg', 50)
 
  // Clown Robotic Tongue ONLY. Henk.
 
