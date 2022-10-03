@@ -193,6 +193,13 @@
 	cost = 3
 	requirements = list(3,3,3,3,3,3,3,3,3,3)
 	repeatable = TRUE
+	blocking_rules = list(
+		/datum/dynamic_ruleset/roundstart/bloodcult,
+		/datum/dynamic_ruleset/roundstart/clockcult,
+		/datum/dynamic_ruleset/roundstart/nuclear,
+		/datum/dynamic_ruleset/roundstart/wizard,
+		/datum/dynamic_ruleset/roundstart/revs
+	)
 
 /datum/dynamic_ruleset/midround/autotraitor/trim_candidates()
 	..()
@@ -209,6 +216,8 @@
 /datum/dynamic_ruleset/midround/autotraitor/ready(forced = FALSE)
 	if (required_candidates > length(living_players))
 		log_game("DYNAMIC: FAIL: [src] does not have enough candidates, using living_players ([required_candidates] needed, [living_players.len] found)")
+		return FALSE
+	if (mode.check_lowpop_lowimpact_injection())
 		return FALSE
 	return ..()
 
@@ -239,6 +248,7 @@
 	weight = 2
 	cost = 10
 	required_type = /mob/living/silicon/ai
+	blocking_rules = list(/datum/dynamic_ruleset/roundstart/nuclear)
 	var/ion_announce = 33
 	var/removeDontImproveChance = 10
 
@@ -386,10 +396,10 @@
 	antag_datum = /datum/antagonist/xeno
 	antag_flag = ROLE_ALIEN
 	enemy_roles = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_DETECTIVE, JOB_NAME_WARDEN, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN)
-	required_enemies = list(2,2,1,1,1,1,1,0,0,0)
+	required_enemies = list(2,2,2,1,1,1,1,0,0,0)
 	required_candidates = 1
 	minimum_round_time = 40 MINUTES
-	weight = 5
+	weight = 3
 	cost = 10
 	minimum_players = 25
 	repeatable = TRUE
@@ -620,6 +630,8 @@
 
 /datum/dynamic_ruleset/midround/obsessed/ready(forced = FALSE)
 	if(!check_candidates())
+		return FALSE
+	if(mode.check_lowpop_lowimpact_injection())
 		return FALSE
 	return ..()
 

@@ -64,7 +64,7 @@
 		to_chat(user, "<span class='warning'>Access denied.</span>")
 		return
 	if(controller && !controller.busy && door)
-		if(controller.stat & NOPOWER)
+		if(controller.machine_stat & NOPOWER)
 			return
 		busy = TRUE
 		update_icon()
@@ -83,7 +83,7 @@
 		update_icon()
 
 /obj/machinery/doorButtons/access_button/update_icon()
-	if(stat & NOPOWER)
+	if(machine_stat & NOPOWER)
 		icon_state = "access_button_off"
 	else
 		if(busy)
@@ -166,7 +166,7 @@
 	A.safe = FALSE //Door crushies, manual door after all. Set every time in case someone changed it, safe doors can end up waiting forever.
 	A.unbolt()
 	if(A.close())
-		if(stat & NOPOWER || lostPower || !A || QDELETED(A))
+		if(machine_stat & NOPOWER || lostPower || !A || QDELETED(A))
 			goIdle(TRUE)
 			return FALSE
 		A.bolt()
@@ -211,7 +211,7 @@
 	A.unbolt()
 	spawn()
 		if(A && A.open())
-			if(stat | (NOPOWER) && !lostPower && A && !QDELETED(A))
+			if(machine_stat | (NOPOWER) && !lostPower && A && !QDELETED(A))
 				A.bolt()
 		goIdle(TRUE)
 
@@ -223,7 +223,7 @@
 	updateUsrDialog()
 
 /obj/machinery/doorButtons/airlock_controller/process()
-	if(stat & NOPOWER)
+	if(machine_stat & NOPOWER)
 		return
 	if(busy == CYCLE_EXTERIOR)
 		cycleOpen(exteriorAirlock)
@@ -232,7 +232,7 @@
 
 /obj/machinery/doorButtons/airlock_controller/power_change()
 	..()
-	if(stat & NOPOWER)
+	if(machine_stat & NOPOWER)
 		lostPower = TRUE
 	else
 		if(!busy)
@@ -247,7 +247,7 @@
 			exteriorAirlock = A
 
 /obj/machinery/doorButtons/airlock_controller/update_icon()
-	if(stat & NOPOWER)
+	if(machine_stat & NOPOWER)
 		icon_state = "access_control_off"
 		return
 	if(busy || lostPower)
