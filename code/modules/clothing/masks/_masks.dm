@@ -82,9 +82,12 @@
 
 	//If an edge case icon exists, use that
 	if(icon_exists('icons/obj/clothing/monkey_alt.dmi', icon_state))
+		say("[icon_state] exists")
 		monkey_icon = icon('icons/obj/clothing/monkey_alt.dmi', icon_state)
 		GLOB.monkey_icon_cache[type] = icon(monkey_icon)
 		return
+	else
+		say("no [icon_state] exists")
 
 	//Start with two sides
 	var/icon/main = icon('icons/mob/mask.dmi', icon_state) //This takes the icon and uses the worn version of the icon
