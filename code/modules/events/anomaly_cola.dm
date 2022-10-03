@@ -22,7 +22,7 @@
 
 /obj/item/reagent_containers/food/drinks/soda_cans/inf
 	name = "Space Cola INFINITE"
-	desc = "Cola. Probably not from space. Proceed with caution. A no-tamper filter prevents the drink from being drained and resold."
+	desc = "Cola. Probably not from space. Proceed with caution. A tamper-proof container prevents the drink from being drained and resold."
 	icon_state = "inf"
 	list_reagents = list(/datum/reagent/consumable/space_cola = COLA_AMT)
 	prevent_grinding = TRUE
@@ -39,7 +39,7 @@
 	. = ..()
 
 /obj/item/reagent_containers/food/drinks/soda_cans/inf/open_soda(mob/user)  // different pop message copy-pasted
-	to_chat(user, "As you pull the tab off \the [src], an indescribable smell fills the air.") //warning
+	to_chat(user, "As you pull off the tab, an indescribable smell fills the air.") //warning
 	ENABLE_BITFIELD(reagents.flags, OPENCONTAINER)
 	playsound(src, "can_open", 50, 1)
 	spillable = TRUE
@@ -47,6 +47,6 @@
 /obj/item/reagent_containers/food/drinks/soda_cans/inf/examine()
 	. = ..()
 	if(length(reagents?.reagent_list))
-		. += "<span class='notice'>You feel an urge to finish off the drink.</span>"
+		. += "<span class='notice'>You feel an urge to finish the drink.</span>"
 
 #undef COLA_AMT
