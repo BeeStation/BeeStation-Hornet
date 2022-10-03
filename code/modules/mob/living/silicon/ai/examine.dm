@@ -1,5 +1,5 @@
 /mob/living/silicon/ai/examine(mob/user)
-	. = list("This is [icon2html(src, user)] <EM>[src]</EM>!")
+	. = list("<span class='info'>This is [icon2html(src, user)] <EM>[src]</EM></span>!")
 	if (stat == DEAD)
 		. += "<span class='deadsay'>It appears to be powered-down.</span>"
 	else
@@ -21,6 +21,5 @@
 
 	. += ..()
 
-// no idea what this does but the original pr has it so
 /mob/living/silicon/ai/get_examine_string(mob/user, thats = FALSE)
 	return null
