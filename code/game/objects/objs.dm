@@ -1,3 +1,6 @@
+#define SUICIDE_MIN_NOTICE 2
+#define SUICIDE_CONCERN 5
+
 /obj
 	animate_movement = SLIDE_STEPS
 	speech_span = SPAN_ROBOT
@@ -51,6 +54,11 @@
 
 	var/investigate_flags = NONE
 	// ADMIN_INVESTIGATE_TARGET: investigate_log on pickup/drop
+
+	/// holds the last person to suicide
+	var/suicider
+	/// holds the number of people to suicide with this item (ideally 0)
+	var/suicide_count = 0
 
 /obj/vv_edit_var(vname, vval)
 	switch(vname)
@@ -365,6 +373,13 @@
 		. += "<span class='notice'>Use a pen on it to rename it or change its description.</span>"
 	if(unique_reskin && !current_skin)
 		. += "<span class='notice'>Alt-click it to reskin it.</span>"
+
+	if(suicider)
+		. += "<span class='notice'>For some reason, it reminds you of [suicider].</span>"
+	if(suicide_count >= SUICIDE_CONCERN)
+		. += "<span class='warning'>You feel an aura of despair around this [src].</span>"  // why would so many ppl use the same item
+	else if(suicide_count >= SUICIDE_MIN_NOTICE)
+		. += "<span class='notice'>You feel a slight twinge of despair looking at \the [src]</span>"
 
 /obj/AltClick(mob/user)
 	. = ..()

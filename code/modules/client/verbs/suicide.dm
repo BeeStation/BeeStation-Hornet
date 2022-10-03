@@ -83,6 +83,8 @@
 
 				death(FALSE)
 				ghostize(FALSE,SENTIENCE_ERASE)	// Disallows reentering body and disassociates mind
+				held_item.suicider = real_name
+				held_item.suicide_count += 1
 
 				return
 

@@ -45,13 +45,9 @@
 	force = 2 //MEDICAL
 	throwforce = 4
 	attack_verb = list("healed", "medicaled", "tapped", "poked", "analyzed") //"cobbyed"
-	///var to hold the name of the person who suicided
-	var/suicider
 
 /obj/item/wrench/medical/examine(mob/user)
 	. = ..()
-	if(suicider)
-		. += "<span class='notice'>For some reason, it reminds you of [suicider].</span>"
 
 /obj/item/wrench/medical/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] is praying to the medical wrench to take [user.p_their()] soul. It looks like [user.p_theyre()] trying to commit suicide!</span>")
@@ -69,7 +65,6 @@
 		return
 	for(var/obj/item/W in user)
 		user.dropItemToGround(W)
-	suicider = user.real_name
 	user.dust()
 	return OXYLOSS
 
