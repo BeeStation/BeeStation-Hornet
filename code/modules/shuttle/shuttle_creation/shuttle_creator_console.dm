@@ -20,9 +20,6 @@
 	eyeobj.origin = src
 	eyeobj.use_static = FALSE
 
-/obj/machinery/computer/camera_advanced/shuttle_creator/is_operational()
-	return TRUE
-
 /obj/machinery/computer/camera_advanced/shuttle_creator/can_interact(mob/user)
 	if(!isliving(user))
 		return FALSE
@@ -67,7 +64,7 @@
 		user.client.images -= eyeobj.user_image
 
 /obj/machinery/computer/camera_advanced/shuttle_creator/attack_hand(mob/user)
-	if(!is_operational()) //you cant use broken machine you chumbis
+	if(!is_operational) //you cant use broken machine you chumbis
 		return
 	if(current_user)
 		to_chat(user, "The console is already in use!")

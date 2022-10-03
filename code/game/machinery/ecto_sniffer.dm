@@ -19,7 +19,7 @@
 	wires = new/datum/wires/ecto_sniffer(src)
 
 /obj/machinery/ecto_sniffer/attack_ghost(mob/user)
-	if(!on || !sensor_enabled || !is_operational())
+	if(!on || !sensor_enabled || !is_operational)
 		return
 
 	if(ectoplasmic_residues[user.ckey])
@@ -53,7 +53,7 @@
 	if(panel_open)
 		icon_state = "[initial(icon_state)]_open"
 	else
-		icon_state = "[initial(icon_state)][(is_operational() && on) ? null : "-p"]"
+		icon_state = "[initial(icon_state)][(is_operational && on) ? null : "-p"]"
 
 
 /obj/machinery/ecto_sniffer/wrench_act(mob/living/user, obj/item/tool)
