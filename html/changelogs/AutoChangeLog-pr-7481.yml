@@ -1,0 +1,4 @@
+author: ivanmixo
+delete-after: true
+changes:
+  - balance: removed ability to screwdriver grenades to shorten their fuses to 1 second
