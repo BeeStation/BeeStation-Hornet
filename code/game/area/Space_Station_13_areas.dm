@@ -1230,7 +1230,7 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	mood_bonus = -1
 	mood_message = "<span class='warning'>It feels dirty in here!\n</span>"
 	mood_job_allowed = list(JOB_NAME_JANITOR)
-	moob_job_reverse = TRUE
+	mood_job_reverse = TRUE
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
 
 /area/hydroponics
