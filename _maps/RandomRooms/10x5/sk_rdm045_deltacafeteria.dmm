@@ -199,7 +199,6 @@
 "q" = (
 /obj/item/storage/bag/tray,
 /obj/structure/table,
-/obj/structure/table,
 /turf/open/floor/plasteel/white,
 /area/template_noop)
 "r" = (
