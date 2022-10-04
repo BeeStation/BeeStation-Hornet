@@ -18,7 +18,7 @@
 
 /obj/machinery/grill/Initialize(mapload)
 	. = ..()
-	grill_loop = new(list(src), FALSE)
+	grill_loop = new(src, FALSE)
 
 /obj/machinery/grill/update_icon()
 	if(grilled_item)
