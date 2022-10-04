@@ -22,9 +22,11 @@
 		apparent_species = ", \an [dna.species.name]"
 	. = list("<span class='info'>*---------*\nThis is <EM>[!obscure_name ? name : "Unknown"][apparent_species]</EM>!")
 
-	if(isobserver(user) || check_rights(R_ADMIN)) // you cannot hide your true name from the ones byond
+	if(isobserver(user)) // you cannot hide your true name from the ones byond
 		if(obscure_name || real_name != name)
 			. += "<span class='info'>(Real Name: [real_name])</span>"
+		if(mind?.name)
+			. += "<span class='info'>(Mind's Name: [mind.name])</span>"
 
 	//uniform
 	if(w_uniform && !(obscured & ITEM_SLOT_ICLOTHING))
