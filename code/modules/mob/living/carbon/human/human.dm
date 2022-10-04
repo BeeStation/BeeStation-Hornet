@@ -1276,3 +1276,6 @@
 
 /mob/living/carbon/human/species/zombie/krokodil_addict
 	race = /datum/species/human/krokodil_addict
+
+/mob/living/carbon/human/species/pumpkin_man
+	race = /datum/species/pumpkin_man
