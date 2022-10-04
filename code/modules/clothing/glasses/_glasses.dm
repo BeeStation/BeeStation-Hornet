@@ -526,6 +526,32 @@
 						to_chat(H, "You will no longer see glasses colors.")
 					H.update_glasses_color(src, 1)
 
+/obj/item/clothing/glasses/detectives
+	name = "vintage aviators"
+	desc = "An old pair of aviators, really puts you in the crime-solving spirit!"
+	icon_state = "det_mono"
+	item_state = "purple"  // close enough
+
+/obj/item/clothing/glasses/detectives/equipped(mob/user, slot)
+	. = ..()
+	if(ishuman(user) && slot == ITEM_SLOT_EYES && user.client)
+		user.add_client_colour(/datum/client_colour/monochrome)
+		if(user?.mind.assigned_role == JOB_NAME_DETECTIVE)
+			to_chat(user, "<span class='boldannounce'>Mmm. Nothing's ever clear on this station. It's all shades of gray.</span>")
+			user.playsound_local(quirk_holder, 'sound/ambience/ambidet1.ogg', 50, FALSE)
+
+/obj/item/clothing/glasses/detectives/dropped(mob/living/carbon/human/user)
+	..()
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		if(H.glasses != src)
+			return
+		user.remove_client_colour(/datum/client_colour/monochrome)
+
+/obj/item/clothing/glasses/detectives/veryown  // theres only one, be careful
+	name = "detective's own glasses"
+	desc = "The detective's own crime fighting glasses. You might be the next case if you take these."
+
 /obj/item/clothing/glasses/proc/change_glass_color(mob/living/carbon/human/H, datum/client_colour/glass_colour/new_color_type)
 	var/old_colour_type = glass_colour_type
 	if(!new_color_type || ispath(new_color_type)) //the new glass colour type must be null or a path.

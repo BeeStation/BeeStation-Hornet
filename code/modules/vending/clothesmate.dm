@@ -80,6 +80,7 @@
 		            /obj/item/clothing/glasses/regular/jamjar = 1,
 		            /obj/item/clothing/glasses/orange = 1,
 		            /obj/item/clothing/glasses/red = 1,
+					/obj/item/clothing/glasses/detectives = 5,
 		            /obj/item/clothing/under/suit/navy = 1,
 		            /obj/item/clothing/under/suit/black_really = 1,
 		            /obj/item/clothing/under/suit/burgundy = 1,

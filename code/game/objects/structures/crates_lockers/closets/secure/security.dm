@@ -269,6 +269,7 @@
 	new	/obj/item/clothing/neck/tie/black(src)
 	new /obj/item/clothing/neck/tie/detective(src)
 	new /obj/item/storage/box/rxglasses/spyglasskit(src)
+	new /obj/item/clothing/glasses/detectives/veryown(src)  // you never know when you need em
 
 /obj/structure/closet/secure_closet/deputy
 	name = "deputy's locker"
