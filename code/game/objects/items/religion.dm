@@ -267,7 +267,7 @@
 	desc = "A brownish hood."
 	icon_state = "crusader"
 	w_class = WEIGHT_CLASS_NORMAL
-	flags_inv = HIDEHAIR|HIDEEARS|HIDEFACE
+	flags_inv = HIDEHAIR|HIDEEARS|HIDEFACE|HIDEMASK
 	armor = list("melee" = 50, "bullet" = 50, "laser" = 50, "energy" = 40, "bomb" = 60, "bio" = 0, "rad" = 0, "fire" = 60, "acid" = 60, "stamina" = 50)
 
 /obj/item/clothing/head/helmet/plate/crusader/blue

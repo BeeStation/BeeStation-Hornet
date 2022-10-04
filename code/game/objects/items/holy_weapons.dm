@@ -183,7 +183,7 @@
 	desc = "Its only heretical when others do it."
 	icon_state = "crusader"
 	item_state = "crusader"
-	flags_inv = HIDEHAIR|HIDEFACE|HIDEEARS
+	flags_inv = HIDEHAIR|HIDEFACE|HIDEEARS|HIDEMASK
 
 /obj/item/clothing/suit/armor/riot/chaplain/adept
 	name = "adept robes"
@@ -215,7 +215,7 @@
 	desc = "Hood made for acolytes of the chaplain."
 	icon_state = "chaplain_hood"
 	body_parts_covered = HEAD
-	flags_inv = HIDEHAIR|HIDEFACE|HIDEEARS
+	flags_inv = HIDEHAIR|HIDEFACE|HIDEEARS|HIDEMASK
 
 /obj/item/clothing/suit/hooded/chaplain_hoodie/leader
 	name = "leader hoodie"
