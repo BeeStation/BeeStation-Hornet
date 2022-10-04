@@ -122,7 +122,7 @@
 
 /datum/xenoartifact_trait/major/corginator/activate(obj/item/xenoartifact/X, mob/living/target)
 	X.say(pick("Woof!", "Bark!", "Yap!"))
-	if(istype(target, /mob/living) && !(istype(target, /mob/living/simple_animal/pet/dog/corgi)))
+	if(istype(target, /mob/living) && !(istype(target, /mob/living/simple_animal/pet/dog/corgi)) && !IS_DEAD_OR_INCAP(target))
 		var/mob/living/simple_animal/pet/dog/corgi/new_corgi = transform(target)
 		timer = addtimer(CALLBACK(src, .proc/transform_back, new_corgi), (X.charge*0.6) SECONDS, TIMER_STOPPABLE)
 		victims |= new_corgi
