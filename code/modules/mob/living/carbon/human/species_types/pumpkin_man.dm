@@ -17,7 +17,7 @@
 	species_r_leg = /obj/item/bodypart/r_leg/pumpkin_man
 
 //Only allow race roundstart on Halloween
-/datum/species/pumpkin_man/check_roundstart_eligible()
+/datum/species/pod/pumpkin_man/check_roundstart_eligible()
 	if(SSevents.holidays && SSevents.holidays[HALLOWEEN])
 		return TRUE
 	return ..()
