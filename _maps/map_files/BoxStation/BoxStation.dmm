@@ -17591,8 +17591,8 @@
 /obj/structure/table/wood,
 /obj/item/storage/fancy/cigarettes/cigars/havana,
 /obj/item/storage/fancy/rollingpapers{
-	pixel_y = 11;
-	pixel_x = 3
+	pixel_x = 3;
+	pixel_y = 11
 	},
 /obj/item/storage/fancy/cigarettes/cigars{
 	pixel_y = 4
@@ -35535,22 +35535,6 @@
 	pixel_x = 30;
 	pixel_y = 1
 	},
-/obj{
-	name = "---Merge conflict marker---"
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 1
-	},
-/obj/structure/table/glass,
-/obj/machinery/reagentgrinder,
-/obj/item/stack/sheet/mineral/plasma/five,
-/obj/machinery/requests_console{
-	department = "Medbay";
-	departmentType = 1;
-	name = "Medbay RC";
-	pixel_x = 30;
-	pixel_y = 1
-	},
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
 "hgc" = (
@@ -35995,8 +35979,8 @@
 /area/hallway/primary/port)
 "huV" = (
 /obj/item/clipboard{
-	pixel_y = 7;
-	pixel_x = 5
+	pixel_x = 5;
+	pixel_y = 7
 	},
 /obj/item/pen{
 	pixel_x = 3;
@@ -36047,8 +36031,8 @@
 	pixel_y = 7
 	},
 /obj/item/flashlight/lamp/green{
-	pixel_y = 8;
-	pixel_x = -5
+	pixel_x = -5;
+	pixel_y = 8
 	},
 /obj/structure/table/wood,
 /obj/item/toy/figure/curator{
@@ -47581,8 +47565,8 @@
 	pixel_y = 1
 	},
 /obj/machinery/door/window/eastright{
-	req_access_txt = "39";
-	name = "Testing Pen"
+	name = "Testing Pen";
+	req_access_txt = "39"
 	},
 /turf/open/floor/plasteel/freezer,
 /area/medical/virology)
@@ -55065,8 +55049,8 @@
 /obj/structure/table/wood,
 /obj/item/camera,
 /obj/item/storage/photo_album{
-	pixel_y = 2;
-	pixel_x = 3
+	pixel_x = 3;
+	pixel_y = 2
 	},
 /obj/item/camera_film{
 	pixel_x = 9;
@@ -55759,8 +55743,8 @@
 	pixel_y = 8
 	},
 /obj/item/pen{
-	pixel_y = 4;
-	pixel_x = -4
+	pixel_x = -4;
+	pixel_y = 4
 	},
 /obj/structure/table/wood,
 /turf/open/floor/carpet,
