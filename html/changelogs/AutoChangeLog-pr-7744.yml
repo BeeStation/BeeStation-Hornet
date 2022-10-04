@@ -1,0 +1,5 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - config: The default walk and run speed has been decreased by 0.5.
+  - config: The depreciated config option, outdated_movedelay, has been removed.
