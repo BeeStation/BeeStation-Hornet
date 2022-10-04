@@ -1,6 +1,0 @@
-author: itsmeow
-delete-after: true
-changes:
-  - bugfix: Cyborg's Modular Interface now properly shows its HUD icon.
-  - tweak: Moved Cyborg's Crew Manifest onto the HUD and removed the last Robot Command
-      verb.

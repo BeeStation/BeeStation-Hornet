@@ -1,4 +1,0 @@
-author: benbot16
-delete-after: true
-changes:
-  - bugfix: Fixes slime status tabs not showing round status information
