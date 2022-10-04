@@ -67,6 +67,7 @@
 	var/target_role_type=FALSE
 
 /datum/objective/hivemind/awaken/update_explanation_text()
+// wont target other hminds
 	if(target && target.current)
 		explanation_text = "Turn [target.name], the [!target_role_type ? target.assigned_role : target.special_role], into an awakened vessel."
 	else
