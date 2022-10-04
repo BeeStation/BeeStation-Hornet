@@ -74,7 +74,7 @@
 
 /datum/objective/hivemind/awaken/is_valid_target(datum/mind/possible_target)
 	. = ..()
-	if(has_antag_datum(/datum/antagonist/hivemind))  // you cant assimilate other hosts for some reason
+	if(possible_target.has_antag_datum(/datum/antagonist/hivemind))  // you cant assimilate other hosts for some reason
 		return FALSE
 
 /datum/objective/hivemind/awaken/check_completion()
