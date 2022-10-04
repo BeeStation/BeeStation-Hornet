@@ -107,7 +107,7 @@
 /obj/item/ecto_alert/examine(mob/user)
 	. = ..()
 	if(last_trigger > world.time + clear_after MINUTES)  // only displays from the last 5 minutes
-		var/display_time = FLOOR((last_trigger - world.time) / 10)
+		var/display_time = FLOOR((last_trigger - world.time) / 10, 1)
 		. += "It's last recorded trigger is [display_time], and will clear in [clear_after] minutes."
 
 /obj/item/ecto_alert/proc/activate(datum/source)
