@@ -59358,7 +59358,7 @@
 	dir = 8
 	},
 /turf/open/floor/plating,
-/area/maintenance/port)
+/area/maintenance/disposal)
 "wrs" = (
 /obj/machinery/door/airlock/maintenance{
 	req_access_txt = "12"
