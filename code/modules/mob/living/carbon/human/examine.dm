@@ -21,11 +21,11 @@
 	var/apparent_species
 	if(dna?.species && !skipface)
 		apparent_species = ", \an [dna.species.name]"
-	. = list("<span class='info'>This is <EM>[!obscure_name ? name : "Unknown"][apparent_species]</EM>!")
+	. = list("<span class='info'>*---------*\nThis is <EM>[!obscure_name ? name : "Unknown"][apparent_species]</EM>!")
 	var/idendified_age = measure_age(get_face_info(target=RETURNS_AGE))
 	if(!obscure_name)
 		if(idendified_age!="Unknown")
-			. += list("[t_He] seem[t_s] to be [idendified_age] by judging [t_his] visible age.")
+			. += list("[t_He] seem[t_s] to be [idendified_age] by judging [t_his] visible age."
 
 	//uniform
 	if(w_uniform && !(obscured & ITEM_SLOT_ICLOTHING))
@@ -380,6 +380,7 @@
 					"<a href='?src=[REF(src)];hud=s;add_comment=1'>\[Add comment\]</a>"), "")
 	else if(isobserver(user) && traitstring)
 		. += "<span class='info'><b>Traits:</b> [traitstring]</span>"
+	. += "*---------*</span>"
 
 /mob/living/proc/status_effect_examines(pronoun_replacement) //You can include this in any mob's examine() to show the examine texts of status effects!
 	var/list/dat = list()
