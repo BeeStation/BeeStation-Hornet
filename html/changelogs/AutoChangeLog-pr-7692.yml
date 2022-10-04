@@ -1,5 +1,0 @@
-author: Zonespace27
-delete-after: true
-changes:
-  - code_imp: Added a variety of new greps to the Github and corrected map issues
-      that failed the greps
