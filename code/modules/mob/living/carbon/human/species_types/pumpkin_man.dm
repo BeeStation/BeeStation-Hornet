@@ -3,7 +3,7 @@
 	id = "pumpkin_man"
 	sexes = 0
 	meat = /obj/item/reagent_containers/food/snacks/pumpkinpieslice
-	species_traits = list(NOBLOOD,NOHUSK,NOEYESPRITES)
+	species_traits = list(NOEYESPRITES)
 	attack_verb = "punch"
 
 	species_chest = /obj/item/bodypart/chest/pumpkin_man
