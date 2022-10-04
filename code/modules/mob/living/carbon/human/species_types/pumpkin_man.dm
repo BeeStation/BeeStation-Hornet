@@ -5,6 +5,8 @@
 	meat = /obj/item/reagent_containers/food/snacks/pumpkinpieslice
 	species_traits = list(NOEYESPRITES)
 	attack_verb = "punch"
+	attack_sound = 'sound/weapons/punch1.ogg'
+	miss_sound = 'sound/weapons/punchmiss.ogg'
 
 	species_chest = /obj/item/bodypart/chest/pumpkin_man
 	species_head = /obj/item/bodypart/head/pumpkin_man
