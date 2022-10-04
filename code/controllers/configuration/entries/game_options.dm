@@ -295,28 +295,6 @@
 /datum/config_entry/number/movedelay/walk_delay
 	integer = FALSE
 
-/////////////////////////////////////////////////Outdated move delay
-/datum/config_entry/number/outdated_movedelay
-	deprecated_by = /datum/config_entry/keyed_list/multiplicative_movespeed
-	abstract_type = /datum/config_entry/number/outdated_movedelay
-	integer = FALSE
-	var/movedelay_type
-
-/datum/config_entry/number/outdated_movedelay/DeprecationUpdate(value)
-	return "[movedelay_type] [value]"
-
-/datum/config_entry/number/outdated_movedelay/human_delay
-	movedelay_type = /mob/living/carbon/human
-/datum/config_entry/number/outdated_movedelay/robot_delay
-	movedelay_type = /mob/living/silicon/robot
-/datum/config_entry/number/outdated_movedelay/monkey_delay
-	movedelay_type = /mob/living/carbon/monkey
-/datum/config_entry/number/outdated_movedelay/alien_delay
-	movedelay_type = /mob/living/carbon/alien
-/datum/config_entry/number/outdated_movedelay/slime_delay
-	movedelay_type = /mob/living/simple_animal/slime
-/datum/config_entry/number/outdated_movedelay/animal_delay
-	movedelay_type = /mob/living/simple_animal
 /////////////////////////////////////////////////
 
 /datum/config_entry/flag/virtual_reality	//Will virtual reality be loaded
