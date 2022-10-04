@@ -1053,6 +1053,33 @@
 	category = CAT_STRUCTURE
 	one_per_turf = TRUE
 
+/datum/crafting_recipe/glassshutters
+	name = "Windowed Shutters"
+	reqs = list(/obj/item/stack/sheet/plasteel = 5,
+				/obj/item/stack/sheet/rglass = 2,
+				/obj/item/stack/cable_coil = 5,
+				/obj/item/electronics/airlock = 1
+				)
+	result = /obj/machinery/door/poddoor/shutters/window/preopen
+	tools = list(TOOL_SCREWDRIVER, TOOL_MULTITOOL, TOOL_WIRECUTTER, TOOL_WELDER)
+	time = 10 SECONDS
+	category = CAT_STRUCTURE
+	one_per_turf = TRUE
+
+/datum/crafting_recipe/radshutters
+	name = "Radiation Shutters"
+	reqs = list(/obj/item/stack/sheet/plasteel = 5,
+				/obj/item/stack/cable_coil = 5,
+				/obj/item/electronics/airlock = 1,
+				/obj/item/stack/sheet/mineral/uranium = 2
+				)
+	result = /obj/machinery/door/poddoor/shutters/radiation/preopen
+	tools = list(TOOL_SCREWDRIVER, TOOL_MULTITOOL, TOOL_WIRECUTTER, TOOL_WELDER)
+	time = 10 SECONDS
+	category = CAT_STRUCTURE
+	one_per_turf = TRUE
+
+
 /datum/crafting_recipe/blast_doors
 	name = "Blast Door"
 	reqs = list(/obj/item/stack/sheet/plasteel = 15,
