@@ -248,7 +248,7 @@
 			playsound(get_turf(src), 'sound/magic/blink.ogg', 25, TRUE)
 
 	charge = 0
-	true_target.Cut(1, 0)
+	true_target?.Cut(1, 0)
 
 ///Generate traits outside of blacklist. Malf = TRUE if you want malfunctioning traits.
 /obj/item/xenoartifact/proc/generate_traits(list/blacklist_traits, malf = FALSE)

@@ -112,7 +112,7 @@
 
 /datum/xenoartifact_trait/activator/batteryneed/pass_input(datum/source, obj/item/stock_parts/cell/thing, mob/user, atom/target, params)
 	var/obj/item/xenoartifact/X = source
-	if(istype(thing))
+	if(!istype(thing))
 		return
 	if(thing.use(X.charge_req*10))
 		X.default_activate(charge, user, user)
