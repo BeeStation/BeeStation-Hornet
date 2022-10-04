@@ -2495,8 +2495,7 @@
 /obj/machinery/power/apc/away{
 	dir = 8;
 	name = "Power and Atmospherics APC";
-	pixel_x = -25;
-	pixel_y = 1
+	pixel_x = -25
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel,

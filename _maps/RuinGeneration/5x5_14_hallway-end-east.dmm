@@ -15,12 +15,6 @@
 "F" = (
 /turf/template_noop,
 /area/template_noop)
-"M" = (
-/obj/effect/spawner/structure/window,
-/obj/machinery/door/firedoor/window,
-/obj/machinery/door/firedoor/window,
-/turf/open/floor/plating,
-/area/ruin/unpowered)
 "Q" = (
 /obj/effect/spawner/structure/window,
 /obj/machinery/door/firedoor/window,
@@ -48,7 +42,7 @@ a
 a
 Q
 Q
-M
+Q
 a
 "}
 (4,1,1) = {"
