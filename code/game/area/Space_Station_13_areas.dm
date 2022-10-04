@@ -1229,6 +1229,8 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	flags_1 = NONE
 	mood_bonus = -1
 	mood_message = "<span class='warning'>It feels dirty in here!\n</span>"
+	mood_job_allowed = list(JOB_NAME_JANITOR)
+	moob_job_reverse = TRUE
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
 
 /area/hydroponics
@@ -1257,6 +1259,9 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/science
 	name = "Science Division"
 	icon_state = "science"
+	mood_job_allowed = list(JOB_NAME_SCIENTIST, JOB_NAME_ROBOTICIST, JOB_NAME_RESEARCHDIRECTOR)
+	mood_bonus = 2
+	mood_message = "<span class='nicegreen'>Lets get down to research!</span>"
 	lighting_colour_tube = "#f0fbff"
 	lighting_colour_bulb = "#e4f7ff"
 	sound_environment = SOUND_AREA_STANDARD_STATION
@@ -1404,6 +1409,10 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 /area/vacant_room
 	name = "Vacant Room"
 	icon_state = "yellow"
+	mood_bonus = 4
+	mood_message = "<span class='nicegreen'>Smells of potential.</span>"
+	mood_job_allowed = list(JOB_NAME_STATIONENGINEER, JOB_NAME_ATMOSPHERICTECHNICIAN, JOB_NAME_CHIEFMEDICALOFFICER,\
+	JOB_NAME_ROBOTICIST, JOB_NAME_SCIENTIST, JOB_NAME_RESEARCHDIRECTOR, JOB_NAME_ASSISTANT)
 	ambience_index = AMBIENCE_MAINT
 	icon_state = "vacant_room"
 
