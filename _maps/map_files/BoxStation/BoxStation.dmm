@@ -6216,19 +6216,6 @@
 /obj/structure/sign/warning/electricshock,
 /turf/closed/wall/r_wall,
 /area/ai_monitored/storage/eva)
-"aDL" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12;
-	pixel_y = 2
-	},
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12;
-	pixel_y = 2
-	},
-/turf/open/floor/plasteel/freezer,
-/area/crew_quarters/toilet)
 "aDM" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -9840,8 +9827,8 @@
 	pixel_y = 7
 	},
 /obj/item/flashlight/lamp/green{
-	pixel_y = 8;
-	pixel_x = -5
+	pixel_x = -5;
+	pixel_y = 8
 	},
 /obj/structure/table/wood,
 /obj/item/toy/figure/curator{
@@ -10280,10 +10267,6 @@
 	},
 /obj/machinery/light{
 	dir = 8
-	},
-/obj/machinery/airalarm{
-	dir = 4;
-	pixel_x = -23
 	},
 /obj/machinery/airalarm{
 	dir = 4;
@@ -14737,18 +14720,6 @@
 /obj/machinery/cell_charger,
 /obj/item/stock_parts/cell/high/plus,
 /turf/open/floor/plasteel,
-/area/science/robotics/lab)
-"bpW" = (
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "robotics2";
-	name = "robotics lab shutters"
-	},
-/obj/effect/spawner/structure/window,
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "robotics2";
-	name = "robotics lab shutters"
-	},
-/turf/open/floor/plating,
 /area/science/robotics/lab)
 "bpX" = (
 /turf/open/floor/plasteel/white/side,
@@ -23160,7 +23131,6 @@
 	},
 /obj/structure/disposalpipe/segment,
 /obj/machinery/door/firedoor,
-/obj/machinery/door/firedoor,
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
 "cdI" = (
@@ -29392,9 +29362,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 10
-	},
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
 	},
@@ -31330,9 +31297,6 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 8
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
@@ -31615,7 +31579,6 @@
 /turf/open/floor/plasteel/grimy,
 /area/chapel/office)
 "eeI" = (
-/obj/structure/disposalpipe/segment,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
@@ -32372,8 +32335,8 @@
 	pixel_y = 8
 	},
 /obj/item/pen{
-	pixel_y = 4;
-	pixel_x = -4
+	pixel_x = -4;
+	pixel_y = 4
 	},
 /obj/structure/table/wood,
 /turf/open/floor/carpet,
@@ -32880,8 +32843,8 @@
 /obj/structure/table/wood,
 /obj/item/camera,
 /obj/item/storage/photo_album{
-	pixel_y = 2;
-	pixel_x = 3
+	pixel_x = 3;
+	pixel_y = 2
 	},
 /obj/item/camera_film{
 	pixel_x = 9;
@@ -34439,8 +34402,8 @@
 /obj/structure/table/wood,
 /obj/item/storage/fancy/cigarettes/cigars/havana,
 /obj/item/storage/fancy/rollingpapers{
-	pixel_y = 11;
-	pixel_x = 3
+	pixel_x = 3;
+	pixel_y = 11
 	},
 /obj/item/storage/fancy/cigarettes/cigars{
 	pixel_y = 4
@@ -34508,9 +34471,6 @@
 /turf/open/floor/plating,
 /area/security/processing)
 "fZs" = (
-/obj/structure/disposalpipe/segment{
-	dir = 10
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 10
 	},
@@ -35117,17 +35077,6 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
-"guz" = (
-/obj/structure/disposalpipe/segment,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/structure/disposalpipe/segment,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/turf/open/floor/plating,
-/area/maintenance/starboard/aft)
 "gvn" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow{
@@ -35854,9 +35803,6 @@
 /turf/open/floor/plasteel,
 /area/crew_quarters/dorms)
 "gUB" = (
-/obj/structure/disposalpipe/segment{
-	dir = 5
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 5
 	},
@@ -44124,8 +44070,8 @@
 /area/science/misc_lab)
 "mfQ" = (
 /obj/item/clipboard{
-	pixel_y = 7;
-	pixel_x = 5
+	pixel_x = 5;
+	pixel_y = 7
 	},
 /obj/item/pen{
 	pixel_x = 3;
@@ -48697,8 +48643,8 @@
 	pixel_y = 1
 	},
 /obj/machinery/door/window/eastright{
-	req_access_txt = "39";
-	name = "Testing Pen"
+	name = "Testing Pen";
+	req_access_txt = "39"
 	},
 /turf/open/floor/plasteel/freezer,
 /area/medical/virology)
@@ -49680,20 +49626,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
-"pKe" = (
-/obj/structure/disposalpipe/segment,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/turf/open/floor/plating,
-/area/maintenance/aft)
 "pKk" = (
 /obj/machinery/atmospherics/pipe/simple/general/visible{
 	dir = 4
@@ -50203,7 +50135,6 @@
 "qcr" = (
 /obj/structure/closet/l3closet/virology,
 /obj/item/storage/box/masks,
-/obj/structure/closet/l3closet/virology,
 /obj/item/storage/box/masks,
 /obj/item/storage/box/gloves,
 /turf/open/floor/plasteel/white,
@@ -53404,9 +53335,6 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 5
 	},
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
 /obj/machinery/button/door{
 	id = "QuarantineB";
 	name = "Quarantine Bolts B";
@@ -53427,24 +53355,6 @@
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
-	},
-/obj/machinery/button/door{
-	id = "QuarantineB";
-	name = "Quarantine Bolts B";
-	normaldoorcontrol = 1;
-	pixel_x = 8;
-	pixel_y = -21;
-	req_one_access_txt = "39;40;45";
-	specialfunctions = 4
-	},
-/obj/machinery/button/door{
-	id = "QuarantineA";
-	name = "Quarantine Bolts A";
-	normaldoorcontrol = 1;
-	pixel_x = -8;
-	pixel_y = -21;
-	req_one_access_txt = "39;40;45";
-	specialfunctions = 4
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
@@ -61181,7 +61091,6 @@
 	},
 /obj/structure/table/glass,
 /obj/machinery/reagentgrinder,
-/obj/item/stack/sheet/mineral/plasma/five,
 /obj/machinery/requests_console{
 	announcementConsole = 0;
 	department = "Medbay";
@@ -61189,9 +61098,6 @@
 	name = "Medbay RC";
 	pixel_x = 30;
 	pixel_y = 1
-	},
-/obj{
-	name = "---Merge conflict marker---"
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 1
@@ -94267,7 +94173,7 @@ awr
 osg
 aAh
 aCm
-aDL
+aGk
 bCV
 aGk
 aHU
@@ -102048,10 +101954,10 @@ bNd
 koq
 moo
 cnG
-guz
+mhi
 cnG
 cko
-iTh
+cnG
 cko
 rzf
 cnG
@@ -104056,7 +103962,7 @@ kEl
 xvr
 ndk
 kSx
-pKe
+lmG
 lmG
 lmG
 wYj
@@ -107916,7 +107822,7 @@ bfV
 bfV
 bfV
 box
-bpW
+buj
 brs
 box
 box
