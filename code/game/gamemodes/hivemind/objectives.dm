@@ -67,11 +67,15 @@
 	var/target_role_type=FALSE
 
 /datum/objective/hivemind/awaken/update_explanation_text()
-// wont target other hminds
 	if(target && target.current)
 		explanation_text = "Turn [target.name], the [!target_role_type ? target.assigned_role : target.special_role], into an awakened vessel."
 	else
 		explanation_text = "Free Objective"
+
+/datum/objective/hivemind/awaken/is_valid_target(datum/mind/possible_target)
+	. = ..()
+	if(has_antag_datum(/datum/antagonist/hivemind))  // you cant assimilate other hosts for some reason
+		return FALSE
 
 /datum/objective/hivemind/awaken/check_completion()
 	var/datum/antagonist/hivemind/host = owner.has_antag_datum(/datum/antagonist/hivemind)
