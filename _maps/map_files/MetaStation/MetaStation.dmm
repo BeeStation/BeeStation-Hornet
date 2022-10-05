@@ -56850,7 +56850,6 @@
 "ixb" = (
 /obj/structure/lattice,
 /obj/structure/grille,
-/turf/closed/wall/r_wall,
 /area/space/nearstation)
 "ixc" = (
 /obj/structure/cable/yellow{
@@ -65174,7 +65173,6 @@
 "nmS" = (
 /obj/structure/grille,
 /obj/structure/lattice,
-/turf/closed/wall/r_wall,
 /area/space/nearstation)
 "nns" = (
 /obj/effect/turf_decal/tile/neutral{

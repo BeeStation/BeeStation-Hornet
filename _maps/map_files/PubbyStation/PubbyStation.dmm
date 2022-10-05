@@ -47476,10 +47476,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/brig)
-"mUo" = (
-/obj/structure/lattice,
-/turf/closed/mineral,
-/area/chapel/asteroid/monastery)
 "mVx" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -84771,7 +84767,7 @@ aaa
 aaa
 aaa
 aaa
-mUo
+cfN
 cfN
 cfN
 cfN
