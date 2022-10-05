@@ -19,9 +19,18 @@
 	if(_allowed_containers)
 		allowed_containers = _allowed_containers
 
+
+/datum/component/milkable/RegisterWithParent()
 	RegisterSignal(parent, COMSIG_PARENT_ATTACKBY, .proc/milk_animal)
 	RegisterSignal(parent, COMSIG_LIVING_REVIVE, .proc/restart_gen)
 	START_PROCESSING(SSdcs, src)
+
+/datum/component/milkable/UnregisterFromParent()
+	UnregisterSignal(parent, list(
+		COMSIG_PARENT_ATTACKBY,
+		COMSIG_LIVING_REVIVE))
+	STOP_PROCESSING(SSdcs, src)
+
 
 /datum/component/milkable/process(delta_time)
 	if(parent.stat == DEAD)
