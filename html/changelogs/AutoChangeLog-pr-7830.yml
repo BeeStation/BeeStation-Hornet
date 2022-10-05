@@ -1,0 +1,4 @@
+author: Zonespace27
+delete-after: true
+changes:
+  - bugfix: NTNet DOS tool now allows you to select a relay to target
