@@ -114,11 +114,10 @@
 	ambientsounds = list('sound/ambience/ambiatm1.ogg','sound/ambience/ambitech.ogg','sound/ambience/ambitech2.ogg','sound/ambience/ambitech3.ogg','sound/ambience/ambiatmos.ogg','sound/ambience/ambiatmos2.ogg','sound/ambience/signal.ogg','sound/ambience/ambidanger.ogg','sound/ambience/ambidanger2.ogg','sound/ambience/ambiruin2.ogg')
 
 /area/awaymission/factory/factoryduring/down/levelthree/engine
-	name = "The old reality engine"
+	name = "The reality engine"
 	mood_bonus = 1
 	mood_message = "<span class='nicegreen'>Uhm... Ok?... I guess...\n</span>"
 	ambientsounds = list('sound/ambience/singulambience.ogg','sound/ambience/ambisin1.ogg','sound/ambience/ambisin2.ogg','sound/ambience/ambisin3.ogg','sound/ambience/ambisin4.ogg','sound/ambience/antag/assimilation.ogg','sound/ambience/ambidanger.ogg','sound/ambience/ambidanger2.ogg')
-	name = "The reality engine"
 
 /area/awaymission/factory/factoryduring/down/leveltwo
 	name = "The old Factory - middle level"
