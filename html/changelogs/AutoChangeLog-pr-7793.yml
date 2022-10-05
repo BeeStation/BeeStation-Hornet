@@ -1,0 +1,6 @@
+author: DrDuckedGoose
+delete-after: true
+changes:
+  - rscadd: Add dedicated DMI for monkey icons
+  - bugfix: Fixes missing icons for facehuggers - for monkeys
+  - tweak: Tweaks monkey sprite to look less dumpy
