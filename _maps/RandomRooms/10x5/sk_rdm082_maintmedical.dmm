@@ -62,7 +62,6 @@
 /turf/open/floor/plasteel,
 /area/template_noop)
 "h" = (
-/obj/structure/table,
 /obj/item/reagent_containers/glass/bottle/carbon{
 	pixel_x = 6
 	},

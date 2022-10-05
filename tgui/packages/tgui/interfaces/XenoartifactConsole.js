@@ -26,7 +26,7 @@ export const XenoartifactConsole = (props, context) => {
                 <AnimatedNumber
                   value={points}
                   format={value => formatMoney(value)} />
-                {'credits'}
+                {' credits'}
               </Box>
             )}>
             <BlockQuote>
