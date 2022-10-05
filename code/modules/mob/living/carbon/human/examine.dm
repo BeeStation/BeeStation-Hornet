@@ -25,7 +25,7 @@
 	var/idendified_age = measure_age(get_face_info(target=RETURNS_AGE))
 	if(!obscure_name)
 		if(idendified_age!="Unknown")
-			. += list("[t_He] seem[t_s] to be [idendified_age] by judging [t_his] visible age."
+			. += list("[t_He] seem[t_s] to be [idendified_age] by judging [t_his] visible age.")
 
 	//uniform
 	if(w_uniform && !(obscured & ITEM_SLOT_ICLOTHING))
