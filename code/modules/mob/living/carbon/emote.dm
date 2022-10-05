@@ -182,7 +182,7 @@
 	emote_type = EMOTE_AUDIBLE|EMOTE_ANIMATED
 	sound_volume = 25
 	vary = TRUE
-	overlay_x_offset = 5
+	overlay_x_offset = 10
 	overlay_y_offset = 10
 	emote_length = 3 SECONDS
 	sound = 'sound/machines/chime.ogg'
