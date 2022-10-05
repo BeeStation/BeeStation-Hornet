@@ -107,7 +107,7 @@
 		if(80 to 200)
 			A = new /obj/item/projectile/beam/laser/heavylaser
 	//If target is our own turf, aka someone probably threw us, target a random direction to avoid always shooting east
-	if(istype(target, /turf) && loc == target)
+	if(istype(target, /turf) && X.loc == target)
 		target = get_edge_target_turf(pick(NORTH, EAST, SOUTH, WEST))
 	//FIRE!
 	A.preparePixelProjectile(get_turf(target), X)
