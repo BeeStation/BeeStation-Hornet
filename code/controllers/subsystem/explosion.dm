@@ -153,12 +153,12 @@ SUBSYSTEM_DEF(explosions)
 		A.color = null
 		A.maptext = ""
 
-/proc/dyn_explosion(turf/epicenter, power, flash_range, adminlog = TRUE, ignorecap = TRUE, flame_range = 0, silent = FALSE, smoke = TRUE, list/explosion_overrides = list(1, 1, 1, 1))
+/proc/dyn_explosion(turf/epicenter, power, flash_range, adminlog = TRUE, ignorecap = TRUE, flame_range = 0, silent = FALSE, smoke = TRUE, list/explosion_multiplier = list(1, 1, 1, 1))
 	if(!power)
 		return
 	var/range = 0
 	range = round((2 * power)**GLOB.DYN_EX_SCALE)
-	explosion(epicenter, round(range * 0.25 * explosion_overrides[1]), round(range * 0.5 * explosion_overrides[2]), round(range * explosion_overrides[3]), flash_range * range * explosion_overrides[4], adminlog, ignorecap, flame_range*range, silent, smoke)
+	explosion(epicenter, round(range * 0.25 * explosion_multiplier[1]), round(range * 0.5 * explosion_multiplier[2]), round(range * explosion_multiplier[3]), flash_range * range * explosion_multiplier[4], adminlog, ignorecap, flame_range*range, silent, smoke)
 
 // Using default dyn_ex scale:
 // 100 explosion power is a (5, 10, 20) explosion.

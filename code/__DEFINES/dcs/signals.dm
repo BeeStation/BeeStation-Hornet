@@ -622,7 +622,3 @@
 #define COMSIG_SUPERMATTER_DELAM_START_ALARM "sm_delam_start_alarm"
 /// from /obj/machinery/power/supermatter_crystal/process_atmos(); when the SM sounds an audible alarm
 #define COMSIG_SUPERMATTER_DELAM_ALARM "sm_delam_alarm"
-
-// Reagent Signals
-/// from [/datum/chemical_reaction/reagent_explosion/explode] (atom/reagent_holder_atom):
-#define COMSIG_REAGENT_EXPLOSION "reagent_explosion"

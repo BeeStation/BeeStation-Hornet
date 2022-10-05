@@ -91,10 +91,6 @@
 	/// List of explosion size overrides if COMSIG_TODO occurs
 	var/list/explosion_sizes = list(1, 1, 1, 1)
 
-/datum/effect_system/reagents_explosion/New()
-	. = ..()
-	RegisterSignal(src, COMSIG_REAGENT_EXPLOSION, .proc/adjust_explosion_sizes)
-
 /datum/effect_system/reagents_explosion/set_up(amt, loca, flash = 0, flash_fact = 0, message = 1)
 	amount = amt
 	explosion_message = message
@@ -112,7 +108,3 @@
 								"<span class='italics'>You hear an explosion!</span>")
 
 	dyn_explosion(location, amount, flashing_factor, explosion_overrides = explosion_sizes)
-
-/datum/effect_system/reagents_explosion/proc/adjust_explosion_sizes(datum/source, atom/reagent_holder_atom)
-	if(istype(reagent_holder_atom, /obj/item/grenade/chem_grenade))
-		explosion_sizes = list(0, 1, 1, 1)
