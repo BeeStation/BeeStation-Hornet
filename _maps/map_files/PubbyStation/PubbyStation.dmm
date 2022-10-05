@@ -752,9 +752,6 @@
 /obj/machinery/atmospherics/components/trinary/filter/atmos/co2,
 /turf/open/floor/engine,
 /area/engine/engineering)
-"adV" = (
-/turf/open/space,
-/area/ai_monitored/turret_protected/AIsatextAP)
 "adW" = (
 /obj/structure/lattice,
 /obj/machinery/light/small{
@@ -769,9 +766,6 @@
 "adX" = (
 /turf/closed/wall/r_wall,
 /area/ai_monitored/turret_protected/aisat_interior)
-"adZ" = (
-/turf/open/space,
-/area/ai_monitored/turret_protected/AIsatextAS)
 "aea" = (
 /obj/structure/lattice,
 /obj/machinery/light/small{
@@ -11028,7 +11022,6 @@
 	name = "Kitchen Maintenance";
 	req_access_txt = "28"
 	},
-/obj/structure/disposalpipe/segment,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
@@ -29491,20 +29484,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/turret_protected/aisat_interior)
-"cnD" = (
-/turf/open/space/basic,
-/area/ai_monitored/turret_protected/AIsatextAP)
-"cnE" = (
-/obj/structure/lattice,
-/turf/open/space/basic,
-/area/ai_monitored/turret_protected/AIsatextAP)
-"cnG" = (
-/turf/open/space/basic,
-/area/ai_monitored/turret_protected/AIsatextAS)
-"cnH" = (
-/obj/structure/lattice,
-/turf/open/space/basic,
-/area/ai_monitored/turret_protected/AIsatextAS)
 "cnI" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 8
@@ -31535,12 +31514,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/science/shuttledock)
-"cCO" = (
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
-/turf/closed/wall,
-/area/security/brig)
 "cCP" = (
 /obj/effect/turf_decal/bot/right,
 /turf/open/floor/plasteel/white,
@@ -34889,6 +34862,10 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
+"eII" = (
+/obj/structure/disposalpipe/segment,
+/turf/closed/wall,
+/area/science/shuttledock)
 "eIL" = (
 /obj/effect/turf_decal/tile/green{
 	dir = 1
@@ -35973,7 +35950,6 @@
 	},
 /obj/effect/turf_decal/box,
 /obj/structure/closet/l3closet/virology,
-/obj/item/storage/box/masks,
 /obj/item/storage/box/masks,
 /obj/item/storage/box/gloves,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
@@ -39159,10 +39135,6 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 4
 	},
-/obj/machinery/disposal/bin,
-/obj/structure/disposalpipe/trunk{
-	dir = 4
-	},
 /turf/open/floor/plating,
 /area/maintenance/department/engine)
 "hxn" = (
@@ -39231,9 +39203,6 @@
 	},
 /obj/structure/cable/yellow{
 	icon_state = "6-8"
-	},
-/obj/structure/cable/cyan{
-	icon_state = "0-5"
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/chapel/monastery)
@@ -45365,6 +45334,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
 /turf/open/floor/plasteel/white,
 /area/science/shuttledock)
 "ltT" = (
@@ -45881,9 +45853,6 @@
 	name = "Starboard Emergency Storage"
 	},
 /obj/effect/mapping_helpers/airlock/abandoned,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
 /turf/open/floor/plating,
 /area/storage/emergency/starboard)
 "lLb" = (
@@ -48671,6 +48640,9 @@
 /obj/machinery/door/airlock/research/glass{
 	name = "science shuttle dock";
 	req_one_access_txt = "49"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
 	},
 /turf/open/floor/plasteel/white,
 /area/science/shuttledock)
@@ -57808,6 +57780,9 @@
 "tTQ" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 9
 	},
 /turf/open/floor/plasteel/white,
 /area/science/shuttledock)
@@ -91088,7 +91063,7 @@ hFO
 ajM
 ajM
 ajM
-cCO
+ajM
 ajM
 ajM
 avL
@@ -95941,11 +95916,11 @@ acY
 aee
 gDn
 acP
-adV
-adV
-cnD
-adV
-adV
+bBW
+bBW
+aaa
+bBW
+bBW
 acP
 gHf
 acP
@@ -96200,7 +96175,7 @@ pBb
 acP
 adW
 aej
-cnE
+aht
 aej
 aex
 acP
@@ -96455,11 +96430,11 @@ add
 adk
 sJh
 adX
-adV
-adV
-cnD
-adV
-adV
+bBW
+bBW
+aaa
+bBW
+bBW
 adX
 fTe
 afw
@@ -97483,11 +97458,11 @@ add
 ado
 hgD
 adX
-adZ
-adZ
-cnG
-adZ
-adZ
+bBW
+bBW
+aaa
+bBW
+bBW
 adX
 fTe
 afA
@@ -97742,7 +97717,7 @@ lTx
 acU
 aea
 aej
-cnH
+aht
 aej
 aez
 acU
@@ -97997,11 +97972,11 @@ ade
 ael
 tXw
 acU
-adZ
-adZ
-cnG
-adZ
-adZ
+bBW
+bBW
+aaa
+bBW
+bBW
 acU
 xGr
 acU
@@ -114017,7 +113992,7 @@ oNE
 oep
 bnd
 mlr
-vuQ
+eII
 tTQ
 hGA
 hGA
