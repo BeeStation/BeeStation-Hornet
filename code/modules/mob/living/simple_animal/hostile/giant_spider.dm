@@ -87,12 +87,11 @@
 	if(!..()) //AIStatus is off
 		return FALSE
 	if(AIStatus == AI_IDLE)
-		//10% chance to skitter madly away
 		if(!busy && prob(10))
 			stop_automated_movement = TRUE
 			Goto(pick(urange(20, src, 1)), move_to_delay)
 			addtimer(CALLBACK(src, .proc/do_action), 5 SECONDS)
-		return TRUE
+		return TRUE // We're idle, thus free to do stuff
 
 /mob/living/simple_animal/hostile/poison/giant_spider/proc/do_action()
 	stop_automated_movement = FALSE
@@ -162,6 +161,7 @@
 		visible_message("<span class='notice'>[src] wraps the wounds of [hurt_spider].</span>","<span class='notice'>You wrap the wounds of [hurt_spider].</span>")
 	is_busy = FALSE
 
+// Nurse AI Handling
 // Handles automatically attacking, webbing, and healing.
 /mob/living/simple_animal/hostile/poison/giant_spider/nurse/handle_automated_action()
 	if(..())
@@ -216,15 +216,8 @@
 
 /mob/living/simple_animal/hostile/poison/giant_spider/nurse/proc/GiveUp(C)
 	if(busy == MOVING_TO_TARGET)
-		var/reset = FALSE
-		if(cocoon_target == C && get_dist(src,cocoon_target) > 1)
-			cocoon_target = null
-			reset = TRUE
-		if(heal_target == C && get_dist(src, heal_target) > 1)
-			heal_target = null
-			reset = TRUE
-		if(!reset)
-			return
+		cocoon_target = null
+		heal_target = null
 		busy = FALSE
 		stop_automated_movement = FALSE
 		SSmove_manager.stop_looping(src)

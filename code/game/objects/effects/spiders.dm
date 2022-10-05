@@ -82,6 +82,9 @@
 	if(amount_grown >= 60 && !ghost_ready) // 1 minute to grow
 		notify_ghosts("[src] is ready to hatch!", null, enter_link="<a href=?src=[REF(src)];activate=1>(Click to play)</a>", source=src, action=NOTIFY_ATTACK, ignore_key = POLL_IGNORE_SPIDER)
 		ghost_ready = TRUE
+		LAZYADD(GLOB.mob_spawners[name], src)
+		SSmobs.update_spawners()
+		GLOB.poi_list |= src
 
 /obj/structure/spider/eggcluster/Topic(href, href_list)
 	if(..())
@@ -97,6 +100,15 @@
 		make_spider(user)
 	else
 		to_chat(user, "<span class='warning'>[src] isn't ready yet!</span>")
+
+/obj/structure/spider/eggcluster/Destroy()
+	GLOB.poi_list -= src
+	var/list/spawners = GLOB.mob_spawners[name]
+	LAZYREMOVE(spawners, src)
+	if(!LAZYLEN(spawners))
+		GLOB.mob_spawners -= name
+	SSmobs.update_spawners()
+	return ..()
 
 /**
   * Makes a ghost into a spider based on the type of egg cluster.
