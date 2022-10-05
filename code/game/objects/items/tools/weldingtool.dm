@@ -120,7 +120,7 @@
 					"<span class='notice'>You start fixing some of the dents on [H == user ? "your" : "[H]'s"] [parse_zone(affecting.body_zone)].</span>")
 				if(!do_mob(user, H, 50))
 					return
-			item_heal_robotic(H, user, 15, 0)
+			item_heal_robotic(H, user, 15, 0, affecting)
 	else
 		return ..()
 
