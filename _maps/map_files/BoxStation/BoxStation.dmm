@@ -55543,9 +55543,7 @@
 /obj/structure/table/glass,
 /obj/item/book/manual/wiki/infections,
 /obj/item/extrapolator,
-/obj/item/radio/intercom{
-	frequency = 1485;
-	name = "Station Intercom (Medbay)";
+/obj/item/radio/intercom/medical{
 	pixel_x = 29;
 	pixel_y = 1
 	},

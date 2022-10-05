@@ -30241,11 +30241,8 @@
 	pixel_y = 2
 	},
 /obj/item/clothing/neck/stethoscope,
-/obj/item/radio/intercom{
-	broadcasting = 1;
-	frequency = 1485;
+/obj/item/radio/intercom/medical{
 	listening = 0;
-	name = "Station Intercom (Medbay)";
 	pixel_y = 30
 	},
 /obj/effect/turf_decal/tile/blue{
@@ -32011,9 +32008,7 @@
 /area/medical/medbay/central)
 "ceF" = (
 /obj/structure/bed/roller,
-/obj/item/radio/intercom{
-	frequency = 1485;
-	name = "Station Intercom (Medbay)";
+/obj/item/radio/intercom/medical{
 	pixel_y = -30
 	},
 /obj/machinery/camera{
@@ -33524,11 +33519,8 @@
 /area/medical/surgery)
 "cjE" = (
 /obj/structure/bed/roller,
-/obj/item/radio/intercom{
-	broadcasting = 1;
-	frequency = 1485;
+/obj/item/radio/intercom/medical{
 	listening = 0;
-	name = "Station Intercom (Medbay)";
 	pixel_x = -30
 	},
 /obj/machinery/camera{
@@ -34449,11 +34441,8 @@
 /area/medical/surgery)
 "cnt" = (
 /obj/structure/table/reinforced,
-/obj/item/radio/intercom{
+/obj/item/radio/intercom/medical{
 	broadcasting = 1;
-	frequency = 1485;
-	listening = 0;
-	name = "Station Intercom (Medbay)";
 	pixel_x = 30
 	},
 /obj/structure/bedsheetbin{
@@ -35808,11 +35797,8 @@
 /turf/open/floor/plasteel/white,
 /area/medical/cryo)
 "crt" = (
-/obj/item/radio/intercom{
-	broadcasting = 1;
-	frequency = 1485;
+/obj/item/radio/intercom/medical{
 	listening = 0;
-	name = "Station Intercom (Medbay)";
 	pixel_y = -30
 	},
 /obj/machinery/light,
@@ -36082,11 +36068,8 @@
 	},
 /area/medical/surgery)
 "csn" = (
-/obj/item/radio/intercom{
-	broadcasting = 1;
-	frequency = 1485;
+/obj/item/radio/intercom/medical{
 	listening = 0;
-	name = "Station Intercom (Medbay)";
 	pixel_y = -30
 	},
 /obj/structure/closet/crate/freezer/blood,
@@ -36429,11 +36412,8 @@
 /turf/open/space,
 /area/space/nearstation)
 "ctn" = (
-/obj/item/radio/intercom{
-	broadcasting = 1;
-	frequency = 1485;
+/obj/item/radio/intercom/medical{
 	listening = 0;
-	name = "Station Intercom (Medbay)";
 	pixel_x = 30
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
@@ -36707,9 +36687,7 @@
 	pixel_y = 4
 	},
 /obj/item/storage/box/syringes,
-/obj/item/radio/intercom{
-	frequency = 1485;
-	name = "Station Intercom (Medbay)";
+/obj/item/radio/intercom/medical{
 	pixel_y = 25
 	},
 /obj/effect/turf_decal/tile/green{
@@ -41919,9 +41897,7 @@
 /turf/open/floor/plating,
 /area/maintenance/aft)
 "cKZ" = (
-/obj/item/radio/intercom{
-	frequency = 1485;
-	name = "Station Intercom (Medbay)";
+/obj/item/radio/intercom/medical{
 	pixel_y = 25
 	},
 /obj/effect/turf_decal/tile/green{
@@ -64198,11 +64174,8 @@
 /turf/open/floor/plasteel/dark,
 /area/aisat)
 "mFB" = (
-/obj/item/radio/intercom{
-	broadcasting = 1;
-	frequency = 1485;
+/obj/item/radio/intercom/medical{
 	listening = 0;
-	name = "Station Intercom (Medbay)";
 	pixel_y = -30
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
@@ -65385,11 +65358,8 @@
 "nuL" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/item/radio/intercom{
-	broadcasting = 1;
-	frequency = 1485;
+/obj/item/radio/intercom/medical{
 	listening = 0;
-	name = "Station Intercom (Medbay)";
 	pixel_x = 30
 	},
 /obj/structure/disposalpipe/segment,

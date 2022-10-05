@@ -16881,9 +16881,7 @@
 	name = "Medbay RC";
 	pixel_x = -32
 	},
-/obj/item/radio/intercom{
-	frequency = 1485;
-	name = "Station Intercom (Medbay)";
+/obj/item/radio/intercom/medical{
 	pixel_y = 26
 	},
 /obj/effect/turf_decal/tile/blue{
@@ -17176,9 +17174,7 @@
 /area/medical/genetics)
 "bpy" = (
 /obj/machinery/clonepod/prefilled,
-/obj/item/radio/intercom{
-	frequency = 1485;
-	name = "Station Intercom (Medbay)";
+/obj/item/radio/intercom/medical{
 	pixel_x = -30
 	},
 /obj/effect/turf_decal/tile/blue,
@@ -18210,9 +18206,7 @@
 "bsE" = (
 /obj/machinery/portable_atmospherics/canister/oxygen,
 /obj/machinery/atmospherics/components/unary/portables_connector/visible,
-/obj/item/radio/intercom{
-	frequency = 1485;
-	name = "Station Intercom (Medbay)";
+/obj/item/radio/intercom/medical{
 	pixel_x = 28
 	},
 /obj/machinery/airalarm{
@@ -21580,9 +21574,7 @@
 /obj/effect/turf_decal/caution/red{
 	pixel_y = 6
 	},
-/obj/item/radio/intercom{
-	frequency = 1485;
-	name = "Station Intercom (Medbay)";
+/obj/item/radio/intercom/medical{
 	pixel_x = 28
 	},
 /obj/machinery/camera{
@@ -22600,9 +22592,7 @@
 /obj/machinery/shower{
 	dir = 4
 	},
-/obj/item/radio/intercom{
-	frequency = 1485;
-	name = "Station Intercom (Medbay)";
+/obj/item/radio/intercom/medical{
 	pixel_x = -28
 	},
 /turf/open/floor/noslip/white,
@@ -22862,9 +22852,7 @@
 	dir = 8;
 	network = list("ss13","medbay")
 	},
-/obj/item/radio/intercom{
-	frequency = 1485;
-	name = "Station Intercom (Medbay)";
+/obj/item/radio/intercom/medical{
 	pixel_x = 28
 	},
 /turf/open/floor/plasteel/freezer,
@@ -31697,9 +31685,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/green,
-/obj/item/radio/intercom{
-	frequency = 1485;
-	name = "Station Intercom (Medbay)";
+/obj/item/radio/intercom/medical{
 	pixel_y = -32
 	},
 /turf/open/floor/plasteel/white,
@@ -61480,9 +61466,7 @@
 /obj/structure/chair/office/light{
 	dir = 4
 	},
-/obj/item/radio/intercom{
-	frequency = 1485;
-	name = "Station Intercom (Medbay)";
+/obj/item/radio/intercom/medical{
 	pixel_y = 22
 	},
 /obj/effect/turf_decal/tile/green{
