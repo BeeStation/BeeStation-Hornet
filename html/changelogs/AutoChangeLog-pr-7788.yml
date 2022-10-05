@@ -1,5 +1,0 @@
-author: TheChaser212
-delete-after: true
-changes:
-  - tweak: Ghosts can alt-click without using the stat menu
-  - bugfix: Added missing checks on alt-clicks
