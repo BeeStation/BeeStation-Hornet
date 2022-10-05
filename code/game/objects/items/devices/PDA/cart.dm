@@ -268,7 +268,7 @@ Code:
 
 			var/turf/pda_turf = get_turf(src)
 			for(var/obj/machinery/computer/monitor/pMon in GLOB.machines)
-				if(pMon.stat & (NOPOWER | BROKEN)) //check to make sure the computer is functional
+				if(pMon.machine_stat & (NOPOWER | BROKEN)) //check to make sure the computer is functional
 					continue
 				if(pda_turf.get_virtual_z_level() != pMon.get_virtual_z_level()) //and that we're on the same zlevel as the computer (lore: limited signal strength)
 					continue
@@ -302,7 +302,7 @@ Code:
 						var/obj/machinery/power/apc/A = term.master
 						L += A
 
-				menu += "<PRE>Location: [get_area_name(powmonitor, TRUE)]<BR>Total power: [DisplayPower(connected_powernet.viewavail)]<BR>Total load:  [DisplayPower(connected_powernet.viewload)]<BR>"
+				menu += "<PRE>Location: [get_area_name(powmonitor, TRUE)]<BR>Total power: [display_power(connected_powernet.viewavail)]<BR>Total load:  [display_power(connected_powernet.viewload)]<BR>"
 
 				menu += "<FONT SIZE=-1>"
 
@@ -319,9 +319,9 @@ Code:
 					for(var/obj/machinery/power/apc/A in L)
 						menu += copytext_char(add_trailing(A.area.name, 30, " "), 1, 30)
 						if(A.integration_cog)
-							menu += " [S[A.equipment+1]] [S[A.lighting+1]] [S[A.environ+1]] [add_leading(DisplayPower(A.lastused_total), 6, " ")]  100% F<BR>"
+							menu += " [S[A.equipment+1]] [S[A.lighting+1]] [S[A.environ+1]] [add_leading(display_power(A.lastused_total), 6, " ")]  100% F<BR>"
 						else
-							menu += " [S[A.equipment+1]] [S[A.lighting+1]] [S[A.environ+1]] [add_leading(DisplayPower(A.lastused_total), 6, " ")]  [A.cell ? "[add_leading("[round(A.cell.percent())]", 3, " ")]% [chg[A.charging+1]]" : "  N/C"]<BR>"
+							menu += " [S[A.equipment+1]] [S[A.lighting+1]] [S[A.environ+1]] [add_leading(display_power(A.lastused_total), 6, " ")]  [A.cell ? "[add_leading("[round(A.cell.percent())]", 3, " ")]% [chg[A.charging+1]]" : "  N/C"]<BR>"
 
 				menu += "</FONT></PRE>"
 

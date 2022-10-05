@@ -43,6 +43,8 @@
 
 /obj/machinery/anesthetic_machine/AltClick(mob/user)
 	. = ..()
+	if(!user.canUseTopic(src, BE_CLOSE))
+		return
 	if(attached_tank)// If attached tank, remove it.
 		attached_tank.forceMove(loc)
 		to_chat(user, "<span class='notice'>You remove the [attached_tank].</span>")

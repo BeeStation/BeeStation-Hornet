@@ -214,7 +214,8 @@
 					/obj/item/clothing/shoes/sneakers/white = 3,
 					/obj/item/radio/headset/headset_sci = 3,
 					/obj/item/clothing/mask/gas = 3,
-					/obj/item/clothing/head/beret/sci = 3)
+					/obj/item/clothing/head/beret/sci = 3,
+					/obj/item/clothing/head/cowboy_science = 3)
 	contraband = list(/obj/item/clothing/suit/hooded/wintercoat/science/old = 3)
 	refill_canister = /obj/item/vending_refill/wardrobe/science_wardrobe
 	payment_department = ACCOUNT_SCI
@@ -238,7 +239,8 @@
 					/obj/item/clothing/under/plasmaman/botany = 3,
 					/obj/item/clothing/head/helmet/space/plasmaman/botany = 3,
 					/obj/item/clothing/mask/bandana = 3,
-					/obj/item/clothing/accessory/armband/hydro = 3)
+					/obj/item/clothing/accessory/armband/hydro = 3,
+					/obj/item/clothing/head/cowboy = 3)
 	contraband = list(/obj/item/clothing/suit/hooded/wintercoat/hydro/old = 3)
 	refill_canister = /obj/item/vending_refill/wardrobe/hydro_wardrobe
 	payment_department = ACCOUNT_SRV

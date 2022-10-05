@@ -70,9 +70,14 @@
 	if(ishuman(user) && slot == ITEM_SLOT_EYES)
 		ADD_TRAIT(user, TRAIT_MADNESS_IMMUNE, CLOTHING_TRAIT)
 
-/obj/item/clothing/glasses/meson/dropped(mob/user)
-	. = ..()
-	REMOVE_TRAIT(user, TRAIT_MADNESS_IMMUNE, CLOTHING_TRAIT)
+/obj/item/clothing/glasses/meson/dropped(mob/living/carbon/human/user)
+	..()
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		if(H.glasses != src)
+			return
+		else
+			REMOVE_TRAIT(user, TRAIT_MADNESS_IMMUNE, CLOTHING_TRAIT)
 
 /obj/item/clothing/glasses/meson/suicide_act(mob/living/carbon/user)
 	user.visible_message("<span class='suicide'>[user] is putting \the [src] to [user.p_their()] eyes and overloading the brightness! It looks like [user.p_theyre()] trying to commit suicide!</span>")
@@ -509,6 +514,8 @@
 	..()
 
 /obj/item/clothing/glasses/AltClick(mob/user)
+	if(!user.canUseTopic(src, BE_CLOSE))
+		return
 	if(glass_colour_type && !force_glass_colour && ishuman(user))
 		var/mob/living/carbon/human/H = user
 		if(H.client)

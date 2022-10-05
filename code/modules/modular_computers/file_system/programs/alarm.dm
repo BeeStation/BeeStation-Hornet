@@ -114,6 +114,8 @@
 
 /datum/computer_file/program/alarm_monitor/run_program(mob/user)
 	. = ..(user)
+	if(!.)
+		return
 	GLOB.alarmdisplay += src
 
 /datum/computer_file/program/alarm_monitor/kill_program(forced = FALSE)

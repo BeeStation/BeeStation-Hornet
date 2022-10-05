@@ -79,7 +79,7 @@ GLOBAL_LIST_EMPTY(req_console_ckey_departments)
 	update_icon()
 
 /obj/machinery/requests_console/update_icon()
-	if(stat & NOPOWER)
+	if(machine_stat & NOPOWER)
 		set_light(0)
 	else
 		set_light(1)//green light
@@ -88,7 +88,7 @@ GLOBAL_LIST_EMPTY(req_console_ckey_departments)
 			icon_state="req_comp_open"
 		else
 			icon_state="req_comp_rewired"
-	else if(stat & NOPOWER)
+	else if(machine_stat & NOPOWER)
 		if(icon_state != "req_comp_off")
 			icon_state = "req_comp_off"
 	else
@@ -270,6 +270,9 @@ GLOBAL_LIST_EMPTY(req_console_ckey_departments)
 
 	if(href_list["sendAnnouncement"])
 		if(!announcementConsole)
+			return
+		if(CHAT_FILTER_CHECK(message))
+			to_chat(usr, "<span class='warning'>Your message contains forbidden words.</span>")
 			return
 		if(isliving(usr))
 			var/mob/living/L = usr

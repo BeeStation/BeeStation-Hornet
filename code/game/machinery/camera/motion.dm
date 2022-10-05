@@ -12,7 +12,7 @@
 	if(!isMotion())
 		. = PROCESS_KILL
 		return
-	if(stat & EMPED)
+	if(machine_stat & EMPED)
 		return
 	if (detectTime > 0)
 		var/elapsed = world.time - detectTime

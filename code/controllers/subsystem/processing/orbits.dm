@@ -30,6 +30,10 @@ PROCESSING_SUBSYSTEM_DEF(orbits)
 	//value = orbital shuttle object
 	var/list/assoc_shuttles = list()
 
+	//key = z-level as a string
+	//value = orbital object for that z-level
+	var/list/assoc_z_levels = list()
+
 	//Key = port_id
 	//value = world time of next launch
 	var/list/interdicted_shuttles = list()
