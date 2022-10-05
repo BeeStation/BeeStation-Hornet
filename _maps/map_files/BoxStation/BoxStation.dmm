@@ -29865,19 +29865,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/entry)
-"daG" = (
-/obj/structure/closet/l3closet/virology,
-/obj/item/storage/box/masks,
-/obj/item/storage/box/gloves,
-/obj{
-	name = "---Merge conflict marker---"
-	},
-/obj/structure/closet/l3closet/virology,
-/obj/item/storage/box/masks,
-/obj/item/storage/box/masks,
-/obj/item/storage/box/gloves,
-/turf/open/floor/plasteel/white,
-/area/medical/virology)
 "dbg" = (
 /obj/machinery/door/airlock/command{
 	name = "Head of Personnel";
@@ -35265,9 +35252,6 @@
 /area/maintenance/port/fore)
 "gza" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/power/apc/auto_name/south{
-	pixel_y = -24
-	},
 /obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 8
@@ -35275,6 +35259,7 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
+/obj/machinery/power/apc/auto_name/south,
 /turf/open/floor/carpet,
 /area/quartermaster/exploration_prep)
 "gzS" = (
@@ -100890,7 +100875,7 @@ ojT
 ogb
 xnm
 sqF
-daG
+bSQ
 tsY
 nMH
 wef
