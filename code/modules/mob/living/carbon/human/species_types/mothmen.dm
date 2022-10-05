@@ -18,7 +18,6 @@
 	species_language_holder = /datum/language_holder/moth
 	inert_mutation = STRONGWINGS
 	deathsound = 'code/datums/emote_sounds/moth_deathgasp.ogg'
-	humanlike_vocals = FALSE
 
 	species_chest = /obj/item/bodypart/chest/moth
 	species_head = /obj/item/bodypart/head/moth
