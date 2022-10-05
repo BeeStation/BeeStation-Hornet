@@ -318,11 +318,6 @@
 	alerts.set_content(dat)
 	alerts.open()
 
-/mob/living/silicon/robot/verb/view_manifest()
-	set name = "View Crew Manifest"
-	set category = "Robot Commands"
-	ai_roster()
-
 /mob/living/silicon/robot/proc/ionpulse()
 	if(!ionpulse_on)
 		return
@@ -439,6 +434,8 @@
 
 /mob/living/silicon/robot/AltClick(mob/user)
 	..()
+	if(!user.canUseTopic(src, !issilicon(user)))
+		return
 	togglelock(user)
 
 /mob/living/silicon/robot/attackby(obj/item/W, mob/user, params)
