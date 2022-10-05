@@ -28711,6 +28711,10 @@
 "ciy" = (
 /obj/item/reagent_containers/glass/bucket,
 /obj/item/reagent_containers/glass/bucket,
+/obj/machinery/firealarm{
+	dir = 8;
+	pixel_x = 28
+	},
 /turf/open/floor/plasteel,
 /area/chapel/main/monastery)
 "ciz" = (
@@ -35582,6 +35586,15 @@
 	},
 /turf/open/floor/carpet,
 /area/chapel/main/monastery)
+"fcw" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/machinery/firealarm{
+	dir = 8;
+	pixel_x = 28
+	},
+/turf/open/floor/plasteel/dark,
+/area/chapel/main/monastery)
 "fdl" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/cable/yellow{
@@ -36286,6 +36299,16 @@
 	},
 /turf/open/floor/engine,
 /area/engine/engineering)
+"fBm" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/machinery/firealarm{
+	dir = 8;
+	pixel_x = 28
+	},
+/turf/open/floor/plasteel/dark,
+/area/chapel/main/monastery)
 "fBp" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden,
 /obj/effect/spawner/structure/window/reinforced,
@@ -57476,6 +57499,13 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/engine,
 /area/engine/engineering)
+"txF" = (
+/obj/machinery/firealarm{
+	dir = 8;
+	pixel_x = 28
+	},
+/turf/open/floor/plasteel/dark,
+/area/chapel/dock)
 "typ" = (
 /obj/effect/spawner/room/threexfive,
 /turf/open/floor/plating,
@@ -63354,6 +63384,22 @@
 /obj/machinery/libraryscanner,
 /turf/open/floor/plasteel/dark,
 /area/library)
+"xCS" = (
+/obj/effect/turf_decal/tile/red{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 8
+	},
+/obj/machinery/firealarm{
+	dir = 8;
+	pixel_x = 28
+	},
+/turf/open/floor/plasteel/dark,
+/area/chapel/office)
 "xDj" = (
 /obj/structure/sign/poster/official/random{
 	pixel_x = -32
@@ -77651,7 +77697,7 @@ pkM
 crv
 owS
 dnb
-rrU
+xCS
 gKz
 bZY
 cfN
@@ -78437,7 +78483,7 @@ bWV
 ciz
 cvt
 rAU
-crk
+fBm
 bXJ
 bXJ
 cwG
@@ -81483,7 +81529,7 @@ bGE
 bIX
 bKd
 tOL
-bLn
+txF
 bNv
 bNw
 bNw
@@ -82018,7 +82064,7 @@ bXJ
 crN
 bXJ
 bXJ
-crk
+fBm
 rAU
 bWV
 cfm
@@ -82799,7 +82845,7 @@ gmh
 geU
 gGE
 vnl
-gmh
+fcw
 uIB
 nqj
 pxh
