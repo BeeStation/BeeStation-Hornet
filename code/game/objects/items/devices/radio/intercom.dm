@@ -174,6 +174,6 @@
 	desc = "A radio tuned to a unique frequency, to make it easier to communicate across medbay. \
 	It's not encrypted, to prevent confusion with the departmental channel."
 	icon_state = "intercom_med"
-	frequency = 1485
+	frequency = FREQ_LOCAL_MEDICAL
 	broadcasting = TRUE
 	listening = TRUE
