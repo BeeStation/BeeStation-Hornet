@@ -248,6 +248,8 @@
 
 
 /obj/item/gun/ballistic/automatic/l6_saw/AltClick(mob/user)
+	if(!user.canUseTopic(src, BE_CLOSE))
+		return
 	cover_open = !cover_open
 	to_chat(user, "<span class='notice'>You [cover_open ? "open" : "close"] [src]'s cover.</span>")
 	if(cover_open)

@@ -3859,10 +3859,6 @@
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plating,
 /area/maintenance/disposal)
-"ako" = (
-/obj/structure/lattice,
-/turf/closed/wall,
-/area/maintenance/port/fore)
 "akt" = (
 /obj/structure/table,
 /obj/item/clothing/gloves/color/latex,
@@ -16795,9 +16791,6 @@
 	dir = 1
 	},
 /area/engine/storage_shared)
-"beq" = (
-/turf/closed/wall/r_wall,
-/area/space/nearstation)
 "beu" = (
 /obj/machinery/airalarm{
 	pixel_y = 23
@@ -20117,10 +20110,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/security/checkpoint/customs)
-"bpu" = (
-/obj/structure/lattice,
-/turf/closed/wall/r_wall,
-/area/space/nearstation)
 "bpv" = (
 /obj/structure/sign/warning/securearea{
 	pixel_y = 32
@@ -22138,9 +22127,6 @@
 	dir = 1
 	},
 /area/hallway/primary/starboard)
-"bxc" = (
-/turf/closed/wall/r_wall,
-/area/engine/atmos)
 "bxd" = (
 /turf/closed/wall,
 /area/engine/atmos)
@@ -22771,16 +22757,6 @@
 	dir = 1
 	},
 /area/engine/atmos)
-"bzi" = (
-/obj/structure/lattice,
-/obj/structure/grille,
-/turf/closed/wall/r_wall,
-/area/space/nearstation)
-"bzj" = (
-/obj/structure/grille,
-/obj/structure/lattice,
-/turf/closed/wall/r_wall,
-/area/space/nearstation)
 "bzn" = (
 /obj/machinery/computer/message_monitor{
 	dir = 4
@@ -23242,7 +23218,6 @@
 /turf/open/floor/plasteel,
 /area/engine/atmos)
 "bAR" = (
-/obj/structure/grille,
 /turf/closed/wall/r_wall,
 /area/engine/atmos)
 "bAS" = (
@@ -23840,7 +23815,6 @@
 /obj/machinery/atmospherics/pipe/simple/yellow/visible{
 	dir = 4
 	},
-/obj/structure/grille,
 /turf/closed/wall/r_wall,
 /area/engine/atmos)
 "bCB" = (
@@ -24462,7 +24436,6 @@
 /obj/machinery/atmospherics/pipe/simple/green/visible{
 	dir = 4
 	},
-/obj/structure/grille,
 /turf/closed/wall/r_wall,
 /area/engine/atmos)
 "bGa" = (
@@ -25318,19 +25291,6 @@
 "bJd" = (
 /turf/open/floor/engine/n2o,
 /area/engine/atmos)
-"bJe" = (
-/obj/structure/lattice,
-/obj/structure/grille,
-/obj/structure/lattice,
-/obj/structure/lattice,
-/turf/closed/wall/r_wall,
-/area/space/nearstation)
-"bJf" = (
-/obj/structure/lattice,
-/obj/structure/grille,
-/obj/structure/lattice,
-/turf/closed/wall/r_wall,
-/area/space/nearstation)
 "bJg" = (
 /obj/machinery/telecomms/message_server/preset,
 /turf/open/floor/circuit/telecomms/mainframe,
@@ -25917,9 +25877,6 @@
 /turf/open/floor/engine/n2o,
 /area/engine/atmos)
 "bKK" = (
-/obj/structure/grille,
-/obj/structure/lattice,
-/obj/structure/lattice,
 /turf/closed/wall/r_wall,
 /area/space/nearstation)
 "bKL" = (
@@ -39224,9 +39181,6 @@
 /obj/structure/lattice/catwalk,
 /turf/open/space,
 /area/solar/port/aft)
-"cBR" = (
-/turf/closed/wall/r_wall,
-/area/medical/virology)
 "cBS" = (
 /obj/structure/closet/firecloset,
 /turf/open/floor/plating,
@@ -39978,7 +39932,6 @@
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/aft)
 "cDL" = (
-/obj/structure/lattice,
 /turf/closed/wall/r_wall,
 /area/medical/virology)
 "cDM" = (
@@ -56058,10 +56011,6 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /turf/open/floor/plasteel,
 /area/security/brig)
-"hZi" = (
-/obj/structure/lattice,
-/turf/closed/wall,
-/area/science/shuttledock)
 "hZn" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -67051,10 +67000,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/science/server)
-"ovZ" = (
-/obj/structure/lattice,
-/turf/closed/wall,
-/area/crew_quarters/cryopods)
 "owl" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Storage Room";
@@ -94489,7 +94434,7 @@ aRG
 aRG
 aRG
 aof
-ako
+dne
 aRG
 dne
 aRG
@@ -96796,7 +96741,7 @@ aaa
 aaa
 aaa
 aaa
-ako
+dne
 aRG
 aRG
 aRG
@@ -97053,7 +96998,7 @@ aaa
 aaa
 aaa
 aaa
-ako
+dne
 dne
 dne
 vfy
@@ -101508,14 +101453,14 @@ bTs
 vQl
 cKs
 bTs
-cBR
-cBR
-cBR
-cBR
-cBR
-cBR
-cBR
-cBR
+cDL
+cDL
+cDL
+cDL
+cDL
+cDL
+cDL
+cDL
 avr
 bTs
 avr
@@ -101765,14 +101710,14 @@ cGr
 cHt
 cDM
 aRk
-cBR
+cDL
 cDF
 cEI
 cDE
 cKe
 cCK
 cKe
-cBR
+cDL
 cGI
 cGr
 cHt
@@ -102018,18 +101963,18 @@ dux
 avr
 cKs
 avr
-cBR
-cBR
 cDL
-cBR
-cBR
+cDL
+cDL
+cDL
+cDL
 cDG
 cEJ
 rRM
 qwa
 cKe
 cIu
-cBR
+cDL
 cKs
 bTs
 avr
@@ -102269,13 +102214,13 @@ coy
 qaZ
 crj
 csj
-cBR
-cBR
-cBR
-cBR
+cDL
+cDL
+cDL
+cDL
 cvn
-cBR
-cBR
+cDL
+cDL
 cIy
 cIr
 cIr
@@ -102286,7 +102231,7 @@ rRM
 ykx
 cCK
 cKe
-cBR
+cDL
 cKs
 bTs
 avr
@@ -102526,7 +102471,7 @@ crm
 uEb
 pMJ
 csk
-cBR
+cDL
 iIM
 huL
 cKj
@@ -102543,7 +102488,7 @@ fwJ
 vcv
 cKV
 cKe
-cBR
+cDL
 cKs
 bTs
 bTs
@@ -102783,7 +102728,7 @@ coA
 vki
 crl
 csl
-cBR
+cDL
 duH
 kyH
 cFE
@@ -102796,11 +102741,11 @@ sRL
 xOG
 xOG
 xOG
-cBR
-cBR
-cBR
-cBR
-cBR
+cDL
+cDL
+cDL
+cDL
+cDL
 cMB
 bTs
 egA
@@ -103040,7 +102985,7 @@ crm
 ygN
 uva
 csm
-cBR
+cDL
 cui
 cFG
 cGz
@@ -103053,7 +102998,7 @@ cKf
 cMv
 cKe
 cDA
-cBR
+cDL
 avr
 avr
 cMA
@@ -103297,7 +103242,7 @@ wUx
 cpW
 crn
 csn
-cBR
+cDL
 cdl
 pjx
 cxe
@@ -103310,7 +103255,7 @@ cKf
 cHn
 cKe
 xwR
-cBR
+cDL
 avr
 avr
 cGI
@@ -103554,7 +103499,7 @@ cia
 cpX
 cia
 cia
-cBR
+cDL
 ceu
 qOs
 pNr
@@ -103567,7 +103512,7 @@ dzK
 cMv
 cKe
 cDA
-cBR
+cDL
 avr
 cGI
 cDM
@@ -103811,7 +103756,7 @@ coD
 cpY
 cro
 cso
-cBR
+cDL
 cfD
 eFp
 cMx
@@ -103822,9 +103767,9 @@ xOG
 cMy
 cFM
 xOG
-cBR
-cBR
-cBR
+cDL
+cDL
+cDL
 bTs
 cMB
 bTs
@@ -104068,7 +104013,7 @@ jfy
 rPe
 wUO
 njN
-cBR
+cDL
 duH
 kyH
 cIz
@@ -104079,7 +104024,7 @@ jdV
 css
 qWw
 dvq
-cBR
+cDL
 cBS
 cGI
 cHt
@@ -104325,7 +104270,7 @@ coF
 cqa
 crq
 csq
-cBR
+cDL
 cGC
 suM
 feG
@@ -104336,7 +104281,7 @@ cEK
 hDf
 cKf
 dvq
-cBR
+cDL
 cxU
 rrP
 cxU
@@ -104581,8 +104526,8 @@ cia
 cmk
 cqb
 cia
-cBR
-cBR
+cDL
+cDL
 xOG
 xOG
 xOG
@@ -104593,7 +104538,7 @@ fqR
 bxf
 cHA
 dvq
-cBR
+cDL
 cyN
 ovf
 hnu
@@ -104838,7 +104783,7 @@ cnu
 nrY
 xfC
 sgb
-cBR
+cDL
 lOS
 nfF
 dXg
@@ -104850,7 +104795,7 @@ fSK
 dBT
 cFz
 dvq
-cBR
+cDL
 cyO
 cFN
 xwP
@@ -105095,19 +105040,19 @@ cnv
 dUS
 cqd
 crs
-cBR
+cDL
 cHr
 cKi
 xib
 dDB
 bGu
-cBR
-cBR
+cDL
+cDL
 vAj
-cBR
+cDL
 cFA
-cBR
-cBR
+cDL
+cDL
 cyP
 czR
 xpZ
@@ -105352,19 +105297,19 @@ cnw
 qIG
 cqe
 crt
-cBR
+cDL
 ctr
 pog
 cNs
 cFG
 tMF
-cBR
+cDL
 cHx
 lXi
 xOG
 cIx
 cHw
-cBR
+cDL
 cyQ
 mZF
 lSi
@@ -105609,19 +105554,19 @@ cnx
 coK
 cqf
 cru
-cBR
+cDL
 xyY
 ogg
 cbx
 cwp
 jzB
-cBR
+cDL
 cEE
 dBV
 xOG
 cBW
 cMu
-cBR
+cDL
 fbs
 tOO
 gIS
@@ -105866,19 +105811,19 @@ cny
 coL
 cqg
 crv
-cBR
+cDL
 pQJ
 cum
 cJk
 cwq
 fUw
-cBR
+cDL
 cHy
 czS
 xOG
 cIp
 cHy
-cBR
+cDL
 cxU
 cGA
 fYv
@@ -106123,19 +106068,19 @@ cnz
 coM
 cqh
 cnz
-cBR
+cDL
 mlX
 cun
 cvp
 cwr
 vqE
-cBR
-cBR
+cDL
+cDL
 czT
-cBR
+cDL
 cwo
-cBR
-cBR
+cDL
+cDL
 cFR
 cFQ
 dRD
@@ -117603,7 +117548,7 @@ aaa
 aaa
 aaf
 aaa
-ovZ
+wLz
 wLz
 wLz
 wLz
@@ -117860,7 +117805,7 @@ aaa
 aaa
 aaf
 aaa
-ovZ
+wLz
 sGK
 koT
 iMM
@@ -122325,7 +122270,7 @@ fmT
 vlA
 dQI
 iHM
-hZi
+mjJ
 aaa
 aaa
 aaa
@@ -123565,15 +123510,15 @@ bhT
 uvc
 bhT
 bhT
-bxc
-bxc
+bAR
+bAR
 bAA
 bCg
 dBK
 bFF
-bxc
-bxc
-bxc
+bAR
+bAR
+bAR
 bKr
 bKr
 bKr
@@ -124351,14 +124296,14 @@ bPm
 apc
 bSf
 apc
-bxc
-bxc
+bAR
+bAR
 bXe
-bxc
-bxc
-bxc
-bxc
-bxc
+bAR
+bAR
+bAR
+bAR
+bAR
 cft
 cgz
 cgz
@@ -124608,14 +124553,14 @@ bPn
 bQR
 bSd
 anM
-bxc
+bAR
 bVF
 bXf
 bYv
 bZF
 cbb
 ccQ
-bxc
+bAR
 aaf
 aaf
 aaf
@@ -124856,16 +124801,16 @@ bAF
 bCl
 lxQ
 bFK
-bxc
-bxc
-bxc
-bxc
-bxc
-bxc
-bxc
-bxc
-bxc
-bxc
+bAR
+bAR
+bAR
+bAR
+bAR
+bAR
+bAR
+bAR
+bAR
+bAR
 bVG
 bXg
 bDW
@@ -125107,20 +125052,20 @@ uEH
 hkq
 hkq
 bvi
-bxc
-bxc
-bxc
+bAR
+bAR
+bAR
 bza
 wCG
 bza
-bxc
+bAR
 bIN
-bxc
+bAR
 bMa
 bMa
 bPo
 bPo
-bxc
+bAR
 bTi
 bUz
 bVH
@@ -125138,7 +125083,7 @@ cjc
 bAR
 aaf
 aaa
-bzi
+bKK
 aaa
 aai
 aaa
@@ -125364,7 +125309,7 @@ owR
 owR
 oJW
 dfx
-bxc
+bAR
 byW
 bAG
 bCn
@@ -125395,9 +125340,9 @@ ckG
 bAR
 aaf
 aaa
-bzi
+bKK
 aaa
-bzj
+bKK
 aaf
 aaf
 aaf
@@ -125652,9 +125597,9 @@ cjc
 bAR
 aaf
 aaa
-bzi
+bKK
 aaa
-bzj
+bKK
 aaa
 aaa
 aaa
@@ -125909,9 +125854,9 @@ bAR
 bAR
 aaf
 aaf
-bzi
+bKK
 aaa
-bzj
+bKK
 aaf
 aaa
 aaa
@@ -126166,7 +126111,7 @@ cjf
 bAR
 aaf
 aaa
-bzi
+bKK
 aaa
 aai
 aaa
@@ -126423,9 +126368,9 @@ ckH
 bAR
 aaf
 aaa
-bzi
+bKK
 aaa
-bzj
+bKK
 aaa
 aaa
 aaa
@@ -126682,7 +126627,7 @@ aaf
 aaa
 aai
 aaa
-bzj
+bKK
 aaf
 aaa
 aaa
@@ -126937,9 +126882,9 @@ bAR
 bAR
 aaf
 aaf
-bzi
+bKK
 aaa
-bzj
+bKK
 aaa
 aaa
 aaa
@@ -127194,7 +127139,7 @@ ckI
 bAR
 aaf
 aaa
-bzj
+bKK
 aaf
 aai
 aaf
@@ -127451,9 +127396,9 @@ ckJ
 bAR
 aaf
 aaa
-bzi
+bKK
 aaa
-bzj
+bKK
 aaa
 aaa
 aaa
@@ -127708,7 +127653,7 @@ ckI
 bAR
 aaf
 aaa
-bJf
+bKK
 aaf
 bKK
 aaf
@@ -127934,7 +127879,7 @@ xpl
 aaf
 aaf
 ack
-bxc
+bAR
 bzg
 bAP
 bCw
@@ -127956,18 +127901,18 @@ bNV
 bZM
 cbo
 ccU
-bxc
-aaf
-bAR
-bAR
-bAR
-bAR
 bAR
 aaf
-aaa
+bAR
+bAR
+bAR
+bAR
+bAR
 aaf
 aaa
-bzj
+aaf
+aaa
+bKK
 aaa
 aaa
 aaa
@@ -128191,7 +128136,7 @@ xXx
 aaa
 aaf
 aaf
-bxc
+bAR
 bzh
 bAQ
 bCx
@@ -128213,7 +128158,7 @@ bYB
 bKG
 bKG
 ccV
-bxc
+bAR
 aaf
 aaf
 aaf
@@ -128222,9 +128167,9 @@ aaf
 aaf
 aaf
 aaf
-bzj
-bzj
-bzj
+bKK
+bKK
+bKK
 aaf
 aaf
 aaf
@@ -128448,9 +128393,9 @@ xXx
 aaa
 aaa
 aaf
-bxc
-bxc
-bxc
+bAR
+bAR
+bAR
 bCy
 bza
 bFX
@@ -128466,11 +128411,11 @@ bza
 bJa
 bza
 bFX
-bxc
-bxc
-bxc
+bAR
+bAR
+bAR
 vke
-bxc
+bAR
 aaf
 aaa
 aaa
@@ -128725,9 +128670,9 @@ aaf
 bFY
 aaf
 aaf
-bxc
+bAR
 ccX
-bxc
+bAR
 aaf
 aaf
 aaf
@@ -128982,9 +128927,9 @@ gJs
 bFZ
 bAR
 aaf
-bxc
+bAR
 wxc
-bxc
+bAR
 aaf
 aaa
 aaf
@@ -129239,9 +129184,9 @@ bVN
 bXr
 bAR
 aaf
-bxc
+bAR
 bux
-bxc
+bAR
 aaf
 aaa
 aaf
@@ -130733,15 +130678,15 @@ aaa
 aaf
 aaa
 aaa
-bpu
-bpu
-bpu
-bpu
+bKK
+bKK
+bKK
+bKK
 svg
-bpu
-bpu
-bpu
-bpu
+bKK
+bKK
+bKK
+bKK
 svg
 lMJ
 aaa
@@ -130763,34 +130708,34 @@ aaf
 aaf
 aaf
 aai
-bzj
-bzj
-bzj
-bzj
-bzj
-bJe
-bzj
-bzj
-aai
-bzj
-bzj
-bzj
 bKK
-bzj
-bzj
-bzj
-bzj
-bJe
-bzj
+bKK
+bKK
+bKK
+bKK
+bKK
+bKK
+bKK
 aai
-bzj
+bKK
+bKK
+bKK
+bKK
+bKK
+bKK
+bKK
+bKK
+bKK
+bKK
+aai
+bKK
 aaf
 aaf
 aai
-bzj
+bKK
 aai
-bzj
-bzj
+bKK
+bKK
 aaf
 aaf
 aaa
@@ -131276,25 +131221,25 @@ aaa
 aaf
 aaf
 aai
-bzi
-bzi
-bzi
-bzi
-bzi
-bzi
-bJf
-bzi
-bzi
-bzi
-bzi
-bzi
-bzi
-bJf
-bzi
-bzi
-bzi
-bzi
-bJf
+bKK
+bKK
+bKK
+bKK
+bKK
+bKK
+bKK
+bKK
+bKK
+bKK
+bKK
+bKK
+bKK
+bKK
+bKK
+bKK
+bKK
+bKK
+bKK
 aaf
 aaf
 aaf
@@ -131790,27 +131735,27 @@ aaa
 aaf
 aaf
 aai
-bzj
-bzj
-aai
-bzj
-siF
-bzj
-bzj
 bKK
-bzj
-bzj
-bzj
-bzj
+bKK
+aai
+bKK
+siF
+bKK
+bKK
+bKK
+bKK
+bKK
+bKK
+bKK
 siF
 aai
-bzj
-bzj
-bzj
-bzj
 bKK
-bzj
-bzj
+bKK
+bKK
+bKK
+bKK
+bKK
+bKK
 anS
 aaa
 aaa
@@ -135642,7 +135587,7 @@ vUC
 bnq
 dLH
 brQ
-beq
+bKK
 anT
 anT
 anT

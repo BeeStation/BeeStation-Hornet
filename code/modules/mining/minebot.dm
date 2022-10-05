@@ -302,6 +302,8 @@
 /// Handles dropping ore
 /mob/living/simple_animal/hostile/mining_drone/AltClick(mob/user)
 	. = ..()
+	if(!user.canUseTopic(src, BE_CLOSE))
+		return
 	to_chat(user, "<span class='info'>You instruct [src] to drop any collected ore.</span>")
 	drop_ore()
 

@@ -520,10 +520,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/fitness/recreation)
-"aix" = (
-/obj/structure/lattice,
-/turf/closed/mineral,
-/area/asteroid/nearstation)
 "aiz" = (
 /obj/structure/table,
 /obj/item/stock_parts/subspace/transmitter,
@@ -2749,8 +2745,6 @@
 /turf/open/floor/engine/vacuum/light,
 /area/engine/atmos)
 "aJV" = (
-/obj/structure/lattice,
-/obj/structure/grille,
 /turf/closed/wall/r_wall,
 /area/space/nearstation)
 "aJZ" = (
@@ -2986,8 +2980,6 @@
 /turf/open/floor/wood,
 /area/hallway/secondary/exit/departure_lounge)
 "aMh" = (
-/obj/structure/lattice,
-/obj/structure/grille,
 /obj/effect/decal/cleanable/dirt,
 /turf/closed/wall/r_wall,
 /area/space/nearstation)
@@ -8313,9 +8305,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/security/checkpoint/science/research)
-"bTg" = (
-/turf/closed/wall/r_wall,
-/area/docking/arrival)
 "bTo" = (
 /obj/effect/turf_decal/tile/yellow/tile_side,
 /turf/open/floor/plasteel,
@@ -8565,10 +8554,6 @@
 /obj/effect/landmark/event_spawn,
 /turf/open/floor/plasteel/sepia,
 /area/construction/mining/aux_base)
-"bWy" = (
-/obj/structure/lattice,
-/turf/closed/wall/r_wall,
-/area/maintenance/port/central)
 "bWE" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
 /turf/open/floor/carpet,
@@ -9029,10 +9014,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/aft)
-"cbE" = (
-/obj/structure/lattice,
-/turf/closed/wall,
-/area/hallway/secondary/entry)
 "cbH" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 8
@@ -10354,7 +10335,6 @@
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
 "cpr" = (
-/obj/structure/lattice,
 /turf/closed/wall/r_wall,
 /area/docking/arrival)
 "cps" = (
@@ -12215,10 +12195,6 @@
 	},
 /turf/open/floor/carpet/red,
 /area/library/lounge)
-"cKm" = (
-/obj/structure/grille,
-/turf/closed/wall/r_wall,
-/area/engine/atmos)
 "cKu" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 8
@@ -20034,7 +20010,6 @@
 	name = "Mixed Air Tank In"
 	},
 /obj/machinery/atmospherics/pipe/simple/cyan/visible,
-/obj/structure/grille,
 /turf/closed/wall/r_wall,
 /area/engine/atmos)
 "ewk" = (
@@ -57107,7 +57082,6 @@
 "njl" = (
 /obj/machinery/meter,
 /obj/machinery/atmospherics/pipe/simple/yellow/visible,
-/obj/structure/grille,
 /turf/closed/wall/r_wall,
 /area/engine/atmos)
 "njq" = (
@@ -68779,7 +68753,6 @@
 	dir = 4
 	},
 /obj/machinery/meter,
-/obj/structure/grille,
 /turf/closed/wall/r_wall,
 /area/engine/atmos)
 "qgD" = (
@@ -77054,7 +77027,6 @@
 /obj/machinery/atmospherics/pipe/simple/green/visible{
 	dir = 4
 	},
-/obj/structure/grille,
 /turf/closed/wall/r_wall,
 /area/engine/atmos)
 "sbM" = (
@@ -78247,7 +78219,6 @@
 "spX" = (
 /obj/machinery/meter,
 /obj/machinery/atmospherics/pipe/simple/green/visible,
-/obj/structure/grille,
 /turf/closed/wall/r_wall,
 /area/engine/atmos)
 "spY" = (
@@ -94149,7 +94120,6 @@
 /obj/machinery/atmospherics/pipe/simple/yellow/visible{
 	dir = 4
 	},
-/obj/structure/grille,
 /turf/closed/wall/r_wall,
 /area/engine/atmos)
 "vZS" = (
@@ -94790,7 +94760,6 @@
 	name = "Mixed Air Tank Out"
 	},
 /obj/machinery/atmospherics/pipe/simple/cyan/visible,
-/obj/structure/grille,
 /turf/closed/wall/r_wall,
 /area/engine/atmos)
 "wkt" = (
@@ -115523,11 +115492,11 @@ xAx
 xAx
 xAx
 src
-bTg
-bTg
-bTg
-bTg
-bTg
+cpr
+cpr
+cpr
+cpr
+cpr
 cpr
 cGS
 cGS
@@ -115540,8 +115509,8 @@ cGS
 cGS
 cGS
 cGS
-bTg
-bTg
+cpr
+cpr
 ryl
 nnx
 nnx
@@ -120944,7 +120913,7 @@ wVU
 ttr
 tqw
 qCg
-cbE
+giY
 csJ
 csJ
 csJ
@@ -129309,7 +129278,7 @@ wMM
 lFq
 bcd
 eNY
-aix
+kHH
 wMM
 kHH
 kHH
@@ -131625,7 +131594,7 @@ csJ
 aqJ
 arb
 acQ
-bWy
+xaE
 wCd
 gTM
 wMM
@@ -145884,11 +145853,11 @@ ydA
 oRa
 kKG
 tJm
-cKm
-cKm
-cKm
-cKm
-cKm
+uUs
+uUs
+uUs
+uUs
+uUs
 ufF
 vXB
 umv
@@ -146145,7 +146114,7 @@ spX
 krS
 eIN
 eIN
-cKm
+uUs
 ufF
 tEI
 quH
@@ -146402,7 +146371,7 @@ hwQ
 riD
 cYE
 eIN
-cKm
+uUs
 ufF
 tEI
 quH
@@ -146659,7 +146628,7 @@ njl
 rjX
 eIN
 uzf
-cKm
+uUs
 ufF
 tEI
 quH
@@ -146912,11 +146881,11 @@ pTI
 uzH
 oIM
 tJm
-cKm
-cKm
+uUs
+uUs
 hwQ
-cKm
-cKm
+uUs
+uUs
 ufF
 tEI
 quH
@@ -147173,7 +147142,7 @@ spX
 lMW
 uEz
 uEz
-cKm
+uUs
 ufF
 tEI
 quH
@@ -147430,7 +147399,7 @@ hwQ
 pxt
 tdR
 uEz
-cKm
+uUs
 ufF
 tEI
 quH
@@ -147687,7 +147656,7 @@ njl
 hUc
 uEz
 oiz
-cKm
+uUs
 ufF
 tEI
 quH
@@ -147940,11 +147909,11 @@ tXi
 anf
 ege
 lge
-cKm
-cKm
+uUs
+uUs
 hwQ
-cKm
-cKm
+uUs
+uUs
 ufF
 vXB
 oqC
@@ -148201,7 +148170,7 @@ ewe
 oXa
 aNF
 nxC
-cKm
+uUs
 ufF
 tEI
 hoP
@@ -148458,7 +148427,7 @@ hwQ
 nhR
 wIT
 nxC
-cKm
+uUs
 ufF
 tEI
 kFL
@@ -148715,7 +148684,7 @@ wke
 srF
 nxC
 tgp
-cKm
+uUs
 ufF
 tEI
 gXL
@@ -148968,11 +148937,11 @@ nCD
 kbW
 fyr
 wrR
-cKm
-cKm
-cKm
-cKm
-cKm
+uUs
+uUs
+uUs
+uUs
+uUs
 uUs
 tEI
 hoP
@@ -150752,27 +150721,27 @@ xKz
 kiu
 uUs
 uUs
-cKm
+uUs
 qgC
 hwQ
 vZL
-cKm
+uUs
 wzA
 wzA
 omF
-cKm
+uUs
 vZL
 hwQ
 qgC
-cKm
+uUs
 vZL
 hwQ
 sbK
-cKm
+uUs
 vZL
 hwQ
 sbK
-cKm
+uUs
 tEI
 gXL
 wVT
@@ -151009,27 +150978,27 @@ jBG
 qhc
 pBe
 hgB
-cKm
+uUs
 iUw
 mjS
 aJU
-cKm
+uUs
 clP
 suJ
 pMj
-cKm
+uUs
 sEo
 sNW
 sRD
-cKm
+uUs
 tjh
 ttx
 ogq
-cKm
+uUs
 mdT
 fSC
 mKv
-cKm
+uUs
 tEI
 hoP
 aJS
@@ -151266,7 +151235,7 @@ ptR
 uKS
 tTZ
 hgB
-cKm
+uUs
 lIA
 xZn
 lIA
@@ -151286,7 +151255,7 @@ hwQ
 vJN
 fSY
 vJN
-cKm
+uUs
 tEI
 hoP
 wVT
@@ -151523,27 +151492,27 @@ jqm
 sKK
 wBq
 hgB
-cKm
+uUs
 ejo
 lIA
 lIA
-cKm
+uUs
 xDl
 qid
 jAT
-cKm
+uUs
 sjh
 igW
 igW
-cKm
+uUs
 sej
 tMP
 tMP
-cKm
+uUs
 idR
 vJN
 vJN
-cKm
+uUs
 tEI
 kFL
 dDM
@@ -151780,27 +151749,27 @@ piM
 sKK
 tTZ
 hgB
-cKm
-cKm
-cKm
-cKm
-cKm
+uUs
+uUs
+uUs
+uUs
+uUs
 uUs
 uUs
 ijV
-cKm
-cKm
-cKm
-cKm
-cKm
-cKm
-cKm
-cKm
-cKm
-cKm
-cKm
-cKm
-cKm
+uUs
+uUs
+uUs
+uUs
+uUs
+uUs
+uUs
+uUs
+uUs
+uUs
+uUs
+uUs
+uUs
 tEI
 kFL
 wVT
