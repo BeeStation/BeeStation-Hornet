@@ -1,0 +1,13 @@
+author: spockye
+delete-after: true
+changes:
+  - rscadd: adds missing zones
+  - rscadd: changes the shuttle construction
+  - rscadd: adds missing tile at exploration flaps
+  - rscadd: adds missing wires around the station
+  - rscdel: removed un-used wires
+  - bugfix: fixes air tiles in space
+  - bugfix: fixes wrong zones
+  - bugfix: fixes a wall camera outside perma
+  - bugfix: connects the hallway  with itself outside clown's office
+  - bugfix: re-adds girders on the asteroid shielding around the station
