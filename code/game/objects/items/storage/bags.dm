@@ -117,19 +117,16 @@
 	name = "Trash Drive"
 	desc = "The power of a dish drive, shoved into a trash bag."
 	w_class = WEIGHT_CLASS_NORMAL  // its not a real trashbag
-	var/fire_every = 2 MINUTES  /// how often the bag will try to fire trash
+	/// how often the bag will try to fire trash
+	var/fire_every = 2 MINUTES
 	COOLDOWN_DECLARE(time_to_next_beam)
-
-/obj/item/storage/bag/trash/beam/New()
-	. = ..()
-	START_PROCESSING(SSobj, src)
 
 /obj/item/storage/bag/trash/beam/Initialize(mapload)
 	. = ..()
+	START_PROCESSING(SSobj, src)
 	COOLDOWN_START(src, time_to_next_beam, fire_every)
 
 /obj/item/storage/bag/trash/beam/process(delta_time)
-	to_chat(world, "proccessing")
 	if(COOLDOWN_FINISHED(src, time_to_next_beam))
 		dump_it()
 
@@ -143,14 +140,14 @@
 
 /// the meat of the bag, returns false if it couldnt run properly
 /obj/item/storage/bag/trash/beam/proc/dump_it()  // dumpeet
-	if(!contents.len)
+	if(!length(contents))
 		return
-	var/obj/machinery/disposal/bin/bin = locate() in view(7, src.loc)
+	var/obj/machinery/disposal/bin/bin = locate() in view(7, get_turf(src))
 	if(!bin)
 		return
 	var/disposed = 0
-	for(var/obj/item/I in contents)
-		I.forceMove(bin)
+	for(var/obj/item/trashitem in contents)
+		trashitem.forceMove(bin)
 		disposed++
 	if (disposed)
 		visible_message("<span class='notice'>[src] [pick("whooshes", "bwooms", "fwooms", "pshooms")] and beams [disposed] stored item\s into the nearby [bin.name].</span>")
