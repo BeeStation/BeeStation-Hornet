@@ -608,7 +608,7 @@
 	crate_type = /obj/structure/closet/crate/secure/plasma
 
 /datum/supply_pack/security/armory/laser
-	name = "Laser gun Single-Pack"
+	name = "Laser Gun Single-Pack"
 	desc = "Contains one lethal, high-energy laser gun, Requires Armory access to open."
 	cost = 1000
 	small_item = TRUE
@@ -616,7 +616,7 @@
 	crate_name = "single laser gun crate"
 
 /datum/supply_pack/security/armory/laser_single
-	name = "Bulk Laser guns Crate"
+	name = "Bulk Laser Guns Crate"
 	desc = "Contains three lethal, high-energy laser guns. Requires Armory access to open."
 	cost = 2150
 	contains = list(/obj/item/gun/energy/laser,
