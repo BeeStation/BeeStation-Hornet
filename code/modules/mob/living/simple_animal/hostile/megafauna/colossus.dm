@@ -88,7 +88,7 @@ Difficulty: Very Hard
 	ranged_cooldown = world.time + 600 //prevents abilities from being spammed by AttackingTarget() while an attack is already underway.
 	anger_modifier = CLAMP(((maxHealth - health)/40),0,20)
 
-	if(client) //Player controlled handled a bit differently. 
+	if(client) //Player controlled handled a bit differently.
 		switch(chosen_attack)
 			if(1)
 				if(health <= maxHealth/10)
@@ -221,7 +221,7 @@ Difficulty: Very Hard
 		visible_message("<span class='colossus'>\"<b>Die..</b>\"</span>")
 		invulnerable_finale = FALSE
 		sleep(30) //Long cooldown (total 15 seconds with one last 30 applied in ) after this attack finally concludes
-	
+
 /mob/living/simple_animal/hostile/megafauna/colossus/proc/spiral_shoot(negative = pick(TRUE, FALSE), counter_start = 8)
 	var/turf/start_turf = get_step(src, pick(GLOB.alldirs))
 	var/counter = counter_start
@@ -260,7 +260,7 @@ Difficulty: Very Hard
 	var/turf/target_turf = get_turf(target)
 	playsound(src, 'sound/magic/clockwork/invoke_general.ogg', 200, 1, 2)
 	newtonian_move(get_dir(target_turf, src))
-	var/angle_to_target = Get_Angle(src, target_turf)
+	var/angle_to_target = get_angle(src, target_turf)
 	if(isnum_safe(set_angle))
 		angle_to_target = set_angle
 	var/static/list/colossus_shotgun_shot_angles = list(12.5, 7.5, 2.5, -2.5, -7.5, -12.5)

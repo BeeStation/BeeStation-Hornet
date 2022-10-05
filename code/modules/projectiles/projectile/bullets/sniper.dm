@@ -32,7 +32,6 @@
 /obj/item/projectile/bullet/p50/penetrator
 	name =".50 penetrator bullet"
 	icon_state = "gauss"
-	name = "penetrator round"
 	damage = 60
 	projectile_piercing = PASSMOB
 	projectile_phasing = (ALL & (~PASSMOB))
