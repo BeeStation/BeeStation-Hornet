@@ -1,0 +1,11 @@
+author: spockye
+delete-after: true
+changes:
+  - rscdel: Removed stacked lockers from pubby viro
+  - bugfix: fixes wrong zoning
+  - rscadd: adds missing zoning
+  - rscadd: adds missing lattices
+  - bugfix: fixes air tiles in space
+  - bugfix: fixes airless tiles inside the station
+  - rscadd: adds missing disposal tubes
+  - rscdel: removed redundant wires and stacked disposals
