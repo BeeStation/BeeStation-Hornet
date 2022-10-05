@@ -1,4 +1,0 @@
-author: itsmeow
-delete-after: true
-changes:
-  - bugfix: Fixed conveyors creating holes in spacetime and moving anchored things.
