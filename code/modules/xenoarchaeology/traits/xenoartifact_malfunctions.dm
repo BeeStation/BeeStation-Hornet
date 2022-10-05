@@ -75,7 +75,7 @@
 /datum/xenoartifact_trait/malfunction/trauma/activate(obj/item/xenoartifact/X, atom/target, atom/user)
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
-		H.Unconscious(5 SECONDS)
+		H.Unconscious(2 SECONDS)
 		H.gain_trauma(trauma, TRAUMA_RESILIENCE_BASIC)
 		X.cooldownmod += 10 SECONDS
 

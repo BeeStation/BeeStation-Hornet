@@ -91,11 +91,13 @@
 	flags = PLASMA_TRAIT | URANIUM_TRAIT
 
 /datum/xenoartifact_trait/major/laser/activate(obj/item/xenoartifact/X, atom/target, mob/living/user)
+	//light target on fire if we're close
 	if(isliving(target) && get_dist(target, X.loc || user) <= 1)
 		var/mob/living/victim = target
 		victim.adjust_fire_stacks(5*(X.charge/X.charge_req))
 		victim.IgniteMob()
 		return
+	//otherwise shoot laser
 	var/obj/item/projectile/A
 	switch(X.charge)
 		if(0 to 24)
@@ -104,6 +106,10 @@
 			A = new /obj/item/projectile/beam/laser
 		if(80 to 200)
 			A = new /obj/item/projectile/beam/laser/heavylaser
+	//If target is our own turf, aka someone probably threw us, target a random direction to avoid always shooting east
+	if(istype(target, /turf) && loc == target)
+		target = get_edge_target_turf(pick(NORTH, EAST, SOUTH, WEST))
+	//FIRE!
 	A.preparePixelProjectile(get_turf(target), X)
 	A.fire()
 	playsound(get_turf(src), 'sound/mecha/mech_shield_deflect.ogg', 50, TRUE) 
@@ -325,11 +331,12 @@
 	desc = "Hypodermic"
 	label_desc = "Hypodermic: The Artifact's shape is comprised of many twisting tubes and vials, it seems a liquid may be inside."
 	flags = BLUESPACE_TRAIT | PLASMA_TRAIT | URANIUM_TRAIT
+	blacklist_traits = list(/datum/xenoartifact_trait/minor/long)
 	var/datum/reagent/formula
 	var/amount
 
 /datum/xenoartifact_trait/major/chem/on_init(obj/item/xenoartifact/X)
-	amount = pick(5, 9, 10, 15)
+	amount = pick(1, 3, 5)
 	formula = get_random_reagent_id(CHEMICAL_RNG_GENERAL)
 
 /datum/xenoartifact_trait/major/chem/activate(obj/item/xenoartifact/X, atom/target)
