@@ -104,7 +104,7 @@
 	muzzle_ignore = TRUE
 	restraint_check = TRUE
 	vary = TRUE
-	sound = 'code/datums/emote_sounds/voice/snap.ogg'
+	sound = 'code/datums/emote_sounds/emotes/snap.ogg'
 
 /datum/emote/living/carbon/snap2
 	key = "snap2"
@@ -115,7 +115,7 @@
 	muzzle_ignore = TRUE
 	restraint_check = TRUE
 	vary = TRUE
-	sound = 'code/datums/emote_sounds/voice/snap2.ogg'
+	sound = 'code/datums/emote_sounds/emotes/snap2.ogg'
 
 /datum/emote/living/carbon/snap3
 	key = "snap3"
@@ -126,7 +126,7 @@
 	muzzle_ignore = TRUE
 	restraint_check = TRUE
 	vary = TRUE
-	sound = 'code/datums/emote_sounds/voice/snap3.ogg'
+	sound = 'code/datums/emote_sounds/emotes/snap3.ogg'
 
 /datum/emote/living/carbon/screech/roar
 	key = "roar"

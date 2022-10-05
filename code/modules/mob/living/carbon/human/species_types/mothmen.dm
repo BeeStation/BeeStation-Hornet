@@ -17,7 +17,7 @@
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | ERT_SPAWN | RACE_SWAP | SLIME_EXTRACT
 	species_language_holder = /datum/language_holder/moth
 	inert_mutation = STRONGWINGS
-	deathsound = 'code/datums/emote_sounds/moth_deathgasp.ogg'
+	deathsound = 'sound/voice/moth/moth_deathgasp.ogg'
 
 	species_chest = /obj/item/bodypart/chest/moth
 	species_head = /obj/item/bodypart/head/moth
