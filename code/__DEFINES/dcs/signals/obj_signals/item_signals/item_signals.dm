@@ -62,3 +62,5 @@
 // /obj/item/pen signals
 #define COMSIG_PEN_ROTATED "pen_rotated"						//! called after rotation in /obj/item/pen/attack_self(): (rotation, mob/living/carbon/user)
 
+// /obj/machinery/ecto_sniffer
+#define COMSIG_GLOB_GHOST_SUBMIT "!ghost_submit"
