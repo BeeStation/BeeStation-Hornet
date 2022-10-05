@@ -1,0 +1,6 @@
+author: DrDuckedGoose
+delete-after: true
+changes:
+  - rscadd: Adds sprites for cowboy hats & science cowboy hat to head.dmi
+  - rscadd: Adds ranching hat & science ranching hat to botany & science wardrobes,
+      respectively.
