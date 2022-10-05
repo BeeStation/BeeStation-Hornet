@@ -40,6 +40,9 @@
 	head_icon = 'icons/mob/pets_held.dmi'
 	held_state = "snake"
 
+/mob/living/simple_animal/hostile/retaliate/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/milkable, 100, 30, /datum/reagent/toxin/venom)
 
 /mob/living/simple_animal/hostile/retaliate/poison/snake/ListTargets(atom/the_target)
 	var/atom/target_from = GET_TARGETS_FROM(src)
