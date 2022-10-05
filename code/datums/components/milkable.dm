@@ -63,4 +63,5 @@
 		on_milked.Invoke()
 
 /datum/component/milkable/proc/restart_gen()
+	SIGNAL_HANDLER
 	START_PROCESSING(SSdcs, src)
