@@ -25,6 +25,8 @@
 #define RADIO_KEY_MEDICAL "m"
 #define RADIO_TOKEN_MEDICAL ":m"
 
+#define RADIO_CHANNEL_LOCAL_MEDICAL "Medbay Interior"
+
 #define RADIO_CHANNEL_SUPPLY "Supply"
 #define RADIO_KEY_SUPPLY "u"
 #define RADIO_TOKEN_SUPPLY ":u"
@@ -91,6 +93,7 @@
 #define FREQ_LOCATOR_IMPLANT 1451
 #define FREQ_SIGNALER 1457  //! the default for new signalers
 #define FREQ_COMMON 1459  //! Common comms frequency, dark green
+#define FREQ_LOCAL_MEDICAL 1485  //! Standardized define for medbay's intercoms
 
 #define MAX_FREQ 1489 // ------------------------------------------------------
 

@@ -168,3 +168,12 @@
 	anonymize = TRUE
 	frequency = 1481
 	broadcasting = TRUE
+
+/obj/item/radio/intercom/medical
+	name = "medical communial intercom"
+	desc = "A radio tuned to a unique frequency, to make it easier to communicate across medbay. \
+	It's not encrypted, to prevent confusion with the departmental channel."
+	icon_state = "intercom_med"
+	frequency = 1485
+	broadcasting = TRUE
+	listening = TRUE
