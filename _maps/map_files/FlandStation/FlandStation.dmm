@@ -75090,7 +75090,7 @@
 /area/vacant_room/commissary/commissary2)
 "rBZ" = (
 /obj/machinery/door/airlock/maintenance_hatch{
-	name = "Law Maintenance";
+	name = "Corporate Affairs Maintenance";
 	req_access_txt = "38; 63; 42"
 	},
 /obj/structure/cable/yellow{

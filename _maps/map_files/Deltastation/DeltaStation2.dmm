@@ -28271,7 +28271,7 @@
 	},
 /obj/machinery/door/airlock/command/glass{
 	name = "Bridge Access";
-	req_access_txt = "14"
+	req_access_txt = "14";
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -28379,7 +28379,7 @@
 	},
 /obj/machinery/door/airlock/command/glass{
 	name = "Bridge Access";
-	req_access_txt = "14"
+	req_access_txt = "14";
 	},
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
