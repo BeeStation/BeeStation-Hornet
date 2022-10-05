@@ -886,6 +886,8 @@
 
 //Alt click drops stored item
 /obj/item/borg/apparatus/AltClick(mob/living/silicon/robot/user)
+	if(!user.canUseTopic(src, BE_CLOSE))
+		return
 	if(!stored)
 		return ..()
 	stored.forceMove(get_turf(user))

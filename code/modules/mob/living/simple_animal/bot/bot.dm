@@ -340,6 +340,8 @@
 
 /mob/living/simple_animal/bot/AltClick(mob/user)
 	..()
+	if(!user.canUseTopic(src, !issilicon(user)))
+		return
 	togglelock(user)
 
 /mob/living/simple_animal/bot/bullet_act(obj/item/projectile/Proj)

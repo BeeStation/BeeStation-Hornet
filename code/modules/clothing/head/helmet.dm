@@ -80,7 +80,7 @@
 				return
 			if(!user.transferItemToLoc(S, src))
 				return
-			
+
 			to_chat(user, "<span class='notice'>You click [S] into place on [src].</span>")
 			set_attached_light(S)
 			update_icon()
@@ -218,6 +218,8 @@
 		C.head_update(src, forced = TRUE)
 
 /obj/item/clothing/head/helmet/riot/AltClick(mob/user)
+	if(!user.canUseTopic(src, BE_CLOSE))
+		return
 	toggle_helmlight(user)
 
 /obj/item/clothing/head/helmet/riot/ui_action_click(mob/user, datum/actiontype)

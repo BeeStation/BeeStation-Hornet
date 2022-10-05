@@ -434,6 +434,8 @@
 
 /mob/living/silicon/robot/AltClick(mob/user)
 	..()
+	if(!user.canUseTopic(src, !issilicon(user)))
+		return
 	togglelock(user)
 
 /mob/living/silicon/robot/attackby(obj/item/W, mob/user, params)
