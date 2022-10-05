@@ -56850,9 +56850,6 @@
 "ixb" = (
 /obj/structure/lattice,
 /obj/structure/grille,
-/obj{
-	name = "---Merge conflict marker---"
-	},
 /turf/closed/wall/r_wall,
 /area/space/nearstation)
 "ixc" = (
@@ -65177,9 +65174,6 @@
 "nmS" = (
 /obj/structure/grille,
 /obj/structure/lattice,
-/obj{
-	name = "---Merge conflict marker---"
-	},
 /turf/closed/wall/r_wall,
 /area/space/nearstation)
 "nns" = (
