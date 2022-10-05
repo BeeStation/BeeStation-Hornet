@@ -42,13 +42,13 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 	begin_processing()
 
 /obj/machinery/conveyor/auto/update()
-	if(stat & BROKEN)
+	if(machine_stat & BROKEN)
 		icon_state = "conveyor-broken"
 		set_operating(FALSE)
 		return
 	else if(!operable)
 		set_operating(FALSE)
-	else if(stat & NOPOWER)
+	else if(machine_stat & NOPOWER)
 		set_operating(FALSE)
 	else
 		set_operating(TRUE)
@@ -174,13 +174,13 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 			stop_conveying(movable)
 
 /obj/machinery/conveyor/proc/update()
-	if(stat & BROKEN)
+	if(machine_stat & BROKEN)
 		icon_state = "conveyor-broken"
 		set_operating(FALSE)
 		return
 	if(!operable)
 		set_operating(FALSE)
-	if(stat & NOPOWER)
+	if(machine_stat & NOPOWER)
 		set_operating(FALSE)
 	icon_state = "conveyor[operating * verted]"
 	if(operating)
@@ -222,7 +222,7 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 		"<span class='notice'>You struggle to pry up \the [src] with \the [I].</span>")
 		if(I.use_tool(src, user, 40, volume=40))
 			set_operating(FALSE)
-			if(!(stat & BROKEN))
+			if(!(machine_stat & BROKEN))
 				var/obj/item/stack/conveyor/C = new /obj/item/stack/conveyor(loc, 1, TRUE, null, id)
 				if(!QDELETED(C)) //God I hate stacks
 					transfer_fingerprints_to(C)
@@ -231,14 +231,14 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 			qdel(src)
 
 	else if(I.tool_behaviour == TOOL_WRENCH)
-		if(!(stat & BROKEN))
+		if(!(machine_stat & BROKEN))
 			I.play_tool_sound(src)
 			setDir(turn(dir,-45))
 			update_move_direction()
 			to_chat(user, "<span class='notice'>You rotate [src].</span>")
 
 	else if(I.tool_behaviour == TOOL_SCREWDRIVER)
-		if(!(stat & BROKEN))
+		if(!(machine_stat & BROKEN))
 			verted = verted * -1
 			update_move_direction()
 			to_chat(user, "<span class='notice'>You reverse [src]'s direction.</span>")
@@ -258,7 +258,7 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 // make the conveyor broken
 // also propagate inoperability to any connected conveyor with the same ID
 /obj/machinery/conveyor/proc/broken()
-	stat |= BROKEN
+	set_machine_stat(machine_stat | BROKEN)
 	update()
 
 	var/obj/machinery/conveyor/C = locate() in get_step(src, dir)

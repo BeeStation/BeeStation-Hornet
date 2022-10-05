@@ -108,7 +108,7 @@
 
 /obj/machinery/chem_dispenser/process(delta_time)
 	if (recharge_counter >= 8)
-		if(!is_operational())
+		if(!is_operational)
 			return
 		var/usedpower = cell.give(recharge_amount)
 		if(usedpower)
@@ -237,7 +237,7 @@
 			replace_beaker(usr)
 			. = TRUE
 
-	if(!is_operational())
+	if(!is_operational)
 		return
 
 	switch(action)
