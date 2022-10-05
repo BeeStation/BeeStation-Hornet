@@ -29734,9 +29734,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
 	},
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
 "cWf" = (
@@ -38275,9 +38272,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
 "iCT" = (
@@ -38755,11 +38749,6 @@
 	},
 /turf/open/floor/plating,
 /area/quartermaster/exploration_dock)
-"iTh" = (
-/obj/structure/disposalpipe/segment,
-/obj/structure/disposalpipe/segment,
-/turf/open/floor/plating,
-/area/maintenance/starboard/aft)
 "iTt" = (
 /obj/item/radio/intercom{
 	desc = "Talk through this. It looks like it has been modified to not broadcast.";
@@ -49974,10 +49963,6 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/yellow/visible,
 /obj/structure/disposalpipe/segment,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/yellow/visible,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -59569,9 +59554,6 @@
 "wIt" = (
 /obj/structure/disposalpipe/segment{
 	dir = 10
-	},
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
@@ -102180,7 +102162,7 @@ cko
 bFu
 cko
 cko
-iTh
+cnG
 cko
 csm
 euG
