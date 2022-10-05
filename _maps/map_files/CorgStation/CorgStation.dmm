@@ -5535,6 +5535,9 @@
 	},
 /turf/open/floor/plasteel,
 /area/maintenance/department/science)
+"bgP" = (
+/turf/open/floor/plating/airless,
+/area/chapel/office)
 "bhj" = (
 /obj/machinery/firealarm{
 	dir = 8;
@@ -30247,6 +30250,12 @@
 	},
 /turf/open/floor/plating/asteroid,
 /area/maintenance/starboard/secondary)
+"iph" = (
+/obj/machinery/camera/autoname{
+	dir = 8
+	},
+/turf/open/space/basic,
+/area/space)
 "ipm" = (
 /obj/machinery/camera/autoname{
 	dir = 8
@@ -34728,12 +34737,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/courtroom)
-"jEJ" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/turf/closed/wall,
-/area/hallway/secondary/entry)
 "jFd" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
@@ -49589,16 +49592,6 @@
 /obj/machinery/door/firedoor,
 /turf/open/floor/plasteel/white,
 /area/security/prison)
-"nTR" = (
-/obj/structure/grille,
-/obj{
-	name = "---Merge conflict marker---"
-	},
-/obj/machinery/camera/autoname{
-	dir = 8
-	},
-/turf/closed/wall/r_wall,
-/area/space/nearstation)
 "nTT" = (
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
@@ -50346,6 +50339,10 @@
 	},
 /turf/open/floor/plating,
 /area/security/brig)
+"odB" = (
+/obj/structure/grille,
+/turf/closed/wall/r_wall,
+/area/space/nearstation)
 "odK" = (
 /obj/effect/turf_decal/tile/green{
 	dir = 4
@@ -68705,12 +68702,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/quartermaster/miningdock)
-"tKc" = (
-/obj/machinery/camera/autoname{
-	dir = 4
-	},
-/turf/open/space/basic,
-/area/space)
 "tKh" = (
 /obj/item/bedsheet/mime,
 /obj/structure/bed,
@@ -70811,6 +70802,7 @@
 /turf/open/floor/plasteel/white,
 /area/medical/genetics)
 "uml" = (
+/obj/structure/grille,
 /turf/closed/wall,
 /area/space/nearstation)
 "umq" = (
@@ -97535,19 +97527,19 @@ aMT
 aMT
 aMT
 aMT
-huQ
-huQ
-huQ
-huQ
-huQ
+odB
+odB
+odB
+odB
+odB
 aMT
 aMT
 aMT
-huQ
-huQ
-huQ
-huQ
-huQ
+odB
+odB
+odB
+odB
+odB
 aMT
 aMT
 aMT
@@ -98817,7 +98809,7 @@ aMT
 aMT
 aMT
 aMT
-huQ
+odB
 aMT
 aMT
 daS
@@ -99074,7 +99066,7 @@ aMT
 aMT
 aMT
 aMT
-huQ
+odB
 anT
 anT
 jZm
@@ -99091,7 +99083,7 @@ tJf
 tJf
 kZl
 aMT
-huQ
+odB
 aMT
 aMT
 aMT
@@ -99329,9 +99321,9 @@ aMT
 aMT
 aMT
 aMT
-huQ
+odB
 aMT
-huQ
+odB
 aMT
 aMT
 aWj
@@ -99348,7 +99340,7 @@ aWj
 aWj
 aWj
 anT
-huQ
+odB
 aMT
 aMT
 aMT
@@ -99586,9 +99578,9 @@ aMT
 aMT
 aMT
 aMT
-huQ
+odB
 anT
-huQ
+odB
 aMT
 aMT
 aMT
@@ -99605,7 +99597,7 @@ aMT
 anT
 aMT
 aMT
-huQ
+odB
 aMT
 aMT
 aMT
@@ -99843,9 +99835,9 @@ aMT
 aMT
 aMT
 aMT
-huQ
+odB
 aMT
-huQ
+odB
 aMT
 aMT
 daS
@@ -99862,17 +99854,17 @@ daS
 daS
 daS
 aMT
-huQ
+odB
 aMT
 aMT
-huQ
+odB
 rKo
-huQ
+odB
 dcW
 qdM
 rKo
-huQ
-huQ
+odB
+odB
 aMT
 aMT
 anT
@@ -100102,7 +100094,7 @@ aMT
 aMT
 aMT
 aMT
-huQ
+odB
 anT
 anT
 jZm
@@ -100119,7 +100111,7 @@ tJf
 tJf
 tHG
 anT
-huQ
+odB
 aMT
 aMT
 anT
@@ -100359,7 +100351,7 @@ aMT
 aMT
 aMT
 aMT
-huQ
+odB
 aMT
 aMT
 aWj
@@ -100376,7 +100368,7 @@ aWj
 aWj
 aWj
 aMT
-huQ
+odB
 aMT
 qBt
 qBt
@@ -100904,8 +100896,8 @@ bLB
 bLB
 oxd
 oxd
-wrU
-wrU
+bgP
+bgP
 aMT
 aMT
 aMT
@@ -101091,9 +101083,9 @@ aMT
 aMT
 aMT
 anT
-huQ
-huQ
-huQ
+odB
+odB
+odB
 anT
 anT
 anT
@@ -101161,7 +101153,7 @@ cTE
 cTE
 dZG
 oxd
-wrU
+bgP
 oxd
 aMT
 aMT
@@ -101600,15 +101592,15 @@ aMT
 aMT
 aMT
 aMT
-huQ
-huQ
-huQ
+odB
+odB
+odB
 anT
-huQ
-huQ
-huQ
-huQ
-huQ
+odB
+odB
+odB
+odB
+odB
 aMT
 anT
 aMT
@@ -101865,9 +101857,9 @@ aMT
 anT
 aMT
 aMT
-huQ
+odB
 aMT
-huQ
+odB
 anT
 anT
 aMT
@@ -102049,7 +102041,7 @@ aMT
 aMT
 anT
 aMT
-huQ
+odB
 anT
 aPf
 rBk
@@ -102122,9 +102114,9 @@ wpg
 wpg
 wpg
 aMT
-huQ
+odB
 anT
-huQ
+odB
 aMT
 anT
 aMT
@@ -102306,7 +102298,7 @@ aMT
 aMT
 anT
 aMT
-huQ
+odB
 aMT
 aPf
 hYg
@@ -102379,9 +102371,9 @@ pag
 pag
 wpg
 anT
-huQ
+odB
 aMT
-huQ
+odB
 anT
 anT
 aMT
@@ -102561,9 +102553,9 @@ aMT
 aMT
 aMT
 aMT
-huQ
+odB
 anT
-huQ
+odB
 aMT
 aPf
 rBk
@@ -102636,7 +102628,7 @@ pag
 pag
 wpg
 aMT
-huQ
+odB
 aMT
 anT
 aMT
@@ -102818,9 +102810,9 @@ aMT
 anT
 aMT
 aMT
-huQ
+odB
 aMT
-huQ
+odB
 anT
 aPf
 aPf
@@ -103072,10 +103064,10 @@ aMT
 aMT
 aMT
 aMT
-huQ
+odB
 anT
 anT
-huQ
+odB
 aMT
 anT
 aMT
@@ -103329,7 +103321,7 @@ aMT
 aMT
 aMT
 aMT
-huQ
+odB
 aMT
 aMT
 anT
@@ -103482,7 +103474,7 @@ hJt
 aMT
 aMT
 aMT
-huQ
+odB
 anT
 qBt
 aMT
@@ -103586,10 +103578,10 @@ qiD
 aMT
 aMT
 aMT
-huQ
+odB
 anT
 anT
-huQ
+odB
 aMT
 anT
 aMT
@@ -103846,9 +103838,9 @@ aMT
 anT
 aMT
 aMT
-huQ
+odB
 aMT
-huQ
+odB
 anT
 aPf
 aPf
@@ -103996,7 +103988,7 @@ hJt
 aMT
 anT
 aMT
-huQ
+odB
 aMT
 aMT
 aMT
@@ -104103,9 +104095,9 @@ aMT
 aMT
 aMT
 aMT
-huQ
+odB
 anT
-huQ
+odB
 aMT
 aPf
 ndm
@@ -104253,7 +104245,7 @@ jbr
 aMT
 anT
 anT
-huQ
+odB
 anT
 anT
 anT
@@ -104362,7 +104354,7 @@ aMT
 aMT
 anT
 aMT
-huQ
+odB
 aMT
 aPf
 iSE
@@ -104619,7 +104611,7 @@ aMT
 aMT
 aMT
 aMT
-huQ
+odB
 anT
 aPf
 ndm
@@ -104767,7 +104759,7 @@ jbr
 aMT
 anT
 anT
-huQ
+odB
 aMT
 aMT
 aMT
@@ -105024,7 +105016,7 @@ hJt
 aMT
 anT
 aMT
-huQ
+odB
 aMT
 aMT
 aMT
@@ -105538,7 +105530,7 @@ hJt
 aMT
 aMT
 aMT
-huQ
+odB
 anT
 qBt
 aMT
@@ -105801,7 +105793,7 @@ aMT
 aMT
 aMT
 aMT
-huQ
+odB
 aMT
 aMT
 qBt
@@ -106058,7 +106050,7 @@ kLm
 kLm
 anT
 anT
-huQ
+odB
 aMT
 aMT
 anT
@@ -106315,7 +106307,7 @@ uIC
 kLm
 aMT
 aMT
-huQ
+odB
 anT
 anT
 anT
@@ -107343,7 +107335,7 @@ hyD
 kLm
 aMT
 aMT
-huQ
+odB
 aMT
 aMT
 anT
@@ -107600,7 +107592,7 @@ jJY
 kLm
 aMT
 aMT
-huQ
+odB
 anT
 anT
 anT
@@ -107857,7 +107849,7 @@ kLm
 kLm
 anT
 anT
-huQ
+odB
 aMT
 aMT
 anT
@@ -108114,7 +108106,7 @@ aMT
 aMT
 aMT
 aMT
-huQ
+odB
 aMT
 aMT
 qBt
@@ -109243,9 +109235,9 @@ aMT
 aMT
 aMT
 aMT
-huQ
-huQ
-huQ
+odB
+odB
+odB
 aMT
 aMT
 aMT
@@ -109756,18 +109748,18 @@ aMT
 aMT
 aMT
 aMT
-huQ
-huQ
-huQ
-huQ
-huQ
+odB
+odB
+odB
+odB
+odB
 aMT
 aMT
-huQ
-huQ
-huQ
-huQ
-huQ
+odB
+odB
+odB
+odB
+odB
 aMT
 anT
 gzj
@@ -110268,7 +110260,7 @@ aMT
 aMT
 aMT
 aMT
-huQ
+odB
 aMT
 aMT
 dun
@@ -110525,7 +110517,7 @@ aMT
 aMT
 aMT
 aMT
-huQ
+odB
 anT
 anT
 dun
@@ -110782,7 +110774,7 @@ aMT
 aMT
 aMT
 aMT
-huQ
+odB
 aMT
 aMT
 dun
@@ -111039,7 +111031,7 @@ aMT
 aMT
 aMT
 aMT
-huQ
+odB
 anT
 anT
 dun
@@ -111295,8 +111287,8 @@ aMT
 aMT
 aMT
 aMT
-huQ
-huQ
+odB
+odB
 aMT
 aMT
 dun
@@ -112324,7 +112316,7 @@ aMT
 aMT
 aMT
 aMT
-huQ
+odB
 anT
 anT
 dun
@@ -113611,7 +113603,7 @@ aMT
 aMT
 aMT
 aMT
-huQ
+odB
 aMT
 aMT
 anT
@@ -113868,18 +113860,18 @@ aMT
 aMT
 aMT
 anT
-huQ
+odB
 aMT
-huQ
-huQ
-huQ
+odB
+odB
+odB
 aMT
 aMT
-huQ
-huQ
-huQ
-huQ
-huQ
+odB
+odB
+odB
+odB
+odB
 aMT
 aMT
 aMT
@@ -114127,7 +114119,7 @@ aMT
 aMT
 rKo
 anT
-huQ
+odB
 aMT
 anT
 aMT
@@ -114371,28 +114363,28 @@ aMT
 aMT
 aMT
 aMT
-huQ
-huQ
-huQ
-huQ
+odB
+odB
+odB
+odB
 aMT
-huQ
-huQ
-huQ
-huQ
+odB
+odB
+odB
+odB
 aMT
 aMT
 dcW
 aMT
-huQ
+odB
 aMT
-huQ
+odB
 aMT
 aMT
 aMT
-huQ
-huQ
-huQ
+odB
+odB
+odB
 aMT
 aMT
 aMT
@@ -114639,11 +114631,11 @@ aMT
 anT
 aMT
 aMT
-huQ
+odB
 anT
-huQ
+odB
 anT
-huQ
+odB
 aMT
 aMT
 aMT
@@ -114896,9 +114888,9 @@ anT
 anT
 anT
 anT
-huQ
+odB
 aMT
-huQ
+odB
 aMT
 aMT
 aMT
@@ -115153,7 +115145,7 @@ anT
 aMT
 aMT
 aMT
-huQ
+odB
 aMT
 aMT
 aMT
@@ -118065,7 +118057,7 @@ xVx
 vJi
 vJi
 vJi
-jEJ
+vJi
 wjo
 jrT
 gTN
@@ -120817,8 +120809,8 @@ anT
 anT
 anT
 anT
-anT
 pSm
+anT
 anT
 anT
 anT
@@ -121062,23 +121054,23 @@ aMT
 aMT
 aMT
 aMT
-huQ
-huQ
-huQ
-huQ
-huQ
-huQ
+odB
+odB
+odB
+odB
+odB
+odB
 aMT
 aMT
 aMT
 qBt
-huQ
-huQ
-huQ
-nTR
-huQ
-huQ
-huQ
+odB
+odB
+odB
+odB
+odB
+odB
+odB
 qBt
 hmy
 aMT
@@ -121331,11 +121323,11 @@ aMT
 qBt
 aMT
 anT
-aMT
+iph
 anT
 aMT
-tKc
-huQ
+aMT
+odB
 qBt
 hmy
 aMT
@@ -121592,7 +121584,7 @@ uKT
 uKT
 uKT
 aMT
-huQ
+odB
 qBt
 hmy
 aMT
@@ -122094,7 +122086,7 @@ aMT
 aMT
 aMT
 aMT
-huQ
+odB
 aMT
 aMT
 qBt
@@ -122232,11 +122224,11 @@ anT
 oTx
 aMT
 aMT
-huQ
-huQ
-huQ
-huQ
-huQ
+odB
+odB
+odB
+odB
+odB
 aMT
 aMT
 aMT
@@ -122351,7 +122343,7 @@ aMT
 aMT
 aMT
 anT
-huQ
+odB
 anT
 anT
 qBt
@@ -122362,7 +122354,7 @@ gvo
 xOb
 gaC
 uKT
-aMT
+iph
 gNo
 lBE
 esZ
@@ -122608,7 +122600,7 @@ aMT
 aMT
 aMT
 aMT
-huQ
+odB
 aMT
 aMT
 qBt
@@ -122743,17 +122735,17 @@ aMT
 aMT
 anT
 aMT
-huQ
-huQ
-huQ
-huQ
-huQ
+odB
+odB
+odB
+odB
+odB
 aMT
-huQ
-huQ
-huQ
-huQ
-huQ
+odB
+odB
+odB
+odB
+odB
 aMT
 aMT
 aMT
@@ -122865,7 +122857,7 @@ aMT
 aMT
 aMT
 aMT
-huQ
+odB
 aMT
 aMT
 qBt
@@ -123122,7 +123114,7 @@ aMT
 aMT
 anT
 anT
-huQ
+odB
 anT
 anT
 qBt
@@ -123377,7 +123369,7 @@ aMT
 aMT
 aMT
 aMT
-huQ
+odB
 aMT
 aMT
 aMT
@@ -123528,7 +123520,7 @@ qhU
 aMT
 aMT
 aMT
-huQ
+odB
 aMT
 aMT
 aMT
@@ -123785,7 +123777,7 @@ qhU
 anT
 anT
 anT
-huQ
+odB
 aMT
 aMT
 aMT
@@ -123891,7 +123883,7 @@ aMT
 aMT
 aMT
 anT
-huQ
+odB
 anT
 anT
 anT
@@ -124042,7 +124034,7 @@ qhU
 aMT
 anT
 aMT
-huQ
+odB
 aMT
 aMT
 aMT
@@ -124148,7 +124140,7 @@ aMT
 aMT
 aMT
 aMT
-huQ
+odB
 aMT
 aMT
 aMT
@@ -124299,7 +124291,7 @@ qhU
 aMT
 anT
 anT
-huQ
+odB
 aMT
 aMT
 aMT
@@ -124405,7 +124397,7 @@ aMT
 aMT
 aMT
 aMT
-huQ
+odB
 aMT
 aMT
 aMT
@@ -124556,7 +124548,7 @@ aMT
 aMT
 anT
 aMT
-huQ
+odB
 aMT
 aMT
 aMT
@@ -124664,7 +124656,7 @@ aMT
 aMT
 anT
 anT
-huQ
+odB
 anT
 anT
 qBt
@@ -124921,7 +124913,7 @@ aMT
 aMT
 aMT
 aMT
-huQ
+odB
 aMT
 aMT
 qBt
@@ -125070,7 +125062,7 @@ aMT
 aMT
 anT
 aMT
-huQ
+odB
 aMT
 aMT
 aMT
@@ -125178,7 +125170,7 @@ aMT
 aMT
 aMT
 aMT
-huQ
+odB
 aMT
 aMT
 qBt
@@ -125327,7 +125319,7 @@ qhU
 aMT
 anT
 anT
-huQ
+odB
 aMT
 aMT
 aMT
@@ -125435,7 +125427,7 @@ aMT
 aMT
 aMT
 anT
-huQ
+odB
 anT
 anT
 qBt
@@ -125584,7 +125576,7 @@ qhU
 aMT
 anT
 aMT
-huQ
+odB
 aMT
 aMT
 aMT
@@ -125692,7 +125684,7 @@ aMT
 aMT
 aMT
 aMT
-huQ
+odB
 aMT
 aMT
 qBt
@@ -125841,7 +125833,7 @@ qhU
 anT
 anT
 anT
-huQ
+odB
 aMT
 aMT
 aMT
@@ -126098,7 +126090,7 @@ qhU
 aMT
 aMT
 aMT
-huQ
+odB
 aMT
 aMT
 aMT
@@ -126855,17 +126847,17 @@ aMT
 aMT
 aMT
 aMT
-huQ
-huQ
-huQ
-huQ
-huQ
+odB
+odB
+odB
+odB
+odB
 aMT
-huQ
-huQ
-huQ
-huQ
-huQ
+odB
+odB
+odB
+odB
+odB
 aMT
 aMT
 aMT
@@ -127372,11 +127364,11 @@ aMT
 aMT
 aMT
 aMT
-huQ
-huQ
-huQ
-huQ
-huQ
+odB
+odB
+odB
+odB
+odB
 aMT
 aMT
 aMT
@@ -134804,7 +134796,7 @@ lvb
 lvw
 aMT
 aMT
-huQ
+odB
 aMT
 aMT
 aMT
@@ -135061,7 +135053,7 @@ nfs
 lvw
 aMT
 aMT
-huQ
+odB
 aMT
 aMT
 aMT
@@ -135318,7 +135310,7 @@ wOD
 lvw
 anT
 anT
-huQ
+odB
 aMT
 aMT
 aMT
@@ -135575,7 +135567,7 @@ bhx
 lvw
 aMT
 aMT
-huQ
+odB
 aMT
 aMT
 aMT
@@ -136089,7 +136081,7 @@ iFF
 lvw
 aMT
 aMT
-huQ
+odB
 aMT
 aMT
 aMT
@@ -136327,7 +136319,7 @@ aMT
 aMT
 aMT
 aMT
-huQ
+odB
 aMT
 aMT
 lvw
@@ -136346,7 +136338,7 @@ vSy
 lvw
 anT
 anT
-huQ
+odB
 aMT
 aMT
 aMT
@@ -136584,7 +136576,7 @@ aMT
 aMT
 aMT
 aMT
-huQ
+odB
 aMT
 aMT
 lvw
@@ -136603,7 +136595,7 @@ vSy
 lvw
 aMT
 aMT
-huQ
+odB
 aMT
 aMT
 aMT
@@ -136841,7 +136833,7 @@ aMT
 aMT
 aMT
 aMT
-huQ
+odB
 anT
 anT
 lvw
@@ -137098,7 +137090,7 @@ aMT
 aMT
 aMT
 aMT
-huQ
+odB
 aMT
 aMT
 lvw
@@ -137355,7 +137347,7 @@ aMT
 aMT
 aMT
 aMT
-huQ
+odB
 aMT
 aMT
 lvw
@@ -137630,7 +137622,7 @@ ghR
 vSy
 lvw
 aMT
-huQ
+odB
 aMT
 aMT
 aMT
@@ -137887,7 +137879,7 @@ lvw
 lvw
 lvw
 anT
-huQ
+odB
 aMT
 aMT
 aMT
@@ -138144,7 +138136,7 @@ aMT
 aMT
 aMT
 aMT
-huQ
+odB
 aMT
 aMT
 aMT
@@ -138900,7 +138892,7 @@ aMT
 aMT
 aMT
 aMT
-huQ
+odB
 aMT
 aMT
 lvw
@@ -138914,7 +138906,7 @@ lya
 lvw
 aMT
 aMT
-huQ
+odB
 aMT
 aMT
 aMT
@@ -139157,7 +139149,7 @@ aMT
 aMT
 aMT
 aMT
-huQ
+odB
 anT
 anT
 lvw
@@ -139171,7 +139163,7 @@ adk
 lvw
 anT
 anT
-huQ
+odB
 aMT
 aMT
 aMT
@@ -139414,7 +139406,7 @@ aMT
 aMT
 aMT
 aMT
-huQ
+odB
 aMT
 aMT
 lvw
@@ -139428,7 +139420,7 @@ lYS
 lvw
 aMT
 aMT
-huQ
+odB
 aMT
 aMT
 aMT
@@ -139671,7 +139663,7 @@ aMT
 aMT
 aMT
 aMT
-huQ
+odB
 anT
 anT
 lvw
@@ -139685,7 +139677,7 @@ lYS
 lvw
 anT
 anT
-huQ
+odB
 aMT
 aMT
 aMT
@@ -139928,7 +139920,7 @@ aMT
 aMT
 aMT
 aMT
-huQ
+odB
 aMT
 aMT
 lvw
@@ -139942,7 +139934,7 @@ lvw
 lvw
 aMT
 aMT
-huQ
+odB
 aMT
 aMT
 aMT
@@ -140703,14 +140695,14 @@ aMT
 aMT
 aMT
 aMT
-huQ
-huQ
-huQ
-huQ
-huQ
-huQ
-huQ
-huQ
+odB
+odB
+odB
+odB
+odB
+odB
+odB
+odB
 aMT
 aMT
 aMT
