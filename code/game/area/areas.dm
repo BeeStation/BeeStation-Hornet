@@ -618,23 +618,23 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 /**
   * Call back when an atom enters an area
   *
-  * Sends signals COMSIG_AREA_ENTERED and COMSIG_ENTER_AREA (to the atom)
+  * Sends signals COMSIG_AREA_ENTERED and COMSIG_MOVABLE_ENTERED_AREA (to the atom)
   *
   * If the area has ambience, then it plays some ambience music to the ambience channel
   */
 /area/Entered(atom/movable/arrived, area/old_area)
 	set waitfor = FALSE
 	SEND_SIGNAL(src, COMSIG_AREA_ENTERED, arrived, old_area)
-	SEND_SIGNAL(arrived, COMSIG_ENTER_AREA, src) //The atom that enters the area
+	SEND_SIGNAL(arrived, COMSIG_MOVABLE_ENTERED_AREA, src) //The atom that enters the area
 
 /**
   * Called when an atom exits an area
   *
-  * Sends signals COMSIG_AREA_EXITED and COMSIG_EXIT_AREA (to the atom)
+  * Sends signals COMSIG_AREA_EXITED and COMSIG_MOVABLE_EXITTED_AREA (to the atom)
   */
 /area/Exited(atom/movable/gone, direction)
 	SEND_SIGNAL(src, COMSIG_AREA_EXITED, gone, direction)
-	SEND_SIGNAL(gone, COMSIG_EXIT_AREA, src) //The atom that exits the area
+	SEND_SIGNAL(gone, COMSIG_MOVABLE_EXITTED_AREA, src) //The atom that exits the area
 
 /**
   * Returns true if this atom has gravity for the passed in turf or other gravity-mimicking behaviors
