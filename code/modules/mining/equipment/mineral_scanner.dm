@@ -15,6 +15,8 @@
 	var/speaker = TRUE // Speaker that plays a sound when pulsed.
 
 /obj/item/mining_scanner/AltClick(mob/user)
+	if(!user.canUseTopic(src, BE_CLOSE))
+		return
 	speaker = !speaker
 	to_chat(user, "<span class='notice'>You toggle [src]'s speaker to [speaker ? "<b>ON</b>" : "<b>OFF</b>"].</span>")
 
@@ -54,6 +56,8 @@
 	var/speaker = FALSE // Speaker that plays a sound when pulsed.
 
 /obj/item/t_scanner/adv_mining_scanner/AltClick(mob/user)
+	if(!user.canUseTopic(src, BE_CLOSE))
+		return
 	speaker = !speaker
 	to_chat(user, "<span class='notice'>You toggle [src]'s speaker to [speaker ? "<b>ON</b>" : "<b>OFF</b>"].</span>")
 
