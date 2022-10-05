@@ -28,19 +28,13 @@
 	environment_smash = ENVIRONMENT_SMASH_NONE
 	stop_automated_movement_when_pulled = 1
 	blood_volume = BLOOD_VOLUME_NORMAL
-	var/obj/item/udder/udder = null
 	chat_color = "#B2CEB3"
 
 	do_footstep = TRUE
 
 /mob/living/simple_animal/hostile/retaliate/goat/Initialize(mapload)
-	udder = new()
 	. = ..()
-
-/mob/living/simple_animal/hostile/retaliate/goat/Destroy()
-	qdel(udder)
-	udder = null
-	return ..()
+	AddComponent(/datum/component/milkable, 50, 20, /datum/reagent/consumable/milk)
 
 /mob/living/simple_animal/hostile/retaliate/goat/Life()
 	. = ..()
@@ -54,7 +48,6 @@
 			LoseTarget()
 			src.visible_message("<span class='notice'>[src] calms down.</span>")
 	if(stat == CONSCIOUS)
-		udder.generateMilk()
 		eat_plants()
 		if(!pulledby)
 			for(var/direction in shuffle(list(1,2,4,8,5,6,9,10)))
@@ -86,14 +79,6 @@
 
 	if(eaten && prob(10))
 		INVOKE_ASYNC(src, /atom/movable/proc/say, "Nom")
-
-/mob/living/simple_animal/hostile/retaliate/goat/attackby(obj/item/O, mob/user, params)
-	if(stat == CONSCIOUS && istype(O, /obj/item/reagent_containers/glass))
-		udder.milkAnimal(O, user)
-		return 1
-	else
-		return ..()
-
 
 /mob/living/simple_animal/hostile/retaliate/goat/AttackingTarget()
 	. = ..()
@@ -129,7 +114,6 @@
 	attack_sound = 'sound/weapons/punch1.ogg'
 	health = 50
 	maxHealth = 50
-	var/obj/item/udder/udder = null
 	gold_core_spawnable = FRIENDLY_SPAWN
 	blood_volume = BLOOD_VOLUME_NORMAL
 	chat_color = "#FFFFFF"
@@ -137,25 +121,8 @@
 	do_footstep = TRUE
 
 /mob/living/simple_animal/cow/Initialize(mapload)
-	udder = new()
 	. = ..()
-
-/mob/living/simple_animal/cow/Destroy()
-	qdel(udder)
-	udder = null
-	return ..()
-
-/mob/living/simple_animal/cow/attackby(obj/item/O, mob/user, params)
-	if(stat == CONSCIOUS && istype(O, /obj/item/reagent_containers/glass))
-		udder.milkAnimal(O, user)
-		return 1
-	else
-		return ..()
-
-/mob/living/simple_animal/cow/Life()
-	. = ..()
-	if(stat == CONSCIOUS)
-		udder.generateMilk()
+	AddComponent(/datum/component/milkable, 50, 20, /datum/reagent/consumable/milk)
 
 /mob/living/simple_animal/cow/attack_hand(mob/living/carbon/M)
 	if(!stat && M.a_intent == INTENT_DISARM && icon_state != icon_dead)
