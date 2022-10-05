@@ -152,7 +152,7 @@ Class Procs:
 		begin_processing()
 
 	power_change()
-	RegisterSignal(src, COMSIG_ENTER_AREA, .proc/power_change)
+	RegisterSignal(src, COMSIG_MOVABLE_ENTERED_AREA, .proc/power_change)
 
 	if(occupant_typecache)
 		occupant_typecache = typecacheof(occupant_typecache)
