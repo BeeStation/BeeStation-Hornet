@@ -1,7 +1,7 @@
 /datum/job/security_officer
 	title = JOB_NAME_SECURITYOFFICER
 	flag = OFFICER
-	auto_deadmin_role_flags = DEADMIN_POSITION_SECURITY
+	auto_deadmin_role_flags = PREFTOGGLE_DEADMIN_POSITION_SECURITY
 	department_head = list(JOB_NAME_HEADOFSECURITY)
 	supervisors = "the head of security, and the head of your assigned department (if applicable)"
 	faction = "Station"
@@ -46,7 +46,7 @@ GLOBAL_LIST_INIT(available_depts, list(SEC_DEPT_ENGINEERING, SEC_DEPT_MEDICAL, S
 	// Assign department security
 	var/department
 	if(M?.client?.prefs)
-		department = M.client.prefs.prefered_security_department
+		department = M.client.prefs.active_character.preferred_security_department
 		if(!LAZYLEN(GLOB.available_depts) || department == "None")
 			return
 		else if(department in GLOB.available_depts)

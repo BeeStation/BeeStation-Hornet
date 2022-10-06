@@ -174,6 +174,7 @@
 	quality = NEGATIVE
 	mobtypes_allowed = list(/mob/living/carbon/human, /mob/living/carbon/monkey)
 	locked = TRUE //Species specific, keep out of actual gene pool
+	mutadone_proof = TRUE
 
 /datum/mutation/race/on_acquiring(mob/living/carbon/human/owner)
 	if(..())

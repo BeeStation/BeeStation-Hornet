@@ -41,7 +41,7 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 	attack_hand()
 
 /obj/machinery/computer/cryopod/attack_hand(mob/user = usr)
-	if(stat & (NOPOWER|BROKEN))
+	if(machine_stat & (NOPOWER|BROKEN))
 		return
 
 	user.set_machine(src)
@@ -290,7 +290,10 @@ GLOBAL_LIST_EMPTY(cryopod_computers)
 
 	if(GLOB.announcement_systems.len)
 		var/obj/machinery/announcement_system/announcer = pick(GLOB.announcement_systems)
-		announcer.announce("CRYOSTORAGE", mob_occupant.real_name, announce_rank, list())
+		if(mob_occupant.job == JOB_NAME_CAPTAIN)
+			minor_announce("[JOB_NAME_CAPTAIN] [mob_occupant.real_name] has entered cryogenic storage.")  // for when the admins do a stupid british gimmick that makes 0 sense cough
+		else
+			announcer.announce("CRYOSTORAGE", mob_occupant.real_name, announce_rank, list())
 		visible_message("<span class='notice'>\The [src] hums and hisses as it moves [mob_occupant.real_name] into storage.</span>")
 
 

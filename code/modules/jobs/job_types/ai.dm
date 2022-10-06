@@ -1,7 +1,7 @@
 /datum/job/ai
 	title = JOB_NAME_AI
 	flag = AI_JF
-	auto_deadmin_role_flags = DEADMIN_POSITION_SILICON
+	auto_deadmin_role_flags = PREFTOGGLE_DEADMIN_POSITION_SILICON
 	department_flag = ENGSEC
 	faction = "Station"
 	total_positions = 1

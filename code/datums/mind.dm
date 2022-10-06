@@ -33,6 +33,7 @@
 	var/key
 	var/name				//replaces mob/var/original_name
 	var/ghostname			//replaces name for observers name if set
+	/// The last living mob this mind occupied - if the player is dead, this is their body.
 	var/mob/living/current
 	var/active = 0
 
@@ -145,6 +146,11 @@
 		new_character.key = key		//now transfer the key to link the client to our new body
 	current.update_atom_languages()
 	SEND_SIGNAL(src, COMSIG_MIND_TRANSFER_TO, old_current, new_character)
+	// Update SSD indicators
+	if(isliving(old_current))
+		old_current.med_hud_set_status()
+	if(isliving(current))
+		current.med_hud_set_status()
 
 /datum/mind/proc/set_death_time()
 	SIGNAL_HANDLER
@@ -301,7 +307,7 @@
 	var/implant = FALSE
 
 	if(traitor_mob.client?.prefs)
-		switch(traitor_mob.client.prefs.uplink_spawn_loc)
+		switch(traitor_mob.client.prefs.active_character.uplink_spawn_loc)
 			if(UPLINK_PDA)
 				uplink_loc = PDA
 				if(!uplink_loc)
