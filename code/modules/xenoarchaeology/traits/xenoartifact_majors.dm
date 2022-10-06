@@ -337,14 +337,14 @@
 	var/amount
 
 /datum/xenoartifact_trait/major/chem/on_init(obj/item/xenoartifact/X)
-	amount = pick(1, 3, 5)
+	amount = pick(3, 5, 7)
 	formula = get_random_reagent_id(CHEMICAL_RNG_GENERAL)
 
 /datum/xenoartifact_trait/major/chem/activate(obj/item/xenoartifact/X, atom/target)
 	if(target?.reagents)
 		playsound(get_turf(X), pick('sound/items/hypospray.ogg','sound/items/hypospray2.ogg'), 50, TRUE)
 		var/datum/reagents/R = target.reagents
-		R.add_reagent(formula, amount)
+		R.add_reagent(formula, amount*(initial(formula.metabolization_rate)))
 		log_game("[X] injected [key_name_admin(target)] with [amount]u of [formula] at [world.time]. [X] located at [get_area(src)]")
 
 ///============
