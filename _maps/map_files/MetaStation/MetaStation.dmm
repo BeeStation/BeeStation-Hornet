@@ -25059,6 +25059,7 @@
 /obj/effect/turf_decal/tile/bar{
 	dir = 1
 	},
+/obj/machinery/light,
 /turf/open/floor/plasteel,
 /area/crew_quarters/bar)
 "bIu" = (
@@ -26123,7 +26124,7 @@
 /obj/structure/table,
 /obj/machinery/microwave{
 	pixel_x = -3;
-	pixel_y = 6
+	pixel_y = 4
 	},
 /obj/machinery/button/door{
 	id = "kitchenwindow";
@@ -26137,7 +26138,7 @@
 /obj/structure/table,
 /obj/machinery/microwave{
 	pixel_x = -3;
-	pixel_y = 6
+	pixel_y = 4
 	},
 /obj/machinery/button/door{
 	id = "kitchen";
@@ -26149,6 +26150,9 @@
 /obj/machinery/light_switch{
 	pixel_x = 6;
 	pixel_y = 26
+	},
+/obj/machinery/light{
+	dir = 1
 	},
 /turf/open/floor/plasteel/cafeteria,
 /area/crew_quarters/kitchen)
@@ -76128,6 +76132,16 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/fore)
+"tYI" = (
+/obj/effect/turf_decal/tile/bar,
+/obj/effect/turf_decal/tile/bar{
+	dir = 1
+	},
+/obj/machinery/light{
+	dir = 4
+	},
+/turf/open/floor/plasteel,
+/area/crew_quarters/bar)
 "tYS" = (
 /obj/machinery/hydroponics/constructable,
 /obj/effect/turf_decal/stripes/line{
@@ -118306,7 +118320,7 @@ bAn
 sQH
 bwO
 whD
-bwO
+tYI
 bBT
 bKj
 bLK
