@@ -64,78 +64,78 @@
 	set name = "Toggle Deathrattle"
 	set category = "Preferences"
 	set desc = "Death"
-	prefs.toggles ^= DISABLE_DEATHRATTLE
+	prefs.toggles ^= PREFTOGGLE_DISABLE_DEATHRATTLE
 	prefs.save_preferences()
-	to_chat(usr, "You will [(prefs.toggles & DISABLE_DEATHRATTLE) ? "no longer" : "now"] get messages when a sentient mob dies.")
-	SSblackbox.record_feedback("nested tally", "preferences_verb", 1, list("Toggle Deathrattle", "[!(prefs.toggles & DISABLE_DEATHRATTLE) ? "Enabled" : "Disabled"]")) //If you are copy-pasting this, maybe you should spend some time reading the comments.
+	to_chat(usr, "You will [(prefs.toggles & PREFTOGGLE_DISABLE_DEATHRATTLE) ? "no longer" : "now"] get messages when a sentient mob dies.")
+	SSblackbox.record_feedback("nested tally", "preferences_verb", 1, list("Toggle Deathrattle", "[!(prefs.toggles & PREFTOGGLE_DISABLE_DEATHRATTLE) ? "Enabled" : "Disabled"]")) //If you are copy-pasting this, maybe you should spend some time reading the comments.
 
 /client/verb/toggle_arrivalrattle()
 	set name = "Toggle Arrivalrattle"
 	set category = "Preferences"
 	set desc = "New Player Arrival"
-	prefs.toggles ^= DISABLE_ARRIVALRATTLE
-	to_chat(usr, "You will [(prefs.toggles & DISABLE_ARRIVALRATTLE) ? "no longer" : "now"] get messages when someone joins the station.")
+	prefs.toggles ^= PREFTOGGLE_DISABLE_ARRIVALRATTLE
+	to_chat(usr, "You will [(prefs.toggles & PREFTOGGLE_DISABLE_ARRIVALRATTLE) ? "no longer" : "now"] get messages when someone joins the station.")
 	prefs.save_preferences()
-	SSblackbox.record_feedback("nested tally", "preferences_verb", 1, list("Toggle Arrivalrattle", "[!(prefs.toggles & DISABLE_ARRIVALRATTLE) ? "Enabled" : "Disabled"]")) //If you are copy-pasting this, maybe you should rethink where your life went so wrong.
+	SSblackbox.record_feedback("nested tally", "preferences_verb", 1, list("Toggle Arrivalrattle", "[!(prefs.toggles & PREFTOGGLE_DISABLE_ARRIVALRATTLE) ? "Enabled" : "Disabled"]")) //If you are copy-pasting this, maybe you should rethink where your life went so wrong.
 
 /client/verb/togglemidroundantag()
 	set name = "Toggle Midround Antagonist"
 	set category = "Preferences"
 	set desc = "Midround Antagonist"
-	prefs.toggles ^= MIDROUND_ANTAG
+	prefs.toggles ^= PREFTOGGLE_MIDROUND_ANTAG
 	prefs.save_preferences()
-	to_chat(usr, "You will [(prefs.toggles & MIDROUND_ANTAG) ? "now" : "no longer"] be considered for midround antagonist positions.")
-	SSblackbox.record_feedback("nested tally", "preferences_verb", 1, list("Toggle Midround Antag", "[prefs.toggles & MIDROUND_ANTAG ? "Enabled" : "Disabled"]")) //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	to_chat(usr, "You will [(prefs.toggles & PREFTOGGLE_MIDROUND_ANTAG) ? "now" : "no longer"] be considered for midround antagonist positions.")
+	SSblackbox.record_feedback("nested tally", "preferences_verb", 1, list("Toggle Midround Antag", "[prefs.toggles & PREFTOGGLE_MIDROUND_ANTAG ? "Enabled" : "Disabled"]")) //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/verb/toggletitlemusic()
 	set name = "Hear/Silence Lobby Music"
 	set category = "Preferences"
 	set desc = "Hear Music In Lobby"
-	prefs.toggles ^= SOUND_LOBBY
+	prefs.toggles ^= PREFTOGGLE_SOUND_LOBBY
 	prefs.save_preferences()
-	if(prefs.toggles & SOUND_LOBBY)
+	if(prefs.toggles & PREFTOGGLE_SOUND_LOBBY)
 		to_chat(usr, "You will now hear music in the game lobby.")
 		if(isnewplayer(usr))
 			playtitlemusic()
 	else
 		to_chat(usr, "You will no longer hear music in the game lobby.")
 		usr.stop_sound_channel(CHANNEL_LOBBYMUSIC)
-	SSblackbox.record_feedback("nested tally", "preferences_verb", 1, list("Toggle Lobby Music", "[prefs.toggles & SOUND_LOBBY ? "Enabled" : "Disabled"]")) //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("nested tally", "preferences_verb", 1, list("Toggle Lobby Music", "[prefs.toggles & PREFTOGGLE_SOUND_LOBBY ? "Enabled" : "Disabled"]")) //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/verb/togglemidis()
 	set name = "Hear/Silence Midis"
 	set category = "Preferences"
 	set desc = "Hear Admin Triggered Sounds (Midis)"
-	prefs.toggles ^= SOUND_MIDI
+	prefs.toggles ^= PREFTOGGLE_SOUND_MIDI
 	prefs.save_preferences()
-	if(prefs.toggles & SOUND_MIDI)
+	if(prefs.toggles & PREFTOGGLE_SOUND_MIDI)
 		to_chat(usr, "You will now hear any sounds uploaded by admins.")
 	else
 		to_chat(usr, "You will no longer hear sounds uploaded by admins")
 		usr.stop_sound_channel(CHANNEL_ADMIN)
 		var/client/C = usr.client
 		C?.tgui_panel?.stop_music()
-	SSblackbox.record_feedback("nested tally", "preferences_verb", 1, list("Toggle Hearing Midis", "[prefs.toggles & SOUND_MIDI ? "Enabled" : "Disabled"]")) //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("nested tally", "preferences_verb", 1, list("Toggle Hearing Midis", "[prefs.toggles & PREFTOGGLE_SOUND_MIDI ? "Enabled" : "Disabled"]")) //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/verb/toggle_instruments()
 	set name = "Hear/Silence Instruments"
 	set category = "Preferences"
 	set desc = "Hear In-game Instruments"
-	prefs.toggles ^= SOUND_INSTRUMENTS
+	prefs.toggles ^= PREFTOGGLE_SOUND_INSTRUMENTS
 	prefs.save_preferences()
-	if(prefs.toggles & SOUND_INSTRUMENTS)
+	if(prefs.toggles & PREFTOGGLE_SOUND_INSTRUMENTS)
 		to_chat(usr, "You will now hear people playing musical instruments.")
 	else
 		to_chat(usr, "You will no longer hear musical instruments.")
-	SSblackbox.record_feedback("nested tally", "preferences_verb", 1, list("Toggle Instruments", "[prefs.toggles & SOUND_INSTRUMENTS ? "Enabled" : "Disabled"]")) //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("nested tally", "preferences_verb", 1, list("Toggle Instruments", "[prefs.toggles & PREFTOGGLE_SOUND_INSTRUMENTS ? "Enabled" : "Disabled"]")) //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/verb/Toggle_Soundscape()
 	set name = "Hear/Silence Ambience"
 	set category = "Preferences"
 	set desc = "Hear Ambient Sound Effects"
-	prefs.toggles ^= SOUND_AMBIENCE
+	prefs.toggles ^= PREFTOGGLE_SOUND_AMBIENCE
 	prefs.save_preferences()
-	if(prefs.toggles & SOUND_AMBIENCE)
+	if(prefs.toggles & PREFTOGGLE_SOUND_AMBIENCE)
 		to_chat(usr, "You will now hear ambient sounds.")
 	else
 		to_chat(usr, "You will no longer hear ambient sounds.")
@@ -144,30 +144,30 @@
 		usr.stop_sound_channel(CHANNEL_BUZZ)
 		usr.client.buzz_playing = FALSE
 	usr.client.update_ambience_pref()
-	SSblackbox.record_feedback("nested tally", "preferences_verb", 1, list("Toggle Ambience", "[usr.client.prefs.toggles & SOUND_AMBIENCE ? "Enabled" : "Disabled"]")) //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("nested tally", "preferences_verb", 1, list("Toggle Ambience", "[usr.client.prefs.toggles & PREFTOGGLE_SOUND_AMBIENCE ? "Enabled" : "Disabled"]")) //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/verb/toggle_ship_ambience()
 	set name = "Hear/Silence Ship Ambience"
 	set category = "Preferences"
 	set desc = "Hear Ship Ambience Roar"
-	prefs.toggles ^= SOUND_SHIP_AMBIENCE
+	prefs.toggles ^= PREFTOGGLE_SOUND_SHIP_AMBIENCE
 	prefs.save_preferences()
-	if(prefs.toggles & SOUND_SHIP_AMBIENCE)
+	if(prefs.toggles & PREFTOGGLE_SOUND_SHIP_AMBIENCE)
 		to_chat(usr, "You will now hear ship ambience.")
 	else
 		to_chat(usr, "You will no longer hear ship ambience.")
 		usr.stop_sound_channel(CHANNEL_BUZZ)
 		usr.client.buzz_playing = FALSE
-	SSblackbox.record_feedback("nested tally", "preferences_verb", 1, list("Toggle Ship Ambience", "[usr.client.prefs.toggles & SOUND_SHIP_AMBIENCE ? "Enabled" : "Disabled"]")) //If you are copy-pasting this, I bet you read this comment expecting to see the same thing :^)
+	SSblackbox.record_feedback("nested tally", "preferences_verb", 1, list("Toggle Ship Ambience", "[usr.client.prefs.toggles & PREFTOGGLE_SOUND_SHIP_AMBIENCE ? "Enabled" : "Disabled"]")) //If you are copy-pasting this, I bet you read this comment expecting to see the same thing :^)
 
 /client/verb/toggle_announcement_sound()
 	set name = "Hear/Silence Announcements"
 	set category = "Preferences"
 	set desc = "Hear Announcement Sound"
-	prefs.toggles ^= SOUND_ANNOUNCEMENTS
-	to_chat(usr, "You will now [(prefs.toggles & SOUND_ANNOUNCEMENTS) ? "hear announcement sounds" : "no longer hear announcements"].")
+	prefs.toggles ^= PREFTOGGLE_SOUND_ANNOUNCEMENTS
+	to_chat(usr, "You will now [(prefs.toggles & PREFTOGGLE_SOUND_ANNOUNCEMENTS) ? "hear announcement sounds" : "no longer hear announcements"].")
 	prefs.save_preferences()
-	SSblackbox.record_feedback("nested tally", "preferences_verb", 1, list("Toggle Announcement Sound", "[prefs.toggles & SOUND_ANNOUNCEMENTS ? "Enabled" : "Disabled"]")) //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("nested tally", "preferences_verb", 1, list("Toggle Announcement Sound", "[prefs.toggles & PREFTOGGLE_SOUND_ANNOUNCEMENTS ? "Enabled" : "Disabled"]")) //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/verb/stop_client_sounds()
 	set name = "Stop Sounds"
@@ -279,45 +279,45 @@ GLOBAL_LIST_INIT(ghost_orbits, list(GHOST_ORBIT_CIRCLE,GHOST_ORBIT_TRIANGLE,GHOS
 	set name = "Toggle Intent Selection Style"
 	set category = "Preferences"
 	set desc = "Toggle between directly clicking the desired intent or clicking to rotate through."
-	prefs.toggles ^= INTENT_STYLE
-	to_chat(src, "[(prefs.toggles & INTENT_STYLE) ? "Clicking directly on intents selects them." : "Clicking on intents rotates selection clockwise."]")
+	prefs.toggles ^= PREFTOGGLE_INTENT_STYLE
+	to_chat(src, "[(prefs.toggles & PREFTOGGLE_INTENT_STYLE) ? "Clicking directly on intents selects them." : "Clicking on intents rotates selection clockwise."]")
 	prefs.save_preferences()
-	SSblackbox.record_feedback("nested tally", "preferences_verb", 1, list("Toggle Intent Selection", "[prefs.toggles & INTENT_STYLE ? "Enabled" : "Disabled"]")) //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	SSblackbox.record_feedback("nested tally", "preferences_verb", 1, list("Toggle Intent Selection", "[prefs.toggles & PREFTOGGLE_INTENT_STYLE ? "Enabled" : "Disabled"]")) //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/verb/toggle_ghost_hud_pref()
 	set name = "Toggle Ghost HUD"
 	set category = "Preferences"
 	set desc = "Hide/Show Ghost HUD"
 
-	prefs.ghost_hud = !prefs.ghost_hud
-	to_chat(src, "Ghost HUD will now be [prefs.ghost_hud ? "visible" : "hidden"].")
+	prefs.toggles2 ^= PREFTOGGLE_2_GHOST_HUD
+	to_chat(src, "Ghost HUD will now be [(prefs.toggles2 & PREFTOGGLE_2_GHOST_HUD) ? "visible" : "hidden"].")
 	prefs.save_preferences()
 	if(isobserver(mob))
 		mob.hud_used.show_hud()
-	SSblackbox.record_feedback("nested tally", "preferences_verb", 1, list("Toggle Ghost HUD", "[prefs.ghost_hud ? "Enabled" : "Disabled"]"))
+	SSblackbox.record_feedback("nested tally", "preferences_verb", 1, list("Toggle Ghost HUD", "[(prefs.toggles2 & PREFTOGGLE_2_GHOST_HUD) ? "Enabled" : "Disabled"]"))
 
 /client/verb/toggle_show_credits()
 	set name = "Toggle Credits"
 	set category = "Preferences"
 	set desc = "Hide/Show Credits"
 
-	prefs.show_credits = !prefs.show_credits
-	to_chat(src, "Credits will now be [prefs.show_credits ? "visible" : "hidden"].")
+	prefs.toggles2 ^= PREFTOGGLE_2_SHOW_CREDITS
+	to_chat(src, "Credits will now be [prefs.toggles2 & PREFTOGGLE_2_SHOW_CREDITS ? "visible" : "hidden"].")
 	prefs.save_preferences()
-	SSblackbox.record_feedback("nested tally", "preferences_verb", 1, list("Toggle Credits", "[prefs.show_credits ? "Enabled" : "Disabled"]"))
+	SSblackbox.record_feedback("nested tally", "preferences_verb", 1, list("Toggle Credits", "[prefs.toggles2 & PREFTOGGLE_2_SHOW_CREDITS ? "Enabled" : "Disabled"]"))
 
 /client/verb/toggle_inquisition() // warning: unexpected inquisition
 	set name = "Toggle Inquisitiveness"
 	set desc = "Sets whether your ghost examines everything on click by default"
 	set category = "Preferences"
 
-	prefs.inquisitive_ghost = !prefs.inquisitive_ghost
+	prefs.toggles2 ^= PREFTOGGLE_2_GHOST_INQUISITIVENESS
 	prefs.save_preferences()
-	if(prefs.inquisitive_ghost)
+	if(prefs.toggles2 & PREFTOGGLE_2_GHOST_INQUISITIVENESS)
 		to_chat(src, "<span class='notice'>You will now examine everything you click on.</span>")
 	else
 		to_chat(src, "<span class='notice'>You will no longer examine things you click on.</span>")
-	SSblackbox.record_feedback("nested tally", "preferences_verb", 1, list("Toggle Ghost Inquisitiveness", "[prefs.inquisitive_ghost ? "Enabled" : "Disabled"]"))
+	SSblackbox.record_feedback("nested tally", "preferences_verb", 1, list("Toggle Ghost Inquisitiveness", "[(prefs.toggles2 & PREFTOGGLE_2_GHOST_INQUISITIVENESS) ? "Enabled" : "Disabled"]"))
 
 //Admin Preferences
 /client/proc/toggleadminhelpsound()
@@ -326,10 +326,10 @@ GLOBAL_LIST_INIT(ghost_orbits, list(GHOST_ORBIT_CIRCLE,GHOST_ORBIT_TRIANGLE,GHOS
 	set desc = "Toggle hearing a notification when admin PMs are received"
 	if(!holder)
 		return
-	prefs.toggles ^= SOUND_ADMINHELP
+	prefs.toggles ^= PREFTOGGLE_SOUND_ADMINHELP
 	prefs.save_preferences()
-	to_chat(usr, "You will [(prefs.toggles & SOUND_ADMINHELP) ? "now" : "no longer"] hear a sound when adminhelps arrive.")
-	SSblackbox.record_feedback("nested tally", "admin_toggle", 1, list("Toggle Adminhelp Sound", "[prefs.toggles & SOUND_ADMINHELP ? "Enabled" : "Disabled"]")) //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	to_chat(usr, "You will [(prefs.toggles & PREFTOGGLE_SOUND_ADMINHELP) ? "now" : "no longer"] hear a sound when adminhelps arrive.")
+	SSblackbox.record_feedback("nested tally", "admin_toggle", 1, list("Toggle Adminhelp Sound", "[prefs.toggles & PREFTOGGLE_SOUND_ADMINHELP ? "Enabled" : "Disabled"]")) //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/toggleannouncelogin()
 	set name = "Do/Don't Announce Login"
@@ -337,10 +337,10 @@ GLOBAL_LIST_INIT(ghost_orbits, list(GHOST_ORBIT_CIRCLE,GHOST_ORBIT_TRIANGLE,GHOS
 	set desc = "Toggle if you want an announcement to admins when you login during a round"
 	if(!holder)
 		return
-	prefs.toggles ^= ANNOUNCE_LOGIN
+	prefs.toggles ^= PREFTOGGLE_ANNOUNCE_LOGIN
 	prefs.save_preferences()
-	to_chat(usr, "You will [(prefs.toggles & ANNOUNCE_LOGIN) ? "now" : "no longer"] have an announcement to other admins when you login.")
-	SSblackbox.record_feedback("nested tally", "admin_toggle", 1, list("Toggle Login Announcement", "[prefs.toggles & ANNOUNCE_LOGIN ? "Enabled" : "Disabled"]")) //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+	to_chat(usr, "You will [(prefs.toggles & PREFTOGGLE_ANNOUNCE_LOGIN) ? "now" : "no longer"] have an announcement to other admins when you login.")
+	SSblackbox.record_feedback("nested tally", "admin_toggle", 1, list("Toggle Login Announcement", "[prefs.toggles & PREFTOGGLE_ANNOUNCE_LOGIN ? "Enabled" : "Disabled"]")) //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/toggle_hear_radio()
 	set name = "Show/Hide Radio Chatter"
@@ -381,10 +381,10 @@ GLOBAL_LIST_INIT(ghost_orbits, list(GHOST_ORBIT_CIRCLE,GHOST_ORBIT_TRIANGLE,GHOS
 	set desc = "Hear Prayer Sounds"
 	if(!holder)
 		return
-	prefs.toggles ^= SOUND_PRAYERS
+	prefs.toggles ^= PREFTOGGLE_SOUND_PRAYERS
 	prefs.save_preferences()
-	to_chat(usr, "You will [(prefs.toggles & SOUND_PRAYERS) ? "now" : "no longer"] hear a sound when prayers arrive.")
-	SSblackbox.record_feedback("nested tally", "admin_toggle", 1, list("Toggle Prayer Sounds", "[prefs.toggles & SOUND_PRAYERS ? "Enabled" : "Disabled"]"))
+	to_chat(usr, "You will [(prefs.toggles & PREFTOGGLE_SOUND_PRAYERS) ? "now" : "no longer"] hear a sound when prayers arrive.")
+	SSblackbox.record_feedback("nested tally", "admin_toggle", 1, list("Toggle Prayer Sounds", "[prefs.toggles & PREFTOGGLE_SOUND_PRAYERS ? "Enabled" : "Disabled"]"))
 
 /client/proc/colorasay()
 	set name = "Set Admin Say Color"
