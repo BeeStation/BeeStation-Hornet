@@ -459,7 +459,7 @@
 		if(5)
 			return "#[num2hex(c, 2)][num2hex(m, 2)][num2hex(x, 2)]"
 
-/atom/proc/balloon_alert(mob/viewer, text, color = null)
+/atom/proc/balloon_alert(mob/viewer, text, color)
 	if(!viewer?.client)
 		return
 	switch(viewer.client.prefs.see_balloon_alerts)
@@ -492,7 +492,8 @@
 		qdel(src)
 		return
 	//handle color
-	tgt_color = color
+	if(color)
+		tgt_color = color
 	INVOKE_ASYNC(src, .proc/generate_image, text, target, owner)
 
 /datum/chatmessage/balloon_alert/Destroy()
