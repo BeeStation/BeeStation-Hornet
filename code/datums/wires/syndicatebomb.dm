@@ -30,7 +30,7 @@
 	. = ..()
 	delayed_chirp = FALSE
 	delayed_hesitate = FALSE
-	fake_delayed_little = FALSE
+	fake_delayed_hesitate = FALSE
 	time_cut = FALSE
 
 /datum/wires/syndicatebomb/on_pulse(wire)
@@ -100,7 +100,7 @@
 			if(!mend && B.active)
 				holder.visible_message("<span class='notice'>[icon2html(B, viewers(holder))] The timer stops! The bomb has been defused!</span>")
 				B.active = FALSE
-				delay_hesitate = FALSE
+				delayed_hesitate = FALSE
 				delayed_chirp = FALSE
 				fake_delayed_hesitate = FALSE
 				B.update_icon()
