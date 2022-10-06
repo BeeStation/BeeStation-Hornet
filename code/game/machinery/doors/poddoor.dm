@@ -2,7 +2,7 @@
 	name = "blast door"
 	desc = "A heavy duty blast door that opens mechanically."
 	icon = 'icons/obj/doors/blastdoor.dmi'
-	icon_state = "closed"
+
 	var/id = 1
 	layer = BLASTDOOR_LAYER
 	closingLayer = CLOSED_BLASTDOOR_LAYER
@@ -16,6 +16,10 @@
 	damage_deflection = 70
 	var/datum/crafting_recipe/recipe_type = /datum/crafting_recipe/blast_doors
 	var/deconstruction = BLASTDOOR_FINISHED // deconstruction step
+	var/base_state = "blast"
+	var/pod_open_sound  = 'sound/machines/blastdoor.ogg'
+	var/pod_close_sound = 'sound/machines/blastdoor.ogg'
+	icon_state = "blast_closed"
 
 /obj/machinery/door/poddoor/attackby(obj/item/W, mob/user, params)
 	. = ..()
@@ -30,7 +34,7 @@
 
 	if(panel_open)
 		if(W.tool_behaviour == TOOL_MULTITOOL && deconstruction == BLASTDOOR_FINISHED)
-			var/change_id = input("Set the shutters/blast door/blast door controllers ID. It must be a number between 1 and 100.", "ID", id) as num|null
+			var/change_id = input("Set the shutters/blast door controller's ID. It must be a number between 1 and 100.", "ID", id) as num|null
 			if(change_id)
 				id = clamp(round(change_id, 1), 1, 100)
 				to_chat(user, "<span class='notice'>You change the ID to [id].</span>")
@@ -72,7 +76,7 @@
 			. += "<span class='notice'>The <i>wires</i> have been removed and it's ready to be <b>sliced apart</b>.</span>"
 
 /obj/machinery/door/poddoor/preopen
-	icon_state = "open"
+	icon_state = "blast_open"
 	density = FALSE
 	opacity = 0
 
@@ -128,17 +132,17 @@
 /obj/machinery/door/poddoor/do_animate(animation)
 	switch(animation)
 		if("opening")
-			flick("opening", src)
-			playsound(src, 'sound/machines/blastdoor.ogg', 30, 1)
+			flick("[base_state]_opening", src)
+			playsound(src, pod_open_sound, 30, 1)
 		if("closing")
-			flick("closing", src)
-			playsound(src, 'sound/machines/blastdoor.ogg', 30, 1)
+			flick("[base_state]_closing", src)
+			playsound(src, pod_close_sound, 30, 1)
 
 /obj/machinery/door/poddoor/update_icon()
 	if(density)
-		icon_state = "closed"
+		icon_state = "[base_state]_closed"
 	else
-		icon_state = "open"
+		icon_state = "[base_state]_open"
 
 /obj/machinery/door/poddoor/try_to_activate_door(obj/item/I, mob/user)
 	return

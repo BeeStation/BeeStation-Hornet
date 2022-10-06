@@ -7,8 +7,10 @@
 	closingLayer = SHUTTER_LAYER
 	damage_deflection = 20
 	recipe_type = /datum/crafting_recipe/shutters
-	var/base_state = "shut"
+	base_state = "shut"
 	icon_state = "shut_closed"
+	pod_open_sound  = 'sound/machines/shutter_open.ogg'
+	pod_close_sound = 'sound/machines/shutter_close.ogg'
 
 /obj/machinery/door/poddoor/shutters/preopen
 	icon_state = "shut_open"
@@ -22,24 +24,9 @@
 /obj/machinery/door/poddoor/shutters/bumpopen()
 	return
 
-/obj/machinery/door/poddoor/shutters/do_animate(animation)
-	switch(animation)
-		if("opening")
-			flick("[base_state]_opening", src)
-			playsound(src, 'sound/machines/blastdoor.ogg', 30, 1)
-		if("closing")
-			flick("[base_state]_closing", src)
-			playsound(src, 'sound/machines/blastdoor.ogg', 30, 1)
-
-/obj/machinery/door/poddoor/shutters/update_icon()
-	if(density)
-		icon_state = "[base_state]_closed"
-	else
-		icon_state = "[base_state]_open"
-
 /obj/machinery/door/poddoor/shutters/radiation
 	name = "radiation shutters"
-	desc = "Depleted uranium-lined shutters with a radiation hazard symbol. Whilst this won't stop you getting irradiated, especially by a supermatter crystal, it will stop the majority of radiation travelling as far."
+	desc = "Depleted uranium-lined shutters with a radiation hazard symbol. Whilst this won't stop you getting irradiated, especially by a supermatter crystal, it will stop the majority of radiation."
 	base_state = "rad"
 	icon_state = "rad_closed"
 	rad_insulation = RAD_EXTREME_INSULATION

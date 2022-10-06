@@ -747,7 +747,6 @@ GLOBAL_LIST_INIT(bronze_recipes, list ( \
 	. = ..()
 	pixel_x = 0
 	pixel_y = 0
-/datum/crafting_recipe/aquarium
 
 /obj/item/stack/tile/bronze/fifty
 	amount = 50
