@@ -284,7 +284,7 @@
 	var/changed_name = ""
 	if(custom_name)
 		changed_name = custom_name
-	if(changed_name == "" && C && C.prefs.custom_names["cyborg"] != DEFAULT_CYBORG_NAME)
+	if(changed_name == "" && C && C.prefs.active_character.custom_names["cyborg"] != DEFAULT_CYBORG_NAME)
 		if(apply_pref_name("cyborg", C))
 			return //built in camera handled in proc
 	if(!changed_name)
@@ -434,6 +434,8 @@
 
 /mob/living/silicon/robot/AltClick(mob/user)
 	..()
+	if(!user.canUseTopic(src, !issilicon(user)))
+		return
 	togglelock(user)
 
 /mob/living/silicon/robot/attackby(obj/item/W, mob/user, params)

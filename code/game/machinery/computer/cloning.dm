@@ -188,6 +188,8 @@
 
 /obj/machinery/computer/cloning/AltClick(mob/user)
 	. = ..()
+	if(!user.canUseTopic(src, !issilicon(user)))
+		return
 	EjectDisk(user)
 
 /obj/machinery/computer/cloning/proc/EjectDisk(mob/user)

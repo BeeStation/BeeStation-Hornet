@@ -432,9 +432,10 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		new_character.age = record_found.fields["age"]
 		new_character.hardset_dna(record_found.fields["identity"], record_found.fields["enzymes"], record_found.fields["name"], record_found.fields["blood_type"], new record_found.fields["species"], record_found.fields["features"], null)
 	else
-		var/datum/preferences/A = new()
-		A.copy_to(new_character)
-		A.real_name = G_found.real_name
+		var/datum/character_save/CS = new()
+		CS.randomise()
+		CS.pref_species.random_name(CS.gender, TRUE)
+		CS.copy_to(new_character)
 		new_character.dna.update_dna_identity()
 
 	new_character.name = new_character.real_name
@@ -880,7 +881,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	for(var/datum/atom_hud/antag/H in GLOB.huds) // add antag huds
 		(adding_hud) ? H.add_hud_to(usr) : H.remove_hud_from(usr)
 
-	if(prefs.toggles & COMBOHUD_LIGHTING)
+	if(prefs.toggles & PREFTOGGLE_COMBOHUD_LIGHTING)
 		if(adding_hud)
 			mob.lighting_alpha = LIGHTING_PLANE_ALPHA_INVISIBLE
 		else
