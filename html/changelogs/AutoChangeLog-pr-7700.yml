@@ -1,0 +1,6 @@
+author: Tyranicranger4
+delete-after: true
+changes:
+  - rscadd: Adds an evidence storage room to the Corg Brig.
+  - tweak: Redoes the Medical area in the Corg Brig to better accommodate the new
+      evidence room.
