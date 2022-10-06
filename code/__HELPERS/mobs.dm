@@ -186,43 +186,49 @@ GLOBAL_LIST_EMPTY(species_list)
 
 /proc/do_mob(mob/user , mob/target, time = 30, uninterruptible = 0, progress = 1, datum/callback/extra_checks = null)
 	if(!user || !target)
-		return 0
+		return FALSE
 	var/user_loc = user.loc
 
 	var/drifting = FALSE
 	if(SSmove_manager.processing_on(user, SSspacedrift))
-		drifting = 1
+		drifting = TRUE
+
+	LAZYADD(user.do_afters, target)
+	LAZYADD(target.targeted_by, user)
 
 	var/target_loc = target.loc
 
 	var/holding = user.get_active_held_item()
 	var/datum/progressbar/progbar
-	if (progress)
+	if(progress)
 		progbar = new(user, time, target)
 
 	var/endtime = world.time+time
 	var/starttime = world.time
-	. = 1
-	while (world.time < endtime)
+	. = TRUE
+	while(world.time < endtime)
 		stoplag(1)
-		if (progress)
+		if(progress)
 			progbar.update(world.time - starttime)
 		if(QDELETED(user) || QDELETED(target))
-			. = 0
+			. = FALSE
 			break
 		if(uninterruptible)
 			continue
 
 		if(drifting && SSmove_manager.processing_on(user, SSspacedrift))
-			drifting = 0
+			drifting = FALSE
 			user_loc = user.loc
 
 		if((!drifting && user.loc != user_loc) || target.loc != target_loc || user.get_active_held_item() != holding || user.incapacitated() || (extra_checks && !extra_checks.Invoke()))
-			. = 0
+			. = FALSE
 			break
-	if (progress)
+	if(progress)
 		qdel(progbar)
 
+	if(!QDELETED(target))
+		LAZYREMOVE(user.do_afters, target)
+		LAZYREMOVE(target.targeted_by, user)
 
 //some additional checks as a callback for for do_afters that want to break on losing health or on the mob taking action
 /mob/proc/break_do_after_checks(list/checked_health, check_clicks)
@@ -240,7 +246,7 @@ GLOBAL_LIST_EMPTY(species_list)
 
 /proc/do_after(mob/user, var/delay, needhand = 1, atom/target = null, progress = 1, datum/callback/extra_checks = null)
 	if(!user)
-		return 0
+		return FALSE
 	var/atom/Tloc = null
 	if(target && !isturf(target))
 		Tloc = target.loc
@@ -251,51 +257,51 @@ GLOBAL_LIST_EMPTY(species_list)
 
 	var/atom/Uloc = user.loc
 
-	var/drifting = 0
+	var/drifting = FALSE
 	if(SSmove_manager.processing_on(user, SSspacedrift))
-		drifting = 1
+		drifting = TRUE
 
 	var/holding = user.get_active_held_item()
 
-	var/holdingnull = 1 //User's hand started out empty, check for an empty hand
+	var/holdingnull = TRUE //User's hand started out empty, check for an empty hand
 	if(holding)
-		holdingnull = 0 //Users hand started holding something, check to see if it's still holding that
+		holdingnull = FALSE //Users hand started holding something, check to see if it's still holding that
 
 	delay *= user.cached_multiplicative_actions_slowdown
 
 	var/datum/progressbar/progbar
-	if (progress)
+	if(progress)
 		progbar = new(user, delay, target)
 
 	var/endtime = world.time + delay
 	var/starttime = world.time
-	. = 1
-	while (world.time < endtime)
+	. = TRUE
+	while(world.time < endtime)
 		stoplag(1)
-		if (progress)
+		if(progress)
 			progbar.update(world.time - starttime)
 
 		if(drifting && SSmove_manager.processing_on(user, SSspacedrift))
-			drifting = 0
+			drifting = FALSE
 			Uloc = user.loc
 
 		if(QDELETED(user) || user.stat || (!drifting && user.loc != Uloc) || (extra_checks && !extra_checks.Invoke()))
-			. = 0
+			. = FALSE
 			break
 
 		if(isliving(user))
 			var/mob/living/L = user
 			if(L.IsStun() || L.IsParalyzed())
-				. = 0
+				. = FALSE
 				break
 
 		if(!QDELETED(Tloc) && (QDELETED(target) || Tloc != target.loc))
 			if((Uloc != Tloc || Tloc != user) && !drifting)
-				. = 0
+				. = FALSE
 				break
 
 		if(target && !(target in user.do_afters))
-			. = 0
+			. = FALSE
 			break
 
 		if(needhand)
@@ -303,72 +309,17 @@ GLOBAL_LIST_EMPTY(species_list)
 			//i.e the hand is used to pull some item/tool out of the construction
 			if(!holdingnull)
 				if(!holding)
-					. = 0
+					. = FALSE
 					break
 			if(user.get_active_held_item() != holding)
-				. = 0
+				. = FALSE
 				break
-	if (progress)
+	if(progress)
 		qdel(progbar)
 
 	if(!QDELETED(target))
 		LAZYREMOVE(user.do_afters, target)
 		LAZYREMOVE(target.targeted_by, user)
-
-
-/proc/do_after_mob(mob/user, list/targets, time = 30, uninterruptible = 0, progress = 1, datum/callback/extra_checks, required_mobility_flags = MOBILITY_STAND)
-	if(!user || !targets)
-		return 0
-	if(!islist(targets))
-		targets = list(targets)
-	var/user_loc = user.loc
-
-	time *= user.cached_multiplicative_actions_slowdown
-
-	var/drifting = FALSE
-	if(SSmove_manager.processing_on(user, SSspacedrift))
-		drifting = 1
-
-	var/list/originalloc = list()
-	for(var/atom/target in targets)
-		originalloc[target] = target.loc
-
-	var/holding = user.get_active_held_item()
-	var/datum/progressbar/progbar
-	if(progress)
-		progbar = new(user, time, targets[1])
-
-	var/endtime = world.time + time
-	var/starttime = world.time
-	var/mob/living/L
-	if(isliving(user))
-		L = user
-	. = 1
-	mainloop:
-		while(world.time < endtime)
-			stoplag(1)
-			if(progress)
-				progbar.update(world.time - starttime)
-			if(QDELETED(user) || !targets)
-				. = 0
-				break
-			if(uninterruptible)
-				continue
-
-			if(drifting && SSmove_manager.processing_on(user, SSspacedrift))
-				drifting = 0
-				user_loc = user.loc
-
-			if(L && !CHECK_MULTIPLE_BITFIELDS(L.mobility_flags, required_mobility_flags))
-				. = 0
-				break
-
-			for(var/atom/target in targets)
-				if((!drifting && user_loc != user.loc) || QDELETED(target) || originalloc[target] != target.loc || user.get_active_held_item() != holding || user.incapacitated() || (extra_checks && !extra_checks.Invoke()))
-					. = 0
-					break mainloop
-	if(progbar)
-		qdel(progbar)
 
 /proc/is_species(A, species_datum)
 	. = FALSE
@@ -454,10 +405,10 @@ GLOBAL_LIST_EMPTY(species_list)
 
 		switch(message_type)
 			if(DEADCHAT_DEATHRATTLE)
-				if(toggles & DISABLE_DEATHRATTLE)
+				if(toggles & PREFTOGGLE_DISABLE_DEATHRATTLE)
 					continue
 			if(DEADCHAT_ARRIVALRATTLE)
-				if(toggles & DISABLE_ARRIVALRATTLE)
+				if(toggles & PREFTOGGLE_DISABLE_ARRIVALRATTLE)
 					continue
 			if(DEADCHAT_LAWCHANGE)
 				if(!(chat_toggles & CHAT_GHOSTLAWS))
@@ -477,9 +428,9 @@ GLOBAL_LIST_EMPTY(species_list)
 				var/turf_link = TURF_LINK(M, turf_target)
 				rendered_message = "[turf_link] [message]"
 
-			to_chat(M, rendered_message)
+			to_chat(M, rendered_message, avoid_highlighting = speaker_key == M.key)
 		else
-			to_chat(M, message)
+			to_chat(M, message, avoid_highlighting = speaker_key == M.key)
 
 //Used in chemical_mob_spawn. Generates a random mob based on a given gold_core_spawnable value.
 /proc/create_random_mob(spawn_location, mob_class = HOSTILE_SPAWN)
@@ -547,3 +498,252 @@ GLOBAL_LIST_EMPTY(species_list)
 /// Gets the client of the mob, allowing for mocking of the client.
 /// You only need to use this if you know you're going to be mocking clients somewhere else.
 #define GET_CLIENT(mob) (##mob.client || ##mob.mock_client)
+
+///Return a string for the specified body zone. Should be used for parsing non-instantiated bodyparts, otherwise use [/obj/item/bodypart/var/plaintext_zone]
+/proc/parse_zone(zone)
+	if(zone == BODY_ZONE_PRECISE_R_HAND)
+		return "right hand"
+	else if (zone == BODY_ZONE_PRECISE_L_HAND)
+		return "left hand"
+	else if (zone == BODY_ZONE_L_ARM)
+		return "left arm"
+	else if (zone == BODY_ZONE_R_ARM)
+		return "right arm"
+	else if (zone == BODY_ZONE_L_LEG)
+		return "left leg"
+	else if (zone == BODY_ZONE_R_LEG)
+		return "right leg"
+	else if (zone == BODY_ZONE_PRECISE_L_FOOT)
+		return "left foot"
+	else if (zone == BODY_ZONE_PRECISE_R_FOOT)
+		return "right foot"
+	else
+		return zone
+
+///Returns the direction that the initiator and the target are facing
+/proc/check_target_facings(mob/living/initator, mob/living/target)
+	/*This can be used to add additional effects on interactions between mobs depending on how the mobs are facing each other, such as adding a crit damage to blows to the back of a guy's head.
+	Given how click code currently works (Nov '13), the initiating mob will be facing the target mob most of the time
+	That said, this proc should not be used if the change facing proc of the click code is overridden at the same time*/
+	if(!ismob(target) || !(target.mobility_flags & MOBILITY_STAND))
+	//Make sure we are not doing this for things that can't have a logical direction to the players given that the target would be on their side
+		return FALSE
+	if(initator.dir == target.dir) //mobs are facing the same direction
+		return FACING_SAME_DIR
+	if(is_source_facing_target(initator,target) && is_source_facing_target(target,initator)) //mobs are facing each other
+		return FACING_EACHOTHER
+	if(initator.dir + 2 == target.dir || initator.dir - 2 == target.dir || initator.dir + 6 == target.dir || initator.dir - 6 == target.dir) //Initating mob is looking at the target, while the target mob is looking in a direction perpendicular to the 1st
+		return FACING_INIT_FACING_TARGET_TARGET_FACING_PERPENDICULAR
+
+///Returns the occupant mob or brain from a specified input
+/proc/get_mob_or_brainmob(occupant)
+	var/mob/living/mob_occupant
+
+	if(isliving(occupant))
+		mob_occupant = occupant
+
+	else if(isbodypart(occupant))
+		var/obj/item/bodypart/head/head = occupant
+
+		mob_occupant = head.brainmob
+
+	else if(isorgan(occupant))
+		var/obj/item/organ/brain/brain = occupant
+		mob_occupant = brain.brainmob
+
+	return mob_occupant
+
+///Returns the amount of currently living players
+/proc/living_player_count()
+	var/living_player_count = 0
+	for(var/mob in GLOB.player_list)
+		if(mob in GLOB.alive_mob_list)
+			living_player_count += 1
+	return living_player_count
+
+GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
+
+///Version of view() which ignores darkness, because BYOND doesn't have it (I actually suggested it but it was tagged redundant, BUT HEARERS IS A T- /rant).
+/proc/dview(range = world.view, center, invis_flags = 0)
+	if(!center)
+		return
+
+	GLOB.dview_mob.loc = center
+
+	GLOB.dview_mob.see_invisible = invis_flags
+
+	. = view(range, GLOB.dview_mob)
+	GLOB.dview_mob.loc = null
+
+/mob/dview
+	name = "INTERNAL DVIEW MOB"
+	invisibility = 101
+	density = FALSE
+	see_in_dark = 1e6
+	move_resist = INFINITY
+	var/ready_to_die = FALSE
+
+/mob/dview/Initialize(mapload) //Properly prevents this mob from gaining huds or joining any global lists
+	SHOULD_CALL_PARENT(FALSE)
+	if(flags_1 & INITIALIZED_1)
+		stack_trace("Warning: [src]([type]) initialized multiple times!")
+	flags_1 |= INITIALIZED_1
+	return INITIALIZE_HINT_NORMAL
+
+/mob/dview/Destroy(force = FALSE)
+	if(!ready_to_die)
+		stack_trace("ALRIGHT WHICH FUCKER TRIED TO DELETE *MY* DVIEW?")
+
+		if (!force)
+			return QDEL_HINT_LETMELIVE
+
+		log_world("EVACUATE THE SHITCODE IS TRYING TO STEAL MUH JOBS")
+		GLOB.dview_mob = new
+	return ..()
+
+
+#define FOR_DVIEW(type, range, center, invis_flags) \
+	GLOB.dview_mob.loc = center;           \
+	GLOB.dview_mob.see_invisible = invis_flags; \
+	for(type in view(range, GLOB.dview_mob))
+
+#define FOR_DVIEW_END GLOB.dview_mob.loc = null
+
+///Makes a call in the context of a different usr. Use sparingly
+/world/proc/push_usr(mob/user_mob, datum/callback/invoked_callback, ...)
+	var/temp = usr
+	usr = user_mob
+	if (length(args) > 2)
+		. = invoked_callback.Invoke(arglist(args.Copy(3)))
+	else
+		. = invoked_callback.Invoke()
+	usr = temp
+
+/proc/invertDir(var/input_dir)
+	switch(input_dir)
+		if(UP)
+			return DOWN
+		if(DOWN)
+			return UP
+		if(-INFINITY to 0, 11 to INFINITY)
+			CRASH("Can't turn invalid directions!")
+	return turn(input_dir, 180)
+
+
+///////////////////////
+///Silicon Mob Procs///
+///////////////////////
+
+/// Returns a list of unslaved cyborgs
+/proc/active_free_borgs()
+	. = list()
+	for(var/mob/living/silicon/robot/borg in GLOB.silicon_mobs)
+		if(borg.connected_ai || borg.shell)
+			continue
+		if(borg.stat == DEAD)
+			continue
+		if(borg.emagged || borg.scrambledcodes)
+			continue
+		. += borg
+
+/// Returns a list of AI's
+/proc/active_ais(check_mind=FALSE)
+	. = list()
+	for(var/mob/living/silicon/ai/ai as anything in GLOB.ai_list)
+		if(ai.stat == DEAD)
+			continue
+		if(ai.control_disabled)
+			continue
+		if(check_mind)
+			if(!ai.mind)
+				continue
+		. += ai
+
+/// Find an active ai with the least borgs. VERBOSE PROCNAME HUH!
+/proc/select_active_ai_with_fewest_borgs()
+	var/mob/living/silicon/ai/selected
+	var/list/active = active_ais()
+	for(var/mob/living/silicon/ai/A in active)
+		if((!selected || (selected.connected_robots.len > A.connected_robots.len)) && !is_servant_of_ratvar(A))
+			selected = A
+
+	return selected
+
+/// Select a random active and free borg
+/proc/select_active_free_borg(mob/user)
+	var/list/borgs = active_free_borgs()
+	if(borgs.len)
+		if(user)
+			. = input(user,"Unshackled cyborg signals detected:", "Cyborg Selection", borgs[1]) in sortList(borgs)
+		else
+			. = pick(borgs)
+	return .
+
+/// Select a random and active free AI
+/proc/select_active_ai(mob/user)
+	var/list/ais = active_ais()
+	if(ais.len)
+		if(user)
+			. = input(user,"AI signals detected:", "AI Selection", ais[1]) in sortList(ais)
+		else
+			. = pick(ais)
+	return .
+
+//// Generalised helper proc for letting mobs rename themselves. Used to be clname() and ainame()
+/mob/proc/apply_pref_name(role, client/C)
+	if(!C)
+		C = client
+	var/oldname = real_name
+	var/newname
+	var/loop = 1
+	var/safety = 0
+
+	var/banned = C ? is_banned_from(C.ckey, "Appearance") : null
+
+	while(loop && safety < 5)
+		if(C?.prefs.active_character.custom_names[role] && !safety && !banned)
+			newname = C.prefs.active_character.custom_names[role]
+		else
+			switch(role)
+				if("human")
+					newname = random_unique_name(gender)
+				if("clown")
+					newname = pick(GLOB.clown_names)
+				if("mime")
+					newname = pick(GLOB.mime_names)
+				if("ai")
+					newname = pick(GLOB.ai_names)
+				else
+					return FALSE
+
+		for(var/mob/living/M in GLOB.player_list)
+			if(M == src)
+				continue
+			if(!newname || M.real_name == newname)
+				newname = null
+				loop++ // name is already taken so we roll again
+				break
+		loop--
+		safety++
+
+	if(newname)
+		fully_replace_character_name(oldname,newname)
+		return TRUE
+	return FALSE
+
+/proc/view_or_range(distance = world.view , center = usr , type)
+	switch(type)
+		if("view")
+			. = view(distance,center)
+		if("range")
+			. = range(distance,center)
+	return
+
+//Currently not used
+/proc/oview_or_orange(distance = world.view , center = usr , type)
+	switch(type)
+		if("view")
+			. = oview(distance,center)
+		if("range")
+			. = orange(distance,center)
+	return

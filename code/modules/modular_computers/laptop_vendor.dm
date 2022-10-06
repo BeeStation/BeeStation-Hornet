@@ -56,6 +56,7 @@
 		var/obj/item/computer_hardware/battery/battery_module = null
 		if(fabricate)
 			fabricated_laptop = new /obj/item/modular_computer/laptop/buildable(src)
+			fabricated_laptop.install_component(new /obj/item/computer_hardware/card_slot)
 			fabricated_laptop.install_component(new /obj/item/computer_hardware/battery)
 			battery_module = fabricated_laptop.all_components[MC_CELL]
 		total_price = 99
@@ -111,7 +112,7 @@
 		if(dev_card)
 			total_price += 199
 			if(fabricate)
-				fabricated_laptop.install_component(new /obj/item/computer_hardware/card_slot)
+				fabricated_laptop.install_component(new /obj/item/computer_hardware/card_slot/secondary)
 
 		ui_update()
 		return total_price
@@ -121,6 +122,7 @@
 			fabricated_tablet = new(src)
 			fabricated_tablet.install_component(new /obj/item/computer_hardware/battery)
 			fabricated_tablet.install_component(new /obj/item/computer_hardware/processor_unit/small)
+			fabricated_tablet.install_component(new/obj/item/computer_hardware/card_slot)
 			battery_module = fabricated_tablet.all_components[MC_CELL]
 		total_price = 199
 		switch(dev_battery)
@@ -159,11 +161,11 @@
 		if(dev_printer)
 			total_price += 99
 			if(fabricate)
-				fabricated_tablet.install_component(new/obj/item/computer_hardware/printer)
+				fabricated_tablet.install_component(new/obj/item/computer_hardware/printer/mini)
 		if(dev_card)
 			total_price += 199
 			if(fabricate)
-				fabricated_tablet.install_component(new/obj/item/computer_hardware/card_slot)
+				fabricated_tablet.install_component(new/obj/item/computer_hardware/card_slot/secondary)
 		ui_update()
 		return total_price
 	ui_update()
@@ -233,7 +235,7 @@
 	return GLOB.default_state
 
 /obj/machinery/lapvend/ui_interact(mob/user, datum/tgui/ui)
-	if(stat & (BROKEN | NOPOWER | MAINT))
+	if(machine_stat & (BROKEN | NOPOWER | MAINT))
 		if(ui)
 			ui.close()
 		return FALSE
@@ -270,7 +272,7 @@
 			say("Insufficient money on card to purchase!")
 			return
 		credits += target_credits
-		say("$[target_credits] has been deposited from your account.")
+		say("[target_credits] cr have been withdrawn from your account.")
 		ui_update()
 		return
 	return ..()

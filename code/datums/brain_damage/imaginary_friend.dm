@@ -65,6 +65,7 @@
 	mouse_opacity = MOUSE_OPACITY_OPAQUE
 	see_invisible = SEE_INVISIBLE_LIVING
 	invisibility = INVISIBILITY_MAXIMUM
+	can_hear_init = TRUE // Enable hearing sensitive trait
 	var/icon/human_image
 	var/image/current_image
 	var/hidden = FALSE
@@ -99,6 +100,20 @@
 	hide = new
 	hide.Grant(src)
 
+	// Update icon on turn
+	RegisterSignal(src, COMSIG_ATOM_DIR_CHANGE, .proc/Show)
+
+	// Hear owner if they're out of range
+	RegisterSignal(owner, COMSIG_MOB_SAY, .proc/owner_speech)
+
+/mob/camera/imaginary_friend/Destroy()
+	qdel(join)
+	qdel(hide)
+	UnregisterSignal(src, COMSIG_ATOM_DIR_CHANGE)
+	if(owner)
+		UnregisterSignal(owner, COMSIG_MOB_SAY)
+	return ..()
+
 /mob/camera/imaginary_friend/proc/setup_friend()
 	var/gender = pick(MALE, FEMALE)
 	real_name = owner.dna.species.random_name(gender)
@@ -106,6 +121,7 @@
 	human_image = get_flat_human_icon(null, pick(SSjob.occupations))
 
 /mob/camera/imaginary_friend/proc/Show()
+	SIGNAL_HANDLER
 	if(!client) //nobody home
 		return
 
@@ -135,6 +151,13 @@
 		client.images.Remove(human_image)
 	return ..()
 
+/mob/camera/imaginary_friend/proc/owner_speech(speaker, speech_args)
+	SIGNAL_HANDLER
+	var/list/listening = get_hearers_in_view(6, owner, SEE_INVISIBLE_MAXIMUM)
+	if(!(src in listening))
+		to_chat(src, "<span class='hear'>You hear a distant voice in your head...</span>")
+		to_chat(src, "<span class='game say'><span class='name'>[speaker]</span> <span class='message'>[say_quote(speech_args[SPEECH_MESSAGE])]</span></span>")
+
 /mob/camera/imaginary_friend/say(message, bubble_type, var/list/spans = list(), sanitize = TRUE, datum/language/language = null, ignore_spam = FALSE, forced = null)
 	if (!message)
 		return
@@ -148,25 +171,37 @@
 
 	friend_talk(message)
 
+/mob/camera/imaginary_friend/Hear(message, atom/movable/speaker, datum/language/message_language, raw_message, radio_freq, list/spans, message_mode)
+	to_chat(src, compose_message(speaker, message_language, raw_message, radio_freq, spans, message_mode))
+
 /mob/camera/imaginary_friend/proc/friend_talk(message)
-	message = capitalize(trim(copytext_char(sanitize(message), 1, MAX_MESSAGE_LEN)))
+	message = treat_message_min(trim(copytext_char(sanitize(message), 1, MAX_MESSAGE_LEN)))
 
 	if(!message)
 		return
 
 	src.log_talk(message, LOG_SAY, tag="imaginary friend")
 
+	// Display message
+	var/owner_chat_map = owner.client?.prefs.toggles & (PREFTOGGLE_RUNECHAT_GLOBAL | PREFTOGGLE_RUNECHAT_NONMOBS)
+	var/friend_chat_map = client?.prefs.toggles & (PREFTOGGLE_RUNECHAT_GLOBAL | PREFTOGGLE_RUNECHAT_NONMOBS)
+	if (!owner_chat_map)
+		var/mutable_appearance/MA = mutable_appearance('icons/mob/talk.dmi', src, "default[say_test(message)]", FLY_LAYER)
+		MA.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
+		INVOKE_ASYNC(GLOBAL_PROC, /proc/flick_overlay, MA, list(owner.client), 30)
+
+	if(owner_chat_map || friend_chat_map)
+		var/list/hearers = list()
+		if(friend_chat_map)
+			hearers += client
+		if(owner_chat_map)
+			hearers += owner.client
+		
 	var/rendered = "<span class='game say'><span class='name'>[name]</span> <span class='message'>[say_quote(message)]</span></span>"
 	var/dead_rendered = "<span class='game say'><span class='name'>[name] (Imaginary friend of [owner])</span> <span class='message'>[say_quote(message)]</span></span>"
 
 	to_chat(owner, "[rendered]")
 	to_chat(src, "[rendered]")
-
-	//speech bubble
-	if(owner.client)
-		var/mutable_appearance/MA = mutable_appearance('icons/mob/talk.dmi', src, "default[say_test(message)]", FLY_LAYER)
-		MA.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
-		INVOKE_ASYNC(GLOBAL_PROC, /proc/flick_overlay, MA, list(owner.client), 30)
 
 	for(var/mob/M in GLOB.dead_mob_list)
 		var/link = FOLLOW_LINK(M, owner)
@@ -190,6 +225,26 @@
 	if(!owner || loc == owner)
 		return FALSE
 	abstract_move(owner)
+
+/mob/camera/imaginary_friend/pointed(atom/A as mob|obj|turf in view())
+	if(!..())
+		return FALSE
+	to_chat(owner, "<b>[src]</b> points at [A].")
+	to_chat(src, "<span class='notice'>You point at [A].</span>")
+
+	var/turf/our_tile = get_turf(src)
+	var/turf/tile = get_turf(A)
+	var/image/arrow = image(icon = 'icons/mob/screen_gen.dmi', loc = our_tile, icon_state = "arrow", layer = POINT_LAYER)
+	animate(arrow, pixel_x = (tile.x - our_tile.x) * world.icon_size + A.pixel_x, pixel_y = (tile.y - our_tile.y) * world.icon_size + A.pixel_y, time = 1.7, easing = EASE_OUT)
+	owner?.client?.images += arrow
+	client?.images += arrow
+	addtimer(CALLBACK(src, .proc/remove_arrow, arrow, client, owner?.client), 2.5 SECONDS)
+	return TRUE
+
+/mob/camera/imaginary_friend/proc/remove_arrow(image/arrow, client/client_1, client/client_2)
+	client_1?.images -= arrow
+	client_2?.images -= arrow
+	qdel(arrow)
 
 /datum/action/innate/imaginary_join
 	name = "Join"

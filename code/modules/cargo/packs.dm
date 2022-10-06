@@ -1003,7 +1003,6 @@
 	name = "Shield Generator Satellite"
 	desc = "Protect the very existence of this station with these Anti-Meteor defenses. Contains three Shield Generator Satellites."
 	cost = 3000
-	special = TRUE
 	access_budget = ACCESS_HEADS
 	contains = list(
 					/obj/machinery/satellite/meteor_shield,
@@ -1017,7 +1016,6 @@
 	name = "Shield System Control Board"
 	desc = "A control system for the Shield Generator Satellite system."
 	cost = 5000
-	special = TRUE
 	access_budget = ACCESS_HEADS
 	contains = list(/obj/item/circuitboard/computer/sat_control)
 	crate_name= "shield control board crate"
@@ -2477,6 +2475,13 @@
 	cost = 2500
 	contains = list(/mob/living/simple_animal/hostile/retaliate/goat)
 	crate_name = "goat crate"
+
+/datum/supply_pack/critter/mothroach
+	name = "Mothroach Crate"
+	desc = "Put the mothroach on your head and find out what true cuteness looks like."
+	cost = 5000
+	contains = list(/mob/living/simple_animal/mothroach)
+	crate_name = "mothroach crate"
 
 /datum/supply_pack/critter/monkey
 	name = "Monkey Cube Crate"

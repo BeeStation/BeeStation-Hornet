@@ -250,10 +250,10 @@
 		return ..()
 
 /obj/machinery/photocopier/obj_break(damage_flag)
-	if(!(flags_1 & NODECONSTRUCT_1))
-		if(toner > 0)
-			new /obj/effect/decal/cleanable/oil(get_turf(src))
-			toner = 0
+	. = ..()
+	if(. && toner > 0)
+		new /obj/effect/decal/cleanable/oil(get_turf(src))
+		toner = 0
 
 /obj/machinery/photocopier/MouseDrop_T(mob/target, mob/user)
 	check_ass() //Just to make sure that you can re-drag somebody onto it after they moved off.
@@ -331,6 +331,10 @@
 	grind_results = list(/datum/reagent/iodine = 40, /datum/reagent/iron = 10)
 	var/charges = 5
 	var/max_charges = 5
+
+/obj/item/toner/examine(mob/user)
+	. = ..()
+	. += "<span class='notice'>The ink level gauge on the side reads [round(charges / max_charges * 100)]%</span>"
 
 /obj/item/toner/large
 	name = "large toner cartridge"

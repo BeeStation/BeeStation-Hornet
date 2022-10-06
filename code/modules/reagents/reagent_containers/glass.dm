@@ -316,6 +316,8 @@
 		. += "<span class='notice'>The cap has been taken off. Alt-click to put a cap on.</span>"
 
 /obj/item/reagent_containers/glass/waterbottle/AltClick(mob/user)
+	if(!user.canUseTopic(src, BE_CLOSE))
+		return
 	if(cap_lost)
 		to_chat(user, "<span class='warning'>The cap seems to be missing! Where did it go?</span>")
 		return
@@ -415,6 +417,8 @@
 	var/obj/item/grinded
 
 /obj/item/reagent_containers/glass/mortar/AltClick(mob/user)
+	if(!user.canUseTopic(src, BE_CLOSE))
+		return
 	if(grinded)
 		grinded.forceMove(drop_location())
 		grinded = null

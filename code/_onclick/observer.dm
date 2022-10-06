@@ -34,7 +34,7 @@
 		ShiftClickOn(A)
 		return
 	if(modifiers["alt"])
-		AltClickNoInteract(src, A)
+		AltClickOn(A)
 		return
 	if(modifiers["ctrl"])
 		CtrlClickOn(A)
@@ -55,7 +55,7 @@
 			return TRUE
 		else if(IsAdminGhost(user))
 			attack_ai(user)
-		else if(user.client.prefs.inquisitive_ghost)
+		else if(user.client.prefs.toggles2 & PREFTOGGLE_2_GHOST_INQUISITIVENESS)
 			user.examinate(src)
 	return FALSE
 

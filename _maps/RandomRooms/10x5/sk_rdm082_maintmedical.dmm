@@ -1,8 +1,8 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
-/obj/structure/bed,
-/obj/item/bedsheet/random,
 /obj/effect/decal/cleanable/vomit/old,
+/obj/structure/bed/maint,
+/obj/item/bedsheet/random,
 /turf/open/floor/plating,
 /area/template_noop)
 "b" = (
@@ -62,7 +62,6 @@
 /turf/open/floor/plasteel,
 /area/template_noop)
 "h" = (
-/obj/structure/table,
 /obj/item/reagent_containers/glass/bottle/carbon{
 	pixel_x = 6
 	},
@@ -181,8 +180,8 @@
 /turf/open/floor/plasteel,
 /area/template_noop)
 "t" = (
-/obj/structure/bed,
 /obj/item/bedsheet/random,
+/obj/structure/bed/maint,
 /turf/open/floor/plating,
 /area/template_noop)
 "u" = (

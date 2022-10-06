@@ -365,6 +365,10 @@
 		var/message = stripped_input(user, "Write a message to send to your target's brain.","Enter message")
 		if(!message)
 			return
+		if(CHAT_FILTER_CHECK(message))
+			to_chat(user, "<span class='warning'>Your message contains forbidden words.</span>")
+			return
+		message = user.treat_message_min(message)
 		if(QDELETED(L) || L.stat == DEAD)
 			return
 

@@ -106,6 +106,9 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	area_flags = BLOBS_ALLOWED | UNIQUE_AREA
 	mood_bonus = -1
 	mood_message = "<span class='warning'>It's kind of cramped in here!\n</span>"
+	// assistants are associated with maints, jani closet is in maints, engis have to go into maints often
+	mood_job_allowed = list(JOB_NAME_ASSISTANT, JOB_NAME_JANITOR, JOB_NAME_STATIONENGINEER, JOB_NAME_CHIEFENGINEER, JOB_NAME_ATMOSPHERICTECHNICIAN)
+	mood_job_reverse = TRUE
 	lighting_colour_tube = "#ffe5cb"
 	lighting_colour_bulb = "#ffdbb4"
 
@@ -618,6 +621,11 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	lighting_colour_bulb = "#ffebc1"
 	sound_environment = SOUND_AREA_WOODFLOOR
 
+/area/crew_quarters/bar/mood_check(mob/living/carbon/subject)
+	if(istype(subject) && HAS_TRAIT(subject, TRAIT_LIGHT_DRINKER))
+		return FALSE
+	return ..()
+
 /area/crew_quarters/bar/lounge
 	name = "Bar lounge"
 	icon_state = "lounge"
@@ -1025,6 +1033,9 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Brig"
 	icon_state = "brig"
 	mood_bonus = -3
+	mood_job_allowed = list(JOB_NAME_HEADOFSECURITY,JOB_NAME_WARDEN,JOB_NAME_SECURITYOFFICER,JOB_NAME_BRIGPHYSICIAN,JOB_NAME_DETECTIVE)
+	mood_job_reverse = TRUE
+
 	mood_message = "<span class='warning'>I hate cramped brig cells.\n</span>"
 
 /area/security/courtroom
@@ -1036,6 +1047,8 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Prison Wing"
 	icon_state = "sec_prison"
 	mood_bonus = -4
+	mood_job_allowed = list(JOB_NAME_HEADOFSECURITY,JOB_NAME_WARDEN, JOB_NAME_SECURITYOFFICER)  // JUSTICE!
+	mood_job_reverse = TRUE
 	mood_message = "<span class='warning'>I'm trapped here with little hope of escape!\n</span>"
 
 /area/security/processing
@@ -1427,6 +1440,9 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Armory"
 	icon_state = "armory"
 	ambience_index = AMBIENCE_DANGER
+	mood_job_allowed = list(JOB_NAME_WARDEN)
+	mood_bonus = 1
+	mood_message = "<span class='nicegreen'>It's good to be home.</span>"
 
 /area/ai_monitored/storage/eva
 	name = "EVA Storage"
@@ -1447,6 +1463,9 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "AI Upload Chamber"
 	icon_state = "ai_upload"
 	sound_environment = SOUND_AREA_SMALL_ENCLOSED
+	mood_job_allowed = list(JOB_NAME_RESEARCHDIRECTOR, JOB_NAME_CAPTAIN)
+	mood_bonus = 4
+	mood_message = "<span class='nicegreen'>The AI will bend to my will!\n</span>"
 
 /area/ai_monitored/turret_protected/ai_upload_foyer
 	name = "AI Upload Access"
@@ -1507,11 +1526,15 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	clockwork_warp_fail = "For safety reasons, warping here is disallowed; the radio and bluespace noise could cause catastrophic results."
 	ambientsounds = list('sound/ambience/ambisin2.ogg', 'sound/ambience/signal.ogg', 'sound/ambience/signal.ogg', 'sound/ambience/ambigen10.ogg', 'sound/ambience/ambitech.ogg',\
 											'sound/ambience/ambitech2.ogg', 'sound/ambience/ambitech3.ogg', 'sound/ambience/ambimystery.ogg')
+	network_root_id = STATION_NETWORK_ROOT	// They should of unpluged the router before they left
 
 /area/tcommsat/computer
 	name = "Telecomms Control Room"
 	icon_state = "tcom_sat_comp"
 	sound_environment = SOUND_AREA_MEDIUM_SOFTFLOOR
+	mood_job_allowed = list(JOB_NAME_CHIEFENGINEER, JOB_NAME_STATIONENGINEER)
+	mood_bonus = 2
+	mood_message = "<span class='nicegreen'>It's good to see these in working order.\n</span>"
 
 /area/tcommsat/server
 	name = "Telecomms Server Room"

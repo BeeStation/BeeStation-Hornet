@@ -1,7 +1,7 @@
 /datum/job/captain
 	title = JOB_NAME_CAPTAIN
 	flag = CAPTAIN
-	auto_deadmin_role_flags = DEADMIN_POSITION_HEAD|DEADMIN_POSITION_SECURITY
+	auto_deadmin_role_flags = PREFTOGGLE_DEADMIN_POSITION_HEAD|PREFTOGGLE_DEADMIN_POSITION_SECURITY
 	department_head = list("CentCom")
 	department_flag = ENGSEC
 	faction = "Station"

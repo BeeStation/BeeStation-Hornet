@@ -218,6 +218,13 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 		return
 	var/deaf_message
 	var/deaf_type
+	var/avoid_highlight
+	if(istype(speaker, /atom/movable/virtualspeaker))
+		var/atom/movable/virtualspeaker/virt = speaker
+		avoid_highlight = src == virt.source
+	else
+		avoid_highlight = src == speaker
+
 	if(speaker != src)
 		if(!radio_freq) //These checks have to be seperate, else people talking on the radio will make "You can't hear yourself!" appear when hearing people over the radio while deaf.
 			deaf_message = "<span class='name'>[speaker]</span> [speaker.verb_say] something but you cannot hear [speaker.p_them()]."
@@ -229,7 +236,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	// Recompose message for AI hrefs, language incomprehension.
 	message = compose_message(speaker, message_language, raw_message, radio_freq, spans, message_mods)
 
-	show_message(message, MSG_AUDIBLE, deaf_message, deaf_type)
+	show_message(message, MSG_AUDIBLE, deaf_message, deaf_type, avoid_highlight)
 	return message
 
 /mob/living/send_speech(message, message_range = 6, obj/source = src, bubble_type = bubble_icon, list/spans, datum/language/message_language=null, list/message_mods = list())
@@ -237,7 +244,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	var/eavesdrop_range = 0
 	if(message_mods[WHISPER_MODE]) //If we're whispering
 		eavesdrop_range = EAVESDROP_EXTRA_RANGE
-	var/list/listening = get_hearers_in_view(message_range+eavesdrop_range, source, SEE_INVISIBLE_OBSERVER)
+	var/list/listening = get_hearers_in_view(message_range+eavesdrop_range, source, SEE_INVISIBLE_MAXIMUM)
 	var/list/the_dead = list()
 	for(var/mob/M as() in GLOB.player_list)
 		if(!M)				//yogs
@@ -245,14 +252,14 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 		if(M.stat != DEAD) //not dead, not important
 			continue
 		if(!M.client || !client) //client is so that ghosts don't have to listen to mice
-			listening -= M // remove (added by SEE_INVISIBLE_OBSERVER)
+			listening -= M // remove (added by SEE_INVISIBLE_MAXIMUM)
 			continue
 		if(get_dist(M, src) > 7 || M.get_virtual_z_level() != get_virtual_z_level()) //they're out of range of normal hearing
 			if(eavesdrop_range && !(M.client.prefs.chat_toggles & CHAT_GHOSTWHISPER)) //they're whispering and we have hearing whispers at any range off
-				listening -= M // remove (added by SEE_INVISIBLE_OBSERVER)
+				listening -= M // remove (added by SEE_INVISIBLE_MAXIMUM)
 				continue
 			if(!(M.client.prefs.chat_toggles & CHAT_GHOSTEARS)) //they're talking normally and we have hearing at any range off
-				listening -= M // remove (added by SEE_INVISIBLE_OBSERVER)
+				listening -= M // remove (added by SEE_INVISIBLE_MAXIMUM)
 				continue
 		listening |= M
 		the_dead[M] = TRUE
@@ -288,7 +295,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	//speech bubble
 	var/list/speech_bubble_recipients = list()
 	for(var/mob/M in listening)
-		if(M.client && !M.client.prefs.chat_on_map)
+		if(M.client && !(M.client.prefs.toggles & PREFTOGGLE_RUNECHAT_GLOBAL))
 			speech_bubble_recipients.Add(M.client)
 	var/image/I = image('icons/mob/talk.dmi', src, "[bubble_type][say_test(message)]", FLY_LAYER)
 	I.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
@@ -357,13 +364,14 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	if(clockslurring)
 		message = clockslur(message)
 
-	// check for and apply punctuation
+	return treat_message_min(message)
+
+/mob/proc/treat_message_min(message)
 	var/end = copytext(message, length(message))
 	if(!(end in list("!", ".", "?", ":", "\"", "-", "~")))
 		message += "."
 
 	message = capitalize(message)
-
 	return message
 
 /mob/living/proc/radio(message, list/message_mods = list(), list/spans, language)

@@ -1024,6 +1024,17 @@
 		log_admin("[key_name(usr)] AIized [key_name(H)].")
 		H.AIize(TRUE, H.client)
 
+	else if(href_list["makepai"])
+		if(!check_rights(R_SPAWN))
+			return
+		var/mob/H = locate(href_list["makepai"])
+		if(!istype(H))
+			to_chat(usr, "This can only be used on instances of type /mob.")
+			return
+		message_admins("<span class='danger'>Admin [key_name_admin(usr)] PAI'd [key_name_admin(H)]!</span>")
+		log_admin("[key_name(usr)] PAI'd [key_name(H)].")
+		H.makePAI(TRUE)
+
 	else if(href_list["makealien"])
 		if(!check_rights(R_SPAWN))
 			return

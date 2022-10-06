@@ -209,15 +209,19 @@
 
 /mob/living/silicon/robot/lighteater_act(obj/item/light_eater/light_eater)
 	..()
-	if(!lamp_cooldown)
-		update_headlamp(TRUE, INFINITY)
-		to_chat(src, "<span class='danger'>Your headlamp is fried! You'll need a human to help replace it.</span>")
+	if(lamp_enabled)
+		smash_headlamp()
 
 /obj/structure/bonfire/lighteater_act(obj/item/light_eater/light_eater)
 	if(burning)
 		extinguish()
 		playsound(src, 'sound/items/cig_snuff.ogg', 50, 1)
 	..()
+
+/obj/structure/glowshroom/lighteater_act(obj/item/light_eater/light_eater)
+	..()
+	if (light_power > 0)
+		acid_act()
 
 /obj/item/lighteater_act(obj/item/light_eater/light_eater)
 	..()
@@ -230,7 +234,7 @@
 
 
 /obj/item/pda/lighteater_act(obj/item/light_eater/light_eater)
-	if(light_range && light_power && light_on)
+	if(light_range && light_power > 0 && light_on)
 		//Eject the ID card
 		if(id)
 			id.forceMove(get_turf(src))

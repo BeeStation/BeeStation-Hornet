@@ -33,6 +33,10 @@
 
 	var/mood_bonus = 0 //Mood for being here
 	var/mood_message = "<span class='nicegreen'>This area is pretty nice!\n</span>" //Mood message for being here, only shows up if mood_bonus != 0
+	/// if defined, restricts what jobs get this buff using JOB_NAME defines (-candycane/etherware)
+	var/list/mood_job_allowed = null
+	/// if true, mood_job_allowed will represent jobs exempt from getting the mood.
+	var/mood_job_reverse = FALSE
 
 	///Will objects this area be needing power?
 	var/requires_power = TRUE
@@ -93,6 +97,10 @@
 	///Lazylist that contains additional turfs that map generation should be ran on. This is used for ruins which need a noop turf under non-noop areas so they don't leave genturfs behind.
 	var/list/additional_genturfs
 
+	/// Default network root for this area aka station, lavaland, etc
+	var/network_root_id = null
+	/// Area network id when you want to find all devices hooked up to this area
+	var/network_area_id = null
 
 /**
   * A list of teleport locations
@@ -184,6 +192,10 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 		lighting_overlay.alpha = lighting_overlay_opacity
 		add_overlay(lighting_overlay)
 	reg_in_areas_in_z()
+	if(!mapload)
+		if(!network_root_id)
+			network_root_id = STATION_NETWORK_ROOT // default to station root because this might be created with a blueprint
+		SSnetworks.assign_area_network_id(src)
 
 	return INITIALIZE_HINT_LATELOAD
 
@@ -349,7 +361,7 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 					if(A.fire)
 						cont = FALSE
 						break
-			if(cont && D.is_operational())
+			if(cont && D.is_operational)
 				if(D.operating)
 					D.nextstate = opening ? FIREDOOR_OPEN : FIREDOOR_CLOSED
 				else if(!(D.density ^ opening))
@@ -606,23 +618,23 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 /**
   * Call back when an atom enters an area
   *
-  * Sends signals COMSIG_AREA_ENTERED and COMSIG_ENTER_AREA (to the atom)
+  * Sends signals COMSIG_AREA_ENTERED and COMSIG_MOVABLE_ENTERED_AREA (to the atom)
   *
   * If the area has ambience, then it plays some ambience music to the ambience channel
   */
 /area/Entered(atom/movable/arrived, area/old_area)
 	set waitfor = FALSE
 	SEND_SIGNAL(src, COMSIG_AREA_ENTERED, arrived, old_area)
-	SEND_SIGNAL(arrived, COMSIG_ENTER_AREA, src) //The atom that enters the area
+	SEND_SIGNAL(arrived, COMSIG_MOVABLE_ENTERED_AREA, src) //The atom that enters the area
 
 /**
   * Called when an atom exits an area
   *
-  * Sends signals COMSIG_AREA_EXITED and COMSIG_EXIT_AREA (to the atom)
+  * Sends signals COMSIG_AREA_EXITED and COMSIG_MOVABLE_EXITTED_AREA (to the atom)
   */
 /area/Exited(atom/movable/gone, direction)
 	SEND_SIGNAL(src, COMSIG_AREA_EXITED, gone, direction)
-	SEND_SIGNAL(gone, COMSIG_EXIT_AREA, src) //The atom that exits the area
+	SEND_SIGNAL(gone, COMSIG_MOVABLE_EXITTED_AREA, src) //The atom that exits the area
 
 /**
   * Returns true if this atom has gravity for the passed in turf or other gravity-mimicking behaviors
@@ -711,7 +723,7 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	CRASH("Bad op: area/drop_location() called")
 
 /// A hook so areas can modify the incoming args (of what??)
-/area/proc/PlaceOnTopReact(list/new_baseturfs, turf/fake_turf_type, flags)
+/area/proc/PlaceOnTopReact(turf/T, list/new_baseturfs, turf/fake_turf_type, flags)
 	return flags
 
 /// Gets an areas virtual z value. For having multiple areas on the same z-level treated mechanically as different z-levels
@@ -720,3 +732,17 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 
 /area/get_virtual_z_level()
 	return get_virtual_z(get_turf(src))
+
+/// if it returns true, the mood effect assigned to the area is defined. Defaults to checking mood_job_allowed
+/area/proc/mood_check(mob/living/carbon/subject)
+	if(!mood_bonus)
+		return FALSE
+
+	. = TRUE
+
+	if(!length(mood_job_allowed))
+		return .
+	if(!(subject.mind?.assigned_role in mood_job_allowed))
+		. = FALSE
+	if(mood_job_reverse)
+		return !.  // the most eye bleeding syntax ive written

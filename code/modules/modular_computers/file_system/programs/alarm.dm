@@ -2,15 +2,14 @@
 	filename = "alarmmonitor"
 	filedesc = "Alarm Monitor"
 	ui_header = "alarm_green.gif"
+	category = PROGRAM_CATEGORY_ENGI
 	program_icon_state = "alert-green"
 	extended_desc = "This program provides visual interface for station's alarm system."
 	requires_ntnet = 1
 	network_destination = "alarm monitoring network"
 	size = 5
 	tgui_id = "NtosStationAlertConsole"
-
-
-
+	program_icon = "bell"
 	var/has_alert = 0
 
 /datum/computer_file/program/alarm_monitor/process_tick()
@@ -115,6 +114,8 @@
 
 /datum/computer_file/program/alarm_monitor/run_program(mob/user)
 	. = ..(user)
+	if(!.)
+		return
 	GLOB.alarmdisplay += src
 
 /datum/computer_file/program/alarm_monitor/kill_program(forced = FALSE)

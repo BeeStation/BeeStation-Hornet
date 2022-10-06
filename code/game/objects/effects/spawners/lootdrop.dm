@@ -236,7 +236,6 @@
 		/obj/item/organ/vocal_cords/adamantine = 1,
 		/obj/effect/gibspawner/xeno = 1,
 		/obj/effect/mob_spawn/human/corpse/assistant = 1,
-		/obj/effect/mob_spawn/teratomamonkey = 1,
 		/obj/item/organ/wings/moth/robust = 1,
 		/obj/item/organ/wings/dragon = 1)
 
@@ -432,7 +431,9 @@
 				/obj/item/circuitboard/computer/nanite_cloud_controller,
 				/obj/item/circuitboard/machine/nanite_chamber,
 				/obj/item/circuitboard/machine/nanite_programmer,
-				/obj/item/circuitboard/machine/nanite_program_hub
+				/obj/item/circuitboard/machine/nanite_program_hub,
+				/obj/item/circuitboard/machine/xenoartifact_inbox,
+				/obj/item/circuitboard/computer/xenoartifact_console
 				)
 
 /obj/effect/spawner/lootdrop/techstorage/security

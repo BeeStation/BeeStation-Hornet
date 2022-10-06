@@ -146,65 +146,55 @@
 /obj/item/borg/cyborghug/medical
 	boop = TRUE
 
+#define MODE_DRAW "draw"
+#define MODE_CHARGE "charge"
+
 /obj/item/borg/charger
 	name = "power connector"
 	icon_state = "charger_draw"
 	item_flags = NOBLUDGEON
-	var/mode = "draw"
+	var/mode = MODE_DRAW
+	var/work_mode	// mode the loops have been started with, to check with do_after
 	var/active = FALSE
+	var/cyborg_minimum_charge = 500 	// minimum charge cyborgs cannot go under when charging things
 	var/static/list/charge_machines = typecacheof(list(/obj/machinery/cell_charger, /obj/machinery/recharger, /obj/machinery/recharge_station, /obj/machinery/mech_bay_recharge_port))
 	var/static/list/charge_items = typecacheof(list(/obj/item/stock_parts/cell, /obj/item/gun/energy))
-
-/obj/item/borg/charger/Initialize(mapload)
-	. = ..()
 
 /obj/item/borg/charger/update_icon()
 	..()
 	icon_state = "charger_[mode]"
 
 /obj/item/borg/charger/attack_self(mob/user)
-	if(mode == "draw")
-		mode = "charge"
+	if(mode == MODE_DRAW)
+		mode = MODE_CHARGE
 	else
-		mode = "draw"
-	to_chat(user, "<span class='notice'>You toggle [src] to \"[mode]\" mode.</span>")
+		mode = MODE_DRAW
+	balloon_alert(user, "You toggle [src] to [mode] mode")
 	update_icon()
 
 /obj/item/borg/charger/afterattack(obj/item/target, mob/living/silicon/robot/user, proximity_flag)
 	. = ..()
 	if(!proximity_flag || !iscyborg(user))
 		return
-	if(mode == "draw")
+	if(active)
+		if(mode == MODE_DRAW)
+			to_chat(user, "<span class='warning'>You're already drawing power from something!</span>")
+		else
+			to_chat(user, "<span class='warning'>You're already charging something!</span>")
+		return
+
+	if(mode == MODE_DRAW)
 		if(is_type_in_list(target, charge_machines))
 			var/obj/machinery/M = target
 
-			if((M.stat & (NOPOWER|BROKEN)) || !M.anchored)
+			if((M.machine_stat & (NOPOWER|BROKEN)) || !M.anchored)
 				to_chat(user, "<span class='warning'>[M] is unpowered!</span>")
 				return
 
-			if (active) //Prevents charge stacking from the same or multiple targets.
-				to_chat(user, "<span class ='notice'>You're already charging from [target].</span>")
-				return
-
+			to_chat(user, "<span class='notice'>You connect to [M]'s power line...</span>")
 			active = TRUE
 
-			to_chat(user, "<span class='notice'>You connect to [M]'s power line...</span>")
-			while(do_after(user, 15, target = M, progress = 0))
-
-				if(!user || !user.cell || mode != "draw")
-					return
-
-				if((M.stat & (NOPOWER|BROKEN)) || !M.anchored)
-					break
-
-				if(!user.cell.give(150))
-					break
-
-				M.use_power(200)
-
-			active = FALSE
-
-			to_chat(user, "<span class='notice'>You stop charging yourself.</span>")
+			powerdraw_loop(user, M)
 
 		else if(is_type_in_list(target, charge_items))
 			var/obj/item/stock_parts/cell/cell = target
@@ -222,75 +212,154 @@
 
 			if(!cell.charge)
 				to_chat(user, "<span class='warning'>[target] has no power!</span>")
-
-
-			to_chat(user, "<span class='notice'>You connect to [target]'s power port...</span>")
-
-			while(do_after(user, 15, target = target, progress = 0))
-				if(!user || !user.cell || mode != "draw")
-					return
-
-				if(!cell || !target)
-					return
-
-				if(cell != target && cell.loc != target)
-					return
-
-				var/draw = min(cell.charge, cell.chargerate*0.5, user.cell.maxcharge-user.cell.charge)
-				if(!cell.use(draw))
-					break
-				if(!user.cell.give(draw))
-					break
-				target.update_icon()
-
-			to_chat(user, "<span class='notice'>You stop charging yourself.</span>")
-
-	else if(is_type_in_list(target, charge_items))
-		var/obj/item/stock_parts/cell/cell = target
-		if(!istype(cell))
-			cell = locate(/obj/item/stock_parts/cell) in target
-		if(!cell)
-			to_chat(user, "<span class='warning'>[target] has no power cell!</span>")
-			return
-
-		if(istype(target, /obj/item/gun/energy))
-			var/obj/item/gun/energy/E = target
-			if(!E.can_charge)
-				to_chat(user, "<span class='warning'>[target] has no power port!</span>")
 				return
 
-		if(cell.charge >= cell.maxcharge)
-			to_chat(user, "<span class='warning'>[target] is already charged!</span>")
+			to_chat(user, "<span class='notice'>You connect to [target]'s power port...</span>")
+			active = TRUE
 
-		if (active) //Prevents stacking charging on the target.
-			to_chat(user, "<span class ='notice'>You're already charging [target].</span>")
-			return
+			powerdraw_loop(user, target, cell)
 
-		to_chat(user, "<span class='notice'>You connect to [target]'s power port...</span>")
+	else
+		if(is_type_in_list(target, charge_items))
+			if(user.cell.charge <= cyborg_minimum_charge) //leave them a bit
+				to_chat(user, "<span class='warning'>You don't have enough power to charge [target]!</span>")
+				return
 
-		active = TRUE
+			var/obj/item/stock_parts/cell/cell = target
+			if(!istype(cell))
+				cell = locate(/obj/item/stock_parts/cell) in target
+			if(!cell)
+				to_chat(user, "<span class='warning'>[target] has no power cell!</span>")
+				return
 
-		while(do_after(user, 15, target = target, progress = 0))
+			if(istype(target, /obj/item/gun/energy))
+				var/obj/item/gun/energy/E = target
+				if(!E.can_charge)
+					to_chat(user, "<span class='warning'>[target] has no power port!</span>")
+					return
 
-			if(!user || !user.cell || mode != "charge")
+			if(cell.charge >= cell.maxcharge)
+				to_chat(user, "<span class='warning'>[target] is already fully charged!</span>")
+				return
+
+			to_chat(user, "<span class='notice'>You connect to [target]'s power port...</span>")
+			active = TRUE
+
+			charging_loop(user, target, cell)
+
+/obj/item/borg/charger/proc/powerdraw_loop(mob/living/silicon/robot/user, atom/target, obj/item/stock_parts/cell/cell)
+	work_mode = mode
+
+	if(istype(cell))
+		while(do_after(user, 15, target = target, extra_checks = CALLBACK(src, .proc/mode_check)))
+			if(!user?.cell)
+				active = FALSE
 				return
 
 			if(!cell || !target)
+				active = FALSE
 				return
 
 			if(cell != target && cell.loc != target)
+				active = FALSE
 				return
 
-			var/draw = min(user.cell.charge, cell.chargerate*0.5, cell.maxcharge-cell.charge)
-			if(!user.cell.use(draw))
+			var/draw = min(cell.charge, cell.chargerate*0.5, user.cell.maxcharge-user.cell.charge)
+			if(!cell.use(draw))
 				break
-			if(!cell.give(draw))
+
+			if(!user.cell.give(draw))
 				break
+
 			target.update_icon()
 
+			if(!cell.charge)
+				to_chat(user, "<span class='warning'>[target] has no power!</span>")
+				active = FALSE
+				return
+
+			if(user.cell.charge == user.cell.maxcharge)
+				to_chat(user, "<span class='notice'>You finish charging from [target].</span>")
+				active = FALSE
+				return
+
+		to_chat(user, "<span class='notice'>You stop drawing power from [target].</span>")
+		active = FALSE
+	else
+		var/obj/machinery/M = target
+		while(do_after(user, 15, target = M, extra_checks = CALLBACK(src, .proc/mode_check)))
+			if(!user?.cell)
+				active = FALSE
+				return
+
+			if(!target)
+				active = FALSE
+				return
+
+			if((M.machine_stat & (NOPOWER|BROKEN)) || !M.anchored)
+				break
+
+			if(!user.cell.give(150))
+				break
+
+			M.use_power(200)
+
+			if(user.cell.charge == user.cell.maxcharge)
+				to_chat(user, "<span class='notice'>You finish charging from [target].</span>")
+				active = FALSE
+				return
+
+		to_chat(user, "<span class='notice'>You stop charging yourself.</span>")
 		active = FALSE
 
-		to_chat(user, "<span class='notice'>You stop charging [target].</span>")
+/obj/item/borg/charger/proc/charging_loop(mob/living/silicon/robot/user, atom/target, obj/item/stock_parts/cell/cell)
+	work_mode = mode
+
+	while(do_after(user, 15, target = target, extra_checks = CALLBACK(src, .proc/mode_check)))
+		if(!user?.cell)
+			active = FALSE
+			return
+
+		if(!cell || !target)
+			active = FALSE
+			return
+
+		if(cell != target && cell.loc != target)
+			active = FALSE
+			return
+
+		var/draw = min(max(user.cell.charge - cyborg_minimum_charge, 0), cell.chargerate*0.5, cell.maxcharge-cell.charge)
+		if(!draw)
+			to_chat(user, "<span class='warning'>Safeties prevent you from going under [cyborg_minimum_charge] charge!</span>")
+			active = FALSE
+			return
+
+		if(!user.cell.use(draw))
+			break
+
+		if(!cell.give(draw))
+			break
+
+		target.update_icon()
+
+		if(cell.charge == cell.maxcharge)
+			to_chat(user, "<span class='notice'>You finish charging [target].</span>")
+			active = FALSE
+			return
+
+		if(user.cell.charge <= cyborg_minimum_charge) //leave them a bit
+			to_chat(user, "<span class='warning'>You don't have enough power to continue charging [target]!</span>")
+			active = FALSE
+			return
+
+	to_chat(user, "<span class='notice'>You stop charging [target].</span>")
+	active = FALSE
+
+/obj/item/borg/charger/proc/mode_check()
+	return mode == work_mode
+
+#undef MODE_DRAW
+#undef MODE_CHARGE
 
 /obj/item/harmalarm
 	name = "\improper Sonic Harm Prevention Tool"
@@ -817,6 +886,8 @@
 
 //Alt click drops stored item
 /obj/item/borg/apparatus/AltClick(mob/living/silicon/robot/user)
+	if(!user.canUseTopic(src, BE_CLOSE))
+		return
 	if(!stored)
 		return ..()
 	stored.forceMove(get_turf(user))

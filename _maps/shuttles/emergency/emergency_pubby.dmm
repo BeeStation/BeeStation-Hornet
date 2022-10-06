@@ -25,7 +25,8 @@
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "ah" = (
-/obj/structure/chair/comfy/black{
+/obj/structure/chair/fancy/comfy{
+	color = "#666666";
 	dir = 1
 	},
 /turf/open/floor/mineral/titanium/blue,
@@ -55,7 +56,7 @@
 /turf/open/floor/mineral/titanium/blue,
 /area/shuttle/escape)
 "ap" = (
-/obj/structure/chair/comfy,
+/obj/structure/chair/fancy/comfy,
 /obj/machinery/computer/security/telescreen/entertainment{
 	pixel_y = 32
 	},
@@ -117,7 +118,7 @@
 /turf/open/floor/plasteel/dark,
 /area/shuttle/escape)
 "aw" = (
-/obj/structure/chair/comfy{
+/obj/structure/chair/fancy/comfy{
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/green,
@@ -130,7 +131,7 @@
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "az" = (
-/obj/structure/chair/comfy{
+/obj/structure/chair/fancy/comfy{
 	dir = 1
 	},
 /obj/structure/window/reinforced,
@@ -144,7 +145,7 @@
 /turf/open/floor/plasteel/dark,
 /area/shuttle/escape)
 "aA" = (
-/obj/structure/chair/comfy{
+/obj/structure/chair/fancy/comfy{
 	dir = 1
 	},
 /obj/structure/window/reinforced,
@@ -169,7 +170,7 @@
 /turf/open/floor/plasteel/dark,
 /area/shuttle/escape)
 "aC" = (
-/obj/structure/chair/comfy{
+/obj/structure/chair/fancy/comfy{
 	dir = 1
 	},
 /obj/structure/window/reinforced,
@@ -183,7 +184,7 @@
 /turf/open/floor/plasteel/dark,
 /area/shuttle/escape)
 "aD" = (
-/obj/structure/chair/comfy{
+/obj/structure/chair/fancy/comfy{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/green{
@@ -196,7 +197,7 @@
 /turf/open/floor/plasteel/dark,
 /area/shuttle/escape)
 "aE" = (
-/obj/structure/chair/comfy,
+/obj/structure/chair/fancy/comfy,
 /obj/machinery/computer/security/telescreen/entertainment{
 	pixel_y = 32
 	},
@@ -212,7 +213,7 @@
 /turf/open/floor/plasteel/dark,
 /area/shuttle/escape)
 "aF" = (
-/obj/structure/chair/comfy{
+/obj/structure/chair/fancy/comfy{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/green,
@@ -247,7 +248,7 @@
 /turf/open/floor/mineral/titanium,
 /area/shuttle/escape)
 "aJ" = (
-/obj/structure/chair/comfy/shuttle,
+/obj/structure/chair/fancy/shuttle,
 /obj/effect/turf_decal/tile/purple{
 	dir = 1
 	},
@@ -260,7 +261,7 @@
 /turf/open/floor/plasteel/dark,
 /area/shuttle/escape)
 "aK" = (
-/obj/structure/chair/comfy{
+/obj/structure/chair/fancy/comfy{
 	dir = 1
 	},
 /obj/machinery/light,
@@ -271,7 +272,7 @@
 /turf/open/floor/plasteel/dark,
 /area/shuttle/escape)
 "aL" = (
-/obj/structure/chair/comfy/shuttle,
+/obj/structure/chair/fancy/shuttle,
 /obj/effect/turf_decal/tile/purple{
 	dir = 1
 	},
@@ -302,7 +303,7 @@
 /turf/open/floor/plasteel/dark,
 /area/shuttle/escape)
 "aO" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
 /obj/structure/window/reinforced,
@@ -316,7 +317,7 @@
 /turf/open/floor/plasteel/dark,
 /area/shuttle/escape)
 "aP" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
 /obj/structure/window/reinforced,
@@ -327,7 +328,7 @@
 /turf/open/floor/plasteel/dark,
 /area/shuttle/escape)
 "aQ" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
 /obj/structure/window/reinforced,
@@ -348,7 +349,7 @@
 /turf/open/floor/plasteel/dark,
 /area/shuttle/escape)
 "aS" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/purple{
@@ -361,7 +362,7 @@
 /turf/open/floor/plasteel/dark,
 /area/shuttle/escape)
 "aT" = (
-/obj/structure/chair/comfy/shuttle,
+/obj/structure/chair/fancy/shuttle,
 /obj/machinery/light{
 	dir = 1
 	},
@@ -374,7 +375,7 @@
 /turf/open/floor/plasteel/dark,
 /area/shuttle/escape)
 "aU" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/purple,
@@ -413,7 +414,7 @@
 /turf/open/floor/plasteel/white,
 /area/shuttle/escape)
 "aY" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
 /obj/machinery/light,
@@ -474,7 +475,7 @@
 /turf/open/floor/plasteel/cafeteria,
 /area/shuttle/escape)
 "be" = (
-/obj/structure/chair/comfy/shuttle,
+/obj/structure/chair/fancy/shuttle,
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
 	},
@@ -546,7 +547,7 @@
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "bo" = (
-/obj/structure/chair/comfy/shuttle,
+/obj/structure/chair/fancy/shuttle,
 /obj/structure/window/reinforced{
 	dir = 1;
 	pixel_y = 2
@@ -554,7 +555,7 @@
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "bq" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
 /turf/open/floor/plating,
@@ -583,13 +584,13 @@
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "bw" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 4
 	},
 /turf/open/floor/mineral/plastitanium/red/brig,
 /area/shuttle/escape)
 "bx" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 8
 	},
 /turf/open/floor/mineral/plastitanium/red/brig,
@@ -629,7 +630,7 @@
 /turf/open/floor/plating,
 /area/shuttle/escape)
 "bG" = (
-/obj/structure/chair/comfy/shuttle{
+/obj/structure/chair/fancy/shuttle{
 	dir = 1
 	},
 /obj/machinery/light,
@@ -701,7 +702,6 @@
 	height = 8;
 	name = "PubbyStation emergency shuttle";
 	port_direction = 4;
-	preferred_direction = 1;
 	width = 46
 	},
 /obj/structure/fans/tiny,

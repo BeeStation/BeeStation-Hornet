@@ -88,6 +88,8 @@
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)
 		power_usage -= 50 * M.rating
 	active_power_usage = power_usage
+	if(anchored && state == EMITTER_UNWRENCHED)
+		state = EMITTER_WRENCHED
 
 /obj/machinery/power/emitter/examine(mob/user)
 	. = ..()
@@ -163,7 +165,7 @@
 		step(src, get_dir(M, src))
 
 /obj/machinery/power/emitter/process(delta_time)
-	if(stat & (BROKEN))
+	if(machine_stat & (BROKEN))
 		return
 	if(state != EMITTER_WELDED || (!powernet && active_power_usage))
 		active = FALSE
