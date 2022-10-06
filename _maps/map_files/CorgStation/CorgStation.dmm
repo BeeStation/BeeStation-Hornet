@@ -66238,9 +66238,9 @@
 /area/security/prison)
 "sVn" = (
 /obj/effect/spawner/structure/window/reinforced,
-/obj/machinery/door/poddoor/preopen{
-	id = "hop";
-	name = "privacy shutters"
+/obj/machinery/door/poddoor/shutters/preopen{
+	id = "robotics_shutters";
+	name = "robotics shutters"
 	},
 /turf/open/floor/plating,
 /area/science/research)
@@ -75893,9 +75893,10 @@
 	pixel_y = 12
 	},
 /obj/machinery/button/door{
-	id = "telelab";
-	name = "Test Chamber Blast Doors";
-	pixel_x = -24
+	id = "robotics_shutters";
+	name = "robotics shutters control";
+	pixel_x = -24;
+	req_access_txt = "29"
 	},
 /turf/open/floor/plasteel/white,
 /area/science/robotics/lab)
@@ -80839,8 +80840,8 @@
 	},
 /obj/item/circuitboard/machine/shuttle/engine/plasma,
 /obj/item/circuitboard/machine/shuttle/engine/plasma{
-	pixel_y = -3;
-	pixel_x = 2
+	pixel_x = 2;
+	pixel_y = -3
 	},
 /obj/item/circuitboard/machine/shuttle/engine/plasma{
 	pixel_y = 3
