@@ -96,36 +96,37 @@
 				'sound/creatures/monkey/monkey_screech_7.ogg')
 
 /datum/emote/living/carbon/snap
+	emote_type = EMOTE_AUDIBLE
+	muzzle_ignore = TRUE
+	restraint_check = TRUE
+	vary = TRUE
+
+/datum/emote/living/carbon/snap/can_run_emote(mob/user, status_check = TRUE, intentional)
+	if(!..())
+		return FALSE
+	// sorry pal, but you need an arm to snap
+	var/mob/living/carbon/C = user
+	return C.get_bodypart(BODY_ZONE_L_ARM) || C.get_bodypart(BODY_ZONE_R_ARM)
+
+/datum/emote/living/carbon/snap/one
 	key = "snap"
 	key_third_person = "snaps"
 	message = "snaps their fingers"
 	message_param = "snaps their fingers at %t"
-	emote_type = EMOTE_AUDIBLE
-	muzzle_ignore = TRUE
-	restraint_check = TRUE
-	vary = TRUE
 	sound = 'code/datums/emote_sounds/emotes/snap.ogg'
 
-/datum/emote/living/carbon/snap2
+/datum/emote/living/carbon/snap/two
 	key = "snap2"
 	key_third_person = "snaps twice"
 	message = "snaps their fingers twice"
 	message_param = "snaps their fingers at %t twice"
-	emote_type = EMOTE_AUDIBLE
-	muzzle_ignore = TRUE
-	restraint_check = TRUE
-	vary = TRUE
 	sound = 'code/datums/emote_sounds/emotes/snap2.ogg'
 
-/datum/emote/living/carbon/snap3
+/datum/emote/living/carbon/snap/three
 	key = "snap3"
 	key_third_person = "snaps thrice"
 	message = "snaps their fingers thrice"
 	message_param = "snaps their fingers at %t thrice"
-	emote_type = EMOTE_AUDIBLE
-	muzzle_ignore = TRUE
-	restraint_check = TRUE
-	vary = TRUE
 	sound = 'code/datums/emote_sounds/emotes/snap3.ogg'
 
 /datum/emote/living/carbon/screech/roar
