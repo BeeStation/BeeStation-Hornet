@@ -40,9 +40,18 @@
 	head_icon = 'icons/mob/pets_held.dmi'
 	held_state = "snake"
 
-/mob/living/simple_animal/hostile/retaliate/Initialize(mapload)
+/mob/living/simple_animal/hostile/retaliate/poison/snake/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/milkable, 100, 30, /datum/reagent/toxin/venom)
+	AddComponent(/datum/component/milkable, \30, 5, poison_type, \
+	CALLBACK(src, .proc/dex_check), list(/obj/item/reagent_containers/syringe))
+
+/mob/living/simple_animal/hostile/retaliate/poison/snake/proc/dex_check(mob/milkman)
+	if(HAS_TRAIT(milkman, TRAIT_CLUMSY) || HAS_TRAIT(milkman, TRAIT_DUMB))
+		if(prob(50))
+			to_chat(milkman, "<span class='warning'>You stab yourself with the syringe, somehow.</span>")
+			milkman.apply_damage(5, BRUTE, milkman.get_active_hand())
+			return
+	return TRUE
 
 /mob/living/simple_animal/hostile/retaliate/poison/snake/ListTargets(atom/the_target)
 	var/atom/target_from = GET_TARGETS_FROM(src)

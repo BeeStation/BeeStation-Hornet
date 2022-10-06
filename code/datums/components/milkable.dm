@@ -6,10 +6,10 @@
 	var/max_reagents
 	var/min_reagents
 	var/datum/reagent/reagent_generated
-	var/datum/callback/on_milked
+	var/datum/callback/callback_allowed
 	var/list/allowed_containers = list(/obj/item/reagent_containers/glass)
 
-/datum/component/milkable/Initialize(_max_reagents, _starting_amount, _reagent_used, _callback_milked, _allowed_containers)
+/datum/component/milkable/Initialize(_max_reagents, _starting_amount, _reagent_used, _callback_allowed, _allowed_containers)
 	if(!ismob(parent))
 		return COMPONENT_INCOMPATIBLE
 	producer = parent
@@ -19,8 +19,8 @@
 
 	reagent_generated = _reagent_used
 	on_milked = _callback_milked
-	if(_allowed_containers)
-		allowed_containers = _allowed_containers
+	if(_callback_allowed)
+		callback_allowed = _callback_allowed
 
 
 /datum/component/milkable/RegisterWithParent()
@@ -47,7 +47,11 @@
 /datum/component/milkable/proc/milk_animal(datum/source, obj/item/container, mob/living/user)
 	SIGNAL_HANDLER
 
-	if(!istype(container) || !is_type_in_list(container, allowed_containers) || !container.reagents || producer.stat != CONSCIOUS)
+	if(!istype(container) || !is_type_in_list(container, allowed_containers) || !container.reagents || \
+	producer.stat != CONSCIOUS || user.a_intent != INTENT_HELP)
+		return
+
+	if(callback_allowed && !callback_allowed.Invoke())
 		return
 
 	if(container.reagents.holder_full())
@@ -57,10 +61,9 @@
 	if(transfered)
 		user.visible_message("[user] milks [parent] using \the [container].", "<span class='notice'>You milk [parent] using \the [container].</span>")
 	else
-		to_chat(user, "<span class='danger'>The udder is dry. Wait a bit longer...</span>")
+		to_chat(user, "<span class='danger'>\The [producer] has nothing to milk. Wait a bit longer...</span>")
 
-	if(on_milked)
-		on_milked.Invoke()
+	container.update_icon()
 
 /datum/component/milkable/proc/restart_gen()
 	SIGNAL_HANDLER
