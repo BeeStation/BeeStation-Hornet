@@ -1,5 +1,0 @@
-author: spockye
-delete-after: true
-changes:
-  - rscadd: Remakes the Box station exploration prep room
-  - bugfix: removed stacked viro lockers
