@@ -44499,7 +44499,6 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
 "mov" = (
-/obj/machinery/door/firedoor/heavy,
 /obj/effect/spawner/structure/window,
 /turf/open/floor/plating,
 /area/quartermaster/exploration_prep)
