@@ -1,0 +1,32 @@
+author: itsmeow
+delete-after: true
+changes:
+  - rscadd: 'CorgStation: Added x3 WT-550 rubber mags to armory.'
+  - rscadd: 'CorgStation: Added DROPNet beacon to armory.'
+  - tweak: 'CorgStation: Replaced 2 Security lockers in sec office with 1 L3 Locker,
+      and 1 L4 Locker.'
+  - rscadd: 'Corgstation: Added donuts to all security offices.'
+  - tweak: 'CorgStation: Cargo ORM moved to internal cargo office wall.'
+  - bugfix: 'CorgStation: Fixed delivery office cable being missing.'
+  - tweak: 'CorgStation: Replaced cargo office airlock with a windowed one.'
+  - tweak: "CorgStation: Unblocked QM's chest drawer in office."
+  - tweak: 'CorgStation: Moved Toxins burn chamber air alarm to outside airlock.'
+  - bugfix: 'CorgStation: Added names to airlocks to Toxins and Exploration.'
+  - rscadd: 'CorgStation: Added button for toxins burn chamber shutters.'
+  - tweak: 'CorgStation: Slightly expanded toxins burn chamber area to allow placement
+      of air alarm.'
+  - rscadd: 'CorgStation: Added 3x Cable Coils to robotics'
+  - rscadd: 'CorgStation: Added curator console in library to allow printing paintings.'
+  - rscadd: 'CorgStation: Added x4 painting mounts - 2 public, 2 private to the library.'
+  - rscdel: 'CorgStation: Removed botany backroom maintenance.'
+  - rscadd: 'CorgStation: Added all-in-one grinder and chemmaster to Botany.'
+  - rscadd: 'CorgStation: Added additional lockers to Botany.'
+  - rscadd: 'CorgStation: Added a backpack sprayer and a botany book to Botany.'
+  - rscadd: 'CorgStation: Added box of donuts to kitchen counter.'
+  - tweak: 'CorgStation: Removed botanist ability to enter kitchen.'
+  - rscadd: 'CorgStation: Added two L3 lockers outside of the transit tube on the
+      virology mini-sat.'
+  - bugfix: 'CorgStation: Fixed a camera in the virology monkey containment cell being
+      mislabeled.'
+  - rscadd: 'CorgStation: Added a small light to the service lathe room.'
+  - rscadd: 'CorgStation: Added an N2 to Mix line in Atmospherics.'
