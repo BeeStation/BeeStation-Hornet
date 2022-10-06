@@ -70,9 +70,14 @@
 	if(ishuman(user) && slot == ITEM_SLOT_EYES)
 		ADD_TRAIT(user, TRAIT_MADNESS_IMMUNE, CLOTHING_TRAIT)
 
-/obj/item/clothing/glasses/meson/dropped(mob/user)
-	. = ..()
-	REMOVE_TRAIT(user, TRAIT_MADNESS_IMMUNE, CLOTHING_TRAIT)
+/obj/item/clothing/glasses/meson/dropped(mob/living/carbon/human/user)
+	..()
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		if(H.glasses != src)
+			return
+		else
+			REMOVE_TRAIT(user, TRAIT_MADNESS_IMMUNE, CLOTHING_TRAIT)
 
 /obj/item/clothing/glasses/meson/suicide_act(mob/living/carbon/user)
 	user.visible_message("<span class='suicide'>[user] is putting \the [src] to [user.p_their()] eyes and overloading the brightness! It looks like [user.p_theyre()] trying to commit suicide!</span>")
@@ -509,13 +514,15 @@
 	..()
 
 /obj/item/clothing/glasses/AltClick(mob/user)
+	if(!user.canUseTopic(src, BE_CLOSE))
+		return
 	if(glass_colour_type && !force_glass_colour && ishuman(user))
 		var/mob/living/carbon/human/H = user
 		if(H.client)
 			if(H.client.prefs)
 				if(src == H.glasses)
-					H.client.prefs.uses_glasses_colour = !H.client.prefs.uses_glasses_colour
-					if(H.client.prefs.uses_glasses_colour)
+					H.client.prefs.toggles2 ^= PREFTOGGLE_2_USES_GLASSES_COLOUR
+					if(H.client.prefs.toggles2 & PREFTOGGLE_2_USES_GLASSES_COLOUR)
 						to_chat(H, "You will now see glasses colors.")
 					else
 						to_chat(H, "You will no longer see glasses colors.")
@@ -533,7 +540,7 @@
 
 
 /mob/living/carbon/human/proc/update_glasses_color(obj/item/clothing/glasses/G, glasses_equipped)
-	if(((client && client.prefs.uses_glasses_colour) || G.force_glass_colour) && glasses_equipped)
+	if(((client && client.prefs.toggles2 & PREFTOGGLE_2_USES_GLASSES_COLOUR) || G.force_glass_colour) && glasses_equipped)
 		add_client_colour(G.glass_colour_type)
 	else
 		remove_client_colour(G.glass_colour_type)
