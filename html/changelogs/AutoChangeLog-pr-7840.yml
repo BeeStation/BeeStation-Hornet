@@ -1,6 +1,0 @@
-author: Tyranicranger4
-delete-after: true
-changes:
-  - tweak: Replaced the Experimentor shutters button in robotics with a robotics shutters
-      button (Corg)
-  - bugfix: Fixed incorrectly configured shutters in robotics (Corg)
