@@ -242,10 +242,14 @@
 		to_chat(M, "<span class='warning'>Your [name] starts to fall apart!</span>")
 
 /obj/item/clothing/proc/update_clothes_damaged_state(damaging = TRUE)
-	var/index = "[REF(icon)]-[icon_state]"
-	var/static/list/damaged_clothes_icons = list()
 	if(damaging)
 		damaged_clothes = 1
+	else
+		damaged_clothes = 0
+
+/obj/item/clothing/update_overlays()
+	. = ..()
+
 		var/icon/damaged_clothes_icon = damaged_clothes_icons[index]
 		if(!damaged_clothes_icon)
 			damaged_clothes_icon = icon(icon, icon_state, null, 1)
