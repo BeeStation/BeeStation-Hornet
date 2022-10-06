@@ -38998,19 +38998,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/security/brig)
-"jqI" = (
-/obj/structure/disposalpipe/segment,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/machinery/door/airlock/maintenance{
-	req_access_txt = "12"
-	},
-/obj/structure/disposalpipe/segment,
-/turf/open/floor/plating,
-/area/maintenance/starboard)
 "jsv" = (
 /obj/machinery/power/apc/auto_name/north{
 	pixel_y = 24
@@ -54749,8 +54736,8 @@
 /area/construction)
 "sQa" = (
 /obj/machinery/firealarm{
-	pixel_y = -24;
-	dir = 1
+	dir = 1;
+	pixel_y = -24
 	},
 /obj/effect/turf_decal/loading_area{
 	dir = 8
@@ -113445,7 +113432,7 @@ bky
 eIi
 qZW
 cSB
-jqI
+hJR
 oSc
 jzT
 hJR
