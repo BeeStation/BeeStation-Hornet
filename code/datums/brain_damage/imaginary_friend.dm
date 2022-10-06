@@ -183,20 +183,20 @@
 	src.log_talk(message, LOG_SAY, tag="imaginary friend")
 
 	// Display message
-	var/owner_chat_map = owner.client?.prefs.chat_on_map
-	var/friend_chat_map = client?.prefs.chat_on_map
+	var/owner_chat_map = owner.client?.prefs.toggles & (PREFTOGGLE_RUNECHAT_GLOBAL | PREFTOGGLE_RUNECHAT_NONMOBS)
+	var/friend_chat_map = client?.prefs.toggles & (PREFTOGGLE_RUNECHAT_GLOBAL | PREFTOGGLE_RUNECHAT_NONMOBS)
 	if (!owner_chat_map)
 		var/mutable_appearance/MA = mutable_appearance('icons/mob/talk.dmi', src, "default[say_test(message)]", FLY_LAYER)
 		MA.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
 		INVOKE_ASYNC(GLOBAL_PROC, /proc/flick_overlay, MA, list(owner.client), 30)
+
 	if(owner_chat_map || friend_chat_map)
 		var/list/hearers = list()
 		if(friend_chat_map)
 			hearers += client
 		if(owner_chat_map)
 			hearers += owner.client
-		new /datum/chatmessage(message, src, hearers, null)
-
+		
 	var/rendered = "<span class='game say'><span class='name'>[name]</span> <span class='message'>[say_quote(message)]</span></span>"
 	var/dead_rendered = "<span class='game say'><span class='name'>[name] (Imaginary friend of [owner])</span> <span class='message'>[say_quote(message)]</span></span>"
 

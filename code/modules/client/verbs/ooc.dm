@@ -68,7 +68,7 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 
 	var/keyname = key
 	if(prefs.unlock_content)
-		if(prefs.toggles & MEMBER_PUBLIC)
+		if(prefs.toggles & PREFTOGGLE_MEMBER_PUBLIC)
 			keyname = "<font color='[prefs.ooccolor ? prefs.ooccolor : GLOB.normal_ooc_colour]'>[icon2html('icons/member_content.dmi', world, "blag")][keyname]</font>"
 	//Get client badges
 	var/badge_data = badge_parse(get_badges())

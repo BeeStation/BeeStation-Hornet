@@ -263,8 +263,8 @@
 				if(chooseable_races.len)
 					new_mob.set_species(pick(chooseable_races))
 
-			var/datum/preferences/A = new()	//Randomize appearance for the human
-			A.copy_to(new_mob, icon_updates=0)
+			var/datum/character_save/CS = new()	//Randomize appearance for the human
+			CS.copy_to(new_mob, icon_updates=0)
 
 			var/mob/living/carbon/human/H = new_mob
 			H.update_hair()

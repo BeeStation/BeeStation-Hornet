@@ -1,7 +1,7 @@
 /datum/job/research_director
 	title = JOB_NAME_RESEARCHDIRECTOR
 	flag = RD_JF
-	auto_deadmin_role_flags = DEADMIN_POSITION_HEAD
+	auto_deadmin_role_flags = PREFTOGGLE_DEADMIN_POSITION_HEAD
 	department_head = list(JOB_NAME_CAPTAIN)
 	department_flag = MEDSCI
 	head_announce = list("Science")

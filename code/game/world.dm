@@ -17,6 +17,8 @@ GLOBAL_VAR(restart_counter)
 
 	config.Load(params[OVERRIDE_CONFIG_DIRECTORY_PARAMETER])
 
+	generate_selectable_species() // This needs to happen early on to avoid the debugger crying. It needs to be after config load but before you login.
+
 	#ifdef REFERENCE_DOING_IT_LIVE
 	GLOB.harddel_log = GLOB.world_game_log
 	#endif
