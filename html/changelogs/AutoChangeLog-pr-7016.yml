@@ -1,6 +1,0 @@
-author: AffectedArc07
-delete-after: true
-changes:
-  - refactor: Converted all character + preference data to live in the database instead
-      of savefiles
-  - server: You will need to convert all your old savefiles. Good luck.
