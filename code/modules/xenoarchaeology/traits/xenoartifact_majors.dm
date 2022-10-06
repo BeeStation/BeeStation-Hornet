@@ -36,7 +36,7 @@
 	AM.forceMove(T)
 	if(spawn_russian)
 		new /mob/living/simple_animal/hostile/russian(T)
-		log_game("[X] spawned (/mob/living/simple_animal/hostile/russian) at [world.time]. [X] located at [X.x] [X.y] [X.z]")
+		log_game("[X] spawned (/mob/living/simple_animal/hostile/russian) at [world.time]. [X] located at [get_area(src)]")
 		spawn_russian = FALSE
 
 ///============
@@ -345,7 +345,7 @@
 		playsound(get_turf(X), pick('sound/items/hypospray.ogg','sound/items/hypospray2.ogg'), 50, TRUE)
 		var/datum/reagents/R = target.reagents
 		R.add_reagent(formula, amount)
-		log_game("[X] injected [key_name_admin(target)] with [amount]u of [formula] at [world.time]. [X] located at [X.x] [X.y] [X.z]")
+		log_game("[X] injected [key_name_admin(target)] with [amount]u of [formula] at [world.time]. [X] located at [get_area(src)]")
 
 ///============
 /// Push, pushes target away from artifact

@@ -13,7 +13,7 @@
 		bears++
 		var/mob/living/simple_animal/hostile/bear/new_bear = new(get_turf(X.loc))
 		new_bear.name = pick("Freddy", "Bearington", "Smokey", "Beorn", "Pooh", "Paddington", "Winnie", "Baloo", "Rupert", "Yogi", "Fozzie", "Boo") //Why not?
-		log_game("[X] spawned a (/mob/living/simple_animal/hostile/bear) at [world.time]. [X] located at [X.x] [X.y] [X.z]")
+		log_game("[X] spawned a (/mob/living/simple_animal/hostile/bear) at [world.time]. [X] located at [get_area(src)]")
 	else
 		X.visible_message("<span class='danger'>The [X.name] shatters as bearspace collapses! Too many bears!</span>")
 		var/obj/effect/decal/cleanable/ash/A = new(get_turf(X))
