@@ -1538,6 +1538,8 @@
 	pixel_y = 2
 	},
 /obj/effect/turf_decal/stripes/closeup,
+/obj/item/hand_labeler,
+/obj/item/stack/package_wrap,
 /turf/open/floor/plasteel,
 /area/medical/virology)
 "aez" = (
@@ -1636,6 +1638,9 @@
 	dir = 4;
 	name = "medbay camera";
 	network = list("ss13","medbay")
+	},
+/obj/item/radio/intercom{
+	pixel_x = 26
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
@@ -59904,8 +59909,25 @@
 /area/medical/surgery)
 "due" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel,
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/turf/open/floor/plasteel{
+	heat_capacity = 1e+006
+	},
 /area/maintenance/starboard/aft)
 "dug" = (
 /obj/effect/spawner/room/tenxten,
@@ -63640,6 +63662,9 @@
 	},
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
 	dir = 8
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
@@ -68217,11 +68242,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/item/stack/package_wrap,
-/obj/item/hand_labeler,
-/obj/item/radio/intercom{
-	pixel_x = 26
-	},
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
 	},
@@ -68232,6 +68252,9 @@
 /obj/effect/turf_decal/tile/green,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
 "dYj" = (
@@ -79623,12 +79646,6 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
 	dir = 4
 	},
 /obj/structure/cable/yellow{
@@ -93865,9 +93882,6 @@
 /turf/open/floor/circuit/green/telecomms/mainframe,
 /area/tcommsat/server)
 "nVU" = (
-/obj/structure/cable/yellow{
-	icon_state = "2-4"
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -93881,10 +93895,6 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/machinery/door/airlock/maintenance_hatch{
-	name = "Virology Maintenance";
-	req_access_txt = "39"
-	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
@@ -93896,6 +93906,10 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
+	},
+/obj/machinery/door/airlock/maintenance_hatch{
+	name = "Virology Maintenance";
+	req_access_txt = "39"
 	},
 /turf/open/floor/plasteel/white,
 /area/maintenance/starboard/aft)
@@ -95438,21 +95452,10 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
 	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral{
 	dir = 4
 	},
 /obj/structure/disposalpipe/segment{
@@ -109527,10 +109530,6 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel,
 /area/maintenance/starboard/aft)
@@ -111427,21 +111426,11 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
 "vnF" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/machinery/door/airlock/virology/glass{
-	id_tag = "Viro1";
-	name = "Virology Lab";
-	req_access_txt = "39"
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -111450,6 +111439,11 @@
 	dir = 8
 	},
 /obj/machinery/door/firedoor,
+/obj/machinery/door/airlock/virology/glass{
+	id_tag = "Viro1";
+	name = "Virology Lab";
+	req_access_txt = "39"
+	},
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
 "vnL" = (
@@ -170789,7 +170783,7 @@ cHU
 cHU
 cHU
 cHU
-fgy
+due
 dVw
 dmh
 cIW
@@ -171041,7 +171035,7 @@ dnU
 dbD
 cNH
 rTl
-due
+dyQ
 dbD
 dbD
 dyT
