@@ -89,3 +89,21 @@
 	desc = "The cornerstone of any customer service job. This one's been modified for hyper-performance."
 	icon_state = "desk_bell_fancy"
 	ring_cooldown_length = 0
+
+/obj/structure/desk_bell/MouseDrop(obj/over_object, src_location, mob/user, over_location)
+	if(!istype(over_object, /obj/vehicle/ridden/wheelchair))
+		return
+	if(!Adjacent(over_object) || !Adjacent(usr))
+		return
+	var/obj/vehicle/ridden/wheelchair/target = over_object
+	if(target.bell_attached)
+		usr.balloon_alert(usr, "already has a bell!")
+		return
+	usr.balloon_alert(usr, "attaching bell...")
+	user.visible_message("[user] is attaching the bell to the wheelchair.")
+	if(!do_after(usr, 0.5 SECONDS))
+		return
+	target.attach_bell(src)
+	return ..()
+
+

@@ -16250,6 +16250,7 @@
 /obj/effect/turf_decal/plaque{
 	icon_state = "L5"
 	},
+/obj/vehicle/ridden/wheelchair,
 /turf/open/floor/plasteel,
 /area/hallway/primary/port)
 "dHx" = (
@@ -33507,6 +33508,7 @@
 /obj/effect/turf_decal/plaque{
 	icon_state = "L6"
 	},
+/obj/structure/desk_bell,
 /turf/open/floor/plasteel,
 /area/hallway/primary/port)
 "hEV" = (
@@ -53339,6 +53341,7 @@
 /obj/effect/turf_decal/plaque{
 	icon_state = "L10"
 	},
+/obj/vehicle/ridden/wheelchair,
 /turf/open/floor/plasteel,
 /area/hallway/primary/port)
 "mlz" = (
@@ -58113,6 +58116,7 @@
 /obj/effect/turf_decal/plaque{
 	icon_state = "L9"
 	},
+/obj/structure/desk_bell,
 /turf/open/floor/plasteel,
 /area/hallway/primary/port)
 "nwl" = (

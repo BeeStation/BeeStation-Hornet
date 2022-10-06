@@ -192,6 +192,20 @@
 			last_thank_time = world.time
 			C.ThanksCounter()
 
+/datum/action/vehicle/ridden/wheelchair/bell
+	name = "Bell Ring"
+	desc = "Ring the bell."
+	icon_icon = 'icons/obj/bureaucracy.dmi'
+	button_icon_state = "desk_bell"
+	check_flags = AB_CHECK_CONSCIOUS
+	var/bell_cooldown
+
+/datum/action/vehicle/ridden/wheelchair/bell/Trigger(trigger_flags)
+	if(TIMER_COOLDOWN_CHECK(src, bell_cooldown))
+		return
+	TIMER_COOLDOWN_START(src, bell_cooldown, 0.5 SECONDS)
+	playsound(vehicle_ridden_target, 'sound/machines/bellsound.ogg', 70)
+
 /datum/action/vehicle/ridden/scooter/skateboard/ollie
 	name = "Ollie"
 	desc = "Get some air! Land on a table to do a gnarly grind."
