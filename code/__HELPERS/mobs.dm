@@ -405,10 +405,10 @@ GLOBAL_LIST_EMPTY(species_list)
 
 		switch(message_type)
 			if(DEADCHAT_DEATHRATTLE)
-				if(toggles & DISABLE_DEATHRATTLE)
+				if(toggles & PREFTOGGLE_DISABLE_DEATHRATTLE)
 					continue
 			if(DEADCHAT_ARRIVALRATTLE)
-				if(toggles & DISABLE_ARRIVALRATTLE)
+				if(toggles & PREFTOGGLE_DISABLE_ARRIVALRATTLE)
 					continue
 			if(DEADCHAT_LAWCHANGE)
 				if(!(chat_toggles & CHAT_GHOSTLAWS))
@@ -701,8 +701,8 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	var/banned = C ? is_banned_from(C.ckey, "Appearance") : null
 
 	while(loop && safety < 5)
-		if(C && C.prefs.custom_names[role] && !safety && !banned)
-			newname = C.prefs.custom_names[role]
+		if(C?.prefs.active_character.custom_names[role] && !safety && !banned)
+			newname = C.prefs.active_character.custom_names[role]
 		else
 			switch(role)
 				if("human")
