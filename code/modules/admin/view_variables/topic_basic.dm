@@ -68,6 +68,17 @@
 		var/list/lst = get_callproc_args()
 		if(!lst)
 			return
+		if(result = /datum/component/milkable && ishuman(target))
+			if(input(usr, "You are about to make a human milkable. Are you SURE you want to do this?", \
+			"you really really shouldnt", "Cancel", "I am FULLY AWARE of the impact this will have.") != "I am FULLY AWARE of the impact this will have.")
+				return
+
+			if(input(usr, "Last chance to turn back, are you postive?", "i beg please dont", "On second thought..", \
+			"I understand, but would like to continue.") != "I understand, but would like to continue.")
+				return
+
+			to_chat(usr, "<span class='warning'>Good luck.</span>")
+
 		var/datumname = "error"
 		lst.Insert(1, result)
 		if(result in componentsubtypes)

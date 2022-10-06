@@ -2,7 +2,7 @@
 
 /datum/component/milkable
 	var/mob/producer
-	var/obj/item/reagent_containers/intstorage
+	var/obj/item/reagent_containers/int_storage
 	var/max_reagents
 	var/min_reagents
 	var/datum/reagent/reagent_generated
@@ -14,11 +14,10 @@
 		return COMPONENT_INCOMPATIBLE
 	producer = parent
 
-	intstorage = new()
-	intstorage.reagents.add_reagent(_reagent_used, CLAMP(_starting_amount, 0, _max_reagents - 1))
+	int_storage = new()
+	int_storage.reagents.add_reagent(_reagent_used, CLAMP(_starting_amount, 0, _max_reagents - 1))
 
 	reagent_generated = _reagent_used
-	on_milked = _callback_milked
 	if(_callback_allowed)
 		callback_allowed = _callback_allowed
 
@@ -42,7 +41,7 @@
 	if(producer.stat != CONSCIOUS || prob(90))
 		return
 
-	intstorage.reagents.add_reagent(reagent_generated, rand(5, 10) * delta_time)
+	int_storage.reagents.add_reagent(reagent_generated, rand(5, 10) * delta_time)
 
 /datum/component/milkable/proc/milk_animal(datum/source, obj/item/container, mob/living/user)
 	SIGNAL_HANDLER
@@ -57,7 +56,7 @@
 	if(container.reagents.holder_full())
 		to_chat(user, "<span class='danger'>[container] is full.</span>")
 		return
-	var/transfered = intstorage.reagents.trans_to(container, rand(5,10))
+	var/transfered = int_storage.reagents.trans_to(container, rand(5,10))
 	if(transfered)
 		user.visible_message("[user] milks [parent] using \the [container].", "<span class='notice'>You milk [parent] using \the [container].</span>")
 	else
