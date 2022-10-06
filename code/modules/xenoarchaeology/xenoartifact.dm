@@ -217,7 +217,7 @@
 
 ///Run traits. Used to activate all minor, major, and malfunctioning traits in the artifact's trait list. Sets cooldown when properly finished.
 /obj/item/xenoartifact/proc/check_charge(mob/user, charge_mod)
-	log_game("[user] attempted to activate [src] at [world.time]. Located at [get_area(src)].")
+	log_game("[user] attempted to activate [src] at [world.time]. Located at [AREACOORD(src)].")
 
 	if(COOLDOWN_FINISHED(src, xenoa_cooldown) && !istype(loc, /obj/item/storage))
 		COOLDOWN_START(src, xenoa_cooldown, cooldown+cooldownmod)
@@ -232,7 +232,7 @@
 
 		for(var/datum/xenoartifact_trait/minor/t in traits)//Minor traits aren't apart of the target loop, specifically becuase they pass data into it.
 			t.activate(src, user, user)
-			log_game("[src] activated minor trait [t] at [world.time]. Located at [get_area(src)]")
+			log_game("[src] activated minor trait [t] at [world.time]. Located at [AREACOORD(src)]")
 
 		//Clamp charge to avoid fucky wucky
 		charge = max(10, charge)
@@ -242,7 +242,7 @@
 				create_beam(M) //Indicator beam, points to target, M
 				for(var/datum/xenoartifact_trait/t as() in traits) //Major traits
 					if(!istype(t, /datum/xenoartifact_trait/minor))
-						log_game("[src] activated trait [t] at [world.time]. Located at [get_area(src)]")
+						log_game("[src] activated trait [t] at [world.time]. Located at [AREACOORD(src)]")
 						t.activate(src, M, user)
 		if(!get_trait(/datum/xenoartifact_trait/major/horn))
 			playsound(get_turf(src), 'sound/magic/blink.ogg', 25, TRUE)
