@@ -140,7 +140,7 @@
 	man.real_name = "[man.name] - [X]"
 	man.key = ckey
 	man.status_flags |= GODMODE
-	log_game("[key_name_admin(man)] took control of the sentient [X]. [X] located at [AREACOORD(src)]")
+	log_game("[key_name_admin(man)] took control of the sentient [X]. [X] located at [AREACOORD(X)]")
 	man.forceMove(X)
 	man.anchored = TRUE
 	var/obj/effect/proc_holder/spell/targeted/xeno_senitent_action/P = new /obj/effect/proc_holder/spell/targeted/xeno_senitent_action(,X)
@@ -335,7 +335,7 @@
 /datum/xenoartifact_trait/minor/signalsend/activate(obj/item/xenoartifact/X)
 	var/datum/signal/signal = new(list("code" = X.code))
 	X.send_signal(signal)
-	log_game("[X] sent signal code [X.code] on frequency [X.frequency] at [world.time]. [X] located at [AREACOORD(src)]")
+	log_game("[X] sent signal code [X.code] on frequency [X.frequency] at [world.time]. [X] located at [AREACOORD(X)]")
 
 //============
 // Anchor, the artifact can be anchored, anchors when activated

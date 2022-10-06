@@ -36,7 +36,7 @@
 		X.process_type = PROCESS_TYPE_LIT
 		sleep(1.8 SECONDS) //Give them a chance to escape
 		START_PROCESSING(SSobj, X)
-		log_game("[key_name_admin(user)] lit [X] at [world.time] using [thing]. [X] located at [AREACOORD(src)].")
+		log_game("[key_name_admin(user)] lit [X] at [world.time] using [thing]. [X] located at [AREACOORD(X)].")
 
 ///============
 /// Timed activator, activates on a timer. Timer is turned on when used, has a chance to turn off.
@@ -64,7 +64,7 @@
 	var/obj/item/xenoartifact/X = source
 	X.process_type = PROCESS_TYPE_TICK
 	START_PROCESSING(SSobj, X)
-	log_game("[key_name_admin(user)] set clock on [X] at [world.time] using [thing]. [X] located at [AREACOORD(src)].")
+	log_game("[key_name_admin(user)] set clock on [X] at [world.time] using [thing]. [X] located at [AREACOORD(X)].")
 
 ///============
 /// Signal activator, responds to respective signals sent through signallers
@@ -92,7 +92,7 @@
 /datum/xenoartifact_trait/activator/signal/pass_input(datum/source, obj/item/thing, mob/user, atom/target, params)
 	var/obj/item/xenoartifact/X = source
 	X.default_activate(charge, user, target)
-	log_game("[key_name_admin(user)] signalled [X] at [world.time]. [X] located at [AREACOORD(src)].")
+	log_game("[key_name_admin(user)] signalled [X] at [world.time]. [X] located at [AREACOORD(X)].")
 
 ///============
 /// Battery activator, needs a cell to activate
