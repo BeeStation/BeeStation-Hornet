@@ -536,7 +536,7 @@
 	. = ..()
 	if(ishuman(user) && slot == ITEM_SLOT_EYES && user.client)
 		user.add_client_colour(/datum/client_colour/monochrome)
-		if(user?.mind.assigned_role == JOB_NAME_DETECTIVE)
+		if(user.mind.assigned_role == JOB_NAME_DETECTIVE)
 			to_chat(user, "<span class='boldannounce'>Mmm. Nothing's ever clear on this station. It's all shades of gray.</span>")
 			user.playsound_local(user, 'sound/ambience/ambidet1.ogg', 50, FALSE)
 
