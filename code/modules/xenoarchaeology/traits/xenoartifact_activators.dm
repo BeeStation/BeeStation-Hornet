@@ -136,7 +136,7 @@
 	if(istype(user) && !P)
 		P = user.get_item_by_slot(ITEM_SLOT_GLOVES)
 	
-	if(P?.safety) //This trait is a special tism
+	if(!istype(P) || P?.safety) //This trait is a special tism
 		return
 	var/obj/item/xenoartifact/X = source
 	X.default_activate(charge, user, target)
