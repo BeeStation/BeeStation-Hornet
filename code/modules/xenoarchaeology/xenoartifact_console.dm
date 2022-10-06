@@ -43,7 +43,7 @@
 /obj/machinery/computer/xenoartifact_console/Initialize()
 	. = ..()
 	linked_techweb = SSresearch.science_tech
-	budget = SSeconomy.get_dep_account(ACCOUNT_SCI)
+	budget = SSeconomy.get_dep_account(ACCOUNT_SCI_ID)
 	sync_devices()
 	for(var/I in 1 to XENOA_MAX_VENDORS) //Add initial buyers and sellers
 		var/datum/xenoartifact_seller/S = new
