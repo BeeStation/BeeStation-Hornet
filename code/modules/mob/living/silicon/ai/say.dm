@@ -146,7 +146,7 @@
 		if(!only_listener)
 			// Play voice for all mobs in the z level
 			for(var/mob/M in GLOB.player_list)
-				if(M.client && M.can_hear() && (M.client.prefs.toggles & SOUND_ANNOUNCEMENTS))
+				if(M.client && M.can_hear() && (M.client.prefs.toggles & PREFTOGGLE_SOUND_ANNOUNCEMENTS))
 					var/turf/T = get_turf(M)
 					if(T.get_virtual_z_level() == z_level)
 						SEND_SOUND(M, voice)
