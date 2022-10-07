@@ -560,6 +560,8 @@
 	. = ..()
 	if(. & EMP_PROTECT_SELF)
 		return
+	if(!COOLDOWN_FINISHED(src, rname_cooldown))
+		return
 	chameleon_action.emp_randomise()
 	COOLDOWN_START(src, rname_cooldown, 2 MINUTES)
 
