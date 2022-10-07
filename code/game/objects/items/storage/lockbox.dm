@@ -9,7 +9,7 @@
 	req_access = list(ACCESS_ARMORY)
 	var/broken = FALSE
 	var/open = FALSE
-	var/base_icon_state = "lockbox"
+	base_icon_state = "lockbox"
 
 /obj/item/storage/lockbox/ComponentInitialize()
 	. = ..()
