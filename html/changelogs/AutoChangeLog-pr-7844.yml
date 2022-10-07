@@ -1,4 +1,0 @@
-author: BrumalLake
-delete-after: true
-changes:
-  - bugfix: cargo tech credit objective now works
