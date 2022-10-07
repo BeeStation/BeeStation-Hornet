@@ -1,0 +1,4 @@
+author: itsmeow
+delete-after: true
+changes:
+  - bugfix: Fixed emag law formatting not showing properly in Cyborg Self-Monitoring.
