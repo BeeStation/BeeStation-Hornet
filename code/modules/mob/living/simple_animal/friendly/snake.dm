@@ -42,10 +42,10 @@
 
 /mob/living/simple_animal/hostile/retaliate/poison/snake/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/milkable, \30, 5, poison_type, \
+	AddComponent(/datum/component/milkable, 30, 5, poison_type, \
 	CALLBACK(src, .proc/dex_check), list(/obj/item/reagent_containers/syringe))
 
-/mob/living/simple_animal/hostile/retaliate/poison/snake/proc/dex_check(mob/milkman)
+/mob/living/simple_animal/hostile/retaliate/poison/snake/proc/dex_check(mob/living/milkman)
 	if(HAS_TRAIT(milkman, TRAIT_CLUMSY) || HAS_TRAIT(milkman, TRAIT_DUMB))
 		if(prob(50))
 			to_chat(milkman, "<span class='warning'>You stab yourself with the syringe, somehow.</span>")
