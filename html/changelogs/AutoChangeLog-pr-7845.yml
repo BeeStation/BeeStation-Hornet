@@ -1,0 +1,6 @@
+author: Tyranicranger4
+delete-after: true
+changes:
+  - rscdel: Removes duplicate mapping objects on Meta/Delta/Box/Pubby/Kilo
+  - bugfix: Fixes a missing wire on Box dorms preventing the cryo room from receiving
+      power.
