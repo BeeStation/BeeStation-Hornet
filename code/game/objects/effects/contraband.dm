@@ -672,6 +672,7 @@
 	icon_state = "generic"
 
 /obj/structure/sign/poster/official/festive/Initialize()
+	. = ..()
 	if(!length(SSevents.holidays))
 		return
 	var/cele_holiday = pick(SSevents.holidays)
