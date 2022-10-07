@@ -12502,7 +12502,6 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/machinery/shieldwallgen,
 /turf/open/floor/plasteel/dark,
 /area/teleporter)
 "auo" = (
@@ -18151,7 +18150,6 @@
 /obj/structure/flora/ausbushes/grassybush,
 /obj/structure/flora/ausbushes/leafybush,
 /obj/structure/flora/ausbushes/ywflowers,
-/obj/structure/flora/ausbushes/leafybush,
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 24
 	},
@@ -29405,7 +29403,6 @@
 	dir = 4;
 	pixel_x = -22
 	},
-/obj/machinery/shieldwallgen,
 /turf/open/floor/plasteel/dark,
 /area/teleporter)
 "aUk" = (
@@ -37095,7 +37092,6 @@
 	dir = 4;
 	pixel_x = -26
 	},
-/obj/machinery/shieldwallgen,
 /turf/open/floor/plasteel/dark,
 /area/teleporter)
 "bfq" = (
@@ -70050,7 +70046,6 @@
 /obj/structure/flora/ausbushes/grassybush,
 /obj/structure/flora/ausbushes/leafybush,
 /obj/structure/flora/ausbushes/ywflowers,
-/obj/structure/flora/ausbushes/leafybush,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
@@ -72940,7 +72935,6 @@
 /turf/closed/wall,
 /area/ai_monitored/turret_protected/aisat/atmos)
 "chP" = (
-/obj/structure/reagent_dispensers/watertank,
 /obj/structure/reagent_dispensers/watertank,
 /obj/effect/turf_decal/delivery,
 /obj/machinery/light,
@@ -102474,9 +102468,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"

@@ -6142,19 +6142,6 @@
 /obj/structure/sign/warning/electricshock,
 /turf/closed/wall/r_wall,
 /area/ai_monitored/storage/eva)
-"aDL" = (
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12;
-	pixel_y = 2
-	},
-/obj/structure/sink{
-	dir = 8;
-	pixel_x = -12;
-	pixel_y = 2
-	},
-/turf/open/floor/plasteel/freezer,
-/area/crew_quarters/toilet)
 "aDM" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -14386,18 +14373,6 @@
 /obj/machinery/cell_charger,
 /obj/item/stock_parts/cell/high/plus,
 /turf/open/floor/plasteel,
-/area/science/robotics/lab)
-"bpW" = (
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "robotics2";
-	name = "robotics lab shutters"
-	},
-/obj/effect/spawner/structure/window,
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "robotics2";
-	name = "robotics lab shutters"
-	},
-/turf/open/floor/plating,
 /area/science/robotics/lab)
 "bpX" = (
 /turf/open/floor/plasteel/white/side,
@@ -28626,12 +28601,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 10
-	},
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
 /obj/machinery/light{
 	dir = 4;
 	light_color = "#e8eaff"
@@ -29022,9 +28991,6 @@
 /turf/open/floor/plasteel,
 /area/engine/engine_smes)
 "cVR" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
 	},
@@ -30580,9 +30546,6 @@
 	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
 	},
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
@@ -33734,9 +33697,6 @@
 /obj/structure/disposalpipe/segment{
 	dir = 10
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 10
-	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
 "fZA" = (
@@ -34380,17 +34340,6 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
-"guz" = (
-/obj/structure/disposalpipe/segment,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/structure/disposalpipe/segment,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/turf/open/floor/plating,
-/area/maintenance/starboard/aft)
 "gvq" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -34487,6 +34436,9 @@
 /obj/effect/turf_decal/pool/corner,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/fitness)
@@ -36841,11 +36793,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/yellow/visible,
-/obj/structure/disposalpipe/segment,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/machinery/atmospherics/pipe/simple/yellow/visible,
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
@@ -37746,9 +37693,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
 "iCT" = (
@@ -38260,11 +38204,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/security/main)
-"iTh" = (
-/obj/structure/disposalpipe/segment,
-/obj/structure/disposalpipe/segment,
-/turf/open/floor/plating,
-/area/maintenance/starboard/aft)
 "iTt" = (
 /obj/item/radio/intercom{
 	desc = "Talk through this. It looks like it has been modified to not broadcast.";
@@ -48633,10 +48572,6 @@
 	dir = 4;
 	pixel_x = -23
 	},
-/obj/machinery/airalarm{
-	dir = 4;
-	pixel_x = -23
-	},
 /turf/open/floor/plasteel/grimy,
 /area/vacant_room/office)
 "pkV" = (
@@ -53433,9 +53368,6 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 5
 	},
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
 /obj/machinery/button/door{
 	id = "QuarantineB";
 	name = "Quarantine Bolts B";
@@ -53456,24 +53388,6 @@
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
-	},
-/obj/machinery/button/door{
-	id = "QuarantineB";
-	name = "Quarantine Bolts B";
-	normaldoorcontrol = 1;
-	pixel_x = 8;
-	pixel_y = -21;
-	req_one_access_txt = "39;40;45";
-	specialfunctions = 4
-	},
-/obj/machinery/button/door{
-	id = "QuarantineA";
-	name = "Quarantine Bolts A";
-	normaldoorcontrol = 1;
-	pixel_x = -8;
-	pixel_y = -21;
-	req_one_access_txt = "39;40;45";
-	specialfunctions = 4
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/medbay/central)
@@ -55779,9 +55693,6 @@
 /turf/open/floor/plasteel,
 /area/quartermaster/office)
 "tEW" = (
-/obj/structure/disposalpipe/segment{
-	dir = 5
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 5
 	},
@@ -94384,7 +94295,7 @@ awr
 osg
 aAh
 aCm
-aDL
+aGk
 bCV
 aGk
 aHU
@@ -102165,10 +102076,10 @@ bNd
 koq
 moo
 cnG
-guz
+mhi
 cnG
 cko
-iTh
+cnG
 cko
 rzf
 cnG
@@ -102425,7 +102336,7 @@ cko
 bFu
 cko
 cko
-iTh
+cnG
 cko
 csm
 euG
@@ -108033,7 +107944,7 @@ bfV
 bfV
 bfV
 box
-bpW
+buj
 brs
 box
 box
