@@ -505,7 +505,7 @@
 
 /datum/crafting_recipe/skateboard
 	name = "Skateboard"
-	result = /obj/vehicle/ridden/scooter/skateboard
+	result = /obj/item/melee/skateboard
 	time = 60
 	reqs = list(/obj/item/stack/sheet/iron = 5,
 				/obj/item/stack/rods = 10)
@@ -934,7 +934,7 @@
 	result = /obj/item/stack/medical/bruise_pack/one
 	time = 1
 	reqs = list(/obj/item/stack/medical/gauze = 1,
-				/datum/reagent/medicine/styptic_powder = 10)
+				/datum/reagent/medicine/styptic_powder = 40)
 	category = CAT_MISC
 
 /datum/crafting_recipe/burn_pack
@@ -942,7 +942,7 @@
 	result = /obj/item/stack/medical/ointment/one
 	time = 1
 	reqs = list(/obj/item/stack/medical/gauze = 1,
-				/datum/reagent/medicine/silver_sulfadiazine = 10)
+				/datum/reagent/medicine/silver_sulfadiazine = 40)
 	category = CAT_MISC
 
 // Shank - Makeshift weapon that can embed on throw
@@ -1025,3 +1025,23 @@
 	time = 20
 	reqs = list(/obj/item/stack/sheet/animalhide/goliath_hide = 3)
 	category = CAT_PRIMAL
+
+/datum/crafting_recipe/foldable
+	name = "Foldable Chair"
+	result = /obj/item/chair/foldable
+	time = 40
+	reqs = list(/obj/item/stack/rods = 2,
+				/obj/item/stack/sheet/plastic = 1
+				)
+	tools = list(TOOL_WRENCH, TOOL_WIRECUTTER)
+	category = CAT_MISC
+
+/datum/crafting_recipe/chair_fancy
+	name = "Fancy Chair"
+	result = /obj/item/chair/fancy
+	time = 60
+	reqs = list(/obj/item/stack/rods = 2,
+				/obj/item/chair = 1
+				)
+	tools = list(TOOL_WRENCH, TOOL_WIRECUTTER)
+	category = CAT_MISC

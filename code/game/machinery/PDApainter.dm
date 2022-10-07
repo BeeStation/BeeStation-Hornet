@@ -51,19 +51,22 @@
 		"Security: Brig Physician" = "pda-brigphys",
 		"Security: Deputy" = "pda-deputy",
 		"Misc: Prisoner" = "pda-prisoner"
-		)
+	)
 
 	var/valid_jobs = list(
-		"----Command----","Command (Custom)", "Captain", "Acting Captain",
-		"----Service----","Service (Custom)", "Assistant", "Head of Personnel", "Bartender", "Cook", "Botanist", "Janitor", "Curator",
-		"Chaplain", "Lawyer", "Clown", "Mime", "Barber", "Stage Magician",
-		"----Cargo----","Cargo (Custom)","Quartermaster", "Cargo Technician","Shaft Miner",
-		"----Engineering----","Engineering (Custom)","Chief Engineer", "Station Engineer", "Atmospheric Technician",
-		"----Science----","Science (Custom)","Research Director", "Scientist", "Roboticist", "Exploration Crew",
-		"----Medical----","Medical (Custom)","Chief Medical Officer", "Medical Doctor", "Chemist", "Geneticist", "Virologist", "Paramedic", "Psychiatrist",
-		"----Security----","Security (Custom)","Head of Security", "Warden", "Detective", "Security Officer", "Brig Physician", "Deputy",
-		"----MISC----","Unassigned","Prisoner"
-		)
+		"----Command----", "Command (Custom)",JOB_NAME_CAPTAIN,"Acting Captain",
+		"----Service----", "Service (Custom)", JOB_NAME_ASSISTANT, JOB_NAME_HEADOFPERSONNEL, JOB_NAME_BARTENDER, JOB_NAME_COOK,
+			JOB_NAME_BOTANIST, JOB_NAME_JANITOR, JOB_NAME_CURATOR,JOB_NAME_CHAPLAIN, JOB_NAME_LAWYER,
+			JOB_NAME_CLOWN, JOB_NAME_MIME, JOB_NAME_BARBER, JOB_NAME_STAGEMAGICIAN,
+		"----Cargo----","Cargo (Custom)",JOB_NAME_QUARTERMASTER, JOB_NAME_CARGOTECHNICIAN,JOB_NAME_SHAFTMINER,
+		"----Engineering----","Engineering (Custom)",JOB_NAME_CHIEFENGINEER, JOB_NAME_STATIONENGINEER, JOB_NAME_ATMOSPHERICTECHNICIAN,
+		"----Science----","Science (Custom)",JOB_NAME_RESEARCHDIRECTOR, JOB_NAME_SCIENTIST, JOB_NAME_ROBOTICIST, JOB_NAME_EXPLORATIONCREW,
+		"----Medical----","Medical (Custom)",JOB_NAME_CHIEFMEDICALOFFICER, JOB_NAME_MEDICALDOCTOR, JOB_NAME_CHEMIST, JOB_NAME_GENETICIST,
+			JOB_NAME_VIROLOGIST, JOB_NAME_PARAMEDIC, JOB_NAME_PSYCHIATRIST,
+		"----Security----","Security (Custom)",JOB_NAME_HEADOFSECURITY, JOB_NAME_WARDEN, JOB_NAME_DETECTIVE, JOB_NAME_SECURITYOFFICER,
+			JOB_NAME_BRIGPHYSICIAN, JOB_NAME_DEPUTY,
+		"----MISC----","Unassigned",JOB_NAME_PRISONER
+	)
 	max_integrity = 200
 	var/list/colorlist = list()
 
@@ -73,7 +76,7 @@
 	pda_icons += list(
 		"Transparent" = "pda-clear",
 		"Syndicate" = "pda-syndi"
-		)
+	)
 	valid_jobs += list(
 		"CentCom (Custom)",
 		"CentCom",
@@ -82,13 +85,13 @@
 		"King",
 		"Syndicate",
 		"Clown Operative"
-		)
+	)
 	to_chat(user, "<span class='warning'>You short out the design locking circuitry, allowing contraband and special designs.</span>")
 	obj_flags |= EMAGGED
 /obj/machinery/pdapainter/update_icon()
 	cut_overlays()
 
-	if(stat & BROKEN)
+	if(machine_stat & BROKEN)
 		icon_state = "coloriser-broken"
 		return
 
@@ -177,17 +180,17 @@
 		update_icon()
 
 	else if(O.tool_behaviour == TOOL_WELDER && user.a_intent != INTENT_HARM)
-		if(stat & BROKEN)
+		if(machine_stat & BROKEN)
 			if(!O.tool_start_check(user, amount=0))
 				return
 			user.visible_message("[user] is repairing [src].", \
 							"<span class='notice'>You begin repairing [src]...</span>", \
 							"<span class='italics'>You hear welding.</span>")
 			if(O.use_tool(src, user, 40, volume=50))
-				if(!(stat & BROKEN))
+				if(!(machine_stat & BROKEN))
 					return
 				to_chat(user, "<span class='notice'>You repair [src].</span>")
-				stat &= ~BROKEN
+				set_machine_stat(machine_stat & ~BROKEN)
 				obj_integrity = max_integrity
 				update_icon()
 		else
@@ -196,10 +199,7 @@
 		return ..()
 
 /obj/machinery/pdapainter/deconstruct(disassembled = TRUE)
-	if(!(flags_1 & NODECONSTRUCT_1))
-		if(!(stat & BROKEN))
-			stat |= BROKEN
-			update_icon()
+	obj_break()
 
 /obj/machinery/pdapainter/attack_hand(mob/user)
 	if(!..())
@@ -232,7 +232,8 @@
 
 				// QoL to correct the system behavior
 				if(storedid.registered_account)
-					storedid.registered_account.account_department = get_department_by_hud(storedid.hud_state) // your true department by your hud icon color
+					if(!storedid.registered_account.department_locked)
+						storedid.registered_account.account_department = get_department_by_hud(storedid.hud_state) // your true department by your hud icon color
 				GLOB.data_core.manifest_modify(storedid.registered_name, storedid.assignment, storedid.hud_state) // update crew manifest
 				// There are the same code lines in `card.dm`
 				ejectid()
@@ -240,7 +241,7 @@
 			to_chat(user, "<span class='notice'>[src] is empty.</span>")
 
 /obj/machinery/pdapainter/AltClick(mob/user)
-	if(usr.stat || usr.restrained())
+	if(!user.canUseTopic(src, !issilicon(user)) || usr.stat || usr.restrained())
 		return
 	if(storedpda || storedid)
 		ejectid()

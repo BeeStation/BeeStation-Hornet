@@ -68,26 +68,6 @@
 	var/mob/living/silicon/robot/R = usr
 	R.uneq_active()
 
-/atom/movable/screen/robot/lamp
-	name = "headlamp"
-	icon_state = "lamp0"
-
-/atom/movable/screen/robot/lamp/Click()
-	if(..())
-		return
-	var/mob/living/silicon/robot/R = usr
-	R.control_headlamp()
-
-/atom/movable/screen/robot/thrusters
-	name = "ion thrusters"
-	icon_state = "ionpulse0"
-
-/atom/movable/screen/robot/thrusters/Click()
-	if(..())
-		return
-	var/mob/living/silicon/robot/R = usr
-	R.toggle_ionpulse()
-
 /datum/hud/robot
 	ui_style = 'icons/mob/screen_cyborg.dmi'
 
@@ -130,36 +110,42 @@
 
 //End of module select
 
+	using = new /atom/movable/screen/robot/lamp()
+	using.screen_loc = ui_borg_lamp
+	using.hud = src
+	static_inventory += using
+	mymobR.lampButton = using
+	var/atom/movable/screen/robot/lamp/lampscreen = using
+	lampscreen.robot = mymobR
+
 //Photography stuff
 	using = new /atom/movable/screen/ai/image_take()
 	using.screen_loc = ui_borg_camera
 	using.hud = src
 	static_inventory += using
 
-	using = new /atom/movable/screen/ai/image_view()
-	using.screen_loc = ui_borg_album
+//Borg Integrated Tablet
+	using = new /atom/movable/screen/robot/modPC()
+	using.screen_loc = ui_borg_tablet
+	using.hud = src
+	static_inventory += using
+	mymobR.interfaceButton = using
+	if(mymobR.modularInterface)
+		using.vis_contents += mymobR.modularInterface
+	var/atom/movable/screen/robot/modPC/tabletbutton = using
+	tabletbutton.robot = mymobR
+
+//Alerts
+	using = new /atom/movable/screen/robot/alerts()
+	using.screen_loc = ui_borg_alerts
 	using.hud = src
 	static_inventory += using
 
-//Sec/Med HUDs
-	using = new /atom/movable/screen/ai/sensors()
-	using.screen_loc = ui_borg_sensor
+//Manifest
+	using = new /atom/movable/screen/robot/crew_manifest()
+	using.screen_loc = ui_borg_crew_manifest
 	using.hud = src
 	static_inventory += using
-
-//Headlamp control
-	using = new /atom/movable/screen/robot/lamp()
-	using.screen_loc = ui_borg_lamp
-	using.hud = src
-	static_inventory += using
-	mymobR.lamp_button = using
-
-//Thrusters
-	using = new /atom/movable/screen/robot/thrusters()
-	using.screen_loc = ui_borg_thrusters
-	using.hud = src
-	static_inventory += using
-	mymobR.thruster_button = using
 
 //Intent
 	action_intent = new /atom/movable/screen/act_intent/robot()
@@ -288,3 +274,55 @@
 		else
 			for(var/obj/item/I in R.held_items)
 				screenmob.client.screen -= I
+
+/atom/movable/screen/robot/lamp
+	name = "headlamp"
+	icon_state = "lamp_off"
+	var/mob/living/silicon/robot/robot
+
+/atom/movable/screen/robot/lamp/Click()
+	. = ..()
+	if(.)
+		return
+	robot?.toggle_headlamp()
+	update_icon()
+
+/atom/movable/screen/robot/lamp/update_icon()
+	if(robot?.lamp_enabled)
+		icon_state = "lamp_on"
+	else
+		icon_state = "lamp_off"
+
+/atom/movable/screen/robot/modPC
+	name = "Modular Interface"
+	icon_state = "template"
+	var/mob/living/silicon/robot/robot
+
+/atom/movable/screen/robot/modPC/Click()
+	. = ..()
+	if(.)
+		return
+	robot.modularInterface?.interact(robot)
+
+/atom/movable/screen/robot/alerts
+	name = "Alert Panel"
+	icon = 'icons/mob/screen_ai.dmi'
+	icon_state = "alerts"
+
+/atom/movable/screen/robot/alerts/Click()
+	. = ..()
+	if(.)
+		return
+	var/mob/living/silicon/robot/borgo = usr
+	borgo.robot_alerts()
+
+/atom/movable/screen/robot/crew_manifest
+	name = "Crew Manifest"
+	icon = 'icons/mob/screen_ai.dmi'
+	icon_state = "manifest"
+
+/atom/movable/screen/robot/crew_manifest/Click()
+	if(..())
+		return
+	var/mob/living/silicon/robot/borgo = usr
+	borgo.ai_roster()

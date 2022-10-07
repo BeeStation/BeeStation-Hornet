@@ -97,6 +97,8 @@
 	user.examinate(src)
 
 /obj/machinery/clonepod/AltClick(mob/user)
+	if(!user.canUseTopic(src, !issilicon(user)))
+		return
 	if (alert(user, "Are you sure you want to empty the cloning pod?", "Empty Reagent Storage:", "Yes", "No") != "Yes")
 		return
 	to_chat(user, "<span class='notice'>You empty \the [src]'s release valve onto the floor.</span>")
@@ -158,7 +160,7 @@
 	var/mob/living/mob_occupant = occupant
 	if(mess)
 		. += "It's filled with blood and viscera. You swear you can see it moving..."
-	if(is_operational() && istype(mob_occupant))
+	if(is_operational && istype(mob_occupant))
 		if(mob_occupant.stat != DEAD)
 			. += "Current clone cycle is [round(get_completion())]% complete."
 
@@ -310,7 +312,7 @@
 /obj/machinery/clonepod/process()
 	var/mob/living/mob_occupant = occupant
 
-	if(!is_operational()) //Autoeject if power is lost (or the pod is dysfunctional due to whatever reason)
+	if(!is_operational) //Autoeject if power is lost (or the pod is dysfunctional due to whatever reason)
 		if(mob_occupant)
 			go_out()
 			log_cloning("[key_name(mob_occupant)] ejected from [src] at [AREACOORD(src)] due to power loss.")
@@ -338,8 +340,8 @@
 				if(internal_radio)
 					SPEAK("The cloning of [mob_occupant.real_name] has been ended prematurely due to being unable to pay.")
 			else
-				var/datum/bank_account/D = SSeconomy.get_dep_account(payment_department)
-				if(D)
+				var/datum/bank_account/department/D = SSeconomy.get_dep_account(payment_department)
+				if(D && !D.is_nonstation_account())
 					D.adjust_money(fair_market_price)
 		if(mob_occupant && (mob_occupant.stat == DEAD) || (mob_occupant.suiciding) || mob_occupant.ishellbound())  //Autoeject corpses and suiciding dudes.
 			connected_message("Clone Rejected: Deceased.")

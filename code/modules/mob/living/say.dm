@@ -295,7 +295,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	//speech bubble
 	var/list/speech_bubble_recipients = list()
 	for(var/mob/M in listening)
-		if(M.client && !M.client.prefs.chat_on_map)
+		if(M.client && !(M.client.prefs.toggles & PREFTOGGLE_RUNECHAT_GLOBAL))
 			speech_bubble_recipients.Add(M.client)
 	var/image/I = image('icons/mob/talk.dmi', src, "[bubble_type][say_test(message)]", FLY_LAYER)
 	I.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
@@ -364,13 +364,14 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	if(clockslurring)
 		message = clockslur(message)
 
-	// check for and apply punctuation
+	return treat_message_min(message)
+
+/mob/proc/treat_message_min(message)
 	var/end = copytext(message, length(message))
 	if(!(end in list("!", ".", "?", ":", "\"", "-", "~")))
 		message += "."
 
 	message = capitalize(message)
-
 	return message
 
 /mob/living/proc/radio(message, list/message_mods = list(), list/spans, language)
