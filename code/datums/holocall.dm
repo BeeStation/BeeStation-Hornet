@@ -214,7 +214,8 @@
 
 /obj/item/disk/holodisk
 	name = "holorecord disk"
-	desc = "Stores recorder holocalls."
+	desc = "Stores a holographic recording of people, animals, or other speaking objects. \
+	Play it back, or record over it, on a holopad."
 	icon_state = "holodisk"
 	obj_flags = UNIQUE_RENAME
 	materials = list(/datum/material/iron = 100, /datum/material/glass = 100)

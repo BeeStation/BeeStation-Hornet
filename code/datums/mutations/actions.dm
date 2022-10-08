@@ -82,7 +82,7 @@
 
 /datum/mutation/firebreath
 	name = "Fire Breath"
-	desc = "An ancient mutation that gives lizards breath of fire."
+	desc = "An ancient mutation that gives lizards fire breath."
 	quality = POSITIVE
 	difficulty = 12
 	locked = TRUE
@@ -188,7 +188,7 @@
 
 /obj/effect/proc_holder/spell/self/self_amputation
 	name = "Drop a limb"
-	desc = "Concentrate to make a random limb pop right off your body."
+	desc = "Concentrate to make a random limb pop off your body."
 	clothes_req = FALSE
 	human_req = FALSE
 	charge_max = 100
@@ -216,7 +216,7 @@
 
 /datum/mutation/overload
 	name = "Overload"
-	desc = "Allows an Ethereal to overload their skin to cause a bright flash."
+	desc = "Allows an Ethereal to overload their skin, causing a bright flash."
 	quality = POSITIVE
 	locked = TRUE
 	text_gain_indication = "<span class='notice'>Your skin feels more crackly.</span>"

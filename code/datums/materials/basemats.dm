@@ -26,7 +26,7 @@
 /datum/material/silver
 	name = "silver"
 	id = "silver"
-	desc = "Silver"
+	desc = "A shiny ingot of silver. It's commonly found in the crust."
 	color = "#bdbebf"
 	greyscale_colors = "#bdbebf"
 	categories = list(MAT_CATEGORY_ORE = TRUE, MAT_CATEGORY_RIGID = TRUE)
@@ -34,10 +34,10 @@
 	coin_type = /obj/item/coin/silver
 
 ///Slight force increase
-/datum/material/gold
+/datum/material/gold  // butter
 	name = "gold"
 	id = "gold"
-	desc = "Gold"
+	desc = "A very malleable ore, found in rocks, veins, and alluvial deposits. It kinda looks like butter, too."
 	color = "#f0972b"
 	greyscale_colors = "#f0972b"
 	strength_modifier = 1.2
@@ -60,7 +60,7 @@
 /datum/material/uranium
 	name = "uranium"
 	id = "uranium"
-	desc = "Uranium"
+	desc = "A weaker, but still deadly, radioactive isotope. Be careful when handling."
 	color = "#1fb83b"
 	greyscale_colors = "#1fb83b"
 	categories = list(MAT_CATEGORY_ORE = TRUE, MAT_CATEGORY_RIGID = TRUE)
@@ -80,7 +80,7 @@
 /datum/material/plasma
 	name = "plasma"
 	id = "plasma"
-	desc = "Isn't plasma a state of matter? Oh whatever."
+	desc = "Isn't plasma a state of matter? Oh, whatever. This is what nanotrasen sent you to get."
 	color = "#c716b8"
 	greyscale_colors = "#c716b8"
 	categories = list(MAT_CATEGORY_ORE = TRUE, MAT_CATEGORY_RIGID = TRUE)
@@ -102,7 +102,7 @@
 /datum/material/bluespace
 	name = "bluespace crystal"
 	id = "bluespace_crystal"
-	desc = "Crystals with bluespace properties"
+	desc = "A strange, translucent-blue crystal that radiates some cosmic energy."
 	color = "#506bc7"
 	greyscale_colors = "#506bc7"
 	categories = list(MAT_CATEGORY_ORE = TRUE)
@@ -112,7 +112,7 @@
 /datum/material/bananium
 	name = "bananium"
 	id = "bananium"
-	desc = "Material with hilarious properties"
+	desc = "A crystallized..banana? It doesn't seem slippery, at least."
 	color = "#fff263"
 	greyscale_colors = "#fff263"
 	categories = list(MAT_CATEGORY_ORE = TRUE, MAT_CATEGORY_RIGID = TRUE)
@@ -134,7 +134,7 @@
 /datum/material/titanium
 	name = "titanium"
 	id = "titanium"
-	desc = "Titanium"
+	desc = "A piece of titanium, no way you're breaking this."
 	color = "#b3c0c7"
 	greyscale_colors = "#b3c0c7"
 	strength_modifier = 1.3
@@ -145,7 +145,7 @@
 /datum/material/plastic
 	name = "plastic"
 	id = "plastic"
-	desc = "plastic"
+	desc = "The most flexible of materials, though somehow not insulated.."
 	color = "#caccd9"
 	greyscale_colors = "#caccd9"
 	strength_modifier = 0.85

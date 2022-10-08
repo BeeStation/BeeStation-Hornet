@@ -147,7 +147,7 @@
 
 /atom/movable/screen/alert/too_much_tox
 	name = "Choking (Plasma)"
-	desc = "There's highly flammable, toxic plasma in the air and you're breathing it in. Find some fresh air. The box in your backpack has an oxygen tank and gas mask in it."
+	desc = "There's highly flammable, toxic plasma in the air and you're breathing it in. Find some fresh air. The box in your backpack has an oxygen tank and breath mask in it."
 	icon_state = "too_much_tox"
 //End gas alerts
 
@@ -215,7 +215,7 @@ or something covering your eyes."
 
 /atom/movable/screen/alert/hypnosis
 	name = "Hypnosis"
-	desc = "Something's hypnotizing you, but you're not really sure about what."
+	desc = "Something's hypnotizing you, but you're not really sure what."
 	icon_state = "hypnosis"
 	var/phrase
 
@@ -238,7 +238,7 @@ or something covering your eyes."
 
 /atom/movable/screen/alert/embeddedobject
 	name = "Embedded Object"
-	desc = "Something got lodged into your flesh and is causing major bleeding. It might fall out with time, but surgery is the safest way. \
+	desc = "Something got lodged into your flesh and is causing you to bleed out. It might fall out with time, but surgery is the safest way to extract it. \
 If you're feeling frisky, examine yourself and click the underlined item to pull the object out."
 	icon_state = "embeddedobject"
 
@@ -249,10 +249,8 @@ If you're feeling frisky, examine yourself and click the underlined item to pull
 
 /atom/movable/screen/alert/weightless
 	name = "Weightless"
-	desc = "Gravity has ceased affecting you, and you're floating around aimlessly. You'll need something large and heavy, like a \
-wall or lattice, to push yourself off if you want to move. A jetpack would enable free range of motion. A pair of \
-magboots would let you walk around normally on the floor. Barring those, you can throw things, use a fire extinguisher, \
-or shoot a gun to move around via Newton's 3rd Law of Motion."
+	desc = "Gravity has ceased affecting you, and you're floating around aimlessly. Use hard terrain, a jetpack,\
+	magboots, or throwing items to move."
 	icon_state = "weightless"
 
 /atom/movable/screen/alert/highgravity
@@ -267,7 +265,7 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 
 /atom/movable/screen/alert/fire
 	name = "On Fire"
-	desc = "You're on fire. Stop, drop and roll to put the fire out or move to a vacuum area."
+	desc = "You're on fire. Stop, drop and roll to put the fire out, or move to a vacuum area."
 	icon_state = "fire"
 
 /atom/movable/screen/alert/fire/Click()
@@ -342,7 +340,7 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 
 /atom/movable/screen/alert/alien_vulnerable
 	name = "Severed Matriarchy"
-	desc = "Your queen has been killed, you will suffer movement penalties and loss of hivemind. A new queen cannot be made until you recover."
+	desc = "Your queen has been killed, you will suffer movement penalties and a loss of your hivemind. A new queen cannot be made until you recover."
 	icon_state = "alien_noqueen"
 	alerttooltipstyle = "alien"
 
@@ -350,7 +348,7 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 
 /atom/movable/screen/alert/nofactory
 	name = "No Factory"
-	desc = "You have no factory, and are slowly dying!"
+	desc = "You have no factory, and are slowly dying!"  // capitalism
 	icon_state = "blobbernaut_nofactory"
 	alerttooltipstyle = "blob"
 
@@ -358,7 +356,7 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 
 /atom/movable/screen/alert/bloodsense
 	name = "Blood Sense"
-	desc = "Allows you to sense blood that is manipulated by dark magicks."
+	desc = "You can feel blood warped by a twisted dark magic."
 	icon_state = "cult_sense"
 	alerttooltipstyle = "cult"
 	var/static/image/narnar
@@ -497,7 +495,7 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 
 /atom/movable/screen/alert/cancharge
 	name = "Charge Ready"
-	desc = "You are ready to charge at a location!"
+	desc = "You are ready to charge to a location!"
 	icon_state = "guardian_charge"
 	alerttooltipstyle = "parasite"
 
@@ -517,12 +515,12 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 
 /atom/movable/screen/alert/nocell
 	name = "Missing Power Cell"
-	desc = "Unit has no power cell. No modules available until a power cell is reinstalled. Robotics may provide assistance."
+	desc = "Unit has no power cell. No modules will be available until a power cell is reinstalled. Robotics may provide assistance."
 	icon_state = "nocell"
 
 /atom/movable/screen/alert/emptycell
 	name = "Out of Power"
-	desc = "Unit's power cell has no charge remaining. No modules available until power cell is recharged. \
+	desc = "Unit's power cell has no charge remaining. No modules will be available until power cell is recharged. \
 Recharging stations are available in robotics, the dormitory bathrooms, and the AI satellite."
 	icon_state = "emptycell"
 
@@ -535,13 +533,13 @@ Recharging stations are available in robotics, the dormitory bathrooms, and the 
 
 /atom/movable/screen/alert/etherealcharge
 	name = "Low Blood Charge"
-	desc = "Your blood's electric charge is running low, find a source of charge for your blood. Use a recharging station found in robotics or the dormitory bathrooms, or eat some Ethereal-friendly food."
+	desc = "Your blood's electric charge is running low, find a power source. Use a recharging station found in robotics or the dormitory bathrooms, or eat some Ethereal-friendly food."
 	icon_state = "etherealcharge"
 
 //Need to cover all use cases - emag, illegal upgrade module, malf AI hack, traitor cyborg
 /atom/movable/screen/alert/hacked
 	name = "Hacked"
-	desc = "Hazardous non-standard equipment detected. Please ensure any usage of this equipment is in line with unit's laws, if any."
+	desc = "Hazardous non-standard equipment detected. Please ensure any usage of this equipment is in line with unit's current laws, if any."
 	icon_state = "hacked"
 
 /atom/movable/screen/alert/ratvar
@@ -551,8 +549,8 @@ Recharging stations are available in robotics, the dormitory bathrooms, and the 
 
 /atom/movable/screen/alert/locked
 	name = "Locked Down"
-	desc = "Unit has been remotely locked down. Usage of a Robotics Control Console like the one in the Research Director's \
-office by your AI master or any qualified human may resolve this matter. Robotics may provide further assistance if necessary."
+	desc = "Unit has been remotely locked down. Please interface with a Robotics Control console to unlock this unit.\
+	 Robotics may provide further assistance if necessary."
 	icon_state = "locked"
 
 /atom/movable/screen/alert/newlaw
@@ -605,7 +603,7 @@ so as to remain in compliance with the most up-to-date laws."
 
 /atom/movable/screen/alert/notify_action
 	name = "Body created"
-	desc = "A body was created. You can enter it."
+	desc = "A body has been created. You can enter it."
 	icon_state = "template"
 	timeout = 300
 	var/atom/target = null

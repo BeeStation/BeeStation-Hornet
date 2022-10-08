@@ -1,6 +1,6 @@
 /datum/mutation/antenna
 	name = "Antenna"
-	desc = "The affected person sprouts an antenna. This is known to allow them to access common radio channels passively."
+	desc = "The affected person sprouts an antenna, allowing them to access common radio channels passively."
 	quality = POSITIVE
 	text_gain_indication = "<span class='notice'>You feel an antenna sprout from your forehead.</span>"
 	text_lose_indication = "<span class='notice'>Your antenna shrinks back down.</span>"
@@ -11,7 +11,7 @@
 /obj/item/implant/radio/antenna
 	name = "internal antenna organ"
 	desc = "The internal organ part of the antenna. Science has not yet given it a good name."
-	icon = 'icons/obj/radio.dmi'//maybe make a unique sprite later. not important
+	icon = 'icons/obj/radio.dmi'//maybe make a unique sprite later. not important // maybe ill do that..someday
 	icon_state = "walkietalkie"
 
 /obj/item/implant/radio/antenna/Initialize(mapload)

@@ -78,7 +78,7 @@
 //Locker overloading issue solving boxes
 /obj/item/storage/box/suitbox
 	name = "compression box of invisible outfits"
-	desc = "a box with bluespace compression technology that nanotrasen has approved, but this is extremely heavy... If you're glued with this box, pull out of the contents and fold the box."
+	desc = "An extremely heavy box, due to the bluespace tech inside. You're better off extracting the contents and folding it."
 	w_class = WEIGHT_CLASS_HUGE
 	drag_slowdown = 4 // do not steal by dragging
 	/* Note for the compression box:
@@ -1399,7 +1399,7 @@
 /obj/item/storage/box/radiokey/clown  // honk
 	name = "\improper H.O.N.K. CO fake encryption keys"
 	desc = "Totally prank your friends with these realistic encryption keys!"
-	
+
 /obj/item/storage/box/radiokey/clown/PopulateContents()
 	new /obj/item/encryptionkey/heads/rd/fake(src)
 	new /obj/item/encryptionkey/heads/hos/fake(src)
