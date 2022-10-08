@@ -92,7 +92,7 @@
 		to_chat(user, "<span class=\"alert\">The autolathe is busy. Please wait for completion of previous operation.</span>")
 		return TRUE
 
-	if(default_deconstruction_screwdriver(user, "autolathe_t", "autolathe", O))
+	if((user.a_intent == INTENT_HARM || panel_open) && default_deconstruction_screwdriver(user, "autolathe_t", "autolathe", O)) //only unscrew it on harm intent or when it's already open
 		return TRUE
 
 	if(default_deconstruction_crowbar(O))
