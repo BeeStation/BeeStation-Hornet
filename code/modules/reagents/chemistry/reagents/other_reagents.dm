@@ -1361,7 +1361,7 @@
 	color = "#E1A116"
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
 	taste_description = "sourness"
-	///stores whether or not the mob has been warned that they are having difficulty breathing. 
+	///stores whether or not the mob has been warned that they are having difficulty breathing.
 	var/warned = FALSE
 
 /datum/reagent/stimulum/on_mob_metabolize(mob/living/L)
@@ -1690,7 +1690,7 @@
 	reagent_state = LIQUID
 	color = "#C8A5DC"
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY
-	var/list/potential_colors = list("#0ad","#a0f","#f73","#d14","#d14","#0b5","#0ad","#f73","#fc2","#084","#05e","#d22","#fa0") // fucking hair code
+	var/list/potential_colors = list("0ad","a0f","f73","d14","d14","0b5","0ad","f73","fc2","084","05e","d22","fa0") // fucking hair code // someone forgot how hair_color is programmed
 	taste_description = "sourness"
 
 /datum/reagent/hair_dye/reaction_mob(mob/living/M, method=TOUCH, reac_volume)
