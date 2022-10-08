@@ -955,6 +955,17 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if(istype(M) && M.dirty < 100)
 		M.dirty++
 
+	var/obj/item/stock_parts/cell/battery = get_cell()
+	if(battery && battery.charge < battery.maxcharge * 0.4)
+		battery.give(battery.maxcharge * 0.4 - battery.charge)
+		if(prob(5))
+			message_admins("A modular tablet ([src]) was detonated in a microwave (5% chance) at [ADMIN_JMP(src)]")
+			log_game("A modular tablet named [src] detonated in a microwave at [get_turf(src)]")
+			if(battery.charge > 3600) //At this charge level, the default charge-based battery explosion is more severe
+				battery.explode()
+			else
+				explosion(src, 0, 0, 3, 4)
+
 /obj/item/proc/on_mob_death(mob/living/L, gibbed)
 
 /obj/item/proc/grind_requirements(obj/machinery/reagentgrinder/R) //Used to check for extra requirements for grinding an object
