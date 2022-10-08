@@ -70,7 +70,12 @@
 /obj/machinery/computer/security/ui_state(mob/user)
 	return GLOB.default_state
 
+/obj/machinery/computer/security/interact(mob/user, special_state)
+	if (!user.client) return // monkey proof
+	. = ..()
+
 /obj/machinery/computer/security/ui_interact(mob/user, datum/tgui/ui)
+
 	// Update UI
 	ui = SStgui.try_update_ui(user, src, ui)
 
