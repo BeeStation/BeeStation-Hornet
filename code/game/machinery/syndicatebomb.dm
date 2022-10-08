@@ -16,8 +16,8 @@
 
 	interaction_flags_machine = INTERACT_MACHINE_WIRES_IF_OPEN | INTERACT_MACHINE_OFFLINE
 
-	var/minimum_timer = 30
-	var/timer_set = 30
+	var/minimum_timer = 60
+	var/timer_set = 60
 	var/maximum_timer = 60000
 
 	var/can_unanchor = TRUE
