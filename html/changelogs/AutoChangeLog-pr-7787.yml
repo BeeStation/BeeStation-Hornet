@@ -1,5 +1,0 @@
-author: Ivniinvi
-delete-after: true
-changes:
-  - rscadd: Devices with a power cell can now be charged in a microwave if below 40%
-      power, with occasional explosive results!
