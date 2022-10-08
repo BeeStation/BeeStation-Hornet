@@ -85,9 +85,9 @@
 	var/icon/sub = icon('icons/mob/clothing/head.dmi', icon_state)
 
 	//merge the sub side with the main, after masking off the middle pixel line
-	var/icon/mask = new('icons/mob/monkey.dmi', "monkey_mask_right") //masking
+	var/icon/mask = icon('icons/mob/monkey.dmi', "monkey_mask_right") //masking
 	main.AddAlphaMask(mask)
-	mask = new('icons/mob/monkey.dmi', "monkey_mask_left")
+	mask = icon('icons/mob/monkey.dmi', "monkey_mask_left")
 	sub.AddAlphaMask(mask)
 	sub.Shift(EAST, 1)
 	main.Blend(sub, ICON_OVERLAY)
@@ -99,7 +99,8 @@
 	main.Insert(sub, dir = WEST)
 
 	//Mix in GAG color
-	main.Blend(greyscale_colors, ICON_MULTIPLY)
+	if(greyscale_colors)
+		main.Blend(greyscale_colors, ICON_MULTIPLY)
 
 	//Finished
 	monkey_icon = main

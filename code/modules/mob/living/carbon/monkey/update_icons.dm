@@ -120,6 +120,8 @@
 			offset = OFFSET_UNIFORM
 			U = w_uniform
 			ui = ui_monkey_body
+		else
+			return
 
 	remove_overlay(c_layer)
 
@@ -127,7 +129,7 @@
 		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[TOBITSHIFT(slot) + 1]
 		inv.update_icon()
 
-	if(client && hud_used.hud_shown)
+	if(client && hud_used.hud_shown && U)
 		U.screen_loc = ui
 		client.screen += U
 		var/mutable_appearance/cloth_overlay = mutable_appearance(U.monkey_icon, layer = -c_layer)
