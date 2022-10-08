@@ -790,7 +790,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 	req_cultists = 3
 	invoke_damage = 10
 	construct_invoke = FALSE
-	var/tick_damage = 10
+	var/tick_damage = 15
 	rune_in_use = FALSE
 
 /obj/effect/rune/blood_boil/do_invoke_glow()
