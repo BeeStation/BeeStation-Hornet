@@ -80,7 +80,7 @@
 /datum/material/plasma
 	name = "plasma"
 	id = "plasma"
-	desc = "Isn't plasma a state of matter? Oh, whatever. This is what nanotrasen sent you to get."
+	desc = "Isn't plasma a state of matter? Oh, whatever. This is what Nanotrasen sent you to get."
 	color = "#c716b8"
 	greyscale_colors = "#c716b8"
 	categories = list(MAT_CATEGORY_ORE = TRUE, MAT_CATEGORY_RIGID = TRUE)
@@ -102,7 +102,7 @@
 /datum/material/bluespace
 	name = "bluespace crystal"
 	id = "bluespace_crystal"
-	desc = "A strange, translucent-blue crystal that radiates some cosmic energy."
+	desc = "A strange, translucent-blue crystal that radiates a strong cosmic energy."
 	color = "#506bc7"
 	greyscale_colors = "#506bc7"
 	categories = list(MAT_CATEGORY_ORE = TRUE)
@@ -112,7 +112,7 @@
 /datum/material/bananium
 	name = "bananium"
 	id = "bananium"
-	desc = "A crystallized..banana? It doesn't seem slippery, at least."
+	desc = "A crystallized...banana? It doesn't seem slippery, at least."
 	color = "#fff263"
 	greyscale_colors = "#fff263"
 	categories = list(MAT_CATEGORY_ORE = TRUE, MAT_CATEGORY_RIGID = TRUE)
@@ -134,7 +134,7 @@
 /datum/material/titanium
 	name = "titanium"
 	id = "titanium"
-	desc = "A piece of titanium, no way you're breaking this."
+	desc = "A piece of titanium, no way you're breaking this. Its quite shiny."
 	color = "#b3c0c7"
 	greyscale_colors = "#b3c0c7"
 	strength_modifier = 1.3
@@ -145,7 +145,7 @@
 /datum/material/plastic
 	name = "plastic"
 	id = "plastic"
-	desc = "The most flexible of materials, though somehow not insulated.."
+	desc = "The most flexible of materials, though somehow not insulated..."
 	color = "#caccd9"
 	greyscale_colors = "#caccd9"
 	strength_modifier = 0.85

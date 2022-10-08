@@ -348,7 +348,7 @@ If you're feeling frisky, examine yourself and click the underlined item to pull
 
 /atom/movable/screen/alert/nofactory
 	name = "No Factory"
-	desc = "You have no factory, and are slowly dying!"  // capitalism
+	desc = "You have no factory, and are slowly dying!"
 	icon_state = "blobbernaut_nofactory"
 	alerttooltipstyle = "blob"
 
@@ -549,8 +549,8 @@ Recharging stations are available in robotics, the dormitory bathrooms, and the 
 
 /atom/movable/screen/alert/locked
 	name = "Locked Down"
-	desc = "Unit has been remotely locked down. Please interface with a Robotics Control console to unlock this unit.\
-	 Robotics may provide further assistance if necessary."
+	desc = "Unit has been remotely locked down. Usage of a Robotics Control Console like the one in the Research Director's \
+office by your AI master or any qualified human may resolve this matter. Robotics may provide further assistance if necessary."
 	icon_state = "locked"
 
 /atom/movable/screen/alert/newlaw
