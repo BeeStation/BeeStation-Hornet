@@ -515,10 +515,6 @@
 	tastes = list("candy")
 	foodtype = JUNKFOOD
 
-/obj/item/reagent_containers/food/snacks/gumball/Initialize(mapload)
-	. = ..()
-	color = rgb(rand(0, 255), rand(0, 255), rand(0, 255))
-
 /obj/item/reagent_containers/food/snacks/gumball/cyborg
 	var/spamchecking = TRUE
 
