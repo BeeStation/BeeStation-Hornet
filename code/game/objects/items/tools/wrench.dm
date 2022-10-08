@@ -61,7 +61,7 @@
 	playsound(loc, 'sound/effects/pray.ogg', 50, 1, -1)
 
 	new /obj/effect/temp_visual/holy/beam(get_turf(user))
-	new /obj/effect/temp_visual/holy/light(get_turf(user))
+	new /obj/effect/temp_visual/holy/shield(get_turf(user))
 
 	// Let the sound effect finish playing
 	add_fingerprint(user)
@@ -77,14 +77,14 @@
 /obj/effect/temp_visual/holy  // you shalled the cleansed
 	name = "holy light"
 	desc = "A holy looking light surrounding someone. Bow down."
-	icon = 'icons/obj/projectiles.dmi'
+	icon = 'icons/obj/effects.dmi'
 	duration = 20
 
-/obj/effect/temp_visual/holy/light
-	icon_state = "seedling"
+/obj/effect/temp_visual/holy/shield
+	icon_state = "shield"
 
 /obj/effect/temp_visual/holy/beam
-	icon_state = "blood_beam"
+	icon_state = "medi_holo"
 
 /obj/item/wrench/cyborg
 	name = "hydraulic wrench"
