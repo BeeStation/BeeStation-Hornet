@@ -5,7 +5,7 @@
 	icon_state = "bloodpack"
 	volume = 200
 	fill_icon_thresholds = list(10, 20, 30, 40, 50, 60, 70, 80, 90, 100)
-	reagent_flags = TRANSPARENT
+	reagent_flags = TRANSPARENT | ABSOLUTELY_GRINDABLE
 	var/label_name // this is to support when you don't want to display "chemical bag" part with a custom name
 
 /obj/item/reagent_containers/chem_bag/Initialize(mapload)
@@ -21,6 +21,8 @@
 	if(reagents)
 		if(volume == reagents.total_volume)
 			. += "<span class='notice'>It is fully filled.</span>"
+		else if(!reagents.total_volume)
+			. += "<span class='notice'>It's empty.</span>"
 		else
 			. += "<span class='notice'>It seems [round(reagents.total_volume/volume*100)]% filled.</span>"
 
