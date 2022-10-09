@@ -18,6 +18,7 @@ SUBSYSTEM_DEF(supply)
 		if(!P.contains)
 			continue
 		supply_packs[P.type] = P
+	return ..()
 
 /datum/controller/subsystem/supply/fire()
 	var/total_restock_required = 0
