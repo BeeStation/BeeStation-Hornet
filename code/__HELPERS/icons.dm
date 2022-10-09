@@ -182,7 +182,7 @@ mob
 
 		Add_Overlay()
 			set name = "4. Add Overlay"
-			add_overlay(image(icon='old_or_unused.dmi',icon_state="yellow",pixel_x = rand(-64,32), pixel_y = rand(-64,32))
+			add_overlay(image(icon='old_or_unused.dmi',icon_state="yellow",pixel_x = rand(-64,32), pixel_y = rand(-64,32)))
 
 		Stress_Test()
 			set name = "5. Stress Test"
@@ -917,7 +917,7 @@ world
 	var/icon/overlayIcon = new /icon()
 	var/isEmpty = TRUE	//So the overlay icon isn't empty.
 	//==== OVERLAYS ====
-	//Do sorting :(
+	//Do sorting :( // I am putting a :) here so the colouriser doesnt cry -aa07
 	var/list/layers = list()
 
 	var/direction = directionless ? SOUTH : A.dir
@@ -1106,13 +1106,13 @@ GLOBAL_LIST_EMPTY(friendly_animal_types)
 	return 0
 
 //For creating consistent icons for human looking simple animals
-/proc/get_flat_human_icon(icon_id, datum/job/J, datum/preferences/prefs, dummy_key, showDirs = GLOB.cardinals, outfit_override = null)
+/proc/get_flat_human_icon(icon_id, datum/job/J, datum/character_save/CS, dummy_key, showDirs = GLOB.cardinals, outfit_override = null)
 	var/static/list/humanoid_icon_cache = list()
 	if(!icon_id || !humanoid_icon_cache[icon_id])
 		var/mob/living/carbon/human/dummy/body = generate_or_wait_for_human_dummy(dummy_key)
 
-		if(prefs)
-			prefs.copy_to(body,TRUE,FALSE)
+		if(CS)
+			CS.copy_to(body,TRUE,FALSE)
 		if(J)
 			J.equip(body, TRUE, FALSE, outfit_override = outfit_override)
 		else if (outfit_override)

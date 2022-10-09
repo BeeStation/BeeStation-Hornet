@@ -314,11 +314,15 @@ All foods are distributed among various categories. Use common sense.
 	return result
 
 /obj/item/reagent_containers/food/snacks/burn()
+	if(QDELETED(src))
+		return
 	if(prob(25))
 		microwave_act()
 	else
 		var/turf/T = get_turf(src)
 		new /obj/item/reagent_containers/food/snacks/badrecipe(T)
+		if(resistance_flags & ON_FIRE)
+			SSfire_burning.processing -= src
 		qdel(src)
 
 /obj/item/reagent_containers/food/snacks/Destroy()

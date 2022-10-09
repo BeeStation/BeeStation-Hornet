@@ -339,8 +339,8 @@
 	if(isipc(C))
 		C.set_species(/datum/species/human)
 		var/replacementName = random_unique_name(C.gender)
-		if(C.client.prefs.custom_names["human"])
-			C.fully_replace_character_name(C.real_name, C.client.prefs.custom_names["human"])
+		if(C.client.prefs.active_character.custom_names["human"])
+			C.fully_replace_character_name(C.real_name, C.client.prefs.active_character.custom_names["human"])
 		else
 			C.fully_replace_character_name(C.real_name, replacementName)
 	if(ishuman(C))
