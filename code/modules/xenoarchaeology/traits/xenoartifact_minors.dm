@@ -168,13 +168,13 @@
 /obj/effect/proc_holder/spell/targeted/xeno_senitent_action/Initialize(mapload, var/obj/item/xenoartifact/Z)
 	. = ..()
 	xeno = Z
-	range = Z.max_range+3
+	range = Z.max_range+1
 
 /obj/effect/proc_holder/spell/targeted/xeno_senitent_action/cast(list/targets, mob/living/simple_animal/revenant/user = usr)
 	for(var/atom/M in targets)
 		if(xeno)
 			xeno.true_target = list(M)
-			xeno.default_activate(xeno.charge_req+50)
+			xeno.default_activate(xeno.charge_req+10)
 			charge_max = xeno.cooldown+xeno.cooldownmod
 
 /datum/xenoartifact_trait/minor/sentient/Destroy(force, ...)
