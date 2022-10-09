@@ -343,7 +343,7 @@
 		to_chat(user, "<span class='info'>*---------*\n This is \a <span class='name'>[src]</span>.</span>")
 		var/text = get_analyzer_text()
 		if(text)
-			to_chat(user, "<span class='notice'>[text]</span>")
+			to_chat(user, EXAMINE_BLOCK("<span class='notice'>[text]</span>"))
 
 		return
 
