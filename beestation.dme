@@ -553,6 +553,7 @@
 #include "code\datums\components\paintable.dm"
 #include "code\datums\components\pellet_cloud.dm"
 #include "code\datums\components\rad_insulation.dm"
+#include "code\datums\components\radio_jamming.dm"
 #include "code\datums\components\radioactive.dm"
 #include "code\datums\components\religious_tool.dm"
 #include "code\datums\components\remote_materials.dm"
