@@ -14,7 +14,7 @@
 	circuit = /obj/item/circuitboard/machine/sleeper
 	clicksound = 'sound/machines/pda_button1.ogg'
 
-	var/efficiency = 1
+	var/efficiency = 1.25
 	var/min_health = -25
 	var/list/available_chems
 	var/controls_inside = FALSE
@@ -309,7 +309,7 @@
 		return
 	var/obj/item/reagent_containers/stored_vial = inserted_vials[chem]
 	for (var/datum/reagent/reagent in stored_vial.reagents.reagent_list)
-		var/amount = mob_occupant.reagents.get_reagent_amount(reagent.type) + 10 <= 20 * efficiency
+		var/amount = mob_occupant.reagents.get_reagent_amount(reagent.type) + 10 <= 16 * efficiency
 		var/occ_health = mob_occupant.health > min_health || reagent.type == /datum/reagent/medicine/epinephrine
 		if (!amount || !occ_health)
 			return FALSE
@@ -321,6 +321,7 @@
 	roundstart_chems = list(
 		/datum/reagent/medicine/syndicate_nanites, /datum/reagent/medicine/oculine, /datum/reagent/medicine/inacusiate, /datum/reagent/medicine/mutadone, /datum/reagent/medicine/mannitol, /datum/reagent/medicine/omnizine
 	)
+	efficiency = 2.5
 
 /obj/machinery/sleeper/syndie/fullupgrade
 	circuit = /obj/item/circuitboard/machine/sleeper/fullupgrade
