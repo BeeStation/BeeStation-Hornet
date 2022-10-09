@@ -53,7 +53,7 @@
 	item_state = "det_suit"
 	blood_overlay_type = "coat"
 	body_parts_covered = CHEST|GROIN|LEGS|ARMS
-	armor = list("melee" = 10, "bullet" = 20, "laser" = 25, "energy" = 30, "bomb" = 10, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 30, "stamina" = 10)
+	armor = list("melee" = 10, "bullet" = 10, "laser" = 25, "energy" = 30, "bomb" = 10, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 30, "stamina" = 10)
 	cold_protection = CHEST|GROIN|LEGS|ARMS
 	heat_protection = CHEST|GROIN|LEGS|ARMS
 

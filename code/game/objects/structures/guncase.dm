@@ -55,7 +55,7 @@
 		return
 
 	else if(user.a_intent != INTENT_HARM)
-		if (can_use())
+		if (can_use() || open)
 			open = !open
 			update_icon()
 		else
@@ -71,14 +71,27 @@
 		return
 	if(contents.len && open)
 		ShowWindow(user)
-	else if (can_use())
+	else if (can_use() || open)
 		open = !open
 		update_icon()
 	else
 		to_chat(user, "<span class='warning'>[src] is locked, the door won't budge!</span>")
 
+/obj/structure/guncase/AltClick(mob/user)
+	. = ..()
+	if(!usr.canUseTopic(src, BE_CLOSE))
+		return
+	if (can_use() || open)
+		open = !open
+		update_icon()
+
 /obj/structure/guncase/proc/ShowWindow(mob/user)
 	var/dat = {"<div class='block'>
+				<h3>Weapons Closet</h3>
+				<table align='center'>
+				<tr><A href='?src=[REF(src)];toggle_door=1'>Close Door</A><br>
+				</table></div>
+				<div class='block'>
 				<h3>Stored Guns</h3>
 				<table align='center'>"}
 	if(LAZYLEN(contents))
@@ -92,6 +105,11 @@
 	popup.open(FALSE)
 
 /obj/structure/guncase/Topic(href, href_list)
+	if(href_list["toggle_door"])
+		if(!usr.canUseTopic(src, BE_CLOSE) || !open)
+			return
+		open = !open
+		update_icon()
 	if(href_list["retrieve"])
 		var/obj/item/O = locate(href_list["retrieve"]) in contents
 		if(!O || !istype(O))
@@ -145,6 +163,7 @@
 	if(new_alert >= SEC_LEVEL_BLUE && !is_unlocked && !(obj_flags & EMAGGED))
 		visible_message("<span class='notice'>The locking mechanism inside [src] disengages, it can now be opened.</span>")
 		playsound(src, 'sound/machines/boltsup.ogg', 50, TRUE)
+		update_icon()
 
 /// Check if the locker can be unlocked with the card
 /obj/structure/guncase/locked/attackby(obj/item/I, mob/user, params)
