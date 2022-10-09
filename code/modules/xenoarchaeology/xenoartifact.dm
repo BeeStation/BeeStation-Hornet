@@ -240,8 +240,8 @@
 		//Add holder for muh balance
 		if(isliving(loc) || isliving(pulledby))
 			var/mob/living/M = isliving(loc) ? loc : pulledby
-			if(istype(get_item_by_slot(ITEM_SLOT_GLOVES), /obj/item/clothing/gloves/artifact_pinchers) && istype(get_area(get_turf(M)), /area/science/explab))
-			true_target += M
+			if(istype(M.get_item_by_slot(ITEM_SLOT_GLOVES), /obj/item/clothing/gloves/artifact_pinchers) && istype(get_area(get_turf(M)), /area/science/explab))
+				true_target += M
    
 		for(var/atom/M in true_target) //target loop, majors & malfunctions
 			if(get_dist(get_turf(src), get_turf(M)) <= max_range) 
