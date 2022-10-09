@@ -108,6 +108,8 @@
 	if(HAS_TRAIT(equipping, TRAIT_NODROP))
 		to_chat(user, "<span class='warning'>You can't put [equipping] on [source], it's stuck to your hand!</span>")
 		return FALSE
+	if(ismonkey(user))
+		equipping.compile_monkey_icon()
 	return TRUE
 
 /// Start the equipping process. This is the proc you should yield in.
