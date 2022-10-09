@@ -172,7 +172,7 @@
 	new_corgi.inventory_head = null
 	new_corgi.inventory_back = null
 	H.restore(FALSE, FALSE)
-	target.Knockdown(SHOVE_KNOCKDOWN_SOLID)
+	target.Knockdown(0.2 SECONDS)
 
 /datum/xenoartifact_trait/major/corginator/Destroy() //Transform goobers back if artifact is deleted.
 	. = ..()
