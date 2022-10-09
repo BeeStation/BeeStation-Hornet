@@ -88,8 +88,7 @@
 	var/newtype = GLOB.species_list[species_id]
 
 	if(!newtype) // The species ID doesn't exist in the species list, make it random
-		species_id = pick(GLOB.roundstart_races)
-		newtype = GLOB.species_list[species_id]
+		newtype = GLOB.species_list[pick(GLOB.roundstart_races)]
 
 	pref_species = new newtype
 
