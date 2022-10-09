@@ -29,7 +29,7 @@
 		/datum/reagent/medicine/antitoxin
 	)
 	/// If true doesn't consume chems
-	var/list/synthesizing = FALSE
+	var/synthesizing = FALSE
 	var/scrambled_chems = FALSE //Are chem buttons scrambled? used as a warning
 	var/enter_message = "<span class='notice'><b>You feel cool air surround you. You go numb as your senses turn inward.</b></span>"
 	payment_department = ACCOUNT_MED
@@ -39,9 +39,9 @@
 	. = ..()
 	occupant_typecache = GLOB.typecache_living
 	update_icon()
-	for (var/datum/reagent/default_chem in roundstart_chems)
-		var/obj/item/reagent_containers/glass/bottle/beaker = new(src)
-		beaker.name = default_chem.name
+	//Create roundstart chems
+	for (var/datum/reagent/default_chem as() in roundstart_chems)
+		var/obj/item/reagent_containers/glass/bottle/beaker = new(null)
 		beaker.reagents.add_reagent(default_chem, beaker.volume)
 		inserted_vials += beaker
 
@@ -53,8 +53,8 @@
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)
 		I += M.rating
 
-	max_vials = E
-	efficiency = initial(efficiency) * I
+	max_vials = 5 + E
+	efficiency = initial(efficiency) * sqrt(I)
 	min_health = initial(min_health) * E
 	available_chems = list()
 
@@ -78,8 +78,8 @@
 			to_chat(user, "<span class='warning'>[src] cannot hold any more!</span>")
 			return
 		user.temporarilyRemoveItemFromInventory(I)
-		I.forceMove(src)
-		inserted_vials += src
+		I.forceMove(null)
+		inserted_vials += I
 		ui_update()
 		return
 	. = ..()
@@ -109,6 +109,8 @@
 		flick("[initial(icon_state)]-anim", src)
 		..(user)
 		var/mob/living/mob_occupant = occupant
+		if(controls_inside)
+			ui_interact(mob_occupant)
 		if(mob_occupant && mob_occupant.stat != DEAD)
 			to_chat(occupant, "[enter_message]")
 
@@ -206,7 +208,13 @@
 	data["chems"] = list()
 	var/i = 1
 	for(var/atom/chem_vial as() in inserted_vials)
-		data["chems"] += list(list("name" = chem_vial.name, "id" = i, "allowed" = chem_allowed(i), "amount" = chem_vial.reagents.total_volume))
+		var/dominant_chemical = "Empty"
+		var/dominant_amount = 0
+		for(var/datum/reagent/reagent in chem_vial.reagents.reagent_list)
+			if (reagent.volume > dominant_amount)
+				dominant_amount = reagent.volume
+				dominant_chemical = reagent.name
+		data["chems"] += list(list("name" = dominant_chemical, "id" = i, "allowed" = chem_allowed(i), "amount" = chem_vial.reagents?.total_volume || 0))
 		i++
 
 	data["occupant"] = list()
@@ -245,9 +253,9 @@
 	if(..())
 		return
 	var/mob/living/mob_occupant = occupant
-	check_nap_violations()
 	switch(action)
 		if("door")
+			check_nap_violations()
 			if(state_open)
 				close_machine()
 			else
@@ -264,6 +272,7 @@
 			to_chat(usr, "<span class='notice'>You eject the [removed_vial] from [src].</span>")
 			. = TRUE
 		if("inject")
+			check_nap_violations()
 			var/chem = params["chem"]
 			if(!is_operational || !mob_occupant || chem < 1 || chem > length(inserted_vials))
 				return
@@ -284,7 +293,7 @@
 /obj/machinery/sleeper/proc/inject_chem(chem, mob/user)
 	if(chem_allowed(chem))
 		var/obj/item/reagent_containers/stored_vial = inserted_vials[chem]
-		if (synthesizing)
+		if (!synthesizing)
 			stored_vial.reagents.trans_to(occupant, 10 / efficiency, efficiency, transfered_by = user)
 		else
 			stored_vial.reagents.copy_to(occupant, 10)

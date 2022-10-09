@@ -128,20 +128,19 @@ export const Sleeper = (props, context) => {
                   <Button
                     key={chem.id}
                     icon="flask"
+                    width="100%"
                     content={chem.name + ' (' + chem.amount + 'u)'}
                     disabled={!(occupied && chem.allowed)}
-                    width="140px"
                     onClick={() => act('inject', {
                       chem: chem.id,
                     })}
                   />
                 </Table.Cell>
-                <Table.Cell>
+                <Table.Cell collapsing>
                   <Button
                     key={chem.id}
                     icon="eject"
                     content="Eject"
-                    width="140px"
                     onClick={() => act('eject', {
                       chem: chem.id,
                     })}
