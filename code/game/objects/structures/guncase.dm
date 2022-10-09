@@ -7,6 +7,10 @@
 	anchored = FALSE
 	density = TRUE
 	opacity = 0
+	max_integrity = 300
+	resistance_flags = FIRE_PROOF
+	//Slightly stronger than a regular locker
+	armor = list("melee" = 40, "bullet" = 50, "laser" = 50, "energy" = 100, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 80, "stamina" = 0)
 	var/case_type = ""
 	var/gun_category = /obj/item/gun
 	var/open = TRUE
@@ -34,6 +38,9 @@
 	else
 		add_overlay("[icon_state]_door")
 
+/obj/structure/guncase/proc/can_use()
+	return TRUE
+
 /obj/structure/guncase/attackby(obj/item/I, mob/user, params)
 	if(iscyborg(user) || isalien(user))
 		return
@@ -48,8 +55,11 @@
 		return
 
 	else if(user.a_intent != INTENT_HARM)
-		open = !open
-		update_icon()
+		if (can_use())
+			open = !open
+			update_icon()
+		else
+			to_chat(user, "<span class='warning'>[src] is locked, the door won't budge!</span>")
 	else
 		return ..()
 
@@ -61,9 +71,11 @@
 		return
 	if(contents.len && open)
 		ShowWindow(user)
-	else
+	else if (can_use())
 		open = !open
 		update_icon()
+	else
+		to_chat(user, "<span class='warning'>[src] is locked, the door won't budge!</span>")
 
 /obj/structure/guncase/proc/ShowWindow(mob/user)
 	var/dat = {"<div class='block'>
@@ -116,3 +128,69 @@
 	icon_state = "ecase"
 	case_type = "egun"
 	gun_category = /obj/item/gun/energy/e_gun
+
+/obj/structure/guncase/locked
+	var/is_unlocked = FALSE
+	var/unlock_alert_level = null
+
+/obj/structure/guncase/locked/Initialize(mapload)
+	. = ..()
+	//Add in signal handling for alert level changes
+	if (unlock_alert_level)
+		RegisterSignal(SSdcs, COMSIG_GLOB_SECURITY_ALERT_CHANGE, .proc/handle_alert)
+
+/// React to the alert level by making a noise
+/obj/structure/guncase/locked/proc/handle_alert(datum/source, new_alert)
+	SIGNAL_HANDLER
+	if(new_alert >= SEC_LEVEL_BLUE && !is_unlocked && !(obj_flags & EMAGGED))
+		visible_message("<span class='notice'>The locking mechanism inside [src] disengages, it can now be opened.</span>")
+		playsound(src, 'sound/machines/boltsup.ogg', 50, TRUE)
+
+/// Check if the locker can be unlocked with the card
+/obj/structure/guncase/locked/attackby(obj/item/I, mob/user, params)
+	if (user.a_intent == INTENT_HARM || !I.GetAccess())
+		return ..()
+	if (check_access(I))
+		if (is_unlocked)
+			is_unlocked = FALSE
+			if (can_use())
+				to_chat(user, "<span class='notice'>You reactivate the manual override lock attached to [src]. It is now locked.</span>")
+				playsound(src, 'sound/machines/boltsup.ogg', 50, TRUE)
+			else
+				to_chat(user, "<span class='notice'>You reactivate the manual override lock attached to [src]. It will be locked when the alert level is lowered back to green.</span>")
+		else
+			is_unlocked = TRUE
+			to_chat(user, "<span class='notice'>You release the manual override lock attached to [src].</span>")
+			playsound(src, 'sound/machines/boltsup.ogg', 50, TRUE)
+		update_icon()
+	else
+		to_chat(user, "<span class='warning'>Insufficient access.</span>")
+
+/// Can this locker be used?
+/obj/structure/guncase/locked/can_use()
+	return (obj_flags & EMAGGED) || is_unlocked || (unlock_alert_level && GLOB.security_level >= unlock_alert_level)
+
+/// Add in emagging behaviour
+/obj/structure/guncase/locked/emag_act(mob/user)
+	. = ..()
+	if (obj_flags & EMAGGED)
+		return
+	obj_flags |= EMAGGED
+	to_chat(user, "<span class='notice'>You override the locking mechanism inside of [src].</span>")
+	playsound(src, 'sound/machines/boltsup.ogg', 50, TRUE)
+	update_icon()
+
+/obj/structure/guncase/locked/update_icon()
+	. = ..()
+	if (can_use())
+		add_overlay("[icon_state]_unlock")
+	else
+		add_overlay("[icon_state]_lock")
+
+/obj/structure/guncase/locked/detective
+	name = "secure detective locker"
+	desc = "A secure, electronically motored locker that stores the detective's revolver."
+	case_type = "revolver"
+	gun_category = /obj/item/gun/ballistic/shotgun
+	req_access = list(ACCESS_ARMORY)
+	unlock_alert_level = SEC_LEVEL_BLUE

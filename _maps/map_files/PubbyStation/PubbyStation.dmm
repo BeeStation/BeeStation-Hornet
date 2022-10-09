@@ -6620,38 +6620,6 @@
 /obj/machinery/vending/wardrobe/law_wardrobe,
 /turf/open/floor/wood,
 /area/lawoffice)
-"aCi" = (
-/obj/structure/table/wood,
-/obj/item/kirbyplants{
-	icon_state = "plant-18";
-	pixel_y = 12
-	},
-/turf/open/floor/plasteel/grimy,
-/area/security/detectives_office)
-"aCj" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
-/obj/machinery/requests_console{
-	department = "Detective's office";
-	pixel_y = 30
-	},
-/obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/bottle/whiskey{
-	pixel_x = -1;
-	pixel_y = 9
-	},
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
-	pixel_x = 7;
-	pixel_y = 2
-	},
-/obj/item/lighter,
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
-	pixel_x = -5;
-	pixel_y = 2
-	},
-/turf/open/floor/plasteel/grimy,
-/area/security/detectives_office)
 "aCk" = (
 /obj/structure/filingcabinet/security,
 /turf/open/floor/plasteel/grimy,
@@ -7182,20 +7150,6 @@
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/maintenance/department/cargo)
-"aEm" = (
-/obj/structure/table/wood,
-/obj/item/flashlight/lamp{
-	pixel_x = 3;
-	pixel_y = 6
-	},
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
-	pixel_x = 7;
-	pixel_y = 2
-	},
-/obj/item/storage/fancy/cigarettes,
-/obj/item/clothing/glasses/hud/security/sunglasses,
-/turf/open/floor/carpet,
-/area/security/detectives_office)
 "aEo" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -33976,6 +33930,14 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/bridge)
+"egy" = (
+/obj/machinery/requests_console{
+	department = "Detective's office";
+	pixel_y = 30
+	},
+/obj/structure/guncase/locked/detective,
+/turf/open/floor/plasteel/grimy,
+/area/security/detectives_office)
 "ehT" = (
 /obj/machinery/porta_turret/ai{
 	dir = 4
@@ -34388,6 +34350,19 @@
 /obj/effect/spawner/structure/window/plasma/reinforced,
 /turf/open/floor/plating,
 /area/engine/engineering)
+"evS" = (
+/obj/structure/table/wood,
+/obj/item/flashlight/lamp{
+	pixel_x = 3;
+	pixel_y = 6
+	},
+/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+	pixel_x = 7;
+	pixel_y = 2
+	},
+/obj/item/storage/fancy/cigarettes,
+/turf/open/floor/carpet,
+/area/security/detectives_office)
 "ewl" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -41275,6 +41250,26 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plasteel/freezer,
 /area/storage/emergency/port)
+"iOh" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/obj/structure/table/wood,
+/obj/item/reagent_containers/food/drinks/bottle/whiskey{
+	pixel_x = -1;
+	pixel_y = 9
+	},
+/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+	pixel_x = 7;
+	pixel_y = 2
+	},
+/obj/item/lighter,
+/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
+	pixel_x = -5;
+	pixel_y = 2
+	},
+/turf/open/floor/plasteel/grimy,
+/area/security/detectives_office)
 "iOY" = (
 /obj/effect/mapping_helpers/airlock/locked,
 /obj/machinery/door/airlock/vault{
@@ -85612,7 +85607,7 @@ jvV
 jSL
 aAi
 aBd
-aCi
+iOh
 aDo
 xjK
 fhM
@@ -85869,9 +85864,9 @@ wVm
 ayL
 loJ
 aBd
-aCj
+egy
 aDq
-aEm
+evS
 aFm
 nBw
 oEA

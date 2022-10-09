@@ -183,6 +183,7 @@
 	icon_state = "detective-armor"
 	resistance_flags = FLAMMABLE
 	dog_fashion = null
+	armor = list("melee" = 20, "bullet" = 15, "laser" = 15, "energy" = 20, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50, "stamina" = 15)
 
 /obj/item/clothing/suit/armor/vest/det_suit/Initialize(mapload)
 	. = ..()

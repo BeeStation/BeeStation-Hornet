@@ -6347,13 +6347,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/solars/starboard/aft)
-"brR" = (
-/obj/effect/landmark/start/detective,
-/obj/structure/chair/fancy/comfy{
-	dir = 4
-	},
-/turf/open/floor/wood,
-/area/security/detectives_office)
 "brS" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/visible,
 /turf/open/floor/plasteel,
@@ -6568,10 +6561,6 @@
 /obj/structure/cable/yellow,
 /turf/open/floor/plating,
 /area/crew_quarters/heads/cmo)
-"bvE" = (
-/obj/structure/closet/secure_closet/detective,
-/turf/open/floor/wood,
-/area/security/detectives_office)
 "bvI" = (
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
 	dir = 8
@@ -10410,10 +10399,6 @@
 	},
 /turf/open/floor/plating,
 /area/security/nuke_storage)
-"cBK" = (
-/obj/machinery/vending/boozeomat/all_access,
-/turf/open/floor/wood,
-/area/security/detectives_office)
 "cBT" = (
 /obj/effect/turf_decal/tile/red,
 /obj/effect/turf_decal/stripes/line{
@@ -20406,6 +20391,24 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/wood,
 /area/crew_quarters/bar)
+"fEJ" = (
+/obj/machinery/light_switch{
+	pixel_x = -25;
+	pixel_y = -4
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 5
+	},
+/obj/machinery/button/door{
+	id = "detective_shutters";
+	name = "detective's office shutters control";
+	pixel_x = -26;
+	pixel_y = 6;
+	req_access_txt = "4"
+	},
+/obj/structure/chair/fancy/comfy,
+/turf/open/floor/wood,
+/area/security/detectives_office)
 "fEM" = (
 /obj/machinery/teleport/station,
 /obj/effect/turf_decal/tile/purple{
@@ -25574,8 +25577,8 @@
 /area/crew_quarters/fitness/recreation)
 "gZO" = (
 /obj/machinery/door/airlock/science{
-	req_access_txt = "49";
-	name = "Toxins Lab"
+	name = "Toxins Lab";
+	req_access_txt = "49"
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -29320,8 +29323,8 @@
 	dir = 4
 	},
 /obj/machinery/door/airlock/science{
-	req_access_txt = "49";
-	name = "Exploration Dock Airlock"
+	name = "Exploration Dock Airlock";
+	req_access_txt = "49"
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
@@ -34698,23 +34701,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
-"jDD" = (
-/obj/machinery/light_switch{
-	pixel_x = -25;
-	pixel_y = -4
-	},
-/obj/structure/disposalpipe/segment{
-	dir = 5
-	},
-/obj/machinery/button/door{
-	id = "detective_shutters";
-	name = "detective's office shutters control";
-	pixel_x = -26;
-	pixel_y = 6;
-	req_access_txt = "4"
-	},
-/turf/open/floor/wood,
-/area/security/detectives_office)
 "jDF" = (
 /obj/machinery/telecomms/server/presets/common,
 /turf/open/floor/circuit/telecomms/server,
@@ -38324,15 +38310,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/brig)
-"kDo" = (
-/obj/structure/table/wood,
-/obj/item/storage/box/evidence,
-/obj/item/melee/classic_baton/police,
-/obj/item/reagent_containers/food/drinks/flask/det,
-/obj/item/clothing/glasses/hud/security/sunglasses,
-/obj/item/clothing/glasses/hud/security/sunglasses,
-/turf/open/floor/carpet/red,
-/area/security/detectives_office)
 "kDB" = (
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 4
@@ -42730,8 +42707,8 @@
 /area/hallway/primary/central)
 "lMb" = (
 /obj/machinery/door/airlock/science{
-	req_access_txt = "49";
-	name = "Toxins Lab"
+	name = "Toxins Lab";
+	req_access_txt = "49"
 	},
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
@@ -43403,6 +43380,13 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/security/execution/education)
+"lVC" = (
+/obj/structure/table/wood,
+/obj/item/storage/box/evidence,
+/obj/item/reagent_containers/food/drinks/flask/det,
+/obj/item/taperecorder,
+/turf/open/floor/carpet/red,
+/area/security/detectives_office)
 "lVH" = (
 /obj/effect/turf_decal/tile/red{
 	dir = 4
@@ -45047,8 +45031,8 @@
 	pixel_y = 2
 	},
 /obj/machinery/light_switch{
-	pixel_y = -26;
-	pixel_x = -2
+	pixel_x = -2;
+	pixel_y = -26
 	},
 /turf/open/floor/plasteel/dark,
 /area/quartermaster/office)
@@ -47663,6 +47647,11 @@
 	},
 /turf/open/floor/plasteel,
 /area/science/shuttle)
+"noT" = (
+/obj/structure/table/wood,
+/obj/machinery/computer/security/wooden_tv,
+/turf/open/floor/wood,
+/area/security/detectives_office)
 "noW" = (
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
@@ -48016,15 +48005,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/bridge)
-"nsY" = (
-/obj/structure/chair/fancy/comfy{
-	dir = 4
-	},
-/obj/structure/sign/poster/random{
-	pixel_y = 32
-	},
-/turf/open/floor/wood,
-/area/security/detectives_office)
 "ntf" = (
 /obj/effect/turf_decal/tile/purple{
 	dir = 8
@@ -48165,15 +48145,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/medical/surgery)
-"nvE" = (
-/obj/machinery/computer/security{
-	dir = 8
-	},
-/obj/machinery/newscaster/security_unit{
-	pixel_x = 32
-	},
-/turf/open/floor/carpet/red,
-/area/security/detectives_office)
 "nvP" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
@@ -65558,6 +65529,16 @@
 /obj/effect/turf_decal/tile/green,
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
+"sGT" = (
+/obj/structure/chair/fancy/comfy{
+	dir = 4
+	},
+/obj/structure/sign/poster/random{
+	pixel_y = 32
+	},
+/obj/effect/landmark/start/detective,
+/turf/open/floor/wood,
+/area/security/detectives_office)
 "sHc" = (
 /obj/structure/chair/stool,
 /obj/effect/turf_decal/tile/purple{
@@ -66466,6 +66447,15 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/medical/sleeper)
+"sVj" = (
+/obj/machinery/newscaster/security_unit{
+	pixel_x = 32
+	},
+/obj/machinery/computer/med_data{
+	dir = 8
+	},
+/turf/open/floor/carpet/red,
+/area/security/detectives_office)
 "sVl" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -71296,6 +71286,12 @@
 	},
 /turf/open/floor/plasteel,
 /area/maintenance/starboard/aft)
+"uqy" = (
+/obj/structure/sign/poster/random{
+	pixel_x = 32
+	},
+/turf/open/floor/wood,
+/area/security/detectives_office)
 "uqK" = (
 /obj/effect/landmark/observer_start,
 /obj/effect/turf_decal/tile/red{
@@ -71332,7 +71328,7 @@
 	moveable = 1
 	},
 /obj/machinery/mass_driver{
-	armor = list("melee"=10,"bullet"=10,"laser"=10,"energy"=0,"bomb"=0,"bio"=0,"rad"=0,"fire"=100,"acid"=70);
+	armor = list("melee" = 10, "bullet" = 10, "laser" = 10, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 70);
 	critical_machine = 1;
 	dir = 8;
 	id = "smeject";
@@ -78087,6 +78083,10 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/fitness/recreation)
+"wqL" = (
+/obj/structure/guncase/locked/detective,
+/turf/open/floor/wood,
+/area/security/detectives_office)
 "wqZ" = (
 /obj/machinery/power/tracker,
 /obj/structure/cable/white{
@@ -78365,8 +78365,8 @@
 	},
 /obj/item/ammo_box/magazine/wt550m9/rubber,
 /obj/item/ammo_box/magazine/wt550m9/rubber{
-	pixel_y = -3;
-	pixel_x = 2
+	pixel_x = 2;
+	pixel_y = -3
 	},
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel,
@@ -79380,15 +79380,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/solars/starboard/aft)
-"wKc" = (
-/obj/structure/sign/poster/random{
-	pixel_x = 32
-	},
-/obj/machinery/computer/med_data{
-	dir = 8
-	},
-/turf/open/floor/wood,
-/area/security/detectives_office)
 "wKs" = (
 /obj/machinery/holopad,
 /obj/structure/cable{
@@ -79721,18 +79712,6 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plasteel,
 /area/science/shuttle)
-"wNR" = (
-/obj/machinery/requests_console{
-	department = "Detective's Office";
-	departmentType = 4;
-	pixel_y = -32
-	},
-/obj/machinery/camera/autoname{
-	dir = 1;
-	network = list("aisat")
-	},
-/turf/open/floor/wood,
-/area/security/detectives_office)
 "wNW" = (
 /obj/machinery/door/airlock/maintenance_hatch{
 	name = "Maintenance Hatch"
@@ -84208,6 +84187,19 @@
 /obj/effect/turf_decal/tile/green,
 /turf/open/floor/plasteel,
 /area/hallway/secondary/exit)
+"ygK" = (
+/obj/machinery/requests_console{
+	department = "Detective's Office";
+	departmentType = 4;
+	pixel_y = -32
+	},
+/obj/machinery/camera/autoname{
+	dir = 1;
+	network = list("aisat")
+	},
+/obj/structure/closet/secure_closet/detective,
+/turf/open/floor/wood,
+/area/security/detectives_office)
 "ygL" = (
 /obj/effect/spawner/lootdrop/glowstick/lit,
 /obj/structure/disposalpipe/segment{
@@ -125414,8 +125406,8 @@ cfP
 ubx
 gjU
 kne
-jDD
-bvE
+fEJ
+noT
 ubx
 ivK
 ivK
@@ -125669,8 +125661,8 @@ fOv
 fOv
 cfP
 ubx
-nsY
-brR
+sGT
+qdv
 txB
 yma
 ubx
@@ -125927,7 +125919,7 @@ cwf
 cfP
 ubx
 uga
-kDo
+lVC
 pEy
 clW
 ubx
@@ -126186,7 +126178,7 @@ ubx
 sVv
 oKx
 qdv
-wNR
+ygK
 ubx
 ivK
 nzt
@@ -126440,10 +126432,10 @@ fOv
 ivK
 cfP
 ubx
-nvE
+sVj
 icT
-wKc
-cBK
+uqy
+wqL
 ubx
 ivK
 nzt

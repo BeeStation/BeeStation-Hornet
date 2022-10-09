@@ -4547,15 +4547,6 @@
 /obj/item/cartridge/lawyer,
 /turf/open/floor/wood,
 /area/lawoffice)
-"aui" = (
-/obj/structure/table/wood,
-/obj/item/camera/detective,
-/obj/structure/disposalpipe/segment{
-	dir = 9
-	},
-/obj/machinery/light/small,
-/turf/open/floor/carpet/red,
-/area/security/detectives_office)
 "aur" = (
 /obj/machinery/pool_filter,
 /turf/open/indestructible/sound/pool/end,
@@ -36114,6 +36105,11 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
+"hDd" = (
+/obj/structure/table/wood,
+/obj/item/flashlight/lamp/green,
+/turf/open/floor/carpet/red,
+/area/security/detectives_office)
 "hDp" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
@@ -36664,6 +36660,15 @@
 "hVa" = (
 /turf/open/floor/plasteel/cafeteria,
 /area/crew_quarters/heads/cmo)
+"hVj" = (
+/obj/structure/table/wood,
+/obj/item/reagent_containers/food/drinks/bottle/whiskey{
+	pixel_x = 3
+	},
+/obj/item/lighter,
+/obj/item/camera/detective,
+/turf/open/floor/carpet/red,
+/area/security/detectives_office)
 "hVm" = (
 /obj/machinery/door/poddoor/preopen{
 	id = "executionfireblast"
@@ -41500,14 +41505,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/miningdock)
-"kSg" = (
-/obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/bottle/whiskey{
-	pixel_x = 3
-	},
-/obj/item/lighter,
-/turf/open/floor/carpet/red,
-/area/security/detectives_office)
 "kSl" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -41958,6 +41955,14 @@
 /obj/machinery/vending/wardrobe/viro_wardrobe,
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
+"lho" = (
+/obj/structure/disposalpipe/segment{
+	dir = 9
+	},
+/obj/machinery/light/small,
+/obj/structure/guncase/locked/detective,
+/turf/open/floor/carpet/red,
+/area/security/detectives_office)
 "lhK" = (
 /obj/effect/landmark/start/paramedic,
 /obj/structure/chair{
@@ -50909,12 +50914,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/port)
-"qGZ" = (
-/obj/structure/table/wood,
-/obj/item/flashlight/lamp/green,
-/obj/item/clothing/glasses/hud/security/sunglasses,
-/turf/open/floor/carpet/red,
-/area/security/detectives_office)
 "qIf" = (
 /obj/machinery/power/apc/auto_name/east,
 /obj/structure/cable,
@@ -89917,7 +89916,7 @@ bON
 gpT
 bLE
 eDx
-qGZ
+hDd
 klg
 apd
 sse
@@ -90174,7 +90173,7 @@ oqh
 bLE
 bLE
 pvj
-kSg
+hVj
 aug
 apd
 sse
@@ -90432,7 +90431,7 @@ aqb
 jYO
 arZ
 kNm
-aui
+lho
 apd
 sse
 ayW

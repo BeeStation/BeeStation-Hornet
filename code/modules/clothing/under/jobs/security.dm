@@ -94,8 +94,7 @@
 	armor = list("melee" = 10, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 30, "stamina" = 20)
 	strip_delay = 50
 	alt_covers_chest = TRUE
-	sensor_mode = SENSOR_COORDS
-	random_sensor = FALSE
+	random_sensor = TRUE
 
 /obj/item/clothing/under/rank/security/detective/skirt
 	name = "detective's suitskirt"
