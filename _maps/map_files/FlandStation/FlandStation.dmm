@@ -425,7 +425,6 @@
 /turf/open/floor/plating/airless,
 /area/space/nearstation)
 "ahx" = (
-/obj/structure/lattice,
 /obj/structure/grille,
 /turf/closed/wall/r_wall,
 /area/space/nearstation)
@@ -1333,7 +1332,6 @@
 /turf/open/floor/plating,
 /area/asteroid/nearstation)
 "asG" = (
-/obj/structure/lattice,
 /obj/structure/grille,
 /obj/effect/decal/cleanable/dirt,
 /turf/closed/wall/r_wall,
@@ -2019,9 +2017,10 @@
 /turf/open/floor/plasteel/techmaint,
 /area/maintenance/port/central)
 "aBk" = (
-/obj/structure/grille,
-/turf/closed/wall/r_wall,
-/area/space/nearstation)
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/lattice/catwalk/over,
+/turf/open/floor/plating,
+/area/asteroid/nearstation)
 "aBo" = (
 /obj/effect/spawner/structure/window/reinforced/tinted,
 /turf/open/floor/plating,
@@ -4525,8 +4524,7 @@
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/security/armory)
 "baa" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/lattice/catwalk/over,
+/obj/structure/girder,
 /turf/open/floor/plating,
 /area/asteroid/nearstation)
 "bai" = (
@@ -8652,8 +8650,11 @@
 /turf/open/floor/plasteel/techmaint,
 /area/science/robotics/mechbay)
 "cmJ" = (
-/obj/structure/girder,
-/turf/open/floor/plating,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/grille,
+/turf/open/floor/plating{
+	icon_state = "platingdmg1"
+	},
 /area/asteroid/nearstation)
 "cnd" = (
 /obj/effect/decal/cleanable/blood/old,
@@ -65315,13 +65316,6 @@
 	},
 /turf/open/floor/carpet/red,
 /area/crew_quarters/bar/atrium)
-"qYz" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/grille,
-/turf/open/floor/plating{
-	icon_state = "platingdmg1"
-	},
-/area/asteroid/nearstation)
 "qYA" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -126025,9 +126019,9 @@ csJ
 csJ
 ahx
 nnx
-aBk
+ahx
 aDF
-baa
+aBk
 baI
 jID
 auA
@@ -126285,7 +126279,7 @@ nnx
 anu
 aAz
 arf
-qYz
+cmJ
 acY
 bXj
 asn
@@ -127312,7 +127306,7 @@ axD
 axD
 axD
 aCb
-cmJ
+baa
 jID
 jID
 jID
