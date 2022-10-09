@@ -29,7 +29,7 @@
 	RegisterSignal(parent, COMSIG_MOVABLE_UNBUCKLE, .proc/vehicle_mob_unbuckle)
 	RegisterSignal(parent, COMSIG_MOVABLE_MOVED, .proc/vehicle_moved)
 	//Calculate the move multiplier speed, to be proportional to mob speed
-	vehicle_move_multiplier = 1.5 / CONFIG_GET(number/movedelay/run_delay)
+	vehicle_move_multiplier = CONFIG_GET(number/movedelay/run_delay) / 1.5
 
 /datum/component/riding/proc/vehicle_mob_unbuckle(datum/source, mob/living/M, force = FALSE)
 	SIGNAL_HANDLER
