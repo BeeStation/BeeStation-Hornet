@@ -37,7 +37,7 @@
 /datum/antagonist/ert/proc/update_name()
 	var/name = pick(name_source)
 	if (!name)
-		name = owner.current.client?.prefs.custom_names["human"] || pick(GLOB.last_names)
+		name = owner.current.client?.prefs.active_character.custom_names["human"] || pick(GLOB.last_names)
 	owner.current.fully_replace_character_name(owner.current.real_name,"[role] [name]")
 
 /datum/antagonist/ert/deathsquad/New()
