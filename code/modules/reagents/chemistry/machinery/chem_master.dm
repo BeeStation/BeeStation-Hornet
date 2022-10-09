@@ -341,6 +341,14 @@
 						adjust_item_drop_location(P)
 						reagents.trans_to(P, vol_each, transfered_by = usr)
 					. = TRUE
+				if("bag")
+					var/obj/item/reagent_containers/chem_bag/P
+					for(var/i = 0; i < amount; i++)
+						P = new/obj/item/reagent_containers/chem_bag/(drop_location())
+						P.name = trim("[name] chemical bag")
+						adjust_item_drop_location(P)
+						reagents.trans_to(P, vol_each, transfered_by = usr)
+					. = TRUE
 				if("condimentPack")
 					var/obj/item/reagent_containers/food/condiment/pack/P
 					for(var/i = 0; i < amount; i++)

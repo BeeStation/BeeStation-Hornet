@@ -231,6 +231,10 @@ const PackagingControls = (props, context) => {
     setBottleAmount,
   ] = useSharedState(context, 'bottleAmount', 1);
   const [
+    bagAmount,
+    setBagAmount,
+  ] = useSharedState(context, 'bagAmount', 1);
+  const [
     packAmount,
     setPackAmount,
   ] = useSharedState(context, 'packAmount', 1);
@@ -292,6 +296,19 @@ const PackagingControls = (props, context) => {
           onCreate={() => act('create', {
             type: 'bottle',
             amount: bottleAmount,
+            volume: 'auto',
+          })} />
+      )}
+      {!condi && (
+        <PackagingControlsItem
+          label="Bags"
+          amount={bagAmount}
+          amountUnit="bags"
+          sideNote="max 200u"
+          onChangeAmount={(e, value) => setBagAmount(value)}
+          onCreate={() => act('create', {
+            type: 'bag',
+            amount: bagAmount,
             volume: 'auto',
           })} />
       )}
