@@ -1,0 +1,4 @@
+author: BrumalLake
+delete-after: true
+changes:
+  - bugfix: client-less can no longer use camera consoles
