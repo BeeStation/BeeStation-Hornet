@@ -305,7 +305,7 @@
 	var/implant = FALSE
 
 	if(traitor_mob.client?.prefs)
-		switch(traitor_mob.client.prefs.uplink_spawn_loc)
+		switch(traitor_mob.client.prefs.active_character.uplink_spawn_loc)
 			if(UPLINK_PDA)
 				uplink_loc = PDA
 				if(!uplink_loc)

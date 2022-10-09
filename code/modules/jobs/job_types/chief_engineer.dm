@@ -1,7 +1,7 @@
 /datum/job/chief_engineer
 	title = JOB_NAME_CHIEFENGINEER
 	flag = CHIEF
-	auto_deadmin_role_flags = DEADMIN_POSITION_HEAD
+	auto_deadmin_role_flags = PREFTOGGLE_DEADMIN_POSITION_HEAD
 	department_head = list(JOB_NAME_CAPTAIN)
 	department_flag = ENGSEC
 	head_announce = list("Engineering")

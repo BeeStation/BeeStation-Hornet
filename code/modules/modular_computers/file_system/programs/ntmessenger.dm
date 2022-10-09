@@ -287,9 +287,9 @@
 
 	// Check for jammers
 	var/turf/position = get_turf(computer)
-	for(var/obj/item/jammer/jammer as anything in GLOB.active_jammers)
-		var/turf/jammer_turf = get_turf(jammer)
-		if(position?.z == jammer_turf.z && (get_dist(position, jammer_turf) <= jammer.range))
+	for(var/datum/component/radio_jamming/jammer as anything in GLOB.active_jammers)
+		var/turf/jammer_turf = get_turf(jammer.parent)
+		if(position?.get_virtual_z_level() == jammer_turf.get_virtual_z_level() && (get_dist(position, jammer_turf) <= jammer.range))
 			return FALSE
 
 	// Send the signal
