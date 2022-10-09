@@ -457,6 +457,7 @@
 	label_desc = "Destabilizing: The Artifact collapses an improper bluespace matrix on the target, sending them to an unknown location."
 	weight = 25
 	flags = URANIUM_TRAIT
+	blacklist_traits = list(/datum/xenoartifact_trait/minor/aura)
 	var/obj/item/xenoartifact/exit
 
 /datum/xenoartifact_trait/major/distablizer/on_init(obj/item/xenoartifact/X)
