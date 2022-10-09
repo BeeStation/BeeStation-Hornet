@@ -18,22 +18,32 @@
 	var/min_health = -25
 	var/list/available_chems
 	var/controls_inside = FALSE
-	var/list/possible_chems = list(
-		list(/datum/reagent/medicine/epinephrine, /datum/reagent/medicine/morphine, /datum/reagent/medicine/perfluorodecalin, /datum/reagent/medicine/bicaridine, /datum/reagent/medicine/kelotane),
-		list(/datum/reagent/medicine/oculine,/datum/reagent/medicine/inacusiate),
-		list(/datum/reagent/medicine/antitoxin, /datum/reagent/medicine/mutadone, /datum/reagent/medicine/mannitol, /datum/reagent/medicine/salbutamol, /datum/reagent/medicine/pen_acid),
-		list(/datum/reagent/medicine/omnizine)
+	var/max_vials = 6
+	var/list/inserted_vials = list()
+	var/list/roundstart_chems = list(
+		/datum/reagent/medicine/epinephrine,
+		/datum/reagent/medicine/morphine,
+		/datum/reagent/medicine/perfluorodecalin,
+		/datum/reagent/medicine/bicaridine,
+		/datum/reagent/medicine/kelotane,
+		/datum/reagent/medicine/antitoxin
 	)
-	var/list/chem_buttons	//Used when emagged to scramble which chem is used, eg: antitoxin -> morphine
+	/// If true doesn't consume chems
+	var/list/synthesizing = FALSE
 	var/scrambled_chems = FALSE //Are chem buttons scrambled? used as a warning
 	var/enter_message = "<span class='notice'><b>You feel cool air surround you. You go numb as your senses turn inward.</b></span>"
 	payment_department = ACCOUNT_MED
 	fair_market_price = 5
+
 /obj/machinery/sleeper/Initialize(mapload)
 	. = ..()
 	occupant_typecache = GLOB.typecache_living
 	update_icon()
-	reset_chem_buttons()
+	for (var/datum/reagent/default_chem in roundstart_chems)
+		var/obj/item/reagent_containers/glass/bottle/beaker = new(src)
+		beaker.name = default_chem.name
+		beaker.reagents.add_reagent(default_chem, beaker.volume)
+		inserted_vials += beaker
 
 /obj/machinery/sleeper/RefreshParts()
 	var/E
@@ -43,12 +53,17 @@
 	for(var/obj/item/stock_parts/manipulator/M in component_parts)
 		I += M.rating
 
-	efficiency = initial(efficiency)* E
+	max_vials = E
+	efficiency = initial(efficiency) * I
 	min_health = initial(min_health) * E
 	available_chems = list()
-	for(var/i in 1 to I)
-		available_chems |= possible_chems[i]
-	reset_chem_buttons()
+
+	//Eject chems
+	for(var/i in max_vials + 1 to length(inserted_vials))
+		var/atom/movable/removed_vial = inserted_vials[i]
+		removed_vial.forceMove(loc)
+		inserted_vials -= removed_vial
+
 	ui_update()
 
 /obj/machinery/sleeper/update_icon()
@@ -56,6 +71,18 @@
 		icon_state = "[initial(icon_state)]-open"
 	else
 		icon_state = initial(icon_state)
+
+/obj/machinery/sleeper/attackby(obj/item/I, mob/living/user, params)
+	if (istype(I, /obj/item/reagent_containers/glass) && user.a_intent != INTENT_HARM)
+		if (length(inserted_vials) >= max_vials)
+			to_chat(user, "<span class='warning'>[src] cannot hold any more!</span>")
+			return
+		user.temporarilyRemoveItemFromInventory(I)
+		I.forceMove(src)
+		inserted_vials += src
+		ui_update()
+		return
+	. = ..()
 
 /obj/machinery/sleeper/container_resist(mob/living/user)
 	visible_message("<span class='notice'>[occupant] emerges from [src]!</span>",
@@ -174,10 +201,13 @@
 	data["occupied"] = occupant ? 1 : 0
 	data["open"] = state_open
 
+	data["max_vials"] = max_vials
+	//Display the names of the inserted vials
 	data["chems"] = list()
-	for(var/chem in available_chems)
-		var/datum/reagent/R = GLOB.chemical_reagents_list[chem]
-		data["chems"] += list(list("name" = R.name, "id" = R.type, "allowed" = chem_allowed(chem)))
+	var/i = 1
+	for(var/atom/chem_vial as() in inserted_vials)
+		data["chems"] += list(list("name" = chem_vial.name, "id" = i, "allowed" = chem_allowed(i), "amount" = chem_vial.reagents.total_volume))
+		i++
 
 	data["occupant"] = list()
 	var/mob/living/mob_occupant = occupant
@@ -223,54 +253,65 @@
 			else
 				open_machine()
 			. = TRUE
+		if("eject")
+			var/chem = params["chem"]
+			if(!is_operational || chem < 1 || chem > length(inserted_vials))
+				return
+			//Eject the canister
+			var/atom/movable/removed_vial = inserted_vials[chem]
+			removed_vial.forceMove(loc)
+			inserted_vials -= removed_vial
+			to_chat(usr, "<span class='notice'>You eject the [removed_vial] from [src].</span>")
+			. = TRUE
 		if("inject")
-			var/chem = text2path(params["chem"])
-			if(!is_operational || !mob_occupant || isnull(chem))
+			var/chem = params["chem"]
+			if(!is_operational || !mob_occupant || chem < 1 || chem > length(inserted_vials))
 				return
-			if(mob_occupant.health < min_health && chem != /datum/reagent/medicine/epinephrine)
-				return
+			if(obj_flags & EMAGGED)
+				chem = rand(1, length(inserted_vials))
 			if(inject_chem(chem, usr))
 				. = TRUE
 				if(scrambled_chems && prob(5))
 					to_chat(usr, "<span class='warning'>Chemical system re-route detected, results may not be as expected!</span>")
 
 /obj/machinery/sleeper/emag_act(mob/user)
-	scramble_chem_buttons()
+	if (obj_flags & EMAGGED)
+		return
+	scrambled_chems = TRUE
+	obj_flags |= EMAGGED
 	to_chat(user, "<span class='warning'>You scramble the sleeper's user interface!</span>")
 
 /obj/machinery/sleeper/proc/inject_chem(chem, mob/user)
-	if((chem in available_chems) && chem_allowed(chem))
-		occupant.reagents.add_reagent(chem_buttons[chem], 10) //emag effect kicks in here so that the "intended" chem is used for all checks, for extra FUUU
+	if(chem_allowed(chem))
+		var/obj/item/reagent_containers/stored_vial = inserted_vials[chem]
+		if (synthesizing)
+			stored_vial.reagents.trans_to(occupant, 10 / efficiency, efficiency, transfered_by = user)
+		else
+			stored_vial.reagents.copy_to(occupant, 10)
 		if(user)
 			playsound(src, pick('sound/items/hypospray.ogg','sound/items/hypospray2.ogg'), 50, TRUE, 2)
-			log_combat(user, occupant, "injected [chem] into", addition = "via [src]")
+			log_combat(user, occupant, "injected [stored_vial.reagents.get_reagents()] into", addition = "via [src]")
 		use_power(100)
 		return TRUE
 
 /obj/machinery/sleeper/proc/chem_allowed(chem)
 	var/mob/living/mob_occupant = occupant
-	if(!mob_occupant || !mob_occupant.reagents)
+	if(!mob_occupant || !mob_occupant.reagents || chem < 1 || chem > length(inserted_vials))
 		return
-	var/amount = mob_occupant.reagents.get_reagent_amount(chem) + 10 <= 20 * efficiency
-	var/occ_health = mob_occupant.health > min_health || chem == /datum/reagent/medicine/epinephrine
-	return amount && occ_health
-
-/obj/machinery/sleeper/proc/reset_chem_buttons()
-	scrambled_chems = FALSE
-	LAZYINITLIST(chem_buttons)
-	for(var/chem in available_chems)
-		chem_buttons[chem] = chem
-
-/obj/machinery/sleeper/proc/scramble_chem_buttons()
-	scrambled_chems = TRUE
-	var/list/av_chem = available_chems.Copy()
-	for(var/chem in av_chem)
-		chem_buttons[chem] = pick_n_take(av_chem) //no dupes, allow for random buttons to still be correct
-
+	var/obj/item/reagent_containers/stored_vial = inserted_vials[chem]
+	for (var/datum/reagent/reagent in stored_vial.reagents.reagent_list)
+		var/amount = mob_occupant.reagents.get_reagent_amount(reagent.type) + 10 <= 20 * efficiency
+		var/occ_health = mob_occupant.health > min_health || reagent.type == /datum/reagent/medicine/epinephrine
+		if (!amount || !occ_health)
+			return FALSE
+	return TRUE
 
 /obj/machinery/sleeper/syndie
 	icon_state = "sleeper_s"
 	controls_inside = TRUE
+	roundstart_chems = list(
+		/datum/reagent/medicine/syndicate_nanites, /datum/reagent/medicine/oculine, /datum/reagent/medicine/inacusiate, /datum/reagent/medicine/mutadone, /datum/reagent/medicine/mannitol, /datum/reagent/medicine/omnizine
+	)
 
 /obj/machinery/sleeper/syndie/fullupgrade
 	circuit = /obj/item/circuitboard/machine/sleeper/fullupgrade
@@ -280,7 +321,8 @@
 	desc = "A large cryogenics unit built from brass. Its surface is pleasantly cool the touch."
 	icon_state = "sleeper_clockwork"
 	enter_message = "<span class='bold inathneq_small'>You hear the gentle hum and click of machinery, and are lulled into a sense of peace.</span>"
-	possible_chems = list(list(/datum/reagent/medicine/epinephrine, /datum/reagent/medicine/salbutamol, /datum/reagent/medicine/bicaridine, /datum/reagent/medicine/kelotane, /datum/reagent/medicine/oculine, /datum/reagent/medicine/inacusiate, /datum/reagent/medicine/mannitol))
+	roundstart_chems = list(/datum/reagent/medicine/epinephrine, /datum/reagent/medicine/salbutamol, /datum/reagent/medicine/bicaridine, /datum/reagent/medicine/kelotane, /datum/reagent/medicine/oculine, /datum/reagent/medicine/inacusiate, /datum/reagent/medicine/mannitol)
+	synthesizing = TRUE
 
 /obj/machinery/sleeper/old
 	icon_state = "oldpod"

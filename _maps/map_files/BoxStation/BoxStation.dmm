@@ -4884,23 +4884,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/entry)
-"ayn" = (
-/obj/item/gun/ballistic/shotgun/riot{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/gun/ballistic/shotgun/riot,
-/obj/effect/turf_decal/bot,
-/obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
-	},
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/structure/guncase/shotgun,
-/turf/open/floor/plasteel,
-/area/ai_monitored/security/armory)
 "ayr" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 27
@@ -33912,6 +33895,20 @@
 /obj/machinery/atmospherics/components/unary/thermomachine/freezer/on,
 /turf/open/floor/plating,
 /area/maintenance/starboard)
+"gpq" = (
+/obj/item/gun/energy/e_gun{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/gun/energy/e_gun,
+/obj/effect/turf_decal/bot,
+/obj/structure/window/reinforced{
+	dir = 1;
+	layer = 2.9
+	},
+/obj/structure/rack,
+/turf/open/floor/plasteel,
+/area/ai_monitored/security/armory)
 "gpE" = (
 /obj/structure/table/wood,
 /obj/item/book/manual/wiki/security_space_law,
@@ -39704,20 +39701,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
-"kbE" = (
-/obj/item/gun/energy/laser{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/gun/energy/laser,
-/obj/effect/turf_decal/bot,
-/obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
-	},
-/obj/structure/guncase/ecase,
-/turf/open/floor/plasteel,
-/area/ai_monitored/security/armory)
 "kbL" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 8
@@ -49942,20 +49925,6 @@
 	dir = 1
 	},
 /area/science/research)
-"qgD" = (
-/obj/item/gun/energy/e_gun{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/gun/energy/e_gun,
-/obj/effect/turf_decal/bot,
-/obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.9
-	},
-/obj/structure/guncase/ecase,
-/turf/open/floor/plasteel,
-/area/ai_monitored/security/armory)
 "qhu" = (
 /obj/machinery/door/airlock/maintenance{
 	name = "Crematorium Maintenance";
@@ -55092,6 +55061,20 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plasteel/dark,
 /area/engine/engine_smes)
+"tpu" = (
+/obj/item/gun/energy/laser{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/gun/energy/laser,
+/obj/effect/turf_decal/bot,
+/obj/structure/window/reinforced{
+	dir = 1;
+	layer = 2.9
+	},
+/obj/structure/rack,
+/turf/open/floor/plasteel,
+/area/ai_monitored/security/armory)
 "tpM" = (
 /obj/machinery/door/airlock/security/glass{
 	name = "Security Office";
@@ -55933,6 +55916,23 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
+"tQf" = (
+/obj/item/gun/ballistic/shotgun/riot{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/gun/ballistic/shotgun/riot,
+/obj/effect/turf_decal/bot,
+/obj/structure/window/reinforced{
+	dir = 1;
+	layer = 2.9
+	},
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/structure/rack,
+/turf/open/floor/plasteel,
+/area/ai_monitored/security/armory)
 "tQM" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -91143,7 +91143,7 @@ aaa
 aaZ
 pZs
 ack
-ayn
+tQf
 adQ
 cWa
 aeX
@@ -91400,7 +91400,7 @@ aaa
 aaZ
 lUN
 ack
-qgD
+gpq
 owQ
 cwM
 aeZ
@@ -91657,7 +91657,7 @@ aaa
 aaZ
 ntL
 ack
-kbE
+tpu
 lWn
 pBm
 lrz

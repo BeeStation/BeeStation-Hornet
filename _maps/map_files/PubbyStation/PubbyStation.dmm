@@ -44062,6 +44062,15 @@
 	},
 /turf/open/floor/engine,
 /area/engine/engineering)
+"kJC" = (
+/obj/item/gun/energy/laser{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/gun/energy/laser,
+/obj/structure/rack,
+/turf/open/floor/plasteel/dark,
+/area/ai_monitored/security/armory)
 "kJH" = (
 /obj/machinery/advanced_airlock_controller{
 	pixel_x = 26;
@@ -55877,6 +55886,19 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plasteel/cafeteria,
 /area/crew_quarters/dorms)
+"sCQ" = (
+/obj/item/gun/energy/e_gun{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/gun/energy/e_gun,
+/obj/machinery/firealarm{
+	dir = 4;
+	pixel_x = -27
+	},
+/obj/structure/rack,
+/turf/open/floor/plasteel/dark,
+/area/ai_monitored/security/armory)
 "sDn" = (
 /obj/machinery/atmospherics/pipe/simple/general/visible{
 	dir = 6
@@ -58113,6 +58135,15 @@
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/heads/chief)
+"unA" = (
+/obj/item/gun/energy/disabler{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/gun/energy/disabler,
+/obj/structure/rack,
+/turf/open/floor/plasteel/dark,
+/area/ai_monitored/security/armory)
 "unB" = (
 /obj/structure/rack,
 /obj/item/stack/package_wrap,
@@ -58458,6 +58489,15 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
+"uzr" = (
+/obj/item/gun/ballistic/shotgun/riot{
+	pixel_x = -3;
+	pixel_y = 3
+	},
+/obj/item/gun/ballistic/shotgun/riot,
+/obj/structure/rack,
+/turf/open/floor/plasteel/dark,
+/area/ai_monitored/security/armory)
 "uzH" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
@@ -59993,16 +60033,6 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /turf/open/floor/plasteel,
 /area/security/checkpoint/science)
-"vEX" = (
-/obj/item/gun/ballistic/shotgun/riot{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/gun/ballistic/shotgun/riot,
-/obj/item/gun/ballistic/shotgun/riot,
-/obj/structure/guncase/shotgun,
-/turf/open/floor/plasteel/dark,
-/area/ai_monitored/security/armory)
 "vFq" = (
 /obj/structure/disposalpipe/segment{
 	dir = 6
@@ -63156,19 +63186,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/crew_quarters/dorms)
-"xGp" = (
-/obj/item/gun/energy/e_gun{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/gun/energy/e_gun,
-/obj/machinery/firealarm{
-	dir = 4;
-	pixel_x = -27
-	},
-/obj/structure/guncase/ecase,
-/turf/open/floor/plasteel/dark,
-/area/ai_monitored/security/armory)
 "xGr" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -63426,15 +63443,6 @@
 	},
 /turf/open/floor/engine,
 /area/science/explab)
-"xPK" = (
-/obj/item/gun/energy/laser{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/gun/energy/laser,
-/obj/structure/guncase/ecase,
-/turf/open/floor/plasteel/dark,
-/area/ai_monitored/security/armory)
 "xPM" = (
 /obj/machinery/atmospherics/pipe/manifold4w/general/visible,
 /turf/open/floor/circuit/telecomms,
@@ -63657,15 +63665,6 @@
 	icon_state = "platingdmg3"
 	},
 /area/maintenance/department/engine)
-"ydV" = (
-/obj/item/gun/energy/disabler{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/gun/energy/disabler,
-/obj/structure/guncase/ecase,
-/turf/open/floor/plasteel/dark,
-/area/ai_monitored/security/armory)
 "ydZ" = (
 /obj/machinery/hydroponics/constructable,
 /obj/machinery/light{
@@ -86299,8 +86298,8 @@ ahL
 aii
 aiL
 ajg
-xGp
-ydV
+sCQ
+unA
 alA
 amh
 amV
@@ -87327,8 +87326,8 @@ ahL
 aim
 aiO
 bbS
-xPK
-vEX
+kJC
+uzr
 alA
 amj
 amZ

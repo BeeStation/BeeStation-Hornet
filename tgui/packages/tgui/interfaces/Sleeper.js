@@ -1,5 +1,5 @@
 import { useBackend } from '../backend';
-import { Box, Button, LabeledList, ProgressBar, Section, AnimatedNumber } from '../components';
+import { Box, Button, LabeledList, ProgressBar, Section, AnimatedNumber, Table } from '../components';
 import { Window } from '../layouts';
 import { toFixed } from 'common/math';
 
@@ -120,18 +120,36 @@ export const Sleeper = (props, context) => {
               content={open ? 'Open' : 'Closed'}
               onClick={() => act('door')} />
           )}>
-          {chems.map(chem => (
-            <Button
-              key={chem.name}
-              icon="flask"
-              content={chem.name}
-              disabled={!(occupied && chem.allowed)}
-              width="140px"
-              onClick={() => act('inject', {
-                chem: chem.id,
-              })}
-            />
-          ))}
+          <Table>
+            {chems.map(chem => (
+              <Table.Row
+                key={chem.id} >
+                <Table.Cell>
+                  <Button
+                    key={chem.id}
+                    icon="flask"
+                    content={chem.name + ' (' + chem.amount + 'u)'}
+                    disabled={!(occupied && chem.allowed)}
+                    width="140px"
+                    onClick={() => act('inject', {
+                      chem: chem.id,
+                    })}
+                  />
+                </Table.Cell>
+                <Table.Cell>
+                  <Button
+                    key={chem.id}
+                    icon="eject"
+                    content="Eject"
+                    width="140px"
+                    onClick={() => act('eject', {
+                      chem: chem.id,
+                    })}
+                  />
+                </Table.Cell>
+              </Table.Row>
+            ))}
+          </Table>
         </Section>
       </Window.Content>
     </Window>

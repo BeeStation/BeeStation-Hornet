@@ -52699,28 +52699,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
-"gaN" = (
-/obj/item/gun/energy/laser{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/structure/guncase/ecase,
-/obj/item/gun/energy/laser{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/turf/open/floor/plasteel/dark,
-/area/ai_monitored/security/armory)
 "gba" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -57871,25 +57849,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/fore)
-"jes" = (
-/obj/effect/turf_decal/tile/neutral{
-	dir = 1
-	},
-/obj/effect/turf_decal/tile/neutral,
-/obj/effect/turf_decal/tile/neutral{
-	dir = 4
-	},
-/obj/effect/turf_decal/tile/neutral{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/obj/structure/guncase/ecase,
-/obj/item/gun/energy/e_gun,
-/obj/item/gun/energy/e_gun,
-/turf/open/floor/plasteel/dark,
-/area/ai_monitored/security/armory)
 "jeD" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -74966,6 +74925,31 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/aft)
+"ttv" = (
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/obj/item/gun/energy/e_gun{
+	pixel_x = 2;
+	pixel_y = -1
+	},
+/obj/item/gun/energy/e_gun{
+	pixel_x = -2;
+	pixel_y = 3
+	},
+/obj/structure/rack,
+/turf/open/floor/plasteel/dark,
+/area/ai_monitored/security/armory)
 "ttZ" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -76626,6 +76610,28 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/plasteel/dark,
 /area/aisat)
+"uqK" = (
+/obj/item/gun/energy/laser{
+	pixel_x = -1;
+	pixel_y = 1
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 1
+	},
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 4
+	},
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/item/gun/energy/laser{
+	pixel_x = 4;
+	pixel_y = -3
+	},
+/obj/structure/rack,
+/turf/open/floor/plasteel/dark,
+/area/ai_monitored/security/armory)
 "urh" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -111180,7 +111186,7 @@ aaa
 aeq
 aes
 grO
-jes
+ttv
 gOb
 ahG
 aiA
@@ -111694,7 +111700,7 @@ aaa
 aeq
 aex
 agc
-gaN
+uqK
 wtd
 ahH
 aeq
