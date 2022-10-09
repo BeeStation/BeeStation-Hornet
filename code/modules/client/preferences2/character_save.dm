@@ -82,16 +82,21 @@
 	var/species_id
 	SAFE_READ_QUERY(2, species_id)
 
-	if(!species_id) // There was no species ID saved, make it human
-		species_id = SPECIES_HUMAN
+	if(!species_id) // There was no species ID saved, make it random
+		species_id = pick(GLOB.roundstart_races)
 
 	var/newtype = GLOB.species_list[species_id]
 
-	if(!newtype) // The species ID doesn't exist, make it human
-		species_id = SPECIES_HUMAN
-		newtype = GLOB.species_list[SPECIES_HUMAN]
+	if(!newtype) // The species ID doesn't exist in the species list, make it random
+		species_id = pick(GLOB.roundstart_races)
+		newtype = GLOB.species_list[species_id]
 
 	pref_species = new newtype
+
+	if(!pref_species) // there are no roundstart species enabled. Time to die
+		pref_species = new /datum/species/human
+		if(!length(GLOB.roundstart_races))
+			CRASH("There are no roundstart races enabled! You must enable at least one for the character setup to function.")
 
 	//Character
 	SAFE_READ_QUERY(3, real_name)
