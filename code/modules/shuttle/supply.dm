@@ -83,7 +83,7 @@ GLOBAL_LIST_INIT(blacklisted_cargo_types, typecacheof(list(
 	var/list/obj/miscboxes = list() //miscboxes are combo boxes that contain all small_item orders grouped
 	var/list/misc_order_num = list() //list of strings of order numbers, so that the manifest can show all orders in a box
 	var/list/misc_contents = list() //list of lists of items that each box will contain
-	if(!SSshuttle.shoppinglist.len)
+	if(!SSsupply.shoppinglist.len)
 		return
 
 	var/list/empty_turfs = list()
@@ -96,7 +96,7 @@ GLOBAL_LIST_INIT(blacklisted_cargo_types, typecacheof(list(
 
 	var/value = 0
 	var/purchases = 0
-	for(var/datum/supply_order/SO in SSshuttle.shoppinglist)
+	for(var/datum/supply_order/SO in SSsupply.shoppinglist)
 		if(!empty_turfs.len)
 			break
 		var/price = SO.pack.get_cost()
@@ -111,14 +111,19 @@ GLOBAL_LIST_INIT(blacklisted_cargo_types, typecacheof(list(
 				if(SO.paying_account)
 					D.bank_card_talk("Cargo order #[SO.id] rejected due to lack of funds. Credits required: [price]")
 				continue
+		//No stock
+		if(SO.pack.current_supply <= 0)
+			continue
+
+		SO.pack.current_supply --
 
 		if(SO.paying_account)
 			D.bank_card_talk("Cargo order #[SO.id] has shipped. [price] credits have been charged to your bank account.")
 			var/datum/bank_account/department/cargo = SSeconomy.get_dep_account(ACCOUNT_CAR)
 			cargo.adjust_money(price - SO.pack.get_cost()) //Cargo gets the handling fee
 		value += SO.pack.get_cost()
-		SSshuttle.shoppinglist -= SO
-		SSshuttle.orderhistory += SO
+		SSsupply.shoppinglist -= SO
+		SSsupply.orderhistory += SO
 
 		if(SO.pack.small_item) //small_item means it gets piled in the miscbox
 			if(SO.paying_account)
@@ -161,6 +166,8 @@ GLOBAL_LIST_INIT(blacklisted_cargo_types, typecacheof(list(
 
 	var/datum/bank_account/cargo_budget = SSeconomy.get_dep_account(ACCOUNT_CAR)
 	investigate_log("[purchases] orders in this shipment, worth [value] credits. [cargo_budget.account_balance] credits left.", INVESTIGATE_CARGO)
+
+	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_RESUPPLY)
 
 /obj/docking_port/mobile/supply/proc/sell()
 	var/datum/bank_account/D = SSeconomy.get_dep_account(ACCOUNT_CAR)
@@ -220,5 +227,8 @@ GLOBAL_LIST_INIT(blacklisted_cargo_types, typecacheof(list(
 			if(is_blocked_turf(T))
 				continue
 			empty_turfs += T
+
+	if(!length(empty_turfs))
+		return
 
 	new /obj/structure/closet/crate/mail/economy(pick(empty_turfs))

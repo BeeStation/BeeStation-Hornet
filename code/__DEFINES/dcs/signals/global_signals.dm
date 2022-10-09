@@ -27,3 +27,5 @@
 #define COMSIG_GLOB_CREWMEMBER_JOINED "!crewmember_joined"
 /// job subsystem has spawned and equipped a new mob
 #define COMSIG_GLOB_JOB_AFTER_SPAWN "!job_after_spawn"
+/// Called when a cargo resupply is triggered
+#define COMSIG_GLOB_RESUPPLY "!resupply"
