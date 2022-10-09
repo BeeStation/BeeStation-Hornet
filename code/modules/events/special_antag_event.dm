@@ -40,7 +40,7 @@
 
 /datum/round_event/create_special_antag/start()
 	for(var/mob/living/carbon/human/H in shuffle(GLOB.player_list))
-		if(!H.client || !(preference_type in H.client.prefs.be_special) || !(H.client.prefs.allow_midround_antag))
+		if(!H.client || !(preference_type in H.client.prefs.be_special) || !(H.client.prefs.toggles & PREFTOGGLE_MIDROUND_ANTAG))
 			continue
 		if(is_banned_from(H, list(preference_type)))
 			continue

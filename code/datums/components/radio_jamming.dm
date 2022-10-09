@@ -31,8 +31,8 @@
 	SIGNAL_HANDLER
 	//Toggle the jammer
 	if (active)
-		disable(source, user, silent)
+		disable()
 	else
-		enable(source, user, silent)
+		enable()
 	if (!silent && user)
-		to_chat(user,"<span class='notice'>You [!active ? "deactivate" : "activate"] [parent].</span>")
+		to_chat(user, "<span class='notice'>You [!active ? "deactivate" : "activate"] [parent].</span>")
