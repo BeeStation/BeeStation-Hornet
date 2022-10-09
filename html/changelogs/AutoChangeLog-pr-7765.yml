@@ -1,7 +1,0 @@
-author: PestoVerde322
-delete-after: true
-changes:
-  - rscadd: Cargo has now the option to buy singular or in bulk laser guns
-  - tweak: The laser guns are now under "Armory" rather than "Security"
-  - tweak: The cost for a bulk laser gun crate is now rebalanced to be a cheaper option
-      compared to Energy guns
