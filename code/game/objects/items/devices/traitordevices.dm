@@ -278,22 +278,19 @@ effective or pretty fucking useless.
 	desc = "Device used to disrupt nearby wireless communication."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "jammer"
-	var/active = FALSE
-	var/range = 12
+
+/obj/item/jammer/ComponentInitialize()
+	. = ..()
+	//Add the radio jamming component
+	AddComponent(/datum/component/radio_jamming)
 
 /obj/item/jammer/attack_self(mob/user)
-	to_chat(user,"<span class='notice'>You [active ? "deactivate" : "activate"] [src].</span>")
-	active = !active
-	if(active)
-		GLOB.active_jammers |= src
-	else
-		GLOB.active_jammers -= src
-	update_icon()
+	SEND_SIGNAL(src, COMSIG_TOGGLE_JAMMER, user, FALSE)
 
 /atom/proc/is_jammed()
 	var/turf/position = get_turf(src)
-	for(var/obj/item/jammer/jammer in GLOB.active_jammers)
-		var/turf/jammer_turf = get_turf(jammer)
+	for(var/datum/component/radio_jamming/jammer as anything in GLOB.active_jammers)
+		var/turf/jammer_turf = get_turf(jammer.parent)
 		if(position?.get_virtual_z_level() == jammer_turf.get_virtual_z_level() && (get_dist(position, jammer_turf) <= jammer.range))
 			return TRUE
 	return FALSE
