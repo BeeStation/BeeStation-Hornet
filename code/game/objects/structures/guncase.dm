@@ -13,7 +13,7 @@
 	armor = list("melee" = 40, "bullet" = 50, "laser" = 50, "energy" = 100, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 80, "stamina" = 0)
 	var/case_type = ""
 	var/gun_category = /obj/item/gun
-	var/open = TRUE
+	var/open = FALSE
 	var/capacity = 4
 
 /obj/structure/guncase/Initialize(mapload)
@@ -148,7 +148,7 @@
 
 /// Check if the locker can be unlocked with the card
 /obj/structure/guncase/locked/attackby(obj/item/I, mob/user, params)
-	if (user.a_intent == INTENT_HARM || !I.GetAccess())
+	if (user.a_intent == INTENT_HARM || !length(I.GetAccess()))
 		return ..()
 	if (check_access(I))
 		if (is_unlocked)
@@ -191,6 +191,12 @@
 	name = "secure detective locker"
 	desc = "A secure, electronically motored locker that stores the detective's revolver."
 	case_type = "revolver"
-	gun_category = /obj/item/gun/ballistic/shotgun
+	gun_category = /obj/item/clothing/accessory/holster/detective
+	capacity = 2
 	req_access = list(ACCESS_ARMORY)
 	unlock_alert_level = SEC_LEVEL_BLUE
+
+/obj/structure/guncase/locked/detective/Initialize(mapload)
+	. = ..()
+	new /obj/item/clothing/accessory/holster/detective(src)
+	update_icon()
