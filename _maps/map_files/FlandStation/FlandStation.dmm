@@ -65316,10 +65316,6 @@
 	},
 /turf/open/floor/carpet/red,
 /area/crew_quarters/bar/atrium)
-"qYz" = (
-/obj/structure/lattice,
-/turf/closed/wall/r_wall,
-/area/docking/arrival)
 "qYA" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -97445,10 +97441,6 @@
 	},
 /turf/open/floor/wood,
 /area/crew_quarters/bar/atrium)
-"yiN" = (
-/obj/structure/lattice,
-/turf/closed/wall,
-/area/hallway/secondary/entry)
 "yiP" = (
 /obj/effect/turf_decal/bot,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
@@ -110453,7 +110445,7 @@ tAB
 tAB
 tAB
 tAB
-qYz
+tAB
 wCd
 wCd
 wCd
@@ -110467,7 +110459,7 @@ wCd
 wCd
 tAB
 tAB
-xOI
+tAB
 nnx
 nnx
 nnx
@@ -110724,7 +110716,7 @@ wQm
 wQm
 fzy
 wov
-xOI
+tAB
 nnx
 nnx
 nnx
@@ -111238,7 +111230,7 @@ bbm
 xhP
 gpP
 xDa
-xOI
+tAB
 csJ
 csJ
 csJ
@@ -111495,7 +111487,7 @@ bbm
 xhP
 ezv
 xDa
-xOI
+tAB
 djY
 djY
 djY
@@ -111752,7 +111744,7 @@ bbm
 xhP
 nES
 dpH
-xOI
+tAB
 bln
 aeL
 aYd
@@ -112009,7 +112001,7 @@ bbm
 xhP
 rjD
 jTj
-xOI
+tAB
 wru
 uMd
 uMd
@@ -112266,7 +112258,7 @@ bbm
 mmX
 xub
 djY
-xOV
+sIg
 ygc
 nla
 neA
@@ -115869,7 +115861,7 @@ ygc
 sOJ
 tLB
 rfQ
-yiN
+giY
 csJ
 csJ
 csJ
