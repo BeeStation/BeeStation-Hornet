@@ -81,10 +81,17 @@
 	//Species
 	var/species_id
 	SAFE_READ_QUERY(2, species_id)
-	if(species_id)
-		var/newtype = GLOB.species_list[species_id]
-		if(newtype)
-			pref_species = new newtype
+
+	if(!species_id) // There was no species ID saved, make it human
+		species_id = SPECIES_HUMAN
+
+	var/newtype = GLOB.species_list[species_id]
+
+	if(!newtype) // The species ID doesn't exist, make it human
+		species_id = SPECIES_HUMAN
+		newtype = GLOB.species_list[SPECIES_HUMAN]
+
+	pref_species = new newtype
 
 	//Character
 	SAFE_READ_QUERY(3, real_name)
