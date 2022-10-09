@@ -41,11 +41,15 @@
 		obj_flags |= EMAGGED
 	else
 		obj_flags &= ~EMAGGED
-	RegisterSignal(SSdcs, COMSIG_GLOB_RESUPPLY, /datum/proc/ui_update)
+	RegisterSignal(SSdcs, COMSIG_GLOB_RESUPPLY, .proc/update_static_ui)
 
 /obj/machinery/computer/cargo/Destroy()
 	QDEL_NULL(radio)
 	return ..()
+
+/obj/machinery/computer/cargo/proc/update_static_ui()
+	for (var/datum/tgui/open_window as() in SStgui.get_all_open_uis(src))
+		update_static_data(null, open_window)
 
 /obj/machinery/computer/cargo/proc/get_export_categories()
 	. = EXPORT_CARGO
