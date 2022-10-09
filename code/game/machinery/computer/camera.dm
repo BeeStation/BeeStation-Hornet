@@ -71,8 +71,8 @@
 	return GLOB.default_state
 
 /obj/machinery/computer/security/interact(mob/user, special_state)
-	if (!user.client)
-		return // monkey proof
+	if (!user.client) // monkey proof
+		return
 	. = ..()
 
 /obj/machinery/computer/security/ui_interact(mob/user, datum/tgui/ui)
