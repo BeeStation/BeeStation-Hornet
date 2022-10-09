@@ -149,7 +149,7 @@
 			for(var/material_id in D.materials)
 				material_cost += list(list(
 					"name" = material_id,
-					"amount" = D.materials[material_id] / MINERAL_MATERIAL_AMOUNT,
+					"amount" = ( D.materials[material_id] / MINERAL_MATERIAL_AMOUNT) * creation_efficiency,
 				))
 
 			//Add
