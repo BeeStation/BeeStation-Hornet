@@ -6,12 +6,15 @@
 	volume = 200
 	fill_icon_thresholds = list(10, 20, 30, 40, 50, 60, 70, 80, 90, 100)
 	reagent_flags = TRANSPARENT
+	var/label_name // this is to support when you don't want to display "chemical bag" part with a custom name
 
 /obj/item/reagent_containers/chem_bag/Initialize(mapload)
 	. = ..()
 	if(!icon_state)
 		icon_state = "bloodpack"
 		update_icon()
+	if(label_name)
+		name = "[label_name] chemical bag"
 
 /obj/item/reagent_containers/chem_bag/examine(mob/user)
 	. = ..()
@@ -22,27 +25,27 @@
 			. += "<span class='notice'>It seems [round(reagents.total_volume/volume*100)]% filled.</span>"
 
 /obj/item/reagent_containers/chem_bag/epinephrine
-	name = "epinephrine chemical bag"
+	label_name = "epinephrine"
 	list_reagents = list(/datum/reagent/medicine/epinephrine = 200)
 
 /obj/item/reagent_containers/chem_bag/bicaridine
-	name = "bicaridine chemical bag"
+	label_name = "bicaridine"
 	list_reagents = list(/datum/reagent/medicine/bicaridine = 200)
 
 /obj/item/reagent_containers/chem_bag/kelotane
-	name = "kelotane chemical bag"
+	label_name = "kelotane"
 	list_reagents = list(/datum/reagent/medicine/kelotane = 200)
 
 /obj/item/reagent_containers/chem_bag/antitoxin
-	name = "antitoxin chemical bag"
+	label_name = "antitoxin"
 	list_reagents = list(/datum/reagent/medicine/antitoxin = 200)
 
 /obj/item/reagent_containers/chem_bag/morphine
-	name = "morphine chemical bag"
+	label_name = "morphine"
 	list_reagents = list(/datum/reagent/medicine/morphine = 200)
 
 /obj/item/reagent_containers/chem_bag/perfluorodecalin
-	name = "perfluorodecalin chemical bag"
+	label_name = "perfluorodecalin"
 	list_reagents = list(/datum/reagent/medicine/perfluorodecalin = 200)
 
 // 80u is enough to treat 10 people with the new sleeper rework
