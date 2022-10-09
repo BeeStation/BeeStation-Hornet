@@ -109,7 +109,7 @@
 		to_chat(user, "<span class='warning'>You can't put [equipping] on [source], it's stuck to your hand!</span>")
 		return FALSE
 	//This is important due to the fact otherwise it will be equipped without a proper existing icon, because it's forced on through the strip menu
-	if(ismonkey(user))
+	if(ismonkey(source))
 		equipping.compile_monkey_icon()
 	return TRUE
 
