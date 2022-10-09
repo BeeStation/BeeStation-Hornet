@@ -268,6 +268,8 @@
 				vol_each_max = min(40, vol_each_max)
 			else if (item_type == "bottle" && !condi)
 				vol_each_max = min(30, vol_each_max)
+			else if (item_type == "bag" && !condi)
+				vol_each_max = min(200, vol_each_max)
 			else if (item_type == "condimentPack" && condi)
 				vol_each_max = min(10, vol_each_max)
 			else if (item_type == "condimentBottle" && condi)
