@@ -150,7 +150,7 @@
 /datum/xenoartifact_trait/malfunction/twin/activate(obj/item/xenoartifact/X, atom/target, atom/user, setup)
 		var/mob/living/simple_animal/hostile/twin/T = new(get_turf(X))
 		//Setup appearence for evil twin
-		T.name = target.natargete
+		T.name = target.name
 		T.appearance = target.appearance
 		if(length(target.vis_contents))
 			T.add_overlay(target.vis_contents)
@@ -182,4 +182,3 @@
 	del_on_death = TRUE
 	do_footstep = TRUE
 	mobchatspan = "syndmob"
-
