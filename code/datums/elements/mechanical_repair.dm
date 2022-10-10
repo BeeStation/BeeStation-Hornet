@@ -22,16 +22,20 @@
 	if((!affecting || (IS_ORGANIC_LIMB(affecting))) || user.a_intent == INTENT_HARM)
 		return
 
+	if(target in user.do_afters)
+		return COMPONENT_NO_AFTERATTACK
+
 	// Handles welder repairs on human limbs
 	if(I.tool_behaviour == TOOL_WELDER)
 		if(I.use_tool(source, user, 0, volume=50, amount=1))
 			if(user == target)
 				user.visible_message("<span class='notice'>[user] starts to fix some of the dents on [target == user ? "[p_their()]" : "[target]'s"] [parse_zone(affecting.body_zone)].</span>",
 				"<span class='notice'>You start fixing some of the dents on [target == user ? "your" : "[target]'s"] [parse_zone(affecting.body_zone)].</span>")
-				if(!do_mob(user, target, 50))
-					return
-			item_heal_robotic(target, user, 15, 0)
+				if(!do_mob(user, target, 15))
+					return COMPONENT_NO_AFTERATTACK
+			item_heal_robotic(target, user, 15, 0, affecting)
 			return COMPONENT_NO_AFTERATTACK // We managed to heal the limb
+		return COMPONENT_NO_AFTERATTACK
 
 	// Handles cable repairs
 	if(istype(I, /obj/item/stack/cable_coil))
@@ -39,8 +43,8 @@
 		if(user == target)
 			user.visible_message("<span class='notice'>[user] starts to fix some of the burn wires in [target == user ? "[p_their()]" : "[target]'s"] [parse_zone(affecting.body_zone)].</span>",
 			"<span class='notice'>You start fixing some of the burnt wires in [target == user ? "your" : "[target]'s"] [parse_zone(affecting.body_zone)].</span>")
-			if(!do_mob(user, target, 50))
-				return
-		if(item_heal_robotic(target, user, 0, 15))
-			coil.use(1)
+			if(!do_mob(user, target, 15))
+				return COMPONENT_NO_AFTERATTACK
+		if(coil.use(1))
+			item_heal_robotic(target, user, 0, 15, affecting)
 		return COMPONENT_NO_AFTERATTACK
