@@ -191,6 +191,15 @@
 			Insert("language-[icon_state]", icon, icon_state=icon_state)
 	..()
 
+/datum/asset/spritesheet/emoji
+	name = "emoji"
+
+/datum/asset/spritesheet/emoji/register()
+	var/icon/I = icon('icons/emoji.dmi')
+	I.Scale(48, 48)
+	InsertAll("", I)
+	..()
+
 /datum/asset/simple/lobby
 	assets = list(
 		"playeroptions.css" = 'html/browser/playeroptions.css'

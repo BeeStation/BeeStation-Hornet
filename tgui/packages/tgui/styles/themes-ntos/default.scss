@@ -1,0 +1,5 @@
+@use './ntos-colors.scss';
+
+.theme-ntos-default {
+  @include ntos-colors.theme-ntos;
+}
