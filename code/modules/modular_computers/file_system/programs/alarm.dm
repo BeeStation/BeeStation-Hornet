@@ -112,7 +112,7 @@
 		if(L.len)
 			has_alert = TRUE
 
-/datum/computer_file/program/alarm_monitor/run_program(mob/user)
+/datum/computer_file/program/alarm_monitor/on_start(mob/user)
 	. = ..(user)
 	if(!.)
 		return

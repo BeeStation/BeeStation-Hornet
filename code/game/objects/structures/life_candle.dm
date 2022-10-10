@@ -81,7 +81,7 @@
 		body = new mob_type(T)
 		var/mob/ghostie = mind.get_ghost(TRUE)
 		if(ghostie.client?.prefs)
-			ghostie.client.prefs.copy_to(body)
+			ghostie.client.prefs.active_character.copy_to(body)
 		mind.transfer_to(body)
 	else
 		body.forceMove(T)

@@ -49,6 +49,11 @@
     border-style: outset;
     border-color: #00AA00;
     outline: base.em(1px) solid rgb(0, 122, 0);
+    box-sizing: content-box;
+  }
+
+  .Dropdown__control.Button {
+    box-sizing: border-box;
   }
 
   .candystripe:nth-child(odd) {

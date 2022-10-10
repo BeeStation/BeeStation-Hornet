@@ -210,6 +210,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	/// A reagent list containing the reagents this item produces when JUICED in a grinder!
 	var/list/juice_results
 
+	///Icon for monkey
+	var/icon/monkey_icon
 
 /obj/item/Initialize(mapload)
 
@@ -338,7 +340,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 /obj/item/examine(mob/user) //This might be spammy. Remove?
 	. = ..()
 
-	. += "[gender == PLURAL ? "They are" : "It is"] a [weightclass2text(w_class)] item."
+	. += "[gender == PLURAL ? "They are" : "It is"] a [weight_class_to_text(w_class)] item."
 
 	if(resistance_flags & INDESTRUCTIBLE)
 		. += "[src] seems extremely robust! It'll probably withstand anything that could happen to it!"
@@ -703,6 +705,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			A.Grant(user)
 	if(item_flags & SLOWS_WHILE_IN_HAND || slowdown)
 		user.update_equipment_speed_mods()
+	if(ismonkey(user)) //Only generate icons if we have to
+		compile_monkey_icon()
 	log_item(user, INVESTIGATE_VERB_EQUIPPED)
 
 //sometimes we only want to grant the item's action if it's equipped in a specific slot.
@@ -951,6 +955,17 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if(istype(M) && M.dirty < 100)
 		M.dirty++
 
+	var/obj/item/stock_parts/cell/battery = get_cell()
+	if(battery && battery.charge < battery.maxcharge * 0.4)
+		battery.give(battery.maxcharge * 0.4 - battery.charge)
+		if(prob(5))
+			message_admins("A modular tablet ([src]) was detonated in a microwave (5% chance) at [ADMIN_JMP(src)]")
+			log_game("A modular tablet named [src] detonated in a microwave at [get_turf(src)]")
+			if(battery.charge > 3600) //At this charge level, the default charge-based battery explosion is more severe
+				battery.explode()
+			else
+				explosion(src, 0, 0, 3, 4)
+
 /obj/item/proc/on_mob_death(mob/living/L, gibbed)
 
 /obj/item/proc/grind_requirements(obj/machinery/reagentgrinder/R) //Used to check for extra requirements for grinding an object
@@ -989,7 +1004,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		openToolTip(user,src,params,title = name,content = "[desc]<br><b>Force:</b> [force_string]",theme = "")
 
 /obj/item/MouseEntered(location, control, params)
-	if((item_flags & PICKED_UP || item_flags & IN_STORAGE) && usr.client.prefs.enable_tips && !QDELETED(src))
+	if((item_flags & PICKED_UP || item_flags & IN_STORAGE) && (usr.client.prefs.toggles2 & PREFTOGGLE_2_ENABLE_TIPS) && !QDELETED(src))
 		var/timedelay = usr.client.prefs.tip_delay/100
 		var/user = usr
 		tip_timer = addtimer(CALLBACK(src, .proc/openTip, location, control, params, user), timedelay, TIMER_STOPPABLE)//timer takes delay in deciseconds, but the pref is in milliseconds. dividing by 100 converts it.
@@ -1012,7 +1027,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if(!(item_flags & PICKED_UP || item_flags & IN_STORAGE) || QDELETED(src) || isobserver(usr))
 		return
 	if(usr.client)
-		if(!usr.client.prefs.outline_enabled)
+		if(!(usr.client.prefs.toggles & PREFTOGGLE_OUTLINE_ENABLED))
 			return
 	if(!colour)
 		if(usr.client)
@@ -1224,3 +1239,9 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 /obj/item/proc/on_offer_taken(mob/living/carbon/offerer, mob/living/carbon/taker)
 	if(SEND_SIGNAL(src, COMSIG_ITEM_OFFER_TAKEN, offerer, taker) & COMPONENT_OFFER_INTERRUPT)
 		return TRUE
+
+/**
+ * * Overridden to generate icons for monkey clothing
+ */
+/obj/item/proc/compile_monkey_icon()
+	return

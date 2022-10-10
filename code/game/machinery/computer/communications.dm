@@ -1,5 +1,4 @@
 #define IMPORTANT_ACTION_COOLDOWN (60 SECONDS)
-#define MAX_STATUS_LINE_LENGTH 40
 
 #define STATE_BUYING_SHUTTLE "buying_shuttle"
 #define STATE_CHANGING_STATUS "changing_status"
@@ -79,7 +78,6 @@
 
 /obj/machinery/computer/communications/ui_act(action, list/params)
 	var/static/list/approved_states = list(STATE_BUYING_SHUTTLE, STATE_CHANGING_STATUS, STATE_MESSAGES)
-	var/static/list/approved_status_pictures = list("biohazard", "blank", "default", "lockdown", "redalert", "shuttle")
 
 	. = ..()
 	if (.)
@@ -248,6 +246,9 @@
 			var/message = trim(html_encode(params["message"]), MAX_MESSAGE_LEN)
 			if (!message)
 				return
+			if(CHAT_FILTER_CHECK(message))
+				to_chat(usr, "<span class='warning'>Your message contains forbidden words.</span>")
+				return
 
 			playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE)
 
@@ -286,7 +287,7 @@
 			if (!authenticated(usr))
 				return
 			var/picture = params["picture"]
-			if (!(picture in approved_status_pictures))
+			if (!(picture in GLOB.approved_status_pictures))
 				return
 			post_status("alert", picture)
 			playsound(src, "terminal_type", 50, FALSE)
@@ -550,7 +551,6 @@
 		possible_answers = new_possible_answers
 
 #undef IMPORTANT_ACTION_COOLDOWN
-#undef MAX_STATUS_LINE_LENGTH
 #undef STATE_BUYING_SHUTTLE
 #undef STATE_CHANGING_STATUS
 #undef STATE_MESSAGES

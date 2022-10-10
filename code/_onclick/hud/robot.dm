@@ -125,19 +125,25 @@
 	static_inventory += using
 
 //Borg Integrated Tablet
-	using = new /atom/movable/screen/robot/modPC()
+	using = new /atom/movable/screen/robot/modpc()
 	using.screen_loc = ui_borg_tablet
 	using.hud = src
 	static_inventory += using
 	mymobR.interfaceButton = using
 	if(mymobR.modularInterface)
 		using.vis_contents += mymobR.modularInterface
-	var/atom/movable/screen/robot/modPC/tabletbutton = using
+	var/atom/movable/screen/robot/modpc/tabletbutton = using
 	tabletbutton.robot = mymobR
 
 //Alerts
 	using = new /atom/movable/screen/robot/alerts()
 	using.screen_loc = ui_borg_alerts
+	using.hud = src
+	static_inventory += using
+
+//Manifest
+	using = new /atom/movable/screen/robot/crew_manifest()
+	using.screen_loc = ui_borg_crew_manifest
 	using.hud = src
 	static_inventory += using
 
@@ -287,12 +293,12 @@
 	else
 		icon_state = "lamp_off"
 
-/atom/movable/screen/robot/modPC
+/atom/movable/screen/robot/modpc
 	name = "Modular Interface"
 	icon_state = "template"
 	var/mob/living/silicon/robot/robot
 
-/atom/movable/screen/robot/modPC/Click()
+/atom/movable/screen/robot/modpc/Click()
 	. = ..()
 	if(.)
 		return
@@ -309,3 +315,14 @@
 		return
 	var/mob/living/silicon/robot/borgo = usr
 	borgo.robot_alerts()
+
+/atom/movable/screen/robot/crew_manifest
+	name = "Crew Manifest"
+	icon = 'icons/mob/screen_ai.dmi'
+	icon_state = "manifest"
+
+/atom/movable/screen/robot/crew_manifest/Click()
+	if(..())
+		return
+	var/mob/living/silicon/robot/borgo = usr
+	borgo.ai_roster()

@@ -40,6 +40,8 @@
 		A.remove_verb(/mob/living/silicon/ai/proc/choose_modules)
 		A.malf_picker.remove_malf_verbs(A)
 		qdel(A.malf_picker)
+		QDEL_NULL(A.radio.keyslot)
+		A.radio.recalculateChannels()
 
 	SSticker.mode.traitors -= owner
 	if(!silent && owner.current)

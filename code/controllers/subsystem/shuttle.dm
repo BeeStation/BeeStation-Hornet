@@ -35,7 +35,6 @@ SUBSYSTEM_DEF(shuttle)
 		//supply shuttle stuff
 	var/obj/docking_port/mobile/supply/supply
 	var/ordernum = 1					//order number given to next order
-	var/points = 5000					//number of trade-points we have
 	var/centcom_message = ""			//Remarks from CentCom on how well you checked the last order.
 	var/list/discoveredPlants = list()	//Typepaths for unusual plants we've already sent CentCom, associated with their potencies
 
@@ -241,14 +240,14 @@ SUBSYSTEM_DEF(shuttle)
 	var/datum/signal/status_signal = new(list("command" = "update")) // Start processing shuttle-mode displays to display the timer
 	frequency.post_signal(src, status_signal)
 
-	var/area/A = get_area(user)
-
-	log_game("[key_name(user)] has called the shuttle.")
-	deadchat_broadcast("<span class='deadsay'><span class='name'>[user.real_name]</span> has called the shuttle at <span class='name'>[A.name]</span>.</span>", user)
+	log_game("[user ? key_name(user) : "An automated system"] has called the shuttle.")
+	if(user)
+		var/area/A = get_area(user)
+		deadchat_broadcast("<span class='deadsay'><span class='name'>[user.real_name]</span> has called the shuttle at <span class='name'>[A.name]</span>.</span>", user)
 	if(call_reason)
 		SSblackbox.record_feedback("text", "shuttle_reason", 1, "[call_reason]")
 		log_game("Shuttle call reason: [call_reason]")
-	message_admins("[ADMIN_LOOKUPFLW(user)] has called the shuttle. (<A HREF='?_src_=holder;[HrefToken()];trigger_centcom_recall=1'>TRIGGER CENTCOM RECALL</A>)")
+	message_admins("[user ? ADMIN_LOOKUPFLW(user) : "An automated system"] has called the shuttle. (<A HREF='?_src_=holder;[HrefToken()];trigger_centcom_recall=1'>TRIGGER CENTCOM RECALL</A>)")
 
 /datum/controller/subsystem/shuttle/proc/centcom_recall(old_timer, admiral_message)
 	if(emergency.mode != SHUTTLE_CALL || emergency.timer != old_timer)
@@ -316,7 +315,7 @@ SUBSYSTEM_DEF(shuttle)
 				continue
 		else if(istype(thing, /obj/machinery/computer/communications))
 			var/obj/machinery/computer/communications/C = thing
-			if(C.stat & BROKEN)
+			if(C.machine_stat & BROKEN)
 				continue
 
 		var/turf/T = get_turf(thing)
@@ -557,10 +556,8 @@ SUBSYSTEM_DEF(shuttle)
 	if (istype(SSshuttle.shuttle_purchase_requirements_met))
 		shuttle_purchase_requirements_met = SSshuttle.shuttle_purchase_requirements_met
 
-	var/datum/bank_account/D = SSeconomy.get_dep_account(ACCOUNT_CAR)
 	centcom_message = SSshuttle.centcom_message
 	ordernum = SSshuttle.ordernum
-	points = D.account_balance
 	emergencyNoEscape = SSshuttle.emergencyNoEscape
 	emergencyCallAmount = SSshuttle.emergencyCallAmount
 	shuttle_purchased = SSshuttle.shuttle_purchased

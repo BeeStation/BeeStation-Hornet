@@ -158,9 +158,11 @@
 	. = ..()
 	if(speaker != src && prob(50)) //Dont imitate ourselves
 		if(!radio_freq || prob(10))
-			if(speech_buffer.len >= 500)
-				speech_buffer -= pick(speech_buffer)
-			speech_buffer |= html_decode(raw_message)
+			// No being problematic, Poly!
+			if(!CHAT_FILTER_CHECK(raw_message))
+				if(speech_buffer.len >= 500)
+					speech_buffer -= pick(speech_buffer)
+				speech_buffer |= html_decode(raw_message)
 	if(speaker == src && !client) //If a parrot squawks in the woods and no one is around to hear it, does it make a sound? This code says yes!
 		return message
 
@@ -426,6 +428,8 @@ GLOBAL_LIST_INIT(strippable_parrot_items, create_strippable_list(list(
 
 				if(available_channels.len && src.ears)
 					for(var/possible_phrase in speak)
+						if(CHAT_FILTER_CHECK(possible_phrase))
+							continue
 
 						//50/50 chance to not use the radio at all
 						var/useradio = 0
@@ -441,6 +445,8 @@ GLOBAL_LIST_INIT(strippable_parrot_items, create_strippable_list(list(
 
 				else //If we have no headset or channels to use, dont try to use any!
 					for(var/possible_phrase in speak)
+						if(CHAT_FILTER_CHECK(possible_phrase))
+							continue
 						if((possible_phrase[1] in GLOB.department_radio_prefixes) && (copytext_char(possible_phrase, 2, 3) in GLOB.department_radio_keys))
 							possible_phrase = copytext_char(possible_phrase, 3) //crop out the channel prefix
 						newspeak.Add(possible_phrase)
