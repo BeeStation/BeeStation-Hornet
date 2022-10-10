@@ -498,3 +498,16 @@
 /datum/xenoartifact_trait/major/distablizer/Destroy()
 	GLOB.destabliization_exits -= exit
 	..()
+
+///============
+/// Dissipating, the artifact creates a could of smoke.
+///============
+/datum/xenoartifact_trait/major/smokey
+	desc = "Dissipating"
+	label_desc = "Dissipating: The Artifact is dissipating as if it was made of smoke."
+	flags = URANIUM_TRAIT | PLASMA_TRAIT | BLUESPACE_TRAIT
+
+/datum/xenoartifact_trait/major/smokey/activate(obj/item/xenoartifact/X, atom/target, atom/user, setup)
+	var/datum/effect_system/smoke_spread/E = new()
+	E.set_up(max(3, X.charge*0.08), get_turf(X))
+	E.start()
