@@ -1,0 +1,5 @@
+author: Bobbanz1
+delete-after: true
+changes:
+  - bugfix: MULEbot is now capable of being summoned by the AI repeatedly instead
+      of only once.
