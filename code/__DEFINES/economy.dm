@@ -6,8 +6,8 @@
 #define PAYCHECK_MEDIUM_BY_HALF 20
 #define PAYCHECK_MEDIUM 40
 #define PAYCHECK_HARD 70
-#define PAYCHECK_COMMAND_NT   20
-#define PAYCHECK_COMMAND_DEPT 80
+#define PAYCHECK_COMMAND_NT   20 // given from nanotrasen to heads
+#define PAYCHECK_COMMAND_DEPT 80 // given from department budget
 #define PAYCHECK_VIP 2000
 /*	Note: The current intention for crazy amount of money to VIP is that they can be a rich shitter
 		  or be targeted by antags for their money - oh, my, being rich isn't always good.
