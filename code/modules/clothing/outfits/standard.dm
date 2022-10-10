@@ -191,7 +191,7 @@
 	l_pocket = /obj/item/melee/transforming/energy/sword/saber
 	l_hand = /obj/item/storage/secure/briefcase
 	id = /obj/item/card/id/syndicate
-	belt = /obj/item/pda/heads
+	belt = /obj/item/modular_computer/tablet/pda/heads
 
 /datum/outfit/assassin/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	var/obj/item/clothing/under/U = H.w_uniform
@@ -211,10 +211,9 @@
 	SEND_SIGNAL(sec_briefcase, COMSIG_TRY_STORAGE_INSERT, new /obj/item/ammo_box/a357, null, TRUE, TRUE)
 	SEND_SIGNAL(sec_briefcase, COMSIG_TRY_STORAGE_INSERT, new /obj/item/grenade/plastic/x4, null, TRUE, TRUE)
 
-	var/obj/item/pda/heads/pda = H.belt
-	pda.owner = H.real_name
-	pda.ownjob = "Reaper"
-	pda.update_label()
+	var/obj/item/modular_computer/tablet/pda/heads/pda = H.belt
+	pda.saved_identification = H.real_name
+	pda.saved_job = "Reaper"
 
 	var/obj/item/card/id/syndicate/W = H.wear_id
 	W.access = get_all_accesses()

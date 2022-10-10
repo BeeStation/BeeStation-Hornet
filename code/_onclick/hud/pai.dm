@@ -113,27 +113,20 @@
 	var/mob/living/silicon/pai/pAI = usr
 	pAI.checklaws()
 
-/atom/movable/screen/pai/pda_msg_send
-	name = "PDA - Send Message"
+/atom/movable/screen/pai/modpc
+	name = "Messenger"
 	icon_state = "pda_send"
-	required_software = "digital messenger"
+	var/mob/living/silicon/pai/pAI
 
-/atom/movable/screen/pai/pda_msg_send/Click()
-	if(!..())
+/atom/movable/screen/pai/modpc/Click()
+	. = ..()
+	if(!. || !pAI.modularInterface || !pAI.modularInterface.turn_on(pAI, open_ui = FALSE))
 		return
-	var/mob/living/silicon/pai/pAI = usr
-	pAI.cmd_send_pdamesg(usr)
-
-/atom/movable/screen/pai/pda_msg_show
-	name = "PDA - Show Message Log"
-	icon_state = "pda_receive"
-	required_software = "digital messenger"
-
-/atom/movable/screen/pai/pda_msg_show/Click()
-	if(!..())
-		return
-	var/mob/living/silicon/pai/pAI = usr
-	pAI.cmd_show_message_log(usr)
+	var/obj/item/computer_hardware/hard_drive/drive = pAI.modularInterface.all_components[MC_HDD]
+	for(var/datum/computer_file/program/messenger/app in drive?.stored_files)
+		pAI.modularInterface.open_program(pAI, app)
+		pAI.modularInterface.interact(pAI)
+		break
 
 /atom/movable/screen/pai/image_take
 	name = "Take Image"
@@ -171,6 +164,7 @@
 /datum/hud/pai/New(mob/living/silicon/pai/owner)
 	..()
 	var/atom/movable/screen/using
+	var/mob/living/silicon/pai/mypai = mymob
 
 // Software menu
 	using = new /atom/movable/screen/pai/software
@@ -222,15 +216,13 @@
 	using.screen_loc = ui_pai_state_laws
 	static_inventory += using
 
-// PDA message
-	using = new /atom/movable/screen/pai/pda_msg_send()
-	using.screen_loc = ui_pai_pda_send
+// Modular Interface
+	using = new /atom/movable/screen/pai/modpc()
+	using.screen_loc = ui_pai_mod_int
 	static_inventory += using
-
-// PDA log
-	using = new /atom/movable/screen/pai/pda_msg_show()
-	using.screen_loc = ui_pai_pda_log
-	static_inventory += using
+	mypai.interface_button = using
+	var/atom/movable/screen/pai/modpc/tablet_button = using
+	tablet_button.pAI = mypai
 
 // Take image
 	using = new /atom/movable/screen/pai/image_take()

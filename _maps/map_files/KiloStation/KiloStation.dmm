@@ -25842,18 +25842,18 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
 	},
-/obj/item/cartridge/medical{
+/obj/item/computer_hardware/hard_drive/role/medical{
 	pixel_x = 6;
 	pixel_y = 2
 	},
-/obj/item/cartridge/medical{
+/obj/item/computer_hardware/hard_drive/role/medical{
 	pixel_x = 5;
 	pixel_y = 1
 	},
-/obj/item/cartridge/medical{
+/obj/item/computer_hardware/hard_drive/role/medical{
 	pixel_x = 4
 	},
-/obj/item/cartridge/chemistry{
+/obj/item/computer_hardware/hard_drive/role/chemistry{
 	pixel_x = -6;
 	pixel_y = 8
 	},
@@ -35521,14 +35521,14 @@
 	},
 /obj/structure/table,
 /obj/item/clipboard,
-/obj/item/cartridge/roboticist{
+/obj/item/computer_hardware/hard_drive/role/roboticist{
 	pixel_x = -3
 	},
-/obj/item/cartridge/signal/toxins{
+/obj/item/computer_hardware/hard_drive/role/signal/toxins{
 	pixel_x = 6
 	},
-/obj/item/cartridge/signal/toxins,
-/obj/item/cartridge/signal/toxins,
+/obj/item/computer_hardware/hard_drive/role/signal/toxins,
+/obj/item/computer_hardware/hard_drive/role/signal/toxins,
 /obj/item/circuitboard/aicore{
 	pixel_y = 5
 	},
@@ -52358,7 +52358,7 @@
 	pixel_x = 5
 	},
 /obj/structure/table,
-/obj/item/cartridge/lawyer,
+/obj/item/computer_hardware/hard_drive/role/lawyer,
 /obj/machinery/power/apc{
 	areastring = "/area/lawoffice";
 	dir = 1;
@@ -99306,14 +99306,14 @@
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
 	},
-/obj/item/cartridge/engineering{
+/obj/item/computer_hardware/hard_drive/role/engineering{
 	pixel_x = 6;
 	pixel_y = 6
 	},
-/obj/item/cartridge/engineering{
+/obj/item/computer_hardware/hard_drive/role/engineering{
 	pixel_x = 8
 	},
-/obj/item/cartridge/atmos{
+/obj/item/computer_hardware/hard_drive/role/atmos{
 	pixel_x = -6;
 	pixel_y = 4
 	},

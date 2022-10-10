@@ -4544,7 +4544,7 @@
 "auh" = (
 /obj/structure/table/wood,
 /obj/item/taperecorder,
-/obj/item/cartridge/lawyer,
+/obj/item/computer_hardware/hard_drive/role/lawyer,
 /turf/open/floor/wood,
 /area/lawoffice)
 "aui" = (
@@ -15701,15 +15701,15 @@
 "byg" = (
 /obj/structure/table,
 /obj/item/clipboard,
-/obj/item/cartridge/quartermaster{
+/obj/item/computer_hardware/hard_drive/role/quartermaster{
 	pixel_x = 6;
 	pixel_y = 5
 	},
-/obj/item/cartridge/quartermaster{
+/obj/item/computer_hardware/hard_drive/role/quartermaster{
 	pixel_x = -4;
 	pixel_y = 7
 	},
-/obj/item/cartridge/quartermaster,
+/obj/item/computer_hardware/hard_drive/role/quartermaster,
 /obj/item/coin/silver,
 /obj/effect/turf_decal/tile/brown,
 /obj/effect/turf_decal/tile/brown{
@@ -16749,12 +16749,12 @@
 /area/crew_quarters/heads/hor)
 "bCg" = (
 /obj/structure/table,
-/obj/item/cartridge/signal/toxins,
-/obj/item/cartridge/signal/toxins{
+/obj/item/computer_hardware/hard_drive/role/signal/toxins,
+/obj/item/computer_hardware/hard_drive/role/signal/toxins{
 	pixel_x = -4;
 	pixel_y = 2
 	},
-/obj/item/cartridge/signal/toxins{
+/obj/item/computer_hardware/hard_drive/role/signal/toxins{
 	pixel_x = 4;
 	pixel_y = 6
 	},
@@ -31225,16 +31225,16 @@
 /area/medical/virology)
 "esj" = (
 /obj/structure/table,
-/obj/item/cartridge/medical{
+/obj/item/computer_hardware/hard_drive/role/medical{
 	pixel_x = -2;
 	pixel_y = 6
 	},
-/obj/item/cartridge/medical{
+/obj/item/computer_hardware/hard_drive/role/medical{
 	pixel_x = 6;
 	pixel_y = 3
 	},
-/obj/item/cartridge/medical,
-/obj/item/cartridge/chemistry{
+/obj/item/computer_hardware/hard_drive/role/medical,
+/obj/item/computer_hardware/hard_drive/role/chemistry{
 	pixel_y = 2
 	},
 /obj/effect/turf_decal/tile/blue{
@@ -48467,18 +48467,18 @@
 /area/hallway/secondary/entry)
 "pgA" = (
 /obj/structure/table/reinforced,
-/obj/item/cartridge/engineering{
+/obj/item/computer_hardware/hard_drive/role/engineering{
 	pixel_x = 4;
 	pixel_y = 5
 	},
-/obj/item/cartridge/engineering{
+/obj/item/computer_hardware/hard_drive/role/engineering{
 	pixel_x = -3;
 	pixel_y = 2
 	},
-/obj/item/cartridge/engineering{
+/obj/item/computer_hardware/hard_drive/role/engineering{
 	pixel_x = 3
 	},
-/obj/item/cartridge/atmos,
+/obj/item/computer_hardware/hard_drive/role/atmos,
 /obj/structure/disposalpipe/segment{
 	dir = 9
 	},

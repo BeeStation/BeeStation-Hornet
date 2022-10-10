@@ -125,14 +125,14 @@
 	static_inventory += using
 
 //Borg Integrated Tablet
-	using = new /atom/movable/screen/robot/modPC()
+	using = new /atom/movable/screen/robot/modpc()
 	using.screen_loc = ui_borg_tablet
 	using.hud = src
 	static_inventory += using
 	mymobR.interfaceButton = using
 	if(mymobR.modularInterface)
 		using.vis_contents += mymobR.modularInterface
-	var/atom/movable/screen/robot/modPC/tabletbutton = using
+	var/atom/movable/screen/robot/modpc/tabletbutton = using
 	tabletbutton.robot = mymobR
 
 //Alerts
@@ -293,12 +293,12 @@
 	else
 		icon_state = "lamp_off"
 
-/atom/movable/screen/robot/modPC
+/atom/movable/screen/robot/modpc
 	name = "Modular Interface"
 	icon_state = "template"
 	var/mob/living/silicon/robot/robot
 
-/atom/movable/screen/robot/modPC/Click()
+/atom/movable/screen/robot/modpc/Click()
 	. = ..()
 	if(.)
 		return

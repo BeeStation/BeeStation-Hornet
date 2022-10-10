@@ -70,6 +70,7 @@ export const NtosNetChat = (props, context) => {
     all_channels = [],
     clients = [],
     messages = [],
+    PC_device_theme,
   } = data;
 
   const in_channel = (active_channel !== null);
@@ -185,7 +186,7 @@ export const NtosNetChat = (props, context) => {
                       </Box>
                     )
                   ) || (
-                    <NoChannelDimmer />
+                    PC_device_theme !== "thinktronic-classic" && <NoChannelDimmer />
                   )}
                 </Section>
               </Stack.Item>

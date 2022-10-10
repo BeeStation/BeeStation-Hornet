@@ -15902,13 +15902,13 @@
 /area/quartermaster/qm)
 "aXB" = (
 /obj/structure/table/reinforced,
-/obj/item/cartridge/quartermaster{
+/obj/item/computer_hardware/hard_drive/role/quartermaster{
 	pixel_x = -6
 	},
-/obj/item/cartridge/quartermaster{
+/obj/item/computer_hardware/hard_drive/role/quartermaster{
 	pixel_x = 6
 	},
-/obj/item/cartridge/quartermaster{
+/obj/item/computer_hardware/hard_drive/role/quartermaster{
 	pixel_y = 6
 	},
 /obj/item/gps/mining,
@@ -34077,13 +34077,13 @@
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
 	},
-/obj/item/cartridge/engineering{
+/obj/item/computer_hardware/hard_drive/role/engineering{
 	pixel_x = 6
 	},
-/obj/item/cartridge/engineering{
+/obj/item/computer_hardware/hard_drive/role/engineering{
 	pixel_x = -6
 	},
-/obj/item/cartridge/engineering{
+/obj/item/computer_hardware/hard_drive/role/engineering{
 	pixel_y = 6
 	},
 /obj/item/reagent_containers/pill/patch/silver_sulf,
@@ -35506,9 +35506,9 @@
 "bYs" = (
 /obj/structure/table/reinforced,
 /obj/item/folder/yellow,
-/obj/item/cartridge/atmos,
-/obj/item/cartridge/atmos,
-/obj/item/cartridge/atmos,
+/obj/item/computer_hardware/hard_drive/role/atmos,
+/obj/item/computer_hardware/hard_drive/role/atmos,
+/obj/item/computer_hardware/hard_drive/role/atmos,
 /obj/machinery/airalarm{
 	dir = 1;
 	pixel_y = -22
@@ -37522,7 +37522,7 @@
 	name = "Lawyer's Privacy Control";
 	pixel_y = 24
 	},
-/obj/item/cartridge/lawyer,
+/obj/item/computer_hardware/hard_drive/role/lawyer,
 /turf/open/floor/wood,
 /area/lawoffice)
 "cdh" = (
@@ -59263,13 +59263,13 @@
 /area/crew_quarters/heads/hor)
 "dsb" = (
 /obj/structure/table,
-/obj/item/cartridge/signal/toxins{
+/obj/item/computer_hardware/hard_drive/role/signal/toxins{
 	pixel_x = 6
 	},
-/obj/item/cartridge/signal/toxins{
+/obj/item/computer_hardware/hard_drive/role/signal/toxins{
 	pixel_x = -6
 	},
-/obj/item/cartridge/signal/toxins{
+/obj/item/computer_hardware/hard_drive/role/signal/toxins{
 	pixel_y = 6
 	},
 /obj/machinery/firealarm{
@@ -60307,13 +60307,13 @@
 "dvt" = (
 /obj/structure/table/glass,
 /obj/item/folder/blue,
-/obj/item/cartridge/medical{
+/obj/item/computer_hardware/hard_drive/role/medical{
 	pixel_x = -3
 	},
-/obj/item/cartridge/medical{
+/obj/item/computer_hardware/hard_drive/role/medical{
 	pixel_x = 3
 	},
-/obj/item/cartridge/chemistry{
+/obj/item/computer_hardware/hard_drive/role/chemistry{
 	pixel_y = 6
 	},
 /obj/effect/turf_decal/tile/blue{

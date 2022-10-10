@@ -15,7 +15,7 @@
 	/// Radio connection datum used by signallers.
 	var/datum/radio_frequency/radio_connection
 
-/datum/computer_file/program/signaller/run_program(mob/living/user)
+/datum/computer_file/program/signaller/on_start(mob/living/user)
 	. = ..()
 	if (!.)
 		return

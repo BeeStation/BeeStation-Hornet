@@ -121,26 +121,23 @@
 		if("PRG_savelog")
 			if(!channel)
 				return
-			var/logname = stripped_input(params["log_name"])
+			var/logname = check_filename(params["log_name"])
 			if(!logname)
 				return
-			var/datum/computer_file/data/logfile = new /datum/computer_file/data/logfile()
+			var/datum/computer_file/data/log_file/logfile = new()
 			// Now we will generate HTML-compliant file that can actually be viewed/printed.
 			logfile.filename = logname
-			logfile.stored_data = "\[b\]Logfile dump from NTNRC channel [channel.title]\[/b\]\[BR\]"
+			var/log_data = "Logfile dump from NTNRC channel [channel.title]\n"
 			for(var/logstring in channel.messages)
-				logfile.stored_data = "[logfile.stored_data][logstring]\[BR\]"
-			logfile.stored_data = "[logfile.stored_data]\[b\]Logfile dump completed.\[/b\]"
-			logfile.calculate_size()
+				log_data += "[logstring]\n"
+			log_data += "\nLogfile dump completed.\n"
+			logfile.set_stored_data(log_data)
 			var/obj/item/computer_hardware/hard_drive/hard_drive = computer.all_components[MC_HDD]
-			if(!computer || !hard_drive || !hard_drive.store_file(logfile))
-				if(!computer)
-					// This program shouldn't even be runnable without computer.
-					CRASH("Var computer is null!")
-				if(!hard_drive)
-					computer.visible_message("<span class='warning'>\The [computer] shows an \"I/O Error - Hard drive connection error\" warning.</span>")
-				else	// In 99.9% cases this will mean our HDD is full
-					computer.visible_message("<span class='warning'>\The [computer] shows an \"I/O Error - Hard drive may be full. Please free some space and try again. Required space: [logfile.size]GQ\" warning.</span>")
+			if(!hard_drive)
+				computer.visible_message("<span class='warning'>\The [computer] shows an \"I/O Error - Hard drive connection error\" warning.</span>")
+			else if(!hard_drive.store_file(logfile))
+				computer.visible_message("<span class='warning'>\The [computer] shows an \"I/O Error - Hard drive may be full. Please free some space and try again. Required space: [logfile.size]GQ\" warning.</span>")
+			computer.send_sound()
 			return TRUE
 		if("PRG_renamechannel")
 			if(!authed)
@@ -195,7 +192,7 @@
 	else
 		ui_header = "ntnrc_idle.gif"
 
-/datum/computer_file/program/chatclient/run_program(mob/living/user)
+/datum/computer_file/program/chatclient/on_start(mob/living/user)
 	. = ..()
 	if(!.)
 		return

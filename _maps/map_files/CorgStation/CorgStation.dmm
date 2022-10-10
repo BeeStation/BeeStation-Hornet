@@ -4300,7 +4300,7 @@
 	pixel_x = 7;
 	pixel_y = -25
 	},
-/obj/item/cartridge/hop{
+/obj/item/computer_hardware/hard_drive/role/hop{
 	pixel_x = 7;
 	pixel_y = 6
 	},
@@ -7879,13 +7879,13 @@
 /area/ai_monitored/storage/eva)
 "bNb" = (
 /obj/structure/table/reinforced,
-/obj/item/cartridge/quartermaster{
+/obj/item/computer_hardware/hard_drive/role/quartermaster{
 	pixel_x = -6
 	},
-/obj/item/cartridge/quartermaster{
+/obj/item/computer_hardware/hard_drive/role/quartermaster{
 	pixel_x = 6
 	},
-/obj/item/cartridge/quartermaster{
+/obj/item/computer_hardware/hard_drive/role/quartermaster{
 	pixel_y = 6
 	},
 /obj/item/gps/mining,
@@ -16408,7 +16408,7 @@
 	pixel_x = -2;
 	pixel_y = 5
 	},
-/obj/item/cartridge/rd{
+/obj/item/computer_hardware/hard_drive/role/rd{
 	pixel_x = 5;
 	pixel_y = 2
 	},
@@ -17030,7 +17030,7 @@
 /area/hallway/primary/starboard)
 "ezu" = (
 /obj/structure/table/wood,
-/obj/item/cartridge/lawyer,
+/obj/item/computer_hardware/hard_drive/role/lawyer,
 /obj/item/clothing/glasses/sunglasses/advanced/big,
 /obj/effect/turf_decal/tile/red{
 	dir = 8
@@ -22911,12 +22911,12 @@
 	pixel_x = 30
 	},
 /obj/structure/table/wood,
-/obj/item/pda,
-/obj/item/pda{
+/obj/item/modular_computer/tablet/pda,
+/obj/item/modular_computer/tablet/pda{
 	pixel_x = 2;
 	pixel_y = 2
 	},
-/obj/item/pda{
+/obj/item/modular_computer/tablet/pda{
 	pixel_x = 4;
 	pixel_y = 4
 	},
@@ -26472,18 +26472,18 @@
 	pixel_x = 9;
 	pixel_y = 3
 	},
-/obj/item/cartridge/engineering{
+/obj/item/computer_hardware/hard_drive/role/engineering{
 	pixel_x = -12;
 	pixel_y = -1
 	},
-/obj/item/cartridge/engineering{
+/obj/item/computer_hardware/hard_drive/role/engineering{
 	pixel_x = -10;
 	pixel_y = 7
 	},
-/obj/item/cartridge/engineering{
+/obj/item/computer_hardware/hard_drive/role/engineering{
 	pixel_x = -4
 	},
-/obj/item/cartridge/engineering{
+/obj/item/computer_hardware/hard_drive/role/engineering{
 	pixel_x = -7;
 	pixel_y = 2
 	},
