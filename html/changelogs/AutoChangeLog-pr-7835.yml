@@ -1,6 +1,0 @@
-author: BrumalLake
-delete-after: true
-changes:
-  - rscadd: self repairing with cable and welding now fixes part you initially targeted,
-      and only one self repair can be done at a time but the time has been reduced
-      from 5 to 1.5s
