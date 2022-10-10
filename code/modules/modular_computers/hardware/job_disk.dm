@@ -74,11 +74,8 @@
 	if(disk_flags & DISK_SIGNAL)
 		progs_to_store += new /datum/computer_file/program/signaller(src)
 
-	// TODO tablet-pda - the newscaster needs to be updated to TGUI for this to exist.
-	// Port: tg's #65038 - plus #65774 and #65799 possibly
-	// Then port #66035 for the program
-	//if(disk_flags & DISK_NEWS)
-	//	progs_to_store += new /datum/computer_file/program/newscaster(src)
+	if(disk_flags & DISK_NEWSCASTER)
+		progs_to_store += new /datum/computer_file/program/newscaster(src)
 
 	if(disk_flags & DISK_BUDGET)
 		progs_to_store += new /datum/computer_file/program/budgetorders(src)
@@ -152,7 +149,7 @@
 /obj/item/computer_hardware/hard_drive/role/curator
 	name = "\improper Lib-Tweet disk"
 	icon_state = "cart-cur"
-	disk_flags = DISK_NEWS
+	disk_flags = DISK_NEWSCASTER
 	spam_delay = 3.5
 
 /obj/item/computer_hardware/hard_drive/role/roboticist
@@ -193,7 +190,7 @@
 /obj/item/computer_hardware/hard_drive/role/hop
 	name = "\improper HumanResources9001 disk"
 	icon_state = "cart-hop"
-	disk_flags = DISK_MANIFEST | DISK_STATUS | DISK_JANI | DISK_SEC | DISK_NEWS | DISK_CARGO | DISK_SILO_LOG | DISK_ROBOS | DISK_BUDGET | DISK_HOP
+	disk_flags = DISK_MANIFEST | DISK_STATUS | DISK_JANI | DISK_SEC | DISK_NEWSCASTER | DISK_CARGO | DISK_SILO_LOG | DISK_ROBOS | DISK_BUDGET | DISK_HOP
 
 /obj/item/computer_hardware/hard_drive/role/hos
 	name = "\improper R.O.B.U.S.T. DELUXE disk"

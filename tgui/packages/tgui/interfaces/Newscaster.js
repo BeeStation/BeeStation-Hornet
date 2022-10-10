@@ -10,14 +10,16 @@ import { decodeHtmlEntities } from 'common/string';
 import { useBackend, useSharedState } from '../backend';
 import { BountyBoardContent } from './BountyBoard';
 import { BlockQuote, Box, Button, Divider, LabeledList, Modal, Section, Stack, Tabs, TextArea, Icon, NoticeBox, Input } from '../components';
-import { Window } from '../layouts';
 import { marked } from 'marked';
 import { sanitizeText } from "../sanitize";
 
 const CENSOR_MESSAGE = "This channel has been deemed as threatening to \
   the welfare of the station, and marked with a Nanotrasen D-Notice.";
 
-export const Newscaster = (_, context) => {
+export const Newscaster = (props, context) => {
+  const {
+    override_bg,
+  } = props;
   const { data } = useBackend(context);
   const {
     user,
@@ -26,44 +28,40 @@ export const Newscaster = (_, context) => {
   const BOUNTYBOARD_SCREEN = 2;
   const [screenmode, setScreenmode] = useSharedState(context, 'tab_main', NEWSCASTER_SCREEN);
   return (
-    <Window
-      width={575}
-      height={560}>
-      <NewscasterChannelCreation />
-      <NewscasterChannelEditing />
-      <NewscasterCommentCreation />
-      <NewscasterWantedScreen />
-      <Window.Content scrollable>
-        <Stack fill vertical>
-          <Stack.Item>
-            <Tabs fluid textAlign="center">
+    <>
+      <NewscasterChannelCreation override_bg={override_bg} />
+      <NewscasterChannelEditing override_bg={override_bg} />
+      <NewscasterCommentCreation override_bg={override_bg} />
+      <NewscasterWantedScreen override_bg={override_bg} />
+      <Stack fill vertical>
+        <Stack.Item>
+          <Tabs fluid textAlign="center">
+            <Tabs.Tab
+              color="Green"
+              selected={screenmode === NEWSCASTER_SCREEN}
+              onClick={() => setScreenmode(NEWSCASTER_SCREEN)}>
+              Newscaster
+            </Tabs.Tab>
+            {!user?.admin && (
               <Tabs.Tab
-                color="Green"
-                selected={screenmode === NEWSCASTER_SCREEN}
-                onClick={() => setScreenmode(NEWSCASTER_SCREEN)}>
-                Newscaster
+                Color="Blue"
+                selected={screenmode === BOUNTYBOARD_SCREEN}
+                onClick={() => setScreenmode(BOUNTYBOARD_SCREEN)}>
+                Bounty Board
               </Tabs.Tab>
-              {!user?.admin && (
-                <Tabs.Tab
-                  Color="Blue"
-                  selected={screenmode === BOUNTYBOARD_SCREEN}
-                  onClick={() => setScreenmode(BOUNTYBOARD_SCREEN)}>
-                  Bounty Board
-                </Tabs.Tab>
-              )}
-            </Tabs>
-          </Stack.Item>
-          <Stack.Item grow>
-            {screenmode === NEWSCASTER_SCREEN && (
-              <NewscasterContent />
             )}
-            {screenmode === BOUNTYBOARD_SCREEN && (
-              <BountyBoardContent />
-            )}
-          </Stack.Item>
-        </Stack>
-      </Window.Content>
-    </Window>
+          </Tabs>
+        </Stack.Item>
+        <Stack.Item grow>
+          {screenmode === NEWSCASTER_SCREEN && (
+            <NewscasterContent />
+          )}
+          {screenmode === BOUNTYBOARD_SCREEN && (
+            <BountyBoardContent />
+          )}
+        </Stack.Item>
+      </Stack>
+    </>
   );
 };
 
@@ -71,6 +69,7 @@ const NewscasterChannelModal = (
   {
     header,
     submit_content,
+    override_bg,
   },
   context) => {
   const { act,
@@ -82,12 +81,16 @@ const NewscasterChannelModal = (
       },
     },
   } = useBackend(context);
+  const modalStyle = { border: "1px solid #2c4461" };
+  if (override_bg) {
+    modalStyle['background-color'] = `${override_bg} !important`;
+  }
   return (
     <Modal
       textAlign="center"
       mr={1.5}
       pt={0}
-      style={{ border: "1px solid #2c4461" }}
+      style={modalStyle}
       width="350px">
       <h2>{header}</h2>
       <Stack vertical fill>
@@ -160,15 +163,21 @@ const NewscasterChannelModal = (
 };
 
 /** The modal menu that contains the prompts to making new channels. */
-const NewscasterChannelCreation = (_, context) => {
+const NewscasterChannelCreation = (props, context) => {
+  const {
+    override_bg,
+  } = props;
   const { data: { creating_channel } } = useBackend(context);
   if (!creating_channel) {
     return null;
   }
-  return <NewscasterChannelModal header="Create Channel" submit_content="Submit Channel" default_locked />;
+  return <NewscasterChannelModal override_bg={override_bg} header="Create Channel" submit_content="Submit Channel" default_locked />;
 };
 
-const NewscasterChannelEditing = (_, context) => {
+const NewscasterChannelEditing = (props, context) => {
+  const {
+    override_bg,
+  } = props;
   const {
     data: {
       creating_channel,
@@ -179,12 +188,16 @@ const NewscasterChannelEditing = (_, context) => {
     return null;
   }
   return (<NewscasterChannelModal
+    override_bg={override_bg}
     header="Edit Channel"
     submit_content="Save Changes" />);
 };
 
 /** The modal menu that contains the prompts to making new comments. */
-const NewscasterCommentCreation = (_, context) => {
+const NewscasterCommentCreation = (props, context) => {
+  const {
+    override_bg,
+  } = props;
   const { act, data } = useBackend(context);
   const {
     creating_comment,
@@ -196,6 +209,7 @@ const NewscasterCommentCreation = (_, context) => {
   return (
     <Modal
       textAlign="center"
+      style={override_bg ? { 'background-color': `${override_bg} !important` } : null}
       mr={1.5}>
       <Stack vertical>
         <Stack.Item>
@@ -236,7 +250,10 @@ const NewscasterCommentCreation = (_, context) => {
   );
 };
 
-const NewscasterWantedScreen = (_, context) => {
+const NewscasterWantedScreen = (props, context) => {
+  const {
+    override_bg,
+  } = props;
   const { act, data } = useBackend(context);
   const {
     viewing_wanted,
@@ -253,6 +270,7 @@ const NewscasterWantedScreen = (_, context) => {
   return (
     <Modal
       textAlign="center"
+      style={override_bg ? { 'background-color': `${override_bg} !important` } : null}
       mr={1.5}
       width={25}>
       {!editing_wanted ? wanted
