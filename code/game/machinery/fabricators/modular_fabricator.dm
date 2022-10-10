@@ -101,6 +101,8 @@
 		efficiency -= new_manipulator.rating*0.2
 	creation_efficiency = max(1,efficiency) // creation_efficiency goes 1.6 -> 1.4 -> 1.2 -> 1 per level of manipulator efficiency
 
+	update_viewer_statics()
+
 /obj/machinery/modular_fabricator/examine(mob/user)
 	. += ..()
 	var/datum/component/material_container/materials = get_material_container()
@@ -149,7 +151,7 @@
 			for(var/material_id in D.materials)
 				material_cost += list(list(
 					"name" = material_id,
-					"amount" = D.materials[material_id] / MINERAL_MATERIAL_AMOUNT,
+					"amount" = ( D.materials[material_id] / MINERAL_MATERIAL_AMOUNT) * creation_efficiency,
 				))
 
 			//Add
