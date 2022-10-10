@@ -493,7 +493,9 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	smoketime = 0
 	chem_volume = 100
 	list_reagents = null
-	var/packeditem = 0
+	w_class = WEIGHT_CLASS_SMALL
+	/// Name of the stuff packed inside this pipe
+	var/packeditem
 
 /obj/item/clothing/mask/cigarette/pipe/Initialize(mapload)
 	. = ..()

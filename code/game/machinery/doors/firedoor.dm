@@ -111,7 +111,7 @@
 	if(operating)
 		return
 
-	if(istype(C, /obj/item/pda))
+	if(istype(C, /obj/item/modular_computer/tablet/pda))
 		var/attack_verb = pick("smushes","rubs","smashes","presses","taps")
 		visible_message("<span class='warning'>[user] [attack_verb] \the [C] against [src]\s card reader.</span>", "<span class='warning'>You [attack_verb] \the [C] against [src]\s card reader. It doesn't do anything.</span>", "You hear plastic click against metal.")
 		return

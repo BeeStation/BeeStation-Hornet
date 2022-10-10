@@ -50,9 +50,10 @@
 // /obj/effect/mine signals
 #define COMSIG_MINE_TRIGGERED "minegoboom"						///from [/obj/effect/mine/proc/triggermine]:
 
-// /obj/item/pda signals
-#define COMSIG_PDA_CHANGE_RINGTONE "pda_change_ringtone"		//! called on pda when the user changes the ringtone: (mob/living/user, new_ringtone)
-	#define COMPONENT_STOP_RINGTONE_CHANGE 1
+// /obj/item/modular_computer/tablet/pda signals
+/// Called on tablet (PDA) when the user changes the ringtone: (mob/living/user, new_ringtone)
+#define COMSIG_TABLET_CHANGE_RINGTONE "comsig_tablet_change_ringtone"
+	#define COMPONENT_STOP_RINGTONE_CHANGE (1<<0)
 
 
 // /obj/item/radio signals

@@ -34,7 +34,7 @@
 	jobtype = /datum/job/scientist
 
 	id = /obj/item/card/id/job/scientist
-	belt = /obj/item/pda/toxins
+	belt = /obj/item/modular_computer/tablet/pda/science
 	ears = /obj/item/radio/headset/headset_sci
 	uniform = /obj/item/clothing/under/rank/rnd/scientist
 	shoes = /obj/item/clothing/shoes/sneakers/white
@@ -44,7 +44,6 @@
 
 	backpack = /obj/item/storage/backpack/science
 	satchel = /obj/item/storage/backpack/satchel/tox
-	backpack_contents = list(/obj/item/modular_computer/tablet/preset/science=1)
 
 /datum/outfit/job/scientist/pre_equip(mob/living/carbon/human/H)
 	..()

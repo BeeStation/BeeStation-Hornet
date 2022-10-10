@@ -63,14 +63,17 @@
  * sheet,  Makes it nice and easy for carbon and
  * the copyer machine
  */
-/obj/item/paper/proc/copy()
-	var/obj/item/paper/N = new(arglist(args))
+/obj/item/paper/proc/copy(loc)
+	var/obj/item/paper/N = new(loc)
+	N.forceMove(loc)
 	N.info = info
 	N.color = color
 	N.update_icon_state()
 	N.stamps = stamps
-	N.stamped = stamped.Copy()
-	N.form_fields = form_fields.Copy()
+	if(N.stamped)
+		N.stamped = stamped.Copy()
+	if(N.form_fields)
+		N.form_fields = form_fields.Copy()
 	N.field_counter = field_counter
 	copy_overlays(N, TRUE)
 	return N
@@ -165,6 +168,10 @@
 		return UI_INTERACTIVE
 	return ..()
 
+/obj/item/paper/ui_state(mob/user)
+	if(istype(loc, /obj/item/modular_computer))
+		return GLOB.reverse_contained_state
+	return ..()
 
 
 /obj/item/paper/can_interact(mob/user)
@@ -360,7 +367,7 @@
 			update_icon()
 
 /obj/item/paper/ui_host(mob/user)
-	if(istype(loc, /obj/structure/noticeboard))
+	if(istype(loc, /obj/structure/noticeboard) || istype(loc, /obj/item/modular_computer))
 		return loc
 	return ..()
 

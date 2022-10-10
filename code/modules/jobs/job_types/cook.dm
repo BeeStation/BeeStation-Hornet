@@ -30,7 +30,7 @@
 	jobtype = /datum/job/cook
 
 	id = /obj/item/card/id/job/cook
-	belt = /obj/item/pda/cook
+	belt = /obj/item/modular_computer/tablet/pda/cook
 	ears = /obj/item/radio/headset/headset_srv
 	uniform = /obj/item/clothing/under/rank/civilian/chef
 	suit = /obj/item/clothing/suit/toggle/chef

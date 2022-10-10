@@ -1,0 +1,7 @@
+@use './ntos-colors.scss' with (
+  $ntos-color: #575757
+);
+
+.theme-ntos-grey {
+  @include ntos-colors.theme-ntos;
+}

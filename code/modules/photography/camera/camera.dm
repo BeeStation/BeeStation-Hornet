@@ -163,7 +163,7 @@
 		return FALSE
 	size_x = CLAMP(size_x, 0, CAMERA_PICTURE_SIZE_HARD_LIMIT)
 	size_y = CLAMP(size_y, 0, CAMERA_PICTURE_SIZE_HARD_LIMIT)
-	var/list/desc = list("This is a photo of an area of [size_x+1] meters by [size_y+1] meters.")
+	var/list/desc = list("This is a photo of an area of [(2*size_x)+1] meters by [(2*size_y)+1] meters.")
 	var/list/mobs_spotted = list()
 	var/list/dead_spotted = list()
 	var/ai_user = isAI(user)
@@ -189,12 +189,15 @@
 				mobs += M
 			if(locate(/obj/item/areaeditor/blueprints) in T)
 				blueprints = TRUE
-	for(var/i in mobs)
-		var/mob/M = i
+	for(var/mob/M in mobs)
+		// No describing invisible stuff (except ghosts)!
+		if((M.invisibility >= SEE_INVISIBLE_LIVING || M.alpha <= 50) && !isobserver(M))
+			continue
 		mobs_spotted += M
 		if(M.stat == DEAD)
 			dead_spotted += M
-		desc += M.get_photo_description(src)
+		// |=, let's not spam "You can also see a ... thing? 8 times"
+		desc |= M.get_photo_description(src)
 
 	var/psize_x = (size_x * 2 + 1) * world.icon_size
 	var/psize_y = (size_y * 2 + 1) * world.icon_size

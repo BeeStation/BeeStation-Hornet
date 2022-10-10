@@ -50,8 +50,6 @@
 				left_part = ""
 			if("directives")
 				left_part = directives()
-			if("pdamessage")
-				left_part = pdamessage()
 			if("buy")
 				left_part = downloadSoftware()
 			if("manifest")
@@ -217,21 +215,6 @@
 						to_chat(src, "You are not being carried by anyone!")
 						return 0 // FALSE ? If you return here you won't call paiinterface() below
 
-			if("pdamessage")
-				if(!isnull(aiPDA))
-					if(!aiPDA.owner)
-						aiPDA.owner = src.real_name
-						aiPDA.ownjob = "pAI"
-					if(href_list["toggler"])
-						aiPDA.toff = !aiPDA.toff
-					else if(href_list["ringer"])
-						aiPDA.silent = !aiPDA.silent
-					else if(href_list["target"])
-						if(silent)
-							return alert("Communications circuits remain uninitialized.")
-						var/target = locate(href_list["target"]) in GLOB.PDAs
-						aiPDA.create_message(src, target)
-
 			if("medicalrecord") // Accessing medical records
 				if(subscreen == 1)
 					medicalActive1 = find_record("id", href_list["med_rec"], GLOB.data_core.general)
@@ -318,8 +301,6 @@
 	// Basic
 	dat += "<b>Basic</b> <br>"
 	for(var/s in software)
-		if(s == "digital messenger")
-			dat += "<a href='byond://?src=[REF(src)];software=pdamessage;sub=0'>Digital Messenger</a> <br>"
 		if(s == "crew manifest")
 			dat += "<a href='byond://?src=[REF(src)];software=manifest;sub=0'>Crew Manifest</a> <br>"
 		if(s == "host scan")
@@ -627,26 +608,6 @@
 		else
 			to_chat(AI, "<font color = red><b>Network Alert: Brute-force encryption crack in progress. Unable to pinpoint location.</b></font>")
 	hacking = TRUE
-
-// Digital Messenger
-/mob/living/silicon/pai/proc/pdamessage()
-
-	var/dat = "<h3>Digital Messenger</h3>"
-	dat += {"<b>Signal/Receiver Status:</b> <A href='byond://?src=[REF(src)];software=pdamessage;toggler=1'>
-	[(aiPDA.toff) ? "<font color='red'>\[Off\]</font>" : "<font color='green'>\[On\]</font>"]</a><br>
-	<b>Ringer Status:</b> <A href='byond://?src=[REF(src)];software=pdamessage;ringer=1'>
-	[(aiPDA.silent) ? "<font color='red'>\[Off\]</font>" : "<font color='green'>\[On\]</font>"]</a><br><br>"}
-	dat += "<ul>"
-	if(!aiPDA.toff)
-		for (var/obj/item/pda/P in get_viewable_pdas())
-			if (P == aiPDA)
-				continue
-			dat += "<li><a href='byond://?src=[REF(src)];software=pdamessage;target=[REF(P)]'>[P]</a>"
-			dat += "</li>"
-	dat += "</ul>"
-	dat += "<br><br>"
-	dat += "Messages: <hr> [aiPDA.tnote]"
-	return dat
 
 // Loudness Booster
 /mob/living/silicon/pai/proc/softwareLoudness()

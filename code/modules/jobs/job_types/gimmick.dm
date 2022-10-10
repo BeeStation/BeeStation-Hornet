@@ -52,7 +52,7 @@
 	jobtype = /datum/job/gimmick/barber
 
 	id = /obj/item/card/id/job/barber
-	belt = /obj/item/pda/unlicensed
+	belt = /obj/item/modular_computer/tablet/pda/unlicensed
 	ears = /obj/item/radio/headset
 	uniform = /obj/item/clothing/under/suit/sl
 	shoes = /obj/item/clothing/shoes/laceup
@@ -87,7 +87,7 @@
 	jobtype = /datum/job/gimmick/stage_magician
 
 	id = /obj/item/card/id/job/stage_magician
-	belt = /obj/item/pda/unlicensed
+	belt = /obj/item/modular_computer/tablet/pda/unlicensed
 	head = /obj/item/clothing/head/that
 	ears = /obj/item/radio/headset
 	neck = /obj/item/bedsheet/magician
@@ -128,7 +128,7 @@
 	jobtype = /datum/job/gimmick/psychiatrist
 
 	id = /obj/item/card/id/job/psychiatrist
-	belt = /obj/item/pda/medical
+	belt = /obj/item/modular_computer/tablet/pda/medical
 	ears = /obj/item/radio/headset/headset_med
 	uniform = /obj/item/clothing/under/suit/black
 	shoes = /obj/item/clothing/shoes/laceup
@@ -160,7 +160,7 @@
 	jobtype = /datum/job/gimmick/vip
 
 	id = /obj/item/card/id/gold/vip
-	belt = /obj/item/pda/vip
+	belt = /obj/item/modular_computer/tablet/pda/vip
 	glasses = /obj/item/clothing/glasses/sunglasses/advanced
 	ears = /obj/item/radio/headset/heads //VIP can talk loud for no reason
 	uniform = /obj/item/clothing/under/suit/black_really

@@ -41,7 +41,7 @@
 	shoes = /obj/item/clothing/shoes/sneakers/white
 	suit =  /obj/item/clothing/suit/toggle/labcoat/virologist
 	suit_store =  /obj/item/flashlight/pen
-	r_pocket = /obj/item/pda/virologist
+	r_pocket = /obj/item/modular_computer/tablet/pda/virologist
 
 	backpack = /obj/item/storage/backpack/virology
 	satchel = /obj/item/storage/backpack/satchel/vir

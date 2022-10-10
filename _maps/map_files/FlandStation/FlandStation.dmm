@@ -28771,16 +28771,16 @@
 	},
 /obj/structure/table,
 /obj/effect/turf_decal/tile/blue/tile_full,
-/obj/item/cartridge/chemistry{
+/obj/item/computer_hardware/hard_drive/role/chemistry{
 	pixel_y = 6
 	},
-/obj/item/cartridge/medical{
+/obj/item/computer_hardware/hard_drive/role/medical{
 	pixel_x = -3
 	},
-/obj/item/cartridge/medical{
+/obj/item/computer_hardware/hard_drive/role/medical{
 	pixel_x = 3
 	},
-/obj/item/cartridge/medical{
+/obj/item/computer_hardware/hard_drive/role/medical{
 	pixel_x = 6;
 	pixel_y = 3
 	},
@@ -31139,7 +31139,7 @@
 /area/medical/apothecary)
 "hdi" = (
 /obj/structure/table/wood,
-/obj/item/cartridge/lawyer,
+/obj/item/computer_hardware/hard_drive/role/lawyer,
 /obj/item/taperecorder{
 	pixel_x = 3
 	},
@@ -47395,7 +47395,7 @@
 	name = "Lawyer's Privacy Control";
 	pixel_y = 24
 	},
-/obj/item/cartridge/lawyer,
+/obj/item/computer_hardware/hard_drive/role/lawyer,
 /obj/machinery/newscaster{
 	pixel_x = -28;
 	pixel_y = 1
@@ -62587,13 +62587,13 @@
 /area/crew_quarters/heads/chief)
 "oCJ" = (
 /obj/structure/table,
-/obj/item/cartridge/signal/toxins{
+/obj/item/computer_hardware/hard_drive/role/signal/toxins{
 	pixel_x = 6
 	},
-/obj/item/cartridge/signal/toxins{
+/obj/item/computer_hardware/hard_drive/role/signal/toxins{
 	pixel_x = -6
 	},
-/obj/item/cartridge/signal/toxins{
+/obj/item/computer_hardware/hard_drive/role/signal/toxins{
 	pixel_y = 6
 	},
 /turf/open/floor/plasteel/vaporwave,
@@ -95991,12 +95991,12 @@
 	},
 /obj/structure/table,
 /obj/item/clipboard,
-/obj/item/cartridge/quartermaster,
-/obj/item/cartridge/quartermaster{
+/obj/item/computer_hardware/hard_drive/role/quartermaster,
+/obj/item/computer_hardware/hard_drive/role/quartermaster{
 	pixel_x = 6;
 	pixel_y = 5
 	},
-/obj/item/cartridge/quartermaster{
+/obj/item/computer_hardware/hard_drive/role/quartermaster{
 	pixel_x = -4;
 	pixel_y = 7
 	},
@@ -98670,14 +98670,14 @@
 /area/security/brig)
 "xhS" = (
 /obj/structure/table/reinforced,
-/obj/item/cartridge/engineering{
+/obj/item/computer_hardware/hard_drive/role/engineering{
 	pixel_x = 6;
 	pixel_y = 6
 	},
-/obj/item/cartridge/engineering{
+/obj/item/computer_hardware/hard_drive/role/engineering{
 	pixel_x = 8
 	},
-/obj/item/cartridge/atmos{
+/obj/item/computer_hardware/hard_drive/role/atmos{
 	pixel_x = -6;
 	pixel_y = 4
 	},

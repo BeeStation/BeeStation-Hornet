@@ -6,7 +6,7 @@
 	program_icon_state = "generic"
 	extended_desc = "This program allows for remote monitoring of station cyborgs."
 	requires_ntnet = TRUE
-	transfer_access = ACCESS_ROBOTICS
+	transfer_access = list(ACCESS_ROBOTICS)
 	network_destination = "cyborg remote monitoring"
 	size = 5
 	tgui_id = "NtosCyborgRemoteMonitor"
@@ -77,7 +77,7 @@
 				to_chat(usr, "<span class='warning'>ERROR: Prohibited word(s) detected in message.</span>")
 				return
 			to_chat(usr, "<br><br><span class='notice'>Message to [R] (as [sender_name]) -- \"[message]\"</span><br>")
-			playsound(usr, 'sound/machines/terminal_success.ogg', 15, TRUE)
+			computer.send_sound()
 			to_chat(R, "<br><br><span class='notice'>Message from [sender_name] -- \"[message]\"</span><br>")
 			SEND_SOUND(R, 'sound/machines/twobeep_high.ogg')
 			if(R.connected_ai)

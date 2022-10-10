@@ -2283,7 +2283,7 @@
 	pixel_x = -2
 	},
 /obj/item/book/manual/wiki/security_space_law,
-/obj/item/cartridge/detective,
+/obj/item/computer_hardware/hard_drive/role/detective,
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
@@ -11382,15 +11382,15 @@
 /area/quartermaster/qm)
 "aNR" = (
 /obj/structure/table,
-/obj/item/cartridge/quartermaster{
+/obj/item/computer_hardware/hard_drive/role/quartermaster{
 	pixel_x = -4;
 	pixel_y = 7
 	},
-/obj/item/cartridge/quartermaster{
+/obj/item/computer_hardware/hard_drive/role/quartermaster{
 	pixel_x = 6;
 	pixel_y = 5
 	},
-/obj/item/cartridge/quartermaster,
+/obj/item/computer_hardware/hard_drive/role/quartermaster,
 /obj/item/gps{
 	gpstag = "QM0"
 	},
@@ -11585,7 +11585,7 @@
 	},
 /obj/item/pen,
 /obj/item/taperecorder,
-/obj/item/cartridge/lawyer,
+/obj/item/computer_hardware/hard_drive/role/lawyer,
 /turf/open/floor/wood,
 /area/lawoffice)
 "aOo" = (
@@ -15594,19 +15594,19 @@
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/heads/chief)
 "bbt" = (
-/obj/item/cartridge/engineering{
+/obj/item/computer_hardware/hard_drive/role/engineering{
 	pixel_x = 4;
 	pixel_y = 5
 	},
-/obj/item/cartridge/engineering{
+/obj/item/computer_hardware/hard_drive/role/engineering{
 	pixel_x = -3;
 	pixel_y = 2
 	},
-/obj/item/cartridge/engineering{
+/obj/item/computer_hardware/hard_drive/role/engineering{
 	pixel_x = 3
 	},
 /obj/structure/table/reinforced,
-/obj/item/cartridge/atmos,
+/obj/item/computer_hardware/hard_drive/role/atmos,
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
 	dir = 4
@@ -34511,16 +34511,16 @@
 /turf/open/floor/plasteel/cafeteria,
 /area/crew_quarters/heads/cmo)
 "cnD" = (
-/obj/item/cartridge/medical{
+/obj/item/computer_hardware/hard_drive/role/medical{
 	pixel_x = -2;
 	pixel_y = 6
 	},
-/obj/item/cartridge/medical{
+/obj/item/computer_hardware/hard_drive/role/medical{
 	pixel_x = 6;
 	pixel_y = 3
 	},
-/obj/item/cartridge/medical,
-/obj/item/cartridge/chemistry{
+/obj/item/computer_hardware/hard_drive/role/medical,
+/obj/item/computer_hardware/hard_drive/role/chemistry{
 	pixel_y = 2
 	},
 /obj/structure/table/glass,
@@ -37702,12 +37702,12 @@
 /area/crew_quarters/heads/hor)
 "cwR" = (
 /obj/structure/table,
-/obj/item/cartridge/signal/toxins,
-/obj/item/cartridge/signal/toxins{
+/obj/item/computer_hardware/hard_drive/role/signal/toxins,
+/obj/item/computer_hardware/hard_drive/role/signal/toxins{
 	pixel_x = -4;
 	pixel_y = 2
 	},
-/obj/item/cartridge/signal/toxins{
+/obj/item/computer_hardware/hard_drive/role/signal/toxins{
 	pixel_x = 4;
 	pixel_y = 6
 	},

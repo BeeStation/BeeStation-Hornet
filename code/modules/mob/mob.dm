@@ -145,7 +145,7 @@
   * Return the desc of this mob for a photo
   */
 /mob/proc/get_photo_description(obj/item/camera/camera)
-	return "a ... thing?"
+	return "You can also see a ... thing?"
 
 /**
   * Show a message to this mob (visual or audible)
@@ -181,7 +181,7 @@
 	to_chat(src, msg, avoid_highlighting = avoid_highlighting)
 
 
-/atom/proc/visible_message(message, self_message, blind_message, vision_distance = DEFAULT_MESSAGE_RANGE, list/ignored_mobs, list/visible_message_flags)
+/atom/proc/visible_message(message, self_message, blind_message, vision_distance = DEFAULT_MESSAGE_RANGE, list/ignored_mobs, list/visible_message_flags, allow_inside_usr = FALSE)
 	var/turf/T = get_turf(src)
 	if(!T)
 		return
@@ -211,7 +211,8 @@
 		if(M.see_invisible < invisibility)//if src is invisible to M
 			msg = blind_message
 		else if(T != loc && T != src) //if src is inside something and not a turf.
-			msg = blind_message
+			if(!allow_inside_usr || loc != usr)
+				msg = blind_message
 		else if(T.lighting_object && T.lighting_object.invisibility <= M.see_invisible && T.is_softly_lit() && !in_range(T,M)) //if it is too dark.
 			msg = blind_message
 		if(!msg)
@@ -965,8 +966,12 @@
 	return 1
 
 ///Can the mob interact() with an atom?
-/mob/proc/can_interact_with(atom/A)
-	return IsAdminGhost(src) || Adjacent(A)
+/mob/proc/can_interact_with(atom/A, treat_mob_as_adjacent)
+	if(IsAdminGhost(src))
+		return TRUE
+	if(treat_mob_as_adjacent && src == A.loc)
+		return TRUE
+	return Adjacent(A)
 
 ///Can the mob use Topic to interact with machines
 /mob/proc/canUseTopic(atom/movable/M, be_close=FALSE, no_dextery=FALSE, no_tk=FALSE)
@@ -1065,11 +1070,11 @@
 					break
 				search_id = 0
 
-		else if( search_pda && istype(A, /obj/item/pda) )
-			var/obj/item/pda/PDA = A
-			if(PDA.owner == oldname)
-				PDA.owner = newname
-				PDA.update_label()
+		else if(search_pda && istype(A, /obj/item/modular_computer/tablet/pda))
+			var/obj/item/modular_computer/tablet/pda/PDA = A
+			if(PDA.saved_identification == oldname)
+				PDA.saved_identification = newname
+				PDA.update_id_display()
 				if(!search_id)
 					break
 				search_pda = 0

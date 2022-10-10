@@ -813,10 +813,11 @@ GLOBAL_LIST_EMPTY(allCasters)
 	if(ishuman(user))
 		var/mob/living/carbon/human/human_user = user
 		if(human_user.wear_id)
-			if(istype(human_user.wear_id, /obj/item/pda))
-				var/obj/item/pda/P = human_user.wear_id
-				if(P.id)
-					scanned_user = "[P.id.registered_name] ([P.id.assignment])"
+			if(istype(human_user.wear_id, /obj/item/modular_computer/tablet/pda))
+				var/obj/item/modular_computer/tablet/pda/P = human_user.wear_id
+				var/obj/item/card/id/ID = P.GetID()
+				if(istype(ID))
+					scanned_user = "[ID.registered_name] ([ID.assignment])"
 				else
 					scanned_user = "Unknown"
 			else if(istype(human_user.wear_id, /obj/item/card/id) )

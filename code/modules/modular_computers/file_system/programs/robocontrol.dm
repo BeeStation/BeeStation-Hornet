@@ -27,10 +27,8 @@
 	var/obj/item/computer_hardware/card_slot/card_slot = computer ? computer.all_components[MC_CARD] : null
 	data["have_id_slot"] = !!card_slot
 	if(computer)
-		var/obj/item/card/id/id_card = card_slot ? card_slot.stored_card : null
-		data["has_id"] = !!id_card
-		data["id_owner"] = id_card ? id_card.registered_name : "No Card Inserted."
-		data["access_on_card"] = id_card ? id_card.access : null
+		var/obj/item/card/id/id_card = card_slot ? card_slot.stored_card : ""
+		data["id_owner"] = id_card
 
 	botcount = 0
 	current_user = user
