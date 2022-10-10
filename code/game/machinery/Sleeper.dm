@@ -40,10 +40,11 @@
 	occupant_typecache = GLOB.typecache_living
 	update_icon()
 	//Create roundstart chems
-	for (var/datum/reagent/default_chem as() in roundstart_chems)
-		var/obj/item/reagent_containers/glass/bottle/beaker = new(null)
-		beaker.reagents.add_reagent(default_chem, beaker.volume)
-		inserted_vials += beaker
+	if (mapload)
+		for (var/datum/reagent/default_chem as() in roundstart_chems)
+			var/obj/item/reagent_containers/glass/bottle/beaker = new(null)
+			beaker.reagents.add_reagent(default_chem, beaker.volume)
+			inserted_vials += beaker
 
 /obj/machinery/sleeper/RefreshParts()
 	var/E
