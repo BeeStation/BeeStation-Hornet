@@ -222,7 +222,7 @@
 
 	if(COOLDOWN_FINISHED(src, xenoa_cooldown) && !istype(loc, /obj/item/storage))
 		COOLDOWN_START(src, xenoa_cooldown, cooldown+cooldownmod)
-		if(prob(malfunction_chance) && traits.len < 6 + (material == XENOA_URANIUM ? 1 : 0)) //See if we pick up an malfunction
+		if(prob(malfunction_chance) && traits.len < 7 + (material == XENOA_URANIUM ? 1 : 0)) //See if we pick up an malfunction
 			generate_trait_unique(GLOB.xenoa_malfs)
 			malfunction_chance = 0 //Lower chance after contracting 
 		else //otherwise increase chance.
