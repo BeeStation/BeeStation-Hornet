@@ -131,15 +131,12 @@
 /datum/xenoartifact_trait/activator/weighted/pass_input(datum/source, obj/item/thing, mob/living/carbon/user, mob/living/carbon/human/target)
 	var/obj/item/clothing/gloves/artifact_pinchers/P
 	//Grab ref to gloves for check
-	if(istype(target))
-		P = target.get_item_by_slot(ITEM_SLOT_GLOVES)
-	if(istype(user) && !P)
+	if(istype(user))
 		P = user.get_item_by_slot(ITEM_SLOT_GLOVES)
-	
-	if(!istype(P) || P?.safety) //This trait is a special tism
-		return
+		if(istype(P) && P?.safety) //This trait is a special tism
+			return
 	var/obj/item/xenoartifact/X = source
-	X.default_activate(charge, user, target)
+	X.default_activate(charge, user, user)
 
 ///============
 /// Pitch activator, artifact activates when thrown. Credit to EvilDragon#4532

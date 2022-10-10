@@ -6,6 +6,7 @@
 	label_name = "P.B.R." 
 	label_desc = "Parallel Bearspace Retrieval: A strange malfunction causes the Artifact to open a gateway to deep bearspace."
 	weight = 15
+	flags = URANIUM_TRAIT
 	var/bears //bear per bears
 
 /datum/xenoartifact_trait/malfunction/bear/activate(obj/item/xenoartifact/X)
@@ -27,6 +28,7 @@
 /datum/xenoartifact_trait/malfunction/badtarget
 	label_name = "Maltargeting"
 	label_desc = "Maltargeting: A strange malfunction that causes the Artifact to always target the original user."
+	flags = BLUESPACE_TRAIT | URANIUM_TRAIT | PLASMA_TRAIT
 
 /datum/xenoartifact_trait/malfunction/badtarget/activate(obj/item/xenoartifact/X, atom/target, atom/user)
 	var/mob/living/M
@@ -45,6 +47,7 @@
 /datum/xenoartifact_trait/malfunction/strip
 	label_name = "B.A.D."
 	label_desc = "Bluespace Axis Desync: A strange malfunction inside the Artifact causes it to shift the target's realspace position with its bluespace mass in an offset manner. This results in the target dropping all they're wearing. This is probably the plot to a very educational movie."
+	flags = BLUESPACE_TRAIT | URANIUM_TRAIT
 
 /datum/xenoartifact_trait/malfunction/strip/activate(obj/item/xenoartifact/X, atom/target)
 	if(isliving(target))
@@ -63,6 +66,7 @@
 	label_name = "C.D.E."
 	label_desc = "Cerebral Dysfunction Emergence: A strange malfunction that causes the Artifact to force brain traumas to develop in a given target."
 	weight = 25
+	flags = BLUESPACE_TRAIT | URANIUM_TRAIT
 	var/datum/brain_trauma/trauma
 
 /datum/xenoartifact_trait/malfunction/trauma/on_init(obj/item/xenoartifact/X)
@@ -86,6 +90,7 @@
 	label_name = "Combustible" 
 	label_desc = "Combustible: A strange malfunction that causes the Artifact to violently combust."
 	weight = 15
+	flags = URANIUM_TRAIT
 
 /datum/xenoartifact_trait/malfunction/heated/activate(obj/item/xenoartifact/X, atom/target, atom/user)
 	var/turf/T = get_turf(X)
@@ -123,6 +128,7 @@
 /datum/xenoartifact_trait/malfunction/radioactive
 	label_name = "Radioactive"
 	label_desc = "Radioactive: The Artifact Emmits harmful particles when a reaction takes place."
+	flags = BLUESPACE_TRAIT | URANIUM_TRAIT | PLASMA_TRAIT
 
 /datum/xenoartifact_trait/malfunction/radioactive/on_init(obj/item/xenoartifact/X)
 	X.rad_act(25)
@@ -146,6 +152,7 @@
 /datum/xenoartifact_trait/malfunction/twin
 	label_name = "Anti-Cloning"
 	label_desc = "Anti-Cloning: The Artifact produces an arguably maleviolent clone of target."
+	flags = BLUESPACE_TRAIT | URANIUM_TRAIT | PLASMA_TRAIT
 
 /datum/xenoartifact_trait/malfunction/twin/activate(obj/item/xenoartifact/X, mob/living/target, atom/user, setup)
 	var/mob/living/simple_animal/hostile/twin/T = new(get_turf(X))
@@ -182,3 +189,21 @@
 	del_on_death = TRUE
 	do_footstep = TRUE
 	mobchatspan = "syndmob"
+
+//============
+// explode, a very small explosion takes place, destroying the artifact in the process
+//============
+
+/datum/xenoartifact_trait/malfunction/explode
+	label_name = "Delaminating"
+	label_desc = "Delaminating: The Artifact violently collapses, exploding."
+
+/datum/xenoartifact_trait/malfunction/explode/activate(obj/item/xenoartifact/X, atom/target, atom/user, setup)
+	. = ..()
+	X.visible_message("<span class='warning'>The [X] begins to heat up, it's delaminating!</span>")
+	apply_wibbly_filters(X, 3)
+	addtimer(CALLBACK(src, .proc/explode, X), 10 SECONDS)
+
+/datum/xenoartifact_trait/malfunction/explode/proc/explode(obj/item/xenoartifact/X)
+	SSexplosions.explode(X, 0, 1, 2, 1)
+	qdel(X)

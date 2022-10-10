@@ -255,12 +255,11 @@
 	var/light_mod
 
 /datum/xenoartifact_trait/major/lamp/on_init(obj/item/xenoartifact/X)
-	X.light_system = MOVABLE_LIGHT
 	X.light_color = pick(LIGHT_COLOR_FIRE, LIGHT_COLOR_BLUE, LIGHT_COLOR_GREEN, LIGHT_COLOR_RED, LIGHT_COLOR_ORANGE, LIGHT_COLOR_PINK)
 
 /datum/xenoartifact_trait/major/lamp/activate(obj/item/xenoartifact/X, atom/target, atom/user)
 	X.visible_message("<span class='notice'>The [X] lights up!</span>")
-	X.set_light(1.4+(X.charge*0.5), max(X.charge*0.05, 0.1), X.light_color)
+	X.set_light(X.charge*0.08, max(X.charge*0.05, 5), X.light_color)
 	addtimer(CALLBACK(src, .proc/unlight, X), (X.charge*0.6) SECONDS)
 	X.cooldownmod = (X.charge*0.6) SECONDS
 
@@ -283,8 +282,13 @@
 	if(size >= 1)
 		new /obj/effect/forcefield/xenoartifact_type(get_turf(X.loc), (X.charge*0.4) SECONDS)
 	if(size >= 3)
-		new /obj/effect/forcefield/xenoartifact_type(get_step(X, NORTH), (X.charge*0.4) SECONDS)
-		new /obj/effect/forcefield/xenoartifact_type(get_step(X, SOUTH), (X.charge*0.4) SECONDS)
+		var/outcome = pick(0, 1)
+		if(outcome || size >= 5)
+			new /obj/effect/forcefield/xenoartifact_type(get_step(X, NORTH), (X.charge*0.4) SECONDS)
+			new /obj/effect/forcefield/xenoartifact_type(get_step(X, SOUTH), (X.charge*0.4) SECONDS)
+		else
+			new /obj/effect/forcefield/xenoartifact_type(get_step(X, EAST), (X.charge*0.4) SECONDS)
+			new /obj/effect/forcefield/xenoartifact_type(get_step(X, WEST), (X.charge*0.4) SECONDS)
 	if(size >= 5)
 		new /obj/effect/forcefield/xenoartifact_type(get_step(X, WEST), (X.charge*0.4) SECONDS)
 		new /obj/effect/forcefield/xenoartifact_type(get_step(X, EAST), (X.charge*0.4) SECONDS)
