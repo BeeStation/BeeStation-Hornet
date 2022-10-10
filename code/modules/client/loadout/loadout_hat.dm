@@ -70,6 +70,16 @@
 	description = "Something to cover up your shining dome with. Can change its hair style but adapts to your natural hair color."
 	cost = 2000
 
+/datum/gear/hat/cowboy
+	display_name = "cowboy hat"
+	path = /obj/item/clothing/head/cowboy
+	description = "Yee haw, pardner! Wear this hat to show them no good greytide whos boss!"
+	cost = 1000
+
+/datum/gear/hat/cowboy/slime
+	display_name = "scientist cowboy hat"
+	path = /obj/item/clothing/head/cowboy_science
+
 //SOFT CAPS
 
 /datum/gear/hat/soft
