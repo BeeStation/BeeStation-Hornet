@@ -605,14 +605,14 @@
 
 /obj/item/storage/box/PDAs/PopulateContents()
 	for(var/i in 1 to 4)
-		new /obj/item/pda(src)
-	new /obj/item/cartridge/head(src)
+		new /obj/item/modular_computer/tablet/pda(src)
+	new /obj/item/computer_hardware/hard_drive/role/head(src)
 
-	var/newcart = pick(	/obj/item/cartridge/engineering,
-						/obj/item/cartridge/security,
-						/obj/item/cartridge/medical,
-						/obj/item/cartridge/signal/toxins,
-						/obj/item/cartridge/quartermaster)
+	var/newcart = pick(	/obj/item/computer_hardware/hard_drive/role/engineering,
+						/obj/item/computer_hardware/hard_drive/role/security,
+						/obj/item/computer_hardware/hard_drive/role/medical,
+						/obj/item/computer_hardware/hard_drive/role/signal/toxins,
+						/obj/item/computer_hardware/hard_drive/role/cargo_technician)
 	new newcart(src)
 
 /obj/item/storage/box/silver_ids
@@ -641,15 +641,15 @@
 	new /obj/item/card/id/prisoner/seven(src)
 
 /obj/item/storage/box/seccarts
-	name = "box of PDA security cartridges"
-	desc = "A box full of PDA cartridges used by Security."
+	name = "box of PDA security job disks"
+	desc = "A box full of PDA job disks used by Security."
 	icon_state = "secbox"
 	illustration = "pda"
 
 /obj/item/storage/box/seccarts/PopulateContents()
-	new /obj/item/cartridge/detective(src)
+	new /obj/item/computer_hardware/hard_drive/role/detective(src)
 	for(var/i in 1 to 6)
-		new /obj/item/cartridge/security(src)
+		new /obj/item/computer_hardware/hard_drive/role/security(src)
 
 /obj/item/storage/box/firingpins
 	name = "box of standard firing pins"
@@ -1302,7 +1302,7 @@
 /obj/item/storage/box/debugtools/PopulateContents()
 	var/static/items_inside = list(
 		/obj/item/flashlight/emp/debug=1,\
-		/obj/item/pda=1,\
+		/obj/item/modular_computer/tablet/pda=1,\
 		/obj/item/modular_computer/tablet/preset/advanced=1,\
 		/obj/item/storage/belt/military/abductor/full=1,\
 		/obj/item/geiger_counter=1,\
@@ -1399,7 +1399,7 @@
 /obj/item/storage/box/radiokey/clown  // honk
 	name = "\improper H.O.N.K. CO fake encryption keys"
 	desc = "Totally prank your friends with these realistic encryption keys!"
-	
+
 /obj/item/storage/box/radiokey/clown/PopulateContents()
 	new /obj/item/encryptionkey/heads/rd/fake(src)
 	new /obj/item/encryptionkey/heads/hos/fake(src)

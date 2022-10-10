@@ -23,8 +23,8 @@
 
 /obj/item/stack/telecrystal/afterattack(obj/item/I, mob/user, proximity)
 	. = ..()
-	if(istype(I, /obj/item/cartridge/virus/frame))
-		var/obj/item/cartridge/virus/frame/cart = I
+	if(istype(I, /obj/item/computer_hardware/hard_drive/role/virus/frame))
+		var/obj/item/computer_hardware/hard_drive/role/virus/frame/cart = I
 		if(!cart.charges)
 			to_chat(user, "<span class='notice'>[cart] is out of charges, it's refusing to accept [src].</span>")
 			return

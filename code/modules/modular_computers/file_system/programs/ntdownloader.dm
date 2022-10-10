@@ -32,7 +32,7 @@
 		PROGRAM_CATEGORY_MISC,
 	)
 
-/datum/computer_file/program/ntnetdownload/run_program()
+/datum/computer_file/program/ntnetdownload/on_start()
 	. = ..()
 	if(!.)
 		return
@@ -210,7 +210,7 @@
 	tgui_id = "NtosNetDownloader"
 	emagged = TRUE
 
-/datum/computer_file/program/ntnetdownload/syndicate/run_program()
+/datum/computer_file/program/ntnetdownload/syndicate/on_start()
 	. = ..()
 	if(!.)
 		return
