@@ -24,7 +24,7 @@
 /obj/machinery/power/generator/examine()
 	. = ..()
 	if(panel_open)
-		. += "<span class='notice'>It's panel is open.</span>"
+		. += "<span class='notice'>Its panel is open.</span>"
 
 /obj/machinery/power/generator/ComponentInitialize()
 	. = ..()
