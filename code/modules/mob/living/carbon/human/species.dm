@@ -616,7 +616,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 
 	//Underwear, Undershirts & Socks
 	if(!(NO_UNDERWEAR in species_traits))
-		if(H.underwear)
+		if(H.underwear && !(H.dna.species.bodytype & BODYTYPE_DIGITIGRADE))
 			var/datum/sprite_accessory/underwear/underwear = GLOB.underwear_list[H.underwear]
 			var/mutable_appearance/underwear_overlay
 			if(underwear)
