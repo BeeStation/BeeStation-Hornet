@@ -148,16 +148,16 @@
 	label_desc = "Anti-Cloning: The Artifact produces an arguably maleviolent clone of target."
 
 /datum/xenoartifact_trait/malfunction/twin/activate(obj/item/xenoartifact/X, mob/living/target, atom/user, setup)
-		var/mob/living/simple_animal/hostile/twin/T = new(get_turf(X))
-		//Setup appearence for evil twin
-		T.name = target.name
-		T.appearance = target.appearance
-		if(istype(target) && length(target.vis_contents))
-			T.add_overlay(target.vis_contents)
-		T.alpha = 255
-		T.pixel_y = initial(T.pixel_y)
-		T.pixel_x = initial(T.pixel_x)
-		T.color = COLOR_BLUE
+	var/mob/living/simple_animal/hostile/twin/T = new(get_turf(X))
+	//Setup appearence for evil twin
+	T.name = target.name
+	T.appearance = target.appearance
+	if(istype(target) && length(target.vis_contents))
+		T.add_overlay(target.vis_contents)
+	T.alpha = 255
+	T.pixel_y = initial(T.pixel_y)
+	T.pixel_x = initial(T.pixel_x)
+	T.color = COLOR_BLUE
 
 /mob/living/simple_animal/hostile/twin
 	name = "evil twin"
