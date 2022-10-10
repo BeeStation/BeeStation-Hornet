@@ -1,0 +1,44 @@
+author: itsmeow
+delete-after: true
+changes:
+  - rscdel: Removed PDAs.
+  - rscdel: Removed round-start backpack tablets.
+  - refactor: Due to a buyout and massive restructuring of Thinktronic Systems, all
+      crew now start with tablets containing pre-installed programs for messaging,
+      and programs for tasks previously done by PDAs.
+  - tweak: PDA sprites have been slightly changed to account for the new program overlays.
+      Wide PDAs have normal sized screens, and PDAs start off with a black screen.
+  - rscadd: Added themes to tablets in the Settings app.
+  - tweak: Renamed Hardware Configuration to Settings.
+  - code_imp: Improved tablet flashlight UI interaction with cyborg code.
+  - admin: Added logging to PDA bombs.
+  - tweak: Brig physician now starts with a cartridge.
+  - rscadd: Added a locator app for janitors to find mops, cleanbots, and janicarts
+      with.
+  - bugfix: Improved ModPC behavior with sechuds showing the wrong HUD.
+  - tweak: You can now use holochips directly on a PDA/tablet to insert credits to
+      the ID inside.
+  - tweak: Tablet flashlight now uses movable lighting instead of jumping around
+  - tweak: Tablets can be used while inside lockers.
+  - code_imp: Changed tablet program access requirements to support lists.
+  - code_imp: Added an emoji entry TGUI interface. For use with the mime PDA.
+  - rscadd: Emagging a modPC now opens a console window with flavor text and sets
+      the theme to syndicate.
+  - bugfix: Fixes PDA sent photos opening an undersized window.
+  - tweak: Cyborg integrated tablet now has a button background.
+  - tweak: AI now has a small integrated tablet only for sending messages.
+  - tweak: Added an improved photo selection TGUI menu, mainly for use by silicons.
+  - bugfix: Photos now describe their dimensions properly.
+  - bugfix: Photo descriptions no longer randomly place periods around.
+  - bugfix: Photos can no longer describe invisible things.
+  - rscadd: Nukie tablets now start with the Remote Airlock Control program, for remotely
+      interfacing with the infiltrator's blast door.
+  - tweak: Regular cargo techs no longer have the Ore Silo logs in their PDA Cartridge.
+      It's now locked to the QM.
+  - rscadd: Added a new Cargo Technician cartridge with its own icon.
+  - rscadd: Added a Log Viewer program for viewing ore silo and NTChat logs on the
+      filesystem.
+  - bugfix: Modular computers now correctly show visible_messages to the user if they
+      are holding it.
+  - rscdel: Removed the messaging console's system message capability.
+  - rscadd: The Status Display modPC app can now update status alert images.
