@@ -45,7 +45,7 @@
 	///Everytime the artifact is used this increases. When this is successfully proc'd the artifact gains a malfunction and this is lowered.
 	var/malfunction_chance = 0
 	///How much the chance can change in a sinlge itteration
-	var/malfunction_mod = 0.3
+	var/malfunction_mod = 1
 
 	//snowflake variable for shaped
 	var/transfer_prints = FALSE
@@ -79,7 +79,7 @@
 			generate_traits(GLOB.xenoa_plasma_blacklist)
 			if(!price)
 				price = pick(200, 300, 500)
-			malfunction_mod = 0.5
+			malfunction_mod = 3
 			extra_masks = pick(1)
 
 		if(XENOA_URANIUM)
@@ -87,7 +87,7 @@
 			generate_traits(GLOB.xenoa_uranium_blacklist, TRUE) 
 			if(!price)
 				price = pick(300, 500, 800) 
-			malfunction_mod = 1
+			malfunction_mod = 5
 			extra_masks = pick(1)
 
 		if(XENOA_BANANIUM)
@@ -95,7 +95,8 @@
 			generate_traits()
 			if(!price)
 				price = pick(500, 800, 1000)
-			extra_masks = pick(0)
+			malfunction_mod = 2
+			extra_masks = 0
 	SEND_SIGNAL(src, XENOA_CHANGE_PRICE, price) //update price, bacon requested signals
 
 	//Initialize traits that require that.
