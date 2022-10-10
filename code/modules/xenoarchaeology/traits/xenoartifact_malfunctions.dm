@@ -139,3 +139,47 @@
 
 /datum/xenoartifact_trait/malfunction/radioactive/activate(obj/item/xenoartifact/X)
 	X.rad_act(25)
+
+//============
+// twin, makes an evil twin of the target
+//============
+/datum/xenoartifact_trait/malfunction/twin
+	label_name = "Anti-Cloning"
+	label_desc = "Anti-Cloning: The Artifact produces an arguably maleviolent clone of target."
+
+/datum/xenoartifact_trait/malfunction/twin/activate(obj/item/xenoartifact/X, atom/target, atom/user, setup)
+		var/mob/living/simple_animal/hostile/twin/T = new(get_turf(X))
+		//Setup appearence for evil twin
+		T.name = target.natargete
+		T.appearance = target.appearance
+		if(length(target.vis_contents))
+			T.add_overlay(target.vis_contents)
+		T.alpha = 255
+		T.pixel_y = initial(T.pixel_y)
+		T.pixel_x = initial(T.pixel_x)
+		T.color = COLOR_BLUE
+
+/mob/living/simple_animal/hostile/twin
+	name = "evil twin"
+	desc = "It looks just like... someone!"
+	mob_biotypes = list(MOB_ORGANIC, MOB_HUMANOID)
+	speak_chance = 0
+	turns_per_move = 5
+	response_help = "pokes"
+	response_disarm = "shoves"
+	response_harm = "hits"
+	speed = 0
+	maxHealth = 10
+	health = 10
+	melee_damage = 5
+	attacktext = "punches"
+	attack_sound = 'sound/weapons/punch1.ogg'
+	a_intent = INTENT_HARM
+	atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0)
+	unsuitable_atmos_damage = 15
+	faction = list("evil_clone")
+	status_flags = CANPUSH
+	del_on_death = TRUE
+	do_footstep = TRUE
+	mobchatspan = "syndmob"
+

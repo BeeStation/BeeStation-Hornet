@@ -242,7 +242,7 @@
 		if(isliving(loc) || isliving(pulledby))
 			var/mob/living/M = isliving(loc) ? loc : pulledby
 			if(!istype(M.get_item_by_slot(ITEM_SLOT_GLOVES), /obj/item/clothing/gloves/artifact_pinchers) && !istype(get_area(M), /area/science))
-				true_target += M
+				true_target |= M
    
 		for(var/atom/M in true_target) //target loop, majors & malfunctions
 			if(get_dist(get_turf(src), get_turf(M)) <= max_range) 
