@@ -27,7 +27,7 @@
 	speak_emote = list("chitters")
 	emote_hear = list("chitters")
 	speak_chance = 5
-	speed = 2
+	speed = 1
 	turns_per_move = 5
 	see_in_dark = 10
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab/spider = 2, /obj/item/reagent_containers/food/snacks/spiderleg = 8)
@@ -35,13 +35,13 @@
 	response_disarm = "gently pushes aside"
 	response_harm   = "hits"
 	initial_language_holder = /datum/language_holder/spider // Speaks buzzwords, understands buzzwords and common
-	maxHealth = 80
-	health = 80
-	obj_damage = 30
-	melee_damage = 20
+	maxHealth = 100
+	health = 100
+	obj_damage = 25
+	melee_damage = 25
 	faction = list("spiders")
 	pass_flags = PASSTABLE
-	move_to_delay = 6
+	move_to_delay = 4
 	ventcrawler = VENTCRAWLER_ALWAYS
 	attacktext = "bites"
 	attack_sound = 'sound/weapons/bite.ogg'
@@ -97,14 +97,16 @@
 	stop_automated_movement = FALSE
 	SSmove_manager.stop_looping(src)
 
-//Nurses lay eggs and can heal other spiders.
+// Nurses lay eggs and can heal other spiders. However, they're squishy and less powerful.
 /mob/living/simple_animal/hostile/poison/giant_spider/nurse
+	name = "nurse"
 	desc = "Furry and black, it makes you shudder to look at it. This one has brilliant green eyes."
 	icon_state = "nurse"
 	icon_living = "nurse"
 	icon_dead = "nurse_dead"
 	gender = FEMALE
-	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab/spider = 2, /obj/item/reagent_containers/food/snacks/spiderleg = 8, /obj/item/reagent_containers/food/snacks/spidereggs = 4)
+	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab/spider = 2,
+		/obj/item/reagent_containers/food/snacks/spiderleg = 8, /obj/item/reagent_containers/food/snacks/spidereggs = 4)
 	maxHealth = 40
 	health = 40
 	melee_damage = 10
@@ -266,13 +268,16 @@
 	busy = SPIDER_IDLE
 	stop_automated_movement = FALSE
 
-//midwives are the queen of the spiders, can send messages to all them and web faster.
+// Midwives are upgraded nurses. They can web quickly and are stronger than regular nurses, but they're a bit slower.
 /mob/living/simple_animal/hostile/poison/giant_spider/nurse/midwife
 	name = "midwife"
 	desc = "Furry and black, it makes you shudder to look at it. This one has scintillating green eyes."
 	icon_state = "midwife"
 	icon_living = "midwife"
 	icon_dead = "midwife_dead"
+	maxHealth = 80
+	health = 80
+	speed = 2
 	web_speed = 0.15 // Easily able to web
 	// Allows the spider to use spider comms
 	var/datum/action/innate/spider/comm/letmetalkpls
@@ -286,20 +291,22 @@
 	QDEL_NULL(letmetalkpls)
 	return ..()
 
-//hunters have a decent amount of poison and have decent general stats, making them offensive spiders.
+// Hunters have a decent amount of poison and have decent general stats, making them offensive spiders. They're a biut squishier
+// than regular spiders, though
 /mob/living/simple_animal/hostile/poison/giant_spider/hunter
+	name = "hunter"
 	desc = "Furry and black, it makes you shudder to look at it. This one has sparkling purple eyes."
 	icon_state = "hunter"
 	icon_living = "hunter"
 	icon_dead = "hunter_dead"
-	maxHealth = 100
-	health = 100
+	maxHealth = 80
+	health = 80
 	melee_damage = 20
 	poison_per_bite = 5
-	move_to_delay = 5
-	speed = -0.1
+	move_to_delay = 3
+	speed = 0
 
-//vipers are the rare variant of the hunter, able to move quickly and inject a lot of venom.
+// vipers are the upgraded variant of the hunter, able to move quickly and inject a lot of venom.
 /mob/living/simple_animal/hostile/poison/giant_spider/hunter/viper
 	name = "viper"
 	desc = "Furry and black, it makes you shudder to look at it. This one has effervescent purple eyes."
@@ -310,7 +317,7 @@
 	health = 50
 	melee_damage = 1
 	poison_per_bite = 12
-	move_to_delay = 4
+	move_to_delay = 2
 	poison_type = /datum/reagent/toxin/venom
 	gold_core_spawnable = NO_SPAWN
 
@@ -326,7 +333,7 @@
 	melee_damage = 45
 	obj_damage = 50
 	poison_per_bite = 0
-	move_to_delay = 8
+	move_to_delay = 5
 	speed = 5
 	web_speed = 0.5
 	status_flags = NONE
@@ -340,12 +347,14 @@
 	var/turf/T = get_turf(src)
 	if(locate(/obj/structure/spider/stickyweb) in T)
 		set_varspeed(0)
+		move_to_delay = 0.1
 	else
 		set_varspeed(5)
+		move_to_delay = 5
 
 // Ice spiders - for when you want a spider that really doesn't care about atmos
 /mob/living/simple_animal/hostile/poison/giant_spider/ice
-	name = "giant ice spider"
+	name = "ice spider"
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	maxbodytemp = 1500
@@ -354,7 +363,7 @@
 	gold_core_spawnable = NO_SPAWN
 
 /mob/living/simple_animal/hostile/poison/giant_spider/nurse/ice
-	name = "giant ice spider"
+	name = "ice nurse"
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	maxbodytemp = 1500
@@ -362,7 +371,7 @@
 	color = rgb(114,228,250)
 
 /mob/living/simple_animal/hostile/poison/giant_spider/hunter/ice
-	name = "giant ice spider"
+	name = "ice hunter"
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	minbodytemp = 0
 	maxbodytemp = 1500

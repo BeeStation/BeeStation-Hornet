@@ -131,7 +131,7 @@
 	var/chosen_spider = input("Spider Type", "Egg Cluster") as null|anything in spider_list
 	if(QDELETED(src) || QDELETED(user) || !chosen_spider || !(spawns_remaining || enriched_spawns))
 		return FALSE
-	if(chosen_spider in potential_enriched_spawns)
+	if(spider_list[chosen_spider] in potential_enriched_spawns)
 		if(!enriched_spawns)
 			to_chat(user, "<span class='warning'>You can't pick that type of spider anymore!</span>")
 			return FALSE
