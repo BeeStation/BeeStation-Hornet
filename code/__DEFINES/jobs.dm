@@ -272,6 +272,7 @@
 #define JOB_HUD_SYNDICATE "syndicate"
 #define JOB_HUD_PRISONER "prisoner"
 #define JOB_HUD_UNKNOWN "unknown"
+#define JOB_HUD_PAPER "paper"
 
 
 //////////// Color defines
