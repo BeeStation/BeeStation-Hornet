@@ -35,7 +35,6 @@ GLOBAL_LIST_INIT(valid_keys, list(
 		message_admins("Mob [(C.mob)] with the ckey [(C.ckey)] just attempted to send an invalid keypress with length over 32 characters, likely malicious.")
 	else
 		log_admin_private("[key_name(C)] just attempted to send an invalid keypress - \"[key]\".")
-		message_admins("Mob [(C.mob)] with the ckey [(C.ckey)] just attempted to send an invalid keypress - \"[sanitize(key)]\".")
 
 	return TRUE
 
