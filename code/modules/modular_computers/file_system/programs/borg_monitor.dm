@@ -3,7 +3,7 @@
 	filedesc = "Cyborg Remote Monitoring"
 	category = PROGRAM_CATEGORY_ROBO
 	ui_header = "borg_mon.gif"
-	program_icon_state = "generic"
+	program_icon_state = "botcontrol"
 	extended_desc = "This program allows for remote monitoring of station cyborgs."
 	requires_ntnet = TRUE
 	transfer_access = list(ACCESS_ROBOTICS)
