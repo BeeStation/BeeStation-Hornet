@@ -62,8 +62,8 @@ As a Geneticist, you can eject someone from cloning early by disabling power in 
 As a Geneticist, T goes to A, and G goes to C.
 As a Geneticist, becoming a hulk makes you capable of dealing high melee damage, stunlocking people, and punching through walls. However, you can't fire guns, will lose your hulk status if you go into critical condition, and are not considered a human by the AI while you are a hulk.
 As a Geneticist, you have to power to make superhumans. Be aware, going over 99 instability WILL cause side effects.
-As a Geneticist, you can obtain chromosomes by activating mutations by recycling used activators through your console or activating mutatins with the console. You can then use these chromosomes to ehnance certain mutations.
-As a Paramedic, it is a good idea to keep your handheld crew monitor's inferface open at all times.
+As a Geneticist, you can obtain chromosomes by activating mutations by recycling used activators through your console or activating mutations with the console. You can then use these chromosomes to enhance certain mutations.
+As a Paramedic, it is a good idea to keep your handheld crew monitor's interface open at all times.
 As a Paramedic, you have access to EVA. Use it to save people who received grievous injuries in space.
 As a Paramedic, you should use other methods of transporting bodies that aren't dragging them on the floor : fireman carrying, roller beds, body bags, lockers, etc. Simply dragging the body around drains its blood and leaves a bloody trail behind.
 As the Virologist, your viruses can range from healing powers so great that you can heal out of critical status, or diseases so dangerous they can kill the entire crew with highly contagious spontaneous combustion. Experiment!
