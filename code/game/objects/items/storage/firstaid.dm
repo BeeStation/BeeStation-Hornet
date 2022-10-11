@@ -36,8 +36,7 @@
 		/obj/item/stack/medical/gauze = 1,
 		/obj/item/stack/medical/bruise_pack = 2,
 		/obj/item/stack/medical/ointment = 2,
-		/obj/item/reagent_containers/hypospray/medipen = 1,
-		/obj/item/healthanalyzer = 1)
+		/obj/item/reagent_containers/hypospray/medipen = 2)
 	generate_items_inside(items_inside,src)
 
 
@@ -134,7 +133,7 @@
 	if(empty)
 		return
 	var/static/items_inside = list(
-		/obj/item/stack/medical/gauze = 1,
+		/obj/item/stack/medical/gauze = 2,
 		/obj/item/stack/medical/bruise_pack = 3,
 		/obj/item/stack/medical/ointment= 3)
 	generate_items_inside(items_inside,src)
@@ -162,8 +161,7 @@
 	var/static/items_inside = list(
 		/obj/item/reagent_containers/pill/patch/silver_sulf = 4,
 		/obj/item/storage/pill_bottle/kelotane = 1,
-		/obj/item/reagent_containers/hypospray/medipen = 1,
-		/obj/item/healthanalyzer = 1)
+		/obj/item/stack/medical/ointment = 2)
 	generate_items_inside(items_inside,src)
 
 
@@ -187,11 +185,10 @@
 	if(empty)
 		return
 	var/static/items_inside = list(
-		/obj/item/reagent_containers/syringe/antitoxin = 3,
+		/obj/item/reagent_containers/syringe/antitoxin = 4,
 		/obj/item/reagent_containers/syringe/calomel = 1,
 		/obj/item/reagent_containers/syringe/diphenhydramine = 1,
-		/obj/item/storage/pill_bottle/charcoal = 1,
-		/obj/item/healthanalyzer = 1)
+		/obj/item/storage/pill_bottle/charcoal = 1)
 	generate_items_inside(items_inside,src)
 
 
@@ -209,16 +206,13 @@
 /obj/item/storage/firstaid/radbgone/PopulateContents()
 	if(empty)
 		return
-	if(prob(50))
-		new /obj/item/reagent_containers/pill/mutarad(src)
-	if(prob(80))
-		new /obj/item/reagent_containers/pill/antirad_plus(src)
-	new /obj/item/reagent_containers/syringe/charcoal(src)
-	new /obj/item/storage/pill_bottle/charcoal(src)
-	new /obj/item/reagent_containers/pill/mutadone(src)
-	new /obj/item/reagent_containers/pill/antirad(src)
-	new /obj/item/reagent_containers/food/drinks/bottle/vodka(src)
-	new /obj/item/healthanalyzer(src)
+	var/static/items_inside = list(
+		/obj/item/reagent_containers/pill/antirad_plus = 2,
+		/obj/item/reagent_containers/pill/antirad = 2,
+		/obj/item/storage/pill_bottle/charcoal = 1,
+		/obj/item/storage/pill_bottle/penacid = 1,
+		/obj/item/reagent_containers/pill/mutarad = 1)
+	generate_items_inside(items_inside,src)
 
 /obj/item/storage/firstaid/radbgone/Initialize(mapload)
 	. = ..()
@@ -240,10 +234,9 @@
 	if(empty)
 		return
 	var/static/items_inside = list(
-		/obj/item/reagent_containers/pill/salbutamol = 2,
-		/obj/item/reagent_containers/hypospray/medipen = 2,
-		/obj/item/reagent_containers/hypospray/medipen/dexalin = 2,
-		/obj/item/healthanalyzer = 1)
+		/obj/item/storage/pill_bottle/salbutamol = 1,
+		/obj/item/reagent_containers/hypospray/medipen = 3,
+		/obj/item/reagent_containers/hypospray/medipen/dexalin = 3)
 	generate_items_inside(items_inside,src)
 
 /obj/item/storage/firstaid/o2/Initialize(mapload)
@@ -269,8 +262,8 @@
 	var/static/items_inside = list(
 		/obj/item/reagent_containers/pill/patch/styptic = 4,
 		/obj/item/storage/pill_bottle/bicaridine = 1,
-		/obj/item/stack/medical/gauze = 2,
-		/obj/item/healthanalyzer = 1)
+		/obj/item/stack/medical/bruise_pack = 1,
+		/obj/item/stack/medical/gauze = 1)
 	generate_items_inside(items_inside,src)
 
 /obj/item/storage/firstaid/brute/Initialize(mapload)
@@ -339,7 +332,6 @@
 		/obj/item/storage/pill_bottle/charcoal,
 		/obj/item/reagent_containers/pill/patch/silver_sulf,
 		/obj/item/storage/pill_bottle/kelotane)
-	new /obj/item/healthanalyzer(src)
 	for(var/i in 1 to 6)
 		var/selected_type = pick(supplies)
 		new selected_type(src)
@@ -563,7 +555,7 @@
 	desc = "Contains pills to expunge radiation and toxins."
 
 /obj/item/storage/pill_bottle/penacid/PopulateContents()
-	for(var/i in 1 to 3)
+	for(var/i in 1 to 7)
 		new /obj/item/reagent_containers/pill/penacid(src)
 
 
@@ -591,3 +583,11 @@
 /obj/item/storage/pill_bottle/floorpill/full/PopulateContents()
 	for(var/i in 1 to 7)
 		new /obj/item/reagent_containers/pill/floorpill(src)
+
+/obj/item/storage/pill_bottle/salbutamol
+	name = "bottle of salbutamol pills"
+	desc = "Contains pills to heal suffocation damage."
+
+/obj/item/storage/pill_bottle/salbutamol/PopulateContents()
+	for(var/i in 1 to 7)
+		new /obj/item/reagent_containers/pill/salbutamol(src)
