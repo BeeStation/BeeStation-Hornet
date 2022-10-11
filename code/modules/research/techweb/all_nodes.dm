@@ -74,7 +74,7 @@
 	display_name = "Biological Technology"
 	description = "What makes us tick."	//the MC, silly!
 	prereq_ids = list("base")
-	design_ids = list("chem_heater", "chem_master", "chem_dispenser", "pandemic", "sleeper", "defibrillator", "defibmount", "operating", "soda_dispenser", "beer_dispenser", "healthanalyzer", "medspray","genescanner", "medipen_epi", "medipen_dex", "medipen_atropine")
+	design_ids = list("chem_heater", "chem_master", "chem_dispenser", "pandemic", "sleeper", "defibrillator", "defibmount", "operating", "soda_dispenser", "beer_dispenser", "medspray","genescanner", "medipen_epi", "medipen_dex", "medipen_atropine")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 	export_price = 5000
 
@@ -84,7 +84,7 @@
 	display_name = "Advanced Biotechnology"
 	description = "Advanced Biotechnology"
 	prereq_ids = list("biotech")
-	design_ids = list("piercesyringe", "crewpinpointer", "smoke_machine", "plasmarefiller", "limbgrower", "meta_beaker", "healthanalyzer_advanced", "harvester", "holobarrier_med", "defibrillator_compact")
+	design_ids = list("piercesyringe", "crewpinpointer", "smoke_machine", "plasmarefiller", "limbgrower", "meta_beaker", "harvester", "holobarrier_med", "defibrillator_compact")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 	export_price = 5000
 
@@ -352,7 +352,6 @@
 	hidden = TRUE
 
 /////////////////////////integrated circuits tech/////////////////////////
-
 /datum/techweb_node/math_circuits
 	id = "math_circuits"
 	tech_tier = 1
@@ -662,6 +661,26 @@
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 1000)
 	export_price = 5000
 
+/datum/techweb_node/med_scanning
+	id = "med_scanner"
+	tech_tier = 3
+	display_name = "Medical Scanning"
+	description = "By taking apart the ones we already had, we figured out how to make them ourselves."
+	prereq_ids = list("adv_biotech")
+	design_ids = list("healthanalyzer")
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
+	export_price = 5000
+
+/datum/techweb_node/adv_med_scanning
+	id = "adv_med_scanner"
+	tech_tier = 4
+	display_name = "Advanced Medical Scanning"
+	description = "By integrating advanced AI into our scanners, we can diagnose even the most minute of abnormalities. Well, the AI is doing it, but we get the credit."
+	prereq_ids = list("med_scanner", "posibrain")
+	design_ids = list("healthanalyzer_advanced")
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 5000)
+	export_price = 5000
+
 /datum/techweb_node/cyber_organs_upgraded
 	id = "cyber_organs_upgraded"
 	tech_tier = 5
@@ -736,7 +755,6 @@
 	hidden = TRUE
 
 ////////////////////////Tools////////////////////////
-
 /datum/techweb_node/basic_mining
 	id = "basic_mining"
 	tech_tier = 1
@@ -819,7 +837,6 @@
 
 
 /////////////////////////weaponry tech/////////////////////////
-
 /datum/techweb_node/landmine
 	id = "nonlethal_mines"
 	tech_tier = 3
