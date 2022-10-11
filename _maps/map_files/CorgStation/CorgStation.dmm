@@ -15403,10 +15403,6 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
-/obj/structure/rack,
-/obj/item/analyzer,
-/obj/item/extinguisher,
-/obj/item/extinguisher,
 /turf/open/floor/plasteel,
 /area/teleporter)
 "dZs" = (
@@ -20407,13 +20403,17 @@
 /turf/open/floor/wood,
 /area/crew_quarters/bar)
 "fEM" = (
-/obj/machinery/teleport/station,
 /obj/effect/turf_decal/tile/purple{
 	dir = 1
 	},
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
 	},
+/obj/structure/rack,
+/obj/item/radio,
+/obj/item/radio,
+/obj/item/tank/internals/oxygen,
+/obj/item/tank/internals/oxygen,
 /turf/open/floor/plasteel,
 /area/teleporter)
 "fEW" = (
@@ -20487,10 +20487,6 @@
 /turf/open/floor/plasteel,
 /area/engine/atmos)
 "fFV" = (
-/obj/machinery/door/poddoor/shutters{
-	id = "teleportershutters";
-	name = "Teleporter Shutters"
-	},
 /obj/machinery/button/door{
 	id = "teleportershutters";
 	name = "Teleporter Shutters";
@@ -20499,6 +20495,10 @@
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
+	},
+/obj/machinery/door/poddoor/shutters{
+	id = "teleportershutters";
+	name = "Teleporter Shutters"
 	},
 /turf/open/floor/plasteel,
 /area/teleporter)
@@ -25944,7 +25944,6 @@
 /turf/open/floor/plasteel,
 /area/engine/atmos)
 "heW" = (
-/obj/machinery/teleport/hub,
 /obj/effect/turf_decal/tile/purple{
 	dir = 1
 	},
@@ -25952,6 +25951,9 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
 	},
+/obj/structure/table,
+/obj/machinery/cell_charger,
+/obj/item/stock_parts/cell/high,
 /turf/open/floor/plasteel,
 /area/teleporter)
 "heZ" = (
@@ -30563,6 +30565,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
+/obj/machinery/teleport/station,
 /turf/open/floor/plasteel,
 /area/teleporter)
 "irF" = (
@@ -31254,7 +31257,6 @@
 /turf/open/floor/plasteel/white,
 /area/science/mixing)
 "iCy" = (
-/obj/machinery/computer/teleporter,
 /obj/effect/turf_decal/tile/purple{
 	dir = 1
 	},
@@ -31266,6 +31268,12 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 10
+	},
+/obj/item/beacon,
+/obj/structure/rack,
+/obj/item/hand_tele{
+	pixel_x = -2;
+	pixel_y = 2
 	},
 /turf/open/floor/plasteel,
 /area/teleporter)
@@ -31558,15 +31566,14 @@
 /turf/open/floor/plating,
 /area/ai_monitored/turret_protected/AIsatextAP)
 "iGT" = (
-/obj/structure/rack,
-/obj/item/tank/internals/oxygen,
-/obj/item/tank/internals/oxygen,
-/obj/item/radio,
-/obj/item/radio,
 /obj/effect/turf_decal/tile/purple,
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
 	},
+/obj/structure/rack,
+/obj/item/extinguisher,
+/obj/item/extinguisher,
+/obj/item/analyzer,
 /turf/open/floor/plasteel,
 /area/teleporter)
 "iGU" = (
@@ -40272,6 +40279,7 @@
 /obj/machinery/light_switch{
 	pixel_y = -25
 	},
+/obj/machinery/teleport/hub,
 /turf/open/floor/plasteel,
 /area/teleporter)
 "lex" = (
@@ -59955,12 +59963,6 @@
 /turf/open/floor/plating,
 /area/crew_quarters/bar)
 "qVA" = (
-/obj/structure/rack,
-/obj/item/hand_tele{
-	pixel_x = -2;
-	pixel_y = 2
-	},
-/obj/item/beacon,
 /obj/effect/turf_decal/tile/purple,
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
@@ -73903,9 +73905,6 @@
 /turf/open/floor/plating,
 /area/maintenance/department/bridge)
 "vkT" = (
-/obj/structure/table,
-/obj/machinery/cell_charger,
-/obj/item/stock_parts/cell/high,
 /obj/effect/turf_decal/tile/purple,
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
@@ -75866,6 +75865,7 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
 	},
+/obj/machinery/computer/teleporter,
 /turf/open/floor/plasteel,
 /area/teleporter)
 "vJK" = (

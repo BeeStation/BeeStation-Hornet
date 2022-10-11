@@ -1808,6 +1808,15 @@
 	},
 /turf/open/floor/plasteel,
 /area/security/main)
+"afm" = (
+/obj/machinery/button/door{
+	id = "publictele";
+	name = "Teleporter Shutters";
+	pixel_y = 26;
+	req_access_txt = "19"
+	},
+/turf/closed/wall,
+/area/teleporter)
 "afp" = (
 /obj/docking_port/stationary{
 	dir = 4;
@@ -38790,6 +38799,12 @@
 /obj/effect/turf_decal/stripes/corner,
 /turf/open/floor/plating,
 /area/ai_monitored/turret_protected/aisat/atmos)
+"jmZ" = (
+/obj/machinery/door/poddoor/shutters{
+	id = "publictele"
+	},
+/turf/open/floor/plasteel,
+/area/teleporter)
 "jnF" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -92786,7 +92801,7 @@ bqH
 bsh
 bsh
 bsh
-bsh
+afm
 bqH
 aJq
 hKs
@@ -93558,7 +93573,7 @@ bsl
 ujg
 buW
 bwt
-bqH
+jmZ
 qVS
 sMZ
 mjS

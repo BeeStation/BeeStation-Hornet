@@ -9027,7 +9027,6 @@
 /turf/open/floor/plasteel,
 /area/teleporter)
 "aMa" = (
-/obj/structure/closet/crate,
 /obj/machinery/button/door{
 	id = "teleshutter";
 	name = "Teleporter Shutters Control";
@@ -9037,6 +9036,10 @@
 	},
 /obj/effect/turf_decal/stripes/corner,
 /obj/effect/turf_decal/tile/blue,
+/obj/machinery/computer/teleporter{
+	dir = 8
+	},
+/obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel,
 /area/teleporter)
 "aMd" = (
@@ -9543,6 +9546,8 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/blue,
+/obj/machinery/teleport/station,
+/obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel,
 /area/teleporter)
 "aNz" = (
@@ -9888,8 +9893,6 @@
 /turf/open/floor/plasteel/dark,
 /area/storage/eva)
 "aOE" = (
-/obj/structure/table,
-/obj/item/hand_tele,
 /obj/machinery/light{
 	dir = 8
 	},
@@ -9900,7 +9903,6 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -26
 	},
-/obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
 	},
@@ -9942,6 +9944,8 @@
 	dir = 6
 	},
 /obj/effect/turf_decal/tile/blue,
+/obj/machinery/teleport/hub,
+/obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel,
 /area/teleporter)
 "aOJ" = (
@@ -10244,19 +10248,15 @@
 /turf/open/floor/plasteel/dark,
 /area/teleporter)
 "aPN" = (
-/obj/machinery/computer/teleporter{
-	dir = 1
-	},
-/obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/tile/blue,
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
+/obj/structure/table,
+/obj/item/hand_tele,
 /turf/open/floor/plasteel/dark,
 /area/teleporter)
 "aPO" = (
-/obj/machinery/teleport/station,
-/obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/tile/blue,
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
@@ -10264,9 +10264,7 @@
 /turf/open/floor/plasteel/dark,
 /area/teleporter)
 "aPP" = (
-/obj/machinery/teleport/hub,
 /obj/machinery/light,
-/obj/effect/turf_decal/delivery,
 /obj/effect/turf_decal/tile/blue,
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
