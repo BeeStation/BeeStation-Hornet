@@ -69,7 +69,7 @@ As a Paramedic, you should use other methods of transporting bodies that aren't 
 As the Virologist, your viruses can range from healing powers so great that you can heal out of critical status, or diseases so dangerous they can kill the entire crew with highly contagious spontaneous combustion. Experiment!
 As the Virologist, you only require small amounts of vaccine to heal a sick patient. Work with the Chemist to distribute your cures more efficiently.
 As the Virologist, you can massively boost the stage progression speed of a virus inside a person by injecting them with pure virus food.
-As the Brig Physician, you can help provide your help to Medbay if there are no people to treat at Security.
+As the Brig Physician, you can provide your help to Medbay if there are no people to treat at Security.
 As the Research Director, you can take AIs out of their cores by loading them into an intelliCard, which lets you see their laws, even ion/syndicate ones. It can then be placed into an AI system integrity restorer computer to revive and/or repair them.
 As the Research Director, you can lock down cyborgs instead of blowing them up. Then you can have their laws reset or if that doesn't work, safely dismantled.
 As the Research Director, you can upload new laws to the AI or cyborgs by first extracting a code from the Robotics Control console in your office, then heading to the AI upload room, using the desired law module and entering the code.
