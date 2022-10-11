@@ -235,6 +235,17 @@
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 10000)
 	export_price = 5000
 
+/datum/techweb_node/bluespace_stabilisation
+	id = "bluespace_anchor"
+	tech_tier = 5
+	display_name = "Bluespace Stabilisation"
+	description = "Analyse and disrupt nearby bluespace instabilities, preventing anomalous translation."
+	prereq_ids = list("micro_bluespace")
+	design_ids = list("bsanchor")
+	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 7500)
+	export_price = 5000
+	hidden = TRUE
+
 /datum/techweb_node/bag_of_holding
 	id = "bagofholding"
 	tech_tier = 5

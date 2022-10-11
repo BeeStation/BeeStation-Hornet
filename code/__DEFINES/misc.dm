@@ -370,6 +370,7 @@ GLOBAL_LIST_INIT(pda_styles, sortList(list(MONO, VT, ORBITRON, SHARE)))
 #define TELEPORT_CHANNEL_WORMHOLE "wormhole"	//! Wormhole teleportation, is not disrupted by bluespace fluctuations but tends to be very random or unsafe
 #define TELEPORT_CHANNEL_MAGIC "magic"			//! Magic teleportation, does whatever it wants (unless there's antimagic)
 #define TELEPORT_CHANNEL_CULT "cult"			//! Cult teleportation, does whatever it wants (unless there's holiness)
+#define TELEPORT_CHANNEL_BLINK "blink"			//! Teleportation with only a sender, but not disrupted by the BOH
 #define TELEPORT_CHANNEL_FREE "free"			//! Anything else
 
 //Teleport restriction modes (For areas)
