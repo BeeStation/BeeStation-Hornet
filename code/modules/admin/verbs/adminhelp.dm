@@ -615,9 +615,15 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 		discordsendmsg("ahelp", "Ticket #[id] closed by [key_name(usr, include_link=0)]")
 
 //Mark open ticket as resolved/legitimate, returns ahelp verb
-/datum/admin_help/proc/Resolve(key_name = key_name_admin(usr), silent = FALSE)
+/datum/admin_help/proc/Resolve(key_name = key_name_admin(usr), silent = FALSE, status = "Resolved", message = null)
 	if(state > AHELP_ACTIVE)
 		return
+
+	var/final_output = "<span class='adminhelp_conclusion'><span class='big'><b>Adminhelp [status]</b></span><br />"
+	final_output += message || "An administrator has handled your ticket. If your ticket was a report, then the appropriate action has been taken where necessary.<br />\
+		Thank you for creating a ticket, the adminhelp verb will be returned to you shortly.<br />"
+	final_output += "Your ticket was handled by: <span class='adminooc'>[usr.ckey]</span></span>"
+
 	RemoveActive()
 	state = AHELP_RESOLVED
 	GLOB.ahelp_tickets.ListInsert(src)
@@ -625,7 +631,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 	addtimer(CALLBACK(initiator, /client/proc/giveadminhelpverb), 50)
 
 	AddInteraction("green", "Resolved by [key_name].")
-	to_chat(initiator, "<span class='adminhelp'>Your ticket has been resolved by an admin. The Adminhelp verb will be returned to you shortly.</span>")
+	to_chat(initiator, final_output)
 	if(!silent)
 		SSblackbox.record_feedback("tally", "ahelp_stats", 1, "resolved")
 		var/msg = "Ticket [TicketHref("#[id]")] resolved by [key_name]"
@@ -645,9 +651,10 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 
 		SEND_SOUND(initiator, sound('sound/effects/adminhelp.ogg'))
 
-		to_chat(initiator, "<font color='red' size='4'><b>- AdminHelp Rejected! -</b></font>")
-		to_chat(initiator, "<font color='red'><b>The administrators could not resolve your ticket.</b> The adminhelp verb has been returned to you so that you may try again.</font>")
-		to_chat(initiator, "Please try to be calm, clear, and descriptive in admin helps, do not assume the admin has seen any related events, and clearly state the names of anybody you are reporting.")
+		to_chat(initiator, "<span class='adminhelp_conclusion'><span class='big'><b>Adminhelp Rejected</b></span><br/>\
+			<b>The administrators could not resolve your ticket.</b> The adminhelp verb has been returned to you so that you may try again.<br/>\
+			Please try to be calm, clear, and descriptive in admin helps, do not assume the admin has seen any related events, and clearly state the names of anybody you are reporting.<br/>\
+			Your ticket was handled by: <span class='adminooc'>[usr.ckey]</span></span>")
 
 	SSblackbox.record_feedback("tally", "ahelp_stats", 1, "rejected")
 	var/msg = "Ticket [TicketHref("#[id]")] rejected by [key_name]"
@@ -664,18 +671,17 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 	if(state > AHELP_ACTIVE)
 		return
 
-	var/msg = "<font color='red' size='4'><b>- AdminHelp marked as IC issue! -</b></font><br>"
-	msg += "<font color='red'>Your issue has been determined by an administrator to be an in character issue and does NOT require administrator intervention at this time. For further resolution you should pursue options that are in character.</font><br>"
-
-	if(initiator)
-		to_chat(initiator, msg)
-
 	SSblackbox.record_feedback("tally", "ahelp_stats", 1, "IC")
-	msg = "Ticket [TicketHref("#[id]")] marked as IC by [key_name]"
+	var/msg = "Ticket [TicketHref("#[id]")] marked as IC by [key_name]"
 	message_admins(msg)
 	log_admin_private(msg)
 	AddInteraction("red", "Marked as IC issue by [key_name]")
-	Resolve(silent = TRUE)
+	Resolve(
+		silent = TRUE,
+		status = "Resolved - IC Issue",
+		message = "An administrator has handled your ticket and has determined that the issue you are facing is an in-character issue and does not require administrator intervention at this time.<br />\
+		For further resolution, you should pursue options that are in character, such as filing a report with security or a head of staff.<br>\
+		Thank you for creating a ticket, the adminhelp verb will be returned to you shortly.<br />")
 
 	if(!bwoink)
 		discordsendmsg("ahelp", "Ticket #[id] marked as IC by [key_name(usr, include_link=0)]")
@@ -689,8 +695,9 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/admin_help_tickets, new)
 
 		SEND_SOUND(initiator, sound('sound/effects/adminhelp.ogg'))
 
-		to_chat(initiator, "<font color='red' size='4'><b>- AdminHelp Rejected! -</b></font>")
-		to_chat(initiator, "<font color='red'>This question may regard <b>game mechanics or how-tos</b>. Such questions should be asked with <b>Mentorhelp</b>.</font>")
+		to_chat(initiator, "<span class='adminhelp_conclusion'><span class='big'><b>Adminhelp Rejected</b></span><br/>\
+			This question may regard <b>game mechanics or how-tos</b>. Such questions should be asked with <b>Mentorhelp</b><br/>\
+			Your ticket was handled by: <span class='adminooc'>[usr.ckey]</span></span>")
 
 	SSblackbox.record_feedback("tally", "ahelp_stats", 1, "mhelp this")
 	var/msg = "Ticket [TicketHref("#[id]")] told to mentorhelp by [key_name]"
