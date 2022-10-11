@@ -378,7 +378,7 @@
 		guaranteed = /datum/symptom/undead_adaptation
 	else if(!(MOB_ORGANIC in H.mob_biotypes))
 		return //this mob cant be given a disease
-	if(prob min(100, (biohazard * sickrisk)))
+	if(prob (min(100, (biohazard * sickrisk))))
 		var/datum/disease/advance/scandisease = new /datum/disease/advance/random(rand(2, 4), 9, unfunny, guaranteed, infected = H)
 		scandisease.dormant = TRUE
 		scandisease.spread_flags = DISEASE_SPREAD_NON_CONTAGIOUS
