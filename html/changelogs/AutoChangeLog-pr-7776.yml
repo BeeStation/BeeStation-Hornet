@@ -1,0 +1,8 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - balance: Abductor silencer is now a passive radio jammer.
+  - balance: Abductor baton can only incapacitate a single target at a time. Attacking
+      multiple targets will result in the previous target waking up.
+  - balance: Abductors can no longer teleport into locations that are being viewed
+      by valid specimins.
