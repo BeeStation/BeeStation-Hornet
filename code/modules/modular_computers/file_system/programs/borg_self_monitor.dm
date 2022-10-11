@@ -5,7 +5,6 @@
 	ui_header = "borg_self_monitor.gif" //DEBUG -- new icon before PR
 	program_icon_state = "command"
 	requires_ntnet = FALSE
-	transfer_access = null
 	available_on_ntnet = FALSE
 	unsendable = TRUE
 	undeletable = TRUE
@@ -19,14 +18,14 @@
 	tablet = null
 	return ..()
 
-/datum/computer_file/program/borg_self_monitor/run_program(mob/living/user)
+/datum/computer_file/program/borg_self_monitor/on_start(mob/living/user)
 	if(!istype(computer, /obj/item/modular_computer/tablet/integrated))
 		to_chat(user, "<span class='warning'>A warning flashes across \the [computer]: Device Incompatible.</span>")
 		return FALSE
 	. = ..()
 	if(.)
 		tablet = computer
-		if(tablet.device_theme == "syndicate")
+		if(tablet.device_theme == THEME_SYNDICATE)
 			program_icon_state = "command-syndicate"
 		return TRUE
 	return FALSE

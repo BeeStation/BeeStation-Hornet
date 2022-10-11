@@ -12,9 +12,10 @@ import {
   Tabs,
 } from '../components';
 import { NtosWindow } from '../layouts';
+import { sanitizeText } from "../sanitize";
 
-export const NtosCyborgSelfMonitor = (props, context) => {
-  const { act, data } = useBackend(context);
+export const NtosCyborgSelfMonitor = (_, context) => {
+  const { data } = useBackend(context);
   const { PC_device_theme } = data;
   return (
     <NtosWindow width={800} height={600} theme={PC_device_theme}>
@@ -25,7 +26,7 @@ export const NtosCyborgSelfMonitor = (props, context) => {
   );
 };
 
-export const NtosCyborgSelfMonitorContent = (props, context) => {
+export const NtosCyborgSelfMonitorContent = (_, context) => {
   const { act, data } = useBackend(context);
   const [tab_main, setTab_main] = useSharedState(context, 'tab_main', 1);
   const [tab_sub, setTab_sub] = useSharedState(context, 'tab_sub', 1);
@@ -292,7 +293,10 @@ export const NtosCyborgSelfMonitorContent = (props, context) => {
                 </Fragment>
               }>
               {laws.map((law) => (
-                <Box mb={1} key={law}>
+                <Box mb={1} key={law}
+                  dangerouslySetInnerHTML={{
+                    __html: sanitizeText(law),
+                  }}>
                   {law}
                 </Box>
               ))}
