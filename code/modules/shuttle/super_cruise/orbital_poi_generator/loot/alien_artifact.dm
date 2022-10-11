@@ -359,7 +359,7 @@ GLOBAL_LIST_EMPTY(destabliization_exits)
 		return
 	var/turf/T = get_turf(warper)
 	if(T)
-		do_teleport(warper, pick(RANGE_TURFS(10, T)), channel = TELEPORT_CHANNEL_FREE)
+		do_teleport(warper, pick(RANGE_TURFS(10, T)), channel = TELEPORT_CHANNEL_BLINK)
 		next_use_world_time = world.time + 150
 
 //===================

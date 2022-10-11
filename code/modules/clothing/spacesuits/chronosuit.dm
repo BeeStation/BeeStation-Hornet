@@ -88,9 +88,8 @@
 		deltimer(phase_timer_id)
 		phase_timer_id = null
 	if(istype(user))
-		if(to_turf) // we will not be using do_teleport because spacetime
-			user.forceMove(to_turf)
-		user.SetStun(0)
+		if(do_teleport(user, to_turf, no_effects = TRUE, channel = TELEPORT_CHANNEL_FREE))
+			user.SetStun(0)
 		user.next_move = 1
 		user.alpha = 255
 		user.update_atom_colour()
@@ -153,7 +152,7 @@
 
 /obj/item/clothing/suit/space/chronos/proc/phase_3(mob/living/carbon/human/user, turf/to_turf, phase_in_ds)
 	if(teleporting && activated && user)
-		user.forceMove(to_turf)
+		do_teleport(user, to_turf, no_effects = TRUE, channel = TELEPORT_CHANNEL_FREE)
 		animate(user, color = "#00ccee", time = phase_in_ds)
 		phase_timer_id = addtimer(CALLBACK(src, .proc/phase_4, user, to_turf), phase_in_ds, TIMER_STOPPABLE)
 	else

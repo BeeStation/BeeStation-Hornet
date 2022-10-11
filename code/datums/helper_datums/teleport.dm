@@ -22,6 +22,22 @@
 		qdel(teleatom)
 		return FALSE
 
+	//Check bluespace anchors
+	if(channel != TELEPORT_CHANNEL_FREE && channel != TELEPORT_CHANNEL_WORMHOLE)
+		for (var/obj/machinery/bluespace_anchor/anchor as() in GLOB.active_bluespace_anchors)
+			//Not nearby
+			if (anchor.get_virtual_z_level() != teleatom.get_virtual_z_level() || get_dist(teleatom, anchor) > anchor.range)
+				continue
+			//Check it
+			if(!anchor.try_activate())
+				continue
+			do_sparks(5, FALSE, teleatom)
+			playsound(anchor, 'sound/magic/repulse.ogg', 80, TRUE)
+			if(ismob(teleatom))
+				to_chat(teleatom, "<span class='warning'>You feel like you are being held in place.</span>")
+			//Anchored...
+			return FALSE
+
 	// argument handling
 	// if the precision is not specified, default to 0, but apply BoH penalties
 	if (isnull(precision))
