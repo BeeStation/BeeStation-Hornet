@@ -39,6 +39,7 @@
 	health = 100
 	obj_damage = 25
 	melee_damage = 25
+	poison_per_bite = 0
 	faction = list("spiders")
 	pass_flags = PASSTABLE
 	move_to_delay = 4
@@ -332,7 +333,6 @@
 	health = 300
 	melee_damage = 45
 	obj_damage = 50
-	poison_per_bite = 0
 	move_to_delay = 5
 	speed = 5
 	web_speed = 0.5
