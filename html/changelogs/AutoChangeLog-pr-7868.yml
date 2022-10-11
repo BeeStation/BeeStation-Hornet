@@ -1,4 +1,0 @@
-author: itsmeow
-delete-after: true
-changes:
-  - admin: Removed a useless admin message for if someone has an invalid keybind set.
