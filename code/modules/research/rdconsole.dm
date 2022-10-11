@@ -160,6 +160,7 @@ Nothing else in the console has ID requirements.
 			var/i = stored_research.research_logs.len
 			stored_research.research_logs += null
 			stored_research.research_logs[++i] = list(TN.display_name, price["General Research"], logname, "[get_area(src)] ([src.x],[src.y],[src.z])")
+			SEND_GLOBAL_SIGNAL(COMSIG_GLOB_NEW_RESEARCH, id)
 			return TRUE
 		else
 			say("Failed to research node: Internal database error!")
