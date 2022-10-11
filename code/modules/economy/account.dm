@@ -125,7 +125,7 @@
 					if(bonus_per_department[D] > 0) //And we're not getting rid of debt
 						bonus_per_department[D] = 0
 
-/datum/bank_account/proc/bank_card_talk(message, force, sound=TRUE)
+/datum/bank_account/proc/bank_card_talk(message, force)
 	if(!message || !bank_cards.len)
 		return
 	for(var/obj/A in bank_cards)
