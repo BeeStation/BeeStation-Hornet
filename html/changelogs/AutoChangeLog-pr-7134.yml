@@ -1,7 +1,0 @@
-author: PowerfulBacon (Code), Azlan (Sprite)
-delete-after: true
-changes:
-  - rscadd: Adds in the bluespace anchor, an item that prevents nearby teleportations.
-  - balance: Syndicate teleporter, abductor teleports, genetic mutation warps, clockcult
-      teleports and chronosuit teleports are now on the 'blink' teleport channel,
-      meaning they can be blocked by the bluespace anchor.
