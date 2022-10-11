@@ -1,0 +1,5 @@
+author: etherware-novice
+delete-after: true
+changes:
+  - rscadd: Added a paper slip that acts as a fake id card that you can use to fake
+      identity, craftable with paper and wirecutters.
