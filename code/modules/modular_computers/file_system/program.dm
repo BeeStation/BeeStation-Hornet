@@ -213,7 +213,7 @@
 // ALWAYS INCLUDE PARENT CALL ..() OR DIE IN FIRE.
 /datum/computer_file/program/ui_act(action,params,datum/tgui/ui)
 	if(..())
-		return 1
+		return TRUE
 	if(computer)
 		if(computer.device_theme == THEME_THINKTRONIC)
 			computer.send_select_sound()
@@ -240,6 +240,7 @@
 
 				if(user && istype(user))
 					computer.ui_interact(user) // Re-open the UI on this computer. It should show the main screen now.
+				return TRUE
 
 
 /datum/computer_file/program/ui_host()
