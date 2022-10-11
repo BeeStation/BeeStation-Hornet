@@ -52,7 +52,7 @@
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 	var/busy = SPIDER_IDLE // What a spider's doing
 	var/datum/action/innate/spider/lay_web/lay_web // Web action
-	var/web_speed // How quickly a spider lays down webs
+	var/web_speed = 1 // How quickly a spider lays down webs (percentage)
 	var/directive = "" // Message passed down to children, to relay the creator's orders
 
 	do_footstep = TRUE
@@ -343,7 +343,7 @@
 	icon_dead = "tarantula_dead"
 	maxHealth = 300
 	health = 300
-	melee_damage = 45
+	melee_damage = 35
 	obj_damage = 50
 	move_to_delay = 5
 	speed = 5
