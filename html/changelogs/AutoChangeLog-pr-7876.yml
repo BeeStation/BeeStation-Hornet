@@ -1,5 +1,0 @@
-author: covertcorvid
-delete-after: true
-changes:
-  - bugfix: Fixed atmospheric technicians, shaft miners, the HOP, the HOS, and the
-      QM lacking their specialized list of mail goodies.
