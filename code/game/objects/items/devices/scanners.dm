@@ -606,10 +606,10 @@ GENE SCANNER
 			message += "<span class='notice'>Instability of the last fusion reaction: [instability].</span>"
 
 	if(to_chat)
-		to_chat(user, EXAMINE_BLOCK(jointext(message, "")), trailing_newline = FALSE, type = MESSAGE_TYPE_INFO)
+		to_chat(user, EXAMINE_BLOCK(jointext(message, "\n")), trailing_newline = FALSE, type = MESSAGE_TYPE_INFO)
 		return TRUE
 	else
-		return(jointext(message, ""))
+		return(jointext(message, "\n"))
 
 /obj/item/analyzer/proc/scan_turf(mob/user, turf/location)
 	var/list/message = list()
