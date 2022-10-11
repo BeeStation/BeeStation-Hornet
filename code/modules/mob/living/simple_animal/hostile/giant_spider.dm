@@ -84,6 +84,18 @@
 		log_game("[key_name(src)] took control of [name] with the objective: '[directive]'.")
 	return TRUE
 
+// Allows spiders to take damage slowdown. 2 max, but they don't start moving slower until under 75% health
+/mob/living/simple_animal/hostile/poison/giant_spider/updatehealth()
+	. = ..()
+	if(HAS_TRAIT(src, TRAIT_IGNOREDAMAGESLOWDOWN))
+		remove_movespeed_modifier(MOVESPEED_ID_DAMAGE_SLOWDOWN)
+		return
+	var/health_percentage = round((health / maxHealth) * 100)
+	if(health_percentage <= 75)
+		add_movespeed_modifier(MOVESPEED_ID_DAMAGE_SLOWDOWN, override = TRUE, multiplicative_slowdown = ((100 - health_percentage) / 50), blacklisted_movetypes = FLOATING|FLYING)
+	else
+		remove_movespeed_modifier(MOVESPEED_ID_DAMAGE_SLOWDOWN)
+
 /mob/living/simple_animal/hostile/poison/giant_spider/handle_automated_action()
 	if(!..()) //AIStatus is off
 		return FALSE
