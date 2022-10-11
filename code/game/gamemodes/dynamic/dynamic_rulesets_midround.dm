@@ -700,7 +700,7 @@
 	antag_flag_override = ROLE_ALIEN
 	midround_ruleset_style = MIDROUND_RULESET_STYLE_HEAVY
 	required_type = /mob/dead/observer
-	enemy_roles = list("Security Officer", "Detective", "Head of Security", "Captain")
+	enemy_roles = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_DETECTIVE, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN)
 	required_enemies = list(2,2,1,1,1,0,0,0,0,0)
 	required_candidates = 2
 	weight = 5
@@ -718,7 +718,8 @@
 				continue // No parent vent
 			if(temp_vent_parent.other_atmosmch.len > 20)
 				vents += temp_vent // Makes sure the pipeline is large enough
-	if(!vents.len)
+	if(!length(vents))
+		log_game("DYNAMIC: [ruletype] ruleset [name] execute failed due to no valid spawn locations.")
 		return FALSE
 	. = ..()
 
