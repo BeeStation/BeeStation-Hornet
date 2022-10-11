@@ -291,7 +291,7 @@
 	QDEL_NULL(letmetalkpls)
 	return ..()
 
-// Hunters have a decent amount of poison and have decent general stats, making them offensive spiders. They're a biut squishier
+// Hunters have a decent amount of poison and have decent general stats, making them offensive spiders. They're a bit squishier
 // than regular spiders, though
 /mob/living/simple_animal/hostile/poison/giant_spider/hunter
 	name = "hunter"
