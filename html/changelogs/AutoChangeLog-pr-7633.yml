@@ -1,0 +1,4 @@
+author: etherware-novice
+delete-after: true
+changes:
+  - tweak: lathes/techfabs/etc light up when theres new research designs
