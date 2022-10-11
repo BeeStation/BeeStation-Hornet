@@ -273,7 +273,8 @@
 	base.Insert(back, dir = NORTH)//Insert faces into the base
 
 	//Mix in GAG color
-	base.Blend(greyscale_colors, ICON_MULTIPLY)
+	if(greyscale_colors)
+		base.Blend(greyscale_colors, ICON_MULTIPLY)
 
 	//Finished!
 	monkey_icon = base

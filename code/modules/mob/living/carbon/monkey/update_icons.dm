@@ -123,13 +123,13 @@
 
 	remove_overlay(c_layer)
 
-	if(client && hud_used)
+	if(client && hud_used.hud_shown)
 		var/atom/movable/screen/inventory/inv = hud_used.inv_slots[TOBITSHIFT(slot) + 1]
 		inv.update_icon()
-
-	if(client && hud_used.hud_shown)
-		U.screen_loc = ui
 		client.screen += U
+
+	if(U)
+		U.screen_loc = ui
 		var/mutable_appearance/cloth_overlay = mutable_appearance(U.monkey_icon, layer = -c_layer)
 		if(offset in dna.species.offset_features)
 			cloth_overlay.pixel_x += dna.species.offset_features[offset][1]
