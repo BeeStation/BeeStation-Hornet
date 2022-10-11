@@ -1,4 +1,0 @@
-author: DrDuckedGoose
-delete-after: true
-changes:
-  - bugfix: Fix monkey clothing not generating on strip menu interactions
