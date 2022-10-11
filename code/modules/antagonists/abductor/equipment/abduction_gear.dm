@@ -257,40 +257,11 @@
 	icon_state = "silencer"
 	item_state = "gizmo"
 
-/obj/item/abductor/silencer/attack(mob/living/M, mob/user)
-	if(!AbductorCheck(user))
-		return
-	radio_off(M, user)
-
-/obj/item/abductor/silencer/afterattack(atom/target, mob/living/user, flag, params)
+/obj/item/abductor/silencer/ComponentInitialize()
 	. = ..()
-	if(flag)
-		return
-	if(!AbductorCheck(user))
-		return
-	radio_off(target, user)
-
-/obj/item/abductor/silencer/proc/radio_off(atom/target, mob/living/user)
-	if(!(user in (viewers(7, target))))
-		return
-
-	var/turf/targloc = get_turf(target)
-
-	for(var/mob/living/carbon/human/M in hearers(2,targloc))
-		if(M == user)
-			continue
-		to_chat(user, "<span class='notice'>You silence [M]'s radio devices.</span>")
-		radio_off_mob(M)
-
-/obj/item/abductor/silencer/proc/radio_off_mob(mob/living/carbon/human/M)
-	var/list/all_items = M.GetAllContents()
-
-	for(var/obj/I in all_items)
-		if(istype(I, /obj/item/radio/))
-			var/obj/item/radio/r = I
-			r.listening = 0
-			if(!istype(I, /obj/item/radio/headset))
-				r.broadcasting = 0 //goddamned headset hacks
+	//Activate the jammer
+	var/datum/component/radio_jamming/added_component = AddComponent(/datum/component/radio_jamming)
+	added_component.enable()
 
 /obj/item/abductor/mind_device
 	name = "mental interface device"
@@ -442,6 +413,8 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	force = 7
 	w_class = WEIGHT_CLASS_NORMAL
 	actions_types = list(/datum/action/item_action/toggle_mode)
+	//The mob we are currently incapacitating.
+	var/mob/current_target
 
 /obj/item/abductor/baton/proc/toggle(mob/living/user=usr)
 	mode = (mode+1)%BATON_MODES
@@ -458,6 +431,21 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 
 	to_chat(usr, "<span class='notice'>You switch the baton to [txt] mode.</span>")
 	update_icon()
+
+/obj/item/abductor/baton/examine(mob/user)
+	. = ..()
+	if (!isabductor(user))
+		return
+	. += "The device emits active neuro-impulses capable of stunning up to a single target at a time."
+	switch(mode)
+		if(BATON_STUN)
+			. += "<span class='warning'>The baton is in stun mode.</span>"
+		if(BATON_SLEEP)
+			. += "<span class='warning'>The baton is in sleep inducement mode.</span>"
+		if(BATON_CUFF)
+			. += "<span class='warning'>The baton is in restraining mode.</span>"
+		if(BATON_PROBE)
+			. += "<span class='warning'>The baton is in probing mode.</span>"
 
 /obj/item/abductor/baton/update_icon()
 	switch(mode)
@@ -518,6 +506,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 								"<span class='userdanger'>You feel a slight tickle where [src] touches you!</span>")
 		return
 	L.Paralyze(140)
+	switch_target(L)
 	L.apply_effect(EFFECT_STUTTER, 7)
 	SEND_SIGNAL(L, COMSIG_LIVING_MINOR_SHOCK)
 
@@ -543,6 +532,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 							"<span class='userdanger'>You suddenly feel very drowsy!</span>")
 		playsound(src, 'sound/weapons/egloves.ogg', 50, TRUE, -1)
 		L.Sleeping(1200)
+		switch_target(L)
 		log_combat(user, L, "put to sleep")
 	else
 		if(istype(L.get_item_by_slot(ITEM_SLOT_HEAD), /obj/item/clothing/head/foilhat))
@@ -599,6 +589,40 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	to_chat(user, "<span class='notice'>Probing result:</span>[species]")
 	to_chat(user, "[helptext]")
 
+/// Switch a target, freeing our old target
+/obj/item/abductor/baton/proc/switch_target(mob/new_target)
+	if (current_target == new_target)
+		return
+	if (current_target)
+		//Free the target
+		if (isliving(current_target))
+			var/mob/living/L = current_target
+			L.SetParalyzed(0)
+			L.SetSleeping(0)
+		//Unregister them
+		unregister_target()
+	current_target = new_target
+	if (current_target)
+		RegisterSignal(current_target, COMSIG_PARENT_QDELETING, .proc/unregister_target)
+		START_PROCESSING(SSprocessing, src)
+
+/// Called when a target is deleted
+/obj/item/abductor/baton/proc/unregister_target()
+	SIGNAL_HANDLER
+	UnregisterSignal(current_target, COMSIG_PARENT_QDELETING)
+	current_target = null
+	STOP_PROCESSING(SSprocessing, src)
+
+/obj/item/abductor/baton/process(delta_time)
+	if (!current_target)
+		return PROCESS_KILL
+	var/mob/living/L = current_target
+	if (!istype(L))
+		return
+	//If our target is not paralysed or sleeping, they are already free
+	if (!L.IsParalyzed() && !L.IsSleeping())
+		unregister_target()
+
 /obj/item/restraints/handcuffs/energy
 	name = "hard-light energy field"
 	desc = "A hard-light field restraining the hands."
@@ -619,18 +643,6 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	S.set_up(4,0,user.loc)
 	S.start()
 	..()
-
-/obj/item/abductor/baton/examine(mob/user)
-	. = ..()
-	switch(mode)
-		if(BATON_STUN)
-			. += "<span class='warning'>The baton is in stun mode.</span>"
-		if(BATON_SLEEP)
-			. += "<span class='warning'>The baton is in sleep inducement mode.</span>"
-		if(BATON_CUFF)
-			. += "<span class='warning'>The baton is in restraining mode.</span>"
-		if(BATON_PROBE)
-			. += "<span class='warning'>The baton is in probing mode.</span>"
 
 /obj/item/radio/headset/abductor
 	name = "alien headset"
