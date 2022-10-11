@@ -1,7 +1,0 @@
-author: Absolutely-Steph
-delete-after: true
-changes:
-  - rscdel: Removed old Health Analyzers from most medkits and made them less accessible
-      in vendor.
-  - tweak: Tweaked some Medkit Items.
-  - rscadd: Health analyzers now have their own research nodes and need to be unlocked.
