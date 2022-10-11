@@ -187,7 +187,7 @@
 		if(is_type_in_list(target, charge_machines))
 			var/obj/machinery/M = target
 
-			if((M.stat & (NOPOWER|BROKEN)) || !M.anchored)
+			if((M.machine_stat & (NOPOWER|BROKEN)) || !M.anchored)
 				to_chat(user, "<span class='warning'>[M] is unpowered!</span>")
 				return
 
@@ -296,7 +296,7 @@
 				active = FALSE
 				return
 
-			if((M.stat & (NOPOWER|BROKEN)) || !M.anchored)
+			if((M.machine_stat & (NOPOWER|BROKEN)) || !M.anchored)
 				break
 
 			if(!user.cell.give(150))
@@ -886,6 +886,8 @@
 
 //Alt click drops stored item
 /obj/item/borg/apparatus/AltClick(mob/living/silicon/robot/user)
+	if(!user.canUseTopic(src, BE_CLOSE))
+		return
 	if(!stored)
 		return ..()
 	stored.forceMove(get_turf(user))

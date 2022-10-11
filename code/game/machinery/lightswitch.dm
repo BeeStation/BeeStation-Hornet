@@ -25,7 +25,7 @@
 	update_icon()
 
 /obj/machinery/light_switch/update_icon()
-	if(stat & NOPOWER)
+	if(machine_stat & NOPOWER)
 		icon_state = "light-p"
 	else
 		if(area.lightswitch)
@@ -52,9 +52,9 @@
 /obj/machinery/light_switch/power_change()
 	if(area == get_area(src))
 		if(powered(AREA_USAGE_LIGHT))
-			stat &= ~NOPOWER
+			set_machine_stat(machine_stat & ~NOPOWER)
 		else
-			stat |= NOPOWER
+			set_machine_stat(machine_stat | NOPOWER)
 
 		update_icon()
 
@@ -62,7 +62,7 @@
 	. = ..()
 	if (. & EMP_PROTECT_SELF)
 		return
-	if(!(stat & (BROKEN|NOPOWER)))
+	if(!(machine_stat & (BROKEN|NOPOWER)))
 		power_change()
 
 /obj/machinery/light_switch/eminence_act(mob/living/simple_animal/eminence/eminence)

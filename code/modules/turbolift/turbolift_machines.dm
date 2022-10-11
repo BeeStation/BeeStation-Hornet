@@ -25,7 +25,7 @@ GLOBAL_LIST_EMPTY(turbolifts)
 	floor_id = "[shuttle_id]_[src.z]"
 
 /obj/machinery/turbolift_button/attack_hand(mob/user)
-	if (stat & NOPOWER)
+	if (machine_stat & NOPOWER)
 		to_chat(user, "<span class='warning'>[src] does not respond.</span>")
 	if(!shuttle_id || !floor_id)
 		say("An unexpected error has occured. Please contact a Nanotrasen Turbolift Repair Technician.")

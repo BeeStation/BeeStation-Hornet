@@ -292,7 +292,7 @@ GLOBAL_LIST_EMPTY(custom_shuttle_machines)		//Machines that require updating (He
 	if(recorded_origin != new_origin)
 		recorded_origin = new_origin
 		. = TRUE
-	var/dir_hash = BitCount((port.dir - 1)^port.dir) //Some fun bitwise manipulation, dir for ports is expected to be in a cardinal direction, which is a power of two in the bitfield, so use the binary log + 1 as the key
+	var/dir_hash = bit_count((port.dir - 1)^port.dir) //Some fun bitwise manipulation, dir for ports is expected to be in a cardinal direction, which is a power of two in the bitfield, so use the binary log + 1 as the key
 	var/turf/new_exit = get_offset_target_turf(recorded_origin, CARDINAL_DIRECTIONS_X[dir_hash], CARDINAL_DIRECTIONS_Y[dir_hash]) //Get the turf away from the airlock
 	if(exit != new_exit)
 		exit = new_exit

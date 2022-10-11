@@ -1011,6 +1011,14 @@
 	category = CAT_MISC
 	tools = list(TOOL_WIRECUTTER)
 
+/datum/crafting_recipe/paperslip
+	name = "Paper Slip"
+	result = /obj/item/card/id/paper
+	time = 1 SECONDS
+	reqs = list(/obj/item/paper = 5)
+	category = CAT_MISC
+	tools = list(TOOL_WIRECUTTER)
+  
 /datum/crafting_recipe/basic_lasso
 	name= "Basic Lasso"
 	result = /obj/item/mob_lasso

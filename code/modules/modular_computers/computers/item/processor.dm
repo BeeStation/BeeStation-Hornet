@@ -65,5 +65,8 @@
 /obj/item/modular_computer/processor/alert_call(datum/computer_file/program/caller, alerttext)
 	if(!caller || !caller.alert_able || caller.alert_silenced || !alerttext)
 		return
-	playsound(src, 'sound/machines/twobeep_high.ogg', 50, TRUE)
+	var/sound = 'sound/machines/twobeep_high.ogg'
+	if(HAS_TRAIT(SSstation, STATION_TRAIT_PDA_GLITCHED))
+		sound = pick('sound/machines/twobeep_voice1.ogg', 'sound/machines/twobeep_voice2.ogg')
+	playsound(src, sound, 50, TRUE)
 	machinery_computer.visible_message("<span class='notice'>The [src] displays a [caller.filedesc] notification: [alerttext]</span>")

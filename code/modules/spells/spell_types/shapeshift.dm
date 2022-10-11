@@ -148,7 +148,7 @@
 	else
 		restore()
 
-/obj/shapeshift_holder/proc/restore(death=FALSE, convert_damage = FALSE)
+/obj/shapeshift_holder/proc/restore(death=FALSE, convert_damage = TRUE)
 	if(!stored) //somehow this proc is getting called twice and it runtimes on the second pass because stored has been hit with qdel()
 		return FALSE
 	restoring = TRUE
@@ -159,7 +159,7 @@
 		shape.mind.transfer_to(stored)
 	if(death)
 		stored.death()
-	else if(convert_damage || istype(source) && source.convert_damage)
+	else if(convert_damage || (istype(source) && source.convert_damage))
 		var/original_blood_volume = stored.blood_volume
 		stored.revive(full_heal = TRUE)
 
@@ -168,7 +168,8 @@
 
 		stored.apply_damage(damapply, (istype(source) ? source.convert_damage_type : BRUTE), forced = TRUE) //brute is the default damage convert
 		stored.blood_volume = original_blood_volume
-	qdel(shape)
+	if(!QDELETED(shape))
+		qdel(shape)
 	qdel(src)
 
 /datum/soullink/shapeshift
