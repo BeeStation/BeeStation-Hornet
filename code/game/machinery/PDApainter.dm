@@ -168,6 +168,9 @@
 		update_icon()
 
 	else if(istype(O, /obj/item/card/id))
+		var/obj/item/card/id/new_id = O
+		if(!new_id.electric)
+			return
 		if(storedid)
 			to_chat(user, "<span class='warning'>There is already an ID card inside!</span>")
 			return
