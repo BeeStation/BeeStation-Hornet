@@ -57,15 +57,15 @@ As a Chemist, you can make 100u bottles from plastic sheets. The ChemMaster can 
 As a Chemist, you can recharge your chemical dispenser with an inducer or by replacing its cell.
 As a Chemist, Water and Potassium mixed together will create an explosion, with power scaling by amount used. Don't do it.
 As a Chemist, you can create more Bruise Packs and Burn Ointments by using the crafting menu.
-As a Chemist, you can use alternative sources for chemicals other than your chemical dispencer. For example, setting a sheet of paper on fire will create a pile of Ash which you then can scoop up with your beaker. Experiment!
+As a Chemist, you can use alternative sources for chemicals other than your chemical dispenser. For example, setting a sheet of paper on fire will create a pile of Ash which you then can scoop up with your beaker. Experiment!
 As a Geneticist, you can eject someone from cloning early by disabling power in genetics. Note that they will suffer more genetic damage and may lose vital organs from this.
 As a Geneticist, T goes to A, and G goes to C.
 As a Geneticist, becoming a hulk makes you capable of dealing high melee damage, stunlocking people, and punching through walls. However, you can't fire guns, will lose your hulk status if you go into critical condition, and are not considered a human by the AI while you are a hulk.
 As a Geneticist, you have to power to make superhumans. Be aware, going over 99 instability WILL cause side effects.
-As a Geneticist, you can obtain chromosomes by activating mutations. You can then use these chromosomes to ehnance certain mutations.
-As a Paramedic, it is a good idea to purchase a handheld crew monitor and to keep it open at all times.
+As a Geneticist, you can obtain chromosomes by activating mutations by recycling used activators through your console or activating mutatins with the console. You can then use these chromosomes to ehnance certain mutations.
+As a Paramedic, it is a good idea to keep your handheld crew monitor's inferface open at all times.
 As a Paramedic, you have access to EVA. Use it to save people who received grievous injuries in space.
-As a Paramedic, you should use other methods of transporting bodies that aren't simply dragging them on the floor : fireman carrying, roller beds, body bags, lockers, etc.
+As a Paramedic, you should use other methods of transporting bodies that aren't dragging them on the floor : fireman carrying, roller beds, body bags, lockers, etc. Simply dragging the body around drains its blood and leaves a bloody trail behind.
 As the Virologist, your viruses can range from healing powers so great that you can heal out of critical status, or diseases so dangerous they can kill the entire crew with highly contagious spontaneous combustion. Experiment!
 As the Virologist, you only require small amounts of vaccine to heal a sick patient. Work with the Chemist to distribute your cures more efficiently.
 As the Virologist, you can massively boost the stage progression speed of a virus inside a person by injecting them with pure virus food.
@@ -186,7 +186,7 @@ As a Cargo Technician, you can get back some points by stamping the manifest fro
 As the Quartermaster, be sure to check the manifests on crates you receive to make sure all the info is correct. If there's a mistake, stamp the manifest DENIED and send it back in a crate with the items untouched for a refund!
 As the Quartermaster, you can access the Vault by using the supply door remote found in your locker.
 As the Quartermaster, you can construct an express supply console that instantly delivers crates by drop pod. The impact will cause a small explosion as well.
-As the Quartermaster, you can check the Ore Silo logs using your PDA to find out when, where and how many materials were withdrawn or added to it.
+As the Quartermaster, you can check the Ore Silo logs using your PDA's Log Viewer to find out when, where and how many materials were withdrawn or added to it.
 As a Shaft Miner, the northern side of Lavaland has a lot more rare minerals than on the south.
 As a Shaft Miner, every monster on Lavaland has a pattern you can exploit to minimize damage from the encounters.
 As a Shaft Miner, you can harvest goliath plates from goliaths and upgrade your explorer's suit, mining hardsuits as well as Firefighter APLUs with them, greatly reducing incoming melee damage.
