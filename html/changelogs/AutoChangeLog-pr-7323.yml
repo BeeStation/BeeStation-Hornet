@@ -1,0 +1,8 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - balance: Spirit realm ghosts can no longer summon nar'sie
+  - balance: Spirit realm ghosts can no longer apocalypse
+  - bugfix: Fixes battle of the gods ending not summoning nar'sie on clockcult defeat.
+  - bugfix: Fixes cult ghosts being able to summon more cult ghosts due to a bug in
+      the status effect.
