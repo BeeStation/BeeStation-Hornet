@@ -735,6 +735,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			dat += "<b>Window Flashing:</b> <a href='?_src_=prefs;preference=winflash'>[(toggles2 & PREFTOGGLE_2_WINDOW_FLASHING) ? "Enabled":"Disabled"]</a><br>"
 			dat += "<br>"
 			dat += "<b>Play Admin MIDIs:</b> <a href='?_src_=prefs;preference=hear_midis'>[(toggles & PREFTOGGLE_SOUND_MIDI) ? "Enabled":"Disabled"]</a><br>"
+			dat += "<b>Hide Member Badges:</b> <a href='?_src_=prefs;preference=hide_tags'>[(chat_toggles & CHAT_HIDE_TAGS) ? "Enabled" : "Disabled"]</a><br>"
 			dat += "<b>Play Lobby Music:</b> <a href='?_src_=prefs;preference=lobby_music'>[(toggles & PREFTOGGLE_SOUND_LOBBY) ? "Enabled":"Disabled"]</a><br>"
 			dat += "<b>See Pull Requests:</b> <a href='?_src_=prefs;preference=pull_requests'>[(chat_toggles & CHAT_PULLR) ? "Enabled":"Disabled"]</a><br>"
 			dat += "<br>"
@@ -1773,6 +1774,9 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 				if("hear_midis")
 					toggles ^= PREFTOGGLE_SOUND_MIDI
+
+				if("hide_tags")
+					chat_toggles ^= CHAT_HIDE_TAGS
 
 				if("lobby_music")
 					toggles ^= PREFTOGGLE_SOUND_LOBBY
