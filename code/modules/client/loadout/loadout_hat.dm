@@ -73,7 +73,7 @@
 /datum/gear/hat/cowboy
 	display_name = "cowboy hat"
 	path = /obj/item/clothing/head/cowboy
-	description = "Yee haw, pardner! Wear this hat to show them no good greytide whos boss!"
+	description = "Yee haw, pardner! Wear this hat to show them no good greytide who's boss!"
 	cost = 1000
 
 /datum/gear/hat/cowboy/slime
