@@ -88,7 +88,6 @@
 
 	new /obj/item/clothing/suit/bio_suit/cmo(src)
 	new /obj/item/clothing/head/bio_hood/cmo(src)
-
 	new /obj/item/clothing/neck/petcollar(src)
 	new /obj/item/pet_carrier(src)
 	new /obj/item/storage/photo_album/CMO(src)
@@ -96,7 +95,7 @@
 	new /obj/item/storage/box/radiokey/med(src)
 	new /obj/item/storage/box/command_keys(src)
 	new /obj/item/megaphone/command(src)
-	new /obj/item/cartridge/cmo(src)
+	new /obj/item/computer_hardware/hard_drive/role/cmo(src)
 	new /obj/item/storage/lockbox/medal/med(src)
 
 	new /obj/item/circuitboard/machine/techfab/department/medical(src)

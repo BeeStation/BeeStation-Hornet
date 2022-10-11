@@ -6,7 +6,9 @@
 	w_class = WEIGHT_CLASS_TINY
 	device_type = MC_CARD
 
-	var/obj/item/card/id/stored_card = null
+	var/obj/item/card/id/stored_card
+	var/current_identification
+	var/current_job
 
 /obj/item/computer_hardware/card_slot/handle_atom_del(atom/A)
 	if(A == stored_card)
@@ -46,6 +48,11 @@
 	if(!istype(I, /obj/item/card/id))
 		return FALSE
 
+	var/obj/item/card/id/newcard = I
+	if(!newcard.electric)
+		to_chat(user, "<span class='warning'>You attempt to jam \the [I] into \the [expansion_hw ? "secondary":"primary"] [src]. It doesn't fit.")
+		return
+
 	if(stored_card)
 		return FALSE
 
@@ -65,7 +72,10 @@
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		H.sec_hud_set_ID()
-
+	current_identification = stored_card.registered_name
+	current_job = stored_card.assignment
+	holder?.on_id_insert()
+	holder?.update_icon()
 	return TRUE
 
 
@@ -88,10 +98,15 @@
 			var/datum/computer_file/program/computer_program = p
 			computer_program.event_idremoved(1)
 	if(ishuman(user))
-		var/mob/living/carbon/human/human_user = user
-		human_user.sec_hud_set_ID()
+		var/mob/living/carbon/human/human_wearer = user
+		if(human_wearer.wear_id == holder)
+			human_wearer.sec_hud_set_ID()
 	to_chat(user, "<span class='notice'>You remove the card from \the [src].</span>")
 	playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, FALSE)
+	stored_card = null
+	current_identification = null
+	current_job = null
+	holder?.update_icon()
 	return TRUE
 
 /obj/item/computer_hardware/card_slot/attackby(obj/item/I, mob/living/user)
@@ -103,7 +118,7 @@
 			try_eject(user)
 			return
 		swap_slot()
-		to_chat(user, "<span class='notice'>You adjust the connecter to fit into [expansion_hw ? "an expansion bay" : "the primary ID bay"].</span>")
+		to_chat(user, "<span class='notice'>You adjust the connector to fit into [expansion_hw ? "an expansion bay" : "the primary ID bay"].</span>")
 
 /**
   *Swaps the card_slot hardware between using the dedicated card slot bay on a computer, and using an expansion bay.

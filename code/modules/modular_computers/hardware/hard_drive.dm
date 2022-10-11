@@ -8,14 +8,30 @@
 	device_type = MC_HDD
 	var/max_capacity = 128
 	var/used_capacity = 0
-	var/list/stored_files = list()		// List of stored files on this drive. DO NOT MODIFY DIRECTLY!
+	/// List of stored files on this drive. DO NOT MODIFY DIRECTLY!
+	var/list/stored_files = list()
+	/// If we should install the default programs
+	var/default_installs = TRUE
+	/// If the drive has been installed before (used to prevent re-setting initial ringtone)
+	var/has_been_installed = FALSE
+	/// List of airlocks this disk can control with program/remote_airlock
+	var/list/controllable_airlocks
 
 /obj/item/computer_hardware/hard_drive/on_remove(obj/item/modular_computer/remove_from, mob/user)
 	remove_from.shutdown_computer()
 
+/obj/item/computer_hardware/hard_drive/on_install(obj/item/modular_computer/install_into, mob/living/user)
+	// We don't want to install again if they remove the drive
+	if(has_been_installed)
+		return
+	has_been_installed = TRUE
+	// Add default programs now, instead of Initialize (this is important so they have a reference to "holder" and thus "computer")
+	if(default_installs)
+		install_default_programs()
+
 /obj/item/computer_hardware/hard_drive/proc/install_default_programs()
-	store_file(new/datum/computer_file/program/computerconfig(src)) 	// Computer configuration utility, allows hardware control and displays more info than status bar
 	store_file(new/datum/computer_file/program/ntnetdownload(src))		// NTNet Downloader Utility, allows users to download more software from NTNet repository
+	store_file(new/datum/computer_file/program/computerconfig(src)) 	// Computer configuration utility, allows hardware control and displays more info than status bar
 	store_file(new/datum/computer_file/program/filemanager(src))		// File manager, allows text editor functions and basic file manipulation.
 
 /obj/item/computer_hardware/hard_drive/examine(user)
@@ -47,6 +63,9 @@
 		return 0
 
 	F.holder = src
+	if(holder && istype(F, /datum/computer_file/program))
+		var/datum/computer_file/program/P = F
+		P.computer = holder
 	stored_files.Add(F)
 	recalculate_size()
 	return 1
@@ -120,11 +139,6 @@
 	QDEL_LIST(stored_files)
 	return ..()
 
-/obj/item/computer_hardware/hard_drive/Initialize(mapload)
-	. = ..()
-	install_default_programs()
-
-
 /obj/item/computer_hardware/hard_drive/advanced
 	name = "advanced hard disk drive"
 	desc = "A hybrid HDD, for use in higher grade computers where balance between power efficiency and capacity is desired."
@@ -159,12 +173,31 @@
 	w_class = WEIGHT_CLASS_TINY
 	custom_price = 15
 
-// For borg integrated tablets. No downloader.
-/obj/item/computer_hardware/hard_drive/small/integrated/install_default_programs()
-	store_file(new /datum/computer_file/program/computerconfig(src)) 	// Computer configuration utility, allows hardware control and displays more info than status bar
-	store_file(new /datum/computer_file/program/filemanager(src))		// File manager, allows text editor functions and basic file manipulation.
-	store_file(new /datum/computer_file/program/borg_self_monitor(src))
+/obj/item/computer_hardware/hard_drive/small/install_default_programs()
+	store_file(new /datum/computer_file/program/messenger(src))
+	store_file(new /datum/computer_file/program/notepad(src))
+	..()
 
+/obj/item/computer_hardware/hard_drive/small/on_install(obj/item/modular_computer/install_into, mob/living/user = null)
+	. = ..()
+	if(!.)
+		return
+	// Set the default ringtone
+	for(var/datum/computer_file/program/messenger/messenger in stored_files)
+		messenger.ringer_status = install_into.init_ringer_on
+		messenger.ringtone = install_into.init_ringtone
+
+
+// For borg integrated tablets. No downloader.
+/obj/item/computer_hardware/hard_drive/small/ai/install_default_programs()
+	var/datum/computer_file/program/messenger/messenger = new(src)
+	messenger.is_silicon = TRUE
+	store_file(messenger)
+
+/obj/item/computer_hardware/hard_drive/small/robot/install_default_programs()
+	store_file(new /datum/computer_file/program/borg_self_monitor(src))
+	store_file(new /datum/computer_file/program/computerconfig(src)) // Computer configuration utility, allows hardware control and displays more info than status bar
+	store_file(new /datum/computer_file/program/filemanager(src)) // File manager, allows text editor functions and basic file manipulation.
 
 // Syndicate variant - very slight better
 /obj/item/computer_hardware/hard_drive/small/syndicate
@@ -177,12 +210,15 @@
 /obj/item/computer_hardware/hard_drive/small/nukeops
 	power_usage = 8
 	max_capacity = 70
+	// Make sure this matches the syndicate shuttle's shield/door id in _maps/shuttles/infiltrator/infiltrator_basic.dmm
+	controllable_airlocks = list("smindicate")
 
 /obj/item/computer_hardware/hard_drive/small/nukeops/install_default_programs()
-	store_file(new/datum/computer_file/program/computerconfig(src))
-	store_file(new/datum/computer_file/program/ntnetdownload/syndicate(src)) // Syndicate version; automatic access to syndicate apps and no NT apps
-	store_file(new/datum/computer_file/program/filemanager(src))
-	store_file(new/datum/computer_file/program/radar/fission360(src)) //I am legitimately afraid if I don't do this, Ops players will think they just don't get a pinpointer anymore.
+	store_file(new /datum/computer_file/program/computerconfig(src))
+	store_file(new /datum/computer_file/program/ntnetdownload/syndicate(src)) // Syndicate version; automatic access to syndicate apps and no NT apps
+	store_file(new /datum/computer_file/program/filemanager(src))
+	store_file(new /datum/computer_file/program/radar/fission360(src)) //I am legitimately afraid if I don't do this, Ops players will think they just don't get a pinpointer anymore.
+	store_file(new /datum/computer_file/program/remote_airlock(src)) // Remote control for the shuttle door
 	store_file(new/datum/computer_file/program/borg_monitor/syndicate(src))
 
 /obj/item/computer_hardware/hard_drive/micro

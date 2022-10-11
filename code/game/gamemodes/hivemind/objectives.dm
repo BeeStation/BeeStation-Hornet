@@ -72,6 +72,11 @@
 	else
 		explanation_text = "Free Objective"
 
+/datum/objective/hivemind/awaken/is_valid_target(datum/mind/possible_target)
+	. = ..()
+	if(possible_target.has_antag_datum(/datum/antagonist/hivemind))
+		return FALSE
+
 /datum/objective/hivemind/awaken/check_completion()
 	var/datum/antagonist/hivemind/host = owner.has_antag_datum(/datum/antagonist/hivemind)
 	if(!host)

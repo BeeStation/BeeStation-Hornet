@@ -301,10 +301,12 @@
 		id.assignment = JOB_NAME_CAPTAIN
 		id.update_label()
 		if(worn)
-			if(istype(worn, /obj/item/pda))
-				var/obj/item/pda/PDA = worn
-				PDA.id = id
-				id.forceMove(worn)
+			if(istype(worn, /obj/item/modular_computer/tablet/pda))
+				var/obj/item/modular_computer/tablet/pda/PDA = worn
+				var/obj/item/computer_hardware/card_slot/card = PDA.all_components[MC_CARD]
+				card.try_eject(user, TRUE) // return their ID because we are nice
+				if(card)
+					card.try_insert(id, user)
 			else if(istype(worn, /obj/item/storage/wallet))
 				var/obj/item/storage/wallet/W = worn
 				W.front_id = id

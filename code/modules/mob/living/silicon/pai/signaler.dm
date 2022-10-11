@@ -1,3 +1,4 @@
+// Formerly [code/game/objects/items/devices/PDA/radio.dm]
 // Radio Cartridge, essentially a remote signaler with limited spectrum.
 /obj/item/integrated_signaler
 	name = "\improper PDA radio module"
