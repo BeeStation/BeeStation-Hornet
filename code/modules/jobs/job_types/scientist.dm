@@ -27,7 +27,7 @@
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/science
 	)
-	biohazard = 15
+	biohazard = 35
 
 /datum/outfit/job/scientist
 	name = JOB_NAME_SCIENTIST
