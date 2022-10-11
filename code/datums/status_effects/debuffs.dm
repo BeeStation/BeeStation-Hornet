@@ -291,6 +291,7 @@
 /datum/status_effect/cultghost/on_apply()
 	owner.see_invisible = SEE_INVISIBLE_OBSERVER
 	owner.see_in_dark = 2
+	return ..()
 
 /datum/status_effect/cultghost/tick()
 	if(owner.reagents)
