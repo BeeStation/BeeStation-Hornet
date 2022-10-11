@@ -495,7 +495,7 @@ If you're feeling frisky, examine yourself and click the underlined item to pull
 
 /atom/movable/screen/alert/cancharge
 	name = "Charge Ready"
-	desc = "You are ready to charge to a location!"
+	desc = "You are ready to charge at a location!"
 	icon_state = "guardian_charge"
 	alerttooltipstyle = "parasite"
 

@@ -112,7 +112,7 @@
 /datum/material/bananium
 	name = "bananium"
 	id = "bananium"
-	desc = "A crystallized...banana? It doesn't seem slippery, at least."
+	desc = "A crystallized... banana? It doesn't seem slippery, at least."
 	color = "#fff263"
 	greyscale_colors = "#fff263"
 	categories = list(MAT_CATEGORY_ORE = TRUE, MAT_CATEGORY_RIGID = TRUE)
@@ -134,7 +134,7 @@
 /datum/material/titanium
 	name = "titanium"
 	id = "titanium"
-	desc = "A piece of titanium, no way you're breaking this. Its quite shiny."
+	desc = "A piece of titanium, no way you're breaking this. It's quite shiny."
 	color = "#b3c0c7"
 	greyscale_colors = "#b3c0c7"
 	strength_modifier = 1.3

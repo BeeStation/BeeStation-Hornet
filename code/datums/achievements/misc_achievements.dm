@@ -3,7 +3,7 @@
 
 /datum/award/achievement/misc/meteor_examine
 	name = "Your Life Before Your Eyes"
-	desc = "Take a close look at the hurtling space debris, it may be your last"
+	desc = "Take a close look at hurtling space debris"
 	database_id = MEDAL_METEOR
 	reward = 1000
 

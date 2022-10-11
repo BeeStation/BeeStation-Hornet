@@ -215,7 +215,7 @@
 	set name = "Remember The Basics"
 	set desc = "You try to remember the basics of CQC."
 	set category = "CQC"
-	to_chat(usr, "<b><i>You try to remember the basics of CQC.</i></b>")
+	to_chat(usr, "<b><i>You try to remember some of the basics of CQC.</i></b>")
 
 	to_chat(usr, "<span class='notice'>Slam</span>: Grab Harm. Slam opponent into the ground, knocking them down.")
 	to_chat(usr, "<span class='notice'>CQC Kick</span>: Harm Harm. Knocks opponent away. Knocks out stunned or knocked down opponents.")

@@ -216,7 +216,7 @@
 
 /datum/mutation/overload
 	name = "Overload"
-	desc = "Allows an Ethereal to overload their skin, causing a bright flash."
+	desc = "Allows an Ethereal to overload their skin to cause a bright flash."
 	quality = POSITIVE
 	locked = TRUE
 	text_gain_indication = "<span class='notice'>Your skin feels more crackly.</span>"
