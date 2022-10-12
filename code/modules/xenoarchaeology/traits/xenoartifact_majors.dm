@@ -511,3 +511,22 @@
 	var/datum/effect_system/smoke_spread/E = new()
 	E.set_up(max(3, X.charge*0.08), get_turf(X))
 	E.start()
+
+///============
+/// Marker, colors target with a random color
+///============
+/datum/xenoartifact_trait/major/marker
+	label_name = "Marker"
+	label_desc = "Marker: The Artifact causes the target to refract a unique color index."
+	flags = URANIUM_TRAIT | PLASMA_TRAIT | BLUESPACE_TRAIT
+	///The color this artifact dispenses
+	var/color
+
+/datum/xenoartifact_trait/major/marker/on_init(obj/item/xenoartifact/X)
+	color = pick(COLOR_RED, COLOR_GREEN, COLOR_BLUE, COLOR_PURPLE, COLOR_ORANGE, COLOR_YELLOW, COLOR_CYAN, COLOR_PINK, "all")
+
+/datum/xenoartifact_trait/major/marker/activate(obj/item/xenoartifact/X, atom/target, atom/user, setup)
+	if(color == "all")
+		target.color = pick(COLOR_RED, COLOR_GREEN, COLOR_BLUE, COLOR_PURPLE, COLOR_ORANGE, COLOR_YELLOW, COLOR_CYAN, COLOR_PINK)
+	else
+		target.color = color
