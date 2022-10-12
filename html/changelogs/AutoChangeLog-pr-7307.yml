@@ -1,5 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - balance: Grenade lances will no longer explode the grenade inside the attacked
-      person, but instead inside of the lance.

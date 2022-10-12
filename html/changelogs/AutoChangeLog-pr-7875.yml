@@ -1,4 +1,0 @@
-author: itsmeow
-delete-after: true
-changes:
-  - bugfix: Fixed the gas scanner not having newlines.
