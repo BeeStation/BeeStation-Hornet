@@ -5,7 +5,6 @@
  */
 
 import { classes } from 'common/react';
-import { computeBoxClassName, computeBoxProps } from './Box';
 import { computeFlexClassName, computeFlexItemClassName, computeFlexItemProps, computeFlexProps, FlexItemProps, FlexProps } from './Flex';
 
 type StackProps = FlexProps & {
@@ -25,12 +24,11 @@ export const Stack = (props: StackProps) => {
           : 'Stack--horizontal',
         className,
         computeFlexClassName(props),
-        computeBoxClassName(props),
       ])}
-      {...computeBoxProps(computeFlexProps({
+      {...computeFlexProps({
         direction: vertical ? 'column' : 'row',
         ...rest,
-      }))}
+      })}
     />
   );
 };
@@ -43,9 +41,8 @@ const StackItem = (props: FlexProps) => {
         'Stack__item',
         className,
         computeFlexItemClassName(rest),
-        computeBoxClassName(rest),
       ])}
-      {...computeBoxProps(computeFlexItemProps(rest))}
+      {...computeFlexItemProps(rest)}
     />
   );
 };
@@ -66,9 +63,8 @@ const StackDivider = (props: StackDividerProps) => {
         hidden && 'Stack__divider--hidden',
         className,
         computeFlexItemClassName(rest),
-        computeBoxClassName(rest),
       ])}
-      {...computeBoxProps(computeFlexItemProps(rest))}
+      {...computeFlexItemProps(rest)}
     />
   );
 };

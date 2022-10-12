@@ -5,7 +5,7 @@
 #define DISK_MED (1<<2)
 #define DISK_CHEM (1<<3)
 #define DISK_MANIFEST (1<<4)
-#define DISK_NEWS (1<<5)
+#define DISK_NEWSCASTER (1<<5)
 #define DISK_SIGNAL	(1<<6)
 #define DISK_STATUS (1<<7)
 #define DISK_CARGO (1<<8)

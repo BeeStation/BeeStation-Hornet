@@ -258,10 +258,10 @@
 /datum/objective/crew/reporter/check_completion()
 	if(owner?.current)
 		var/ownername = "[ckey(owner.current.real_name)][ckey(owner.assigned_role)]"
-		for(var/datum/newscaster/feed_channel/chan in GLOB.news_network.network_channels)
-			for(var/datum/newscaster/feed_message/msg in chan.messages)
-				if(ckey(msg.returnAuthor()) == ckey(ownername))
-					if(length(msg.returnBody()) >= charcount)
+		for(var/datum/feed_channel/channel in GLOB.news_network.network_channels)
+			for(var/datum/feed_message/message in channel.messages)
+				if(ckey(message.author) == ckey(ownername))
+					if(length(message.return_body()) >= charcount)
 						target_amount--
 	if(target_amount <= 0)
 		return TRUE
