@@ -361,7 +361,7 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 					if(A.fire)
 						cont = FALSE
 						break
-			if(cont && D.is_operational())
+			if(cont && D.is_operational)
 				if(D.operating)
 					D.nextstate = opening ? FIREDOOR_OPEN : FIREDOOR_CLOSED
 				else if(!(D.density ^ opening))
@@ -618,23 +618,23 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 /**
   * Call back when an atom enters an area
   *
-  * Sends signals COMSIG_AREA_ENTERED and COMSIG_ENTER_AREA (to the atom)
+  * Sends signals COMSIG_AREA_ENTERED and COMSIG_MOVABLE_ENTERED_AREA (to the atom)
   *
   * If the area has ambience, then it plays some ambience music to the ambience channel
   */
 /area/Entered(atom/movable/arrived, area/old_area)
 	set waitfor = FALSE
 	SEND_SIGNAL(src, COMSIG_AREA_ENTERED, arrived, old_area)
-	SEND_SIGNAL(arrived, COMSIG_ENTER_AREA, src) //The atom that enters the area
+	SEND_SIGNAL(arrived, COMSIG_MOVABLE_ENTERED_AREA, src) //The atom that enters the area
 
 /**
   * Called when an atom exits an area
   *
-  * Sends signals COMSIG_AREA_EXITED and COMSIG_EXIT_AREA (to the atom)
+  * Sends signals COMSIG_AREA_EXITED and COMSIG_MOVABLE_EXITTED_AREA (to the atom)
   */
 /area/Exited(atom/movable/gone, direction)
 	SEND_SIGNAL(src, COMSIG_AREA_EXITED, gone, direction)
-	SEND_SIGNAL(gone, COMSIG_EXIT_AREA, src) //The atom that exits the area
+	SEND_SIGNAL(gone, COMSIG_MOVABLE_EXITTED_AREA, src) //The atom that exits the area
 
 /**
   * Returns true if this atom has gravity for the passed in turf or other gravity-mimicking behaviors
@@ -723,7 +723,7 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	CRASH("Bad op: area/drop_location() called")
 
 /// A hook so areas can modify the incoming args (of what??)
-/area/proc/PlaceOnTopReact(list/new_baseturfs, turf/fake_turf_type, flags)
+/area/proc/PlaceOnTopReact(turf/T, list/new_baseturfs, turf/fake_turf_type, flags)
 	return flags
 
 /// Gets an areas virtual z value. For having multiple areas on the same z-level treated mechanically as different z-levels
@@ -734,7 +734,7 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	return get_virtual_z(get_turf(src))
 
 /// if it returns true, the mood effect assigned to the area is defined. Defaults to checking mood_job_allowed
-/area/proc/mood_check(mob/living/carbon/human/subject)
+/area/proc/mood_check(mob/living/carbon/subject)
 	if(!mood_bonus)
 		return FALSE
 

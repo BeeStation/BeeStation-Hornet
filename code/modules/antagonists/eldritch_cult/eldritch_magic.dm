@@ -610,6 +610,9 @@
 		CRASH("Uh oh the mansus link got somehow activated without it being linked to a raw prophet or the mob not being in a list of mobs that should be able to do it.")
 
 	var/message = sanitize(input("Message:", "Telepathy from the Manse") as text|null)
+	if(CHAT_FILTER_CHECK(message))
+		to_chat(living_owner, "<span class='warning'>Your message contains forbidden words.</span>")
+		return
 	message = living_owner.treat_message_min(message)
 	if(QDELETED(living_owner))
 		return

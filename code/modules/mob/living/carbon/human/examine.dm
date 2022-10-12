@@ -20,7 +20,7 @@
 	var/apparent_species
 	if(dna?.species && !skipface)
 		apparent_species = ", \an [dna.species.name]"
-	. = list("<span class='info'>*---------*\nThis is <EM>[!obscure_name ? name : "Unknown"][apparent_species]</EM>!")
+	. = list("<span class='info'>This is <EM>[!obscure_name ? name : "Unknown"][apparent_species]</EM>!")
 
 	//uniform
 	if(w_uniform && !(obscured & ITEM_SLOT_ICLOTHING))
@@ -115,8 +115,10 @@
 			if(ishellbound())
 				. += "<span class='warning'>[t_His] soul seems to have been ripped out of [t_his] body. Revival is impossible.</span>"
 			. += ""
-			if(getorgan(/obj/item/organ/brain) && !key && !get_ghost(FALSE, TRUE))
+			if(soul_departed())
 				. += "<span class='deadsay'>[t_He] [t_is] limp and unresponsive; there are no signs of life and [t_his] soul has departed...</span>"
+			else if(!client && key)
+				. += "<span class='deadsay'>[t_He] [t_is] limp and unresponsive; there are no signs of life and [t_his] soul seems distant, it may return soon...</span>"
 			else
 				. += "<span class='deadsay'>[t_He] [t_is] limp and unresponsive; there are no signs of life...</span>"
 
@@ -371,7 +373,6 @@
 					"<a href='?src=[REF(src)];hud=s;add_comment=1'>\[Add comment\]</a>"), "")
 	else if(isobserver(user) && traitstring)
 		. += "<span class='info'><b>Traits:</b> [traitstring]</span>"
-	. += "*---------*</span>"
 
 /mob/living/proc/status_effect_examines(pronoun_replacement) //You can include this in any mob's examine() to show the examine texts of status effects!
 	var/list/dat = list()
@@ -385,3 +386,6 @@
 			dat += "[new_text]\n" //dat.Join("\n") doesn't work here, for some reason
 	if(dat.len)
 		return dat.Join()
+
+/mob/living/proc/soul_departed()
+	return getorgan(/obj/item/organ/brain) && !key && !get_ghost(FALSE, TRUE)

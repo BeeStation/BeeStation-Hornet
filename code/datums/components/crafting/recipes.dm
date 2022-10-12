@@ -505,7 +505,7 @@
 
 /datum/crafting_recipe/skateboard
 	name = "Skateboard"
-	result = /obj/vehicle/ridden/scooter/skateboard
+	result = /obj/item/melee/skateboard
 	time = 60
 	reqs = list(/obj/item/stack/sheet/iron = 5,
 				/obj/item/stack/rods = 10)
@@ -934,7 +934,7 @@
 	result = /obj/item/stack/medical/bruise_pack/one
 	time = 1
 	reqs = list(/obj/item/stack/medical/gauze = 1,
-				/datum/reagent/medicine/styptic_powder = 10)
+				/datum/reagent/medicine/styptic_powder = 40)
 	category = CAT_MISC
 
 /datum/crafting_recipe/burn_pack
@@ -942,7 +942,7 @@
 	result = /obj/item/stack/medical/ointment/one
 	time = 1
 	reqs = list(/obj/item/stack/medical/gauze = 1,
-				/datum/reagent/medicine/silver_sulfadiazine = 10)
+				/datum/reagent/medicine/silver_sulfadiazine = 40)
 	category = CAT_MISC
 
 // Shank - Makeshift weapon that can embed on throw
@@ -1011,6 +1011,14 @@
 	category = CAT_MISC
 	tools = list(TOOL_WIRECUTTER)
 
+/datum/crafting_recipe/paperslip
+	name = "Paper Slip"
+	result = /obj/item/card/id/paper
+	time = 1 SECONDS
+	reqs = list(/obj/item/paper = 5)
+	category = CAT_MISC
+	tools = list(TOOL_WIRECUTTER)
+  
 /datum/crafting_recipe/basic_lasso
 	name= "Basic Lasso"
 	result = /obj/item/mob_lasso

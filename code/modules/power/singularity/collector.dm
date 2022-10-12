@@ -187,7 +187,7 @@
 			// Therefore, its units are joules per SSmachines.wait * 0.1 seconds.
 			// So joules = stored_energy * SSmachines.wait * 0.1
 			var/joules = stored_energy * SSmachines.wait * 0.1
-			. += "<span class='notice'>[src]'s display states that it has stored <b>[DisplayJoules(joules)]</b>, and is processing <b>[DisplayPower(RAD_COLLECTOR_OUTPUT)]</b>.</span>"
+			. += "<span class='notice'>[src]'s display states that it has stored <b>[display_joules(joules)]</b>, and is processing <b>[display_power(RAD_COLLECTOR_OUTPUT)]</b>.</span>"
 		else
 			. += "<span class='notice'>[src]'s display states that it has stored a total of <b>[stored_energy*RAD_COLLECTOR_MINING_CONVERSION_RATE]</b>, and is producing [RAD_COLLECTOR_OUTPUT*RAD_COLLECTOR_MINING_CONVERSION_RATE] research points per minute.</span>"
 	else
@@ -197,9 +197,9 @@
 			. += "<span class='notice'><b>[src]'s display displays the words:</b> \"Research point production mode. Please insert <b>Tritium</b> and <b>Oxygen</b>. Use a multitool to change production modes.\"</span>"
 
 /obj/machinery/power/rad_collector/obj_break(damage_flag)
-	if(!(stat & BROKEN) && !(flags_1 & NODECONSTRUCT_1))
+	. = ..()
+	if(.)
 		eject()
-		stat |= BROKEN
 
 /obj/machinery/power/rad_collector/proc/eject()
 	locked = FALSE
@@ -224,7 +224,7 @@
 	cut_overlays()
 	if(loaded_tank)
 		add_overlay("ptank")
-	if(stat & (NOPOWER|BROKEN))
+	if(machine_stat & (NOPOWER|BROKEN))
 		return
 	if(active)
 		add_overlay("on")

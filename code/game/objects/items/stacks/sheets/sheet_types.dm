@@ -171,8 +171,10 @@ GLOBAL_LIST_INIT(metal_recipes, list ( \
  */
 
 GLOBAL_LIST_INIT(plasteel_recipes, list ( \
-	new/datum/stack_recipe("AI core",									/obj/structure/AIcore, 4, time = 50, one_per_turf = TRUE), \
-	new/datum/stack_recipe("bomb assembly",								/obj/machinery/syndicatebomb/empty, 10, time = 50), \
+	new/datum/stack_recipe("AI core", /obj/structure/AIcore, 4, time = 50, one_per_turf = TRUE), \
+	new/datum/stack_recipe("bomb assembly", /obj/machinery/syndicatebomb/empty, 10, time = 50), \
+	new/datum/stack_recipe("dock tile", /obj/item/stack/tile/dock, 1, 4, 20), \
+	new/datum/stack_recipe("dry dock tile", /obj/item/stack/tile/drydock, 2, 4, 20), \
 	null, \
 	new /datum/stack_recipe_list("airlock assemblies", list( \
 		new/datum/stack_recipe("high security airlock assembly",		/obj/structure/door_assembly/door_assembly_highsecurity, 4, time = 50, one_per_turf = 1, on_floor = 1), \

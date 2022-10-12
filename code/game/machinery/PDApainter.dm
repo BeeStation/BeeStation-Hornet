@@ -6,7 +6,7 @@
 	max_integrity = 200
 	density = TRUE
 	anchored = TRUE
-	var/obj/item/pda/storedpda = null
+	var/obj/item/modular_computer/tablet/pda/storedpda = null
 	var/obj/item/card/id/storedid = null
 	var/pda_icons = list(
 		"Misc: Neutral" = "pda",
@@ -91,7 +91,7 @@
 /obj/machinery/pdapainter/update_icon()
 	cut_overlays()
 
-	if(stat & BROKEN)
+	if(machine_stat & BROKEN)
 		icon_state = "coloriser-broken"
 		return
 
@@ -111,16 +111,14 @@
 /obj/machinery/pdapainter/Initialize(mapload)
 	. = ..()
 	var/list/blocked = list(
-		/obj/item/pda/ai/pai,
-		/obj/item/pda/ai,
-		/obj/item/pda/heads,
-		/obj/item/pda/clear,
-		/obj/item/pda/syndicate,
-		/obj/item/pda/chameleon,
-		/obj/item/pda/chameleon/broken)
+		/obj/item/modular_computer/tablet/pda/heads,
+		/obj/item/modular_computer/tablet/pda/clear,
+		/obj/item/modular_computer/tablet/pda/syndicate,
+		/obj/item/modular_computer/tablet/pda/chameleon,
+		/obj/item/modular_computer/tablet/pda/chameleon/broken)
 
-	for(var/P in typesof(/obj/item/pda) - blocked)
-		var/obj/item/pda/D = new P
+	for(var/P in typesof(/obj/item/modular_computer/tablet/pda) - blocked)
+		var/obj/item/modular_computer/tablet/pda/D = new P
 
 		//D.name = "PDA Style [colorlist.len+1]" //Gotta set the name, otherwise it all comes up as "PDA"
 		D.name = D.icon_state //PDAs don't have unique names, but using the sprite names works.
@@ -159,7 +157,7 @@
 		power_change()
 		return
 
-	else if(istype(O, /obj/item/pda))
+	else if(istype(O, /obj/item/modular_computer/tablet/pda))
 		if(storedpda)
 			to_chat(user, "<span class='warning'>There is already a PDA inside!</span>")
 			return
@@ -170,6 +168,9 @@
 		update_icon()
 
 	else if(istype(O, /obj/item/card/id))
+		var/obj/item/card/id/new_id = O
+		if(!new_id.electric)
+			return
 		if(storedid)
 			to_chat(user, "<span class='warning'>There is already an ID card inside!</span>")
 			return
@@ -180,17 +181,17 @@
 		update_icon()
 
 	else if(O.tool_behaviour == TOOL_WELDER && user.a_intent != INTENT_HARM)
-		if(stat & BROKEN)
+		if(machine_stat & BROKEN)
 			if(!O.tool_start_check(user, amount=0))
 				return
 			user.visible_message("[user] is repairing [src].", \
 							"<span class='notice'>You begin repairing [src]...</span>", \
 							"<span class='italics'>You hear welding.</span>")
 			if(O.use_tool(src, user, 40, volume=50))
-				if(!(stat & BROKEN))
+				if(!(machine_stat & BROKEN))
 					return
 				to_chat(user, "<span class='notice'>You repair [src].</span>")
-				stat &= ~BROKEN
+				set_machine_stat(machine_stat & ~BROKEN)
 				obj_integrity = max_integrity
 				update_icon()
 		else
@@ -199,10 +200,7 @@
 		return ..()
 
 /obj/machinery/pdapainter/deconstruct(disassembled = TRUE)
-	if(!(flags_1 & NODECONSTRUCT_1))
-		if(!(stat & BROKEN))
-			stat |= BROKEN
-			update_icon()
+	obj_break()
 
 /obj/machinery/pdapainter/attack_hand(mob/user)
 	if(!..())
@@ -244,7 +242,7 @@
 			to_chat(user, "<span class='notice'>[src] is empty.</span>")
 
 /obj/machinery/pdapainter/AltClick(mob/user)
-	if(usr.stat || usr.restrained())
+	if(!user.canUseTopic(src, !issilicon(user)) || usr.stat || usr.restrained())
 		return
 	if(storedpda || storedid)
 		ejectid()

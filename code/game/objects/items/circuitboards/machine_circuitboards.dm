@@ -1059,7 +1059,7 @@
 	to_chat(user, "<span class='notice'>You [suction ? "enable" : "disable"] the board's suction function.</span>")
 
 /obj/item/circuitboard/machine/dish_drive/AltClick(mob/living/user)
-	if(!user.Adjacent(src))
+	if(!user.canUseTopic(src, !issilicon(user)))
 		return
 	transmit = !transmit
 	to_chat(user, "<span class='notice'>You [transmit ? "enable" : "disable"] the board's automatic disposal transmission.</span>")
@@ -1283,6 +1283,7 @@
 /obj/item/circuitboard/machine/allaccess
 	name = "all access dispenser"
 	icon_state = "generic"
+	build_path = /obj/machinery/allaccess
 	req_components = list(
 		/obj/item/stock_parts/manipulator = 1,
 		/obj/item/stock_parts/micro_laser = 1)

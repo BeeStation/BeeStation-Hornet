@@ -48,7 +48,7 @@
 	if(!(src in owner.internal_organs))
 		Remove(owner, TRUE)
 	if (causes_damage && !iszombie(owner) && owner.stat != DEAD)
-		owner.adjustToxLoss(0.5 * delta_time)
+		owner.adjustToxLoss(0.5 * delta_time, forced = TRUE)
 		if(DT_PROB(5, delta_time))
 			to_chat(owner, "<span class='danger'>You feel sick...</span>")
 	if(timer_id)

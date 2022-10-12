@@ -20,6 +20,7 @@
   * * grant any actions the mob has to the client
   * * calls [auto_deadmin_on_login](mob.html#proc/auto_deadmin_on_login)
   * * send signal COMSIG_MOB_CLIENT_LOGIN
+  * * attaches the ash listener element so clients can hear weather
   */
 /mob/Login()
 	add_to_player_list()
@@ -97,6 +98,8 @@
 	SEND_SIGNAL(src, COMSIG_MOB_CLIENT_LOGIN, client)
 	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_MOB_LOGGED_IN, src)
 
+	AddElement(/datum/element/weather_listener, /datum/weather/ash_storm, ZTRAIT_ASHSTORM, GLOB.ash_storm_sounds)
+
 
 /**
   * Checks if the attached client is an admin and may deadmin them
@@ -112,9 +115,9 @@
 /mob/proc/auto_deadmin_on_login() //return true if they're not an admin at the end.
 	if(!client?.holder)
 		return TRUE
-	if(CONFIG_GET(flag/auto_deadmin_players) || (client.prefs?.toggles & DEADMIN_ALWAYS))
+	if(CONFIG_GET(flag/auto_deadmin_players) || (client.prefs?.toggles & PREFTOGGLE_DEADMIN_ALWAYS))
 		return client.holder.auto_deadmin()
-	if(mind.has_antag_datum(/datum/antagonist) && (CONFIG_GET(flag/auto_deadmin_antagonists) || client.prefs?.toggles & DEADMIN_ANTAGONIST))
+	if(mind.has_antag_datum(/datum/antagonist) && (CONFIG_GET(flag/auto_deadmin_antagonists) || client.prefs?.toggles & PREFTOGGLE_DEADMIN_ANTAGONIST))
 		return client.holder.auto_deadmin()
 	if(job)
 		return SSjob.handle_auto_deadmin_roles(client, job)

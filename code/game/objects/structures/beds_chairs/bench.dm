@@ -5,6 +5,8 @@
 	max_integrity = 250
 	integrity_failure = 25
 	icon_state = "bench_center"
+	buildstackamount = 1
+	item_chair = null
 
 /obj/structure/chair/fancy/bench/left
 	icon_state = "bench_left"
