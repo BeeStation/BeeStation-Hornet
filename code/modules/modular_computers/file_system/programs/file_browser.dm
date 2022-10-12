@@ -43,7 +43,7 @@
 			var/datum/computer_file/file = HDD.find_file_by_name(params["name"])
 			if(!file)
 				return
-			var/newname = reject_bad_name(params["new_name"])
+			var/newname = check_filename(params["new_name"])
 			if(!newname || newname != params["new_name"])
 				playsound(computer, 'sound/machines/terminal_error.ogg', 25, FALSE)
 				return
@@ -55,7 +55,7 @@
 			var/datum/computer_file/file = RHDD.find_file_by_name(params["name"])
 			if(!file)
 				return
-			var/newname = reject_bad_name(params["new_name"])
+			var/newname = check_filename(params["new_name"])
 			if(!newname || newname != params["new_name"])
 				playsound(computer, 'sound/machines/terminal_error.ogg', 25, FALSE)
 				return
@@ -127,3 +127,12 @@
 			data["usbfiles"] = usbfiles
 
 	return data
+
+/datum/computer_file/program/proc/check_filename(name)
+	if(CHAT_FILTER_CHECK(name))
+		alert(usr, "Filename contains prohibited words.")
+		return
+	if(!reject_bad_text(name, 32, ascii_only = TRUE, alphanumeric_only = TRUE, underscore_allowed = TRUE) || lowertext(name) != name)
+		alert(usr, "All filenames must be 32 characters or less, lowercase, and cannot contain: < > / and \\")
+		return
+	return name

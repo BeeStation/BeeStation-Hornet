@@ -492,7 +492,8 @@
 		qdel(src)
 		return
 	//handle color
-	tgt_color = color
+	if(color)
+		tgt_color = color
 	INVOKE_ASYNC(src, .proc/generate_image, text, target, owner)
 
 /datum/chatmessage/balloon_alert/Destroy()
