@@ -1269,7 +1269,7 @@
 /turf/open/floor/plasteel,
 /area/centcom/supply)
 "jR" = (
-/obj/machinery/newscaster/security_unit{
+/obj/machinery/newscaster{
 	pixel_x = -32
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -1559,7 +1559,7 @@
 /turf/open/floor/plasteel/grimy,
 /area/centcom/control)
 "kn" = (
-/obj/machinery/newscaster/security_unit{
+/obj/machinery/newscaster{
 	pixel_x = 32
 	},
 /obj/effect/turf_decal/tile/neutral{
@@ -2846,7 +2846,7 @@
 /turf/open/floor/plating/asteroid/snow/airless,
 /area/syndicate_mothership)
 "ni" = (
-/obj/machinery/newscaster/security_unit,
+/obj/machinery/newscaster,
 /turf/closed/indestructible/riveted,
 /area/centcom/ferry)
 "nj" = (
@@ -2986,7 +2986,7 @@
 /turf/open/floor/plasteel/dark,
 /area/centcom/control)
 "nv" = (
-/obj/machinery/newscaster/security_unit{
+/obj/machinery/newscaster{
 	pixel_x = -32
 	},
 /obj/effect/turf_decal/tile/red{
@@ -3089,7 +3089,7 @@
 /turf/open/floor/plasteel/dark,
 /area/centcom/supply)
 "nF" = (
-/obj/machinery/newscaster/security_unit{
+/obj/machinery/newscaster{
 	pixel_y = -32
 	},
 /obj/machinery/computer/cargo{
@@ -3533,7 +3533,7 @@
 /obj/item/folder/blue,
 /obj/item/melee/chainofcommand,
 /obj/item/stamp/captain,
-/obj/machinery/newscaster/security_unit{
+/obj/machinery/newscaster{
 	pixel_y = 32
 	},
 /obj/effect/turf_decal/tile/neutral{
@@ -4623,7 +4623,7 @@
 	pixel_y = 5
 	},
 /obj/item/storage/lockbox/medal,
-/obj/machinery/newscaster/security_unit{
+/obj/machinery/newscaster{
 	pixel_x = 32
 	},
 /obj/effect/turf_decal/tile/neutral{
@@ -6585,7 +6585,7 @@
 /obj/machinery/computer/emergency_shuttle{
 	dir = 1
 	},
-/obj/machinery/newscaster/security_unit{
+/obj/machinery/newscaster{
 	pixel_y = -32
 	},
 /obj/effect/turf_decal/stripes/line{
@@ -9617,7 +9617,7 @@
 /turf/open/floor/plasteel,
 /area/centcom/ferry)
 "BD" = (
-/obj/machinery/newscaster/security_unit{
+/obj/machinery/newscaster{
 	pixel_x = 32
 	},
 /obj/effect/turf_decal/tile/neutral{

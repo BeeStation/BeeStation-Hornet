@@ -15267,7 +15267,7 @@
 /turf/open/floor/plasteel/dark,
 /area/security/execution/education)
 "aWo" = (
-/obj/machinery/newscaster/security_unit{
+/obj/machinery/newscaster{
 	pixel_y = -32
 	},
 /obj/machinery/atmospherics/pipe/simple/general/hidden{
@@ -16549,7 +16549,7 @@
 /turf/open/floor/plasteel,
 /area/security/prison)
 "aZl" = (
-/obj/machinery/newscaster/security_unit{
+/obj/machinery/newscaster{
 	pixel_y = 32
 	},
 /obj/effect/turf_decal/tile/red,
@@ -21608,7 +21608,7 @@
 /area/crew_quarters/heads/hos)
 "bmA" = (
 /obj/structure/dresser,
-/obj/machinery/newscaster/security_unit{
+/obj/machinery/newscaster{
 	pixel_y = 32
 	},
 /turf/open/floor/carpet/red,
@@ -23907,7 +23907,7 @@
 "btB" = (
 /obj/structure/table/wood,
 /obj/machinery/computer/med_data/laptop,
-/obj/machinery/newscaster/security_unit{
+/obj/machinery/newscaster{
 	pixel_x = 32
 	},
 /obj/structure/extinguisher_cabinet{
@@ -27915,7 +27915,7 @@
 	name = "Primary AI Core Access";
 	req_access_txt = "16"
 	},
-/obj/machinery/newscaster/security_unit{
+/obj/machinery/newscaster{
 	pixel_x = 4;
 	pixel_y = 33
 	},
@@ -29841,7 +29841,7 @@
 /turf/open/floor/plasteel,
 /area/security/brig)
 "bJy" = (
-/obj/machinery/newscaster/security_unit{
+/obj/machinery/newscaster{
 	pixel_x = 32
 	},
 /obj/structure/disposalpipe/segment,
@@ -31079,7 +31079,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/machinery/newscaster/security_unit{
+/obj/machinery/newscaster{
 	pixel_x = -32
 	},
 /obj/machinery/camera{
@@ -38823,7 +38823,7 @@
 	icon_state = "1-2"
 	},
 /obj/structure/table/reinforced,
-/obj/machinery/newscaster/security_unit{
+/obj/machinery/newscaster{
 	pixel_x = -32
 	},
 /obj/item/clipboard,
@@ -38966,7 +38966,7 @@
 /turf/open/floor/plasteel,
 /area/security/brig)
 "chg" = (
-/obj/machinery/newscaster/security_unit{
+/obj/machinery/newscaster{
 	pixel_x = 32;
 	pixel_y = -32
 	},
@@ -109202,7 +109202,7 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
-/obj/machinery/newscaster/security_unit{
+/obj/machinery/newscaster{
 	pixel_y = 32
 	},
 /obj/effect/turf_decal/tile/red{
