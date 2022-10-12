@@ -518,7 +518,7 @@
 /datum/xenoartifact_trait/major/marker
 	label_name = "Marker"
 	label_desc = "Marker: The Artifact causes the target to refract a unique color index."
-	flags = URANIUM_TRAIT | PLASMA_TRAIT | BLUESPACE_TRAIT
+	flags = PLASMA_TRAIT | BLUESPACE_TRAIT
 	///The color this artifact dispenses
 	var/color
 
