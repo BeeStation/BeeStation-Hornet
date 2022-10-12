@@ -121,8 +121,14 @@
 
 /datum/xenoartifact_trait/minor/sentient/on_init(obj/item/xenoartifact/X)
 	addtimer(CALLBACK(src, .proc/get_canidate, X), 5 SECONDS)
+	RegisterSignal(X, COMSIG_PARENT_EXAMINE, .proc/handle_ghost, TRUE)
 
-/datum/xenoartifact_trait/minor/sentient/proc/get_canidate(obj/item/xenoartifact/X)
+//Proc used to give access to ghosts when original player leaves
+/datum/xenoartifact_trait/minor/sentient/proc/handle_ghost(datum/source, mob/M, list/examine_text)
+	if(isobserver(M) && !man?.key && (alert(user, "Are you sure you want to control [X]?", "Assume control of [X]", "Yes", "No") == "Yes")
+		man.key = M.ckey
+
+/datum/xenoartifact_trait/minor/sentient/proc/get_canidate(obj/item/xenoartifact/X, mob/M)
 	var/list/mob/dead/observer/candidates = pollGhostCandidates("Do you want to play as the maleviolent force inside the [X.name]?", ROLE_SENTIENCE, null, FALSE, 8 SECONDS, POLL_IGNORE_SENTIENCE_POTION)
 	if(LAZYLEN(candidates))
 		var/mob/dead/observer/C = pick(candidates)
@@ -171,11 +177,12 @@
 	range = Z.max_range+1
 
 /obj/effect/proc_holder/spell/targeted/xeno_senitent_action/cast(list/targets, mob/living/simple_animal/revenant/user = usr)
+	if(!xeno)
+		return
 	for(var/atom/M in targets)
-		if(xeno)
-			xeno.true_target = list(M)
-			xeno.default_activate(xeno.charge_req+10)
-			charge_max = xeno.cooldown+xeno.cooldownmod
+		xeno.true_target += xeno.process_target(M)
+		xeno.default_activate(xeno.charge_req+10)
+		charge_max = xeno.cooldown+xeno.cooldownmod
 
 /datum/xenoartifact_trait/minor/sentient/Destroy(force, ...)
 	. = ..()
