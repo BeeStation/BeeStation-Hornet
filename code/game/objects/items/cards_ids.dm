@@ -117,6 +117,8 @@
 	var/access_txt // mapping aid
 	var/datum/bank_account/registered_account
 	var/obj/machinery/paystand/my_store
+	/// controls various things, disable to make it have no bank account, ineditable in id machines, etc
+	var/electric = TRUE  // removes account info from examine
 
 /obj/item/card/id/Initialize(mapload)
 	. = ..()
@@ -163,14 +165,8 @@
 		registered_account.payday(1)
 
 /obj/item/card/id/attackby(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/holochip))
+	if(iscash(W))
 		insert_money(W, user)
-		return
-	else if(istype(W, /obj/item/stack/spacecash))
-		insert_money(W, user, TRUE)
-		return
-	else if(istype(W, /obj/item/coin))
-		insert_money(W, user, TRUE)
 		return
 	else if(istype(W, /obj/item/storage/bag/money))
 		var/obj/item/storage/bag/money/money_bag = W
@@ -184,7 +180,7 @@
 	else
 		return ..()
 
-/obj/item/card/id/proc/insert_money(obj/item/I, mob/user, physical_currency)
+/obj/item/card/id/proc/insert_money(obj/item/I, mob/user)
 	if(!registered_account)
 		to_chat(user, "<span class='warning'>[src] doesn't have a linked account to deposit [I] into!</span>")
 		return
@@ -194,7 +190,7 @@
 		return
 
 	registered_account.adjust_money(cash_money)
-	if(physical_currency)
+	if(istype(I, /obj/item/stack/spacecash) || istype(I, /obj/item/coin))
 		to_chat(user, "<span class='notice'>You stuff [I] into [src]. It disappears in a small puff of bluespace smoke, adding [cash_money] credits to the linked account.</span>")
 	else
 		to_chat(user, "<span class='notice'>You insert [I] into [src], adding [cash_money] credits to the linked account.</span>")
@@ -290,10 +286,11 @@
 		registered_account.bank_card_talk("<span class='warning'>ERROR: The linked account requires [difference] more credit\s to perform that withdrawal.</span>", TRUE)
 
 /obj/item/card/id/examine(mob/user)
-	..()
+	. = ..()
+	if(!electric)  // forces off bank info for paper slip
+		return .
 	if(mining_points)
 		. += "There's [mining_points] mining equipment redemption point\s loaded onto this card."
-	. = ..()
 	if(registered_account)
 		. += "The account linked to the ID belongs to '[registered_account.account_holder]' and reports a balance of $[registered_account.account_balance]."
 		if(registered_account.account_job)
@@ -725,6 +722,42 @@ update_label("John Doe", "Clowny")
 	hud_state = JOB_HUD_RAWCARGO
 	access = list(ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MECH_MINING, ACCESS_MAILSORTING, ACCESS_MINERAL_STOREROOM)
 
+/obj/item/card/id/paper
+	name = "paper nametag"
+	desc = "Some spare papers taped into a vague card shape, with a name scribbled on it. Seems trustworthy."
+	icon_state = "paper"
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 50, "stamina" = 0)
+	resistance_flags = null  // removes all resistance because its a piece of paper
+	access = list()
+	assignment = "Unknown"
+	hud_state = JOB_HUD_PAPER
+	electric = FALSE
+
+/obj/item/card/id/paper/attackby(obj/item/W, mob/user, params)
+	if(istype(W, /obj/item/pen))
+		var/target_name = stripped_input(user, "What name would you like to write onto the card?", "Written name:", registered_name || "John Doe", MAX_MESSAGE_LEN)
+		registered_name = target_name || registered_name  // in case they hit cancel
+		assignment = "Unknown"
+		to_chat(user, "<span class='notice'>You scribble the name [target_name] onto the slip.</span>")
+		update_label()
+
+/obj/item/card/id/paper/alt_click_can_use_id(mob/living/user)
+	to_chat(user, "<span class='warning'>There's no money circuitry in here!</span>")
+
+/obj/item/card/id/paper/insert_money(obj/item/I, mob/user, physical_currency)
+	to_chat(user, "<span class='warning'>You can't insert money into a slip!</span>")  // not sure if this is triggerable but just as a safeclip
+
+/obj/item/card/id/paper/GetAccess()
+	return list()
+
+/obj/item/card/id/paper/update_label(newname, newjob)
+	if(newname || newjob)
+		name = "[(!newname)	? "paper slip identifier": "[newname]'s paper slip"]"
+		return
+
+	name = "[(!registered_name)	? "paper slip identifier": "[registered_name]'s paper slip"]"
+
+
 /obj/item/card/id/away
 	name = "\proper a perfectly generic identification card"
 	desc = "A perfectly generic identification card. Looks like it could use some flavor."
@@ -1151,6 +1184,9 @@ update_label("John Doe", "Clowny")
 		return .
 	var/obj/item/card/id/idcard = target
 	if(istype(idcard))
+		if(!idcard.electric)
+			to_chat(user, to_chat(user, "<span class='warning'>You swipe the id card. Nothing happens. </span>"))
+			return
 		for(var/give_access in access)
 			idcard.access |= give_access
 		if(assignment!=initial(assignment))
