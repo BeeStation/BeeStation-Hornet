@@ -645,7 +645,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 	timer_overlay_active = FALSE
 	if(action.owner?.client)
 		action.owner.client.images -= text_overlay
-	action.button.cut_overlay(timer_overlay)
+	action.button.cut_overlays(timer_overlay)
 	timer_overlay = null
 	qdel(text_overlay)
 	text_overlay = null
