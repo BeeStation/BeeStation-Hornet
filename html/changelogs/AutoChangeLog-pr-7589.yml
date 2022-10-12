@@ -1,7 +1,0 @@
-author: itsmeow
-delete-after: true
-changes:
-  - tweak: ChemMasters now have an exact output units mode for pills/patches/bottles.
-  - tweak: ChemMasters can now have a set name input to use for all pills, instead
-      of prompting every time.
-  - admin: ChemMaster packaging names are now subject to the IC filter.
