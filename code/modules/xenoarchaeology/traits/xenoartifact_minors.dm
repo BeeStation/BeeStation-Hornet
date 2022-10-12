@@ -125,7 +125,7 @@
 
 //Proc used to give access to ghosts when original player leaves
 /datum/xenoartifact_trait/minor/sentient/proc/handle_ghost(datum/source, mob/M, list/examine_text)
-	if(isobserver(M) && !man?.key && (alert(user, "Are you sure you want to control [X]?", "Assume control of [X]", "Yes", "No") == "Yes"))
+	if(isobserver(M) && !man?.key && (alert(M, "Are you sure you want to control of [man]?", "Assume control of [man]", "Yes", "No") == "Yes"))
 		man.key = M.ckey
 
 /datum/xenoartifact_trait/minor/sentient/proc/get_canidate(obj/item/xenoartifact/X, mob/M)
