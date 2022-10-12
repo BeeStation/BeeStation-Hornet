@@ -1,0 +1,14 @@
+author: itsmeow
+delete-after: true
+changes:
+  - rscadd: Newscasters now use TGUI and have new features like channel editing and
+      descriptions.
+  - tweak: Security Newscasters have been removed in favor of ID scanning on all newscasters.
+  - rscadd: Added Bounty Board to all newscasters, where you can post bounties for
+      the crew to fulfill.
+  - admin: Reworked admin newscaster panel and topics to use TGUI.
+  - code_imp: Fixed some issues with IE8 compat classes on TGUI Flex components.
+  - code_imp: Fixed TGUI Buttons with right-positioned icons lacking a margin from
+      the content text.
+  - rscadd: Added a Newscaster & Bounty Board ModPC app and added it to the Curator,
+      HoP, and Captain's PDA roundstart, also downloadable.
