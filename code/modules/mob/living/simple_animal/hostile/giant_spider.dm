@@ -40,6 +40,7 @@
 	obj_damage = 25
 	melee_damage = 25
 	poison_per_bite = 0
+	poison_type = /datum/reagent/toxin/spidervenom
 	faction = list("spiders")
 	pass_flags = PASSTABLE
 	move_to_delay = 4
