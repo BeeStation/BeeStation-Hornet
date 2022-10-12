@@ -141,7 +141,7 @@
 	if(H)
 		playsound(get_turf(target), 'sound/machines/buzz-sigh.ogg', 50, TRUE)
 		return
-	ADD_TRAIT(target, TRAIT_NOBREATH, CORGIUM_TRAIT)
+	ADD_TRAIT(target, TRAIT_NOBREATH, TRAIT_NOMOBSWAP)
 	var/mob/living/simple_animal/pet/dog/corgi/new_corgi = new(target.loc)
 	H = new(new_corgi,src,target)
 	//hat check
@@ -163,7 +163,7 @@
 		return
 	var/mob/living/target = H.stored
 	UnregisterSignal(new_corgi, COMSIG_MOB_DEATH)
-	REMOVE_TRAIT(target, TRAIT_MUTE, CORGIUM_TRAIT)
+	REMOVE_TRAIT(target, TRAIT_NOBREATH, TRAIT_NOMOBSWAP)
 	victims -= new_corgi
 	var/turf/T = get_turf(new_corgi)
 	if(new_corgi.inventory_head && !target.equip_to_slot_if_possible(new_corgi.inventory_head, ITEM_SLOT_HEAD,disable_warning = TRUE, bypass_equip_delay_self=TRUE))
