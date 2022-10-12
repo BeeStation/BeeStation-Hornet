@@ -1,5 +1,0 @@
-author: CydiaLamiales
-delete-after: true
-changes:
-  - tweak: medHUDs can now perform medical evaluations on people not listed on the
-      medical records
