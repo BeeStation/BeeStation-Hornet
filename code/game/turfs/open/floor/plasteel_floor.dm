@@ -267,3 +267,7 @@
 	icon_state = "techmaint"
 	base_icon_state = "techmaint"
 	floor_tile = /obj/item/stack/tile/techmaint
+
+/turf/open/floor/plasteel/cafeteria_red
+	icon_state = "cafeteria-red"
+	base_icon_state = "cafeteria-red"
