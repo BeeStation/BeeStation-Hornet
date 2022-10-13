@@ -14,6 +14,11 @@
 		/obj/item/stack/cable_coil = 1)
 	def_components = list(/obj/item/stack/ore/bluespace_crystal = /obj/item/stack/ore/bluespace_crystal/artificial)
 
+///Stability lost on purchase
+#define STABILITY_COST 30
+///Stability gained on-tick
+#define STABILITY_GAIN 5
+
 /obj/machinery/computer/xenoartifact_console
 	name = "research and development listing console"
 	desc = "A science console used to source sellers, and buyers, for various blacklisted research objects."
@@ -39,6 +44,8 @@
 	var/list/sold_artifacts = list()
 	///Which department's budget recieves profit
 	var/datum/bank_account/budget
+	///Stability - lowers as people buy artifacts, stops spam buying
+	var/stability = 100
 
 /obj/machinery/computer/xenoartifact_console/Initialize()
 	. = ..()
@@ -53,6 +60,22 @@
 		var/datum/xenoartifact_seller/buyer/B = new
 		buyers += B
 		B.generate()
+	//Start processing to gain stability
+	START_PROCESSING(SSobj, src)
+
+/obj/machinery/computer/xenoartifact_console/Destroy()
+	. = ..()
+	on_inbox_del()
+	qdel(sellers)
+	qdel(buyers)
+	qdel(sold_artifacts)
+	STOP_PROCESSING(SSobj, src)
+
+/obj/machinery/computer/xenoartifact_console/process()
+	stability = min(100, stability + STABILITY_GAIN)
+	//Update UI every 3 seconds, may be delayed
+	if(world.time % 3 == 0)
+		ui_update()
 
 /obj/machinery/computer/xenoartifact_console/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
@@ -90,6 +113,7 @@
 	data["current_tab"] = current_tab
 	data["tab_info"] = current_tab_info
 	data["linked_machines"] = linked_machines
+	data["stability"] = stability
 
 	return data
 
@@ -121,21 +145,28 @@
 		return
 	else //Buy xenoartifact
 		var/datum/xenoartifact_seller/S = locate(action)
+
+		if(stability < STABILITY_COST)
+			say("Error. Insufficient thread stability.")
+			return
 		if(!linked_inbox)
 			say("Error. No linked hardware.")
+			return
 		else if(budget.account_balance-S.price < 0)
 			say("Error. Insufficient funds.")
-		else if(linked_inbox && budget.account_balance-S.price >= 0)
+			return
+		
+		if(linked_inbox && budget.account_balance-S.price >= 0)
 			var/obj/item/xenoartifact/A = new (get_turf(linked_inbox.loc), S.difficulty)
 			var/datum/component/xenoartifact_pricing/X = A.GetComponent(/datum/component/xenoartifact_pricing)
 			if(X)
 				X.price = S.price //dont bother trying to use internal singals for this
 				sellers -= S
+				stability = max(0, stability - STABILITY_COST)
 				budget.adjust_money(-1*S.price)
 				say("Purchase complete. [budget.account_balance] credits remaining in Research Budget")
 				addtimer(CALLBACK(src, .proc/generate_new_seller), (rand(1,3)*60) SECONDS)
 				A = null
-
 	update_icon()
 
 //Auto sells item on pad, finds seller for you
@@ -227,12 +258,8 @@
 	UnregisterSignal(linked_inbox, COMSIG_PARENT_QDELETING)
 	linked_inbox = null
 
-/obj/machinery/computer/xenoartifact_console/Destroy()
-	. = ..()
-	on_inbox_del()
-	qdel(sellers)
-	qdel(buyers)
-	qdel(sold_artifacts)
+#undef STABILITY_COST
+#undef STABILITY_GAIN
 
 /obj/machinery/xenoartifact_inbox
 	name = "bluespace straythread pad" //Science words
