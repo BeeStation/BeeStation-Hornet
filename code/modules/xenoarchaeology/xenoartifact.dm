@@ -345,7 +345,7 @@
 		. = M?.pulling ? M.pulling : M
 	else
 		. = target
-	RegisterSignal(., COMSIG_PARENT_QDELETING, .proc/on_target_del)
+	RegisterSignal(., COMSIG_PARENT_QDELETING, .proc/on_target_del, TRUE)
 	return
 
 ///Hard del handle

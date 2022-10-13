@@ -193,7 +193,6 @@
 //============
 // explode, a very small explosion takes place, destroying the artifact in the process
 //============
-
 /datum/xenoartifact_trait/malfunction/explode
 	label_name = "Delaminating"
 	label_desc = "Delaminating: The Artifact violently collapses, exploding."
@@ -207,3 +206,39 @@
 /datum/xenoartifact_trait/malfunction/explode/proc/explode(obj/item/xenoartifact/X)
 	SSexplosions.explode(X, 0, 1, 2, 1)
 	qdel(X)
+
+//============
+// absorbant, absorbs nearby gasses
+//============
+/datum/xenoartifact_trait/malfunction/absorbant
+	label_name = "Absorbing"
+	label_desc = "Absorbing: The Artifact absorbs large volumes of nearby gasses."
+	flags = BLUESPACE_TRAIT | URANIUM_TRAIT | PLASMA_TRAIT
+	///What gasses we've S U C K E D
+	var/datum/gas_mixture/air_contents
+	///Gasses we can suck. Currently everything but, it's here if we need to blacklist in the future
+	var/list/scrubbing = list(GAS_PLASMA, GAS_CO2, GAS_NITROUS, GAS_BZ, GAS_NITRYL, GAS_TRITIUM, GAS_HYPERNOB, GAS_H2O, GAS_O2, GAS_N2, GAS_STIMULUM, GAS_PLUOXIUM)
+	///Adjust for balance - I'm sure this will have no ramifications
+	var/volume = 1000000
+	var/volume_rate = 200000
+	///Ref to artifact for destruction
+	var/obj/item/xenoartifact/parent
+
+/datum/xenoartifact_trait/malfunction/absorbant/on_init(obj/item/xenoartifact/X)
+	air_contents = new(volume)
+	air_contents.set_temperature(T20C)
+	parent = X
+
+/datum/xenoartifact_trait/malfunction/absorbant/activate(obj/item/xenoartifact/X, atom/target, atom/user, setup)
+	X.visible_message("<space class='warning'>[X] begins to vacuum nearby gasses!</span>")
+	var/turf/T = get_turf(X)
+	var/datum/gas_mixture/mixture = T.return_air()
+	mixture.scrub_into(air_contents, volume_rate / mixture.return_volume(), scrubbing)
+	X.air_update_turf()
+
+//Throw sucked gas into our tile when we die
+/datum/xenoartifact_trait/malfunction/absorbant/Destroy()
+	. = ..()
+	var/turf/T = get_turf(parent)
+	T.assume_air(air_contents)
+	parent.air_update_turf()
