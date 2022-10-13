@@ -707,7 +707,7 @@
 	AddInteraction("red", "Rejected by [key_name].")
 	Close(silent = TRUE)
 
-/datum/help_ticket/proc/Retitle()
+/datum/help_ticket/proc/Retitle(key_name = key_name_ticket(usr))
 	var/new_title = capped_input(usr, "Enter a title for the ticket", "Rename Ticket", name)
 	if(new_title)
 		name = new_title
