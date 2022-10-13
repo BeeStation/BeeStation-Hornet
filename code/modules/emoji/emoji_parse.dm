@@ -2,7 +2,6 @@
 	. = text
 	if(!CONFIG_GET(flag/emojis))
 		return
-	var/static/list/emojis = icon_states(icon('icons/emoji.dmi'))
 	var/parsed = ""
 	var/pos = 1
 	var/search = 0

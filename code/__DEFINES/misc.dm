@@ -370,6 +370,7 @@ GLOBAL_LIST_INIT(pda_styles, sortList(list(MONO, VT, ORBITRON, SHARE)))
 #define TELEPORT_CHANNEL_WORMHOLE "wormhole"	//! Wormhole teleportation, is not disrupted by bluespace fluctuations but tends to be very random or unsafe
 #define TELEPORT_CHANNEL_MAGIC "magic"			//! Magic teleportation, does whatever it wants (unless there's antimagic)
 #define TELEPORT_CHANNEL_CULT "cult"			//! Cult teleportation, does whatever it wants (unless there's holiness)
+#define TELEPORT_CHANNEL_BLINK "blink"			//! Teleportation with only a sender, but not disrupted by the BOH
 #define TELEPORT_CHANNEL_FREE "free"			//! Anything else
 
 //Teleport restriction modes (For areas)
@@ -391,9 +392,6 @@ GLOBAL_LIST_INIT(pda_styles, sortList(list(MONO, VT, ORBITRON, SHARE)))
 #define OVERRIDE_CONFIG_DIRECTORY_PARAMETER "config-directory"
 
 #define EGG_LAYING_MESSAGES list("lays an egg.","squats down and croons.","begins making a huge racket.","begins clucking raucously.")
-
-// Used by PDA and cartridge code to reduce repetitiveness of spritesheets
-#define PDAIMG(what) {"<span class="pda16x16 [#what]"></span>"}
 
 //Filters
 #define AMBIENT_OCCLUSION filter(type="drop_shadow", x=0, y=-2, size=4, color="#04080FAA")

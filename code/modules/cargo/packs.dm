@@ -791,6 +791,12 @@
 					/obj/item/ammo_box/magazine/wt550m9,
 					/obj/item/ammo_box/magazine/wt550m9)
 
+/datum/supply_pack/security/armoury/bsanchor
+	name = "Bluespace Anchoring Device"
+	desc = "Contains a single portable bluespace anchoring device which, when deployed, will prevent basic forms of teleportation. Does not come with batteries."
+	cost = 3000
+	contains = list(/obj/item/bluespace_anchor)
+
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////// Engineering /////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
@@ -2025,7 +2031,7 @@
 
 /datum/supply_pack/service/vending/ptech
 	name = "PTech Supply Crate"
-	desc = "Not enough cartridges after half the crew lost their PDA to explosions? This may fix it."
+	desc = "Not enough job disks after half the crew lost their PDA to explosions? This may fix it."
 	cost = 800
 	access_budget = ACCESS_HOP
 	contains = list(/obj/item/vending_refill/cart)

@@ -16,9 +16,9 @@
 	if(id)
 		. = id.assignment
 	else
-		var/obj/item/pda/pda = wear_id
+		var/obj/item/modular_computer/pda = wear_id
 		if(istype(pda))
-			. = pda.ownjob
+			. = pda.saved_job
 		else
 			return if_no_id
 	if(!.)
@@ -30,9 +30,9 @@
 	var/obj/item/card/id/id = get_idcard(FALSE)
 	if(id)
 		return id.registered_name
-	var/obj/item/pda/pda = wear_id
+	var/obj/item/modular_computer/pda = wear_id
 	if(istype(pda))
-		return pda.owner
+		return pda.saved_identification
 	return if_no_id
 
 //repurposed proc. Now it combines get_id_name() and get_face_name() to determine a mob's name variable. Made into a separate proc as it'll be useful elsewhere
@@ -64,15 +64,12 @@
 //Useful when player is being seen by other mobs
 /mob/living/carbon/human/proc/get_id_name(if_no_id = "Unknown")
 	var/obj/item/storage/wallet/wallet = wear_id
-	var/obj/item/pda/pda = wear_id
-	var/obj/item/card/id/id = wear_id
 	var/obj/item/modular_computer/tablet/tablet = wear_id
+	var/obj/item/card/id/id = wear_id
 	if(istype(wallet))
 		id = wallet.front_id
 	if(istype(id))
 		. = id.registered_name
-	else if(istype(pda))
-		. = pda.owner
 	else if(istype(tablet))
 		var/obj/item/computer_hardware/card_slot/card_slot = tablet.all_components[MC_CARD]
 		if(card_slot?.stored_card)

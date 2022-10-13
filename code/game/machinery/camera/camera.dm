@@ -251,21 +251,20 @@
 			return
 
 	// OTHER
-	if((istype(I, /obj/item/paper) || istype(I, /obj/item/pda)) && isliving(user))
+	if((istype(I, /obj/item/paper) || istype(I, /obj/item/modular_computer/tablet)) && isliving(user))
 		var/mob/living/U = user
-		var/obj/item/paper/X = null
-		var/obj/item/pda/P = null
 
 		var/itemname = ""
 		var/info = ""
 		if(istype(I, /obj/item/paper))
-			X = I
-			itemname = X.name
-			info = X.info
-		else
-			P = I
-			itemname = P.name
-			info = P.notehtml
+			var/obj/item/paper/pressed_paper = I
+			itemname = pressed_paper.name
+			info = pressed_paper.info
+		if(istype(I, /obj/item/modular_computer/tablet))
+			var/obj/item/modular_computer/tablet/computer = I
+			itemname = computer.name
+			info = computer.note
+
 		itemname = sanitize(itemname)
 		to_chat(U, "<span class='notice'>You hold \the [itemname] up to the camera...</span>")
 		U.changeNext_move(CLICK_CD_MELEE)
