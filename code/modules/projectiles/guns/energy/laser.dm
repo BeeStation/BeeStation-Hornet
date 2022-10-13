@@ -8,6 +8,8 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/lasergun)
 	ammo_x_offset = 1
 	shaded_charge = 1
+	recoil = 0.1
+	spread = 2
 
 /obj/item/gun/energy/laser/practice
 	name = "practice laser gun"
