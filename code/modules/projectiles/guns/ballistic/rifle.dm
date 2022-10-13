@@ -14,6 +14,7 @@
 	bolt_drop_sound = "sound/weapons/mosinboltin.ogg"
 	tac_reloads = FALSE
 	weapon_weight = WEAPON_MEDIUM
+	recoil = 1
 
 /obj/item/gun/ballistic/rifle/update_icon()
 	..()

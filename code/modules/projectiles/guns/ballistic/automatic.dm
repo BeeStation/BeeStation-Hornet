@@ -9,6 +9,8 @@
 	automatic = 1
 	rack_sound = "sound/weapons/smgrack.ogg"
 	weapon_weight = WEAPON_MEDIUM
+	recoil = 0.7
+	spread = 10
 
 /obj/item/gun/ballistic/automatic/proto
 	name = "\improper Nanotrasen Saber SMG"
@@ -20,6 +22,8 @@
 	bolt_type = BOLT_TYPE_LOCKING
 	mag_display = TRUE
 	weapon_weight = WEAPON_LIGHT
+	recoil = 0.6
+	spread = 10
 
 /obj/item/gun/ballistic/automatic/proto/unrestricted
 	pin = /obj/item/firing_pin
@@ -73,6 +77,8 @@
 	mag_display_ammo = TRUE
 	empty_indicator = TRUE
 	full_auto = TRUE
+	recoil = 0.7
+	spread = 14
 
 /obj/item/gun/ballistic/automatic/c20r/unrestricted
 	pin = /obj/item/firing_pin
@@ -98,6 +104,8 @@
 	fire_rate = 3
 	w_class = WEIGHT_CLASS_BULKY
 	full_auto = TRUE
+	recoil = 0.4
+	spread = 9
 
 /obj/item/gun/ballistic/automatic/wt550/rubber_loaded/Initialize(mapload)
 	magazine = new /obj/item/ammo_box/magazine/wt550m9/rubber(src)
@@ -111,6 +119,8 @@
 	bolt_type = BOLT_TYPE_OPEN
 	mag_display = TRUE
 	fire_rate = 4
+	recoil = 0.7
+	spread = 16
 	rack_sound = "sound/weapons/pistollock.ogg"
 
 /obj/item/gun/ballistic/automatic/m90
@@ -124,6 +134,8 @@
 	var/obj/item/gun/ballistic/revolver/grenadelauncher/underbarrel
 	burst_size = 3
 	fire_delay = 2
+	recoil = 0.5
+	spread = 13
 	pin = /obj/item/firing_pin/implant/pindicate
 	spread_unwielded = 15
 	mag_display = TRUE
@@ -197,6 +209,8 @@
 	mag_type = /obj/item/ammo_box/magazine/tommygunm45
 	fire_sound = 'sound/weapons/gunshot_smg.ogg'
 	fire_rate = 5
+	recoil = 0.9
+	spread = 12
 	can_suppress = FALSE
 	bolt_type = BOLT_TYPE_OPEN
 
@@ -210,6 +224,8 @@
 	fire_sound = 'sound/weapons/gunshot_smg.ogg'
 	can_suppress = FALSE
 	fire_rate = 4
+	recoil = 1
+	spread = 10
 
 
 // L6 SAW //
@@ -235,6 +251,8 @@
 	fire_sound = 'sound/weapons/rifleshot.ogg'
 	rack_sound = 'sound/weapons/chunkyrack.ogg'
 	full_auto = TRUE
+	recoil = 1.2
+	spread = 15
 
 /obj/item/gun/ballistic/automatic/l6_saw/unrestricted
 	pin = /obj/item/firing_pin
@@ -338,6 +356,7 @@
 	mag_display = TRUE
 	automatic = 0
 	fire_rate = 1.5
+	recoil = 1
 
 // Laser rifle (rechargeable magazine) //
 
