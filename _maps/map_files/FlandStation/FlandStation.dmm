@@ -8800,14 +8800,6 @@
 /obj/machinery/power/port_gen/pacman,
 /turf/open/floor/plasteel/dark,
 /area/engine/engine_room)
-"cpo" = (
-/obj/machinery/processor/slime,
-/obj/effect/turf_decal/bot,
-/obj/item/radio/intercom{
-	pixel_x = 28
-	},
-/turf/open/floor/plasteel/grid/steel,
-/area/science/xenobiology)
 "cpA" = (
 /obj/item/beacon,
 /obj/structure/cable/yellow{
@@ -10425,16 +10417,13 @@
 /turf/open/floor/plasteel/tiled/light,
 /area/medical/virology)
 "cOP" = (
-/obj/effect/turf_decal/stripes/line,
-/obj/effect/turf_decal/box/corners{
-	dir = 4
-	},
 /obj/machinery/button/door{
 	id = "telelab";
 	name = "Test Chamber Toggle";
 	pixel_y = 24
 	},
-/turf/open/floor/engine,
+/obj/machinery/computer/operating,
+/turf/open/floor/engine/light,
 /area/science/xenobiology)
 "cOY" = (
 /obj/effect/landmark/event_spawn,
@@ -13515,13 +13504,12 @@
 /turf/closed/wall/r_wall,
 /area/engine/engine_room)
 "dFh" = (
-/obj/effect/decal/cleanable/blood/old,
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
+/obj/machinery/processor/slime,
+/obj/effect/turf_decal/bot,
+/obj/structure/extinguisher_cabinet{
+	pixel_y = -30
 	},
-/obj/effect/landmark/blobstart,
-/obj/effect/turf_decal/box/corners,
-/turf/open/floor/engine,
+/turf/open/floor/engine/light,
 /area/science/xenobiology)
 "dFn" = (
 /obj/docking_port/stationary{
@@ -28631,6 +28619,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
+/obj/machinery/computer/xenoartifact_console{
+	dir = 8
+	},
 /turf/open/floor/plasteel/grid/steel,
 /area/science/explab)
 "hzt" = (
@@ -28709,11 +28700,12 @@
 /turf/open/floor/plasteel/tech/grid,
 /area/medical/morgue)
 "hAf" = (
-/obj/effect/turf_decal/stripes/line,
 /obj/machinery/firealarm{
 	pixel_y = 26
 	},
-/turf/open/floor/engine,
+/obj/structure/table/optable,
+/obj/item/surgical_drapes,
+/turf/open/floor/engine/light,
 /area/science/xenobiology)
 "hAt" = (
 /obj/machinery/recharge_station,
@@ -30451,9 +30443,6 @@
 /obj/item/reagent_containers/food/drinks/flask/gold,
 /turf/open/floor/carpet/royalblue,
 /area/crew_quarters/heads/captain/private)
-"hYt" = (
-/turf/open/floor/plasteel/ridged/steel,
-/area/science/xenobiology)
 "hYU" = (
 /obj/structure/table/wood/fancy,
 /obj/item/flashlight/lantern,
@@ -32958,7 +32947,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/firedoor,
-/turf/open/floor/engine,
+/turf/open/floor/plasteel/ridged/steel,
 /area/science/xenobiology)
 "iFQ" = (
 /obj/structure/window/reinforced,
@@ -33225,6 +33214,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
+/obj/structure/chair/foldable,
 /turf/open/floor/plasteel/techmaint,
 /area/science/misc_lab)
 "iIZ" = (
@@ -33901,10 +33891,6 @@
 	id = "telelab";
 	name = "Test Chamber Toggle";
 	pixel_x = 24
-	},
-/obj/effect/turf_decal/bot,
-/obj/machinery/computer/operating{
-	dir = 8
 	},
 /turf/open/floor/plasteel/grid/steel,
 /area/science/xenobiology)
@@ -44218,11 +44204,10 @@
 /turf/open/floor/plasteel/stairs/left,
 /area/hallway/secondary/entry)
 "lFI" = (
-/obj/effect/turf_decal/stripes/red/full,
 /obj/machinery/light{
 	dir = 4
 	},
-/turf/open/floor/engine,
+/turf/open/floor/engine/light,
 /area/science/xenobiology)
 "lFK" = (
 /obj/effect/turf_decal/tile/red/tile_full,
@@ -45691,15 +45676,11 @@
 	},
 /area/hallway/primary/aft)
 "lWz" = (
-/obj/effect/turf_decal/bot,
 /obj/machinery/light{
 	dir = 4
 	},
 /obj/machinery/status_display/ai{
 	pixel_x = 32
-	},
-/obj/machinery/computer/xenoartifact_console{
-	dir = 8
 	},
 /turf/open/floor/plasteel/grid/steel,
 /area/science/xenobiology)
@@ -49837,8 +49818,9 @@
 /turf/open/floor/plasteel,
 /area/hallway/primary/port)
 "neg" = (
-/obj/effect/turf_decal/bot,
-/obj/structure/table/optable,
+/obj/structure/chair/foldable{
+	dir = 8
+	},
 /turf/open/floor/plasteel/grid/steel,
 /area/science/xenobiology)
 "nep" = (
@@ -50842,15 +50824,15 @@
 /turf/open/floor/plasteel/dark,
 /area/security/main)
 "npK" = (
-/obj/effect/turf_decal/box/corners{
-	dir = 1
+/obj/item/circular_saw,
+/obj/item/scalpel{
+	pixel_y = 12
 	},
-/obj/effect/turf_decal/stripes/corner,
-/obj/effect/landmark/xeno_spawn,
-/obj/structure/sign/warning/fire{
-	pixel_y = 32
-	},
-/turf/open/floor/engine,
+/obj/item/hemostat,
+/obj/item/retractor,
+/obj/item/cautery,
+/obj/structure/table/reinforced,
+/turf/open/floor/engine/light,
 /area/science/xenobiology)
 "npQ" = (
 /obj/effect/turf_decal/trimline/blue/line,
@@ -51813,6 +51795,7 @@
 	dir = 1;
 	name = "euthanization chamber freezer"
 	},
+/obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel/grid/steel,
 /area/science/xenobiology)
 "nBn" = (
@@ -56643,6 +56626,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
+/obj/structure/chair/foldable,
 /turf/open/floor/plasteel/techmaint,
 /area/science/misc_lab)
 "oNs" = (
@@ -59023,11 +59007,6 @@
 /obj/structure/flora/rock/pile,
 /turf/closed/mineral,
 /area/asteroid/nearstation)
-"ptq" = (
-/obj/effect/turf_decal/bot,
-/obj/machinery/monkey_recycler,
-/turf/open/floor/plasteel/grid/steel,
-/area/science/xenobiology)
 "ptM" = (
 /obj/effect/turf_decal/bot,
 /obj/structure/filingcabinet/chestdrawer,
@@ -65264,8 +65243,8 @@
 /turf/open/floor/plasteel/dark,
 /area/security/courtroom)
 "qRI" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
+/obj/item/radio/intercom{
+	pixel_y = -28
 	},
 /obj/machinery/camera{
 	c_tag = "Science - Experimentor";
@@ -65273,10 +65252,7 @@
 	name = "science camera";
 	network = list("ss13","rd")
 	},
-/obj/item/radio/intercom{
-	pixel_y = -28
-	},
-/turf/open/floor/engine,
+/turf/open/floor/engine/light,
 /area/science/xenobiology)
 "qRK" = (
 /obj/effect/turf_decal/plaque{
@@ -86630,14 +86606,11 @@
 	},
 /area/hallway/primary/port)
 "vUc" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
 /obj/effect/turf_decal/caution{
 	dir = 8
 	},
 /obj/item/beacon,
-/turf/open/floor/engine,
+/turf/open/floor/engine/light,
 /area/science/xenobiology)
 "vUj" = (
 /obj/effect/turf_decal/tile/neutral/tile_marquee,
@@ -90991,9 +90964,9 @@
 /area/security/prison)
 "wRJ" = (
 /obj/effect/landmark/event_spawn,
-/obj/effect/turf_decal/stripes/red/full,
-/obj/machinery/rnd/experimentor,
-/turf/open/floor/engine,
+/obj/effect/landmark/xeno_spawn,
+/obj/effect/landmark/blobstart,
+/turf/open/floor/engine/light,
 /area/science/xenobiology)
 "wRN" = (
 /obj/machinery/atmospherics/pipe/simple/dark/visible{
@@ -91836,6 +91809,9 @@
 	},
 /obj/item/computer_hardware/hard_drive/role/signal/toxins{
 	pixel_y = 6
+	},
+/obj/item/circuitboard/machine/experimentor{
+	desc = "You have a vague memory of what this machine used to do, but whatever it was, it's nowadays useless."
 	},
 /turf/open/floor/plasteel/vaporwave,
 /area/crew_quarters/heads/hor)
@@ -97062,16 +97038,9 @@
 /turf/open/floor/plasteel,
 /area/quartermaster/storage)
 "xZM" = (
-/obj/effect/turf_decal/box/corners{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/corner{
-	dir = 4
-	},
-/obj/structure/sign/warning/fire{
-	pixel_y = -32
-	},
-/turf/open/floor/engine,
+/obj/machinery/monkey_recycler,
+/obj/effect/turf_decal/bot,
+/turf/open/floor/engine/light,
 /area/science/xenobiology)
 "xZR" = (
 /obj/effect/turf_decal/trimline/red/filled/line{
@@ -133426,9 +133395,9 @@ kdI
 lWz
 iSn
 neg
-hYt
-ptq
-cpo
+qTc
+qTc
+gJw
 vKA
 nBl
 siW
