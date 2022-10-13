@@ -56,11 +56,13 @@
 		if(!msg)
 			return
 
+	// Most common HTML entity... I don't feel like trying to touch the sanitization of this mess
+	msg = replacetext(msg, "&#39;", "'")
 	var/rawmsg = msg
 
 	if(GLOB.mentor_datums[ckey])
 		msg = emoji_parse(msg)
-	recipient << 'sound/items/bikehorn.ogg'
+	SEND_SOUND(recipient, sound('sound/items/bikehorn.ogg'))
 
 	if(recipient.is_mentor())
 		if(is_mentor())//both are mentors

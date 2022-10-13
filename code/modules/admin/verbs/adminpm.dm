@@ -157,7 +157,8 @@
 		msg = trim(sanitize(msg), MAX_MESSAGE_LEN)
 		if(!msg)
 			return
-
+	// Most common HTML entity... I don't feel like trying to touch the sanitization of this mess
+	msg = replacetext(msg, "&#39;", "'")
 	var/rawmsg = msg
 
 	if(holder)
