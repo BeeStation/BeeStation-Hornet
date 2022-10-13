@@ -36,7 +36,7 @@
 	icon = 'icons/effects/fire.dmi'
 	icon_state = "2" //what?
 	anchored = TRUE
-	opacity = TRUE
+	opacity = FALSE
 	density = FALSE
 	layer = FLY_LAYER
 
