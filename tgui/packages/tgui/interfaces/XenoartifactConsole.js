@@ -27,7 +27,9 @@ export const XenoartifactConsole = (props, context) => {
               average: [0.25, 0.5],
               bad: [-Infinity, 0.25],
             }}
-            value={stability*0.01}> Thread stability </ProgressBar>
+            value={stability*0.01}> 
+              Thread stability 
+          </ProgressBar>
           <Section title={`Research and Development`} fluid
             buttons={(
               <Box fontFamily="verdana" inline bold>
