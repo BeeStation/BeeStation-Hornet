@@ -105,8 +105,8 @@
 		return
 	var/mob/living/carbon/human/human = H
 	var/list/gear_leftovers = list()
-	if(M.client && LAZYLEN(M.client.prefs.equipped_gear))
-		for(var/gear in M.client.prefs.equipped_gear)
+	if(M.client && LAZYLEN(M.client.prefs.active_character.equipped_gear))
+		for(var/gear in M.client.prefs.active_character.equipped_gear)
 			var/datum/gear/G = GLOB.gear_datums[gear]
 			if(G)
 				var/permitted = FALSE
@@ -137,11 +137,11 @@
 					gear_leftovers += G
 
 			else
-				M.client.prefs.equipped_gear -= gear
+				M.client.prefs.active_character.equipped_gear -= gear
 
 	if(gear_leftovers.len)
 		for(var/datum/gear/G in gear_leftovers)
-			var/metadata = M.client.prefs.equipped_gear[G.id]
+			var/metadata = M.client.prefs.active_character.equipped_gear[G.id]
 			var/item = G.spawn_item(null, metadata)
 			var/atom/placed_in = human.equip_or_collect(item)
 
@@ -274,7 +274,7 @@
 	uniform = /obj/item/clothing/under/color/grey
 	id = /obj/item/card/id
 	ears = /obj/item/radio/headset
-	belt = /obj/item/pda
+	belt = /obj/item/modular_computer/tablet/pda
 	back = /obj/item/storage/backpack
 	shoes = /obj/item/clothing/shoes/sneakers/black
 	box = /obj/item/storage/box/survival
@@ -337,11 +337,11 @@
 				break
 		H.sec_hud_set_ID()
 
-	var/obj/item/pda/PDA = H.get_item_by_slot(pda_slot)
+	var/obj/item/modular_computer/tablet/pda/PDA = H.get_item_by_slot(pda_slot)
 	if(istype(PDA))
-		PDA.owner = H.real_name
-		PDA.ownjob = J.title
-		PDA.update_label()
+		PDA.saved_identification = C.registered_name
+		PDA.saved_job = C.assignment
+		PDA.update_id_display()
 
 /datum/outfit/job/get_chameleon_disguise_info()
 	var/list/types = ..()

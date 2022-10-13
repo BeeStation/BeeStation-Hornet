@@ -118,7 +118,7 @@
 			pressure_delta = min(pressure_delta, (air_contents.return_pressure() - internal_pressure_bound))
 
 		if(pressure_delta > 0)
-			if(air_contents.return_temperature() > 0)
+			if(air_contents.return_temperature() > 0 && air_contents.return_volume() > 0)
 				var/transfer_moles = pressure_delta*environment.return_volume()/(air_contents.return_temperature() * R_IDEAL_GAS_EQUATION)
 
 				loc.assume_air_moles(air_contents, transfer_moles)
