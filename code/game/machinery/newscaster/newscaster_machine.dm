@@ -931,7 +931,7 @@
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 30, TRUE)
 		return TRUE
 	payment_target.transfer_money(account, active_request.value)
-	say("Paid out [active_request.value] credits.")
+	say("Paid out [MONEY_SYMBOL][active_request.value].")
 	GLOB.request_list.Remove(active_request)
 	qdel(active_request)
 

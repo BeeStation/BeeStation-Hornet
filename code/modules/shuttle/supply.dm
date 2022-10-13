@@ -109,11 +109,11 @@ GLOBAL_LIST_INIT(blacklisted_cargo_types, typecacheof(list(
 		if(D)
 			if(!D.adjust_money(-price))
 				if(SO.paying_account)
-					D.bank_card_talk("Cargo order #[SO.id] rejected due to lack of funds. Credits required: [price]")
+					D.bank_card_talk("Cargo order #[SO.id] rejected due to lack of funds. Credits required: [MONEY_SYMBOL][price]")
 				continue
 
 		if(SO.paying_account)
-			D.bank_card_talk("Cargo order #[SO.id] has shipped. [price] credits have been charged to your bank account.")
+			D.bank_card_talk("Cargo order #[SO.id] has shipped. [MONEY_SYMBOL][price] has been charged to your bank account.")
 			var/datum/bank_account/department/cargo = SSeconomy.get_dep_account(ACCOUNT_CAR)
 			cargo.adjust_money(price - SO.pack.get_cost()) //Cargo gets the handling fee
 		value += SO.pack.get_cost()
@@ -160,7 +160,7 @@ GLOBAL_LIST_INIT(blacklisted_cargo_types, typecacheof(list(
 		qdel(SO)
 
 	var/datum/bank_account/cargo_budget = SSeconomy.get_dep_account(ACCOUNT_CAR)
-	investigate_log("[purchases] orders in this shipment, worth [value] credits. [cargo_budget.account_balance] credits left.", INVESTIGATE_CARGO)
+	investigate_log("[purchases] orders in this shipment, worth [MONEY_SYMBOL][value]. [MONEY_SYMBOL][cargo_budget.account_balance] left.", INVESTIGATE_CARGO)
 
 /obj/docking_port/mobile/supply/proc/sell()
 	var/datum/bank_account/D = SSeconomy.get_dep_account(ACCOUNT_CAR)
@@ -202,7 +202,7 @@ GLOBAL_LIST_INIT(blacklisted_cargo_types, typecacheof(list(
 		D.adjust_money(ex.total_value[E])
 
 	SSshuttle.centcom_message = msg
-	investigate_log("Shuttle contents sold for [D.account_balance - presale_points] credits. Contents: [ex.exported_atoms ? ex.exported_atoms.Join(",") + "." : "none."] Message: [SSshuttle.centcom_message || "none."]", INVESTIGATE_CARGO)
+	investigate_log("Shuttle contents sold for [MONEY_SYMBOL][D.account_balance - presale_points]. Contents: [ex.exported_atoms ? ex.exported_atoms.Join(",") + "." : "none."] Message: [SSshuttle.centcom_message || "none."]", INVESTIGATE_CARGO)
 
 
 //	Generates a box of mail depending on our exports and imports.

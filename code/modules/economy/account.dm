@@ -79,7 +79,7 @@
 				bank_card_talk("ERROR: Payday aborted, departmental funds insufficient.")
 				return FALSE
 			else
-				bank_card_talk("Payday processed, account now holds ₡[account_balance].")
+				bank_card_talk("Payday processed, account now holds [MONEY_SYMBOL][account_balance].")
 				//The bonus only resets once it goes through.
 				if(paycheck_bonus > 0) //And we're not getting rid of debt
 					paycheck_bonus = 0

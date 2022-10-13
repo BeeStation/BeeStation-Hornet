@@ -107,7 +107,7 @@
 			var/obj/item/holochip/H = I
 			if(!user.temporarilyRemoveItemFromInventory(H))
 				return
-			to_chat(user, "<span class='notice'>You insert [H.credits] holocredits into [src]'s slot!</span>")
+			to_chat(user, "<span class='notice'>You insert [MONEY_SYMBOL][H.credits] into [src]'s slot!</span>")
 			balance += H.credits
 			qdel(H)
 		else
@@ -151,7 +151,7 @@
 	else
 		dat = {"Five credits to play!<BR>
 		<B>Prize Money Available:</B> [money] (jackpot payout is ALWAYS 100%!)<BR>
-		<B>Credit Remaining:</B> [balance]<BR>
+		<B>Credit Remaining:</B> [MONEY_SYMBOL][balance]<BR>
 		[plays] players have tried their luck today, and [jackpots] have won a jackpot!<BR>
 		<HR><BR>
 		<A href='?src=[REF(src)];spin=1'>Play!</A><BR>
@@ -255,8 +255,8 @@
 	var/linelength = get_lines()
 
 	if(reels[1][2] + reels[2][2] + reels[3][2] + reels[4][2] + reels[5][2] == "[SEVEN][SEVEN][SEVEN][SEVEN][SEVEN]")
-		visible_message("<b>[src]</b> says, 'JACKPOT! You win [money] credits!'")
-		priority_announce("Congratulations to [user ? user.real_name : usrname] for winning the jackpot at the slot machine in [get_area(src)]!", sound = SSstation.announcer.get_rand_alert_sound())
+		visible_message("<b>[src]</b> says, 'JACKPOT! You win [MONEY_SYMBOL][money]!'")
+		priority_announce("Congratulations to [user ? user.real_name : usrname] for winning the [MONEY_SYMBOL][JACKPOT] jackpot at the slot machine in [get_area(src)]!", sound = SSstation.announcer.get_rand_alert_sound())
 		jackpots += 1
 		balance += money - give_payout(JACKPOT)
 		money = 0

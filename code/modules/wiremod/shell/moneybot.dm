@@ -139,7 +139,7 @@
 		return
 
 	attached_bot.add_money(amount_to_insert)
-	balloon_alert(attacker, "Inserted [amount_to_insert] credits.")
+	balloon_alert(attacker, "Inserted [MONEY_SYMBOL][amount_to_insert].")
 	money_input.set_output(amount_to_insert)
 	payer.set_output(attacker)
 	money_trigger.set_output(COMPONENT_SIGNAL)

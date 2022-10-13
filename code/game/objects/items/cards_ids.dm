@@ -175,7 +175,7 @@
 		var/money_added = mass_insert_money(money_contained, user)
 
 		if (money_added)
-			to_chat(user, "<span class='notice'>You stuff the contents into the card! They disappear in a puff of bluespace smoke, adding [money_added] worth of credits to the linked account.</span>")
+			to_chat(user, "<span class='notice'>You stuff the contents into the card! They disappear in a puff of bluespace smoke, adding [MONEY_SYMBOL][money_added] worth of credits to the linked account.</span>")
 		return
 	else
 		return ..()
@@ -191,11 +191,11 @@
 
 	registered_account.adjust_money(cash_money)
 	if(istype(I, /obj/item/stack/spacecash) || istype(I, /obj/item/coin))
-		to_chat(user, "<span class='notice'>You stuff [I] into [src]. It disappears in a small puff of bluespace smoke, adding [cash_money] credits to the linked account.</span>")
+		to_chat(user, "<span class='notice'>You stuff [I] into [src]. It disappears in a small puff of bluespace smoke, adding [MONEY_SYMBOL][cash_money] to the linked account.</span>")
 	else
-		to_chat(user, "<span class='notice'>You insert [I] into [src], adding [cash_money] credits to the linked account.</span>")
+		to_chat(user, "<span class='notice'>You insert [I] into [src], adding [MONEY_SYMBOL][cash_money] to the linked account.</span>")
 
-	to_chat(user, "<span class='notice'>The linked account now reports a balance of ₡[registered_account.account_balance].</span>")
+	to_chat(user, "<span class='notice'>The linked account now reports a balance of [MONEY_SYMBOL][registered_account.account_balance].</span>")
 	qdel(I)
 
 /obj/item/card/id/proc/mass_insert_money(list/money, mob/user)
@@ -279,11 +279,11 @@
 	if(registered_account.adjust_money(-amount_to_remove))
 		var/obj/item/holochip/holochip = new (user.drop_location(), amount_to_remove)
 		user.put_in_hands(holochip)
-		to_chat(user, "<span class='notice'>You withdraw [amount_to_remove] credits into a holochip.</span>")
+		to_chat(user, "<span class='notice'>You withdraw [MONEY_SYMBOL][amount_to_remove] into a holochip.</span>")
 		return
 	else
 		var/difference = amount_to_remove - registered_account.account_balance
-		registered_account.bank_card_talk("<span class='warning'>ERROR: The linked account requires [difference] more credit\s to perform that withdrawal.</span>", TRUE)
+		registered_account.bank_card_talk("<span class='warning'>ERROR: The linked account requires [MONEY_SYMBOL][difference] more to perform that withdrawal.</span>", TRUE)
 
 /obj/item/card/id/examine(mob/user)
 	. = ..()
@@ -292,11 +292,11 @@
 	if(mining_points)
 		. += "There's [mining_points] mining equipment redemption point\s loaded onto this card."
 	if(registered_account)
-		. += "The account linked to the ID belongs to '[registered_account.account_holder]' and reports a balance of ₡[registered_account.account_balance]."
+		. += "The account linked to the ID belongs to '[registered_account.account_holder]' and reports a balance of [MONEY_SYMBOL][registered_account.account_balance]."
 		if(registered_account.account_job)
 			var/datum/bank_account/D = SSeconomy.get_dep_account(registered_account.account_department)
 			if(D)
-				. += "The [D.account_holder] reports a balance of ₡[D.account_balance]."
+				. += "The [D.account_holder] reports a balance of [MONEY_SYMBOL][D.account_balance]."
 		. += "<span class='info'>Alt-Click the ID to pull money from the linked account in the form of holochips.</span>"
 		. += "<span class='info'>You can insert credits into the linked account by pressing holochips, cash, or coins against the ID.</span>"
 		if(registered_account.account_holder == user.real_name)

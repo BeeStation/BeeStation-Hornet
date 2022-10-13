@@ -1625,7 +1625,7 @@
 
 /obj/item/gobbler/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>The Coin Gobbler holds [money] credits.</span>"
+	. += "<span class='notice'>The Coin Gobbler holds [MONEY_SYMBOL][money].</span>"
 
 /obj/item/gobbler/attackby()
 	return

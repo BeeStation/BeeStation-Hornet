@@ -375,7 +375,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 /obj/item/coin/examine(mob/user)
 	. = ..()
 	if(value)
-		. += "<span class='info'>It's worth [value] credit\s.</span>"
+		. += "<span class='info'>It's worth [MONEY_SYMBOL][value].</span>"
 
 /obj/item/coin/gold
 	name = "gold coin"

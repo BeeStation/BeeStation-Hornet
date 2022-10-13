@@ -89,7 +89,7 @@
 
 /obj/structure/sign/departments/minsky/research/robotics
 	name = "Robotics Division"
-	desc = "A sign labelling the robotics division of the station. Produces ₡6 cyborgs."
+	desc = "A sign labelling the robotics division of the station. Produces 6 credit cyborgs."
 	icon_state = "minskyrobo"
 
 /obj/structure/sign/departments/minsky/research/xenobiology

@@ -20,7 +20,7 @@
 	icon_screen = "xenoartifact_console"
 	icon_keyboard = "rd_key"
 	circuit = /obj/item/circuitboard/computer/xenoartifact_console
-	
+
 	///Sellers give artifacts
 	var/list/sellers = list()
 	///Buyers take artifacts
@@ -85,7 +85,7 @@
 			"main" = E.main, //Sold time
 			"gain" = E.gain, //Profits
 			"traits" = E.traits //traits
-		))	
+		))
 	data["tab_index"] = tab_index
 	data["current_tab"] = current_tab
 	data["tab_info"] = current_tab_info
@@ -132,7 +132,7 @@
 				X.price = S.price //dont bother trying to use internal singals for this
 				sellers -= S
 				budget.adjust_money(-1*S.price)
-				say("Purchase complete. [budget.account_balance] credits remaining in Research Budget")
+				say("Purchase complete. [MONEY_SYMBOL][budget.account_balance] remaining in Research Budget")
 				addtimer(CALLBACK(src, .proc/generate_new_seller), (rand(1,3)*60) SECONDS)
 				A = null
 
@@ -169,7 +169,7 @@
 				linked_techweb.add_point_type(TECHWEB_POINT_TYPE_DISCOVERY, (XENOA_SOLD_DP*(final_price/X.price)) * (final_price >= X.price))
 
 				//Handle player info
-				entry.main = "[selling_item.name] sold at [station_time_timestamp()] for [final_price] credits, bought for [X.price]."
+				entry.main = "[selling_item.name] sold at [station_time_timestamp()] for [MONEY_SYMBOL][final_price], bought for [MONEY_SYMBOL][X.price]."
 				entry.gain = "Awarded [(final_price*2.3) * (final_price >= X.price)] Research Points & [XENOA_SOLD_DP*(final_price/X.price) * (final_price >= X.price)] Discovery Points."
 				info = "[entry.main]\n[entry.gain]\n"
 
@@ -192,7 +192,7 @@
 			budget.adjust_money(final_price)
 			sold_artifacts += info
 			qdel(selling_item)
-	if(info)	
+	if(info)
 		say(info)
 
 
@@ -276,7 +276,7 @@
 /datum/xenoartifact_seller/proc/change_item()
 	generate()
 
-/datum/xenoartifact_seller/buyer //Buyer off shoot, for player-selling 
+/datum/xenoartifact_seller/buyer //Buyer off shoot, for player-selling
 	var/obj/buying
 
 /datum/xenoartifact_seller/buyer/generate()
@@ -285,7 +285,7 @@
 	if(buying == /obj/item/xenoartifact) //Don't bother trying to use istype here
 		dialogue = "[name] is requesting: Anomoly : Class : Artifact"
 	addtimer(CALLBACK(src, .proc/change_item), (rand(1,3)*60) SECONDS)
-	
+
 //Used to hold information about artifact transactions. Might get standrardized sooner or later.
 /datum/xenoartifact_info_entry
 	var/main =""

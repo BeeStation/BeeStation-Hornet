@@ -34,6 +34,7 @@
 #define ACCOUNT_VIP_NAME "Nanotrasen VIP Expense Account Budget"
 
 #define NO_FREEBIES "commies go home"
+#define MONEY_SYMBOL "₡"
 
 /// How much mail the Economy SS will create per minute, regardless of firing time.
 #define MAX_MAIL_PER_MINUTE 3

@@ -98,7 +98,7 @@
 
 /obj/machinery/paystand/proc/purchase(buyer, price)
 	my_card.registered_account.adjust_money(price)
-	my_card.registered_account.bank_card_talk("Purchase made at your vendor by [buyer] for [price] credits.")
+	my_card.registered_account.bank_card_talk("Purchase made at your vendor by [buyer] for [MONEY_SYMBOL][price].")
 	amount_deposited = amount_deposited + price
 	if(signaler && amount_deposited >= signaler_threshold)
 		signaler.activate()

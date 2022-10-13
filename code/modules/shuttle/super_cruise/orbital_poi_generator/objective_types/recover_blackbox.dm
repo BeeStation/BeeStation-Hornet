@@ -14,7 +14,7 @@
 
 /datum/orbital_objective/recover_blackbox/get_text()
 	. = "Outpost [station_name] recently went dark and is no longer responding to our attempts \
-		to contact them. Send in a team and recover the station's blackbox for a payout of [payout] credits."
+		to contact them. Send in a team and recover the station's blackbox for a payout of [MONEY_SYMBOL][payout]."
 	if(linked_beacon)
 		. += " The station is located at the beacon marked [linked_beacon.name]. Good luck."
 
@@ -76,7 +76,7 @@
 	if(linked_obj)
 		linked_obj.complete_objective()
 	else
-		parentobj.say("Non-priority item recovered, dispensing 2000 credit reward.")
+		parentobj.say("Non-priority item recovered, dispensing [MONEY_SYMBOL]2000 reward.")
 		new /obj/item/stack/spacecash/c1000(get_turf(parent), 2)
 	//Fly away
 	var/mutable_appearance/balloon

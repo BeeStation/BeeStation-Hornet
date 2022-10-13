@@ -15,14 +15,14 @@
 
 /obj/item/holochip/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>It's loaded with [credits] credit[( credits > 1 ) ? "s" : ""]</span>\n"+\
+	. += "<span class='notice'>It's loaded with [MONEY_SYMBOL][credits]</span>\n"+\
 	"<span class='notice'>Alt-Click to split.</span>"
 
 /obj/item/holochip/get_item_credit_value()
 	return credits
 
 /obj/item/holochip/update_icon()
-	name = "\improper [credits] credit holochip"
+	name = "\improper [MONEY_SYMBOL][credits] holochip"
 	var/rounded_credits = credits
 	switch(credits)
 		if(1 to 999)
@@ -95,7 +95,7 @@
 				H.forceMove(user.drop_location())
 			add_fingerprint(user)
 		H.add_fingerprint(user)
-		to_chat(user, "<span class='notice'>You extract [split_amount] credits into a new holochip.</span>")
+		to_chat(user, "<span class='notice'>You extract [MONEY_SYMBOL][split_amount] into a new holochip.</span>")
 
 /obj/item/holochip/emp_act(severity)
 	. = ..()

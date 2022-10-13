@@ -251,14 +251,14 @@
 		if(!user.temporarilyRemoveItemFromInventory(c))
 			return
 		credits += c.value
-		visible_message("<span class='info'><span class='name'>[user]</span> inserts [c.value] credits into [src].</span>")
+		visible_message("<span class='info'><span class='name'>[user]</span> inserts [MONEY_SYMBOL][c.value] into [src].</span>")
 		qdel(c)
 		ui_update()
 		return
 	else if(istype(I, /obj/item/holochip))
 		var/obj/item/holochip/HC = I
 		credits += HC.credits
-		visible_message("<span class='info'>[user] inserts a ₡[HC.credits] holocredit chip into [src].</span>")
+		visible_message("<span class='info'>[user] inserts a [MONEY_SYMBOL][HC.credits] chip into [src].</span>")
 		qdel(HC)
 		ui_update()
 		return
@@ -272,7 +272,7 @@
 			say("Insufficient money on card to purchase!")
 			return
 		credits += target_credits
-		say("[target_credits] cr have been withdrawn from your account.")
+		say("[MONEY_SYMBOL][target_credits] has been withdrawn from your account.")
 		ui_update()
 		return
 	return ..()
