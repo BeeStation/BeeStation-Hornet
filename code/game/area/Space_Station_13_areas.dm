@@ -98,6 +98,19 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	name = "Bridge Docking Area"
 	icon_state = "bridgedockarea"
 
+//Dry Dock
+
+/area/drydock
+	name = "Shuttle drydock"
+	icon_state = "drydock"
+	ambience_index = AMBIENCE_MAINT
+	lighting_colour_tube = "#1c748a"
+	lighting_colour_bulb = "#1c748a"
+
+/area/drydock/security
+	name = "Security Shuttle drydock"
+	icon_state = "drydock_sec"
+
 //Maintenance
 
 /area/maintenance
