@@ -827,7 +827,7 @@
 /obj/machinery/door/airlock/attack_animal(mob/user)
 	. = ..()
 	if(isElectrified())
-		shock(user, 100)
+		shock(user, 90)
 
 /obj/machinery/door/airlock/attack_paw(mob/user)
 	return attack_hand(user)
@@ -844,7 +844,7 @@
 		return
 	if(!(issilicon(user) || IsAdminGhost(user)))
 		if(isElectrified())
-			if(shock(user, 100))
+			if(shock(user, 90))
 				return
 
 	if(ishuman(user) && prob(40) && density)
@@ -1394,7 +1394,7 @@
 /obj/machinery/door/airlock/proc/on_break()
 	if(!panel_open)
 		panel_open = TRUE
-	wires.cut_all()
+		loseMainPower()
 
 /obj/machinery/door/airlock/proc/set_electrified(seconds, mob/user)
 	secondsElectrified = seconds
