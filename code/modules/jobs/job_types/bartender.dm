@@ -29,7 +29,7 @@
 
 	id = /obj/item/card/id/job/bartender
 	glasses = /obj/item/clothing/glasses/sunglasses/advanced/reagent
-	belt = /obj/item/pda/bartender
+	belt = /obj/item/modular_computer/tablet/pda/bartender
 	ears = /obj/item/radio/headset/headset_srv
 	uniform = /obj/item/clothing/under/rank/civilian/bartender
 	suit = /obj/item/clothing/suit/armor/vest
