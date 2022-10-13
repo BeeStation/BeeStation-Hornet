@@ -1,7 +1,5 @@
-<!-- Most valid html will work in here, excluding images. -->
-
-<h1>Welcome to BeeStation!</h1>
-
-<br><b>Website: 	<a href="http://beestation13.com">Click Me!</a></b>
-<br><b>Discord: 	<a href="https://discord.gg/z9ttAvA">Click Me!</a></b>
-<br><b>Donate:	<a href="https://www.patreon.com/user?u=10639001">Click Me!</a></b>
+﻿<meta charset='utf-8'>
+<h1><br />Приветствую вас на <strong>АРМОСТАНЦИИ!</strong></h1>
+<p><strong>Основная суть сервера - ролевая игра, космическая станция 13, без вахтёров, фурри, ерп и кучи ненужных правил.</strong></p>
+<p><em>Это сервер ролевой, вот основные его правила:</em></p>
+<p><br />0. Последнее слово остаётся за администрацией.<br />1. Не будь мудаком. <br />2. Это ролевой сервер. Каждый должен отыгрывать свою роль.<br />3. Метагейминг, читерство, обход банов, само-конвертирование, пауэргейминг, ступиднеймы, мемы, OOC в IC - запрещены.<br /><br /><span style="color: #800000;"><em>Все, что не подходит под правила, но вредит серверу/мне/игрокам/атмосфере - карается баном.</em></span><br /><span style="color: #993366;"><em>ЕРП не запрещено правилами сервера, но запрещено космозаконом. Любой СБшник вправе казнить вас за секс, как и любой админ вправе применить смешные кнопки.<br /><br /></em><span style="color: #0000ff;"><strong>ОБЩЕНИЕ, ИНФОРМАЦИЯ, ПРИКОЛЫ И ПРОЧЕЕ ЗДЕСЬ:&nbsp;<a style="color: #0000ff;" href="https://discord.gg/PtSFnEnTRR">ДИСКОРД</a></strong></span></span></p>

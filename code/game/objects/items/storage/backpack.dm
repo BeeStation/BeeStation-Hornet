@@ -19,7 +19,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = ITEM_SLOT_BACK	//ERROOOOO
 	resistance_flags = NONE
-	max_integrity = 300
+	max_integrity = 200
 
 /obj/item/storage/backpack/ComponentInitialize()
 	. = ..()
@@ -402,7 +402,8 @@
 /obj/item/storage/backpack/duffelbag/ComponentInitialize()
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
-	STR.max_combined_w_class = 30
+	STR.max_w_class = WEIGHT_CLASS_BULKY
+	STR.max_combined_w_class = 15
 
 /obj/item/storage/backpack/duffelbag/captain
 	name = "captain's duffel bag"

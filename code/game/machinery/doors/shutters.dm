@@ -5,7 +5,7 @@
 	icon = 'icons/obj/doors/shutters.dmi'
 	layer = SHUTTER_LAYER
 	closingLayer = SHUTTER_LAYER
-	damage_deflection = 20
+	damage_deflection = 15
 
 /obj/machinery/door/poddoor/shutters/preopen
 	icon_state = "open"
