@@ -871,16 +871,6 @@
 	reqs = list(/obj/item/stack/sheet/cotton/cloth = 4)
 	category = CAT_CLOTHING
 
-/datum/crafting_recipe/guillotine
-	name = "Guillotine"
-	result = /obj/structure/guillotine
-	time = 150 // Building a functioning guillotine takes time
-	reqs = list(/obj/item/stack/sheet/plasteel = 3,
-		        /obj/item/stack/sheet/mineral/wood = 20,
-		        /obj/item/stack/cable_coil = 10)
-	tools = list(TOOL_SCREWDRIVER, TOOL_WRENCH, TOOL_WELDER)
-	category = CAT_STRUCTURE
-
 /datum/crafting_recipe/aitater
 	name = "intelliTater"
 	result = /obj/item/aicard/aitater
@@ -988,16 +978,6 @@
 
 	category = CAT_CLOTHING
 
-/datum/crafting_recipe/aquarium
-	name = "Aquarium"
-	result = /obj/structure/aquarium
-	time = 10 SECONDS
-	reqs = list(/obj/item/stack/sheet/iron = 15,
-				/obj/item/stack/sheet/glass = 10,
-				/obj/item/aquarium_kit = 1
-				)
-	category = CAT_MISC
-
 /datum/crafting_recipe/paper_cup
 	name= "Paper Cup"
 	result = /obj/item/reagent_containers/food/drinks/sillycup
@@ -1096,4 +1076,24 @@
 	name = "Shower Curtains"
 	reqs = 	list(/obj/item/stack/sheet/cotton/cloth = 2, /obj/item/stack/sheet/plastic = 2, /obj/item/stack/rods = 1)
 	result = /obj/structure/curtain
+	category = CAT_STRUCTURE
+
+/datum/crafting_recipe/aquarium
+	name = "Aquarium"
+	result = /obj/structure/aquarium
+	time = 10 SECONDS
+	reqs = list(/obj/item/stack/sheet/iron = 15,
+				/obj/item/stack/sheet/glass = 10,
+				/obj/item/aquarium_kit = 1
+				)
+	category = CAT_STRUCTURE
+
+/datum/crafting_recipe/guillotine
+	name = "Guillotine"
+	result = /obj/structure/guillotine
+	time = 150 // Building a functioning guillotine takes time
+	reqs = list(/obj/item/stack/sheet/plasteel = 3,
+		        /obj/item/stack/sheet/mineral/wood = 20,
+		        /obj/item/stack/cable_coil = 10)
+	tools = list(TOOL_SCREWDRIVER, TOOL_WRENCH, TOOL_WELDER)
 	category = CAT_STRUCTURE
