@@ -98,7 +98,6 @@
 
 	check_poddoors()
 	new_dock.last_dock_time = world.time
-	//setDir(new_dock.dir)
 
 	// remove any stragglers just in case, and clear the list
 	remove_ripples()

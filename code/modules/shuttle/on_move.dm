@@ -87,21 +87,10 @@ All ShuttleMove procs go here
 	oldT.TransferComponents(src)
 	SSexplosions.wipe_turf(src)
 	SEND_SIGNAL(oldT, COMSIG_TURF_AFTER_SHUTTLE_MOVE, src) //Mostly for decals
-	/*
-	var/BT_index = length(baseturfs)
-	var/BT
-	for(var/i in 0 to all_towed_shuttles.len - 1) //For each shuttle on the turf, look for another skipover
-		var/obj/docking_port/mobile/M = all_towed_shuttles[all_towed_shuttles.len - i]
-		if(M.underlying_turf_area[src] && !M.missing_turfs[src])
-			while(BT_index)
-				BT = baseturfs[BT_index--]
-				if(BT == /turf/baseturf_skipover/shuttle)
-					break
-	*/
 
 	var/area/shuttle/A = loc
 	var/obj/docking_port/mobile/top_shuttle = A?.mobile_port
-	var/shuttle_layers = -1*A.get_missing_shuttles(src) //It's assumed all hull breached shuttles are above all non-breached shuttles. If this is no longer the case, this needs to be overhauled.
+	var/shuttle_layers = -1*A.get_missing_shuttles(src)
 	for(var/index in 1 to all_towed_shuttles.len)
 		var/obj/docking_port/mobile/M = all_towed_shuttles[index]
 		if(!M.underlying_turf_area[src])
