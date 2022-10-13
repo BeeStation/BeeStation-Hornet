@@ -15,3 +15,4 @@
 Armolitskiy = Host
 Evolet = Admin
 TeodorD = Admin
+Hailrakes = Host
