@@ -155,7 +155,7 @@
 	dust()
 
 /mob/living/simple_animal/drone/examine(mob/user)
-	. = list("<span class='info'>*---------*\nThis is [icon2html(src, user)] \a <b>[src]</b>!")
+	. = list("<span class='info'>This is [icon2html(src, user)] \a <b>[src]</b>!")
 
 	//Hands
 	for(var/obj/item/I in held_items)
@@ -191,7 +191,7 @@
 			. += "<span class='deadsay'>A message repeatedly flashes on its display: \"REBOOT -- REQUIRED\".</span>"
 		else
 			. += "<span class='deadsay'>A message repeatedly flashes on its display: \"ERROR -- OFFLINE\".</span>"
-	. += "*---------*</span>"
+	. += "</span>"
 
 
 /mob/living/simple_animal/drone/assess_threat(judgment_criteria, lasercolor = "", datum/callback/weaponcheck=null) //Secbots won't hunt maintenance drones.

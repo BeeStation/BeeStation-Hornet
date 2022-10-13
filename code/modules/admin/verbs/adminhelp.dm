@@ -134,7 +134,8 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/help_tickets/admin, new)
 	usr.client.cmd_ahelp_reply_instant(whom, msg)
 
 /datum/help_ticket/admin/Create(msg, is_bwoink)
-	..()
+	if(!..())
+		return FALSE
 	if(is_bwoink)
 		AddInteraction("blue", name, usr.ckey, initiator_key_name, "Administrator", "You")
 		message_admins("<font color='blue'>Ticket [TicketHref("#[id]")] created</font>")
@@ -152,10 +153,11 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/help_tickets/admin, new)
 	bwoink = is_bwoink
 	if(!bwoink)
 		discordsendmsg("ahelp", "**ADMINHELP: (#[id]) [initiator.key]: ** \"[msg]\" [heard_by_no_admins ? "**(NO ADMINS)**" : "" ]")
+	return TRUE
 
 /datum/help_ticket/admin/NewFrom(datum/help_ticket/old_ticket)
 	if(!..())
-		return
+		return FALSE
 	MessageNoRecipient(initial_msg, FALSE)
 	//send it to tgs if nobody is on and tell us how many were on
 	var/admin_number_present = send2tgs_adminless_only(initiator_ckey, "Ticket #[id]: [initial_msg]")
@@ -164,6 +166,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/help_tickets/admin, new)
 		to_chat(initiator, "<span class='notice'>No active admins are online, your adminhelp was sent through TGS to admins who are available. This may use IRC or Discord.</span>")
 		heard_by_no_admins = TRUE
 	discordsendmsg("ahelp", "**ADMINHELP: (#[id]) [initiator.key]: ** \"[initial_msg]\" [heard_by_no_admins ? "**(NO ADMINS)**" : "" ]")
+	return TRUE
 
 /datum/help_ticket/admin/AddInteraction(msg_color, message, name_from, name_to, safe_from, safe_to)
 	if(heard_by_no_admins && usr && usr.ckey != initiator_ckey)
@@ -250,40 +253,44 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/help_tickets/admin, new)
 	if(state > TICKET_ACTIVE)
 		return
 
-	var/msg = "<font color='red' size='4'><b>- [verb_name] marked as IC issue! -</b></font><br>"
-	msg += "<font color='red'>Your issue has been determined by [handling_name_a] to be an in character issue and does NOT require [handling_name] intervention at this time. For further resolution you should pursue options that are in character.</font><br>"
+	if(!claimee)
+		Claim(silent = TRUE)
 
 	if(initiator)
-		to_chat(initiator, msg)
+		addtimer(CALLBACK(initiator, /client/proc/giveadminhelpverb), 5 SECONDS)
+		SEND_SOUND(initiator, sound(reply_sound))
+		resolve_message(status = "marked as IC Issue!", message = "\A [handling_name] has handled your ticket and has determined that the issue you are facing is an in-character issue and does not require [handling_name] intervention at this time.<br />\
+		For further resolution, you should pursue options that are in character, such as filing a report with security or a head of staff.<br />\
+		Thank you for creating a ticket, the adminhelp verb will be returned to you shortly.")
 
 	blackbox_feedback(1, "IC")
-	msg = "Ticket [TicketHref("#[id]")] marked as IC by [key_name]"
+	var/msg = "Ticket [TicketHref("#[id]")] marked as IC by [key_name]"
 	message_admins(msg)
 	log_admin_private(msg)
 	AddInteraction("red", "Marked as IC issue by [key_name]")
 	Resolve(silent = TRUE)
 
 	if(!bwoink)
-		discordsendmsg("ahelp", "Ticket #[id] marked as IC by [key_name(usr, include_link=0)]")
+		discordsendmsg("ahelp", "Ticket #[id] marked as IC by [key_name(usr, include_link = FALSE)]")
 
 /datum/help_ticket/admin/proc/MHelpThis(key_name = key_name_ticket(usr))
 	if(state > TICKET_ACTIVE)
 		return
 
+	if(!claimee)
+		Claim(silent = TRUE)
+
 	if(initiator)
 		initiator.giveadminhelpverb()
-
 		SEND_SOUND(initiator, sound(reply_sound))
-
-		to_chat(initiator, "<font color='red' size='4'><b>- [verb_name] De-Escalated to Mentorhelp! -</b></font>")
-		to_chat(initiator, "<font color='red'>This question may regard <b>game mechanics or how-tos</b>. Such questions should be asked with <b>Mentorhelp</b>.</font>")
+		resolve_message(status = "De-Escalated to Mentorhelp!", message = "This question may regard <b>game mechanics or how-tos</b>. Such questions should be asked with <b>Mentorhelp</b>.")
 
 	blackbox_feedback(1, "mhelp this")
 	var/msg = "Ticket [TicketHref("#[id]")] transferred to mentorhelp by [key_name]"
 	AddInteraction("red", "Transferred to mentorhelp by [key_name].")
 	if(!bwoink)
-		discordsendmsg("ahelp", "Ticket #[id] transferred to mentorhelp by [key_name(usr, include_link=0)]")
-	Close(silent = TRUE)
+		discordsendmsg("ahelp", "Ticket #[id] transferred to mentorhelp by [key_name(usr, include_link = FALSE)]")
+	Close(silent = TRUE, hide_interaction = TRUE)
 	if(initiator.prefs.muted & MUTE_MHELP)
 		message_admins(src, "<span class='danger'>Attempted de-escalation to mentorhelp failed because [initiator_key_name] is mhelp muted.</span>")
 		return
@@ -318,22 +325,22 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/help_tickets/admin, new)
 /datum/help_ticket/admin/Claim(key_name = key_name_ticket(usr), silent = FALSE)
 	..()
 	if(!bwoink && !silent && !claimee)
-		discordsendmsg("ahelp", "Ticket #[id] is being investigated by [key_name(usr, include_link=0)]")
+		discordsendmsg("ahelp", "Ticket #[id] is being investigated by [key_name(usr, include_link = FALSE)]")
 
 /datum/help_ticket/admin/Close(key_name = key_name_ticket(usr), silent = FALSE)
 	..()
 	if(!bwoink && !silent)
-		discordsendmsg("ahelp", "Ticket #[id] closed by [key_name(usr, include_link=0)]")
+		discordsendmsg("ahelp", "Ticket #[id] closed by [key_name(usr, include_link = FALSE)]")
 
 /datum/help_ticket/admin/Resolve(key_name = key_name_ticket(usr), silent = FALSE)
 	..()
-	addtimer(CALLBACK(initiator, /client/proc/giveadminhelpverb), 50)
+	addtimer(CALLBACK(initiator, /client/proc/giveadminhelpverb), 5 SECONDS)
 	if(!bwoink)
-		discordsendmsg("ahelp", "Ticket #[id] resolved by [key_name(usr, include_link=0)]")
+		discordsendmsg("ahelp", "Ticket #[id] resolved by [key_name(usr, include_link = FALSE)]")
 
-/datum/help_ticket/admin/Reject(key_name = key_name_ticket(usr))
+/datum/help_ticket/admin/Reject(key_name = key_name_ticket(usr), extra_text = ", and clearly state the names of anybody you are reporting")
 	..()
 	if(initiator)
 		initiator.giveadminhelpverb()
 	if(!bwoink)
-		discordsendmsg("ahelp", "Ticket #[id] rejected by [key_name(usr, include_link=0)]")
+		discordsendmsg("ahelp", "Ticket #[id] rejected by [key_name(usr, include_link = FALSE)]")

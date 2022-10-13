@@ -333,8 +333,6 @@
 	var/static/ticket_counter = 0
 	/// Class used on message spans
 	var/span_class = "adminhelp"
-	/// What type of staff is handling the ticket (admin, mentor) with an "a" before
-	var/handling_name_a = "an administrator"
 	/// What type of staff is handling the ticket ("Your ticket has been resolved by the _s")
 	var/handling_name = "administrator"
 	/// The help verb that is used to open this ticket type
@@ -353,7 +351,7 @@
 	msg = sanitize(copytext_char(msg, 1, MAX_MESSAGE_LEN))
 	if(!msg || !initiator || !initiator.mob)
 		qdel(src)
-		return
+		return FALSE
 	initial_msg = msg
 	id = ++ticket_counter
 	opened_at = world.time
@@ -362,7 +360,7 @@
 
 	var/datum/help_tickets/data_glob = get_data_glob()
 	if(!istype(data_glob))
-		return
+		return FALSE
 	var/datum/help_ticket/active_ticket = data_glob.get_active_ticket(initiator)
 	if(active_ticket)	//This is a bug
 		stack_trace("Multiple current_tickets in ticket of type [verb_name]")
@@ -375,6 +373,7 @@
 	_interactions = list()
 
 	data_glob.unclaimed_tickets += src
+	return TRUE
 
 /datum/help_ticket/proc/NewFrom(datum/help_ticket/old_ticket)
 	initial_msg = old_ticket.initial_msg
@@ -385,12 +384,15 @@
 
 	var/datum/help_tickets/data_glob = get_data_glob()
 	if(!istype(data_glob))
+		data_glob.unclaimed_tickets -= src
 		qdel(src)
 		return FALSE
 	var/datum/help_ticket/active_ticket = data_glob.get_active_ticket(initiator)
 	if(active_ticket)
 		to_chat(initiator, "<span class='warning'>Your ticket could not be transferred because you already have a ticket of the same type open. Please make another ticket at a later time, or bring up whatever the issue was in your current ticket.</span>")
 		old_ticket.message_ticket_managers("<span class='[old_ticket.span_class]'>Could not transfer Ticket [old_ticket.TicketHref("#[old_ticket.id]")], [old_ticket.key_name_ticket(old_ticket.initiator)] already has a ticket open of the same type.</span>")
+		ticket_counter--
+		data_glob.unclaimed_tickets -= src
 		qdel(src)
 		return FALSE
 	data_glob.set_active_ticket(initiator, src)
@@ -625,8 +627,8 @@
 /datum/help_ticket/proc/Claim(key_name = key_name_ticket(usr), silent = FALSE)
 	if(claimee == usr)
 		return
-	if(initiator && !claimee)
-		to_chat(initiator, "<font color='red'>Your issue is being investigated by [handling_name_a], please stand by.</span>")
+	if(initiator && !claimee && !silent)
+		to_chat(initiator, "<font color='red'>Your issue is being investigated by \a [handling_name], please stand by.</span>")
 	var/datum/help_tickets/data_glob = get_data_glob()
 	if(!istype(data_glob))
 		return
@@ -648,16 +650,19 @@
 		log_admin_private(msg)
 
 /// Mark open ticket as closed/meme
-/datum/help_ticket/proc/Close(key_name = key_name_ticket(usr), silent = FALSE)
+/datum/help_ticket/proc/Close(key_name = key_name_ticket(usr), silent = FALSE, hide_interaction = FALSE)
 	if(state > TICKET_ACTIVE)
 		return
+	if(!claimee)
+		Claim(silent = TRUE)
 	RemoveActive()
 	state = TICKET_CLOSED
 	var/datum/help_tickets/data_glob = get_data_glob()
 	if(!istype(data_glob))
 		return
 	data_glob.ListInsert(src)
-	AddInteraction("red", "Closed by [key_name].")
+	if(!hide_interaction)
+		AddInteraction("red", "Closed by [key_name].")
 	if(!silent)
 		blackbox_feedback(1, "closed")
 		var/msg = "Ticket [TicketHref("#[id]")] closed by [key_name]."
@@ -668,6 +673,8 @@
 /datum/help_ticket/proc/Resolve(key_name = key_name_ticket(usr), silent = FALSE)
 	if(state > TICKET_ACTIVE)
 		return
+	if(!claimee)
+		Claim(silent = TRUE)
 	RemoveActive()
 	state = TICKET_RESOLVED
 	var/datum/help_tickets/data_glob = get_data_glob()
@@ -676,22 +683,23 @@
 	data_glob.ListInsert(src)
 
 	AddInteraction("green", "Resolved by [key_name].")
-	to_chat(initiator, "<span class='[span_class]'>Your ticket has been resolved by [handling_name_a]. The [verb_name] verb will be returned to you shortly.</span>")
 	if(!silent)
+		resolve_message()
 		blackbox_feedback(1, "resolved")
 		var/msg = "Ticket [TicketHref("#[id]")] resolved by [key_name]"
 		message_ticket_managers(msg)
 		log_admin_private(msg)
 
 /// Close and return ahelp verb, use if ticket is incoherent
-/datum/help_ticket/proc/Reject(key_name = key_name_ticket(usr))
+/datum/help_ticket/proc/Reject(key_name = key_name_ticket(usr), extra_text)
 	if(state > TICKET_ACTIVE)
 		return
+	if(!claimee)
+		Claim(silent = TRUE)
 	if(initiator)
 		SEND_SOUND(initiator, sound(reply_sound))
-		to_chat(initiator, "<font color='red' size='4'><b>- [verb_name] Rejected! -</b></font>")
-		to_chat(initiator, "<font color='red'><b>The [handling_name]s could not resolve your ticket.</b> The [verb_name] verb has been returned to you so that you may try again.</font>")
-		to_chat(initiator, "Please try to be calm, clear, and descriptive in [verb_name], do not assume the [handling_name] has seen any related events.")
+		resolve_message(status = "Rejected!", message = "The [handling_name]s could not resolve your ticket.</b> The [verb_name] verb has been returned to you so that you may try again.<br /> \
+		Please try to be calm, clear, and descriptive in your [verb_name], do not assume the [handling_name] has seen any related events[extra_text].")
 	blackbox_feedback(1, "rejected")
 	var/msg = "Ticket [TicketHref("#[id]")] rejected by [key_name]"
 	message_ticket_managers(msg)
@@ -708,6 +716,14 @@
 		message_ticket_managers(msg)
 		log_admin_private(msg)
 	TicketPanel()	//we have to be here to do this
+
+/datum/help_ticket/proc/resolve_message(status = "Resolved", message = null)
+	var/output = "<span class='[span_class]_conclusion'><span class='big'><b>[verb_name] [status]</b></span><br />"
+	output += message || "\A [handling_name] has handled your ticket. If your ticket was a report, then the appropriate action has been taken where necessary.<br />\
+		Thank you for creating a ticket, the [verb_name] verb will be returned to you shortly."
+	if(claimee)
+		output += "<br />Your ticket was handled by: <span class='adminooc'>[claimee.ckey]</span></span>"
+	to_chat(initiator, output)
 
 //
 // LOGGING

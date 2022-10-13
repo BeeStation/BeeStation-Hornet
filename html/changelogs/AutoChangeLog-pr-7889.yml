@@ -1,0 +1,6 @@
+author: The-Moon-Itself
+delete-after: true
+changes:
+  - bugfix: docking ripples show on towed shuttles
+  - bugfix: towed shuttles are deleted on jumpToNullSpace
+  - bugfix: Transit docking port map reservations are now properly oriented

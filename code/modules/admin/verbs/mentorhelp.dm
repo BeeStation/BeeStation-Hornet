@@ -100,7 +100,6 @@ GLOBAL_DATUM_INIT(mhelp_tickets, /datum/help_tickets/mentor, new)
 
 /datum/help_ticket/mentor
 	span_class = "mentorhelp"
-	handling_name_a = "a mentor"
 	handling_name = "mentor"
 	verb_name = "Mentorhelp"
 	reply_sound = "sound/items/bikehorn.ogg"
@@ -129,12 +128,16 @@ GLOBAL_DATUM_INIT(mhelp_tickets, /datum/help_tickets/mentor, new)
 	usr.client.cmd_mhelp_reply_instant(whom, msg)
 
 /datum/help_ticket/mentor/Create(msg)
-	..()
+	if(!..())
+		return FALSE
 	MessageNoRecipient(msg)
+	return TRUE
 
 /datum/help_ticket/mentor/NewFrom(datum/help_ticket/old_ticket)
-	..()
+	if(!..())
+		return FALSE
 	MessageNoRecipient(initial_msg, FALSE)
+	return TRUE
 
 /datum/help_ticket/mentor/TimeoutVerb()
 	initiator.remove_verb(/client/verb/mentorhelp)
@@ -194,18 +197,18 @@ GLOBAL_DATUM_INIT(mhelp_tickets, /datum/help_tickets/mentor, new)
 	if(state > TICKET_ACTIVE)
 		return
 
+	if(!claimee)
+		Claim(silent = TRUE)
+
 	if(initiator)
 		initiator.givementorhelpverb()
-
 		SEND_SOUND(initiator, sound(reply_sound))
-
-		to_chat(initiator, "<font color='red' size='4'><b>- [verb_name] Escalated to Adminhelp! -</b></font>")
-		to_chat(initiator, "<font color='red'>This question is for administrators. Such questions should be asked with <b>Adminhelp</b>.</font>")
+		resolve_message(status = "Escalated to Adminhelp!", message = "This question is for administrators. Such questions should be asked with <b>Adminhelp</b>.")
 
 	blackbox_feedback(1, "ahelp this")
 	var/msg = "Mentor Ticket [TicketHref("#[id]")] transferred to adminhelp by [key_name]"
 	AddInteraction("red", "Transferred to adminhelp by [key_name].")
-	Close(silent = TRUE)
+	Close(silent = TRUE, hide_interaction = TRUE)
 	if(initiator.prefs.muted & MUTE_ADMINHELP)
 		message_ticket_managers(src, "<span class='danger'>Attempted escalation to adminhelp failed because [initiator_key_name] is ahelp muted. It's possible the user is attempting to abuse the mhelp system to get around this.</span>")
 		log_admin_private(src, "<span class='danger'>[initiator_ckey] blocked from mhelp escalation (performed by [key_name]) to ahelp due to mute. Possible abuse of mhelp system.</span>")

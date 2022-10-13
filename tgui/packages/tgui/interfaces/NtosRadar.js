@@ -5,13 +5,93 @@ import { Box, Button, Flex, Icon, NoticeBox, Section } from '../components';
 import { NtosWindow } from '../layouts';
 
 export const NtosRadar = (props, context) => {
+  const { act, data } = useBackend(context);
+  const {
+    full_capability,
+  } = data;
   return (
     <NtosWindow
-      width={800}
-      height={600}
+      width={full_capability ? 800 : 400}
+      height={full_capability ? 600 : 500}
       theme="ntos">
-      <NtosRadarContent sig_err={"Signal Lost"} />
+      {full_capability ? <NtosRadarContent sig_err={"Signal Lost"} /> : <NtosRadarContentSmall sig_err={"Signal Lost"} />}
     </NtosWindow>
+  );
+};
+
+export const NtosRadarContentSmall = (props, context) => {
+  const { act, data } = useBackend(context);
+  const {
+    selected,
+    object = [],
+    target = [],
+    scanning,
+    full_capability,
+  } = data;
+  const { sig_err } = props;
+  return (
+    <NtosWindow.Content scrollable>
+      <Section>
+        {Object.keys(target).length === 0
+          ? (selected
+            ? (
+              <NoticeBox
+                width={42}
+                fontSize="30px"
+                textAlign="center">
+                {sig_err}
+              </NoticeBox>
+            )
+            : <Box>No Target Selected.</Box>)
+          : (
+            <Box>
+              Distance: {target.dist}<br />
+              Location: ({target.gpsx}, {target.gpsy}){" "}
+              {target.userot ? (
+                <Icon
+                  name={target.dist > 0 ? "arrow-up" : "crosshairs"}
+                  style={{
+                    'transform': `rotate(${target.rot}deg)`,
+                  }} />
+              ) : null}
+            </Box>
+          )}
+      </Section>
+
+      <Section>
+        <Button
+          icon="redo-alt"
+          content={scanning?"Scanning...":"Scan"}
+          color="blue"
+          disabled={scanning}
+          onClick={() => act('scan')} />
+        {!object.length && !scanning && (
+          <div>
+            No trackable signals found
+          </div>
+        )}
+        {!scanning && object.map(object => (
+          <div
+            key={object.dev}
+            title={object.name}
+            className={classes([
+              'Button',
+              'Button--fluid',
+              'Button--color--transparent',
+              'Button--ellipsis',
+              object.ref === selected
+                    && 'Button--selected',
+            ])}
+            onClick={() => {
+              act('selecttarget', {
+                ref: object.ref,
+              });
+            }}>
+            {object.name}
+          </div>
+        ))}
+      </Section>
+    </NtosWindow.Content>
   );
 };
 
@@ -22,6 +102,7 @@ export const NtosRadarContent = (props, context) => {
     object = [],
     target = [],
     scanning,
+    full_capability,
   } = data;
   const { sig_err } = props;
   return (

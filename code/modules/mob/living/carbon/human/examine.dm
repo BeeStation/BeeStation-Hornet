@@ -20,7 +20,7 @@
 	var/apparent_species
 	if(dna?.species && !skipface)
 		apparent_species = ", \an [dna.species.name]"
-	. = list("<span class='info'>*---------*\nThis is <EM>[!obscure_name ? name : "Unknown"][apparent_species]</EM>!")
+	. = list("<span class='info'>This is <EM>[!obscure_name ? name : "Unknown"][apparent_species]</EM>!")
 
 	//uniform
 	if(w_uniform && !(obscured & ITEM_SLOT_ICLOTHING))
@@ -350,9 +350,7 @@
 				. += "<a href='?src=[REF(src)];hud=m;p_stat=1'>\[[health_r]\]</a>"
 				health_r = R.fields["m_stat"]
 				. += "<a href='?src=[REF(src)];hud=m;m_stat=1'>\[[health_r]\]</a>"
-			R = find_record("name", perpname, GLOB.data_core.medical)
-			if(R)
-				. += "<a href='?src=[REF(src)];hud=m;evaluation=1'>\[Medical evaluation\]</a><br>"
+			. += "<a href='?src=[REF(src)];hud=m;evaluation=1'>\[Medical evaluation\]</a><br>"
 			if(traitstring)
 				. += "<span class='info'>Detected physiological traits:\n[traitstring]"
 
@@ -360,7 +358,6 @@
 			if(!user.stat && user != src)
 			//|| !user.canmove || user.restrained()) Fluff: Sechuds have eye-tracking technology and sets 'arrest' to people that the wearer looks and blinks at.
 				var/criminal = "None"
-
 				R = find_record("name", perpname, GLOB.data_core.security)
 				if(R)
 					criminal = R.fields["criminal"]
@@ -373,7 +370,6 @@
 					"<a href='?src=[REF(src)];hud=s;add_comment=1'>\[Add comment\]</a>"), "")
 	else if(isobserver(user) && traitstring)
 		. += "<span class='info'><b>Traits:</b> [traitstring]</span>"
-	. += "*---------*</span>"
 
 /mob/living/proc/status_effect_examines(pronoun_replacement) //You can include this in any mob's examine() to show the examine texts of status effects!
 	var/list/dat = list()
