@@ -311,8 +311,8 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			dat += "<tr>"
 			dat += "<td>[B.account_holder]</td>"
 			dat += "<td>[B.account_job.title]</td>"
-			dat += "<td><a href='?src=[REF(src)];choice=adjust_pay;account=[B.account_holder]'>$[B.paycheck_amount]</a></td>"
-			dat += "<td><a href='?src=[REF(src)];choice=adjust_bonus;account=[B.account_holder]'>$[B.paycheck_bonus]</a></td>"
+			dat += "<td><a href='?src=[REF(src)];choice=adjust_pay;account=[B.account_holder]'>₡[B.paycheck_amount]</a></td>"
+			dat += "<td><a href='?src=[REF(src)];choice=adjust_bonus;account=[B.account_holder]'>₡[B.paycheck_bonus]</a></td>"
 	else
 		var/header = ""
 
