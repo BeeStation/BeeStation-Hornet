@@ -7308,7 +7308,6 @@
 /area/ai_monitored/turret_protected/aisat_interior)
 "bHy" = (
 /obj/effect/spawner/structure/window/reinforced,
-/obj/machinery/door/firedoor/window,
 /obj/machinery/atmospherics/pipe/layer_manifold,
 /turf/open/floor/plating,
 /area/engine/atmos)
@@ -13391,14 +13390,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/entry)
-"dyx" = (
-/obj/effect/spawner/structure/window/reinforced,
-/obj/machinery/door/firedoor/window,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/visible{
-	dir = 4
-	},
-/turf/open/floor/plating,
-/area/engine/atmos)
 "dyJ" = (
 /obj/structure/grille,
 /turf/closed/wall,
@@ -19990,8 +19981,8 @@
 /area/crew_quarters/heads/hor)
 "fyb" = (
 /obj/machinery/door/airlock/science{
-	req_access_txt = "49";
-	name = "Toxins Lab"
+	name = "Toxins Lab";
+	req_access_txt = "49"
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -23735,7 +23726,6 @@
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
 	},
-/obj/machinery/door/firedoor/window,
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
 /area/security/brig)
@@ -27809,11 +27799,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/fore)
-"hJt" = (
-/obj/effect/spawner/structure/window/reinforced,
-/obj/machinery/door/firedoor/window,
-/turf/open/floor/plating,
-/area/maintenance/department/chapel/monastery)
 "hJv" = (
 /obj/effect/turf_decal/tile/blue,
 /obj/effect/turf_decal/tile/blue{
@@ -31865,11 +31850,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/exit)
-"iPq" = (
-/obj/machinery/door/firedoor/window,
-/obj/effect/spawner/structure/window/reinforced,
-/turf/open/floor/plating,
-/area/engine/atmos)
 "iPv" = (
 /obj/item/kirbyplants/random,
 /obj/machinery/light,
@@ -41135,11 +41115,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/maintenance/starboard/central)
-"luA" = (
-/obj/effect/spawner/structure/window/reinforced,
-/obj/machinery/door/firedoor/window,
-/turf/open/floor/plating,
-/area/maintenance/starboard/fore)
 "luE" = (
 /obj/machinery/light{
 	dir = 1
@@ -41655,11 +41630,6 @@
 /obj/structure/closet/l3closet/virology,
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
-"lAQ" = (
-/obj/effect/spawner/structure/window/reinforced,
-/obj/machinery/door/firedoor/window,
-/turf/open/floor/plating,
-/area/science/misc_lab/range)
 "lAT" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 9
@@ -49069,8 +49039,8 @@
 	dir = 4
 	},
 /obj/machinery/door/airlock/science{
-	req_access_txt = "49";
-	name = "Exploration Dock Airlock"
+	name = "Exploration Dock Airlock";
+	req_access_txt = "49"
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
@@ -56708,8 +56678,8 @@
 /area/ai_monitored/turret_protected/aisat_interior)
 "pYz" = (
 /obj/machinery/door/airlock/science{
-	req_access_txt = "49";
-	name = "Toxins Lab"
+	name = "Toxins Lab";
+	req_access_txt = "49"
 	},
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
@@ -61281,8 +61251,8 @@
 	pixel_y = 2
 	},
 /obj/machinery/light_switch{
-	pixel_y = -26;
-	pixel_x = -2
+	pixel_x = -2;
+	pixel_y = -26
 	},
 /turf/open/floor/plasteel/dark,
 /area/quartermaster/office)
@@ -64090,8 +64060,8 @@
 	},
 /obj/item/ammo_box/magazine/wt550m9/rubber,
 /obj/item/ammo_box/magazine/wt550m9/rubber{
-	pixel_y = -3;
-	pixel_x = 2
+	pixel_x = 2;
+	pixel_y = -3
 	},
 /obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel,
@@ -103731,7 +103701,7 @@ udV
 wpg
 rcV
 qlt
-xLn
+uMY
 anT
 anT
 anT
@@ -103988,7 +103958,7 @@ pYO
 edw
 bBq
 kIX
-xLn
+uMY
 aMT
 aMT
 aMT
@@ -109648,7 +109618,7 @@ lAT
 jAY
 mpF
 aWY
-lAQ
+orN
 tol
 lyV
 loa
@@ -128086,7 +128056,7 @@ jOQ
 jLG
 duF
 gAE
-xMp
+lkB
 hmy
 hmy
 hmy
