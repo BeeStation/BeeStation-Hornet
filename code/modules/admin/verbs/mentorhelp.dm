@@ -206,7 +206,7 @@ GLOBAL_DATUM_INIT(mhelp_tickets, /datum/help_tickets/mentor, new)
 		resolve_message(status = "Escalated to Adminhelp!", message = "This question is for administrators. Such questions should be asked with <b>Adminhelp</b>.")
 
 	blackbox_feedback(1, "ahelp this")
-	var/msg = "Mentor Ticket [TicketHref("#[id]")] transferred to adminhelp by [key_name]"
+	var/msg = "<span class='[span_class]'>Mentor Ticket [TicketHref("#[id]")] transferred to adminhelp by [key_name]</span>"
 	AddInteraction("red", "Transferred to adminhelp by [key_name].")
 	Close(silent = TRUE, hide_interaction = TRUE)
 	if(initiator.prefs.muted & MUTE_ADMINHELP)

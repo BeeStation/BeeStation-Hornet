@@ -4,6 +4,7 @@ import { Box, Button, Input, Section, Table, Divider } from '../components';
 import { Window } from '../layouts';
 import { round } from 'common/math';
 import { ButtonConfirm } from '../components/Button';
+import { Component, createRef } from 'inferno';
 
 export const TicketMessenger = (props, context) => {
   return (
@@ -35,18 +36,22 @@ export const TicketActionBar = (props, context) => {
     id,
     sender,
     is_admin_type,
+    open,
   } = data;
   return (
     <Box>
       <Box
         bold
         inline>
-        {is_admin_type ? "Admin" : "Mentor"} Help Ticket #{id} : {sender}
+        {is_admin_type ? "Admin" : "Mentor"} Help Ticket #{id} by {sender}
       </Box>
       {antag_status ? (
-        <Box inline color={antag_status === 'None' ? 'green' : 'red'}>
-          Antag: {antag_status}
-        </Box>
+        <>
+        &nbsp;|&nbsp;
+          <Box inline color={antag_status === 'None' ? 'green' : 'red'}>
+            Antag: {antag_status}
+          </Box>
+        </>
       ) : null}
       <Box />
       <Box
@@ -57,7 +62,7 @@ export const TicketActionBar = (props, context) => {
       </Box>
       <Box
         inline>
-        |
+        &nbsp;|&nbsp;
       </Box>
       <Box
         inline
@@ -66,18 +71,20 @@ export const TicketActionBar = (props, context) => {
       </Box>
       <Box
         inline>
-        {" |"}
+        &nbsp;|&nbsp;
         <Button
-          color="transparent"
           content="Re-title"
           onClick={() => act("retitle")} />
-        |
-        <Button
-          color="transparent"
-          content="Reopen"
-          onClick={() => act("reopen")} />
-        |
+        {!open ? (
+          <>
+            &nbsp;|&nbsp;
+            <Button
+              content="Reopen"
+              onClick={() => act("reopen")} />
+          </>
+        ) : null}
       </Box>
+
       <Divider />
       <Box>
         {is_admin_type ? (disconnected
@@ -167,37 +174,7 @@ export const TicketChatWindow = (_, context) => {
         overflowY="scroll"
         height="315px">
         <Table>
-          {messages.map(message => (
-            <Section independent
-              key={message.time}>
-              <Table.Row>
-                <Table.Cell>
-                  {message.time}
-                </Table.Cell>
-                <Table.Cell
-                  color={message.color}>
-                  <Box>
-                    <Box
-                      inline
-                      bold>
-                      {message.from && message.to
-                        ? "PM from " + decodeHtmlEntities(message.from)
-                        + " to " + decodeHtmlEntities(message.to)
-                        : decodeHtmlEntities(message.from)
-                          ? "Reply PM from " + decodeHtmlEntities(message.from)
-                          : decodeHtmlEntities(message.to)
-                            ? "PM to " + decodeHtmlEntities(message.to)
-                            : ""}
-                    </Box>
-                    <Box
-                      inline>
-                      {decodeHtmlEntities(message.message)}
-                    </Box>
-                  </Box>
-                </Table.Cell>
-              </Table.Row>
-            </Section>
-          ))}
+          <TicketMessages messages={messages} />
         </Table>
       </Box>
       <Divider />
@@ -210,3 +187,62 @@ export const TicketChatWindow = (_, context) => {
     </Box>
   );
 };
+
+class TicketMessages extends Component {
+
+  constructor(props) {
+    super(props);
+    this.messagesEndRef = createRef();
+  }
+
+  componentDidMount() {
+    this.scrollToBottom();
+  }
+
+  componentDidUpdate(oldProps) {
+    if (oldProps.messages.length !== this.props.messages.length) {
+      this.scrollToBottom();
+    }
+  }
+
+  scrollToBottom = () => {
+    this.messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }
+
+  render() {
+    const { messages } = this.props;
+    return (
+      <>
+        {messages.map(message => (
+          <Section independent
+            key={message.time}>
+            <Table.Row>
+              <Table.Cell>
+                {message.time}
+              </Table.Cell>
+              <Table.Cell
+                color={message.color}>
+                <Box>
+                  <Box bold>
+                    {message.from && message.to
+                      ? "PM from " + decodeHtmlEntities(message.from)
+                        + " to " + decodeHtmlEntities(message.to)
+                      : decodeHtmlEntities(message.from)
+                        ? "Reply PM from " + decodeHtmlEntities(message.from)
+                        : decodeHtmlEntities(message.to)
+                          ? "PM to " + decodeHtmlEntities(message.to)
+                          : ""}
+                  </Box>
+                  <Box>
+                    {decodeHtmlEntities(message.message)}
+                  </Box>
+                </Box>
+              </Table.Cell>
+            </Table.Row>
+          </Section>
+        ))}
+        <div ref={this.messagesEndRef} />
+      </>
+    );
+  }
+}

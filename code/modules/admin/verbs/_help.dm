@@ -384,7 +384,7 @@
 
 	var/datum/help_tickets/data_glob = get_data_glob()
 	if(!istype(data_glob))
-		data_glob.unclaimed_tickets -= src
+		ticket_counter--
 		qdel(src)
 		return FALSE
 	var/datum/help_ticket/active_ticket = data_glob.get_active_ticket(initiator)
@@ -392,7 +392,6 @@
 		to_chat(initiator, "<span class='warning'>Your ticket could not be transferred because you already have a ticket of the same type open. Please make another ticket at a later time, or bring up whatever the issue was in your current ticket.</span>")
 		old_ticket.message_ticket_managers("<span class='[old_ticket.span_class]'>Could not transfer Ticket [old_ticket.TicketHref("#[old_ticket.id]")], [old_ticket.key_name_ticket(old_ticket.initiator)] already has a ticket open of the same type.</span>")
 		ticket_counter--
-		data_glob.unclaimed_tickets -= src
 		qdel(src)
 		return FALSE
 	data_glob.set_active_ticket(initiator, src)
@@ -460,6 +459,7 @@
 	//Messages
 	data["disconected"] = initiator
 	data["time_opened"] = opened_at
+	data["open"] = state <= TICKET_ACTIVE
 	data["time_closed"] = closed_at
 	data["ticket_state"] = state
 	data["claimee"] = claimee
@@ -645,7 +645,7 @@
 	claimee_key_name = usr.ckey
 	if(!silent && !updated)
 		blackbox_feedback(1, "claimed")
-		var/msg = "Ticket [TicketHref("#[id]")] claimed by [key_name]."
+		var/msg = "<span class='[span_class]'>Ticket [TicketHref("#[id]")] claimed by [key_name].</span>"
 		message_ticket_managers(msg)
 		log_admin_private(msg)
 
@@ -665,7 +665,7 @@
 		AddInteraction("red", "Closed by [key_name].")
 	if(!silent)
 		blackbox_feedback(1, "closed")
-		var/msg = "Ticket [TicketHref("#[id]")] closed by [key_name]."
+		var/msg = "<span class='[span_class]'>Ticket [TicketHref("#[id]")] closed by [key_name].</span>"
 		message_ticket_managers(msg)
 		log_admin_private(msg)
 
@@ -686,7 +686,7 @@
 	if(!silent)
 		resolve_message()
 		blackbox_feedback(1, "resolved")
-		var/msg = "Ticket [TicketHref("#[id]")] resolved by [key_name]"
+		var/msg = "<span class='[span_class]'>Ticket [TicketHref("#[id]")] resolved by [key_name]</span>"
 		message_ticket_managers(msg)
 		log_admin_private(msg)
 
@@ -701,7 +701,7 @@
 		resolve_message(status = "Rejected!", message = "The [handling_name]s could not resolve your ticket.</b> The [verb_name] verb has been returned to you so that you may try again.<br /> \
 		Please try to be calm, clear, and descriptive in your [verb_name], do not assume the [handling_name] has seen any related events[extra_text].")
 	blackbox_feedback(1, "rejected")
-	var/msg = "Ticket [TicketHref("#[id]")] rejected by [key_name]"
+	var/msg = "<span class='[span_class]'>Ticket [TicketHref("#[id]")] rejected by [key_name]</span>"
 	message_ticket_managers(msg)
 	log_admin_private(msg)
 	AddInteraction("red", "Rejected by [key_name].")
@@ -712,7 +712,7 @@
 	if(new_title)
 		name = new_title
 		//not saying the original name cause it could be a long ass message
-		var/msg = "Ticket [TicketHref("#[id]")] titled [name] by [key_name_ticket(usr)]"
+		var/msg = "<span class='[span_class]'>Ticket [TicketHref("#[id]")] titled [name] by [key_name]</span>"
 		message_ticket_managers(msg)
 		log_admin_private(msg)
 	TicketPanel()	//we have to be here to do this

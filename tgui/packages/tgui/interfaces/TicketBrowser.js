@@ -20,7 +20,7 @@ export const TicketBrowser = (_, context) => {
   } = data;
   const [tab, setTab] = useLocalState(context, 'tab', 'admin');
   return (
-    <Window theme="admin" width={720} height={600}>
+    <Window theme="admin" width={720} height={540}>
       <Window.Content scrollable>
         <h2>{is_admin_panel ? 'Administrator' : 'Mentor'}: {admin_ckey}</h2>
         {is_admin_panel ? (

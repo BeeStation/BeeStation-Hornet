@@ -264,7 +264,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/help_tickets/admin, new)
 		Thank you for creating a ticket, the adminhelp verb will be returned to you shortly.")
 
 	blackbox_feedback(1, "IC")
-	var/msg = "Ticket [TicketHref("#[id]")] marked as IC by [key_name]"
+	var/msg = "<span class='[span_class]'>Ticket [TicketHref("#[id]")] marked as IC by [key_name]</span>"
 	message_admins(msg)
 	log_admin_private(msg)
 	AddInteraction("red", "Marked as IC issue by [key_name]")
@@ -286,7 +286,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/help_tickets/admin, new)
 		resolve_message(status = "De-Escalated to Mentorhelp!", message = "This question may regard <b>game mechanics or how-tos</b>. Such questions should be asked with <b>Mentorhelp</b>.")
 
 	blackbox_feedback(1, "mhelp this")
-	var/msg = "Ticket [TicketHref("#[id]")] transferred to mentorhelp by [key_name]"
+	var/msg = "<span class='[span_class]'>Ticket [TicketHref("#[id]")] transferred to mentorhelp by [key_name]</span>"
 	AddInteraction("red", "Transferred to mentorhelp by [key_name].")
 	if(!bwoink)
 		discordsendmsg("ahelp", "Ticket #[id] transferred to mentorhelp by [key_name(usr, include_link = FALSE)]")
@@ -327,7 +327,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/help_tickets/admin, new)
 	if(!bwoink && !silent && !claimee)
 		discordsendmsg("ahelp", "Ticket #[id] is being investigated by [key_name(usr, include_link = FALSE)]")
 
-/datum/help_ticket/admin/Close(key_name = key_name_ticket(usr), silent = FALSE)
+/datum/help_ticket/admin/Close(key_name = key_name_ticket(usr), silent = FALSE, hide_interaction = FALSE)
 	..()
 	if(!bwoink && !silent)
 		discordsendmsg("ahelp", "Ticket #[id] closed by [key_name(usr, include_link = FALSE)]")
