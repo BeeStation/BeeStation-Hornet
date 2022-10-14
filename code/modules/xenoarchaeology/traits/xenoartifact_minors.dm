@@ -110,6 +110,8 @@
 /datum/xenoartifact_trait/minor/sentient
 	label_name = "Sentient"
 	label_desc = "Sentient: The Artifact seems to be alive, influencing events around it. The Artifact wants to return to its master..."
+	//Slightly increase weight - muh arpee serber
+	weight = 55
 	///he who lives inside
 	var/mob/living/simple_animal/shade/man
 	///His doorbell
@@ -406,7 +408,8 @@
 			 "up" = CALLBACK(src, .proc/haunted_step, X, NORTH),
 			 "down" = CALLBACK(src, .proc/haunted_step, X, SOUTH),
 			 "left" = CALLBACK(src, .proc/haunted_step, X, WEST),
-			 "right" = CALLBACK(src, .proc/haunted_step, X, EAST)), 10 SECONDS))
+			 "right" = CALLBACK(src, .proc/haunted_step, X, EAST),
+			 "activate" = CALLBACK(src, .proc/activate_parent, X)), 10 SECONDS))
 
 /datum/xenoartifact_trait/minor/haunted/proc/haunted_step(obj/item/xenoartifact/ref, dir)
 	if(isliving(ref.loc)) //Make any mobs drop this before it moves
@@ -414,6 +417,13 @@
 		M.dropItemToGround(ref)
 	playsound(get_turf(ref), 'sound/effects/magic.ogg', 50, TRUE)
 	step(ref, dir)
+
+///Used for ghost command
+/datum/xenoartifact_trait/minor/haunted/proc/activate_parent(obj/item/xenoartifact/ref)
+	//Get a target to style on
+	ref.true_target = list(ref.get_target_in_proximity(min(ref.max_range+1, 5)))
+	if(true_target.len)
+		ref.check_charge(true_target[1])
 
 /datum/xenoartifact_trait/minor/haunted/on_item(obj/item/xenoartifact/X, atom/user, atom/item)
 	if(istype(item, /obj/item/storage/book/bible))
