@@ -1,0 +1,5 @@
+author: zeskorion
+delete-after: true
+changes:
+  - bugfix: Thermite clouds no longer block vision or movement, and set players moving
+      through them on fire
