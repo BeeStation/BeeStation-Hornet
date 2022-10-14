@@ -27,7 +27,7 @@
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/brig_physician
 	)
-	biohazard = 15 //still deals with the sick and injured, just less than a medical doctor
+	biohazard = 25 //still deals with the sick and injured, just less than a medical doctor
 
 /datum/outfit/job/brig_physician
 	name = JOB_NAME_BRIGPHYSICIAN

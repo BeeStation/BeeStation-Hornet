@@ -24,7 +24,7 @@
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/curator
 	)
 	//they doesnt get out that much
-	biohazard = 5
+	biohazard = 10
 
 /datum/outfit/job/curator
 	name = JOB_NAME_CURATOR
