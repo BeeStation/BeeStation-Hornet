@@ -1,0 +1,6 @@
+author: itsmeow
+delete-after: true
+changes:
+  - bugfix: D.E.T.O.M.A.T.I.X. charges are no longer infinite.
+  - bugfix: D.E.T.O.M.A.T.I.X. explosions now do the same damage as before tablet-PDAs.
+  - bugfix: Power-ON disks are now improper nouns.
