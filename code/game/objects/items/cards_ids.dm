@@ -195,7 +195,7 @@
 	else
 		to_chat(user, "<span class='notice'>You insert [I] into [src], adding [cash_money] credits to the linked account.</span>")
 
-	to_chat(user, "<span class='notice'>The linked account now reports a balance of €[registered_account.account_balance].</span>")
+	to_chat(user, "<span class='notice'>The linked account now reports a balance of $[registered_account.account_balance].</span>")
 	qdel(I)
 
 /obj/item/card/id/proc/mass_insert_money(list/money, mob/user)
@@ -292,26 +292,25 @@
 	if(mining_points)
 		. += "There's [mining_points] mining equipment redemption point\s loaded onto this card."
 	if(registered_account)
-		. += "The account linked to the ID belongs to '[registered_account.account_holder]' and reports a balance of €[registered_account.account_balance]."
+		. += "The account linked to the ID belongs to '[registered_account.account_holder]' and reports a balance of $[registered_account.account_balance]."
 		if(!istype(src, /obj/item/card/id/departmental_budget))
 			var/list/payment_result = list()
 			for(var/D in registered_account.payment_per_department)
 				if(registered_account.payment_per_department[D] > 0)
-					payment_result += "[D]: €[registered_account.payment_per_department[D]]"
+					payment_result += "[D]: $[registered_account.payment_per_department[D]]"
 			if(length(payment_result))
 				. += "The payment of this account is -"
 				for(var/each in payment_result)
 					. += "\t[each]"
 			if(!HAS_TRAIT(SSstation, STATION_TRAIT_UNITED_BUDGET))
-				for(var/D in SSeconomy.account_bitflags)
-					if(SSeconomy.account_bitflags[D] & registered_account.active_departments)
-						var/datum/bank_account/B = SSeconomy.get_dep_account(D)
-						if(B)
-							. += "The [B.account_holder] reports a balance of €[B.account_balance]."
+				for(var/datum/bank_account/department/D in SSeconomy.budget_accounts)
+					if(D.department_bitflag & registered_account.active_departments)
+						if(D.show_budget_information)
+							. += "The [D.account_holder] reports a balance of $[D.account_balance]."
 			else
-				var/datum/bank_account/B = SSeconomy.get_dep_account(ACCOUNT_CAR_ID)
+				var/datum/bank_account/B = SSeconomy.get_budget_account(ACCOUNT_CAR_ID)
 				if(B)
-					. += "The [B.account_holder] reports a balance of €[B.account_balance]."
+					. += "The [B.account_holder] reports a balance of $[B.account_balance]."
 
 
 		. += "<span class='info'>Alt-Click the ID to pull money from the linked account in the form of holochips.</span>"
@@ -587,7 +586,7 @@ update_label("John Doe", "Clowny")
 
 /obj/item/card/id/syndicate/debug/Initialize(mapload)
 	access = get_every_access()
-	registered_account = SSeconomy.get_dep_account(ACCOUNT_CAR_ID)
+	registered_account = SSeconomy.get_budget_account(ACCOUNT_CAR_ID)
 	. = ..()
 
 /obj/item/card/id/captains_spare
@@ -841,18 +840,18 @@ update_label("John Doe", "Clowny")
 
 /obj/item/card/id/departmental_budget/Initialize(mapload)
 	. = ..()
-	var/datum/bank_account/B = SSeconomy.get_dep_account(department_ID)
+	var/datum/bank_account/department/B = SSeconomy.get_budget_account(department_ID)
 	if(HAS_TRAIT(SSstation, STATION_TRAIT_UNITED_BUDGET) && !B.is_nonstation_account())
 		department_ID = ACCOUNT_CAR_ID
 		department_name = ACCOUNT_ALL_NAME
-		B = SSeconomy.get_dep_account(department_ID)
+		B = SSeconomy.get_budget_account(department_ID)
 
 	if(B)
 		registered_account = B
 		if(!B.bank_cards.Find(src))
 			B.bank_cards += src
 		name = "departmental card ([department_name])"
-		desc = "Provides access to the [department_name]."
+		desc = "Provides access to the [department_name] budget."
 	SSeconomy.dep_cards += src
 
 /obj/item/card/id/departmental_budget/Destroy()

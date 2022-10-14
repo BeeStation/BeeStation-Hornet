@@ -183,7 +183,7 @@
 	return examine(user)
 
 //Start growing a human clone in the pod!
-/obj/machinery/clonepod/proc/growclone(clonename, ui, mutation_index, mindref, last_death, datum/species/mrace, list/features, factions, list/quirks, datum/bank_account/insurance, list/traumas, body_only, account_id, experimental)
+/obj/machinery/clonepod/proc/growclone(clonename, ui, mutation_index, mindref, last_death, datum/species/mrace, list/features, factions, list/quirks, datum/bank_account/insurance, list/traumas, body_only, experimental)
 	var/result = CLONING_SUCCESS
 	if(!reagents.has_reagent(/datum/reagent/medicine/synthflesh, fleshamnt))
 		connected_message("Cannot start cloning: Not enough synthflesh.")
@@ -264,7 +264,7 @@
 		clonemind.transfer_to(H)
 	else if(!(!experimental && body_only))
 		current_insurance = insurance
-		offer_to_ghost(H, account_id)
+		offer_to_ghost(H)
 		result = CLONING_SUCCESS_EXPERIMENTAL
 
 	if(H.mind)
@@ -275,7 +275,6 @@
 		if(grab_ghost_when == CLONER_MATURE_CLONE)
 			H.ghostize(TRUE)	//Only does anything if they were still in their old body and not already a ghost
 			to_chat(H.get_ghost(TRUE), "<span class='notice'>Your body is beginning to regenerate in a cloning pod. You will become conscious when it is complete.</span>")
-
 
 	if(H)
 		H.faction |= factions
@@ -299,7 +298,7 @@
 	attempting = FALSE
 	return result
 
-/obj/machinery/clonepod/proc/offer_to_ghost(mob/living/carbon/H, account_id)
+/obj/machinery/clonepod/proc/offer_to_ghost(mob/living/carbon/H)
 	set waitfor = FALSE
 	var/list/mob/dead/observer/candidates = pollCandidatesForMob("Do you want to play as [H.real_name]'s experimental clone?", ROLE_EXPERIMENTAL_CLONE, null, null, 300, H, POLL_IGNORE_EXPERIMENTAL_CLONE)
 	if(length(candidates))
@@ -308,7 +307,6 @@
 		log_game("[key_name(C)] became [H.real_name]'s experimental clone.")
 		message_admins("[key_name_admin(C)] became [H.real_name]'s experimental clone.")
 		to_chat(H, "<span class='warning'>You will instantly die if you do 'ghost'. Please stand by until the cloning is done.</span>")
-		H.mind.account_id = account_id // your mind stores it, but you don't have any info for the account. ask your origin for the acc id
 
 //Grow clones to maturity then kick them out.  FREELOADERS
 /obj/machinery/clonepod/process()
@@ -342,8 +340,8 @@
 				if(internal_radio)
 					SPEAK("The cloning of [mob_occupant.real_name] has been ended prematurely due to being unable to pay.")
 			else
-				var/datum/bank_account/department/D = SSeconomy.get_dep_account(payment_department)
-				if(D && !D.is_nonstation_account())
+				var/datum/bank_account/department/D = SSeconomy.get_budget_account(payment_department)
+				if(D && !D?.is_nonstation_account())
 					D.adjust_money(fair_market_price)
 		if(mob_occupant && (mob_occupant.stat == DEAD) || (mob_occupant.suiciding) || mob_occupant.ishellbound())  //Autoeject corpses and suiciding dudes.
 			connected_message("Clone Rejected: Deceased.")

@@ -777,7 +777,7 @@ GLOBAL_LIST_EMPTY(vending_products)
 					flick(icon_deny,src)
 					vend_ready = TRUE
 					return
-				var/datum/bank_account/D = SSeconomy.get_dep_account(SSeconomy.get_dept_id_by_bitflag(payment_department))
+				var/datum/bank_account/D = SSeconomy.get_budget_account(SSeconomy.get_dept_id_by_bitflag(payment_department))
 				if(D)
 					D.adjust_money(price_to_use)
 			if(last_shopper != REF(usr) || purchase_message_cooldown < world.time)

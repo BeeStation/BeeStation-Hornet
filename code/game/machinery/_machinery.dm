@@ -342,8 +342,8 @@ Class Procs:
 						say("[market_verb] NAP Violation: Unable to pay.")
 						nap_violation(occupant)
 						return FALSE
-					var/datum/bank_account/D = SSeconomy.get_dep_account(payment_department)
-					if(D && !D.is_nonstation_account())
+					var/datum/bank_account/department/D = SSeconomy.get_budget_account(payment_department)
+					if(D && !D?.is_nonstation_account())
 						D.adjust_money(fair_market_price)
 			else
 				say("[market_verb] NAP Violation: No ID card found.")

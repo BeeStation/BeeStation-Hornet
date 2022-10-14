@@ -1,14 +1,15 @@
 #define DUMPTIME 3000
+#define ACCOUNT_CREATION_MAX_ATTEMPT 2000
 
 /datum/bank_account
 	var/account_holder = "Rusty Venture"
 	var/account_balance = 0
 	var/datum/job/account_job
+	/// List of physical cards that bound to this account
 	var/list/bank_cards = list()
+	/// If TRUE, SSeconomy will store an account into `SSeconomy.bank_accounts`
 	var/add_to_accounts = TRUE
 	var/account_id
-	/// used for NEET quirk to give you extra credits
-	var/welfare = FALSE
 	var/being_dumped = FALSE //pink levels are rising
 	var/withdrawDelay = 0
 	/// used for cryo'ed people's account. Once it's TRUE, most bank features of the bank account will be disabled.
@@ -17,39 +18,25 @@
 	///
 	var/active_departments = NONE
 	/// payment from each department.
-	var/list/payment_per_department = list(
-		ACCOUNT_CIV_ID=0,
-		ACCOUNT_SRV_ID=0,
-		ACCOUNT_CAR_ID=0,
-		ACCOUNT_ENG_ID=0,
-		ACCOUNT_SCI_ID=0,
-		ACCOUNT_MED_ID=0,
-		ACCOUNT_SEC_ID=0,
-		ACCOUNT_COM_ID=0,
-		ACCOUNT_VIP_ID=0
-	)
+	var/list/payment_per_department = list()
 	/// bonus from each department.
-	var/list/bonus_per_department = list(
-		ACCOUNT_CIV_ID=0,
-		ACCOUNT_SRV_ID=0,
-		ACCOUNT_CAR_ID=0,
-		ACCOUNT_ENG_ID=0,
-		ACCOUNT_SCI_ID=0,
-		ACCOUNT_MED_ID=0,
-		ACCOUNT_SEC_ID=0,
-		ACCOUNT_COM_ID=0,
-		ACCOUNT_VIP_ID=0
-	)
+	var/list/bonus_per_department = list()
 
 /datum/bank_account/New(newname, job)
 	account_holder = newname
 	account_job = job
 	account_id = rand(111111,999999)
-	var/failcheck = 2000
-	while(SSeconomy.get_bank_account_by_id(account_id)) // Don't get the same account ID
+	for(var/i in 1 to ACCOUNT_CREATION_MAX_ATTEMPT)
+		if(!SSeconomy.get_bank_account_by_id(account_id)) // Don't get the same account ID
+			break
 		account_id = rand(111111,999999)
-		if(!failcheck--)
+		if(i == ACCOUNT_CREATION_MAX_ATTEMPT)
 			CRASH("Something's wrong to creat to a bank account")
+
+	// initialising payment data into an account for each department including non-station
+	for(var/datum/bank_account/department/each as() in subtypesof(/datum/bank_account/department))
+		payment_per_department += list("[initial(each.department_id)]"=0)
+		bonus_per_department += list("[initial(each.department_id)]"=0)
 
 	active_departments = account_job.bank_account_department
 	for(var/D in account_job.payment_per_department)
@@ -90,11 +77,8 @@
 
 /datum/bank_account/proc/payday(amt_of_paychecks, free = FALSE)
 	if(suspended)
-		bank_card_talk("ERROR: Payday aborted, the account is closed by Nanotrasen Space Finance.")
+		bank_card_talk("ERROR: Payday aborted, account closed by Nanotrasen Space Finance.")
 		return
-	if(welfare)
-		adjust_money(PAYCHECK_WELFARE) // Don't let welfare siphon your station budget
-		bank_card_talk("Nanotrasen welfare system processed, account now holds €[account_balance], supported with €[PAYCHECK_WELFARE].")
 
 	for(var/D in payment_per_department)
 		if(payment_per_department[D] <= 0 && bonus_per_department[D] <= 0)
@@ -111,7 +95,7 @@
 			if(bonus_per_department[D] > 0) //Get rid of bonus if we have one
 				bonus_per_department[D] = 0
 		else
-			var/datum/bank_account/B = SSeconomy.get_dep_account(D)
+			var/datum/bank_account/B = SSeconomy.get_budget_account(D)
 			if(!B)
 				bank_card_talk("ERROR: Payday aborted, unable to query [D] departmental account.")
 			else
@@ -120,7 +104,7 @@
 					bonus_per_department[D] += (money_to_transfer-bonus_per_department[D]) // you'll get paid someday
 					continue
 				else
-					bank_card_talk("Payday processed, account now holds €[account_balance], paid with €[money_to_transfer] from [D] budget.")
+					bank_card_talk("Payday processed, account now holds $[account_balance], paid with $[money_to_transfer] from [D] budget.")
 					//The bonus only resets once it goes through.
 					if(bonus_per_department[D] > 0) //And we're not getting rid of debt
 						bonus_per_department[D] = 0
@@ -155,17 +139,97 @@
 /datum/bank_account/department
 	account_holder = "Guild Credit Agency"
 	var/department_id = "REPLACE_ME"
+	var/department_bitflag = NONE
+	/// ratio as how a department takes money when a station get a profit
+	var/budget_ratio = NONE
+	/// if this is staton budget, set it as FALSE
+	var/nonstation_account = TRUE
+	/// used by non-station budgets to give specific amount of budgets
+	var/exclusive_budget_pool
+	/// basically non-station budgets are not good to show. These need to be FALSE.
+	var/show_budget_information = TRUE
 	add_to_accounts = FALSE
 
-/datum/bank_account/department/New(dep_id, budget)
-	department_id = dep_id
-	account_balance = budget
-	active_departments = SSeconomy.account_bitflags[dep_id]
-	account_holder = (SSeconomy.department_accounts+SSeconomy.nonstation_accounts)[dep_id]
+/datum/bank_account/department/New(budget)
+	account_balance = exclusive_budget_pool ? exclusive_budget_pool : budget
 
-	SSeconomy.generated_accounts += src
+/datum/bank_account/department/civilian
+	account_holder = ACCOUNT_CIV_NAME
+	department_id = ACCOUNT_CIV_ID
+	department_bitflag = ACCOUNT_CIV_BITFLAG
+	budget_ratio = BUDGET_RATIO_TYPE_SINGLE
+	nonstation_account = FALSE
 
-/datum/bank_account/proc/is_nonstation_account()
-	return SSeconomy.is_nonstation_account(src)
+/datum/bank_account/department/service
+	account_holder = ACCOUNT_SRV_NAME
+	department_id = ACCOUNT_SRV_ID
+	department_bitflag = ACCOUNT_SRV_BITFLAG
+	budget_ratio = BUDGET_RATIO_TYPE_SINGLE
+	nonstation_account = FALSE
+
+/datum/bank_account/department/cargo
+	account_holder = ACCOUNT_CAR_NAME
+	department_id = ACCOUNT_CAR_ID
+	department_bitflag = ACCOUNT_CAR_BITFLAG
+	budget_ratio = BUDGET_RATIO_TYPE_DOUBLE
+	nonstation_account = FALSE
+
+/datum/bank_account/department/science
+	account_holder = ACCOUNT_SCI_NAME
+	department_id = ACCOUNT_SCI_ID
+	department_bitflag = ACCOUNT_SCI_BITFLAG
+	budget_ratio = BUDGET_RATIO_TYPE_DOUBLE
+	nonstation_account = FALSE
+
+/datum/bank_account/department/engineering
+	account_holder = ACCOUNT_ENG_NAME
+	department_id = ACCOUNT_ENG_ID
+	department_bitflag = ACCOUNT_ENG_BITFLAG
+	budget_ratio = BUDGET_RATIO_TYPE_DOUBLE
+	nonstation_account = FALSE
+
+/datum/bank_account/department/medical
+	account_holder = ACCOUNT_MED_NAME
+	department_id = ACCOUNT_MED_ID
+	department_bitflag = ACCOUNT_MED_BITFLAG
+	budget_ratio = BUDGET_RATIO_TYPE_DOUBLE
+	nonstation_account = FALSE
+
+/datum/bank_account/department/security
+	account_holder = ACCOUNT_SEC_NAME
+	department_id = ACCOUNT_SEC_ID
+	department_bitflag = ACCOUNT_SEC_BITFLAG
+	budget_ratio = BUDGET_RATIO_TYPE_DOUBLE
+	nonstation_account = FALSE
+
+/datum/bank_account/department/command
+	account_holder = ACCOUNT_COM_NAME
+	department_id = ACCOUNT_COM_ID
+	department_bitflag = ACCOUNT_COM_BITFLAG
+	show_budget_information = FALSE
+
+/datum/bank_account/department/command/New()
+	show_budget_information = NON_STATION_BUDGET_BASE
+	..()
+
+/datum/bank_account/department/vip
+	account_holder = ACCOUNT_VIP_NAME
+	department_id = ACCOUNT_VIP_ID
+	department_bitflag = ACCOUNT_VIP_BITFLAG
+	show_budget_information = TRUE // good flavour to flex their wealth power
+
+/datum/bank_account/department/vip/New()
+	show_budget_information = NON_STATION_BUDGET_BASE
+	..()
+
+/datum/bank_account/department/welfare
+	account_holder = ACCOUNT_NEET_NAME
+	department_id = ACCOUNT_NEET_ID
+	department_bitflag = NONE // this doesn't need bitflag
+	show_budget_information = FALSE
+
+/datum/bank_account/department/welfare/New()
+	show_budget_information = NON_STATION_BUDGET_BASE
+	..()
 
 #undef DUMPTIME

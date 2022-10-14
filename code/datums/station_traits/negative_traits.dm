@@ -180,20 +180,20 @@
 	trait_type = STATION_TRAIT_NEGATIVE
 	weight = 2
 	show_in_report = TRUE
-	report_message = "As your station is selected for our financial experiments, all station budgets are united into one, and all budget card will be linked to that one."
+	report_message = "Your station has been selected for one of our financial experiments! All station budgets have been united into one, and all budget cards will be linked to one account!"
 	trait_to_give = STATION_TRAIT_UNITED_BUDGET
 
 /datum/station_trait/united_budget/New()
 	. = ..()
-	var/event_source = pick(list("As your station has been selected for our financial experiments,",
-								"As our financial planner planned at their best,",
-								"As our AI with the financial plan support module generated the result,",
-								"As the budget categorisation was too complex more than it had to be,",
-								"It appears one of your superiors is creatively mean to you, so",
-								"Syndicate messed up our budget categorisation system,",
-								"Since We reverted the previous confirmation about the budget plan that our intern made,",
-								"Since we gave a chance to our intern that they can practically plan the station budget system,",
-								"Thanks to our financial intern,",
-								"Due to the budget cuts in Nanotrasen Space Finance,",
-								"Since \[REDACTED\] has been \[REDACTED\] by \[REDACTED\]"))
-	report_message = "[event_source] all station budgets are united into a single budget account, and all budget cards will be linked to that one."
+	var/event_source = pick(list("As your station has been selected for one of our financial experiments,",
+		                         "Our financial planner has decided:",
+		                         "Our new AI financial plan support module has generated a new budgeting system:",
+		                         "We thought the current budget categorisation system was too complicated, so",
+		                         "It appears one of your superiors has it out for you, so",
+		                         "The Syndicate damaged documents on procedures for the station's budgeting system, so",
+		                         "Since we reverted the previous confirmation about the budget plan that our intern made,",
+		                         "Due to our intern having free reign over the station budget system,",
+		                         "Thanks to our financial intern,",
+		                         "Due to the budget cuts in Nanotrasen Space Finance,",
+		                         "Since \[REDACTED\] has been \[REDACTED\] by \[REDACTED\],"))
+	report_message = "[event_source] all station budgets have been united into one, and all budget cards will be linked to one account."

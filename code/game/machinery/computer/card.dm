@@ -343,10 +343,10 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				if(!(target_paycheck in paycheck_departments))
 					dat += "<td>(Auth-denied)</td>"
 				else
-					if(B.active_departments & SSeconomy.account_bitflags[target_paycheck])
-						dat += "<td><a href='?src=[REF(src)];choice=turn_on_off_department_bank;paycheck_t=[target_paycheck]'><font color=\"6bc473\">Vendor free</font></a></td>"
+					if(B.active_departments & SSeconomy.get_budget_acc_bitflag(target_paycheck))
+						dat += "<td><a href='?src=[REF(src)];choice=turn_on_off_department_bank;paycheck_t=[target_paycheck]'><font color=\"6bc473\">Free Vendor Access</font></a></td>"
 					else
-						dat += "<td><a href='?src=[REF(src)];choice=turn_on_off_department_bank;paycheck_t=[target_paycheck]'>No free</a></td>"
+						dat += "<td><a href='?src=[REF(src)];choice=turn_on_off_department_bank;paycheck_t=[target_paycheck]'>Free denied</a></td>"
 				if(B.suspended)
 					dat += "<td>Closed</td>"
 					dat += "<td>$0</td>"
@@ -354,8 +354,8 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 					dat += "<td>$[B.payment_per_department[target_paycheck]] (Auth-denied)</td>"
 					dat += "<td>$[B.bonus_per_department[target_paycheck]]</td>"
 				else
-					dat += "<td><a href='?src=[REF(src)];choice=adjust_pay;paycheck_t=[target_paycheck]'>€[B.payment_per_department[target_paycheck]]</a></td>"
-					dat += "<td><a href='?src=[REF(src)];choice=adjust_bonus;paycheck_t=[target_paycheck]'>€[B.bonus_per_department[target_paycheck]]</a></td>"
+					dat += "<td><a href='?src=[REF(src)];choice=adjust_pay;paycheck_t=[target_paycheck]'>$[B.payment_per_department[target_paycheck]]</a></td>"
+					dat += "<td><a href='?src=[REF(src)];choice=adjust_bonus;paycheck_t=[target_paycheck]'>$[B.bonus_per_department[target_paycheck]]</a></td>"
 				dat += "</tr>"
 	else
 		var/header = ""
@@ -444,27 +444,27 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			banking += "<table border='1' cellspacing='1' cellpadding='0'>"
 			// Department active status
 			banking += "<tr>"
-			banking += "<td><b>Department manifest active:</b></td>"
+			banking += "<td><b>Active Department Manifest:</b></td>"
 			var/datum/data/record/R = find_record("name", inserted_modify_id.registered_name, GLOB.data_core.general)
 			if(R)
 				for(var/each in available_paycheck_departments)
-					if(!(SSeconomy.account_bitflags[each] & region_access_payment))
+					if(!(SSeconomy.get_budget_acc_bitflag(each) & region_access_payment))
 						continue
 					if(R.fields["active_dept"] & available_paycheck_departments[each])
 						banking += "<td><a href='?src=[REF(src)];choice=turn_on_off_department_manifest;target_bitflag=[available_paycheck_departments[each]]'><font color=\"6bc473\">[each]</a></font></td>"
 					else
 						banking += "<td><a href='?src=[REF(src)];choice=turn_on_off_department_manifest;target_bitflag=[available_paycheck_departments[each]]'>[each]</a></td>"
 			else
-				banking += "<td><b>Error: User record not found in the station data</b></td>"
+				banking += "<td><b>Error: Cannot locate user entry in data core</b></td>"
 			banking += "</tr>"
 			//adjustable only when they have bank account in their card
 			var/datum/bank_account/B = inserted_modify_id?.registered_account
 			if(B)
 				// Bank vendor free status - Lets you to buy department stuff for free
 				banking += "<tr>"
-				banking += "<td><b>Department Vendor free:</b></td>"
+				banking += "<td><b>Free Vendor Access:</b></td>"
 				for(var/each in available_paycheck_departments)
-					if(!(SSeconomy.account_bitflags[each] & region_access_payment))
+					if(!(SSeconomy.get_budget_acc_bitflag(each) & region_access_payment))
 						continue
 					if(B.active_departments & available_paycheck_departments[each])
 						banking += "<td><a href='?src=[REF(src)];choice=turn_on_off_department_bank;paycheck_t=[each]'><font color=\"6bc473\">[each]</a></font></td>"
@@ -475,16 +475,16 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				banking += "<tr>"
 				banking += "<td><b>Payment per department:</b></td>"
 				for(var/each in available_paycheck_departments)
-					if(!(SSeconomy.account_bitflags[each] & region_access_payment))
+					if(!(SSeconomy.get_budget_acc_bitflag(each) & region_access_payment))
 						continue
 					if(SSeconomy.is_nonstation_account(each))
-						banking += "<td>€[B.payment_per_department[each]]</td>"
+						banking += "<td>$[B.payment_per_department[each]]</td>"
 						continue
-					banking += "<td><a href='?src=[REF(src)];choice=adjust_pay;paycheck_t=[each]'>€[B.payment_per_department[each]]</a></td>"
+					banking += "<td><a href='?src=[REF(src)];choice=adjust_pay;paycheck_t=[each]'>$[B.payment_per_department[each]]</a></td>"
 				banking += "</tr>"
 			else
 				banking += "<td><b>Banking information:</b></td>"
-				banking += "<td><b>Error: Bank account not found in the card</b></td>"
+				banking += "<td><b>Error: No linked bank account detected</b></td>"
 			banking += "</table>"
 			banking += "<br>"
 
@@ -642,21 +642,24 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 
 				else if(t1 == "Unassigned")
 					inserted_modify_id.access -= get_all_accesses()
+
+					// These lines are to make an individual to an assistant
 					if(B)
 						for(var/each in inserted_modify_id.registered_account.payment_per_department)
-							if(SSeconomy.is_nonstation_account(each))
+							if(SSeconomy.is_nonstation_account(each)) // do not touch VIP/Command flag
 								continue
-							B.active_departments &= ~SSeconomy.account_bitflags[each]
-							B.payment_per_department[each] = 0
-							B.bonus_per_department[each] = 0
-						B.active_departments &= ~SSeconomy.account_bitflags[ACCOUNT_COM_ID] // micromanagement
-						B.payment_per_department[ACCOUNT_CIV_ID] = PAYCHECK_MINIMAL // for the love of god, let them have minimal
+							B.active_departments &= ~SSeconomy.get_budget_acc_bitflag(each) // turn off all bitflag for each department except for VIP/Command
+							B.payment_per_department[each] = 0 // your payment for each department is 0
+							B.bonus_per_department[each] = 0   // your bonus for each department is 0
+						B.active_departments &= ~SSeconomy.get_budget_acc_bitflag(ACCOUNT_COM_ID) // micromanagement. Command bitflag should be removed manually, because 'for/each' didn't remove it.
+						B.payment_per_department[ACCOUNT_CIV_ID] = PAYCHECK_MINIMAL // for the love of god, let them have minimal payment from Civ budget... to be a real assistant.
 					if(R)
 						for(var/each in B.payment_per_department)
-							if(SSeconomy.is_nonstation_account(each))
+							if(SSeconomy.is_nonstation_account(each)) // do not touch VIP/Command flag
 								continue
-							R.fields["active_dept"] &= ~SSeconomy.account_bitflags[each]
-						R.fields["active_dept"] &= ~DEPT_BITFLAG_COM  // micromanagement2
+							R.fields["active_dept"] &= ~SSeconomy.get_budget_acc_bitflag(each) // turn off all bitflag for each department except for VIP/Command. *note: this actually shouldn't use `get_budget_acc_bitflag()` proc, because bitflags are the same but these have a different purpose.
+						R.fields["active_dept"] &= ~DEPT_BITFLAG_COM  // micromanagement2. the reason is the same. Command should be removed manually.
+
 
 					log_id("[key_name(usr)] unassigned and stripped all access from [inserted_modify_id] using [inserted_scan_id] at [AREACOORD(usr)].")
 
@@ -675,15 +678,15 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 						for(var/each in inserted_modify_id.registered_account.payment_per_department)
 							if(SSeconomy.is_nonstation_account(each))
 								continue
-							B.active_departments &= ~SSeconomy.account_bitflags[each]
+							B.active_departments &= ~SSeconomy.get_budget_acc_bitflag(each)
 							B.payment_per_department[each] = 0
 							B.bonus_per_department[each] = 0
-						B.active_departments &= ~SSeconomy.account_bitflags[ACCOUNT_COM_ID] // micromanagement
+						B.active_departments &= ~SSeconomy.get_budget_acc_bitflag(ACCOUNT_COM_ID) // micromanagement
 					if(R)
 						for(var/each in B.payment_per_department)
 							if(SSeconomy.is_nonstation_account(each))
 								continue
-							R.fields["active_dept"] &= ~SSeconomy.account_bitflags[each]
+							R.fields["active_dept"] &= ~SSeconomy.get_budget_acc_bitflag(each)
 						R.fields["active_dept"] &= ~DEPT_BITFLAG_COM  // micromanagement2
 					// giving the job info into their bank and record
 					if(B)
@@ -797,21 +800,14 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			if(!inserted_scan_id)
 				updateUsrDialog()
 				return
-			switch(href_list["paytype"])
-				if(ACCOUNT_CIV_ID)
-					target_paycheck = ACCOUNT_CIV_ID
-				if(ACCOUNT_SRV_ID)
-					target_paycheck = ACCOUNT_SRV_ID
-				if(ACCOUNT_CAR_ID)
-					target_paycheck = ACCOUNT_CAR_ID
-				if(ACCOUNT_SCI_ID)
-					target_paycheck = ACCOUNT_SCI_ID
-				if(ACCOUNT_ENG_ID)
-					target_paycheck = ACCOUNT_ENG_ID
-				if(ACCOUNT_MED_ID)
-					target_paycheck = ACCOUNT_MED_ID
-				if(ACCOUNT_SEC_ID)
-					target_paycheck = ACCOUNT_SEC_ID
+			var/href_paytype = href_list["paytype"]
+			if(!SSeconomy.get_budget_account(href_paytype))
+				updateUsrDialog()
+				return
+			if(SSeconomy.is_nonstation_account(href_paytype))
+				updateUsrDialog()
+				return
+			target_paycheck = href_paytype
 
 		if ("adjust_pay")
 			//Adjust the paycheck of a crew member. Can't be less than zero.
@@ -846,7 +842,8 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				updateUsrDialog()
 				return
 			if(SSeconomy.is_nonstation_account(B))
-				CRASH("[ckey(src)] tried to adjust [inserted_modify_id.registered_name]'s [B.account_id] pay bonus. It must be they're hacking the game.")
+				message_admins("[ADMIN_LOOKUPFLW(usr)] tried to adjust [inserted_modify_id.registered_name]'s [B.account_id] pay bonus. It must be they're hacking the game.")
+				CRASH("[key_name(usr)] tried to adjust [inserted_modify_id.registered_name]'s [B.account_id] pay bonus. It must be they're hacking the game.")
 			var/new_bonus = FLOOR(input(usr, "Input the bonus amount. Negative values will dock paychecks.", "Set paycheck bonus", B.bonus_per_department[target_paycheck]) as num|null, 1)
 			if(isnull(new_bonus))
 				updateUsrDialog()
@@ -862,13 +859,14 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			if(!B)
 				updateUsrDialog()
 				return
-			if(SSeconomy.is_nonstation_account(B) && !(B.account_id == ACCOUNT_COM_ID))
-				CRASH("[ckey(src)] tried to adjust [inserted_modify_id.registered_name]'s vendor free status of [B.account_id]. It must be they're hacking the game.")
+			if(SSeconomy.is_nonstation_account(B) && !(B.account_id == ACCOUNT_COM_ID)) // command is fine to turn on/off
+				message_admins("[ADMIN_LOOKUPFLW(usr)] tried to adjust [inserted_modify_id.registered_name]'s vendor free status of [B.account_id]. It must be they're hacking the game.")
+				CRASH("[key_name(usr)] tried to adjust [inserted_modify_id.registered_name]'s vendor free status of [B.account_id]. It must be they're hacking the game.")
 
-			if(B.active_departments & SSeconomy.account_bitflags[paycheck_t])
-				B.active_departments &= ~SSeconomy.account_bitflags[paycheck_t] // turn off
+			if(B.active_departments & SSeconomy.get_budget_acc_bitflag(paycheck_t))
+				B.active_departments &= ~SSeconomy.get_budget_acc_bitflag(paycheck_t) // turn off
 			else
-				B.active_departments |= SSeconomy.account_bitflags[paycheck_t] // turn on
+				B.active_departments |= SSeconomy.get_budget_acc_bitflag(paycheck_t) // turn on
 
 		if ("turn_on_off_department_manifest")
 			if(!inserted_scan_id)
@@ -879,8 +877,6 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			if(!R)
 				updateUsrDialog()
 				return
-			if(target_bitflag & SSeconomy.account_bitflags[ACCOUNT_VIP_ID])
-				CRASH("[ckey(src)] tried to adjust [inserted_modify_id.registered_name]'s [ACCOUNT_VIP_ID] department status. It must be they're hacking the game.")
 
 			if(R.fields["active_dept"] & target_bitflag)
 				R.fields["active_dept"] &= ~target_bitflag // turn off
@@ -909,7 +905,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			if(!(ACCESS_HOP in inserted_scan_id.access))
 				say("Insufficient access to create a new bank account.")
 				return
-			var/datum/bank_account/B = SSeconomy.get_dep_account(initial(target_paycheck))
+			var/datum/bank_account/B = SSeconomy.get_budget_account(initial(target_paycheck))
 			switch(alert("Would you like to open a new bank account?\nIt will cost 1,000 credits in [lowertext(initial(target_paycheck))] budget.","Open a new account","Yes","No"))
 				if("No")
 					return

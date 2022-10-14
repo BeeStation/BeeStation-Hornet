@@ -18,6 +18,12 @@
 
 #define PAYCHECK_WELFARE 20 //NEETbucks
 
+
+#define NON_STATION_BUDGET_BASE rand(8888888, 11111111)
+#define BUDGET_RATIO_TYPE_SINGLE 1 // For Service & Civilian budget
+#define BUDGET_RATIO_TYPE_DOUBLE 2 // and for the rest
+
+
 #define ACCOUNT_CIV_ID "Civilian"
 #define ACCOUNT_CIV_NAME "Civil Budget"
 #define ACCOUNT_SRV_ID "Service"
@@ -36,6 +42,8 @@
 #define ACCOUNT_COM_NAME "Nanotrasen Commands' Quality ＆ Appearance Maintenance Budget"
 #define ACCOUNT_VIP_ID "VIP"
 #define ACCOUNT_VIP_NAME "Nanotrasen VIP Expense Account Budget"
+#define ACCOUNT_NEET_ID "Welfare"
+#define ACCOUNT_NEET_NAME "Space Nations Welfare"
 
 #define ACCOUNT_ALL_NAME "United Station Budget" // for negative station trait - united budget
 

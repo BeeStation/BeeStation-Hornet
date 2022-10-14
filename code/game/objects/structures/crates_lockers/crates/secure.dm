@@ -133,7 +133,7 @@
 				if(!department_purchase)
 					to_chat(user, "<span class='notice'>Access Denied, insufficient access on ID card.</span>")
 				else
-					to_chat(user, "<span class='notice'>Access Denied, insufficient access on ID card. Equip an ID card with the required access to open, and tab the budget card onto the crate.</span>")
+					to_chat(user, "<span class='notice'>Access Denied, insufficient access on ID card. Equip an ID card with the required access to open, and tap the budget card onto the crate.</span>")
 			return FALSE
 		if(iscarbon(user))
 			add_fingerprint(user)
