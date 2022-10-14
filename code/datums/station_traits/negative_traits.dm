@@ -191,7 +191,6 @@
 		                         "We thought the current budget categorisation system was too complicated, so",
 		                         "It appears one of your superiors has it out for you, so",
 		                         "The Syndicate damaged documents on procedures for the station's budgeting system, so",
-		                         "Since we reverted the previous confirmation about the budget plan that our intern made,",
 		                         "Due to our intern having free reign over the station budget system,",
 		                         "Thanks to our financial intern,",
 		                         "Due to the budget cuts in Nanotrasen Space Finance,",
