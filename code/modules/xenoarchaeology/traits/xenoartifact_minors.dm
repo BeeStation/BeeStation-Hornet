@@ -352,7 +352,7 @@
 /datum/xenoartifact_trait/minor/anchor
 	desc = "Anchored"
 	label_desc = "Anchored: The Artifact buckles to the floor with the weight of a sun every time it activates. Heavier than you, somehow."
-	blacklist_traits = list(/datum/xenoartifact_trait/minor/wearable)
+	blacklist_traits = list(/datum/xenoartifact_trait/minor/wearable, /datum/xenoartifact_trait/minor/haunted)
 	flags = BLUESPACE_TRAIT | URANIUM_TRAIT
 
 /datum/xenoartifact_trait/minor/anchor/activate(obj/item/xenoartifact/X, atom/target, atom/user)
