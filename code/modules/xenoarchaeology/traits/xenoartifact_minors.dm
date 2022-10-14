@@ -422,8 +422,8 @@
 /datum/xenoartifact_trait/minor/haunted/proc/activate_parent(obj/item/xenoartifact/ref)
 	//Get a target to style on
 	ref.true_target = list(ref.get_target_in_proximity(min(ref.max_range+1, 5)))
-	if(true_target.len)
-		ref.check_charge(true_target[1])
+	if(ref.true_target.len)
+		ref.check_charge(ref.true_target[1])
 
 /datum/xenoartifact_trait/minor/haunted/on_item(obj/item/xenoartifact/X, atom/user, atom/item)
 	if(istype(item, /obj/item/storage/book/bible))
