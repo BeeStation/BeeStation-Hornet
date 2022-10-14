@@ -26,3 +26,8 @@ Dockerfile @crossedfall
 # pestoverde322
 
 /_maps @pestoverde322
+
+# itsmeow
+
+/code/game/gamemodes/dynamic @itsmeow
+/code/modules/modular_computers @itsmeow
