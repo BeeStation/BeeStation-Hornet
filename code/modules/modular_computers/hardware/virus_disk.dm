@@ -53,6 +53,7 @@
 	if(!target)
 		to_chat(user, "<span class='notice'>ERROR: Could not find device.</span>")
 		return
+	charges--
 
 	var/difficulty = 0
 	var/obj/item/computer_hardware/hard_drive/role/disk = target.all_components[MC_HDD_JOB]

@@ -99,7 +99,7 @@
 // Disk Definitions
 
 /obj/item/computer_hardware/hard_drive/role/engineering
-	name = "Power-ON disk"
+	name = "\improper Power-ON disk"
 	desc = "Engineers ignoring station power-draw since 2400."
 	icon_state = "cart-engie"
 	disk_flags = DISK_POWER
