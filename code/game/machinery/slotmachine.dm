@@ -256,7 +256,7 @@
 
 	if(reels[1][2] + reels[2][2] + reels[3][2] + reels[4][2] + reels[5][2] == "[SEVEN][SEVEN][SEVEN][SEVEN][SEVEN]")
 		visible_message("<b>[src]</b> says, 'JACKPOT! You win [money] credits!'")
-		priority_announce("Congratulations to [user ? user.real_name : usrname] for winning the jackpot at the slot machine in [get_area(src)]!", sound = SSstation.announcer.get_rand_alert_sound())
+		priority_announce("Congratulations to [user ? user.real_name : usrname] for winning the jackpot of [money] credits at the slot machine in [get_area(src)]!", sound = SSstation.announcer.get_rand_alert_sound())
 		jackpots += 1
 		balance += money - give_payout(JACKPOT)
 		money = 0
