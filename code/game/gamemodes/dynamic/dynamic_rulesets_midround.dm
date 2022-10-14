@@ -696,16 +696,17 @@
 
 /datum/dynamic_ruleset/midround/from_ghosts/spiders
 	name = "Spider Infestation"
-	antag_flag = "Spider"
+	antag_flag = ROLE_SPIDER
 	antag_flag_override = ROLE_ALIEN
 	midround_ruleset_style = MIDROUND_RULESET_STYLE_HEAVY
 	required_type = /mob/dead/observer
 	enemy_roles = list(JOB_NAME_SECURITYOFFICER, JOB_NAME_DETECTIVE, JOB_NAME_WARDEN, JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN)
-	required_enemies = list(2,2,1,1,1,0,0,0,0,0)
+	required_enemies = list(2,2,1,1,1,1,1,0,0,0)
 	required_candidates = 2
-	weight = 5
-	cost = 10
+	weight = 4
+	cost = 8
 	repeatable = TRUE
+	minimum_players = 27
 	var/list/vents = list()
 
 /datum/dynamic_ruleset/midround/from_ghosts/spiders/execute()
@@ -716,7 +717,7 @@
 			var/datum/pipeline/temp_vent_parent = temp_vent.parents[1]
 			if(!temp_vent_parent)
 				continue // No parent vent
-			if(temp_vent_parent.other_atmosmch.len > 20)
+			if(length(temp_vent_parent.other_atmosmch) > 20)
 				vents += temp_vent // Makes sure the pipeline is large enough
 	if(!length(vents))
 		log_game("DYNAMIC: [ruletype] ruleset [name] execute failed due to no valid spawn locations.")

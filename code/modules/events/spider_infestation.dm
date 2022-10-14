@@ -29,19 +29,19 @@
 			if(!temp_vent_parent)
 				continue// no parent vent
 
-			if(temp_vent_parent.other_atmosmch.len > 20)
+			if(length(temp_vent_parent.other_atmosmch) > 20)
 				vents += temp_vent // Makes sure the vent network's big enough
 
-	if(!vents.len)
+	if(!length(vents))
 		message_admins("An event attempted to spawn spiders but no suitable vents were found. Aborting.")
 		return MAP_ERROR
 
-	var/list/candidates = get_candidates(ROLE_ALIEN, null, ROLE_ALIEN)
+	var/list/candidates = get_candidates(ROLE_SPIDER, null, ROLE_SPIDER)
 
-	if(!candidates.len)
+	if(!length(candidates))
 		return NOT_ENOUGH_PLAYERS
 
-	while(spawncount > 0 && vents.len && candidates.len)
+	while(spawncount > 0 && length(vents) && length(candidates))
 		var/obj/vent = pick_n_take(vents)
 		var/client/C = pick_n_take(candidates)
 
