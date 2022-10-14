@@ -339,6 +339,8 @@
 	var/verb_name = "Adminhelp"
 	/// The sound used for ticket actions and replies (bwoink!)
 	var/reply_sound = "sound/effects/adminhelp.ogg"
+	/// The message type used for resolve messages
+	var/message_type = MESSAGE_TYPE_ADMINPM
 
 /datum/help_ticket/New(client/C)
 	initiator = C
@@ -389,7 +391,7 @@
 		return FALSE
 	var/datum/help_ticket/active_ticket = data_glob.get_active_ticket(initiator)
 	if(active_ticket)
-		to_chat(initiator, "<span class='warning'>Your ticket could not be transferred because you already have a ticket of the same type open. Please make another ticket at a later time, or bring up whatever the issue was in your current ticket.</span>")
+		to_chat(initiator, "<span class='warning'>Your ticket could not be transferred because you already have a ticket of the same type open. Please make another ticket at a later time, or bring up whatever the issue was in your current ticket.</span>", type = message_type)
 		old_ticket.message_ticket_managers("<span class='[old_ticket.span_class]'>Could not transfer Ticket [old_ticket.TicketHref("#[old_ticket.id]")], [old_ticket.key_name_ticket(old_ticket.initiator)] already has a ticket open of the same type.</span>")
 		ticket_counter--
 		qdel(src)
@@ -628,7 +630,7 @@
 	if(claimee == usr)
 		return
 	if(initiator && !claimee && !silent)
-		to_chat(initiator, "<font color='red'>Your issue is being investigated by \a [handling_name], please stand by.</span>")
+		to_chat(initiator, "<font color='red'>Your issue is being investigated by \a [handling_name], please stand by.</span>", type = message_type)
 	var/datum/help_tickets/data_glob = get_data_glob()
 	if(!istype(data_glob))
 		return
@@ -723,7 +725,7 @@
 		Thank you for creating a ticket, the [verb_name] verb will be returned to you shortly."
 	if(claimee)
 		output += "<br />Your ticket was handled by: <span class='adminooc'>[claimee.ckey]</span></span>"
-	to_chat(initiator, output)
+	to_chat(initiator, output, type = message_type)
 
 //
 // LOGGING

@@ -103,6 +103,7 @@ GLOBAL_DATUM_INIT(mhelp_tickets, /datum/help_tickets/mentor, new)
 	handling_name = "mentor"
 	verb_name = "Mentorhelp"
 	reply_sound = "sound/items/bikehorn.ogg"
+	message_type = MESSAGE_TYPE_MENTORPM
 
 /datum/help_ticket/mentor/New(client/C)
 	..()
@@ -164,11 +165,11 @@ GLOBAL_DATUM_INIT(mhelp_tickets, /datum/help_tickets/mentor, new)
 		if(X.prefs.toggles & PREFTOGGLE_SOUND_ADMINHELP)
 			SEND_SOUND(X, sound(reply_sound))
 		window_flash(X, ignorepref = TRUE)
-		to_chat(X, admin_msg)
+		to_chat(X, admin_msg, type = message_type)
 
 	//show it to the person adminhelping too
 	if(add_to_ticket)
-		to_chat(initiator, "<span class='mentornotice'>PM to-<b>Mentors</b>: <span class='linkify'>[msg]</span></span>")
+		to_chat(initiator, "<span class='mentornotice'>PM to-<b>Mentors</b>: <span class='linkify'>[msg]</span></span>", type = message_type)
 
 /datum/help_ticket/mentor/proc/ClosureLinks(ref_src)
 	if(state > TICKET_ACTIVE)

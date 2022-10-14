@@ -147,7 +147,7 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/help_tickets/admin, new)
 		var/admin_number_present = send2tgs_adminless_only(initiator_ckey, "Ticket #[id]: [msg]")
 		log_admin_private("Ticket #[id]: [key_name(initiator)]: [name] - heard by [admin_number_present] non-AFK admins who have +BAN.")
 		if(admin_number_present <= 0)
-			to_chat(initiator, "<span class='notice'>No active admins are online, your adminhelp was sent through TGS to admins who are available. This may use IRC or Discord.</span>")
+			to_chat(initiator, "<span class='notice'>No active admins are online, your adminhelp was sent through TGS to admins who are available. This may use IRC or Discord.</span>", type = message_type)
 			heard_by_no_admins = TRUE
 
 	bwoink = is_bwoink
@@ -209,13 +209,13 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/help_tickets/admin, new)
 			SEND_SOUND(X, sound(reply_sound))
 		window_flash(X, ignorepref = TRUE)
 		to_chat(X,
-			type = MESSAGE_TYPE_ADMINPM,
+			type = message_type,
 			html = admin_msg)
 
 	//show it to the person adminhelping too
 	if(add_to_ticket)
 		to_chat(initiator,
-			type = MESSAGE_TYPE_ADMINPM,
+			type = message_type,
 			html = "<span class='adminnotice'>PM to-<b>Admins</b>: <span class='linkify'>[msg]</span></span>")
 
 
