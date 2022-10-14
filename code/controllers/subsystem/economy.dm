@@ -76,11 +76,12 @@ SUBSYSTEM_DEF(economy)
 				united_budget = D
 				break
 
-	var/datum/bank_account/department/target_budget
-	for(var/datum/bank_account/department/D in budget_accounts)
-		if(D.department_id == dept_id)
-			target_budget = D
-			break
+	var/static/list/budget_id_list = list()
+	if(!length(budget_id_list))
+		for(var/datum/bank_account/department/D in budget_accounts)
+			budget_id_list += list("[D.department_id]" = D)
+
+	var/datum/bank_account/department/target_budget = budget_id_list[dept_id]
 
 	if(target_budget.is_nonstation_account())
 		return target_budget

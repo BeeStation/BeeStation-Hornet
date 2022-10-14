@@ -209,7 +209,7 @@
 	show_budget_information = FALSE
 
 /datum/bank_account/department/command/New()
-	show_budget_information = NON_STATION_BUDGET_BASE
+	exclusive_budget_pool = NON_STATION_BUDGET_BASE
 	..()
 
 /datum/bank_account/department/vip
@@ -219,7 +219,7 @@
 	show_budget_information = TRUE // good flavour to flex their wealth power
 
 /datum/bank_account/department/vip/New()
-	show_budget_information = NON_STATION_BUDGET_BASE
+	exclusive_budget_pool = NON_STATION_BUDGET_BASE
 	..()
 
 /datum/bank_account/department/welfare
@@ -229,7 +229,7 @@
 	show_budget_information = FALSE
 
 /datum/bank_account/department/welfare/New()
-	show_budget_information = NON_STATION_BUDGET_BASE
+	exclusive_budget_pool = NON_STATION_BUDGET_BASE
 	..()
 
 #undef DUMPTIME

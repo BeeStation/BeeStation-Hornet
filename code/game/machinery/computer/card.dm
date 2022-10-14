@@ -346,7 +346,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 					if(B.active_departments & SSeconomy.get_budget_acc_bitflag(target_paycheck))
 						dat += "<td><a href='?src=[REF(src)];choice=turn_on_off_department_bank;paycheck_t=[target_paycheck]'><font color=\"6bc473\">Free Vendor Access</font></a></td>"
 					else
-						dat += "<td><a href='?src=[REF(src)];choice=turn_on_off_department_bank;paycheck_t=[target_paycheck]'>Free denied</a></td>"
+						dat += "<td><a href='?src=[REF(src)];choice=turn_on_off_department_bank;paycheck_t=[target_paycheck]'>No Free Vendor Access</a></td>"
 				if(B.suspended)
 					dat += "<td>Closed</td>"
 					dat += "<td>$0</td>"
@@ -811,7 +811,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 
 		if ("adjust_pay")
 			//Adjust the paycheck of a crew member. Can't be less than zero.
-			if(!authenticated)
+			if(!(authenticated || check_auth_payment()))
 				updateUsrDialog()
 				return
 			var/paycheck_t = href_list["paycheck_t"]
@@ -819,8 +819,9 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			if(isnull(B))
 				updateUsrDialog()
 				return
-			if(SSeconomy.is_nonstation_account(B))
-				CRASH("[ckey(src)] tried to adjust [B.account_id] payment. It must be they're hacking the game.")
+			if(SSeconomy.is_nonstation_account(paycheck_t))
+				message_admins("[ADMIN_LOOKUPFLW(usr)] tried to adjust [B.account_id] payment. It must be they're hacking the game.")
+				CRASH("[key_name(usr)] tried to adjust [B.account_id] payment. It must be they're hacking the game.")
 			var/new_pay = FLOOR(input(usr, "Input the new paycheck amount.", "Set new paycheck amount.", B.payment_per_department[target_paycheck]) as num|null, 1)
 			if(isnull(new_pay))
 				updateUsrDialog()
@@ -833,7 +834,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 
 		if ("adjust_bonus")
 			//Adjust the bonus pay of a crew member. Negative amounts dock pay.
-			if(!authenticated)
+			if(!(authenticated || check_auth_payment()))
 				updateUsrDialog()
 				return
 			var/paycheck_t = href_list["paycheck_t"]
@@ -841,7 +842,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			if(isnull(B))
 				updateUsrDialog()
 				return
-			if(SSeconomy.is_nonstation_account(B))
+			if(SSeconomy.is_nonstation_account(paycheck_t))
 				message_admins("[ADMIN_LOOKUPFLW(usr)] tried to adjust [inserted_modify_id.registered_name]'s [B.account_id] pay bonus. It must be they're hacking the game.")
 				CRASH("[key_name(usr)] tried to adjust [inserted_modify_id.registered_name]'s [B.account_id] pay bonus. It must be they're hacking the game.")
 			var/new_bonus = FLOOR(input(usr, "Input the bonus amount. Negative values will dock paychecks.", "Set paycheck bonus", B.bonus_per_department[target_paycheck]) as num|null, 1)
@@ -859,7 +860,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			if(!B)
 				updateUsrDialog()
 				return
-			if(SSeconomy.is_nonstation_account(B) && !(B.account_id == ACCOUNT_COM_ID)) // command is fine to turn on/off
+			if(SSeconomy.is_nonstation_account(paycheck_t) && !(B.account_id == ACCOUNT_COM_ID)) // command is fine to turn on/off
 				message_admins("[ADMIN_LOOKUPFLW(usr)] tried to adjust [inserted_modify_id.registered_name]'s vendor free status of [B.account_id]. It must be they're hacking the game.")
 				CRASH("[key_name(usr)] tried to adjust [inserted_modify_id.registered_name]'s vendor free status of [B.account_id]. It must be they're hacking the game.")
 
@@ -945,6 +946,13 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	for(var/datum/job/job in SSjob.occupations)
 		if(rank in job.department_head)
 			head_subordinates += job.title
+
+/// Returns if auth id has head access that is eligible to adjust payment
+/obj/machinery/computer/card/proc/check_auth_payment()
+	for(var/each in list(ACCESS_HEADS, ACCESS_CHANGE_IDS, ACCESS_HOP, ACCESS_CMO, ACCESS_RD, ACCESS_CE))
+		if(each in inserted_scan_id.access)
+			return TRUE
+	return FALSE
 
 /obj/machinery/computer/card/centcom
 	name = "\improper CentCom identification console"

@@ -72,5 +72,6 @@
 			budget_size++
 	var/money_to_distribute = round(D.account_balance / budget_size)
 	for(var/datum/bank_account/department/each in SSeconomy.budget_accounts)
-		each.account_balance = money_to_distribute
+		if(!each.is_nonstation_account())
+			each.account_balance = money_to_distribute
 
