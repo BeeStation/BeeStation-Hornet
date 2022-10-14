@@ -118,7 +118,7 @@ SUBSYSTEM_DEF(economy)
 	// this proc is useful when you don't want to declare a variable
 
 /// Check `subsystem\economy.dm`
-/datum/bank_account/department/proc/is_nonstation_account() // It's better to read then if(D.nonstation_account)
+/datum/bank_account/department/proc/is_nonstation_account() // It's better to read than if(D.nonstation_account)
 	return nonstation_account
 
 /datum/controller/subsystem/economy/proc/distribute_funds(amount)
