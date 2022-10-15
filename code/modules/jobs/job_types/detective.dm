@@ -35,7 +35,7 @@
 	jobtype = /datum/job/detective
 
 	id = /obj/item/card/id/job/detective
-	belt = /obj/item/pda/detective
+	belt = /obj/item/modular_computer/tablet/pda/detective
 	ears = /obj/item/radio/headset/headset_sec/alt
 	uniform = /obj/item/clothing/under/rank/security/detective
 	neck = /obj/item/clothing/neck/tie/detective

@@ -930,7 +930,7 @@
 		var/obj/vehicle/V = C
 		var/datum/component/riding/R = V.GetComponent(/datum/component/riding)
 		if(R)
-			var/vehicle_speed_mod = round(CONFIG_GET(number/movedelay/run_delay) * 0.85, 0.01)
+			var/vehicle_speed_mod = round(1.5 * 0.85, 0.01)
 			if(R.vehicle_move_delay <= vehicle_speed_mod)
 				to_chat(user, "<span class='warning'>The [C] can't be made any faster!</span>")
 				return ..()

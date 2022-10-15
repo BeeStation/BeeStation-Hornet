@@ -1,4 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - refactor: Radio jamming is now component based. (No player facing changes.)
