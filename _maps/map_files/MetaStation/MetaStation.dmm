@@ -63649,9 +63649,9 @@
 	name = "Toxins Lab";
 	req_access_txt = "8"
 	},
-/obj/machinery/door/poddoor/preopen{
+/obj/machinery/door/poddoor/shutters/preopen{
 	id = "toxins_blastdoor";
-	name = "biohazard containment door"
+	name = "Containment Shutters"
 	},
 /turf/open/floor/plasteel/stairs,
 /area/science/mixing)
