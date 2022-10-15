@@ -164,7 +164,6 @@
 	if(istype(target, /turf/closed/wall))
 		if(tearing_wall)
 			return
-		tearing_wall = TRUE
 		var/turf/closed/wall/thewall = target
 		to_chat(src, "<span class='warning'>You begin tearing through the wall...</span>")
 		playsound(src, 'sound/machines/airlock_alien_prying.ogg', 100, TRUE)
@@ -187,10 +186,10 @@
 			to_chat(src, "<span class='warning'>You begin to swallow [L] whole...</span>")
 			is_swallowing = TRUE
 			if(do_after(src, 3 SECONDS, target = L))
-				is_swallowing = FALSE
 				RegisterSignal(L, COMSIG_LIVING_REVIVE, .proc/living_revive)
 				if(eat(L))
 					adjustHealth(-L.maxHealth * 0.25)
+			is_swallowing = FALSE
 			return
 	. = ..()
 	if(istype(target, /obj/mecha))
@@ -343,7 +342,7 @@
 	new /obj/effect/hotspot(T)
 	T.hotspot_expose(700,50,1)
 	for(var/mob/living/L in T.contents)
-		if(L in hit_list)
+		if((L in hit_list) || istype(L, /mob/living/simple_animal/hostile/carp))
 			continue
 		hit_list += L
 		L.adjustFireLoss(30)
