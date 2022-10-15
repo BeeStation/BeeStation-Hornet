@@ -67,7 +67,7 @@
 		if(!(mobility_flags & MOBILITY_STAND) || !S.lying_required)
 			if((S.self_operable || user != src) && (user.a_intent == INTENT_HELP || user.a_intent == INTENT_DISARM))
 				if(S.next_step(user,user.a_intent))
-					return 1
+					return TRUE
 	return ..()
 
 /mob/living/carbon/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
