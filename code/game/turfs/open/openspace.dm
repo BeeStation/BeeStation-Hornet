@@ -28,6 +28,10 @@ GLOBAL_DATUM_INIT(openspace_backdrop_one_for_all, /atom/movable/openspace_backdr
 	var/can_build_on = TRUE
 
 	intact = 0
+
+/turf/open/openspace/cold
+	initial_gas_mix = FROZEN_ATMOS
+
 /turf/open/openspace/airless
 	initial_gas_mix = AIRLESS_ATMOS
 

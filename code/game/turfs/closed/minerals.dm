@@ -408,9 +408,9 @@
 	icon_state = "icerock"
 	smooth = SMOOTH_MORE|SMOOTH_BORDER
 	canSmoothWith = list (/turf/closed)
-	baseturfs = /turf/open/floor/plating/asteroid/snow/ice
+	baseturfs = /turf/open/floor/plating/asteroid/snow
 	environment_type = "snow_cavern"
-	turf_type = /turf/open/floor/plating/asteroid/snow/ice
+	turf_type = /turf/open/floor/plating/asteroid/snow
 
 //GIBTONITE
 

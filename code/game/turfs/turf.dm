@@ -215,7 +215,7 @@ GLOBAL_LIST_EMPTY(created_baseturf_lists)
 	var/mob/living/L = user
 	var/jaunting = isliving(user) && L.incorporeal_move
 
-	if(!jaunting && ((upwards && !target.allow_z_travel) || (!upwards && !allow_z_travel)))
+	if(!jaunting && ((upwards && !target.allow_z_travel) || (!upwards && !allow_z_travel) || (!user.has_gravity(target)) ))
 		to_chat(user, "<span class='warning'>Something is blocking you!</span>")
 		return
 	user.visible_message("<span class='notice'>[user] begins floating [upwards ? "upwards" : "downwards"]!</span>", "<span class='notice'>You begin floating [upwards ? "upwards" : "downwards"].")
