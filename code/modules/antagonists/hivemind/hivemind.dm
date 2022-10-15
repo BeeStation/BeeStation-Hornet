@@ -83,8 +83,7 @@
 			break
 		if(lead)
 			unlocked_dominance = TRUE
-			var/obj/effect/proc_holder/spell/self/hive_dominance/dominance_spell = new
-			owner.AddSpell(dominance_spell)
+			owner.AddSpell(/new obj/effect/proc_holder/spell/self/hive_dominance/dominance_spell)
 			to_chat(owner, "<span class='assimilator'>Our strength overflowing and our competitors left in the dust, we can proclaim our Dominance and enter a heightened state.</span>")
 
 /datum/antagonist/hivemind/proc/add_to_hive(mob/living/carbon/C)
