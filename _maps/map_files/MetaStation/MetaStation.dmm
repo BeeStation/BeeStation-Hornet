@@ -42808,10 +42808,6 @@
 	},
 /turf/open/space,
 /area/space/nearstation)
-"cSU" = (
-/obj/structure/lattice,
-/turf/open/space,
-/area/space)
 "cTf" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -62444,9 +62440,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/engine/engineering)
-"mDD" = (
-/turf/open/space/basic,
-/area/space/nearstation)
 "mDK" = (
 /obj/machinery/door/airlock/maintenance{
 	req_access_txt = "12"
@@ -71562,11 +71555,6 @@
 	},
 /turf/open/floor/plating,
 /area/maintenance/disposal)
-"rNC" = (
-/turf/open/floor/plating{
-	icon_state = "panelscorched"
-	},
-/area/science/shuttledock)
 "rNE" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -120157,7 +120145,7 @@ ovj
 ovj
 ovj
 nbv
-rNC
+dwX
 sGh
 mjJ
 sez
@@ -120414,7 +120402,7 @@ cpH
 cqX
 ovj
 txI
-mjJ
+ovj
 kxk
 mjJ
 jJV
@@ -127874,7 +127862,7 @@ aaf
 aaf
 aaf
 lMJ
-cSU
+aaf
 aaa
 aaa
 aaa
@@ -128130,7 +128118,7 @@ aaf
 aaa
 aaa
 aaa
-mDD
+aaa
 aaf
 aaf
 aaf
