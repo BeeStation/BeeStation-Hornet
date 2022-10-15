@@ -225,10 +225,10 @@
 	X.alpha = X.alpha * 0.55
 
 /datum/xenoartifact_trait/minor/delicate/activate(obj/item/xenoartifact/X, atom/user)
-	if(X.obj_integrity)
+	if(X.obj_integrity > 0)
 		X.obj_integrity -= 100
 		X.visible_message("<span class='danger'>The [X.name] cracks!</span>", "<span class='danger'>The [X.name] cracks!</span>")
-	else if(X.obj_integrity <= 0)
+	else
 		X.visible_message("<span class='danger'>The [X.name] shatters!</span>", "<span class='danger'>The [X.name] shatters!</span>")
 		var/obj/effect/decal/cleanable/ash/A = new(get_turf(X))
 		A.color = X.material
