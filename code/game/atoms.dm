@@ -98,6 +98,9 @@
 	/// Last color calculated for the the chatmessage overlays
 	var/chat_color
 
+	///Used for changing icon states for different base sprites.
+	var/base_icon_state
+
 	///The config type to use for greyscaled sprites. Both this and greyscale_colors must be assigned to work.
 	var/greyscale_config
 	///A string of hex format colors to be used by greyscale sprites, ex: "#0054aa#badcff"

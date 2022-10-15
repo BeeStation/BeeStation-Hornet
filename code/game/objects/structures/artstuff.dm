@@ -247,7 +247,7 @@
 	desc = "Art or \"Art\"? You decide."
 	icon = 'icons/obj/decals.dmi'
 	icon_state = "frame-empty"
-	var/base_icon_state = "frame" //temporal replacement before the update_appearance() port
+	base_icon_state = "frame" //temporal replacement before the update_appearance() port
 	buildable_sign = FALSE
 	///Canvas we're currently displaying.
 	var/obj/item/canvas/current_canvas
