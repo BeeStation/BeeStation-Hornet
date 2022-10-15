@@ -35,10 +35,10 @@
 	response_disarm = "gently pushes aside"
 	response_harm   = "hits"
 	initial_language_holder = /datum/language_holder/spider // Speaks buzzwords, understands buzzwords and common
-	maxHealth = 100
-	health = 100
+	maxHealth = 80
+	health = 80
 	obj_damage = 25
-	melee_damage = 25
+	melee_damage = 20
 	poison_per_bite = 0
 	poison_type = /datum/reagent/toxin/spidervenom
 	faction = list("spiders")
@@ -284,7 +284,7 @@
 
 // Midwives are upgraded nurses. They can web quickly and are stronger than regular nurses, but they're a bit slower.
 /mob/living/simple_animal/hostile/poison/giant_spider/nurse/midwife
-	name = "midwife"
+	name = "broodmother"
 	desc = "Furry and black, it makes you shudder to look at it. This one has scintillating green eyes."
 	icon_state = "midwife"
 	icon_living = "midwife"
@@ -313,9 +313,9 @@
 	icon_state = "hunter"
 	icon_living = "hunter"
 	icon_dead = "hunter_dead"
-	maxHealth = 80
-	health = 80
-	melee_damage = 20
+	maxHealth = 60
+	health = 60
+	melee_damage = 15
 	poison_per_bite = 5
 	move_to_delay = 3
 	speed = 0
@@ -330,7 +330,7 @@
 	maxHealth = 50
 	health = 50
 	melee_damage = 1
-	poison_per_bite = 12
+	poison_per_bite = 8
 	move_to_delay = 2
 	poison_type = /datum/reagent/toxin/venom
 	gold_core_spawnable = NO_SPAWN
@@ -342,9 +342,9 @@
 	icon_state = "tarantula"
 	icon_living = "tarantula"
 	icon_dead = "tarantula_dead"
-	maxHealth = 300
-	health = 300
-	melee_damage = 35
+	maxHealth = 160
+	health = 160
+	melee_damage = 25
 	obj_damage = 50
 	move_to_delay = 5
 	speed = 5
