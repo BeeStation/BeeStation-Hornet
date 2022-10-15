@@ -52050,6 +52050,9 @@
 	pixel_y = 4;
 	req_access_txt = "55"
 	},
+/obj/structure/sign/warning/electricshock{
+	pixel_y = -32
+	},
 /turf/open/floor/plasteel/dark,
 /area/science/xenobiology)
 "gOm" = (
@@ -71654,6 +71657,9 @@
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
+	},
+/obj/structure/sign/warning/electricshock{
+	pixel_y = -32
 	},
 /turf/open/floor/plasteel/dark,
 /area/science/xenobiology)
@@ -116310,7 +116316,7 @@ cRa
 qqe
 cSs
 rPF
-cSI
+cSd
 jcM
 udn
 dlV
@@ -117338,7 +117344,7 @@ cRa
 ioT
 lMB
 gNW
-cSI
+cSd
 cTB
 udn
 dlV
