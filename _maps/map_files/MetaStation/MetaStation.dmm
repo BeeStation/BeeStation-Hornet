@@ -74970,6 +74970,21 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plating,
 /area/maintenance/port/fore)
+"tIh" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 4
+	},
+/obj/machinery/door/airlock/maintenance{
+	req_one_access_txt = "12;47"
+	},
+/turf/open/floor/plating,
+/area/maintenance/starboard/aft)
 "tIO" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -75347,10 +75362,6 @@
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4,
 /turf/open/floor/plasteel,
 /area/hallway/primary/fore)
-"tTu" = (
-/obj/structure/closet/firecloset,
-/turf/open/floor/plating,
-/area/maintenance/starboard/aft)
 "tTD" = (
 /obj/effect/turf_decal/plaque{
 	icon_state = "L11"
@@ -117585,8 +117596,8 @@ cRW
 cSv
 cSc
 cRi
-owl
-vMA
+lQw
+tIh
 dlV
 oWN
 wzB
@@ -117842,8 +117853,8 @@ cSg
 cSn
 cSn
 cRi
-tTu
-amM
+owl
+vMA
 dlV
 dlV
 ect
@@ -119627,9 +119638,9 @@ mjJ
 mjJ
 mjJ
 mjJ
-mjJ
+tVz
 dla
-mjJ
+tVz
 mjJ
 eBh
 hpj
