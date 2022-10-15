@@ -40604,13 +40604,6 @@
 /obj/effect/spawner/structure/window,
 /turf/open/floor/plating,
 /area/science/robotics/lab)
-"cIS" = (
-/obj/structure/sign/departments/minsky/research/research{
-	pixel_x = 32
-	},
-/obj/structure/disposalpipe/segment,
-/turf/open/floor/plasteel/white,
-/area/science/research)
 "cJh" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
@@ -48825,6 +48818,9 @@
 	},
 /obj/structure/disposalpipe/segment{
 	dir = 9
+	},
+/obj/structure/sign/departments/minsky/research/research{
+	pixel_x = 32
 	},
 /turf/open/floor/plasteel/white,
 /area/science/research)
@@ -114779,7 +114775,7 @@ grt
 wKc
 grt
 grt
-cIS
+grt
 fbQ
 ccd
 ccd
@@ -125307,15 +125303,15 @@ aaf
 aaa
 aaa
 aaa
-aaf
-aaf
-lMJ
-lMJ
-lMJ
-lMJ
-lMJ
-aaf
-lMJ
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 aaf
 aaa
 aav
@@ -125561,18 +125557,18 @@ aaa
 aaa
 aac
 aaf
-aaf
-aaf
-aaf
-aaf
 aaa
 aaa
-fwb
-fwb
-fwb
-fwb
-fwb
 aaa
+aaf
+aaf
+lMJ
+lMJ
+lMJ
+lMJ
+lMJ
+aaf
+lMJ
 aaf
 lMJ
 jdU
@@ -125817,18 +125813,18 @@ aaf
 aaa
 aaa
 aaa
+lMJ
+aaf
+aaf
+aaf
+aaf
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+fwb
+fwb
+fwb
+fwb
+fwb
 aaa
 lMJ
 aaa
