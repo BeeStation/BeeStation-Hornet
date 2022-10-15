@@ -15,15 +15,15 @@
 	to_chat(user, "<span class='notice'>You take the card out of the dispenser.</span>")
 
 /obj/machinery/allaccess/power_change()
-	if(stat & BROKEN)
+	if(machine_stat & BROKEN)
 		icon_state = "[initial(icon_state)]-broken"
 	else
 		if(powered())
 			icon_state = initial(icon_state)
-			stat &= ~NOPOWER
+			set_machine_stat(machine_stat & ~NOPOWER)
 		else
 			icon_state = "[initial(icon_state)]-off"
-			stat |= NOPOWER
+			machine_stat |= NOPOWER
 
 /obj/machinery/allaccess/real
 	desc = "Some people confuse the Head of Personnel with this. Contains real All Access!"  // admin spawn for funnies

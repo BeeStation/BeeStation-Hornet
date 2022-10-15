@@ -1,7 +1,7 @@
 /datum/job/head_of_security
 	title = JOB_NAME_HEADOFSECURITY
 	flag = HOS
-	auto_deadmin_role_flags = DEADMIN_POSITION_HEAD|DEADMIN_POSITION_SECURITY
+	auto_deadmin_role_flags = PREFTOGGLE_DEADMIN_POSITION_HEAD|PREFTOGGLE_DEADMIN_POSITION_SECURITY
 	department_head = list(JOB_NAME_CAPTAIN)
 	department_flag = ENGSEC
 	head_announce = list(RADIO_CHANNEL_SECURITY)
@@ -43,7 +43,7 @@
 	jobtype = /datum/job/head_of_security
 
 	id = /obj/item/card/id/job/head_of_security
-	belt = /obj/item/pda/heads/head_of_security
+	belt = /obj/item/modular_computer/tablet/pda/heads/head_of_security
 	ears = /obj/item/radio/headset/heads/hos/alt
 	uniform = /obj/item/clothing/under/rank/security/head_of_security
 	shoes = /obj/item/clothing/shoes/jackboots
@@ -54,8 +54,7 @@
 	suit_store = /obj/item/gun/energy/e_gun/mini/heads
 	r_pocket = /obj/item/assembly/flash/handheld
 	l_pocket = /obj/item/restraints/handcuffs
-	backpack_contents = list(/obj/item/melee/baton/loaded=1,
-		/obj/item/modular_computer/tablet/preset/advanced/command=1)
+	backpack_contents = list(/obj/item/melee/baton/loaded=1)
 
 	backpack = /obj/item/storage/backpack/security
 	satchel = /obj/item/storage/backpack/satchel/sec

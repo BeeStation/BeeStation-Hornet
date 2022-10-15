@@ -193,7 +193,7 @@ SUBSYSTEM_DEF(networks)
 		var/obj/machinery/ntnet_relay/n = i
 		if(zlevel && n.get_virtual_z_level() != zlevel)
 			continue
-		if(n.is_operational())
+		if(n.is_operational)
 			return TRUE
 	return FALSE
 

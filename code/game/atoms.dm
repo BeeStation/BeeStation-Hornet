@@ -98,6 +98,9 @@
 	/// Last color calculated for the the chatmessage overlays
 	var/chat_color
 
+	///Used for changing icon states for different base sprites.
+	var/base_icon_state
+
 	///The config type to use for greyscaled sprites. Both this and greyscale_colors must be assigned to work.
 	var/greyscale_config
 	///A string of hex format colors to be used by greyscale sprites, ex: "#0054aa#badcff"
@@ -1091,10 +1094,10 @@
 							valid_id = TRUE
 						if(!valid_id)
 							to_chat(usr, "<span class='warning'>A reagent with that ID doesn't exist!</span>")
-				
+
 				if("Choose from a list")
 					chosen_id = input(usr, "Choose a reagent to add.", "Choose a reagent.") as null|anything in subtypesof(/datum/reagent)
-				
+
 				if("I'm feeling lucky")
 					chosen_id = pick(subtypesof(/datum/reagent))
 

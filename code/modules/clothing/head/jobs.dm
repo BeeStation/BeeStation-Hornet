@@ -43,7 +43,6 @@
 
 	dog_fashion = null
 
-
 //Head of Personnel
 /obj/item/clothing/head/hopcap
 	name = "head of personnel's cap"

@@ -9,7 +9,7 @@
 	cost = 10000
 
 /datum/gear/ooc/char_slot/purchase(var/client/C)
-	C?.prefs?.max_save_slots += 1
+	C?.prefs?.set_max_character_slots(C.prefs.max_usable_slots = 1)
 
 /datum/gear/ooc/real_antagtoken
 	display_name = "antag token"

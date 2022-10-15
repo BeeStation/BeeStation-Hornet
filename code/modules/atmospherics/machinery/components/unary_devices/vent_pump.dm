@@ -67,7 +67,7 @@
 		icon_state = "vent_welded"
 		return
 
-	if(!nodes[1] || !on || !is_operational())
+	if(!nodes[1] || !on || !is_operational)
 		if(icon_state == "vent_welded")
 			icon_state = "vent_off"
 			return
@@ -94,7 +94,7 @@
 
 /obj/machinery/atmospherics/components/unary/vent_pump/process_atmos()
 	..()
-	if(!is_operational() || !isopenturf(loc))
+	if(!is_operational || !isopenturf(loc))
 		return
 	if(!nodes[1])
 		on = FALSE
@@ -118,7 +118,7 @@
 			pressure_delta = min(pressure_delta, (air_contents.return_pressure() - internal_pressure_bound))
 
 		if(pressure_delta > 0)
-			if(air_contents.return_temperature() > 0)
+			if(air_contents.return_temperature() > 0 && air_contents.return_volume() > 0)
 				var/transfer_moles = pressure_delta*environment.return_volume()/(air_contents.return_temperature() * R_IDEAL_GAS_EQUATION)
 
 				loc.assume_air_moles(air_contents, transfer_moles)
@@ -183,7 +183,7 @@
 	..()
 
 /obj/machinery/atmospherics/components/unary/vent_pump/receive_signal(datum/signal/signal)
-	if(!is_operational())
+	if(!is_operational)
 		return
 	// log_admin("DEBUG \[[world.timeofday]\]: /obj/machinery/atmospherics/components/unary/vent_pump/receive_signal([signal.debug_print()])")
 	if(!signal.data["tag"] || (signal.data["tag"] != id_tag) || (signal.data["sigtype"]!="command"))
@@ -271,7 +271,7 @@
 
 /obj/machinery/atmospherics/components/unary/vent_pump/can_unwrench(mob/user)
 	. = ..()
-	if(. && on && is_operational())
+	if(. && on && is_operational)
 		to_chat(user, "<span class='warning'>You cannot unwrench [src], turn it off first!</span>")
 		return FALSE
 

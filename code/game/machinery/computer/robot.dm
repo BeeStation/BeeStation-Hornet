@@ -103,7 +103,7 @@
 
 	data["uploads"] = list()
 	for(var/obj/machinery/computer/upload/U as() in GLOB.uploads_list)
-		if(stat & (NOPOWER|BROKEN))
+		if(machine_stat & (NOPOWER|BROKEN))
 			continue
 		if(!(is_station_level(src.z) && is_station_level(U.z)))
 			continue
