@@ -875,7 +875,6 @@
 #include "code\game\machinery\ai_slipper.dm"
 #include "code\game\machinery\airlock_control.dm"
 #include "code\game\machinery\airlock_cycle_control.dm"
-#include "code\game\machinery\allaccess.dm"
 #include "code\game\machinery\announcement_system.dm"
 #include "code\game\machinery\aug_manipulator.dm"
 #include "code\game\machinery\bank_machine.dm"
