@@ -254,6 +254,10 @@
 	open_sound = 'sound/machines/wooden_closet_open.ogg'
 	close_sound = 'sound/machines/wooden_closet_close.ogg'
 
+/obj/structure/closet/secure_closet/detective/Initialize(mapload)
+	. = ..()
+	RegisterSignal(SSdcs, COMSIG_GLOB_POST_START, .proc/add_spare_scanner)
+
 /obj/structure/closet/secure_closet/detective/PopulateContents()
 	..()
 	new /obj/item/storage/box/evidence(src)
@@ -267,6 +271,13 @@
 	new	/obj/item/clothing/neck/tie/black(src)
 	new /obj/item/clothing/neck/tie/detective(src)
 	new /obj/item/storage/box/rxglasses/spyglasskit(src)
+
+/obj/structure/closet/secure_closet/detective/proc/add_spare_scanner()
+	SIGNAL_HANDLER
+	var/datum/job/J = SSjob.GetJob(JOB_NAME_DETECTIVE)
+	//No detective spawned, grant an extra scanner.
+	if (J.current_positions == 0)
+		new /obj/item/detective_scanner(src)
 
 /obj/structure/closet/secure_closet/deputy
 	name = "deputy's locker"
