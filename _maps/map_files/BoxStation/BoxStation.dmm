@@ -56419,8 +56419,9 @@
 "uma" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/power/apc/highcap/fifteen_k{
+	dir = 8;
 	name = "Medbay Central APC";
-	pixel_y = -24
+	pixel_x = -24
 	},
 /obj/structure/cable/yellow,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
