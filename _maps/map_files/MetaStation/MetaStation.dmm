@@ -37311,11 +37311,10 @@
 /turf/open/floor/plating,
 /area/science/server)
 "cvY" = (
-/obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/cyan/visible{
 	dir = 4
 	},
-/turf/open/floor/plating,
+/turf/open/floor/circuit/green/telecomms/mainframe,
 /area/science/server)
 "cwa" = (
 /obj/structure/reagent_dispensers/watertank/high,
@@ -37699,27 +37698,21 @@
 /turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/hor)
 "cwV" = (
-/obj/machinery/rnd/server,
-/obj/machinery/atmospherics/components/unary/vent_pump/on{
-	dir = 1;
-	external_pressure_bound = 140;
-	name = "server vent";
-	pressure_checks = 0
+/obj/machinery/atmospherics/components/unary/thermomachine/freezer/on{
+	dir = 1
 	},
-/turf/open/floor/circuit/telecomms/server,
+/turf/open/floor/plasteel/dark,
 /area/science/server)
 "cwW" = (
-/obj/machinery/rnd/server,
-/turf/open/floor/circuit/telecomms/server,
+/turf/open/floor/plasteel/dark,
 /area/science/server)
 "cwY" = (
-/obj/structure/frame/machine,
 /obj/machinery/atmospherics/components/unary/vent_pump/siphon/on{
 	dir = 1;
 	external_pressure_bound = 120;
 	name = "server vent"
 	},
-/turf/open/floor/circuit/green/telecomms/mainframe,
+/turf/open/floor/plasteel/dark,
 /area/science/server)
 "cxa" = (
 /obj/item/stack/cable_coil,
@@ -50792,10 +50785,14 @@
 /area/engine/break_room)
 "gap" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/cyan/visible{
-	dir = 10
+/obj/machinery/rnd/server,
+/obj/machinery/atmospherics/components/unary/vent_pump/on{
+	dir = 8;
+	external_pressure_bound = 140;
+	name = "server vent";
+	pressure_checks = 0
 	},
-/turf/open/floor/plasteel/dark,
+/turf/open/floor/circuit/telecomms/server,
 /area/science/server)
 "gaC" = (
 /obj/effect/landmark/event_spawn,
@@ -52101,10 +52098,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/science/explab)
-"gPt" = (
-/obj/structure/frame/machine,
-/turf/open/floor/circuit/green/telecomms/mainframe,
-/area/science/server)
 "gPv" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -54760,6 +54753,9 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/plasteel,
 /area/science/robotics/lab)
+"irA" = (
+/turf/open/floor/circuit/green/telecomms/mainframe,
+/area/science/server)
 "irK" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -59741,6 +59737,13 @@
 	},
 /turf/open/floor/plasteel,
 /area/security/brig)
+"ler" = (
+/obj/structure/railing{
+	dir = 1
+	},
+/obj/structure/reagent_dispensers/water_cooler,
+/turf/open/floor/plasteel/dark,
+/area/science/server)
 "leH" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/power/apc{
@@ -68927,6 +68930,23 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/science/research)
+"qoZ" = (
+/obj/machinery/atmospherics/pipe/simple/cyan/visible{
+	dir = 4
+	},
+/obj/machinery/door/airlock/command/glass{
+	name = "Server Access";
+	req_one_access_txt = "30;70"
+	},
+/obj/machinery/door/firedoor,
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
+	},
+/turf/open/floor/plasteel/dark,
+/area/science/server)
 "qps" = (
 /obj/effect/turf_decal/bot,
 /obj/machinery/portable_atmospherics/scrubber,
@@ -70984,11 +71004,9 @@
 /turf/open/floor/plasteel,
 /area/science/shuttledock)
 "rvR" = (
-/obj/machinery/atmospherics/components/unary/thermomachine/freezer/on{
-	dir = 1
-	},
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/dark,
+/obj/machinery/rnd/server,
+/turf/open/floor/circuit/telecomms/server,
 /area/science/server)
 "rvY" = (
 /obj/machinery/firealarm{
@@ -73996,7 +74014,8 @@
 /obj/structure/sign/poster/official/random{
 	pixel_x = 32
 	},
-/turf/open/floor/plasteel/dark,
+/obj/effect/spawner/structure/window/reinforced,
+/turf/closed/wall,
 /area/science/server)
 "tdp" = (
 /obj/effect/turf_decal/stripes/line{
@@ -75572,14 +75591,6 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
-"uaU" = (
-/obj/machinery/door/airlock/command/glass{
-	name = "Server Access";
-	req_one_access_txt = "30;70"
-	},
-/obj/machinery/door/firedoor,
-/turf/open/floor/plasteel/dark,
-/area/science/server)
 "ubt" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -117063,7 +117074,7 @@ czq
 thn
 ctf
 ctW
-cvX
+ler
 cvV
 cwV
 thn
@@ -117320,7 +117331,7 @@ cqO
 crT
 ctg
 ctX
-uaU
+cwW
 cuT
 cwW
 thn
@@ -117577,9 +117588,9 @@ cmP
 thn
 cth
 ctY
+cuW
+qoZ
 cvX
-cuT
-gPt
 thn
 xCZ
 wVV
@@ -118091,9 +118102,9 @@ cqR
 thn
 ctj
 cua
-cuW
-cvY
 cvX
+cvY
+irA
 thn
 nuA
 cyK
