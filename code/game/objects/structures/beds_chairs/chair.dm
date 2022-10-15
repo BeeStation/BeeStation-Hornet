@@ -231,13 +231,17 @@
 	name = "corporate chair"
 	desc = "It looks professional."
 	icon_state = "comfychair_corp"
+	buildstackamount = 1
+	item_chair = null
 
 /obj/structure/chair/fancy/shuttle
 	name = "shuttle seat"
 	desc = "A comfortable, secure seat. It has a more sturdy looking buckling system for smoother flights."
 	icon_state = "shuttle_chair"
+	buildstackamount = 1
+	item_chair = null
 
-/obj/structure/chair/fancy/plastic
+	/obj/structure/chair/fancy/plastic
 	name = "plastic chair"
 	desc = "If you want it, then you'll have to take it."
 	icon_state = "plastic_chair"
