@@ -49050,6 +49050,7 @@
 	pixel_y = 30;
 	receive_ore_updates = 1
 	},
+/obj/item/kirbyplants/random,
 /turf/open/floor/plasteel,
 /area/science/shuttledock)
 "fiS" = (
@@ -66484,6 +66485,9 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
+/obj/structure/sign/warning/nosmoking{
+	pixel_x = -28
+	},
 /turf/open/floor/engine,
 /area/science/mixing/chamber)
 "oXN" = (
@@ -79554,6 +79558,7 @@
 /turf/open/floor/plasteel,
 /area/crew_quarters/dorms)
 "wkg" = (
+/obj/structure/table/reinforced,
 /obj/structure/table/reinforced,
 /obj/item/multitool{
 	pixel_x = -8
@@ -116576,7 +116581,7 @@ jUn
 jbm
 nEf
 sgI
-ect
+dlV
 aaa
 aaa
 aaa
