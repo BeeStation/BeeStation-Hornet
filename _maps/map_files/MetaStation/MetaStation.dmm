@@ -42856,9 +42856,6 @@
 	},
 /area/chapel/main)
 "cTA" = (
-/obj/machinery/light/small{
-	dir = 1
-	},
 /obj/structure/sign/departments/minsky/research/research{
 	pixel_y = 32
 	},
@@ -63519,11 +63516,6 @@
 /obj/effect/turf_decal/tile/purple{
 	dir = 8
 	},
-/obj/machinery/door/poddoor/preopen{
-	id = "toxins_blastdoor";
-	name = "biohazard containment door"
-	},
-/obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel/white,
 /area/science/research)
 "njb" = (
@@ -63643,6 +63635,10 @@
 /obj/machinery/door/airlock/research{
 	name = "Toxins Lab";
 	req_access_txt = "8"
+	},
+/obj/machinery/door/poddoor/preopen{
+	id = "toxins_blastdoor";
+	name = "biohazard containment door"
 	},
 /turf/open/floor/plasteel/stairs,
 /area/science/mixing)
@@ -65673,11 +65669,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/machinery/door/poddoor/preopen{
-	id = "toxins_blastdoor";
-	name = "biohazard containment door"
-	},
-/obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel/white,
 /area/science/research)
 "oxl" = (
@@ -66746,18 +66737,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/port)
-"pgh" = (
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 10
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 10
-	},
-/turf/open/floor/plating,
-/area/maintenance/starboard/aft)
 "pgs" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -74643,11 +74622,6 @@
 	pixel_y = -32
 	},
 /obj/effect/turf_decal/tile/purple,
-/obj/machinery/door/poddoor/preopen{
-	id = "toxins_blastdoor";
-	name = "biohazard containment door"
-	},
-/obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel/white,
 /area/science/research)
 "txo" = (
@@ -116055,7 +116029,7 @@ qce
 cSq
 nZE
 cRi
-pgh
+oHv
 nIo
 dTM
 lMJ
