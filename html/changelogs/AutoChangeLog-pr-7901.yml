@@ -1,0 +1,4 @@
+author: itsmeow
+delete-after: true
+changes:
+  - rscdel: Removed fake AA dispenser machine.
