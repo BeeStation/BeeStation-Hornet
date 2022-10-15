@@ -2,6 +2,7 @@
 	desc = "Autonomous Power Loader Unit MK-I. Designed primarily around heavy lifting, the Ripley can be outfitted with utility equipment to fill a number of roles."
 	name = "\improper APLU MK-I \"Ripley\""
 	icon_state = "ripley"
+	base_icon_state = "ripley"
 	silicon_icon_state = "ripley-empty"
 	step_in = 1.5 //Move speed, lower is faster.
 	var/fast_pressure_step_in = 1.5 //step_in while in low pressure conditions
@@ -76,6 +77,7 @@
 	desc = "Autonomous Power Loader Unit MK-II. This prototype Ripley is refitted with a pressurized cabin, trading its prior speed for atmospheric protection"
 	name = "\improper APLU MK-II \"Ripley\""
 	icon_state = "ripleymkii"
+	base_icon_state = "ripleymkii"
 	fast_pressure_step_in = 2 //step_in while in low pressure conditions
 	slow_pressure_step_in = 4 //step_in while in normal pressure conditions
 	step_in = 4
@@ -90,6 +92,7 @@
 	desc = "Autonomous Power Loader Unit MK-III. This model is refitted with a pressurized cabin and additional hazard protection."
 	name = "\improper APLU MK-III \"Firefighter\""
 	icon_state = "firefighter"
+	base_icon_state = "firefighter"
 	max_temperature = 65000
 	max_integrity = 250
 	fast_pressure_step_in = 2 //step_in while in low pressure conditions
@@ -111,6 +114,7 @@
 	desc = "OH SHIT IT'S THE DEATHSQUAD WE'RE ALL GONNA DIE"
 	name = "\improper DEATH-RIPLEY"
 	icon_state = "deathripley"
+	base_icon_state = "deathripley"
 	fast_pressure_step_in = 2 //step_in while in low pressure conditions
 	slow_pressure_step_in = 4 //step_in while in normal pressure conditions
 	step_in = 4

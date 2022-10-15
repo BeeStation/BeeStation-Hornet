@@ -29,3 +29,5 @@
 #define COMSIG_GLOB_JOB_AFTER_SPAWN "!job_after_spawn"
 /// Called when a cargo resupply is triggered
 #define COMSIG_GLOB_RESUPPLY "!resupply"
+/// research has been researched
+#define COMSIG_GLOB_NEW_RESEARCH "!remote_research_changed"
