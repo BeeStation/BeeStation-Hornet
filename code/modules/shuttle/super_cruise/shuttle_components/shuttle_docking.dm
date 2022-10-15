@@ -211,7 +211,7 @@
 	return TRUE
 
 /obj/machinery/computer/shuttle_flight/proc/canDesignateTarget()
-	if(!designating_target_loc || !current_user || (eyeobj.loc != designating_target_loc) || (stat & (NOPOWER|BROKEN)) )
+	if(!designating_target_loc || !current_user || (eyeobj.loc != designating_target_loc) || (machine_stat & (NOPOWER|BROKEN)) )
 		return FALSE
 	return TRUE
 

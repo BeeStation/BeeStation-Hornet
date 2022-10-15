@@ -40,10 +40,55 @@ if grep -P '\td[1-2] =' _maps/**/*.dmm;    then
     st=1
 fi;
 echo -e "${BLUE}Checking for stacked cables...${NC}"
-if grep -P '"\w+" = \(\n([^)]+\n)*/obj/structure/cable,\n([^)]+\n)*/obj/structure/cable,\n([^)]+\n)*/area/.+\)' _maps/**/*.dmm;    then
-    echo
-    echo -e "${RED}ERROR: Found multiple cables on the same tile, please remove them.${NC}"
+if grep -Pzo '"\w+" = \(\n[^)]*?/obj/structure/lattice[/\w]*?,\n[^)]*?/obj/structure/lattice[/\w]*?,\n[^)]*?/area/.+?\)' _maps/**/*.dmm;	then
+	echo
+    echo -e "${RED}ERROR: Found multiple lattices on the same tile, please remove them.${NC}"
     st=1
+fi;
+if grep -Pzo '"\w+" = \(\n[^)]*?/obj/structure/barricade(?<type>[/\w]*),\n[^)]*?/obj/structure/barricade\g{type},\n[^)]*?/area/.+\)' _maps/**/*.dmm;	then
+	echo
+    echo -e "${RED}ERROR: Found multiple identical barricades on the same tile, please remove them.${NC}"
+    st=1
+fi;
+if grep -Pzo '"\w+" = \(\n[^)]*?/obj/structure/table(?<type>[/\w]*),\n[^)]*?/obj/structure/table\g{type},\n[^)]*?/area/.+\)' _maps/**/*.dmm;	then
+	echo
+    echo -e "${RED}ERROR: Found multiple identical tables on the same tile, please remove them.${NC}"
+    st=1
+fi;
+if grep -Pzo '"\w+" = \(\n[^)]*?/obj/structure/chair(?<type>[/\w]*),\n[^)]*?/obj/structure/chair\g{type},\n[^)]*?/area/.+\)' _maps/**/*.dmm;	then
+	echo
+    echo -e "${RED}ERROR: Found multiple identical chairs on the same tile, please remove them.${NC}"
+    st=1
+fi;
+if grep -Pzo '"\w+" = \(\n[^)]*?/obj/machinery/door/airlock[/\w]*?,\n[^)]*?/obj/machinery/door/airlock[/\w]*?,\n[^)]*?/area/.+\)' _maps/**/*.dmm;	then
+	echo
+    echo -e "${RED}ERROR: Found multiple airlocks on the same tile, please remove them.${NC}"
+    st=1
+fi;
+if grep -Pzo '"\w+" = \(\n[^)]*?/obj/machinery/door/firedoor[/\w]*?,\n[^)]*?/obj/machinery/door/firedoor[/\w]*?,\n[^)]*?/area/.+\)' _maps/**/*.dmm;	then
+	echo
+    echo -e "${RED}ERROR: Found multiple firelocks on the same tile, please remove them.${NC}"
+    st=1
+fi;
+if grep -Pzo '"\w+" = \(\n[^)]*?/obj/structure/closet(?<type>[/\w]*),\n[^)]*?/obj/structure/closet\g{type},\n[^)]*?/area/.+\)' _maps/**/*.dmm;	then
+	echo
+    echo -e "${RED}ERROR: Found multiple identical closets on the same tile, please remove them.${NC}"
+    st=1
+fi;
+if grep -Pzo '"\w+" = \(\n[^)]*?/obj/structure/grille(?<type>[/\w]*),\n[^)]*?/obj/structure/grille\g{type},\n[^)]*?/area/.+\)' _maps/**/*.dmm;	then
+	echo
+    echo -e "${RED}ERROR: Found multiple identical grilles on the same tile, please remove them.${NC}"
+    st=1
+fi;
+if grep -Pzo '"\w+" = \(\n[^)]*?/obj/structure/girder(?<type>[/\w]*),\n[^)]*?/obj/structure/girder\g{type},\n[^)]*?/area/.+\)' _maps/**/*.dmm;	then
+	echo
+    echo -e "${RED}ERROR: Found multiple identical girders on the same tile, please remove them.${NC}"
+    st=1
+fi;
+if grep -Pzo '"\w+" = \(\n[^)]*?/obj/structure/stairs(?<type>[/\w]*),\n[^)]*?/obj/structure/stairs\g{type},\n[^)]*?/area/.+\)' _maps/**/*.dmm;	then
+	echo
+    echo -e "${RED}ERROR: Found multiple identical stairs on the same tile, please remove them.${NC}"
+	st=1
 fi;
 if grep '^/area/.+[\{]' _maps/**/*.dmm;    then
     echo
@@ -73,6 +118,46 @@ fi;
 if grep -P 'set name\s*=\s*"[\S\s]*![\S\s]*"' code/**/*.dm; then
     echo
     echo -e "${RED}ERROR: Verb with name containing an exclamation point found. These verbs are not compatible with TGUI chat's statpanel or chat box.${NC}"
+    st=1
+fi;
+if grep -Pzo '"\w+" = \(\n[^)]*?/turf/[/\w]*?,\n[^)]*?/turf/[/\w]*?,\n[^)]*?/area/.+?\)' _maps/**/*.dmm; then
+	echo
+    echo -e "${RED}ERROR: Multiple turfs detected on the same tile! Please choose only one turf!${NC}"
+    st=1
+fi;
+if grep -Pzo '"\w+" = \(\n[^)]*?/area/.+?,\n[^)]*?/area/.+?\)' _maps/**/*.dmm; then
+	echo
+    echo -e "${RED}ERROR: Multiple areas detected on the same tile! Please choose only one area!${NC}"
+    st=1
+fi;
+if grep -Pzo '"\w+" = \(\n[^)]*?/obj/structure/lattice[/\w]*?,\n[^)]*?/turf/closed/wall[/\w]*?,\n[^)]*?/area/.+?\)' _maps/**/*.dmm;	then
+	echo
+    echo -e "${RED}ERROR: Found a lattice stacked with a wall, please remove them.${NC}"
+    st=1
+fi;
+if grep -Pzo '"\w+" = \(\n[^)]*?/obj/structure/lattice[/\w]*?,\n[^)]*?/turf/closed[/\w]*?,\n[^)]*?/area/.+?\)' _maps/**/*.dmm;	then
+	echo
+    echo -e "${RED}ERROR: Found a lattice stacked within a wall, please remove them.${NC}"
+    st=1
+fi;
+if grep -Pzo '"\w+" = \(\n[^)]*?/obj/structure/window[/\w]*?,\n[^)]*?/turf/closed[/\w]*?,\n[^)]*?/area/.+?\)' _maps/**/*.dmm;	then
+	echo
+    echo -e "${RED}ERROR: Found a window stacked within a wall, please remove it.${NC}"
+    st=1
+fi;
+if grep -Pzo '"\w+" = \(\n[^)]*?/obj/machinery/door/airlock[/\w]*?,\n[^)]*?/turf/closed[/\w]*?,\n[^)]*?/area/.+?\)' _maps/**/*.dmm;	then
+	echo
+    echo -e "${RED}ERROR: Found an airlock stacked within a wall, please remove it.${NC}"
+    st=1
+fi;
+if grep -Pzo '"\w+" = \(\n[^)]*?/obj/structure/stairs[/\w]*?,\n[^)]*?/turf/open/genturf[/\w]*?,\n[^)]*?/area/.+?\)' _maps/**/*.dmm;	then
+	echo
+    echo -e "${RED}ERROR: Found a staircase on top of a gen_turf. Please replace the gen_turf with a proper turf.${NC}"
+    st=1
+fi;
+if grep -Pzo '/obj/machinery/conveyor/inverted[/\w]*?\{\n[^}]*?dir = [1248];[^}]*?\},?\n' _maps/**/*.dmm;	then
+	echo
+    echo -e "${RED}ERROR: Found an inverted conveyor belt with a cardinal dir. Please replace it with a normal conveyor belt.${NC}"
     st=1
 fi;
 if ls _maps/*.json | grep -P "[A-Z]"; then

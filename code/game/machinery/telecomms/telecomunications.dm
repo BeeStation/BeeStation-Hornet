@@ -131,7 +131,7 @@ GLOBAL_LIST_EMPTY(telecomms_list)
 	var/newState = on
 
 	if(toggled)
-		if(stat & (BROKEN|NOPOWER|EMPED)) // if powered, on. if not powered, off. if too damaged, off
+		if(machine_stat & (BROKEN|NOPOWER|EMPED)) // if powered, on. if not powered, off. if too damaged, off
 			newState = FALSE
 		else
 			newState = TRUE

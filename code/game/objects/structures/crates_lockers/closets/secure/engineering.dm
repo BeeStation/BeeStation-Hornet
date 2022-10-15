@@ -19,7 +19,7 @@
 	new /obj/item/storage/box/radiokey/eng(src)
 	new /obj/item/storage/box/command_keys(src)
 	new /obj/item/megaphone/command(src)
-	new /obj/item/cartridge/ce(src)
+	new /obj/item/computer_hardware/hard_drive/role/ce(src)
 	new /obj/item/storage/bag/construction(src)
 
 	new /obj/item/circuitboard/machine/techfab/department/engineering(src)

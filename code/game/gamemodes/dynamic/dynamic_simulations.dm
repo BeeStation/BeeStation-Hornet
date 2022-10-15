@@ -4,8 +4,9 @@
 	var/datum/dynamic_simulation_config/config
 	var/list/mock_candidates = list()
 
-/datum/dynamic_simulation/proc/initialize_gamemode(forced_threat)
+/datum/dynamic_simulation/proc/initialize_gamemode(forced_threat, roundstart_players)
 	gamemode = new
+	gamemode.roundstart_pop_ready = roundstart_players
 
 	if (forced_threat)
 		gamemode.create_threat(forced_threat)
@@ -42,7 +43,7 @@
 /datum/dynamic_simulation/proc/simulate(datum/dynamic_simulation_config/config)
 	src.config = config
 
-	initialize_gamemode(config.forced_threat_level)
+	initialize_gamemode(config.forced_threat_level, config.roundstart_players)
 	create_candidates(config.roundstart_players)
 	gamemode.pre_setup()
 

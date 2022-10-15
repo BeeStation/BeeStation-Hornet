@@ -2,6 +2,7 @@
 	desc = "Heavy-duty, combat exosuit, developed after the Durand model. Rarely found among civilian populations."
 	name = "\improper Marauder"
 	icon_state = "marauder"
+	base_icon_state = "marauder"
 	obj_flags = CAN_BE_HIT | MAGICAL_ACCESS_PROTECTED
 	step_in = 5
 	max_integrity = 500

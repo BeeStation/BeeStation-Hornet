@@ -203,7 +203,7 @@ By design, d1 is the smallest direction and d2 is the highest
 
 /obj/structure/cable/proc/get_power_info()
 	if(powernet && (powernet.avail > 0))		// is it powered?
-		return "<span class='danger'>Total power: [DisplayPower(powernet.avail)]\nLoad: [DisplayPower(powernet.load)]\nExcess power: [DisplayPower(surplus())]</span>"
+		return "<span class='danger'>Total power: [display_power(powernet.avail)]\nLoad: [display_power(powernet.load)]\nExcess power: [display_power(surplus())]</span>"
 	else
 		return "<span class='danger'>The cable is not powered.</span>"
 
@@ -539,25 +539,6 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 ///////////////////////////////////
 // General procedures
 ///////////////////////////////////
-
-
-//you can use wires to heal robotics
-/obj/item/stack/cable_coil/attack(mob/living/carbon/human/H, mob/user)
-	if(!istype(H))
-		return ..()
-
-	var/obj/item/bodypart/affecting = H.get_bodypart(check_zone(user.zone_selected))
-	if(affecting && (!IS_ORGANIC_LIMB(affecting)))
-		if(user == H)
-			user.visible_message("<span class='notice'>[user] starts to fix some of the wires in [H]'s [parse_zone(affecting.body_zone)].</span>", "<span class='notice'>You start fixing some of the wires in [H == user ? "your" : "[H]'s"] [parse_zone(affecting.body_zone)].</span>")
-			if(!do_mob(user, H, 50))
-				return
-		if(item_heal_robotic(H, user, 0, 15))
-			use(1)
-		return
-	else
-		return ..()
-
 
 /obj/item/stack/cable_coil/update_icon()
 	icon_state = "[initial(item_state)][amount < 3 ? amount : ""]"

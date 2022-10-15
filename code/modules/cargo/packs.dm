@@ -344,16 +344,6 @@
 					/obj/item/gun/energy/disabler)
 	crate_name = "disabler crate"
 
-/datum/supply_pack/security/dumdum
-	name = ".38 DumDum Speedloader"
-	desc = "Contains one speedloader of .38 DumDum ammunition, good for embedding in soft targets. Requires Security or Forensics access to open."
-	cost = 1200
-	access = FALSE
-	small_item = TRUE
-	access_any = list(ACCESS_SECURITY, ACCESS_FORENSICS_LOCKERS)
-	contains = list(/obj/item/ammo_box/c38/dumdum)
-	crate_name = ".38 match crate"
-
 /datum/supply_pack/security/forensics
 	name = "Forensics Crate"
 	desc = "Stay hot on the criminal's heels with Nanotrasen's Detective Essentials(tm). Contains a forensics scanner, six evidence bags, camera, tape recorder, white crayon, and of course, a fedora. Requires Security access to open."
@@ -367,15 +357,15 @@
 					/obj/item/clothing/head/fedora/det_hat)
 	crate_name = "forensics crate"
 
-/datum/supply_pack/security/laser
-	name = "Lasers Crate"
-	desc = "Contains three lethal, high-energy laser guns. Requires Security access to open."
-	cost = 1800
-	access_budget = ACCESS_ARMORY
-	contains = list(/obj/item/gun/energy/laser,
-					/obj/item/gun/energy/laser,
-					/obj/item/gun/energy/laser)
-	crate_name = "laser crate"
+/datum/supply_pack/security/dumdum
+	name = ".38 DumDum Speedloader"
+	desc = "Contains one speedloader of .38 DumDum ammunition, good for embedding in soft targets. Requires Security or Forensics access to open."
+	cost = 1200
+	access = FALSE
+	small_item = TRUE
+	access_any = list(ACCESS_SECURITY, ACCESS_FORENSICS_LOCKERS)
+	contains = list(/obj/item/ammo_box/c38/dumdum)
+	crate_name = ".38 match crate"
 
 /datum/supply_pack/security/match
 	name = ".38 Match Grade Speedloader"
@@ -540,6 +530,15 @@
 	contains = list(/obj/item/storage/box/chemimp)
 	crate_name = "chemical implant crate"
 
+/datum/supply_pack/security/armory/dragnet
+	name = "DRAGnet Crate"
+	desc = "Contains three \"Dynamic Rapid-Apprehension of the Guilty\" netting devices, a recent breakthrough in law enforcement prisoner management technology. Requires armory access to open."
+	cost = 1500
+	contains = list(/obj/item/gun/energy/e_gun/dragnet,
+					/obj/item/gun/energy/e_gun/dragnet,
+					/obj/item/gun/energy/e_gun/dragnet)
+	crate_name = "\improper DRAGnet crate"
+
 /datum/supply_pack/security/armory/combatknives_single
 	name = "Combat Knife Single-Pack"
 	desc = "Contains one sharpened combat knive. Guaranteed to fit snugly inside any Nanotrasen-standard boot. Requires Armory access to open."
@@ -590,15 +589,6 @@
 					/obj/item/gun/ballistic/shotgun/riot,
 					/obj/item/gun/ballistic/shotgun/riot)
 
-/datum/supply_pack/security/armory/dragnet
-	name = "DRAGnet Crate"
-	desc = "Contains three \"Dynamic Rapid-Apprehension of the Guilty\" netting devices, a recent breakthrough in law enforcement prisoner management technology. Requires armory access to open."
-	cost = 1500
-	contains = list(/obj/item/gun/energy/e_gun/dragnet,
-					/obj/item/gun/energy/e_gun/dragnet,
-					/obj/item/gun/energy/e_gun/dragnet)
-	crate_name = "\improper DRAGnet crate"
-
 /datum/supply_pack/security/armory/energy_single
 	name = "Energy Gun Single-Pack"
 	desc = "Contains one Energy Gun, capable of firing both nonlethal and lethal blasts of light. Requires Armory access to open."
@@ -616,6 +606,23 @@
 					/obj/item/gun/energy/e_gun)
 	crate_name = "bulk energy guns crate"
 	crate_type = /obj/structure/closet/crate/secure/plasma
+
+/datum/supply_pack/security/armory/laser
+	name = "Laser Gun Single-Pack"
+	desc = "Contains one lethal, high-energy laser gun, Requires Armory access to open."
+	cost = 1000
+	small_item = TRUE
+	contains = list(/obj/item/gun/energy/laser)
+	crate_name = "single laser gun crate"
+
+/datum/supply_pack/security/armory/laser_single
+	name = "Bulk Laser Guns Crate"
+	desc = "Contains three lethal, high-energy laser guns. Requires Armory access to open."
+	cost = 2150
+	contains = list(/obj/item/gun/energy/laser,
+					/obj/item/gun/energy/laser,
+					/obj/item/gun/energy/laser)
+	crate_name = "bulk laser guns crate"
 
 /datum/supply_pack/security/armory/exileimp
 	name = "Exile Implants Crate"
@@ -783,6 +790,12 @@
 					/obj/item/ammo_box/magazine/wt550m9,
 					/obj/item/ammo_box/magazine/wt550m9,
 					/obj/item/ammo_box/magazine/wt550m9)
+
+/datum/supply_pack/security/armoury/bsanchor
+	name = "Bluespace Anchoring Device"
+	desc = "Contains a single portable bluespace anchoring device which, when deployed, will prevent basic forms of teleportation. Does not come with batteries."
+	cost = 3000
+	contains = list(/obj/item/bluespace_anchor)
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////// Engineering /////////////////////////////////////
@@ -1609,7 +1622,7 @@
 /datum/supply_pack/medical/randomvirus
 	name = "Virus Sample Crate"
 	desc = "Contains five random experimental disease cultures for epidemiological research"
-	cost = 3750
+	cost = 6000
 	access = ACCESS_VIROLOGY
 	access_budget = ACCESS_VIROLOGY
 	contains = list(/obj/item/reagent_containers/glass/bottle/random_virus,
@@ -2018,7 +2031,7 @@
 
 /datum/supply_pack/service/vending/ptech
 	name = "PTech Supply Crate"
-	desc = "Not enough cartridges after half the crew lost their PDA to explosions? This may fix it."
+	desc = "Not enough job disks after half the crew lost their PDA to explosions? This may fix it."
 	cost = 800
 	access_budget = ACCESS_HOP
 	contains = list(/obj/item/vending_refill/cart)

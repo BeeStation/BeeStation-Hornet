@@ -43,7 +43,7 @@
 	return !anchored
 
 /obj/machinery/smoke_machine/update_icon()
-	if((!is_operational()) || (!on) || (reagents.total_volume == 0))
+	if((!is_operational) || (!on) || (reagents.total_volume == 0))
 		if (panel_open)
 			icon_state = "smoke0-o"
 		else
@@ -72,7 +72,7 @@
 
 /obj/machinery/smoke_machine/process()
 	..()
-	if(!is_operational())
+	if(!is_operational)
 		return
 	if(reagents.total_volume == 0)
 		on = FALSE
