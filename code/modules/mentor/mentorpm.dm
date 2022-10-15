@@ -31,7 +31,7 @@
 
 	//get message text, limit it's length.and clean/escape html
 	if(!msg)
-		msg = stripped_multiline_input(src,"Message:", "Private message to [recipient.holder?.fakekey ? "a Mentor" : key_name(recipient, FALSE, FALSE)].")
+		msg = stripped_multiline_input(src,"Message:", "Private message to [(!recipient || recipient.holder?.fakekey) ? "a Mentor" : key_name(recipient, FALSE, FALSE)].")
 		msg = trim(msg)
 		if(!msg)
 			return

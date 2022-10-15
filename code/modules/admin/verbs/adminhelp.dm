@@ -344,3 +344,6 @@ GLOBAL_DATUM_INIT(ahelp_tickets, /datum/help_tickets/admin, new)
 		initiator.giveadminhelpverb()
 	if(!bwoink)
 		discordsendmsg("ahelp", "Ticket #[id] rejected by [key_name(usr, include_link = FALSE)]")
+
+/datum/help_ticket/admin/resolve_message(status = "Resolved", message = null, extratext = " If your ticket was a report, then the appropriate action has been taken where necessary.")
+	..()
