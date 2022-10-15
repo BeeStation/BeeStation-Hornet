@@ -4,20 +4,6 @@
 	mob_type_allowed_typecache = /mob/living
 	mob_type_blacklist_typecache = list(/mob/living/simple_animal/slime, /mob/living/brain)
 
-/datum/emote/living/blep
-	key = "blep"
-	key_third_person = "bleps"
-	message = "bleps their tongue out"
-	message_AI = "shows an image of a random blepping animal"
-	vary = TRUE
-	mob_type_blacklist_typecache = list(/mob/living/carbon/alien,/mob/living/silicon/robot)
-
-/datum/emote/living/blep/can_run_emote(mob/user, status_check = TRUE, intentional)
-	if(!..())
-		return FALSE
-	var/obj/item/organ/tongue/T = user.getorganslot(ORGAN_SLOT_TONGUE)
-	return isAI(user) || istype(T)
-
 /datum/emote/living/blush
 	key = "blush"
 	key_third_person = "blushes"
@@ -175,14 +161,6 @@
 	key = "grimace"
 	key_third_person = "grimaces"
 	message = "grimaces"
-
-/datum/emote/living/headtilt
-	key = "tilt"
-	key_third_person = "tilts"
-	message = "tilts their head"
-	message_AI = "tilts the image on their display"
-	vary = TRUE
-	mob_type_blacklist_typecache = list(/mob/living/silicon/robot,/mob/living/carbon/alien/larva)
 
 /datum/emote/living/jump
 	key = "jump"

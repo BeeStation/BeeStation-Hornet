@@ -117,14 +117,14 @@
 
 /datum/emote/living/carbon/snap/two
 	key = "snap2"
-	key_third_person = "snaps twice"
+	key_third_person = "snaps2"
 	message = "snaps their fingers twice"
 	message_param = "snaps their fingers at %t twice"
 	sound = 'code/datums/emote_sounds/emotes/snap2.ogg'
 
 /datum/emote/living/carbon/snap/three
 	key = "snap3"
-	key_third_person = "snaps thrice"
+	key_third_person = "snaps3"
 	message = "snaps their fingers thrice"
 	message_param = "snaps their fingers at %t thrice"
 	sound = 'code/datums/emote_sounds/emotes/snap3.ogg'
@@ -202,7 +202,6 @@
 
 /datum/emote/living/carbon/annoyed
 	key = "annoyed"
-	key_third_person = "is annoyed"
 	emote_type = EMOTE_ANIMATED
 	sound_volume = 25
 	vary = TRUE
@@ -214,7 +213,6 @@
 
 /datum/emote/living/carbon/glasses
 	key = "glasses"
-	key_third_person = "glasses"
 	message = "pushes up their glasses"
 	emote_type = EMOTE_ANIMATED
 	overlay_icon_state = "glasses"
