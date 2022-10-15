@@ -241,7 +241,7 @@
 	buildstackamount = 1
 	item_chair = null
 
-	/obj/structure/chair/fancy/plastic
+/obj/structure/chair/fancy/plastic
 	name = "plastic chair"
 	desc = "If you want it, then you'll have to take it."
 	icon_state = "plastic_chair"
