@@ -79555,7 +79555,6 @@
 /area/crew_quarters/dorms)
 "wkg" = (
 /obj/structure/table/reinforced,
-/obj/structure/table/reinforced,
 /obj/item/multitool{
 	pixel_x = -8
 	},
