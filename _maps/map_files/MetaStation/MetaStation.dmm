@@ -12428,7 +12428,7 @@
 	},
 /obj/effect/turf_decal/stripes/red/box,
 /turf/open/floor/plating,
-/area/science/misc_lab/range)
+/area/maintenance/department/science)
 "aRa" = (
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/costume,
@@ -38333,9 +38333,6 @@
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
 	dir = 8
 	},
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
 /turf/open/floor/plasteel,
 /area/maintenance/department/science)
 "czE" = (
@@ -38658,7 +38655,7 @@
 	dir = 8
 	},
 /turf/open/floor/plasteel/dark,
-/area/science/misc_lab/range)
+/area/maintenance/department/science)
 "cAK" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 10
@@ -42854,7 +42851,7 @@
 /turf/open/floor/plasteel{
 	dir = 1
 	},
-/area/science/misc_lab/range)
+/area/maintenance/department/science)
 "cTw" = (
 /obj/machinery/atmospherics/components/unary/portables_connector/visible,
 /obj/item/storage/box/lights/mixed,
@@ -47678,7 +47675,7 @@
 	dir = 1
 	},
 /turf/open/floor/plasteel/dark,
-/area/science/misc_lab/range)
+/area/maintenance/department/science)
 "erp" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -47687,7 +47684,7 @@
 	dir = 8
 	},
 /turf/open/floor/plasteel/dark,
-/area/science/misc_lab/range)
+/area/maintenance/department/science)
 "erN" = (
 /obj/item/radio/intercom{
 	pixel_y = 21
@@ -47966,15 +47963,12 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/tile/purple,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
 /turf/open/floor/plasteel,
 /area/maintenance/department/science)
 "eBh" = (
 /obj/structure/sign/warning/biohazard,
 /turf/closed/wall,
-/area/science/misc_lab/range)
+/area/maintenance/department/science)
 "eBF" = (
 /obj/effect/landmark/start/security_officer,
 /obj/effect/turf_decal/tile/red{
@@ -53022,11 +53016,8 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
 /turf/open/floor/plasteel,
-/area/science/misc_lab/range)
+/area/maintenance/department/science)
 "hql" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/cyan/visible{
@@ -58240,7 +58231,7 @@
 /turf/open/floor/plasteel{
 	dir = 1
 	},
-/area/science/misc_lab/range)
+/area/maintenance/department/science)
 "kqx" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -60997,7 +60988,7 @@
 	},
 /obj/effect/turf_decal/stripes/red/line,
 /turf/open/floor/plating,
-/area/science/misc_lab/range)
+/area/maintenance/department/science)
 "lQw" = (
 /turf/closed/wall,
 /area/maintenance/starboard/aft)
@@ -61144,7 +61135,7 @@
 /turf/open/floor/plasteel{
 	dir = 1
 	},
-/area/science/misc_lab/range)
+/area/maintenance/department/science)
 "lSE" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/effect/landmark/xeno_spawn,
@@ -64998,7 +64989,7 @@
 /area/maintenance/starboard/fore)
 "ojg" = (
 /turf/closed/wall,
-/area/science/misc_lab/range)
+/area/maintenance/department/science)
 "ojh" = (
 /obj/effect/turf_decal/plaque{
 	icon_state = "L4"
@@ -67198,7 +67189,7 @@
 	dir = 5
 	},
 /turf/open/floor/plasteel/dark,
-/area/science/misc_lab/range)
+/area/maintenance/department/science)
 "psA" = (
 /obj/effect/landmark/xeno_spawn,
 /obj/structure/cable{
@@ -71113,7 +71104,7 @@
 "ryM" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
-/area/science/misc_lab/range)
+/area/maintenance/department/science)
 "rzl" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -72226,7 +72217,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating,
-/area/science/misc_lab/range)
+/area/maintenance/department/science)
 "sdd" = (
 /obj/machinery/door/airlock/research{
 	name = "Mech Bay";
@@ -74842,7 +74833,7 @@
 	},
 /obj/effect/turf_decal/loading_area,
 /turf/open/floor/plasteel/dark,
-/area/science/misc_lab/range)
+/area/maintenance/department/science)
 "tDD" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -75545,7 +75536,7 @@
 	dir = 1
 	},
 /turf/open/floor/plating,
-/area/science/misc_lab/range)
+/area/maintenance/department/science)
 "tYz" = (
 /obj/effect/turf_decal/tile/red,
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
@@ -77305,7 +77296,7 @@
 /turf/open/floor/plasteel{
 	dir = 1
 	},
-/area/science/misc_lab/range)
+/area/maintenance/department/science)
 "uXM" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -78425,7 +78416,7 @@
 	dir = 8
 	},
 /turf/open/floor/plasteel/dark,
-/area/science/misc_lab/range)
+/area/maintenance/department/science)
 "vCK" = (
 /obj/structure/window/reinforced,
 /obj/machinery/light/small,
@@ -78499,14 +78490,8 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
-/obj/machinery/power/apc/auto_name/north{
-	pixel_y = 24
-	},
-/obj/structure/cable/yellow{
-	icon_state = "0-8"
-	},
 /turf/open/floor/plasteel/dark,
-/area/science/misc_lab/range)
+/area/maintenance/department/science)
 "vDQ" = (
 /obj/structure/cable/cyan{
 	icon_state = "4-8"
@@ -78525,7 +78510,7 @@
 	name = "BOMB RANGE"
 	},
 /turf/closed/wall,
-/area/science/misc_lab/range)
+/area/maintenance/department/science)
 "vEb" = (
 /obj/structure/table,
 /obj/structure/cable/yellow{
@@ -79099,7 +79084,7 @@
 "vVq" = (
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plasteel/dark,
-/area/science/misc_lab/range)
+/area/maintenance/department/science)
 "vWy" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -82537,7 +82522,7 @@
 	},
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plasteel/dark,
-/area/science/misc_lab/range)
+/area/maintenance/department/science)
 "xHl" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -83068,7 +83053,7 @@
 	dir = 6
 	},
 /turf/open/floor/plasteel/dark,
-/area/science/misc_lab/range)
+/area/maintenance/department/science)
 "xVZ" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-4"
