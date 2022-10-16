@@ -47217,7 +47217,7 @@
 /obj/structure/chair/office/light{
 	dir = 8
 	},
-/obj/effect/turf_decal/trimline/white/filled/line{
+/obj/effect/turf_decal/trimline/purple/filled/line{
 	dir = 4
 	},
 /turf/open/floor/plasteel/techmaint,
@@ -56655,10 +56655,7 @@
 	dir = 1
 	},
 /obj/effect/landmark/start/exploration,
-/obj/effect/turf_decal/trimline/white/filled/line,
-/obj/effect/turf_decal/trimline/purple/filled/line{
-	dir = 8
-	},
+/obj/effect/turf_decal/trimline/purple/filled/line,
 /turf/open/floor/plasteel/techmaint,
 /area/science/shuttledock)
 "jqD" = (
@@ -64505,11 +64502,8 @@
 	pixel_x = -8;
 	pixel_y = -2
 	},
-/obj/effect/turf_decal/trimline/white/filled/line{
-	dir = 1
-	},
 /obj/effect/turf_decal/trimline/purple/filled/line{
-	dir = 8
+	dir = 1
 	},
 /turf/open/floor/plasteel/techmaint,
 /area/science/shuttledock)
@@ -65053,7 +65047,7 @@
 	},
 /obj/effect/decal/cleanable/vomit/old,
 /obj/effect/landmark/start/exploration,
-/obj/effect/turf_decal/trimline/white/filled/line{
+/obj/effect/turf_decal/trimline/purple/filled/line{
 	dir = 4
 	},
 /turf/open/floor/plasteel/techmaint,
@@ -66217,7 +66211,7 @@
 /turf/open/floor/plating,
 /area/maintenance/starboard)
 "oFp" = (
-/obj/effect/turf_decal/trimline/white/filled/line{
+/obj/effect/turf_decal/trimline/purple/filled/line{
 	dir = 1
 	},
 /turf/open/floor/plasteel/techmaint,
@@ -67411,9 +67405,6 @@
 /obj/item/reagent_containers/food/drinks/beer/almost_empty{
 	pixel_x = 8;
 	pixel_y = 12
-	},
-/obj/effect/turf_decal/trimline/purple/filled/line{
-	dir = 8
 	},
 /turf/open/floor/plasteel/techmaint,
 /area/science/shuttledock)
@@ -69178,9 +69169,6 @@
 /area/science/robotics/lab)
 "qjB" = (
 /obj/structure/table/wood/poker,
-/obj/effect/turf_decal/trimline/purple/filled/line{
-	dir = 8
-	},
 /obj/item/gun/ballistic/revolver/russian,
 /turf/open/floor/plasteel/techmaint,
 /area/science/shuttledock)
@@ -74192,7 +74180,7 @@
 /turf/open/floor/plasteel,
 /area/medical/genetics)
 "sWU" = (
-/obj/effect/turf_decal/trimline/white/filled/line{
+/obj/effect/turf_decal/trimline/purple/filled/line{
 	dir = 5
 	},
 /turf/open/floor/plasteel/techmaint,
@@ -75546,7 +75534,7 @@
 /obj/structure/chair/office/light{
 	dir = 1
 	},
-/obj/effect/turf_decal/trimline/white/filled/line,
+/obj/effect/turf_decal/trimline/purple/filled/line,
 /turf/open/floor/plasteel/techmaint,
 /area/science/shuttledock)
 "tMm" = (
@@ -75727,7 +75715,7 @@
 /turf/open/floor/plasteel,
 /area/security/prison)
 "tQt" = (
-/obj/effect/turf_decal/trimline/white/filled/line{
+/obj/effect/turf_decal/trimline/purple/filled/line{
 	dir = 6
 	},
 /turf/open/floor/plasteel/techmaint,
