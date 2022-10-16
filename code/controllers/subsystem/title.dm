@@ -31,8 +31,8 @@ SUBSYSTEM_DEF(title)
 	icon = new(fcopy_rsc(file_path))
 
 	//Calculate the screen size
-	var/width = round(icon.Width / world.icon_size)
-	var/height = round(icon.Height / world.icon_size)
+	var/width = round(icon.Width() / world.icon_size)
+	var/height = round(icon.Height() / world.icon_size)
 	lobby_screen_size = "[width]x[height]"
 
 	if(splash_turf)
