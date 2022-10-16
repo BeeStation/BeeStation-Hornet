@@ -1622,7 +1622,7 @@
 /datum/supply_pack/medical/randomvirus
 	name = "Virus Sample Crate"
 	desc = "Contains five random experimental disease cultures for epidemiological research"
-	cost = 3750
+	cost = 6000
 	access = ACCESS_VIROLOGY
 	access_budget = ACCESS_VIROLOGY
 	contains = list(/obj/item/reagent_containers/glass/bottle/random_virus,
