@@ -366,7 +366,7 @@
 				return
 			var/datum/port/input/port = component.input_ports[port_id]
 
-			if(port.connected_ports.len)
+			if(length(port.connected_ports))
 				return
 
 			if(params["set_null"])

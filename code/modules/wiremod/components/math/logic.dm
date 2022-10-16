@@ -21,7 +21,7 @@
 	var/total_ports = 0
 	var/total_true_ports = 0
 	for(var/datum/port/input/port as anything in ports)
-		if(isnull(port.input_value) && !port.connected_ports.len)
+		if(isnull(port.input_value) && !length(port.connected_ports))
 			continue
 
 		total_ports += 1

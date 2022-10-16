@@ -271,7 +271,7 @@
 
 /datum/port/input/proc/unregister_output_port(var/datum/port/output/disconnecting_port)
 	SIGNAL_HANDLER
-	if(!connected_ports.len)
+	if(!length(connected_ports))
 		return
 	if(disconnecting_port in connected_ports)
 		UnregisterSignal(disconnecting_port, list(
