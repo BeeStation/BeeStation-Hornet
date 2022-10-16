@@ -1,5 +1,0 @@
-author: RubberEyes
-delete-after: true
-changes:
-  - tweak: added the botany chem dispenser to research node and it can now be printed
-      if researched
