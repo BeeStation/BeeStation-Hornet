@@ -4,6 +4,7 @@ SUBSYSTEM_DEF(title)
 	init_order = INIT_ORDER_TITLE
 
 	var/file_path
+	var/lobby_screen_size = "15x15"
 	var/icon/icon
 	var/icon/previous_icon
 	var/turf/closed/indestructible/splashscreen/splash_turf
@@ -28,6 +29,11 @@ SUBSYSTEM_DEF(title)
 	ASSERT(fexists(file_path))
 
 	icon = new(fcopy_rsc(file_path))
+
+	//Calculate the screen size
+	var/width = round(icon.Width / world.icon_size)
+	var/height = round(icon.Height / world.icon_size)
+	lobby_screen_size = "[width]x[height]"
 
 	if(splash_turf)
 		splash_turf.icon = icon
