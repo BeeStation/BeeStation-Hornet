@@ -82,7 +82,7 @@ export const NtosRecords = (props, context) => {
             Species: {record.species}<br />
             Sex: {record.sex}<br />
             Age: {record.age}<br />
-            Fingerprint: {record.fingerprint}<br />
+            DNA: {record.b_dna}<br />
             <br />
             Bloodtype: {record.bloodtype}<br />
             Minor Disabilities: {record.mi_dis}<br />
