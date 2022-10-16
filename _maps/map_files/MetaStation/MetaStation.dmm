@@ -58641,6 +58641,11 @@
 /obj/effect/turf_decal/trimline/darkblue/filled/line{
 	dir = 5
 	},
+/obj/machinery/camera{
+	c_tag = "Research Division - Server Room";
+	network = list("ss13","rd");
+	pixel_x = 22
+	},
 /turf/open/floor/plasteel/dark,
 /area/science/server)
 "kvV" = (
