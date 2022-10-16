@@ -51,7 +51,7 @@ export const NtosMessenger = (props, context) => {
   if (viewing_messages) {
     return (
       <NtosWindow width={400} height={600}>
-        <NtosWindow.Content scrollable >
+        <NtosWindow.Content scrollable>
           <Stack vertical>
             <Section fill>
               <Button
