@@ -51,7 +51,7 @@ export const NtosMessenger = (props, context) => {
   if (viewing_messages) {
     return (
       <NtosWindow width={400} height={600}>
-        <NtosWindow.Content>
+        <NtosWindow.Content scrollable>
           <Stack vertical>
             <Section fill>
               <Button
@@ -123,12 +123,12 @@ export const NtosMessenger = (props, context) => {
   }
   return (
     <NtosWindow width={400} height={600}>
-      <NtosWindow.Content>
+      <NtosWindow.Content scrollable>
         <Stack vertical>
           <Section fill textAlign="center">
             <Box bold>
               <Icon name="address-card" mr={1} />
-              SpaceMessenger V8.5.2
+              SpaceMessenger V8.5.3
             </Box>
             <Box italic opacity={0.3}>
               Bringing you spy-proof communications since 2467.
