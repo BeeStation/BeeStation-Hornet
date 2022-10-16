@@ -1,0 +1,4 @@
+author: Crossedfall
+delete-after: true
+changes:
+  - server: Upgraded xmldom to 0.8.3
