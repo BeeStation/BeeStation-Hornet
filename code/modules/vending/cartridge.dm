@@ -12,11 +12,11 @@
 					/obj/item/computer_hardware/hard_drive/role/janitor = 10,
 					/obj/item/computer_hardware/hard_drive/role/signal/toxins = 10,
 					/obj/item/modular_computer/tablet/pda/heads = 10,
-					/obj/item/computer_hardware/hard_drive/role/captain = 3,
-					/obj/item/computer_hardware/hard_drive/role/cargo_technician = 10)
-	premium = list(/obj/item/computer_hardware/hard_drive/role/unlicensed = 3)
+					/obj/item/computer_hardware/hard_drive/role/cargo_technician = 10,
+					/obj/item/computer_hardware/hard_drive/role/unlicensed = 3)
+	premium = list(/obj/item/computer_hardware/hard_drive/role/captain = 3)
 	refill_canister = /obj/item/vending_refill/cart
-	default_price = 150
+	default_price = 100
 	extra_price = 300
 	payment_department = ACCOUNT_COM_BITFLAG
 
