@@ -263,7 +263,7 @@ SERVER  byond://sage.beestation13.com:7878
 FORUMURL https://forums.beestation13.com
 
 ## Wiki address
-WIKIURL https://armostation.miraheze.org/wiki/
+WIKIURL https://armostation.miraheze.org/wiki
 
 ## Rules address
 RULESURL https://discord.gg/PtSFnEnTRR
