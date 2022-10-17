@@ -3,7 +3,7 @@
 	desc = "It's a card-locked storage unit."
 	locked = TRUE
 	icon_state = "secure"
-	max_integrity = 135
+	max_integrity = 130
 	armor = list("melee" = 25, "bullet" = 40, "laser" = 50, "energy" = 100, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 80, "stamina" = 0)
 	secure = TRUE
 

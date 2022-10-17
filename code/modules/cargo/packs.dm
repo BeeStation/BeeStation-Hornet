@@ -500,7 +500,7 @@
 /datum/supply_pack/security/ammo
 	name = "Ammo Crate"
 	desc = "Contains two 20-round magazines for the WT-550 Auto Rifle, three boxes of buckshot ammo, three boxes of rubber ammo and special .38 speedloaders. Requires Security access to open."
-	cost = 2500
+	cost = 3000
 	contains = list(/obj/item/ammo_box/magazine/wt550m9,
 					/obj/item/ammo_box/magazine/wt550m9,
 					/obj/item/storage/box/lethalshot,
@@ -542,14 +542,14 @@
 /datum/supply_pack/security/armory/combatknives_single
 	name = "Combat Knife Single-Pack"
 	desc = "Contains one sharpened combat knive. Guaranteed to fit snugly inside any Nanotrasen-standard boot. Requires Armory access to open."
-	cost = 700 // 300 credits per 1 knife
+	cost = 900 // 300 credits per 1 knife
 	small_item = TRUE
 	contains = list(/obj/item/kitchen/knife/combat)
 
 /datum/supply_pack/security/armory/combatknives
 	name = "Combat Knives Crate"
 	desc = "Contains three sharpened combat knives. Each knife guaranteed to fit snugly inside any Nanotrasen-standard boot. Requires Armory access to open."
-	cost = 1120 //20% discount
+	cost = 1400 //20% discount
 	contains = list(/obj/item/kitchen/knife/combat,
 					/obj/item/kitchen/knife/combat,
 					/obj/item/kitchen/knife/combat)
@@ -558,7 +558,7 @@
 /datum/supply_pack/security/armory/ballistic_single
 	name = "Combat Shotgun Single-Pack"
 	desc = "For when the enemy absolutely needs to be replaced with lead. Contains one Aussec-designed Combat Shotgun, and one Shotgun Bandolier. Requires Armory access to open."
-	cost = 2900 //2500 credits per shotgun
+	cost = 3460 //2500 credits per shotgun
 	small_item = TRUE
 	contains = list(/obj/item/gun/ballistic/shotgun/automatic/combat,
 					/obj/item/storage/belt/bandolier)
@@ -566,7 +566,7 @@
 /datum/supply_pack/security/armory/ballistic
 	name = "Combat Shotguns Crate"
 	desc = "For when the enemy absolutely needs to be replaced with lead. Contains three Aussec-designed Combat Shotguns, and three Shotgun Bandoliers. Requires Armory access to open."
-	cost = 6400 //20% discount
+	cost = 7000 //20% discount
 	contains = list(/obj/item/gun/ballistic/shotgun/automatic/combat,
 					/obj/item/gun/ballistic/shotgun/automatic/combat,
 					/obj/item/gun/ballistic/shotgun/automatic/combat,
@@ -578,13 +578,13 @@
 /datum/supply_pack/security/armory/riot_shotgun_single
 	name = "Riot Shotgun Single-Pack"
 	desc = "When the clown's slipped you one time too many. Requires armory access to open."
-	cost =  2200 //1800 credits per shotgun
+	cost =  2980 //1800 credits per shotgun
 	contains = list(/obj/item/gun/ballistic/shotgun/riot)
 
 /datum/supply_pack/security/armory/riot_shotgun
 	name = "Riot Shotguns Crate"
 	desc = "For when the greytide gets out of hand. Contains 3 riot shotguns. Requires armory access to open."
-	cost = 4720 //20% discount
+	cost = 5600 //20% discount
 	contains = list(/obj/item/gun/ballistic/shotgun/riot,
 					/obj/item/gun/ballistic/shotgun/riot,
 					/obj/item/gun/ballistic/shotgun/riot)
@@ -592,7 +592,7 @@
 /datum/supply_pack/security/armory/energy_single
 	name = "Energy Gun Single-Pack"
 	desc = "Contains one Energy Gun, capable of firing both nonlethal and lethal blasts of light. Requires Armory access to open."
-	cost = 1200
+	cost = 1750
 	small_item = TRUE
 	contains = list(/obj/item/gun/energy/e_gun)
 	crate_name = "single energy gun crate"
@@ -600,7 +600,7 @@
 /datum/supply_pack/security/armory/energy
 	name = "Bulk Energy Guns Crate"
 	desc = "Contains three Energy Guns, capable of firing both nonlethal and lethal blasts of light. Requires Armory access to open."
-	cost = 2320 //20%
+	cost = 3000 //20%
 	contains = list(/obj/item/gun/energy/e_gun,
 					/obj/item/gun/energy/e_gun,
 					/obj/item/gun/energy/e_gun)
@@ -610,7 +610,7 @@
 /datum/supply_pack/security/armory/laser
 	name = "Laser Gun Single-Pack"
 	desc = "Contains one lethal, high-energy laser gun, Requires Armory access to open."
-	cost = 1000
+	cost = 2200
 	small_item = TRUE
 	contains = list(/obj/item/gun/energy/laser)
 	crate_name = "single laser gun crate"
@@ -618,7 +618,7 @@
 /datum/supply_pack/security/armory/laser_single
 	name = "Bulk Laser Guns Crate"
 	desc = "Contains three lethal, high-energy laser guns. Requires Armory access to open."
-	cost = 2150
+	cost = 4100
 	contains = list(/obj/item/gun/energy/laser,
 					/obj/item/gun/energy/laser,
 					/obj/item/gun/energy/laser)
@@ -769,14 +769,14 @@
 /datum/supply_pack/security/armory/wt550_single
 	name = "WT-550 Auto Rifle Single-Pack"
 	desc = "Contains one high-powered, semiautomatic rifles chambered in 4.6x30mm. Requires Armory access to open."
-	cost = 1600 // 1200 per 1 gun
+	cost = 2100 // 1200 per 1 gun
 	contains = list(/obj/item/gun/ballistic/automatic/wt550)
 	small_item = TRUE
 
 /datum/supply_pack/security/armory/wt550
 	name = "WT-550 Auto Rifle Crate"
 	desc = "Contains two high-powered, semiautomatic rifles chambered in 4.6x30mm. Requires Armory access to open."
-	cost = 3280 //20%
+	cost = 4000 //20%
 	contains = list(/obj/item/gun/ballistic/automatic/wt550,
 					/obj/item/gun/ballistic/automatic/wt550,
 					/obj/item/gun/ballistic/automatic/wt550)
@@ -785,11 +785,36 @@
 /datum/supply_pack/security/armory/wt550ammo
 	name = "WT-550 Auto Rifle Ammo Crate"
 	desc = "Contains four 20-round magazine for the WT-550 Auto Rifle. Each magazine is designed to facilitate rapid tactical reloads. Requires Armory access to open."
-	cost = 1500
+	cost = 1800
 	contains = list(/obj/item/ammo_box/magazine/wt550m9,
 					/obj/item/ammo_box/magazine/wt550m9,
 					/obj/item/ammo_box/magazine/wt550m9,
 					/obj/item/ammo_box/magazine/wt550m9)
+
+/datum/supply_pack/security/armory/usp_single
+	name = "NT-P 10 Security Pistol Single-Pack"
+	desc = "Contains one high-powered, semiautomatic pistol chambered in 10. Requires Armory access to open."
+	cost = 1600 // 1200 per 1 gun
+	contains = list(/obj/item/gun/ballistic/automatic/pistol/usp)
+	small_item = TRUE
+
+/datum/supply_pack/security/armory/usp
+	name = "NT-P 10 Security Pistol Crate"
+	desc = "Contains two high-powered, semiautomatic pistols chambered in 10mm. Requires Armory access to open."
+	cost = 3000 //20%
+	contains = list(/obj/item/gun/ballistic/automatic/pistol/usp,
+					/obj/item/gun/ballistic/automatic/pistol/usp,
+					/obj/item/gun/ballistic/automatic/pistol/usp)
+	crate_name = "security pistol crate"
+
+/datum/supply_pack/security/armory/uspammo
+	name = "NT-P 10 Security Pistol Ammo Crate"
+	desc = "Contains four 8-round magazine for the NT-P 10 Security Pistol. Each magazine is designed to facilitate rapid tactical reloads. Requires Armory access to open."
+	cost = 1500
+	contains = list(/obj/item/ammo_box/magazine/m10mm,
+					/obj/item/ammo_box/magazine/m10mm,
+					/obj/item/ammo_box/magazine/m10mm,
+					/obj/item/ammo_box/magazine/m10mm)
 
 /datum/supply_pack/security/armoury/bsanchor
 	name = "Bluespace Anchoring Device"

@@ -194,13 +194,7 @@
 	sawn_desc = "Omar's coming!"
 	obj_flags = UNIQUE_RENAME
 	rack_sound_volume = 0
-	unique_reskin = list("Default" = "dshotgun",
-						"Dark Red Finish" = "dshotgun_d",
-						"Ash" = "dshotgun_f",
-						"Faded Grey" = "dshotgun_g",
-						"Maple" = "dshotgun_l",
-						"Rosewood" = "dshotgun_p"
-						)
+	unique_reskin = list("Default" = "dshotgun")
 	semi_auto = TRUE
 	bolt_type = BOLT_TYPE_NO_BOLT
 	fire_rate = 2 //being double barrelled, you don't rely on internal mechanisms.

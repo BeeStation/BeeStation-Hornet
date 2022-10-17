@@ -15,7 +15,7 @@
 
 	maxHealth	= BRAIN_DAMAGE_DEATH
 	low_threshold = 25
-	high_threshold = 100
+	high_threshold = 80
 
 	var/suicided = FALSE
 	var/mob/living/brain/brainmob = null

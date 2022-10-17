@@ -187,6 +187,11 @@
 	path = /obj/item/clothing/suit/toggle/lawyer/black
 	allowed_roles = list(JOB_NAME_LAWYER)
 
+/datum/gear/suit/jacket/drive
+	display_name = "scorpion jacket"
+	path = /obj/item/clothing/suit/drive
+	cost = 1000
+
 //PONCHOS
 
 /datum/gear/suit/poncho

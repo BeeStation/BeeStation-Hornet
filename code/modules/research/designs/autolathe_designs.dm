@@ -843,6 +843,22 @@
 	build_path = /obj/item/ammo_box/c10mm
 	category = list("hacked", "Security")
 
+/datum/design/c10mm/magazine
+	name = "Magazine (10mm)"
+	id = "c10mm mag"
+	build_type = AUTOLATHE
+	materials = list(/datum/material/iron = 4500)
+	build_path = /obj/item/ammo_box/magazine/m10mm
+	category = list("hacked", "Security")
+
+/datum/design/c10mm/magazine_rubber
+	name = "Magazine (10mm, rubber)"
+	id = "c10mm mag rub"
+	build_type = AUTOLATHE
+	materials = list(/datum/material/iron = 4000, /datum/material/glass = 500)
+	build_path = /obj/item/ammo_box/magazine/m10mm/rubber
+	category = list("Security")
+
 /datum/design/c45
 	name = "Ammo Box (.45)"
 	id = "c45"
@@ -865,6 +881,14 @@
 	build_type = AUTOLATHE
 	materials = list(/datum/material/iron = 20000)
 	build_path = /obj/item/ammo_box/c38
+	category = list("hacked", "Security")
+
+/datum/design/a357
+	name = "Speed Loader (.357)"
+	id = "a357"
+	build_type = AUTOLATHE
+	materials = list(/datum/material/iron = 20000)
+	build_path = /obj/item/ammo_box/a357
 	category = list("hacked", "Security")
 
 /datum/design/cleaver

@@ -5,7 +5,6 @@
 	icon_state = "jukebox"
 	verb_say = "states"
 	density = TRUE
-	req_access = list(ACCESS_BAR)
 	var/active = FALSE
 	var/list/rangers = list()
 	var/stop = 0

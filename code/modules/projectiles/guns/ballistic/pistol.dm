@@ -18,6 +18,7 @@
 	weapon_weight = WEAPON_LIGHT
 	recoil = 0.3
 	spread = 7
+	spread_unwielded = 10
 
 /obj/item/gun/ballistic/automatic/pistol/no_mag
 	spawnwithmagazine = FALSE
@@ -38,7 +39,8 @@
 	mag_type = /obj/item/ammo_box/magazine/m45
 	can_suppress = FALSE
 	recoil = 0.8
-	spread = 9
+	spread = 10
+	spread_unwielded = 15
 
 /obj/item/gun/ballistic/automatic/pistol/m1911/no_mag
 	spawnwithmagazine = FALSE
@@ -53,6 +55,7 @@
 	mag_display = TRUE
 	recoil = 1.7
 	spread = 12
+	spread_unwielded = 21
 
 /obj/item/gun/ballistic/automatic/pistol/deagle/gold
 	desc = "A gold plated Desert Eagle folded over a million times by superior martian gunsmiths. Uses .50 AE ammo."
@@ -77,6 +80,7 @@
 	fire_delay = 1
 	recoil = 0.6
 	spread = 14
+	spread_unwielded = 18
 
 /obj/item/gun/ballistic/automatic/pistol/stickman
 	name = "flat gun"
@@ -94,3 +98,15 @@
 		to_chat(user, "<span class='notice'>..and falls into view. Whew, that was a close one.</span>")
 		user.dropItemToGround(src)
 
+/obj/item/gun/ballistic/automatic/pistol/usp
+	name = "NT-P 10"
+	desc = "A new 10mm security pistol."
+	icon_state = "usp"
+	w_class = WEIGHT_CLASS_NORMAL
+	mag_type = /obj/item/ammo_box/magazine/m10mm
+	can_suppress = FALSE
+	recoil = 0.5
+	spread = 9
+
+/obj/item/gun/ballistic/automatic/pistol/usp/no_mag
+	spawnwithmagazine = FALSE

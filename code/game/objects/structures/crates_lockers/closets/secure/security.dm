@@ -5,18 +5,10 @@
 
 /obj/structure/closet/secure_closet/captains/PopulateContents()
 	..()
-	new /obj/item/storage/box/suitbox/cap(src)
-	new /obj/item/storage/backpack/captain(src)
 	new /obj/item/storage/backpack/satchel/cap(src)
-	new /obj/item/storage/backpack/duffelbag/captain(src)
-	new	/obj/item/clothing/suit/armor/vest/capcarapace/jacket(src)
 	new /obj/item/clothing/suit/armor/vest/capcarapace(src)
-	new /obj/item/clothing/suit/armor/vest/capcarapace/alt(src)
 	new /obj/item/clothing/suit/hooded/wintercoat/captain(src)
-	new /obj/item/clothing/suit/captunic(src)
 	new /obj/item/clothing/gloves/color/captain(src)
-	new /obj/item/clothing/glasses/sunglasses/advanced/gar/supergar(src)
-	new /obj/item/radio/headset/heads/captain/alt(src)
 	new /obj/item/radio/headset/heads/captain(src)
 
 	new /obj/item/clothing/neck/petcollar(src)
@@ -28,11 +20,9 @@
 	new /obj/item/megaphone/command(src)
 	new /obj/item/computer_hardware/hard_drive/role/captain(src)
 	new /obj/item/storage/box/silver_ids(src)
-	new /obj/item/restraints/handcuffs/cable/zipties(src)
 
 	// prioritized items
 	new /obj/item/card/id/departmental_budget/civ(src)
-	new /obj/item/clothing/neck/cloak/cap(src)
 	new /obj/item/door_remote/captain(src)
 	new /obj/item/storage/belt/sabre(src)
 	new /obj/item/gun/energy/e_gun/mini/heads(src)
@@ -57,7 +47,6 @@
 
 /obj/structure/closet/secure_closet/hop/PopulateContents()
 	..()
-	new /obj/item/storage/box/suitbox/hop(src)
 	new /obj/item/radio/headset/heads/head_of_personnel(src)
 
 	new /obj/item/clothing/neck/petcollar(src)
@@ -69,12 +58,10 @@
 	new /obj/item/computer_hardware/hard_drive/role/hop(src)
 	new /obj/item/storage/box/ids(src)
 	new /obj/item/storage/box/ids(src)
-	new /obj/item/restraints/handcuffs/cable/zipties(src)
 	new /obj/item/circuitboard/machine/techfab/department/service(src)
 
 	// prioritized items
 	new /obj/item/card/id/departmental_budget/srv(src)
-	new /obj/item/clothing/neck/cloak/hop(src)
 	new /obj/item/door_remote/civillian(src)
 	new /obj/item/assembly/flash/handheld(src)
 	new /obj/item/clothing/glasses/sunglasses/advanced(src)
@@ -121,12 +108,9 @@
 
 /obj/structure/closet/secure_closet/hos/PopulateContents()
 	..()
-	new /obj/item/storage/box/suitbox/hos(src)
 	new /obj/item/clothing/suit/armor/vest/leather(src)
 	new /obj/item/clothing/mask/gas/sechailer/swat(src)
 	new /obj/item/clothing/glasses/hud/security/sunglasses/eyepatch(src)
-	new /obj/item/clothing/glasses/hud/security/sunglasses/gars/supergars(src)
-	new /obj/item/radio/headset/heads/hos/alt(src)
 	new /obj/item/radio/headset/heads/hos(src)
 
 	new /obj/item/clothing/neck/petcollar(src)
@@ -137,7 +121,6 @@
 	new /obj/item/storage/box/command_keys(src)
 	new /obj/item/megaphone/sec(src)
 	new /obj/item/computer_hardware/hard_drive/role/hos(src)
-	new /obj/item/storage/box/flashbangs(src)
 	new /obj/item/storage/box/deputy(src)
 	new /obj/item/storage/lockbox/medal/sec(src)
 	new /obj/item/storage/lockbox/loyalty(src)
@@ -146,9 +129,7 @@
 
 	// prioritized items
 	new /obj/item/card/id/departmental_budget/sec(src)
-	new /obj/item/clothing/neck/cloak/hos(src)
 	new /obj/item/clothing/suit/armor/hos(src)
-	new /obj/item/clothing/suit/armor/hos/trenchcoat(src)
 	new /obj/item/shield/riot/tele(src)
 	new /obj/item/storage/belt/security/full(src)
 	new /obj/item/gun/energy/e_gun/hos(src)
@@ -178,12 +159,9 @@
 	new /obj/item/clothing/suit/armor/vest/warden(src)
 	new /obj/item/clothing/head/warden(src)
 	new /obj/item/clothing/head/warden/drill(src)
-	new /obj/item/clothing/head/beret/sec/navywarden(src)
 	new /obj/item/clothing/head/beret/corpwarden(src)
 	new /obj/item/clothing/suit/armor/vest/warden/alt(src)
-	new /obj/item/clothing/under/rank/security/warden/formal(src)
 	new /obj/item/clothing/under/rank/security/warden(src)
-	new /obj/item/clothing/under/rank/security/warden/skirt(src)
 	new /obj/item/clothing/glasses/hud/security/sunglasses(src)
 	new /obj/item/clothing/mask/gas/sechailer(src)
 	new /obj/item/storage/box/zipties(src)
@@ -206,7 +184,6 @@
 	new /obj/item/clothing/suit/armor/vest(src)
 	new /obj/item/clothing/head/helmet/sec(src)
 	new /obj/item/radio/headset/headset_sec(src)
-	new /obj/item/radio/headset/headset_sec/alt(src)
 	new /obj/item/clothing/glasses/hud/security/sunglasses(src)
 	new /obj/item/flashlight/seclite(src)
 

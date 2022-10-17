@@ -818,3 +818,9 @@
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 30, "rad" = 0, "fire" = 0, "acid" = 0, "stamina" = 0)
 	togglename = "zipper"
 	body_parts_covered = CHEST|GROIN|ARMS
+
+/obj/item/clothing/suit/drive
+	name = "scorpion jacket"
+	desc = "Need a toothpick?"
+	icon_state = "drive"
+	item_state = "drive"

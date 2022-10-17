@@ -114,5 +114,9 @@ GLOBAL_LIST_INIT(maintenance_loot, list(
 	/obj/item/throwing_star = 1,
 	/obj/item/xenoartifact/maint = 1,
 	/obj/item/pen/screwdriver = 8,
-	"" = 3
+	/obj/item/gun/ballistic/automatic/pistol = 1,
+	/obj/item/gun/ballistic/rifle/boltaction = 1,
+	/obj/item/gun/ballistic/shotgun/doublebarrel = 1,
+	/obj/item/gun/ballistic/revolver/detective = 1,
+	"" = 1
 	))

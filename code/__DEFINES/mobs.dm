@@ -161,7 +161,7 @@
 //Brain Damage defines
 #define BRAIN_DAMAGE_MILD 15
 #define BRAIN_DAMAGE_SEVERE 60
-#define BRAIN_DAMAGE_DEATH 100
+#define BRAIN_DAMAGE_DEATH 80
 
 #define BRAIN_TRAUMA_MILD /datum/brain_trauma/mild
 #define BRAIN_TRAUMA_SEVERE /datum/brain_trauma/severe

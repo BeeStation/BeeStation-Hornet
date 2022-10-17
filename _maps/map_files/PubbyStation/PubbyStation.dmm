@@ -1910,6 +1910,9 @@
 /obj/structure/sign/warning/nosmoking{
 	pixel_x = 32
 	},
+/obj/item/ammo_box/c10mm,
+/obj/item/ammo_box/c10mm,
+/obj/item/ammo_box/c10mm,
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/security/armory)
 "ajk" = (
@@ -2067,18 +2070,23 @@
 /area/security/brig)
 "ajP" = (
 /obj/structure/rack,
-/obj/item/gun/energy/e_gun{
-	pixel_x = -3;
-	pixel_y = 3
-	},
-/obj/item/gun/energy/e_gun,
-/obj/item/gun/energy/e_gun{
-	pixel_x = 3;
-	pixel_y = -3
-	},
 /obj/machinery/firealarm{
 	dir = 4;
 	pixel_x = -27
+	},
+/obj/item/ammo_box/magazine/m10mm/rubber,
+/obj/item/ammo_box/magazine/m10mm/rubber,
+/obj/item/ammo_box/magazine/m10mm/rubber,
+/obj/item/ammo_box/magazine/m10mm/rubber,
+/obj/item/ammo_box/magazine/m10mm/rubber,
+/obj/item/ammo_box/magazine/m10mm/rubber{
+	pixel_x = 8;
+	pixel_y = 1
+	},
+/obj/item/ammo_box/magazine/m10mm/rubber,
+/obj/item/ammo_box/magazine/m10mm/rubber{
+	pixel_x = -4;
+	pixel_y = 7
 	},
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/security/armory)
@@ -2306,14 +2314,17 @@
 /area/security/brig)
 "akL" = (
 /obj/structure/rack,
-/obj/item/gun/energy/disabler{
-	pixel_x = -3;
-	pixel_y = 3
+/obj/item/gun/ballistic/automatic/pistol/usp{
+	pixel_x = -4;
+	pixel_y = 6
 	},
-/obj/item/gun/energy/disabler,
-/obj/item/gun/energy/disabler{
+/obj/item/gun/ballistic/automatic/pistol/usp{
 	pixel_x = 3;
-	pixel_y = -3
+	pixel_y = -2
+	},
+/obj/item/gun/ballistic/automatic/pistol/usp{
+	pixel_x = -1;
+	pixel_y = 2
 	},
 /turf/open/floor/plasteel/dark,
 /area/ai_monitored/security/armory)
@@ -11217,62 +11228,13 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/item/reagent_containers/food/drinks/bottle/patron{
-	pixel_x = -5;
-	pixel_y = 16
-	},
-/obj/item/reagent_containers/food/drinks/bottle/cognac{
-	pixel_x = -10;
-	pixel_y = 7
-	},
-/obj/item/reagent_containers/food/drinks/bottle/grappa{
-	pixel_x = 10;
-	pixel_y = 15
-	},
-/obj/item/reagent_containers/food/drinks/bottle/vodka{
-	pixel_x = 2;
-	pixel_y = 4
-	},
 /obj/machinery/light_switch{
 	pixel_y = 22
 	},
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/bar)
 "aVi" = (
-/obj/structure/table/glass,
-/obj/item/reagent_containers/food/drinks/bottle/hcider{
-	layer = 3.1;
-	pixel_x = -6;
-	pixel_y = 8
-	},
-/obj/item/reagent_containers/food/drinks/bottle/wine{
-	layer = 3.1;
-	pixel_x = 3;
-	pixel_y = 5
-	},
-/obj/item/reagent_containers/food/drinks/bottle/rum{
-	layer = 3.2;
-	pixel_x = -15;
-	pixel_y = 4
-	},
-/obj/item/reagent_containers/food/drinks/bottle/lizardwine{
-	layer = 3.1;
-	pixel_x = 13;
-	pixel_y = 15
-	},
-/obj/item/reagent_containers/food/drinks/bottle/tequila{
-	layer = 3.2;
-	pixel_x = 13;
-	pixel_y = 7
-	},
-/obj/item/reagent_containers/food/drinks/shaker{
-	pixel_x = 1;
-	pixel_y = 13
-	},
-/obj/item/reagent_containers/food/drinks/bottle/gin{
-	pixel_x = -10;
-	pixel_y = 15
-	},
+/obj/machinery/jukebox,
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/bar)
 "aVj" = (
@@ -29245,25 +29207,9 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/item/reagent_containers/food/drinks/bottle/goldschlager{
-	pixel_x = -8;
-	pixel_y = 15
-	},
-/obj/item/reagent_containers/food/drinks/bottle/vermouth{
-	pixel_x = 3;
-	pixel_y = 7
-	},
-/obj/item/reagent_containers/food/drinks/bottle/whiskey{
+/obj/item/reagent_containers/food/drinks/shaker{
 	pixel_x = 7;
-	pixel_y = 16
-	},
-/obj/item/reagent_containers/food/drinks/bottle/kahlua{
-	pixel_x = 9;
-	pixel_y = 7
-	},
-/obj/item/reagent_containers/food/drinks/bottle/absinthe{
-	pixel_x = -5;
-	pixel_y = 4
+	pixel_y = 3
 	},
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/bar)
@@ -39992,6 +39938,13 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/chapel/main/monastery)
+"ifx" = (
+/obj/item/reagent_containers/food/drinks/shaker{
+	pixel_x = 7;
+	pixel_y = 3
+	},
+/turf/closed/wall,
+/area/security/prison)
 "igl" = (
 /obj/effect/turf_decal/tile/yellow{
 	dir = 4
@@ -85587,7 +85540,7 @@ prt
 agy
 agy
 agy
-agy
+ifx
 ahJ
 aig
 aiJ
