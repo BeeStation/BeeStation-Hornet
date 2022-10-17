@@ -587,8 +587,22 @@
 /proc/printplayer(datum/mind/ply, fleecheck)
 	var/jobtext = ""
 	if(ply.assigned_role)
-		jobtext = " the <b>[ply.assigned_role]</b>"
-	var/text = "<b>[ply.key]</b> was <b>[ply.name]</b>[jobtext] and"
+		if(ply.assigned_role == "Unassigned")
+			jobtext = ply?.special_role || "" // "Unassigned" is bad. showing nothing is better.
+		else
+			jobtext = " the <b>[ply.assigned_role]</b>"
+
+	var/obj/item/card/id/I = ply?.current.get_idcard()
+
+	// support the custom job title to the roundend report
+	var/jobtext_custom = (I?.registered_name == ply.name) ? ((ply?.assigned_role == I?.assignment) ? ply?.assigned_role : I?.assignment) : ply?.assigned_role // try to get your ID card, then gets a job title
+	if(ply.assigned_role == jobtext_custom)
+		var/datum/data/record/R = find_record("name", ply.name, GLOB.data_core.general)
+		if(R)
+			jobtext_custom = R.fields["rank"] || ply?.assigned_role // gets a custom title from datacore
+	jobtext_custom = (ply.assigned_role == jobtext_custom) ? "" : " (as [jobtext_custom])" // if no custom title, don't show it.
+
+	var/text = "<b>[ply.key]</b> was <b>[ply.name]</b>[jobtext][jobtext_custom] and"
 	if(ply.current)
 		if(ply.current.stat == DEAD)
 			text += " <span class='redtext'>died</span>"
