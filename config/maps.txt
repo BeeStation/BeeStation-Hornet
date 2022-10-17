@@ -22,11 +22,13 @@ map corgstation
 endmap
 
 map boxstation
+	minplayers 10
 	maxplayers 60
 	votable
 endmap
 
 map metastation
+	minplayers 15
 	default
 	votable
 endmap
@@ -42,6 +44,7 @@ map deltastation
 endmap
 
 map kilostation
+	minplayers 15
 	maxplayers 50
 	votable
 endmap
