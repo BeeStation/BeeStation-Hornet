@@ -56,8 +56,11 @@
 		//Im okay with this targetting clothing in other non-worn slots
 		for(var/obj/item/clothing/I in victim.contents)
 			clothing_list += I
-		victim.dropItemToGround(pick(clothing_list))
-		X.cooldown += 10 SECONDS
+		//Stops this from stripping funky stuff
+		var/obj/item/clothing/C = pick(clothing_list)
+		if(!HAS_TRAIT_FROM(C, TRAIT_NODROP, GLUED_ITEM_TRAIT))
+			victim.dropItemToGround(C)
+			X.cooldown += 10 SECONDS
 
 //============
 // Trauma, gives target trauma, amazing
