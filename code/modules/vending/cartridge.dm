@@ -13,7 +13,7 @@
 					/obj/item/computer_hardware/hard_drive/role/signal/toxins = 10,
 					/obj/item/modular_computer/tablet/pda/heads = 10,
 					/obj/item/computer_hardware/hard_drive/role/cargo_technician = 10,
-					/obj/item/computer_hardware/hard_drive/role/unlicensed = 3)
+					/obj/item/computer_hardware/hard_drive/role/maint = 3)
 	premium = list(/obj/item/computer_hardware/hard_drive/role/captain = 3)
 	refill_canister = /obj/item/vending_refill/cart
 	default_price = 100
