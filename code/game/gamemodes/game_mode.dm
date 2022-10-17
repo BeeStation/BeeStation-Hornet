@@ -797,7 +797,7 @@
 	round_credits += "<center><h1>The Silicon \"Intelligences\":</h1>"
 	len_before_addition = round_credits.len
 	for(var/datum/mind/current in SSticker.mode.get_all_silicon())
-		round_credits += "<center><h2>[current.name] as the [current.assigned_role][custom_title_holder]</h2>"
+		round_credits += "<center><h2>[current.name] as the [current.assigned_role]</h2>"
 	if(round_credits.len == len_before_addition)
 		round_credits += list("<center><h2>[station_name()] had no silicon helpers!</h2>", "<center><h2>Not a single door was opened today!</h2>")
 	round_credits += "<br>"
