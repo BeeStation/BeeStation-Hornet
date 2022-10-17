@@ -40,8 +40,8 @@ BADGES
 ## To speed things up make the number negative, to slow things down, make the number positive.
 
 ## These modify the run/walk speed of all mobs before the mob-specific modifiers are applied.
-RUN_DELAY 2
-WALK_DELAY 3
+RUN_DELAY 2.1
+WALK_DELAY 2.9
 
 ## The variables below affect the movement of specific mob types. THIS AFFECTS ALL SUBTYPES OF THE TYPE YOU CHOOSE!
 ## Entries completely override all subtypes. Later entries have precedence over earlier entries.
@@ -263,7 +263,7 @@ PROTECT_ROLES_FROM_ANTAGONIST
 PROTECT_HEADS_FROM_ANTAGONIST
 
 ## If non-human species are barred from joining as a head of staff
-#ENFORCE_HUMAN_AUTHORITY
+ENFORCE_HUMAN_AUTHORITY
 
 ## If late-joining players have a chance to become a traitor/changeling
 ALLOW_LATEJOIN_ANTAGONISTS
@@ -547,7 +547,7 @@ MIDROUND_ANTAG_LIFE_CHECK 0.7
 ##Limit Spell Choices##
 ## Uncomment to disallow wizards from using certain spells that may be too chaotic/fun for your playerbase
 
-#NO_SUMMON_GUNS
+NO_SUMMON_GUNS
 #NO_SUMMON_MAGIC
 #NO_SUMMON_EVENTS
 
@@ -606,7 +606,7 @@ ROUNDSTART_TRAITS
 #DISABLE_HUMAN_MOOD
 
 ## Enable night shifts ##
-ENABLE_NIGHT_SHIFTS
+#ENABLE_NIGHT_SHIFTS
 
 ## Enable randomized shift start times##
 RANDOMIZE_SHIFT_TIME
