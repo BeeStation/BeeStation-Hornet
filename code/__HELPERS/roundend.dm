@@ -583,6 +583,22 @@
 		Trigger()
 		return
 
+///Returns a custom title for the roundend credit
+/proc/get_custom_title_from_id(obj/item/card/id/I, mind_job, mind_name)
+	if(I)
+		if(I.registered_name == mind_name) // card must be yours
+			. = I.assignment // get the custom title
+		if(. == mind_job) // non-custom title, lame
+			. = ""
+	if(!.) // still no custom title? it seems you don't have a ID card
+		var/datum/data/record/R = find_record("name", mind_name, GLOB.data_core.general)
+		if(R)
+			. = R.fields["rank"] || "" // get a custom title from datacore
+		if(. == mind_job) // lame...
+			. = ""
+
+	if(.)
+		return " (as [.])"
 
 /proc/printplayer(datum/mind/ply, fleecheck)
 	var/jobtext = ""
@@ -592,15 +608,8 @@
 		else
 			jobtext = " the <b>[ply.assigned_role]</b>"
 
-	var/obj/item/card/id/I = ply?.current.get_idcard()
-
 	// support the custom job title to the roundend report
-	var/jobtext_custom = (I?.registered_name == ply.name) ? ((ply?.assigned_role == I?.assignment) ? ply?.assigned_role : I?.assignment) : ply?.assigned_role // try to get your ID card, then gets a job title
-	if(ply.assigned_role == jobtext_custom)
-		var/datum/data/record/R = find_record("name", ply.name, GLOB.data_core.general)
-		if(R)
-			jobtext_custom = R.fields["rank"] || ply?.assigned_role // gets a custom title from datacore
-	jobtext_custom = (ply.assigned_role == jobtext_custom) ? "" : " (as [jobtext_custom])" // if no custom title, don't show it.
+	var/jobtext_custom = get_custom_title_from_id(ply?.current.get_idcard(), ply.assigned_role, ply.name)
 
 	var/text = "<b>[ply.key]</b> was <b>[ply.name]</b>[jobtext][jobtext_custom] and"
 	if(ply.current)
