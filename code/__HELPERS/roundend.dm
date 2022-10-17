@@ -583,7 +583,7 @@
 		Trigger()
 		return
 
-///Returns a custom title for the roundend credit
+///Returns a custom title for the roundend credit/report
 /proc/get_custom_title_from_id(obj/item/card/id/I, mind_job, mind_name)
 	if(I)
 		if(I.registered_name == mind_name) // card must be yours
@@ -598,7 +598,7 @@
 			. = ""
 
 	if(.)
-		return " (as [.])"
+		return " (as [.])" // i.e. " (as Plague Doctor)"
 
 /proc/printplayer(datum/mind/ply, fleecheck)
 	var/jobtext = ""
@@ -606,10 +606,10 @@
 		if(ply.assigned_role == "Unassigned")
 			jobtext = ply?.special_role || "" // "Unassigned" is bad. showing nothing is better.
 		else
+			jobtext = ply.assigned_role
+		if(jobtext)
 			jobtext = " the <b>[ply.assigned_role]</b>"
-
-	// support the custom job title to the roundend report
-	var/jobtext_custom = get_custom_title_from_id(ply?.current.get_idcard(), ply.assigned_role, ply.name)
+	var/jobtext_custom = get_custom_title_from_id(ply?.current.get_idcard(), ply.assigned_role, ply.name) // support the custom job title to the roundend report
 
 	var/text = "<b>[ply.key]</b> was <b>[ply.name]</b>[jobtext][jobtext_custom] and"
 	if(ply.current)
