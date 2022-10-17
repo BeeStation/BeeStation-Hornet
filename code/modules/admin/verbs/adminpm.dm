@@ -106,13 +106,13 @@
 	else if(istype(whom, /client))
 		recipient = whom
 
-
+	var/html_encoded = FALSE
 	if(external)
 		if(!externalreplyamount)	//to prevent people from spamming irc/discord
 			return
 		if(!msg)
 			msg = stripped_multiline_input(src,"Message:", "Private message to Administrator")
-
+			html_encoded = TRUE
 		if(!msg)
 			return
 		if(holder)
@@ -137,6 +137,8 @@
 			msg = trim(msg)
 			if(!msg)
 				return
+			// we need to not HTML encode again or you get &#39;s instead of 's
+			html_encoded = TRUE
 
 			if(prefs.muted & MUTE_ADMINHELP)
 				to_chat(src, "<span class='danger'>Error: Admin-PM: You are unable to use admin PM-s (muted).</span>", type = MESSAGE_TYPE_ADMINPM)
@@ -154,11 +156,13 @@
 
 	//clean the message if it's not sent by a high-rank admin
 	if(!check_rights(R_SERVER|R_DEBUG,0)||external)//no sending html to the poor bots
-		msg = trim(sanitize(msg), MAX_MESSAGE_LEN)
+		msg = sanitize_simple(msg)
+		if(!html_encoded)
+			msg = html_encode(msg)
+		msg = trim(msg, MAX_MESSAGE_LEN)
 		if(!msg)
 			return
-	// Most common HTML entity... I don't feel like trying to touch the sanitization of this mess
-	msg = replacetext(msg, "&#39;", "'")
+
 	var/rawmsg = msg
 
 	if(holder)
