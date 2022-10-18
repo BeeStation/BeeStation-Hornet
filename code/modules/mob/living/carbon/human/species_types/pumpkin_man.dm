@@ -45,8 +45,8 @@
 
 /datum/action/item_action/organ_action/pumpkin_head_candy/process(delta_time)
 	. = ..()
-	//Every 10 seconds, otherwise early return
-	if(world.time % 15 SECONDS || available_candy.len < candy_limit)
+	//Every 15 seconds, otherwise early return
+	if(world.time % 15 || available_candy.len < candy_limit)
 		return
 	generate_candy()
 
