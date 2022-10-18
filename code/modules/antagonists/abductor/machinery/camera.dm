@@ -75,13 +75,13 @@
 		to_chat(owner, "<span class='warning'>Due to significant interference, this area cannot be warped to!</span>")
 		return
 
-	for(var/mob/living/carbon/human/specimin in viewers(world.view, target_loc))
+	for(var/mob/living/carbon/human/specimin in view(5, target_loc))
 		var/obj/item/organ/heart/gland/temp = locate() in specimin.internal_organs
 		//Not a specimin
-		if(temp)
+		if(istype(temp))
 			continue
 		//No heart, not considered a specimin
-		if (!specimin.getorganslot(ORGAN_SLOT_HEART))
+		if (!specimin.getorganslot(ORGAN_SLOT_HEART) || isabductor(specimin))
 			continue
 		//Technically a specimin, however we should avoid meta tactics
 		if (!specimin.client)
@@ -121,13 +121,13 @@
 		to_chat(owner, "<span class='warning'>Due to significant interference, this area cannot be warped to!</span>")
 		return
 
-	for(var/mob/living/carbon/human/specimin in viewers(world.view, target_loc))
+	for(var/mob/living/carbon/human/specimin in view(5, target_loc))
 		var/obj/item/organ/heart/gland/temp = locate() in specimin.internal_organs
 		//Not a specimin
-		if(temp)
+		if(istype(temp))
 			continue
 		//No heart, not considered a specimin
-		if (!specimin.getorganslot(ORGAN_SLOT_HEART))
+		if (!specimin.getorganslot(ORGAN_SLOT_HEART) || isabductor(specimin))
 			continue
 		//Technically a specimin, however we should avoid meta tactics
 		if (!specimin.client)
