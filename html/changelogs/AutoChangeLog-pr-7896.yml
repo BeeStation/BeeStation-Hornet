@@ -1,0 +1,5 @@
+author: The-Moon-Itself
+delete-after: true
+changes:
+  - tweak: Wiremod input ports can connect to multiple output ports
+  - rscdel: Deletes Wiremod combiner component
