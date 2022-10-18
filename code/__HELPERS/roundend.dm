@@ -593,7 +593,7 @@
 	if(!.) // still no custom title? it seems you don't have a ID card
 		var/datum/data/record/R = find_record("name", mind_name, GLOB.data_core.general)
 		if(R)
-			. = R.fields["rank"] || "" // get a custom title from datacore
+			. = R.fields["rank"] // get a custom title from datacore
 		if(. == mind_job) // lame...
 			. = ""
 
