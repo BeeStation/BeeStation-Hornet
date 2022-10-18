@@ -2,7 +2,7 @@
 /obj/item/stack/ore/bluespace_crystal
 	name = "bluespace crystal"
 	desc = "A glowing bluespace crystal, not much is known about how they work. It looks very delicate."
-	icon = 'icons/obj/telescience.dmi'
+	icon = 'icons/obj/stacks/minerals.dmi'
 	icon_state = "bluespace_crystal"
 	singular_name = "bluespace crystal"
 	w_class = WEIGHT_CLASS_TINY
@@ -50,6 +50,7 @@
 /obj/item/stack/ore/bluespace_crystal/artificial
 	name = "artificial bluespace crystal"
 	desc = "An artificially made bluespace crystal, it looks delicate."
+	icon_state = "synthetic_bluespace_crystal"
 	materials = list(/datum/material/bluespace=MINERAL_MATERIAL_AMOUNT*0.5)
 	blink_range = 4 // Not as good as the organic stuff!
 	points = 0 //nice try

@@ -263,7 +263,7 @@ GLOBAL_LIST_INIT(wood_recipes, list ( \
 	singular_name = "wood plank"
 	icon_state = "sheet-wood"
 	item_state = "sheet-wood"
-	icon = 'icons/obj/stack_objects.dmi'
+	icon = 'icons/obj/stacks/organic.dmi'
 	sheettype = "wood"
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 0, "stamina" = 0)
 	resistance_flags = FLAMMABLE
@@ -445,7 +445,7 @@ GLOBAL_LIST_INIT(bamboo_recipes, list ( \
 	singular_name = "cut bamboo"
 	icon_state = "sheet-bamboo"
 	item_state = "sheet-bamboo"
-	icon = 'icons/obj/stack_objects.dmi'
+	icon = 'icons/obj/stacks/organic.dmi'
 	sheettype = "bamboo"
 	force = 10
 	throwforce = 10
@@ -585,7 +585,7 @@ GLOBAL_LIST_INIT(runed_metal_recipes, list ( \
 	singular_name = "runed metal sheet"
 	icon_state = "sheet-runed"
 	item_state = "sheet-runed"
-	icon = 'icons/obj/stack_objects.dmi'
+	//icon = 'icons/obj/stacks/mineral.dmi'
 	sheettype = "runed"
 	merge_type = /obj/item/stack/sheet/runed_metal
 	novariants = TRUE
@@ -654,7 +654,7 @@ GLOBAL_LIST_INIT(brass_recipes, list ( \
 	singular_name = "brass sheet"
 	icon_state = "sheet-brass"
 	item_state = "sheet-brass"
-	icon = 'icons/obj/stack_objects.dmi'
+	//icon = 'icons/obj/stacks/mineral.dmi'
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	throwforce = 10
 	max_amount = 50
@@ -723,7 +723,7 @@ GLOBAL_LIST_INIT(bronze_recipes, list ( \
 	singular_name = "bronze sheet"
 	icon_state = "sheet-brass"
 	item_state = "sheet-brass"
-	icon = 'icons/obj/stack_objects.dmi'
+	//icon = 'icons/obj/stacks/mineral.dmi'
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	throwforce = 10
 	max_amount = 50
@@ -784,7 +784,7 @@ GLOBAL_LIST_INIT(bronze_recipes, list ( \
  */
 /obj/item/stack/sheet/bone
 	name = "bones"
-	icon = 'icons/obj/mining.dmi'
+	icon = 'icons/obj/mining.dmi' //You get a free pass... for now
 	icon_state = "bone"
 	item_state = "sheet-bone"
 	singular_name = "bone"

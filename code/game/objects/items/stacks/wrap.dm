@@ -7,7 +7,7 @@
 /obj/item/stack/wrapping_paper
 	name = "wrapping paper"
 	desc = "Wrap packages with this festive paper to make gifts."
-	icon = 'icons/obj/stack_objects.dmi'
+	icon = 'icons/obj/stacks/miscelaneous.dmi'
 	icon_state = "wrap_paper"
 	item_flags = NOBLUDGEON
 	amount = 25
@@ -29,7 +29,7 @@
 	name = "package wrapper"
 	singular_name = "wrapping sheet"
 	desc = "You can use this to wrap items in."
-	icon = 'icons/obj/stack_objects.dmi'
+	icon = 'icons/obj/stacks/miscelaneous.dmi'
 	icon_state = "deliveryPaper"
 	item_flags = NOBLUDGEON
 	amount = 25
@@ -123,7 +123,7 @@
 /obj/item/c_tube
 	name = "cardboard tube"
 	desc = "A tube... of cardboard."
-	icon = 'icons/obj/stack_objects.dmi'
+	icon = 'icons/obj/stacks/miscelaneous.dmi'
 	icon_state = "c_tube"
 	throwforce = 0
 	w_class = WEIGHT_CLASS_TINY
