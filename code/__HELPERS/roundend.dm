@@ -584,7 +584,7 @@
 		return
 
 ///Returns a custom title for the roundend credit/report
-/proc/get_custom_title_from_id(obj/item/card/id/I, mind_job, mind_name)
+/proc/get_custom_title_from_id(obj/item/card/id/I, mind_job, mind_name, newline=FALSE)
 	if(I)
 		if(I.registered_name == mind_name) // card must be yours
 			. = I.assignment // get the custom title
@@ -598,7 +598,7 @@
 			. = ""
 
 	if(.)
-		return " (as [.])" // i.e. " (as Plague Doctor)"
+		return "[newline ? "<br/>" : " "](as [.])" // i.e. " (as Plague Doctor)"
 
 /proc/printplayer(datum/mind/ply, fleecheck)
 	var/jobtext = ""
