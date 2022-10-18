@@ -1,8 +1,0 @@
-author: PowerfulBacon
-delete-after: true
-changes:
-  - bugfix: Abductor teleportation is no longer blocked by the teleporting agent.
-  - tweak: Abductor teleport console is now blocked by mobs within 5 tiles rather
-      than mobs that can see the location, to make it less frustrating to find a valid
-      warp point.
-  - balance: Abductor emergency teleport now applies sleeping rather than stun.
