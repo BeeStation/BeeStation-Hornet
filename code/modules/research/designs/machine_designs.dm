@@ -618,7 +618,7 @@
 	build_path = /obj/item/circuitboard/machine/mass_driver
 	category = list ("Misc. Machinery")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE | DEPARTMENTAL_FLAG_ENGINEERING | DEPARTMENTAL_FLAG_SERVICE
-	
+
 
 /datum/design/board/ore_silo
 	name = "Machine Design (Ore Silo)"
@@ -675,3 +675,11 @@
 	build_path = /obj/item/circuitboard/machine/xenoartifact_inbox
 	category = list ("Research Machinery")
 	departmental_flags = DEPARTMENTAL_FLAG_SCIENCE
+
+/datum/design/board/minor_botanical_dispenser
+	name = "Machine Design (Minor Botanical Chemical Dispenser)"
+	desc = "The circuit board for a minor botanical chemical dispenser."
+	id = "minor_botanical_dispenser"
+	build_path = /obj/item/circuitboard/machine/chem_dispenser/botany
+	departmental_flags = DEPARTMENTAL_FLAG_SERVICE
+	category = list ("Hydroponics Machinery")

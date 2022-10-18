@@ -1,0 +1,11 @@
+@use './ntos-colors.scss' with (
+  $ntos-color: #c93589,
+  $ntos-color-alt: #ddbe10
+);
+
+.theme-ntos-clown-pink {
+  @include ntos-colors.theme-ntos;
+  * {
+    font-family: 'Comic Sans MS', Verdana, sans-serif, 'Font Awesome 5 Free' !important;
+  }
+}
