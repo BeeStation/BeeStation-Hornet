@@ -210,7 +210,22 @@
 
 	// Approximate text height
 	var/complete_text = "<span class='center [extra_classes.Join(" ")]' style='color: [tgt_color]'>[text]</span>"
-	var/mheight = WXH_TO_HEIGHT(first_hearer.MeasureText(complete_text, null, CHAT_MESSAGE_WIDTH))
+
+	var/mheight
+	WXH_TO_HEIGHT(first_hearer.MeasureText(complete_text, null, CHAT_MESSAGE_WIDTH), mheight)
+
+
+	if(!TICK_CHECK)
+		return finish_image_generation(mheight, target, complete_text, lifespan, extra_classes)
+
+	var/datum/callback/our_callback = CALLBACK(src, .proc/finish_image_generation, mheight, target, complete_text, lifespan, extra_classes)
+	SSrunechat.message_queue += our_callback
+	return
+
+///finishes the image generation after the MeasureText() call in generate_image().
+///necessary because after that call the proc can resume at the end of the tick and cause overtime.
+/datum/chatmessage/proc/finish_image_generation(mheight, atom/target, complete_text, lifespan, list/extra_classes)
+
 	approx_lines = max(1, mheight / CHAT_MESSAGE_APPROX_LHEIGHT)
 
 	// Translate any existing messages upwards, apply exponential decay factors to timers
@@ -535,7 +550,7 @@
 	message.alpha = 0
 	message.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA | KEEP_APART
 	message.maptext_width = BALLOON_TEXT_WIDTH
-	message.maptext_height = WXH_TO_HEIGHT(owned_by?.MeasureText(text, null, BALLOON_TEXT_WIDTH))
+	WXH_TO_HEIGHT(owned_by?.MeasureText(text, null, BALLOON_TEXT_WIDTH), message.maptext_height)
 	message.maptext_x = (BALLOON_TEXT_WIDTH - bound_width) * -0.5
 	message.maptext = MAPTEXT("<span style='text-align: center; -dm-text-outline: 1px #0005; color: [tgt_color]'>[text]</span>")
 
