@@ -253,12 +253,6 @@
 	build_path = /obj/item/circuit_component/health
 	category = list(WIREMOD_CIRCUITRY, WIREMOD_INPUT_COMPONENTS)
 
-/datum/design/component/combiner
-	name = "Combiner Component"
-	id = "comp_combiner"
-	build_path = /obj/item/circuit_component/combiner
-	category = list(WIREMOD_CIRCUITRY, WIREMOD_LOGIC_COMPONENTS)
-
 /datum/design/component/pull
 	name = "Pull Component"
 	id = "comp_pull"

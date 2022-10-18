@@ -187,7 +187,7 @@
 	var/input_value
 
 	/// The connected output port
-	var/datum/port/output/connected_port
+	var/list/datum/port/output/connected_ports = list()
 
 	/// Whether this port triggers an update whenever an output is received.
 	var/trigger = FALSE
@@ -209,7 +209,9 @@
  * * port_to_register - The port to connect the input port to
  */
 /datum/port/input/proc/register_output_port(datum/port/output/port_to_register)
-	unregister_output_port()
+	if(port_to_register in connected_ports)
+		set_input(port_to_register.output_value)
+		return
 
 	RegisterSignal(port_to_register, COMSIG_PORT_SET_OUTPUT, .proc/receive_output)
 	RegisterSignal(port_to_register, list(
@@ -217,9 +219,9 @@
 		COMSIG_PARENT_QDELETING
 	), .proc/unregister_output_port)
 
-	connected_port = port_to_register
-	SEND_SIGNAL(connected_port, COMSIG_PORT_OUTPUT_CONNECT, src)
-	set_input(connected_port.output_value)
+	connected_ports |= port_to_register
+	SEND_SIGNAL(port_to_register, COMSIG_PORT_OUTPUT_CONNECT, src)
+	set_input(port_to_register.output_value)
 
 
 /**
@@ -267,19 +269,28 @@
 	. = ..()
 	set_input(default)
 
-/datum/port/input/proc/unregister_output_port()
+/datum/port/input/proc/unregister_output_port(var/datum/port/output/disconnecting_port)
 	SIGNAL_HANDLER
-	if(!connected_port)
+	if(!length(connected_ports))
 		return
-	UnregisterSignal(connected_port, list(
-		COMSIG_PARENT_QDELETING,
-		COMSIG_PORT_SET_OUTPUT,
-		COMSIG_PORT_DISCONNECT
-	))
-	connected_port = null
+	if(disconnecting_port in connected_ports)
+		UnregisterSignal(disconnecting_port, list(
+			COMSIG_PARENT_QDELETING,
+			COMSIG_PORT_SET_OUTPUT,
+			COMSIG_PORT_DISCONNECT
+		))
+		connected_ports -= disconnecting_port
+		return
+	for(var/datum/port/output/connected_port as() in connected_ports)
+		UnregisterSignal(connected_port, list(
+			COMSIG_PARENT_QDELETING,
+			COMSIG_PORT_SET_OUTPUT,
+			COMSIG_PORT_DISCONNECT
+		))
+	connected_ports.Cut()
 	set_input(default)
 
 /datum/port/input/Destroy()
 	unregister_output_port()
-	connected_port = null
+	connected_ports = null
 	return ..()

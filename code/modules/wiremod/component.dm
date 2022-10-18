@@ -140,14 +140,13 @@
  * * output_port - The output port to convert. Warning, this does change the output port.
  */
 /obj/item/circuit_component/proc/match_port_datatype(datum/port/input/input_port, datum/port/output/output_port)
-	if(input_port.connected_port)
-		var/datum/port/connected_port = input_port.connected_port
+	if(!length(input_port.connected_ports))
+		output_port.set_datatype(output_port.default_datatype)
+		return TRUE
+	for(var/datum/port/connected_port as() in input_port.connected_ports)
 		if(connected_port.datatype != output_port.datatype)
 			output_port.set_datatype(connected_port.datatype)
 			return TRUE
-	else
-		output_port.set_datatype(output_port.default_datatype)
-		return TRUE
 	return FALSE
 
 

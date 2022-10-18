@@ -220,11 +220,14 @@
 			var/current_data = port.input_value
 			if(isatom(current_data)) // Prevent passing the name of the atom.
 				current_data = null
+			var/list/connected_to = list()
+			for(var/connected_port in port.connected_ports)
+				connected_to += REF(connected_port)
 			component_data["input_ports"] += list(list(
 				"name" = port.name,
 				"type" = port.datatype,
 				"ref" = REF(port), // The ref is the identifier to work out what it is connected to
-				"connected_to" = REF(port.connected_port),
+				"connected_to" = connected_to,
 				"color" = port.color,
 				"current_data" = current_data,
 			))
@@ -363,7 +366,7 @@
 				return
 			var/datum/port/input/port = component.input_ports[port_id]
 
-			if(port.connected_port)
+			if(length(port.connected_ports))
 				return
 
 			if(params["set_null"])
