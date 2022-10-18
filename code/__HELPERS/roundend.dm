@@ -602,11 +602,11 @@
 
 /proc/printplayer(datum/mind/ply, fleecheck)
 	var/jobtext = ""
-	if(ply.assigned_role)
-		if(ply.assigned_role == "Unassigned")
-			jobtext = ply?.special_role || "" // "Unassigned" is bad. showing nothing is better.
-		else
+	if(ply.assigned_role || ply.special_role)
+		if(ply.assigned_role != "Unassigned")
 			jobtext = ply.assigned_role
+		if(!jobtext)
+			jobtext = ply.special_role
 		if(jobtext)
 			jobtext = " the <b>[ply.assigned_role]</b>"
 	var/jobtext_custom = get_custom_title_from_id(ply?.current.get_idcard(), ply.assigned_role, ply.name) // support the custom job title to the roundend report
