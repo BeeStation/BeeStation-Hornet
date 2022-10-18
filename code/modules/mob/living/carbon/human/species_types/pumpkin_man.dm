@@ -52,7 +52,7 @@
 
 /datum/action/item_action/organ_action/pumpkin_head_candy/Trigger()
 	. = ..()
-	if(iscarbon(owner))
+	if(iscarbon(owner) && !IS_DEAD_OR_INCAP(owner))
 		var/mob/living/carbon/H = owner
 		//Get candy if we have it
 		var/obj/item/type
