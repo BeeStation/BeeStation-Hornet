@@ -271,3 +271,10 @@
 /turf/open/floor/plasteel/cafeteria_red
 	icon_state = "cafeteria-red"
 	base_icon_state = "cafeteria-red"
+
+/turf/open/floor/plasteel/greyish
+	icon_state = "floor-light"
+
+/turf/open/floor/plasteel/cafeteria_dark
+	icon_state = "cafeteria-dark"
+	base_icon_state = "cafeteria-dark"
