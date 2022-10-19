@@ -1142,10 +1142,10 @@
 	..()
 	. = 1
 	/* Calculation:
-		0~20: 100% chance for 0.5
-		21~40: 50% chance for 0.5
-		41~60: 25% chance for 0.5
-		61~80: 12.5% chance for 0.5
+		0~19: 100% chance for 0.5
+		20~39: 50% chance for 0.5
+		40~59: 25% chance for 0.5
+		60~79: 12.5% chance for 0.5
 		...
 		for every 20 damage you have, the efficiency is decreased by 50%.
 	*/
