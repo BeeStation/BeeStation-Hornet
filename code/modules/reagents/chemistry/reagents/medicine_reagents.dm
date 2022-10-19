@@ -5,6 +5,8 @@
 
 // where all the reagents related to medicine go.
 
+#define MINOR_DAMAGE_THRESHOLD 20 // a temporary define as "what is minor damage". this can be changed. feel free to change.
+
 /datum/reagent/medicine
 	name = "Medicine"
 	chem_flags = CHEMICAL_NOT_DEFINED
@@ -1135,12 +1137,18 @@
 	overdose_threshold = 30
 
 /datum/reagent/medicine/bicaridine/on_mob_life(mob/living/carbon/M)
-	if(M.getBruteLoss() < 50)
-		M.adjustBruteLoss(-1.5*REM, 0)
-	else
-		M.adjustBruteLoss(-0.5*REM, 0)
+	if(prob(100/round((M.getBruteLoss()+1) / MINOR_DAMAGE_THRESHOLD))) // dividing 0 is bad, so adding 1 is necessary
+		M.adjustBruteLoss(0.5*REM, 0)
 	..()
 	. = 1
+	/* Calculation:
+		0~20: 100% chance for 0.5
+		21~40: 50% chance for 0.5
+		41~60: 25% chance for 0.5
+		61~80: 12.5% chance for 0.5
+		...
+		for every 20 damage you have, the efficiency is decreased by 50%.
+	*/
 
 /datum/reagent/medicine/bicaridine/overdose_process(mob/living/M)
 	M.adjustOrganLoss(ORGAN_SLOT_LIVER, 2)
@@ -1156,10 +1164,8 @@
 	overdose_threshold = 30
 
 /datum/reagent/medicine/dexalin/on_mob_life(mob/living/carbon/M)
-	if(M.getOxyLoss() < 50)
-		M.adjustOxyLoss(-1.5*REM, 0)
-	else
-		M.adjustOxyLoss(-0.5*REM, 0)
+	if(prob(100/round((M.getOxyLoss()+1) / MINOR_DAMAGE_THRESHOLD)))
+		M.adjustOxyLoss(1.5*REM, 0)  // dexalin is rarely used, so it is 1.5 per heal instead of 0.5 like others, to give it some spotlight.
 	..()
 	. = 1
 
@@ -1198,10 +1204,8 @@
 	overdose_threshold = 30
 
 /datum/reagent/medicine/kelotane/on_mob_life(mob/living/carbon/M)
-	if(M.getFireLoss() < 50)
-		M.adjustFireLoss(-1.5*REM, 0)
-	else
-		M.adjustFireLoss(-0.5*REM, 0)
+	if(prob(100/round((M.getFireLoss()+1) / MINOR_DAMAGE_THRESHOLD)))
+		M.adjustFireLoss(0.5*REM, 0)
 	..()
 	. = 1
 
@@ -1212,7 +1216,7 @@
 
 /datum/reagent/medicine/antitoxin
 	name = "Anti-Toxin"
-	description = "Heals toxin damage and removes toxins in the bloodstream. Overdose causes toxin damage."
+	description = "Heals toxin damage and removes toxins in the bloodstream. Overdose causes liver damage."
 	reagent_state = LIQUID
 	color = "#00a000"
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_CHEMIST_DRUG
@@ -1221,10 +1225,8 @@
 	taste_description = "a roll of gauze"
 
 /datum/reagent/medicine/antitoxin/on_mob_life(mob/living/carbon/M)
-	if(M.getToxLoss() < 50)
-		M.adjustToxLoss(-1.5*REM, 0)
-	else
-		M.adjustToxLoss(-0.5*REM, 0)
+	if(prob(100/round((M.getToxLoss()+1) / MINOR_DAMAGE_THRESHOLD)))
+		M.adjustToxLoss(0.5*REM, 0)
 	..()
 	. = 1
 
@@ -1332,12 +1334,15 @@
 	taste_description = "grossness"
 
 /datum/reagent/medicine/tricordrazine/on_mob_life(mob/living/carbon/M)
-	if(prob(80))
-		M.adjustBruteLoss(-1*REM, 0)
-		M.adjustFireLoss(-1*REM, 0)
-		M.adjustOxyLoss(-1*REM, 0)
-		M.adjustToxLoss(-1*REM, 0)
-		. = 1
+	if(prob(100/round((M.getBruteLoss()+1) / MINOR_DAMAGE_THRESHOLD)))
+		M.adjustBruteLoss(0.5*REM, 0)
+	if(prob(100/round((M.getFireLoss()+1) / MINOR_DAMAGE_THRESHOLD)))
+		M.adjustFireLoss(0.5*REM, 0)
+	if(prob(100/round((M.getToxLoss()+1) / MINOR_DAMAGE_THRESHOLD)))
+		M.adjustToxLoss(0.5*REM, 0)
+	if(prob(100/round((M.getOxyLoss()+1) / MINOR_DAMAGE_THRESHOLD)))
+		M.adjustOxyLoss(0.5*REM, 0)
+	. = 1
 	..()
 
 /datum/reagent/medicine/tricordrazine/overdose_process(mob/living/M)
