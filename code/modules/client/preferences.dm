@@ -449,7 +449,10 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/character_preview_view)
 				else
 					job_preferences[other_job] = JP_MEDIUM
 
-	job_preferences[job.title] = level
+	if(level == null)
+		job_preferences -= job.title
+	else
+		job_preferences[job.title] = level
 
 	return TRUE
 
