@@ -33,7 +33,7 @@
 
 	//get message text, limit it's length.and clean/escape html
 	if(!msg)
-		msg = stripped_multiline_input(src,"Message:", "Private message to [(!recipient || recipient.holder?.fakekey) ? "a Mentor" : key_name(recipient, FALSE, FALSE)].")
+		msg = stripped_multiline_input(src,"Message:", "Private message to [(!recipient || recipient.holder?.fakekey) ? "a Mentor" : key_name_mentor(recipient, FALSE)].")
 		msg = trim(msg)
 		if(!msg)
 			return
@@ -73,25 +73,25 @@
 		if(is_mentor())//both are mentors
 			to_chat(recipient, "<span class='mentorfrom'>Mentor PM from-<b>[key_name_mentor(src, recipient)]</b>: [msg]</span>", type = MESSAGE_TYPE_MENTORPM)
 			to_chat(src, "<span class='mentorto'>Mentor PM to-<b>[key_name_mentor(recipient, recipient)]</b>: [msg]</span>", type = MESSAGE_TYPE_MENTORPM)
-			admin_ticket_log(src, msg, key_name(src, recipient, TRUE), key_name(recipient, src, TRUE), color="teal", isSenderAdmin = TRUE, safeSenderLogged = TRUE, is_admin_ticket = FALSE)
+			admin_ticket_log(src, msg, key_name_mentor(src, recipient), key_name_mentor(recipient, src), color="teal", isSenderAdmin = TRUE, safeSenderLogged = TRUE, is_admin_ticket = FALSE)
 			if(recipient != src)
-				admin_ticket_log(recipient, msg, key_name(src, recipient, TRUE), key_name(recipient, src, TRUE), color="teal", isSenderAdmin = TRUE, safeSenderLogged = TRUE, is_admin_ticket = FALSE)
+				admin_ticket_log(recipient, msg, key_name_mentor(src, recipient), key_name_mentor(recipient, src), color="teal", isSenderAdmin = TRUE, safeSenderLogged = TRUE, is_admin_ticket = FALSE)
 
 		else		//recipient is an mentor but sender is not
 			to_chat(recipient, "<span class='mentorfrom'>Reply PM from-<b>[key_name_mentor(src, recipient)]</b>: [msg]</span>", type = MESSAGE_TYPE_MENTORPM)
 			to_chat(src, "<span class='mentorto'>Mentor PM to-<b>Mentors</b>: [msg]</span>", type = MESSAGE_TYPE_MENTORPM)
-			admin_ticket_log(src, msg, key_name(src, recipient, TRUE), null, "white", isSenderAdmin = TRUE, safeSenderLogged = TRUE, is_admin_ticket = FALSE)
+			admin_ticket_log(src, msg, key_name_mentor(src, recipient, TRUE), null, "white", isSenderAdmin = TRUE, safeSenderLogged = TRUE, is_admin_ticket = FALSE)
 
 	else
 		if(is_mentor())	//sender is an mentor but recipient is not.
 			to_chat(recipient, "<span class='mentorfrom'>Mentor PM from-<b>[key_name_mentor(src, recipient)]</b>: [msg]</span>", type = MESSAGE_TYPE_MENTORPM)
 			to_chat(src, "<span class='mentorto'>Mentor PM to-<b>[key_name_mentor(recipient, recipient)]</b>: [msg]</span>", type = MESSAGE_TYPE_MENTORPM)
-			admin_ticket_log(recipient, msg, key_name(src), null, "purple", safeSenderLogged = TRUE, is_admin_ticket = FALSE)
+			admin_ticket_log(recipient, msg, key_name_mentor(src), null, "purple", safeSenderLogged = TRUE, is_admin_ticket = FALSE)
 
 	log_mentor("Mentor PM: [key_name(src)]->[key_name(recipient)]: [rawmsg]")
 	for(var/client/X in GLOB.mentors | GLOB.admins)
 		if(X.key!=key && X.key!=recipient.key)	//check client/X is an Mentor and isn't the sender or recipient
-			to_chat(X, "<B><span class='mentorto'>Mentor PM: [key_name_mentor(src, X)]-&gt;[key_name_mentor(recipient, X)]:</B> <span class='mentorhelp'>[msg]</span>", type = MESSAGE_TYPE_MENTORPM) //inform X
+			to_chat(X, "<B><span class='mentorto'>Mentor PM: [key_name_mentor(src, !!X)]-&gt;[key_name_mentor(recipient, !!X)]:</B> <span class='mentorhelp'>[msg]</span>", type = MESSAGE_TYPE_MENTORPM) //inform X
 
 /// Basically the same thing as key_name_admin but with the mentorPM key instead
 /proc/key_name_mentor(var/whom, var/include_link = null)
@@ -161,10 +161,10 @@
 	var/datum/help_ticket/AH = C.current_mentorhelp_ticket
 
 	if(AH)
-		message_mentors("[key_name(src, TRUE)] has started replying to [key_name(C, FALSE, FALSE)]'s mentor help.")
-	var/msg = stripped_multiline_input(src,"Message:", "Private message to [C.holder?.fakekey ? "a Mentor" : key_name(C, FALSE, FALSE)].")
+		message_mentors("[key_name_mentor(src, TRUE)] has started replying to [key_name_mentor(C, FALSE)]'s mentor help.")
+	var/msg = stripped_multiline_input(src,"Message:", "Private message to [C.holder?.fakekey ? "a Mentor" : key_name_mentor(C, FALSE)].")
 	if (!msg)
-		message_mentors("[key_name(src, TRUE)] has cancelled their reply to [key_name(C, FALSE, FALSE)]'s mentor help.")
+		message_mentors("[key_name_mentor(src, TRUE)] has cancelled their reply to [key_name_mentor(C, FALSE)]'s mentor help.")
 		return
 	cmd_mentor_pm(whom, msg)
 	AH.Claim()

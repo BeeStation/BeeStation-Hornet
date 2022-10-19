@@ -158,7 +158,7 @@ GLOBAL_DATUM_INIT(mhelp_tickets, /datum/help_tickets/mentor, new)
 
 	if(add_to_ticket)
 		AddInteraction("red", msg, initiator_key_name, claimee_key_name, "You", "Mentor")
-	log_admin_private("Mentor Ticket #[id]: [key_name(initiator)]: [msg]")
+	log_admin_private("Mentor Ticket #[id]: [key_name_ticket(initiator)]: [msg]")
 
 	//send this msg to all admins
 	for(var/client/X in GLOB.mentors | GLOB.admins)
