@@ -94032,7 +94032,6 @@
 	},
 /area/maintenance/fore)
 "hlp" = (
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /obj/structure/rack,
 /obj/item/multitool{
 	pixel_x = 3
