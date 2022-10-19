@@ -1137,8 +1137,8 @@
 	overdose_threshold = 30
 
 /datum/reagent/medicine/bicaridine/on_mob_life(mob/living/carbon/M)
-	if(prob(100/round((M.getBruteLoss()+1) / MINOR_DAMAGE_THRESHOLD))) // dividing 0 is bad, so adding 1 is necessary
-		M.adjustBruteLoss(0.5*REM, 0)
+	if(prob(100/(2**(round(M.getBruteLoss() / MINOR_DAMAGE_THRESHOLD)))))
+		M.adjustBruteLoss(-0.5*REM, 0)
 	..()
 	. = 1
 	/* Calculation:
@@ -1164,8 +1164,8 @@
 	overdose_threshold = 30
 
 /datum/reagent/medicine/dexalin/on_mob_life(mob/living/carbon/M)
-	if(prob(100/round((M.getOxyLoss()+1) / MINOR_DAMAGE_THRESHOLD)))
-		M.adjustOxyLoss(1.5*REM, 0)  // dexalin is rarely used, so it is 1.5 per heal instead of 0.5 like others, to give it some spotlight.
+	if(prob(100/(2**(round(M.getOxyLoss() / MINOR_DAMAGE_THRESHOLD)))))
+		M.adjustOxyLoss(-1.5*REM, 0)  // dexalin is rarely used, so it is 1.5 per heal instead of 0.5 like others, to give it some spotlight.
 	..()
 	. = 1
 
@@ -1204,8 +1204,8 @@
 	overdose_threshold = 30
 
 /datum/reagent/medicine/kelotane/on_mob_life(mob/living/carbon/M)
-	if(prob(100/round((M.getFireLoss()+1) / MINOR_DAMAGE_THRESHOLD)))
-		M.adjustFireLoss(0.5*REM, 0)
+	if(prob(100/(2**(round(M.getFireLoss() / MINOR_DAMAGE_THRESHOLD)))))
+		M.adjustFireLoss(-0.5*REM, 0)
 	..()
 	. = 1
 
@@ -1225,8 +1225,8 @@
 	taste_description = "a roll of gauze"
 
 /datum/reagent/medicine/antitoxin/on_mob_life(mob/living/carbon/M)
-	if(prob(100/round((M.getToxLoss()+1) / MINOR_DAMAGE_THRESHOLD)))
-		M.adjustToxLoss(0.5*REM, 0)
+	if(prob(100/(2**(round(M.getToxLoss() / MINOR_DAMAGE_THRESHOLD)))))
+		M.adjustToxLoss(-0.5*REM, 0)
 	..()
 	. = 1
 
@@ -1330,18 +1330,19 @@
 	reagent_state = LIQUID
 	color = "#707A00" //tricord's component chems mixed together, olive.
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_CHEMIST_DRUG
-	overdose_threshold = 30
+	metabolization_rate = 3 * REAGENTS_METABOLISM
+	overdose_threshold = 50
 	taste_description = "grossness"
 
 /datum/reagent/medicine/tricordrazine/on_mob_life(mob/living/carbon/M)
-	if(prob(100/round((M.getBruteLoss()+1) / MINOR_DAMAGE_THRESHOLD)))
-		M.adjustBruteLoss(0.5*REM, 0)
-	if(prob(100/round((M.getFireLoss()+1) / MINOR_DAMAGE_THRESHOLD)))
-		M.adjustFireLoss(0.5*REM, 0)
-	if(prob(100/round((M.getToxLoss()+1) / MINOR_DAMAGE_THRESHOLD)))
-		M.adjustToxLoss(0.5*REM, 0)
-	if(prob(100/round((M.getOxyLoss()+1) / MINOR_DAMAGE_THRESHOLD)))
-		M.adjustOxyLoss(0.5*REM, 0)
+	if(prob(100/(2**(round(M.getBruteLoss() / MINOR_DAMAGE_THRESHOLD)))))
+		M.adjustBruteLoss(-1*REM, 0)
+	if(prob(100/(2**(round(M.getFireLoss() / MINOR_DAMAGE_THRESHOLD)))))
+		M.adjustFireLoss(-1*REM, 0)
+	if(prob(100/(2**(round(M.getToxLoss() / MINOR_DAMAGE_THRESHOLD)))))
+		M.adjustToxLoss(-1*REM, 0)
+	if(prob(100/(2**(round(M.getOxyLoss() / MINOR_DAMAGE_THRESHOLD)))))
+		M.adjustOxyLoss(-1*REM, 0)
 	. = 1
 	..()
 
