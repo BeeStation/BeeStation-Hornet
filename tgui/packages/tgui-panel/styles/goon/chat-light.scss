@@ -267,10 +267,22 @@ em						{font-style: normal;	font-weight: bold;}
 .adminsay   			{color: #5b6321}
 .admin					{color: #4473ff;	font-weight: bold;}
 
+.mentor					{color: #44ff54;	font-weight: bold;}
+.mentornotice			{color: #00ff00;}
 .mentorfrom 			{color: #7e1c82;}
 .mentorto				{color: #1d861d;}
 .mentorhelp				{color: #4400c2;}
 .mentorsay        {color: #bd3ab6;}
+.mentorhelp_conclusion {
+  display: block;
+  color: white;
+  text-align: center;
+  background-color: black;
+  border: 2px solid #4400c2;
+  border-radius: 10px;
+  padding: 10px;
+  margin: 10px 20px;
+}
 
 .name					{	font-weight: bold;}
 

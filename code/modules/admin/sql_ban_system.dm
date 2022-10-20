@@ -641,7 +641,7 @@
 	if(player_ckey && !redact)
 		create_message("note", player_ckey, admin_ckey, note_reason, null, null, 0, 0, null, -1, severity)
 	var/client/C = GLOB.directory[player_ckey]
-	var/datum/admin_help/AH = admin_ticket_log(player_ckey, msg)
+	var/datum/help_ticket/AH = admin_ticket_log(player_ckey, msg)
 	var/appeal_url = "No ban appeal url set!"
 	appeal_url = CONFIG_GET(string/banappeals)
 	var/is_admin = FALSE
