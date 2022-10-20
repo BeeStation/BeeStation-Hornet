@@ -94,9 +94,18 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 					to_chat(C, "[badge_data]<span class='ooc'><span class='prefix'>OOC:</span> <EM>[keyname]:</EM> <span class='message linkify'>[msg]</span></span>")
 	// beestation, send to discord
 	if(holder?.fakekey)
-		discordsendmsg("ooc", "**[holder.fakekey]:** [msg]")
+		send_chat_to_discord("ooc_chat", holder?.fakekey, msg)
 	else
-		discordsendmsg("ooc", "**[key]:** [msg]")
+		send_chat_to_discord("ooc_chat", key, msg)
+
+/proc/send_chat_to_discord(type, sayer, msg)
+	var/server_name = CONFIG_GET(string/serverabbname) // It will show like this: `[Sage] YourCKey: What a based round!`
+	switch(type)
+		if("ooc_chat") // always will send message to discord
+			discordsendmsg("ooc", "\[[server_name]\] (OOC) **[sayer]:** [msg]")
+		if("dchat") // don't send these until a round is finished
+			if(SSticker.current_state == GAME_STATE_FINISHED)
+				discordsendmsg("ooc", "\[[server_name]\] (Dead) **[sayer]:** [msg]")
 
 /proc/toggle_ooc(toggle = null)
 	if(toggle != null) //if we're specifically en/disabling ooc

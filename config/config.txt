@@ -28,6 +28,9 @@ $include interviews.txt
 ## Server name: This appears at the top of the screen in-game and in the BYOND hub. Uncomment and replace 'beestation' with the name of your choice.
 #@SERVERNAME beestation
 
+## Server abbreviated name: This is mainly used in discord messaging. Uncomment and replace 'Bee' when you're going to use discord messaging feature.  i.e.) [Sage] SeeMyByondCKey: This is based round.
+#@SERVERABBNAME Bee
+
 ## Server SQL name: This is the name used to identify the server to the SQL DB, distinct from SERVERNAME as it must be at most 32 characters.
 #@SERVERSQLNAME ss13newbs
 
