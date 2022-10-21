@@ -63,3 +63,16 @@
 	usesound = 'sound/items/jaws_pry.ogg'
 	force = 10
 	toolspeed = 0.5
+
+/obj/item/crowbar/sledgehammer
+	name = "sledgehammer"
+	desc = "It's a big hammer and crowbar in one tool. It doesn't fit in your pockets, because it's big."
+	force = 15
+	throwforce = 15
+	w_class = WEIGHT_CLASS_BULKY
+	throw_speed = 2
+	throw_range = 2
+	materials = list(/datum/material/iron=140)
+	icon_state = "sledgehammer"
+	item_state = "sledgehammer"
+	toolspeed = 0.7
