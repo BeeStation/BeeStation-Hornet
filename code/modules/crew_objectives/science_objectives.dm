@@ -27,7 +27,7 @@
 
 /datum/objective/crew/research //inspired by old hippie's research level objective.
 	var/datum/design/target_design
-	explanation_text = "Make sure the research required to produce a (something broke, yell on GitHub) is available on the R&D server by the end of the shift."
+	explanation_text = "Make sure the research for (something broke, yell on GitHub) is available on the R&D server by the end of the shift."
 	jobs = list(
 		JOB_NAME_RESEARCHDIRECTOR,
 		JOB_NAME_SCIENTIST,
@@ -40,7 +40,7 @@
 
 /datum/objective/crew/research/update_explanation_text()
 	. = ..()
-	explanation_text = "Make sure the research required to produce a [initial(target_design.name)] is available on the R&D server by the end of the shift."
+	explanation_text = "Make sure the research for [initial(target_design.name)] is available on the R&D server by the end of the shift."
 
 /datum/objective/crew/research/check_completion()
 	return ..() || SSresearch.science_tech.isDesignResearchedID(initial(target_design.id))
