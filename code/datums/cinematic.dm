@@ -66,9 +66,9 @@
 	//Handle what happens when a different cinematic tries to play over us
 	RegisterSignal(SSdcs, COMSIG_GLOB_PLAY_CINEMATIC, .proc/replacement_cinematic)
 
-	//Pause OOC
+	//Pause OOC (unless admin sets off bomb after the rounds over)
 	var/ooc_toggled = FALSE
-	if(is_global && stop_ooc && GLOB.ooc_allowed)
+	if(is_global && stop_ooc && GLOB.ooc_allowed && SSticker.current_state != GAME_STATE_FINISHED)
 		ooc_toggled = TRUE
 		toggle_ooc(FALSE)
 

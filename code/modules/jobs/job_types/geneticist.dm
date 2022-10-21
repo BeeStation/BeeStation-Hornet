@@ -17,6 +17,7 @@
 	minimal_access = list(ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_GENETICS, ACCESS_CLONING, ACCESS_MECH_MEDICAL, ACCESS_RESEARCH, ACCESS_MINERAL_STOREROOM)
 	paycheck = PAYCHECK_MEDIUM
 	paycheck_department = ACCOUNT_MED
+	mind_traits = list(TRAIT_MEDICAL_METABOLISM)
 
 	display_order = JOB_DISPLAY_ORDER_GENETICIST
 	departments = DEPARTMENT_BITFLAG_MEDICAL
@@ -25,14 +26,14 @@
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/genetics
 	)
-	biohazard = 15
+	biohazard = 25
 
 /datum/outfit/job/geneticist
 	name = JOB_NAME_GENETICIST
 	jobtype = /datum/job/geneticist
 
 	id = /obj/item/card/id/job/geneticist
-	belt = /obj/item/pda/geneticist
+	belt = /obj/item/modular_computer/tablet/pda/geneticist
 	ears = /obj/item/radio/headset/headset_medsci
 	uniform = /obj/item/clothing/under/rank/medical/geneticist
 	shoes = /obj/item/clothing/shoes/sneakers/white

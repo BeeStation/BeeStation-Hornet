@@ -4,6 +4,7 @@
  *		Sleepy Pens
  *		Parapens
  *		Edaggers
+ *		Screwdriver pen
  */
 
 
@@ -270,6 +271,7 @@
 		throw_speed = 3
 		throw_range = 5
 		to_chat(user, "You extend the screwdriver.")
+	playsound(src, 'sound/machines/pda_button2.ogg', 50, TRUE) // click
 	update_icon()
 
 /obj/item/pen/screwdriver/attack(mob/living/carbon/M, mob/living/carbon/user)

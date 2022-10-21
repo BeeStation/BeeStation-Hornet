@@ -18,6 +18,7 @@
 	minimal_access = list(ACCESS_SEC_DOORS, ACCESS_COURT, ACCESS_MAINT_TUNNELS, ACCESS_MORGUE, ACCESS_MEDICAL, ACCESS_BRIGPHYS)
 	paycheck = PAYCHECK_MEDIUM
 	paycheck_department = ACCOUNT_MED
+	mind_traits = list(TRAIT_MEDICAL_METABOLISM)
 
 	display_order = JOB_DISPLAY_ORDER_BRIG_PHYS
 	departments = DEPARTMENT_BITFLAG_MEDICAL | DEPARTMENT_BITFLAG_SECURITY
@@ -26,14 +27,14 @@
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/brig_physician
 	)
-	biohazard = 15 //still deals with the sick and injured, just less than a medical doctor
+	biohazard = 25 //still deals with the sick and injured, just less than a medical doctor
 
 /datum/outfit/job/brig_physician
 	name = JOB_NAME_BRIGPHYSICIAN
 	jobtype = /datum/job/brig_physician
 
 	id = /obj/item/card/id/job/brig_physician
-	belt = /obj/item/pda/brig_physician
+	belt = /obj/item/modular_computer/tablet/pda/brig_physician
 	ears = /obj/item/radio/headset/headset_medsec
 	uniform = /obj/item/clothing/under/rank/brig_physician
 	shoes = /obj/item/clothing/shoes/sneakers/white

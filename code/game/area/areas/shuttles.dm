@@ -25,19 +25,37 @@
 	mobile_port = null
 	. = ..()
 
-/area/shuttle/PlaceOnTopReact(list/new_baseturfs, turf/fake_turf_type, flags)
+//Returns how many shuttles are missing a skipovers on a given turf, this usually represents how many shuttles have hull breaches on this turf. This only works if this is the actual area of T when called.
+//TODO: optimize this somehow
+/area/shuttle/proc/get_missing_shuttles(turf/T)
+	var/i = 0
+	var/BT_index = length(T.baseturfs)
+	var/area/shuttle/A
+	var/obj/docking_port/mobile/S
+	var/list/shuttle_stack = list(mobile_port) //Indexing through a list helps prevent looped directed graph errors.
+	while(i++ < shuttle_stack.len)
+		S = shuttle_stack[i]
+		A = S.underlying_turf_area[T]
+		if(istype(A) && A.mobile_port)
+			shuttle_stack |= A.mobile_port
+		.++
+	for(BT_index in 1 to length(T.baseturfs))
+		if(ispath(T.baseturfs[BT_index], /turf/baseturf_skipover/shuttle))
+			.--
+
+/area/shuttle/PlaceOnTopReact(turf/T, list/new_baseturfs, turf/fake_turf_type, flags)
 	. = ..()
-	if(length(new_baseturfs) > 1 || fake_turf_type)
-		return // More complicated larger changes indicate this isn't a player
-	if(ispath(new_baseturfs[1], /turf/open/floor/plating))
-		new_baseturfs.Insert(1, /turf/baseturf_skipover/shuttle)
+	if(!length(new_baseturfs) || !ispath(new_baseturfs[1], /turf/baseturf_skipover/shuttle) && (!ispath(new_baseturfs[1], /turf/open/floor/plating) || length(new_baseturfs) > 1 || fake_turf_type))
+		return //Only add missing baseturfs if a shuttle is landing or player made plating is being added (player made is infered to be a new_baseturf list of 1 and no fake_turf_type)
+	for(var/i in 1 to get_missing_shuttles(T))
+		new_baseturfs.Insert(1,/turf/baseturf_skipover/shuttle)
 
 /area/shuttle/proc/link_to_shuttle(obj/docking_port/mobile/M)
 	mobile_port = M
 
 /area/shuttle/get_virtual_z(turf/T)
 	if(mobile_port && is_reserved_level(mobile_port.z))
-		return mobile_port.virtual_z
+		return mobile_port.current_z
 	return ..(T)
 
 ////////////////////////////Multi-area shuttles////////////////////////////

@@ -236,7 +236,7 @@
 	alignment = ALIGNMENT_EVIL
 	max_favor = 10000
 	desired_items = list(/obj/item/organ/)
-	rites_list = list(/datum/religion_rites/raise_dead, /datum/religion_rites/living_sacrifice, /datum/religion_rites/raise_undead)
+	rites_list = list(/datum/religion_rites/raise_dead, /datum/religion_rites/living_sacrifice, /datum/religion_rites/raise_undead, /datum/religion_rites/create_lesser_lich)
 	altar_icon_state = "convertaltar-green"
 
 //Necro bibles don't heal or do anything special apart from the standard holy water blessings

@@ -70,7 +70,7 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 	if(QDELETED(shuttleObject) && SSorbits.assoc_shuttles.Find(shuttleId))
 		shuttleObject = SSorbits.assoc_shuttles[shuttleId]
 
-	if(recall_docking_port_id && shuttleObject?.docking_target && shuttleObject.autopilot && shuttleObject.shuttleTarget == shuttleObject.docking_target && shuttleObject.controlling_computer == src)
+	if(recall_docking_port_id && shuttleObject?.docking_target && shuttleObject.shuttleTarget == shuttleObject.docking_target && shuttleObject.controlling_computer == src)
 		//We are at destination, dock.
 		shuttleObject.controlling_computer = null
 		switch(SSshuttle.moveShuttle(shuttleId, recall_docking_port_id, 1))
@@ -429,6 +429,9 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 			return
 	var/obj/docking_port/mobile/mobile_port = SSshuttle.getShuttle(shuttleId)
 	if(!mobile_port)
+		return
+	if(!mobile_port.canMove())
+		say("Supercruise Warning: The shuttle's movement is being inhibited.")
 		return
 	if(mobile_port.mode == SHUTTLE_RECHARGING)
 		say("Supercruise Warning: Shuttle engines not ready for use.")

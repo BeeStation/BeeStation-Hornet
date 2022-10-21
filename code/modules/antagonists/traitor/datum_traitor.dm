@@ -40,6 +40,8 @@
 		A.remove_verb(/mob/living/silicon/ai/proc/choose_modules)
 		A.malf_picker.remove_malf_verbs(A)
 		qdel(A.malf_picker)
+		QDEL_NULL(A.radio.keyslot)
+		A.radio.recalculateChannels()
 
 	SSticker.mode.traitors -= owner
 	if(!silent && owner.current)
@@ -83,7 +85,7 @@
 			assign_exchange_role(SSticker.mode.exchange_blue)
 		objective_count += 1					//Exchange counts towards number of objectives
 	var/toa = CONFIG_GET(number/traitor_objectives_amount)
-	for(var/i = objective_count, i < toa, i++)
+	for(var/i = objective_count, i < toa - 1, i++)
 		forge_single_objective()
 
 	//Add a gimmick objective

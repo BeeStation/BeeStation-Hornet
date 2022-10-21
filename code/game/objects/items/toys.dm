@@ -24,7 +24,6 @@
  *		Toy Daggers
  *		Eldrich stuff
  *		Batong
- *		Fake captains card
  */
 
 
@@ -1525,20 +1524,6 @@
 /obj/item/storage/box/heretic_asshole/PopulateContents()
 	for(var/i in 1 to rand(1,4))
 		new /obj/item/toy/reality_pierce(src)
-
-/*
- * Fake captains card
- */
-
-/obj/item/toy/allaccess
-	name = "captain's spare ID"
-	desc = "A replica of the glorious captain's card. Issued to annoying greytiders as a joke."
-	icon = 'icons/obj/card.dmi'
-	icon_state = "gold"
-
-/obj/item/toy/allaccess/afterattack()
-	. = ..()
-	playsound(src, 'sound/items/bikehorn.ogg', 50, TRUE)
 
 // Serviceborg items
 

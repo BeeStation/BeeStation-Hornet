@@ -18,6 +18,7 @@
 	minimal_access = list(ACCESS_MEDICAL, ACCESS_VIROLOGY, ACCESS_MECH_MEDICAL, ACCESS_MINERAL_STOREROOM, ACCESS_MAINT_TUNNELS)
 	paycheck = PAYCHECK_MEDIUM
 	paycheck_department = ACCOUNT_MED
+	mind_traits = list(TRAIT_MEDICAL_METABOLISM)
 
 	display_order = JOB_DISPLAY_ORDER_VIROLOGIST
 	departments = DEPARTMENT_BITFLAG_MEDICAL
@@ -26,7 +27,7 @@
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/virologist
 	)
-	biohazard = 50 //duh
+	biohazard = 75 //duh
 
 /datum/outfit/job/virologist
 	name = JOB_NAME_VIROLOGIST
@@ -40,7 +41,7 @@
 	shoes = /obj/item/clothing/shoes/sneakers/white
 	suit =  /obj/item/clothing/suit/toggle/labcoat/virologist
 	suit_store =  /obj/item/flashlight/pen
-	r_pocket = /obj/item/pda/virologist
+	r_pocket = /obj/item/modular_computer/tablet/pda/virologist
 
 	backpack = /obj/item/storage/backpack/virology
 	satchel = /obj/item/storage/backpack/satchel/vir

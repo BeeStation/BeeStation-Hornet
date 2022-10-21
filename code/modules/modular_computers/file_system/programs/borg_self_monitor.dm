@@ -5,7 +5,6 @@
 	ui_header = "borg_self_monitor.gif" //DEBUG -- new icon before PR
 	program_icon_state = "command"
 	requires_ntnet = FALSE
-	transfer_access = null
 	available_on_ntnet = FALSE
 	unsendable = TRUE
 	undeletable = TRUE
@@ -19,14 +18,14 @@
 	tablet = null
 	return ..()
 
-/datum/computer_file/program/borg_self_monitor/run_program(mob/living/user)
+/datum/computer_file/program/borg_self_monitor/on_start(mob/living/user)
 	if(!istype(computer, /obj/item/modular_computer/tablet/integrated))
 		to_chat(user, "<span class='warning'>A warning flashes across \the [computer]: Device Incompatible.</span>")
 		return FALSE
 	. = ..()
 	if(.)
 		tablet = computer
-		if(tablet.device_theme == "syndicate")
+		if(tablet.device_theme == THEME_SYNDICATE)
 			program_icon_state = "command-syndicate"
 		return TRUE
 	return FALSE
@@ -51,13 +50,14 @@
 	data["integrity"] = ((borgo.health + 100) / 2) //Borgo health, as percentage
 	data["lampIntensity"] = borgo.lamp_intensity //Borgo lamp power setting
 	data["sensors"] = "[borgo.sensors_on?"ACTIVE":"DISABLED"]"
-	data["printerPictures"] =  borgo.connected_ai? borgo.connected_ai.aicamera.stored.len : borgo.aicamera.stored.len //Number of pictures taken, synced to AI if available
+	data["printerPictures"] = borgo.connected_ai ? length(borgo.connected_ai.aicamera?.stored) : length(borgo.aicamera?.stored) //Number of pictures taken, synced to AI if available
 	data["printerToner"] = borgo.toner //amount of toner
 	data["printerTonerMax"] = borgo.tonermax //It's a variable, might as well use it
 	data["thrustersInstalled"] = borgo.ionpulse //If we have a thruster uprade
 	data["thrustersStatus"] = "[borgo.ionpulse_on?"ACTIVE":"DISABLED"]" //Feedback for thruster status
+	data["selfDestructAble"] = (borgo.emagged || istype(borgo, /mob/living/silicon/robot/modules/syndicate))
 
-	//DEBUG -- Cover, TRUE for locked
+	//Cover, TRUE for locked
 	data["cover"] = "[borgo.locked? "LOCKED":"UNLOCKED"]"
 	//Ability to move. FAULT if lockdown wire is cut, DISABLED if borg locked, ENABLED otherwise
 	data["locomotion"] = "[borgo.wires.is_cut(WIRE_LOCKDOWN)?"FAULT":"[borgo.lockcharge?"DISABLED":"ENABLED"]"]"
@@ -132,6 +132,12 @@
 		if("lampIntensity")
 			borgo.lamp_intensity = CLAMP(text2num(params["ref"]), 1, 5)
 			borgo.toggle_headlamp(FALSE, TRUE)
+
+		if("selfDestruct")
+			if(borgo.stat || borgo.lockcharge) //No detonation while stunned or locked down
+				return
+			if(borgo.emagged || istype(borgo, /mob/living/silicon/robot/modules/syndicate)) //This option shouldn't even be showing otherwise
+				borgo.self_destruct(borgo)
 
 /**
   * Forces a full update of the UI, if currently open.

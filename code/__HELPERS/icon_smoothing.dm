@@ -1,18 +1,18 @@
 
 //generic (by snowflake) tile smoothing code; smooth your icons with this!
-/** 
+/**
 	Each tile is divided in 4 corners, each corner has an appearance associated to it; the tile is then overlayed by these 4 appearances. To use this, just set your atom's 'smooth' var to 1. If your atom can be moved/unanchored, set its 'can_be_unanchored' var to 1. If you don't want your atom's icon to smooth with anything but atoms of the same type, set the list 'canSmoothWith' to null; Otherwise, put all types you want the atom icon to smooth with in 'canSmoothWith' INCLUDING THE TYPE OF THE ATOM ITSELF.
 
 	Each atom has its own icon file with all the possible corner states. See 'smooth_wall.dmi' for a template.
 
 	### DIAGONAL SMOOTHING INSTRUCTIONS
-	
+
 	To make your atom smooth diagonally you need all the proper icon states (see 'smooth_wall.dmi' for a template) and to add the 'SMOOTH_DIAGONAL' flag to the atom's smooth var (in addition to either SMOOTH_TRUE or SMOOTH_MORE).
 
 	For turfs, what appears under the diagonal corners depends on the turf that was in the same position previously: if you make a wall on a plating floor, you will see plating under the diagonal wall corner, if it was space, you will see space.
 
 	If you wish to map a diagonal wall corner with a fixed underlay, you must configure the turf's 'fixed_underlay' list var, like so:
-	
+
 	```
 	fixed_underlay = list("icon"='icon_file.dmi', "icon_state"="iconstatename")
 	```
@@ -112,6 +112,7 @@
 	if(!A || !A.smooth)
 		return
 	A.smooth &= ~SMOOTH_QUEUED
+	A.flags_1 |= HTML_USE_INITAL_ICON_1
 	if (!A.z)
 		return
 	if(QDELETED(A))

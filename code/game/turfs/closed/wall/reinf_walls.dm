@@ -232,6 +232,8 @@
 	if(HAS_TRAIT(src, TRAIT_RUSTY))
 		ScrapeAway()
 		return
+	if(prob(70))
+		new /obj/effect/temp_visual/glowing_rune(src)
 	return ..()
 
 /turf/closed/wall/r_wall/syndicate

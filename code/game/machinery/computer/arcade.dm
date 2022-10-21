@@ -63,8 +63,7 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 		/obj/item/choice_beacon/pet/hamster = 1,
 		/obj/item/choice_beacon/pet/pug = 1,
 		/obj/item/choice_beacon/pet/pingu = 1,
-		/obj/item/choice_beacon/pet/clown = 1,
-		/obj/item/toy/allaccess = 1))
+		/obj/item/choice_beacon/pet/clown = 1))
 
 /obj/machinery/computer/arcade
 	name = "random arcade"
@@ -125,7 +124,7 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 	if(prize_override)
 		override = TRUE
 
-	if(stat & (NOPOWER|BROKEN) || . & EMP_PROTECT_SELF)
+	if(machine_stat & (NOPOWER|BROKEN) || . & EMP_PROTECT_SELF)
 		return
 
 	var/empprize = null
