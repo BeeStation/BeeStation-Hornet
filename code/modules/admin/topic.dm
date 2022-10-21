@@ -1226,7 +1226,7 @@
 			to_chat(usr, "This can only be used on instances of type /mob/living/carbon/human.")
 			return
 
-		var/obj/item/reagent_containers/food/snacks/cookie/cookie = new(H)
+		var/obj/item/reagent_containers/food/snacks/cookie/blessed/cookie = new(H)
 		if(H.put_in_hands(cookie))
 			H.update_inv_hands()
 		else
