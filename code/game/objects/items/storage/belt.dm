@@ -245,7 +245,7 @@
 	name = "emergency response medical belt"
 	desc = "A belt containing field surgical supplies for use by medical response teams."
 
-/obj/item/storage/belt/medical/ComponentInitialize()
+/obj/item/storage/belt/medical/ert/ComponentInitialize()
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.can_hold[/obj/item/gun/medbeam] = TRUE
