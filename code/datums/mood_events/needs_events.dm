@@ -75,7 +75,7 @@
 	timeout = 10 MINUTES
 
 /datum/mood_event/holy_cookie
-	description = "<span class='nicegreen'>It was the best cookie ever I had!</span>\n"
+	description = "<span class='nicegreen'>That was the best cookie I've ever had!</span>\n"
 	mood_change = 1
 	timeout = 20 MINUTES
 
