@@ -980,9 +980,9 @@ What a mess.*/
 	var/obj/item/photo/P = null
 	if(issilicon(user))
 		var/mob/living/silicon/tempAI = user
-		var/datum/picture/selection = tempAI.GetPhoto(user)
+		var/datum/picture/selection = tempAI.aicamera?.selectpicture(user)
 		if(selection)
-			P = new(null, selection)
+			P = selection.Copy()
 	else if(istype(user.get_active_held_item(), /obj/item/photo))
 		P = user.get_active_held_item()
 	return P

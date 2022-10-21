@@ -25,14 +25,14 @@
 	in_camera_mode = TRUE
 	to_chat(user, "<B>Camera Mode activated</B>")
 
-/obj/item/camera/siliconcam/proc/selectpicture(mob/user)
+/obj/item/camera/siliconcam/proc/selectpicture(mob/user, title = "Select Photo", button_text = "Select")
 	if(!length(stored))
-		to_chat(usr, "<span class='boldannounce'>No images saved.</span>")
+		to_chat(user, "<span class='boldannounce'>No images saved.</span>")
 		return
-	return tgui_select_picture(user, stored, "Select Message Attachment")
+	return tgui_select_picture(user, stored, title = title, button_text = button_text)
 
 /obj/item/camera/siliconcam/proc/viewpictures(mob/user)
-	var/datum/picture/selection = selectpicture(user)
+	var/datum/picture/selection = selectpicture(user, button_text = "View")
 	if(istype(selection))
 		show_picture(user, selection)
 
@@ -72,7 +72,7 @@
 	if(!istype(C) || C.toner < 20)
 		to_chat(user, "<span class='warning'>Insufficent toner to print image.</span>")
 		return
-	var/datum/picture/selection = selectpicture(user)
+	var/datum/picture/selection = selectpicture(user, button_text = "Print")
 	if(!istype(selection))
 		to_chat(user, "<span class='warning'>Invalid Image.</span>")
 		return

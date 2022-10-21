@@ -603,20 +603,8 @@
  */
 /obj/machinery/newscaster/proc/attach_photo(mob/user)
 	if(issilicon(user))
-		var/obj/item/camera/siliconcam/targetcam
-		if(iscyborg(user))
-			var/mob/living/silicon/robot/R = user
-			if(R.connected_ai)
-				targetcam = R.connected_ai.aicamera
-			else
-				targetcam = R.aicamera
-		else
-			var/mob/living/silicon/S = user
-			targetcam = S.aicamera
-		if(!length(targetcam.stored))
-			to_chat(usr, "<span class='boldannounce'>No images saved.</span>")
-			return
-		var/datum/picture/selection = targetcam.selectpicture(user)
+		var/mob/living/silicon/S = user
+		var/datum/picture/selection = S.aicamera?.selectpicture(user)
 		if(selection)
 			current_image = selection
 	else

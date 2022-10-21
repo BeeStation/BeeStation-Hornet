@@ -203,7 +203,7 @@
 				if(ringer_status)
 					playsound(computer, 'sound/machines/terminal_error.ogg', 15, TRUE)
 				return
-			var/datum/picture/selected_photo = tgui_select_picture(user, user.aicamera.stored, "Select Message Attachment")
+			var/datum/picture/selected_photo = user.aicamera.selectpicture(user, title = "Select Message Attachment")
 			if(!istype(selected_photo, /datum/picture))
 				return
 			computer.saved_image = selected_photo
