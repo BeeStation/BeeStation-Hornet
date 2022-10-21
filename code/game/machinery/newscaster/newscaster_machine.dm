@@ -237,10 +237,6 @@
 	data["bountyValue"] = bounty_value
 	data["bountyText"] = bounty_text
 
-	return data
-
-/obj/machinery/newscaster/ui_static_data(mob/user)
-	var/list/data = list()
 	var/list/channel_list = list()
 	for(var/datum/feed_channel/channel as anything in GLOB.news_network.network_channels)
 		channel_list += list(list(
@@ -252,6 +248,7 @@
 		))
 
 	data["channels"] = channel_list
+
 	return data
 
 
@@ -379,8 +376,6 @@
 					current_channel = potential_channel
 					break
 			current_channel.toggle_censor_D_class()
-			// Channel censor is part of static data
-			update_static_data(usr)
 			return TRUE
 
 		if("startComment")
@@ -678,7 +673,6 @@
 		GLOB.news_network.create_feed_channel(channel_name, issilicon(usr) ? usr.name : account.account_holder, channel_desc, locked = channel_locked)
 		SSblackbox.record_feedback("text", "newscaster_channels", 1, "[channel_name]")
 	stop_creating_channel()
-	update_static_data(usr)
 
 /obj/machinery/newscaster/proc/edit_channel()
 	if(!channel_name)
@@ -703,7 +697,6 @@
 	current_channel.channel_desc = channel_desc
 	current_channel.locked = channel_locked
 	stop_editing_channel()
-	update_static_data(usr)
 
 /obj/machinery/newscaster/proc/stop_editing_channel()
 	editing_channel = FALSE
