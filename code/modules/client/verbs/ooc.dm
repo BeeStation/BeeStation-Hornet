@@ -93,10 +93,7 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 				else
 					to_chat(C, "[badge_data]<span class='ooc'><span class='prefix'>OOC:</span> <EM>[keyname]:</EM> <span class='message linkify'>[msg]</span></span>")
 	// beestation, send to discord
-	if(holder?.fakekey)
-		send_chat_to_discord("ooc_chat", holder?.fakekey, msg)
-	else
-		send_chat_to_discord("ooc_chat", key, msg)
+	send_chat_to_discord("ooc_chat", holder?.fakekey || key, raw_msg)
 
 /proc/send_chat_to_discord(type, sayer, msg)
 	var/server_name = CONFIG_GET(string/serverabbname) // It will show like this: `[Sage] YourCKey: What a based round!`
