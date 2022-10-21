@@ -98,7 +98,7 @@
 	. = ..()
 	if(prob(1))
 		hardmode = TRUE
-	var/list/blacklistnormal = list(typesof(/area/space) - typesof(/area/lavaland) - typesof(/area/mine) - typesof(/area/ai_monitored/turret_protected) - typesof(/area/tcommsat))
+	var/list/blacklistnormal = list(typesof(/area/space) - - typesof(/area/lavaland) - typesof(/area/mine) - typesof(/area/maintenance) - typesof(/area/ai_monitored/turret_protected) - typesof(/area/tcommsat))
 	var/list/blacklisthard = list(typesof(/area/lavaland) - typesof(/area/mine))
 	var/list/possibleareas = list()
 	if(hardmode)
