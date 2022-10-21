@@ -59,11 +59,11 @@
 		stored[picture] = TRUE
 		to_chat(usr, "<span class='unconscious'>Image recorded and saved to local storage. Upload will happen automatically if unit is lawsynced.</span>")
 
-/obj/item/camera/siliconcam/robot_camera/selectpicture(mob/user)
+/obj/item/camera/siliconcam/robot_camera/selectpicture(mob/user, title = "Select Photo", button_text = "Select")
 	var/mob/living/silicon/robot/R = loc
 	if(istype(R) && R.connected_ai)
 		R.picturesync()
-		return R.connected_ai.aicamera.selectpicture(user)
+		return R.connected_ai.aicamera.selectpicture(user, title, button_text)
 	else
 		return ..()
 
