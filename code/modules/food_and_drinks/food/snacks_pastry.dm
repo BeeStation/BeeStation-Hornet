@@ -584,7 +584,21 @@
 	name = "sanctus crustulum" // holy cookie
 	desc = "HOLY COOKIE!!!"
 	tastes = list("nomine Patris et Filii et Spiritus Sancti" = 1) // In the name of the Father, and of the Son, and of the Holy Spirit. Amen.
-	foodtype = NONE // neutral taste
+
+/obj/item/reagent_containers/food/snacks/cookie/blessed/checkLiked(fraction, mob/M) // override like check, so this can make everyone happy
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		if(!H)
+			return
+
+		if(HAS_TRAIT(H, TRAIT_AGEUSIA))
+			to_chat(H,"<span class='notice'>You can taste [tastes[1]].</span>")
+			to_chat(H,"<span class='notice'>I... I can taste it! I love this taste!</span>")
+		else
+			to_chat(H,"<span class='notice'>I love this taste!</span>")
+
+		H.adjust_disgust(-5 + -2.5 * fraction)
+		SEND_SIGNAL(H, COMSIG_ADD_MOOD_EVENT, "holy_cookie", /datum/mood_event/holy_cookie)
 
 /obj/item/reagent_containers/food/snacks/fortunecookie
 	name = "fortune cookie"

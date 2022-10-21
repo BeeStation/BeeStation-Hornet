@@ -74,6 +74,11 @@
 	mood_change = 2
 	timeout = 10 MINUTES
 
+/datum/mood_event/holy_cookie
+	description = "<span class='nicegreen'>It was the best cookie ever I had!</span>\n"
+	mood_change = 1
+	timeout = 10 MINUTES
+
 /datum/mood_event/nice_shower
 	description = "<span class='nicegreen'>I have recently had a nice shower.</span>\n"
 	mood_change = 4
