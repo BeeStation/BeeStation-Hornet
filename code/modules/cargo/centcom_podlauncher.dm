@@ -800,9 +800,10 @@
 			whomString += "[key_name(M)], "
 
 	var/msg = "launched [podString] towards [whomString]"
-	var/full_msg = "[key_name_admin(usr)] [msg] in [ADMIN_VERBOSEJMP(specificTarget)]."
-	message_admins(full_msg)
-	log_game(full_msg)
+	var/full_msg_admins = "[key_name_admin(usr)] [msg] in [ADMIN_VERBOSEJMP(specificTarget)]."
+	var/full_msg_logs = "[key_name_admin(usr)] [msg] in [AREACOORD(specificTarget)]."
+	message_admins(full_msg_admins)
+	log_game(full_msg_logs)
 	if (length(whoDyin))
 		for (var/mob/living/M in whoDyin)
 			admin_ticket_log(M, "[key_name_admin(usr)] [msg]")
