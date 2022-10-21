@@ -105,29 +105,40 @@
 		possibleareas = GLOB.teleportlocs - /area - blacklisthard
 	else
 		possibleareas = GLOB.teleportlocs - /area - blacklistnormal
-	for(var/i in 1 to rand(1,6))
+	for(var/i in 1 to rand(1,3))
 		areas |= pick_n_take(possibleareas)
+	if(hardmode)
+		// this is so evil, this poor janitor does not deserve such suffering
+		target_amount = rand(4 * areas.len, 10 * areas.len)
+	else
+		// be nice, because a lot of places start with a ton of cleanables, plus blood spreads super easily.
+		target_amount = rand(6 * areas.len, 14 * areas.len)
 	update_explanation_text()
 
 /datum/objective/crew/clean/update_explanation_text()
 	. = ..()
-	explanation_text = "Ensure that the"
+	explanation_text = "Ensure that"
 	for(var/i in 1 to areas.len)
 		var/area/A = areas[i]
 		explanation_text += " [A]"
-		if(i != areas.len && areas.len >= 3)
-			explanation_text += ","
 		if(i == areas.len - 1)
-			explanation_text += "and"
-	explanation_text += " [(areas.len ==1) ? "is completely" : "are [(areas.len == 2) ? "completely" : "all"]"] clean at the end of the shift."
+			explanation_text += " and"
+		else if(areas.len >= 3 && i != areas.len)
+			explanation_text += ","
+
+	explanation_text += " [areas.len == 1 ? "has" : "have"] no more than [target_amount] cleanable feature\s (blood, ash, glitter, cobwebs, etc.) between them all at the end of the shift."
 	if(hardmode)
 		explanation_text += " Chop-chop."
 
 /datum/objective/crew/clean/check_completion()
 	if(..())
 		return TRUE
-	for(var/area/A in areas)
-		for(var/obj/effect/decal/cleanable/C in A.contents)
+	for(var/A in areas)
+		var/area/check_area = GLOB.areas_by_type[A]
+		var/cleanables = 0
+		for(var/obj/effect/decal/cleanable/C in check_area.contents)
+			cleanables++
+		if(cleanables > target_amount)
 			return FALSE
 	return TRUE
 

@@ -16,13 +16,18 @@
 	if(!length(valid_objs))
 		return
 	var/selectedObj = pick(valid_objs)
-	var/datum/objective/crew/newObjective = new selectedObj
+	crewMind.add_crew_objective(selectedObj)
+
+/// Adds a new crew objective of objective_type and informs the player (should be a subtype of /datum/objective/crew)
+/datum/mind/proc/add_crew_objective(objective_type, silent = FALSE)
+	var/datum/objective/crew/newObjective = new objective_type
 	if(!newObjective)
 		return
-	newObjective.owner = crewMind
-	crewMind.crew_objectives += newObjective
-	to_chat(crewMind, "<B>As a part of Nanotrasen's anti-tide efforts, you have been assigned an optional objective. It will be checked at the end of the shift. <span class='warning'>Performing traitorous acts in pursuit of your objective may result in termination of your employment.</span></B>")
-	to_chat(crewMind, "<B>Your objective:</B> [newObjective.explanation_text]")
+	newObjective.owner = src
+	src.crew_objectives += newObjective
+	if(!silent)
+		to_chat(src, "<B>As a part of Nanotrasen's anti-tide efforts, you have been assigned an optional objective. It will be checked at the end of the shift. <span class='warning'>Performing traitorous acts in pursuit of your objective may result in termination of your employment.</span></B>")
+		to_chat(src, "<B>Your objective:</B> [newObjective.explanation_text]")
 
 /datum/objective/crew
 	// Used for showing the roundend report again, instead of checking complete every time it's opened.
