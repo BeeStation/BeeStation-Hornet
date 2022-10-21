@@ -109,10 +109,10 @@
 		areas |= pick_n_take(possibleareas)
 	if(hardmode)
 		// this is so evil, this poor janitor does not deserve such suffering
-		target_amount = rand(4 * areas.len, 10 * areas.len)
+		target_amount = rand(6 * areas.len, 14 * areas.len)
 	else
 		// be nice, because a lot of places start with a ton of cleanables, plus blood spreads super easily.
-		target_amount = rand(6 * areas.len, 14 * areas.len)
+		target_amount = rand(12 * areas.len, 20 * areas.len)
 	update_explanation_text()
 
 /datum/objective/crew/clean/update_explanation_text()
