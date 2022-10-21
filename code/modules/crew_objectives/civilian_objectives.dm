@@ -222,14 +222,11 @@
 /datum/objective/crew/vow //ported from old Hippie
 	explanation_text = "Never break your vow of silence."
 	jobs = JOB_NAME_MIME
+	// set TRUE when the mime vow action is used to break the vow
+	var/broken = FALSE
 
 /datum/objective/crew/vow/check_completion()
-	if(..())
-		return TRUE
-	if(!owner?.current?.logging)
-		return FALSE
-	var/list/say_log = owner.current.logging[INDIVIDUAL_SAY_LOG]
-	return !length(say_log)
+	return !broken
 
 /datum/objective/crew/nothingreallymatterstome
 	explanation_text = "Have a Bottle of Nothing with you at the end of the shift."
