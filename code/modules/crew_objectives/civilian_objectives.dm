@@ -215,7 +215,7 @@
 /datum/objective/crew/vow/check_completion()
 	if(..())
 		return TRUE
-	if(!owner?.current)
+	if(!owner?.current?.logging)
 		return FALSE
 	var/list/say_log = owner.current.logging[INDIVIDUAL_SAY_LOG]
 	return !length(say_log)
