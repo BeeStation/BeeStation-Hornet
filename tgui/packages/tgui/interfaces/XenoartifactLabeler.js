@@ -41,10 +41,10 @@ const XenoartifactLabelerTraits = (props, context) => {
     return a.localeCompare(b, "en");
   }
 
-  const sorted_activators = activator_traits.sort(alphasort)
-  const sorted_minors = minor_traits.sort(alphasort)
-  const sorted_majors = major_traits.sort(alphasort)
-  const sorted_malfs = malfunction_list.sort(alphasort)
+  var sorted_activators = activator_traits.sort(alphasort);
+  var sorted_minors = minor_traits.sort(alphasort);
+  var sorted_majors = major_traits.sort(alphasort);
+  var sorted_malfs = malfunction_list.sort(alphasort);
 
   return (
     <Box px={1} grow={1} overflowY="auto" height="425px" width="150px">
