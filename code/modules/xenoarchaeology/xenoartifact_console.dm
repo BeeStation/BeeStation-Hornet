@@ -139,9 +139,6 @@
 					current_tab_info = "Sell any export your department produces through open bluespace strings. Anonymously trade and sell ancient alien bombs, explosive slime cores, or just regular bombs."
 				if("Linking")
 					current_tab_info = "Link machines to the Listing Console."
-		else if(current_tab == t)
-			current_tab = ""
-			current_tab_info = ""
 		return
 	else //Buy xenoartifact
 		var/datum/xenoartifact_seller/S = locate(action)
@@ -310,7 +307,7 @@
 	name = pick(GLOB.xenoa_seller_names)
 	buying = pick(/obj/item/xenoartifact)
 	if(buying == /obj/item/xenoartifact) //Don't bother trying to use istype here
-		dialogue = "[name] is requesting: Anomoly : Class : Artifact"
+		dialogue = "[name] is requesting: Anomaly : Class : Artifact"
 	addtimer(CALLBACK(src, .proc/change_item), (rand(1,3)*60) SECONDS)
 	
 //Used to hold information about artifact transactions. Might get standrardized sooner or later.
