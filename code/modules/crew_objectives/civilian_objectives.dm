@@ -219,10 +219,10 @@
 			shoes |= S
 	return length(shoes) >= target_amount
 
-/datum/objective/crew/vow //ported from old Hippie
+/datum/objective/crew/vow
 	explanation_text = "Never break your vow of silence."
 	jobs = JOB_NAME_MIME
-	// set TRUE when the mime vow action is used to break the vow
+	/// This is set to TRUE when the mime's vow action is used to break the vow.
 	var/broken = FALSE
 
 /datum/objective/crew/vow/check_completion()
