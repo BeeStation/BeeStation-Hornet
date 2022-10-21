@@ -264,10 +264,9 @@
 		return FALSE
 	for(var/datum/feed_channel/channel in GLOB.news_network.network_channels)
 		for(var/datum/feed_message/message in channel.messages)
-			if(!istype(message.author, /datum/bank_account))
+			if(!istype(message.author_account, /datum/bank_account))
 				continue
-			var/datum/bank_account/account = message.author
-			if(account.account_id == body.account_id)
+			if(message.author_account.account_id == body.account_id)
 				if(length(splittext(message.return_body(), " ")) >= word_count)
 					target_amount--
 	return target_amount <= 0
