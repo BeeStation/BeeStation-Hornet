@@ -583,7 +583,7 @@
 /obj/item/reagent_containers/food/snacks/cookie/blessed // this is given by admin's response for player's pray
 	name = "sanctus crustulum" // holy cookie
 	desc = "HOLY COOKIE!!!"
-	tastes = list("nomine Patris et Filii et Spiritús Sancti" = 1) // In the name of the Father, and of the Son, and of the Holy Spirit. Amen.
+	tastes = list("nomine Patris et Filii et Spiritus Sancti" = 1) // In the name of the Father, and of the Son, and of the Holy Spirit. Amen.
 	foodtype = NONE // neutral taste
 
 /obj/item/reagent_containers/food/snacks/fortunecookie
