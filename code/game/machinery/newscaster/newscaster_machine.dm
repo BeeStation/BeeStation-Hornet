@@ -141,7 +141,7 @@
 		data["user"]["silicon"] = TRUE
 		data["user"]["name"] = user.name
 		data["user"]["job"] = user.job
-		data["security_mode"] = TRUE
+		data["security_mode"] = !ispAI(user)
 	else
 		data["user"]["name"] = "Unknown"
 		data["user"]["job"] = "N/A"
@@ -332,6 +332,8 @@
 			return TRUE
 
 		if("storyCensor")
+			if(ispAI(usr))
+				return TRUE
 			if(!silicon)
 				var/obj/item/card/id/id_card
 				if(isliving(usr))
@@ -347,6 +349,8 @@
 					break
 
 		if("authorCensor")
+			if(ispAI(usr))
+				return TRUE
 			if(!silicon)
 				var/obj/item/card/id/id_card
 				if(isliving(usr))
@@ -362,6 +366,8 @@
 					break
 
 		if("channelDNotice")
+			if(ispAI(usr))
+				return TRUE
 			if(!silicon)
 				var/obj/item/card/id/id_card
 				if(isliving(usr))
@@ -432,6 +438,8 @@
 			return TRUE
 
 		if("submitWantedIssue")
+			if(ispAI(usr))
+				return TRUE
 			if(!crime_description || !criminal_name)
 				say("ERROR: Missing crime details.")
 				return TRUE
@@ -439,6 +447,14 @@
 			if(!istype(account) && !silicon)
 				say("ERROR: Cannot locate linked account ID.")
 				return TRUE
+			if(!silicon)
+				var/obj/item/card/id/id_card
+				if(isliving(usr))
+					var/mob/living/living_user = usr
+					id_card = living_user.get_idcard(hand_first = TRUE)
+				if(!(ACCESS_ARMORY in id_card?.GetAccess()))
+					say("ERROR: Unauthorized request.")
+					return TRUE
 			GLOB.news_network.submit_wanted(criminal_name, crime_description, silicon ? usr.name : account.account_holder, current_image, adminMsg = FALSE, newMessage = TRUE, has_image = wanted_image)
 			current_image = null
 			viewing_wanted = FALSE
@@ -449,6 +465,16 @@
 			return TRUE
 
 		if("clearWantedIssue")
+			if(ispAI(usr))
+				return TRUE
+			if(!silicon)
+				var/obj/item/card/id/id_card
+				if(isliving(usr))
+					var/mob/living/living_user = usr
+					id_card = living_user.get_idcard(hand_first = TRUE)
+				if(!(ACCESS_ARMORY in id_card?.GetAccess()))
+					say("ERROR: Unauthorized request.")
+					return TRUE
 			clear_wanted_issue(user = usr)
 			for(var/obj/machinery/newscaster/other_newscaster in GLOB.allCasters)
 				other_newscaster.update_icon()
@@ -827,6 +853,8 @@
 			balloon_alert(usr, "no photo identified.")
 
 /obj/machinery/newscaster/proc/clear_wanted_issue(user)
+	if(ispAI(usr))
+		return FALSE
 	if(!issilicon(usr))
 		var/obj/item/card/id/id_card
 		if(isliving(usr))
