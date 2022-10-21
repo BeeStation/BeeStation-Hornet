@@ -12,8 +12,8 @@
 		return
 	if(!crewMind.assigned_role)
 		return
-	var/list/valid_objs = crew_obj_jobs["[ckey(crewMind.assigned_role)]"]
-	if(!valid_objs || !valid_objs.len)
+	var/list/valid_objs = crew_obj_jobs["[crewMind.assigned_role]"]
+	if(!length(valid_objs))
 		return
 	var/selectedObj = pick(valid_objs)
 	var/datum/objective/crew/newObjective = new selectedObj
@@ -25,5 +25,6 @@
 	to_chat(crewMind, "<B>Your objective:</B> [newObjective.explanation_text]")
 
 /datum/objective/crew
-	var/jobs = ""
+	// List or string of JOB_NAME defines that this applies to.
+	var/jobs
 	explanation_text = "Yell at people on github if this ever shows up. Something involving crew objectives is broken."
