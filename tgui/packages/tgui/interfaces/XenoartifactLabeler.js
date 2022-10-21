@@ -37,9 +37,7 @@ const XenoartifactLabelerTraits = (props, context) => {
     info_list,
   } = data;
 
-  function alphasort(a, b) {
-    return a.localeCompare(b, "en");
-  }
+  let alphasort = function(a, b) {return a.localeCompare(b, "en");}
 
   const sorted_activators = activator_traits.sort(alphasort);
   const sorted_minors = minor_traits.sort(alphasort);
