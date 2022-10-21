@@ -26,20 +26,10 @@
 	to_chat(user, "<B>Camera Mode activated</B>")
 
 /obj/item/camera/siliconcam/proc/selectpicture(mob/user)
-	var/list/nametemp = list()
-	var/find
-	if(!stored.len)
+	if(!length(stored))
 		to_chat(usr, "<span class='boldannounce'>No images saved.</span>")
 		return
-	var/list/temp = list()
-	for(var/i in stored)
-		var/datum/picture/p = i
-		nametemp += p.picture_name
-		temp[p.picture_name] = p
-	find = input(user, "Select image") in nametemp|null
-	if(!find)
-		return
-	return temp[find]
+	return tgui_select_picture(user, stored, "Select Message Attachment")
 
 /obj/item/camera/siliconcam/proc/viewpictures(mob/user)
 	var/datum/picture/selection = selectpicture(user)

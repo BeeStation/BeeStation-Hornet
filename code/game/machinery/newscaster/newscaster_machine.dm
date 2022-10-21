@@ -604,20 +604,15 @@
 /obj/machinery/newscaster/proc/attach_photo(mob/user)
 	if(issilicon(user))
 		var/obj/item/camera/siliconcam/targetcam
-		if(isAI(user))
-			var/mob/living/silicon/ai/R = user
-			targetcam = R.aicamera
-		else if(ispAI(user))
-			var/mob/living/silicon/pai/R = user
-			targetcam = R.aicamera
-		else if(iscyborg(user))
+		if(iscyborg(user))
 			var/mob/living/silicon/robot/R = user
 			if(R.connected_ai)
 				targetcam = R.connected_ai.aicamera
 			else
 				targetcam = R.aicamera
 		else
-			to_chat(user, "<span class='warning'>You cannot interface with silicon photo uploading!</span>")
+			var/mob/living/silicon/S = user
+			targetcam = S.aicamera
 		if(!length(targetcam.stored))
 			to_chat(usr, "<span class='boldannounce'>No images saved.</span>")
 			return
