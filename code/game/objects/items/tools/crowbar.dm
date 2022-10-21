@@ -67,12 +67,43 @@
 /obj/item/crowbar/sledgehammer
 	name = "sledgehammer"
 	desc = "It's a big hammer and crowbar in one tool. It doesn't fit in your pockets, because it's big."
-	force = 15
+	force = 14
+	lefthand_file = 'icons/mob/inhands/equipment/tools_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
 	throwforce = 15
 	w_class = WEIGHT_CLASS_BULKY
 	throw_speed = 2
-	throw_range = 2
+	throw_range = 3
 	materials = list(/datum/material/iron=140)
-	icon_state = "sledgehammer"
+	icon_state = "sledgehammer1"
 	item_state = "sledgehammer"
 	toolspeed = 0.7
+	sharpness = IS_BLUNT
+
+/obj/item/crowbar/sledgehammer/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/two_handed, force_unwielded=14, force_wielded=20, block_power_wielded=15, icon_wielded="sledgehammer")
+
+/obj/item/crowbar/sledgehammer/attack(mob/living/target, mob/living/user)
+	. = ..()
+	user.changeNext_move(CLICK_CD_SLOW)
+	return
+
+/obj/item/crowbar/sledgehammer/attack(mob/living/target, mob/living/user)
+	if((HAS_TRAIT(user, TRAIT_CLUMSY)) && prob(50))
+		to_chat(user, "<span class ='danger'>You hit yourself over the head.</span>")
+
+		user.apply_effect(200,EFFECT_KNOCKDOWN)
+		user.SetSleeping(100)
+
+		if(ishuman(user))
+			var/mob/living/carbon/human/H = user
+			H.apply_damage(1,1*force, BRUTE, BODY_ZONE_HEAD)
+		else
+			user.take_bodypart_damage(1,1*force)
+		return
+	else
+		if(ishuman(target))
+			target.apply_effect(180,EFFECT_KNOCKDOWN)
+			target.SetSleeping(90)
+		return ..()

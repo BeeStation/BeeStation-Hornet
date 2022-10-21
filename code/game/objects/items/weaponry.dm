@@ -406,6 +406,12 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	extended_throwforce = 15
 	extended_icon_state = "switchblade_ext_ms"
 
+/obj/item/switchblade/kitchen/afterattack(atom/target, mob/user, proximity)
+	. = ..()
+	if(!proximity)
+		return
+	user.changeNext_move(CLICK_CD_RAPID)
+
 /obj/item/switchblade/plastitanium
 	name = "plastitanium switchblade"
 	icon_state = "switchblade_msf"
@@ -415,6 +421,12 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	extended_force = 15
 	extended_throwforce = 17
 	extended_icon_state = "switchblade_ext_msf"
+
+/obj/item/switchblade/plastitanium/afterattack(atom/target, mob/user, proximity)
+	. = ..()
+	if(!proximity)
+		return
+	user.changeNext_move(CLICK_CD_RAPID)
 
 /obj/item/phone
 	name = "red phone"

@@ -134,34 +134,6 @@
 	subtype_path = /datum/gear/uniform/skirt
 	cost = 2500
 
-/datum/gear/uniform/skirt/blue
-	display_name = "skirt, blue"
-	path = /obj/item/clothing/under/dress/skirt/blue
-
-/datum/gear/uniform/skirt/purple
-	display_name = "skirt, purple"
-	path = /obj/item/clothing/under/dress/skirt/purple
-
-/datum/gear/uniform/skirt/red
-	display_name = "skirt, red"
-	path = /obj/item/clothing/under/dress/skirt/red
-
-/datum/gear/uniform/skirt/plaid_skirt
-	display_name = "skirt, plaid red"
-	path = /obj/item/clothing/under/dress/skirt/plaid
-
-/datum/gear/uniform/skirt/plaid_skirt/blue
-	display_name = "skirt, plaid blue"
-	path = /obj/item/clothing/under/dress/skirt/plaid/blue
-
-/datum/gear/uniform/skirt/plaid_skirt/purple
-	display_name = "skirt, plaid purple"
-	path = /obj/item/clothing/under/dress/skirt/plaid/purple
-
-/datum/gear/uniform/skirt/plaid_skirt/green
-	display_name = "skirt, plaid green"
-	path = /obj/item/clothing/under/dress/skirt/plaid/green
-
 //SUITS & SUIT JACKETS
 
 /datum/gear/uniform/suit
@@ -344,14 +316,6 @@
 /datum/gear/uniform/rank/security
 	subtype_path = /datum/gear/uniform/rank/security
 	allowed_roles = list(JOB_NAME_SECURITYOFFICER)
-
-/datum/gear/uniform/rank/security/white
-	display_name = "security jumpsuit, white"
-	path = /obj/item/clothing/under/rank/security/officer/white
-
-/datum/gear/uniform/rank/security/skirt
-	display_name = "security jumpskirt"
-	path = /obj/item/clothing/under/rank/security/officer/skirt
 
 /datum/gear/uniform/rank/security/blueshift
 	display_name = "security jumpsuit, blue shirt and tie"

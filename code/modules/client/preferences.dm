@@ -1630,8 +1630,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 				if("suit")
 					if(active_character.jumpsuit_style == PREF_SUIT)
-						active_character.jumpsuit_style = PREF_SKIRT
-					else
 						active_character.jumpsuit_style = PREF_SUIT
 
 				if("uplink_loc")
