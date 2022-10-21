@@ -101,8 +101,11 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 /proc/send_chat_to_discord(type, sayer, msg)
 	var/server_name = CONFIG_GET(string/serverabbname) // It will show like this: `[Sage] YourCKey: What a based round!`
 	switch(type)
-		if("ooc_chat") // always will send message to discord
-			discordsendmsg("ooc", "\[[server_name]\] (OOC) **[sayer]:** [msg]")
+		if("ooc_chat")
+			if(SSticker.current_state == GAME_STATE_FINISHED)
+				discordsendmsg("ooc", "\[[server_name]\] (OOC) **[sayer]:** [msg]")
+			else // using OOC during an ongoing round..?
+				discordsendmsg("ooc", "\[[server_name]\] (ICK-OCK) **[sayer]:** [msg]")
 		if("dchat") // don't send these until a round is finished
 			if(SSticker.current_state == GAME_STATE_FINISHED)
 				discordsendmsg("ooc", "\[[server_name]\] (Dead) **[sayer]:** [msg]")
