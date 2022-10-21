@@ -581,7 +581,7 @@
 	obj_flags = NONE // you don't cheat cookie's name. this removes `UNIQUE_RENAME` flag.
 
 /obj/item/reagent_containers/food/snacks/cookie/blessed // this is given by admin's response for player's pray
-	name = "sanctus crustulum" // holy cookie
+	name = "crustulum sanctus" // holy cookie
 	desc = "HOLY COOKIE!!!"
 	tastes = list("nomine Patris et Filii et Spiritus Sancti" = 1) // In the name of the Father, and of the Son, and of the Holy Spirit. Amen.
 
