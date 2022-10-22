@@ -76,7 +76,6 @@
 	throw_speed = 2
 	throw_range = 3
 	materials = list(/datum/material/iron=140)
-	item_state = "sledgehammer"
 	toolspeed = 0.7
 	sharpness = IS_BLUNT
 
@@ -107,3 +106,7 @@
 			target.apply_effect(200,EFFECT_KNOCKDOWN)
 			target.SetSleeping(100)
 		return ..()
+
+/obj/item/crowbar/sledgehammer/update_icon()
+	icon_state = "sledgehammer0"
+	..()
