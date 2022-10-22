@@ -57596,12 +57596,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/engine/gravity_generator)
-"jUO" = (
-/obj/structure/rack,
-/obj/effect/spawner/lootdrop/maintenance,
-/obj/effect/spawner/lootdrop/maintenance,
-/turf/open/floor/plating,
-/area/maintenance/starboard/aft)
 "jUS" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_y = 30
@@ -58386,9 +58380,6 @@
 /turf/open/floor/engine,
 /area/engine/engineering)
 "kqn" = (
-/obj/effect/turf_decal/bot{
-	dir = 1
-	},
 /obj/item/kirbyplants/random,
 /turf/open/floor/plasteel/techmaint,
 /area/maintenance/department/science)
@@ -59226,8 +59217,7 @@
 /turf/open/floor/plasteel/white,
 /area/security/brig)
 "kHq" = (
-/obj/structure/closet/crate,
-/obj/item/clothing/mask/gas/old,
+/obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/plating{
 	icon_state = "platingdmg1"
 	},
@@ -59888,8 +59878,7 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/structure/girder,
-/obj/structure/grille/broken,
+/obj/structure/reagent_dispensers/watertank,
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
 "laV" = (
@@ -60983,6 +60972,7 @@
 "lIo" = (
 /obj/effect/decal/cleanable/blood/old,
 /obj/structure/closet,
+/obj/effect/spawner/lootdrop/maintenance,
 /obj/effect/spawner/lootdrop/maintenance,
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
@@ -62285,6 +62275,10 @@
 	},
 /turf/open/floor/plasteel,
 /area/quartermaster/sorting)
+"mpT" = (
+/obj/item/trash/candy,
+/turf/open/floor/plating,
+/area/maintenance/starboard/aft)
 "mqa" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -64249,9 +64243,10 @@
 "nyg" = (
 /obj/structure/table/reinforced,
 /obj/machinery/computer/security/telescreen{
-	dir = 1;
+	dir = 8;
 	name = "Test Chamber Monitor";
 	network = list("xeno");
+	pixel_x = 3;
 	pixel_y = 2
 	},
 /turf/open/floor/plasteel/dark,
@@ -68040,9 +68035,6 @@
 	},
 /area/maintenance/starboard)
 "pHJ" = (
-/obj/machinery/door/airlock/maintenance{
-	req_one_access_txt = "12;47"
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -72639,6 +72631,18 @@
 	},
 /turf/open/floor/plasteel,
 /area/maintenance/department/science)
+"sdH" = (
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 10
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 10
+	},
+/turf/open/floor/plating,
+/area/maintenance/starboard/aft)
 "sei" = (
 /obj/machinery/door/poddoor/preopen{
 	id = "Prison Gate";
@@ -79555,6 +79559,13 @@
 /obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plasteel/dark,
 /area/maintenance/department/science)
+"vVW" = (
+/obj/structure/rack,
+/obj/effect/turf_decal/bot{
+	dir = 1
+	},
+/turf/open/floor/plasteel/techmaint,
+/area/maintenance/department/science)
 "vWy" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -79587,6 +79598,9 @@
 /area/maintenance/starboard/aft)
 "vXK" = (
 /obj/structure/closet/emcloset,
+/obj/machinery/light/small{
+	dir = 1
+	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
 "vZn" = (
@@ -119359,9 +119373,9 @@ lQw
 rsn
 iFX
 kHq
-jUO
 iFX
-owl
+iFX
+iFX
 lQw
 amM
 lQw
@@ -119876,8 +119890,8 @@ fNg
 iFX
 ruL
 iFX
-lQw
-oHv
+mpT
+sdH
 xqi
 aZZ
 lMJ
@@ -120381,7 +120395,7 @@ xxZ
 krD
 rvz
 mjJ
-ojg
+vVW
 vDA
 cAw
 tDC
