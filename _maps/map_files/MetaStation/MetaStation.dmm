@@ -34644,14 +34644,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/science/research)
-"coe" = (
-/obj/effect/spawner/structure/window/reinforced,
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "xeno_blastdoor";
-	name = "Secure Lab Shutters"
-	},
-/turf/open/floor/plating,
-/area/maintenance/department/science/xenobiology)
 "cot" = (
 /obj/structure/toilet{
 	pixel_y = 8
@@ -117331,7 +117323,7 @@ dkV
 iIe
 tTg
 mgj
-coe
+iAS
 aaa
 aaa
 aaa
@@ -117588,7 +117580,7 @@ vGV
 nyw
 pkX
 mgj
-coe
+iAS
 aaa
 aaa
 aaa
