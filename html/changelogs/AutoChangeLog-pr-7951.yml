@@ -1,0 +1,4 @@
+author: Penwin0
+delete-after: true
+changes:
+  - admin: You don't need Permission editing perms to use forcemapconfig
