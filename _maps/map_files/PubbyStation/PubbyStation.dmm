@@ -27445,6 +27445,7 @@
 "cdE" = (
 /obj/structure/chair,
 /obj/item/cigbutt,
+/obj/effect/mob_spawn/human/felinid_in_run,
 /turf/open/floor/plating,
 /area/maintenance/department/engine)
 "cdI" = (
@@ -32617,6 +32618,10 @@
 	},
 /turf/open/floor/engine,
 /area/engine/engineering)
+"dAe" = (
+/obj/effect/mob_spawn/human/felinid_in_run,
+/turf/open/floor/plating,
+/area/maintenance/department/cargo)
 "dAl" = (
 /obj/effect/turf_decal/tile/red{
 	dir = 8
@@ -35285,6 +35290,13 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/engine,
 /area/engine/engineering)
+"fkg" = (
+/obj/effect/turf_decal/tile/blue{
+	dir = 8
+	},
+/obj/effect/mob_spawn/human/felinid_in_run,
+/turf/open/floor/plasteel/white/corner,
+/area/hallway/secondary/entry)
 "fkm" = (
 /obj/structure/disposalpipe/segment,
 /obj/effect/turf_decal/stripes/corner{
@@ -38099,6 +38111,22 @@
 /obj/machinery/vendor/exploration,
 /turf/open/floor/plasteel/white,
 /area/science/shuttledock)
+"hcl" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/structure/disposalpipe/segment{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/obj/effect/mob_spawn/human/felinid_in_run,
+/turf/open/floor/plating,
+/area/maintenance/department/cargo)
 "heC" = (
 /obj/machinery/power/apc/highcap/five_k{
 	dir = 8;
@@ -38782,6 +38810,10 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
+"hyw" = (
+/obj/effect/mob_spawn/human/felinid_in_run,
+/turf/open/floor/plating,
+/area/maintenance/department/engine)
 "hyZ" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -45575,6 +45607,10 @@
 	},
 /turf/open/floor/plasteel,
 /area/storage/tech)
+"lLk" = (
+/obj/effect/mob_spawn/human/felinid_in_run,
+/turf/open/floor/engine,
+/area/science/xenobiology)
 "lLv" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -61876,6 +61912,10 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plasteel,
 /area/hallway/primary/central)
+"wQL" = (
+/obj/effect/mob_spawn/human/felinid_in_run,
+/turf/open/floor/plating,
+/area/maintenance/department/security/brig)
 "wQU" = (
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/structure/cable/yellow{
@@ -63235,6 +63275,10 @@
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4,
 /turf/open/floor/plasteel,
 /area/engine/engineering)
+"xHB" = (
+/obj/effect/mob_spawn/human/felinid_in_run,
+/turf/open/floor/plating,
+/area/maintenance/department/chapel/monastery)
 "xHQ" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-8"
@@ -80524,7 +80568,7 @@ gnE
 cwa
 clf
 cwA
-cwA
+xHB
 cwS
 cjm
 cyM
@@ -82228,7 +82272,7 @@ aiu
 aCd
 oap
 meE
-ajD
+wQL
 ezF
 aod
 aqg
@@ -82263,7 +82307,7 @@ aaa
 aaa
 aZx
 baJ
-bon
+fkg
 aZx
 aaa
 aaa
@@ -86645,7 +86689,7 @@ bnv
 bnv
 bDi
 hSK
-bDi
+hyw
 bva
 bDi
 bDi
@@ -106136,7 +106180,7 @@ aEd
 aEj
 aEj
 aKq
-pEa
+hcl
 aEj
 aaa
 aaa
@@ -109233,7 +109277,7 @@ eTK
 gHi
 gHi
 ppF
-aFi
+dAe
 kbe
 aEj
 aFi
@@ -112329,7 +112373,7 @@ aEj
 hve
 aEj
 bkF
-blX
+lLk
 blX
 blX
 bqL

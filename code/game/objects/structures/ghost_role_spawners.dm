@@ -605,3 +605,19 @@
 
 /obj/effect/mob_spawn/human/pirate/gunner
 	rank = "Gunner"
+
+/obj/effect/mob_spawn/human/felinid_in_run
+	name = "felinid in run"
+	desc = "Felinid"
+	random = TRUE
+	mob_name = "Felinid"
+	mob_species = /datum/species/human/felinid
+	outfit = /datum/outfit/felinid_in_run
+	roundstart = FALSE
+	death = FALSE
+	anchored = FALSE
+	density = FALSE
+	show_flavour = FALSE //Flavour only exists for spawners menu
+	short_desc = "You are a furry"
+	flavour_text = "RUN FURRY RUN"
+	assignedrole = "Felinid In Run"

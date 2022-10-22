@@ -429,3 +429,13 @@
 	I.assignment = "Joker"
 	I.registered_name = H.real_name
 	I.update_label()
+
+/datum/outfit/felinid_in_run
+	name = "Felinid in run"
+
+	uniform = /obj/item/clothing/under/color/grey/glorf
+	head = /obj/item/clothing/head/beanie/black
+	shoes = /obj/item/clothing/shoes/jackboots
+	ears = /obj/item/radio/headset
+	belt =/obj/item/storage/belt/utility/full
+	id = /obj/item/card/id

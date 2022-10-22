@@ -30507,6 +30507,10 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plasteel/dark,
 /area/engine/engine_smes)
+"dWO" = (
+/obj/effect/mob_spawn/human/felinid_in_run,
+/turf/open/floor/plating,
+/area/maintenance/starboard/aft)
 "dXB" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
@@ -38106,6 +38110,10 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
+"iRe" = (
+/obj/effect/mob_spawn/human/felinid_in_run,
+/turf/open/floor/plating,
+/area/maintenance/port/fore)
 "iRk" = (
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
@@ -44937,6 +44945,10 @@
 	},
 /turf/open/floor/engine,
 /area/maintenance/disposal/incinerator)
+"mVm" = (
+/obj/effect/mob_spawn/human/felinid_in_run,
+/turf/open/floor/plating,
+/area/maintenance/port/aft)
 "mVI" = (
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
 	dir = 8
@@ -48980,6 +48992,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 9
 	},
+/obj/effect/mob_spawn/human/felinid_in_run,
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
 "pxw" = (
@@ -51904,6 +51917,10 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plasteel,
 /area/engine/engineering)
+"rsr" = (
+/obj/effect/mob_spawn/human/felinid_in_run,
+/turf/open/floor/plating,
+/area/maintenance/fore)
 "rta" = (
 /obj/machinery/airalarm{
 	dir = 1;
@@ -56885,6 +56902,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 5
 	},
+/obj/effect/mob_spawn/human/felinid_in_run,
 /turf/open/floor/plasteel,
 /area/hallway/secondary/exit)
 "uxB" = (
@@ -61806,6 +61824,10 @@
 	},
 /turf/open/floor/plasteel,
 /area/security/checkpoint/supply)
+"xVm" = (
+/obj/effect/mob_spawn/human/felinid_in_run,
+/turf/open/floor/plating,
+/area/maintenance/starboard/fore)
 "xVK" = (
 /obj/machinery/smartfridge,
 /turf/closed/wall/r_wall,
@@ -75019,7 +75041,7 @@ aaf
 aaf
 alU
 atJ
-amC
+iRe
 dhN
 sPB
 uLM
@@ -82799,7 +82821,7 @@ bYy
 bHE
 bHE
 bTz
-bHE
+mVm
 bUs
 ceY
 bCq
@@ -85557,7 +85579,7 @@ aaa
 arP
 asP
 aqR
-aqR
+rsr
 aqR
 gvq
 ayG
@@ -102600,7 +102622,7 @@ ahO
 iBQ
 cOe
 cOe
-cOe
+dWO
 wLJ
 cOe
 mto
@@ -106119,7 +106141,7 @@ alP
 anf
 alP
 awJ
-anf
+xVm
 alP
 aAv
 aAs
