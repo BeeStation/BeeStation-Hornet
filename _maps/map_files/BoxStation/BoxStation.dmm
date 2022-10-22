@@ -17742,7 +17742,6 @@
 /obj/item/multitool,
 /obj/item/clothing/glasses/meson,
 /obj/machinery/light/small,
-/obj/item/crowbar/sledgehammer,
 /turf/open/floor/plating,
 /area/storage/tech)
 "bHP" = (
