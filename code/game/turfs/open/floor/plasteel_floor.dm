@@ -278,3 +278,7 @@
 /turf/open/floor/plasteel/cafeteria_dark
 	icon_state = "cafeteria-dark"
 	base_icon_state = "cafeteria-dark"
+
+/turf/open/floor/plasteel/smart_checker
+	icon_state = "smart-checker"
+	base_icon_state = "smart-checker"
