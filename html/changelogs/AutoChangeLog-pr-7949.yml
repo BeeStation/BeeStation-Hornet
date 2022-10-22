@@ -1,0 +1,5 @@
+author: Crossedfall
+delete-after: true
+changes:
+  - bugfix: Corrects the savefile importer so it properly loads equipped gear into
+      the database
