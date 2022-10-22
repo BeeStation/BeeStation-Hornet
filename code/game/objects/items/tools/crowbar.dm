@@ -69,8 +69,8 @@
 	desc = "It's a big hammer and crowbar in one tool. It doesn't fit in your pockets, because it's big."
 	force = 14
 	icon_state = "sledgehammer0"
-	lefthand_file = 'icons/mob/inhands/equipment/tools_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
+	lefthand_file = 'icons/mob/inhands/weapons/hammers_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons/hammers_righthand.dmi'
 	throwforce = 15
 	w_class = WEIGHT_CLASS_HUGE
 	throw_speed = 2
