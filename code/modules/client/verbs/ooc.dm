@@ -96,16 +96,18 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 	send_chat_to_discord("ooc_chat", holder?.fakekey || key, raw_msg)
 
 /proc/send_chat_to_discord(type, sayer, msg)
-	var/server_name = CONFIG_GET(string/serverabbname) // It will show like this: `[Sage] YourCKey: What a based round!`
+	var/discord_channel_name = CONFIG_GET(string/discord_ooc_channel) // check server config file. default value of discord_ooc_channel is `OOC-Bee`
+	if(!discord_channel_name)
+		return
 	switch(type)
 		if("ooc_chat")
 			if(SSticker.current_state == GAME_STATE_FINISHED)
-				discordsendmsg("ooc", "\[[server_name]\] (OOC) **[sayer]:** [msg]")
+				discordsendmsg(discord_channel_name, "(OOC) **[sayer]:** [msg]")
 			else // using OOC during an ongoing round..?
-				discordsendmsg("ooc", "\[[server_name]\] (ICK-OCK) **[sayer]:** [msg]")
+				discordsendmsg(discord_channel_name, "(ICK-OCK) **[sayer]:** [msg]")
 		if("dchat") // don't send these until a round is finished
 			if(SSticker.current_state == GAME_STATE_FINISHED)
-				discordsendmsg("ooc", "\[[server_name]\] (Dead) **[sayer]:** [msg]")
+				discordsendmsg(discord_channel_name, "(Dead) **[sayer]:** [msg]")
 
 /proc/toggle_ooc(toggle = null)
 	if(toggle != null) //if we're specifically en/disabling ooc

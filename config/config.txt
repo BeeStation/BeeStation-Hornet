@@ -28,9 +28,6 @@ $include interviews.txt
 ## Server name: This appears at the top of the screen in-game and in the BYOND hub. Uncomment and replace 'beestation' with the name of your choice.
 #@SERVERNAME beestation
 
-## Server abbreviated name: This is mainly used in discord messaging. Uncomment and replace 'Bee' when you're going to use discord messaging feature.  i.e.) [Sage] SeeMyByondCKey: This is based round.
-#@SERVERABBNAME Bee
-
 ## Server SQL name: This is the name used to identify the server to the SQL DB, distinct from SERVERNAME as it must be at most 32 characters.
 #@SERVERSQLNAME ss13newbs
 
@@ -616,3 +613,6 @@ ELASTICSEARCH_METRICS_APIKEY thisIsSomethingThatsBased64Encoded==
 
 ## Once a typepath causes overrun from hard deletes this many times, stop hard deleting it on garbage collection failures. (set to 0 to disable)
 #HARD_DELETES_OVERRUN_LIMIT 0
+
+## Discord OOC channel name. As long as this is enabled, the game will try to send OOC messages to the discord channel. change 'OOC-Bee' into something else
+#DISCORD_OOC_CHANNEL OOC-Bee
