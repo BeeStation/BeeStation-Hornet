@@ -824,3 +824,9 @@
 	desc = "Need a toothpick?"
 	icon_state = "drive"
 	item_state = "drive"
+
+/obj/item/clothing/suit/orange_bomber
+	name = "nylon bomber"
+	desc = "RCM, what does this mean?"
+	icon_state = "orange_bomber"
+	item_state = "orange_bomber"

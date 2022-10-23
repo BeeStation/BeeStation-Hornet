@@ -190,7 +190,12 @@
 /datum/gear/suit/jacket/drive
 	display_name = "scorpion jacket"
 	path = /obj/item/clothing/suit/drive
-	cost = 1000
+	cost = 500
+
+/datum/gear/suit/jacket/orange_bomber
+	display_name = "nylon bomber"
+	path = /obj/item/clothing/suit/orange_bomber
+	cost = 500
 
 //PONCHOS
 
