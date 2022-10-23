@@ -1086,6 +1086,9 @@
 			return
 
 		if(welded)
+			if(C.tool_behaviour == TOOL_CROWBAR)
+				if(try_to_crowbar(C, user))
+					return
 			to_chat(user, "<span class='warning'>It's welded, it won't budge!</span>")
 			return
 
@@ -1159,7 +1162,7 @@
 							 "<span class='notice'>You start to remove electronics from the airlock assembly...</span>")
 		if(I.use_tool(src, user, 40, volume=100))
 			deconstruct(TRUE, user)
-			return
+			return TRUE
 	else if(hasPower())
 		to_chat(user, "<span class='warning'>The airlock's motors resist your efforts to force it!</span>")
 	else if(locked)
