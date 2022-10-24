@@ -83,7 +83,7 @@ SUBSYSTEM_DEF(economy)
 
 	var/datum/bank_account/department/target_budget = budget_id_list[dept_id]
 
-	if(target_budget.is_nonstation_account())
+	if(target_budget.is_nonstation_account())  // Warning: do not replace this into `is_nonstation_account(target_budget)` or it will loop. We have 2 types of the procs that have the same name for conveniet purpose.
 		return target_budget
 	else if(HAS_TRAIT(SSstation, STATION_TRAIT_UNITED_BUDGET))
 		return united_budget
