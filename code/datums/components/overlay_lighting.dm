@@ -53,14 +53,13 @@
 		)
 
 	///Overlay effect to cut into the darkness and provide light.
-	var/obj/effect/overlay/light_visible/visible_mask
+	var/image/visible_mask
 	///Lazy list to track the turfs being affected by our light, to determine their visibility.
 	var/list/turf/affected_turfs
 	///Movable atom currently holding the light. Parent might be a flashlight, for example, but that might be held by a mob or something else.
 	var/atom/movable/current_holder
 	///Movable atom the parent is attached to. For example, a flashlight into a helmet or gun. We'll need to track the thing the parent is attached to as if it were the parent itself.
 	var/atom/movable/parent_attached_to
-
 	///Whether we're a directional light
 	var/directional = FALSE
 	///A cone overlay for directional light, it's alpha and color are dependant on the light
@@ -74,21 +73,13 @@
 	///Cast range for the directional cast (how far away the atom is moved)
 	var/cast_range = 2
 
-///Sets a new direction for the directional cast, then updates luminosity
-/datum/component/overlay_lighting/proc/set_direction(newdir)
-	if(!newdir)
-		return
-	if(current_direction == newdir)
-		return
-	current_direction = newdir
-	if(overlay_lighting_flags & LIGHTING_ON)
-		make_luminosity_update()
 
+/*
 ///Called when parent changes loc.
 /datum/component/overlay_lighting/proc/on_parent_dir_change(atom/movable/source, olddir, newdir)
 	SIGNAL_HANDLER
 	set_direction(newdir)
-
+*/
 /datum/component/overlay_lighting/Initialize(_range, _power, _color, starts_on, is_directional)
 	if(!ismovable(parent))
 		return COMPONENT_INCOMPATIBLE
@@ -188,7 +179,7 @@
 	if(length(.))
 		affected_turfs = .
 
-///Clears the old affected turfs and populates the new ones.
+///Clears the old affected turfs and populates the new ones.f
 /datum/component/overlay_lighting/proc/make_luminosity_update()
 	clean_old_turfs()
 	if(!isturf(current_holder?.loc))
@@ -258,7 +249,8 @@
 			RegisterSignal(new_holder, COMSIG_MOVABLE_MOVED, .proc/on_holder_moved)
 		if(directional)
 			RegisterSignal(new_holder, COMSIG_ATOM_DIR_CHANGE, .proc/on_holder_dir_change)
-			set_direction(new_holder.dir)
+	if(directional && current_direction != new_holder.dir)
+		current_direction = new_holder.dir
 	if(overlay_lighting_flags & LIGHTING_ON)
 		add_dynamic_lumi()
 		make_luminosity_update()
@@ -398,28 +390,21 @@
 		return
 	turn_on() //Falsey value, turn off.
 
-
-///Triggered right before the parent light flags change.
-/datum/component/overlay_lighting/proc/on_light_flags_change(atom/source, new_value)
+///Triggered right after the parent light flags change.
+/datum/component/overlay_lighting/proc/on_light_flags_change(atom/source, old_flags)
+	SIGNAL_HANDLER
+	var/new_flags = source.light_flags
 	var/atom/movable/movable_parent = parent
-	if(new_value & LIGHT_ATTACHED)
-		if(!(movable_parent.light_flags & LIGHT_ATTACHED)) //Gained the LIGHT_ATTACHED property.
-			overlay_lighting_flags |= LIGHTING_ATTACHED
-			if(ismovable(movable_parent.loc))
-				set_parent_attached_to(movable_parent.loc)
-	else if(movable_parent.light_flags & LIGHT_ATTACHED) //Lost the LIGHT_ATTACHED property.
+	if(!((new_flags ^ old_flags) & LIGHT_ATTACHED))
+		return
+
+	if(new_flags & LIGHT_ATTACHED) // Gained the [LIGHT_ATTACHED] property
+		overlay_lighting_flags |= LIGHTING_ATTACHED
+		if(ismovable(movable_parent.loc))
+			set_parent_attached_to(movable_parent.loc)
+	else // Lost the [LIGHT_ATTACHED] property
 		overlay_lighting_flags &= ~LIGHTING_ATTACHED
 		set_parent_attached_to(null)
-
-	if(new_value & LIGHT_NO_LUMCOUNT)
-		if(!(movable_parent.light_flags & LIGHT_NO_LUMCOUNT)) //Gained the NO_LUMCOUNT property
-			overlay_lighting_flags |= LIGHT_NO_LUMCOUNT
-			//Recalculate affecting
-			set_lum_power(real_lum_power)
-	else if(movable_parent.light_flags & LIGHT_NO_LUMCOUNT)	//Lost the NO_LUMCOUNT property
-		overlay_lighting_flags &= ~LIGHT_NO_LUMCOUNT
-		//Recalculate affecting
-		set_lum_power(real_lum_power)
 
 ///Toggles the light on.
 /datum/component/overlay_lighting/proc/turn_on()
@@ -434,7 +419,6 @@
 		RegisterSignal(current_holder, COMSIG_MOVABLE_MOVED, .proc/on_holder_moved)
 	get_new_turfs()
 
-
 ///Toggles the light off.
 /datum/component/overlay_lighting/proc/turn_off()
 	if(!(overlay_lighting_flags & LIGHTING_ON))
@@ -442,10 +426,9 @@
 	if(current_holder)
 		remove_dynamic_lumi()
 	overlay_lighting_flags &= ~LIGHTING_ON
-	if(current_holder)
+	if(current_holder && current_holder != parent && current_holder != parent_attached_to)
 		UnregisterSignal(current_holder, COMSIG_MOVABLE_MOVED)
 	clean_old_turfs()
-
 
 ///Here we append the behavior associated to changing lum_power.
 /datum/component/overlay_lighting/proc/set_lum_power(new_lum_power)
@@ -498,6 +481,22 @@
 /datum/component/overlay_lighting/proc/on_holder_dir_change(atom/movable/source, olddir, newdir)
 	SIGNAL_HANDLER
 	set_direction(newdir)
+
+///Called when parent changes loc.
+/datum/component/overlay_lighting/proc/on_parent_dir_change(atom/movable/source, olddir, newdir)
+	SIGNAL_HANDLER
+	set_direction(newdir)
+
+///Sets a new direction for the directional cast, then updates luminosity
+/datum/component/overlay_lighting/proc/set_direction(newdir)
+	if(!newdir)
+		return
+	if(current_direction == newdir)
+		return
+	current_direction = newdir
+	if(overlay_lighting_flags & LIGHTING_ON)
+		make_luminosity_update()
+
 
 #undef LIGHTING_ON
 #undef LIGHTING_ATTACHED
