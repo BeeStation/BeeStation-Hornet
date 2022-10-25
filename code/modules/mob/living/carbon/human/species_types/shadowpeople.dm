@@ -243,7 +243,7 @@
 
 /obj/item/clothing/head/helmet/space/hardsuit/lighteater_act(obj/item/light_eater/light_eater, atom/parent)
 	if(!light_range || !light_power || !light_on || light_broken)
-		return
+		return ..()
 	if(light_eater)
 		visible_message("<span class='danger'>The headlamp of [src] is disintegrated by [light_eater]!</span>")
 	light_broken = TRUE
