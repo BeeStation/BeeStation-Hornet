@@ -696,7 +696,7 @@
 	weight = 3
 	cost = 30
 	requirements = list(100,90,80,60,40,30,10,10,10,10)
-	flags = HIGH_IMPACT_RULESET
+	flags = HIGH_IMPACT_RULESET | NO_OTHER_ROUNDSTARTS_RULESET
 
 /datum/dynamic_ruleset/roundstart/hivemind/pre_execute(population)
 	. = ..()
