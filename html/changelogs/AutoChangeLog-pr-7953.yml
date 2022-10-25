@@ -1,0 +1,5 @@
+author: itsmeow
+delete-after: true
+changes:
+  - balance: 'Dynamic: Traitors, Changelings, and Heretics can no longer spawn alongside
+      hivemind (assimilation).'
