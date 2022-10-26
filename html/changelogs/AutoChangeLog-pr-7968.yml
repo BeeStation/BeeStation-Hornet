@@ -1,4 +1,0 @@
-author: san7890
-delete-after: true
-changes:
-  - rscadd: For developers, made the Merge conflict marker more explicit than before.
