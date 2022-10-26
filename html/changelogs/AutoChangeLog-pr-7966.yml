@@ -1,7 +1,0 @@
-author: itsmeow
-delete-after: true
-changes:
-  - balance: Lighteaters will no longer erase hardsuits with headlamps from existence,
-      instead, permanently disabling their headlamps.
-  - bugfix: PDAs are now properly affected by lighteaters when they lack a primary/secondary
-      card slot.
