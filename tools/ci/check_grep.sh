@@ -19,6 +19,15 @@ if grep -El '^\".+\" = \(.+\)' _maps/**/*.dmm;    then
     echo -e "${RED}ERROR: Non-TGM formatted map detected. Please convert it using Map Merger!${NC}"
     st=1
 fi;
+if grep -P 'Merge Conflict Marker' _maps/**/*.dmm; then
+    echo "ERROR: Merge conflict markers detected in map, please resolve all merge failures!"
+    st=1
+fi;
+# We check for this as well to ensure people aren't actually using this mapping effect in their maps.
+if grep -P '/obj/merge_conflict_marker' _maps/**/*.dmm; then
+    echo "ERROR: Merge conflict markers detected in map, please resolve all merge failures!"
+    st=1
+fi;
 if grep -P '^\ttag = \"icon' _maps/**/*.dmm;    then
     echo
     echo -e "${RED}ERROR: Tag vars from icon state generation detected in maps, please remove them.${NC}"
