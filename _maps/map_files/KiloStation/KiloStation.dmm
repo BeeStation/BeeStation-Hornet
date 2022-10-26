@@ -49340,11 +49340,6 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/neutral,
-/obj/machinery/camera{
-	c_tag = "AI Upload Transit Access";
-	dir = 1;
-	name = "command camera"
-	},
 /obj/item/radio/intercom{
 	pixel_y = -28
 	},
@@ -49557,6 +49552,11 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2,
+/obj/machinery/camera{
+	c_tag = "AI Upload Transit Access";
+	dir = 1;
+	name = "command camera"
+	},
 /turf/open/floor/plasteel/dark,
 /area/bridge)
 "bAp" = (
@@ -92131,12 +92131,6 @@
 	dir = 5
 	},
 /mob/living/carbon/monkey,
-/obj/machinery/camera{
-	c_tag = "Medical Security Post";
-	dir = 1;
-	name = "medical camera";
-	network = list("ss13","medical")
-	},
 /turf/open/floor/plasteel/dark,
 /area/medical/virology)
 "doW" = (
@@ -101045,6 +101039,11 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 6
+	},
+/obj/machinery/camera{
+	c_tag = "Virology - Testing pens";
+	name = "virology camera";
+	network = list("ss13","medbay")
 	},
 /turf/open/floor/plasteel/dark,
 /area/medical/virology)
