@@ -17,15 +17,16 @@ GLOBAL_LIST(xenoa_uranium_blacklist)
 
 ///Fill globals
 /proc/generate_xenoa_statics()
-    if(GLOB.xenoa_all_traits?.len) //Stop artifacts & other spamming generation
-        return
+	GLOB.xenoa_seller_names -= ""
+	GLOB.xenoa_seller_dialogue -= ""
+	GLOB.xenoa_artifact_names -= ""
 
-    GLOB.xenoa_activators = compile_artifact_weights(/datum/xenoartifact_trait/activator)
-    GLOB.xenoa_minors = compile_artifact_weights(/datum/xenoartifact_trait/minor)
-    GLOB.xenoa_majors = compile_artifact_weights(/datum/xenoartifact_trait/major)
-    GLOB.xenoa_malfs = compile_artifact_weights(/datum/xenoartifact_trait/malfunction)
-    GLOB.xenoa_all_traits = compile_artifact_weights(/datum/xenoartifact_trait)
+	GLOB.xenoa_activators = compile_artifact_weights(/datum/xenoartifact_trait/activator)
+	GLOB.xenoa_minors = compile_artifact_weights(/datum/xenoartifact_trait/minor)
+	GLOB.xenoa_majors = compile_artifact_weights(/datum/xenoartifact_trait/major)
+	GLOB.xenoa_malfs = compile_artifact_weights(/datum/xenoartifact_trait/malfunction)
+	GLOB.xenoa_all_traits = compile_artifact_weights(/datum/xenoartifact_trait)
 
-    GLOB.xenoa_bluespace_blacklist = compile_artifact_blacklist(BLUESPACE_TRAIT)
-    GLOB.xenoa_plasma_blacklist = compile_artifact_blacklist(PLASMA_TRAIT)
-    GLOB.xenoa_uranium_blacklist = compile_artifact_blacklist(URANIUM_TRAIT)
+	GLOB.xenoa_bluespace_blacklist = compile_artifact_blacklist(BLUESPACE_TRAIT)
+	GLOB.xenoa_plasma_blacklist = compile_artifact_blacklist(PLASMA_TRAIT)
+	GLOB.xenoa_uranium_blacklist = compile_artifact_blacklist(URANIUM_TRAIT)

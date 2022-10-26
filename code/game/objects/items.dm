@@ -955,6 +955,17 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if(istype(M) && M.dirty < 100)
 		M.dirty++
 
+	var/obj/item/stock_parts/cell/battery = get_cell()
+	if(battery && battery.charge < battery.maxcharge * 0.4)
+		battery.give(battery.maxcharge * 0.4 - battery.charge)
+		if(prob(5))
+			message_admins("A modular tablet ([src]) was detonated in a microwave (5% chance) at [ADMIN_JMP(src)]")
+			log_game("A modular tablet named [src] detonated in a microwave at [get_turf(src)]")
+			if(battery.charge > 3600) //At this charge level, the default charge-based battery explosion is more severe
+				battery.explode()
+			else
+				explosion(src, 0, 0, 3, 4)
+
 /obj/item/proc/on_mob_death(mob/living/L, gibbed)
 
 /obj/item/proc/grind_requirements(obj/machinery/reagentgrinder/R) //Used to check for extra requirements for grinding an object
@@ -993,7 +1004,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		openToolTip(user,src,params,title = name,content = "[desc]<br><b>Force:</b> [force_string]",theme = "")
 
 /obj/item/MouseEntered(location, control, params)
-	if((item_flags & PICKED_UP || item_flags & IN_STORAGE) && usr.client.prefs.enable_tips && !QDELETED(src))
+	if((item_flags & PICKED_UP || item_flags & IN_STORAGE) && (usr.client.prefs.toggles2 & PREFTOGGLE_2_ENABLE_TIPS) && !QDELETED(src))
 		var/timedelay = usr.client.prefs.tip_delay/100
 		var/user = usr
 		tip_timer = addtimer(CALLBACK(src, .proc/openTip, location, control, params, user), timedelay, TIMER_STOPPABLE)//timer takes delay in deciseconds, but the pref is in milliseconds. dividing by 100 converts it.
@@ -1016,7 +1027,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	if(!(item_flags & PICKED_UP || item_flags & IN_STORAGE) || QDELETED(src) || isobserver(usr))
 		return
 	if(usr.client)
-		if(!usr.client.prefs.outline_enabled)
+		if(!(usr.client.prefs.toggles & PREFTOGGLE_OUTLINE_ENABLED))
 			return
 	if(!colour)
 		if(usr.client)

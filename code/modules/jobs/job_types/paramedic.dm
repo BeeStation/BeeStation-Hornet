@@ -28,14 +28,14 @@
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/paramedic
 	)
-	biohazard = 25//deal with sick like MDS, but also muck around in maint and get into the thick of it
+	biohazard = 50//deal with sick like MDS, but also muck around in maint and get into the thick of it
 
 /datum/outfit/job/paramedic
 	name = JOB_NAME_PARAMEDIC
 	jobtype = /datum/job/paramedic
 
 	id = /obj/item/card/id/job/paramedic
-	belt = /obj/item/pda/paramedic
+	belt = /obj/item/modular_computer/tablet/pda/paramedic
 	ears = /obj/item/radio/headset/headset_med
 	gloves = /obj/item/clothing/gloves/color/latex/nitrile
 	uniform = /obj/item/clothing/under/rank/medical/paramedic

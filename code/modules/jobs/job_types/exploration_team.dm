@@ -26,7 +26,7 @@
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/exploration_crew
 	)
-	biohazard = 20//who knows what you'll find out there that could have nasties on it...
+	biohazard = 40//who knows what you'll find out there that could have nasties on it...
 
 /datum/job/exploration_crew/equip(mob/living/carbon/human/H, visualsOnly, announce, latejoin, datum/outfit/outfit_override, client/preference_source)
 	if(outfit_override)
@@ -56,7 +56,7 @@
 	jobtype = /datum/job/exploration_crew
 
 	id = /obj/item/card/id/job/exploration_crew
-	belt = /obj/item/pda/exploration_crew
+	belt = /obj/item/modular_computer/tablet/pda/exploration_crew
 	ears = /obj/item/radio/headset/headset_exploration
 	shoes = /obj/item/clothing/shoes/jackboots
 	gloves = /obj/item/clothing/gloves/color/black
@@ -77,7 +77,7 @@
 	name = "Exploration Crew (Engineer)"
 
 	belt = /obj/item/storage/belt/utility/full
-	r_pocket = /obj/item/pda/exploration_crew
+	r_pocket = /obj/item/modular_computer/tablet/pda/exploration_crew
 
 	backpack_contents = list(
 		/obj/item/kitchen/knife/combat/survival=1,

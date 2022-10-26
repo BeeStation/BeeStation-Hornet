@@ -20,7 +20,7 @@
 
 	var/uses_stored = TRUE	//if TRUE this will cause the turret to stop working if the stored_gun var is null in process()
 
-	var/base_icon_state = "standard"
+	base_icon_state = "standard"
 	var/scan_range = 7
 	var/atom/base = null //for turrets inside other objects
 

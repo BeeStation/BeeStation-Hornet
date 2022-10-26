@@ -288,9 +288,9 @@
 /mob/proc/should_show_chat_message(atom/movable/speaker, datum/language/message_language, is_emote = FALSE, is_heard = FALSE)
 	if(!client)
 		return CHATMESSAGE_CANNOT_HEAR
-	if(!client.prefs.chat_on_map || (!client.prefs.see_chat_non_mob && !ismob(speaker)))
+	if(!(client.prefs.toggles & PREFTOGGLE_RUNECHAT_GLOBAL) || (!(client.prefs.toggles & PREFTOGGLE_RUNECHAT_NONMOBS) && !ismob(speaker)))
 		return CHATMESSAGE_CANNOT_HEAR
-	if(!client.prefs.see_rc_emotes && is_emote)
+	if(!(client.prefs.toggles & PREFTOGGLE_RUNECHAT_EMOTES) && is_emote)
 		return CHATMESSAGE_CANNOT_HEAR
 	if(is_heard && !can_hear())
 		return CHATMESSAGE_CANNOT_HEAR
@@ -492,7 +492,8 @@
 		qdel(src)
 		return
 	//handle color
-	tgt_color = color
+	if(color)
+		tgt_color = color
 	INVOKE_ASYNC(src, .proc/generate_image, text, target, owner)
 
 /datum/chatmessage/balloon_alert/Destroy()
