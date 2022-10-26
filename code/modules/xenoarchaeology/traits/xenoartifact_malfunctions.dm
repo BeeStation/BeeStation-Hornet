@@ -245,3 +245,16 @@
 	var/turf/T = get_turf(parent)
 	T.assume_air(air_contents)
 	parent.air_update_turf()
+
+//============
+// Hallucination, shows a random hallucination to the target once
+//============
+/datum/xenoartifact_trait/malfunction/hallucination
+	label_name = "Hallucinogenic"
+	label_desc = "Hallucinogenic: The Artifact causes the target to hallucinate."
+	flags = BLUESPACE_TRAIT | URANIUM_TRAIT | PLASMA_TRAIT
+
+/datum/xenoartifact_trait/malfunction/hallucination/activate(obj/item/xenoartifact/X, atom/target, atom/user, setup)
+	if(isliving(target))
+		var/datum/hallucination/H = pick(GLOB.hallucination_list)
+		H = new H(target)

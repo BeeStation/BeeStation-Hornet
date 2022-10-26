@@ -449,3 +449,29 @@
 	X.visible_message("<span class='danger'>The [X] halts and begins to hum deeply.", "The [X] halts and begins to hum deeply.</span>")
 	playsound(get_turf(X), 'sound/effects/seedling_chargeup.ogg', 50, TRUE)
 	sleep(3 SECONDS)
+
+//============
+// Blink, the artifact dissapears for a short duration after use
+//============
+/datum/xenoartifact_trait/minor/blink
+	label_name = "Desynced"
+	label_desc = "Desynced: The Artifact falls in & out of existence regularly."
+	flags = BLUESPACE_TRAIT | PLASMA_TRAIT | URANIUM_TRAIT
+	///Where your eyes don't go
+	var/obj/effect/confiscate
+
+/datum/xenoartifact_trait/minor/blink/activate(obj/item/xenoartifact/X, atom/target, atom/user, setup)
+	X.visible_message("<span class='warning'>[X] slips between dimensions!</span>")
+	confiscate = new(get_turf(X))
+	X.forceMove(confiscate)
+	addtimer(CALLBACK(src, .proc/comeback, X), X.charge*0.20 SECONDS)
+
+/datum/xenoartifact_trait/minor/blink/proc/comeback(obj/item/xenoartifact/X)
+	X.visible_message("<span class='warning'>[X] slips between dimensions!</span>")
+	X.forceMove(get_turf(confiscate))
+	QDEL_NULL(confiscate)
+
+/datum/xenoartifact_trait/minor/blink/Destroy(force, ...)
+	. = ..()
+	if(!isnull(confiscate))
+		comeback()

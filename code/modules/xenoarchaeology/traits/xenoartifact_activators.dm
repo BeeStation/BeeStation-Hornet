@@ -152,3 +152,21 @@
 /datum/xenoartifact_trait/activator/pitch/pass_input(datum/source, obj/item/thing, mob/user, atom/target)
 	var/obj/item/xenoartifact/X = source
 	X.default_activate(charge, user, target)
+
+///============
+/// Honk, activated when honked or used by a clown
+///============
+/datum/xenoartifact_trait/activator/honk
+	desc = "Honked"
+	label_desc = "Honked: The material is squishy & humorous. Perhaps the clown would know how to use it?"
+	charge = 25
+	signals = list(COMSIG_PARENT_ATTACKBY, COMSIG_MOVABLE_IMPACT, COMSIG_ITEM_ATTACK_SELF, COMSIG_ITEM_AFTERATTACK)
+	weight = 25
+
+/datum/xenoartifact_trait/activator/honk/pass_input(datum/source, obj/item/thing, mob/user, atom/target)
+	var/obj/item/xenoartifact/X = source
+	//Make sure we're being silly before we activate it - isclown( ) refers to the simplemob
+	if(!(istype(thing, /obj/item/bikehorn) || istype(thing, /obj/item/bikehorn/golden) || isclown(target) || HAS_TRAIT(user, TRAIT_NAIVE) || HAS_TRAIT(target, TRAIT_NAIVE)))
+		return
+	charge = charge*((thing?.force || 10)*0.1)
+	X.default_activate(charge, user, target)
