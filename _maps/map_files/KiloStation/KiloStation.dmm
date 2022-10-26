@@ -80862,13 +80862,13 @@
 /turf/open/floor/engine,
 /area/engine/engineering)
 "cxh" = (
-/obj/machinery/door/poddoor/shutters/preopen{
-	id = "engsm";
-	name = "Radiation Chamber Shutters"
-	},
 /obj/effect/turf_decal/caution/stand_clear,
 /obj/structure/cable{
 	icon_state = "4-8"
+	},
+/obj/machinery/door/poddoor/shutters/radiation/preopen{
+	id = "engsm";
+	name = "Radiation Chamber Shutters"
 	},
 /turf/open/floor/plasteel/dark,
 /area/engine/supermatter)
