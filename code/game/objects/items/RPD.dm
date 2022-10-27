@@ -261,16 +261,16 @@ GLOBAL_LIST_INIT(fluid_duct_recipes, list(
 /obj/item/pipe_dispenser/equipped(mob/user, slot, initial)
 	. = ..()
 	if(slot == ITEM_SLOT_HANDS)
-		RegisterSignal(user, COMSIG_MOUSE_SCROLL_ON, .proc/mouse_wheeled)
+		RegisterSignal(user, COMSIG_MOB_MOUSE_SCROLL_ON, .proc/mouse_wheeled)
 	else
-		UnregisterSignal(user, COMSIG_MOUSE_SCROLL_ON)
+		UnregisterSignal(user, COMSIG_MOB_MOUSE_SCROLL_ON)
 
 /obj/item/pipe_dispenser/dropped(mob/user, silent)
-	UnregisterSignal(user, COMSIG_MOUSE_SCROLL_ON)
+	UnregisterSignal(user, COMSIG_MOB_MOUSE_SCROLL_ON)
 	return ..()
 
 /obj/item/pipe_dispenser/cyborg_unequip(mob/user)
-	UnregisterSignal(user, COMSIG_MOUSE_SCROLL_ON)
+	UnregisterSignal(user, COMSIG_MOB_MOUSE_SCROLL_ON)
 	return ..()
 
 /obj/item/pipe_dispenser/pre_attack(atom/target, mob/user, params)
@@ -591,7 +591,7 @@ GLOBAL_LIST_INIT(fluid_duct_recipes, list(
 /obj/item/pipe_dispenser/proc/mouse_wheeled(mob/source, atom/A, delta_x, delta_y, params)
 	SIGNAL_HANDLER
 	if(loc != source)
-		UnregisterSignal(source, COMSIG_MOUSE_SCROLL_ON)
+		UnregisterSignal(source, COMSIG_MOB_MOUSE_SCROLL_ON)
 		return
 
 	if(source.incapacitated(ignore_restraints = TRUE))
