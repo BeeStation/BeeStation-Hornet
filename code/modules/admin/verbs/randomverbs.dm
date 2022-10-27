@@ -1303,9 +1303,9 @@ Traitors and the like can also be revived with the previous role mostly intact.
 
 			punishment += ": \"[target_speech]\""
 
-	admin_ticket_log(whom, "[key_name_admin(usr)] punished [key_name_admin(whom)] with [punishment]")
-	message_admins("[ADMIN_LOOKUPFLW(usr)] has punished [key_name_admin(whom)] with [punishment].")
-	log_admin("[key_name(usr)] punished [key_name(whom)] with [punishment].")
+	admin_ticket_log(target, "[key_name_admin(usr)] punished [key_name_admin(target)] with [punishment]")
+	message_admins("[ADMIN_LOOKUPFLW(usr)] has punished [key_name_admin(target)] with [punishment].")
+	log_admin("[key_name(usr)] punished [key_name(target)] with [punishment].")
 
 /mob/living/carbon/proc/give_cookie(var/client/admin_client)
 	var/obj/item/reagent_containers/food/snacks/cookie/cookie = new(src)
