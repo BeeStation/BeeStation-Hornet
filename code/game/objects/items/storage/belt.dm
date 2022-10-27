@@ -241,6 +241,24 @@
 		/obj/item/extrapolator
 		))
 
+/obj/item/storage/belt/medical/ert
+	name = "emergency response medical belt"
+	desc = "A belt containing field surgical supplies for use by medical response teams."
+
+/obj/item/storage/belt/medical/ert/ComponentInitialize()
+	. = ..()
+	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
+	STR.can_hold[/obj/item/gun/medbeam] = TRUE
+
+/obj/item/storage/belt/medical/ert/PopulateContents()
+	new /obj/item/healthanalyzer/advanced(src)
+	new /obj/item/surgical_drapes(src)
+	new /obj/item/scalpel/advanced(src)
+	new /obj/item/retractor/advanced(src)
+	new /obj/item/surgicaldrill/advanced(src)
+	new /obj/item/reagent_containers/medspray/sterilizine(src)
+	new /obj/item/gun/medbeam(src)
+
 /obj/item/storage/belt/security
 	name = "security belt"
 	desc = "Can hold security gear like handcuffs and flashes."
