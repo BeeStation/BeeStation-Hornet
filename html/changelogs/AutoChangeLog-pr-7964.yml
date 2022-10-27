@@ -1,0 +1,6 @@
+author: MaltVinegar
+delete-after: true
+changes:
+  - bugfix: fixed RCD-constructed floor not stopping air
+  - bugfix: fixed incongruence in price between constructing floor on lattice and
+      constructing on the space below the lattice
