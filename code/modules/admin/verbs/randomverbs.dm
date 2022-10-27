@@ -102,7 +102,7 @@
 
 		msg = input("Message:", prompt) as num|null
 
-		if( !msg )
+		if (!msg)
 			return
 
 		var/ANTAG_REP_MAXIMUM = CONFIG_GET(number/antag_rep_maximum)
@@ -136,7 +136,7 @@
 
 	var/msg = capped_input(usr, "Message:", "Enter the text you wish to appear to everyone:")
 
-	if( !msg )
+	if (!msg)
 		return
 	to_chat(world, "[msg]")
 	log_admin("GlobalNarrate: [key_name(usr)] : [msg]")
