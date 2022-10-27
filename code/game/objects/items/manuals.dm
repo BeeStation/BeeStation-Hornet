@@ -436,3 +436,10 @@
 	author = "Nanotrasen"
 	title = "Chemical Factories Without Narcotics"
 	page_link = "Guide_to_plumbing"
+
+/obj/item/book/manual/wiki/xenoarchaeology
+	name = "Xenoarchaeology Fieldguide"
+	icon_state ="xenoarchaeology"
+	author = "Phillippe French"
+	title = "Xenoarchaeology Fieldguide"
+	page_link = "Guide_to_Artifacts"

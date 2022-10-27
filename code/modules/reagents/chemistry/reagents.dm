@@ -46,16 +46,16 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 	. = ..()
 	holder = null
 
-/datum/reagent/proc/reaction_mob(mob/living/M, method=TOUCH, reac_volume, show_message = 1, touch_protection = 0)
+/datum/reagent/proc/reaction_mob(mob/living/M, method = TOUCH, reac_volume, show_message = 1, touch_protection = 0, obj/item/bodypart/affecting)
 	if(!istype(M))
-		return 0
+		return FALSE
 	if(method == VAPOR) //smoke, foam, spray
 		if(M.reagents)
 			var/modifier = CLAMP((1 - touch_protection), 0, 1)
 			var/amount = round(reac_volume*modifier, 0.1)
 			if(amount >= 0.5)
 				M.reagents.add_reagent(type, amount)
-	return 1
+	return TRUE
 
 /datum/reagent/proc/reaction_obj(obj/O, volume)
 	return

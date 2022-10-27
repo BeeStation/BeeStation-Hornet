@@ -69,10 +69,24 @@
 	var/mob/living/carbon/human/C = owner
 	var/mob/camera/ai_eye/remote/remote_eye = C.remote_control
 	var/obj/machinery/abductor/pad/P = target
-	var/target_loc = get_turf(remote_eye)
+	var/turf/target_loc = get_turf(remote_eye)
 
 	if(istype(get_area(target_loc), /area/ai_monitored))
 		to_chat(owner, "<span class='warning'>Due to significant interference, this area cannot be warped to!</span>")
+		return
+
+	for(var/mob/living/carbon/human/specimin in view(5, target_loc))
+		var/obj/item/organ/heart/gland/temp = locate() in specimin.internal_organs
+		//Not a specimin
+		if(istype(temp))
+			continue
+		//No heart, not considered a specimin
+		if (!specimin.getorganslot(ORGAN_SLOT_HEART) || isabductor(specimin))
+			continue
+		//Technically a specimin, however we should avoid meta tactics
+		if (!specimin.client)
+			continue
+		to_chat(owner, "<span class='warning'>You cannot warp to this location, an unprocessed specimen might spot you, tampering with the experiment!</span>")
 		return
 
 	if(GLOB.cameranet.checkTurfVis(remote_eye.loc))
@@ -101,10 +115,24 @@
 	var/mob/living/carbon/human/C = owner
 	var/mob/camera/ai_eye/remote/remote_eye = C.remote_control
 	var/obj/machinery/abductor/pad/P = target
-	var/target_loc = get_turf(remote_eye)
+	var/turf/target_loc = get_turf(remote_eye)
 
 	if(istype(get_area(target_loc), /area/ai_monitored))
 		to_chat(owner, "<span class='warning'>Due to significant interference, this area cannot be warped to!</span>")
+		return
+
+	for(var/mob/living/carbon/human/specimin in view(5, target_loc))
+		var/obj/item/organ/heart/gland/temp = locate() in specimin.internal_organs
+		//Not a specimin
+		if(istype(temp))
+			continue
+		//No heart, not considered a specimin
+		if (!specimin.getorganslot(ORGAN_SLOT_HEART) || isabductor(specimin))
+			continue
+		//Technically a specimin, however we should avoid meta tactics
+		if (!specimin.client)
+			continue
+		to_chat(owner, "<span class='warning'>You cannot warp to this location, an unprocessed specimen might spot you, tampering with the experiment!</span>")
 		return
 
 	if(GLOB.cameranet.checkTurfVis(remote_eye.loc))

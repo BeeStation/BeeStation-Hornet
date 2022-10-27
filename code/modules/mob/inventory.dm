@@ -349,6 +349,10 @@
 		items += wear_mask
 	if(wear_neck)
 		items += wear_neck
+	if(handcuffed)
+		items += handcuffed
+	if(legcuffed)
+		items += legcuffed
 	return items
 
 /mob/living/carbon/human/get_equipped_items(include_pockets = FALSE)

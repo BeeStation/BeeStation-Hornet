@@ -15,17 +15,17 @@
 	/// Radio connection datum used by signallers.
 	var/datum/radio_frequency/radio_connection
 
-/datum/computer_file/program/signaller/New()
-	set_frequency(signal_frequency)
-	return ..()
-
-/datum/computer_file/program/signaller/run_program(mob/living/user)
+/datum/computer_file/program/signaller/on_start(mob/living/user)
 	. = ..()
 	if (!.)
 		return
+	set_frequency(signal_frequency)
 	if(!computer?.get_modular_computer_part(MC_SIGNALLER)) //Giving a clue to users why the program is spitting out zeros.
 		to_chat(user, "<span class='warning'>\The [computer] flashes an error: \"hardware\\signal_hardware\\startup.bin -- file not found\".</span>")
 
+/datum/computer_file/program/signaller/kill_program(forced)
+	. = ..()
+	SSradio.remove_object(computer, signal_frequency)
 
 /datum/computer_file/program/signaller/ui_data(mob/user)
 	var/list/data = get_header_data()

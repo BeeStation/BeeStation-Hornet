@@ -3,9 +3,9 @@
 	set desc = "Toggles examine hover-over tooltips"
 	set category = "Preferences"
 
-	prefs.enable_tips = !prefs.enable_tips
+	prefs.toggles2 ^= PREFTOGGLE_2_ENABLE_TIPS
 	prefs.save_preferences()
-	to_chat(usr, "<span class='danger'>Examine tooltips [prefs.enable_tips ? "en" : "dis"]abled.</span>")
+	to_chat(usr, "<span class='danger'>Examine tooltips [(prefs.toggles2 & PREFTOGGLE_2_ENABLE_TIPS) ? "en" : "dis"]abled.</span>")
 
 /client/verb/change_tip_delay()
 	set name = "Set Examine Tooltip Delay"

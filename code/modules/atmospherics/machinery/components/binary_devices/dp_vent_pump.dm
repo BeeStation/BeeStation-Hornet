@@ -54,14 +54,14 @@
 		icon_state = "vent_welded"
 		return
 
-	if(!on || !is_operational())
+	if(!on || !is_operational)
 		icon_state = "vent_off"
 	else
 		icon_state = pump_direction ? "vent_out" : "vent_in"
 
 /obj/machinery/atmospherics/components/binary/dp_vent_pump/process_atmos()
 	..()
-	if(welded || !is_operational() || !isopenturf(loc))
+	if(welded || !is_operational || !isopenturf(loc))
 		return FALSE
 	if(!on)
 		return
