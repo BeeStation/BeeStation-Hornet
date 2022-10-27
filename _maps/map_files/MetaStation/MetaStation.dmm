@@ -37349,23 +37349,6 @@
 /obj/structure/reagent_dispensers/watertank/high,
 /turf/open/floor/plating,
 /area/maintenance/starboard/secondary)
-"cwb" = (
-/obj/machinery/suit_storage_unit/exploration,
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
-/obj/structure/window/reinforced{
-	dir = 1;
-	layer = 2.8
-	},
-/turf/open/floor/plasteel/grid/steel,
-/area/science/shuttledock)
 "cwe" = (
 /obj/structure/cable,
 /obj/machinery/power/solar{
@@ -47386,9 +47369,6 @@
 /area/crew_quarters/heads/captain/private)
 "egx" = (
 /obj/structure/target_stake,
-/obj/structure/window/reinforced{
-	dir = 4
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
@@ -57321,13 +57301,6 @@
 /obj/item/gun/energy/laser/practice,
 /obj/item/gun/energy/laser/practice,
 /obj/item/gun/energy/laser/practice,
-/obj/structure/window/reinforced{
-	dir = 1;
-	pixel_y = 1
-	},
-/obj/structure/window/reinforced{
-	dir = 4
-	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -77117,9 +77090,6 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/stripes/line,
-/obj/structure/window/reinforced{
-	dir = 8
-	},
 /turf/open/floor/plasteel/grid/steel,
 /area/science/shuttledock)
 "uEG" = (
@@ -83892,9 +83862,6 @@
 /area/crew_quarters/toilet/restrooms)
 "ygk" = (
 /obj/machinery/suit_storage_unit/exploration,
-/obj/structure/window/reinforced{
-	dir = 8
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
@@ -120378,7 +120345,7 @@ jOm
 bVV
 jnJ
 mjJ
-cwb
+ygk
 ygk
 ygk
 uEk
