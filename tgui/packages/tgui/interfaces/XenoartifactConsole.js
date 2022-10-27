@@ -36,7 +36,7 @@ export const XenoartifactConsole = (props, context) => {
                 <AnimatedNumber
                   value={points}
                   format={value => formatMoney(value)} />
-                {',credits'}
+                {' credits'}
               </Box>
             )}>
             <BlockQuote>
@@ -102,7 +102,7 @@ export const XenoartifactListingBuy = (props, context) => {
           {`${dialogue}`}
         </BlockQuote>
         <Button onClick={() => act(id)}>
-          <Icon name="shopping-cart" />{`: ${price} credits`}
+          <Icon name="shopping-cart" />{` ${price} credits`}
         </Button>
       </Section>
     </Box>
