@@ -1221,6 +1221,7 @@
 		if(!check_rights(R_ADMIN|R_FUN))
 			return
 
+		var/mob/living/carbon/human/H = locate(href_list["adminspawncookie"])
 		if(!ishuman(H))
 			to_chat(usr, "This can only be used on instances of type /mob/living/carbon/human.")
 			return
