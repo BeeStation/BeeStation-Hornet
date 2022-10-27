@@ -136,7 +136,7 @@
 
 	var/msg = capped_input(usr, "Message:", "Enter the text you wish to appear to everyone:")
 
-	if (!msg)
+	if( !msg )
 		return
 	to_chat(world, "[msg]")
 	log_admin("GlobalNarrate: [key_name(usr)] : [msg]")
@@ -158,7 +158,7 @@
 
 	var/msg = capped_input(usr, "Message:", "Enter the text you wish to appear to your target:")
 
-	if (!msg)
+	if( !msg )
 		return
 
 	to_chat(M, msg)
