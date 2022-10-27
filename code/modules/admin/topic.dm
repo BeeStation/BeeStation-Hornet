@@ -27,8 +27,8 @@
 			return
 
 		var/ahelp_ref = href_list["ahelp"]
-		var/datum/admin_help/AH = locate(ahelp_ref)
-		if(AH)
+		var/datum/help_ticket/admin/AH = locate(ahelp_ref)
+		if(istype(AH))
 			AH.Action(href_list["ahelp_action"])
 		else
 			to_chat(usr, "Ticket [ahelp_ref] has been deleted!")
@@ -1225,7 +1225,7 @@
 		if(!ishuman(H))
 			to_chat(usr, "This can only be used on instances of type /mob/living/carbon/human.")
 			return
-
+      
 		var/obj/item/reagent_containers/food/snacks/cookie/blessed/cookie = new(H)
 		if(H.put_in_hands(cookie))
 			H.update_inv_hands()
@@ -1237,9 +1237,8 @@
 
 		log_admin("[key_name(H)] got their cookie, spawned by [key_name(src.owner)].")
 		message_admins("[key_name(H)] got their cookie, spawned by [key_name(src.owner)].")
+		H.give_cookie(usr)
 		SSblackbox.record_feedback("amount", "admin_cookies_spawned", 1)
-		to_chat(H, "<span class='adminnotice'>Your prayers have been answered!! You received the <b>best cookie</b>!</span>")
-		SEND_SOUND(H, sound('sound/effects/pray_chaplain.ogg'))
 
 	else if(href_list["adminsmite"])
 		if(!check_rights(R_ADMIN|R_FUN))

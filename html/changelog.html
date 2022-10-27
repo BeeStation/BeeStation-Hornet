@@ -56,6 +56,98 @@
 		-->
 		<div class="commit sansserif">
 
+			<h2 class="date">27 October 2022</h2>
+			<h3 class="author">mystery3525 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Several new admin smites</li>
+			</ul>
+
+			<h2 class="date">26 October 2022</h2>
+			<h3 class="author">PestoVerde322 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">Added craftable filing cabinets that can be constructed for 2 iron sheets</li>
+				<li class="rscadd">Added Rad-resistant shutter and Window shutter</li>
+				<li class="rscadd">Added Radproof shutters next to the SM on all the maps.</li>
+				<li class="rscadd">Added blast doors and shutters with their variants to the crafting menu and blast door</li>
+				<li class="rscadd">Replaced all the old Supermatter shutters with radiation proof one on all the maps</li>
+				<li class="rscadd">Brand new sounds from Tau Ceti for shutters, no more the same sounds as heavy duty blast doors</li>
+				<li class="rscdel">Removed old unused multitile shutters</li>
+				<li class="tweak">new dedicated structures category, instead of misc for all structure things</li>
+			</ul>
+			<h3 class="author">itsmeow updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="balance">Lighteaters will no longer erase hardsuits with headlamps from existence, instead, permanently disabling their headlamps.</li>
+				<li class="bugfix">PDAs are now properly affected by lighteaters when they lack a primary/secondary card slot.</li>
+			</ul>
+			<h3 class="author">san7890 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscadd">For developers, made the Merge conflict marker more explicit than before.</li>
+			</ul>
+
+			<h2 class="date">25 October 2022</h2>
+			<h3 class="author">itsmeow updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="balance">Dynamic: Traitors, Changelings, and Heretics can no longer spawn alongside hivemind (assimilation).</li>
+			</ul>
+
+			<h2 class="date">23 October 2022</h2>
+			<h3 class="author">PowerfulBacon updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="rscdel">Reverts the clown headset</li>
+			</ul>
+			<h3 class="author">benbot16 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Jaws of life can now deconstruct airlocks properly.</li>
+			</ul>
+
+			<h2 class="date">22 October 2022</h2>
+			<h3 class="author">Crossedfall updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Corrects the savefile importer so it properly loads equipped gear into the database</li>
+			</ul>
+			<h3 class="author">Penwin0 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="admin">You don't need Permission editing perms to use forcemapconfig</li>
+			</ul>
+
+			<h2 class="date">20 October 2022</h2>
+			<h3 class="author">itsmeow updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="refactor">Refactored and abstracted the admin ticketing system for use by mentors</li>
+				<li class="rscadd">Added a mentor ticketing panel</li>
+				<li class="rscadd">Mentorhelps can now be escalated to adminhelps</li>
+				<li class="rscadd">Adminhelp de-escalation to mhelp button is now automatic and will create a corresponding ticket</li>
+				<li class="tweak">Admins can now see mentorhelp tickets in the admin ticket manager</li>
+				<li class="code_imp">Removed unused mentor code</li>
+				<li class="tweak">Admin Ticket Manager now has collapsible Closed and Resolved sections</li>
+				<li class="tweak">All close actions on tickets now have a confirmation prompt</li>
+				<li class="bugfix">Fix a runtime caused by admin-following from the ticket panel for a player that has disconnected.</li>
+				<li class="bugfix">Overriding a claim on a ticket no longer shows the admin's IC name in the admin log, but their CKEY instead.</li>
+				<li class="tweak">The ticket menu no longer shows a Re-open button if the ticket is open.</li>
+				<li class="tweak">Improved the UI of the ticket messaging box and added auto-scroll when a new message appears.</li>
+				<li class="bugfix">Fixed issues with claiming and ticket resolve actions - it will now silently claim the ticket before resolving (and no longer messages the ticket subject about the claiming).</li>
+				<li class="tweak">All ticket close actions except Resolve now have confirmation states in the ticket manager.</li>
+				<li class="tweak">Adminhelp/mentorhelp resolve messages will now go under the "Admin PM"/"Mentor PM" chat filters.</li>
+				<li class="bugfix">Fixed admin PM replies sometimes creating HTML entities (like `&#39;`)</li>
+			</ul>
+
+			<h2 class="date">18 October 2022</h2>
+			<h3 class="author">PestoVerde322 updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">the text "real_feedback" is no longer yielded when cleaning a rune with a nullrod</li>
+			</ul>
+			<h3 class="author">PowerfulBacon updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="bugfix">Abductor teleportation is no longer blocked by the teleporting agent.</li>
+				<li class="tweak">Abductor teleport console is now blocked by mobs within 5 tiles rather than mobs that can see the location, to make it less frustrating to find a valid warp point.</li>
+				<li class="balance">Abductor emergency teleport now applies sleeping rather than stun.</li>
+			</ul>
+			<h3 class="author">The-Moon-Itself updated:</h3>
+			<ul class="changes bgimages16">
+				<li class="tweak">Wiremod input ports can connect to multiple output ports</li>
+				<li class="rscdel">Deletes Wiremod combiner component</li>
+			</ul>
+
 			<h2 class="date">17 October 2022</h2>
 			<h3 class="author">Crossedfall updated:</h3>
 			<ul class="changes bgimages16">
@@ -1210,88 +1302,6 @@
 				<li class="rscadd">Added Depleted Uranium Windows - created by using uranium in-hand</li>
 				<li class="rscadd">DU Windows block all radiation, make sure you've secured your setup with either fulltiles or two layers of directionals!</li>
 				<li class="imageadd">added some icons for the above windows</li>
-			</ul>
-
-			<h2 class="date">24 August 2022</h2>
-			<h3 class="author">Naevii updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">Change most sprites in cult.dmi</li>
-				<li class="tweak">Change bloodspear sprites in polearms_(lefthand & righthand).dmi</li>
-				<li class="tweak">Change cultblade sprites in swords_(lefthand & righthand).dmi</li>
-				<li class="tweak">Change cultrobe sprites in suit.dmi</li>
-				<li class="tweak">Change cultrobe sprites in clothing_(lefthand & righthand).dmi</li>
-				<li class="tweak">Change cultrobe sprites in suits.dmi</li>
-				<li class="tweak">Change mirror-shield in shields.dmi</li>
-				<li class="tweak">Change mirror shield in shields_(lefthand & righthand).dmi</li>
-			</ul>
-
-			<h2 class="date">23 August 2022</h2>
-			<h3 class="author">PowerfulBacon updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">Alt clicking on suits that contain embedded storage (pockets) will now open the inventory instead of adjusting the style of that article of clothing. Adjusting the style can be done through the context menu or the stat panel under the object tab.</li>
-			</ul>
-
-			<h2 class="date">21 August 2022</h2>
-			<h3 class="author">etherware-novice updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="tweak">air scrubber and pump has a proper description now</li>
-			</ul>
-			<h3 class="author">ivanmixo updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Getting batonned makes you shake and stutter</li>
-			</ul>
-
-			<h2 class="date">20 August 2022</h2>
-			<h3 class="author">benbot16 updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Fixes the xenomorph transfer plasma ability</li>
-				<li class="tweak">Silicons can now speak apidite</li>
-			</ul>
-			<h3 class="author">etherware-novice updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">new scarfs now in the ooc store</li>
-			</ul>
-
-			<h2 class="date">19 August 2022</h2>
-			<h3 class="author">Impish_Delights updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Added additional set of deny and approval stamps to QM's office</li>
-				<li class="rscadd">Added HoS stamp to HoS's quarters</li>
-				<li class="rscadd">Added Ecto-Sniffer to robotics, to bring in line with other maps</li>
-				<li class="rscadd">Added chest drawers to store paperwork in both the HoP's office, and cargo lobby</li>
-				<li class="rscdel">Removed redundant Captain's stamp from quarters</li>
-				<li class="tweak">Shifted around RD & CMO stamps so they are not hidden under items at round start</li>
-				<li class="tweak">Modified cargo bay lobby to have a desk, consoles shifted to side</li>
-			</ul>
-			<h3 class="author">ivanmixo updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="balance">The delimber anomaly doesn't give out random organs anymore</li>
-				<li class="balance">The delimber anomaly isn't eternal anymore</li>
-			</ul>
-
-			<h2 class="date">18 August 2022</h2>
-			<h3 class="author">etherware-novice updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="balance">social anxiety trait now works</li>
-				<li class="rscadd">social anxiety trait has unique moodlets</li>
-			</ul>
-			<h3 class="author">ivanmixo updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="admin">Mods no longer have access to the supplypod menu</li>
-			</ul>
-
-			<h2 class="date">17 August 2022</h2>
-			<h3 class="author">CydiaLamiales updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Added the wig and the natural wig to the BeeCoin store</li>
-			</ul>
-			<h3 class="author">The-Moon-Itself updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="bugfix">Atmos machines initialize properly when maploaded. Traitor shuttle capsules are functional again!</li>
-			</ul>
-			<h3 class="author">etherware-novice updated:</h3>
-			<ul class="changes bgimages16">
-				<li class="rscadd">Nanotrasen has weakened the dna lock on mail, allowing changelings to open their disguise's mail.</li>
 			</ul>
 		</div>
 

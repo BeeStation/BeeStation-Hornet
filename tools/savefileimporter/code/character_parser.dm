@@ -13,6 +13,13 @@ var/global/list/custom_name_types = list(
 
 // In its own file because its such a mess
 /proc/parse_characters(owning_ckey, savefile/S, list/cdirs)
+
+	// Gear is a global preference and needs to be handled separately
+	var/list/equipped_gear
+	READ_FILE_EXVAR(S["equipped_gear"], equipped_gear)
+	if(!equipped_gear)
+		equipped_gear = list()
+
 	for(var/character_dir in cdirs)
 		S.cd = "/[character_dir]"
 
@@ -79,11 +86,6 @@ var/global/list/custom_name_types = list(
 		READ_FILE_EXVAR(S["all_quirks"], all_quirks)
 		if(!all_quirks)
 			all_quirks = list()
-		// Gear
-		var/list/equipped_gear
-		READ_FILE_EXVAR(S["equipped_gear"], equipped_gear)
-		if(!equipped_gear)
-			equipped_gear = list()
 
 		// Get the slot
 		var/list/slot_list = splittext(character_dir, "character")
