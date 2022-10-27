@@ -590,6 +590,10 @@ GLOBAL_LIST_INIT(fluid_duct_recipes, list(
 
 /obj/item/pipe_dispenser/proc/mouse_wheeled(mob/source, atom/A, delta_x, delta_y, params)
 	SIGNAL_HANDLER
+	if(loc != source)
+		UnregisterSignal(source, COMSIG_MOUSE_SCROLL_ON)
+		return
+
 	if(source.incapacitated(ignore_restraints = TRUE))
 		return
 
