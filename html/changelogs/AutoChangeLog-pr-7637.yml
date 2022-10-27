@@ -1,0 +1,4 @@
+author: Penwin, AnturK
+delete-after: true
+changes:
+  - code_imp: removes priority_overlays from the code
