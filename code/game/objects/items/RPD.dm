@@ -301,6 +301,7 @@ GLOBAL_LIST_INIT(fluid_duct_recipes, list(
 		to_chat(user, "<span class='warning'>[src] has already installed this upgrade!</span>")
 		return
 	upgrade_flags |= rpd_up.upgrade_flags
+	to_chat(user, "<span class='notice'>You install this upgrade into [src].</span>")
 	playsound(src.loc, 'sound/machines/click.ogg', 50, TRUE)
 	qdel(rpd_up)
 
@@ -427,16 +428,14 @@ GLOBAL_LIST_INIT(fluid_duct_recipes, list(
 		attack_target = attack_target.wrench_act(user, src)
 		if(attack_target == TRUE)
 			return ..()
-		if(!isatom(attack_target))
-			CRASH("When attempting to call [A.type].wrench_act(), received the following non-atom return value: [attack_target]")
 
 	//make sure what we're clicking is valid for the current category
 	var/static/list/make_pipe_whitelist
 	if(!make_pipe_whitelist)
 		make_pipe_whitelist = typecacheof(list(/obj/structure/lattice, /obj/structure/girder, /obj/item/pipe, /obj/structure/window, /obj/structure/grille))
-	if(istype(attack_target, /obj/machinery/atmospherics) && ((mode & BUILD_MODE) && !(mode & PAINT_MODE))) //Reduces pixelhunt when coloring is off.
-		A = get_turf(attack_target)
-	var/can_make_pipe = (isturf(A) || is_type_in_typecache(A, make_pipe_whitelist))
+	if(istype(attack_target, /obj/machinery/atmospherics) && ((mode & BUILD_MODE) && !(mode & PAINT_MODE))) //target turf if on buildmode so that it doesn't try painting a pipe you click on
+		attack_target = get_turf(attack_target)
+	var/can_make_pipe = (isturf(attack_target) || is_type_in_typecache(attack_target, make_pipe_whitelist))
 
 	. = FALSE
 
@@ -621,6 +620,9 @@ GLOBAL_LIST_INIT(fluid_duct_recipes, list(
 
 	recipe = first_plumbing
 
+/obj/item/pipe_dispenser/plumbing/install_upgrade(obj/item/rpd_upgrade/rpd_up, mob/user)
+	to_chat(user, "<span class='warning'>You fail to install this upgrade into [src]!</span>")
+
 #undef ATMOS_CATEGORY
 #undef DISPOSALS_CATEGORY
 #undef TRANSIT_CATEGORY
@@ -640,5 +642,5 @@ GLOBAL_LIST_INIT(fluid_duct_recipes, list(
 	var/upgrade_flags
 
 /obj/item/rpd_upgrade/unwrench
-	desc = "Adds reverse wrench mode to the RPD. Attention, due to budget cuts, the mode is hard linked to the destroy mode control button."
+	desc = "Adds reverse wrench mode to the RPD. A warning label reads: This mode is hard linked to the destroy mode control button!"
 	upgrade_flags = RPD_UPGRADE_UNWRENCH
