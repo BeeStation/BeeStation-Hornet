@@ -102,7 +102,7 @@
 
 		msg = input("Message:", prompt) as num|null
 
-		if (!msg)
+		if( !msg )
 			return
 
 		var/ANTAG_REP_MAXIMUM = CONFIG_GET(number/antag_rep_maximum)
