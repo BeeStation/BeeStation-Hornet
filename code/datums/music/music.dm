@@ -133,7 +133,7 @@
 	/// Maximum range within which music will play, out of that range it will stop
 	var/soft_range = 20
 	/// Speed at which music will fade out while out of range
-	var/range_fade_speed = 0.01
+	var/range_fade_speed = 0.1
 
 /datum/music/sourced/New(client/C, _fade_volume)
 	if(C)
@@ -181,7 +181,7 @@
 	var/enabled = TRUE
 	/// Range within which music will start to play
 	var/start_range = 7
-	var/fade_in_time = 30
+	var/fade_in_time = 20
 	/// Whether music of the same typepath is shared
 	var/shared = TRUE
 
