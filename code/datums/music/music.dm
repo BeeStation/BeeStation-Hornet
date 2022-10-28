@@ -255,6 +255,7 @@
 /datum/music/sourced/battle/bubblegum
 	sound_file = 'sound/soundtrack/megafauna/bubblegum.ogg'
 	priority = 120
+	does_loop = FALSE
 
 /datum/music/sourced/battle/hierophant
 	sound_file = 'sound/soundtrack/megafauna/hierophant.ogg'
