@@ -101,8 +101,8 @@ export const XenoartifactListingBuy = (props, context) => {
         <BlockQuote>
           {`${dialogue}`}
         </BlockQuote>
-        <Button onClick={() => act(id)}>
-          <Icon name="shopping-cart" />{` ${price} credits`}
+        <Button Icon="shopping-cart" onClick={() => act(id)}>
+          {`${price} credits`}
         </Button>
       </Section>
     </Box>
