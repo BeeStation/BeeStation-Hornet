@@ -121,3 +121,6 @@
 
 	/// If the client is currently under the restrictions of the interview system
 	var/interviewee = FALSE
+
+	var/list/active_music = list()
+	var/datum/music/playing_music = null

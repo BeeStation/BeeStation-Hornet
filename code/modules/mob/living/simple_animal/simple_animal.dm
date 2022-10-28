@@ -97,6 +97,10 @@
 	//Discovery
 	var/discovery_points = 200
 
+	//for boss music
+	var/music_component = null
+	var/music_path = null
+
 /mob/living/simple_animal/Initialize(mapload)
 	. = ..()
 	GLOB.simple_animals[AIStatus] += src
@@ -109,6 +113,8 @@
 	update_simplemob_varspeed()
 	if(dextrous)
 		AddComponent(/datum/component/personal_crafting)
+	if(music_component && music_path)
+		AddComponent(music_component, music_path)
 	if(discovery_points)
 		AddComponent(/datum/component/discoverable, discovery_points)
 

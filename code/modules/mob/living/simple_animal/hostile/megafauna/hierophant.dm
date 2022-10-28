@@ -81,6 +81,9 @@ Difficulty: Hard
 	var/list/kill_phrases = list("Wsyvgi sj irivkc xettih. Vitemvmrk...", "Irivkc wsyvgi jsyrh. Vitemvmrk...", "Jyip jsyrh. Egxmzexmrk vitemv gcgpiw...", "Kix fiex. Liepmrk...")
 	var/list/target_phrases = list("Xevkix psgexih.", "Iriqc jsyrh.", "Eguymvih xevkix.")
 
+	music_component = /datum/component/music_player/battle
+	music_path = /datum/music/sourced/battle/bubblegum
+
 	mobchatspan = "hierosay"
 
 /mob/living/simple_animal/hostile/megafauna/hierophant/Initialize(mapload)

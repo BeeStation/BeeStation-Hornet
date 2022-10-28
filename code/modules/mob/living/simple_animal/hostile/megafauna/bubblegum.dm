@@ -67,6 +67,9 @@ Difficulty: Hard
 							   /datum/action/innate/megafauna_attack/blood_warp)
 	small_sprite_type = /datum/action/small_sprite/megafauna/bubblegum
 
+	music_component = /datum/component/music_player/battle
+	music_path = /datum/music/sourced/battle/bubblegum
+
 /mob/living/simple_animal/hostile/megafauna/bubblegum/Initialize(mapload)
 	. = ..()
 	if(true_spawn)

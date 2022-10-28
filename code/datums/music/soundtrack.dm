@@ -6,6 +6,7 @@ GLOBAL_LIST_EMPTY(soundtrack_this_round) // A running list of soundtrack songs t
 	var/url
 	var/album
 	var/file
+	var/loop = FALSE
 
 /datum/soundtrack_song/bee
 	album = "BeeStation OST"
