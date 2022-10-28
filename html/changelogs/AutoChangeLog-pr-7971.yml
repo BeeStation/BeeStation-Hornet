@@ -1,0 +1,6 @@
+author: itsmeow
+delete-after: true
+changes:
+  - bugfix: Airlock, tile, and decal painter inhand sprites work correctly when facing
+      sideways.
+  - rscdel: Removed a duplicate paper icon.
