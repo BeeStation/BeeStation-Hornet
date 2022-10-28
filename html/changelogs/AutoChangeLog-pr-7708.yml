@@ -1,0 +1,15 @@
+author: Skoglol, Dennok, TheChosenEvilOne, Timberpoes, Anturk, DuffCreeper, vincentiusvin,
+  ported by mystery3525
+delete-after: true
+changes:
+  - tweak: RPD subcategories and preview icons reorganized.
+  - rscadd: RPD now starts with painting turned off, hitting pipes with build and
+      no paint will target the turf underneath instead. Bye bye turf pixelhunting.
+  - rscadd: Reverse wrench mode upgrade to the RPD. Attention, due to budget cuts,
+      the mode is hard linked to the destroy mode control button.
+  - rscadd: You can now change piping layers on the RPD by scrolling with the mouse
+      wheel.
+  - bugfix: Various cumulative fixes to RPDs
+  - rscadd: RPD can destroy broken disposal pipe
+  - balance: Securing a disposal pipe over a floor tile with a crowbar in your offhand
+      will remove the floor tile before trying to secure it
