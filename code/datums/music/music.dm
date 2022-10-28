@@ -194,7 +194,7 @@
 	if(!music_path)
 		return
 	var/shared = FALSE
-	for(var/mob/M in range(start_range, parent))
+	for(var/mob/living/M in range(start_range, parent))
 		if(!M.client)
 			continue
 		if(mob_players[M])
