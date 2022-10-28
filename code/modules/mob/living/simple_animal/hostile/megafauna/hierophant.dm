@@ -82,7 +82,7 @@ Difficulty: Hard
 	var/list/target_phrases = list("Xevkix psgexih.", "Iriqc jsyrh.", "Eguymvih xevkix.")
 
 	music_component = /datum/component/music_player/battle
-	music_path = /datum/music/sourced/battle/bubblegum
+	music_path = /datum/music/sourced/battle/hierophant
 
 	mobchatspan = "hierosay"
 
