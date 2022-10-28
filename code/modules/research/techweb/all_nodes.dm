@@ -828,9 +828,9 @@
 /datum/techweb_node/rcd_upgrade
 	id = "rcd_upgrade"
 	tech_tier = 3
-	display_name = "RCD designs upgrade"
-	description = "Unlocks new RCD designs."
-	design_ids = list("rcd_upgrade_frames", "rcd_upgrade_simple_circuits")
+	display_name = "rapid device upgrade designs"
+	description = "Unlocks new designs that improve rapid devices."
+	design_ids = list("rcd_upgrade_frames", "rcd_upgrade_simple_circuits", "rpd_upgrade_unwrench")
 	prereq_ids = list("adv_engi")
 	research_costs = list(TECHWEB_POINT_TYPE_GENERIC = 2500)
 	export_price = 5000
