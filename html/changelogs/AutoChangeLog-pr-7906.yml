@@ -1,0 +1,26 @@
+author: Tyranicranger4
+delete-after: true
+changes:
+  - tweak: Remaps Xenobio, moving it from the edge of the station towards the middle
+      of the Science Department (MetaStation).
+  - tweak: Remaps Toxins and the Toxins storage room, moving them from the middle
+      of the Science Department towards the edge where Xenobio used to be (MetaStation).
+  - tweak: Remaps the 'science maintenance' hallway, moving it further to the right,
+      adding additional decals and expanding it slightly (MetaStation).
+  - tweak: The toxins 'launch' room is now part of the 'science maintenance' area
+      instead of the 'mixing' area. It also been visually changed slightly, although
+      it's function remains the same. (MetaStation)
+  - tweak: The toxins 'launch' room, the toxins 'test area', the exploration dock
+      and the 'starboard aft' solars have been moved down and to the right slightly.
+      (MetaStation)
+  - tweak: Remaps the maintenance area surrounding parts of the Science Department
+      (MetaStation)
+  - tweak: Remaps the science exploration area (MetaStation)
+  - tweak: Remaps wiring/piping/disposals throughout the Science Department. (MetaStation)
+  - tweak: Makes the experimentor room slightly smaller on the bottom (MetaStation)
+  - tweak: Remaps the R&D server room, moving it next to the Research Director's office
+      where Toxins storage used to be. (MetaStation)
+  - tweak: Makes various visual changes to parts of the Science Department, mostly
+      consists of replacing floor tiles/decals. (MetaStation)
+  - tweak: The Research Director's office now directly connects to the R&D server
+      room. Additionally the floor tiles in the RD's office now use decals. (MetaStation)
