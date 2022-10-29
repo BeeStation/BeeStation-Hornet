@@ -26,7 +26,7 @@ $include interviews.txt
 # There are various options which are hard-locked for security reasons.
 
 ## Server name: This appears at the top of the screen in-game and in the BYOND hub. Uncomment and replace 'beestation' with the name of your choice.
-@SERVERNAME ARMOSTATION
+@SERVERNAME [RU] ARMOSTATION - NO ERP, NO FURRIES, NO BADMINS, ROLEPLAY SERVER (not LRP or HRP or MRP)
 
 ## Server SQL name: This is the name used to identify the server to the SQL DB, distinct from SERVERNAME as it must be at most 32 characters.
 #@SERVERSQLNAME ss13newbs
