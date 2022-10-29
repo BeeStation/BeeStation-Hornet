@@ -435,13 +435,14 @@ SUBSYSTEM_DEF(shuttle)
 	// Remember, the direction is the direction we appear to be
 	// coming from
 	var/dock_angle = dir2angle(M.preferred_direction) + dir2angle(M.port_direction) + 180
+	var/dock_dir = angle2dir(dock_angle)
 
 	var/transit_width = SHUTTLE_TRANSIT_BORDER * 2
 	var/transit_height = SHUTTLE_TRANSIT_BORDER * 2
 
 	// Shuttles travelling on their side have their dimensions swapped
 	// from our perspective
-	var/list/union_coords = M.return_union_coords(M.get_all_towed_shuttles(), 0, 0, NORTH)
+	var/list/union_coords = M.return_union_coords(M.get_all_towed_shuttles(), 0, 0, dock_dir)
 	transit_width += union_coords[3] - union_coords[1] + 1
 	transit_height += union_coords[4] - union_coords[2] + 1
 
@@ -468,30 +469,10 @@ SUBSYSTEM_DEF(shuttle)
 
 	var/turf/bottomleft = locate(proposal.bottom_left_coords[1], proposal.bottom_left_coords[2], proposal.bottom_left_coords[3])
 	// Then create a transit docking port in the middle
-	var/matrix/dir_rotation = matrix(union_coords[1], union_coords[2], 0, union_coords[3], union_coords[4], 0) * matrix(dock_angle, MATRIX_ROTATE)
-	/*    Shuttle Space         Dock Space
-	        *------s1         d1----------*
-            |      |           |          |
-            |      |     ->    |       x  |   x = (0,0)
-            |  x   |           |          |
-           s0------*           *----------d0
-		┌  ┐ ┌                     ┐   ┌  ┐
-		|s0| |  cos(dir)  sin(dir) |   |d0|
-		|s1| | -sin(dir)  cos(dir) | = |d1|
-		└  ┘ └                     ┘   └  ┘
-	*/
-
-	var/x0 = dir_rotation.a
-	var/y0 = dir_rotation.b
-	var/x1 = dir_rotation.d
-	var/y1 = dir_rotation.e
-	// Then we want the point closest to -infinity,-infinity
-	var/x2 = min(x0, x1)
-	var/y2 = min(y0, y1)
-
-	// Then invert the numbers
-	var/transit_x = bottomleft.x + SHUTTLE_TRANSIT_BORDER + abs(x2)
-	var/transit_y = bottomleft.y + SHUTTLE_TRANSIT_BORDER + abs(y2)
+	// union coords (1,2) points from the docking port to the bottom left corner of the bounding box
+	// So if we negate those coordinates, we get the vector pointing from the bottom left of the bounding box to the docking port
+	var/transit_x = bottomleft.x + SHUTTLE_TRANSIT_BORDER + abs(union_coords[1])
+	var/transit_y = bottomleft.y + SHUTTLE_TRANSIT_BORDER + abs(union_coords[2])
 
 	var/turf/midpoint = locate(transit_x, transit_y, bottomleft.z)
 	if(!midpoint)

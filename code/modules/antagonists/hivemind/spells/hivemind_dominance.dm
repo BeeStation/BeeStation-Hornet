@@ -18,8 +18,8 @@
 		to_chat(user, "<span class='notice'>This is a bug. Error:HIVE1</span>")
 		return
 	hive.glow = mutable_appearance('icons/effects/hivemind.dmi', "awoken", -BODY_BEHIND_LAYER)
-	for(var/datum/antagonist/hivevessel/vessel in hive.avessels)
-		var/mob/living/carbon/C = vessel.owner?.current
+	for(var/datum/mind/vessel in hive.avessels)
+		var/mob/living/carbon/C = vessel.current
 		C.Jitter(15)
 		C.Unconscious(150)
 		to_chat(C, "<span class='boldwarning'>Something's wrong...</span>")

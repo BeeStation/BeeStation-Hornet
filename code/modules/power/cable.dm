@@ -540,27 +540,6 @@ GLOBAL_LIST_INIT(cable_coil_recipes, list (new/datum/stack_recipe("cable restrai
 // General procedures
 ///////////////////////////////////
 
-
-//you can use wires to heal robotics
-/obj/item/stack/cable_coil/attack(mob/living/carbon/human/H, mob/user)
-	if(!istype(H))
-		return ..()
-
-	var/obj/item/bodypart/affecting = H.get_bodypart(check_zone(user.zone_selected))
-	if(affecting && (!IS_ORGANIC_LIMB(affecting)))
-		if(user == H)
-			if (H in user.do_afters) // one at a time
-				return
-			user.visible_message("<span class='notice'>[user] starts to fix some of the wires in [H]'s [parse_zone(affecting.body_zone)].</span>", "<span class='notice'>You start fixing some of the wires in [H == user ? "your" : "[H]'s"] [parse_zone(affecting.body_zone)].</span>")
-			if(!do_mob(user, H, 15))
-				return
-		if(item_heal_robotic(H, user, 0, 15, affecting))
-			use(1)
-		return
-	else
-		return ..()
-
-
 /obj/item/stack/cable_coil/update_icon()
 	icon_state = "[initial(item_state)][amount < 3 ? amount : ""]"
 	name = "cable [amount < 3 ? "piece" : "coil"]"
