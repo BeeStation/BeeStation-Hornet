@@ -4765,7 +4765,7 @@
 /obj/effect/turf_decal/stripes/line,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/plating,
-/area/chapel/office)
+/area/maintenance/fore)
 "aiE" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/decal/cleanable/dirt,
@@ -5972,7 +5972,7 @@
 "akz" = (
 /obj/effect/decal/cleanable/cobweb,
 /turf/open/floor/plating,
-/area/chapel/office)
+/area/maintenance/fore)
 "akA" = (
 /turf/closed/wall/mineral/plastitanium,
 /area/maintenance/starboard)
@@ -9455,6 +9455,12 @@
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
 	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/science/xenobiology)
@@ -18041,9 +18047,6 @@
 /area/maintenance/port/fore)
 "aDe" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
 /obj/machinery/door/airlock/maintenance{
 	req_access_txt = "12"
 	},
@@ -18108,9 +18111,6 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
@@ -18145,9 +18145,6 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
 	dir = 4
 	},
@@ -18178,9 +18175,6 @@
 /area/engine/atmos)
 "aDq" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},
@@ -20926,6 +20920,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/structure/cable/yellow{
+	icon_state = "1-8"
+	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/fore)
 "aIe" = (
@@ -45926,7 +45923,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
-/area/chapel/office)
+/area/maintenance/fore)
 "bub" = (
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
@@ -49343,11 +49340,6 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/tile/neutral,
-/obj/machinery/camera{
-	c_tag = "AI Upload Transit Access";
-	dir = 1;
-	name = "command camera"
-	},
 /obj/item/radio/intercom{
 	pixel_y = -28
 	},
@@ -49560,6 +49552,11 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2,
+/obj/machinery/camera{
+	c_tag = "AI Upload Transit Access";
+	dir = 1;
+	name = "command camera"
+	},
 /turf/open/floor/plasteel/dark,
 /area/bridge)
 "bAp" = (
@@ -49724,9 +49721,6 @@
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2,
 /turf/open/floor/plasteel,
 /area/hallway/primary/port)
-"bAD" = (
-/turf/open/floor/plating,
-/area/chapel/office)
 "bAE" = (
 /obj/machinery/holopad,
 /obj/structure/disposalpipe/segment,
@@ -52169,9 +52163,6 @@
 /obj/machinery/washing_machine,
 /obj/machinery/light{
 	dir = 4
-	},
-/obj/structure/extinguisher_cabinet{
-	pixel_y = 28
 	},
 /obj/machinery/light_switch{
 	pixel_x = 24
@@ -55057,6 +55048,9 @@
 /obj/machinery/firealarm{
 	dir = 4;
 	pixel_x = -26
+	},
+/obj/structure/extinguisher_cabinet{
+	pixel_y = 28
 	},
 /turf/open/floor/plasteel/dark,
 /area/crew_quarters/locker)
@@ -63916,9 +63910,6 @@
 	pixel_x = -26
 	},
 /obj/effect/landmark/start/assistant,
-/obj/structure/disposalpipe/segment{
-	dir = 10
-	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
 	},
@@ -70274,9 +70265,6 @@
 	},
 /obj/effect/decal/cleanable/blood/old,
 /obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/obj/structure/cable/yellow{
 	icon_state = "1-8"
 	},
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
@@ -70648,9 +70636,6 @@
 	req_access_txt = "2"
 	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plasteel/dark,
@@ -70806,7 +70791,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
-/area/chapel/office)
+/area/maintenance/fore)
 "cgZ" = (
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
@@ -71348,9 +71333,6 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plating{
@@ -71948,7 +71930,6 @@
 "ciN" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable/yellow,
 /obj/machinery/atmospherics/components/binary/dp_vent_pump/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plating{
@@ -75445,6 +75426,7 @@
 /turf/open/space/basic,
 /area/space/nearstation)
 "cow" = (
+/obj/structure/grille,
 /turf/closed/wall/r_wall,
 /area/space/nearstation)
 "cox" = (
@@ -82225,7 +82207,7 @@
 "czG" = (
 /obj/effect/decal/cleanable/blood/old,
 /turf/open/floor/plating,
-/area/chapel/office)
+/area/maintenance/fore)
 "czH" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/stripes/corner,
@@ -82465,12 +82447,12 @@
 "cAi" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating,
-/area/chapel/office)
+/area/maintenance/fore)
 "cAj" = (
 /obj/effect/landmark/xeno_spawn,
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
 /turf/open/floor/plating,
-/area/chapel/office)
+/area/maintenance/fore)
 "cAk" = (
 /obj/effect/turf_decal/tile/neutral,
 /obj/effect/turf_decal/tile/neutral{
@@ -82502,7 +82484,7 @@
 	},
 /obj/effect/spawner/room/threexfive,
 /turf/open/floor/plating,
-/area/chapel/office)
+/area/maintenance/fore)
 "cAm" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/event_spawn,
@@ -82515,7 +82497,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/grille/broken,
 /turf/open/floor/plating,
-/area/chapel/office)
+/area/maintenance/fore)
 "cAo" = (
 /obj/effect/turf_decal/bot,
 /obj/structure/frame/computer{
@@ -82530,7 +82512,7 @@
 "cAp" = (
 /obj/structure/sign/departments/holy,
 /turf/closed/wall/rust,
-/area/chapel/office)
+/area/maintenance/fore)
 "cAq" = (
 /obj/effect/turf_decal/bot,
 /obj/structure/frame/computer{
@@ -86072,6 +86054,9 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /turf/open/floor/plasteel/dark/corner{
 	dir = 4
 	},
@@ -86216,6 +86201,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
+/obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating{
 	icon_state = "platingdmg1"
@@ -89459,9 +89445,6 @@
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
 	dir = 1
 	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
 /obj/machinery/atmospherics/pipe/layer_manifold,
 /turf/open/floor/plasteel/dark,
 /area/security/prison)
@@ -92149,12 +92132,6 @@
 	dir = 5
 	},
 /mob/living/carbon/monkey,
-/obj/machinery/camera{
-	c_tag = "Medical Security Post";
-	dir = 1;
-	name = "medical camera";
-	network = list("ss13","medical")
-	},
 /turf/open/floor/plasteel/dark,
 /area/medical/virology)
 "doW" = (
@@ -94050,7 +94027,6 @@
 	},
 /area/maintenance/fore)
 "hlp" = (
-/obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /obj/structure/rack,
 /obj/item/multitool{
 	pixel_x = 3
@@ -100337,9 +100313,6 @@
 /obj/item/storage/backpack/satchel,
 /obj/item/clothing/suit/hooded/wintercoat,
 /obj/item/clothing/shoes/winterboots,
-/obj/effect/turf_decal/stripes/corner{
-	dir = 1
-	},
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -100798,9 +100771,6 @@
 /obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2,
 /turf/open/floor/plasteel,
 /area/crew_quarters/locker)
-"uZK" = (
-/turf/open/floor/plating/asteroid/airless,
-/area/space)
 "vbN" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/grille/broken,
@@ -101070,6 +101040,11 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 6
+	},
+/obj/machinery/camera{
+	c_tag = "Virology - Testing pens";
+	name = "virology camera";
+	network = list("ss13","medbay")
 	},
 /turf/open/floor/plasteel/dark,
 /area/medical/virology)
@@ -101855,10 +101830,6 @@
 	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/medical/medbay/central)
-"wOJ" = (
-/obj/structure/flora/rock/pile,
-/turf/open/floor/plating/asteroid/airless,
-/area/space)
 "wQt" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 8
@@ -101992,9 +101963,6 @@
 	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/science/shuttledock)
-"wYP" = (
-/turf/closed/mineral/random/labormineral,
-/area/space)
 "wZx" = (
 /obj/effect/turf_decal/tile/green/tile_marquee,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
@@ -102006,7 +101974,7 @@
 "wZU" = (
 /obj/effect/turf_decal/sand/plating,
 /turf/open/space/basic,
-/area/space)
+/area/space/nearstation)
 "xbT" = (
 /obj/effect/turf_decal/tile/red{
 	dir = 4
@@ -102109,9 +102077,6 @@
 /obj/item/storage/backpack/satchel,
 /obj/item/clothing/suit/hooded/wintercoat,
 /obj/item/clothing/shoes/winterboots,
-/obj/structure/extinguisher_cabinet{
-	pixel_x = 24
-	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 6
 	},
@@ -125286,13 +125251,13 @@ aaa
 aaa
 aeU
 alm
-aWG
-bsm
-aWG
-aWG
-bsm
-aWG
-aWG
+adH
+adQ
+adH
+adH
+adQ
+adH
+adH
 alC
 ace
 aWG
@@ -125543,13 +125508,13 @@ aaa
 aaa
 aeu
 aeu
-aWG
+adH
 akz
 cAi
 cgY
 cAi
 cAl
-aWG
+adH
 alL
 cAW
 aWG
@@ -125800,10 +125765,10 @@ aaa
 aeu
 aeu
 aeu
-aWG
+adH
 cAi
-bAD
-bAD
+cEd
+cEd
 cAj
 aiD
 ajy
@@ -126057,8 +126022,8 @@ aaa
 aeu
 aeu
 aeu
-bsm
-bAD
+adQ
+cEd
 cAi
 czG
 bua
@@ -126314,13 +126279,13 @@ aaa
 aeu
 aeu
 aeu
-aWG
-aWG
-bsm
-bsm
-aWG
-aWG
-aWG
+adH
+adH
+adQ
+adQ
+adH
+adH
+adH
 any
 acL
 aWG
@@ -127946,7 +127911,7 @@ aIG
 aFM
 aFM
 aaa
-cmJ
+acm
 acm
 aaQ
 aeo
@@ -148397,14 +148362,14 @@ aaa
 aaa
 aaa
 aaa
-wYP
-wOJ
-wYP
-wYP
-wYP
-caT
-uZK
-wZU
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 cGw
 cGw
 cGw
@@ -148431,7 +148396,7 @@ aZv
 aZv
 aZv
 aaa
-uZK
+aeU
 aeU
 ktS
 qFg
@@ -148656,12 +148621,12 @@ aaa
 aaa
 aaa
 aaa
-uZK
-uZK
 aaa
-caT
 aaa
-wZU
+aaa
+aaa
+aaa
+aaa
 adS
 elh
 qsO
@@ -148916,9 +148881,9 @@ aaa
 aaa
 aaa
 aaa
-caT
-cmJ
-wZU
+aaa
+aaa
+aaa
 crj
 crj
 crj
@@ -148945,7 +148910,7 @@ opa
 gti
 aZv
 aaa
-uZK
+aeU
 aeU
 ikp
 vcZ
@@ -149171,9 +149136,9 @@ aaa
 aaa
 aaa
 aaa
-caT
 aaa
-caT
+aaa
+aaa
 aaa
 aaa
 crb
@@ -149428,10 +149393,10 @@ aaB
 aaa
 aaa
 aaa
-caT
-cmJ
-cmJ
-mfH
+aaa
+aaa
+aaa
+aaa
 cGw
 cGw
 cGw
@@ -149685,9 +149650,9 @@ aaa
 aaa
 aaa
 aaa
-caT
 aaa
-caT
+aaa
+aaa
 aaa
 adS
 qsO
@@ -149942,10 +149907,10 @@ aaa
 aaa
 aaa
 aaa
-mfH
 aaa
-caT
-cmJ
+aaa
+aaa
+aaa
 crj
 crj
 crj
@@ -150195,13 +150160,13 @@ aaa
 aaa
 aeU
 aeU
-afh
-afh
 aaa
 aaa
 aaa
 aaa
-mfH
+aaa
+aaa
+aaa
 aaa
 aaa
 crb
@@ -150452,15 +150417,15 @@ aeu
 aeu
 aeu
 aeu
-afh
-afh
-afh
-afh
-mfH
-cmJ
-mfH
-caT
-cmJ
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 cGw
 cGw
 cGw
@@ -150709,14 +150674,14 @@ aeu
 aeu
 aeu
 aeu
-afh
-afh
-afh
-afh
 aaa
-caT
 aaa
-caT
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 adS
 qsO
@@ -150744,7 +150709,7 @@ csx
 qLU
 aZv
 aaa
-uZK
+aeU
 aeU
 ikp
 qFg
@@ -150966,15 +150931,15 @@ aeu
 aeu
 aeu
 aeu
-afh
-afh
-afh
-afh
-afh
-caT
-cmJ
-mfH
-cmJ
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 crj
 crj
 crj
@@ -151224,23 +151189,22 @@ aeu
 aeu
 aeu
 aeU
-afh
-afh
-afh
-afh
-aeo
-aaa
-caT
 aaa
 aaa
-cmJ
 aaa
-cmJ
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 aaa
 cjl
 acm
 aaa
-afh
 aaa
 aaa
 aaa
@@ -151257,8 +151221,9 @@ aaa
 aaa
 aaa
 aaa
-wZU
-uZK
+aaa
+cmU
+aeU
 aeU
 cFE
 lBI
@@ -151481,19 +151446,19 @@ aeu
 aeu
 aeu
 aeu
-afh
-afh
-afh
-afh
-afh
 aaa
-caT
-caT
-caT
-mfH
-caT
-caT
-mfH
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 kHf
 aaa
 aaa
