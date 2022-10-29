@@ -1,5 +1,0 @@
-author: itsmeow
-delete-after: true
-changes:
-  - bugfix: Autolathes no longer give the item they were processing if the required
-      materials are removed during processing.
