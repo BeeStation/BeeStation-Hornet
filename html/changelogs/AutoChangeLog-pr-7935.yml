@@ -1,0 +1,21 @@
+author: spockye
+delete-after: true
+changes:
+  - rscadd: 'KiloStation: Added grilles on some walls in space south of the station'
+  - bugfix: 'KiloStation: Fixed some incorrect nearstation areas in space south of
+      the station'
+  - bugfix: 'KiloStation: Fixed maints above chapel being incorrectly labelled as
+      Chapel Office'
+  - rscdel: 'KiloStation: Removed Starboard Bow solar grilles and nearstation area
+      classifications'
+  - bugfix: 'KiloStation: Fixed incorrect nearstation areas in space by xenoarch'
+  - tweak: "KiloStation: Moved cam in room between upload transit and captain's office"
+  - tweak: 'KiloStation: Moved floating extinguisher cabinet in dorms'
+  - rscdel: 'KiloStation: Removed extinguisher cabinet behind washing machine in dorms'
+  - tweak: 'KiloStation: Moved camera in virology'
+  - rscdel: 'KiloStation: Removed useless cable dead end in medical maints'
+  - rscdel: 'KiloStation: Removed useless cable dead end in perma'
+  - tweak: 'KiloStation: Connected cable dead end between vault and botany maints'
+  - rscdel: 'KiloStation: Removed duplicate scrubber underneath rack in xenoarch'
+  - rscdel: 'KiloStation: Removed random disposal pipe in departures'
+  - bugfix: 'KiloStation: Fixed disconnected power cables to window grilles in xenobio'
