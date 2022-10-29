@@ -33957,10 +33957,6 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
 /turf/open/floor/plasteel,
 /area/quartermaster/sorting)
-"eor" = (
-/obj/structure/lattice,
-/turf/closed/wall/r_wall,
-/area/engine/engineering)
 "epd" = (
 /obj/effect/turf_decal/tile/purple{
 	dir = 1
@@ -44338,10 +44334,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/security/brig)
-"kNU" = (
-/obj/structure/lattice,
-/turf/closed/wall/r_wall,
-/area/engine/supermatter)
 "kOO" = (
 /obj/structure/table/wood/fancy,
 /obj/item/gun/ballistic/revolver/russian{
@@ -49294,10 +49286,6 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /turf/open/floor/plasteel,
 /area/crew_quarters/heads/chief)
-"oex" = (
-/obj/structure/lattice,
-/turf/open/space/basic,
-/area/space)
 "ofY" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 1
@@ -93628,7 +93616,7 @@ aht
 aht
 aYP
 nwI
-oex
+aht
 aaa
 aax
 arH
@@ -93734,8 +93722,8 @@ cWS
 vov
 iUE
 bXk
-eor
-eor
+bXk
+bXk
 aht
 aaa
 aaa
@@ -97332,8 +97320,8 @@ ulY
 hGe
 prr
 mZR
-kNU
-kNU
+mZR
+mZR
 bRC
 aaa
 aaa
