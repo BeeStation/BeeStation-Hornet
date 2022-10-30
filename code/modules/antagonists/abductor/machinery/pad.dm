@@ -17,7 +17,7 @@
 		do_teleport(target, teleport_target, no_effects = TRUE, channel = TELEPORT_CHANNEL_BLINK, teleport_mode = TELEPORT_MODE_ABDUCTORS)
 		new /obj/effect/temp_visual/dir_setting/ninja(get_turf(target), target.dir)
 		to_chat(target, "<span class='warning'>The instability of the warp leaves you disoriented!</span>")
-		target.Stun(60)
+		target.SetSleeping(60)
 
 /obj/machinery/abductor/pad/proc/Retrieve(mob/living/target)
 	flick("alien-pad", src)
