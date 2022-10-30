@@ -1,0 +1,51 @@
+author: DrDuckedGoose
+delete-after: true
+changes:
+  - tweak: Tweaks ``Hypodermic`` injections rates from ``5, 10, 15`` > (``7, 14 ,
+      21`` * ``metabolization_rate``).
+  - tweak: Changes ``C.D.E`` knockout from ``5 Seconds`` > ``2 Seconds``
+  - tweak: Changes logging ``xyz`` > ``area``
+  - tweak: Change research point reward from ``2.3 * final price`` > ``2.5 * final
+      price``
+  - tweak: Change discovery point reward from ``350*final_price/initial_price`` >
+      ``350*(final price/initial price)) * max(1, final price/1000)``
+  - tweak: Aggressively lowers stun times on all related traits
+  - tweak: Artifacts will now target the user too. The only way to avoid this is to
+      be inside science & wearing safety-pinchers.
+  - tweak: Slightly lower sentient buffs to arfiacts
+  - tweak: Blacklist aura from destabilizing.
+  - tweak: Artifacts malfunction more often.
+  - tweak: All artifacts get an extra slot for malfunctions, ``1`` > ``2``
+  - tweak: Extend sentient play offer
+  - tweak: Wall trait now points randomly east or north if it is 3x1
+  - tweak: Increase bananium malfunction chance
+  - tweak: Ghosts can take control of player-less artifacts
+  - tweak: Artifact consoles now have a stability meter that stops spam-buying.
+  - tweak: Sentient artifacts are more common, slightly,
+  - tweak: Ghosts can activate haunted artifacts.
+  - tweak: Tweaks labeler UI to show elements in alphabetical order.
+  - tweak: Tweak console UI to have less clutter.
+  - bugfix: Swaps over to AREACOORD for logging.
+  - bugfix: Fix cheeky runtime on ``Weighted``. No longer checks all gloves for ``safety``
+      variable.
+  - bugfix: Fix issue with ``weighted`` signal order preventing activation.
+  - bugfix: Fix ``lamp`` trait runtiming
+  - bugfix: Fix ``anti_artifact`` runtiming
+  - bugfix: Fix fragile artifacts not breaking due to byond being beyond illogical.
+  - bugfix: Fix strip malfunction from stripping non-removable clothing..
+  - rscadd: Adds ``anti-clone`` malfunction. Creates an evil twin of the target.
+  - rscadd: Add better functions for adding malfunctions that support typing
+  - rscadd: Add exploding malfunction ``delaminating``, unique to bananium.
+  - rscadd: Add all artifact smoke screen trait.
+  - rscadd: Add Plasma & Bluespace trait, ``Marker`` trait, colors the target
+  - rscadd: Add all artifact malfunction ``absorbing``. Absorbs nearby gasses, suffocating
+      small rooms. Will spit gasses back out when destroyed.
+  - rscadd: Add ``Honked`` activator. Only clowns, and clown related items, can activate
+      this artifact.
+  - rscadd: Add ``Emotional`` major. Makes target perform a random emote, from a curated
+      list.
+  - rscadd: Add ``Desynced`` minor. Makes the artifact disappear for a short period
+      after activating.
+  - rscadd: Add ``Hallucinogenic`` malfunction. Makes the target experience a random
+      hallucination.
+  - rscadd: Add bar to UI that shows thread stability.
