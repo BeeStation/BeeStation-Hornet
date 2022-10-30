@@ -24,3 +24,11 @@
 			. += "<span class='notice'>It's empty.</span>"
 		else
 			. += "<span class='notice'>It seems [round(reagents.total_volume/volume*100)]% filled.</span>"
+
+/*
+// Format example: use `label_name` instead of using `name` directly.
+/obj/item/reagent_containers/chem_bag/epinephrine
+	label_name = "epinephrine"
+	// with label_name, name variable will become "epinephrine chemical bag"
+	list_reagents = list(/datum/reagent/medicine/epinephrine = 200)
+*/
