@@ -1,0 +1,10 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - balance: Flashes now cause confusion instead of paralysis if a target has no stamina
+      damage.
+  - balance: Flashes will cause knockdown with the length of the knockdown proportional
+      to the target's stamina damage if they have less than 40% stamina damage.
+  - balance: Flashes will cause paralysis with the length of the paralysis proportional
+      to the target's stamina damage if they have more than 40% stamina damage.
+  - balance: Flashes will paralyse for 7 seconds if a target is lying down.
