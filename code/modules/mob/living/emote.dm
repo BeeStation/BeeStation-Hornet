@@ -388,12 +388,8 @@
 		var/custom_emote = stripped_input(usr, "Choose an emote to display.")
 		if(custom_emote && !check_invalid(user, custom_emote))
 			var/type = input("Is this a visible or hearable emote?") as null|anything in list("Visible", "Hearable")
-			switch(type)
-				if("Hearable")
-					emote_type |= EMOTE_AUDIBLE
-				else
-					alert("Unable to use this emote, must be either hearable or visible.")
-					return
+			if(type == "Hearable")
+				emote_type |= EMOTE_AUDIBLE
 			message = custom_emote
 	else
 		message = params
