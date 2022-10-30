@@ -40,7 +40,7 @@ SUBSYSTEM_DEF(economy)
 		var/datum/bank_account/department/D = get_budget_account(ACCOUNT_CAR_ID)
 		D.account_balance = budget_pool
 		D.account_holder = ACCOUNT_ALL_NAME
-		// Note: if you want to remove united_budget feature, try an event
+		// Note: if you want to remove united_budget feature, try /event verb and find united budget cancel event
 
 	return ..()
 
@@ -83,6 +83,10 @@ SUBSYSTEM_DEF(economy)
 
 	var/datum/bank_account/department/target_budget = budget_id_list[dept_id]
 
+	if(!target_budget)
+		stack_trace("failed to get a budget account with the given parameter: [dept_id]")
+		return budget_id_list[ACCOUNT_CAR_ID] // this will prevent the game being broken
+
 	if(target_budget.is_nonstation_account())  // Warning: do not replace this into `is_nonstation_account(target_budget)` or it will loop. We have 2 types of the procs that have the same name for conveniet purpose.
 		return target_budget
 	else if(HAS_TRAIT(SSstation, STATION_TRAIT_UNITED_BUDGET))
@@ -97,14 +101,21 @@ SUBSYSTEM_DEF(economy)
 			return each.department_bitflag
 	CRASH("the proc has taken wrong dept id or admin did something worse: [dept_id]")
 
+/// Returns multiple budget accounts based on the given bitflag.
 /datum/controller/subsystem/economy/proc/get_dept_id_by_bitflag(target_bitflag)
+	if(!target_bitflag) // 0 is not valid bitflag
+		return FALSE
 	target_bitflag = text2num(target_bitflag) // failsafe to replace the string into number
 	if(!isnum(target_bitflag))
 		CRASH("the proc has taken non-numeral parameter: [target_bitflag]")
+
+	. = list()
 	for(var/datum/bank_account/department/D in budget_accounts)
 		if(D.department_bitflag & target_bitflag)
-			return D
-	CRASH("none of budget accounts has the bitflag: [target_bitflag]")
+			. += D
+
+	if(!length(.))
+		CRASH("none of budget accounts has the bitflag: [target_bitflag]")
 
 /// returns if a budget is not bound to the station. a parameter can accept two types: department account object, or budget DEFINE. The proc can accept both.
 /datum/controller/subsystem/economy/proc/is_nonstation_account(datum/bank_account/department/D) // takes a bank account type or dep_ID define

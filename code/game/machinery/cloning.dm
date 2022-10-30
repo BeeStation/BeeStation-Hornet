@@ -41,7 +41,7 @@
 	var/flesh_number = 0
 	var/datum/bank_account/current_insurance
 	fair_market_price = 5 // He nodded, because he knew I was right. Then he swiped his credit card to pay me for arresting him.
-	payment_department = ACCOUNT_MED_BITFLAG
+	dept_req_for_free = ACCOUNT_MED_BITFLAG
 	var/experimental_pod = FALSE //experimental cloner will have true. TRUE allows you to clone a weird brain after scanning it.
 
 /obj/machinery/clonepod/Initialize(mapload)
@@ -340,7 +340,7 @@
 				if(internal_radio)
 					SPEAK("The cloning of [mob_occupant.real_name] has been ended prematurely due to being unable to pay.")
 			else
-				var/datum/bank_account/department/D = SSeconomy.get_budget_account(payment_department)
+				var/datum/bank_account/department/D = SSeconomy.get_budget_account(dept_req_for_free)
 				if(D && !D?.is_nonstation_account())
 					D.adjust_money(fair_market_price)
 		if(mob_occupant && (mob_occupant.stat == DEAD) || (mob_occupant.suiciding) || mob_occupant.ishellbound())  //Autoeject corpses and suiciding dudes.

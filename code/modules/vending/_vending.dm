@@ -55,7 +55,7 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 	armor = list("melee" = 20, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 70, "stamina" = 0)
 	circuit = /obj/item/circuitboard/machine/vendor
 	clicksound = 'sound/machines/pda_button1.ogg'
-	payment_department = ACCOUNT_SRV_BITFLAG
+	dept_req_for_free = ACCOUNT_SRV_BITFLAG
 
 	light_color = LIGHT_COLOR_BLUE
 
@@ -659,7 +659,7 @@ GLOBAL_LIST_EMPTY(vending_products)
 /obj/machinery/vending/ui_static_data(mob/user)
 	. = list()
 	.["onstation"] = onstation
-	.["department_bitflag"] = payment_department
+	.["department_bitflag"] = dept_req_for_free
 	.["product_records"] = list()
 	for (var/datum/data/vending_product/R in product_records)
 		var/list/data = list(
@@ -768,7 +768,7 @@ GLOBAL_LIST_EMPTY(vending_products)
 					vend_ready = TRUE
 					return
 				var/datum/bank_account/account = C.registered_account
-				if(account.account_job && (account.active_departments & payment_department))
+				if(account.account_job && (account.active_departments & dept_req_for_free))
 					price_to_use = 0
 				if(coin_records.Find(R))
 					price_to_use = R.custom_premium_price ? R.custom_premium_price : extra_price
@@ -777,9 +777,16 @@ GLOBAL_LIST_EMPTY(vending_products)
 					flick(icon_deny,src)
 					vend_ready = TRUE
 					return
-				var/datum/bank_account/D = SSeconomy.get_budget_account(SSeconomy.get_dept_id_by_bitflag(payment_department))
-				if(D)
-					D.adjust_money(price_to_use)
+
+				// each department (seller_department) will earn the profit
+				if(price_to_use && seller_department)
+					var/list/dept_list = SSeconomy.get_dept_id_by_bitflag(seller_department)
+					if(length(dept_list))
+						price_to_use = round(price_to_use/length(dept_list))
+						for(var/datum/bank_account/department/D in dept_list)
+							if(D)
+								D.adjust_money(price_to_use)
+
 			if(last_shopper != REF(usr) || purchase_message_cooldown < world.time)
 				say("Thank you for shopping with [src]!")
 				purchase_message_cooldown = world.time + 5 SECONDS
@@ -929,7 +936,7 @@ GLOBAL_LIST_EMPTY(vending_products)
 	icon_state = "robotics"
 	icon_deny = "robotics-deny"
 	max_integrity = 400
-	payment_department = NO_FREEBIES
+	dept_req_for_free = NO_FREEBIES
 	refill_canister = /obj/item/vending_refill/custom
 	/// where the money is sent
 	var/datum/bank_account/private_a
