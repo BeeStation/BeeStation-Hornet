@@ -31,3 +31,8 @@ Dockerfile @crossedfall
 
 /code/game/gamemodes/dynamic @itsmeow
 /code/modules/modular_computers @itsmeow
+
+# archanial
+
+/code/controllers/subsystem/runechat.dm @archanial
+/code/datums/chatmessage.dm @archanial
