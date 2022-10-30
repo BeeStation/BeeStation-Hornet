@@ -99,7 +99,7 @@
 	enemy_roles = list(JOB_NAME_AI, JOB_NAME_CYBORG, JOB_NAME_SECURITYOFFICER,JOB_NAME_DETECTIVE,JOB_NAME_HEADOFSECURITY, JOB_NAME_CAPTAIN, JOB_NAME_WARDEN)
 	required_enemies = list(2,2,1,1,1,1,1,0,0,0)
 	required_candidates = 1
-	weight = 0
+	weight = 2
 	delay = 1 MINUTES // Prevents rule start while head is offstation.
 	cost = 10
 	requirements = list(101,101,70,40,30,20,20,20,20,20)
