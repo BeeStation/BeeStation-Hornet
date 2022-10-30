@@ -134,7 +134,8 @@
 	STR.allow_quick_empty = TRUE
 	STR.can_hold = typecacheof(list(/obj/item/stack/ore))
 	STR.max_w_class = WEIGHT_CLASS_HUGE
-	STR.max_combined_stack_amount = 50
+	STR.max_items = 20
+	STR.max_combined_stack_amount = 250
 
 /obj/item/storage/bag/ore/equipped(mob/user)
 	. = ..()
