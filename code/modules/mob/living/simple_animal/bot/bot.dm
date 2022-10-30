@@ -177,7 +177,7 @@
 	if(path_hud)
 		path_hud.add_to_hud(src)
 		path_hud.add_hud_to(src)
-	RegisterSignal(src, COMSIG_ATOM_EMAG_ACT, .proc/on_emag)
+	RegisterSignal(src, COMSIG_ATOM_ON_EMAG, .proc/on_emag)
 	RegisterSignal(src, COMSIG_ATOM_SHOULD_EMAG, .proc/should_emag)
 
 /mob/living/simple_animal/bot/update_mobility()
@@ -195,7 +195,7 @@
 	QDEL_NULL(Radio)
 	QDEL_NULL(access_card)
 	QDEL_NULL(bot_core)
-	UnregisterSignal(src, COMSIG_ATOM_EMAG_ACT)
+	UnregisterSignal(src, COMSIG_ATOM_ON_EMAG)
 	UnregisterSignal(src, COMSIG_ATOM_SHOULD_EMAG)
 	return ..()
 

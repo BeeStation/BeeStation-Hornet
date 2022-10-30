@@ -62,7 +62,7 @@
 	g1 = GETGREENPART(default_color)
 	b1 = GETBLUEPART(default_color)
 	RegisterSignal(ethereal, COMSIG_ATOM_SHOULD_EMAG, .proc/should_emag)
-	RegisterSignal(ethereal, COMSIG_ATOM_EMAG_ACT, .proc/on_emag)
+	RegisterSignal(ethereal, COMSIG_ATOM_ON_EMAG, .proc/on_emag)
 	RegisterSignal(ethereal, COMSIG_ATOM_EMP_ACT, .proc/on_emp_act)
 
 	spec_updatehealth(ethereal)
@@ -76,7 +76,7 @@
 
 /datum/species/ethereal/on_species_loss(mob/living/carbon/human/C, datum/species/new_species, pref_load)
 	UnregisterSignal(C, COMSIG_ATOM_SHOULD_EMAG)
-	UnregisterSignal(C, COMSIG_ATOM_EMAG_ACT)
+	UnregisterSignal(C, COMSIG_ATOM_ON_EMAG)
 	UnregisterSignal(C, COMSIG_ATOM_EMP_ACT)
 	QDEL_NULL(ethereal_light)
 	return ..()

@@ -456,7 +456,7 @@
 
 /// Performs the actions to emag something, given that should_emag succeeded. You should NOT call this directly. Call use_emag.
 /obj/proc/on_emag(mob/user)
-	SHOULD_CALL_PARENT
+	SHOULD_CALL_PARENT(TRUE)
 	if(emag_toggleable)
 		obj_flags ^= EMAGGED
 	else
