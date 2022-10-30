@@ -32,7 +32,6 @@ and clear when youre done! if you dont i will use :newspaper2: on you
 	icon_screen = "holocontrol"
 	idle_power_usage = 10
 	active_power_usage = 50
-	can_emag = TRUE
 
 	//new vars
 
@@ -372,7 +371,7 @@ and clear when youre done! if you dont i will use :newspaper2: on you
 	for(var/obj/effect/holodeck_effect/holo_effect as anything in effects)
 		holo_effect.safety(nerf_this)
 
-/obj/machinery/computer/holodeck/emag_check(mob/user)
+/obj/machinery/computer/holodeck/should_emag(mob/user)
 	if(!..())
 		return FALSE
 	if(!LAZYLEN(emag_programs))
@@ -380,7 +379,7 @@ and clear when youre done! if you dont i will use :newspaper2: on you
 		return FALSE
 	return TRUE
 
-/obj/machinery/computer/holodeck/emag_act(mob/user)
+/obj/machinery/computer/holodeck/on_emag(mob/user)
 	..()
 	playsound(src, "sparks", 75, TRUE)
 	to_chat(user, "<span class='warning'>You vastly increase projector power and override the safety and security protocols.</span>")

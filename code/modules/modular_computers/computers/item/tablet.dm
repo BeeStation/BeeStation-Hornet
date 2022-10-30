@@ -47,7 +47,7 @@
 	device_theme = "syndicate"
 	light_color = COLOR_RED
 
-/obj/item/modular_computer/tablet/nukeops/emag_check(mob/user)
+/obj/item/modular_computer/tablet/nukeops/should_emag(mob/user)
 	if(..())
 		to_chat(user, "<span class='notice'>You swipe \the [src]. It's screen briefly shows a message reading \"MEMORY CODE INJECTION DETECTED AND SUCCESSFULLY QUARANTINED\".</span>")
 	return FALSE

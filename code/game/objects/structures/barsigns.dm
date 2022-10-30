@@ -8,7 +8,6 @@
 	integrity_failure = 250
 	armor = list("melee" = 20, "bullet" = 20, "laser" = 20, "energy" = 100, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50, "stamina" = 0)
 	buildable_sign = 0
-	can_emag = TRUE
 
 	var/panel_open = FALSE
 	var/datum/barsign/chosen_sign
@@ -113,10 +112,10 @@
 	set_sign(new /datum/barsign/hiddensigns/empbarsign)
 	broken = TRUE
 
-/obj/structure/sign/barsign/emag_check(mob/user)
+/obj/structure/sign/barsign/should_emag(mob/user)
 	return !broken && ..()
 
-/obj/structure/sign/barsign/emag_act(mob/user)
+/obj/structure/sign/barsign/on_emag(mob/user)
 	..()
 	to_chat(user, "<span class='notice'>You load an illegal barsign into the memory buffer...</span>")
 	addtimer(CALLBACK(src, .proc/emag_after), 10 SECONDS)

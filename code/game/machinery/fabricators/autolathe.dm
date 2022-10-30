@@ -7,7 +7,6 @@
 	idle_power_usage = 10
 	active_power_usage = 100
 	circuit = /obj/item/circuitboard/machine/autolathe
-	can_emag = TRUE
 
 	var/shocked = FALSE
 	var/hack_wire
@@ -158,7 +157,7 @@
 	update_viewer_statics()
 	wires.ui_update()
 
-/obj/machinery/modular_fabricator/autolathe/emag_act(mob/user)
+/obj/machinery/modular_fabricator/autolathe/on_emag(mob/user)
 	..()
 	security_interface_locked = FALSE
 	adjust_hacked(TRUE)

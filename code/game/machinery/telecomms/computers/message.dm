@@ -17,7 +17,6 @@
 	desc = "Used to monitor the crew's PDA messages, as well as request console messages."
 	icon_screen = "comm_logs"
 	circuit = /obj/item/circuitboard/computer/message_monitor
-	can_emag = TRUE
 	//Server linked to.
 	var/obj/machinery/telecomms/message_server/linkedServer = null
 	//Sparks effect - For emag
@@ -48,7 +47,7 @@
 	else
 		return ..()
 
-/obj/machinery/computer/message_monitor/emag_check(mob/user)
+/obj/machinery/computer/message_monitor/should_emag(mob/user)
 	if(!..())
 		return FALSE
 	if(isnull(linkedServer))
@@ -56,7 +55,7 @@
 		return FALSE
 	return TRUE
 
-/obj/machinery/computer/message_monitor/emag_act(mob/user)
+/obj/machinery/computer/message_monitor/on_emag(mob/user)
 	..()
 	screen = MSG_MON_SCREEN_HACKED
 	spark_system.set_up(5, 0, src)

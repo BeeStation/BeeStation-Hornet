@@ -14,7 +14,6 @@
 	light_on = FALSE
 	light_power = 1
 	light_range = 5
-	can_emag = TRUE
 	var/ruin_mecha = FALSE //if the mecha starts on a ruin, don't automatically give it a tracking beacon to prevent metagaming.
 	var/can_move = 0 //time of next allowed movement
 	var/mob/living/carbon/occupant = null
@@ -451,7 +450,7 @@
 				speech_bubble_recipients.Add(M.client)
 		INVOKE_ASYNC(GLOBAL_PROC, /proc/flick_overlay, image('icons/mob/talk.dmi', src, "machine[say_test(raw_message)]",MOB_LAYER+1), speech_bubble_recipients, 30)
 
-/obj/mecha/emag_act(mob/user)
+/obj/mecha/on_emag(mob/user)
 	..()
 	playsound(src, "sparks", 100, 1)
 	to_chat(user, "<span class='warning'>You short out the mech suit's internal controls.</span>")

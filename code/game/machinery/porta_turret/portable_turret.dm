@@ -17,7 +17,6 @@
 	active_power_usage = 600	//when active, this turret takes up constant 300 Equipment power
 	req_access = list(ACCESS_SECURITY)
 	power_channel = AREA_USAGE_EQUIP	//drains power from the EQUIPMENT channel
-	can_emag = TRUE
 
 	var/uses_stored = TRUE	//if TRUE this will cause the turret to stop working if the stored_gun var is null in process()
 
@@ -318,7 +317,7 @@
 	else
 		return ..()
 
-/obj/machinery/porta_turret/emag_act(mob/user)
+/obj/machinery/porta_turret/on_emag(mob/user)
 	..()
 	to_chat(user, "<span class='warning'>You short out [src]'s threat assessment circuits.</span>")
 	visible_message("[src] hums oddly...")
@@ -827,7 +826,6 @@
 	density = FALSE
 	req_access = list(ACCESS_AI_UPLOAD)
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
-	can_emag = TRUE
 
 
 	/// Variable dictating if linked turrets are active and will shoot targets
@@ -908,7 +906,7 @@
 		else
 			to_chat(user, "<span class='warning'>Access denied.</span>")
 
-/obj/machinery/turretid/emag_act(mob/user)
+/obj/machinery/turretid/on_emag(mob/user)
 	..()
 	to_chat(user, "<span class='danger'>You short out the turret controls' access analysis module.</span>")
 	locked = FALSE

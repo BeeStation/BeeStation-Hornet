@@ -307,10 +307,10 @@
 	else
 		to_chat(user, "Encryption Key ports not configured.")
 
-/obj/item/paicard/emag_check(mob/user)
+/obj/item/paicard/should_emag(mob/user)
 	return pai && ..()
 
-/obj/item/paicard/emag_act(mob/user) // Emag to wipe the master DNA and supplemental directive
+/obj/item/paicard/on_emag(mob/user) // Emag to wipe the master DNA and supplemental directive
 	..()
 	to_chat(user, "<span class='notice'>You override [pai]'s directive system, clearing its master string and supplied directive.</span>")
 	to_chat(pai, "<span class='danger'>Warning: System override detected, check directive sub-system for any changes.'</span>")

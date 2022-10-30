@@ -31,7 +31,6 @@
 	icon_keyboard = "med_key"
 	density = TRUE
 	circuit = /obj/item/circuitboard/computer/scan_consolenew
-	can_emag = TRUE
 
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 10
@@ -2064,7 +2063,7 @@
 		diskette.forceMove(drop_location())
 	diskette = null
 
-/obj/machinery/computer/scan_consolenew/emag_act(mob/user)
+/obj/machinery/computer/scan_consolenew/on_emag(mob/user)
 	..()
 	req_access = list()
 	to_chat(user, "<span class='warning'>You bypass [src]'s access requirements.</span>")

@@ -17,7 +17,6 @@
 	icon_screen = "shuttle"
 	icon_keyboard = "tech_key"
 	resistance_flags = INDESTRUCTIBLE
-	can_emag = TRUE
 
 
 
@@ -255,7 +254,7 @@
 			{AUTH - ROOT (uid: 0)}.</font>[SSshuttle.emergency.mode == SHUTTLE_ESCAPE ? "Diverting from existing route - Bluespace exit in [hijack_completion_flight_time_set/10] seconds." : ""]"
 	minor_announce(scramble_message_replace_chars(msg, replaceprob = 10), "Emergency Shuttle", TRUE)
 
-/obj/machinery/computer/emergency_shuttle/emag_check(mob/user)
+/obj/machinery/computer/emergency_shuttle/should_emag(mob/user)
 	// How did you even get on the shuttle before it go to the station?
 	if(!IS_DOCKED)
 		return FALSE
@@ -265,7 +264,7 @@
 		return FALSE
 	return TRUE
 
-/obj/machinery/computer/emergency_shuttle/emag_act(mob/user)
+/obj/machinery/computer/emergency_shuttle/on_emag(mob/user)
 	..()
 	var/time = TIME_LEFT
 	message_admins("[ADMIN_LOOKUPFLW(user.client)] has emagged the emergency shuttle, [time] seconds before launch.")
@@ -615,7 +614,6 @@
 	light_color = LIGHT_COLOR_BLUE
 	density = FALSE
 	clockwork = TRUE //it'd look weird
-	can_emag = TRUE
 
 /obj/machinery/computer/shuttle_flight/pod/Initialize()
 	. = ..()
@@ -628,7 +626,7 @@
 /obj/machinery/computer/shuttle_flight/pod/update_icon()
 	return
 
-/obj/machinery/computer/shuttle_flight/pod/emag_act(mob/user)
+/obj/machinery/computer/shuttle_flight/pod/on_emag(mob/user)
 	..()
 	to_chat(user, "<span class='warning'>You fry the pod's alert level monitoring system.</span>")
 

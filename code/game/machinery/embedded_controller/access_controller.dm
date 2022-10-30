@@ -10,7 +10,6 @@
 	idle_power_usage = 2
 	active_power_usage = 4
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
-	can_emag = TRUE
 	var/idSelf
 
 /obj/machinery/doorButtons/attackby(obj/O, mob/user)
@@ -26,7 +25,7 @@
 /obj/machinery/doorButtons/LateInitialize()
 	findObjsByTag()
 
-/obj/machinery/doorButtons/emag_act(mob/user)
+/obj/machinery/doorButtons/on_emag(mob/user)
 	..()
 	req_access = list()
 	req_one_access = list()

@@ -14,7 +14,6 @@
 	req_access = list(ACCESS_HEADS)
 	circuit = /obj/item/circuitboard/computer/communications
 	light_color = LIGHT_COLOR_BLUE
-	can_emag = TRUE
 
 	/// Cooldown for important actions, such as messaging CentCom or other sectors
 	COOLDOWN_DECLARE(static/important_action_cooldown)
@@ -69,7 +68,7 @@
 	else
 		return ..()
 
-/obj/machinery/computer/communications/emag_act(mob/user)
+/obj/machinery/computer/communications/on_emag(mob/user)
 	..()
 	if (authenticated)
 		authorize_access = get_all_accesses()

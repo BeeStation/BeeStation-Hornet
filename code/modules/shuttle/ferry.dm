@@ -9,7 +9,7 @@
 	var/allow_silicons = FALSE
 	var/allow_emag = FALSE
 
-/obj/machinery/computer/shuttle_flight/ferry/emag_check(mob/user)
+/obj/machinery/computer/shuttle_flight/ferry/should_emag(mob/user)
 	if(!..())
 		return FALSE
 	if(!allow_emag)

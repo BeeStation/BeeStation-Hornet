@@ -26,7 +26,6 @@
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 50
 	circuit = /obj/item/circuitboard/machine/scanner_gate
-	can_emag = TRUE
 
 
 
@@ -93,7 +92,7 @@
 	else
 		return ..()
 
-/obj/machinery/scanner_gate/emag_act(mob/user)
+/obj/machinery/scanner_gate/on_emag(mob/user)
 	..()
 	locked = FALSE
 	req_access = list()

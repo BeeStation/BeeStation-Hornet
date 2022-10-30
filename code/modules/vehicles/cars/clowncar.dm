@@ -10,7 +10,6 @@
 	car_traits = CAN_KIDNAP
 	key_type = /obj/item/bikehorn
 	key_type_exact = FALSE
-	can_emag = TRUE
 	var/droppingoil = FALSE
 	var/RTDcooldown = 150
 	var/lastRTDtime = 0
@@ -107,7 +106,7 @@
 	name = "tangle of limbs"
 	desc = "You are restrained in a tangle of bodies!"
 
-/obj/vehicle/sealed/car/clowncar/emag_act(mob/user)
+/obj/vehicle/sealed/car/clowncar/on_emag(mob/user)
 	..()
 	to_chat(user, "<span class='danger'>You scramble the clowncar child safety lock and a panel with 6 colorful buttons appears!</span>")
 	initialize_controller_action_type(/datum/action/vehicle/sealed/RollTheDice, VEHICLE_CONTROL_DRIVE)

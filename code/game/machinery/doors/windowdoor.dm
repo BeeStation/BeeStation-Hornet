@@ -17,7 +17,6 @@
 	CanAtmosPass = ATMOS_PASS_PROC
 	interaction_flags_machine = INTERACT_MACHINE_WIRES_IF_OPEN | INTERACT_MACHINE_ALLOW_SILICON | INTERACT_MACHINE_OPEN_SILICON | INTERACT_MACHINE_REQUIRES_SILICON | INTERACT_MACHINE_OPEN
 	network_id = NETWORK_DOOR_AIRLOCKS
-	can_emag = TRUE
 	var/obj/item/electronics/airlock/electronics = null
 	var/reinf = 0
 	var/shards = 2
@@ -215,11 +214,11 @@
 		take_damage(round(exposed_volume / 200), BURN, 0, 0)
 	..()
 
-/obj/machinery/door/window/emag_check(mob/user)
+/obj/machinery/door/window/should_emag(mob/user)
 	// Don't allow emag if the door is currently open or moving
 	return !operating && density && ..()
 
-/obj/machinery/door/window/emag_act(mob/user)
+/obj/machinery/door/window/on_emag(mob/user)
 	..()
 	operating = TRUE
 	flick("[base_state]spark", src)

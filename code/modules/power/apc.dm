@@ -58,7 +58,6 @@
 	interaction_flags_machine = INTERACT_MACHINE_WIRES_IF_OPEN | INTERACT_MACHINE_ALLOW_SILICON | INTERACT_MACHINE_OPEN_SILICON
 	clicksound = 'sound/machines/terminal_select.ogg'
 	layer = ABOVE_WINDOW_LAYER
-	can_emag = TRUE
 
 
 
@@ -804,7 +803,7 @@
 			visible_message("<span class='warning'>The APC cover is knocked down!</span>")
 			update_icon()
 
-/obj/machinery/power/apc/emag_check(mob/user)
+/obj/machinery/power/apc/should_emag(mob/user)
 	if(!..() || malfhack)
 		return FALSE
 	if(opened)
@@ -818,7 +817,7 @@
 		return FALSE
 	return TRUE
 
-/obj/machinery/power/apc/emag_act(mob/user)
+/obj/machinery/power/apc/on_emag(mob/user)
 	..()
 	flick("apc-spark", src)
 	playsound(src, "sparks", 75, 1)

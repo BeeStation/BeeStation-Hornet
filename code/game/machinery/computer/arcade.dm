@@ -152,7 +152,6 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 	desc = "Does not support Pinball."
 	icon_state = "arcade"
 	circuit = /obj/item/circuitboard/computer/arcade/battle
-	can_emag = TRUE
 	var/enemy_name = "Space Villain"
 	var/temp = "Winners don't use space drugs" //Temporary message, for attack messages, etc
 	var/player_hp = 30 //Player health/attack points
@@ -328,7 +327,7 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 	blocked = FALSE
 	return
 
-/obj/machinery/computer/arcade/battle/emag_act(mob/user)
+/obj/machinery/computer/arcade/battle/on_emag(mob/user)
 	..()
 	to_chat(user, "<span class='warning'>A mesmerizing Rhumba beat starts playing from the arcade machine's speakers!</span>")
 	temp = "If you die in the game, you die for real!"
@@ -379,7 +378,6 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 	desc = "Learn how our ancestors got to Orion, and have fun in the process!"
 	icon_state = "arcade"
 	circuit = /obj/item/circuitboard/computer/arcade/orion_trail
-	can_emag = TRUE
 	var/busy = FALSE //prevent clickspam that allowed people to ~speedrun~ the game.
 	var/engine = 0
 	var/hull = 0
@@ -1176,7 +1174,7 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 	name = "The Orion Trail"
 	desc = "Learn how our ancestors got to Orion, and have fun in the process!"
 
-/obj/machinery/computer/arcade/orion_trail/emag_act(mob/user)
+/obj/machinery/computer/arcade/orion_trail/on_emag(mob/user)
 	..()
 	to_chat(user, "<span class='notice'>You override the cheat code menu and skip to Cheat #[rand(1, 50)]: Realism Mode.</span>")
 	name = "The Orion Trail: Realism Edition"
@@ -1240,7 +1238,6 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 	desc = "A picture of a blood-soaked medical cyborg flashes on the screen. The mediborg has a speech bubble that says, \"Put your hand in the machine if you aren't a <b>coward!</b>\""
 	icon_state = "arcade"
 	circuit = /obj/item/circuitboard/computer/arcade/amputation
-	can_emag = TRUE
 
 /obj/machinery/computer/arcade/amputation/attack_hand(mob/user)
 	if(!iscarbon(user))
@@ -1284,7 +1281,7 @@ GLOBAL_LIST_INIT(arcade_prize_pool, list(
 			to_chat(c_user, "<span class='notice'>You (wisely) decide against putting your hand in the machine.</span>")
 
 
-/obj/machinery/computer/arcade/amputation/emag_act(mob/user)
+/obj/machinery/computer/arcade/amputation/on_emag(mob/user)
 	..()
 	to_chat(user, "<span class='notice'>You override the safety systems on the arcade machine.</span>")
 	name = "Mediborg's Amputation Adventure: Deluxe Edition"

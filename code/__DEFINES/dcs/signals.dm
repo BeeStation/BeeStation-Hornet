@@ -629,10 +629,10 @@
 /// from /obj/machinery/power/supermatter_crystal/process_atmos(); when the SM sounds an audible alarm
 #define COMSIG_SUPERMATTER_DELAM_ALARM "sm_delam_alarm"
 
-/// Check if an emag action should occur
-#define COMSIG_ATOM_EMAG_CHECK "atom_emag_check"
-/// Do the emag action (if CHECK is true)
-#define COMSIG_ATOM_EMAG_ACT "atom_emag_act"
+/// Check if an emag action should occur, this is inverted, so FALSE means the check succeeds.
+#define COMSIG_ATOM_SHOULD_EMAG "atom_should_emag"
+/// Do the emag action (if CHECK is FALSE)
+#define COMSIG_ATOM_ON_EMAG "atom_on_emag"
 
 // /obj/machinery signals
 #define COMSIG_MACHINERY_BROKEN "machinery_broken"				//from /obj/machinery/obj_break(damage_flag): (damage_flag)

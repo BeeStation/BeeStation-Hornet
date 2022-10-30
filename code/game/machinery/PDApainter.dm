@@ -6,7 +6,6 @@
 	max_integrity = 200
 	density = TRUE
 	anchored = TRUE
-	can_emag = TRUE
 	var/obj/item/pda/storedpda = null
 	var/obj/item/card/id/storedid = null
 	var/pda_icons = list(
@@ -71,7 +70,7 @@
 	max_integrity = 200
 	var/list/colorlist = list()
 
-/obj/machinery/pdapainter/emag_act(mob/user)
+/obj/machinery/pdapainter/on_emag(mob/user)
 	..()
 	pda_icons += list(
 		"Transparent" = "pda-clear",

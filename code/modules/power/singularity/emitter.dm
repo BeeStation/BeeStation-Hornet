@@ -17,7 +17,6 @@
 	use_power = NO_POWER_USE
 	idle_power_usage = 10
 	active_power_usage = 600
-	can_emag = TRUE
 
 	var/icon_state_on = "emitter_+a"
 	var/icon_state_underpowered = "emitter_+u"
@@ -352,7 +351,7 @@
 	projectile_type = initial(projectile_type)
 	projectile_sound = initial(projectile_sound)
 
-/obj/machinery/power/emitter/emag_act(mob/user)
+/obj/machinery/power/emitter/on_emag(mob/user)
 	..()
 	locked = FALSE
 	user?.visible_message("[user.name] emags [src].","<span class='notice'>You short out the lock.</span>")

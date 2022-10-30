@@ -56,7 +56,6 @@ IF YOU MODIFY THE PRODUCTS LIST OF A MACHINE, MAKE SURE TO UPDATE ITS RESUPPLY C
 	circuit = /obj/item/circuitboard/machine/vendor
 	clicksound = 'sound/machines/pda_button1.ogg'
 	payment_department = ACCOUNT_SRV
-	can_emag = TRUE
 
 	light_color = LIGHT_COLOR_BLUE
 
@@ -624,7 +623,7 @@ GLOBAL_LIST_EMPTY(vending_products)
 	update_canister()
 	. = ..()
 
-/obj/machinery/vending/emag_act(mob/user)
+/obj/machinery/vending/on_emag(mob/user)
 	..()
 	to_chat(user, "<span class='notice'>You short out the product lock on [src].</span>")
 

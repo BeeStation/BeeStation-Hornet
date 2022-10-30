@@ -23,7 +23,6 @@
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 50
 	circuit = /obj/item/circuitboard/computer/slot_machine
-	can_emag = TRUE
 	var/money = 3000 //How much money it has CONSUMED
 	var/plays = 0
 	var/working = 0
@@ -126,7 +125,7 @@
 	else
 		return ..()
 
-/obj/machinery/computer/slot_machine/emag_act(mob/user)
+/obj/machinery/computer/slot_machine/on_emag(mob/user)
 	..()
 	var/datum/effect_system/spark_spread/spark_system = new /datum/effect_system/spark_spread()
 	spark_system.set_up(4, 0, src.loc)

@@ -8,7 +8,6 @@
 	density = TRUE
 	req_access = list(ACCESS_KITCHEN)
 	circuit = /obj/item/circuitboard/machine/fat_sucker
-	can_emag = TRUE
 	var/processing = FALSE
 	var/start_at = NUTRITION_LEVEL_WELL_FED
 	var/stop_at = NUTRITION_LEVEL_STARVING
@@ -221,7 +220,7 @@
 	if(default_deconstruction_crowbar(I))
 		return TRUE
 
-/obj/machinery/fat_sucker/emag_act(mob/user)
+/obj/machinery/fat_sucker/on_emag(mob/user)
 	..()
 	start_at = 100
 	stop_at = 0

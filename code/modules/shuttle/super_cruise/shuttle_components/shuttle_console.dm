@@ -7,7 +7,6 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 	icon_keyboard = "tech_key"
 	light_color = LIGHT_COLOR_CYAN
 	req_access = list()
-	can_emag = TRUE
 	var/shuttleId
 
 	//Interdiction range
@@ -527,7 +526,7 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 		log_mapping("CAUTION: SHUTTLE [shuttleId] REACHED THE GENERATION TIMEOUT OF 3 MINUTES. THE ASSIGNED Z-LEVEL IS STILL MARKED AS GENERATING, BUT WE ARE DOCKING ANYWAY.")
 	shuttle_dock.setTimer(20)
 
-/obj/machinery/computer/shuttle_flight/emag_act(mob/user)
+/obj/machinery/computer/shuttle_flight/on_emag(mob/user)
 	..()
 	req_access = list()
 	to_chat(user, "<span class='notice'>You fried the consoles ID checking system.</span>")

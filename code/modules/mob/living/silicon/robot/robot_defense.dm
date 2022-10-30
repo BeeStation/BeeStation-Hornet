@@ -88,7 +88,7 @@
 		if(2)
 			Stun(60)
 
-/mob/living/silicon/robot/proc/emag_check(atom/target, mob/user)
+/mob/living/silicon/robot/proc/should_emag(atom/target, mob/user)
 	SIGNAL_HANDLER
 	if(target == user || user == src)
 		return FALSE
@@ -101,7 +101,7 @@
 		return FALSE
 	return TRUE
 
-/mob/living/silicon/robot/proc/emag_act(atom/target, mob/user)
+/mob/living/silicon/robot/proc/on_emag(atom/target, mob/user)
 	SIGNAL_HANDLER
 	if(!opened && locked) //Cover is closed
 		to_chat(user, "<span class='notice'>You emag the cover lock.</span>")

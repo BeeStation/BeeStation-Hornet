@@ -4,7 +4,6 @@
 	name = "abandoned crate"
 	desc = "What could be inside?"
 	integrity_failure = 0 //no breaking open the crate
-	can_emag = TRUE
 	var/code = null
 	var/lastattempt = null
 	var/attempts = 10
@@ -104,10 +103,10 @@
 	to_chat(user, "<span class='notice'>That seems like a stupid idea.</span>")
 	return FALSE
 
-/obj/structure/closet/crate/secure/loot/emag_check(mob/user)
+/obj/structure/closet/crate/secure/loot/should_emag(mob/user)
 	return locked && ..()
 
-/obj/structure/closet/crate/secure/loot/emag_act(mob/user)
+/obj/structure/closet/crate/secure/loot/on_emag(mob/user)
 	..()
 	boom(user)
 

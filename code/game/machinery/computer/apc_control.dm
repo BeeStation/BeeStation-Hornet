@@ -6,7 +6,6 @@
 	req_access = list(ACCESS_ENGINE)
 	circuit = /obj/item/circuitboard/computer/apc_control
 	light_color = LIGHT_COLOR_YELLOW
-	can_emag = TRUE
 	var/mob/living/operator //Who's operating the computer right now
 	var/obj/machinery/power/apc/active_apc //The APC we're using right now
 	var/list/result_filters //For sorting the results
@@ -183,10 +182,10 @@
 		logs = list()
 	ui_interact(usr) //Refresh the UI after a filter changes
 
-/obj/machinery/computer/apc_control/emag_check(mob/user)
+/obj/machinery/computer/apc_control/should_emag(mob/user)
 	return !authenticated || ..()
 
-/obj/machinery/computer/apc_control/emag_act(mob/user)
+/obj/machinery/computer/apc_control/on_emag(mob/user)
 	if(!authenticated)
 		to_chat(user, "<span class='warning'>You bypass [src]'s access requirements using your emag.</span>")
 		authenticated = TRUE

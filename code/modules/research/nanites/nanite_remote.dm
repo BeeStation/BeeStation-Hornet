@@ -12,7 +12,6 @@
 	icon = 'icons/obj/device.dmi'
 	icon_state = "nanite_remote"
 	item_flags = NOBLUDGEON
-	can_emag = TRUE
 	var/locked = FALSE //Can be locked, so it can be given to users with a set code and mode
 	var/mode = REMOTE_MODE_OFF
 	var/list/saved_settings = list()
@@ -38,7 +37,7 @@
 		else
 			to_chat(user, "<span class='warning'>Access denied.</span>")
 
-/obj/item/nanite_remote/emag_act(mob/user)
+/obj/item/nanite_remote/on_emag(mob/user)
 	..()
 	to_chat(user, "<span class='warning'>You override [src]'s ID lock.</span>")
 	if(locked)

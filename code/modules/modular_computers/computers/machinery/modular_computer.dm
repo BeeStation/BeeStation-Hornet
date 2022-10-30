@@ -6,7 +6,6 @@
 
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 5
-	can_emag = TRUE
 	var/hardware_flag = 0								// A flag that describes this device type
 	var/last_power_usage = 0							// Power usage during last tick
 
@@ -48,14 +47,14 @@
 	if(cpu)
 		cpu.attack_ghost(user)
 
-/obj/machinery/modular_computer/emag_check(mob/user)
+/obj/machinery/modular_computer/should_emag(mob/user)
 	if(!cpu)
 		to_chat(user, "<span class='warning'>You'd need to turn the [src] on first.</span>")
 		return FALSE
-	return cpu.emag_check(user)
+	return cpu.should_emag(user)
 
-/obj/machinery/modular_computer/emag_act(mob/user)
-	return cpu.emag_act(user)
+/obj/machinery/modular_computer/on_emag(mob/user)
+	return cpu.on_emag(user)
 
 /obj/machinery/modular_computer/update_icon()
 	cut_overlays()

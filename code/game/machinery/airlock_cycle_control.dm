@@ -46,7 +46,6 @@
 	desc = "A machine designed to control the operation of cycling airlocks"
 	icon = 'icons/obj/monitors.dmi'
 	icon_state = "aac"
-	can_emag = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 4
 	active_power_usage = 8
@@ -803,7 +802,7 @@
 	..()
 	update_icon()
 
-/obj/machinery/advanced_airlock_controller/emag_act(mob/user)
+/obj/machinery/advanced_airlock_controller/on_emag(mob/user)
 	..()
 	visible_message("<span class='warning'>Sparks fly out of [src]!</span>", "<span class='notice'>You emag [src], disabling its safeties.</span>")
 	playsound(src, "sparks", 50, 1)

@@ -5,7 +5,6 @@
 		All sales are near instantaneous - please choose carefully"
 	icon_screen = "supply_express"
 	circuit = /obj/item/circuitboard/computer/cargo/express
-	can_emag = TRUE
 
 
 	blockade_warning = "Bluespace instability detected. Delivery impossible."
@@ -49,7 +48,7 @@
 			to_chat(user, "<span class='notice'>[src] is already linked to [sb].</span>")
 	..()
 
-/obj/machinery/computer/cargo/express/emag_act(mob/user)
+/obj/machinery/computer/cargo/express/on_emag(mob/user)
 	..()
 	to_chat(user,"<span class='notice'>You change the routing protocols, allowing the Supply Pod to land anywhere on the station.</span>")
 	packin_up()

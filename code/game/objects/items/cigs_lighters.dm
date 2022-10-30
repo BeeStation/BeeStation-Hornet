@@ -831,7 +831,6 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	icon_state = "red_vape"
 	item_state = null
 	w_class = WEIGHT_CLASS_TINY
-	can_emag = TRUE
 	var/chem_volume = 100
 	var/vapetime = 0 //this so it won't puff out clouds every tick
 	/// How often we take a drag in seconds
@@ -890,7 +889,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 		else
 			..()
 
-/obj/item/clothing/mask/vape/emag_check(mob/user)
+/obj/item/clothing/mask/vape/should_emag(mob/user)
 	if(!..())
 		return FALSE
 	if(!screw)
@@ -898,7 +897,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 		return FALSE
 	return TRUE
 
-/obj/item/clothing/mask/vape/emag_act(mob/user)
+/obj/item/clothing/mask/vape/on_emag(mob/user)
 	..()
 	cut_overlays()
 	super = 0

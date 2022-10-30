@@ -176,8 +176,8 @@
 	aicamera = new/obj/item/camera/siliconcam/robot_camera(src)
 	toner = tonermax
 	diag_hud_set_borgcell()
-	RegisterSignal(src, COMSIG_ATOM_EMAG_ACT, .proc/emag_act)
-	RegisterSignal(src, COMSIG_ATOM_EMAG_CHECK, .proc/emag_check)
+	RegisterSignal(src, COMSIG_ATOM_EMAG_ACT, .proc/on_emag)
+	RegisterSignal(src, COMSIG_ATOM_SHOULD_EMAG, .proc/should_emag)
 	logevent("System brought online.")
 
 /mob/living/silicon/robot/proc/create_modularInterface()
@@ -246,7 +246,7 @@
 	QDEL_NULL(spark_system)
 	cell = null
 	UnregisterSignal(src, COMSIG_ATOM_EMAG_ACT)
-	UnregisterSignal(src, COMSIG_ATOM_EMAG_CHECK)
+	UnregisterSignal(src, COMSIG_ATOM_SHOULD_EMAG)
 	return ..()
 
 /mob/living/silicon/robot/proc/pick_module()

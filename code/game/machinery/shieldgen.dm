@@ -75,7 +75,6 @@
 	pressure_resistance = 2*ONE_ATMOSPHERE
 	req_access = list(ACCESS_ENGINE)
 	max_integrity = 100
-	can_emag = TRUE
 	var/active = FALSE
 	var/list/deployed_shields
 	var/locked = FALSE
@@ -198,7 +197,7 @@
 	else
 		return ..()
 
-/obj/machinery/shieldgen/emag_act(mob/user)
+/obj/machinery/shieldgen/on_emag(mob/user)
 	..()
 	locked = FALSE
 	playsound(src, "sparks", 100, 1)
@@ -223,7 +222,6 @@
 	flags_1 = CONDUCT_1
 	use_power = NO_POWER_USE
 	max_integrity = 300
-	can_emag = TRUE
 	var/active = FALSE
 	var/power = 0
 	var/maximum_stored_power = 500
@@ -397,7 +395,7 @@
 		update_activity()
 	add_fingerprint(user)
 
-/obj/machinery/shieldwallgen/emag_act(mob/user)
+/obj/machinery/shieldwallgen/on_emag(mob/user)
 	..()
 	locked = FALSE
 	playsound(src, "sparks", 100, 1)

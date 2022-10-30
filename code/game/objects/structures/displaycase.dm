@@ -413,7 +413,6 @@
 	alert = FALSE //No, we're not calling the fire department because someone stole your cookie.
 	glass_fix = FALSE //Fixable with tools instead.
 	pass_flags = PASSTABLE ///Can be placed and moved onto a table.
-	can_emag = TRUE
 	///The price of the item being sold. Altered by grab intent ID use.
 	var/sale_price = 20
 	///The Account which will receive payment for purchases. Set by the first ID to swipe the tray.
@@ -582,7 +581,7 @@
 		to_chat(user, "<span class='notice'>[src] must be open to move it.</span>")
 		return
 
-/obj/structure/displaycase/forsale/emag_act(mob/user)
+/obj/structure/displaycase/forsale/on_emag(mob/user)
 	..()
 	payments_acc = null
 	req_access = list()

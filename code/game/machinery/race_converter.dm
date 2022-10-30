@@ -5,7 +5,6 @@
 	icon_state = "fat"
 	state_open = FALSE
 	density = TRUE
-	can_emag = TRUE
 	var/dangerous = FALSE // Can the species coverter turn people into plasma men?
 	var/brainwash = FALSE
 	var/processing = FALSE
@@ -139,7 +138,7 @@
 		changed = TRUE
 		to_chat(user, "<span class='notice'>You change \the [src]'s desired race setting to [initial(desired_race.name)].</span>")
 
-/obj/machinery/species_converter/emag_act(mob/user)
+/obj/machinery/species_converter/on_emag(mob/user)
 	..()
 	dangerous = TRUE
 	brainwash = prob(30)

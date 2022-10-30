@@ -52,7 +52,6 @@
 	flags_1 = CONDUCT_1
 	slot_flags = ITEM_SLOT_BELT
 	force = 8
-	can_emag = TRUE
 
 	var/max_uses = 20
 	var/uses = 10
@@ -144,7 +143,7 @@
 
 		to_chat(user, "<span class='notice'>You fill \the [src] with lights from \the [S]. " + status_string() + "</span>")
 
-/obj/item/lightreplacer/emag_act(mob/user)
+/obj/item/lightreplacer/on_emag(mob/user)
 	..()
 	playsound(src.loc, "sparks", 100, 1)
 	name = "shortcircuited [initial(name)]"
@@ -258,7 +257,7 @@
 	icon_state = "lightreplacer_blue0"
 	bluespace_toggle = TRUE
 
-/obj/item/lightreplacer/bluespace/emag_act()
+/obj/item/lightreplacer/bluespace/on_emag()
 	return  // long range explosions are stupid
 
 /obj/item/lightreplacer/bluespace/update_icon()  // making sure it uses the new icon state names

@@ -14,7 +14,6 @@
 	idle_power_usage = 10
 	active_power_usage = 100
 	circuit = /obj/item/circuitboard/machine/limbgrower
-	can_emag = TRUE
 
 	var/operating = FALSE
 	var/disabled = FALSE
@@ -224,7 +223,7 @@
 		dat += "[D.reagents_list[/datum/reagent/medicine/synthflesh] * prod_coeff] Synthetic flesh "
 	return dat
 
-/obj/machinery/limbgrower/emag_act(mob/user)
+/obj/machinery/limbgrower/on_emag(mob/user)
 	..()
 	for(var/id in SSresearch.techweb_designs)
 		var/datum/design/D = SSresearch.techweb_design_by_id(id)

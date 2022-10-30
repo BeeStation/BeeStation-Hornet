@@ -8,7 +8,6 @@
 	max_integrity = 200
 	integrity_failure = 50
 	armor = list("melee" = 20, "bullet" = 10, "laser" = 10, "energy" = 0, "bomb" = 10, "bio" = 0, "rad" = 0, "fire" = 70, "acid" = 60, "stamina" = 0)
-	can_emag = TRUE
 	var/icon_door = null
 	var/icon_door_override = FALSE //override to have open overlay use icon different to its base's
 	var/secure = FALSE //secure locker or not, also used if overriding a non-secure locker with a secure door overlay to add fancy lights
@@ -489,10 +488,10 @@
 	else if(secure && broken)
 		to_chat(user, "<span class='warning'>\The [src] is broken!</span>")
 
-/obj/structure/closet/emag_check(mob/user)
+/obj/structure/closet/should_emag(mob/user)
 	return secure && !broken && ..()
 
-/obj/structure/closet/emag_act(mob/user)
+/obj/structure/closet/on_emag(mob/user)
 	..()
 	user?.visible_message("<span class='warning'>Sparks fly from [src]!</span>",
 					"<span class='warning'>You scramble [src]'s lock, breaking it open!</span>",

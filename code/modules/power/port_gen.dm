@@ -79,7 +79,6 @@
 /obj/machinery/power/port_gen/pacman
 	name = "\improper P.A.C.M.A.N.-type portable generator"
 	circuit = /obj/item/circuitboard/machine/pacman
-	can_emag = TRUE
 	var/sheets = 0
 	var/max_sheets = 100
 	var/sheet_name = ""
@@ -208,7 +207,7 @@
 			return
 	return ..()
 
-/obj/machinery/power/port_gen/pacman/emag_act(mob/user)
+/obj/machinery/power/port_gen/pacman/on_emag(mob/user)
 	..()
 	emp_act(EMP_HEAVY)
 

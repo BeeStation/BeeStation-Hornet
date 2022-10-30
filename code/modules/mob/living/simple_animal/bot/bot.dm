@@ -177,8 +177,8 @@
 	if(path_hud)
 		path_hud.add_to_hud(src)
 		path_hud.add_hud_to(src)
-	RegisterSignal(src, COMSIG_ATOM_EMAG_ACT, .proc/emag_act)
-	RegisterSignal(src, COMSIG_ATOM_EMAG_CHECK, .proc/emag_check)
+	RegisterSignal(src, COMSIG_ATOM_EMAG_ACT, .proc/on_emag)
+	RegisterSignal(src, COMSIG_ATOM_SHOULD_EMAG, .proc/should_emag)
 
 /mob/living/simple_animal/bot/update_mobility()
 	. = ..()
@@ -196,7 +196,7 @@
 	QDEL_NULL(access_card)
 	QDEL_NULL(bot_core)
 	UnregisterSignal(src, COMSIG_ATOM_EMAG_ACT)
-	UnregisterSignal(src, COMSIG_ATOM_EMAG_CHECK)
+	UnregisterSignal(src, COMSIG_ATOM_SHOULD_EMAG)
 	return ..()
 
 /mob/living/simple_animal/bot/bee_friendly()
@@ -209,14 +209,14 @@
 /mob/living/simple_animal/bot/proc/explode()
 	qdel(src)
 
-/mob/living/simple_animal/bot/proc/emag_check(atom/target, mob/user)
+/mob/living/simple_animal/bot/proc/should_emag(atom/target, mob/user)
 	SIGNAL_HANDLER
 	if(!locked && !open) // Bot is unlocked, but the maint panel has not been opened with a screwdriver yet.
 		to_chat(user, "<span class='warning'>You need to open maintenance panel first!</span>")
 		return FALSE
 	return TRUE
 
-/mob/living/simple_animal/bot/proc/emag_act(atom/target, mob/user)
+/mob/living/simple_animal/bot/proc/on_emag(atom/target, mob/user)
 	SIGNAL_HANDLER
 
 	if(locked) //First emag application unlocks the bot's interface. Apply a screwdriver to use the emag again.

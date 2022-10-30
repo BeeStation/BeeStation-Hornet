@@ -7,7 +7,6 @@
 	righthand_file = 'icons/mob/inhands/equipment/case_righthand.dmi'
 	w_class = WEIGHT_CLASS_BULKY
 	req_access = list(ACCESS_ARMORY)
-	can_emag = TRUE
 	var/broken = FALSE
 	var/open = FALSE
 	var/base_icon_state = "lockbox"
@@ -48,10 +47,10 @@
 	else
 		to_chat(user, "<span class='danger'>It's locked!</span>")
 
-/obj/item/storage/lockbox/emag_check(mob/user)
+/obj/item/storage/lockbox/should_emag(mob/user)
 	return !broken && ..()
 
-/obj/item/storage/lockbox/emag_act(mob/user)
+/obj/item/storage/lockbox/on_emag(mob/user)
 	..()
 	broken = TRUE
 	SEND_SIGNAL(src, COMSIG_TRY_STORAGE_SET_LOCKSTATE, FALSE)

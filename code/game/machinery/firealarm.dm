@@ -20,7 +20,6 @@
 	max_integrity = 250
 	integrity_failure = 100
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 100, "rad" = 100, "fire" = 90, "acid" = 30, "stamina" = 0)
-	can_emag = TRUE
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 2
 	active_power_usage = 6
@@ -134,7 +133,7 @@
 	if(prob(50 / severity))
 		alarm()
 
-/obj/machinery/firealarm/emag_act(mob/user)
+/obj/machinery/firealarm/on_emag(mob/user)
 	..()
 	update_icon()
 	user?.visible_message("<span class='warning'>Sparks fly out of [src]!</span>",

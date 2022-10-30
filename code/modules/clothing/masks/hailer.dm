@@ -14,7 +14,6 @@
 	visor_flags_inv = HIDEFACE
 	flags_cover = MASKCOVERSMOUTH | MASKCOVERSEYES
 	visor_flags_cover = MASKCOVERSMOUTH | MASKCOVERSEYES
-	can_emag = TRUE
 	var/aggressiveness = 2
 	var/cooldown_special
 	var/recent_uses = 0
@@ -78,10 +77,10 @@
 /obj/item/clothing/mask/gas/sechailer/attack_self()
 	halt()
 
-/obj/item/clothing/mask/gas/sechailer/emag_check(mob/user)
+/obj/item/clothing/mask/gas/sechailer/should_emag(mob/user)
 	return safety && ..()
 
-/obj/item/clothing/mask/gas/sechailer/emag_act(mob/user)
+/obj/item/clothing/mask/gas/sechailer/on_emag(mob/user)
 	..()
 	safety = FALSE
 	to_chat(user, "<span class='warning'>You silently fry [src]'s vocal circuit with the cryptographic sequencer.</span>")

@@ -9,7 +9,6 @@
 	power_channel = AREA_USAGE_EQUIP
 	density = TRUE
 	max_integrity = 250
-	can_emag = TRUE
 
 
 
@@ -206,7 +205,7 @@
 	wires.ui_update()
 	ui_update()
 
-/obj/machinery/suit_storage_unit/emag_act(mob/user)
+/obj/machinery/suit_storage_unit/on_emag(mob/user)
 	..()
 	to_chat(user, "<span class='warning'>You reprogram [src]'s decontamination subroutines.</span>")
 

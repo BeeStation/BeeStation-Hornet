@@ -93,9 +93,8 @@
 	energy_drain = 30
 	projectile = /obj/item/projectile/beam/disabler
 	fire_sound = 'sound/weapons/taser2.ogg'
-	can_emag = TRUE
 
-/obj/item/mecha_parts/mecha_equipment/weapon/energy/disabler/emag_act(mob/user)
+/obj/item/mecha_parts/mecha_equipment/weapon/energy/disabler/on_emag(mob/user)
 	..()
 	to_chat(user, "<span class='notice'>You disable [src]'s safety procedures, making it shoot harmful lasers.</span>")
 	projectile = /obj/item/projectile/beam/laser

@@ -73,7 +73,6 @@
 	resistance_flags = FIRE_PROOF
 	clicksound = 'sound/machines/terminal_select.ogg'
 	layer = ABOVE_WINDOW_LAYER
-	can_emag = TRUE
 
 
 	var/danger_level = 0
@@ -834,7 +833,7 @@
 	..()
 	update_icon()
 
-/obj/machinery/airalarm/emag_act(mob/user)
+/obj/machinery/airalarm/on_emag(mob/user)
 	..()
 	visible_message("<span class='warning'>Sparks fly out of [src]!</span>", "<span class='notice'>You emag [src], disabling its safeties.</span>")
 	playsound(src, "sparks", 50, 1)

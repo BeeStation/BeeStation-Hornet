@@ -14,7 +14,6 @@
 	icon_state_on = "wabbajack_statue_on"
 	active = FALSE
 	allow_switch_interact = FALSE
-	can_emag = FALSE
 	var/list/active_tables = list()
 	var/tables_required = 2
 
