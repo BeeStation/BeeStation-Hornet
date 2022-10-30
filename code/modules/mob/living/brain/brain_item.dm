@@ -240,7 +240,7 @@
 	name = "Grod Crown"
 	desc = "What the...?"
 	icon = 'icons/mob/species/grod/crown_spider.dmi'
-	icon_state = "crown_spider"
+	icon_state = "crown_spider_dead"
 	var/crown
 	var/obj/item/seeds/replicapod/grodpod/seed = new()
 

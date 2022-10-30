@@ -55,14 +55,18 @@
 		if(findname(.))
 			. = .(gender, TRUE, lastname, ++attempts)
 
-/datum/species/grod/on_species_gain(mob/living/carbon/C)
+/datum/species/grod/on_species_gain(mob/living/carbon/human/H)
 	. = ..()
-	if(ishuman(C))
-		var/mob/living/carbon/human/H = C
-		H.AddComponent(/datum/component/grod_pockets)
-		if(!crownspider)
-			crownspider = new
-			crownspider.Grant(H)
+	if(!istype(H))
+		return
+	//color crown
+	var/obj/item/organ/brain/grod/G = H.getorganslot(ORGAN_SLOT_BRAIN)
+	G.color = H.dna.features["mcolor"]
+	//Abilities
+	H.AddComponent(/datum/component/grod_pockets)
+	if(!crownspider)
+		crownspider = new
+		crownspider.Grant(H)
 
 /datum/species/grod/on_species_loss(mob/living/carbon/human/H, datum/species/new_species, pref_load)
 	. = ..()
@@ -374,9 +378,16 @@
 	else
 		src.visible_message("<span class='danger'>[src] burrows into [target]'s head!</span>")
 
+/mob/living/simple_animal/hostile/crown_spider/death(gibbed)
+	. = ..()
+	var/obj/item/organ/brain/B = locate(/obj/item/organ/brain) in contents
+	B.forceMove(get_turf(src))
+	qdel(src)
+
+//Caccoon for assimilation
 /obj/structure/grod_caccoon
 	name = "grod caccoon"
-	desc = "A mysterious phenominom, rarely observed." //fix spilling plox
+	desc = "A mysterious phenominom, rarely observed."
 	icon = 'icons/mob/species/grod/bodyparts.dmi'
 	icon_state = "caccoon"
 
