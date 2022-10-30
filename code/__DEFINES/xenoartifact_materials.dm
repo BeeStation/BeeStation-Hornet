@@ -23,8 +23,10 @@
 #define PROCESS_TYPE_TICK "is_tick"
 
 ///Discovery point reward
-#define XENOA_DP 200
+#define XENOA_DP 350
 #define XENOA_SOLD_DP 350
+///Reserach point reward (modifer)
+#define XENOA_RP 2.5
 
 ///Max vendors / buyers in each catergory
 #define XENOA_MAX_VENDORS 8

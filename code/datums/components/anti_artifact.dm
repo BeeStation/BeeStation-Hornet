@@ -11,7 +11,7 @@
 	var/datum/callback/reaction
 	var/datum/callback/expire
 
-/datum/component/anti_artifact/Initialize(datum/callback/_reaction = null, datum/callback/_expire = null, _charges = null, _blocks_self = TRUE, _chance = 100, _allowed_slots)
+/datum/component/anti_artifact/Initialize(_charges = null, _blocks_self = TRUE, _chance = 100, _allowed_slots, datum/callback/_reaction, datum/callback/_expire)
 	if(isitem(parent))
 		RegisterSignal(parent, COMSIG_ITEM_EQUIPPED, .proc/on_equip)
 		RegisterSignal(parent, COMSIG_ITEM_DROPPED, .proc/on_drop)

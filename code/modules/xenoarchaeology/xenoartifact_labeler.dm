@@ -35,9 +35,13 @@
 /obj/item/xenoartifact_labeler/Initialize(mapload)
 	. = ..()
 	generate_xenoa_statics()
+	//Append activators
 	activator_traits = get_trait_list_desc(activator_traits, GLOB.xenoa_activators)
+	//Minors
 	minor_traits = get_trait_list_desc(minor_traits, GLOB.xenoa_minors)
+	//Majors
 	major_traits = get_trait_list_desc(major_traits, GLOB.xenoa_majors)
+	//Malfs
 	malfunction_list = get_trait_list_desc(malfunction_list, GLOB.xenoa_malfs)
 
 /obj/item/xenoartifact_labeler/ui_interact(mob/user, datum/tgui/ui)
