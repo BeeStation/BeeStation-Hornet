@@ -5,66 +5,126 @@
 	force = 3
 	throwforce = 3
 	icon = 'icons/mob/human_parts_greyscale.dmi'
-	var/husk_icon = 'icons/mob/human_parts.dmi'
-	var/husk_type = "humanoid"
-	var/static_icon = 'icons/mob/human_parts.dmi' //Uncolorable sprites
 	icon_state = ""
-	layer = BELOW_MOB_LAYER //so it isn't hidden behind objects when on the floor
-	var/mob/living/carbon/owner = null
-	var/datum/weakref/original_owner = null
+	//so it isn't hidden behind objects when on the floor
+	layer = BELOW_MOB_LAYER
+
+///TRUE/FALSE variables-------------------------
+	//Does this limb have a greyscale version?
+	var/uses_mutcolor = TRUE
+	//Is there a sprite difference between male and female?
+	var/is_dimorphic = FALSE
+	///are we husked?
+	var/is_husked = FALSE
+	//For limbs that don't really exist, eg chainsaws
+	var/is_pseudopart = FALSE
+	//is this limb in need of an update?
+	var/no_update = FALSE
+	//whether it can be dismembered with a weapon.
+	var/dismemberable = TRUE
+	///does the limb need to be processing?
 	var/needs_processing = FALSE
-	///If you'd like to know if a bodypart is organic, please use is_organic_limb()
-	var/bodytype = BODYTYPE_HUMANOID | BODYTYPE_ORGANIC //List of bodytypes flags, important for fitting clothing.
-	var/change_exempt_flags //Defines when a bodypart should not be changed. Example: BP_BLOCK_CHANGE_SPECIES prevents the limb from being overwritten on species gain
+///--------------------------------------------
 
-	var/is_husked = FALSE //Duh
-	var/limb_id = SPECIES_HUMAN //This is effectively the icon_state for limbs.
-	var/limb_gender = "m" //Defines what sprite the limb should use if it is also sexually dimorphic.
-	var/uses_mutcolor = TRUE //Does this limb have a greyscale version?
-	var/is_dimorphic = FALSE //Is there a sprite difference between male and female?
-	var/draw_color //Greyscale draw color
+///ICONS AND ICON PATH VARIABLES---------------
+	/// the husked icon of the bodypart
+	var/husk_icon = 'icons/mob/human_parts.dmi'
+	/// what type of husk
+	var/husk_type = "humanoid"
+	//Uncolorable sprites
+	var/static_icon = 'icons/mob/human_parts.dmi'
+	//the type of damage overlay (if any) to use when this bodypart is bruised/burned.
+	var/dmg_overlay_type
+///--------------------------------------------
 
-	var/body_zone //BODY_ZONE_CHEST, BODY_ZONE_L_ARM, etc , used for def_zone
-	var/aux_zone // used for hands
-	var/aux_layer
-	var/body_part = null //bitflag used to check which clothes cover this bodypart
-
-	var/list/embedded_objects = list()
-	var/held_index = 0 //are we a hand? if so, which one!
-	var/is_pseudopart = FALSE //For limbs that don't really exist, eg chainsaws
-
-	var/disabled = BODYPART_NOT_DISABLED //If disabled, limb is as good as missing
-	var/body_damage_coeff = 1 //Multiplier of the limb's damage that gets applied to the mob
-	var/stam_damage_coeff = 0.7 //Why is this the default???
-	var/brutestate = 0
-	var/burnstate = 0
-	var/brute_dam = 0
-	var/burn_dam = 0
-	var/max_stamina_damage = 0
-	var/max_damage = 0
-
-	var/stamina_dam = 0
-	var/stamina_heal_rate = 1	//Stamina heal multiplier
-
-	var/brute_reduction = 0 //Subtracted to brute damage taken
-	var/burn_reduction = 0	//Subtracted to burn damage taken
-
+///COLORINGS and OVERLAY VARIABLES ------------
 	//Coloring and proper item icon update
 	var/skin_tone = ""
-	var/should_draw_greyscale = TRUE //Limbs need this information as a back-up incase they are generated outside of a carbon (limbgrower)
+	//Limbs need this information as a back-up incase they are generated outside of a carbon (limbgrower)
+	var/should_draw_greyscale = TRUE
+	//the color given by the species for limbs
 	var/species_color = ""
+	//the mutation color given by the mcolor dna strand
 	var/mutation_color = ""
-	var/no_update = 0
+	//Defines what sprite the limb should use if it is also sexually dimorphic.
+	var/limb_gender = "m"
+	//Greyscale draw color
+	var/draw_color
+///--------------------------------------------
 
-	var/animal_origin = null //for nonhuman bodypart (e.g. monkey)
-	var/dismemberable = 1 //whether it can be dismembered with a weapon.
+///REFERENCES----------------------------------
+	//limb current owner
+	var/mob/living/carbon/owner = null
+	//limbs original owner
+	var/datum/weakref/original_owner = null
+///--------------------------------------------
 
+///FLAGS AND DATA------------------------------
+	///If you'd like to know if a bodypart is organic, please use is_organic_limb()
+	//List of bodytypes flags, important for fitting clothing.
+	var/bodytype = BODYTYPE_HUMANOID | BODYTYPE_ORGANIC
+	//Defines when a bodypart should not be changed. Example: BP_BLOCK_CHANGE_SPECIES prevents the limb from being overwritten on species gain
+	var/change_exempt_flags
+	//This is effectively the icon_state for limbs.
+	var/limb_id = SPECIES_HUMAN
+	//If disabled, limb is as good as missing
+	var/disabled = BODYPART_NOT_DISABLED
+
+	//BODY_ZONE_CHEST, BODY_ZONE_L_ARM, etc , used for def_zone
+	var/body_zone
+	//used for hands
+	var/aux_zone
+	///layer for hands
+	var/aux_layer
+	//bitflag used to check which clothes cover this bodypart
+	var/body_part = null
+	//are we a hand? if so, which one!
+	var/held_index = 0
+	//for nonhuman bodypart (e.g. monkey)
+	var/animal_origin = null
+	//x pixel of the limb
 	var/px_x = 0
+	//y pixel of the limb
 	var/px_y = 0
+///--------------------------------------------
 
+///LISTS---------------------------------------
+	//list of flags based on the species of the limb
 	var/species_flags_list = list()
-	var/dmg_overlay_type //the type of damage overlay (if any) to use when this bodypart is bruised/burned.
+	//list of all embedded objects
+	var/list/embedded_objects = list()
+///--------------------------------------------
 
+///LIMB DAMAGE INFORMATION---------------------
+	//Multiplier of the limb's damage that gets applied to the mob
+	var/body_damage_coeff = 1
+	//Multiplier of the limb's stamina damage, set lower so to not make stun locking easier.
+	var/stam_damage_coeff = 0.7
+	//the brute damage state of the limb
+	var/brutestate = 0
+	//the burn damage state of the limb
+	var/burnstate = 0
+	//the brute damage of the limb
+	var/brute_dam = 0
+	//the burn damage of the limb
+	var/burn_dam = 0
+	//the maximum amount of damage the limb can take stamina wise
+	var/max_stamina_damage = 0
+	//the maximum amount of damage the limb can take
+	var/max_damage = 0
+
+	//how much stamina damage we have taken
+	var/stamina_dam = 0
+	//Stamina heal multiplier
+	var/stamina_heal_rate = 1
+
+	//Subtracted to brute damage taken
+	var/brute_reduction = 0
+	//Subtracted to burn damage taken
+	var/burn_reduction = 0
+///--------------------------------------------
+
+///LIMB DAMAGE TEXT----------------------------
 	//Damage messages used by help_shake_act()
 	var/light_brute_msg = "bruised"
 	var/medium_brute_msg = "battered"
@@ -73,6 +133,7 @@
 	var/light_burn_msg = "numb"
 	var/medium_burn_msg = "blistered"
 	var/heavy_burn_msg = "peeling away"
+///--------------------------------------------
 
 /obj/item/bodypart/Initialize(mapload)
 	..()
@@ -104,24 +165,24 @@
 		owner = null
 	return ..()
 
-/obj/item/bodypart/attack(mob/living/carbon/C, mob/user)
-	if(ishuman(C))
-		var/mob/living/carbon/human/H = C
-		if(HAS_TRAIT(C, TRAIT_LIMBATTACHMENT))
-			if(!H.get_bodypart(body_zone) && !animal_origin)
-				if(H == user)
-					H.visible_message("<span class='warning'>[H] jams [src] into [H.p_their()] empty socket!</span>",\
+/obj/item/bodypart/attack(mob/living/carbon/carbon_target, mob/user)
+	if(ishuman(carbon_target))
+		var/mob/living/carbon/human/human_target = carbon_target
+		if(HAS_TRAIT(carbon_target, TRAIT_LIMBATTACHMENT))
+			if(!human_target.get_bodypart(body_zone) && !animal_origin)
+				if(human_target == user)
+					human_target.visible_message("<span class='warning'>[human_target] jams [src] into [human_target.p_their()] empty socket!</span>",\
 					"<span class='notice'>You force [src] into your empty socket, and it locks into place!</span>")
 				else
-					H.visible_message("<span class='warning'>[user] jams [src] into [H]'s empty socket!</span>",\
+					human_target.visible_message("<span class='warning'>[user] jams [src] into [human_target]'s empty socket!</span>",\
 					"<span class='notice'>[user] forces [src] into your empty socket, and it locks into place!</span>")
 				user.temporarilyRemoveItemFromInventory(src, TRUE)
-				attach_limb(C)
+				attach_limb(carbon_target)
 				return
 	..()
 
-/obj/item/bodypart/attackby(obj/item/W, mob/user, params)
-	if(W.is_sharp())
+/obj/item/bodypart/attackby(obj/item/attacking_item, mob/user, params)
+	if(attacking_item.is_sharp())
 		add_fingerprint(user)
 		if(!contents.len)
 			to_chat(user, "<span class='warning'>There is nothing left inside [src]!</span>")
@@ -311,32 +372,48 @@
 
 //we inform the bodypart of the changes that happened to the owner, or give it the informations from a source mob.
 //set is_creating to true if you want to change the appearance of the limb outside of mutation changes or forced changes.
-/obj/item/bodypart/proc/update_limb(dropping_limb, mob/living/carbon/source, is_creating = FALSE)
-	var/mob/living/carbon/C
-	if(source)
-		C = source
-		if(!original_owner)
+/obj/item/bodypart/proc/update_limb(dropping_limb, mob/living/carbon/source, is_creating = FALSE, forcing_update = FALSE)
+	// The current host of the limb
+	var/mob/living/carbon/limb_host
+
+	if(source) //do we have an attached source?
+		limb_host = source //if we do set that to the limb_host
+		if(!original_owner)// does the limb have an original owner usually happens with printed limbs or spawned in things
 			original_owner = WEAKREF(source)
+
 	else if(original_owner && !IS_WEAKREF_OF(owner, original_owner)) //Foreign limb
 		no_update = TRUE
+
 	else
-		C = owner
+		limb_host = owner
 		no_update = FALSE
 
-	if(HAS_TRAIT(C, TRAIT_HUSK) && IS_ORGANIC_LIMB(src))
+	if(ishuman(limb_host))
+		//Since we checked if we are a human we need to create a new host to access the human specific variables
+		var/mob/living/carbon/human/host = limb_host
+		//quick access to the hosts species aswell to not have to call host.dna.species every time
+		var/datum/species/host_species = host.dna.species
+
+		/// this section will need to be repeated for unique types of bodys that use things other than mutcolor and color non accessories in the future if we ever add them
+		if((MUTCOLORS in host_species.species_traits) && should_draw_greyscale) //are we a mutcolor and do we color the limb?
+			if((draw_color == host.dna.features["mcolor"])) // does our current color match the mcolor?
+				no_update = FALSE
+
+	if(HAS_TRAIT(limb_host, TRAIT_HUSK) && IS_ORGANIC_LIMB(src))
 		dmg_overlay_type = "" //no damage overlay shown when husked
 		is_husked = TRUE
 	else
-		dmg_overlay_type = initial(dmg_overlay_type)
+		dmg_overlay_type = initial(dmg_overlay_type) //revert back to the limbs dmg_overlay
 		is_husked = FALSE
 
-	if(!dropping_limb && C.dna?.check_mutation(HULK)) //Please remove hulk from the game. I beg you.
+	if(!dropping_limb && limb_host.dna?.check_mutation(HULK)) //Please remove hulk from the game. I beg you.
 		mutation_color = "00aa00"
 	else
 		mutation_color = null
 
 	if(mutation_color) //I hate mutations
 		draw_color = mutation_color
+
 	else if(should_draw_greyscale)
 		draw_color = (species_color) || (skin_tone && skintone2hex(skin_tone))
 	else
@@ -345,39 +422,33 @@
 	if(no_update)
 		return
 
-	if(!is_creating)
+	if(!is_creating && no_update && !forcing_update) //is it creating? is there an update needed? is it being forced to update regardless?
 		return
 
-	if(!animal_origin && ishuman(C))
-		var/mob/living/carbon/human/H = C
+	if(!animal_origin && ishuman(limb_host))
+		//defining human here again because byond moment. Allows access to human variables
+		var/mob/living/carbon/human/host = limb_host
+		//short hand access for host.dna.species
+		var/datum/species/host_species = host.dna.species
 
-		var/datum/species/S = H.dna.species
-		species_flags_list = H.dna.species.species_traits //Literally only exists for a single use of NOBLOOD, but, no reason to remove it i guess...?
-		limb_gender = (H.gender == MALE) ? "m" : "f"
-		if(S.use_skintones)
-			skin_tone = H.skin_tone
+		species_flags_list = host.dna.species.species_traits //Literally only exists for a single use of NOBLOOD, but, no reason to remove it i guess...?
+		limb_gender = (host.gender == MALE) ? "m" : "f"
+		if(host_species.use_skintones)
+			skin_tone = host.skin_tone
 		else
-			skin_tone = ""
+			skin_tone = "" //we don't want non skintone creatures having them it looks weird with mutcolors
 
-		if(((MUTCOLORS in S.species_traits) || (DYNCOLORS in S.species_traits)) && uses_mutcolor) //Ethereal code. Motherfuckers.
-			if(S.fixed_mut_color)
-				species_color = S.fixed_mut_color
+		if(((MUTCOLORS in host_species.species_traits) || (DYNCOLORS in host_species.species_traits)) && uses_mutcolor) //Ethereal code. Motherfuckers.
+			if(host_species.fixed_mut_color)
+				species_color = host_species.fixed_mut_color
 			else
-				species_color = H.dna.features["mcolor"]
+				species_color = host.dna.features["mcolor"]
 		else
-			species_color = null
+			species_color = "" //same thing here we don't want rgb humans now do we
 
 		draw_color = mutation_color
 		if(should_draw_greyscale) //Should the limb be colored?
 			draw_color ||= (species_color) || (skin_tone && skintone2hex(skin_tone))
-
-		dmg_overlay_type = S.damage_overlay_type
-
-	else if(animal_origin == MONKEY_BODYPART) //currently monkeys are the only non human mob to have damage overlays.
-		dmg_overlay_type = animal_origin
-
-	if(!IS_ORGANIC_LIMB(src))
-		dmg_overlay_type = "robotic"
 
 	if(dropping_limb)
 		no_update = TRUE //when attached, the limb won't be affected by the appearance changes of its mob owner.
@@ -412,7 +483,6 @@
 
 	var/image/limb = image(layer = -BODYPARTS_LAYER, dir = image_dir)
 	var/image/aux
-	. += limb
 
 
 	if(animal_origin) //Cringe ass animal-specific code.
@@ -425,11 +495,13 @@
 		else
 			limb.icon = 'icons/mob/augmentation/augments.dmi'
 			limb.icon_state = "[animal_origin]_[body_zone]"
+		. += limb
 		return
 
 	if(is_husked)
 		limb.icon = husk_icon
 		limb.icon_state = "[husk_type]_husk_[body_zone]"
+		. += limb
 		if(aux_zone) //Hand shit
 			aux = image(limb.icon, "[husk_type]_husk_[aux_zone]", -aux_layer, image_dir)
 			. += aux
@@ -446,6 +518,16 @@
 
 	if(!icon_exists(limb.icon, limb.icon_state))
 		stack_trace("Limb generated with nonexistant icon. File: [limb.icon] | State: [limb.icon_state]")
+
+	if(body_zone == BODY_ZONE_R_LEG)
+		var/obj/item/bodypart/r_leg/leg = src
+		var/limb_overlays = limb.overlays
+		var/image/new_limb = leg.generate_masked_right_leg(limb.icon, limb.icon_state, image_dir)
+		if(new_limb)
+			limb = new_limb
+			limb.overlays = limb_overlays
+
+	. += limb
 
 	if(aux_zone) //Hand shit
 		aux = image(limb.icon, "[limb_id]_[aux_zone]", -aux_layer, image_dir)
@@ -478,6 +560,8 @@
 	is_dimorphic = TRUE
 	var/obj/item/cavity_item
 
+	dmg_overlay_type = "human"
+
 /obj/item/bodypart/chest/can_dismember(obj/item/I)
 	if(!((owner.stat == DEAD) || owner.InFullCritical()))
 		return FALSE
@@ -498,6 +582,8 @@
 	icon_state = "default_monkey_chest"
 	limb_id = SPECIES_MONKEY
 	animal_origin = MONKEY_BODYPART
+
+	dmg_overlay_type = "monkey"
 
 /obj/item/bodypart/chest/monkey/teratoma
 	icon_state = "teratoma_chest"
@@ -542,6 +628,8 @@
 	px_x = -6
 	px_y = 0
 
+	dmg_overlay_type = "human"
+
 /obj/item/bodypart/l_arm/is_disabled()
 	if(HAS_TRAIT(owner, TRAIT_PARALYSIS_L_ARM))
 		return BODYPART_DISABLED_PARALYSIS
@@ -575,6 +663,8 @@
 	animal_origin = MONKEY_BODYPART
 	px_x = -5
 	px_y = -3
+
+	dmg_overlay_type = "monkey"
 
 /obj/item/bodypart/l_arm/monkey/teratoma
 	icon_state = "teratoma_l_arm"
@@ -611,6 +701,8 @@
 	px_y = 0
 	max_stamina_damage = 50
 
+	dmg_overlay_type = "human"
+
 /obj/item/bodypart/r_arm/is_disabled()
 	if(HAS_TRAIT(owner, TRAIT_PARALYSIS_R_ARM))
 		return BODYPART_DISABLED_PARALYSIS
@@ -645,6 +737,7 @@
 	px_x = 5
 	px_y = -3
 
+	dmg_overlay_type = "monkey"
 /obj/item/bodypart/r_arm/monkey/teratoma
 	icon_state = "teratoma_r_arm"
 	limb_id = "teratoma"
@@ -678,6 +771,8 @@
 	px_y = 12
 	max_stamina_damage = 50
 
+	dmg_overlay_type = "human"
+
 /obj/item/bodypart/l_leg/is_disabled()
 	if(HAS_TRAIT(owner, TRAIT_PARALYSIS_L_LEG))
 		return BODYPART_DISABLED_PARALYSIS
@@ -703,6 +798,8 @@
 	limb_id = SPECIES_MONKEY
 	animal_origin = MONKEY_BODYPART
 	px_y = 4
+
+	dmg_overlay_type = "monkey"
 
 /obj/item/bodypart/l_leg/monkey/teratoma
 	icon_state = "teratoma_l_leg"
@@ -739,6 +836,16 @@
 	px_y = 12
 	max_stamina_damage = 50
 
+	dmg_overlay_type = "human"
+
+	/// We store this here to generate our icon key more easily.
+	var/left_leg_mask_key
+	/// The associated list of all the left leg mask keys associated to their cached left leg masks.
+	/// It's static, so it's shared between all the left legs there is. Be careful.
+	/// Why? Both legs share the same layer for rendering, and since we don't want to do redraws on
+	/// each dir changes, we're doing it with a mask instead, which we cache for efficiency reasons.
+	var/static/list/left_leg_mask_cache = list()
+
 /obj/item/bodypart/r_leg/is_disabled()
 	if(HAS_TRAIT(owner, TRAIT_PARALYSIS_R_LEG))
 		return BODYPART_DISABLED_PARALYSIS
@@ -764,6 +871,8 @@
 	limb_id = SPECIES_MONKEY
 	animal_origin = MONKEY_BODYPART
 	px_y = 4
+
+	dmg_overlay_type = "monkey"
 
 /obj/item/bodypart/r_leg/monkey/teratoma
 	icon_state = "teratoma_r_leg"

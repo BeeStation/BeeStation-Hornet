@@ -467,7 +467,7 @@ GLOBAL_LIST_INIT(devil_suffix, list(" the Red", " the Soulless", " the Master", 
 			H.undershirt = "Nude"
 			H.socks = "Nude"
 			H.dna.features["mcolor"] = "511"
-			H.regenerate_icons()
+			H.regenerate_icons(TRUE)
 			if(SOULVALUE >= TRUE_THRESHOLD) //Yes, BOTH this and the above if statement are to run if soulpower is high enough.
 				var/mob/living/carbon/true_devil/A = new /mob/living/carbon/true_devil(targetturf)
 				A.faction |= "hell"

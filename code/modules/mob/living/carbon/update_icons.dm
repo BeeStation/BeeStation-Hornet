@@ -205,21 +205,33 @@
 	. = list()
 
 
-/mob/living/carbon/update_body()
-	update_body_parts()
+/mob/living/carbon/update_body(var/update_limb_data, forced_update = FALSE)
+	update_body_parts(update_limb_data, forced_update)
 
-/mob/living/carbon/proc/update_body_parts(var/update_limb_data)
+/mob/living/carbon/proc/update_body_parts(var/update_limb_data, forced_update = FALSE)
 	//Check the cache to see if it needs a new sprite
 	update_damage_overlays()
 	var/list/needs_update = list()
 	var/limb_count_update = FALSE
+	var/obj/item/bodypart/l_leg/left_leg
+	var/obj/item/bodypart/r_leg/right_leg
+	var/old_left_leg_key
 	for(var/obj/item/bodypart/BP as() in bodyparts)
-		BP.update_limb(is_creating = update_limb_data) //Update limb actually doesn't do much, get_limb_icon is the cpu eater.
+		BP.update_limb(is_creating = update_limb_data, forcing_update = forced_update) //Update limb actually doesn't do much, get_limb_icon is the cpu eater.
+		if(BP.body_zone == BODY_ZONE_R_LEG)
+			right_leg = BP
+			continue // Legs are handled separately
 		var/old_key = icon_render_keys?[BP.body_zone]
-		icon_render_keys[BP.body_zone] = (BP.is_husked) ? generate_husk_key(BP) : generate_icon_key(BP)
-		if(!(icon_render_keys[BP.body_zone] == old_key))
+		icon_render_keys[BP.body_zone] = (BP.is_husked) ? BP.generate_husk_key().Join() : BP.generate_icon_key().Join()
+		if(BP.body_zone == BODY_ZONE_L_LEG)
+			left_leg = BP
+			old_left_leg_key = old_key
+			continue // Legs are handled separately
+		if(icon_render_keys[BP.body_zone] != old_key) //If the keys match, that means the limb doesn't need to be redrawn
 			needs_update += BP
 
+	// Here we handle legs differently, because legs are a mess due to layering code. So we got to process the left leg first. Thanks BYOND.
+	var/legs_need_redrawn = update_legs(right_leg, left_leg, old_left_leg_key)
 
 	var/list/missing_bodyparts = get_missing_limbs()
 	if(((dna ? dna.species.max_bodypart_count : 6) - icon_render_keys.len) != missing_bodyparts.len)
@@ -227,10 +239,8 @@
 		for(var/X in missing_bodyparts)
 			icon_render_keys -= X
 
-	if(!needs_update.len && !limb_count_update)
+	if(!needs_update.len && !limb_count_update && !forced_update && !legs_need_redrawn)
 		return
-
-	remove_overlay(BODYPARTS_LAYER)
 
 
 	//GENERATE NEW LIMBS
@@ -243,10 +253,49 @@
 		else
 			new_limbs += limb_icon_cache[icon_render_keys[BP.body_zone]]
 
+	remove_overlay(BODYPARTS_LAYER)
+
 	if(new_limbs.len)
 		overlays_standing[BODYPARTS_LAYER] = new_limbs
 
 	apply_overlay(BODYPARTS_LAYER)
+
+/**
+ * Here we update the legs separately from the other bodyparts. Thanks BYOND for so little support for dir layering.
+ *
+ * Arguments:
+ * * right_leg - Right leg that we might need to update. Can be null.
+ * * left_leg - Left leg that we might need to update. Can be null.
+ * * old_left_leg_key - The icon_key of the left_leg, passed here to avoid having to re-generate it in this proc.
+ *
+ * Returns a boolean, TRUE if the legs need to be redrawn, FALSE if they do not need to be redrawn.
+ * Necessary so that we can ensure that modifications of legs cause overlay updates.
+ */
+/mob/living/carbon/proc/update_legs(obj/item/bodypart/r_leg/right_leg, obj/item/bodypart/l_leg/left_leg, old_left_leg_key)
+	var/list/left_leg_icons // yes it's actually a list, bet you didn't expect that, now did you?
+	var/legs_need_redrawn = FALSE
+	if(left_leg)
+		// We regenerate the look of the left leg if it isn't already cached, we don't if not.
+		if(icon_render_keys[left_leg.body_zone] != old_left_leg_key)
+			limb_icon_cache[icon_render_keys[left_leg.body_zone]] = left_leg.get_limb_icon()
+			legs_need_redrawn = TRUE
+
+		left_leg_icons = limb_icon_cache[icon_render_keys[left_leg.body_zone]]
+
+	if(right_leg)
+		var/old_right_leg_key = icon_render_keys?[right_leg.body_zone]
+		right_leg.left_leg_mask_key = left_leg?.generate_mask_key().Join() // We generate a new mask key, to see if it changed.
+		// We regenerate the left_leg_mask in case that it doesn't exist yet.
+		if(right_leg.left_leg_mask_key && !right_leg.left_leg_mask_cache[right_leg.left_leg_mask_key] && left_leg_icons)
+			right_leg.left_leg_mask_cache[right_leg.left_leg_mask_key] = generate_left_leg_mask(left_leg_icons[1], right_leg.left_leg_mask_key)
+		// We generate a new icon_render_key, which also takes into account the left_leg_mask_key so we cache the masked versions of the limbs too.
+		icon_render_keys[right_leg.body_zone] = right_leg.is_husked ? right_leg.generate_husk_key().Join("-") : right_leg.generate_icon_key().Join()
+
+		if(icon_render_keys[right_leg.body_zone] != old_right_leg_key)
+			limb_icon_cache[icon_render_keys[right_leg.body_zone]] = right_leg.get_limb_icon()
+			legs_need_redrawn = TRUE
+
+	return legs_need_redrawn
 
 
 /////////////////////////
@@ -263,15 +312,100 @@
 	This cache exists because drawing 6/7 icons for humans constantly is quite a waste
 	See RemieRichards on irc.rizon.net #coderbus (RIP remie :sob:)
 */
-/mob/living/carbon/proc/generate_icon_key(obj/item/bodypart/BP)
-	if(BP.is_dimorphic)
-		. += "[BP.limb_gender]-"
-	. += "[BP.limb_id]"
-	. += "-[BP.body_zone]"
-	if(BP.should_draw_greyscale && BP.draw_color)
-		. += "-[BP.draw_color]"
+/obj/item/bodypart/proc/generate_icon_key()
+	RETURN_TYPE(/list)
+	. = list()
+	if(is_dimorphic)
+		. += "[limb_gender]-"
+	. += "[limb_id]"
+	. += "-[body_zone]"
+	if(should_draw_greyscale && draw_color)
+		. += "-[draw_color]"
+	return .
 
-/mob/living/carbon/proc/generate_husk_key(obj/item/bodypart/BP)
-	. += "[BP.husk_type]"
+///Generates a cache key specifically for husks
+/obj/item/bodypart/proc/generate_husk_key()
+	RETURN_TYPE(/list)
+	. = list()
+	. += "[husk_type]"
 	. += "-husk"
-	. += "-[BP.body_zone]"
+	. += "-[body_zone]"
+	return .
+
+/**
+ * Generates a cache key for masks (mainly only used for right legs now, but perhaps in the future...).
+ *
+ * This is exactly like generate_icon_key(), except that it doesn't add `"-[draw_color]"`
+ * to the returned list under any circumstance. Why? Because it (generate_icon_key()) is
+ * a proc that gets called a ton and I don't want this to affect its performance.
+ *
+ * Returns a list of strings.
+ */
+/obj/item/bodypart/proc/generate_mask_key()
+	RETURN_TYPE(/list)
+	. = list()
+	if(is_dimorphic)
+		. += "[limb_gender]"
+	. += "[limb_id]"
+	. += "[body_zone]"
+
+	return .
+
+
+/**
+ * This proc serves as a way to ensure that right legs don't overlap above left legs when their dir is WEST on a mob.
+ *
+ * It's using the `left_leg_mask_cache` to avoid generating a new mask when unnecessary, which means that there needs to be one
+ * for the proc to return anything.
+ *
+ * Arguments:
+ * * right_leg_icon_file - The icon file of the right leg overlay we're trying to apply a mask to.
+ * * right_leg_icon_state - The icon_state of the right leg overlay we're trying to apply a mask to.
+ * * image_dir - The direction applied to the icon, only meant for when the leg is dropped, so it remains
+ * facing SOUTH all the time.
+ *
+ * Returns the `/image` of the right leg that was masked, or `null` if the mask didn't exist.
+ */
+/obj/item/bodypart/r_leg/proc/generate_masked_right_leg(right_leg_icon_file, right_leg_icon_state, image_dir)
+	RETURN_TYPE(/image)
+	if(!left_leg_mask_cache[left_leg_mask_key] || !right_leg_icon_file || !right_leg_icon_state)
+		return
+
+	var/icon/right_leg_icon = icon(right_leg_icon_file, right_leg_icon_state)
+	right_leg_icon.Blend(left_leg_mask_cache[left_leg_mask_key], ICON_MULTIPLY)
+	return image(right_leg_icon, right_leg_icon_state, layer = -BODYPARTS_LAYER, dir = image_dir)
+
+/**
+ * The proc that handles generating left leg masks at runtime.
+ * It basically creates an icon that are all white on all dirs except WEST, where there's a cutout
+ * of the left leg that needed to be masked.
+ *
+ * It does /not/ cache the mask itself, and as such, the caching must be done manually (which it is, look up in update_body_parts()).
+ *
+ * Arguments:
+ * * image/left_leg_image - `image` of the left leg that we need to create a mask out of.
+ *
+ * Returns the generated left leg mask as an `/icon`, or `null` if no left_leg_image is provided.
+ */
+/proc/generate_left_leg_mask(image/left_leg_image)
+	RETURN_TYPE(/icon)
+	if(!left_leg_image)
+		return
+	var/icon/left_leg_alpha_mask = generate_icon_alpha_mask(left_leg_image.icon, left_leg_image.icon_state)
+	// Right here, we use the crop_mask_icon to single out the WEST sprite of the mask we just created above.
+	var/icon/crop_mask_icon = icon(icon = 'icons/mob/left_leg_mask_base.dmi', icon_state = "mask_base")
+	crop_mask_icon.Blend(left_leg_alpha_mask, ICON_MULTIPLY)
+	// Then, we add (with ICON_OR) that singled-out WEST mask to a template mask that has the NORTH,
+	// SOUTH and EAST dirs as full white squares, to finish our WEST-directional mask.
+	var/icon/new_mask_icon = icon(icon = 'icons/mob/left_leg_mask_base.dmi', icon_state = "mask_rest")
+	new_mask_icon.Blend(crop_mask_icon, ICON_OR)
+	return new_mask_icon
+
+
+/obj/item/bodypart/r_leg/generate_icon_key()
+	RETURN_TYPE(/list)
+	. = ..()
+	if(left_leg_mask_key) // We do this so we can cache the versions with and without a mask, for when there's no left leg.
+		. += "-[left_leg_mask_key]"
+
+	return .

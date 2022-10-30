@@ -55,6 +55,7 @@ There are several things that need to be remembered:
 //used when putting/removing clothes that hide certain mutant body parts to just update those and not update the whole body.
 /mob/living/carbon/human/proc/update_mutant_bodyparts()
 	dna.species.handle_mutant_bodyparts(src)
+	update_body_parts(forced_update = TRUE)
 
 
 /mob/living/carbon/human/update_body()
@@ -67,9 +68,10 @@ There are several things that need to be remembered:
 
 /* --------------------------------------- */
 //For legacy support.
-/mob/living/carbon/human/regenerate_icons()
-
+/mob/living/carbon/human/regenerate_icons(forcing_update = FALSE)
 	if(!..())
+		if(forcing_update)
+			update_body_parts(forced_update = forcing_update)
 		update_body()
 		update_hair()
 		update_inv_w_uniform()

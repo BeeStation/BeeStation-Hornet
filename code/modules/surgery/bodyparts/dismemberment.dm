@@ -304,6 +304,10 @@
 	for(var/obj/item/organ/O in contents)
 		O.Insert(C)
 
+	// Bodyparts need to be sorted for leg masking to be done properly. It also will allow for some predictable
+	// behavior within said bodyparts list. We sort it here, as it's the only place we make changes to bodyparts.
+	C.bodyparts = sort_list(C.bodyparts, /proc/cmp_bodypart_by_body_part_asc)
+
 	synchronize_bodytypes(C)
 	if(is_creating)
 		update_limb(is_creating = TRUE)
@@ -335,12 +339,12 @@
 
 	if(ishuman(C))
 		var/mob/living/carbon/human/H = C
-		H.hair_color = hair_color
-		H.hair_style = hair_style
-		H.facial_hair_color = facial_hair_color
-		H.facial_hair_style = facial_hair_style
-		H.lip_style = lip_style
-		H.lip_color = lip_color
+		hair_color = H.hair_color
+		hair_style = H.hair_style
+		facial_hair_color = H.facial_hair_color
+		facial_hair_style = H.facial_hair_style
+		lip_style = H.lip_style
+		lip_color = H.lip_color
 	if(real_name)
 		C.real_name = real_name
 	real_name = ""

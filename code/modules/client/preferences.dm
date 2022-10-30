@@ -240,6 +240,13 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 				dat += "<span style='border: 1px solid #161616; background-color: #[active_character.features["ethcolor"]];'>&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=color_ethereal;task=input'>Change</a><BR>"
 
+			if(istype(active_character.pref_species, /datum/species/lizard))
+				if(!use_skintones)
+					dat += APPEARANCE_CATEGORY_COLUMN
+
+				dat += "<h3>Belly Color</h3>"
+				dat += "<span style='border: 1px solid #161616; background-color: #[active_character.features["bellycolor"]];'>&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=belly_color;task=input'>Change</a><BR>"
+
 			if(istype(active_character.pref_species, /datum/species/plasmaman))
 
 				if(!use_skintones)
@@ -1494,6 +1501,17 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 							active_character.features["mcolor"] = active_character.pref_species.default_color
 						else if((MUTCOLORS_PARTSONLY in active_character.pref_species.species_traits) || ReadHSV(temp_hsv)[3] >= ReadHSV("#7F7F7F")[3]) // mutantcolors must be bright, but only if they affect the skin
 							active_character.features["mcolor"] = sanitize_hexcolor(new_mutantcolor)
+						else
+							to_chat(user, "<span class='danger'>Invalid color. Your color is not bright enough.</span>")
+
+				if("belly_color")
+					var/new_bellycolor = input(user, "Choose your character's mutant secondary color:", "Character Preference","#"+active_character.features["belly_color"]) as color|null
+					if(new_bellycolor)
+						var/temp_hsv = RGBtoHSV(new_bellycolor)
+						if(new_bellycolor == "#000000")
+							active_character.features["bellycolor"] = pref_species.default_color
+						else if((MUTCOLORS_PARTSONLY in active_character.pref_species.species_traits) || ReadHSV(temp_hsv)[3] >= ReadHSV("#7F7F7F")[3]) // mutantcolors must be bright, but only if they affect the skin
+							active_character.features["bellycolor"] = sanitize_hexcolor(new_bellycolor)
 						else
 							to_chat(user, "<span class='danger'>Invalid color. Your color is not bright enough.</span>")
 

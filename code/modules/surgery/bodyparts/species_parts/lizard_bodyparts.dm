@@ -36,8 +36,12 @@
 	limb_id = "digitigrade"
 	bodytype = BODYTYPE_HUMANOID | BODYTYPE_ORGANIC | BODYTYPE_DIGITIGRADE
 
+	dmg_overlay_type = null
+
 /obj/item/bodypart/r_leg/digitigrade
 	icon = 'icons/mob/species/lizard/bodyparts.dmi'
 	uses_mutcolor = TRUE
 	limb_id = "digitigrade"
 	bodytype = BODYTYPE_HUMANOID | BODYTYPE_ORGANIC | BODYTYPE_DIGITIGRADE
+
+	dmg_overlay_type = null

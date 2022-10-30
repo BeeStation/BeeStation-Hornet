@@ -465,11 +465,11 @@
 			N.dna.species.species_traits += HAIR
 		if(N.dna.species.use_skintones)
 			N.skin_tone = "orange"
+			N.regenerate_icons()
 		else if(MUTCOLORS in N.dna.species.species_traits) //Aliens with custom colors simply get turned orange
 			N.dna.features["mcolor"] = "f80"
-		N.regenerate_icons()
-	..()
-
+		N.regenerate_icons(TRUE)
+		..()
 /datum/reagent/spraytan/overdose_process(mob/living/M)
 	if(ishuman(M))
 		var/mob/living/carbon/human/N = M
