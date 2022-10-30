@@ -91,15 +91,15 @@
 /mob/living/silicon/robot/proc/should_emag(atom/target, mob/user)
 	SIGNAL_HANDLER
 	if(target == user || user == src)
-		return FALSE
+		return TRUE // signal is inverted
 	if(!opened)//Cover is closed
 		return locked
 	if(world.time < emag_cooldown)
-		return FALSE
+		return TRUE
 	if(wiresexposed)
 		to_chat(user, "<span class='warning'>You must unexpose the wires first!</span>")
-		return FALSE
-	return TRUE
+		return TRUE
+	return FALSE
 
 /mob/living/silicon/robot/proc/on_emag(atom/target, mob/user)
 	SIGNAL_HANDLER

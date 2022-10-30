@@ -120,7 +120,7 @@
 
 /datum/species/ethereal/proc/should_emag(mob/living/carbon/human/H, mob/user)
 	SIGNAL_HANDLER
-	return !emageffect || !istype(H)
+	return !(!emageffect || !istype(H)) // signal is inverted
 
 /datum/species/ethereal/proc/on_emag(mob/living/carbon/human/H, mob/user)
 	SIGNAL_HANDLER

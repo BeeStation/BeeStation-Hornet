@@ -213,8 +213,8 @@
 	SIGNAL_HANDLER
 	if(!locked && !open) // Bot is unlocked, but the maint panel has not been opened with a screwdriver yet.
 		to_chat(user, "<span class='warning'>You need to open maintenance panel first!</span>")
-		return FALSE
-	return TRUE
+		return TRUE // signal is inverted
+	return FALSE
 
 /mob/living/simple_animal/bot/proc/on_emag(atom/target, mob/user)
 	SIGNAL_HANDLER

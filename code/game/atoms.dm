@@ -804,7 +804,7 @@
   * - Parent calls do not need to be maintained.
   */
 /atom/proc/use_emag(mob/user)
-	if(SEND_SIGNAL(src, COMSIG_ATOM_SHOULD_EMAG, user))
+	if(!SEND_SIGNAL(src, COMSIG_ATOM_SHOULD_EMAG, user))
 		SEND_SIGNAL(src, COMSIG_ATOM_ON_EMAG, user)
 
 /**
