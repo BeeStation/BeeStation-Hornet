@@ -176,30 +176,6 @@
 	emote_length = 3 SECONDS
 	sound = 'code/datums/emote_sounds/emotes/sweatdrop.ogg'
 
-/datum/emote/living/carbon/exclaim
-	key = "exclaim"
-	key_third_person = "exclaims"
-	overlay_icon_state = "exclamation"
-	emote_type = EMOTE_AUDIBLE|EMOTE_ANIMATED
-	sound_volume = 25
-	vary = TRUE
-	overlay_x_offset = 10
-	overlay_y_offset = 10
-	emote_length = 3 SECONDS
-	sound = 'sound/machines/chime.ogg'
-
-/datum/emote/living/carbon/question
-	key = "question"
-	key_third_person = "questions"
-	overlay_icon_state = "question"
-	emote_type = EMOTE_ANIMATED
-	sound_volume = 25
-	vary = TRUE
-	overlay_x_offset = 10
-	overlay_y_offset = 10
-	emote_length = 3 SECONDS
-	sound = 'code/datums/emote_sounds/emotes/question.ogg'
-
 /datum/emote/living/carbon/annoyed
 	key = "annoyed"
 	emote_type = EMOTE_ANIMATED
