@@ -3379,6 +3379,11 @@
 	},
 /turf/closed/wall/r_wall,
 /area/engine/supermatter)
+"aIz" = (
+/obj/effect/landmark/xeno_spawn,
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
+/turf/open/floor/plating,
+/area/maintenance/starboard/aft)
 "aIF" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -9324,7 +9329,6 @@
 /turf/open/floor/plasteel,
 /area/security/brig)
 "cnl" = (
-/obj/effect/landmark/xeno_spawn,
 /obj/effect/landmark/event_spawn,
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
@@ -16239,6 +16243,16 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/hallway/primary/central)
+"eoM" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2,
+/turf/open/floor/plating,
+/area/maintenance/starboard/aft)
 "eoV" = (
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
@@ -16377,22 +16391,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/security/main)
-"erS" = (
-/obj/effect/turf_decal/tile/purple{
-	dir = 8
-	},
-/obj/effect/turf_decal/tile/purple{
-	dir = 4
-	},
-/obj/effect/landmark/xeno_spawn,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 4
-	},
-/turf/open/floor/plasteel,
-/area/maintenance/department/science)
 "erX" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
@@ -19375,6 +19373,7 @@
 	pixel_y = 32
 	},
 /obj/item/stamp/clown,
+/obj/effect/landmark/xeno_spawn,
 /turf/open/floor/carpet/purple,
 /area/crew_quarters/theatre)
 "fpn" = (
@@ -27255,6 +27254,10 @@
 	},
 /turf/open/space/basic,
 /area/space/nearstation)
+"hAk" = (
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/turf/open/floor/plating,
+/area/maintenance/starboard/aft)
 "hAq" = (
 /obj/structure/rack,
 /obj/item/clothing/gloves/color/yellow,
@@ -32827,6 +32830,7 @@
 	dir = 1
 	},
 /obj/effect/mapping_helpers/airlock/abandoned,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/plating,
 /area/maintenance/starboard/aft)
 "jbr" = (
@@ -33790,6 +33794,7 @@
 /obj/item/wallframe/camera,
 /obj/item/assault_pod/mining,
 /obj/machinery/airalarm/directional/north,
+/obj/effect/landmark/xeno_spawn,
 /turf/open/floor/plasteel,
 /area/construction/mining/aux_base)
 "jrT" = (
@@ -41541,6 +41546,7 @@
 	pixel_x = 29;
 	pixel_y = -2
 	},
+/obj/effect/landmark/xeno_spawn,
 /turf/open/floor/plasteel,
 /area/medical/morgue)
 "lAe" = (
@@ -42971,6 +42977,10 @@
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plasteel,
 /area/hallway/primary/aft)
+"lTN" = (
+/obj/effect/landmark/xeno_spawn,
+/turf/open/floor/plating,
+/area/crew_quarters/fitness/recreation)
 "lUi" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -54257,6 +54267,7 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_y = 30
 	},
+/obj/effect/landmark/xeno_spawn,
 /turf/open/floor/plasteel/white,
 /area/crew_quarters/bar)
 "prO" = (
@@ -55143,6 +55154,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
+/obj/effect/landmark/xeno_spawn,
 /turf/open/floor/plasteel/white,
 /area/science/misc_lab/range)
 "pCH" = (
@@ -56027,10 +56039,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/medical/chemistry)
-"pQJ" = (
-/obj/effect/landmark/xeno_spawn,
-/turf/open/floor/plating,
-/area/maintenance/starboard/aft)
 "pQL" = (
 /obj/effect/turf_decal/tile/neutral{
 	dir = 8
@@ -59063,14 +59071,6 @@
 	},
 /turf/open/floor/plasteel/white,
 /area/crew_quarters/kitchen)
-"qLu" = (
-/obj/structure/chair/fancy/comfy{
-	color = "#666666";
-	dir = 8
-	},
-/obj/effect/landmark/xeno_spawn,
-/turf/open/floor/plating,
-/area/maintenance/starboard/aft)
 "qLv" = (
 /obj/machinery/atmospherics/pipe/simple/dark/hidden{
 	dir = 4
@@ -67794,11 +67794,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/fitness/recreation)
-"ttf" = (
-/obj/effect/spawner/lootdrop/maintenance,
-/obj/effect/landmark/xeno_spawn,
-/turf/open/floor/plating,
-/area/maintenance/starboard/central)
 "ttB" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
@@ -82486,6 +82481,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 6
 	},
+/obj/effect/landmark/xeno_spawn,
 /turf/open/floor/plasteel/dark,
 /area/gateway)
 "xKM" = (
@@ -109656,7 +109652,7 @@ puc
 rFR
 gth
 rvp
-pTe
+lTN
 iOL
 iOB
 iQt
@@ -110396,7 +110392,7 @@ skV
 fNm
 vun
 ctJ
-erS
+owF
 ddf
 lao
 iOB
@@ -123525,12 +123521,12 @@ fLK
 kfy
 pLJ
 pLJ
-pLJ
-pLJ
-pLJ
+aIz
+hAk
+hAk
 jbn
-pLJ
-sag
+hAk
+eoM
 kfy
 bsR
 hzy
@@ -126354,7 +126350,7 @@ lhZ
 pLJ
 bIF
 bIF
-qLu
+bIF
 pda
 mql
 pLJ
@@ -127898,7 +127894,7 @@ nAK
 pLJ
 vcw
 pLJ
-pQJ
+pLJ
 pLJ
 kfy
 kfy
@@ -130713,7 +130709,7 @@ bfm
 jjI
 cOV
 xBm
-ttf
+unf
 cSs
 lAz
 anT
