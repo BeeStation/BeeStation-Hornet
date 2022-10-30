@@ -929,10 +929,6 @@
 "aeU" = (
 /turf/open/floor/plasteel/dark,
 /area/security/prison)
-"aeV" = (
-/obj/effect/landmark/xeno_spawn,
-/turf/open/floor/plasteel/dark,
-/area/security/prison)
 "aeW" = (
 /obj/structure/sink{
 	pixel_y = 30
@@ -1149,6 +1145,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
+/obj/effect/landmark/xeno_spawn,
 /turf/open/floor/plasteel/freezer,
 /area/security/prison)
 "agd" = (
@@ -6991,13 +6988,6 @@
 /area/crew_quarters/dorms)
 "aEd" = (
 /turf/closed/wall,
-/area/crew_quarters/toilet/restrooms)
-"aEf" = (
-/obj/structure/urinal{
-	pixel_y = 32
-	},
-/obj/effect/landmark/xeno_spawn,
-/turf/open/floor/plasteel/freezer,
 /area/crew_quarters/toilet/restrooms)
 "aEg" = (
 /obj/structure/urinal{
@@ -15821,7 +15811,6 @@
 /area/science/explab)
 "blR" = (
 /obj/effect/landmark/blobstart,
-/obj/effect/landmark/xeno_spawn,
 /turf/open/floor/engine,
 /area/science/explab)
 "blS" = (
@@ -18090,7 +18079,6 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
-/obj/effect/landmark/xeno_spawn,
 /obj/structure/sign/departments/xenobio{
 	pixel_x = -32
 	},
@@ -34242,6 +34230,7 @@
 	name = "Mineral Room"
 	},
 /obj/effect/mapping_helpers/airlock/abandoned,
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/plating,
 /area/maintenance/department/science)
 "eDg" = (
@@ -35653,6 +35642,7 @@
 /area/security/brig)
 "fuB" = (
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
+/obj/effect/landmark/xeno_spawn,
 /turf/open/floor/plating,
 /area/maintenance/department/crew_quarters/dorms)
 "fuO" = (
@@ -35844,9 +35834,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 8
-	},
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2,
 /turf/open/floor/plating,
 /area/maintenance/department/science)
 "fEg" = (
@@ -35953,19 +35941,6 @@
 "fHD" = (
 /turf/open/space/basic,
 /area/maintenance/department/science)
-"fHH" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/effect/landmark/xeno_spawn,
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/turf/open/floor/plating,
-/area/maintenance/department/crew_quarters/dorms)
 "fHO" = (
 /obj/effect/landmark/start/security_officer,
 /obj/structure/reagent_dispensers/peppertank{
@@ -37687,6 +37662,18 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/hallway/secondary/exit/departure_lounge)
+"gLM" = (
+/obj/machinery/shower{
+	dir = 8
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/effect/landmark/xeno_spawn,
+/turf/open/floor/plasteel/freezer,
+/area/crew_quarters/toilet/restrooms)
 "gMa" = (
 /obj/machinery/door/poddoor/preopen{
 	id = "prison release";
@@ -44593,6 +44580,13 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /turf/open/floor/plasteel/dark,
 /area/medical/morgue)
+"lcY" = (
+/obj/effect/landmark/xeno_spawn,
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
+	dir = 1
+	},
+/turf/open/floor/plating,
+/area/maintenance/department/crew_quarters/dorms)
 "lcZ" = (
 /obj/effect/spawner/structure/window/reinforced,
 /turf/open/floor/plating,
@@ -56565,6 +56559,11 @@
 	},
 /turf/open/floor/circuit,
 /area/science/robotics/mechbay)
+"tbX" = (
+/obj/effect/landmark/xeno_spawn,
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2,
+/turf/open/floor/plating,
+/area/maintenance/department/science)
 "tcv" = (
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
@@ -63218,8 +63217,8 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 9
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 9
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
+	dir = 4
 	},
 /turf/open/floor/plating,
 /area/maintenance/department/crew_quarters/dorms)
@@ -84555,7 +84554,7 @@ aaa
 aen
 aer
 aeF
-aeV
+aeU
 afq
 afF
 lME
@@ -102050,7 +102049,7 @@ xtb
 haw
 haw
 xGo
-sbk
+lcY
 sbk
 apX
 aqU
@@ -103586,7 +103585,7 @@ aaa
 aaa
 aaa
 ajy
-fHH
+riH
 alg
 aaa
 aaa
@@ -104635,7 +104634,7 @@ ymc
 axw
 aBT
 atn
-aEf
+aEg
 aFc
 eDJ
 aGF
@@ -105923,7 +105922,7 @@ avm
 atn
 atn
 qZx
-nwJ
+gLM
 nwJ
 jtq
 feR
@@ -111366,8 +111365,8 @@ blX
 blX
 bkF
 lWy
-lWy
-lWy
+tbX
+ggq
 eCK
 fDB
 bwm
