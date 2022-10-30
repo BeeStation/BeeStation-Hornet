@@ -32,8 +32,15 @@
 			"restricted_roles": [
 				"Cyborg"
 			]
+		},
+		"Revolution": {
+			"weight": 0
 		}
 	},
 	"Midround": {},
-	"Latejoin": {}
+	"Latejoin": {
+		"Provocateur": {
+			"weight": 0
+		}
+	}
 }
