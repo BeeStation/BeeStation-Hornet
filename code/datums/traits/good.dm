@@ -96,28 +96,13 @@
 	)
 	H.equip_in_one_of_slots(B, slots , qdel_on_fail = TRUE)
 
-/datum/quirk/multilingual
-	name = "Multilingual"
-	desc = "You spent a portion of your life learning to understand an additional language. You may or may not be able to speak it based on your anatomy."
+/datum/quirk/linguist
+	name = "Linguist"
+	desc = "Although you don't know every language, you have spent your interests into languages and it made you recognise linguistic features for each languages."
 	value = 1
-	mob_trait = TRAIT_MULTILINGUAL
-	gain_text = "<span class='notice'>You have learned to understand an additional language.</span>"
-	lose_text = "<span class='danger'>You have forgotten how to understand a language.</span>"
-
-/datum/quirk/multilingual/on_spawn()
-	var/mob/living/carbon/human/H = quirk_holder
-	if(H.job == JOB_NAME_CURATOR)
-		return
-	var/obj/item/organ/tongue/T = H.getorganslot(ORGAN_SLOT_TONGUE)
-	var/list/languages_possible = T.languages_possible
-	languages_possible = languages_possible - typecacheof(/datum/language/codespeak) - typecacheof(/datum/language/narsie) - typecacheof(/datum/language/ratvar)
-	languages_possible = languages_possible - H.language_holder.understood_languages
-	languages_possible = languages_possible - H.language_holder.spoken_languages
-	languages_possible = languages_possible - H.language_holder.blocked_languages
-	if(length(languages_possible))
-		var/datum/language/random_language = pick(languages_possible)
-		H.grant_language(random_language, TRUE, TRUE, LANGUAGE_MULTILINGUAL)
-//Credit To Yowii/Yoworii/Yorii for a much more streamlined method of language library building
+	mob_trait = TRAIT_LINGUIST
+	gain_text = "span class='notice'>You can recognise linguistic features for each language.</span>"
+	lose_text = "span class='danger'>You can no longer recognise linguistic features for each language.</span>"
 
 /datum/quirk/night_vision
 	name = "Night Vision"

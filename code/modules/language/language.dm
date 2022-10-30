@@ -32,7 +32,8 @@
 	if(flags & LANGUAGE_HIDE_ICON_IF_UNDERSTOOD && understands)
 		return FALSE
 	if(flags & LANGUAGE_HIDE_ICON_IF_NOT_UNDERSTOOD && !understands)
-		return FALSE
+		if(!HAS_TRAIT(hearer, TRAIT_LINGUIST) && (flags & LANGUAGE_ALWAYS_SHOW_ICON_IF_NOT_UNDERSTOOD))
+			return FALSE
 	return TRUE
 
 /datum/language/proc/get_icon()
