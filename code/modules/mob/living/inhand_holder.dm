@@ -9,7 +9,8 @@
 	clothing_flags = NOTCONSUMABLE
 	var/mob/living/held_mob
 	var/can_head = TRUE
-	var/destroying = FALSE
+	///We are currently releasing the mob held in holder
+	var/releasing = FALSE
 
 /obj/item/clothing/head/mob_holder/Initialize(mapload, mob/living/M, worn_state, head_icon, lh_icon, rh_icon, worn_slot_flags = NONE)
 	. = ..()
@@ -26,9 +27,6 @@
 	deposit(M)
 
 /obj/item/clothing/head/mob_holder/Destroy()
-	if(destroying)
-		return
-	destroying = TRUE
 	if(held_mob)
 		release(FALSE)
 	return ..()
@@ -57,23 +55,31 @@
 	release()
 
 /obj/item/clothing/head/mob_holder/proc/release(del_on_release = TRUE)
+	if(releasing)
+		return FALSE
+	releasing = TRUE
+
 	if(!held_mob)
 		if(del_on_release)
 			qdel(src)
+		releasing = FALSE
 		return FALSE
+
 	if(isliving(loc))
 		var/mob/living/L = loc
 		to_chat(L, "<span class='warning'>[held_mob] wriggles free!</span>")
 		L.dropItemToGround(src)
-	//in some very specific cases dropItemToGround will call release() again, deleting the mob ref
-	if(held_mob)
-		held_mob.forceMove(get_turf(held_mob))
-		held_mob.reset_perspective()
-		held_mob.setDir(SOUTH)
-		held_mob.visible_message("<span class='warning'>[held_mob] uncurls!</span>")
-		held_mob = null
+
+	held_mob.forceMove(get_turf(held_mob))
+	held_mob.reset_perspective()
+	held_mob.setDir(SOUTH)
+	held_mob.visible_message("<span class='warning'>[held_mob] uncurls!</span>")
+	held_mob = null
+
 	if(del_on_release)
 		qdel(src)
+
+	releasing = FALSE
 	return TRUE
 
 /obj/item/clothing/head/mob_holder/relaymove(mob/user)
