@@ -619,13 +619,15 @@ so as to remain in compliance with the most up-to-date laws."
 	var/mob/dead/observer/ghost_owner = usr
 	if(!istype(ghost_owner))
 		return
+	//Any actions that cause you to jump to the target turf
+	if (action == NOTIFY_ATTACK || action == NOTIFY_JUMP)
+		var/turf/T = get_turf(target)
+		if(isturf(T))
+			ghost_owner.abstract_move(T)
+	//Other additional actions
 	switch(action)
 		if(NOTIFY_ATTACK)
 			target.attack_ghost(ghost_owner)
-		if(NOTIFY_JUMP)
-			var/turf/T = get_turf(target)
-			if(T && isturf(T))
-				ghost_owner.abstract_move(T)
 		if(NOTIFY_ORBIT)
 			ghost_owner.ManualFollow(target)
 
