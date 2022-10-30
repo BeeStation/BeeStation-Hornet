@@ -17,8 +17,7 @@
 	layer = BELOW_OBJ_LAYER
 	var/points = 0
 	var/sheet_per_ore = 1
-	var/point_upgrade = 1
-	var/list/ore_values = list(/datum/material/iron = 1, /datum/material/glass = 1, /datum/material/copper = 5, /datum/material/plasma = 15,  /datum/material/silver = 16, /datum/material/gold = 18, /datum/material/titanium = 30, /datum/material/uranium = 30, /datum/material/diamond = 50, /datum/material/bluespace = 50, /datum/material/bananium = 60)
+	var/list/ore_values = list(/datum/material/iron = 2, /datum/material/glass = 2, /datum/material/copper = 6, /datum/material/plasma = 19,  /datum/material/silver = 20, /datum/material/gold = 23, /datum/material/titanium = 38, /datum/material/uranium = 38, /datum/material/diamond = 63, /datum/material/bluespace = 63, /datum/material/bananium = 63)
 	/// Variable that holds a timer which is used for callbacks to `send_console_message()`. Used for preventing multiple calls to this proc while the ORM is eating a stack of ores.
 	var/console_notify_timer
 	var/datum/techweb/stored_research
@@ -36,19 +35,17 @@
 	return ..()
 
 /obj/machinery/mineral/ore_redemption/RefreshParts()
-	var/point_upgrade_temp = 1
 	var/sheet_per_ore_temp = 1
 	for(var/obj/item/stock_parts/matter_bin/B in component_parts)
-		sheet_per_ore_temp = 0.65 + (0.35 * B.rating)
+		sheet_per_ore_temp = 0.65 + (0.15 * B.rating) 
 	for(var/obj/item/stock_parts/micro_laser/L in component_parts)
-		point_upgrade_temp = 0.65 + (0.35 * L.rating)
-	point_upgrade = point_upgrade_temp
+		sheet_per_ore_temp += (0.20 * L.rating)
 	sheet_per_ore = round(sheet_per_ore_temp, 0.01)
 
 /obj/machinery/mineral/ore_redemption/examine(mob/user)
 	. = ..()
 	if(in_range(user, src) || isobserver(user))
-		. += "<span class='notice'>The status display reads: Smelting <b>[sheet_per_ore]</b> sheet(s) per piece of ore.<br>Reward point generation at <b>[point_upgrade*100]%</b>.</span>"
+		. += "<span class='notice'>The status display reads: Smelting <b>[sheet_per_ore]</b> sheet(s) per piece of ore.</span>"
 	if(panel_open)
 		. += "<span class='notice'>Alt-click to rotate the input and output direction.</span>"
 
@@ -74,7 +71,7 @@
 
 	else
 		if(O?.refined_type)
-			points += O.points * point_upgrade * O.amount
+			points += O.points * O.amount
 		var/mats = O.materials & mat_container.materials
 		var/amount = O.amount
 		mat_container.insert_item(O, sheet_per_ore) //insert it
@@ -230,7 +227,7 @@
 			var/amount = mat_container.materials[M]
 			var/sheet_amount = amount / MINERAL_MATERIAL_AMOUNT
 			var/ref = REF(M)
-			data["materials"] += list(list("name" = M.name, "id" = ref, "amount" = sheet_amount, "value" = ore_values[M.type] * point_upgrade))
+			data["materials"] += list(list("name" = M.name, "id" = ref, "amount" = sheet_amount, "value" = ore_values[M.type]))
 
 		data["alloys"] = list()
 		for(var/v in stored_research.researched_designs)

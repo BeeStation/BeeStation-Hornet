@@ -68,7 +68,7 @@
 		M.actions += src
 		if(M.client)
 			M.client.screen += button
-			button.locked = M.client.prefs.buttons_locked || button.id ? M.client.prefs.action_buttons_screen_locs["[name]_[button.id]"] : FALSE //even if it's not defaultly locked we should remember we locked it before
+			button.locked = (M.client.prefs.toggles2 & PREFTOGGLE_2_LOCKED_BUTTONS) || button.id ? M.client.prefs.action_buttons_screen_locs["[name]_[button.id]"] : FALSE //even if it's not defaultly locked we should remember we locked it before
 			button.moved = button.id ? M.client.prefs.action_buttons_screen_locs["[name]_[button.id]"] : FALSE
 			var/obj/effect/proc_holder/spell/spell_proc_holder = button.linked_action.target
 			if(istype(spell_proc_holder) && spell_proc_holder.text_overlay)
@@ -150,7 +150,7 @@
 
 /datum/action/proc/ApplyIcon(atom/movable/screen/movable/action_button/current_button, force = FALSE)
 	if(icon_icon && button_icon_state && ((current_button.button_icon_state != button_icon_state) || force))
-		current_button.cut_overlays(TRUE)
+		current_button.cut_overlays()
 		current_button.add_overlay(mutable_appearance(icon_icon, button_icon_state))
 		current_button.button_icon_state = button_icon_state
 
@@ -203,9 +203,9 @@
 	name = "Toggle Light"
 
 /datum/action/item_action/toggle_light/Trigger()
-	if(istype(target, /obj/item/pda))
-		var/obj/item/pda/P = target
-		P.toggle_light(owner)
+	if(istype(target, /obj/item/modular_computer))
+		var/obj/item/modular_computer/mc = target
+		mc.toggle_flashlight()
 		return
 	..()
 
@@ -227,6 +227,9 @@
 
 /datum/action/item_action/startchainsaw
 	name = "Pull The Starting Cord"
+
+/datum/action/item_action/toggle_computer_light
+	name = "Toggle Flashlight"
 
 /datum/action/item_action/toggle_gunlight
 	name = "Toggle Gunlight"

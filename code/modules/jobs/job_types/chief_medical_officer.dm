@@ -3,7 +3,7 @@
 	flag = CMO_JF
 	department_head = list(JOB_NAME_CAPTAIN)
 	department_flag = MEDSCI
-	auto_deadmin_role_flags = DEADMIN_POSITION_HEAD
+	auto_deadmin_role_flags = PREFTOGGLE_DEADMIN_POSITION_HEAD
 	head_announce = list(RADIO_CHANNEL_MEDICAL)
 	faction = "Station"
 	total_positions = 1
@@ -35,14 +35,14 @@
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/cmo
 	)
-	biohazard = 20
+	biohazard = 45
 
 /datum/outfit/job/chief_medical_officer
 	name = JOB_NAME_CHIEFMEDICALOFFICER
 	jobtype = /datum/job/chief_medical_officer
 
 	id = /obj/item/card/id/job/chief_medical_officer
-	belt = /obj/item/pda/heads/chief_medical_officer
+	belt = /obj/item/modular_computer/tablet/pda/heads/chief_medical_officer
 	l_pocket = /obj/item/pinpointer/crew
 	ears = /obj/item/radio/headset/heads/cmo
 	uniform = /obj/item/clothing/under/rank/medical/chief_medical_officer
@@ -50,8 +50,7 @@
 	suit = /obj/item/clothing/suit/toggle/labcoat/cmo
 	l_hand = /obj/item/storage/firstaid/medical
 	suit_store = /obj/item/flashlight/pen
-	backpack_contents = list(/obj/item/melee/classic_baton/police/telescopic=1,
-		/obj/item/modular_computer/tablet/preset/advanced/command=1)
+	backpack_contents = list(/obj/item/melee/classic_baton/police/telescopic=1)
 
 	backpack = /obj/item/storage/backpack/medic
 	satchel = /obj/item/storage/backpack/satchel/med

@@ -270,7 +270,7 @@
 	usr.a_intent_change(INTENT_HOTKEY_RIGHT)
 
 /atom/movable/screen/act_intent/segmented/Click(location, control, params)
-	if(usr.client.prefs.toggles & INTENT_STYLE)
+	if(usr.client.prefs.toggles & PREFTOGGLE_INTENT_STYLE)
 		var/_x = text2num(params2list(params)["icon-x"])
 		var/_y = text2num(params2list(params)["icon-y"])
 

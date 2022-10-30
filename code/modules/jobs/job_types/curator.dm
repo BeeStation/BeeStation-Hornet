@@ -24,7 +24,7 @@
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/curator
 	)
 	//they doesnt get out that much
-	biohazard = 5
+	biohazard = 10
 
 /datum/outfit/job/curator
 	name = JOB_NAME_CURATOR
@@ -32,7 +32,7 @@
 
 	id = /obj/item/card/id/job/curator
 	shoes = /obj/item/clothing/shoes/laceup
-	belt = /obj/item/pda/curator
+	belt = /obj/item/modular_computer/tablet/pda/curator
 	ears = /obj/item/radio/headset/headset_curator
 	uniform = /obj/item/clothing/under/rank/civilian/curator
 	l_hand = /obj/item/storage/bag/books

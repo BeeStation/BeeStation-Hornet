@@ -26,7 +26,7 @@
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/chemist
 	)
-	biohazard = 15
+	biohazard = 25
 
 /datum/outfit/job/chemist
 	name = JOB_NAME_CHEMIST
@@ -34,7 +34,7 @@
 
 	id = /obj/item/card/id/job/chemist
 	glasses = /obj/item/clothing/glasses/science
-	belt = /obj/item/pda/chemist
+	belt = /obj/item/modular_computer/tablet/pda/chemist
 	ears = /obj/item/radio/headset/headset_med
 	uniform = /obj/item/clothing/under/rank/medical/chemist
 	shoes = /obj/item/clothing/shoes/sneakers/white
