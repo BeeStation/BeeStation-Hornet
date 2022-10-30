@@ -1,0 +1,4 @@
+author: PowerfulBacon
+delete-after: true
+changes:
+  - tweak: Ghost alert to control a mob will now jump you to the target
