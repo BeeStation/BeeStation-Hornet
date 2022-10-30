@@ -26,6 +26,13 @@ GLOBAL_LIST_EMPTY(ckey_redirects)
 	if (C && ckey == C.ckey && computer_id == C.computer_id && address == C.address)
 		return //don't recheck connected clients.
 
+	//Debug
+	if (GLOB.Debug2)
+		if (C)
+			debug_world_log("(NEW CID/IP) isbanned(): SRC:'[src]', USR:'[usr]' ARGS:'[args.Join("', '")]'. Directory CID: [C.computer_id], Directory IP: [C.address], Directory CKEY: [C.ckey], ckey: [ckey]")
+		else
+			debug_world_log("(NOT CONNECTED) isbanned(): SRC:'[src]', USR:'[usr]' ARGS:'[args.Join("', '")]'")
+
 	//IsBanned can get re-called on a user in certain situations, this prevents that leading to repeated messages to admins.
 	var/static/list/checkedckeys = list()
 	//magic voodo to check for a key in a list while also adding that key to the list without having to do two associated lookups
