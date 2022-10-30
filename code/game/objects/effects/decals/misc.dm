@@ -43,9 +43,9 @@
 	qdel(src)
 
 /obj/effect/decal/chempuff/proc/check_move(datum/move_loop/source, succeeded)
-	if(QDELETED(src)) //Reasons PLEASE WORK I SWEAR TO GOD
+	if(QDELETED(src))
 		return
-	if(!succeeded) //If we hit something
+	if(!succeeded || lifetime < 0)
 		qdel(src)
 		return
 
@@ -54,20 +54,18 @@
 	var/turf/our_turf = get_turf(src)
 
 	for(var/atom/movable/turf_atom in our_turf)
+		if(lifetime < 0)
+			qdel(src)
+			break
+
 		if(turf_atom == src || turf_atom.invisibility) //we ignore the puff itself and stuff below the floor
 			continue
 
-		if(lifetime < 0)
-			break
-
 		if(!stream)
 			reagents.reaction(turf_atom, VAPOR)
-			log_combat(user, turf_atom, "sprayed", sprayer, addition="which had [puff_reagents_string]")
 			if(ismob(turf_atom))
-				lifetime -= 1
-			continue
-
-		if(isliving(turf_atom))
+				lifetime--
+		else if(isliving(turf_atom))
 			var/mob/living/turf_mob = turf_atom
 
 			if(!turf_mob.can_inject())
@@ -76,22 +74,18 @@
 				continue
 
 			reagents.reaction(turf_mob, VAPOR)
-			log_combat(user, turf_mob, "sprayed", sprayer, addition="which had [puff_reagents_string]")
-			lifetime -= 1
-
+			lifetime--
 		else if(travelled_max_distance)
 			reagents.reaction(turf_atom, VAPOR)
+			lifetime--
+		if(user)
 			log_combat(user, turf_atom, "sprayed", sprayer, addition="which had [puff_reagents_string]")
-			lifetime -= 1
 
 	if(lifetime >= 0 && (!stream || travelled_max_distance))
 		reagents.reaction(our_turf, VAPOR)
-		log_combat(user, our_turf, "sprayed", sprayer, addition="which had [puff_reagents_string]")
-		lifetime -= 1
-
-	// Did we use up all the puff early?
-	if(lifetime < 0)
-		qdel(src)
+		lifetime--
+		if(user)
+			log_combat(user, our_turf, "sprayed", sprayer, addition="which had [puff_reagents_string]")
 
 /obj/effect/decal/fakelattice
 	name = "lattice"
