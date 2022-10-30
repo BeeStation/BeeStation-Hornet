@@ -1,7 +1,7 @@
 /datum/job/security_officer
 	title = JOB_NAME_SECURITYOFFICER
 	flag = OFFICER
-	auto_deadmin_role_flags = DEADMIN_POSITION_SECURITY
+	auto_deadmin_role_flags = PREFTOGGLE_DEADMIN_POSITION_SECURITY
 	department_head = list(JOB_NAME_HEADOFSECURITY)
 	department_flag = ENGSEC
 	faction = "Station"
@@ -31,7 +31,7 @@
 	species_outfits = list(
 		SPECIES_PLASMAMAN = /datum/outfit/plasmaman/security_officer
 	)
-	biohazard = 15 //clean your baton, man
+	biohazard = 25 //clean your baton, man
 
 /datum/job/security_officer/get_access()
 	var/list/L = list()
@@ -45,7 +45,7 @@ GLOBAL_LIST_INIT(available_depts, list(SEC_DEPT_ENGINEERING, SEC_DEPT_MEDICAL, S
 	// Assign department security
 	var/department
 	if(M?.client?.prefs)
-		department = M.client.prefs.prefered_security_department
+		department = M.client.prefs.active_character.preferred_security_department
 		if(!LAZYLEN(GLOB.available_depts) || department == "None")
 			return
 		else if(department in GLOB.available_depts)
@@ -124,7 +124,7 @@ GLOBAL_LIST_INIT(available_depts, list(SEC_DEPT_ENGINEERING, SEC_DEPT_MEDICAL, S
 	jobtype = /datum/job/security_officer
 
 	id = /obj/item/card/id/job/security_officer
-	belt = /obj/item/pda/security
+	belt = /obj/item/modular_computer/tablet/pda/security
 	ears = /obj/item/radio/headset/headset_sec/alt
 	uniform = /obj/item/clothing/under/rank/security/officer
 	gloves = /obj/item/clothing/gloves/color/black

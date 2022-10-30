@@ -70,7 +70,7 @@
 		else if(istype(AM, /mob/living))
 			plastic_overlay.layer = FLOAT_LAYER
 
-		target.add_overlay(plastic_overlay, TRUE)
+		target.add_overlay(plastic_overlay)
 		to_chat(user, "<span class='notice'>You plant the bomb.</span>")
 
 /obj/item/grenade/exploration/prime(mob/living/lanced_by)
@@ -81,7 +81,7 @@
 	if(target)
 		if(!QDELETED(target))
 			location = get_turf(target)
-			target.cut_overlay(plastic_overlay, TRUE)
+			target.cut_overlay(plastic_overlay)
 			target.ex_act(EXPLODE_HEAVY, target)
 	else
 		location = get_turf(src)

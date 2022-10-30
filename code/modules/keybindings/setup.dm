@@ -1,6 +1,6 @@
 /client
 	/// A list of any keys held currently
-	var/list/keys_held = list() 
+	var/list/keys_held = list()
 	// These next two vars are to apply movement for keypresses and releases made while move delayed.
 	// Because discarding that input makes the game less responsive.
 	var/next_move_dir_add // On next move, add this dir to the move that would otherwise be done
@@ -47,7 +47,7 @@
 			var/command = macro_set[key]
 			winset(src, "[setname]-[REF(key)]", "parent=[setname];name=[key];command=[command]")
 
-	if(prefs.hotkeys)
+	if(prefs.toggles2 & PREFTOGGLE_2_HOTKEYS)
 		winset(src, null, "input.focus=true input.background-color=[COLOR_INPUT_ENABLED] mainwindow.macro=default")
 	else
 		winset(src, null, "input.focus=true input.background-color=[COLOR_INPUT_ENABLED] mainwindow.macro=old_default")

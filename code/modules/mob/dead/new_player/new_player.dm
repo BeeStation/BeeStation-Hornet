@@ -233,7 +233,7 @@
 	observer.client = client
 	observer.set_ghost_appearance()
 	if(observer.client && observer.client.prefs)
-		observer.real_name = observer.client.prefs.real_name
+		observer.real_name = observer.client.prefs.active_character.real_name
 		observer.name = observer.real_name
 	observer.update_icon()
 	observer.stop_sound_channel(CHANNEL_LOBBYMUSIC)
@@ -451,9 +451,9 @@
 		if(QDELETED(src))
 			return
 	if(frn)
-		client.prefs.random_character()
-		client.prefs.real_name = client.prefs.pref_species.random_name(gender,1)
-	client.prefs.copy_to(H)
+		client.prefs.active_character.randomise()
+		client.prefs.active_character.real_name = client.prefs.active_character.pref_species.random_name(gender,1)
+	client.prefs.active_character.copy_to(H)
 	H.dna.update_dna_identity()
 	if(mind)
 		if(transfer_after)
@@ -509,13 +509,13 @@
 /mob/dead/new_player/proc/check_preferences()
 	if(!client)
 		return FALSE //Not sure how this would get run without the mob having a client, but let's just be safe.
-	if(client.prefs.joblessrole != RETURNTOLOBBY)
+	if(client.prefs.active_character.joblessrole != RETURNTOLOBBY)
 		return TRUE
 	// If they have antags enabled, they're potentially doing this on purpose instead of by accident. Notify admins if so.
 	var/has_antags = FALSE
 	if(client.prefs.be_special.len > 0)
 		has_antags = TRUE
-	if(client.prefs.job_preferences.len == 0)
+	if(!length(client.prefs.active_character.job_preferences))
 		if(!ineligible_for_roles)
 			to_chat(src, "<span class='danger'>You have no jobs enabled, along with return to lobby if job is unavailable. This makes you ineligible for any round start role, please update your job preferences.</span>")
 		ineligible_for_roles = TRUE

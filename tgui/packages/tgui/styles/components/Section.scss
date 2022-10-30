@@ -121,3 +121,9 @@ $separator-color: colors.$primary !default;
 .Section .Section .Section .Section__titleText {
   font-size: base.em(12px);
 }
+
+.Section.LogSection {
+  background-color: black;
+  color: white;
+  white-space: pre-wrap;
+}

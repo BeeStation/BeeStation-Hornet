@@ -138,14 +138,13 @@
 	sharpness = IS_SHARP
 	can_charge = FALSE
 	dead_cell = TRUE
-
-	heat = 3800
 	usesound = list('sound/items/welder.ogg', 'sound/items/welder2.ogg')
 	tool_behaviour = TOOL_WELDER
 	toolspeed = 0.7 //plasmacutters can be used as welders, and are faster than standard welders
 	var/progress_flash_divisor = 10  //copypasta is best pasta
 	var/light_intensity = 1
 	var/charge_weld = 25 //amount of charge used up to start action (multiplied by amount) and per progress_flash_divisor ticks of welding
+	var/heat_weld = 3800
 	weapon_weight = WEAPON_LIGHT
 	fire_rate = 3
 	automatic = 1
@@ -218,6 +217,11 @@
 		target.cut_overlay(GLOB.welding_sparks)
 	else
 		. = ..(amount=1)
+
+/obj/item/gun/energy/plasmacutter/is_hot()
+	if(use(1))
+		return heat_weld
+	return heat
 
 
 /obj/item/gun/energy/plasmacutter/update_icon()
