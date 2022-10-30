@@ -5226,10 +5226,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/port)
-"apD" = (
-/obj/effect/landmark/xeno_spawn,
-/turf/open/floor/plating,
-/area/maintenance/port)
 "apE" = (
 /obj/structure/extinguisher_cabinet{
 	pixel_x = -27
@@ -5901,10 +5897,6 @@
 /area/maintenance/port/aft)
 "arL" = (
 /obj/effect/spawner/room/fivexthree,
-/turf/open/floor/plating,
-/area/maintenance/port/aft)
-"arM" = (
-/obj/effect/landmark/xeno_spawn,
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
 "arS" = (
@@ -14671,14 +14663,6 @@
 "aZt" = (
 /turf/closed/wall,
 /area/storage/tools)
-"aZv" = (
-/obj/machinery/door/airlock/maintenance{
-	name = "Storage Room";
-	req_access_txt = "12"
-	},
-/obj/effect/mapping_helpers/airlock/abandoned,
-/turf/open/floor/plating,
-/area/maintenance/starboard/fore)
 "aZw" = (
 /turf/closed/wall/r_wall,
 /area/storage/tech)
@@ -15471,6 +15455,7 @@
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
 	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
 "bbk" = (
@@ -51918,8 +51903,8 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 4
+/obj/machinery/atmospherics/pipe/manifold/supply/hidden/layer2{
+	dir = 1
 	},
 /turf/open/floor/plating,
 /area/maintenance/starboard/fore)
@@ -70927,6 +70912,12 @@
 	},
 /turf/open/floor/plasteel,
 /area/construction/storage_wing)
+"riZ" = (
+/obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
+	dir = 1
+	},
+/turf/open/floor/plating,
+/area/maintenance/starboard/fore)
 "rjb" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -101042,7 +101033,7 @@ lVd
 bHO
 bvW
 aob
-apD
+aob
 aob
 aob
 alK
@@ -105423,7 +105414,7 @@ bXJ
 dux
 bXE
 snX
-arM
+bXE
 cev
 cfH
 xBp
@@ -119009,9 +119000,9 @@ aTA
 aUS
 aUM
 gFO
-aZv
+roN
 bbi
-dnS
+riZ
 dnh
 bfL
 bhO
