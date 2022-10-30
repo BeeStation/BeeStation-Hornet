@@ -395,7 +395,6 @@ update_label("John Doe", "Clowny")
 		/obj/item/card/data/disk,
 		/obj/item/card/emag,
 		/obj/item/card/emag/bluespace,
-		/obj/item/card/emag/halloween,
 		/obj/item/card/emagfake,
 		/obj/item/card/id/pass/deputy,
 		/obj/item/card/id/pass/mining_access_card,

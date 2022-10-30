@@ -2150,7 +2150,6 @@
 #include "code\modules\events\supermatter_surge.dm"
 #include "code\modules\events\wormholes.dm"
 #include "code\modules\events\zombie_outbreak.dm"
-#include "code\modules\events\holiday\halloween.dm"
 #include "code\modules\events\holiday\vday.dm"
 #include "code\modules\events\holiday\xmas.dm"
 #include "code\modules\events\wizard\aid.dm"
