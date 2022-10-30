@@ -1348,9 +1348,9 @@
 	..()
 	operating = TRUE
 	update_icon(AIRLOCK_EMAG, 1)
-	addtimer(CALLBACK(src, .proc/emag_after), 6)
+	addtimer(CALLBACK(src, .proc/after_emag), 6)
 
-/obj/machinery/door/airlock/proc/emag_after()
+/obj/machinery/door/airlock/proc/after_emag()
 	if(QDELETED(src))
 		return
 	operating = FALSE

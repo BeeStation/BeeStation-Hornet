@@ -325,9 +325,9 @@
 	toggle_on(FALSE) //turns off the turret temporarily
 	update_icon()
 	//6 seconds for the traitor to gtfo of the area before the turret decides to ruin his shit
-	addtimer(CALLBACK(src, .proc/emag_after), 6 SECONDS)
+	addtimer(CALLBACK(src, .proc/after_emag), 6 SECONDS)
 
-/obj/machinery/porta_turret/proc/emag_after()
+/obj/machinery/porta_turret/proc/after_emag()
 	if(QDELETED(src))
 		return
 	toggle_on(TRUE) //turns it back on. The cover popUp() popDown() are automatically called in process(), no need to define it here

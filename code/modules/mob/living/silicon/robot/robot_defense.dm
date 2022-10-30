@@ -112,7 +112,9 @@
 
 	to_chat(user, "<span class='notice'>You emag [src]'s interface.</span>")
 	emag_cooldown = world.time + 100
+	addtimer(CALLBACK(src, .proc/after_emag), 1)
 
+/mob/living/silicon/robot/proc/after_emag()
 	if(connected_ai?.mind && connected_ai.mind.has_antag_datum(/datum/antagonist/traitor))
 		to_chat(src, "<span class='danger'>ALERT: Foreign software execution prevented.</span>")
 		logevent("ALERT: Foreign software execution prevented.")
@@ -123,7 +125,7 @@
 	if(shell) //AI shells cannot be emagged, so we try to make it look like a standard reset. Smart players may see through this, however.
 		to_chat(user, "<span class='danger'>[src] is remotely controlled! Your emag attempt has triggered a system reset instead!</span>")
 		log_game("[key_name(user)] attempted to emag an AI shell belonging to [key_name(src) ? key_name(src) : connected_ai]. The shell has been reset as a result.")
-		addtimer(CALLBACK(src, .proc/emag_after_shell, user), 1)
+		addtimer(CALLBACK(src, .proc/after_emag_shell, user), 1)
 		return
 
 	SetEmagged(1)
@@ -137,9 +139,9 @@
 	to_chat(src, "<span class='danger'>ALERT: Foreign software detected.</span>")
 	logevent("ALERT: Foreign software detected.")
 	to_chat(src, "<span class='danger'>Initiating diagnostics...</span>")
-	addtimer(CALLBACK(src, .proc/emag_after, user), 2 SECONDS)
+	addtimer(CALLBACK(src, .proc/after_emag, user), 2 SECONDS)
 
-/mob/living/silicon/robot/proc/emag_after(mob/user)
+/mob/living/silicon/robot/proc/after_emag(mob/user)
 	to_chat(src, "<span class='danger'>SynBorg v1.7 loaded.</span>")
 	logevent("WARN: root privleges granted to PID [num2hex(rand(1,65535), -1)][num2hex(rand(1,65535), -1)].") //random eight digit hex value. Two are used because rand(1,4294967295) throws an error
 	sleep(0.5 SECONDS)
@@ -158,7 +160,7 @@
 	//Get syndicate access.
 	create_access_card(get_all_syndicate_access())
 
-/mob/living/silicon/robot/proc/emag_after_shell(mob/user)
+/mob/living/silicon/robot/proc/after_emag_shell(mob/user)
 	ResetModule()
 
 /mob/living/silicon/robot/blob_act(obj/structure/blob/B)

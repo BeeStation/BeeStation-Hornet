@@ -118,9 +118,9 @@
 /obj/structure/sign/barsign/on_emag(mob/user)
 	..()
 	to_chat(user, "<span class='notice'>You load an illegal barsign into the memory buffer...</span>")
-	addtimer(CALLBACK(src, .proc/emag_after), 10 SECONDS)
+	addtimer(CALLBACK(src, .proc/after_emag), 10 SECONDS)
 
-/obj/structure/sign/barsign/proc/emag_after()
+/obj/structure/sign/barsign/proc/after_emag()
 	chosen_sign = set_sign(new /datum/barsign/hiddensigns/syndibarsign)
 
 /obj/structure/sign/barsign/proc/pick_sign(mob/user)

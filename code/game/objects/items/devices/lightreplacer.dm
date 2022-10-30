@@ -66,6 +66,8 @@
 	var/shards_required = 4
 
 	var/bluespace_toggle = FALSE
+	/// If it can be emagged, used by subtypes to disable
+	var/emaggable = TRUE
 
 /obj/item/lightreplacer/examine(mob/user)
 	. = ..()
@@ -142,6 +144,9 @@
 			return
 
 		to_chat(user, "<span class='notice'>You fill \the [src] with lights from \the [S]. " + status_string() + "</span>")
+
+/obj/item/lightreplacer/should_emag(mob/user)
+	return emaggable && ..()
 
 /obj/item/lightreplacer/on_emag(mob/user)
 	..()
@@ -256,9 +261,7 @@
 	desc = "A modified light replacer that zaps lights into place. Refill with broken or working light bulbs, or sheets of glass."
 	icon_state = "lightreplacer_blue0"
 	bluespace_toggle = TRUE
-
-/obj/item/lightreplacer/bluespace/on_emag()
-	return  // long range explosions are stupid
+	emaggable = FALSE
 
 /obj/item/lightreplacer/bluespace/update_icon()  // making sure it uses the new icon state names
 	icon_state = "lightreplacer_blue[(obj_flags & EMAGGED ? 1 : 0)]"

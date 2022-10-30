@@ -54,6 +54,7 @@
 	return cpu.should_emag(user)
 
 /obj/machinery/modular_computer/on_emag(mob/user)
+	..()
 	return cpu.on_emag(user)
 
 /obj/machinery/modular_computer/update_icon()

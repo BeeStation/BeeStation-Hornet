@@ -223,9 +223,9 @@
 	operating = TRUE
 	flick("[base_state]spark", src)
 	playsound(src, "sparks", 75, 1)
-	addtimer(CALLBACK(src, .proc/emag_after), 6)
+	addtimer(CALLBACK(src, .proc/after_emag), 6)
 
-/obj/machinery/door/window/proc/emag_after()
+/obj/machinery/door/window/proc/after_emag()
 	if(QDELETED(src))
 		return
 	operating = FALSE

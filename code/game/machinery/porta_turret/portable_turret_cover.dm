@@ -91,6 +91,7 @@
 	return parent_turret.should_emag(user)
 
 /obj/machinery/porta_turret_cover/on_emag(mob/user)
+	..()
 	parent_turret.obj_flags |= EMAGGED
 	to_chat(user, "<span class='notice'>You short out [parent_turret]'s threat assessment circuits.</span>")
 	visible_message("[parent_turret] hums oddly...")
