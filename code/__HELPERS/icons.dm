@@ -1306,7 +1306,7 @@ GLOBAL_LIST_INIT(freon_color_matrix, list("#2E5E69", "#60A2A8", "#A1AFB1", rgb(0
 		if (isnull(icon_state))
 			icon_state = thing.icon_state
 
-			if (isnull(icon_state) || thing.flags_1 & HTML_USE_INITAL_ICON_1)
+			if (isnull(icon_state) ||(isatom(thing) && thing.flags_1 & HTML_USE_INITAL_ICON_1))
 				icon_state = initial(thing.icon_state)
 				if (isnull(dir))
 					dir = initial(thing.dir)
