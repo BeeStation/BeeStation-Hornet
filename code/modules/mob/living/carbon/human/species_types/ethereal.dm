@@ -119,6 +119,7 @@
 			addtimer(CALLBACK(src, .proc/stop_emp, H), 20 SECONDS, TIMER_UNIQUE|TIMER_OVERRIDE) //We're out for 20 seconds
 
 /datum/species/ethereal/proc/should_emag(mob/living/carbon/human/H, mob/user)
+	SIGNAL_HANDLER
 	return !emageffect || !istype(H)
 
 /datum/species/ethereal/proc/on_emag(mob/living/carbon/human/H, mob/user)
