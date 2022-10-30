@@ -6,14 +6,13 @@
 	volume = 200
 	fill_icon_thresholds = list(10, 20, 30, 40, 50, 60, 70, 80, 90, 100)
 	reagent_flags = TRANSPARENT | ABSOLUTELY_GRINDABLE
-	var/label_name // this is to support when you don't want to display "chemical bag" part with a custom name
 
 /obj/item/reagent_containers/chem_bag/Initialize(mapload)
 	. = ..()
 	if(!icon_state)
 		icon_state = "bloodpack"
 		update_icon()
-	if(label_name)
+	if(initial(label_name))
 		name = "[label_name] chemical bag"
 
 /obj/item/reagent_containers/chem_bag/examine(mob/user)
