@@ -140,7 +140,7 @@
 	#define COMPONENT_NO_MOUSEDROP 1
 #define COMSIG_MOUSEDROPPED_ONTO "mousedropped_onto"			//! from base of atom/MouseDrop_T: (/atom/from, /mob/user)
 
-/// Check if an emag action should occur
-#define COMSIG_ATOM_EMAG_CHECK "atom_emag_check"
-/// Do the emag action (if CHECK is true)
-#define COMSIG_ATOM_EMAG_ACT "atom_emag_act"
+/// Check if an emag action should occur, this is inverted, so FALSE means the check succeeds.
+#define COMSIG_ATOM_SHOULD_EMAG "atom_should_emag"
+/// Do the emag action (if CHECK is FALSE)
+#define COMSIG_ATOM_ON_EMAG "atom_on_emag"
