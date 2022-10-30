@@ -49,7 +49,7 @@
 		qdel(src)
 		return
 
-	var/puff_reagents_string = reagents.log_list()
+	var/puff_reagents_string = reagents?.log_list()
 	var/travelled_max_distance = (source.lifetime - source.delay <= 0)
 	var/turf/our_turf = get_turf(src)
 
@@ -58,11 +58,11 @@
 			qdel(src)
 			break
 
-		if(turf_atom == src || turf_atom.invisibility) //we ignore the puff itself and stuff below the floor
+		//we ignore the puff itself and stuff below the floor
+		if(turf_atom == src || turf_atom.invisibility)
 			continue
 
 		if(!stream)
-			reagents.reaction(turf_atom, VAPOR)
 			if(ismob(turf_atom))
 				lifetime--
 		else if(isliving(turf_atom))
@@ -73,16 +73,15 @@
 			if(!(turf_mob.mobility_flags & MOBILITY_STAND) && !travelled_max_distance)
 				continue
 
-			reagents.reaction(turf_mob, VAPOR)
 			lifetime--
 		else if(travelled_max_distance)
-			reagents.reaction(turf_atom, VAPOR)
 			lifetime--
+		reagents?.reaction(turf_atom, VAPOR)
 		if(user)
 			log_combat(user, turf_atom, "sprayed", sprayer, addition="which had [puff_reagents_string]")
 
 	if(lifetime >= 0 && (!stream || travelled_max_distance))
-		reagents.reaction(our_turf, VAPOR)
+		reagents?.reaction(our_turf, VAPOR)
 		lifetime--
 		if(user)
 			log_combat(user, our_turf, "sprayed", sprayer, addition="which had [puff_reagents_string]")
