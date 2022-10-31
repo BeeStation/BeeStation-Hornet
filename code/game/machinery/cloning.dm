@@ -452,9 +452,11 @@
 	else
 		return ..()
 
-/obj/machinery/clonepod/emag_act(mob/user)
-	if(!occupant)
-		return
+/obj/machinery/clonepod/should_emag(mob/user)
+	return !!occupant
+
+/obj/machinery/clonepod/on_emag(mob/user)
+	..()
 	to_chat(user, "<span class='warning'>You corrupt the genetic compiler.</span>")
 	malfunction()
 	add_fingerprint(user)
