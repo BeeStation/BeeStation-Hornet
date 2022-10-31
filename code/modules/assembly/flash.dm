@@ -251,7 +251,15 @@
 				to_chat(M, "<span class='userdanger'>[user] blinds you with the flash!</span>")
 			else
 				to_chat(M, "<span class='userdanger'>You are blinded by [src]!</span>")
-			M.Paralyze(70)
+			//Will be 0 if the user has no stmaina loss, will be 1 if they are in stamcrit
+			var/flash_proportion = CLAMP01(M.getStaminaLoss() / (M.maxHealth - M.crit_threshold))
+			if (!(M.mobility_flags & MOBILITY_STAND))
+				flash_proportion = 1
+			if(flash_proportion > 0.4)
+				M.Paralyze(70 * flash_proportion)
+			else if(flash_proportion > 0)
+				M.Knockdown(70 * flash_proportion)
+			M.confused = max(M.confused, 4)
 
 		else if(user)
 			visible_message("<span class='disarm'>[user] fails to blind [M] with the flash!</span>")
