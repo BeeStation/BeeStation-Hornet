@@ -1,0 +1,5 @@
+author: benbot16
+delete-after: true
+changes:
+  - tweak: Oozeling water melting is now affected by the clothing/suit the oozeling
+      is wearing.
