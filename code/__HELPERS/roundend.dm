@@ -588,21 +588,22 @@
 	if(!mind)
 		return
 
+	var/custom_title
 	var/obj/item/card/id/I = mind.current?.get_idcard()
 	if(I)
 		if(I.registered_name == mind.name) // card must be yours
-			. = I.assignment // get the custom title
-		if(. == mind.assigned_role) // non-custom title, lame
-			. = ""
-	if(!.) // still no custom title? it seems you don't have a ID card
+			custom_title = I.assignment // get the custom title
+		if(custom_title == mind.assigned_role) // non-custom title, lame
+			custom_title = ""
+	if(!cusrom_title) // still no custom title? it seems you don't have a ID card
 		var/datum/data/record/R = find_record("name", mind.name, GLOB.data_core.general)
 		if(R)
-			. = R.fields["rank"] // get a custom title from datacore
-		if(. == mind.assigned_role) // lame...
-			. = ""
+			custom_title = R.fields["rank"] // get a custom title from datacore
+		if(custom_title == mind.assigned_role) // lame...
+			custom_title = ""
 
-	if(.)
-		return "[newline ? "<br/>" : " "](as [.])" // i.e. " (as Plague Doctor)"
+	if(custom_title)
+		return "[newline ? "<br/>" : " "](as [custom_title])" // i.e. " (as Plague Doctor)"
 
 /proc/printplayer(datum/mind/ply, fleecheck)
 	var/jobtext = ""
