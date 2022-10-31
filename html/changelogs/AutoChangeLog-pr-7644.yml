@@ -1,0 +1,7 @@
+author: itsmeow
+delete-after: true
+changes:
+  - refactor: Refactored emagging to have a SHOULD_EMAG signal, properly use signals,
+      and enforce parent calls.
+  - tweak: Tweaked wording on emag action visible_messages.
+  - bugfix: Fixed some visible_messages on emagged items not showing.
