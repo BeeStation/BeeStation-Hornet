@@ -332,9 +332,8 @@ GLOBAL_VAR(restart_counter)
 
 		hostedby = CONFIG_GET(string/hostedby)
 
-	s += "<b>[station_name()]</b>";
 	var/discordurl = CONFIG_GET(string/discordurl)
-	s += " (<a href='[discordurl]'>Discord</a>|<a href='http://armostation.miraheze.org'>Website</a>)"
+	s += " (<a href='[discordurl]'>Discord</a>)"
 
 	var/players = GLOB.clients.len
 
