@@ -2956,15 +2956,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/security/brig)
-"anz" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
-/turf/open/floor/plasteel,
-/area/security/brig)
 "anB" = (
 /obj/effect/mapping_helpers/airlock/abandoned,
 /obj/machinery/door/airlock/maintenance{
@@ -3139,6 +3130,9 @@
 	},
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
 	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/security/warden)
@@ -39163,6 +39157,9 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 4
 	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/security/warden)
 "hCX" = (
@@ -44245,6 +44242,9 @@
 /obj/structure/cable/yellow{
 	icon_state = "2-4"
 	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/security/warden)
 "kIT" = (
@@ -48814,18 +48814,6 @@
 	},
 /turf/open/floor/engine,
 /area/science/explab)
-"nKM" = (
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
-	},
-/obj/effect/turf_decal/tile/red,
-/obj/effect/turf_decal/tile/red{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/turf/open/floor/plasteel,
-/area/security/brig)
 "nLe" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -49154,6 +49142,9 @@
 	},
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4{
 	dir = 4
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
 	},
 /turf/open/floor/plasteel/showroomfloor,
 /area/security/warden)
@@ -85423,7 +85414,7 @@ alv
 nqc
 nTp
 alv
-anz
+alv
 alv
 alv
 alv
@@ -85680,7 +85671,7 @@ sYU
 pYS
 vMQ
 kIT
-nKM
+sow
 kIT
 sow
 vsu
@@ -85937,7 +85928,7 @@ cVO
 ajM
 amg
 amg
-apJ
+ayQ
 amg
 ayQ
 amg
@@ -86452,7 +86443,7 @@ alz
 amg
 amT
 amX
-amX
+awK
 aoS
 apJ
 bdt
@@ -86709,7 +86700,7 @@ ahL
 ahL
 amU
 amX
-amX
+awK
 aoT
 apK
 cAx
