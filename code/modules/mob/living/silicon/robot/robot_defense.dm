@@ -138,10 +138,9 @@
 	GLOB.lawchanges.Add("[time] <B>:</B> [user.name]([user.key]) emagged [name]([key])")
 	to_chat(src, "<span class='danger'>ALERT: Foreign software detected.</span>")
 	logevent("ALERT: Foreign software detected.")
+	sleep(0.5 SECONDS)
 	to_chat(src, "<span class='danger'>Initiating diagnostics...</span>")
-	addtimer(CALLBACK(src, .proc/after_emag, user), 2 SECONDS)
-
-/mob/living/silicon/robot/proc/after_emag(mob/user)
+	sleep(2 SECONDS)
 	to_chat(src, "<span class='danger'>SynBorg v1.7 loaded.</span>")
 	logevent("WARN: root privleges granted to PID [num2hex(rand(1,65535), -1)][num2hex(rand(1,65535), -1)].") //random eight digit hex value. Two are used because rand(1,4294967295) throws an error
 	sleep(0.5 SECONDS)
