@@ -246,6 +246,7 @@
 		//Add holder for muh balance
 		/*
 		Uncomment this if artifact abuse becomes a huge issue
+		
 		if(isliving(loc) || isliving(pulledby))
 			var/mob/living/M = isliving(loc) ? loc : pulledby
 			if(!istype(M.get_item_by_slot(ITEM_SLOT_GLOVES), /obj/item/clothing/gloves/artifact_pinchers) && !istype(get_area(M), /area/science))

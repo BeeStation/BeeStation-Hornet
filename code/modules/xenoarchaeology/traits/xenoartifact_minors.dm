@@ -130,7 +130,7 @@
 	if(isobserver(M) && man && !man?.key && (alert(M, "Are you sure you want to control of [man]?", "Assume control of [man]", "Yes", "No") == "Yes"))
 		man.key = M.ckey
 
-/datum/xenoartifact_trait/minor/sentient/proc/get_canidate(obj/item/xenoartifact/X)
+/datum/xenoartifact_trait/minor/sentient/proc/get_canidate(obj/item/xenoartifact/X, mob/M)
 	var/list/mob/dead/observer/candidates = pollGhostCandidates("Do you want to play as the maleviolent force inside the [X.name]?", ROLE_SENTIENCE, null, FALSE, 8 SECONDS, POLL_IGNORE_SENTIENCE_POTION)
 	if(LAZYLEN(candidates))
 		var/mob/dead/observer/C = pick(candidates)

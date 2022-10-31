@@ -196,7 +196,6 @@
 //============
 // explode, a very small explosion takes place, destroying the artifact in the process
 //============
-
 /datum/xenoartifact_trait/malfunction/explode
 	label_name = "Delaminating"
 	label_desc = "Delaminating: The Artifact violently collapses, exploding."
