@@ -4144,39 +4144,39 @@
 /area/security/brig)
 "asx" = (
 /obj/machinery/light,
+/obj/effect/turf_decal/tile/red,
+/obj/effect/turf_decal/tile/red{
+	dir = 8
+	},
 /obj/machinery/door_timer{
 	id = "Cell 1";
 	name = "Cell 1";
 	pixel_y = -32
 	},
+/turf/open/floor/plasteel,
+/area/security/brig)
+"asz" = (
 /obj/effect/turf_decal/tile/red,
 /obj/effect/turf_decal/tile/red{
 	dir = 8
 	},
-/turf/open/floor/plasteel,
-/area/security/brig)
-"asz" = (
 /obj/machinery/door_timer{
 	id = "Cell 2";
 	name = "Cell 2";
 	pixel_y = -32
 	},
-/obj/effect/turf_decal/tile/red,
-/obj/effect/turf_decal/tile/red{
-	dir = 8
-	},
 /turf/open/floor/plasteel,
 /area/security/brig)
 "asB" = (
 /obj/machinery/light,
+/obj/effect/turf_decal/tile/red,
+/obj/effect/turf_decal/tile/red{
+	dir = 8
+	},
 /obj/machinery/door_timer{
 	id = "Cell 3";
 	name = "Cell 3";
 	pixel_y = -32
-	},
-/obj/effect/turf_decal/tile/red,
-/obj/effect/turf_decal/tile/red{
-	dir = 8
 	},
 /turf/open/floor/plasteel,
 /area/security/brig)
@@ -4389,11 +4389,12 @@
 /turf/open/floor/plasteel/showroomfloor,
 /area/security/warden)
 "atB" = (
+/obj/effect/turf_decal/tile/blue,
 /obj/structure/cable/yellow{
-	icon_state = "4-8"
+	icon_state = "1-2"
 	},
-/turf/closed/wall,
-/area/security/brig)
+/turf/open/floor/plasteel/dark,
+/area/bridge)
 "atD" = (
 /obj/structure/cable/yellow{
 	icon_state = "0-8"
@@ -6059,7 +6060,7 @@
 /area/ai_monitored/turret_protected/ai_upload)
 "aAD" = (
 /obj/structure/cable/yellow{
-	icon_state = "1-4"
+	icon_state = "1-2"
 	},
 /turf/open/floor/plasteel/dark,
 /area/bridge)
@@ -6202,6 +6203,9 @@
 	dir = 1
 	},
 /obj/machinery/door/firedoor,
+/obj/structure/cable/yellow{
+	icon_state = "1-2"
+	},
 /turf/open/floor/plasteel/dark,
 /area/bridge)
 "aBs" = (
@@ -7894,13 +7898,6 @@
 /obj/machinery/door/firedoor,
 /turf/open/floor/plasteel/dark,
 /area/bridge)
-"aHf" = (
-/obj/effect/spawner/structure/window/reinforced,
-/obj/structure/cable/yellow{
-	icon_state = "0-2"
-	},
-/turf/open/floor/plating,
-/area/hallway/primary/central)
 "aHh" = (
 /obj/effect/turf_decal/loading_area{
 	dir = 1
@@ -8127,12 +8124,13 @@
 /area/hallway/primary/central)
 "aHX" = (
 /obj/structure/cable/yellow{
-	icon_state = "1-2"
+	icon_state = "0-8"
 	},
-/obj/effect/turf_decal/tile/blue{
-	dir = 1
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
 	},
-/turf/open/floor/plasteel,
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plating,
 /area/hallway/primary/central)
 "aHY" = (
 /obj/structure/cable/yellow{
@@ -8265,22 +8263,20 @@
 /area/hallway/primary/central)
 "aIW" = (
 /obj/structure/cable/yellow{
-	icon_state = "1-8"
+	icon_state = "0-2"
 	},
 /obj/structure/cable/yellow{
-	icon_state = "4-8"
+	icon_state = "0-4"
 	},
 /obj/structure/cable/yellow{
-	icon_state = "2-8"
+	icon_state = "0-8"
 	},
-/turf/open/floor/plasteel,
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plating,
 /area/hallway/primary/central)
 "aIX" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-8"
-	},
-/obj/structure/cable/yellow{
-	icon_state = "4-8"
 	},
 /obj/effect/landmark/observer_start,
 /obj/structure/cable/yellow{
@@ -8290,12 +8286,10 @@
 /area/hallway/primary/central)
 "aIY" = (
 /obj/structure/cable/yellow{
-	icon_state = "1-8"
+	icon_state = "0-8"
 	},
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
-/turf/open/floor/plasteel,
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plating,
 /area/hallway/primary/central)
 "aJb" = (
 /obj/structure/disposalpipe/segment{
@@ -13637,8 +13631,10 @@
 /turf/open/floor/plasteel,
 /area/hallway/secondary/entry)
 "bdh" = (
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
 /obj/effect/spawner/structure/window/reinforced,
-/obj/structure/cable/yellow,
 /turf/open/floor/plating,
 /area/hallway/primary/central)
 "bdi" = (
@@ -20431,6 +20427,10 @@
 /area/science/xenobiology)
 "bBV" = (
 /obj/item/kirbyplants/random,
+/obj/machinery/firealarm{
+	dir = 1;
+	pixel_y = -26
+	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/fitness/recreation)
 "bBW" = (
@@ -22434,8 +22434,16 @@
 /turf/closed/wall/r_wall,
 /area/chapel/dock)
 "bHT" = (
-/turf/open/space/basic,
-/area/maintenance/department/cargo)
+/obj/structure/cable/yellow{
+	icon_state = "0-8"
+	},
+/obj/structure/cable/yellow{
+	icon_state = "0-4"
+	},
+/obj/structure/cable/yellow,
+/obj/effect/spawner/structure/window/reinforced,
+/turf/open/floor/plating,
+/area/hallway/primary/central)
 "bHX" = (
 /obj/effect/turf_decal/tile/green{
 	dir = 4
@@ -35999,10 +36007,6 @@
 	},
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/obj/machinery/firealarm{
-	dir = 8;
-	pixel_x = 26
-	},
 /turf/open/floor/plasteel,
 /area/crew_quarters/fitness/recreation)
 "fBz" = (
@@ -43749,19 +43753,6 @@
 /obj/item/clothing/glasses/meson,
 /turf/open/floor/plasteel,
 /area/engine/engineering)
-"kyP" = (
-/obj/effect/turf_decal/tile/blue{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 4
-	},
-/obj/machinery/light,
-/turf/open/floor/plasteel,
-/area/hallway/primary/central)
 "kyY" = (
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
@@ -45687,9 +45678,6 @@
 /turf/open/floor/plasteel/freezer,
 /area/storage/emergency/port)
 "lDW" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-4"
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 6
 	},
@@ -45699,6 +45687,9 @@
 /obj/machinery/atmospherics/pipe/manifold4w/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/manifold/scrubbers/hidden/layer4{
 	dir = 8
+	},
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
 	},
 /turf/open/floor/plasteel/dark,
 /area/bridge)
@@ -49853,6 +49844,9 @@
 	c_tag = "Bridge Starboard Entrance";
 	dir = 4
 	},
+/obj/structure/cable/yellow{
+	icon_state = "1-4"
+	},
 /turf/open/floor/plasteel/dark,
 /area/bridge)
 "otV" = (
@@ -52109,14 +52103,7 @@
 /turf/open/floor/plasteel,
 /area/tcommsat/computer)
 "pKJ" = (
-/obj/structure/cable/yellow{
-	icon_state = "1-2"
-	},
 /obj/effect/mapping_helpers/airlock/cyclelink_helper,
-/obj/machinery/door/airlock/command/glass{
-	name = "Bridge";
-	req_access_txt = "19"
-	},
 /obj/effect/turf_decal/stripes/line,
 /obj/effect/turf_decal/stripes/line{
 	dir = 1
@@ -52124,6 +52111,10 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
+/obj/machinery/door/airlock/command/glass{
+	name = "Bridge";
+	req_access_txt = "19"
+	},
 /turf/open/floor/plasteel/dark,
 /area/bridge)
 "pLe" = (
@@ -63868,9 +63859,6 @@
 /turf/open/floor/plasteel,
 /area/engine/engineering)
 "xHQ" = (
-/obj/structure/cable/yellow{
-	icon_state = "2-8"
-	},
 /obj/machinery/button/door{
 	id = "bridge blast";
 	name = "Bridge Entrance Lockdown";
@@ -86984,7 +86972,7 @@ apJ
 pBy
 amd
 asz
-atB
+ajM
 ajM
 ajM
 ajM
@@ -88012,7 +88000,7 @@ amg
 fSZ
 arp
 asB
-atB
+ajM
 ajM
 ajM
 ajM
@@ -94707,10 +94695,10 @@ aCK
 aEE
 aAB
 aGo
-aHf
-wKT
-aIW
-dRO
+bdh
+aHV
+aIO
+jfr
 bdh
 ovF
 aKT
@@ -94964,11 +94952,11 @@ aDL
 aEF
 aAB
 aGp
-aHf
 aHX
-aIW
-dRO
-bdh
+aHV
+aIO
+jfr
+aHX
 pZp
 aKT
 qFF
@@ -95221,11 +95209,11 @@ aDM
 aEG
 aAB
 aGq
-aHf
+aIW
 wKT
 aIX
 dRO
-bdh
+bHT
 vfP
 aKT
 qFF
@@ -95478,11 +95466,11 @@ aDL
 aEH
 aAB
 aGr
-aHf
 aHX
-aIW
-dRO
-bdh
+aHV
+aDZ
+jfr
+aHX
 wcX
 aKT
 loV
@@ -95735,11 +95723,11 @@ aCK
 aEE
 aAB
 aGs
-aHf
-wKT
 aIY
-dRO
-bdh
+aHV
+aDZ
+jfr
+aIY
 cNN
 aKT
 loV
@@ -95995,7 +95983,7 @@ aGn
 axi
 aHZ
 aDZ
-kyP
+jfr
 aAN
 aSt
 aKT
@@ -96501,7 +96489,7 @@ jKi
 wpm
 aAD
 aBr
-aDO
+atB
 otz
 fbl
 aDO
@@ -96758,7 +96746,7 @@ doV
 rjJ
 xHQ
 pKJ
-rPK
+fEg
 lDW
 pvI
 scL
@@ -108091,7 +108079,7 @@ aaa
 aaa
 aaa
 aaa
-bHT
+aaa
 aEj
 aEj
 aEj
@@ -108348,7 +108336,7 @@ aaa
 aaa
 aaa
 aaa
-bHT
+aaa
 aEl
 lVZ
 gHi
