@@ -112,9 +112,9 @@
 
 	to_chat(user, "<span class='notice'>You emag [src]'s interface.</span>")
 	emag_cooldown = world.time + 100
-	addtimer(CALLBACK(src, .proc/after_emag), 1)
+	addtimer(CALLBACK(src, .proc/after_emag, user), 1)
 
-/mob/living/silicon/robot/proc/after_emag()
+/mob/living/silicon/robot/proc/after_emag(mob/user)
 	if(connected_ai?.mind && connected_ai.mind.has_antag_datum(/datum/antagonist/traitor))
 		to_chat(src, "<span class='danger'>ALERT: Foreign software execution prevented.</span>")
 		logevent("ALERT: Foreign software execution prevented.")
