@@ -1,0 +1,4 @@
+author: Archanial
+delete-after: true
+changes:
+  - bugfix: undefined 2 things in chatmessage.dm
