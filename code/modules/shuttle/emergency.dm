@@ -254,20 +254,22 @@
 			{AUTH - ROOT (uid: 0)}.</font>[SSshuttle.emergency.mode == SHUTTLE_ESCAPE ? "Diverting from existing route - Bluespace exit in [hijack_completion_flight_time_set/10] seconds." : ""]"
 	minor_announce(scramble_message_replace_chars(msg, replaceprob = 10), "Emergency Shuttle", TRUE)
 
-/obj/machinery/computer/emergency_shuttle/emag_act(mob/user)
+/obj/machinery/computer/emergency_shuttle/should_emag(mob/user)
 	// How did you even get on the shuttle before it go to the station?
 	if(!IS_DOCKED)
-		return
-
-	if((obj_flags & EMAGGED) || ENGINES_STARTED)	//SYSTEM ERROR: THE SHUTTLE WILL LA-SYSTEM ERROR: THE SHUTTLE WILL LA-SYSTEM ERROR: THE SHUTTLE WILL LAUNCH IN 10 SECONDS
+		return FALSE
+	if(!..() || ENGINES_STARTED)
+		//SYSTEM ERROR: THE SHUTTLE WILL LA-SYSTEM ERROR: THE SHUTTLE WILL LA-SYSTEM ERROR: THE SHUTTLE WILL LAUNCH IN 10 SECONDS
 		to_chat(user, "<span class='warning'>The shuttle is already launching!</span>")
-		return
+		return FALSE
+	return TRUE
 
+/obj/machinery/computer/emergency_shuttle/on_emag(mob/user)
+	..()
 	var/time = TIME_LEFT
 	message_admins("[ADMIN_LOOKUPFLW(user.client)] has emagged the emergency shuttle, [time] seconds before launch.")
 	log_game("[key_name(user)] has emagged the emergency shuttle in [COORD(src)] [time] seconds before launch.")
 
-	obj_flags |= EMAGGED
 	SSshuttle.emergency.movement_force = list("KNOCKDOWN" = 60, "THROW" = 20)//YOUR PUNY SEATBELTS can SAVE YOU NOW, MORTAL
 	var/datum/species/S = new
 	for(var/i in 1 to 10)
@@ -624,10 +626,8 @@
 /obj/machinery/computer/shuttle_flight/pod/update_icon()
 	return
 
-/obj/machinery/computer/shuttle_flight/pod/emag_act(mob/user)
-	if(obj_flags & EMAGGED)
-		return
-	obj_flags |= EMAGGED
+/obj/machinery/computer/shuttle_flight/pod/on_emag(mob/user)
+	..()
 	to_chat(user, "<span class='warning'>You fry the pod's alert level monitoring system.</span>")
 
 /obj/machinery/computer/shuttle_flight/pod/connect_to_shuttle(obj/docking_port/mobile/port, obj/docking_port/stationary/dock, idnum, override=FALSE)

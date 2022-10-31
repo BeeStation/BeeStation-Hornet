@@ -10,11 +10,11 @@
 	if(modifiers["alt"])
 		AltClickNoInteract(src, A)
 		return
-	
+
 	if(modifiers["ctrl"])
 		CtrlClickOn(A)
 		return
-	
+
 	if(ishuman(A))
 		if(A in drained_mobs)
 			to_chat(src, "<span class='revenwarning'>[A]'s soul is dead and empty.</span>" )
@@ -320,7 +320,7 @@
 			new /obj/effect/temp_visual/revenant(bot.loc)
 			bot.locked = FALSE
 			bot.open = TRUE
-			bot.emag_act()
+			bot.use_emag()
 	for(var/mob/living/carbon/human/human in T)
 		if(human == user)
 			continue
@@ -335,7 +335,7 @@
 		if(prob(20))
 			if(prob(50))
 				new /obj/effect/temp_visual/revenant(thing.loc)
-			thing.emag_act(null)
+			thing.use_emag(null)
 		else
 			if(!istype(thing, /obj/machinery/clonepod)) //I hate everything but mostly the fact there's no better way to do this without just not affecting it at all
 				thing.emp_act(EMP_HEAVY)

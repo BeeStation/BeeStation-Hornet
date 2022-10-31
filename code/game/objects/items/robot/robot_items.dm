@@ -366,10 +366,11 @@
 	desc = "Releases a harmless blast that confuses most organics. For when the harm is JUST TOO MUCH."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "megaphone"
+	emag_toggleable = TRUE
 	var/cooldown = 0
 
-/obj/item/harmalarm/emag_act(mob/user)
-	obj_flags ^= EMAGGED
+/obj/item/harmalarm/on_emag(mob/user)
+	..()
 	if(obj_flags & EMAGGED)
 		to_chat(user, "<font color='red'>You short out the safeties on [src]!</font>")
 	else

@@ -127,10 +127,9 @@ GLOBAL_LIST(labor_sheet_values)
 	if(stacking_machine)
 		stacking_machine.console = src
 
-/obj/machinery/mineral/labor_claim_console/emag_act(mob/user)
-	if(!(obj_flags & EMAGGED))
-		obj_flags |= EMAGGED
-		to_chat(user, "<span class='warning'>PZZTTPFFFT</span>")
+/obj/machinery/mineral/labor_claim_console/on_emag(mob/user)
+	..()
+	to_chat(user, "<span class='warning'>PZZTTPFFFT</span>")
 
 /**********************Prisoner Collection Unit**************************/
 

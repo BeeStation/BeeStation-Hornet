@@ -91,7 +91,7 @@
 	text_dehack = "You detect errors in [name] and reset his programming."
 	text_dehack_fail = "[name] is not responding to reset commands!"
 
-/mob/living/simple_animal/bot/atmosbot/emag_act(mob/user)
+/mob/living/simple_animal/bot/atmosbot/on_emag(mob/user)
 	. = ..()
 	if(emagged == 2)
 		audible_message("<span class='danger'>[src] whirs ominously.</span>")

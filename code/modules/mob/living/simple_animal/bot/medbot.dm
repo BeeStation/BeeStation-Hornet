@@ -215,7 +215,7 @@ GLOBAL_VAR(medibot_unique_id_gen)
 	if(health < current_health) //if medbot took some damage
 		step_to(src, (get_step_away(src,user)))
 
-/mob/living/simple_animal/bot/medbot/emag_act(mob/user)
+/mob/living/simple_animal/bot/medbot/on_emag(atom/target, mob/user)
 	..()
 	if(emagged == 2)
 		declare_crit = 0

@@ -125,10 +125,8 @@
 	else
 		return ..()
 
-/obj/machinery/computer/slot_machine/emag_act()
-	if(obj_flags & EMAGGED)
-		return
-	obj_flags |= EMAGGED
+/obj/machinery/computer/slot_machine/on_emag(mob/user)
+	..()
 	var/datum/effect_system/spark_spread/spark_system = new /datum/effect_system/spark_spread()
 	spark_system.set_up(4, 0, src.loc)
 	spark_system.start()

@@ -2063,11 +2063,10 @@
 		diskette.forceMove(drop_location())
 	diskette = null
 
-/obj/machinery/computer/scan_consolenew/emag_act(mob/user)
-	obj_flags |= EMAGGED
-	if(req_access)
-		req_access = list()
-		to_chat(user, "<span class='warning'>You bypass [src]'s access requirements.</span>")
+/obj/machinery/computer/scan_consolenew/on_emag(mob/user)
+	..()
+	req_access = list()
+	to_chat(user, "<span class='warning'>You bypass [src]'s access requirements.</span>")
 
 /////////////////////////// DNA MACHINES
 #undef INJECTOR_TIMEOUT

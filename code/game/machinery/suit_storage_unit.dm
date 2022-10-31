@@ -205,10 +205,8 @@
 	wires.ui_update()
 	ui_update()
 
-/obj/machinery/suit_storage_unit/emag_act(mob/user)
-	if(obj_flags & EMAGGED)
-		return
-	obj_flags |= EMAGGED
+/obj/machinery/suit_storage_unit/on_emag(mob/user)
+	..()
 	to_chat(user, "<span class='warning'>You reprogram [src]'s decontamination subroutines.</span>")
 
 /obj/machinery/suit_storage_unit/deconstruct(disassembled = TRUE)

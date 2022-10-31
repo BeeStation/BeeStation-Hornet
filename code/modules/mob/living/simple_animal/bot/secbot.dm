@@ -195,7 +195,7 @@ Auto Patrol: []"},
 		if(special_retaliate_after_attack(user))
 			return
 
-/mob/living/simple_animal/bot/secbot/emag_act(mob/user)
+/mob/living/simple_animal/bot/secbot/on_emag(atom/target, mob/user)
 	..()
 	if(emagged == 2)
 		if(user)

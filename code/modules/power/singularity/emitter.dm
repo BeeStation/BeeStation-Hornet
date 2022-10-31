@@ -351,11 +351,9 @@
 	projectile_type = initial(projectile_type)
 	projectile_sound = initial(projectile_sound)
 
-/obj/machinery/power/emitter/emag_act(mob/user)
-	if(obj_flags & EMAGGED)
-		return
+/obj/machinery/power/emitter/on_emag(mob/user)
+	..()
 	locked = FALSE
-	obj_flags |= EMAGGED
 	user?.visible_message("[user.name] emags [src].","<span class='notice'>You short out the lock.</span>")
 
 

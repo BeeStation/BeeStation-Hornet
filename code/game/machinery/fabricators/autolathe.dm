@@ -157,13 +157,11 @@
 	update_viewer_statics()
 	wires.ui_update()
 
-/obj/machinery/modular_fabricator/autolathe/emag_act(mob/user)
-	if(obj_flags & EMAGGED)
-		return
+/obj/machinery/modular_fabricator/autolathe/on_emag(mob/user)
+	..()
 	security_interface_locked = FALSE
 	adjust_hacked(TRUE)
 	playsound(src, "sparks", 100, 1)
-	obj_flags |= EMAGGED
 
 /obj/machinery/modular_fabricator/autolathe/hacked/Initialize(mapload)
 	. = ..()

@@ -1176,7 +1176,7 @@
 		INVOKE_ASYNC(src, (density ? .proc/open : .proc/close), 2)
 
 
-/obj/machinery/door/airlock/open(forced=0)
+/obj/machinery/door/airlock/open(forced=0, ignore_emagged = FALSE)
 	if( operating || welded || locked )
 		return FALSE
 	if(!forced)
@@ -1197,7 +1197,7 @@
 			H.apply_damage(40, BRUTE, BODY_ZONE_CHEST)
 		return
 	if(forced < 2)
-		if(obj_flags & EMAGGED)
+		if(!ignore_emagged && (obj_flags & EMAGGED))
 			return FALSE
 		if(!protected_door)
 			use_power(50)
@@ -1332,24 +1332,34 @@
 //Airlock is passable if it is open (!density), bot has access, and is not bolted shut or powered off)
 	return !density || (check_access(ID) && !locked && hasPower())
 
-/obj/machinery/door/airlock/emag_act(mob/user)
+/obj/machinery/door/airlock/should_emag(mob/user)
+	if(!..())
+		return FALSE
 	if(protected_door)
 		to_chat(user, "<span class='warning'>[src] has no maintenance panel!</span>")
+		return FALSE
+	if(!hasPower())
+		to_chat(user, "<span class='warning'>The cryptographic sequencer connects to \the [src]'s ID scanner, but nothing happens.</span>")
+		return FALSE
+	// Don't allow emag if the door is currently open or moving
+	return !operating && density
+
+/obj/machinery/door/airlock/on_emag(mob/user)
+	..()
+	operating = TRUE
+	update_icon(AIRLOCK_EMAG, 1)
+	addtimer(CALLBACK(src, .proc/after_emag), 6)
+
+/obj/machinery/door/airlock/proc/after_emag()
+	if(QDELETED(src))
 		return
-	if(!operating && density && hasPower() && !(obj_flags & EMAGGED))
-		operating = TRUE
-		update_icon(AIRLOCK_EMAG, 1)
-		sleep(6)
-		if(QDELETED(src))
-			return
-		operating = FALSE
-		if(!open())
-			update_icon(AIRLOCK_CLOSED, 1)
-		obj_flags |= EMAGGED
-		lights = FALSE
-		locked = TRUE
-		loseMainPower()
-		loseBackupPower()
+	operating = FALSE
+	if(!open(ignore_emagged = TRUE))
+		update_icon(AIRLOCK_CLOSED, 1)
+	lights = FALSE
+	locked = TRUE
+	loseMainPower()
+	loseBackupPower()
 
 /obj/machinery/door/airlock/attack_alien(mob/living/carbon/alien/humanoid/user)
 	add_fingerprint(user)

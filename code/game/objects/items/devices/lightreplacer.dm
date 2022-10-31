@@ -66,6 +66,8 @@
 	var/shards_required = 4
 
 	var/bluespace_toggle = FALSE
+	/// If it can be emagged, used by subtypes to disable
+	var/emaggable = TRUE
 
 /obj/item/lightreplacer/examine(mob/user)
 	. = ..()
@@ -143,10 +145,14 @@
 
 		to_chat(user, "<span class='notice'>You fill \the [src] with lights from \the [S]. " + status_string() + "</span>")
 
-/obj/item/lightreplacer/emag_act()
-	if(obj_flags & EMAGGED)
-		return
-	Emag()
+/obj/item/lightreplacer/should_emag(mob/user)
+	return emaggable && ..()
+
+/obj/item/lightreplacer/on_emag(mob/user)
+	..()
+	playsound(src.loc, "sparks", 100, 1)
+	name = "shortcircuited [initial(name)]"
+	update_icon()
 
 /obj/item/lightreplacer/attack_self(mob/user)
 	for(var/obj/machinery/light/target in user.loc)
@@ -216,15 +222,6 @@
 		to_chat(U, "<span class='warning'>There is a working [target.fitting] already inserted!</span>")
 		return
 
-/obj/item/lightreplacer/proc/Emag()
-	obj_flags ^= EMAGGED
-	playsound(src.loc, "sparks", 100, 1)
-	if(obj_flags & EMAGGED)
-		name = "shortcircuited [initial(name)]"
-	else
-		name = initial(name)
-	update_icon()
-
 /obj/item/lightreplacer/proc/CanUse(mob/living/user)
 	add_fingerprint(user)
 	return uses > 0
@@ -264,9 +261,7 @@
 	desc = "A modified light replacer that zaps lights into place. Refill with broken or working light bulbs, or sheets of glass."
 	icon_state = "lightreplacer_blue0"
 	bluespace_toggle = TRUE
-
-/obj/item/lightreplacer/bluespace/emag_act()
-	return  // long range explosions are stupid
+	emaggable = FALSE
 
 /obj/item/lightreplacer/bluespace/update_icon()  // making sure it uses the new icon state names
 	icon_state = "lightreplacer_blue[(obj_flags & EMAGGED ? 1 : 0)]"

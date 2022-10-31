@@ -106,10 +106,8 @@
 	name = "tangle of limbs"
 	desc = "You are restrained in a tangle of bodies!"
 
-/obj/vehicle/sealed/car/clowncar/emag_act(mob/user)
-	if(obj_flags & EMAGGED)
-		return
-	obj_flags |= EMAGGED
+/obj/vehicle/sealed/car/clowncar/on_emag(mob/user)
+	..()
 	to_chat(user, "<span class='danger'>You scramble the clowncar child safety lock and a panel with 6 colorful buttons appears!</span>")
 	initialize_controller_action_type(/datum/action/vehicle/sealed/RollTheDice, VEHICLE_CONTROL_DRIVE)
 	initialize_controller_action_type(/datum/action/vehicle/sealed/Cannon, VEHICLE_CONTROL_DRIVE)

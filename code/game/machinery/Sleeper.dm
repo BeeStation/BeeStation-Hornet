@@ -234,7 +234,11 @@
 				if(scrambled_chems && prob(5))
 					to_chat(usr, "<span class='warning'>Chemical system re-route detected, results may not be as expected!</span>")
 
-/obj/machinery/sleeper/emag_act(mob/user)
+/obj/machinery/sleeper/should_emag(mob/user)
+	return TRUE
+
+/obj/machinery/sleeper/on_emag(mob/user)
+	..()
 	scramble_chem_buttons()
 	to_chat(user, "<span class='warning'>You scramble the sleeper's user interface!</span>")
 

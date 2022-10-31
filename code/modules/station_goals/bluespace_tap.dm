@@ -223,7 +223,6 @@
 	var/base_points = 4
 	/// How high the machine can be run before it starts having a chance for dimension breaches.
 	var/safe_levels = 10
-	var/emagged = FALSE
 
 /obj/machinery/power/bluespace_tap/New()
 	..()
@@ -310,7 +309,7 @@
 		return	// and no mining gets done
 	if(actual_power_usage)
 		add_load(actual_power_usage)
-		var/points_to_add = (input_level + emagged) * base_points
+		var/points_to_add = (input_level + !!(obj_flags & EMAGGED)) * base_points
 		points += points_to_add	//point generation, emagging gets you 'free' points at the cost of higher anomaly chance
 		total_points += points_to_add
 	// actual input level changes slowly
@@ -318,9 +317,9 @@
 		input_level++
 	else if(input_level > desired_level)
 		input_level--
-	if(prob(input_level - safe_levels + (emagged * 5)))	//at dangerous levels, start doing freaky shit. prob with values less than 0 treat it as 0
-		priority_announce("Unexpected power spike during Bluespace Harvester Operation. Extra-dimensional intruder alert. Expected location: [get_area_name(src)]. [emagged ? "DANGER: Emergency shutdown failed! Please proceed with manual shutdown." : "Emergency shutdown initiated."]", "Bluespace Harvester Malfunction",sound = SSstation.announcer.get_rand_report_sound())
-		if(!emagged)
+	if(prob(input_level - safe_levels + (!!(obj_flags & EMAGGED) * 5)))	//at dangerous levels, start doing freaky shit. prob with values less than 0 treat it as 0
+		priority_announce("Unexpected power spike during Bluespace Harvester Operation. Extra-dimensional intruder alert. Expected location: [get_area_name(src)]. [(obj_flags & EMAGGED) ? "DANGER: Emergency shutdown failed! Please proceed with manual shutdown." : "Emergency shutdown initiated."]", "Bluespace Harvester Malfunction",sound = SSstation.announcer.get_rand_report_sound())
+		if(!(obj_flags & EMAGGED))
 			input_level = 0	//emergency shutdown unless we're sabotaged
 			desired_level = 0
 		for(var/i in 1 to rand(1, 3))
@@ -339,7 +338,7 @@
 	data["powerUse"] = actual_power_usage
 	data["availablePower"] = surplus()
 	data["maxLevel"] = max_level
-	data["emagged"] = emagged
+	data["emagged"] = (obj_flags & EMAGGED)
 	data["safeLevels"] = safe_levels
 	data["nextLevelPower"] = get_power_use(input_level + 1)
 
@@ -408,13 +407,10 @@
 		ui.open()
 
 //emaging provides slightly more points but at much greater risk
-/obj/machinery/power/bluespace_tap/emag_act(mob/living/user as mob)
-	if(emagged)
-		return
-	emagged = TRUE
+/obj/machinery/power/bluespace_tap/on_emag(mob/user)
+	..()
 	do_sparks(5, FALSE, src)
-	if(user)
-		user.visible_message("<span class='warning'>[user] overrides the safety protocols of [src].</span>", "<span class='warning'>You override the safety protocols.</span>")
+	user?.visible_message("<span class='warning'>[user] overrides the safety protocols of [src].</span>", "<span class='warning'>You override the safety protocols.</span>")
 
 /obj/structure/spawner/nether/bluespace_tap
 	spawn_time = 30 SECONDS

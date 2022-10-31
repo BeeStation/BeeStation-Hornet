@@ -95,10 +95,8 @@
 	update_icon()
 	user.update_inv_back()
 
-/obj/item/minigunpack/emag_act(mob/user)
-	if(obj_flags & EMAGGED)
-		return
-	obj_flags |= EMAGGED
+/obj/item/minigunpack/on_emag(mob/user)
+	..()
 	to_chat(user, "<span class='warning'>You break the heat sensor.</span>")
 	overheat_max = 1000
 
@@ -182,10 +180,8 @@
 	..()
 	ammo_pack.attach_gun(user)
 
-/obj/item/gun/energy/minigun/emag_act(mob/user)
-	if(obj_flags & EMAGGED)
-		return
-	obj_flags |= EMAGGED
+/obj/item/gun/energy/minigun/on_emag(mob/user)
+	..()
 	fire_sound = null
 	spread = 60
 	recoil = 1

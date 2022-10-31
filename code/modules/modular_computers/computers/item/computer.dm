@@ -243,11 +243,14 @@ GLOBAL_LIST_EMPTY(TabletMessengers) // a list of all active messengers, similar 
 		if(response == "Yes")
 			turn_on(user)
 
-/obj/item/modular_computer/emag_act(mob/user)
+/obj/item/modular_computer/should_emag(mob/user)
 	if(!enabled)
 		to_chat(user, "<span class='warning'>You'd need to turn the [src] on first.</span>")
 		return FALSE
-	obj_flags |= EMAGGED //Mostly for consistancy purposes; the programs will do their own emag handling
+	return TRUE
+
+/obj/item/modular_computer/on_emag(mob/user)
+	..()
 	var/newemag = FALSE
 	var/obj/item/computer_hardware/hard_drive/drive = all_components[MC_HDD]
 	for(var/datum/computer_file/program/app in drive.stored_files)

@@ -50,8 +50,6 @@
 	#define COMPONENT_CANCEL_BLOB_ACT (1<<0)
 ///! from base of atom/acid_act(): (acidpwr, acid_volume)
 #define COMSIG_ATOM_ACID_ACT "atom_acid_act"
-///! from base of atom/emag_act(): ()
-#define COMSIG_ATOM_EMAG_ACT "atom_emag_act"
 ///! from base of atom/rad_act(intensity)
 #define COMSIG_ATOM_RAD_ACT "atom_rad_act"
 ///! from base of atom/narsie_act(): ()
@@ -141,3 +139,8 @@
 #define COMSIG_MOUSEDROP_ONTO "mousedrop_onto"					//! from base of atom/MouseDrop(): (/atom/over, /mob/user)
 	#define COMPONENT_NO_MOUSEDROP 1
 #define COMSIG_MOUSEDROPPED_ONTO "mousedropped_onto"			//! from base of atom/MouseDrop_T: (/atom/from, /mob/user)
+
+/// Check if an emag action should occur, this is inverted, so FALSE means the check succeeds.
+#define COMSIG_ATOM_SHOULD_EMAG "atom_should_emag"
+/// Do the emag action (if CHECK is FALSE)
+#define COMSIG_ATOM_ON_EMAG "atom_on_emag"
