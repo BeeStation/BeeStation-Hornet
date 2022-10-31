@@ -244,10 +244,13 @@
 		charge = max(10, charge)
 
 		//Add holder for muh balance
+		/*
+		Uncomment this if artifact abuse becomes a huge issue
 		if(isliving(loc) || isliving(pulledby))
 			var/mob/living/M = isliving(loc) ? loc : pulledby
 			if(!istype(M.get_item_by_slot(ITEM_SLOT_GLOVES), /obj/item/clothing/gloves/artifact_pinchers) && !istype(get_area(M), /area/science))
-				true_target |= M
+				true_target |= list(M)
+		*/
    
 		for(var/atom/M in true_target) //target loop, majors & malfunctions
 			if(get_dist(get_turf(src), get_turf(M)) <= max_range) 
@@ -324,7 +327,8 @@
 		. = process_target(M)
 	if(isliving(loc) && !.)
 		. = process_target(loc)
-	return
+	//Return a list becuase byond is fucky and WILL overwrite the typing
+	return list(.)
 
 ///Returns the desired trait and it's values if it's in the artifact's list
 /obj/item/xenoartifact/proc/get_trait(typepath)
@@ -345,13 +349,13 @@
 		. = M?.pulling ? M.pulling : M
 	else
 		. = target
-	RegisterSignal(., COMSIG_PARENT_QDELETING, .proc/on_target_del)
+	RegisterSignal(., COMSIG_PARENT_QDELETING, .proc/on_target_del, TRUE)
 	return
 
 ///Hard del handle
 /obj/item/xenoartifact/proc/on_target_del(atom/target)
 	UnregisterSignal(target, COMSIG_PARENT_QDELETING)
-	true_target -= target
+	true_target -= list(target)
 
 ///Helps show how the artifact is working. Hint stuff. Draws a beam between artifact and target
 /obj/item/xenoartifact/proc/create_beam(atom/target)

@@ -530,3 +530,29 @@
 		target.color = pick(COLOR_RED, COLOR_GREEN, COLOR_BLUE, COLOR_PURPLE, COLOR_ORANGE, COLOR_YELLOW, COLOR_CYAN, COLOR_PINK)
 	else
 		target.color = color
+
+///============
+/// emote, makes user do a random emote
+///============
+/datum/xenoartifact_trait/major/emote
+	label_name = "Emotional"
+	label_desc = "Emotional: The Artifact causes the target to experience, or preform, a random emotion."
+	flags = PLASMA_TRAIT | BLUESPACE_TRAIT | URANIUM_TRAIT
+	///Emote to preform
+	var/datum/emote/emote
+
+/datum/xenoartifact_trait/major/emote/on_init(obj/item/xenoartifact/X)
+	emote = pick(GLOB.xenoa_emote)
+	emote = new emote()
+
+/datum/xenoartifact_trait/major/emote/activate(obj/item/xenoartifact/X, atom/target, atom/user, setup)
+	if(iscarbon(target))
+		emote.run_emote(target)
+	//Not all mobs can preform the given emotes, spin is pretty common though
+	else if(isliving(target))
+		var/datum/emote/spin/E = new()
+		E.run_emote(target)
+
+/datum/xenoartifact_trait/major/emote/Destroy()
+	. = ..()
+	QDEL_NULL(emote)

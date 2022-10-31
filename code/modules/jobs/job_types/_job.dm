@@ -79,7 +79,7 @@
 	/// Should this job be allowed to be picked for the bureaucratic error event?
 	var/allow_bureaucratic_error = TRUE
 	///how at risk is this occupation at for being a carrier of a dormant disease
-	var/biohazard = 10
+	var/biohazard = 20
 
 	///A dictionary of species IDs and a path to the outfit.
 	var/list/species_outfits = null
@@ -378,8 +378,8 @@
 		guaranteed = /datum/symptom/undead_adaptation
 	else if(!(MOB_ORGANIC in H.mob_biotypes))
 		return //this mob cant be given a disease
-	if(prob(biohazard * sickrisk))
-		var/datum/disease/advance/scandisease = new /datum/disease/advance/random(rand(1, 4), rand(7, 9), unfunny, guaranteed, infected = H)
+	if(prob (min(100, (biohazard * sickrisk))))
+		var/datum/disease/advance/scandisease = new /datum/disease/advance/random(rand(2, 4), 9, unfunny, guaranteed, infected = H)
 		scandisease.dormant = TRUE
 		scandisease.spread_flags = DISEASE_SPREAD_NON_CONTAGIOUS
 		scandisease.spread_text = "None"

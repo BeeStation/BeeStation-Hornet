@@ -52,9 +52,9 @@
 		// ===== ADMIN PMS =====
 		if("(!) Admin PM")
 			client.stat_update_mode = STAT_MEDIUM_UPDATE
-			var/datum/admin_help/ticket = client.current_ticket
+			var/datum/help_ticket/ticket = client.current_adminhelp_ticket
 			tab_data["ckey"] = key_name(client, FALSE, FALSE)
-			tab_data["admin_name"] = key_name(ticket.claimed_admin, FALSE, FALSE)
+			tab_data["admin_name"] = key_name(ticket.claimee, FALSE, FALSE)
 			//Messages:
 			tab_data["messages"] = list()
 			for(var/datum/ticket_interaction/message as() in ticket._interactions)
@@ -206,7 +206,7 @@
 		"Status",
 	)
 	//Get Tickets
-	if(client.current_ticket)
+	if(client.current_adminhelp_ticket)
 		//Bwoinks come after status
 		tabs += "(!) Admin PM"
 	//Listed turfs
@@ -261,7 +261,7 @@
 				I.ui_interact(src)
 		if("open_ticket")
 			var/ticket_id = text2num(params["id"])
-			var/datum/admin_help/AH = GLOB.ahelp_tickets.TicketByID(ticket_id)
+			var/datum/help_ticket/AH = GLOB.ahelp_tickets.TicketByID(ticket_id)
 			if(AH && client.holder)
 				AH.ui_interact(src)
 		if("atomClick")
@@ -319,8 +319,8 @@
 			if(message)
 				if(world.time > client.last_adminhelp_reply + 10 SECONDS)
 					client.last_adminhelp_reply = world.time
-					if(client.current_ticket)
-						client.current_ticket.MessageNoRecipient(message)
+					if(client.current_adminhelp_ticket)
+						client.current_adminhelp_ticket.MessageNoRecipient(message)
 					else
 						to_chat(src, "<span class='warning'>Your issue has already been resolved!</span>")
 				else

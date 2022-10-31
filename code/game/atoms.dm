@@ -41,8 +41,6 @@
 	var/list/atom_colours
 
 
-	///overlays that should remain on top and not normally removed when using cut_overlay functions, like c4.
-	var/list/priority_overlays
 	/// a very temporary list of overlays to remove
 	var/list/remove_overlays
 	/// a very temporary list of overlays to add
@@ -97,6 +95,9 @@
 	var/chat_color_name
 	/// Last color calculated for the the chatmessage overlays
 	var/chat_color
+
+	///Used for changing icon states for different base sprites.
+	var/base_icon_state
 
 	///The config type to use for greyscaled sprites. Both this and greyscale_colors must be assigned to work.
 	var/greyscale_config
@@ -255,7 +256,6 @@
 	orbiters = null // The component is attached to us normaly and will be deleted elsewhere
 
 	LAZYCLEARLIST(overlays)
-	LAZYCLEARLIST(priority_overlays)
 	LAZYCLEARLIST(managed_overlays)
 
 	for(var/i in targeted_by)
@@ -825,12 +825,12 @@
 /**
   * Called when lighteater is called on this.
   */
-/atom/proc/lighteater_act(obj/item/light_eater/light_eater)
+/atom/proc/lighteater_act(obj/item/light_eater/light_eater, atom/parent)
 	SHOULD_CALL_PARENT(TRUE)
 	SEND_SIGNAL(src,COMSIG_ATOM_LIGHTEATER_ACT)
 	for(var/datum/light_source/light_source in light_sources)
 		if(light_source.source_atom != src)
-			light_source.source_atom.lighteater_act(light_eater)
+			light_source.source_atom.lighteater_act(light_eater, src)
 
 /**
   * Respond to the eminence clicking on our atom
