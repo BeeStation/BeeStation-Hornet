@@ -34206,7 +34206,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
-/turf/open/floor/plasteel/greyish,
+/turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/cmo)
 "cnD" = (
 /obj/item/computer_hardware/hard_drive/role/medical{
@@ -34229,7 +34229,7 @@
 	dir = 8
 	},
 /obj/item/gun/syringe,
-/turf/open/floor/plasteel/greyish,
+/turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/cmo)
 "cnE" = (
 /obj/item/folder/blue,
@@ -34241,7 +34241,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
-/turf/open/floor/plasteel/greyish,
+/turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/cmo)
 "cnF" = (
 /obj/item/folder/white{
@@ -34259,7 +34259,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
-/turf/open/floor/plasteel/greyish,
+/turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/cmo)
 "cnG" = (
 /obj/structure/closet/secure_closet/CMO,
@@ -34279,7 +34279,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
-/turf/open/floor/plasteel/greyish,
+/turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/cmo)
 "cnH" = (
 /obj/item/radio/intercom{
@@ -34518,7 +34518,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
-/turf/open/floor/plasteel/greyish,
+/turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/cmo)
 "coP" = (
 /obj/effect/turf_decal/tile/blue{
@@ -34527,7 +34527,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
-/turf/open/floor/plasteel/greyish,
+/turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/cmo)
 "coQ" = (
 /obj/structure/chair/office/light{
@@ -34540,7 +34540,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
-/turf/open/floor/plasteel/greyish,
+/turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/cmo)
 "coR" = (
 /obj/structure/cable/yellow{
@@ -34556,7 +34556,7 @@
 	dir = 8
 	},
 /mob/living/simple_animal/pet/cat/Runtime,
-/turf/open/floor/plasteel/greyish,
+/turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/cmo)
 "coS" = (
 /obj/machinery/power/apc{
@@ -34579,7 +34579,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
-/turf/open/floor/plasteel/greyish,
+/turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/cmo)
 "coT" = (
 /obj/structure/window/reinforced{
@@ -34942,7 +34942,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
-/turf/open/floor/plasteel/greyish,
+/turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/cmo)
 "cqm" = (
 /obj/structure/disposalpipe/segment{
@@ -34954,7 +34954,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
-/turf/open/floor/plasteel/greyish,
+/turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/cmo)
 "cqn" = (
 /obj/structure/disposalpipe/segment{
@@ -34966,7 +34966,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
-/turf/open/floor/plasteel/greyish,
+/turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/cmo)
 "cqo" = (
 /obj/structure/cable/yellow{
@@ -34981,7 +34981,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
-/turf/open/floor/plasteel/greyish,
+/turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/cmo)
 "cqp" = (
 /obj/structure/disposalpipe/segment{
@@ -35474,7 +35474,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
-/turf/open/floor/plasteel/greyish,
+/turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/cmo)
 "crz" = (
 /obj/structure/disposalpipe/segment,
@@ -35485,7 +35485,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
-/turf/open/floor/plasteel/greyish,
+/turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/cmo)
 "crB" = (
 /obj/structure/cable/yellow{
@@ -35497,7 +35497,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
-/turf/open/floor/plasteel/greyish,
+/turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/cmo)
 "crC" = (
 /obj/machinery/light{
@@ -35528,7 +35528,7 @@
 	pixel_y = 6;
 	req_access_txt = "39"
 	},
-/turf/open/floor/plasteel/greyish,
+/turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/cmo)
 "crD" = (
 /obj/structure/disposalpipe/segment,
@@ -35796,7 +35796,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
-/turf/open/floor/plasteel/greyish,
+/turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/cmo)
 "csB" = (
 /obj/machinery/computer/security/telescreen{
@@ -35819,7 +35819,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
-/turf/open/floor/plasteel/greyish,
+/turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/cmo)
 "csC" = (
 /obj/structure/disposalpipe/segment{
@@ -36086,7 +36086,7 @@
 /obj/effect/turf_decal/bot{
 	dir = 1
 	},
-/turf/open/floor/plasteel/greyish,
+/turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/cmo)
 "cty" = (
 /obj/machinery/suit_storage_unit/cmo,
@@ -36096,7 +36096,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
-/turf/open/floor/plasteel/greyish,
+/turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/cmo)
 "ctz" = (
 /obj/structure/table/glass,
@@ -36112,7 +36112,7 @@
 /obj/effect/turf_decal/tile/blue{
 	dir = 8
 	},
-/turf/open/floor/plasteel/greyish,
+/turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/cmo)
 "ctA" = (
 /turf/closed/wall/r_wall,
@@ -53777,7 +53777,7 @@
 	dir = 8
 	},
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
-/turf/open/floor/plasteel/greyish,
+/turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/cmo)
 "gQm" = (
 /obj/structure/disposalpipe/segment{
@@ -55835,7 +55835,7 @@
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 8
 	},
-/turf/open/floor/plasteel/greyish,
+/turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/cmo)
 "ihA" = (
 /obj/structure/cable/yellow{
@@ -66821,7 +66821,7 @@
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4,
-/turf/open/floor/plasteel/greyish,
+/turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/cmo)
 "oBZ" = (
 /obj/structure/window/reinforced,
@@ -70035,7 +70035,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 9
 	},
-/turf/open/floor/plasteel/greyish,
+/turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/cmo)
 "qzk" = (
 /obj/structure/cable/yellow{
@@ -74114,7 +74114,7 @@
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
-/turf/open/floor/plasteel/greyish,
+/turf/open/floor/plasteel/white,
 /area/crew_quarters/heads/cmo)
 "sTJ" = (
 /obj/structure/sign/warning/pods{
