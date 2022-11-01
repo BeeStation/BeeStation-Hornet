@@ -91,7 +91,7 @@
 	lastchangelog	= sanitize_text(lastchangelog, initial(lastchangelog))
 	UI_style		= sanitize_inlist(UI_style, GLOB.available_ui_styles, GLOB.available_ui_styles[1])
 
-	default_slot	= sanitize_integer(default_slot, TRUE, max_usable_slots, initial(default_slot))
+	default_slot	= sanitize_integer(default_slot, TRUE, TRUE_MAX_SAVE_SLOTS, initial(default_slot))
 	toggles			= sanitize_integer(toggles, FALSE, INFINITY, initial(toggles)) // yes
 	toggles2		= sanitize_integer(toggles2, FALSE, INFINITY, initial(toggles2))
 	clientfps		= sanitize_integer(clientfps, FALSE, 1000, FALSE)
