@@ -233,6 +233,35 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 		deaf_message = "<span class='notice'>You can't hear yourself!</span>"
 		deaf_type = 2 // Since you should be able to hear yourself without looking
 
+	// this makes you difficult to identify a radio channel as "Unknown" to prevent you to get metaknowledge of radio channel names
+	if(radio_freq) // checks if you have an access on a radio channel
+		var/list/available_channels = list()
+		for(var/obj/item/radio/R in src.get_contents())
+			if(R.listening) // if not turned off, you shouldn't be eligible for this.
+				if(istype(R, /obj/item/radio/headset)) // only headset has 2nd keyslot
+					var/mob/living/carbon/C = src
+					var/obj/item/radio/headset/H = R
+					if(H == C.ears) // this must be worn by you, not in your inventory.
+						available_channels += "[H.frequency]"
+						for(var/K in H.keyslot?.channels+H.keyslot2?.channels)
+							available_channels += "[GLOB.radiochannels[K]]"
+				else
+					available_channels += "[R.frequency]"
+					for(var/K in R.keyslot?.channels)
+						available_channels += "[GLOB.radiochannels[K]]"
+		for(var/obj/item/implant/radio/R in src.implants)
+			if(R.radio.listening)
+				available_channels += "[R.radio.frequency]"
+				for(var/K in R.radio.keyslot?.channels)
+					available_channels += "[GLOB.radiochannels[K]]"
+		for(var/obj/item/radio/intercom/R in view_or_range(RADIO_HEARING_RANGE_INTERCOM, src, "view"))
+			if(R.listening)
+				available_channels += "[R.frequency]"
+				for(var/K in R.keyslot?.channels)
+					available_channels += "[GLOB.radiochannels[K]]"
+		if(!("[radio_freq]" in available_channels) && !("[FREQ_SYNDICATE]" in available_channels)) // have an enc key or a syndi key, or channel will be seen as unknown
+			radio_freq = FREQ_UNKNOWN
+
 	// Recompose message for AI hrefs, language incomprehension.
 	message = compose_message(speaker, message_language, raw_message, radio_freq, spans, message_mods)
 

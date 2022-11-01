@@ -51,6 +51,7 @@
 
 #define RADIO_CHANNEL_CTF_RED "Red Team"
 #define RADIO_CHANNEL_CTF_BLUE "Blue Team"
+#define RADIO_CHANNEL_UNKNOWN "Unknown"
 
 #define RADIO_CHANNEL_UPLINK "Uplink"
 #define RADIO_KEY_UPLINK "d"
@@ -95,6 +96,7 @@
 #define MAX_FREQ 1489 // ------------------------------------------------------
 
 #define MAX_FREE_FREQ 1599 // -------------------------------------------------
+#define FREQ_UNKNOWN "no_one_knows" // if you don't have access on a certain frequency, it makes channel name 'unknown'
 
 // Transmission types.
 #define TRANSMISSION_WIRE 0  //! some sort of wired connection, not used
@@ -122,3 +124,8 @@
 #define REQ_DEP_TYPE_ASSISTANCE 	(1<<0)
 #define REQ_DEP_TYPE_SUPPLIES 		(1<<1)
 #define REQ_DEP_TYPE_INFORMATION 	(1<<2)
+
+//range of listening
+#define RADIO_HEARING_RANGE_BASIC_RADIO 3
+#define RADIO_HEARING_RANGE_INTERCOM 2
+#define RADIO_HEARING_RANGE_HEADSET 1

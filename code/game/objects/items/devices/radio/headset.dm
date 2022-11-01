@@ -24,7 +24,7 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	materials = list(/datum/material/iron=75)
 	subspace_transmission = TRUE
 	headset = TRUE
-	canhear_range = 0 // can't hear headsets from very far away
+	canhear_range = RADIO_HEARING_RANGE_HEADSET
 	var/bang_protect = 0 //this isn't technically clothing so it needs its own bang_protect var
 
 	slot_flags = ITEM_SLOT_EARS
@@ -347,6 +347,7 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 			translate_binary = TRUE
 		if(keyslot2.syndie)
 			syndie = TRUE
+			canhear_range = 0
 		if (keyslot2.independent)
 			independent = TRUE
 		if (keyslot2.amplification)

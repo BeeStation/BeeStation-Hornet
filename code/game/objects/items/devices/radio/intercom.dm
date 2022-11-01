@@ -4,7 +4,7 @@
 	icon_state = "intercom"
 	anchored = TRUE
 	w_class = WEIGHT_CLASS_BULKY
-	canhear_range = 2
+	canhear_range = RADIO_HEARING_RANGE_INTERCOM
 	dog_fashion = null
 	unscrewed = FALSE
 	layer = ABOVE_WINDOW_LAYER

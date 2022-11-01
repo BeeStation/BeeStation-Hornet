@@ -106,6 +106,7 @@ GLOBAL_LIST_INIT(radiochannels, list(
 	RADIO_CHANNEL_AI_PRIVATE = FREQ_AI_PRIVATE,
 	RADIO_CHANNEL_CTF_RED = FREQ_CTF_RED,
 	RADIO_CHANNEL_CTF_BLUE = FREQ_CTF_BLUE
+	// don't put RADIO_CHANNEL_UNKNOWN. we don't need it here.
 ))
 
 GLOBAL_LIST_INIT(reverseradiochannels, list(
@@ -123,7 +124,8 @@ GLOBAL_LIST_INIT(reverseradiochannels, list(
 	"[FREQ_SERVICE]" = RADIO_CHANNEL_SERVICE,
 	"[FREQ_AI_PRIVATE]" = RADIO_CHANNEL_AI_PRIVATE,
 	"[FREQ_CTF_RED]" = RADIO_CHANNEL_CTF_RED,
-	"[FREQ_CTF_BLUE]" = RADIO_CHANNEL_CTF_BLUE
+	"[FREQ_CTF_BLUE]" = RADIO_CHANNEL_CTF_BLUE,
+	"[FREQ_UNKNOWN]" = RADIO_CHANNEL_UNKNOWN // necessary at here. there's no real unknown channel, but it's needed to obscure the channel name
 ))
 
 /datum/radio_frequency

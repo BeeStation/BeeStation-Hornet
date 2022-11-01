@@ -18,7 +18,7 @@
 
 	var/on = TRUE
 	var/frequency = FREQ_COMMON
-	var/canhear_range = 3  // The range around the radio in which mobs can hear what it receives.
+	var/canhear_range = RADIO_HEARING_RANGE_BASIC_RADIO // The range around the radio in which mobs can hear what it receives.
 	var/emped = 0  // Tracks the number of EMPs currently stacked.
 	var/headset = FALSE
 
@@ -58,6 +58,7 @@
 	channels = list()
 	translate_binary = FALSE
 	syndie = FALSE
+	canhear_range = initial(canhear_range)
 	independent = FALSE
 	command = initial(command)
 
@@ -70,6 +71,7 @@
 			translate_binary = TRUE
 		if(keyslot.syndie)
 			syndie = TRUE
+			canhear_range = 0
 		if(keyslot.independent)
 			independent = TRUE
 		if(keyslot.amplification)
