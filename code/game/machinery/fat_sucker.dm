@@ -220,10 +220,8 @@
 	if(default_deconstruction_crowbar(I))
 		return TRUE
 
-/obj/machinery/fat_sucker/emag_act(mob/living/user)
-	if(obj_flags & EMAGGED)
-		return
+/obj/machinery/fat_sucker/on_emag(mob/user)
+	..()
 	start_at = 100
 	stop_at = 0
 	to_chat(user, "<span class='notice'>You remove the access restrictions and lower the automatic ejection threshold!</span>")
-	obj_flags |= EMAGGED

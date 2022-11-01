@@ -177,6 +177,8 @@
 	if(path_hud)
 		path_hud.add_to_hud(src)
 		path_hud.add_hud_to(src)
+	RegisterSignal(src, COMSIG_ATOM_ON_EMAG, .proc/on_emag)
+	RegisterSignal(src, COMSIG_ATOM_SHOULD_EMAG, .proc/should_emag)
 
 /mob/living/simple_animal/bot/update_mobility()
 	. = ..()
@@ -193,6 +195,8 @@
 	QDEL_NULL(Radio)
 	QDEL_NULL(access_card)
 	QDEL_NULL(bot_core)
+	UnregisterSignal(src, COMSIG_ATOM_ON_EMAG)
+	UnregisterSignal(src, COMSIG_ATOM_SHOULD_EMAG)
 	return ..()
 
 /mob/living/simple_animal/bot/bee_friendly()
@@ -205,23 +209,29 @@
 /mob/living/simple_animal/bot/proc/explode()
 	qdel(src)
 
-/mob/living/simple_animal/bot/emag_act(mob/user)
+/mob/living/simple_animal/bot/proc/should_emag(atom/target, mob/user)
+	SIGNAL_HANDLER
+	if(!locked && !open) // Bot is unlocked, but the maint panel has not been opened with a screwdriver yet.
+		to_chat(user, "<span class='warning'>You need to open maintenance panel first!</span>")
+		return TRUE // signal is inverted
+	return FALSE
+
+/mob/living/simple_animal/bot/proc/on_emag(atom/target, mob/user)
+	SIGNAL_HANDLER
+
 	if(locked) //First emag application unlocks the bot's interface. Apply a screwdriver to use the emag again.
 		locked = FALSE
 		emagged = 1
 		to_chat(user, "<span class='notice'>You bypass [src]'s controls.</span>")
 		return
-	if(!locked && open) //Bot panel is unlocked by ID or emag, and the panel is screwed open. Ready for emagging.
-		emagged = 2
-		remote_disabled = 1 //Manually emagging the bot locks out the AI built in panel.
-		locked = TRUE //Access denied forever!
-		bot_reset()
-		turn_on() //The bot automatically turns on when emagged, unless recently hit with EMP.
-		to_chat(src, "<span class='userdanger'>(#$*#$^^( OVERRIDE DETECTED</span>")
-		log_combat(user, src, "emagged")
-		return
-	else //Bot is unlocked, but the maint panel has not been opened with a screwdriver yet.
-		to_chat(user, "<span class='warning'>You need to open maintenance panel first!</span>")
+	//Bot panel is unlocked by ID or emag, and the panel is screwed open. Ready for emagging.
+	emagged = 2
+	remote_disabled = 1 //Manually emagging the bot locks out the AI built in panel.
+	locked = TRUE //Access denied forever!
+	bot_reset()
+	turn_on() //The bot automatically turns on when emagged, unless recently hit with EMP.
+	to_chat(src, "<span class='userdanger'>(#$*#$^^( OVERRIDE DETECTED</span>")
+	log_combat(user, src, "emagged")
 
 /mob/living/simple_animal/bot/examine(mob/user)
 	. = ..()
