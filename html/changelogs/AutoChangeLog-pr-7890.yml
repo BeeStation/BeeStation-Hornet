@@ -1,0 +1,5 @@
+author: itsmeow
+delete-after: true
+changes:
+  - bugfix: Reduced the amount that newscaster images error out.
+  - tweak: Added a success sound when a newscaster scans a photo.
