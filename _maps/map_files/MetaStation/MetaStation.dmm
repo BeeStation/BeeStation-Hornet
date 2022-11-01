@@ -38028,7 +38028,6 @@
 /turf/open/floor/plasteel/white,
 /area/science/xenobiology)
 "cyA" = (
-/obj/structure/closet/firecloset,
 /obj/machinery/firealarm{
 	pixel_y = 26
 	},
@@ -38036,17 +38035,18 @@
 	dir = 1
 	},
 /obj/effect/turf_decal/bot,
+/obj/structure/closet/l3closet/scientist,
 /turf/open/floor/plasteel/white,
 /area/science/xenobiology)
 "cyB" = (
-/obj/machinery/monkey_recycler,
 /obj/structure/sign/poster/official/random{
 	pixel_y = 32
 	},
 /obj/effect/turf_decal/trimline/purple/filled/line{
 	dir = 1
 	},
-/obj/effect/turf_decal/delivery,
+/obj/structure/closet/l3closet/scientist,
+/obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel/white,
 /area/science/xenobiology)
 "cyC" = (
@@ -82888,6 +82888,8 @@
 /obj/effect/turf_decal/trimline/purple/filled/line{
 	dir = 1
 	},
+/obj/machinery/monkey_recycler,
+/obj/effect/turf_decal/delivery,
 /turf/open/floor/plasteel/white,
 /area/science/xenobiology)
 "xEi" = (
