@@ -269,16 +269,16 @@
 	floor_tile = /obj/item/stack/tile/techmaint
 
 /turf/open/floor/plasteel/cafeteria_red
-	icon_state = "cafeteria-red"
-	base_icon_state = "cafeteria-red"
+	icon_state = "cafeteria_red"
+	base_icon_state = "cafeteria_red"
 
 /turf/open/floor/plasteel/greyish
-	icon_state = "floor-light"
+	icon_state = "floor_light"
 
 /turf/open/floor/plasteel/cafeteria_dark
-	icon_state = "cafeteria-dark"
-	base_icon_state = "cafeteria-dark"
+	icon_state = "cafeteria_dark"
+	base_icon_state = "cafeteria_dark"
 
 /turf/open/floor/plasteel/smart_checker
-	icon_state = "smart-checker"
-	base_icon_state = "smart-checker"
+	icon_state = "smart_checker"
+	base_icon_state = "smart_checker"
