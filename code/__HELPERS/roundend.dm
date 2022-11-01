@@ -594,13 +594,13 @@
 		if(I.registered_name == mind.name) // card must be yours
 			custom_title = I.assignment // get the custom title
 		if(custom_title == mind.assigned_role) // non-custom title, lame
-			custom_title = ""
+			custom_title = null
 	if(!custom_title) // still no custom title? it seems you don't have a ID card
 		var/datum/data/record/R = find_record("name", mind.name, GLOB.data_core.general)
 		if(R)
 			custom_title = R.fields["rank"] // get a custom title from datacore
 		if(custom_title == mind.assigned_role) // lame...
-			custom_title = ""
+			return
 
 	if(custom_title)
 		return "[newline ? "<br/>" : " "](as [custom_title])" // i.e. " (as Plague Doctor)"
@@ -613,7 +613,7 @@
 		if(!jobtext)
 			jobtext = ply.special_role
 		if(jobtext)
-			jobtext = " the <b>[ply.assigned_role]</b>"
+			jobtext = " the <b>[jobtext]</b>"
 	var/jobtext_custom = get_custom_title_from_id(ply) // support the custom job title to the roundend report
 
 	var/text = "<b>[ply.key]</b> was <b>[ply.name]</b>[jobtext][jobtext_custom] and"
