@@ -240,7 +240,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 			if(R.listening) // if not turned off, you shouldn't be eligible for this.
 				if(istype(R, /obj/item/radio/headset)) // only headset has 2nd keyslot
 					var/mob/living/carbon/C = src
-					var/obj/item/radio/headset/H = R
+					var/obj/item/radio/headset/H = R // only headset has `keyslot2` variable
 					if(H == C.ears) // this must be worn by you, not in your inventory.
 						available_channels += "[H.frequency]"
 						for(var/K in H.keyslot?.channels+H.keyslot2?.channels)
