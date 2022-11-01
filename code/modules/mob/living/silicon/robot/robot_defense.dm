@@ -93,7 +93,7 @@
 	if(target == user || user == src)
 		return TRUE // signal is inverted
 	if(!opened)//Cover is closed
-		return locked
+		return !locked
 	if(world.time < emag_cooldown)
 		return TRUE
 	if(wiresexposed)
