@@ -178,8 +178,8 @@
 			var/photo_ID = null
 			var/list/comment_list
 			if(feed_message.img)
-				user << browse_rsc(feed_message.img, "tmp_photo[feed_message.message_ID].png")
-				photo_ID = "tmp_photo[feed_message.message_ID].png"
+				photo_ID = "tmp_newscaster_[current_channel.channel_ID]_[feed_message.message_ID].png"
+				user << browse_rsc(feed_message.img, photo_ID)
 			for(var/datum/feed_comment/comment_message as anything in feed_message.comments)
 				comment_list += list(list(
 					"auth" = comment_message.author,
@@ -830,6 +830,7 @@
 			wanted_image = !!current_image
 		if(current_image)
 			balloon_alert(usr, "photo selected.")
+			playsound(src, 'sound/machines/terminal_success.ogg', 15, TRUE)
 		else
 			balloon_alert(usr, "no photo identified.")
 
