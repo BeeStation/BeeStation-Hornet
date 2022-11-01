@@ -1,7 +1,77 @@
+/datum/admin_player_panel/ui_state(mob/user)
+	return GLOB.admin_holder_state
+
+/datum/admin_player_panel/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		log_admin("[key_name(user)] checked the player panel.")
+		ui = new(user, src, "PlayerPanel", "Player Panel")
+		ui.set_autoupdate(TRUE)
+		ui.open()
+
+/datum/admin_player_panel/ui_data(mob/user)
+	var/list/data = list()
+	var/list/players = list()
+	var/list/mobs = sortmobs()
+	for(var/mob/player in mobs)
+		if(!player.ckey)
+			continue
+		var/list/data_entry = list()
+		if(isliving(player))
+			if(iscarbon(player))
+				if(ishuman(player))
+					data_entry["job"] = player.job
+				else
+					data_entry["job"] = initial(player.name) // get the name of their mob type
+			else if(issilicon(player))
+				data_entry["job"] = player.job
+			else
+				data_entry["job"] = initial(player.name)
+		else if(isnewplayer(player))
+			data_entry["job"] = "New Player"
+		else if(isobserver(player))
+			var/mob/dead/observer/O = player
+			if(O.started_as_observer)
+				data_entry["job"] = "Observer"
+			else
+				data_entry["job"] = "Ghost"
+		else
+			data_entry["job"] = initial(player.name)
+
+		data_entry["name"] = player.name
+		data_entry["real_name"] = player.real_name
+		data_entry["ckey"] = player.ckey
+		var/datum/player_details/P = GLOB.player_details[ckey(player.ckey)]
+		data_entry["previous_names"] = P?.played_names
+		data_entry["last_ip"] = player.lastKnownIP
+		data_entry["is_antagonist"] = is_special_character(player)
+		data_entry["life_status"] = player.stat
+		if(ishuman(player))
+			var/mob/living/carbon/human/tracked_human = player
+			data_entry["oxydam"] = round(tracked_human.getOxyLoss(), 1)
+			data_entry["toxdam"] = round(tracked_human.getToxLoss(), 1)
+			data_entry["burndam"] = round(tracked_human.getFireLoss(), 1)
+			data_entry["brutedam"] = round(tracked_human.getBruteLoss(), 1)
+		else if(isliving(player))
+			var/mob/living/tracked_living = player
+			data_entry["health"] = tracked_living.health
+			data_entry["health_max"] = tracked_living.getMaxHealth()
+		var/turf/pos = get_turf(player)
+		data_entry["position"] = AREACOORD(pos)
+		if(CONFIG_GET(flag/use_exp_tracking))
+			data["living_playtime"] = player.client?.prefs?.exp[EXP_TYPE_LIVING]
+		players += list(data_entry)
+	data["players"] = players
+	return data
+
 /datum/admins/proc/player_panel_new()//The new one
 	if(!check_rights())
 		return
-	log_admin("[key_name(usr)] checked the player panel.")
+	if(!player_panel)
+		player_panel = new(usr)
+	player_panel.ui_interact(usr)
+
+	/*
 	var/dat = "<html><head><meta http-equiv='X-UA-Compatible' content='IE=edge; charset=UTF-8'/><title>Player Panel</title></head>"
 
 	//javascript, the part that does most of the work~
@@ -307,4 +377,4 @@
 	</body></html>
 	"}
 
-	usr << browse(dat, "window=players;size=600x480")
+	usr << browse(dat, "window=players;size=600x480")*/

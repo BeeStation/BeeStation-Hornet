@@ -13,9 +13,9 @@ const HEALTH_COLOR_BY_LEVEL = [
   '#ed2814',
 ];
 
-const jobIsHead = jobId => jobId % 10 === 0;
+export const jobIsHead = jobId => jobId % 10 === 0;
 
-const jobToColor = jobId => {
+export const jobToColor = jobId => {
   if (jobId >= 0 && jobId < 10) {
     return COLORS.department.captain;
   }
@@ -40,13 +40,13 @@ const jobToColor = jobId => {
   return COLORS.department.other;
 };
 
-const healthToColor = (oxy, tox, burn, brute) => {
+export const healthToColor = (oxy, tox, burn, brute) => {
   const healthSum = oxy + tox + burn + brute;
   const level = Math.min(Math.max(Math.ceil(healthSum / 25), 0), 5);
   return HEALTH_COLOR_BY_LEVEL[level];
 };
 
-const HealthStat = props => {
+export const HealthStat = props => {
   const { type, value } = props;
   return (
     <Box
