@@ -1,4 +1,0 @@
-author: itsmeow
-delete-after: true
-changes:
-  - bugfix: Fixed abductors ignoring their muteness due to tourette's
