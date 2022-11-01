@@ -1,0 +1,4 @@
+author: itsmeow
+delete-after: true
+changes:
+  - bugfix: Fixed emagging a cyborg not unlocking the cover.
