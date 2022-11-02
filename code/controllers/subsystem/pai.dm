@@ -12,18 +12,6 @@ SUBSYSTEM_DEF(pai)
 	/// All pAI cards on the map.
 	var/list/pai_card_list = list()
 
-/// Created when a user clicks the "pAI candidate" window
-/datum/pai_candidate
-	/// User inputted OOC comments
-	var/comments
-	/// User inputted behavior description
-	var/description
-	/// User's ckey - not input
-	var/ckey
-	/// User's pAI name. If blank, ninja name.
-	var/name
-	/// If the user has hit "submit"
-	var/ready = FALSE
 
 /**
  * Pings ghosts to announce that someone is requesting a pAI
@@ -84,7 +72,7 @@ SUBSYSTEM_DEF(pai)
 	data["description"] = candidate.description
 	data["name"] = candidate.name
 	var/datum/pai_candidate/default_candidate = new
-	default_candidate.savefile_load(user)
+	default_candidate.load(user)
 	data["default_name"] = default_candidate.name
 	data["default_description"] = default_candidate.description
 	data["default_comments"] = default_candidate.comments
@@ -126,8 +114,7 @@ SUBSYSTEM_DEF(pai)
 			candidate.comments = params["candidate"]["comments"]
 			candidate.description = params["candidate"]["description"]
 			candidate.name = params["candidate"]["name"]
-			candidate.savefile_save(usr)
-			to_chat(usr, "<span class='boldnotice'>You have saved pAI information locally.</span>")
+			candidate.save(usr)
 	return TRUE
 
 
