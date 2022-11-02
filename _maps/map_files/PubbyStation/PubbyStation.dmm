@@ -27971,9 +27971,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/security/brig)
-"cgG" = (
-/turf/open/floor/plating,
-/area/chapel/main/monastery)
 "cgH" = (
 /turf/open/floor/grass,
 /area/hydroponics/garden/monastery)
@@ -37029,6 +37026,7 @@
 /obj/structure/cable/cyan{
 	icon_state = "1-2"
 	},
+/obj/effect/spawner/structure/window,
 /turf/open/floor/plating,
 /area/chapel/main/monastery)
 "gmh" = (
@@ -80388,13 +80386,13 @@ cfm
 dZZ
 cvy
 bWV
-cgG
-cgG
+mci
+mci
 bWV
 emE
 bWV
-cgG
-cgG
+mci
+mci
 bWV
 cvy
 dZZ
@@ -80644,7 +80642,7 @@ bWV
 cfm
 jqa
 cvy
-cgG
+mci
 chi
 cid
 cuM
@@ -80652,7 +80650,7 @@ fKI
 cvb
 ciT
 cvh
-cgG
+mci
 cvy
 jUl
 cwa
@@ -80901,7 +80899,7 @@ ceK
 cfm
 eHc
 cvy
-cgG
+mci
 cid
 cuA
 cib
@@ -80909,7 +80907,7 @@ vjm
 cgH
 ciS
 cid
-cgG
+mci
 cvy
 iKy
 qqc
@@ -81415,7 +81413,7 @@ dWH
 cfs
 vPt
 cvy
-cgG
+mci
 cgk
 cuA
 ciS
@@ -81423,7 +81421,7 @@ chk
 cgH
 cgH
 cvi
-cgG
+mci
 yhG
 dZZ
 cwa
@@ -82186,7 +82184,7 @@ ceK
 cfm
 hpI
 cvy
-cgG
+mci
 ciV
 cgH
 cgH
@@ -82194,7 +82192,7 @@ cgH
 cic
 ciV
 cjq
-cgG
+mci
 cvy
 jUl
 ckT
@@ -82443,7 +82441,7 @@ bWV
 cfm
 uLh
 cvy
-cgG
+mci
 cgm
 cuE
 cuO
@@ -82451,7 +82449,7 @@ cgH
 ciE
 ciW
 cjr
-cgG
+mci
 cvy
 sCt
 bgX
@@ -82701,13 +82699,13 @@ cfm
 rAU
 cvy
 bWV
-cgG
-cgG
+mci
+mci
 bWV
 cuY
 bWV
-cgG
-cgG
+mci
+mci
 bWV
 cvy
 rAU
