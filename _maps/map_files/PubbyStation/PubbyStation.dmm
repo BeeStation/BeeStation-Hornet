@@ -35321,13 +35321,9 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
 	},
-/obj/structure/rack,
-/obj/item/storage/toolbox/mechanical{
-	pixel_x = 2;
-	pixel_y = 4
-	},
-/obj/item/storage/toolbox/electrical{
-	pixel_x = -2
+/obj/machinery/firealarm{
+	dir = 1;
+	pixel_y = -26
 	},
 /turf/open/floor/plasteel,
 /area/construction/mining/aux_base)
@@ -49840,6 +49836,27 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/bridge)
+"otR" = (
+/obj/structure/cable/yellow{
+	icon_state = "4-8"
+	},
+/obj/effect/turf_decal/tile/red{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 8
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 4
+	},
+/obj/structure/sign/directions/evac{
+	dir = 1;
+	pixel_y = 32
+	},
+/turf/open/floor/plasteel/white/corner{
+	dir = 1
+	},
+/area/hallway/secondary/exit/departure_lounge)
 "otV" = (
 /obj/machinery/atmospherics/pipe/simple/orange/visible{
 	dir = 4
@@ -51259,10 +51276,6 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/structure/sign/directions/evac{
-	dir = 1;
-	pixel_y = 32
-	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
 	},
@@ -51432,9 +51445,6 @@
 	},
 /obj/machinery/atmospherics/components/unary/vent_pump/on/layer2{
 	dir = 1
-	},
-/obj{
-	name = "---Merge conflict marker---"
 	},
 /obj/effect/turf_decal/tile/blue{
 	dir = 4
@@ -53926,9 +53936,13 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
 	},
-/obj/machinery/firealarm{
-	dir = 1;
-	pixel_y = -26
+/obj/structure/rack,
+/obj/item/storage/toolbox/electrical{
+	pixel_x = -2
+	},
+/obj/item/storage/toolbox/mechanical{
+	pixel_x = 2;
+	pixel_y = 4
 	},
 /turf/open/floor/plasteel,
 /area/construction/mining/aux_base)
@@ -87503,7 +87517,7 @@ aQx
 aRG
 qWM
 oEA
-qQP
+otR
 dTV
 aWK
 aXI
