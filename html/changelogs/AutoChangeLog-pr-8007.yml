@@ -1,5 +1,0 @@
-author: Crossedfall
-delete-after: true
-changes:
-  - server: Adds time dilation tracking and harddel counts to the elastic metrics
-      blob
