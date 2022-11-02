@@ -58,8 +58,10 @@
 			data_entry["health_max"] = tracked_living.getMaxHealth()
 		var/turf/pos = get_turf(player)
 		data_entry["position"] = AREACOORD(pos)
-		if(CONFIG_GET(flag/use_exp_tracking))
-			data["living_playtime"] = player.client?.prefs?.exp[EXP_TYPE_LIVING]
+		if(player.client)
+			if(CONFIG_GET(flag/use_exp_tracking))
+				data["living_playtime"] = player.client.prefs?.exp[EXP_TYPE_LIVING]
+			data["telemetry"] = player.client.tgui_panel?.get_alert_level()
 		players += list(data_entry)
 	data["players"] = players
 	return data

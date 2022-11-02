@@ -1,14 +1,23 @@
-import { useBackend } from '../backend';
-import { Box, ColorBox, Section, Table } from '../components';
+import { useBackend, useLocalState } from '../backend';
+import { Box, ColorBox, Input, Section, Table } from '../components';
 import { jobIsHead, jobToColor, healthToColor, HealthStat } from './CrewConsole';
 import { Window } from '../layouts';
 import { sortBy } from 'common/collections';
 
-export const PlayerPanel = () => {
+export const PlayerPanel = (_, context) => {
+  const [searchText, setSearchText] = useLocalState(context, "playerpanel_search_text", "");
   return (
     <Window
       width={1000}
-      height={600}>
+      height={600}
+      theme="admin"
+      buttons={
+        <Input
+          placeholder="Search:"
+          width={220}
+          onChange={(e, value) => setSearchText(value)}
+        />
+      }>
       <Window.Content scrollable>
         <Section minHeight="540px">
           <PlayerTable />
@@ -75,13 +84,14 @@ const PlayerTableEntry = (props) => {
     is_antagonist,
     telemetry,
   } = player;
-  const telemetry_color = telemetry === "!!!" ? "#e74c3c" : (telemetry === "!" ? "#c38312" : null);
+  const telemetry_color = telemetry === "!!!" ? "#e74c3c" : (telemetry === "!" ? "#c38312" : (telemetry !== undefined ? null : "#e74c3c"));
+  const telemetry_bold = telemetry?.includes("!");
   return (
     <Table.Row>
-      <Table.Cell textAlign="center" color={telemetry_color}>
-        {telemetry || null}
+      <Table.Cell textAlign="center" color={telemetry_color} bold={telemetry_bold}>
+        {telemetry !== undefined ? telemetry : "ERR"}
       </Table.Cell>
-      <Table.Cell collapsing textAlign="right" color={telemetry_color}>
+      <Table.Cell collapsing textAlign="right" color={telemetry_color} bold={telemetry_bold}>
         {ckey}
       </Table.Cell>
       <Table.Cell textAlign="center">
