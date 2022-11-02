@@ -57,9 +57,7 @@
 		inline_html = "",
 		inline_js = "",
 		inline_css = "")
-	log_tgui(client,
-		context = "[id]/initialize",
-		window = src)
+	log_tgui(client, "[id]/initialize")
 	if(!client)
 		return
 	src.initial_fancy = fancy
