@@ -21,7 +21,7 @@
 /datum/species/pod/pumpkin_man/check_roundstart_eligible()
 	if(SSevents.holidays && SSevents.holidays[HALLOWEEN])
 		return TRUE
-	return ..()
+	return FALSE
 
 /obj/item/organ/brain/pumpkin_brain
 	name = "pumpkinperson brain"
