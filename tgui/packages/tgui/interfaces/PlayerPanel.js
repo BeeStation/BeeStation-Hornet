@@ -90,7 +90,7 @@ export const PlayerPanel = (_, context) => {
 };
 
 const PlayerDetails = (props, context) => {
-  const { data: { mapRef }, act } = useBackend(context);
+  const { data: { mapRef, map_range }, act } = useBackend(context);
   const [logMode, setLogMode] = useLocalState(context, "player_panel_log_mode", "Say");
   const [hideLogKey, setHideLogKey] = useLocalState(context, "player_panel_log_hide", false);
   const [clientLog, setClientLog] = useLocalState(context, "player_panel_log_source", true);
@@ -252,7 +252,16 @@ const PlayerDetails = (props, context) => {
         </Section>
       </Flex.Item>
       <Flex.Item ml={1}>
-        <Section fill fitted title={<Box inline mb={0.25} mt={0.25}>View</Box>} width="110px">
+        <Section fill fitted title={
+          <>
+            View
+            <Box inline width={1.2} />
+            <Button style={{ "font-weight": "normal", "font-size": "12px" }}
+              mt={0} mb={0} icon="search-minus" onClick={() => act("set_map_range", { range: map_range + 1 })} />
+            <Button style={{ "font-weight": "normal", "font-size": "12px" }}
+              mt={0} mb={0} icon="search-plus" onClick={() => act("set_map_range", { range: map_range - 1 })} />
+          </>
+        }>
           <Box width="100%" height="120px">
             <ByondUi
               width="100%"

@@ -2,7 +2,12 @@
 	var/selected_ckey
 	// Map stuff
 	var/atom/movable/screen/map_view/cam_screen
+	var/list/cam_plane_masters
+	var/atom/movable/screen/background/cam_background
+	var/renderLighting = FALSE
 	var/map_name
+	var/last_update_loc
+	var/map_range = 1
 
 /datum/admin_player_panel/New(user)
 	if(!user)
@@ -28,8 +33,23 @@
 	cam_screen.assigned_map = map_name
 	cam_screen.del_on_map_removal = FALSE
 	cam_screen.screen_loc = "[map_name]:1,1"
+	cam_plane_masters = list()
+	for(var/plane in subtypesof(/atom/movable/screen/plane_master))
+		var/atom/movable/screen/instance = new plane()
+		if (!renderLighting && instance.plane == LIGHTING_PLANE)
+			instance.alpha = 100
+		instance.assigned_map = map_name
+		instance.del_on_map_removal = FALSE
+		instance.screen_loc = "[map_name]:CENTER"
+		cam_plane_masters += instance
+	cam_background = new
+	cam_background.assigned_map = map_name
+	cam_background.del_on_map_removal = FALSE
 
-/datum/admin_player_panel/proc/refresh_view()
+/datum/admin_player_panel/process()
+	refresh_view()
+
+/datum/admin_player_panel/proc/refresh_view(force = FALSE)
 	if(!cam_screen)
 		setup(usr)
 	if(!selected_ckey)
@@ -41,37 +61,49 @@
 	if(isAI(target_mob))
 		var/mob/living/silicon/ai/ai_mob = target_mob
 		target_mob = ai_mob.eyeobj
-	if(QDELETED(target_mob))
-		return
-	if(!(target_mob in cam_screen.vis_contents))
-		cam_screen.vis_contents = list(target_mob)
-		RegisterSignal(target_mob, COMSIG_PARENT_QDELETING, .proc/target_deleting)
+	var/turf/current_turf = get_turf(target_mob)
+	if(REF(current_turf) == last_update_loc && !force)
+		return // no changes
+	last_update_loc = REF(current_turf)
+	var/list/turf/visible_turfs = list()
+	for(var/turf/vis in range(map_range, target_mob))
+		visible_turfs += vis
+	var/list/bbox = get_bbox_of_atoms(visible_turfs)
+	var/size_x = bbox[3] - bbox[1] + 1
+	var/size_y = bbox[4] - bbox[2] + 1
 
-/datum/admin_player_panel/proc/target_deleting(atom/source)
-	SIGNAL_HANDLER
-	UnregisterSignal(source, COMSIG_PARENT_QDELETING)
-	cam_screen.vis_contents.Cut()
-	refresh_view()
+	cam_screen.vis_contents = visible_turfs
+	cam_background.icon_state = "clear"
+	cam_background.fill_rect(1, 1, size_x, size_y)
 
 /datum/admin_player_panel/ui_close(mob/user)
 	. = ..()
 	user.client?.clear_map(map_name)
+	STOP_PROCESSING(SSprocessing, src)
 
 /datum/admin_player_panel/ui_state(mob/user)
 	return GLOB.admin_holder_state
 
 /datum/admin_player_panel/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
+	refresh_view()
 	if(!ui)
 		log_admin("[key_name(user)] checked the player panel.")
 		ui = new(user, src, "PlayerPanel", "Player Panel")
 		ui.set_autoupdate(TRUE)
 		ui.open()
+
 		user.client.register_map_obj(cam_screen)
+		for(var/plane in cam_plane_masters)
+			user.client.register_map_obj(plane)
+		user.client.register_map_obj(cam_background)
+		START_PROCESSING(SSprocessing, src)
 
 /datum/admin_player_panel/Destroy()
 	usr?.client?.clear_map(map_name)
 	QDEL_NULL(cam_screen)
+	QDEL_LIST(cam_plane_masters)
+	QDEL_NULL(cam_background)
 	..()
 
 /datum/admin_player_panel/ui_assets(mob/user)
@@ -169,13 +201,18 @@
 		players[ckey] = data_entry
 	data["players"] = players
 	data["selected_ckey"] = selected_ckey
-	refresh_view()
+	data["map_range"] = map_range
 	return data
 
 /datum/admin_player_panel/ui_act(action, params)
 	. = ..()
+	if(action == "set_map_range")
+		map_range = min(max(params["range"], 0), 5)
+		refresh_view(force = TRUE)
+		return TRUE
 	if(action == "select_player")
 		selected_ckey = params["who"]
+		refresh_view()
 		return TRUE
 	var/mob/user = usr
 	if(!istype(user) || !user.client || !user.client.holder)
