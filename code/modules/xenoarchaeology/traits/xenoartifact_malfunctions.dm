@@ -15,13 +15,13 @@
 	var/mob/living/simple_animal/hostile/bear/new_bear = new(get_turf(X.loc))
 	new_bear.name = pick("Freddy", "Bearington", "Smokey", "Beorn", "Pooh", "Paddington", "Winnie", "Baloo", "Rupert", "Yogi", "Fozzie", "Boo") //Why not?
 	bears += new_bear
-	RegisterSignal(new_bear, COMSIG_PARENT_QDELETING, .proc/handle_death)
+	RegisterSignal(new_bear, COMSIG_MOB_DEATH, .proc/handle_death)
 	log_game("[X] spawned a (/mob/living/simple_animal/hostile/bear) at [world.time]. [X] located at [AREACOORD(X)]")
 	X.cooldown += 20 SECONDS
 
 /datum/xenoartifact_trait/malfunction/bear/proc/handle_death(datum/source)
 	bears -= source
-	UnregisterSignal(source, COMSIG_PARENT_QDELETING)
+	UnregisterSignal(source, COMSIG_MOB_DEATH)
 
 //============
 // Badtarget, changes target to user
