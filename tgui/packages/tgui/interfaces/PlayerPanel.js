@@ -66,10 +66,7 @@ export const PlayerPanel = (_, context) => {
             text-overflow: ellipsis;
             white-space: nowrap;
           }
-          .player-entry {
-            transition 0.25s linear background-color;
-          }
-          .player-entry:hover {
+          .player-row:hover {
             background-color: #252525;
           }
         `}
@@ -430,9 +427,15 @@ const PlayerTableEntry = (props, context) => {
   const has_playtime = living_playtime !== undefined
   && living_playtime !== null;
   return (
-    <Table.Row className="player-entry" height={2} onClick={() => act('select_player', { who: ckey })}>
+    <Table.Row className="player-row" height={2} onClick={(e) => {
+      act('select_player', { who: ckey === selected_ckey ? null : ckey });
+      e.preventDefault();
+    }}>
       <Table.Cell collapsing textAlign="center">
-        <Button icon="circle" color={ckey === selected_ckey ? "green" : null} onClick={() => act('select_player', { who: ckey === selected_ckey ? null : ckey })} />
+        <Button icon="circle" color={ckey === selected_ckey ? "green" : null} onClick={(e) => {
+          act('select_player', { who: ckey === selected_ckey ? null : ckey });
+          e.preventDefault();
+        }} />
       </Table.Cell>
       <Table.Cell collapsing textAlign="center">
         <Button
@@ -442,7 +445,10 @@ const PlayerTableEntry = (props, context) => {
           }}
           bold={telemetry_bold}
           content={telemetry !== undefined ? telemetry : "ERR"}
-          onClick={() => act('open_telemetry', { who: ckey })} />
+          onClick={(e) => {
+            act('open_telemetry', { who: ckey });
+            e.preventDefault();
+          }} />
       </Table.Cell>
       <Table.Cell collapsing textAlign="right" bold={telemetry_bold}
         style={{ // enforces overflow ellipsis
@@ -460,7 +466,10 @@ const PlayerTableEntry = (props, context) => {
           }}
           content={ckey}
           tooltip={ckey}
-          onClick={() => act('open_player_panel', { who: ckey })} />
+          onClick={(e) => {
+            act('open_player_panel', { who: ckey });
+            e.preventDefault();
+          }} />
       </Table.Cell>
       <Table.Cell collapsing textAlign="center">
         <Button
@@ -471,7 +480,10 @@ const PlayerTableEntry = (props, context) => {
           }
           disabled={!has_playtime}
           color={living_playtime >= 12 ? "default" : (living_playtime >= 1 ? "orange" : "danger")}
-          onClick={() => act('open_hours', { who: ckey })} />
+          onClick={(e) => {
+            act('open_hours', { who: ckey });
+            e.preventDefault();
+          }} />
       </Table.Cell>
       <Table.Cell collapsing textAlign="center">
         <Button
@@ -480,7 +492,10 @@ const PlayerTableEntry = (props, context) => {
           }}
           content={<Box style={{ "transform": "translateY(2.5px)" }} className={`antag-hud16x16 antag-hud-${antag_hud}`} />}
           tooltip={has_mind ? "Open Traitor Panel" : "Initialize Mind"}
-          onClick={() => act(has_mind ? 'open_traitor_panel' : 'init_mind', { who: ckey })}
+          onClick={(e) => {
+            act(has_mind ? 'open_traitor_panel' : 'init_mind', { who: ckey });
+            e.preventDefault();
+          }}
         />
       </Table.Cell>
       <Table.Cell collapsing textAlign="center"
@@ -500,7 +515,10 @@ const PlayerTableEntry = (props, context) => {
           style={{
             "color": jobToColor(job),
           }}
-          onClick={() => act('pm', { who: ckey })}
+          onClick={(e) => {
+            act('pm', { who: ckey });
+            e.preventDefault();
+          }}
         />
       </Table.Cell>
       <Table.Cell collapsing textAlign="center" style={{
@@ -509,7 +527,10 @@ const PlayerTableEntry = (props, context) => {
         <Button
           fluid
           tooltip="VV"
-          onClick={() => act('open_view_variables', { who: ckey })}
+          onClick={(e) => {
+            act('open_view_variables', { who: ckey });
+            e.preventDefault();
+          }}
           content={
             <Box inline style={{ "width": "100%" }}>
               {oxydam !== undefined ? (
@@ -564,7 +585,10 @@ const PlayerTableEntry = (props, context) => {
           disabled={!position}
           content={position || 'Nullspace (wtf)'}
           tooltip={"Follow player - " + position}
-          onClick={() => act('follow', { who: ckey })} />
+          onClick={(e) => {
+            act('follow', { who: ckey });
+            e.preventDefault();
+          }} />
       </Table.Cell>
     </Table.Row>
   );
