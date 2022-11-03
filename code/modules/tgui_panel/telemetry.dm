@@ -232,5 +232,4 @@
 			return ""
 		if(TGUI_TELEMETRY_STAT_MISSING)
 			return "???"
-		else
-			return "Call a coder!"
+	return "Call a coder!"

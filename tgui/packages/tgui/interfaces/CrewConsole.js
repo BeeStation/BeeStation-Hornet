@@ -4,7 +4,7 @@ import { COLORS } from '../constants';
 import { Window } from '../layouts';
 import { sortBy } from 'common/collections';
 
-const HEALTH_COLOR_BY_LEVEL = [
+export const HEALTH_COLOR_BY_LEVEL = [
   '#17d568',
   '#2ecc71',
   '#e67e22',
