@@ -526,11 +526,9 @@ GLOBAL_VAR_INIT(shuttle_docking_jammed, FALSE)
 		log_mapping("CAUTION: SHUTTLE [shuttleId] REACHED THE GENERATION TIMEOUT OF 3 MINUTES. THE ASSIGNED Z-LEVEL IS STILL MARKED AS GENERATING, BUT WE ARE DOCKING ANYWAY.")
 	shuttle_dock.setTimer(20)
 
-/obj/machinery/computer/shuttle_flight/emag_act(mob/user)
-	if(obj_flags & EMAGGED)
-		return
+/obj/machinery/computer/shuttle_flight/on_emag(mob/user)
+	..()
 	req_access = list()
-	obj_flags |= EMAGGED
 	to_chat(user, "<span class='notice'>You fried the consoles ID checking system.</span>")
 
 /obj/machinery/computer/shuttle_flight/allowed(mob/M)
