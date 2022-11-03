@@ -219,6 +219,10 @@
 	description = "<span class='nicegreen'>Finally got my hands on a good pair of gloves!</span>\n"
 	mood_change = 1
 
+/datum/mood_event/cook_italian_moustache
+	description = "<span class='nicegreen'>My ancestors would be proud of my beautiful moustache.</span>\n"
+	mood_change = 1
+
 /datum/mood_event/aquarium_positive
 	description = "<span class='nicegreen'>Watching fish in aquarium is calming.</span>\n"
 	mood_change = 3
