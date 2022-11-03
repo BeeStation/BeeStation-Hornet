@@ -64,6 +64,17 @@
 			message += pick(" Ravioli, ravioli, give me the formuoli!"," Mamma-mia!"," Mamma-mia! That's a spicy meat-ball!", " La la la la la funiculi funicula!")
 	speech_args[SPEECH_MESSAGE] = trim(message)
 
+/obj/item/clothing/mask/fakemoustache/italian/equipped(mob/user, slot)
+	. = ..()
+	if(slot == ITEM_SLOT_MASK)
+		if(user.mind?.assigned_role == JOB_NAME_COOK)
+			SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "cook_italian_moustache", /datum/mood_event/cook_italian_moustache)
+
+/obj/item/clothing/mask/fakemoustache/italian/dropped(mob/user)
+	..()
+	if(user.mind?.assigned_role == JOB_NAME_COOK)
+		SEND_SIGNAL(user, COMSIG_CLEAR_MOOD_EVENT, "cook_italian_moustache")
+
 /obj/item/clothing/mask/joy
 	name = "emotion mask"
 	desc = "Express your happiness or hide your sorrows with this cultured cutout."
