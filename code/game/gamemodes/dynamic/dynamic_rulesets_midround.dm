@@ -409,25 +409,14 @@
 /datum/dynamic_ruleset/midround/from_ghosts/xenomorph/execute()
 	// 50% chance of being incremented by one
 	required_candidates += prob(50)
-	for(var/obj/machinery/atmospherics/components/unary/vent_pump/temp_vent in GLOB.machines)
-		if(QDELETED(temp_vent))
-			continue
-		if(is_station_level(temp_vent.loc.z) && !temp_vent.welded)
-			var/datum/pipeline/temp_vent_parent = temp_vent.parents[1]
-			if(!temp_vent_parent)
-				continue // No parent vent
-			// Stops Aliens getting stuck in small networks.
-			// See: Security, Virology
-			if(length(temp_vent_parent.other_atmosmch) > 20)
-				vents += temp_vent
-	if(!length(vents))
+
+	if(!GLOB.xeno_spawn)
 		log_game("DYNAMIC: [ruletype] ruleset [name] execute failed due to no valid spawn locations.")
 		return FALSE
 	. = ..()
 
 /datum/dynamic_ruleset/midround/from_ghosts/xenomorph/generate_ruleset_body(mob/applicant)
-	var/obj/vent = pick_n_take(vents)
-	var/mob/living/carbon/alien/larva/new_xeno = new(vent.loc)
+	var/mob/living/carbon/alien/larva/new_xeno = new(pick(GLOB.xeno_spawn))
 	new_xeno.key = applicant.key
 	message_admins("[ADMIN_LOOKUPFLW(new_xeno)] has been made into an alien by the midround ruleset.")
 	log_game("DYNAMIC: [key_name(new_xeno)] was spawned as an alien by the midround ruleset.")
