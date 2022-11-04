@@ -39,23 +39,41 @@ const LOG_TYPES_LIST = Object.keys(LOG_TYPES_REVERSE);
 
 export const PlayerPanel = (_, context) => {
   const [searchText, setSearchText] = useLocalState(context, "playerpanel_search_text", "");
-  const { data } = useBackend(context);
+  const { data, act } = useBackend(context);
   const {
     players = {},
     selected_ckey,
+    use_view,
   } = data;
   const selected_player = players[selected_ckey];
+  const panel_height = 260;
   return (
     <Window
       width={1000}
       height={615}
       theme="admin"
       buttons={
-        <Input
-          placeholder="Search name, job, or CKEY"
-          width={50}
-          onInput={(e, value) => setSearchText(value)}
-        />
+        <>
+          <Input
+            placeholder="Search name, job, or CKEY"
+            width={30}
+            onInput={(e, value) => setSearchText(value)}
+          />
+          <Button
+            ml={1}
+            content="Check Antags"
+            onClick={() => act('check_antagonists')}
+          />
+          <Button
+            content="Silicon Laws"
+            onClick={() => act('check_silicon_laws')}
+          />
+          <ButtonCheckbox content="Live View"
+            tooltip="WARNING: Lags client"
+            tooltipPosition="bottom-start"
+            checked={use_view}
+            onClick={() => act('set_use_view', { value: !use_view })} />
+        </>
       }>
       <style>{`
           .Button--fluid.button-ellipsis {
@@ -66,44 +84,63 @@ export const PlayerPanel = (_, context) => {
             text-overflow: ellipsis;
             white-space: nowrap;
           }
-          .player-row:hover {
-            background-color: #252525;
-          }
         `}
       </style>
       <Window.Content>
-        <Section height="400px" fill scrollable>
-          <PlayerTable
-            searchText={searchText} />
-        </Section>
-        <Box height="150px">
+        <Flex direction="column" wrap="wrap" height="100%">
+          <Flex.Item grow={1}>
+            <Section fill scrollable>
+              <PlayerTable
+                searchText={searchText} />
+            </Section>
+          </Flex.Item>
           {selected_player && (
-            <PlayerDetails player={selected_player} />
+            <Flex.Item style={{ "resize": "vertical" }} mt={1} height={`${panel_height}px`}>
+              <Box height="100%">
+                <PlayerDetails
+                  player={selected_player}
+                  panel_height={panel_height} />
+              </Box>
+            </Flex.Item>
           )}
-        </Box>
+        </Flex>
       </Window.Content>
     </Window>
   );
 };
 
 const PlayerDetails = (props, context) => {
-  const { data: { mapRef, map_range }, act } = useBackend(context);
+  const { data, act } = useBackend(context);
+  const {
+    mapRef,
+    map_range,
+    use_view,
+    metacurrency_name = "BeeCoin", // sorry downstreams
+  } = data;
   const [logMode, setLogMode] = useLocalState(context, "player_panel_log_mode", "Say");
   const [hideLogKey, setHideLogKey] = useLocalState(context, "player_panel_log_hide", false);
   const [clientLog, setClientLog] = useLocalState(context, "player_panel_log_source", true);
   const {
     ckey,
-    previous_names,
+    previous_names = [],
     has_mind,
-    log_client,
-    log_mob,
+    log_client = {},
+    log_mob = {},
     is_cyborg,
     register_date = "N/A",
     first_seen = "N/A",
     mob_type = "N/A",
+    byond_version = "N/A",
+    metacurrency_balance = 0,
+    antag_rep = 0,
+    antag_tokens = 0,
+    cid = "N/A",
+    ip = "N/A",
     related_accounts_ip = "N/A",
     related_accounts_cid = "N/A",
+    photo_path,
   } = props.player;
+  const panel_height = props.panel_height;
 
 
   const key_parse = (key) => {
@@ -139,7 +176,7 @@ const PlayerDetails = (props, context) => {
               className="button-ellipsis"
               content={key_obj.area_name}
               tooltip={`Jump to: ${key_obj.area_name} (${key_obj.coordinates})`}
-              onClick={() => act("jump_to", { coords: key_obj.coordinates })}
+              onClick={() => act("jump_to", { coords: key_obj.coordinates.split(", ") })}
             />
           </Table.Cell>
         </Table.Row>
@@ -148,7 +185,7 @@ const PlayerDetails = (props, context) => {
     return key;
   };
 
-  const log_source = clientLog ? log_client : log_mob;
+  const log_source = (clientLog ? log_client : log_mob) || {};
 
   let log_data = {};
   const log_type_ids = LOG_TYPES_REVERSE[logMode];
@@ -181,58 +218,73 @@ const PlayerDetails = (props, context) => {
     );
   }
 
-  let action_buttons_1 = {
-    "PP": "open_player_panel",
-    "VV": "open_variable_edit",
-    "Notes": "open_notes",
-  };
-  let action_buttons_2 = {
-    "SM": "subtle_message",
-    "HM": "headset_message",
-    "NRT": "narrate_to",
-    "FLW": "follow",
-    "PM": "pm",
-    "Kick": "kick",
-    "Ban": "open_ban",
-    "Logs": "open_logs",
-    "Hours": "open_hours",
-    "Telem": "open_telemetry",
-    "Smite": "smite",
-    "Lang": "open_language_panel",
-    "Heal": "revive",
-    "Prison": "jail",
-    "Lobby": "send_to_lobby",
+  let action_button_data = {
+    "Info": {
+      "PP": "open_player_panel",
+      "Notes": "open_notes",
+      "Logs": "open_logs",
+      "Hours": "open_hours",
+      "Telem": "open_telemetry",
+    },
+    "Message": {
+      "PM": "pm",
+      "SM": "subtle_message",
+      "HM": "headset_message",
+      "NRT": "narrate_to",
+    },
+    "Action": {
+      "FLW": "follow",
+      "VV": "open_view_variables",
+      "Lang": "open_language_panel",
+      "Heal": "revive",
+      "Lobby": "send_to_lobby",
+    },
+    "Punish": {
+      "Kick": "kick",
+      "Ban": "open_ban",
+      "Smite": "smite",
+      "Prison": "jail",
+    },
   };
   if (!has_mind) {
-    action_buttons_1["IM"] = "init_mind";
+    action_button_data["Action"]["IM"] = "init_mind";
   } else {
-    action_buttons_1["TP"] = "open_traitor_panel";
+    action_button_data["Action"]["TP"] = "open_traitor_panel";
   }
   if (is_cyborg) {
-    action_buttons_2["Borg"] = "open_cyborg_panel";
+    action_button_data["Info"]["Borg"] = "open_cyborg_panel";
   }
-  const action_buttons = { ...action_buttons_1, ...action_buttons_2 };
 
   const action_button_list = [];
-  for (let [name, action] of Object.entries(action_buttons)) {
+  for (let [name, val] of Object.entries(action_button_data)) {
     action_button_list.push(
-      <Flex.Item mt={0.35} ml={0.5}>
-        <Button fluid color="yellow" content={name} tooltip={action} onClick={() => act(action, { who: ckey })} />
-      </Flex.Item>
+      <Flex key={name} direction="column">
+        <Flex.Item mt={name === "Message" ? 4.64 : 1}>
+          <strong>{name}</strong>
+        </Flex.Item>
+        {Object.entries(val).map(([key, action]) => (
+          <Flex.Item key={key} mt={0.35} ml={0.5}>
+            <Button fluid color="yellow" content={key} tooltip={action} onClick={() => act(action, { who: ckey })} />
+          </Flex.Item>
+        ))}
+      </Flex>
     );
   }
 
   return (
-    <Flex>
-      <Flex.Item width="120px">
+    <Flex height="100%">
+      <Flex.Item grow={1} minWidth="125px">
         <Section fill fitted scrollable
           title={
             <Box mt={0.25} mb={0.25} style={{
               "white-space": "nowrap",
               "text-overflow": "ellipsis",
               "overflow": "hidden",
+              "color": "#ffbf00",
             }}>
-              <TooltipWrap text={ckey} />
+              <TooltipWrap text={
+                ckey.charAt(0).toUpperCase() + ckey.slice(1)
+              } />
             </Box>
           }>
           <Box style={{ "white-space": "pre-wrap", "padding": "5px", "overflow-wrap": "anywhere" }}>
@@ -241,37 +293,92 @@ const PlayerDetails = (props, context) => {
               "word-break": "break-all", "width": "100%" }}>
               {mob_type}
             </Box>
+            <strong>BYOND:</strong>{" "}
+            <Box inline color="#d8d8d8">
+              {byond_version}
+            </Box><br />
+            <strong>Antag Tokens:</strong>{" "}
+            <Box inline color="#d8d8d8">
+              {antag_tokens}
+            </Box><br />
+            <strong>Antag Rep:</strong>{" "}
+            <Box inline color="#d8d8d8">
+              {antag_rep}
+            </Box><br />
+            <strong>{metacurrency_name}s:</strong>{" "}
+            <Box inline color="#d8d8d8">
+              {metacurrency_balance}
+            </Box><br />
+            <hr style={{ "border": "1px solid #ffbf00", "height": 0, "opacity": 0.8 }} />
             <Box textAlign="center" bold>
               Names
             </Box>
-            <Box inline color="#d8d8d8" textAlign="center">{previous_names.join("\n")}</Box>
+            <Box inline color="#d8d8d8" textAlign="center">
+              {previous_names.map(name =>
+                <Box inline key={name}>{name}</Box>
+              )}
+            </Box>
           </Box>
         </Section>
       </Flex.Item>
-      <Flex.Item ml={1}>
+      <Flex.Item height={use_view ? "170px" : "150px"} ml={1}>
         <Section fill fitted title={
           <>
             View
-            <Box inline width={1.2} />
-            <Button style={{ "font-weight": "normal", "font-size": "12px" }}
-              mt={0} mb={0} icon="search-minus" onClick={() => act("set_map_range", { range: map_range + 1 })} />
-            <Button style={{ "font-weight": "normal", "font-size": "12px" }}
-              mt={0} mb={0} icon="search-plus" onClick={() => act("set_map_range", { range: map_range - 1 })} />
+            {use_view ? (
+              <>
+                <Box inline width={1.2} />
+                <Button style={{ "font-weight": "normal", "font-size": "12px" }}
+                  mt={0} mb={0} icon="search-minus" onClick={() => act("set_map_range", { range: map_range + 1 })} />
+                <Button
+                  style={{ "font-weight": "normal", "font-size": "12px" }}
+                  icon="sync-alt"
+                  tooltip="Refresh view window in case it breaks"
+                  onClick={() => act('refresh_view')}
+                />
+                <Button style={{ "font-weight": "normal", "font-size": "12px" }}
+                  mt={0} mb={0} icon="search-plus" onClick={() => act("set_map_range", { range: map_range - 1 })} />
+              </>
+            ) : (
+              <>
+                <Box inline width={3} />
+                <Button
+                  style={{ "font-weight": "normal", "font-size": "12px" }}
+                  icon="sync-alt"
+                  tooltip="Refresh mob icon cache"
+                  onClick={() => act('reload_images')}
+                />
+              </>
+            )}
           </>
         }>
-          <Box width="100%" height="120px">
-            <ByondUi
-              width="100%"
-              height="100%"
-              params={{
-                zoom: 0,
-                id: mapRef,
-                type: 'map',
-              }} />
+          <Box width="100%" height="100%">
+            {(
+              use_view ? (
+                <ByondUi
+                  width="100%"
+                  height="100%"
+                  params={{
+                    zoom: 0,
+                    "view-size": 169,
+                    id: mapRef,
+                    type: 'map',
+                  }} />
+              ) : (
+                <Box width="110px" height="100%" style={{ "overflow": "hidden" }}>
+                  <img width="100%" src={photo_path}
+                    style={{
+                      "overflow": "hidden",
+                      "-ms-interpolation-mode": "nearest-neighbor", // IE
+                      "image-rendering": "crisp-edges",
+                    }} />
+                </Box>
+              )
+            )}
           </Box>
         </Section>
       </Flex.Item>
-      <Flex.Item width="200px" ml={1}>
+      <Flex.Item grow={1} ml={1} mr={0.5}>
         <Section fill scrollable
           title={(
             <>
@@ -288,6 +395,8 @@ const PlayerDetails = (props, context) => {
           <br />
           <strong>Account Registered:</strong><br />
           <font color="#d8d8d8">{register_date}</font><br />
+          <strong>IP: </strong><font color="#d8d8d8">{ip}</font><br />
+          <strong>CID: </strong><font color="#d8d8d8">{cid}</font><br />
           <strong>Accounts (IP):</strong><br />
           <font color="#d8d8d8">{related_accounts_ip.split(", ").join("\n")}</font><br />
           <strong>Accounts (CID):</strong><br />
@@ -295,11 +404,11 @@ const PlayerDetails = (props, context) => {
         </Section>
       </Flex.Item>
       <Flex.Item>
-        <Flex height="155px" wrap="wrap" direction="column" textAlign="center">
+        <Flex height={`${panel_height + 5}px`} wrap="wrap" direction="column" textAlign="center">
           {action_button_list}
         </Flex>
       </Flex.Item>
-      <Flex.Item ml={1}>
+      <Flex.Item grow={2} ml={1} minWidth="400px">
         <Section fill scrollable title={
           <>
             <Box inline>
@@ -308,12 +417,12 @@ const PlayerDetails = (props, context) => {
             <ButtonCheckbox ml={1} style={{ "font-weight": "normal", "font-size": "12px" }} content="Key"
               checked={!hideLogKey}
               onClick={() => setHideLogKey(!hideLogKey)} />
-            <Button ml={1} style={{ "font-weight": "normal", "font-size": "12px" }}
+            <Button style={{ "font-weight": "normal", "font-size": "12px" }}
               tooltip="Current Log Source"
               content={clientLog ? "Client" : "Mob"}
               onClick={() => setClientLog(!clientLog)} />
           </>
-        } width="420px" buttons={
+        } buttons={
           <Box inline>
             <Tabs>
               {LOG_TYPES_LIST.map(name => (
@@ -339,12 +448,18 @@ const PlayerDetails = (props, context) => {
 
 const PlayerTable = (props, context) => {
   const { data } = useBackend(context);
+  const [hourSort, setHourSort] = useLocalState(context, "player_panel_hour_sort", 0);
   const {
     searchText,
   } = props;
-  const players = sortBy(
-    s => s.job
-  )(Object.values(data.players) ?? []);
+  const players = Object.values(data.players).sort((a, b) => a.ijob - b.ijob)
+    .sort((a, b) => (
+      hourSort === 1
+        ? (a.living_playtime || 99999) - (b.living_playtime || 99999)
+        : (
+          hourSort === -1 ? (b.living_playtime || 99999)
+          - (a.living_playtime || 99999) : 0
+        )));
   return (
     <Table>
       <Table.Row height={1.5}>
@@ -358,8 +473,25 @@ const PlayerTable = (props, context) => {
           }}>
           (PP) CKEY
         </Table.Cell>
-        <Table.Cell bold collapsing textAlign="center">
-          Hours
+        <Table.Cell bold collapsing textAlign="center"
+          style={{
+            "min-width": "5em",
+          }}>
+          <Button
+            icon={hourSort === 1 ? "chevron-up" : (hourSort === -1 ? "chevron-down" : null)}
+            fluid
+            color="transparent"
+            content="Hrs"
+            onClick={() => {
+              if (hourSort === 0) {
+                setHourSort(1);
+              } else if (hourSort === -1) {
+                setHourSort(0);
+              } else if (hourSort === 1) {
+                setHourSort(-1);
+              }
+            }}
+          />
         </Table.Cell>
         <Table.Cell bold collapsing textAlign="center">
           TP
@@ -404,6 +536,7 @@ const PlayerTableEntry = (props, context) => {
     name,
     real_name,
     job,
+    ijob = -1,
     ckey,
     has_mind,
     oxydam,
@@ -427,15 +560,16 @@ const PlayerTableEntry = (props, context) => {
   const has_playtime = living_playtime !== undefined
   && living_playtime !== null;
   return (
-    <Table.Row className="player-row" height={2} onClick={(e) => {
-      act('select_player', { who: ckey === selected_ckey ? null : ckey });
-      e.preventDefault();
-    }}>
+    <Table.Row height={2}>
       <Table.Cell collapsing textAlign="center">
-        <Button icon="circle" color={ckey === selected_ckey ? "green" : null} onClick={(e) => {
-          act('select_player', { who: ckey === selected_ckey ? null : ckey });
-          e.preventDefault();
-        }} />
+        <Button
+          icon="circle"
+          tooltip="Select Player"
+          color={ckey === selected_ckey ? "green" : null}
+          onClick={(e) => {
+            act('select_player', { who: ckey === selected_ckey ? null : ckey });
+            e.preventDefault();
+          }} />
       </Table.Cell>
       <Table.Cell collapsing textAlign="center">
         <Button
@@ -445,6 +579,7 @@ const PlayerTableEntry = (props, context) => {
           }}
           bold={telemetry_bold}
           content={telemetry !== undefined ? telemetry : "ERR"}
+          tooltip="Open Telemetry"
           onClick={(e) => {
             act('open_telemetry', { who: ckey });
             e.preventDefault();
@@ -465,7 +600,7 @@ const PlayerTableEntry = (props, context) => {
             "font-style": !connected ? "italic" : null,
           }}
           content={ckey}
-          tooltip={ckey}
+          tooltip={"Open Player Panel - " + ckey}
           onClick={(e) => {
             act('open_player_panel', { who: ckey });
             e.preventDefault();
@@ -499,21 +634,31 @@ const PlayerTableEntry = (props, context) => {
         />
       </Table.Cell>
       <Table.Cell collapsing textAlign="center"
-        bold={jobIsHead(job)}
-        color={jobToColor(job)}
+        bold={jobIsHead(ijob)}
         style={ellipsis_style}>
-        <TooltipWrap text={job} />
+        <Button fluid
+          className="button-ellipsis"
+          color="transparent"
+          content={job}
+          tooltip={"Select Player - " + job}
+          style={{
+            "color": jobToColor(ijob),
+          }}
+          onClick={(e) => {
+            act('select_player', { who: ckey === selected_ckey ? null : ckey });
+            e.preventDefault();
+          }} />
       </Table.Cell>
       <Table.Cell
-        bold={jobIsHead(job)}
+        bold={jobIsHead(ijob)}
         style={ellipsis_style}>
         <Button
           fluid
           className="button-ellipsis"
-          content={`${real_name}${(real_name === name ? "" : ` (as ${name})`)}`}
-          tooltip={`${real_name}${(real_name === name ? "" : ` (as ${name})`)}`}
+          content={`${real_name || name}${(real_name === name || !real_name ? "" : ` (as ${name})`)}`}
+          tooltip={`Admin PM - ${real_name || name}${(real_name === name || !real_name ? "" : ` (as ${name})`)}`}
           style={{
-            "color": jobToColor(job),
+            "color": jobToColor(ijob),
           }}
           onClick={(e) => {
             act('pm', { who: ckey });
@@ -526,7 +671,7 @@ const PlayerTableEntry = (props, context) => {
       }}>
         <Button
           fluid
-          tooltip="VV"
+          tooltip="View Variables"
           onClick={(e) => {
             act('open_view_variables', { who: ckey });
             e.preventDefault();

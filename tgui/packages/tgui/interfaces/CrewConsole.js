@@ -37,6 +37,9 @@ export const jobToColor = jobId => {
   if (jobId >= 200 && jobId < 230) {
     return COLORS.department.centcom;
   }
+  if (jobId === -1) {
+    return null;
+  }
   return COLORS.department.other;
 };
 
