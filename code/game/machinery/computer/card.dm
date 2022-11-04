@@ -455,7 +455,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 					else
 						banking += "<td><a href='?src=[REF(src)];choice=turn_on_off_department_manifest;target_bitflag=[available_paycheck_departments[each]]'>[each]</a></td>"
 			else
-				banking += "<td><b>Error: Cannot locate user entry in data core</b></td>"
+				banking += "<td colspan=\"8\"><b>Error: Cannot locate user entry in data core</b></td>"
 			banking += "</tr>"
 			//adjustable only when they have bank account in their card
 			var/datum/bank_account/B = inserted_modify_id?.registered_account
@@ -484,7 +484,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				banking += "</tr>"
 			else
 				banking += "<td><b>Banking information:</b></td>"
-				banking += "<td><b>Error: No linked bank account detected</b></td>"
+				banking += "<td colspan=\"8\"><b>Error: No linked bank account detected</b></td>"
 			banking += "</table>"
 			banking += "<br>"
 
@@ -843,8 +843,8 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				updateUsrDialog()
 				return
 			if(SSeconomy.is_nonstation_account(paycheck_t))
-				message_admins("[ADMIN_LOOKUPFLW(usr)] tried to adjust [inserted_modify_id.registered_name]'s [B.account_id] pay bonus. It must be they're hacking the game.")
-				CRASH("[key_name(usr)] tried to adjust [inserted_modify_id.registered_name]'s [B.account_id] pay bonus. It must be they're hacking the game.")
+				message_admins("[ADMIN_LOOKUPFLW(usr)] tried to adjust [inserted_modify_id.registered_name]'s [B.account_holder] pay bonus. It must be they're hacking the game.")
+				CRASH("[key_name(usr)] tried to adjust [inserted_modify_id.registered_name]'s [B.account_holder] pay bonus. It must be they're hacking the game.")
 			var/new_bonus = FLOOR(input(usr, "Input the bonus amount. Negative values will dock paychecks.", "Set paycheck bonus", B.bonus_per_department[target_paycheck]) as num|null, 1)
 			if(isnull(new_bonus))
 				updateUsrDialog()
@@ -860,9 +860,9 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			if(!B)
 				updateUsrDialog()
 				return
-			if(SSeconomy.is_nonstation_account(paycheck_t) && !(B.account_id == ACCOUNT_COM_ID)) // command is fine to turn on/off
-				message_admins("[ADMIN_LOOKUPFLW(usr)] tried to adjust [inserted_modify_id.registered_name]'s vendor free status of [B.account_id]. It must be they're hacking the game.")
-				CRASH("[key_name(usr)] tried to adjust [inserted_modify_id.registered_name]'s vendor free status of [B.account_id]. It must be they're hacking the game.")
+			if(SSeconomy.is_nonstation_account(paycheck_t) && !(paycheck_t == ACCOUNT_COM_ID)) // command is fine to turn on/off
+				message_admins("[ADMIN_LOOKUPFLW(usr)] tried to adjust [inserted_modify_id.registered_name]'s vendor free status of [B.account_holder]. It must be they're hacking the game.")
+				CRASH("[key_name(usr)] tried to adjust [inserted_modify_id.registered_name]'s vendor free status of [B.account_holder]. It must be they're hacking the game.")
 
 			if(B.active_departments & SSeconomy.get_budget_acc_bitflag(paycheck_t))
 				B.active_departments &= ~SSeconomy.get_budget_acc_bitflag(paycheck_t) // turn off

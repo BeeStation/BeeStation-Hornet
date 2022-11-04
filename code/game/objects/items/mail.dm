@@ -178,12 +178,12 @@
 	var/list/danger_goodies = hazard_goodies
 
 	//Load the job the player have
-	var/datum/job/this_job = SSjob.name_occupations[recipient.assigned_role]
+	var/datum/job/this_job = SSjob.name_occupations[recipient.assigned_role] // only station crews have 'assigned role'
 	if(this_job)
 		goodies += this_job.mail_goodies
 		var/datum/data/record/R = find_record("name", recipient.name, GLOB.data_core.general)
 		if(R) // datacore is primary
-			color = get_chatcolor_by_hud(get_hud_by_jobname(R.fields["hud"]))
+			color = get_chatcolor_by_hud(R.fields["hud"])
 		else if(this_job.title) // when they have no datacore, roundstart job will be base
 			color = get_chatcolor_by_hud(this_job.title)
 		if(!color)
