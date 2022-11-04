@@ -1,0 +1,6 @@
+author: itsmeow
+delete-after: true
+changes:
+  - code_imp: Updated development-side TGUI bootstrapping, updated internal TGUI API
+  - bugfix: Fixed some bugs related to TGUI Boxes not computing class names properly.
+  - refactor: Refactored TGUI asset loading.
