@@ -216,6 +216,13 @@ GLOBAL_LIST_EMPTY(request_list)
 			FC.messages += newMsg
 			newMsg.parent_ID = FC.channel_ID
 			break
+	if(picture)
+		// browse_rsc is stupid and too slow to call in ui_data (the image will not be received before the UI renders)
+		// instead we browse_rsc the image to *everyone* because the game is stupid - now everyone has the image cached before opening the newscaster
+		// this means the only person that will get possibly glitchy behavior is the person who posted the image, but it will be fixed the next time the UI opens.
+		var/photo_ID = "tmp_newscaster_[newMsg.parent_ID]_[newMsg.message_ID].png"
+		for(var/client/C as anything in GLOB.clients)
+			C << browse_rsc(newMsg.img, photo_ID)
 	for(var/obj/machinery/newscaster/NEWSCASTER in GLOB.allCasters)
 		NEWSCASTER.news_alert(channel_name, update_alert)
 	last_action ++

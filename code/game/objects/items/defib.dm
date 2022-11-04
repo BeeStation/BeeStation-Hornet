@@ -137,7 +137,11 @@
 	else
 		return ..()
 
-/obj/item/defibrillator/emag_act(mob/user)
+/obj/item/defibrillator/should_emag(mob/user)
+	return TRUE
+
+/obj/item/defibrillator/on_emag(mob/user)
+	..()
 	if(safety)
 		safety = FALSE
 		to_chat(user, "<span class='warning'>You silently disable [src]'s safety protocols with the cryptographic sequencer.</span>")
