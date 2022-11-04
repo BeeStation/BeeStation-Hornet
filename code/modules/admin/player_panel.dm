@@ -11,6 +11,8 @@
 	var/map_range = 1
 	// Icon stuff
 	var/list/cached_mob_icons = list()
+	// It updates every max(population / 5, 5) seconds
+	COOLDOWN_DECLARE(update_cooldown)
 
 /datum/admin_player_panel/New(user)
 	if(!user)
@@ -110,13 +112,12 @@
 
 /datum/admin_player_panel/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
-	refresh_view()
 	if(!ui)
 		log_admin("[key_name(user)] checked the player panel.")
 		ui = new(user, src, "PlayerPanel", "Player Panel")
-		ui.set_autoupdate(TRUE)
 		ui.open()
 		if(use_view)
+			refresh_view()
 			user.client.register_map_obj(cam_screen)
 			for(var/plane in cam_plane_masters)
 				user.client.register_map_obj(plane)
@@ -130,6 +131,12 @@
 	QDEL_NULL(cam_background)
 	..()
 
+/datum/admin_player_panel/ui_requires_update(mob/user, datum/tgui/ui)
+	. = ..()
+	if(.)
+		return TRUE
+	return COOLDOWN_FINISHED(src, update_cooldown)
+
 /datum/admin_player_panel/ui_assets(mob/user)
 	return list(
 		get_asset_datum(/datum/asset/spritesheet/antag_hud)
@@ -142,6 +149,7 @@
 	return data
 
 /datum/admin_player_panel/ui_data(mob/user)
+	COOLDOWN_START(src, update_cooldown, max(length(GLOB.player_list) / 5, 5) SECONDS)
 	var/list/data = ..()
 	var/list/players = list()
 	var/list/mobs = sortmobs()
