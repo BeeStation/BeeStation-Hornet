@@ -206,7 +206,7 @@
 		// do not convert to ?., since that makes null while TGUI expects undefined
 		if(player.client)
 			if(CONFIG_GET(flag/use_exp_tracking) && player.client.prefs)
-				data_entry["living_playtime"] = FLOOR(player.client.prefs.exp[EXP_TYPE_LIVING] / 60)
+				data_entry["living_playtime"] = FLOOR(player.client.prefs.exp[EXP_TYPE_LIVING] / 60, 1)
 			data_entry["telemetry"] = player.client.tgui_panel?.get_alert_level()
 			data_entry["connected"] = TRUE
 			if(ckey == selected_ckey)
