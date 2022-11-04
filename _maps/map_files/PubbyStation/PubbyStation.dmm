@@ -27068,11 +27068,9 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/structure/closet/radiation,
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/item/clothing/glasses/meson,
 /turf/open/floor/plasteel,
 /area/engine/engineering)
 "cbj" = (
@@ -27203,14 +27201,12 @@
 /turf/open/floor/plasteel,
 /area/engine/engineering)
 "ccc" = (
-/obj/structure/closet/radiation,
 /obj/structure/extinguisher_cabinet{
 	pixel_x = 27
 	},
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
 	},
-/obj/item/clothing/glasses/meson,
 /turf/open/floor/plasteel,
 /area/engine/engineering)
 "ccd" = (
@@ -27531,6 +27527,8 @@
 	c_tag = "Engineering Port Aft";
 	dir = 1
 	},
+/obj/structure/closet/radiation,
+/obj/item/clothing/glasses/meson,
 /turf/open/floor/plasteel,
 /area/engine/engineering)
 "cdR" = (
@@ -27547,6 +27545,8 @@
 /obj/effect/turf_decal/tile/yellow{
 	dir = 8
 	},
+/obj/structure/closet/radiation,
+/obj/item/clothing/glasses/meson,
 /turf/open/floor/plasteel,
 /area/engine/engineering)
 "cdS" = (
@@ -62762,6 +62762,16 @@
 /obj/machinery/telecomms/relay/preset/exploration,
 /turf/open/floor/circuit/telecomms/mainframe,
 /area/tcommsat/server)
+"wJK" = (
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/tile/yellow,
+/obj/effect/turf_decal/tile/yellow{
+	dir = 8
+	},
+/obj/structure/closet/radiation,
+/obj/item/clothing/glasses/meson,
+/turf/open/floor/plasteel,
+/area/engine/engineering)
 "wKd" = (
 /obj/structure/cable/yellow{
 	icon_state = "1-2"
@@ -95030,7 +95040,7 @@ cam
 cam
 cam
 cam
-cdI
+wJK
 qFu
 ljX
 ulY
