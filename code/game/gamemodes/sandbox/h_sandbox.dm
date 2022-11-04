@@ -2,6 +2,7 @@
 
 GLOBAL_VAR_INIT(hsboxspawn, TRUE)
 
+/mob
 	var/datum/hSB/sandbox = null
 /mob/proc/CanBuild()
 	sandbox = new/datum/hSB
