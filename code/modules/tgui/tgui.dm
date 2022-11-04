@@ -97,7 +97,7 @@
 	if(!window.is_ready())
 		window.initialize(
 			fancy = (user.client.prefs.toggles & PREFTOGGLE_2_FANCY_TGUI),
-			inline_assets = list(
+			assets = list(
 				get_asset_datum(/datum/asset/simple/tgui),
 			))
 	else

@@ -2,11 +2,12 @@
   "private": true,
   "name": "tgui-workspace",
   "version": "4.3.0",
+  "packageManager": "yarn@3.1.1",
   "workspaces": [
     "packages/*"
   ],
   "scripts": {
-    "tgui:build": "webpack",
+    "tgui:build": "BROWSERSLIST_IGNORE_OLD_DATA=true webpack",
     "tgui:analyze": "webpack --analyze",
     "tgui:dev": "node --experimental-modules packages/tgui-dev-server/index.js",
     "tgui:lint": "eslint packages --ext .js,.cjs,.ts,.tsx",
@@ -59,6 +60,5 @@
     "ajv": "^6.12.3",
     "minimist": "^1.2.6",
     "terser": "^5.14.2"
-  },
-  "packageManager": "yarn@3.1.1"
+  }
 }
