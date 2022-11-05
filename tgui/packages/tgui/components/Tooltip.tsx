@@ -11,13 +11,6 @@ type TooltipState = {
   hovered: boolean;
 };
 
-const DISABLE_EVENT_LISTENERS = [
-  {
-    name: 'eventListeners',
-    enabled: false,
-  },
-];
-
 const DEFAULT_OPTIONS = {
   modifiers: [
     {
@@ -34,6 +27,9 @@ const NULL_RECT = {
   right: 0,
   bottom: 0,
   left: 0,
+  x: 0,
+  y: 0,
+  toJSON: () => {},
 };
 
 export class Tooltip extends Component<TooltipProps, TooltipState> {
@@ -63,6 +59,10 @@ export class Tooltip extends Component<TooltipProps, TooltipState> {
 
   componentDidMount() {
     const domNode = this.getDOMNode();
+
+    if (!domNode) {
+      return;
+    }
 
     domNode.addEventListener('mouseenter', () => {
       let renderedTooltip = Tooltip.renderedTooltip;
