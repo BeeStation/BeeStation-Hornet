@@ -1049,7 +1049,6 @@ class PlayerJobSelectButton extends Component {
         fluid
         color="transparent"
         className="button-ellipsis"
-        color="transparent"
         content={job}
         tooltip={"Select Player - " + job}
         style={{
