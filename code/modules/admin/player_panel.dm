@@ -196,7 +196,7 @@
 		if(P)
 			data_entry["previous_names"] = P.played_names
 			search_data += P.played_names.Join(" ")
-		if(length(search_text) && !findtextEx(search_data, search_text)) // skip this player, not included in query
+		if(length(search_text) && !findtext(search_data, search_text)) // skip this player, not included in query
 			continue
 		data_entry["last_ip"] = player.lastKnownIP
 		data_entry["is_antagonist"] = is_special_character(player)
