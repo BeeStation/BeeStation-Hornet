@@ -9765,11 +9765,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/engine/break_room)
-"jdw" = (
-/obj/structure/lattice,
-/obj/structure/lattice,
-/turf/open/space/basic,
-/area/space/nearstation)
 "jdx" = (
 /obj/structure/table/wood,
 /obj/item/storage/box/PDAs{
@@ -49349,7 +49344,7 @@ dss
 dss
 dss
 dss
-dss
+dKI
 dss
 dss
 dss
@@ -50811,7 +50806,7 @@ dss
 dss
 dss
 dss
-jdw
+ygc
 ygc
 ygc
 ygc
@@ -51839,7 +51834,7 @@ ygc
 iKg
 dss
 dss
-jdw
+ygc
 ygc
 ygc
 ygc
@@ -55676,7 +55671,7 @@ ygc
 ygc
 ygc
 ygc
-jdw
+ygc
 dss
 dss
 dss
@@ -61602,7 +61597,7 @@ dss
 dss
 dss
 dss
-jdw
+ygc
 ygc
 ygc
 ygc
