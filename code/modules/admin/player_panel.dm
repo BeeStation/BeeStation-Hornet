@@ -29,7 +29,6 @@
 
 /datum/admin_player_panel/ui_static_data(mob/user)
 	var/list/data = ..()
-	data["mapRef"] = map_name
 	data["metacurrency_name"] = CONFIG_GET(string/metacurrency_name)
 	return data
 
@@ -124,15 +123,6 @@
 				data_entry["related_accounts_cid"] = player.client.related_accounts_cid
 				if(player.client.byond_version)
 					data_entry["byond_version"] = "[player.client.byond_version].[player.client.byond_build ? player.client.byond_build : "xxx"]"
-				if(!(REF(player) in cached_mob_icons))
-					var/icon/I = getFlatIcon(player, defdir = SOUTH, no_anim = TRUE)
-					if(I)
-						var/uid = rand(1, 999)
-						user << browse_rsc(I, "playerpanel_img_[REF(player)][uid].png")
-						cached_mob_icons[REF(player)] = uid // this uid does a rerender in TGUI, otherwise it doesn't know it updated
-				if(REF(player) in cached_mob_icons)
-					var/uid = cached_mob_icons[REF(player)]
-					data_entry["photo_path"] = "playerpanel_img_[REF(player)][uid].png"
 		if(player.mind)
 			data_entry["antag_hud"] = player.mind.antag_hud_icon_state
 		if(ckey == selected_ckey)
