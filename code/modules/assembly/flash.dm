@@ -75,7 +75,8 @@
 
 /obj/item/assembly/flash
 	name = "flash"
-	desc = "A powerful and versatile flashbulb device, with applications ranging from disorienting attackers to acting as visual receptors in robot production."
+	desc = "A powerful and versatile flashbulb device, with applications ranging from disorienting attackers to acting as visual receptors in robot production. \
+		It is highly effective against targets who aren't standing or suffering from exhaustion."
 	icon_state = "flash"
 	item_state = "flashtool"
 	lefthand_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
@@ -108,7 +109,6 @@
 /obj/item/assembly/flash/examine(mob/user)
 	. = ..()
 	. += "[bulb ? "The bulb looks like it can handle just about [bulb.charges_left] more uses.\nIt looks like you can cut out the flashbulb with a pair of wirecutters." : "The device has no bulb installed."]"
-
 
 /obj/item/assembly/flash/suicide_act(mob/living/user)
 	if(!bulb)
