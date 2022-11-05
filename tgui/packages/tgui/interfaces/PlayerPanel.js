@@ -773,7 +773,7 @@ class PlayerTableHeadings extends PureComponent {
           Job/Role
         </Table.Cell>
         <Table.Cell bold>
-          Name (PM)
+          Name (FLW)
         </Table.Cell>
         <Table.Cell bold collapsing textAlign="center"
           style={{
@@ -785,7 +785,7 @@ class PlayerTableHeadings extends PureComponent {
           style={{
             "min-width": "12em",
           }}>
-          Position (FLW)
+          Position (PM)
         </Table.Cell>
       </Table.Row>
     );
@@ -953,6 +953,7 @@ class PlayerTelemetryButton extends PureComponent {
         style={{
           "color": color_from_telemetry(telemetry),
         }}
+        color="transparent"
         bold={bold_from_telemetry(telemetry)}
         content={telemetry !== undefined ? telemetry : "ERR"}
         tooltip="Open Telemetry"
@@ -972,6 +973,7 @@ class PlayerCKEYButton extends PureComponent {
     return (
       <Button
         fluid
+        color="transparent"
         className="button-ellipsis"
         bold={bold_from_telemetry(telemetry)}
         style={{
@@ -1038,7 +1040,9 @@ class PlayerJobSelectButton extends Component {
       is_selected,
     } = this.props;
     return (
-      <Button fluid
+      <Button
+        fluid
+        color="transparent"
         className="button-ellipsis"
         color="transparent"
         content={job}
@@ -1064,14 +1068,15 @@ class PlayerNameButton extends PureComponent {
     return (
       <Button
         fluid
+        color="transparent"
         className="button-ellipsis"
         content={`${real_name || name}${(real_name === name || !real_name ? "" : ` (as ${name})`)}`}
-        tooltip={`Admin PM - ${real_name || name}${(real_name === name || !real_name ? "" : ` (as ${name})`)}`}
+        tooltip={`Follow player - ${real_name || name}${(real_name === name || !real_name ? "" : ` (as ${name})`)}`}
         style={{
           "color": jobToColor(ijob),
         }}
         bold={jobIsHead(ijob)}
-        onClick={() => act('pm', { who: ckey })}
+        onClick={() => act('follow', { who: ckey })}
       />
     );
   }
@@ -1092,6 +1097,7 @@ class PlayerVitalsButton extends PureComponent {
     return (
       <Button
         fluid
+        color="transparent"
         tooltip="View Variables"
         onClick={() => act('open_view_variables', { who: ckey })}
         content={
@@ -1204,11 +1210,12 @@ class PlayerLocationButton extends PureComponent {
     return (
       <Button
         fluid
+        color="transparent"
         className="button-ellipsis"
         disabled={!position}
         content={position || 'Nullspace (wtf)'}
-        tooltip={"Follow player - " + position}
-        onClick={() => act('follow', { who: ckey })} />
+        tooltip={"PM player - " + position}
+        onClick={() => act('pm', { who: ckey })} />
     );
   }
 }
