@@ -1,10 +1,9 @@
 /proc/create_all_lighting_objects()
-	for(var/area/A in GLOB.sortedAreas)
+	for(var/area/A as anything in GLOB.areas)
 		if(!IS_DYNAMIC_LIGHTING(A))
 			continue
 
-		for(var/turf/T in A)
-
+		for(var/turf/T as anything in A.get_contained_turfs())
 			if(!IS_DYNAMIC_LIGHTING(T))
 				continue
 
