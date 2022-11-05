@@ -1,114 +1,10 @@
 /datum/admin_player_panel
 	var/selected_ckey
-	var/use_view = FALSE
-	// Map stuff
-	var/atom/movable/screen/map_view/cam_screen
-	var/list/cam_plane_masters
-	var/atom/movable/screen/background/cam_background
-	var/renderLighting = FALSE
-	var/map_name
-	var/last_update_loc
-	var/map_range = 1
-	// Icon stuff
-	var/list/cached_mob_icons = list()
 	COOLDOWN_DECLARE(update_cooldown)
 	/// The text to filter players by, contains name, realname, previous names, job, and ckey
 	var/search_text
 	/// Seconds selected between updates, 0 is no auto-update
-	var/update_interval = 0
-
-/datum/admin_player_panel/New(user)
-	if(!user)
-		return
-	setup(user)
-
-/datum/admin_player_panel/proc/setup(user)
-	var/client/user_client
-	if (istype(user, /client))
-		var/client/C = user
-		user_client = C
-	else if(istype(user, /mob))
-		var/mob/M = user
-		user_client = M.client
-	else
-		return
-	if(map_name)
-		user_client.clear_map(map_name)
-
-	map_name = "admin_player_panel_[REF(src)]_map"
-	// Initialize map objects
-	cam_screen = new
-	cam_screen.name = "screen"
-	cam_screen.assigned_map = map_name
-	cam_screen.del_on_map_removal = FALSE
-	cam_screen.screen_loc = "[map_name]:1,1"
-	cam_plane_masters = list()
-	for(var/plane in subtypesof(/atom/movable/screen/plane_master))
-		var/atom/movable/screen/instance = new plane()
-		if (!renderLighting && instance.plane == LIGHTING_PLANE)
-			instance.alpha = 100
-		instance.assigned_map = map_name
-		instance.del_on_map_removal = FALSE
-		instance.screen_loc = "[map_name]:CENTER"
-		cam_plane_masters += instance
-	cam_background = new
-	cam_background.assigned_map = map_name
-	cam_background.del_on_map_removal = FALSE
-
-/datum/admin_player_panel/process()
-	refresh_view()
-
-/datum/admin_player_panel/proc/refresh_view(force = FALSE)
-	if(!cam_screen)
-		setup(usr)
-	if(!selected_ckey || !use_view)
-		return
-	var/client/target_client = GLOB.directory[selected_ckey]
-	var/mob/target_mob
-	if(target_client)
-		target_mob = target_client.mob
-	else
-		target_mob = get_mob_by_ckey(selected_ckey)
-	if(!target_mob)
-		for(var/mob/M as() in GLOB.mob_list)
-			if(M?.ckey == selected_ckey)
-				target_mob = M
-	if(!istype(target_mob))
-		return
-	if(isAI(target_mob))
-		var/mob/living/silicon/ai/ai_mob = target_mob
-		target_mob = ai_mob.eyeobj
-	var/turf/current_turf = get_turf(target_mob)
-	if(REF(current_turf) == last_update_loc && !force)
-		return // no changes
-	last_update_loc = REF(current_turf)
-	var/list/turf/visible_turfs = list()
-	for(var/turf/vis in range(map_range, target_mob))
-		visible_turfs += vis
-	var/list/bbox = get_bbox_of_atoms(visible_turfs)
-	var/size_x = bbox[3] - bbox[1] + 1
-	var/size_y = bbox[4] - bbox[2] + 1
-
-	cam_screen.vis_contents = visible_turfs
-	cam_background.icon_state = "clear"
-	cam_background.fill_rect(1, 1, size_x, size_y)
-
-/datum/admin_player_panel/proc/set_use_view(do_use_view)
-	if(!do_use_view && use_view)
-		usr?.client?.clear_map(map_name)
-		STOP_PROCESSING(SSprocessing, src)
-	if(do_use_view && !use_view)
-		usr?.client.register_map_obj(cam_screen)
-		for(var/plane in cam_plane_masters)
-			usr?.client.register_map_obj(plane)
-		usr?.client.register_map_obj(cam_background)
-		START_PROCESSING(SSprocessing, src)
-	use_view = !!do_use_view
-
-/datum/admin_player_panel/ui_close(mob/user)
-	. = ..()
-	user.client?.clear_map(map_name)
-	STOP_PROCESSING(SSprocessing, src)
+	var/update_interval = 60
 
 /datum/admin_player_panel/ui_state(mob/user)
 	return GLOB.admin_holder_state
@@ -119,20 +15,6 @@
 		log_admin("[key_name(user)] checked the player panel.")
 		ui = new(user, src, "PlayerPanel", "Player Panel")
 		ui.open()
-		if(use_view)
-			refresh_view()
-			user.client.register_map_obj(cam_screen)
-			for(var/plane in cam_plane_masters)
-				user.client.register_map_obj(plane)
-			user.client.register_map_obj(cam_background)
-			START_PROCESSING(SSprocessing, src)
-
-/datum/admin_player_panel/Destroy()
-	usr?.client?.clear_map(map_name)
-	QDEL_NULL(cam_screen)
-	QDEL_LIST(cam_plane_masters)
-	QDEL_NULL(cam_background)
-	..()
 
 /datum/admin_player_panel/ui_requires_update(mob/user, datum/tgui/ui)
 	. = ..()
@@ -266,8 +148,6 @@
 		players[ckey] = data_entry
 	data["players"] = players
 	data["selected_ckey"] = selected_ckey
-	data["map_range"] = map_range
-	data["use_view"] = use_view
 	data["search_text"] = search_text
 	data["update_interval"] = update_interval
 	return data
@@ -282,24 +162,8 @@
 			return TRUE
 		if("set_search_text")
 			search_text = params["text"]
-		if("set_map_range")
-			map_range = min(max(params["range"], 0), 5)
-			refresh_view(force = TRUE)
-			return TRUE
 		if("select_player")
 			selected_ckey = params["who"]
-			refresh_view()
-			return TRUE
-		if("set_use_view")
-			set_use_view(!!params["value"])
-			refresh_view(force = TRUE)
-			return TRUE
-		if("refresh_view")
-			setup(usr)
-			refresh_view(force = TRUE)
-			return TRUE
-		if("reload_images")
-			cached_mob_icons.Cut()
 			return TRUE
 	var/mob/user = usr
 	if(!istype(user) || !user.client || !user.client.holder)

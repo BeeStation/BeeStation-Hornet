@@ -88,11 +88,8 @@ export const PlayerPanel = (_, context) => {
   const {
     players = {},
     selected_ckey,
-    use_view,
     search_text,
     update_interval,
-    mapRef,
-    map_range,
     metacurrency_name,
   } = data;
   const selected_player = players[selected_ckey];
@@ -118,11 +115,6 @@ export const PlayerPanel = (_, context) => {
             content="Silicon Laws"
             onClick={() => act('check_silicon_laws')}
           />
-          <ButtonCheckbox content="Live View"
-            tooltip="WARNING: Lags client"
-            tooltipPosition="bottom-start"
-            checked={use_view}
-            onClick={() => act('set_use_view', { value: !use_view })} />
           <Tooltip
             content="Auto-Update Interval (0 to disable)"
             position="bottom-start">
@@ -162,9 +154,6 @@ export const PlayerPanel = (_, context) => {
             <Flex.Item style={{ "resize": "vertical" }} mt={1} height={`${PANEL_HEIGHT}px`}>
               <Box height="100%">
                 <PlayerDetails
-                  mapRef={mapRef}
-                  map_range={map_range}
-                  use_view={use_view}
                   metacurrency_name={metacurrency_name}
                   ckey={selected_player.ckey}
                   previous_names={selected_player.previous_names}
@@ -183,8 +172,7 @@ export const PlayerPanel = (_, context) => {
                   cid={selected_player.cid}
                   ip={selected_player.ip}
                   related_accounts_ip={selected_player.related_accounts_ip}
-                  related_accounts_cid={selected_player.related_accounts_cid}
-                  photo_path={selected_player.photo_path} />
+                  related_accounts_cid={selected_player.related_accounts_cid} />
               </Box>
             </Flex.Item>
           )}
@@ -223,9 +211,6 @@ class PlayerDetails extends Component {
 
   render() {
     const {
-      mapRef,
-      map_range,
-      use_view,
       metacurrency_name = "BeeCoin", // sorry downstreams
       ckey,
       previous_names = [],
@@ -244,7 +229,6 @@ class PlayerDetails extends Component {
       ip = "N/A",
       related_accounts_ip = "N/A",
       related_accounts_cid = "N/A",
-      photo_path,
     } = this.props;
 
     return (
@@ -259,13 +243,6 @@ class PlayerDetails extends Component {
             metacurrency_name={metacurrency_name}
             metacurrency_balance={metacurrency_balance}
             previous_names={previous_names} />
-        </Flex.Item>
-        <Flex.Item height={use_view ? "170px" : "150px"} ml={1}>
-          <PlayerDetailsViewSection
-            use_view={use_view}
-            map_range={map_range}
-            mapRef={mapRef}
-            photo_path={photo_path} />
         </Flex.Item>
         <Flex.Item grow={1} ml={1} mr={0.5}>
           <PlayerCKEYDetailsSection
@@ -366,75 +343,6 @@ class PlayerDetailsSection extends Component {
               <Box inline key={name}>{name}</Box>
             )}
           </Box>
-        </Box>
-      </Section>
-    );
-  }
-}
-
-class PlayerDetailsViewSection extends PureComponent {
-  render() {
-    const { act } = useBackend(this.context);
-    const {
-      use_view,
-      map_range,
-      mapRef,
-      photo_path,
-    } = this.props;
-    return (
-      <Section fill fitted title={
-        <>
-          View
-          {use_view ? (
-            <>
-              <Box inline width={1.2} />
-              <Button style={{ "font-weight": "normal", "font-size": "12px" }}
-                mt={0} mb={0} icon="search-minus" onClick={() => act("set_map_range", { range: map_range + 1 })} />
-              <Button
-                style={{ "font-weight": "normal", "font-size": "12px" }}
-                icon="sync-alt"
-                tooltip="Refresh view window in case it breaks"
-                onClick={() => act('refresh_view')}
-              />
-              <Button style={{ "font-weight": "normal", "font-size": "12px" }}
-                mt={0} mb={0} icon="search-plus" onClick={() => act("set_map_range", { range: map_range - 1 })} />
-            </>
-          ) : (
-            <>
-              <Box inline width={3} />
-              <Button
-                style={{ "font-weight": "normal", "font-size": "12px" }}
-                icon="sync-alt"
-                tooltip="Refresh mob icon cache"
-                onClick={() => act('reload_images')}
-              />
-            </>
-          )}
-        </>
-      }>
-        <Box width="100%" height="100%">
-          {(
-            use_view ? (
-              <ByondUi
-                width="100%"
-                height="100%"
-                params={{
-                  zoom: 0,
-                  "view-size": 169,
-                  id: mapRef,
-                  type: 'map',
-                }} />
-            ) : (
-              <Box width="110px" height="100%" style={{ "overflow": "hidden" }}>
-                <img width="100%" src={photo_path}
-                  style={{
-                    "overflow": "hidden",
-                    "-ms-interpolation-mode": "nearest-neighbor", // IE
-                    "image-rendering": "crisp-edges",
-                  }} />
-              </Box>
-            )
-          )}
         </Box>
       </Section>
     );
