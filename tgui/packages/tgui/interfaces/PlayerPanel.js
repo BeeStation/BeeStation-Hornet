@@ -550,7 +550,7 @@ class LogViewer extends Component {
 
 class LogEntryKey extends PureComponent {
   render() {
-    const { act } = useBackend(context);
+    const { act } = useBackend(this.context);
     const {
       key_data,
     } = this.props;
