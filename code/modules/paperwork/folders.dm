@@ -52,6 +52,8 @@
 
 /obj/item/folder/AltClick(mob/user)
 	..()
+	if(!user.canUseTopic(src, BE_CLOSE))
+		return
 	if(length(contents))
 		remove_item(contents[1], user)
 

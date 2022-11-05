@@ -97,6 +97,8 @@
 	user.examinate(src)
 
 /obj/machinery/clonepod/AltClick(mob/user)
+	if(!user.canUseTopic(src, !issilicon(user)))
+		return
 	if (alert(user, "Are you sure you want to empty the cloning pod?", "Empty Reagent Storage:", "Yes", "No") != "Yes")
 		return
 	to_chat(user, "<span class='notice'>You empty \the [src]'s release valve onto the floor.</span>")
@@ -450,9 +452,11 @@
 	else
 		return ..()
 
-/obj/machinery/clonepod/emag_act(mob/user)
-	if(!occupant)
-		return
+/obj/machinery/clonepod/should_emag(mob/user)
+	return !!occupant
+
+/obj/machinery/clonepod/on_emag(mob/user)
+	..()
 	to_chat(user, "<span class='warning'>You corrupt the genetic compiler.</span>")
 	malfunction()
 	add_fingerprint(user)

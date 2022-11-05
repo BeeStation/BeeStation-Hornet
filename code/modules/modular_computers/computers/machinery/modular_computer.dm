@@ -47,11 +47,15 @@
 	if(cpu)
 		cpu.attack_ghost(user)
 
-/obj/machinery/modular_computer/emag_act(mob/user)
+/obj/machinery/modular_computer/should_emag(mob/user)
 	if(!cpu)
 		to_chat(user, "<span class='warning'>You'd need to turn the [src] on first.</span>")
 		return FALSE
-	return (cpu.emag_act(user))
+	return cpu.should_emag(user)
+
+/obj/machinery/modular_computer/on_emag(mob/user)
+	..()
+	return cpu.on_emag(user)
 
 /obj/machinery/modular_computer/update_icon()
 	cut_overlays()
@@ -62,9 +66,7 @@
 			add_overlay(screen_icon_screensaver)
 		else
 			icon_state = icon_state_unpowered
-		set_light(0)
 	else
-		set_light(light_strength)
 		if(cpu.active_program)
 			add_overlay(cpu.active_program.program_icon_state ? cpu.active_program.program_icon_state : screen_icon_state_menu)
 		else

@@ -133,6 +133,7 @@
 /mob/living/simple_animal/bot/mulebot/bot_reset()
 	..()
 	reached_target = FALSE
+	new_destination = null
 
 /mob/living/simple_animal/bot/mulebot/attackby(obj/item/I, mob/user, params)
 	if(I.tool_behaviour == TOOL_SCREWDRIVER)
@@ -175,7 +176,7 @@
 	else
 		return ..()
 
-/mob/living/simple_animal/bot/mulebot/emag_act(mob/user)
+/mob/living/simple_animal/bot/mulebot/on_emag(atom/target, mob/user)
 	if(!emagged)
 		emagged = TRUE
 	if(!open)

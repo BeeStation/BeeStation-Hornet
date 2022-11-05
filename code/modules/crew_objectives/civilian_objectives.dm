@@ -178,8 +178,8 @@
 /datum/objective/crew/slipster/check_completion()
 	var/list/uniqueslips = list()
 	if(owner?.current)
-		for(var/obj/item/pda/clown/PDA in owner.current.get_contents())
-			for(var/mob/living/carbon/human/H in PDA.slipvictims)
+		for(var/obj/item/modular_computer/tablet/pda/clown/PDA in owner.current.get_contents())
+			for(var/H in PDA.slip_victims)
 				uniqueslips |= H
 	if(uniqueslips.len >= target_amount)
 		return TRUE
@@ -258,10 +258,10 @@
 /datum/objective/crew/reporter/check_completion()
 	if(owner?.current)
 		var/ownername = "[ckey(owner.current.real_name)][ckey(owner.assigned_role)]"
-		for(var/datum/newscaster/feed_channel/chan in GLOB.news_network.network_channels)
-			for(var/datum/newscaster/feed_message/msg in chan.messages)
-				if(ckey(msg.returnAuthor()) == ckey(ownername))
-					if(length(msg.returnBody()) >= charcount)
+		for(var/datum/feed_channel/channel in GLOB.news_network.network_channels)
+			for(var/datum/feed_message/message in channel.messages)
+				if(ckey(message.author) == ckey(ownername))
+					if(length(message.return_body()) >= charcount)
 						target_amount--
 	if(target_amount <= 0)
 		return TRUE

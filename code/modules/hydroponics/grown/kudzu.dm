@@ -52,7 +52,7 @@
 	var/text_string = ""
 	for(var/datum/spacevine_mutation/SM in mutations)
 		text_string += "[(text_string == "") ? "" : ", "][SM.name]"
-	text += "\n- Plant Mutations: [(text_string == "") ? "None" : text_string]"
+	text += "Plant Mutations: [(text_string == "") ? "None" : text_string]"
 	return text
 
 /obj/item/seeds/kudzu/on_chem_reaction(datum/reagents/S)

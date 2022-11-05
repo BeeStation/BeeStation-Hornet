@@ -30,7 +30,7 @@
 	return ..()
 
 /obj/machinery/computer/cargo/express/attackby(obj/item/W, mob/living/user, params)
-	if((istype(W, /obj/item/card/id) || istype(W, /obj/item/pda)) && allowed(user))
+	if((istype(W, /obj/item/card/id) || istype(W, /obj/item/modular_computer/tablet/pda)) && allowed(user))
 		locked = !locked
 		to_chat(user, "<span class='notice'>You [locked ? "lock" : "unlock"] the interface.</span>")
 		return
@@ -48,16 +48,9 @@
 			to_chat(user, "<span class='notice'>[src] is already linked to [sb].</span>")
 	..()
 
-/obj/machinery/computer/cargo/express/emag_act(mob/living/user)
-	if(obj_flags & EMAGGED)
-		return
-	if(user)
-		user.visible_message("<span class='warning'>[user] swipes a suspicious card through [src]!</span>",
-		"<span class='notice'>You change the routing protocols, allowing the Supply Pod to land anywhere on the station.</span>")
-	obj_flags |= EMAGGED
-	// This also sets this on the circuit board
-	var/obj/item/circuitboard/computer/cargo/board = circuit
-	board.obj_flags |= EMAGGED
+/obj/machinery/computer/cargo/express/on_emag(mob/user)
+	..()
+	to_chat(user,"<span class='notice'>You change the routing protocols, allowing the Supply Pod to land anywhere on the station.</span>")
 	packin_up()
 
 /obj/machinery/computer/cargo/express/proc/packin_up() // oh shit, I'm sorry
