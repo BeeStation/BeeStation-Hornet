@@ -4,7 +4,7 @@
 	/// The text to filter players by, contains name, realname, previous names, job, and ckey
 	var/search_text
 	/// Seconds selected between updates, 0 is no auto-update
-	var/update_interval = 60
+	var/update_interval = 5
 
 /datum/admin_player_panel/ui_state(mob/user)
 	return GLOB.admin_holder_state
@@ -111,7 +111,7 @@
 					var/list/log_type_data = list()
 					var/list/log = player.client.player_details.logging[log_type]
 					for(var/entry in log)
-						log_type_data[entry] += log[entry]
+						log_type_data[entry] += html_decode(log[entry])
 					data_entry["log_client"][log_type] = log_type_data
 				data_entry["metacurrency_balance"] = player.client.get_metabalance()
 				data_entry["antag_tokens"] = player.client.get_antag_token_count()
@@ -130,7 +130,7 @@
 				var/list/log_type_data = list()
 				var/list/log = player.logging[log_type]
 				for(var/entry in log)
-					log_type_data[entry] += log[entry]
+					log_type_data[entry] += html_decode(log[entry])
 				data_entry["log_mob"][log_type] = log_type_data
 			data_entry["is_cyborg"] = iscyborg(player)
 			data_entry["mob_type"] = player.type
