@@ -146,6 +146,7 @@ export const PlayerPanel = (_, context) => {
                   ckey={selected_player.ckey}
                   previous_names={selected_player.previous_names}
                   has_mind={selected_player.has_mind}
+                  // log_mob and log_client are nested, cannot be pure
                   log_client={selected_player.log_client}
                   log_mob={selected_player.log_mob}
                   is_cyborg={selected_player.is_cyborg}
@@ -981,7 +982,10 @@ class PlayerHumanVitals extends PureComponent {
 
 class HealthStatPure extends PureComponent {
   render() {
-    const { type, value } = props;
+    const {
+      type,
+      value,
+    } = this.props;
     return (
       <Box
         inline
