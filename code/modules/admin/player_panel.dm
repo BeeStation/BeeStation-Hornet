@@ -12,6 +12,9 @@
 	// Icon stuff
 	var/list/cached_mob_icons = list()
 	COOLDOWN_DECLARE(update_cooldown)
+	/// The text to filter players by, contains name, realname, previous names, job, and ckey
+	var/search_text
+	/// Seconds selected between updates, 0 is no auto-update
 	var/update_interval = 0
 
 /datum/admin_player_panel/New(user)
@@ -193,6 +196,9 @@
 		// no using ?. or it breaks shit, it should be undefined, NOT NULL
 		if(P)
 			data_entry["previous_names"] = P.played_names
+			search_data += P.played_names.Join(" ")
+		if(length(search_text) && !findtext(search_data, search_text)) // skip this player, not included in query
+			continue
 		data_entry["last_ip"] = player.lastKnownIP
 		data_entry["is_antagonist"] = is_special_character(player)
 		if(ishuman(player))
@@ -261,6 +267,7 @@
 	data["selected_ckey"] = selected_ckey
 	data["map_range"] = map_range
 	data["use_view"] = use_view
+	data["search_text"] = search_text
 	data["update_interval"] = update_interval
 	return data
 
@@ -272,6 +279,8 @@
 		if("set_update_interval")
 			update_interval = min(max(params["value"], 0), 120)
 			return TRUE
+		if("set_search_text")
+			search_text = params["text"]
 		if("set_map_range")
 			map_range = min(max(params["range"], 0), 5)
 			refresh_view(force = TRUE)
