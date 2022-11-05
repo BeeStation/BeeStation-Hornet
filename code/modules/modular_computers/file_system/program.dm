@@ -2,8 +2,10 @@
 /datum/computer_file/program
 	filetype = "PRG"
 	filename = "UnknownProgram"				// File name. FILE NAME MUST BE UNIQUE IF YOU WANT THE PROGRAM TO BE DOWNLOADABLE FROM NTNET!
-	var/required_access = null				// List of required accesses to *run* the program.
-	var/transfer_access = null				// List of required access to download or file host the program
+	/// List of required accesses to *run* the program.
+	var/list/required_access = list()
+	/// List of required access to download or file host the program
+	var/list/transfer_access = list()
 	var/program_state = PROGRAM_STATE_KILLED// PROGRAM_STATE_KILLED or PROGRAM_STATE_BACKGROUND or PROGRAM_STATE_ACTIVE - specifies whether this program is running.
 	var/obj/item/modular_computer/computer	// Device that runs this program.
 	var/filedesc = "Unknown Program"		// User-friendly name of this program.
@@ -29,11 +31,17 @@
 	var/alert_silenced = FALSE
 	/// Whether to highlight our program in the main screen. Intended for alerts, but loosely available for any need to notify of changed conditions. Think Windows task bar highlighting. Available even if alerts are muted.
 	var/alert_pending = FALSE
+	/// If this program should process attack calls
+	var/use_attack = FALSE
+	/// If this program should process attack_obj calls
+	var/use_attack_obj = FALSE
 
 /datum/computer_file/program/New(obj/item/modular_computer/comp = null)
 	..()
-	if(comp && istype(comp))
+	if(istype(comp))
 		computer = comp
+	else if(istype(holder?.holder, /obj/item/modular_computer))
+		computer = holder.holder
 
 /datum/computer_file/program/Destroy()
 	computer = null
@@ -77,7 +85,7 @@
 	return 1
 
 /**
-  *Check if the user can run program. Only humans can operate computer. Automatically called in run_program()
+  *Check if the user can run program. Only humans and silicons can operate computer. Automatically called in on_start()
   *ID must be inserted into a card slot to be read. If the program is not currently installed (as is the case when
   *NT Software Hub is checking available software), a list can be given to be used instead.
   *Arguments:
@@ -88,59 +96,71 @@
   *access can contain a list of access numbers to check against. If access is not empty, it will be used istead of checking any inserted ID.
 */
 /datum/computer_file/program/proc/can_run(mob/user, loud = FALSE, access_to_check, transfer = FALSE, var/list/access)
+	if(issilicon(user))
+		return TRUE
+
+	if(IsAdminGhost(user))
+		return TRUE
+
+	if(!transfer && computer && (computer.obj_flags & EMAGGED))	//emags can bypass the execution locks but not the download ones.
+		return TRUE
+
 	// Defaults to required_access
 	if(!access_to_check)
 		if(transfer && transfer_access)
 			access_to_check = transfer_access
 		else
 			access_to_check = required_access
-	if(!access_to_check) // No required_access, allow it.
-		return 1
-
-	if(!transfer && computer && (computer.obj_flags & EMAGGED))	//emags can bypass the execution locks but not the download ones.
-		return 1
-
-	if(IsAdminGhost(user))
-		return 1
-
-	if(issilicon(user))
-		return 1
+	if(!length(access_to_check)) // No required_access, allow it.
+		return TRUE
 
 	if(!length(access))
-		var/obj/item/card/id/D
+		var/obj/item/card/id/access_card
 		var/obj/item/computer_hardware/card_slot/card_slot
 		if(computer)
 			card_slot = computer.all_components[MC_CARD]
-			D = card_slot?.GetID()
+			access_card = card_slot?.GetID()
 
-		if(!D)
+		if(!access_card)
 			if(loud)
 				to_chat(user, "<span class='danger'>\The [computer] flashes an \"RFID Error - Unable to scan ID\" warning.</span>")
 			return FALSE
-		access = D.GetAccess()
+		access = access_card.GetAccess()
 
-	if(access_to_check in access)
-		return TRUE
+	for(var/singular_access in access_to_check)
+		if(singular_access in access) //For loop checks every individual access entry in the access list. If the user's ID has access to any entry, then we're good.
+			return TRUE
 	if(loud)
 		to_chat(user, "<span class='danger'>\The [computer] flashes an \"Access Denied\" warning.</span>")
 	return FALSE
 
-// This attempts to retrieve header data for UIs. If implementing completely new device of different type than existing ones
-// always include the device here in this proc. This proc basically relays the request to whatever is running the program.
+/**
+ * This attempts to retrieve header data for UIs.
+ *
+ * If implementing completely new device of different type than existing ones
+ * always include the device here in this proc. This proc basically relays the request to whatever is running the program.
+ **/
 /datum/computer_file/program/proc/get_header_data()
 	if(computer)
 		return computer.get_header_data()
 	return list()
 
-// This is performed on program startup. May be overridden to add extra logic. Remember to include ..() call. Return 1 on success, 0 on failure.
-// When implementing new program based device, use this to run the program.
-/datum/computer_file/program/proc/run_program(mob/living/user)
+/**
+ * Called on program startup.
+ *
+ * May be overridden to add extra logic. Remember to include ..() call. Return 1 on success, 0 on failure.
+ * When implementing new program based device, use this to run the program.
+ * Arguments:
+ * * user - The mob that started the program
+ **/
+/datum/computer_file/program/proc/on_start(mob/living/user)
+	SHOULD_CALL_PARENT(TRUE)
 	if(can_run(user, 1))
 		if(requires_ntnet && network_destination)
 			generate_network_log("Connection opened to [network_destination].")
 		program_state = PROGRAM_STATE_ACTIVE
-		return 1
-	return 0
+		return TRUE
+	return FALSE
 
 /**
   *
@@ -156,8 +176,15 @@
 /datum/computer_file/program/proc/run_emag()
 	return FALSE
 
-// Use this proc to kill the program. Designed to be implemented by each program if it requires on-quit logic, such as the NTNRC client.
+/**
+ * Kills the running program
+ *
+ * Use this proc to kill the program. Designed to be implemented by each program if it requires on-quit logic, such as the NTNRC client.
+ * Arguments:
+ * * forced - Boolean to determine if this was a forced close. Should be TRUE if the user did not willingly close the program.
+ **/
 /datum/computer_file/program/proc/kill_program(forced = FALSE)
+	SHOULD_CALL_PARENT(TRUE)
 	program_state = PROGRAM_STATE_KILLED
 	if(network_destination)
 		generate_network_log("Connection to [network_destination] closed.")
@@ -186,17 +213,19 @@
 // ALWAYS INCLUDE PARENT CALL ..() OR DIE IN FIRE.
 /datum/computer_file/program/ui_act(action,params,datum/tgui/ui)
 	if(..())
-		return 1
+		return TRUE
 	if(computer)
+		if(computer.device_theme == THEME_THINKTRONIC)
+			computer.send_select_sound()
 		switch(action)
 			if("PC_exit")
 				computer.kill_program()
 				ui.close()
-				return 1
+				return TRUE
 			if("PC_shutdown")
 				computer.shutdown_computer()
 				ui.close()
-				return 1
+				return TRUE
 			if("PC_minimize")
 				var/mob/user = usr
 				if(!computer.active_program || !computer.all_components[MC_CPU])
@@ -211,15 +240,27 @@
 
 				if(user && istype(user))
 					computer.ui_interact(user) // Re-open the UI on this computer. It should show the main screen now.
+				return TRUE
 
 
 /datum/computer_file/program/ui_host()
-	if(computer.physical)
-		return computer.physical
-	else
+	if(computer)
+		if(computer.physical)
+			return computer.physical
 		return computer
+	return ..()
 
 /datum/computer_file/program/ui_status(mob/user)
 	if(program_state != PROGRAM_STATE_ACTIVE) // Our program was closed. Close the ui if it exists.
 		return UI_CLOSE
 	return ..()
+
+/// Return TRUE if nothing was processed. Return FALSE to prevent further actions running.
+/// Set use_attack = TRUE to receive proccalls from the parent computer.
+/datum/computer_file/program/proc/attack(atom/target, mob/living/user, params)
+	return TRUE
+
+/// Return TRUE if nothing was processed. Return FALSE to prevent further actions running.
+/// Set use_attack_obj = TRUE to receive proccalls from the parent computer.
+/datum/computer_file/program/proc/attack_obj(obj/target, mob/living/user)
+	return TRUE

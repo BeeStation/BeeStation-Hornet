@@ -53,7 +53,7 @@
 			add_overlay("button-board")
 
 	else
-		if(stat & (NOPOWER|BROKEN))
+		if(machine_stat & (NOPOWER|BROKEN))
 			icon_state = "[skin]-p"
 		else
 			icon_state = skin
@@ -104,13 +104,11 @@
 	else
 		return ..()
 
-/obj/machinery/button/emag_act(mob/user)
-	if(obj_flags & EMAGGED)
-		return
+/obj/machinery/button/on_emag(mob/user)
+	..()
 	req_access = list()
 	req_one_access = list()
 	playsound(src, "sparks", 100, 1)
-	obj_flags |= EMAGGED
 
 /obj/machinery/button/eminence_act(mob/living/simple_animal/eminence/eminence)
 	. = ..()
@@ -160,7 +158,7 @@
 			to_chat(user, "<span class='notice'>You change the button frame's front panel.</span>")
 		return
 
-	if((stat & (NOPOWER|BROKEN)))
+	if((machine_stat & (NOPOWER|BROKEN)))
 		return
 
 	if(device && device.next_activate > world.time)

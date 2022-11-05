@@ -137,6 +137,8 @@
 	src.pai = personality
 	src.add_overlay("pai-null")
 
+	pai.modularInterface?.saved_identification = pai.name
+
 	playsound(loc, 'sound/effects/pai_boot.ogg', 50, 1, -1)
 	audible_message("\The [src] plays a cheerful startup noise!")
 

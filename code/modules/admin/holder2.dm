@@ -18,10 +18,7 @@ GLOBAL_PROTECT(href_token)
 
 	var/spamcooldown = 0
 
-	var/admincaster_screen = 0	//TODO: remove all these 5 variables, they are completly unacceptable
-	var/datum/newscaster/feed_message/admincaster_feed_message = new /datum/newscaster/feed_message
-	var/datum/newscaster/wanted_message/admincaster_wanted_message = new /datum/newscaster/wanted_message
-	var/datum/newscaster/feed_channel/admincaster_feed_channel = new /datum/newscaster/feed_channel
+	///Randomly generated signature used for security records authorization name.
 	var/admin_signature
 
 	var/href_token
@@ -29,7 +26,7 @@ GLOBAL_PROTECT(href_token)
 	var/deadmined
 
 	//Admin help manager
-	var/datum/admin_help_ui/admin_interface
+	var/datum/help_ui/admin/admin_interface
 
 	var/datum/filter_editor/filteriffic
 

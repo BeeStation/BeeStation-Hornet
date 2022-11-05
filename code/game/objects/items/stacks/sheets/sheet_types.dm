@@ -113,6 +113,7 @@ GLOBAL_LIST_INIT(metal_recipes, list ( \
 	new/datum/stack_recipe("button frame",								/obj/item/wallframe/button, 1), \
 	null, \
 	new/datum/stack_recipe("iron door",									/obj/structure/mineral_door/iron, 20, one_per_turf = TRUE, on_floor = TRUE), \
+	new/datum/stack_recipe("filing cabinet", 							/obj/structure/filingcabinet, 2, time = 10 SECONDS, one_per_turf = TRUE, on_floor = TRUE), \
 	new/datum/stack_recipe("floodlight frame",							/obj/structure/floodlight_frame, 5, one_per_turf = TRUE, on_floor = TRUE), \
 	new/datum/stack_recipe("shower frame",								/obj/structure/showerframe, 2, time = 2 SECONDS), \
 	new/datum/stack_recipe("sink frame",								/obj/structure/sinkframe, 2, time = 2 SECONDS), \
@@ -171,8 +172,10 @@ GLOBAL_LIST_INIT(metal_recipes, list ( \
  */
 
 GLOBAL_LIST_INIT(plasteel_recipes, list ( \
-	new/datum/stack_recipe("AI core",									/obj/structure/AIcore, 4, time = 50, one_per_turf = TRUE), \
-	new/datum/stack_recipe("bomb assembly",								/obj/machinery/syndicatebomb/empty, 10, time = 50), \
+	new/datum/stack_recipe("AI core", /obj/structure/AIcore, 4, time = 50, one_per_turf = TRUE), \
+	new/datum/stack_recipe("bomb assembly", /obj/machinery/syndicatebomb/empty, 10, time = 50), \
+	new/datum/stack_recipe("dock tile", /obj/item/stack/tile/dock, 1, 4, 20), \
+	new/datum/stack_recipe("dry dock tile", /obj/item/stack/tile/drydock, 2, 4, 20), \
 	null, \
 	new /datum/stack_recipe_list("airlock assemblies", list( \
 		new/datum/stack_recipe("high security airlock assembly",		/obj/structure/door_assembly/door_assembly_highsecurity, 4, time = 50, one_per_turf = 1, on_floor = 1), \

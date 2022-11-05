@@ -187,7 +187,7 @@
 		if(is_type_in_list(target, charge_machines))
 			var/obj/machinery/M = target
 
-			if((M.stat & (NOPOWER|BROKEN)) || !M.anchored)
+			if((M.machine_stat & (NOPOWER|BROKEN)) || !M.anchored)
 				to_chat(user, "<span class='warning'>[M] is unpowered!</span>")
 				return
 
@@ -296,7 +296,7 @@
 				active = FALSE
 				return
 
-			if((M.stat & (NOPOWER|BROKEN)) || !M.anchored)
+			if((M.machine_stat & (NOPOWER|BROKEN)) || !M.anchored)
 				break
 
 			if(!user.cell.give(150))
@@ -366,10 +366,11 @@
 	desc = "Releases a harmless blast that confuses most organics. For when the harm is JUST TOO MUCH."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "megaphone"
+	emag_toggleable = TRUE
 	var/cooldown = 0
 
-/obj/item/harmalarm/emag_act(mob/user)
-	obj_flags ^= EMAGGED
+/obj/item/harmalarm/on_emag(mob/user)
+	..()
 	if(obj_flags & EMAGGED)
 		to_chat(user, "<font color='red'>You short out the safeties on [src]!</font>")
 	else
@@ -886,6 +887,8 @@
 
 //Alt click drops stored item
 /obj/item/borg/apparatus/AltClick(mob/living/silicon/robot/user)
+	if(!user.canUseTopic(src, BE_CLOSE))
+		return
 	if(!stored)
 		return ..()
 	stored.forceMove(get_turf(user))

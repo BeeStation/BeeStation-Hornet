@@ -540,7 +540,6 @@
 	name = "Blessing of the Necropolis"
 	desc = "The power of the necropolis flows through you. You could get used to this..."
 	icon_state = "regenerative_core"
-	name = "Blessing of the Necropolis"
 
 /datum/status_effect/regenerative_core
 	id = "Regenerative Core"

@@ -254,14 +254,15 @@
 	metabolization_rate = 2.5 * REAGENTS_METABOLISM
 	overdose_threshold = 100
 
-/datum/reagent/medicine/silver_sulfadiazine/reaction_mob(mob/living/M, method=TOUCH, reac_volume, show_message = 1)
+/datum/reagent/medicine/silver_sulfadiazine/reaction_mob(mob/living/M, method=TOUCH, reac_volume, show_message = 1, touch_protection, obj/item/bodypart/affecting)
 	if(iscarbon(M) && M.stat != DEAD)
 		if(method in list(INGEST, VAPOR, INJECT))
 			M.adjustToxLoss(0.5*reac_volume)
 			if(show_message)
 				to_chat(M, "<span class='warning'>You don't feel so good...</span>")
 		else if(M.getFireLoss() && method == PATCH)
-			M.adjustFireLoss(-reac_volume)
+			if(affecting.heal_damage(burn = reac_volume))
+				M.update_damage_overlays()
 			M.adjustStaminaLoss(reac_volume*2)
 			if(show_message)
 				to_chat(M, "<span class='danger'>You feel your burns healing! It stings like hell!</span>")
@@ -310,20 +311,21 @@
 	metabolization_rate = 2.5 * REAGENTS_METABOLISM
 	overdose_threshold = 100
 
-/datum/reagent/medicine/styptic_powder/reaction_mob(mob/living/M, method=TOUCH, reac_volume, show_message = 1)
+/datum/reagent/medicine/styptic_powder/reaction_mob(mob/living/M, method=TOUCH, reac_volume, show_message = 1, touch_protection, obj/item/bodypart/affecting)
 	if(iscarbon(M) && M.stat != DEAD)
 		if(method in list(INGEST, VAPOR, INJECT))
 			M.adjustToxLoss(0.5*reac_volume)
 			if(show_message)
 				to_chat(M, "<span class='warning'>You don't feel so good...</span>")
 		else if(M.getBruteLoss() && method == PATCH)
-			M.adjustBruteLoss(-reac_volume)
+			if(affecting.heal_damage(reac_volume))
+				M.update_damage_overlays()
 			M.adjustStaminaLoss(reac_volume*2)
 			if(show_message)
 				to_chat(M, "<span class='danger'>You feel your bruises healing! It stings like hell!</span>")
 			M.emote("scream")
 			SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "painful_medicine", /datum/mood_event/painful_medicine)
-	..()
+	return ..()
 
 
 /datum/reagent/medicine/styptic_powder/on_mob_life(mob/living/carbon/M)
@@ -425,17 +427,18 @@
 	metabolization_rate = 2.5 * REAGENTS_METABOLISM
 	overdose_threshold = 125
 
-/datum/reagent/medicine/synthflesh/reaction_mob(mob/living/M, method=TOUCH, reac_volume,show_message = 1)
+/datum/reagent/medicine/synthflesh/reaction_mob(mob/living/M, method=TOUCH, reac_volume, show_message = 1, touch_protection, obj/item/bodypart/affecting)
 	if(iscarbon(M))
-		if (M.stat == DEAD)
-			show_message = 0
-		if(method in list(PATCH))
-			M.adjustBruteLoss(-1 * reac_volume)
-			M.adjustFireLoss(-1 * reac_volume)
+		if(M.stat == DEAD)
+			show_message = FALSE
+		if(method == PATCH)
+			if(affecting.heal_damage(reac_volume, reac_volume))
+				M.update_damage_overlays()
 			M.adjustStaminaLoss(reac_volume*2)
 			if(show_message)
 				to_chat(M, "<span class='danger'>You feel your burns and bruises healing! It stings like hell!</span>")
 			SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "painful_medicine", /datum/mood_event/painful_medicine)
+			M.emote("scream")
 			//Has to be at less than THRESHOLD_UNHUSK burn damage and have at least 100 synthflesh (currently inside the body + amount now being applied). Corpses dont metabolize.
 			if(HAS_TRAIT_FROM(M, TRAIT_HUSK, "burn") && M.getFireLoss() < THRESHOLD_UNHUSK && (M.reagents.get_reagent_amount(/datum/reagent/medicine/synthflesh) + reac_volume) >= 100)
 				M.cure_husk("burn")
@@ -1621,6 +1624,7 @@
 	chem_flags = CHEMICAL_RNG_GENERAL | CHEMICAL_RNG_FUN | CHEMICAL_RNG_BOTANY | CHEMICAL_GOAL_CHEMIST_DRUG | CHEMICAL_GOAL_CHEMIST_BLOODSTREAM
 	metabolization_rate = 0.25 * REAGENTS_METABOLISM
 	overdose_threshold = 30
+	var/dosage
 
 /datum/reagent/medicine/psicodine/on_mob_metabolize(mob/living/L)
 	..()
@@ -1630,11 +1634,25 @@
 	REMOVE_TRAIT(L, TRAIT_FEARLESS, type)
 	..()
 
-/datum/reagent/medicine/psicodine/on_mob_life(mob/living/carbon/M)
+/datum/reagent/medicine/psicodine/on_mob_life(mob/living/carbon/M) //0.1 Metabolism at tick rate 1.8 secs
+	dosage++
 	M.jitteriness = max(0, M.jitteriness-6)
 	M.dizziness = max(0, M.dizziness-6)
 	M.confused = max(0, M.confused-6)
 	M.disgust = max(0, M.disgust-6)
+	if(dosage >= 25) //45 seconds
+		if(is_hivemember(M))
+			for(var/datum/antagonist/hivemind/hive in GLOB.antagonists)
+				if(hive.hivemembers.Find(M.mind))
+					var/mob/living/carbon/C = hive.owner.current
+					if(C?.mind)
+						to_chat(C, "<span class='assimilator'>We detect a surge of psionic energy from a far away vessel before they disappear from the hive. Whatever happened, there's a good chance they're after us now.</span>")
+			if(IS_WOKEVESSEL(M))
+				M.mind.remove_antag_datum(/datum/antagonist/hivevessel)
+				ADD_TRAIT(M, TRAIT_HIVE_BURNT, HIVEMIND_TRAIT)
+			to_chat(M, "<span class='assimilator'>You hear supernatural wailing echo throughout your mind as you are finally set free. Deep down, you can feel the lingering presence of those who enslaved you... as can they!</span>")
+			remove_hivemember(M)
+
 	var/datum/component/mood/mood = M.GetComponent(/datum/component/mood)
 	if(mood.sanity <= SANITY_NEUTRAL) // only take effect if in negative sanity and then...
 		mood.setSanity(min(mood.sanity+5, SANITY_NEUTRAL)) // set minimum to prevent unwanted spiking over neutral

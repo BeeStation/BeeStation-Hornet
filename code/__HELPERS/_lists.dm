@@ -670,3 +670,16 @@
 			return FALSE
 
 	return TRUE
+
+///sort any value in a list
+/proc/sort_list(list/list_to_sort, cmp=/proc/cmp_text_asc)
+	return sortTim(list_to_sort.Copy(), cmp)
+
+///Returns a list with items filtered from a list that can call callback
+/proc/special_list_filter(list/L, datum/callback/condition)
+	if(!islist(L) || !length(L) || !istype(condition))
+		return list()
+	. = list()
+	for(var/i in L)
+		if(condition.Invoke(i))
+			. |= i

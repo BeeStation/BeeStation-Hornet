@@ -22,7 +22,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 
 	var/gasefficency = 0.15
 
-	var/base_icon_state = "darkmatter"
+	base_icon_state = "darkmatter"
 
 	var/final_countdown = FALSE
 
@@ -129,7 +129,7 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	AddElement(/datum/element/bsa_blocker)
 	RegisterSignal(src, COMSIG_ATOM_BSA_BEAM, .proc/call_delamination_event)
 
-	soundloop = new(list(src), TRUE)
+	soundloop = new(src, TRUE)
 
 /obj/machinery/power/supermatter_crystal/Destroy()
 	investigate_log("has been destroyed.", INVESTIGATE_ENGINES)
@@ -235,6 +235,12 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 	integrity = integrity < 0 ? 0 : integrity
 	return integrity
 
+
+/obj/machinery/power/supermatter_crystal/update_overlays()
+	. = ..()
+	if(final_countdown)
+		. += "casuality_field"
+
 /obj/machinery/power/supermatter_crystal/proc/countdown()
 	set waitfor = FALSE
 
@@ -242,15 +248,14 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 		return
 	final_countdown = TRUE
 
-	var/image/causality_field = image(icon, null, "causality_field")
-	add_overlay(causality_field, TRUE)
+	update_icon()
 
 	var/speaking = "[emergency_alert] The supermatter has reached critical integrity failure. Emergency causality destabilization field has been activated."
 	radio.talk_into(src, speaking, common_channel, language = get_selected_language())
 	for(var/i in SUPERMATTER_COUNTDOWN_TIME to 0 step -10)
 		if(damage < explosion_point) // Cutting it a bit close there engineers
 			radio.talk_into(src, "[safe_alert] Failsafe has been disengaged.", common_channel)
-			cut_overlay(causality_field, TRUE)
+			update_icon()
 			final_countdown = FALSE
 			return
 		else if((i % 50) != 0 && i > 50) // A message once every 5 seconds until the final 5 seconds which count down individualy
@@ -685,10 +690,9 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 		var/obj/O = AM
 		if(O.resistance_flags & INDESTRUCTIBLE)
 			if(!disengage_field_timer) //we really don't want to have more than 1 timer and causality field overlayer at once
-				var/image/causality_field = image(icon, null, "causality_field")
-				add_overlay(causality_field, TRUE)
+				update_icon()
 				radio.talk_into(src, "Anomalous object has breached containment, emergency causality field enganged to prevent reality destabilization.", engineering_channel)
-				disengage_field_timer = addtimer(CALLBACK(src, .proc/disengage_field, causality_field), 5 SECONDS)
+				disengage_field_timer = addtimer(CALLBACK(src, .proc/disengage_field), 5 SECONDS)
 			return
 		if(!iseffect(AM))
 			var/suspicion = ""
@@ -710,10 +714,10 @@ GLOBAL_DATUM(main_supermatter_engine, /obj/machinery/power/supermatter_crystal)
 		else
 			L.show_message("<span class='italics'>You hear an unearthly ringing and notice your skin is covered in fresh radiation burns.</span>", MSG_AUDIBLE)
 
-/obj/machinery/power/supermatter_crystal/proc/disengage_field(causality_field)
-	if(QDELETED(src) || !causality_field)
+/obj/machinery/power/supermatter_crystal/proc/disengage_field()
+	if(QDELETED(src))
 		return
-	cut_overlay(causality_field, TRUE)
+	update_icon()
 	disengage_field_timer = null
 
 //Do not blow up our internal radio

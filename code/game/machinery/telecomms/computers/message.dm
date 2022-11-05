@@ -3,7 +3,7 @@
 	Lets you read PDA and request console messages.
 */
 
-#define LINKED_SERVER_NONRESPONSIVE  (!linkedServer || (linkedServer.stat & (NOPOWER|BROKEN)))
+#define LINKED_SERVER_NONRESPONSIVE  (!linkedServer || (linkedServer.machine_stat & (NOPOWER|BROKEN)))
 
 #define MSG_MON_SCREEN_MAIN 		0
 #define MSG_MON_SCREEN_LOGS 		1
@@ -32,12 +32,6 @@
 	var/message = "<span class='notice'>System bootup complete. Please select an option.</span>"	// The message that shows on the main menu.
 	var/auth = FALSE // Are they authenticated?
 	var/optioncount = 7
-	// Custom Message Properties
-	var/customsender = "System Administrator"
-	var/obj/item/pda/customrecepient = null
-	var/customjob		= "Admin"
-	var/custommessage 	= "This is a test, please ignore."
-
 	light_color = LIGHT_COLOR_GREEN
 
 /obj/machinery/computer/message_monitor/attackby(obj/item/O, mob/living/user, params)
@@ -47,22 +41,25 @@
 	else
 		return ..()
 
-/obj/machinery/computer/message_monitor/emag_act(mob/user)
-	if(obj_flags & EMAGGED)
-		return
-	if(!isnull(linkedServer))
-		obj_flags |= EMAGGED
-		screen = MSG_MON_SCREEN_HACKED
-		spark_system.set_up(5, 0, src)
-		spark_system.start()
-		var/obj/item/paper/monitorkey/MK = new(loc, linkedServer)
-		// Will help make emagging the console not so easy to get away with.
-		MK.info += "<br><br><font color='red'>£%@%(*$%&(£&?*(%&£/{}</font>"
-		var/time = 100 * length(linkedServer.decryptkey)
-		addtimer(CALLBACK(src, .proc/UnmagConsole), time)
-		message = rebootmsg
-	else
+/obj/machinery/computer/message_monitor/should_emag(mob/user)
+	if(!..())
+		return FALSE
+	if(isnull(linkedServer))
 		to_chat(user, "<span class='notice'>A no server error appears on the screen.</span>")
+		return FALSE
+	return TRUE
+
+/obj/machinery/computer/message_monitor/on_emag(mob/user)
+	..()
+	screen = MSG_MON_SCREEN_HACKED
+	spark_system.set_up(5, 0, src)
+	spark_system.start()
+	var/obj/item/paper/monitorkey/MK = new(loc, linkedServer)
+	// Will help make emagging the console not so easy to get away with.
+	MK.info += "<br><br><font color='red'>£%@%(*$%&(£&?*(%&£/{}</font>"
+	var/time = 100 * length(linkedServer.decryptkey)
+	addtimer(CALLBACK(src, .proc/UnmagConsole), time)
+	message = rebootmsg
 
 /obj/machinery/computer/message_monitor/New()
 	..()
@@ -141,7 +138,7 @@
 			var/index = 0
 			dat += "<center><A href='?src=[REF(src)];back=1'>Back</a> - <A href='?src=[REF(src)];refresh=1'>Refresh</a></center><hr>"
 			dat += "<table border='1' width='100%'><tr><th width = '5%'>X</th><th width='15%'>Sender</th><th width='15%'>Recipient</th><th width='300px' word-wrap: break-word>Message</th></tr>"
-			for(var/datum/data_pda_msg/pda in linkedServer.pda_msgs)
+			for(var/datum/data_tablet_msg/pda in linkedServer.modular_msgs)
 				index++
 				if(index > 3000)
 					break
@@ -192,24 +189,6 @@
 				10010000001110100011010000110000101110100001000000111010<br>
 				001101001011011010110010100101110"}
 
-		//Fake messages
-		if(MSG_MON_SCREEN_CUSTOM_MSG)
-			dat += "<center><A href='?src=[REF(src)];back=1'>Back</a> - <A href='?src=[REF(src)];Reset=1'>Reset</a></center><hr>"
-
-			dat += {"<table border='1' width='100%'>
-					<tr><td width='20%'><A href='?src=[REF(src)];select=Sender'>Sender</a></td>
-					<td width='20%'><A href='?src=[REF(src)];select=RecJob'>Sender's Job</a></td>
-					<td width='20%'><A href='?src=[REF(src)];select=Recepient'>Recipient</a></td>
-					<td width='300px' word-wrap: break-word><A href='?src=[REF(src)];select=Message'>Message</a></td></tr>"}
-				//Sender  - Sender's Job  - Recepient - Message
-				//Al Green- Your Dad	  - Your Mom  - WHAT UP!?
-
-			dat += {"<tr><td width='20%'>[customsender]</td>
-			<td width='20%'>[customjob]</td>
-			<td width='20%'>[customrecepient ? customrecepient.owner : "NONE"]</td>
-			<td width='300px'>[custommessage]</td></tr>"}
-			dat += "</table><br><center><A href='?src=[REF(src)];select=Send'>Send</a>"
-
 		//Request Console Logs
 		if(MSG_MON_SCREEN_REQUEST_LOGS)
 
@@ -252,12 +231,6 @@
 
 /obj/machinery/computer/message_monitor/proc/UnmagConsole()
 	obj_flags &= ~EMAGGED
-
-/obj/machinery/computer/message_monitor/proc/ResetMessage()
-	customsender 	= "System Administrator"
-	customrecepient = null
-	custommessage 	= "This is a test, please ignore."
-	customjob 		= "Admin"
 
 /obj/machinery/computer/message_monitor/Topic(href, href_list)
 	if(..())
@@ -312,7 +285,7 @@
 			if(LINKED_SERVER_NONRESPONSIVE)
 				message = noserver
 			else if(auth)
-				linkedServer.pda_msgs = list()
+				linkedServer.modular_msgs = list()
 				message = "<span class='notice'>NOTICE: Logs cleared.</span>"
 		//Clears the request console logs - KEY REQUIRED
 		if (href_list["clear_requests"])
@@ -356,8 +329,8 @@
 			if(screen == MSG_MON_SCREEN_LOGS)
 				if(LINKED_SERVER_NONRESPONSIVE)
 					message = noserver
-				else //if(istype(href_list["delete_logs"], /datum/data_pda_msg))
-					linkedServer.pda_msgs -= locate(href_list["delete_logs"]) in linkedServer.pda_msgs
+				else if(istype(href_list["delete_logs"], /datum/data_tablet_msg))
+					linkedServer.modular_msgs -= locate(href_list["delete_logs"]) in linkedServer.modular_msgs
 					message = "<span class='notice'>NOTICE: Log Deleted!</span>"
 		//Delete the request console log.
 		if (href_list["delete_requests"])
@@ -365,71 +338,9 @@
 			if(screen == MSG_MON_SCREEN_REQUEST_LOGS)
 				if(LINKED_SERVER_NONRESPONSIVE)
 					message = noserver
-				else //if(istype(href_list["delete_logs"], /datum/data_pda_msg))
+				else if(istype(href_list["delete_logs"], /datum/data_tablet_msg))
 					linkedServer.rc_msgs -= locate(href_list["delete_requests"]) in linkedServer.rc_msgs
 					message = "<span class='notice'>NOTICE: Log Deleted!</span>"
-		//Create a custom message
-		if (href_list["msg"])
-			if(LINKED_SERVER_NONRESPONSIVE)
-				message = noserver
-			else if(auth)
-				screen = MSG_MON_SCREEN_CUSTOM_MSG
-		//Fake messaging selection - KEY REQUIRED
-		if (href_list["select"])
-			if(LINKED_SERVER_NONRESPONSIVE)
-				message = noserver
-				screen = MSG_MON_SCREEN_MAIN
-			else
-				switch(href_list["select"])
-
-					//Reset
-					if("Reset")
-						ResetMessage()
-
-					//Select Your Name
-					if("Sender")
-						customsender = stripped_input(usr, "Please enter the sender's name.") || customsender
-
-					//Select Receiver
-					if("Recepient")
-						//Get out list of viable PDAs
-						var/list/obj/item/pda/sendPDAs = get_viewable_pdas()
-						if(GLOB.PDAs && GLOB.PDAs.len > 0)
-							customrecepient = input(usr, "Select a PDA from the list.") as null|anything in sendPDAs
-						else
-							customrecepient = null
-
-					//Enter custom job
-					if("RecJob")
-						customjob = stripped_input(usr, "Please enter the sender's job.") || customjob
-
-					//Enter message
-					if("Message")
-						custommessage = stripped_input(usr, "Please enter your message.") || custommessage
-
-					//Send message
-					if("Send")
-						if(isnull(customsender) || customsender == "")
-							customsender = "UNKNOWN"
-
-						if(isnull(customrecepient))
-							message = "<span class='notice'>NOTICE: No recepient selected!</span>"
-							return attack_hand(usr)
-
-						if(isnull(custommessage) || custommessage == "")
-							message = "<span class='notice'>NOTICE: No message entered!</span>"
-							return attack_hand(usr)
-
-						var/datum/signal/subspace/messaging/pda/signal = new(src, list(
-							"name" = "[customsender]",
-							"job" = "[customjob]",
-							"message" = custommessage,
-							"targets" = list("[customrecepient.owner] ([customrecepient.ownjob])")
-						))
-						// this will log the signal and transmit it to the target
-						linkedServer.receive_information(signal, null)
-						usr.log_message("(PDA: [name] | [usr.real_name]) sent \"[custommessage]\" to [signal.format_target()]", LOG_PDA)
-
 
 		//Request Console Logs - KEY REQUIRED
 		if(href_list["view_requests"])

@@ -5,6 +5,8 @@
 	max_integrity = 250
 	integrity_failure = 25
 	icon_state = "bench_center"
+	buildstackamount = 1
+	item_chair = null
 
 /obj/structure/chair/fancy/bench/left
 	icon_state = "bench_left"
@@ -51,7 +53,7 @@
 	name = "corporate bench"
 	desc = "Perfectly designed to be comfortable to sit on, and hellish to sleep on."
 	icon_state = "corporate_bench_middle_mapping"
-	var/base_icon_state = "corporate_bench_middle"
+	base_icon_state = "corporate_bench_middle"
 	///icon for the cover seat
 	var/image/cover
 	///cover seat color, by default this one

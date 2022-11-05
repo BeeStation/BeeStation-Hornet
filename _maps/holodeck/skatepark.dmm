@@ -11,7 +11,6 @@
 /area/template_noop)
 "t" = (
 /obj/structure/table,
-/obj/structure/table,
 /turf/open/floor/holofloor/plating,
 /area/template_noop)
 "H" = (

@@ -74,7 +74,7 @@ put up a rune with bluespace effects, lots of those runes are fluff or act as a 
 ///nearly all runes use their turf in some way so we set rune_turf to their turf automatically, the rune also start on cooldown if it uses one.
 /obj/effect/warped_rune/Initialize(mapload)
 	. = ..()
-	add_overlay("blank", TRUE)
+	add_overlay("blank")
 	rune_turf = get_turf(src)
 	RegisterSignal(rune_turf, COMSIG_COMPONENT_CLEAN_ACT, .proc/clean_rune)
 
@@ -637,7 +637,7 @@ GLOBAL_DATUM(blue_storage, /obj/item/storage/backpack/holding/bluespace)
 		/obj/item/storage/toolbox/emergency/old,
 		/obj/effect/spawner/lootdrop/three_course_meal,
 		/mob/living/simple_animal/pet/dog/corgi/puppy/void,
-		/obj/structure/closet/crate/necropolis,
+		/obj/structure/closet/crate/necropolis/tendril,
 		/obj/item/card/emagfake,
 		/obj/item/flashlight/flashdark,
 		/mob/living/simple_animal/hostile/cat_butcherer

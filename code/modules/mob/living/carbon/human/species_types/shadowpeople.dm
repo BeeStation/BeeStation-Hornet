@@ -187,14 +187,14 @@
 		return
 	AM.lighteater_act(src)
 
-/atom/movable/lighteater_act(obj/item/light_eater/light_eater)
+/atom/movable/lighteater_act(obj/item/light_eater/light_eater, atom/parent)
 	..()
 	for(var/datum/component/overlay_lighting/light_source in affected_dynamic_lights)
 		if(light_source.parent != src)
 			var/atom/A = light_source.parent
-			A.lighteater_act(light_eater)
+			A.lighteater_act(light_eater, src)
 
-/mob/living/lighteater_act(obj/item/light_eater/light_eater)
+/mob/living/lighteater_act(obj/item/light_eater/light_eater, atom/parent)
 	..()
 	if(on_fire)
 		ExtinguishMob()
@@ -202,23 +202,28 @@
 	if(pulling)
 		pulling.lighteater_act(light_eater)
 
-/mob/living/carbon/human/lighteater_act(obj/item/light_eater/light_eater)
+/mob/living/carbon/human/lighteater_act(obj/item/light_eater/light_eater, atom/parent)
 	..()
 	if(isethereal(src))
 		emp_act(EMP_LIGHT)
 
-/mob/living/silicon/robot/lighteater_act(obj/item/light_eater/light_eater)
+/mob/living/silicon/robot/lighteater_act(obj/item/light_eater/light_eater, atom/parent)
 	..()
 	if(lamp_enabled)
 		smash_headlamp()
 
-/obj/structure/bonfire/lighteater_act(obj/item/light_eater/light_eater)
+/obj/structure/bonfire/lighteater_act(obj/item/light_eater/light_eater, atom/parent)
 	if(burning)
 		extinguish()
 		playsound(src, 'sound/items/cig_snuff.ogg', 50, 1)
 	..()
 
-/obj/item/lighteater_act(obj/item/light_eater/light_eater)
+/obj/structure/glowshroom/lighteater_act(obj/item/light_eater/light_eater, atom/parent)
+	..()
+	if (light_power > 0)
+		acid_act()
+
+/obj/item/lighteater_act(obj/item/light_eater/light_eater, atom/parent)
 	..()
 	if(!light_range || !light_power || !light_on)
 		return
@@ -227,18 +232,27 @@
 	burn()
 	playsound(src, 'sound/items/welder.ogg', 50, 1)
 
-
-/obj/item/pda/lighteater_act(obj/item/light_eater/light_eater)
-	if(light_range && light_power && light_on)
-		//Eject the ID card
-		if(id)
-			id.forceMove(get_turf(src))
-			id = null
-			update_icon()
-			playsound(src, 'sound/machines/terminal_eject.ogg', 50, TRUE)
+/obj/item/modular_computer/tablet/lighteater_act(obj/item/light_eater/light_eater, atom/parent)
+	if(light_range && light_power > 0 && light_on)
+		// Only the queen of Beetania can save our IDs from this infernal nightmare
+		var/obj/item/computer_hardware/card_slot/card_slot2 = all_components[MC_CARD2]
+		var/obj/item/computer_hardware/card_slot/card_slot = all_components[MC_CARD]
+		card_slot2?.try_eject()
+		card_slot?.try_eject()
 	..()
 
-/turf/open/floor/light/lighteater_act(obj/item/light_eater/light_eater)
+/obj/item/clothing/head/helmet/space/hardsuit/lighteater_act(obj/item/light_eater/light_eater, atom/parent)
+	if(!light_range || !light_power || !light_on || light_broken)
+		return ..()
+	if(light_eater)
+		visible_message("<span class='danger'>The headlamp of [src] is disintegrated by [light_eater]!</span>")
+	light_broken = TRUE
+	var/mob/user = ismob(parent) ? parent : null
+	attack_self(user)
+	playsound(src, 'sound/items/welder.ogg', 50, 1)
+	..()
+
+/turf/open/floor/light/lighteater_act(obj/item/light_eater/light_eater, atom/parent)
 	. = ..()
 	if(!light_range || !light_power || !light_on)
 		return
