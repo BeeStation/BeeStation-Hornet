@@ -2485,6 +2485,10 @@
 	},
 /turf/open/floor/plasteel,
 /area/engine/atmos)
+"cfz" = (
+/obj/structure/disposalpipe/trunk/multiz,
+/turf/open/floor/plating,
+/area/maintenance/starboard/aft)
 "cfU" = (
 /obj/machinery/door/airlock/external/glass,
 /obj/effect/mapping_helpers/airlock/cyclelink_helper{
@@ -5451,6 +5455,12 @@
 /obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2,
 /turf/open/floor/plasteel,
 /area/security/prison)
+"eTd" = (
+/obj/machinery/newscaster{
+	pixel_x = -29
+	},
+/turf/open/floor/plasteel,
+/area/security/prison)
 "eTh" = (
 /obj/structure/cable{
 	icon_state = "1-4"
@@ -7721,12 +7731,6 @@
 /obj/machinery/atmospherics/components/unary/vent_scrubber/on/layer4,
 /turf/open/floor/plasteel/white,
 /area/medical/virology)
-"hbr" = (
-/obj/machinery/newscaster{
-	pixel_x = -29
-	},
-/turf/open/floor/plasteel,
-/area/security/prison)
 "hbR" = (
 /obj/machinery/vendor/exploration,
 /turf/open/floor/plasteel/white,
@@ -9783,14 +9787,13 @@
 /turf/open/floor/wood,
 /area/crew_quarters/heads/hop)
 "jeg" = (
-/obj/machinery/conveyor/inverted{
-	dir = 1;
-	id = "trash_grind"
-	},
 /obj/machinery/light/small{
 	dir = 8
 	},
 /obj/machinery/light_switch/directional/west,
+/obj/machinery/conveyor{
+	id = "trash_sort"
+	},
 /turf/open/floor/plating,
 /area/maintenance/disposal)
 "jey" = (
@@ -18267,10 +18270,6 @@
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
 "reg" = (
-/obj/machinery/conveyor/inverted{
-	dir = 1;
-	id = "trash_grind"
-	},
 /obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
 	dir = 4
 	},
@@ -18279,6 +18278,9 @@
 	},
 /obj/structure/cable/yellow{
 	icon_state = "4-8"
+	},
+/obj/machinery/conveyor{
+	id = "trash_sort"
 	},
 /turf/open/floor/plating,
 /area/maintenance/disposal)
@@ -18757,21 +18759,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/secondary/command)
-"rDd" = (
-/obj/structure/cable/yellow{
-	icon_state = "2-4"
-	},
-/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
-	dir = 6
-	},
-/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
-	dir = 6
-	},
-/obj/structure/disposalpipe/junction/yjunction{
-	dir = 4
-	},
-/turf/open/floor/plating,
-/area/maintenance/starboard/aft)
 "rDg" = (
 /obj/effect/turf_decal/tile/green,
 /obj/structure/closet/l3closet/virology,
@@ -20235,6 +20222,21 @@
 /obj/machinery/power/apc/auto_name/north,
 /turf/open/floor/plating,
 /area/maintenance/port/aft)
+"sXC" = (
+/obj/structure/cable/yellow{
+	icon_state = "2-4"
+	},
+/obj/machinery/atmospherics/pipe/simple/supply/hidden/layer2{
+	dir = 6
+	},
+/obj/machinery/atmospherics/pipe/simple/scrubbers/hidden/layer4{
+	dir = 6
+	},
+/obj/structure/disposalpipe/junction/yjunction{
+	dir = 4
+	},
+/turf/open/floor/plating,
+/area/maintenance/starboard/aft)
 "sXM" = (
 /obj/effect/turf_decal/tile/blue{
 	dir = 1
@@ -22038,10 +22040,6 @@
 	},
 /turf/open/floor/plasteel,
 /area/hallway/primary/starboard)
-"uDR" = (
-/obj/structure/disposalpipe/trunk/multiz,
-/turf/open/floor/plating,
-/area/maintenance/starboard/aft)
 "uDS" = (
 /obj/machinery/vending/boozeomat,
 /obj/machinery/requests_console{
@@ -57739,7 +57737,7 @@ mxU
 nPv
 mXv
 mxU
-hbr
+eTd
 nrC
 vwc
 ueh
@@ -65766,8 +65764,8 @@ nWn
 nWn
 nWn
 nWn
-uDR
-rDd
+cfz
+sXC
 mer
 nWf
 dmm
