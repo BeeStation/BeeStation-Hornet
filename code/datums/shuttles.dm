@@ -79,9 +79,6 @@
 	. = ..(map_gen, T, TRUE, parsed, FALSE)
 	keep_cached_map = initial(keep_cached_map)
 	if(!.)
-		maps_loading --
-		if (!maps_loading)
-			cached_map = keep_cached_map ? cached_map : null
 		return
 	var/obj/docking_port/mobile/my_port
 	for(var/turf/place in turfs)

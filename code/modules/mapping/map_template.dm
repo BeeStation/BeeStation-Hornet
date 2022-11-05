@@ -155,9 +155,9 @@
 
 	// Accept cached maps, but don't save them automatically - we don't want
 	// ruins clogging up memory for the whole round.
+	maps_loading ++
 	var/datum/parsed_map/parsed = cached_map ? cached_map.copy() : new(file(mappath))
 	cached_map = parsed
-	maps_loading ++
 
 	var/list/turf_blacklist = list()
 	update_blacklist(T, turf_blacklist)
