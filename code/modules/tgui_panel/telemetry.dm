@@ -91,7 +91,7 @@
 			LAZYSET(telemetry_notices, "TELEMETRY_NONMAXCON", "<span class='highlight'>TOO_SHORT|User only has ([len]) records. Data may be extremely unreliable.</span>")
 		else
 			LAZYSET(telemetry_notices, "TELEMETRY_NONMAXCON", "<span class='highlight'>UNDER_MAX|User has less than [TGUI_TELEMETRY_MAX_CONNECTIONS] entries in history ([len]).</span>")
-		alert_med = TRUE
+		alert_low = TRUE
 
 	//Process the data.
 	var/list/first_found_ban
@@ -121,7 +121,7 @@
 				has_dev_ip = 1
 				continue
 			LAZYSET(telemetry_notices, "TELEM_CORRUPT_[i]", "<span class='highlight'>CONN_ID:[i]|Entry corrupt. Data may be damaged or tampered with.</span>")
-			alert_med = TRUE
+			alert_high = TRUE
 			skipped_entries++
 			continue
 		//Check for bans.
@@ -159,7 +159,7 @@
 				alert_high = TRUE
 			else
 				LAZYSET(telemetry_notices, TGUI_TELEM_CKEY_WARNING, "<span class='bad'>KEY_COUNT|User has multiple CKEYs in history!</span>")
-				alert_med = TRUE
+				alert_high = TRUE
 	if(telemetry_notices?[TGUI_TELEM_CKEY_WARNING]) //Has a CKEY warning
 		var/text_list_ckeys = ""
 		var/first = 1
@@ -171,18 +171,15 @@
 		if(2)
 			if(!has_dev_ip) //If it's a dev IP we don't care.
 				LAZYSET(telemetry_notices, TGUI_TELEM_IP_WARNING, "<span class='average'>IPA_COUNT|User has changed IPs at least once.</span>")
-				alert_low = TRUE
 		if(3 to INFINITY)
 			if(length(all_ips) == len)
 				LAZYSET(telemetry_notices, TGUI_TELEM_IP_WARNING, "<span class='average'>IPA_COUNT|All IPs different. VPN Likely.</span>")
 				alert_low = TRUE
 			else
 				LAZYSET(telemetry_notices, TGUI_TELEM_IP_WARNING, "<span class='average'>IPA_COUNT|User has changed IPs at least once.</span>")
-				alert_low = TRUE
 	switch(length(all_cids))
 		if(2)
 			LAZYSET(telemetry_notices, TGUI_TELEM_CID_WARNING, "<span class='average'>CID_COUNT|User has changed CIDs once.")
-			alert_low = TRUE
 		if(3 to INFINITY)
 			if(length(all_cids) == len)
 				LAZYSET(telemetry_notices, TGUI_TELEM_CID_WARNING, "<span class='bad'>CID_COUNT|<b>EVERY ENTRY IN HISTORY HAS A DIFFERENT CID!</b></span>")
