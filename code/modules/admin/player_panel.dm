@@ -162,6 +162,7 @@
 			return TRUE
 		if("set_search_text")
 			search_text = params["text"]
+			return TRUE
 		if("select_player")
 			selected_ckey = params["who"]
 			return TRUE

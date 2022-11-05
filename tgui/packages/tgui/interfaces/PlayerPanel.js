@@ -104,7 +104,7 @@ export const PlayerPanel = (_, context) => {
             placeholder="Search name, job, or CKEY"
             width={20}
             value={search_text}
-            onInput={(_, value) => act("set_search_text", { text: value })}
+            onChange={(_, value) => act("set_search_text", { text: value })}
           />
           <Button
             ml={1}
@@ -338,9 +338,9 @@ class PlayerDetailsSection extends Component {
           <Box textAlign="center" bold>
             Names
           </Box>
-          <Box inline color="#d8d8d8" textAlign="center">
+          <Box color="#d8d8d8" textAlign="center">
             {previous_names.map(name =>
-              <Box inline key={name}>{name}</Box>
+              <Box key={name}>{name}</Box>
             )}
           </Box>
         </Box>
@@ -364,14 +364,20 @@ class PlayerCKEYDetailsSection extends PureComponent {
     return (
       <Section fill scrollable
         title={(
-          <>
+          <Box style={{
+            "height": "20px",
+            "min-width": "115px",
+            "width": "calc(100% - 25px)",
+            "display": "inline-block",
+          }}>
             CKEY Data
-            <Box inline width={1.1} />
-            <Button style={{ "font-weight": "normal", "font-size": "12px" }} mt={0} mb={0} color="yellow"
-              content="CentCom" tooltip="Search CentCom Galactic Ban DB"
-              onClick={() => act("open_centcom_bans_database", { who: ckey })} />
-          </>
+          </Box>
         )}
+        buttons={
+          <Button style={{ "font-weight": "normal", "font-size": "12px" }} mt={0} mb={0} color="yellow"
+            content="CentCom" tooltip="Search CentCom Galactic Ban DB"
+            onClick={() => act("open_centcom_bans_database", { who: ckey })} />
+        }
         style={{ "white-space": "pre-wrap" }}>
         <strong>First Join:</strong><br />
         <font color="#d8d8d8">{first_seen}</font>
@@ -450,8 +456,7 @@ class PlayerDetailsActionButtons extends PureComponent {
 class PlayerDetailsActionButtonContainer extends Component {
 
   shouldComponentUpdate(new_props, new_state) {
-    if (!Object.keys(this.props.actions)
-      .equals(Object.keys(new_props.actions))) {
+    if (Object.keys(this.props.actions).join("") !== Object.keys(new_props.actions).join("")) {
       return true;
     }
     return shallow_diff(this.props, new_props, ["actions"])
