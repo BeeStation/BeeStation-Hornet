@@ -11,10 +11,8 @@
 	var/map_range = 1
 	// Icon stuff
 	var/list/cached_mob_icons = list()
-	/// Updates every max(population / 5, 5) seconds
 	COOLDOWN_DECLARE(update_cooldown)
-	/// The text to filter players by, contains name, realname, previous names, job, and ckey
-	var/search_text
+	var/update_interval = 0
 
 /datum/admin_player_panel/New(user)
 	if(!user)
@@ -137,7 +135,7 @@
 	. = ..()
 	if(.)
 		return TRUE
-	return COOLDOWN_FINISHED(src, update_cooldown)
+	return update_interval ? COOLDOWN_FINISHED(src, update_cooldown) : FALSE
 
 /datum/admin_player_panel/ui_assets(mob/user)
 	return list(
@@ -151,7 +149,8 @@
 	return data
 
 /datum/admin_player_panel/ui_data(mob/user)
-	COOLDOWN_START(src, update_cooldown, max(length(GLOB.player_list) / 5, 5) SECONDS)
+	if(update_interval)
+		COOLDOWN_START(src, update_cooldown, max(update_interval, max(length(GLOB.player_list) / 5, 1)) SECONDS)
 	var/list/data = ..()
 	var/list/players = list()
 	var/list/mobs = sortmobs()
@@ -191,13 +190,9 @@
 		var/ckey = ckey(player.ckey)
 		data_entry["ckey"] = ckey
 		var/datum/player_details/P = GLOB.player_details[ckey]
-		var/search_data = "[player.name] [player.real_name] [ckey] [data_entry["job"]] "
 		// no using ?. or it breaks shit, it should be undefined, NOT NULL
 		if(P)
 			data_entry["previous_names"] = P.played_names
-			search_data += P.played_names.Join(" ")
-		if(length(search_text) && !findtext(search_data, search_text)) // skip this player, not included in query
-			continue
 		data_entry["last_ip"] = player.lastKnownIP
 		data_entry["is_antagonist"] = is_special_character(player)
 		if(ishuman(player))
@@ -266,14 +261,16 @@
 	data["selected_ckey"] = selected_ckey
 	data["map_range"] = map_range
 	data["use_view"] = use_view
-	data["search_text"] = search_text
+	data["update_interval"] = update_interval
 	return data
 
 /datum/admin_player_panel/ui_act(action, params)
 	. = ..()
 	switch(action)
-		if("set_search_text")
-			search_text = params["text"]
+		if("update")
+			return TRUE
+		if("set_update_interval")
+			update_interval = min(max(params["value"], 0), 120)
 			return TRUE
 		if("set_map_range")
 			map_range = min(max(params["range"], 0), 5)
@@ -285,6 +282,8 @@
 			return TRUE
 		if("set_use_view")
 			set_use_view(!!params["value"])
+			refresh_view(force = TRUE)
+			return TRUE
 		if("refresh_view")
 			setup(usr)
 			refresh_view(force = TRUE)

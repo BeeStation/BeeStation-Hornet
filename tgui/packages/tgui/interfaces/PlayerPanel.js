@@ -1,6 +1,6 @@
 /* eslint-disable react/prefer-stateless-function */
 import { useBackend, useLocalState } from '../backend';
-import { Box, ColorBox, Input, Section, Table, Tooltip, Button, Flex, ByondUi, Tabs } from '../components';
+import { Box, ColorBox, Input, Section, Table, Tooltip, Button, Flex, ByondUi, Tabs, NumberInput } from '../components';
 import { COLORS } from '../constants';
 import { jobIsHead, jobToColor, healthToColor, HEALTH_COLOR_BY_LEVEL } from './CrewConsole';
 import { Window } from '../layouts';
@@ -90,6 +90,7 @@ export const PlayerPanel = (_, context) => {
     selected_ckey,
     use_view,
     search_text,
+    update_interval,
   } = data;
   const selected_player = players[selected_ckey];
   return (
@@ -101,7 +102,7 @@ export const PlayerPanel = (_, context) => {
         <>
           <Input
             placeholder="Search name, job, or CKEY"
-            width={30}
+            width={20}
             value={search_text}
             onInput={(_, value) => act("set_search_text", { text: value })}
           />
@@ -119,6 +120,21 @@ export const PlayerPanel = (_, context) => {
             tooltipPosition="bottom-start"
             checked={use_view}
             onClick={() => act('set_use_view', { value: !use_view })} />
+          <Tooltip
+            content="Auto-Update Interval (0 to disable)"
+            position="bottom-start">
+            <NumberInput
+              unit="s"
+              width="50px"
+              value={update_interval}
+              onChange={(_, value) => act('set_update_interval', { value: value })}
+              minValue={0}
+              maxValue={120} />
+          </Tooltip>
+          <Button
+            icon="sync-alt"
+            tooltip="Reload player data"
+            onClick={() => act('update')} />
         </>
       }>
       <style>{`
@@ -186,9 +202,7 @@ const PlayerDetails = (props, context) => {
     use_view,
     metacurrency_name = "BeeCoin", // sorry downstreams
   } = data;
-  const [logMode, setLogMode] = useLocalState(context, "player_panel_log_mode", "Say");
-  const [hideLogKey, setHideLogKey] = useLocalState(context, "player_panel_log_hide", false);
-  const [clientLog, setClientLog] = useLocalState(context, "player_panel_log_source", true);
+
   const {
     ckey,
     previous_names = [],
@@ -210,80 +224,6 @@ const PlayerDetails = (props, context) => {
     photo_path,
   } = props;
 
-  const key_parse = (key) => {
-    let results = KEY_REGEX.exec(key);
-    if (results && results.length === 7) {
-      let key_obj = {
-        timestamp: results[1],
-        ckey: results[2],
-        character_name: results[3],
-        area_name: results[4],
-        coordinates: results[5],
-        event_number: results[6],
-      };
-      return (
-        <Table.Row key={key}>
-          <Table.Cell collapsing>
-            {key_obj.timestamp}
-          </Table.Cell>
-          <Table.Cell collapsing>
-            #{key_obj.event_number}
-          </Table.Cell>
-          <Table.Cell style={ELLIPSIS_STYLE}>
-            <TooltipWrap text={key_obj.character_name} />
-          </Table.Cell>
-          <Table.Cell collapsing textAlign="center" style={{
-            "max-width": "100px",
-            "white-space": "nowrap",
-            "text-overflow": "ellipsis",
-            "overflow": "hidden",
-          }}>
-            <Button
-              fluid
-              className="button-ellipsis"
-              content={key_obj.area_name}
-              tooltip={`Jump to: ${key_obj.area_name} (${key_obj.coordinates})`}
-              onClick={() => act("jump_to", { coords: key_obj.coordinates.split(", ") })}
-            />
-          </Table.Cell>
-        </Table.Row>
-      );
-    }
-    return key;
-  };
-
-  const log_source = (clientLog ? log_client : log_mob) || {};
-
-  let log_data = {};
-  const log_type_ids = LOG_TYPES_REVERSE[logMode];
-  for (let log_type_id of log_type_ids) {
-    log_data = { ...log_data, ...log_source[log_type_id] };
-  }
-  let sorted = Object.keys(log_data).sort((a, b) => {
-    let groups = TIMESTAMP_PARSE_REGEX.exec(a);
-    if (!groups) {
-      return 0;
-    }
-    let aT = groups[1] * 3600 + groups[2] * 60 + groups[3];
-    let groups2 = TIMESTAMP_PARSE_REGEX.exec(b);
-    if (!groups2) {
-      return 0;
-    }
-    return (groups2[1] * 3600 + groups2[2] * 60 + groups2[3]) - aT;
-  });
-  const log_entries = [];
-  for (let key of sorted) {
-    if (!hideLogKey) {
-      log_entries.push(key_parse(key));
-    }
-    log_entries.push(
-      <Table.Row key={key} style={{ "color": "#d8d8d8" }}>
-        <Table.Cell colspan="4">
-          {sanitizeText(log_data[key], [])}
-        </Table.Cell>
-      </Table.Row>
-    );
-  }
 
   let action_button_data = {
     "Info": {
@@ -342,12 +282,20 @@ const PlayerDetails = (props, context) => {
     <Flex height="100%">
       <Flex.Item grow={1} minWidth="125px">
         <Section fill fitted scrollable
+          buttons={
+            <Button color="green" icon="circle" tooltip="Deselect"
+              style={{ "font-weight": "normal", "font-size": "12px" }}
+              onClick={() => act('select_player', { who: null })}
+            />
+          }
           title={
-            <Box mt={0.25} mb={0.25} style={{
+            <Box style={{
               "white-space": "nowrap",
               "text-overflow": "ellipsis",
               "overflow": "hidden",
               "color": "#ffbf00",
+              "width": "calc(100% - 25px)",
+              "display": "inline-block",
             }}>
               <TooltipWrap text={
                 ckey.charAt(0).toUpperCase() + ckey.slice(1)
@@ -476,42 +424,191 @@ const PlayerDetails = (props, context) => {
         </Flex>
       </Flex.Item>
       <Flex.Item grow={2} ml={1} minWidth="400px">
-        <Section fill scrollable title={
-          <>
-            <Box inline>
-              Logs
-            </Box>
-            <ButtonCheckbox ml={1} style={{ "font-weight": "normal", "font-size": "12px" }} content="Key"
-              checked={!hideLogKey}
-              onClick={() => setHideLogKey(!hideLogKey)} />
-            <Button style={{ "font-weight": "normal", "font-size": "12px" }}
-              tooltip="Current Log Source"
-              content={clientLog ? "Client" : "Mob"}
-              onClick={() => setClientLog(!clientLog)} />
-          </>
-        } buttons={
-          <Box inline>
-            <Tabs>
-              {LOG_TYPES_LIST.map(name => (
-                <Tabs.Tab
-                  textAlign="center"
-                  key={name}
-                  selected={logMode === name}
-                  onClick={() => setLogMode(name)}>
-                  {name}
-                </Tabs.Tab>
-              ))}
-            </Tabs>
-          </Box>
-        }>
-          <Table>
-            {log_entries}
-          </Table>
-        </Section>
+        <LogViewer log_mob={log_mob} log_client={log_client} />
       </Flex.Item>
     </Flex>
   );
 };
+
+class LogViewer extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      logMode: "Say",
+      hideLogKey: false,
+      clientLog: true,
+    };
+  }
+
+  countEntries = (log1, log2) => {
+    let total = 0;
+    for (let log of Object.values(log1)) {
+      total += Object.keys(log).length;
+    }
+    for (let log of Object.values(log2)) {
+      total += Object.keys(log).length;
+    }
+    return total;
+  }
+
+  shouldComponentUpdate(new_props, new_state) {
+    if (shallow_diff(this.state, new_state)) {
+      return true;
+    }
+    return this.countEntries(this.props.log_client, this.props.log_mob)
+    !== this.countEntries(new_props.log_client, new_props.log_mob);
+  }
+
+  setLogMode = (value) => {
+    this.setState({ logMode: value });
+  }
+
+  setHideLogKey = (value) => {
+    this.setState({ hideLogKey: value });
+  }
+
+  setClientLog = (value) => {
+    this.setState({ clientLog: value });
+  }
+
+  render() {
+    const {
+      logMode,
+      hideLogKey,
+      clientLog,
+    } = this.state;
+    const {
+      log_client,
+      log_mob,
+    } = this.props;
+    const log_source = (clientLog ? log_client : log_mob) || {};
+
+    let log_data = {};
+    const log_type_ids = LOG_TYPES_REVERSE[logMode];
+    for (let log_type_id of log_type_ids) {
+      log_data = { ...log_data, ...log_source[log_type_id] };
+    }
+    let sorted = Object.keys(log_data).sort((a, b) => {
+      let groups = TIMESTAMP_PARSE_REGEX.exec(a);
+      if (!groups) {
+        return 0;
+      }
+      let aT = groups[1] * 3600 + groups[2] * 60 + groups[3];
+      let groups2 = TIMESTAMP_PARSE_REGEX.exec(b);
+      if (!groups2) {
+        return 0;
+      }
+      return (groups2[1] * 3600 + groups2[2] * 60 + groups2[3]) - aT;
+    });
+    const log_entries = [];
+    for (let key of sorted) {
+      if (!hideLogKey) {
+        log_entries.push(<LogEntryKey key={key} key_data={key} />);
+      }
+      log_entries.push(
+        <LogEntryValue key={key + log_data[key]} value_data={log_data[key]} />
+      );
+    }
+
+    return (
+      <Section fill scrollable title={
+        <>
+          <Box inline>
+            Logs
+          </Box>
+          <ButtonCheckbox ml={1} style={{ "font-weight": "normal", "font-size": "12px" }} content="Key"
+            checked={!hideLogKey}
+            onClick={() => this.setHideLogKey(!hideLogKey)} />
+          <Button style={{ "font-weight": "normal", "font-size": "12px" }}
+            tooltip="Current Log Source"
+            content={clientLog ? "Client" : "Mob"}
+            onClick={() => this.setClientLog(!clientLog)} />
+        </>
+      } buttons={
+        <Box inline>
+          <Tabs>
+            {LOG_TYPES_LIST.map(name => (
+              <Tabs.Tab
+                textAlign="center"
+                key={name}
+                selected={logMode === name}
+                onClick={() => this.setLogMode(name)}>
+                {name}
+              </Tabs.Tab>
+            ))}
+          </Tabs>
+        </Box>
+      }>
+        <Table>
+          {log_entries}
+        </Table>
+      </Section>
+    );
+  }
+}
+
+class LogEntryKey extends PureComponent {
+  render() {
+    const {
+      key_data,
+    } = this.props;
+    let results = KEY_REGEX.exec(key_data);
+    if (results && results.length === 7) {
+      let key_obj = {
+        timestamp: results[1],
+        ckey: results[2],
+        character_name: results[3],
+        area_name: results[4],
+        coordinates: results[5],
+        event_number: results[6],
+      };
+      return (
+        <Table.Row>
+          <Table.Cell collapsing>
+            {key_obj.timestamp}
+          </Table.Cell>
+          <Table.Cell collapsing>
+            #{key_obj.event_number}
+          </Table.Cell>
+          <Table.Cell style={ELLIPSIS_STYLE}>
+            <TooltipWrap text={key_obj.character_name} />
+          </Table.Cell>
+          <Table.Cell collapsing textAlign="center" style={{
+            "max-width": "100px",
+            "white-space": "nowrap",
+            "text-overflow": "ellipsis",
+            "overflow": "hidden",
+          }}>
+            <Button
+              fluid
+              className="button-ellipsis"
+              content={key_obj.area_name}
+              tooltip={`Jump to: ${key_obj.area_name} (${key_obj.coordinates})`}
+              onClick={() => act("jump_to", { coords: key_obj.coordinates.split(", ") })}
+            />
+          </Table.Cell>
+        </Table.Row>
+      );
+    }
+    return key_data;
+  }
+}
+
+class LogEntryValue extends PureComponent {
+  render() {
+    const {
+      value_data,
+    } = this.props;
+    return (
+      <Table.Row style={{ "color": "#d8d8d8" }}>
+        <Table.Cell colspan="4">
+          {sanitizeText(value_data, [])}
+        </Table.Cell>
+      </Table.Row>
+    );
+  }
+}
 
 /**
 --------------------
@@ -842,6 +939,7 @@ class PlayerTraitorPanelButton extends PureComponent {
     const {
       antag_hud,
       has_mind,
+      ckey,
     } = this.props;
     return (
       <Button
