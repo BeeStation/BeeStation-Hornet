@@ -93,6 +93,9 @@
 
 /obj/item/storage/box/suitbox/dropped(mob/living/user)
 	..()
+	addtimer(CALLBACK(src, .proc/box_check, user), 1 SECONDS)
+
+/obj/item/storage/box/suitbox/proc/box_check(mob/living/user)
 	var/box_exists = FALSE
 	for(var/obj/item/storage/box/suitbox/B in user.get_contents())
 		box_exists = TRUE // `var/obj/item/storage/box/suitbox/B` is already type check
